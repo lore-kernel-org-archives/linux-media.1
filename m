@@ -1,132 +1,132 @@
-Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D5D1EBA19
-	for <linux-media@vger.kernel.org>; Sun, 15 Feb 2026 08:07:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26A61F5858
+	for <linux-media@vger.kernel.org>; Sun, 15 Feb 2026 10:49:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771142847; cv=none; b=L3ncW/tqHTcmau7mgQfAe3xKszlNLCQLeB3kSGYtR3tl2jaUhAAWxcsc5b5m4Z1I2Je0Yzsj+G0Q2kxUdGBn4ZE8wc9mcPo781u+Ys0kubVrGnDx6YeNRdGrcCTkkSJ6FD9Qc+dvN3ew2Wp6VCAUtjzIYBJA6wYz3ahsXAZSlIs=
+	t=1771152570; cv=none; b=s+bEMo5Wq2PP1wo9cMfGgS+syU50lDTtkuCIN371xMbmPxbQAC+KrGkU1sxyHP6gAJPqoBQy0F54iH/wznW+XkVJBSjCj2Q1IitcpQnH+F1Xw0gI64PHTavMZSQkp4npEah3huJoLPVI77ZYosDfHVr60YGyPXpbr8rQ3mBnI0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771142847; c=relaxed/simple;
-	bh=tHXTqSmUPVnLyun1Y4Bl8vYVaw7J6M9S2/Ky7QYpcSU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=exgJK5iHxXCJVceOLmNKrTFuwZseaW4JDEuursTD0kZrgx0fcKZbKO4EQ5M81wH//hOuylIzp3CMssIt8Y2jWjoc7/OLfzgz+qdpBOJb4ynbIC77kBuXTR3G/HlGJrlcNAOwqY/0BwkZA+yi5z4gIFrwQ/+VR3IL8rciCXc9/uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=G8eh51qc; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=RdkTCYnl; arc=none smtp.client-ip=103.168.172.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="G8eh51qc";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="RdkTCYnl"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 82577140006E;
-	Sun, 15 Feb 2026 03:07:24 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Sun, 15 Feb 2026 03:07:24 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm2; t=1771142844; x=1771229244; bh=QZ
-	fx+IA80mG3Aef6teB5HCBYTSasCPlN8afoyfys6b4=; b=G8eh51qccOymq6w9/9
-	l0Rljr0S6dDwBK0U0Su8vzoNHg6lesGNSYESu0cbUK6eRIpDMt1DPSdhGRSy1cqm
-	S1SiiDo64Snp2o2W82aClMVzE5cR4S6iycli7CaQnh3fg5HlkkEpD3E7zdGqx/2i
-	syhIn1HBydmTypKSaF37u/XBI215lVDuzBzwe26DjJMrXQ/XrgymIFgpKtuYZgv4
-	W3kwat2GYeVBshEPcRXe1Cxplx+v3rd2702fMjwR+Ge8hlxej/XcvAuIPrDv5VX8
-	8zZ+ie17uhLuubWzxzX8yaL3kEIbccW7GPurbQrne9L5yJvvufjKmBvCv3JhgyMG
-	QHlg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1771142844; x=1771229244; bh=QZfx+IA80mG3Aef6teB5HCBYTSas
-	CPlN8afoyfys6b4=; b=RdkTCYnlCIkn2wbkyCTUYnHGlJC+CRfoM+ILJaao8NXz
-	TgqFcx7mRkCISI+ycU3moVNMAY0N96t8bYMzzXmconCs2+XxB2HC7dhIlgdA9BRM
-	pA0e5dbMrN2KroI/gUr5trFa+fXDBU9k3ZtQRui+v6lRZPHD0KhSDssVkDjMgpLK
-	2gxei2bliDa5FLxOz5kiR3fm+TnY7BFBPctbSMg5tK2YfYVkXZS/KeBbtXfIhBR6
-	6a1SuQ17x92UiqH5pJGzPxe4Q6WI5Vc0zoX7Z5pFRnlyllj40uMywovpbbd4ba74
-	KDSwyL9U7seaU5RPiRmqsZcPPp1fQyqqPH2MHbNEgQ==
-X-ME-Sender: <xms:u36RaesGS0RuikjvtishWDyKuRNCD4oNFusWRK0Afe0fTLaq4hnu6A>
-    <xme:u36RaRQi7X-b1HuNqQ2iojvppbH302_ka6VNqLSEqEcB1JCPoy89RV5lN5B2kWFGr
-    j-TBSD-ZDEwja699sFqYIqTQ9YB6n6FQTJG9gUfFmlMJ6Tdd8Pbjmg>
-X-ME-Received: <xmr:u36RaUOwRvRYe3SE_WauXdp95qz43HGq8s5ClHa35XzAiaV7UXrzx5hrx8d3hGqfbgN41_nYJmhoYZq89a_JGkFY>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvudefgeejucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpefpihhklhgrshcu
-    ufpnuggvrhhluhhnugcuoehnihhklhgrshdrshhouggvrhhluhhnugdorhgvnhgvshgrsh
-    esrhgrghhnrghtvggthhdrshgvqeenucggtffrrghtthgvrhhnpeehudelteetkefgffef
-    udefuedvjeeivdekhfevieefgeffheeltddvvefhfeetgeenucevlhhushhtvghrufhiii
-    gvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehnihhklhgrshdrshhouggvrhhluhhn
-    ugesrhgrghhnrghtvggthhdrshgvpdhnsggprhgtphhtthhopeegpdhmohguvgepshhmth
-    hpohhuthdprhgtphhtthhopehsrghkrghrihdrrghilhhusheslhhinhhugidrihhnthgv
-    lhdrtghomhdprhgtphhtthhopehlrghurhgvnhhtrdhpihhntghhrghrthesihguvggrsh
-    honhgsohgrrhgurdgtohhmpdhrtghpthhtoheplhhinhhugidqmhgvughirgesvhhgvghr
-    rdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehnihhklhgrshdrshhouggvrhhluhhnug
-    dorhgvnhgvshgrshesrhgrghhnrghtvggthhdrshgv
-X-ME-Proxy: <xmx:u36RaWaMz2oswBCP4EMnNZhg9-ysYDoV9AIPcW39r2_ixJg_ctBXvA>
-    <xmx:u36Raex-dVwhTxSEsb1wLQjWHXy-Cbh6G6nMQsD0Wxz2P91wzNOdEg>
-    <xmx:u36RaRL5y7It8HPvHsTbYXJib0NEW_mnft8RVmuV29dMT2UVn4NcWw>
-    <xmx:u36RaYrLST6KjLKsgRkEkeYOcrSMBsI2KfABWOCaziG1M4FeNvyDpA>
-    <xmx:vH6RaeO36QQ0OSsXA7w3vRwvgjyw-SrUNNlvsjzUuSmoxGeDyYYOTlvL>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 15 Feb 2026 03:07:23 -0500 (EST)
-From: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: linux-media@vger.kernel.org,
-	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Subject: [raw2rgbpnm,PATCHv2] Add warning for incorrect bayer layout conversions
-Date: Sun, 15 Feb 2026 09:06:51 +0100
-Message-ID: <20260215080651.555939-1-niklas.soderlund+renesas@ragnatech.se>
-X-Mailer: git-send-email 2.52.0
+	s=arc-20240116; t=1771152570; c=relaxed/simple;
+	bh=25F/qOBvf2g2zcZ6dQ1NePM3WPV5zJH3ayE70WSf16g=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Isv1emToXFq1FQ/pl5P/frh7REjmkVIluJUngi6q10m00PIAG+wpUUH8jh5R0g8qCYrRlK4fYDK/QkYOswf5KLcsfRI7GwpIIhDFjHzrwhP1iAq5WGMS4R5Ikmhz4SznZbVHvG4XWtcm9UtHz7abxnSJ1KV2RIaxy2YRYD+I5mI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7d4d4db1523so3603881a34.1
+        for <linux-media@vger.kernel.org>; Sun, 15 Feb 2026 02:49:28 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1771152568; x=1771757368;
+        h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=iwbd+4EH4LGgNmElxlS+yrXKVRdzkUNGTzwIjApnmgQ=;
+        b=CxVS/oH/94Jpabj8zfRYtKiVgI+g8dOkadiupFwwJTxgePk9UJZ2Gi8zIBhOrt8/rs
+         WIBf8UDcrARfrCAA08dL7QGpxDyMdR4HooAbFrm05AaYaCZjpvhPW6CfOSCT4LC5tkRM
+         WsQfbQFCQMivwbABoBkRJX6s53brxAQPSivDI4BVdwpTtYeT65Vy4XH0XSVrpxiZh2u5
+         WzaHikbKIqmkxRQ32Q1ezPCBbEFgyyl6vBjktd+PczrC5WGTcgjmUBcgQG2qwJe8wEVS
+         JTD7QyHAGfafNoI9B3MTkiYN1ZjydIDlb4fD16cMRfBGrpoOk/HRO6KI+GCt4R5cydO6
+         SgGg==
+X-Forwarded-Encrypted: i=1; AJvYcCWonr1gXrk9beQcSUfhcjmcn8ElNGYfJYA7AwS5gVRASxzus6JTSJPxWfbs16X4euld9kVh3uqSlIKdxA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwP056MykDYgS1bRpvuMk4TLqETJM3FDUOW4fGimd0zstekHjoa
+	c/Qt4Y9EVdaepUYqy0eOTjOvqYW7niY37iRdql0tBW+WpazrSV5k+2Bl2feod6grWt3RMeXijlt
+	tEpcXfOmPJst/pholHnA0VBeUtONUMDw0dzYHkiyqtdP/QwYTeHvU78p+AeE=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:f023:b0:65f:6628:94fc with SMTP id
+ 006d021491bc7-6785bb6765amr2633117eaf.63.1771152567785; Sun, 15 Feb 2026
+ 02:49:27 -0800 (PST)
+Date: Sun, 15 Feb 2026 02:49:27 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6991a4b7.a70a0220.2c38d7.00dd.GAE@google.com>
+Subject: [syzbot] [media?] KMSAN: uninit-value in vidtv_ts_null_write_into
+From: syzbot <syzbot+96f901260a0b2d29cd1a@syzkaller.appspotmail.com>
+To: dwlsalmeida@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, mchehab@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Not all bayer layouts are correctly converted, add a warning to
-highlight this to users.
+Hello,
 
-Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+syzbot found the following issue on:
+
+HEAD commit:    cd7a5651db26 alpha: add missing address argument in call t..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=125b62aa580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=50148b563a4d5941
+dashboard link: https://syzkaller.appspot.com/bug?extid=96f901260a0b2d29cd1a
+compiler:       Debian clang version 21.1.8 (++20251221033036+2078da43e25a-1~exp1~20251221153213.50), Debian LLD 21.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13e5a6e6580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=172c7e5a580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/23c623fcb1bf/disk-cd7a5651.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/5128bb44f38d/vmlinux-cd7a5651.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/a65d6b263e08/bzImage-cd7a5651.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+96f901260a0b2d29cd1a@syzkaller.appspotmail.com
+
+=====================================================
+BUG: KMSAN: uninit-value in vidtv_ts_null_write_into+0x43e/0x5c0 drivers/media/test-drivers/vidtv/vidtv_ts.c:62
+ vidtv_ts_null_write_into+0x43e/0x5c0 drivers/media/test-drivers/vidtv/vidtv_ts.c:62
+ vidtv_mux_pad_with_nulls drivers/media/test-drivers/vidtv/vidtv_mux.c:366 [inline]
+ vidtv_mux_tick+0x34b7/0x3e40 drivers/media/test-drivers/vidtv/vidtv_mux.c:411
+ process_one_work kernel/workqueue.c:3275 [inline]
+ process_scheduled_works+0xae7/0x1d60 kernel/workqueue.c:3358
+ worker_thread+0xede/0x1580 kernel/workqueue.c:3439
+ kthread+0x53f/0x600 kernel/kthread.c:467
+ ret_from_fork+0x20f/0x910 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Uninit was stored to memory at:
+ vidtv_ts_null_write_into+0x437/0x5c0 drivers/media/test-drivers/vidtv/vidtv_ts.c:64
+ vidtv_mux_pad_with_nulls drivers/media/test-drivers/vidtv/vidtv_mux.c:366 [inline]
+ vidtv_mux_tick+0x34b7/0x3e40 drivers/media/test-drivers/vidtv/vidtv_mux.c:411
+ process_one_work kernel/workqueue.c:3275 [inline]
+ process_scheduled_works+0xae7/0x1d60 kernel/workqueue.c:3358
+ worker_thread+0xede/0x1580 kernel/workqueue.c:3439
+ kthread+0x53f/0x600 kernel/kthread.c:467
+ ret_from_fork+0x20f/0x910 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Local variable args.i134 created at:
+ vidtv_mux_pad_with_nulls drivers/media/test-drivers/vidtv/vidtv_mux.c:351 [inline]
+ vidtv_mux_tick+0x3150/0x3e40 drivers/media/test-drivers/vidtv/vidtv_mux.c:411
+ process_one_work kernel/workqueue.c:3275 [inline]
+ process_scheduled_works+0xae7/0x1d60 kernel/workqueue.c:3358
+
+CPU: 1 UID: 0 PID: 30 Comm: kworker/1:1 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 02/12/2026
+Workqueue: events vidtv_mux_tick
+=====================================================
+
+
 ---
-* Changes since v1
-- Rewrite warning and commit message to be less benign.
----
- raw2rgbpnm.c | 3 +++
- 1 file changed, 3 insertions(+)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/raw2rgbpnm.c b/raw2rgbpnm.c
-index b834add4ea6c..baeb8efc863a 100644
---- a/raw2rgbpnm.c
-+++ b/raw2rgbpnm.c
-@@ -201,6 +201,7 @@ static int raw_layout_to_grbg(const struct format_info *info, unsigned char *src
- 	case V4L2_PIX_FMT_SBGGR8:
- 		swap_line = 1; /* BGGR -> GBRG */
- 		swap_gbrg = 1; /* GBRG -> GRBG */
-+		printf("WARNING: bayer layout BGGR not correctly supported, expect conversion artifacts\n");
- 		break;
- 	case V4L2_PIX_FMT_SGBRG16:
- 	case V4L2_PIX_FMT_SGBRG14:
-@@ -208,6 +209,7 @@ static int raw_layout_to_grbg(const struct format_info *info, unsigned char *src
- 	case V4L2_PIX_FMT_SGBRG10:
- 	case V4L2_PIX_FMT_SGBRG8:
- 		swap_gbrg = 1; /* GBRG -> GRBG */
-+		printf("WARNING: bayer layout GBRG not correctly supported, expect conversion artifacts\n");
- 		break;
- 	case V4L2_PIX_FMT_SRGGB16:
- 	case V4L2_PIX_FMT_SRGGB14:
-@@ -215,6 +217,7 @@ static int raw_layout_to_grbg(const struct format_info *info, unsigned char *src
- 	case V4L2_PIX_FMT_SRGGB10:
- 	case V4L2_PIX_FMT_SRGGB8:
- 		swap_line = 1; /* RGGB -> GRBG */
-+		printf("WARNING: bayer layout RGGB not correctly supported, expect conversion artifacts\n");
- 		break;
- 	case V4L2_PIX_FMT_SGRBG16:
- 	case V4L2_PIX_FMT_SGRBG14:
--- 
-2.52.0
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
