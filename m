@@ -1,38 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D735E2F1FD7;
-	Mon, 16 Feb 2026 09:51:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3B62F3C3D;
+	Mon, 16 Feb 2026 09:51:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771235515; cv=none; b=G2TU6USYjfFW2TdYZu3v94HBbbx/2WevASYeioB4WXtEewPYIUskrNldjet9KzM7hNMLB36AHyxzbHp2ms/PkBx3J/R1DY5hWPFPJBuvGrCvspoPRilvIsfo4LhhMXqeblNISVY8+Lm0xSWz1JfjZl6WzT65q2aj3ZbgtL1wXKw=
+	t=1771235517; cv=none; b=MoNGeko9UnNUwA2U3g7D4biAq1c3eEn1FxFH8ZQ8IbNvOK4RUucBRizf2bTktZbgbe4M+t97XdLb/IjolKB1hvIvRghqn9dnvPSPrj/hTm46BGj/kNi9WWgUhRe1mH+U0rEVqjdlqdoh3aIpYhWFzPn7hbDReOKN+2rmfJx4SHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771235515; c=relaxed/simple;
-	bh=TUtVT7Ue6aFFvi66GRXEy5nZ5hyvRNuhRle7WXwFkRg=;
+	s=arc-20240116; t=1771235517; c=relaxed/simple;
+	bh=CHZfT/IKJiZGFKtOYY/Mprmvkw7BEC5CrXJh3PS9lyQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HAEV3NbiQCcRnWZxvG0GhdCZy/xQ3POJPOPWtNNgV9z02InP4w11PL/HmbRSofoMwKPTz/1GFH9w398jDSLoNQPMxVthIwj8fyeDywslAlr24q/OHwxXljraXbxSI8XoJOgYp8GocbMcoYoBTiAewZRz1o1zDYp9yhNt6kn3daw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=GAuVXx2W; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version; b=e24EJYsmhF4rl8ihF7ziNnlskw1smzFFFiHmRlTvblxINplEl0kum94IaEBnIL2jouT5im1nfGo5hZvPiWeFhpQvW6K2VE8rF5ep/YtGD/Cg3M22PfHuYuOkH1F7i8GORjKlD0fTPCazYAgT0+ApQct3wZFfwT0rst34DFmFojY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=PCBD6VJv; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="GAuVXx2W"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="PCBD6VJv"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1771235512;
-	bh=TUtVT7Ue6aFFvi66GRXEy5nZ5hyvRNuhRle7WXwFkRg=;
+	s=mail; t=1771235513;
+	bh=CHZfT/IKJiZGFKtOYY/Mprmvkw7BEC5CrXJh3PS9lyQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=GAuVXx2WgbgQTjIO9rXw8vD0D08Ip8Md2EZ2ke66taiyDEShhPy7mMkqAQNZ4cId5
-	 VUOa0O8siTL/z1IW6a8tkj95bRrhRrjC4lhEmO36JenouphAeACP2eAoLgG1Mdrdfp
-	 /5+mxiQCzPBdlNIy0hUlS31TFw0NFtoFf5G75ouVAiZxRrz1uYgI+Sx1WvexEf4mLt
-	 FAbKAAyFbUc2RpgtW2rfkmhGnu2/LcUQWaPCi0wAgnARy1Al8f7G/SAF2ou/Yih2sE
-	 d+cMVkieYpIhtKwTEjVurMUSZ2KGmD3bQKkqimmRgIXVZYRtYxIJk2gmuSVXnMIsln
-	 zC1Psx18cL7Kg==
+	b=PCBD6VJv2YXp5qEMazNlob6GdFUXneSzRGBeeO+E5ksEi7nvx+1PZW6MJzuE6N4c9
+	 Ek8HpumCSGmIJIPMEsC4uRHPDnunwfFrqWLWJCmwu679g/CCNoV3tesA16diN7V30F
+	 8RcB61p/Q18pq7z/Rbl3keAlEKAl5kSGXlrGuxohrkp05YhW2rCd3VMZbliHLH68AE
+	 8OWPrOfLTn1svT6jQJXQvApZo8x1RAdswivIeY0hK2jJDZygkRFpuzIWuYHfYyNrHP
+	 Uiy1LFI1att9e12gkMqLU+cm0Wl4Vn7SwVQIQXV2xtNK6HR4Di29qgvhgMe2ZBe032
+	 IMJXhrueb+14A==
 Received: from benjamin-XPS-13-9310.. (unknown [IPv6:2a01:e0a:120:3210:f6d2:8ed9:560e:4f27])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: benjamin.gaignard)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0376C17E15A7;
-	Mon, 16 Feb 2026 10:51:51 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 27F3B17E35C9;
+	Mon, 16 Feb 2026 10:51:53 +0100 (CET)
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 To: joro@8bytes.org,
 	will@kernel.org,
@@ -51,9 +51,9 @@ Cc: iommu@lists.linux.dev,
 	linux-rockchip@lists.infradead.org,
 	linux-media@vger.kernel.org,
 	Benjamin Gaignard <benjamin.gaignard@collabora.com>
-Subject: [PATCH v13 4/6] media: verisilicon: AV1: Restore IOMMU context before decoding a frame
-Date: Mon, 16 Feb 2026 10:51:36 +0100
-Message-ID: <20260216095144.107356-5-benjamin.gaignard@collabora.com>
+Subject: [PATCH v13 6/6] arm64: defconfig: enable Verisilicon IOMMU for Rockchip RK3588
+Date: Mon, 16 Feb 2026 10:51:38 +0100
+Message-ID: <20260216095144.107356-7-benjamin.gaignard@collabora.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260216095144.107356-1-benjamin.gaignard@collabora.com>
 References: <20260216095144.107356-1-benjamin.gaignard@collabora.com>
@@ -65,56 +65,26 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-AV1 is a stateless decoder which means multiple AV1 bitstreams could be
-decoded at the same time using the same hardware block. Before decoding
-a frame it is needed to restore the iommu tables to avoid mixing decode
-contexts.
+Enable Verisilicon IOMMU used by Rockchip RK3588 AV1 hardware codec.
+This hardware block could be found in Radxa Rock 5B board.
 
 Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 ---
- .../verisilicon/rockchip_vpu981_hw_av1_dec.c      | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ arch/arm64/configs/defconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-index e4703bb6be7c..d9e68e0ded68 100644
---- a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-+++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-@@ -5,6 +5,9 @@
-  * Author: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-  */
- 
-+#include <linux/iommu.h>
-+#include <linux/vsi-iommu.h>
-+
- #include <media/v4l2-mem2mem.h>
- #include "hantro.h"
- #include "hantro_v4l2.h"
-@@ -2095,12 +2098,24 @@ rockchip_vpu981_av1_dec_set_output_buffer(struct hantro_ctx *ctx)
- 	hantro_write_addr(vpu, AV1_TILE_OUT_MV, mv_addr);
- }
- 
-+static void rockchip_vpu981_av1_restore_iommu(struct hantro_ctx *ctx)
-+{
-+	struct iommu_domain *domain;
-+
-+	/* Before decoding any frame iommu context need to be restored */
-+	domain = iommu_get_domain_for_dev(ctx->dev->v4l2_dev.dev);
-+	if (domain)
-+		vsi_iommu_restore_ctx(domain);
-+}
-+
- int rockchip_vpu981_av1_dec_run(struct hantro_ctx *ctx)
- {
- 	struct hantro_dev *vpu = ctx->dev;
- 	struct vb2_v4l2_buffer *vb2_src;
- 	int ret;
- 
-+	rockchip_vpu981_av1_restore_iommu(ctx);
-+
- 	hantro_start_prepare_run(ctx);
- 
- 	ret = rockchip_vpu981_av1_dec_prepare_run(ctx);
+diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+index 35e9eb180c9a..b56e666acf63 100644
+--- a/arch/arm64/configs/defconfig
++++ b/arch/arm64/configs/defconfig
+@@ -1524,6 +1524,7 @@ CONFIG_ARM_SMMU=y
+ CONFIG_ARM_SMMU_V3=y
+ CONFIG_MTK_IOMMU=y
+ CONFIG_QCOM_IOMMU=y
++CONFIG_VSI_IOMMU=y
+ CONFIG_REMOTEPROC=y
+ CONFIG_IMX_REMOTEPROC=y
+ CONFIG_MTK_SCP=m
 -- 
 2.43.0
 
