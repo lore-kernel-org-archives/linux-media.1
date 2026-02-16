@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 177332D47F1;
-	Mon, 16 Feb 2026 12:28:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 294CA30E0C0;
+	Mon, 16 Feb 2026 12:28:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771244930; cv=none; b=AEyd3hY4MawA+G8Wy/95lUf+io6RrmXCGA6J8YQojszhcAutpKm0aDzrk7gypPDJnHXIojnVsMK0yD7EqchRxnkg9K5ZYCUsv9GsneM9Y//y6Qm8alfNTsrWY0uF+XII8OKNWagMDiEwgEufWf2xsLLCINIgGDrKHg5H1nloMxk=
+	t=1771244930; cv=none; b=b7OXB59wKUnPCz25DSOSLqMlKf0qtkeqGguyN5D1BJdmzsm8rtCenBFBOEAMzfVhsZnVWbcL4fxxkg5c/Fs1hYrScI1rmm+ST4rbMxnNnWc5Tvik5UUv575mMBs8RbFUv8MArjqZqSdVEJ8GpoQuZC7/8dUw2hVt9okPbyi/e20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1771244930; c=relaxed/simple;
-	bh=/LZt/T9liTWeDgycIZZt6KHvICc1pPZDiLrpc2mzndw=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fe9YTojSU92jTxMx9CodvwQdjenr2uMOVJt2JLF4h0xr415kQvdeclfIJ5J3/iF2F6x2oRu9L42/3uGg7vPsdNnJZh753cWUrH1HodXqB+bISVFt07HdhGQ/RFB7UCZh9GUMm+ChrYrbBabCgEpae3OJqc19Br5aFvMbNlfXa+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=io6k0tr5; arc=none smtp.client-ip=10.30.226.201
+	bh=sJEgQivnScC/y69GSX7R+WB6QtVAFvGURYCnsoCXlJE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=SD84E9njx7vOmlMYu6dvcSi8U45/wj7Hiiki/YKUSZuFP+B3VUJECG6bYHOyo9k8YTalURI1tyrpkZvwn9jAQRySjgM0RBk6Bxx6xla4chC9Vd5M1xRutj1wUB1Flf8ObqdSMePzFgnY8s+9YMvbb71j0DdzE8bKWggxYMrDkx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=auiVmCFm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="io6k0tr5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B1EE8C116C6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="auiVmCFm"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D6432C2BC87;
 	Mon, 16 Feb 2026 12:28:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1771244929;
-	bh=/LZt/T9liTWeDgycIZZt6KHvICc1pPZDiLrpc2mzndw=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=io6k0tr5W2Shqgqo/yXfOHhjJZDs0cVYusCmLCg1g3rgKj8Naa8LpGkBUGt9O9/wV
-	 e1SktPNVzRVnNZAk7Zftq8lJeCVrnqnUK0tIZqjODVCSMg0r/XhJef1WBGrsEAVee7
-	 jlGd27ZCQgLEp19GpOPhS1FHN/AaiL7OMav6fGhexhifAMUxeL8zMZJe6e2Pw2xHYe
-	 4UUGcrvyslK8jyCH6s62+KYSseBhBloav19OCR9Xd1f2xRQN5w+rz9XNbhxXT7Hs2O
-	 fHlG/vN1NVmr4lOV61WJaQjAuQJdW9aQHkZ0gqWqFHG0e/oCBq/7ohH4QDrBmxXZ2N
-	 6VDYylLsUiuxg==
+	bh=sJEgQivnScC/y69GSX7R+WB6QtVAFvGURYCnsoCXlJE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=auiVmCFm58yL8UsjaRxgBMyEzib0PpiNAwwWSyBn7jLXUjaT54yCPZDs+LmZZL0/x
+	 uWRPj20RuqAM4voF7C+LcthxyVTknKPpHq9EOy4vmuOElayySgym4h8YEJdjHA4LpC
+	 dvwy4aC4pu0NZ2iWkV9oaZaUj/vfI4IykI743SfBn0N/N9VwyFnu5rWkJFpm0CbAsM
+	 9+RGg9SOVVAkEFEv/dypAqiUFQpNuLljbxrsPqC4tR08C+AwdiSmo+JlS4IEmIfSlE
+	 E7aBYdp00EDpPP0kvw7poLYXOBOgfA3vZo9Nk42L39lnVLKMgFxak5wqXXNhAly/qP
+	 U2nNNQ7U1kpvw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B8EDE7BDAD;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C7BA8E7BDAF;
 	Mon, 16 Feb 2026 12:28:49 +0000 (UTC)
 From: Michael Riesch via B4 Relay <devnull+michael.riesch.collabora.com@kernel.org>
-Subject: [PATCH 0/2] media: synopsys: csi2rx: various fixes
-Date: Mon, 16 Feb 2026 13:28:46 +0100
-Message-Id: <20260216-snps-csi2rx-v1-0-747bc7408f87@collabora.com>
+Date: Mon, 16 Feb 2026 13:28:48 +0100
+Subject: [PATCH 2/2] media: synopsys: csi2rx: add missing kconfig
+ dependency
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -40,9 +41,9 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAH4Nk2kC/02NQQrCQAxFrzJkbejMaKv0KuIiM6ZtNmNJQAqld
- zfixt1/8B5/B2MVNhjDDspvMXk1h3QKUBdqM6M8nSHHPMScBrS2GlaTrBteSx8pxRvTmcCLQsZ
- YlFpdvk25dP/2JJsfubYq//YY7o/j+AD9O7CHhAAAAA==
+Message-Id: <20260216-snps-csi2rx-v1-2-747bc7408f87@collabora.com>
+References: <20260216-snps-csi2rx-v1-0-747bc7408f87@collabora.com>
+In-Reply-To: <20260216-snps-csi2rx-v1-0-747bc7408f87@collabora.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Hans Verkuil <hverkuil+cisco@kernel.org>, 
  Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -54,11 +55,11 @@ Cc: Collabora Kernel Team <kernel@collabora.com>,
  stable@kernel.org, Michael Riesch <michael.riesch@collabora.com>, 
  kernel test robot <lkp@intel.com>
 X-Mailer: b4 0.12.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1771244928; l=956;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1771244928; l=1083;
  i=michael.riesch@collabora.com; s=20250410; h=from:subject:message-id;
- bh=/LZt/T9liTWeDgycIZZt6KHvICc1pPZDiLrpc2mzndw=;
- b=rkTgzCPrAU6piNT7K84+HpLVyOPTyAX2KeHui5bQp2dq3/xMINWNwdI83Jz24w8ABE0dMyR0c
- HoLmB7PJH02BkxWIiuG0OBQfef525e8sIcpGntbbI7zjlJFqmRCGMDR
+ bh=bgY+jc+2uqZDs40Q2hJUGLpFX/0F5uA7sZoal/DHrPA=;
+ b=XS5jme6dD3eNof6m0qsSTKtUXpLB/FM0/lx+lwRfop0lsPEn64qyAdqK+gQJcufWjxOcdujAr
+ YtMBQpFUBpwAqxw8RNOO11N41nbhmgj6JUVBnCra+AvEWstQpiUYQhE
 X-Developer-Key: i=michael.riesch@collabora.com; a=ed25519;
  pk=+MWX1fffLFZtTPG/I6XdYm/+OSvpRE8D9evQaWbiN04=
 X-Endpoint-Received: by B4 Relay for michael.riesch@collabora.com/20250410
@@ -66,37 +67,35 @@ X-Endpoint-Received: by B4 Relay for michael.riesch@collabora.com/20250410
 X-Original-From: Michael Riesch <michael.riesch@collabora.com>
 Reply-To: michael.riesch@collabora.com
 
-Habidere,
+From: Michael Riesch <michael.riesch@collabora.com>
 
-This series contains two fixes that address two issues raised by
-CI bots.
+Fix "ERROR: modpost: "phy_mipi_dphy_get_default_config_for_hsclk"
+[drivers/media/platform/synopsys/dw-mipi-csi2rx.ko] undefined!" by
+selecting GENERIC_PHY_MIPI_DPHY in the Kconfig entry.
 
-1) A stupid off-by-one mistake in the check that protects the formats
-   array. Thanks to Dan and his smatch bot.
-
-2) A missing Kconfig dependency discovered by the lkp bot.
-
-At this point, thanks to all the people that maintain those bots/the
-CI infrastructure!
-
-Best regards,
-Michael
-
+Fixes: 355a11004066 ("media: synopsys: add driver for the designware mipi csi-2 receiver")
+Cc: stable@kernel.org
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202602130253.BZnVd4jh-lkp@intel.com/
 Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
 ---
-Michael Riesch (2):
-      media: synopsys: csi2rx: fix out-of-bounds check for formats array
-      media: synopsys: csi2rx: add missing kconfig dependency
+ drivers/media/platform/synopsys/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
- drivers/media/platform/synopsys/Kconfig          | 1 +
- drivers/media/platform/synopsys/dw-mipi-csi2rx.c | 2 +-
- 2 files changed, 2 insertions(+), 1 deletion(-)
----
-base-commit: c824345288d11e269ce41b36c105715bc2286050
-change-id: 20260216-snps-csi2rx-7b50a108ea3a
+diff --git a/drivers/media/platform/synopsys/Kconfig b/drivers/media/platform/synopsys/Kconfig
+index e798ec00b189..bf2ac092fbb3 100644
+--- a/drivers/media/platform/synopsys/Kconfig
++++ b/drivers/media/platform/synopsys/Kconfig
+@@ -7,6 +7,7 @@ config VIDEO_DW_MIPI_CSI2RX
+ 	depends on VIDEO_DEV
+ 	depends on V4L_PLATFORM_DRIVERS
+ 	depends on PM && COMMON_CLK
++	select GENERIC_PHY_MIPI_DPHY
+ 	select MEDIA_CONTROLLER
+ 	select V4L2_FWNODE
+ 	select VIDEO_V4L2_SUBDEV_API
 
-Best regards,
 -- 
-Michael Riesch <michael.riesch@collabora.com>
+2.39.5
 
 
