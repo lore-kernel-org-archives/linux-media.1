@@ -1,151 +1,112 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4231E19F121
-	for <linux-media@vger.kernel.org>; Wed, 18 Feb 2026 04:16:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771388180; cv=pass; b=D4FE1AfUpMjJW9crvJYOGoPukCCmgdGB7pvspu5UI+HyhXmqi3yB4IHeX3ZY0wlu9SOk5UQP+oHiuXoWjj5ImUuCT4RX1+xsYaYVDjM6atslQWuRRG+xz0l/xNYt/y6LvA+6SVjUVxuKLMlo5LMSPKce2QbWSdpUnBEXAwpeGlw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771388180; c=relaxed/simple;
-	bh=a1/UYzg9qprWQ9Xvw/thJ+toRAuQ11/lEa9Mzm8OiWo=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DB2730F53A
+	for <linux-media@vger.kernel.org>; Wed, 18 Feb 2026 07:51:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1771401099; cv=none; b=oVahAoNhOLWYCYusGr1jFM7LdahiR9aXUGWphiHJOAkENGCpoSngX/2EF4e58/YaooBoNCSEPgGYqP+sdOVUTQDUz4cICCtGLO5MpTxkT/eYbvNpfjpKe92ZM4dUJCU4katNN3Ab/hDNZ+ZYbHcayKLxR0E5mrtRHVlDS9NsCeE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1771401099; c=relaxed/simple;
+	bh=4iOIMJwTfTlhk2X+SSFRPxdpOOMqvgJljSOYKrmpsX0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Lt7n8+vwzOM1Gah00At0FHIhgTd5yBp0bK5LL6GLOT24N/5bmg/7YCWA7XAm/1INfAd/AQKEngkAqWN4WDXUP8uQe29/yBXgFdoaVvGZcrj3OcEOBaNvWDHq/6myTIYqSSEVuL7siyJROgMlYN5juacNwODRpH1fnikxtJYv/r0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K4ZxHJza; arc=pass smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=fYOjfTwK31XUFULdHT8JmQ3CkoGCtERpxNnw2ctJpmm4+f2YJOQtOHN1ITYwZexlhEUV11Ka3vNbzaTIC6koTX/oFF9pxw1QGY6TVEOn0xAzR45bCgrhOBgVNdXveHG+A/BHliL1wIskE1EM5lqYcfrKVw/KT8sRrnYZf4W0/rA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=poCnTeb0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K4ZxHJza"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2a7bced39cfso50454365ad.1
-        for <linux-media@vger.kernel.org>; Tue, 17 Feb 2026 20:16:19 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1771388178; cv=none;
-        d=google.com; s=arc-20240605;
-        b=AZrDywn5cswFEzCh6Plad8yvdHaVQdB+oP+ACzRQOv214s0q0pu7QyNlDQ99CeE33W
-         y1BAE20eKzbRBy55NRtniSG/n8tG95jyC2Uq560MZ//kSKFzRdHDYF6+1yB8MbZy6AWa
-         GWc3YoPAoZXRyVxPUdeLVTBFY8EoyCYbJhsXjHkb8wuDlyv1PA2fjRtXy9TYxRJJQoLR
-         9UzC9Lppek53wnUl1gUe9kLn4oYdHa1vqILfOdBWcF1esMMvtT/ALErJr7eFoA8dzjCb
-         ErbkGQppq/qIrEvpeuL2/uGVm/yS61rbCPe5PDBa9CZIx3Lm2tjailEEh83Lvn5mkg1W
-         HplQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=a1/UYzg9qprWQ9Xvw/thJ+toRAuQ11/lEa9Mzm8OiWo=;
-        fh=J3fVQqvf1rU5+XDYAhL+Fajq/vurVsrboplsY/fMPDs=;
-        b=SYN/jieMK+nBciIilCSb1N8+Uk1FkzRm8IJ7E0WjxtICPGw1CG/IWfOaXeobqsIxdZ
-         HKBf3n2V/Wz13kVZmOLS5HmkzG6Y0jr1LyhcBQefa2wd7pEzk8WkGO1HLB0KwbyBUZ6G
-         CcQcdI1VN6XqZ/tSPSHxjVd+fGFfNGcpdVpCYJVBNdd9FaxwZScEq8tx0D7+L1owwrNI
-         2+9wp+/itb8hjgnKaqG0g74SKv7Hs6z6PCVVYGpQbqlT7aWhmJrzbFlWopGpSstnzznh
-         ah1oNm9Oil/9Un+ah4UCEtZ6hZf89AQein0Zr8ZHRRMaTu7CioZCglPSjq3x0aQ33i8g
-         MVtA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1771388178; x=1771992978; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=a1/UYzg9qprWQ9Xvw/thJ+toRAuQ11/lEa9Mzm8OiWo=;
-        b=K4ZxHJza6uj18r4gSxwTTiAWQ9WPEjh3upXfbkubva+ihMzH8oeeuMK6tTGyPn0j5u
-         RdUaegYm+o28QBNkiKSECmZezqh4ShmiAWTTtZ5GgDpeykM5H1nVIqFuuvkXhUEO2LdY
-         rfb9fA5hVuTJg1voLSSo4BekfWhbOje/aOcnjnSJO1sXjwkq3DERO8nMZDFDMGHxT28D
-         xZia/k+fhj3WlYWm6sDY6a7MyfJrLgLJ2AQ22qN+/tzhHBoyGqX4Am4YGv5LS3C4N+4l
-         LOfuqNjiP3+wAnA39u7TS+0mXs5MAxDGHj2bVXHSg0L4QOACl7AUqOHbg109LVsQH6yy
-         t2nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771388178; x=1771992978;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=a1/UYzg9qprWQ9Xvw/thJ+toRAuQ11/lEa9Mzm8OiWo=;
-        b=c8kOXNhBdjV/NMYuAPWuu2+EvXn/dKhflf1vsx3Z3TyPAI5Gy5ps14tmgziDfISRsJ
-         XpGpJYZfPmUCSxcbc/ZFgE1i+5Yi1G1ndjEBBB1ZPpaWzeYK0B9gn9wMNeX4Q7aTyiI8
-         yRUTF1FgKnvX5aG8UpwLrFXlsy1G4opDsR/f5YRKVNsPEWCJTlzqG4hrVkgZ9XKs6XAB
-         174oFrumgsv0275PrNLJu8JkTfXKQlLCVxW8ZLssoe+Hi9XUBVA5htzkurR05yWuq0ea
-         OhKrmC34Bi9RsoE8Qed3pOnSP4pGNGRbYRKYV0K/mjRKgjQ3S9UKYjKDCyN4omDKM66t
-         UInA==
-X-Forwarded-Encrypted: i=1; AJvYcCWPWpfVjclWYkP9NKGLJvDEIKv+6AJnL1DkAcy+2b+13payZknt/bUBxK2mvcXuDuhG4/wAW7N80rEcUw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwebBzkzHnnHxC7SSi7XQtWgsVJcef9IjIkhtccqeF1s91Olo69
-	AIl8cSOFV0CXeCenxLu/Cd65Fzp8bAT2cM06BRZJcij6lYWxU1vVL3G3V00P/Pm42yp33vVtuIp
-	w/HO2LVZUkFvGdrQpoa4/ONPt/GMP/VM=
-X-Gm-Gg: AZuq6aKUGbFJmEgsFd8vcyFBAKIqOL4WxctRmuEp7MjiveUvD5T/A5UX51wX+e1BlwT
-	AR7T75GNwr1Gyj9Akf6hHVe59Q+QiW33Bs+qKVlV2D1keuUKalsah4o6Yq/WBuLHtyN4Ff5oSAi
-	4KKG5TOI0QotAEzcvjrxJl98WAjzIeqY03bvcudxxfTIptXdafQmk6mg0uirNFq+et0t0/biRBf
-	9WoVWXov5a9J/Za+1GkXahHcL+fldT8XnYQ2huuTb9Wza/lwcFJhE9kQlqEYgwLTEGvfd56bxa9
-	57n69f9xdpLWxVkYSL8e8/wYVWs+W5m3VB+ELy0AC3U/jlyJjSqv
-X-Received: by 2002:a17:903:3d10:b0:2a9:2a0b:4ef5 with SMTP id
- d9443c01a7336-2ad50e5a92dmr7916715ad.7.1771388178534; Tue, 17 Feb 2026
- 20:16:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="poCnTeb0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C72C0C2BCB0
+	for <linux-media@vger.kernel.org>; Wed, 18 Feb 2026 07:51:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1771401098;
+	bh=4iOIMJwTfTlhk2X+SSFRPxdpOOMqvgJljSOYKrmpsX0=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc:From;
+	b=poCnTeb0EiRLHjnZHKa3OTdzzF0Lor2Dktc8/g+0fzCK21yY785y2j78TDy0ydbAG
+	 4atxiINHsZ/XtLw1bOnH9CMZ92SytlY9EwvvUIWnkbiGRDqynwvYGq7BDvluwnqZEY
+	 W5PzOaVduDO6ZCZLchIfQdTTvAdh8zPxEcyhUkeOeTH7H6LRpXhEXQL+a3fmp2Y/eF
+	 pu8uxTfsWrKLFEdaDn/WUEhtIELUzVd57DoXrbhkULNbQlk2+cysxvc4aQul5XxLDM
+	 aVhAqENG+/zXyQoBomqTBZwhLMICyAmGGmsJjaZZph1pPuJdp2piYY+QA1epHg8WZL
+	 /up+Yi62llWxA==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-38709888abeso39941731fa.1
+        for <linux-media@vger.kernel.org>; Tue, 17 Feb 2026 23:51:38 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCWkO5dbehIOKJ0t9ypL3m6I6/qwJuBrHW+MljgU5mCnwHaTBXSx6B4Zdofy43Jv6PheAq8gXDcBrunVqw==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy/VXxtwiwLjNald/jnbHdZ+aoFm+SdHfUbxksJUkGqBFk7y3/1
+	t1ZrSawcbLMbyCUW40YBuNBK4VDivhZU8hF/m6oPMAuECo3XPXTsDEmYs7aqbuH+ZBmI5Abc9eb
+	I6cv+w0BoeGyKSH8XIPyLBRaJwltt9kE=
+X-Received: by 2002:a2e:b896:0:b0:382:f78d:a0c with SMTP id
+ 38308e7fff4ca-38846df21a4mr3400331fa.21.1771401097098; Tue, 17 Feb 2026
+ 23:51:37 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20251120084926.18620-1-opensource206@gmail.com>
- <832f4621-53af-465a-a5e9-f7d65a082481@linuxfoundation.org>
- <CAKPKb8-qyqMmp6c9OnO+AapRRJyE8ygtQUyuUqK8+C0LvMTYTg@mail.gmail.com>
- <CAKPKb8-8ctSewOwBk7fFUMVnb-F_gXnyXS8gd9xJ-fpnW1_ZYA@mail.gmail.com>
- <b5240bd1-eee7-47fd-be70-88435519b12a@linuxfoundation.org>
- <CAKPKb8-VW3C8c-BmwLEWdLXZ8LVuH_MDMdVzzFs6O8QWmpDeuA@mail.gmail.com>
- <CAKPKb8_PGYUStAovWjWG8XxabjB5WuT7kQ3qxT3NuYSKihgDDA@mail.gmail.com>
- <754a344f-4759-4b94-aae5-41e1ce6b7e2f@linuxfoundation.org> <CAKPKb8-hd72r2-11xo6EaN33FfAZ7KFLt59kiwE8UCQKgW+z4Q@mail.gmail.com>
-In-Reply-To: <CAKPKb8-hd72r2-11xo6EaN33FfAZ7KFLt59kiwE8UCQKgW+z4Q@mail.gmail.com>
-From: opensource india <opensource206@gmail.com>
-Date: Wed, 18 Feb 2026 09:46:05 +0530
-X-Gm-Features: AaiRm53NNhCckCkDGiCSFmHdY_xsnAvTXxRGuATWH34hxrtd4JmZiZbRf85jjxM
-Message-ID: <CAKPKb8-HZdpGzbnStwr6TvpPdFT=1J8mc=Bx1mtAcHBXiHhxtQ@mail.gmail.com>
-Subject: Re: [PATCH 0/5] media: vimc: add RGB/YUV input entity and improve
- pipeline support
-To: Shuah Khan <skhan@linuxfoundation.org>
-Cc: kieran.bingham@ideasonboard.com, mchehab@kernel.org, 
-	Hans Verkuil <hverkuil@xs4all.nl>, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org
+References: <20260216-rkcif-fixes-v1-0-b16db20b6d68@collabora.com>
+In-Reply-To: <20260216-rkcif-fixes-v1-0-b16db20b6d68@collabora.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Wed, 18 Feb 2026 15:51:24 +0800
+X-Gmail-Original-Message-ID: <CAGb2v65F9OHNdLA2e3HXNiHEUQyW3-zjQGRZE_w5jU6+w5TbMw@mail.gmail.com>
+X-Gm-Features: AaiRm51oWyNatKqHz1nRPBR6_xQMPfJe9Uf0NpOZA7cz-bzmXYkXqyvq3n9ru28
+Message-ID: <CAGb2v65F9OHNdLA2e3HXNiHEUQyW3-zjQGRZE_w5jU6+w5TbMw@mail.gmail.com>
+Subject: Re: [PATCH 0/2] media: rockchip: rkcif: various fixes
+To: michael.riesch@collabora.com
+Cc: Dan Carpenter <dan.carpenter@linaro.org>, Paul Elder <paul.elder@ideasonboard.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Mehdi Djait <mehdi.djait@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, 
+	Collabora Kernel Team <kernel@collabora.com>, stable@kernel.org, linux-media@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jan 1, 2026 at 6:41=E2=80=AFAM opensource india <opensource206@gmai=
-l.com> wrote:
+On Mon, Feb 16, 2026 at 9:50=E2=80=AFPM Michael Riesch via B4 Relay
+<devnull+michael.riesch.collabora.com@kernel.org> wrote:
 >
-> Hi Shuah
+> Habidere,
 >
-> On Thu, Jan 1, 2026 at 2:13=E2=80=AFAM Shuah Khan <skhan@linuxfoundation.=
-org> wrote:
-> >
-> > On 12/29/25 09:04, opensource india wrote:
-> > > Hi Shuah,
-> > >
-> > > On Tue, Dec 16, 2025 at 8:27=E2=80=AFAM opensource india
-> > > <opensource206@gmail.com> wrote:
-> > >>
-> > >> On Tue, Dec 16, 2025 at 12:40=E2=80=AFAM Shuah Khan <skhan@linuxfoun=
-dation.org> wrote:
-> > >>
-> > >>>>>
-> > >>>>> Hi Kieran and Hans,
-> > >>>>> can you please review?
-> > >>>>
-> > >>>> Hi team, can someone please review?
-> > >>>
-> > >>> I will send these up in my pull request to Mauro - it might be
-> > >>> later in December of early January.
-> > >>>
-> > >>> thanks,
-> > >>> -- Shuah
-> > >>>
-> > >>
-> > >> Thank you so much Shuah
-> > >
-> > > able to pick my changes?
-> >
-> > I applied them to vimc branch a while back.
-> >
-> > https://web.git.kernel.org/pub/scm/linux/kernel/git/shuah/linux.git/log=
-/?h=3Dvimc
-> >
-> > thanks,
-> > -- Shuah
-> >
+> This series contains
 >
-> Thank you so much
+>  1) a re-spin of Dan's patch that fixes some more stupid off-by-one issue=
+s.
+>     This patch has been around on the list for some time, but apparently
+>     has not been applied yet.
+>  2) a fix that makes the DMA abstraction respect the minimum number of
+>     buffers requirement
+>
+> Best regards,
+> Michael
+>
+> Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
 
-Hi Shuah, is this patch series going to be part of the mainline kernel?
+This series, along with the minor fixup for patch 2, makes video capture
+on my Rock 3A w/ IMX219 from a Raspberry Pi v2 camera module run.
+Previously it would fail to queue buffers.
+
+
+Tested-by: Chen-Yu Tsai <wens@kernel.org>
+
+> ---
+> Dan Carpenter (1):
+>       media: rockchip: rkcif: fix off by one bugs
+>
+> Michael Riesch (1):
+>       media: rockchip: rkcif: comply with minimum number of buffers requi=
+rement
+>
+>  .../platform/rockchip/rkcif/rkcif-capture-mipi.c   | 10 +++---
+>  .../media/platform/rockchip/rkcif/rkcif-stream.c   | 41 +++++++++++-----=
+------
+>  2 files changed, 26 insertions(+), 25 deletions(-)
+> ---
+> base-commit: c824345288d11e269ce41b36c105715bc2286050
+> change-id: 20260216-rkcif-fixes-bdd9d3c7e4b0
+>
+> Best regards,
+> --
+> Michael Riesch <michael.riesch@collabora.com>
+>
+>
+>
