@@ -1,52 +1,52 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72B8E1EB5F8
-	for <linux-media@vger.kernel.org>; Wed, 18 Feb 2026 11:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C1B23ABBE
+	for <linux-media@vger.kernel.org>; Wed, 18 Feb 2026 11:21:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771413591; cv=none; b=SCmYiZBCpPt3O19lNaFy3rg2Omts6X3gdhUkY9kiHxgSZYp9DCzFcInaYE5uJ9IKtCksST1kndpdsla2tp6C721aMvLMwltfu5v43K34hHyI1SjMODdBFdUJacQAsTB10MKlLCcc3MSRyfJYQepqKet0110GaViprm0YXWpGh4I=
+	t=1771413670; cv=none; b=hBi4JRvGVrWT/eZGoDKO+kEHn5LP5dqX7z1hKDUmkhkNkqe91wbtwBQVXLpoVmOjs0NsUVhi/YErWnaZxulXHMx8x6nAnk3OKrtEyh39s8xA/jRpey2cNKt4Iqo67T3+Y50J5lys5kHxW0pylTIispCKy0ygo4G48xvhF66/aHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771413591; c=relaxed/simple;
-	bh=SbRVOhtErEqdDWWF7OT0Nrr4V9/Q1cEw2n5cqavB+5g=;
+	s=arc-20240116; t=1771413670; c=relaxed/simple;
+	bh=mEosZ6KNRMoZ9awgSjV7IChgMsbyKJT4xzcKjvyTSqg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q04mNYahcNch+egErHcR1VFdOpJsqkYACFPxao7W/7Ausq65Kh75IR7YAlZT4Es4VVv46ZVIY+kCnVlFCjuWKbWNerLpApE9xqY5JOakcs7oHd2IAEQs9lBBadWDu5WKeg8aqvc6KQmdIkg1QNMOjUYfUTpa1LvsaeRzqxHrGnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZPGmGF/Y; arc=none smtp.client-ip=192.198.163.16
+	 Content-Type:Content-Disposition:In-Reply-To; b=Vld6TlrINcxYWsYYdF45/quylhNgRWRiR9xACmU2GPZDrV2AZGZp9mOXkUzdDVkAELecSHwrGYHgKgGRnoyFW6xFW+l2uF5L01Ld4WT6LzWXELtSplJgtzNK3dj5tZU14s7/OhisZUytkWaeaqW0imKGws3gR97OMu+kP8uBYyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MHc5dRLb; arc=none smtp.client-ip=198.175.65.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZPGmGF/Y"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MHc5dRLb"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1771413589; x=1802949589;
+  t=1771413669; x=1802949669;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=SbRVOhtErEqdDWWF7OT0Nrr4V9/Q1cEw2n5cqavB+5g=;
-  b=ZPGmGF/Y/wfgZpqkhRFmtc7o3riHm1QL8OFoTRjKJ1D0twMGdsTh/5Jh
-   GEx4ipdgR7Oinz5lmcQNfKEyNnWBtBhKgOlRCSP7JSDvMF65wXXgCDZ01
-   aTEubs59+msQmXyZdbV2X3wbDOL1zd2mrVAVIWpZs8FxEGD3unDlGFwtZ
-   QbK52GJ1TQvI58aN6z5v6D01ujgVK+/a264TG4rC3nYrhteGH373/iEeF
-   Qayuxedfa7iYwtJEPxVMEKEb7dXJI2AUYqxx5GI4J9z70u0+ImmShAFyh
-   bknbWQCXPzclgMDsHCGx5to8/PiWowcINr2A1NzW6kvcpWZBTKppRifcP
-   g==;
-X-CSE-ConnectionGUID: tST61sybSRKCWD7VUrmeOA==
-X-CSE-MsgGUID: vZelKF8ATS21oiqd7/iSRw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11704"; a="60056583"
+  bh=mEosZ6KNRMoZ9awgSjV7IChgMsbyKJT4xzcKjvyTSqg=;
+  b=MHc5dRLbxPW4/e2KbJ6ZY2pwO/Pol7BgGjDRCraTaBUl0egQCOaZ2HYR
+   EEgEUUpQgbY1R3OtlpoJJmZw/XUUQHe5SLT6ze/xwg5fYmKu/MmvOvNJY
+   1UJbY8IGtmKp/8YkMsE576c+76RRLJbXThcTQWzm1Jfz3PFmjoUGh1iLS
+   zeLxP+x8txugVtoZa5C7t374R2cehG2tzwtUZQwdoFIborOsZ0H/79+Aq
+   eGPdLtt5HsbVSEA3FRTCc0e0j5uIWrexUtJiHpfx3Iea88FuTV2nxuDIx
+   3+fl5P86vRuTnvp6tsz2R4aGd/4s9jqQvhrfjPDzcQJShuFEXIeTherFD
+   A==;
+X-CSE-ConnectionGUID: 0JWzYLw3S/G+nBIIep5x/A==
+X-CSE-MsgGUID: UDylq8EzTPqJOuO8//UcKg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11704"; a="83934490"
 X-IronPort-AV: E=Sophos;i="6.21,298,1763452800"; 
-   d="scan'208";a="60056583"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Feb 2026 03:19:48 -0800
-X-CSE-ConnectionGUID: iRsMZ6v/S/aQFUojwlc6+g==
-X-CSE-MsgGUID: cWnhTR3mQgyNA2Jn3t1h9w==
+   d="scan'208";a="83934490"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Feb 2026 03:21:08 -0800
+X-CSE-ConnectionGUID: PRna6cjjQTGUQtUh+79WRA==
+X-CSE-MsgGUID: +JZ+IZm6R1mljnUbr7L81A==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.21,298,1763452800"; 
-   d="scan'208";a="212272030"
+   d="scan'208";a="219159448"
 Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.5])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Feb 2026 03:19:47 -0800
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Feb 2026 03:21:07 -0800
 Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 8C54E121D50;
-	Wed, 18 Feb 2026 13:20:10 +0200 (EET)
-Date: Wed, 18 Feb 2026 13:20:10 +0200
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 7D0CE121D50;
+	Wed, 18 Feb 2026 13:21:30 +0200 (EET)
+Date: Wed, 18 Feb 2026 13:21:30 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
@@ -54,11 +54,12 @@ Cc: linux-media@vger.kernel.org,
 	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
 	Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Subject: Re: [raw2rgbpnm PATCH v3 2/3] Add compiler options to avoid warnings
-Message-ID: <aZWganf2JP1muCEs@kekkonen.localdomain>
+Subject: Re: [raw2rgbpnm PATCH v3 1/3] Add explicit switch fallthrough
+ notation
+Message-ID: <aZWgunfrSSxxTXEA@kekkonen.localdomain>
 References: <20260218083424.2432541-1-sakari.ailus@linux.intel.com>
- <20260218083424.2432541-3-sakari.ailus@linux.intel.com>
- <20260218102736.GC520738@killaraus.ideasonboard.com>
+ <20260218083424.2432541-2-sakari.ailus@linux.intel.com>
+ <20260218102618.GA57525@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -67,43 +68,30 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260218102736.GC520738@killaraus.ideasonboard.com>
+In-Reply-To: <20260218102618.GA57525@killaraus.ideasonboard.com>
 
 Hi Laurent,
 
-On Wed, Feb 18, 2026 at 11:27:36AM +0100, Laurent Pinchart wrote:
-> On Wed, Feb 18, 2026 at 10:34:23AM +0200, Sakari Ailus wrote:
-> > Add -Wno-missing-field-initializers option to avoid warnings on modern
-> > GCC.
+On Wed, Feb 18, 2026 at 11:26:18AM +0100, Laurent Pinchart wrote:
+> On Wed, Feb 18, 2026 at 10:34:22AM +0200, Sakari Ailus wrote:
+> > Use __attribute__((fallthrough)) instead of a comment this is taking
+> > place, to make modern GCC happy.
 > 
-> Maybe I should have mentioned that explicitly in v1, but I would also
-> fix the code instead of disabling the warning.
+> This will require gcc 7 or newer, which I think is fine. You could check
+> the compiler version at build time and emit an error if the compiler is
+> not recent enough (and you could use that as an opportunity to switch
+> from make to meson :-)). This is of course out of scope for this series.
 
-Since when has it been preferred to require initialising every field in a
-struct? We don't do it in the kernel either... nor this is C++.
+That could be interesting. Although there are just three .c files to
+compile, I think make can do it. ;-)
 
 > 
-> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> > ---
-> >  Makefile | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/Makefile b/Makefile
-> > index ab363501a212..7545682dbcce 100644
-> > --- a/Makefile
-> > +++ b/Makefile
-> > @@ -1,7 +1,7 @@
-> >  CROSS_COMPILE ?=
-> >  
-> >  CC	:= $(CROSS_COMPILE)gcc
-> > -CFLAGS	?= -O2 -W -Wall -Iinclude
-> > +CFLAGS	?= -O2 -W -Wall -Iinclude -Wno-missing-field-initializers
-> >  LDFLAGS	?=
-> >  
-> >  %.o : %.c
-> 
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+Thanks, but the patches have been already merged. I'll use this for a
+future patch. :-D
 
 -- 
-Regards,
+Kind regards,
 
 Sakari Ailus
