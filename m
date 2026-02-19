@@ -1,64 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73BB27EFE9;
-	Thu, 19 Feb 2026 11:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B57335097;
+	Thu, 19 Feb 2026 11:58:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771502296; cv=none; b=hALEsmY2AE72Xyz+EbnBiLN6GC+KpA9gfKhl6B9oeB/haDiZU81UeqvXTHyBqwROUMvPf+7slA3Zik9Hu3PnJ8u5Ieh0bKjjWds8VCPybChI0AO04/oB2uc+oYPKatmzwWcmkf6W9pi+8S2wNsW+5mioA2QlU/88p3AI1NdgrCc=
+	t=1771502307; cv=none; b=QId5GRADXpGPbE3Q2o9A5C3cQfeN+esz4tyZNn+Lv6zPf3LEZzKWN0ormhSkselGF9jSK/2tNdqjD6tnFu8DikV/pAq1G9q2sUf68T/FINN1uSAzf2yc1sHxgtnKuHodjMtj4fT8jlqBxS7SoKsmA5DDXh1BtvOVG/dMtHZGtWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771502296; c=relaxed/simple;
-	bh=IiQuLfoGHRkM0JIlUCTvVWYJ5NioA6NvgyZT6wtXrCY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gvH0O+sE01srWc3pT4ydH3qZLrCOatw9xrMdlOhYsP+xc67tWnBjCdLNFcHcOse4o64ZmQRTWMnGDwx66aeBCr6mIMqSkTjvIcdnr1wxHJoeL2MX2tvv8qlYGPJ3tWMT4xU61cX0zNBlB6Sa+PHhjOq6ZcHW+Nm3iWnjKVb0M+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0vvmDVnY; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1771502307; c=relaxed/simple;
+	bh=OgvCo6hR/++GTzEfXdfTagXsc83NxebFXuduN+Wv1Lg=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=U7Tq/6zo9zGMWPFwWtu2vxVRVbtozPwpFW2oAHql8ngNdrHidK5XWYXAQW1yMFw2NKJMZEw2Q6gynLiUgi/NBPHsQmh0g5/EX85um30qIps/qf3qBrmEVpNetL9GTPc5JHcQbdmH3phZEs2hnHTEAdXwcsmyYLG5739Vwm/YShc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Qqtwo+3f; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0vvmDVnY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2F60C4CEF7;
-	Thu, 19 Feb 2026 11:58:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1771502295;
-	bh=IiQuLfoGHRkM0JIlUCTvVWYJ5NioA6NvgyZT6wtXrCY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=0vvmDVnYjPuuCCt7ily0OPA1OMl1f/opjhND+9PnVSNghoAUsNe26SMAFTyZN82GZ
-	 4RM5pUfu7u6/xXbZkLEQ3lyHgnfir/+qHLFRXMxIeIvpFTbq5ABiW1lWIUrzCNfeRA
-	 EyzVg+BxRrSIYgmSmdNMzJm3Oto1SRDSIaieXBGs=
-Date: Thu, 19 Feb 2026 12:58:12 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Hamdan Khan <hamdankhan212@gmail.com>
-Cc: andy@kernel.org, dave.hansen@linux.intel.com, hansg@kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev, mchehab@kernel.org,
-	sakari.ailus@linux.intel.com, tony.luck@intel.com
-Subject: Re: [PATCH v5] staging: media: atomisp: Fix typos and formatting in
- headers
-Message-ID: <2026021900-tarantula-unturned-1ab2@gregkh>
-References: <20260209162026.18907-1-hamdankhan212@gmail.com>
- <20260219114849.12675-1-hamdankhan212@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Qqtwo+3f"
+Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AC83D673;
+	Thu, 19 Feb 2026 12:57:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1771502250;
+	bh=OgvCo6hR/++GTzEfXdfTagXsc83NxebFXuduN+Wv1Lg=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=Qqtwo+3fv1117zNi4RfnMr9NCM9iOZknnI0qqNNCPRROYvCfuRw+N3De7leV/gGPH
+	 EmS7aV4NY5JkyIV6Df4B4nrdy31aVZDYwL6vQx5ydj/Wc1vkY2NhE9ni96PxG+5D1H
+	 WE7FQyqW8DF5nlU8Cxn9edGPYnLBf5bniVskcUHg=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260219114849.12675-1-hamdankhan212@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <aZYmtq2CAWhMo1Eb@google.com>
+References: <aZYmtq2CAWhMo1Eb@google.com>
+Subject: Re: [PATCH] media: i2c: max9286: normalize return value of gpio_get
+From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Cc: Jacopo Mondi <jacopo+renesas@jmondi.org>, Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, Niklas =?utf-8?q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, Mauro Carvalho Chehab <mchehab@kernel.org>, Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Ricardo Ribalda <ribalda@chromium.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jacopo Mondi <jacopo+renesas@jmondi.org>
+Date: Thu, 19 Feb 2026 11:58:20 +0000
+Message-ID: <177150230077.1693075.9254407824824108466@ping.linuxembedded.co.uk>
+User-Agent: alot/0.9.1
 
-On Thu, Feb 19, 2026 at 04:48:48PM +0500, Hamdan Khan wrote:
-> Hi,
-> 
-> Gentle ping on this patch.
-> Please let me know if any additional changes are required from my side.
+Quoting Dmitry Torokhov (2026-02-18 20:53:48)
+> The GPIO get callback is expected to return 0 or 1 (or a negative error
+> code). Ensure that the value returned by max9286_gpiochip_get() is
+> normalized to the [0, 1] range.
+>=20
+> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> ---
+>  drivers/media/i2c/max9286.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/media/i2c/max9286.c b/drivers/media/i2c/max9286.c
+> index e6e214f8294b..ac0712ce1e65 100644
+> --- a/drivers/media/i2c/max9286.c
+> +++ b/drivers/media/i2c/max9286.c
+> @@ -1205,7 +1205,7 @@ static int max9286_gpiochip_get(struct gpio_chip *c=
+hip, unsigned int offset)
+>  {
+>         struct max9286_priv *priv =3D gpiochip_get_data(chip);
+> =20
+> -       return priv->gpio_state & BIT(offset);
+> +       return !!(priv->gpio_state & BIT(offset));
 
-Sorry, but I do not see any context here as to what patch you are
-replying to.  Which one is it?
+Reviewed-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
 
-Also, remember that this is the middle of the merge window, no
-maintainer can take new stuff like this until after -rc1 is out.  And
-even then, stuff like this goes down the list compared to bugfixes and
-new features.  There is no rush here, patches will be reviewed in time.
-
-thanks,
-
-greg k-h
+>  }
+> =20
+>  static int max9286_register_gpio(struct max9286_priv *priv)
+> --=20
+> 2.53.0.335.g19a08e0c02-goog
+>=20
+>=20
+> --=20
+> Dmitry
