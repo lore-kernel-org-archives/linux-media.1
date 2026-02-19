@@ -1,100 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7EF2E62D9
-	for <linux-media@vger.kernel.org>; Thu, 19 Feb 2026 10:48:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA8E304BDA
+	for <linux-media@vger.kernel.org>; Thu, 19 Feb 2026 11:48:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771498095; cv=none; b=K/l5EbbBta98g5jgRum9IUp8Zb5aGGwGmVRT+wMQ9i/bO++Y+DzVzI+yY8ncWlXeH8l3cWIaVJRPCCx+8D8gZRm4lqPlb5XxRgJnGi2hDhzVKAu9cmNevo9YlC2nIJGM/sDg54y/FuJvUtx5gytFJZ3neb2G8X6csTHoHhrDkKc=
+	t=1771501736; cv=none; b=ijBLOwqlJKYHYaPJtpL2TgUuh+AiUgQB/jNRDGr4rzRMpSPQSWK4Q/rtjoVllSZXmIA1kqmKAYZridhgHW9IFNqbsNtornxaYm9yedYFE7a58TP5s4/CcWRhhb6liXz8g6Xf8QDgL3ODJOR7cVEZTiobxN0Ez4y5IQe7IDVZrIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771498095; c=relaxed/simple;
-	bh=EQLG7dk7RCT5qRYDu9dhxJCxHBJ2mxG7SkYqZQeFsLo=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=isz2BI9BOMk1zTf7x3iWMkZU0ObZCguG6e4uNNGxPU7mE3u/ZDR31Ik083kZE9qIo913s55ruL911dJQ/acEe3j6jFoWzIFk9m+caPcDL5heipUAgj+KDTdSg1qxfWIauFg6mHbGuzd+qarUtw/shjeE5Ws6ShqgHytWYbCLJyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RNETWzzh; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1771501736; c=relaxed/simple;
+	bh=RM0Eu03VswpLUFAYFteC5nx+lC1kqOSODE5iFKN3QHM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fOxwZD8M71EU3kLLBqXVe8IfqpdDer9TK9OeVGJbK3OEvfNvUur2PoOOpuavI5mhUJZog6A8QDT8shCOSWhojdqM1PGpici3baM7W5qw1bL42F943GcPrhQxDkut0ihzJ/fxyrGcYE90fUOV/E4aRgTGh9zbxgKhXaJx+jYsT7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jetYnALf; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RNETWzzh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87CCEC2BCB3
-	for <linux-media@vger.kernel.org>; Thu, 19 Feb 2026 10:48:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1771498095;
-	bh=EQLG7dk7RCT5qRYDu9dhxJCxHBJ2mxG7SkYqZQeFsLo=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc:From;
-	b=RNETWzzhPnact2fZwoYemaJDTlOQIjpeYPaEHE0OAeJq/vglwrxV86/VwCUgnmByW
-	 VGw56BINjtBhOKAlrv7L4hmQwuZOc79/KM/Bl02Utiq+4NcX7qVs0rlJMJ/wrQ6x+R
-	 qDmCCvwSjJMNt4mTLiCssK5Vinp+2AT1VCYP251PEYyimQX/3+cOm42WZn42e6TzMi
-	 D+YQ/JQ8BW34TQfWJS6LWZuBce/UNChtie4kRXgUUL5G+U8A4S/n/ac/EzG0GKabHd
-	 fFL5dgg/neeLThSefAjvyik3hZh0CR4mM+TumN3TrivFDO72xlsq1RJymkzq6IdPFX
-	 ACLEROiDZkNPg==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-59f855fd0d9so902281e87.0
-        for <linux-media@vger.kernel.org>; Thu, 19 Feb 2026 02:48:15 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCXTj0FaobInOmIGFz5XxrojxiTB7ns4IzQ0gwllXIPLlaMXZRsR7j+jf1VFrG7+4diaZuhcIUGw4pIhjw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6FH1u5U9OOw6TYvRKGTtjT46Eed/k76m1BtjQwB7ZLPnwSXb9
-	MoYyKPxywkdfS1JbUatGIHzMtecySUgxd3FbewtuGfPoMnoDCA7vo3fRJsvrSs0b+n0Ibrr1J/9
-	ZtxeGMsnO6Worimp2BmTD9CxzjBQ+jrap+2gZdGmM7A==
-X-Received: by 2002:a05:6512:238f:b0:59f:6947:d072 with SMTP id
- 2adb3069b0e04-59f83b97d14mr1773283e87.7.1771498094107; Thu, 19 Feb 2026
- 02:48:14 -0800 (PST)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 19 Feb 2026 05:48:13 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 19 Feb 2026 05:48:12 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <aZYmtq2CAWhMo1Eb@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jetYnALf"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-48379a42f76so6729165e9.0
+        for <linux-media@vger.kernel.org>; Thu, 19 Feb 2026 03:48:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1771501734; x=1772106534; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RM0Eu03VswpLUFAYFteC5nx+lC1kqOSODE5iFKN3QHM=;
+        b=jetYnALfE3f7vMg7BCYw6FjjmATsYJnUmhB1mUzy1cRFllg9hnSW/uHkWE1GP3edFr
+         aQ/5xTA2yz54bwKqK3GjJiW9xvRgGdygjRkdvnKuPwHAPW1E1NKl3a5clrZMUxd7YCaK
+         WtsKnm+fqA+u5K8FjQt1yq9S0PT1EjOnCPHyXyV1XgdQ4NSit0+9Dvid9FCZ3Gw1S+uo
+         KtKbauKX3YmN4BPu/WK3XNFwgX6WiRgkS9aEQcoW074VpM9Bmb8MC3G1ZNz7ENtosrpv
+         8fI2WQiFheZ4+bdHxpJeYKo+zQQ/EwXEIrq/MipwIjSdYN6e+8TuekcgQl1Jnn6UE53h
+         xQKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1771501734; x=1772106534;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=RM0Eu03VswpLUFAYFteC5nx+lC1kqOSODE5iFKN3QHM=;
+        b=NxTZDUikA6wRihQVbDmZ8JU3PzNgQq4Dgbf/3N/zTl/X5dN0ifoyJ0bKJjJ45pW6B8
+         YokUDnfeNEP5mhJjRIF+YxChU18hWrwydTqu82zPFLGExGLDolE768cPy88TpwlB5jWy
+         pJCRKpnUWHK04UWAEHZuA5hACTLnmrcPThWD48WU1zcEdmve6ScvkG62WgUkK7fijtlq
+         LD2zTaK+UF6W0LGd0sSZzUWtpUe0hl/53QxA9ocYCuTtji03r2qMm8VEWKLomiifT+Td
+         O2TApU9C1Lirff94OvMvjEBqcyFvTdViOPhZQtA5aZgp5GbOIt9bBJrRpwcrjGB2WdUc
+         vb9w==
+X-Forwarded-Encrypted: i=1; AJvYcCWbzJtdA2B40qECHB8Ks3+E0AkZTRTsAWwSNn/J4ZH1BzTxqxYaS002XsY3l/Y51Hzke/Bl6KUYX9VaNQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxBDWnwsl3Rh80NVZ+Q+rw5pt4Uo0E1PxRzkIXzkfeoK2W6fRAW
+	cAPxTcmtwFmkEsxwp/A3iGT3Tt9x8l2TZWc1Sf5yfvdaNFRZqMp13rOw
+X-Gm-Gg: AZuq6aLk00GhUQsUc1VjN/kTEjIq89ckQQUlLMqrrfd9lJ86bZjgxYbWFBH6dFOPjpw
+	j98JlEomFbnQNSHTvmfw9KGfpOJHuZF1eIJuJqI2UW3dN4AJ4dROEhbWBtQ7UL+IHppeGdF+iXZ
+	VOyGqaDopXC707og//NXJGfw2yPlfzXKI0hq8XQ19Rb75Hj+CpijgCQ8QQBOkqQQfHArm+n+idF
+	q8bDQHxnYWWfXA5yPFX68K67y091ss4myntVwqG9u2w4v0DXk4CRiIcJu/fBUTTCA+9SWK17QJt
+	2ePqPWrB1CdL+psSJpFW97OHY8cBinkv24aoa9DguykJMZksCENpHs920H5/5D+qAQuQ/SLU9yB
+	9O2wVYrijWJn4Rz/p2etSL63yMUcabcOkWvBbSDtVf2Wf2roT0FPP0djRigveQAlR3a/aJcshBV
+	Ca41n0YmANECp6MupLKu/nf9mgkwKkN6+yZECLD5318jhR1NYMSyHmxYeVe1mZrIZkd1BbAFxxl
+	JYreuEvyNF2JJc=
+X-Received: by 2002:a05:600c:8209:b0:480:1c85:88bf with SMTP id 5b1f17b1804b1-48379c1f524mr295267145e9.27.1771501733722;
+        Thu, 19 Feb 2026 03:48:53 -0800 (PST)
+Received: from hamdan-pc.. ([39.34.129.202])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43796a5b4cdsm52037758f8f.8.2026.02.19.03.48.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Feb 2026 03:48:53 -0800 (PST)
+From: Hamdan Khan <hamdankhan212@gmail.com>
+To: hamdankhan212@gmail.com
+Cc: andy@kernel.org,
+	dave.hansen@linux.intel.com,
+	gregkh@linuxfoundation.org,
+	hansg@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	tony.luck@intel.com
+Subject: Re: [PATCH v5] staging: media: atomisp: Fix typos and formatting in headers
+Date: Thu, 19 Feb 2026 16:48:48 +0500
+Message-ID: <20260219114849.12675-1-hamdankhan212@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260209162026.18907-1-hamdankhan212@gmail.com>
+References: <20260209162026.18907-1-hamdankhan212@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <aZYmtq2CAWhMo1Eb@google.com>
-Date: Thu, 19 Feb 2026 05:48:12 -0500
-X-Gmail-Original-Message-ID: <CAMRc=Mcsa0tpg9KWnnunpxU+Wuy3cpCX0=84jmVHP2pYiyPLPQ@mail.gmail.com>
-X-Gm-Features: AaiRm50EvJxRDcS2E9XQtnn1RNYpQr6jqiKi_Yky6FYDprYsmibAwaaoOrFwcNc
-Message-ID: <CAMRc=Mcsa0tpg9KWnnunpxU+Wuy3cpCX0=84jmVHP2pYiyPLPQ@mail.gmail.com>
-Subject: Re: [PATCH] media: i2c: max9286: normalize return value of gpio_get
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Jacopo Mondi <jacopo+renesas@jmondi.org>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
-	=?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Ricardo Ribalda <ribalda@chromium.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 18 Feb 2026 21:53:48 +0100, Dmitry Torokhov
-<dmitry.torokhov@gmail.com> said:
-> The GPIO get callback is expected to return 0 or 1 (or a negative error
-> code). Ensure that the value returned by max9286_gpiochip_get() is
-> normalized to the [0, 1] range.
->
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> ---
->  drivers/media/i2c/max9286.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/media/i2c/max9286.c b/drivers/media/i2c/max9286.c
-> index e6e214f8294b..ac0712ce1e65 100644
-> --- a/drivers/media/i2c/max9286.c
-> +++ b/drivers/media/i2c/max9286.c
-> @@ -1205,7 +1205,7 @@ static int max9286_gpiochip_get(struct gpio_chip *chip, unsigned int offset)
->  {
->  	struct max9286_priv *priv = gpiochip_get_data(chip);
->
-> -	return priv->gpio_state & BIT(offset);
-> +	return !!(priv->gpio_state & BIT(offset));
->  }
->
->  static int max9286_register_gpio(struct max9286_priv *priv)
-> --
-> 2.53.0.335.g19a08e0c02-goog
->
->
-> --
-> Dmitry
->
+Hi,
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Gentle ping on this patch.
+Please let me know if any additional changes are required from my side.
+
+Thanks for your time.
+
+Best regards,
+Hamdan Khan
