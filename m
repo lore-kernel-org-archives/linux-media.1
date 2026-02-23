@@ -1,106 +1,81 @@
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92363793C1
-	for <linux-media@vger.kernel.org>; Mon, 23 Feb 2026 21:50:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5133B3793C2;
+	Mon, 23 Feb 2026 21:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771883411; cv=none; b=PU0VlT4fhcP/kUIwFlJ7ZvKuGepmCQUdVufqJIOnxEfSt/Ne23G4Q/YyRDDi+ldYbt2//KSAv8PxwGw9BiObagumQUa3xKJisnAzEiId7hBSP7PwcnceWfjfs/4WGOawhDu9RmSeRxuyQZSzqlHdU/OgEk9r89Klk6GSXRNMC+I=
+	t=1771883436; cv=none; b=PelogawUNJeSph6yqOC+KG3nnhwVaeHu/YQdMboBbx2KtjIjCYs/r8tam9oiiLRX7xIzN521Z6v155hrMo9EFDebzEaZ1aWC7RS1chWnvMLe5Yh0X+dQvV7suRxjLFK8d9elQPjzyFVr4cb9KDUu21ER0ad8G0tnswGfo1WyBpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771883411; c=relaxed/simple;
-	bh=bRtJabWT+yTTorF0+GnkO804qkKj0hG8M/ihWTLoebQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EEctfxqOT8mpDuWf08R7U3Uh3RoRT8Mk6B204qPoZlQrfrhwk04oQXn8i7qLziVJgftvqXFCcRS8XqKmkjSXTDRswoj6+NAomxfk8jVwNwvfbo1rd8DjAkAEX/mDKeoJ6J9p/2+Rh8TIbaFQiFtxLTIToVpg3of08LfDK3LwjNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=Bt5thN7M; arc=none smtp.client-ip=199.89.1.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1771883436; c=relaxed/simple;
+	bh=yIA0DgDkXMAJODpAWpRW7m141h+JUK6FbQ2KGDgNbrk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mBOYIjkLV6ncxcx56vJrbVyZEqEV+QYcoMWv7goQoHUNpkb5zD9EJI2spUAbHgkYkhj3BVcv2x0z/gIioksJgdG91EBUqmppHUBNXQ0aRXuPQ6dXtALNQshG2CMS6daXNFdk8wFhB9wLlHZaKLuEmOTDEp+XXPBl8y51zmg4QRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Te00VyXD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="Bt5thN7M"
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4fKZJy2zZ6zlfddf;
-	Mon, 23 Feb 2026 21:50:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:mime-version
-	:references:in-reply-to:x-mailer:message-id:date:date:subject
-	:subject:from:from:received:received; s=mr01; t=1771883409; x=
-	1774475410; bh=fYxQozmqbCR65/nGtCFoDmorhdFiAw0UWwj4/dZzG/k=; b=B
-	t5thN7MqvY9rDAXgJsde6iNCKXsRIScXqHSq2iRfjlFv/Ou6di/hXuzRL7nscVJm
-	oBATMvvam58tYyWgxHH1DX/G3wyCxmh2NkK5fMO69RXrfeOCnAXToIzzCLCHFGgu
-	DyM/njKuFDr5T4/TfV9zkEHXLnDQ79Fs20h5WBSn+p+nYZirqr60E9Eo00h+5FaX
-	M/Y7VSouM2E4/DkE6w5F4ocxR7U9ar15vIfKUBKq2suGtItVx+mhHFuTA2JwA8Io
-	+0KPsnocAt8Y2hckjKKylYT2njwHOrW9lMYzOiiy8A5W8lH5R4YzPXVXU/LGaqn1
-	q5cxKfWyLZIzlpTJ3enMg==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id 9bZoJ-PAS657; Mon, 23 Feb 2026 21:50:09 +0000 (UTC)
-Received: from bvanassche.mtv.corp.google.com (unknown [104.135.180.219])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4fKZJw0lh5zlfl5l;
-	Mon, 23 Feb 2026 21:50:07 +0000 (UTC)
-From: Bart Van Assche <bvanassche@acm.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Bart Van Assche <bvanassche@acm.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	linux-media@vger.kernel.org
-Subject: [PATCH 06/62] dma-buf: Handle all dma_resv_lock() errors
-Date: Mon, 23 Feb 2026 13:48:54 -0800
-Message-ID: <20260223214950.2153735-7-bvanassche@acm.org>
-X-Mailer: git-send-email 2.53.0.371.g1d285c8824-goog
-In-Reply-To: <20260223214950.2153735-1-bvanassche@acm.org>
-References: <20260223214950.2153735-1-bvanassche@acm.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Te00VyXD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2779C19421;
+	Mon, 23 Feb 2026 21:50:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1771883435;
+	bh=yIA0DgDkXMAJODpAWpRW7m141h+JUK6FbQ2KGDgNbrk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Te00VyXDEw7O9qzDqt5v7jEtrHMEbx6c9Vtk7RxnF7k0Dp91xZ3EJ2vQnDUw2vaNa
+	 clevf3aPPW1sbv5R0tIqbMhsNPKPyn4xEHCv14i8e7MxRqWk94xM6plH1RXvnFutUS
+	 aXEOQa9O/LGlngkuP1mofF6qRciBXhGFMS0kK6pKV6iW30/rWHwghCDPkLonpkOYUW
+	 2+IcVnIiRAV+4VZZLlJt1gu1HxTAUabDLN5mQCCX7M6Vun37b1bpgqSaV1D2aGrTrt
+	 hzXVx3RohDbC3w3rS8/RVqGjSbXXIgsoGRKzDVPefPMvtIkIi/qkxxbupU/h36bRv0
+	 Jy6sBufMjrGRA==
+Date: Mon, 23 Feb 2026 15:50:32 -0600
+From: Bjorn Andersson <andersson@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
+	Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev, linux-media@vger.kernel.org, 
+	linaro-mm-sig@lists.linaro.org, Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+	Bharath Kumar <quic_bkumar@quicinc.com>, Chenna Kesava Raju <quic_chennak@quicinc.com>
+Subject: Re: [PATCH RFC 03/18] accel/qda: Add RPMsg transport for Qualcomm
+ DSP accelerator
+Message-ID: <lyco6vkfjlerri55ldyn6fbhihbkhnuolifddcnscevybsztq7@ljhjln2ynmid>
+References: <20260224-qda-firstpost-v1-0-fe46a9c1a046@oss.qualcomm.com>
+ <20260224-qda-firstpost-v1-3-fe46a9c1a046@oss.qualcomm.com>
+ <tqsdbijgjomrn7fq3sdz7v2axwxqvbccpjh4fmvod4kbrq7pod@af3igw5dx66p>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tqsdbijgjomrn7fq3sdz7v2axwxqvbccpjh4fmvod4kbrq7pod@af3igw5dx66p>
 
-Instead of assuming that dma_resv_lock() only returns 0 or -EDEADLK,
-handle all possible dma_resv_lock() return values. This patch prepares
-for enabling compile-time thread-safety analysis. This will cause the
-compiler to check whether all dma_resv_lock() return values are handled.
+On Mon, Feb 23, 2026 at 11:23:13PM +0200, Dmitry Baryshkov wrote:
+> On Tue, Feb 24, 2026 at 12:38:57AM +0530, Ekansh Gupta wrote:
+[..]
+> > diff --git a/drivers/accel/qda/qda_drv.h b/drivers/accel/qda/qda_drv.h
+[..]
+> > +/* Error logging - always logs and tracks errors */
+> > +#define qda_err(qdev, fmt, ...) do { \
+> > +	struct device *__dev = qda_get_log_device(qdev); \
+> > +	if (__dev) \
+> > +		dev_err(__dev, "[%s] " fmt, __func__, ##__VA_ARGS__); \
+> > +	else \
+> > +		pr_err(DRIVER_NAME ": [%s] " fmt, __func__, ##__VA_ARGS__); \
+> 
+> What /why? You are under drm, so you can use drm_* helpers instead.
+> 
 
-Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-Cc: linux-media@vger.kernel.org
-Signed-off-by: Bart Van Assche <bvanassche@acm.org>
----
- drivers/dma-buf/dma-resv.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+In particular, rather than rolling our own wrappers around standard
+functions, just use dev_err() whenever you have a struct device. And for
+something like fastrpc - life starts at some probe() and ends at some
+remove() so that should be always.
 
-diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
-index bea3e9858aca..b4710f730e9b 100644
---- a/drivers/dma-buf/dma-resv.c
-+++ b/drivers/dma-buf/dma-resv.c
-@@ -792,6 +792,8 @@ static int __init dma_resv_lockdep(void)
- 	ret =3D dma_resv_lock(&obj, &ctx);
- 	if (ret =3D=3D -EDEADLK)
- 		dma_resv_lock_slow(&obj, &ctx);
-+	else if (ret)
-+		goto fini;
- 	fs_reclaim_acquire(GFP_KERNEL);
- 	/* for unmap_mapping_range on trylocked buffer objects in shrinkers */
- 	i_mmap_lock_write(&mapping);
-@@ -805,12 +807,14 @@ static int __init dma_resv_lockdep(void)
- #endif
- 	fs_reclaim_release(GFP_KERNEL);
- 	ww_mutex_unlock(&obj.lock);
-+
-+fini:
- 	ww_acquire_fini(&ctx);
- 	mmap_read_unlock(mm);
-=20
- 	mmput(mm);
-=20
--	return 0;
-+	return ret;
- }
- subsys_initcall(dma_resv_lockdep);
- #endif
+Regards,
+Bjorn
