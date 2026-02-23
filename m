@@ -1,81 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5133B3793C2;
-	Mon, 23 Feb 2026 21:50:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ABA43793C7;
+	Mon, 23 Feb 2026 21:51:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771883436; cv=none; b=PelogawUNJeSph6yqOC+KG3nnhwVaeHu/YQdMboBbx2KtjIjCYs/r8tam9oiiLRX7xIzN521Z6v155hrMo9EFDebzEaZ1aWC7RS1chWnvMLe5Yh0X+dQvV7suRxjLFK8d9elQPjzyFVr4cb9KDUu21ER0ad8G0tnswGfo1WyBpE=
+	t=1771883520; cv=none; b=Xlj5j27AF1ZMpLL3mOKgBKGFph57qDOPbeszb/5wfmHg2M3F6qKe1CCDlnaniCU0WoByW2V814mdJz91c2/nzW9OK4ba6mt6iwsAmBNmI71OrAuHUgkDPofC/keuEY2BVYVA7fUhW8Nbnmv0SZ1xG037xhVY5REocFdt+sgciyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771883436; c=relaxed/simple;
-	bh=yIA0DgDkXMAJODpAWpRW7m141h+JUK6FbQ2KGDgNbrk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mBOYIjkLV6ncxcx56vJrbVyZEqEV+QYcoMWv7goQoHUNpkb5zD9EJI2spUAbHgkYkhj3BVcv2x0z/gIioksJgdG91EBUqmppHUBNXQ0aRXuPQ6dXtALNQshG2CMS6daXNFdk8wFhB9wLlHZaKLuEmOTDEp+XXPBl8y51zmg4QRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Te00VyXD; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1771883520; c=relaxed/simple;
+	bh=XWwBiVKtcMVXcZZ6S0kGAQc8RqaVG2VCyoOZbKIGyes=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=G1oChURpYg+FtGWHCA2FQBnoJukYvm6L1jJNzC6S8AcaU/LJt7sSBCEPrvvx1z1LmvvDwZMPTirz75dRuCoNx95HbW7UDPc384+S9RHtj3qor/VlnQ1Y8faWiwxu/oXBIj3VRX6ekb9I973Y3FatmfMDPg6S0845Rhz2eXiCGfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=Jnlb8lw4; arc=none smtp.client-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Te00VyXD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2779C19421;
-	Mon, 23 Feb 2026 21:50:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1771883435;
-	bh=yIA0DgDkXMAJODpAWpRW7m141h+JUK6FbQ2KGDgNbrk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Te00VyXDEw7O9qzDqt5v7jEtrHMEbx6c9Vtk7RxnF7k0Dp91xZ3EJ2vQnDUw2vaNa
-	 clevf3aPPW1sbv5R0tIqbMhsNPKPyn4xEHCv14i8e7MxRqWk94xM6plH1RXvnFutUS
-	 aXEOQa9O/LGlngkuP1mofF6qRciBXhGFMS0kK6pKV6iW30/rWHwghCDPkLonpkOYUW
-	 2+IcVnIiRAV+4VZZLlJt1gu1HxTAUabDLN5mQCCX7M6Vun37b1bpgqSaV1D2aGrTrt
-	 hzXVx3RohDbC3w3rS8/RVqGjSbXXIgsoGRKzDVPefPMvtIkIi/qkxxbupU/h36bRv0
-	 Jy6sBufMjrGRA==
-Date: Mon, 23 Feb 2026 15:50:32 -0600
-From: Bjorn Andersson <andersson@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
-	Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev, linux-media@vger.kernel.org, 
-	linaro-mm-sig@lists.linaro.org, Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
-	Bharath Kumar <quic_bkumar@quicinc.com>, Chenna Kesava Raju <quic_chennak@quicinc.com>
-Subject: Re: [PATCH RFC 03/18] accel/qda: Add RPMsg transport for Qualcomm
- DSP accelerator
-Message-ID: <lyco6vkfjlerri55ldyn6fbhihbkhnuolifddcnscevybsztq7@ljhjln2ynmid>
-References: <20260224-qda-firstpost-v1-0-fe46a9c1a046@oss.qualcomm.com>
- <20260224-qda-firstpost-v1-3-fe46a9c1a046@oss.qualcomm.com>
- <tqsdbijgjomrn7fq3sdz7v2axwxqvbccpjh4fmvod4kbrq7pod@af3igw5dx66p>
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="Jnlb8lw4"
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4fKZM31gx4zlh1Wr;
+	Mon, 23 Feb 2026 21:51:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:mime-version
+	:references:in-reply-to:x-mailer:message-id:date:date:subject
+	:subject:from:from:received:received; s=mr01; t=1771883516; x=
+	1774475517; bh=LAGDjPtwo0arw4hE7/MUC/1SA4WpreoEY9yzowan97I=; b=J
+	nlb8lw49+2Q9GlsI/BexYsCclMgo3b5VdPbW0B7myAYFQaObpAqo4MRyrEnVNy5L
+	0+j2/YV/NuF3soHV2OnhP+GxmNYR4ibpTlb8x4J4EcvyV/a6u1RKN5BNEGRSxLTL
+	7N0zGabIZEiz2c/+ETi/WLluMI1WYYjXcDq1CISim7POWDgFbCcIjF22sGriQE6M
+	rEfbOmnUy8+oLJr4wpX1mAqD+KQkR4epxT7XNVSSMBBxg+nLWsP1+kkx3dTdjM/O
+	AGUE/2BB4CpQh9RU7OatV1CGjk2qb6+LiGdSweKSSCTkbD36t1V8NepNwq/edFsq
+	IG5cj0RefR660qx4F7Rhw==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id 2f7z6x2ga95F; Mon, 23 Feb 2026 21:51:56 +0000 (UTC)
+Received: from bvanassche.mtv.corp.google.com (unknown [104.135.180.219])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4fKZLv3Yv1zlh1Wk;
+	Mon, 23 Feb 2026 21:51:51 +0000 (UTC)
+From: Bart Van Assche <bvanassche@acm.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Waiman Long <longman@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	Marco Elver <elver@google.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	linux-media@vger.kernel.org
+Subject: [PATCH 05/62] dma-buf: Convert dma_buf_import_sync_file() to the early-return style
+Date: Mon, 23 Feb 2026 13:50:20 -0800
+Message-ID: <20260223215118.2154194-6-bvanassche@acm.org>
+X-Mailer: git-send-email 2.53.0.371.g1d285c8824-goog
+In-Reply-To: <20260223215118.2154194-1-bvanassche@acm.org>
+References: <20260223215118.2154194-1-bvanassche@acm.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tqsdbijgjomrn7fq3sdz7v2axwxqvbccpjh4fmvod4kbrq7pod@af3igw5dx66p>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Feb 23, 2026 at 11:23:13PM +0200, Dmitry Baryshkov wrote:
-> On Tue, Feb 24, 2026 at 12:38:57AM +0530, Ekansh Gupta wrote:
-[..]
-> > diff --git a/drivers/accel/qda/qda_drv.h b/drivers/accel/qda/qda_drv.h
-[..]
-> > +/* Error logging - always logs and tracks errors */
-> > +#define qda_err(qdev, fmt, ...) do { \
-> > +	struct device *__dev = qda_get_log_device(qdev); \
-> > +	if (__dev) \
-> > +		dev_err(__dev, "[%s] " fmt, __func__, ##__VA_ARGS__); \
-> > +	else \
-> > +		pr_err(DRIVER_NAME ": [%s] " fmt, __func__, ##__VA_ARGS__); \
-> 
-> What /why? You are under drm, so you can use drm_* helpers instead.
-> 
+Before making changes in dma_buf_import_sync_file(), convert it to
+the early-return coding style. No functionality has been changed.
 
-In particular, rather than rolling our own wrappers around standard
-functions, just use dev_err() whenever you have a struct device. And for
-something like fastrpc - life starts at some probe() and ends at some
-remove() so that should be always.
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+Cc: linux-media@vger.kernel.org
+Signed-off-by: Bart Van Assche <bvanassche@acm.org>
+---
+ drivers/dma-buf/dma-buf.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-Regards,
-Bjorn
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 11711874a325..1666133ac8b8 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -523,11 +523,13 @@ static long dma_buf_import_sync_file(struct dma_buf=
+ *dmabuf,
+ 		dma_resv_lock(dmabuf->resv, NULL);
+=20
+ 		ret =3D dma_resv_reserve_fences(dmabuf->resv, num_fences);
+-		if (!ret) {
+-			dma_fence_unwrap_for_each(f, &iter, fence)
+-				dma_resv_add_fence(dmabuf->resv, f, usage);
+-		}
++		if (ret)
++			goto unlock;
++
++		dma_fence_unwrap_for_each(f, &iter, fence)
++			dma_resv_add_fence(dmabuf->resv, f, usage);
+=20
++unlock:
+ 		dma_resv_unlock(dmabuf->resv);
+ 	}
+=20
