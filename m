@@ -1,230 +1,223 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010018.outbound.protection.outlook.com [52.101.61.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBEDD29B799;
-	Mon, 23 Feb 2026 15:28:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60C6303A37
+	for <linux-media@vger.kernel.org>; Mon, 23 Feb 2026 15:51:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771860537; cv=fail; b=MCuhuqKDy0ANybKgeQHmkxQYWdZ7QVv9rFw8cGVy2IhwhKZLdms8Z+CRf36prQqIMDWLKiSkYDwvMcoC7dTTO444N4kHIb5QiUxKMO0Ig0zf+24FT7KF07OyhrPq53xgDa1Mkrpu2dDwi7ErG55KsAiuYHZ1SeLeY67YnbAzNco=
+	t=1771861899; cv=pass; b=pPPP3RwCE6nd1GLFOyIzFaQVMGIErXt7BX9aIzeWee4Xs0qAV6ir4YafSeKFXxDjpe+TIZZzkXcHkqtRKZ7vyJoSxBSZv/FrT16xXHyOBM6g561DOdTI19hAlM/MVA2jRtsbai0geZ+PCOVITdUVw0avuSaqHHeC8nBwbZ8xnTw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771860537; c=relaxed/simple;
-	bh=Aoy7oRSSA6EPvyGWV/4L+uWohZBM0k3QLh7ilSRvNK4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=L3pfUxPO5jXJ9uZCYvMJ8Bf17ZIcyae3EmtxkcVMpDWtIb1cdVVJLuc0sFrejHlXub0AfRPF+nLD1Q6yOulFu6Lh2Emf6Jmk1uTHXxAjvNlmh3n++dN2dKioSomH+wmfoAoEEcZIsQLsp0e0DvXo2tqydu+haGyrQ+WkuNHIC9c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ClAon9H0; arc=fail smtp.client-ip=52.101.61.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1771861899; c=relaxed/simple;
+	bh=d5zCa3ysNLijKNaGOI7tuajauNFQ8GHfuuwERS7PUF0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QUtrEeD9TQbRRpjAf2bcyAsAb+e9DxLmPmkX4BVE8fohck9zLPysQuxAwVvjuE1tjGBbNEJ7jgvRqdB/Swdlgq1IvwyQoXRppdpkPvKXuQufy+YqsuB//czZQf71IoVya2822HglEi87DukvWRRKX3PTuKL3l3dMYEJZedqAKbw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bez0+ejt; arc=pass smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ClAon9H0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XoapGF7kMU9mvSDrff1dMcsp2VvvzH+5H/EEUhimaTsg84LHNCMRfQjdAtyk05I2HFhvX91P2HmtYiplqO2wneW0sjc6s1KCtMKhWNM2uJiLVvbbCkl4Qi/jFOmUJSuXit+8FykjmcC53DMmCXT/ghceD/urPjxviCV2vo4jrIaSaYY37fjItgvzcyDJuO3THeWSuAg+QPaCN1Bwaw9GfxRB7O4/BBj9gt6AKzEnkoo8hv/7fzvnlQEGC8JZBgjxM9SfD1Ba8a3J3zuFB3sFc7RBfsIwSbFXkkIzIMols993LD1MTGpNw6xqdAAl/J/aUNCBKBvE8c/r2kY2PT/0kQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GZCCEPPJKiGBojHruLTGj+WvfsQRDRxM51DNmZ8VZEc=;
- b=Lh3r+FAwipW4dWRTPRLXzhYNN3xWa9OV2EtvXV27T1d/ny6NyVu87KgDd0b01w3Z1xP7hrhKKNKz6Kz0t4/kEBL2u//L84Tw1O85nWkF7bmUMScfqpaMqMnOSrCk5nNkOwo7uBep+Mdxjc3vcYG+OWoBWszRkhKbxrg/g8HLmDve/olXt7OyD5BUyEzWV41IyRgHZTFZDbZdieBOMmnyODo6OiawJ1BkIgaBG2bH9O2MTxagA2T6qJuju/S+bcYIu7dV+OKikDPLgU32MPCR4B8UlJePbbL2nPdos1DMbjQqnc1BNA30HvNjgsUhdxqySH6Ut2/KXZY36eyJZCax4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GZCCEPPJKiGBojHruLTGj+WvfsQRDRxM51DNmZ8VZEc=;
- b=ClAon9H05Mn5b4KEnADEwif6I1UAeyFdki3ZrEz6fcq02ah7QmMgXPxXkPAnOZ0kID04X1UnWBBZiDakrnYJ9ufQcXIBW+ZVBefOexAhGVJlRYxiYItbNVdg5+Yf1y0IopeBEDGM0Ll/5SYVAQodCtS6TrKw9xmdW63w96UFMRg2B6XeacECHJYA5AhSv3VuG4VS6/V6EteVGAn70j8JK4zDPgokiWYUxaXiyvTObNr+bF4ALlcgjUVraPZdckWURW9yDXLc1dOHKI47exRagsqyrdWdoBVuHK9OopAToNJVCTdk/ooOmD8h2PIRUd+8TPBJIGOR9QIZbDsZURC+9g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL3PR12MB6473.namprd12.prod.outlook.com (2603:10b6:208:3b9::16)
- by PH7PR12MB7163.namprd12.prod.outlook.com (2603:10b6:510:202::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.14; Mon, 23 Feb
- 2026 15:28:49 +0000
-Received: from BL3PR12MB6473.namprd12.prod.outlook.com
- ([fe80::778:72e1:e792:df81]) by BL3PR12MB6473.namprd12.prod.outlook.com
- ([fe80::778:72e1:e792:df81%3]) with mapi id 15.20.9632.017; Mon, 23 Feb 2026
- 15:28:48 +0000
-Message-ID: <b1da71d7-3daf-4850-9239-fd3e2a946d95@nvidia.com>
-Date: Mon, 23 Feb 2026 17:28:43 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH rdma-next v3 2/3] RDMA/uverbs: Add DMABUF object type and
- operations
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, Yishai Hadas <yishaih@nvidia.com>
-References: <20260201-dmabuf-export-v3-0-da238b614fe3@nvidia.com>
- <20260201-dmabuf-export-v3-2-da238b614fe3@nvidia.com>
- <716e8a8e-e4e0-468d-9314-10082c2bbb8d@roeck-us.net>
-Content-Language: en-US
-From: Edward Srouji <edwards@nvidia.com>
-In-Reply-To: <716e8a8e-e4e0-468d-9314-10082c2bbb8d@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0153.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b3::12) To BL3PR12MB6473.namprd12.prod.outlook.com
- (2603:10b6:208:3b9::16)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bez0+ejt"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-b8849dc12f6so644111366b.1
+        for <linux-media@vger.kernel.org>; Mon, 23 Feb 2026 07:51:37 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1771861896; cv=none;
+        d=google.com; s=arc-20240605;
+        b=CtooFn2Q1p74QsmP9xj06vWb6l0Y9lOhSr24z2hwLu1D9HJAjqrqIxW2NXXeZlBd/Z
+         RR7PbdZsNpp7RZEulq8YCKaLCUGNxnlHfPSD7/6XqtpUveTYBfVmAFyolbtgmAy55BME
+         NCkPhnUXDKziZAiqZbsQ1rjze3NVRI2ba3RwPnSnkYSV2ROEAz9Ucj2ByqQJsneQgLAK
+         L+4Wdjj2czKKsIDE67UhZr5W2t4+815U0yae0uqNNhjskkc16V9gTtNBDuYQ8zqrBSET
+         PtIAw/dyBmmju25CgjXbtIw2PWkkLeXFV6T9BCCzFXplyMhyflAZAIQ7M+1uWfU0/aFg
+         5XxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=npGY86N71VPo4TOfv73Omx9yZ3z0Eb9N82/SaZDWxbc=;
+        fh=gVqNAWsDXx1j3xNksFe3blcQMjZ++QOU0BScXYQXGJY=;
+        b=QizMct/bDAntvijMihj6G1hq6+AnTw8tTh4OBQh48sbbIUrPUG9DhuBPV8Z1YToLVU
+         t9IDecGkPklyBkoiPPDTeg8+VcMEfvpXp3GTMFLNQU7HtLx6QMGhuamZ8klE3Mn7l3p8
+         2npoO6jezO3DUetyE1eRz1Nk9xFm4iSYXImgmXk9o231Jfs09LXy8bOBt+0fD46LKp98
+         dhuPSGgGHBwiG1S4lY/TWqtor9DO67uYyHGqShORYExYCI3blnP/e3UW6KULFuIRIJOy
+         BcjUxFeVY2GBn1yVJDV5q9h6XGEXvQSxz3cVz2V8ZGT0rJ0bBeM9dGhPipcMadhOj1hm
+         tz4Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1771861896; x=1772466696; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=npGY86N71VPo4TOfv73Omx9yZ3z0Eb9N82/SaZDWxbc=;
+        b=Bez0+ejtvpYWPD6Kti1bkjLrHh/4ih0eYIM0CLxjHJVlyC5lHQHjEKF0CNkHaDuEqj
+         cX2cnDEAf7qRrLs8/C3MibBqjq4NnO55kbXTfuH8/Nxx6jwnOMpahcd+BT6S/CdCi1JH
+         KUJtx0cspJycQjPwSfacE7jXqTjOKa2T5ILFwWyAwyTfTP05EQrGoHDnILUdu9FWad3o
+         qbEmW4NoUFk3SaZ6xWr4LES3oxs34gzL9jKWeuyFPeI3DkWSJDZv4Gpd6GKXlNwQMJpf
+         nVxvrZuxvOrPFJhe7ZUNsnwKzjKRrU4q7YjLGxGI51cWL7miac2P1Y9+lB0iWh/Q5Nv6
+         YUlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1771861896; x=1772466696;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=npGY86N71VPo4TOfv73Omx9yZ3z0Eb9N82/SaZDWxbc=;
+        b=xE9LAVeLb8ptFztVveQ22SHwuRGrQlGkjUuzZwbpZankByI6tVddsRaNpaSetm/3qD
+         FCi8ReFDvVFj+868wnzwAY9GAtR1kPycR1eOtHDo40cuHbCqU48WMLzQHhxOcvdsGH6P
+         gdqzfL+5pg2ItSVrxpLCZa7cb0lBS0CiBmM97h4ziEkolh1WeXSlRfq4vtBSUivZS0OE
+         AN9c7jv1Cd3vk3Y3JXbFvxJRN6H9Ywg6a9OxtkQ+Zrwm4mC1CcVjVwUMak6XzswiAj/r
+         ljR6uHdThl7Ciqm+b9cWaevVRn6J1RHd6qiutVKCwV3A6gdM4H0xsTa8iEDgm/B+F34s
+         sLyg==
+X-Forwarded-Encrypted: i=1; AJvYcCV0UWNYDYf4dLlh/L17a7mjOlnmWVGN6Mdicwn7HAxW4hPzin7szUou1jdXfbtEZZBao+TqvEjJQiZmLw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwojWsc6oWrpsdS1IclWYlNv4w263gbyqZzWZxyOw7CF773vCal
+	yJQl10bjBB3MLNkGPoQHOHpMm0Pf5wJRUUpG+cBNa2WY1qQsYxjqUblRniieVt4L1OT8vN6KWU7
+	0P5IFZH3E9A3p2/LpTaoSY7UqTTzmPAE=
+X-Gm-Gg: AZuq6aLbZllMisrrZTutbZKffeCEXbQ960JKH7IW8HZWiJk4ujx0LvtySUSrKLFFoLK
+	SMshNst6N3GKSTe7qCy5z2zOGNTn39Sb3IemWeFJvGXbT+h8EpaAYGIk21n0hxv9JCycmY0NjbX
+	1RlAP9+45gqwovJ3lDfo1rqwqQ17YCkh+CeOfZ7wxp+5CKZydtPnhH+7kt+6fdzGfRANmH2Wj7d
+	a8gh6T5/mH5vcmVIV/sQOhzAaFU9uvhEZU76KljBDQE+aRESzKirxrVsc5GdURvDp+Yd9kcSm6w
+	8+V2UXMAUde2DaIWjaQr9j7Xj+2Ec3G2RfaVNOH4vCySHB5hU+66fMg2yZJWKpokyIe+9o7FNk2
+	O1ruTn9g=
+X-Received: by 2002:a17:906:5ad6:b0:b8f:e424:ae56 with SMTP id
+ a640c23a62f3a-b9081badd6emr413937066b.44.1771861895691; Mon, 23 Feb 2026
+ 07:51:35 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL3PR12MB6473:EE_|PH7PR12MB7163:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ddc88a0-be29-4302-eb8e-08de72f03d99
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UVZQUmdGeXVhbUFSODYrdWtZeWppdFpITENrWWIyckt0TldsRlV0N1JFNUNz?=
- =?utf-8?B?ODVQR0sxRlFoMGVkbnh3dFdvMERpZmhnWU1SaG44ZS85YzE5QVVVWktRUGVi?=
- =?utf-8?B?QlZJM09mRkYvNUUvek1SQk5CTkg2R1BCZzN6MHg2VUJmVWhhb1dPZDRka3JY?=
- =?utf-8?B?c2FLZC9aMlBEWXZyZEdxY3lJdngzTHNYejUybUI3ckV4UWRzNHJBZjJVc21V?=
- =?utf-8?B?UUprY2RmY0RUemlOazMrZGJVV2FiR3pUS1cyU2E5cXFxQU5tRjF5ZXp4WDBu?=
- =?utf-8?B?aFYzWWE3RktVY0xIVzNjV0tGWTA4QmZoRDdaSTJ3alpwWGVUd0I1bjNONElt?=
- =?utf-8?B?M1BvUXNwejIzU3Qra0ZMYjhYVkxEUE9pV2pNMHdWbFl5cW5qOUtBdjVrRzNS?=
- =?utf-8?B?aDE0cHoycWRla3JqZXN6bjA3VHU2NWNPTVI0aGRhOUFnSU1hUXNPSklBZVlV?=
- =?utf-8?B?Sk1YVEt4NGI2RkduSFNUVTl3ZUZoRXAxQWljTzJLNTFrUVhsSXFLM25VNGxx?=
- =?utf-8?B?MGZHUXJzVStKV0lMSUVJbkMxTkNQTUpiaEFOZERZMXZRR0dyVXVwTUlMV1pV?=
- =?utf-8?B?VkJNYVYwZGFFK0poelhkdEY2MzQ4WEp2eGthV2FMbjMrcE9SK1FhbjUxZW5s?=
- =?utf-8?B?SDN0ZjB6Q0plaThxcDdGcjZpVm1HMzF5SVQ4eXVoTlJGd3p4K2lqTTROWmJi?=
- =?utf-8?B?ejI0d2lLOWtaQ2pqTS8xSEJzMkVVazlJaHloeXR3Um84ZW5keUYxVzBwL1Ni?=
- =?utf-8?B?SytZaWpZZjRkN3ZFSWhLaEVxWWI1K1dwUFU3Q3YzU1pqaTM3WjVHYi9YWkV5?=
- =?utf-8?B?d3JyMGZXVGl0azVvVlZUSko0OG9kNmVYUjhUdFVNTHRPR2xpUDhFekVOaWhl?=
- =?utf-8?B?YWFLelk4T0c4Qk5IaTFUZ0hWaG1iUFlMTWtTbGZrMGdWQVJDWjR6SVZSbmxP?=
- =?utf-8?B?MGRSTEV3SWFPWkgvMEExbmR4Q2Q2S3JQWTk1WTRyeC9jVURrSmMvS2R2K0lI?=
- =?utf-8?B?ekluMVROMi90eDN2aUpnMUc3c1d1RWxaWHJOVFFDREIzK2QwODU2d0diNmcx?=
- =?utf-8?B?RHRMRUxSS3RNczdnMEtRSXU3U01HcGdLQlRzSjlMeDRpdVUvN2ZMRlU1NFR3?=
- =?utf-8?B?cXlPSDBja3YwWUlLTkdEdUZqUWhVbmtqWTFROURXK1EvYUQxdFJ5MnhoSWJJ?=
- =?utf-8?B?V3lac1NzYkNGSE1BYm94RXJzdUN5eTlxMGFpcjZCN1NNa1ZxSnJKOWNKV2VC?=
- =?utf-8?B?bkVnRlVIaFA5dGtHVUxPUit3WTE0cDZPdDJEa093QThlR3FaZmcrTnFlWENX?=
- =?utf-8?B?S3l3c2s2ejZxbFE4TmN1b2V1UE9JNmhqSU9XU2NIVFNxa0ZaTUFTQXBXRlQw?=
- =?utf-8?B?SEwxNXM3NmVFWHEwTUVBcnlsSHRETUd5SDFRZVlGYVlGMks5cXZNYlFDZVc3?=
- =?utf-8?B?d0gwM1BJM3ZsTnhFMEhSbnJCUFdtQTZZdUhyQVN3engwa1NyRHJEMnRZZnZk?=
- =?utf-8?B?TXNjdk5ESkNuenBrd3pGOFdVdWFFQ3gyNk9VRkRVU0F1aGZHdDEwVDB6L2Ix?=
- =?utf-8?B?ZWorZ283WEs4YmpzY3ZId25NK3kvQjVpWmVCMmd3SXZnSEdZeTR5QnRDRGZo?=
- =?utf-8?B?OWxzcW8xREhtemluMlRhczAvdHBHcUxrVUxVdE9QeHI1cFpEeU9CVmFNdS9l?=
- =?utf-8?B?a040eXZIdVhZYTFzc3hqYnY0dW9UQlVwZnBtV3FNbk9WR21JK2lIbWM5TlNv?=
- =?utf-8?B?MmxCMUhNV01nbzh2SGxSU2dwZTdDOUJnLzNnMjVHMkxmdnd4WHRLSTFSZzZW?=
- =?utf-8?B?aHp1Vm5XWWZDTlB0ZDVSY0hIU0ZtWnJMQTlWbUkvaDhyNW0rS1B0bW9DWnZQ?=
- =?utf-8?B?NExLZlh3Qm5yM2tXc0hTSEdSYmQwZHhWSzYyQkxPSFdxMjhQN0pWL1hERFZB?=
- =?utf-8?B?ZnNmTTFZQ1BIYXlvb014bU9DSVo5MHZuUGZmd0RSdFZsZUxvWmpIdGRLaU9P?=
- =?utf-8?B?S00ycXQzZ0RzMS9vT3VjT1dlQ1c4ano4L20wU0o5Qy9VVGlHdjFWT24rWjNG?=
- =?utf-8?B?eDZhMjY5SllFOCtBNy9YTEFIT09xalNleUl1RTRsdk1jMWJBRGRVMDV0NDdD?=
- =?utf-8?Q?9TOk=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL3PR12MB6473.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YUdybmtxZXhEWTdzZTVVWFE4SDJhazFIaklJOE5Icis1dkxKWGtOMjJVTXNU?=
- =?utf-8?B?YnpBdEtEL3RScTZsdkM5d1A3VFZsTVIxN3ozMnhSZlRUMUVJbWFUNkxDVVd2?=
- =?utf-8?B?MFNuQ1J0Z2ViVGtmalE4OVJMTU80NUdYQitneFYrSnM1MXFyeE9xM3dTOC9Q?=
- =?utf-8?B?ek5ydkN1MkVEQ2U0dkc0c0hEMzhDZTlYcm96NkQ1TkgwbS81K3loR3h2Zy80?=
- =?utf-8?B?R28vRFYzOG56eFhtc1dSeStLcTFsV21ndzhwL01NT3d2eXlnelo1akVJd1Mr?=
- =?utf-8?B?d2tqbnN4dzhuNVdXMWdiQTB6SG5uUTBNNEJnblpuRUlDNmpybUI5SDFxS09j?=
- =?utf-8?B?ZVVVd3REU0F1SUFjZHljaG9UZ0g3Q3dBdkIrYkQ2a1JaY0dXMi9jeEZ0ejBo?=
- =?utf-8?B?a2FjR29JQnBGQ3RER2RRUVhwSGNjdm5QQXRYMlVjc21IZFpWdXpoMEc3ZEhv?=
- =?utf-8?B?YmF2RnJIRzRwcHo1elVLaUN1UjdUa1pidHh4aWRrVFNQaGdqU0paUHFMdHhw?=
- =?utf-8?B?MzdPL2NLQ3hJS24xY0d5d1RaaFh5b24vM1ZZMDQwMTcxbFJQYVVoQmRJU3pm?=
- =?utf-8?B?RFc0MTFjU3VUZERXSXV3QzNjbFkwTkwxT0VEYkJtK1BLM0pRRW9OZHNoVlpH?=
- =?utf-8?B?eUdmSFNldHgybk5JMVljOHVXM2dWTVE3M3ZtWkN1MGVONHJMNDVrRnkrSDlW?=
- =?utf-8?B?ZDRkL1plbk1NQnk0VFhvVThjMTNaVUJQUG5SbkJGbFkvRVAzSXdCdmVlNmNn?=
- =?utf-8?B?K1l3U0lxL1JUNFFjZXVvZmNsWFgvcHVzK1UwcDZPLzBmSThGdzI0UGhybVJZ?=
- =?utf-8?B?S1NxcXExWXFSTnFEWUxNWUoxRHg1OXNTdncvd3RWUlFOMkNHQ0RKVW9MenVN?=
- =?utf-8?B?RnR3anVBRkxJdE5Ic1NCdnUrMXRvOWM2ZlVMWXNlZThldFczcTZmUCtrUTNm?=
- =?utf-8?B?MEFITlFkc2gwTWkva3dNM1RINnN5WnBjNThqS3YzQ0x1cDJDQk5VTnRtODhN?=
- =?utf-8?B?R2YyVnlRTGZjOCtBR2t3MmNVVml3b0JFZ0F4Ry9URC94cnE4ZHJNM0U3d0F6?=
- =?utf-8?B?NCtmSjkxNU5DSERyT2ZMVUZ2TVdTM1hRTzREVzVrN1A3UTMyWXRqdWpENVIv?=
- =?utf-8?B?M05hNmRvVjBJZ3NnWjJwRUFRSzF6S3daV3cvSEkzUmh1eS9SeDRpVjQyWlBC?=
- =?utf-8?B?L0dueEt2UVphcmVTUWF4Zzg1ZkJsdnEvbFkyN3IxL2lzMEhNVjcvenBoVjJ6?=
- =?utf-8?B?c3JwT3poN0xFY2hJa1RyTzQ3WmM0djgyUEk2cGJ5YmNGelA2eW45Z3pwVjAv?=
- =?utf-8?B?bnZTR05sdjBTTGxPM3RoZzArQTZxY2YxbXIxWEVuYlBEYzRMa0o0UitsaERL?=
- =?utf-8?B?aHNrOFJEbjRXSVNyRCsxZzA5RFBuQmFIcDQ2YUJxL3EzUzh0Ri9wUjdCd1U5?=
- =?utf-8?B?U0txZ213YWdhWkNKWDQ0R1BZM0psRG9tSWRQb1NmNUNtamxUa1pnb3ZEYkM1?=
- =?utf-8?B?L0Frc2hteXNZMzRqbDI4d3JwcEtXWlFZaWJPandPVHVmb2FxYng2SFVOalJG?=
- =?utf-8?B?QWtlcXh1RDV0M29JcHUwbldTVzRqMEs1cVdQMDhwWWp4WG1zS3dqb2hMWnRw?=
- =?utf-8?B?RzdBT1UvWHNxUFZxcDltN05DS1hKdkl6M2pDZCtpaDY0SDVNb2JnM3IyV3Zt?=
- =?utf-8?B?UHZHZG90OWZ1dDIzR2Nvb3pXWVNRdWdwMlBJR0VQR2JRK28yRzhsSzA5Z00y?=
- =?utf-8?B?ODdrZ04xbFV1N0UyUmZ1WTdqQVBHRFZyZnlqWkRBZ2lXRlk1RGtndDFydXM0?=
- =?utf-8?B?b0pOVDZLdmdPWEJsNU1vVDR5cDhtaEhLQzM2SWRKWlltS2drQS9BTG9lTXB5?=
- =?utf-8?B?emJEMmdFUStaRU9OcUc2NnpsVURiUGN3UUUrRHFIY2p2NE85NEt6WkVVZ3JC?=
- =?utf-8?B?ZmNNeGFYM2RZWVNDT3FKZkk0K016T1YranNOMGNMb1FuM0UzK3ltaGFrSGlD?=
- =?utf-8?B?L3kzbUlVZGVDUDEwVjcrZDBtcXRSdUZYNFpyblNsOG1YSVRJcXJHSDg0bmVz?=
- =?utf-8?B?dkREcXUrc2Zia1NMUmRhVnhKTnptREJqazRvZXZkbmUzZ2FTWk1iUnVpbTI2?=
- =?utf-8?B?TjFSVW54Y3JnL3A5Y21RUlVjVU5zTGF3WURnWG5MYWhHYk1ra0xEVUhoK0JL?=
- =?utf-8?B?S005N3JaaXNTTnlYaW5YWnB0QjgvMW9QbXphMDdrV01JSzRXUlRGUDBFbndM?=
- =?utf-8?B?WlFwV29OV1pzelJEbDJ6a1hCYnpqbE43ZkdEd0FoTzlxREo4cUJUdG1wcm81?=
- =?utf-8?Q?d5YFPO5XCxIiYOEIxG?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ddc88a0-be29-4302-eb8e-08de72f03d99
-X-MS-Exchange-CrossTenant-AuthSource: BL3PR12MB6473.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2026 15:28:48.7829
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GrYMbYLz3VAbQh2awNb1AkaGPfYwHCXYRhuV/J0Lis5SwIpq0HK0pv6qrY7urYlvFMRozK+3fiBZmq7wpKiEDw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7163
+References: <1771860581-82092-1-git-send-email-shawn.lin@rock-chips.com>
+In-Reply-To: <1771860581-82092-1-git-send-email-shawn.lin@rock-chips.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 23 Feb 2026 17:50:59 +0200
+X-Gm-Features: AaiRm51McMZohKyigNQFIbQDImiJ8vF_g2F0DjapyVKPe6Rkgx4x17MorqEdw1M
+Message-ID: <CAHp75VeWD5A0r7-Uayyte1ZXXxdhLixd+z_y0xNeki0N+Ro=jQ@mail.gmail.com>
+Subject: Re: [PATCH 0/37] PCI/MSI: Enforce explicit IRQ vector management by
+ removing devres auto-free
+To: Shawn Lin <shawn.lin@rock-chips.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, 
+	"Vaibhaav Ram T . L" <vaibhaavram.tl@microchip.com>, 
+	Kumaravel Thiagarajan <kumaravel.thiagarajan@microchip.com>, Even Xu <even.xu@intel.com>, 
+	Xinpeng Sun <xinpeng.sun@intel.com>, 
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, Jiri Kosina <jikos@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Zhou Wang <wangzhou1@hisilicon.com>, 
+	Longfang Liu <liulongfang@huawei.com>, Vinod Koul <vkoul@kernel.org>, Lee Jones <lee@kernel.org>, 
+	Jijie Shao <shaojijie@huawei.com>, Jian Shen <shenjian15@huawei.com>, 
+	Sunil Goutham <sgoutham@marvell.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, "David S . Miller" <davem@davemloft.net>, 
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>, Oded Gabbay <ogabbay@kernel.org>, 
+	Maciej Falkowski <maciej.falkowski@linux.intel.com>, 
+	Karol Wachowski <karol.wachowski@linux.intel.com>, Min Ma <mamin506@gmail.com>, 
+	Lizhi Hou <lizhi.hou@amd.com>, Andreas Noever <andreas.noever@gmail.com>, 
+	Mika Westerberg <westeri@kernel.org>, Tomasz Jeznach <tjeznach@rivosinc.com>, 
+	Will Deacon <will@kernel.org>, Xinliang Liu <xinliang.liu@linaro.org>, 
+	Tian Tao <tiantao6@hisilicon.com>, Davidlohr Bueso <dave@stgolabs.net>, 
+	Jonathan Cameron <jonathan.cameron@huawei.com>, Srujana Challa <schalla@marvell.com>, 
+	Bharat Bhushan <bbhushan2@marvell.com>, Antoine Tenart <atenart@kernel.org>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, Raag Jadav <raag.jadav@intel.com>, 
+	Hans de Goede <hansg@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Mika Westerberg <mika.westerberg@linux.intel.com>, 
+	Andi Shyti <andi.shyti@kernel.org>, Robert Richter <rric@kernel.org>, Mark Brown <broonie@kernel.org>, 
+	Nirmal Patel <nirmal.patel@linux.intel.com>, 
+	Kurt Schwemmer <kurt.schwemmer@microsemi.com>, Logan Gunthorpe <logang@deltatee.com>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Bingbu Cao <bingbu.cao@intel.com>, 
+	Ulf Hansson <ulf.hansson@linaro.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
+	linux-i3c@lists.infradead.org, dmaengine@vger.kernel.org, 
+	Philipp Stanner <phasta@kernel.org>, netdev@vger.kernel.org, nic_swsd@realtek.com, 
+	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-usb@vger.kernel.org, iommu@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, linux-cxl@vger.kernel.org, linux-crypto@vger.kernel.org, 
+	platform-driver-x86@vger.kernel.org, linux-serial@vger.kernel.org, 
+	mhi@lists.linux.dev, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Jan Dabros <jsd@semihalf.com>, linux-i2c@vger.kernel.org, 
+	Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>, linux-spi@vger.kernel.org, 
+	Jonathan Derrick <jonathan.derrick@linux.dev>, linux-pci@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	linux-media@vger.kernel.org, linux-mmc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Feb 23, 2026 at 5:32=E2=80=AFPM Shawn Lin <shawn.lin@rock-chips.com=
+> wrote:
+>
+> This patch series addresses a long-standing design issue in the PCI/MSI
+> subsystem where the implicit, automatic management of IRQ vectors by
+> the devres framework conflicts with explicit driver cleanup, creating
+> ambiguity and potential resource management bugs.
+>
+> =3D=3D=3D=3D The Problem: Implicit vs. Explicit Management =3D=3D=3D=3D
+> Historically, `pcim_enable_device()` not only manages standard PCI resour=
+ces
+> (BARs) via devres but also implicitly triggers automatic IRQ vector manag=
+ement
+> by setting a flag that registers `pcim_msi_release()` as a cleanup action=
+.
+>
+> This creates an ambiguous ownership model. Many drivers follow a pattern =
+of:
+> 1. Calling `pci_alloc_irq_vectors()` to allocate interrupts.
+> 2. Also calling `pci_free_irq_vectors()` in their error paths or remove r=
+outines.
+>
+> When such a driver also uses `pcim_enable_device()`, the devres framework=
+ may
+> attempt to free the IRQ vectors a second time upon device release, leadin=
+g to
+> a double-free. Analysis of the tree shows this hazardous pattern exists w=
+idely,
+> while 35 other drivers correctly rely solely on the implicit cleanup.
 
+Is this confirmed? What I read from the cover letter, this series was
+only compile-tested, so how can you prove the problem exists in the
+first place?
 
-On 2/23/2026 6:59 AM, Guenter Roeck wrote:
-> External email: Use caution opening links or attachments
-> 
-> 
-> On Sun, Feb 01, 2026 at 04:34:05PM +0200, Edward Srouji wrote:
->> From: Yishai Hadas <yishaih@nvidia.com>
->>
->> Expose DMABUF functionality to userspace through the uverbs interface,
->> enabling InfiniBand/RDMA devices to export PCI based memory regions
->> (e.g. device memory) as DMABUF file descriptors. This allows
->> zero-copy sharing of RDMA memory with other subsystems that support the
->> dma-buf framework.
->>
->> A new UVERBS_OBJECT_DMABUF object type and allocation method were
->> introduced.
->>
->> During allocation, uverbs invokes the driver to supply the
->> rdma_user_mmap_entry associated with the given page offset (pgoff).
->>
->> Based on the returned rdma_user_mmap_entry, uverbs requests the driver
->> to provide the corresponding physical-memory details as well as the
->> driver’s PCI provider information.
->>
->> Using this information, dma_buf_export() is called; if it succeeds,
->> uobj->object is set to the underlying file pointer returned by the
->> dma-buf framework.
->>
->> The file descriptor number follows the standard uverbs allocation flow,
->> but the file pointer comes from the dma-buf subsystem, including its own
->> fops and private data.
->>
->> When an mmap entry is removed, uverbs iterates over its associated
->> DMABUFs, marks them as revoked, and calls dma_buf_move_notify() so that
->> their importers are notified.
->>
->> The same procedure applies during the disassociate flow; final cleanup
->> occurs when the application closes the file.
->>
->> Signed-off-by: Yishai Hadas <yishaih@nvidia.com>
->> Signed-off-by: Edward Srouji <edwards@nvidia.com>
-> 
-> When trying to build powerpc:ppc64e_defconfig:
-> 
-> ERROR: modpost: "dma_resv_wait_timeout" [drivers/infiniband/core/ib_core.ko] undefined!
-> ERROR: modpost: "dma_buf_move_notify" [drivers/infiniband/core/ib_core.ko] undefined!
-> ERROR: modpost: "dma_resv_reset_max_fences" [drivers/infiniband/core/ib_core.ko] undefined!
-> 
-> The code now requires CONFIG_DMA_SHARED_BUFFER which is not enabled for
-> this platform.
-> 
-> Guenter
+> =3D=3D=3D=3D The Solution: Making Management Explicit =3D=3D=3D=3D
+> This series enforces a clear, predictable model:
+> 1.  New Managed API (Patch 1/37): Introduces pcim_alloc_irq_vectors() and
+>     pcim_alloc_irq_vectors_affinity(). Drivers that desire devres-managed=
+ IRQ
+>     vectors should use these functions, which set the is_msi_managed flag=
+ and
+>     ensure automatic cleanup.
+> 2.  Patches 2 through 36 convert each driver that uses pcim_enable_device=
+() alongside
+>     pci_alloc_irq_vectors() and relies on devres for IRQ vector cleanup t=
+o instead
+>     make an explicit call to pcim_alloc_irq_vectors().
+> 3.  Core Change (Patch 37/37): With the former cleanup, now modifies pcim=
+_setup_msi_release()
+>     to check only the is_msi_managed flag. This decouples automatic IRQ c=
+leanup from
+>     pcim_enable_device(). IRQ vectors allocated via pci_alloc_irq_vectors=
+*()
+>     are now solely the driver's responsibility to free with pci_free_irq_=
+vectors().
+>
+> With these changes, we clear ownership model: Explicit resource managemen=
+t eliminates
+> ambiguity and follows the "principle of least surprise." New drivers choo=
+se one model and
+> be consistent.
+> - Use `pci_alloc_irq_vectors()` + `pci_free_irq_vectors()` for explicit c=
+ontrol.
+> - Use `pcim_alloc_irq_vectors()` for devres-managed, automatic cleanup.
 
-A fix was already sent, which I believe solves your issue:
-https://lore.kernel.org/linux-rdma/20260216121213.2088910-1-arnd@kernel.org/
-It adds 'select DMA_SHARED_BUFFER' to the infiniband Kconfig entry.
+Have you checked previous attempts? Why is your series better than those?
 
+> =3D=3D=3D=3D Testing And Review =3D=3D=3D=3D
+> 1. This series is only compiled test with allmodconfig.
+> 2. Given the substantial size of this patch series, I have structured the=
+ mailing
+>    to facilitate efficient review. The cover letter, the first patch and =
+the last one will be sent
+>    to all relevant mailing lists and key maintainers to ensure broad visi=
+bility and
+>    initial feedback on the overall approach. The remaining subsystem-spec=
+ific patches
+>    will be sent only to the respective subsystem maintainers and their as=
+sociated
+>    mailing lists, reducing noise.
 
+--=20
+With Best Regards,
+Andy Shevchenko
