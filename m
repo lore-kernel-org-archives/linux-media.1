@@ -1,61 +1,52 @@
 Received: from korolev.univ-paris7.fr (korolev.univ-paris7.fr [194.254.61.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC47C1E834B
-	for <linux-media@vger.kernel.org>; Mon, 23 Feb 2026 13:39:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0972B21CA13
+	for <linux-media@vger.kernel.org>; Mon, 23 Feb 2026 13:41:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.254.61.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771853981; cv=none; b=ny6ZYCszpc5tb7ZPbQTp/PyUwvT1/Dqx9z2KUVoyKohizk5yUE1WiviNA/nve/jwO8IzdQiBFyE1yqLBBdKdHlyEZc0sCHcMfArzYFPzPkM7IB99pB3lFZb9+Aid/1/nPYEUiPrXheOjg0JtVtYkTfr3zQ+lneMoo/HL520HEa8=
+	t=1771854104; cv=none; b=D7WGtWI6qLlJOP90hGDapj1SpIz3bFyNEiNaALU9IfPW32SYML8OTRWlq1u6epSjYj4wdNqyfOI4GwTFjj6zVbbUHSmcQ8UnkXPhtl4uNmaPub0FS8934KORd47rrh6Zta+L3+RLdKfVv3n72ONfQUFbe3Onyv8d4qxId7TizYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771853981; c=relaxed/simple;
-	bh=lKkU4kEqwljY13HFBbNnrgT2ISv+Of4FmpRg9oa3wrY=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=S6Xc/8T9M5SVCWp3zdPsdQnnOZY1XSu5NkuveK5SB2JHb/ayWLHEv1K2EKhQOf9T3JpCpv7QpJ/CI/L4sAd5KLzUy0F+V+6vAmkt4sY9D/SN7it+GGkk9DQUTO5wQ1F7DpNenrl16llvsgSpZ7RGyAdI3+xJMnlLZYYqdgQadBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irif.fr; spf=pass smtp.mailfrom=irif.fr; dkim=pass (2048-bit key) header.d=irif.fr header.i=@irif.fr header.b=eFWsRl4L; arc=none smtp.client-ip=194.254.61.138
+	s=arc-20240116; t=1771854104; c=relaxed/simple;
+	bh=V0ovVvZ255OunyQAAtgg+dEaTpsV/xCOaTfQ89QvZss=;
+	h=Date:Message-ID:From:To:CC:Subject:MIME-Version:Content-Type; b=odN/IQrs2yVEHXaRxg9vjnWh58nT0v4gK3NZUdbvsaM1dAsuuStd5vTjbHfMwJqWC11R1/iMvV+IxQi8PCMqVONIzBUtGIMcIVBF4meyK0LK6LVqLdNXFmRBBJ+ejwCRrXlaCybU3Jprz4cFSl+AD3SsQ7GrSrtrGS+6wEvEhrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irif.fr; spf=pass smtp.mailfrom=irif.fr; dkim=pass (2048-bit key) header.d=irif.fr header.i=@irif.fr header.b=M4aD3Ztl; arc=none smtp.client-ip=194.254.61.138
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irif.fr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=irif.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=irif.fr header.i=@irif.fr header.b="eFWsRl4L"
-Received: from potemkin.univ-paris7.fr (potemkin.univ-paris7.fr [IPv6:2001:660:3301:8000::1:1])
-	by korolev.univ-paris7.fr (8.14.4/8.14.4/relay1/82085) with ESMTP id 61NDdPav002675
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Mon, 23 Feb 2026 14:39:25 +0100
+	dkim=pass (2048-bit key) header.d=irif.fr header.i=@irif.fr header.b="M4aD3Ztl"
 Received: from mailhub.math.univ-paris-diderot.fr (mailhub.math.univ-paris-diderot.fr [81.194.30.253])
-	by potemkin.univ-paris7.fr (8.14.4/8.14.4/relay2/82085) with ESMTP id 61NDdOFn011099;
-	Mon, 23 Feb 2026 14:39:24 +0100
+	by korolev.univ-paris7.fr (8.14.4/8.14.4/relay1/82085) with ESMTP id 61NCw221019191;
+	Mon, 23 Feb 2026 13:58:06 +0100
 Received: from mailhub.math.univ-paris-diderot.fr (localhost [127.0.0.1])
-	by mailhub.math.univ-paris-diderot.fr (Postfix) with ESMTP id D330744422;
-	Mon, 23 Feb 2026 14:39:23 +0100 (CET)
+	by mailhub.math.univ-paris-diderot.fr (Postfix) with ESMTP id 39986438D8;
+	Mon, 23 Feb 2026 13:58:02 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=irif.fr; h=
-	content-type:content-type:mime-version:user-agent:references
-	:in-reply-to:subject:subject:from:from:message-id:date:date
-	:received:received; s=dkim-irif; t=1771853963; x=1772717964; bh=
-	lKkU4kEqwljY13HFBbNnrgT2ISv+Of4FmpRg9oa3wrY=; b=eFWsRl4LDWVhyw7q
-	ooSgh7/wh9HoSoS0jB7YriA2x05RUj4d/ZBxQGf6gef47eNkglstgNptOIuRICeD
-	oi8UoR0hEwLVolkBoWK47QfKDaHDS6trrHPsVEpFI2Sp3XL2XHtFXLT1v976m6gI
-	nOz9av/VumHmsGbZHHYnZmXnY1sm6UJj7tfEBWsysPz6WAMsoIcS3RpZt+X1Vu9M
-	LVRtyIqijL0h7EAJ9E8ZencAlU9edmOpIfrL0AD9sfZ9n9gZ/YM/+m/4Q1zASCMP
-	/beF0+BlbN45KCtOCfAdnEhZXz72DrprySngx638RHHYmqYZnyzl19ARSV16/geP
-	hB6FUQ==
+	content-type:content-type:mime-version:user-agent:subject
+	:subject:from:from:message-id:date:date:received:received; s=
+	dkim-irif; t=1771851481; x=1772715482; bh=V0ovVvZ255OunyQAAtgg+d
+	EaTpsV/xCOaTfQ89QvZss=; b=M4aD3ZtlQC/h3EdZiX3Ccm1UsFx4r26uQ+oQGM
+	LZ/0I1OPyIuXgNOdtNDMiRF4BWjpMlFsYAUadMrk9HP/7TJzeWw6pkAIcUWe7UKz
+	4DwJbfQANRDmsWvrUleulvw+blYcIyTzdhBOdmzdo98nAazAxgmZphNPCbDdSTvu
+	jzpCy1/QavZZPe0Y6yGncutmexcT6Q3sgIx5ESsbrzOnhmsncikEf61LFp38rUk1
+	qSLQ6vzc8Z0Fb0Zak4ZQBbrpFtiX8Sbn+1Hyma4GW448vIwArajqEUIpvWCLqGOY
+	7XqnbYMo9AH2Ep+8ynnXNXTgDIS30tVhoEQcWl+1+XeXz2Jg==
 X-Virus-Scanned: amavisd-new at math.univ-paris-diderot.fr
 Received: from mailhub.math.univ-paris-diderot.fr ([127.0.0.1])
 	by mailhub.math.univ-paris-diderot.fr (mailhub.math.univ-paris-diderot.fr [127.0.0.1]) (amavisd-new, port 10023)
-	with ESMTP id Bfw8xuseL4jb; Mon, 23 Feb 2026 14:39:23 +0100 (CET)
+	with ESMTP id gYyOwVIpdOsS; Mon, 23 Feb 2026 13:58:01 +0100 (CET)
 Received: from trurl.irif.fr (82-64-191-149.subs.proxad.net [82.64.191.149])
 	(Authenticated sender: jch)
-	by mailhub.math.univ-paris-diderot.fr (Postfix) with ESMTPSA id AB9E8445A8;
-	Mon, 23 Feb 2026 14:39:22 +0100 (CET)
-Date: Mon, 23 Feb 2026 14:39:22 +0100
-Message-ID: <871pibinp1.wl-jch@irif.fr>
+	by mailhub.math.univ-paris-diderot.fr (Postfix) with ESMTPSA id B63C04394D;
+	Mon, 23 Feb 2026 13:58:00 +0100 (CET)
+Date: Mon, 23 Feb 2026 13:58:00 +0100
+Message-ID: <875x7niplz.wl-jch@irif.fr>
 From: Juliusz Chroboczek <jch@irif.fr>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, Bingbu Cao <bingbu.cao@intel.com>,
-        Tianshu Qiu <tian.shu.qiu@intel.com>,
-        Antti Laakso <antti.laakso@linux.intel.com>
-Subject: Re: OVTI08F4:00 sensor not in media graph
-In-Reply-To: <aZxWQHpxWJXciuWU@kekkonen.localdomain>
-References: <875x7niplz.wl-jch@irif.fr>
-	<aZxWQHpxWJXciuWU@kekkonen.localdomain>
+To: linux-media@vger.kernel.org
+CC: Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Bingbu Cao <bingbu.cao@intel.com>,
+        Tianshu Qiu <tian.shu.qiu@intel.com>
+Subject: OVTI08F4:00 sensor not in media graph
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -64,23 +55,50 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.2.7 (korolev.univ-paris7.fr [IPv6:2001:660:3301:8000::1:2]); Mon, 23 Feb 2026 14:39:25 +0100 (CET)
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.2.7 (potemkin.univ-paris7.fr [194.254.61.141]); Mon, 23 Feb 2026 14:39:25 +0100 (CET)
-X-Miltered: at korolev with ID 699C588D.000 by Joe's j-chkmail (http : // j-chkmail dot ensmp dot fr)!
-X-Miltered: at potemkin with ID 699C588C.001 by Joe's j-chkmail (http : // j-chkmail dot ensmp dot fr)!
-X-j-chkmail-Enveloppe: 699C588D.000 from potemkin.univ-paris7.fr/potemkin.univ-paris7.fr/null/potemkin.univ-paris7.fr/<jch@irif.fr>
-X-j-chkmail-Enveloppe: 699C588C.001 from mailhub.math.univ-paris-diderot.fr/mailhub.math.univ-paris-diderot.fr/null/mailhub.math.univ-paris-diderot.fr/<jch@irif.fr>
-X-j-chkmail-Score: MSGID : 699C588D.000 on korolev.univ-paris7.fr : j-chkmail score : . : R=. U=. O=. B=0.000 -> S=0.000
-X-j-chkmail-Score: MSGID : 699C588C.001 on potemkin.univ-paris7.fr : j-chkmail score : . : R=. U=. O=. B=0.000 -> S=0.000
-X-j-chkmail-Status: Ham
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.2.7 (korolev.univ-paris7.fr [194.254.61.138]); Mon, 23 Feb 2026 13:58:07 +0100 (CET)
+X-Miltered: at korolev with ID 699C4EDA.001 by Joe's j-chkmail (http : // j-chkmail dot ensmp dot fr)!
+X-j-chkmail-Enveloppe: 699C4EDA.001 from mailhub.math.univ-paris-diderot.fr/mailhub.math.univ-paris-diderot.fr/null/mailhub.math.univ-paris-diderot.fr/<jch@irif.fr>
+X-j-chkmail-Score: MSGID : 699C4EDA.001 on korolev.univ-paris7.fr : j-chkmail score : . : R=. U=. O=. B=0.000 -> S=0.000
 X-j-chkmail-Status: Ham
 
-> This laptop should start working with the CVS driver makes it to upstream.
-> I'd hope this happens for Linux v7.1, there are no guarantees though. The
-> ov08x40 and USBIO drivers already exist in the upstream kernel.
+Hello,
 
-Thanks for the info, I'll wait patiently.
+This has been reported at
 
-Regards,
+    <https://gitlab.freedesktop.org/camera/libcamera/-/issues/318>
+
+A kind gentleman there recommended that I contact linux-media.  Since I am
+not subscribed, please CC me with any followups.
+
+Dell Pro Max 14 Premium MA14250 laptop (Arrow Lake CPU), Debian testing,
+kernel 6.18.9+deb14-amd64, libcamera 0.7.0-2.
+
+The camera appears to be recognised by the kernel:
+
+    $ sudo dmesg | grep -i ipu
+    [    0.004960] ACPI: SSDT 0x0000000051FDB000 0000F9 (v02 INTEL  IpuSsdt  00001000 INTL 20210930)
+    [    6.716232] intel-ipu6 0000:00:05.0: enabling device (0000 -> 0002)
+    [    6.731807] intel-ipu6 0000:00:05.0: Found supported sensor OVTI08F4:00
+    [    6.731872] intel-ipu6 0000:00:05.0: Connected 1 cameras
+    [    6.734633] intel-ipu6 0000:00:05.0: Sending BOOT_LOAD to CSE
+    [    6.774011] intel-ipu6 0000:00:05.0: Sending AUTHENTICATE_RUN to CSE
+    [    6.822558] intel-ipu6 0000:00:05.0: CSE authenticate_run done
+    [    6.822568] intel-ipu6 0000:00:05.0: IPU6-v4[7d19] hardware version 6
+
+However, libcamera complains that it cannot find a sensor:
+
+     $ cam -l
+     [1:56:27.699418955] [20417]  INFO Camera camera_manager.cpp:340 libcamera v0.7.0
+     [1:56:27.724735682] [20420]  INFO SimplePipeline simple.cpp:1899 No sensor found for /dev/media0
+     Available cameras:
+
+Running "media-ctl -d /dev/media0 -p" indicates that the sensor is not in
+the media graph:
+
+    https://gitlab.freedesktop.org/camera/libcamera/-/issues/318#note_3342927
+
+Please let me know if any further information would be useful.
+
+Thanks for your help,
 
 -- Juliusz
