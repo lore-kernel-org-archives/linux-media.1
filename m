@@ -1,156 +1,299 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mail-m1973176.qiye.163.com (mail-m1973176.qiye.163.com [220.197.31.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D01472701CF
-	for <linux-media@vger.kernel.org>; Tue, 24 Feb 2026 03:39:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BADB619E97F;
+	Tue, 24 Feb 2026 03:55:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771904383; cv=none; b=PiOkn4des8tI22yInafbvDhkBGp4AEraWJ8HIWjwQZhM3sMYK0G9O0iS4W1mE5WTU0sQhxL+PxP4PAN1FzqDz7YqfO4vFD/NqNkQrjVK5Y+NcJgZP1L79tjY0EZt57f0uAv3x/re7quOulk4eX/Qh2OP53W9mJOnziX5BKFBGqE=
+	t=1771905364; cv=none; b=OCKVPLunGXdApGoqxMBCsyiWW85UfYrQmmRUpFhgAbNMYCKFjEGZqqBF4i8eDMs6s2Ym2kpCCHu/MXIRG88I+pKAmbMmK6akpf1TQRlfpFHWG4sGPXFCVrRWzRS94pDgKewgGJXoGLQ9AmwGlcVVOYPHYw0dOdJxnEAqXEt1lU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771904383; c=relaxed/simple;
-	bh=BIKoM8z9nstVrL4h5mDb+fYd9te7PInNqQQm2CNDpmI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oE4pIYwvMvUrBHjQ0/KPNIZ/CnxGjG4jguqLI9oHsylvK1zQ4o1yZBnCN/YCpdqCGOZgMkmSFJ3TZ0mrATV76ZbVFquamvg61psC4CsExFfnbAeA82T2tD3Tp2toA0mpJbK47oxsvTqHfEpHhP6HKIYFAH0GAyl1/FMAmbTyaP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fL9LfETQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ye0362eO; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1771905364; c=relaxed/simple;
+	bh=KoW38T6cNEmKidxotZXPZubVy4KOQgupYxDAJ1370F0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=Y5XubMPPbLGeHX8Fh2KZBVr3SxsA4/y5kqFIPvxtjD4X15XdyT4B0OWriZv2zm+E9bCaqByqmDMQY3u6N9M3p3w9TgwvdEOZgdlgPAqu8ka8a9cr3Dx7TDNNkLZvlaJL+THNv3ge+6Fih+5pvABqlZMaTf8aX7L0eqRQgZefC14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=jy81/F5N; arc=none smtp.client-ip=220.197.31.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fL9LfETQ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ye0362eO"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 61O3LYiE891454
-	for <linux-media@vger.kernel.org>; Tue, 24 Feb 2026 03:39:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	KILrgs7d74mR23o2eIzLn2FfkB9mDLXK+R0lgubWZsM=; b=fL9LfETQS8Vb/1Xl
-	jdJ4gaRZDr8qxINFPzWmOkXDWsoNl64GHSh9uT6icfJfocI69K0govoY/vLEp9Uj
-	CQ3+L2j1FpVamayYUciAA9KGg62JWBozxHfk8SZbhbl1bLTFg/z38s/DdkOZcjJn
-	5F2lgvkmXObVr7Fely/OBCEQ6muoRdp/b7rrIgJFNgm4HYUvZ7ym23a1w13eE029
-	DBhTaP8LkwlQm0/cEo9+EYVXYE2lBZbZvufVvhaIuxbOFKiXazG4rEReRG7Bnt3o
-	+NlKc6YJODZ0CbjBOnMqDYETH8RoXITeca4ByZl7YG3cq2nH9inbwRfto+EhaSkO
-	BHurCg==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cgpj8afkv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 24 Feb 2026 03:39:40 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-2bda35eab74so614491eec.0
-        for <linux-media@vger.kernel.org>; Mon, 23 Feb 2026 19:39:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1771904380; x=1772509180; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=KILrgs7d74mR23o2eIzLn2FfkB9mDLXK+R0lgubWZsM=;
-        b=Ye0362eOWkmS7kVOU/KNvzBT1EW9ru/gy4RFTSUxSv4O15j1Dc0oW+qpCi8BtcXyY8
-         I/5Ta9erQu8haB9OaJDLuewbfdHxk24mbfFNtxJ1+H7zjl4snGLsu3KAYLRvs1Uxeh2H
-         FhJgm9Qq/U97B76vcB5vtaAtNHRVoPnzOmCzeCgY3FXb0sVOhI4GTnVpH2RvLAuYC/5g
-         AXIzqCSrC8hNkusAULyKiYCjD0kP/43sBTct1LU9BflT0P66CkNd+vQFuVn/aL39dsWV
-         1vY4AlWVy0cg5+Xp7sXl4SxHjtfvJFN/NBbHV6PB5fZV4nnmPK9K0TEJn2P+qx4ummtf
-         suUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771904380; x=1772509180;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KILrgs7d74mR23o2eIzLn2FfkB9mDLXK+R0lgubWZsM=;
-        b=bQqssA67Id3EWQKpxVssdigYJ6dKqJ+qCs2gkK/MgfiMrdSIKzRlKkFTOxw2ESLv4J
-         7ywGUOi0A22RigHOF9s6unwGvM2qgIDpRm4YH7zVMH0pHoHzIFVCGgco9AzAs3+9m8X+
-         nDqdzQNiHZ8xPMQYtCPNqhGyPedvQnC12yewEU/j0b2P14JAtEUwRF4ltKuaiBpyT54y
-         tLBkQVovEuAEoxEwBFbhz+uM+n2iANqWbxmHItcuePo72DIog3+B2DfhsG2bvhGJ3ZBt
-         Q0lcDbv5e14WbH58V2YTwy76hBjZNDSz+qsWKXnI4Pc0rINTvyK0Lyd/m4ViSkB1v+sM
-         pZiw==
-X-Forwarded-Encrypted: i=1; AJvYcCVfmjgJLFukwuKJD5r6RRWs1iD99nMUAUF696DN/0LEq8+KviVUAfkEUe0ibWaI29EvSfrwzCWk998I8g==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyzvI8JgqzHdYy/DUMMPHL24lffGpB0B9fe7E0c6sowEmrVBa6l
-	4NDJE4yRdcUHBABSE4535k4NzoX7+FdOc4XepmjaqgO+H9hndG2znnWH5z2WNgG43zlpTse5uy+
-	3mBU7p8fzn92eoQFSWUMro/rLl434eWDeF6zNQ5Tdtx3G3d+7KCU91cv4izs9sihxhQ==
-X-Gm-Gg: ATEYQzxk/F2xXQ1HBrHL41VmzrXYrWH9M0gYkU33kcSmnqu4dZqP5S7mkNrddoyGdIv
-	fYDLFqtj+xHhV3mRufsQS2yGpm8lJwkb3LEXqCilluomKGL8A2NZ/KzQep2ybocptSMbyhpTsuL
-	8SfySRfP3UXU096tuwzhf3Y56ZKv8gjaO2w+HIKUW9Y9Kt9M10dJ0T23OEDu2okkGSmsuPwVC3l
-	hh1SS8Sq5HDwB0USHlRZYi7VNpPxqQMRrqCUJFXZswpJ9agMm2QU8jsi2eUvpZP/lmEGzxK2zB1
-	JYjS3AaImkfpvvEsnwf2DfnTyvJWhtXfl682TiOvuloJ2yXF78Oid9MHdCQbZal5BqtsTAgFJ+H
-	XMNeV32gMCjZ2KLURB3mCvUzFAMYv+wmVDZ7IywVx/E0tgPkk0oXzOvo=
-X-Received: by 2002:a05:7300:d4cb:b0:2b7:f2e5:11a4 with SMTP id 5a478bee46e88-2bd7b89c2b7mr4123696eec.16.1771904379564;
-        Mon, 23 Feb 2026 19:39:39 -0800 (PST)
-X-Received: by 2002:a05:7300:d4cb:b0:2b7:f2e5:11a4 with SMTP id 5a478bee46e88-2bd7b89c2b7mr4123681eec.16.1771904379070;
-        Mon, 23 Feb 2026 19:39:39 -0800 (PST)
-Received: from [192.168.86.165] ([76.176.48.107])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2bd7da47778sm6089378eec.6.2026.02.23.19.39.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Feb 2026 19:39:38 -0800 (PST)
-Message-ID: <cac08f2f-73b0-4629-898a-1e24840910fd@oss.qualcomm.com>
-Date: Mon, 23 Feb 2026 19:39:37 -0800
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="jy81/F5N"
+Received: from localhost.localdomain (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 34b37f769;
+	Mon, 23 Feb 2026 23:31:09 +0800 (GMT+08:00)
+From: Shawn Lin <shawn.lin@rock-chips.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	"Vaibhaav Ram T . L" <vaibhaavram.tl@microchip.com>,
+	Kumaravel Thiagarajan <kumaravel.thiagarajan@microchip.com>,
+	Even Xu <even.xu@intel.com>,
+	Xinpeng Sun <xinpeng.sun@intel.com>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Zhou Wang <wangzhou1@hisilicon.com>,
+	Longfang Liu <liulongfang@huawei.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Jijie Shao <shaojijie@huawei.com>,
+	Jian Shen <shenjian15@huawei.com>,
+	Sunil Goutham <sgoutham@marvell.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	Maciej Falkowski <maciej.falkowski@linux.intel.com>,
+	Karol Wachowski <karol.wachowski@linux.intel.com>,
+	Min Ma <mamin506@gmail.com>,
+	Lizhi Hou <lizhi.hou@amd.com>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	Tomasz Jeznach <tjeznach@rivosinc.com>,
+	Will Deacon <will@kernel.org>,
+	Xinliang Liu <xinliang.liu@linaro.org>,
+	Tian Tao <tiantao6@hisilicon.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jonathan.cameron@huawei.com>,
+	Srujana Challa <schalla@marvell.com>,
+	Bharat Bhushan <bbhushan2@marvell.com>,
+	Antoine Tenart <atenart@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Raag Jadav <raag.jadav@intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Robert Richter <rric@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	Nirmal Patel <nirmal.patel@linux.intel.com>,
+	Kurt Schwemmer <kurt.schwemmer@microsemi.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@intel.com>,
+	Ulf Hansson <ulf.hansson@linaro.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-i3c@lists.infradead.org,
+	dmaengine@vger.kernel.org,
+	Philipp Stanner <phasta@kernel.org>,
+	netdev@vger.kernel.org,
+	nic_swsd@realtek.com,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-usb@vger.kernel.org,
+	iommu@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	linux-cxl@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	mhi@lists.linux.dev,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Jan Dabros <jsd@semihalf.com>,
+	linux-i2c@vger.kernel.org,
+	Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	linux-spi@vger.kernel.org,
+	Jonathan Derrick <jonathan.derrick@linux.dev>,
+	linux-pci@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-mmc@vger.kernel.org,
+	Shawn Lin <shawn.lin@rock-chips.com>
+Subject: [PATCH 0/37] PCI/MSI: Enforce explicit IRQ vector management by removing devres auto-free
+Date: Mon, 23 Feb 2026 23:29:39 +0800
+Message-Id: <1771860581-82092-1-git-send-email-shawn.lin@rock-chips.com>
+X-Mailer: git-send-email 2.7.4
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 00/18] accel/qda: Introduce Qualcomm DSP Accelerator
- driver
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-        Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>, Joerg Roedel <joro@8bytes.org>,
-        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        iommu@lists.linux.dev, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bharath Kumar <quic_bkumar@quicinc.com>,
-        Chenna Kesava Raju <quic_chennak@quicinc.com>
-References: <20260224-qda-firstpost-v1-0-fe46a9c1a046@oss.qualcomm.com>
-Content-Language: en-US
-From: Trilok Soni <trilokkumar.soni@oss.qualcomm.com>
-In-Reply-To: <20260224-qda-firstpost-v1-0-fe46a9c1a046@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjI0MDAyOSBTYWx0ZWRfX9US/zBQBNSiQ
- TdYYuaJ8BsPuJ0/ItexAdekd8/WmAi4BSEZl3Tp9QqrLjlWpBsNgjqbTHqSQTJ8sHxr5V/dg3Dl
- n+6a3gS1X4CTdETtfEBnsa/v4SBzJGXPn4wQnT85XFt6L53cR+LgX0QQAbm/FuxT4oYTjLkdJjb
- D7PlUOonkt0zNEHxFRGho5ElHkC5FwZeaUG/rW6O/Pl1aBHj6eL+Ik8hZ5ub80pqvhTDbpPOrdw
- UzDE+nDSFS0OTPx8POLUareIL2N3xjhrWaUHPILZT2oxiI743jLspKyiNnmK+KDXJiL1yFaDQme
- SOApRyht+UAAb1sNLaFnTJ9AZJaJJD4tSi8jpAT3jRnj8J4tDeLak4dS8wPx1k3H2bkr811hf9w
- YlEYfisNNxIX86cXwYC8tFHykn0fPTA7fpDpStEaArFttnBwA+VC95RuuWeq+/k1Xiw2uJHmclo
- HZHnVnRGKZ9fTYztHBA==
-X-Proofpoint-GUID: BTcpnE2Tm5u8aku6zBa5P-6TxvNUjXqH
-X-Authority-Analysis: v=2.4 cv=Z5Lh3XRA c=1 sm=1 tr=0 ts=699d1d7c cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=lsoD3MMNObdLvy1227ExmA==:17
- a=IkcTkHD0fZMA:10 a=HzLeVaNsDn8A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=aquNE3KFXbjoS9wDYHgA:9 a=QEXdDO2ut3YA:10 a=0lgtpPvCYYIA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-ORIG-GUID: BTcpnE2Tm5u8aku6zBa5P-6TxvNUjXqH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-02-23_06,2026-02-23_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 suspectscore=0 bulkscore=0 adultscore=0 impostorscore=0
- priorityscore=1501 phishscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2602240029
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9c8b20307709cckunm6946b3c79862a6
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZQ0oaHlZPHx5OTE0YQkJPHxlWFRQJFh
+	oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSUJDQ0
+	xVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=jy81/F5Ni9q9/bSyZWlJabD1XxAXELPL9UhibFZyMz9WyzEiB5iEDVH0Ye8gCgDrz+TXTgJ8mWQ6QgQDO5+xpeOsxh+rOYDNTZc0JKdQU/fj9M+S4Jnb31IUAfPQnG6b/8K1G5LiNjlbXGROoXvc1DCKurZLBq/IoT1lOI+FLR8=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=BcUR/HoijHqinvoMXUQVA7vidPdOPQAH0voVT1QIHOY=;
+	h=date:mime-version:subject:message-id:from;
 
-On 2/23/2026 11:08 AM, Ekansh Gupta wrote:
-> * Userspace Interface: While the driver provides a new DRM-based UAPI,
->   the underlying FastRPC protocol and DSP firmware interface remain
->   compatible. This ensures that DSP firmware and libraries continue to
->   work without modification.
+This patch series addresses a long-standing design issue in the PCI/MSI
+subsystem where the implicit, automatic management of IRQ vectors by
+the devres framework conflicts with explicit driver cleanup, creating
+ambiguity and potential resource management bugs.
+
+==== The Problem: Implicit vs. Explicit Management ====
+Historically, `pcim_enable_device()` not only manages standard PCI resources
+(BARs) via devres but also implicitly triggers automatic IRQ vector management
+by setting a flag that registers `pcim_msi_release()` as a cleanup action.
+
+This creates an ambiguous ownership model. Many drivers follow a pattern of:
+1. Calling `pci_alloc_irq_vectors()` to allocate interrupts.
+2. Also calling `pci_free_irq_vectors()` in their error paths or remove routines.
+
+When such a driver also uses `pcim_enable_device()`, the devres framework may
+attempt to free the IRQ vectors a second time upon device release, leading to
+a double-free. Analysis of the tree shows this hazardous pattern exists widely,
+while 35 other drivers correctly rely solely on the implicit cleanup.
+
+==== The Solution: Making Management Explicit ====
+This series enforces a clear, predictable model:
+1.  New Managed API (Patch 1/37): Introduces pcim_alloc_irq_vectors() and
+    pcim_alloc_irq_vectors_affinity(). Drivers that desire devres-managed IRQ
+    vectors should use these functions, which set the is_msi_managed flag and
+    ensure automatic cleanup.
+2.  Patches 2 through 36 convert each driver that uses pcim_enable_device() alongside
+    pci_alloc_irq_vectors() and relies on devres for IRQ vector cleanup to instead
+    make an explicit call to pcim_alloc_irq_vectors().
+3.  Core Change (Patch 37/37): With the former cleanup, now modifies pcim_setup_msi_release()
+    to check only the is_msi_managed flag. This decouples automatic IRQ cleanup from
+    pcim_enable_device(). IRQ vectors allocated via pci_alloc_irq_vectors*()
+    are now solely the driver's responsibility to free with pci_free_irq_vectors().
+
+With these changes, we clear ownership model: Explicit resource management eliminates
+ambiguity and follows the "principle of least surprise." New drivers choose one model and
+be consistent.
+- Use `pci_alloc_irq_vectors()` + `pci_free_irq_vectors()` for explicit control.
+- Use `pcim_alloc_irq_vectors()` for devres-managed, automatic cleanup.
+
+==== Testing And Review ====
+1. This series is only compiled test with allmodconfig.
+2. Given the substantial size of this patch series, I have structured the mailing
+   to facilitate efficient review. The cover letter, the first patch and the last one will be sent
+   to all relevant mailing lists and key maintainers to ensure broad visibility and
+   initial feedback on the overall approach. The remaining subsystem-specific patches
+   will be sent only to the respective subsystem maintainers and their associated
+   mailing lists, reducing noise.
+
+Please help review it, much thanks!
 
 
-This is not very clear and it is not explained properly in the 1st patch
-where you document this driver. It doesn't talk about how older
-UAPI based application will still work without any change
-or recompilation. I prefer the same old binary to work w/ the new
-DRM based interface without any changes (I don't know how that will be possible)
-OR if recompilation + linking is needed then you need to provide the wrapper library.
 
----Trilok Soni
+Shawn Lin (37):
+  PCI/MSI: Add Devres managed IRQ vectors allocation
+  mmc: cavium: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  media: ipu6: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  gpio: merrifield: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  PCI: switchtec: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  PCI: vmd: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  spi: spi-pci1xxxx: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  spi: pxa2xx: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  i2c: amd-mp2: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  i2c: mchp-pci1xxxx: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  i2c: thunderx: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  i2c: designware: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  bus: mhi: host: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  serial: 8250_mid: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  serial: 8250_exar: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  platform/x86/intel: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  crypto: safexcel: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  crypto: octeontx2: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  cxl/pci: Replace pci_alloc_irq_vectors() with pcim_alloc_irq_vectors()
+  drm/hisilicon/hibmc: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  iommu/riscv: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  thunderbolt: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  accel/amdxdna: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  accel/ivpu: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  accel/qaic: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  net: stmmac: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  r8169: Replace pci_alloc_irq_vectors() with pcim_alloc_irq_vectors()
+  net: thunder_bgx: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  net: hibmcge: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  mfd: intel-lpss: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  dmaengine: hsu: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  dmaengine: hisilicon: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  i3c: mipi-i3c-hci-pci: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  HID: intel-ish-ipc: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  HID: Intel-thc-hid: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  misc: microchip: pci1xxxx: Replace pci_alloc_irq_vectors() with
+    pcim_alloc_irq_vectors()
+  PCI/MSI: Only check is_msi_managed in pcim_setup_msi_release()
+
+ drivers/accel/amdxdna/aie2_pci.c                   |  2 +-
+ drivers/accel/ivpu/ivpu_drv.c                      |  2 +-
+ drivers/accel/qaic/qaic_drv.c                      |  4 ++--
+ drivers/bus/mhi/host/pci_generic.c                 |  3 ++-
+ drivers/crypto/inside-secure/safexcel.c            |  8 +++----
+ drivers/crypto/marvell/octeontx2/otx2_cptpf_main.c |  2 +-
+ drivers/crypto/marvell/octeontx2/otx2_cptvf_main.c |  4 ++--
+ drivers/cxl/pci.c                                  |  8 ++-----
+ drivers/dma/hisi_dma.c                             |  3 +--
+ drivers/dma/hsu/pci.c                              |  2 +-
+ drivers/gpio/gpio-merrifield.c                     |  2 +-
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c    |  4 ++--
+ drivers/hid/intel-ish-hid/ipc/pci-ish.c            |  2 +-
+ .../intel-thc-hid/intel-quicki2c/pci-quicki2c.c    |  2 +-
+ drivers/i2c/busses/i2c-amd-mp2-pci.c               |  2 +-
+ drivers/i2c/busses/i2c-designware-pcidrv.c         |  2 +-
+ drivers/i2c/busses/i2c-mchp-pci1xxxx.c             |  2 +-
+ drivers/i2c/busses/i2c-thunderx-pcidrv.c           |  2 +-
+ drivers/i3c/master/mipi-i3c-hci/mipi-i3c-hci-pci.c |  2 +-
+ drivers/iommu/riscv/iommu-pci.c                    |  4 ++--
+ drivers/media/pci/intel/ipu6/ipu6.c                |  2 +-
+ drivers/mfd/intel-lpss-pci.c                       |  2 +-
+ drivers/misc/mchp_pci1xxxx/mchp_pci1xxxx_gp.c      |  2 +-
+ drivers/mmc/host/cavium-thunderx.c                 |  2 +-
+ drivers/net/ethernet/cavium/thunder/thunder_bgx.c  |  4 ++--
+ drivers/net/ethernet/hisilicon/hibmcge/hbg_irq.c   |  4 ++--
+ drivers/net/ethernet/realtek/r8169_main.c          |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c  |  6 ++---
+ drivers/pci/controller/vmd.c                       |  4 ++--
+ drivers/pci/msi/api.c                              | 26 ++++++++++++++++++++++
+ drivers/pci/msi/msi.c                              |  4 +---
+ drivers/pci/switch/switchtec.c                     |  6 ++---
+ drivers/platform/x86/intel/ehl_pse_io.c            |  2 +-
+ drivers/spi/spi-pci1xxxx.c                         |  4 ++--
+ drivers/spi/spi-pxa2xx-pci.c                       |  2 +-
+ drivers/thunderbolt/nhi.c                          |  6 ++---
+ drivers/tty/serial/8250/8250_exar.c                |  2 +-
+ drivers/tty/serial/8250/8250_mid.c                 |  2 +-
+ include/linux/pci.h                                | 22 ++++++++++++++++++
+ 39 files changed, 104 insertions(+), 62 deletions(-)
+
+-- 
+2.7.4
+
