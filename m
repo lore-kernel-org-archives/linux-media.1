@@ -1,32 +1,32 @@
 Received: from out-177.mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDD7379997
-	for <linux-media@vger.kernel.org>; Mon, 23 Feb 2026 22:01:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18EF437AA70
+	for <linux-media@vger.kernel.org>; Mon, 23 Feb 2026 22:01:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771884093; cv=none; b=iaeGghXtXdEnhEj8r8LmgP27MnOM3Plc/iK87SZD7OlCcsb8JHYqsKO1LDY6ZcIGuQsyw49K9aNmvICE4z/6m2d274ZrfPbiJls6hpkliCXZttzoptjyP5npa1UTRv86BmoqdsVnpCe4LI+VPGIaJoC0efUpxrFA7hEJdK8oMBo=
+	t=1771884097; cv=none; b=c8szld04pwMzQfh6RVD3Fb6+LldnNYvUquOdTd3t7m4DKclohLlqp1S2fTP+0qoS7wgBEX9lF8NMY3Iuu31unXamgGEY5hfZcA0fuQUqxCh90068NUojjHg1RKuObQcSOwKcAf5dnrOX6/WSJ40G/54jytJSCRYZZQa55XeGB5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771884093; c=relaxed/simple;
-	bh=O7msDbSV/q/aPMQwbkM5TLFQRq+8/vrOQCED1+8NCdY=;
+	s=arc-20240116; t=1771884097; c=relaxed/simple;
+	bh=0tBP5BscOH3N3vwVP0uhe79lDd1tLni+eXo9p6Vj0+Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Uq9Eq0rfbiXLNQegXlJ27OB59oaTjeLF+rYjg/q/Nr29jF3Dx3EFP3vrqW0q+TZgzx8tJbMsb4ouK4TeOAz42jt5qaeg2Tnl3A7d09eZ9Ubia7nkNKMfeUNgGunSS/CJJydwJQ1aFRAK1stPn9aHVpKcpS0C9VzXdu9TL6DPDYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=T50wnAdF; arc=none smtp.client-ip=91.218.175.177
+	 MIME-Version:Content-Type; b=JgoSGvCVpfgJykQST5TFlViI0qco0/fc6gk/9Bsk4k65XdhFJ1q0D0HX7v9lmpAMw+UoMcbMVw1Qx0J1Wm5ddyU5ciSUCIYFTPdh2M5nSBdV4gCexfjs6lD73P5kYo4Rx1H5200JOuqqLoTtrgBbhx/ai9XACUsiSghb3DDE7es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iKsJcJCO; arc=none smtp.client-ip=91.218.175.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="T50wnAdF"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iKsJcJCO"
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1771884090;
+	t=1771884094;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Cx0m4RKg1tjcI09gpNOMxEOQE0GYux9DXoEt7ZAs+co=;
-	b=T50wnAdF5NS6LJODD63u0Q0iXUFJUCfVWKAWRCHWBZDCJUzfkQpYYXWD6CNLxdSxw68e1g
-	Fg1GaeLRWLQvc9K2x85NBZjp2dyIVlEHz00oPEOawOboR2WazxMfd7EbTMCxrkv0igrxE2
-	Ps810Q5/SoC8nXHjHClv4R6ZP4gKSEY=
+	bh=Py2P1r/CaueFX7wsjQNF4qDKdF68aIQqofiLeicyHf4=;
+	b=iKsJcJCOc4zp/KkntDoMTl4EMwPjvvrhs1gh61/YG2me4p2/pq5AsWOScgiiJ5Vq5MaYw0
+	IlQfgq1ow5lHtTY+Slk/TcCStp+E/oFSTHt5/XAsYO38YfQ9LhZU6kDNtCUXqNGtzUlDGu
+	CliWsPzFYPackVc4TNZlb3Qkpv101tY=
 From: Bart Van Assche <bart.vanassche@linux.dev>
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: Ingo Molnar <mingo@redhat.com>,
@@ -45,9 +45,9 @@ Cc: Ingo Molnar <mingo@redhat.com>,
 	Sumit Semwal <sumit.semwal@linaro.org>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
 	linux-media@vger.kernel.org
-Subject: [PATCH 05/62] dma-buf: Convert dma_buf_import_sync_file() to the early-return style
-Date: Mon, 23 Feb 2026 14:00:05 -0800
-Message-ID: <20260223220102.2158611-6-bart.vanassche@linux.dev>
+Subject: [PATCH 06/62] dma-buf: Handle all dma_resv_lock() errors
+Date: Mon, 23 Feb 2026 14:00:06 -0800
+Message-ID: <20260223220102.2158611-7-bart.vanassche@linux.dev>
 In-Reply-To: <20260223220102.2158611-1-bart.vanassche@linux.dev>
 References: <20260223220102.2158611-1-bart.vanassche@linux.dev>
 Precedence: bulk
@@ -62,36 +62,45 @@ X-Migadu-Flow: FLOW_OUT
 
 From: Bart Van Assche <bvanassche@acm.org>
 
-Before making changes in dma_buf_import_sync_file(), convert it to
-the early-return coding style. No functionality has been changed.
+Instead of assuming that dma_resv_lock() only returns 0 or -EDEADLK,
+handle all possible dma_resv_lock() return values. This patch prepares
+for enabling compile-time thread-safety analysis. This will cause the
+compiler to check whether all dma_resv_lock() return values are handled.
 
 Cc: Sumit Semwal <sumit.semwal@linaro.org>
 Cc: Christian König <christian.koenig@amd.com>
 Cc: linux-media@vger.kernel.org
 Signed-off-by: Bart Van Assche <bvanassche@acm.org>
 ---
- drivers/dma-buf/dma-buf.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/dma-buf/dma-resv.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 11711874a325..1666133ac8b8 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -523,11 +523,13 @@ static long dma_buf_import_sync_file(struct dma_buf *dmabuf,
- 		dma_resv_lock(dmabuf->resv, NULL);
- 
- 		ret = dma_resv_reserve_fences(dmabuf->resv, num_fences);
--		if (!ret) {
--			dma_fence_unwrap_for_each(f, &iter, fence)
--				dma_resv_add_fence(dmabuf->resv, f, usage);
--		}
-+		if (ret)
-+			goto unlock;
+diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+index bea3e9858aca..b4710f730e9b 100644
+--- a/drivers/dma-buf/dma-resv.c
++++ b/drivers/dma-buf/dma-resv.c
+@@ -792,6 +792,8 @@ static int __init dma_resv_lockdep(void)
+ 	ret = dma_resv_lock(&obj, &ctx);
+ 	if (ret == -EDEADLK)
+ 		dma_resv_lock_slow(&obj, &ctx);
++	else if (ret)
++		goto fini;
+ 	fs_reclaim_acquire(GFP_KERNEL);
+ 	/* for unmap_mapping_range on trylocked buffer objects in shrinkers */
+ 	i_mmap_lock_write(&mapping);
+@@ -805,12 +807,14 @@ static int __init dma_resv_lockdep(void)
+ #endif
+ 	fs_reclaim_release(GFP_KERNEL);
+ 	ww_mutex_unlock(&obj.lock);
 +
-+		dma_fence_unwrap_for_each(f, &iter, fence)
-+			dma_resv_add_fence(dmabuf->resv, f, usage);
++fini:
+ 	ww_acquire_fini(&ctx);
+ 	mmap_read_unlock(mm);
  
-+unlock:
- 		dma_resv_unlock(dmabuf->resv);
- 	}
+ 	mmput(mm);
  
+-	return 0;
++	return ret;
+ }
+ subsys_initcall(dma_resv_lockdep);
+ #endif
