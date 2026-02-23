@@ -1,46 +1,46 @@
 Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ABA43793C7;
-	Mon, 23 Feb 2026 21:51:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5D73793CF;
+	Mon, 23 Feb 2026 21:52:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1771883520; cv=none; b=Xlj5j27AF1ZMpLL3mOKgBKGFph57qDOPbeszb/5wfmHg2M3F6qKe1CCDlnaniCU0WoByW2V814mdJz91c2/nzW9OK4ba6mt6iwsAmBNmI71OrAuHUgkDPofC/keuEY2BVYVA7fUhW8Nbnmv0SZ1xG037xhVY5REocFdt+sgciyI=
+	t=1771883525; cv=none; b=jQItIHaEHauyQ+YvTj+HUSuNHnrv7Pc/EkMNveVAHE1snLk/8aKshzZ3hYgmvoBtqCRWpX1SBMfcKRvQ7tlL+RomkqtaATcvmj9osWCNyfdeQqPZyFUUSwTrKel99d+65UgbjTozncUQ+Edfc5M9BQGvz4voXDWyzwzxeHmh8oE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1771883520; c=relaxed/simple;
-	bh=XWwBiVKtcMVXcZZ6S0kGAQc8RqaVG2VCyoOZbKIGyes=;
+	s=arc-20240116; t=1771883525; c=relaxed/simple;
+	bh=bRtJabWT+yTTorF0+GnkO804qkKj0hG8M/ihWTLoebQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=G1oChURpYg+FtGWHCA2FQBnoJukYvm6L1jJNzC6S8AcaU/LJt7sSBCEPrvvx1z1LmvvDwZMPTirz75dRuCoNx95HbW7UDPc384+S9RHtj3qor/VlnQ1Y8faWiwxu/oXBIj3VRX6ekb9I973Y3FatmfMDPg6S0845Rhz2eXiCGfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=Jnlb8lw4; arc=none smtp.client-ip=199.89.1.16
+	 MIME-Version:Content-Type; b=O/QyG9nu5TDuq8V4BLMJTDvr0p5Gdv781TR7jeYSC7P4+VkfFTiR+hGso8SuEqrrH7eYP2mGUIlRoqlvW9b48yj8ozfSRZcx1Xhb7hKwhmbJZP08uIzNJEuc0Csi43FT8S4F3SGT0f1dv3ZPsJxZaqgTw3nssQYfFbMzBiWOnx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=12UX7p4R; arc=none smtp.client-ip=199.89.1.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="Jnlb8lw4"
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="12UX7p4R"
 Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4fKZM31gx4zlh1Wr;
-	Mon, 23 Feb 2026 21:51:59 +0000 (UTC)
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4fKZM81lXFzlh2fB;
+	Mon, 23 Feb 2026 21:52:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
 	content-transfer-encoding:content-type:content-type:mime-version
 	:references:in-reply-to:x-mailer:message-id:date:date:subject
-	:subject:from:from:received:received; s=mr01; t=1771883516; x=
-	1774475517; bh=LAGDjPtwo0arw4hE7/MUC/1SA4WpreoEY9yzowan97I=; b=J
-	nlb8lw49+2Q9GlsI/BexYsCclMgo3b5VdPbW0B7myAYFQaObpAqo4MRyrEnVNy5L
-	0+j2/YV/NuF3soHV2OnhP+GxmNYR4ibpTlb8x4J4EcvyV/a6u1RKN5BNEGRSxLTL
-	7N0zGabIZEiz2c/+ETi/WLluMI1WYYjXcDq1CISim7POWDgFbCcIjF22sGriQE6M
-	rEfbOmnUy8+oLJr4wpX1mAqD+KQkR4epxT7XNVSSMBBxg+nLWsP1+kkx3dTdjM/O
-	AGUE/2BB4CpQh9RU7OatV1CGjk2qb6+LiGdSweKSSCTkbD36t1V8NepNwq/edFsq
-	IG5cj0RefR660qx4F7Rhw==
+	:subject:from:from:received:received; s=mr01; t=1771883521; x=
+	1774475522; bh=fYxQozmqbCR65/nGtCFoDmorhdFiAw0UWwj4/dZzG/k=; b=1
+	2UX7p4R6l4PEZM9r52HT1Jf50nEOJ0m39jMoMg3Tfsp9WsFOHgulw2H44NjGQvP4
+	DL5ApNhPO0mT8ReHpkkaj55s7eRrkHSnXFLW9+WZltzgXTa/g16Q9v1JHxUyS7wB
+	fagrrI8TJSQMNVjVmJk+FwjDVO5jxTK/2uRkDN+2ueraDDiohnYfnWGJ4QBep57z
+	OYFv5WnxE47GQuCzfN18UyHeaXpij3/2olSgO0qE94nfAC3T0b4qW0WQen/rKZq9
+	YRZ5k4WQTxL/JlVqNFD9S67RAPP7hLPluHRdYUqswxD8SmPtZHjrww22HC50BVyH
+	dVYfVGfDBV75l+sDZzTug==
 X-Virus-Scanned: by MailRoute
 Received: from 013.lax.mailroute.net ([127.0.0.1])
  by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id 2f7z6x2ga95F; Mon, 23 Feb 2026 21:51:56 +0000 (UTC)
+ id fUDcx3UVRY_l; Mon, 23 Feb 2026 21:52:01 +0000 (UTC)
 Received: from bvanassche.mtv.corp.google.com (unknown [104.135.180.219])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4fKZLv3Yv1zlh1Wk;
-	Mon, 23 Feb 2026 21:51:51 +0000 (UTC)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4fKZM04p9Szlfl6N;
+	Mon, 23 Feb 2026 21:51:56 +0000 (UTC)
 From: Bart Van Assche <bvanassche@acm.org>
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: Ingo Molnar <mingo@redhat.com>,
@@ -59,9 +59,9 @@ Cc: Ingo Molnar <mingo@redhat.com>,
 	Sumit Semwal <sumit.semwal@linaro.org>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
 	linux-media@vger.kernel.org
-Subject: [PATCH 05/62] dma-buf: Convert dma_buf_import_sync_file() to the early-return style
-Date: Mon, 23 Feb 2026 13:50:20 -0800
-Message-ID: <20260223215118.2154194-6-bvanassche@acm.org>
+Subject: [PATCH 06/62] dma-buf: Handle all dma_resv_lock() errors
+Date: Mon, 23 Feb 2026 13:50:21 -0800
+Message-ID: <20260223215118.2154194-7-bvanassche@acm.org>
 X-Mailer: git-send-email 2.53.0.371.g1d285c8824-goog
 In-Reply-To: <20260223215118.2154194-1-bvanassche@acm.org>
 References: <20260223215118.2154194-1-bvanassche@acm.org>
@@ -74,37 +74,45 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Before making changes in dma_buf_import_sync_file(), convert it to
-the early-return coding style. No functionality has been changed.
+Instead of assuming that dma_resv_lock() only returns 0 or -EDEADLK,
+handle all possible dma_resv_lock() return values. This patch prepares
+for enabling compile-time thread-safety analysis. This will cause the
+compiler to check whether all dma_resv_lock() return values are handled.
 
 Cc: Sumit Semwal <sumit.semwal@linaro.org>
 Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
 Cc: linux-media@vger.kernel.org
 Signed-off-by: Bart Van Assche <bvanassche@acm.org>
 ---
- drivers/dma-buf/dma-buf.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/dma-buf/dma-resv.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 11711874a325..1666133ac8b8 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -523,11 +523,13 @@ static long dma_buf_import_sync_file(struct dma_buf=
- *dmabuf,
- 		dma_resv_lock(dmabuf->resv, NULL);
-=20
- 		ret =3D dma_resv_reserve_fences(dmabuf->resv, num_fences);
--		if (!ret) {
--			dma_fence_unwrap_for_each(f, &iter, fence)
--				dma_resv_add_fence(dmabuf->resv, f, usage);
--		}
-+		if (ret)
-+			goto unlock;
+diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+index bea3e9858aca..b4710f730e9b 100644
+--- a/drivers/dma-buf/dma-resv.c
++++ b/drivers/dma-buf/dma-resv.c
+@@ -792,6 +792,8 @@ static int __init dma_resv_lockdep(void)
+ 	ret =3D dma_resv_lock(&obj, &ctx);
+ 	if (ret =3D=3D -EDEADLK)
+ 		dma_resv_lock_slow(&obj, &ctx);
++	else if (ret)
++		goto fini;
+ 	fs_reclaim_acquire(GFP_KERNEL);
+ 	/* for unmap_mapping_range on trylocked buffer objects in shrinkers */
+ 	i_mmap_lock_write(&mapping);
+@@ -805,12 +807,14 @@ static int __init dma_resv_lockdep(void)
+ #endif
+ 	fs_reclaim_release(GFP_KERNEL);
+ 	ww_mutex_unlock(&obj.lock);
 +
-+		dma_fence_unwrap_for_each(f, &iter, fence)
-+			dma_resv_add_fence(dmabuf->resv, f, usage);
++fini:
+ 	ww_acquire_fini(&ctx);
+ 	mmap_read_unlock(mm);
 =20
-+unlock:
- 		dma_resv_unlock(dmabuf->resv);
- 	}
+ 	mmput(mm);
 =20
+-	return 0;
++	return ret;
+ }
+ subsys_initcall(dma_resv_lockdep);
+ #endif
