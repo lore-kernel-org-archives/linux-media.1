@@ -1,155 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.cock.li (unknown [37.120.193.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19889347FD7;
-	Fri, 27 Feb 2026 17:14:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E1336403A;
+	Fri, 27 Feb 2026 17:16:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.120.193.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772212444; cv=none; b=vGVYz00Ck9RoD4rEhWhx/y/PDkmw1WJAYCuc6cpTdHdjU6T1I40mfHoUu70TvJgdVFjSubOq+f0Y7iTtZT8C4Nb2oFFKwNoq18ojevgIkxAn/9nK/dxhqQxwV/Ww1O8YAaylau45LmFV2CrCkiqVzY1X7lBNgsapCf87iTBuEhY=
+	t=1772212589; cv=none; b=ZpDSTQLQuwP3LTEDwFPIzUtzlQXwyvGCk7bCADtf3hkD0igTuAcI8uHPqrqkt1eqxfCF4nhIPsunCugTvYlB5ogronlGngUu11c8oHrD9ySiKJtfMbEiWRJNrSd4MtMoYhRVzHaPs6BAw6G9K7vo3mzuSCYtmNOG88fhRSm5P30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772212444; c=relaxed/simple;
-	bh=bs6uKlJfn6XI1cj0Kv+3o21KatAk/mhEO4hzxEnlJq8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rqjiH2TByfux49q6ufsolDb0tnDCRz5E1C/tLfGplVFY+qOMnnPuJic2bfzKMCss7A7v1HdJGuFQ6nSyEP84ujtjoNfU7fdkPmEhqantZM6rVPAF9cwsIaVODVVRfmfR72B69kzO6hh7mrYjtQhgxOmKiTk45cxMorF4P9E2ldc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YNIKcC4n; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1772212589; c=relaxed/simple;
+	bh=ZJplGvTtwBWBvc6JSMunq+ATIs0c9IQIxE5wQFdH3w8=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 MIME-Version:Date; b=TAakfYK0W31J66Yieb4TMWC95zE9Pv/iRJXo//L1+xx1p/nob0d8slQW8Ys/zlhEtRrm9ypwJ3H8oImALzpJwIPKUjPqiy8JuqLDR3/AFmnceMGTQsJLrMEX5Fu+XsryZSwow2iyR2gFfMJznViK/XtbX9AKpOt+tDTePe6YNOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airmail.cc; spf=pass smtp.mailfrom=airmail.cc; dkim=pass (2048-bit key) header.d=airmail.cc header.i=@airmail.cc header.b=AoeBBodG; arc=none smtp.client-ip=37.120.193.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airmail.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airmail.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YNIKcC4n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A603EC116C6;
-	Fri, 27 Feb 2026 17:14:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1772212444;
-	bh=bs6uKlJfn6XI1cj0Kv+3o21KatAk/mhEO4hzxEnlJq8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YNIKcC4nu1duXqR52SQEghCQ0IOnX/CkD88r+a2DTdV/AkPXHApEdd/vE/TOFDsCY
-	 eVCbM4stmW+O612jwVpWV2kHCKbyR1KnOVBq0KBJT3HYUZfxNKY3he5t5m9zSycbkf
-	 ikRE9LswSgL689f5CAjkbKgHP9X1ckb6xXAga8qggeFITJSHbCB3gQy7Y9fW9vfl8L
-	 rqWdjlFS0Qgmd+pqVPyAW5PumZAj9iicix19/lzYlzx/wrrJN+6Sqi5LoyBYEMKuKn
-	 WBqxeInBzL87EbigWYndYnUDZADmL/MpDFPtiq22ShbBKDlvbzi1cVFVl1dvlGRQ2z
-	 3xOeczFYPjx8g==
-Date: Fri, 27 Feb 2026 17:13:58 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Detlev Casanova <detlev.casanova@collabora.com>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil@kernel.org>, kernel@collabora.com,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	linux-media@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] media: dt-bindings: rockchip,vdec: Add
- alternative reg-names order for RK35{76,88}
-Message-ID: <20260227-omission-stoic-417d7109ad4d@spud>
-References: <20260226-vdec-reg-order-rk3576-v4-0-b8d72dc75250@collabora.com>
- <20260226-vdec-reg-order-rk3576-v4-1-b8d72dc75250@collabora.com>
- <20260227-observant-roaring-ara-ef7eb0@quoll>
- <adbbdbb1-b126-4807-821c-c9850befd695@collabora.com>
+	dkim=pass (2048-bit key) header.d=airmail.cc header.i=@airmail.cc header.b="AoeBBodG"
+Message-ID: <4555b8c8f174b5953d5b24a3a101127f9858d910.camel@airmail.cc>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=airmail.cc; s=mail;
+	t=1772212576; bh=ZJplGvTtwBWBvc6JSMunq+ATIs0c9IQIxE5wQFdH3w8=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date:From;
+	b=AoeBBodGn5lYDYpG3/Icw5m7nNeVGT+CrX5qH9omn8G0VJvGuTNsZFN2RE9hl7Mw2
+	 R+TBJt4W7XpjP8LSYPwHysZem5cOLcPylRLGbTWHjjMrifSu+6Q+Sv6Beodqlaa+1Z
+	 BG0zc6ABHJV6ToMzfIQHckoVITc/QEg39iB1+MS5zlkGi9sbuXYKDtHcVYKLBdN28W
+	 q19t/92lCx6xWJ8wu0FKXH3UMaXORJNtX9/j4vMaivZw6nHHsSDrC1xvM3qRP8fw8R
+	 YIXU1/4tgsSW4PsSkVMdH4a4nw90KbvtzykwBLnp05KvfVdmGOI3NlZ9ubp1akMDE7
+	 FRDiR9qGe/DKQ==
+Subject: Re: [PATCH v8 3/7] media: platform: amd: Add isp4 fw and hw
+ interface
+From: Hans Anda <hansa@airmail.cc>
+To: Bin Du <Bin.Du@amd.com>, mchehab@kernel.org, hverkuil@xs4all.nl, 
+	laurent.pinchart+renesas@ideasonboard.com, bryan.odonoghue@linaro.org, 
+	sakari.ailus@linux.intel.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	sultan@kerneltoast.com
+Cc: pratap.nirujogi@amd.com, benjamin.chan@amd.com, king.li@amd.com, 
+	gjorgji.rosikopulos@amd.com, Phil.Jawich@amd.com, Dominic.Antony@amd.com, 
+	mario.limonciello@amd.com
+In-Reply-To: <20260212083426.216430-4-Bin.Du@amd.com>
+References: <20260212083426.216430-1-Bin.Du@amd.com>
+	 <20260212083426.216430-4-Bin.Du@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bShyYlHPkrpIht96"
-Content-Disposition: inline
-In-Reply-To: <adbbdbb1-b126-4807-821c-c9850befd695@collabora.com>
+Date: Tue, 24 Feb 2026 13:21:10 +0100
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 
+SGkgQmluLAoKSSBoYXZlIGp1c3QgcmVhZCB5b3VyIHBhdGNoIGFuZCBoYXZlIGEgbWlub3IgaXNz
+dWVzIGFuZCBhIGZldyBzdHlsZSBzdWdnZXN0aW9ucy4KCj4gSVNQIGZpcm13YXJlIGNvbnRyb2xz
+IElTUCBIVyBwaXBlbGluZSB1c2luZyBkZWRpY2F0ZWQgZW1iZWRkZWQgcHJvY2Vzc29yCj4gY2Fs
+bGVkIGNjcHUuIFRoZSBjb21tdW5pY2F0aW9uIGJldHdlZW4gSVNQIEZXIGFuZCBkcml2ZXIgaXMg
+dXNpbmcgY29tbWFuZHMKPiBhbmQgcmVzcG9uc2UgbWVzc2FnZXMgc2VudCB0aHJvdWdoIHRoZSBy
+aW5nIGJ1ZmZlci4gQ29tbWFuZCBidWZmZXJzIHN1cHBvcnQKPiBlaXRoZXIgZ2xvYmFsIHNldHRp
+bmcgdGhhdCBpcyBub3Qgc3BlY2lmaWMgdG8gdGhlIHN0ZWFtIGFuZCBzdXBwb3J0IHN0cmVhbQoK
+T25lIGxhc3QgdHlwbyBvZiBzdGVhbSAtPiBzdHJlYW0KCgo+ICsvKiBbLi4uXQo+ICsgKiBAYnJp
+ZWYgSG9zdCBhbmQgRmlybXdhcmUgY29tbWFuZCAmIHJlc3BvbnNlIGNoYW5uZWwuCj4gKyAqwqDC
+oMKgwqDCoMKgwqAgVHdvIHR5cGVzIG9mIGNvbW1hbmQvcmVzcG9uc2UgY2hhbm5lbC4KPiArICrC
+oMKgwqDCoMKgwqDCoMKgwqAgVHlwZSBHbG9iYWwgQ29tbWFuZCBoYXMgb25lIGNvbW1hbmQvcmVz
+cG9uc2UgY2hhbm5lbC4KPiArICrCoMKgwqDCoMKgwqDCoMKgwqAgVHlwZSBTdHJlYW0gQ29tbWFu
+ZCBoYXMgb25lIGNvbW1hbmQvcmVzcG9uc2UgY2hhbm5lbC4KPiArICotLS0tLS0tLS0tLcKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCAtLS0tLS0tLS0tLS0KPiArICp8wqDCoMKgwqDCoMKgwqDCoCB8wqDC
+oMKgwqDCoMKgIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLcKgwqDCoMKgwqAgfMKgwqDCoMKg
+wqDCoMKgwqDCoCB8Cj4gKyAqfMKgwqDCoMKgwqDCoMKgwqAgfMKgIC0tLS0+fMKgIEdsb2JhbCBD
+b21tYW5kwqDCoMKgwqDCoMKgwqDCoCB8LS0tLT4gfMKgwqDCoMKgwqDCoMKgwqDCoCB8Cj4gKyAq
+fMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoCAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS3CoMKgwqDCoMKgIHzCoMKgwqDCoMKgwqDCoMKgwqAgfAo+ICsgKnzCoMKgwqDCoMKgwqDCoMKg
+IHzCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoMKgwqDCoCB8Cj4gKyAqfMKgwqDC
+oMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKgwqDCoMKgwqDCoMKgIHwK
+PiArICp8wqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKgwqDCoMKgIC0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLcKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoMKgwqDCoCB8Cj4gKyAqfMKgwqDCoMKgwqDC
+oMKgwqAgfMKgIC0tLS0+fMKgwqAgU3RyZWFtIENvbW1hbmTCoMKgwqDCoMKgwqDCoCB8LS0tLT4g
+fMKgwqDCoMKgwqDCoMKgwqDCoCB8Cj4gKyAqfMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDC
+oCAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS3CoMKgwqDCoMKgIHzCoMKgwqDCoMKgwqDCoMKg
+wqAgfAo+ICsgKnzCoMKgwqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDC
+oMKgwqDCoMKgwqDCoCB8Cj4gKyAqfMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCB8wqDCoMKgwqDCoMKgwqDCoMKgIHwKPiArICp8wqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKgwqDCoMKgwqAgfAo+ICsgKnzCoCBIT1NUwqDCoCB8
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgRmlybXdhcmUgfAo+ICsgKnzCoMKgwqDCoMKgwqDCoMKg
+IHzCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoMKgwqDCoCB8Cj4gKyAqfMKgwqDC
+oMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKgwqDCoMKgwqDCoMKgIHwK
+PiArICp8wqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKgwqDCoMKgIC0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0twqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKgwqDCoMKgwqAgfAo+ICsgKnzCoMKgwqDCoMKg
+wqDCoMKgIHzCoCA8LS0tLXzCoCBHbG9iYWwgUmVzcG9uc2XCoMKgwqDCoMKgwqAgfDwtLS0twqAg
+fMKgwqDCoMKgwqDCoMKgwqDCoCB8Cj4gKyAqfMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDC
+oCAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLcKgwqDCoMKgwqDCoCB8wqDCoMKgwqDCoMKgwqDC
+oMKgIHwKPiArICp8wqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKg
+wqDCoMKgwqDCoMKgwqAgfAo+ICsgKnzCoMKgwqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgfMKgwqDCoMKgwqDCoMKgwqDCoCB8Cj4gKyAqfMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDC
+oMKgwqDCoCAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLcKgwqDCoMKgwqDCoCB8wqDCoMKgwqDC
+oMKgwqDCoMKgIHwKPiArICp8wqDCoMKgwqDCoMKgwqDCoCB8wqAgPC0tLS18wqAgU3RyZWFtIFJl
+c3BvbnNlwqDCoMKgwqDCoMKgIHw8LS0tLcKgIHzCoMKgwqDCoMKgwqDCoMKgwqAgfAo+ICsgKnzC
+oMKgwqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKgwqAgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS3C
+oMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoMKgwqDCoCB8Cj4gKyAqfMKgwqDCoMKgwqDCoMKgwqAg
+fMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKgwqDCoMKgwqDCoMKgIHwKPiArICp8wqDCoMKg
+wqDCoMKgwqDCoCB8wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKgwqDCoMKgwqAgfAo+
+ICsgKi0tLS0tLS0tLS0twqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC0tLS0tLS0tLS0tLQo+ICsgKi8K
+CisgKiAgICAgICAgVHdvIHR5cGVzIG9mIGNvbW1hbmQvcmVzcG9uc2UgY2hhbm5lbC4KKyAqICAg
+ICAgICAgIFR5cGUgR2xvYmFsIENvbW1hbmQgaGFzIG9uZSBjb21tYW5kL3Jlc3BvbnNlIGNoYW5u
+ZWwuCisgKiAgICAgICAgICBUeXBlIFN0cmVhbSBDb21tYW5kIGhhcyBvbmUgY29tbWFuZC9yZXNw
+b25zZSBjaGFubmVsLgorICotLS0tLS0tLS0tLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAtLS0tLS0tLS0tLS0KKyAqfCAgICAgICAgIHwgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgfCAgICAgICAgICB8CisgKnwgICAgICAgICB8ICAgICAgIC0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAgICAgIHwgICAgICAgICAgfAorICp8ICAgICAgICAg
+fCAgLS0tLT58ICAgICBHbG9iYWwgQ29tbWFuZCAgICAgIHwtLS0tPiB8ICAgICAgICAgIHwKKyAq
+fCAgICAgICAgIHwgICAgICAgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICAgICAgfCAgICAg
+ICAgICB8CisgKnwgICAgICAgICB8ICAgICAgIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAg
+ICAgIHwgICAgICAgICAgfAorICp8ICAgICAgICAgfCAgPC0tLS18ICAgICBHbG9iYWwgUmVzcG9u
+c2UgICAgIHw8LS0tLSB8ICAgICAgICAgIHwKKyAqfCAgICAgICAgIHwgICAgICAgLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tICAgICAgfCAgICAgICAgICB8CisgKnwgICAgICAgICB8ICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAgICAgICAgfAorICp8ICAgICAg
+ICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgICAgICAgIHwK
+KyAqfCAgICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAg
+ICAgICAgICB8CisgKnwgIEhPU1QgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHwgRmlybXdhcmUgfAorICp8ICAgICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICB8ICAgICAgICAgIHwKKyAqfCAgICAgICAgIHwgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAgICAgICB8CisgKnwgICAgICAgICB8ICAg
+ICAgIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAgICAgIHwgICAgICAgICAgfAorICp8ICAg
+ICAgICAgfCAgLS0tLT58ICAgICBTdHJlYW0gQ29tbWFuZCAgICAgIHwtLS0tPiB8ICAgICAgICAg
+IHwKKyAqfCAgICAgICAgIHwgICAgICAgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICAgICAg
+fCAgICAgICAgICB8CisgKnwgICAgICAgICB8ICAgICAgIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLSAgICAgIHwgICAgICAgICAgfAorICp8ICAgICAgICAgfCAgPC0tLS18ICAgICBTdHJlYW0g
+UmVzcG9uc2UgICAgIHw8LS0tLSB8ICAgICAgICAgIHwKKyAqfCAgICAgICAgIHwgICAgICAgLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICAgICAgfCAgICAgICAgICB8CisgKnwgICAgICAgICB8
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAgICAgICAgfAorICp8
+ICAgICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgICAg
+ICAgIHwKKyAqLS0tLS0tLS0tLS0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgLS0tLS0tLS0tLS0tCisgKi8KClRoaXMgd2F5IHRoZSBvcmRlciBvZiB0aGUgdGV4dCBjb21t
+ZW50IGlzIHN0cnVjdHVyZWQgdGhlIHNhbWUgYXMgdGhlIHZpc3VhbApjb21tZW50LiBpIG1hZGUg
+c29tZSBhZGp1c3RtZW50cyBmb3Igc3ltbWV0cnkuICBJdCdzIG5vIGVycm9yLCBpdCdzIGEgc3R5
+bGUKc3VnZ2VzdGlvbi4JCgoKPiArLyoKPiArICogQGJyaWVmIGNvbW1hbmQgSUQgZm9ybWF0Cj4g
+KyAqwqDCoMKgwqDCoMKgwqAgY21kX2lkIGlzIGluIHRoZSBmb3JtYXQgb2YgZm9sbG93aW5nIHR5
+cGU6Cj4gKyAqwqDCoMKgwqDCoMKgwqAgdHlwZTogaW5kaWNhdGUgY29tbWFuZCB0eXBlLCBnbG9i
+YWwvc3RyZWFtIGNvbW1hbmRzLgo+ICsgKsKgwqDCoMKgwqDCoMKgIGdyb3VwOiBpbmRpY2F0ZSB0
+aGUgY29tbWFuZCBncm91cC4KPiArICrCoMKgwqDCoMKgwqDCoCBpZDogQSB1bmlxdWUgY29tbWFu
+ZCBpZGVudGlmaWNhdGlvbiBpbiBvbmUgdHlwZSBhbmQgZ3JvdXAuCj4gKyAqwqDCoMKgwqDCoMKg
+wqAgfDwtQml0MzEgfiBCaXQyNC0+fDwtQml0MjMgfiBCaXQxNi0+fDwtQml0MTUgfiBCaXQwLT58
+Cj4gKyAqwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqAgdHlwZcKgwqDCoMKgwqDCoCB8wqDCoMKg
+wqDCoCBncm91cMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoCBpZMKgwqDCoMKgwqDCoCB8CgorICog
+ICAgICAgIGlkOiBBIHVuaXF1ZSBjb21tYW5kIGlkZW50aWZpY2F0aW9uIGluIG9uZSB0eXBlIGFu
+ZCBncm91cC4KKyAqICAgICAgICB8PC1CaXQzMX4yNC0+fDwtQml0MjN+MTYtPnw8LSAgQml0MTUg
+ICB+ICAgQml0MCAgLT58CisgKiAgICAgICAgfCAgICB0eXBlICAgIHwgICBncm91cCAgICB8ICAg
+ICAgICAgICBpZCAgICAgICAgICAgfAoKU28gdGhlIHdpZHRoIG9mIHRoZSBwYXJ0cyB3b3VsZCBj
+byByZWxhdGUgdG8gdGhlIG51bWJlciBvZiBiaXRzICg4LDgsMTYpLgpBZ2FpbiwgYSBzdWdnZXN0
+aW9uCgorICogICAgICAgIGlkOiBBIHVuaXF1ZSBjb21tYW5kIGlkZW50aWZpY2F0aW9uIGluIG9u
+ZSB0eXBlIGFuZCBncm91cC4KKyAqICAgICAgICB8PC0gIEJpdDAgICB+ICAgQml0MTUgIC0+fDwt
+Qml0MTZ+MjMtPnw8LUJpdDI0fjMxLT58CisgKiAgICAgICAgfCAgICAgICAgICAgaWQgICAgICAg
+ICAgIHwgICBncm91cCAgICB8ICAgIHR5cGUgICAgfAorICovCgpJZiB0aGVyZSBpcyBubyB0ZWNo
+bmljYWwgcmVhc29uIGZvciBudW1iZXJpbmcgUmlnaHQgdG8gTGVmdCB5b3UgY291bGQgZmxpcCBp
+dC4KTGVmdCB0byBSaWdodCBpcyBzaW1wbGVyIHRvIHJlYWQuCkkgZ3Vlc3MgdGhlcmUgaXMgYSB0
+ZWNobmljYWwgcmVhc29uIGZvciB5b3VyIHdheS4KCj4gKwkvKgo+ICsJICogQSBjaGVjayBudW0g
+Zm9yIGRlYnVnIHVzYWdlLCBob3N0IGNhbiBzZXQgdGhlIGJ1Zl90YWdzCj4gKwkgKiB0byBkaWZm
+ZXJlbnQgbnVtYmVyCgorCSAqIHRvIGRpZmZlcmVudCBudW1iZXJzCm9yCisJICogdG8gYSBkaWZm
+ZXJlbnQgbnVtYmVyCgpCb3RoIHZlcnNpb25zIHdvcmsgZ3JhbW1hdGljYWxseS4KCgo+ICsgWy4u
+Ll0KPiArfTsKPiArCj4gKy8qIEZXIGNtZCByaW5nIGJ1ZmZlciBjb25maWd1cmF0aW9uICovCgo+
+ICsgWy4uLl0KPiArfTsKPiArCj4gKy8qIEZXIHJlc3AgcmluZyBidWZmZXIgY29uZmlndXJhdGlv
+biAqLwo+ICtzdGF0aWMgc3RydWN0IGlzcDRpZl9yYl9jb25maWcgaXNwNGlmX3Jlc3BfcmJfY29u
+ZmlnW0lTUDRJRl9TVFJFQU1fSURfTUFYXSA9IHsKPiAgWy4uLl0KPiArLyogRlcgbG9nIHJpbmcg
+YnVmZmVyIGNvbmZpZ3VyYXRpb24gKi8KPiArc3RhdGljIHN0cnVjdCBpc3A0aWZfcmJfY29uZmln
+IGlzcDRpZl9sb2dfcmJfY29uZmlnID0gewo+ICsJLm5hbWUgPSAiTE9HX1JCIiwKPiAKPiArCj4g
+KwlyZF9wdHIgPSBpc3A0aHdfcnJlZyhpc3BpZi0+bW1pbywgcnJlZyk7Cj4gKwl3cl9wdHIgPSBp
+c3A0aHdfcnJlZyhpc3BpZi0+bW1pbywgd3JlZyk7Cj4gKwo+ICsJLyogUmVhZCBhbmQgd3JpdGUg
+cG9pbnRlcnMgYXJlIGVxdWFsLCBpbmRpY2F0aW5nIHRoZSByaW5nYnVmIGlzIGVtcHR5Cj4gKi8K
+Cj4gIFsuLi5dCj4gKwkvKgo+ICsJICogSWdub3JlIG9uZSBieXRlIGZyb20gdGhlIGJ5dGVzIGZy
+ZWUgdG8gcHJldmVudCByZF9wdHIgZnJvbSBlcXVhbGluZwo+ICsJICogd3JfcHRyIHdoZW4gdGhl
+IHJpbmdidWYgaXMgZnVsbCwgYmVjYXVzZSByZF9wdHIgPT0gd3JfcHRyIGlzCj4gKwkgKiBzdXBw
+b3NlZCB0byBpbmRpY2F0ZSB0aGF0IHRoZSByaW5nYnVmIGlzIGVtcHR5LgoKcmluZ2J1ZiAtPiBy
+aW5nYnVmZmVyIG9yIHJpbmcgYnVmZmVyLCBpdCdzIGJlc3QgdG8gc3RpY2sgdG8gb25lLgpqdXN0
+IGluIGNhc2Ugc29tZW9uZSBncmVwcyBmb3IuIFRoYXQgaXMgYSBzdWdnZXN0aW9uIGFzIHdlbGwu
+CgpHb29kIFdvcmsuCkknbSBqdXN0IGdldHRpbmcgdG8ga25vdyBjIC0gVGhhdCdzIHdoeSBJIG9u
+bHkgZm91bmQgZ3JhbW1hci8gc3R5bGUgaXNzdWVzLgpCdXQgbWF5YmUgdGhpcyB3YXkgaSB3aWxs
+IGdldCBpbnRvIHByb2dyYW1taW5nCgpHcmVldGluZyBIYW5zCg==
 
---bShyYlHPkrpIht96
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Feb 27, 2026 at 01:37:17PM +0200, Cristian Ciocaltea wrote:
-> Hi Krzysztof, Conor,
->=20
-> On 2/27/26 9:46 AM, Krzysztof Kozlowski wrote:
-> > On Thu, Feb 26, 2026 at 12:46:53PM +0200, Cristian Ciocaltea wrote:
-> >> With the introduction of the RK3588 SoC, and RK3576 afterwards, two mo=
-re
-> >> register blocks have been provided for the video decoder unit.
-> >>
-> >> However, the binding does not properly describe the new hardware layou=
-t,
-> >=20
-> > As you shown me last time with excerpt of address spaces from
-> > datasheet/manual, the binding correctly describes the hardware and above
-> > sentence is not true.
-> >=20
-> >> as it breaks the convention expecting the unit address to indicate the
-> >> start of the first register range, i.e. 'function' block is listed
-> >=20
-> > Imprecise wording. "start of the main or primary register range"
-> >=20
-> > (if you have 0x1000 with one reg and 0x20000000 with everything, the
-> > unit address will be 0x20000000).
-> >=20
-> >> before 'link' instead of the opposite.
-> >>
-> >> Since the binding changes have been already released and a fix would
-> >> bring up an ABI break, mark the current 'reg-names' ordering as
-> >> deprecated and introduce an alternative 'link,function,cache' listing
-> >> which follows the address-based ordering according to the TRM.
-> >>
-> >> Additionally, drop the 'reg' description items as the order is not fix=
-ed
-> >> anymore, while the information they offer is not very relevant anyway.
-> >=20
-> > This is fine for me.
->=20
-> Thanks for the additional feedback!
->=20
-> If I'm not mistaken (please correct me), the only remaining (hard)
-> blocker for the series would be to improve this commit message.
-
-No, you also need to fix the problem I pointed out about reg-names being
-optional on the devices you're relying on reg-names for. The new commit
-message I am happy with, provided you also add the information Nicolas
-provided about the impact on users.
-
->=20
-> How about the following:
->=20
->     With the introduction of the RK3588 SoC, and RK3576 afterwards, three
->     register blocks have been provided for the video decoder unit instead=
- of
->     just one, which are further referenced in the datasheet by 'link tabl=
-e',
->     'function' and 'cache'.  The former is present at the top of the
->     listing, starting at video decoder unit base address.
->=20
->     However, while documenting RK3588, the binding broke the convention
->     expecting the unit address to indicate the start of the primary regis=
-ter
->     range, i.e. the 'function' block got listed before the 'link' one.
->=20
->     Since the binding changes have been already released and a fix would
->     bring up an ABI break, mark the current 'reg-names' ordering as
->     deprecated and introduce an alternative 'link,function,cache' listing
->     which follows the address-based ordering according to the TRM.
->=20
->     Additionally, drop the 'reg' description items as the order is not fi=
-xed
->     anymore, while the information they offer is not very relevant anyway.
->=20
-> Regards,
-> Cristian
-
---bShyYlHPkrpIht96
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaaHQ1gAKCRB4tDGHoIJi
-0vvlAP9kvdRU6UlsQZ5Wsfi4QGT5f4KCBum2htINzh1r/oPhrAEA8b+7Mek6yDP8
-qKcKPbQm6I62YBafezuLQlaHjqzSxwE=
-=HhTd
------END PGP SIGNATURE-----
-
---bShyYlHPkrpIht96--
