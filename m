@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74DE63AE70C;
-	Wed, 25 Feb 2026 12:20:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CDD93AE6FF;
+	Wed, 25 Feb 2026 12:20:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772022006; cv=none; b=Ts8Na/o0MBd27dvUwYknK6q9X/yItj6YmMJpPdCGOsjlAoRodMmgd8g6Mg4tXxf8vqX2QU4Ek+sgE5P0yf03zl7EtMqjsiKebUsmyBTjcS1AJqmQnYB44TkZgbxljQAsaYUF6Oa2MvouCyquglRnV7GXbHzwhohymRD3wdlueGw=
+	t=1772022007; cv=none; b=lWMuiliqFGR7cML1W6DvVtWyFtRZI+W+ZzQ3fSeSIHJs8gRagk1iwWyX71Xml+TEhCKPaD+jnl/isgMMiQbhoe3cbECZnb0LeBkNiLZFdIu4uWx2tS+OLtzx1bP3KSxrUgpgadPc8JsKgEy4syhMkHLnAePdV04YxgTRpkU0CzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772022006; c=relaxed/simple;
-	bh=5vb/63Vg1zh5nED3D61MNyCtaS3psPO98Y/6tkPDleU=;
+	s=arc-20240116; t=1772022007; c=relaxed/simple;
+	bh=JlJr368Iduqmofj7bAqR0psZwFk+j7JbEHb1QjmEwow=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hn7FJFh39DWu4Lc6ef5xssL3NqUmlu8mi7vuY4rfZANdV7jpj9l3ST4Z0S088Fi/vE2Va5HW/45gs8RJLp+psO/IEWDnOZxzbRBWA5QAHpxOSXl6yQ76RxeJjGWKfvzlK/wKctXSRP8Nl8FjF4j4lhV1ovFl44NEq3OACMSogfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ikhbhifT; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=ZxHXjmHMKnpCRC8YD/S3lKWpUyP0+RC3OT8CyS7z3BTH5Ds1qFjPR8hvp2m/rShw+5XPPq8h6nD/5FSESYlzbKpnF1Z3Bcg9oc7JE9qvLaRRZ2nYcRu/mXNT1fR1QzSbmhdHeCRU5BsA4C1ri6U9IefW9BlNCLVIvwuuMReCJ7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=MKcN0WkX; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ikhbhifT"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="MKcN0WkX"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1772022001;
-	bh=5vb/63Vg1zh5nED3D61MNyCtaS3psPO98Y/6tkPDleU=;
+	s=mail; t=1772022002;
+	bh=JlJr368Iduqmofj7bAqR0psZwFk+j7JbEHb1QjmEwow=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=ikhbhifTL9C/xEAfLs7iQbQPAdqG6wRoodYW1tBAHNtAoWWBL1JfXJJappgxqrsaM
-	 Q2qfANnTW+rkaTH/LYWzl0+yT8R9We9IPPEigv97tmyWLYlMsbaaaZJ6QKetXMUNee
-	 dWeWLbQsgV9BQdGZwnLXRvnYj2CVChAejRXV4/midgxe8f7v6AN1nr564flS9U63Sw
-	 66GeMZYPFVliyqr43WN23NIe1rEY8cYiH8fwm9wTTLfUiZgdo6a8dQPyNqPpoZAlcL
-	 +CXcxBxfOFjTX/ePdfPwnLMdoc9a9acuIjj64dSnkK3//jYUZVGOw4yLZnVoMF0UmA
-	 ZmdAzOM3y/kcA==
+	b=MKcN0WkXoI1k+XOxeqUivO4w6+eS6CbdalVc9vSRowUuCI19GMXAxIKWV8G7Sa/sl
+	 7Fft0mqi7+maC1RaLOsApU5jbz7VfIMaH7QBCY33wnT6sSYOB/tfSq8bif/CwIrVtc
+	 WqhxhKkkVs5I3fFvYwY07/uPZP62MEQeeqAIpoHius1byDluGaWZJlb616l7rY4yey
+	 vXEWAez+Vo1noZaJxKv72H3oXi876S/+91PoV3cr0xHCxVzXrpqmlhC2VNL6KdJnS/
+	 dNs5Dz9t8eHzk6xnfGzQUNMjHwobzN+W5AWq5F4wyQgBJmO4ppXsGnWOv8eQgHDWSg
+	 keF1ZB1jtWPkQ==
 Received: from localhost (unknown [86.123.23.225])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7E3DD17E04C4;
-	Wed, 25 Feb 2026 13:20:01 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5861417E04DC;
+	Wed, 25 Feb 2026 13:20:02 +0100 (CET)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 25 Feb 2026 14:19:57 +0200
-Subject: [PATCH v3 1/3] media: dt-bindings: rockchip,vdec: Add alternative
- reg-names order for RK35{76,88}
+Date: Wed, 25 Feb 2026 14:19:58 +0200
+Subject: [PATCH v3 2/3] arm64: dts: rockchip: Fix vdec register blocks
+ order on RK3576
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260225-vdec-reg-order-rk3576-v3-1-5a2ebe1b11a8@collabora.com>
+Message-Id: <20260225-vdec-reg-order-rk3576-v3-2-5a2ebe1b11a8@collabora.com>
 References: <20260225-vdec-reg-order-rk3576-v3-0-5a2ebe1b11a8@collabora.com>
 In-Reply-To: <20260225-vdec-reg-order-rk3576-v3-0-5a2ebe1b11a8@collabora.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -61,61 +61,38 @@ Cc: kernel@collabora.com, devicetree@vger.kernel.org,
  linux-media@vger.kernel.org
 X-Mailer: b4 0.14.3
 
-With the introduction of the RK3588 SoC, and RK3576 afterwards, the
-'link' and 'cache' register blocks have been provided for the video
-decoder unit in addition to the existing 'function' one, which now shows
-up in between them (from address-based ordering point of view).
+When building device trees for the RK3576 based boards, DTC shows the
+following complaint:
 
-However, the binding does not properly describe this hardware layout, as
-the new blocks are listed after the old one.  Therefore it breaks the
-convention expecting the unit address to indicate the first register
-range.
+  rk3576.dtsi:1282.30-1304.5: Warning (simple_bus_reg): /soc/video-codec@27b00000: simple-bus unit address format error, expected "27b00100"
 
-Since the binding changes have been already released and a fix would
-bring up an ABI break, mark the current 'reg-names' listing as
-deprecated and introduce an alternative 'link,function,cache' one.
-
-Additionally, drop the 'reg' description items as the order is not fixed
-anymore, while the information they offer is not very relevant anyway.
+Provide the register blocks using the 'link,function,cache' listing,
+which follows the address-based ordering and, implicitly, ensures the
+unit address points to the first register range.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- .../devicetree/bindings/media/rockchip,vdec.yaml      | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/media/rockchip,vdec.yaml b/Documentation/devicetree/bindings/media/rockchip,vdec.yaml
-index 809fda45b3bd..3f6072e8baa5 100644
---- a/Documentation/devicetree/bindings/media/rockchip,vdec.yaml
-+++ b/Documentation/devicetree/bindings/media/rockchip,vdec.yaml
-@@ -28,16 +28,21 @@ properties:
+diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+index 49ccdf12ef7e..45eb0d053a6f 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+@@ -1281,10 +1281,10 @@ gpu: gpu@27800000 {
  
-   reg:
-     minItems: 1
--    items:
--      - description: The function configuration registers base
--      - description: The link table configuration registers base
--      - description: The cache configuration registers base
-+    maxItems: 3
- 
-   reg-names:
--    items:
-+    oneOf:
-       - const: function
--      - const: link
--      - const: cache
-+      - items:
-+          - const: link
-+          - const: function
-+          - const: cache
-+      - items:
-+          - const: function
-+          - const: link
-+          - const: cache
-+        deprecated: true
-+        description: Use link,function,cache block order instead.
- 
-   interrupts:
-     maxItems: 1
+ 		vdec: video-codec@27b00000 {
+ 			compatible = "rockchip,rk3576-vdec";
+-			reg = <0x0 0x27b00100 0x0 0x500>,
+-			      <0x0 0x27b00000 0x0 0x100>,
++			reg = <0x0 0x27b00000 0x0 0x100>,
++			      <0x0 0x27b00100 0x0 0x500>,
+ 			      <0x0 0x27b00600 0x0 0x100>;
+-			reg-names = "function", "link", "cache";
++			reg-names = "link", "function", "cache";
+ 			interrupts = <GIC_SPI 308 IRQ_TYPE_LEVEL_HIGH>;
+ 			clocks = <&cru ACLK_RKVDEC_ROOT>, <&cru HCLK_RKVDEC>,
+ 				 <&cru ACLK_RKVDEC_ROOT_BAK>, <&cru CLK_RKVDEC_CORE>,
 
 -- 
 2.52.0
