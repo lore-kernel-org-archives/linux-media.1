@@ -1,39 +1,38 @@
 Received: from lx20.hoststar.hosting (lx20.hoststar.hosting [168.119.41.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD5BB3A1E72;
-	Thu, 26 Feb 2026 09:23:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347C23A4F3A;
+	Thu, 26 Feb 2026 09:24:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.41.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772097840; cv=none; b=EZ/i8+XcHyCiPLoGEwTWdMK7TAhiY5hSAxbsMA2iZlMiVuWPkXcFRVdSa+j9aj1jfEUEWZYz/vLKbijz+b4fGuIdIWgjbUKMROyt/u/GZqA4YOoas3MT6559SrwvrSxv0ydYuqvF6F3jlx69aWsFVSASQ6YVTmb6HnOa/Hk1Zb0=
+	t=1772097843; cv=none; b=QG5nwt2Amq98CDjR1PGiPZO5Terj9jlc/ksaeRiyFrehF0lw87FUTh3vhDF6mfIEelfZvmbl54sPuDi/yi/FPhFPninybRpab1PEAFPl7ObTo0rXvVNZyk6YICKf7rfB1xseqbEDnyuyI7/OWnVwsgoMsVR1uFVoof0b40zRmws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772097840; c=relaxed/simple;
-	bh=YT4cbzFgCw12fUL5HcvaNDrFe02mGFZaNUh1cRBtyVo=;
+	s=arc-20240116; t=1772097843; c=relaxed/simple;
+	bh=PKB20d4HwDvrUtISRR+YsDcUK5D9637SCIK+isWymLE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JHEla/D2Q/IsHch8qOVU/hLv5gxhzyWcaQvhZw36FWWe0ggIg2IcsmVVkcw4z5jeRK90GAK3QDceU5IegovqHAGEhitCdaDcP7hd/FS+xK225OpVoi2eV7P99iDNLJVty4U/di4suhruR5thAeFN0BUnFeZf9krdIxhTmWwgWik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at; spf=pass smtp.mailfrom=emfend.at; dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b=Tg7ZFcAe; arc=none smtp.client-ip=168.119.41.54
+	 In-Reply-To:To:Cc; b=inUb42jkDrEd1eqagz3VWUm1GucjOaseQiYkRsWPa6oVv+CW8ZJv7B+GzaXLHSvpc6TAyIc+Wisz6r0iTML95czNbcWHc8L0owgCJ0y955NhC0g5Dep0C6caceG0Yiye0JoN7PsGpVebX2wHp9IxOrLr5AHEjIEddr2Ivp2Bzag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at; spf=pass smtp.mailfrom=emfend.at; dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b=PZWMbPY9; arc=none smtp.client-ip=168.119.41.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=emfend.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b="Tg7ZFcAe"
+	dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b="PZWMbPY9"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=emfend.at;
 	 s=mail; h=Cc:To:In-Reply-To:References:Message-Id:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
 	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
 	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
 	List-Post:List-Owner:List-Archive;
-	bh=9SzZNEDRt/JuCCXQjF2yDXi2JJLtJVbsbdY/dIXln9Y=; b=Tg7ZFcAeErr11QsdSWw+Ma1kxP
-	l77zww6X234y5uV5fcu/g6sR+s6QFfolkxfl+3BtMV+T6ZvJEX/syI604ITm7isrdWAeHuR8Uy8n6
-	9dvJ5zgwjHXiNNSs2JLY8Vpx3S+frHN9AuKuTbgK1FwcE/C76zKyRNCxAJmg9iVud2j4=;
+	bh=ydV3u3Wp1/+BHYeVS9mosQEp9B2XhD7idHBc3IWnXuQ=; b=PZWMbPY9rJbM2vFq06Lo8o3tb5
+	5LzRlnGcZmcFUXZFefJpNUgykbn5+lB//mgVL4uzsAsv0ntsnj/atjqASsA+xXWaItdbXB0r+DuLR
+	qT7PCO/ktaynhD8mp6MijQNG2aex2RJxGGDJdFF4Gzf5WCRLuJpVba8HDOsITj5rq+YI=;
 Received: from 194-208-208-245.tele.net ([194.208.208.245]:64689 helo=[127.0.1.1])
 	by lx20.hoststar.hosting with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.93)
 	(envelope-from <matthias.fend@emfend.at>)
-	id 1vvXAt-0018Zt-Lp; Thu, 26 Feb 2026 09:56:47 +0100
+	id 1vvXAx-0018Zt-SF; Thu, 26 Feb 2026 09:56:52 +0100
 From: Matthias Fend <matthias.fend@emfend.at>
-Date: Thu, 26 Feb 2026 09:56:02 +0100
-Subject: [PATCH 2/8] media: i2c: ov08d10: add support for binding via
- device tree
+Date: Thu, 26 Feb 2026 09:56:08 +0100
+Subject: [PATCH 8/8] media: i2c: ov08d10: add missing newline to prints
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -42,7 +41,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-ov08d10-v1-2-c3a916368123@emfend.at>
+Message-Id: <20260226-ov08d10-v1-8-c3a916368123@emfend.at>
 References: <20260226-ov08d10-v1-0-c3a916368123@emfend.at>
 In-Reply-To: <20260226-ov08d10-v1-0-c3a916368123@emfend.at>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -54,78 +53,184 @@ Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Matthias Fend <matthias.fend@emfend.at>, 
  bsp-development.geo@leica-geosystems.com
 X-Mailer: b4 0.14.2
-X-Spam-Score: -0.7
-X-Spam-Bar: /
+X-Spam-Score: -1.0
+X-Spam-Bar: -
 X-Spam-Report: Spam detection software, running on the system "lx20.hoststar.hosting",
  has NOT identified this incoming email as spam.  The original
  message has been attached to this so you can view it or label
  similar future email.  If you have any questions, see
  the administrator of that system for details.
  
- Content preview:  Add YAML bindings for the Omnivision OV08D10 CMOS image sensor.
-    Signed-off-by: Matthias Fend <matthias.fend@emfend.at> --- .../bindings/media/i2c/ovti,ov08d10.yaml
-    | 101 +++++++++++++++++++++ MAINTAINERS | 1 + 2 files changed, 102 insertions(+)
-    
+ Content preview:  Fix some spelling errors in comments. Signed-off-by: Matthias
+    Fend <matthias.fend@emfend.at> --- drivers/media/i2c/ov08d10.c | 10 +++++-----
+    1 file changed, 5 insertions(+), 5 deletions(-) diff --git a/drivers/media/i2c/ov08d10.c
+    b/drivers/media/i2c/ov08d10.c index fa8d29a62fbfa956dff6b57ccd6c9b7777967731..f5c187d763c4264056100b904ab9585b25909e95
+    100644 --- a/drivers/media/i2c/ov08d10.c [...] 
  
- Content analysis details:   (-0.7 points, 5.0 required)
+ Content analysis details:   (-1.0 points, 5.0 required)
  
   pts rule name              description
  ---- ---------------------- --------------------------------------------------
-  0.0 URIBL_BLOCKED          ADMINISTRATOR NOTICE: The query to URIBL was
-                             blocked.  See
-                             http://wiki.apache.org/spamassassin/DnsBlocklists#dnsbl-block
-                              for more information.
-                             [URIs: linuxtv.org]
-  0.0 URIBL_DBL_BLOCKED_OPENDNS ADMINISTRATOR NOTICE: The query to
-                             dbl.spamhaus.org was blocked due to usage
-                             of an open resolver. See
-                             https://www.spamhaus.org/returnc/pub/
-                             [URIs: linuxtv.org]
-  0.0 URIBL_ZEN_BLOCKED_OPENDNS ADMINISTRATOR NOTICE: The query to
-                             zen.spamhaus.org was blocked due to usage
-                             of an open resolver. See
-                             https://www.spamhaus.org/returnc/pub/
-                             [URIs: linuxtv.org]
  -1.0 ALL_TRUSTED            Passed through trusted hosts only via SMTP
   0.0 TVD_RCVD_IP            Message was received from an IP address
-  0.1 POISEN_SPAM_PILL_3     BODY: random spam to be learned in bayes
-  0.1 POISEN_SPAM_PILL_1     RAW: random spam to be learned in bayes
   0.0 KAM_DMARC_STATUS       Test Rule for DKIM or SPF Failure with Strict
                              Alignment (older systems)
-  0.1 POISEN_SPAM_PILL       Meta: its spam
   0.0 Local_hs_NotToHoststar Recipient is NOT hoststar.(ch|at|com)
   0.0 Local_hs_NotFromHoststar Sender is NOT hoststar.(ch|at|com)
 
-The OV08D10 can be used also on embedded designs using device tree so allow
-the sensor to bind to a device tree node.
+Add trailing \n to dev_* prints where missing.
 
 Signed-off-by: Matthias Fend <matthias.fend@emfend.at>
 ---
- drivers/media/i2c/ov08d10.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/media/i2c/ov08d10.c | 34 +++++++++++++++++-----------------
+ 1 file changed, 17 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/media/i2c/ov08d10.c b/drivers/media/i2c/ov08d10.c
-index 43ec2a1f2fcffb7fa11a6268af3c2edc4df129f3..cfe18dcde174ddc1f198cb2aaa6b4a3b34045508 100644
+index f5c187d763c4264056100b904ab9585b25909e95..6eab9a899726aaacdddb12d2861e7b0f8d5e5fd7 100644
 --- a/drivers/media/i2c/ov08d10.c
 +++ b/drivers/media/i2c/ov08d10.c
-@@ -1466,10 +1466,17 @@ static const struct acpi_device_id ov08d10_acpi_ids[] = {
- MODULE_DEVICE_TABLE(acpi, ov08d10_acpi_ids);
- #endif
+@@ -714,7 +714,7 @@ static int ov08d10_write_reg_list(struct ov08d10 *ov08d10,
+ 						r_list->regs[i].val);
+ 		if (ret) {
+ 			dev_err_ratelimited(ov08d10->dev,
+-					    "failed to write reg 0x%2.2x. error = %d",
++					    "failed to write reg 0x%2.2x. error = %d\n",
+ 					    r_list->regs[i].address, ret);
+ 			return ret;
+ 		}
+@@ -1075,32 +1075,32 @@ static int ov08d10_start_streaming(struct ov08d10 *ov08d10)
+ 	/* soft reset */
+ 	ret = i2c_smbus_write_byte_data(client, OV08D10_REG_PAGE, 0x00);
+ 	if (ret < 0) {
+-		dev_err(ov08d10->dev, "failed to reset sensor");
++		dev_err(ov08d10->dev, "failed to reset sensor\n");
+ 		return ret;
+ 	}
+ 	ret = i2c_smbus_write_byte_data(client, 0x20, 0x0e);
+ 	if (ret < 0) {
+-		dev_err(ov08d10->dev, "failed to reset sensor");
++		dev_err(ov08d10->dev, "failed to reset sensor\n");
+ 		return ret;
+ 	}
+ 	usleep_range(3000, 4000);
+ 	ret = i2c_smbus_write_byte_data(client, 0x20, 0x0b);
+ 	if (ret < 0) {
+-		dev_err(ov08d10->dev, "failed to reset sensor");
++		dev_err(ov08d10->dev, "failed to reset sensor\n");
+ 		return ret;
+ 	}
  
-+static const struct of_device_id ov08d10_of_match[] = {
-+	{ .compatible = "ovti,ov08d10" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, ov08d10_of_match);
-+
- static struct i2c_driver ov08d10_i2c_driver = {
- 	.driver = {
- 		.name = "ov08d10",
- 		.acpi_match_table = ACPI_PTR(ov08d10_acpi_ids),
-+		.of_match_table = ov08d10_of_match,
- 	},
- 	.probe = ov08d10_probe,
- 	.remove = ov08d10_remove,
+ 	/* update sensor setting */
+ 	ret = ov08d10_write_reg_list(ov08d10, reg_list);
+ 	if (ret) {
+-		dev_err(ov08d10->dev, "failed to set plls");
++		dev_err(ov08d10->dev, "failed to set plls\n");
+ 		return ret;
+ 	}
+ 
+ 	reg_list = &ov08d10->cur_mode->reg_list;
+ 	ret = ov08d10_write_reg_list(ov08d10, reg_list);
+ 	if (ret) {
+-		dev_err(ov08d10->dev, "failed to set mode");
++		dev_err(ov08d10->dev, "failed to set mode\n");
+ 		return ret;
+ 	}
+ 
+@@ -1127,19 +1127,19 @@ static void ov08d10_stop_streaming(struct ov08d10 *ov08d10)
+ 
+ 	ret = i2c_smbus_write_byte_data(client, OV08D10_REG_PAGE, 0x00);
+ 	if (ret < 0) {
+-		dev_err(ov08d10->dev, "failed to stop streaming");
++		dev_err(ov08d10->dev, "failed to stop streaming\n");
+ 		return;
+ 	}
+ 	ret = i2c_smbus_write_byte_data(client, OV08D10_REG_MODE_SELECT,
+ 					OV08D10_MODE_STANDBY);
+ 	if (ret < 0) {
+-		dev_err(ov08d10->dev, "failed to stop streaming");
++		dev_err(ov08d10->dev, "failed to stop streaming\n");
+ 		return;
+ 	}
+ 
+ 	ret = i2c_smbus_write_byte_data(client, OV08D10_REG_PAGE, 0x01);
+ 	if (ret < 0) {
+-		dev_err(ov08d10->dev, "failed to stop streaming");
++		dev_err(ov08d10->dev, "failed to stop streaming\n");
+ 		return;
+ 	}
+ }
+@@ -1425,7 +1425,7 @@ static int ov08d10_get_hwcfg(struct ov08d10 *ov08d10)
+ 
+ 	/* Get number of data lanes */
+ 	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 2) {
+-		dev_err(dev, "number of CSI2 data lanes %d is not supported",
++		dev_err(dev, "number of CSI2 data lanes %d is not supported\n",
+ 			bus_cfg.bus.mipi_csi2.num_data_lanes);
+ 		ret = -EINVAL;
+ 		goto check_hwcfg_error;
+@@ -1437,7 +1437,7 @@ static int ov08d10_get_hwcfg(struct ov08d10 *ov08d10)
+ 	ov08d10->modes_size = ov08d10_modes_num(ov08d10);
+ 
+ 	if (!bus_cfg.nr_of_link_frequencies) {
+-		dev_err(dev, "no link frequencies defined");
++		dev_err(dev, "no link frequencies defined\n");
+ 		ret = -EINVAL;
+ 		goto check_hwcfg_error;
+ 	}
+@@ -1450,7 +1450,7 @@ static int ov08d10_get_hwcfg(struct ov08d10 *ov08d10)
+ 		}
+ 
+ 		if (j == bus_cfg.nr_of_link_frequencies) {
+-			dev_err(dev, "no link frequency %lld supported",
++			dev_err(dev, "no link frequency %lld supported\n",
+ 				ov08d10->priv_lane->link_freq_menu[i]);
+ 			ret = -EINVAL;
+ 			goto check_hwcfg_error;
+@@ -1510,7 +1510,7 @@ static int ov08d10_probe(struct i2c_client *client)
+ 
+ 	ret = ov08d10_get_hwcfg(ov08d10);
+ 	if (ret) {
+-		dev_err(ov08d10->dev, "failed to get HW configuration: %d",
++		dev_err(ov08d10->dev, "failed to get HW configuration: %d\n",
+ 			ret);
+ 		return ret;
+ 	}
+@@ -1539,7 +1539,7 @@ static int ov08d10_probe(struct i2c_client *client)
+ 
+ 	ret = ov08d10_identify_module(ov08d10);
+ 	if (ret) {
+-		dev_err(ov08d10->dev, "failed to find sensor: %d", ret);
++		dev_err(ov08d10->dev, "failed to find sensor: %d\n", ret);
+ 		goto probe_error_power_off;
+ 	}
+ 
+@@ -1547,7 +1547,7 @@ static int ov08d10_probe(struct i2c_client *client)
+ 	ov08d10->cur_mode = &ov08d10->priv_lane->sp_modes[0];
+ 	ret = ov08d10_init_controls(ov08d10);
+ 	if (ret) {
+-		dev_err(ov08d10->dev, "failed to init controls: %d", ret);
++		dev_err(ov08d10->dev, "failed to init controls: %d\n", ret);
+ 		goto probe_error_v4l2_ctrl_handler_free;
+ 	}
+ 
+@@ -1557,7 +1557,7 @@ static int ov08d10_probe(struct i2c_client *client)
+ 	ov08d10->pad.flags = MEDIA_PAD_FL_SOURCE;
+ 	ret = media_entity_pads_init(&ov08d10->sd.entity, 1, &ov08d10->pad);
+ 	if (ret) {
+-		dev_err(ov08d10->dev, "failed to init entity pads: %d", ret);
++		dev_err(ov08d10->dev, "failed to init entity pads: %d\n", ret);
+ 		goto probe_error_v4l2_ctrl_handler_free;
+ 	}
+ 
+@@ -1566,7 +1566,7 @@ static int ov08d10_probe(struct i2c_client *client)
+ 
+ 	ret = v4l2_async_register_subdev_sensor(&ov08d10->sd);
+ 	if (ret < 0) {
+-		dev_err(ov08d10->dev, "failed to register V4L2 subdev: %d",
++		dev_err(ov08d10->dev, "failed to register V4L2 subdev: %d\n",
+ 			ret);
+ 		goto probe_error_media_entity_cleanup;
+ 	}
 
 -- 
 2.34.1
