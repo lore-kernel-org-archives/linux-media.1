@@ -1,70 +1,92 @@
-Received: from sonic314-21.consmr.mail.ir2.yahoo.com (sonic314-21.consmr.mail.ir2.yahoo.com [77.238.177.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A414512D21B
-	for <linux-media@vger.kernel.org>; Thu, 26 Feb 2026 08:55:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.238.177.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 449132522A7
+	for <linux-media@vger.kernel.org>; Thu, 26 Feb 2026 09:08:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772096127; cv=none; b=NSS3WNpW2O6X9R6mHqQNkuLi91ksNke+HlzKtjLM7Ay5Aq4xg1HncPtISRVO5Qh8d9xS8raWALN277FaW06t/nWOYxMc9RDxRQSwoo0a4jYtMAasIHT9IWsCtshb7mnswB41wdeBIu4b6jNxhgP6Inc9fhnXQQrpnEqWIbbFJuw=
+	t=1772096938; cv=none; b=m93FeDn6F1uNy7c6wyYZV8Usy8nRZriSBF0lHLy8AFM/Cm7ffWBjhC9/6Yigjm0H2iT9ViJhZvex0GoQ/lWHiSEqr6JbRKW63LUaWb59YNNROKHWuHartIoeW9//VFueQEwJGgpCEJPbMXcv/zN2eQx93NDIo+T7WTUAvmW3YFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772096127; c=relaxed/simple;
-	bh=5LXK/MnExAeE3EPYlcJz52MBnnhRouy04b5SEnbKm5k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=ptWR5fwWo7WaXwBKNRGRAbHq2WzUZpZajKcjhpS1fIQrf+fGd8aKEnmFE5lFexWMQvunTtOuCA88LAFI/Sz+fnX+g7cXfyLIot1GjuyH4irYzC+2COLmGLFuTPCuL9qE+ERV3lpKHlWrp5eEn8WFCE9b2li0lqyhWmSuOKuuR1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl; spf=pass smtp.mailfrom=yahoo.pl; dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b=B0RsDF9g; arc=none smtp.client-ip=77.238.177.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
+	s=arc-20240116; t=1772096938; c=relaxed/simple;
+	bh=AsA+gJVaB0n1q/2UCXmz9k9rHtiiqcFu68NT9XiPDko=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=t8DnYKM1L/Un6eV7Zs2q83JEoIpjLlsjfHjnl5lEPfgBWMgaGKTmmU1SN5vdDZ8mkv0FmTHq0LuI9/+fOa36fZx8rjmZDQWnraeEdUtgqgEWIpsOf9Bu6Od91h6pP9+4vAqZwUiwvwAjeqH2q5duHfN/L9TbsnfuOIVfh7dAs/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gKCMY5Ef; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gJgZQiDi; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b="B0RsDF9g"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1772096117; bh=bUjwCHqr22viEvLkY6h7gTLQuexRn/Xi4rataPSVizU=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=B0RsDF9gX4ZMQyXe6ZEJY3+rfKJDXCn+c2dLySvnLp068m1Lmm2QnwhaG6rjXvIsIVBEYeI5o45TaWC0PvFPUAennB7kUsOVY3AcBOeGKb8gk2wSk/mbOxlgPP+Hq8wkItxI4wtedS5NNrhLx81tRQtjHSnVu/y10umyGc6EjwzX+i8Sco+EDGjg7PWgz/MMa1dTlyCImRTP5DQlXUs4guKLQLWOyUZycz3pYAiKQ6qy9s6gMsuniM+0eBMmfrtT93Way8sL/30hJwkTgHXfjjapiqOXmntSEw7PKqTj+FlsI23jAksRzhBw1+2PL0ERBHFhF4mB6uookJJY9/rsgQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1772096117; bh=4TgBjJiVFALKCxl93rF2wZrbuZqp/Rta0Jlw94ZPlaZ=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=nTi1vBSVdq1B31OXG4OuHAhegG9ruq/xrQf1WgL7ql+YACYzfU6mp0YyNf2QrADsAMDnDpg/nblBzkylDfb/NB53jKIuPEk9Hzc5rd4KP6C/hV/tEtNu7YZcdk7jc9rZoylWMCmIQefA/okbZNyrqzip2CazuluzGCvZriT/JpCrQOO+i+e36XkuE9Suh+JQeAPSi4LemR+jZY6kQs9aLtP4gaC4yOc6XPU57NEQE7LasekTL2ByZP+jMlZNtwzKOvcN5+0U/IJivgpueAPtg/1y5P6fVJK29RA72YGAMn/Q/eElfkvK4mQf0n17uRmBycnpR6d62Ji1GwxuwfqnoA==
-X-YMail-OSG: R0KRtq0VM1mfiq1YyYQtB4NrlRVnqrJ3d0pT3Gty4ZpsdiBf.dD.JLoOFDredNP
- DVyo8T4FNN2ZKvasCk2WcknYwJvxwUHAVtKmgVW84cRiOqS7IbbOBFWMUR.0HTiVquhDp2914ADd
- WDfr2J3Do0n_UgAv._AEGrFJYW216oCFFyBShck4PJQJx8XxhUWL6Ds2DUjZ.G3yD4no91GAkU36
- ceBPoelrcyGWbTN.DwgdXnB5VwcAiJ2Hq1ZGqolGpK_xnhIAc.sbLQ2A2NCiIDkkClahMBowahP4
- gXtoY5Akt6CW2Eup6tGKIjysPDcxP.eDAyN3_qLFE.kCEL2EQ2fXUWsjEQuGfN2iAHDnVDrYL.PG
- vsmZMTiAalQvkRplNJfI2WyScf2tsqeCoAPmjN8rlU_pF1FQWmtSMqFOFCA9Y.OYVnwTVTNleRhl
- ALKEvNQEp7cUsC_EOhr5ueH9ER11FMaMj1zi93aXAjvr00UASFelc7Xxla3hP1HrO.0c60UUoIjS
- 4O52T.xzSSANbjoJxNWPAUVC1.LieIqN8K9pVMK7we6aueU3_TEo75wo0ig9zkecDbUVsxGM5Q.Z
- uqzVuce34vZBopNPa_gL0uV5WFq5c9LlHXiYzptrulNm93pVq9Q.soQUNQWvCiLwUWewJVd4w9MI
- 1IeBM_XybjTtP79x4e4UCtgp.os5i4bBXt3Yd1AK.MtNldlMguwBPGH4E1jlbl347Iw9tbu6DtCx
- eujthzku_Ws6K6J5SJYhlBH._4H4tlbKfrYzAe0SOyAHK3UtNwz0xGao1ri7cF.CJ6XTZhKbTwBg
- vzezAm5ud_axdy7aFuJOt40g4vb8FPum1gj3GK0Ee3aYCsfzf7LgzSJhkBEPmOR8EziZ3xpoFPLw
- 2gaXv4.5fkfWzMzP1DMc2d55QrujW3jXkh09SvfX0JVPI.vv4d2x2tFzrXvFmU5_bCqeQqo8RNMD
- 9R5nd9uPebDFCJlLpA2LMj8v9koMsmRdq1oSQE9mP9PmVpVLeeY0_lrv2bmEhkPyw2iU2_WYERnz
- b_EYc0lqOWvnQLCip7shdT_lS0dE1p5EMSWdYYA12P2LA1nnUjl9rTJPukeCCN.KchoFvTK_YiJ9
- zjxBZgkDcZZAhkOfKwvokX6M7aY5Q8ZxTRS23tPautP3Av_Wk0BiyVD2d3EklDb3u8.E0H3zVekJ
- doeYppmW2nBCN4Jbk4yWkJn2r9l3Xb64qM4f9XPDrm.IMwaXR18PSpa_ICusP5JOtBBFahBYMWNZ
- qrckm8pFW2RgB69tp4Mv07fl3FZNNqHabImfZFxtJ2Po1_.1fy4AAiAJgMTOJQorbKJY8NwlpMw5
- fTvcazCa4hlVoR3QN0OISQYYf7L1_lHCEOjFefAmiwwpnoG.WBpWdlKhe8nAJn98y33bfvEqLEMb
- p2JdEH7_26YdAXnosjfLSUQcOI7t._5MfSd.1BBw.NxFhd.cmjpZEuqRlY49G06LF8btpY9muGGn
- _t0L4VkfQh3l7jNt1OtV0QZ4SAQCE31ytg4FPcnBfGTsDjUCErbqBQmifmBK16cA4rnhyr54.ORO
- u3pHVesS61FC.WfZChBBRVHFq0kluV8Ttuo_7MZ.Px3.zPHsq8QCUdxobR6F0Ld5zxRrLl2zaw0q
- ecCzlhXWc2nGEESxKdeb8YFMfNjM0Ggz9efee.kGamgi1KGks5yatDX6hZ2LiI86T4wbxaqKNB_R
- ZfSDZny.XRTViulFR8JS8Ia1tfvq8.pmf1IJ0ROstlOTRq11DGsq1PfP2xu6A5CfeeLbJsJEkE5.
- hAAz4Ep_yNZLtkYbJeVuWOBD72tyar4JdorYB9pYn8BQxMkgQ5GbvaZmYpmJSKZUORZZhrZwd9Pz
- lH44jD414CpFSkYp7VviUiLIbdcI7yV4e8lzwhk2yqKG8CjPpSWMhsSICjR4jXbg2p9jptb13Ihl
- P0ufCkBNwyDrToGDsqXufSJYncJZh5kAt2e.8DNJ.Y5FEjXNEzP1HmPL8nPVjFvbsg5n1ZSu5H44
- qEupu1cBztdzw2CW8hu4K52mzCVu5mei0DfBxLTenhyP5TRfs37ZkoZlqjSh3Tx77sY3ko7kMOq5
- Odbe70caIVAq7Qemqohldo1n0.6WEJTWr4eE10Z8tpe8dUp9oeJ0MZOGlAVc4lO1GK3RVr9jzgzt
- dFmvrVh55K387cOcsz34b5nq6QQAfXLXeNTrSoZRef9JoAx7B2MHK0iDu4QGLW21gnFdYhYAJIll
- f_njGxJDtOArq8ypPtdsDnNzp1LQ4xW5ISEVa2xww1lDzVwZYP3b0UrlJT6jllrajDeYpuBtqtJy
- VskGSpOiGZgfRz44-
-X-Sonic-MF: <tomasz.unger@yahoo.pl>
-X-Sonic-ID: 3fdbb3d2-0f1c-463a-adeb-b4df1c09a809
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic314.consmr.mail.ir2.yahoo.com with HTTP; Thu, 26 Feb 2026 08:55:17 +0000
-Received: by hermes--production-ir2-bbcfb4457-thwtn (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID a4b45e809006893d3b9b1766c5b34832;
-          Thu, 26 Feb 2026 08:55:15 +0000 (UTC)
-From: tomasz.unger@yahoo.pl
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tomasz Unger <tomasz.unger@yahoo.pl>
-Subject: [PATCH v2] staging: media: atomisp: replace sprintf() with strscpy()
-Date: Thu, 26 Feb 2026 09:55:10 +0100
-Message-ID: <20260226085510.65038-1-tomasz.unger@yahoo.pl>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gKCMY5Ef";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gJgZQiDi"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 61Q4V1sM2617840
+	for <linux-media@vger.kernel.org>; Thu, 26 Feb 2026 09:08:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=RXe/SUX1WenBcaA6Nk5U5ZXTozeuokZ6XY7
+	QS42tJTo=; b=gKCMY5EfiDOPRk9Ldab211FLkpsRhTofFC1otIKOFfCpfOPDYhu
+	u9C+NT2EefcBhAnokRCpG5YG/3C1Gs5dqpjWYlHaXb/qrtKWMHM0vcm62rO4XTLO
+	n71SkorvoTs/dWXzHLJbsxFqIzuGw+z0wK5x1iY0EIEn1l5UulJNkgYlPOewk+q9
+	gkmHG/FwGDL66QvtRtWgh0ojb3PY4fBr2aAMgauihMe3nLNGNraZAYIBDNyZEWiF
+	5qbYBkpp95zjWPU6czNs2ZWvEhjsx+57f/0Vdx/UrUTrYWBMkpc0YYCGj4dhY/+t
+	KUcEX/bYDfOd+FZEjGSoYEPVerC7RUUib9w==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cj559jj2a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 26 Feb 2026 09:08:55 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-8c70ab7f67fso669940985a.3
+        for <linux-media@vger.kernel.org>; Thu, 26 Feb 2026 01:08:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1772096934; x=1772701734; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=RXe/SUX1WenBcaA6Nk5U5ZXTozeuokZ6XY7QS42tJTo=;
+        b=gJgZQiDi6GVU073mIiJ7VqIwmryZ7HpGBsTgrX59jzH96PJdLhOK78qjCAxywrWf6L
+         uQt8K98htDCmq2AWfn7UWxdXMXrs9JgqiKg0aTSbvxe3x85ZqSYBnwtDn7tiOwA5f0Ux
+         721BE5k/AqCiMzUBFvPwtyKRK328NNmlNguw5TxX4BQiA3+WSkmW0ic1rNVOlmovjqkb
+         M98iqPQd8kCb1O2O1NsmwrOiWEF8VP0q5EE6K4btSFq1kZXohDMd5vFinPSsbiUHp5jB
+         I5Yi1KkxetkjbedPALV2jVSc20SGv3rI118VrYwRr1Vtpu1OKDCDD9EwzbWY4brEUtuB
+         Ke2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772096934; x=1772701734;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RXe/SUX1WenBcaA6Nk5U5ZXTozeuokZ6XY7QS42tJTo=;
+        b=HOAtKAy4wUhfZ5WOozKD+vUBSmnaUsFHk/MpzNjZWbLuL24ID14Zl9Xh+TzERidxaG
+         jWbh7RdBRhN2UPgiKO9BDbNW2eMmf8oBKBG6WCzfRzrNQzQwFY1SfJ5euhUyWm0lAIXY
+         2tiZrhgFfYofnWfSVDSc9X9vv79ND9LtQU0Op8MlLCX1VV114hcM0wwjey2PV85Ysaff
+         UynVwho6veT42dj7G2XcvVxUFNZCyQtvIHx3eC3KnCtsZZqcQtMZFT8Fza3Dc8jckpDU
+         mVpRQDQWeXN/2DQqPieLL9s8AOw5lFN41GFQm4EzXC77sUwKOpC0EFR9kXq8o9PhzNn3
+         tzZA==
+X-Forwarded-Encrypted: i=1; AJvYcCUQ99Lg1lKj+eAAit0LCDf3NgRB1joKxTCZqb8NKcTd43R+fF/dcdljG/VPvCeiz93q/IR4X+NlAgNfvg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwoiDOuD+smlNUNcN/OGBXDqHrGECIlz0FQTxaRx91DQomT3miO
+	KP4f8uAiiHX38PnNFBiNfJRcAnx4HjSDdbIctJJrfryNZfbovsEQS/GiF2BWIE00EMyj8HOAB9K
+	mC1lXzvBlZHng7g9mrMHfX+iVFQMc0PZsIar1VFJ2G+J1UtJlEHzOEDMr6uP1IMLhY1iSDLakfQ
+	==
+X-Gm-Gg: ATEYQzzaY+oCLJC1YDP1ykI8GAYuNb34DdkEUPpo8k/j+bHeDGpl0yikpJSzs0DpKoP
+	r2A7E6UeSDdUVLLr4JiKkdXrEcQ6xxllerwEz82fZdtXES3o5t3EHZdQjS+6X4KxvN0BwTwU1mq
+	8rYGOHkNV4R59SXFMnVzDT+wWFlQcVoV55MFqnrthxVDM2tI2zX/RCqWLwIkp4nee2s3V6FvPI5
+	oG/sb2jWM4JAmZvMLw/OX7FLGVUNTkqPTuXP+iUk6iykI0lm8WXgCWpjk1kBf6eX0uCFbdeVHBN
+	qLzoJu13pUuaYVBX8TdJGFEg34twBo1uLHXfKi9KXs6dGS12HXYjJHsVvecXUGA4umSia4E62sw
+	TPIhSmABn7EAgmbbSkF5YiFbM0TkjxXmKMdZNesaiFy7/R6TE4AsF9ArHx6QS2ohyGE91DMuXg9
+	niDL1JdFtXkd4=
+X-Received: by 2002:a05:620a:710b:b0:8c9:ea1c:f218 with SMTP id af79cd13be357-8cbbcf54d18mr417493585a.15.1772096934163;
+        Thu, 26 Feb 2026 01:08:54 -0800 (PST)
+X-Received: by 2002:a05:620a:710b:b0:8c9:ea1c:f218 with SMTP id af79cd13be357-8cbbcf54d18mr417492385a.15.1772096933641;
+        Thu, 26 Feb 2026 01:08:53 -0800 (PST)
+Received: from QCOM-eG0v1AUPpu.qualcomm.com ([2a01:e0a:830:450:bd3f:a77b:995:768e])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b935ac51431sm42419466b.17.2026.02.26.01.08.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Feb 2026 01:08:53 -0800 (PST)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+To: bryan.odonoghue@linaro.org
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        mchehab@kernel.org, vladimir.zapolskiy@linaro.org,
+        dmitry.baryshkov@oss.qualcomm.com,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>
+Subject: [PATCH v2] media: qcom: camss: Add debug message to camss-video format check
+Date: Thu, 26 Feb 2026 10:08:50 +0100
+Message-Id: <20260226090850.828694-1-loic.poulain@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -72,39 +94,58 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-References: <20260226085510.65038-1-tomasz.unger.ref@yahoo.pl>
+X-Proofpoint-ORIG-GUID: LWtbvI50ROBmcGpQC6fy2cXYlBO1QIGh
+X-Proofpoint-GUID: LWtbvI50ROBmcGpQC6fy2cXYlBO1QIGh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjI2MDA4MSBTYWx0ZWRfXxap1EruFgHk3
+ 3PENu6cKnrXxqk/1F129Hdv1VO8SoQgZow69egsBWCoyCmtXZVvw9oBdQbtSU1gnsNvkf1J0D7D
+ nPZ5cJrgDPBBTWm7+KbZe4QZxmqkYLQZjW5pjkrzuUwV3fKdeexEJTv2qbs3NRyBmAk6uoWqo+v
+ EqaVrE9Szd09WZBtPg3IQBQasdwuIIh9b4DQY1sryblWgtF0L8CtzjOwPBU0r572xG20+l0PdVs
+ cGCqYLiky/8eRSiaUMXl1BwlXHx3xGi3VIBvaTgFpsPMlWBDHGWxqyKoyT0YuOVC0d984fvUIbe
+ 3aPcaH/e6FPJtRLM49cOOHBR4iKE0I0WI8thb4SbGkrenYuF0IqB/euARMvYwmr06mvvKO8YsuQ
+ qJ7pSzmQE1J2tFQnZJuhpsDTjiP565fTNf54iFz+zCnMAr5D8FOh8LFuP5yv+TQF6qQlRKn1pp5
+ Bz7nszVT2EAy2ez2YNQ==
+X-Authority-Analysis: v=2.4 cv=TcybdBQh c=1 sm=1 tr=0 ts=69a00da7 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=HzLeVaNsDn8A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=6k50daf3fveMbYCwvhsA:9
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-02-25_04,2026-02-25_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015
+ spamscore=0 impostorscore=0 phishscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2602260081
 
-From: Tomasz Unger <tomasz.unger@yahoo.pl>
+Add a debug trace to video_check_format() to log both the subdev-reported
+format and the format requested by the video node. This makes it easier
+to diagnose mismatches between subdev output and the negotiated V4L2
+pixel format, as well as issues related to plane count, resolution, or
+field settings.
 
-Auditing calls to sprintf(). This code is fine because we are
-copying 9 characters into a 52 character buffer. But it would
-be cleaner to use strscpy() instead.
-
-Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
-Changes since v1 (requested by Dan Carpenter <dan.carpenter@linaro.org>):
-- Rewrite commit message to avoid misleading buffer overflow claims
-- Testing information moved under --- as requested
-    
-Testing:
-- make drivers/staging/media/atomisp/: compiled successfully, 0 errors, 0 warnings
+ drivers/media/platform/qcom/camss/camss-video.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
- drivers/staging/media/atomisp/pci/atomisp_subdev.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_subdev.c b/drivers/staging/media/atomisp/pci/atomisp_subdev.c
-index 3d56ca83ecb7..cef44ec9ebde 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_subdev.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_subdev.c
-@@ -808,7 +808,7 @@ static int isp_subdev_init_entities(struct atomisp_sub_device *asd)
- 	int ret;
+diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
+index 0c76bc2cc574..0852eb6f1315 100644
+--- a/drivers/media/platform/qcom/camss/camss-video.c
++++ b/drivers/media/platform/qcom/camss/camss-video.c
+@@ -218,6 +218,12 @@ static int video_check_format(struct camss_video *video)
+ 	if (ret < 0)
+ 		return ret;
  
- 	v4l2_subdev_init(sd, &isp_subdev_v4l2_ops);
--	sprintf(sd->name, "Atom ISP");
-+	strscpy(sd->name, "Atom ISP");
- 	v4l2_set_subdevdata(sd, asd);
- 	sd->flags |= V4L2_SUBDEV_FL_HAS_EVENTS | V4L2_SUBDEV_FL_HAS_DEVNODE;
- 
++	dev_dbg(video->camss->dev,
++		"%s: format is (%ux%u %p4cc/%up field:%u), trying (%ux%u %p4cc/%up field:%u)",
++		 video->vdev.name, sd_pix->width, sd_pix->height, &sd_pix->pixelformat,
++		 sd_pix->num_planes, sd_pix->field, pix->width, pix->height, &pix->pixelformat,
++		 pix->num_planes, pix->field);
++
+ 	if (pix->pixelformat != sd_pix->pixelformat ||
+ 	    pix->height != sd_pix->height ||
+ 	    pix->width != sd_pix->width ||
 -- 
-2.53.0
+2.34.1
 
