@@ -1,72 +1,72 @@
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F0536166C
-	for <linux-media@vger.kernel.org>; Thu, 26 Feb 2026 13:37:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8022D7DF5
+	for <linux-media@vger.kernel.org>; Thu, 26 Feb 2026 13:37:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772113071; cv=none; b=jq6+VqtXufvabaMVvoMd58PIQndVqfzs3OEAd9iHXpKW4j4pz9BcZu0PYC5i8p8ORLOEnaiGn7v2cAXAzaVsEfH4b0iwUbU+ls2e4BRE3TeZdUkLvtly7SKjGWhkNei4ybwec8OeSCpksKNvW254my1XHuWtvZDXPbt1ssq8Q4U=
+	t=1772113072; cv=none; b=JVY616mnhA5FGQAz59AjGDbFaR1vY0L6ofd80KYCLWW1VDTgy25XmYfD1SGesfnN8Dj/fZLmqNhMwYLB2INE14AyEe8/ZmYigS90zImpP8ZEXuZq5cl2FkjoJgkYyibLPF1fNmb5E/0ulFn8o7zb+BTkIqC2L2NNa7GMdfmMONo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772113071; c=relaxed/simple;
-	bh=4OOI5cjvkJQZrEf7fhTRrthjjoo4MhyuIDj5eSAam1g=;
+	s=arc-20240116; t=1772113072; c=relaxed/simple;
+	bh=A/bhWHfDkdngtW8OaPIJhSywA09qaFlpNobpdukj5Oc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U5VwTd9F+itQ8DRvsfriccUeCABarxI2URbphUNw28bKSkcvRvq5+60B2leBH52lprvEiLsQ+GK+iq3lwOlcrJZ026fiPOI/1jNHn2G5l3Di/kyIdAC/zvKYibGhL2+odO5IvSsTLcecVKZ8ttEmsdkK+Dz0uQq4tT/u/gkSKCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=CQDV+gkh; arc=none smtp.client-ip=209.85.167.43
+	 MIME-Version; b=snHMmpv3Ey8LrNIO7MPtvR3WK9Y+kEGyPl47DVaMjTCs7ogYGdbUakqIpvpS41j+4pQedsaIbrAmSz0PIAwZg2daEycGqDLi2+/2o8CgpxE4IRuZ7xrCX+8Nbti+yfGdS4IzZOZWJh3TB3A6qEwOH+o9MJm6tCcGmiaJom+VFRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=OyH7Ovew; arc=none smtp.client-ip=209.85.208.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="CQDV+gkh"
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-59e61a19ca4so163343e87.0
-        for <linux-media@vger.kernel.org>; Thu, 26 Feb 2026 05:37:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="OyH7Ovew"
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-389ea1aabcdso346191fa.2
+        for <linux-media@vger.kernel.org>; Thu, 26 Feb 2026 05:37:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1772113068; x=1772717868; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1772113069; x=1772717869; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5yJVbE8xcQeQ9nT+wWbyDuttouqcyOYx/th6SopR6kY=;
-        b=CQDV+gkhaZpxPO6iI12unXzWYKfr6zQqyTyjNxHQyrJEY80ylrwDtNd22CEdFZgXdO
-         MVocgI10njV5lglEIhhwq+z5jS4N0Xh30jPV32P5xeULDS3EIw5R1z+IaFFVqHE1CBJv
-         9d0th/Epu4//WJoq0nwALwX8DsVYOP0uEaMtuYcWJ15NUCY7HWRm8QfiG8ChXmfWVs97
-         lQwkmT6hoN+UuVDt0Zm7fT1KhQHF1qSEHgeGZoCTEr4ALwSrmDNkOqSK6WAfizCJ1g72
-         lPbeUYOJHIKRTnjaZLS5yTXW0XMep5TqIa6OvXCxTMsz98T5OZ41NsI2NnYTfDJMCwL3
-         NqlQ==
+        bh=Hu2Gs1IakSmd6hv5BWpHHNs09vmykuhmpHghIky8JY0=;
+        b=OyH7OvewOmdIuBbQygkTgTc7zR3BVDQD9m11Z+elUr1K/a8mm8uLdsYERpqq1Fw0FP
+         tk0nV1KkkYfgT2cCS3N9PwPAMN8CePdUDUz5ALWPLtusbAK0ZnULNIsoxk+ijb7vxk27
+         ok2F0rBHSLUxrwq+ISb9Rza2zf04bCJB2T+aONOtDY/vwssKbafzVcJ4qqy1CrHeaMSL
+         aYfG65nXgjxMFlv4V+LCwo+gibIZ+h9GAa6Mby0kDYoLIQcH38+RfYakCvffBOgk2vcu
+         Fmd6+fU8RUleZQNWue5FNZ+qxPYvYw+Hi5RRbzdwhO6XegM2Iy41Mcnv9fZE9iRXW4lG
+         2ZEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772113068; x=1772717868;
+        d=1e100.net; s=20230601; t=1772113069; x=1772717869;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=5yJVbE8xcQeQ9nT+wWbyDuttouqcyOYx/th6SopR6kY=;
-        b=kgvHs7tmEZWnGXIClzjdwkqfLd72ahZZpK7sAhyhxh8iCMr8Tcs3xAp/97C+IF55Hn
-         +Bk9DAkFUSJ1h/59pJLdPY4z8Aik/nV63dDT4m5PMkuBjdUAaIf/04rItDTENJmEk+do
-         UFTPDlZ+CJXp3DF95NgV9/YKxCHgZM+V6hDRllZMjlXNSheofSEvwVpYRGvtvdkqy0nT
-         5JFcgJv4MjJA+US42OBPAfRIBdyevDzzHvjGiYWNKujL+dNEUOFHOsW+CFFgPXFwtPpm
-         uVjfm4FUtYSudbtNpJHz72+ffE+vkNo0+WwER60lboAf22IAl9Vka+nM3W2ON5/C0fBY
-         gsWA==
-X-Forwarded-Encrypted: i=1; AJvYcCVpKsq8T54qjGRyjr34y8Fh0bLztC3QaGAqoA9hCh6gHJeWOxcckDMdQ462vBvRNQXeirRX8YgzTiy/og==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2qoaVbrthfwzLf7XwScapj0ar+ZgvNzdSyM5L4CXxqKDNwm4Z
-	qyajXHQsiRblV/7Thmlm8aMWm54TWK9/r/6itN+iMwP/5DLAfHTw0/gsAW8A9zJ33Jw=
-X-Gm-Gg: ATEYQzxvOxUUUYl63HQ0IBgHeHejik/7cN58unrKLn/C5OTtzWrx0G+OEI3QCO+lupc
-	g6kByyq8zwSVS0xuWQsYB8ujtCXSpLvzhEp0zJTTPsd1GmWS0LSmLT7zGoS3/BVJKvGUIznNsLq
-	bTcoLP1G9x8U1Tv1RWeLdfD+nmbLq/Z0CP9iEe/lanMwVOebUht6JmZGdlRHJG2z/y6mhFdZ/+3
-	rwy8cqCil5gylP3TwdxsZ4VrbMZmR7gqb4rzJorsP1C3Bj5Jbc0ivVd6pwnXRS/ywDsXIK6ptBz
-	H1U9hB+SYf47wuRI1VN7n8EbMOMuNGaRS0UqL81BMHrZXJ86N45Llnfv0BGv7+NXBASNFOrrKgL
-	d1KqF/rm/3dO6kL8XJgTl9zZbOYZNdBw7n1s1xScFrL0Z63PHjx2HPAtKXgMNFHoDZRmR103BYO
-	fbqxVxEUd5y/wEpNrtJI4IxmFhbuH5ZYRle4A+i/z5XMawC0BVDO/7pv4bO4uyoN0ERw==
-X-Received: by 2002:ac2:51d5:0:b0:5a1:a77:ba5f with SMTP id 2adb3069b0e04-5a10a77bc29mr461004e87.2.1772113067798;
-        Thu, 26 Feb 2026 05:37:47 -0800 (PST)
+        bh=Hu2Gs1IakSmd6hv5BWpHHNs09vmykuhmpHghIky8JY0=;
+        b=f37B5nXOZmA/XOlvV9LdZUmYrAKiiTvbq+fZ2n0tFDEu/Cm+Wn01zmLrYo39Ia3Tli
+         Jh7GqvMRKDEW/+tAls46f5wco2Yb09ULfovsI35SCd261O1GS39x4ElB8Z810In4YEWG
+         cJWIAODHnfcLFcbhzXQCC0JqfNok3RUy3J4lz5ElXyFdWE4q7Z+cki0tmnmxbQa8g0Ba
+         SUft0wWWNCWl62WRExhn9xFU8qldHNlkAipI7rsajG0GDEZHXKQ7xlJeqim4/GuEhpHw
+         bi026dGpCfYslP2GBB64UQpa2A5psGvYNS0pNda29wLa3iAxLCBrFoYfKjSf1yDLTZma
+         4Xzw==
+X-Forwarded-Encrypted: i=1; AJvYcCWkhpzukfHDiyY83DMUpIG8bdmV29lI5btn8mwZm79/+6cMnY5h4WJpTqOacXSJO0d1HkoaWtIFkrgeog==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx7bBMfmoTA4/ugd8EpZj6mtqxz0a+FdYWLL5Vzq1CnhGRO1AQZ
+	BsR/K0wYrm/mFfzK3yQOjDTrD6Y4HNoaPmMji4dmPfY1EIsHe6YaWI6N86N0CTZNM6w=
+X-Gm-Gg: ATEYQzzFv0k20JE2WVoDcCWV6cDMHnOa1OO5XFRgYYc0PUbpve53zgRWHIV/w2PPlhv
+	XiPmAW8la0GeJFQddrINIhYu8ltTlhX0OEXEgVuRq9YHEy7hF2TsAlz9sHVq0vJHWRsP86YQ7XT
+	tuRJycOOzpbB0xHVGWc8VJI5ThJHTOYU547dZLyLUIPG8o12N31VEZ3CMMDAggOeqFyQvrj6Le+
+	hv2EZZUS5nozAl3chgceGW3ruMwwVM+FMFcxxizcEORh6pzni/HqmE71NDoaKaSoNRkYpCBmhnh
+	HdOclmFbaiiJ3VY2+q1uoUolshk3EqDLzfWjEGc/m7RHIBzu7dd7JPRI/z7lDqR+6NeONEKV4Gj
+	4ovoHM8v4PAJosP9Jr1zAqoYooyZ7pj2i1gkqsQf6VsdQaIYChCKYC8RDcRb12wzq3QdlKI2YAW
+	+8eIzpkZVTij1A7MKX4GKwHQC/GnUH6PBrLJRJn+OItt0kjaeuTuQa01gDj3fN54CU3w==
+X-Received: by 2002:a05:651c:f19:b0:385:c2b1:ea7c with SMTP id 38308e7fff4ca-389a58a4afcmr33246431fa.0.1772113069411;
+        Thu, 26 Feb 2026 05:37:49 -0800 (PST)
 Received: from thyme.. (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-389f302292bsm6572041fa.45.2026.02.26.05.37.47
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-389f302292bsm6572041fa.45.2026.02.26.05.37.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Feb 2026 05:37:47 -0800 (PST)
+        Thu, 26 Feb 2026 05:37:49 -0800 (PST)
 From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Hans Verkuil <hverkuil@kernel.org>
 Cc: Shawn Tu <shawnx.tu@intel.com>,
 	linux-media@vger.kernel.org
-Subject: [PATCH 2/6] media: i2c: og01a1b: Switch from .s_stream to .enable_streams/.disable_streams
-Date: Thu, 26 Feb 2026 15:37:35 +0200
-Message-ID: <20260226133739.4050870-3-vladimir.zapolskiy@linaro.org>
+Subject: [PATCH 4/6] media: i2c: og01a1b: Replace .open with .init_state internal ops
+Date: Thu, 26 Feb 2026 15:37:37 +0200
+Message-ID: <20260226133739.4050870-5-vladimir.zapolskiy@linaro.org>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20260226133739.4050870-1-vladimir.zapolskiy@linaro.org>
 References: <20260226133739.4050870-1-vladimir.zapolskiy@linaro.org>
@@ -78,235 +78,52 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The change allows to simplify the driver code, in particular the explicit
-locking scheme for stream on/off or format update serialization can be
-dropped in favour to the one provided by the V4L2 core internals.
+Instead of wiping the camera sensor subdevice initial state on every
+open() syscall it would be better to set the initial state just once.
 
 Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 ---
- drivers/media/i2c/og01a1b.c | 88 ++++++++++++++-----------------------
- 1 file changed, 33 insertions(+), 55 deletions(-)
+ drivers/media/i2c/og01a1b.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/media/i2c/og01a1b.c b/drivers/media/i2c/og01a1b.c
-index 7b892b26203c..ea4c4c7b3d64 100644
+index 1f33a4e427ef..537218f6fa62 100644
 --- a/drivers/media/i2c/og01a1b.c
 +++ b/drivers/media/i2c/og01a1b.c
-@@ -442,9 +442,6 @@ struct og01a1b {
- 
- 	/* Current mode */
- 	const struct og01a1b_mode *cur_mode;
--
--	/* To serialize asynchronus callbacks */
--	struct mutex mutex;
- };
- 
- static u64 to_pixel_rate(u32 f_index)
-@@ -616,7 +613,6 @@ static int og01a1b_init_controls(struct og01a1b *og01a1b)
- 	if (ret)
- 		return ret;
- 
--	ctrl_hdlr->lock = &og01a1b->mutex;
- 	og01a1b->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr,
- 						    &og01a1b_ctrl_ops,
- 						    V4L2_CID_LINK_FREQ,
-@@ -686,74 +682,66 @@ static void og01a1b_update_pad_format(const struct og01a1b_mode *mode,
- 	fmt->field = V4L2_FIELD_NONE;
+@@ -746,10 +746,21 @@ static int og01a1b_enum_frame_size(struct v4l2_subdev *sd,
+ 	return 0;
  }
  
--static int og01a1b_start_streaming(struct og01a1b *og01a1b)
-+static int og01a1b_enable_streams(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *state, u32 pad,
-+				  u64 streams_mask)
+-static int og01a1b_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
++static int og01a1b_init_state(struct v4l2_subdev *sd,
++			      struct v4l2_subdev_state *state)
  {
+-	og01a1b_update_pad_format(&supported_modes[0],
+-				  v4l2_subdev_state_get_format(fh->state, 0));
 +	struct og01a1b *og01a1b = to_og01a1b(sd);
-+	unsigned int link_freq_index = og01a1b->cur_mode->link_freq_index;
- 	const struct og01a1b_reg_list *reg_list;
--	int link_freq_index, ret;
-+	int ret;
- 
--	link_freq_index = og01a1b->cur_mode->link_freq_index;
--	reg_list = &link_freq_configs[link_freq_index].reg_list;
-+	ret = pm_runtime_resume_and_get(og01a1b->dev);
-+	if (ret)
-+		return ret;
- 
-+	reg_list = &link_freq_configs[link_freq_index].reg_list;
- 	ret = og01a1b_write_reg_list(og01a1b, reg_list);
- 	if (ret) {
--		dev_err(og01a1b->dev, "failed to set plls");
--		return ret;
-+		dev_err(og01a1b->dev, "failed to set plls: %d\n", ret);
-+		goto error;
- 	}
- 
- 	reg_list = &og01a1b->cur_mode->reg_list;
- 	ret = og01a1b_write_reg_list(og01a1b, reg_list);
- 	if (ret) {
--		dev_err(og01a1b->dev, "failed to set mode");
-+		dev_err(og01a1b->dev, "failed to set mode: %d\n", ret);
- 		return ret;
- 	}
- 
- 	ret = __v4l2_ctrl_handler_setup(og01a1b->sd.ctrl_handler);
- 	if (ret)
--		return ret;
-+		goto error;
- 
- 	ret = og01a1b_write_reg(og01a1b, OG01A1B_REG_MODE_SELECT,
- 				OG01A1B_REG_VALUE_08BIT,
- 				OG01A1B_MODE_STREAMING);
- 	if (ret) {
--		dev_err(og01a1b->dev, "failed to set stream");
--		return ret;
-+		dev_err(og01a1b->dev, "failed to start streaming: %d\n", ret);
-+		goto error;
- 	}
- 
- 	return 0;
--}
- 
--static void og01a1b_stop_streaming(struct og01a1b *og01a1b)
--{
--	if (og01a1b_write_reg(og01a1b, OG01A1B_REG_MODE_SELECT,
--			      OG01A1B_REG_VALUE_08BIT, OG01A1B_MODE_STANDBY))
--		dev_err(og01a1b->dev, "failed to set stream");
-+error:
-+	pm_runtime_put_autosuspend(og01a1b->dev);
++	struct v4l2_subdev_format fmt = {
++		.which = V4L2_SUBDEV_FORMAT_TRY,
++		.pad = 0,
++		.format = {
++			.width = og01a1b->cur_mode->width,
++			.height = og01a1b->cur_mode->height,
++			.code = MEDIA_BUS_FMT_Y10_1X10,
++		},
++	};
 +
-+	return ret;
- }
- 
--static int og01a1b_set_stream(struct v4l2_subdev *sd, int enable)
-+static int og01a1b_disable_streams(struct v4l2_subdev *sd,
-+				   struct v4l2_subdev_state *state, u32 pad,
-+				   u64 streams_mask)
- {
- 	struct og01a1b *og01a1b = to_og01a1b(sd);
--	int ret = 0;
--
--	mutex_lock(&og01a1b->mutex);
--	if (enable) {
--		ret = pm_runtime_resume_and_get(og01a1b->dev);
--		if (ret) {
--			mutex_unlock(&og01a1b->mutex);
--			return ret;
--		}
-+	int ret;
- 
--		ret = og01a1b_start_streaming(og01a1b);
--		if (ret) {
--			enable = 0;
--			og01a1b_stop_streaming(og01a1b);
--			pm_runtime_put(og01a1b->dev);
--		}
--	} else {
--		og01a1b_stop_streaming(og01a1b);
--		pm_runtime_put(og01a1b->dev);
--	}
-+	ret = og01a1b_write_reg(og01a1b, OG01A1B_REG_MODE_SELECT,
-+				OG01A1B_REG_VALUE_08BIT, OG01A1B_MODE_STANDBY);
-+	if (ret)
-+		dev_err(og01a1b->dev, "failed to stop streaming: %d\n", ret);
- 
--	mutex_unlock(&og01a1b->mutex);
-+	pm_runtime_put_autosuspend(og01a1b->dev);
- 
- 	return ret;
- }
-@@ -771,7 +759,6 @@ static int og01a1b_set_format(struct v4l2_subdev *sd,
- 				      height, fmt->format.width,
- 				      fmt->format.height);
- 
--	mutex_lock(&og01a1b->mutex);
- 	og01a1b_update_pad_format(mode, &fmt->format);
- 	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
- 		*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
-@@ -794,8 +781,6 @@ static int og01a1b_set_format(struct v4l2_subdev *sd,
- 					 h_blank);
- 	}
- 
--	mutex_unlock(&og01a1b->mutex);
--
- 	return 0;
- }
- 
-@@ -805,15 +790,12 @@ static int og01a1b_get_format(struct v4l2_subdev *sd,
- {
- 	struct og01a1b *og01a1b = to_og01a1b(sd);
- 
--	mutex_lock(&og01a1b->mutex);
- 	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
- 		fmt->format = *v4l2_subdev_state_get_format(sd_state,
- 							    fmt->pad);
- 	else
- 		og01a1b_update_pad_format(og01a1b->cur_mode, &fmt->format);
- 
--	mutex_unlock(&og01a1b->mutex);
--
- 	return 0;
- }
- 
-@@ -849,18 +831,14 @@ static int og01a1b_enum_frame_size(struct v4l2_subdev *sd,
- 
- static int og01a1b_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
- {
--	struct og01a1b *og01a1b = to_og01a1b(sd);
--
--	mutex_lock(&og01a1b->mutex);
- 	og01a1b_update_pad_format(&supported_modes[0],
- 				  v4l2_subdev_state_get_format(fh->state, 0));
--	mutex_unlock(&og01a1b->mutex);
++	og01a1b_set_format(sd, state, &fmt);
  
  	return 0;
  }
- 
- static const struct v4l2_subdev_video_ops og01a1b_video_ops = {
--	.s_stream = og01a1b_set_stream,
-+	.s_stream = v4l2_subdev_s_stream_helper,
+@@ -777,7 +788,7 @@ static const struct media_entity_operations og01a1b_subdev_entity_ops = {
  };
  
- static const struct v4l2_subdev_pad_ops og01a1b_pad_ops = {
-@@ -868,6 +846,8 @@ static const struct v4l2_subdev_pad_ops og01a1b_pad_ops = {
- 	.get_fmt = og01a1b_get_format,
- 	.enum_mbus_code = og01a1b_enum_mbus_code,
- 	.enum_frame_size = og01a1b_enum_frame_size,
-+	.enable_streams = og01a1b_enable_streams,
-+	.disable_streams = og01a1b_disable_streams,
+ static const struct v4l2_subdev_internal_ops og01a1b_internal_ops = {
+-	.open = og01a1b_open,
++	.init_state = og01a1b_init_state,
  };
  
- static const struct v4l2_subdev_ops og01a1b_subdev_ops = {
-@@ -1046,7 +1026,6 @@ static void og01a1b_remove(struct i2c_client *client)
- 	media_entity_cleanup(&sd->entity);
- 	v4l2_ctrl_handler_free(sd->ctrl_handler);
- 	pm_runtime_disable(og01a1b->dev);
--	mutex_destroy(&og01a1b->mutex);
- }
- 
- static int og01a1b_probe(struct i2c_client *client)
-@@ -1135,7 +1114,6 @@ static int og01a1b_probe(struct i2c_client *client)
- 		goto power_off;
- 	}
- 
--	mutex_init(&og01a1b->mutex);
- 	og01a1b->cur_mode = &supported_modes[0];
- 	ret = og01a1b_init_controls(og01a1b);
- 	if (ret) {
-@@ -1143,6 +1121,7 @@ static int og01a1b_probe(struct i2c_client *client)
- 		goto probe_error_v4l2_ctrl_handler_free;
- 	}
- 
-+	og01a1b->sd.state_lock = og01a1b->ctrl_handler.lock;
- 	og01a1b->sd.internal_ops = &og01a1b_internal_ops;
- 	og01a1b->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
- 	og01a1b->sd.entity.ops = &og01a1b_subdev_entity_ops;
-@@ -1183,7 +1162,6 @@ static int og01a1b_probe(struct i2c_client *client)
- 
- probe_error_v4l2_ctrl_handler_free:
- 	v4l2_ctrl_handler_free(og01a1b->sd.ctrl_handler);
--	mutex_destroy(&og01a1b->mutex);
- 
- power_off:
- 	og01a1b_power_off(og01a1b->dev);
+ static int og01a1b_identify_module(struct og01a1b *og01a1b)
 -- 
 2.49.0
 
