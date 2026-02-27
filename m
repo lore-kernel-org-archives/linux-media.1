@@ -1,111 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21B6D3C198F;
-	Fri, 27 Feb 2026 10:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122F536E48F
+	for <linux-media@vger.kernel.org>; Fri, 27 Feb 2026 10:54:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772189106; cv=none; b=rbnpZt6xOzYuCVueeS8FDKwEnsQDFIMfyyjoLoWzB6Dc48x8Y6dOgqJpvmpMb92OrR/HzmzV3bekkuSqZY4FE5B6cqR76tasv0SwiWctIDsRKzwj7kGrympV4oDJGqhIhCrEBRCwJyKdY6wFNp+cwSlTtrWFel7h4GvW/6Fwia8=
+	t=1772189643; cv=none; b=DOjsTU66KwT9Akc66iw87NOWGOeyMzOpe1Er4o/fxFb3VT6LOt7w2tlMbAN2u0YSr4ebihFomQmidvQFSf4/obHuAcUM7M0i9U2war1yeWMb1hQ8AzcHFuexrxwYoN8M3iXby08tTtxf5cV3a2JLAL4D6iU8qCWCPaMDK2LqZB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772189106; c=relaxed/simple;
-	bh=xt6m21T316YRs2MqjpM0+Vlxf7fBnTeYJucPWPyF2y8=;
+	s=arc-20240116; t=1772189643; c=relaxed/simple;
+	bh=kO+XTmDOsNEEx74+zD/4AjlfNI1loK9wTjl2o7uCpnc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GekaGl8gKHeartcDh9dbmoE2URXX9qlRUhfew2e1XwRF4ZIpY5N2mocV9EcL/RQ2gLKbfl7isphf2W1tSKAan0Sdm7gPzQm8o4JrvXIQONR1QzvJmUq11g/oAzWpNQ4EcGtG6hZw7yGhSxK5oAtWn8WfIAZ1x5Z8NSS79JXXxcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zhw5zAn0; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=tdEOqNbzzl+KmOXyz/y8mG5ZZNnoYqQacqQncHTB7VaS201KBr0fIqonSCiyol1fGeMdg9WZRKtrh+rYOR6apCXyEyCCKHRbmZGCVk9pc+pC0hVPu+TBqGkJ3FEBKD6LNNzpc7+DELABFUJwtQBIG9eo5HgLy6dRWlKDltmY9So=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LXDjrLM3; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zhw5zAn0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34864C116C6;
-	Fri, 27 Feb 2026 10:45:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1772189105;
-	bh=xt6m21T316YRs2MqjpM0+Vlxf7fBnTeYJucPWPyF2y8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Zhw5zAn0HKwQEoqL1ZQN3doeLB+2Bp8zaBcnJEmXgL4yZL974df66p+9+Nmn+JMSh
-	 USW2fOjXMg/Xn6AGFLo6bHhsKzGGJ0ItGvWlIopVpCP4bRRo19bhUET9aE56GTc+Oy
-	 ZpkH6SkogdLShZHZCuooSqASIPk6TzrwcHPCYzjaE3ijGVUJSFw2ykL5VoDEzuxG1D
-	 puMnxG/UG2RXWOK4ijkn09BNQBl55jAT8ewNb92p1FBqZStlalJYqW60r7/QWV99e9
-	 rqLKl2zk/gQU7cmMDT/nZVt5wZUwOuNBBiNspGSrrWKH6k3heRDyRnIxBXHBqLZ7Xi
-	 JZavIov09nQQg==
-Date: Fri, 27 Feb 2026 11:45:03 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Matthias Fend <matthias.fend@emfend.at>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jimmy Su <jimmy.su@intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	bsp-development.geo@leica-geosystems.com
-Subject: Re: [PATCH 1/8] dt-bindings: media: i2c: document Omnivision OV08D10
- CMOS image sensor
-Message-ID: <20260227-imported-benevolent-stingray-e97dfd@quoll>
-References: <20260226-ov08d10-v1-0-c3a916368123@emfend.at>
- <20260226-ov08d10-v1-1-c3a916368123@emfend.at>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LXDjrLM3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1772189641; x=1803725641;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kO+XTmDOsNEEx74+zD/4AjlfNI1loK9wTjl2o7uCpnc=;
+  b=LXDjrLM3SFfp+PNJHWab21KPu9z6Y9FyiZ2935NnWMtI7E/A4bso1qb0
+   zenMHwjy74rtKDBeNDiaO+PWNPRzoK4rzZtRFbWLDyEbhwabWpv2lb92z
+   ACrkFQU5r95UidSlkQV/RaRsKUlryHa15tSq1GgKSgl1/E3HLMjVL7yub
+   AxtUvAxfV6BphY29zmRFzg6kUEKtZaK3+doADz413fCXpESEZlNd5Xq/U
+   avykYPfFeCb7oqUg51HQhI0BK5jy/3KRiRJ9/lc3frcH60FeWQQZgrqQH
+   622rqfvA3kyRAuA7z6mFTW1lAqRjZyFo2P3WAYjN05q14TvUPYVWETnQH
+   Q==;
+X-CSE-ConnectionGUID: UyR147/oSEmycBXpSkxYqQ==
+X-CSE-MsgGUID: 3f+bpj6GSRqi846sjTvH2w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11713"; a="90672694"
+X-IronPort-AV: E=Sophos;i="6.21,314,1763452800"; 
+   d="scan'208";a="90672694"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Feb 2026 02:54:00 -0800
+X-CSE-ConnectionGUID: 9ItbOOuOS16RoZrtXOyxqw==
+X-CSE-MsgGUID: QnalAIfDQ5OCYXWNt1ag/w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,314,1763452800"; 
+   d="scan'208";a="254643993"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.120])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Feb 2026 02:53:58 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 73905120FD6;
+	Fri, 27 Feb 2026 12:54:26 +0200 (EET)
+Date: Fri, 27 Feb 2026 12:54:26 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: linux-media@vger.kernel.org, andy@kernel.org, hansg@kernel.org,
+	mchehab@kernel.org, gregkh@linuxfoundation.org,
+	linux-staging@lists.linux.dev,
+	Soufiane Dani <soufianeda@tutanota.com>
+Subject: Re: [PATCH 1/1] staging: media: atomisp: Disallow all private
+ IOCTLSs but S_PARAMETERS
+Message-ID: <aaF34slAiw7vOJGl@kekkonen.localdomain>
+References: <20260227092327.3654603-1-sakari.ailus@linux.intel.com>
+ <aaFkcS1fMVLxGB87@smile.fi.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260226-ov08d10-v1-1-c3a916368123@emfend.at>
+In-Reply-To: <aaFkcS1fMVLxGB87@smile.fi.intel.com>
 
-On Thu, Feb 26, 2026 at 09:56:01AM +0100, Matthias Fend wrote:
-> Add YAML bindings for the Omnivision OV08D10 CMOS image sensor.
+Hi Andy,
 
-Drop YAML. You add DT bindings, not YAML. No YAML is bound here to
-anything.
-
+On Fri, Feb 27, 2026 at 11:31:29AM +0200, Andy Shevchenko wrote:
+> On Fri, Feb 27, 2026 at 11:23:27AM +0200, Sakari Ailus wrote:
+> > Disallow all private IOCTLs except ATOMISP_IOC_S_PARAMETERS. These aren't
+> > quite as safe as one could assume of IOCTL handlers; disable them for now.
+> > Instead of removing the code, simply check the IOCTL matches with
+> > S_PARAMETERS and bail out otherwise, in order to ease backporting.
 > 
-> Signed-off-by: Matthias Fend <matthias.fend@emfend.at>
-> ---
->  .../bindings/media/i2c/ovti,ov08d10.yaml           | 101 +++++++++++++++++++++
->  MAINTAINERS                                        |   1 +
->  2 files changed, 102 insertions(+)
+> > In particular, ATOMISP_IOC_S_ISP_FPN_TABLE is disabled by this patch.
 > 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov08d10.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,ov08d10.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..96dbf61cf7c188544f4120216ae2b8e0155128b7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov08d10.yaml
-> @@ -0,0 +1,101 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/ovti,ov08d10.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Omnivision OV08D10 1/4-Inch 8MP CMOS color image sensor
-> +
-> +maintainers:
-> +  - Jimmy Su <jimmy.su@intel.com>
-> +
-> +description:
-> +  The Omnivision OV08D10 is a 1/4-Inch 8MP CMOS color image sensor with an
-> +  active array size of 3280 x 2464. It is programmable through I2C
-> +  interface. Image data is transmitted via MIPI CSI-2 using 2 lanes.
-> +
-> +allOf:
-> +  - $ref: /schemas/media/video-interface-devices.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: ovti,ov08d10
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    description: MCLK input clock (6 - 27 MHz)
-> +    maxItems: 1
-> +
-> +  reset-gpios:
-> +    description: Active low XSHUTDN pin
+> Why not removing the code?
+> It's still and will be in the Git index, it won't disappear.
 
-So maybe rather powerdown-gpios, see gpio-consumer-common.yaml?
+There have been changes in the IOCTL handler over the supported kernel
+versions. This patch can be backported all the way down to v5.10.
 
-> +    maxItems: 1
+I'm fine with removing the now-redundant code, but I'd rather do it
+separtely from fixing the issue at hand.
 
-Best regards,
-Krzysztof
+-- 
+Regards,
 
+Sakari Ailus
