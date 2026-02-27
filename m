@@ -1,172 +1,162 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FAE1A3164;
-	Fri, 27 Feb 2026 13:03:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A33F242049;
+	Fri, 27 Feb 2026 13:16:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772197416; cv=none; b=rYjNl+vRQ+xEuOPIJW64swl1IoFzvCcqO1rAv4vmLJMl/1FOye2ZVYWu1E1P2RrhzuL03rmAjJf7yAOQSJBhvBFZXKn1n61DlTH1NUIlCoguHhkOQd9wYt7278QRO/PZoPBeLxqIpaokYjj8PXB2s7B2NFisdTMMJZsTi/MTKIg=
+	t=1772198207; cv=none; b=m7wDfvbABiWZj91JBrzJKEhsvursf3CCs55W7DtdwhRvy3uyM+tQg5CWIQOS5/Tj6+G9bqmnTsnFCXaYGnmfHeUdosK+nwU31V5mAvCwl6MeUvlSw7cYZLadqjQhH0vPMGCP+WCn1+T+zXPHigZJX4TlSVLCiG+hKd3DXqnX/7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772197416; c=relaxed/simple;
-	bh=bERn3UGgISbC0PbmUnSEW/5x9liqJFQrKwBEdBhysS8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NO2P3Ltav5KH0X0ysefcKtAVR6JUMrhmu1Rs62hk0tuG+6e7tEAXi4Qk/pnoabjydPxke1ihmvHd2bIDR8ox73N89NunyPGPtFswb8Cv5xsrBPRZp+YV9MagtqX2OLJcNz5M9R6fA4/mz5hMxOLtg4zxhF8TKSQNHMRlBaOeCg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T7AihO16; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1772198207; c=relaxed/simple;
+	bh=egCWlPm1x8iHr9PPIzoYHflwiSm/bh95WCzD6gZYC3c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pksUldbtwrZofH4XHdghVoUWGZpc3ex8ggPIsNkcZyKApzrHZM2O0u9HwmHBZlnmJgqs8+/PgBcQYvCk4x3JIVml71PZmfukLXrMO3fK9BmJtgTNSFwXAy1W4QmV7QIZBDrKbP2dRQmBhbqq2Jb3duROE8pvhTiQpgUZ+ccYvxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=atCPtfbS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T7AihO16"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11C71C116C6;
-	Fri, 27 Feb 2026 13:03:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="atCPtfbS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA494C116C6;
+	Fri, 27 Feb 2026 13:16:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1772197415;
-	bh=bERn3UGgISbC0PbmUnSEW/5x9liqJFQrKwBEdBhysS8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=T7AihO16oQoaRbGruNs+3F1qNdA1xBl134oPZnqO+JybZGbiDiOXqaOrNO6J/nIPs
-	 WwCIiAqY1sOYDs1qeN7jfy82R9I1rU+9V/FmrGDDMVO4HiP2X0M3G5yCP6s/AsHufn
-	 EoYXkND1bCNkl1+wHlvoF0gpMM5BVQIvvc3jB2XrrM7uXH6Ds7Qp5PIJIjnzRF3kZi
-	 qemM2LAB9KVdXMn0AwgyI8gnLbyLB+Fg57oyYs1DBtpF6FRYmOy5c3JYmsCgpUc589
-	 MQVmaaFtT2R25LyecUJ9s0KebZ+ff1WKAJ2vvgWkpcsloBBFtGMeqKloHcmHZnxwd9
-	 uYeI+Enc6HPBQ==
-Message-ID: <dc2e9e13-165f-4ca1-be29-aabdbf133856@kernel.org>
-Date: Fri, 27 Feb 2026 14:03:30 +0100
+	s=k20201202; t=1772198207;
+	bh=egCWlPm1x8iHr9PPIzoYHflwiSm/bh95WCzD6gZYC3c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=atCPtfbSo6Zvk5tUFHE0DZyHYYrtBPlRAIDk2mxNRXEtPE0XaZAfWxmPGH2sW5M6S
+	 eTxLV3zr0Lw2PBwhHycBLW1jVxNqhngWqtqMsPQ18NLiQjbwwCI3UxULojF/uzWeMP
+	 29DUDUetMPpyNPFuJY6WE/1Cy3CdrW4wN7E197m9W5mDYZBwlSKlfiYxDXPNI5Il0F
+	 5YHLwWvg3D5LnI5n9/gwS03rSP9SmZ3R0NmEo54rv7Yy6GfDTWHFKfl25+7ihDwaad
+	 2ogx1sYQqiPPwmqMAny/6zTX+/QzVrDuZsC5Ok3sVSRq/FE+86ymrA83rm6vE87Laa
+	 YWi8qZBOe8nHw==
+Date: Fri, 27 Feb 2026 14:16:44 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: "T.J. Mercier" <tjmercier@google.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
+	Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+	iommu@lists.linux.dev, linux-mm@kvack.org
+Subject: Re: [PATCH 2/7] mm: cma: Export cma_alloc and cma_release
+Message-ID: <20260227-proficient-crazy-dinosaur-d2fb0b@houat>
+References: <20260225-dma-buf-heaps-as-modules-v1-0-2109225a090d@kernel.org>
+ <20260225-dma-buf-heaps-as-modules-v1-2-2109225a090d@kernel.org>
+ <60ecebf2-a708-4797-bedd-588c3e9931ff@kernel.org>
+ <20260226-impetuous-analytic-jellyfish-d4a86d@penduick>
+ <CABdmKX0KZLGaJWBoo3tkCxLvby3f4Fn0nMCLyz4a-H-9J_CtPQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] media: dt-bindings: rockchip,vdec: Add alternative
- reg-names order for RK35{76,88}
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Detlev Casanova <detlev.casanova@collabora.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Hans Verkuil <hverkuil@kernel.org>, kernel@collabora.com,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- Conor Dooley <conor.dooley@microchip.com>, linux-media@vger.kernel.org
-References: <20260226-vdec-reg-order-rk3576-v4-0-b8d72dc75250@collabora.com>
- <20260226-vdec-reg-order-rk3576-v4-1-b8d72dc75250@collabora.com>
- <20260227-observant-roaring-ara-ef7eb0@quoll>
- <adbbdbb1-b126-4807-821c-c9850befd695@collabora.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <adbbdbb1-b126-4807-821c-c9850befd695@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-On 27/02/2026 12:37, Cristian Ciocaltea wrote:
-> Hi Krzysztof, Conor,
-> 
-> On 2/27/26 9:46 AM, Krzysztof Kozlowski wrote:
->> On Thu, Feb 26, 2026 at 12:46:53PM +0200, Cristian Ciocaltea wrote:
->>> With the introduction of the RK3588 SoC, and RK3576 afterwards, two more
->>> register blocks have been provided for the video decoder unit.
->>>
->>> However, the binding does not properly describe the new hardware layout,
->>
->> As you shown me last time with excerpt of address spaces from
->> datasheet/manual, the binding correctly describes the hardware and above
->> sentence is not true.
->>
->>> as it breaks the convention expecting the unit address to indicate the
->>> start of the first register range, i.e. 'function' block is listed
->>
->> Imprecise wording. "start of the main or primary register range"
->>
->> (if you have 0x1000 with one reg and 0x20000000 with everything, the
->> unit address will be 0x20000000).
->>
->>> before 'link' instead of the opposite.
->>>
->>> Since the binding changes have been already released and a fix would
->>> bring up an ABI break, mark the current 'reg-names' ordering as
->>> deprecated and introduce an alternative 'link,function,cache' listing
->>> which follows the address-based ordering according to the TRM.
->>>
->>> Additionally, drop the 'reg' description items as the order is not fixed
->>> anymore, while the information they offer is not very relevant anyway.
->>
->> This is fine for me.
-> 
-> Thanks for the additional feedback!
-> 
-> If I'm not mistaken (please correct me), the only remaining (hard)
-> blocker for the series would be to improve this commit message.
-> 
-> How about the following:
-> 
->     With the introduction of the RK3588 SoC, and RK3576 afterwards, three
->     register blocks have been provided for the video decoder unit instead of
->     just one, which are further referenced in the datasheet by 'link table',
->     'function' and 'cache'.  The former is present at the top of the
->     listing, starting at video decoder unit base address.
-> 
->     However, while documenting RK3588, the binding broke the convention
->     expecting the unit address to indicate the start of the primary register
->     range, i.e. the 'function' block got listed before the 'link' one.
-> 
->     Since the binding changes have been already released and a fix would
->     bring up an ABI break, mark the current 'reg-names' ordering as
->     deprecated and introduce an alternative 'link,function,cache' listing
->     which follows the address-based ordering according to the TRM.
-> 
->     Additionally, drop the 'reg' description items as the order is not fixed
->     anymore, while the information they offer is not very relevant anyway.
-
-Yes, it's fine. My comments were actually not blocking, I just wanted to
-wait if discussion with Conor resolves somehow.
-
-But for me anyway:
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="5ak2rz3ozdmtomty"
+Content-Disposition: inline
+In-Reply-To: <CABdmKX0KZLGaJWBoo3tkCxLvby3f4Fn0nMCLyz4a-H-9J_CtPQ@mail.gmail.com>
 
 
-Best regards,
-Krzysztof
+--5ak2rz3ozdmtomty
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/7] mm: cma: Export cma_alloc and cma_release
+MIME-Version: 1.0
+
+On Thu, Feb 26, 2026 at 08:58:51AM -0800, T.J. Mercier wrote:
+> On Thu, Feb 26, 2026 at 2:38=E2=80=AFAM Maxime Ripard <mripard@kernel.org=
+> wrote:
+> >
+> > Hi David,
+> >
+> > On Thu, Feb 26, 2026 at 11:25:24AM +0100, David Hildenbrand (Arm) wrote:
+> > > On 2/25/26 17:41, Maxime Ripard wrote:
+> > > > The CMA dma-buf heap uses cma_alloc() and cma_release() to allocate=
+ and
+> > > > free, respectively, its CMA buffers.
+> > > >
+> > > > However, these functions are not exported. Since we want to turn th=
+e CMA
+> > > > heap into a module, let's export them both.
+> > > >
+> > > > Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> > > > ---
+> > > >  mm/cma.c | 2 ++
+> > > >  1 file changed, 2 insertions(+)
+> > > >
+> > > > diff --git a/mm/cma.c b/mm/cma.c
+> > > > index 94b5da468a7d719e5144d33b06bcc7619c0fbcc9..be142b473f3bd41b9c7=
+d8ba4397f018f6993d962 100644
+> > > > --- a/mm/cma.c
+> > > > +++ b/mm/cma.c
+> > > > @@ -949,10 +949,11 @@ struct page *cma_alloc(struct cma *cma, unsig=
+ned long count,
+> > > >     if (page)
+> > > >             set_pages_refcounted(page, count);
+> > > >
+> > > >     return page;
+> > > >  }
+> > > > +EXPORT_SYMBOL_GPL(cma_alloc);
+> > > >
+> > > >  static struct cma_memrange *find_cma_memrange(struct cma *cma,
+> > > >             const struct page *pages, unsigned long count)
+> > > >  {
+> > > >     struct cma_memrange *cmr =3D NULL;
+> > > > @@ -1025,10 +1026,11 @@ bool cma_release(struct cma *cma, const str=
+uct page *pages,
+> > > >
+> > > >     __cma_release_frozen(cma, cmr, pages, count);
+> > > >
+> > > >     return true;
+> > > >  }
+> > > > +EXPORT_SYMBOL_GPL(cma_release);
+> > > >
+> > > >  bool cma_release_frozen(struct cma *cma, const struct page *pages,
+> > > >             unsigned long count)
+> > > >  {
+> > > >     struct cma_memrange *cmr;
+> > > >
+> > >
+> > > I'm wondering whether we want to restrict all these exports to the
+> > > dma-buf module only using EXPORT_SYMBOL_FOR_MODULES().
+> >
+> > TIL about EXPORT_SYMBOL_FOR_MODULES, thanks.
+>=20
+> Ohh, ditto.
+>=20
+> > > Especially dma_contiguous_default_area() (patch #4), I am not sure
+> > > whether we want arbitrary modules to mess with that.
+> >
+> > Yeah, I wasn't too fond about that one either. Alternatively, I guess we
+> > could turn dev_get_cma_area into a non-inlined function and export that
+> > instead?
+>=20
+> I checked the history to see if dev_get_cma_area was converted to
+> inline at some point for performance, but it has always been that way
+> since 3.5. That'd be my only worry with un-inlining and exporting it.
+> EXPORT_SYMBOL_FOR_MODULES sounds like a better way to me.
+
+I just realised the new tegra heap is also going to use cma_alloc:
+https://lore.kernel.org/dri-devel/20260122161009.3865888-7-thierry.reding@k=
+ernel.org/
+
+I exported dev_get_cma_area() like we discussed, but kept EXPORT_SYMBOL
+for now in the new version.
+
+Maxime
+
+--5ak2rz3ozdmtomty
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaaGZOAAKCRAnX84Zoj2+
+dqUlAX0VyCWn5CEtDD/d5NgnlGbw9KsIwryYjK5R5t6xQFatxl8VgXaPSTMj/TUC
+FboTTuYBgI3AtXRp7wzZaBm9GIM0NkjXj8o4AB9rric8F0GeL82ApZqBGuoJreEV
+DfrgHnsiFg==
+=HATT
+-----END PGP SIGNATURE-----
+
+--5ak2rz3ozdmtomty--
