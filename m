@@ -1,38 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD04190664;
-	Sun,  1 Mar 2026 01:41:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2F1243969;
+	Sun,  1 Mar 2026 01:41:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772329271; cv=none; b=SelihEe/pcJF0JqtyovHcKeePOma4b/juUuwZeUtTBHWEYmxc6zMUHiJw6oOQjoEdY2Wf2R6ad6d6i/xyf3ZLhazp59GU5CdHiIFE0JIPpdncjq1CHXaL59P3nsTv6XoTlLyDR4SKn84NKnrFJlDxN62UEi3iNFeSdKKReJ4zuY=
+	t=1772329273; cv=none; b=A/nEDRfAmHQr99RIuldteoYYAJuWCmTPP3jJVtQsqvvuNxGss7OpQK8vRtFC3eAOFmMFZtXffyVE/MawP9TiDIJBwJAogbzfHsjAOOo7DoexS2wY1ohhW5Jd0ATClom5cYMwkpyyq2R96oCVksfOau47m4hLx7xLFE6dy3MYRVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772329271; c=relaxed/simple;
-	bh=isQvSzoDFKhPehd6IiGm7dZ9hna45SYsFpdhtIRB9/g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CUZw6SMhO6OZMqJfirxDjBPMv31NapRcMsXmxZMXeerKHngotme09a1ptA4nleb+hwrmvK5od6ROMr8rit2g58At12kyjyQ5581Sfjd+IuqWrJrm75iWZb3T912V5Pr+4RVJbTPqM6LyO7Zc/wdf9TWhEu8OAEZJG4yiUQ/9JDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T4vPU/8U; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1772329273; c=relaxed/simple;
+	bh=7MXlaiWThIA7iA8+nr5mmaG/dMzmfS6mlcgwr5tL5tE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GKECOw21psFLpCmgmDi3I63WXmql9+bgdhcZvThVnoh5lxSncaTDJyqUiRNtpr4tuXjnFpXPpw310ngnPskz+pjRdmyYSlpPxw8jKeI3y4luPmb9pWERUPJvgNzzK/pYRqZvOIfXldTMS4Z7zugSR4mD3gFq+BLWYN7Ud43++l0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=luKNZuCI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T4vPU/8U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 110DFC19425;
-	Sun,  1 Mar 2026 01:41:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="luKNZuCI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33AF3C19421;
+	Sun,  1 Mar 2026 01:41:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1772329271;
-	bh=isQvSzoDFKhPehd6IiGm7dZ9hna45SYsFpdhtIRB9/g=;
+	s=k20201202; t=1772329273;
+	bh=7MXlaiWThIA7iA8+nr5mmaG/dMzmfS6mlcgwr5tL5tE=;
 	h=From:To:Cc:Subject:Date:From;
-	b=T4vPU/8UjPwrB1H/e1jc59qjVrX7dKhgk4Ruop+FbYnIeGPw+kJBWxJFxfziiprFj
-	 sLpKROtnrZCBUK4OFv0mhQ57sGxRRUr2tNz5pqcDqvkWEYWFV6wwooGS1TH4Ai2JqL
-	 MnKbopGtT5UBADKk4xyhsJAgO4axDp8InumFKutT+86LzZ+1DMuJH5+yfcUctlPkOs
-	 lJ822Q1HfWcG7PXFk+aAQmRVM+uuYFhI+6NDv6uCMdVlz5SaPtiEhAXOXYz1LM4AH0
-	 6u3TzeG8A6NrbDr8Gl1cBjXAxTOGe5kZYOcelVq7omfiSMss9G8skRen1UGpSXjGPO
-	 JBPcZD8IcsjOQ==
+	b=luKNZuCI7k/OJbTx/WUL8iXPDqFoZa3DfVtmW49VbzfOsRxU6b/J9526kWrhx95YQ
+	 5poESsk7E58mgfbqMld1MgpMJ3nQSyUehNpneWEEWdOJgo3fZwjYZ15HZfpHoXhwjO
+	 BXCc5faGzY+gEOvKhuX38oqzZV5GuD1XVW4ootkg0qctJD16Cn+e/bW5rF99KZIu4O
+	 h0YiPNy2v2A+QlIn93r+lxD+NlbvnfnqmS4IRxlkacaT6m1Ekpn2PLTh25yUn3nMNB
+	 LPxaaRAKPe3fi74tjitnftjEYAL5lLRxLOxnm/J3pUknpjaob/jsT99GV/HNnZ4Pcl
+	 wXN0EdoyAfTkA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	lihaoxiang@isrc.iscas.ac.cn
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	ssrane_b23@ee.vjti.ac.in
+Cc: syzbot+a41b73dce23962a74c72@syzkaller.appspotmail.com,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	linux-media@vger.kernel.org
-Subject: FAILED: Patch "media: cx23885: Add missing unmap in snd_cx23885_hw_params()" failed to apply to 6.1-stable tree
-Date: Sat, 28 Feb 2026 20:41:09 -0500
-Message-ID: <20260301014109.1702673-1-sashal@kernel.org>
+Subject: FAILED: Patch "media: radio-keene: fix memory leak in error path" failed to apply to 6.1-stable tree
+Date: Sat, 28 Feb 2026 20:41:11 -0500
+Message-ID: <20260301014112.1702729-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -54,38 +55,50 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 141c81849fab2ad4d6e3fdaff7cbaa873e8b5eb2 Mon Sep 17 00:00:00 2001
-From: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
-Date: Wed, 10 Dec 2025 11:02:17 +0800
-Subject: [PATCH] media: cx23885: Add missing unmap in snd_cx23885_hw_params()
+From b8bf939d77c0cd01118e953bbf554e0fa15e9006 Mon Sep 17 00:00:00 2001
+From: Shaurya Rane <ssrane_b23@ee.vjti.ac.in>
+Date: Thu, 27 Nov 2025 00:34:10 +0530
+Subject: [PATCH] media: radio-keene: fix memory leak in error path
 
-In error path, add cx23885_alsa_dma_unmap() to release the
-resource acquired by cx23885_alsa_dma_map().
+Fix a memory leak in usb_keene_probe(). The v4l2 control handler is
+initialized and controls are added, but if v4l2_device_register() or
+video_register_device() fails afterward, the handler was never freed,
+leaking memory.
 
-Fixes: 9529a4b0cf49 ("[media] cx23885: drop videobuf abuse in cx23885-alsa")
+Add v4l2_ctrl_handler_free() call in the err_v4l2 error path to ensure
+the control handler is properly freed for all error paths after it is
+initialized.
+
+Reported-by: syzbot+a41b73dce23962a74c72@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a41b73dce23962a74c72
+Fixes: 1bf20c3a0c61 ("[media] radio-keene: add a driver for the Keene FM Transmitter")
 Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
+Signed-off-by: Shaurya Rane <ssrane_b23@ee.vjti.ac.in>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/media/pci/cx23885/cx23885-alsa.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/media/radio/radio-keene.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/pci/cx23885/cx23885-alsa.c b/drivers/media/pci/cx23885/cx23885-alsa.c
-index 25dc8d4dc5b73..717fc6c9ef21f 100644
---- a/drivers/media/pci/cx23885/cx23885-alsa.c
-+++ b/drivers/media/pci/cx23885/cx23885-alsa.c
-@@ -392,8 +392,10 @@ static int snd_cx23885_hw_params(struct snd_pcm_substream *substream,
+diff --git a/drivers/media/radio/radio-keene.c b/drivers/media/radio/radio-keene.c
+index f3b57f0cb1ec4..c133305fd0194 100644
+--- a/drivers/media/radio/radio-keene.c
++++ b/drivers/media/radio/radio-keene.c
+@@ -338,7 +338,6 @@ static int usb_keene_probe(struct usb_interface *intf,
+ 	if (hdl->error) {
+ 		retval = hdl->error;
  
- 	ret = cx23885_risc_databuffer(chip->pci, &buf->risc, buf->sglist,
- 				   chip->period_size, chip->num_periods, 1);
--	if (ret < 0)
-+	if (ret < 0) {
-+		cx23885_alsa_dma_unmap(chip);
- 		goto error;
-+	}
- 
- 	/* Loop back to start of program */
- 	buf->risc.jmp[0] = cpu_to_le32(RISC_JUMP|RISC_IRQ1|RISC_CNT_INC);
+-		v4l2_ctrl_handler_free(hdl);
+ 		goto err_v4l2;
+ 	}
+ 	retval = v4l2_device_register(&intf->dev, &radio->v4l2_dev);
+@@ -384,6 +383,7 @@ static int usb_keene_probe(struct usb_interface *intf,
+ err_vdev:
+ 	v4l2_device_unregister(&radio->v4l2_dev);
+ err_v4l2:
++	v4l2_ctrl_handler_free(&radio->hdl);
+ 	kfree(radio->buffer);
+ 	kfree(radio);
+ err:
 -- 
 2.51.0
 
