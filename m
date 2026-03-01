@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19FE31062E;
-	Sun,  1 Mar 2026 01:49:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6FAE30E84A;
+	Sun,  1 Mar 2026 01:49:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772329780; cv=none; b=VFOQmkOOMRGSmTX36w9w+Y+upclq6AjGZA69CKrxG4+uCt8Frz+X1tS9Yuk2G9yOVV2Soxzo/MmABhNweiQiuXpqOcH1XRaU3tYG9DsI/hcBJA4DSBWZrCNEhjm8unxZB0FjndC1L5N6onvgi1T9OakvSqWcTm/FEwLb+aisFw8=
+	t=1772329782; cv=none; b=mOXXzn6pN7gq2TV+M5iId7+a6Gqhh0PzhvyaW0NWLl/I9IHTLZ/rHxG1gV5kwmgcRsnr0AG9FL1K2c44Wo/H0PORMlu4WkJvQsAzDKbrdD2XHWgJoFafey+HJdw/vuREbzih3+j9Bj22DVJzvOYyBxtwUdRTiXMKBeMUiEgneFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772329780; c=relaxed/simple;
-	bh=qd0kiE6a3ngdkkE98txGD9/f8dAUUR/jeu345BrYNfk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YJ/gf/QhhQgb7kwMW0aQKnzdYr9S7QKMwR0HlYkSviOv9PDZDRyj8i8qpKKhuYRZ1SCTSsehGFleQVqopEWDw+WHJoWGs/V5g7egJrhMDRAx7BzY/ctjvny1iXjy5Dl4ABmOeXyhiu1Ezd5sKKGL3U18ArremdVxy2tmdCK1nUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WpoAPle8; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1772329782; c=relaxed/simple;
+	bh=wpOlmPVL+OlmMLQaYH2qGV1p4vmkyo8ebJ8Ya+b3Dmg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pv95kyXq2Sd6JgmtqakO2KdjNXljxbMtJkCaRj8VVi8p8V0CJvQOpyR8clVQgiaPhoXQDC+0p4kF07tCHY7JvylpOcX62TuvzwKltZLBYxTXvZaQaOFwPDzWVQxl2ihnH6Ltv2TF3afamqQGTMKmOp6kpxxtpFH514M8Er/SDU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=t5DMulw2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WpoAPle8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C67BEC19421;
-	Sun,  1 Mar 2026 01:49:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="t5DMulw2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00A6BC19421;
+	Sun,  1 Mar 2026 01:49:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1772329780;
-	bh=qd0kiE6a3ngdkkE98txGD9/f8dAUUR/jeu345BrYNfk=;
+	s=k20201202; t=1772329782;
+	bh=wpOlmPVL+OlmMLQaYH2qGV1p4vmkyo8ebJ8Ya+b3Dmg=;
 	h=From:To:Cc:Subject:Date:From;
-	b=WpoAPle8Ps42A28gmZan7tjRDjS4vTZ+LuJqtzKGGBtkr1NksKNIVTNdnbQ431iOT
-	 gdVnMVqWhpJePPBTCi89B0jDXaG3gIgeuLJf9JI2I/OVavkVIuWQH5lEWdV5HnLLj6
-	 gqOlTcoXU/dviNF88P4CW1Q0s4Cs3qNnSKNM+llimwogRx4YDmriOH9mrky0P+BD9k
-	 ldOI7XTPbQqD8ObPL3dLRhl2w6/js/U1Z89X2MvA9rUBmy5sTnwl6iXes/Od6rSCW6
-	 OJafML6wyEccMWkC9OXg8BTQDWAoQPuA7eoEqZbw90Xp3hkAsLrxRQIeWZj3+K7t/4
-	 IBwgp3C6yjG9Q==
+	b=t5DMulw2G73yun/ECxStcKnr883ntXpJlvYnUMxtE14Mnmhbj+zljYthOKlazvyBv
+	 Ki6kgLK3/3rG4eenQxqXPrgnly4tOFp6c4cHMHtJWN+KarGO6z8iw6F/cSgHOw7jOd
+	 VxSs8zZqiRUSmVupsOBIOEQv0+lQ3XX5CntFmil79IEOELE97vGt+/8haN2kTs56kR
+	 t4ZUVRMuWMHj3kTZdvdQQlVlRxrP1T3muff+0d3jD70Ty25gOqvOvv6fvvvPnAZgHN
+	 CsrPe2tf8zbwrq+XB0W+OEGRX/DB1E5FWXLrzlFMHF591fiHWNKDTMeHbUOsy0yKj8
+	 nh+COfh0y5C4Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
 	nihaal@cse.iitm.ac.in
 Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
 	linux-media@vger.kernel.org
-Subject: FAILED: Patch "media: i2c/tw9906: Fix potential memory leak in tw9906_probe()" failed to apply to 5.15-stable tree
-Date: Sat, 28 Feb 2026 20:49:38 -0500
-Message-ID: <20260301014938.1714305-1-sashal@kernel.org>
+Subject: FAILED: Patch "media: i2c/tw9903: Fix potential memory leak in tw9903_probe()" failed to apply to 5.15-stable tree
+Date: Sat, 28 Feb 2026 20:49:40 -0500
+Message-ID: <20260301014940.1714387-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -54,32 +54,32 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From cad237b6c875fbee5d353a2b289e98d240d17ec8 Mon Sep 17 00:00:00 2001
+From 9cea16fea47e5553f51d10957677ff735b1eff03 Mon Sep 17 00:00:00 2001
 From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-Date: Tue, 23 Dec 2025 11:19:01 +0530
-Subject: [PATCH] media: i2c/tw9906: Fix potential memory leak in
- tw9906_probe()
+Date: Tue, 23 Dec 2025 11:18:13 +0530
+Subject: [PATCH] media: i2c/tw9903: Fix potential memory leak in
+ tw9903_probe()
 
-In one of the error paths in tw9906_probe(), the memory allocated in
+In one of the error paths in tw9903_probe(), the memory allocated in
 v4l2_ctrl_handler_init() and v4l2_ctrl_new_std() is not freed. Fix that
 by calling v4l2_ctrl_handler_free() on the handler in that error path.
 
 Cc: stable@vger.kernel.org
-Fixes: a000e9a02b58 ("[media] tw9906: add Techwell tw9906 video decoder")
+Fixes: 0890ec19c65d ("[media] tw9903: add new tw9903 video decoder")
 Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/media/i2c/tw9906.c | 1 +
+ drivers/media/i2c/tw9903.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/i2c/tw9906.c b/drivers/media/i2c/tw9906.c
-index 6220f4fddbabc..0ab43fe42d7f4 100644
---- a/drivers/media/i2c/tw9906.c
-+++ b/drivers/media/i2c/tw9906.c
-@@ -196,6 +196,7 @@ static int tw9906_probe(struct i2c_client *client)
+diff --git a/drivers/media/i2c/tw9903.c b/drivers/media/i2c/tw9903.c
+index b996a05e56f28..c3eafd5d5dc82 100644
+--- a/drivers/media/i2c/tw9903.c
++++ b/drivers/media/i2c/tw9903.c
+@@ -228,6 +228,7 @@ static int tw9903_probe(struct i2c_client *client)
  
  	if (write_regs(sd, initial_registers) < 0) {
- 		v4l2_err(client, "error initializing TW9906\n");
+ 		v4l2_err(client, "error initializing TW9903\n");
 +		v4l2_ctrl_handler_free(hdl);
  		return -EINVAL;
  	}
