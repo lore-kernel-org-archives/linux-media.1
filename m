@@ -1,42 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4FE2D5937;
-	Sun,  1 Mar 2026 01:40:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1612DF13E;
+	Sun,  1 Mar 2026 01:41:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772329242; cv=none; b=hsZ4NniZpILOO1mdMfq0683kiOxTumWuzhussPe1jY4Z1eZez8wpe6SfCo1mfNXnPOdmdhT/5h/xgxICfORcmM2wfQky/046t6W90vCsExdC85DG/vJ0rPnRYN25BTWdqt+yJ8vQTTZnIKne2FyxAmy0E7rE3cOqRFLFkh/A7Mg=
+	t=1772329264; cv=none; b=o/oHDQwnjlGT9C3LEHKfI/yhbK3KdkwBtGQaJSwxaDSwc25Pl+dWGMjWkjyP6ZAqeftyvegiDZbR/SAvYoweABgyxymTyaEwA+6ignNphHcsqVSnscXfdpHEEgTWQ1Han6Q/sxolyh3ZuSU6NRjGBqNIdvzNv8s7tCod3X62XZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772329242; c=relaxed/simple;
-	bh=T5soqHnJuWQ3SUhbSLtaP2ZBFGoEf+2X0YiZq/yfNaU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bPzRqVBDTzgVNpm8ANg3EANaOmtZwjKRwLpCFkeRD1MYHqQlSar0pd2SQzUVdiIH30g9QyEDOtYKLo1+r4fI2px9HZ/XP//D/CtXseDlNqYPGy/aEbzDTn5b1f2YlQ1PFT0EtBNsKDEf4i19PiHWHmcSJbLIeEQBRExM8ZJ7RRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uw5Jhjid; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1772329264; c=relaxed/simple;
+	bh=PonijaVrsagX3/M5GbS7xhTi3SmWY1lCL+3ApFbXYiA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o8lt00e+6WMiXgm33X9ur51zPJxTVlSrWrJckdXiHuOTqrGfEefU3s8hcj3dqRWlF51ombOOKg8Z2AwOCW3JxiUfP12zbHQ2G8n2ULJchPWyOun4qb66oDe7KRyod6vu3IPEJSdRttP0LIEWtZay1nuvTT+apJ7w65xm3ZtEqBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MQ76+TBL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uw5Jhjid"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85B7BC19421;
-	Sun,  1 Mar 2026 01:40:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MQ76+TBL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2413CC19421;
+	Sun,  1 Mar 2026 01:41:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1772329242;
-	bh=T5soqHnJuWQ3SUhbSLtaP2ZBFGoEf+2X0YiZq/yfNaU=;
+	s=k20201202; t=1772329264;
+	bh=PonijaVrsagX3/M5GbS7xhTi3SmWY1lCL+3ApFbXYiA=;
 	h=From:To:Cc:Subject:Date:From;
-	b=Uw5JhjidBIXkNYbGkIhRCMG0rEolqDOyK8/XhrZ85sptj+lLb5u/O3IeAFnp3WXYO
-	 Hpt+Jj3XkyAyhlgdVT5Fj7f4Kpif5rx4bS6UW7MwrK9eWVg7nWzeFwFEd+p+Cyjn26
-	 6xt9FLRhq7HtYuvk0ufqIsOpI9+8rLjVpD9zGQwtCkiGwJRExuhb2TrQuipTYtCw/V
-	 DApKFvN7h34KaxoldId/c+/wUGB89zLfIsghPrrupga7yopFq6tsLaqtqITqFtjaTi
-	 msDcL8fRxfXNh8zOocxJPFelJEgeNPAyjdT6rbLZWu+vv3Nw6K0VVkLO7k9NnXJpb/
-	 rgEt9BHflGr/A==
+	b=MQ76+TBLC0qyiwJQwKMtNQmI8qfQqbQ2os0g7tkamhlJbFAQQbqdgEw1drEvzf5LP
+	 qLkjorjx7DkJq8Uj1k4Wn7GSnr51/au2V4KsYrHTi8CKdvY3R6DR/LaP3L7CBN95cb
+	 fzy+zRsDLOOdDrU/r+qdkMAU5EXATIoc+B/LggtxfUfPKmgxPbS61Ft3qRxMrKN2dj
+	 PjhhwUU6lexUvfYPPnzb8V8hOpo9/voMgOtIYZh7C1EUKzk1Zjrvz15svNzYa1+TsH
+	 XSRb/hWCS97bi8IK+biTbl1BBHk5E2TAXXEG1ucerbzK/zJYQHVO+ybAliK2IUuwL8
+	 DOg+caY0T8Ghg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	irui.wang@mediatek.com
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	ming.qian@oss.nxp.com
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Frank Li <Frank.Li@nxp.com>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: FAILED: Patch "media: mediatek: encoder: Fix uninitialized scalar variable issue" failed to apply to 6.1-stable tree
-Date: Sat, 28 Feb 2026 20:40:40 -0500
-Message-ID: <20260301014040.1701969-1-sashal@kernel.org>
+	linux-media@vger.kernel.org
+Subject: FAILED: Patch "media: amphion: Drop min_queued_buffers assignment" failed to apply to 6.1-stable tree
+Date: Sat, 28 Feb 2026 20:41:02 -0500
+Message-ID: <20260301014103.1702519-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -58,58 +56,51 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 88e935de7cf8795d7a6a51385db87ecb361a7050 Mon Sep 17 00:00:00 2001
-From: Irui Wang <irui.wang@mediatek.com>
-Date: Sun, 7 Sep 2025 17:35:56 +0800
-Subject: [PATCH] media: mediatek: encoder: Fix uninitialized scalar variable
- issue
+From 5633ec763a2a18cef6c5ac9250e4f4b8786e7999 Mon Sep 17 00:00:00 2001
+From: Ming Qian <ming.qian@oss.nxp.com>
+Date: Tue, 23 Dec 2025 14:27:52 +0800
+Subject: [PATCH] media: amphion: Drop min_queued_buffers assignment
 
-UNINIT checker finds some instances of variables that are used
-without being initialized, for example using the uninitialized
-value enc_result.is_key_frm can result in unpredictable behavior,
-so initialize these variables after declaring.
+The min_queued_buffers field controls when start_streaming() is called
+by the vb2 core (it delays the callback until at least N buffers are
+queued). Setting it to 1 affects the timing of start_streaming(), which
+breaks the seek flow in decoder scenarios and causes test failures.
 
-Fixes: 4e855a6efa54 ("[media] vcodec: mediatek: Add Mediatek V4L2 Video Encoder Driver")
+The current driver implementation does not rely on this minimum buffer
+requirement and handles streaming start correctly with the default
+value of 0, so remove these assignments.
+
+Fixes: 3cd084519c6f ("media: amphion: add vpu v4l2 m2m support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Irui Wang <irui.wang@mediatek.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- .../media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/media/platform/amphion/vpu_v4l2.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.c
-index 6faf3f659e751..b3a0a1d8b7a8e 100644
---- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.c
-+++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.c
-@@ -850,7 +850,7 @@ static void vb2ops_venc_buf_queue(struct vb2_buffer *vb)
- static int vb2ops_venc_start_streaming(struct vb2_queue *q, unsigned int count)
- {
- 	struct mtk_vcodec_enc_ctx *ctx = vb2_get_drv_priv(q);
--	struct venc_enc_param param;
-+	struct venc_enc_param param = { };
- 	int ret;
- 	int i;
- 
-@@ -1004,7 +1004,7 @@ static int mtk_venc_encode_header(void *priv)
- 	int ret;
- 	struct vb2_v4l2_buffer *src_buf, *dst_buf;
- 	struct mtk_vcodec_mem bs_buf;
--	struct venc_done_result enc_result;
-+	struct venc_done_result enc_result = { };
- 
- 	dst_buf = v4l2_m2m_dst_buf_remove(ctx->m2m_ctx);
- 	if (!dst_buf) {
-@@ -1125,7 +1125,7 @@ static void mtk_venc_worker(struct work_struct *work)
- 	struct vb2_v4l2_buffer *src_buf, *dst_buf;
- 	struct venc_frm_buf frm_buf;
- 	struct mtk_vcodec_mem bs_buf;
--	struct venc_done_result enc_result;
-+	struct venc_done_result enc_result = { };
- 	int ret, i;
- 
- 	/* check dst_buf, dst_buf may be removed in device_run
+diff --git a/drivers/media/platform/amphion/vpu_v4l2.c b/drivers/media/platform/amphion/vpu_v4l2.c
+index 121165a7184fc..64fc88d89cccd 100644
+--- a/drivers/media/platform/amphion/vpu_v4l2.c
++++ b/drivers/media/platform/amphion/vpu_v4l2.c
+@@ -669,7 +669,6 @@ static int vpu_m2m_queue_init(void *priv, struct vb2_queue *src_vq, struct vb2_q
+ 		src_vq->mem_ops = &vb2_vmalloc_memops;
+ 	src_vq->drv_priv = inst;
+ 	src_vq->buf_struct_size = sizeof(struct vpu_vb2_buffer);
+-	src_vq->min_queued_buffers = 1;
+ 	src_vq->dev = inst->vpu->dev;
+ 	src_vq->lock = &inst->lock;
+ 	ret = vb2_queue_init(src_vq);
+@@ -686,7 +685,6 @@ static int vpu_m2m_queue_init(void *priv, struct vb2_queue *src_vq, struct vb2_q
+ 		dst_vq->mem_ops = &vb2_vmalloc_memops;
+ 	dst_vq->drv_priv = inst;
+ 	dst_vq->buf_struct_size = sizeof(struct vpu_vb2_buffer);
+-	dst_vq->min_queued_buffers = 1;
+ 	dst_vq->dev = inst->vpu->dev;
+ 	dst_vq->lock = &inst->lock;
+ 	ret = vb2_queue_init(dst_vq);
 -- 
 2.51.0
 
