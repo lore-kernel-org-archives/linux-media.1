@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE25626ED35;
-	Sun,  1 Mar 2026 01:41:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5BE29A9E9;
+	Sun,  1 Mar 2026 01:41:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772329294; cv=none; b=Opk91VZNfxwqueQ9K1zh9LKvG22OgOLZ721E+NdPZxFByqicINKcvRZU3vn1x7cW4oSFJLksHr0Gy2403aNKMQtMphVMkHcvPr00rcaNkdjIAwujCCQYCPMy4ddE2cGA6p2NS6kgfSlCNu9YYkF8XRxklF/bDlYNkCh495i0XNc=
+	t=1772329297; cv=none; b=mg64TyWZYD9ZyRf9eNeNe9pojdF4G3DMKFrxZmxbLjPqPGMR72WH4NVHax8Jp+wavCwxNDuEyBqNjLlb0ZvMz0/K05cqzvN0kJs1L9Xld3xZgfYoc9hxWJU9zpK7yWUqi9RVzECVCt8ExtPVBviIzC8GrP0tmge7+NQ5kx61BB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772329294; c=relaxed/simple;
-	bh=kx9VKQf65mEICE/6rvKPcDAG1Bw9NNvOSmXijTKZ/70=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eUPUYOOdu3c+s1yb8lzotZ1dlUNtS7ElMPx0H7x5Ldrd6zK4mPY0CR5P8293VO6OpkKOq2wTgUeYGG4wxlObIL20qCtltpmnqVndCw4Z/3CE50d8N/S7oYzz4mTouxoQ21XAL32UYQC4Ye7Sd6B7LDbjcx9Vv8GZWmDbKL70Du0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uckhP7tB; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1772329297; c=relaxed/simple;
+	bh=pBhVs9+Lcm0Omvzk/QJmtYsmls2+sBIhzgkRj715Og4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K24hfkIWZY2Lp3TkCmoRVLIlwznRjVMdw55qUtsIQOpXF5TfWa+H4Yf+7owA9RJy13mpjFxNExtbFhlb8A1WWwqMpPj1uh5xJ5hIYfVpUqKlhFCS5u5HK9NVAbjnJt1cJp9NGRhXZjSH/RnOTDIXRsjuv13byWJZFc72svI7NNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KRxpzBs0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uckhP7tB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F325C19421;
-	Sun,  1 Mar 2026 01:41:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KRxpzBs0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80840C19421;
+	Sun,  1 Mar 2026 01:41:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1772329294;
-	bh=kx9VKQf65mEICE/6rvKPcDAG1Bw9NNvOSmXijTKZ/70=;
+	s=k20201202; t=1772329297;
+	bh=pBhVs9+Lcm0Omvzk/QJmtYsmls2+sBIhzgkRj715Og4=;
 	h=From:To:Cc:Subject:Date:From;
-	b=uckhP7tByWPdPnelaZBB0ydwlmEUNSMB6JXRff/n2FAn+5wEgZ66QW5rfRYutAOgm
-	 aBWbIyobPPvoc6sjmCBSsVddvNgckhiEHzH33Gl1WVgeZkXvfnIm/ZUWrpZoUYLY7p
-	 7hBGE5rtREsIhk9nnOYj3TUpEJm+nXAYcjo/Db1I9Pto3rcu3WKJ+YqGaDEyC62+N4
-	 yZEAOpvvrCU6lkf46+EUXBng+/0qhWDfXDv5z2KGcINjyK/y4HyIolxahDL1PjbuOB
-	 ZsbZifmA6agYCebGZEFlMnD3hXYZMXrUsecBAgumN+xBPw6SZ6DqDR9Stf4w9w+Xz9
-	 77IO8DLU4Suzg==
+	b=KRxpzBs0vWrFXFg8Ntjhr3d85r12xzGAmM4GNOGfsae3cgy2uezevHCjeJkGdnuD2
+	 RuSDh83p/JZieryRHcGLkxsE/N78DhSiO5P6v7kXqG6SNF3TBaZS5Wxbj/QkwWz5MP
+	 J+47N8MokziOfxx1S3GrLx1YumYhjiBmm/peilZhTvL7kQxLmnp6GeH7onGHkyEZU2
+	 8rPw60fc8MXGbmKcXXhz/SZBA9J1UguHNN/rFtCmUVBx4EdIoK2MxowwaK75piQ42I
+	 S1s/91DNbCm2QjrrXsQl0CDJ2einCc5h5dwSOlQtuGmOLwYBe+huPpGsey1f2AqryS
+	 l85547/d7sukw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	jai.luthra@ideasonboard.com
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	sakari.ailus@linux.intel.com
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	linux-media@vger.kernel.org
-Subject: FAILED: Patch "media: i2c: ov5647: Fix PIXEL_RATE value for VGA mode" failed to apply to 6.1-stable tree
-Date: Sat, 28 Feb 2026 20:41:32 -0500
-Message-ID: <20260301014133.1703196-1-sashal@kernel.org>
+Subject: FAILED: Patch "media: ccs: Avoid possible division by zero" failed to apply to 6.1-stable tree
+Date: Sat, 28 Feb 2026 20:41:35 -0500
+Message-ID: <20260301014135.1703246-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -56,38 +56,40 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c063632b494b02e891442d10f17e37b7fcfab9b3 Mon Sep 17 00:00:00 2001
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Date: Mon, 22 Dec 2025 13:45:29 +0530
-Subject: [PATCH] media: i2c: ov5647: Fix PIXEL_RATE value for VGA mode
+From 679f0b7b6a409750a25754c8833e268e5fdde742 Mon Sep 17 00:00:00 2001
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+Date: Tue, 25 Nov 2025 00:24:48 +0200
+Subject: [PATCH] media: ccs: Avoid possible division by zero
 
-The pixel rate for VGA (640x480) mode is configured in the mode's table
-to be 58.333 MPix/s instead of 55 MPix/s, so fix it.
+Calculating maximum M for scaler configuration involves dividing by
+MIN_X_OUTPUT_SIZE limit register's value. Albeit the value is presumably
+non-zero, the driver was missing the check it in fact was. Fix this.
 
-Fixes: 911f4516ee2b ("media: ov5647: Support V4L2_CID_PIXEL_RATE")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/CAPY8ntA2TCf9FuB6Nk%2BOn%2By6N_PMuYPAOAr3Yx8YESwe4skWvw@mail.gmail.com/
-Suggested-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+Reported-by: Josh Poimboeuf <jpoimboe@kernel.org>
+Closes: https://lore.kernel.org/all/ahukd6b3wonye3zgtptvwzvrxldcruazs2exfvll6etjhmcxyj@vq3eh6pd375b/
+Fixes: ccfc97bdb5ae ("[media] smiapp: Add driver")
+Cc: stable@vger.kernel.org # for 5.15 and later
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+Tested-by: Nathan Chancellor <nathan@kernel.org> # build
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/media/i2c/ov5647.c | 2 +-
+ drivers/media/i2c/ccs/ccs-core.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
-index c0f1121b025e5..bf5b0bd8d6acb 100644
---- a/drivers/media/i2c/ov5647.c
-+++ b/drivers/media/i2c/ov5647.c
-@@ -582,7 +582,7 @@ static const struct ov5647_mode ov5647_modes[] = {
- 			.width		= 2560,
- 			.height		= 1920,
- 		},
--		.pixel_rate	= 55000000,
-+		.pixel_rate	= 58333000,
- 		.hts		= 1852,
- 		.vts		= 0x1f8,
- 		.reg_list	= ov5647_640x480_10bpp,
+diff --git a/drivers/media/i2c/ccs/ccs-core.c b/drivers/media/i2c/ccs/ccs-core.c
+index f8523140784c7..dadff8c506794 100644
+--- a/drivers/media/i2c/ccs/ccs-core.c
++++ b/drivers/media/i2c/ccs/ccs-core.c
+@@ -2346,7 +2346,7 @@ static void ccs_set_compose_scaler(struct v4l2_subdev *subdev,
+ 		* CCS_LIM(sensor, SCALER_N_MIN) / sel->r.height;
+ 	max_m = crops[CCS_PAD_SINK]->width
+ 		* CCS_LIM(sensor, SCALER_N_MIN)
+-		/ CCS_LIM(sensor, MIN_X_OUTPUT_SIZE);
++		/ (CCS_LIM(sensor, MIN_X_OUTPUT_SIZE) ?: 1);
+ 
+ 	a = clamp(a, CCS_LIM(sensor, SCALER_M_MIN),
+ 		  CCS_LIM(sensor, SCALER_M_MAX));
 -- 
 2.51.0
 
