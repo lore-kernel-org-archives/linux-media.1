@@ -1,30 +1,30 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656B426C39E;
-	Sun,  1 Mar 2026 01:20:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2961175A74;
+	Sun,  1 Mar 2026 01:20:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772328000; cv=none; b=Tv6moHmf0l2RausB1Xwov84ZM+D+p5WETtHjMCRGfYx9v4mfBQSuIfbxJ6zwHDooW2GKAFOEbqlfMyYmt0OQhi9u5OefXih8WLPoYBu3EPORbiVCWxOK629xOBWvCF+tTRtmsMRlHYXrPoJVFfhIBrgWliHnGN3yYyFhMbNo24c=
+	t=1772328002; cv=none; b=tKg0nVpbXP+O2nmdCnPVOLp4fbFECY+bdF1GAiRui7auU1+YSadXuuDrO6FWMyZYTYJ3EPUbDbkcgfUJPxZRYnZAu+LdTW/qjc3Ozh6oK8RrNFBjcIttIw96a6ZMsgTPD6J7k8W1ezOZEZKhbdjGrGzgcbDdbm4nFbwB9Nv+4E0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772328000; c=relaxed/simple;
-	bh=yxQ3hpvq+NWHMb4rbzTw14u0lp5DYRWTbtBke3+7VWs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sG5sG3UN7vnfzcE7WsrZju38Fo3cNEdI5aM7vxhoh7dhbip5wfPb6zDdL0eqfASDlkXGpAPtdrvw9B59AQIz8a+yEakCNPTSYGMgwrkXrM4VHxe9iy+WcXVRJCZLaZBycstrVFM/OmPKwhSkN9OtgUteB7BQKl2qU5LOyf4IkNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LeP+mL9k; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1772328002; c=relaxed/simple;
+	bh=3VkP9vlU5leq30QrlJPL206rgman0zFh0SF0ZyoxFXg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o8lJhLO9h8wq8jsn2uLAlrn0lMjGFj7pQEoMY4T9ukHycdsupYZQKd0EdpeyWdkS8PG4MRD45x7diEEQNWze4+niBdVsadnc0x4fpegJr3viriiq++LB0p1bC5wz1jFcucwzXtlMMgSVUEC6eBYpe5iWjANWoF0irONaNJPot5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ndf3Ye5C; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LeP+mL9k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64892C19421;
-	Sun,  1 Mar 2026 01:19:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ndf3Ye5C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D49ADC2BC87;
+	Sun,  1 Mar 2026 01:20:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1772328000;
-	bh=yxQ3hpvq+NWHMb4rbzTw14u0lp5DYRWTbtBke3+7VWs=;
+	s=k20201202; t=1772328002;
+	bh=3VkP9vlU5leq30QrlJPL206rgman0zFh0SF0ZyoxFXg=;
 	h=From:To:Cc:Subject:Date:From;
-	b=LeP+mL9kHcaFL6Tp+C87WTaNTjgOzQeeXDGg4sFCvCYYE/1hLJFJaAytbV7qCZZgC
-	 s+Tw0i7abdGLvxJLX3nnKkiD2BmzNiKUqlYFI0ZdG+6geqZe6Sh7+51r44a8cYut0D
-	 G0CCU7fMt/nVsObY/yFPWV5OLWHcN02VGacM4m7AvbBEI4gxDSgSlPd8BFq7KJ7zhO
-	 tLiKwv/hEBJn70to0Cb93+1+lVbyvIZZkaOQW6Ypf6woPeC18oCM1oGq9sSae1p88/
-	 0zpGmxpuVQ8GwQbXmvm8j6qG7FzkChuPHFEaweNpVkt79t5zrS2t9u3plJ1K9R3Hs1
-	 XT51ovRVDTsVQ==
+	b=Ndf3Ye5CZ6Z+oE5kCTZ8wOm6N9TjrmQUGS9HHfhWqRXim/znV/bI9+8+WPfNLAHO1
+	 OU0Snjl0zHVwsiJA1Xr3kbv/KCIir9AFZpBoekFBPe2qpSnXTvFrLFWEM1hecb2Vcf
+	 AQUeM6ffd8CX31/HgDlLLCK9HZHUnkblsl5OEZfB2bDgoJXtDQFpiDbJ8uVIIsWYkG
+	 ktdlVFAsgVx+ySRPtPZTlCJr91rbaMvNCVeiQbUwLTfGkRUB2PUHFw8jJTlJaZMKbb
+	 42ufwYcl+34vIgCM/pvoqHPYMQLUfID71J1IX9az04d1E48acnWwU0H4TKndK98Iuv
+	 2FMPb1wRlKHBA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
 	hansg@kernel.org
@@ -32,9 +32,9 @@ Cc: Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	linux-media@vger.kernel.org
-Subject: FAILED: Patch "media: i2c: ov01a10: Fix analogue gain range" failed to apply to 6.12-stable tree
-Date: Sat, 28 Feb 2026 20:19:57 -0500
-Message-ID: <20260301011958.1675360-1-sashal@kernel.org>
+Subject: FAILED: Patch "media: i2c: ov01a10: Fix reported pixel-rate value" failed to apply to 6.12-stable tree
+Date: Sat, 28 Feb 2026 20:20:00 -0500
+Message-ID: <20260301012000.1675439-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -56,26 +56,22 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 109e0feacaeca5ec2dd71d7d17c73232ce5cbddc Mon Sep 17 00:00:00 2001
+From 9c632eebf6af4cb7b0f85503fe1ebc5176ff0db1 Mon Sep 17 00:00:00 2001
 From: Hans de Goede <hansg@kernel.org>
-Date: Tue, 14 Oct 2025 19:40:11 +0200
-Subject: [PATCH] media: i2c: ov01a10: Fix analogue gain range
+Date: Tue, 14 Oct 2025 19:40:10 +0200
+Subject: [PATCH] media: i2c: ov01a10: Fix reported pixel-rate value
 
-A analogue maximum gain of 0xffff / 65525 seems unlikely and testing
-indeed shows that the gain control wraps-around at 16383, so set the
-maximum gain to 0x3fff / 16383.
+CSI lanes are double-clocked so with a single lane at 400MHZ the resulting
+pixel-rate for 10-bits pixels is 400 MHz * 2 / 10 = 80 MHz, not 40 MHz.
 
-The minimum gain of 0x100 is correct. Setting bits 8-11 to 0x0 results
-in the same gain values as setting these bits to 0x1, with bits 0-7
-still increasing the gain when going from 0x000 - 0x0ff in the exact
-same range as when going from 0x100 - 0x1ff.
+This also matches with the observed frame-rate of 60 fps with the default
+vblank setting: 80000000 / (1488 * 896) = 60.
 
 Fixes: 0827b58dabff ("media: i2c: add ov01a10 image sensor driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hans de Goede <hansg@kernel.org>
 Tested-by: Mehdi Djait <mehdi.djait@linux.intel.com> # Dell XPS 9315
 Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
-[Sakari Ailus: mention analogue gain and update the limit from 4096.]
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
@@ -83,18 +79,18 @@ Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/media/i2c/ov01a10.c b/drivers/media/i2c/ov01a10.c
-index 0b1a1ecfffd0e..834ca46acb75f 100644
+index e5df01f979781..0b1a1ecfffd0e 100644
 --- a/drivers/media/i2c/ov01a10.c
 +++ b/drivers/media/i2c/ov01a10.c
-@@ -48,7 +48,7 @@
- /* analog gain controls */
- #define OV01A10_REG_ANALOG_GAIN		0x3508
- #define OV01A10_ANAL_GAIN_MIN		0x100
--#define OV01A10_ANAL_GAIN_MAX		0xffff
-+#define OV01A10_ANAL_GAIN_MAX		0x3fff
- #define OV01A10_ANAL_GAIN_STEP		1
+@@ -16,7 +16,7 @@
+ #include <media/v4l2-fwnode.h>
  
- /* digital gain controls */
+ #define OV01A10_LINK_FREQ_400MHZ	400000000ULL
+-#define OV01A10_SCLK			40000000LL
++#define OV01A10_SCLK			80000000LL
+ #define OV01A10_DATA_LANES		1
+ 
+ #define OV01A10_REG_CHIP_ID		0x300a
 -- 
 2.51.0
 
