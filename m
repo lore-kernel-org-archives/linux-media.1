@@ -1,42 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3047625228C;
-	Sun,  1 Mar 2026 01:33:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C7971E0B86;
+	Sun,  1 Mar 2026 01:33:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772328814; cv=none; b=mx++dYpqg1Y99d2rIt9vXSuiymJs/ym1Uc1MBCIuJIOLfJQdh/puzfLrKhDGBkHB21i6IuSNPqv5kBJ+sxLgSWHjBPwKdo02RBm78lPGspg+T81QhArhQ4kaKUQ4dirb+8xzXXiY0MM95CqTC/AJsOXaZ7pbnCV1dGAvQK5mAvw=
+	t=1772328839; cv=none; b=eqTRZS/oFaIqhtAGHuRyh93bVlX3OEE10zLefIISpxoXZmd0a9ZyGsijD2w/SC3hLW/GYJhE9zje11WU15craD1/Zox3nY4DKFT6KMTOceelRuQXd/Tn2lJPqRp3hoYp7dHnvqqG+kWqz9Hefe3705hU+bCUBCtngjMXSddMilc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772328814; c=relaxed/simple;
-	bh=watHLnp91SSZTkWajxPVEs8Eyj4GzetMKT6JL/c5KjU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Jmb1TSVaHvq3b36jLs8HIo8q8O2guvccshA58K74lkRbRlR5F+LyzcKQys86M8Zv2dwd9XgZS/zZUNe9iG0o0XJ5cn+QdTlVk3BkDxDD4UUVVjKAObmWQhFJpoFFlt6jDAr4T6/Or5q/I4JU6zehqWpOoyw/FyXeSQu6EmHUlQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RvHR35HB; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1772328839; c=relaxed/simple;
+	bh=aGPnQxZxr3WdW0WnAK+7YcaP8POd/efD+e2QCnL571I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ELPi4gUC5L2t+b4kD0qp5v27d6VVpM9CDaIGDYPuBQ10j9Pkdj8RLcgIfULoFC732oMZ0MdViq0kMDnbj+TOxTLsUn8ObFeW4h5BWN787We13ijP59Od1aQkbX80Jgw/lB41Gq0zhQHMbI86+r8niUShLIcN2h+Ux2d4Bf4GS4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OJRUcoD/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RvHR35HB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BB5EC19425;
-	Sun,  1 Mar 2026 01:33:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OJRUcoD/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DDC8C19421;
+	Sun,  1 Mar 2026 01:33:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1772328814;
-	bh=watHLnp91SSZTkWajxPVEs8Eyj4GzetMKT6JL/c5KjU=;
+	s=k20201202; t=1772328839;
+	bh=aGPnQxZxr3WdW0WnAK+7YcaP8POd/efD+e2QCnL571I=;
 	h=From:To:Cc:Subject:Date:From;
-	b=RvHR35HBe5BB0HkuRlJhL0QCCH5fpLrv8fTYjzb8iFXc93ETpKUzgqgPAcgeLQxkg
-	 qfepOD/JM+R1K1WnppHJMDCI+Z5jZ83qlZ9lKIKT2uina4ImM/V2LmumyYKFsMzgJq
-	 b0JZvhOPOgnQm5WgTasLu3hBiz2mbjaIorJsFyY464hQSHis7eDwRglPMFp4SkKcQ7
-	 tQY2czY06E8VkiAQbFWCwLU/YJmInLGTAOXJugfqzD1RgkIbr1Yqpw17NqqWsJoL5p
-	 zfv2UI4c0aCjEFqHFVCa8OZwP7gb2WHAtcMGYQqKp7Ci90pAMGizhGWO8RQE5Pfm+u
-	 ECRT/lW9rycJA==
+	b=OJRUcoD/PDUrpM716Db2shvGdio3v85RBQPTHKBdyys+JKeQaw+Ktek7iXJKLm5V3
+	 Jf1f81RwCEENAY6vvEMgKI5DW+bsXjaHkdsUqGHi7MOG0ybIVkATfldPMbglsfSrCj
+	 EGipzTRjagdl80bru09Mz1LnvcrVMOcPYGmc1C9pd8Jmf2yLRQrHt0xF967wqkWnAW
+	 M9diwHUSVCT8Q+kCv4thhq1vjPmnfOpO+EWQ8KaSxCQC2D1m3wegKv986Oh+O/p6Hx
+	 +09UrDQhi4aaNIDtOH9bqQcm4GS7UdEnoHFUjDgDSrZH9vCEwDhxut8tlh+eS5ZULZ
+	 Jkv/yxUE3U8hg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	dikshita.agarwal@oss.qualcomm.com
-Cc: Mecid <mecid@mecomediagroup.de>,
-	Renjiang Han <renjiang.han@oss.qualcomm.com>,
-	Bryan O'Donoghue <bod@kernel.org>,
+	benjamin.gaignard@collabora.com
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Subject: FAILED: Patch "media: venus: vdec: restrict EOS addr quirk to IRIS2 only" failed to apply to 6.6-stable tree
-Date: Sat, 28 Feb 2026 20:33:31 -0500
-Message-ID: <20260301013332.1692783-1-sashal@kernel.org>
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: FAILED: Patch "media: verisilicon: AV1: Fix tile info buffer size" failed to apply to 6.6-stable tree
+Date: Sat, 28 Feb 2026 20:33:56 -0500
+Message-ID: <20260301013357.1693282-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -58,64 +57,46 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 63c072e2937e6c9995df1b6a28523ed2ae68d364 Mon Sep 17 00:00:00 2001
-From: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-Date: Tue, 25 Nov 2025 11:04:19 +0530
-Subject: [PATCH] media: venus: vdec: restrict EOS addr quirk to IRIS2 only
+From a505ca2db89ad92a8d8d27fa68ebafb12e04a679 Mon Sep 17 00:00:00 2001
+From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Date: Wed, 14 Jan 2026 10:07:10 +0100
+Subject: [PATCH] media: verisilicon: AV1: Fix tile info buffer size
 
-On SM8250 (IRIS2) with firmware older than 1.0.087, the firmware could
-not handle a dummy device address for EOS buffers, so a NULL device
-address is sent instead. The existing check used IS_V6() alongside a
-firmware version gate:
+Each tile info is composed of: row_sb, col_sb, start_pos
+and end_pos (4 bytes each). So the total required memory
+is AV1_MAX_TILES * 16 bytes.
+Use the correct #define to allocate the buffer and avoid
+writing tile info in non-allocated memory.
 
-    if (IS_V6(core) && is_fw_rev_or_older(core, 1, 0, 87))
-        fdata.device_addr = 0;
-    else
-	fdata.device_addr = 0xdeadb000;
-
-However, SC7280 which is also V6, uses a firmware string of the form
-"1.0.<commit-hash>", which the version parser translates to 1.0.0. This
-unintentionally satisfies the `is_fw_rev_or_older(..., 1, 0, 87)`
-condition on SC7280. Combined with IS_V6() matching there as well, the
-quirk is incorrectly applied to SC7280, causing VP9 decode failures.
-
-Constrain the check to IRIS2 (SM8250) only, which is the only platform
-that needed this quirk, by replacing IS_V6() with IS_IRIS2(). This
-restores correct behavior on SC7280 (no forced NULL EOS buffer address).
-
-Fixes: 47f867cb1b63 ("media: venus: fix EOS handling in decoder stop command")
+Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Fixes: 727a400686a2c ("media: verisilicon: Add Rockchip AV1 decoder")
 Cc: stable@vger.kernel.org
-Reported-by: Mecid <mecid@mecomediagroup.de>
-Closes: https://github.com/qualcomm-linux/kernel-topics/issues/222
-Co-developed-by: Renjiang Han <renjiang.han@oss.qualcomm.com>
-Signed-off-by: Renjiang Han <renjiang.han@oss.qualcomm.com>
-Signed-off-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-Tested-by: Renjiang Han <renjiang.han@oss.qualcomm.com>
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/media/platform/qcom/venus/vdec.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ .../media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c   | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/venus/vdec.c b/drivers/media/platform/qcom/venus/vdec.c
-index d0bd2d86a31f9..4cd69440e8753 100644
---- a/drivers/media/platform/qcom/venus/vdec.c
-+++ b/drivers/media/platform/qcom/venus/vdec.c
-@@ -565,7 +565,13 @@ vdec_decoder_cmd(struct file *file, void *fh, struct v4l2_decoder_cmd *cmd)
+diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
+index 500e94bcb0293..e4e21ad373233 100644
+--- a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
++++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
+@@ -381,12 +381,12 @@ int rockchip_vpu981_av1_dec_init(struct hantro_ctx *ctx)
+ 		return -ENOMEM;
+ 	av1_dec->global_model.size = GLOBAL_MODEL_SIZE;
  
- 		fdata.buffer_type = HFI_BUFFER_INPUT;
- 		fdata.flags |= HFI_BUFFERFLAG_EOS;
--		if (IS_V6(inst->core) && is_fw_rev_or_older(inst->core, 1, 0, 87))
-+
-+		/* Send NULL EOS addr for only IRIS2 (SM8250),for firmware <= 1.0.87.
-+		 * SC7280 also reports "1.0.<hash>" parsed as 1.0.0; restricting to IRIS2
-+		 * avoids misapplying this quirk and breaking VP9 decode on SC7280.
-+		 */
-+
-+		if (IS_IRIS2(inst->core) && is_fw_rev_or_older(inst->core, 1, 0, 87))
- 			fdata.device_addr = 0;
- 		else
- 			fdata.device_addr = 0xdeadb000;
+-	av1_dec->tile_info.cpu = dma_alloc_coherent(vpu->dev, AV1_MAX_TILES,
++	av1_dec->tile_info.cpu = dma_alloc_coherent(vpu->dev, AV1_TILE_INFO_SIZE,
+ 						    &av1_dec->tile_info.dma,
+ 						    GFP_KERNEL);
+ 	if (!av1_dec->tile_info.cpu)
+ 		return -ENOMEM;
+-	av1_dec->tile_info.size = AV1_MAX_TILES;
++	av1_dec->tile_info.size = AV1_TILE_INFO_SIZE;
+ 
+ 	av1_dec->film_grain.cpu = dma_alloc_coherent(vpu->dev,
+ 						     ALIGN(sizeof(struct rockchip_av1_film_grain), 2048),
 -- 
 2.51.0
 
