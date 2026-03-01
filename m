@@ -1,229 +1,233 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB5A420D4FF;
-	Sun,  1 Mar 2026 00:51:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247EBA937;
+	Sun,  1 Mar 2026 01:15:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772326283; cv=none; b=qa1bXa9CUuGEZeDjTMKoJ2MzIXzs8Xrl5/W7xTnqP/0bGBmTSMr8lycxUH3YCIG3tjr6M8iOkFJg/MR2NNv87WZEPOXNfrcaNKtAqoF/L2Q0m2dZFMNnzq5jv8vHjYBjhcKOs4YAvnPVMKt2nZ/c6CaNrCiw5OXJ3KyPzLwLEyY=
+	t=1772327721; cv=none; b=Tq5htEU/APCNtJirRvuNHO2eU30AfQeOP61TpnF8TEHDJr6voQLh+4qTU8STBOWNef73z7WMLHJUES1B10XOOG8+Nh7EgWJR504Awkk/seYZCfzdC95zvzT8N0zlohqTrgVVhCku42Qp26we4fFe5DoRDwrY/bFJ3XXd5x+SSFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772326283; c=relaxed/simple;
-	bh=t7RXWQxIH1M4bHDMh5sixTpeOPx6JthKngEYWiNexuM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YpG/tg9uFZvq7q1CYyPPqZc7KcK5091sWncco0W2WvZPWgCNvLQa/C1YFQvVt8Ch+bhKSeEt2BaFCyiIFQURqEtAJ1mICXICUc9EyMXvDdH7q0ske6f61bVssHQ8N1P0HnGkSKrkwoiLC6qyFqyr2kTHec8PBkw1y2cAIyNlnXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EK9VwGMj; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1772327721; c=relaxed/simple;
+	bh=NCT6pGNSoNEDvuAg1+YO09RDq4gjI00siAgnQvYfAZ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pijJGVhVKWIX/QpK7gd/CFxdF67YCnIdFWIppV13SbtbAbhaMNb2JTZ8Mu3rNhnNX7BiwqalzbSPm86C4UmsUYyi5m1nuIcLtdXi1TcvZTJ625hNN565bUvdvUSPxI4rVxkBXt9mfoo9icmU1AF3FTpg+NbXmiWZgtZSyeoUAJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aGcTfw0Q; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EK9VwGMj"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AA64AC2BCB3;
-	Sun,  1 Mar 2026 00:51:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aGcTfw0Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EB47C19421;
+	Sun,  1 Mar 2026 01:15:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1772326283;
-	bh=t7RXWQxIH1M4bHDMh5sixTpeOPx6JthKngEYWiNexuM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=EK9VwGMjHiPXoVRlUPT97i8xP8hjsejNMLuQo+nxeRWNfwMqZ1QR09DokpM8Vaj3z
-	 AQ4yAGimf2jnnfrHzzv6NCR13taGRyP02YyNZr2Tq/yofqMfw842i80oweVzJ0emA0
-	 DcuC+Gsvad2Dr8Rc6g/4luyNpSwGd2XFdP19XM9HiQ5lzhajkRxhaR6ENEoU32ufA5
-	 N+99rfO7pue1fTjklI+WZet9WKKiV4UbKjPcNKvjkGmM4HOEMGVK4Cze/yGdBoHrK/
-	 trAsKaNTz3unageU/uXPaTAR5jsm57kIBtjiKu87urhFQetIHK0Pk2GEWSxknmym+9
-	 E1S2oWIteJmbA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A24B9FD0048;
-	Sun,  1 Mar 2026 00:51:23 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sun, 01 Mar 2026 01:51:26 +0100
-Subject: [PATCH WIP v4 7/9] media: qcom: camss: csiphy-3ph: Add Gen2 v1.2.1
- MIPI CSI-2 C-PHY init
+	s=k20201202; t=1772327721;
+	bh=NCT6pGNSoNEDvuAg1+YO09RDq4gjI00siAgnQvYfAZ0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=aGcTfw0Q2aiVIg/KcMA+ReIYzLX6xCuubxNHXny/kaoIfVU/wFfCsWkXPy3Z/TwWi
+	 iQ3YTScU9K95Cca0CjCkBjnPAwNjcmhZyEzSR3NN/1pS3BQqu1nQfPCYJSUuVdufTy
+	 iudj4C1p/jQs+mh5A/mUTXbdqmzsEIIh20VDuAH1YUnXyX+pE4uZ+izHKRn8yGfhEZ
+	 NNoikxhj4CvgDj+ks1njsmbkPbPNJTiM8DDIa67kbdgydNa1MKvZ0Jeu+usKQ2pktg
+	 JGdJBN7HjR9KVexCmy9FbU97c+NeWHj157VjD8KWoiVgmL3OGut78j0rZe/YtTTW4m
+	 O3rE3f+q4f/iQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org,
+	ming.qian@oss.nxp.com
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: FAILED: Patch "media: verisilicon: Avoid G2 bus error while decoding H.264 and HEVC" failed to apply to 6.18-stable tree
+Date: Sat, 28 Feb 2026 20:15:18 -0500
+Message-ID: <20260301011518.1668455-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260301-qcom-cphy-v4-7-e53316d2cc65@ixit.cz>
-References: <20260301-qcom-cphy-v4-0-e53316d2cc65@ixit.cz>
-In-Reply-To: <20260301-qcom-cphy-v4-0-e53316d2cc65@ixit.cz>
-To: Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Luca Weiss <luca.weiss@fairphone.com>, Petr Hodina <phodina@protonmail.com>, 
- Casey Connolly <casey.connolly@linaro.org>, "Dr. Git" <drgitx@gmail.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Joel Selvaraj <foss@joelselvaraj.com>, Kieran Bingham <kbingham@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6434; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=F68FYZ/9PYHBEJYRHtnB6O4AcY4Jp6F2NvaXkH1GcAU=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBpo42JaLghH4/F0XNWTLQaL4YwTEhrfOBEeLIC0
- IBZN5KLnqKJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaaONiQAKCRBgAj/E00kg
- ck68EACGeZcrAv/Jo98t7Ja1QBAVIjjMgWL7PEYMiCNopE1kvQxklzrbKdjgG3P94y3KmNF/MDv
- 2Zfsh5hlYmO40TzUr8K++xJluXomWx7djS7hrJxeZ0DC/J5T0AHtiyvjEYX0X2SsaDfJmc0K/EV
- nXj/KtelFi/jTKJC7y9yyhRUyD3pE+mxmUhgFpZPmlurgOH/W8KrLV/xhQDpRm02VmRPG6Vn+Tp
- DrA3Nz03Ywy67mrX1VInWZ0R6+PXcqAx6o8eVj+mzUsDrGNWCh3xON8lxohsb66TGLfz6jfjGe8
- fCBbGhJUP0Fr7Tkhn1y2jlncptihV9KVjRVx+0Ne1eeuWy6Vp2i0YNPEYrej/7cwp7mpcyE4h8C
- 5xuu3nQaoRiz6fjA8Noh4CaOkazUxRr8vKCeHU1/lVzMnucOGA75rCemsupLf0+FhK20AxGKMSc
- s/cMnMWCm8ggJRMcJjhF4jcDBUgRnrtv05EwwPWJqbOmpCkXhjNXSOQA+xkKF0PQfcxsvRufhIK
- dxBUhyjwTwaxn1yQHyCw5N6EmfnrximDhaLHJ55JVJk8yLRDXQub7jiTZRREo5UnOr+DArz/KXL
- HmQHyZrN/2Erhof6bbdp7AfvIqd7l2uUfskCu0QecqlH/B/KUqh2hszt8M/gDJPKsmqFQLgrrq5
- CwbJVMfdJlG6A0A==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+X-Patchwork-Hint: ignore
+X-stable: review
+Content-Transfer-Encoding: 8bit
 
-From: Luca Weiss <luca.weiss@fairphone.com>
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Add a PHY configuration sequence for the sm8250 which uses a Qualcomm
-Gen 2 version 1.2.1 CSI-2 PHY.
+Thanks,
+Sasha
 
-The PHY can be configured as two phase or three phase in C-PHY or D-PHY
-mode. This configuration supports three-phase C-PHY mode.
+------------------ original commit in Linus's tree ------------------
 
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: David Heidelberg <david@ixit.cz>
+From e0203ddf9af7c8e170e1e99ce83b4dc07f0cd765 Mon Sep 17 00:00:00 2001
+From: Ming Qian <ming.qian@oss.nxp.com>
+Date: Fri, 5 Dec 2025 09:54:26 +0800
+Subject: [PATCH] media: verisilicon: Avoid G2 bus error while decoding H.264
+ and HEVC
+
+For the i.MX8MQ platform, there is a hardware limitation: the g1 VPU and
+g2 VPU cannot decode simultaneously; otherwise, it will cause below bus
+error and produce corrupted pictures, even potentially lead to system hang.
+
+[  110.527986] hantro-vpu 38310000.video-codec: frame decode timed out.
+[  110.583517] hantro-vpu 38310000.video-codec: bus error detected.
+
+Therefore, it is necessary to ensure that g1 and g2 operate alternately.
+This allows for successful multi-instance decoding of H.264 and HEVC.
+
+To achieve this, g1 and g2 share the same v4l2_m2m_dev, and then the
+v4l2_m2m_dev can handle the scheduling.
+
+Fixes: cb5dd5a0fa518 ("media: hantro: Introduce G2/HEVC decoder")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Co-developed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     | 112 ++++++++++++++++++++-
- 1 file changed, 111 insertions(+), 1 deletion(-)
+ drivers/media/platform/verisilicon/hantro.h   |  2 +
+ .../media/platform/verisilicon/hantro_drv.c   | 42 +++++++++++++++++--
+ .../media/platform/verisilicon/imx8m_vpu_hw.c |  8 ++++
+ 3 files changed, 49 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-index c612192ee727a..e48f5c1290173 100644
---- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-+++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-@@ -550,6 +550,113 @@ csiphy_lane_regs lane_regs_qcm2290[] = {
- 	{0x0664, 0x3f, 0x00, CSIPHY_DEFAULT_PARAMS},
+diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/platform/verisilicon/hantro.h
+index e0fdc4535b2d7..0353de154a1ec 100644
+--- a/drivers/media/platform/verisilicon/hantro.h
++++ b/drivers/media/platform/verisilicon/hantro.h
+@@ -77,6 +77,7 @@ struct hantro_irq {
+  * @double_buffer:		core needs double buffering
+  * @legacy_regs:		core uses legacy register set
+  * @late_postproc:		postproc must be set up at the end of the job
++ * @shared_devices:		an array of device ids that cannot run concurrently
+  */
+ struct hantro_variant {
+ 	unsigned int enc_offset;
+@@ -101,6 +102,7 @@ struct hantro_variant {
+ 	unsigned int double_buffer : 1;
+ 	unsigned int legacy_regs : 1;
+ 	unsigned int late_postproc : 1;
++	const struct of_device_id *shared_devices;
  };
  
-+/* GEN2 1.2.1 3PH */
-+/* 3 entries: 3 lanes (C-PHY) */
-+static const struct
-+csiphy_lane_regs lane_regs_sm8250_3ph[] = {
-+	{0x0990, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0994, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0998, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0990, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0994, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0998, 0x1a, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x098c, 0xaf, 0x01, CSIPHY_DEFAULT_PARAMS},
-+	{0x015c, 0x46, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0168, 0xa0, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0104, 0x06, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x010c, 0x12, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0108, 0x00, 0x00, CSIPHY_SETTLE_CNT_HIGHER_BYTE},
-+	{0x0114, 0x20, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0150, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0188, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x018c, 0x7f, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0190, 0x7f, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0118, 0x3e, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x011c, 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0120, 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0124, 0x7f, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0128, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x012c, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0160, 0x02, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x01cc, 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x01dc, 0x50, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0984, 0x20, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0988, 0x05, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0980, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x09ac, 0x35, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x09b0, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0800, 0x0e, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0884, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
+ /**
+diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
+index 60b95b5d8565f..94f58f4e4a4e5 100644
+--- a/drivers/media/platform/verisilicon/hantro_drv.c
++++ b/drivers/media/platform/verisilicon/hantro_drv.c
+@@ -13,6 +13,7 @@
+ #include <linux/clk.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
++#include <linux/of_platform.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm.h>
+ #include <linux/pm_runtime.h>
+@@ -1035,6 +1036,41 @@ static int hantro_disable_multicore(struct hantro_dev *vpu)
+ 	return 0;
+ }
+ 
++static struct v4l2_m2m_dev *hantro_get_v4l2_m2m_dev(struct hantro_dev *vpu)
++{
++	struct device_node *node;
++	struct hantro_dev *shared_vpu;
 +
-+	{0x0a90, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0a94, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0a98, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0a90, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0a94, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0a98, 0x1a, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0a8c, 0xaf, 0x01, CSIPHY_DEFAULT_PARAMS},
-+	{0x035c, 0x46, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0368, 0xa0, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0304, 0x06, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x030c, 0x12, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0308, 0x00, 0x00, CSIPHY_SETTLE_CNT_HIGHER_BYTE},
-+	{0x0314, 0x20, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0350, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0388, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x038c, 0x7f, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0390, 0x7f, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0318, 0x3e, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x031c, 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0320, 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0324, 0x7f, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0328, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x032c, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0360, 0x02, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x03cc, 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x03dc, 0x50, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0a84, 0x20, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0a88, 0x05, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0a80, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0aac, 0x35, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0ab0, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0800, 0x0e, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0884, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
++	if (!vpu->variant || !vpu->variant->shared_devices)
++		goto init_new_m2m_dev;
 +
-+	{0x0b90, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0b94, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0b98, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0b90, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0b94, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0b98, 0x1a, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0b8c, 0xaf, 0x01, CSIPHY_DEFAULT_PARAMS},
-+	{0x055c, 0x46, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0568, 0xa0, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0504, 0x06, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x050c, 0x12, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0508, 0x00, 0x00, CSIPHY_SETTLE_CNT_HIGHER_BYTE},
-+	{0x0514, 0x20, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0550, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0588, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x058c, 0x7f, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0590, 0x7f, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0518, 0x3e, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x051c, 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0520, 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0524, 0x7f, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0528, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x052c, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0560, 0x02, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x05cc, 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x05dc, 0x50, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0b84, 0x20, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0b88, 0x05, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0b80, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0bac, 0x35, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0bb0, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0800, 0x0e, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0884, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
++	for_each_matching_node(node, vpu->variant->shared_devices) {
++		struct platform_device *pdev;
++		struct v4l2_m2m_dev *m2m_dev;
++
++		pdev = of_find_device_by_node(node);
++		if (!pdev)
++			continue;
++
++		shared_vpu = platform_get_drvdata(pdev);
++		if (IS_ERR_OR_NULL(shared_vpu) || shared_vpu == vpu) {
++			platform_device_put(pdev);
++			continue;
++		}
++
++		v4l2_m2m_get(shared_vpu->m2m_dev);
++		m2m_dev = shared_vpu->m2m_dev;
++		platform_device_put(pdev);
++
++		of_node_put(node);
++
++		return m2m_dev;
++	}
++
++init_new_m2m_dev:
++	return v4l2_m2m_init(&vpu_m2m_ops);
++}
++
+ static int hantro_probe(struct platform_device *pdev)
+ {
+ 	const struct of_device_id *match;
+@@ -1186,7 +1222,7 @@ static int hantro_probe(struct platform_device *pdev)
+ 	}
+ 	platform_set_drvdata(pdev, vpu);
+ 
+-	vpu->m2m_dev = v4l2_m2m_init(&vpu_m2m_ops);
++	vpu->m2m_dev = hantro_get_v4l2_m2m_dev(vpu);
+ 	if (IS_ERR(vpu->m2m_dev)) {
+ 		v4l2_err(&vpu->v4l2_dev, "Failed to init mem2mem device\n");
+ 		ret = PTR_ERR(vpu->m2m_dev);
+@@ -1225,7 +1261,7 @@ static int hantro_probe(struct platform_device *pdev)
+ 	hantro_remove_enc_func(vpu);
+ err_m2m_rel:
+ 	media_device_cleanup(&vpu->mdev);
+-	v4l2_m2m_release(vpu->m2m_dev);
++	v4l2_m2m_put(vpu->m2m_dev);
+ err_v4l2_unreg:
+ 	v4l2_device_unregister(&vpu->v4l2_dev);
+ err_clk_unprepare:
+@@ -1248,7 +1284,7 @@ static void hantro_remove(struct platform_device *pdev)
+ 	hantro_remove_dec_func(vpu);
+ 	hantro_remove_enc_func(vpu);
+ 	media_device_cleanup(&vpu->mdev);
+-	v4l2_m2m_release(vpu->m2m_dev);
++	v4l2_m2m_put(vpu->m2m_dev);
+ 	v4l2_device_unregister(&vpu->v4l2_dev);
+ 	clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
+ 	reset_control_assert(vpu->resets);
+diff --git a/drivers/media/platform/verisilicon/imx8m_vpu_hw.c b/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
+index 5be0e2e76882f..6f8e43b7f1575 100644
+--- a/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
++++ b/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
+@@ -343,6 +343,12 @@ const struct hantro_variant imx8mq_vpu_variant = {
+ 	.num_regs = ARRAY_SIZE(imx8mq_reg_names)
+ };
+ 
++static const struct of_device_id imx8mq_vpu_shared_resources[] __initconst = {
++	{ .compatible = "nxp,imx8mq-vpu-g1", },
++	{ .compatible = "nxp,imx8mq-vpu-g2", },
++	{ /* sentinel */ }
 +};
 +
- /* GEN2 2.1.2 2PH DPHY mode */
- static const struct
- csiphy_lane_regs lane_regs_sm8550[] = {
-@@ -1134,7 +1241,10 @@ static int csiphy_lanes_enable(struct csiphy_device *csiphy,
- 		break;
- 	case CAMSS_7280:
- 	case CAMSS_8250:
--		{
-+		if (c->phy_cfg == V4L2_MBUS_CSI2_CPHY) {
-+			regs->lane_regs = &lane_regs_sm8250_3ph[0];
-+			regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8250_3ph);
-+		} else {
- 			regs->lane_regs = &lane_regs_sm8250[0];
- 			regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8250);
- 		}
-
+ const struct hantro_variant imx8mq_vpu_g1_variant = {
+ 	.dec_fmts = imx8m_vpu_dec_fmts,
+ 	.num_dec_fmts = ARRAY_SIZE(imx8m_vpu_dec_fmts),
+@@ -356,6 +362,7 @@ const struct hantro_variant imx8mq_vpu_g1_variant = {
+ 	.num_irqs = ARRAY_SIZE(imx8mq_irqs),
+ 	.clk_names = imx8mq_g1_clk_names,
+ 	.num_clocks = ARRAY_SIZE(imx8mq_g1_clk_names),
++	.shared_devices = imx8mq_vpu_shared_resources,
+ };
+ 
+ const struct hantro_variant imx8mq_vpu_g2_variant = {
+@@ -371,6 +378,7 @@ const struct hantro_variant imx8mq_vpu_g2_variant = {
+ 	.num_irqs = ARRAY_SIZE(imx8mq_g2_irqs),
+ 	.clk_names = imx8mq_g2_clk_names,
+ 	.num_clocks = ARRAY_SIZE(imx8mq_g2_clk_names),
++	.shared_devices = imx8mq_vpu_shared_resources,
+ };
+ 
+ const struct hantro_variant imx8mm_vpu_g1_variant = {
 -- 
 2.51.0
+
+
 
 
