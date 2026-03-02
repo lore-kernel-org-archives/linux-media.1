@@ -1,205 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF825311968
-	for <linux-media@vger.kernel.org>; Mon,  2 Mar 2026 18:03:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A42933F8BA;
+	Mon,  2 Mar 2026 18:44:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.1.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772474604; cv=none; b=sEsWShXxOLo62VrIQfARqI+BrQsLDfW3UGSw3yADM5xNs8+dTfcFjWpAAIPXKWwW0NjkqB9x0cGeyVEO9zv33+huv9ZsWiek14skqvp0I1xTI/2D7RsdI7XY46gBGpSSEc77YuVINq/i5P6ekLGTjVd0KNl0W8bFVxU1JVHBGjY=
+	t=1772477049; cv=none; b=j6OQG7sMC9IEMqHMdNmHYIBEmBVhc6LvRHCO6TuK5rJrakECT60U9rmWWJgm6k8E0mWamU6Rh7cujHQFba2e3xlkPhuqGa6KFTklDoVe/rVTa1aAfMSEx6BEJSwfxjhwC8h4fi8C//AyRzcNJw3liOzQmBJCbIITj4+5gv2fTA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772474604; c=relaxed/simple;
-	bh=KYTmWdCkzi4ZeFomh2vR1ikSgEuPoY2tyFbdDD9n6fM=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GJ8XeotqTtgn2nedvFV5vUewAOp+j2kxN2f/u6frz7dBUCg4jC2wv3lUEfkJsPYbfikXF0NKcyVthuq6Wf/N6dIeMe+23b4MEL8cnM1G5YG1+WdkfSY6J5MGdoRyiG0yI8avvryNn8cfKg48E4oYILZuPxqxXY3mxjPEr6fl8Xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GZSp+ocW; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1772477049; c=relaxed/simple;
+	bh=TEjyPmG9mj2FxkWtffjjLhIEPXudRu0BFcF6wsxqE6k=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mkwp7TuQT0YhttCGXCcTJJ8LOPvMW+4ezJQ7T/cre7HNeNsZSv0eqtOCLftVulirMKY9OiDl5nqFXnzyOA6Xk4E0MZ+HiYydT4xwbpluxt+AOTF3xLTj41Mbgj2Rf8Eas3sBsXR4IJ/LHNaxVfOlpVBbVQNQg1rYeFXF4amxXog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=RBEfIAmf; arc=none smtp.client-ip=44.246.1.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GZSp+ocW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F7AAC19425
-	for <linux-media@vger.kernel.org>; Mon,  2 Mar 2026 18:03:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1772474604;
-	bh=KYTmWdCkzi4ZeFomh2vR1ikSgEuPoY2tyFbdDD9n6fM=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc:From;
-	b=GZSp+ocWQ0JzyJE/JKAbIQ6d9V4nscmY9HENIiTRDNhYqf32RPTvvrOXBOJ/rL0Au
-	 V0tq+1aXJpu9Tahvb4BZa9epjIAuurII8ahGS4+PQN9O8AeAWWb0ARzlgXgEJ45/Ze
-	 Zt3H+h6G2PN/tqW2wZZfBoNdZ5bXg7HRzH2H13BDooK5AyanDQdvmAM3lQenE5dNW4
-	 qHVik3vP/B99mJhk2P2t5lJVy9c14Ob1RYwtxgEryndkIMzru+Q+T2Xn36vdypiX5I
-	 0XJEREvvNi3qMd2jTQUKbxkTY/cDkpsScHevNphkemsDIHE18rLO8ZcF02sB8vl6Dv
-	 VA3j58+5tRJXA==
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1270ac5d3efso4561270c88.1
-        for <linux-media@vger.kernel.org>; Mon, 02 Mar 2026 10:03:24 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWPyDcHeRbr+Bu1Ufsf+xAPCuIqslWp/VK2SGrOqgxEGoNnymnqxqBvytScqOtj5GwZ94ivqyZ2dHdZTQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw0vcDxXxEB+M4GLluNMTyXaqrV3iqgc2lXe70XVHYgDB2mFEbo
-	trzAXCMSTLRi3+00lF05+iwPWw8zQEn3v93o73BBjbeIzdf19A+KfyIPF2jHNzfk8M5iawcr5jR
-	RppijoISd84G9zXUC+RBelf96R2O1rE9DnEPD/Fs73A==
-X-Received: by 2002:a05:7022:6624:b0:11b:b3a1:714a with SMTP id
- a92af1059eb24-1278fb78dd9mr4239860c88.12.1772474603495; Mon, 02 Mar 2026
- 10:03:23 -0800 (PST)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 2 Mar 2026 12:03:19 -0600
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 2 Mar 2026 12:03:19 -0600
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <aaHI_VavZugXjVoL@hovoldconsulting.com>
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="RBEfIAmf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1772477048; x=1804013048;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=TEjyPmG9mj2FxkWtffjjLhIEPXudRu0BFcF6wsxqE6k=;
+  b=RBEfIAmf8mkPy3MNCDTmHTqkkWyBvgIhgrQ/t0OgNMCKhywM2i/aNTE1
+   B/zvPk0wWpm7Y4a1PZpi8R8CAZolu1K5/8UaTTcgH16liVpl3oTx+U0j+
+   2/+k7LQULdrFxoPjJ6ruvsdENrIF6jmhTrg2z5nyQwlt3rzlr05O01zop
+   1rSaiREnfJ2DchBe8tJRe/SmQSoi0NBf3jsufT0wTbh6+/lRMqs0whU3m
+   6ab9N4RyPqfWE3OEhsKFFbcAPnyBILhj5CVFz38uok+pZbWcVeXyio0Nn
+   8mV6QK+ng/9+oy1DLm4elDRhCRKwau5tcYdBJ1xvlzB4rtytJK3ffOzhx
+   g==;
+X-CSE-ConnectionGUID: RzhCn56mTkWR1r9a69Zc0w==
+X-CSE-MsgGUID: EIy7z1TuS8qkgqFDz+wUPQ==
+X-IronPort-AV: E=Sophos;i="6.21,320,1763424000"; 
+   d="scan'208";a="14110907"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Mar 2026 18:44:08 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:13535]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.51.143:2525] with esmtp (Farcaster)
+ id 11ea19a8-a946-4843-87fa-609b495f317e; Mon, 2 Mar 2026 18:44:08 +0000 (UTC)
+X-Farcaster-Flow-ID: 11ea19a8-a946-4843-87fa-609b495f317e
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
+ Mon, 2 Mar 2026 18:44:07 +0000
+Received: from bcd074ae11bb.amazon.com (10.187.170.14) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
+ Mon, 2 Mar 2026 18:44:07 +0000
+From: Cory Keitz <ckeitz@amazon.com>
+To: David Heidelberg <david@ixit.cz>
+CC: <linux-media@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>, "Bryan
+ O'Donoghue" <bryan.odonoghue@linaro.org>, Kieran Bingham
+	<kbingham@kernel.org>, Cory Keitz <ckeitz@amazon.com>
+Subject: Re: [PATCH WIP v4 0/9] media: camss: Add support for C-PHY configuration on Qualcomm platforms
+Date: Mon, 2 Mar 2026 10:43:59 -0800
+Message-ID: <20260302184359.19394-1-ckeitz@amazon.com>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <20260301-qcom-cphy-v4-0-e53316d2cc65@ixit.cz>
+References: <20260301-qcom-cphy-v4-0-e53316d2cc65@ixit.cz>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260223-i2c-printk-helpers-v2-0-13b2a97762af@oss.qualcomm.com>
- <aaFcs1miP88QWmtH@hovoldconsulting.com> <aaFfEsfh0xTh0b1y@shikoro>
- <aaFsZbiLYSz_YEjw@hovoldconsulting.com> <CAMRc=MfcvD1nJy=zpoCkSkJq6WjyXQxFUZ4QE6vyCS+XFCn5AA@mail.gmail.com>
- <aaHI_VavZugXjVoL@hovoldconsulting.com>
-Date: Mon, 2 Mar 2026 12:03:19 -0600
-X-Gmail-Original-Message-ID: <CAMRc=MdKF29McBJ9U=qELkzf9GYV1CQpRF7U6OweDNtVzMXo7A@mail.gmail.com>
-X-Gm-Features: AaiRm5300NChK-leJ7j5rh6yPxkWOdKqgHQ-hP_JtNKBqi3Lo4LpSjP98XQOjgM
-Message-ID: <CAMRc=MdKF29McBJ9U=qELkzf9GYV1CQpRF7U6OweDNtVzMXo7A@mail.gmail.com>
-Subject: Re: [PATCH v2 00/13] i2c: add and start using i2c_adapter-specific
- printk helpers
-To: Johan Hovold <johan@kernel.org>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andi Shyti <andi.shyti@kernel.org>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, Khalil Blaiech <kblaiech@nvidia.com>, 
-	Asmaa Mnebhi <asmaa@nvidia.com>, Jean Delvare <jdelvare@suse.com>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
-	Nicholas Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	=?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
-	linux-actions@lists.infradead.org, linux-media@vger.kernel.org, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D038UWC004.ant.amazon.com (10.13.139.229) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Fri, Feb 27, 2026 at 5:41=E2=80=AFPM Johan Hovold <johan@kernel.org> wro=
-te:
->
-> On Fri, Feb 27, 2026 at 04:42:09PM +0100, Bartosz Golaszewski wrote:
-> > On Fri, Feb 27, 2026 at 11:06=E2=80=AFAM Johan Hovold <johan@kernel.org=
-> wrote:
->
-> > > It seems all that is needed is to decouple the struct i2c_adapter fro=
-m
-> > > the driver data and have core manage the lifetime of the former using
-> > > the reference count of the embedded struct device.
->
-> > This is a weird pattern you sometimes see where a driver allocates
-> > something and passes the ownership to the subsystem.
->
-> It's not weird at all, this is the standard way to handle this. We have
-> these things called reference counts for a reason.
->
+Hi David,
 
-I wouldn't say it's *the* standard way. There are at least several differen=
-t
-ways driver subsystems handle resource ownership. And even so: the fact tha=
-t
-something's done a lot does not make it automatically correct.
+I've been working on CPHY support for sa8775p / csid-gen3 on 6.6 and have a
+similar patch set. The approach here aligns well with what I've done, good to
+see this infrastructure going upstream. I've implemented the following for
+SA8775P that can be added on top of your series once it lands:
 
-> > This often
-> > causes confusion among driver authors, who logically assume that if
-> > you allocate something, you are responsible for freeing it.Since this
-> > is C and not Rust (where such things are tracked by the compiler), I
-> > strongly believe we should strive to keep ownership consistent: the
-> > driver should free resources it allocated within the bounds of the
-> > lifetime of the device it controls. The subsystem should manage the
-> > data it allocated - in this case the i2c adapter struct device.
->
-> Drivers are responsible for dropping *their* reference, it doesn't mean
-> that the resource is necessarily freed immediately as someone else may
-> be holding a reference. Anyone surprised by this should not be doing
-> kernel development.
->
+- CSI2_RX_CFG0_PHY_TYPE_SEL in camss-csid-gen3.c
+- CSIPHY v1.3.1 register tables for sa8775p
+- Data rate-specific tuning for 5 bandwidth tiers (1.5/1.7/2.5/3.5/4.5 Gsps)
 
-I disagree. For some reason, you're defending a suboptimal programming
-interface. I'm all for reference counting but mixing reference-counted data
-with non-counted is simply not a good idea. An API should be easy to use an=
-d
-hard to misuse. Given the amount of issues, this approach is definitely eas=
-y
-to misuse.
+I've only tested on a 6.6 kernel so far, not on mainline, so I can't give a
+Tested-by yet. I can confirm the settle count calculation and PHY selection
+approach are in line with what I have tested.
 
-I'm advocating for a hard split between the subsystem data (reference-count=
-ed)
-and driver data (living from probe() until remove()). A logical struct devi=
-ce
-managed entirely by the subsystem should live in a separate structure than
-driver data and be allocated - and freed - by the subsystem module.
+Acked-by: Cory Keitz <ckeitz@amazon.com>
 
-Let's put aside kernel code for a minute and work with an abstract C exampl=
-e,
-where the equivalent of what you're proposing would look like this:
-
-struct bar {
-	struct foo foo;
-	...
-};
-
-struct bar *bar =3D malloc(sizeof(*bar));
-
-ret =3D foo_register(&bar->foo);
-
-And the corresponding free() lives who knows where because foo_register()
-automagically introduces reference counting (nevermind the need to calculat=
-e
-where bar is in relations to foo).
-
-I strongly believe that this makes more sense:
-
-struct bar {
-	...
-};
-
-struct bar *bar =3D malloc();
-
-struct foo *foo =3D foo_register(bar);
-
-// foo is reference counted and allocated in the provider of foo_register()
-
-foo_put(foo);
-free(bar);
-
-The equivalent of which is moving struct device out of struct i2c_adapter.
-In fact: I would love to see i2c_adapter become a truly reference-counted
-object detached from driver data but due to it being embedded in every bus
-driver data structure it realistically won't happen.
-
-> > I know there are a lot of places where this is done in the kernel but
-> > let's not introduce new ones. This is a bad pattern.
->
-> No, it's not. It's literally the standard way of doing this.
->
-> > But even if you decided this is the way to go, I fail to see how it
-> > would be easier than what I'm trying to do. You would have to modify
-> > *all* I2C bus drivers as opposed to only modifying those that access
-> > the underlying struct device. Or am I missing something?
->
-> Yes, you have to update the allocation and replace container_of() with
-> dev_get_drvdata() but it's a straight-forward transformation that brings
-> the i2c subsystem more in line with the driver model (unlike whatever it
-> is you're trying to do).
->
-
-No, it's not that simple. The .release() callback of struct device embedded
-in struct i2c_adapter is assigned from the bus type and only calls complete=
-()
-(yeah, I too don't think it looks right, one would expect to see the associ=
-ated
-kfree() here, right?). It relies on the bus driver freeing the data in its
-remove() path. That's why we wait until all references to said struct devic=
-e
-are dropped. After your proposed change, if your new release() lives in the
-driver module, it must not be removed until all the references are dropped
-- basically where we are now. If on the other hand, the release() callback'=
-s
-functionality is moved into i2c-core, how would you handle the fact i2c_ada=
-pter
-can be embedded in a larger driver data structure? Provide yet another call=
-back
-in i2c_adapter called from the device's .release()? Sure, can be done but I
-doubt it's a better solution.
-
-Bartosz
+Thanks,
+Cory
