@@ -1,165 +1,170 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A81340D9A
-	for <linux-media@vger.kernel.org>; Tue,  3 Mar 2026 12:34:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD8B347504
+	for <linux-media@vger.kernel.org>; Tue,  3 Mar 2026 12:34:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772541277; cv=none; b=Msj8B5o1SRa4p8hQrYSQ9McoiDgHcFRZr8rInApYTNCvTpLMrtQwFcfP5WfYeA3t+muxof+dVHsgeWCIwHJHyMED4GW5nN4k0wc1bwLXyFRsMsyG5lwxDzTiGa6tPj0cKeoxYyBnnJ311MjMa8le+LWYKEF/wMD27l3+u2Rvn/k=
+	t=1772541280; cv=none; b=mWhLWHaKuzyzMbimOqDPhgwDw6xV/Lcy3YdmQl1k+V44fHGKaQeSvRbB06rHBb40kxM2OfimfnaET61bkJBoaZGJwCRSpTdfemfhG7C3cq1wSQtFDKg/SuyWDqB4l0Se+ox8N+IQ2NrjgHhvTr8eJO7DWwrmlTw9o9ghC2pJQI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772541277; c=relaxed/simple;
-	bh=qdkdUtDMzolrYlP3Ymi01iR5cMVWit373aEftT+uf6Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Cedy0VtuJAvvNCCpgSqnFZ8RULWPdnHbelza1/3BxkI3yZGQmBmxA1uaVfLhKndNBMt56/hXTMD0VRovS9vjadnYAK+/HcNK2TF3yqAg/KoXqrjBIZVFeyN3KG4yLzh/bDZNFKG3K2V8im+ZVziq4mc/S87IBqZm2VKduVttBkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FiugB3IG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CRrb2MFs; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1772541280; c=relaxed/simple;
+	bh=Oiyav+nKn59PGwnJ/kuaw2S3AHX/9+uyerzkejMZoD4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=iyvElhoIIah097qIgQupwdZMzbgaZA16IDJiX/W6SGAKi3Tj7EY3R2IXMWtArKtmU78l13l3wx8OxAFGzdvsFVIfsnczJvt2s4ZM1lEZLvKF7pBwU2uc1Bjj6b40bCA7tTob3W4vmQKEQ9X1S3ycodrPZxpQ4ELqucOGv9h7K3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZalmtWO7; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FiugB3IG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CRrb2MFs"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6239mgXx2307433
-	for <linux-media@vger.kernel.org>; Tue, 3 Mar 2026 12:34:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PIuYmbxJe3YpzBkc93wu4DVwPzKyxn0+SKVVjH/VvoA=; b=FiugB3IGvpfN4QHB
-	ZiFqk94l/CHM0FQwKzwh9gG+buTduhvSdU6oW/SM57UhBvHWUEQerMGK3gBvtM4T
-	hY+urZ8TboLdsYmIuvNMSnh5MWnewMhC1/6SHq4ZQRAvolZycl4gqnhbGAuo40f6
-	Q2DlFsfsplxud2EcriLXZZ2rXjN1C9/acFDLXXTMhTVhReTVc/EmKZBcYLuaVUET
-	yCocOyvrz7Flp5B+aF+TIup46dX3xsug8+v2PjzB+aJZa1NU1BoxZLeT9drEY9vz
-	sAkTM1bBADoIH/9pzB9aIFUwxacUPtoORFQzVcMOwVOGBED3PN/L0ZVY+omLs7Tc
-	Wv/ayw==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cnvtu8kk8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 03 Mar 2026 12:34:34 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-89a086578c5so5655516d6.3
-        for <linux-media@vger.kernel.org>; Tue, 03 Mar 2026 04:34:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1772541274; x=1773146074; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=PIuYmbxJe3YpzBkc93wu4DVwPzKyxn0+SKVVjH/VvoA=;
-        b=CRrb2MFsWxAHAKBc+sMaKgPE4jlZFS3JQYHJBz3ZnJtIyyWPcaf5V4jaQWe/DoP2YH
-         GBN9bu6eRZ/SFnluHrcyuqCzuCwRHIoeogLaDLHLQwtOq+L6etj7igX3TR8KacJJ8FE7
-         5PbDlahnBhcuCKBIbtk/IIZXv2ZAjliZn96S4c/c3TWn0pNRzkylLz5iuKe+562iZOkP
-         HuYHiMKD9M+AsiqYqND8DGD8SeuUwrW8Scu6EQPJwbPcXqzvi3v/Xn3xTjnYmQ8qrSOl
-         68joWeCp2pMwjBv/Vdxgo1YFAMty8Vhrm0F+fTKhBbMpC9wmyrVowlQy/82UMfutrwWj
-         tJug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772541274; x=1773146074;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PIuYmbxJe3YpzBkc93wu4DVwPzKyxn0+SKVVjH/VvoA=;
-        b=wwv1S/D4Tj54oSS9KD5FmWjl/PL5q3H4794ICiSXyna6n2/Monw9u60p8FVNok6SIQ
-         gyKWzOHDvuSkWG70izq7eJaaPLaHc+QJyd2LcQh6A2UOluwlHM1QHsZ3EVM+hsJEoiMC
-         7OhG9S5JbCGV5y81xmZ8mu6gFVgdSxmhjxzrWmuXMS7omT56YivrRNzZWQ7fg74JJAuu
-         ged5NaLhMxP3Xwt0Xj7Ny5T4aEcJDPV7dfxBQwKKlPc6wYJRthDaWNadmVgD8UqBUGl2
-         a+5rQqFAN6vpI+foaAEdTELQDTUBzLzPOP1+iw9IDDIKzPwNMbvrtK4CUOA2JVW8phRl
-         i+bw==
-X-Forwarded-Encrypted: i=1; AJvYcCUhZjJgq4pYyE4yi4AfuzqS37FiiqxZ7rdoZ3WhHfFwyNKURfNEflWv75oJfKVn+Ebrl1qME54aQ9x7Sg==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxjii5OknA8qbf2WkbxK2XofajBX2CiNW1DqImreTR5mFI+lqNV
-	IPt3myu+qrhpyTjTE2bWDYfKtDSLKHGHIwjXgANSpV1ajP/Z61r2WBAOaLo1IPH55eUHVTnD+Jt
-	iAfiipFtyXMmK8ahzwh9Chv1m2l2uEp4f/Os5PjKrfib1hprEh2rbZAY82KlyiNfbhg==
-X-Gm-Gg: ATEYQzx9Ijmb4zWT7TwvIKIV69/WQiEaU0B27a+eEL3w/5TDyNidOXdaSsqyzsaojwN
-	nzynIYVRlCMsW1J5ZzT+xnXY1iOkbN8jd5TqOKhHyzqsOy/DgQvQ29txBQJE4jPjda5XNZI/Gkn
-	GkUxeINUH7ZxVuR53dTl0kgeBtrwGzG/G8+L5oRUlQICBLcVjWtnrcWZ2T1k7oCT4t/yhrfQ0Vz
-	n5nxu20fCREGXB5UOVTzDAOhUFF+g3P12d7kU3+MfPq7BJ9bO0z5Zq2SohllxTaN4IPpPuwNO/o
-	Uhnu/RMyMcorE0D7UqN9eVHlquFC5NLSqdQ4rhrT+SB5p3sxiNR5fgqsTtnON2Eyn4ahqquHNdI
-	lj7vpt/yDFrhDLXYmJQf0e1OKTdh9pXkmtBWEYQFt9zlLMQVaP+XMVPgkoFDB4lFglpoAt0OpX6
-	Bh6JY=
-X-Received: by 2002:a0c:f10a:0:b0:89a:911:cd97 with SMTP id 6a1803df08f44-89a0911d399mr20611896d6.0.1772541274261;
-        Tue, 03 Mar 2026 04:34:34 -0800 (PST)
-X-Received: by 2002:a0c:f10a:0:b0:89a:911:cd97 with SMTP id 6a1803df08f44-89a0911d399mr20611586d6.0.1772541273777;
-        Tue, 03 Mar 2026 04:34:33 -0800 (PST)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b935ab146bdsm584236466b.6.2026.03.03.04.34.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Mar 2026 04:34:32 -0800 (PST)
-Message-ID: <04f22394-2dbb-4b7b-bce3-9b41ebfb7709@oss.qualcomm.com>
-Date: Tue, 3 Mar 2026 13:34:30 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZalmtWO7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1772541277;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2Eja0IKLWM7TXMINx19h4PVbisMkWsGrNkIdZK4d0xk=;
+	b=ZalmtWO70PhE/tok8fIcWjTJyVCw48Z7ckbH3u0XzmaxmGkwYZir6+YNr/Bn0pNyWqyMER
+	ieUJ+cSQBgQd5hETQI15Q2hzU7Xyw5iJzaLDKhKFfUo37b35gyXZxqcieNCvluT6NfPsBB
+	oPkUcl7GyMczl7UiBYN/t1HGgBZW5ps=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-609-P4LtvZmcMl2bsCgGydgWWQ-1; Tue,
+ 03 Mar 2026 07:34:32 -0500
+X-MC-Unique: P4LtvZmcMl2bsCgGydgWWQ-1
+X-Mimecast-MFC-AGG-ID: P4LtvZmcMl2bsCgGydgWWQ_1772541270
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 847961800365;
+	Tue,  3 Mar 2026 12:34:30 +0000 (UTC)
+Received: from [192.168.1.153] (unknown [10.44.32.231])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A0A7330001B9;
+	Tue,  3 Mar 2026 12:34:24 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Date: Tue, 03 Mar 2026 13:33:46 +0100
+Subject: [PATCH v2 3/6] of_reserved_mem: add a helper for rmem device_init
+ op
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Bryan O'Donoghue <bod@nxsw.ie>, Bryan O'Donoghue <bod@kernel.org>,
-        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vinod Koul
- <vkoul@kernel.org>,
-        Kishon Vijay Abraham I <kishon@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260226-x1e-csi2-phy-v3-0-11e608759410@linaro.org>
- <20260226-x1e-csi2-phy-v3-1-11e608759410@linaro.org>
- <c85fe457-c140-441c-93ed-342dce32e604@oss.qualcomm.com>
- <676e2a9f-d274-40fa-988f-e9388ba40f71@nxsw.ie>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <676e2a9f-d274-40fa-988f-e9388ba40f71@nxsw.ie>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: PVZlwwFlCVIWtFXZCa6Tl02GpOJhJc1A
-X-Proofpoint-ORIG-GUID: PVZlwwFlCVIWtFXZCa6Tl02GpOJhJc1A
-X-Authority-Analysis: v=2.4 cv=A75h/qWG c=1 sm=1 tr=0 ts=69a6d55b cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=3czUjEcpsIvkoZBIbdgA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzAzMDA5OCBTYWx0ZWRfXz2NM/ElCiDcc
- Or8ozruSAFzOvaEhy/DeX2aQRh+KWr1s+vpgD/Afxc0D8AxYz+qLAn6HJZVto8oyBzWZjbS8y3/
- 7T2D6S6LtcDbT+NvZF59xarNx22gfT+zaOqxxlWM+N3U8+w/olNpb4lhJoYvZp+OQbOKvTrwwtQ
- QV2YKNbCOF1skkpakH2VE9OS+Bbx0udSvATp80SB5y++Z7uIuXONFMv5xXkBEUavO2EjwZlhzp4
- Wdxw+7WlFUbqHFJIvmAkuN/DqnBMJ53KtS4Zh5/dpG/pV/HFEx0wONc0bb0BFm6XIoF54Y1C0Hj
- 87vDEEYlRKhIeenNrSqm+jBE7hCRenWl5pLWsqr0Xa6iGn4iA4EygB31t0xLVQO06xCsgPJWRpF
- BREh7KWl/jJyghAq4Q0HJz5PlbGG9gCDabSXu1yImLLLjNjDnRh4cS9lZENFMhKb3LFs8x7o0mF
- igf6XB9UTGENByHK85A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-02_05,2026-03-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
- adultscore=0 clxscore=1015 bulkscore=0 malwarescore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603030098
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260303-b4-dmabuf-heap-coherent-rmem-v2-3-65a4653b3378@redhat.com>
+References: <20260303-b4-dmabuf-heap-coherent-rmem-v2-0-65a4653b3378@redhat.com>
+In-Reply-To: <20260303-b4-dmabuf-heap-coherent-rmem-v2-0-65a4653b3378@redhat.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
+ Saravana Kannan <saravanak@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ iommu@lists.linux.dev, devicetree@vger.kernel.org, 
+ Albert Esteve <aesteve@redhat.com>, echanude@redhat.com, mripard@redhat.com
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1772541243; l=3269;
+ i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
+ bh=Oiyav+nKn59PGwnJ/kuaw2S3AHX/9+uyerzkejMZoD4=;
+ b=i3wbq5E4k9VfhS9W3iaMgYMRMa0WY56H+E6aqqEhiNhouFoq+Q7bGPoRNT8RSld0ItGC3n+Mo
+ VBn/S9AJdEHB91d8iZ3E61e216OnDtU3RjkvsWWVtnZ0J+Hin44U7YH
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On 3/3/26 10:30 AM, Bryan O'Donoghue wrote:
-> On 03/03/2026 09:27, Bryan O'Donoghue wrote:
->> - MXA - first time I've heard of this rail, from memory I don't remember
->>          having seen this in ipcat when I could do so.
-> 
-> Yeah no MXA isn't a required vote.
+Add a helper function wrapping internal reserved memory
+device_init call and expose it externally.
 
-That depends on the use case.
+Use the new helper function within of_reserved_mem_device_init_by_idx().
 
-MXA is always-on (that's the 'A' in the name, as opposed to 'C'
-for 'Collapsible'), but it's not always at the required performance
-state (svs, nom, etc.). For some clock controllers specifically, there
-is no need to put them into the picture, as the rail may be unconnected
-altogether, or only used for some retention mechanisms (which only
-require the rail to be enabled and nothing more)
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
+---
+ drivers/of/of_reserved_mem.c    | 27 +++++++++++++++++++++++----
+ include/linux/of_reserved_mem.h |  8 ++++++++
+ 2 files changed, 31 insertions(+), 4 deletions(-)
 
-Konrad
+diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+index 1fd28f8056108..3a350bef8f11e 100644
+--- a/drivers/of/of_reserved_mem.c
++++ b/drivers/of/of_reserved_mem.c
+@@ -605,6 +605,28 @@ struct rmem_assigned_device {
+ static LIST_HEAD(of_rmem_assigned_device_list);
+ static DEFINE_MUTEX(of_rmem_assigned_device_mutex);
+ 
++/**
++ * of_reserved_mem_device_init_with_mem() - assign reserved memory region to
++ *					    given device
++ * @dev:	Pointer to the device to configure
++ * @rmem:	Reserved memory region to assign
++ *
++ * This function assigns respective DMA-mapping operations based on the
++ * reserved memory region already provided in @rmem to the @dev device,
++ * without walking DT nodes.
++ *
++ * Returns error code or zero on success.
++ */
++int of_reserved_mem_device_init_with_mem(struct device *dev,
++					 struct reserved_mem *rmem)
++{
++	if (!dev || !rmem || !rmem->ops || !rmem->ops->device_init)
++		return -EINVAL;
++
++	return rmem->ops->device_init(rmem, dev);
++}
++EXPORT_SYMBOL_GPL(of_reserved_mem_device_init_with_mem);
++
+ /**
+  * of_reserved_mem_device_init_by_idx() - assign reserved memory region to
+  *					  given device
+@@ -643,14 +665,11 @@ int of_reserved_mem_device_init_by_idx(struct device *dev,
+ 	rmem = of_reserved_mem_lookup(target);
+ 	of_node_put(target);
+ 
+-	if (!rmem || !rmem->ops || !rmem->ops->device_init)
+-		return -EINVAL;
+-
+ 	rd = kmalloc_obj(struct rmem_assigned_device);
+ 	if (!rd)
+ 		return -ENOMEM;
+ 
+-	ret = rmem->ops->device_init(rmem, dev);
++	ret = of_reserved_mem_device_init_with_mem(dev, rmem);
+ 	if (ret == 0) {
+ 		rd->dev = dev;
+ 		rd->rmem = rmem;
+diff --git a/include/linux/of_reserved_mem.h b/include/linux/of_reserved_mem.h
+index f573423359f48..12f7ddb7ee61f 100644
+--- a/include/linux/of_reserved_mem.h
++++ b/include/linux/of_reserved_mem.h
+@@ -32,6 +32,8 @@ typedef int (*reservedmem_of_init_fn)(struct reserved_mem *rmem);
+ #define RESERVEDMEM_OF_DECLARE(name, compat, init)			\
+ 	_OF_DECLARE(reservedmem, name, compat, init, reservedmem_of_init_fn)
+ 
++int of_reserved_mem_device_init_with_mem(struct device *dev,
++					 struct reserved_mem *rmem);
+ int of_reserved_mem_device_init_by_idx(struct device *dev,
+ 				       struct device_node *np, int idx);
+ int of_reserved_mem_device_init_by_name(struct device *dev,
+@@ -51,6 +53,12 @@ int of_reserved_mem_region_count(const struct device_node *np);
+ #define RESERVEDMEM_OF_DECLARE(name, compat, init)			\
+ 	_OF_DECLARE_STUB(reservedmem, name, compat, init, reservedmem_of_init_fn)
+ 
++static inline int of_reserved_mem_device_init_with_mem(struct device *dev,
++						       struct reserved_mem *rmem)
++{
++	return -EOPNOTSUPP;
++}
++
+ static inline int of_reserved_mem_device_init_by_idx(struct device *dev,
+ 					struct device_node *np, int idx)
+ {
 
-> 
-> https://lore.kernel.org/linux-arm-msm/9ff1645f-b2c9-4c1a-ae2d-96af416b08d9@oss.qualcomm.com/
-> 
-> ---
-> bod
-> 
-> 
+-- 
+2.52.0
+
