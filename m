@@ -1,298 +1,165 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A051E487
-	for <linux-media@vger.kernel.org>; Tue,  3 Mar 2026 12:34:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A81340D9A
+	for <linux-media@vger.kernel.org>; Tue,  3 Mar 2026 12:34:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772541275; cv=none; b=V9T6pS3LSiCf5vRZyjzsBAiD8ZpBMoV66S14Ucc0JxGjc+qZVFas1uRp4yV/r+8DuqUTxOm2OdQ7WknX+NxlBvw7qL0mKFzPcUP5ktLJ2rsgz8DjdH0jebxBXC12IDEuWutv00Ef0MhmZTujF/STPQi61WbHpnSbrExGdvzaRkY=
+	t=1772541277; cv=none; b=Msj8B5o1SRa4p8hQrYSQ9McoiDgHcFRZr8rInApYTNCvTpLMrtQwFcfP5WfYeA3t+muxof+dVHsgeWCIwHJHyMED4GW5nN4k0wc1bwLXyFRsMsyG5lwxDzTiGa6tPj0cKeoxYyBnnJ311MjMa8le+LWYKEF/wMD27l3+u2Rvn/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772541275; c=relaxed/simple;
-	bh=rT4eCrjoQu7EvTeC9Zi2EQ7EHm1V9wN2D3i4WLgOBL8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jIdGxazoivKaPviY9p5thBk86+p6PoRcaCQ4NOMa79jdfvmVT3UeUFDbvQcW49p9wNgrwHKZBHoLHM6nYWkgsy17SwwJ3ItoUIlZG6rqfcT24Fj3XJ+Zkys3RjOucVZnQhsZ1x4F2+B1lqW9D0KHjtdtLgyqMsgxsKFrtI+iSp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=VeeOgHgI; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1772541277; c=relaxed/simple;
+	bh=qdkdUtDMzolrYlP3Ymi01iR5cMVWit373aEftT+uf6Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Cedy0VtuJAvvNCCpgSqnFZ8RULWPdnHbelza1/3BxkI3yZGQmBmxA1uaVfLhKndNBMt56/hXTMD0VRovS9vjadnYAK+/HcNK2TF3yqAg/KoXqrjBIZVFeyN3KG4yLzh/bDZNFKG3K2V8im+ZVziq4mc/S87IBqZm2VKduVttBkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FiugB3IG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CRrb2MFs; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VeeOgHgI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1772541271;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=L2WQTNBlzMDcavmEhhF5QEatl1tMG2I69r3hsa4655g=;
-	b=VeeOgHgIyJiNpDrfxlyfyNPWFtN3F9hASqVE7EuaJBMzAvozBVp47Id2pdx8Dom09q3nS+
-	U3s42A8Dp/zpX8cPAZRRWoWfKgT6ubfRtHmq4hP/gbnhE6pp4l8sj6Jp4kuf8F2Yf5Bqqe
-	bGl304eVek3y0cFJM6XrQxb7lwXwAIw=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-564-N7OrLEwtNuGjw09bCTBezQ-1; Tue,
- 03 Mar 2026 07:34:26 -0500
-X-MC-Unique: N7OrLEwtNuGjw09bCTBezQ-1
-X-Mimecast-MFC-AGG-ID: N7OrLEwtNuGjw09bCTBezQ_1772541264
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 15B2C1800464;
-	Tue,  3 Mar 2026 12:34:24 +0000 (UTC)
-Received: from [192.168.1.153] (unknown [10.44.32.231])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BBEC730001BF;
-	Tue,  3 Mar 2026 12:34:17 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Date: Tue, 03 Mar 2026 13:33:45 +0100
-Subject: [PATCH v2 2/6] dma-buf: dma-heap: split dma_heap_add
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FiugB3IG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CRrb2MFs"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6239mgXx2307433
+	for <linux-media@vger.kernel.org>; Tue, 3 Mar 2026 12:34:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	PIuYmbxJe3YpzBkc93wu4DVwPzKyxn0+SKVVjH/VvoA=; b=FiugB3IGvpfN4QHB
+	ZiFqk94l/CHM0FQwKzwh9gG+buTduhvSdU6oW/SM57UhBvHWUEQerMGK3gBvtM4T
+	hY+urZ8TboLdsYmIuvNMSnh5MWnewMhC1/6SHq4ZQRAvolZycl4gqnhbGAuo40f6
+	Q2DlFsfsplxud2EcriLXZZ2rXjN1C9/acFDLXXTMhTVhReTVc/EmKZBcYLuaVUET
+	yCocOyvrz7Flp5B+aF+TIup46dX3xsug8+v2PjzB+aJZa1NU1BoxZLeT9drEY9vz
+	sAkTM1bBADoIH/9pzB9aIFUwxacUPtoORFQzVcMOwVOGBED3PN/L0ZVY+omLs7Tc
+	Wv/ayw==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cnvtu8kk8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 03 Mar 2026 12:34:34 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-89a086578c5so5655516d6.3
+        for <linux-media@vger.kernel.org>; Tue, 03 Mar 2026 04:34:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1772541274; x=1773146074; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=PIuYmbxJe3YpzBkc93wu4DVwPzKyxn0+SKVVjH/VvoA=;
+        b=CRrb2MFsWxAHAKBc+sMaKgPE4jlZFS3JQYHJBz3ZnJtIyyWPcaf5V4jaQWe/DoP2YH
+         GBN9bu6eRZ/SFnluHrcyuqCzuCwRHIoeogLaDLHLQwtOq+L6etj7igX3TR8KacJJ8FE7
+         5PbDlahnBhcuCKBIbtk/IIZXv2ZAjliZn96S4c/c3TWn0pNRzkylLz5iuKe+562iZOkP
+         HuYHiMKD9M+AsiqYqND8DGD8SeuUwrW8Scu6EQPJwbPcXqzvi3v/Xn3xTjnYmQ8qrSOl
+         68joWeCp2pMwjBv/Vdxgo1YFAMty8Vhrm0F+fTKhBbMpC9wmyrVowlQy/82UMfutrwWj
+         tJug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772541274; x=1773146074;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=PIuYmbxJe3YpzBkc93wu4DVwPzKyxn0+SKVVjH/VvoA=;
+        b=wwv1S/D4Tj54oSS9KD5FmWjl/PL5q3H4794ICiSXyna6n2/Monw9u60p8FVNok6SIQ
+         gyKWzOHDvuSkWG70izq7eJaaPLaHc+QJyd2LcQh6A2UOluwlHM1QHsZ3EVM+hsJEoiMC
+         7OhG9S5JbCGV5y81xmZ8mu6gFVgdSxmhjxzrWmuXMS7omT56YivrRNzZWQ7fg74JJAuu
+         ged5NaLhMxP3Xwt0Xj7Ny5T4aEcJDPV7dfxBQwKKlPc6wYJRthDaWNadmVgD8UqBUGl2
+         a+5rQqFAN6vpI+foaAEdTELQDTUBzLzPOP1+iw9IDDIKzPwNMbvrtK4CUOA2JVW8phRl
+         i+bw==
+X-Forwarded-Encrypted: i=1; AJvYcCUhZjJgq4pYyE4yi4AfuzqS37FiiqxZ7rdoZ3WhHfFwyNKURfNEflWv75oJfKVn+Ebrl1qME54aQ9x7Sg==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxjii5OknA8qbf2WkbxK2XofajBX2CiNW1DqImreTR5mFI+lqNV
+	IPt3myu+qrhpyTjTE2bWDYfKtDSLKHGHIwjXgANSpV1ajP/Z61r2WBAOaLo1IPH55eUHVTnD+Jt
+	iAfiipFtyXMmK8ahzwh9Chv1m2l2uEp4f/Os5PjKrfib1hprEh2rbZAY82KlyiNfbhg==
+X-Gm-Gg: ATEYQzx9Ijmb4zWT7TwvIKIV69/WQiEaU0B27a+eEL3w/5TDyNidOXdaSsqyzsaojwN
+	nzynIYVRlCMsW1J5ZzT+xnXY1iOkbN8jd5TqOKhHyzqsOy/DgQvQ29txBQJE4jPjda5XNZI/Gkn
+	GkUxeINUH7ZxVuR53dTl0kgeBtrwGzG/G8+L5oRUlQICBLcVjWtnrcWZ2T1k7oCT4t/yhrfQ0Vz
+	n5nxu20fCREGXB5UOVTzDAOhUFF+g3P12d7kU3+MfPq7BJ9bO0z5Zq2SohllxTaN4IPpPuwNO/o
+	Uhnu/RMyMcorE0D7UqN9eVHlquFC5NLSqdQ4rhrT+SB5p3sxiNR5fgqsTtnON2Eyn4ahqquHNdI
+	lj7vpt/yDFrhDLXYmJQf0e1OKTdh9pXkmtBWEYQFt9zlLMQVaP+XMVPgkoFDB4lFglpoAt0OpX6
+	Bh6JY=
+X-Received: by 2002:a0c:f10a:0:b0:89a:911:cd97 with SMTP id 6a1803df08f44-89a0911d399mr20611896d6.0.1772541274261;
+        Tue, 03 Mar 2026 04:34:34 -0800 (PST)
+X-Received: by 2002:a0c:f10a:0:b0:89a:911:cd97 with SMTP id 6a1803df08f44-89a0911d399mr20611586d6.0.1772541273777;
+        Tue, 03 Mar 2026 04:34:33 -0800 (PST)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b935ab146bdsm584236466b.6.2026.03.03.04.34.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Mar 2026 04:34:32 -0800 (PST)
+Message-ID: <04f22394-2dbb-4b7b-bce3-9b41ebfb7709@oss.qualcomm.com>
+Date: Tue, 3 Mar 2026 13:34:30 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260303-b4-dmabuf-heap-coherent-rmem-v2-2-65a4653b3378@redhat.com>
-References: <20260303-b4-dmabuf-heap-coherent-rmem-v2-0-65a4653b3378@redhat.com>
-In-Reply-To: <20260303-b4-dmabuf-heap-coherent-rmem-v2-0-65a4653b3378@redhat.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
- "T.J. Mercier" <tjmercier@google.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
- Saravana Kannan <saravanak@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- iommu@lists.linux.dev, devicetree@vger.kernel.org, 
- Albert Esteve <aesteve@redhat.com>, echanude@redhat.com, mripard@redhat.com
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1772541243; l=6736;
- i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
- bh=rT4eCrjoQu7EvTeC9Zi2EQ7EHm1V9wN2D3i4WLgOBL8=;
- b=WyYJMMZjafvKEln5EMzK35BIFWIKyBwZjgKRJeKr/K5sa3XEXqCBPwD2HOUyxnOKeDhqy32W0
- LDiUoTUFgtwD0jNccSayx+CrlCFk5prI74Zg2anYbmnK0Ya+AYBc6Ry
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: Bryan O'Donoghue <bod@nxsw.ie>, Bryan O'Donoghue <bod@kernel.org>,
+        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vinod Koul
+ <vkoul@kernel.org>,
+        Kishon Vijay Abraham I <kishon@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260226-x1e-csi2-phy-v3-0-11e608759410@linaro.org>
+ <20260226-x1e-csi2-phy-v3-1-11e608759410@linaro.org>
+ <c85fe457-c140-441c-93ed-342dce32e604@oss.qualcomm.com>
+ <676e2a9f-d274-40fa-988f-e9388ba40f71@nxsw.ie>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <676e2a9f-d274-40fa-988f-e9388ba40f71@nxsw.ie>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: PVZlwwFlCVIWtFXZCa6Tl02GpOJhJc1A
+X-Proofpoint-ORIG-GUID: PVZlwwFlCVIWtFXZCa6Tl02GpOJhJc1A
+X-Authority-Analysis: v=2.4 cv=A75h/qWG c=1 sm=1 tr=0 ts=69a6d55b cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=3czUjEcpsIvkoZBIbdgA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzAzMDA5OCBTYWx0ZWRfXz2NM/ElCiDcc
+ Or8ozruSAFzOvaEhy/DeX2aQRh+KWr1s+vpgD/Afxc0D8AxYz+qLAn6HJZVto8oyBzWZjbS8y3/
+ 7T2D6S6LtcDbT+NvZF59xarNx22gfT+zaOqxxlWM+N3U8+w/olNpb4lhJoYvZp+OQbOKvTrwwtQ
+ QV2YKNbCOF1skkpakH2VE9OS+Bbx0udSvATp80SB5y++Z7uIuXONFMv5xXkBEUavO2EjwZlhzp4
+ Wdxw+7WlFUbqHFJIvmAkuN/DqnBMJ53KtS4Zh5/dpG/pV/HFEx0wONc0bb0BFm6XIoF54Y1C0Hj
+ 87vDEEYlRKhIeenNrSqm+jBE7hCRenWl5pLWsqr0Xa6iGn4iA4EygB31t0xLVQO06xCsgPJWRpF
+ BREh7KWl/jJyghAq4Q0HJz5PlbGG9gCDabSXu1yImLLLjNjDnRh4cS9lZENFMhKb3LFs8x7o0mF
+ igf6XB9UTGENByHK85A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-02_05,2026-03-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
+ adultscore=0 clxscore=1015 bulkscore=0 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603030098
 
-Split dma_heap_add() into creation and registration
-phases while preserving the ordering between
-cdev_add() and device_add(), and ensuring all
-device fields are initialised.
+On 3/3/26 10:30 AM, Bryan O'Donoghue wrote:
+> On 03/03/2026 09:27, Bryan O'Donoghue wrote:
+>> - MXA - first time I've heard of this rail, from memory I don't remember
+>>          having seen this in ipcat when I could do so.
+> 
+> Yeah no MXA isn't a required vote.
 
-This will allow to access the heap_dev before
-it is registered and becomes available to
-userspace, making error handling easier.
+That depends on the use case.
 
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
----
- drivers/dma-buf/dma-heap.c | 126 +++++++++++++++++++++++++++++++++++----------
- include/linux/dma-heap.h   |   3 ++
- 2 files changed, 103 insertions(+), 26 deletions(-)
+MXA is always-on (that's the 'A' in the name, as opposed to 'C'
+for 'Collapsible'), but it's not always at the required performance
+state (svs, nom, etc.). For some clock controllers specifically, there
+is no need to put them into the picture, as the rail may be unconnected
+altogether, or only used for some retention mechanisms (which only
+require the rail to be enabled and nothing more)
 
-diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
-index 1124d63eb1398..88189d4e48561 100644
---- a/drivers/dma-buf/dma-heap.c
-+++ b/drivers/dma-buf/dma-heap.c
-@@ -238,15 +238,30 @@ struct device *dma_heap_get_dev(struct dma_heap *heap)
- }
- EXPORT_SYMBOL_NS_GPL(dma_heap_get_dev, "DMA_BUF_HEAP");
- 
-+static void dma_heap_dev_release(struct device *dev)
-+{
-+	struct dma_heap *heap;
-+
-+	pr_debug("heap device: '%s': %s\n", dev_name(dev), __func__);
-+	heap = dev_get_drvdata(dev);
-+	kfree(heap->name);
-+	kfree(heap);
-+	kfree(dev);
-+}
-+
- /**
-- * dma_heap_add - adds a heap to dmabuf heaps
-- * @exp_info: information needed to register this heap
-+ * dma_heap_create() - allocate and initialize a heap object
-+ * @exp_info: information needed to create a heap
-+ *
-+ * Creates a heap instance but does not register it or create device nodes.
-+ * Use dma_heap_register() to make it visible to userspace, or
-+ * dma_heap_destroy() to release it.
-+ *
-+ * Returns a heap on success or ERR_PTR(-errno) on failure.
-  */
--struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
-+struct dma_heap *dma_heap_create(const struct dma_heap_export_info *exp_info)
- {
--	struct dma_heap *heap, *h, *err_ret;
--	unsigned int minor;
--	int ret;
-+	struct dma_heap *heap;
- 
- 	if (!exp_info->name || !strcmp(exp_info->name, "")) {
- 		pr_err("dma_heap: Cannot add heap without a name\n");
-@@ -265,13 +280,41 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
- 	heap->name = exp_info->name;
- 	heap->ops = exp_info->ops;
- 	heap->priv = exp_info->priv;
-+	heap->heap_dev = kzalloc_obj(*heap->heap_dev);
-+	if (!heap->heap_dev) {
-+		kfree(heap);
-+		return ERR_PTR(-ENOMEM);
-+	}
-+
-+	device_initialize(heap->heap_dev);
-+	dev_set_drvdata(heap->heap_dev, heap);
-+
-+	dev_set_name(heap->heap_dev, heap->name);
-+	heap->heap_dev->class = dma_heap_class;
-+	heap->heap_dev->release = dma_heap_dev_release;
-+
-+	return heap;
-+}
-+EXPORT_SYMBOL_NS_GPL(dma_heap_create, "DMA_BUF_HEAP");
-+
-+/**
-+ * dma_heap_register() - register a heap with the dma-heap framework
-+ * @heap: heap instance created with dma_heap_create()
-+ *
-+ * Registers the heap, creating its device node and adding it to the heap
-+ * list. Returns 0 on success or a negative error code on failure.
-+ */
-+int dma_heap_register(struct dma_heap *heap)
-+{
-+	struct dma_heap *h;
-+	unsigned int minor;
-+	int ret;
- 
- 	/* Find unused minor number */
- 	ret = xa_alloc(&dma_heap_minors, &minor, heap,
- 		       XA_LIMIT(0, NUM_HEAP_MINORS - 1), GFP_KERNEL);
- 	if (ret < 0) {
- 		pr_err("dma_heap: Unable to get minor number for heap\n");
--		err_ret = ERR_PTR(ret);
- 		goto err0;
- 	}
- 
-@@ -282,42 +325,34 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
- 	ret = cdev_add(&heap->heap_cdev, heap->heap_devt, 1);
- 	if (ret < 0) {
- 		pr_err("dma_heap: Unable to add char device\n");
--		err_ret = ERR_PTR(ret);
- 		goto err1;
- 	}
- 
--	heap->heap_dev = device_create(dma_heap_class,
--				       NULL,
--				       heap->heap_devt,
--				       NULL,
--				       heap->name);
--	if (IS_ERR(heap->heap_dev)) {
--		pr_err("dma_heap: Unable to create device\n");
--		err_ret = ERR_CAST(heap->heap_dev);
-+	heap->heap_dev->devt = heap->heap_devt;
-+
-+	ret = device_add(heap->heap_dev);
-+	if (ret) {
-+		pr_err("dma_heap: Unable to add device\n");
- 		goto err2;
- 	}
- 
- 	mutex_lock(&heap_list_lock);
- 	/* check the name is unique */
- 	list_for_each_entry(h, &heap_list, list) {
--		if (!strcmp(h->name, exp_info->name)) {
-+		if (!strcmp(h->name, heap->name)) {
- 			mutex_unlock(&heap_list_lock);
- 			pr_err("dma_heap: Already registered heap named %s\n",
--			       exp_info->name);
--			err_ret = ERR_PTR(-EINVAL);
-+			       heap->name);
-+			ret = -EINVAL;
- 			goto err3;
- 		}
- 	}
- 
--	/* Make sure it doesn't disappear on us */
--	heap->heap_dev = get_device(heap->heap_dev);
--
--
- 	/* Add heap to the list */
- 	list_add(&heap->list, &heap_list);
- 	mutex_unlock(&heap_list_lock);
- 
--	return heap;
-+	return 0;
- 
- err3:
- 	device_destroy(dma_heap_class, heap->heap_devt);
-@@ -326,8 +361,47 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
- err1:
- 	xa_erase(&dma_heap_minors, minor);
- err0:
--	kfree(heap);
--	return err_ret;
-+	dma_heap_destroy(heap);
-+	return ret;
-+}
-+EXPORT_SYMBOL_NS_GPL(dma_heap_register, "DMA_BUF_HEAP");
-+
-+/**
-+ * dma_heap_destroy() - release a heap created by dma_heap_create()
-+ * @heap: heap instance to release
-+ *
-+ * Drops the heap device reference; the heap and its device are freed in the
-+ * device release path when the last reference is gone.
-+ */
-+void dma_heap_destroy(struct dma_heap *heap)
-+{
-+	put_device(heap->heap_dev);
-+}
-+EXPORT_SYMBOL_NS_GPL(dma_heap_destroy, "DMA_BUF_HEAP");
-+
-+/**
-+ * dma_heap_add - adds a heap to dmabuf heaps
-+ * @exp_info: information needed to register this heap
-+ */
-+struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
-+{
-+	struct dma_heap *heap;
-+	int ret;
-+
-+	heap = dma_heap_create(exp_info);
-+	if (IS_ERR(heap)) {
-+		pr_err("dma_heap: failed to create heap (%d)\n", PTR_ERR(heap));
-+		return PTR_ERR(heap);
-+	}
-+
-+	ret = dma_heap_register(heap);
-+	if (ret) {
-+		pr_err("dma_heap: failed to register heap (%d)\n", ret);
-+		dma_heap_destroy(heap);
-+		return ERR_PTR(ret);
-+	}
-+
-+	return heap;
- }
- EXPORT_SYMBOL_NS_GPL(dma_heap_add, "DMA_BUF_HEAP");
- 
-diff --git a/include/linux/dma-heap.h b/include/linux/dma-heap.h
-index 493085e69b70e..1b0ea43ba66c3 100644
---- a/include/linux/dma-heap.h
-+++ b/include/linux/dma-heap.h
-@@ -46,6 +46,9 @@ void *dma_heap_get_drvdata(struct dma_heap *heap);
- const char *dma_heap_get_name(struct dma_heap *heap);
- struct device *dma_heap_get_dev(struct dma_heap *heap);
- 
-+struct dma_heap *dma_heap_create(const struct dma_heap_export_info *exp_info);
-+int dma_heap_register(struct dma_heap *heap);
-+void dma_heap_destroy(struct dma_heap *heap);
- struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info);
- 
- extern bool mem_accounting;
+Konrad
 
--- 
-2.52.0
-
+> 
+> https://lore.kernel.org/linux-arm-msm/9ff1645f-b2c9-4c1a-ae2d-96af416b08d9@oss.qualcomm.com/
+> 
+> ---
+> bod
+> 
+> 
