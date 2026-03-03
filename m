@@ -1,737 +1,264 @@
-Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com [205.220.178.238])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D7353B4E96;
-	Tue,  3 Mar 2026 10:50:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.178.238
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772535065; cv=fail; b=AtITKnD1K0QlpKCBAIc2xwRVgbs6V5KafhutEg0dFVHte/4KIGEy6etQMFLImTSQ4bpbaPS1e+22k8tNYz9ZgTGInoMJwqfyXoFGeaNLz1YZT9lcJ6LHCn7+XsGvDii4b8aWYo+h7J6tmJrxVPzy+yV77x+AI58B8xkIiltP0as=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772535065; c=relaxed/simple;
-	bh=V5PqaMi/A/zkReEZYmsiui5xTmvOlENN2Uohhsw//U0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AVlvYC2nCYrkXfloAldA/CKGS+N8mey5uanu0dhr2R/4AJNhbqeDpWdBjsNnXSfTrzm5PbaMfocoxSv+M+OHR9n38zQbP06YiCk9IZmSyIyZ+EBljeGSXQQE4Qhz38o05aRXMkugT0/pbUwsS2o+zfQOsIZk5W0iDEJBu/LpfU8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=pass smtp.mailfrom=windriver.com; dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b=J/UMUBf+; arc=fail smtp.client-ip=205.220.178.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=windriver.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 484B9391502;
+	Tue,  3 Mar 2026 10:52:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1772535171; cv=none; b=uKrdq/2VIlx4jLYRappAgBJZYcNubBLFlzDI5j0w7LNWcZahURgmtEUu4vtHKru7Lyc+ka5vfX+1pV7ROQ/tL03V0eWSDg4Xs7UXsifNhrE4BF3bLRWd8TS50zgy1LrtZAfncZ21/xuljtzJy+sw8ervYavCwurSI4UqBy1P558=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1772535171; c=relaxed/simple;
+	bh=nGOhg9QKdd1xgegpWoMeks0A2moqyXq0ThAv01c57R4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EOeixU+dvQGK7DInvKGBqwgyTTMrSH4OZqMzbdGtDQaKV0V0z44HcRB+tI2z9E/oENBpyQ2LjFSy8UUvETpkkLtdPhSftkr8xS+iDqUkYlWdFU6jdWqgSkMDGbLQf1yWAa38ly5WguzqAd7ZEOA+tEwWLbFr/H0Zidd7AO3OeHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gkN0AhVq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b="J/UMUBf+"
-Received: from pps.filterd (m0250812.ppops.net [127.0.0.1])
-	by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6234Uaob1496548;
-	Tue, 3 Mar 2026 10:50:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	PPS06212021; bh=2JHu37lJsE9EfEYYHfia9R7J3IwNIwitwNHyS3zu1iA=; b=
-	J/UMUBf+UyFA99Z1qDML7mjWRmdH8RtONXS9WJyJ/1vp3uis7KS2NeUQfVWYF7fj
-	qabVauiI1MgtefZYaq3xQXJmPC6jK07pjgXzirITJ64HRqXnqOdMLLhWbrn/oYRP
-	/VkUFFnb2DcRsKwR8gltm3MuqB2SVxmgaVXbhwzzW7I0cDrjBI6sbpkYtrd7jk27
-	jZAHiCl0OttXw/akw4Ne+7lPeItGqM9CKagwL3Kw4zbvhk5jZouT2ioT/u/eeEiY
-	rVMQMpEcA86lms7OtW9vbCv4sn9iTM+YV9oMSZPFhx7UdX9krT4quLGOx7PhUDGl
-	TChrl38AW+ZegPifsnmO2g==
-Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012060.outbound.protection.outlook.com [52.101.53.60])
-	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 4ckqb4kjrb-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 03 Mar 2026 10:50:23 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qZ3a2/fanGjYZVzqSOlIv0FMgPGVFL+jG1Advj/vTW12oXZPtldpoLSpvvFP7kmOwvELaKks9qn0oaCCQ8kAombodAoPTYW3tP6bRK9pz64Mdd4pKt95k52AsdPL9ScOCNgqqWO7KBvTJ47D+Gu41lT454ghk4QAEbmF1W28P7+407f4TVk+DIzpNByFL6Fcn1s792h0XfwdBm9qA/ClvmNlueXkV6ScM6L7l6sOF8QkwqrDy/xtVjHHLeZ6nVG+og8ef6KxPH/quloaf8kwqblQ35O9fK7OCpzoPuCo4R/MblTpc+s10HmPCMTy/XmgjXv2j4tviGu/XvFlWQM74Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2JHu37lJsE9EfEYYHfia9R7J3IwNIwitwNHyS3zu1iA=;
- b=H2+GgcLl8DM633U0QmIi3Rb6toSAhcAkDZKC6DY/k5VqjJa05K73h/DQfC0yFBDSSaO02sG15VPuzEfY40xnuzRNSfyj7k/8kmsC3hubF8/JsUgPSDunh7bomTIjd4D27Kc/u8Rcd6x+k+iP9VsarV76McQGVbGpeeQQnfc3heTXbF6j9ID34orCQCyLHRXbnYz2fukmLLIdGgyJQ1MJvD4h660zPeTMfCU+QTIZoM4x7yqhiNoWCr0KfM0dRbsfYwo5Tb+amzBuCqdritzOZUK5vP363V8wTU0pbjmIX9gQpcfjC8mcSJfb46lTKv0XFHiY4SR7jKSp2sGt7RLWwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=windriver.com; dmarc=pass action=none
- header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
-Received: from DS4PPFD667CEBB6.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::53) by MW4PR11MB6837.namprd11.prod.outlook.com
- (2603:10b6:303:221::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Tue, 3 Mar
- 2026 10:50:21 +0000
-Received: from DS4PPFD667CEBB6.namprd11.prod.outlook.com
- ([fe80::5f46:caa4:60d4:f669]) by DS4PPFD667CEBB6.namprd11.prod.outlook.com
- ([fe80::5f46:caa4:60d4:f669%2]) with mapi id 15.20.9654.022; Tue, 3 Mar 2026
- 10:50:21 +0000
-From: Xiaolei Wang <xiaolei.wang@windriver.com>
-To: sakari.ailus@linux.intel.com, laurent.pinchart@ideasonboard.com,
-        tarang.raval@siliconsignals.io, dave.stevenson@raspberrypi.com,
-        jacopo@jmondi.org, mchehab@kernel.org,
-        prabhakar.mahadev-lad.rj@bp.renesas.com, hverkuil+cisco@kernel.org,
-        johannes.goede@oss.qualcomm.com, hverkuil-cisco@xs4all.nl,
-        jai.luthra@ideasonboard.com, Xiaolei.Wang@windriver.com
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/3] media: i2c: ov9282: Convert to CCI register access helpers
-Date: Tue,  3 Mar 2026 18:49:40 +0800
-Message-ID: <20260303104942.3111366-2-xiaolei.wang@windriver.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260303104942.3111366-1-xiaolei.wang@windriver.com>
-References: <20260303104942.3111366-1-xiaolei.wang@windriver.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TYCP286CA0057.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b5::20) To DS4PPFD667CEBB6.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::53)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gkN0AhVq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C3ACC116C6;
+	Tue,  3 Mar 2026 10:52:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1772535170;
+	bh=nGOhg9QKdd1xgegpWoMeks0A2moqyXq0ThAv01c57R4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=gkN0AhVqRF3ETcr5Aa16oLSpRxTKSO8oK8Zkt4YIeJHbHxskYXh7p/NRdTlEhKfuk
+	 5u6De2MfLrgLdJd9tyTZRo7LDV22vXyQyYTcckKvQUYdAQ8zpOoy0eTtU+JOZnB5y9
+	 7HtQWcoG6jVo9I3FqyJXR0dqwKVEfQmYQm/2rR7T+oNP1TG+6qCTK/p9OfeczHTRAX
+	 elYlzyG/qc0W3KHKG0wi3CX/i+zNQYKjtu9ryT1UTo8sA4buRETJvIy99OBopiWFwg
+	 PUe7UTLZtbLzWiiCd44isyIAafgGod1JhN+nQmRiuJZa/Ij09Je4AeYD52HWMb9M/U
+	 hd1unNVYAIKyg==
+Message-ID: <2119a8418cab65eef5e0fb100e44224e39568e10.camel@kernel.org>
+Subject: Re: [PATCH v2 001/110] vfs: introduce kino_t typedef and PRIino
+ format macro
+From: Jeff Layton <jlayton@kernel.org>
+To: Theodore Tso <tytso@mit.edu>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner	
+ <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Steven Rostedt	
+ <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu
+ Desnoyers <mathieu.desnoyers@efficios.com>, Dan Williams
+ <dan.j.williams@intel.com>, Matthew Wilcox	 <willy@infradead.org>, Eric
+ Biggers <ebiggers@kernel.org>, Muchun Song	 <muchun.song@linux.dev>, Oscar
+ Salvador <osalvador@suse.de>, David Hildenbrand	 <david@kernel.org>, David
+ Howells <dhowells@redhat.com>, Paulo Alcantara	 <pc@manguebit.org>, Andreas
+ Dilger <adilger.kernel@dilger.ca>, Jan Kara	 <jack@suse.com>, Jaegeuk Kim
+ <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,  Trond Myklebust
+ <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, Chuck Lever
+ <chuck.lever@oracle.com>,  NeilBrown <neil@brown.name>, Olga Kornievskaia
+ <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>,  Tom Talpey
+ <tom@talpey.com>, Steve French <sfrench@samba.org>, Ronnie Sahlberg
+ <ronniesahlberg@gmail.com>,  Shyam Prasad N <sprasad@microsoft.com>,
+ Bharath SM <bharathsm@microsoft.com>, Alexander Aring	
+ <alex.aring@gmail.com>, Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
+ Viacheslav Dubeyko	 <slava@dubeyko.com>, Eric Van Hensbergen
+ <ericvh@kernel.org>, Latchesar Ionkov	 <lucho@ionkov.net>, Dominique
+ Martinet <asmadeus@codewreck.org>, Christian Schoenebeck
+ <linux_oss@crudebyte.com>, David Sterba <dsterba@suse.com>, Marc Dionne	
+ <marc.dionne@auristor.com>, Ian Kent <raven@themaw.net>, Luis de
+ Bethencourt	 <luisbg@kernel.org>, Salah Triki <salah.triki@gmail.com>,
+ "Tigran A. Aivazian"	 <aivazian.tigran@gmail.com>, Ilya Dryomov
+ <idryomov@gmail.com>, Alex Markuze	 <amarkuze@redhat.com>, Jan Harkes
+ <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu,  Nicolas Pitre <nico@fluxnic.net>,
+ Tyler Hicks <code@tyhicks.com>, Amir Goldstein <amir73il@gmail.com>, 
+ Christoph Hellwig	 <hch@infradead.org>, John Paul Adrian Glaubitz
+ <glaubitz@physik.fu-berlin.de>,  Yangtao Li <frank.li@vivo.com>, Mikulas
+ Patocka <mikulas@artax.karlin.mff.cuni.cz>, David Woodhouse	
+ <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>, Dave Kleikamp	
+ <shaggy@kernel.org>, Konstantin Komarov	
+ <almaz.alexandrovich@paragon-software.com>, Mark Fasheh <mark@fasheh.com>, 
+ Joel Becker <jlbec@evilplan.org>, Joseph Qi <joseph.qi@linux.alibaba.com>,
+ Mike Marshall	 <hubcap@omnibond.com>, Martin Brandenburg
+ <martin@omnibond.com>, Miklos Szeredi	 <miklos@szeredi.hu>, Anders Larsen
+ <al@alarsen.net>, Zhihao Cheng	 <chengzhihao1@huawei.com>, Damien Le Moal
+ <dlemoal@kernel.org>, Naohiro Aota	 <naohiro.aota@wdc.com>, Johannes
+ Thumshirn <jth@kernel.org>, John Johansen	 <john.johansen@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris	 <jmorris@namei.org>, "Serge
+ E. Hallyn" <serge@hallyn.com>, Mimi Zohar	 <zohar@linux.ibm.com>, Roberto
+ Sassu <roberto.sassu@huawei.com>, Dmitry Kasatkin
+ <dmitry.kasatkin@gmail.com>, Eric Snowberg <eric.snowberg@oracle.com>, Fan
+ Wu	 <wufan@kernel.org>, Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Ondrej Mosnacek <omosnace@redhat.com>, Casey Schaufler
+ <casey@schaufler-ca.com>, Alex Deucher	 <alexander.deucher@amd.com>,
+ Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Eric Dumazet	 <edumazet@google.com>, Kuniyuki
+ Iwashima <kuniyu@google.com>, Paolo Abeni	 <pabeni@redhat.com>, Willem de
+ Bruijn <willemb@google.com>, "David S. Miller"	 <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>, Simon Horman	 <horms@kernel.org>, Oleg
+ Nesterov <oleg@redhat.com>, Peter Zijlstra	 <peterz@infradead.org>, Ingo
+ Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland	 <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,  Jiri Olsa
+ <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter
+ <adrian.hunter@intel.com>,  James Clark <james.clark@linaro.org>, "Darrick
+ J. Wong" <djwong@kernel.org>, Martin Schiller <ms@dev.tdt.de>,  Eric Paris
+ <eparis@redhat.com>, Joerg Reuter <jreuter@yaina.de>, Marcel Holtmann
+ <marcel@holtmann.org>,  Johan Hedberg <johan.hedberg@gmail.com>, Luiz
+ Augusto von Dentz <luiz.dentz@gmail.com>, Oliver Hartkopp	
+ <socketcan@hartkopp.net>, Marc Kleine-Budde <mkl@pengutronix.de>, David
+ Ahern	 <dsahern@kernel.org>, Neal Cardwell <ncardwell@google.com>, Steffen
+ Klassert	 <steffen.klassert@secunet.com>, Herbert Xu
+ <herbert@gondor.apana.org.au>,  Remi Denis-Courmont	 <courmisch@gmail.com>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,  Xin Long
+ <lucien.xin@gmail.com>, Magnus Karlsson <magnus.karlsson@intel.com>, Maciej
+ Fijalkowski	 <maciej.fijalkowski@intel.com>, Stanislav Fomichev
+ <sdf@fomichev.me>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, Jesper Dangaard Brouer	 <hawk@kernel.org>, John
+ Fastabend <john.fastabend@gmail.com>, 	linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	linux-trace-kernel@vger.kernel.org,
+ nvdimm@lists.linux.dev, 	fsverity@lists.linux.dev, linux-mm@kvack.org,
+ netfs@lists.linux.dev, 	linux-ext4@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, 	linux-nfs@vger.kernel.org,
+ linux-cifs@vger.kernel.org, 	samba-technical@lists.samba.org,
+ linux-nilfs@vger.kernel.org, 	v9fs@lists.linux.dev,
+ linux-afs@lists.infradead.org, autofs@vger.kernel.org, 
+	ceph-devel@vger.kernel.org, codalist@telemann.coda.cs.cmu.edu, 
+	ecryptfs@vger.kernel.org, linux-mtd@lists.infradead.org, 
+	jfs-discussion@lists.sourceforge.net, ntfs3@lists.linux.dev, 
+	ocfs2-devel@lists.linux.dev, devel@lists.orangefs.org, 
+	linux-unionfs@vger.kernel.org, apparmor@lists.ubuntu.com, 
+	linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org, 
+	selinux@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+	linaro-mm-sig@lists.linaro.org, netdev@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, linux-fscrypt@vger.kernel.org, 
+	linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org,
+ linux-x25@vger.kernel.org, 	audit@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, 	linux-can@vger.kernel.org,
+ linux-sctp@vger.kernel.org, bpf@vger.kernel.org
+Date: Tue, 03 Mar 2026 05:52:34 -0500
+In-Reply-To: <20260303012556.GA6520@macsyma-wired.lan>
+References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
+	 <20260302-iino-u64-v2-1-e5388800dae0@kernel.org>
+	 <20260303012556.GA6520@macsyma-wired.lan>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=mQINBE6V0TwBEADXhJg7s8wFDwBMEvn0qyhAnzFLTOCHooMZyx7XO7dAiIhDSi7G1NPxw
+ n8jdFUQMCR/GlpozMFlSFiZXiObE7sef9rTtM68ukUyZM4pJ9l0KjQNgDJ6Fr342Htkjxu/kFV1Wv
+ egyjnSsFt7EGoDjdKqr1TS9syJYFjagYtvWk/UfHlW09X+jOh4vYtfX7iYSx/NfqV3W1D7EDi0PqV
+ T2h6v8i8YqsATFPwO4nuiTmL6I40ZofxVd+9wdRI4Db8yUNA4ZSP2nqLcLtFjClYRBoJvRWvsv4lm
+ 0OX6MYPtv76hka8lW4mnRmZqqx3UtfHX/hF/zH24Gj7A6sYKYLCU3YrI2Ogiu7/ksKcl7goQjpvtV
+ YrOOI5VGLHge0awt7bhMCTM9KAfPc+xL/ZxAMVWd3NCk5SamL2cE99UWgtvNOIYU8m6EjTLhsj8sn
+ VluJH0/RcxEeFbnSaswVChNSGa7mXJrTR22lRL6ZPjdMgS2Km90haWPRc8Wolcz07Y2se0xpGVLEQ
+ cDEsvv5IMmeMe1/qLZ6NaVkNuL3WOXvxaVT9USW1+/SGipO2IpKJjeDZfehlB/kpfF24+RrK+seQf
+ CBYyUE8QJpvTZyfUHNYldXlrjO6n5MdOempLqWpfOmcGkwnyNRBR46g/jf8KnPRwXs509yAqDB6sE
+ LZH+yWr9LQZEwARAQABtCVKZWZmIExheXRvbiA8amxheXRvbkBwb29jaGllcmVkcy5uZXQ+iQI7BB
+ MBAgAlAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAUCTpXWPAIZAQAKCRAADmhBGVaCFc65D/4
+ gBLNMHopQYgG/9RIM3kgFCCQV0pLv0hcg1cjr+bPI5f1PzJoOVi9s0wBDHwp8+vtHgYhM54yt43uI
+ 7Htij0RHFL5eFqoVT4TSfAg2qlvNemJEOY0e4daljjmZM7UtmpGs9NN0r9r50W82eb5Kw5bc/r0km
+ R/arUS2st+ecRsCnwAOj6HiURwIgfDMHGPtSkoPpu3DDp/cjcYUg3HaOJuTjtGHFH963B+f+hyQ2B
+ rQZBBE76ErgTDJ2Db9Ey0kw7VEZ4I2nnVUY9B5dE2pJFVO5HJBMp30fUGKvwaKqYCU2iAKxdmJXRI
+ ONb7dSde8LqZahuunPDMZyMA5+mkQl7kpIpR6kVDIiqmxzRuPeiMP7O2FCUlS2DnJnRVrHmCljLkZ
+ Wf7ZUA22wJpepBligemtSRSbqCyZ3B48zJ8g5B8xLEntPo/NknSJaYRvfEQqGxgk5kkNWMIMDkfQO
+ lDSXZvoxqU9wFH/9jTv1/6p8dHeGM0BsbBLMqQaqnWiVt5mG92E1zkOW69LnoozE6Le+12DsNW7Rj
+ iR5K+27MObjXEYIW7FIvNN/TQ6U1EOsdxwB8o//Yfc3p2QqPr5uS93SDDan5ehH59BnHpguTc27Xi
+ QQZ9EGiieCUx6Zh2ze3X2UW9YNzE15uKwkkuEIj60NvQRmEDfweYfOfPVOueC+iFifbQgSmVmZiBM
+ YXl0b24gPGpsYXl0b25AcmVkaGF0LmNvbT6JAjgEEwECACIFAk6V0q0CGwMGCwkIBwMCBhUIAgkKC
+ wQWAgMBAh4BAheAAAoJEAAOaEEZVoIViKUQALpvsacTMWWOd7SlPFzIYy2/fjvKlfB/Xs4YdNcf9q
+ LqF+lk2RBUHdR/dGwZpvw/OLmnZ8TryDo2zXVJNWEEUFNc7wQpl3i78r6UU/GUY/RQmOgPhs3epQC
+ 3PMJj4xFx+VuVcf/MXgDDdBUHaCTT793hyBeDbQuciARDJAW24Q1RCmjcwWIV/pgrlFa4lAXsmhoa
+ c8UPc82Ijrs6ivlTweFf16VBc4nSLX5FB3ls7S5noRhm5/Zsd4PGPgIHgCZcPgkAnU1S/A/rSqf3F
+ LpU+CbVBDvlVAnOq9gfNF+QiTlOHdZVIe4gEYAU3CUjbleywQqV02BKxPVM0C5/oVjMVx3bri75n1
+ TkBYGmqAXy9usCkHIsG5CBHmphv9MHmqMZQVsxvCzfnI5IO1+7MoloeeW/lxuyd0pU88dZsV/riHw
+ 87i2GJUJtVlMl5IGBNFpqoNUoqmvRfEMeXhy/kUX4Xc03I1coZIgmwLmCSXwx9MaCPFzV/dOOrju2
+ xjO+2sYyB5BNtxRqUEyXglpujFZqJxxau7E0eXoYgoY9gtFGsspzFkVNntamVXEWVVgzJJr/EWW0y
+ +jNd54MfPRqH+eCGuqlnNLktSAVz1MvVRY1dxUltSlDZT7P2bUoMorIPu8p7ZCg9dyX1+9T6Muc5d
+ Hxf/BBP/ir+3e8JTFQBFOiLNdFtB9KZWZmIExheXRvbiA8amxheXRvbkBzYW1iYS5vcmc+iQI4BBM
+ BAgAiBQJOldK9AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRAADmhBGVaCFWgWD/0ZRi4h
+ N9FK2BdQs9RwNnFZUr7JidAWfCrs37XrA/56olQl3ojn0fQtrP4DbTmCuh0SfMijB24psy1GnkPep
+ naQ6VRf7Dxg/Y8muZELSOtsv2CKt3/02J1BBitrkkqmHyni5fLLYYg6fub0T/8Kwo1qGPdu1hx2BQ
+ RERYtQ/S5d/T0cACdlzi6w8rs5f09hU9Tu4qV1JLKmBTgUWKN969HPRkxiojLQziHVyM/weR5Reu6
+ FZVNuVBGqBD+sfk/c98VJHjsQhYJijcsmgMb1NohAzwrBKcSGKOWJToGEO/1RkIN8tqGnYNp2G+aR
+ 685D0chgTl1WzPRM6mFG1+n2b2RR95DxumKVpwBwdLPoCkI24JkeDJ7lXSe3uFWISstFGt0HL8Eew
+ P8RuGC8s5h7Ct91HMNQTbjgA+Vi1foWUVXpEintAKgoywaIDlJfTZIl6Ew8ETN/7DLy8bXYgq0Xzh
+ aKg3CnOUuGQV5/nl4OAX/3jocT5Cz/OtAiNYj5mLPeL5z2ZszjoCAH6caqsF2oLyAnLqRgDgR+wTQ
+ T6gMhr2IRsl+cp8gPHBwQ4uZMb+X00c/Amm9VfviT+BI7B66cnC7Zv6Gvmtu2rEjWDGWPqUgccB7h
+ dMKnKDthkA227/82tYoFiFMb/NwtgGrn5n2vwJyKN6SEoygGrNt0SI84y6hEVbQlSmVmZiBMYXl0b
+ 24gPGpsYXl0b25AcHJpbWFyeWRhdGEuY29tPokCOQQTAQIAIwUCU4xmKQIbAwcLCQgHAwIBBhUIAg
+ kKCwQWAgMBAh4BAheAAAoJEAAOaEEZVoIV1H0P/j4OUTwFd7BBbpoSp695qb6HqCzWMuExsp8nZjr
+ uymMaeZbGr3OWMNEXRI1FWNHMtcMHWLP/RaDqCJil28proO+PQ/yPhsr2QqJcW4nr91tBrv/MqItu
+ AXLYlsgXqp4BxLP67bzRJ1Bd2x0bWXurpEXY//VBOLnODqThGEcL7jouwjmnRh9FTKZfBDpFRaEfD
+ FOXIfAkMKBa/c9TQwRpx2DPsl3eFWVCNuNGKeGsirLqCxUg5kWTxEorROppz9oU4HPicL6rRH22Ce
+ 6nOAON2vHvhkUuO3GbffhrcsPD4DaYup4ic+DxWm+DaSSRJ+e1yJvwi6NmQ9P9UAuLG93S2MdNNbo
+ sZ9P8k2mTOVKMc+GooI9Ve/vH8unwitwo7ORMVXhJeU6Q0X7zf3SjwDq2lBhn1DSuTsn2DbsNTiDv
+ qrAaCvbsTsw+SZRwF85eG67eAwouYk+dnKmp1q57LDKMyzysij2oDKbcBlwB/TeX16p8+LxECv51a
+ sjS9TInnipssssUDrHIvoTTXWcz7Y5wIngxDFwT8rPY3EggzLGfK5Zx2Q5S/N0FfmADmKknG/D8qG
+ IcJE574D956tiUDKN4I+/g125ORR1v7bP+OIaayAvq17RP+qcAqkxc0x8iCYVCYDouDyNvWPGRhbL
+ UO7mlBpjW9jK9e2fvZY9iw3QzIPGKtClKZWZmIExheXRvbiA8amVmZi5sYXl0b25AcHJpbWFyeWRh
+ dGEuY29tPokCOQQTAQIAIwUCU4xmUAIbAwcLCQgHAwIBBhUIAgkKCwQWAgMBAh4BAheAAAoJEAAOa
+ EEZVoIVzJoQALFCS6n/FHQS+hIzHIb56JbokhK0AFqoLVzLKzrnaeXhE5isWcVg0eoV2oTScIwUSU
+ apy94if69tnUo4Q7YNt8/6yFM6hwZAxFjOXR0ciGE3Q+Z1zi49Ox51yjGMQGxlakV9ep4sV/d5a50
+ M+LFTmYSAFp6HY23JN9PkjVJC4PUv5DYRbOZ6Y1+TfXKBAewMVqtwT1Y+LPlfmI8dbbbuUX/kKZ5d
+ dhV2736fgyfpslvJKYl0YifUOVy4D1G/oSycyHkJG78OvX4JKcf2kKzVvg7/Rnv+AueCfFQ6nGwPn
+ 0P91I7TEOC4XfZ6a1K3uTp4fPPs1Wn75X7K8lzJP/p8lme40uqwAyBjk+IA5VGd+CVRiyJTpGZwA0
+ jwSYLyXboX+Dqm9pSYzmC9+/AE7lIgpWj+3iNisp1SWtHc4pdtQ5EU2SEz8yKvDbD0lNDbv4ljI7e
+ flPsvN6vOrxz24mCliEco5DwhpaaSnzWnbAPXhQDWb/lUgs/JNk8dtwmvWnqCwRqElMLVisAbJmC0
+ BhZ/Ab4sph3EaiZfdXKhiQqSGdK4La3OTJOJYZphPdGgnkvDV9Pl1QZ0ijXQrVIy3zd6VCNaKYq7B
+ AKidn5g/2Q8oio9Tf4XfdZ9dtwcB+bwDJFgvvDYaZ5bI3ln4V3EyW5i2NfXazz/GA/I/ZtbsigCFc
+ 8ftCBKZWZmIExheXRvbiA8amxheXRvbkBrZXJuZWwub3JnPokCOAQTAQIAIgUCWe8u6AIbAwYLCQg
+ HAwIGFQgCCQoLBBYCAwECHgECF4AACgkQAA5oQRlWghUuCg/+Lb/xGxZD2Q1oJVAE37uW308UpVSD
+ 2tAMJUvFTdDbfe3zKlPDTuVsyNsALBGclPLagJ5ZTP+Vp2irAN9uwBuacBOTtmOdz4ZN2tdvNgozz
+ uxp4CHBDVzAslUi2idy+xpsp47DWPxYFIRP3M8QG/aNW052LaPc0cedYxp8+9eiVUNpxF4SiU4i9J
+ DfX/sn9XcfoVZIxMpCRE750zvJvcCUz9HojsrMQ1NFc7MFT1z3MOW2/RlzPcog7xvR5ENPH19ojRD
+ CHqumUHRry+RF0lH00clzX/W8OrQJZtoBPXv9ahka/Vp7kEulcBJr1cH5Wz/WprhsIM7U9pse1f1g
+ Yy9YbXtWctUz8uvDR7shsQxAhX3qO7DilMtuGo1v97I/Kx4gXQ52syh/w6EBny71CZrOgD6kJwPVV
+ AaM1LRC28muq91WCFhs/nzHozpbzcheyGtMUI2Ao4K6mnY+3zIuXPygZMFr9KXE6fF7HzKxKuZMJO
+ aEZCiDOq0anx6FmOzs5E6Jqdpo/mtI8beK+BE7Va6ni7YrQlnT0i3vaTVMTiCThbqsB20VrbMjlhp
+ f8lfK1XVNbRq/R7GZ9zHESlsa35ha60yd/j3pu5hT2xyy8krV8vGhHvnJ1XRMJBAB/UYb6FyC7S+m
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PPFD667CEBB6:EE_|MW4PR11MB6837:EE_
-X-MS-Office365-Filtering-Correlation-Id: 50645f60-ce5b-4a4d-0ef2-08de7912aa5b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|52116014|376014|38350700014|921020;
-X-Microsoft-Antispam-Message-Info:
-	jlKxTrWe0cdnDpo82ATglLcZjyx6xWoRD5dnWfu/ouJ3y6+IMdo9R+6cJeN9QkYAFLI9vECwh2IIiPyr8eWxN1Tk1Gsa1rrEsXS6i9vsLx76X2+EE/J21tfjHLHkWZBCX4E4gTU9OW+FB7/eChYQnqiSKx2q4coO6JfhlZVko+UJSutdKQQwLcN7sucjjuLVAtzPcwqlhHd3w5Si2IrsuA8k6d4L3G31LX7sJs3o02HpsF0k8wXCiL89y8lgArLGNMej/2rZ8/x9eR5HKPmwUxpWDQkjECFNo3tRbMOEpqrM2A7xjYOp5Fakgyc9sy/Dx7VSxeqC+jIE1OVcStpV2GK8PqzwEH9qgBl988+RO06+d67q3dOasSgsyP8oSUsClt/G+7CvZgSGtCZSP3EVdAoe2iCqyCtABe2GxkIT1jHgCqomnaBsdcfa+wmYcAHRKjfSA5LD3AO98ADsTqtSyMmId2+xVQCyjR51K7EC64/0e4tSfiybTknTmjfJudMEQmQrfXkdjaPQK3booYbqmD0PeCPgeru/BoXjYi+swmPnfSmKU0wM6cgGgJS6D0NOHus8D613kBaGFkM6av4jrvxjU64u/lb4ni3FtswrWZzjHA8ORbZsyOFCx8ECI6HZSuB9utFEQvUzfR0zo4RCeNJEAl+3Ex10lBKi+JjZRQuKiixT07Qmpzg5FDt5Q5RCOe9rU44qcg9LdiXNl/pzZz+1DhtIOuDSP6c/BvPHT6PUx/qfyjiRNHNGov9mWYDjC3OfGmcA/8yGKlEFuxCqA9WflgZf33qGVLRla+W0apOJSh1Ltfu0r0HA0Db3OKL9
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPFD667CEBB6.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(52116014)(376014)(38350700014)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?TO7Wb15A4t+GAy25BCbB1+g+s79aSmxaInqHaRPObrBHElgQ1JJGORjIJsEV?=
- =?us-ascii?Q?8cjjg7xWMPVBYIrw3Rn8xSf7jyVzhxhDzTvyH27bw3gtxKygUh7JATx0An4v?=
- =?us-ascii?Q?Hmojs+55oC+wuo4nQpPw41kOTC5u+20AGP9t7oLSAMv8NDhKzyWskrS5dATJ?=
- =?us-ascii?Q?v0fXUwFwUIUjHtSTjrgcNeIP64i0PtT+YM2hPto2FnGVirNmUhM+CTs4nc1c?=
- =?us-ascii?Q?u5Q91e0MAZMM1j8dkmQoLcfs0v7WuwinDxP3MRy+3f9GviNbsVKhOsOrD0Xq?=
- =?us-ascii?Q?6RfPs+Yukppc8+NQIRpNN2K63eXV/05anrOxTzKn0MB5bsCvbDmpf0htPW1X?=
- =?us-ascii?Q?+5Ehhi06dL043N0MmAJ+d+gn1V739UcShOs/OqpZgBTiT1/kmwWhBH9lX/U6?=
- =?us-ascii?Q?BdQPSYsDgtry4oggY6wDrZwG/iqSWayN+cr6NaMR7P2LekVQzwxvkxuhu3le?=
- =?us-ascii?Q?RqQMYXeimsBcL/MX1vvIvtRC1o76RF8DJo84fqqQDUAy/2ByMEdjj4bumMj8?=
- =?us-ascii?Q?JDgfGoGs/4nx6nGAwoA+8SGLqFOKnFEXhVLdSrVGiVSUMp/Joi9SjFcOpExU?=
- =?us-ascii?Q?3rwHKSjeMISrE4m7FUcfRSn+pFSnTdZyAGz+zEieISpe7WNU+qIoxiyKqivQ?=
- =?us-ascii?Q?E4l9bfnIFFB2jt/kwQMbbUCpN2wby3Pr/sNfjT13ZwO8zvQ1GaC3zf3j24+s?=
- =?us-ascii?Q?PAdqkJR7TebRqYWtTyPhN2Cz6BbxVsAUTSohloq5N0nSI2mcKoHWuL5BhWMI?=
- =?us-ascii?Q?S+WHhlyMPr05iy60JmFeHMHQTZChPlmRROIdj/rbXx54eoP8eXkLTLJZE46L?=
- =?us-ascii?Q?hemQAl8/FaKrhlehiGtW0AzNl5G5IeGqvPkz1x4zcl82Y+exQskfZJL+UQm0?=
- =?us-ascii?Q?PJ0EgDTqiTaxKWqam5dmH5Vrsa+7F4rnKTR8Ae/b3V2yhuIub185Jv5pObUc?=
- =?us-ascii?Q?q+xDkHEo23QN2uO8gDrrdlbuNIp8m3yavLXl1+zA8v86jK3KApM2xbt0C97n?=
- =?us-ascii?Q?lgsAIBEDRSAgLw9Q79L2ydZWt7le0lPvksgg5gZnyeLHNM5jAfF7LM0oZitc?=
- =?us-ascii?Q?8/gf64XTAvgy+q1d245fblNTQ87lceANSN8ALQSk2QusBNZ8adj/4Ey8B+I/?=
- =?us-ascii?Q?FhjDr5MYzS3YSoUae0SmlT/mW5Rz4oPzEHDQduam4X4D++Dt1MVDPY71WMu9?=
- =?us-ascii?Q?5RP8ACd+E1U7UfKAfkkRnVQE3C2sf+HO/68AhmZKwMFBD3IyV973MSYqrE7n?=
- =?us-ascii?Q?JK8Y1x1nqPMgV0/LsM1fsXYTnwpGj0GRaXWj2ekfYgm3LE+Czd90hQSglnUN?=
- =?us-ascii?Q?ZTPhmJhHY044ZDGsJJ3vc+UwN+I/Fb0ccyKUSKgggF5i3PUL6dsg5HRnX3tD?=
- =?us-ascii?Q?GZOAg5hnq79CZJTp4L1wtejQY0yQi2J1lTE+rh8GC7SEZEprz/XvEQuOR+Ya?=
- =?us-ascii?Q?3bjKOIq1jyvoZjQj+iP8svXLywG41jjcpwG4st79fJNdB1s+r1C5DzjJcm7w?=
- =?us-ascii?Q?iJ3Y5N1E+R1OKhZ01zeCaeB8+gYT8ShjWVt1BLKaYVTdWneGu/arJFHFCYyo?=
- =?us-ascii?Q?Lm8j/MZoBinkdriDwOuLBstasWesmA6Gso25SYFNXiMJ1PisRBVlcmisOygQ?=
- =?us-ascii?Q?Efz1lzjoGXnSfNbwAIOnzFKUX7GZH6Xr73HZdqoYROYrveYg4svmAZ+EDKKY?=
- =?us-ascii?Q?enTz/tsrS2K5t5zPJd5xHU34OwezaH+fL7kJOjHQ9Vn2rAapokntDgQHe/7K?=
- =?us-ascii?Q?wfRTNa/4afW5bSuBMRBJWWMw28gUKvs=3D?=
-X-OriginatorOrg: windriver.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50645f60-ce5b-4a4d-0ef2-08de7912aa5b
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPFD667CEBB6.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2026 10:50:21.1225
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: x/j8DsrcHRts19TrDoHjCgGtm70pJQkM0/bUg1i4ImPCD+AlPYRnoZGJxSgP9yWe7oKmgL8oa3eEbjACBFdCMtu3nVd7vKtu1Q3e9+Bixrg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB6837
-X-Authority-Analysis: v=2.4 cv=LqWfC3dc c=1 sm=1 tr=0 ts=69a6bcef cx=c_pps
- a=yaJUXpcFNTkE3gTvo4ZtIQ==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=bi6dqmuHe4P4UrxVR6um:22 a=fTW__CHxibyLmBMfj2wP:22 a=t7CeM3EgAAAA:8
- a=F-GWxTvL4KY9s68XaQkA:9 a=FdTzh2GWekK77mhwV6Dw:22
-X-Proofpoint-GUID: AwNvFbxWLV1NbH11-WeJ3VczO_2IZTxP
-X-Proofpoint-ORIG-GUID: AwNvFbxWLV1NbH11-WeJ3VczO_2IZTxP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzAzMDA4MiBTYWx0ZWRfX1SIo8LyQkSlA
- /oib9SSBaKHr7DDQFNxc3TLgbP2dlFGrIMYKw0THGmANy6tYNvvOOVGuyL9siK/bVncRAKz0lHr
- 84dn7Bdj6WiHNG0k7PG+le9uhH3sqjybVJllLprZJbLZsV3NNi5JoPzkQthulmypg0zAjADsIVM
- pORvmGsbou1e2bzV+pgRFcrRg7XCMKjql1/Kc3lxIsof9ryC8EjiyLKA9IGHQJPR8nJgdPHeSBS
- 4o5YYncSbVy1jFkUuhH0lxeR1ePO3AGd7H3iuipTEffEOX+L6XQY9YR8hpejZosDLahfedZWT1H
- ZHR8wjUQQeHS8yjGsEwPXLEgqx4WnUPgMbXl0iYPoxTZizekBmArPb24PQSB0zmP0YPUnDtPBwS
- LyDZxT6CkzdlIynA/2ZQ4DAedWLCLlYD4thw3TSIJxbmOU92UTppeIMClzq4yx76jiAS5vkih5I
- 2WccxYtnUdF9cTztY2g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-02_05,2026-03-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0 adultscore=0
- clxscore=1015 priorityscore=1501 phishscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603030082
 
-Use the new common CCI register access helpers to replace the private
-register access helpers in the ov9282 driver. This simplifies the driver
-by reducing the amount of code.
+On Mon, 2026-03-02 at 20:25 -0500, Theodore Tso wrote:
+> On Mon, Mar 02, 2026 at 03:23:45PM -0500, Jeff Layton wrote:
+> > The PRIino macro is a length modifier, not a complete format specifier.
+> > It is used as: "%" PRIino "u" for decimal, "%" PRIino "x" for hex, etc.
+> > This follows the pattern used by userspace PRIu64/PRIx64 macros.
+>=20
+> For the record, I really hate the inttypes.h format specifiers, but I
+> agree that we should forward the example of the C99 spec, for better
+> or for worse.
+>=20
+> That being said, the userspace PRIu64, et. al macros are complete
+> format specifiers, not just a length modifier.  And I think this
+> results in less ugly format specifiers in our kernel code.
+>=20
+> ---- cut here ---
+> #!/bin/sh
+> cat <<EOF > /tmp/blah.c
+> #include <inttypes.h>
+> #include <stdio.h>
+>=20
+> int main(int arg, char **argv)
+> {
+>         printf("PRIu64 is %s\n", PRIu64);
+>         printf("PRId64 is %s\n", PRId64);
+>         printf("PRIx64 is %s\n", PRIx64);
+>         return 0;
+> }
+> EOF
+>=20
+> clang -m32 -o /tmp/blah /tmp/blah.c
+> /tmp/blah
+> ---- cut here ---
+>=20
+> % /tmp/blah.sh
+> PRIu64 is llu
+> PRId64 is lld
+> PRIx64 is llx
+>=20
 
-Signed-off-by: Xiaolei Wang <xiaolei.wang@windriver.com>
-Reviewed-by: Tarang Raval <tarang.raval@siliconsignals.io>
----
- drivers/media/i2c/Kconfig  |   1 +
- drivers/media/i2c/ov9282.c | 293 ++++++++-----------------------------
- 2 files changed, 64 insertions(+), 230 deletions(-)
+I originally had them that way, but ended up going with just a single
+"PRIino" macro since it was simpler.
 
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 5eb1e0e0a87a..3027e71fd8fb 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -690,6 +690,7 @@ config VIDEO_OV8865
- config VIDEO_OV9282
- 	tristate "OmniVision OV9282 sensor support"
- 	depends on OF_GPIO
-+	select V4L2_CCI_I2C
- 	help
- 	  This is a Video4Linux2 sensor driver for the OmniVision
- 	  OV9282 camera sensor.
-diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-index ded9b2044ff8..8bfaa3ae4be5 100644
---- a/drivers/media/i2c/ov9282.c
-+++ b/drivers/media/i2c/ov9282.c
-@@ -12,38 +12,40 @@
- #include <linux/math.h>
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
- 
-+#include <media/v4l2-cci.h>
- #include <media/v4l2-ctrls.h>
- #include <media/v4l2-event.h>
- #include <media/v4l2-fwnode.h>
- #include <media/v4l2-subdev.h>
- 
- /* Streaming Mode */
--#define OV9282_REG_MODE_SELECT	0x0100
-+#define OV9282_REG_MODE_SELECT	CCI_REG8(0x0100)
- #define OV9282_MODE_STANDBY	0x00
- #define OV9282_MODE_STREAMING	0x01
- 
--#define OV9282_REG_PLL_CTRL_0D	0x030d
-+#define OV9282_REG_PLL_CTRL_0D	CCI_REG8(0x030d)
- #define OV9282_PLL_CTRL_0D_RAW8		0x60
- #define OV9282_PLL_CTRL_0D_RAW10	0x50
- 
--#define OV9282_REG_TIMING_HTS	0x380c
-+#define OV9282_REG_TIMING_HTS	CCI_REG16(0x380c)
- #define OV9282_TIMING_HTS_MAX	0x7fff
- 
- /* Lines per frame */
--#define OV9282_REG_LPFR		0x380e
-+#define OV9282_REG_LPFR		CCI_REG16(0x380e)
- 
- /* Chip ID */
--#define OV9282_REG_ID		0x300a
-+#define OV9282_REG_ID		CCI_REG16(0x300a)
- #define OV9282_ID		0x9281
- 
- /* Output enable registers */
--#define OV9282_REG_OUTPUT_ENABLE4	0x3004
-+#define OV9282_REG_OUTPUT_ENABLE4	CCI_REG8(0x3004)
- #define OV9282_OUTPUT_ENABLE4_GPIO2	BIT(1)
- #define OV9282_OUTPUT_ENABLE4_D9	BIT(0)
- 
--#define OV9282_REG_OUTPUT_ENABLE5	0x3005
-+#define OV9282_REG_OUTPUT_ENABLE5	CCI_REG8(0x3005)
- #define OV9282_OUTPUT_ENABLE5_D8	BIT(7)
- #define OV9282_OUTPUT_ENABLE5_D7	BIT(6)
- #define OV9282_OUTPUT_ENABLE5_D6	BIT(5)
-@@ -53,7 +55,7 @@
- #define OV9282_OUTPUT_ENABLE5_D2	BIT(1)
- #define OV9282_OUTPUT_ENABLE5_D1	BIT(0)
- 
--#define OV9282_REG_OUTPUT_ENABLE6	0x3006
-+#define OV9282_REG_OUTPUT_ENABLE6	CCI_REG8(0x3006)
- #define OV9282_OUTPUT_ENABLE6_D0	BIT(7)
- #define OV9282_OUTPUT_ENABLE6_PCLK	BIT(6)
- #define OV9282_OUTPUT_ENABLE6_HREF	BIT(5)
-@@ -62,14 +64,14 @@
- #define OV9282_OUTPUT_ENABLE6_VSYNC	BIT(1)
- 
- /* Exposure control */
--#define OV9282_REG_EXPOSURE	0x3500
-+#define OV9282_REG_EXPOSURE	CCI_REG24(0x3500)
- #define OV9282_EXPOSURE_MIN	1
- #define OV9282_EXPOSURE_OFFSET	25
- #define OV9282_EXPOSURE_STEP	1
- #define OV9282_EXPOSURE_DEFAULT	0x0282
- 
- /* AEC/AGC manual */
--#define OV9282_REG_AEC_MANUAL		0x3503
-+#define OV9282_REG_AEC_MANUAL		CCI_REG8(0x3503)
- #define OV9282_DIGFRAC_GAIN_DELAY	BIT(6)
- #define OV9282_GAIN_CHANGE_DELAY	BIT(5)
- #define OV9282_GAIN_DELAY		BIT(4)
-@@ -78,28 +80,28 @@
- #define OV9282_AEC_MANUAL_DEFAULT	0x00
- 
- /* Analog gain control */
--#define OV9282_REG_AGAIN	0x3509
-+#define OV9282_REG_AGAIN	CCI_REG8(0x3509)
- #define OV9282_AGAIN_MIN	0x10
- #define OV9282_AGAIN_MAX	0xff
- #define OV9282_AGAIN_STEP	1
- #define OV9282_AGAIN_DEFAULT	0x10
- 
- /* Group hold register */
--#define OV9282_REG_HOLD		0x3308
-+#define OV9282_REG_HOLD		CCI_REG8(0x3308)
- 
--#define OV9282_REG_ANA_CORE_2	0x3662
-+#define OV9282_REG_ANA_CORE_2	CCI_REG8(0x3662)
- #define OV9282_ANA_CORE2_RAW8	0x07
- #define OV9282_ANA_CORE2_RAW10	0x05
- 
--#define OV9282_REG_TIMING_FORMAT_1	0x3820
--#define OV9282_REG_TIMING_FORMAT_2	0x3821
-+#define OV9282_REG_TIMING_FORMAT_1	CCI_REG8(0x3820)
-+#define OV9282_REG_TIMING_FORMAT_2	CCI_REG8(0x3821)
- #define OV9282_FLIP_BIT			BIT(2)
- 
--#define OV9282_REG_MIPI_CTRL00	0x4800
-+#define OV9282_REG_MIPI_CTRL00	CCI_REG8(0x4800)
- #define OV9282_GATED_CLOCK	BIT(5)
- 
- /* Flash/Strobe control registers */
--#define OV9282_REG_STROBE_FRAME_SPAN		0x3925
-+#define OV9282_REG_STROBE_FRAME_SPAN		CCI_REG32(0x3925)
- #define OV9282_STROBE_FRAME_SPAN_DEFAULT	0x0000001a
- 
- /* Input clock rate */
-@@ -139,16 +141,6 @@ static const char * const ov9282_supply_names[] = {
- 
- #define OV9282_NUM_SUPPLIES ARRAY_SIZE(ov9282_supply_names)
- 
--/**
-- * struct ov9282_reg - ov9282 sensor register
-- * @address: Register address
-- * @val: Register value
-- */
--struct ov9282_reg {
--	u16 address;
--	u8 val;
--};
--
- /**
-  * struct ov9282_reg_list - ov9282 sensor register list
-  * @num_of_regs: Number of registers in the list
-@@ -156,7 +148,7 @@ struct ov9282_reg {
-  */
- struct ov9282_reg_list {
- 	u32 num_of_regs;
--	const struct ov9282_reg *regs;
-+	const struct reg_sequence *regs;
- };
- 
- /**
-@@ -188,6 +180,7 @@ struct ov9282_mode {
-  * struct ov9282 - ov9282 sensor device structure
-  * @dev: Pointer to generic device
-  * @sd: V4L2 sub-device
-+ * @regmap: Regmap for sensor register access
-  * @pad: Media pad. Only one pad supported
-  * @reset_gpio: Sensor reset gpio
-  * @inclk: Sensor input clock
-@@ -209,6 +202,7 @@ struct ov9282_mode {
- struct ov9282 {
- 	struct device *dev;
- 	struct v4l2_subdev sd;
-+	struct regmap *regmap;
- 	struct media_pad pad;
- 	struct gpio_desc *reset_gpio;
- 	struct clk *inclk;
-@@ -241,7 +235,7 @@ static const s64 link_freq[] = {
-  * register arrays as some settings are written as part of ov9282_power_on,
-  * and the reset will clear them.
-  */
--static const struct ov9282_reg common_regs[] = {
-+static const struct reg_sequence common_regs[] = {
- 	{0x0302, 0x32},
- 	{0x030e, 0x02},
- 	{0x3001, 0x00},
-@@ -305,11 +299,6 @@ static const struct ov9282_reg common_regs[] = {
- 	{0x5a08, 0x84},
- };
- 
--static struct ov9282_reg_list common_regs_list = {
--	.num_of_regs = ARRAY_SIZE(common_regs),
--	.regs = common_regs,
--};
--
- #define MODE_1280_800		0
- #define MODE_1280_720		1
- #define MODE_640_400		2
-@@ -317,7 +306,7 @@ static struct ov9282_reg_list common_regs_list = {
- #define DEFAULT_MODE		MODE_1280_720
- 
- /* Sensor mode registers */
--static const struct ov9282_reg mode_1280x800_regs[] = {
-+static const struct reg_sequence mode_1280x800_regs[] = {
- 	{0x3778, 0x00},
- 	{0x3800, 0x00},
- 	{0x3801, 0x00},
-@@ -348,7 +337,7 @@ static const struct ov9282_reg mode_1280x800_regs[] = {
- 	{0x4509, 0x00},
- };
- 
--static const struct ov9282_reg mode_1280x720_regs[] = {
-+static const struct reg_sequence mode_1280x720_regs[] = {
- 	{0x3778, 0x00},
- 	{0x3800, 0x00},
- 	{0x3801, 0x00},
-@@ -379,7 +368,7 @@ static const struct ov9282_reg mode_1280x720_regs[] = {
- 	{0x4509, 0x80},
- };
- 
--static const struct ov9282_reg mode_640x400_regs[] = {
-+static const struct reg_sequence mode_640x400_regs[] = {
- 	{0x3778, 0x10},
- 	{0x3800, 0x00},
- 	{0x3801, 0x00},
-@@ -485,97 +474,6 @@ static inline struct ov9282 *to_ov9282(struct v4l2_subdev *subdev)
- 	return container_of(subdev, struct ov9282, sd);
- }
- 
--/**
-- * ov9282_read_reg() - Read registers.
-- * @ov9282: pointer to ov9282 device
-- * @reg: register address
-- * @len: length of bytes to read. Max supported bytes is 4
-- * @val: pointer to register value to be filled.
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
--static int ov9282_read_reg(struct ov9282 *ov9282, u16 reg, u32 len, u32 *val)
--{
--	struct i2c_client *client = v4l2_get_subdevdata(&ov9282->sd);
--	struct i2c_msg msgs[2] = {0};
--	u8 addr_buf[2] = {0};
--	u8 data_buf[4] = {0};
--	int ret;
--
--	if (WARN_ON(len > 4))
--		return -EINVAL;
--
--	put_unaligned_be16(reg, addr_buf);
--
--	/* Write register address */
--	msgs[0].addr = client->addr;
--	msgs[0].flags = 0;
--	msgs[0].len = ARRAY_SIZE(addr_buf);
--	msgs[0].buf = addr_buf;
--
--	/* Read data from register */
--	msgs[1].addr = client->addr;
--	msgs[1].flags = I2C_M_RD;
--	msgs[1].len = len;
--	msgs[1].buf = &data_buf[4 - len];
--
--	ret = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
--	if (ret != ARRAY_SIZE(msgs))
--		return -EIO;
--
--	*val = get_unaligned_be32(data_buf);
--
--	return 0;
--}
--
--/**
-- * ov9282_write_reg() - Write register
-- * @ov9282: pointer to ov9282 device
-- * @reg: register address
-- * @len: length of bytes. Max supported bytes is 4
-- * @val: register value
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
--static int ov9282_write_reg(struct ov9282 *ov9282, u16 reg, u32 len, u32 val)
--{
--	struct i2c_client *client = v4l2_get_subdevdata(&ov9282->sd);
--	u8 buf[6] = {0};
--
--	if (WARN_ON(len > 4))
--		return -EINVAL;
--
--	put_unaligned_be16(reg, buf);
--	put_unaligned_be32(val << (8 * (4 - len)), buf + 2);
--	if (i2c_master_send(client, buf, len + 2) != len + 2)
--		return -EIO;
--
--	return 0;
--}
--
--/**
-- * ov9282_write_regs() - Write a list of registers
-- * @ov9282: pointer to ov9282 device
-- * @regs: list of registers to be written
-- * @len: length of registers array
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
--static int ov9282_write_regs(struct ov9282 *ov9282,
--			     const struct ov9282_reg *regs, u32 len)
--{
--	unsigned int i;
--	int ret;
--
--	for (i = 0; i < len; i++) {
--		ret = ov9282_write_reg(ov9282, regs[i].address, 1, regs[i].val);
--		if (ret)
--			return ret;
--	}
--
--	return 0;
--}
--
- /**
-  * ov9282_update_controls() - Update control ranges based on streaming mode
-  * @ov9282: pointer to ov9282 device
-@@ -639,15 +537,15 @@ static int ov9282_update_exp_gain(struct ov9282 *ov9282, u32 exposure, u32 gain)
- 	dev_dbg(ov9282->dev, "Set exp %u (~%u us), analog gain %u",
- 		exposure, exposure_us, gain);
- 
--	ret = ov9282_write_reg(ov9282, OV9282_REG_HOLD, 1, 1);
-+	ret = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0x01, NULL);
- 	if (ret)
- 		return ret;
- 
--	ret = ov9282_write_reg(ov9282, OV9282_REG_EXPOSURE, 3, exposure << 4);
-+	ret = cci_write(ov9282->regmap, OV9282_REG_EXPOSURE, exposure << 4, NULL);
- 	if (ret)
- 		goto error_release_group_hold;
- 
--	ret = ov9282_write_reg(ov9282, OV9282_REG_AGAIN, 1, gain);
-+	ret = cci_write(ov9282->regmap, OV9282_REG_AGAIN, gain, NULL);
- 	if (ret)
- 		goto error_release_group_hold;
- 
-@@ -656,60 +554,9 @@ static int ov9282_update_exp_gain(struct ov9282 *ov9282, u32 exposure, u32 gain)
- 				       OV9282_STROBE_FRAME_SPAN_DEFAULT);
- 
- error_release_group_hold:
--	ov9282_write_reg(ov9282, OV9282_REG_HOLD, 1, 0);
--
--	return ret;
--}
--
--static int ov9282_set_ctrl_hflip(struct ov9282 *ov9282, int value)
--{
--	u32 current_val;
--	int ret = ov9282_read_reg(ov9282, OV9282_REG_TIMING_FORMAT_2, 1,
--				  &current_val);
--	if (ret)
--		return ret;
-+	int ret_hold = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0, NULL);
- 
--	if (value)
--		current_val |= OV9282_FLIP_BIT;
--	else
--		current_val &= ~OV9282_FLIP_BIT;
--
--	return ov9282_write_reg(ov9282, OV9282_REG_TIMING_FORMAT_2, 1,
--				current_val);
--}
--
--static int ov9282_set_ctrl_vflip(struct ov9282 *ov9282, int value)
--{
--	u32 current_val;
--	int ret = ov9282_read_reg(ov9282, OV9282_REG_TIMING_FORMAT_1, 1,
--				  &current_val);
--	if (ret)
--		return ret;
--
--	if (value)
--		current_val |= OV9282_FLIP_BIT;
--	else
--		current_val &= ~OV9282_FLIP_BIT;
--
--	return ov9282_write_reg(ov9282, OV9282_REG_TIMING_FORMAT_1, 1,
--				current_val);
--}
--
--static int ov9282_set_ctrl_flash_strobe_oe(struct ov9282 *ov9282, bool enable)
--{
--	u32 current_val;
--	int ret;
--
--	ret = ov9282_read_reg(ov9282, OV9282_REG_OUTPUT_ENABLE6, 1, &current_val);
--	if (ret)
--		return ret;
--
--	if (enable)
--		current_val |= OV9282_OUTPUT_ENABLE6_STROBE;
--	else
--		current_val &= ~OV9282_OUTPUT_ENABLE6_STROBE;
--
--	return ov9282_write_reg(ov9282, OV9282_REG_OUTPUT_ENABLE6, 1, current_val);
-+	return ret ? ret : ret_hold;
- }
- 
- static u32 ov9282_us_to_flash_duration(struct ov9282 *ov9282, u32 value)
-@@ -740,30 +587,6 @@ static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
- 	return DIV_ROUND_UP(value * frame_width, OV9282_STROBE_SPAN_FACTOR);
- }
- 
--static int ov9282_set_ctrl_flash_duration(struct ov9282 *ov9282, u32 value)
--{
--	u32 val = ov9282_us_to_flash_duration(ov9282, value);
--	int ret;
--
--	ret = ov9282_write_reg(ov9282, OV9282_REG_STROBE_FRAME_SPAN, 1,
--			       (val >> 24) & 0xff);
--	if (ret)
--		return ret;
--
--	ret = ov9282_write_reg(ov9282, OV9282_REG_STROBE_FRAME_SPAN + 1, 1,
--			       (val >> 16) & 0xff);
--	if (ret)
--		return ret;
--
--	ret = ov9282_write_reg(ov9282, OV9282_REG_STROBE_FRAME_SPAN + 2, 1,
--			       (val >> 8) & 0xff);
--	if (ret)
--		return ret;
--
--	return ov9282_write_reg(ov9282, OV9282_REG_STROBE_FRAME_SPAN + 3, 1,
--				val & 0xff);
--}
--
- /**
-  * ov9282_set_ctrl() - Set subdevice control
-  * @ctrl: pointer to v4l2_ctrl structure
-@@ -818,23 +641,27 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
- 		break;
- 	case V4L2_CID_VBLANK:
- 		lpfr = ov9282->vblank + ov9282->cur_mode->height;
--		ret = ov9282_write_reg(ov9282, OV9282_REG_LPFR, 2, lpfr);
-+		ret = cci_write(ov9282->regmap, OV9282_REG_LPFR, lpfr, NULL);
- 		break;
- 	case V4L2_CID_HFLIP:
--		ret = ov9282_set_ctrl_hflip(ov9282, ctrl->val);
-+		ret = cci_update_bits(ov9282->regmap, OV9282_REG_TIMING_FORMAT_2,
-+				      OV9282_FLIP_BIT, ctrl->val ? OV9282_FLIP_BIT : 0, NULL);
- 		break;
- 	case V4L2_CID_VFLIP:
--		ret = ov9282_set_ctrl_vflip(ov9282, ctrl->val);
-+		ret = cci_update_bits(ov9282->regmap, OV9282_REG_TIMING_FORMAT_1,
-+				      OV9282_FLIP_BIT, ctrl->val ? OV9282_FLIP_BIT : 0, NULL);
- 		break;
- 	case V4L2_CID_HBLANK:
--		ret = ov9282_write_reg(ov9282, OV9282_REG_TIMING_HTS, 2,
--				       (ctrl->val + ov9282->cur_mode->width) >> 1);
-+		ret = cci_write(ov9282->regmap, OV9282_REG_TIMING_HTS,
-+				(ctrl->val + ov9282->cur_mode->width) >> 1, NULL);
- 		break;
- 	case V4L2_CID_FLASH_STROBE_OE:
--		ret = ov9282_set_ctrl_flash_strobe_oe(ov9282, ctrl->val);
-+		ret = cci_update_bits(ov9282->regmap, OV9282_REG_OUTPUT_ENABLE6,
-+				      OV9282_OUTPUT_ENABLE6_STROBE,
-+				      ctrl->val ? OV9282_OUTPUT_ENABLE6_STROBE : 0, NULL);
- 		break;
- 	case V4L2_CID_FLASH_DURATION:
--		ret = ov9282_set_ctrl_flash_duration(ov9282, ctrl->val);
-+		ret = cci_write(ov9282->regmap, OV9282_REG_STROBE_FRAME_SPAN, ctrl->val, NULL);
- 		break;
- 	default:
- 		dev_err(ov9282->dev, "Invalid control %d", ctrl->id);
-@@ -1114,7 +941,7 @@ static int ov9282_get_selection(struct v4l2_subdev *sd,
-  */
- static int ov9282_start_streaming(struct ov9282 *ov9282)
- {
--	const struct ov9282_reg bitdepth_regs[2][2] = {
-+	const struct reg_sequence bitdepth_regs[2][2] = {
- 		{
- 			{OV9282_REG_PLL_CTRL_0D, OV9282_PLL_CTRL_0D_RAW10},
- 			{OV9282_REG_ANA_CORE_2, OV9282_ANA_CORE2_RAW10},
-@@ -1128,15 +955,16 @@ static int ov9282_start_streaming(struct ov9282 *ov9282)
- 	int ret;
- 
- 	/* Write common registers */
--	ret = ov9282_write_regs(ov9282, common_regs_list.regs,
--				common_regs_list.num_of_regs);
-+	ret = regmap_multi_reg_write(ov9282->regmap, common_regs,
-+				     ARRAY_SIZE(common_regs));
- 	if (ret) {
- 		dev_err(ov9282->dev, "fail to write common registers");
- 		return ret;
- 	}
- 
- 	bitdepth_index = ov9282->code == MEDIA_BUS_FMT_Y10_1X10 ? 0 : 1;
--	ret = ov9282_write_regs(ov9282, bitdepth_regs[bitdepth_index], 2);
-+	ret = regmap_multi_reg_write(ov9282->regmap,
-+				     bitdepth_regs[bitdepth_index], 2);
- 	if (ret) {
- 		dev_err(ov9282->dev, "fail to write bitdepth regs");
- 		return ret;
-@@ -1144,7 +972,8 @@ static int ov9282_start_streaming(struct ov9282 *ov9282)
- 
- 	/* Write sensor mode registers */
- 	reg_list = &ov9282->cur_mode->reg_list;
--	ret = ov9282_write_regs(ov9282, reg_list->regs, reg_list->num_of_regs);
-+	ret = regmap_multi_reg_write(ov9282->regmap, reg_list->regs,
-+				     reg_list->num_of_regs);
- 	if (ret) {
- 		dev_err(ov9282->dev, "fail to write initial registers");
- 		return ret;
-@@ -1158,8 +987,8 @@ static int ov9282_start_streaming(struct ov9282 *ov9282)
- 	}
- 
- 	/* Start streaming */
--	ret = ov9282_write_reg(ov9282, OV9282_REG_MODE_SELECT,
--			       1, OV9282_MODE_STREAMING);
-+	ret = cci_write(ov9282->regmap, OV9282_REG_MODE_SELECT,
-+			OV9282_MODE_STREAMING, NULL);
- 	if (ret) {
- 		dev_err(ov9282->dev, "fail to start streaming");
- 		return ret;
-@@ -1176,8 +1005,8 @@ static int ov9282_start_streaming(struct ov9282 *ov9282)
-  */
- static int ov9282_stop_streaming(struct ov9282 *ov9282)
- {
--	return ov9282_write_reg(ov9282, OV9282_REG_MODE_SELECT,
--				1, OV9282_MODE_STANDBY);
-+	return cci_write(ov9282->regmap, OV9282_REG_MODE_SELECT,
-+			 OV9282_MODE_STANDBY, NULL);
- }
- 
- /**
-@@ -1228,14 +1057,14 @@ static int ov9282_set_stream(struct v4l2_subdev *sd, int enable)
- static int ov9282_detect(struct ov9282 *ov9282)
- {
- 	int ret;
--	u32 val;
-+	u64 val;
- 
--	ret = ov9282_read_reg(ov9282, OV9282_REG_ID, 2, &val);
-+	ret = cci_read(ov9282->regmap, OV9282_REG_ID, &val, NULL);
- 	if (ret)
- 		return ret;
- 
- 	if (val != OV9282_ID) {
--		dev_err(ov9282->dev, "chip id mismatch: %x!=%x",
-+		dev_err(ov9282->dev, "chip id mismatch: %x!=%llx",
- 			OV9282_ID, val);
- 		return -ENXIO;
- 	}
-@@ -1397,9 +1226,8 @@ static int ov9282_power_on(struct device *dev)
- 
- 	usleep_range(400, 600);
- 
--	ret = ov9282_write_reg(ov9282, OV9282_REG_MIPI_CTRL00, 1,
--			       ov9282->noncontinuous_clock ?
--					OV9282_GATED_CLOCK : 0);
-+	ret = cci_write(ov9282->regmap, OV9282_REG_MIPI_CTRL00,
-+			ov9282->noncontinuous_clock ? OV9282_GATED_CLOCK : 0, NULL);
- 	if (ret) {
- 		dev_err(ov9282->dev, "fail to write MIPI_CTRL00");
- 		goto error_clk;
-@@ -1576,6 +1404,11 @@ static int ov9282_probe(struct i2c_client *client)
- 		return ret;
- 	}
- 
-+	ov9282->regmap = devm_cci_regmap_init_i2c(client, 16);
-+	if (IS_ERR(ov9282->regmap))
-+		return dev_err_probe(ov9282->dev, PTR_ERR(ov9282->regmap),
-+				     "Failed to init CCI\n");
-+
- 	mutex_init(&ov9282->mutex);
- 
- 	ret = ov9282_power_on(ov9282->dev);
--- 
-2.43.0
+If we were going to keep these macros in perpetuity then I'd be
+inclined to follow your suggestion, but since they're just temporary
+scaffolding to make this change, maybe I can ask you to overlook this
+preference for now?
 
+--=20
+Jeff Layton <jlayton@kernel.org>
