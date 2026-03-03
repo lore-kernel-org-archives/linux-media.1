@@ -1,168 +1,144 @@
-Received: from kylie.crudebyte.com (kylie.crudebyte.com [5.189.157.229])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1AF33FE06;
-	Tue,  3 Mar 2026 12:14:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.189.157.229
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C19344DBE
+	for <linux-media@vger.kernel.org>; Tue,  3 Mar 2026 12:34:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772540097; cv=none; b=pbGopzdmEdcMLJlHZZvt7h0kzV00ZUROfvIsqb1ehrxwGUnNztT4mNADf0GTemAC/H1Apsg0UkyCwPrDU4rIGD8xe5CYbHynKeqjqdQgjiQjYfD3fSabLbaZ8K5mlnFaH5g4kX/QBz3UpjXa1V6gqTlEfwYrsI7QYBK9ku70A7c=
+	t=1772541262; cv=none; b=bEUc6i5Vrr9+Mgv3ZWJcZlH/niRjSptCPsQ5JfAQngz/ICnNqL8XG5CASBaF8PeB/aUBRd0fp9ojkJxf+fnvQepIXQPaDb2MRXoI662bcmXirk+Oqi6+hw9HtsBfhmFpizF9htlmv6MaLxVcwPoMKUo2GNu949PldIqqoniBZXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772540097; c=relaxed/simple;
-	bh=Py8Zp69P5/J1BlQCksfycmAarkSiVopSUaC0+sAz+Yc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fc2KqkoCld3v9f+4/QuviZs+j7pLDwkOgGYxrBw3iv7pGnhecygJgIJ0ugBZ0D62BRrCblDEfUsrO+tgSCc0yI6JivG5v749wZgQUWDSMiU7TOIee8iJmCk1mNZIpQATSV30yTWm7YYAVnaIYeZm3KgDQzx41MUCrGZOSljYGPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crudebyte.com; spf=pass smtp.mailfrom=crudebyte.com; dkim=pass (4096-bit key) header.d=crudebyte.com header.i=@crudebyte.com header.b=b45/xuqs; arc=none smtp.client-ip=5.189.157.229
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crudebyte.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crudebyte.com
+	s=arc-20240116; t=1772541262; c=relaxed/simple;
+	bh=IPXiwZtCc7P08ZgUjvcnSviyFkXkojb59Nxf4/tXsiE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=J8eyXgzOf7HQYSORXkm0HDGeKmP89msvJsDvFsH+9B+zFSmsDinbrepOk/3T4PcLeYzrN0Ohq/xBE9cHuQD7E32tS2uSuzHDHfUwRCjaH7xKZ4peRGdRHarBl5eDebhxgOZ2grLDumcVWBtYachZ2eP6VT7WEl3naQby6+yvlH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=H6BjI3Fu; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=crudebyte.com header.i=@crudebyte.com header.b="b45/xuqs"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=crudebyte.com; s=kylie; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Content-ID:Content-Description;
-	bh=sEoIOy08sNDPM7R5rm77ylqbd67+xSmbEywB7fDE1l0=; b=b45/xuqsDe3UOPQGaSOC3QVfXK
-	OUdoPRzyNDl+yB4fHKVaFWk8VF87HMtM4PYj4R2Fj4RpvcBDUY2ZRib9drn+oqZiRxQCtGar4RuAz
-	RYpsEbooDPugVAlnLrqpLhL+RChtlDNEybUZnd2yTo6Y9uqRr+1WKo0xl+84dQj8eWwrm7umz7n0w
-	S0EXkqOXa2C/JE8ObWOt92H0I3bqxVdgJ9TfYidSDZtw7bmGYFyYek8qwJZQAKn3MZmmf/FUVClZB
-	QWCtVuugHhF8BNOyUJFLJSfWPIXAHjH3TLcWIb8OST54dg+7vIizA1SPKkby0pw/QTg0kPbnj4Wj9
-	VeB+nqiUcTgosudQMsEBFy4QC+CVa0DVQMYM3UhAhXRVcGAw2OrwsIYL9SNJioU6URY8vyDA6TwfM
-	CFYsOZ3h1lK3cnDA5o2cflFeZC32omihqCAVM51Ge0wTTskASCR9w0ENeA5eVA/akwkz+TZ5d3AsE
-	7f82uN5RuzZACblKcmQqEKYQjiNJSERv0YAwUBb/EiPVB4IwaXQdg3R2xm5FyvBpIz+8+5sqHHPrp
-	714s96tE/7YqJbu0kX52r+TMH8FczKREFdRsqPG+YK+I8GIlGaziiB8fLP6RTgOHSdf3lUuYeXzdb
-	ttbE75RJ/SInwkaKpg3BOdQZ8WJQK3Z8q+sKFDgvs=;
-From: Christian Schoenebeck <linux_oss@crudebyte.com>
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Matthew Wilcox <willy@infradead.org>, Eric Biggers <ebiggers@kernel.org>,
- "Theodore Y. Ts'o" <tytso@mit.edu>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
- David Howells <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>,
- Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>,
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
- Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>,
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>,
- Tom Talpey <tom@talpey.com>, Steve French <sfrench@samba.org>,
- Ronnie Sahlberg <ronniesahlberg@gmail.com>,
- Shyam Prasad N <sprasad@microsoft.com>, Bharath SM <bharathsm@microsoft.com>,
- Alexander Aring <alex.aring@gmail.com>,
- Ryusuke Konishi <konishi.ryusuke@gmail.com>,
- Viacheslav Dubeyko <slava@dubeyko.com>,
- Eric Van Hensbergen <ericvh@kernel.org>, Latchesar Ionkov <lucho@ionkov.net>,
- Dominique Martinet <asmadeus@codewreck.org>, David Sterba <dsterba@suse.com>,
- Marc Dionne <marc.dionne@auristor.com>, Ian Kent <raven@themaw.net>,
- Luis de Bethencourt <luisbg@kernel.org>, Salah Triki <salah.triki@gmail.com>,
- "Tigran A. Aivazian" <aivazian.tigran@gmail.com>,
- Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>,
- Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu,
- Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>,
- Amir Goldstein <amir73il@gmail.com>, Christoph Hellwig <hch@infradead.org>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Yangtao Li <frank.li@vivo.com>,
- Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>,
- David Woodhouse <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>,
- Dave Kleikamp <shaggy@kernel.org>,
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- Joseph Qi <joseph.qi@linux.alibaba.com>, Mike Marshall <hubcap@omnibond.com>,
- Martin Brandenburg <martin@omnibond.com>, Miklos Szeredi <miklos@szeredi.hu>,
- Anders Larsen <al@alarsen.net>, Zhihao Cheng <chengzhihao1@huawei.com>,
- Damien Le Moal <dlemoal@kernel.org>, Naohiro Aota <naohiro.aota@wdc.com>,
- Johannes Thumshirn <jth@kernel.org>,
- John Johansen <john.johansen@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>,
- Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
- Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Ondrej Mosnacek <omosnace@redhat.com>,
- Casey Schaufler <casey@schaufler-ca.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>,
- Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Willem de Bruijn <willemb@google.com>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Simon Horman <horms@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- James Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>,
- Martin Schiller <ms@dev.tdt.de>, Eric Paris <eparis@redhat.com>,
- Joerg Reuter <jreuter@yaina.de>, Marcel Holtmann <marcel@holtmann.org>,
- Johan Hedberg <johan.hedberg@gmail.com>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Oliver Hartkopp <socketcan@hartkopp.net>,
- Marc Kleine-Budde <mkl@pengutronix.de>, David Ahern <dsahern@kernel.org>,
- Neal Cardwell <ncardwell@google.com>,
- Steffen Klassert <steffen.klassert@secunet.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Remi Denis-Courmont <courmisch@gmail.com>,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- Xin Long <lucien.xin@gmail.com>, Magnus Karlsson <magnus.karlsson@intel.com>,
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Jeff Layton <jlayton@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev,
- fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev,
- linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org,
- samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org,
- v9fs@lists.linux.dev, linux-afs@lists.infradead.org, autofs@vger.kernel.org,
- ceph-devel@vger.kernel.org, codalist@coda.cs.cmu.edu,
- ecryptfs@vger.kernel.org, linux-mtd@lists.infradead.org,
- jfs-discussion@lists.sourceforge.net, ntfs3@lists.linux.dev,
- ocfs2-devel@lists.linux.dev, devel@lists.orangefs.org,
- linux-unionfs@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org,
- selinux@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, netdev@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-fscrypt@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org,
- linux-x25@vger.kernel.org, audit@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, linux-can@vger.kernel.org,
- linux-sctp@vger.kernel.org, bpf@vger.kernel.org,
- Jeff Layton <jlayton@kernel.org>
-Subject: Re: [PATCH v2 016/110] 9p: use PRIino format for i_ino
-Date: Tue, 03 Mar 2026 12:52:39 +0100
-Message-ID: <12847641.O9o76ZdvQC@weasel>
-In-Reply-To: <20260302-iino-u64-v2-16-e5388800dae0@kernel.org>
-References:
- <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
- <20260302-iino-u64-v2-16-e5388800dae0@kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="H6BjI3Fu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1772541258;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=U6xhLiQFL+mbcgfrby6QpV2yp3OnQ8VMri8wk6ood+Y=;
+	b=H6BjI3FuXlBvjHNLBzJ5jq6MycB17nY5qB0ddmxKwUiiTQWNuVfZs5G3SzUC70Abeba0Yk
+	ip43LpwdKozuNMrlIsnDqI8CHxG77A5CVdMesIWOIec8zlnH5gy2e2m2ovVHe+2QSORMIh
+	eadqvRUNahi6fV4vZ3ZZnoxHs7yJWYg=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-470-cN6t_CJ8MaSdHHuavs01GA-1; Tue,
+ 03 Mar 2026 07:34:13 -0500
+X-MC-Unique: cN6t_CJ8MaSdHHuavs01GA-1
+X-Mimecast-MFC-AGG-ID: cN6t_CJ8MaSdHHuavs01GA_1772541251
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 827351956089;
+	Tue,  3 Mar 2026 12:34:10 +0000 (UTC)
+Received: from [192.168.1.153] (unknown [10.44.32.231])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DBF6530001B9;
+	Tue,  3 Mar 2026 12:34:03 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH v2 0/6] dma-buf: heaps: add coherent reserved-memory heap
+Date: Tue, 03 Mar 2026 13:33:43 +0100
+Message-Id: <20260303-b4-dmabuf-heap-coherent-rmem-v2-0-65a4653b3378@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ7CIBCF4as0s3ZMmTaNuPIepgsKg7CgNICNp
+ undxSZuXf5v8b0NMifPGa7NBolXn32ca9CpAe3U/GD0pjZQS0NL1OHUowlqelp0rBbU0XHiuWA
+ KHFAKazpJg7IsoRJLYutfB38fazufS0zv420V3/UH9//hVaBAYy3bviN5UfqW2DhVzjoGGPd9/
+ wAJXkgtyQAAAA==
+X-Change-ID: 20260223-b4-dmabuf-heap-coherent-rmem-91fd3926afe9
+To: Sumit Semwal <sumit.semwal@linaro.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
+ Saravana Kannan <saravanak@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ iommu@lists.linux.dev, devicetree@vger.kernel.org, 
+ Albert Esteve <aesteve@redhat.com>, echanude@redhat.com, mripard@redhat.com, 
+ John Stultz <john.stultz@linaro.org>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1772541243; l=2748;
+ i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
+ bh=IPXiwZtCc7P08ZgUjvcnSviyFkXkojb59Nxf4/tXsiE=;
+ b=UoJm8cOUwDbUZaGCu/6/A2ZEkCDOViFBfczvAM5knasQJRy7s18G7gsVP6zwFOy1FBwWL/nXj
+ M/F79L4YdOoCAv3QZE2oXpL/jmdtEbuyArFvtu7fbTfA4XBopk6UHWV
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On Monday, 2 March 2026 21:24:00 CET Jeff Layton wrote:
-> Convert 9p i_ino format strings to use the PRIino format
-> macro in preparation for the widening of i_ino via kino_t.
-> 
-> Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> ---
->  fs/9p/vfs_addr.c       | 4 ++--
->  fs/9p/vfs_inode.c      | 6 +++---
->  fs/9p/vfs_inode_dotl.c | 6 +++---
->  3 files changed, 8 insertions(+), 8 deletions(-)
+This patch introduces a new heap driver to expose DT non‑reusable
+"shared-dma-pool" coherent regions as dma-buf heaps, so userspace can
+allocate buffers from each reserved, named region.
 
-Reviewed-by: Christian Schoenebeck <linux_oss@crudebyte.com>
+Because these regions are device‑dependent, each heap instance binds a
+heap device to its reserved‑mem region via a newly introduced helper
+function -namely, of_reserved_mem_device_init_with_mem()- so coherent
+allocations use the correct dev->dma_mem.
 
+Charging to cgroups for these buffers is intentionally left out to keep
+review focused on the new heap; I plan to follow up based on Eric’s [1]
+and Maxime’s [2] work on dmem charging from userspace.
 
+This series also makes the new heap driver modular, in line with the CMA
+heap change in [3].
+
+[1] https://lore.kernel.org/all/20260218-dmabuf-heap-cma-dmem-v2-0-b249886fb7b2@redhat.com/
+[2] https://lore.kernel.org/all/20250310-dmem-cgroups-v1-0-2984c1bc9312@kernel.org/
+[3] https://lore.kernel.org/all/20260303-dma-buf-heaps-as-modules-v3-0-24344812c707@kernel.org/
+
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
+---
+Changes in v2:
+- Removed dmem charging parts
+- Moved coherent heap registering logic to coherent.c
+- Made heap device a member of struct dma_heap
+- Split dma_heap_add logic into create/register, to be able to
+  access the stored heap device before registered.
+- Avoid platform device in favour of heap device
+- Added a wrapper to rmem device_init() op
+- Switched from late_initcall() to module_init()
+- Made the coherent heap driver modular
+- Link to v1: https://lore.kernel.org/r/20260224-b4-dmabuf-heap-coherent-rmem-v1-1-dffef43298ac@redhat.com
+
+---
+Albert Esteve (5):
+      dma-buf: dma-heap: split dma_heap_add
+      of_reserved_mem: add a helper for rmem device_init op
+      dma-buf: heaps: Add Coherent heap to dmabuf heaps
+      dma: coherent: register to coherent heap
+      dma-buf: heaps: coherent: Turn heap into a module
+
+John Stultz (1):
+      dma-buf: dma-heap: Keep track of the heap device struct
+
+ drivers/dma-buf/dma-heap.c            | 138 +++++++++--
+ drivers/dma-buf/heaps/Kconfig         |   9 +
+ drivers/dma-buf/heaps/Makefile        |   1 +
+ drivers/dma-buf/heaps/coherent_heap.c | 429 ++++++++++++++++++++++++++++++++++
+ drivers/of/of_reserved_mem.c          |  27 ++-
+ include/linux/dma-heap.h              |  16 ++
+ include/linux/dma-map-ops.h           |   7 +
+ include/linux/of_reserved_mem.h       |   8 +
+ kernel/dma/coherent.c                 |  34 +++
+ 9 files changed, 642 insertions(+), 27 deletions(-)
+---
+base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
+change-id: 20260223-b4-dmabuf-heap-coherent-rmem-91fd3926afe9
+
+Best regards,
+-- 
+Albert Esteve <aesteve@redhat.com>
 
