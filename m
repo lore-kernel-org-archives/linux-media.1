@@ -1,80 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ECF6370D5C;
-	Wed,  4 Mar 2026 09:17:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D22FC395DA3;
+	Wed,  4 Mar 2026 09:18:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772615862; cv=none; b=ePAkhGDZBaHWJIQlAzR0vU5alcJKMNZURGwIjHwIGINSVKBOP4d1kjDTqwNjZkxseiKvbfmeqiT3kUTjqUSsHJvFpiXivlRtQYrX0zcGrOg0NBUEk9HDUa7wTJ3hJQZgqvnxTMgYj2jDba3+XdaFg/zLcTmHkbOL/sE9s5eTDJU=
+	t=1772615908; cv=none; b=mBs8l9BpgVotw2P1TwxNjO7IBwVa8E3WOTH8iYerdbHiXJ75M4rvxnvbSEJryJLxfsy3ryv8/ugwTp+/Vz41gp1cZyE1XBV3pjUQt0+h1IBPi26WD7R/rvr/Zp8NhWerKn6ZPSJRcbAHFByWMp5LlTvrd7hQtpIefgtMGvvL3oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772615862; c=relaxed/simple;
-	bh=0WLR1fFDjfupq/vqgaUSuoU9YKz4I1SwftFX5ghFKuU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=pIZnDpM5HUnMFmIkLZYgap0yj8a4GmffwSmoD9RSziiQyt9fnF3nd3avWVwLmLZ38oZBeDCOSjj6iUyRgCLe2B6oNaZjMhvRf4cgMjakFVJH9Y0PUvARQUdAGLoUGGfc/f3bT4HBrRC9gJmBohieZnSL4XOG2EDhHQabUglVrGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=el6NSmx2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1772615908; c=relaxed/simple;
+	bh=DqQFigDJ368Z5nPS5m9Q7Nq+wqG5hNprsu/1QDUlhA8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=c1TXIfqhXL5rApicYjGBTObX5zkwESv4oFjfWmBAbjZTSdoElX+C0eS+07ecLUt+ckH74giM6jL1Ew9dDdaGGh0D1NQW69nRdJmHc0ehSm6PMQ3L04XZ62hfLULaXWRdRPL6sKhmYg0WxiIOvvsZlKY8aZuSOyri1rveLYn7IUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BnWrIXro; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="el6NSmx2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FB98C19423;
-	Wed,  4 Mar 2026 09:17:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BnWrIXro"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8D60C19425;
+	Wed,  4 Mar 2026 09:18:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1772615862;
-	bh=0WLR1fFDjfupq/vqgaUSuoU9YKz4I1SwftFX5ghFKuU=;
-	h=Date:From:To:Cc:Subject:From;
-	b=el6NSmx2OgMspqUoWJHKgqXmaRFTlfYYwNMzL3F8pskIefHaxorzstHTBKoNOKndi
-	 YvZTOx3i7Rj5IWmekL6IYbJVOhhKPHS5AB32Y4p2EKltkwEoi2Cd3rckcHZSWjQlgi
-	 kPAlV/evgsGxAdGiyPynr7xcoMUKy0dzZf6oJCcQhFAnCL/jGRPeTnFav92hdIPsAX
-	 U9Z/+DjhYPYL6xCiiRxVchmp/kP3+kPUrDPb9NP/BGjER0VPm93ZMjP4WjrJROtIQi
-	 aXvz4QzuHIds3M0hamUBkjPvZiDCOpT1/YsV/tvhjHBojypT5SCHPdiy8HSn2tA9H5
-	 gS5NM0fKyLj4w==
-Date: Wed, 4 Mar 2026 10:17:37 +0100
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton
- <akpm@linux-foundation.org>, Linux Media Mailing List
- <linux-media@vger.kernel.org>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>
-Subject: [GIT PULL for v7.0-rc3] media fixes
-Message-ID: <20260304101737.198de4d0@foz.lan>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
+	s=k20201202; t=1772615907;
+	bh=DqQFigDJ368Z5nPS5m9Q7Nq+wqG5hNprsu/1QDUlhA8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=BnWrIXroRr6DGO6COgDOsecmpa7x+fF4yHx2u2k5WsZ+BLWzvzUUV7uMfNIoE+iQs
+	 mdoGPSlZc5kn466gYE/XfSeyng33oXkMDsg0aemnWoU6RYpNSCTaHml0kjxL8q74MP
+	 SGXt4SuWVja8WXGIX2YM+yHvI/BtWxlwFxtniqrT2FTrVITiI0mSIOQzGxB40qTb4t
+	 01cuZXikRWIUb+pX7EDFNBbWVCDy1Hz6X++yupk9wfbTs0+Fa6FiLXxi0KaGhO19NR
+	 DHp8BPZqYYB7ADvmkyvU/D4747R18C1Chuzd92zyNH3hQnNTSLQ8HWJskm8ahAhvXP
+	 ElVD3LF0lvU+w==
+Message-ID: <d9e9703f-8166-41a9-a927-5bcd7ad4a8db@kernel.org>
+Date: Wed, 4 Mar 2026 10:18:16 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/14] powerpc: drop unneeded dependency on OF_GPIO
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Alexey Brodkin <abrodkin@synopsys.com>, Vineet Gupta <vgupta@kernel.org>,
+ Scott Wood <oss@buserror.net>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Dvorkin Dmitry <dvorkin@tibbo.com>, Wells Lu <wellslutw@gmail.com>,
+ Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>, Wim Van Sebroeck
+ <wim@linux-watchdog.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sebastian Reichel <sre@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-snps-arc@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ netdev@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-leds@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-pm@vger.kernel.org
+References: <20260304-gpio-of-kconfig-v1-0-d597916e79e7@oss.qualcomm.com>
+ <20260304-gpio-of-kconfig-v1-3-d597916e79e7@oss.qualcomm.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <20260304-gpio-of-kconfig-v1-3-d597916e79e7@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Linus,
 
-Please pull from:
 
-	git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media.git media/v7.0-3
+Le 04/03/2026 à 10:02, Bartosz Golaszewski a écrit :
+> OF_GPIO is automatically enabled on all OF systems. There's no need to
+> select it explicitly.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-For a fix at the dvb-net handler on its MPEG-TS decoder.
+Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
 
-Regards,
-Mauro
+> ---
+>   arch/powerpc/platforms/85xx/Kconfig | 1 -
+>   1 file changed, 1 deletion(-)
+> 
+> diff --git a/arch/powerpc/platforms/85xx/Kconfig b/arch/powerpc/platforms/85xx/Kconfig
+> index 604c1b4b6d45c11dc3149ee8b9adabe593882c8e..6805c19ac8a915dae1bd24b13010a56cf1948ad4 100644
+> --- a/arch/powerpc/platforms/85xx/Kconfig
+> +++ b/arch/powerpc/platforms/85xx/Kconfig
+> @@ -217,7 +217,6 @@ config GE_IMP3A
+>   config SGY_CTS1000
+>   	tristate "Servergy CTS-1000 support"
+>   	select GPIOLIB
+> -	select OF_GPIO
+>   	depends on CORENET_GENERIC
+>   	help
+>   	  Enable this to support functionality in Servergy's CTS-1000 systems.
+> 
 
----
-
-The following changes since commit 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f:
-
-  Linux 7.0-rc1 (2026-02-22 13:18:59 -0800)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media.git tags/media/v7.0-3
-
-for you to fetch changes up to 24d87712727a5017ad142d63940589a36cd25647:
-
-  media: dvb-net: fix OOB access in ULE extension header tables (2026-02-27 10:57:48 +0100)
-
-----------------------------------------------------------------
-[GIT PULL for v7.0-rc3] media fixes
-
-----------------------------------------------------------------
-Ariel Silver (1):
-      media: dvb-net: fix OOB access in ULE extension header tables
-
- drivers/media/dvb-core/dvb_net.c | 3 +++
- 1 file changed, 3 insertions(+)
