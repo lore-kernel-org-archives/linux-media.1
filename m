@@ -1,262 +1,127 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFAC39FCD1;
-	Wed,  4 Mar 2026 13:49:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A67E3BE159
+	for <linux-media@vger.kernel.org>; Wed,  4 Mar 2026 14:05:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772632142; cv=none; b=Tpv5d51T4TRtSVJkWxsaVZYqdfXTumtezkbQFEMDDTgJQFxz3maRn39z7Hndm5L7ysxCWw1IIJ2JCf3CY4W7U7uJ0dHDTincVAS3hJBXtibSsCy+6JMvIO+zE+35Gv2JO/LNH4TXPdNzf6mzWi/zWbdeIjL+AlXodUqHucB1QzM=
+	t=1772633124; cv=none; b=Eq/X+2dKKbTU/bfG9m34PIWynwXVdKaX3WmFTZB0/wI3N3Hv0wwy2Sni+21EK4BSCUHGOqIHZRoPyZTnIFnNoWeK0t8g/MsSAdBpJxxyZO4z4NJkmi8e5mof8yXVimGAIK0NbQUmzZh9syqZR/wJ5qvLJS1RUEXy3+AKddwaLGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772632142; c=relaxed/simple;
-	bh=qy151rX+YmtEP/Sa8aXip0kJW5DNxW4N5mW24QjwEZs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LxOY8ESZoGQYdL0ogYvih/xB7LjfM0TM4rXpJZPEZsY6Wx2ER2QUAtQG7Kd41LUzet8LLM8msgW6xfD91mKsFgxru60E227fG3r4OJ6d0qs94OGr8b0ftISNjK6so1OmkGwTJ/idKaX4GPiEq7i5A8cuTCboyhx0ipf7Lzw0iPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FFOhj92F; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1772633124; c=relaxed/simple;
+	bh=rRr3+vifUdF0hNY60dwmGGafi8luWOxE/yqZKA9fp8c=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=WD876PFBo73kVwQ3cZ9YfIX/n8IbAOuEUa1nt7kpNseppsjdm2TQDWHltiDCx/lpKzPsKzz+re8g7v5T5S60miR8u/TyFSML+pTRlOFch+ieeSzjOJut60wszKz+RkKF14kjzPu3F2tzon/cdxxxTbA9ufhYDwIWFnPBx5d5Zeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=Q9nfvWoR; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FFOhj92F"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1772632141; x=1804168141;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qy151rX+YmtEP/Sa8aXip0kJW5DNxW4N5mW24QjwEZs=;
-  b=FFOhj92FRFl/IHwkQ5qK/VRB/OUBlKiTivVAqGe4S/BkTy7s2zm0yZGC
-   sdV3Yi0vNYFCpznw7JY22dAO+BikwlUnttR1GBlu70aldrrac435DxMsW
-   9g2yz3bnaNx5fmf0TGrOwlwQFpx081gTXzVNgN+HC9siQeHwdb2qoilV2
-   W7fQYtP5YOcEFDpRV6pIJ/LaJQw7D15frwKuIUOBbBN3HYvqh6pTevcBi
-   +TuRGLZmIya2SVBbqQlfGBk+KEfSu88RHJA2gq9lY25CTlcqogzliiSbN
-   h58RP4f/7x1l0kg2eG7/rz30z83SEudND8Bx7/G+Y+DSjcqEUJOC42nFN
-   A==;
-X-CSE-ConnectionGUID: AhSAgiBMQCKdtnlhwib36g==
-X-CSE-MsgGUID: cqdLuLNURNiRKxnwMsS3pQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11719"; a="73817703"
-X-IronPort-AV: E=Sophos;i="6.21,324,1763452800"; 
-   d="scan'208";a="73817703"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Mar 2026 05:49:00 -0800
-X-CSE-ConnectionGUID: 4+VvCo/iRuS+lEtrDzqtzg==
-X-CSE-MsgGUID: WS/8tVENSuy/wOuVEdrN6g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,324,1763452800"; 
-   d="scan'208";a="215290195"
-Received: from abityuts-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.233])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Mar 2026 05:48:58 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id AB7FD121D1E;
-	Wed, 04 Mar 2026 15:49:27 +0200 (EET)
-Date: Wed, 4 Mar 2026 15:49:27 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] media: subdev: Add
- v4l2_subdev_get_frame_desc_passthrough helper
-Message-ID: <aag4ZzS9TrmivwDg@kekkonen.localdomain>
-References: <20250324-frame-desc-passthrough-v4-0-dbe2412297cc@ideasonboard.com>
- <20250324-frame-desc-passthrough-v4-1-dbe2412297cc@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="Q9nfvWoR"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4836e3288cdso46862775e9.0
+        for <linux-media@vger.kernel.org>; Wed, 04 Mar 2026 06:05:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1772633120; x=1773237920; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=yNaltXKAWAjQbwu3MqBmJgovVgpV61nuOt86Xr0pRVM=;
+        b=Q9nfvWoRDTE/8hzDS2B5r1NX8dmlP2HPjjglm7Kc5Hvq/m+FmDMpwJv5oF+zzC8gH+
+         m9rmVnxf31g25yn3zzueKBy+Oxw7KlLsH56xEllEQY5h5v9aM/bGZuGkkPdOHFn2OTy7
+         UBt9BHtCXdnoyKHWG15YKXDEbtpSaJT+IJ8oNCSr7qq01e7tTqUKDSX4snYa8XGcP6ui
+         NTybSePR+Hiv31YPk6LfdFvAu+tJ2g9V+FKdNoVjn6Ybt0swa2oz5Qf9HnIc8R63vHeG
+         AUvxu9xcPGjN+JHMIvGXqW+JcTdfFYw5c8BpRt4bjrCZpAaOsvG3LKA2yD2Fc1V7Mojf
+         XFmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772633120; x=1773237920;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=yNaltXKAWAjQbwu3MqBmJgovVgpV61nuOt86Xr0pRVM=;
+        b=Nih/wgKWWeYGbNQF4MrbmWH2KjLtQXip8IkEOtA8vjR1gh7NZiNutaEMzhv0YTbo9N
+         oiJ+rJ7I8yRMe9iIgaoLRB8VynK5RHzmtp/VhvutsLbGphqKOcZUjsD/mIYiiCkSaLST
+         8eGtwF4d513BgR1NhCl0O9j9jwyprpS+PQ274QifzVlgzo5J24Qo6WazLlVZQHtePReZ
+         OPqx9vG7M0e/1KoZnlNK2pAsEaBUp4QTkwPeQa+W0p1PtGYw61DDV6ueJ6desRT8ilJa
+         CH1zrJ1Ee3IfQVpoco0gKiAZY3ELoMmIey8atY/JxDSpSo47Y/CQaFX8xfD5xsFvJ+lP
+         IA6Q==
+X-Forwarded-Encrypted: i=1; AJvYcCV6dBb8C185USC/dEnvLJwIt9HFh70SSMPKCgAQFq1dcdVLFGymOYCDiEjdM2eqNG2tCMdvgZq6/jAR3Q==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxEY+M6AYAjMyroGpTlk0kb2FuueNA/cAYq4IKf4ICAA84GyhGA
+	HgB8MGCRsarejBxB3IJGzQZYi2n5PN7Vri+aqwbFDbEVbqbbYgG6Qd08Y5910IHP6/E=
+X-Gm-Gg: ATEYQzzSaRMNvh6yPab3REzgBRClOrWuKl/nuYR2XEDItOIF8TuDSwHwWJ7y2KoXW/k
+	dbduGQ9tFxv8WD65w30guIDlpCcyFLPw3wMudr4augoeG2uRdoWrZITciz10l52AMrma8jbdrJC
+	21NDC1hYZtTox0QDWJ0wSYQIgq/tN89BSlnwS0gh49nggQmgpR3Q1phAzA3d5GLc3HpZRkPJVi8
+	uBhhEuICp8uSUZeRXo0Ira0J4kxPbzpNNCuLlTaNuizKab4OdVFUqrii9PJsm6Gb2uMTZlacKWq
+	9YJcPh3lmaY+0cSbqbFHVJ0k+lUGXHPqSjta/SClQzq7RLxmu2hnRTPEZ2kqtTAVZ0ADlED75hZ
+	T3uy36lGTlj9Kvm5yZ2gWKQv0zHUzaXlXkoCyy41UniVaIHZ6mhZetlyTgCgRr8BomSLiIQ0sNb
+	vVQCpsVFaGlMe/eQ==
+X-Received: by 2002:a05:600c:19d4:b0:483:a352:b4e4 with SMTP id 5b1f17b1804b1-4851987df8fmr36433065e9.6.1772633120448;
+        Wed, 04 Mar 2026 06:05:20 -0800 (PST)
+Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-485187b6ffbsm59296165e9.2.2026.03.04.06.05.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Mar 2026 06:05:20 -0800 (PST)
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Wed, 04 Mar 2026 14:05:14 +0000
+Subject: [PATCH v6 1/6] docs: uapi: media: Clarify HEVC slice_param
+ bit_size, data_byte_offset
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250324-frame-desc-passthrough-v4-1-dbe2412297cc@ideasonboard.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260304-media-rpi-hevc-dec-v6-1-93868ae6dff8@raspberrypi.com>
+References: <20260304-media-rpi-hevc-dec-v6-0-93868ae6dff8@raspberrypi.com>
+In-Reply-To: <20260304-media-rpi-hevc-dec-v6-0-93868ae6dff8@raspberrypi.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ John Cox <john.cox@raspberrypi.com>, Dom Cobley <dom@raspberrypi.com>, 
+ review list <kernel-list@raspberrypi.com>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ John Cox <jc@kynesim.co.uk>, Stefan Wahren <wahrenst@gmx.net>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+X-Mailer: b4 0.14.1
 
-Moi,
+From: John Cox <john.cox@raspberrypi.com>
 
-On Mon, Mar 24, 2025 at 10:04:44AM +0200, Tomi Valkeinen wrote:
-> Add a helper for v4l2_subdev_pad_ops.v4l2_get_frame_desc operation. The
-> helper can be used when the subdevice directly passes through the
-> streams.
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> ---
->  drivers/media/v4l2-core/v4l2-subdev.c | 113 ++++++++++++++++++++++++++++++++++
->  include/media/v4l2-subdev.h           |  22 +++++++
->  2 files changed, 135 insertions(+)
-> 
-> diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-> index a3074f469b15..a415d3234ca6 100644
-> --- a/drivers/media/v4l2-core/v4l2-subdev.c
-> +++ b/drivers/media/v4l2-core/v4l2-subdev.c
-> @@ -2502,6 +2502,119 @@ int v4l2_subdev_s_stream_helper(struct v4l2_subdev *sd, int enable)
->  }
->  EXPORT_SYMBOL_GPL(v4l2_subdev_s_stream_helper);
->  
-> +int v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
-> +					   unsigned int pad,
-> +					   struct v4l2_mbus_frame_desc *fd)
-> +{
-> +	const struct media_pad *pads = sd->entity.pads;
-> +	struct media_pad *local_sink_pad;
-> +	struct v4l2_subdev_route *route;
-> +	struct v4l2_subdev_state *state;
-> +	struct device *dev = sd->dev;
-> +	int ret = 0;
-> +
-> +	if (WARN_ON(!(pads[pad].flags & MEDIA_PAD_FL_SOURCE)))
-> +		return -EINVAL;
-> +
-> +	state = v4l2_subdev_lock_and_get_active_state(sd);
-> +
-> +	/* Iterate over sink pads */
-> +	media_entity_for_each_pad(&sd->entity, local_sink_pad) {
-> +		struct v4l2_mbus_frame_desc source_fd;
-> +		bool have_source_fd = false;
-> +
-> +		if (!(local_sink_pad->flags & MEDIA_PAD_FL_SINK))
-> +			continue;
-> +
-> +		/*
-> +		 * Copy frame desc entries for the streams going from the sink
-> +		 * pad to the requested pad
-> +		 */
-> +		for_each_active_route(&state->routing, route) {
-> +			struct v4l2_mbus_frame_desc_entry *source_entry = NULL;
-> +			struct media_pad *remote_source_pad;
-> +			struct v4l2_subdev *remote_sd;
-> +			unsigned int i;
-> +
-> +			if (route->source_pad != pad ||
-> +			    route->sink_pad != local_sink_pad->index)
-> +				continue;
-> +
-> +			if (!have_source_fd) {
-> +				remote_source_pad = media_pad_remote_pad_unique(local_sink_pad);
-> +				if (!remote_source_pad) {
-> +					dev_dbg(dev, "Failed to find remote pad for sink pad %u\n",
-> +						local_sink_pad->index);
-> +					ret = -EINVAL;
-> +					goto out_unlock;
-> +				}
-> +
-> +				remote_sd = media_entity_to_v4l2_subdev(remote_source_pad->entity);
-> +				if (!remote_sd) {
-> +					ret = -EINVAL;
-> +					goto out_unlock;
-> +				}
-> +
-> +				ret = v4l2_subdev_call(remote_sd, pad,
-> +						       get_frame_desc,
-> +						       remote_source_pad->index,
-> +						       &source_fd);
-> +				if (ret) {
-> +					dev_err(dev,
-> +						"Failed to get frame desc from remote subdev %s\n",
-> +						remote_sd->name);
-> +					goto out_unlock;
-> +				}
-> +
-> +				have_source_fd = true;
-> +
-> +				if (fd->num_entries == 0) {
-> +					fd->type = source_fd.type;
+Clarify exactly what bit_size and data_byte_offset mean when there are
+multiple slices in the bitstream data.
 
+Signed-off-by: John Cox <john.cox@raspberrypi.com>
+Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+---
+ Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-
-> +				} else if (fd->type != source_fd.type) {
-> +					dev_err(dev,
-> +						"Frame desc type mismatch: %u != %u\n",
-> +						fd->type, source_fd.type);
-> +					ret = -EPIPE;
-> +					goto out_unlock;
-> +				}
-> +			}
-> +
-> +			for (i = 0; i < source_fd.num_entries; i++) {
-
-You could declare i here.
-
-> +				if (source_fd.entry[i].stream == route->sink_stream) {
-> +					source_entry = &source_fd.entry[i];
-> +					break;
-> +				}
-> +			}
-> +
-> +			if (!source_entry) {
-> +				dev_dbg(sd->dev,
-> +					"Failed to find stream %u from source frame desc\n",
-> +					route->sink_stream);
-> +				ret = -EPIPE;
-> +				goto out_unlock;
-> +			}
-> +
-> +			if (fd->num_entries >= V4L2_FRAME_DESC_ENTRY_MAX) {
-
-V4L2_FRAME_DESC_ENTRY_MAX is actually the size of the array. It'd be good
-to rename the macro to reflect that. Of course that's out of scope right
-now...
-
-> +				dev_dbg(sd->dev, "Frame desc entry limit reached\n");
-> +				ret = -ENOSPC;
-> +				goto out_unlock;
-> +			}
-> +
-> +			fd->entry[fd->num_entries] = *source_entry;
-> +
-> +			fd->entry[fd->num_entries].stream = route->source_stream;
-> +
-> +			fd->num_entries++;
-> +		}
-> +	}
-> +
-> +out_unlock:
-> +	v4l2_subdev_unlock_state(state);
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(v4l2_subdev_get_frame_desc_passthrough);
-> +
->  #endif /* CONFIG_VIDEO_V4L2_SUBDEV_API */
->  
->  #endif /* CONFIG_MEDIA_CONTROLLER */
-> diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
-> index 57f2bcb4eb16..7dc8625b131e 100644
-> --- a/include/media/v4l2-subdev.h
-> +++ b/include/media/v4l2-subdev.h
-> @@ -1748,6 +1748,28 @@ int v4l2_subdev_disable_streams(struct v4l2_subdev *sd, u32 pad,
->   */
->  int v4l2_subdev_s_stream_helper(struct v4l2_subdev *sd, int enable);
->  
-> +/**
-> + * v4l2_subdev_get_frame_desc_passthrough() - Helper to implement the subdev
-> + *	v4l2_get_frame_desc operation in simple passthrough cases
-> + * @sd: The subdevice
-> + * @pad: The source pad index
-> + * @fd: The mbus frame desc
-> + *
-> + * Subdevice drivers that only pass through the streams can use this helper
-> + * to implement the &v4l2_subdev_pad_ops.v4l2_get_frame_desc operation.
-> + *
-> + * The helper will call get_frame_desc on the subdevice's sources, create a new
-> + * frame desc which contains only the streams on the given source pad. The data
-> + * for each frame desc entry is copied directly from the data provided from the
-> + * calls to the subdevice's sources, with the exception of the 'stream' field
-> + * which is set according to the subdevice's routing table.
-
-Could you add how different frame descriptor types are handled?
-
-A follow-up patch would be nice.
-
-> + *
-> + * Return: 0 on success, or a negative error code otherwise.
-> + */
-> +int v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
-> +					   unsigned int pad,
-> +					   struct v4l2_mbus_frame_desc *fd);
-> +
->  #endif /* CONFIG_VIDEO_V4L2_SUBDEV_API */
->  
->  #endif /* CONFIG_MEDIA_CONTROLLER */
-> 
+diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
+index 3b1e05c6eb13..a54e8ea29440 100644
+--- a/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
++++ b/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
+@@ -2399,10 +2399,12 @@ This structure contains all loop filter related parameters. See sections
+ 
+     * - __u32
+       - ``bit_size``
+-      - Size (in bits) of the current slice data.
++      - Size in bits of the slice_segment_data for the current slice including
++        any emulation prevention bytes.
+     * - __u32
+       - ``data_byte_offset``
+-      - Offset (in byte) to the video data in the current slice data.
++      - Offset in bytes from the start of the current v4l2_buffer to the start
++        of the slice_segment_data for the current slice.
+     * - __u32
+       - ``num_entry_point_offsets``
+       - Specifies the number of entry point offset syntax elements in the slice header.
 
 -- 
-Kind regards,
+2.34.1
 
-Sakari Ailus
