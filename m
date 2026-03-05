@@ -1,45 +1,43 @@
-Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com [205.220.178.238])
+Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com [205.220.166.238])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1160286A4;
-	Thu,  5 Mar 2026 04:35:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.178.238
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87318212548;
+	Thu,  5 Mar 2026 04:35:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.166.238
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772685314; cv=fail; b=Pi09vmAbnXmk14IP3BaesvMLYWQsEdeXE3AeKTSHmDnB0H5v/t9pU0WSGTRka5UrEorXlboOzygwkBet5j10XEGyGkb+wgQHYyRF7XnPiMGF70W7oYwh41/4QY1AM+ZGb+ZMwCuqJGbGKfoRSma/czobM7XrgDck0tNDroCsVg8=
+	t=1772685325; cv=fail; b=FcsmSSglpCbB3eREv4NZ+2JPltQpCrA52wvCkI4rVlYTXESsE+DjnobLUspdaEgTyxjMRYphUJhkaYIUyAFOCPAOvviUN3HUiQiUSgzc2zYn2q6gQ4cVxTrE1zC6R/p2bCvminiO+ktKDeqoUPTqLd2vFUn8yuBlkm3Qsgv3hFQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772685314; c=relaxed/simple;
-	bh=E/gpd8buGKooo4XrQ3iesURJLI5sK+nMOE4PSpCfUzw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dyJZjy5nsgztV3rfAyouEyulVQXfx1rv7PwaxbBuf6MDOCUVPU+LGcwNTWPJvpIimjC/Tvbe7+5qOmt+hlIfw7FzE6TX9Ttc4q5ZfrKP0Zek1biap2dlgUvy31uywe58OaP62BO0bM1VKwEHWrHaQBY3MuiPwaYTh0/bSTnHra4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=pass smtp.mailfrom=windriver.com; dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b=fbxTzwkW; arc=fail smtp.client-ip=205.220.178.238
+	s=arc-20240116; t=1772685325; c=relaxed/simple;
+	bh=+WQwFj9fZUKWYCMwAa28qcvJ2BWft0Un3E1SJP2Z5yA=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=SBZhmOGaeFlQqxuOk5E5/U3hajH3KUp3mabgF5QaD/tU44SZf0nPXNWs/ctZe8HA4oZrzVHRpy6A8uvTVF48uXKrYQPh7G024ABwFvlmFk3RWfewFBQHhCSDRGWhzTYtivOJJ9KocGzulDQXeDcVorkAtayFFrn5yya9wdKPyBY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=pass smtp.mailfrom=windriver.com; dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b=KB1Eyzua; arc=fail smtp.client-ip=205.220.166.238
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=windriver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b="fbxTzwkW"
-Received: from pps.filterd (m0250812.ppops.net [127.0.0.1])
-	by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6252U1Qq2001864;
-	Thu, 5 Mar 2026 04:34:29 GMT
+	dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b="KB1Eyzua"
+Received: from pps.filterd (m0250810.ppops.net [127.0.0.1])
+	by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6251G5kA018028;
+	Wed, 4 Mar 2026 20:34:16 -0800
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
 	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	PPS06212021; bh=5GhiMyD/9HmU5VY7553WLZn7bkMmIjfSD5wqs9xXKM8=; b=
-	fbxTzwkW0rs2JW5vyKYsSe1vtcroRtcSXrq47E86KtI8SceJdFMBojgBMGOEF2/M
-	zCXXuu6rjVRz8cszH2ZkkFz9lkz9RkEpS8xBUK7OVLU0k0mvq3V/gRzCQagJwJu3
-	oMabTRsK+kqLZKw3+BZfdFS3paYtSg7+/gCJwudEMPwo7kKYIiEVIwegniOEyDdN
-	myHYmxKPIKRoEo3GGskQvSi61hHJJu2RMUPmQeergu4baJ73cDEkIsXtgPXNt5Ff
-	zYcqhmNSewiqaK4s/kCXXooWrjo92m/as8FJm3sYsNryGxoJiaMwYZhu9xhUIpKh
-	rzsGtt/V3jACtulTYG7Y5Q==
-Received: from cy7pr03cu001.outbound.protection.outlook.com (mail-westcentralusazon11010056.outbound.protection.outlook.com [40.93.198.56])
-	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 4ckqb4nxsh-1
+	:message-id:mime-version:subject:to; s=PPS06212021; bh=3li/OT7QB
+	X0R9z3mFEQuF+kZHXOKC4jZrK2dBpVhs00=; b=KB1EyzuaZRxgdkoWLms/JF5j+
+	zqeK5cFMYNCgk+otPYGaJaZk6BMyYq9+OQ/A50YoAWdQLAh/ljl4hYg4U+49mt3D
+	SwZ9AWX30EGodiPgfUEKXuaWaL139QCgnlEue973cwyMqB3X6uxSn2f1MxPJpZmm
+	SrmZexLu6OOLU41IV4kkr5+FnmDhICFWqgwZ4juDtYUe0NNco7bue/mmCtCBEibm
+	k24eGoWcxJRZxxeAnYTTkdGUDCE5595t6LhYcHY3hIFq8Nw5yJBZwlKniavjdsd8
+	7eJrHUsekRXAL90ryG+XNFaNgVWpu02KJ1siXxaIv6QoGlxbKoUOyzgwZaDXQ==
+Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11010015.outbound.protection.outlook.com [52.101.85.15])
+	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 4ckvh45nf5-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 05 Mar 2026 04:34:29 +0000 (GMT)
+	Wed, 04 Mar 2026 20:34:15 -0800 (PST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RriKIaRuIZTThkQx543dGbwWV0mAeQYrEIw0W0BgycLsBmpOT3NyGX8lV133pAhPp071Xh3fvzIMUQvBuZA4C8OWfIQlBq9nIUD7VygBgDlgvBgz+c2PZU4Q3VHMEXV08mxRShfAbH1+Ctq6Km1u7LUTqQAW2v/fqHoZeveque66/roTg37RqRZ6IccZs5psml+SVSxu6A85HPTQYNkIbc4IlUhDFQyY21bMRhYQLzYCxmj/ANkFuXGAYn9DHTJ50reB7JNwj5MB/oxjmmxI2La5Z62ZZEAiq45XTsF8e2nD9CCZrkHurv+jspnfIKZu1ChJvB9CcsTgLZABQ2k+3w==
+ b=dvUk7PiaI/zqWQGJR2hwtOuy7J450iJxJoTJonDXRZexKebuLPWZzY8LzM5PuZRgNJZrf1bKc7CexHJa192ir9bfOmpE3yR+PaY/hWvJXVc+wwWaekoD4xTNGujzsaStTKo3AlQKqVfQALk6Jzj/vhIlHSftGz5dkd+S95KDBuVsOIbjaqmcmg5BdEcpVgSlgb5PoHwHOpNCOPfBTh1op4uQqoFtl5w18sTi4smzL5VLm24Yyb6exCCHy3Q+eOlLob3wGvPXR5ULulcX2e52P80IPxY8EGmqNUzwBrO0EiyT6k+GCL7iDFW4fsUEpAJrOvkiJuSMMM1dm6kwzpjzuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5GhiMyD/9HmU5VY7553WLZn7bkMmIjfSD5wqs9xXKM8=;
- b=dGV7cJ8XnZO1lgN/vz4XLuw7ukPVth9LJhhOxutV1WrNQOS3BAng/6/QxPfgWY1GeXMd0aBYJjojV5VnlnxPdWDa8WQF2mRybfPVYYwT+VMe1XuLlitiwMF1Wlvt28BORarziHjqRLTMLi7+hH5i9AmTYxDySUPxDUyggK3nV0qUo9cbfHAT3sz54AXfhE53Dj9L7zYiy7F6aIcKiUYtAmCMcZ/jdrgmBuomdvQcO6y8/0wMAHUoI+p4NKnRzEfaoHOjNoX/cVrgTlzwVMN7MJeW43w3iy7ciLTPhuN7XN9ZQf2nAjCsInl00h7UkglEliOfQNlUXI0bdvnkFUQ1Aw==
+ bh=3li/OT7QBX0R9z3mFEQuF+kZHXOKC4jZrK2dBpVhs00=;
+ b=jXrPp12PBK2KLaMg3RLBkJPvxZE0B/Vv9bv3+8usbSGXTF1WaQvwzXsmatl3U0yZgyOutJI1lAAASPXs5Ariv+b51QBb9ZLpdWLFg1oI3jwA6RvMczOQURD/bVxoy2Wiw/jXpRVpDqzODPlGxglxC4nOnaxrd0PkKyUSifcQYn87Xkl2IjmyxXt91Mdh4FdnAT4FlPSCcLl1xvUA/4rZtMuXwWhLjcnv4wmMuCXJhkc3CE9K6vavYATBXXo9jIShXrJthowpJGVWCon7NnZ6NF57VmLT5BfgEUe+OqC2oW78TGOjp0iFHG5D/tyZzCP3GBKNsiewsACHLc9bM0hYlA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=windriver.com; dmarc=pass action=none
  header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
@@ -47,11 +45,11 @@ Received: from DS4PPFD667CEBB6.namprd11.prod.outlook.com
  (2603:10b6:f:fc02::53) by SJ2PR11MB8347.namprd11.prod.outlook.com
  (2603:10b6:a03:544::18) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.18; Thu, 5 Mar
- 2026 04:34:27 +0000
+ 2026 04:34:12 +0000
 Received: from DS4PPFD667CEBB6.namprd11.prod.outlook.com
  ([fe80::5f46:caa4:60d4:f669]) by DS4PPFD667CEBB6.namprd11.prod.outlook.com
  ([fe80::5f46:caa4:60d4:f669%2]) with mapi id 15.20.9654.022; Thu, 5 Mar 2026
- 04:34:27 +0000
+ 04:34:12 +0000
 From: Xiaolei Wang <xiaolei.wang@windriver.com>
 To: sakari.ailus@linux.intel.com, laurent.pinchart@ideasonboard.com,
         tarang.raval@siliconsignals.io, jacopo@jmondi.org, mchehab@kernel.org,
@@ -60,12 +58,10 @@ To: sakari.ailus@linux.intel.com, laurent.pinchart@ideasonboard.com,
         jai.luthra@ideasonboard.com, dave.stevenson@raspberrypi.com,
         Xiaolei.Wang@windriver.com
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v4 3/3] media: i2c: ov9282: switch to {enable,disable}_streams
-Date: Thu,  5 Mar 2026 12:33:50 +0800
-Message-ID: <20260305043350.2151936-4-xiaolei.wang@windriver.com>
+Subject: [PATCH v4 0/3] media: i2c: ov9282: Modernize driver with CCI and streams API
+Date: Thu,  5 Mar 2026 12:33:47 +0800
+Message-ID: <20260305043350.2151936-1-xiaolei.wang@windriver.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260305043350.2151936-1-xiaolei.wang@windriver.com>
-References: <20260305043350.2151936-1-xiaolei.wang@windriver.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: SG2PR02CA0032.apcprd02.prod.outlook.com
@@ -79,250 +75,130 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS4PPFD667CEBB6:EE_|SJ2PR11MB8347:EE_
-X-MS-Office365-Filtering-Correlation-Id: 028e721a-889d-4647-246f-08de7a707c07
+X-MS-Office365-Filtering-Correlation-Id: e0b038c0-7569-4645-4357-08de7a707355
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|7416014|52116014|376014|1800799024|366016|38350700014|921020;
 X-Microsoft-Antispam-Message-Info:
-	FBAjoES3UfT++zdhEdYz9Fhyn63apLY4N4K9PGtTMjOoZlIweOCn4oC9WKFfeX0a0lJDGHiW8Vs+uuryvXz1odmK3VjfGXZjHjUA9fz6t+65QxqRYZ+Cmu+ARypgvGZy+SGFUD8Pw5gx01le44Wk8GjPUtaiNyRX68EdAsOYFxUasEmPh8JiYsJVKx3+UVhSreLtvHXWhRSO+51Qokb/uBTB0vJO/OAHiEHO+QR39ZTlUf1Hhp2cKHjiA12wUc5Zr3oLz/6M3kMQBj3UYaTdm+T7gPLDBp6HNf2Lkw49iexSKaBg2vFvldn3QNx/U2lJPGqrE+lTOL07P1COFXWK+ARATN174MhGsy5/t0U/C1bq1RxjWcDke49hQQYc6TBK5HRM5m+9WBvWPaUh8PgPvX2/z+ec42ge6mPlUEh2VcozdjPF8VzFV5j6V6so6hi3kOFncY/g2aEanXmszCi1etQriHwfKdMJRmHD5wVUw9gjKAHgr6KdEZh5jFQKYgZKJrObxSukjv7ExVAeOdlMdEWicJz5voo3XSrOiMr1Hf1brvKLKCDy+56JOc0dfvw+8OydLTnphyZbj8CHsOTJ5N+12t5e3RQtwe4PXDvxshCezQNdwFNxCUBO16NG43nL8BjTwNVOVr0A/8459PJmutuiwIIVAkZelaLhLXSH/iqpkLMG5NnaQqM3Fzx+dcqHvwEghZuoyZkhdPUIGNUNQ7kPWNZCZ8VRUl+zpjHoVfSD8s1+BMCCAmyCOdNdMv6zn5PUGWeV7shSjDb7LCFudZKtoEh21DdIwKzKWtf4WxklQsJfSkcTUF18N8bWa0MX
+	JaqEtqlGqnBVbCi0Fo4eCof164T4tbUFs/Cdhd1FScwOJkw5IQP7sjSrg0zSDEiv9uRHaqZsEnvUVqqZWk28VaJz6W+8zoQytlJe2jCwBxXKeP34+zaxz9gmECY3B///9OERMbdvPIH0ViJ/n7tCabvvd2LD7+1LGaVet/wOwBX0Qb1diN/KD47h2tRK/I1zlL8gnU7N+Kmghk/qf8wTUC4OZ+dtr5rCkCB220N6RUUBddQDU569WJTLnreaTSiFMj+v8AEilmP9AvDhGkmiZcYCKPRlqs8UupCoZaF93IU0palKqhDkY1MYxok0kzB2gafQ26MLpAQkmV0iWgoqYmD7xUDlxoDtozwa0tu+txAmneBuvVW4ZzdvHQzK3jnij2vmaolZJyIErsJydrpUvpN1hbyrDl6peMa4zmP+AJiA9oc8R4//aPBmpvNnyTTPTS3hAwVSv3Lo7j7Y6AOD2Xh+owStOEJnT2s2yRu85xJlEKFOgw9pUshy8RbExF1uOZVCqI+aFqCEFy6QuFWrrYMWnZqIGdRH3OCaCHwyiZ1HeNZ06Km3BSXt2sD1VBdxGs9aCxlGBxYaHf58kPpki8sawYQSuUWPXwWettJhL4ganYvOTLPERN3IoL7pQQq3gZUAd1KksrfK6fUiGJrtMwDEy35hIOs3YAWpk1HqhfLXjcewnVfDsjBsCg2ckkZGmwnpHsa3IAUfQ8H2lEeexJ+VCTwPvpTtR9xUJFG0XGViQSTodn174Ao9xtAqSETe
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPFD667CEBB6.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(376014)(1800799024)(366016)(38350700014)(921020);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?QobkDWp0VGMamOacFblxvyUTBLtdPCuJCW1pfSfPLtijgEWV9PmJH1JAPR/G?=
- =?us-ascii?Q?cHh3/hr0cOqth4VKUiHiJVoKp+oOTKpPx+PXqN2RvLxkmJ8cLwATpiTuw1dc?=
- =?us-ascii?Q?l7FVQ1PGdbqB/k634E4/YB5s6MBRg3ry8/lQ4Xd67WVDusAw3xvahwhhys1r?=
- =?us-ascii?Q?CNlmEda+h6U3A2XtCRlXHWNBlAQUzaMGTHzrP1MEXPqA9Uei0y+dWfHy1d0B?=
- =?us-ascii?Q?Db6h3fm/8Do06sFxj+iplM9sFpKhunTMCZQIr5b64QJguny1KMAd2UujkFE2?=
- =?us-ascii?Q?N6EbqLGZZnfxQq7Zdtl5Xv1ibn7NmMHJK3Ffwdz40fREy4O8eKBvT0AZKvHf?=
- =?us-ascii?Q?v8irsHp8wnw7jpT+fVzZeieM7kL8Uy8sJu/GMR1PNIFHhawk5fgxZ12P7NQX?=
- =?us-ascii?Q?wrcJtz+yydSd6TfMH6IGv1OaCm/+exHMvjlq8ehbujDdkfHDnLtzBDGhkQqw?=
- =?us-ascii?Q?PP6aul2MEm7v4O8stlQOr2JkoGN4I8E1A24ZT9fk4ZhuzOWbpE1d0pLPUAYg?=
- =?us-ascii?Q?/PtBk48LRZzkKgfGe/v1/S8AF5kBSdDIwcRBGi4RBxvW9UPk8R0Bc2lQkHQZ?=
- =?us-ascii?Q?T4Fset1g02fE27a1m/D9ilnLwDz+LIFiGRzUffJGss5vEs36Mlns5Kg4x7TS?=
- =?us-ascii?Q?Hy+SGv/spz7pMX9sZIEr/UXIT3W1rNvFB+xHUow7RpBe8dCTKGzA/RTfNL59?=
- =?us-ascii?Q?mn0L717pQfCh8OHlKkxu0dy+vycn/KgYGqObi+/+1mhYfNYhkYqJa6G6XYMO?=
- =?us-ascii?Q?iZ1cvJOUCvtW1G+q197mYer9Vn57cbfhGOzWbEr+V62OusGwd4sOABn6Jd8w?=
- =?us-ascii?Q?/OyMnm/rmy8GLf0K78So5JJBr2wY8qAW+X7PmEMgxlGxJMvIK5AjNA6Gfjy/?=
- =?us-ascii?Q?5g2/u0dHHB9MQPXDtcvJX/ksrFtitl431OdBcT6y7XQcl8Wd1IXVphQwj1EC?=
- =?us-ascii?Q?Aqm732D3y53vgcMW3RWyevMU+8XbhKc2Z/Sa8KbRm+uDVlKUGf3tG1RkDE4V?=
- =?us-ascii?Q?yEbeoaqKQA3V79U31IIbIYGsmUjXepClwupzK9nnlfc66BvjM1TDsf3iCygc?=
- =?us-ascii?Q?hCINb4B8/kVbOhGSehIAPRJ3i7ZJy8eapLieKxHrOchEzlZAeS1qTGaTkmP0?=
- =?us-ascii?Q?q/9LQf33gjY07PpE74Kjxcm2tirhCP80tAdTLQDJ3g6GdY+25qoCS3vtV/TP?=
- =?us-ascii?Q?X4iF5FN49nushDcfycJNzIcvOs3mY65AEi8Jhwns5G0q0jOAJhErlBB0imBy?=
- =?us-ascii?Q?SNvgSzp3iNdni63YTF1DQehTsJUgksPSj61+W0kRXaDJf9JWnpcoSA+N2AWZ?=
- =?us-ascii?Q?CAvFTLeLIXwH8ldjzhtYNfoCYV5utVKGJRCaHPhzIe3dgysC0jYhBYJtxhZL?=
- =?us-ascii?Q?wdi/TPHmJjpOxFeGcMJygQ7X2dxRCYCfY8z6L7FpZANONKxFEG/0/kur6KAA?=
- =?us-ascii?Q?SGyOc3P1LqKFzohf3Ubd/1HJKZSMWMSs9jMjYCwH579rpFmjrWELAEQvE+eT?=
- =?us-ascii?Q?8DVhrN94CUXsQPxi45L9u8+q3ubKKGmt2ZINCQCkjjqsxrEHv3XL5BcyPMes?=
- =?us-ascii?Q?qzM5iNiIV9zLgQoHTyKFuTaoDXf/SV1lvk1fUXCFKGkmnZS2SYm3G9y6C52/?=
- =?us-ascii?Q?N082fwVzz9IIiLtrNPpfw0p0PNOjAg3m9DnwnrfsFY0IGBv8X6/1PoDimQBH?=
- =?us-ascii?Q?/CDzeMB73bLbbRBc0c04QX7YEgT1It1wiQPJgyHlGzK5d37KqL3/Gyc9b645?=
- =?us-ascii?Q?a93eFy/Z3NFMc45yZX6iCN0gPKrBzHY=3D?=
+	=?us-ascii?Q?SchT22bbGPYhjMFO6KkPNb39VQ01k2T13gtYrVF04DM5m5h1pZSAmErnJp7l?=
+ =?us-ascii?Q?Nrdku4qbblWYorEiCEacsd3XF3/qNS/DEI2IV4kDymEIv5VEner7EB93tq2e?=
+ =?us-ascii?Q?aohQSahmX509nqLu/OU6wAN2/Au2TGN3e/aStCrHcmdi6CKermR/3rp7l45N?=
+ =?us-ascii?Q?qwjgdoULfqTDnWIXHAoD3FVsuP9ZLDNz0nqeUxbhsqMoLiQvn1rwfamMv797?=
+ =?us-ascii?Q?Ajn4KUNK8hK8Mlfh2ghW6sA0Fn95Y+5nOjQyngqns+JJXN2U4H3JPEBavEkM?=
+ =?us-ascii?Q?iPyoBTC5Wbn26oZmSIjUdpNiw3CDiY2fflSMK72JyT8AALJeCGE2YbdXGy+y?=
+ =?us-ascii?Q?lWi+P1POf2IhnmFEG/7c1fdfQ/VGMZKbN50H8RsYs+5qXOOMLdRPVe+3Bvk/?=
+ =?us-ascii?Q?6k9+Rmt/6kSSR4DWH0ABRsLxKH7XelNfIowK1vTRQ6v4aNGO3geEfDcBQwtV?=
+ =?us-ascii?Q?L3Hiq8BSzMRgmy2/3twFn0QuF2pi04igFEX7BHva/JZYyFPSC/ifUw7uHoDu?=
+ =?us-ascii?Q?C4q2lDLPTI7T8CX9Rqh3IlznKX3ImYawZOElorpuJF3jWOEoJNioq4kpZKlQ?=
+ =?us-ascii?Q?3YIYSGzohOdfUNEzdokM+fJSIjoAP438BM/GSXnD12nsx3mf5+ABwyGLXxRi?=
+ =?us-ascii?Q?dll7zJDJyHQy6eBbmJ/ZZ9R07Rgjz+eXdLtx99A3wpP9GGrKakPSsfynfAnZ?=
+ =?us-ascii?Q?4m8U3zmLNilTIUS37lrx4cwc/zf4SvmyFHyg5WkXDHU0o7pURElCxZYnqJ8F?=
+ =?us-ascii?Q?h6BLKu2eMwnHuTAnzDQE0iTR5jmWDSzNnWvA305yMehRV28ekLvQUwFZziqf?=
+ =?us-ascii?Q?rFX24kPWPeHISaQz5qm4qhYekyh9F1r3IymgBG70yk+ccjbh5UXE/wqlnPQv?=
+ =?us-ascii?Q?pF57XWuWSYvPUCZUF5Zr5l938WXzC0Tp75yB8EI3iR4+UcqGNvMl/SResVCL?=
+ =?us-ascii?Q?9mpVdj3VE+MiZin2Pz1ImlNN1fdYmyU/CChFTGXG7gXWuRnwYuak0TBdriuU?=
+ =?us-ascii?Q?hZARolATtT/V+9U9IRyjWKrdU5JDdvGvOCXQ2/DYBjD1HaxvvIahRUc3znXO?=
+ =?us-ascii?Q?m0U8wVHioDtWUYbKkCXgGmMFJk3G6y3pSJP2ADHzA7wpSyJGOcOiY/v4L5nf?=
+ =?us-ascii?Q?4ATFecp4wGkm/QIPRqlxeh9TDmEOmrY9NVeYDEPIr/kDvmp1qlOF3JZPG9Gn?=
+ =?us-ascii?Q?5okXmbNoF+yNR2CvA43o+BREwXsE3vUkmKngrTm3GKDhl/V8emIxXQFhLjl3?=
+ =?us-ascii?Q?RL4jDM9mMZrufcNnPJzReeweqdCuxbzz2d80GUVpP84eBC5U3dl9ZrxryoR7?=
+ =?us-ascii?Q?EakqIt+xM8q6qg1niREm6jQQCf3Q+toH9F5QwXi9vlbEVDvxxe/HS4cJbAQA?=
+ =?us-ascii?Q?lKDNVPxyv20eXprvR9U8EwfmzzVpOU/KLgFm5F+UHxubnNRm+cdJHZjtNm/i?=
+ =?us-ascii?Q?KV7d+Trwj4O9qPWL78m5RLPX5yutYDEvzg0WmFf16VvpooiL45sgMkAK65Hg?=
+ =?us-ascii?Q?PFlkcx7bfUlzl1bsdvG8pC8vHZdC00uPv44w9qhekESmJ/AZSwNgpJBII7PL?=
+ =?us-ascii?Q?WGWo8QYYtVD/Qzi9sFDjCPgzJHVhSHkfwkT/6cjH37EQ/NnyPNk0/NmtwMcE?=
+ =?us-ascii?Q?NSGhmNZjMnydTVau0lnzwE5YHM5yjdRvJ091wfb0gEjdRG73DPyWwDjitSh9?=
+ =?us-ascii?Q?29pDjVRJDzMqClvII14cgMYIl1e2GJyrppJ/i+fFAYMLt+tsUdUPDsd2cdWK?=
+ =?us-ascii?Q?ns90YlJcVesKqctW6M07cJTPlKpdhvo=3D?=
 X-OriginatorOrg: windriver.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 028e721a-889d-4647-246f-08de7a707c07
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0b038c0-7569-4645-4357-08de7a707355
 X-MS-Exchange-CrossTenant-AuthSource: DS4PPFD667CEBB6.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2026 04:34:27.3812
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2026 04:34:12.5465
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GG0TT+TElR4qcDfz5nE1ieBLqTf1QMmS69JPUUjA/VrBSEV9sZIm17KbND88zMm9IPXGYOeDxBXEVa6YfD0fnjMLC8KA6rSGgR88b7t/PW0=
+X-MS-Exchange-CrossTenant-UserPrincipalName: BMWVYOLZZ4guSAx9JytRnADlx4p+Y7dR9/aC+ge2nCJ9S8tfg0a7s0gseKeNNNOp1Ux3/jPzUn7JF+aAVUyucKxcuhW8SdPq6yuzX7bOlPI=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR11MB8347
-X-Authority-Analysis: v=2.4 cv=LqWfC3dc c=1 sm=1 tr=0 ts=69a907d5 cx=c_pps
- a=8eopZEidgIdRxOfdJNpAuQ==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
+X-Proofpoint-ORIG-GUID: UayyoQ4BGajTnzA0zryddRfCVg6KzUxn
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA1MDAzMiBTYWx0ZWRfX4Yh4Nd2/JKX+
+ jnd1Fte06UD7VPa07mQ1Nwcd27roJ4YYBuzb5VZStpeyZK/8lXKvm0eaC5zmBFyKamHD02R6FIK
+ yUDh4mqKdp2qUJ/iP5iUSvDJlH6iv0mEaHnPoGKqALZ9pVKrw/3LoH56aYFyKnmxMSm4fFsGUlb
+ qhpIuINhuRBG1wIfHlnZCgNvhDC23TZW4Ns4ed3yLFTWlprTIylFrPxOk8pY5AqhwFiBT5NSGOM
+ /RJwOjnD5HiJFGmAddIz+4ZOELcsV2UOgBYo+QQ5wnKVZIXuhZ89Pkiw8adw7LXcJIJUDEXpGfu
+ g0x0aMwHNiF4r8H/MFNpFiAjnBycSZx7Va2ATKsAiWwITKNyDqAxJ3AATEPeHHqmdws4qGdTPhg
+ c23KLmnBa/o37LnosWEW0x/d2IJdUkfSxckg01DdgU8Wa+E9BU097wX5bhIDmxpr6o6LnBt7kVE
+ 6+0rGctlYPz/mJ19Tbw==
+X-Proofpoint-GUID: UayyoQ4BGajTnzA0zryddRfCVg6KzUxn
+X-Authority-Analysis: v=2.4 cv=Z/3h3XRA c=1 sm=1 tr=0 ts=69a907c7 cx=c_pps
+ a=7JMGdgN8pDCDbqlksaqmUg==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
  a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
  a=xqWC_Br6kY4A:10 a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=bi6dqmuHe4P4UrxVR6um:22 a=fTW__CHxibyLmBMfj2wP:22 a=t7CeM3EgAAAA:8
- a=-DGD1vg1X50fszjQOB8A:9 a=FdTzh2GWekK77mhwV6Dw:22
-X-Proofpoint-GUID: yf20hhmjoy9HOcCJG2KoWqw9AKHxLEMJ
-X-Proofpoint-ORIG-GUID: yf20hhmjoy9HOcCJG2KoWqw9AKHxLEMJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA1MDAzMiBTYWx0ZWRfXxssUSqt+P83t
- 5uWj0OdpcGAiJONEZVEH7RjxLGNo3j4MIPRtYONZSfMMJEHbX9r/iKaQW95EfCXxkkl5s20c1kF
- t+kfBeEigjiVcHyAYLVMX3iIWAvrxi5y3xe/TOebAX+zU0rD6naxNo7zKvClcrCzygDCSNFIObp
- +IKJEqkX/xDrY61mIkrZT3O+6ES71Mt5HHlJuJGlkEYpnFiTxnzzixajpY781muMLI5XA+uqs7p
- kC01AQRUiPxvQctZLK9GS/71PsEjDzz2eg/lH5V8tr13TzKGiA+oDDdVFhQbLoF3NsvNndEkHZC
- B/FemMX1US1rPkReTAVVWMBxQqrVmCu4Y9O2iMVpLIg5mFZY3yG3bfcqzqhdtBFB/i6zJPPZ3kH
- GZbUK481v1huBFx61m/cWbgJDhqUD7yDbh+2IaIwYDrivwwhrDtAJUVNu6iHz8VmFVEYh9CEVBC
- AeBZCdJya/hfzm57A/A==
+ a=bi6dqmuHe4P4UrxVR6um:22 a=HK-ge7EqtdluswH-FwHe:22 a=xq3W2uTSAAAA:8
+ a=t7CeM3EgAAAA:8 a=ekXEql0GMc9u5THJ3pMA:9 a=P5L7wpMTXyg1GfFA3Gwx:22
+ a=FdTzh2GWekK77mhwV6Dw:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-04_09,2026-03-04_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0 adultscore=0
- clxscore=1015 priorityscore=1501 phishscore=0 impostorscore=0 bulkscore=0
+ suspectscore=0 malwarescore=0 priorityscore=1501 adultscore=0 clxscore=1015
+ impostorscore=0 lowpriorityscore=0 spamscore=0 phishscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603050032
 
-Switch from s_stream to enable_streams and disable_streams callbacks.
+This series modernizes the ov9282 driver by:
 
-Signed-off-by: Xiaolei Wang <xiaolei.wang@windriver.com>
-Reviewed-by: Tarang Raval <tarang.raval@siliconsignals.io>
----
- drivers/media/i2c/ov9282.c | 79 ++++++++++++--------------------------
- 1 file changed, 25 insertions(+), 54 deletions(-)
+1. Converting to the common CCI (Camera Control Interface) register
+   access helpers, which simplifies the code by removing custom I2C
+   register access functions.
 
-diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-index 98e0a0732ef7..22bea5cd6d14 100644
---- a/drivers/media/i2c/ov9282.c
-+++ b/drivers/media/i2c/ov9282.c
-@@ -922,13 +922,9 @@ static int ov9282_get_selection(struct v4l2_subdev *sd,
- 	return -EINVAL;
- }
- 
--/**
-- * ov9282_start_streaming() - Start sensor stream
-- * @ov9282: pointer to ov9282 device
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
--static int ov9282_start_streaming(struct ov9282 *ov9282)
-+static int ov9282_enable_streams(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *state, u32 pad,
-+				 u64 streams_mask)
- {
- 	const struct cci_reg_sequence bitdepth_regs[2][2] = {
- 		{
-@@ -939,16 +935,21 @@ static int ov9282_start_streaming(struct ov9282 *ov9282)
- 			{OV9282_REG_ANA_CORE_2, OV9282_ANA_CORE2_RAW8},
- 		}
- 	};
-+	struct ov9282 *ov9282 = to_ov9282(sd);
- 	const struct ov9282_reg_list *reg_list;
- 	int bitdepth_index;
- 	int ret;
- 
-+	ret = pm_runtime_resume_and_get(ov9282->dev);
-+	if (ret)
-+		return ret;
-+
- 	/* Write common registers */
- 	ret = cci_multi_reg_write(ov9282->regmap, common_regs,
- 				  ARRAY_SIZE(common_regs), NULL);
- 	if (ret) {
- 		dev_err(ov9282->dev, "fail to write common registers");
--		return ret;
-+		goto err_pm_put;
- 	}
- 
- 	bitdepth_index = ov9282->code == MEDIA_BUS_FMT_Y10_1X10 ? 0 : 1;
-@@ -956,7 +957,7 @@ static int ov9282_start_streaming(struct ov9282 *ov9282)
- 				  bitdepth_regs[bitdepth_index], 2, NULL);
- 	if (ret) {
- 		dev_err(ov9282->dev, "fail to write bitdepth regs");
--		return ret;
-+		goto err_pm_put;
- 	}
- 
- 	/* Write sensor mode registers */
-@@ -965,14 +966,14 @@ static int ov9282_start_streaming(struct ov9282 *ov9282)
- 				  reg_list->num_of_regs, NULL);
- 	if (ret) {
- 		dev_err(ov9282->dev, "fail to write initial registers");
--		return ret;
-+		goto err_pm_put;
- 	}
- 
- 	/* Setup handler will write actual exposure and gain */
- 	ret =  __v4l2_ctrl_handler_setup(ov9282->sd.ctrl_handler);
- 	if (ret) {
- 		dev_err(ov9282->dev, "fail to setup handler");
--		return ret;
-+		goto err_pm_put;
- 	}
- 
- 	/* Start streaming */
-@@ -980,60 +981,28 @@ static int ov9282_start_streaming(struct ov9282 *ov9282)
- 			OV9282_MODE_STREAMING, NULL);
- 	if (ret) {
- 		dev_err(ov9282->dev, "fail to start streaming");
--		return ret;
-+		goto err_pm_put;
- 	}
- 
- 	return 0;
--}
- 
--/**
-- * ov9282_stop_streaming() - Stop sensor stream
-- * @ov9282: pointer to ov9282 device
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
--static int ov9282_stop_streaming(struct ov9282 *ov9282)
--{
--	return cci_write(ov9282->regmap, OV9282_REG_MODE_SELECT,
--			 OV9282_MODE_STANDBY, NULL);
-+err_pm_put:
-+	pm_runtime_put(ov9282->dev);
-+
-+	return ret;
- }
- 
--/**
-- * ov9282_set_stream() - Enable sensor streaming
-- * @sd: pointer to ov9282 subdevice
-- * @enable: set to enable sensor streaming
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
--static int ov9282_set_stream(struct v4l2_subdev *sd, int enable)
-+static int ov9282_disable_streams(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *state, u32 pad,
-+				  u64 streams_mask)
- {
- 	struct ov9282 *ov9282 = to_ov9282(sd);
--	struct v4l2_subdev_state *state;
- 	int ret;
- 
--	state = v4l2_subdev_lock_and_get_active_state(sd);
--
--	if (enable) {
--		ret = pm_runtime_resume_and_get(ov9282->dev);
--		if (ret)
--			goto error_unlock;
--
--		ret = ov9282_start_streaming(ov9282);
--		if (ret)
--			goto error_power_off;
--	} else {
--		ov9282_stop_streaming(ov9282);
--		pm_runtime_put(ov9282->dev);
--	}
--
--	v4l2_subdev_unlock_state(state);
--
--	return 0;
-+	ret = cci_write(ov9282->regmap, OV9282_REG_MODE_SELECT,
-+			OV9282_MODE_STANDBY, NULL);
- 
--error_power_off:
- 	pm_runtime_put(ov9282->dev);
--error_unlock:
--	v4l2_subdev_unlock_state(state);
- 
- 	return ret;
- }
-@@ -1165,7 +1134,7 @@ static const struct v4l2_subdev_core_ops ov9282_core_ops = {
- };
- 
- static const struct v4l2_subdev_video_ops ov9282_video_ops = {
--	.s_stream = ov9282_set_stream,
-+	.s_stream = v4l2_subdev_s_stream_helper,
- };
- 
- static const struct v4l2_subdev_pad_ops ov9282_pad_ops = {
-@@ -1174,6 +1143,8 @@ static const struct v4l2_subdev_pad_ops ov9282_pad_ops = {
- 	.get_fmt = ov9282_get_pad_format,
- 	.set_fmt = ov9282_set_pad_format,
- 	.get_selection = ov9282_get_selection,
-+	.enable_streams = ov9282_enable_streams,
-+	.disable_streams = ov9282_disable_streams,
- };
- 
- static const struct v4l2_subdev_ops ov9282_subdev_ops = {
+2. Switching to use the V4L2 sub-device state lock instead of a
+   private mutex, improving integration with the V4L2 framework.
+
+3. Migrating from the legacy s_stream callback to the modern
+   enable_streams/disable_streams callbacks, providing better support
+   for multiplexed streams.
+
+These changes reduce code complexity, improve maintainability, and
+align the driver with current V4L2 best practices.
+
+I verified each patch on the Raspberry Pi 5 platform.
+
+Changes in V4:
+  - patch 1: use cci_multi_reg_write() instead of regmap_multi_reg_write()
+  - Link to v3: https://patchwork.linuxtv.org/project/linux-media/cover/20260303104942.3111366-1-xiaolei.wang@windriver.com/
+
+Changes in V3:
+  - Patch 2:
+    * Remove unnecessary ret assignment in v4l2_subdev_init_finalize() error path
+    * Move pm_runtime_idle() call after v4l2_async_register_subdev_sensor() to avoid
+      potential double power-off in error handling path
+  - Link to v2: https://patchwork.linuxtv.org/project/linux-media/cover/20260301104809.3505257-1-xiaolei.wang@windriver.com/
+
+Changes in V2:
+  - Patch 1: Fixed group hold release error handling in
+    ov9282_update_exp_gain()
+  - Patch 2: Fixed runtime PM cleanup in probe error path
+  - Patch 3: Improved error handling with clearer err_pm_put: label
+  - Link to V1: https://patchwork.linuxtv.org/project/linux-media/cover/20260228083401.1007434-1-xiaolei.wang@windriver.com/
+
+
+Xiaolei Wang (3):
+  media: i2c: ov9282: Convert to CCI register access helpers
+  media: i2c: ov9282: Switch to using the sub-device state lock
+  media: i2c: ov9282: switch to {enable,disable}_streams
+
+ drivers/media/i2c/Kconfig  |   1 +
+ drivers/media/i2c/ov9282.c | 677 +++++++++++++------------------------
+ 2 files changed, 236 insertions(+), 442 deletions(-)
+
 -- 
 2.43.0
 
