@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6FA382360;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E883822B8;
 	Thu,  5 Mar 2026 10:39:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772707169; cv=none; b=oNeZ0lohIDIbs7BEw00X1W7updebMoB8ZAf+X8bSyW5iqQagaZanThvCDFTDUrS26R5/SFRCM0mVqSRFa3qqRjJXVSc76I3pXPI8RQPrTZPbKqeeL1KNGAK1vCJo8GUqwS5F8Mme4jImOb9GKlO6JN9AcaI+9PNTTtNCBB0JyXU=
+	t=1772707169; cv=none; b=uysH34/CNEzpDw5vDSYmclSIFuBfD7XOWfetw93SscB+JSj2VEhGfgaOl/4w6fRe0JQXwiarb8hpp3UBE3ngSGTQ3UD8qgF8IfFy5dr3j/W3PKV6b457Er+JjwAqU6HpFJ2EuAoG7JxrHGdUZUqgPbCcFYsV+DwKupEvONRoakI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1772707169; c=relaxed/simple;
-	bh=iHepo1Ohl1x8M46tJxVZJc4lcSZlaOA5mD8tdAIuhxg=;
+	bh=EeRpCxsAC/o0jMyKqonVxgwDWTMQxm9zIGP37W8BowQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZUdtU7pICdFPv2ONrRksNl85eKP1pVFFIJXDmDXVIas9+MGYJetrE2dSvoJyBqLnCVcEMY4jAZvkgLY3e58OraMqXIPXcxypn743AK+skyvpPLh3BndDnJIMTyILuUgXTUa9SiRf86xitRz8xuNjNFm1uAPuc1qLdVgLHngQ1z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eev+W6LC; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version; b=kW7J4XbKzadQzeIntOzk51PXFAyh1VGwm/BbJLNUOPfj+ARCRkcXYzP9cqAjJ+9MxoFDxP4rLKSPm1GjOHnrwSrKwKFDjc3hxXQvJIA9bMPsZjBgKB6oiEYRAzSUNYMOyo6th/z6MqMObK/HdjY0CmcsTi4W6WNJr0BhpyZaEYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i/hWoUk/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eev+W6LC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 277B9C2BCB0;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i/hWoUk/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06C1DC19422;
 	Thu,  5 Mar 2026 10:39:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1772707169;
-	bh=iHepo1Ohl1x8M46tJxVZJc4lcSZlaOA5mD8tdAIuhxg=;
+	bh=EeRpCxsAC/o0jMyKqonVxgwDWTMQxm9zIGP37W8BowQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=eev+W6LCV0uSfv785AaWz41fUjMC659NfvdWfoPBe0bRS3Wk7LMgYWFtzbXxF/NKQ
-	 NnQvHS6UzaeHO/Y23DhygnWucu+Ma77d+Dw4wHClJoeDacTbG1LuGBSdX82PDLdO5k
-	 Ja8khRSVE1Xf3vZ1s6qA3XVUFvyYVvBHx98JqQ7x+gmAR+fPWxDswCC4S6cKKPkaUd
-	 cKqzDwJjF8+Ug57vjNR+UwIjrno/EncT2/pDO0fa6b8/YoSfwjhPQ04lr+5YDaCWhP
-	 BT97eSRG81ZBy2k44mkcAFdjIFLeZu2i0m8cby0vDvizZEpm40oTlxQNBDM6k7GUmZ
-	 GYMr1UazoLlxA==
+	b=i/hWoUk/BUAeZY5cxfUm7C1IzlhcaXiyTMXVSi4WqWm0g/C8tI5gNU8SJg6pXli2E
+	 X+Js6IYxHwIjq8ITofICj9KX+bUjkLMeRn77oj6fcIBjdg/bK0EGTTrMf5wR07Ik+q
+	 SLRY6rA+o/VTY02cgET+MXN+zYoNrMsOEvAgioBYiE8Atp1uCfnZp4OPZUhE9VrYg9
+	 C8rHKgpJoB3k10BME1xicne/QuNv95O4CeO9GLcLhpf+XN7YllqOmAGOXWxUgScGfh
+	 MDbebEenKtT/5dIHt+bs11We9M2WnS7orN1+wkZdhH7Q/pckigXWTrqM+ziOuH2gQ1
+	 5yhBfxXSoOgLQ==
 Received: from johan by xi.lan with local (Exim 4.98.2)
 	(envelope-from <johan@kernel.org>)
-	id 1vy674-0000000043Q-3dGC;
+	id 1vy674-0000000043W-3lTs;
 	Thu, 05 Mar 2026 11:39:26 +0100
 From: Johan Hovold <johan@kernel.org>
 To: Sean Young <sean@mess.org>,
@@ -37,9 +37,9 @@ To: Sean Young <sean@mess.org>,
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Johan Hovold <johan@kernel.org>
-Subject: [PATCH 1/4] media: imon: drop redundant device references
-Date: Thu,  5 Mar 2026 11:39:16 +0100
-Message-ID: <20260305103919.15560-2-johan@kernel.org>
+Subject: [PATCH 4/4] media: usbtv: drop redundant device reference
+Date: Thu,  5 Mar 2026 11:39:19 +0100
+Message-ID: <20260305103919.15560-5-johan@kernel.org>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260305103919.15560-1-johan@kernel.org>
 References: <20260305103919.15560-1-johan@kernel.org>
@@ -56,91 +56,44 @@ device while the interface is bound to a driver and there is no need to
 take additional references unless the structures are needed after
 disconnect.
 
-Drop the redundant device references to reduce cargo culting, make it
-easier to spot drivers where extra references are needed, and reduce the
-risk of memory leaks when drivers fail to release them.
+Drop the redundant device reference to reduce cargo culting, make it
+easier to spot drivers where an extra reference is needed, and reduce
+the risk of memory leaks when drivers fail to release it.
 
 Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
- drivers/media/rc/imon.c | 13 +++----------
- 1 file changed, 3 insertions(+), 10 deletions(-)
+ drivers/media/usb/usbtv/usbtv-core.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/media/rc/imon.c b/drivers/media/rc/imon.c
-index 7e92161105d5..ecea0085d411 100644
---- a/drivers/media/rc/imon.c
-+++ b/drivers/media/rc/imon.c
-@@ -2250,7 +2250,7 @@ static struct imon_context *imon_init_intf0(struct usb_interface *intf,
- 	mutex_lock(&ictx->lock);
+diff --git a/drivers/media/usb/usbtv/usbtv-core.c b/drivers/media/usb/usbtv/usbtv-core.c
+index c4bfadbe63c9..6c4facf4f41a 100644
+--- a/drivers/media/usb/usbtv/usbtv-core.c
++++ b/drivers/media/usb/usbtv/usbtv-core.c
+@@ -91,7 +91,7 @@ static int usbtv_probe(struct usb_interface *intf,
+ 	if (usbtv == NULL)
+ 		return -ENOMEM;
+ 	usbtv->dev = dev;
+-	usbtv->udev = usb_get_dev(interface_to_usbdev(intf));
++	usbtv->udev = interface_to_usbdev(intf);
  
- 	ictx->dev = dev;
--	ictx->usbdev_intf0 = usb_get_dev(interface_to_usbdev(intf));
-+	ictx->usbdev_intf0 = interface_to_usbdev(intf);
- 	ictx->rx_urb_intf0 = rx_urb;
- 	ictx->tx_urb = tx_urb;
- 	ictx->rf_device = false;
-@@ -2308,7 +2308,6 @@ static struct imon_context *imon_init_intf0(struct usb_interface *intf,
- 	usb_kill_urb(ictx->rx_urb_intf0);
- urb_submit_failed:
- find_endpoint_failed:
--	usb_put_dev(ictx->usbdev_intf0);
- 	mutex_unlock(&ictx->lock);
- 	usb_free_urb(tx_urb);
- tx_urb_alloc_failed:
-@@ -2338,7 +2337,7 @@ static struct imon_context *imon_init_intf1(struct usb_interface *intf,
- 		timer_setup(&ictx->ttimer, imon_touch_display_timeout, 0);
- 	}
+ 	usbtv->iso_size = size;
  
--	ictx->usbdev_intf1 = usb_get_dev(interface_to_usbdev(intf));
-+	ictx->usbdev_intf1 = interface_to_usbdev(intf);
- 	ictx->rx_urb_intf1 = rx_urb;
+@@ -119,7 +119,6 @@ static int usbtv_probe(struct usb_interface *intf,
  
- 	ret = -ENODEV;
-@@ -2377,7 +2376,6 @@ static struct imon_context *imon_init_intf1(struct usb_interface *intf,
- 		input_unregister_device(ictx->touch);
- touch_setup_failed:
- find_endpoint_failed:
--	usb_put_dev(ictx->usbdev_intf1);
- 	ictx->usbdev_intf1 = NULL;
- 	mutex_unlock(&ictx->lock);
- 	usb_free_urb(rx_urb);
-@@ -2426,7 +2424,7 @@ static int imon_probe(struct usb_interface *interface,
- 	struct imon_context *ictx = NULL;
- 	u16 vendor, product;
- 
--	usbdev     = usb_get_dev(interface_to_usbdev(interface));
-+	usbdev     = interface_to_usbdev(interface);
- 	iface_desc = interface->cur_altsetting;
- 	ifnum      = iface_desc->desc.bInterfaceNumber;
- 	vendor     = le16_to_cpu(usbdev->descriptor.idVendor);
-@@ -2495,12 +2493,9 @@ static int imon_probe(struct usb_interface *interface,
- 		 vendor, product, ifnum,
- 		 usbdev->bus->busnum, usbdev->devnum);
- 
--	usb_put_dev(usbdev);
--
- 	return 0;
- 
- fail:
--	usb_put_dev(usbdev);
- 	dev_err(dev, "unable to register, err %d\n", ret);
+ usbtv_video_fail:
+ 	usb_set_intfdata(intf, NULL);
+-	usb_put_dev(usbtv->udev);
+ 	kfree(usbtv);
  
  	return ret;
-@@ -2550,7 +2545,6 @@ static void imon_disconnect(struct usb_interface *interface)
- 			else if (ictx->display_type == IMON_DISPLAY_TYPE_VFD)
- 				usb_deregister_dev(interface, &imon_vfd_class);
- 		}
--		usb_put_dev(ictx->usbdev_intf0);
- 	} else {
- 		ictx->dev_present_intf1 = false;
- 		usb_kill_urb(ictx->rx_urb_intf1);
-@@ -2558,7 +2552,6 @@ static void imon_disconnect(struct usb_interface *interface)
- 			timer_delete_sync(&ictx->ttimer);
- 			input_unregister_device(ictx->touch);
- 		}
--		usb_put_dev(ictx->usbdev_intf1);
- 	}
+@@ -137,7 +136,6 @@ static void usbtv_disconnect(struct usb_interface *intf)
+ 	usbtv_audio_free(usbtv);
+ 	usbtv_video_free(usbtv);
  
- 	if (refcount_dec_and_test(&ictx->users))
+-	usb_put_dev(usbtv->udev);
+ 	usbtv->udev = NULL;
+ 
+ 	/* the usbtv structure will be deallocated when v4l2 will be
 -- 
 2.52.0
 
