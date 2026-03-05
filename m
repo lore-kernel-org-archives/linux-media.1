@@ -1,198 +1,184 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011070.outbound.protection.outlook.com [40.107.130.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD7337CD40;
-	Thu,  5 Mar 2026 10:02:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8997033F374
+	for <linux-media@vger.kernel.org>; Thu,  5 Mar 2026 10:13:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772704954; cv=fail; b=Ieiw2r5b2WfzkXJFZm1vP4U/cW0D0j20vqy/nSDw+nnLNgig6y1vEAfaUcjqnJ6/HKBVJqzOn3Bnu651NUSxMhboRSNaXDdO/BEGpitaxqS1mDIZMXWZ7E93YlDieQK6CTrokLAXzZ8rjP/QG+CYYQmj9h9uK8DNqMFSj66srD0=
+	t=1772705625; cv=pass; b=lAM0SgIA41i5NGTnv2b2vxthw5+LyY/u/Gnubya/Wjxi3vbtI4FQevRk7+STddZoXmNmCKOdMSsYqdKOIQZtSGsjc87gnhUsJOqm2xRF+JQVI2bEndhqb0qyGYUaoAS4VkOMv0eVESWKJOmdeTHODlQD+TSFYhtrzhzXonyesnQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772704954; c=relaxed/simple;
-	bh=MDBsyEtM8OlONxnNmxyHJU6z1qFmcveHZflsGaGUvbI=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=V2tKZLW+zw5AFHNghP4FivxeFqyf5XvVa0tQAoICZ3g46GgTJnqxlGGqi2JDsunbw6cMAHBZ9KZfAmQZRPt5KadgsxDVaMn56uPwmHjmVjsAY5VBusaHJuROqjSc/lTk9STgekGm1KjaMImIboHpEhPyL0BVARAUbU+Hk+D+Roc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=GYU207FK; arc=fail smtp.client-ip=40.107.130.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1772705625; c=relaxed/simple;
+	bh=GFDwCGFB/AQTCAHU5tMsZ7q+/z20+AbsOn7k0Q64tAU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DvRT0fOV6NHE76FhMcwMToI60tz5EFGbAUFQCxmXw57iHjSSBaKNDF7TSLVo6f79evk68DEY1LapaXT72IbNkMKXcAa71F17qxiN67Se4Ejm0+CqC9wgo6Pk4xAP/Uaqw8eNGw8Oj3QKV8d0htKi6JePwQXSUl5pQ2V6q8BhY3I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q3NL0/aX; arc=pass smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="GYU207FK"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OgUi76d4zCuBOSCX4cZQVawoMFuoUWhSsDk3iLuGUunlMaYIr4ENIXFCXH+jjyQgHeQoInGYPj9RodOMI25vqvIBvLCQXxGOLPkDFyWOt260xIYJtuu28jQdoHIVsKjv9IW2xCbJVFZ9vaeKYp1c2gFO8eRrg7tya9uNzcxhH5Kbar8Rml8mcZXIUxkny9xXjnySy+ftS9y+x8q6uk2eJit1pJ75kud4zxmwwoVb6OId3cAFtEzw7gACB1RWPQ8eA+EJSbSDejfOOmPKq7pTBlVM3YxPPmTM+fnSqLHWUqF3/jm2MhZsXj5LMOWrNkZD+ISgoPYnUb3U4eS1fuqL3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xhLI8nUAaEAPVC5o5dn95EO8aPRidblJeZgYVfyjJEk=;
- b=gEh0zUJJ/dy1mP7Btol0xpkfR2n7+Cdvw1fcnVdVXtN+9C2YOWOw4Vphi6btj3T8VVLe1HR1FWpZtMGbVjGsjrJ6GwwBgWd0ZJnttgBbnk9XZWgXQF6k59bHBW6qGaUcyP40bKUJGKjAp/8uyJk7JGmBEtpj20ip0fmm41j62jKRSjH53M4cI3AKfgs6gg1uVcoabNmhmpkdJZCDLNAKLrrki76TyAEMr7RM0fDlMeTuFX7BnER92w0Dofs9WWITfOxZwwcQm/kc5ZWsgsqxvHw4oXUdV+AuVrBh9QARGN5SPbRX2sImGHiBPqaYBTyGeFz3SG9o0JqlpxK4spCahA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xhLI8nUAaEAPVC5o5dn95EO8aPRidblJeZgYVfyjJEk=;
- b=GYU207FKrZhSBTGDmOhpn0Kd4I8dqiEIPDabxMb4emjgpNytTV3p5xwRqWZDK60P9V3ppA6vv90QOM3v+dmMGMFMOQQ3dqRhSEZwEDhRMHDAd74VkYNjfqYCU/pl6CaxihagOFsxBbCRqlu00ULjB2nxIdSzUUxd0aa+hGjSo9EePkWew5K0sO/lAihJGePoEJwV6zu1TWmuKZvcezi3UFt6bbFUOikGn8itTIgGLZvz0pblb8uDRNTSu47SR0tT5nG1q31AOmyVr2C55IxOJJDMrn3i4g8olUloKN+YDJ3RAh11cAhHrEaPjysbX6DrCNJsT9USPoF+q+ZL4gPRRw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB8254.eurprd04.prod.outlook.com (2603:10a6:102:1cd::24)
- by AS8PR04MB9128.eurprd04.prod.outlook.com (2603:10a6:20b:44b::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.18; Thu, 5 Mar
- 2026 10:02:28 +0000
-Received: from PAXPR04MB8254.eurprd04.prod.outlook.com
- ([fe80::20db:4017:28ea:911b]) by PAXPR04MB8254.eurprd04.prod.outlook.com
- ([fe80::20db:4017:28ea:911b%4]) with mapi id 15.20.9678.017; Thu, 5 Mar 2026
- 10:02:28 +0000
-From: ming.qian@oss.nxp.com
-To: linux-media@vger.kernel.org
-Cc: mchehab@kernel.org,
-	hverkuil-cisco@xs4all.nl,
-	nicolas@ndufresne.ca,
-	benjamin.gaignard@collabora.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	p.zabel@pengutronix.de,
-	sebastian.fricke@collabora.com,
-	shawnguo@kernel.org,
-	ulf.hansson@linaro.org,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	m.felsch@pengutronix.de,
-	fra.schnyder@gmail.com,
-	linux-imx@nxp.com,
-	l.stach@pengutronix.de,
-	Frank.li@nxp.com,
-	peng.fan@nxp.com,
-	eagle.zhou@nxp.com,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v2] media: verisilicon: Fix kernel panic due to __initconst misuse
-Date: Thu,  5 Mar 2026 18:01:48 +0800
-Message-ID: <20260305100149.722-1-ming.qian@oss.nxp.com>
-X-Mailer: git-send-email 2.48.1.windows.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA5P287CA0015.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:179::15) To PAXPR04MB8254.eurprd04.prod.outlook.com
- (2603:10a6:102:1cd::24)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q3NL0/aX"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-439b8a3f2bcso3384480f8f.3
+        for <linux-media@vger.kernel.org>; Thu, 05 Mar 2026 02:13:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772705623; cv=none;
+        d=google.com; s=arc-20240605;
+        b=hH6Ac/KmT8GrEKZjaiU4ibB/fF0NzRDe4oKllqqRTf1EoMz0skDXpY93G3MU9jmRfA
+         LixZe0HSqq3fOg95uGYESfzc2+AYCwVcRwcpsLd2M0NBBmvKyteb19ZB/bD3McIYip6G
+         9MlarJIoUzR+W/b0duCfqphhEYUeU/QZ3I4asRXqmWn/YUrjEnpgqRsmBT8T7+exljbB
+         AQZT9/Xb09Xtyp5gX/K+lWkS9J/n6pLy5LxNZ5iggUE6ndLNqZj2pPyhW80ewkYGvF43
+         snXL2150fzMebUh5FDl80CHt9HV5gu+fNQ6+AZKVHZYJKEyZiiVgHBDZiTs0hL5zw+rU
+         LI8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rh3t36422Qx271p1OO0jFz9CqKGbapAyF7HmVo5B8yg=;
+        fh=IwY0Piq5gKfcR4lNg3t3299glIIXLdhDx4p3mNgVwYI=;
+        b=FTItiGckp8kkYWY0zRYyZMShY+13rLBKR38F4LmdM7tepmkS9Ev6NFYM8VW/oXWv4J
+         oaHAo8/5J6UMUQ9IyRLTxcyq0ZVuupC2ZB/nNw8yi3/ftnc/6WLBPBcboUDZpfsFx63C
+         Zz0V9sEfKylMjptLZzLXv3iuYdtNFOmP0BTRGCBOcaPPdkCtAzHBfUecI2ZOPOwFe7yN
+         4fq1HvOpuIHY4YQje2BUozxyhP/Htr6F5mEIbT0AiatvzMqqHIQspVXY7nXBZOjMZjy7
+         XwxYOgJGVxTOktrxqdV2621EIFB1lrU88a7NYXJahLyEsOlmJ58sm2IvPiWQskX+Cw/Y
+         AMtw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1772705623; x=1773310423; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rh3t36422Qx271p1OO0jFz9CqKGbapAyF7HmVo5B8yg=;
+        b=Q3NL0/aXAvHFVCIz1Ydn/kKZ4qsg+3H6AGq4vuJtmKPzsjHxlKvyW6l40BtnBTluZl
+         hzhbPvy73RJoEbenPH2LF/pk/9XpX1pfw+pRMaFSpsjwKSgQXTLBdPAw4hExcNEaFz2H
+         wFSKvbMgj59fd9InBOrnGmjawmrMMInmc9EfRrAb61g8kmZXN3Wk1zL9YupA6H1j/vmb
+         CI61UvFTkmo6EbWoDmO1z0q8KRXpZJC9sZw+mtAK8thK7n3QyFehiVT2eTnMJXd4KQVy
+         vWGHu3+CJce1+awcW5YbNpb7TtzuqW7qKeGmWzKxUWJ39NtoOHBwg9w6itWEYRlTdegB
+         LAWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772705623; x=1773310423;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=rh3t36422Qx271p1OO0jFz9CqKGbapAyF7HmVo5B8yg=;
+        b=DcnF4K1vxMx1RhJujUY8W4uamVjq7yLJ2kvh9RT2qBwN5iRx8QgkbeueocUjRNyPDf
+         1Vwn+3zrn29MnzLkTK1SwGOSN279973MnS5Iq7rwZkdFxPoovm4LgftjmBwmpG8PL/yD
+         NUPN0efETbtscAFKv19jJlCrxUOrQZQ5iVwuze1YkF6orpBrLhPMsWBaQfyRsGHA4R27
+         TIJVOEp4oERhR7UUoJvMTrP42FUoyxwPHBbxutyH0Gbu7/Z+m06xhOsfMJqKyyJn0TGX
+         yhBh4infAHrNvY0FuQKFNA0uKgCE2j5z37u0IKg7Hn4qHB5qaCp+ist3QEAYqQEYM8Fr
+         Avhw==
+X-Forwarded-Encrypted: i=1; AJvYcCVtiVK82IcwxoQtEQDNyo/uJjngHTEvPlPfyQWKp60/R+b+qlb1U/Bv5/YJTnSkG0cxc1OpnxgZm5CV4A==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz69xg8LfVhzGrXd69xxSstKyvrJq4JTusoFdoTaub0RgT1pmMH
+	v4Ytyioqn1693+CMxCWVHsPYK/3k4purwpfpSu4ToMkt9GO+o5SuBUV8umwr0LnPmp5uqiPcS+N
+	QNwkBGJ2LQ4WZU2S4VqQvDPQM4/P2VE4=
+X-Gm-Gg: ATEYQzxL9mXY8y0bRvYLEZh1vUFM0CcNuVzZbGSZlf0hR64TPCnmD3iR8aBqp+Ay97E
+	qbiFMmqqSTjz6i/xDdzuYydUKMxnMj1/em7o/Ho6qdVoQ4SbUDN1AfGYvR0AnRg8X9JVB9rmuuE
+	nC2G0VCCdpfvfgL14b2WQ0/lNnCqpdbvIMkAVPTPRH1n1XYrl95PQBXvHWa43hX8996CR4Xqd8r
+	SaoSfblbFhLMLBIeDdmdQTD0opEXSZBmnuzT+XjqGGgJSCcD9v/VB5SHy/eRceaaqK/wXGN7X52
+	BGuFcR7A
+X-Received: by 2002:a05:6000:2c10:b0:439:bce5:6518 with SMTP id
+ ffacd0b85a97d-439c7fa448bmr9643738f8f.22.1772705622716; Thu, 05 Mar 2026
+ 02:13:42 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB8254:EE_|AS8PR04MB9128:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3efc4fb-7e00-442c-d8a0-08de7a9e4eaa
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|19092799006|7416014|52116014|376014|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	8uuzn7jfqaoiBZn2InAnGq/UKEvCvPF+hlNyQsD8p/WRZTvpqJUaH+dQoo7ds+3ebYjoz4xDWZkKOiaQteMS/ZFt3uDSkto2GKe9D5UH2BPm920450iacQSenCWw6MSCq11+1r9+OhEmYKtHCphwctFdoyX2tKmjBNH6aLnlIh6gTqVt21EEpEsmBuTykbLxbQ+fSaZoPhikLg8LZWKlcbJt2oG0ZNt5Syv9Hq0vpbhwS5hPPnAMmoVGtjbpnb7ET4XTCl2p+/RJ1+ug6qqQP4Hw7on8dMn2KIdBImCKNh3gkjF6IymRmCVgNXxRwW/nNMrLkwMZPAcRU2zgxU9iwcoKLRZ3qwi5EMr1g4nrjedy5HVOtoh3YmS60R5MeOeTIIE9EoWU8miUmzRDMkvg4ATkbvfSsJm11QUS+XnOs2cFjTtDkRnZdRhv4Q11DXS3vFOgnRy9hWD/v5FmNCKLKC6EN0vBQCOxG9v6dOUzk9V36HwGIouZmJ8XmKRlR+Ex0iUW/IDAnN9a+4SypYDXlQzx9cAIv4g/pMGy8h5ScaqMb1RSitY8obOdG++N5OhazCLEAeRKcjl57PImMvQQi3qdxAmMd8xKGil0Ov4HsvseLBaGh962o5HKlRyKuLgsJ2QaXEHii0waZXPN91Ca95s4/z5FGx2f9Xn9WQzf+0i7HwIMDTqSzM1XwXaaLDS0pKGNl0b1p1iNrAWahxuDONkgccP6FY+oUq990/bSyWh+iZkDYFgoOQ/6PI3ZCY7rGbW+XT6g9rskubGHsIpPEu8CTavS0XVJIszsE3kthM8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB8254.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(7416014)(52116014)(376014)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?U+QVKa+j8T5XLIKEBOjO1c+sYSLRaNZThXsxG8j6XsCYeFKCB4iFroiwZbUT?=
- =?us-ascii?Q?CjSKqtbia+VjzXWLRitQOK3+79dboQpxhPE+wuJgGJ68WcwOy93LzXZCw3jM?=
- =?us-ascii?Q?T6TTHNwCuAOyCIwIAdaEjdhdNRPe/VBnimJtjlvqFz8OoilFTZ0Va1u9JB/o?=
- =?us-ascii?Q?gi1Sjd2m1nWkG4H36eN7ATnRaXeDGWWVBBFqjZruftIK0vB2waIfzWF40aA+?=
- =?us-ascii?Q?BXA0mvOkhmWogjwZGrWXfYagDVSOR0ff3wx6Qj73K4806XrHatuRsgS1qOgB?=
- =?us-ascii?Q?fCHAGpUR4e/UOfWLArHkuSLqYCAyCe9erT5rDfXAwCqWSGmB3YO5p7z4vb5W?=
- =?us-ascii?Q?ZXvUSjaFvh+7mQxou9B6o4NTD95W/BgSwGMeNN+rcodAdcel1rw1pGuElL9I?=
- =?us-ascii?Q?vIq2UVDGY9+xkSHQHsTq7LcfkRy9+XeeRg+3EFZQSJWU+VRxb2X5wAmnfG50?=
- =?us-ascii?Q?Hcw3lhQvtkUFmluEeXMUkO5bFvpuJcj+aLdCBocdb2aI9nerakck+tj3svwg?=
- =?us-ascii?Q?TEJocCTf72qmSGxFXYYwWut5RmOaZUksCcqpQ9J35CaNYU3P5Eoxny35jWBq?=
- =?us-ascii?Q?xKnPqaBDZGquIquUMiha7Xpn7pp8B0p4hQ3k49oChqgPQPyteJYUUnOJY01u?=
- =?us-ascii?Q?T/Ob18JHbqxpl3L2DcJ4EPo3gyuRg9PQ/p9pkBDxBuAZ118KJP3Ph5toNPzg?=
- =?us-ascii?Q?ebLqnJLyhokQ+P60F2MheTdTfLrRZ9x88ml9wcuswBRoAp/FZgMuylPKV7k+?=
- =?us-ascii?Q?LKZdaUyrim2cJDg+s56QLToNrz9ARg0yfjAQu5uDBGrAxygTiqYnsjSlo5lx?=
- =?us-ascii?Q?v6GyDuohOcNXQYf+fTI1//O+1MK1r4g17UX46QuwECJWxOTwvc4KDFYMKSJJ?=
- =?us-ascii?Q?Comlr1UVhsK6HajS4mzTLjO5ctRF+HqYd8qtiFmxIl4Iz1m4FSVWZKCjI7du?=
- =?us-ascii?Q?G/kjnIacoDbrhOLL8sQKCrKldKDW89VZSKS1qhTjUNEIu7JV4GBHfyDeAGri?=
- =?us-ascii?Q?MOVGyIQiDDRAOrwq18U+No2ic4uEaLvPl8ScRXFeipg76N3RlxGDNUs5LbVj?=
- =?us-ascii?Q?dLvxkNXOU5R0odfJ4QS22pTTSKXt3+0Ds8q3D6ESaoUspAKs3GwC+wnxa4JR?=
- =?us-ascii?Q?99EHyCqTCIvO5grixrqmqUtJaHKrasHAgrVBxB4zvb2bvt4B64pYTVdD22dk?=
- =?us-ascii?Q?f6jToxHFyZSHtCVHxUOn6Qyty/B1KekyNmLTS5B6aMrp5l33Kvgul12hliQB?=
- =?us-ascii?Q?/ZZBnhiAZGWO3Cil7GJxSaVHP8BIEQ7JEDuHXeTyayjq7QBnzgTdoHigti0w?=
- =?us-ascii?Q?Yjo8fPfKivDFmBWv/7UiuAu2LWJklbhT76s+ENfWH6gKTvwNHKRDLwPWkdCK?=
- =?us-ascii?Q?TAhsGJ7iSBNtP6XEbQLoy713W5hBvlL8FgCInqER0Z2zByZfXPh7IxzXCSXK?=
- =?us-ascii?Q?xDucB3EFrqjOO5rDX8TrDBdh8qLR7HD+0J3MwWma5N2+GfN5mcf4miI2gncT?=
- =?us-ascii?Q?KDE2vO+VXiPqkYgF+64QFm2FYdL8oIGlv80rZ6UXn4TCf4Ommj/w+6voPMK7?=
- =?us-ascii?Q?+MakKJANNkEUGlwOZWPXXDpt6Q6tiNAofqt/7x1knW1yiEqoj8H4SlHuwa0e?=
- =?us-ascii?Q?pac86EhhY4OdTw8c4d5W0va54Rd86HOU2DCmxh8I4jLjHwgBT94fxWD3Ka2D?=
- =?us-ascii?Q?r29xDq3aRJ19wkijqON0WXdtqIYFtm0tCXlne3e6UmKK8Wlt0YRYU7EXj21o?=
- =?us-ascii?Q?aLWYDNvG+g=3D=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3efc4fb-7e00-442c-d8a0-08de7a9e4eaa
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8254.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2026 10:02:28.0097
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NPMQCLI+E1Q5SMGH0+2vJlwoDMIQ3XPb/vmmCQL4WJnBOfvuvZjBhIwkYL1Y1sYXk1gu5qOuVFl4hvY663OPHQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9128
+References: <20260304185001.82988-1-clamor95@gmail.com> <20260304185001.82988-3-clamor95@gmail.com>
+ <aainoYv6RXkXFcHv@kekkonen.localdomain> <CAPVz0n2e3HCJRo0_Q5zbYp4w_-=ZCypoaw9vaN0NTfFr7qgorw@mail.gmail.com>
+ <aalUTnqTFAWR6nPo@kekkonen.localdomain>
+In-Reply-To: <aalUTnqTFAWR6nPo@kekkonen.localdomain>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Thu, 5 Mar 2026 12:13:31 +0200
+X-Gm-Features: AaiRm52wOY-IpQJuqUqpdfH3xEKrQOQebVgAQeqDUY7MYKuR7sv5CHygFlx1XeE
+Message-ID: <CAPVz0n1a6MKYV8F5j2moP7Ym8K=e-r0ka58qarfMrXif=+kbXQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] media: i2c: mt9m114: add support for Aptina MI1040
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Ming Qian <ming.qian@oss.nxp.com>
+=D1=87=D1=82, 5 =D0=B1=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 12:00 Sakar=
+i Ailus <sakari.ailus@linux.intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Hi Svyatoslav,
+>
+> On Thu, Mar 05, 2026 at 10:36:25AM +0200, Svyatoslav Ryhel wrote:
+> > =D1=81=D1=80, 4 =D0=B1=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 23:43 S=
+akari Ailus <sakari.ailus@linux.intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > Hi Svyatoslav,
+> > >
+> > > One more thing...
+> > >
+> > > On Wed, Mar 04, 2026 at 08:50:01PM +0200, Svyatoslav Ryhel wrote:
+> > > > @@ -2646,9 +2658,18 @@ static void mt9m114_remove(struct i2c_client=
+ *client)
+> > > >       pm_runtime_set_suspended(dev);
+> > > >  }
+> > > >
+> > > > +static const struct mt9m114_model_info mt9m114_models_default =3D =
+{
+> > > > +     .state_standby_polling =3D true,
+> > > > +};
+> > > > +
+> > > > +static const struct mt9m114_model_info mt9m114_models_aptina =3D {
+> > > > +     .state_standby_polling =3D false,
+> > > > +};
+> > > > +
+> > > >  static const struct of_device_id mt9m114_of_ids[] =3D {
+> > > > -     { .compatible =3D "onnn,mt9m114" },
+> > > > -     { /* sentinel */ },
+> > > > +     { .compatible =3D "onnn,mt9m114", .data =3D &mt9m114_models_d=
+efault },
+> > > > +     { .compatible =3D "aptina,mi1040", .data =3D &mt9m114_models_=
+aptina },
+> > > > +     { /* sentinel */ }
+> > >
+> > > The driver also supports ACPI. mt9m114_models_default needs to be add=
+ed to
+> > > the ACPI data, too; otherwise ACPI support breaks.
+> > >
+> >
+> > So turn into
+> >
+> > static const struct acpi_device_id mt9m114_acpi_ids[] =3D {
+> >     { "INT33F0" },
+> >     { /* sentinel */ },
+> > };
+> >
+> > into
+> >
+> > static const struct acpi_device_id mt9m114_acpi_ids[] =3D {
+> >     { "INT33F0", (kernel_ulong_t)&mt9m114_models_default },
+> >     { /* sentinel */ }
+> > };
+>
+> Looks good to me.
+>
+> >
+> > I want to be as specific as possible to avoid any misunderstandings.
+> > Additionally, please ensure these are all the required changes to
+> > avoid unwanted reiterations, as I may not be as familiar with the
+> > media framework as you are. Thank you!
+>
+> That's what I noticed after going through this once more.
+>
+> Review won't make patches perfect (mostly) but the more issues can be fou=
+nd
+> during review, the better.
+>
 
-Fix a kernel panic when probing the driver as a module:
+Yes, but the more iterations pass, more issues may occur due to
+mechanical typos or unintentional misbehaviors.
 
-  Unable to handle kernel paging request at virtual address
-  ffffd9c18eb05000
-  of_find_matching_node_and_match+0x5c/0x1a0
-  hantro_probe+0x2f4/0x7d0 [hantro_vpu]
-
-The imx8mq_vpu_shared_resources array is referenced by variant
-structures through their shared_devices field. When built as a
-module, __initconst causes this data to be freed after module
-init, but it's later accessed during probe, causing a page fault.
-
-The imx8mq_vpu_shared_resources is referenced from non-init code,
-so keeping __initconst or __initconst_or_module here is wrong.
-
-Drop the __initconst annotation and let it live in the normal .rodata
-section.
-
-Fixes: e0203ddf9af7 ("media: verisilicon: Avoid G2 bus error while decoding H.264 and HEVC")
-Reported-by: Franz Schnyder <franz.schnyder@toradex.com>
-Closes: https://lore.kernel.org/all/n3qmcb62tepxltoskpf7ws6yiirc2so62ia23b42rj3wlmpl67@rvkbuirx7kkp/
-Suggested-by: Marco Felsch <m.felsch@pengutronix.de>
-Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
----
-v2
-- Remove __initconst
-- Add missing Reported-by tag
-- Add missing Suggested-by tag
-- Remove comments of sentinel to pass checkpatch.pl
-
- drivers/media/platform/verisilicon/imx8m_vpu_hw.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/platform/verisilicon/imx8m_vpu_hw.c b/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
-index 6f8e43b7f157..6fbe3c581032 100644
---- a/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
-+++ b/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
-@@ -343,10 +343,10 @@ const struct hantro_variant imx8mq_vpu_variant = {
- 	.num_regs = ARRAY_SIZE(imx8mq_reg_names)
- };
- 
--static const struct of_device_id imx8mq_vpu_shared_resources[] __initconst = {
-+static const struct of_device_id imx8mq_vpu_shared_resources[] = {
- 	{ .compatible = "nxp,imx8mq-vpu-g1", },
- 	{ .compatible = "nxp,imx8mq-vpu-g2", },
--	{ /* sentinel */ }
-+	{}
- };
- 
- const struct hantro_variant imx8mq_vpu_g1_variant = {
--- 
-2.52.0
-
+> >
+> > > >  };
+> > > >  MODULE_DEVICE_TABLE(of, mt9m114_of_ids);
+> > > >
+> > >
+>
+> --
+> Kind regards,
+>
+> Sakari Ailus
