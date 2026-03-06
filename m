@@ -1,89 +1,89 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719EA3ECBE3
-	for <linux-media@vger.kernel.org>; Fri,  6 Mar 2026 16:00:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8FF136C0D6
+	for <linux-media@vger.kernel.org>; Fri,  6 Mar 2026 16:00:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772812819; cv=none; b=LDnRyap9C15Ex2ei+hjKrXYrLBjiuU1u7dyvln8EUy0khds8Eofjiyxcm0+6I0ZnOkAeiLwX6Wg4pYS8bVbAwHS990yYuxaBud58tdGJ5UXmq8O+eMwiy8Q5GbdCtIl3bZgP8nhqkHSQRb+sTQQKQPgDIyfDoSveAzyJQwxAyBI=
+	t=1772812830; cv=none; b=U6eenkGkl86wtSgmAGmmqidD6MczNbcvCS2iHgteuLtnNkv5QjtwKkbqwg/HVfOKB7pAF61HAtFvaNOzTxBPhzH0LIbE0N/EsOjqAPGfphJsvCiKJBVlbqCixB5KeT6R1+zT3kEbV5d/HKy2jA5io9+b2Gu7vfSxQm6jqihVfUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772812819; c=relaxed/simple;
-	bh=if4eaLzLPgPSjLbsM4bnpYncKYVm83evR7YeMoNXPFg=;
+	s=arc-20240116; t=1772812830; c=relaxed/simple;
+	bh=qHw42QzdkbYlWdlV8BZtDYHC/YbceO2kwTKx/pPDr2w=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=W4EhKYfhXagriWK/jaDWFcyQhJxv7LaJX2lK84KsoIFW3jaUjXFxBTcPJlVmQEjcfQd01E90KWVrCCM7CG1zoeCRL8l5c9hHwd1RoSjv9NnNeZEjCRoCh61zOF6bV5MixT7Y2HqPkC8yb/RS1Jd9rhegJLI/+cPuYWd41CltBX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oksn7Qm6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aGMnazmo; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=Fu3l30MAZSfbd2QPWW9AuqW1nT9AWanCjtwksRIydEhVc8DCJ7i45FopJO1pnvj7Z3SujgZKXaznOBQ4utJBDB/cWyM6kiilXnlUdRXqRKc/Xy2a8UrPB/MAoulE78e2Pno3ImRD1mDp5hDLmAmuTojG+JJJ1v1P70twi/nvSZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OOE98rRK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jtIeOy9W; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oksn7Qm6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aGMnazmo"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 626FrQo33960172
-	for <linux-media@vger.kernel.org>; Fri, 6 Mar 2026 16:00:17 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OOE98rRK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jtIeOy9W"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 626FrIdd2577844
+	for <linux-media@vger.kernel.org>; Fri, 6 Mar 2026 16:00:28 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=qvPNFU2tjsk
-	R6IdlqRpGfMUHzJ76OegAIKA/3dzxcvg=; b=oksn7Qm6J+h11HxqXPd0rJqHwAt
-	io6S57c1PYQCUQSdTNJZSk9JviDP2jA1A4K69UEX2mmMajrHqkfQd5MkoxLazbdU
-	jInz569hO5SUAvlySRR4NYHFbUyZzHgVdxD5if1I5XLitx6pQCs+VTM1EBVCOY1k
-	h958AQi8QtSDy8hnleJqghNRvQBP81zvvF+qIl34uOI2lRZU2FC3XPvj/ti5b2it
-	Nv9iruoWSbndL9g04NBGRM8RvhmPKMdOMR1nOFO+AtHGoyvuvHdggJqGwutkC11/
-	gQP4FOqMJVcl1K7kI2m+K6EWinJJXh3f8FCVy+hP9Ji9o3+VuyM2t7i/ryQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cqv9u96vr-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=kqir2XdaR6T
+	WAFYABNEF5HxPRzOmeGXDkGpKShWXLjE=; b=OOE98rRK8x/kbMhcFB9gLRxvENn
+	JyVokUVLrnPy4095oCCEbsLzi0+Z9bqFuIxsBdGwR6HRFecIOBx9BA+G/NyGemVb
+	522JnLFiXGp3oe+1jF2IBy8dEVwg3g38dlX0gtJibP7fuMJrhzu/XgdKJxpymae9
+	kKXvk/X7lHfMDcsF7Wx/n0nDrOPv1kpMAqvFpCrJ6Dd++jdBIk17YdWMDr1J2wLK
+	wGix24QEdTnKyv4q85W8NIQeZXguz6+UlKxsdmx5ZNygnpP+b9VLCUj5a/bi/aWK
+	BtZhBT4WGCeQv++pYnC2wACKqeFNZbtRlAUPNt2yaIL8zJTskRNeIHVCgsw==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cqfg6bt1c-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 06 Mar 2026 16:00:17 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-8cb4d191ef1so1233111485a.0
-        for <linux-media@vger.kernel.org>; Fri, 06 Mar 2026 08:00:16 -0800 (PST)
+	for <linux-media@vger.kernel.org>; Fri, 06 Mar 2026 16:00:28 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-8cb413d0002so5909730085a.1
+        for <linux-media@vger.kernel.org>; Fri, 06 Mar 2026 08:00:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1772812816; x=1773417616; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1772812827; x=1773417627; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qvPNFU2tjskR6IdlqRpGfMUHzJ76OegAIKA/3dzxcvg=;
-        b=aGMnazmot1uELSsj/bI0XLJf0x1lO/rCEA7wvQn9Vjkqfmdt+a181F4/lNYzYIO+0G
-         4kWmIltfOGcbR0kWGn1DV4Um4eWoXy0xWwfvxF3aSKJjPsz8SI+olUtjS0KvPandwJ7J
-         zOuAu9GjfMUJz0qWdwz5MQw+/yuQMgjfx5e50mr20MQgptWApYA/hr97oUdLIMFXpdqR
-         ZvrUo52Em++3+1FkS/XIflzo4z2YD08u+JbGRfIPHkOUWUwZKwOtv/a/q1MzA+Tot4zk
-         lCA1vCzVjOtHe/CbD8zU2VM5hnzi+djX3TYbWimiQRQ4X9Po9XTLJ1ey5RqkTyKIg5I/
-         MNBg==
+        bh=kqir2XdaR6TWAFYABNEF5HxPRzOmeGXDkGpKShWXLjE=;
+        b=jtIeOy9WKuerBsAgVe/D7PZsIrk2Dqw7bZM0/foJ001b7mtDPYGMz0U/ZXfEGDT0/n
+         Qg/yCABGd4RkT6X3XfpTw4SMq72FxPOfrGSVJF8wb4F0HBks7dZPMrWev0URQvhvu24i
+         J+LpEYnTRgWE99/IH59YzYy9N+onlp5ncRHOIwhoZXFg2YQU51TBAv7EQtxouLyfY2Nq
+         HEcClcHPrF3Hf5h7GEjCwZ+/Y7wupcLMWxPyRJIO01NJNfYHKmP96QVBHqTKFeeGYuXA
+         cwWxPOq82i/ra4ptLzP5EAtLcHXtE+TT5xhkmyIQvkdtSZjIcOtfeZJUEvzGOSjAfWqg
+         jp0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772812816; x=1773417616;
+        d=1e100.net; s=20230601; t=1772812827; x=1773417627;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=qvPNFU2tjskR6IdlqRpGfMUHzJ76OegAIKA/3dzxcvg=;
-        b=vbkRgaBv8wTWrtLzBfkmEECYObVSJy6IFwBhJK3MvwMOX9XSb/BttR4o9c47fkTyTL
-         TVc92xoWTifBMb0pOPX9nNQGFu4of9Uv27EzGGeFzsXSazTgpiz8A18vrAKwtbWlHQDp
-         bC4pTJQ9Izl0TUis41R8QKq7Io2Wznok4oMsZ5rO1st4Pm7YZwNFhiIPA8S50L+0hW83
-         hDkWH9DrrcJr2/SuaHksI+TulWINeyEMpjCizxCkSYlz6uVEVKqe64BUOY1ATtLus0dE
-         2l9x9eYHGcq/r7SMgLrqcmiUlkjPGyphTlK5ubNCqOZYBjCq7eaFlNIS8GAC4FDk9DyT
-         rFQg==
-X-Gm-Message-State: AOJu0YxqX+GRK3Di1p8Td0Vdp7iTm7E01XjtZNPjIyQwczZRHg0zCPWq
-	zlGkMdDCUdy3PNTPZIsyxULUXEqGIBIpHWtHAOwok6lqjbB1EN6ZHbkThWM9hVZQE2U02DraG25
-	NIEA1IEJ/ZfwrA0SvlkR0ggrzl4mdk1nLbVlhHLpmbwhb5Z8/aFiUpeenqhq6/OCogg==
-X-Gm-Gg: ATEYQzx4WNFzOI0gi1O94+3inRoK7CyDSI1kmC3hiqH4kjh/jndMDjvVyf6EZiUdHMA
-	eOyqbiURaXkjS2ViAqJhyVPPzLeg58PCDCruFDBZTjHwnyzBHhBU/WziX3b4MU/F4ktEaivW2Iv
-	s3btXg/CCsa46zm6UpdjCnboiDvZyFOM83oSOPB2Ik5NLrY4POCh1JHp8CNKBvk17g7TJ0XY0E/
-	TVUrb0AriTuDosuwUiWZeUHVcpD4dCeaHj9iaCO8oOlbgXO1UpzoJLjKMIysmaBcVkd40uO0eI6
-	GQMX0wxi2FZZ9WvPmK18x4rkdIaR1BjB++HxF053Qs1iwC/U5g0+lPAEcN4VaVHsHn8AroY/hxg
-	L3/+PdMmTW+9b7ztek6bjStZwxZPuM3kSeS4vOwMzu8/ITYYg+JmfURAjJJToNH+KyMCXPA5wsp
-	kFQ38lIYKYKfsPc9WQ1n7+tSfpTgyx+1+tvKYG1MNFUA==
-X-Received: by 2002:a05:620a:31a0:b0:8c6:aeff:4002 with SMTP id af79cd13be357-8cd6d4a4e6amr321230685a.81.1772812813493;
-        Fri, 06 Mar 2026 08:00:13 -0800 (PST)
-X-Received: by 2002:a05:620a:31a0:b0:8c6:aeff:4002 with SMTP id af79cd13be357-8cd6d4a4e6amr321208185a.81.1772812812013;
-        Fri, 06 Mar 2026 08:00:12 -0800 (PST)
+        bh=kqir2XdaR6TWAFYABNEF5HxPRzOmeGXDkGpKShWXLjE=;
+        b=KxDwJ0mC/sc+0OznN8m3pRYqM3kbfpcKPOXajhsHbWHY0cL/rwQ4T7YttC5FulXYmU
+         fY+E8eF8Qt5BBsSO+lZ5GFDrgQG51y5IrU1HMhsEPIjQXgjz7vWa9TT5sQCgrPacEbfJ
+         OCnmtJ5MqMKGj1abeJHbn9FxVv9kB7RGnFbNmvda1k3VVcDMy+QzELzfHT5gJn0DEO9o
+         fsqGiXdVITrYFbTPIqV0yQ8dUGkt87mnT9L5lrrkQLejZOXQzoUjztpSRbAsqncOEC8k
+         VO69dcVQ9GiIGaN2MCd03szho8qASFEg8MPhNfTdSYIruofhuHKljq6QAAgczqLoZm1v
+         WNnA==
+X-Gm-Message-State: AOJu0YxFFx+h5JmQTVT9uovs8DmRU5Cg0GLRAYWUSXXitu7ABYL1LTDV
+	mq6Zte2hOKOGA/UAyGfO9dTMYvpw++4C9p7OLyAppq+KIeotW0UNxb64i/6JYEBKQFnkmzV+UPq
+	37zWKFMP/I+el3eOIntkT9Yjk0BDl5Oqf09SgubVZ7bccatDXsc2nWPt8qOm0goZOAw==
+X-Gm-Gg: ATEYQzzVQ4G3Xs0IjeKEZpTEW37uOfFd3riv8l8IVr/Za+3OJ2diH9jmvrbygaxy0uR
+	BGu/xVGlYiO21KQll4vuvheWgwH3nVJ2QR5eYKXp3KP9kZnaaGT/vkRpDIv9V1uVp2nTxkl5DbZ
+	f1is6xnUdOnJZVuGnZYzuSqHYSJUXDr2nk2Nq7baB4MDJLTbbsBmqBDvVbB4wmq2dRtdvCScQtT
+	Wdi0h50nDFVJOy3PiWomY342JiliDmjwrb8BakarKN9jpaIeXimco0EpfC65LWSmr5mK14nc8z6
+	WUEBDCRyLeL/LBL8JKDPq96HM3f2J64bjuo7iQLczrbt9KBPxec6YrvaTAaeM2x2RmKmQdt07RW
+	4ysq2R9bZ0iqriMWFAM9NnsusaZKSo8jX7Az4tDMk8xkA7CFRq4/UPm1ZbsGij235EHlYw8QQB6
+	nUhV9nvVRTiBb2OJEDeOzrHIYMyAZc7MQgb20Ji45Vlw==
+X-Received: by 2002:a05:620a:269a:b0:8c6:df6b:93fa with SMTP id af79cd13be357-8cd6352e2a3mr721341485a.43.1772812820695;
+        Fri, 06 Mar 2026 08:00:20 -0800 (PST)
+X-Received: by 2002:a05:620a:269a:b0:8c6:df6b:93fa with SMTP id af79cd13be357-8cd6352e2a3mr721251285a.43.1772812814706;
+        Fri, 06 Mar 2026 08:00:14 -0800 (PST)
 Received: from QCOM-eG0v1AUPpu.qualcomm.com (82-64-236-198.subs.proxad.net. [82.64.236.198])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-439dada9116sm4695983f8f.14.2026.03.06.08.00.11
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-439dada9116sm4695983f8f.14.2026.03.06.08.00.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Mar 2026 08:00:11 -0800 (PST)
+        Fri, 06 Mar 2026 08:00:13 -0800 (PST)
 From: Loic Poulain <loic.poulain@oss.qualcomm.com>
 To: bryan.odonoghue@linaro.org, vladimir.zapolskiy@linaro.org
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         mchehab@kernel.org, Loic Poulain <loic.poulain@oss.qualcomm.com>
-Subject: [PATCH 1/3] media: camss: Add per-format BPL alignment helper
-Date: Fri,  6 Mar 2026 17:00:04 +0100
-Message-Id: <20260306160006.1513177-2-loic.poulain@oss.qualcomm.com>
+Subject: [PATCH 3/3] media: camss: vfe: Make PIX BPL alignment format-based on CAMSS_2290
+Date: Fri,  6 Mar 2026 17:00:06 +0100
+Message-Id: <20260306160006.1513177-4-loic.poulain@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260306160006.1513177-1-loic.poulain@oss.qualcomm.com>
 References: <20260306160006.1513177-1-loic.poulain@oss.qualcomm.com>
@@ -94,99 +94,106 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA2MDE0OCBTYWx0ZWRfX06cXvCTfrs3k
- 37S/KMdzbavUElU4p4ZnCFkITplyLguhAtS3gRo9MLyTVQe0fl7DECdyOyEYkeECRsUohszFOgf
- IGmNWB818FssymWz5GTYzK/a6KmQtrMMDha2qOqHjZQyOGsMGIoqljmBCK6EvYK9/qZsFORA4Kp
- KEI1fUa4cYhzBfNRItccgANL46IqL40QWXCXKnJ536eSv3GNl+0KZQVGjnksd1pclQfyhvhlN3E
- K2rIuu2NyAp2I1Yb9asRcVU3YbdRoTl8TAqTo5LZt5C3JNDtYQUzPDzfEJA6KQ/9JukXy9chRSq
- lITVqqzHbzv4qA+pD2UVDVBpZBD5Bve9TSWdsc8Bn4HF1blRhKag5G0dO93ovaL8ZTapNrI8oe3
- zuVQ69slJ+d70ZZT0E/1p09Qd2FZb+kyvpW/DMm4Xpgow0fNO6NwLYY2CheCa4O6pIC9ID8W2q1
- Mo5OhLJ9ux086jZMJsA==
-X-Proofpoint-ORIG-GUID: Xq6ZSaWntn9N4EbeXBEYhPzX2wtMiI2a
-X-Proofpoint-GUID: Xq6ZSaWntn9N4EbeXBEYhPzX2wtMiI2a
-X-Authority-Analysis: v=2.4 cv=eJoeTXp1 c=1 sm=1 tr=0 ts=69aafa11 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=MDeckJw97qnk8wCBExTehA==:17
+X-Proofpoint-GUID: tyJuACPYzNLp8bPX6LrybBvz5LuKUOyc
+X-Proofpoint-ORIG-GUID: tyJuACPYzNLp8bPX6LrybBvz5LuKUOyc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA2MDE0OCBTYWx0ZWRfX6WFsmna3A02e
+ OrBU1FbgSROnu6uYnE5Im9ZkOMhi3bEO2Vt9yPByo4vhXyNxaTBkbKCT8W98NckMdTmwmxZSxUo
+ ngR8WCVF9uO2W6mJhPr2Oj9UoUOx8/LqgiM3+fJdNPrTNp04MtiunsRyt0Da5sB2KY9JD8UCuW4
+ XIK9HK0Ebo+YG1AYZv7XuWg8RYW30CxR5EV96Mor2jSMfu9gdefKiqadV6xnUWU9Yzcs2ZgReGC
+ 5IAeY7fMFOy7TaQpHPhPRb9gmEM8itie0PsxAvxjhlggL9Gjj36BM01oK0LNQOPh5Q8ECQhHz7E
+ sOsnE4vAr2qeCVugfpHnoCbBH3/7D+iaPwVZxOS86OP8ucDD083qBnT0zX7s0nMEkYjJ3nJrL76
+ 0NGwANExA7mlABr/5CD4lbgAfeKB7iiAU9ZBK5NB/B9ZMQKEVYn3fNY0DlpUdVUWqkWcUrc+8If
+ PV1LtD52HVisCiScyYw==
+X-Authority-Analysis: v=2.4 cv=XKg9iAhE c=1 sm=1 tr=0 ts=69aafa1c cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=MDeckJw97qnk8wCBExTehA==:17
  a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=ksOl0FbaWB9S7YhX058A:9 a=PEH46H7Ffwr30OY-TuGO:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=d6NsCnqxkaT3_V1LjFAA:9 a=NFOGd7dJGGMPyQGDc5-O:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-06_05,2026-03-06_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0
- priorityscore=1501 malwarescore=0 impostorscore=0 bulkscore=0 phishscore=0
+ suspectscore=0 adultscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ malwarescore=0 spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603060148
 
-Add camss_format_get_bpl_alignment(), a helper that returns the
-bytes-per-line (BPL) alignment requirement for a given CAMSS format.
+Split the VFE bytes-per-line (BPL) alignment logic into separate
+helpers for RDI and PIX paths. RDI is usually aligned on RDI write
+engine bus constraint such as 64-bit or 128-bit. But PIX engine
+is usually (at least on platform I looked at) based on pixel format.
 
-Different RAW Bayer packing schemes impose different BPL alignment
-constraints (e.g. RAW10 requires multiples of 5 bytes, RAW12 multiples of
-3 bytes, RAW14 multiples of 7 bytes, etc.). Centralizing this logic
-makes the alignment rules explicit and avoids duplicating them across
-the pipeline.
+On CAMSS_2290, PIX BPL alignment is set to 0 to indicate that the
+alignment must be derived from the pixel format. This allows the
+pipeline to use camss_format_get_bpl_alignment().
 
-This will allow PIX paths and buffer preparation code to correctly
-round up BPL values to hardware-required boundaries.
+For other platforms, retain the legacy PIX default (16 bytes), until
+PIX is properly tested/enabled.
+
+A future improvement would be to remove platform-specific conditionals
+from the VFE code and move the alignment requirements into the
+per-platform VFE resource data.
 
 Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- .../media/platform/qcom/camss/camss-format.c  | 28 +++++++++++++++++++
- .../media/platform/qcom/camss/camss-format.h  |  1 +
- 2 files changed, 29 insertions(+)
+ drivers/media/platform/qcom/camss/camss-vfe.c | 28 ++++++++++++++++---
+ 1 file changed, 24 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-format.c b/drivers/media/platform/qcom/camss/camss-format.c
-index 4a3d5549615c..2cd0f3a0bfac 100644
---- a/drivers/media/platform/qcom/camss/camss-format.c
-+++ b/drivers/media/platform/qcom/camss/camss-format.c
-@@ -33,6 +33,34 @@ u8 camss_format_get_bpp(const struct camss_format_info *formats, unsigned int nf
- 	return formats[0].mbus_bpp;
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 9c7ad8aa4058..c174c7d706e2 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -1996,7 +1996,7 @@ static const struct media_entity_operations vfe_media_ops = {
+ 	.link_validate = v4l2_subdev_link_validate,
+ };
+ 
+-static int vfe_bpl_align(struct vfe_device *vfe)
++static int vfe_bpl_align_rdi(struct vfe_device *vfe)
+ {
+ 	int ret = 8;
+ 
+@@ -2019,6 +2019,25 @@ static int vfe_bpl_align(struct vfe_device *vfe)
+ 	return ret;
  }
  
-+
-+/*
-+ * camss_format_get_bpl_alignment - Retrieve required BPL alignment for a given format.
-+ * @format: a pointer to the format
-+ *
-+ * Return the required alignment, in bytes.
-+ */
-+unsigned int camss_format_get_bpl_alignment(const struct camss_format_info *format)
++static int vfe_bpl_align_pix(struct vfe_device *vfe)
 +{
-+	switch (format->mbus_bpp) {
-+	case 8: /* Plain 8-bit -> output must be a multiple of 1 pixel (1 byte) */
-+		return 1;
-+	case 10: /* Packed 10-bit -> output must be a multiple of 4 pixels (5 bytes) */
-+		return 5;
-+	case 12: /* Packed 12-bit -> output must be a multiple of 2 pixels (3 bytes) */
-+		return 3;
-+	case 14: /* Packed 14-bit -> output must be a multiple of 4 pixels (7 bytes) */
-+		return 7;
-+	case 16: /* 16-bit -> output must be a multiple of 1 pixel (2 bytes) */
-+		return 2;
++	int ret = 16;
++
++	switch (vfe->camss->res->version) {
++	case CAMSS_2290:
++		/* The alignment/bpl depends solely on the pixel format and is
++		 * computed dynamically in camss_format_get_bpl_alignment().
++		 */
++		ret = 0;
++		break;
 +	default:
-+		WARN(1, "Unsupported format/bpp (%u)", format->mbus_bpp);
++		break;
 +	}
 +
-+	return 1;
++	return ret;
 +}
 +
 +
  /*
-  * camss_format_find_code - Find a format code in an array
-  * @code: a pointer to media bus format codes array
-diff --git a/drivers/media/platform/qcom/camss/camss-format.h b/drivers/media/platform/qcom/camss/camss-format.h
-index 923a48c9c3fb..4f87ac8c4975 100644
---- a/drivers/media/platform/qcom/camss/camss-format.h
-+++ b/drivers/media/platform/qcom/camss/camss-format.h
-@@ -55,6 +55,7 @@ struct camss_formats {
- };
+  * msm_vfe_register_entities - Register subdev node for VFE module
+  * @vfe: VFE device
+@@ -2085,11 +2104,12 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
+ 		}
  
- u8 camss_format_get_bpp(const struct camss_format_info *formats, unsigned int nformats, u32 code);
-+unsigned int camss_format_get_bpl_alignment(const struct camss_format_info *f);
- u32 camss_format_find_code(u32 *code, unsigned int n_code, unsigned int index, u32 req_code);
- int camss_format_find_format(u32 code, u32 pixelformat, const struct camss_format_info *formats,
- 			     unsigned int nformats);
+ 		video_out->ops = &vfe->video_ops;
+-		video_out->bpl_alignment = vfe_bpl_align(vfe);
+-		video_out->line_based = 0;
+ 		if (i == VFE_LINE_PIX) {
+-			video_out->bpl_alignment = 16;
++			video_out->bpl_alignment = vfe_bpl_align_pix(vfe);
+ 			video_out->line_based = 1;
++		} else {
++			video_out->bpl_alignment = vfe_bpl_align_rdi(vfe);
++			video_out->line_based = 0;
+ 		}
+ 
+ 		video_out->nformats = vfe->line[i].nformats;
 -- 
 2.34.1
 
