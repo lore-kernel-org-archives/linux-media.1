@@ -1,374 +1,146 @@
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2885E3A6EE7;
-	Fri,  6 Mar 2026 13:28:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A574396D23;
+	Fri,  6 Mar 2026 13:29:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772803698; cv=none; b=a3cK25vi+OXUMMGPSkbekOONvBkNOsaOintrQntFhS4looJpyqmMNDzkGxoSROte2bAJgWze8D0HKbSn2544ek/Keyy1j0lHvjsrDlQbnZqt2OUjh5x4UXIZ2YoJQCHDkM4qSQS237jRGGVTdrOWYrpxCjR4Oel/wxT0Xhb9Jw0=
+	t=1772803779; cv=none; b=bHVQ+V5PTK0pYwGFyQJlb5nMQ2j8qNrFiQZ3GpRzUauHXuVGalWyO0kyfKMvVRjw7xEMWviWzbioqD49yn25vH0cHikd11Q5Ge/TN/Y4K3dnXwV8LDcIp2iZo4xhQXeGuh8UWE88MDs3nvfFY5rDFtenD1y6w/EpEByDXK/bIH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772803698; c=relaxed/simple;
-	bh=9qOP6B8hZtujzjk/9EQ7Z/1IahQ9BPh+cx9jM3xw0Lw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=B1HXXAPVkch5YEhlas+j03CCXMfLIZuL+7iuA/pCAfZ6xdEbt4D+uTyndMAbRLxV4Fy6CN3OkPmD6wiHokqFP+WoVLvRTZMumjt1h7zQkBbo0eeBu2p1V7aGDGM8AcZ1sUt8fz5qk4K0zz5xLY77BgydzOOZMJXsKbT3Q1a19uM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 142BA1A011C;
-	Fri,  6 Mar 2026 14:28:09 +0100 (CET)
-Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com [134.27.226.22])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id EE7B61A00FB;
-	Fri,  6 Mar 2026 14:28:08 +0100 (CET)
-Received: from lsv15149.swis.ro-buh01.nxp.com (lsv15149.swis.ro-buh01.nxp.com [10.162.246.145])
-	by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 8127D20270;
-	Fri,  6 Mar 2026 14:28:07 +0100 (CET)
-From: Ioana Ciocoi-Radulescu <ruxandra.radulescu@nxp.com>
-Date: Fri, 06 Mar 2026 15:27:22 +0200
-Subject: [PATCH v2 5/9] accel/neutron: Add GEM buffer object support
+	s=arc-20240116; t=1772803779; c=relaxed/simple;
+	bh=1ukMkvLDsKaYNY9i0ldkaZ4BWaGkqbXWQ5bDJd35Ruo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O8ECYL/mlkEN5X6SL+0/TK3d66hXWVCkmg0O2HHuDVZn+bsj2/k8LR6uM9UTUpyZKawpZFqopyAsD2d09VY7cJJAUkSHdnQ8NTKxdRtNV0B9LFyQziJ6nxME3qCUh31Xxo0x27oJI1hZqmvM1cbr1lV8ORBBfb3q9146+tAVWMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hc2G5bkz; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hc2G5bkz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B1A5C4CEF7;
+	Fri,  6 Mar 2026 13:29:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1772803778;
+	bh=1ukMkvLDsKaYNY9i0ldkaZ4BWaGkqbXWQ5bDJd35Ruo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Hc2G5bkzknQkHbaZAs4y3XyfPC7tq6CC483Y2FuPeJaJ/Ep5xih+Tc66Fpb+BwZ7W
+	 Bez8ORwfCmhbe6g0HU6oZVMi4gDWQhsfbyaFq+cVejhoWgnukuID/RZMSHViAcCVrw
+	 MjS/lDOASjuhPRZUMZ9AR3PHB2ay8/WfzKkLOdl1k1HLi42nbvUUTkPfv/+Yy3fjTm
+	 K+K4W0dOPAbSzctZ86TetwW6UIj7CcluN5pzHcCZKjAogO4Aasoss2NuBYwUN+09zw
+	 d8oApzr6/okXUUx7r5/Swj0z04/dBdcsRq0mcjW6ZaOab7H/RmnzywDdyIqKNlOri8
+	 PH0xKh9i2soEQ==
+Date: Fri, 6 Mar 2026 14:28:59 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Jeff Layton <jlayton@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Dan Williams <dan.j.williams@intel.com>, Eric Biggers <ebiggers@kernel.org>, 
+	"Theodore Y. Ts'o" <tytso@mit.edu>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
+	David Howells <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>, 
+	Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>, Jaegeuk Kim <jaegeuk@kernel.org>, 
+	Chao Yu <chao@kernel.org>, Trond Myklebust <trondmy@kernel.org>, 
+	Anna Schumaker <anna@kernel.org>, Chuck Lever <chuck.lever@oracle.com>, 
+	NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
+	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, Steve French <sfrench@samba.org>, 
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, 
+	Bharath SM <bharathsm@microsoft.com>, Alexander Aring <alex.aring@gmail.com>, 
+	Ryusuke Konishi <konishi.ryusuke@gmail.com>, Viacheslav Dubeyko <slava@dubeyko.com>, 
+	Eric Van Hensbergen <ericvh@kernel.org>, Latchesar Ionkov <lucho@ionkov.net>, 
+	Dominique Martinet <asmadeus@codewreck.org>, Christian Schoenebeck <linux_oss@crudebyte.com>, 
+	David Sterba <dsterba@suse.com>, Marc Dionne <marc.dionne@auristor.com>, 
+	Ian Kent <raven@themaw.net>, Luis de Bethencourt <luisbg@kernel.org>, 
+	Salah Triki <salah.triki@gmail.com>, "Tigran A. Aivazian" <aivazian.tigran@gmail.com>, 
+	Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+	Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu, Nicolas Pitre <nico@fluxnic.net>, 
+	Tyler Hicks <code@tyhicks.com>, Amir Goldstein <amir73il@gmail.com>, 
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li <frank.li@vivo.com>, 
+	Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>, David Woodhouse <dwmw2@infradead.org>, 
+	Richard Weinberger <richard@nod.at>, Dave Kleikamp <shaggy@kernel.org>, 
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
+	Joseph Qi <joseph.qi@linux.alibaba.com>, Mike Marshall <hubcap@omnibond.com>, 
+	Martin Brandenburg <martin@omnibond.com>, Miklos Szeredi <miklos@szeredi.hu>, 
+	Anders Larsen <al@alarsen.net>, Zhihao Cheng <chengzhihao1@huawei.com>, 
+	Damien Le Moal <dlemoal@kernel.org>, Naohiro Aota <naohiro.aota@wdc.com>, 
+	Johannes Thumshirn <jth@kernel.org>, John Johansen <john.johansen@canonical.com>, 
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+	"Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
+	Roberto Sassu <roberto.sassu@huawei.com>, Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+	Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
+	Stephen Smalley <stephen.smalley.work@gmail.com>, Ondrej Mosnacek <omosnace@redhat.com>, 
+	Casey Schaufler <casey@schaufler-ca.com>, Alex Deucher <alexander.deucher@amd.com>, 
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	Eric Dumazet <edumazet@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Simon Horman <horms@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	"Darrick J. Wong" <djwong@kernel.org>, Martin Schiller <ms@dev.tdt.de>, Eric Paris <eparis@redhat.com>, 
+	Joerg Reuter <jreuter@yaina.de>, Marcel Holtmann <marcel@holtmann.org>, 
+	Johan Hedberg <johan.hedberg@gmail.com>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+	Oliver Hartkopp <socketcan@hartkopp.net>, Marc Kleine-Budde <mkl@pengutronix.de>, 
+	David Ahern <dsahern@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
+	Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	Remi Denis-Courmont <courmisch@gmail.com>, Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
+	Xin Long <lucien.xin@gmail.com>, Magnus Karlsson <magnus.karlsson@intel.com>, 
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	nvdimm@lists.linux.dev, fsverity@lists.linux.dev, linux-mm@kvack.org, 
+	netfs@lists.linux.dev, linux-ext4@vger.kernel.org, 
+	linux-f2fs-devel@lists.sourceforge.net, linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
+	samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org, v9fs@lists.linux.dev, 
+	linux-afs@lists.infradead.org, autofs@vger.kernel.org, ceph-devel@vger.kernel.org, 
+	codalist@coda.cs.cmu.edu, ecryptfs@vger.kernel.org, linux-mtd@lists.infradead.org, 
+	jfs-discussion@lists.sourceforge.net, ntfs3@lists.linux.dev, ocfs2-devel@lists.linux.dev, 
+	devel@lists.orangefs.org, linux-unionfs@vger.kernel.org, apparmor@lists.ubuntu.com, 
+	linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org, selinux@vger.kernel.org, 
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+	linaro-mm-sig@lists.linaro.org, netdev@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	linux-fscrypt@vger.kernel.org, linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
+	linux-x25@vger.kernel.org, audit@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+	linux-can@vger.kernel.org, linux-sctp@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH v3 01/12] vfs: widen inode hash/lookup functions to u64
+Message-ID: <20260306-klauen-aufruf-3f79ec9cd4cb@brauner>
+References: <20260304-iino-u64-v3-0-2257ad83d372@kernel.org>
+ <20260304-iino-u64-v3-1-2257ad83d372@kernel.org>
+ <aamSFgXhrORAJLBC@infradead.org>
+ <c1845a4b8d35d367953ac6cbfcf91ac36958ba51.camel@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260306-neutron-v2-5-3019bd8c91ef@nxp.com>
-References: <20260306-neutron-v2-0-3019bd8c91ef@nxp.com>
-In-Reply-To: <20260306-neutron-v2-0-3019bd8c91ef@nxp.com>
-To: Oded Gabbay <ogabbay@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Frank Li <Frank.Li@nxp.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, Jiwei Fu <jiwei.fu@nxp.com>, 
- Forrest Shi <xuelin.shi@nxp.com>, Alexandru Taran <alexandru.taran@nxp.com>, 
- Daniel Baluta <daniel.baluta@nxp.com>, 
- Ioana Ciocoi-Radulescu <ruxandra.radulescu@nxp.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1772803681; l=9346;
- i=ruxandra.radulescu@nxp.com; s=20260204; h=from:subject:message-id;
- bh=9qOP6B8hZtujzjk/9EQ7Z/1IahQ9BPh+cx9jM3xw0Lw=;
- b=pc5gOhBsXHvOUqemK7VfVEWQ3ZZZLgDFL7K+I9cQYAXLW8s+LOoEezqGlteTtx+niDlhYdj/+
- xDMVE8KDBojDlcX0mP89EfKzm6S6EFOPpkjrJIon+Faxaf4Cv+PwB5M
-X-Developer-Key: i=ruxandra.radulescu@nxp.com; a=ed25519;
- pk=zoq4b4OYR0c4faAH97xoTxdr6vfR8OvPbS+Cx0XhIBY=
-X-Virus-Scanned: ClamAV using ClamSMTP
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c1845a4b8d35d367953ac6cbfcf91ac36958ba51.camel@kernel.org>
 
-Add the following IOCTLs:
-- CREATE_BO - for creating a new buffer object and passing BO info
-back to user
-- SYNC_BO - for explicit DMA sync operations on the BO memory, since
-Neutron isn't guaranteed to be cache coherent. User controls which
-portions of the buffer memory to sync and the direction.
+On Fri, Mar 06, 2026 at 07:03:15AM -0500, Jeff Layton wrote:
+> On Thu, 2026-03-05 at 06:24 -0800, Christoph Hellwig wrote:
+> > >  extern struct inode *ilookup5_nowait(struct super_block *sb,
+> > > -		unsigned long hashval, int (*test)(struct inode *, void *),
+> > > +		u64 hashval, int (*test)(struct inode *, void *),
+> > >  		void *data, bool *isnew);
+> > > -extern struct inode *ilookup5(struct super_block *sb, unsigned long hashval,
+> > > +extern struct inode *ilookup5(struct super_block *sb, u64 hashval,
+> > >  		int (*test)(struct inode *, void *), void *data);
+> > 
+> > ...
+> > 
+> > Can you please drop all these pointless externs while you're at it?
+> > 
+> 
+> I was planning to do that, but then Christian merged it!
+> 
+> I'll do a patch on top of this that does this in the range of fs.h that
+> the patch touches. Christian can throw it on top of the series, and
+> that shouldn't be too bad for backports.
 
-The Neutron device requires contiguous DMA buffers, so use the GEM DMA
-helpers for creating and managing the BOs. Depending on the platform
-it is integrated on, Neutron device may or may not be cache coherent. On
-i.MX95, the first platform for which we add Neutron support, it is not.
-
-Signed-off-by: Ioana Ciocoi-Radulescu <ruxandra.radulescu@nxp.com>
----
-v2: Fix use of uninitialized variable
----
- drivers/accel/neutron/Makefile         |   3 +-
- drivers/accel/neutron/neutron_driver.c |  13 +++-
- drivers/accel/neutron/neutron_gem.c    | 116 +++++++++++++++++++++++++++++++++
- drivers/accel/neutron/neutron_gem.h    |  14 ++++
- include/uapi/drm/neutron_accel.h       |  79 ++++++++++++++++++++++
- 5 files changed, 223 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/accel/neutron/Makefile b/drivers/accel/neutron/Makefile
-index 7592e318dd83..d4298c7a8535 100644
---- a/drivers/accel/neutron/Makefile
-+++ b/drivers/accel/neutron/Makefile
-@@ -4,4 +4,5 @@ obj-$(CONFIG_DRM_ACCEL_NXP_NEUTRON) := neutron.o
- 
- neutron-y := \
- 	neutron_driver.o \
--	neutron_device.o
-+	neutron_device.o \
-+	neutron_gem.o
-diff --git a/drivers/accel/neutron/neutron_driver.c b/drivers/accel/neutron/neutron_driver.c
-index 7f34785216cf..c9a18bf52037 100644
---- a/drivers/accel/neutron/neutron_driver.c
-+++ b/drivers/accel/neutron/neutron_driver.c
-@@ -14,12 +14,19 @@
- #include <drm/drm_drv.h>
- #include <drm/drm_ioctl.h>
- #include <drm/drm_gem.h>
-+#include <drm/neutron_accel.h>
- 
- #include "neutron_device.h"
- #include "neutron_driver.h"
-+#include "neutron_gem.h"
- 
- #define NEUTRON_SUSPEND_DELAY_MS 1000
- 
-+static const struct drm_ioctl_desc neutron_drm_ioctls[] = {
-+	DRM_IOCTL_DEF_DRV(NEUTRON_CREATE_BO, neutron_ioctl_create_bo, 0),
-+	DRM_IOCTL_DEF_DRV(NEUTRON_SYNC_BO, neutron_ioctl_sync_bo, 0),
-+};
-+
- static int neutron_open(struct drm_device *drm, struct drm_file *file)
- {
- 	struct neutron_device *ndev = to_neutron_device(drm);
-@@ -45,7 +52,7 @@ static void neutron_postclose(struct drm_device *drm, struct drm_file *file)
- DEFINE_DRM_ACCEL_FOPS(neutron_drm_driver_fops);
- 
- static const struct drm_driver neutron_drm_driver = {
--	.driver_features	= DRIVER_COMPUTE_ACCEL,
-+	.driver_features	= DRIVER_COMPUTE_ACCEL | DRIVER_GEM,
- 	.name			= "neutron",
- 	.desc			= "NXP Neutron driver",
- 	.major			= 1,
-@@ -54,6 +61,10 @@ static const struct drm_driver neutron_drm_driver = {
- 	.fops			= &neutron_drm_driver_fops,
- 	.open			= neutron_open,
- 	.postclose		= neutron_postclose,
-+	.ioctls			= neutron_drm_ioctls,
-+	.num_ioctls		= ARRAY_SIZE(neutron_drm_ioctls),
-+
-+	.gem_create_object      = neutron_gem_create_object,
- };
- 
- static irqreturn_t neutron_irq_handler_thread(int irq, void *data)
-diff --git a/drivers/accel/neutron/neutron_gem.c b/drivers/accel/neutron/neutron_gem.c
-new file mode 100644
-index 000000000000..142237caf041
---- /dev/null
-+++ b/drivers/accel/neutron/neutron_gem.c
-@@ -0,0 +1,116 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/* Copyright 2025-2026 NXP */
-+
-+#include <linux/sizes.h>
-+#include <linux/align.h>
-+#include <linux/dma-map-ops.h>
-+#include <drm/drm_device.h>
-+#include <drm/drm_gem_dma_helper.h>
-+#include <drm/drm_print.h>
-+#include <drm/neutron_accel.h>
-+
-+#include "neutron_device.h"
-+#include "neutron_gem.h"
-+
-+#define NEUTRON_BO_ALIGN SZ_1M
-+
-+struct drm_gem_object *neutron_gem_create_object(struct drm_device *drm, size_t size)
-+{
-+	struct neutron_device *ndev = to_neutron_device(drm);
-+	struct drm_gem_dma_object *dma_obj;
-+	struct drm_gem_object *gem_obj;
-+
-+	dma_obj = kzalloc_obj(*dma_obj);
-+	if (!dma_obj)
-+		return ERR_PTR(-ENOMEM);
-+
-+	dma_obj->map_noncoherent = !dev_is_dma_coherent(ndev->dev);
-+	dma_obj->map_bidirectional = true;
-+	gem_obj = &dma_obj->base;
-+
-+	return gem_obj;
-+}
-+
-+int neutron_ioctl_create_bo(struct drm_device *drm, void *data, struct drm_file *filp)
-+{
-+	struct drm_neutron_create_bo *args = data;
-+	struct drm_gem_dma_object *dma_obj;
-+	struct drm_gem_object *gem_obj;
-+	size_t size;
-+	int ret;
-+
-+	if (!args->size || args->pad)
-+		return -EINVAL;
-+
-+	size = ALIGN(args->size, NEUTRON_BO_ALIGN);
-+
-+	dma_obj = drm_gem_dma_create(drm, size);
-+	if (IS_ERR(dma_obj))
-+		return PTR_ERR(dma_obj);
-+
-+	gem_obj = &dma_obj->base;
-+
-+	/* We expect correctly aligned buffers, but double-check */
-+	if (drm_WARN_ON(drm, !IS_ALIGNED(dma_obj->dma_addr, NEUTRON_BO_ALIGN))) {
-+		ret = -EFAULT;
-+		goto out_put;
-+	}
-+
-+	ret = drm_gem_handle_create(filp, gem_obj, &args->handle);
-+	if (ret)
-+		goto out_put;
-+
-+	args->map_offset = drm_vma_node_offset_addr(&gem_obj->vma_node);
-+	args->size = gem_obj->size;
-+
-+out_put:
-+	/* No need to keep a reference of the GEM object. Freeing is handled by user */
-+	drm_gem_object_put(gem_obj);
-+
-+	return ret;
-+}
-+
-+int neutron_ioctl_sync_bo(struct drm_device *drm, void *data, struct drm_file *filp)
-+{
-+	struct drm_neutron_sync_bo *args = data;
-+	struct drm_gem_dma_object *dma_obj;
-+	struct drm_gem_object *gem_obj;
-+	dma_addr_t start_addr;
-+	int ret = 0;
-+
-+	gem_obj = drm_gem_object_lookup(filp, args->handle);
-+	if (!gem_obj) {
-+		dev_dbg(drm->dev, "Invalid BO handle %u\n", args->handle);
-+		return -ENOENT;
-+	}
-+
-+	dma_obj = to_drm_gem_dma_obj(gem_obj);
-+
-+	if (!args->size || args->offset >= gem_obj->size ||
-+	    args->size > gem_obj->size - args->offset) {
-+		dev_dbg(drm->dev, "Invalid offset/size for BO sync\n");
-+		ret = -EINVAL;
-+		goto out_put;
-+	}
-+
-+	start_addr = dma_obj->dma_addr + args->offset;
-+
-+	switch (args->direction) {
-+	case DRM_NEUTRON_SYNC_TO_DEVICE:
-+		dma_sync_single_for_device(drm->dev, start_addr, args->size,
-+					   DMA_BIDIRECTIONAL);
-+		break;
-+	case DRM_NEUTRON_SYNC_FROM_DEVICE:
-+		dma_sync_single_for_cpu(drm->dev, start_addr, args->size,
-+					DMA_BIDIRECTIONAL);
-+		break;
-+	default:
-+		dev_dbg(drm->dev, "Invalid direction for BO sync\n");
-+		ret = -EINVAL;
-+	}
-+
-+out_put:
-+	drm_gem_object_put(gem_obj);
-+
-+	return ret;
-+}
-diff --git a/drivers/accel/neutron/neutron_gem.h b/drivers/accel/neutron/neutron_gem.h
-new file mode 100644
-index 000000000000..95ba2fe96617
---- /dev/null
-+++ b/drivers/accel/neutron/neutron_gem.h
-@@ -0,0 +1,14 @@
-+/* SPDX-License-Identifier: GPL-2.0+ */
-+/* Copyright 2025-2026 NXP */
-+
-+#ifndef __NEUTRON_GEM_H__
-+#define __NEUTRON_GEM_H__
-+
-+#include <drm/drm_gem.h>
-+
-+struct drm_gem_object *neutron_gem_create_object(struct drm_device *drm, size_t size);
-+
-+int neutron_ioctl_create_bo(struct drm_device *drm, void *data, struct drm_file *filp);
-+int neutron_ioctl_sync_bo(struct drm_device *drm, void *data, struct drm_file *filp);
-+
-+#endif /* __NEUTRON_GEM_H__ */
-diff --git a/include/uapi/drm/neutron_accel.h b/include/uapi/drm/neutron_accel.h
-new file mode 100644
-index 000000000000..2f5639f2e0e8
---- /dev/null
-+++ b/include/uapi/drm/neutron_accel.h
-@@ -0,0 +1,79 @@
-+/* SPDX-License-Identifier: GPL-2.0+ WITH Linux-syscall-note */
-+/* Copyright 2025-2026 NXP */
-+
-+#ifndef __NEUTRON_ACCEL_H__
-+#define __NEUTRON_ACCEL_H__
-+
-+#include "drm.h"
-+
-+#if defined(__cplusplus)
-+extern "C" {
-+#endif
-+
-+/**
-+ * enum drm_neutron_ioctl - Neutron IOCTL IDs
-+ *
-+ * @DRM_NEUTRON_CREATE_BO: Create a buffer object
-+ * @DRM_NEUTRON_SYNC_BO: Sync (parts of) the buffer object memory
-+ */
-+enum drm_neutron_ioctl {
-+	DRM_NEUTRON_CREATE_BO = 0,
-+	DRM_NEUTRON_SYNC_BO,
-+};
-+
-+/**
-+ * struct drm_neutron_create_bo - Create a buffer object and return buffer
-+ *                                info to user
-+ *
-+ * @size: Size in bytes of requested buffer. May be updated by driver
-+ *        if allocated size different than requested
-+ * @handle: Returned handle for the new buffer object
-+ * @pad: MBZ
-+ * @map_offset: Returned offset for mmap() calls
-+ */
-+struct drm_neutron_create_bo {
-+	__u64 size;
-+	__u32 handle;
-+	__u32 pad;
-+	__u64 map_offset;
-+};
-+
-+/**
-+ * enum drm_neutron_sync_dir - Direction of buffer object synchronization
-+ *
-+ * @DRM_NEUTRON_SYNC_TO_DEVICE: Sync from CPU to device
-+ * @DRM_NEUTRON_SYNC_FROM_DEVICE: Sync from device to CPU
-+ */
-+enum drm_neutron_sync_dir {
-+	DRM_NEUTRON_SYNC_TO_DEVICE = 0,
-+	DRM_NEUTRON_SYNC_FROM_DEVICE,
-+};
-+
-+/**
-+ * struct drm_neutron_sync_bo - Sync buffer object memory
-+ *
-+ * @handle: Handle of buffer object to sync
-+ * @direction: Direction of sync, can be one of enum drm_neutron_sync_dir
-+ * @size: Size of the memory to sync, in bytes
-+ * @offset: Offset inside the buffer, in bytes
-+ */
-+struct drm_neutron_sync_bo {
-+	__u32 handle;
-+	__u32 direction;
-+	__u64 size;
-+	__u64 offset;
-+};
-+
-+#define DRM_IOCTL_NEUTRON_CREATE_BO \
-+	DRM_IOWR(DRM_COMMAND_BASE + DRM_NEUTRON_CREATE_BO, \
-+		 struct drm_neutron_create_bo)
-+
-+#define DRM_IOCTL_NEUTRON_SYNC_BO \
-+	DRM_IOWR(DRM_COMMAND_BASE + DRM_NEUTRON_SYNC_BO, \
-+		 struct drm_neutron_sync_bo)
-+
-+#if defined(__cplusplus)
-+}
-+#endif
-+
-+#endif /* __NEUTRON_ACCEL_H__ */
-
--- 
-2.34.1
-
+I can easily drop those so no need to resend for stuff like this as per
+the usual protocol.
