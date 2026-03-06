@@ -1,32 +1,31 @@
 Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDE23988EE;
-	Fri,  6 Mar 2026 13:28:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED993A2550;
+	Fri,  6 Mar 2026 13:28:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772803693; cv=none; b=KgnnPGRdxg/BnxnoXHC8tZXVnqbLDVYbUtNJomkYuOqDEI/gSv20DJaQ6i/bg5iPzq6rGMVwcMH64E6nKT0P/PjB61QJJ9/mVl9a4rAHRZFTo0eju6OzzfEBGawO6kY9D1WvQapaR07FS3Hwl19U4bOkt7gyUU7OtWsf8vQhEYg=
+	t=1772803694; cv=none; b=d7BOv0Go9x0TYnQcpJ8wIlt57wn0f9IeZguwlJv9yQkpF7GsGnQRj/eacw6CuLfy3L3mTJK7vryAeEXL2FXdVNGxOyMuwIo12uOORPuji82fT2RPoGnRwmXZt6PN58EN4QhBmNGP7swzkxGP87pth9nX4BuQbPqw8ICkv612FA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772803693; c=relaxed/simple;
-	bh=t5jOCwYs4a0qJx+g0j9jr/ql5g59uodTYfBmURX7TLI=;
+	s=arc-20240116; t=1772803694; c=relaxed/simple;
+	bh=DrUlgsCcuIzne0wmXxYAn68dCYFpp2rPkNSax62ZhRQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QZYG7Z1skC1T20GAq2+QJGtObso8yLS34KNWsQDYcMqEBlfJAvd8SRCTTx4XuoJKa38D0zJPIzbXXQ2dDC7NQAnn2P2c64v7Co+s+cvkf92bGHqCUBuMSVESqj6GBUYErcCp3FCtCF7jeEpekDPGf7S7ezFca4yZCvJBTjQybSk=
+	 In-Reply-To:To:Cc; b=rvcNFR5kKTuhcQCH3I/La+1MU7BJTRXQk4VYWrYrCtH+OFxDxnuswzwbeBjUp7EcZkR8qbRCfuIVvwUbbCL/zlttolbUlbaxMnIxPilITnR7jSg9FMujbuBRJoU+fEQW35/aLimMjHGJOJqh5Imh6JJAzOjt/+xW0PQOsLVCjUo=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 01DA11A0116;
-	Fri,  6 Mar 2026 14:28:04 +0100 (CET)
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 800BA1A0112;
+	Fri,  6 Mar 2026 14:28:06 +0100 (CET)
 Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com [134.27.226.22])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id D4FA41A0117;
-	Fri,  6 Mar 2026 14:28:03 +0100 (CET)
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 5FB421A0110;
+	Fri,  6 Mar 2026 14:28:06 +0100 (CET)
 Received: from lsv15149.swis.ro-buh01.nxp.com (lsv15149.swis.ro-buh01.nxp.com [10.162.246.145])
-	by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 6712A20270;
-	Fri,  6 Mar 2026 14:28:02 +0100 (CET)
+	by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id E770020270;
+	Fri,  6 Mar 2026 14:28:04 +0100 (CET)
 From: Ioana Ciocoi-Radulescu <ruxandra.radulescu@nxp.com>
-Date: Fri, 06 Mar 2026 15:27:18 +0200
-Subject: [PATCH v2 1/9] drm/gem-dma: Add flag for bidirectional mapping of
- non-coherent GEM DMA buffers
+Date: Fri, 06 Mar 2026 15:27:20 +0200
+Subject: [PATCH v2 3/9] dt-bindings: npu: Add NXP Neutron
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,7 +34,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260306-neutron-v2-1-3019bd8c91ef@nxp.com>
+Message-Id: <20260306-neutron-v2-3-3019bd8c91ef@nxp.com>
 References: <20260306-neutron-v2-0-3019bd8c91ef@nxp.com>
 In-Reply-To: <20260306-neutron-v2-0-3019bd8c91ef@nxp.com>
 To: Oded Gabbay <ogabbay@kernel.org>, 
@@ -55,82 +54,130 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Daniel Baluta <daniel.baluta@nxp.com>, 
  Ioana Ciocoi-Radulescu <ruxandra.radulescu@nxp.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1772803680; l=2892;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1772803681; l=3102;
  i=ruxandra.radulescu@nxp.com; s=20260204; h=from:subject:message-id;
- bh=t5jOCwYs4a0qJx+g0j9jr/ql5g59uodTYfBmURX7TLI=;
- b=vQgTdwiDpL6F1spFiQA3GmfumX6lRP1fSzi7wQIADz/lnvRiRmtcYpuVIW2l+I8j//iohgk08
- bbYob/MGbB1An73BLKydFFyr4LbLgEOah+seA7bcu0lYaLDWdKOz5n5
+ bh=DrUlgsCcuIzne0wmXxYAn68dCYFpp2rPkNSax62ZhRQ=;
+ b=BO70YCNryjAZnV+gMp/78Lh52PzsT2aSmzOg3CR0pE7xWnE2r5xWyrPJ02ulSQuaY9obCoOLt
+ CO2BIfczV6/D+WT66IWwKh51zmsZ40KkvlaFjRc0g5/6GkIKHWye+rd
 X-Developer-Key: i=ruxandra.radulescu@nxp.com; a=ed25519;
  pk=zoq4b4OYR0c4faAH97xoTxdr6vfR8OvPbS+Cx0XhIBY=
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-Introduce a flag that allows a user to request non-coherent buffers
-allocated via the GEM DMA helper for bidirectional use.
+Add the bindings for Neutron, a Neural Processing Unit from NXP.
 
-Keep current behaviour (DMA_TO_DEVICE mapping) as default, with no change
-required for existing GEM DMA users.
-
-While it hasn't been the case until now, some devices like NXP's Neutron
-Neural Processing Unit (NPU) require contiguous, non-coherent DMA buffers
-they can both read from and write to. Unlike traditional DRM devices,
-Neutron uses the same DMA buffer both for reading model data and for
-writing inference output.
-
-Neutron's usage scenario is a good match for the GEM DMA helpers, except
-for the fact that current implementation only considers the DMA_TO_DEVICE
-direction.
-
+Signed-off-by: Jiwei Fu <jiwei.fu@nxp.com>
 Signed-off-by: Ioana Ciocoi-Radulescu <ruxandra.radulescu@nxp.com>
 ---
- drivers/gpu/drm/drm_gem_dma_helper.c | 6 ++++--
- include/drm/drm_gem_dma_helper.h     | 3 +++
- 2 files changed, 7 insertions(+), 2 deletions(-)
+v2:
+- clock fixes: add description, rename, make clocks mandatory
+- rename node from neutron to npu
+- fix indentation
+---
+ .../devicetree/bindings/npu/nxp,imx95-neutron.yaml | 96 ++++++++++++++++++++++
+ 1 file changed, 96 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_gem_dma_helper.c b/drivers/gpu/drm/drm_gem_dma_helper.c
-index ecb9746f4da8..dbf5ad4426d3 100644
---- a/drivers/gpu/drm/drm_gem_dma_helper.c
-+++ b/drivers/gpu/drm/drm_gem_dma_helper.c
-@@ -148,7 +148,8 @@ struct drm_gem_dma_object *drm_gem_dma_create(struct drm_device *drm,
- 	if (dma_obj->map_noncoherent) {
- 		dma_obj->vaddr = dma_alloc_noncoherent(drm->dev, size,
- 						       &dma_obj->dma_addr,
--						       DMA_TO_DEVICE,
-+						       dma_obj->map_bidirectional ?
-+						       DMA_BIDIRECTIONAL : DMA_TO_DEVICE,
- 						       GFP_KERNEL | __GFP_NOWARN);
- 	} else {
- 		dma_obj->vaddr = dma_alloc_wc(drm->dev, size,
-@@ -238,7 +239,8 @@ void drm_gem_dma_free(struct drm_gem_dma_object *dma_obj)
- 		if (dma_obj->map_noncoherent)
- 			dma_free_noncoherent(gem_obj->dev->dev, dma_obj->base.size,
- 					     dma_obj->vaddr, dma_obj->dma_addr,
--					     DMA_TO_DEVICE);
-+					     dma_obj->map_bidirectional ?
-+					     DMA_BIDIRECTIONAL : DMA_TO_DEVICE);
- 		else
- 			dma_free_wc(gem_obj->dev->dev, dma_obj->base.size,
- 				    dma_obj->vaddr, dma_obj->dma_addr);
-diff --git a/include/drm/drm_gem_dma_helper.h b/include/drm/drm_gem_dma_helper.h
-index f2678e7ecb98..e0022f2fdfef 100644
---- a/include/drm/drm_gem_dma_helper.h
-+++ b/include/drm/drm_gem_dma_helper.h
-@@ -17,6 +17,8 @@ struct drm_mode_create_dumb;
-  *       DMA addresses.
-  * @vaddr: kernel virtual address of the backing memory
-  * @map_noncoherent: if true, the GEM object is backed by non-coherent memory
-+ * @map_bidirectional: valid only if map_noncoherent flag is set. If true, allow
-+ *                     bidirectional use of the non-coherent memory buffer
-  */
- struct drm_gem_dma_object {
- 	struct drm_gem_object base;
-@@ -27,6 +29,7 @@ struct drm_gem_dma_object {
- 	void *vaddr;
- 
- 	bool map_noncoherent;
-+	bool map_bidirectional;
- };
- 
- #define to_drm_gem_dma_obj(gem_obj) \
+diff --git a/Documentation/devicetree/bindings/npu/nxp,imx95-neutron.yaml b/Documentation/devicetree/bindings/npu/nxp,imx95-neutron.yaml
+new file mode 100644
+index 000000000000..a06de4bc3f0a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/npu/nxp,imx95-neutron.yaml
+@@ -0,0 +1,96 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/npu/nxp,imx95-neutron.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NXP Neutron NPU
++
++maintainers:
++  - Ioana Ciocoi-Radulescu <ruxandra.radulescu@nxp.com>
++  - Jiwei Fu <jiwei.fu@nxp.com>
++
++description:
++  Neutron is an NPU from NXP targeting edge AI inference applications.
++  Initially supported on i.MX95 SoCs.
++
++properties:
++  compatible:
++    enum:
++      - nxp,imx95-neutron
++
++  reg:
++    items:
++      - description: Register space
++      - description: Instruction area of the TCM space
++      - description: Data area of the TCM space
++
++  reg-names:
++    items:
++      - const: regs
++      - const: itcm
++      - const: dtcm
++
++  memory-region:
++    description:
++      Phandle referencing a "shared-dma-pool" to be used for Neutron
++      inference buffers, which need to be 1MB aligned.
++
++      The memory region must be defined with alignment of 1MB and size
++      should be large enough to accommodate the targeted ML models. It
++      should be marked as reusable.
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: Core clock
++      - description: APB bus clock
++
++  clock-names:
++    items:
++      - const: core
++      - const: apb
++
++  iommus:
++    maxItems: 1
++
++  power-domains:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - memory-region
++  - interrupts
++  - clocks
++  - clock-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    bus {
++      #address-cells = <2>;
++      #size-cells = <2>;
++
++      npu@4ab00000 {
++        compatible = "nxp,imx95-neutron";
++        reg = <0x0 0x4ab00000 0x0 0x00000400>,
++              <0x0 0x4AB10000 0x0 0x00010000>,
++              <0x0 0x4AB08000 0x0 0x00008000>;
++        reg-names = "regs", "itcm", "dtcm";
++        memory-region = <&neutron_pool>;
++        interrupts = <GIC_SPI 318 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&scmi_clk 68>, <&scmi_clk 67>;
++        clock-names = "core", "apb";
++        power-domains = <&scmi_devpd 20>;
++      };
++    };
++...
 
 -- 
 2.34.1
