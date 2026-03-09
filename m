@@ -1,98 +1,128 @@
-Received: from glittertind.blackshift.org (glittertind.blackshift.org [116.203.23.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325AD3A4F2C;
-	Mon,  9 Mar 2026 16:04:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.23.228
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773072263; cv=none; b=nSbBqGI5ylAUkH0AWeTxc7c2bu7o4uiQlLr10lgSZSN5/uhDwSHMNA8KliLwjbbD58xkW3U9tm5TZgXEncPKMVsJap/q1bZJJQoHvAhL2eohD5Q76eln5+pSg6o5wiLKCB/W2KPUe9CJ4wiCZ8c97P8f6X6/89Az/nK8L2g2VRc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773072263; c=relaxed/simple;
-	bh=yLkeAkni2e8PJZhqNcBedtEYdFtvlAlrwYrw4/wXd7Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jHGnZDtL40kwk0idkiY1W3rKWVoinsddbHIbr7PaB3DoesuairSg/MANQvvmENrQJvx31ZiwobprznYkJFueAVMSR6NqYncjOE3pihKpmqAioPQUc6u1AAvidBrMi+vzhryXLFVpHs8fG25bvZlc87dW+Un7ZFxMyhzkM/lnsD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackshift.org; spf=pass smtp.mailfrom=blackshift.org; arc=none smtp.client-ip=116.203.23.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackshift.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blackshift.org
-Received: from bjornoya.blackshift.org (unknown [IPv6:2003:102:af0b:fa00:dea6:32ff:feb1:177a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
-	 client-signature RSA-PSS (4096 bits) client-digest SHA256)
-	(Client CN "bjornoya.blackshift.org", Issuer "R12" (verified OK))
-	by glittertind.blackshift.org (Postfix) with ESMTPS id DFED777AAF4;
-	Mon, 09 Mar 2026 15:53:57 +0000 (UTC)
-Received: from pengutronix.de (p4ffb2dc6.dip0.t-ipconnect.de [79.251.45.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 7E2F84FC771;
-	Mon, 09 Mar 2026 15:53:57 +0000 (UTC)
-Date: Mon, 9 Mar 2026 16:53:57 +0100
-From: Marc Kleine-Budde <mkl@blackshift.org>
-To: Sanjay Chitroda <sanjayembeddedse@gmail.com>
-Cc: mirela.rabulea@nxp.com, mchehab@kernel.org, Frank.Li@nxp.com, 
-	s.hauer@pengutronix.de, linux-kernel@vger.kernel.org, kernel@pengutronix.de, 
-	skhan@linuxfoundation.org, festevam@gmail.com, linux-arm-kernel@lists.infradead.org, 
-	linux-media@vger.kernel.org
-Subject: Re: [PATCH v2] media: imx-jpeg: convert kzalloc_obj() to
- devm_kzalloc()
-Message-ID: <20260309-excellent-lionfish-of-symmetry-5c1a77-mkl@blackshift.org>
-X-AI: stop_reason: "refusal"
-References: <20260308060554.1764128-1-sanjayembedded@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A18F3BD629
+	for <linux-media@vger.kernel.org>; Mon,  9 Mar 2026 16:41:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1773074490; cv=pass; b=hqLsSM+gasMKPep8/t7aRuqR2EK28LM2A26tVVeJmNgOHhsG/zLcQt1zLjx59sBPyt/CYz+9lWRL4AracxT1xtoBIxXPkz/RlOWqd3Hng5Pz7PAwPIXd/El91V9rWCFNd3S/9wtKfWWqCWVr2te0F8X0nKHFZ1e+pSWQRRmVvhI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1773074490; c=relaxed/simple;
+	bh=f2WhDJoUGRMLY0UAQRhBbyNRzq6qIYSfu1tWmaWc858=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Content-Type; b=m5aKF0Bc7OBbqO9uxahhvY/hD4Oi8aflayRSjyKVxlafgI85Zclk3sTPDJ9ekyEBe84KMhvEOHX78xjj5FJ1fBn77BxEqV46kLoCae/3wi8HBbK+U/KPCeSTVV3jhFII1FBXgmi7XNkWuOOFMw0UNV+s+PkWGbP8YmN9tCltelA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mi2LTGuB; arc=pass smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mi2LTGuB"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3597b474cbdso5106768a91.1
+        for <linux-media@vger.kernel.org>; Mon, 09 Mar 2026 09:41:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773074488; cv=none;
+        d=google.com; s=arc-20240605;
+        b=DLh62bNy3i0SWYjs1zxS4uBZ+ej9V8yagdiD+ovCOrjbSW9B8+KgGLUBxaM/zYnC0u
+         43ccy7yeXwFux8+9ZvYud2k87e7BvNlDKDmkqdzlS5zLl70lek51I6z0mXnzN7kh8W/7
+         aD1cEvb5Bsa8agPLyCbqoc+Ozd/nNAkdh5gR/CAVYIK9Tuxw06uu/oV3gswGoMjkwTBa
+         aYEH+hd1b0c9dZ9bBQrZpKwdGhTxsM81+DHO5ZGnzjSq3cmHvHBLnO1WUoc9MhiuBIS6
+         PSSSg9/5DJUEK7EmmwPbuRpgstELGGSSq70VWXZykc9fEa0w03SNbtwCUC5Ay7A8+IeG
+         p+WQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+q1JXLUy0Un6F2HdHE3FOsU3tROzzqf+uz6ZNF4NhoA=;
+        fh=RpYxnnRW5A5FvuL86z7f7YWfE0tvaTrs4Vecbev4fLA=;
+        b=eb8v/IR+n7WbX2vJpz3AGPrV1TbN+wRDsXmXGpfe1zHdHPihqUgN+W/2Tw7JONV7YO
+         tFt2Cu6g0klHOjyAlsRVSErFZToWjlqCrBwwZOjUXv1H1uuPBJcRV705YUHqW7LWdh7P
+         CWpwd8z1XgXpwyAR+NdUpWmq8Gjh0YZCByEHhNHBrytBDUajt9mAccHN0SXpwdMIrKB/
+         xKA7n8qwSohDRVvLTOgP338dxMPoKF7Af5q6XQdtrf6PEwCTM5wLIWHA9yTf9NAljCpQ
+         HTefpOciTm0VpaUPSU0CxFccq7CQ6RVzv1YqmmQisfwM4zBp57wbk72TAVDHF0fxiv19
+         88qQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1773074488; x=1773679288; darn=vger.kernel.org;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+q1JXLUy0Un6F2HdHE3FOsU3tROzzqf+uz6ZNF4NhoA=;
+        b=mi2LTGuBMzv1KDlpZvIvPNdyC4ODI6rTUTlkqAFM0ygnrX8FVGFwFqT6IbNI2qRCSo
+         Cqe74Kb0xFvQ47eEgZFLoZbWBE2AvpZ0NxumGq1Yk2h8CToCNKWBMPuGzB2gLzY0Ccb9
+         PjRlu3yGX5pOIeuoP8mCKsyGSqbJH/Vyv2IGlcZl8+hRaWZsIv+30or4T7bkp7ptgF3j
+         Qh6owblKFcIw0XHCarUYh+5qsjihgL3KxPfvmq5a6uLE1SOitHPb5ZBUhlqJWb6P28KA
+         Ain5lk9jGs5IKJDE8sphI9VFYZrK7qRGMJfNhhYADnQ61aTvIgK8z1I1qcH66dXcooyN
+         khSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1773074488; x=1773679288;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=+q1JXLUy0Un6F2HdHE3FOsU3tROzzqf+uz6ZNF4NhoA=;
+        b=HuyCTcMSdF1vCQvCVwltQas8bntbiiAKUt6MliuFHsz5pic6gHomvpVtE7qE+4zYSL
+         uuh5XMH/527W0UuhDKmTnoN1TY7dgiuCNSRN7Uf3oTd9gEcXT5SGx8he1NaCFfmveMgD
+         A94/F+7dMJnGza9ZW+h+rrgPAdH8XqHfkDKjMXi9luX0AQ/PN5L69pduvkGB3A+AC1NM
+         NedgG+5RJi5TZpZcdSTkbq7JyR9n9K2s3NbXXq6ceTEXon4pPq+3UgZBCGmLTPTkTP36
+         er5OSeX27/Bkrverd4SZncHA1qJv4n8agbK8t2l8gkbDqIh1igIeFpdj3M65BcWpJkZa
+         b1SA==
+X-Gm-Message-State: AOJu0YySE7sKmGucLanievBJrxSRES637iO9lqv1TM5X45jCUNIsg3XI
+	9iSmP1dGroOWTMOn750XarZvkdtBZknuQYBi7GAbqP+ClXMU40JExJj+eHZU/a3neOXbO2XbpHJ
+	WWME8Xe+GRzrZa3SA2r7GSYgYaX7t9ppYeYm7
+X-Gm-Gg: ATEYQzx5eAxCUm+eFttKG0L1g9f0ZTMu0wZtEdyAOJo0tv+4DPCkSmQ02XfDIvs0MuV
+	7LjcKf1LP1F2vzNYbRSesBy5GtiZ+ISitVPx+Qy1Wu+lPH7gpyUEgy3axzahIAN73eR9iYDdU8O
+	W3ZDvSn38itWpEmLY7S/h3kit+5L6+17ldHCv5DduPHUhyqMf4F6sc6vfQdbZqb3DiB0pyqha6e
+	uUGIT48oampsWb6LzZmMsOavxEJrofcLzAeTiGpxxEXSOv+oF3NrtJF/u3RvFc1o5HqvCNt0CW8
+	w9wPPfFy1alZ2eRYWLoVN7qdkJfd5GqfLmttlL9GJ1gL1gKdOPIPjWzvFYj1fBVCtco9R3LR
+X-Received: by 2002:a17:90b:180b:b0:353:49f2:1e7a with SMTP id
+ 98e67ed59e1d1-359be34982dmr11916088a91.17.1773074487996; Mon, 09 Mar 2026
+ 09:41:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rwfq522xc3dm3ibc"
-Content-Disposition: inline
-In-Reply-To: <20260308060554.1764128-1-sanjayembedded@gmail.com>
-
-
---rwfq522xc3dm3ibc
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <20260228174458.11614-1-esty5664@gmail.com>
+In-Reply-To: <20260228174458.11614-1-esty5664@gmail.com>
+From: Esther Zilberberg <esty5664@gmail.com>
+Date: Mon, 9 Mar 2026 18:41:16 +0200
+X-Gm-Features: AaiRm53zYhCnqYmjrBnC5o8L6hYPVh4FGSyR0q57tt6FD8XHAyqrZy22ZjZPkKI
+Message-ID: <CAPMPFbj=q+93yKr-1J=k+5Vxc8Ea_diNmCs80vo78d+1rcr1TA@mail.gmail.com>
+Subject: Re: [PATCH v4l-utils] v4l2-sysfs-path: add description
+To: linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2] media: imx-jpeg: convert kzalloc_obj() to
- devm_kzalloc()
-MIME-Version: 1.0
 
-On 08.03.2026 11:35:54, Sanjay Chitroda wrote:
-> From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
+On Sat, Feb 28, 2026 at 7:45=E2=80=AFPM Esther Zilberberg <esty5664@gmail.c=
+om> wrote:
 >
-> The driver allcoates memory using kzalloc_obj() and frees it in the relase
-> path. since the allocated memory is tied to the lifetime of the device,
-> devm_kzalloc() can be used instead.
-
-What happens if you issue multiple open()/close() cycles per device
-lifetime? Will the memory pile up, until the mxc_jpeg_remove() function
-is called?
-
-> Using device-managed allocation simplifies the error handling paths and
-> remove the need for manual cleanup.
+> Add a missing description for the v4l2-sysfs-path utility in README.md.
 >
-> No functional change intended.
+> Signed-off-by: Esther Zilberberg <esty5664@gmail.com>
+> ---
+>  README.md | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/README.md b/README.md
+> index fe893b16..8420417c 100644
+> --- a/README.md
+> +++ b/README.md
+> @@ -272,7 +272,8 @@ Installed under `<prefix>/sbin`.
+>
+>  ### v4l2-sysfs-path
+>
+> -*FIXME* add description.
+> +Tool to show relationships between V4L2 video devices and other related =
+devices
+> +belonging to the same physical device by parsing the sysfs tree.
+>
+>  Installed under `<prefix>/bin`.
+>
+> --
+> 2.43.0
+>
 
-Marc
+Hi,
 
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+Gentle reminder to review the patch below.
 
---rwfq522xc3dm3ibc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCaa7tEgAKCRDMOmT6rpmt
-0sDRAP0WU8x/a6pZA9ver9FOcvuFQgp4w76tuUH0fxv5Q5oK7AEA2nC/ZdCd6qJ7
-qPjF2o2RBxHPuXk33kjBxpUC0D7hMAA=
-=ttro
------END PGP SIGNATURE-----
-
---rwfq522xc3dm3ibc--
+Thanks,
+Esther
