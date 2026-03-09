@@ -1,68 +1,63 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F42939903C
-	for <linux-media@vger.kernel.org>; Mon,  9 Mar 2026 11:51:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A7F355F3A
+	for <linux-media@vger.kernel.org>; Mon,  9 Mar 2026 11:56:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773057089; cv=none; b=MTCnxJRqwfAtsrpgObJdxZWQTBlfIr/njVrtRWZImX63g4La/VQ2YpRhoiyDeCudnq4ACJVE0Ux8CQHdnsSx5JQa0icJbXl3zE8StdwvH8jYGNYk2xWn0IlHIijLMYHWOAkU7koTZZ3FT6R/BXGg0biwXGg0uRziMeo0bNYPd3o=
+	t=1773057390; cv=none; b=hJ0LSt+ZjViqTNThPLxYMD1PmuZNb4bOxVkfkjuCv25rjmizR3HV4ahhu8C/bPDyBB+7WuyltIXsRiX6kDYoEfDBprifI9gKW6DlrJHovJa0arHUdvmfQbsJ961Vj8oennaxqurSCqSSAOqrzS8REu4ABDCEB1HrBEHc6AOVCMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773057089; c=relaxed/simple;
-	bh=Q6Khgu7s6GI/Kiqe7k8YdKM2x5srxjMvphejInIc74c=;
+	s=arc-20240116; t=1773057390; c=relaxed/simple;
+	bh=SI59CN6FPnVYjZTIcQYH0Cihdph76q3dfe9c7NFce60=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dGUwqq4qbwVyMipKAWtg1ifiiYEZZMpF4IKFDYtWaFExntpxLTYlyhr6uzlLliqhddl8psfhHntvjcjMWniK/Y7tmoXnVBccG2vBAx28l4fHyUQNrM2VtRTctl9qPlr4WZnpj0SHcNM8jSYu5MyjNYrhvX7ikUH6klF+smGksao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=SG4bHQQm; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Rbo7hUHbS0yZ07lH6qEwnSVmtpII14R7MasrUYrXQuHY7Dk/p09BagLI2WqWgIGEQl5hOCT4QyRzl6F+9ccIPJXxCU9v3sMpxkDaCt9fhlWUwFufuIEBJjSkQyLQH47K0XFuP3opvlDSWOLZk8gan14HpebyEUz1u3VYLxLcIcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MCGt4xto; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="SG4bHQQm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=9Obo
-	8Gy0XA25wtJr5nUH75+SmBoDD9gzbxy0pse51zo=; b=SG4bHQQmR0rX7VosFKnI
-	NElZQF8NdYgOe6TZz/zGTk1VPqhuefyIBm986kOuXEbLJyoUtjAg5041Z+EkkKZf
-	4ePH4CzS1xgHvbO3mQL86Ls2+SDzm7nzk55wJKUo+v3KXq0/Rvw5VfIQKT3KG1/4
-	uIcnJJEQNdmNDIUvQEsxWY9RFjKycq1zHcstssectbzJXGPr/ce0HvwyMwDtKpD5
-	R5DoL5RAMLa2YblMV71ZYCGqsKzHBIQn4jmf0IzKEZ9cdUoDykSTCUeNbAQkB9D7
-	KYqzk3Pp+blknRp5JwyNhRu7bGiAkuIskoATFCvKQxbufrTiTWzSgkWCoYFj4GaE
-	Lg==
-Received: (qmail 2760960 invoked from network); 9 Mar 2026 12:51:25 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 9 Mar 2026 12:51:25 +0100
-X-UD-Smtp-Session: l3s3148p1@NX63BZZMwKMgAwDPXzF+ANZpdrMKUeLI
-Date: Mon, 9 Mar 2026 12:51:24 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Johan Hovold <johan@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Andi Shyti <andi.shyti@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Khalil Blaiech <kblaiech@nvidia.com>,
-	Asmaa Mnebhi <asmaa@nvidia.com>, Jean Delvare <jdelvare@suse.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-	linuxppc-dev@lists.ozlabs.org, linux-actions@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MCGt4xto"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1773057389; x=1804593389;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=SI59CN6FPnVYjZTIcQYH0Cihdph76q3dfe9c7NFce60=;
+  b=MCGt4xtowP2UjWaYriJmq3R3s2GkAHDA65qE+sxFz+7M1Pxka8FNI4Oa
+   cU1sbyedjGyL6uDBc/EsBJVfMGTY0Gk1+DxcB5AkcJFpvUK3bLz4HbjoX
+   8iw9ki+JmIzvZl9KVYO1C8+siUcKu2NUGyBY4LYD24H6K6UIFOY0Mtk7+
+   5Pn5G1Fx07o69YqTZK4zaRZDxYktEl6YBZ9DN0En7gxNHGzVZsDKC2SiS
+   XGvvVU44VyPwyZSODf4o/XfLKcDjvrOM3bed6BCstkvaGzmVvuB8ql22q
+   BFG3pOgpv5on9KDH2lGHwq7lYb5r81eQXPNa+BSxBJosPzVAIo8KMINsK
+   w==;
+X-CSE-ConnectionGUID: MvU5Q5eHQ7m4pu4GnwH6qQ==
+X-CSE-MsgGUID: 14Eu5H4CQfqdPw+lxz6W/A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11723"; a="73097939"
+X-IronPort-AV: E=Sophos;i="6.23,109,1770624000"; 
+   d="scan'208";a="73097939"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Mar 2026 04:55:22 -0700
+X-CSE-ConnectionGUID: Rr32ojdORSCQ97fgIywMAw==
+X-CSE-MsgGUID: 7rvbLIHEQ/GO23KDQV3RbA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,109,1770624000"; 
+   d="scan'208";a="219710208"
+Received: from vpanait-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.148])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Mar 2026 04:55:21 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id BA607121D1F;
+	Mon, 09 Mar 2026 13:55:51 +0200 (EET)
+Date: Mon, 9 Mar 2026 13:55:51 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>, Shawn Tu <shawnx.tu@intel.com>,
 	linux-media@vger.kernel.org
-Subject: Re: [PATCH v2 00/13] i2c: add and start using i2c_adapter-specific
- printk helpers
-Message-ID: <aa60PCE3wsEAZbcu@shikoro>
-References: <aaFcs1miP88QWmtH@hovoldconsulting.com>
- <aaFfEsfh0xTh0b1y@shikoro>
- <aaFsZbiLYSz_YEjw@hovoldconsulting.com>
- <CAMRc=MfcvD1nJy=zpoCkSkJq6WjyXQxFUZ4QE6vyCS+XFCn5AA@mail.gmail.com>
- <aaHI_VavZugXjVoL@hovoldconsulting.com>
- <CAMRc=MdKF29McBJ9U=qELkzf9GYV1CQpRF7U6OweDNtVzMXo7A@mail.gmail.com>
- <aacE-27iaYneKCJi@hovoldconsulting.com>
- <CAMRc=Mcx8Hu407arSEo3o-Xhmep_ZK4BM2TVi_55nXGwYcaijw@mail.gmail.com>
- <aagSewpM88KAZDcJ@shikoro>
- <aar3rj7Db6NmTVS_@hovoldconsulting.com>
+Subject: Re: [PATCH 6/6] media: i2c: og01a1b: Add support of 8-bit media bus
+ format
+Message-ID: <aa61R5mcCE1zu125@kekkonen.localdomain>
+References: <20260226133739.4050870-1-vladimir.zapolskiy@linaro.org>
+ <20260226133739.4050870-7-vladimir.zapolskiy@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -71,24 +66,34 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aar3rj7Db6NmTVS_@hovoldconsulting.com>
+In-Reply-To: <20260226133739.4050870-7-vladimir.zapolskiy@linaro.org>
 
-Hi Johan,
+Hi Vladimir,
 
-> I don't know what was said a conference some years ago or whether there
-> was any misunderstanding on either side. What matters is what was
-> posted.
+Thanks for the set.
 
-What was posted was in accordance with what was discussed at said
-conference. The people in the room (including gkh) were OK with the
-compromise solution. If you are not and willing to provide a better
-solution...
+On Thu, Feb 26, 2026 at 03:37:39PM +0200, Vladimir Zapolskiy wrote:
+> @@ -627,6 +632,14 @@ static int og01a1b_enable_streams(struct v4l2_subdev *sd,
+>  		return ret;
+>  	}
+>  
+> +	ret = cci_write(og01a1b->regmap, CCI_REG8(0x3662),
+> +			(og01a1b->code == MEDIA_BUS_FMT_Y10_1X10 ? 0x4 : 0x6),
 
-> Bartosz seems to agree that my suggestion to decouple the driver data
-> from the i2c_adapter would be better, and I'm willing to do the job.
+Does this configuration have a human-readable name? It'd be nice to use
+that instead of a plain numerical value.
 
-... you get all my support.
+> +			NULL);
+> +	if (ret) {
+> +		dev_err(og01a1b->dev, "failed to set output format: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+>  	ret = __v4l2_ctrl_handler_setup(og01a1b->sd.ctrl_handler);
+>  	if (ret)
+>  		goto error;
 
-Thanks and happy hacking,
+-- 
+Regards,
 
-   Wolfram
+Sakari Ailus
