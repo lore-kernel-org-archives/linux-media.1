@@ -1,62 +1,68 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F2E21FF23;
-	Mon,  9 Mar 2026 11:35:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F42939903C
+	for <linux-media@vger.kernel.org>; Mon,  9 Mar 2026 11:51:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773056113; cv=none; b=tYBG8TNW1wBH4z8vDOHscICm3Jl7XuYkFYDvO9sX34AP3Gz1CpHNVoj4Dhn8w7duXRjJwKmg2PbXRV6+JIr8Gc51LlSmenK6Z2cG8PTkMl7qAwu+c8Qk3TFMUrM/+g4/M8nfoHuwFeI3KaEZsJ/cHApUUTttsKO4XDHK5fhRUo0=
+	t=1773057089; cv=none; b=MTCnxJRqwfAtsrpgObJdxZWQTBlfIr/njVrtRWZImX63g4La/VQ2YpRhoiyDeCudnq4ACJVE0Ux8CQHdnsSx5JQa0icJbXl3zE8StdwvH8jYGNYk2xWn0IlHIijLMYHWOAkU7koTZZ3FT6R/BXGg0biwXGg0uRziMeo0bNYPd3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773056113; c=relaxed/simple;
-	bh=20BDI8MNZYGlUkJKadNeJI+OFMFKni2X0fAf1vQP6lw=;
+	s=arc-20240116; t=1773057089; c=relaxed/simple;
+	bh=Q6Khgu7s6GI/Kiqe7k8YdKM2x5srxjMvphejInIc74c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ub9Kv2F/8FNK07g2ad1uyJoUmSCR1QV91L6eC5G/LANtLAK+4IBoQFg8juOtDnaxhHJwhv1ebQzgkl1XRw47QBnDeSlqy/2R9eMoLLKDiDh9Vp9g7wgWPkKyNp2+b1PO2JARdPCRp0WpuAqSALfVbrhQgJvUyvGhXgXhFV+Fpo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JXy+Cj/e; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=dGUwqq4qbwVyMipKAWtg1ifiiYEZZMpF4IKFDYtWaFExntpxLTYlyhr6uzlLliqhddl8psfhHntvjcjMWniK/Y7tmoXnVBccG2vBAx28l4fHyUQNrM2VtRTctl9qPlr4WZnpj0SHcNM8jSYu5MyjNYrhvX7ikUH6klF+smGksao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=SG4bHQQm; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JXy+Cj/e"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1773056112; x=1804592112;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=20BDI8MNZYGlUkJKadNeJI+OFMFKni2X0fAf1vQP6lw=;
-  b=JXy+Cj/eip/PIJ3I351jXh9S7T39Q9ubkjqBC3M54Z02N+QeIB9gRL0f
-   Jgq7pB+pzU+CRcWvWfzDcHMFwx1WFv8xVAjj5RhRik983tUFqyWZ+1Xv7
-   rpDXf4bDALZmzsGCL/7w1GORsjJdtfeYtbBt93j50/dM//61j4mCaqUxN
-   WzlTgXDx1DfT2S6F+1eMdHA/nzVZcWwH4a61Cq8B9Ku5IjiDRysOWUMlV
-   N0kpgEu7VMbcNCl7EaaMxXZy+zvHf0MD0ClGy9QmF/pEZtMbHsgM5KCi1
-   TzR38PMmCqU3hL/Y+oYYd7EE9LNYNtxHD3H8eNXwG4y77GiopV/zG9iTa
-   w==;
-X-CSE-ConnectionGUID: 1ZqNhk/HQ++5vaiolMxSbw==
-X-CSE-MsgGUID: qmt9ptrdSL6uQAXrNukeMA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11723"; a="85426527"
-X-IronPort-AV: E=Sophos;i="6.23,109,1770624000"; 
-   d="scan'208";a="85426527"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Mar 2026 04:35:12 -0700
-X-CSE-ConnectionGUID: f7z9x5jASde+Tcw/n5xEkg==
-X-CSE-MsgGUID: rDY0osKET5uTuidhJqtJTA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,109,1770624000"; 
-   d="scan'208";a="219671527"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.245.181])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Mar 2026 04:35:08 -0700
-Date: Mon, 9 Mar 2026 13:35:06 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Tomasz Unger <tomasz.unger@yahoo.pl>
-Cc: Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="SG4bHQQm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=9Obo
+	8Gy0XA25wtJr5nUH75+SmBoDD9gzbxy0pse51zo=; b=SG4bHQQmR0rX7VosFKnI
+	NElZQF8NdYgOe6TZz/zGTk1VPqhuefyIBm986kOuXEbLJyoUtjAg5041Z+EkkKZf
+	4ePH4CzS1xgHvbO3mQL86Ls2+SDzm7nzk55wJKUo+v3KXq0/Rvw5VfIQKT3KG1/4
+	uIcnJJEQNdmNDIUvQEsxWY9RFjKycq1zHcstssectbzJXGPr/ce0HvwyMwDtKpD5
+	R5DoL5RAMLa2YblMV71ZYCGqsKzHBIQn4jmf0IzKEZ9cdUoDykSTCUeNbAQkB9D7
+	KYqzk3Pp+blknRp5JwyNhRu7bGiAkuIskoATFCvKQxbufrTiTWzSgkWCoYFj4GaE
+	Lg==
+Received: (qmail 2760960 invoked from network); 9 Mar 2026 12:51:25 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 9 Mar 2026 12:51:25 +0100
+X-UD-Smtp-Session: l3s3148p1@NX63BZZMwKMgAwDPXzF+ANZpdrMKUeLI
+Date: Mon, 9 Mar 2026 12:51:24 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Andi Shyti <andi.shyti@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Khalil Blaiech <kblaiech@nvidia.com>,
+	Asmaa Mnebhi <asmaa@nvidia.com>, Jean Delvare <jdelvare@suse.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
+	Manivannan Sadhasivam <mani@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev
-Subject: Re: [PATCH] media: staging: atomisp: Remove unnecessary return
- statement in void function
-Message-ID: <aa6wakTzH6ZjKrBA@ashevche-desk.local>
-References: <20260305-atomisp-remove-void-return-v2b-v1-1-902e534ecb48.ref@yahoo.pl>
- <20260305-atomisp-remove-void-return-v2b-v1-1-902e534ecb48@yahoo.pl>
+	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+	linuxppc-dev@lists.ozlabs.org, linux-actions@lists.infradead.org,
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH v2 00/13] i2c: add and start using i2c_adapter-specific
+ printk helpers
+Message-ID: <aa60PCE3wsEAZbcu@shikoro>
+References: <aaFcs1miP88QWmtH@hovoldconsulting.com>
+ <aaFfEsfh0xTh0b1y@shikoro>
+ <aaFsZbiLYSz_YEjw@hovoldconsulting.com>
+ <CAMRc=MfcvD1nJy=zpoCkSkJq6WjyXQxFUZ4QE6vyCS+XFCn5AA@mail.gmail.com>
+ <aaHI_VavZugXjVoL@hovoldconsulting.com>
+ <CAMRc=MdKF29McBJ9U=qELkzf9GYV1CQpRF7U6OweDNtVzMXo7A@mail.gmail.com>
+ <aacE-27iaYneKCJi@hovoldconsulting.com>
+ <CAMRc=Mcx8Hu407arSEo3o-Xhmep_ZK4BM2TVi_55nXGwYcaijw@mail.gmail.com>
+ <aagSewpM88KAZDcJ@shikoro>
+ <aar3rj7Db6NmTVS_@hovoldconsulting.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -65,26 +71,24 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260305-atomisp-remove-void-return-v2b-v1-1-902e534ecb48@yahoo.pl>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <aar3rj7Db6NmTVS_@hovoldconsulting.com>
 
-On Thu, Mar 05, 2026 at 02:45:27PM +0100, Tomasz Unger wrote:
-> Remove redundant 'return;' at the end of void function
-> ia_css_dvs_statistics_get(). Void functions do not need an explicit
-> return statement at the end. No other occurrences in this file.
-> 
-> Found with checkpatch.pl --strict.
-> 
-> Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
-> ---
-> Changes since v1:
+Hi Johan,
 
-You forgot to update the version. Use `git format-patch -v<N> ...` to get it
-automatically (where <N> is version number).
+> I don't know what was said a conference some years ago or whether there
+> was any misunderstanding on either side. What matters is what was
+> posted.
 
--- 
-With Best Regards,
-Andy Shevchenko
+What was posted was in accordance with what was discussed at said
+conference. The people in the room (including gkh) were OK with the
+compromise solution. If you are not and willing to provide a better
+solution...
 
+> Bartosz seems to agree that my suggestion to decouple the driver data
+> from the i2c_adapter would be better, and I'm willing to do the job.
 
+... you get all my support.
+
+Thanks and happy hacking,
+
+   Wolfram
