@@ -1,39 +1,39 @@
 Received: from lx20.hoststar.hosting (lx20.hoststar.hosting [168.119.41.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F3C727FB3C;
-	Mon,  9 Mar 2026 17:46:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC432749E0;
+	Mon,  9 Mar 2026 17:46:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.41.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773078392; cv=none; b=usV+3fherOHFSrTBq58eiRrWXlGINBQtsWsAU3DZqXyCmK+pAFoQkI/ZJko/VB+C0ih5IDI+uqOGYF6iI9bpfJb5BQ/54j4zsA2xusNaEaZJL3DZys3bFACUWmX89d4Itev6n3UZ5uuc6wdq3QYTKvNddG22r7cxgCX1fIonneI=
+	t=1773078395; cv=none; b=b6PKsECcKIzX1XW3+hSYP139V0iHDAqsDb9WkGm0unfiDLYet+k0vsu44AX+1cevNUmCTFxdW+LrveDJvLKRC5zP6s7RLBPxEmEwfhkoNNaUbQiFENaUa+fh6tYJCCB2++MsMZr8rwcgyp6Z1c0dRL/iEH95m0kf7PYwIyo/axM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773078392; c=relaxed/simple;
-	bh=Msne2OPU6AC8rANt+KJ9Nfx9HBaFIIS/y7bNrfoHsP4=;
+	s=arc-20240116; t=1773078395; c=relaxed/simple;
+	bh=fN6VySsURCQWMVtjg8/dz48NZHv3BhQj06urpFQP4Rc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nnU8ZnCxU/LU4bTuFQmHFbk95JiiNqP/9DQWdVRuQL3J8g9pjyx+F84iUSfjKKPNIwdUhx+XLHP2n04ENgj0tL/R3Vf8IkUPcspZI8IRWKJMoPcCncS8bsaDTLZLEh+RnwpWPLzX5qinFD6JF3Uo5h2oyaAeNqVG3AZnuh3ZtDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at; spf=pass smtp.mailfrom=emfend.at; dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b=cGF8JMkF; arc=none smtp.client-ip=168.119.41.54
+	 In-Reply-To:To:Cc; b=Yo4qeGfPnt6Jc7ZKcYrCvIq1ZaLoabAjPgKxftrcGvYouPz0W9c4yWyGcy/ZShykrTgfSP4rQ9+jAQYrW5XD0EO5anYHi/EsKAwTld4SrT41VZWXPpTHWR+6AubEcRlDbeJwmHdaXIMx9pn3/5GZd6cQNtYSjhA9eKin2A6jeoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at; spf=pass smtp.mailfrom=emfend.at; dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b=cVdyhOJ2; arc=none smtp.client-ip=168.119.41.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=emfend.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b="cGF8JMkF"
+	dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b="cVdyhOJ2"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=emfend.at;
 	 s=mail; h=Cc:To:In-Reply-To:References:Message-Id:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
 	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
 	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
 	List-Post:List-Owner:List-Archive;
-	bh=QhGjIQciuVNZ6DrTWNpHCvmxA9va2rN5Hjh+s//xY04=; b=cGF8JMkFNvAnRdeD4yb9NO15Ua
-	tJPqVL/qzN/BBT1s/zexwwaVUIJQ6yohXwVrUkZ33r1cA/WfCFJgrrJjYcVkvDhPZuRpE+YLHtt7E
-	tfLFrd5WNG+L/N76q3ewlgHFZksqBGZfmGEH5WkDIB+Ft///gB2TZ+pLVGERlHhPhLCY=;
+	bh=WlrlJbkbc6GmZ5841B7RnZB+zG8zrXt9wpDIkZ/6yWU=; b=cVdyhOJ2z9q7N8MfHhJJDbHq02
+	5/i3pVU6zbmS3JLo1Q0mzilHpWEzpps9trlvVVGWnz8hG9nAGzsB5k3y25ZLCOMCJ+e9fYYEJD1Pa
+	XSnQLUh4FUBDX9izkzIY75O9hY9N7JRGSTLBZwzk8q7Ctu5q1FzaYlAXdo8iJ9RoCb/4=;
 Received: from 194-208-208-245.tele.net ([194.208.208.245]:56968 helo=[127.0.1.1])
 	by lx20.hoststar.hosting with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.93)
 	(envelope-from <matthias.fend@emfend.at>)
-	id 1vze4P-00Dxnt-S1; Mon, 09 Mar 2026 18:07:06 +0100
+	id 1vze4U-00Dxnt-1e; Mon, 09 Mar 2026 18:07:10 +0100
 From: Matthias Fend <matthias.fend@emfend.at>
-Date: Mon, 09 Mar 2026 18:07:04 +0100
-Subject: [PATCH v2 2/9] media: i2c: ov08d10: fix image vertical start
- setting
+Date: Mon, 09 Mar 2026 18:07:10 +0100
+Subject: [PATCH v2 8/9] media: i2c: ov08d10: add support for reset and
+ power management
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -42,7 +42,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260309-ov08d10-v2-2-81f8b5d99984@emfend.at>
+Message-Id: <20260309-ov08d10-v2-8-81f8b5d99984@emfend.at>
 References: <20260309-ov08d10-v2-0-81f8b5d99984@emfend.at>
 In-Reply-To: <20260309-ov08d10-v2-0-81f8b5d99984@emfend.at>
 To: Jimmy Su <jimmy.su@intel.com>, 
@@ -62,9 +62,10 @@ X-Spam-Report: Spam detection software, running on the system "lx20.hoststar.hos
  similar future email.  If you have any questions, see
  the administrator of that system for details.
  
- Content preview:  Set the device's runtime PM status and enable runtime PM before
-    registering the async sub-device. This is needed to avoid the case where
-   the device is runtime PM resumed while runtime PM has not been [...] 
+ Content preview:  The OV08D10 can be used also on embedded designs using device
+    tree so allow the sensor to bind to a device tree node. Signed-off-by: Matthias
+    Fend <matthias.fend@emfend.at> --- drivers/media/i2c/ov08d10.c | 7 +++++++
+    1 file changed, 7 insertions(+) 
  
  Content analysis details:   (-1.0 points, 5.0 required)
  
@@ -77,62 +78,178 @@ X-Spam-Report: Spam detection software, running on the system "lx20.hoststar.hos
   0.0 Local_hs_NotFromHoststar Sender is NOT hoststar.(ch|at|com)
   0.0 Local_hs_NotToHoststar Recipient is NOT hoststar.(ch|at|com)
 
-The current settings for the "image vertical start" register appear to be
-incorrect. While this only results in an incorrect start line for native
-modes, this faulty setting causes actual problems in binning mode. At least
-on an i.MX8MP test system, only corrupted frames could be received.
-To correct this, the recommended settings from the reference register sets
-are used for all modes. Since this shifts the start by one line, the Bayer
-pattern also changes, which has also been corrected.
+Add support for the required power supplies as well as the control of an
+optional sensor reset.
 
-Fixes: 7be91e02ed57 ("media: i2c: Add ov08d10 camera sensor driver")
 Signed-off-by: Matthias Fend <matthias.fend@emfend.at>
 ---
- drivers/media/i2c/ov08d10.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/media/i2c/ov08d10.c | 93 ++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 92 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/media/i2c/ov08d10.c b/drivers/media/i2c/ov08d10.c
-index 5b02f61e359fa900da9290c1c151aa01b9d70e6e..5e1b8b58b3d64bcf20a7b1a4e47f547d2fd82998 100644
+index ce0fa30a86129302b5dda0b8796e44054fd77c88..19035991e8bb164d4fca5d87ee4551191974e8bb 100644
 --- a/drivers/media/i2c/ov08d10.c
 +++ b/drivers/media/i2c/ov08d10.c
-@@ -217,7 +217,7 @@ static const struct ov08d10_reg lane_2_mode_3280x2460[] = {
- 	{0x9a, 0x30},
- 	{0xa8, 0x02},
- 	{0xfd, 0x02},
--	{0xa1, 0x01},
-+	{0xa1, 0x00},
- 	{0xa2, 0x09},
- 	{0xa3, 0x9c},
- 	{0xa5, 0x00},
-@@ -335,7 +335,7 @@ static const struct ov08d10_reg lane_2_mode_3264x2448[] = {
- 	{0x9a, 0x30},
- 	{0xa8, 0x02},
- 	{0xfd, 0x02},
--	{0xa1, 0x09},
-+	{0xa1, 0x08},
- 	{0xa2, 0x09},
- 	{0xa3, 0x90},
- 	{0xa5, 0x08},
-@@ -467,7 +467,7 @@ static const struct ov08d10_reg lane_2_mode_1632x1224[] = {
- 	{0xaa, 0xd0},
- 	{0xab, 0x06},
- 	{0xac, 0x68},
--	{0xa1, 0x09},
-+	{0xa1, 0x04},
- 	{0xa2, 0x04},
- 	{0xa3, 0xc8},
- 	{0xa5, 0x04},
-@@ -613,8 +613,8 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
- static u32 ov08d10_get_format_code(struct ov08d10 *ov08d10)
- {
- 	static const u32 codes[2][2] = {
--		{ MEDIA_BUS_FMT_SGRBG10_1X10, MEDIA_BUS_FMT_SRGGB10_1X10},
--		{ MEDIA_BUS_FMT_SBGGR10_1X10, MEDIA_BUS_FMT_SGBRG10_1X10},
-+		{ MEDIA_BUS_FMT_SBGGR10_1X10, MEDIA_BUS_FMT_SGBRG10_1X10 },
-+		{ MEDIA_BUS_FMT_SGRBG10_1X10, MEDIA_BUS_FMT_SRGGB10_1X10 },
- 	};
+@@ -8,6 +8,7 @@
+ #include <linux/module.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
++#include <linux/reset.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-fwnode.h>
+@@ -513,9 +514,17 @@ static const char * const ov08d10_test_pattern_menu[] = {
+ 	"Standard Color Bar",
+ };
  
- 	return codes[ov08d10->vflip->val][ov08d10->hflip->val];
++static const char *const ov08d10_supply_names[] = {
++	"dovdd",	/* Digital I/O power */
++	"avdd",		/* Analog power */
++	"dvdd",		/* Digital core power */
++};
++
+ struct ov08d10 {
+ 	struct device *dev;
+ 	struct clk *clk;
++	struct reset_control *reset;
++	struct regulator_bulk_data supplies[ARRAY_SIZE(ov08d10_supply_names)];
+ 
+ 	struct v4l2_subdev sd;
+ 	struct media_pad pad;
+@@ -1265,6 +1274,56 @@ static const struct v4l2_subdev_internal_ops ov08d10_internal_ops = {
+ 	.open = ov08d10_open,
+ };
+ 
++static int ov08d10_power_off(struct device *dev)
++{
++	struct v4l2_subdev *sd = dev_get_drvdata(dev);
++	struct ov08d10 *ov08d10 = to_ov08d10(sd);
++
++	reset_control_assert(ov08d10->reset);
++
++	regulator_bulk_disable(ARRAY_SIZE(ov08d10->supplies),
++			       ov08d10->supplies);
++
++	clk_disable_unprepare(ov08d10->clk);
++
++	return 0;
++}
++
++static int ov08d10_power_on(struct device *dev)
++{
++	struct v4l2_subdev *sd = dev_get_drvdata(dev);
++	struct ov08d10 *ov08d10 = to_ov08d10(sd);
++	int ret;
++
++	ret = regulator_bulk_enable(ARRAY_SIZE(ov08d10->supplies),
++				    ov08d10->supplies);
++	if (ret < 0) {
++		dev_err(dev, "failed to enable regulators: %d\n", ret);
++		return ret;
++	}
++
++	ret = clk_prepare_enable(ov08d10->clk);
++	if (ret < 0) {
++		regulator_bulk_disable(ARRAY_SIZE(ov08d10->supplies),
++				       ov08d10->supplies);
++
++		dev_err(dev, "failed to enable imaging clock: %d\n", ret);
++		return ret;
++	}
++
++	if (ov08d10->reset) {
++		/* Delay from DVDD stable to sensor XSHUTDN pull up: 5ms */
++		fsleep(5 * USEC_PER_MSEC);
++
++		reset_control_deassert(ov08d10->reset);
++
++		/* Delay from XSHUTDN pull up to SCCB start: 8ms */
++		fsleep(8 * USEC_PER_MSEC);
++	}
++
++	return 0;
++}
++
+ static int ov08d10_identify_module(struct ov08d10 *ov08d10)
+ {
+ 	struct i2c_client *client = v4l2_get_subdevdata(&ov08d10->sd);
+@@ -1371,6 +1430,10 @@ static void ov08d10_remove(struct i2c_client *client)
+ 	media_entity_cleanup(&sd->entity);
+ 	v4l2_ctrl_handler_free(sd->ctrl_handler);
+ 	pm_runtime_disable(ov08d10->dev);
++	if (!pm_runtime_status_suspended(ov08d10->dev)) {
++		ov08d10_power_off(ov08d10->dev);
++		pm_runtime_set_suspended(ov08d10->dev);
++	}
+ 	mutex_destroy(&ov08d10->mutex);
+ }
+ 
+@@ -1378,6 +1441,7 @@ static int ov08d10_probe(struct i2c_client *client)
+ {
+ 	struct ov08d10 *ov08d10;
+ 	unsigned long freq;
++	unsigned int i;
+ 	int ret;
+ 
+ 	ov08d10 = devm_kzalloc(&client->dev, sizeof(*ov08d10), GFP_KERNEL);
+@@ -1403,12 +1467,32 @@ static int ov08d10_probe(struct i2c_client *client)
+ 		return ret;
+ 	}
+ 
++	ov08d10->reset = devm_reset_control_get_optional_exclusive(ov08d10->dev, NULL);
++	if (IS_ERR(ov08d10->reset))
++		return dev_err_probe(ov08d10->dev, PTR_ERR(ov08d10->reset),
++				     "failed to get reset\n");
++	reset_control_assert(ov08d10->reset);
++
++	for (i = 0; i < ARRAY_SIZE(ov08d10_supply_names); i++)
++		ov08d10->supplies[i].supply = ov08d10_supply_names[i];
++
++	ret = devm_regulator_bulk_get(ov08d10->dev,
++				      ARRAY_SIZE(ov08d10->supplies),
++				      ov08d10->supplies);
++	if (ret)
++		return dev_err_probe(ov08d10->dev, ret,
++				     "failed to get regulators\n");
++
+ 	v4l2_i2c_subdev_init(&ov08d10->sd, client, &ov08d10_subdev_ops);
+ 
++	ret = ov08d10_power_on(ov08d10->dev);
++	if (ret)
++		return dev_err_probe(ov08d10->dev, ret, "failed to power on\n");
++
+ 	ret = ov08d10_identify_module(ov08d10);
+ 	if (ret) {
+ 		dev_err(ov08d10->dev, "failed to find sensor: %d\n", ret);
+-		return ret;
++		goto probe_error_power_off;
+ 	}
+ 
+ 	mutex_init(&ov08d10->mutex);
+@@ -1452,9 +1536,15 @@ static int ov08d10_probe(struct i2c_client *client)
+ 	v4l2_ctrl_handler_free(ov08d10->sd.ctrl_handler);
+ 	mutex_destroy(&ov08d10->mutex);
+ 
++probe_error_power_off:
++	ov08d10_power_off(ov08d10->dev);
++
+ 	return ret;
+ }
+ 
++static DEFINE_RUNTIME_DEV_PM_OPS(ov08d10_pm_ops,
++				 ov08d10_power_off, ov08d10_power_on, NULL);
++
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id ov08d10_acpi_ids[] = {
+ 	{ "OVTI08D1" },
+@@ -1473,6 +1563,7 @@ MODULE_DEVICE_TABLE(of, ov08d10_of_match);
+ static struct i2c_driver ov08d10_i2c_driver = {
+ 	.driver = {
+ 		.name = "ov08d10",
++		.pm = pm_ptr(&ov08d10_pm_ops),
+ 		.acpi_match_table = ACPI_PTR(ov08d10_acpi_ids),
+ 		.of_match_table = ov08d10_of_match,
+ 	},
 
 -- 
 2.34.1
