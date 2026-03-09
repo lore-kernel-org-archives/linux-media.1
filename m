@@ -1,39 +1,38 @@
 Received: from lx20.hoststar.hosting (lx20.hoststar.hosting [168.119.41.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 840361C3BF7;
-	Mon,  9 Mar 2026 17:46:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE36B293B75;
+	Mon,  9 Mar 2026 17:46:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.41.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773078368; cv=none; b=RwLQtnq+NxcxU0CAl5WOVBOoXMvo3mi4NmFhPh1dTYBa86sUq1Bepf9h0mEq2883BsIatdlUzrXj5chfGS4gOt1LFPwLfkxa/tKV7cLz6O/Xeld+U+8tTfFg9BlEnQwbdBFOoYUpA3kSyZFwoBv7Ep4WZL9DIIgffxspwOwtQZs=
+	t=1773078371; cv=none; b=BHwkgDSR2FR9bWXD7SYFjhjWgRMXZc9IIOOwnHnDZ6UNg0TFsnGgIMWpGpPlPiiPkJBisbbsUDD+Tq7RMq07Qi9dKdXyRZIF4L4blstdWHAvWc7iyLR3q6hPNws5GmBLMWFagslgEGaaiuNWwMSRHVd7/nV7rNivipv7nyVqmAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773078368; c=relaxed/simple;
-	bh=93KN1pnnxzhRwjV60pTT8Z5TZ/PQiwmz+nEAw7s9fiM=;
+	s=arc-20240116; t=1773078371; c=relaxed/simple;
+	bh=D6jSec0UYmhSDv7PAQQ10n/4xG35K8i0Tn8hpdntRDg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GtcLdPo0t4k0X4oLXs75Cjuz7lssHKHQEOiA3sm6IxNAEGdAciBAlBIvmCwWoUKcaWF3krqqqBhNhwhhW9GVC4CwnYq0o+GJnhfjEkW/+tWQdm46sRph+I8mjjuhauLuhEsPG9POfafexK2VJP3yF/uDX5MR3Qi7SjAX3+Cl8w4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at; spf=pass smtp.mailfrom=emfend.at; dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b=VEwGN5Af; arc=none smtp.client-ip=168.119.41.54
+	 In-Reply-To:To:Cc; b=jmtP8e1Dl+Ph8qk22dVD+xCwO/6V7NUFBuKZYu+4kEeEkUS1uksn+QesS9MEZqcYqqcuR7VuoRT3qmKuC52vVKtrn8wOeFPqDRLk/AF5caHlzKnHdq39LLs1RUJTwl3jJOJX2yRntNNegXUZsZ2EqAHnCZHUGMFzkzsaXzixSTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at; spf=pass smtp.mailfrom=emfend.at; dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b=Mf0w5G4V; arc=none smtp.client-ip=168.119.41.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=emfend.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b="VEwGN5Af"
+	dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b="Mf0w5G4V"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=emfend.at;
 	 s=mail; h=Cc:To:In-Reply-To:References:Message-Id:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
 	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
 	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
 	List-Post:List-Owner:List-Archive;
-	bh=nCav3dbu+VJEVsyFSYO+WtdQFsxtLrTNL2wfxR+S5+Y=; b=VEwGN5AfFKYLIcN3m9a2cnuQBW
-	+84EzUJMcEMIiVRRgQBpUmfJF0rbWAkohytdjHGkj3bDpIjyrqWF52HaTcFnpmKrdp3+ONneNYu9a
-	9RHfuGAXGCSNeIC+sBqm1z5Xp3kh2o8ksvFAxL4TxHOsCl9It1w+dMB/QatX4Qe3r7W0=;
+	bh=ewmNQVXRY5b8V85ZELWmZRbLKnkQi274wQL1xk4UrLE=; b=Mf0w5G4Vli8lhzLcc2MdtTA10R
+	z5bqLGXDCw1yYRxox+9GxUTAMLvBWOnBQ8QVmp2IS+2ElMEJSF0bGY8ujn6cxOrHf9dlr/3iiBlk1
+	+mnFE84O+WzwRamW4R+TA0llWi5fWwF52qFSh8DwxWUyhnaS47mNZf2HCOP1bvVTXFr0=;
 Received: from 194-208-208-245.tele.net ([194.208.208.245]:56968 helo=[127.0.1.1])
 	by lx20.hoststar.hosting with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.93)
 	(envelope-from <matthias.fend@emfend.at>)
-	id 1vze4P-00Dxnt-3W; Mon, 09 Mar 2026 18:07:05 +0100
+	id 1vze4R-00Dxnt-QG; Mon, 09 Mar 2026 18:07:08 +0100
 From: Matthias Fend <matthias.fend@emfend.at>
-Date: Mon, 09 Mar 2026 18:07:03 +0100
-Subject: [PATCH v2 1/9] media: i2c: ov08d10: fix runtime PM handling in
- probe
+Date: Mon, 09 Mar 2026 18:07:07 +0100
+Subject: [PATCH v2 5/9] media: i2c: ov08d10: add missing newline to prints
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -42,7 +41,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260309-ov08d10-v2-1-81f8b5d99984@emfend.at>
+Message-Id: <20260309-ov08d10-v2-5-81f8b5d99984@emfend.at>
 References: <20260309-ov08d10-v2-0-81f8b5d99984@emfend.at>
 In-Reply-To: <20260309-ov08d10-v2-0-81f8b5d99984@emfend.at>
 To: Jimmy Su <jimmy.su@intel.com>, 
@@ -62,10 +61,10 @@ X-Spam-Report: Spam detection software, running on the system "lx20.hoststar.hos
  similar future email.  If you have any questions, see
  the administrator of that system for details.
  
- Content preview:  This series provides basic device tree support and handling
-    for power supplies, an optional reset, and the option to use a 24MHz input
-    clock. In addition to a few minor fixes, a major problem with the configuration
-    of the sensor modes has also been resolved. 
+ Content preview:  Fix some spelling errors in comments. Reviewed-by: Philipp
+    Zabel <p.zabel@pengutronix.de> Signed-off-by: Matthias Fend <matthias.fend@emfend.at>
+    --- drivers/media/i2c/ov08d10.c | 10 +++++----- 1 file changed, 5 insertions(+),
+    5 deletions( [...] 
  
  Content analysis details:   (-1.0 points, 5.0 required)
  
@@ -78,52 +77,159 @@ X-Spam-Report: Spam detection software, running on the system "lx20.hoststar.hos
   0.0 Local_hs_NotFromHoststar Sender is NOT hoststar.(ch|at|com)
   0.0 Local_hs_NotToHoststar Recipient is NOT hoststar.(ch|at|com)
 
-Set the device's runtime PM status and enable runtime PM before registering
-the async sub-device. This is needed to avoid the case where the device is
-runtime PM resumed while runtime PM has not been enabled yet.
+Add trailing \n to dev_* prints where missing.
 
-Remove the related, non-driver-specific comment while at it.
-
-Fixes: 7be91e02ed57 ("media: i2c: Add ov08d10 camera sensor driver")
 Signed-off-by: Matthias Fend <matthias.fend@emfend.at>
 ---
- drivers/media/i2c/ov08d10.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/media/i2c/ov08d10.c | 34 +++++++++++++++++-----------------
+ 1 file changed, 17 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/media/i2c/ov08d10.c b/drivers/media/i2c/ov08d10.c
-index 43ec2a1f2fcffb7fa11a6268af3c2edc4df129f3..5b02f61e359fa900da9290c1c151aa01b9d70e6e 100644
+index fd1e0769eebe99ec2e827e9bfd0d0a7731116669..f2276f49506028c582e49a5b7cab3b07f6ca4e0d 100644
 --- a/drivers/media/i2c/ov08d10.c
 +++ b/drivers/media/i2c/ov08d10.c
-@@ -1430,6 +1430,9 @@ static int ov08d10_probe(struct i2c_client *client)
+@@ -664,7 +664,7 @@ static int ov08d10_write_reg_list(struct ov08d10 *ov08d10,
+ 						r_list->regs[i].val);
+ 		if (ret) {
+ 			dev_err_ratelimited(ov08d10->dev,
+-					    "failed to write reg 0x%2.2x. error = %d",
++					    "failed to write reg 0x%2.2x. error = %d\n",
+ 					    r_list->regs[i].address, ret);
+ 			return ret;
+ 		}
+@@ -1024,32 +1024,32 @@ static int ov08d10_start_streaming(struct ov08d10 *ov08d10)
+ 	/* soft reset */
+ 	ret = i2c_smbus_write_byte_data(client, OV08D10_REG_PAGE, 0x00);
+ 	if (ret < 0) {
+-		dev_err(ov08d10->dev, "failed to reset sensor");
++		dev_err(ov08d10->dev, "failed to reset sensor\n");
+ 		return ret;
+ 	}
+ 	ret = i2c_smbus_write_byte_data(client, 0x20, 0x0e);
+ 	if (ret < 0) {
+-		dev_err(ov08d10->dev, "failed to reset sensor");
++		dev_err(ov08d10->dev, "failed to reset sensor\n");
+ 		return ret;
+ 	}
+ 	usleep_range(3000, 4000);
+ 	ret = i2c_smbus_write_byte_data(client, 0x20, 0x0b);
+ 	if (ret < 0) {
+-		dev_err(ov08d10->dev, "failed to reset sensor");
++		dev_err(ov08d10->dev, "failed to reset sensor\n");
+ 		return ret;
+ 	}
+ 
+ 	/* update sensor setting */
+ 	ret = ov08d10_write_reg_list(ov08d10, reg_list);
+ 	if (ret) {
+-		dev_err(ov08d10->dev, "failed to set plls");
++		dev_err(ov08d10->dev, "failed to set plls\n");
+ 		return ret;
+ 	}
+ 
+ 	reg_list = &ov08d10->cur_mode->reg_list;
+ 	ret = ov08d10_write_reg_list(ov08d10, reg_list);
+ 	if (ret) {
+-		dev_err(ov08d10->dev, "failed to set mode");
++		dev_err(ov08d10->dev, "failed to set mode\n");
+ 		return ret;
+ 	}
+ 
+@@ -1076,19 +1076,19 @@ static void ov08d10_stop_streaming(struct ov08d10 *ov08d10)
+ 
+ 	ret = i2c_smbus_write_byte_data(client, OV08D10_REG_PAGE, 0x00);
+ 	if (ret < 0) {
+-		dev_err(ov08d10->dev, "failed to stop streaming");
++		dev_err(ov08d10->dev, "failed to stop streaming\n");
+ 		return;
+ 	}
+ 	ret = i2c_smbus_write_byte_data(client, OV08D10_REG_MODE_SELECT,
+ 					OV08D10_MODE_STANDBY);
+ 	if (ret < 0) {
+-		dev_err(ov08d10->dev, "failed to stop streaming");
++		dev_err(ov08d10->dev, "failed to stop streaming\n");
+ 		return;
+ 	}
+ 
+ 	ret = i2c_smbus_write_byte_data(client, OV08D10_REG_PAGE, 0x01);
+ 	if (ret < 0) {
+-		dev_err(ov08d10->dev, "failed to stop streaming");
++		dev_err(ov08d10->dev, "failed to stop streaming\n");
+ 		return;
+ 	}
+ }
+@@ -1324,7 +1324,7 @@ static int ov08d10_get_hwcfg(struct ov08d10 *ov08d10)
+ 
+ 	/* Get number of data lanes */
+ 	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 2) {
+-		dev_err(dev, "number of CSI2 data lanes %d is not supported",
++		dev_err(dev, "number of CSI2 data lanes %d is not supported\n",
+ 			bus_cfg.bus.mipi_csi2.num_data_lanes);
+ 		ret = -EINVAL;
+ 		goto check_hwcfg_error;
+@@ -1336,7 +1336,7 @@ static int ov08d10_get_hwcfg(struct ov08d10 *ov08d10)
+ 	ov08d10->modes_size = ov08d10_modes_num(ov08d10);
+ 
+ 	if (!bus_cfg.nr_of_link_frequencies) {
+-		dev_err(dev, "no link frequencies defined");
++		dev_err(dev, "no link frequencies defined\n");
+ 		ret = -EINVAL;
+ 		goto check_hwcfg_error;
+ 	}
+@@ -1349,7 +1349,7 @@ static int ov08d10_get_hwcfg(struct ov08d10 *ov08d10)
+ 		}
+ 
+ 		if (j == bus_cfg.nr_of_link_frequencies) {
+-			dev_err(dev, "no link frequency %lld supported",
++			dev_err(dev, "no link frequency %lld supported\n",
+ 				ov08d10->priv_lane->link_freq_menu[i]);
+ 			ret = -EINVAL;
+ 			goto check_hwcfg_error;
+@@ -1398,7 +1398,7 @@ static int ov08d10_probe(struct i2c_client *client)
+ 
+ 	ret = ov08d10_get_hwcfg(ov08d10);
+ 	if (ret) {
+-		dev_err(ov08d10->dev, "failed to get HW configuration: %d",
++		dev_err(ov08d10->dev, "failed to get HW configuration: %d\n",
+ 			ret);
+ 		return ret;
+ 	}
+@@ -1407,7 +1407,7 @@ static int ov08d10_probe(struct i2c_client *client)
+ 
+ 	ret = ov08d10_identify_module(ov08d10);
+ 	if (ret) {
+-		dev_err(ov08d10->dev, "failed to find sensor: %d", ret);
++		dev_err(ov08d10->dev, "failed to find sensor: %d\n", ret);
+ 		return ret;
+ 	}
+ 
+@@ -1415,7 +1415,7 @@ static int ov08d10_probe(struct i2c_client *client)
+ 	ov08d10->cur_mode = &ov08d10->priv_lane->sp_modes[0];
+ 	ret = ov08d10_init_controls(ov08d10);
+ 	if (ret) {
+-		dev_err(ov08d10->dev, "failed to init controls: %d", ret);
++		dev_err(ov08d10->dev, "failed to init controls: %d\n", ret);
  		goto probe_error_v4l2_ctrl_handler_free;
  	}
  
-+	pm_runtime_set_active(ov08d10->dev);
-+	pm_runtime_enable(ov08d10->dev);
-+
- 	ret = v4l2_async_register_subdev_sensor(&ov08d10->sd);
- 	if (ret < 0) {
- 		dev_err(ov08d10->dev, "failed to register V4L2 subdev: %d",
-@@ -1437,17 +1440,13 @@ static int ov08d10_probe(struct i2c_client *client)
- 		goto probe_error_media_entity_cleanup;
+@@ -1425,7 +1425,7 @@ static int ov08d10_probe(struct i2c_client *client)
+ 	ov08d10->pad.flags = MEDIA_PAD_FL_SOURCE;
+ 	ret = media_entity_pads_init(&ov08d10->sd.entity, 1, &ov08d10->pad);
+ 	if (ret) {
+-		dev_err(ov08d10->dev, "failed to init entity pads: %d", ret);
++		dev_err(ov08d10->dev, "failed to init entity pads: %d\n", ret);
+ 		goto probe_error_v4l2_ctrl_handler_free;
  	}
  
--	/*
--	 * Device is already turned on by i2c-core with ACPI domain PM.
--	 * Enable runtime PM and turn off the device.
--	 */
--	pm_runtime_set_active(ov08d10->dev);
--	pm_runtime_enable(ov08d10->dev);
- 	pm_runtime_idle(ov08d10->dev);
+@@ -1434,7 +1434,7 @@ static int ov08d10_probe(struct i2c_client *client)
  
- 	return 0;
- 
- probe_error_media_entity_cleanup:
-+	pm_runtime_disable(ov08d10->dev);
-+	pm_runtime_set_suspended(ov08d10->dev);
- 	media_entity_cleanup(&ov08d10->sd.entity);
- 
- probe_error_v4l2_ctrl_handler_free:
+ 	ret = v4l2_async_register_subdev_sensor(&ov08d10->sd);
+ 	if (ret < 0) {
+-		dev_err(ov08d10->dev, "failed to register V4L2 subdev: %d",
++		dev_err(ov08d10->dev, "failed to register V4L2 subdev: %d\n",
+ 			ret);
+ 		goto probe_error_media_entity_cleanup;
+ 	}
 
 -- 
 2.34.1
