@@ -1,80 +1,125 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F88313E32;
-	Tue, 10 Mar 2026 11:43:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B9935DA6E
+	for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 11:54:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773143040; cv=none; b=nB6uYCjtpT2OPdnT0gCaCvbKKwS3skFdggRQuxjYnKwdV7DJwg3rvCUtpD0rOooVkBL8QMgDCkaiMrgDiE6lrnY+5B3q+lj1S7/zvmmXGBFqv/fWh4wDezlVrfBrss9culOiNnobJmQW6fnPWLN0Vkw1f1XrQ62JNSeX6hicFns=
+	t=1773143669; cv=none; b=SvFgWNjWdHOVFsxCzGnPcepy/Tl7XoUzE0ALRoXhiR02BjATAtjRIu6iByY1cU65i9YYazb0aoTT9Yn4JblFZSae/8JTmdcoL0dsodnKWlk4gV9ChrWB3yQ+lNKY04LkYvBXh8LO6bXWHR7NodwUf2pZO3a3a4Ek3j+PsIQQqs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773143040; c=relaxed/simple;
-	bh=meQnDIM+FWgDMnoMdra1kISKA7GfiCfpXRo6nFqd71g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hpIqXWwHH/bgZILgpK0uk1REuINKOkk6qni7QtPJZoE5nMxvIS4WGkXlf7QJn+kLse51S++1eW6q/BjMqcvuiP2uQodD2E78Ae3GFwljo7tsSmSYIHh/yPzVKiDqkBez9w/0SKOQ+FVlapjPfkax8KEmxoZ0acWIktQYADzLziU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ed0xpZBO; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1773143669; c=relaxed/simple;
+	bh=MbQ9yzEpvEZwdMo5iYtLA1h1dKF/RJrmVnffWfve6JM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=psTlvm+xSSL3XniSz8XjfQ+94AkYLmu7m8lMaXWtwGivL9mRQG9dPeP7a5ISFVfQoxkg2NALJUKdMnwfu4LsoLQLRK2JPd/PSGP/4pv5HPhTbC9CosFCW6lEowywg9tZWKtqUDZCJ/xwg04dsuY0pfCi3xgnPmQHVHE8CxkzjSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=l/d5A7t1; arc=none smtp.client-ip=209.85.167.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ed0xpZBO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1773143039; x=1804679039;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=meQnDIM+FWgDMnoMdra1kISKA7GfiCfpXRo6nFqd71g=;
-  b=ed0xpZBOjRTI8hwjn+Q45R0YRqZJlylj94zkoMRlVlBSEPSjNtOrCOAr
-   AATOOg7+EO6RHcQ8GNHtj2uV4RdDIdUt66N1TnKHwsP8PiFUmeOzYN3Ma
-   x7C7IM/zQ+ej3Rt5YKUgenvq5uk8tBKtkq9X3wqJgLAEWoffW2OIgbbno
-   NZ/xvbTlKaIItZNWaUQdV8pBW/GzVjriJi10eTDTY7fbpax2yvGMRtE8n
-   JVe2AeAVyyEIco2sT/pdGJMvJr/UAhHeNwfHuoL8joLs9mpktniwkCcQ8
-   YO514gKNMfzradSb3JWtpbQh8WTj99zgt8fT8/59VfHn6b41dTI15f08N
-   w==;
-X-CSE-ConnectionGUID: XU46LDTDSzmriFnd0aliHg==
-X-CSE-MsgGUID: ssjzs7jyRsymhEj93KMJWA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11724"; a="84820649"
-X-IronPort-AV: E=Sophos;i="6.23,112,1770624000"; 
-   d="scan'208";a="84820649"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Mar 2026 04:43:59 -0700
-X-CSE-ConnectionGUID: taMSd3FORBeeARBLb3qbZg==
-X-CSE-MsgGUID: zri/bMhMR42ANxQj5ff6hA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,112,1770624000"; 
-   d="scan'208";a="257995771"
-Received: from vpanait-mobl.ger.corp.intel.com (HELO localhost) ([10.245.244.54])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Mar 2026 04:43:56 -0700
-Date: Tue, 10 Mar 2026 13:43:53 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Oskar Ray-Frayssinet <rayfraytech@gmail.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, sakari.ailus@linux.intel.com,
-	andy@kernel.org, gregkh@linuxfoundation.org,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: atomisp: replace msleep with usleep_range in
- atomisp-gc2235.c
-Message-ID: <abAD-WCn4c-6wXaN@ashevche-desk.local>
-References: <20260309231445.7000-1-rayfraytech@gmail.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="l/d5A7t1"
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5a126c8aab9so7220561e87.0
+        for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 04:54:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1773143666; x=1773748466; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Uajvx1507EYY9WjuAteyynfEckXb1ogXxoart7Qgrd8=;
+        b=l/d5A7t1VhEjJzH6q2GuOlF6i6PmzVh15jFpqy4hKLHenNGIuku57L51ROzNyHlF4M
+         lGIfJ+7y/VZkUFsg75f0NSZeZCBcpvj1wQK9ZBVCCs094lOE1uk8WSjWTLCUVhllqq3b
+         Z1+0rP76n34aUBOMmV+2chWfJbkIB/FhDXFoE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1773143666; x=1773748466;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Uajvx1507EYY9WjuAteyynfEckXb1ogXxoart7Qgrd8=;
+        b=sFKsxbAy0GGzLGdo1V2LSr6s6XjRFr8gOui4EvhUFPHQgb9Sz+GrohHbXXlFGc3uTr
+         SlljXTgsYb73Ug3jfbYLEEdQCkeL2rdI6Zj3Fk9DIcrJsq3NbnoSTYwnWiaa0nMscVkh
+         9w8DcIJJyNg2junLKhadY3S29idVBUriJykoTWruN3t3v9x5geKnK+QGM4soRFLbvAjW
+         hR51TABJdUlC5MHN9lkIIaA/MsYQGIAw8vc6dymfsF99r9tHTSP1Fi0d3ceRgd8rO/dp
+         JtXtL3YBGBH63YN7gS0M4/i6Zukpb2JVwywHKoJXNamBmoJ4QiRLP+HiK5kbKinN/QmS
+         7pRg==
+X-Gm-Message-State: AOJu0Yw3V+TNHJpZAVvyuEvSbfN6MlTfMm/yP1Uscp2F9xjVE0U7IOEv
+	aS8yOvHp4CYVeMzJhhnYZQiS0qhe+rBdiLLY46Je0WHNhGx0Q0D1N3pr0vfd4OrxmyHj35g1W7y
+	aHm4BSg==
+X-Gm-Gg: ATEYQzy8tm07E3ViCwXey+m3wdKYX8915aARTiuHCYN1yEhu8bPv7DcuSYqtZ5+3oC2
+	xp3hhos3gAPBzCrosH1bRwLgUC9Z0W+nH7XMMx7fbdfFVeG/zWOvukPKZdNDyUrJtCmukINHWxT
+	+k2IY4e2b512qTo0utlqrJFKZ8CrMlCkiUtx3IOyirwQty5LrOHVQlAG+F7g654sA1uHNa2Fqis
+	D39ZgTYJQuuNrPdYWDKYG1zx5Ea8+0hogRX23i/I4XbqrFnpQXY/leX3JM8WRHGl14fd+sWOBld
+	UeziTTRkpleEDZlLamccPTMNhasUwoyaS7HR0BZDbwSL41AvsBmWcL6Lnoi1QgW0AQicC0p/cI8
+	asKVBs9PNw3gBT/KNLPwRnxqrR0uDYXjbRgAoJsPggD61pmxXC8VGaBLakvNLSHMhnpy84gH458
+	amvssjmYwrMLffQ4RuDpY8x1SFc5NGVoejhdMXSTIiQ5qKJXExUjqqnhwSDD8neCNuigXnKT4Yj
+	g==
+X-Received: by 2002:a05:6512:3f05:b0:5a1:2e0c:86de with SMTP id 2adb3069b0e04-5a13ccdd5dbmr4612857e87.32.1773143665803;
+        Tue, 10 Mar 2026 04:54:25 -0700 (PDT)
+Received: from ribalda.c.googlers.com (27.69.88.34.bc.googleusercontent.com. [34.88.69.27])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a13d033f96sm2772906e87.34.2026.03.10.04.54.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Mar 2026 04:54:24 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Tue, 10 Mar 2026 11:54:24 +0000
+Subject: [PATCH] media: uvcvideo: Fix buffer sequence in frame gaps
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260309231445.7000-1-rayfraytech@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260310-uvc-fid-v1-1-5e37dc3c7024@chromium.org>
+X-B4-Tracking: v=1; b=H4sIAG8GsGkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDY0MD3dKyZN20zBTdVMNUU1MTE/MkszRDJaDqgqLUtMwKsEnRsbW1AGi
+ dz99ZAAAA
+X-Change-ID: 20260310-uvc-fid-e1e55447b6f1
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Yunke Cao <yunkec@google.com>, stable@kernel.org, 
+ Ricardo Ribalda <ribalda@chromium.org>
+X-Mailer: b4 0.14.3
 
-On Tue, Mar 10, 2026 at 12:14:45AM +0100, Oskar Ray-Frayssinet wrote:
-> Replace msleep(5) with usleep_range(5000, 6000) to avoid sleeping
-> longer than necessary. msleep() with values less than 20ms may sleep
-> for up to 20ms due to timer granularity.
+In UVC, the FID flips with every frame. For every FID flip, we increase
+the sequence number. Userpace use that information to figure out if
+there has been a gap between frames.
 
-Use () in Subject, use fsleep() in the code.
+Now, we only update the sequence number on the first FID flip, which
+results in frames being incorrectly numbered just after a frame gap.
 
+This patch rewrites the sequence number of the buffer in those
+situations.
+
+Cc: stable@kernel.org
+Fixes: 650b95feee35 ("[media] uvcvideo: Generate discontinuous sequence numbers when frames are lost")
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+ drivers/media/usb/uvc/uvc_video.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+index 40c76c051da2..ec769a504569 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -1176,6 +1176,14 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
+ 		stream->sequence++;
+ 		if (stream->sequence)
+ 			uvc_video_stats_update(stream);
++
++		/*
++		 * If we have not received any data and FID flips, update the
++		 * sequence number of the buffer to tell userspace exactly
++		 * where the frame gap is.
++		 */
++		if (buf && !buf->bytesused)
++			buf->buf.sequence = stream->sequence;
+ 	}
+ 
+ 	uvc_video_clock_decode(stream, buf, data, len);
+
+---
+base-commit: a7da7fb57f2a787412da1a62292a17fa00fbfbdf
+change-id: 20260310-uvc-fid-e1e55447b6f1
+
+Best regards,
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Ricardo Ribalda <ribalda@chromium.org>
 
