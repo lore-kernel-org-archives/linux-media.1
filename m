@@ -1,149 +1,107 @@
-Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com [91.218.175.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic307-54.consmr.mail.ir2.yahoo.com (sonic307-54.consmr.mail.ir2.yahoo.com [87.248.110.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516CB3EBF28
-	for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 21:23:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 598DA3DDDA5
+	for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 21:39:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=87.248.110.31
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773177826; cv=none; b=WS/8CBh3ktkGqse1lFKZJA03sItjDpgpoiTYtfeY5iOmu+nGFi0WydZLdI0iVhfujzbCGrUAbOU2VYp2Yp+cEr4T3iurjKguhUeo3062OEonNfGLJbmFBbwwYkhHAF9KuYA8unv4cf3jrt3jlLrUlonJ8CrJ0RepzjLVARQVc3Q=
+	t=1773178762; cv=none; b=ZCPuyOLe8IXeCiSRwHFjLiPDsYtS/yVupAneFcab3StRAILd+tIN26EOMLlP72avuYIK3QoDiz5x1uRlhNL+iN5pchyMvOwyHUwZQ/y5Ik4BzLWlylLLAH1EVlsirQxAeiBcX9paB9O508L/p/h5dMsO1WAAJ00wdBFNKdJPXvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773177826; c=relaxed/simple;
-	bh=5x2B0VItY076mEw7SlJpcOMHnQIayXVrqVWyRDo5ea0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cuxe4hcEes0jvkyNenzyz1dKKk9ENmQluv1M8OryXIBk2ZscqQj1ttTikwH4mdOyyuQAdum9mOFB/0la83MK6hhXzgHiXHS8T+M82LB22916txgi9iJd40ayt3fjNIb/ZlmsHkg/Ct+I4guc69lP1zQZY6zk8vEZX5jteKiX5us=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HkHQPBTR; arc=none smtp.client-ip=91.218.175.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1773178762; c=relaxed/simple;
+	bh=XyWA06T3kBzBTCVI4Dk8yjTCqzr5WhEB0SqMVvRSaEk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ZtAk5ogMNxSJX0MYaRZiCLbqmSQtrlg9EQUw3XX9iojpmMNMpIGZ4++E6Y+T0HOGj2LSSHmS96lvlp8VyTfy1Qfoz2eCK/HyDZ5Q/iA9AwPwP/VmA1ydYaouo1oasDJLa8J6qQVgegBDJCo+JW5RMGvhSjMQaGf6KbhFluoMy+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl; spf=pass smtp.mailfrom=yahoo.pl; dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b=a9dsu/Ky; arc=none smtp.client-ip=87.248.110.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HkHQPBTR"
-Message-ID: <d5793f17-61cf-42be-b2fe-7d1549310989@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1773177816;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=q8QUrrZbtBaw96JE4uwm78SaKmRtGD4luJCTiJ68oMc=;
-	b=HkHQPBTRzF2lqrzJYkkUuOtuR4JhCckytHaKF8FjTv22skiI34h6A2p4k5ENsXvg1u6fLL
-	CJv8jt0xQjBW8NeNHRk7mnzPaSAfRBWaJyc9lnjwNth3eoxZmsER76vybdsyfvuMAeZVH6
-	7RPdiOJ95CJpLXBRY61eWO9bMiJ3Gm8=
-Date: Tue, 10 Mar 2026 17:23:32 -0400
+	dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b="a9dsu/Ky"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1773178758; bh=tkSIY6DaKpcZ+5HhblGa1osVp7c64xHZgsVK48nuR5E=; h=From:Date:Subject:References:In-Reply-To:To:Cc:From:Subject:Reply-To; b=a9dsu/KyRWgn5zsMMBihrS9WBfej+McVVeLxoMMp9bJPEaVxrCNUcBbaDQRz1k1754apGzJExlZgiBgIMMwRzxi0eqk6rtIpFXHjuAuo+L92ReOHc1voGdRE6dAdVzeAWy5jZKjZVsHQSW/zAaAR7tyei4B0WLLrXKdGXzfQ9+j6lONJlugHJDvyly30OcEm6hqCjqUZ2PLiJWas+VhJVUqpxsoWxy/sg6ds1XM0RgraHLGMaCu+bcGOSA5vRqf3HsDK55eGZAT2F3i2VifKKT6TrDaHg9ZZsYbGB4/ZqQS/lESnQa/pPTp7tttsCiFdkSWGi/qubV1kqbuKGE/0ag==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1773178758; bh=P73FRVyrLCRWJ1sLPA43HSGELkSsqaj+HkAnxcETkQY=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=Ot5751CLzkrShwc9h4Pr6lbXbDNgMcLcXJsqEmAWbBWR2M+ejzZVLJUW1OeKBQhYbRuNXOVqEBOAxH1xUH2AtMAReMS1Hz+OeVqjaAAGQu3iOlagy7iIGzxLyqVfpAcd7gh/G5QTnLQ5bCoxMhDvQagVpFwem9cGhunbuBJ2aZ9VHhjtvqxBfaDCdkWpza9Tgh97kdX9TPoySjVLT9DfOj2hb+lDqGEBaxl0OgcBq0iP9oUsSoYmCanYyDnEhqdvegkQe87+PSooS2RZKcWI2+CT/lT2F7ZHfcbTdBShu3qDhCKnfDivKkSdtMF2q5GByWMYPrIy2qZ6yeOx/Cd3CA==
+X-YMail-OSG: p7FydHIVM1mNiDpLiGv0kCbGRix4fN4B.Xj9RrQ3NnDJycR15vAT0RrRY1gjgOf
+ OVvrTvDXEnFsSOg4VTMQdAWgF5LmSGsSUh.6Pyajd9psxK4YbnsrvDDvvTCI4qcm5QuCekORu99a
+ LCxh.uvdjJZO_kmNa9KM4d6Ivdi10dl4zgO6oXTR0cWG4z8wFLIzdCQi3AXrR9x_.fTOZIfsSYo2
+ 28l_3YcWAwkTaMbP8tBa6NBpaTssHr2YAqQ4s7bepwenFF.2y51W2fgVs7GlHwDflsdikg6wG8D6
+ WqlXY5EMZ0.0nB0cqhhhAjZIW4qctKaGN26VDx4A9EDTc47vUST30nqVfZYW7y8sPo1gEmOdY0zz
+ 04rO0mJ91kbTe5vRnSp4Pcx6Sa0ShfLggJucpPuvin2Z17VaEorP9UMRuLusiwTrRYkD8wRe5Qx7
+ lbkbQ1mXxKQC.JkUZ1Y4ODiEjG95bws_aGAB5tYYQHAsFKsquIhW3npGGA2eB8gxVeGQFkB64YgO
+ zMtZJu__wIINBGA5__V_8GBy.ruSQeYQMhwgWI5ZFBUfCIuBny.7owxN9jIXuIZel1LYYYSJLxd.
+ V6ksFxSiENud2Mt2tHRcWDUGnf7zS2m86dEfz6HWbmVb9aBSCk7cyv55WvgqgfqI8DEAZMzSFTm7
+ fpkMcXvAm_9bbFLToIXc8rlSrSzAn0w6zMGOd3Yh8IbMriGLjjuRv9ujLhDOfKmeKc0FRD_6PnBi
+ ANf2f.9tSoXdOUDNgJpDIxO.ljUDBkTb1uP3DZnjGJcL1gLdL1_e7lwFRs1I.Ofp4pC.q_b6zJsI
+ Grongx70QExkLL3XCeJKMumtVHPMvZNLdZmIhgj9vc5j7f5ByghTA5rmn6BRJ6M6Rj9d9WikAXur
+ L8LV3TFlI9RMF8Sq2e5pkcHNyjvp3spDdAoKBFZpSpq4iM8En4Ln6.WY2rtUf_gXr7TL7k4jkbD4
+ ERTuQ7p7WEpIUkB3u._jtq11Tb_3h544r2ea_5JbItjYRGf4ff9H_555lSSCWEZP1253KLOrQ.Es
+ Yb75I.Rziiw38tlRfp7kIFDPIhEACQm4V.O0y5R0yT9CC6yUAGjXcKCixxTGrIMoCUcV15aSEyJA
+ REAGZRxNXAZKs9lHt3IrqZRKtRFjPweVjOr2MLCb9kLHL4Q3sgrWxx1EIhWtyQlM0KjB_e8gXTx2
+ pfOmGV8ENGhIUoyz6bPDODbPmMqiG.iKU6ejGulIRLAOhMUUBwXBqfakEzQngNynUG.PGbEuo5sg
+ W5Y4.m3rFEo3QD.yXKZZHsldPD3vRMv_v12UvwMPlhxOEwUxJWn9vwDo6AfJBgGiLHnrYdbI8Qaf
+ HVkoD9KExeAn2UGNdr.leo2UzJIBk3.S2lpfYuIOWMwXYbAM0U5s4Rpx6v7m8x.HCdIWANPrNKeC
+ 52fzrVx4snWw6UbQyilJKuFz_aJnxhLz8njRtAkjWCyOSjRW9VcmYqvdHz3nBWB4vqEUrzdKMrjK
+ ivJbf44KVgQkHjtYJAeEh4p_x8eU10.xix9Ub8Gliz0RQeBy8crroTYnuUnD.WZkC8LS_l25bSr8
+ IXs0v5fiMvMlEPbpeLJuFbAMMgUMxbrTXSgzMwwR0a0sJ2izzsyfbkR8P0QRQGjMputu_6h1wsEV
+ rwBQI73Oqyve6wthAXsmtQi9iQRO5mq2ZVJ5F0fhmoMzHWb4_j.IJ9LcqiScla7DpOAM0KxaCuNR
+ WOaiPIQyuhR.pubLHtCLsawe9gdVgsfxnK7IfqBNePnNH.iU38RKMD.kC38NtkicngF9b6B3Bnm9
+ PdjHFMYoqRThh2hmK.1U9fqLp3wDKO9YBWsjdqP43GPiV8IO2vtC6BwsiieYP.BiOi1Xb84qe_Ca
+ z639CGLApCWuxMJUI8G0eq6gdDiD4rDXDBr5YhYOsN8UYHAR1OtTg6QVo6shPGsXPu2embQuSKyF
+ 81XbXR6FZK9FyddWdqPTOAq5uJrkbgvml5bxzi9pU9R.ZhjlM1h6N0NMKqqqf6k3DATcXwMuvs6Z
+ KjtNcqhW4Ey4XW66bPEJJj2y.67NRQnyaG9TJYWWVO491HM7I9tiEEUllnbv.DMhSsP7PfncaqCH
+ 69vN8FGtR5f2E0.BUE5JGTdlTpSmI5r5_OzIuuLwMtHXLnpRSpI3eaMdaAJ1uNu1SIPjzGD0pxRv
+ SZBO4Ictzy_QGiocYrNshAYFQsCGWk0ajhYsiFUioLXCtQfWoAdedVSyxhgEYoRsRy_QuTze89ws
+ LRaUyG9yTJM3BJq3PeWaI.ty2OvMk6WE3bc1rRDqpaGECcAYrL7Cd2B9jJpatm82kIifD6sRJiLm
+ OVY.Tko56s.X5XimSAOgI5Q--
+X-Sonic-MF: <tomasz.unger@yahoo.pl>
+X-Sonic-ID: 83db8519-ed14-446d-8634-af4fb82c840b
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic307.consmr.mail.ir2.yahoo.com with HTTP; Tue, 10 Mar 2026 21:39:18 +0000
+Received: by hermes--production-ir2-bbcfb4457-5fg9x (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 95c3151d01371ab1269f6f8bbf003118;
+          Tue, 10 Mar 2026 21:39:18 +0000 (UTC)
+From: Tomasz Unger <tomasz.unger@yahoo.pl>
+Date: Tue, 10 Mar 2026 22:39:14 +0100
+Subject: [PATCH v3 03/28] media: staging: atomisp: Remove unnecessary
+ return statement in bufq.c
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [BUG] uvc_status_stop hangs if called from async_ctrl.work
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hans de Goede <hansg@kernel.org>, linux-media@vger.kernel.org,
- linux-usb@vger.kernel.org
-References: <6733bdfb-3e88-479f-8956-ab09c04c433e@linux.dev>
- <fba86ac0-e13e-4c54-9515-c091b24f9f80@linux.dev>
- <CANiDSCtLj-N+M+JmP3C_y=vNtSy-UN7XtkXaZ=dLN6f0kd7rYg@mail.gmail.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Sean Anderson <sean.anderson@linux.dev>
-In-Reply-To: <CANiDSCtLj-N+M+JmP3C_y=vNtSy-UN7XtkXaZ=dLN6f0kd7rYg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Message-Id: <20260310-atomisp-remove-void-return-v2b-v3-3-3fdddab41271@yahoo.pl>
+References: <20260310-atomisp-remove-void-return-v2b-v3-0-3fdddab41271@yahoo.pl>
+In-Reply-To: <20260310-atomisp-remove-void-return-v2b-v3-0-3fdddab41271@yahoo.pl>
+To: Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-staging@lists.linux.dev, Tomasz Unger <tomasz.unger@yahoo.pl>
+X-Mailer: b4 0.14.3
 
-On 3/10/26 16:56, Ricardo Ribalda wrote:
-> Hi Sean
-> 
-> Thanks for the report.
-> 
-> I have not been able to repro with qv4l2 on my computer :(.
-> 
-> Could you try if this patch works for you? Not saying that it is
-> beautiful patch, or the way to do it.... but it will let me know if I
-> am looking in the right place.
-> 
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_status.c
-> b/drivers/media/usb/uvc/uvc_status.c
-> index 231cfee8e7c2..cca2aed162c3 100644
-> --- a/drivers/media/usb/uvc/uvc_status.c
-> +++ b/drivers/media/usb/uvc/uvc_status.c
-> @@ -340,7 +340,9 @@ static void uvc_status_stop(struct uvc_device *dev)
->          * Cancel any pending asynchronous work. If any status event was queued,
->          * process it synchronously.
->          */
-> -       if (cancel_work_sync(&w->work))
-> +       if (&w->work == current_work())
-> +               cancel_work(&w->work);
-> +       else if (cancel_work_sync(&w->work))
->                 uvc_ctrl_status_event(w->chain, w->ctrl, w->data);
-> 
->         /* Kill the urb. */
-> @@ -352,7 +354,7 @@ static void uvc_status_stop(struct uvc_device *dev)
->          * cancelled before returning or it could then race with a future
->          * uvc_status_start() call.
->          */
-> -       if (cancel_work_sync(&w->work))
-> +       if (&w->work != current_work() && cancel_work_sync(&w->work))
->                 uvc_ctrl_status_event(w->chain, w->ctrl, w->data);
-> 
->         /*
+Remove redundant 'return;' statement at the end of void function
+map_buffer_type_to_queue_id(). Void functions do not need an explicit
+return statement at the end.
 
-I don't think this works since the urb will be rescheduled as flush_status
-is set to false again. However, the following patch works for me:
+Found with checkpatch.pl --strict.
 
-diff --git a/drivers/media/usb/uvc/uvc_status.c b/drivers/media/usb/uvc/uvc_status.c
-index 231cfee8e7c2c..2a23606c7f4c6 100644
---- a/drivers/media/usb/uvc/uvc_status.c
-+++ b/drivers/media/usb/uvc/uvc_status.c
-@@ -316,6 +316,14 @@ static int uvc_status_start(struct uvc_device *dev, gfp_t flags)
-        if (!dev->int_urb)
-                return 0;
+Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
+---
+ drivers/staging/media/atomisp/pci/runtime/bufq/src/bufq.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/staging/media/atomisp/pci/runtime/bufq/src/bufq.c b/drivers/staging/media/atomisp/pci/runtime/bufq/src/bufq.c
+index 0f0d16f4ce7c..51f7c9d6f378 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/bufq/src/bufq.c
++++ b/drivers/staging/media/atomisp/pci/runtime/bufq/src/bufq.c
+@@ -176,7 +176,6 @@ static void map_buffer_type_to_queue_id(
+ 	}
  
-+       /*
-+        * If the work called uvc_status_stop it may still be running. Wait for
-+        * it to finish before we submit the urb.
-+        */
-+       cancel_work_sync(&dev->async_ctrl.work);
-+
-+       /* Clear the flush status if we were previously stopped */
-+       smp_store_release(&dev->flush_status, false);
-        return usb_submit_urb(dev->int_urb, flags);
+ 	assert(i != SH_CSS_MAX_NUM_QUEUES);
+-	return;
  }
  
-@@ -336,6 +344,14 @@ static void uvc_status_stop(struct uvc_device *dev)
-         */
-        smp_store_release(&dev->flush_status, true);
- 
-+       /*
-+        * We will deadlock if we are currently in the work function.
-+        * Fortunately, we know that the URB is already dead and that no
-+        * further work can be queued, so there's nothing left for us to do.
-+        */
-+       if (current_work() == &w->work)
-+               return;
-+
-        /*
-         * Cancel any pending asynchronous work. If any status event was queued,
-         * process it synchronously.
-@@ -354,15 +370,6 @@ static void uvc_status_stop(struct uvc_device *dev)
-         */
-        if (cancel_work_sync(&w->work))
-                uvc_ctrl_status_event(w->chain, w->ctrl, w->data);
--
--       /*
--        * From this point, there are no events on the queue and the status URB
--        * is dead. No events will be queued until uvc_status_start() is called.
--        * The barrier is needed to make sure that flush_status is visible to
--        * uvc_ctrl_status_event_work() when uvc_status_start() will be called
--        * again.
--        */
--       smp_store_release(&dev->flush_status, false);
- }
- 
- int uvc_status_resume(struct uvc_device *dev)
---
+ static void unmap_buffer_type_to_queue_id(
 
-The first cancel_work_sync also seems superfluous to me, since we have to cancel
-again anyway.
+-- 
+2.53.0
 
---Sean
