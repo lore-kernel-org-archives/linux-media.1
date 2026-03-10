@@ -1,162 +1,95 @@
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3B63B47E2
-	for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 12:28:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773145714; cv=pass; b=c7YgMEltPZcvLGS7IUrJ6fEbbVV/rMSUMLZoigoODBou3mw4AGtFmgXHL3A/IrLUR+cxXDs/3YHcwB8Mf/nxWwbhVv8XzfsIlSwL3D6lfK7/bsDAfSTrMybw8MCNNDWODU3M1aA/xYCdOVGQU7sO8OpFwDi5sl3mp71piTmad0U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773145714; c=relaxed/simple;
-	bh=Dh2txzJtipbH29/fAPCR6ZkGmUH4iYcJegcv0MEz4UE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Content-Type; b=qMG1yaW7vIgx0L4GSwnJ0ECSMK2vja5iJsv4hWzKKSM+pGbzSa8v8X3WD5wLlSpE8PCj/d/ed7Gq7LhtI0BmilI4MH6TWTKvG7aO+wuNT8vk6sYO5WCLJe5VRr9HsGyF/UWFUCvMMymW8nWfgsBSf8lrX1PaFUacd0v4LNPkzZM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hy/lnYq8; arc=pass smtp.client-ip=74.125.82.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hy/lnYq8"
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-128b9b7e3edso487127c88.0
-        for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 05:28:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773145710; cv=none;
-        d=google.com; s=arc-20240605;
-        b=X7JEcnsa+dlBcBK4qRWMl4aJV0RTtyfxat13OwbRhfm4cpjpk1r3z+agRfQEjyfWuR
-         6/gKGhNUwj/I1ayM2SA4jzN0W7Wr7lqjj/jVFiG1A4BDLo3guQX+11ACY8ex3CbN2yJk
-         l94gMSxoPcxGIXTNA6dbF2ZfBAox1I9yay5GcJLL1G12Vj4vagYTzEwWdOpa+Bz5UzhQ
-         obrk+h9wApsaaTO0IM+OPt+JTeLeGbIwq0AeWF5QXVdAn//2JmWZXWd4mJ6Sasw36698
-         LiGZEK5DW/l71gVZJYBjxJkBkmZ/gxTaA61TE96aM5Xa+K/z4H3xu0OWc2Re63+pxedq
-         5SJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+Yzh77/j5ISEB79JePy6lmFNfdGStY3Ny9G1u510Smc=;
-        fh=RpYxnnRW5A5FvuL86z7f7YWfE0tvaTrs4Vecbev4fLA=;
-        b=S61Joe/daoQfePhsmEFFkfGWt8sr0oRriAJu60g0BQhV2hbxDA/i+oHLSFRM6L8+ho
-         YJoxRUPR48XK5DTHzUPzLX11YnKnKvg7W5bq4XtuZHZyNnAXcfd08tsyj9BXNxwN6Hbw
-         8qft+FlITDJehgVJx0xniFZsS3pjPwhjKAN3RtcCUhRDsJ4ls2WWijmG4X0gKz1QbP+C
-         AXNYS3g36umGJHWPX12jgjR35SXqukcpyIzlyd/oDojYJcWdMPo6JE/SBfECQiYpZ9KB
-         4XVx+Nxa85Xzt61cEuB63ef6rftVAaaEwRmWMkUUmJ6FkEKUWOcYWVVbRhyUD3yh+WVp
-         mpBQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773145710; x=1773750510; darn=vger.kernel.org;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+Yzh77/j5ISEB79JePy6lmFNfdGStY3Ny9G1u510Smc=;
-        b=hy/lnYq8OKpGtS/uIQ6yZvW7rc6vXZYILsO9eM5XXGK4rvjx4mdz6u6A1oPKZC9xfP
-         f8jVMuJbiEwpKCPD+fTYbikwffkX3jGuhbX8F/m1wK7WuoOmVtKoIAz3KAGreNOaIA8l
-         n8+tqu+W/VurYFGoZdj4xFMrSaOQsAQ60S0SFG/mKM8VpF9VZ0xZRXvukUbC7rEYbFS2
-         3Pc6JoQPSfYWcupMbz+duHEBAjk6C3Cz5X2ZOYkViGnuWnA0GZXsZoB2HzA6xQzg6UY+
-         AK0dQDUiXZegaXiJ8Jz2LZLPo4HqSwzgCkZgSaQdF2anlrqiAmkiucp7kNDLxp8DAMB1
-         QgVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773145710; x=1773750510;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=+Yzh77/j5ISEB79JePy6lmFNfdGStY3Ny9G1u510Smc=;
-        b=Y+iRmD21Lv1eoaTFlBowe9IrqjusYmTmleJBGY9tjJ8PBlwDXMs0/7kTeK3pCFt3fl
-         MDKL+bViy63TgOzT0byP9qm13buZZnoH3395n7LkhMkTrz8Agq2MQWm/l96h8NxpdAyo
-         7oeJKOXCSxeeNxSXK9zgY3EjfrTPZftWWs7n9HIAIYj+33+G4KJ7Lr1aFO5YMkXPYh7k
-         j6NjfRqZGvjK8U3LI4/3Qrn4qGMWMZ9x0wR+zkjeoKm1/yWPbsrWjGWLfiiBTNNVymZF
-         sRPd9yY32o13YnqRICS1eZVEEOCH7q6fXXix0MN80dUGKYzXutzGFe+DzaTUEyqX9HDZ
-         rL6g==
-X-Gm-Message-State: AOJu0Yzs6SUpJ/aicsGWI4iMEQkA45tK/XJYHNNnaGXjVS4b0/Kp3nYQ
-	ZK1f3zlht5f79Ugnl57XpTyEhKOvDJ3lUX/rYop+EAgiZiQ+eWNqQEysw6v0h/6Rd7VJI86ghle
-	cosST279mYgOmX9uGND1dQZGz/XyfhuqKg806JbFE4qlt
-X-Gm-Gg: ATEYQzypiwm15ZbErkMudOaCn/aLol7UR0vAQJHk/75LcUGamHaoabUwfJ8FxxBFUyH
-	cL29o0rYDo07IzPbVwa4wLzpFYLtOD1WXPmJmQqHxCHkNyZyAnwELpV85seMQ7JOuLZEr9P1wDO
-	7NFzV1aH2f/Yr6KZYR8G2VZGPAnY6U6qufy5hdlBzD4/ON+WrThgCCYnxNRJ7GrEdMkgUU+Kcaq
-	Ldbgmb3nirnTn/WfhdMToyYJEjxpz4ss2xs+VRAGE4llXZqdfU8G6wSvPL8GCcu4PFd494gCv1N
-	q8SBn4wVX2wojKZ/0CD5EXwFPI5OFMyNghGdqT7t
-X-Received: by 2002:a05:7022:313:b0:128:d24a:a5c1 with SMTP id
- a92af1059eb24-128d24aa95dmr4388310c88.28.1773145710407; Tue, 10 Mar 2026
- 05:28:30 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE75B3E1CE6
+	for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 12:44:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1773146667; cv=none; b=SQu+LezGLbRx18pRV3xhPwE7+0E3apc22FbzAdTm1wQC/xOAFKdIs0w3Yhh1cQhwaKXFfNh9OPmnoCZD2vcpgTIp146FuClsDFQ+t5pKHZp1Nn9io8AynG85FQmGTtypqeTmdPIrZwhK9zYZFehaDc28b0NkyRIQaep1Hxm88FE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1773146667; c=relaxed/simple;
+	bh=9nwSoyBFb/J+scDlmZ8YZ+1mFs6NH+0TsiNWJNlzMqA=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Q1WKm6sK7ICYwCplVJl8AZHRhFocLpJsl77zgLpnzSFgTJWZdvg6rOLZl4/3fc6j99QM9jwKGaHa0QgN3UnwjlsoXe0OA3J7TwYP1sdeBPUrVxuyuQD6JWwLhaK49X6WxXeRZLT1IgPkI3rf9m6cfZVt4rqQOQOQPJVlE4Araw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1vzwQv-0006Oq-0m; Tue, 10 Mar 2026 13:43:33 +0100
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1vzwQr-004hMj-0z;
+	Tue, 10 Mar 2026 13:43:30 +0100
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1vzwQs-0000000081v-2556;
+	Tue, 10 Mar 2026 13:43:30 +0100
+Message-ID: <ddaacda48df23fb2c009a8727518300ed2b82cb2.camel@pengutronix.de>
+Subject: Re: [PATCH 57/61] reset: Prefer IS_ERR_OR_NULL over manual NULL
+ check
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Philipp Hahn <phahn-oss@avm.de>, amd-gfx@lists.freedesktop.org, 
+	apparmor@lists.ubuntu.com, bpf@vger.kernel.org, ceph-devel@vger.kernel.org,
+ 	cocci@inria.fr, dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ 	gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org, 
+	intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
+ kvm@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-block@vger.kernel.org, 	linux-bluetooth@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, 	linux-cifs@vger.kernel.org,
+ linux-clk@vger.kernel.org, 	linux-erofs@lists.ozlabs.org,
+ linux-ext4@vger.kernel.org, 	linux-fsdevel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, 	linux-hyperv@vger.kernel.org,
+ linux-input@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ linux-leds@vger.kernel.org, 	linux-media@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-mm@kvack.org, 
+	linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org, 
+	linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org, 
+	linux-phy@lists.infradead.org, linux-pm@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org, 
+	linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org, 
+	linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, 	samba-technical@lists.samba.org,
+ sched-ext@lists.linux.dev, 	target-devel@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, 	v9fs@lists.linux.dev
+Date: Tue, 10 Mar 2026 13:43:30 +0100
+In-Reply-To: <20260310-b4-is_err_or_null-v1-57-bd63b656022d@avm.de>
+References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
+	 <20260310-b4-is_err_or_null-v1-57-bd63b656022d@avm.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAOKSTBu_aCODd_AxkBuA=sU=SJhCfVR7-FXo3tfOLS9Y=+1WHQ@mail.gmail.com>
-In-Reply-To: <CAOKSTBu_aCODd_AxkBuA=sU=SJhCfVR7-FXo3tfOLS9Y=+1WHQ@mail.gmail.com>
-From: Gilberto Ferreira <gilberto.nunes32@gmail.com>
-Date: Tue, 10 Mar 2026 09:27:51 -0300
-X-Gm-Features: AaiRm53hS5EqGCR2EYm-QkIioJnH4AFPyi-Hm3YGHefVGkTDc3GcpLjta_XO6Gk
-Message-ID: <CAOKSTBv0C7iWw4v849FBA5BONQqJzH-q2qj107HAEdnqKFtJfQ@mail.gmail.com>
-Subject: Re: No HDMI audio with Linux Kernel 7 rc1, rc2 or rc3...
-To: linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Is this something?
+Hi Philipp,
 
-amdgpu 0000:04:00.0: [drm] Failed to setup vendor infoframe on
-connector HDMI-A-1: -22
-
----
-
-
-Gilberto Nunes Ferreira
-
-
-
-
----
-
-
-Gilberto Nunes Ferreira
-+55 (47) 99676-7530 - Whatsapp / Telegram
-
-
-
-
-
-
-Em seg., 9 de mar. de 2026 =C3=A0s 13:01, Gilberto Ferreira
-<gilberto.nunes32@gmail.com> escreveu:
+On Di, 2026-03-10 at 12:49 +0100, Philipp Hahn wrote:
+> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
+> check.
 >
-> Hi there!
-> I have compiled both RC1, RC2 and Rc3, for kernel 7 and after booting
-> with it, no HDMI sound at all.
->
-> This my laptop:
->
-> Operating System: Kubuntu 26.04
-> KDE Plasma Version: 6.6.2
-> KDE Frameworks Version: 6.23.0
-> Qt Version: 6.10.2
-> Kernel Version: 6.19.6-x64v3-xanmod1 (64-bit)
-> Graphics Platform: X11
-> Processors: 12 =C3=97 AMD Ryzen 5 5625U with Radeon Graphics
-> Memory: 64 GiB of RAM (46.9 GiB usable)
-> Graphics Processor: AMD Radeon Graphics
-> Manufacturer: Positivo Bahia - VAIO
-> Product Name: VJFE69F11X-B0411H
->
-> With kernel 6.19, even the RC's works perfectly fine. This is how I
-> compiled the kernel:
->
-> git clone from Linus github cd linux make mrproper cp
-> /boot/config-$(uname -r) .config fakeroot make -j$(nproc) deb-pkg
->
-> I also downloaded the mainline kernel from here:
-> https://kernel.ubuntu.com/mainline/v7.0-rc3/
->
-> I already tried 3 different Linux distros:
->
->     Debian Forky
->     Kubuntu 26.04
->     ArchLinux
->
-> Same result...
->
-> So I wonder if anybody else has the same issue.
->
-> Thanks
->
-> ---
->
-> Gilberto Nunes Ferreira
+> Semantich change: Previously the code only printed the warning on error,
+> but not when the pointer was NULL. Now the warning is printed in both
+> cases!
+
+No, rstc =3D=3D NULL is valid (for optional reset controls) and must not
+throw a warning.
+
+
+regards
+Philipp
