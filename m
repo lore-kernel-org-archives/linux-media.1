@@ -1,131 +1,212 @@
-Received: from sonic303-21.consmr.mail.ir2.yahoo.com (sonic303-21.consmr.mail.ir2.yahoo.com [77.238.178.202])
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 694D83F2113
-	for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 21:59:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.238.178.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE36338D693
+	for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 22:08:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773179982; cv=none; b=EmE8PQXyqEXbqNo+HpnLT2vZmYFRdF0cvKJl/3JvKj0mom8zqFbosiHxTERJWhc+izOZ8IVRye97qNHtvO6wndKdw08ZPY7FjAdwTq24SWDZ0iA7ck2UCWZj/7gC6eggjuxVgSG0gCtEeYZ7lyYt5Jl2yIXcQbKGJhYsiQfuvx8=
+	t=1773180511; cv=none; b=ZDlwgSlES6PA+unhptJuKBRDvfBm7y4jRWZ+hnMDyVlbT0MU8Ku63ra8W7qd/5q6mNRCwZNcY9U1fsW1CB2BMCGLQ+CJO++TN1lMnNdEc/Ln4sCsgN4z+8osdCvfR6WhoYLSuSdyje3g40aSf/MNqbrTTsVkCwVUluEWZY5NdNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773179982; c=relaxed/simple;
-	bh=ME/JxSJvfZy8VyZVzrTwc8gr4BRvjuq7Q0qnFq7wp3k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mczFCzsfZPB0PjoxYHjJp17cv5Z35f8Dhe84LBUCs3/U5S+r8VvwJNXOaTBsdt7PxKE4PL6a4XvvaQ6VTC9x1CaiIhqA4M35+l6SbHjtPyIr7BxXhFoDmmplEQzzdkIxu2AiORysBRzlIs/Xde4bsQrRq0/PsIySsGeT6Fsnwuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl; spf=pass smtp.mailfrom=yahoo.pl; dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b=ripWBur3; arc=none smtp.client-ip=77.238.178.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
+	s=arc-20240116; t=1773180511; c=relaxed/simple;
+	bh=EkT3jVK1vb20RIv1qVCCL85jx8kkGbuMtERBRD038OA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EnETzuC/NP058AfpmP7epoaRIlqhOYRebhCY2PzTGEtVxwaaFNY6qecZN+0oFbrACstqiDaTuMtS2er/UwGVyZtCtiJ1Q0ob4PDfkn1FnS5FKos0Y1nIA69/R5Azsn6n3VQX6ZAKaB8WyzqdjvL/AloR+f00SpRbrECzXJ7V6xY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=EtvotgDf; arc=none smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b="ripWBur3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1773179980; bh=+44tMtXJOODYGG11pS21QyoIgBmXYJcVjfCR3CHiglM=; h=From:Date:Subject:References:In-Reply-To:To:Cc:From:Subject:Reply-To; b=ripWBur35592qlZ17KGh7O9HRY82kfjEA1AASNlBPlJv1ST1gi3gD8c9W1PYf6u3fjkmOWkFtMI5xN4Td+wMw7XT05KG9SQ1XjJXpmJjYr2AebjSL72SGN23HsSX64AZv5sQoQHFybFVtFaGo5F1WMgHerDx0/7YxODdmlMEYbrpv5v7OUa8rnZewWPqSlo7R3t9ZsHjpRH123brzfjtxNCqE9zJ06OVP3FDnF7R6FKDjqiGC9OoHRW9FHC/cNsB4EkfkLBGp/i9Sy+tP8QoVTy7mCORvc8U3qskIST8OLsZMTzprvps4RLG/0si8LV98sJELaDyuK3Q7ouYNTZ1bA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1773179980; bh=KI/2C1qWh0wU70YNkTGxkn26WB6sEdB0QJZ8iGOv3O3=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=aOhUiFWCCIMvO6Pqe9oBOjaZz6LY+2fWreJET29w7xLY+vYv+RniawyC0NrqRE4/YRVYxVSQUvJ7P50gI9YAFcWF7hJJYy0KK/L8TlpQ1pNnq+CrBDlUpP5z729IRvIyjrlvMjZrJ9d0NAjl+KJmKe3bezEt3DwogjCGOlnI+x+3fNmgTX0KID1S9Tvft4dHPkk0/rPwgJMGle6M8ANhTZviBXSSX+Tfu2aXtK4RonEm59yjsguQadlz3ouBm8OdgxGJ+vFBMjosf3MxXqrr8+6r9Ooq39j0GOktAz16ECPrFC2NO/J1OXvcMZBjirrjzpsx79/nZsOSHQNq100wJA==
-X-YMail-OSG: _i6q9.oVM1lcKuaQ1kGUxgMKwbLkiWimGfzP_7wobUc3YJMLvPhSMc0B1sRu_lE
- CbPICSlpiH17.Sh_dqPXYbjBpgiqaTEPWxGt67xmskdWPJJCX_KqIg49W8cNqOpYBgHVo.VK8zf3
- _mWc_hAtTQd3y.PUKvhc0_YRo8uoNaTx_Xn_ODPaW4W0H.WEwGjLkWYfH.vAaLEhnEVyGdv_.1Ca
- _kmlel39mmJgMxl45ADWcjiAKbi_OrS9QveDYc7bhBKpz2z0jwxEWXHuaveYoLvzFZal1groctyt
- s_KBk4hIoGQFZWW9Atck7uWBnfiAxaJuYZbjrsaayID7cG35iDlIFssnD4GyFPyGvKgPb9xCqmW3
- MruGIkm0RKzNasVKyiCUvKSPjqUX9LWznojQbEVazangaJTkVR1CWDXMXEZ7kphVsTEHtE_dBq.8
- pifTXpGZjWs_bqmC85fjBEbqI_jQj71NHsrsdz9dwqiFvX.OPwAVv8qbc2yBJY8OVJsHKaEDikIG
- jC3UoX3261lKV7YQv5mMNRYDGst_1gXDvHHqV7n8lM5kHMj234f1O_kirfrofR_P0EdFDk4dqkcq
- NTiNVrDsNpvZ0zzJMnBKaeJ8gJpGLjB.pQ2FkgYbbDPBPa06jWQaJLkzKTQj0P8YM9aarhGTa0AP
- NslD8MLJQqkwSGSp470nXpR_zu5FzEAkcH2_IkBmuM5KZdx0h2nbUlx.RIJQVslNGYYbDq0F5Mxg
- g8UK1RcFlu0YY38JmMMrwoAYdap4Ex2Syc1Bi7eziOWdnR1.rG2mwFmLLq5d90PGUt5o_QESY2KS
- WZ2wkR3bepril2muiJ2uRyj1DYG7Vub.RKR.KlzojNRIlLxGGqZs5rheleLrWiWPmvEcnDn6aiOq
- xl0efgRPX2B4IGjzA0DgvuR6rzylIA7sJeQ7jhXiBnNn.GQdn_vOjgoUWjezP2eIm.10_tS0kW8L
- Roy7FuXxaLeGn.0j8c_a5d3eTLrZwmb0Qbl2aBBeZbcWOnNmpbrSmHaQV.l8HFuQD2TKphGqG9XD
- sDjP2OgyY35M6y2q7avyzZ_aaxy4J3xHfaa0XUFX044Ex5gvnBmu.JT.1rB9evmZUNv2brS6zhke
- _5xwYPTXCDGmHhiv4juN12VslnY1KBN_QDw7gAuEmTZkVLR9ouath8L8MAjJGjw_m5T09hjyOCIq
- QYgfkmIXoH_pgnfhSV3YiznxoM4Jj5w0u5gcklfqs75vOTxiIpxMWi4R206MSQ0RwLt9nNGJL0vz
- kFJSY9Ob2lm8zrVhz.NPMHJlDFaUzbJ5.SjWFaERuKIQkzMGOqJNdp0._ePuPf1XIj2Z5BNoqA2q
- rhCJtV2iQaabwx.pKjERFuG9_paFjFSdgfkbswDFUL15BXbtRpsfIeULG0KfRw5LMFZvwrT5uMl3
- EpWfbJW2HnxCqqqWLcmBH095PYHN2MKOn3XnuKG3hcXE_rlVQvaxytEHctxBkYuigBzFtLuVUbJO
- Ve0bOAWPx_fyFL5tRYmCXkpfQlmxVTfdJPFy0dTz4sv.nzOJ059.idF7XhUKVpr00QVtX25KbWnT
- T.BALuGduB_XjpUlvYiTeGQCFaN8G7ewV2ZYmsX_x8ziWKt0n2UEQMxmGx3JUMYcE4QsYO.l1QfE
- jrSlKh6m.BruOOKJgaXfY3frPmTnBU7gIaPgL0dbGa4GQPP4s.yX4sXlNBW4mulu_gQiApV0A7WY
- RCxajTexRhPCx9LEB2hOsB0VMeAUjVpIQM0Hn4mCp1C9Vt8iCVMOxMWtdUfli613CGSJVWa9Bft5
- WgYJeIY42FEnxaevd2l..PxeZas58gx83f9iexzGHXWbZNTvJjFrE8PBxmkzpQvXlKkqRK4zScUL
- sE3UKYTngrCKYVRXSJwG0zNTdHIwbiybVja6ap5fZUnSS2Pf.I0cKdFroaNmbTvEuh00wZOaemwX
- C0bjJi9kJX.cD76w6luoTnbErpPqVkZ5BdNWJa3OgkoNV24FarwFI01T3FixC6AN1wbWfO0_rS5B
- U9b7EZzcmuAmE3.A6FXP7bll_8iQrrO3SyWYM.UneRSMlBja.NXsz1DQic5NK1HVKouiyKBfP.Cv
- ddrGCFZj6tGGegc5Z7psN6SQcCDK5tjSuVixaIejKQWfwGOv3CcLsgKiJEl8bKxOFcVveIkmYj58
- PCG4BS.YA1BO2oX5JsWP4Em5N9NgTYG3QQ2ZaGyS9XpvjKah5v9Cc2MDPjNcEJnW_DKuZRO8vPCR
- I8PwUldo5IpGTWGVAKbjNqORWzdCiBIS6e_dHRvtzhWfVmurBM0oc3drxB5wkf93wQfWYi.Ubnco
- jdPuY6AtWhNEonKD1SRiirQ--
-X-Sonic-MF: <tomasz.unger@yahoo.pl>
-X-Sonic-ID: 542d3c3c-f2fa-4e0d-8f01-d0f33a18665b
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic303.consmr.mail.ir2.yahoo.com with HTTP; Tue, 10 Mar 2026 21:59:40 +0000
-Received: by hermes--production-ir2-bbcfb4457-5fg9x (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 95c3151d01371ab1269f6f8bbf003118;
-          Tue, 10 Mar 2026 21:39:20 +0000 (UTC)
-From: Tomasz Unger <tomasz.unger@yahoo.pl>
-Date: Tue, 10 Mar 2026 22:39:16 +0100
-Subject: [PATCH v3 05/28] media: staging: atomisp: Remove unnecessary
- return statements in frame.c
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="EtvotgDf"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-b941ec6a368so664739566b.0
+        for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 15:08:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1773180507; x=1773785307; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=7T57TbUh1a9gPuEhl9gX+JZqR5FWHQ6K3iwhXdSBh1Y=;
+        b=EtvotgDfEkRNVUDvQFZ1KnBnuWl9bV9ApZ5oSgYJE6S1RoY9boauLx5vpKxlZwhwn+
+         0f6R1bkJGjimOwWOPlkzfUbHcNygR53g29nhAMmIH1uDYhTQxsmz+9Xee7nFC/voIlcC
+         JDJWrhLzIDkaOBc364z9UDgnB78Oolqk475UE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1773180507; x=1773785307;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7T57TbUh1a9gPuEhl9gX+JZqR5FWHQ6K3iwhXdSBh1Y=;
+        b=F2p1E+qaRvbAgCNlwh/EQ0Lpk/o9c80p48cBsEiMF0kpBCRVCMsru1LKoW+440gXN0
+         uRnK+9/DlaITxgVpKfpfu+QNNNL1wjOaOAWBSGYWrCv0h1kTvvffL3VkgwjA075BkpiG
+         OsWIKV7aKgr8wtk3RjGJP4AFz6ZtjvAoCbC238Sqc0xKCSDlUkRCSoFX4RCFUtqR4+p4
+         s5gA77vsx4Q3pl4d3ZfkMVAHu8oqTagMmtcZZ+9JhajcQWOR16bWtafQzJJqa0zdjOXI
+         xYDfL193f7KB/yg1kJoml0hKC+VegF3YODJJLpYpAaYRsJ3Yz7k1PA0o7nIOnNvggtf0
+         L0Hw==
+X-Forwarded-Encrypted: i=1; AJvYcCUmsukb/k1Fycv8ctZ5++rXWGh9hwGnXlbJvS9LfKJVuPwu4cKXr0u6Swi1qX7v+EAai/cPKfYY1P6IlQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyhNKpjLJBljYYzcmyI89SQVS3I6GEuFdEYCM16KChvWoOzCTnz
+	C+PhZQvDchG6A+Marq/7OCOctrPx5UJWWKHBgX2n34klguxKFuQqqAB6qgDAKR2Ej1e+wkKpHxj
+	pfEw0tlPG
+X-Gm-Gg: ATEYQzySf7HVk/DgrLz1FvCVSXIZ5WCXGCGclZ2IUVFmlB3spE6Yu5ij8G3/sQA77tH
+	woNfTH03aaliCNPYPkIrbdmdPVCv81VJUe3wvn3pTttGtF09BbxreAWfKJ2F/PmB4Us9D9oDzDm
+	AXDKX6T373W1CT9pxstNFbDjg/9hvoW7XMVq9WqNTKfGHF3z23J7sZYAjdnEG19DFzqc/+Lywn5
+	CZKjxBTpEFV1HQCCP5OBLner560aNJ/0vt5h+ivzwcaJ6IJQI6lfWkWB7DfYcc2aQavp2TgaBmu
+	QJnv/5ngY3zhtqywV8p4/Z1zj/UYTJjLUpRYOAo/ikB9JRoeL2KzWUQt1bOohb5z1s3KZYyDAOR
+	dBmGzSYs+xQNfOkwhCXlYR/K2SBjAJtis5nZphe3ciBwJdgoZeeAckM183+D8KV6sLq2q0CQqrn
+	FMh6WIcBlT9hFK/3XGjw4a+RpqhHiTNN5EwsGowCI42tsRGC5ztlzJdmykIQmN
+X-Received: by 2002:a17:907:e98b:b0:b96:f657:45ca with SMTP id a640c23a62f3a-b972e1b74dbmr10063266b.17.1773180506855;
+        Tue, 10 Mar 2026 15:08:26 -0700 (PDT)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com. [209.85.218.48])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b972de0bcc8sm6464466b.5.2026.03.10.15.08.25
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Mar 2026 15:08:26 -0700 (PDT)
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-b96da7b2e2eso510832666b.2
+        for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 15:08:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCVShVzggicKLUeNrAJeoeho0ATTT7itpBXd6hMt4AhgnKZY7lkEieijGD2KEeJevcuXAw2iAlyjdA5lHA==@vger.kernel.org
+X-Received: by 2002:a17:906:fe05:b0:b93:6bb6:cb3d with SMTP id
+ a640c23a62f3a-b972e5db7damr7346366b.58.1773180504840; Tue, 10 Mar 2026
+ 15:08:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260310-atomisp-remove-void-return-v2b-v3-5-3fdddab41271@yahoo.pl>
-References: <20260310-atomisp-remove-void-return-v2b-v3-0-3fdddab41271@yahoo.pl>
-In-Reply-To: <20260310-atomisp-remove-void-return-v2b-v3-0-3fdddab41271@yahoo.pl>
-To: Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-staging@lists.linux.dev, Tomasz Unger <tomasz.unger@yahoo.pl>
-X-Mailer: b4 0.14.3
+References: <6733bdfb-3e88-479f-8956-ab09c04c433e@linux.dev>
+ <fba86ac0-e13e-4c54-9515-c091b24f9f80@linux.dev> <CANiDSCtLj-N+M+JmP3C_y=vNtSy-UN7XtkXaZ=dLN6f0kd7rYg@mail.gmail.com>
+ <d5793f17-61cf-42be-b2fe-7d1549310989@linux.dev>
+In-Reply-To: <d5793f17-61cf-42be-b2fe-7d1549310989@linux.dev>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Tue, 10 Mar 2026 23:08:12 +0100
+X-Gmail-Original-Message-ID: <CANiDSCt4dkbXQ7TJpvL-1e5er571rRq0ofnO0SRU9SsEXUrhYA@mail.gmail.com>
+X-Gm-Features: AaiRm50XOVm87K1Q-vDN0LsYBCOyd5MoJTfNKT6h6Cl9SSOIuVJLMmVYf5OnOJE
+Message-ID: <CANiDSCt4dkbXQ7TJpvL-1e5er571rRq0ofnO0SRU9SsEXUrhYA@mail.gmail.com>
+Subject: Re: [BUG] uvc_status_stop hangs if called from async_ctrl.work
+To: Sean Anderson <sean.anderson@linux.dev>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
+	linux-media@vger.kernel.org, linux-usb@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Remove redundant 'return;' statements at the end of void functions
-in frame.c. Void functions do not need an explicit return
-statement at the end.
+Hi Sean
 
-Found with checkpatch.pl --strict.
+On Tue, 10 Mar 2026 at 22:23, Sean Anderson <sean.anderson@linux.dev> wrote:
+>
+> On 3/10/26 16:56, Ricardo Ribalda wrote:
+> > Hi Sean
+> >
+> > Thanks for the report.
+> >
+> > I have not been able to repro with qv4l2 on my computer :(.
+> >
+> > Could you try if this patch works for you? Not saying that it is
+> > beautiful patch, or the way to do it.... but it will let me know if I
+> > am looking in the right place.
+> >
+> >
+> > diff --git a/drivers/media/usb/uvc/uvc_status.c
+> > b/drivers/media/usb/uvc/uvc_status.c
+> > index 231cfee8e7c2..cca2aed162c3 100644
+> > --- a/drivers/media/usb/uvc/uvc_status.c
+> > +++ b/drivers/media/usb/uvc/uvc_status.c
+> > @@ -340,7 +340,9 @@ static void uvc_status_stop(struct uvc_device *dev)
+> >          * Cancel any pending asynchronous work. If any status event was queued,
+> >          * process it synchronously.
+> >          */
+> > -       if (cancel_work_sync(&w->work))
+> > +       if (&w->work == current_work())
+> > +               cancel_work(&w->work);
+> > +       else if (cancel_work_sync(&w->work))
+> >                 uvc_ctrl_status_event(w->chain, w->ctrl, w->data);
+> >
+> >         /* Kill the urb. */
+> > @@ -352,7 +354,7 @@ static void uvc_status_stop(struct uvc_device *dev)
+> >          * cancelled before returning or it could then race with a future
+> >          * uvc_status_start() call.
+> >          */
+> > -       if (cancel_work_sync(&w->work))
+> > +       if (&w->work != current_work() && cancel_work_sync(&w->work))
+> >                 uvc_ctrl_status_event(w->chain, w->ctrl, w->data);
+> >
+> >         /*
+>
+> I don't think this works since the urb will be rescheduled as flush_status
+> is set to false again. However, the following patch works for me:
 
-Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
----
- drivers/staging/media/atomisp/pci/runtime/frame/src/frame.c | 4 ----
- 1 file changed, 4 deletions(-)
+It does not work, in the sense that the urb is re submited... but if
+would have confirmed the rootcause of the lockdep. But you have
+already proven that with your patch, which I think is correct :).
+Thanks for that
 
-diff --git a/drivers/staging/media/atomisp/pci/runtime/frame/src/frame.c b/drivers/staging/media/atomisp/pci/runtime/frame/src/frame.c
-index 8614efc28b19..ae952df03cc6 100644
---- a/drivers/staging/media/atomisp/pci/runtime/frame/src/frame.c
-+++ b/drivers/staging/media/atomisp/pci/runtime/frame/src/frame.c
-@@ -525,7 +525,6 @@ static void frame_init_nv_planes(struct ia_css_frame *frame,
- 	frame_init_plane(&frame->planes.nv.y, y_width, y_stride, y_height, 0);
- 	frame_init_plane(&frame->planes.nv.uv, uv_width,
- 			 uv_stride, uv_height, y_bytes);
--	return;
- }
- 
- static void frame_init_yuv_planes(struct ia_css_frame *frame,
-@@ -558,7 +557,6 @@ static void frame_init_yuv_planes(struct ia_css_frame *frame,
- 		frame_init_plane(&frame->planes.yuv.v, uv_width, uv_stride,
- 				 uv_height, y_bytes + uv_bytes);
- 	}
--	return;
- }
- 
- static void frame_init_rgb_planes(struct ia_css_frame *frame,
-@@ -575,7 +573,6 @@ static void frame_init_rgb_planes(struct ia_css_frame *frame,
- 			 width, stride, height, 1 * bytes);
- 	frame_init_plane(&frame->planes.planar_rgb.b,
- 			 width, stride, height, 2 * bytes);
--	return;
- }
- 
- static void frame_init_qplane6_planes(struct ia_css_frame *frame)
-@@ -599,7 +596,6 @@ static void frame_init_qplane6_planes(struct ia_css_frame *frame)
- 			 width, stride, height, 4 * bytes);
- 	frame_init_plane(&frame->planes.plane6.b_at_r,
- 			 width, stride, height, 5 * bytes);
--	return;
- }
- 
- static int frame_allocate_buffer_data(struct ia_css_frame *frame)
+Can you resend it as a proper patch?
+
+You probably want to add:
+Fixes: a32d9c41bdb8 ("media: uvcvideo: Make power management granular")
+
+I will try to review with extra care and a big cup of tea tomorrow morning.
+
+Thanks!
+
+>
+> diff --git a/drivers/media/usb/uvc/uvc_status.c b/drivers/media/usb/uvc/uvc_status.c
+> index 231cfee8e7c2c..2a23606c7f4c6 100644
+> --- a/drivers/media/usb/uvc/uvc_status.c
+> +++ b/drivers/media/usb/uvc/uvc_status.c
+> @@ -316,6 +316,14 @@ static int uvc_status_start(struct uvc_device *dev, gfp_t flags)
+>         if (!dev->int_urb)
+>                 return 0;
+>
+> +       /*
+> +        * If the work called uvc_status_stop it may still be running. Wait for
+> +        * it to finish before we submit the urb.
+> +        */
+> +       cancel_work_sync(&dev->async_ctrl.work);
+> +
+> +       /* Clear the flush status if we were previously stopped */
+> +       smp_store_release(&dev->flush_status, false);
+>         return usb_submit_urb(dev->int_urb, flags);
+>  }
+>
+> @@ -336,6 +344,14 @@ static void uvc_status_stop(struct uvc_device *dev)
+>          */
+>         smp_store_release(&dev->flush_status, true);
+>
+> +       /*
+> +        * We will deadlock if we are currently in the work function.
+> +        * Fortunately, we know that the URB is already dead and that no
+> +        * further work can be queued, so there's nothing left for us to do.
+> +        */
+> +       if (current_work() == &w->work)
+> +               return;
+> +
+>         /*
+>          * Cancel any pending asynchronous work. If any status event was queued,
+>          * process it synchronously.
+> @@ -354,15 +370,6 @@ static void uvc_status_stop(struct uvc_device *dev)
+>          */
+>         if (cancel_work_sync(&w->work))
+>                 uvc_ctrl_status_event(w->chain, w->ctrl, w->data);
+> -
+> -       /*
+> -        * From this point, there are no events on the queue and the status URB
+> -        * is dead. No events will be queued until uvc_status_start() is called.
+> -        * The barrier is needed to make sure that flush_status is visible to
+> -        * uvc_ctrl_status_event_work() when uvc_status_start() will be called
+> -        * again.
+> -        */
+> -       smp_store_release(&dev->flush_status, false);
+>  }
+>
+>  int uvc_status_resume(struct uvc_device *dev)
+> --
+>
+> The first cancel_work_sync also seems superfluous to me, since we have to cancel
+> again anyway.
+
+It has been a while since we did this, but I believe that since we did
+not use locks, the only way to guarantee the event queue was flushed
+and the URB was killed was to have the double cancel_work() in that
+order.
+
+>
+> --Sean
+
+
 
 -- 
-2.53.0
-
+Ricardo Ribalda
