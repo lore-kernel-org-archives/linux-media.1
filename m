@@ -1,38 +1,39 @@
-Received: from mail.avm.de (mail.avm.de [212.42.244.120])
+Received: from mail.avm.de (mail.avm.de [212.42.244.119])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9B647CC7C;
-	Tue, 10 Mar 2026 11:55:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33AEC48BD50;
+	Tue, 10 Mar 2026 11:55:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773143755; cv=none; b=pL2GcHq0TdFxORbtxBygYVjkBnVo6jeUdwMhu4+8OHT5H2yE5wY3tUz12xVaHLLkyAtWW6s3NaEmG+X4NTWyVwu3EBlxpr5cI5V1vJ+2zM4UTw04Ub3SRjdfCtoHMS4H6YMc79yvlmoJNQDHBc0noy9qbsAskKHr5DqWbRkYnZ8=
+	t=1773143761; cv=none; b=TJUZpdmxtgQzIvdzI0xmGx9sh8CoXhr7pyBaE85+SnhH0evvd9ao3n/egne/rxXeS9weychmxZ+qKDsOKDN/0JOQWCKjr51J0tifdiJ0Rxfw57HJUgROSUQBQA3TEw9AsKZiMpHJc+hV/6tQOn4whVjoyXTvh2eeFIfJiR5yN6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773143755; c=relaxed/simple;
-	bh=N8ytNu1U36GmBgTPXVAE5/A4s2PfdogY1tJY/l2pxcM=;
+	s=arc-20240116; t=1773143761; c=relaxed/simple;
+	bh=7QEjQvc53kHdYvJikGIe0XIqNo63J0gbffxhQyvvDmc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YSLZxB7ifLKjdDOG2C2WScpUDk7nJT9pyRM4z8FGEx93fszHWEtYXiVflZpTYwb9tZ7BcgAMPRdGCnNUEbJeqPwscotRzPzGadATHf/DOEUiJaNms3/+3FGSmksey+fAk0nC/hZYAiredvCicCdl/4JuEKwbBqF9CiSLzv69GLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=avm.de; spf=pass smtp.mailfrom=avm.de; dkim=pass (1024-bit key) header.d=avm.de header.i=@avm.de header.b=f0/sH3vW; arc=none smtp.client-ip=212.42.244.120
+	 In-Reply-To:To:Cc; b=gZ0BGPF7C9T0k8NgVWoel/rEPYP43ANgX8JhywCgFJIbxjVV3nxxEcfCmJ+wrAS4OivqDo5y9prIPW36EtOyGX7ihzc901TyAOk81UDxUFsMnr8zg9J5iW+fVDBv6DRdOgnWxuWgFQuUC/lH6FTXDe8rjfvpU40g5FGbDVSmBSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=avm.de; spf=pass smtp.mailfrom=avm.de; dkim=pass (1024-bit key) header.d=avm.de header.i=@avm.de header.b=xkT1xwtn; arc=none smtp.client-ip=212.42.244.119
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=avm.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=avm.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=avm.de header.i=@avm.de header.b="f0/sH3vW"
+	dkim=pass (1024-bit key) header.d=avm.de header.i=@avm.de header.b="xkT1xwtn"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=avm.de; s=mail;
-	t=1773143725; bh=N8ytNu1U36GmBgTPXVAE5/A4s2PfdogY1tJY/l2pxcM=;
+	t=1773143727; bh=7QEjQvc53kHdYvJikGIe0XIqNo63J0gbffxhQyvvDmc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=f0/sH3vWUtSFTcrY68KbpDRxIZCYT2hIiwDi3Dik93BJCASdZICq9tTWJ3wgjDVyu
-	 Jxt6MZXNePDtV4TX0U7P53CBk1XHgvUArUuxPPUnS5hIbTeOVph/0B/h50wymqYtj1
-	 3T7/WTJwdzfusP5uEpNMFoKuQUCnMWZUuDcbxKoU=
-Received: from [2001:bf0:244:244::71] (helo=mail.avm.de)
+	b=xkT1xwtnaKnF5zwky80U90tVBtgjXUcX+GeykmrAvdmpppC5+8VK/cr2uIrG8dU1M
+	 7wm2m1OyU4JV6u1islMHTFtIiUXXXY5n/w/md+c+5C+f1bhtmzGNVLxiuCLq3+FykP
+	 yZ+BZpZfQ6y4Yx2gZPgoiPOharwFnkzMOEjjrW34=
+Received: from [212.42.244.71] (helo=mail.avm.de)
 	by mail.avm.de with ESMTP (eXpurgate 4.55.2)
 	(envelope-from <phahn-oss@avm.de>)
-	id 69b006ab-b734-7f0000032729-7f000001bfc8-1
-	for <multiple-recipients>; Tue, 10 Mar 2026 12:55:23 +0100
-Received: from mail-auth.avm.de (dovecot-mx-01.avm.de [IPv6:2001:bf0:244:244::71])
+	id 69b006af-2367-7f0000032729-7f000001c9aa-1
+	for <multiple-recipients>; Tue, 10 Mar 2026 12:55:27 +0100
+Received: from mail-auth.avm.de (dovecot-mx-01.avm.de [212.42.244.71])
 	by mail.avm.de (Postfix) with ESMTPS;
-	Tue, 10 Mar 2026 12:55:23 +0100 (CET)
+	Tue, 10 Mar 2026 12:55:27 +0100 (CET)
 From: Philipp Hahn <phahn-oss@avm.de>
-Date: Tue, 10 Mar 2026 12:48:38 +0100
-Subject: [PATCH 12/61] quota: Prefer IS_ERR_OR_NULL over manual NULL check
+Date: Tue, 10 Mar 2026 12:49:07 +0100
+Subject: [PATCH 41/61] pinctrl: Prefer IS_ERR_OR_NULL over manual NULL
+ check
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,7 +42,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260310-b4-is_err_or_null-v1-12-bd63b656022d@avm.de>
+Message-Id: <20260310-b4-is_err_or_null-v1-41-bd63b656022d@avm.de>
 References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
@@ -71,21 +72,21 @@ To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
  sched-ext@lists.linux.dev, target-devel@vger.kernel.org, 
  tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, 
  Philipp Hahn <phahn-oss@avm.de>
-Cc: Jan Kara <jack@suse.com>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=763; i=phahn-oss@avm.de;
- h=from:subject:message-id; bh=N8ytNu1U36GmBgTPXVAE5/A4s2PfdogY1tJY/l2pxcM=;
- b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAX+MICb9QGDh9sr8xrXC0GI/+3a26bt3TCKL
- Vjl33LfQY+JATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAF/gAKCRA0LQZT0ays
- 26n6B/wNFZznKdxnE0qMd12a2eIuA9+krGiImi7olxEd9wOJhsBf8sKwI0E3QgvpW0h7L8AJ/V7
- YwWi88O6oeBiZ3QDKSUmLS/9VlykYZ97N4eOIEzkOMJxki98cx4PncgKAN9Jy63O/7GoZyteCZ7
- +9i83brafUHJWnhfe2dyfef6pp7LRzaCEfdld6TPIgAENhsi0/zr3Pv5hQfjJiyWTNInkfN/Wc9
- eBcVMsl2Zb6jE1xGE/aNpGFG8dNw74geAiaLniVxheZHeJfqzhWkArPaHQ0SYGtCtwd5smdDDAA
- 6BFeqEcljgo2LkEM+gZQjogP088dQYDyFGUkwYA0hLFDBEaT
+Cc: Linus Walleij <linusw@kernel.org>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=974; i=phahn-oss@avm.de;
+ h=from:subject:message-id; bh=7QEjQvc53kHdYvJikGIe0XIqNo63J0gbffxhQyvvDmc=;
+ b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAZht0v/gzetsO7BqEut/SimpAgjLSUxejqDN
+ jYPITjd+qeJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGYQAKCRA0LQZT0ays
+ 2w/2B/4pX609pdZXvqHfb+Vqmmi/TuKtxSLe3zgXgKoCJW/gh17vsp/T22wIBqf6SXS4OIznDwc
+ CqIbsgeOEAAlNDyBRYAY6KPNdElI/rv3fa2ORfx9RdjhIHa4x5wKb3P01gEbIVxJDT7L+eaQBY5
+ W5yNdsizunhdj+FuJcUWkiWweG/sakXiGLIkqX5NlLESVIppvEGGOaxwjbsMisZ9PSaDKihHXQV
+ LTJsTcuZgnx6Ly3LMJ0SQkiMEfMsx1Sbu6dG9rRM3ckN2uFTC5HrsnBNmmT4sZqY9FpULICBCkq
+ q7sHGVDOpWpuw1oJ3VO2Y9YZsG2cD9KHQpB9olXNSESNKBcu
 X-Developer-Key: i=phahn-oss@avm.de; a=openpgp;
  fpr=58AF7C2E007CDBE62C59E078F50EFDCF8AD04B1A
-X-purgate-ID: 149429::1773143723-435C7A3D-F151BDE4/0/0
+X-purgate-ID: 149429::1773143727-86C91E1F-25F0153A/0/0
 X-purgate-type: clean
-X-purgate-size: 765
+X-purgate-size: 976
 X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
 X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
 X-purgate: clean
@@ -95,26 +96,27 @@ check.
 
 Change generated with coccinelle.
 
-To: Jan Kara <jack@suse.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: linux-gpio@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
 ---
- fs/quota/quota.c | 2 +-
+ drivers/pinctrl/core.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/quota/quota.c b/fs/quota/quota.c
-index 33bacd70758007129e0375bab44d7431195ec441..2e09fc247d0cf45b9e83a4f8a0be7ea694c8c2a1 100644
---- a/fs/quota/quota.c
-+++ b/fs/quota/quota.c
-@@ -965,7 +965,7 @@ SYSCALL_DEFINE4(quotactl, unsigned int, cmd, const char __user *, special,
- 	else
- 		drop_super_exclusive(sb);
- out:
--	if (pathp && !IS_ERR(pathp))
-+	if (!IS_ERR_OR_NULL(pathp))
- 		path_put(pathp);
- 	return ret;
- }
+diff --git a/drivers/pinctrl/core.c b/drivers/pinctrl/core.c
+index b5e97689589fbf1b6750620fc193bc820012be2b..97a80989601abbe969d4b64cb0f3926fd4f291f5 100644
+--- a/drivers/pinctrl/core.c
++++ b/drivers/pinctrl/core.c
+@@ -1991,7 +1991,7 @@ static void pinctrl_init_device_debugfs(struct pinctrl_dev *pctldev)
+ 	device_root = debugfs_create_dir(debugfs_name, debugfs_root);
+ 	pctldev->device_root = device_root;
+ 
+-	if (IS_ERR(device_root) || !device_root) {
++	if (IS_ERR_OR_NULL(device_root)) {
+ 		pr_warn("failed to create debugfs directory for %s\n",
+ 			dev_name(pctldev->dev));
+ 		return;
 
 -- 
 2.43.0
