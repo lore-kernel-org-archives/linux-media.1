@@ -1,224 +1,122 @@
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022090.outbound.protection.outlook.com [52.101.96.90])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic303-20.consmr.mail.ir2.yahoo.com (sonic303-20.consmr.mail.ir2.yahoo.com [77.238.178.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581262E5B09;
-	Tue, 10 Mar 2026 14:45:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.90
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773153944; cv=fail; b=uX9DUpxgWFknQA49k6b9M5zZqCnCCi9DxwgMsFRItTJeGDZbkVNopVAwgXgD34t6k+CFo9q+8Z0D5ElKaJAssrFPeSnyFOzLZZI8x7mGk5rSl383SezKxo42QGNEhouodeL6AoisJdMJnZ6Gxb8V6IYQhZp9GqQqo00ftYAHZ5M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773153944; c=relaxed/simple;
-	bh=A9XlB1tUS0fux4kBO+UbAWsXGJ47ovKY4LzTVMEUK2g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=OjSp9MJKJqX/IihlcL4wrSS+bbKkc7k8sTvCKfiwrM6OHexqB1bjwgM5N6xMWmhJHFjs6a6dygC+KEVsGs7dsOthDRiTS60DxtpkpYFqf2oBeVwWcGda1CndsIfKHMblgE/Y7/909e4Wji8JCI7CElFr0niQOktVD7W9r22TQAQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.96.90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wB3Xfg8fFKEFvKlN8/Fj9g4pkeaVtXn0kkDv06O/WSlvfRmYmXzgWxSHv/glXmpgWjTZmDQlgN6XQtexxgcXW1W3VL/TLBetRYLY+B0ZV+vUVrCE48T2TIf40hP5rOs6WTQ7mys9HRZ+1AY1OvWdkf82/IykWL/OF4A+EYy6VjDR2OHgY9tSg7ChErbiQ3cYlgp7LRs1+gUG8oz3MmZ8f87tinkxAlWUEiyIEYKB0ncf/zELL6vWI41RbzVzDg2PiDOv7VyMNBtlJHN7zzrYdtM2wpxx31mXGg7KPaEOEKyIvGxE9pmt0WWUaZE4NxXaxmjdGfClh+8Ek0cFT+UH+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JAqErPuH8jvSz3S3uW1/upneO2POe6vZLbo48MwocK4=;
- b=W7tN4kfmd1B4jfJhRrUU6g4HsnWTQgFcjxfu8uf5dskX9ZbOcsBt430GAQhCKU8RgliHekyDzVdtGLYNkozrOO6SD2vWf4qf8y8niwVpCVoOOGsGHOzd80vtscok3K+fUCblknwTOHpHEiaywOV7qny2C0CogV32hxhE8dxV7Tq4Wq/YUNb2j9iwjREaJEIkKWo7nfWO/XYQXuJneWwzmE7r626rMP84ru1sLQzsKq7frVNFpBeZl8i8bshHULXeIkAad5lsnmOQcGAdgsVX9wqpjlsdXovsGplhJS5y8yvgeyXsiFIw0qc/e9C8Bq3IiywnSpp6TSnFye1QIK6rYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB3523.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:70::10)
- by CWXP123MB4117.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:b4::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.25; Tue, 10 Mar
- 2026 14:45:39 +0000
-Received: from CWLP123MB3523.GBRP123.PROD.OUTLOOK.COM
- ([fe80::de8e:2e4f:6c6:f3bf]) by CWLP123MB3523.GBRP123.PROD.OUTLOOK.COM
- ([fe80::de8e:2e4f:6c6:f3bf%2]) with mapi id 15.20.9678.017; Tue, 10 Mar 2026
- 14:45:39 +0000
-Date: Tue, 10 Mar 2026 10:45:35 -0400
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: Philipp Hahn <phahn-oss@avm.de>
-Cc: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
-	bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr, 
-	dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org, gfs2@lists.linux.dev, 
-	intel-gfx@lists.freedesktop.org, intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev, 
-	kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org, linux-btrfs@vger.kernel.org, 
-	linux-cifs@vger.kernel.org, linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org, 
-	linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-hyperv@vger.kernel.org, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-leds@vger.kernel.org, linux-media@vger.kernel.org, linux-mips@vger.kernel.org, 
-	linux-mm@kvack.org, linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org, 
-	linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-pm@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org, 
-	linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org, linux-sound@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
-	linux-wireless@vger.kernel.org, netdev@vger.kernel.org, ntfs3@lists.linux.dev, 
-	samba-technical@lists.samba.org, sched-ext@lists.linux.dev, target-devel@vger.kernel.org, 
-	tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, Luis Chamberlain <mcgrof@kernel.org>, 
-	Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
-	Sami Tolvanen <samitolvanen@google.com>
-Subject: Re: [PATCH 17/61] module: Prefer IS_ERR_OR_NULL over manual NULL
- check
-Message-ID: <qtwmj2mcbokwa7gexs5oqasjuitoaajiawc4d6dwcc224lmvbo@syjg6j6jggwy>
-References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
- <20260310-b4-is_err_or_null-v1-17-bd63b656022d@avm.de>
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="iksijtbqwcym3dge"
-Content-Disposition: inline
-In-Reply-To: <20260310-b4-is_err_or_null-v1-17-bd63b656022d@avm.de>
-X-ClientProxiedBy: BN0PR04CA0148.namprd04.prod.outlook.com
- (2603:10b6:408:ed::33) To CWLP123MB3523.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:70::10)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DE9E242D97
+	for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 14:48:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.238.178.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1773154090; cv=none; b=NgPp/gv6xUTzozZBk2PZzkKvSVlxKA67ZKmon0sI838HB3MMgAXPEvqX6I2UY0G6yZNgeRZWFdydw7f4Uxwq5iAJph8OCx9o2DpUdtiH7WB7zWZHDG172aGajTRxtL2qdR9ffwsJrzZkAGfpAU1ZePb8VesBWCcXr/oV8AVb7CM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1773154090; c=relaxed/simple;
+	bh=tnTelSF5Hz+M77Qvixm3LsOQrdz2NZ+cUGRq9e2LkSA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
+	 References; b=hnHjY1aRw8ZJc6N5/IMD+dOjoKPCrvNWb7TymtSVUPhoNjpaTQfN/nhruAQo8Wki50PKBmk/oksaPf6LIZEtAzONUUdmHX61HxC6EyAfExyla29rsd2yu6YfUfYN8Gvgs22YXFhS8PJMkLr46hvg91ENy8VlnuVWCc9/qK5x+4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl; spf=pass smtp.mailfrom=yahoo.pl; dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b=e+rYNdJw; arc=none smtp.client-ip=77.238.178.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b="e+rYNdJw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1773154087; bh=uQSUY86SxNAaCKY2iibBKvrX5LTEOQHxxmOCoPsW7So=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=e+rYNdJwBcAd2Rdsq704o0Q/G2yqg6QQu8oyBSK+E+i0y1bnhWHAvR3g6XWVmWmumoHUO5tVBD2YqSdGadg9kfdaQKpzpg/YJoSd81g8kJRLM47hF4OECsOXUlgbYPN9GVE3OuafqiMXkfZZMV7V4obs5HaKdbf0CLKRE35uKpChVSuzEb+aHVLN2VenZa4Fr3DrksPHNVIDeTyqKcmLS9JjpUQAzQtQXzKSGz1LhvXmr36NC0tLeKZ4t/IYHOVn5ASwmNH16VVATSF4NovfZIQM2xiifTm9v0ylRSMjfFT5kFHupaGnWvTscrM0L6tFOOuJR/PJ358vvg9U8b6Hew==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1773154087; bh=rFpEw+6+WGPE7sOZcGgBxpaXcsi+HI7pYabzDPV1a3Z=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=kLHCFLxQ9aJeko2J9o7wMp20Esq9Fftua+TZ+6LwN5ZJcS8LDsw1g6hOR1Y+QK+H308wUclOyNCTW5+pj0QF7XDgS9oWO5GiNmYn4rhMsHBrNVCHG0wdCSGc6RU/UkExu2hlngiu68601O9ps0LoJL5x8qCa0KTnjzM2Y7DORbvmtKio7RBsdsEqCc7Yq6SVz0ijk74bBhVYSsdmiWioproRvBKwvdEktQZRTIVON65Jt1KaeQIkVR+gLXPS/tNUiQHI7WgbDoCxb3bn2sB9bOi2X7uS+jtsMY8RhN36v4gYxD2SzW78XgQoX2MmRmSsQZAmxUiWLHN9CuKGCI6qLQ==
+X-YMail-OSG: PL7tpXMVM1kH5ei4bVKsWYPSTt_D7mdl8tYiv_HnWu4ypUpEL9Z0LMH9OW3m.MU
+ W3R7pFE0WMrUomTrpqmhyt3oY5pTesOZp.gChKljuumLU5n.Vo2HyqrL8jRVzpLMRdHALIaNkXfR
+ 4_i1ONt.0NyZyv6x8ZJ8OJ7e83D2cvaZo5MH9SCt1Y4z90E7ikrJW5z0159bq7UYhWvDYiF_in5Y
+ XR8SwHp0rvx2cPT6G51pWAcs0LSSpFD0X02yxTwMysY3.7PSTZWBtHLtOko_WXj3_NSr.UfFLLoI
+ WFuKL4h3vVGj6UCXS2.1nL5qD0PxXeKjj7SSFFV.YDfAq.j_GSKbcEf1OSnatWL73h15Jdfw0mo4
+ kJkr3i6AkiJ20ABD1GARIXiVPu84MnyOx7atzCcwfJGXvry.cea1t.5tIfZLLWcxBGu49DhAmLtW
+ Vweb4nBAft_3ICp7YDSlKVmpPjWUjR1odw9aVrXys5BIcVh9N3qiyAKbGWDeacjZbAaNH_vnEYYa
+ Ft52G3tiDE8WTHFCNF.ZZuXC.RpTdmmGKq3sZKixLGdKxzRQ9Ulep8i5gloks0nGfsctiCBVlTko
+ ryrju64MiyEXAK.iGcxrmZlF6osqe0k4Z2PFCt0AjX6K0G0bh2mO8LA4X0Umgqn2cWntEDk.7vSw
+ b_jOJsbjm5eY_wfINyj0pE4GWyT1s4P2pGbgmFSpy17X41ljrrzJmAQ4fQDEPFihzvJLECDBwnEL
+ fuxUXzo0EO9SCZykU1fXetNDOaxRbMCA3eog.Tk.IGIjYY2OuX3j6wEDduWsSsy.gwCnV1YcEO7A
+ j3S_Im.JzWN1rzbOHOUQInbSh8tjj7E0JCdEXyuq5xlrXATgyhKkJCf8TLbbPMayC2Wc_eMST_fS
+ oaWGv5QIJEi..viIWvH.c7z0pMSagOj8Mgr37sWHKUJ5.zw._Ax7zsaoLnDR9tJkaGW4vnHU7e7b
+ 5_cFb60dHbTcVxE88hu8bwtY3N0V9tB1HYbQB4BJBGE4okCZRkmXz635mFJn_tWWlCpVypQeZX_S
+ P4MZ4b6NZS_aOL5BMqYo1lW7Q3Cy.i7_XM96K9YaLoSmBqxRsPMkAnm8wFyto9_mW6UVQ5laXSHz
+ tsPgIoBCQ0RCVoH7EFWJCRpNNye2RNaSYVHzTBK.iNoCIK55sB2339Z3UOI2a9_fFip6fpQdrmB4
+ uR8Jy7tJsqNUT60AbCvJO6MYoCQmUYzyNWHfOJCtlQ6E1imuzTBMRWTSEEch9IKoAf1YLmYApIPA
+ i4jVxz4IJClsB5ghw46K8s6GY3SavqkqrbJo8VyUtjQn8EhCzCuaK.lAKbzsUFaeEbbrX851TTIW
+ xyp2gpAQKxRUnR.BQOR0aw8yKxvmGMIvvlmjtS3sak1ECnbdWOpP9stqj9Xm9k6nmTnV09959jgS
+ ufdsSzuRkopZ70yAsixowNdclMQS3t6W7pQqTd8LTSwJp9QeEhrwx57HDrIN8Oz70YvGTJlMGzcR
+ Se5LD35j8poJ1A3_npR3cYQuMhSvnPyoAGPN.xPoclSXyDwsNjNNRdI7r7xBAFHOdMcpNzFE.xJ_
+ M7j1k1aPXX72SRwvXI8wFDOBGAoGcRZoiRQ.4TUQSvjzcujDaJVaqpZJxyblvPnFgw4gkAKXGcn5
+ iQQujHyyu0XdqjcHwanIC4Z4S.KRKMxOKPQSU2wD_FP0YGnI8XHpMFJsUX9RFOdldFTlFy9zsN3D
+ 4f_e5gc0s92IUFkvcDeJFMLeFW5juVBhSVlJvIVE_6jhmujo4XK47DGpo3H2Wna3T6T0wLWYpZuU
+ s8lzVx1ZaS0INgOb4JYLlbr6iAgWIOtGCf.E4gIpAanDOLjZSzvzemv59r4HKhW0IMXFoBMPE4Ef
+ 480CH3jKwdnHodB22T1sV0m0AM7u_gRDK7pJLW2aX6G8M9fCUCslBcmt9lvza.z7FaDWt8hnHats
+ OZM4P6ohxV1GPIl0bXwUY2jdMb2ccUHtjDSiQ1Nr1iOf1RPiguXHKQK7KpqoKp1pF5g_ktOVTvNd
+ GHE0V9G4wbgLK6GvPJauSwxw4Kct2R.g8mzQvOBh.KX.FLT7Q9XtHVcIvgUmLsYM2CwO0CPZeV9l
+ EMSDlbWnKk2dTUiixHRvFkEPKHXDRdrpIOafJ3AbQbdyElVauXgGY65MUSz8T_PmOsKCOuU37J8i
+ .EW623MTHDXuTCQO63CD6mKxx3zwlY7687AHjcJY_xuRXzFQY4hx1AMfDXBnytM4rXwzXt2Jqimg
+ hlSH74boxUCCtyy549Wv0.Fk9HJWCrULFgqqDGgOIc3_cuc4A9ux2F2k759jNKxS9XGWNFYcoo2R
+ jcxjBo4tsFA--
+X-Sonic-MF: <tomasz.unger@yahoo.pl>
+X-Sonic-ID: 49c486a6-e0e2-42db-b454-cf4647239d5b
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic303.consmr.mail.ir2.yahoo.com with HTTP; Tue, 10 Mar 2026 14:48:07 +0000
+Received: by hermes--production-ir2-bbcfb4457-796l5 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID e98ade4e868654dcf98b6069c9093805;
+          Tue, 10 Mar 2026 14:27:47 +0000 (UTC)
+From: Tomasz Unger <tomasz.unger@yahoo.pl>
+Date: Tue, 10 Mar 2026 15:27:44 +0100
+Subject: [PATCH v2] media: staging: atomisp: Remove unnecessary return
+ statement in void function
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB3523:EE_|CWXP123MB4117:EE_
-X-MS-Office365-Filtering-Correlation-Id: 13b40275-3529-4e12-fb2e-08de7eb3b274
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|7053199007|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	eS8vfNxIlcveoUfBbC1f0b/7XDyt042g0NrOSeRHjPQz8SGF8XhnduWnhSq6w/jRCubBJWCQ0em9JSqFUpfcMToM52skjTdNeFfaYr/iVSsKAWiaW3DO/bcnqdcpaQuiI02eS0+aO+CkNT1YH1QQ6E7Q57u6/qaWaQ20N+1FIBcJZS1mBzIioruuLmthEo0gpbRvPUw85MZ4BuTbyxgwfUdq297KnZNKBcxR51k+1QwxfVuZq9j/tn2i89QI1rer6MizYsOjruF/dbbHjCey+BSjf4ODjERjtTz7wyRciY2SWDagpg72iLn9KVmzZVKExW68zMr/l9NtJWoTedOYUByiSKXbyY/3JV9xRnX1MzB9BgBZzT1xIV+5HlUy2YjMHl/3dJLaD2oBPxNWLURA8Z08rKBhZiJO2xeSiCI4mtWcnPeq3oEWmmY/WeHCI/B3o7JWziYbmH0QC8uqLAo/mQeRtn2TDgHIlkcKjGfALzMiD8xYPzjGT5P2vIR5K1BknKS+wJWav08f2MBfPRpwDPe50D0F6uw8UO3X9XH+2FvKXluY6iP9bBIpwnIhpFLltJGAWJ97kBcunctHO08msp59QGCLa7B9KyIGa5ySuwKbRsiH6EO7wMRDJH8WU49ueWwW1LGly9m6jhK5/yiuwnls2+tKU53my80py9Z/IAQ4MsIkAQLyj3EYcQb0F1EbNzlO4n0fZQx8QozYXcKQrvPpY9dpMBAU9AUK3jolnXE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB3523.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(7053199007)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RjlvdnlwWk1CSFZIUGxWVloyKzB5bUNjN2lRU1ZhM1hLSHQ0V2Flc3Iwd0VL?=
- =?utf-8?B?bXArd0JIN2tZVzZLUGpqcHBUbWNFZzAwc2o1TmRuYkFRMnBERWo0OVk4L2JH?=
- =?utf-8?B?M01qcWhaNDU3SDMxYnZDcThyUkNHMjYrZ0dtR1F3V0ZIVTVrUnRKN1dOOHR2?=
- =?utf-8?B?RHpPcTI5V3R6azVuanpHZmg3U3dOd3lZRk94MUpZd2N2UFZnMitFcXdwbGtM?=
- =?utf-8?B?MVBDd0xUODEzK21Ma2FQSnZNQVNYMnNGU2xJbmhqOHdmb3RhYm82alo0MVlQ?=
- =?utf-8?B?VzEweHRPTGZxV25GM0ZwQ1BUcytpRGJIY3hVVk5KR0ZBbzhrUHd0YnJVMjdy?=
- =?utf-8?B?T3JWUFFPdzZJVitQVWE1b0RnRkNLbHlmVCtkS295eVFOa1FyMTB4aVFPTzli?=
- =?utf-8?B?V2hUMW52U2ZGa0N6TTF4UWZqejVMc0RPa05rbHluMUFBUVJQRTJZRGM3clEr?=
- =?utf-8?B?Vmc2aGVzb01QenlhdGlYc0NLMWY5WUVJQ1JIUHFYcWs1a1pEN2JORDVjTlFN?=
- =?utf-8?B?YjRTRUkwcitrUHM4blJac05MdDY3VXJTSStuZUhpcDZsV1EvazZkMGRYME1q?=
- =?utf-8?B?ZFI3eWtGN3NEc0RCcGNhQTErRXB2cjRXWnRzbVpTcWtISDh4Y213SVhnMU01?=
- =?utf-8?B?QjlCaTltWWgwUFFmb3VuaGQ3dDVKMkVwdVphRTNMR1hvVDkrbXBSMFNMUlVa?=
- =?utf-8?B?M0JHVmRmaHdxcFg5QlgxaXNtckQ2SGIzRWJzYnZuTzViVWsxQlZHQmlDNExl?=
- =?utf-8?B?Z1ptTVlDVVE2ZWQwMGdDZEk5Y0Q3NnFyWVltd0N0cDRUa2lXZ2h1R09tTGNT?=
- =?utf-8?B?T0owTUk0UFc2SkljekM3QlZsVzJiWVBpVkZtaHFMK0FBOEg2aEovOGd6RnBW?=
- =?utf-8?B?LzNsZkJmUU92bC9XUU5jZ05SbWNXZ3B5VXRzRVUzTm4vQWtVWFFqRnRYekY3?=
- =?utf-8?B?L2E4TXpUV1ZCZGxZbitRS1RPYlBZVU9Yb0NDQUNEQnMvcTllUGltK1MyN2tZ?=
- =?utf-8?B?WXNuc2hBelVVbVNtWUtYSi9SYzhWa095dy9RS1F6bHdibjNQYUpITTlhVTNo?=
- =?utf-8?B?SFhldlpnYjYza082ZmFKRjZKd0h4LzJkTXRpclQxazNrQm9zTG5ReEQ0anhT?=
- =?utf-8?B?S2s2L3ZiYUZzZU8rMHFEQkczZElUeW5KcEFRWnFHMVV1RXNsTzUvR1hNaG1Z?=
- =?utf-8?B?T052eUI1MlpyTUNiWkNHbFI2dFBOQ29rNS9hcjltTStCVVUveDZTNHFtVXlK?=
- =?utf-8?B?Smc3cmFlakdnVmtTak8zOHo4VHhzT0x6WmEwK29HckR1b1VPNUtiYlQ2SHIy?=
- =?utf-8?B?a2VCRGJzM0IrZUJnSlVVNSs2Z1ozTWdJTEc2TWg0dklnenRxbHBVNkRiS2Q1?=
- =?utf-8?B?VWdRbWlCTVRVZDZtQ0txNW1pYzVLVVd2L21mSElOMUhvUk90VWNYR3JFNUFy?=
- =?utf-8?B?VkdFOTRTUTlrN2c3T3dpMUhhWVJOYnNZR3UydnU1UEpUMlAwdTczT1FyS2NI?=
- =?utf-8?B?NUVlYVJ5R3R2K2tyYSt0RGdaVlZDSUJjVmNlYS8zZm1PWDQ4K3ZOT1BrQ1Ay?=
- =?utf-8?B?MHRNaUswa2thTDR3cGZuN1R4ZzBUVHI0ZkdpM2F0N0dGWHJ6bGt6T3hyU2NH?=
- =?utf-8?B?U1hJWHdweVpZcXU0RmRkejFLQXo4OGRNa0NiNmwwMzlFbGk4UklOaWtLSkRF?=
- =?utf-8?B?UkpkRklXeHFRUzNxRFcrWWtGRXVuYXR3ZFloTkR5YUtSeWUzUjJhMGF0UktE?=
- =?utf-8?B?RytHVTR5ODNjL2dpQjNMUkxMRm1QZmluWVJCWkt5VTZ3VW5vSXE0MitqU1k4?=
- =?utf-8?B?aGJxc2hOZEsxdnJXMVg4N0lYZE0yalpJS3hYR25lQUw4VlBUWVpkWExhRGND?=
- =?utf-8?B?UE5BQlkrajhVRWk1REJvWTBoeXdIRnJyQVl5ZDlTeEwyWWJrWEhGR2cvTG9N?=
- =?utf-8?B?UktDRDM3dXhLWGlLL3pCcWp4UVNrSEN5clNLYmNLUFp4NjlxTldpUWppRXVi?=
- =?utf-8?B?bERrcGUwdmR1K1AzUEVOdzYwaUgraVBkRUtUdEVIeEYweVQ3WnpKcHFsUjhp?=
- =?utf-8?B?ck9wYlVlS1FGNUtINUxaMzZSUTdBZkhkdHEzOC9jNUg4WWRHUTEzZ1VEc1hn?=
- =?utf-8?B?R0JxTFNOZ3VMMldjamx0Wll2MnJ1M2dzSjVNTlVUSnV4ZXh2b3prY0d4bzVK?=
- =?utf-8?B?alRna2ROMW0zdzVCZWxoQXpqSXplVUpINE9jbFdpOTRMT2l6bDBFWGxpTVBD?=
- =?utf-8?B?NkVGRWlFYXVZdEI2SEZsdmJpa253N0NYMlNVeVd4UmZVVlJLUWIyUk5BaFdn?=
- =?utf-8?B?elM3bSs1cmluUGdxWTRDdEVRU1JVNm1PR0llU1djMEZsdGdRb0hWUT09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13b40275-3529-4e12-fb2e-08de7eb3b274
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB3523.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2026 14:45:39.3587
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HwFautavIbFqmN5YwHCFfTVUxc9gxa3cpwndmicLa0FlANQgRiCX3WWVzDmT9lbq0RC4/eZ8BgFQOpVQW1fLOw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP123MB4117
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260310-atomisp-remove-void-return-v2b-v2-1-b0e73f498e25@yahoo.pl>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ6CMBBFr0Jm7Zh2ACOuuIdhAWWUSYQhLTYSw
+ t2tnMDdf3/x3gaBvXCAW7aB5yhBdEpApwzc0E5PRukTAxm6mNyU2C46SpjR86iRMar0aS9vP2G
+ kDgvHlaWeyZKDJJk9P+RzBO5N4kHCon49etH+3r/V0aLFyhCXecGuK6712g6q5/kFzb7vX/eb4
+ +jLAAAA
+X-Change-ID: 20260305-atomisp-remove-void-return-v2b-4ce912de212c
+To: Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-staging@lists.linux.dev, Tomasz Unger <tomasz.unger@yahoo.pl>
+X-Mailer: b4 0.14.3
+References: <20260310-atomisp-remove-void-return-v2b-v2-1-b0e73f498e25.ref@yahoo.pl>
 
---iksijtbqwcym3dge
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 17/61] module: Prefer IS_ERR_OR_NULL over manual NULL
- check
-MIME-Version: 1.0
+Remove redundant 'return;' at the end of void function
+ia_css_dvs_statistics_get(). Void functions do not need an explicit
+return statement at the end. No other occurrences in this file.
 
-On Tue, Mar 10, 2026 at 12:48:43PM +0100, Philipp Hahn wrote:
-> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
-> check.
->=20
-> Change generated with coccinelle.
->=20
-> To: Luis Chamberlain <mcgrof@kernel.org>
-> To: Petr Pavlu <petr.pavlu@suse.com>
-> To: Daniel Gomez <da.gomez@kernel.org>
-> To: Sami Tolvanen <samitolvanen@google.com>
-> To: Aaron Tomlin <atomlin@atomlin.com>
-> Cc: linux-modules@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
-> ---
->  kernel/module/main.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/kernel/module/main.c b/kernel/module/main.c
-> index c3ce106c70af165e2dc1a3c79f5a074a5c3e3d34..7f62f0620dcd75960e431f7af=
-3d1cadf4cc41e4b 100644
-> --- a/kernel/module/main.c
-> +++ b/kernel/module/main.c
-> @@ -1551,7 +1551,7 @@ static int simplify_symbols(struct module *mod, con=
-st struct load_info *info)
->  		case SHN_UNDEF:
->  			ksym =3D resolve_symbol_wait(mod, info, name);
->  			/* Ok if resolved.  */
-> -			if (ksym && !IS_ERR(ksym)) {
-> +			if (!IS_ERR_OR_NULL(ksym)) {
->  				sym[i].st_value =3D kernel_symbol_value(ksym);
->  				break;
->  			}
->=20
-> --=20
-> 2.43.0
->=20
+Found with checkpatch.pl --strict.
 
-Hi Philipp,
+Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
+---
+Changes in v2:
+- Fixed subject prefix to 'media: staging: atomisp:' (reported by media CI robot)
+- Rebased on media-committers/next
+- Verified with checkpatch.pl --strict: 0 errors, 0 warnings
+- Compiled successfully: make M=drivers/staging/media/atomisp/
+- Module loaded successfully in QEMU with Linux 7.0-rc2
+- Link to v1: https://lore.kernel.org/r/20260305-atomisp-remove-void-return-v2b-v1-1-902e534ecb48@yahoo.pl
+---
+ drivers/staging/media/atomisp/pci/sh_css_param_dvs.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Thank you.
+diff --git a/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c b/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c
+index 9ccdb66de2df..3d2cb2d25fdb 100644
+--- a/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c
++++ b/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c
+@@ -269,5 +269,4 @@ ia_css_dvs_statistics_get(enum dvs_statistics_type type,
+ 		ia_css_get_dvs2_statistics(host_stats->p_dvs2_statistics_host,
+ 					   isp_stats->p_dvs_statistics_isp);
+ 	}
+-	return;
+ }
 
-Have you considered other users of IS_ERR() in kernel/module/main.c too?
+---
+base-commit: a7da7fb57f2a787412da1a62292a17fa00fbfbdf
+change-id: 20260305-atomisp-remove-void-return-v2b-4ce912de212c
 
-Perhaps it might be best to prepare a clean up for each applicable
-subsystem in isolation.
+Best regards,
+-- 
+Tomasz Unger <tomasz.unger@yahoo.pl>
 
-
-Kind regards,
---=20
-Aaron Tomlin
-
---iksijtbqwcym3dge
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEeQaE6/qKljiNHm6b4t6WWBnMd9YFAmmwLosACgkQ4t6WWBnM
-d9aU9xAAqqgNT5SoU+VYtTZ80wOUwEE2OMdLBYzCI0mjnqJPXnb4U+JQX0SteStv
-Wd+zDAGE5Me5p/CfEt/+aiyKOuiZL7yQucXzvUMGKxqLMQFwqPvA3WtSoTVFL+rF
-LkaH0u5Q5L3fR1LqaiKYIZuzVEvau4J1yxwpr3TSOVVjsiNOir78WKYMWkbywt9w
-2ZGJmWlqCHaicR+MbDxwYxmj6A8vWK4lMNrf9/bSNlRcevwMRBi5MEVCXNAmi8/K
-HL+Lff4iFQayNqX+KHvqO+d71PuZJ6uRoZtmn2TOsqPFvRhSEwOCORUQRwprUwHK
-1AXthzlvxw54scM7jH/H7EVz4b/StJaeHqfZLJ4y6QJv7HWYccOTXqVPj5yDF4AS
-LNEe/UEO2rZOSVwqm8USG03ipXDhoZ7is3ump24r9vmbuJ4Ut/UkZnPPM2f1V8YS
-AiWpOQ5tGWd+85RvZUyJfbagqS9XcCxV1Ec+y4MXwaab2ddu81t86xc5nbRANS/k
-juKrG81J7nYvlpvQajkCU6tK/ZZsalYBs/BCg2IAYhG1V5SqGHR6o/a3KjVtmdwP
-5t9pTp1q1bD8/UPf4bSgjULpyVSusQkcdm6aoNJD80Jqi8vPQSuZUDFw9gdbbWdT
-6f5kQv0sOH33oz8IDL0pTNDmWbOF3HKDQCX5nbTnNtfG048XNxo=
-=x/q5
------END PGP SIGNATURE-----
-
---iksijtbqwcym3dge--
