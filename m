@@ -1,111 +1,83 @@
-Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE9E840DFC7;
-	Tue, 10 Mar 2026 13:34:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773149656; cv=pass; b=TwTWjpUnG/H6rBFoSjLT3lFke6gg4sd8gQL7X4Oit3HJtJ0+c0xfY4x3+b2NSWXdT5hPingsqKayCNpD4FDC5KSdx2Ty8mqjpQeEpwbzfvQfThAoRROGInWTf8Aa17Y2q/zP2XxwGz1SA9PZFkK9xl8JO3wxuB1OavFM4aLf6H0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773149656; c=relaxed/simple;
-	bh=XvtusBtLttv6uK31N5gEOAYnd5cCzIPklCZEEQwool8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XGGzSPOWnfoPpw7aU0qaDc413JMK3klf0Q+ooTkNJoTI2N9wuQabqdZlYcH1TN+eLitfpjLfb6XBmSIDvpZ0SpbdffD3y4FDSqtv/+R+gi3dJaFaL8o+f6yFLAHTC5ESjjm9xKBp+KNCWzOMDYr95KG7lUU7x7hNYgiTSm0GI7o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=A1RM/A4Q; arc=pass smtp.client-ip=195.140.195.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E574F39DBE1;
+	Tue, 10 Mar 2026 13:35:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1773149704; cv=none; b=qabgjgD3oLsFqWkMJWb2R79l9VjiS/KB4X2psM1eEq4ELJyfGRA+rzlCZAlaz+Y+u4C8NHPq0Y6CCqOv6xyL+AJYn3H87y9MRXxdBRD/S0CP/Gxzu7anFsPkrM5kwNeOwgho2p086MtsP/laJSibTJs7Nd1LF8QKiCmzP0EaIfw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1773149704; c=relaxed/simple;
+	bh=pKqOkKX7CRXooHok80H4ZPwmfTHqEJgEysyE6k/X15M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hv2osxnS2cHKd+8/sFFA3/+tLFuhsrSgLsVHwzsT0lj2Y13x71LTsQEz9/RDIDSOkpb0JeclbOYB0yGUs94w/2N3KqcECnBA8NpL+Ha1OJCqXYpt0PtY4t/V77CTwCtuDpYF7TyrN5H2gAkSln2idJKVN0KmH5s7jGboJV/htEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=FJOkBcAn; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="A1RM/A4Q"
-Received: from hillosipuli.retiisi.eu (n18ws8cotp5c1dsf-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:1157:8c0f])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sailus)
-	by meesny.iki.fi (Postfix) with ESMTPSA id 4fVZbf4kjCzyTZ;
-	Tue, 10 Mar 2026 15:34:06 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
-	t=1773149647;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nbbCoMIKHho8A2lZAHILdn3DiD5n6G5yZxvhwBhsg30=;
-	b=A1RM/A4QmSvd89WyBtC2iQ18ncfLw39QUUE9Mg4Hi4OT36eiXrNAra44zCDQ8qX9+cMYNl
-	/Wr3Txxn5FxAUOVJrPAfrE9P3WJDVmyowecvUWQqI8Kg9rEv/mvK0OkmpJ6DPNuT+vTCN3
-	6JSweSav/bbOXbrkrUpzTZ42Z+wNJmY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=meesny; t=1773149647;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nbbCoMIKHho8A2lZAHILdn3DiD5n6G5yZxvhwBhsg30=;
-	b=tPNymujrBqSh+81ABhyYQdxz7aGr7sN9VFaVJnH1UZonzTAB4u2GJRlyuWc7CrbdiRpyRt
-	WtSBI2FSSsjuZNDH+LyyCWZas+z2LLkRhkxfBEAAmlVuWDyCv5v03nYqzMX9TfyBAbb2Kj
-	SjJDQlGKJOvhba25/SVlyWttkTd0HuQ=
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1773149647;
-	b=WD0myuJtCdSMY/Me0UhHwGmykauJLLB7BBYLfxMQ3TgtwB9Hh7MLgc5Au/3QSJdttQ1Ir8
-	LV7XcmkFjVm2n+jC2LAEqcdbfkowF4kVnYJoT8ew4w6j8rWtj2f3PNkQfR1gdjTIEnnM9y
-	515SDEEke0nruSDe2KrNcVpCTAbawpU=
-Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id 27AE1634C50;
-	Tue, 10 Mar 2026 15:34:06 +0200 (EET)
-Date: Tue, 10 Mar 2026 15:34:05 +0200
-From: Sakari Ailus <sakari.ailus@iki.fi>
-To: Mark Adamenko <marusik.adamenko@gmail.com>
-Cc: linux-media@vger.kernel.org, hansg@kernel.org, mchehab@kernel.org,
-	gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev
-Subject: Re: [PATCH] staging: media: atomisp: i2c: replace msleep() with
- usleep_range()
-Message-ID: <abAdzZYJXhjpJIWb@valkosipuli.retiisi.eu>
-References: <20260307053311.15746-1-marusik.adamenko@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="FJOkBcAn"
+Received: from [192.168.0.43] (cpc141996-chfd3-2-0-cust928.12-3.cable.virginm.net [86.13.91.161])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 31D30594;
+	Tue, 10 Mar 2026 14:24:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1773149063;
+	bh=pKqOkKX7CRXooHok80H4ZPwmfTHqEJgEysyE6k/X15M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=FJOkBcAnFkYe4vPe4YH9cnkLWKl6ov27QakdWzdeus+itKJqMNGhBMwF+PtqlDg1D
+	 RY5AlL0Oh/lV4Ifhn52mK/6NDuAsAhHs/DKPW2fRO+zOGpvovl3WStW4tk0lWfunNg
+	 eN2CFS8bgHJ2e3gkwBWoCH/Nhxs7deBB3uioHFXo=
+Message-ID: <e41212f3-5a55-4c14-85fb-91cdaa5e6786@ideasonboard.com>
+Date: Tue, 10 Mar 2026 13:25:26 +0000
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260307053311.15746-1-marusik.adamenko@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] media: ipu-bridge: Add ov5675 sensor
+To: Antti Laakso <antti.laakso@linux.intel.com>, linux-media@vger.kernel.org
+Cc: linux-gpio@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linusw@kernel.org, brgl@kernel.org, sakari.ailus@linux.intel.com,
+ mchehab@kernel.org, hansg@kernel.org, ilpo.jarvinen@linux.intel.com,
+ hverkuil+cisco@kernel.org, sre@kernel.org, hao.yao@intel.com,
+ jason.z.chen@intel.com, jimmy.su@intel.com, miguel.vadillo@intel.com,
+ kees@kernel.org, ribalda@chromium.org
+References: <20260310124427.693625-1-antti.laakso@linux.intel.com>
+ <20260310124427.693625-3-antti.laakso@linux.intel.com>
+Content-Language: en-US
+From: Dan Scally <dan.scally@ideasonboard.com>
+In-Reply-To: <20260310124427.693625-3-antti.laakso@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Mark,
+Hi Antti, thanks for the patches
 
-This is a patch to the (atomisp-)gc2235 driver, not to atomisp itself.
-
-On Fri, Mar 06, 2026 at 09:33:11PM -0800, Mark Adamenko wrote:
-> checkpatch.pl flags a warning for msleep() being called for 5
-> milliseconds. Replace the msleep() call with usleep_range(), as is already
-> done in the same function.
+On 10/03/2026 12:44, Antti Laakso wrote:
+> The Omnivision ov5675 is found from MSI prestige
+> 14 AI EVO laptop, for example.
 > 
-> Signed-off-by: Mark Adamenko <marusik.adamenko@gmail.com>
+> Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
 > ---
->  drivers/staging/media/atomisp/i2c/atomisp-gc2235.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+
+Looks ok to me:
+
+Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
+
+>   drivers/media/pci/intel/ipu-bridge.c | 2 ++
+>   1 file changed, 2 insertions(+)
 > 
-> diff --git a/drivers/staging/media/atomisp/i2c/atomisp-gc2235.c b/drivers/staging/media/atomisp/i2c/atomisp-gc2235.c
-> index d3414312e1de..db5e007efc56 100644
-> --- a/drivers/staging/media/atomisp/i2c/atomisp-gc2235.c
-> +++ b/drivers/staging/media/atomisp/i2c/atomisp-gc2235.c
-> @@ -433,7 +433,7 @@ static int power_up(struct v4l2_subdev *sd)
->  			goto fail_power;
->  	}
->  
-> -	msleep(5);
-> +	usleep_range(5000, 6000);
+> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+> index c895584e25a0..ee070d44d5f1 100644
+> --- a/drivers/media/pci/intel/ipu-bridge.c
+> +++ b/drivers/media/pci/intel/ipu-bridge.c
+> @@ -91,6 +91,8 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
+>   	IPU_SENSOR_CONFIG("OVTIDB10", 1, 560000000),
+>   	/* Omnivision OV2680 */
+>   	IPU_SENSOR_CONFIG("OVTI2680", 1, 331200000),
+> +	/* Omnivision OV5675 */
+> +	IPU_SENSOR_CONFIG("OVTI5675", 1, 450000000),
+>   	/* Omnivision OV8856 */
+>   	IPU_SENSOR_CONFIG("OVTI8856", 3, 180000000, 360000000, 720000000),
+>   	/* Sony IMX471 */
 
-I'd use fsleep() here.
-
->  	return 0;
->  
->  fail_clk:
-
--- 
-Regards,
-
-Sakari Ailus
