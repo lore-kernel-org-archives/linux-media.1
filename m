@@ -1,62 +1,39 @@
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.avm.de (mail.avm.de [212.42.244.120])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B9935DA6E
-	for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 11:54:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D8342188A;
+	Tue, 10 Mar 2026 11:55:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773143669; cv=none; b=SvFgWNjWdHOVFsxCzGnPcepy/Tl7XoUzE0ALRoXhiR02BjATAtjRIu6iByY1cU65i9YYazb0aoTT9Yn4JblFZSae/8JTmdcoL0dsodnKWlk4gV9ChrWB3yQ+lNKY04LkYvBXh8LO6bXWHR7NodwUf2pZO3a3a4Ek3j+PsIQQqs0=
+	t=1773143736; cv=none; b=JyjpjDNBamRX/d/0cBxhn8krCQOjexJ2vrQdxL9etQTgsSveWfmqAXU9Utungvjhf1ymk2tyTygW3eFbj9ceo2rBjCRHZq3BBsZECgAl7/pH+x9OcO6hwaUjZ7EqkgDRsUFouXu1RhYhXogSD8c1uEUyZLhZ0zSpr9skyUkgM2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773143669; c=relaxed/simple;
-	bh=MbQ9yzEpvEZwdMo5iYtLA1h1dKF/RJrmVnffWfve6JM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=psTlvm+xSSL3XniSz8XjfQ+94AkYLmu7m8lMaXWtwGivL9mRQG9dPeP7a5ISFVfQoxkg2NALJUKdMnwfu4LsoLQLRK2JPd/PSGP/4pv5HPhTbC9CosFCW6lEowywg9tZWKtqUDZCJ/xwg04dsuY0pfCi3xgnPmQHVHE8CxkzjSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=l/d5A7t1; arc=none smtp.client-ip=209.85.167.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1773143736; c=relaxed/simple;
+	bh=5P0DiWaZEPF/d3SPdMB+rZQJk1DY1mVuY8d9xffySsA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Y14YQFuhCN3Kna4n1bwdJLy6NiH7PsoBM7Us66PzPbSe668DAzp4tTo4cuQaqKhLnGId48d7VcOl3YdYa4gX896kymcYC+OJsptk56QFk5wYX8Gajg4MTVHJ9JF9m3oSlGutdRSt3+thWos4pR/PlY2QtSRm5Z/QKNjYzOak55w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=avm.de; spf=pass smtp.mailfrom=avm.de; dkim=pass (1024-bit key) header.d=avm.de header.i=@avm.de header.b=E8nt1Igf; arc=none smtp.client-ip=212.42.244.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=avm.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=avm.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="l/d5A7t1"
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5a126c8aab9so7220561e87.0
-        for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 04:54:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1773143666; x=1773748466; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Uajvx1507EYY9WjuAteyynfEckXb1ogXxoart7Qgrd8=;
-        b=l/d5A7t1VhEjJzH6q2GuOlF6i6PmzVh15jFpqy4hKLHenNGIuku57L51ROzNyHlF4M
-         lGIfJ+7y/VZkUFsg75f0NSZeZCBcpvj1wQK9ZBVCCs094lOE1uk8WSjWTLCUVhllqq3b
-         Z1+0rP76n34aUBOMmV+2chWfJbkIB/FhDXFoE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773143666; x=1773748466;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Uajvx1507EYY9WjuAteyynfEckXb1ogXxoart7Qgrd8=;
-        b=sFKsxbAy0GGzLGdo1V2LSr6s6XjRFr8gOui4EvhUFPHQgb9Sz+GrohHbXXlFGc3uTr
-         SlljXTgsYb73Ug3jfbYLEEdQCkeL2rdI6Zj3Fk9DIcrJsq3NbnoSTYwnWiaa0nMscVkh
-         9w8DcIJJyNg2junLKhadY3S29idVBUriJykoTWruN3t3v9x5geKnK+QGM4soRFLbvAjW
-         hR51TABJdUlC5MHN9lkIIaA/MsYQGIAw8vc6dymfsF99r9tHTSP1Fi0d3ceRgd8rO/dp
-         JtXtL3YBGBH63YN7gS0M4/i6Zukpb2JVwywHKoJXNamBmoJ4QiRLP+HiK5kbKinN/QmS
-         7pRg==
-X-Gm-Message-State: AOJu0Yw3V+TNHJpZAVvyuEvSbfN6MlTfMm/yP1Uscp2F9xjVE0U7IOEv
-	aS8yOvHp4CYVeMzJhhnYZQiS0qhe+rBdiLLY46Je0WHNhGx0Q0D1N3pr0vfd4OrxmyHj35g1W7y
-	aHm4BSg==
-X-Gm-Gg: ATEYQzy8tm07E3ViCwXey+m3wdKYX8915aARTiuHCYN1yEhu8bPv7DcuSYqtZ5+3oC2
-	xp3hhos3gAPBzCrosH1bRwLgUC9Z0W+nH7XMMx7fbdfFVeG/zWOvukPKZdNDyUrJtCmukINHWxT
-	+k2IY4e2b512qTo0utlqrJFKZ8CrMlCkiUtx3IOyirwQty5LrOHVQlAG+F7g654sA1uHNa2Fqis
-	D39ZgTYJQuuNrPdYWDKYG1zx5Ea8+0hogRX23i/I4XbqrFnpQXY/leX3JM8WRHGl14fd+sWOBld
-	UeziTTRkpleEDZlLamccPTMNhasUwoyaS7HR0BZDbwSL41AvsBmWcL6Lnoi1QgW0AQicC0p/cI8
-	asKVBs9PNw3gBT/KNLPwRnxqrR0uDYXjbRgAoJsPggD61pmxXC8VGaBLakvNLSHMhnpy84gH458
-	amvssjmYwrMLffQ4RuDpY8x1SFc5NGVoejhdMXSTIiQ5qKJXExUjqqnhwSDD8neCNuigXnKT4Yj
-	g==
-X-Received: by 2002:a05:6512:3f05:b0:5a1:2e0c:86de with SMTP id 2adb3069b0e04-5a13ccdd5dbmr4612857e87.32.1773143665803;
-        Tue, 10 Mar 2026 04:54:25 -0700 (PDT)
-Received: from ribalda.c.googlers.com (27.69.88.34.bc.googleusercontent.com. [34.88.69.27])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a13d033f96sm2772906e87.34.2026.03.10.04.54.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Mar 2026 04:54:24 -0700 (PDT)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Tue, 10 Mar 2026 11:54:24 +0000
-Subject: [PATCH] media: uvcvideo: Fix buffer sequence in frame gaps
+	dkim=pass (1024-bit key) header.d=avm.de header.i=@avm.de header.b="E8nt1Igf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=avm.de; s=mail;
+	t=1773143723; bh=5P0DiWaZEPF/d3SPdMB+rZQJk1DY1mVuY8d9xffySsA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=E8nt1Igfikzg1UTgOGISAzAMiKswf2ND49bi7Kfi9UIZL/Ebzc+UJJz79rFMcVayH
+	 w+/EzW9fK7u4Bg5GlsqH3X/nHnzFmDjyW7AnMKYXmhb+RvNdMihtj8ZP/p/a51PpAe
+	 gPrdgwP6uGn176nZZmhXnabbuO0mAOF/przWQZhQ=
+Received: from [212.42.244.71] (helo=mail.avm.de)
+	by mail.avm.de with ESMTP (eXpurgate 4.55.2)
+	(envelope-from <phahn-oss@avm.de>)
+	id 69b006ab-b734-7f0000032729-7f000001bfd2-1
+	for <multiple-recipients>; Tue, 10 Mar 2026 12:55:23 +0100
+Received: from mail-auth.avm.de (dovecot-mx-01.avm.de [212.42.244.71])
+	by mail.avm.de (Postfix) with ESMTPS;
+	Tue, 10 Mar 2026 12:55:23 +0100 (CET)
+From: Philipp Hahn <phahn-oss@avm.de>
+Date: Tue, 10 Mar 2026 12:48:39 +0100
+Subject: [PATCH 13/61] squashfs: Prefer IS_ERR_OR_NULL over manual NULL
+ check
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -65,61 +42,81 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260310-uvc-fid-v1-1-5e37dc3c7024@chromium.org>
-X-B4-Tracking: v=1; b=H4sIAG8GsGkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDY0MD3dKyZN20zBTdVMNUU1MTE/MkszRDJaDqgqLUtMwKsEnRsbW1AGi
- dz99ZAAAA
-X-Change-ID: 20260310-uvc-fid-e1e55447b6f1
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yunke Cao <yunkec@google.com>, stable@kernel.org, 
- Ricardo Ribalda <ribalda@chromium.org>
-X-Mailer: b4 0.14.3
+Message-Id: <20260310-b4-is_err_or_null-v1-13-bd63b656022d@avm.de>
+References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
+In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
+To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
+ bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr, 
+ dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org, 
+ intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev, 
+ kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+ linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
+ linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org, 
+ linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org, 
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-leds@vger.kernel.org, linux-media@vger.kernel.org, 
+ linux-mips@vger.kernel.org, linux-mm@kvack.org, 
+ linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org, 
+ linux-phy@lists.infradead.org, linux-pm@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org, 
+ linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org, 
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-wireless@vger.kernel.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, samba-technical@lists.samba.org, 
+ sched-ext@lists.linux.dev, target-devel@vger.kernel.org, 
+ tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, 
+ Philipp Hahn <phahn-oss@avm.de>
+Cc: Phillip Lougher <phillip@squashfs.org.uk>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=775; i=phahn-oss@avm.de;
+ h=from:subject:message-id; bh=5P0DiWaZEPF/d3SPdMB+rZQJk1DY1mVuY8d9xffySsA=;
+ b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAYCOfXcw6nKYZXjZ+DBieT/hiu2NsAfQUre0
+ jlVRw6aXW2JATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGAgAKCRA0LQZT0ays
+ 213oB/sHjZoOpAMz20yPf5W58oaVS3VDOW1zZjyOZfXyKihmnOb8lV99cBPQClALjvBUcqLXemg
+ tpELfmCMWmmS2DLDh38s8m7H4SkSFm3iB+qUl+u8a8NGrDjTz2g0nlLXJ2i4mzmAqWbDldfEhAp
+ ePslhLAf6MqAOAwxF9goTetOQ472ZWbOa7vI5fCqcvwcF/q5QIEUmGs+z5b0yUklyrSflqQlQo4
+ adffOC5kl3ETGEGqBgVXEIg3h8JiDkJe6MaBbDmB/JG3IQRjeJ8YfJc6t+cVg+eXVpCRQOreMFS
+ jG7NgF/eCJBIlcELmHlOCy2pst+P0hiPrthj4RBlPC3hRS93
+X-Developer-Key: i=phahn-oss@avm.de; a=openpgp;
+ fpr=58AF7C2E007CDBE62C59E078F50EFDCF8AD04B1A
+X-purgate-ID: 149429::1773143723-265C1A3D-EB4B679C/0/0
+X-purgate-type: clean
+X-purgate-size: 777
+X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
+X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
+X-purgate: clean
 
-In UVC, the FID flips with every frame. For every FID flip, we increase
-the sequence number. Userpace use that information to figure out if
-there has been a gap between frames.
+Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
+check.
 
-Now, we only update the sequence number on the first FID flip, which
-results in frames being incorrectly numbered just after a frame gap.
+Change generated with coccinelle.
 
-This patch rewrites the sequence number of the buffer in those
-situations.
-
-Cc: stable@kernel.org
-Fixes: 650b95feee35 ("[media] uvcvideo: Generate discontinuous sequence numbers when frames are lost")
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+To: Phillip Lougher <phillip@squashfs.org.uk>
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
 ---
- drivers/media/usb/uvc/uvc_video.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ fs/squashfs/cache.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index 40c76c051da2..ec769a504569 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -1176,6 +1176,14 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
- 		stream->sequence++;
- 		if (stream->sequence)
- 			uvc_video_stats_update(stream);
-+
-+		/*
-+		 * If we have not received any data and FID flips, update the
-+		 * sequence number of the buffer to tell userspace exactly
-+		 * where the frame gap is.
-+		 */
-+		if (buf && !buf->bytesused)
-+			buf->buf.sequence = stream->sequence;
- 	}
+diff --git a/fs/squashfs/cache.c b/fs/squashfs/cache.c
+index 67abd4dff222235e75d8c2b10d5e9b811d6e38d8..8888cc02966e2e33210c872c733205d4c581ecc9 100644
+--- a/fs/squashfs/cache.c
++++ b/fs/squashfs/cache.c
+@@ -198,7 +198,7 @@ void squashfs_cache_delete(struct squashfs_cache *cache)
+ {
+ 	int i, j;
  
- 	uvc_video_clock_decode(stream, buf, data, len);
+-	if (IS_ERR(cache) || cache == NULL)
++	if (IS_ERR_OR_NULL(cache))
+ 		return;
+ 
+ 	for (i = 0; i < cache->entries; i++) {
 
----
-base-commit: a7da7fb57f2a787412da1a62292a17fa00fbfbdf
-change-id: 20260310-uvc-fid-e1e55447b6f1
-
-Best regards,
 -- 
-Ricardo Ribalda <ribalda@chromium.org>
+2.43.0
 
