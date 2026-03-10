@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE0F94301DE
-	for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 08:45:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298CB430B9B
+	for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 08:45:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773132348; cv=none; b=rTAxK2q1TRBuZwaVgxOOMs6zXQjoRO7HEAIHT8u/4q/fRm8bqIFOrJVnuvlcq2f6O0caFDOEj4REc/fl6B3e5yT67rnVV+fW9Oo1cCXP+h3pEYzZBtsAikVC8V3RfcMB++Njuq/g2jiTzNAbZ/nwi/63vSLZGDLi5HFbwrFqtp4=
+	t=1773132349; cv=none; b=LOLq8wh/KIQvVzLBU0EJYUD6lLWCrWHDC21wbeUCPwz6NDFix/vNimlTjxpJR41RgjPYifKu0o3CB0drYJho8iY4r88quubNYVkrPcpfiQWmoMMdGYPpp5sqJ1+/dwHfc+mrwBnuVgbJj4NdKfXvP2ROqrZv7dNqpOG5AaRYeXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773132348; c=relaxed/simple;
-	bh=+FAVIe4nojV+pn7xVPRuogWnvIm3Denv9d0P1cLNwxQ=;
+	s=arc-20240116; t=1773132349; c=relaxed/simple;
+	bh=1UvaIwHsjCbC5537YizAt3IRmErMj20BCpvG5+OdwpU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JaouU8d9nBklbcPp1ondYv5h2A+GvXYV5N8VmPYp93ACWTgwiWC2zoKHLefV6l5zDCE1yl57qoWsdn+eNFLl/fitHWc5gmZMm4jRTpA6ZIeiH/DW0YBG+G5j/B1CdOhrYniCyhaaD4r4zqEajjKVe5gN1NKpuCpOkjD5JQr7MGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GPMUi44A; arc=none smtp.client-ip=198.175.65.11
+	 MIME-Version; b=h1JEvTWT1cgu+jLLlG+lb1rmD7Xpge/Satg5QdJIc/8v4Va4NHlQAyx4EICUST5fblzA2mZqs4Id72DbdZCXKOHGL+7t6I4RHdEOsqRcUNxg1CByZeQ94npVNUKl7qDqwX2slwaxlPixfgOcI9YddgRuRlcGC5h5IM/S/ix/byA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XY86ziSp; arc=none smtp.client-ip=198.175.65.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GPMUi44A"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XY86ziSp"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1773132347; x=1804668347;
+  t=1773132348; x=1804668348;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=+FAVIe4nojV+pn7xVPRuogWnvIm3Denv9d0P1cLNwxQ=;
-  b=GPMUi44AgVkgWWO8orRGq2bImjGrdVQrwLuaoIjNaS6dJz0xa342f8vo
-   DUahFkzFoxo8eXC/Tr/rMD0vmdD4CVWvxh0WGFSWIYZasKzKP0bnBR+0h
-   GpoUGqtl0sknU2KteQ2bxKDaI+lrjn6Verw3tDnmjqhk8ixLpdlyM+eKh
-   whrNt7JwmCi7jcJb8HsO7Uza4/HrEEGR4phWw4OunIQEK+4ANr1SWYz+0
-   yRX0cUGobeHaQGLEty2vmdpymahyiTT5HuNhEEwC5RyS33krKiXNrOs1G
-   LCUxzwMxHKIKk2xfMN+qz52LUWEnM2/M3pThXx2EoFGfn9u6I57sXZM8O
+  bh=1UvaIwHsjCbC5537YizAt3IRmErMj20BCpvG5+OdwpU=;
+  b=XY86ziSp9f86/w2aLHpN+ObmXd2NWMoVz9rDDNbxWyQHGFrhH7h6A8+c
+   R9NuGVWO1CWhV88QjlitPBhzKXnlhDxWGy+TrtiL/I+w428n2bE5+nfSY
+   QKNXO8A8QU5SjKeWkFVEtjsKdZasP2JJgn8twWCNQmMTVDXL4hov/QzCC
+   LpzEhRAx2Iy+46H6vKES68kipU+r+A8jNYQYPRY7xMMKBW/ueYKqypO0q
+   s2warm6N7NkFvXsl/3+AtPGaxMbGCK5t0wDOg6YIQhTtgpHAHTv80H0X9
+   vMA5JIyxFupiHjaswZLpxSPKpLULCWe2Ej5kM9TbUTU7+xE1aPSPMPusZ
    g==;
-X-CSE-ConnectionGUID: BUBOhvMhT8Wqd8MqmiE7xQ==
-X-CSE-MsgGUID: M5cll4sORBGJcHbQxArRUw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11724"; a="84501745"
+X-CSE-ConnectionGUID: bfa8tF3cRjOuQaxZgUZCqA==
+X-CSE-MsgGUID: afVWHUNSQY+RuRhrJsm+CQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11724"; a="84501746"
 X-IronPort-AV: E=Sophos;i="6.23,111,1770624000"; 
-   d="scan'208";a="84501745"
+   d="scan'208";a="84501746"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
   by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Mar 2026 01:45:45 -0700
-X-CSE-ConnectionGUID: FynlMObPRjaG1Syot9fsRg==
-X-CSE-MsgGUID: i7FMefXQR1OuPcIJaIysCg==
+X-CSE-ConnectionGUID: ptTn/5KUTWqv2M0L77T0Sg==
+X-CSE-MsgGUID: 6MPBq0NiTF6n7LQG/sKdmA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,111,1770624000"; 
-   d="scan'208";a="224727685"
+   d="scan'208";a="224727684"
 Received: from ncintean-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.26])
   by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Mar 2026 01:45:44 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 69DC5121D0B;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 6FA0F121E13;
 	Tue, 10 Mar 2026 10:46:15 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1vzsjH-00000004xnS-15Gl;
+	id 1vzsjH-00000004xne-1HqD;
 	Tue, 10 Mar 2026 10:46:15 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -57,9 +57,9 @@ Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
 	Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
 	laurent.pinchart@ideasonboard.com
-Subject: [raw2rgbpnm PATCH v4 01/11] Add explicit switch fallthrough notation
-Date: Tue, 10 Mar 2026 10:46:07 +0200
-Message-ID: <20260310084615.1183141-2-sakari.ailus@linux.intel.com>
+Subject: [raw2rgbpnm PATCH v4 04/11] Support long options and improve help text
+Date: Tue, 10 Mar 2026 10:46:10 +0200
+Message-ID: <20260310084615.1183141-5-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260310084615.1183141-1-sakari.ailus@linux.intel.com>
 References: <20260310084615.1183141-1-sakari.ailus@linux.intel.com>
@@ -71,55 +71,77 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use __attribute__((fallthrough)) instead of a comment this is taking
-place, to make modern GCC happy.
-
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 ---
- raw2rgbpnm.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ raw2rgbpnm.c | 34 +++++++++++++++++++++++++---------
+ 1 file changed, 25 insertions(+), 9 deletions(-)
 
 diff --git a/raw2rgbpnm.c b/raw2rgbpnm.c
-index baeb8efc863a..5df3ff7ab31d 100644
+index 14cfa7e7a46c..16ef64e984b9 100644
 --- a/raw2rgbpnm.c
 +++ b/raw2rgbpnm.c
-@@ -362,7 +362,7 @@ static void raw_to_rgb(const struct format_info *info,
+@@ -24,6 +24,7 @@
+  */
  
- 	case V4L2_PIX_FMT_NV21:
- 		color_pos = 0;
--		/* fallthrough */
-+		__attribute__((fallthrough));
- 	case V4L2_PIX_FMT_NV12:
- 		src_luma = src;
- 		src_chroma = &src[src_width * src_height];
-@@ -576,7 +576,7 @@ static void raw_to_rgb(const struct format_info *info,
- 	case V4L2_PIX_FMT_SRGGB10:
- 		if (raw_layout_to_grbg(info, src, src_width, src_height, src_stride))
- 			error("Can't convert RAW layout to GRBG");
--		/* fallthrough */
-+		__attribute__((fallthrough));
- 	case V4L2_PIX_FMT_SGRBG16:
- 	case V4L2_PIX_FMT_SGRBG14:
- 	case V4L2_PIX_FMT_SGRBG12:
-@@ -620,7 +620,7 @@ static void raw_to_rgb(const struct format_info *info,
- 	case V4L2_PIX_FMT_SRGGB8:
- 		if (raw_layout_to_grbg(info, src, src_width, src_height, src_stride))
- 			error("Can't convert RAW layout to GRBG");
--		/* fallthrough */
-+		__attribute__((fallthrough));
- 	case V4L2_PIX_FMT_SGRBG8:
- 		buf = malloc(src_width * src_height * 3);
- 		if (buf==NULL) error("out of memory");
-@@ -688,7 +688,7 @@ static void raw_to_rgb(const struct format_info *info,
+ #include <ctype.h>
++#include <getopt.h>
+ #include <stdio.h>
+ #include <stdint.h>
+ #include <stdlib.h>
+@@ -836,6 +837,17 @@ static int parse_format(const char *p, int *w, int *h)
+ 	return 0;
+ }
  
- 	case V4L2_PIX_FMT_BGR24:
- 		swaprb = !swaprb;
--		/* fallthrough */
-+		__attribute__((fallthrough));
- 	case V4L2_PIX_FMT_RGB24:
- 		for (src_y = 0, dst_y = 0; dst_y < src_height; src_y++, dst_y++) {
- 			for (src_x = 0, dst_x = 0; dst_x < src_width; ) {
++static struct option options[] = {
++	{ "algo", required_argument, NULL, 'a', },
++	{ "brightness", required_argument, NULL, 'b', },
++	{ "format", required_argument, NULL, 'f', },
++	{ "help", no_argument, NULL, 'h', },
++	{ "high-bits", no_argument, NULL, 'g', },
++	{ "size", required_argument, NULL, 's', },
++	{ "swap-rb", no_argument, NULL, 'w', },
++	{ 0 },
++};
++
+ int main(int argc, char *argv[])
+ {
+ 	FILE *f;
+@@ -849,7 +861,7 @@ int main(int argc, char *argv[])
+ 	int width = -1;
+ 
+ 	for (;;) {
+-		int c = getopt(argc, argv, "a:b:f:ghs:w");
++		int c = getopt_long(argc, argv, "a:b:f:ghs:w", options, NULL);
+ 		if (c==-1) break;
+ 		switch (c) {
+ 		case 'a':
+@@ -889,14 +901,18 @@ int main(int argc, char *argv[])
+ 			break;
+ 		case 'h':
+ 			printf("%s - Convert headerless raw image to RGB file (PNM)\n"
+-			       "Usage: %s [-h] [-w] [-s XxY] <inputfile> <outputfile>\n"
+-			       "-a <algo>     Select algorithm, use \"-a ?\" for a list\n"
+-			       "-b <bright>   Set brightness (multiplier) to output image (float, default 1.0)\n"
+-			       "-f <format>   Specify input file format format (-f ? for list, default UYVY)\n"
+-			       "-g            Use high bits for Bayer RAW 10 data\n"
+-			       "-h            Show this help\n"
+-			       "-s <XxY>      Specify image size\n"
+-			       "-w            Swap R and B channels\n", progname, argv[0]);
++			       "Usage: %s [--algo|-a <algo>] [--brightness|-b <brightness>]\n"
++			       "       [--format|-f <format>] [--help|-h] [--high-bits|-g] [--size|-s XxY]\n"
++			       "       [--swap-rb|-w] <inputfile> <outputfile>\n\n"
++			       "--algo, -a <algo>         Select algorithm, use \"-a ?\" for a list\n"
++			       "--brightness, -b <bright> Set brightness (multiplier) to output image\n"
++			       "                          (float, default 1.0)\n"
++			       "--format, -f <format>     Specify input file format format\n"
++			       "                          (-f ? for list, default UYVY)\n"
++			       "--help, -h                Show this help\n"
++			       "--high-bits, -g           Use high bits for Bayer RAW 10 data\n"
++			       "--size, -s <XxY>          Specify image size\n"
++			       "--swap-rb, -w             Swap R and B channels\n", progname, argv[0]);
+ 			exit(0);
+ 		case 's':
+ 			if (parse_format(optarg, &width, &height) < 0) {
 -- 
 2.47.3
 
