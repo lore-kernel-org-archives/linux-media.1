@@ -1,122 +1,218 @@
-Received: from sonic303-20.consmr.mail.ir2.yahoo.com (sonic303-20.consmr.mail.ir2.yahoo.com [77.238.178.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DE9E242D97
-	for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 14:48:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.238.178.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E2533033F6;
+	Tue, 10 Mar 2026 15:02:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773154090; cv=none; b=NgPp/gv6xUTzozZBk2PZzkKvSVlxKA67ZKmon0sI838HB3MMgAXPEvqX6I2UY0G6yZNgeRZWFdydw7f4Uxwq5iAJph8OCx9o2DpUdtiH7WB7zWZHDG172aGajTRxtL2qdR9ffwsJrzZkAGfpAU1ZePb8VesBWCcXr/oV8AVb7CM=
+	t=1773154956; cv=none; b=V8mQcK2LZ6WaBNy3ZBgd9IOZiCRHOv0RHfmLnHc+UsHFEInZhA4qQKwrNzumZKvKktU4r88gP3gYzITk/vVC6z7pd1ciTTAt2/UTf3EhkndeUh6k6mSo/wCQnbxRkM249lMDFXWTFge7bdcpKLJ1cwj3HKQ99PMEDEIaxTdpEos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773154090; c=relaxed/simple;
-	bh=tnTelSF5Hz+M77Qvixm3LsOQrdz2NZ+cUGRq9e2LkSA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
-	 References; b=hnHjY1aRw8ZJc6N5/IMD+dOjoKPCrvNWb7TymtSVUPhoNjpaTQfN/nhruAQo8Wki50PKBmk/oksaPf6LIZEtAzONUUdmHX61HxC6EyAfExyla29rsd2yu6YfUfYN8Gvgs22YXFhS8PJMkLr46hvg91ENy8VlnuVWCc9/qK5x+4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl; spf=pass smtp.mailfrom=yahoo.pl; dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b=e+rYNdJw; arc=none smtp.client-ip=77.238.178.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
+	s=arc-20240116; t=1773154956; c=relaxed/simple;
+	bh=B3yjZ2PtytN8s2XAoFhnIPvCWCLkJ9uFzDhkRyQNxoE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=s2td0aaQXKZsjsmX9FNYARjbPuWNuuR8kXsCfN2CFfTSviZOCTMSWKSyI4bA+gNIUpDcMmIeLi3Evy2Zw4ArbqkR0Ky7EnrGMEXTejtNSb1r4JuJWEbSP4UFfzqItgwUH/FBVs8HpLcPqYNWHaU7j4RfWLSNFR/h0H979iI9/KE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uLvXYw4r; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b="e+rYNdJw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1773154087; bh=uQSUY86SxNAaCKY2iibBKvrX5LTEOQHxxmOCoPsW7So=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=e+rYNdJwBcAd2Rdsq704o0Q/G2yqg6QQu8oyBSK+E+i0y1bnhWHAvR3g6XWVmWmumoHUO5tVBD2YqSdGadg9kfdaQKpzpg/YJoSd81g8kJRLM47hF4OECsOXUlgbYPN9GVE3OuafqiMXkfZZMV7V4obs5HaKdbf0CLKRE35uKpChVSuzEb+aHVLN2VenZa4Fr3DrksPHNVIDeTyqKcmLS9JjpUQAzQtQXzKSGz1LhvXmr36NC0tLeKZ4t/IYHOVn5ASwmNH16VVATSF4NovfZIQM2xiifTm9v0ylRSMjfFT5kFHupaGnWvTscrM0L6tFOOuJR/PJ358vvg9U8b6Hew==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1773154087; bh=rFpEw+6+WGPE7sOZcGgBxpaXcsi+HI7pYabzDPV1a3Z=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=kLHCFLxQ9aJeko2J9o7wMp20Esq9Fftua+TZ+6LwN5ZJcS8LDsw1g6hOR1Y+QK+H308wUclOyNCTW5+pj0QF7XDgS9oWO5GiNmYn4rhMsHBrNVCHG0wdCSGc6RU/UkExu2hlngiu68601O9ps0LoJL5x8qCa0KTnjzM2Y7DORbvmtKio7RBsdsEqCc7Yq6SVz0ijk74bBhVYSsdmiWioproRvBKwvdEktQZRTIVON65Jt1KaeQIkVR+gLXPS/tNUiQHI7WgbDoCxb3bn2sB9bOi2X7uS+jtsMY8RhN36v4gYxD2SzW78XgQoX2MmRmSsQZAmxUiWLHN9CuKGCI6qLQ==
-X-YMail-OSG: PL7tpXMVM1kH5ei4bVKsWYPSTt_D7mdl8tYiv_HnWu4ypUpEL9Z0LMH9OW3m.MU
- W3R7pFE0WMrUomTrpqmhyt3oY5pTesOZp.gChKljuumLU5n.Vo2HyqrL8jRVzpLMRdHALIaNkXfR
- 4_i1ONt.0NyZyv6x8ZJ8OJ7e83D2cvaZo5MH9SCt1Y4z90E7ikrJW5z0159bq7UYhWvDYiF_in5Y
- XR8SwHp0rvx2cPT6G51pWAcs0LSSpFD0X02yxTwMysY3.7PSTZWBtHLtOko_WXj3_NSr.UfFLLoI
- WFuKL4h3vVGj6UCXS2.1nL5qD0PxXeKjj7SSFFV.YDfAq.j_GSKbcEf1OSnatWL73h15Jdfw0mo4
- kJkr3i6AkiJ20ABD1GARIXiVPu84MnyOx7atzCcwfJGXvry.cea1t.5tIfZLLWcxBGu49DhAmLtW
- Vweb4nBAft_3ICp7YDSlKVmpPjWUjR1odw9aVrXys5BIcVh9N3qiyAKbGWDeacjZbAaNH_vnEYYa
- Ft52G3tiDE8WTHFCNF.ZZuXC.RpTdmmGKq3sZKixLGdKxzRQ9Ulep8i5gloks0nGfsctiCBVlTko
- ryrju64MiyEXAK.iGcxrmZlF6osqe0k4Z2PFCt0AjX6K0G0bh2mO8LA4X0Umgqn2cWntEDk.7vSw
- b_jOJsbjm5eY_wfINyj0pE4GWyT1s4P2pGbgmFSpy17X41ljrrzJmAQ4fQDEPFihzvJLECDBwnEL
- fuxUXzo0EO9SCZykU1fXetNDOaxRbMCA3eog.Tk.IGIjYY2OuX3j6wEDduWsSsy.gwCnV1YcEO7A
- j3S_Im.JzWN1rzbOHOUQInbSh8tjj7E0JCdEXyuq5xlrXATgyhKkJCf8TLbbPMayC2Wc_eMST_fS
- oaWGv5QIJEi..viIWvH.c7z0pMSagOj8Mgr37sWHKUJ5.zw._Ax7zsaoLnDR9tJkaGW4vnHU7e7b
- 5_cFb60dHbTcVxE88hu8bwtY3N0V9tB1HYbQB4BJBGE4okCZRkmXz635mFJn_tWWlCpVypQeZX_S
- P4MZ4b6NZS_aOL5BMqYo1lW7Q3Cy.i7_XM96K9YaLoSmBqxRsPMkAnm8wFyto9_mW6UVQ5laXSHz
- tsPgIoBCQ0RCVoH7EFWJCRpNNye2RNaSYVHzTBK.iNoCIK55sB2339Z3UOI2a9_fFip6fpQdrmB4
- uR8Jy7tJsqNUT60AbCvJO6MYoCQmUYzyNWHfOJCtlQ6E1imuzTBMRWTSEEch9IKoAf1YLmYApIPA
- i4jVxz4IJClsB5ghw46K8s6GY3SavqkqrbJo8VyUtjQn8EhCzCuaK.lAKbzsUFaeEbbrX851TTIW
- xyp2gpAQKxRUnR.BQOR0aw8yKxvmGMIvvlmjtS3sak1ECnbdWOpP9stqj9Xm9k6nmTnV09959jgS
- ufdsSzuRkopZ70yAsixowNdclMQS3t6W7pQqTd8LTSwJp9QeEhrwx57HDrIN8Oz70YvGTJlMGzcR
- Se5LD35j8poJ1A3_npR3cYQuMhSvnPyoAGPN.xPoclSXyDwsNjNNRdI7r7xBAFHOdMcpNzFE.xJ_
- M7j1k1aPXX72SRwvXI8wFDOBGAoGcRZoiRQ.4TUQSvjzcujDaJVaqpZJxyblvPnFgw4gkAKXGcn5
- iQQujHyyu0XdqjcHwanIC4Z4S.KRKMxOKPQSU2wD_FP0YGnI8XHpMFJsUX9RFOdldFTlFy9zsN3D
- 4f_e5gc0s92IUFkvcDeJFMLeFW5juVBhSVlJvIVE_6jhmujo4XK47DGpo3H2Wna3T6T0wLWYpZuU
- s8lzVx1ZaS0INgOb4JYLlbr6iAgWIOtGCf.E4gIpAanDOLjZSzvzemv59r4HKhW0IMXFoBMPE4Ef
- 480CH3jKwdnHodB22T1sV0m0AM7u_gRDK7pJLW2aX6G8M9fCUCslBcmt9lvza.z7FaDWt8hnHats
- OZM4P6ohxV1GPIl0bXwUY2jdMb2ccUHtjDSiQ1Nr1iOf1RPiguXHKQK7KpqoKp1pF5g_ktOVTvNd
- GHE0V9G4wbgLK6GvPJauSwxw4Kct2R.g8mzQvOBh.KX.FLT7Q9XtHVcIvgUmLsYM2CwO0CPZeV9l
- EMSDlbWnKk2dTUiixHRvFkEPKHXDRdrpIOafJ3AbQbdyElVauXgGY65MUSz8T_PmOsKCOuU37J8i
- .EW623MTHDXuTCQO63CD6mKxx3zwlY7687AHjcJY_xuRXzFQY4hx1AMfDXBnytM4rXwzXt2Jqimg
- hlSH74boxUCCtyy549Wv0.Fk9HJWCrULFgqqDGgOIc3_cuc4A9ux2F2k759jNKxS9XGWNFYcoo2R
- jcxjBo4tsFA--
-X-Sonic-MF: <tomasz.unger@yahoo.pl>
-X-Sonic-ID: 49c486a6-e0e2-42db-b454-cf4647239d5b
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic303.consmr.mail.ir2.yahoo.com with HTTP; Tue, 10 Mar 2026 14:48:07 +0000
-Received: by hermes--production-ir2-bbcfb4457-796l5 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID e98ade4e868654dcf98b6069c9093805;
-          Tue, 10 Mar 2026 14:27:47 +0000 (UTC)
-From: Tomasz Unger <tomasz.unger@yahoo.pl>
-Date: Tue, 10 Mar 2026 15:27:44 +0100
-Subject: [PATCH v2] media: staging: atomisp: Remove unnecessary return
- statement in void function
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uLvXYw4r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0758AC19423;
+	Tue, 10 Mar 2026 15:02:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1773154956;
+	bh=B3yjZ2PtytN8s2XAoFhnIPvCWCLkJ9uFzDhkRyQNxoE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=uLvXYw4ructNr51kyC6fpYMf9FWkvdcq+POKkbbgueINM1DnoZSq+JSx0B0O1goRl
+	 h9y8MuotvH6LYAVnCyr0zVw9MvWKv11VUiJOb2rwpXR/7UgC5vZaVOl9w3TwUBuldq
+	 eio1Th41A1BAms4BHdcHTdKROjDaaLIfT+Zb+BbKcfzyVyNPlZtZsZIrr+M1t7/mh4
+	 s3Mbak+AfkCyhDYm5syG9WrFtErJuQsFBtOPm0bdolUDv2FCxPBNvseZxGf1ZTnkIA
+	 U4QJH4nwkKDdTNRfUub6EvYgQyd2RbH7Xoi0Etm0y/LplxPflK2SdW4fx/HJm/GhI+
+	 9Uk22rU9bCd9g==
+Message-ID: <cc274ba7-cae4-47b0-90d3-124ceae6a51b@kernel.org>
+Date: Tue, 10 Mar 2026 16:02:31 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260310-atomisp-remove-void-return-v2b-v2-1-b0e73f498e25@yahoo.pl>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ6CMBBFr0Jm7Zh2ACOuuIdhAWWUSYQhLTYSw
- t2tnMDdf3/x3gaBvXCAW7aB5yhBdEpApwzc0E5PRukTAxm6mNyU2C46SpjR86iRMar0aS9vP2G
- kDgvHlaWeyZKDJJk9P+RzBO5N4kHCon49etH+3r/V0aLFyhCXecGuK6712g6q5/kFzb7vX/eb4
- +jLAAAA
-X-Change-ID: 20260305-atomisp-remove-void-return-v2b-4ce912de212c
-To: Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-staging@lists.linux.dev, Tomasz Unger <tomasz.unger@yahoo.pl>
-X-Mailer: b4 0.14.3
-References: <20260310-atomisp-remove-void-return-v2b-v2-1-b0e73f498e25.ref@yahoo.pl>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/5] platform: int3472: Add MSI prestige board data
+To: Dan Scally <dan.scally@ideasonboard.com>,
+ Antti Laakso <antti.laakso@linux.intel.com>, linux-media@vger.kernel.org
+Cc: linux-gpio@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linusw@kernel.org, brgl@kernel.org, sakari.ailus@linux.intel.com,
+ mchehab@kernel.org, ilpo.jarvinen@linux.intel.com,
+ hverkuil+cisco@kernel.org, sre@kernel.org, hao.yao@intel.com,
+ jimmy.su@intel.com, miguel.vadillo@intel.com, kees@kernel.org,
+ ribalda@chromium.org
+References: <20260310124427.693625-1-antti.laakso@linux.intel.com>
+ <20260310124427.693625-6-antti.laakso@linux.intel.com>
+ <db7b4eeb-1054-4b7c-9f91-810be504124d@ideasonboard.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <db7b4eeb-1054-4b7c-9f91-810be504124d@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Remove redundant 'return;' at the end of void function
-ia_css_dvs_statistics_get(). Void functions do not need an explicit
-return statement at the end. No other occurrences in this file.
+Hi,
 
-Found with checkpatch.pl --strict.
+On 10-Mar-26 15:32, Dan Scally wrote:
+> Hi Antti
+> 
+> On 10/03/2026 12:44, Antti Laakso wrote:
+>> Define regulators and gpios for MSI Prestige 14 AI EVO+ laptop.
+>>
+>> Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
+>> ---
+>>   .../x86/intel/int3472/tps68470_board_data.c   | 97 +++++++++++++++++++
+>>   1 file changed, 97 insertions(+)
+>>
+>> diff --git a/drivers/platform/x86/intel/int3472/tps68470_board_data.c b/drivers/platform/x86/intel/int3472/tps68470_board_data.c
+>> index 71357a036292..fe7c23e72d66 100644
+>> --- a/drivers/platform/x86/intel/int3472/tps68470_board_data.c
+>> +++ b/drivers/platform/x86/intel/int3472/tps68470_board_data.c
+>> @@ -232,6 +232,73 @@ static const struct tps68470_regulator_platform_data dell_7212_tps68470_pdata =
+>>       },
+>>   };
+>>   +/* Settings for MSI Prestige 14 laptop. */
+>> +
+>> +static struct regulator_consumer_supply ovti5675_avdd_consumer_supplies[] = {
+>> +    REGULATOR_SUPPLY("avdd", "i2c-OVTI5675:00"),
+>> +};
+>> +
+>> +static struct regulator_consumer_supply ovti5675_dovdd_consumer_supplies[] = {
+>> +    REGULATOR_SUPPLY("dovdd", "i2c-OVTI5675:00"),
+>> +};
+>> +
+>> +static struct regulator_consumer_supply ovti5675_dvdd_consumer_supplies[] = {
+>> +    REGULATOR_SUPPLY("dvdd", "i2c-OVTI5675:00"),
+>> +};
+>> +
+>> +static const struct regulator_init_data msi_p14_ai_evo_tps68470_core_reg_init_data = {
+>> +    .constraints = {
+>> +        .min_uV = 1200000,
+>> +        .max_uV = 1200000,
+>> +        .apply_uV = 1,
+>> +        .valid_ops_mask = REGULATOR_CHANGE_STATUS,
+>> +    },
+>> +    .num_consumer_supplies = ARRAY_SIZE(ovti5675_dvdd_consumer_supplies),
+>> +    .consumer_supplies = ovti5675_dvdd_consumer_supplies,
+>> +};
+>> +
+>> +static const struct regulator_init_data msi_p14_ai_evo_tps68470_ana_reg_init_data = {
+>> +    .constraints = {
+>> +        .min_uV = 2815200,
+>> +        .max_uV = 2815200,
+>> +        .apply_uV = 1,
+>> +        .valid_ops_mask = REGULATOR_CHANGE_STATUS,
+>> +    },
+>> +    .num_consumer_supplies = ARRAY_SIZE(ovti5675_avdd_consumer_supplies),
+>> +    .consumer_supplies = ovti5675_avdd_consumer_supplies,
+>> +};
+>> +
+>> +static const struct regulator_init_data msi_p14_ai_evo_tps68470_vio_reg_init_data = {
+>> +    .constraints = {
+>> +        .min_uV = 1800600,
+>> +        .max_uV = 1800600,
+>> +        .apply_uV = 1,
+>> +        .valid_ops_mask = REGULATOR_CHANGE_STATUS,
+>> +    },
+>> +    .num_consumer_supplies = 0,
+>> +    .consumer_supplies = NULL,
+>> +};
+>> +
+>> +static const struct regulator_init_data msi_p14_ai_evo_tps68470_vsio_reg_init_data = {
+>> +    .constraints = {
+>> +        .min_uV = 1800600,
+>> +        .max_uV = 1800600,
+>> +        .apply_uV = 1,
+>> +        .valid_ops_mask = REGULATOR_CHANGE_STATUS,
+>> +    },
+>> +    .num_consumer_supplies = ARRAY_SIZE(ovti5675_dovdd_consumer_supplies),
+>> +    .consumer_supplies = ovti5675_dovdd_consumer_supplies,
+>> +};
+>> +
+>> +static const struct tps68470_regulator_platform_data msi_p14_ai_evo_tps68470_pdata = {
+>> +    .reg_init_data = {
+>> +        [TPS68470_CORE] = &msi_p14_ai_evo_tps68470_core_reg_init_data,
+>> +        [TPS68470_ANA]  = &msi_p14_ai_evo_tps68470_ana_reg_init_data,
+>> +        [TPS68470_VIO]  = &msi_p14_ai_evo_tps68470_vio_reg_init_data,
+>> +        [TPS68470_VSIO] = &msi_p14_ai_evo_tps68470_vsio_reg_init_data,
+>> +    },
+>> +};
+>> +
+>>   static struct gpiod_lookup_table surface_go_int347a_gpios = {
+>>       .dev_id = "i2c-INT347A:00",
+>>       .table = {
+>> @@ -258,6 +325,19 @@ static struct gpiod_lookup_table dell_7212_int3479_gpios = {
+>>       }
+>>   };
+>>   +static struct gpiod_lookup_table msi_p14_ai_evo_ovti5675_gpios = {
+>> +    .dev_id = "i2c-OVTI5675:00",
+>> +    .table = {
+>> +        GPIO_LOOKUP_IDX("tps68470-gpio", 9, "reset", 0, GPIO_ACTIVE_LOW),
+>> +        GPIO_LOOKUP_IDX("tps68470-gpio", 7, "reset", 1, GPIO_ACTIVE_LOW),
+> 
+> The ov5675 driver seems only to look for a single gpio, so I think the second entry would never be accessed here...should there be an accompanying driver change?
 
-Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
----
-Changes in v2:
-- Fixed subject prefix to 'media: staging: atomisp:' (reported by media CI robot)
-- Rebased on media-committers/next
-- Verified with checkpatch.pl --strict: 0 errors, 0 warnings
-- Compiled successfully: make M=drivers/staging/media/atomisp/
-- Module loaded successfully in QEMU with Linux 7.0-rc2
-- Link to v1: https://lore.kernel.org/r/20260305-atomisp-remove-void-return-v2b-v1-1-902e534ecb48@yahoo.pl
----
- drivers/staging/media/atomisp/pci/sh_css_param_dvs.c | 1 -
- 1 file changed, 1 deletion(-)
+Ah I missed this, yes having 2 entries mapping to the same label is not
+useful. The first entry (with index 0) will simply always be used in that
+case.
 
-diff --git a/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c b/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c
-index 9ccdb66de2df..3d2cb2d25fdb 100644
---- a/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css_param_dvs.c
-@@ -269,5 +269,4 @@ ia_css_dvs_statistics_get(enum dvs_statistics_type type,
- 		ia_css_get_dvs2_statistics(host_stats->p_dvs2_statistics_host,
- 					   isp_stats->p_dvs_statistics_isp);
- 	}
--	return;
- }
+Also this should use plain GPIO_LOOKUP() since the index part (the only
+difference here) is never used in sensor drivers.
 
----
-base-commit: a7da7fb57f2a787412da1a62292a17fa00fbfbdf
-change-id: 20260305-atomisp-remove-void-return-v2b-4ce912de212c
+Regards,
 
-Best regards,
--- 
-Tomasz Unger <tomasz.unger@yahoo.pl>
+Hans
+
+
+
+
+
+> 
+> Thanks
+> Dan
+> 
+>> +        { }
+>> +    }
+>> +};
+>> +
+>> +static const struct tps68470_gpio_platform_data msi_p14_ai_evo_tps68470_gpio_pdata = {
+>> +    .daisy_chain_enable = true,
+>> +};
+>> +
+>>   static const struct int3472_tps68470_board_data surface_go_tps68470_board_data = {
+>>       .dev_name = "i2c-INT3472:05",
+>>       .tps68470_regulator_pdata = &surface_go_tps68470_pdata,
+>> @@ -287,6 +367,16 @@ static const struct int3472_tps68470_board_data dell_7212_tps68470_board_data =
+>>       },
+>>   };
+>>   +static const struct int3472_tps68470_board_data msi_p14_ai_evo_tps68470_board_data = {
+>> +    .dev_name = "i2c-INT3472:06",
+>> +    .tps68470_regulator_pdata = &msi_p14_ai_evo_tps68470_pdata,
+>> +    .tps68470_gpio_pdata = &msi_p14_ai_evo_tps68470_gpio_pdata,
+>> +    .n_gpiod_lookups = 1,
+>> +    .tps68470_gpio_lookup_tables = {
+>> +        &msi_p14_ai_evo_ovti5675_gpios,
+>> +    },
+>> +};
+>> +
+>>   static const struct dmi_system_id int3472_tps68470_board_data_table[] = {
+>>       {
+>>           .matches = {
+>> @@ -316,6 +406,13 @@ static const struct dmi_system_id int3472_tps68470_board_data_table[] = {
+>>           },
+>>           .driver_data = (void *)&dell_7212_tps68470_board_data,
+>>       },
+>> +    {
+>> +        .matches = {
+>> +            DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Micro-Star International Co., Ltd."),
+>> +            DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Prestige 14 AI+ Evo C2VMG"),
+>> +        },
+>> +        .driver_data = (void *)&msi_p14_ai_evo_tps68470_board_data,
+>> +    },
+>>       { }
+>>   };
+>>   
+> 
 
