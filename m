@@ -1,76 +1,75 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BB1438F92B
-	for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 02:58:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B2E3A5E92
+	for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 02:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773111504; cv=none; b=XBHP02zgybAvcADenPTf868UwcStdtxT/pGtUbQ4o0+R1bFfShCaxD8cUUK1lUyY2tGmQYQdCAyZxIe8B0fABTbkkNTrUIF6j5kcniYd2tDo2ynqit/cnf/ynQ9MKdCdsGuuvDWlu/GUAxIMDpHA2FDJRBl2EbK2jQb/YNWO8Cc=
+	t=1773111547; cv=none; b=lpyHQicwOHSPPl4V6Z33fYhXoPt5UN/FYtLfVTAwcoJeYkahA3zSndGgMVJ7N7F328JPGGx1d/6sl8W/3EZb8feMDvVR/1jZvaw5QOfKFsAgymhKBFSjV7++i4OwVJZRxrmtpOUlz3LyM1Ce9Y6m7GirBuyQw4xRsyKbw+Vigao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773111504; c=relaxed/simple;
-	bh=QbTazj95ET0BF1bU1Ga6nRj7EK+gkbXo0adXS1pdkKo=;
+	s=arc-20240116; t=1773111547; c=relaxed/simple;
+	bh=dkDiQ8T/dS7rcScVGiSUtmbWrvdcICmLsgYu0GSicG4=;
 	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=qKATZ8BVAKCSOOAsv+y92EB+7OQnSLA4X6wxG781HZQ/uN1OyVaJF9ZUKtYqePzVJrK0i4CjMmIv14nh9UTZHExfybnIkY8ceN1A0cgrOf49W1qcdN4Fm+gfYZ6JK/P2aISoet7ppwZeQ7o+sz1Pxs3cqUyEar2lMgXY4pMbxO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SjEoQqTu; arc=none smtp.client-ip=209.85.215.178
+	 MIME-Version:Content-Type; b=FSASgZqOnlo4ei9YoSfYpAjqNiryhi3zgTpeXU7H0PZOH3KVhR5lTq3nasXzVlbgbV5BV5BsJG0oaKI5GFYCFHIxuYehi1KGaqtT91itNK0xhG3mbLYwTDIC9VVhaV59tsS1aeT9mJbGknITUDZsZzA11A8O/YsSDvJEczEVgnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GJuKL/IU; arc=none smtp.client-ip=209.85.216.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SjEoQqTu"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-c70ea5e9e9dso4639674a12.1
-        for <linux-media@vger.kernel.org>; Mon, 09 Mar 2026 19:58:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GJuKL/IU"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-354a18c48b5so11177290a91.1
+        for <linux-media@vger.kernel.org>; Mon, 09 Mar 2026 19:59:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773111502; x=1773716302; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1773111545; x=1773716345; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:references
          :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=QbTazj95ET0BF1bU1Ga6nRj7EK+gkbXo0adXS1pdkKo=;
-        b=SjEoQqTu+rYmi1ivXVn8YMKt2k8OSnrCDVSsSAmmt81jvfG0kzqfXURgQC1xlvTpk1
-         Ch2o8u+gCp/fNPMb+KM6iuFV+CNpXDx++q7mgY9Z+hg92kjLPWwkjkOfF7og3xUx1fqS
-         ew+gP7TCRiliDJgF2ebVY1S/svC0No5umpJLEKXHX1DVdpYs5Hxu5HU30Yq+NOTjv4+R
-         mw1h6N16K8pryHvWlQpoFSvDcwd/DBCTTZpJkBA1Z15pl1m4x0yrXxctG515d51xFRzG
-         ZODcnNTNqeOsHiF4XhjySntquD5WG/F6nurjtT6eUzcM9omJmWCMHai3ibmnE6AVV5Fl
-         ByEA==
+        bh=yS9VzDgzb4tGHuCe+hXBByU7p4QSJ0iEjmhSlRsitWM=;
+        b=GJuKL/IUKvD2+RmSIE4v4kl+hmNp+95QKBMgn9EhZQzGnS5j2SgoXnqQKNV9uyi5jx
+         fU3KPLyKJJO6jllDkbBzFPoN2ylIJL4+TEYHaRvAfEQNRR4X6Fgun86A0ATOm+wCE9S2
+         0WSnvSVc9HUmQnJYM928Mx7oYN4rNDzj3aH81KtYPdlHay6PtQQ4SOB7RqA01YJ6wuLX
+         MU0AyYZaKus1iSv8IT2L8HOkcUnYNKGVcrKxwZQXM+mIAKHDBF2Bfbnm4zXUj4HIwOIJ
+         3P3eASvbkHIvk3+QFHrlCgPvAicx7oNyVKgRe9z6eCYYrOqsa1mSmcleAqiZ0yfIBm19
+         m6pA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773111502; x=1773716302;
+        d=1e100.net; s=20230601; t=1773111545; x=1773716345;
         h=content-transfer-encoding:mime-version:message-id:references
          :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QbTazj95ET0BF1bU1Ga6nRj7EK+gkbXo0adXS1pdkKo=;
-        b=M3RS3ODRj4fPI6oj0AY/BB2uGJMQMBprLjNNIFf/bCqzBnkQmcpNoTsSLvRfkgjGir
-         kWOR+CQOvpEuD7uqgOMH0V9P7d9Q4O2XEGZv3ewQnAta+rBhAnI4O1EfASP/ifjbua+B
-         tau101A2J7vvrOYy2+nnyTeDekEWSxIQ7y5Ltm/1OhDdJb3RLqazLTje/9pSQ6er2u/L
-         Xc6c9HV3NCXmstLh+GUGX11liUyer8McIYkKYUBk0fc04wfcNw0Xd57nd+YvhSedgcLS
-         ggmlAOnoM7nMNmsSOtTkoF8zWJampxRhLpgRVW0SSWkV+jbtNJRpZ+Mz87XpNw9+pZ+Q
-         L0Ww==
-X-Forwarded-Encrypted: i=1; AJvYcCWoiIFm62EEKYvyFhCzSV/T3NxB9ChcuTqsop30+BSphbp2f7NleoUUQviUsKMQZiSNRGBGbSjzRiV/Xg==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy0l/zAkXSpNSi7nR4X/HaJHEKWBeLCI0f3NdMuBZKUTEt29QYB
-	ZkjIkhMOm9cy3SDgcdxXnvyR/cqIVtYPRUu8M6IRgI3K/9tcpnIb/K1f
-X-Gm-Gg: ATEYQzyzeP3awZ+vL9ZCDU0SUg9HsJ29x/9KSjI7yfzlowmpkx+KLTlnPERPvhjSzvn
-	j9WTVp5WELW86F04LNlxFtcnOYxbQ1XGrmfJd4AFntx/17IzPs5X0g0CesQd97YygJwWp0nWQ6E
-	AbbdsE0BggEMK+yoZ5mvKBMf3OCcRryTAR6Zb7W8L3Nr2CZi83yf4DfyfWIQgQIuez3YZnt8qR0
-	gV+La2lqdvG62qoji/8qfSYETk2dLN7EvlASd4VAtHRkKNOCcxoIJ/SUOqZQJWrsWgVlsMg5Xe5
-	Hgdv7F0Z6bzD/rouLWpuYBbheZIcCn9eyrgiY5pngo2juYgvUIe67tPBVM9r4x1cMKIrqYKevNk
-	HFUM7zB84pThxjqhgVKro7dyw/xtoY8xneh8H0lJCvu8wJDIp1hqHl94qClkXbKTqDFXwr20R5r
-	rd3l6qhElYidkDmPjulGtAtaiUJjTYDQaQGg==
-X-Received: by 2002:a17:903:1a24:b0:2ae:4ef4:1415 with SMTP id d9443c01a7336-2ae8238544emr125594555ad.13.1773111502419;
-        Mon, 09 Mar 2026 19:58:22 -0700 (PDT)
+        bh=yS9VzDgzb4tGHuCe+hXBByU7p4QSJ0iEjmhSlRsitWM=;
+        b=IHfExYoBxemBxG4eEesBsDhq46B5oqhLiKOsWy189DeMX+RGdOzsxGUPuYN30rs7iZ
+         D4PjQBFpLTMuXl/fOS7Yky7Ny5Pas115LjkP/xBT9Uas7LuTngt8iqGJExp3qfowvhA3
+         fG+S9swIy6fnz9bRvsW533Mi9L9eBYyuZXShK77OBKo4C7dQG3f2b++YLskzaHYsRnwt
+         gz9mTPlFEuXbbKUlc1hO4PjtBMN33Uh4pFjFnWw8iiLbILQxiOyH79PJ7van2evmxNV4
+         8x4tHnOk2yrIqj8lDxJCBxcerwpwUT5Nu9TWhh4QZlnLOAL6FTH8Trpaa1AxIUgn9rnm
+         yzvw==
+X-Forwarded-Encrypted: i=1; AJvYcCXRfTyyE7YK5w3kL9a/Acic7ScWfxEJIyLtt2QjTWnUEbelESAeqS4Xu3K01gwYzmNkWynMOZFwJlB5YQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyiIQNTeLgXKuYt8sgsZJ+CmHqcBJnsVXoETpcZikW46vVwxLct
+	bRGuOe9+n+U9rkSwP2wljCXLJLaUgZKRQNkVA+wwbBjh8rZ/nQz8yPTE
+X-Gm-Gg: ATEYQzzVm7KW8+Kb/gXzbZ4PCwBiY0GMdGWw9gceoIZ4aquYDL+r+WJ+O+EjiX5O/EV
+	1Xw3Gc2ul+RNJI9cW4hzL3el61W10zMbuw/36/b8Pj1MX0DDBx8Q6TUlemZOdsNxU55PtrybF18
+	GX8bw22xJcDtUTndg+RjzHN3c1IC7EpPk7eL5m1NTH+PKYaysKAoRdOxTw7Hzqqbc+Odzn8GZR1
+	J2GGCniOsoizkSKV2C0H+07+sahJ8RLhnMFnwG/bIJQ17xTcwfDo3WhRytkN1lldc4bS8aUawFF
+	tr+0luOUuKd7nUx3chSFP56ql4OFUCj56h/D//OZZzAFM8p9AvrnfVzR0xq3xaqT1q1R0mk5pvh
+	6pa0RmMbpFIkyw923tDlqnBQm+BZHqIz5Df1gAEkGmywXats2JQ0NEzQRAmif7tNPtnhRIyoPti
+	TfE/T7wHdylgl7CTSGV8nZdaOAryPeI7zZhw==
+X-Received: by 2002:a17:90b:1d43:b0:356:24f0:af0c with SMTP id 98e67ed59e1d1-359be30827fmr12323882a91.17.1773111545240;
+        Mon, 09 Mar 2026 19:59:05 -0700 (PDT)
 Received: from ehlo.thunderbird.net ([2401:4900:53d0:5b96::e3a:5d35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ae83f75b15sm178533205ad.52.2026.03.09.19.58.21
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-359f08c4289sm1115534a91.17.2026.03.09.19.59.03
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Mar 2026 19:58:22 -0700 (PDT)
-Date: Tue, 10 Mar 2026 08:28:17 +0530
+        Mon, 09 Mar 2026 19:59:04 -0700 (PDT)
+Date: Tue, 10 Mar 2026 08:29:00 +0530
 From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
-To: Marc Kleine-Budde <mkl@blackshift.org>
-CC: mirela.rabulea@nxp.com, mchehab@kernel.org, Frank.Li@nxp.com,
- s.hauer@pengutronix.de, linux-kernel@vger.kernel.org, kernel@pengutronix.de,
- skhan@linuxfoundation.org, festevam@gmail.com,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_media=3A_imx-jpeg=3A_con?=
- =?US-ASCII?Q?vert_kzalloc=5Fobj=28=29_to_devm=5Fkzalloc=28=29?=
+To: Frank Li <Frank.li@nxp.com>
+CC: mirela.rabulea@nxp.com, mchehab@kernel.org, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, festevam@gmail.com, linux-media@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ skhan@linuxfoundation.org
+Subject: Re: [PATCH] media: imx-jpeg: convert kzalloc() to devm_kzalloc()
 User-Agent: Thunderbird for Android
-In-Reply-To: <20260309-excellent-lionfish-of-symmetry-5c1a77-mkl@blackshift.org>
-References: <20260308060554.1764128-1-sanjayembedded@gmail.com> <20260309-excellent-lionfish-of-symmetry-5c1a77-mkl@blackshift.org>
-Message-ID: <6E937F17-2248-4E9C-B2C9-A28FED599703@gmail.com>
+In-Reply-To: <aa7tLI_S2VYrrKdL@lizhi-Precision-Tower-5810>
+References: <20260307210404.1428894-1-sanjayembedded@gmail.com> <aa7tLI_S2VYrrKdL@lizhi-Precision-Tower-5810>
+Message-ID: <4C4017F0-1288-4B08-B2D6-C038C884AAAA@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -83,20 +82,28 @@ Content-Transfer-Encoding: quoted-printable
 
 
 
-On 9 March 2026 9:23:57=E2=80=AFpm IST, Marc Kleine-Budde <mkl@blackshift=
-=2Eorg> wrote:
->On 08=2E03=2E2026 11:35:54, Sanjay Chitroda wrote:
+On 9 March 2026 9:24:20=E2=80=AFpm IST, Frank Li <Frank=2Eli@nxp=2Ecom> wr=
+ote:
+>On Sun, Mar 08, 2026 at 02:34:04AM +0530, Sanjay Chitroda wrote:
 >> From: Sanjay Chitroda <sanjayembeddedse@gmail=2Ecom>
 >>
->> The driver allcoates memory using kzalloc_obj() and frees it in the rel=
-ase
+>> The driver allcoates memory using kzalloc() and frees it in the relase
 >> path=2E since the allocated memory is tied to the lifetime of the devic=
 e,
 >> devm_kzalloc() can be used instead=2E
 >
->What happens if you issue multiple open()/close() cycles per device
->lifetime? Will the memory pile up, until the mxc_jpeg_remove() function
->is called?
+>static const struct v4l2_file_operations mxc_jpeg_fops =3D {
+>        =2Eowner          =3D THIS_MODULE,
+>        =2Eopen           =3D mxc_jpeg_open,
+>        =2Erelease        =3D mxc_jpeg_release,
+>        =2Epoll           =3D v4l2_m2m_fop_poll,
+>        =2Eunlocked_ioctl =3D video_ioctl2,
+>        =2Emmap           =3D v4l2_m2m_fop_mmap,
+>};
+>
+>Look like it is not true=2E =2Eopen() should be called only when device o=
+pen,
+>not at probe()?
 
 You are correct=2E
 
@@ -111,10 +118,59 @@ open()/close() cycles=2E
 I'll drop this change=2E
 
 >
+>Frank
+>
+>>
 >> Using device-managed allocation simplifies the error handling paths and
 >> remove the need for manual cleanup=2E
 >>
 >> No functional change intended=2E
->
->Marc
->
+>>
+>> Signed-off-by: Sanjay Chitroda <sanjayembeddedse@gmail=2Ecom>
+>> ---
+>>  drivers/media/platform/nxp/imx-jpeg/mxc-jpeg=2Ec | 11 +++--------
+>>  1 file changed, 3 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg=2Ec b/drivers=
+/media/platform/nxp/imx-jpeg/mxc-jpeg=2Ec
+>> index b558700d1d96=2E=2Ebd4b5f08a85c 100644
+>> --- a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg=2Ec
+>> +++ b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg=2Ec
+>> @@ -2200,14 +2200,12 @@ static int mxc_jpeg_open(struct file *file)
+>>  	struct mxc_jpeg_ctx *ctx;
+>>  	int ret =3D 0;
+>>
+>> -	ctx =3D kzalloc(sizeof(*ctx), GFP_KERNEL);
+>> +	ctx =3D devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+>>  	if (!ctx)
+>>  		return -ENOMEM;
+>>
+>> -	if (mutex_lock_interruptible(&mxc_jpeg->lock)) {
+>> -		ret =3D -ERESTARTSYS;
+>> -		goto free;
+>> -	}
+>> +	if (mutex_lock_interruptible(&mxc_jpeg->lock))
+>> +		return -ERESTARTSYS;
+>>
+>>  	v4l2_fh_init(&ctx->fh, mxc_vfd);
+>>  	v4l2_fh_add(&ctx->fh, file);
+>> @@ -2246,8 +2244,6 @@ static int mxc_jpeg_open(struct file *file)
+>>  	v4l2_fh_del(&ctx->fh, file);
+>>  	v4l2_fh_exit(&ctx->fh);
+>>  	mutex_unlock(&mxc_jpeg->lock);
+>> -free:
+>> -	kfree(ctx);
+>>  	return ret;
+>>  }
+>>
+>> @@ -2754,7 +2750,6 @@ static int mxc_jpeg_release(struct file *file)
+>>  	v4l2_m2m_ctx_release(ctx->fh=2Em2m_ctx);
+>>  	v4l2_fh_del(&ctx->fh, file);
+>>  	v4l2_fh_exit(&ctx->fh);
+>> -	kfree(ctx);
+>>  	mutex_unlock(&mxc_jpeg->lock);
+>>
+>>  	return 0;
+>> --
+>> 2=2E34=2E1
+>>
