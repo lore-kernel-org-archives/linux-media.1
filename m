@@ -1,33 +1,33 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF0C1261B9C;
-	Wed, 11 Mar 2026 08:38:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1AD3B95EB;
+	Wed, 11 Mar 2026 08:44:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773218298; cv=none; b=lF9ja6t6XbL/h934lB1viBUfUzmPeVkPFDvj1qlLXHQpqK6leQfD9Qp7F4hnhDIkr96Sm8v23JUGO2O1/V59yrqFbhE0Dc2T5orD64ObTwpzuWluVCEXLBi1NGQ/ChVNhLcSYJxjnt+jNZaO1lExRZQeYcjuKfjNGOAa6D+SIc0=
+	t=1773218679; cv=none; b=n+MUdeEiEyGXwREyQNZ92RhHif/W6vKf8TK2YP6iwWg4vLTbwdfrk5Y5BdBjkxFAKmDiLdVVp2sodGNYPyN7JizUY/sFXbWWGQN0tvoVWyIFA6HuJfcjPaDC48iAgz76EwB4iA5JnQ9WYHbqHX2Sjw579l94Pqz8fREcD0iSHn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773218298; c=relaxed/simple;
-	bh=TvjWgEQ33XAHtp8n95zDJy1h0F9L4/7iW66+tpVk9S0=;
+	s=arc-20240116; t=1773218679; c=relaxed/simple;
+	bh=TP2d5VmbgQKHMNAN1qBxmyAqIrxEMKtwQxW3ILNZVCc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a1BH3VpHkDojqg0Cs5f27xD7kphDzjg+Uwo6x51QbGNdXh8MQrfjPtDTt0GqkThJ2oTZEGjvr14thKxquydr+viX0pufKoAvTHYTuwZqHHZmgo3y5VLU+q0GrGpHy8Qg2QfD2pjTdWsiQY2UTX1nRJS5U6HGTALuOQKu/fjKAIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=U8ix46TS; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:Content-Type; b=VzDhWoONRhHd5zYzyKjk+XAHWh0S5o/do2nweM+s3uMPR/ynCdgQzk2t5PYNXPuYKBBHe1xn9QH8YqCJl+F4QGGBjTpm1blLwO7hEQh3M6jocXcYiav+paLnl5hTkM7jl3qj37bBn0B3AmcpVuVhx2ll/IqMxCEzW6yMve4lTxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=DVMohaJf; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="U8ix46TS"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="DVMohaJf"
 Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 62CED5A5;
-	Wed, 11 Mar 2026 09:37:08 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5252A5A5;
+	Wed, 11 Mar 2026 09:43:28 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1773218229;
-	bh=TvjWgEQ33XAHtp8n95zDJy1h0F9L4/7iW66+tpVk9S0=;
+	s=mail; t=1773218609;
+	bh=TP2d5VmbgQKHMNAN1qBxmyAqIrxEMKtwQxW3ILNZVCc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=U8ix46TS06G6FIFu3ndCQTccxAl3ln9MvVBgp/G29x0kD0+sxTnWLS6hnbFKkvct8
-	 IAiImFF9uF5VaKMemytDjwkBdqUmEKFBgN2fmN1lJr21ezatYkm2V8qjpiL7pU1ZEj
-	 3no71DLoHnFW/8zxHYQZJC40ySSaka1YA8RoGjsk=
-Message-ID: <f710352f-5a62-4899-86f0-7a284fbe8ce0@ideasonboard.com>
-Date: Wed, 11 Mar 2026 10:38:12 +0200
+	b=DVMohaJf1cXHCfKpQAPLZqMgqGLEjUtzlrvFBwR2WUvhwsaitJ/7E2ZQ72vfW3zrs
+	 6u5CDh7U9hiUMzZAgqHknpHqnoQc9YmmWgIEdDpxql9OZJL+o9ojn9jIWgol3+lD82
+	 C0ou9dhM7ben8qAotGk5i8rycahrh0f15ttWzK2I=
+Message-ID: <c28d81c5-ba11-4a88-a57c-9d4da74c4006@ideasonboard.com>
+Date: Wed, 11 Mar 2026 10:44:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/4] media: i2c: ds90ub953: use devm_mutex_init() to
- simplify code
+Subject: Re: [PATCH v5 4/4] media: i2c: ds90ub953: use guard() to simplify
+ code
 To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
@@ -46,7 +46,7 @@ Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, imx@lists.linux.dev,
  Guoniu Zhou <guoniu.zhou@nxp.com>
 References: <20260228-ds90ub953-v5-0-056cf07cc8f1@nxp.com>
- <20260228-ds90ub953-v5-3-056cf07cc8f1@nxp.com>
+ <20260228-ds90ub953-v5-4-056cf07cc8f1@nxp.com>
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Content-Language: en-US
 Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
@@ -92,7 +92,7 @@ Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
  ueeIlwJl5CpT5l8RpoZXEOVtXYn8zzOJ7oGZYINRV9Pf8qKGLf3Dft7zKBP832I3PQjeok7F
  yjt+9S+KgSFSHP3Pa4E7lsSdWhSlHYNdG/czhoUkSCN09C0rEK93wxACx3vtxPLjXu6RptBw
  3dRq7n+mQChEB1am0BueV1JZaBboIL0AGlSJkm23kw==
-In-Reply-To: <20260228-ds90ub953-v5-3-056cf07cc8f1@nxp.com>
+In-Reply-To: <20260228-ds90ub953-v5-4-056cf07cc8f1@nxp.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -101,96 +101,139 @@ Hi,
 On 28/02/2026 08:18, Guoniu Zhou wrote:
 > From: Guoniu Zhou <guoniu.zhou@nxp.com>
 > 
-> Use devm_mutex_init() to simplify the code. No functional change.
+> Use guard() to simplify mutex locking. No functional change.
+
+That's not strictly true, as the unlock will happen later with this
+patch. Still, this cleanup makes sense.
+
 > 
 > Reviewed-by: Frank Li <Frank.Li@nxp.com>
 > Signed-off-by: Guoniu Zhou <guoniu.zhou@nxp.com>
 > ---
-> Changes in v2:
-> - Move PTR_ERR() in dev_err_probe();
-> ---
-
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-
- Tomi
-
->  drivers/media/i2c/ds90ub953.c | 33 +++++++++++++--------------------
->  1 file changed, 13 insertions(+), 20 deletions(-)
+>  drivers/media/i2c/ds90ub953.c | 34 +++++++++++++---------------------
+>  1 file changed, 13 insertions(+), 21 deletions(-)
 > 
 > diff --git a/drivers/media/i2c/ds90ub953.c b/drivers/media/i2c/ds90ub953.c
-> index 14dd0aa4cc6ceba66a8c3545c7d7d19694007431..a85c6a9b64070491db161ca1586179dba9c69cb0 100644
+> index a85c6a9b64070491db161ca1586179dba9c69cb0..3a459687aefce05ac025a517c8d4cc6d76cd7293 100644
 > --- a/drivers/media/i2c/ds90ub953.c
 > +++ b/drivers/media/i2c/ds90ub953.c
-> @@ -1345,7 +1345,9 @@ static int ub953_probe(struct i2c_client *client)
->  	if (!priv->plat_data)
->  		return dev_err_probe(dev, -ENODEV, "Platform data missing\n");
+> @@ -113,20 +113,18 @@ static int ub953_read(struct ub953_data *priv, u8 reg, u8 *val, int *err)
+>  	if (err && *err)
+>  		return *err;
 >  
-> -	mutex_init(&priv->reg_lock);
-> +	ret = devm_mutex_init(dev, &priv->reg_lock);
-> +	if (ret)
-> +		return ret;
+> -	mutex_lock(&priv->reg_lock);
+> +	guard(mutex)(&priv->reg_lock);
 >  
->  	/*
->  	 * Initialize to invalid values so that the first reg writes will
-> @@ -1354,32 +1356,26 @@ static int ub953_probe(struct i2c_client *client)
->  	priv->current_indirect_target = 0xff;
->  
->  	priv->regmap = devm_regmap_init_i2c(client, &ub953_regmap_config);
-> -	if (IS_ERR(priv->regmap)) {
-> -		ret = PTR_ERR(priv->regmap);
-> -		dev_err_probe(dev, ret, "Failed to init regmap\n");
-> -		goto err_mutex_destroy;
-> -	}
-> +	if (IS_ERR(priv->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(priv->regmap),
-> +				     "Failed to init regmap\n");
->  
->  	priv->clkin = devm_clk_get_optional(dev, "clkin");
-> -	if (IS_ERR(priv->clkin)) {
-> -		ret = PTR_ERR(priv->clkin);
-> -		dev_err_probe(dev, ret, "failed to parse 'clkin'\n");
-> -		goto err_mutex_destroy;
-> -	}
-> +	if (IS_ERR(priv->clkin))
-> +		return dev_err_probe(dev, PTR_ERR(priv->clkin),
-> +				     "Failed to parse 'clkin'\n");
->  
->  	ret = ub953_parse_dt(priv);
->  	if (ret)
-> -		goto err_mutex_destroy;
-> +		return ret;
->  
->  	ret = ub953_hw_init(priv);
->  	if (ret)
-> -		goto err_mutex_destroy;
-> +		return ret;
->  
->  	ret = ub953_gpiochip_probe(priv);
-> -	if (ret) {
-> -		dev_err_probe(dev, ret, "Failed to init gpiochip\n");
-> -		goto err_mutex_destroy;
-> -	}
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to init gpiochip\n");
->  
->  	ret = ub953_register_clkout(priv);
+>  	ret = regmap_read(priv->regmap, reg, &v);
 >  	if (ret) {
-> @@ -1403,8 +1399,6 @@ static int ub953_probe(struct i2c_client *client)
->  	ub953_subdev_uninit(priv);
->  err_gpiochip_remove:
->  	ub953_gpiochip_remove(priv);
-> -err_mutex_destroy:
-> -	mutex_destroy(&priv->reg_lock);
+>  		dev_err(&priv->client->dev, "Cannot read register 0x%02x: %d\n",
+>  			reg, ret);
+> -		goto out_unlock;
+> +		goto err;
+>  	}
 >  
->  	return ret;
->  }
-> @@ -1419,7 +1413,6 @@ static void ub953_remove(struct i2c_client *client)
->  	ub953_subdev_uninit(priv);
+>  	*val = v;
 >  
->  	ub953_gpiochip_remove(priv);
-> -	mutex_destroy(&priv->reg_lock);
->  }
+> -out_unlock:
+> -	mutex_unlock(&priv->reg_lock);
+> -
+> +err:
+
+I think the label should be just "out", as this is not an error path
+(even if we jump to the label when handling an error). Similar comment
+to the below cases.
+
+>  	if (ret && err)
+>  		*err = ret;
 >  
->  static const struct ub953_hw_data ds90ub953_hw = {
+> @@ -140,15 +138,13 @@ static int ub953_write(struct ub953_data *priv, u8 reg, u8 val, int *err)
+>  	if (err && *err)
+>  		return *err;
+>  
+> -	mutex_lock(&priv->reg_lock);
+> +	guard(mutex)(&priv->reg_lock);
+>  
+>  	ret = regmap_write(priv->regmap, reg, val);
+>  	if (ret)
+>  		dev_err(&priv->client->dev,
+>  			"Cannot write register 0x%02x: %d\n", reg, ret);
+>  
+> -	mutex_unlock(&priv->reg_lock);
+> -
+>  	if (ret && err)
+>  		*err = ret;
+>  
+> @@ -185,18 +181,18 @@ static int ub953_read_ind(struct ub953_data *priv, u8 block, u8 reg, u8 *val,
+>  	if (err && *err)
+>  		return *err;
+>  
+> -	mutex_lock(&priv->reg_lock);
+> +	guard(mutex)(&priv->reg_lock);
+>  
+>  	ret = ub953_select_ind_reg_block(priv, block);
+>  	if (ret)
+> -		goto out_unlock;
+> +		goto err;
+>  
+>  	ret = regmap_write(priv->regmap, UB953_REG_IND_ACC_ADDR, reg);
+>  	if (ret) {
+>  		dev_err(&priv->client->dev,
+>  			"Write to IND_ACC_ADDR failed when reading %u:0x%02x: %d\n",
+>  			block, reg, ret);
+> -		goto out_unlock;
+> +		goto err;
+>  	}
+>  
+>  	ret = regmap_read(priv->regmap, UB953_REG_IND_ACC_DATA, &v);
+> @@ -204,14 +200,12 @@ static int ub953_read_ind(struct ub953_data *priv, u8 block, u8 reg, u8 *val,
+>  		dev_err(&priv->client->dev,
+>  			"Write to IND_ACC_DATA failed when reading %u:0x%02x: %d\n",
+>  			block, reg, ret);
+> -		goto out_unlock;
+> +		goto err;
+>  	}
+>  
+>  	*val = v;
+>  
+> -out_unlock:
+> -	mutex_unlock(&priv->reg_lock);
+> -
+> +err:
+>  	if (ret && err)
+>  		*err = ret;
+>  
+> @@ -227,18 +221,18 @@ static int ub953_write_ind(struct ub953_data *priv, u8 block, u8 reg, u8 val,
+>  	if (err && *err)
+>  		return *err;
+>  
+> -	mutex_lock(&priv->reg_lock);
+> +	guard(mutex)(&priv->reg_lock);
+>  
+>  	ret = ub953_select_ind_reg_block(priv, block);
+>  	if (ret)
+> -		goto out_unlock;
+> +		goto err;
+>  
+>  	ret = regmap_write(priv->regmap, UB953_REG_IND_ACC_ADDR, reg);
+>  	if (ret) {
+>  		dev_err(&priv->client->dev,
+>  			"Write to IND_ACC_ADDR failed when writing %u:0x%02x: %d\n",
+>  			block, reg, ret);
+> -		goto out_unlock;
+> +		goto err;
+>  	}
+>  
+>  	ret = regmap_write(priv->regmap, UB953_REG_IND_ACC_DATA, val);
+> @@ -248,9 +242,7 @@ static int ub953_write_ind(struct ub953_data *priv, u8 block, u8 reg, u8 val,
+>  			block, reg, ret);
+>  	}
+>  
+> -out_unlock:
+> -	mutex_unlock(&priv->reg_lock);
+> -
+> +err:
+>  	if (ret && err)
+>  		*err = ret;
+>  
 > 
 
