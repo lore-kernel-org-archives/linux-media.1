@@ -1,105 +1,82 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA1C1A6805;
-	Wed, 11 Mar 2026 06:15:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B49529E10F;
+	Wed, 11 Mar 2026 06:46:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773209750; cv=none; b=lXwKosqG5gzIETAhe/Efofgnr8VAXByL8LaehURUldyiOIMwDiBzJNLi707cKgYRWBItrM4o4p5m1t9iu76YyzgIm6HKbJxXfvy/RssUfhs9WuC7x/vdVqgtv9lhFz+QwxvLW7encuhL7Lt815rrqgzKmPhMegrZzvu6We3hL98=
+	t=1773211561; cv=none; b=uUc5o07fIJHxUcQZdBaOD+XEhHblurd5Pc/q99Xp4dEeDVDl/gxc/KkSgAcC2lSpi4bE+2PCKInpvx+gzeKEDOKo9t4ou/7sUqroXDQPyT5rHB3X+A7gV8enH2O3oa4MZTiVULHNHubWQSwKzDdxdXqnNdSWz/FSmZLEthpPa+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773209750; c=relaxed/simple;
-	bh=qKtkeYyFhO6JI0HOecDpKA7+t09P9i18Ips+H7V7f3c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p6ewEfd4cTOviXwpGosr1dE+WKVTHPesz4ZiwApvG7rUbgFr7PFcXQEu+EpDVZ011AyiVSbe4hbIGuiydIonE6jpsPvu7TT3TMuCwXnvlUqUGukTXTMiW5+gaX1zSClPyBZ4fZaXGNoeE86HttZKaEkwVl1JvFXQLAKd1gNl/yc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=FBZMl6ju; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1773211561; c=relaxed/simple;
+	bh=4K6v1Z5uqrbPaJefI3o/9xr8KH389GbRCleWha8dTDk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WKj9m8gifcydeCIvffirywtVj43tLTF5UqsS1e5rjg8WHiaOhkwNG77WlIeUuCyIOBzoBr4/wPC3CpIqVjT8hHZDNjD1XzWFiKq1Zo5YDWNWEefF8tmEY0nkfbyU/Wax7jhclqWa1jGTs6WIh/hUfyY3FnKmuM9o+TxIOAxI7oI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gdj3vTzE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="FBZMl6ju"
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 54BAD4B3;
-	Wed, 11 Mar 2026 07:14:39 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1773209679;
-	bh=qKtkeYyFhO6JI0HOecDpKA7+t09P9i18Ips+H7V7f3c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=FBZMl6juEGe1XRMNCESO6CKU7IG3iKgJ/Km4bovsqfmz/w9YCf4USf9OpfK1Jo/j/
-	 3GmnaDnSX5duu2ZUuAPbu1VuCXm0r5IzAvV3PiAzEobXq62lNn9icxu7amFIFd61PN
-	 fMFFMmD0XHw8NgbsfTyz0UONtZVRNY68DrEWGFUs=
-Message-ID: <0a8c0467-04f7-4b8f-8988-cb5665ca1d68@ideasonboard.com>
-Date: Wed, 11 Mar 2026 08:15:43 +0200
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gdj3vTzE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6281EC4CEF7;
+	Wed, 11 Mar 2026 06:46:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1773211561;
+	bh=4K6v1Z5uqrbPaJefI3o/9xr8KH389GbRCleWha8dTDk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gdj3vTzEsmEitF8OUwOBC4Z7mgN9nl2qpMZyAq3NGbvGf+E5Fnk63TDBjqtouqXdH
+	 KFuNwxv6yz2T8EAIAv9RSlPM6zUKDG4ZO5932ROoDGKLIWT+1mYJbJIvJASRneeB4B
+	 T+I35P8C69J22nUri6rrFfXwB1YhPK579ZzNmxDY=
+Date: Wed, 11 Mar 2026 07:45:44 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Sanjay Chitroda <sanjayembeddedse@gmail.com>
+Cc: jic23@kernel.org, m.tretter@pengutronix.de, mchehab@kernel.org,
+	p.zabel@pengutronix.de, tiffany.lin@mediatek.com,
+	andrew-ct.chen@mediatek.com, yunfei.dong@mediatek.com,
+	matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+	johan@kernel.org, elder@kernel.org, pure.logic@nexus-software.ie,
+	dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
+	kernel@pengutronix.de, kees@kernel.org,
+	nabijaczleweli@nabijaczleweli.xyz, marcelo.schmitt1@gmail.com,
+	maudspierings@gocontroll.com, hverkuil+cisco@kernel.org,
+	ribalda@chromium.org, straube.linux@gmail.com,
+	dan.carpenter@linaro.org, lukagejak5@gmail.com,
+	ethantidmore06@gmail.com, samasth.norway.ananda@oracle.com,
+	karanja99erick@gmail.com, s9430939@naver.com, tglx@kernel.org,
+	mingo@kernel.org, sun.jian.kdev@gmail.com, weibu@redadmin.org,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev, skhan@linuxfoundation.org
+Subject: Re: [PATCH 7/7] staging: rtl8723bs: simplify cleanup using __free
+Message-ID: <2026031102-decrease-preachy-6096@gregkh>
+References: <20260310200513.2162018-1-sanjayembedded@gmail.com>
+ <20260310200513.2162018-8-sanjayembedded@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: renesas: vsp1: Fix NULL pointer deref on module
- unload
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-References: <20260115-rcar-vsp-crash-fix-v1-1-247bd51767fd@ideasonboard.com>
-From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20260115-rcar-vsp-crash-fix-v1-1-247bd51767fd@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260310200513.2162018-8-sanjayembedded@gmail.com>
 
-Hi,
-
-Ping. Would be good to have this fix merged.
-
- Tomi
-
-On 15/01/2026 11:22, Tomi Valkeinen wrote:
-> From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+On Wed, Mar 11, 2026 at 01:35:13AM +0530, Sanjay Chitroda wrote:
+> From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
 > 
-> When unloading the module on gen 4, we hit a NULL pointer dereference.
-> This is caused by the cleanup code calling vsp1_drm_cleanup() where it
-> should be calling vsp1_vspx_cleanup().
+> Replace manual cleanup logic with __free attribute from cleanup.h. This
+> removes explicit kfree() calls and simplifies the error handling paths.
 > 
-> Fix this by checking the IP version and calling the drm or vspx function
-> accordingly, the same way as the init code does.
+> No functional change intended for kmalloc().
 > 
-> Fixes: d06c1a9f348d ("media: vsp1: Add VSPX support")
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> Signed-off-by: Sanjay Chitroda <sanjayembeddedse@gmail.com>
 > ---
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> ---
->  drivers/media/platform/renesas/vsp1/vsp1_drv.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_drv.c b/drivers/media/platform/renesas/vsp1/vsp1_drv.c
-> index 6c64657fc4f3..30df9b36642d 100644
-> --- a/drivers/media/platform/renesas/vsp1/vsp1_drv.c
-> +++ b/drivers/media/platform/renesas/vsp1/vsp1_drv.c
-> @@ -240,8 +240,12 @@ static void vsp1_destroy_entities(struct vsp1_device *vsp1)
->  		media_device_unregister(&vsp1->media_dev);
->  	media_device_cleanup(&vsp1->media_dev);
->  
-> -	if (!vsp1->info->uapi)
-> -		vsp1_drm_cleanup(vsp1);
-> +	if (!vsp1->info->uapi) {
-> +		if (vsp1->info->version == VI6_IP_VERSION_MODEL_VSPX_GEN4)
-> +			vsp1_vspx_cleanup(vsp1);
-> +		else
-> +			vsp1_drm_cleanup(vsp1);
-> +	}
->  }
->  
->  static int vsp1_create_entities(struct vsp1_device *vsp1)
-> 
-> ---
-> base-commit: 7d0a66e4bb9081d75c82ec4957c50034cb0ea449
-> change-id: 20260115-rcar-vsp-crash-fix-8d4871f0f39e
-> 
-> Best regards,
+>  .../staging/rtl8723bs/hal/rtl8723b_hal_init.c | 13 ++-----
+>  drivers/staging/rtl8723bs/hal/sdio_ops.c      | 37 ++++---------------
+>  2 files changed, 11 insertions(+), 39 deletions(-)
 
+As has been stated many times in the past, please do this for new code,
+but not for existing code unless you are fixing a bug at the same time,
+as the churn is not worth it (especially if you do not have the hardware
+to test the changes with.)
+
+thanks,
+
+greg k-h
