@@ -1,151 +1,633 @@
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com [209.85.167.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17DE7AD24
-	for <linux-media@vger.kernel.org>; Wed, 11 Mar 2026 00:04:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5817D8F48
+	for <linux-media@vger.kernel.org>; Wed, 11 Mar 2026 00:10:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773187472; cv=none; b=a2fjSe+fkADy3+XeRMoFd7LkyieRSjr0EM4HVcuMmucXX3tEsOfoXQa9q2FhV1h5b+nPX/gfNSiH07iHa0Q2FdmyEXe8gKdovdF0pq/uVLM33OjF/ddVG0ysfofZFtmrlEDsgneD4E8tXl79VTw0sJKlD1dXfPdFI4QwwOno3sY=
+	t=1773187815; cv=none; b=qRaPR+RWohPOgW861wBipLmd0wfhDk5Ci/QU/FAM1kBaGuNwPxS+RoxzpGQSnbChPQK6d/tH9uEoFMgQNQJeeOfsSd3CxcGVieSobkv6fJOPwAQh9gJN7NmZL8jLwRinfx2IIUYhpcrUZL0fdUNeUKci84RgKS3+Tp6+4kpdgfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773187472; c=relaxed/simple;
-	bh=+43BOdwo7VXiTUsgxdy44JLwgVIf885ihZJy1GIB76E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KeTTOUtWc1SXyISM1lCRT1rZ6LPT963O5Wku4xBkn/OIKRhyTmCRr5n6P9Ie7ucAnWWP9Mlr/j9BxnD+2cCFWFqMInktP2/hluRwOdxjIlug8adso9/9i3rOz/BskvJtEYhudNa8dgr+uahIoKu04fd89fo/PTVL5atw2aQgM7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b=ViAirm3o; arc=none smtp.client-ip=209.85.167.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1773187815; c=relaxed/simple;
+	bh=EvX5v465GnIMYALqC6MsZaAWBg+U6I4jD2QHThoS4r4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lS2wkHXydaA0tp7ueDogGM7LXnAxsosaLzGLogifnTrrWgYSenmLGtdosFTTDn5DEXtpdW/3cJQ9Zxm5op10FcsV351e3npEzkb3zI7WPDLj7hYzp+7RBPWEYmaS4qFBTgOc/yWUt6DrDiMq259/HfCQsmSG4Njo2OGStuc0AwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BKyfhdaH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OMjPOHpH; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b="ViAirm3o"
-Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-463f00cda04so8112245b6e.2
-        for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 17:04:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BKyfhdaH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OMjPOHpH"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62AGGx1r508369
+	for <linux-media@vger.kernel.org>; Wed, 11 Mar 2026 00:10:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=QQwR6NRb0KUHDm9xkJblhh
+	3/27LpDSPzKH6SjqLzUp0=; b=BKyfhdaHLEUu8N1q6IkYg8qGt9lgGYtrJzu7p2
+	TvL2bl85Y44DtqMeZ+lAlpnwsw6eOWx4n6wcbeKBYz8ePiR8D6PqgguyeOcePBjG
+	Vrx5TIG5fyZcK9+jvt93EQ0/1kK9mjpCvJslTK0FQ6ykUUxmRFJoKTemAwx4zmjr
+	GxZxPEyXgrjdrQ3Zkcftkpg4X7hGIx55eUvWPaz2mkkpodGPqwecCV6N2qe9TTS1
+	vAhVA4at3Jjbbp28cPyGfUq5+Egr/VnSkd+BOuSX+lKDK5o/17nDoxm4j6TlG045
+	iIwzvpCVb8NVzCNWq5d8PvG4fM0qJuqFwklbihBtYE0O/IGQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ctppahh58-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 11 Mar 2026 00:10:13 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-8cd7de0e161so1933411085a.2
+        for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 17:10:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1773187468; x=1773792268; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=UyycAT2xnAdXjbETtQQr3m+mbib4kFnv3znRqdNWGp8=;
-        b=ViAirm3osrVbeKYxqIwJquIRPqf7j7Ct/h10HSGJCuzHbQ+xNoWOqRm5x2iGD3bKIN
-         gSo7/nsHTZkTcOZIbxCGO/QWQ6PSbHh3QUk7CyVD65VB60Mi5Qk+lSC6q/8nSobaySXp
-         STUqXGpov3Vo4AxXqM1AzTqN8CnZlbBXArj2O8DjAMfbWBGaXf0EZC9e3/UZ5bMeIRCZ
-         HtbX0ws/VCcgyTO5MF3NtmfII0EMEZSW3mzCVmHn8+Pj0op+4VKpDLURRDzfdJVY/1lF
-         14ZKnNeLykDQgguwn+u0eizWHoEkwHv42ObQCXiG0qbzIgil3Dd1Uo/m1PxHjCumj72C
-         h54Q==
+        d=oss.qualcomm.com; s=google; t=1773187812; x=1773792612; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=QQwR6NRb0KUHDm9xkJblhh3/27LpDSPzKH6SjqLzUp0=;
+        b=OMjPOHpHNEFvBWJd8atmE58/s0MI6qaXVHXpfmXivCKXcVy0TqzmwOBwNUHAeJQFa0
+         h6WIEmnV6BPzii7Zopi/NyBLpQ3L4uZzGO7k7hzMZ+SxON3UldtRniYFUgBncUFBua4b
+         oF5vHYx67nM7GojVfLyMRYlQdadUEzWBQgwk8IqeJm4enpcrFqS5ZhJqSNnW9zsUM87T
+         23gYDm7SEeWBWQv7JBAe5rOGD9QSuzQpWqCpsNB0QwBLsBGWSJJPFYCHxxkJ4fkNCX8O
+         /hDIoMoV97RljMO2D3j7LghBO9Efmdhpem+i/VOQi00w+Ln61JQ1LijivH0ozafgKhSm
+         UDtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773187468; x=1773792268;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=UyycAT2xnAdXjbETtQQr3m+mbib4kFnv3znRqdNWGp8=;
-        b=CJCTO1RlZ9vRw9LKkX0lA7E/hT9eZuAeodMSQwAtfg0/jraeg2ZaY5/yj6NzdNokF4
-         pb3X14ZOhJyLFS7VWvMMfIqDJ+RXMHya1Gy1T4PeExSmsM3T+T64Zf12S7gLil6xeO5q
-         ZFl257sD7YhrgI8HjA8yV+cwXoXsgTDL4SOG8c57p2ria2xgwVR4fTSZ644/f+OlmKXi
-         14Xr6ejxrrzg4BgIOQ0RRXVUoJYMYoabOWFLcPKF0y0xVVWstB6nVQ0ymW2hhCHKzG2r
-         Gmt9a06+I5+EMziaOYGJO9wOGGVaWeBg8lfDWacTa1xoyx0NIIf66IJTRB6J/MUtJTW7
-         INMQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWgRQwUoYxEyS1bGgLmHmaRbq8Kk5V+pq3G7TbybraSlHKyg25j1tAzgLO9uuQlK18r02V6wWhWQCYMiw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz9GDHWIVKZ0MzNY0J/YOuAc3MhMYBLgLwaC6MRSPmkgzJD3GgK
-	nxtfxF4CLobWCr9UQ3VaITdj9ohEZhcAXa96TcgAfKCF8CFApfAr9MLKk4ea2oGv2SI=
-X-Gm-Gg: ATEYQzxvWqtX3pB9dOzPcrix4fPqAyZ5c7f/43WoQqM2LllJM6cTL4NYmowrLbkkNUW
-	9ee832WRyfQNFiAjR+rRzGh4dEG3ZpeFFS3WTCSZxlRxq8ezQZgMcip0fr7UUVCXic7mOxsg/kZ
-	WZDA3IATpsu+0FS+Tvh3V9Srh1S1rasCr/R4rtrjoXQT8sqY8s+liF0Zc4p6mxfGsljdb3/7ADt
-	hEfUewjIeJEtMXnKXeTTZYMT6k5iL5Uc3O8KwyXBkelIG9BX/DVqSlnfPrrrBmyib0EIyheWF/3
-	qVPyjXkw3QNJ/mQw4NObuPCrLUZTX7gVo5O2fkerfcETh2k+uPX6ABoohXxK5U10OSE+6oVdfJc
-	Ear8G2V18pxbvSbuiOhssNDsJPIvtj7mgCc9jqc5mMWTdDWfivdyvft523HswU2TxeSEEh3AY5Z
-	74grOBFbt+SnNGBmbOZ0IzZBEBKtDebF9Fqhzgd/bZHrtqSDrhFLlwFVynCwIYE3ksOCV6P3I+m
-	Q==
-X-Received: by 2002:a05:6808:14c8:b0:450:b249:718c with SMTP id 5614622812f47-46733547c85mr330873b6e.31.1773187468063;
-        Tue, 10 Mar 2026 17:04:28 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:82ac:f3fe:2e5f:ec03? ([2600:8803:e7e4:500:82ac:f3fe:2e5f:ec03])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-46734160cebsm233690b6e.7.2026.03.10.17.04.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Mar 2026 17:04:26 -0700 (PDT)
-Message-ID: <04ffc988-f4ce-47f8-a998-66d2553d88af@baylibre.com>
-Date: Tue, 10 Mar 2026 19:04:24 -0500
+        d=1e100.net; s=20230601; t=1773187812; x=1773792612;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QQwR6NRb0KUHDm9xkJblhh3/27LpDSPzKH6SjqLzUp0=;
+        b=iOrPKkXWwTmDNJpZPOBebFpUFzMni89gsDA3e3U+cZ+6PX1UlYs7iWU0Aq337xhIF7
+         TDucRil9c96vCyf1dgK6iFDqgw3AqtNnFdfBglAteOSAZTnCg1pTjGeOUZOoYEQ9AuPz
+         39jIPholonzkph0uKK4vMlKD27dD9ozlPkJQq7834LD2N3O9SGB9TIVsCiCE1yJDCsK+
+         AE1fOsRp2A9x9/XdDUM9kzcVgrzXnKumGDYrXJlZR2psFEIzNAgHjLt9xAgERfcWuUzK
+         3gK0BJ7KBAKpumWIfJb2SZdIlkmGMJ3qIRizbNEG2FboCScZ9pgcHrtRupOY2SC4Doyh
+         Ts5g==
+X-Gm-Message-State: AOJu0YxmRBck7wmBAtiMgIVlx+tiZs7ln/hYc3n3EXDA5nGkwAbjI8Tw
+	iO3wTBRMD1Ta2rETASeOSxyKSnIjEJT9mrKO7BxMthhLGejdyMVBDQkTQPONFlLfpbz8ZCKkFiC
+	TxZV0hMC4SxOs3xxBgX5YadQ0bKCuZ1NSA4u0IkQuMEgtd25GUhVY1jEAGNS0EOtyouldiFv6dA
+	==
+X-Gm-Gg: ATEYQzxQANEwsMb/PBcorWgF8hBvaUmWkz8P+dqCh24Kw0nbABCNbKd2L6iQHZJR1IY
+	9HO9uG6v9kiNQ+TJHOoic8f0CcP0ArcTHCvfzRdk8DW6lkaFskrmtYgDZ2pGdiPwuucKmhStU++
+	XrVbvZlcYLVN6Rteo1zDU4q0mQlUFc+M9D5+diVhmF4I28C6HpHHDULLXvEq8a+zvzNfWX/mpSn
+	trm64tOnFoqDFxPsv/U47W9AdZ45RySIMpNKlYvR2Zm1T6BvZR/wDeoSJdtK2z5JSQpFKHmr6HL
+	43QU2ZEthw2F+9ok/uSfb6/11ecAX9oTog2Qx5XwoykILUBCfTC+d11HefL36oSThoXsYLSyhac
+	EvLBsLMbteg1sJrx+Z3LgIigB7vS5tZnydm6XNOAREFbJiZX4OIewOp5C96pyin1vVxLqcVlfPS
+	nmuePzvWHyi9GHzOlWjgHBVBRzr3+K2Wv9rZY=
+X-Received: by 2002:a05:620a:4153:b0:8ca:305b:748e with SMTP id af79cd13be357-8cda1a5595fmr98957585a.57.1773187811863;
+        Tue, 10 Mar 2026 17:10:11 -0700 (PDT)
+X-Received: by 2002:a05:620a:4153:b0:8ca:305b:748e with SMTP id af79cd13be357-8cda1a5595fmr98954485a.57.1773187811365;
+        Tue, 10 Mar 2026 17:10:11 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a15602e2ecsm107786e87.25.2026.03.10.17.10.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Mar 2026 17:10:10 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Wed, 11 Mar 2026 02:10:04 +0200
+Subject: [PATCH] media: iris: drop struct iris_fmt
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/7] iio: st_sensors: simplify cleanup using __free
-To: Sanjay Chitroda <sanjayembeddedse@gmail.com>, jic23@kernel.org,
- m.tretter@pengutronix.de, mchehab@kernel.org, p.zabel@pengutronix.de,
- tiffany.lin@mediatek.com, andrew-ct.chen@mediatek.com,
- yunfei.dong@mediatek.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, johan@kernel.org, elder@kernel.org,
- gregkh@linuxfoundation.org, pure.logic@nexus-software.ie
-Cc: nuno.sa@analog.com, andy@kernel.org, kernel@pengutronix.de,
- kees@kernel.org, nabijaczleweli@nabijaczleweli.xyz,
- marcelo.schmitt1@gmail.com, maudspierings@gocontroll.com,
- hverkuil+cisco@kernel.org, ribalda@chromium.org, straube.linux@gmail.com,
- dan.carpenter@linaro.org, lukagejak5@gmail.com, ethantidmore06@gmail.com,
- samasth.norway.ananda@oracle.com, karanja99erick@gmail.com,
- s9430939@naver.com, tglx@kernel.org, mingo@kernel.org,
- sun.jian.kdev@gmail.com, weibu@redadmin.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
- skhan@linuxfoundation.org
-References: <20260310200513.2162018-1-sanjayembedded@gmail.com>
- <20260310200513.2162018-4-sanjayembedded@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260310200513.2162018-4-sanjayembedded@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260311-iris-remote-fmts-v1-1-de0044453b68@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIANyysGkC/x3MTQ5AQAxA4atMutZkfkJwFbEYFF0w0opIxN1NL
+ L/Few8oCZNCax4Qulg57RmuMDCucV8IecoGb31lg3PIwopCWzoJ5+1ULEMI1eiHuokWcnYIzXz
+ /y65/3w/buTqcYgAAAA==
+X-Change-ID: 20260311-iris-remote-fmts-53336c2b89a0
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=15933;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=EvX5v465GnIMYALqC6MsZaAWBg+U6I4jD2QHThoS4r4=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpsLLhjz5P1aB+8StCBOOiVXkOQtV7Vd5wFijoi
+ J9PlzH/QzmJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCabCy4QAKCRCLPIo+Aiko
+ 1SuOB/9FPgB6bqv3zu29c9KaauiN7P9a0Ceeon2Bssrj/OOa5OnfmbcnxBvO3VaZ2vWqx3XN5SK
+ w5abZclk9rdyOiA8NWaJdBk1ijeG1GTkymnKMnM2yFsErPp+uIlv4rJcZLuJpyeQTDO2o8+eZlS
+ mBY3Xx/GxOVSz9+Z6p6Mq7ypyKwSQOqHGy9HwekycRL3xAM8pi6oVKT46+0iR0CEf+XaRU7ryGn
+ 7lS0sAT9/PYU0XrZrrkwcOcNz0N+eXdAKtllu4hz0q9lbziDazPVPGIcXQxo7D/eAngwGqoyP+P
+ 2Lf2q972f7BDTUuLdtxP/ysteAjmf9qpqfqnOe/RndA6o2Kc
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-GUID: r0BNuUAFPH8f-Dr5XpZ40FCSHTRYBLey
+X-Authority-Analysis: v=2.4 cv=D7BK6/Rj c=1 sm=1 tr=0 ts=69b0b2e5 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=P2JkpESjKQypXLoEBXAA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzExMDAwMCBTYWx0ZWRfXzkr6D5m5n0cC
+ WUvk/s1HJHmQzzLlNLiGPUSxVX5FYstnIf14j/gJCY4FdzFA0PrGToZ8ycNDTpXiV2CcqXyCO7g
+ DjNT8oA/qBVX4gUyWTch8oG5NddUcnghZbQGl+2+cENH1KZ5S1+8xPl1YBrQiKBmiu8zYt51Pkh
+ JNXrp501yViqvhQX1O2/FTl5ZCFHNxZIFG64KhL7wUqE6RXDP/nuCOQ2WvBm/wSCjYFoeRsqqj3
+ 1nAqX3SWUooeoTu3EpaWitIYTbHV1RsbFy6L8c6yZ2lpUEpbNYP7HmBVHyPFRLP1TPhuYzlXdYk
+ AE9gyIZQ27muFflQDRapcXgqNzfpSSHK2YAniyobGbj086ZwrqHsHcJ2WT2bW1wJZEwxOnDMEts
+ DzNsflNk+sNSl6M8ISmLilOzvtHdlleq9g2hUdFiDyy2akE3fayUxHWN808gjtOujQMwvq2H+MD
+ SICQrN2c+8TOgFBzZow==
+X-Proofpoint-ORIG-GUID: r0BNuUAFPH8f-Dr5XpZ40FCSHTRYBLey
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-10_05,2026-03-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 impostorscore=0 spamscore=0 bulkscore=0
+ malwarescore=0 priorityscore=1501 clxscore=1015 adultscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2602130000
+ definitions=main-2603110000
 
-On 3/10/26 3:05 PM, Sanjay Chitroda wrote:
-> From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
-> 
-> Replace manual cleanup logic with __free attribute from cleanup.h. This
-> removes explicit kfree() calls and simplifies the error handling paths.
-> 
-> No functional change intended for kmalloc().
-> 
-> Signed-off-by: Sanjay Chitroda <sanjayembeddedse@gmail.com>
-> ---
->  drivers/iio/common/st_sensors/st_sensors_core.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/iio/common/st_sensors/st_sensors_core.c b/drivers/iio/common/st_sensors/st_sensors_core.c
-> index dac593be5695..f641b62e692b 100644
-> --- a/drivers/iio/common/st_sensors/st_sensors_core.c
-> +++ b/drivers/iio/common/st_sensors/st_sensors_core.c
-> @@ -501,14 +501,14 @@ static int st_sensors_read_axis_data(struct iio_dev *indio_dev,
->  
->  	byte_for_channel = DIV_ROUND_UP(ch->scan_type.realbits +
->  					ch->scan_type.shift, 8);
-> -	outdata = kmalloc(byte_for_channel, GFP_DMA | GFP_KERNEL);
-> +	u8 *outdata __free(kfree) = kmalloc(byte_for_channel, GFP_DMA | GFP_KERNEL);
+The struct iris_fmt unites pixfmt with the plane type, however the type
+from the struct is not actually used. Drop the struct completely and use
+u32 pixfmt in all the callsites.
 
-Even better would be to not alloc new memory at all.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/media/platform/qcom/iris/iris_instance.h   |  5 --
+ .../platform/qcom/iris/iris_platform_common.h      |  2 +-
+ .../media/platform/qcom/iris/iris_platform_gen1.c  | 17 +---
+ .../media/platform/qcom/iris/iris_platform_gen2.c  | 22 ++---
+ drivers/media/platform/qcom/iris/iris_vdec.c       | 78 ++++++++----------
+ drivers/media/platform/qcom/iris/iris_venc.c       | 96 +++++++++-------------
+ 6 files changed, 80 insertions(+), 140 deletions(-)
 
-We could probably reuse buffer_data from struct st_sensor_data for this.
+diff --git a/drivers/media/platform/qcom/iris/iris_instance.h b/drivers/media/platform/qcom/iris/iris_instance.h
+index 16965150f427..0eb256b0e82e 100644
+--- a/drivers/media/platform/qcom/iris/iris_instance.h
++++ b/drivers/media/platform/qcom/iris/iris_instance.h
+@@ -27,11 +27,6 @@ enum iris_fmt_type_cap {
+ 	IRIS_FMT_QC08C,
+ };
+ 
+-struct iris_fmt {
+-	u32 pixfmt;
+-	u32 type;
+-};
+-
+ /**
+  * struct iris_inst - holds per video instance parameters
+  *
+diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
+index 5a489917580e..737ca4b1fe5c 100644
+--- a/drivers/media/platform/qcom/iris/iris_platform_common.h
++++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
+@@ -237,7 +237,7 @@ struct iris_platform_data {
+ 	u64 dma_mask;
+ 	const char *fwname;
+ 	u32 pas_id;
+-	struct iris_fmt *inst_iris_fmts;
++	const u32 *inst_iris_fmts;
+ 	u32 inst_iris_fmts_size;
+ 	struct platform_inst_caps *inst_caps;
+ 	const struct platform_inst_fw_cap *inst_fw_caps_dec;
+diff --git a/drivers/media/platform/qcom/iris/iris_platform_gen1.c b/drivers/media/platform/qcom/iris/iris_platform_gen1.c
+index aa71f7f53ee3..c1e91e18d07f 100644
+--- a/drivers/media/platform/qcom/iris/iris_platform_gen1.c
++++ b/drivers/media/platform/qcom/iris/iris_platform_gen1.c
+@@ -20,19 +20,10 @@
+ #define BITRATE_PEAK_DEFAULT	(BITRATE_DEFAULT * 2)
+ #define BITRATE_STEP		100
+ 
+-static struct iris_fmt platform_fmts_sm8250_dec[] = {
+-	[IRIS_FMT_H264] = {
+-		.pixfmt = V4L2_PIX_FMT_H264,
+-		.type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,
+-	},
+-	[IRIS_FMT_HEVC] = {
+-		.pixfmt = V4L2_PIX_FMT_HEVC,
+-		.type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,
+-	},
+-	[IRIS_FMT_VP9] = {
+-		.pixfmt = V4L2_PIX_FMT_VP9,
+-		.type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,
+-	},
++static u32 platform_fmts_sm8250_dec[] = {
++	[IRIS_FMT_H264] = V4L2_PIX_FMT_H264,
++	[IRIS_FMT_HEVC] = V4L2_PIX_FMT_HEVC,
++	[IRIS_FMT_VP9] = V4L2_PIX_FMT_VP9,
+ };
+ 
+ static struct platform_inst_fw_cap inst_fw_cap_sm8250_dec[] = {
+diff --git a/drivers/media/platform/qcom/iris/iris_platform_gen2.c b/drivers/media/platform/qcom/iris/iris_platform_gen2.c
+index 5da90d47f9c6..cd2725d3ff16 100644
+--- a/drivers/media/platform/qcom/iris/iris_platform_gen2.c
++++ b/drivers/media/platform/qcom/iris/iris_platform_gen2.c
+@@ -19,23 +19,11 @@
+ #define VIDEO_ARCH_LX 1
+ #define BITRATE_MAX				245000000
+ 
+-static struct iris_fmt platform_fmts_sm8550_dec[] = {
+-	[IRIS_FMT_H264] = {
+-		.pixfmt = V4L2_PIX_FMT_H264,
+-		.type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,
+-	},
+-	[IRIS_FMT_HEVC] = {
+-		.pixfmt = V4L2_PIX_FMT_HEVC,
+-		.type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,
+-	},
+-	[IRIS_FMT_VP9] = {
+-		.pixfmt = V4L2_PIX_FMT_VP9,
+-		.type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,
+-	},
+-	[IRIS_FMT_AV1] = {
+-		.pixfmt = V4L2_PIX_FMT_AV1,
+-		.type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,
+-	},
++static const u32 platform_fmts_sm8550_dec[] = {
++	[IRIS_FMT_H264] = V4L2_PIX_FMT_H264,
++	[IRIS_FMT_HEVC] = V4L2_PIX_FMT_HEVC,
++	[IRIS_FMT_VP9] = V4L2_PIX_FMT_VP9,
++	[IRIS_FMT_AV1] = V4L2_PIX_FMT_AV1,
+ };
+ 
+ static const struct platform_inst_fw_cap inst_fw_cap_sm8550_dec[] = {
+diff --git a/drivers/media/platform/qcom/iris/iris_vdec.c b/drivers/media/platform/qcom/iris/iris_vdec.c
+index 719217399a30..2d3e2d72f221 100644
+--- a/drivers/media/platform/qcom/iris/iris_vdec.c
++++ b/drivers/media/platform/qcom/iris/iris_vdec.c
+@@ -67,23 +67,16 @@ void iris_vdec_inst_deinit(struct iris_inst *inst)
+ 	kfree(inst->fmt_src);
+ }
+ 
+-static const struct iris_fmt iris_vdec_formats_cap[] = {
+-	[IRIS_FMT_NV12] = {
+-		.pixfmt = V4L2_PIX_FMT_NV12,
+-		.type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE,
+-	},
+-	[IRIS_FMT_QC08C] = {
+-		.pixfmt = V4L2_PIX_FMT_QC08C,
+-		.type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE,
+-	},
++static const u32 iris_vdec_formats_cap[] = {
++	[IRIS_FMT_NV12] = V4L2_PIX_FMT_NV12,
++	[IRIS_FMT_QC08C] = V4L2_PIX_FMT_QC08C,
+ };
+ 
+-static const struct iris_fmt *
+-find_format(struct iris_inst *inst, u32 pixfmt, u32 type)
++static bool check_format(struct iris_inst *inst, u32 pixfmt, u32 type)
+ {
+-	const struct iris_fmt *fmt = NULL;
+-	unsigned int size = 0;
+-	unsigned int i;
++	unsigned int size, i;
++	const u32 *fmt;
++
+ 	switch (type) {
+ 	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
+ 		fmt = inst->core->iris_platform_data->inst_iris_fmts;
+@@ -94,25 +87,21 @@ find_format(struct iris_inst *inst, u32 pixfmt, u32 type)
+ 		size = ARRAY_SIZE(iris_vdec_formats_cap);
+ 		break;
+ 	default:
+-		return NULL;
++		return false;
+ 	}
+ 
+ 	for (i = 0; i < size; i++) {
+-		if (fmt[i].pixfmt == pixfmt)
+-			break;
++		if (fmt[i] == pixfmt)
++			return true;
+ 	}
+ 
+-	if (i == size || fmt[i].type != type)
+-		return NULL;
+-
+-	return &fmt[i];
++	return false;
+ }
+ 
+-static const struct iris_fmt *
+-find_format_by_index(struct iris_inst *inst, u32 index, u32 type)
++static u32 find_format_by_index(struct iris_inst *inst, u32 index, u32 type)
+ {
+-	const struct iris_fmt *fmt = NULL;
+-	unsigned int size = 0;
++	const u32 *fmt;
++	unsigned int size;
+ 
+ 	switch (type) {
+ 	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
+@@ -124,18 +113,18 @@ find_format_by_index(struct iris_inst *inst, u32 index, u32 type)
+ 		size = ARRAY_SIZE(iris_vdec_formats_cap);
+ 		break;
+ 	default:
+-		return NULL;
++		return 0;
+ 	}
+ 
+-	if (index >= size || fmt[index].type != type)
+-		return NULL;
++	if (index >= size)
++		return 0;
+ 
+-	return &fmt[index];
++	return fmt[index];
+ }
+ 
+ int iris_vdec_enum_fmt(struct iris_inst *inst, struct v4l2_fmtdesc *f)
+ {
+-	const struct iris_fmt *fmt;
++	u32 fmt;
+ 
+ 	switch (f->type) {
+ 	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
+@@ -143,14 +132,14 @@ int iris_vdec_enum_fmt(struct iris_inst *inst, struct v4l2_fmtdesc *f)
+ 		if (!fmt)
+ 			return -EINVAL;
+ 
+-		f->pixelformat = fmt->pixfmt;
++		f->pixelformat = fmt;
+ 		f->flags = V4L2_FMT_FLAG_COMPRESSED | V4L2_FMT_FLAG_DYN_RESOLUTION;
+ 		break;
+ 	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
+ 		fmt = find_format_by_index(inst, f->index, f->type);
+ 		if (!fmt)
+ 			return -EINVAL;
+-		f->pixelformat = fmt->pixfmt;
++		f->pixelformat = fmt;
+ 		break;
+ 	default:
+ 		return -EINVAL;
+@@ -163,15 +152,15 @@ int iris_vdec_try_fmt(struct iris_inst *inst, struct v4l2_format *f)
+ {
+ 	struct v4l2_pix_format_mplane *pixmp = &f->fmt.pix_mp;
+ 	struct v4l2_m2m_ctx *m2m_ctx = inst->m2m_ctx;
+-	const struct iris_fmt *fmt;
+ 	struct v4l2_format *f_inst;
+ 	struct vb2_queue *src_q;
++	bool supported;
+ 
+ 	memset(pixmp->reserved, 0, sizeof(pixmp->reserved));
+-	fmt = find_format(inst, pixmp->pixelformat, f->type);
++	supported = check_format(inst, pixmp->pixelformat, f->type);
+ 	switch (f->type) {
+ 	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
+-		if (!fmt) {
++		if (!supported) {
+ 			f_inst = inst->fmt_src;
+ 			f->fmt.pix_mp.width = f_inst->fmt.pix_mp.width;
+ 			f->fmt.pix_mp.height = f_inst->fmt.pix_mp.height;
+@@ -179,7 +168,7 @@ int iris_vdec_try_fmt(struct iris_inst *inst, struct v4l2_format *f)
+ 		}
+ 		break;
+ 	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
+-		if (!fmt) {
++		if (!supported) {
+ 			f_inst = inst->fmt_dst;
+ 			f->fmt.pix_mp.pixelformat = f_inst->fmt.pix_mp.pixelformat;
+ 			f->fmt.pix_mp.width = f_inst->fmt.pix_mp.width;
+@@ -228,7 +217,7 @@ int iris_vdec_s_fmt(struct iris_inst *inst, struct v4l2_format *f)
+ 
+ 	switch (f->type) {
+ 	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
+-		if (!(find_format(inst, f->fmt.pix_mp.pixelformat, f->type)))
++		if (!check_format(inst, f->fmt.pix_mp.pixelformat, f->type))
+ 			return -EINVAL;
+ 
+ 		fmt = inst->fmt_src;
+@@ -266,7 +255,7 @@ int iris_vdec_s_fmt(struct iris_inst *inst, struct v4l2_format *f)
+ 		inst->crop.height = f->fmt.pix_mp.height;
+ 		break;
+ 	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
+-		if (!(find_format(inst, f->fmt.pix_mp.pixelformat, f->type)))
++		if (!check_format(inst, f->fmt.pix_mp.pixelformat, f->type))
+ 			return -EINVAL;
+ 
+ 		fmt = inst->fmt_dst;
+@@ -295,16 +284,13 @@ int iris_vdec_s_fmt(struct iris_inst *inst, struct v4l2_format *f)
+ 
+ int iris_vdec_validate_format(struct iris_inst *inst, u32 pixelformat)
+ {
+-	const struct iris_fmt *fmt = NULL;
++	bool supported;
+ 
+-	fmt = find_format(inst, pixelformat, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
+-	if (!fmt) {
+-		fmt = find_format(inst, pixelformat, V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
+-		if (!fmt)
+-			return -EINVAL;
+-	}
++	supported = check_format(inst, pixelformat, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
++	if (!supported)
++		supported = check_format(inst, pixelformat, V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
+ 
+-	return 0;
++	return supported ? 0 : -EINVAL;
+ }
+ 
+ int iris_vdec_subscribe_event(struct iris_inst *inst, const struct v4l2_event_subscription *sub)
+diff --git a/drivers/media/platform/qcom/iris/iris_venc.c b/drivers/media/platform/qcom/iris/iris_venc.c
+index aa27b22704eb..0cba49df512d 100644
+--- a/drivers/media/platform/qcom/iris/iris_venc.c
++++ b/drivers/media/platform/qcom/iris/iris_venc.c
+@@ -85,34 +85,21 @@ void iris_venc_inst_deinit(struct iris_inst *inst)
+ 	kfree(inst->fmt_src);
+ }
+ 
+-static const struct iris_fmt iris_venc_formats_cap[] = {
+-	[IRIS_FMT_H264] = {
+-		.pixfmt = V4L2_PIX_FMT_H264,
+-		.type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE,
+-	},
+-	[IRIS_FMT_HEVC] = {
+-		.pixfmt = V4L2_PIX_FMT_HEVC,
+-		.type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE,
+-	},
++static const u32 iris_venc_formats_cap[] = {
++	[IRIS_FMT_H264] = V4L2_PIX_FMT_H264,
++	[IRIS_FMT_HEVC] = V4L2_PIX_FMT_HEVC,
+ };
+ 
+-static const struct iris_fmt iris_venc_formats_out[] = {
+-	[IRIS_FMT_NV12] = {
+-		.pixfmt = V4L2_PIX_FMT_NV12,
+-		.type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,
+-	},
+-	[IRIS_FMT_QC08C] = {
+-		.pixfmt = V4L2_PIX_FMT_QC08C,
+-		.type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,
+-	},
++static const u32 iris_venc_formats_out[] = {
++	[IRIS_FMT_NV12] = V4L2_PIX_FMT_NV12,
++	[IRIS_FMT_QC08C] = V4L2_PIX_FMT_QC08C,
+ };
+ 
+-static const struct iris_fmt *
+-find_format(struct iris_inst *inst, u32 pixfmt, u32 type)
++static bool check_format(struct iris_inst *inst, u32 pixfmt, u32 type)
+ {
+-	const struct iris_fmt *fmt = NULL;
+-	unsigned int size = 0;
+-	unsigned int i;
++	unsigned int size, i;
++	const u32 *fmt;
++
+ 	switch (type) {
+ 	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
+ 		fmt = iris_venc_formats_out;
+@@ -123,25 +110,21 @@ find_format(struct iris_inst *inst, u32 pixfmt, u32 type)
+ 		size = ARRAY_SIZE(iris_venc_formats_cap);
+ 		break;
+ 	default:
+-		return NULL;
++		return false;
+ 	}
+ 
+ 	for (i = 0; i < size; i++) {
+-		if (fmt[i].pixfmt == pixfmt)
+-			break;
++		if (fmt[i] == pixfmt)
++			return true;
+ 	}
+ 
+-	if (i == size || fmt[i].type != type)
+-		return NULL;
+-
+-	return &fmt[i];
++	return false;
+ }
+ 
+-static const struct iris_fmt *
+-find_format_by_index(struct iris_inst *inst, u32 index, u32 type)
++static u32 find_format_by_index(struct iris_inst *inst, u32 index, u32 type)
+ {
+-	const struct iris_fmt *fmt = NULL;
+-	unsigned int size = 0;
++	unsigned int size;
++	const u32 *fmt;
+ 
+ 	switch (type) {
+ 	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
+@@ -153,18 +136,18 @@ find_format_by_index(struct iris_inst *inst, u32 index, u32 type)
+ 		size = ARRAY_SIZE(iris_venc_formats_cap);
+ 		break;
+ 	default:
+-		return NULL;
++		return 0;
+ 	}
+ 
+-	if (index >= size || fmt[index].type != type)
+-		return NULL;
++	if (index >= size)
++		return 0;
+ 
+-	return &fmt[index];
++	return fmt[index];
+ }
+ 
+ int iris_venc_enum_fmt(struct iris_inst *inst, struct v4l2_fmtdesc *f)
+ {
+-	const struct iris_fmt *fmt;
++	u32 fmt;
+ 
+ 	switch (f->type) {
+ 	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
+@@ -172,14 +155,14 @@ int iris_venc_enum_fmt(struct iris_inst *inst, struct v4l2_fmtdesc *f)
+ 		if (!fmt)
+ 			return -EINVAL;
+ 
+-		f->pixelformat = fmt->pixfmt;
++		f->pixelformat = fmt;
+ 		break;
+ 	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
+ 		fmt = find_format_by_index(inst, f->index, f->type);
+ 		if (!fmt)
+ 			return -EINVAL;
+ 
+-		f->pixelformat = fmt->pixfmt;
++		f->pixelformat = fmt;
+ 		f->flags = V4L2_FMT_FLAG_COMPRESSED | V4L2_FMT_FLAG_ENC_CAP_FRAME_INTERVAL;
+ 		break;
+ 	default:
+@@ -192,14 +175,14 @@ int iris_venc_enum_fmt(struct iris_inst *inst, struct v4l2_fmtdesc *f)
+ int iris_venc_try_fmt(struct iris_inst *inst, struct v4l2_format *f)
+ {
+ 	struct v4l2_pix_format_mplane *pixmp = &f->fmt.pix_mp;
+-	const struct iris_fmt *fmt;
+ 	struct v4l2_format *f_inst;
++	bool supported;
+ 
+ 	memset(pixmp->reserved, 0, sizeof(pixmp->reserved));
+-	fmt = find_format(inst, pixmp->pixelformat, f->type);
++	supported = check_format(inst, pixmp->pixelformat, f->type);
+ 	switch (f->type) {
+ 	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
+-		if (!fmt) {
++		if (!supported) {
+ 			f_inst = inst->fmt_src;
+ 			f->fmt.pix_mp.width = f_inst->fmt.pix_mp.width;
+ 			f->fmt.pix_mp.height = f_inst->fmt.pix_mp.height;
+@@ -207,7 +190,7 @@ int iris_venc_try_fmt(struct iris_inst *inst, struct v4l2_format *f)
+ 		}
+ 		break;
+ 	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
+-		if (!fmt) {
++		if (!supported) {
+ 			f_inst = inst->fmt_dst;
+ 			f->fmt.pix_mp.width = f_inst->fmt.pix_mp.width;
+ 			f->fmt.pix_mp.height = f_inst->fmt.pix_mp.height;
+@@ -228,17 +211,17 @@ int iris_venc_try_fmt(struct iris_inst *inst, struct v4l2_format *f)
+ 
+ static int iris_venc_s_fmt_output(struct iris_inst *inst, struct v4l2_format *f)
+ {
+-	const struct iris_fmt *venc_fmt;
+ 	struct v4l2_format *fmt;
+ 	u32 codec_align;
++	bool supported;
+ 
+ 	iris_venc_try_fmt(inst, f);
+ 
+-	venc_fmt = find_format(inst, f->fmt.pix_mp.pixelformat, f->type);
+-	if (!venc_fmt)
++	supported = check_format(inst, f->fmt.pix_mp.pixelformat, f->type);
++	if (!supported)
+ 		return -EINVAL;
+ 
+-	codec_align = venc_fmt->pixfmt == V4L2_PIX_FMT_HEVC ? 32 : 16;
++	codec_align = (f->fmt.pix_mp.pixelformat == V4L2_PIX_FMT_HEVC) ? 32 : 16;
+ 
+ 	fmt = inst->fmt_dst;
+ 	fmt->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
+@@ -281,7 +264,7 @@ static int iris_venc_s_fmt_input(struct iris_inst *inst, struct v4l2_format *f)
+ 
+ 	iris_venc_try_fmt(inst, f);
+ 
+-	if (!(find_format(inst, f->fmt.pix_mp.pixelformat, f->type)))
++	if (!check_format(inst, f->fmt.pix_mp.pixelformat, f->type))
+ 		return -EINVAL;
+ 
+ 	fmt = inst->fmt_src;
+@@ -350,16 +333,13 @@ int iris_venc_s_fmt(struct iris_inst *inst, struct v4l2_format *f)
+ 
+ int iris_venc_validate_format(struct iris_inst *inst, u32 pixelformat)
+ {
+-	const struct iris_fmt *fmt = NULL;
++	bool supported;
+ 
+-	fmt = find_format(inst, pixelformat, V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
+-	if (!fmt) {
+-		fmt = find_format(inst, pixelformat, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
+-		if (!fmt)
+-			return -EINVAL;
+-	}
++	supported = check_format(inst, pixelformat, V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
++	if (!supported)
++		supported = check_format(inst, pixelformat, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
+ 
+-	return 0;
++	return supported ? 0 : -EINVAL;
+ }
+ 
+ int iris_venc_subscribe_event(struct iris_inst *inst,
 
->  	if (!outdata)
->  		return -ENOMEM;
->  
->  	err = regmap_bulk_read(sdata->regmap, ch->address,
->  			       outdata, byte_for_channel);
->  	if (err < 0)
-> -		goto st_sensors_free_memory;
-> +		return err;
->  
->  	if (byte_for_channel == 1)
->  		*data = (s8)*outdata;
-> @@ -517,9 +517,6 @@ static int st_sensors_read_axis_data(struct iio_dev *indio_dev,
->  	else if (byte_for_channel == 3)
->  		*data = (s32)sign_extend32(get_unaligned_le24(outdata), 23);
->  
-> -st_sensors_free_memory:
-> -	kfree(outdata);
-> -
->  	return err;
+---
+base-commit: 69f994912b677367e59934a2c34f365cf42d517f
+change-id: 20260311-iris-remote-fmts-53336c2b89a0
 
-Should be able to change this to `return 0;` now.
-
->  }
->  
+Best regards,
+-- 
+With best wishes
+Dmitry
 
