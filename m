@@ -1,145 +1,137 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62781275B18
-	for <linux-media@vger.kernel.org>; Wed, 11 Mar 2026 02:18:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D932BDC29
+	for <linux-media@vger.kernel.org>; Wed, 11 Mar 2026 02:25:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773195498; cv=none; b=By1YwG9UJeALkrXO/EhFyR7ZNh8DMfVdA0fkSuL9uCqIa1vygWiGxflFvfsXOqleKIHdAEhpKxTTS5KDyj+Ql/jYIbDE1GRBQf3MgQvPl2fmjBgG8LzJYUZHppcwSLI94nr3BeqNqyDs3ndHNt0crEV4X0CSAE6RAiCeHYKDPKM=
+	t=1773195911; cv=none; b=g5UDIo/TSBUDPaYHK6tJJFbAlMw3BxTKaEtNg89xftM2bmiN8wSJBHLsvZ7CTerfPfZ9PLKwJk8T/vEI4ydzNJPtOczo8Ur2BQWbFAgel6kzSMC9TctczkoYiVFTeinKFCyVWqFTfHQe+5xI6Iny/4+KX7DUPtN95WbyThrhWK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773195498; c=relaxed/simple;
-	bh=+/dHpzDdvnXv9XvCFyqZfCQUq6sgyPwg/78YsLVfcJ8=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=ZwZO2d8HNvqidcQ7y/JC6aI28/kUwMy0kdksi7Kto4Bt09afgm9yaZllRxo50yK3IphrmIkUhBwEgIXSZoKDy1Lv+a39dMn+R361Y6zXELei22Nnlo7q/bePtSUgdu+aCruHw6z9GG6YDwLRUQsPayScawFB8M6dpjR96KoYNH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fvSKyg0D; arc=none smtp.client-ip=209.85.214.171
+	s=arc-20240116; t=1773195911; c=relaxed/simple;
+	bh=x3oA4b9XXpfnN8kUiNhtlS/tc1BuEX7AW97CTEgFyIw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HBUH8lZTUR7eFzJmqeWi7XP/PtYiHUXpKBVr3qIApOhYHTreodXVP7v2axmEOiicL83Sknhx+o8BYebmP2pzfDke7CPXilsZIGpJFeuKe7EiBOC6WnPzin5gCrBI1DcKQ7JR0cmvY8x+HI1KCOh7gMwpY8E0Qricq2IP//kk+RY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FY2bT0go; arc=none smtp.client-ip=209.85.160.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fvSKyg0D"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2aaf59c4f7cso59392465ad.1
-        for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 19:18:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FY2bT0go"
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-5091d71aa11so5803441cf.1
+        for <linux-media@vger.kernel.org>; Tue, 10 Mar 2026 19:25:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773195497; x=1773800297; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=1ZAqF770CjctREhKahUCDqzMAEkw+GXfuiDNjYlwSLk=;
-        b=fvSKyg0D0WfL/vzr9Cx5vJtutHyS2zyBDrgY+VRcTqz1DcJwn3lM2Y8uF8N8UAqBK2
-         bdETDCx+d2sNjHBfAebcNpBL6hJJn8e60zBt8yIUzmQ+26hJT7kQ8hlERQDXCsi1hH9/
-         kzzikvy3SQ+VayGNhQqv5kCVuwATD6j3rBkca+qYvqazKuYg6466as/ASq2rfdi04rmo
-         kQ6AChj+ypwTBF3lpFirsL2emJtQF9olWt9gLcHB9bqFfkF/Nbua5FQ9vsA6Hfo0vh8t
-         PnsuNnFBT0OYeAU47bdPH7dWapocF/3WdLPxpl7rHMOHJMpexIzRW+OQnKOe7EktAZqu
-         t9Ug==
+        d=gmail.com; s=20230601; t=1773195909; x=1773800709; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=pdOODwOyqf2HXTJor8x6+j1U0inwH0LLdlGvfoS1Vfo=;
+        b=FY2bT0goJi+eGxVKUdDcVzRwoQgrQnVLnDcA7loJJil0P4Ni8pMG46aYtZLbnzYCmL
+         ttG0XvTy8yd/gnIaI7o5qrih4Kn+rgjI47B8IO3PTeKTbFI+kHx1XjLEs5+eaM4nB2e1
+         +DYVbLzQRgvKCQr8i0dsxeA03Z3dbFuQyDMtV8NIGYZCX5VpgkgYDtaWauNrOv9jXteO
+         dCe3Eob7ZRKNsS2XQ4HujfFkZZBi7CuGsR+y9/w6OLKI3CM8ihaDROZVBmSR5h8CTnLN
+         rWHfL7sy3cHpmKkxD7DcXmXWeaY/5qn2IElaygmHlm3aEjYk5glgV5tSpCh9/lLyx5P6
+         It4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773195497; x=1773800297;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1ZAqF770CjctREhKahUCDqzMAEkw+GXfuiDNjYlwSLk=;
-        b=ejLsv/TMFXZqiZjChhR7piaR6jiX44j5K+tleJBDj0Adao94IX22euvO+HSX2SoOtI
-         q5tKfd5bTecKAOsAWBbAhYiqP5j+U/ArZfllobokNqBZIPLYDiYvkXjJZ0F8rB7S4Lvz
-         gdnQQyuRFfPCAlJY9xAUj9fvSKVAkPZxhGABXSma1vBf7MQwqtbpoTAZlv94ENEKReYl
-         Q3lYjFOinpv6JPdd51uT/WZjAtXZKyfyPzvvhvCe3d2+BlaCoZmxkJnxVCUGkRNe5vL/
-         CGgi697mZml2RX8CZd3Ltc5gYZ6CauXbYEhAwcZs8PwNwUKUN8KTVI4fMNoSiLmLHxx0
-         6sjA==
-X-Forwarded-Encrypted: i=1; AJvYcCWwT1zP5dx1g4GGRxNcjCzS/uisNBRVr1WvIDqjHHffuKSiRZ55O2BuBJZVfnVwFW04Ef6nYSTp0TYXpQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8u/ictgSMQXYQrxaUose6fxeDJAF3mcJhZEiGmgk//CeW1qOx
-	fOAjQjt1InPtF8nludPBJmQvOKzb7kpZ1RTVpcmScOF864+PtWT/jlRX
-X-Gm-Gg: ATEYQzwtFJtR/QbiGAV0z5Ba2Ne4yi96Js5nVeHhDD6le8joartaS/RKJgOraR4cPm2
-	ySjdao0yHuOX0lpoh/G7agh9A6jsqJK9G1gAUcCVolCb0ZN2H94nPa41V69qcVYAYAl0+Cu3xhd
-	UCvx1Zjl7pj3CSlyGFpGQCDuzQ5DRZaBI9GlZ+R99Or/J2htj/FSwm/QaHlA3f22uKHPeT3krBK
-	kThOKs9Wc/OgeT0r8PriaXmQ9d+EmBi5qt01OfLSJp+gFOyFWuzeu2XyW7k/q7S3qU8TnPA7rDF
-	Pya4exKon0d/EBA5FMXKPMvI7rtuuZGRf3WO/cosUOeed0Uze8Iyp9Cflsf6D2ZahK8T7wqKO0j
-	gBT6nRk4xqglLCH/6ibdxqAT44xHQcDcg1Pq2AplxriXDae9rvZ4edGwtc1690kSne1It4ACDPF
-	qtfqoql3GJjBr3cZ05nNKxJGyPIufXhT9v/Fc=
-X-Received: by 2002:a17:903:1666:b0:2a9:47ff:101c with SMTP id d9443c01a7336-2aeae8eb7dcmr9366255ad.46.1773195496591;
-        Tue, 10 Mar 2026 19:18:16 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([2401:4900:aab1:729a::4bc6:faff])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2aeae34e009sm5679355ad.46.2026.03.10.19.18.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Mar 2026 19:18:16 -0700 (PDT)
-Date: Wed, 11 Mar 2026 07:27:18 +0530
-From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
-To: David Lechner <dlechner@baylibre.com>, jic23@kernel.org,
- m.tretter@pengutronix.de, mchehab@kernel.org, p.zabel@pengutronix.de,
- tiffany.lin@mediatek.com, andrew-ct.chen@mediatek.com,
- yunfei.dong@mediatek.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, johan@kernel.org, elder@kernel.org,
- gregkh@linuxfoundation.org, pure.logic@nexus-software.ie
-CC: nuno.sa@analog.com, andy@kernel.org, kernel@pengutronix.de, kees@kernel.org,
- nabijaczleweli@nabijaczleweli.xyz, marcelo.schmitt1@gmail.com,
- maudspierings@gocontroll.com, hverkuil+cisco@kernel.org,
- ribalda@chromium.org, straube.linux@gmail.com, dan.carpenter@linaro.org,
- lukagejak5@gmail.com, ethantidmore06@gmail.com,
- samasth.norway.ananda@oracle.com, karanja99erick@gmail.com,
- s9430939@naver.com, tglx@kernel.org, mingo@kernel.org,
- sun.jian.kdev@gmail.com, weibu@redadmin.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
- skhan@linuxfoundation.org
-Subject: Re: [PATCH 0/7] drivers: Simplify cleanup paths using __free
-User-Agent: Thunderbird for Android
-In-Reply-To: <79bfac24-dcb4-4fb9-90d8-3ef2393f51e3@baylibre.com>
-References: <20260310200513.2162018-1-sanjayembedded@gmail.com> <79bfac24-dcb4-4fb9-90d8-3ef2393f51e3@baylibre.com>
-Message-ID: <7F16ED38-6BC1-4D31-B5B6-6C1E45D24C25@gmail.com>
+        d=1e100.net; s=20230601; t=1773195909; x=1773800709;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=pdOODwOyqf2HXTJor8x6+j1U0inwH0LLdlGvfoS1Vfo=;
+        b=hVyC2AAB5cS5t/r4Spqr4jQ9i6r+vs3IKGN5ptDhhWiSVI4s3qiUcFZivcZzng29PC
+         cl+hROfZojH/iqcQC0O60nAhEpGfhRShZgiB0YQO/loBRd3GIhtVGuonkIDasUOnS9Kr
+         ITvtrvTKV+R+UjLXPePFrXjiTamzsARxSLUQDg19EI/jdKujY3PJnA/fhBxsTOF5UvgO
+         q2ifO6qFgh60otHc+oLf3706WC/HjJgP7PxgEX85xHzG59+5gxUJHj8Q5UFD0CuXQlvf
+         jP1AVBv7+UqmdmylhFlEFYhLnvbv5jVM3GgCNxDnEZF+9x5KSe3kpJZQh4qr9XEADGFf
+         +h/A==
+X-Forwarded-Encrypted: i=1; AJvYcCW6gyr4PX9flLM54luLDSlAhrEwkjpeymjygy8UQPWeITP/HLdTqnVi453zIA+ZW94zOH3DmlQ/AJ2lWA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyFmkiztmNHUa1/jwG8HVNpA0BjRKBwv1zPgvjzNgIfA82FL/wA
+	M2je4QprOT1Ttc0jEIb/y1jCDF8neb9hinp3gUq+NHtiqU6Klu983lPe
+X-Gm-Gg: ATEYQzyPL+nXIWkv3caLtSJPv5DusxZ7LOuJh1ZiKrCkDmbhRfMoqcG2eDhU2fW1v07
+	EVHHzTVRpN/+mBnEPZI1JAq4Dbu2CuuxEssavjWl/OyIlxZjsbfcWJOdEqH4Qn6N9Cvi49UVD5d
+	2fXuHvAIhGvWxn5fGOo1pJvtdmAg6UfRGEvMW+xY8E4cpiy4oHIq5A3OpM79ymdQ8qkeB+WIMJT
+	/P5bnnkL+GWruMUcIb0Z0EeJU7jt+qiTseq/bcM0nuTElhvGrvxX1BRguBY6rlSxEglTgQ8HO2W
+	0/4b8SraksJQgS2JRh6Vl8+/xSTcFsnWVpj//FrRlGTpmV//J4WcLQq2KRF5mXAv1R72flx7Qlq
+	gz17gWAcf2xisigNavjrG77+O9aU9l8J+mjnH8qOBffHERjd2bmOBZ/DT1BcJwYZBeqQkzpvFyX
+	J6PzC4Llr9cZzNQAlM5HKReqMeqQ==
+X-Received: by 2002:a05:622a:1111:b0:509:1be4:97d1 with SMTP id d75a77b69052e-5093a19d134mr10124061cf.34.1773195909341;
+        Tue, 10 Mar 2026 19:25:09 -0700 (PDT)
+Received: from localhost ([184.144.58.243])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-50939ec63d6sm5194251cf.12.2026.03.10.19.25.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Mar 2026 19:25:08 -0700 (PDT)
+Date: Tue, 10 Mar 2026 22:25:40 -0400
+From: Richard Acayan <mailingradian@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+	Todor Tomov <todor.too@gmail.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Tianshu Qiu <tian.shu.qiu@intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Cc: Robert Mader <robert.mader@collabora.com>,
+	David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v9 7/7] arm64: dts: qcom: sdm670-google-sargo: add imx355
+ front camera
+Message-ID: <abDSpE3BNb0jFrqx@rdacayan>
+References: <20260217002738.133534-1-mailingradian@gmail.com>
+ <20260217002738.133534-8-mailingradian@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260217002738.133534-8-mailingradian@gmail.com>
 
+On Mon, Feb 16, 2026 at 07:27:38PM -0500, Richard Acayan wrote:
+> The Sony IMX355 is the front camera on the Pixel 3a, mounted in portrait
+> mode. It is connected to CSIPHY1 and CCI I2C1, and uses MCLK2. Add
+> support for it.
+> 
+> Co-developed-by: Robert Mader <robert.mader@collabora.com>
+> Signed-off-by: Robert Mader <robert.mader@collabora.com>
+> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  .../boot/dts/qcom/sdm670-google-sargo.dts     | 95 +++++++++++++++++++
+>  1 file changed, 95 insertions(+)
+> 
+(snip)
+> +
+> +&cci_i2c1 {
+> +	camera@1a {
+> +		compatible = "sony,imx355";
+> +		reg = <0x1a>;
+> +
+> +		clocks = <&camcc CAM_CC_MCLK2_CLK>;
+> +
+> +		assigned-clocks = <&camcc CAM_CC_MCLK2_CLK>;
+> +		assigned-clock-rates = <19200000>;
+> +
+> +		reset-gpios = <&tlmm 9 GPIO_ACTIVE_LOW>;
+> +
+> +		avdd-supply = <&cam_front_ldo>;
+> +		dvdd-supply = <&cam_front_ldo>;
+> +		dovdd-supply = <&cam_vio_ldo>;
+> +
+> +		pinctrl-0 = <&cam_mclk2_default>;
+> +		pinctrl-names = "default";
+> +
+> +		rotation = <270>;
+> +		orientation = <0>;
+> +
+> +		port {
+> +			cam_front_endpoint: endpoint {
+> +				link-frequencies = /bits/ 64 <360000000>;
+> +				remote-endpoint = <&camss_endpoint1>;
+> +			};
 
-
-On 11 March 2026 3:22:28=E2=80=AFam IST, David Lechner <dlechner@baylibre=
-=2Ecom> wrote:
->On 3/10/26 3:05 PM, Sanjay Chitroda wrote:
->> From: Sanjay Chitroda <sanjayembeddedse@gmail=2Ecom>
->>=20
->> Hi all,
->>=20
->> This patch series replaces manual cleanup and explicit kfree() calls wi=
-th
->> the __free attribute from <linux/cleanup=2Eh>=2E This modernizes the me=
-mory
->> management style and simplifies common error paths without altering any
->> functional behavior=2E
->>=20
->> The __free attribute provides automatic scope-based cleanup, making
->> resource management clearer and reducing the chances of missing cleanup
->> on early returns=2E
->>=20
->> No functional changes are intended in this series=2E
->>=20
->> Testing:
->>   - Compiled with W=3D1
->>   - Build-tested on i86_64
->>=20
->> Based on:
->>   <linux-v7=2E0-rc2>
->>=20
->> Feel free to share your valuable input in context of the cleanup API=2E
->>=20
->> Thanks,
->> Sanjay Chitroda
->>=20
->> Sanjay Chitroda (7):
->>   staging: greybus: simplify cleanup using __free
->>   iio: ssp_sensors: simplify cleanup using __free
->>   iio: st_sensors: simplify cleanup using __free
->>   media: mediatek: vcodec: simplify cleanup using __free
->>   media: chips-media: coda: simplify cleanup using __free
->>   media: allegro: simplify cleanup using __free
->>   staging: rtl8723bs: simplify cleanup using __free
->
->There is no reason to put patches from different subsystems
->in the same series when there is no dependency between them=2E
->It just make for more noise for everyone=2E
->
-
-Thanks for the feedback=2E I will split unrelated patches into
-separate series per subsystem or individual in future submissions=2E
+This also needs data-lanes.
