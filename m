@@ -1,59 +1,74 @@
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C924B3C1401;
-	Wed, 11 Mar 2026 08:50:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329943C3422
+	for <linux-media@vger.kernel.org>; Wed, 11 Mar 2026 08:54:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773219045; cv=none; b=mi8SKsVlkebFwIy39RazcqTqsmPbSCdLuPAxg4U32OkaK+uQ1Dwta2GHOvzBHlAd32dylUA6A8i/NiloxYu7cLg9d2YP1U7ZZp63tpnSTI1aT7M+F0wq74c0g+y5vrHG+4MfRlgB68uZM0fDo0PTlibRXKq6Yh62R3oLtyFvIbU=
+	t=1773219300; cv=none; b=AkqhGoWgc8crQLm4gieZHaIOfvOAKMpVqzl9dceLm1MnCZWpkX/An3TnRy1UUbJKB8CSVClsXT7r+wdGWF8a8/3PKG8oLkLPbSMvw273am07ixFdPYmO6QRrwSRa1qSh9n5ZbVwqvIj6vcFFQ/ZuTggVkgrRTU3tTzPbWYwAcjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773219045; c=relaxed/simple;
-	bh=fH3mtajKUm/pU4bouNPlhJI8zCa7s7zFXLZf0aiMR3A=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=H9/e9DKyrLCzpHiqZgdx74sIPSS5mnBfxDNq39ZYQeI4OYAWxsxDWUkLybJDwq4TkNq4XvkEw+AGdXzodThHCpF6Izz2xeZxxZQP7ofYnQKhPnIoVb/vQH8UboI9ZyeA6PkMl5FURs+92BoTq/jsYNbKy0rdn2JUkAuw07xg1/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=zL7IaI3P; arc=none smtp.client-ip=162.62.57.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1773219300; c=relaxed/simple;
+	bh=rjJdLlKEuej0RX2tfsJ3ch7JAAjsB8Axsa3M+SadHJ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=istEQNgpN78et0DbP2eiqqw67hb1/u9mavGFORHwF0Emn1sNtVTy/SDFZ8XyfcoH7fiCrwp8j5ZdZMxNR/vL3DySQ6oDyJz1VoiZZya3gXBogOs/y7i3YSO17/nhN0E2nW8uzXGyIF6rmn186LOQtnoEnp2JYKK/uHQLun/xl9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b3tHGlyI; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="zL7IaI3P"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1773219024; bh=m4AYJvonpuTEFUAb32I5fp8ckUa9C5ZFi2THJVsWCIQ=;
-	h=From:To:Cc:Subject:Date;
-	b=zL7IaI3P3CCKFtIScfyv2NvaM4cFa6hyMr4svXCnZeZadJeeKlBJ3xJe8JmQtbGWw
-	 IpfgWrh0HSxp/URN7x1G9Jdd763bf41nyEOrM1vvlmNb6BuJQYNQLiONc2K9/EIhs/
-	 rKjJQJDnVF9A7v3RhCD42Vmw7eA1dSPTRnWdiU8Y=
-Received: from June.localdomain ([123.121.145.35])
-	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
-	id C94AE8E7; Wed, 11 Mar 2026 16:50:20 +0800
-X-QQ-mid: xmsmtpt1773219020tl2s1qrrq
-Message-ID: <tencent_A4D58795C63C081EB29A4E3D54B5B5041C06@qq.com>
-X-QQ-XMAILINFO: N/WmRbclY25GevpqaKte0ffoU68tJ2ugIpQhpahcNcUO3hB30kxmD3RTkADWHK
-	 MtZKdY9VAN1wYlEJ3wtkDgqK4ZKKn5pClidZJu+PcLe74IUVR2jsrp0wgRYUyHw3+DaoEKHravGW
-	 RTraRFllgPe5XI4ZP2nlU3xbAyvvbhGra2+1Mx+iGekjqwrBzewHtjujMt/DXpsDAOtDvaRRZNTQ
-	 Hr8eZF9BBVcA/bdRxbzlB2yh7KCsgR1g/pYoPBzouL/AAcEb0WPxrijMl96p+aNAuXhkQxfuk0Hs
-	 EvmrYzTmEFbAXPg+SG1z/p2fr11oZH8xw5/e+mcwaQ9O5XN/c0GWS0zXGlTsUnlWFby4ksdphuna
-	 as25Ei4ENP2NFIXYlF92zX3pV03oumcXSGPQqhBmc1hbIziSFVSXTIr502zFkH6T6+OG6EcxW+gZ
-	 GGXMKWsi8AErfJbfIBtpM7sr1KyVr4WtXAy3CdYpyXMF7E3oaZJaSCT+A+cp0JmPgoyaBSTfF23B
-	 cwbJ3FZOj5eIMWwVkbEVWKCmW2MqpyBop6eKBw4JlqjGuv/U3dSx2IrT+0OxHNj19xy/UUnz1l0L
-	 k4RsOoRbuXRvthurQoalgr9U8HzmkyMLwRsWXMOlht5u31/l6BL5brZVAsZM81ymGyFCD2dkUNca
-	 8uBT0viDEsoFw3O4ymsphNO6OYE3AejnUEzUlzprzEDMEPN3FyPul/mA8MydQUu9Eag4bY+f3dxT
-	 3K8uVofpXF/DXQEbq7/rxZqv4x9pwc7j2iJ0OqOR2PggLyYblkvnGlk3tAnDMyzgZqONiR4QX9pr
-	 Wijmbr0z+hIEzaI3gnuoA+lhdNCaYwQjLoxgubUMZHcT9iouHN/uZt6CSqejB1n5uJyqPhnqqOgr
-	 Fu8+uHh3JlEToKIvAePtJ5Kp9hGwjx3GhY6qYcGKwoapj4gcWbZmbv9ehWktxPR2q2n8gzyaW/x/
-	 /83YgY1VDRzQ/uzI1UKDE5WyYhfsTy6CGO+gBNutuMW46gN7BrimoYaK9zBACgN39pGaNFUyx07k
-	 RfRRHk6lQ/ePWZ5jGvCNw17QUkqHU=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-From: Wang Jun <1742789905@qq.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Wang Jun <1742789905@qq.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b3tHGlyI"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c73967cf77aso2196147a12.3
+        for <linux-media@vger.kernel.org>; Wed, 11 Mar 2026 01:54:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1773219295; x=1773824095; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=+DRY4xaexHYmn5uiVwVpT5IF4eldjts7I75zF1CWyLU=;
+        b=b3tHGlyIrng7DxAme1Czt8HOTBCuXCPbtV6Z1zNmEKuuZ/uy8RfRmu6CZyiAmblrnu
+         NcNAXyM4CNukz2thd7pqUMg04bZWJt2t9pDxbKVzH0nIR5Yt1/InVbd+RjdRbNHGnNnX
+         yJM0aQLHlML5RhzmC52iY61BOfk7qsuK6Yv50hqGiq9DvKwrXEdP+0gPmZcxg793dvpq
+         1BLndPC21ToJRTWXVC6iauoy23M1Fihdoqz9Z8a6VIgge42Woy9XC0Mp5aUsuO+/o9/X
+         mZu1ChrvEsBM9MX1vaEJ7/VRxwlb80Fj+HG1dE45tq9C66bGkjoWvMQsRWeRqxO0TFoX
+         T8gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1773219295; x=1773824095;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+DRY4xaexHYmn5uiVwVpT5IF4eldjts7I75zF1CWyLU=;
+        b=sJ3ST7ZWN0qc5nPDNku8DFVMSLNZL/AP71WqHx4FEI611H+/96x4OX++9sv6mPM+kT
+         JqXVZj8K9OLMxOQPhf1F91Cq3gDUW5aEFSAcLBJZRaBZWpswt1aQ//xgc7XvdfLnYB3q
+         zWcLe2zawGIMP9W9M0RGOtHC37jKQJP7BPQxmDpd8wDn/7B+9RFbEOvWA+CcYhJ4nH1j
+         WhHplOJCCrXi+EFtiKw6LgRxyteoQ3kS/VHanGm+UlnVx/pbsaI3D8T8ArPe9ub/6iYR
+         ihV2PQOeSHLdm6dOERAenNA1tZHZGvrUHkS22/L4NKdpRUDXY4GaptgFXcnSyGNXBuaV
+         Mv9A==
+X-Forwarded-Encrypted: i=1; AJvYcCVfF6m2AtGzMIFqnFUcCD3DKkKCpPkaqCfc6MzsfYCm7L9Nrh42kHa/IzSsixnT+58QAlx+hPpHcbtjkQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyET6JrJ2zwQI3eWfz73H+v08ov8YaoSjy8OQ5GFpAr1oiQhy3p
+	mJHSXZz/5oQOF47pzJriD965dPKDGh9Xf3wEmK5RQ7DwibEOT9og/OkI
+X-Gm-Gg: ATEYQzzy7pJFWbtMbm6LOti4KDzzqwtxzd2pmw2xXcwgXJ/Z42xuHiGRy7yJFPPJHc4
+	27gm1HfKw93a5uMWFJ5IWyXaMEeS0dsRPBQS18r/7uIearsOI5MDNcuc5+oDXtrJ9hb/Bc1N8wn
+	830nzQnQs+WHLnCKkFxBsIASQoaN2xafOyaecpyfDZdUhOYzCOBwNXl5QL2VIVE2zoX5BVz1fh+
+	fZX3wUVL9FdwHCvRsjTdtbIrrDiH2AeBmzZlLipyXkDv7uR7Pw68iIm6Y6ufnkL2cMN7sdGXtSu
+	87gG1GLN7BIUzI37R9xRmFgyWgx3Ll4S8FB2PBN1v0IUEWhiW5tioDnESHah4NXFfI6JBeaHkNd
+	KbflVSThU86dvKyaSVXJhyeo4dBLNSDLb9gvM6T8JBPmAudVBjsgWARzhhW+4MDabBEGLqk/+mI
+	jFyRL0xs/3Q9TyuBlNI3naH1UBe61R8ypLj/s5PjMcmg==
+X-Received: by 2002:a05:6a21:700d:b0:366:14b0:4b09 with SMTP id adf61e73a8af0-398c6182de7mr1631877637.69.1773219295225;
+        Wed, 11 Mar 2026 01:54:55 -0700 (PDT)
+Received: from muhammed-shadab-H81M-WW.. ([123.253.236.122])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c73cdf204afsm1486475a12.10.2026.03.11.01.54.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Mar 2026 01:54:54 -0700 (PDT)
+From: Muhammad Shadab Khan <shadabtg4@gmail.com>
+To: hansg@kernel.org,
+	mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	andy@kernel.org,
+	gregkh@linuxfoundation.org,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: gszhai@bjtu.edu.cn,
-	25125332@bjtu.edu.cn,
-	25125283@bjtu.edu.cn,
-	23120469@bjtu.edu.cn
-Subject: [PATCH] media: saa7164: add missing ioremap error handling
-Date: Wed, 11 Mar 2026 16:50:18 +0800
-X-OQ-MSGID: <20260311085018.29506-1-1742789905@qq.com>
+	linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev
+Cc: Muhammad Shadab Khan <shadabtg4@gmail.com>
+Subject: [PATCH] staging: media: atomisp: split long line in sh_css_sp.c
+Date: Wed, 11 Mar 2026 14:13:18 +0530
+Message-ID: <20260311084602.6088-1-shadabtg4@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -63,69 +78,29 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add checks for ioremap return values in saa7164_dev_setup(). If
-ioremap for BAR0 or BAR2 fails, release the already allocated PCI
-memory regions, remove the device from the global list, decrement
-the device count, and return -ENODEV.
+Split a long line exceeding 100 characters to comply with
+Linux kernel coding style guidelines.
 
-This prevents potential null pointer dereferences and ensures proper
-cleanup on memory mapping failures.
-
-Signed-off-by: Wang Jun <1742789905@qq.com>
+Signed-off-by: Muhammad Shadab Khan <shadabtg4@gmail.com>
 ---
- drivers/media/pci/saa7164/saa7164-core.c | 29 ++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ drivers/staging/media/atomisp/pci/sh_css_sp.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/pci/saa7164/saa7164-core.c b/drivers/media/pci/saa7164/saa7164-core.c
-index a8a004f28ca0..dc68d7cac7cf 100644
---- a/drivers/media/pci/saa7164/saa7164-core.c
-+++ b/drivers/media/pci/saa7164/saa7164-core.c
-@@ -998,9 +998,21 @@ static int saa7164_dev_setup(struct saa7164_dev *dev)
- 	/* PCI/e allocations */
- 	dev->lmmio = ioremap(pci_resource_start(dev->pci, 0),
- 			     pci_resource_len(dev->pci, 0));
-+	if (!dev->lmmio) {
-+		dev_err(&dev->pci->dev,
-+			"failed to remap MMIO memory @ 0x%llx\n",
-+			(u64)pci_resource_start(dev->pci, 0));
-+		goto err_ioremap;
-+	}
+diff --git a/drivers/staging/media/atomisp/pci/sh_css_sp.c b/drivers/staging/media/atomisp/pci/sh_css_sp.c
+index 6da151e7a873..c38a7c69728b 100644
+--- a/drivers/staging/media/atomisp/pci/sh_css_sp.c
++++ b/drivers/staging/media/atomisp/pci/sh_css_sp.c
+@@ -983,7 +983,9 @@ sh_css_sp_init_stage(struct ia_css_binary *binary,
+ 						    IA_CSS_BUFFER_TYPE_DIS_STATISTICS);
+ 	}
+ 	ia_css_query_internal_queue_id(IA_CSS_BUFFER_TYPE_METADATA, thread_id, &queue_id);
+-	sh_css_copy_buffer_attr_to_spbuffer(&sh_css_sp_stage.frames.metadata_buf, queue_id, mmgr_EXCEPTION, IA_CSS_BUFFER_TYPE_METADATA);
++	sh_css_copy_buffer_attr_to_spbuffer(&sh_css_sp_stage.frames.metadata_buf, queue_id,
++					    mmgr_EXCEPTION,
++					    IA_CSS_BUFFER_TYPE_METADATA);
+ 	if (err)
+ 		return err;
  
- 	dev->lmmio2 = ioremap(pci_resource_start(dev->pci, 2),
- 			     pci_resource_len(dev->pci, 2));
-+	if (!dev->lmmio2) {
-+		dev_err(&dev->pci->dev,
-+			"failed to remap MMIO memory @ 0x%llx\n",
-+			(u64)pci_resource_start(dev->pci, 2));
-+		goto err_ioremap2;
-+	}
- 
- 	dev->bmmio = (u8 __iomem *)dev->lmmio;
- 	dev->bmmio2 = (u8 __iomem *)dev->lmmio2;
-@@ -1019,6 +1031,23 @@ static int saa7164_dev_setup(struct saa7164_dev *dev)
- 	saa7164_pci_quirks(dev);
- 
- 	return 0;
-+
-+err_ioremap2:
-+	iounmap(dev->lmmio);
-+err_ioremap:
-+	/* Release the PCI memory regions allocated in get_resources() */
-+	release_mem_region(pci_resource_start(dev->pci, 0),
-+		pci_resource_len(dev->pci, 0));
-+	release_mem_region(pci_resource_start(dev->pci, 2),
-+		pci_resource_len(dev->pci, 2));
-+
-+	/* Remove from device list and decrement count */
-+	mutex_lock(&devlist);
-+	list_del(&dev->devlist);
-+	mutex_unlock(&devlist);
-+	saa7164_devcount--;
-+
-+	return -ENODEV;
- }
- 
- static void saa7164_dev_unregister(struct saa7164_dev *dev)
 -- 
 2.43.0
 
