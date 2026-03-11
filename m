@@ -1,85 +1,94 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA75F23C50A;
-	Wed, 11 Mar 2026 18:09:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442963EAC74
+	for <linux-media@vger.kernel.org>; Wed, 11 Mar 2026 18:40:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773252566; cv=none; b=Lj3WWzP9uwBLLeAbMWH+pXQxV35mCztpniq2q0L4iiSfpQE/QtGscpRkJ1VC5gYjZO0BIcxM90kJIcB7hgPvjqKQWrRt7UnlQjpGQqYNsGjy9rp3WHiEhXP7P4XJM9tWo4Lxd2DS9sdB7CrX8izLclzp2Op0MK/ysh6aZiDv+nA=
+	t=1773254429; cv=none; b=ZfeHtKjti/79Kc+UwKEYy4WIyCY3DSUyZxOtFiXV++H9UavcIsBVeZ3dNmsP6NaSYCbuhiiOn7MlvhFNEWMLUtRiM5+IIj0/f5mKqGENpLuIDECjlHl/5tRmvNPz1TbUTr7bwwlbrc5OQwqZ+NP99YkDon3rXxdGQzcW7mfAxuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773252566; c=relaxed/simple;
-	bh=p4kljF+7h/WMXoMv/oWh7cct0xIvAxduOIZcEcwEq+8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cK5LMdqtCswGr4hv1WFmIwWwF/KVXVbUzu4BhaXFd9+5OY4r+VKh2QkDeYwU8pUS4+4Q1+Myo+x26n59aYv9Obn9vWb7JDGpd32cxr2iVnT4Rrk7mT/0DioUuaeltbefR1YguWF1TRlujl5X1DXM8m94IHmBcuRBv5fmvXznnX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GQqIYRjQ; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1773254429; c=relaxed/simple;
+	bh=is5nN+TX0unizFQTKEQ7DdrzwQGC5E3Me2H9mDq6+tc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MEGOcO/U1Ly9XT4JIorcAENdfRXWkGvVLN2H82DfD4Ht0FTHbi0iDNk2GdfMqcWtAmRo945gw6uuhDuLl13w43Nk0PYJCYNjZ1cxjsBi+XY7ikx5/K2OTiDF8xchU6R+UsXQn5xkQ2na9DuKjolD8oudVNkQLsY3kl9D3jXcUrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M0s93ub2; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GQqIYRjQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1773252565; x=1804788565;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=p4kljF+7h/WMXoMv/oWh7cct0xIvAxduOIZcEcwEq+8=;
-  b=GQqIYRjQXkYjSuFg+9HMkBuq2iINA9U5wgkuHRs7Zv2vR8LBpzUtSaGZ
-   hPkbobAk1ps3iu0CdY4t/ut3gUkAYbGEZbGqY2EexXKbOshGcL4Ipr+wa
-   LuDHqNTIrOptg3MAYfQXtSNduXw+uFVP+Guo/3GHxTwB6YOYRtC5GF5Uj
-   sOJyaceADXZXn3TZ6AUhPx/0z5HZAurnNmwGPnfOpd0336ytCItj70IWx
-   /A4bt+BRr9vpp9cPVseUMWnX7Ns6ZvdffCtPqLf1Rk1mwSNagOto8Ltx0
-   gAXBSJ89U7twwAxLQvS+4zcRuxdo+fiB/c2zW7J0Px3urrb+GDAhd0quX
-   A==;
-X-CSE-ConnectionGUID: bcs0+zUqS8mGZoA0ATv3Rg==
-X-CSE-MsgGUID: zVlZy0xuRpKzLEHQde53ow==
-X-IronPort-AV: E=McAfee;i="6800,10657,11726"; a="78223755"
-X-IronPort-AV: E=Sophos;i="6.23,113,1770624000"; 
-   d="scan'208";a="78223755"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Mar 2026 11:09:24 -0700
-X-CSE-ConnectionGUID: igj96cB4QY62TEe/f8GyLw==
-X-CSE-MsgGUID: JgxXakhiRAStPKdyckhu6w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,113,1770624000"; 
-   d="scan'208";a="225535449"
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.36])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Mar 2026 11:09:23 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id BAF5212185C;
-	Wed, 11 Mar 2026 20:11:17 +0200 (EET)
-Date: Wed, 11 Mar 2026 20:11:17 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/3] media: subdev: Add
- v4l2_subdev_get_frame_desc_passthrough and use it
-Message-ID: <abGwRZWvpv4XZKx5@kekkonen.localdomain>
-References: <20260311-frame-desc-passthrough-v5-0-d59876bbb663@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M0s93ub2"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-48529c325f0so1300195e9.0
+        for <linux-media@vger.kernel.org>; Wed, 11 Mar 2026 11:40:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1773254425; x=1773859225; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=is5nN+TX0unizFQTKEQ7DdrzwQGC5E3Me2H9mDq6+tc=;
+        b=M0s93ub2jNTHVigekti/TJrktq58s3ZDZYN9mgikeS/2swyg/Cvwme89ditfbdF5W+
+         k0UZIMxn+UJuknzd+xGwu9lMbyq7sDgaTUJi4kkemUCinxcBF9LQx7HlmE78H+wRhxq2
+         CRjqfJZfVUkl1381XHXip3BnMehRlgMyIAdFwWHTdInVhcxoO9YHpRwxzGxPqCxb68JX
+         kiow8Z92K1AW5ZfcWiBgGBD/jus54J/J9zsFXudlSOzslrr3LmINu9hG7zfSBF/+KYX3
+         MYLZewfK+9qzoxB3pvJodoen8z1hiPQ+pgX65+vxiGxw33mQGzB2W7sRQjRGJu38WY3q
+         e4+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1773254425; x=1773859225;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=is5nN+TX0unizFQTKEQ7DdrzwQGC5E3Me2H9mDq6+tc=;
+        b=dE6Yo6Y6kuwmg4YW+Q+g3hg4pxJWbmGp5qIvt4FcJF3akCb1bBB8t9DcTb8ntNR7sl
+         oItW56alnYIn5+EIyLtHFb9gmNx07j1GfzUkc+SwVR718ydgGGnqwRLTbtwSjoDZH3jC
+         R5TZB3SYl5YNWa2ohTEUZ57oidul0V7icX3gUU6GsvQ1vYBwFEqmitV5SjjEE8x4frDw
+         TAOw/SqGt3p0leIZfiN11O+lA34Ov6vZ00olw/PqxgBMKi9pp+hkRPG68uwsXQzJrZ85
+         SydrcprNm7hjgvpvV39/vqmtezUdcxusS2bje78Go0qChR0w7cDgvUwaxsk2qnnDSpgr
+         T6Ow==
+X-Forwarded-Encrypted: i=1; AJvYcCVxYqfAU6YJ9pizRUJZPGfGCKtGeXipfyus372eo1UYVra+mWZRpXl6XTo4GI+zoRkG+N0XujimsWxj3Q==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxeNZMcnORRTc8cb08kWNwiTSOnRwBiKAVrfvTahXsPOACGmQC0
+	56yksPOlYHzafuOrWSpvuV5iEgyBECd3rJlv6rWaDcTrH48QLSkXXyTr
+X-Gm-Gg: ATEYQzzPXtXBKNAuKjIrq49hZYq1R9M9o6gXfaJr4Lta7sMWbTzpLeNIugJqnn2M5nF
+	0NM1WrsBYJPyIdu5o7mIpAMih8zuZ4tHdZ4N2FGroru590QcCTkvBkOsdMamb7f9uY/UL99Qosy
+	Pstrbh4yEtUq9gBaFyKACHqwPquF7sVjtYknbSibLC3sjkEPmhReFpDsGc++DCc/oRpLoatU3Oa
+	nP9uM8VkexQNUx9TEHiS4aTCIFnEMDoTbbEUZh3SrLojR83R7wXpT/Znu1P0g2dQuN24IRHU3vO
+	7D7f4euj5rlYGN3GTt2NaJexZmmGBRVW0BLzyvgnGvpjcXtaCQuAXY2Rv3qjOl+8Okokc1k52SL
+	eFohB24vry51Yti4+9F3xQu7EMk1a0ABLf9tUd6U6hqiT25ItaUa5Jswt3DSYCMTmX0NIZOhqD4
+	HIcFRI5f9gBQABtqZw+Tl3E13h7Ss5ZbMVMFw2m4W0G9iFMM771A==
+X-Received: by 2002:a05:600c:a08:b0:485:2c61:9459 with SMTP id 5b1f17b1804b1-4854b0afb48mr64033025e9.8.1773254424412;
+        Wed, 11 Mar 2026 11:40:24 -0700 (PDT)
+Received: from DESKTOP-VOVUFNJ.localdomain ([5.14.84.168])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4854b0dc8d7sm22165535e9.25.2026.03.11.11.40.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Mar 2026 11:40:23 -0700 (PDT)
+From: Bogdan Sandu <bogdanelsandu2011@gmail.com>
+To: sakari.ailus@linux.intel.com
+Cc: bingbu.cao@intel.com,
+	bogdanelsandu2011@gmail.com,
+	gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	mchehab@kernel.org,
+	tian.shu.qiu@intel.com
+Subject: Re: [PATCH v2 1/4] media: ipu3: fix alignment
+Date: Wed, 11 Mar 2026 20:39:39 +0200
+Message-ID: <20260311183938.6289-2-bogdanelsandu2011@gmail.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <aak7s0qFNf4xgNhZ@kekkonen.localdomain>
+References: <aak7s0qFNf4xgNhZ@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260311-frame-desc-passthrough-v5-0-d59876bbb663@ideasonboard.com>
+Content-Transfer-Encoding: 8bit
 
-Moi,
+Hello Sakari,
 
-On Wed, Mar 11, 2026 at 02:17:18PM +0200, Tomi Valkeinen wrote:
-> When writing the exact same code the third time for Renesas, I thought
-> we probably need a helper.
-> 
->  Tomi
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+The quoted change was made in error.
 
-Can you send follow-ups to v4? V4 is already in my PR to Hans.
+If you'd like me to resend the patch, please let me know. Otherwise I will refrain from resending it to avoid creating noise.
 
--- 
-Terveisin,
+--
+Regards,
 
-Sakari Ailus
+Bogdan Sandu
