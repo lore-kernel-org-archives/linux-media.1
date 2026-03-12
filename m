@@ -1,72 +1,108 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD3C240DFA5;
-	Thu, 12 Mar 2026 12:18:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2657E2D1F40
+	for <linux-media@vger.kernel.org>; Thu, 12 Mar 2026 12:33:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773317896; cv=none; b=gPFNlWXXKaJLqe8RshsdjRSdPVyoLIoz7rziPJN6Vkqm/VX34n3HAY7Ks6qFEK5gkbsUV704qv2gyH4ei27iHid6r+n2fE3Kg7e+NB6WWvCtEWLqwdww2K2Ns3XKYX9s4JWEbovvQ/IDixQ9xKiL0kr7t/Nf6CUF1SzhLsnQNZ8=
+	t=1773318806; cv=none; b=JjEz6U4CH+wjXhPmvOHtOyuyrgbMEFz/1SrXwYgVlVlcUN0hd7Yb0DNw/6M89v4C/YlScKVLzm8Qx7Ph7B41yKRLkKoVpiLbC/Ej/MXwtj5jxiCz/qY2fVBFEKqJ4/YC9cmUuF/tp/WWN2qkVroMijcVL3fc+PBosdLN1iJunZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773317896; c=relaxed/simple;
-	bh=Mx6iHAvnmM6/0FxSpPt+t7tImO3RLU5SX4cXegTEh4U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UBcNROnJUUpzeq0ySyIras4qQmwAQ+wTdk8oW+dqzB+SNCokRLf+sn/wGf41/Et3p0kYPuMgqk9e2/DTRv0U0FLFRN5vjjRHOF5v/x5Uya2tYdBKVMFD3sOe2iaatLTohgj09PAxkWnOizbF28YGeL0AMVsrokAPbExHVqrah5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=l9SUDvHJ; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1773318806; c=relaxed/simple;
+	bh=MqTuZ66JzGO8ml01Fq53svdMcGAX8nJcWPrEiuKJVW8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eKt+jI4vYmCEhmL3Lz216DNd88HYQ43sradtrNUAHrcP8HDUTlUf8rKk7/gqlr+14TdzCToJRv0bKxtAEMISsuyyYHpaKfqLM8NS/MYqRNGgfc8N+3pg5jR8wXmvd2PpnjFifw71mO4CuXQiLXUfNwslME1W3WJfR3r5PsO1l64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in; spf=pass smtp.mailfrom=cse.iitm.ac.in; dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20230601.gappssmtp.com header.i=@cse-iitm-ac-in.20230601.gappssmtp.com header.b=1ECajMXD; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cse.iitm.ac.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="l9SUDvHJ"
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3517511FA;
-	Thu, 12 Mar 2026 13:17:05 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1773317825;
-	bh=Mx6iHAvnmM6/0FxSpPt+t7tImO3RLU5SX4cXegTEh4U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=l9SUDvHJM5wRLsAwSWKZSoGMOOKDkL6SY+GScgiXj/L2/41didfnfdCLqCpZY2wQw
-	 FMi7lM2QdgCiGGbSaRu8HZM0SR8pgvpq7Nc4otjeDlDqKXO8AavGo01m0Oqs5ni7bg
-	 c/W001mtu6j0t4eWHePjHSrdDYTPSf/AQ9Z+pGZg=
-Message-ID: <377497e3-6979-429a-b1ff-4ca02ce03966@ideasonboard.com>
-Date: Thu, 12 Mar 2026 14:18:10 +0200
+	dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20230601.gappssmtp.com header.i=@cse-iitm-ac-in.20230601.gappssmtp.com header.b="1ECajMXD"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2adff872068so4883295ad.1
+        for <linux-media@vger.kernel.org>; Thu, 12 Mar 2026 05:33:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cse-iitm-ac-in.20230601.gappssmtp.com; s=20230601; t=1773318801; x=1773923601; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=oxbk04fd4kGg1i1zk9iwOBpm9KQOAzOfMWKxGAIYdo0=;
+        b=1ECajMXDBM0f1Jzhvo1yhoIbzb2VLEu31mgr1m2w1ueVuYG6v9gAqy1B8kReg258F+
+         +csLK6VeKehqZTa7oQJ2rYak2yp3EJI/E5kLZAbTVFaPzuaRjKzCwdozOkdaNpesi0CQ
+         yw3YWqSkb4ekgqM8Em8Hye0DjWdwOsjV2SjQw+VNZtLgMftl1410nFGk51tV/NbwfQel
+         XW3qw7hPZxGPsJPMg33PvklSqoOFtsj8DxYUdyYl6XGFL1v9kjv3wMoanPnu2EXr5sid
+         ogthGrhRuRQASRItScZhFWxt96mDYv4qHiQROJfyWCLo9FD6QHFpGFbqYiUlW5DA01J0
+         EsJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1773318801; x=1773923601;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oxbk04fd4kGg1i1zk9iwOBpm9KQOAzOfMWKxGAIYdo0=;
+        b=qPkDlVPzfEFFwfesK0geHjOBNsXtHRA+4/LqyyKZ4KT4QDZXxtsVHxAENQDH2+0Mbd
+         nV0R6kdH6o2auUSb88CPu791Q+9vbZTY6uhyQRfSomw3lWY3+/b+sXJiUcLnU1nR6AAw
+         XO08gijqcUkhSL9cjAkmuKyA2R/UnLVuiRxc1dKQU1Gj+5kNxoRF8uwZjVx6nund9bJ1
+         THrg8WSMA1gdxRpeJxhcaQ7LnHrLMFlkQDYzPV7q8OyySN6dgOoXghCuaJWd6IsiWlmq
+         5X7d9ZLZQOjMtWoS8upiay9x3lh5b4M9BKUx6Wntk3fTmw2xHZICB5riDp/wIprpi9ni
+         ROhg==
+X-Forwarded-Encrypted: i=1; AJvYcCUNret4pTGYo4qt06w+LckhxAmW1N2T1PyESKX6Hnpkgp9yEPQXs8qvJLZuOI1GxEE7gL8kf6efO6lIJw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWtB2eRqgAXXWhmAFb7O/Ss5lleNINuw8AflJsrllOtWPywXfR
+	eW/zSMqc8JkJxYX1vDmcQlBZGXOAllAP6Yil7tJcpGRsSTS/6AXxFKAx8KOoIC7pejE=
+X-Gm-Gg: ATEYQzxaBBnjZIJJU72bngoOR1PBiaI5RlMsQNV87hxNeNnE6XGjtaNuJynXr5WJkrz
+	Qz+5PxaQYIXwtBip1nLawBb4EL01nyfFJhUXIOQvtwm8CI31inf6sZeqpxNyekwwK/cncW8Tur2
+	15ocUAX9h46q3y73sQauLm0o1pIsOEqOYp7k+D9isRR0MzTufagMf2kn9wpWKc1M1sdyST4+3C/
+	Brnv40F1p3J8kZ/J8bZSIk8I9pJtDuqGcwvfFYYwU3/dVen/XAyEpPmq/+iDpDtClnIZ+XaEKsD
+	KQgDrMLaBKksa+DZ8C1/Y+T5llHrb6sIpodJpAAiBybNvOZGJhFI2sENglX61vSFktysWKU4EVB
+	t0ttFcDBwcD018ATbfVSrMdmL5tHsI1RsGefBOhMRZ1eTs6J7xrSwUQUiKDIxUf7DV0FcnsFzAW
+	jS5sYqQjkSLHxy1W8TYeneRis+ZjORJkBcozSuu7nGIop9mXDTUhdAEkmbOCqCq80SkLYDD35Vg
+	QjwmmS2U1nnolCeh+9LRI6b+rVe/Vdi03oo11ih+S6uDJSQboi3JkBrIA==
+X-Received: by 2002:a17:902:d2c7:b0:2ae:803e:6c12 with SMTP id d9443c01a7336-2aeae78c614mr59713375ad.6.1773318801385;
+        Thu, 12 Mar 2026 05:33:21 -0700 (PDT)
+Received: from localhost.localdomain ([103.158.43.36])
+        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2aeae22217dsm55220555ad.4.2026.03.12.05.33.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Mar 2026 05:33:20 -0700 (PDT)
+From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+To: clabbe@baylibre.com
+Cc: Abdun Nihaal <nihaal@cse.iitm.ac.in>,
+	mchehab@kernel.org,
+	mjpeg-users@lists.sourceforge.net,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] media: pci: zoran: fix potential memory leak in zoran_probe()
+Date: Thu, 12 Mar 2026 18:02:56 +0530
+Message-ID: <20260312123303.73358-1-nihaal@cse.iitm.ac.in>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/3] media: subdev: Add
- v4l2_subdev_get_frame_desc_passthrough and use it
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260311-frame-desc-passthrough-v5-0-d59876bbb663@ideasonboard.com>
- <abGwRZWvpv4XZKx5@kekkonen.localdomain>
-From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <abGwRZWvpv4XZKx5@kekkonen.localdomain>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+The memory allocated for codec in videocodec_attach() is not freed in
+one of the error paths, due to an incorrect goto label. Fix the label
+to free it on error.
 
-On 11/03/2026 20:11, Sakari Ailus wrote:
-> Moi,
-> 
-> On Wed, Mar 11, 2026 at 02:17:18PM +0200, Tomi Valkeinen wrote:
->> When writing the exact same code the third time for Renesas, I thought
->> we probably need a helper.
->>
->>  Tomi
->>
->> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> 
-> Can you send follow-ups to v4? V4 is already in my PR to Hans.
-> 
+Fixes: 8f7cc5c0b0eb ("media: staging: media: zoran: introduce zoran_i2c_init")
+Cc: stable@vger.kernel.org
+Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+---
+Compile tested only. Issue found using static analysis.
 
-I have sent
-https://lore.kernel.org/all/20260312-frame-desc-passthrough-impro-v1-0-30f64d637a3a%40ideasonboard.com/
+ drivers/media/pci/zoran/zoran_card.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- Tomi
+diff --git a/drivers/media/pci/zoran/zoran_card.c b/drivers/media/pci/zoran/zoran_card.c
+index d81facf735d9..f707bdc1fb0f 100644
+--- a/drivers/media/pci/zoran/zoran_card.c
++++ b/drivers/media/pci/zoran/zoran_card.c
+@@ -1373,7 +1373,7 @@ static int zoran_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 		}
+ 		if (zr->codec->type != zr->card.video_codec) {
+ 			pci_err(pdev, "%s - wrong codec\n", __func__);
+-			goto zr_unreg_videocodec;
++			goto zr_detach_codec;
+ 		}
+ 	}
+ 	if (zr->card.video_vfe != 0) {
+-- 
+2.43.0
 
