@@ -1,60 +1,77 @@
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE1621A681B;
-	Thu, 12 Mar 2026 13:33:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD9C9386423
+	for <linux-media@vger.kernel.org>; Thu, 12 Mar 2026 15:05:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773322388; cv=none; b=rkUUGfeWsfwZUhY+YU7F/wfArsqioMNvp1KQ4si7+IuGG7j/7TMgvMRuYpoy5qn0wIei7+RJS9jMlNIfzaVpzTQ4ObaHm3mZwzVdOO/8ToFPcDDnkJlQk6nuc01Ae8YtogGH91dXyZJRm+ZMyoXv1rIo+zaw5dWtJYJPvAn9PkI=
+	t=1773327907; cv=none; b=TPFb676MHBzRuq6S3hCOLwh4oKHqEerx0u8QStZQPbfn2oaKhXJisBS2eiF6LJavVpEhJPqfaV4ID2gYlIil3lzLzwY0GjlsX/AjitIfTp7jmakMPH68PkQBAALavSGQ9OhR7rulLCnSMJVSGd/tSJfL9oKIiaGoNoxhxP3dexw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773322388; c=relaxed/simple;
-	bh=kH/CCqp/S9t36WCSxHH//xItxwGYzwcLCyQX5gh1oMQ=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=KIWlfld7R+rlR5r+7zxeCO0N9LEQJSTNrTDkaO2lIiCGsVAoFHki/j7QlKpe+bYyK5aLcpseNGG+HE0kPpMWMxAq3X67mcocPMGfBVYZ/cDFDRlB+Yo/blpNKsxPoC8bUSgm54nQB10UlzeDMrPGRoxU1/64Vb5D/jSjSRxKqU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=NHFspxSo; arc=none smtp.client-ip=43.163.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1773327907; c=relaxed/simple;
+	bh=Ou176iaKRapsXxPlFxmCOXeZg+hgHxa5jRA/hTxjWH0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fSOFxyEMNjDHv76OS07mRS/x2QbwTjW/+w34yT7RrgHSNI5I/rRanBMcnlYDcGuu/Xb2P40paXcSo4xMbGUceaT2ogxrEvX21fhbOsr8HSzDuSW+8q4bfWEfv8jIpYeMDiso7h0VjpPjjtQgEmFE0BX09F9rNCipsjBUJptjcrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j6lqU7Ri; arc=none smtp.client-ip=209.85.167.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="NHFspxSo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1773322376; bh=m4AYJvonpuTEFUAb32I5fp8ckUa9C5ZFi2THJVsWCIQ=;
-	h=From:To:Cc:Subject:Date;
-	b=NHFspxSo05NeosAK5zXQwljpX8FN8k7fpyyJXr1vWuxwOSmvnuq1lLy8dgfaD3iFR
-	 1BLOumPCEzoX8AkDokQDojg7rINfSeVQHZ2rrtjzeM2uKCqlKbK47ylMFYH1EyZD4Z
-	 /FdbGyL25H3/E2qVJh34QrkslEV3ay9INlN+tFXg=
-Received: from June.localdomain ([123.121.145.35])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id 83606A26; Thu, 12 Mar 2026 21:32:54 +0800
-X-QQ-mid: xmsmtpt1773322374tg89rxym9
-Message-ID: <tencent_D591461D8821B2B10E09549FF5379CE6C706@qq.com>
-X-QQ-XMAILINFO: N0xl8emtHWY1Nlt0DgfUK57tmr8bwDbxmfxo/pCSU/gqYmRZWjyDkcYlTedEif
-	 /p2VhcDUxI8PodOmblr1vRH9/qFTKe5giuP97LgP86YebQCOEpSfUlD2+pBZsmTOFvkzorb8JZWc
-	 pdm9Xg1PRWX2TorCGsQnoDPdwnf2JvbE9a8BK1pyVzlbCzEcZ42hilbkuAS3wSDOKh/AjMkUdQXE
-	 jkpU5wpE6KkmsrALlnLJqgIA8edNTEPnCgoWXGB3Q2tVf89re8ErZdFPFIgUkSJO2OepsYGs1DdF
-	 n89XFUXW9lFq9GhUOt5GyyJ4Fw1IGOdoBVncgV3q1HSDloaZRh4+AqCbfUm/RKKv1UjFq4VNJQPq
-	 pqDA4bfuH19cPhX74kdP0vIFVAssGqBH5cqJBLU7t03EhxI/Hz27cZTBMMboRe+AJc88aqkNi2Ke
-	 AeFcKA7GgKYq4PXY1FxNlrwv0Ph6IKEJ20+LymxhvlD6Es+io4NnSeIQIZap16jZKSD3MH6rvmT5
-	 zimmD6NuDrp4B7KBHFF8vDg8Vk164BYWPUIQ352xTLiswpPc7ihdFEuKJ8t5OJUwSPMIufwPezmQ
-	 UxZGOsaFzMRzxVzrMXH4JloZ11KR2bJkg7QwkmSinN7sNDlXBgBa7yeIqzscWOSAIz5ufkB1fU9U
-	 5rINJKPAeM6TWsffV8r0EdxacsSsTfea+YBSHhR87J5uRIQdtkxdi7LCzVRI/gbMxGWvzGuob8LG
-	 NiQ7M83LtP2uL6HFPxExKtZx+nETJCETumnMLJt+W1J9dkEjrvbpdriDJ3ctHrd6fXScCO26tIM5
-	 HE2N4/TMt17x2tQegm0W7o415BcAHkGcRzrFgVVfVCTXd0JQ5AzWKdRNaO/wYQS13i1KpINwFAzO
-	 0K+Oms5OpPJsgIFiNpDvPrMzX8uSGaJXTwEHYr82O8enzxi9zXvFGx2TXJrNWTXoZuUD3OoiEOvj
-	 Jo7KUq65WZ3vxJlTUnd32d5R4qz3++5ecy4Wjwaz2kvjXbxuT3COSeK37+xPW/DYv+PT5uj3G62V
-	 mM74wGgCRzowEaCoEqIndf1sTRVLXiGrEz17VkFp4yM1xHNC2E/errvLvwasI=
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-From: Wang Jun <1742789905@qq.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Wang Jun <1742789905@qq.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: gszhai@bjtu.edu.cn,
-	25125332@bjtu.edu.cn,
-	25125283@bjtu.edu.cn,
-	23120469@bjtu.edu.cn
-Subject: [PATCH v3] media: saa7164: add missing ioremap error handling
-Date: Thu, 12 Mar 2026 21:32:53 +0800
-X-OQ-MSGID: <20260312133253.162587-1-1742789905@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j6lqU7Ri"
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5a12f88d839so1426088e87.0
+        for <linux-media@vger.kernel.org>; Thu, 12 Mar 2026 08:05:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1773327903; x=1773932703; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=sFoMkityIlWAkBj/ankUjCHQN4IX1we00551tFsNNnM=;
+        b=j6lqU7RiNL1mvT/y+NVmJEaa9Si1jTdzA+1JQpwAQfraL/AeQmcEXO7zobo2V6G7bx
+         Dh6KHzmBXZdwAWu/3J4TBh4m7pN3NvYrFk0VTgaCWy2XqTc7SsK5mf4jLbtUpCX9o7tt
+         4cRKeiJc9RtcUJgKgY8FHiMePS7Ybjqes63lBo2cuQPQBXOAm3BX5D+oLqhK+ckA3HmC
+         4UYZCdFik6Fe30ytjxwsiWuHhPrL0gE2KXLMuU9Hmz06ssfTVmWcazKQAV5KNeUucEfq
+         iJFeVBShs7/0caXzqiMh8p+9S53CCeqoCuNOhtRJJMIKDipmi8kUV1QjlcdkElXI2Zq5
+         ocdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1773327903; x=1773932703;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=sFoMkityIlWAkBj/ankUjCHQN4IX1we00551tFsNNnM=;
+        b=Dv4vz14L7V0+am/kReSh7rIOizZoEoHDoX897wgLmFJHK75Sg6LIupWqxjRJOyg8dA
+         npYwVzA+WIJLxQJ13aWyIQFhSUKjnNwdHXDsyGG86gkjwsNCaaKnab0iG/4qhnuK53kG
+         wnnFYhgXw5kXEzzdN7PauwEBskBTOOwdU5v3j2WG2U9bUEoPERrX7XJCiBy54msEqBp6
+         uvUjjWPLU0XPqXNX0+M4yfgnOQbLD8ddPQkXitKRf7+4/KHW8wJbzGWRQUVlaTgdXugI
+         XLMWoscBozz8rsEyRpFr6u7+BiuWZ/LBO2LR55yeu5u1SaZyC97g/H9FHoFQyABycA/d
+         VifQ==
+X-Gm-Message-State: AOJu0YwA9DsJPuacYHsCxvEv3ZER20hxdZiSlCRicNFOEunZ2y0orWvw
+	M4KzC0sikoSL/7BtsRHMfyipE6ssXqx1bsR8qOi3qcvmjl6EWjw6dN4UiBwKzlOBVTM=
+X-Gm-Gg: ATEYQzzl4M2Q9F77buDaPeJc9Wg9DBZQ5GDL7loUH4+rnA0DazvnEmvA1m39JKcHzHK
+	ML0HNNkhEg3VhcxOjwlmlUFkdOvVqxAiW4xQep1Wjip2Sh99c34MqHY0OmfdQVssOg6BqzDO4I9
+	zQnUVeFYDLHije9jaLa2hrngi4QkHVv5kFwu8Dgmf5dYwEy0vFc83QE/R3s3bc7rbCIFS3lJ7ai
+	sRpx4Ph1l3/3rEeeT+xtsu8zS2n7CnUEFau6kW0Dm2yaMHQR6Atuu0y7NwmnU+XV2FDDHiv4PCv
+	as4X8+mqLJIMh6VBz5GgeoWbsXDwHjDbRgKIyLS7x5FlfHECWC6gxdjgpaFMkPaQbxE4rlWvBzU
+	q+wJIpgM6ipkTPbg5Pnk7YKMj7QQrZggTGBvbZUl/l+8G2Z79MdCI4Fmja6KAOOYeWTL5CArCrA
+	4Pu/rPuB0efEEqLxE+D/x7aDmAICFd3Q/FRi3TjQI=
+X-Received: by 2002:a05:6512:2c0d:b0:5a1:37ab:312b with SMTP id 2adb3069b0e04-5a156bc2156mr2304776e87.15.1773327902998;
+        Thu, 12 Mar 2026 08:05:02 -0700 (PDT)
+Received: from gentoo.sknt.ru ([95.161.221.172])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a156034364sm1000197e87.40.2026.03.12.08.05.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Mar 2026 08:05:02 -0700 (PDT)
+From: Alexander Shiyan <eagle.alexander923@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Tetsuya Nomura <tetsuya.nomura@soho-enterprise.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+	Alexander Shiyan <eagle.alexander923@gmail.com>
+Subject: [PATCH 0/2] media: i2c: Add support for Sony IMX662 sensor
+Date: Thu, 12 Mar 2026 18:04:35 +0300
+Message-ID: <20260312150437.1091195-1-eagle.alexander923@gmail.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -63,69 +80,39 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add checks for ioremap return values in saa7164_dev_setup(). If
-ioremap for BAR0 or BAR2 fails, release the already allocated PCI
-memory regions, remove the device from the global list, decrement
-the device count, and return -ENODEV.
+This series introduces a V4L2 subdevice driver for the Sony IMX662 CMOS
+image sensor. The IMX662 is a 1/2.8-inch sensor with a native pixel array
+of 1936x1100 (effective 1920x1080) and up to 90 frames per second
+(depending on the operating mode). It supports MIPI CSI-2 output with
+2 or 4 data lanes, RAW10/RAW12 formats, and both colour and monochrome
+variants.
 
-This prevents potential null pointer dereferences and ensures proper
-cleanup on memory mapping failures.
+The driver implements all standard controls (exposure, analogue gain,
+horizontal/vertical blanking, flip, brightness) and runtime PM. It also
+provides a selection API for cropping and supports multiple link
+frequencies via device tree.
 
-Signed-off-by: Wang Jun <1742789905@qq.com>
----
- drivers/media/pci/saa7164/saa7164-core.c | 29 ++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+The driver is designed to be extensible: a V4L2_CID_HDR_SENSOR_MODE
+control for Clear HDR modes is included, but these modes are not yet
+operational. Future patches will complete the HDR support
+(Clear HDR and Clear HDR + DOL2).
 
-diff --git a/drivers/media/pci/saa7164/saa7164-core.c b/drivers/media/pci/saa7164/saa7164-core.c
-index a8a004f28ca0..dc68d7cac7cf 100644
---- a/drivers/media/pci/saa7164/saa7164-core.c
-+++ b/drivers/media/pci/saa7164/saa7164-core.c
-@@ -998,9 +998,21 @@ static int saa7164_dev_setup(struct saa7164_dev *dev)
- 	/* PCI/e allocations */
- 	dev->lmmio = ioremap(pci_resource_start(dev->pci, 0),
- 			     pci_resource_len(dev->pci, 0));
-+	if (!dev->lmmio) {
-+		dev_err(&dev->pci->dev,
-+				"failed to remap MMIO memory @ 0x%llx\n",
-+			(u64)pci_resource_start(dev->pci, 0));
-+		goto err_ioremap;
-+	}
- 
- 	dev->lmmio2 = ioremap(pci_resource_start(dev->pci, 2),
- 			     pci_resource_len(dev->pci, 2));
-+	if (!dev->lmmio2) {
-+		dev_err(&dev->pci->dev,
-+				"failed to remap MMIO memory @ 0x%llx\n",
-+			(u64)pci_resource_start(dev->pci, 2));
-+		goto err_ioremap2;
-+	}
- 
- 	dev->bmmio = (u8 __iomem *)dev->lmmio;
- 	dev->bmmio2 = (u8 __iomem *)dev->lmmio2;
-@@ -1019,6 +1031,23 @@ static int saa7164_dev_setup(struct saa7164_dev *dev)
- 	saa7164_pci_quirks(dev);
- 
- 	return 0;
-+
-+err_ioremap2:
-+	iounmap(dev->lmmio);
-+err_ioremap:
-+	/* Release the PCI memory regions allocated in get_resources() */
-+	release_mem_region(pci_resource_start(dev->pci, 0),
-+					   pci_resource_len(dev->pci, 0));
-+	release_mem_region(pci_resource_start(dev->pci, 2),
-+					   pci_resource_len(dev->pci, 2));
-+
-+	/* Remove from device list and decrement count */
-+	mutex_lock(&devlist);
-+	list_del(&dev->devlist);
-+	mutex_unlock(&devlist);
-+	saa7164_devcount--;
-+
-+	return -ENODEV;
- }
- 
- static void saa7164_dev_unregister(struct saa7164_dev *dev)
+The driver has been tested on a ARM64 Rockchip RK3568 platform with a
+24 MHz external clock and various link frequencies; image capture works
+correctly and all controls behave as expected.
+
+Alexander Shiyan (2):
+  dt-bindings: media: i2c: Add Sony IMX662 sensor
+  media: i2c: Add driver for Sony IMX662 sensor
+
+ .../bindings/media/i2c/sony,imx662.yaml       |  112 ++
+ drivers/media/i2c/Kconfig                     |   11 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/imx662.c                    | 1176 +++++++++++++++++
+ 4 files changed, 1300 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx662.yaml
+ create mode 100644 drivers/media/i2c/imx662.c
+
 -- 
-2.43.0
+2.52.0
 
