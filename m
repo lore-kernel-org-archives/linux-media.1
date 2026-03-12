@@ -1,118 +1,131 @@
-Received: from sonic312-26.consmr.mail.ir2.yahoo.com (sonic312-26.consmr.mail.ir2.yahoo.com [77.238.178.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF2D2FD1B3
-	for <linux-media@vger.kernel.org>; Thu, 12 Mar 2026 18:21:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.238.178.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA8A3FFAB7;
+	Thu, 12 Mar 2026 18:46:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.145.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773339709; cv=none; b=DLWdwU63vpPteBn4LJ+4Exbvm/nMUtrHRsF+cd4tkwdrSuq5RdOOVSXu4/D2P0LyC0b87JvSxO9BHoPWyx1KerRXZX9aEcyCtxOCW5zCQak2jzcalWX0xQ0qwdd35099EYNYs3/UVyqelBnmzlo+WNR9UjDvLLG53zX+2y6DLeo=
+	t=1773341206; cv=none; b=AS3+lmUyBOWhnPWa1t3HsRy++ZUAhTjy9+NNA/ghCfbCt8/PPetC8HidINB3IFmdxh5lvkVY0Ts9ayOqm5sAybHeiW72Rh1QCUuo60neQbZOwIBhXkOZIS/Tt4haJnmmiUgK9SLQHy2tsvLb57XyNbMMgW8rVlUZrj05zm/rOrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773339709; c=relaxed/simple;
-	bh=uiZNkQrfrAcTwFtj18/WFY2hV7Bn8kQ9HLtmikAh3qM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
-	 References; b=HS8D8jFOfAJF4CTBxt3oHPvqRRiKF+z97RBcCB6fO8FNi/UaVnBjl/65sysMPXLAKz5hSzbYD40KVu+BXMPvcL1JBp30j/CHckhhh/0xIA3KVBthggc09iBLdo/P8dl//DoelEAz8FN+oDXTQzzR3Eu9FPwJeSr/ft9FsY8bQVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl; spf=pass smtp.mailfrom=yahoo.pl; dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b=TpmwmhDp; arc=none smtp.client-ip=77.238.178.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
+	s=arc-20240116; t=1773341206; c=relaxed/simple;
+	bh=ZROWNSa59nUsl5X/QgDcGHcaR/c4lJYMdLrJTNBrpdk=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BJvLdlI42nQlwZ36Y/fnW1yJhJMAGsfr+IohZlfzo0947erLnh6a6JAQCRPUG/BIjg3tMA1sT+E93CuiRWmGqawJAKLypTG+KeCyh0ymBOIeqb2gi8lX9nF93IqVN8y/2CBPqV9kSOmddez7N98SfhRuonA1AIhZMAmbbVskgnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b=pYL0HTRz; arc=none smtp.client-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b="TpmwmhDp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1773339699; bh=BTGnmmG37P1hyCZJBm5E0qDJC9JZJfDZCCf/9iKB1qo=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=TpmwmhDpUq37wY2FV683i4kHuUgPbcBsiwh/QQMK9RNAOSQ/sMD6sP/3aBqlLUGEpaB5g2tAHoxVkQujwhy4C8ERjL4jAoyPfllg7N16dnnf262A2+eOrV6RQi/QsJCpkc557omloOAjiHOsUe5scacb2oJFnclkIYo6BwWtrSYIiiba+76DDBfJbTvCfAwEwyfoG7slb+2n3OxDEQNWlSE2MXrP3XqcO8vCgWbpWAX5kzpwEw2zHOkLtM7JBCHKUECIOxxA57E4DBcDWscLiIOAXfjIEbtvbZAzybuXFEKrCiR3XUXGi5QhYlcIYx79x9NnsNDmzAfrHqOPAndtEA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1773339699; bh=B7AzpEBZzJlchfoFp+u5jlptcYens6qSZn5td1Hjjtq=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=HMPrExYUXv4UQOXmM7rkwely9vo7mhz+Qh8baUFeFN0xBWo2EmarKbjlqwHifwkTdg05er73w9dVqDgREfB63wBwHr/T2K/M3uylXz1xG5ernOICu5EubS66fmrElmiPyCyUdUaICPCRG1St3rO83ooPVUE4S0X3YYO1ybNZQ0a5N4ayFQLKbgOJr7+WZbx16Yj2Nt8oTg1w4KZjrxkzH87SD0sUAraM+KC8ykbGSrke7cMYQfbNz5p0fcEn4TCRzNMOZ+DIVJJcIq/uunXKqYM1oO/SCvb4riNAQbp/UTNZfvxwihC/QCJzcwZ2VZNzMjL3NGOXTOyzEm5HYq1d3A==
-X-YMail-OSG: IBgJZpQVM1npjcVldqFAP1Cw4Y7LDHRcn3l._W4ewq6wpXMrP.xLYSEzO17XtS3
- kSp6JyWr9r2yl8BaHjaabRp3ZNPnZJsHccYBltdeA7NbAPdsErqEZJicWWao_wcE.EgT4Ww3.WcA
- u7R8nnCQf1.7zKCWv_uoPgxSYMG__02fL2HtgAZt1OYYT_2w_l4t_Q4czcvloMNcW3zD2TiJEqlT
- ckeFfVXoOLaxOVSQEBwCRIQ3ZiWcvEMew2XUyb9XWKbOL4gki4N6DCGJJ1ZnwSM0Ln_p0pG5PVXN
- gGXIlZKZao1xgajqbBte_yix10dxL_oT1E2Sa5cAdXw_dG0uGLYP3YYyAWN31_QUZ4hbHBW51NcZ
- uUOGd4TW.Yzkv4OHiRVnG75Ns_4fzdnVNueRf81MGz8kdQeg5DL2v.Zob2Jh.CkWfs2vT7Lq0s2v
- jYkroEbQwmEMRNYxN8_JjbAlyrsy3Dq.MbduyXa8A1qwiVk1sUUlKwhI7.kEyQo7Qo7kp3e8N6QK
- X_klQ7d.otiJ_viSA5w03uauHNdDYqxSo1y1AknHyE7wxTztDrmc7_IekI3FZJxmvI5n9tyY84d2
- BKf_69BdkuxyK5ijBbeC670GjPLoBmO5WQmiBAd5EqIh49uzRET8Csow4RC2oC6RbAtr3OJc8FPM
- CXhqtybShmkx2Y7aRvxb4fdYgsk2shY.BI2BIVZyFIcA7kAWo2l8ikkN8ohjiAe0BnFjmv.VANnx
- kr_mJi4nJHVPZboHI1b82dgKmV88laxj26Sh9KFKtXZ44PO7rUmAT5bFbG5ETq859QC15tofe_I4
- WSODFxHKnBy7ZA8rIoAspknxS27rlqql0tyvNy8ZFmA0.jxya9xx60S8CxE9l0yDfJhye0ym3TR.
- Ia1uKLJLrfjqYHKmgJ1hOv97bMcrnkZfJYK1tW_ncZ0o6GXP6TQfaqRSJ.35VKJUiHbMXdCaJGxP
- 1YVhnHzShgMUA7yxY6nideBUFBcJHGaU6IO52x_ktJ7MjBQ12rSbsP3qpQu0RojuFOQXpudd6MYG
- _rOJSqbMx660YW3qQ43L729jfzkRJ.Y4ug.C2mSBW_m8HAxq4keoDddkBGV..q4eYGb2cgsxy3px
- eKA9TZjcSEiBKxvwHUwqCBOZ0V9Y8EboddMZJkCBRIzniK6JW9rtmTN1hv1OSodk_K.8lDcnOn.Z
- YVrZ5dQPNTSRU7atcRF6X2MIVkNgrZ_qwRKT7zJw.dJJzOdKvQin8XVVyiRZmOSs7sJWTMIHlnkL
- cb6ANfghAOCxaVBuXi0zOwqj85GXq99BofaimTgOKyzNhI1IXZh6fmMlL.r1bfjC9pURPgBIuIqM
- J5S4TfMMieKsL3Gf0seV1Od1g2hc6.tgGmXEozkWBbHFF2.RbtX.t9.T8IE8bS40p0.snaRcwzcI
- nFVi0vATBc85bN4tczinxd8o8cIcdmrAoBSoOjVBr9YSzODjGe8__8vge7p7FQguYVjWx001siIn
- PmCevrsBv_Y20sr7jQNsrFb.5xzsguOQah.9nM3YGCCafxShfXMZADYi.4I3abojmJhhjOCm5LiM
- aMbcB0g4QUjaAJGWkTJUEQ.Wx7jxYyRsQDXm5LoTO9ktF2Kc7uj07gZ_HAxTxXuNM1UZWcwJFLHC
- 6Ysb2tTZXpZOkCiPTeNY0IBRlpuP9Bl1xXtLazOOWITKAztywA98zaEg4ipWO7CJ3hqihwejiw26
- vfXNXYuK.52kt8KpCPqzMYi9TXHzRw3qSmLfUf9njuHoaAdLO02enixlQ1YXLL.RvXou5UZV9QVJ
- a27WEdd0hMSVFOW.gCASGgEia3iUM5qL4a2Ozg9h5Ih26f55hIFb3b2vqgjP.l27MLVkFYC1N5.j
- Ga32rfSDy6USpgCpqQRZ4v0JeQ5trjeyJGWvuzrx5X478Tm3dyV9zqQME.GysrKLqBE36RWgrQvW
- eq9zmWFp6bieze74tymwVrteRtirxO6z1bzKK9i9aTkcP0JW6I0.zxfReM0gZWjVgiT.hixpNix0
- phbBBR0Ra0m_rHliiOuB4W3pSEOhw0rJm7rP2L_OE9Kbc4U3cICSIsILzkf5.nvKBxEdiI7HFi5w
- 6y4LOe8_J_7v5ZjnJ8gOOifF3WfyG0qPcD8VP3MvD7Jbw2qF_tI4RCy91kE8_Gyn5b0z.g5tCHLN
- v8TUL84nSb6p8s3K0153xB9r2GRW5uPfU0r7H1ajr5rjkZPko_zJymPV0UN2GlzLtH36ava720VF
- bkFqqpw28XKZdqiZUp5ItTcW3WgE1.YoqH8YYkzW1GofKl_UCjx3WwT3wEypevzCj8bMp3lyVU.p
- oe.mXHd5LOs3o7TwUllspi55nRjt_eoFdCQ--
-X-Sonic-MF: <tomasz.unger@yahoo.pl>
-X-Sonic-ID: 32e708ed-acbb-47ac-ae1a-2f0c7d0e6d8b
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic312.consmr.mail.ir2.yahoo.com with HTTP; Thu, 12 Mar 2026 18:21:39 +0000
-Received: by hermes--production-ir2-bbcfb4457-f49j6 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 3ccf00084b4d5413ffcb9d01e92182b0;
-          Thu, 12 Mar 2026 18:21:38 +0000 (UTC)
-From: Tomasz Unger <tomasz.unger@yahoo.pl>
-Date: Thu, 12 Mar 2026 19:21:17 +0100
-Subject: [PATCH] staging/media/av7110: update FIXME comment for signal
- strength
+	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b="pYL0HTRz"
+Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62CH37c93822056;
+	Thu, 12 Mar 2026 11:46:30 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+	 bh=lyheLk9Wvs0fvD4s1b5iebQGWNGSW8pkLBga2jwoIMs=; b=pYL0HTRziDvE
+	ieE6PsbkKCshsCYWNDD1wtNcjCEhoUDkzVT5WnfN5H+Urq+PoLq9kJ7m21Tcsulc
+	CE41Dz6/6BW5PB+oJZhpw54Bp8AYSxCxYwDjjfR17KL8STWRYwR/1cX/HuWqN1Ed
+	wQytqiM++CkCBXQhbarMSlzz7PpJjfAYm/76oCYJ1+2gX66Cu0q3/qMrBvGPFfAz
+	AhpWlckCOXKsEdfaCp+iMNzxlaGCwY9LWFOSRjMVgu0pX7ZAxpgKAgpKoRHv1MQy
+	h1s+sdnzTvGdWJZEXnR2lXiCehzAqZD/OaGTQsCD3RH7bXE+lGN/6DZcXxZXKQ58
+	FiiQxXP11Q==
+Received: from mail.thefacebook.com ([163.114.134.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4cv1j2j8et-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Thu, 12 Mar 2026 11:46:30 -0700 (PDT)
+Received: from localhost (2620:10d:c085:208::7cb7) by mail.thefacebook.com
+ (2620:10d:c08b:78::c78f) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.35; Thu, 12 Mar
+ 2026 18:46:29 +0000
+From: Matt Evans <mattev@meta.com>
+To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+        Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+        Mahmoud Adam
+	<mngyadam@amazon.de>,
+        David Matlack <dmatlack@google.com>
+CC: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+        Sumit Semwal
+	<sumit.semwal@linaro.org>,
+        =?UTF-8?q?Christian=20K=C3=B6nig?=
+	<christian.koenig@amd.com>,
+        Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal
+	<ankita@nvidia.com>,
+        Pranjal Shrivastava <praan@google.com>,
+        Alistair Popple
+	<apopple@nvidia.com>,
+        Vivek Kasireddy <vivek.kasireddy@intel.com>,
+        <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
+        <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
+        <kvm@vger.kernel.org>
+Subject: [RFC v2 PATCH 01/10] vfio/pci: Set up VFIO barmap before creating a DMABUF
+Date: Thu, 12 Mar 2026 11:45:59 -0700
+Message-ID: <20260312184613.3710705-2-mattev@meta.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260312184613.3710705-1-mattev@meta.com>
+References: <20260312184613.3710705-1-mattev@meta.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260312-staging-cleanup-v1-1-fdb9f8367e3f@yahoo.pl>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBvwh4K6SrSwHG0gTLQikO6et
- PwW7xXIlJgyjE2BRDdnPkKFbBtYNxM8IdtqUEL1QkuF+TSeg8d1JxOuiJYGLZZucWQs1Comcvz
- 8x2l+3w/uz6F7YQAAAA==
-X-Change-ID: 20260312-staging-cleanup-de930b5bfead
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Tomasz Unger <tomasz.unger@yahoo.pl>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1773339697; l=1160;
- i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
- bh=uiZNkQrfrAcTwFtj18/WFY2hV7Bn8kQ9HLtmikAh3qM=;
- b=ENxRsWP1QcjOBnY/QyJw7KDIGRGzvdsG5VkXpSVb5ry1G+rErn6jzN6G57zURtqiw5bCWd+JH
- xFKzvJlyweUCKsMcPnPNfWSxMQJw3JcfGVH69isMqbUVMYR2apkBoZD
-X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
- pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
-References: <20260312-staging-cleanup-v1-1-fdb9f8367e3f.ref@yahoo.pl>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: PvXIK7001yah_q_sVCLHPSoZDp3mLo2e
+X-Authority-Analysis: v=2.4 cv=ALq93nRn c=1 sm=1 tr=0 ts=69b30a06 cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=crHB47gyY4rKiduisYu9:22 a=VabnemYjAAAA:8 a=DkskzI1_-XwU4soQF-MA:9
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEyMDE1MSBTYWx0ZWRfX8djASQHH+VAA
+ ltjJlqmH55EDbWfxbbJ7FyTuvxqN6vMHePt/cF2tSVoxk6bkjkTwC8QjvpTwsT+RD9YMljBSaK/
+ 36OsJTKf1QwsIQaUMPiSF0WgBUCs2IfZNBpOevxB+IcKzDPftiEmHtW6c7yvvertvgCTar5vur1
+ d2Mhx0mRzrpATABoUz7byz5ekuDjE2ULkxl/3npaeLDswE2K4nDrSqN/I/sncUDG5VuHQ+Vz0ZF
+ 2hZ80M9bF0gZ7E+jmCV9iL4lqBZZnzS1quxPjHn745eOrle3T8vm3yZsmn5P9cEhBCRpVhMK5s1
+ 12YSduE3T56nfBeqmjxXEz3yiR4C5SKEaqAB1/E7IaifPUB/T+dvyG+IeWodMtzH6kEBwUS3X5s
+ rgKXzYRfW8SLe+g6Xetq6+3eZ5KAYhPBIwJMjJbd8ZGGYXHd7RTGjfl20sHcfL54eCH/Ck4PiB+
+ Mzp/l+X46195EIqFNWg==
+X-Proofpoint-ORIG-GUID: PvXIK7001yah_q_sVCLHPSoZDp3mLo2e
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-12_02,2026-03-12_01,2025-10-01_01
 
-Update the FIXME comment to provide more detail about the future
-implementation for computing the signal strength based on the tuner RSSI.
+A DMABUF exports access to BAR resources which need to be requested
+before the DMABUF is handed out.  Usually the resources are requested
+when setting up the barmap when the VFIO device fd is mmap()ed, but
+there's no guarantee that's done before a DMABUF is created.
 
-Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
+Set up the barmap (and so request resources) in the DMABUF-creation
+path.
+
+Fixes: 5d74781ebc86c ("vfio/pci: Add dma-buf export support for MMIO regions")
+Signed-off-by: Matt Evans <mattev@meta.com>
 ---
- drivers/staging/media/av7110/av7110_v4l.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/vfio/pci/vfio_pci_dmabuf.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/staging/media/av7110/av7110_v4l.c b/drivers/staging/media/av7110/av7110_v4l.c
-index 200a7a29ea31..a64761979609 100644
---- a/drivers/staging/media/av7110/av7110_v4l.c
-+++ b/drivers/staging/media/av7110/av7110_v4l.c
-@@ -310,7 +310,7 @@ static int vidioc_g_tuner(struct file *file, void *fh, struct v4l2_tuner *t)
- 		V4L2_TUNER_CAP_LANG1 | V4L2_TUNER_CAP_LANG2 | V4L2_TUNER_CAP_SAP;
- 	t->rangelow = 772;	/* 48.25 MHZ / 62.5 kHz = 772, see fi1216mk2-specs, page 2 */
- 	t->rangehigh = 13684;	/* 855.25 MHz / 62.5 kHz = 13684 */
--	/* FIXME: add the real signal strength here */
-+	/* TODO: compute based on tuner RSSI */
- 	t->signal = 0xffff;
- 	t->afc = 0;
+diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+index 3a803923141b..44558cc2948e 100644
+--- a/drivers/vfio/pci/vfio_pci_dmabuf.c
++++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+@@ -269,6 +269,17 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+ 		goto err_free_priv;
+ 	}
  
-
----
-base-commit: 80234b5ab240f52fa45d201e899e207b9265ef91
-change-id: 20260312-staging-cleanup-de930b5bfead
-
-Best regards,
++	/*
++	 * Just like the vfio_pci_core_mmap() path, we need to ensure
++	 * PCI regions have been requested before returning DMABUFs
++	 * that reference them.  It's possible to create a DMABUF for
++	 * a BAR without the BAR having already been mmap()ed.  The
++	 * barmap setup requests the regions for us:
++	 */
++	ret = vfio_pci_core_setup_barmap(vdev, get_dma_buf.region_index);
++	if (ret)
++		goto err_free_phys;
++
+ 	priv->vdev = vdev;
+ 	priv->nr_ranges = get_dma_buf.nr_ranges;
+ 	priv->size = length;
 -- 
-Tomasz Unger <tomasz.unger@yahoo.pl>
+2.47.3
 
