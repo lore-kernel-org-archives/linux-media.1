@@ -1,39 +1,43 @@
-Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch [109.224.244.116])
+Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CC43E5EF4;
-	Thu, 12 Mar 2026 17:16:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D073DA7D6;
+	Thu, 12 Mar 2026 17:16:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773335788; cv=none; b=YcSHveu9uSgGGCgVrcnL+iincii1T767/vmQluIBh7GS07jM3tulx4MP7oI5aXIBv29Jq1Q1q06aNbe4EVEUC/VGmGunHPVbmYhg9qmtCW5AJLwQsGBBHhW7hLbkiUSkvVq5aIgtd0xWrS33AWcWfJENTY/RN6Nx+uubNdZabnI=
+	t=1773335790; cv=none; b=jUmeKKTe2O326rO0OFNiQAIpmT9yp9ExkY6vosLVSY/VCpuysiDdJwl7biiflA4RFDzXoPqzhB4b03WeWvZ7Xw3tYJ1mrMZ4sU/rCZM2t/5KgQ0kJneRFrB8HjsuTU/aEfaTiqOu7SGLLnBrc35txd99MOjcGK9KYFaSnKNVhEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773335788; c=relaxed/simple;
-	bh=rrv1iaxApfXlRRnoW1o+B1Hb7PxZnLBO1vZhq7Nguf4=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=T3XeCAsfNnxXGCLvWs8qaaLuIIfPmdos8jZpykHxxPGcpay81DMgXwaedu6jeOwC3uSYhKhvYE3fotezlTFeTTVVejOrYcacWURQN83tWmKcxqchgHcOJS1MiSOf0/2RfQDirEEo+oux/hfXatrDUtwfUDb+LP1Um63DzWCUUdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=A8X980ck; arc=none smtp.client-ip=109.224.244.116
+	s=arc-20240116; t=1773335790; c=relaxed/simple;
+	bh=NVMwtQlyC8e5SSHUET4w5SgeHLaqCvymevWoNkfb2/U=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=N9RbEeDk+N735/ohCKzImK2h7pQVlXAmmSGrZRcGSOnCTyVW4cwVwDmJ0iyJ8KPYa0WYIbMDmulfR/ICBR2OCUzkevl93xrvtKIm2ryqdnDXyTQqzDe4HMN3Q2vpsevtAiTnY8YRpMkbaR1um65VtfsRmQ5YRYiPZU2/kyxV/HU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=J6gR+VYv; arc=none smtp.client-ip=109.224.244.123
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="A8X980ck"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="J6gR+VYv"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1773335779; x=1773594979;
-	bh=WbRJD3fZmKepPJHwpzuESHFy/tHTPZLWMEtZ2JB/jnQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=A8X980ck87BWAVJFwrna7P9WxZt0zk0wkVbxn8oRyKs5ofDgC9bwZ2BecRfFe99ra
-	 FYRq1ctLkRMc2bXQfF5uIWmo56FTNovAOBNIII/E7lbZy5EdNVUmr5DntoTC+1uhiE
-	 j/8KAyF0r74Y0/kwkojBL3iNirAbcl+2TUDAV8pl7n+H16AbxQl6QDXxxoFxjkf12J
-	 j/ZfKxM5vVVAbVykDtjtnexXPs5or4Q9LnlqIfi/rLgaVOod+m4K+kPPtPoI937MHB
-	 SPZJ86UL+TTzYAAYdjuQg4/vQ7F/5lFrjDex8951yh+1kA8S7FOkfRSUobExACQiOF
-	 rgrCbZoKO1TqA==
-Date: Thu, 12 Mar 2026 17:16:12 +0000
+	s=protonmail3; t=1773335784; x=1773594984;
+	bh=FzitFSVWOjlVYKdzVKhaIr96unT6y6nT6ms/8MK/Jvk=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=J6gR+VYv5/qL0XP++vtXfszfWdhRAdH/ZazeStweZWWJyMDRzTTSpKUjaCdFWRC8X
+	 8R1UsDwCOfm1hT48tGdekjDFltOdvAM8Kl093Ql7h7OWkpG96tqqJ0T9WYf0lQVIl9
+	 QlrM4tVffmiumg5hem4oEIp6lLZ6LMIUloSj6D6b7WPa5KBotun2YzwQ6HXZynYVh8
+	 Q04bZhB7xCV4vltMV7nsTZ8IIAwrclNTj/8i/hvJ3FiImEMvIH4qGJdaO+TLn+V5TU
+	 WsNpNqwldE12pYtx3cBEgXNjNAjyQhZaznGYrWGEczFAWHz/savxZ5pyWy6y0SCRrJ
+	 4sKdJ9IXawW6w==
+Date: Thu, 12 Mar 2026 17:16:20 +0000
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ben Kao <ben.kao@intel.com>
 From: Alexander Koskovich <akoskovich@pm.me>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, Alexander Koskovich <akoskovich@pm.me>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v3 0/3] ov8856: Add V4L2 device tree properties support
-Message-ID: <20260312-ov8856-v4l2-props-v3-0-3771ab40a4c0@pm.me>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, Alexander Koskovich <akoskovich@pm.me>
+Subject: [PATCH v3 1/3] media: i2c: ov8856: free control handler on error in ov8856_init_controls()
+Message-ID: <20260312-ov8856-v4l2-props-v3-1-3771ab40a4c0@pm.me>
+In-Reply-To: <20260312-ov8856-v4l2-props-v3-0-3771ab40a4c0@pm.me>
+References: <20260312-ov8856-v4l2-props-v3-0-3771ab40a4c0@pm.me>
 Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 3b16c92893d8fff2c83ed48a52039c60240618ba
+X-Pm-Message-ID: 5bb5d02937e49747ff967e760bb9685ea351a460
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -43,38 +47,43 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
+The control handler wasn't freed if adding controls failed, add an error
+exit label and convert the existing error return to use it.
+
+Fixes: 879347f0c258 ("media: ov8856: Add support for OV8856 sensor")
 Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
-Changes in v3:
-- Free control handler on error in ov8856_init_controls()
-- Drop blank line between orientation & rotation in bindings
-- Link to v2: https://lore.kernel.org/r/20260310-ov8856-v4l2-props-v2-0-271=
-7404ed045@pm.me
+ drivers/media/i2c/ov8856.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-Changes in v2:
-- Updated bindings to address Krzysztof's review (only allow orientation & =
-rotation)
-- Address Jacopo's review by removing redundant v4l2_ctrl_handler_free()
-- Link to v1: https://lore.kernel.org/r/20260307-ov8856-v4l2-props-v1-0-767=
-7b4c658e4@pm.me
+diff --git a/drivers/media/i2c/ov8856.c b/drivers/media/i2c/ov8856.c
+index e2998cfa0d18..dd01e1d515ff 100644
+--- a/drivers/media/i2c/ov8856.c
++++ b/drivers/media/i2c/ov8856.c
+@@ -1951,12 +1951,18 @@ static int ov8856_init_controls(struct ov8856 *ov88=
+56)
+ =09=09=09  V4L2_CID_HFLIP, 0, 1, 1, 0);
+ =09v4l2_ctrl_new_std(ctrl_hdlr, &ov8856_ctrl_ops,
+ =09=09=09  V4L2_CID_VFLIP, 0, 1, 1, 0);
+-=09if (ctrl_hdlr->error)
+-=09=09return ctrl_hdlr->error;
++=09if (ctrl_hdlr->error) {
++=09=09ret =3D ctrl_hdlr->error;
++=09=09goto err_ctrl_handler_free;
++=09}
+=20
+ =09ov8856->sd.ctrl_handler =3D ctrl_hdlr;
+=20
+ =09return 0;
++
++err_ctrl_handler_free:
++=09v4l2_ctrl_handler_free(ctrl_hdlr);
++=09return ret;
+ }
+=20
+ static void ov8856_update_pad_format(struct ov8856 *ov8856,
 
----
-Alexander Koskovich (3):
-      media: i2c: ov8856: free control handler on error in ov8856_init_cont=
-rols()
-      media: dt-bindings: ovti,ov8856: Allow orientation & rotation props
-      media: i2c: ov8856: parse and register V4L2 device tree properties
-
- .../devicetree/bindings/media/i2c/ovti,ov8856.yaml |  6 ++++++
- drivers/media/i2c/ov8856.c                         | 23 ++++++++++++++++++=
-+---
- 2 files changed, 26 insertions(+), 3 deletions(-)
----
-base-commit: 1f318b96cc84d7c2ab792fcc0bfd42a7ca890681
-change-id: 20260307-ov8856-v4l2-props-def87d7854b1
-
-Best regards,
 --=20
-Alexander Koskovich <akoskovich@pm.me>
+2.53.0
 
 
