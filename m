@@ -1,265 +1,293 @@
-Received: from sonic308-18.consmr.mail.ir2.yahoo.com (sonic308-18.consmr.mail.ir2.yahoo.com [77.238.178.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852DA1A681C
-	for <linux-media@vger.kernel.org>; Fri, 13 Mar 2026 15:58:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.238.178.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46843363C43;
+	Fri, 13 Mar 2026 15:59:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773417499; cv=none; b=Deu+dgF39t/Zq9Cy48/1pp0Ip3psUfzT89k3AXWXbfKMNGk3ovn0X1g5XJW5jCBXW7glxDhOf0/BLkqar7s3thE8ltzslg+1LRaxdoMI9HRfkRaTbeP/yvgpwxLYD7pEuYApej6R+ZoYZMqESrbXhhiswlb95eByr8g8DIO2zhA=
+	t=1773417570; cv=none; b=C8DcCajLZJinlm0BTdnuqnmB1pYu56tzn7Dz1QLo+ZYsnb5O5rEaM6aSRYXSQH3Rpma8Vs3bxCnrHgH/uKWYc45d4FwrJXPmXjy/CMWZ1FYz63uM+YJJNLt+GMLn69W6YqXULdISVpB/Gv/8YgoJE3kTed+D1ReW0HfYzJxvgc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773417499; c=relaxed/simple;
-	bh=43iHeHcqLmWDLlWsITqoi4SJ2eUkzhJoF5R7wUzzA9U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
-	 References; b=IPW/abu0FJg6JaweZQwfLxKfjL6IO1TWOha7DMn/hlL0wJfKzN4i4FmcgxCP+8KafFkx/bqeQG/9Sa5xdyhbgnrAXd/tqYSnEE2D+2kR49aJWYGEhf1GrUPHrGFZDuyUCH48cOl46jGIM06Lt5Lds+PgwQ65LOQzev/8NPNxEoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl; spf=pass smtp.mailfrom=yahoo.pl; dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b=ZoTriPSH; arc=none smtp.client-ip=77.238.178.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
+	s=arc-20240116; t=1773417570; c=relaxed/simple;
+	bh=e5SsRN3GdBzgQj1/e1VLThEaG9cDxkH7UMg/rIO1KZk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=X8nzp+JyvnZ4c6xUFMoBYN8x1CU1ouXetTAmgo/DqcsvxG0B8gxj325EoLskuZv3CF4J82MlCHuCFRDoEHLsPOXzG078+Cteez1XF79DagKXEnY4CSn87HOrDixE8GXpN+7OXg7rb92E3AYzD6ZFiHzWxuzIz/5eTDXNCtgiq0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ip29mVYz; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b="ZoTriPSH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1773417489; bh=7VJNKyt1jpaZ5THYtvZIgtVZYfR2eVsvgGL2cla3lqY=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=ZoTriPSHgfViTTAGI8NVYbg9zo5H3EkDFmU4Pn0bSFLRVV+manOnxIaUGRNkgXXrA3trX4+a19f3zf/TYhH2ctOGxpAwIkdHaHKDt5ZDA9nn40pXp12j6hd7Tr+AOpowaVovt5EnecxjtqeWlSbjJzoH2BX+bBhYfZ13L9DGNEWVbgSHGsc8wJnX5+M7S5c4cUarv5N8uoDHn6cp6kNNufYYs4bERvqgsUOAjyQwS5eup+ddcu/cxmqvK4ZOeeEnfxWUYiRPM4Yq26yIN9/rRQduTIW0Fw8XjZ3FOuN3v2MPMoLYovrCP4wUJ7B641JcJll3DMUDjEtzFPWeTsDSfA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1773417489; bh=iR3+E3jkv6g/49RuZSCwisVf+EnnmgxGFQazD6JQplV=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=pUb9H8nXtTk/U+Qiupd+mSpA38JOsOd8NkQjD/UfSMoys37fMwLFMC55ruUB9bOI68Zj/hqCG75In/Ajxbryr/+DEy9/P5aLLQWH4ZkdpS+VCd2G9hEINwiTPWtEdQ46wL5J3QJqRwYgTzyn8UYSfEGdO/LsZZTbt+KzPgDjBrdz3MP7pSs8V/tUwlxQTl8IuhAX5fMU0k90tQbJpbxv2iNGRFHEjy5NPCaaqDPreMx7dirZwbJA8MCTYFtnNJnB02EBKS7bBy8IR0dFK41b0d9VlJoGSS+2PYWksuqXwLIuGa+vVKBl/nVLIO0RZhEO1t2CcZof/MDDZsSB92l/dQ==
-X-YMail-OSG: goqabTgVM1mj2lLXzr7D7oid87xLNZ9ot8EkVl4YQ7x36B1bzitvevj_aDl6V8r
- 4wcvzZwyaNX.X9C3DqyEr3L5kY4rQU8v7kJDmpD2hTsCfmCBDjtJP6UBP4k32GARFlLIBllvlLLB
- 776cz6VlFrt_b4rTl_42Isa6yMlS8dyKGedjbwmkgmwEjbneqIHfNAFxBObt5sVKy7dHYdRwSz.7
- Ju5e69N..tiRs3GTVwM1q.Suv20kiyWCSXs3ywlPRp01fV_6Wdthao0kg3sAGHaS6rYZqvtGQqoZ
- hO.UMEkuJMrn.vovXA6cqeeLeKxEw1vYB29uYViVAGjHBUVYX5cUUa_3YPxkfGPxJSHLTJrOHUyP
- BuMVKmRqYXR3Yzqd18JO1C8XCjikz73TBFzZhSlvPS3vnQwlOe.JTFnw..DDzOo29iF4DuUIwMrJ
- nXvc01KvCzl8GmsLTfus1FJBeZt.zF0q0I2.7t5FePkMO16j69LXJoUaWrW8enEIfQqH0R8K0iQD
- hlPFmPSB1ePVbckMMPJobpU3bCW8XebRRdtnxNu1F3qbliShp0fl8uwfUyuRfKEl_rACHinB5LlD
- wLXd294K3DSsMB.huhrln5HrzxCkMiV6wswD85l5VS8J6lK2H7SjJKAgWfa8jsBNTbDmcjohKyu_
- PDcB8IGMeKzZyt5C9T9dsRtjsgB7bxLtkaF4yVoxNreCf_8sAVXfsqVV0V6V34itKMZNJEzjZVNB
- gpq5r7pvrLA7y7S6KvumStwifiA9j0hSFVyp9xX552L4oRbhtAlF8YEkv39H0hkmtf1T_jm6eavp
- em1GveL3g7Tgi9MxVXDT48fAj2Ndy1n9_SvF3VMUCSbnYGmFvTLqgR61DN6IeR5T52vmIZdEd60B
- Lq4Hs.rjwdNSXh_9BVsNR3zwxpypRc9lCuIZuU1X42YGe4Dy8X_Aw7lNMe1PgcI6uPosmJlCB7Tk
- vCUcqITKG0OimGNHhQ8tZBoc0yIewBOg25EF3dgv7d8AEkAQPQAq1BBTnb7aflqiF69uoLwnjudY
- YTvgUg92zKvxoWx4oUROtZ9hf7G.JWzOA0omAsPnSKyRAl2BpxJMKcJmTegH2pIf97_dR1ghzmdV
- 334p91V1Hilh2o3KA4gNHagjBRLtgA5Bq82exsnGqALsRY5Kwz1uvI0V.LN9LH7A2_Q5Hajljljf
- G7xeYH0Q_0SP65Lcuq1P2IByKSs3olqXdjcpEt9ppVzSybwsn_8GfCS6TwnioOvQLHA6WdPAWpWw
- uJj5P5_cg6wTfyr9FcZqEhLitCh0mJklI.O6ntBAI05hl1Vm5fHsvdxu_8sRLlIq8u_h9At1YRJJ
- cZ7_CZryM.SLsGsKWhUe4Zhx_qUUw7NMfzotXGZmmrUfbe6OSiDCcevBZffiDD_erS_N3SY3a2fG
- B_yAoudGJDmSFsC2Cxg5GzvbL2MWphPKF2MacnmaS365hEiRqfnPe8Rd9pr6Zxa72sVkT3NqwNcw
- p3mA_lcNXK0xwS4M4YHUnYt.dyAuORn_exGODk_ChwMT4FW8BeNhfKJCltiVtXKK7ZgcW4YYNrCz
- CTvSLGmq3JFd4htO3YL6uN_LziW1sAIEMAo.KfZfcakc9BLgU8xEuq6_z7Mb9t0bWlJDckay_Uk6
- L9wKwjGQh7Fy1CU10YSc3oMEHNqqEso8o_Ofe5BEGUrl3QZtkm9_vumVGq8_l4Dx8k0qmMv6YrvR
- TDuEmI7PIIItVngD_S_sKPIAe3QPfTxTf5M7b1FvZXP.8QY13XGUagjbu3aLFsSYjCAC5jRUwu39
- 0qgOI.O_x.DpBB1UQO_K01fBf8ouTY29IDvAI7kek7oA9YYknpcfn0ZFdXp9zxSGUJ1AENtHqUxH
- AxW9tgAOH7QvHRdq6csLunP96wf5LDFaqpTmW.r7VlNJsQq5NKbPrdQ3AeFtYPoNaRekQGPZ1HXa
- uAWdivp02l5LuSyA.sjsRkVoi1HL4zorqtj2Hdg9pYduVtdZmmx2q5qNHC4F1RKm9U.laRN642w7
- XAgi65RedEWAyWxyoausCqQQmNfVg397EhFgLw.dlgQ4ceG_eFottbTIdVcm2Q0FhPTl090xt.kP
- KQ5g6vx5fo3FuGBj20slHONP0wB6qPQP71XgbiOoAWfUFc2kmc_.aeMC5_wUmi6up1uudk2dvfFw
- Hci.GCsngoMV00330xlSt63oL1jj9_j9Aa1hH63iDJN0H7owPqOdMoT1OCuFHzK0fGunMrqnKx2I
- EMOE5heEsrjfCZYR.YbcpodKcT5F974eQT.sRfwh07izAyk3vIHEyABTfCGOAd_TqRCrb64lDcz1
- AT4BD2Wv_5U9_oy7Jdg--
-X-Sonic-MF: <tomasz.unger@yahoo.pl>
-X-Sonic-ID: 7f8f46a3-9abf-42c9-b107-d8b63d4c6b35
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic308.consmr.mail.ir2.yahoo.com with HTTP; Fri, 13 Mar 2026 15:58:09 +0000
-Received: by hermes--production-ir2-bbcfb4457-p7tzh (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID d939675e202b65f50bac81e278ddbc12;
-          Fri, 13 Mar 2026 15:47:57 +0000 (UTC)
-From: Tomasz Unger <tomasz.unger@yahoo.pl>
-Date: Fri, 13 Mar 2026 16:47:54 +0100
-Subject: [PATCH] staging: media: av7110: replace C++ comments with C style
- comments in sp8870.c
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ip29mVYz"
+Received: from [192.168.0.43] (cpc141996-chfd3-2-0-cust928.12-3.cable.virginm.net [86.13.91.161])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7BD2B5A5;
+	Fri, 13 Mar 2026 16:58:16 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1773417497;
+	bh=e5SsRN3GdBzgQj1/e1VLThEaG9cDxkH7UMg/rIO1KZk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ip29mVYzbjv9ZXm+Pa+bMc101Pw2mViipm0/lEankEK5epiCkWUxwkFz9wqhby+oI
+	 gW3PAexZTxkrTD330CcoZvbshCJkVSMuEgpHURGPhLuc6jrH26rVrifElU8ZLH/Uwr
+	 /3W/Ny1uZDZKj8eMOpulJvGSJm5QwJyk0Mh5esxU=
+Message-ID: <fc5b4699-37b8-41fe-ab9d-b1ac7fbe33e2@ideasonboard.com>
+Date: Fri, 13 Mar 2026 15:59:22 +0000
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/6] media: mali-c55: Initialize the ISP in
+ enable_streams()
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Anthony McGivern <anthony.mcgivern@arm.com>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Nayden Kanchev <Nayden.Kanchev@arm.com>,
+ Konstantin Babin <Konstantin.Babin@arm.com>,
+ =?UTF-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260313-mali-c55-fixes-v7-0-v2-0-885c07961f30@ideasonboard.com>
+ <20260313-mali-c55-fixes-v7-0-v2-2-885c07961f30@ideasonboard.com>
+Content-Language: en-US
+From: Dan Scally <dan.scally@ideasonboard.com>
+In-Reply-To: <20260313-mali-c55-fixes-v7-0-v2-2-885c07961f30@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260313-sp8870-cleanup-v1-1-2d5069c4eec5@yahoo.pl>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBP8Lesq0UJsqoEwUYpAunvS8
- lu8VyBjIswwNgUS3pTpDBWibcDvLmzIaKkGyWXHlVAsR2t7zvyBLlyR+c4YyQeN2g9Qo5hwpec
- fTvP7fk3oydZgAAAA
-X-Change-ID: 20260313-sp8870-cleanup-c6552094e4c9
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Tomasz Unger <tomasz.unger@yahoo.pl>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1773416876; l=6043;
- i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
- bh=43iHeHcqLmWDLlWsITqoi4SJ2eUkzhJoF5R7wUzzA9U=;
- b=hLjl1htnBMXe0WYg9oHmubJ3HfghxcsC//Q29+/xH84rtIgZVrJsOPomLymy5P+4mfu7jOa0R
- ot2bdM9qLrxBaacl8srbHmczVxEKQfhn2GCod1ewbu7FsGCxpO/mJ4y
-X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
- pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
-References: <20260313-sp8870-cleanup-v1-1-2d5069c4eec5.ref@yahoo.pl>
 
-Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
----
- drivers/staging/media/av7110/sp8870.c | 52 +++++++++++++++++------------------
- 1 file changed, 26 insertions(+), 26 deletions(-)
+Hi Jacopo - thanks for the patches
 
-diff --git a/drivers/staging/media/av7110/sp8870.c b/drivers/staging/media/av7110/sp8870.c
-index 29fb4934c039..47a1eb22ef49 100644
---- a/drivers/staging/media/av7110/sp8870.c
-+++ b/drivers/staging/media/av7110/sp8870.c
-@@ -109,21 +109,21 @@ static int sp8870_firmware_upload(struct sp8870_state *state, const struct firmw
- 	if (fw->size < SP8870_FIRMWARE_SIZE + SP8870_FIRMWARE_OFFSET)
- 		return -EINVAL;
- 
--	// system controller stop
-+	/* system controller stop */
- 	sp8870_writereg(state, 0x0F00, 0x0000);
- 
--	// instruction RAM register hiword
-+	/* instruction RAM register hiword */
- 	sp8870_writereg(state, 0x8F08, ((SP8870_FIRMWARE_SIZE / 2) & 0xFFFF));
- 
--	// instruction RAM MWR
-+	/* instruction RAM MWR */
- 	sp8870_writereg(state, 0x8F0A, ((SP8870_FIRMWARE_SIZE / 2) >> 16));
- 
--	// do firmware upload
-+	/* do firmware upload */
- 	fw_pos = SP8870_FIRMWARE_OFFSET;
- 	while (fw_pos < SP8870_FIRMWARE_SIZE + SP8870_FIRMWARE_OFFSET) {
- 		tx_len = (fw_pos <= SP8870_FIRMWARE_SIZE + SP8870_FIRMWARE_OFFSET - 252) ? 252 :
- 			 SP8870_FIRMWARE_SIZE + SP8870_FIRMWARE_OFFSET - fw_pos;
--		// write register 0xCF0A
-+		/* write register 0xCF0A */
- 		tx_buf[0] = 0xCF;
- 		tx_buf[1] = 0x0A;
- 		memcpy(&tx_buf[2], fw_buf + fw_pos, tx_len);
-@@ -149,7 +149,7 @@ static void sp8870_microcontroller_stop(struct sp8870_state *state)
- 	sp8870_writereg(state, 0x0F08, 0x000);
- 	sp8870_writereg(state, 0x0F09, 0x000);
- 
--	// microcontroller STOP
-+	/* microcontroller STOP */
- 	sp8870_writereg(state, 0x0F00, 0x000);
- }
- 
-@@ -158,10 +158,10 @@ static void sp8870_microcontroller_start(struct sp8870_state *state)
- 	sp8870_writereg(state, 0x0F08, 0x000);
- 	sp8870_writereg(state, 0x0F09, 0x000);
- 
--	// microcontroller START
-+	/* microcontroller START */
- 	sp8870_writereg(state, 0x0F00, 0x001);
--	// not documented but if we don't read 0x0D01 out here
--	// we don't get a correct data valid signal
-+	/* not documented but if we don't read 0x0D01 out here */
-+	/* we don't get a correct data valid signal */
- 	sp8870_readreg(state, 0x0D01);
- }
- 
-@@ -243,7 +243,7 @@ static int configure_reg0xc05(struct dtv_frontend_properties *p, u16 *reg0xc05)
- 
- static int sp8870_wake_up(struct sp8870_state *state)
- {
--	// enable TS output and interface pins
-+	/* enable TS output and interface pins */
- 	return sp8870_writereg(state, 0xC18, 0x00D);
- }
- 
-@@ -258,29 +258,29 @@ static int sp8870_set_frontend_parameters(struct dvb_frontend *fe)
- 	if (err)
- 		return err;
- 
--	// system controller stop
-+	/* system controller stop */
- 	sp8870_microcontroller_stop(state);
- 
--	// set tuner parameters
-+	/* set tuner parameters */
- 	if (fe->ops.tuner_ops.set_params) {
- 		fe->ops.tuner_ops.set_params(fe);
- 		if (fe->ops.i2c_gate_ctrl)
- 			fe->ops.i2c_gate_ctrl(fe, 0);
- 	}
- 
--	// sample rate correction bit [23..17]
-+	/* sample rate correction bit [23..17] */
- 	sp8870_writereg(state, 0x0319, 0x000A);
- 
--	// sample rate correction bit [16..0]
-+	/* sample rate correction bit [16..0] */
- 	sp8870_writereg(state, 0x031A, 0x0AAB);
- 
--	// integer carrier offset
-+	/* integer carrier offset */
- 	sp8870_writereg(state, 0x0309, 0x0400);
- 
--	// fractional carrier offset
-+	/* fractional carrier offset */
- 	sp8870_writereg(state, 0x030A, 0x0000);
- 
--	// filter for 6/7/8 Mhz channel
-+	/* filter for 6/7/8 Mhz channel */
- 	if (p->bandwidth_hz == 6000000)
- 		sp8870_writereg(state, 0x0311, 0x0002);
- 	else if (p->bandwidth_hz == 7000000)
-@@ -288,7 +288,7 @@ static int sp8870_set_frontend_parameters(struct dvb_frontend *fe)
- 	else
- 		sp8870_writereg(state, 0x0311, 0x0000);
- 
--	// scan order: 2k first = 0x0000, 8k first = 0x0001
-+	/* scan order: 2k first = 0x0000, 8k first = 0x0001 */
- 	if (p->transmission_mode == TRANSMISSION_MODE_2K)
- 		sp8870_writereg(state, 0x0338, 0x0000);
- 	else
-@@ -296,12 +296,12 @@ static int sp8870_set_frontend_parameters(struct dvb_frontend *fe)
- 
- 	sp8870_writereg(state, 0xc05, reg0xc05);
- 
--	// read status reg in order to clear pending irqs
-+	/* read status reg in order to clear pending irqs */
- 	err = sp8870_readreg(state, 0x200);
- 	if (err < 0)
- 		return err;
- 
--	// system controller start
-+	/* system controller start */
- 	sp8870_microcontroller_start(state);
- 
- 	return 0;
-@@ -337,16 +337,16 @@ static int sp8870_init(struct dvb_frontend *fe)
- 	/* enable TS output and interface pins */
- 	sp8870_writereg(state, 0xc18, 0x00d);
- 
--	// system controller stop
-+	/* system controller stop */
- 	sp8870_microcontroller_stop(state);
- 
--	// ADC mode
-+	/* ADC mode */
- 	sp8870_writereg(state, 0x0301, 0x0003);
- 
--	// Reed Solomon parity bytes passed to output
-+	/* Reed Solomon parity bytes passed to output */
- 	sp8870_writereg(state, 0x0C13, 0x0001);
- 
--	// MPEG clock is suppressed if no valid data
-+	/* MPEG clock is suppressed if no valid data */
- 	sp8870_writereg(state, 0x0C14, 0x0001);
- 
- 	/* bit 0x010: enable data valid signal */
-@@ -490,7 +490,7 @@ static int sp8870_set_frontend(struct dvb_frontend *fe)
- 			return err;
- 
- 		for (check_count = 0; check_count < MAXCHECKS; check_count++) {
--//			valid = ((sp8870_readreg(i2c, 0x0200) & 4) == 0);
-+			/* valid = ((sp8870_readreg(i2c, 0x0200) & 4) == 0); */
- 			valid = sp8870_read_data_valid_signal(state);
- 			if (valid) {
- 				dprintk("delay = %i usec\n", check_count * 10);
-@@ -526,7 +526,7 @@ static int sp8870_sleep(struct dvb_frontend *fe)
- {
- 	struct sp8870_state *state = fe->demodulator_priv;
- 
--	// tristate TS output and disable interface pins
-+	/* tristate TS output and disable interface pins */
- 	return sp8870_writereg(state, 0xC18, 0x000);
- }
- 
+On 13/03/2026 14:53, Jacopo Mondi wrote:
+> The Mali C55 driver initializes the ISP in two points:
+> 
+> 1) At probe time it disables ISP blocks by configuring them in bypass
+>     mode
+> 2) At enable_streams() it initializes the crop rectangles and the image
+>     processing pipeline using the current image format
+> 
+> However, as ISP blocks are configured by userspace, if their
+> configuration is not reset, from the second enable_streams() call
+> onwards the ISP configuration will depend on the previous streaming
+> session configuration.
+> 
+> To re-initialize the ISP completely at enable_strems() time consolidate
 
----
-base-commit: 0257f64bdac7fdca30fa3cae0df8b9ecbec7733a
-change-id: 20260313-sp8870-cleanup-c6552094e4c9
+s/enable_strems/enable_streams
 
-Best regards,
--- 
-Tomasz Unger <tomasz.unger@yahoo.pl>
+> the ISP block bypass configuration and the image processing path
+> configuration in a single function to be called at enabled_streams()
+> time.
+
+I'm slightly confused; the change seems fine, but as far as I can see it's non-functional...or is 
+this just preliminary reorganisation to make the next patch easier?
+
+Thanks
+Dan
+
+> Cc: stable@vger.kernel.org
+> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+> Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> ---
+>   .../media/platform/arm/mali-c55/mali-c55-common.h  |  2 +
+>   .../media/platform/arm/mali-c55/mali-c55-core.c    | 35 -----------
+>   drivers/media/platform/arm/mali-c55/mali-c55-isp.c | 37 ++---------
+>   .../media/platform/arm/mali-c55/mali-c55-params.c  | 72 ++++++++++++++++++++++
+>   4 files changed, 79 insertions(+), 67 deletions(-)
+> 
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-common.h b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
+> index 31c1deaca146..13a3e9dc4243 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-common.h
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
+> @@ -306,5 +306,7 @@ bool mali_c55_pipeline_ready(struct mali_c55 *mali_c55);
+>   void mali_c55_stats_fill_buffer(struct mali_c55 *mali_c55,
+>   				enum mali_c55_config_spaces cfg_space);
+>   void mali_c55_params_write_config(struct mali_c55 *mali_c55);
+> +void mali_c55_params_init_isp_config(struct mali_c55 *mali_c55,
+> +				     const struct v4l2_subdev_state *state);
+>   
+>   #endif /* _MALI_C55_COMMON_H */
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> index 43b834459ccf..c1a562cd214e 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> @@ -663,41 +663,6 @@ static int mali_c55_init_context(struct mali_c55 *mali_c55,
+>   		      mali_c55->base + config_space_addrs[MALI_C55_CONFIG_PING],
+>   		      MALI_C55_CONFIG_SPACE_SIZE);
+>   
+> -	/*
+> -	 * Some features of the ISP need to be disabled by default and only
+> -	 * enabled at the same time as they're configured by a parameters buffer
+> -	 */
+> -
+> -	/* Bypass the sqrt and square compression and expansion modules */
+> -	mali_c55_ctx_update_bits(mali_c55, MALI_C55_REG_BYPASS_1,
+> -				 MALI_C55_REG_BYPASS_1_FE_SQRT,
+> -				 MALI_C55_REG_BYPASS_1_FE_SQRT);
+> -	mali_c55_ctx_update_bits(mali_c55, MALI_C55_REG_BYPASS_3,
+> -				 MALI_C55_REG_BYPASS_3_SQUARE_BE,
+> -				 MALI_C55_REG_BYPASS_3_SQUARE_BE);
+> -
+> -	/* Bypass the temper module */
+> -	mali_c55_ctx_write(mali_c55, MALI_C55_REG_BYPASS_2,
+> -			   MALI_C55_REG_BYPASS_2_TEMPER);
+> -
+> -	/* Disable the temper module's DMA read/write */
+> -	mali_c55_ctx_write(mali_c55, MALI_C55_REG_TEMPER_DMA_IO, 0x0);
+> -
+> -	/* Bypass the colour noise reduction  */
+> -	mali_c55_ctx_write(mali_c55, MALI_C55_REG_BYPASS_4,
+> -			   MALI_C55_REG_BYPASS_4_CNR);
+> -
+> -	/* Disable the sinter module */
+> -	mali_c55_ctx_update_bits(mali_c55, MALI_C55_REG_SINTER_CONFIG,
+> -				 MALI_C55_SINTER_ENABLE_MASK, 0);
+> -
+> -	/* Disable the RGB Gamma module for each output */
+> -	mali_c55_ctx_write(mali_c55, MALI_C55_REG_FR_GAMMA_RGB_ENABLE, 0);
+> -	mali_c55_ctx_write(mali_c55, MALI_C55_REG_DS_GAMMA_RGB_ENABLE, 0);
+> -
+> -	/* Disable the colour correction matrix */
+> -	mali_c55_ctx_write(mali_c55, MALI_C55_REG_CCM_ENABLE, 0);
+> -
+>   	return 0;
+>   }
+>   
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
+> index 497f25fbdd13..4c0fd1ec741c 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
+> @@ -112,9 +112,6 @@ static int mali_c55_isp_start(struct mali_c55 *mali_c55,
+>   			      const struct v4l2_subdev_state *state)
+>   {
+>   	struct mali_c55_context *ctx = mali_c55_get_active_context(mali_c55);
+> -	const struct mali_c55_isp_format_info *cfg;
+> -	const struct v4l2_mbus_framefmt *format;
+> -	const struct v4l2_rect *crop;
+>   	u32 val;
+>   	int ret;
+>   
+> @@ -122,35 +119,11 @@ static int mali_c55_isp_start(struct mali_c55 *mali_c55,
+>   			     MALI_C55_REG_MCU_CONFIG_WRITE_MASK,
+>   			     MALI_C55_REG_MCU_CONFIG_WRITE_PING);
+>   
+> -	/* Apply input windowing */
+> -	crop = v4l2_subdev_state_get_crop(state, MALI_C55_ISP_PAD_SINK_VIDEO);
+> -	format = v4l2_subdev_state_get_format(state,
+> -					      MALI_C55_ISP_PAD_SINK_VIDEO);
+> -	cfg = mali_c55_isp_get_mbus_config_by_code(format->code);
+> -
+> -	mali_c55_write(mali_c55, MALI_C55_REG_HC_START,
+> -		       MALI_C55_HC_START(crop->left));
+> -	mali_c55_write(mali_c55, MALI_C55_REG_HC_SIZE,
+> -		       MALI_C55_HC_SIZE(crop->width));
+> -	mali_c55_write(mali_c55, MALI_C55_REG_VC_START_SIZE,
+> -		       MALI_C55_VC_START(crop->top) |
+> -		       MALI_C55_VC_SIZE(crop->height));
+> -	mali_c55_ctx_update_bits(mali_c55, MALI_C55_REG_BASE_ADDR,
+> -				 MALI_C55_REG_ACTIVE_WIDTH_MASK, format->width);
+> -	mali_c55_ctx_update_bits(mali_c55, MALI_C55_REG_BASE_ADDR,
+> -				 MALI_C55_REG_ACTIVE_HEIGHT_MASK,
+> -				 format->height << 16);
+> -	mali_c55_ctx_update_bits(mali_c55, MALI_C55_REG_BAYER_ORDER,
+> -				 MALI_C55_BAYER_ORDER_MASK, cfg->order);
+> -	mali_c55_ctx_update_bits(mali_c55, MALI_C55_REG_INPUT_WIDTH,
+> -				 MALI_C55_INPUT_WIDTH_MASK,
+> -				 MALI_C55_INPUT_WIDTH_20BIT);
+> -
+> -	mali_c55_ctx_update_bits(mali_c55, MALI_C55_REG_ISP_RAW_BYPASS,
+> -				 MALI_C55_ISP_RAW_BYPASS_BYPASS_MASK,
+> -				 cfg->bypass ? MALI_C55_ISP_RAW_BYPASS_BYPASS_MASK :
+> -					     0x00);
+> -
+> +	/*
+> +	 * Apply default ISP configuration and the apply configurations from
+> +	 * the first available parameters buffer.
+> +	 */
+> +	mali_c55_params_init_isp_config(mali_c55, state);
+>   	mali_c55_params_write_config(mali_c55);
+>   	ret = mali_c55_config_write(ctx, MALI_C55_CONFIG_PING, true);
+>   	if (ret) {
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-params.c b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
+> index c03a6120ddbf..c84a6047a570 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-params.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
+> @@ -732,6 +732,78 @@ void mali_c55_params_write_config(struct mali_c55 *mali_c55)
+>   	vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
+>   }
+>   
+> +void mali_c55_params_init_isp_config(struct mali_c55 *mali_c55,
+> +				     const struct v4l2_subdev_state *state)
+> +{
+> +	const struct mali_c55_isp_format_info *cfg;
+> +	const struct v4l2_mbus_framefmt *format;
+> +	const struct v4l2_rect *crop;
+> +
+> +	/* Apply input windowing */
+> +	crop = v4l2_subdev_state_get_crop(state, MALI_C55_ISP_PAD_SINK_VIDEO);
+> +	format = v4l2_subdev_state_get_format(state,
+> +					      MALI_C55_ISP_PAD_SINK_VIDEO);
+> +	cfg = mali_c55_isp_get_mbus_config_by_code(format->code);
+> +
+> +	mali_c55_write(mali_c55, MALI_C55_REG_HC_START,
+> +		       MALI_C55_HC_START(crop->left));
+> +	mali_c55_write(mali_c55, MALI_C55_REG_HC_SIZE,
+> +		       MALI_C55_HC_SIZE(crop->width));
+> +	mali_c55_write(mali_c55, MALI_C55_REG_VC_START_SIZE,
+> +		       MALI_C55_VC_START(crop->top) |
+> +		       MALI_C55_VC_SIZE(crop->height));
+> +	mali_c55_ctx_update_bits(mali_c55, MALI_C55_REG_BASE_ADDR,
+> +				 MALI_C55_REG_ACTIVE_WIDTH_MASK, format->width);
+> +	mali_c55_ctx_update_bits(mali_c55, MALI_C55_REG_BASE_ADDR,
+> +				 MALI_C55_REG_ACTIVE_HEIGHT_MASK,
+> +				 format->height << 16);
+> +	mali_c55_ctx_update_bits(mali_c55, MALI_C55_REG_BAYER_ORDER,
+> +				 MALI_C55_BAYER_ORDER_MASK, cfg->order);
+> +	mali_c55_ctx_update_bits(mali_c55, MALI_C55_REG_INPUT_WIDTH,
+> +				 MALI_C55_INPUT_WIDTH_MASK,
+> +				 MALI_C55_INPUT_WIDTH_20BIT);
+> +
+> +	mali_c55_ctx_update_bits(mali_c55, MALI_C55_REG_ISP_RAW_BYPASS,
+> +				 MALI_C55_ISP_RAW_BYPASS_BYPASS_MASK,
+> +				 cfg->bypass ? MALI_C55_ISP_RAW_BYPASS_BYPASS_MASK :
+> +					     0x00);
+> +
+> +	/*
+> +	 * Some features of the ISP need to be disabled by default and only
+> +	 * enabled at the same time as they're configured by a parameters buffer
+> +	 */
+> +
+> +	/* Bypass the sqrt and square compression and expansion modules */
+> +	mali_c55_ctx_update_bits(mali_c55, MALI_C55_REG_BYPASS_1,
+> +				 MALI_C55_REG_BYPASS_1_FE_SQRT,
+> +				 MALI_C55_REG_BYPASS_1_FE_SQRT);
+> +	mali_c55_ctx_update_bits(mali_c55, MALI_C55_REG_BYPASS_3,
+> +				 MALI_C55_REG_BYPASS_3_SQUARE_BE,
+> +				 MALI_C55_REG_BYPASS_3_SQUARE_BE);
+> +
+> +	/* Bypass the temper module */
+> +	mali_c55_ctx_write(mali_c55, MALI_C55_REG_BYPASS_2,
+> +			   MALI_C55_REG_BYPASS_2_TEMPER);
+> +
+> +	/* Disable the temper module's DMA read/write */
+> +	mali_c55_ctx_write(mali_c55, MALI_C55_REG_TEMPER_DMA_IO, 0x0);
+> +
+> +	/* Bypass the colour noise reduction  */
+> +	mali_c55_ctx_write(mali_c55, MALI_C55_REG_BYPASS_4,
+> +			   MALI_C55_REG_BYPASS_4_CNR);
+> +
+> +	/* Disable the sinter module */
+> +	mali_c55_ctx_update_bits(mali_c55, MALI_C55_REG_SINTER_CONFIG,
+> +				 MALI_C55_SINTER_ENABLE_MASK, 0);
+> +
+> +	/* Disable the RGB Gamma module for each output */
+> +	mali_c55_ctx_write(mali_c55, MALI_C55_REG_FR_GAMMA_RGB_ENABLE, 0);
+> +	mali_c55_ctx_write(mali_c55, MALI_C55_REG_DS_GAMMA_RGB_ENABLE, 0);
+> +
+> +	/* Disable the colour correction matrix */
+> +	mali_c55_ctx_write(mali_c55, MALI_C55_REG_CCM_ENABLE, 0);
+> +}
+> +
+>   void mali_c55_unregister_params(struct mali_c55 *mali_c55)
+>   {
+>   	struct mali_c55_params *params = &mali_c55->params;
+> 
 
