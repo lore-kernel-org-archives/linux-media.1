@@ -1,145 +1,113 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDCBB33D50F
-	for <linux-media@vger.kernel.org>; Mon, 16 Mar 2026 13:24:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF95398900
+	for <linux-media@vger.kernel.org>; Mon, 16 Mar 2026 13:30:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773667477; cv=none; b=QEAsbBQOZj3/PYjSyy8/PIaSYHrjEjMZ5rDfxDwKnxwtOGQUfcUfVy7zBeE4re5p51A6DisvD1/Zeu8SBe4Shdy9pGLl1+YsVaSW6jpv5tqQiUU0Xz9fL4IDpZTAO0edT5Tt57l+FzZSy1B+YcBB1LK2senEmKGjj7kEI/DFUek=
+	t=1773667834; cv=none; b=iinbd0172bxxNbGz46kzO352pzX8n+sfPplMchaVafiWSFa8k7SYirI4zJ38iZg4MtHtimOGMwXhp7gTXHzizU2vjk88vz4VdAFwYv4vx2t7z7CP9MmjZ8axn5emlMa4af1EZDdxzr3F+CSacn4itL1yMmjyjEZrrH0L6rSB+ac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773667477; c=relaxed/simple;
-	bh=1/zBFna1UazFMb+bpUIW7RhTM35z8cL8vNYaG2ERe7Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jCLTZN72KeGwLzMrBxlFVwYYQb5pfsI7rbxRfZXDyoJYxnKGbsVRGoHrfWyHIpCAXJ4r3ntJxbR9dokvyRtECR82b+2x39xRKSoc4vBey9SaprO2xhIc1nehja5jBp4usLfhl6NPxQzbhqDzmYZLW44L4BDA0N5Iy313Uizi6uI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zm4vQ3iF; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1773667834; c=relaxed/simple;
+	bh=8axnWdWKdYn5Kl6u06D/mWzG9d0fvx1AzG9O88LlXyE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=i61VHPsthU6wuTkyBSkmZXxusj42zhRJDYT+uV7wgTzWRJefFnrXmxLiHDNh4MaAVpfcD2nqymkWP1U9R9YVMmP8kErTkW+qH7tPzkE+SB0AWJSu5IVijfbDJg2Pu9f8dFIsraI4qeu4ePJvf9gPh2jGZkYGG/J4iJwHENlgRu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=R+upUlIU; arc=none smtp.client-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zm4vQ3iF"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-439bc14dcf4so4015878f8f.1
-        for <linux-media@vger.kernel.org>; Mon, 16 Mar 2026 06:24:35 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="R+upUlIU"
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5a13d1c6f25so4763409e87.3
+        for <linux-media@vger.kernel.org>; Mon, 16 Mar 2026 06:30:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773667474; x=1774272274; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OWqaEm9mFZzzjgLsPGkX7bxkxiONv4dEOkhsqgojyUQ=;
-        b=Zm4vQ3iFOzNrTfiWJVRxdyEkaRSwTmc+Q9oMqqXtuVXkpI+3spenP9eyxYRbz6/oln
-         p/jAeJGuABm6wR+FHYMgcu7YQkqI8eg8HI4jpLritMLkyEhCnclO4KEzhwtV/hNxpBWK
-         Yow4w1pD5vyfyllgVO1vBhK67KiF8pqtKTj2VQLTZXpYDS+BZ/lR9Pwdz00cvIBM3Q+I
-         44pPWjR+wV+Rl1itpazjTy0tV85HJhCoi+VWVaCNqa17PNU10LLgepx3xdQ/75aQAnem
-         KYucU/hwSVyYW5Q/ZI4PuvRjjYabH6kerKXwi0eFmJ9DGxjoA2J4w5+tXmgqnxY7SOx9
-         FGgA==
+        d=chromium.org; s=google; t=1773667831; x=1774272631; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=cC73jGyhZq61g5sKds/SJ/dQra55zzMykZbYPaPMQ2Q=;
+        b=R+upUlIU1qkBsffgGG59KBvAX0+zxhH+ePpKSQc2ItkRUz8vL5+wafveNQhFOJjrdI
+         v78HFd/0PAFeBQ78yYU/4QLKOfmilLYLLi4gom+e88AuLnB8arwDGRLfGX/z37eRg4a0
+         XBcOXT8RVEJo24elMA44t5BEjwQewI/U7f3L4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773667474; x=1774272274;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=OWqaEm9mFZzzjgLsPGkX7bxkxiONv4dEOkhsqgojyUQ=;
-        b=YEGj0e+PwDcHi+HFf5CGbI2/qSnKq191zI6N+mgsB7x4GRxuQ/qff3zXrMrD1GwruI
-         5v2FtFTR0oVt96X5/5OtWJaSVfsrMVpObdNqcXnGn/uaikFQrc0WlMz84mAikSuVzD08
-         5ffPBgFLvvxWGleDQMdwfCpDvHUIHLVl01QilunSkuCddT0AmIaAI3Z/4VVWBRqB41o/
-         2c5KST0FwqBeGFNtp/zTH8j0TpQ/LGmih1EeWKcyiVS8Vc8UEnB62CyNdE3IWuEhPSA0
-         YVsESVdwtIkUEX3Sx4lViM2UuWcqQa3r72ck+rXiCSaxp5HlQCMeXioZQoEwoAmqSBjg
-         OSsQ==
-X-Gm-Message-State: AOJu0YxHTv2XuYesb5X6F0UWvKGoBSAjoQWAAB2v9N7e/Yc9N7T2IGw7
-	GIku3t3f9pcS467TUo8BjnN5sa+X1U+vLrGA9eeoWuVX9nQt0b3ECA6HH8i27Dt6
-X-Gm-Gg: ATEYQzy+EYC1+gJm6N4WvyVFSILlfIE5P2mJu6UEKqzOBUcCvBED+XEm0wiDENGOvUn
-	fTijeN5XPJWIKcuwHNdM3fcjtIpP6dHx++i+EOHtB46gfXl1D6uLEPhF7NAdxWl44C+FLbPfjmf
-	Q0Rd+a+zrynFwmALzwF7W7bhB3YUNtlu6lH5ABmF6u2brIUUMv9PBz704E3pdT4c4cL4Du4vST3
-	VebyT3ngLvH21GM07fEcHfc6B8xThDY7q9vshamYKRJkBdI7kVWH+4tpy1FHu2jx1PdjH2Jqzbp
-	m7BWTZdNWlJz3BMrYFOZ1q2jrwLPdE95V91L++qBgoGHZvimj2E4gmtrwFPdDjeRJ02CedVf6q9
-	6PO6mqQ1SuauAeFvjwM+kxtgYBH6PZT3W0+P4lRP4V/E4nrYpY7HlQcuIaSCLNlNBrvRjy4FlIN
-	4/DXS6cBvDd/V8aaXSDVpKj7aUQDdTjvTJojwnj7SS2bpyAkC9EaVw
-X-Received: by 2002:a05:600c:4752:b0:485:38f1:5cec with SMTP id 5b1f17b1804b1-48555ac714fmr212700275e9.7.1773667473926;
-        Mon, 16 Mar 2026 06:24:33 -0700 (PDT)
-Received: from sarah-VirtualBox.local ([147.234.100.220])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48541ac17f2sm472938825e9.6.2026.03.16.06.24.33
+        d=1e100.net; s=20251104; t=1773667831; x=1774272631;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cC73jGyhZq61g5sKds/SJ/dQra55zzMykZbYPaPMQ2Q=;
+        b=CUjhOgI82x/qZph1sO5E5/kSr1jKGz6+QCkr4KSf5gEv5M3TsuamYAPJJV4I5ngXgZ
+         BA9cjWyad5YfYY0XthKua6B969DGpeufy2Il17Y7cMuf9YVTbkG56vOQ9F8MwYIqvUki
+         /uFWy25EDzLGCpi1f6spjm68G9//xs8UCMQM+xVRXy9F8p9qNGail9Gqkh14Ftue3tm6
+         eXMo6OHbQDZ2/NIJHBJRK6fYxK9ex/meg3vZsmuYZ49bf3/k1zCGEtF7zuCjfalPloIO
+         5ZnZqXrfX4YeG968v97VF3vJ+KqSaAwRaEOgIjn+nTtAzWMSyI/Y5pK//OdQ+jUTLG8N
+         IcpA==
+X-Gm-Message-State: AOJu0YweihBVRm9XyAW9uLHh8iOQk3SXU3Ial1/sFvrvTOa//xgVWyXc
+	wjtzXsLYIh+oYteeb/SSFNZeIyhfuASWi6ekAj48U3w+fJNuqfSGAsrLO/b2v/G2lw==
+X-Gm-Gg: ATEYQzxZZOaKW05NzTGy6tHmf3ZEtX3MVXk+GTjwM93sE7D58+LadnrMK/9RterCqQM
+	arjzuGYxzYq07auuPjOVLPltoygzoIusKeRvsZ9YYtm7drvA+wEiRiv8UF8rihfWAKaTccYleRw
+	K8n529PfJQP6pctNmQQHbu1QlOSWScREXmhQSYqsqNU3DqFnwjqgpMKm+qDp2XvvfQVloLGia+d
+	wfVoBUYZ/lxaUQK6PlkjpIxfbfKMgBpEBHsTTMgPEyCRumoN1bMy1/rHJly0OZtMQ8DMbwQ392Y
+	PrfT/aMRurzHWoOoG7PB9KtvmuLZiMIZxDfYXlqBrRWoO8fFWBhIsdXU+cxGjDBH5kP2cFPLev8
+	DPZMAsJg72F9A4GYqzBgQjrf6p6Hms9mkv/YYO2HdZKLqG0UrAzobyRJb7Sxihp77ndWch0ysw3
+	sZjN2h5PfMWq9bN4zlO/qdmjmzRhDxfKXCsZRGk+mGE+rk5htYz/na5boBZaVpzPK/dTs5leL13
+	Q==
+X-Received: by 2002:ac2:4891:0:b0:5a1:268d:289a with SMTP id 2adb3069b0e04-5a162706b41mr3038624e87.18.1773667830821;
+        Mon, 16 Mar 2026 06:30:30 -0700 (PDT)
+Received: from ribalda.c.googlers.com (27.69.88.34.bc.googleusercontent.com. [34.88.69.27])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a15636b69dsm3469985e87.82.2026.03.16.06.30.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Mar 2026 06:24:33 -0700 (PDT)
-From: Sarah Gershuni <sarah556726@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: Sarah Gershuni <sarah556726@gmail.com>
-Subject: [PATCH v4l-utils 2/2] calculate expected length using v4l2-fwht info
-Date: Mon, 16 Mar 2026 15:22:23 +0200
-Message-ID: <20260316132223.7337-3-sarah556726@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260316132223.7337-1-sarah556726@gmail.com>
-References: <20260316132223.7337-1-sarah556726@gmail.com>
+        Mon, 16 Mar 2026 06:30:30 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Subject: [PATCH v3 0/2] media: uvcvideo: Fixes for frame sequence number
+Date: Mon, 16 Mar 2026 13:30:28 +0000
+Message-Id: <20260316-uvc-fid-v3-0-c793354469b5@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPQFuGkC/2WMyw6CMBBFf4XM2pq+oMGV/2FcYDuFWUBNK42G8
+ O8WNhpdnpt7zgIJI2GCU7VAxEyJwlRAHSqwQzf1yMgVBsllw5XgbM6WeXIMBda11ubWeAHlfY/
+ o6bmXLtfCA6VHiK89nMW2/jeyYILVqIyzyhou9dkOMYw0j8cQe9gyWX6r6qPKoipvurZtXMu1+
+ VHXdX0DpahbDdwAAAA=
+X-Change-ID: 20260310-uvc-fid-e1e55447b6f1
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Yunke Cao <yunkec@google.com>, Ricardo Ribalda <ribalda@chromium.org>, 
+ stable@kernel.org
+X-Mailer: b4 0.14.3
 
-Update get_expected_length_trace to calculate the expected buffer length
-based on v4l2_fwht_find_pixfmt info.
+This series fixes a couple of corner cases where the frame sequence
+number is not properly handled.
 
-Signed-off-by: Sarah Gershuni <sarah556726@gmail.com>
+Please note that the second patch has not been tested in a camera
+without EOF.
+
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- utils/v4l2-tracer/trace-helper.cpp | 40 +++++++++++++++++++++---------
- 1 file changed, 28 insertions(+), 12 deletions(-)
+Changes in v3:
+- Fix typo in commit message.
+- Add new patch
+- Link to v2: https://lore.kernel.org/r/20260313-uvc-fid-v2-1-3f7a996d9047@chromium.org
 
-diff --git a/utils/v4l2-tracer/trace-helper.cpp b/utils/v4l2-tracer/trace-helper.cpp
-index 6c296dbf..a59d7761 100644
---- a/utils/v4l2-tracer/trace-helper.cpp
-+++ b/utils/v4l2-tracer/trace-helper.cpp
-@@ -6,6 +6,11 @@
- #include "trace.h"
- #include <math.h>
- 
-+extern "C" {
-+#include "codec-v4l2-fwht.h"
-+}
-+
-+
- struct trace_context ctx_trace = {};
- 
- bool is_video_or_media_device(const char *path)
-@@ -233,18 +238,29 @@ void print_buffers_trace(void)
- 
- unsigned get_expected_length_trace()
- {
--	/*
--	 * TODO: this assumes that the stride is equal to the real width and that the
--	 * padding follows the end of the chroma plane. It could be improved by
--	 * following the model in v4l2-ctl-streaming.cpp read_write_padded_frame()
--	 */
--	unsigned expected_length = ctx_trace.width * ctx_trace.height;
--	if (ctx_trace.pixelformat == V4L2_PIX_FMT_NV12 || ctx_trace.pixelformat == V4L2_PIX_FMT_YUV420) {
--		expected_length *= 3;
--		expected_length /= 2;
--		expected_length += (expected_length % 2);
--	}
--	return expected_length;
-+	const auto *info = v4l2_fwht_find_pixfmt(ctx_trace.pixelformat);
-+    if (!info)
-+		return 0;
-+
-+    unsigned coded_height = ctx_trace.height;
-+    unsigned expected = 0;
-+
-+    for (unsigned plane_idx = 0; plane_idx < info->planes_num; ++plane_idx) {
-+        unsigned stride = ctx_trace.plane_bytesperline[plane_idx];
-+        
-+        bool is_chroma = (plane_idx == 1 || plane_idx == 2);
-+        unsigned h_div = is_chroma ? info->height_div : 1;
-+
-+        if (info->planes_num == 3 && plane_idx == 1)
-+            stride /= 2;
-+
-+        if (plane_idx == 1 &&
-+            (info->id == V4L2_PIX_FMT_NV24 || info->id == V4L2_PIX_FMT_NV42))
-+            stride *= 2;
-+
-+        expected += stride * (coded_height / h_div);
-+    }
-+    return expected;
- }
- 
- void s_ext_ctrls_setup(struct v4l2_ext_controls *ext_controls)
+Changes in v2 (Thanks Laurent):
+- Improve commit message.
+- Remove original timestamp and sequence assignment. It is not neeed
+- Link to v1: https://lore.kernel.org/r/20260310-uvc-fid-v1-1-5e37dc3c7024@chromium.org
+
+---
+Ricardo Ribalda (2):
+      media: uvcvideo: Fix buffer sequence in frame gaps
+      media: uvcvideo: Fix sequence number when no EOF
+
+ drivers/media/usb/uvc/uvc_video.c | 24 ++++++++++++++++++++----
+ 1 file changed, 20 insertions(+), 4 deletions(-)
+---
+base-commit: a7da7fb57f2a787412da1a62292a17fa00fbfbdf
+change-id: 20260310-uvc-fid-e1e55447b6f1
+
+Best regards,
 -- 
-2.43.0
+Ricardo Ribalda <ribalda@chromium.org>
 
