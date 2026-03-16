@@ -1,118 +1,118 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3B44B3988EE;
-	Mon, 16 Mar 2026 13:30:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24AF0396594
+	for <linux-media@vger.kernel.org>; Mon, 16 Mar 2026 13:30:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773667835; cv=none; b=dMmWbQcH9JXXE3dVUgMNW4DFLAhgCEZhhlhpCenx9HwWxkTmE1uTzwVMrvrtGunNs1VrPWP5rZM4lkGQSP7FsIOJODAJxpbrEmTA5eCCzSOxYC5y/ou/ovFowog2PpdEUnuaZZ3pNPDtvj+wqVD6PA4W2aQFgtQyVmbqVOi490o=
+	t=1773667835; cv=none; b=go/DxZnABIQIGAonXOoOgRB9xnjx7iSa2KouGlRLHdN9+pfVO8t/5gOtVVEHSbp+XabvBIZyKqAj6EKhHI6rF0qS85YfPP8FLC5wPrMUYuAlhb4My2yjUZgXIahqavfoO/RuNlMa5946kAD90KmHhhVU/ok7LaFxUAzpWDjkhtI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1773667835; c=relaxed/simple;
-	bh=12QmHVFW6kvGAsAEHlRgc6k9FaOX+eCOvB+1XSjB85g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Bbj9i3OmX6tLHsLG9LsVUer8BMIseUV+cewr4p5b4W0GLlnwPuU7seL8aE/at0nXm72aSd8dJNxLetLzuHHuYyH1LmmKQGBoR67oCN6y9fm4gvzOaf7ZCgi6tFdE7Nt15YoWXaTLjQ3vkM5D8UeKzGqO7h9DPbsmd2QLdRgsNKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 357291477;
-	Mon, 16 Mar 2026 06:30:25 -0700 (PDT)
-Received: from [10.57.61.116] (unknown [10.57.61.116])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9D4953F778;
-	Mon, 16 Mar 2026 06:30:22 -0700 (PDT)
-Message-ID: <2c7466f5-d952-4356-9b55-9d2ebb3471f2@arm.com>
-Date: Mon, 16 Mar 2026 13:30:19 +0000
+	bh=Yq7adSLvEY5q4q42T4Hel6YbK+rT6LRdgNp2DFqfKmo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Lqt+VsPe5Vc+DcozolT6q/FdhggulC+eqUjv5xFq19O2d2nrReRF2L/H7rmTtwRzl/xuAB8CiimmfYL57qx+pujcuVvCgwIwsW5zw9ccO3dmP3YFSCuRt0OkEGxTQ0K9Tlr43d2MHQXV7tUHXrrBmiywH8Pf+9srMrDwaqFyDlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=UazB3YNu; arc=none smtp.client-ip=209.85.167.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="UazB3YNu"
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-59dcdf60427so3941174e87.3
+        for <linux-media@vger.kernel.org>; Mon, 16 Mar 2026 06:30:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1773667832; x=1774272632; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=nNpO7clZEY/eZEw4c7Ur6m3POITgkwC7i5ZcONx8gKw=;
+        b=UazB3YNuR1OA9YQAf40Rqtk97+mCLzD0Ydb9SuvnVn3lX/m9jj6TpJTH5/JBtH1KUi
+         UWkMYniUkrdbmDft0nV82PGhiMjJQjcdTNGre2vJC4eWmgTMlTP9U+pjtcGgrdRjYZTp
+         QwvaEOGTnDcsvhXFf5F9wwGZRgel4t1vpEUg4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1773667832; x=1774272632;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=nNpO7clZEY/eZEw4c7Ur6m3POITgkwC7i5ZcONx8gKw=;
+        b=Gy3p8mZG+O+pn4l2Seg/KNwM2GbU5C7yxxmgNk2Po6GJ5lZIDAb/RcoM6+sDGmzl5y
+         5NDSQ3xDLr8ZAUhtQjK2whPz/pW+h0wspsv+NnsjxAGqpOWNmpFqHVfDzMjphpX3ncpb
+         tcWsqMkL4LMDRi/Fdj+jNY+I5XN1VsG9RZd3OoXEf8REmX7OXPs4T6eIYquzA+LymvVP
+         SqI3jEmi/xQT2Bo/sQncWWxuyB7ffzNbqHx+4HIeRG5ePUajH6F3F5emqPgNWmi7Nf3h
+         hlqs/DumSoRr2pw7qcZwr+jMHMRrueCNNY9RVcFtXyVezfV5RjmfuGWKRP9jGBlhPrOW
+         hg0g==
+X-Gm-Message-State: AOJu0YwXKgvXzSBy1KuELaPcjjzKpVbooAwMU4dOXek9fyNgEg0Xygvy
+	hnoMB6SRoKdcTLW6ylbQ/DIcUGLiwUAqRqkTQU/krS+Z7p1wiCNhcIoWzGNpCBoykFzHyZ/8OZx
+	yavs3GA==
+X-Gm-Gg: ATEYQzxHMNUbQg7hPDtgwx8Iqxm2wFzpP0cu5gh+0V+hxB1Ox2DUsr5zstW5NKL5GJE
+	ce/17j0cMzE0IJwPF4nfB9QxLXrScsaJSeC4kFbvC/dKZX7nMyW5drRjNu9WCqeQWxa+Rod2SKu
+	zsFzcyfBKWHt9PgDoFejr4POrRR1rG1PCAnRIUxdHvRKW+8G9fjbcvJleJj6tWe+NA2N0lkU9LW
+	xrtrhj9ZG8AbQYaBrEwBVcCq/6OuqcfLFJdppMSoCHZBwH9dj/vGymnPinJvpZUoPbM0Kq9JcPo
+	hHIUQplUhe72xqy5G5KhtjFARbHiDoHB/xi1pnEVAhFjSXDxhX9x+gD0eRAAhAMbKwsYXsImfl4
+	n+KD9qfUQ4DyQGkFTyrMqtKzVbDdAWS57N2MJ6VIu2rSeh9hjk7Xti7IcUZSzYy7GptRJdP/UFg
+	q9TopGYBvpBP5ROb8u6CFbUP9Jn4I8emzk0KgNE1wORsi/G68Rlm4szAzrbwBTrN1BGzGDfb9xU
+	A==
+X-Received: by 2002:ac2:559b:0:b0:5a1:440f:512f with SMTP id 2adb3069b0e04-5a162b0c48fmr3716581e87.27.1773667832281;
+        Mon, 16 Mar 2026 06:30:32 -0700 (PDT)
+Received: from ribalda.c.googlers.com (27.69.88.34.bc.googleusercontent.com. [34.88.69.27])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a15636b69dsm3469985e87.82.2026.03.16.06.30.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Mar 2026 06:30:31 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 16 Mar 2026 13:30:30 +0000
+Subject: [PATCH v3 2/2] media: uvcvideo: Fix sequence number when no EOF
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 50/61] iommu: Prefer IS_ERR_OR_NULL over manual NULL check
-To: Philipp Hahn <phahn-oss@avm.de>, amd-gfx@lists.freedesktop.org,
- apparmor@lists.ubuntu.com, bpf@vger.kernel.org, ceph-devel@vger.kernel.org,
- cocci@inria.fr, dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
- gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
- intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
- kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-mm@kvack.org,
- linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
- ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
- sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev
-Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>
-References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
- <20260310-b4-is_err_or_null-v1-50-bd63b656022d@avm.de>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260310-b4-is_err_or_null-v1-50-bd63b656022d@avm.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260316-uvc-fid-v3-2-c793354469b5@chromium.org>
+References: <20260316-uvc-fid-v3-0-c793354469b5@chromium.org>
+In-Reply-To: <20260316-uvc-fid-v3-0-c793354469b5@chromium.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Yunke Cao <yunkec@google.com>, Ricardo Ribalda <ribalda@chromium.org>, 
+ stable@kernel.org
+X-Mailer: b4 0.14.3
 
-On 2026-03-10 11:49 am, Philipp Hahn wrote:
-> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
-> check.
+If the driver could not detect the EOF, the sequence number is increased
+twice:
+ 1) When we enter uvc_video_decode_start() with the old buffer and FID has
+   fliped => We return -EAGAIN and last_fid is not flipped
+ 2) When we enter uvc_video_decode_start() with the new buffer.
 
-AFAICS it doesn't look possible for the argument to be anything other 
-than valid at both callsites, so *both* conditions here seem in fact to 
-be entirely redundant.
+Fix this issue by saving last_fid on the first FID flip.
 
-> Change generated with coccinelle.
+Cc: stable@kernel.org
+Fixes: 650b95feee35 ("[media] uvcvideo: Generate discontinuous sequence numbers when frames are lost")
+Reported-by: Hans de Goede <hansg@kernel.org>
+Closes: https://lore.kernel.org/linux-media/CANiDSCuj4cPuB5_v2xyvAagA5FjoN8V5scXiFFOeD3aKDMqkCg@mail.gmail.com/T/#me39fb134e8c2c085567a31548c3403eb639625e4
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+ drivers/media/usb/uvc/uvc_video.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Please use coccinelle responsibly. Mechanical changes are great for 
-scripted API updates, but for cleanup, whilst it's ideal for *finding* 
-areas of code that are worth looking at, the code then wants actually 
-looking at, in its whole context, because meaningful cleanup often goes 
-deeper than trivial replacement.
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+index 9e06b1d0f0f9..3e6ded69388f 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -1254,6 +1254,12 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
+ 		uvc_dbg(stream->dev, FRAME,
+ 			"Frame complete (FID bit toggled)\n");
+ 		buf->state = UVC_BUF_STATE_READY;
++
++		/*
++		 * If the EOF detection has failed, we need to save the last_fid
++		 * to avoid increasing the sequence number twice.
++		 */
++		stream->last_fid = fid;
+ 		return -EAGAIN;
+ 	}
+ 
 
-In particular, anywhere IS_ERR_OR_NULL() is genuinely relevant is 
-usually a sign of bad interface design, so if you're looking at this 
-then you really should be looking first and foremost to remove any 
-checks that are already unnecessary, and for the remainder, to see if 
-the thing being checked can be improved to not mix the two different 
-styles. That would be constructive and (usually) welcome cleanup. Simply 
-churning a bunch of code with this ugly macro that's arguably less 
-readable than what it replaces, not so much.
-
-Thanks,
-Robin.
-
-> To: Joerg Roedel <joro@8bytes.org>
-> To: Will Deacon <will@kernel.org>
-> To: Robin Murphy <robin.murphy@arm.com>
-> Cc: iommu@lists.linux.dev
-> Cc: linux-kernel@vger.kernel.org
-> Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
-> ---
->   drivers/iommu/omap-iommu.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/iommu/omap-iommu.c b/drivers/iommu/omap-iommu.c
-> index 8231d7d6bb6a9202025643639a6b28e6faa84659..500a42b57a997696ff37c76f028a717ab71d01f9 100644
-> --- a/drivers/iommu/omap-iommu.c
-> +++ b/drivers/iommu/omap-iommu.c
-> @@ -881,7 +881,7 @@ static int omap_iommu_attach(struct omap_iommu *obj, u32 *iopgd)
->    **/
->   static void omap_iommu_detach(struct omap_iommu *obj)
->   {
-> -	if (!obj || IS_ERR(obj))
-> +	if (IS_ERR_OR_NULL(obj))
->   		return;
->   
->   	spin_lock(&obj->iommu_lock);
-> 
+-- 
+2.53.0.851.ga537e3e6e9-goog
 
