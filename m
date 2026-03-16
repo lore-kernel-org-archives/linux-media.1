@@ -1,140 +1,118 @@
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 857733976AF
-	for <linux-media@vger.kernel.org>; Mon, 16 Mar 2026 13:30:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.43
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3B44B3988EE;
+	Mon, 16 Mar 2026 13:30:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773667835; cv=none; b=Q/Z12jq5plTqNs5WuMe8t21omFsq5QBjr6P9MXzDHFxUZQLJGObMbruEIAhfNoUwvfuOh7tWNXJ6vX3kojbwMoMmNfmpRga84FlXx6YdCWdBtJgdo2tp58Piie5iQ8hKfEGZLsGFWLqd/oF1JOBB16hPUmZmp4T2Jks3UwM5mlU=
+	t=1773667835; cv=none; b=dMmWbQcH9JXXE3dVUgMNW4DFLAhgCEZhhlhpCenx9HwWxkTmE1uTzwVMrvrtGunNs1VrPWP5rZM4lkGQSP7FsIOJODAJxpbrEmTA5eCCzSOxYC5y/ou/ovFowog2PpdEUnuaZZ3pNPDtvj+wqVD6PA4W2aQFgtQyVmbqVOi490o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1773667835; c=relaxed/simple;
-	bh=RB+Ts3QkIKlZ/tRagbOBunzShfDi7jafPn0xkXpiu9k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kBBwVRgVdnxstNDbPXVcUD/1Z8CkkvrVQdimeW4LMzARkyAAcmeMJwJPjaHdb1uvWNNUCvyo+ZIFZEY34zn6xoBw9vZMR7vrKP6dCAYln/+My6AcqigzbHmjsQJ8rjaWkR0VjITlmi9XoU3DsjEn4Gl9ZmSMO42M44gAQxWrbh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ILn5y5KI; arc=none smtp.client-ip=209.85.167.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ILn5y5KI"
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5a12fbbd9d2so7040469e87.3
-        for <linux-media@vger.kernel.org>; Mon, 16 Mar 2026 06:30:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1773667832; x=1774272632; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ZWcSfGy9KQONYfZbcr63kentbs7tqTbeJBgJ1hS1gko=;
-        b=ILn5y5KIZGFilQab4r3Y++jBJmuD1590hAunuMNNFNxAmO8/RSA+g0s6JTCfW1fhtY
-         Rb0n5ARnYEPrkNQuSN0DqfhlIhvpyIv2o0nIV/RIq9nMyFsJSH/c0hiq2TzuwilQVc3Y
-         WvQlFVvQ51qYJ4nq6ee5eDKXtNWAtqq84LFr8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773667832; x=1774272632;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ZWcSfGy9KQONYfZbcr63kentbs7tqTbeJBgJ1hS1gko=;
-        b=lvdCXtbmdB7glCtpIfjCzJnzKCFIkE6k0Ev5itY8qsPqe633wVugJGrYeppI4qNLxA
-         L4uJXsXpB9G0CFniZS3QCsgPvgUNVty95tOoGUF4YSwQiOj0Em6Xb5L59KHTIEAVSA5C
-         mxpXy3glaQ/HxlY3d0NiIfMfK4GVb2wUw7cCM7cMi36XHZYhTGCxcKHZZHho1xDXwKn4
-         WC9srskjIizySDZeySr8UF8xO5rPUK8I1bWbe+o5spkXy5JK/ErHBFAYsHZfrDvf/Veq
-         eNdp+foTV4Mp+rjkYfpaS1SblPGSFkqthh/IFjjBTGtUjbSRaggZmwAX7x8zvpcRR5NM
-         xOrg==
-X-Gm-Message-State: AOJu0YyfEb1RXGF1xUD5Tnqb9XDUWkUVdQhl2EFAqiuhoGi463e68ErK
-	c8iqWB2tG1kECogvZDnoxXOP2YfcOkcIrk/QfYawogD6BZZbOa/39ugZFcXmSzaaKQ==
-X-Gm-Gg: ATEYQzyA3Ff20p3FwvMJq8j8+Y6Q675keW1OpJw8KfbVkkMfRZrB6WzHJOWRsm0sxG3
-	FS+WC1fNrqPRnunGutz7fa+C8ipuj7dICGZTGKN8KdQ8MmBX8Vuuo3GZtaiGjBp4w4Unez+HplV
-	w+dQ3bRP4ZZhuhoGP2UyCa5kdc1F4srQBFEVFsR9yl/J80u8bz1yGV3elATb6H5QBT6aXq+eJyQ
-	R1fD/iCXt6cWc87hn/BuDd8kqo8ZMP5CbJxyyXQba/ang+Qqy44IvuWDFsLGsR0AcY8mjbxsHZu
-	zd8DaBGoBb/Y9lD/XzMnqFEUygdqaP7Jm6VLuqhbF9ywrRFwwNMnrOgSvl3qMSs5PnXzs5jzI9X
-	RMYIgW3b/rGwdgZGyPA6xxNEW7QPkvPF9gfQZpUt3Fa+dlizNBItNZQf+Q2dvf5i8OKOHUV5DnK
-	/l2NppLX+E57tZ0coznY2hrmeCeb1sws1ehMeHkxaav/xP7uEuzqsyV5tmoXfTrjdrfv+0Kfnx7
-	g==
-X-Received: by 2002:ac2:4ed9:0:b0:5a1:2a20:9255 with SMTP id 2adb3069b0e04-5a16270eaf4mr4277043e87.18.1773667831543;
-        Mon, 16 Mar 2026 06:30:31 -0700 (PDT)
-Received: from ribalda.c.googlers.com (27.69.88.34.bc.googleusercontent.com. [34.88.69.27])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a15636b69dsm3469985e87.82.2026.03.16.06.30.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Mar 2026 06:30:31 -0700 (PDT)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 16 Mar 2026 13:30:29 +0000
-Subject: [PATCH v3 1/2] media: uvcvideo: Fix buffer sequence in frame gaps
+	bh=12QmHVFW6kvGAsAEHlRgc6k9FaOX+eCOvB+1XSjB85g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Bbj9i3OmX6tLHsLG9LsVUer8BMIseUV+cewr4p5b4W0GLlnwPuU7seL8aE/at0nXm72aSd8dJNxLetLzuHHuYyH1LmmKQGBoR67oCN6y9fm4gvzOaf7ZCgi6tFdE7Nt15YoWXaTLjQ3vkM5D8UeKzGqO7h9DPbsmd2QLdRgsNKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 357291477;
+	Mon, 16 Mar 2026 06:30:25 -0700 (PDT)
+Received: from [10.57.61.116] (unknown [10.57.61.116])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9D4953F778;
+	Mon, 16 Mar 2026 06:30:22 -0700 (PDT)
+Message-ID: <2c7466f5-d952-4356-9b55-9d2ebb3471f2@arm.com>
+Date: Mon, 16 Mar 2026 13:30:19 +0000
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 50/61] iommu: Prefer IS_ERR_OR_NULL over manual NULL check
+To: Philipp Hahn <phahn-oss@avm.de>, amd-gfx@lists.freedesktop.org,
+ apparmor@lists.ubuntu.com, bpf@vger.kernel.org, ceph-devel@vger.kernel.org,
+ cocci@inria.fr, dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
+ intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
+ kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-mm@kvack.org,
+ linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
+ sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>
+References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
+ <20260310-b4-is_err_or_null-v1-50-bd63b656022d@avm.de>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260310-b4-is_err_or_null-v1-50-bd63b656022d@avm.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260316-uvc-fid-v3-1-c793354469b5@chromium.org>
-References: <20260316-uvc-fid-v3-0-c793354469b5@chromium.org>
-In-Reply-To: <20260316-uvc-fid-v3-0-c793354469b5@chromium.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yunke Cao <yunkec@google.com>, Ricardo Ribalda <ribalda@chromium.org>, 
- stable@kernel.org
-X-Mailer: b4 0.14.3
 
-In UVC, the FID flips with every frame. For every FID flip, we increase
-the stream sequence number.
+On 2026-03-10 11:49 am, Philipp Hahn wrote:
+> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
+> check.
 
-Now, If a FID flips multiple times and there is no data transferred between
-the flips, the buffer sequence number will be set to the value of the
-stream sequence number after the first flip.
+AFAICS it doesn't look possible for the argument to be anything other 
+than valid at both callsites, so *both* conditions here seem in fact to 
+be entirely redundant.
 
-Userspace uses the buffer sequence number to determine if there has been
-missing frames. With the current behaviour, userspace will think that the
-gap is in the wrong location.
+> Change generated with coccinelle.
 
-This patch modifies uvc_video_decode_start() to provide the correct buffer
-sequence number and timestamp.
+Please use coccinelle responsibly. Mechanical changes are great for 
+scripted API updates, but for cleanup, whilst it's ideal for *finding* 
+areas of code that are worth looking at, the code then wants actually 
+looking at, in its whole context, because meaningful cleanup often goes 
+deeper than trivial replacement.
 
-Cc: stable@kernel.org
-Fixes: 650b95feee35 ("[media] uvcvideo: Generate discontinuous sequence numbers when frames are lost")
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
----
- drivers/media/usb/uvc/uvc_video.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+In particular, anywhere IS_ERR_OR_NULL() is genuinely relevant is 
+usually a sign of bad interface design, so if you're looking at this 
+then you really should be looking first and foremost to remove any 
+checks that are already unnecessary, and for the remainder, to see if 
+the thing being checked can be improved to not mix the two different 
+styles. That would be constructive and (usually) welcome cleanup. Simply 
+churning a bunch of code with this ugly macro that's arguably less 
+readable than what it replaces, not so much.
 
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index 40c76c051da2..9e06b1d0f0f9 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -1176,6 +1176,20 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
- 		stream->sequence++;
- 		if (stream->sequence)
- 			uvc_video_stats_update(stream);
-+
-+		/*
-+		 * If there is a FID flip and the buffer has no data,
-+		 * initialize its sequence number and timestamp.
-+		 *
-+		 * The driver already takes care of injecting FID flips for
-+		 * UVC_QUIRK_STREAM_NO_FID and UVC_QUIRK_MJPEG_NO_EOF.
-+		 */
-+		if (buf && !buf->bytesused) {
-+			buf->buf.field = V4L2_FIELD_NONE;
-+			buf->buf.sequence = stream->sequence;
-+			buf->buf.vb2_buf.timestamp =
-+					ktime_to_ns(uvc_video_get_time());
-+		}
- 	}
- 
- 	uvc_video_clock_decode(stream, buf, data, len);
-@@ -1216,10 +1230,6 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
- 			return -ENODATA;
- 		}
- 
--		buf->buf.field = V4L2_FIELD_NONE;
--		buf->buf.sequence = stream->sequence;
--		buf->buf.vb2_buf.timestamp = ktime_to_ns(uvc_video_get_time());
--
- 		/* TODO: Handle PTS and SCR. */
- 		buf->state = UVC_BUF_STATE_ACTIVE;
- 	}
+Thanks,
+Robin.
 
--- 
-2.53.0.851.ga537e3e6e9-goog
+> To: Joerg Roedel <joro@8bytes.org>
+> To: Will Deacon <will@kernel.org>
+> To: Robin Murphy <robin.murphy@arm.com>
+> Cc: iommu@lists.linux.dev
+> Cc: linux-kernel@vger.kernel.org
+> Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
+> ---
+>   drivers/iommu/omap-iommu.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iommu/omap-iommu.c b/drivers/iommu/omap-iommu.c
+> index 8231d7d6bb6a9202025643639a6b28e6faa84659..500a42b57a997696ff37c76f028a717ab71d01f9 100644
+> --- a/drivers/iommu/omap-iommu.c
+> +++ b/drivers/iommu/omap-iommu.c
+> @@ -881,7 +881,7 @@ static int omap_iommu_attach(struct omap_iommu *obj, u32 *iopgd)
+>    **/
+>   static void omap_iommu_detach(struct omap_iommu *obj)
+>   {
+> -	if (!obj || IS_ERR(obj))
+> +	if (IS_ERR_OR_NULL(obj))
+>   		return;
+>   
+>   	spin_lock(&obj->iommu_lock);
+> 
 
