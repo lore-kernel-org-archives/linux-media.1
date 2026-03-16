@@ -1,118 +1,98 @@
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24AF0396594
-	for <linux-media@vger.kernel.org>; Mon, 16 Mar 2026 13:30:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E254E28BAB9;
+	Mon, 16 Mar 2026 13:33:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773667835; cv=none; b=go/DxZnABIQIGAonXOoOgRB9xnjx7iSa2KouGlRLHdN9+pfVO8t/5gOtVVEHSbp+XabvBIZyKqAj6EKhHI6rF0qS85YfPP8FLC5wPrMUYuAlhb4My2yjUZgXIahqavfoO/RuNlMa5946kAD90KmHhhVU/ok7LaFxUAzpWDjkhtI=
+	t=1773668032; cv=none; b=RRADHN7N4LfwtLTnWnPirHbuAgf+VEJq/CMy0CVG8GjqODiTbQZvByovh/ErQK9K65zjZQ/yIpmX/mxpU2WlY3iOIzKyMcKOVYwfbG2Omg4XRmVR1SYl9oeJK+0MHOP10rto+5JcWuor6ZcCQW2gry+ygAvZxqeIsaSBZlWsmZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773667835; c=relaxed/simple;
-	bh=Yq7adSLvEY5q4q42T4Hel6YbK+rT6LRdgNp2DFqfKmo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Lqt+VsPe5Vc+DcozolT6q/FdhggulC+eqUjv5xFq19O2d2nrReRF2L/H7rmTtwRzl/xuAB8CiimmfYL57qx+pujcuVvCgwIwsW5zw9ccO3dmP3YFSCuRt0OkEGxTQ0K9Tlr43d2MHQXV7tUHXrrBmiywH8Pf+9srMrDwaqFyDlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=UazB3YNu; arc=none smtp.client-ip=209.85.167.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1773668032; c=relaxed/simple;
+	bh=1BQ0dbGcRj9ER/i8bD69aS5hfaedzoy7JYoH0NKfmf8=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=PDvKN9r4Z56Qg3nktMnHTU852hpcNcm715qb5aOVxPB7Y9TxM67662oVlwDVvk7Ia5QBPMWkKGo0+p9J64FWE4GPrXKHzDcn8sajt1k7vrRmM1UInFE6jhTfLZjuvG0Ns0O7y5fJwFdy9+AqTMUBQbtLD5dNNv7x44tYR7ZIbH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o3xocmMr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="UazB3YNu"
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-59dcdf60427so3941174e87.3
-        for <linux-media@vger.kernel.org>; Mon, 16 Mar 2026 06:30:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1773667832; x=1774272632; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=nNpO7clZEY/eZEw4c7Ur6m3POITgkwC7i5ZcONx8gKw=;
-        b=UazB3YNuR1OA9YQAf40Rqtk97+mCLzD0Ydb9SuvnVn3lX/m9jj6TpJTH5/JBtH1KUi
-         UWkMYniUkrdbmDft0nV82PGhiMjJQjcdTNGre2vJC4eWmgTMlTP9U+pjtcGgrdRjYZTp
-         QwvaEOGTnDcsvhXFf5F9wwGZRgel4t1vpEUg4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773667832; x=1774272632;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=nNpO7clZEY/eZEw4c7Ur6m3POITgkwC7i5ZcONx8gKw=;
-        b=Gy3p8mZG+O+pn4l2Seg/KNwM2GbU5C7yxxmgNk2Po6GJ5lZIDAb/RcoM6+sDGmzl5y
-         5NDSQ3xDLr8ZAUhtQjK2whPz/pW+h0wspsv+NnsjxAGqpOWNmpFqHVfDzMjphpX3ncpb
-         tcWsqMkL4LMDRi/Fdj+jNY+I5XN1VsG9RZd3OoXEf8REmX7OXPs4T6eIYquzA+LymvVP
-         SqI3jEmi/xQT2Bo/sQncWWxuyB7ffzNbqHx+4HIeRG5ePUajH6F3F5emqPgNWmi7Nf3h
-         hlqs/DumSoRr2pw7qcZwr+jMHMRrueCNNY9RVcFtXyVezfV5RjmfuGWKRP9jGBlhPrOW
-         hg0g==
-X-Gm-Message-State: AOJu0YwXKgvXzSBy1KuELaPcjjzKpVbooAwMU4dOXek9fyNgEg0Xygvy
-	hnoMB6SRoKdcTLW6ylbQ/DIcUGLiwUAqRqkTQU/krS+Z7p1wiCNhcIoWzGNpCBoykFzHyZ/8OZx
-	yavs3GA==
-X-Gm-Gg: ATEYQzxHMNUbQg7hPDtgwx8Iqxm2wFzpP0cu5gh+0V+hxB1Ox2DUsr5zstW5NKL5GJE
-	ce/17j0cMzE0IJwPF4nfB9QxLXrScsaJSeC4kFbvC/dKZX7nMyW5drRjNu9WCqeQWxa+Rod2SKu
-	zsFzcyfBKWHt9PgDoFejr4POrRR1rG1PCAnRIUxdHvRKW+8G9fjbcvJleJj6tWe+NA2N0lkU9LW
-	xrtrhj9ZG8AbQYaBrEwBVcCq/6OuqcfLFJdppMSoCHZBwH9dj/vGymnPinJvpZUoPbM0Kq9JcPo
-	hHIUQplUhe72xqy5G5KhtjFARbHiDoHB/xi1pnEVAhFjSXDxhX9x+gD0eRAAhAMbKwsYXsImfl4
-	n+KD9qfUQ4DyQGkFTyrMqtKzVbDdAWS57N2MJ6VIu2rSeh9hjk7Xti7IcUZSzYy7GptRJdP/UFg
-	q9TopGYBvpBP5ROb8u6CFbUP9Jn4I8emzk0KgNE1wORsi/G68Rlm4szAzrbwBTrN1BGzGDfb9xU
-	A==
-X-Received: by 2002:ac2:559b:0:b0:5a1:440f:512f with SMTP id 2adb3069b0e04-5a162b0c48fmr3716581e87.27.1773667832281;
-        Mon, 16 Mar 2026 06:30:32 -0700 (PDT)
-Received: from ribalda.c.googlers.com (27.69.88.34.bc.googleusercontent.com. [34.88.69.27])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a15636b69dsm3469985e87.82.2026.03.16.06.30.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Mar 2026 06:30:31 -0700 (PDT)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 16 Mar 2026 13:30:30 +0000
-Subject: [PATCH v3 2/2] media: uvcvideo: Fix sequence number when no EOF
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o3xocmMr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6256EC19421;
+	Mon, 16 Mar 2026 13:33:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1773668031;
+	bh=1BQ0dbGcRj9ER/i8bD69aS5hfaedzoy7JYoH0NKfmf8=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
+	b=o3xocmMrgc99RpTMj9AFQGql+DLtFz995tJ8DudAiTdxM94NtxLNdFDaKPm71vRLu
+	 AJpZ20jLco/lbDxYLf7svfLIAijoq2NDo/WQREXpnfqeI5jOFf8d1BP6shYlK3mWjF
+	 LZUIYyJQKb6zcHHCR7YPCOLNMQTJE4s+OMEY1aIpinIcIe8Tn2w5g4XKzoXXY5hvNr
+	 pLavZ7/GYJlqHJNqjnFMiOJT8ldqszOvbaTvoYMwQhYgxwvXYJWmoBH2iU1E0LU1FU
+	 nPgAINl9lW6SQi/jKTYV/d1gYoAQvC29A590MrZvxJcusJ6+FB82qAGGWQ7CV7Xk0z
+	 CIw2axs5CoAWQ==
+Message-ID: <16ac1516-781a-4cff-812f-59a30b15bb79@kernel.org>
+Date: Mon, 16 Mar 2026 14:33:48 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] [PATCH v2] media: vidtv: fix general protection fault in
+ vidtv_psi_ts_psi_write_into
+To: Soham Kute <officialsohamkute@gmail.com>, dwlsalmeida@gmail.com,
+ mchehab@kernel.org
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260207203947.4354-1-officialsohamkute@gmail.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260207203947.4354-1-officialsohamkute@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260316-uvc-fid-v3-2-c793354469b5@chromium.org>
-References: <20260316-uvc-fid-v3-0-c793354469b5@chromium.org>
-In-Reply-To: <20260316-uvc-fid-v3-0-c793354469b5@chromium.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yunke Cao <yunkec@google.com>, Ricardo Ribalda <ribalda@chromium.org>, 
- stable@kernel.org
-X-Mailer: b4 0.14.3
 
-If the driver could not detect the EOF, the sequence number is increased
-twice:
- 1) When we enter uvc_video_decode_start() with the old buffer and FID has
-   fliped => We return -EAGAIN and last_fid is not flipped
- 2) When we enter uvc_video_decode_start() with the new buffer.
+Hi Soham,
 
-Fix this issue by saving last_fid on the first FID flip.
+On 07/02/2026 21:39, Soham Kute wrote:
+> Add defensive validation for psi_write_args pointers to avoid
+> null pointer dereference reported by syzbot.
+> 
+> Reported-by: syzbot+814c351d094f41a1b86@syzkaller.appspotmail.com
 
-Cc: stable@kernel.org
-Fixes: 650b95feee35 ("[media] uvcvideo: Generate discontinuous sequence numbers when frames are lost")
-Reported-by: Hans de Goede <hansg@kernel.org>
-Closes: https://lore.kernel.org/linux-media/CANiDSCuj4cPuB5_v2xyvAagA5FjoN8V5scXiFFOeD3aKDMqkCg@mail.gmail.com/T/#me39fb134e8c2c085567a31548c3403eb639625e4
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
----
- drivers/media/usb/uvc/uvc_video.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+I can't find any report with this hash from syzbot.
 
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index 9e06b1d0f0f9..3e6ded69388f 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -1254,6 +1254,12 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
- 		uvc_dbg(stream->dev, FRAME,
- 			"Frame complete (FID bit toggled)\n");
- 		buf->state = UVC_BUF_STATE_READY;
-+
-+		/*
-+		 * If the EOF detection has failed, we need to save the last_fid
-+		 * to avoid increasing the sequence number twice.
-+		 */
-+		stream->last_fid = fid;
- 		return -EAGAIN;
- 	}
- 
+Can you point me to the correct syzbot report?
 
--- 
-2.53.0.851.ga537e3e6e9-goog
+> 
+> Signed-off-by: Soham Kute <officialsohamkute@gmail.com>
+> ---
+>  drivers/media/test-drivers/vidtv/vidtv_psi.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/test-drivers/vidtv/vidtv_psi.c b/drivers/media/test-drivers/vidtv/vidtv_psi.c
+> index 2a51c898c..bac0ea03b 100644
+> --- a/drivers/media/test-drivers/vidtv/vidtv_psi.c
+> +++ b/drivers/media/test-drivers/vidtv/vidtv_psi.c
+> @@ -156,7 +156,13 @@ static void vidtv_psi_set_sec_len(struct vidtv_psi_table_header *h, u16 new_len)
+>   * add stuffing (i.e. padding bytes) after the CRC
+>   */
+>  static u32 vidtv_psi_ts_psi_write_into(struct psi_write_args *args)
+> -{
+> +{	
+> +	if (!args || !args->dest_buf || !args->from ||
+> +	    !args->continuity_counter) {
+> +		pr_warn_once("%s: invalid write arguments\n", __func__);
+> +		return 0;
+> +	}
+
+I'm fairly certain you paper over the real bug, which is somewhere else.
+
+The question is where the NULL pointer is exactly and why it is NULL.
+
+Without the syzbot report I have no idea.
+
+Regards,
+
+	Hans
+
+> +
+>  	struct vidtv_mpeg_ts ts_header = {
+>  		.sync_byte = TS_SYNC_BYTE,
+>  		.bitfield = cpu_to_be16((args->new_psi_section << 14) | args->pid),
 
