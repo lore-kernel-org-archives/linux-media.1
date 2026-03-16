@@ -1,158 +1,539 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 623DB372ED8;
-	Mon, 16 Mar 2026 21:17:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D977372B4F
+	for <linux-media@vger.kernel.org>; Mon, 16 Mar 2026 21:17:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773695843; cv=none; b=I5o10eHRbng/E8x0KEHSRVY0RFaFVr8TiHKq7xJk/hETUeOxoREXIAvWuHCDVZiA7+Fa3/rbOmhJ8GAS0rHrwBiFCk9dt16szOncDwLT0INSV1r6MtW2QphsufsNvw9xn7gx4pjwZkC0oVPMTWbYF9cISq+7Qu69qefXLxTJ0qA=
+	t=1773695844; cv=none; b=qTTwJkKaG8UglzeKmhaMiNZ+JAhDRT/mroQNcqfyg7QmUCieDFGCPdXMhqWFTEOrwFzu2APHvBozHlmnhzSsXmj6kx2ZG6YMGeFjGsBX1kw5mxLfGXc20Sum7qHDQpTYfkD1Yyr7k8FoPrHHd+B995aQ5trqh9Nbb0wI1symw+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773695843; c=relaxed/simple;
-	bh=stK4sYe/AduQ6uXwjj3mRomo/JyzTjLstba5Bk6cJA8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bb44b4dxa9qSivdJQFjF7qJ0KOt0dwuD7GSDRAgao0dGw7sk6upW6i6zHdkoxkJZCldiILAZ3juMCsSnTgxjSv3lrQu+pxT4QaL1vAQffHGvqkOasTIhsBQ29e9X700xOtC1j0UIGTWuT7wSeLO9/iLbZtjEpQZgBChIx/5gy/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cnnjw4fg; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1773695844; c=relaxed/simple;
+	bh=Daz7j5BMC6O8PHxTFkIWgKNtXJ6gCMMWBvuCzi2GUM8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hr8BLJ2lEithud3Qtj9xWJQ/Oz5OeT8zhsaanu1v6OYwhyQvbLBKu1+Cx3JnBWks3Mz8yruhk64aXIiAIF2Wt/aehVEfwvBjsCyqXCR5J2slEeObc9JTRoR26PZ4WVoEmYe2BS20vGet5/16EhwLB2vPtEsgFM2vXcmRUD/WJ1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QGAqS8Sa; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cnnjw4fg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FC15C19421;
-	Mon, 16 Mar 2026 21:17:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1773695842;
-	bh=stK4sYe/AduQ6uXwjj3mRomo/JyzTjLstba5Bk6cJA8=;
-	h=From:To:Cc:Subject:Date:From;
-	b=cnnjw4fgqa6bIzxFQQ2o2aj4iFeLLt9w6G0Rpar99nsO4AtzYik+Mk8/fasPMMGOA
-	 C14ypWbjzNkkFx8vNKxfRCTA5p9qlr4as+jcC7dD+erNleVN6wYVZhO9CfgkHF/bmC
-	 yND+TTNyhhMeX5bzTv7JLrToq6O6DpdM95vv33l39sJu8DP3SynGNm+dF26Z2kHBDL
-	 BZetGocGrvaT0EamXyLqtrCV8TzFnl962yhM5sRckZ+3stTGBgiRkDqmIlhpBeRsmy
-	 5V59Bnt4/h4+6Iojsu/u4NjOrSyC12EiNTPQ4jxGKLjVIRn1gIn+67EjnYhUzVePVJ
-	 V0k93mhwMNdEg==
-From: Eric Biggers <ebiggers@kernel.org>
-To: "Daniel W . S . Almeida" <dwlsalmeida@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH] media: vidtv: Use crc32_be() instead of open coding
-Date: Mon, 16 Mar 2026 14:15:42 -0700
-Message-ID: <20260316211542.50912-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QGAqS8Sa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1773695839;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BnDlo4rVJKgLJ2pS+fh13dGZdeOKK30aFTSSHt2DQIo=;
+	b=QGAqS8Sag307ZlFmgQiaFswkxeG5BMFoFO7z43UnQuLxifDhALEmFma97XCQBDgIf2XQUX
+	5Qn2iTPXStd+RQ2epZVWbh6Y/w/hNuLkoN3ziLcUUBLMSuWhDPPOrSVEaC8icG2ea0pUP5
+	I+TklAx6lR4jAGJBe4E5IOTQAUd2SqI=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-307-CraaGDnQOKqr7I3FodNtxQ-1; Mon,
+ 16 Mar 2026 17:17:15 -0400
+X-MC-Unique: CraaGDnQOKqr7I3FodNtxQ-1
+X-Mimecast-MFC-AGG-ID: CraaGDnQOKqr7I3FodNtxQ_1773695831
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 973DE19560BB;
+	Mon, 16 Mar 2026 21:17:11 +0000 (UTC)
+Received: from GoldenWind.redhat.com (unknown [10.22.88.101])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 444A9180035F;
+	Mon, 16 Mar 2026 21:17:08 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: nouveau@lists.freedesktop.org,
+	Gary Guo <gary@garyguo.net>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	rust-for-linux@vger.kernel.org,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Matthew Maurer <mmaurer@google.com>,
+	FUJITA Tomonori <fujita.tomonori@gmail.com>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	christian.koenig@amd.com,
+	Asahi Lina <lina@asahilina.net>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Simona Vetter <simona@ffwll.ch>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Boqun Feng <boqun@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Krishna Ketan Rai <prafulrai522@gmail.com>,
+	linux-media@vger.kernel.org,
+	Shankari Anand <shankari.ak0208@gmail.com>,
+	David Airlie <airlied@gmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	linaro-mm-sig@lists.linaro.org,
+	Asahi Lina <lina+kernel@asahilina.net>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	kernel@vger.kernel.org
+Subject: [PATCH v9 5/7] rust: drm: gem: shmem: Add DRM shmem helper abstraction
+Date: Mon, 16 Mar 2026 17:16:13 -0400
+Message-ID: <20260316211646.650074-6-lyude@redhat.com>
+In-Reply-To: <20260316211646.650074-1-lyude@redhat.com>
+References: <20260316211646.650074-1-lyude@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-dvb_crc32() does exactly the same computation as the crc32_be() library
-function.  Just call crc32_be() instead.
+From: Asahi Lina <lina@asahilina.net>
 
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+The DRM shmem helper includes common code useful for drivers which
+allocate GEM objects as anonymous shmem. Add a Rust abstraction for
+this. Drivers can choose the raw GEM implementation or the shmem layer,
+depending on their needs.
+
+Signed-off-by: Asahi Lina <lina@asahilina.net>
+Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+
 ---
- drivers/media/test-drivers/vidtv/Kconfig     |  1 +
- drivers/media/test-drivers/vidtv/vidtv_psi.c | 57 +-------------------
- 2 files changed, 2 insertions(+), 56 deletions(-)
 
-diff --git a/drivers/media/test-drivers/vidtv/Kconfig b/drivers/media/test-drivers/vidtv/Kconfig
-index e511e51c0b5b..8cb10b75603b 100644
---- a/drivers/media/test-drivers/vidtv/Kconfig
-+++ b/drivers/media/test-drivers/vidtv/Kconfig
-@@ -1,9 +1,10 @@
- # SPDX-License-Identifier: GPL-2.0-only
- config DVB_VIDTV
- 	tristate "Virtual DVB Driver (vidtv)"
- 	depends on DVB_CORE && MEDIA_SUPPORT && I2C
-+	select CRC32
- 	help
- 	  The virtual DVB test driver serves as a reference DVB driver and helps
- 	  validate the existing APIs in the media subsystem. It can also aid developers
- 	  working on userspace applications.
+V2:
+* Use the drm_gem_shmem_init() and drm_gem_shmem_release() that I extracted
+  so we can handle memory allocation in rust, which means we no longer have
+  to handle freeing rust members of the struct by hand and have a closer
+  implementation to the main gem object
+  (this also gets rid of gem_create_object)
+* Get rid of GemObjectRef and UniqueGemObjectRef, we have ARef<T> at home.
+* Use Device<T::Driver> in Object<T>
+* Cleanup Object::<T>::new() a bit:
+  * Cleanup safety comment
+  * Use cast_mut()
+* Just import container_of!(), we use it all over anyhow
+* mut_shmem() -> as_shmem(), make it safe (there's no reason for being unsafe)
+* Remove any *const and *muts in structs, just use NonNull
+* Get rid of the previously hand-rolled sg_table bindings in shmem, use the
+  bindings from Abdiel's sg_table patch series
+* Add a TODO at the top about DMA reservation APIs and a desire for WwMutex
+* Get rid of map_wc() and replace it with a new ObjectConfig struct. While
+  it currently only specifies the map_wc flag, the idea here is that
+  settings like map_wc() and parent_resv_obj() shouldn't be exposed as
+  normal functions since the only place where it's safe to set them is
+  when we're still guaranteed unique access to the GEM object, e.g. before
+  returning it to the caller. Using a struct instead of individual
+  arguments here is mainly because we'll be adding at least one more
+  argument, and there's enough other gem shmem settings that trying to add
+  all of them as individual function arguments in the future would be a bit
+  messy.
+* Get rid of vm_numa_fields!, Lina didn't like this macro much either and I
+  think that it's fine for us to just specify the #[cfg(…)] attributes by
+  hand since we only need to do it twice.
+* Set drm_gem_object_funcs.vm_ops directly to drm_gem_shmem_vm_ops, don't
+  export the various shmem funcs. I'm not sure why this wasn't possible
+  before but it seems to work fine now.
+V4:
+* Switch from OpaqueObject to a normal Object<T> now that we've removed it
+* Remove `dev` from Object, it's redundant as drm_gem_object already has a
+  device pointer we can use.
+* Use &raw instead of addr_of!()
+V5:
+* Fix typo in shmem::Object::as_raw()
+* Add type invariant around `obj` always being a valid
+  `drm_gem_shmem_object` for the duration of the lifetime of `Object`.
+* Use Opaque::cast_from() instead of unrestricted casts
+* Use IS_ENABLED() for gem shmem C helpers.
+V7:
+* Fix import style
+* Don't forget to make Object<T> Send/Sync
+V8:
+* s/as_shmem()/as_raw_shmem()
+
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+---
+ rust/bindings/bindings_helper.h |   2 +
+ rust/helpers/drm.c              |  56 ++++++-
+ rust/kernel/drm/gem/mod.rs      |   5 +-
+ rust/kernel/drm/gem/shmem.rs    | 250 ++++++++++++++++++++++++++++++++
+ 4 files changed, 311 insertions(+), 2 deletions(-)
+ create mode 100644 rust/kernel/drm/gem/shmem.rs
+
+diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
+index 39a8f15603692..a343c684e8d06 100644
+--- a/rust/bindings/bindings_helper.h
++++ b/rust/bindings/bindings_helper.h
+@@ -33,6 +33,7 @@
+ #include <drm/drm_drv.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_gem.h>
++#include <drm/drm_gem_shmem_helper.h>
+ #include <drm/drm_ioctl.h>
+ #include <kunit/test.h>
+ #include <linux/auxiliary_bus.h>
+@@ -62,6 +63,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/io-pgtable.h>
+ #include <linux/ioport.h>
++#include <linux/iosys-map.h>
+ #include <linux/jiffies.h>
+ #include <linux/jump_label.h>
+ #include <linux/mdio.h>
+diff --git a/rust/helpers/drm.c b/rust/helpers/drm.c
+index fe226f7b53ef0..a49aff4fb6350 100644
+--- a/rust/helpers/drm.c
++++ b/rust/helpers/drm.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
  
-diff --git a/drivers/media/test-drivers/vidtv/vidtv_psi.c b/drivers/media/test-drivers/vidtv/vidtv_psi.c
-index 685a1f7b2fb1..1b6225d65ef3 100644
---- a/drivers/media/test-drivers/vidtv/vidtv_psi.c
-+++ b/drivers/media/test-drivers/vidtv/vidtv_psi.c
-@@ -29,65 +29,10 @@
- #define CRC_SIZE_IN_BYTES 4
- #define MAX_VERSION_NUM 32
- #define INITIAL_CRC 0xffffffff
- #define ISO_LANGUAGE_CODE_LEN 3
+ #include <drm/drm_gem.h>
++#include <drm/drm_gem_shmem_helper.h>
+ #include <drm/drm_vma_manager.h>
  
--static const u32 CRC_LUT[256] = {
--	/* from libdvbv5 */
--	0x00000000, 0x04c11db7, 0x09823b6e, 0x0d4326d9, 0x130476dc, 0x17c56b6b,
--	0x1a864db2, 0x1e475005, 0x2608edb8, 0x22c9f00f, 0x2f8ad6d6, 0x2b4bcb61,
--	0x350c9b64, 0x31cd86d3, 0x3c8ea00a, 0x384fbdbd, 0x4c11db70, 0x48d0c6c7,
--	0x4593e01e, 0x4152fda9, 0x5f15adac, 0x5bd4b01b, 0x569796c2, 0x52568b75,
--	0x6a1936c8, 0x6ed82b7f, 0x639b0da6, 0x675a1011, 0x791d4014, 0x7ddc5da3,
--	0x709f7b7a, 0x745e66cd, 0x9823b6e0, 0x9ce2ab57, 0x91a18d8e, 0x95609039,
--	0x8b27c03c, 0x8fe6dd8b, 0x82a5fb52, 0x8664e6e5, 0xbe2b5b58, 0xbaea46ef,
--	0xb7a96036, 0xb3687d81, 0xad2f2d84, 0xa9ee3033, 0xa4ad16ea, 0xa06c0b5d,
--	0xd4326d90, 0xd0f37027, 0xddb056fe, 0xd9714b49, 0xc7361b4c, 0xc3f706fb,
--	0xceb42022, 0xca753d95, 0xf23a8028, 0xf6fb9d9f, 0xfbb8bb46, 0xff79a6f1,
--	0xe13ef6f4, 0xe5ffeb43, 0xe8bccd9a, 0xec7dd02d, 0x34867077, 0x30476dc0,
--	0x3d044b19, 0x39c556ae, 0x278206ab, 0x23431b1c, 0x2e003dc5, 0x2ac12072,
--	0x128e9dcf, 0x164f8078, 0x1b0ca6a1, 0x1fcdbb16, 0x018aeb13, 0x054bf6a4,
--	0x0808d07d, 0x0cc9cdca, 0x7897ab07, 0x7c56b6b0, 0x71159069, 0x75d48dde,
--	0x6b93dddb, 0x6f52c06c, 0x6211e6b5, 0x66d0fb02, 0x5e9f46bf, 0x5a5e5b08,
--	0x571d7dd1, 0x53dc6066, 0x4d9b3063, 0x495a2dd4, 0x44190b0d, 0x40d816ba,
--	0xaca5c697, 0xa864db20, 0xa527fdf9, 0xa1e6e04e, 0xbfa1b04b, 0xbb60adfc,
--	0xb6238b25, 0xb2e29692, 0x8aad2b2f, 0x8e6c3698, 0x832f1041, 0x87ee0df6,
--	0x99a95df3, 0x9d684044, 0x902b669d, 0x94ea7b2a, 0xe0b41de7, 0xe4750050,
--	0xe9362689, 0xedf73b3e, 0xf3b06b3b, 0xf771768c, 0xfa325055, 0xfef34de2,
--	0xc6bcf05f, 0xc27dede8, 0xcf3ecb31, 0xcbffd686, 0xd5b88683, 0xd1799b34,
--	0xdc3abded, 0xd8fba05a, 0x690ce0ee, 0x6dcdfd59, 0x608edb80, 0x644fc637,
--	0x7a089632, 0x7ec98b85, 0x738aad5c, 0x774bb0eb, 0x4f040d56, 0x4bc510e1,
--	0x46863638, 0x42472b8f, 0x5c007b8a, 0x58c1663d, 0x558240e4, 0x51435d53,
--	0x251d3b9e, 0x21dc2629, 0x2c9f00f0, 0x285e1d47, 0x36194d42, 0x32d850f5,
--	0x3f9b762c, 0x3b5a6b9b, 0x0315d626, 0x07d4cb91, 0x0a97ed48, 0x0e56f0ff,
--	0x1011a0fa, 0x14d0bd4d, 0x19939b94, 0x1d528623, 0xf12f560e, 0xf5ee4bb9,
--	0xf8ad6d60, 0xfc6c70d7, 0xe22b20d2, 0xe6ea3d65, 0xeba91bbc, 0xef68060b,
--	0xd727bbb6, 0xd3e6a601, 0xdea580d8, 0xda649d6f, 0xc423cd6a, 0xc0e2d0dd,
--	0xcda1f604, 0xc960ebb3, 0xbd3e8d7e, 0xb9ff90c9, 0xb4bcb610, 0xb07daba7,
--	0xae3afba2, 0xaafbe615, 0xa7b8c0cc, 0xa379dd7b, 0x9b3660c6, 0x9ff77d71,
--	0x92b45ba8, 0x9675461f, 0x8832161a, 0x8cf30bad, 0x81b02d74, 0x857130c3,
--	0x5d8a9099, 0x594b8d2e, 0x5408abf7, 0x50c9b640, 0x4e8ee645, 0x4a4ffbf2,
--	0x470cdd2b, 0x43cdc09c, 0x7b827d21, 0x7f436096, 0x7200464f, 0x76c15bf8,
--	0x68860bfd, 0x6c47164a, 0x61043093, 0x65c52d24, 0x119b4be9, 0x155a565e,
--	0x18197087, 0x1cd86d30, 0x029f3d35, 0x065e2082, 0x0b1d065b, 0x0fdc1bec,
--	0x3793a651, 0x3352bbe6, 0x3e119d3f, 0x3ad08088, 0x2497d08d, 0x2056cd3a,
--	0x2d15ebe3, 0x29d4f654, 0xc5a92679, 0xc1683bce, 0xcc2b1d17, 0xc8ea00a0,
--	0xd6ad50a5, 0xd26c4d12, 0xdf2f6bcb, 0xdbee767c, 0xe3a1cbc1, 0xe760d676,
--	0xea23f0af, 0xeee2ed18, 0xf0a5bd1d, 0xf464a0aa, 0xf9278673, 0xfde69bc4,
--	0x89b8fd09, 0x8d79e0be, 0x803ac667, 0x84fbdbd0, 0x9abc8bd5, 0x9e7d9662,
--	0x933eb0bb, 0x97ffad0c, 0xafb010b1, 0xab710d06, 0xa6322bdf, 0xa2f33668,
--	0xbcb4666d, 0xb8757bda, 0xb5365d03, 0xb1f740b4
--};
--
--static u32 dvb_crc32(u32 crc, u8 *data, u32 len)
--{
--	/* from libdvbv5 */
--	while (len--)
--		crc = (crc << 8) ^ CRC_LUT[((crc >> 24) ^ *data++) & 0xff];
--	return crc;
--}
--
- static void vidtv_psi_update_version_num(struct vidtv_psi_table_header *h)
- {
- 	h->version++;
+ #ifdef CONFIG_DRM
+@@ -21,4 +22,57 @@ rust_helper_drm_vma_node_offset_addr(struct drm_vma_offset_node *node)
+ 	return drm_vma_node_offset_addr(node);
  }
  
-@@ -173,11 +118,11 @@ static u32 vidtv_psi_ts_psi_write_into(struct psi_write_args *args)
+-#endif
++#if IS_ENABLED(CONFIG_DRM_GEM_SHMEM_HELPER)
++__rust_helper void
++rust_helper_drm_gem_shmem_object_free(struct drm_gem_object *obj)
++{
++	return drm_gem_shmem_object_free(obj);
++}
++
++__rust_helper void
++rust_helper_drm_gem_shmem_object_print_info(struct drm_printer *p, unsigned int indent,
++					    const struct drm_gem_object *obj)
++{
++	drm_gem_shmem_object_print_info(p, indent, obj);
++}
++
++__rust_helper int
++rust_helper_drm_gem_shmem_object_pin(struct drm_gem_object *obj)
++{
++	return drm_gem_shmem_object_pin(obj);
++}
++
++__rust_helper void
++rust_helper_drm_gem_shmem_object_unpin(struct drm_gem_object *obj)
++{
++	drm_gem_shmem_object_unpin(obj);
++}
++
++__rust_helper struct sg_table *
++rust_helper_drm_gem_shmem_object_get_sg_table(struct drm_gem_object *obj)
++{
++	return drm_gem_shmem_object_get_sg_table(obj);
++}
++
++__rust_helper int
++rust_helper_drm_gem_shmem_object_vmap(struct drm_gem_object *obj,
++				      struct iosys_map *map)
++{
++	return drm_gem_shmem_object_vmap(obj, map);
++}
++
++__rust_helper void
++rust_helper_drm_gem_shmem_object_vunmap(struct drm_gem_object *obj,
++					struct iosys_map *map)
++{
++	drm_gem_shmem_object_vunmap(obj, map);
++}
++
++__rust_helper int
++rust_helper_drm_gem_shmem_object_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
++{
++	return drm_gem_shmem_object_mmap(obj, vma);
++}
++
++#endif /* CONFIG_DRM_GEM_SHMEM_HELPER */
++#endif /* CONFIG_DRM */
+diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
+index 68bf33969a7d4..e7ebfb3f6ce6b 100644
+--- a/rust/kernel/drm/gem/mod.rs
++++ b/rust/kernel/drm/gem/mod.rs
+@@ -3,6 +3,8 @@
+ //! DRM GEM API
+ //!
+ //! C header: [`include/drm/drm_gem.h`](srctree/include/drm/drm_gem.h)
++#[cfg(CONFIG_DRM_GEM_SHMEM_HELPER)]
++pub mod shmem;
  
- 	if (!args->crc && !args->is_crc)
- 		pr_warn_ratelimited("Missing CRC for chunk\n");
+ use crate::{
+     alloc::flags::*,
+@@ -50,6 +52,8 @@ unsafe fn dec_ref(obj: core::ptr::NonNull<Self>) {
+     };
+ }
  
- 	if (args->crc)
--		*args->crc = dvb_crc32(*args->crc, args->from, args->len);
-+		*args->crc = crc32_be(*args->crc, args->from, args->len);
++pub(crate) use impl_aref_for_gem_obj;
++
+ /// A type alias for retrieving a [`Driver`]s [`DriverFile`] implementation from its
+ /// [`DriverObject`] implementation.
+ ///
+@@ -205,7 +209,6 @@ fn create_mmap_offset(&self) -> Result<u64> {
+ impl<T: IntoGEMObject> BaseObject for T {}
  
- 	if (args->new_psi_section && !aligned) {
- 		pr_warn_ratelimited("Cannot write a new PSI section in a misaligned buffer\n");
- 
- 		/* forcibly align and hope for the best */
-
-base-commit: 2d1373e4246da3b58e1df058374ed6b101804e07
+ /// Crate-private base operations shared by all GEM object classes.
+-#[expect(unused)]
+ pub(crate) trait BaseObjectPrivate: IntoGEMObject {
+     /// Return a pointer to this object's dma_resv.
+     fn raw_dma_resv(&self) -> *mut bindings::dma_resv {
+diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+new file mode 100644
+index 0000000000000..6c77ace05d30a
+--- /dev/null
++++ b/rust/kernel/drm/gem/shmem.rs
+@@ -0,0 +1,250 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! DRM GEM shmem helper objects
++//!
++//! C header: [`include/linux/drm/drm_gem_shmem_helper.h`](srctree/include/linux/drm/drm_gem_shmem_helper.h)
++
++// TODO:
++// - There are a number of spots here that manually acquire/release the DMA reservation lock using
++//   dma_resv_(un)lock(). In the future we should add support for ww mutex, expose a method to
++//   acquire a reference to the WwMutex, and then use that directly instead of the C functions here.
++
++use crate::{
++    container_of,
++    drm::{
++        device,
++        driver,
++        gem,
++        private::Sealed, //
++    },
++    error::{
++        from_err_ptr,
++        to_result, //
++    },
++    prelude::*,
++    scatterlist,
++    types::{
++        ARef,
++        Opaque, //
++    }, //
++};
++use core::{
++    ops::{
++        Deref,
++        DerefMut, //
++    },
++    ptr::NonNull,
++};
++use gem::{
++    BaseObjectPrivate,
++    DriverObject,
++    IntoGEMObject, //
++};
++
++/// A struct for controlling the creation of shmem-backed GEM objects.
++///
++/// This is used with [`Object::new()`] to control various properties that can only be set when
++/// initially creating a shmem-backed GEM object.
++#[derive(Default)]
++pub struct ObjectConfig<'a, T: DriverObject> {
++    /// Whether to set the write-combine map flag.
++    pub map_wc: bool,
++
++    /// Reuse the DMA reservation from another GEM object.
++    ///
++    /// The newly created [`Object`] will hold an owned refcount to `parent_resv_obj` if specified.
++    pub parent_resv_obj: Option<&'a Object<T>>,
++}
++
++/// A shmem-backed GEM object.
++///
++/// # Invariants
++///
++/// `obj` contains a valid initialized `struct drm_gem_shmem_object` for the lifetime of this
++/// object.
++#[repr(C)]
++#[pin_data]
++pub struct Object<T: DriverObject> {
++    #[pin]
++    obj: Opaque<bindings::drm_gem_shmem_object>,
++    // Parent object that owns this object's DMA reservation object
++    parent_resv_obj: Option<ARef<Object<T>>>,
++    #[pin]
++    inner: T,
++}
++
++super::impl_aref_for_gem_obj!(impl<T> for Object<T> where T: DriverObject);
++
++// SAFETY: All GEM objects are thread-safe.
++unsafe impl<T: DriverObject> Send for Object<T> {}
++
++// SAFETY: All GEM objects are thread-safe.
++unsafe impl<T: DriverObject> Sync for Object<T> {}
++
++impl<T: DriverObject> Object<T> {
++    /// `drm_gem_object_funcs` vtable suitable for GEM shmem objects.
++    const VTABLE: bindings::drm_gem_object_funcs = bindings::drm_gem_object_funcs {
++        free: Some(Self::free_callback),
++        open: Some(super::open_callback::<T>),
++        close: Some(super::close_callback::<T>),
++        print_info: Some(bindings::drm_gem_shmem_object_print_info),
++        export: None,
++        pin: Some(bindings::drm_gem_shmem_object_pin),
++        unpin: Some(bindings::drm_gem_shmem_object_unpin),
++        get_sg_table: Some(bindings::drm_gem_shmem_object_get_sg_table),
++        vmap: Some(bindings::drm_gem_shmem_object_vmap),
++        vunmap: Some(bindings::drm_gem_shmem_object_vunmap),
++        mmap: Some(bindings::drm_gem_shmem_object_mmap),
++        status: None,
++        rss: None,
++        // SAFETY: `drm_gem_shmem_vm_ops` is static const on the C side, so immutable references are
++        // safe here and such references shall be valid forever
++        vm_ops: unsafe { &bindings::drm_gem_shmem_vm_ops },
++        evict: None,
++    };
++
++    /// Return a raw pointer to the embedded drm_gem_shmem_object.
++    fn as_raw_shmem(&self) -> *mut bindings::drm_gem_shmem_object {
++        self.obj.get()
++    }
++
++    /// Create a new shmem-backed DRM object of the given size.
++    ///
++    /// Additional config options can be specified using `config`.
++    pub fn new(
++        dev: &device::Device<T::Driver>,
++        size: usize,
++        config: ObjectConfig<'_, T>,
++        args: T::Args,
++    ) -> Result<ARef<Self>> {
++        let new: Pin<KBox<Self>> = KBox::try_pin_init(
++            try_pin_init!(Self {
++                obj <- Opaque::init_zeroed(),
++                parent_resv_obj: config.parent_resv_obj.map(|p| p.into()),
++                inner <- T::new(dev, size, args),
++            }),
++            GFP_KERNEL,
++        )?;
++
++        // SAFETY: `obj.as_raw()` is guaranteed to be valid by the initialization above.
++        unsafe { (*new.as_raw()).funcs = &Self::VTABLE };
++
++        // SAFETY: The arguments are all valid via the type invariants.
++        to_result(unsafe { bindings::drm_gem_shmem_init(dev.as_raw(), new.as_raw_shmem(), size) })?;
++
++        // SAFETY: We never move out of `self`.
++        let new = KBox::into_raw(unsafe { Pin::into_inner_unchecked(new) });
++
++        // SAFETY: We're taking over the owned refcount from `drm_gem_shmem_init`.
++        let obj = unsafe { ARef::from_raw(NonNull::new_unchecked(new)) };
++
++        // Start filling out values from `config`
++        if let Some(parent_resv) = config.parent_resv_obj {
++            // SAFETY: We have yet to expose the new gem object outside of this function, so it is
++            // safe to modify this field.
++            unsafe { (*obj.obj.get()).base.resv = parent_resv.raw_dma_resv() };
++        }
++
++        // SAFETY: We have yet to expose this object outside of this function, so we're guaranteed
++        // to have exclusive access - thus making this safe to hold a mutable reference to.
++        let shmem = unsafe { &mut *obj.as_raw_shmem() };
++        shmem.set_map_wc(config.map_wc);
++
++        Ok(obj)
++    }
++
++    /// Returns the `Device` that owns this GEM object.
++    pub fn dev(&self) -> &device::Device<T::Driver> {
++        // SAFETY: `dev` will have been initialized in `Self::new()` by `drm_gem_shmem_init()`.
++        unsafe { device::Device::from_raw((*self.as_raw()).dev) }
++    }
++
++    extern "C" fn free_callback(obj: *mut bindings::drm_gem_object) {
++        // SAFETY:
++        // - DRM always passes a valid gem object here
++        // - We used drm_gem_shmem_create() in our create_gem_object callback, so we know that
++        //   `obj` is contained within a drm_gem_shmem_object
++        let this = unsafe { container_of!(obj, bindings::drm_gem_shmem_object, base) };
++
++        // SAFETY:
++        // - We're in free_callback - so this function is safe to call.
++        // - We won't be using the gem resources on `this` after this call.
++        unsafe { bindings::drm_gem_shmem_release(this) };
++
++        // SAFETY:
++        // - We verified above that `obj` is valid, which makes `this` valid
++        // - This function is set in AllocOps, so we know that `this` is contained within a
++        //   `Object<T>`
++        let this = unsafe { container_of!(Opaque::cast_from(this), Self, obj) }.cast_mut();
++
++        // SAFETY: We're recovering the Kbox<> we created in gem_create_object()
++        let _ = unsafe { KBox::from_raw(this) };
++    }
++
++    /// Creates (if necessary) and returns an immutable reference to a scatter-gather table of DMA
++    /// pages for this object.
++    ///
++    /// This will pin the object in memory.
++    #[inline]
++    pub fn sg_table(&self) -> Result<&scatterlist::SGTable> {
++        // SAFETY:
++        // - drm_gem_shmem_get_pages_sgt is thread-safe.
++        // - drm_gem_shmem_get_pages_sgt returns either a valid pointer to a scatterlist, or an
++        //   error pointer.
++        let sgt =
++            from_err_ptr(unsafe { bindings::drm_gem_shmem_get_pages_sgt(self.as_raw_shmem()) })?;
++
++        // SAFETY: We checked above that `sgt` is not an error pointer, so it must be a valid
++        // pointer to a scatterlist
++        Ok(unsafe { scatterlist::SGTable::from_raw(sgt) })
++    }
++}
++
++impl<T: DriverObject> Deref for Object<T> {
++    type Target = T;
++
++    fn deref(&self) -> &Self::Target {
++        &self.inner
++    }
++}
++
++impl<T: DriverObject> DerefMut for Object<T> {
++    fn deref_mut(&mut self) -> &mut Self::Target {
++        &mut self.inner
++    }
++}
++
++impl<T: DriverObject> Sealed for Object<T> {}
++
++impl<T: DriverObject> gem::IntoGEMObject for Object<T> {
++    fn as_raw(&self) -> *mut bindings::drm_gem_object {
++        // SAFETY:
++        // - Our immutable reference is proof that this is safe to dereference.
++        // - `obj` is always a valid drm_gem_shmem_object via our type invariants.
++        unsafe { &raw mut (*self.obj.get()).base }
++    }
++
++    unsafe fn from_raw<'a>(obj: *mut bindings::drm_gem_object) -> &'a Object<T> {
++        // SAFETY: The safety contract of from_gem_obj() guarantees that `obj` is contained within
++        // `Self`
++        unsafe {
++            let obj = Opaque::cast_from(container_of!(obj, bindings::drm_gem_shmem_object, base));
++
++            &*container_of!(obj, Object<T>, obj)
++        }
++    }
++}
++
++impl<T: DriverObject> driver::AllocImpl for Object<T> {
++    type Driver = T::Driver;
++
++    const ALLOC_OPS: driver::AllocOps = driver::AllocOps {
++        gem_create_object: None,
++        prime_handle_to_fd: None,
++        prime_fd_to_handle: None,
++        gem_prime_import: None,
++        gem_prime_import_sg_table: Some(bindings::drm_gem_shmem_prime_import_sg_table),
++        dumb_create: Some(bindings::drm_gem_shmem_dumb_create),
++        dumb_map_offset: None,
++    };
++}
 -- 
 2.53.0
 
