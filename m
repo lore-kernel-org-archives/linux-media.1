@@ -1,294 +1,130 @@
-Received: from mail.auroraos.dev (unknown [95.181.193.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA66356A23
-	for <linux-media@vger.kernel.org>; Mon, 16 Mar 2026 20:46:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.181.193.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4955A37267E
+	for <linux-media@vger.kernel.org>; Mon, 16 Mar 2026 21:17:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773693973; cv=none; b=s3oD45skM77DW79zNsWyNZHJ65Qyy2fYCyjjk+0n+3+jSVTO5BXLEcZIKzY2fr+L18fxaFx5NsXcKpPUQIWUOr3QDO1L94zIoOjIXeYKLfaMo58FoGLX+v3W0NPNJeTViX1hh2dhepAsrwdXKUfTmlVUVB/CCjBEHAqxOnWZHo8=
+	t=1773695826; cv=none; b=rKnHLmCECXQfW1Y7UtE8T2Zm3fuudb/JPRzzflJ9t5gmXDDEQ3u3eAqJtCbNiA96cTjz0o7BBxcnDXcbao+KN+bZQZqu1+zGiIdGUoDRKI60vqbMwfraCPFtgKiTyw3cN/ktkav+IzPTVg1vSY1mTcO7y8XtcNWKypniAFOSjEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773693973; c=relaxed/simple;
-	bh=cJKwILeW1mILQEcDMzwxFJSEYFjLcN0iZhpUJ7bTfBY=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VHiQ90g6S73T6vj298M37v1B7J+ArlgQsIklUJd3WnZ04dQ/tuWmSVN+AMmviIRsR3UmIdSUBBpY+JbknzEFsrsCddKQrq3FJw97EuscxsduMaR298uDiSKwuE6/nO4olvIGkRUMu/BFJje9u2fuw+n6J0OXdjwTeW8Z7Vde/D8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev; spf=pass smtp.mailfrom=auroraos.dev; arc=none smtp.client-ip=95.181.193.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
-Received: from wasted (213.87.160.51) by exch16.corp.auroraos.dev
- (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Mon, 16 Mar
- 2026 23:45:56 +0300
-From: Sergey Shtylyov <s.shtylyov@auroraos.dev>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, <linux-media@vger.kernel.org>
-CC: Sergey Shtylyov <s.shtylyov@auroraos.dev>, Michael Ira Krufky
-	<mkrufky@linuxtv.org>, Fred Richter <frichter@hauppauge.com>, Brad Love
-	<brad@nextdimension.cc>
-Subject: [PATCH] media: lgdt3306a: check the register reads for errors
-Date: Mon, 16 Mar 2026 23:44:54 +0300
-Message-ID: <20260316204455.63426-1-s.shtylyov@auroraos.dev>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1773695826; c=relaxed/simple;
+	bh=49yO5ePeQ6jTQYAQ+pAJAHztGpJfhw3XjlHpkfT+z9E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=cU96leYi0YQYcH8DsExBpc1Dvw0w80ool+y+QEFBv+E1MpQCK6qD8fTDkhUfgINzwryNK5Wcn4R9+6YD5EpXQm+Cz74PaHcXaO4GOawv1l41VciIPNuB4FcHkg2J8iqQ5D8SQ8y/NLIlC+kw5NJMJwhX4GK6xG/w6vQ3PxFWRbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WEmH+pkK; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WEmH+pkK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1773695822;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=FK2SRYWUs8F1o4n/OCWFgYAf27vjExpMLrN5boT+rxU=;
+	b=WEmH+pkKqGm2IXpxaoNkY7gAgIdfGq/ZSSvN4qlsf1k+pou/iK9vP6GqNYPujGpzpmUDPg
+	b5wBtnf+LC1Hb9t2Ft0HxOHMluReYtn85l46nNSq5CZKufSZDcd56OZwDog3puUweqGwxu
+	MTEpY1lC0ur57+qvFU1ThaHbS43t5Nk=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-244-IJaCFJjyPQ2OhhmKNwgyTg-1; Mon,
+ 16 Mar 2026 17:16:56 -0400
+X-MC-Unique: IJaCFJjyPQ2OhhmKNwgyTg-1
+X-Mimecast-MFC-AGG-ID: IJaCFJjyPQ2OhhmKNwgyTg_1773695813
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CDCE719560AE;
+	Mon, 16 Mar 2026 21:16:52 +0000 (UTC)
+Received: from GoldenWind.redhat.com (unknown [10.22.88.101])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E1B0B1800361;
+	Mon, 16 Mar 2026 21:16:48 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: nouveau@lists.freedesktop.org,
+	Gary Guo <gary@garyguo.net>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	rust-for-linux@vger.kernel.org,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Matthew Maurer <mmaurer@google.com>,
+	FUJITA Tomonori <fujita.tomonori@gmail.com>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	christian.koenig@amd.com,
+	Asahi Lina <lina@asahilina.net>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Simona Vetter <simona@ffwll.ch>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Boqun Feng <boqun@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Krishna Ketan Rai <prafulrai522@gmail.com>,
+	linux-media@vger.kernel.org,
+	Shankari Anand <shankari.ak0208@gmail.com>,
+	David Airlie <airlied@gmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	linaro-mm-sig@lists.linaro.org,
+	Asahi Lina <lina+kernel@asahilina.net>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	kernel@vger.kernel.org
+Subject: [PATCH v9 0/7] Rust bindings for gem shmem
+Date: Mon, 16 Mar 2026 17:16:08 -0400
+Message-ID: <20260316211646.650074-1-lyude@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
- exch16.corp.auroraos.dev (10.189.209.38)
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-When lgdt3306a_read_reg() fails its parameter val will probably point to
-a garbage value which we don't really want to write back (modified) with
-lgdt3306a_write_reg(). Add lgdt3306a_read_reg() result checks where they
-were missing.
+This is the next version of the shmem backed GEM objects series
+originally from Asahi, previously posted by Daniel Almeida.
 
-Found by Linux Verification Center (linuxtesting.org) with the Svace static
-analysis tool.
+The previous version of the patch series can be found here:
 
-Fixes: b63b36fa44d0 ("[media] DVB: add support for LG Electronics LGDT3306A ATSC/QAM-B Demodulator")
-Fixes: 4c7c3f9b1a85 ("media: lgdt3306a: QAM streaming improvement")
-Signed-off-by: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+https://patchwork.freedesktop.org/series/156093/
 
----
-The patch is against the fixes branch of the linuxtv.org/media.git repo...
+This patch series may be applied on top of the
+driver-core/driver-core-testing branch:
 
- drivers/media/dvb-frontends/lgdt3306a.c | 56 +++++++++++++++++++++++++
- 1 file changed, 56 insertions(+)
+https://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git/log/?h=driver-core-testing
 
-diff --git a/drivers/media/dvb-frontends/lgdt3306a.c b/drivers/media/dvb-frontends/lgdt3306a.c
-index b6a66e122ed5..03e598d73d9f 100644
---- a/drivers/media/dvb-frontends/lgdt3306a.c
-+++ b/drivers/media/dvb-frontends/lgdt3306a.c
-@@ -387,6 +387,8 @@ static int lgdt3306a_set_vsb(struct lgdt3306a_state *state)
- 
- 	/* 0. Spectrum inversion detection manual; spectrum inverted */
- 	ret = lgdt3306a_read_reg(state, 0x0002, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xf7; /* SPECINVAUTO Off */
- 	val |= 0x04; /* SPECINV On */
- 	ret = lgdt3306a_write_reg(state, 0x0002, val);
-@@ -400,6 +402,8 @@ static int lgdt3306a_set_vsb(struct lgdt3306a_state *state)
- 
- 	/* 2. Bandwidth mode for VSB(6MHz) */
- 	ret = lgdt3306a_read_reg(state, 0x0009, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xe3;
- 	val |= 0x0c; /* STDOPDETTMODE[2:0]=3 */
- 	ret = lgdt3306a_write_reg(state, 0x0009, val);
-@@ -408,6 +412,8 @@ static int lgdt3306a_set_vsb(struct lgdt3306a_state *state)
- 
- 	/* 3. QAM mode detection mode(None) */
- 	ret = lgdt3306a_read_reg(state, 0x0009, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xfc; /* STDOPDETCMODE[1:0]=0 */
- 	ret = lgdt3306a_write_reg(state, 0x0009, val);
- 	if (lg_chkerr(ret))
-@@ -415,6 +421,8 @@ static int lgdt3306a_set_vsb(struct lgdt3306a_state *state)
- 
- 	/* 4. ADC sampling frequency rate(2x sampling) */
- 	ret = lgdt3306a_read_reg(state, 0x000d, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xbf; /* SAMPLING4XFEN=0 */
- 	ret = lgdt3306a_write_reg(state, 0x000d, val);
- 	if (lg_chkerr(ret))
-@@ -477,6 +485,8 @@ static int lgdt3306a_set_vsb(struct lgdt3306a_state *state)
- #endif
- 
- 	ret = lgdt3306a_read_reg(state, 0x001e, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0x0f;
- 	val |= 0xa0;
- 	ret = lgdt3306a_write_reg(state, 0x001e, val);
-@@ -486,45 +496,63 @@ static int lgdt3306a_set_vsb(struct lgdt3306a_state *state)
- 	ret = lgdt3306a_write_reg(state, 0x0023, 0xFF);
- 
- 	ret = lgdt3306a_read_reg(state, 0x211f, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xef;
- 	ret = lgdt3306a_write_reg(state, 0x211f, val);
- 
- 	ret = lgdt3306a_write_reg(state, 0x2173, 0x01);
- 
- 	ret = lgdt3306a_read_reg(state, 0x1061, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xf8;
- 	val |= 0x04;
- 	ret = lgdt3306a_write_reg(state, 0x1061, val);
- 
- 	ret = lgdt3306a_read_reg(state, 0x103d, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xcf;
- 	ret = lgdt3306a_write_reg(state, 0x103d, val);
- 
- 	ret = lgdt3306a_write_reg(state, 0x2122, 0x40);
- 
- 	ret = lgdt3306a_read_reg(state, 0x2141, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0x3f;
- 	ret = lgdt3306a_write_reg(state, 0x2141, val);
- 
- 	ret = lgdt3306a_read_reg(state, 0x2135, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0x0f;
- 	val |= 0x70;
- 	ret = lgdt3306a_write_reg(state, 0x2135, val);
- 
- 	ret = lgdt3306a_read_reg(state, 0x0003, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xf7;
- 	ret = lgdt3306a_write_reg(state, 0x0003, val);
- 
- 	ret = lgdt3306a_read_reg(state, 0x001c, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0x7f;
- 	ret = lgdt3306a_write_reg(state, 0x001c, val);
- 
- 	/* 6. EQ step size */
- 	ret = lgdt3306a_read_reg(state, 0x2179, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xf8;
- 	ret = lgdt3306a_write_reg(state, 0x2179, val);
- 
- 	ret = lgdt3306a_read_reg(state, 0x217a, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xf8;
- 	ret = lgdt3306a_write_reg(state, 0x217a, val);
- 
-@@ -552,6 +580,8 @@ static int lgdt3306a_set_qam(struct lgdt3306a_state *state, int modulation)
- 
- 	/* 1a. Spectrum inversion detection to Auto */
- 	ret = lgdt3306a_read_reg(state, 0x0002, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xfb; /* SPECINV Off */
- 	val |= 0x08; /* SPECINVAUTO On */
- 	ret = lgdt3306a_write_reg(state, 0x0002, val);
-@@ -560,6 +590,8 @@ static int lgdt3306a_set_qam(struct lgdt3306a_state *state, int modulation)
- 
- 	/* 2. Bandwidth mode for QAM */
- 	ret = lgdt3306a_read_reg(state, 0x0009, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xe3; /* STDOPDETTMODE[2:0]=0 VSB Off */
- 	ret = lgdt3306a_write_reg(state, 0x0009, val);
- 	if (lg_chkerr(ret))
-@@ -567,6 +599,8 @@ static int lgdt3306a_set_qam(struct lgdt3306a_state *state, int modulation)
- 
- 	/* 3. : 64QAM/256QAM detection(manual, auto) */
- 	ret = lgdt3306a_read_reg(state, 0x0009, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xfc;
- 	/* Check for forced Manual modulation modes; otherwise always "auto" */
- 	if(forced_manual && (modulation != QAM_AUTO)){
-@@ -580,6 +614,8 @@ static int lgdt3306a_set_qam(struct lgdt3306a_state *state, int modulation)
- 
- 	/* 3a. : 64QAM/256QAM selection for manual */
- 	ret = lgdt3306a_read_reg(state, 0x101a, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xf8;
- 	if (modulation == QAM_64)
- 		val |= 0x02; /* QMDQMODE[2:0]=2=QAM64 */
-@@ -592,6 +628,8 @@ static int lgdt3306a_set_qam(struct lgdt3306a_state *state, int modulation)
- 
- 	/* 4. ADC sampling frequency rate(4x sampling) */
- 	ret = lgdt3306a_read_reg(state, 0x000d, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xbf;
- 	val |= 0x40; /* SAMPLING4XFEN=1 */
- 	ret = lgdt3306a_write_reg(state, 0x000d, val);
-@@ -600,6 +638,8 @@ static int lgdt3306a_set_qam(struct lgdt3306a_state *state, int modulation)
- 
- 	/* 5. No AICC operation in QAM mode */
- 	ret = lgdt3306a_read_reg(state, 0x0024, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0x00;
- 	ret = lgdt3306a_write_reg(state, 0x0024, val);
- 	if (lg_chkerr(ret))
-@@ -607,6 +647,8 @@ static int lgdt3306a_set_qam(struct lgdt3306a_state *state, int modulation)
- 
- 	/* 5.1 V0.36 SRDCHKALWAYS : For better QAM detection */
- 	ret = lgdt3306a_read_reg(state, 0x000a, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xfd;
- 	val |= 0x02;
- 	ret = lgdt3306a_write_reg(state, 0x000a, val);
-@@ -615,6 +657,8 @@ static int lgdt3306a_set_qam(struct lgdt3306a_state *state, int modulation)
- 
- 	/* 5.2 V0.36 Control of "no signal" detector function */
- 	ret = lgdt3306a_read_reg(state, 0x2849, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xdf;
- 	ret = lgdt3306a_write_reg(state, 0x2849, val);
- 	if (lg_chkerr(ret))
-@@ -622,6 +666,8 @@ static int lgdt3306a_set_qam(struct lgdt3306a_state *state, int modulation)
- 
- 	/* 5.3 Fix for Blonder Tongue HDE-2H-QAM and AQM modulators */
- 	ret = lgdt3306a_read_reg(state, 0x302b, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0x7f;  /* SELFSYNCFINDEN_CQS=0; disable auto reset */
- 	ret = lgdt3306a_write_reg(state, 0x302b, val);
- 	if (lg_chkerr(ret))
-@@ -926,29 +972,39 @@ static int lgdt3306a_init(struct dvb_frontend *fe)
- 
- 	/* 10a. VSB TR BW gear shift initial step */
- 	ret = lgdt3306a_read_reg(state, 0x103c, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0x0f;
- 	val |= 0x20; /* SAMGSAUTOSTL_V[3:0] = 2 */
- 	ret = lgdt3306a_write_reg(state, 0x103c, val);
- 
- 	/* 10b. Timing offset calibration in low temperature for VSB */
- 	ret = lgdt3306a_read_reg(state, 0x103d, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xfc;
- 	val |= 0x03;
- 	ret = lgdt3306a_write_reg(state, 0x103d, val);
- 
- 	/* 10c. Timing offset calibration in low temperature for QAM */
- 	ret = lgdt3306a_read_reg(state, 0x1036, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xf0;
- 	val |= 0x0c;
- 	ret = lgdt3306a_write_reg(state, 0x1036, val);
- 
- 	/* 11. Using the imaginary part of CIR in CIR loading */
- 	ret = lgdt3306a_read_reg(state, 0x211f, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xef; /* do not use imaginary of CIR */
- 	ret = lgdt3306a_write_reg(state, 0x211f, val);
- 
- 	/* 12. Control of no signal detector function */
- 	ret = lgdt3306a_read_reg(state, 0x2849, &val);
-+	if (lg_chkerr(ret))
-+		goto fail;
- 	val &= 0xef; /* NOUSENOSIGDET=0, enable no signal detector */
- 	ret = lgdt3306a_write_reg(state, 0x2849, val);
- 
+Changelogs are per-patch
+
+Asahi Lina (2):
+  rust: helpers: Add bindings/wrappers for dma_resv_lock
+  rust: drm: gem: shmem: Add DRM shmem helper abstraction
+
+Lyude Paul (5):
+  rust: drm: Add gem::impl_aref_for_gem_obj!
+  rust: drm: gem: Add raw_dma_resv() function
+  rust: gem: Introduce DriverObject::Args
+  rust: drm: gem: Introduce shmem::SGTable
+  rust: drm/gem: Add vmap functions to shmem bindings
+
+ drivers/gpu/drm/nova/gem.rs     |   5 +-
+ drivers/gpu/drm/tyr/gem.rs      |   3 +-
+ rust/bindings/bindings_helper.h |   3 +
+ rust/helpers/dma-resv.c         |  13 +
+ rust/helpers/drm.c              |  56 ++-
+ rust/helpers/helpers.c          |   1 +
+ rust/kernel/drm/gem/mod.rs      |  79 +++-
+ rust/kernel/drm/gem/shmem.rs    | 654 ++++++++++++++++++++++++++++++++
+ 8 files changed, 792 insertions(+), 22 deletions(-)
+ create mode 100644 rust/helpers/dma-resv.c
+ create mode 100644 rust/kernel/drm/gem/shmem.rs
+
+
+base-commit: dc33ae50d32b509af5ae61030912fa20c79ef112
+prerequisite-patch-id: c631986f96e2073263e97e82a65b96fc5ada6924
+prerequisite-patch-id: ae853e8eb8d58c77881371960be4ae92755e83c6
+prerequisite-patch-id: 0ab78b50648c7d8f66b83c32ed2af0ec3ede42a3
+prerequisite-patch-id: 636ec7f913f4047e5e1a1788f3e835b7259698c2
+prerequisite-patch-id: d75e4d7140eadeeed8017af8cd093bfd2766ee8e
+prerequisite-patch-id: 67a8010c1bc95bca1d2cf6b246c67bc79d24e766
 -- 
 2.53.0
 
