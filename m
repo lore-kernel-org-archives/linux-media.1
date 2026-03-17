@@ -1,132 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD78C35FF61
-	for <linux-media@vger.kernel.org>; Tue, 17 Mar 2026 13:14:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E0C3BD222
+	for <linux-media@vger.kernel.org>; Tue, 17 Mar 2026 13:16:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773753240; cv=none; b=VtqQ3boPxzpn519sy+Ni+sxaMnYjpEVijxXTCmj0HMeKlNR1JH92jCCwyv1Ctcexur/P2OrelNqv/L+7rcNyks7YHkHKPK9CD7wjt5iuPQk7zczxi9Sa1+vGC6hv7at1um62fQ4kWVIWMVm3vIPkyPNTxVIb3kTepIBfOKOa/q8=
+	t=1773753377; cv=none; b=AREzWbLsZ4IT+gDI9Q74WeDCKimbxEHP1dCyf/o2890EqsB7qsVoYHaHeZ4s0mkbn6bKh+c4qrjUhbbQSOkUzyvQ9JpIMQpouUpUJ+mzybsKzwSgDGKPLzEwgiG3Z4R9MJ2r1/26Ffa0hWu8w+I1wVnRdJQ446HF/v2058mYw+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773753240; c=relaxed/simple;
-	bh=WCtst9ulDHjzLlvz4CtRqw11ZPDtoxMQU8hBqVyfBoY=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:References:
-	 In-Reply-To:Content-Type; b=fFjANTVIpaL4Q1GZNbjQw6DL6Cb/cRCR/b3t47knEMejtOdXLPq6CcG6G0tXyreLKqFy+Lvoj630ccgi4BDU09hAchg9jkEh7eYOHo210SsR/BaZsMoxEQ1wTJhTuP6t2Ij9JbHKvxyMlnumG4rH0brpmusmXFOZjTunyNGWkCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HD+GJXaH; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1773753377; c=relaxed/simple;
+	bh=6JDZQroqoIKxkF6X9OThKtPAw4CM2OJEwL1EqnPT2sw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FT2ZSTQnc16//JHBaxdXb0TcDkiweYGmWMtvWWUJ30m0tdamNQF0zsvfpuM+uU57ZgMEgkzA1kpiXcOvLUgh5+PQ+XJLRQz9SZetPKh3uRa2uBlOwv/Yl7H/o2nZCloAlvxr8aU9iQers8rZ79/EMKOHnQMOxhgSDDDf60ytCqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=V8YxBC0q; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HD+GJXaH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFF47C4CEF7;
-	Tue, 17 Mar 2026 13:13:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1773753240;
-	bh=WCtst9ulDHjzLlvz4CtRqw11ZPDtoxMQU8hBqVyfBoY=;
-	h=Date:From:Subject:To:References:In-Reply-To:From;
-	b=HD+GJXaH55TrJfV4Te+3Jujb0r9hFOXrbc66V6t1wnv0tLwFg2s7cKIoaVFlHV1ve
-	 9MfHsPcIHZkqTcHh+z/faDI6tf3ASw5lTiPXw/U454PPupvv/Q9VxKmtuS7cYV7Tn/
-	 EDYVa9BQmKEe/N7YIzua8joSpO3Q+DrIkWt7TWaUn/VrDf36Xrq1GZ5CSu3SCzHeED
-	 NmyUsOjS/5s7dxNxDATkHADW0QBM4fdCS5xLGCZ7lzjfS/NdW51/7Rfd3pL2XRnHIr
-	 PHip5W8fPs5OHElZfKaK8oGaq+ThfxpbZYxh1varTdBjY1m+co0ACssR7OLw6EqNoP
-	 kG0IG1ZvuIGqg==
-Message-ID: <08b7b5d6-4068-4349-924e-e551bbf6e672@kernel.org>
-Date: Tue, 17 Mar 2026 14:13:58 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="V8YxBC0q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1773753375; x=1805289375;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=6JDZQroqoIKxkF6X9OThKtPAw4CM2OJEwL1EqnPT2sw=;
+  b=V8YxBC0qth8P8tbfn8KBv4ZJ9sh7XXHpzV+BdfYYZxGYImAKwXA2+zQd
+   PX9XdhdGoprb2mIxS5B6Nk6nNzcc+XQpib1gXkJZ5q2iv7W5k/7k4CnRE
+   G8QV2zw43euvTbFgReqkZn2KLgvtPfvzjDdnlxHTftTkcHgu+vAN7j/qx
+   iaTXD6SR00Jx7iuQUVRtxKwOYKHZJtzppopS+F9eWDsgb079vv6mxYMHA
+   xOJ5lvINVzopqBVfLccUAiN9ZCkimQCc/IUoYYarWgonsUlvH8fUX1BIw
+   MSk+0IVFt5/MSpblnO4CwLM8s/ohd/ip8dR6QXlVFFvvjMo1Jv35ifHdc
+   Q==;
+X-CSE-ConnectionGUID: sxmDaHQ6SNaCLIJsq/o/Rw==
+X-CSE-MsgGUID: c5b57zLHT6+0ShZX+IiKrA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11732"; a="85411094"
+X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; 
+   d="scan'208";a="85411094"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Mar 2026 06:16:15 -0700
+X-CSE-ConnectionGUID: zxRBUWmLSIK6/4Zz83DE4Q==
+X-CSE-MsgGUID: v8H3e+6DRw+arq6OXO66NQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; 
+   d="scan'208";a="226733220"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.106])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Mar 2026 06:16:14 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id E7511121D5B;
+	Tue, 17 Mar 2026 15:16:11 +0200 (EET)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1w2UJJ-00000000u05-3XtR;
+	Tue, 17 Mar 2026 15:18:13 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-media@vger.kernel.org
+Cc: laurent.pinchart@ideasonboard.com
+Subject: [PATCH v2 4/6] Constify progname
+Date: Tue, 17 Mar 2026 15:18:11 +0200
+Message-ID: <20260317131813.215230-5-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260317131813.215230-1-sakari.ailus@linux.intel.com>
+References: <20260317131813.215230-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH 00/11] Assorted DVB and TV patches
-To: Bradford Love <brad@nextdimension.cc>, linux-media@vger.kernel.org
-References: <20260312213532.2907276-1-brad@nextdimension.cc>
- <7c653b8b-5d31-4667-9d86-cbaed7ee97f9@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <7c653b8b-5d31-4667-9d86-cbaed7ee97f9@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17/03/2026 10:52, Hans Verkuil wrote:
-> Hi Brad,
-> 
-> Thank you for this cleanup series!
-> 
-> I'll take them all, except for the "au0828: Fix green screen in analog" patch,
-> which needs a v2. So no need to post a v2 of the whole series, just post a v2
-> of that au0828 patch.
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+---
+ raw2rgbpnm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-BTW, for future reference, please prefix media patches with "media: " in the Subject
-line. I added it manually for these patches.
-
-Regards,
-
-	Hans
-
-> 
-> Regards,
-> 
-> 	Hans
-> 
-> On 12/03/2026 22:35, Bradford Love wrote:
->> Hello,
->>
->> Attached here is a series of accumlated fixes from integrations
->> and deployments.
->>
->> The first five patches are related to fixing issues with a
->> variety of analog video formats.
->>
->> The si2168 i2c timeout patch is something that has been found
->> to be critical on a variety of ARM platforms and Nvidia SOC.
->> Something in these platforms has USB i2c not consistently responding
->> within the embedded deadline in the driver.
->>
->> There are two firmware fixes. With Hauppauge hardware fw 4.0-11 si2168
->> devices definitely lose warm state and cannot function after sleep.
->> The saa7164 REV2 firmware had an incorrect filename and has been fixed.
->>
->> Last up is adding some new Hauppauge USB id's and removing an invalid
->> analog input from the Hauppauge DVB DualHD.
->>
->> Addressing checkpatch warnings:
->> - 0001 palN is not misspelled
->> - 0003 adding dprintk like driver already does
->>
->>
->>
->> Regards,
->>
->> Bradford
->>
->>
->>
->> Bradford Love (11):
->>   si2157: Analog format fixes
->>   cx25840: Fix NTSC-J, PAL-N, and SECAM standards
->>   xc5000: Add rf strength function
->>   cx231xx: Fix AGC levels for NTSC-M
->>   au0828: Fix green screen in analog
->>   si2168: Fix i2c command timeout on embedded platforms
->>   si2168: fw 4.0-11 loses warm state during sleep
->>   saa7164: Fix REV2 firmware filename
->>   au0828: Add new Hauppauge HVR1265 and ImpactVCB-e
->>   em28xx: Add a variety of DualHD usb id
->>   em28xx: remove tuner type from Hauppauge DVB DualHD
->>
->>  drivers/media/dvb-frontends/au8522_decoder.c |  1 +
->>  drivers/media/dvb-frontends/si2168.c         |  8 ++--
->>  drivers/media/i2c/cx25840/cx25840-core.c     | 29 +++++++++++-
->>  drivers/media/pci/saa7164/saa7164-fw.c       |  4 +-
->>  drivers/media/tuners/si2157.c                | 15 ++++--
->>  drivers/media/tuners/xc5000.c                | 13 ++++-
->>  drivers/media/usb/au0828/au0828-cards.c      | 50 ++++++++++++++++++++
->>  drivers/media/usb/au0828/au0828-cards.h      |  2 +
->>  drivers/media/usb/au0828/au0828-dvb.c        |  1 +
->>  drivers/media/usb/au0828/au0828-input.c      |  1 +
->>  drivers/media/usb/au0828/au0828-video.c      | 30 +++++++++++-
->>  drivers/media/usb/cx231xx/cx231xx-avcore.c   |  7 ++-
->>  drivers/media/usb/em28xx/em28xx-cards.c      | 19 +++++---
->>  13 files changed, 156 insertions(+), 24 deletions(-)
->>
-> 
-> 
+diff --git a/raw2rgbpnm.c b/raw2rgbpnm.c
+index 1f00787e80d7..bdcc8dae1db9 100644
+--- a/raw2rgbpnm.c
++++ b/raw2rgbpnm.c
+@@ -45,7 +45,7 @@
+ #define MAX(a,b)	((a)>(b)?(a):(b))
+ #define MIN(a,b)	((a)<(b)?(a):(b))
+ 
+-char *progname = "raw2rgbpnm";
++const char *progname = "raw2rgbpnm";
+ 
+ static int swaprb = 0;
+ static int highbits = 0;			/* Bayer RAW10 formats use high bits for data */
+-- 
+2.47.3
 
