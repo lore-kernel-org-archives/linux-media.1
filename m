@@ -1,123 +1,99 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3063F23D6
-	for <linux-media@vger.kernel.org>; Tue, 17 Mar 2026 16:47:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0343EAC6F;
+	Tue, 17 Mar 2026 16:51:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773766066; cv=none; b=lISQTuFKliix6cWhHyISZ2wERJ4DVvkR8/lKuEeLe53Av8C4pDsseg6+aNqXQ4R3d0lvwqTwQllnZJkr17FFaHKA2H8um1u1DRg3Mmai4tCh2umc/VuqAqoL/Ww9IghxOCMfIyj+Dm2pJ/HfSwpjb4wm1EeKUtBcPTVsc81Ko2w=
+	t=1773766285; cv=none; b=qQRm99W9+Js7Q3Ol1MbKbfxBpTXIOa+vEPasosdpGbYV4ZLbNKwRsP/Wf55eT1GwQ6Qa2IIvMTfCz0QpfM36qKzb/J8NWIoLILCk8xvfX1AAYuioY7beLJG8U0xvsb6xbuJ2eQdPemRGaRaMefL8NC6ZmqtgzbnjvnRmHXq+yIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773766066; c=relaxed/simple;
-	bh=DvMZA6rRq5Dp85Y4ASJcgtw5s/lPSJDsS85L9OHtbh8=;
-	h=Message-ID:Subject:From:To:Date:Content-Type:MIME-Version; b=Z69tEH8EchqH2Wd7mcGRBzW+uErq3RTiHvSNSaSoww1JYMXGFt5AVQrQPyMAKy1NuZ2mirmfA2xkJrQWu1J9pCdXrh42HJvefQU2BaXDSddKLtRIJmelL/ZW+sIlWyXDu9Q0nlZPMTi7jyJd1v1cLrx9cjcaCXVAjOVDPkxswZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=WAJi00KC; arc=none smtp.client-ip=148.251.105.195
+	s=arc-20240116; t=1773766285; c=relaxed/simple;
+	bh=KWhCOBu1XaI2x2mEIb/lsnEQSL8ruempzbLEXwXjGnE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MQkp5UfscsHMP0y0a8qBAOElTAIwFyYMw9tORWBV3lStoydjANvDkGJoRXwijm7Y2TG5QeItDj/9LYuYKR6qCQf9rSJdDuCvcPNvO4otxUXAmCJpq44z4LP1k5lntB5g7a8EvyFVSAMXktZyaBco2etkcykiDHHLtAoCsPDktTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ZvxKyZkl; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="WAJi00KC"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ZvxKyZkl"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1773766063;
-	bh=DvMZA6rRq5Dp85Y4ASJcgtw5s/lPSJDsS85L9OHtbh8=;
-	h=Subject:From:To:Date:From;
-	b=WAJi00KCG/jZmNtmyW7Brx/Cangr2yBuF2bourBLC9nP15BRC3biGnw2YdemFKtHc
-	 5Ls2TV3hEdKW4tBBZ4d07BL029iEvL46sAVfkhPoEQfRI7YitkW5BjJiLduNFB6FYm
-	 MnIFF1wa+8eGcEt8IP5uvE+dOV7dmAgHgZHLPiMamCg/b7xeYf1LucsykwHcYv1m72
-	 L7Tn4klL2e00gcXxtbgU/kk4ShoiIvDaygfGOUcoNwZS/lugP8jqiQrwk7sqXFK+Ig
-	 OPDgv4vDnlxdY66G4CgV2IjXSnlCfKAFSQBdJ29FWOPOYAK/GhMhaTl70ou4na9YVJ
-	 EWkPdHew0X45w==
-Received: from [IPv6:2606:6d00:11:b76d::c41] (unknown [IPv6:2606:6d00:11:b76d::c41])
+	s=mail; t=1773766283;
+	bh=KWhCOBu1XaI2x2mEIb/lsnEQSL8ruempzbLEXwXjGnE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ZvxKyZklLIUZcP50SdWyyPMhOkUVSps9y4PaE3u4jJ44riC/1SckVGdearmncCHV3
+	 NYIvGg/MedCQuH8esmmmrUSnXoeUX0wuGTnLICEwLOv79NtTSwFGy7ID6OwaBhEzRy
+	 CQNw0l05jscuJKEnBogxFU75U5Hz64RtEE2I939QVijI/Zu/CJMAmonJAe43j5faao
+	 wFEJBlr+NvN7/5YrDVsUgxYJDpGFGDAEbZkJzhrdW9pIiVg2Ds8Mz4njJln4V0IBnc
+	 uiAnubitHsMO1bHJx7DdrukGmFJg+6Wzk17HImN+zbgRGqIPdW1MjDhhUF2LRf8Wd3
+	 GP56Ov0p/XbyA==
+Received: from nicolas-x1.hs.collaboradmins.com (unknown [IPv6:2606:6d00:11:b76d::c41])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 16CE317E0619
-	for <linux-media@vger.kernel.org>; Tue, 17 Mar 2026 17:47:42 +0100 (CET)
-Message-ID: <aa6d174a3c3af78fb3023ceec1d351269784f5aa.camel@collabora.com>
-Subject: [GIT PULL FOR 7.0-rc5] Media codec fixes for 7.0-rc5
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6F7F517E0619;
+	Tue, 17 Mar 2026 17:51:17 +0100 (CET)
 From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: linux-media@vger.kernel.org
-Date: Tue, 17 Mar 2026 12:47:40 -0400
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-NbE2S9ET5InYQpTXFBG1"
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+To: linux-media@vger.kernel.org,
+	ming.qian@oss.nxp.com
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	mchehab@kernel.org,
+	nicolas@ndufresne.ca,
+	benjamin.gaignard@collabora.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	p.zabel@pengutronix.de,
+	sebastian.fricke@collabora.com,
+	shawnguo@kernel.org,
+	ulf.hansson@linaro.org,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	m.felsch@pengutronix.de,
+	fra.schnyder@gmail.com,
+	linux-imx@nxp.com,
+	l.stach@pengutronix.de,
+	Frank.li@nxp.com,
+	peng.fan@nxp.com,
+	eagle.zhou@nxp.com,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Hans Verkuil <hverkuil@kernel.org>
+Subject: Re: [PATCH v4] media: verisilicon: Fix kernel panic due to __initconst misuse
+Date: Tue, 17 Mar 2026 12:51:06 -0400
+Message-ID: <177376614640.2015221.5231981229215959103.b4-ty@collabora.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260306031059.801-1-ming.qian@oss.nxp.com>
+References: <20260306031059.801-1-ming.qian@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
 
---=-NbE2S9ET5InYQpTXFBG1
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Fri, 06 Mar 2026 11:10:57 +0800, ming.qian@oss.nxp.com wrote:
+> Fix a kernel panic when probing the driver as a module:
+> 
+>   Unable to handle kernel paging request at virtual address
+>   ffffd9c18eb05000
+>   of_find_matching_node_and_match+0x5c/0x1a0
+>   hantro_probe+0x2f4/0x7d0 [hantro_vpu]
+> 
+> [...]
 
-Hi Mauro, Hans,
+PR sent to Mauro aiming for RC5, thanks!
 
-This pull request is for the "fixes" branch. It includes a single fix for a
-kernel panic when the Hantro VPU driver is built as module. Hopefully it ca=
-n be
-picked on time.
+[1/1] media: verisilicon: Fix kernel panic due to __initconst misuse
+      commit: ab2e204b1e76e1a85ff75592dcbfefa3d783a683
 
-cheers,
-Nicolas
-
-The following changes since commit 883d9ac20824e991f6945448165fa8a1b74dd5e5=
-:
-
-  media: rkvdec: reduce stack usage in rkvdec_init_v4l2_vp9_count_tbl() (20=
-26-03-11 08:05:48 +0100)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/linux-media/users/ndufresne.git tags/fixes=
--for-7.0-media-codecs-2026-03-17
-
-for you to fetch changes up to ab2e204b1e76e1a85ff75592dcbfefa3d783a683:
-
-  media: verisilicon: Fix kernel panic due to __initconst misuse (2026-03-1=
-6 14:02:51 -0400)
-
-----------------------------------------------------------------
-Fix RO data location for Hantro driver as module
-
-----------------------------------------------------------------
-Ming Qian (1):
-      media: verisilicon: Fix kernel panic due to __initconst misuse
-
- drivers/media/platform/verisilicon/imx8m_vpu_hw.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-
---=20
-Nicolas Dufresne
-Principal Engineer at Collabora
-
---=-NbE2S9ET5InYQpTXFBG1
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCabmFrQAKCRDZQZRRKWBy
-9GviAQDWDiYliGa6N63TBHAstUuAmT59qBsURuYfozsOzTmpawEApsSH8LP+Am01
-q7UyHviIhkOaLlfsUxhuWA9Fvr6zJg0=
-=vglH
------END PGP SIGNATURE-----
-
---=-NbE2S9ET5InYQpTXFBG1--
+Best regards,
+-- 
+Nicolas Dufresne <nicolas.dufresne@collabora.com>
