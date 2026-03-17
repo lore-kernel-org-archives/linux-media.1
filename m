@@ -1,114 +1,228 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013002.outbound.protection.outlook.com [52.101.83.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB8233F378;
-	Tue, 17 Mar 2026 22:35:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773786911; cv=none; b=Jf79r15nd4TqCqO8DI8giOGLu0bmWJtshQNVbQWhoIeO8jQ9GysI2/DG4KM6oUiSrC3ydWmx/KYAyoteehRa6ZCrRIlZY4t8O5ZiW8LoTYAkACTLZs+1Hh4UDqvepUMW/53ClGSGmguLOpoBdUfLSbtSRiKZxO0/iVUNyGEbuho=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773786911; c=relaxed/simple;
-	bh=m1cahY3Ooo/SxzO5vRCUJQl8Jc9eJMwqFX5KG5mGS6Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IWXoYMCkNNOD0ZAYRo23ZVRcJhMPCQg9HPJSTcMq+9zud0QKSb5/GxaEyTtXcY2BgchO4qYQ7o2AIYrCBhvQOtSYlRBJ6hp7IUXzBM7IIcjaH2HM5LzNzDNOD0RQETH6vzze5EWpf3CgbakUXTn2dbb4dBh04EGmRVSxWRLomno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k+N5jFWR; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095F11C8634;
+	Tue, 17 Mar 2026 23:05:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.2
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1773788717; cv=fail; b=m98VUYwYuFtp67QeTaPFpvqDxBjbgeT7kcJMdTyOIXaP0qNK3IbKcuyU59jpPycfEmJzEE1iBfvmXwBleQwEHBs/zhTZ4iju93ROSiYUd+5mGtRLgey6brP7FLJtAzD5lb5//uuWLueyECySOkPQhoN317cQZyJmCibafJ1OoRE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1773788717; c=relaxed/simple;
+	bh=hPNyFOqwf4V8RFx7/kXBxpZ5ZPN9yy3bm1MCI3N6PU0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jbuzXhbYPjc+mXon+pycxyOKXJCV68b99Owm7LA5SLvuvlZLW+ayPMF01psFTCS/TEu2E2N+Pq8zME4+0BN+0A5342ROCvY/oTrKQ2CFiQgFFNZYDVwHbYtAWI6Hh1wLh51lI1xpstBU/kJuX2C6EeAr0yH6amGmhUiz5DrwpdQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=k5N2AqLy; arc=fail smtp.client-ip=52.101.83.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k+N5jFWR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1773786910; x=1805322910;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=m1cahY3Ooo/SxzO5vRCUJQl8Jc9eJMwqFX5KG5mGS6Q=;
-  b=k+N5jFWRwpdivBAa1R6TWvaTexjywY+ISzmWwJnapdqqJpXa3Cu/pUg/
-   rw/8/WFSv6nVV+32a8c+DbhZvzZQHTYz7EpTtSAmFvPWYGiZXLDVBQJZt
-   qila4SnaIH+l3pofjrJDsp3Om/8vwX7Q5+AzUYk1Bp5ksM+nJJf/xjFM+
-   mIIpiS1o/XbgX+nBgYeAf29qt5L6JXkd5+sDpmt7PLrWr6BaSgChB/AzQ
-   GLag+yiJs/cW5lf2RHSHDfclqk/xYV+8TCE3ThbYGBG50/klZIDzYdw5H
-   Lz/rJBxAzQOBTuwRHT2K3oIs3UomTt8Dlqmfitx5gjmf9LkTXM86zxS79
-   Q==;
-X-CSE-ConnectionGUID: rSJVdJ33QCq1339jdW4gzQ==
-X-CSE-MsgGUID: 8A8KUMRJS/O5O1i2Sp+Q9w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11732"; a="74954835"
-X-IronPort-AV: E=Sophos;i="6.23,126,1770624000"; 
-   d="scan'208";a="74954835"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Mar 2026 15:35:09 -0700
-X-CSE-ConnectionGUID: ZHDsFIJqRk+z8pFD4ioR7g==
-X-CSE-MsgGUID: nIbrT9OESs+pBQZOjZmZLw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,126,1770624000"; 
-   d="scan'208";a="221640021"
-Received: from abityuts-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.193])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Mar 2026 15:35:08 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id F0B2D121D18;
-	Wed, 18 Mar 2026 00:35:04 +0200 (EET)
-Date: Wed, 18 Mar 2026 00:35:04 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Cc: Kate Hsuan <hpa@redhat.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Hans de Goede <hansg@kernel.org>
-Subject: Re: [PATCH v11] media: Add t4ka3 camera sensor driver
-Message-ID: <abnXGIi_eYZtJhy-@kekkonen.localdomain>
-References: <20260316085704.352669-1-hpa@redhat.com>
- <abh9evUPzozh40k-@kekkonen.localdomain>
- <a3f89715-b937-4858-9a44-8d8d634cf97a@oss.qualcomm.com>
- <abmWUIIxCq1xcZ5m@kekkonen.localdomain>
- <590df779-96a2-4dc2-97b0-0f8753bd7eda@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="k5N2AqLy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nYn+k8gV3EQGqCL3mCCIIYAtoyT3A06gzqmU8ftXAT9hinC1e1UWTResI5Mf6s0NrJhLOWCUarV/x/ynuwTz17y3g5HmIu/o5CX+0jVVBzJ0ednCsjzOQePqIb5DXqmCEw/ETAg//aLoqslESSln0FZpI859y7vIth5aPduXLmcP6OQXEUMjYqJKFxLjpfQ6dr42Brs9X6A+Mlmhc2E8xNfq6Y1gvgSUifof0hbWTsf/ATJrHRo3DGjrrv2r7vHxo/X0twjs5mrqiw9YN3oI4Vw0tw0xBTncRMycd3u0rKS+SwJZx97QMq99TlQ9OafG6RamfbY6Er4Pq82qTrs5MA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qPWhNEkrCqRZ+00OtaPJbnAsfNJUYl3B1RyQ7BFHr+s=;
+ b=js2cZv7wf39DceRjeL27RKS7Ce4kOOf0QXe0/Bs58TRnRpHp4kss2VuKwTJIbuTbRhRz2oR7Im/L6jVjGcD0E69sK7f5/jwAE1cuFmLYBH8UkhmcDPexrrmg5itCvE8pWhviwpZtihkc3YiJ+pJvRcpgYiJgwVVRgmcScAI85in17PMLrKAK8Qsq5C8byZI0Q3I8MdBe96UcJxPAnPV58DAkoIfAQzZSHJ6GWsSLQXCyW5rhcP4NzGU3u1EHqB2RVqSPXxjZo3SRHF2VqJ5jTP5WqXyWwpmoF9qJngUgXq0oX6i17fiUNqG/KXnj653JFbgHJzROuOsGyIDJ1PywPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qPWhNEkrCqRZ+00OtaPJbnAsfNJUYl3B1RyQ7BFHr+s=;
+ b=k5N2AqLydeJo1Yuts9MGW3tbhIUcTeHjsQI6b1StuD8Pi96IzwhX61+J630vaWE7wfvqqMEsliOy+kuqYvjNKMjnYVFKURJW2VFDzV94E4UqHLtSN6VRMIpYKdON2ED6O7EOWdYhcdpqxVl1J6njPukXj+E7OPfkJEjFBMnDJRJ4JdreqZCiIyS0tkrjLv0ibA1gQiIggYSutVqOgJqcbLlE6lhaBT7QaAVLs4E0GP35N0YOw94P7XBhq0gLNcWOnUWIGIbbZ7MVwREov3Os4HM95U+PJAVVCvdHAXas5X24hAkQPj+9MsWYHifrwsWkEy9kPLHkOlTWWsbJm2Jg5w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
+ by VI0PR04MB12032.eurprd04.prod.outlook.com (2603:10a6:800:311::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.27; Tue, 17 Mar
+ 2026 23:05:14 +0000
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9700.022; Tue, 17 Mar 2026
+ 23:05:12 +0000
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: linux-phy@lists.infradead.org
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-can@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	linux-tegra@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	netdev@vger.kernel.org,
+	spacemit@lists.linux.dev,
+	UNGLinuxDriver@microchip.com,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>
+Subject: [PATCH v4 phy-next 01/24] ata: add <linux/pm_runtime.h> where missing
+Date: Wed, 18 Mar 2026 01:04:37 +0200
+Message-ID: <20260317230500.2056077-2-vladimir.oltean@nxp.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260317230500.2056077-1-vladimir.oltean@nxp.com>
+References: <20260317230500.2056077-1-vladimir.oltean@nxp.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: VIXP296CA0007.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:800:2a9::17) To AM9PR04MB8585.eurprd04.prod.outlook.com
+ (2603:10a6:20b:438::13)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <590df779-96a2-4dc2-97b0-0f8753bd7eda@oss.qualcomm.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|VI0PR04MB12032:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b37fc59-8dc9-4638-f784-08de8479a444
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|10070799003|376014|19092799006|7416014|366016|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	8K7h0VYCJTZLGONOGjWSRwObQMh3V61aBhMQXRkiiquKedM6Qffn92wPvHrzBzj+I/SomwfSAhKnQPaIbk5blEd7ui5FlQcGDLN9IAIGv40gf6UWtlQIM0fPjUzdKlli3tOHJKBaEpVfx/dcI7FPscU4KCCu11Wmyx26DbYJyBYR5yKmzRXSXofuLWZj7/3PwBB8pAmQxuRJARjvBA9oRhKV/u8BPPrdBbzMHVMZsCaB/iETypjBycXd38LmfoV/tK1Ww91AaWxG6lPzGBUEuRDXwyfyUnmuhG4+dQ3PhUeiOrqA4t/Mks7P90wuC5fvALzKrOue+Uvjtne/x2Xue0k/MhkLDa2EXlwOvj79GzJMZNDFx+hHOB7ApjFcu4/ITanjaP45GoTsJSvnK2xgHfuqipmdX62fd6ZZ7W/0KCsVK4ByWi5WS/M/iKhLhjwC8QFZWSmdJfu3g8/LCK0Z9/h/Yy/1PBHuCfLdAR74/f3ZD566FvumC8fGk3qM4hyMcYI6Z+whVTy6J/XilO+h5LK8YaWMX2t/jME9lbZWd5p8DrOlQRHzYLHhoeCkgKnyZZPlLeTYre6+awDi1DYce7A3oomRF3IpQLwhbou0UUhpK65i5Dm3VkTGmjMTPD2cGpBO/gfFfXPYVo+C3Xtr4qcRbGxB22JK22TqITPojZzkl+/wHskyS6s5rghW1q9e0Cz02Ls5Xi1h9wEvEiUahwWbR2vEk7PFTG2flq5Cxzo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8585.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(376014)(19092799006)(7416014)(366016)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Izc5M0BnBMoft74ZVgbAMBoa0bmYi+fRlVWLKkjqRiQyegBVsaUSqTeBdcf7?=
+ =?us-ascii?Q?g0ifvoC8MfnYJRrOIgi/sNwChvumtsFEBVKS000xEYZWfXTLlMKGQLy+FlTo?=
+ =?us-ascii?Q?EEM2/RNvFHmvsz9tLi487bDyPxnvFMY9z3DvtnkxyFE0W8aPXTmje62ynOA2?=
+ =?us-ascii?Q?aqGoeEMCyTo82G0SylwrXkV0s6BdkNJl+1lp13q4wDkPTREEkTQ9QLLOJ1os?=
+ =?us-ascii?Q?TVF6bFmMD0t5Igy1lBHX9B1WSmORnxRkCxMi+/9C6jrwHyzSqCcGqakwH+Ay?=
+ =?us-ascii?Q?FXOiqKL7HbLlpmfURcN76RU+lgg6U88jOkE7UvvvVUiyki4bqsAGXe27T0cS?=
+ =?us-ascii?Q?o1nFYuvDSSxqGnUR5i3pc56APe1bdD/KbpcWicBrORNFBOa1LlaRfVASd/KF?=
+ =?us-ascii?Q?uifpr15rjXrdMvup0R54RhOLHpyM0Z0M0DYEP9r1MBEJG1oXYbfGFsD1ej1E?=
+ =?us-ascii?Q?FgvsYx6cE1Q6qS2UzK90Le4UOZiZt9OfXonC3LnsrHXwLn7/NSEG3LC1JFX3?=
+ =?us-ascii?Q?W3Y86gqWJZ4n/t+cdvDpg/lQEI2yMsDIhH8HZjYmSq3uqgFs6nzu6pPNg2TW?=
+ =?us-ascii?Q?lSr0lHr/jZCjpzD80k8Bt6gcSqG16lfP7gys175O2a0CTe9tJ8Tjlvj/UgJr?=
+ =?us-ascii?Q?Y4OIdZahIfk0DABgLZdXqjokgtGB9f7nObirzY5so385cM9lWQ53aN0KOC1E?=
+ =?us-ascii?Q?+tjiWUot9YgadUL2sM8vXZNGJ4jyN3+zrCpyzkGQEk2P/CMLR/My0zpfrcF3?=
+ =?us-ascii?Q?kRJmv2RvKRb2A9rUSPcXfnnMXQWpE9MwQzoHxvBi0XX3VDtQbEoPmr97szmq?=
+ =?us-ascii?Q?sOiUbxYddNe/P4BJJxbHSTuBs5gPWaKqAV3+J8YmQAy5YSfcyLX0IbNKfU7a?=
+ =?us-ascii?Q?PcqYHbgsldEiJaXy7bQ7rOO6v6zmmcEPV5wNsxG7xUpPFM4N1SIjJmv7lTku?=
+ =?us-ascii?Q?X2uNjnvNBeMmIhZWxVBOvc6DdJ7oyZbIiAmnWwfbJJ6r0Az4Mi4MOQtBu+7+?=
+ =?us-ascii?Q?5x9H6HXKzFrisOgdYyBeuafLG9gZlJj8HB+B0Zau8eRaL2hkq7/J9PFwW2eO?=
+ =?us-ascii?Q?4M1Owc3r03deJwVqS5zJEQ7Y7jSYq+FchFkZtBwbPpyKiYbXc2D5FDHsBcdN?=
+ =?us-ascii?Q?4CqP0lNHUDrumOuzZXdytrexYOLjKIKTEOvTVk7N9pMsd1CCZo/6FTuhkWX3?=
+ =?us-ascii?Q?CpktG9UKGqL5iqo38+4QD1eMM8n0sodxX3nxXgwOq+AA0neG+Y7oTgAGsi9J?=
+ =?us-ascii?Q?b94sbcBRA9+at/xjC6oFsWafM0YRJ4gWf/eXd4q+vbftTe+hiNfJHSLEzJJ5?=
+ =?us-ascii?Q?nkNBwjMVEnDbAIlt/zEtwoRBa5PbVJ8XmkMXOY5X/ebVjvUjTfaWRwEsa6Fl?=
+ =?us-ascii?Q?y/C53WT4Bx3XliZhYqQaDAch3yFl1vecME1GomtaeQPjuxwLYDbAZqFmNpa5?=
+ =?us-ascii?Q?+XjJt6nAIoejSkFLJL3wednWSnmZcODwXFvRcrfBQBR5nA9cks/aTdgv1s/7?=
+ =?us-ascii?Q?cGUWxrhZGPjmaP/bU7gUzF5+JfWoZXhzv0A4EfEJb9wN9dW6RP1ofQZPOTPJ?=
+ =?us-ascii?Q?lP8UdwkZpCyfMnzB90mxZtt/gC8+1ZKSU8fHm2C+gm/drkfBvcRlNDjBTjtT?=
+ =?us-ascii?Q?fycgE68QqbAakELNOXHKLytUD43Cpbgy1rQ8MbQ49ndnsZVcp+ylaf9CcM5S?=
+ =?us-ascii?Q?ylV4VUuMU9W7i55UPSJPYv0Yz0CyXi9awe6PRUdbxOvzgytLa5dpdeF/QjFf?=
+ =?us-ascii?Q?6FtEIk5l0/uJKcbnGLwOGiNrWHYzOYQNQU5AQCNLw48Hv143taiZpw5bj88O?=
+X-MS-Exchange-AntiSpam-MessageData-1: Xbs0XP8Yosa5tnzQLkvw/znr+OnyaHKrVKU=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b37fc59-8dc9-4638-f784-08de8479a444
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 23:05:11.9272
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6DZQvE8XIZGGctXeu1lb1Nkhw5kSPnmgv62H48eVCVdNYT770Lcx77cfoyFc+OoeYTqYSxwaZnkasj5K3+qdWA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12032
 
-Hi Hans,
+It appears that libahci.c, ahci.c as well as the ahci_brcm, ahci_ceva
+and ahci_qoriq drivers are using runtime PM operations without including
+<linux/pm_runtime.h>. This header is somehow being indirectly provided
+by <linux/phy/phy.h>, which would like to drop it (none of the functions
+it exports need it).
 
-On Tue, Mar 17, 2026 at 08:56:47PM +0100, Hans de Goede wrote:
-> Hi,
-> 
-> On 17-Mar-26 18:58, Sakari Ailus wrote:
-> 
-> ...
-> 
-> >>>> +
-> >>>> +	/* Only apply changes to the controls if the device is powered up */
-> >>>> +	if (!pm_runtime_get_if_in_use(sensor->sd.dev)) {
-> >>>> +		t4ka3_set_bayer_order(sensor, fmt);
-> >>>
-> >>> Does this call belong here?
-> >>
-> >> Yes, if the hflip/vflip controls change then fmt->code needs to be
-> >> updated to the now changed bayer-order. t4ka3_set_bayer_order()
-> >> uses the cached ctrl->val values so it is cheap enough to
-> >> always do this instead of checking if the changed ctrl is
-> >> vflip or hflip.
-> >>
-> >> In case the sensor is actually streaming and we don't hit this path,
-> >> the t4ka3_t_vflip()helper will return -EBUSY since changing
-> >> the active fmt while streaming is not a good idea.
-> > 
-> > This should also apply to non-active state (albeit implementation requires
-> > implementing get_fmt locally). This will get "fixed" with the metadata
-> > series eventually with generic raw formats.
-> 
-> Ok, so what you are saying is that given the special need to
-> set fmt->code based on the flip ctrl values, this driver should
-> not use v4l2_subdev_get_fmt directly, but instead it should
-> provide its own subdev_get_fmt() which wraps v4l2_subdev_get_fmt()
-> overriding fmt->code based on the flip settings before returning it ?
-> 
-> Do I have that right ?
+Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Acked-by: Damien Le Moal <dlemoal@kernel.org>
+---
+Cc: Damien Le Moal <dlemoal@kernel.org>
+Cc: Niklas Cassel <cassel@kernel.org>
 
-I'd like to say "no", but yes, that's right. :-)
+v2->v4: none
+v1->v2: collect tag
+---
+ drivers/ata/ahci.c       | 1 +
+ drivers/ata/ahci_brcm.c  | 1 +
+ drivers/ata/ahci_ceva.c  | 1 +
+ drivers/ata/ahci_qoriq.c | 1 +
+ drivers/ata/libahci.c    | 1 +
+ 5 files changed, 5 insertions(+)
 
+diff --git a/drivers/ata/ahci.c b/drivers/ata/ahci.c
+index 931d0081169b..aa3c4949c4ab 100644
+--- a/drivers/ata/ahci.c
++++ b/drivers/ata/ahci.c
+@@ -26,6 +26,7 @@
+ #include <linux/device.h>
+ #include <linux/dmi.h>
+ #include <linux/gfp.h>
++#include <linux/pm_runtime.h>
+ #include <scsi/scsi_host.h>
+ #include <scsi/scsi_cmnd.h>
+ #include <linux/libata.h>
+diff --git a/drivers/ata/ahci_brcm.c b/drivers/ata/ahci_brcm.c
+index 29be74fedcf0..48460e515722 100644
+--- a/drivers/ata/ahci_brcm.c
++++ b/drivers/ata/ahci_brcm.c
+@@ -16,6 +16,7 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/reset.h>
+ #include <linux/string.h>
+ 
+diff --git a/drivers/ata/ahci_ceva.c b/drivers/ata/ahci_ceva.c
+index 2d6a08c23d6a..3938bf378341 100644
+--- a/drivers/ata/ahci_ceva.c
++++ b/drivers/ata/ahci_ceva.c
+@@ -12,6 +12,7 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/reset.h>
+ #include "ahci.h"
+ 
+diff --git a/drivers/ata/ahci_qoriq.c b/drivers/ata/ahci_qoriq.c
+index 0dec1a17e5b1..409152bfefb6 100644
+--- a/drivers/ata/ahci_qoriq.c
++++ b/drivers/ata/ahci_qoriq.c
+@@ -14,6 +14,7 @@
+ #include <linux/device.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/libata.h>
+ #include "ahci.h"
+ 
+diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
+index c79abdfcd7a9..e0de4703a4f2 100644
+--- a/drivers/ata/libahci.c
++++ b/drivers/ata/libahci.c
+@@ -30,6 +30,7 @@
+ #include <scsi/scsi_cmnd.h>
+ #include <linux/libata.h>
+ #include <linux/pci.h>
++#include <linux/pm_runtime.h>
+ #include "ahci.h"
+ #include "libata.h"
+ 
 -- 
-Sakari Ailus
+2.43.0
+
