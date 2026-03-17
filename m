@@ -1,62 +1,62 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615773A1A5D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8AEE3A3833
 	for <linux-media@vger.kernel.org>; Tue, 17 Mar 2026 09:56:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773741367; cv=none; b=oH5HZSG6peedxtwDJ59dAsBtFn9gR6ptCpmSRpyArR4/A9ZqrZdlwWMilZIMAgubECqT14r7aeg9r6ayMZDRMY7iZUulQkOFcc6Wv9McgQkjY3Zn2GILtDedqTei43sAj6nOsEJ2uqlXWrbaITqLNW2HymGY96TfAGI1n5XbsZw=
+	t=1773741368; cv=none; b=EUtfFM34g+gppv0wDczN64iWy/rGVSsxJ363Wr0+sKPWGwKtil3hg84iV1E8PhHzIJXLFNwsdBz4sQn99ezh+WeTb9jwuwVqduBdzT/EtYL2S+sBsQrjoGegpWV/I7yXUZfnSiNrQM2e3u9XTDW57utM/OR/jqYQczpg3J6veJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773741367; c=relaxed/simple;
-	bh=iFNWX2lU9gzr8y8aa2OsVHeu/y3mtrYfK3fHembHC20=;
+	s=arc-20240116; t=1773741368; c=relaxed/simple;
+	bh=9M01TEC0AsjzUom48cj+YReRIcPoswlJzqbhnUopfTg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LBpqSC/MhMPe8Cfwv6anp6XxIPdfpke3rSvLXCoxZGGkVNxbqLpOY+cGo3JNTPUhhit05lT6rxQqWKp2ssznAU74SA1TVoE9MpH5cBXlBgDO0i4JR6+Ng0FjYrQlwARoaXXjm+CKHKTxo0brLVXHr11TZMHWjFmlR80iTIv5TNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bFlPsisj; arc=none smtp.client-ip=192.198.163.16
+	 MIME-Version; b=rf1o1H/3TLxlrXK+WHrMmOw+Xe5nHzlGeu3P27fjjWDckl4z9Cx+czup1qxPPo26kYYi4RMIEJ7KkP65zw+CJ0lJEvz0D5EbGvT0Rn2+JsiE1O9APnGSPal49ci6muJMDv8khS17xenj1hodZ42c5bwU0ASOenTOiV8PElEiPnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lsCyS44V; arc=none smtp.client-ip=192.198.163.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bFlPsisj"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lsCyS44V"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1773741367; x=1805277367;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=iFNWX2lU9gzr8y8aa2OsVHeu/y3mtrYfK3fHembHC20=;
-  b=bFlPsisj3TfdhSzUl9yiRm+k+eZ25XpRUUKZytyENbIaueyuutaW3afp
-   NZc1gk4LgXL7cDlhYJckEgTsea6s+vn5Nv3Dl815uQv38AH0/cO/Jm487
-   pi67p2BxusSK7LVNzd+aLUW8Zqpl7p7JYnxF8ZWFdfVBYamqL98E9R5hp
-   6fl2vW4UnbFL5fxzdMe/KKD3sBgbPaTq43P+Vd6Xd3JbtWOBQSmB/Tqvx
-   dvpyBmUIg/waeQk2yLfr5nOJlUH9KgHSRt6KdqSPtg+90qdNcEUHZsOAV
-   kVPDGXgTNRaA751Z7SAaxBwTnVV0KK/hsY3Xn4DBxfKKO4lN0vBmIHi+M
+  bh=9M01TEC0AsjzUom48cj+YReRIcPoswlJzqbhnUopfTg=;
+  b=lsCyS44VyRRQyOpbovLhzmE6h8PYa+Wep3HzjWb9d6G5aewMrETGKoCO
+   S93WwpXY00N081n76r5LSFfZjlMduq8yPhL/MHHDTfpqiDxywzqqRcRB2
+   r+3mTwhUiva7flEohO6XVCRbaq2x77RqiLpTzJJN+s4ohx0w92JACjrEi
+   YzGppCxyL5Dp56CCWO5sKS7aVzM/Ytqatw9aXgEYAegJhk/8S6vtT1+n1
+   LkmCRY/xptfOg7rc2E3yYWQKh0IkvBBN1bNt2NsIHfk0Avv8oqeAXW5Ki
+   K8nGtVrR6rACVuOYUxI5segYw9ftoeFxKVS/R3YQPPavphJQvrL88/mG0
    A==;
-X-CSE-ConnectionGUID: zlJ8EPUvT7mGllu7W6TvzA==
-X-CSE-MsgGUID: 0RXWL72XS62BnyuSAPAukA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11731"; a="62335670"
+X-CSE-ConnectionGUID: lS04DfudRDyKgb/w7vOqNw==
+X-CSE-MsgGUID: Rylo4dsOTpajKiZMQ8Ue+Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11731"; a="62335676"
 X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; 
-   d="scan'208";a="62335670"
+   d="scan'208";a="62335676"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Mar 2026 02:56:03 -0700
-X-CSE-ConnectionGUID: 8Ic/3Oj3TYGv/BGHErGhXw==
-X-CSE-MsgGUID: jNPvN0a2SZ2B/Y+e+BFFiw==
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Mar 2026 02:56:06 -0700
+X-CSE-ConnectionGUID: QvCQ5eVtQ0CfM1jhXvWnEA==
+X-CSE-MsgGUID: LT4qh+4jTjG5vO0yaAbEOQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; 
-   d="scan'208";a="226344879"
+   d="scan'208";a="226344884"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.106])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Mar 2026 02:56:02 -0700
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Mar 2026 02:56:05 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 63DC911F870;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 6E3D8121D8E;
 	Tue, 17 Mar 2026 11:56:00 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1w2RBa-00000000toj-1AHd;
+	id 1w2RBa-00000000toz-1Vba;
 	Tue, 17 Mar 2026 11:58:02 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: linux-media@vger.kernel.org
 Cc: laurent.pinchart@ideasonboard.com
-Subject: [PATCH 2/7] Check we have a supported format first before allocating memory
-Date: Tue, 17 Mar 2026 11:57:57 +0200
-Message-ID: <20260317095802.214532-3-sakari.ailus@linux.intel.com>
+Subject: [PATCH 6/7] Use "stride" in a stride-related error message instead of an internal name
+Date: Tue, 17 Mar 2026 11:58:01 +0200
+Message-ID: <20260317095802.214532-7-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260317095802.214532-1-sakari.ailus@linux.intel.com>
 References: <20260317095802.214532-1-sakari.ailus@linux.intel.com>
@@ -70,55 +70,22 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- raw2rgbpnm.c | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+ raw2rgbpnm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/raw2rgbpnm.c b/raw2rgbpnm.c
-index 121f0e0272e4..8aa7258218ad 100644
+index ef12be820be6..3b92c6ba519b 100644
 --- a/raw2rgbpnm.c
 +++ b/raw2rgbpnm.c
-@@ -370,20 +370,7 @@ static void raw_to_rgb(const struct format_info *info,
- 		src_width &= ~3;
- 
- 		const struct format_info *old_info = info;
--		unsigned int new_stride = src_width * 2;
--
--		tmp_src = malloc(new_stride * src_height);
--		if (!tmp_src)
--			error("can't allocate memory for the temporary buffer");
--
--		for (src_y = 0; src_y < src_height; src_y++)
--			for (src_x = 0; src_x < src_width; src_x++)
--				raw_put(16, tmp_src, new_stride, src_x, src_y,
--					raw_get(info->bpp, src, src_stride,
--						src_x, src_y));
--
--		src_stride = new_stride;
--		src = tmp_src;
-+		unsigned int unpacked_stride = src_width * 2;
- 
- 		for (unsigned int i = 0; i < SIZE(v4l2_pix_fmt_str); i++) {
- 			if (v4l2_pix_fmt_str[i].fmt == info->compat_fmt) {
-@@ -395,6 +382,19 @@ static void raw_to_rgb(const struct format_info *info,
- 		if (info == old_info)
- 			error("no supported format found for %s",
- 			      old_info->name);
-+
-+		tmp_src = malloc(unpacked_stride * src_height);
-+		if (!tmp_src)
-+			error("can't allocate memory for the temporary buffer");
-+
-+		for (src_y = 0; src_y < src_height; src_y++)
-+			for (src_x = 0; src_x < src_width; src_x++)
-+				raw_put(16, tmp_src, unpacked_stride, src_x, src_y,
-+					raw_get(info->bpp, src, src_stride,
-+						src_x, src_y));
-+
-+		src_stride = unpacked_stride;
-+		src = tmp_src;
- 	}
- 	}
- 
+@@ -177,7 +177,7 @@ static unsigned char *read_raw_data(char *filename, unsigned int *width,
+ 	line_length = line_length ?: (*width * bpp + 7) / 8;
+ 	if (!line_length || UINT_MAX / line_length < *height ||
+ 	    line_length < *width * bpp / 8)
+-		error("line_length %u is bad", line_length);
++		error("stride %u is bad", line_length);
+ 	if (file_size > UINT_MAX)
+ 		error("too large file");
+ 	if ((unsigned int)file_size < line_length * *height)
 -- 
 2.47.3
 
