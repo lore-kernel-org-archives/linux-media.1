@@ -1,65 +1,62 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB63F3CB2D6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5273CA4B5
 	for <linux-media@vger.kernel.org>; Tue, 17 Mar 2026 13:16:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773753379; cv=none; b=mMgOCTC0yWFJ06US0bOVg6mVYMeWZ6Px5JSUT8temG7gXz+3/3SUmxUzmvaMZndAnylScpPh0zXVgcqWjz9rgEyT1LQBnemBiZF4HiQQka9lQn/oSr7NZC9hyePwZOkSEIhfWVwvmhR4a6sq9xMAMQ3gy+57EaH5MpoNoQYf9wg=
+	t=1773753380; cv=none; b=gD2wGYv+CHsOqX8spA080SlhTGb6n0ivcUjWcRwXQMnaZV3RhPfR6nHpjI44CXHT96JP1xbUnxuT0+u1vZEhEzFA9mjniIVITdK8vxV10ZWgD2p8AjE2m9JshwJjfL3GrnahjyP7iMDtDJIzyRp165Kh1IZOSHpLvTGpKtFOjWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773753379; c=relaxed/simple;
-	bh=dubpLgnBvsBp2+LIPbFIW1d2uoCDDfoHRhzX3nWyMJM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HzMkqKT5YrITdOEDusgTtV5+/HCrTdllhB+OwLtbb/JiP53d/gTNnS+x48p6YNOXJRztX+bW+67Bsan+TPcyEVl+ldhQ0330oFiH8kSoLprHPeXNswuSU/K3BSTTjb3OoRi+2IEDFpBRrhYNrQ/NlmaQAMHVEMsjgMbI03x/dZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FlfHKyiV; arc=none smtp.client-ip=192.198.163.11
+	s=arc-20240116; t=1773753380; c=relaxed/simple;
+	bh=Clblr5jt1oQY4oN8z8zWP+pn8EN+PhZwV3RAv+YxG9E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TgHliYbaVdIIQ6XjsUnxL1v0K2n+ugVATlURiguEri1QFJeqCD7ks24P1Vq5vkCEMBsOKKn90cEM8cCBukS1txH5IvTl3XU7zrMVUwdcBcAp0yFeLG+qbebpy9ZrFqjMxTFQWnGjYjhoDLMcvMG3ToVkn73Qrn64tsosMQPzpqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YjqispAL; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FlfHKyiV"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YjqispAL"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1773753378; x=1805289378;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=dubpLgnBvsBp2+LIPbFIW1d2uoCDDfoHRhzX3nWyMJM=;
-  b=FlfHKyiVrEx//XVmw2g2pUM71d3XVhTokMUW5aFn1yUmQh2xV3oiYXkR
-   FFjiZraoPXayDg7IvSKTwb5tRx4MbOELZpYbswa/7eUnZ5/8DIPv+sB3p
-   bd00NQ2di5lRjQSrJn+insusC1GQwzGdz78Snjw1DhgotNl9ql0/y3tfc
-   7Tr0MwzPxB32H85hS37lY7O1ZjcVQ24odMye+iFC6gtjGIw9GjEAceEgf
-   QZ11/NzFUSAtFwM8NHjMQbYTGpZA0c5BOQWHc91QrHggLDHyIXCQyYsdO
-   3ZQXy5s/6NH5TqGeRb21UD6PM2DT6+QoV+aiYrjYCYtcR5y1nAMMoohAk
+  t=1773753379; x=1805289379;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Clblr5jt1oQY4oN8z8zWP+pn8EN+PhZwV3RAv+YxG9E=;
+  b=YjqispALAxyhnPmAGSAhbuBLeLPynlz42x9tdsDLoLM18A1y9yf9tFaS
+   B+SUt3pPiM4906Uo3egOzvyQcb2zMFgyofLfAKx57b2CBoj2dWwe18CKU
+   P5CqzHvAZh+NEG04LhjoaiLbBcWNhv31yMzCubzEfQWMdMywaGQK9xTJI
+   NNFP8e64WXhEBSMyHg/zBJJ5oGyT/VBt6FZQBJ/6ElZOKRiq69gpwW9e/
+   xz6N0r6eX8tNanvawtAjG+YUQ4vJQXMIcFzTiEy/tOJZKO8O70nymTV1E
+   fzPnRrJkG6Vkff5CIplaTms187nS+5gEFs0VgDc1F9JiSakNpG7Uu9xma
    g==;
-X-CSE-ConnectionGUID: 50zfq1RuSMW56vdDpODDuw==
-X-CSE-MsgGUID: 5ekJxvQTQYuskdK+548JfQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11732"; a="85411100"
+X-CSE-ConnectionGUID: eyoh3JTNQJykPaJPQH03yA==
+X-CSE-MsgGUID: /q6PPx5bQY6M8ZEW9uS00g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11732"; a="85411102"
 X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; 
-   d="scan'208";a="85411100"
+   d="scan'208";a="85411102"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
   by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Mar 2026 06:16:15 -0700
-X-CSE-ConnectionGUID: d3vl5NtBQ2Omgr4vSv34Hg==
-X-CSE-MsgGUID: vQOYQG6DT+S1uhVuMI2zvQ==
+X-CSE-ConnectionGUID: 3MNi5AARSq6mYQ4Sl5/UMg==
+X-CSE-MsgGUID: PYPwMkYXQ7quuiZDnVhS/w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; 
-   d="scan'208";a="226733224"
+   d="scan'208";a="226733223"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.106])
   by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Mar 2026 06:16:14 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id E376C121D57;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id E238F121D4F;
 	Tue, 17 Mar 2026 15:16:11 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1w2UJJ-00000000u01-3UTw;
+	id 1w2UJJ-00000000tzq-3Hlq;
 	Tue, 17 Mar 2026 15:18:13 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: linux-media@vger.kernel.org
 Cc: laurent.pinchart@ideasonboard.com
-Subject: [PATCH v2 3/6] Add quotes for "-f help" in help text and do a line wrap
-Date: Tue, 17 Mar 2026 15:18:10 +0200
-Message-ID: <20260317131813.215230-4-sakari.ailus@linux.intel.com>
+Subject: [PATCH v2 0/6] raw2rgbpnm cleanups and a fix
+Date: Tue, 17 Mar 2026 15:18:07 +0200
+Message-ID: <20260317131813.215230-1-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260317131813.215230-1-sakari.ailus@linux.intel.com>
-References: <20260317131813.215230-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -68,31 +65,28 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
----
- raw2rgbpnm.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Hi folks,
 
-diff --git a/raw2rgbpnm.c b/raw2rgbpnm.c
-index 96466a5a1d44..1f00787e80d7 100644
---- a/raw2rgbpnm.c
-+++ b/raw2rgbpnm.c
-@@ -931,11 +931,12 @@ int main(int argc, char *argv[])
- 			       "--brightness, -b <bright> Set brightness (multiplier) to output image\n"
- 			       "                          (float, default 1.0)\n"
- 			       "--format, -f <format>     Specify input file format format\n"
--			       "                          (-f help for list, default UYVY)\n"
-+			       "                          (\"-f help\" for list, default UYVY)\n"
- 			       "--help, -h                Show this help\n"
- 			       "--high-bits, -g           Use high bits for Bayer RAW 10 data\n"
- 			       "--size, -s <XxY>          Specify image size\n"
--			       "--swap-rb, -w             Swap R and B channels\n", progname, argv[0]);
-+			       "--swap-rb, -w             Swap R and B channels\n",
-+			       progname, argv[0]);
- 			exit(0);
- 		case 's':
- 			if (parse_format(optarg, &width, &height) < 0) {
+Here are a few cleanups and fixes found in Laurent's review.
+
+since v1:
+
+- Use old_info->bpp field in reading the original buffer.
+
+- Squash two header sorting patches plus swap two lines.
+
+Sakari Ailus (6):
+  Reorder headers alphabetically
+  Check we have a supported format first before allocating memory
+  Add quotes for "-f help" in help text and do a line wrap
+  Constify progname
+  Use "stride" in a stride-related error message instead of an internal
+    name
+  Fix file size check
+
+ raw2rgbpnm.c | 49 ++++++++++++++++++++++++++-----------------------
+ 1 file changed, 26 insertions(+), 23 deletions(-)
+
 -- 
 2.47.3
 
