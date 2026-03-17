@@ -1,69 +1,73 @@
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64311E2834
-	for <linux-media@vger.kernel.org>; Tue, 17 Mar 2026 20:57:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3772538C432
+	for <linux-media@vger.kernel.org>; Tue, 17 Mar 2026 20:57:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773781074; cv=none; b=nXzWczftZ+PumqQ/92IAXDyvRvt49vUBflbltIxLzycS/V8whVkHEHFIOrKNgDfBcRfnfKUDNpIG3opqQdpsBgWJzcxH6CDENVZ07QkyGPOr6gUBYzf/SCagZlokwd+5g0wZH/anYQneMP1DTEWPRgDP8gXfJFclmT9KK6vNfzg=
+	t=1773781076; cv=none; b=eEoH/TLhsYz97tNa+9uHdzUW7silNKNKoGs67lr8+HIas+hWjLcx67hVcCeSb/uanKLORuqXep+nAPkWjgztS5yb7baubpq1L/dOXxiR8TviGIfOE0PR4jfzYIR5pkohYnyVorMSG5LyCx+LME2f9iKIbyCmjp9skP0fw+HsWa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773781074; c=relaxed/simple;
-	bh=KBXGcrYoOLPymfDZ/oqMz1swOTpgT5qAmz55HgttOTo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tr4GfzugWsgw8PsoTTvMmlpKijsh6IFfv9XODaWiKnaK98xeKIIoi8HXtCXLCq/A5QA7d1kSqId17BoRXnvmq5CH2VRGUW5+kBckLPaXqx272Vk1PppLa6gSfW7KYgWBXVCT+5cV5odZs9MStwBLzPYW39xumezf+BGVSrP1od4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nextdimension.cc; spf=pass smtp.mailfrom=nextdimension.cc; dkim=pass (2048-bit key) header.d=nextdimension.cc header.i=@nextdimension.cc header.b=q9Pu66Gm; arc=none smtp.client-ip=74.125.224.44
+	s=arc-20240116; t=1773781076; c=relaxed/simple;
+	bh=ECM1AJM/PT/pb5P62Xg7tM7I1DMObJqp/KWREoG/jjA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=by8WL7wfXbz814hFXnXeNr1YnC3xNhK5BiwLwR+0IEPodPeoDPQUlgLiKC8ICyt7ugUmkIwpu0WVVxjFaiKmBbGm06pC3wW/nryYx15j+veTTB3OLOl9Dm9rtHJIyFSTXxhKVrqhgm9YPLjYszlXnbLqdN0Lr9SudjIKvu8t060=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nextdimension.cc; spf=pass smtp.mailfrom=nextdimension.cc; dkim=pass (2048-bit key) header.d=nextdimension.cc header.i=@nextdimension.cc header.b=PNwxPg/a; arc=none smtp.client-ip=209.85.128.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nextdimension.cc
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nextdimension.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nextdimension.cc header.i=@nextdimension.cc header.b="q9Pu66Gm"
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-64ca09f2056so96624d50.2
-        for <linux-media@vger.kernel.org>; Tue, 17 Mar 2026 13:57:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nextdimension.cc header.i=@nextdimension.cc header.b="PNwxPg/a"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-79a62a2bb8cso14821977b3.3
+        for <linux-media@vger.kernel.org>; Tue, 17 Mar 2026 13:57:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nextdimension.cc; s=google; t=1773781072; x=1774385872; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=vUikfvhRAs/fvQcmGfcJR3gaiQI51EqYzE0HTND4fdE=;
-        b=q9Pu66Gm+BEwdNPIXNcttFvjXvCTjJ2Dp5nIsEaNpF84mfXfGtDrb08TgUFa+kKe+e
-         7/37JiGpukMxxjRILAGYzwojio742tE38swdNIzxoc5/AK0IvQTQzwenkAKyaQNc3M2v
-         6eolUki/MNyqhe0LyC2wTju5bMEwc4AbtqCrynuGvGM4G+VttbykEknzcTfGM5tf5Q96
-         RWlGPsth5eI7V4KQoDPT0PYNCa/qIDOUntf9A1i1bJdaJtXusiM4CM3W7ZAnwAVD1cn+
-         +VzZlxhKmKZ8ol4nTCsoKVc8BG/ZNozq5H4yNKUSds0Dh4YgIcukYCI1SrPcpMPFgWmx
-         s7jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773781072; x=1774385872;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=nextdimension.cc; s=google; t=1773781074; x=1774385874; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vUikfvhRAs/fvQcmGfcJR3gaiQI51EqYzE0HTND4fdE=;
-        b=q3ebdlC5JsU88XKaPHbX3BTaig+A2pLCch2Dciq/CMJ7RaBXDPHQS0v4+twpyekBdq
-         nTxwVLOLDVMZXHgdtgshrAfFghOAXcSgBo6p3YJzlrJ2qmdESmoAVHqq6o2pup2BPE27
-         zE8+mF+/K1hUtPRwi1CH5mdvLtRwL+5qMvEtn2iNo8hxKxBuy6HrbtZOtqnX8BXzMOTD
-         Ubyn4pYn8xGK+AJVm9eRpKdUVAgU7TG9e2Q6gMfKu2bSI21pt35GG6ho8IUsK9jda97D
-         P/ydgCFsE/SqIsaL8CttnInlZPNAfqd98eYV/GjcIuEixvSR/OapJwlLhtfzPp7Qpdac
-         twhQ==
-X-Gm-Message-State: AOJu0YzAhp8wZCnqpAj7csw1w5hcg1dg7piQbnTg331tSvj0mk5y4lV0
-	A3LEV/aJOXS3OczC1ArxxqtGg9kWzpL7UyI2XskDszNkJO/RKRuxvvBy9Edl1rtTit6Uxl+qbxJ
-	KbiHPXyo=
-X-Gm-Gg: ATEYQzyvuvIUlHpGEyxbmGhgufC8qcKT5aCJ5FDtXD4DbrvHBzPYgR1HaXkwZ5K/WFK
-	pNwe71RPs334a2YfR1HyNqzmjfi9Lnxv0uIpDzUtjDjRtuUg5aDnMVQHF/hnojw15FEXJrofDpV
-	V4xdDstROjCYt08R73C68blnUFO1eOex85dWrkW3eBYj4vdj8S4H3kRUn1Zqh85jnaM6jRLWNX7
-	y1tzmUmKvVNZm65q8PIy0fMBT0+JadNad0dzmiEgs017IBIwRn5KJtT5c/D7DMEWndOK7RR61kP
-	Dh2kKrfVJdVSwYNRRFxPC/QvWGWxwgD2t+00kwF9j5W6pk4YKhE0NdQu7CFjGaglw25Bxbr83N4
-	ISLXKB/qZvXT8FXDiQtb8WhEhDRA4ZRobZIPFTBvx9PL7Yn50GxqNEvTiZbe4ms48ty0NHtVR92
-	cbWlQKmzoxVrdG6M0EyuoLN31hzEw3CX4YERvyNMYJ1QpwgreNFMSwlln3TuBgGlMI+Oj5MMF4K
-	t7il31GLjAMsk7bg80=
-X-Received: by 2002:a05:690c:e3e8:b0:79a:40fb:9360 with SMTP id 00721157ae682-79a718c84dbmr9530577b3.22.1773781072383;
-        Tue, 17 Mar 2026 13:57:52 -0700 (PDT)
+        bh=67bPJoDTmYLqAbWyeLh2NybJbz9XKRl9HM+9kGKG7bU=;
+        b=PNwxPg/a9PzQGOLmQNDMpO/2QwUUGBEA00u1arqWeUtE0YBEezZF9q4Hk1/A4MYaP6
+         Wuga1//3yrpYgxnx8L9YYhcqxZTW/z4+TWBTU+4kd3XG8tZGCWS/iqsBsx5HblIEBxbc
+         G3to1H8qun57Hk+6yFIfLwopz2EMA/Xwy7Z4h8qEAn9i5gW7TUM4JwWzkczorNxtu3Om
+         kmlPpZhanltMR6XAgE3amN3KbGdM7Q0EeZbo5PBk+RDpcsT/BUCJIIpS7efJFIy77uyY
+         OXvcsqpfsXa9KnzfEcDjMrLHZIk8mQQaDTg/tAHKcl0H4J0X8eXIDQZFF65ykiOhycFv
+         bBjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1773781074; x=1774385874;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=67bPJoDTmYLqAbWyeLh2NybJbz9XKRl9HM+9kGKG7bU=;
+        b=m/pRoUityjm6PaXSWYYgsFbzH7r5JiJuN7woYBLvxHnI5Y2LQZEbhSVKQD5DY3TNaI
+         slvGMYX4jwxYSCNfN0fB3kU3eZhHyNNccdussPjkSSXKcEmOGC35a8t32Nv5GS2yv3nw
+         RwoUrNJQKsLIp+e294L5HA0mWissikcyjcc8S2I+SxCQUpX2zi5gDnmB8MpQYhi67PjN
+         u6uIVsMaTw1WoeQjPYQeQCfwuw038bgcn8DYbIYt6NcXyhMidv1ILvdHYEBOJu5+4o7e
+         kWzCM5RPFXFKlRYhfo9w8scz16IX41DvlzcYpVMj408uRJlcuGpNc6UnJJFoGuoCpn8k
+         r0hg==
+X-Gm-Message-State: AOJu0Yz5Rk+vpBRWOE9z1JD4vIBr3Vyge77XSM+0ZmZEaQmo7YU+hnK0
+	UQd5aaDECus+FftBpK9SKpp+Eiz1OdFi8zipIBFUWarQkZyf14ihy1ldJB/4pETtxLHYKZcysDh
+	A03L0ISs=
+X-Gm-Gg: ATEYQzwQBch85E5sEMsrQvqJ68Wub6tbX55H+6RB31KZYsjr/yhiXmnTxyzy0R8BcxM
+	DVXBR7XatSA2G2pbJIj3SX8Cb4vZUdBXUuEa57F1gn438NpZ5X3Q7KX7l5rS/KdIC36pdmb4mF6
+	2gL3k8hmSvoiZ+Q4ITiuhhVxWLVgwxTHe0fKmj2Q5HGpBOlrCh+cOnja8VWiHNnBzRI/XqMr1aH
+	efM+XX9p+hWrklz8nqRmGWRp+TWboGZb0sJMIBF2HLM9amskUR8NyQd/IGNq/tmr3gINuBbs+pv
+	Wv47ie0h263HZxzfu99FlTZ9sSU+zyOq7fXkdAR3RkKCXa1yR3aJ/0/hKVHHgTTymEtCz199Az9
+	VqkDQc5Vj2a4B0yka1aBIjS4Yr5twQqNXYH0leNBcbtRvAHEE/v2WsLspfdx+x5vaSUokCotY6x
+	GVJHspzibSKPPWDkZaXuUEIyliqQ1KpNKAr/oeQpd5VWrkm5LHPoW2pXaZ0JSGXcmIMELbLCjls
+	VsLjPvRlIY81JYYR2d6eBKzexN+SQ==
+X-Received: by 2002:a05:690c:16:b0:79a:467a:3c57 with SMTP id 00721157ae682-79a71c95411mr9465947b3.54.1773781074058;
+        Tue, 17 Mar 2026 13:57:54 -0700 (PDT)
 Received: from localhost.localdomain (108-207-243-35.lightspeed.austtx.sbcglobal.net. [108.207.243.35])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-79a713df100sm5141577b3.11.2026.03.17.13.57.51
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-79a713df100sm5141577b3.11.2026.03.17.13.57.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Mar 2026 13:57:52 -0700 (PDT)
+        Tue, 17 Mar 2026 13:57:53 -0700 (PDT)
 From: Bradford Love <brad@nextdimension.cc>
 To: linux-media@vger.kernel.org
 Cc: Bradford Love <brad@nextdimension.cc>
-Subject: [PATCH 0/2] Hauppauge 461e with m88ds3103c demod
-Date: Tue, 17 Mar 2026 15:57:46 -0500
-Message-Id: <20260317205748.3365679-1-brad@nextdimension.cc>
+Subject: [PATCH 2/2] media: em28xx: Add Hauppauge 461e v3
+Date: Tue, 17 Mar 2026 15:57:48 -0500
+Message-Id: <20260317205748.3365679-3-brad@nextdimension.cc>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20260317205748.3365679-1-brad@nextdimension.cc>
+References: <20260317205748.3365679-1-brad@nextdimension.cc>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -72,25 +76,136 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The following two patches add support for the latest
-revision of Hauppauge 461e that has moved from m88ds3103b
-demod to m88ds3103c demod. The demod driver was reverse
-egineered from a windows driver.
+Same as 461v2, but uses Montage ds3103c instead of ds3103b
 
-The m88ds3013c demod has some clocking changes and simplified
-configuration.
+Signed-off-by: Bradford Love <brad@nextdimension.cc>
+---
+ drivers/media/usb/em28xx/em28xx-cards.c | 34 +++++++++++++++++++------
+ drivers/media/usb/em28xx/em28xx-dvb.c   | 25 ++++++++++++++----
+ drivers/media/usb/em28xx/em28xx.h       |  1 +
+ 3 files changed, 47 insertions(+), 13 deletions(-)
 
-Bradford Love (2):
-  m88ds3103: Implement 3103c chip support
-  em28xx: Add Hauppauge 461e v3
-
- drivers/media/dvb-frontends/m88ds3103.c      | 427 ++++++++++++++++---
- drivers/media/dvb-frontends/m88ds3103_priv.h |  46 +-
- drivers/media/usb/em28xx/em28xx-cards.c      |  34 +-
- drivers/media/usb/em28xx/em28xx-dvb.c        |  25 +-
- drivers/media/usb/em28xx/em28xx.h            |   1 +
- 5 files changed, 447 insertions(+), 86 deletions(-)
-
+diff --git a/drivers/media/usb/em28xx/em28xx-cards.c b/drivers/media/usb/em28xx/em28xx-cards.c
+index b4bafd2fa482..0cadf0f6d99a 100644
+--- a/drivers/media/usb/em28xx/em28xx-cards.c
++++ b/drivers/media/usb/em28xx/em28xx-cards.c
+@@ -387,14 +387,14 @@ static const struct em28xx_reg_seq c3tech_digital_duo_digital[] = {
+  * GPIO 7 = P07_LED (green LED)
+  */
+ static const struct em28xx_reg_seq pctv_461e[] = {
+-	{EM2874_R80_GPIO_P0_CTRL,      0x7f, 0xff,    0},
+-	{0x0d,                 0xff, 0xff,    0},
+-	{EM2874_R80_GPIO_P0_CTRL,      0x3f, 0xff,  100}, /* reset demod */
+-	{EM2874_R80_GPIO_P0_CTRL,      0x7f, 0xff,  200}, /* reset demod */
+-	{0x0d,                 0x42, 0xff,    0},
+-	{EM2874_R80_GPIO_P0_CTRL,      0xeb, 0xff,    0},
+-	{EM2874_R5F_TS_ENABLE, 0x84, 0x84,    0}, /* parallel? | null discard */
+-	{                  -1,   -1,   -1,   -1},
++	{EM2874_R80_GPIO_P0_CTRL,	0x7f,	0xff,	0},
++	{0x0d,				0xff,	0xff,	0},
++	{EM2874_R80_GPIO_P0_CTRL,	0x3f,	0xff,	100}, /* reset demod */
++	{EM2874_R80_GPIO_P0_CTRL,	0x7f,	0xff,	200}, /* reset demod */
++	{0x0d,				0x42,	0xff,	0},
++	{EM2874_R80_GPIO_P0_CTRL,	0xeb,	0xff,	0},
++	{EM2874_R5F_TS_ENABLE,		0x84,	0x84,	0}, /* parallel? | null discard */
++	{-1,				-1,	-1,	-1},
+ };
+ 
+ #if 0
+@@ -2496,6 +2496,20 @@ const struct em28xx_board em28xx_boards[] = {
+ 		.has_dvb       = 1,
+ 		.ir_codes      = RC_MAP_PINNACLE_PCTV_HD,
+ 	},
++	/*
++	 * 2013:x462 PCTV DVB-S2 Stick (461e_v3)
++	 * Empia EM28178, Montage M88DS3103c, Montage M88TS2022, Allegro A8293
++	 */
++	[EM28178_BOARD_PCTV_461E_V3] = {
++		.def_i2c_bus   = 1,
++		.i2c_speed     = EM28XX_I2C_CLK_WAIT_ENABLE |
++				 EM28XX_I2C_FREQ_400_KHZ,
++		.name          = "PCTV DVB-S2 Stick (461e v3)",
++		.tuner_type    = TUNER_ABSENT,
++		.tuner_gpio    = pctv_461e,
++		.has_dvb       = 1,
++		.ir_codes      = RC_MAP_PINNACLE_PCTV_HD,
++	},
+ 	/*
+ 	 * 2013:025f PCTV tripleStick (292e).
+ 	 * Empia EM28178, Silicon Labs Si2168, Silicon Labs Si2157
+@@ -3011,6 +3025,10 @@ struct usb_device_id em28xx_id_table[] = {
+ 			.driver_info = EM28178_BOARD_PCTV_461E_V2 },
+ 	{ USB_DEVICE(0x2013, 0x0259),
+ 			.driver_info = EM28178_BOARD_PCTV_461E_V2 },
++	{ USB_DEVICE(0x2013, 0x0462),
++			.driver_info = EM28178_BOARD_PCTV_461E_V3 },
++	{ USB_DEVICE(0x2013, 0x8462), /* Bulk transport 461e v3 */
++			.driver_info = EM28178_BOARD_PCTV_461E_V3 },
+ 	{ USB_DEVICE(0x2013, 0x025f),
+ 			.driver_info = EM28178_BOARD_PCTV_292E },
+ 	{ USB_DEVICE(0x2013, 0x0264), /* Hauppauge WinTV-soloHD 292e SE */
+diff --git a/drivers/media/usb/em28xx/em28xx-dvb.c b/drivers/media/usb/em28xx/em28xx-dvb.c
+index 2f0972072a00..0c8f5b0cdcd3 100644
+--- a/drivers/media/usb/em28xx/em28xx-dvb.c
++++ b/drivers/media/usb/em28xx/em28xx-dvb.c
+@@ -1237,7 +1237,7 @@ static int em28178_dvb_init_pctv_461e(struct em28xx *dev)
+ 	return 0;
+ }
+ 
+-static int em28178_dvb_init_pctv_461e_v2(struct em28xx *dev)
++static int em28178_dvb_init_pctv_461e_vX(struct em28xx *dev, int version)
+ {
+ 	struct em28xx_dvb *dvb = dev->dvb;
+ 	struct i2c_adapter *i2c_adapter;
+@@ -1254,9 +1254,19 @@ static int em28178_dvb_init_pctv_461e_v2(struct em28xx *dev)
+ 	m88ds3103_pdata.agc = 0x99;
+ 	m88ds3103_pdata.agc_inv = 0;
+ 	m88ds3103_pdata.spec_inv = 0;
+-	dvb->i2c_client_demod[0] = dvb_module_probe("m88ds3103", "m88ds3103b",
+-						 &dev->i2c_adap[dev->def_i2c_bus],
+-						 0x6a, &m88ds3103_pdata);
++
++	if (version == 2)
++		dvb->i2c_client_demod[0] = dvb_module_probe("m88ds3103", "m88ds3103b",
++							    &dev->i2c_adap[dev->def_i2c_bus],
++							    0x6a, &m88ds3103_pdata);
++	else {
++		m88ds3103_pdata.lnb_hv_pol = 1;
++		m88ds3103_pdata.lnb_en_pol = 1;
++
++		dvb->i2c_client_demod[0] = dvb_module_probe("m88ds3103", "m88ds3103c",
++							    &dev->i2c_adap[dev->def_i2c_bus],
++							    0x6a, &m88ds3103_pdata);
++	}
+ 
+ 	if (!dvb->i2c_client_demod[0])
+ 		return -ENODEV;
+@@ -2144,7 +2154,12 @@ static int em28xx_dvb_init(struct em28xx *dev)
+ 			goto out_free;
+ 		break;
+ 	case EM28178_BOARD_PCTV_461E_V2:
+-		result = em28178_dvb_init_pctv_461e_v2(dev);
++		result = em28178_dvb_init_pctv_461e_vX(dev, 2);
++		if (result)
++			goto out_free;
++		break;
++	case EM28178_BOARD_PCTV_461E_V3:
++		result = em28178_dvb_init_pctv_461e_vX(dev, 3);
+ 		if (result)
+ 			goto out_free;
+ 		break;
+diff --git a/drivers/media/usb/em28xx/em28xx.h b/drivers/media/usb/em28xx/em28xx.h
+index ae4010c55623..e475dab25635 100644
+--- a/drivers/media/usb/em28xx/em28xx.h
++++ b/drivers/media/usb/em28xx/em28xx.h
+@@ -148,6 +148,7 @@
+ #define EM2828X_BOARD_HAUPPAUGE_935_V2            109
+ #define EM2828X_BOARD_HAUPPAUGE_955_V2            110
+ #define EM2828X_BOARD_HAUPPAUGE_975_V2            111
++#define EM28178_BOARD_PCTV_461E_V3                112
+ 
+ /* Limits minimum and default number of buffers */
+ #define EM28XX_MIN_BUF 4
 -- 
 2.35.1
 
