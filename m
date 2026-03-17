@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B2636EA8B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689A436EAB3;
 	Tue, 17 Mar 2026 09:32:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773739944; cv=none; b=FCcT4jgk5G7lJ36OSqDZo6gsuapONRJMTp+iA0C/ydP9EPF8BKvlDmXhaJ72NcmCiC8xRb6PhRLoYEhD7680njI9rtHaH64a9z/6hGkHtPobs4/Xe2N+Kpkd9xxmSyuJXdRGI2VVlOGJ+ojNxbz5K6xm/3/HOEjadbVb4q7+EVo=
+	t=1773739944; cv=none; b=lqdE7vxBflQyjHJb8v+fw8h7T3YkD7eb8l6kPM6yL/bH6VE0lxkRoNppRZiB3+xor0x3AhX/xzyAPcJSOvjSmJ3RIbiO/Vy2IDKnf8Gt/+AAfk9rM/XoOgU9BOIm/05AV14GPLBuEpA2Cmr6pnNTOcDOvNeuhMAztR6MyrR0PKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1773739944; c=relaxed/simple;
-	bh=OScWDJNVIXSkH9JdH7eb/Xp1LXka3za6IEC5iCx5Yj8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=G0X5C72SK68UkQ1iCMdJ2EO6AEUCUqs+/CuDgc9UtNDF/bK3u2t2RVAwU913CbVv2EkvsRRb6pL1vJcKvcprmj/9twQqhUA9LoKIRZNqBde2D4mUyaHqIhi1h1jBFuTdvDo4nn8aQXwCPm5tVIDGSLYZ9vqcGtFNKwVMBgrMSoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kJjgu9C/; arc=none smtp.client-ip=10.30.226.201
+	bh=FhTQ5SVdxITPm8tDe0bW/0ZG36G8hCk0e58aJbKwRGQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=pH3g1BCrCbkfQp8Antysu01F8oQiNbqbAdmX9sdPZwiokImTnaSbhFMWgfuVXK76P5GjOjB7Ppdc/FMLW81HSCczngY2S+sCZ3ECzQzefZfTKR3NTVmwVhkWCYcSMmlqot/r3K7aRLhG/xtZtGhZ53cyZqT5Wlt87DyH1Ft7rik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NWeimc5d; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kJjgu9C/"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DE66DC4CEF7;
-	Tue, 17 Mar 2026 09:32:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NWeimc5d"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 37BEBC2BCB8;
+	Tue, 17 Mar 2026 09:32:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1773739943;
-	bh=OScWDJNVIXSkH9JdH7eb/Xp1LXka3za6IEC5iCx5Yj8=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=kJjgu9C/3XQjSgBKhqcn5HczX0zhTm17yn5XD78OkbJJ8svjOds9OIt4MsbCkCn0n
-	 7i1/aBggUjlOddzTmk0jb4bFyLWiQQNba+sLWoOuWJAeDbOb7SutPr2YUFC5liiiMf
-	 kk41B4T84ofC3tvHm6oXhWKEbMsESq2o2V9DRwQiSiGqhek9B0T406jpjdtLf8E8L4
-	 nWejI5Z/OjBeHKG68vefR4AhvEom9jJ8yD77zPpJi9A9qQicwweE4ikuCdGQDAOFy4
-	 iZMmodQn4AVVFkOIls5gcBKakrdG9wWBcKhO4S0lW8FkNlnh2rSVp5JibpB+dMGIp3
-	 gjBb2lmv00gfA==
+	s=k20201202; t=1773739944;
+	bh=FhTQ5SVdxITPm8tDe0bW/0ZG36G8hCk0e58aJbKwRGQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=NWeimc5d6KUL7jG80958m4/U2fgofL8fE2HkzI8dX7zmu4fB662u1ALzAPkMQx/2h
+	 f7s+14CQwiTz8S97Hrm+wyN8iCO81QQfXXH7pQIop5OE6VQy5cMkeDr7V68TpbqqJ+
+	 6pCvNcy5Fv9jWxxgl80a3m2Pdoi2vpfB1fb9jqetzzTP/qqV0KXBkkWw62SWX2ciGJ
+	 cWFCmHVnMcizUCvwiAA24bP2ip7nhjCuqlhUnwk/s6ENc2DCttMmt9gD7aa8UxhG64
+	 OSrhFxXeGieiw7z6JebiLHf79s7EP6sZkSRqlAv0y610GC+WgbWkQ7ktgGpvtet2Gq
+	 yCjFlqPkgQxuQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CF397F33825;
-	Tue, 17 Mar 2026 09:32:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B19CF33820;
+	Tue, 17 Mar 2026 09:32:24 +0000 (UTC)
 From: Michael Riesch via B4 Relay <devnull+michael.riesch.collabora.com@kernel.org>
-Subject: [PATCH v2 0/9] media: rockchip: rkcif: add support for rk3588
- vicap
-Date: Tue, 17 Mar 2026 10:32:18 +0100
-Message-Id: <20250430-rk3588-vicap-v2-0-77de5ee9048e@collabora.com>
+Date: Tue, 17 Mar 2026 10:32:23 +0100
+Subject: [PATCH DONOTMERGE v2 5/9] arm64: dts: rockchip: add mipi csi-2
+ receiver nodes to rk3588
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,11 +41,9 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKIfuWkC/22Py27DIBREfyW661DBNTjgVf+jyoJnjPLAhRQli
- vzvIbaidtHljDRnZh5QfI6+wLB5QPY1lpguTeB2A3bUl4Mn0TUNSFFQ3lGSj52QktRo9USUYz2
- 3UqDUO2iRKfsQbwvua7/q7L9/GvW6mr/Q1kGRU8QV2b+RRpkuKIUicD5UCX+HLBlBe9a/Z9gSi
- ZvGO7HKO9SOW6fCUBm82sdYrinfl2/NetX/f6MyQonpjHNhx5Vi/NOm00mblPWHTWfYz/P8BA0
- k94QqAQAA
+Message-Id: <20250430-rk3588-vicap-v2-5-77de5ee9048e@collabora.com>
+References: <20250430-rk3588-vicap-v2-0-77de5ee9048e@collabora.com>
+In-Reply-To: <20250430-rk3588-vicap-v2-0-77de5ee9048e@collabora.com>
 To: Mehdi Djait <mehdi.djait@linux.intel.com>, 
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -62,11 +60,11 @@ Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Michael Riesch <michael.riesch@collabora.com>
 X-Mailer: b4 0.12.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1773739942; l=3744;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1773739942; l=2664;
  i=michael.riesch@collabora.com; s=20250410; h=from:subject:message-id;
- bh=OScWDJNVIXSkH9JdH7eb/Xp1LXka3za6IEC5iCx5Yj8=;
- b=6PadDWPx3oeafAOPBjI+855zmsp4/DBpg0970EhEGcI3wlC9fw5+HzDA3AnGkhnt4ql5h4cfj
- SdE9UDjYeWLCnksoiXzSUbGSndDfQDbNMeo/k4kinKfvi6+jc20ffeY
+ bh=5oU0klzEB2FubzgZ+1XdUaBRRnzqz5jTIQAtdWBAHeM=;
+ b=BSVyZ9aTWAGIG0h0pHTDryOMNXpZvrb4MyDjA0qEhp1rl/gsB7DgNbFaIo04IKCjWXUAVvk5I
+ p4Xqq2hJSd3D79nDQ46CIMWkfmNNwSWyE4DYMk7AOwEk6deVPY1ZlvG
 X-Developer-Key: i=michael.riesch@collabora.com; a=ed25519;
  pk=+MWX1fffLFZtTPG/I6XdYm/+OSvpRE8D9evQaWbiN04=
 X-Endpoint-Received: by B4 Relay for michael.riesch@collabora.com/20250410
@@ -74,84 +72,93 @@ X-Endpoint-Received: by B4 Relay for michael.riesch@collabora.com/20250410
 X-Original-From: Michael Riesch <michael.riesch@collabora.com>
 Reply-To: michael.riesch@collabora.com
 
-Habidere,
+From: Michael Riesch <michael.riesch@collabora.com>
 
-The RK3588 Video Capture (VICAP) constitutes an essential piece of the
-RK3588 camera interface with one DVP, six MIPI CSI-2 receivers,
-scale/crop units, and a data path multiplexer (to scaler units, to ISP,
-...). This series introduces basic support for the RK3588 VICAP unit
-to the rkcif driver, thus paving the way for video capture in general
-and for camera sensor image processing in particular.
+This patch is discussed over at
+https://lore.kernel.org/all/20260305-rk3588-csi2rx-v2-0-79d01b615486@collabora.com
+included here for testing purposes only.
 
-The changes have been tested successfully on a Radxa ROCK 5B+ with two
-Radxa 4K cameras attached to it. The raw images from the sensors can
-be streamed after configuring the hardware pipeline with
-
-media-ctl -d 0 --set-v4l2 '"dw-mipi-csi2rx fdd30000.csi":0 \
-  [fmt:SGBRG10_1X10/3864x2192 field:none colorspace:raw xfer:none]'
-media-ctl -d 0 --set-v4l2 '"rkcif-mipi2":0 \
-  [fmt:SGBRG10_1X10/3864x2192 field:none colorspace:raw xfer:none]'
-media-ctl -d 0 --set-v4l2 '"dw-mipi-csi2rx fdd50000.csi":0 \
-  [fmt:SGBRG10_1X10/3864x2192 field:none colorspace:raw xfer:none]'
-media-ctl -d 0 --set-v4l2 '"rkcif-mipi4":0 \ 
-  [fmt:SGBRG10_1X10/3864x2192 field:none colorspace:raw xfer:none]'
-
-and using e.g., GStreamer
-
-gst-launch-1.0 v4l2src \
-  device=/dev/v4l/by-path/platform-fdce0000.video-capture-video-index0 \
-  ! video/x-bayer,format=gbrg10le,width=3864,height=2192 ! bayer2rgb \
-  ! ...
-(or -index4 for the other camera sensor).
-
-Note that this series requires the RK3588 MIPI CSI-2 receiver patches
-[0]. I included them here to provide the possibility to test the changes
-without any nasty merge conflicts.
-
-Looking forward to your comments!
-
-[0] https://lore.kernel.org/all/20260305-rk3588-csi2rx-v2-0-79d01b615486@collabora.com
+The Rockchip RK3588 features six MIPI CSI-2 receiver units:
+ - MIPI0: connected to MIPI DCPHY0 (not supported)
+ - MIPI1: connected to MIPI DCPHY1 (not supported)
+ - MIPI2: connected to MIPI DPHY0
+ - MIPI3: connected to MIPI DPHY0-1 (not supported)
+ - MIPI4: connected to MIPI DPHY1
+ - MIPI5: connected to MIPI DPHY1-1 (not supported)
+As the MIPI DCPHYs as well as the split DPHY mode of the DPHYs
+are not yet supported, add only the device tree nodes for the
+MIPI2 and MIPI4 units.
 
 Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
 ---
-Changes in v2:
-- modified rockchip,rk3568-vicap binding instead of creating a new one
-  (Conor)
-- aligned clock names and reset names with rockchip,rk3568-vicap
-- Link to v1: https://lore.kernel.org/r/20250430-rk3588-vicap-v1-0-b3bddf749914@collabora.com
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 52 +++++++++++++++++++++++++++
+ 1 file changed, 52 insertions(+)
 
----
-Michael Riesch (9):
-      Documentation: admin-guide: media: add rk3588 vicap
-      media: dt-bindings: add rockchip rk3588 vicap
-      media: rockchip: rkcif: add support for rk3588 vicap mipi capture
-      [DONOTMERGE] media: dt-bindings: rockchip,rk3568-mipi-csi2: add rk3588 compatible
-      [DONOTMERGE] arm64: dts: rockchip: add mipi csi-2 receiver nodes to rk3588
-      arm64: dts: rockchip: add vicap node to rk3588
-      arm64: dts: rockchip: add radxa camera 4k on rock 5b+ cam0
-      arm64: dts: rockchip: add radxa camera 4k on rock 5b+ cam1
-      arm64: defconfig: enable designware mipi csi-2 receiver
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index 7fe9593d8c19..6c593b0255c3 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1430,6 +1430,58 @@ av1d: video-codec@fdc70000 {
+ 		resets = <&cru SRST_A_AV1>, <&cru SRST_P_AV1>, <&cru SRST_A_AV1_BIU>, <&cru SRST_P_AV1_BIU>;
+ 	};
+ 
++	csi2: csi@fdd30000 {
++		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
++		reg = <0x0 0xfdd30000 0x0 0x10000>;
++		interrupts = <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH 0>,
++			     <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH 0>;
++		interrupt-names = "err1", "err2";
++		clocks = <&cru PCLK_CSI_HOST_2>;
++		phys = <&csi_dphy0>;
++		power-domains = <&power RK3588_PD_VI>;
++		resets = <&cru SRST_P_CSI_HOST_2>;
++		status = "disabled";
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			csi2_in: port@0 {
++				reg = <0>;
++			};
++
++			csi2_out: port@1 {
++				reg = <1>;
++			};
++		};
++	};
++
++	csi4: csi@fdd50000 {
++		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
++		reg = <0x0 0xfdd50000 0x0 0x10000>;
++		interrupts = <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH 0>,
++			     <GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH 0>;
++		interrupt-names = "err1", "err2";
++		clocks = <&cru PCLK_CSI_HOST_4>;
++		phys = <&csi_dphy1>;
++		power-domains = <&power RK3588_PD_VI>;
++		resets = <&cru SRST_P_CSI_HOST_4>;
++		status = "disabled";
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			csi4_in: port@0 {
++				reg = <0>;
++			};
++
++			csi4_out: port@1 {
++				reg = <1>;
++			};
++		};
++	};
++
+ 	vop: vop@fdd90000 {
+ 		compatible = "rockchip,rk3588-vop";
+ 		reg = <0x0 0xfdd90000 0x0 0x4200>, <0x0 0xfdd95000 0x0 0x1000>;
 
- .../admin-guide/media/rkcif-rk3588-vicap.dot       |  29 ++++
- Documentation/admin-guide/media/rkcif.rst          |  32 ++++
- .../bindings/media/rockchip,rk3568-mipi-csi2.yaml  |   8 +-
- .../bindings/media/rockchip,rk3568-vicap.yaml      | 191 ++++++++++++++++++---
- arch/arm64/boot/dts/rockchip/Makefile              |   7 +
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      | 143 +++++++++++++++
- .../rk3588-rock-5b-plus-radxa-cam4k-cam0.dtso      |  89 ++++++++++
- .../rk3588-rock-5b-plus-radxa-cam4k-cam1.dtso      |  89 ++++++++++
- arch/arm64/configs/defconfig                       |   1 +
- .../platform/rockchip/rkcif/rkcif-capture-mipi.c   | 136 +++++++++++++++
- .../platform/rockchip/rkcif/rkcif-capture-mipi.h   |   1 +
- .../media/platform/rockchip/rkcif/rkcif-common.h   |   2 +-
- drivers/media/platform/rockchip/rkcif/rkcif-dev.c  |  18 ++
- 13 files changed, 719 insertions(+), 27 deletions(-)
----
-base-commit: bb2a3912549d3b5cef5ed27200402fe8f6fb0694
-change-id: 20250430-rk3588-vicap-9d164c8528a7
-
-Best regards,
 -- 
-Michael Riesch <michael.riesch@collabora.com>
+2.39.5
 
 
