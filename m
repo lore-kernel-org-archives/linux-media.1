@@ -1,74 +1,75 @@
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F8D1A285
-	for <linux-media@vger.kernel.org>; Wed, 18 Mar 2026 00:11:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2E722097
+	for <linux-media@vger.kernel.org>; Wed, 18 Mar 2026 00:11:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773792662; cv=none; b=r3AYrMu/qdpHrEST0RsmJcqapUv2olbNAILWfijSSOqh1TwsU/JOVcPxxtz3jJApBQAx38CnIuTEXVB3voFpmyoAHxM6gxhcl54qNBKR1kBXtAPkxVjn/QDWeyanHiO4E94WsGJtHMJec8i8NJ3qUrURcP6yQ4dOtYD83MickFQ=
+	t=1773792668; cv=none; b=no4EG6eMMhQTDnLIbyehZdsXjiAan7U/zIKs2ifrLtI0GYSIP6gnjGqEDyLkC4Mk0ppTR+AHFjRy9f/80Ls/UkJaCchHEGZVA7+4/IOqz+F3rcu3pwozX0ujDs8E3NB0FDyfLBN+7Cshj9UGzUb70o14rYOLod3YFukho9RjR+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773792662; c=relaxed/simple;
-	bh=iuAtwXulJKrQPifPr5vdqOnE8HfpABHuYPihkLVFOew=;
+	s=arc-20240116; t=1773792668; c=relaxed/simple;
+	bh=mJOh4+TUquuo3oCazHAl5PxEDHbwHT7LbHeJE6i0URk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bbjMfM8wPdW/wtW1KmHLl04b7+iILsUsZIZ5qPUKpHvNd3MywM7vuqb3zWrC+JrSXBNzIUXGBfAtzydcLwfD38fnNW5y9M9OmBevpm9zwIy8pAbOJBgnLYYFxPXR6kr88N26AXbHYaHhgD42frH+YYw3IquwwM7/skKgK90fR3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g4ryhp7u; arc=none smtp.client-ip=209.85.210.44
+	 MIME-Version; b=UrIGyKTRJAx984FaC3OWCfPNPLJAWLK0Ab5MHbx22L0h+6/yZK6n6lEYmfdtizD91y0SNKtp+apXfZ038oRL4c14bCagK0An57wzfUesphqrQMeVGni2oao3eZdNKWf9+4IzQadU6f9LmA5djic+IF05YPH6okwEQO2mt51WTWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FrsEcCyC; arc=none smtp.client-ip=209.85.210.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g4ryhp7u"
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7d750eeaec3so2349591a34.0
-        for <linux-media@vger.kernel.org>; Tue, 17 Mar 2026 17:11:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FrsEcCyC"
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-7d743ba241aso3376367a34.1
+        for <linux-media@vger.kernel.org>; Tue, 17 Mar 2026 17:11:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773792660; x=1774397460; darn=vger.kernel.org;
+        d=gmail.com; s=20230601; t=1773792665; x=1774397465; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mHpKv0zvpfE1J94QOa30HSP5+N4nIFr3Gk/EV+2iOEY=;
-        b=g4ryhp7uJXZQBDpaYhK1CtYfsKALb5zMKGn9jum4iXfF/KyggjXwWDwrJlwVIWAfp9
-         kkOJA4ErfhE46nuGeLrfcuD4dYO66QqQvVZaKnikgvM5vfUz/CwYzvgs8winNRiX1pQY
-         h0aSfuO94IAFTqnutVnV8RpNV+QvTOirNadM1o6awI1snXvOuHIHCkMw/lZ/gnGjhFhu
-         rL3P/7g6iFUA5ILFCLHrgy9hRUsD0aTbZpwS8CDtWePYpD3BXSkqtAzuPauMECDEI8wl
-         Rk39CzG1FwwkuIn0gVzEZxWLutI1dlqlyq3dcCJt7WmvxxNKxCQmaqgVay3+VxCrD2VD
-         O1Fw==
+        bh=v/T1BD0jg0KIH8vy/0fGwQbZb87lWT1u9C8syIgmcMI=;
+        b=FrsEcCyCebh2CFkeG3obA3AieQQtKclV/NUhkowUPDsiGyu7fk3P8SI0fy0AbGw2Vd
+         rlKjLM5WKFDz7rdT7k9ZSZO8euHpxU1s7TAecW9LeA26JFygA2NLq1y3pYG9kZzbztBb
+         /stcYWbJN4+CTYJRsDKps9w+L+cHbPx39dQUssG/227NugyryLp5/6pr1DHlNGfUKMsl
+         L9+qh91EcHuqRi4zYE8fiuJyU7jzpbu9ReYwRmPHRv/lYtNUrhGsDLhNz4eqRCY1uwVY
+         JIh03+u5AHDspYvw5P0pNQwzDH2l65ylH8xhcK2CRo8CIeUDSfZTuESQaVzUqVOLHIXr
+         TtVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773792660; x=1774397460;
+        d=1e100.net; s=20251104; t=1773792665; x=1774397465;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=mHpKv0zvpfE1J94QOa30HSP5+N4nIFr3Gk/EV+2iOEY=;
-        b=S0+B6EF66PviyK1GzdMw6L4vCp3hCWmyhzh+IzI/lkNkD9SJR40bLGHYtDyzzWget+
-         JhWELg4uzjuHIzwh9p/tvz3TNFMDQFczOYYDZj2OI3tdS7iSjtUbQtV2dvfeKBptA1ur
-         j5BSV52QRY5pnzvhXvqkfS9OgUMVMtJJ5zILnk4BnsdGD5TyDRC6gWLa/ysQFO/f6vqg
-         YDu8NrFn2nM0mM3Z0n5+oo5GbcAbbazGn1knnZTMpheIBUcpaze1euWFl6t8tKQvHFrS
-         YppmmdBOsXeSC48P0WkBLl6DSarYY30iJPvgU4L9/9OPntawiT03xhpRKJb6Jq2bVy8t
-         dKig==
-X-Gm-Message-State: AOJu0YzYt0g6Q4T0DUQAffWmfwIO+H8T/7e/YNdZq24PkkZG9e8MgSCX
-	oGCXTwLxjRVnWrXswq2Z5aDiiNkFO9pB+wQIY9UAOjUwYdkwl4GKjq3eE6AUCSaI
-X-Gm-Gg: ATEYQzxC0H283LrIN1zZ4zl32fLI1BJesOLrojzaxlDQprdxnSF/vkmFrqdwcBXEcGa
-	dY5t7Q2ZN0jFH6x0zjYtcBECzGwcwuppZmzeN3HofxDgT8VKiJpAs67dSj7jAdqViGwDypU3QoO
-	iqWsMmRqkkREsopX2DIJbIF+v2MSJUXsvNdHl9zJAvYWWeb8tq+5nQVrAHQJT72d6aZpQ0IK2Un
-	d0qEeWCJtAJSOgXHKH4qyYmzkYJmR+RbYtAFFXuHiC3KQueLNsO+h+QyorT7B/ztSO7oxP4rE2z
-	mEmfps+CNNYACHVNvjHXZ2s/ywP0Cnr5AMKht7AigHYalidMMg/ozriFhGoYpD6sBG7oJqappMA
-	PK+q4bZJmB0+mkb4eEe0Qk2AA3ywgCK14bW/98nnjvUOxM569Crj0jrvRlmU4kH3V7WUNPnp3UN
-	AUq71ODHADcAXoHbw4gMbv3MdcGavDw2f+SGa3HflVarVtTqjn3Y8cJZ7y2bpDriqN0eMaBAVr
-X-Received: by 2002:a05:6830:3745:b0:7d7:bf70:c021 with SMTP id 46e09a7af769-7d7ca7b8d20mr861550a34.27.1773792660286;
-        Tue, 17 Mar 2026 17:11:00 -0700 (PDT)
+        bh=v/T1BD0jg0KIH8vy/0fGwQbZb87lWT1u9C8syIgmcMI=;
+        b=jhds1Poh7kLvY5YhK4aPWPeNTM0cSJpVo2zzcOy5aDmmZkPpLNCEIIyzcsyDApHRSZ
+         BYfht4Sak2hypImaRNVrCVAgRMxOfoML8w8IM5rwad0A6wxqPfNts/Hq5dJLZs7kUjZ3
+         1BuLrqWUT9w5Y5qvYfRMbXwGs/BzsBgE3+S0dkAL+2Lcg71yYD5Jdk06lKqSTOH2IVOt
+         EoiKN73ShjxNlCe/jB6jzrcf0Ytw2S9N9Ff1LhfiKJSxqkuyfhyfzCuC83QZz46mrGTp
+         r4QDrh63CMQxpRl04gUdHJ1o4GRNmbsNSKSE/juXNrr5WZMjdHHywdsAx67MppcZ06Lw
+         tWVA==
+X-Gm-Message-State: AOJu0YzAO/hJj2gCEl3c98qbWYfv4N80nu0brTre+0rp/hcrwk9lJt8h
+	tfhHZlLqspqP0sEVUw4tVZKGvZSbFdxO8DJrdEcn3BQzv3JK54YnMkUa2co9Cxvp
+X-Gm-Gg: ATEYQzyLwoDGf63kpshy4MOw3IRyCMMpOYNpvCTXX1WfLWORrh+SXy079hmPki7WYUw
+	XYCfVn9Q0zhDod8EDJKncChVnk9iAn/b/HyfoxrQD8uxNTcBpHOWChG1zrtASk7Xfu/3aYPoqVh
+	05Q2+QCt8lc5vZ6t+FAeEWt1fcbEV9kHg0om2neQdzemUHK8PPZLwWtkWNVE5Ev/5pwYnnfb3/m
+	JHWOCKHSHSFuQ1803mnph2lrcmGJdh5tmsFbTt1UFpbHljDRuUzUj2/0/8hoxDquKLR620iE/zQ
+	tUJNPl9WlKwcn1exdI4e6GYnM2zhK6XQ/3s93glNmY+rO5X6slB0Z5n6L6pMRSzQKsrJMcwKsJH
+	7LX6qXWfhz2U9CCJu8AU4yPnLkzehHDhojTVP8Akw/IzAo/KDB9iqCy9ETu72oYySZDZ+4V7Z7x
+	9EfYF6sbFCcU2geJvE63+ONWsceYD/CjGb5yR9NvC6OMzpIjjePGREa4Aglfrw2ZG81/KIFf1Q
+X-Received: by 2002:a05:6830:498b:b0:7d7:b680:8e57 with SMTP id 46e09a7af769-7d7ca70f5e2mr1051418a34.16.1773792665680;
+        Tue, 17 Mar 2026 17:11:05 -0700 (PDT)
 Received: from father (76-224-4-192.lightspeed.clmboh.sbcglobal.net. [76.224.4.192])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7d7c9b39e11sm897413a34.18.2026.03.17.17.10.59
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7d7c9b39e11sm897413a34.18.2026.03.17.17.11.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Mar 2026 17:10:59 -0700 (PDT)
+        Tue, 17 Mar 2026 17:11:05 -0700 (PDT)
 From: Ben Hoff <hoff.benjamin.k@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	Ben Hoff <hoff.benjamin.k@gmail.com>
-Subject: [PATCH v2 0/2] media: pci: add AVMatrix HWS capture driver
-Date: Tue, 17 Mar 2026 20:10:52 -0400
-Message-ID: <20260318001056.465071-1-hoff.benjamin.k@gmail.com>
+Subject: [PATCH v2 2/2] MAINTAINERS: add entry for AVMatrix HWS driver
+Date: Tue, 17 Mar 2026 20:10:54 -0400
+Message-ID: <20260318001056.465071-3-hoff.benjamin.k@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260112022420.390854-1-hoff.benjamin.k@gmail.com>
+In-Reply-To: <20260318001056.465071-1-hoff.benjamin.k@gmail.com>
 References: <20260112022420.390854-1-hoff.benjamin.k@gmail.com>
+ <20260318001056.465071-1-hoff.benjamin.k@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -77,69 +78,31 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add an AVMatrix HWS PCIe capture driver and its MAINTAINERS entry.
+Add the maintainer and file pattern for the new AVMatrix HWS capture
+driver series.
 
-The driver exposes one V4L2 capture node per input channel, supports
-YUYV capture through vb2-dma-contig, reports DV timings, emits
-SOURCE_CHANGE events, and provides the basic brightness/contrast/
-saturation/hue controls used by the hardware.
+Signed-off-by: Ben Hoff <hoff.benjamin.k@gmail.com>
+---
+ MAINTAINERS | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Changes in v2:
-- keep scratch DMA allocation on a single probe-owned path
-- fix hws_video_register()/probe unwind ownership to avoid control-handler
-  double-free on late registration failures
-- on live input resolution changes, emit SOURCE_CHANGE, error queued
-  buffers, and require userspace to renegotiate buffers and restart
-  streaming
-- add enum_frameintervals and report DV_RX_POWER_PRESENT, addressing the
-  two v1 v4l2-compliance warnings
-
-Testing for v2:
-- build-tested with W=1:
-  make -C /home/hoff/swdev/linux O=/tmp/hws-build \
-    M=drivers/media/pci/hws W=1 KBUILD_MODPOST_WARN=1 modules
-- checkpatch.pl --no-tree --strict --file ... is clean for the new files
-
-Context carried forward from v1:
-- audio support remains intentionally omitted from this submission
-- the driver is derived from a GPL out-of-tree driver; the baseline tree is
-  available at https://github.com/benhoff/hws/tree/baseline
-- a vendor driver bundle is available at
-  https://www.acasis.com/pages/acasis-product-drivers
-- the vendor is not involved in this upstreaming effort
-
-Ben Hoff (2):
-  media: pci: add AVMatrix HWS capture driver
-  MAINTAINERS: add entry for AVMatrix HWS driver
-
- MAINTAINERS                            |    6 +
- drivers/media/pci/Kconfig              |    1 +
- drivers/media/pci/Makefile             |    1 +
- drivers/media/pci/hws/Kconfig          |   12 +
- drivers/media/pci/hws/Makefile         |    4 +
- drivers/media/pci/hws/hws.h            |  176 +++
- drivers/media/pci/hws/hws_irq.c        |  271 +++++
- drivers/media/pci/hws/hws_irq.h        |   10 +
- drivers/media/pci/hws/hws_pci.c        |  864 +++++++++++++
- drivers/media/pci/hws/hws_reg.h        |  144 +++
- drivers/media/pci/hws/hws_v4l2_ioctl.c |  778 ++++++++++++
- drivers/media/pci/hws/hws_v4l2_ioctl.h |   43 +
- drivers/media/pci/hws/hws_video.c      | 1546 ++++++++++++++++++++++++
- drivers/media/pci/hws/hws_video.h      |   29 +
- 14 files changed, 3885 insertions(+)
- create mode 100644 drivers/media/pci/hws/Kconfig
- create mode 100644 drivers/media/pci/hws/Makefile
- create mode 100644 drivers/media/pci/hws/hws.h
- create mode 100644 drivers/media/pci/hws/hws_irq.c
- create mode 100644 drivers/media/pci/hws/hws_irq.h
- create mode 100644 drivers/media/pci/hws/hws_pci.c
- create mode 100644 drivers/media/pci/hws/hws_reg.h
- create mode 100644 drivers/media/pci/hws/hws_v4l2_ioctl.c
- create mode 100644 drivers/media/pci/hws/hws_v4l2_ioctl.h
- create mode 100644 drivers/media/pci/hws/hws_video.c
- create mode 100644 drivers/media/pci/hws/hws_video.h
-
-
-base-commit: f0caa1d49cc07b30a7e2f104d3853ec6dc1c3cad
+diff --git a/MAINTAINERS b/MAINTAINERS
+index d7241695df96..71c5d3a575af 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4278,6 +4278,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
+ F:	drivers/iio/adc/hx711.c
+ 
++AVMATRIX HWS CAPTURE DRIVER
++M:	Ben Hoff <hoff.benjamin.k@gmail.com>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++F:	drivers/media/pci/hws/
++
+ AWINIC AW99706 WLED BACKLIGHT DRIVER
+ M:	Junjie Cao <caojunjie650@gmail.com>
+ S:	Maintained
 -- 
 2.53.0
+
