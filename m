@@ -1,102 +1,94 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9A53A63FB;
-	Tue, 17 Mar 2026 23:23:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C9363CB;
+	Wed, 18 Mar 2026 00:08:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773789835; cv=none; b=MdNgq5dYV40I3/HJhdmoxy5Zz3lA823lpy6VLltz+w+JtKR8sL176X0ZsSf0rCiLHowpOUJPrbdsSdrtU2rtf/U4lHr3xE9Bxg7WK7ZbpTgbZbwUAMF4SdbzHmHKCLyMH8cajDbRXC6duWD8HadL0GjOQ+z7n67OhiYthK0XMAU=
+	t=1773792521; cv=none; b=HdTOEp2H3fPmzcEIIhRSzi5GrV8ndCqv/KRblJdXeZpVFgSODLM02l+BhmBArXAe1LvltLuCmgiUWOG5cRYCRAhkQBVINfKDzfkuA0LzeNhzd3ErYXo+7UrTovUMnI4q9zpUest22j0gsShL6ubUtP7Cocuy3XRjQpZpozD1sy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773789835; c=relaxed/simple;
-	bh=Fw+uM4wTTXCSRR9MahDnwSuow3iiEXTBETD9qPOq2BU=;
+	s=arc-20240116; t=1773792521; c=relaxed/simple;
+	bh=D1D/7ldl9hLSp78iQ6WgbBNELMb7wmGvz53rwt7WaEU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aLfTyRLpN2FmV9UeiMcBM35n+9OUwr15yeirLmww18qC2ERdYG5I7oCq6ZUsiP+ZMOKKm2xishTwrcbN4p3ax8js2DA+LzDmUTgIXGlGceTB6ygO2M9ZSK8KBjOkH9PzqAgjOaFJP3O7tXskjKXucJJUr1rYL2l0RPVLngc/y9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=lTgAx5wo; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=KxJjq9q3HmSv2U0ltiVb7ElUaXyuXltlHGEiFbVCrwjRXsbGgmInLhgSC9DJ5Tle3gvf6Vs8tIzlQzs+EjU3fulslYS74gYPlJkf1helRXc9hxgXtx8b9pDQV/nXbgHLlsHlG0I+Q2471OUYB98dOS7ZqtpoLFuR4TIMHBGmebI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N4TtEpuj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="lTgAx5wo"
-Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
-	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 48367B3;
-	Wed, 18 Mar 2026 00:22:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1773789758;
-	bh=Fw+uM4wTTXCSRR9MahDnwSuow3iiEXTBETD9qPOq2BU=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N4TtEpuj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9F3C19425;
+	Wed, 18 Mar 2026 00:08:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1773792521;
+	bh=D1D/7ldl9hLSp78iQ6WgbBNELMb7wmGvz53rwt7WaEU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lTgAx5woBeOApOsVWgf5AwBCZeboTmY1rtwbqicrrOyNrOkDXN71bs7OC0HKJIAOP
-	 e/xHZ2AHauxAnMgEBR420X+ITeCr44t1jHqGJQbGwLVyR4CH0pP6hRGuHFv9Sf/l2N
-	 TrvjxDHHczV4cljEyABQSdWBc6hFS+zAJN95sITY=
-Date: Wed, 18 Mar 2026 01:23:49 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org,
-	biju.das.jz@bp.renesas.com,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: renesas: vsp1: Move suspend/resume handling to
- LATE phase
-Message-ID: <20260317232349.GC408929@killaraus.ideasonboard.com>
-References: <02669d4630e04fe24c17dd2576ec8b27ded458f0.1765541401.git.tommaso.merciai.xr@bp.renesas.com>
+	b=N4TtEpuj2ofpYYk614ICJN/q/4cwIC81dgWQ31X3yLNCti+3QoqhZM0r8zR5rIf9M
+	 t7lZCqMWE5kEnZNPdemPxbCW8s7TWlN++s2eLVs4j19SHDykH3XmCoQK8dICIhrs12
+	 4Hno4caRMYbSYYGI34r65e3k7DCErH/eUDaQxo1OZ/cLhM0LWBt/R6Ds9ZdQPZZKZt
+	 H/9YX1l79o6IxDlL4SG4B3WHft/1wgmCeCyqZUCv+u110APJZ76fDP+YvD8DuYm7xC
+	 4h9FFiEAcgzGl3j6zj76uHKrfPMWUIZudEi0e5bWkdd4FTwZ9Td5lIEgbwv8KJkEfn
+	 WJK12HSUQwc4g==
+Date: Wed, 18 Mar 2026 08:08:39 +0800
+From: Yixun Lan <dlan@kernel.org>
+To: Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: linux-phy@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
+	linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+	spacemit@lists.linux.dev, UNGLinuxDriver@microchip.com
+Subject: Re: [PATCH v4 phy-next 06/24] phy: spacemit: include missing
+ <linux/phy/phy.h>
+Message-ID: <20260318000839-GKB453922@kernel.org>
+References: <20260317230500.2056077-1-vladimir.oltean@nxp.com>
+ <20260317230500.2056077-7-vladimir.oltean@nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <02669d4630e04fe24c17dd2576ec8b27ded458f0.1765541401.git.tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <20260317230500.2056077-7-vladimir.oltean@nxp.com>
 
-Hi Tommaso,
+Hi Vladimir, 
 
-Thank you for the patch.
-
-On Fri, Dec 12, 2025 at 01:11:50PM +0100, Tommaso Merciai wrote:
-> Switch the VSP1 driver's dev_pm_ops to LATE_SYSTEM_SLEEP_PM_OPS to ensure
-> that suspend and resume callbacks are executed after DSI/DU suspend and
-> before DSI/DU resume.
-
-Have you considered handling this through device links ? Using late
-system sleep is a hack that doesn't scale when more than two devices are
-involved.
-
-I've just written and posted [1] to address the issue in the rcar-du
-driver (the suspend/resume ordering was right, but apparently only by
-chance), it should be easy to replicate it in the rz-du driver..
-
-[1] https://lore.kernel.org/dri-devel/20260317231930.595719-2-laurent.pinchart+renesas@ideasonboard.com/T/#u
-
-> This prevents timeouts and vblank wait errors during
-> system resume, such as:
+On 01:04 Wed 18 Mar     , Vladimir Oltean wrote:
+> This driver relies on a transitive inclusion of the PHY API header
+> through the USB headers.
 > 
-> [drm] *ERROR* flip_done timed out [CRTC:43:crtc-0] vblank wait timed out
-> 
-> This addresses display commit and vblank timeouts seen with DRM atomic
-> helpers during s2ram.
-> 
-> Co-developed-by: Biju Das <biju.das.jz@bp.renesas.com>
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Reviewed-by: Yixun Lan <dlan@kernel.org>
+
 > ---
->  drivers/media/platform/renesas/vsp1/vsp1_drv.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Cc: Yixun Lan <dlan@kernel.org>
 > 
-> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_drv.c b/drivers/media/platform/renesas/vsp1/vsp1_drv.c
-> index 2de515c497eb..0fbd27df1f46 100644
-> --- a/drivers/media/platform/renesas/vsp1/vsp1_drv.c
-> +++ b/drivers/media/platform/renesas/vsp1/vsp1_drv.c
-> @@ -693,7 +693,7 @@ static int vsp1_pm_runtime_resume(struct device *dev)
->  }
->  
->  static const struct dev_pm_ops vsp1_pm_ops = {
-> -	SYSTEM_SLEEP_PM_OPS(vsp1_pm_suspend, vsp1_pm_resume)
-> +	LATE_SYSTEM_SLEEP_PM_OPS(vsp1_pm_suspend, vsp1_pm_resume)
->  	RUNTIME_PM_OPS(vsp1_pm_runtime_suspend, vsp1_pm_runtime_resume, NULL)
->  };
->  
+> v1->v4: none
+> ---
+>  drivers/phy/spacemit/phy-k1-usb2.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/phy/spacemit/phy-k1-usb2.c b/drivers/phy/spacemit/phy-k1-usb2.c
+> index 342061380012..14a02f554810 100644
+> --- a/drivers/phy/spacemit/phy-k1-usb2.c
+> +++ b/drivers/phy/spacemit/phy-k1-usb2.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/bitfield.h>
+>  #include <linux/clk.h>
+>  #include <linux/iopoll.h>
+> +#include <linux/phy/phy.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/regmap.h>
+>  #include <linux/usb/of.h>
+> -- 
+> 2.43.0
+> 
 
 -- 
-Regards,
-
-Laurent Pinchart
+Yixun Lan (dlan)
