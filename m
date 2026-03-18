@@ -1,33 +1,33 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E824375AAC;
-	Wed, 18 Mar 2026 08:00:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 585EA37AA97;
+	Wed, 18 Mar 2026 08:18:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773820824; cv=none; b=b7h3Z1TYaVluh3tDvEqOs7Pgq+XPaVJvWGo5xWmS1hLO/JaK7t9KCyx6d+eqrUHkXJWxvuihxwdoUgL/LCBDigAU+p3jyV9UGungW9MtbZEoiwjTdSveGvjcOCS1DlUtbxY3jcLHaTtC/KWJtNBtfnB6bKIirWLC8Yv/k2ZDrzk=
+	t=1773821893; cv=none; b=b+zIk++qIS5MutiOFg2yhuBv2UcCMZs/1/Ad5UwF0zCxEnkN8Ucda6/rLlBOOSDjAh7ETo+V3JxtILVq0V5kUIHwggNuaBtrS0DRoYg12R2FuZai8fUKMkOLE2IHO6RmWG3yrXGnmdyv85GYZK1pFzV0y3lxqc+qYACMjAoVJQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773820824; c=relaxed/simple;
-	bh=rhJIn2CfmoVkVopQx25IsHo+WFP3+RpUfnX43grrawA=;
+	s=arc-20240116; t=1773821893; c=relaxed/simple;
+	bh=wFbDTEvR7olB1fWLkOBoDY4V+b8vzKWvYlVrfuh1TQE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gP9Rib4A8gamV6kevXfVTZF92xyFmubjp4KLbbSB8J7X4CpM4oS3FUcJMMp3C51JPHObLRQGqK8FTxUdpjvJGjl28ha78MDrxcxSvxvEG8cNkD6ABLnzrTT/B+DNzjjdV/yqYWSGs93sqoG3SSTn686Au3v7SfU3jo8y7UukrBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=oaErmpVT; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:Content-Type; b=iu/cycCYFRwU+xghfcYT6hIm5JEy10fa2lzHFcFR/Zd+V331ol6U5Y0cQgaqzC7oibGjHR+Xes4Yn+FXDPJ2Psx7UXNqKetAqsEFcF7bo9nFMxU0XYE/caiVaSeFnYQhqUBLIYI0D20Vz7bt8X1oKFeQrezywNrcLPPWs7WBpDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=rY8+Fq+m; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="oaErmpVT"
-Received: from [192.168.0.43] (cpc141996-chfd3-2-0-cust928.12-3.cable.virginm.net [86.13.91.161])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 44E12379;
-	Wed, 18 Mar 2026 08:59:05 +0100 (CET)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="rY8+Fq+m"
+Received: from [192.168.33.40] (185.182.214.153.nat.pool.zt.hu [185.182.214.153])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 703B6379;
+	Wed, 18 Mar 2026 09:16:56 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1773820745;
-	bh=rhJIn2CfmoVkVopQx25IsHo+WFP3+RpUfnX43grrawA=;
+	s=mail; t=1773821816;
+	bh=wFbDTEvR7olB1fWLkOBoDY4V+b8vzKWvYlVrfuh1TQE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=oaErmpVTVFXafzlyoifayrFfMl1Nu/jELg/gTovk3h4vlva/VTND0lGyLl+aU0zTE
-	 9DOaqYB1lR0GXB2PhsdG1Q870qcccbdoIMPaaY4lxXh5MUolQWyTGpvIy3sy0JDjDL
-	 lpI479EmVNRpOI/0aBOpbLYrrhbxhZgG2F4JpqMY=
-Message-ID: <92121eaf-f8bf-46d1-bde9-94a6f9846989@ideasonboard.com>
-Date: Wed, 18 Mar 2026 08:00:14 +0000
+	b=rY8+Fq+maQOcG232S0Bm8lqr4HAUCl0I6PXWBHoTnPp9pKuQzrjXiFnDdqA3HqqSZ
+	 0AW3qpYQz3KhnXGH8iRH+gT0jxOlvjUzpWTHNoRi55PWeDrKA6d14wBazLMW3uBXOZ
+	 UIJy7sK35CX/WrqOImTajmeghrVn9qcYEWjm6Mzs=
+Message-ID: <659d6c70-41d7-4dcf-867f-183d85118c4c@ideasonboard.com>
+Date: Wed, 18 Mar 2026 09:18:05 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -37,7 +37,7 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 6/7] media: rzv2h-ivc: Avoid double job scheduling
 To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- =?UTF-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze@ideasonboard.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  Hans Verkuil <hverkuil+cisco@kernel.org>
 Cc: linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
@@ -45,15 +45,13 @@ Cc: linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
  Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>, stable@vger.kernel.org
 References: <20260313-mali-ivc-fixes-v7-0-v1-0-cb0714cd1279@ideasonboard.com>
  <20260313-mali-ivc-fixes-v7-0-v1-6-cb0714cd1279@ideasonboard.com>
-Content-Language: en-US
-From: Dan Scally <dan.scally@ideasonboard.com>
+From: =?UTF-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze@ideasonboard.com>
+Content-Language: en-US, hu-HU
 In-Reply-To: <20260313-mali-ivc-fixes-v7-0-v1-6-cb0714cd1279@ideasonboard.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Morning Jacopo - sorry for missing this one
-
-On 13/03/2026 11:14, Jacopo Mondi wrote:
+2026. 03. 13. 12:14 keltezéssel, Jacopo Mondi írta:
 > From: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
 > 
 > The scheduling of a new buffer transfer in the IVC driver is triggered
@@ -88,7 +86,10 @@ On 13/03/2026 11:14, Jacopo Mondi wrote:
 > Signed-off-by: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
 > ---
 
-Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
+Looks ok to me.
+
+Reviewed-by: Barnabás Pőcze <barnabas.pocze@ideasonboard.com>
+
 
 >   drivers/media/platform/renesas/rzv2h-ivc/rzv2h-ivc-video.c | 11 +++++++----
 >   1 file changed, 7 insertions(+), 4 deletions(-)
