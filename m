@@ -1,546 +1,157 @@
-Received: from out-173.mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
+Received: from spark.kcore.it (spark.kcore.it [49.13.27.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7861C359A7B
-	for <linux-media@vger.kernel.org>; Fri, 20 Mar 2026 09:31:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF904378818;
+	Fri, 20 Mar 2026 09:34:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.13.27.68
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773999089; cv=none; b=lETWX2J8HKXfl/Tpo8Cex2kIUmq6dR/Eu0aKOP4PpqQPgW85prt+uoKXHi1saV/lz0u/JtJafiJqezQCPxHjYHPUmUpeNSs+OzQ6rZdLfFzoLEJmAFHwOqLoh4Mt3W0yCxxKJJmBIUXbjew82R9ro1tsHVeP3TxDuAxEXZbhTFk=
+	t=1773999299; cv=none; b=jGm0ZxjHAJY6egnL3hRDbfPIeQAu3YEGMYvDJCOZm2u89yAh0MD26KnyDEAWiQzyHjLpIH174+ZQTNlUH7dtG7cb0BNlwGqTW3HW9qUhBe3hTTtmEzAtU42Mv/QSpl7ByqqGrIDuWxhc3OzZ0rA1iBLxGp5c8Dx/yfG4LxYhjbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773999089; c=relaxed/simple;
-	bh=wNtfdazhmRba5vtdXJzoCN3QmebI4fZDXxtsOiYnPhI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ietbxnoYlucwPth/skq11F2Jj32OSqkXUtkZO6IDVJeLSdnk8usWHFkM+OMhAHfGJ0vHiq7JhomVqTIo+mC/MNN4zSC6MJc3B2bcJ5U2oAlhzWlZxiC17oAChhOoe1SkEDoVSspmYbKqze8j8N8l/sPM0W45y7sxD5VSOkXEgvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qh8qePOs; arc=none smtp.client-ip=91.218.175.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1773999299; c=relaxed/simple;
+	bh=XMXNhDB97POPdC4yYliA92xzV1XofxOKwo4AHwud5PY=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=uiuQoe+iuPanbGDnVyyOJV8x04Td22zqkLQAgcKHa8prBLldiMktRyeW+LSZN2A7bQwNSVA5quDvjB3vo8xQIMuNHI4+7VhAegRjICJqeGhcUP5kSP8Q4ErSTS4FD6R4WAQnBiGwQ402zXPFm7tUCFFsh/ZN7ucx3wD4S7xIW5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kcore.it; spf=pass smtp.mailfrom=kcore.it; dkim=pass (1024-bit key) header.d=kcore.it header.i=@kcore.it header.b=ORzCi+8X; arc=none smtp.client-ip=49.13.27.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kcore.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kcore.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qh8qePOs"
-Message-ID: <897e576b-af3f-4764-9477-d7ac9bd26aa4@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1773999075;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xs00Ae6CSRREPsQBOXwWf0LLHKgACwtESmzoMjwMv4U=;
-	b=qh8qePOskK45TrzRAJdCBb+6Y/WKCNAD8ALXoES/18nlXifZC9eQoCxhZ7AuOmsWzSJrfI
-	2BHQqfavAtWPtO5rmiAZExPp1TYgAAA96dK1r0RPY1ufyj9lD/Hz6x+tmtSZoAP+iUGj96
-	HWqVM/WhUKi3/KM7B1MFSXAdfvpixPo=
-Date: Fri, 20 Mar 2026 17:30:56 +0800
+	dkim=pass (1024-bit key) header.d=kcore.it header.i=@kcore.it header.b="ORzCi+8X"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kcore.it;
+	s=spark; h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-Transfer-Encoding:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=h3TmgZPZBMll2MmFRnP3PbTND06bgHNncokiFMkLotI=; b=ORzCi+8XEz1RDeJ4Nys/4VNAi1
+	uETpdk1qEILw0pXMTY8LwSg6GZoJtdYuQXmQhR9XRYQm12xl1+Zx65z+P9PVTH2cL6atvRBDOU6GJ
+	+l9ulov9Ppm0kV3SqrP8Y243gQLyJUFk5S/SH16WhWJlDjc8GjlaZau6tRFuzlGtcbec=;
+Received: from mnencia by spark.kcore.it with local (Exim 4.96)
+	(envelope-from <mnencia@kcore.it>)
+	id 1w3WFp-005YuA-0m;
+	Fri, 20 Mar 2026 10:34:53 +0100
+Date: Fri, 20 Mar 2026 10:34:53 +0100
+From: Marco Nenciarini <mnencia@kcore.it>
+To: platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org
+Cc: hao.yao@intel.com, hdegoede@redhat.com, sakari.ailus@linux.intel.com,
+	andy@kernel.org
+Subject: [PATCH] platform/x86: int3472: Add GPIO type 0x02 (strobe) mapping
+Message-ID: <ab0UvRdDpvZBiNsC@spark.kcore.it>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v9 7/7] rust: drm/gem: Add vmap functions to shmem
- bindings
-To: Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org,
- Gary Guo <gary@garyguo.net>, Daniel Almeida <daniel.almeida@collabora.com>,
- rust-for-linux@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>
-Cc: Matthew Maurer <mmaurer@google.com>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, christian.koenig@amd.com,
- Asahi Lina <lina@asahilina.net>, Miguel Ojeda <ojeda@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Alice Ryhl <aliceryhl@google.com>, Boqun Feng <boqun@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Krishna Ketan Rai <prafulrai522@gmail.com>, linux-media@vger.kernel.org,
- Shankari Anand <shankari.ak0208@gmail.com>, David Airlie
- <airlied@gmail.com>, Benno Lossin <lossin@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, linaro-mm-sig@lists.linaro.org,
- Asahi Lina <lina+kernel@asahilina.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, kernel@vger.kernel.org
-References: <20260316211646.650074-1-lyude@redhat.com>
- <20260316211646.650074-8-lyude@redhat.com>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Alvin Sun <alvin.sun@linux.dev>
-In-Reply-To: <20260316211646.650074-8-lyude@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="TbSK3d7oWrLiek8F"
+Content-Disposition: inline
 
 
-On 3/17/26 05:16, Lyude Paul wrote:
-> One of the more obvious use cases for gem shmem objects is the ability to
-> create mappings into their contents. So, let's hook this up in our rust
-> bindings.
->
-> Similar to how we handle SGTables, we make sure there's two different types
-> of mappings: owned mappings (kernel::drm::gem::shmem::VMap) and borrowed
-> mappings (kernel::drm::gem::shmem::VMapRef).
->
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
->
-> ---
-> V7:
-> * Switch over to the new iosys map bindings that use the Io trait
-> V8:
-> * Get rid of iosys_map bindings for now, only support non-iomem types
-> * s/as_shmem()/as_raw_shmem()
-> V9:
-> * Get rid of some outdated comments I missed
-> * Add missing SIZE check to raw_vmap()
-> * Add a proper unit test that ensures that we actually validate SIZE at
->    compile-time.
->    Turns out it takes only 34 lines to make a boilerplate DRM driver for a
->    kunit test :)
-> * Add unit tests
-> * Add some missing #[inline]s
->
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> ---
->   rust/kernel/drm/gem/shmem.rs | 358 ++++++++++++++++++++++++++++++++++-
->   1 file changed, 356 insertions(+), 2 deletions(-)
->
-> diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-> index 3fab5d76c197b..5254338bad394 100644
-> --- a/rust/kernel/drm/gem/shmem.rs
-> +++ b/rust/kernel/drm/gem/shmem.rs
-> @@ -2,7 +2,7 @@
->   
->   //! DRM GEM shmem helper objects
->   //!
-> -//! C header: [`include/linux/drm/drm_gem_shmem_helper.h`](srctree/include/linux/drm/drm_gem_shmem_helper.h)
-> +//! C header: [`include/linux/drm/drm_gem_shmem_helper.h`](srctree/include/drm/drm_gem_shmem_helper.h)
->   
->   // TODO:
->   // - There are a number of spots here that manually acquire/release the DMA reservation lock using
-> @@ -21,6 +21,11 @@
->           from_err_ptr,
->           to_result, //
->       },
-> +    io::{
-> +        Io,
-> +        IoCapable,
-> +        IoKnownSize, //
-> +    },
->       prelude::*,
->       scatterlist,
->       types::{
-> @@ -29,13 +34,22 @@
->       }, //
->   };
->   use core::{
-> +    ffi::c_void,
-> +    mem::{
-> +        self,
-> +        MaybeUninit, //
-> +    },
->       ops::{
->           Deref,
->           DerefMut, //
->       },
-> -    ptr::NonNull,
-> +    ptr::{
-> +        self,
-> +        NonNull, //
-> +    },
->   };
->   use gem::{
-> +    BaseObject,
->       BaseObjectPrivate,
->       DriverObject,
->       IntoGEMObject, //
-> @@ -217,6 +231,88 @@ pub fn owned_sg_table(&self) -> Result<SGTable<T>> {
->               _owner: self.into(),
->           })
->       }
-> +
-> +    /// Attempt to create a vmap from the gem object, and confirm the size of said vmap.
-> +    fn raw_vmap(&self, min_size: usize) -> Result<*mut c_void> {
-> +        if self.size() < min_size {
-> +            return Err(ENOSPC);
-> +        }
-> +
-> +        let mut map: MaybeUninit<bindings::iosys_map> = MaybeUninit::uninit();
-> +
-> +        // SAFETY: drm_gem_shmem_vmap can be called with the DMA reservation lock held
-> +        to_result(unsafe {
-> +            // TODO: see top of file
-> +            bindings::dma_resv_lock(self.raw_dma_resv(), ptr::null_mut());
-> +            let ret = bindings::drm_gem_shmem_vmap_locked(self.as_raw_shmem(), map.as_mut_ptr());
-> +            bindings::dma_resv_unlock(self.raw_dma_resv());
-> +            ret
-> +        })?;
-> +
-> +        // SAFETY: The call to drm_gem_shmem_vunmap_locked succeeded above, so we are guaranteed
-> +        // that map is properly initialized.
-> +        let map = unsafe { map.assume_init() };
-> +
-> +        // XXX: We don't currently support iomem allocations
-> +        if map.is_iomem {
-> +            // SAFETY:
-> +            // - The vmap operation above succeeded, making it safe to call vunmap
-> +            // - We checked that this is an iomem allocation, making it safe to read vaddr_iomem
-> +            unsafe { self.raw_vunmap(map.__bindgen_anon_1.vaddr_iomem) };
-> +
-> +            Err(ENOTSUPP)
-> +        } else {
-> +            // SAFETY: We checked that this is not an iomem allocation, making it safe to read vaddr
-> +            Ok(unsafe { map.__bindgen_anon_1.vaddr })
-> +        }
-> +    }
-> +
-> +    /// Unmap a vmap from the gem object.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// - The caller promises that addr came from a prior call to [`Self::raw_vmap`] on this gem
-> +    ///   object.
-> +    /// - The caller promises that the memory pointed to by addr will no longer be accesed through
-> +    ///   this instance.
-> +    unsafe fn raw_vunmap(&self, vaddr: *mut c_void) {
-> +        let resv = self.raw_dma_resv();
-> +        let mut map = bindings::iosys_map {
-> +            is_iomem: false,
-> +            __bindgen_anon_1: bindings::iosys_map__bindgen_ty_1 { vaddr },
-> +        };
-> +
-> +        // SAFETY:
-> +        // - This function is safe to call with the DMA reservation lock held
-> +        // - Our `ARef` is proof that the underlying gem object here is initialized and thus safe to
-> +        //   dereference.
-> +        unsafe {
-> +            // TODO: see top of file
-> +            bindings::dma_resv_lock(resv, ptr::null_mut());
-> +            bindings::drm_gem_shmem_vunmap_locked(self.as_raw_shmem(), &mut map);
-> +            bindings::dma_resv_unlock(resv);
-> +        }
-> +    }
-> +
-> +    /// Creates and returns a virtual kernel memory mapping for this object.
-> +    #[inline]
-> +    pub fn vmap<const SIZE: usize>(&self) -> Result<VMapRef<'_, T, SIZE>> {
-> +        Ok(VMapRef {
-> +            // INVARIANT: `raw_vmap()` checks that the gem object is at least as large as `SIZE`.
-> +            addr: self.raw_vmap(SIZE)?,
-> +            owner: self,
-> +        })
-> +    }
-> +
-> +    /// Creates and returns an owned reference to a virtual kernel memory mapping for this object.
-> +    #[inline]
-> +    pub fn owned_vmap<const SIZE: usize>(&self) -> Result<VMap<T, SIZE>> {
-> +        Ok(VMap {
-> +            // INVARIANT: `raw_vmap()` checks that the gem object is at least as large as `SIZE`.
-> +            addr: self.raw_vmap(SIZE)?,
-> +            owner: self.into(),
-> +        })
-> +    }
->   }
->   
->   impl<T: DriverObject> Deref for Object<T> {
-> @@ -268,6 +364,147 @@ impl<T: DriverObject> driver::AllocImpl for Object<T> {
->       };
->   }
->   
-> +macro_rules! impl_vmap_io_capable {
-> +    ($impl:ident, $ty:ty $(, $lifetime:lifetime )?) => {
-> +        impl<$( $lifetime ,)? D: DriverObject, const SIZE: usize> IoCapable<$ty>
-> +            for $impl<$( $lifetime ,)? D, SIZE>
-> +        {
-> +            #[inline(always)]
-> +            unsafe fn io_read(&self, address: usize) -> $ty {
-> +                let ptr = address as *mut $ty;
-> +
-> +                // SAFETY: The safety contract of `io_read` guarantees that address is a valid
-> +                // address within the bounds of `Self` of at least the size of $ty, and is properly
-> +                // aligned.
-> +                unsafe { ptr::read(ptr) }
-> +            }
-> +
-> +            #[inline(always)]
-> +            unsafe fn io_write(&self, value: $ty, address: usize) {
-> +                let ptr = address as *mut $ty;
-> +
-> +                // SAFETY: The safety contract of `io_write` guarantees that address is a valid
-> +                // address within the bounds of `Self` of at least the size of $ty, and is properly
-> +                // aligned.
-> +                unsafe { ptr::write(ptr, value) }
-> +            }
-> +        }
-> +    };
-> +}
-> +
-> +// Implement various traits common to both VMap types
-> +macro_rules! impl_vmap_common {
-> +    ($impl:ident $(, $lifetime:lifetime )?) => {
-> +        impl<$( $lifetime ,)? D, const SIZE: usize> $impl<$( $lifetime ,)? D, SIZE>
-> +        where
-> +            D: DriverObject,
-> +        {
-> +            /// Borrows a reference to the object that owns this virtual mapping.
-> +            #[inline(always)]
-> +            pub fn owner(&self) -> &Object<D> {
-> +                &self.owner
-> +            }
-> +        }
-> +
-> +        impl<$( $lifetime ,)? D, const SIZE: usize> Drop for $impl<$( $lifetime ,)? D, SIZE>
-> +        where
-> +            D: DriverObject,
-> +        {
-> +            #[inline(always)]
-> +            fn drop(&mut self) {
-> +                // SAFETY: Our existence is proof that this map was previously created using
-> +                // self.owner
-> +                unsafe { self.owner.raw_vunmap(self.addr) };
-> +            }
-> +        }
-> +
-> +        impl<$( $lifetime ,)? D, const SIZE: usize> Io for $impl<$( $lifetime ,)? D, SIZE>
-> +        where
-> +            D: DriverObject,
-> +        {
-> +            #[inline(always)]
-> +            fn addr(&self) -> usize {
-> +                self.addr as usize
-> +            }
-> +
-> +            #[inline(always)]
-> +            fn maxsize(&self) -> usize {
-> +                self.owner.size()
-> +            }
-> +        }
-> +
-> +        impl<$( $lifetime ,)? D, const SIZE: usize> IoKnownSize for $impl<$( $lifetime ,)? D, SIZE>
-> +        where
-> +            D: DriverObject,
-> +        {
-> +            const MIN_SIZE: usize = SIZE;
-> +        }
-> +
-> +        impl_vmap_io_capable!($impl, u8 $( , $lifetime )?);
-> +        impl_vmap_io_capable!($impl, u16 $( , $lifetime )?);
-> +        impl_vmap_io_capable!($impl, u32 $( , $lifetime )?);
-> +        #[cfg(CONFIG_64BIT)]
-> +        impl_vmap_io_capable!($impl, u64 $( , $lifetime )?);
-> +    };
-> +}
-> +
-> +/// An owned reference to a virtual mapping for a shmem-based GEM object in kernel address space.
-> +///
-> +/// # Invariants
-> +///
-> +/// - The size of `owner` is >= SIZE.
-> +/// - The memory pointed to by addr remains valid at least until this object is dropped.
-> +pub struct VMap<D: DriverObject, const SIZE: usize = 0> {
-> +    addr: *mut c_void,
-> +    owner: ARef<Object<D>>,
-> +}
-> +
-> +impl_vmap_common!(VMap);
-> +
-> +impl<D: DriverObject, const SIZE: usize> Clone for VMap<D, SIZE> {
-> +    #[inline]
-> +    fn clone(&self) -> Self {
-> +        // SAFETY: We have a successful vmap already, so this can't fail
-> +        unsafe { self.owner.owned_vmap().unwrap_unchecked() }
-> +    }
-> +}
-> +
-> +impl<'a, D: DriverObject, const SIZE: usize> From<VMapRef<'a, D, SIZE>> for VMap<D, SIZE> {
-> +    #[inline]
-> +    fn from(value: VMapRef<'a, D, SIZE>) -> Self {
-> +        let this = Self {
-> +            addr: value.addr,
-> +            owner: value.owner.into(),
-> +        };
-> +
-> +        mem::forget(value);
-> +        this
-> +    }
-> +}
-> +
-> +// SAFETY: addr is guaranteed to be valid and accessible for the lifetime of VMap, ensuring its
-> +// safe to send across threads.
-> +unsafe impl<D: DriverObject, const SIZE: usize> Send for VMap<D, SIZE> {}
-> +// SAFETY: addr is guaranteed to be valid and accessible for the lifetime of VMap, ensuring its
-> +// safe to send across threads.
-> +unsafe impl<D: DriverObject, const SIZE: usize> Sync for VMap<D, SIZE> {}
-> +
-> +/// A borrowed reference to a virtual mapping for a shmem-based GEM object in kernel address space.
-> +pub struct VMapRef<'a, D: DriverObject, const SIZE: usize = 0> {
-> +    addr: *mut c_void,
-> +    owner: &'a Object<D>,
-> +}
-> +
-> +impl_vmap_common!(VMapRef, 'a);
-> +
-> +impl<'a, D: DriverObject, const SIZE: usize> Clone for VMapRef<'a, D, SIZE> {
-> +    #[inline]
-> +    fn clone(&self) -> Self {
-> +        // SAFETY: We have a successful vmap already, so this can't fail
-> +        unsafe { self.owner.vmap().unwrap_unchecked() }
-> +    }
-> +}
-> +
->   /// An owned reference to a scatter-gather table of DMA address spans for a GEM shmem object.
->   ///
->   /// This object holds an owned reference to the underlying GEM shmem object, ensuring that the
-> @@ -298,3 +535,120 @@ fn deref(&self) -> &Self::Target {
->           unsafe { self.sgt.as_ref() }
->       }
->   }
-> +
-> +#[kunit_tests(rust_drm_gem_shmem)]
-> +mod tests {
-> +    use super::*;
-> +    use crate::{
-> +        drm,
-> +        faux,
-> +        page::PAGE_SIZE, //
-> +    };
-> +
-> +    // The bare minimum needed to create a fake drm driver for kunit
-> +
-> +    #[pin_data]
-> +    struct KunitData {}
-> +    struct KunitDriver;
-> +    struct KunitFile;
-> +    #[pin_data]
-> +    struct KunitObject {}
-> +
-> +    const INFO: drm::DriverInfo = drm::DriverInfo {
-> +        major: 0,
-> +        minor: 0,
-> +        patchlevel: 0,
-> +        name: c"kunit",
-> +        desc: c"Kunit",
-> +    };
-> +
-> +    impl drm::file::DriverFile for KunitFile {
-> +        type Driver = KunitDriver;
-> +
-> +        fn open(_dev: &drm::Device<KunitDriver>) -> Result<Pin<KBox<Self>>> {
-> +            Ok(KBox::new(Self, GFP_KERNEL)?.into())
-> +        }
-> +    }
-> +
-> +    impl gem::DriverObject for KunitObject {
-> +        type Driver = KunitDriver;
-> +        type Args = ();
-> +
-> +        fn new(
-> +            _dev: &drm::Device<KunitDriver>,
-> +            _size: usize,
-> +            _args: Self::Args,
-> +        ) -> impl PinInit<Self, Error> {
-> +            try_pin_init!(KunitObject {})
-> +        }
-> +    }
-> +
-> +    #[vtable]
-> +    impl drm::Driver for KunitDriver {
-> +        type Data = KunitData;
-> +        type File = KunitFile;
-> +        type Object = Object<KunitObject>;
-> +
-> +        const INFO: drm::DriverInfo = INFO;
-> +        const IOCTLS: &'static [drm::ioctl::DrmIoctlDescriptor] = &[];
-> +    }
-> +
-> +    fn create_drm_dev() -> Result<(faux::Registration, ARef<drm::Device<KunitDriver>>)> {
-> +        // Create a faux DRM device so we can test gem object creation.
-> +        let data = try_pin_init!(KunitData {});
-> +        let dev = faux::Registration::new(c"Kunit", None)?;
-> +        let drm = drm::Device::<KunitDriver>::new(dev.as_ref(), data)?;
+--TbSK3d7oWrLiek8F
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-When applying "PATCH v5 0/4 Introduce DeviceContext", I got a 
-compilation error:
-error[E0049]: associated type `Object` has 0 type parameters but its 
-trait declaration has 1 type parameter
-    --> rust/kernel/drm/gem/shmem.rs:610:20
-     |
-610 |         type Object = Object<KunitObject>;
-     |                    ^ found 0 type parameters
-     |
-    ::: rust/kernel/drm/driver.rs:114:17
-     |
-114 |     type Object<Ctx: drm::DeviceContext>: AllocImpl;
-     |                 --- expected 1 type parameter
+Some ACPI tables on Intel Meteor Lake and Arrow Lake platforms define
+GPIO resources with type 0x02 for INT3472 camera sensor power control.
+This type is not currently handled, causing a "GPIO type 0x02 unknown;
+the sensor may not work" warning and preventing proper sensor power
+sequencing.
 
-error[E0599]: no function or associated item named `new` found for 
-struct `drm::device::Device<drm::gem::shmem::tests::KunitDriver>` in the 
-current scope
-    --> rust/kernel/drm/gem/shmem.rs:620:47
-     |
-620 |         let drm = drm::Device::<KunitDriver>::new(dev.as_ref(), 
-data)?;
-     |                                               ^^^ function or 
-associated item not found in 
-`drm::device::Device<drm::gem::shmem::tests::KunitDriver>`
-     |
-    ::: rust/kernel/drm/device.rs:244:1
-     |
-244 | pub struct Device<T: drm::Driver, C: DeviceContext = Registered> {
-     | ---------------------------------------------------------------- 
-function or associated item `new` not found for this struct
-     |
-     = help: items from traits can only be used if the trait is 
-implemented and in scope
-note: `drm::gem::DriverObject` defines an item `new`, perhaps you need 
-to implement it
-    --> rust/kernel/drm/gem/mod.rs:91:1
-     |
-  91 | pub trait DriverObject: Sync + Send + Sized {
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Map GPIO type 0x02 (strobe) to the privacy LED handler, matching the
+approach used for similar illumination-related GPIOs. This is consistent
+with the original proposal by Hao Yao [1].
 
-error: aborting due to 2 previous errors
+Tested on a Dell Pro Max 16 Premium (Arrow Lake-H) with OmniVision
+OV08F4 sensor connected via Intel IPU6 and Synaptics SVP7500 USBIO
+bridge. With this patch applied, the int3472-discrete driver no longer
+warns about unknown GPIO type 0x02, and the sensor probes successfully.
 
-> +
-> +        Ok((dev, drm))
-> +    }
-> +
-> +    #[test]
-> +    fn compile_time_vmap_sizes() -> Result {
-> +        let (_dev, drm) = create_drm_dev()?;
-> +
-> +        // Create a gem object to test with
-> +        let cfg_ = ObjectConfig::<KunitObject> {
-> +            map_wc: false,
-> +            parent_resv_obj: None,
-> +        };
-> +        let obj = Object::<KunitObject>::new(&drm, PAGE_SIZE, cfg_, ())?;
-> +
-> +        // Try creating a normal vmap
-> +        obj.vmap::<PAGE_SIZE>()?;
-> +
-> +        // Try creating a vmap that's smaller then the size we specified
-> +        obj.vmap::<{ PAGE_SIZE - 100 }>()?;
-> +
-> +        // Make sure creating a vmap that's too large fails
-> +        assert!(obj.vmap::<{ PAGE_SIZE + 200 }>().is_err());
-> +
-> +        Ok(())
-> +    }
-> +
-> +    #[test]
-> +    fn vmap_io() -> Result {
-> +        let (_dev, drm) = create_drm_dev()?;
-> +
-> +        // Create a gem object to test with
-> +        let cfg_ = ObjectConfig::<KunitObject> {
-> +            map_wc: false,
-> +            parent_resv_obj: None,
-> +        };
-> +        let obj = Object::<KunitObject>::new(&drm, PAGE_SIZE, cfg_, ())?;
-> +
-> +        let vmap = obj.vmap::<PAGE_SIZE>()?;
-> +
-> +        vmap.write8(0xDE, 0x0);
-> +        assert_eq!(vmap.read8(0x0), 0xDE);
-> +        vmap.write32(0xFFFFFFFF, 0x20);
-> +
-> +        assert_eq!(vmap.read32(0x20), 0xFFFFFFFF);
-> +
-> +        assert_eq!(vmap.read8(0x20), 0xFF);
-> +        assert_eq!(vmap.read8(0x21), 0xFF);
-> +        assert_eq!(vmap.read8(0x22), 0xFF);
-> +        assert_eq!(vmap.read8(0x23), 0xFF);
-> +
-> +        Ok(())
-> +    }
-> +}
+[1] https://lore.kernel.org/all/20231007021309.9332-1-hao.yao@intel.com/
+
+Link: https://bugs.debian.org/1130114
+Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2138991
+Cc: Hao Yao <hao.yao@intel.com>
+Cc: Hans de Goede <hdegoede@redhat.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Andy Shevchenko <andy@kernel.org>
+Signed-off-by: Marco Nenciarini <mnencia@kcore.it>
+---
+ drivers/platform/x86/intel/int3472/discrete.c | 3 +++
+ include/linux/platform_data/x86/int3472.h     | 1 +
+ 2 files changed, 4 insertions(+)
+
+diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platfo=
+rm/x86/intel/int3472/discrete.c
+index 1505fc3..39ca60b 100644
+--- a/drivers/platform/x86/intel/int3472/discrete.c
++++ b/drivers/platform/x86/intel/int3472/discrete.c
+@@ -211,6 +211,7 @@ static void int3472_get_con_id_and_polarity(struct int3=
+472_discrete_device *int3
+ 		*con_id =3D "clk-enable";
+ 		*gpio_flags =3D GPIO_ACTIVE_HIGH;
+ 		break;
++	case INT3472_GPIO_TYPE_STROBE:
+ 	case INT3472_GPIO_TYPE_PRIVACY_LED:
+ 		*con_id =3D "privacy-led";
+ 		*gpio_flags =3D GPIO_ACTIVE_HIGH;
+@@ -330,6 +331,7 @@ static int skl_int3472_handle_gpio_resources(struct acp=
+i_resource *ares,
+=20
+ 		break;
+ 	case INT3472_GPIO_TYPE_CLK_ENABLE:
++	case INT3472_GPIO_TYPE_STROBE:
+ 	case INT3472_GPIO_TYPE_PRIVACY_LED:
+ 	case INT3472_GPIO_TYPE_POWER_ENABLE:
+ 	case INT3472_GPIO_TYPE_HANDSHAKE:
+@@ -347,6 +349,7 @@ static int skl_int3472_handle_gpio_resources(struct acp=
+i_resource *ares,
+ 				err_msg =3D "Failed to register clock\n";
+=20
+ 			break;
++		case INT3472_GPIO_TYPE_STROBE:
+ 		case INT3472_GPIO_TYPE_PRIVACY_LED:
+ 			ret =3D skl_int3472_register_pled(int3472, gpio);
+ 			if (ret)
+diff --git a/include/linux/platform_data/x86/int3472.h b/include/linux/plat=
+form_data/x86/int3472.h
+index b1b8375..85adeb0 100644
+--- a/include/linux/platform_data/x86/int3472.h
++++ b/include/linux/platform_data/x86/int3472.h
+@@ -23,6 +23,7 @@
+ /* PMIC GPIO Types */
+ #define INT3472_GPIO_TYPE_RESET					0x00
+ #define INT3472_GPIO_TYPE_POWERDOWN				0x01
++#define INT3472_GPIO_TYPE_STROBE				0x02
+ #define INT3472_GPIO_TYPE_POWER_ENABLE				0x0b
+ #define INT3472_GPIO_TYPE_CLK_ENABLE				0x0c
+ #define INT3472_GPIO_TYPE_PRIVACY_LED				0x0d
+--=20
+2.47.3
+
+
+--=20
+Marco Nenciarini - mnencia@kcore.it
+7C23 B804 3E65 D298 0A21  B6E2 589F 03F0 1BA5 5038
+
+--TbSK3d7oWrLiek8F
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEfCO4BD5l0pgKIbbiWJ8D8BulUDgFAmm9FLwACgkQWJ8D8Bul
+UDhaGQ//Z8a8steppzqhtmuqKvw2xQdoa5MNI8c/zmDITUjlF5vtfmxZprC7lKVb
+I6BJ8f/H/i86rv9nTVF8mmXthT9QP1E2lFmXdAxiKni7bntvqrzpTn1faxWxa2Xj
+jX4SQRlXv0i6SQJNjZd6UnAn+Y5TDHSicxYYjscIUMfBlB5rpe4wjEkRAceAN9zZ
+dn3e6RGKpShGLoX4QwtOSzNqPvwi4T/tdYJyrroA8S8o04bXeqHChue1EH/vWG9y
+dVNYjM28ZkULyA6e9/qxgYfkDlCsEUKAfsF7OkV0xpyGMCTGER6VbglNgw1d2eJJ
+r17B4QeuSWCeeiZQsmAoIj+bUipYXsMaRA5kcQkURE/dDXzKjWb4KiGarcq1r8UQ
+1v8cycoOSIOMHdOqWI+3o1OOoJqcN3x/PTC8PD8g06skTl6khF9yLWK7PWn/CuKy
+lU476c+3LRDgLfira8DBUU0RqP/omYrPXL29IIn/LLJaz7dvtGd20RO+ct7bIMru
+7PhBAGzfXExHaUYE05II+ajgF1hdWvRIVReZljwWCuO5wc9BGYPxXlpJbNPbZrC7
+7MfsgyloU6d9oDy8IT/8uIzWxtxkgGY6S6rkYDuc/ONOeVUoj+hHNU9cwA/v3lt7
+4hEzk9e7MWrjElwEnyS82kVR2gV60whpHPfD30Gvmp8qzmaeZRw=
+=Vysj
+-----END PGP SIGNATURE-----
+
+--TbSK3d7oWrLiek8F--
