@@ -1,30 +1,30 @@
 Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C83325710;
-	Fri, 20 Mar 2026 05:59:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F903290BD;
+	Fri, 20 Mar 2026 05:59:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773986399; cv=none; b=opSLltij4+KIk0uWbSoYcavA5Kk9MD7aN44SJ7HJZHAoIZu/bZC4Ti0tbybOOuV/PEu2LNuDIV9DLxbeeJ6jzNxDCXYO5tkqGmf4oy+yF31KgSx4TBFaDANhTr9ikicXqztu+f5665Phcpaa4ijomBwwUl71dEYWsUDQSWXleHg=
+	t=1773986401; cv=none; b=kM/Je5Zr2C79IVlZJpIVZsS6n3efcNUDlaNphsHJ6mZls08jxNoW417AlzYLQ5WCQVk63gC5F1uj/+/51u+dCGqyYjDPJJHi0aEE98Azs71IX5mtImXv+T3hhh4I9ihP2T1nT5E/FutmxbTXfSFX3xzxz5SCZELvjxFN0opx/Jg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773986399; c=relaxed/simple;
-	bh=SINNr/9PQVWmohqEQcl0q3MmRdpabubASIYNha9MW+I=;
+	s=arc-20240116; t=1773986401; c=relaxed/simple;
+	bh=fZWQGPNqLRZT8kBpxKCRWyRDr/RRl+79wZUBmNZ1wZg=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=g+rEj53xtm2Y7bjHPHe93tpW8CGlkkXLgRe/9vxAeekUNnlR6/zZ3rpEJBZiQzqeyJP5G6TRaCtoVJtVe0eYhi77/BTm6F4/OhttTN6A6Y01LTZI2hdsmGeEcihDXiwn6tsnYwMRjsiZn4XFl/qA702dDR/Z9zmbInAX1X71PyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=WW0S9P73; arc=none smtp.client-ip=60.244.123.138
+	 MIME-Version:Content-Type; b=SJZqCeacdE78r4OzMRmIa3+3OL4zpQgEtuWsu+J4+kta9xhmyv4wrq6ywCFpOjcc9N7mFDF2TwXlEX3JwAjpVAQJ4CbEi6ylkT4ks5bb5UJ6HPe9EiU2OjSnFQHLpLxHcv42/XWx+jBzI8qjrF4a57BfVGnExdr+uRl5IF6kd6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=KxIr/cg9; arc=none smtp.client-ip=60.244.123.138
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="WW0S9P73"
-X-UUID: 014bde46242211f1a02d4725871ece0b-20260320
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="KxIr/cg9"
+X-UUID: 03550168242211f1a02d4725871ece0b-20260320
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=zWxKExStOAZc57km/2fM7Wk/MBk+KqJmr+NV+wNKQG0=;
-	b=WW0S9P735B2pvWTROBNwBg0WWBEGfQFQe1UOCTTPUznhfu5rcX/VNQFCwyz7BwJz1huATKDaWRf5f2a0HsKVs2RKXQizpgn/w6K04NDp6ZAXlUI+zbG+J2M9ExmdMXALQTFxVVv8crHxRkcN2z+dM85csxfGjCZ9Z1HODvlP+Og=;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=pVK07dtXd6MJu8rTSu68T1HJgSA5P1uZrXZtGTW9kTc=;
+	b=KxIr/cg9jCEIP6BZVwgw+9CNmexWV31PbwwHJhDX8tvU0ZaD0QkNiFybKaFWCIAhrJSptQnuFi0YuD+KIgMw4cZTcZhm14lG1iUKOWOBq34d2HbqQnLHW61RtMaJIIoAeUXcw0Ib8YVFJrQ32Li64Urq2P1NceZBcucV54Wc2ZY=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:0b9c9a90-8469-4d2b-9909-e98fa17b069d,IP:0,U
+X-CID-O-INFO: VERSION:1.3.12,REQID:d642ed29-653e-4c91-bb8f-c909f4830f5c,IP:0,U
 	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
 	release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:1805eb16-aa6b-4b2e-be76-373ef1a42b04,B
+X-CID-META: VersionHash:e7bac3a,CLOUDID:3705eb16-aa6b-4b2e-be76-373ef1a42b04,B
 	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|888|898,TC:-5,Content:
 	0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI
 	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
@@ -32,18 +32,18 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 014bde46242211f1a02d4725871ece0b-20260320
+X-UUID: 03550168242211f1a02d4725871ece0b-20260320
 Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by mailgw01.mediatek.com
 	(envelope-from <kyrie.wu@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 839650910; Fri, 20 Mar 2026 13:59:49 +0800
+	with ESMTP id 1440112346; Fri, 20 Mar 2026 13:59:52 +0800
 Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
+ MTKMBS09N2.mediatek.inc (172.21.101.94) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 20 Mar 2026 13:59:48 +0800
+ 15.2.2562.29; Fri, 20 Mar 2026 13:59:52 +0800
 Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
  mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Fri, 20 Mar 2026 13:59:47 +0800
+ 15.2.2562.29 via Frontend Transport; Fri, 20 Mar 2026 13:59:50 +0800
 From: Kyrie Wu <kyrie.wu@mediatek.com>
 To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
 	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
@@ -59,9 +59,9 @@ To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
 	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
 CC: Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Pietrasiewicz
 	<andrzejtp2010@gmail.com>, Yilong Zhou <yilong.zhou@mediatek.com>
-Subject: [PATCH v8 3/9] media: mediatek: vcodec: Refactor Decoder profile & level Handling
-Date: Fri, 20 Mar 2026 13:59:34 +0800
-Message-ID: <20260320055940.15961-4-kyrie.wu@mediatek.com>
+Subject: [PATCH v8 6/9] media: mediatek: vcodec: add decoder compatible to support MT8189
+Date: Fri, 20 Mar 2026 13:59:37 +0800
+Message-ID: <20260320055940.15961-7-kyrie.wu@mediatek.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20260320055940.15961-1-kyrie.wu@mediatek.com>
 References: <20260320055940.15961-1-kyrie.wu@mediatek.com>
@@ -75,320 +75,71 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-MTK: N
 
-This commit refactors the handling of decoder parameters for H264,
-H265, and VP9 codecs by introducing a new structure to standardize
-supported level and profile information. By leveraging this change,
-chipset-specific conditional logic in the codec configuration
-functions is significantly reduced.
+MT8189 is pure single core architecture. Add its compatible to
+initialize platform data.
 
 Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
 Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- .../vcodec/decoder/mtk_vcodec_dec_drv.h       |  16 ++
- .../vcodec/decoder/mtk_vcodec_dec_stateful.c  |  12 ++
- .../vcodec/decoder/mtk_vcodec_dec_stateless.c | 165 ++++++++++--------
- 3 files changed, 118 insertions(+), 75 deletions(-)
+ .../mediatek/vcodec/decoder/mtk_vcodec_dec.h  |  1 +
+ .../vcodec/decoder/mtk_vcodec_dec_drv.c       |  4 ++++
+ .../vcodec/decoder/mtk_vcodec_dec_stateless.c | 19 +++++++++++++++++++
+ 3 files changed, 24 insertions(+)
 
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
-index 7921588bf814..4ffc0eae855b 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
-@@ -78,6 +78,16 @@ struct vdec_pic_info {
- 	unsigned int reserved;
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h
+index 80cb46f1cded..2bde871c0224 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h
++++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h
+@@ -71,6 +71,7 @@ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8173_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8183_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8186_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8188_pdata;
++extern const struct mtk_vcodec_dec_pdata mtk_vdec_8189_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8192_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8195_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8196_pdata;
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+index 6ebd82ba8d23..dc67c2b84776 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
++++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+@@ -555,6 +555,10 @@ static const struct of_device_id mtk_vcodec_match[] = {
+ 		.compatible = "mediatek,mt8196-vcodec-dec",
+ 		.data = &mtk_vdec_8196_pdata,
+ 	},
++	{
++		.compatible = "mediatek,mt8189-vcodec-dec",
++		.data = &mtk_vdec_8189_pdata,
++	},
+ 	{},
  };
  
-+/**
-+ * struct mtk_vcodec_dec_params - decoder supported parameters
-+ * @level: decoder supported vcodec level
-+ * @profile: decoder supported vcodec profile
-+ */
-+struct mtk_vcodec_dec_params {
-+	s64 level;
-+	s64 profile;
-+};
-+
- /**
-  * struct mtk_vcodec_dec_pdata - compatible data for each IC
-  * @init_vdec_params: init vdec params
-@@ -98,6 +108,9 @@ struct vdec_pic_info {
-  * @is_subdev_supported: whether support parent-node architecture(subdev)
-  * @uses_stateless_api: whether the decoder uses the stateless API with requests
-  * @chip_model: platforms configuration values
-+ * @h264_params: H264 decoder default supported params
-+ * @h265_params: H265 decoder default supported params
-+ * @vp9_params: VP9 decoder default supported params
-  */
- struct mtk_vcodec_dec_pdata {
- 	void (*init_vdec_params)(struct mtk_vcodec_dec_ctx *ctx);
-@@ -120,6 +133,9 @@ struct mtk_vcodec_dec_pdata {
- 	bool is_subdev_supported;
- 	bool uses_stateless_api;
- 	unsigned int chip_model;
-+	struct mtk_vcodec_dec_params h264_params;
-+	struct mtk_vcodec_dec_params h265_params;
-+	struct mtk_vcodec_dec_params vp9_params;
- };
- 
- /**
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateful.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateful.c
-index 0e702d6a43ed..64f32976d15e 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateful.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateful.c
-@@ -619,4 +619,16 @@ const struct mtk_vcodec_dec_pdata mtk_vdec_8173_pdata = {
- 	.is_subdev_supported = false,
- 	.hw_arch = MTK_VDEC_PURE_SINGLE_CORE,
- 	.chip_model = 8173,
-+	.h264_params = {
-+		.level = V4L2_MPEG_VIDEO_H264_LEVEL_4_1,
-+		.profile = V4L2_MPEG_VIDEO_H264_PROFILE_HIGH,
-+	},
-+	.h265_params = {
-+		.level = V4L2_MPEG_VIDEO_HEVC_LEVEL_4,
-+		.profile = V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_STILL_PICTURE,
-+	},
-+	.vp9_params = {
-+		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_4_0,
-+		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_1,
-+	},
- };
 diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c
-index 5ecbfc169805..efcd28f5f289 100644
+index 748725e563d8..b72a22b15834 100644
 --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c
 +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c
-@@ -571,106 +571,49 @@ static const struct v4l2_ctrl_ops mtk_vcodec_dec_ctrl_ops = {
- static void mtk_vcodec_dec_fill_h264_level(struct v4l2_ctrl_config *cfg,
- 					   struct mtk_vcodec_dec_ctx *ctx)
- {
--	switch (ctx->dev->chip_model) {
--	case 8192:
--	case 8188:
--		cfg->max = V4L2_MPEG_VIDEO_H264_LEVEL_5_2;
--		break;
--	case 8195:
--	case 8196:
--		cfg->max = V4L2_MPEG_VIDEO_H264_LEVEL_6_0;
--		break;
--	case 8183:
--	case 8186:
--		cfg->max = V4L2_MPEG_VIDEO_H264_LEVEL_4_2;
--		break;
--	default:
--		cfg->max = V4L2_MPEG_VIDEO_H264_LEVEL_4_1;
--		break;
--	}
-+	struct mtk_vcodec_dec_dev *pdev = ctx->dev;
-+
-+	cfg->max = pdev->vdec_pdata->h264_params.level;
- }
- 
- static void mtk_vcodec_dec_fill_h264_profile(struct v4l2_ctrl_config *cfg,
- 					     struct mtk_vcodec_dec_ctx *ctx)
- {
--	switch (ctx->dev->chip_model) {
--	case 8188:
--	case 8195:
--	case 8196:
--		cfg->max = V4L2_MPEG_VIDEO_H264_PROFILE_HIGH_10;
--		break;
--	default:
--		cfg->max = V4L2_MPEG_VIDEO_H264_PROFILE_HIGH;
--		break;
--	}
-+	struct mtk_vcodec_dec_dev *pdev = ctx->dev;
-+
-+	cfg->max = pdev->vdec_pdata->h264_params.profile;
- }
- 
- static void mtk_vcodec_dec_fill_h265_level(struct v4l2_ctrl_config *cfg,
- 					   struct mtk_vcodec_dec_ctx *ctx)
- {
--	switch (ctx->dev->chip_model) {
--	case 8188:
--		cfg->max = V4L2_MPEG_VIDEO_HEVC_LEVEL_5_1;
--		break;
--	case 8195:
--	case 8196:
--		cfg->max = V4L2_MPEG_VIDEO_HEVC_LEVEL_5_2;
--		break;
--	default:
--		cfg->max = V4L2_MPEG_VIDEO_HEVC_LEVEL_4;
--		break;
--	}
-+	struct mtk_vcodec_dec_dev *pdev = ctx->dev;
-+
-+	cfg->max = pdev->vdec_pdata->h265_params.level;
- }
- 
- static void mtk_vcodec_dec_fill_h265_profile(struct v4l2_ctrl_config *cfg,
- 					     struct mtk_vcodec_dec_ctx *ctx)
- {
--	switch (ctx->dev->chip_model) {
--	case 8188:
--	case 8195:
--	case 8196:
--		cfg->max = V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_10;
--		break;
--	default:
--		cfg->max = V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_STILL_PICTURE;
--		break;
--	}
-+	struct mtk_vcodec_dec_dev *pdev = ctx->dev;
-+
-+	cfg->max = pdev->vdec_pdata->h265_params.profile;
- }
- 
- static void mtk_vcodec_dec_fill_vp9_level(struct v4l2_ctrl_config *cfg,
- 					  struct mtk_vcodec_dec_ctx *ctx)
- {
--	switch (ctx->dev->chip_model) {
--	case 8192:
--	case 8188:
--		cfg->max = V4L2_MPEG_VIDEO_VP9_LEVEL_5_1;
--		break;
--	case 8195:
--	case 8196:
--		cfg->max = V4L2_MPEG_VIDEO_VP9_LEVEL_5_2;
--		break;
--	case 8186:
--		cfg->max = V4L2_MPEG_VIDEO_VP9_LEVEL_4_1;
--		break;
--	default:
--		cfg->max = V4L2_MPEG_VIDEO_VP9_LEVEL_4_0;
--		break;
--	}
-+	struct mtk_vcodec_dec_dev *pdev = ctx->dev;
-+
-+	cfg->max = pdev->vdec_pdata->vp9_params.level;
- }
- 
- static void mtk_vcodec_dec_fill_vp9_profile(struct v4l2_ctrl_config *cfg,
- 					    struct mtk_vcodec_dec_ctx *ctx)
- {
--	switch (ctx->dev->chip_model) {
--	case 8188:
--	case 8195:
--	case 8196:
--		cfg->max = V4L2_MPEG_VIDEO_VP9_PROFILE_2;
--		break;
--	default:
--		cfg->max = V4L2_MPEG_VIDEO_VP9_PROFILE_1;
--		break;
--	}
-+	struct mtk_vcodec_dec_dev *pdev = ctx->dev;
-+
-+	cfg->max = pdev->vdec_pdata->vp9_params.profile;
- }
- 
- static void mtk_vcodec_dec_reset_controls(struct v4l2_ctrl_config *cfg,
-@@ -936,6 +879,18 @@ const struct mtk_vcodec_dec_pdata mtk_vdec_8183_pdata = {
- 	.is_subdev_supported = false,
- 	.hw_arch = MTK_VDEC_PURE_SINGLE_CORE,
- 	.chip_model = 8183,
-+	.h264_params = {
-+		.level = V4L2_MPEG_VIDEO_H264_LEVEL_4_2,
-+		.profile = V4L2_MPEG_VIDEO_H264_PROFILE_HIGH,
-+	},
-+	.h265_params = {
-+		.level = V4L2_MPEG_VIDEO_HEVC_LEVEL_4,
-+		.profile = V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_STILL_PICTURE,
-+	},
-+	.vp9_params = {
-+		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_4_0,
-+		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_1,
-+	},
+@@ -1041,3 +1041,22 @@ const struct mtk_vcodec_dec_pdata mtk_vdec_8186_pdata = {
+ 		.prob_size = VP9_PROB_BUF_SIZE,
+ 	},
  };
- 
- /* This platform data is used for one lat and one core architecture. */
-@@ -975,24 +930,72 @@ const struct mtk_vcodec_dec_pdata mtk_vdec_8188_pdata = {
- 	MTK_STATELESS_DEC_DATA,
- 	.hw_arch = MTK_VDEC_LAT_SINGLE_CORE,
- 	.chip_model = 8188,
++
++const struct mtk_vcodec_dec_pdata mtk_vdec_8189_pdata = {
++	MTK_STATELESS_DEC_DATA,
++	.hw_arch = MTK_VDEC_PURE_SINGLE_CORE,
++	.chip_model = 8189,
 +	.h264_params = {
 +		.level = V4L2_MPEG_VIDEO_H264_LEVEL_5_2,
 +		.profile = V4L2_MPEG_VIDEO_H264_PROFILE_HIGH_10,
 +	},
 +	.h265_params = {
-+		.level = V4L2_MPEG_VIDEO_HEVC_LEVEL_5_1,
-+		.profile = V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_10,
-+	},
-+	.vp9_params = {
-+		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_5_1,
-+		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_2,
-+	},
- };
- 
- const struct mtk_vcodec_dec_pdata mtk_vdec_8192_pdata = {
- 	MTK_STATELESS_DEC_DATA,
- 	.hw_arch = MTK_VDEC_LAT_SINGLE_CORE,
- 	.chip_model = 8192,
-+	.h264_params = {
-+		.level = V4L2_MPEG_VIDEO_H264_LEVEL_5_2,
-+		.profile = V4L2_MPEG_VIDEO_H264_PROFILE_HIGH,
-+	},
-+	.h265_params = {
 +		.level = V4L2_MPEG_VIDEO_HEVC_LEVEL_4,
 +		.profile = V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_STILL_PICTURE,
-+	},
-+	.vp9_params = {
-+		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_5_1,
-+		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_2,
-+	},
- };
- 
- const struct mtk_vcodec_dec_pdata mtk_vdec_8195_pdata = {
- 	MTK_STATELESS_DEC_DATA,
- 	.hw_arch = MTK_VDEC_LAT_SINGLE_CORE,
- 	.chip_model = 8195,
-+	.h264_params = {
-+		.level = V4L2_MPEG_VIDEO_H264_LEVEL_6_0,
-+		.profile = V4L2_MPEG_VIDEO_H264_PROFILE_HIGH_10,
-+	},
-+	.h265_params = {
-+		.level = V4L2_MPEG_VIDEO_HEVC_LEVEL_5_2,
-+		.profile = V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_10,
-+	},
-+	.vp9_params = {
-+		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_5_1,
-+		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_1,
-+	},
- };
- 
- const struct mtk_vcodec_dec_pdata mtk_vdec_8196_pdata = {
- 	MTK_STATELESS_DEC_DATA,
- 	.hw_arch = MTK_VDEC_LAT_SINGLE_CORE,
- 	.chip_model = 8196,
-+	.h264_params = {
-+		.level = V4L2_MPEG_VIDEO_H264_LEVEL_6_0,
-+		.profile = V4L2_MPEG_VIDEO_H264_PROFILE_HIGH_10,
-+	},
-+	.h265_params = {
-+		.level = V4L2_MPEG_VIDEO_HEVC_LEVEL_5_2,
-+		.profile = V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_10,
 +	},
 +	.vp9_params = {
 +		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_5_2,
 +		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_2,
++		.prob_size = VP9_4K_PROB_BUF_SIZE,
 +	},
- };
- 
- const struct mtk_vcodec_dec_pdata mtk_vdec_single_core_pdata = {
-@@ -1016,4 +1019,16 @@ const struct mtk_vcodec_dec_pdata mtk_vdec_8186_pdata = {
- 	MTK_STATELESS_DEC_DATA,
- 	.hw_arch = MTK_VDEC_PURE_SINGLE_CORE,
- 	.chip_model = 8186,
-+	.h264_params = {
-+		.level = V4L2_MPEG_VIDEO_H264_LEVEL_4_2,
-+		.profile = V4L2_MPEG_VIDEO_H264_PROFILE_HIGH,
-+	},
-+	.h265_params = {
-+		.level = V4L2_MPEG_VIDEO_HEVC_LEVEL_4,
-+		.profile = V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_STILL_PICTURE,
-+	},
-+	.vp9_params = {
-+		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_4_1,
-+		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_1,
-+	},
- };
++};
 -- 
 2.45.2
 
