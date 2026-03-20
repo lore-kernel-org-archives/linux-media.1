@@ -1,63 +1,63 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+Received: from sonic305-19.consmr.mail.ir2.yahoo.com (sonic305-19.consmr.mail.ir2.yahoo.com [77.238.177.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79ADD35AC09
-	for <linux-media@vger.kernel.org>; Fri, 20 Mar 2026 07:49:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D420F3451CF
+	for <linux-media@vger.kernel.org>; Fri, 20 Mar 2026 07:52:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.238.177.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773992960; cv=none; b=QHz9cUuNBfNEndsiAHje62v0Nv2g03eGJhJy95KOJ/iBV28xIz0EJJkmkxJMwVW1OlnbIroSv3erEE/tRaN6Uk09cjJknNRL5c6nNDjiRIYvfQCtpgOT1zWtcfe6iX/z5FZMCZTByy52+dg+ZE99ScG3+oPBLYj9Olkiy5iP29Q=
+	t=1773993139; cv=none; b=h3f4SvL07TDvfxIhAXi/tVBR5jwlDdEHlAT6u5hyjawkzjD6XLVyBxx1VtklVJyVh5eYV6OvLUit5GZN13Tgp43Ix6C+nKAa/a9X8aUgc/9ZlRExmqNf3v69LUL9+otv3L8stpHb6whQVJM+T9Su2dhKBtWlaOuGw/Q2udYmWBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773992960; c=relaxed/simple;
-	bh=dHOn47CxV3cioQiYZvZ36Ymk/HrieqiVTgJypVWy780=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qGTCaaTSMGx8nYeJWeDO6hLVKvqn09qAWOXcq2DwJiRukkikd7gwz28VfcJ/JViAP+59hHEaWxjnfl2X71gtamuxYnBGSzlN2H8mJuZ5vPRFOqAkrtnYRfprj3IGJ8YN3dd1r1+jrHTIptzVNXEbuVYYd3fxPGXjssdruQ/SHPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=T2Y3PmmE; arc=none smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1773993139; c=relaxed/simple;
+	bh=hQtt36PCM2IxbOJKeIbIzf5tc+4kHFr4xFRCx/uyxtA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
+	 References; b=sOGwkPUvxd7eceTmewAWTkpav3h+mxjh1fEEzK5Kn51sVXK6iyi+b0kwfwnl/m7AK7d7Z5aORWcSpCRup1NhHi54Zjy8vIfSdbRjOf4ulIy7tP1M0iQY/zGt+8r3fZ6NvMltxUCPrYlzDNYMM+ZBE38lgAU0G/yVwyegH9XedbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl; spf=pass smtp.mailfrom=yahoo.pl; dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b=Q+apeP6G; arc=none smtp.client-ip=77.238.177.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="T2Y3PmmE"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5a27a7f711eso1395640e87.2
-        for <linux-media@vger.kernel.org>; Fri, 20 Mar 2026 00:49:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1773992951; x=1774597751; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=IABUD8O3WXGeDB/bSNbuo2NmXQhI4RO1dp9++xxBliA=;
-        b=T2Y3PmmEEwOvKH5lj9elmQurMRuX+lS2KLLXLsM/vPIAxmrJ6kfXzDcXA5/Uyc7MFc
-         Z6oHYhbF2Bsd+x5OqpsaSQNinxPYfPdiBLVaoWUDMDMfGmXqOFPUWEP9KcraboFtty0p
-         4lkDbTIKh3YzvqubkcuUtypQCiQqH5mWnQCuQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773992951; x=1774597751;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IABUD8O3WXGeDB/bSNbuo2NmXQhI4RO1dp9++xxBliA=;
-        b=ZsMoptj89K6hV4UXgQD8OsT1AO9Kd/2PX5vkjWedbgls+cK1NeVdMKgmNjowXuX7J8
-         I73czHLcGzwcr+XNi0Wd+qvgeWElamTBPPTyywdpazHKQLTgNMKurhjuZnYTs3p0trGC
-         D/6tgwd4ftbt7JdggBtss/3xQh+wiULuABVJVKI5HJELQLdspFlF3AbOgCgb8W68Nirz
-         iMVv9xGaCbpEv1JgEY86V8k7PTZ7JNQZyKS9GtXiK0mXoQzx97zb5qa6+4AfgpFX+c4Q
-         hJXVM6SGwZmY9ElChKkQSZ0cTfxz98OjG11jtZZRSiAzkuhOGsjXYEhMPYVUAB4XXgxH
-         NaUQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVytbqWYANHNg2c+4ZPAdjKejzF6xTur/fTyfI/0o6XNdZKRvYm674VVaQejMXsFp/HSdU5A+BnMxr55Q==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwYN/0iot2vQCakhMzajBHxOiCx9WhkOFEhw1GwUkPaFlhnZ/+f
-	OVTNDUUo5/tKX75LgnJrIsdpq1NR4MHIVaQEoBkw8qA68Vd/pjdKY73bJ/jYwr9nYg==
-X-Gm-Gg: ATEYQzz6iK19K8ud6W1ngTR6rAxsypO0dPkgn0bLc6D8h0KMRVFFR7QQg6kXsRsFQpf
-	n+0XHiMxJzPslS2nPR0FO2WY9Xrplqhv9r9tkbeSYZ/59rF+/Hqpdb6j07RA68UHkMAKSEM7F7g
-	0TU9LI+BsJLSPFFnMFY3zPBy7mUz+clgq27pae+r4u7qexE3rpCWPwF540DmJ3Z1dDg4hY3spBZ
-	zfu8PYlAjZL89vddzkJoEBDjQhTXuH3A/W3Id2xzA6sw76SPQuHZnRhfKcRsOkJ6oy4Txst3KrJ
-	ftyeSkP2wZasw8ElWCm2nnRGKQJT/K3w+G4Mb61McSP89I05RY/Dj5ms93heWqup7Z2dBJL35/L
-	sJgcR65HfUiQvG7QI4udPKe15k1+1BL809wjV4+M+rRBiHbDfUkTVlM1wiU2lKzNyEBW1w4Kioq
-	97u1KmiLNEKQu/Es5U4QEbq+TZRDbWY8NY0TNdgkT4CSBsWUHbGuBkJ8asNTZ8/PNqOYzHNQs15
-	YxcJ+Y=
-X-Received: by 2002:a05:6512:a96:b0:5a1:30b2:f2c with SMTP id 2adb3069b0e04-5a285b9c469mr641994e87.42.1773992951332;
-        Fri, 20 Mar 2026 00:49:11 -0700 (PDT)
-Received: from ribalda.c.googlers.com (252.116.88.34.bc.googleusercontent.com. [34.88.116.252])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a28530ce68sm372272e87.80.2026.03.20.00.49.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Mar 2026 00:49:10 -0700 (PDT)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 20 Mar 2026 07:49:10 +0000
-Subject: [PATCH] media: uvcvideo: Fix bug in error path of
- uvc_alloc_urb_buffers
+	dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b="Q+apeP6G"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1773993136; bh=qaIP3Bm5N1Np7nlfDM2AVn4xKggzuJB4+xlmNs4SdDM=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=Q+apeP6GhfiCJ4kJ4uA5Yp4oNcPmq1D7CHG2eff5ixnSVG3WMx51zouG4qjpobOI2BjlMHKdUqiL0q0IcIonoOa8IQOoCXSbI1RTObx7J0fUnFptWzNAu/TVRB+zK+qhWaOQ/tNCfTDLyurrrrSlrdTMg4mXYrFdGsNoFSq7jLzDUtxNkUbMSTF9L29SdjQHvhfFB6rAGh/hZ4Amw5CMKO7xKLgHWCDvJXchfxQtnUBXRKZwCIZWcTcRUubxOZJD8lxFgLLa52nIfWw+uCYu6w/OxQ3Ex787e8A0I6AVgb1GjekaXAypcP1qzzkfyIURDzdw6W6a006c+PFKE1Clgg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1773993136; bh=qbyjOBpY/QBehufluacnVokLedjckAQpwTFDxlwpyZm=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=oDRcHI5snvhj3o2C5WUJrMYSwPwWRncrLG4Jq1tZKgU64+c3QuIG4LPmglUH/GsRPSoMN7q9YtQKOd3EIgpwpH5Gf30suupjpSYqmbF8Cj/IPjXKPzubJM3aNXlg5BnJEIsJ8aQbUczSSJ+OPjbukQ0LZZH6wY72HObhlKiI0XxUUK0YiyjgCTF54M87X4sO/80h0uIpupMi9nrwaq/JGwlIDbVg4yr6LtBFVykK/tyn5PjcZPE0SgyFCPTKd3tyYsKkUwOdJwndhi/mkZ6PQ6XoFVKl8tjBQSoeK9skQwwcC+X66mzhcvCoQtc7y6oTqO+9J0iOGBjulp72Pe9ixQ==
+X-YMail-OSG: xbEA50wVM1kVm1Uzr4fSe.ZfOMww5M16hnxak5l8PVIPmINZmOC5fxSekJylp7L
+ eA1AEVcNOv9ZIunPKp_Smt6Eo34bTTVgjF_O.Rf90.uOilgbACqn5zF0f44IFny133WJ1eM9LhEf
+ lv1ucbZPmLBx4UEIV6.bJxdVMvu.abVQfsbnHo9aGWETnFmdHnMQIYKxr0lDEyWcTcRS2NmB0hdw
+ G9dAz5Iol4UEMnYD9qm.BnROJf1Tfzuo0zeM7SJSY4eqRfse7cwv0uhNIl.HtXvd.o6vIHp8fArx
+ G7uDXQIIGbeCYZZHpG2bNXiVfmn6pm8xec_zJAEMGdqIpMHZCDchKeHhrBzE6EPOcPh0J_kdGAQA
+ QP7Z0DOHUXP5kRWK1mc.sU8kYl1fm3IWm6EACtaJ_qSAzkWlxI.Cjpv14APe1bRWYoVhI.CwhSBh
+ tr9XdOYuW8uxm1Yu6W5l9l5qgDf9NsdzjeMK57NJ7i_vctaOPPklZ6Y58DuH9wUbSPn8gWs72IoV
+ VwZjLIYOGs7drO6JlJ.wcJKEHJ6Q49SUANoja3OfSTFYEFaAoNt0yXreTWtO_.aHMn3PZNwVYR8H
+ iR0KIpfxdTdUNTFc6v3AnelaVH2Fxc2KDtp4LG1dK09DVyTJlTioNIomhwWVTs1fIy70N9jrMDP3
+ 8T0OQthoDOmS8.aTh_ZD211OAhGVuAOwkfhen_UJq_DySivfl8RlLrVMjAQHsE3VCQIs.4R9kt82
+ 9TsVdSHvaLdhQyl7lxhDVusfwCb.rTD_KZbuupEWgmxfEzjpnopB20lpmVk4SJWqb2ER.T7aigzL
+ vnb2YNTKxl63Lp0p9102tIi1bix.2K6XNlCqH5Z_t92OQGhUf1Jq40Fhdtq9dQKSqvqULpmHDP2H
+ hC9..UZPfrGRHAkJC00FtYa4kir4QHoiXxlwID3tCRRPmnyS7gexy.iQSugA1uVykC5MwFUy8RJZ
+ fE96WOIzsbyk6itHkzAtRd8MLxGG3hHamyZ29yhlfpjZM4ZN6oePz0urCyXM4KxSjbnSLhOtKdLf
+ ziSWp_8jKLxWiPgT7GkiA8r5CdZeUCSglgrWK4oLLP454zLe4UzdZf6xdSL6d8q8CDYYhotfLeRM
+ yZCPNGrHGtb.78C8qZ2vSvOraNI0Ze2udj7Xhz79eR5l4v0MbFDqKOT_Vo7HbJ5aZ8xFyhaarbXz
+ fO8G0rlKXEuyNxJEDwiwKaKY8arX82glvkGRzQpuzhU7s1LbRj_ow3P0qIEI4wnfJFaZjpFrY1YZ
+ AzaxDh9GTnqxRomnL101HtUMAz9QRmF2QnUmjk3GK9.6HL9ItT1CFvLKBslWVa4hamjrKZmJ7V.j
+ LCH5BwttU8VLnP7Rl6fOWMBC4.Igi_pzfSNR5Qem_Cfdnpp9oZAGpjduHNGx7TzA3.AeCqRvKGM8
+ JlGyLfDLVsR4quOjNFpFScub418qk5YMEDLeqrwLFMXJg9CI2H9q6am3tt.251kZWvvcM3GIgZNU
+ BeKqUmrzm0y8xyS6t598aWK.vuwXTNKae9Ehtqsdh.6MGixHuu3FgW8XUcaabkipP9G.IrRLOSXX
+ dq6mVU31b2LGUNavkyEOU00fRmb3JwfktMlB5sUC7E6bxhIjMZDEjboQRYGSe6S3HdG3.D6T41qs
+ Cg_kGnVKD6VKGqFmYjwX0J4TdcvzXDz5eMDtnuhHKi5IYrKIlPi8NNH.oAhfHVVfARfKJPX9SE3l
+ Iy_togCLg.0Ko4JRDkHhUrrXFbEocTD0L3qQkPdVYGSgH6eWADRdrt0pI.eE6pwrUhRnR61b12Jr
+ s9pGB.Brdx1ldMGTjdZ80l5Hm.X.VAW.zbfcu3gC8_lKymn.xXKxtsRpWJkAMjstHU_9OT3p2c4O
+ wnyFmXFatu7j7NyBHzvpUnsnLm4MVFJBU5I1inGMDlu_q7feAabVaRX0oETAZpG3_gMi6Ziu_cmd
+ yF5oN6dg7elSW9_lFdQpZ2_HTweaMfJpYpw4FMoB6qVvcQNL9QGIC4lVBoMf8OZshbT51J2sNoNC
+ 5uDDFfx6WEZ3fn00eOrA6_FDKDGasJpLpM8.J2s_62GHz0uPleMVgGykPCsLxi8_KMC2_nRxz02X
+ a6eVbQ1ld9AUts_OCnqmgq_4iOUZuvhae8wTW4JQ.RFjhvgKsvKhlFtrg8TMe6UeEqPl68WQ8TWy
+ B0txJy7aSYzqkBKAhbsYKBNwl_X2pCoKHs0fg46N4WwDvrgr0u0.3mfD9MF77IiNgpMYD7OSzWf7
+ TGw19_SIQ9pPMBCjEi97XpzUtgtrsCqOX84.d_l3nnmbVelLK1BX_XeZSCWEzOLI9l3AojDYkA8h
+ LBeN5nJYa36eRjPLmAaCa6JQZ2qowWWt4fiSOxvM-
+X-Sonic-MF: <tomasz.unger@yahoo.pl>
+X-Sonic-ID: b2cda573-15ac-4c3b-9a70-1d02571b337e
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic305.consmr.mail.ir2.yahoo.com with HTTP; Fri, 20 Mar 2026 07:52:16 +0000
+Received: by hermes--production-ir2-bbcfb4457-796l5 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 28e8f1a3e0417791532239883a375e71;
+          Fri, 20 Mar 2026 07:31:56 +0000 (UTC)
+From: Tomasz Unger <tomasz.unger@yahoo.pl>
+Date: Fri, 20 Mar 2026 08:31:54 +0100
+Subject: [PATCH] staging: media: av7110: remove dead code in av7110.c
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -65,92 +65,53 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260320-uvc-urb-free-error-v1-1-b12cc3762a19@chromium.org>
-X-B4-Tracking: v=1; b=H4sIAPX7vGkC/x3MOwqAMBBF0a3I1A7kAxHciliY+KLTqExQBHHvB
- stT3PtQgQoK9c1DikuK7FuFbRtK67QtYJmryRkXjHeGzyvxqZGzAgzVXRmdj3aONsBZquGhyHL
- /02F83w9RAs7mZAAAAA==
-X-Change-ID: 20260320-uvc-urb-free-error-e73b1db16e21
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ricardo Ribalda <ribalda@chromium.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260320-av7110-dead-code-v1-1-70ad36eba662@yahoo.pl>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqAMAxF0a1IxgbS+sWtiINinpqJSgsiiHu3O
+ DyDex9KiIZEQ/FQxGXJjj3DlQXNW9hXsGk2efGtVF44XJ1zwoqgPB8KRiPB142i6oVydkYsdv/
+ LcXrfD8Rl1fNiAAAA
+X-Change-ID: 20260320-av7110-dead-code-e50a245de380
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Tomasz Unger <tomasz.unger@yahoo.pl>
 X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1773991916; l=878;
+ i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
+ bh=hQtt36PCM2IxbOJKeIbIzf5tc+4kHFr4xFRCx/uyxtA=;
+ b=+6MqPfiAxchkRWEEu+A72/e+IynS+DBpExyXwmrfXnun41uoIZJubyx5msgfF6KfY+SpgfeN0
+ JAmzSNwVU2uB2/sSD/aeLvyzEg88QimR2E3su+GWHsv60hYa7cRx/wu
+X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
+ pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
+References: <20260320-av7110-dead-code-v1-1-70ad36eba662.ref@yahoo.pl>
 
-Recent cleanup introduced a bug in the error path of
-uvc_alloc_urb_buffers(). If there is not enough memory for the
-allocation the following error will be triggered:
+Remove commented-out line of dead code that serves no purpose.
 
-[  739.196672] UBSAN: shift-out-of-bounds in mm/page_alloc.c:1403:22
-[  739.196710] shift exponent 52 is too large for 32-bit type 'int'
-
-Resulting in:
-[  740.464422] BUG: unable to handle page fault for address: fffffac1c0800000
-
-The reason for the bug is that usb_free_noncoherent is called with an
-invalid size (0) instead of the actual size of the urb.
-
-This patch takes care of that.
-
-Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Closes: https://lore.kernel.org/linux-media/abycbXzYupZpGkvR@hyeyoo/T/#t
-Tested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Fixes: c824345288d1 ("media: uvcvideo: Pass allocation size directly to uvc_alloc_urb_buffer")
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
 ---
- drivers/media/usb/uvc/uvc_video.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+Checked with scripts/checkpatch.pl - no errors, no warnings.
+---
+ drivers/staging/media/av7110/av7110.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index 40c76c051da2..f6c8e3223796 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -1751,7 +1751,8 @@ static void uvc_video_complete(struct urb *urb)
- /*
-  * Free transfer buffers.
-  */
--static void uvc_free_urb_buffers(struct uvc_streaming *stream)
-+static void uvc_free_urb_buffers(struct uvc_streaming *stream,
-+				 unsigned int size)
- {
- 	struct usb_device *udev = stream->dev->udev;
- 	struct uvc_urb *uvc_urb;
-@@ -1760,7 +1761,7 @@ static void uvc_free_urb_buffers(struct uvc_streaming *stream)
- 		if (!uvc_urb->buffer)
- 			continue;
+diff --git a/drivers/staging/media/av7110/av7110.c b/drivers/staging/media/av7110/av7110.c
+index 607992100baf..c4d54d10d753 100644
+--- a/drivers/staging/media/av7110/av7110.c
++++ b/drivers/staging/media/av7110/av7110.c
+@@ -762,7 +762,6 @@ static int StartHWFilter(struct dvb_demux_filter *dvbdmxfilter)
+ 	u16 buf[20];
+ 	int ret, i;
+ 	u16 handle;
+-//	u16 mode = 0x0320;
+ 	u16 mode = 0xb96a;
  
--		usb_free_noncoherent(udev, stream->urb_size, uvc_urb->buffer,
-+		usb_free_noncoherent(udev, size, uvc_urb->buffer,
- 				     uvc_stream_dir(stream), uvc_urb->sgt);
- 		uvc_urb->buffer = NULL;
- 		uvc_urb->sgt = NULL;
-@@ -1820,7 +1821,7 @@ static int uvc_alloc_urb_buffers(struct uvc_streaming *stream,
- 
- 			if (!uvc_alloc_urb_buffer(stream, uvc_urb, urb_size,
- 						  gfp_flags)) {
--				uvc_free_urb_buffers(stream);
-+				uvc_free_urb_buffers(stream, urb_size);
- 				break;
- 			}
- 
-@@ -1868,7 +1869,7 @@ static void uvc_video_stop_transfer(struct uvc_streaming *stream,
- 	}
- 
- 	if (free_buffers)
--		uvc_free_urb_buffers(stream);
-+		uvc_free_urb_buffers(stream, stream->urb_size);
- }
- 
- /*
+ 	dprintk(4, "%p\n", av7110);
 
 ---
-base-commit: a93a51f42ac354425a252210183c4151d991f75d
-change-id: 20260320-uvc-urb-free-error-e73b1db16e21
+base-commit: 82e1c68ac206efe42854296c462aa83f541ea22c
+change-id: 20260320-av7110-dead-code-e50a245de380
 
 Best regards,
 -- 
-Ricardo Ribalda <ribalda@chromium.org>
+Tomasz Unger <tomasz.unger@yahoo.pl>
 
