@@ -1,44 +1,77 @@
-Received: from face.ufmg.br (franco.face.ufmg.br [150.164.83.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F8B33D4F2
-	for <linux-media@vger.kernel.org>; Fri, 20 Mar 2026 09:03:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.164.83.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE65D345CAF;
+	Fri, 20 Mar 2026 09:10:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773997389; cv=none; b=Ly9lYJWdHMbsW/veBLyd6a3BpH/waQmoRV272/tkfKrdjEV44miBcr6mbcM2zQs7SoA09qzJBdmttoCXO6zW7nf5/6nVirU28UIQMdD1nw3o83CPcHKjbW00pQyrQh5vZuubqk8998tWCr+cxmZpnHKBDwJPT4RzIvYR2FD+v1A=
+	t=1773997840; cv=none; b=K5NhgPbGuK85yVmrlvB1rNQRXxFNqQ5yK3kKvELTSac/lWl7bVZF0m3PUqoVCC5d+sehtcq0HMqkvPPyQJ80494C0pV4jQpcr5OL72nwpBfBiSWWmZGLu5NQQ8jOwhfGXCx5EJFnBBW4asN2YzAcgMJyJMv55gndcnBV4/zT1Nw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773997389; c=relaxed/simple;
-	bh=x9rE8K0sxswLYVa6jc/bFPb5sRPeTZmo6IQeflQUOX8=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=oyIWT3m8fWp+PRaT9+uFYeVP/LOFEx0fzkd/5Dus1ObXO/XvpFPGJQ3Sd93w8BnDIDNK9peQA6P2LNf1d78OrUMU5DBXz4M9J1UMaxHzFGe5iWnJqQSTvANeK81hVh2XaIUSwDSqSMcD+CUpBD2A3VtD4aF9tYe1XXovOe5iaFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=face.ufmg.br; spf=pass smtp.mailfrom=face.ufmg.br; dkim=pass (1024-bit key) header.d=face.ufmg.br header.i=@face.ufmg.br header.b=Dad9lkV8; arc=none smtp.client-ip=150.164.83.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=face.ufmg.br
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=face.ufmg.br
+	s=arc-20240116; t=1773997840; c=relaxed/simple;
+	bh=PNOisM2kgw/GdUFX85mllyLkoEQu+1U1Y0mPVUR9LaM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u2f1YkgRgyhtEQir+bOdnShTjYB7r8M2T5cEV3b8P42cfuY8whZ8d1jc8rdUXMpAZ8mZETG+RKUV8a9pSY0pl3kcJ2rhC830huu0ncCgailOWMY23jC6I62TOEeQhYZ7V6fBakJPitm07vhwVXOHZ/0o7OFB0gAj65nvLnotNDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=owSuaNZb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=face.ufmg.br header.i=@face.ufmg.br header.b="Dad9lkV8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=face.ufmg.br;
-	s=default; t=1773997372;
-	bh=x9rE8K0sxswLYVa6jc/bFPb5sRPeTZmo6IQeflQUOX8=;
-	h=Reply-To:From:To:Subject:Date:From;
-	b=Dad9lkV8Q5aidwNybuH6b6Ovm97eyVxSv2t9CoH6WHq1zo5u5Y4JYecTB5AMv4j7p
-	 a6mjJwxVQ0XmKqNw8pUZMV2ai6XNU9RdRU2f6mftP+Fv4zsFEfch+fW9llyrR75dFW
-	 3sZb3ARzszXXysY6ftC1b8ksydTduPVkgD1RHaYs=
-Reply-To: Randettacarlos@hotmail.com
-From: Ms Randetta Carlos<cmvieira@face.ufmg.br>
-To: linux-media@vger.kernel.org
-Subject: A Prompt Confirmation Of Receipt Would Be Appreciated
-Date: 20 Mar 2026 02:02:51 -0700
-Message-ID: <20260320020251.423AC09875232741@face.ufmg.br>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="owSuaNZb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EE86C2BC9E;
+	Fri, 20 Mar 2026 09:10:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1773997840;
+	bh=PNOisM2kgw/GdUFX85mllyLkoEQu+1U1Y0mPVUR9LaM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=owSuaNZbkxX3OpA0mUNk6Ac8jQumQtE4MEHFVJAZoryw3gQMB5oDuBM0nzSOrIv0N
+	 W60EaG+2UfHiqT9ZHRu+rpGtwlPh8NA9cwb8vz1gGQvs7XoKJPBtAU9ZZcQz8b5FWl
+	 HQXQhblqNmXz3d8VUmnugMUk15c+salGvt9kB8qJdoI6Fq9dLU2SjnSC3jUfM8iien
+	 yEJbwps7wXns7B2ZROMCThEbZ9mewXizpf2bwVkiAqJhN60Jj3Xia/WDOlUhA3/aNL
+	 B3wqKNkmamcT4089jQpY7ihM/orNfKaNSSJCsk8Mt6PbfRR0hiN0+w9Ifj3jbU2ETx
+	 tSf0GuB3sOeew==
+Date: Fri, 20 Mar 2026 10:10:37 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Wangao Wang <wangao.wang@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/5] dt-bindings: media: qcom,sm8550-iris: Add
+ X1P42100 compatible
+Message-ID: <20260320-honored-kangaroo-of-merriment-fd03c4@quoll>
+References: <20260319-enable_iris_on_purwa-v3-0-bf8f3e9a8c9c@oss.qualcomm.com>
+ <20260319-enable_iris_on_purwa-v3-1-bf8f3e9a8c9c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260319-enable_iris_on_purwa-v3-1-bf8f3e9a8c9c@oss.qualcomm.com>
 
-Hello, I am Mrs  Randetta Carlos from Turkey, serving in the=20
-military Airforce. I have a profitable proposal for you, Kindly=20
-acknowledge receipt of this email for further details.Please=20
-contact me at Randettacarlos@hotmail.com Thank you.
+On Thu, Mar 19, 2026 at 05:23:53PM +0800, Wangao Wang wrote:
+> Document the new compatible string "qcom,x1p42100-iris".
+> 
+> The hardware shares the same IP block and binding as SM8550, but is
+> described by a separate compatible string due to differences in the
+> clock topology.
+
+It would be described by a separate compatible even if clock topology
+was identical, so false implication. Drop the incorrect part and just
+describe the hardware.
+
+> 
+> In particular, x1p42100 adds an additional clock for the Bitstream
+> Engine (BSE), which is not present on SM8550. This clock requires
+> explicit enable/disable handling and frequency configuration, so it
+> cannot fall back to sm8550.
+
+So same IP block implies devices are compatible, but you say they are
+not. How is the BSE clock handled in SM8550 in such case?
+
+
+Best regards,
+Krzysztof
+
