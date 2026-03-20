@@ -1,117 +1,164 @@
-Received: from sonic305-19.consmr.mail.ir2.yahoo.com (sonic305-19.consmr.mail.ir2.yahoo.com [77.238.177.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D420F3451CF
-	for <linux-media@vger.kernel.org>; Fri, 20 Mar 2026 07:52:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.238.177.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FFBB3644C9
+	for <linux-media@vger.kernel.org>; Fri, 20 Mar 2026 07:59:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773993139; cv=none; b=h3f4SvL07TDvfxIhAXi/tVBR5jwlDdEHlAT6u5hyjawkzjD6XLVyBxx1VtklVJyVh5eYV6OvLUit5GZN13Tgp43Ix6C+nKAa/a9X8aUgc/9ZlRExmqNf3v69LUL9+otv3L8stpHb6whQVJM+T9Su2dhKBtWlaOuGw/Q2udYmWBQ=
+	t=1773993604; cv=none; b=JgaDLXcfkP6gQrbEtVBH1uDSHJKYSjtI/x5awgwzdTghFhl9XwJrDryLhHkrf5AKQXLzFaz2SsCBzvVQ7S+HI74QrOwdR/csKmUrmFFEuCis8AEkBZjffnpEu0mxbu39yjwJ1EP3p/vqQ70cW/GNfDjdkX7d/mM5PutJOcDesPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773993139; c=relaxed/simple;
-	bh=hQtt36PCM2IxbOJKeIbIzf5tc+4kHFr4xFRCx/uyxtA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
-	 References; b=sOGwkPUvxd7eceTmewAWTkpav3h+mxjh1fEEzK5Kn51sVXK6iyi+b0kwfwnl/m7AK7d7Z5aORWcSpCRup1NhHi54Zjy8vIfSdbRjOf4ulIy7tP1M0iQY/zGt+8r3fZ6NvMltxUCPrYlzDNYMM+ZBE38lgAU0G/yVwyegH9XedbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl; spf=pass smtp.mailfrom=yahoo.pl; dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b=Q+apeP6G; arc=none smtp.client-ip=77.238.177.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
+	s=arc-20240116; t=1773993604; c=relaxed/simple;
+	bh=HPpGwfuFzXf1sMOcck8YSRZm2+TSPrhGY9dG07VqcUc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=oCd6Eg+fLB4EMZ2os+/1X5PPwo4whPXeJhA9pCjGsRJ3RVGVGC0oFgo9DWvlNe3GElCVMp+pEkazzJCeXxZ2GtNoGrSITj09CtpAYf7fcyYr1E4qLgCrw2n49833KiMtfOYdojoH//7GBlyxEtB3kH7MG+ez2MplxJ4hGX3HMAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=Pscm422y; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b="Q+apeP6G"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1773993136; bh=qaIP3Bm5N1Np7nlfDM2AVn4xKggzuJB4+xlmNs4SdDM=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=Q+apeP6GhfiCJ4kJ4uA5Yp4oNcPmq1D7CHG2eff5ixnSVG3WMx51zouG4qjpobOI2BjlMHKdUqiL0q0IcIonoOa8IQOoCXSbI1RTObx7J0fUnFptWzNAu/TVRB+zK+qhWaOQ/tNCfTDLyurrrrSlrdTMg4mXYrFdGsNoFSq7jLzDUtxNkUbMSTF9L29SdjQHvhfFB6rAGh/hZ4Amw5CMKO7xKLgHWCDvJXchfxQtnUBXRKZwCIZWcTcRUubxOZJD8lxFgLLa52nIfWw+uCYu6w/OxQ3Ex787e8A0I6AVgb1GjekaXAypcP1qzzkfyIURDzdw6W6a006c+PFKE1Clgg==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1773993136; bh=qbyjOBpY/QBehufluacnVokLedjckAQpwTFDxlwpyZm=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=oDRcHI5snvhj3o2C5WUJrMYSwPwWRncrLG4Jq1tZKgU64+c3QuIG4LPmglUH/GsRPSoMN7q9YtQKOd3EIgpwpH5Gf30suupjpSYqmbF8Cj/IPjXKPzubJM3aNXlg5BnJEIsJ8aQbUczSSJ+OPjbukQ0LZZH6wY72HObhlKiI0XxUUK0YiyjgCTF54M87X4sO/80h0uIpupMi9nrwaq/JGwlIDbVg4yr6LtBFVykK/tyn5PjcZPE0SgyFCPTKd3tyYsKkUwOdJwndhi/mkZ6PQ6XoFVKl8tjBQSoeK9skQwwcC+X66mzhcvCoQtc7y6oTqO+9J0iOGBjulp72Pe9ixQ==
-X-YMail-OSG: xbEA50wVM1kVm1Uzr4fSe.ZfOMww5M16hnxak5l8PVIPmINZmOC5fxSekJylp7L
- eA1AEVcNOv9ZIunPKp_Smt6Eo34bTTVgjF_O.Rf90.uOilgbACqn5zF0f44IFny133WJ1eM9LhEf
- lv1ucbZPmLBx4UEIV6.bJxdVMvu.abVQfsbnHo9aGWETnFmdHnMQIYKxr0lDEyWcTcRS2NmB0hdw
- G9dAz5Iol4UEMnYD9qm.BnROJf1Tfzuo0zeM7SJSY4eqRfse7cwv0uhNIl.HtXvd.o6vIHp8fArx
- G7uDXQIIGbeCYZZHpG2bNXiVfmn6pm8xec_zJAEMGdqIpMHZCDchKeHhrBzE6EPOcPh0J_kdGAQA
- QP7Z0DOHUXP5kRWK1mc.sU8kYl1fm3IWm6EACtaJ_qSAzkWlxI.Cjpv14APe1bRWYoVhI.CwhSBh
- tr9XdOYuW8uxm1Yu6W5l9l5qgDf9NsdzjeMK57NJ7i_vctaOPPklZ6Y58DuH9wUbSPn8gWs72IoV
- VwZjLIYOGs7drO6JlJ.wcJKEHJ6Q49SUANoja3OfSTFYEFaAoNt0yXreTWtO_.aHMn3PZNwVYR8H
- iR0KIpfxdTdUNTFc6v3AnelaVH2Fxc2KDtp4LG1dK09DVyTJlTioNIomhwWVTs1fIy70N9jrMDP3
- 8T0OQthoDOmS8.aTh_ZD211OAhGVuAOwkfhen_UJq_DySivfl8RlLrVMjAQHsE3VCQIs.4R9kt82
- 9TsVdSHvaLdhQyl7lxhDVusfwCb.rTD_KZbuupEWgmxfEzjpnopB20lpmVk4SJWqb2ER.T7aigzL
- vnb2YNTKxl63Lp0p9102tIi1bix.2K6XNlCqH5Z_t92OQGhUf1Jq40Fhdtq9dQKSqvqULpmHDP2H
- hC9..UZPfrGRHAkJC00FtYa4kir4QHoiXxlwID3tCRRPmnyS7gexy.iQSugA1uVykC5MwFUy8RJZ
- fE96WOIzsbyk6itHkzAtRd8MLxGG3hHamyZ29yhlfpjZM4ZN6oePz0urCyXM4KxSjbnSLhOtKdLf
- ziSWp_8jKLxWiPgT7GkiA8r5CdZeUCSglgrWK4oLLP454zLe4UzdZf6xdSL6d8q8CDYYhotfLeRM
- yZCPNGrHGtb.78C8qZ2vSvOraNI0Ze2udj7Xhz79eR5l4v0MbFDqKOT_Vo7HbJ5aZ8xFyhaarbXz
- fO8G0rlKXEuyNxJEDwiwKaKY8arX82glvkGRzQpuzhU7s1LbRj_ow3P0qIEI4wnfJFaZjpFrY1YZ
- AzaxDh9GTnqxRomnL101HtUMAz9QRmF2QnUmjk3GK9.6HL9ItT1CFvLKBslWVa4hamjrKZmJ7V.j
- LCH5BwttU8VLnP7Rl6fOWMBC4.Igi_pzfSNR5Qem_Cfdnpp9oZAGpjduHNGx7TzA3.AeCqRvKGM8
- JlGyLfDLVsR4quOjNFpFScub418qk5YMEDLeqrwLFMXJg9CI2H9q6am3tt.251kZWvvcM3GIgZNU
- BeKqUmrzm0y8xyS6t598aWK.vuwXTNKae9Ehtqsdh.6MGixHuu3FgW8XUcaabkipP9G.IrRLOSXX
- dq6mVU31b2LGUNavkyEOU00fRmb3JwfktMlB5sUC7E6bxhIjMZDEjboQRYGSe6S3HdG3.D6T41qs
- Cg_kGnVKD6VKGqFmYjwX0J4TdcvzXDz5eMDtnuhHKi5IYrKIlPi8NNH.oAhfHVVfARfKJPX9SE3l
- Iy_togCLg.0Ko4JRDkHhUrrXFbEocTD0L3qQkPdVYGSgH6eWADRdrt0pI.eE6pwrUhRnR61b12Jr
- s9pGB.Brdx1ldMGTjdZ80l5Hm.X.VAW.zbfcu3gC8_lKymn.xXKxtsRpWJkAMjstHU_9OT3p2c4O
- wnyFmXFatu7j7NyBHzvpUnsnLm4MVFJBU5I1inGMDlu_q7feAabVaRX0oETAZpG3_gMi6Ziu_cmd
- yF5oN6dg7elSW9_lFdQpZ2_HTweaMfJpYpw4FMoB6qVvcQNL9QGIC4lVBoMf8OZshbT51J2sNoNC
- 5uDDFfx6WEZ3fn00eOrA6_FDKDGasJpLpM8.J2s_62GHz0uPleMVgGykPCsLxi8_KMC2_nRxz02X
- a6eVbQ1ld9AUts_OCnqmgq_4iOUZuvhae8wTW4JQ.RFjhvgKsvKhlFtrg8TMe6UeEqPl68WQ8TWy
- B0txJy7aSYzqkBKAhbsYKBNwl_X2pCoKHs0fg46N4WwDvrgr0u0.3mfD9MF77IiNgpMYD7OSzWf7
- TGw19_SIQ9pPMBCjEi97XpzUtgtrsCqOX84.d_l3nnmbVelLK1BX_XeZSCWEzOLI9l3AojDYkA8h
- LBeN5nJYa36eRjPLmAaCa6JQZ2qowWWt4fiSOxvM-
-X-Sonic-MF: <tomasz.unger@yahoo.pl>
-X-Sonic-ID: b2cda573-15ac-4c3b-9a70-1d02571b337e
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic305.consmr.mail.ir2.yahoo.com with HTTP; Fri, 20 Mar 2026 07:52:16 +0000
-Received: by hermes--production-ir2-bbcfb4457-796l5 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 28e8f1a3e0417791532239883a375e71;
-          Fri, 20 Mar 2026 07:31:56 +0000 (UTC)
-From: Tomasz Unger <tomasz.unger@yahoo.pl>
-Date: Fri, 20 Mar 2026 08:31:54 +0100
-Subject: [PATCH] staging: media: av7110: remove dead code in av7110.c
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="Pscm422y"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260320075952euoutp01b4b121403ee2b64d27192cdbb78ee9a3~efcXl6AFz1401214012euoutp01Q
+	for <linux-media@vger.kernel.org>; Fri, 20 Mar 2026 07:59:52 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260320075952euoutp01b4b121403ee2b64d27192cdbb78ee9a3~efcXl6AFz1401214012euoutp01Q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1773993592;
+	bh=bagVJH+MEvrpzI0KecUI8aBmeZE84fBwnnlwBT7sG9I=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=Pscm422ye0MT5g/mYXfjxJpczYYq2KnO0AAsBJmHHmY1m/gKGzuOFbOCBF/6afiIF
+	 edTrwG2OKaoas2e2mR7aXNz6fmNxb/3doFWD3qa/iHu2btNIrNlShTBsySYrAcD3/e
+	 edu6osNO8TfDYxaYUhMMiUfByRPOF9uC8nAGP9xk=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260320075951eucas1p2ee4f774eec93464aa99acb3509bfd4a7~efcXOCUOP0250502505eucas1p26;
+	Fri, 20 Mar 2026 07:59:51 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260320075950eusmtip1136c02642e2399f808c9bfd2329dbaf5~efcWgSL8Q0430404304eusmtip1f;
+	Fri, 20 Mar 2026 07:59:50 +0000 (GMT)
+Message-ID: <7b2a7e76-9025-41b8-8136-7af867d8146d@samsung.com>
+Date: Fri, 20 Mar 2026 08:59:50 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Betterbird (Windows)
+Subject: Re: [RFC PATCH] media: vb2: use ssize_t for vb2_read/vb2_write
+To: Zile Xiong <xiongzile99@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Hans Verkuil
+	<hverkuil@kernel.org>
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20260320065445.75351-1-xiongzile99@gmail.com>
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260320-av7110-dead-code-v1-1-70ad36eba662@yahoo.pl>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqAMAxF0a1IxgbS+sWtiINinpqJSgsiiHu3O
- DyDex9KiIZEQ/FQxGXJjj3DlQXNW9hXsGk2efGtVF44XJ1zwoqgPB8KRiPB142i6oVydkYsdv/
- LcXrfD8Rl1fNiAAAA
-X-Change-ID: 20260320-av7110-dead-code-e50a245de380
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Tomasz Unger <tomasz.unger@yahoo.pl>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1773991916; l=878;
- i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
- bh=hQtt36PCM2IxbOJKeIbIzf5tc+4kHFr4xFRCx/uyxtA=;
- b=+6MqPfiAxchkRWEEu+A72/e+IynS+DBpExyXwmrfXnun41uoIZJubyx5msgfF6KfY+SpgfeN0
- JAmzSNwVU2uB2/sSD/aeLvyzEg88QimR2E3su+GWHsv60hYa7cRx/wu
-X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
- pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
-References: <20260320-av7110-dead-code-v1-1-70ad36eba662.ref@yahoo.pl>
+X-CMS-MailID: 20260320075951eucas1p2ee4f774eec93464aa99acb3509bfd4a7
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260320065508eucas1p10be4e6428076c2f2d396eb4474d64935
+X-EPHeader: CA
+X-CMS-RootMailID: 20260320065508eucas1p10be4e6428076c2f2d396eb4474d64935
+References: <CGME20260320065508eucas1p10be4e6428076c2f2d396eb4474d64935@eucas1p1.samsung.com>
+	<20260320065445.75351-1-xiongzile99@gmail.com>
 
-Remove commented-out line of dead code that serves no purpose.
+On 20.03.2026 07:54, Zile Xiong wrote:
+> vb2_read() and vb2_write() return size_t, but propagate
+> negative errno values from __vb2_perform_fileio().
+>
+> This relies on implicit signed/unsigned conversions in callers
+> (e.g. vb2_fop_read()) to recover error codes:
+>
+>      __vb2_perform_fileio() -> -EINVAL
+>      vb2_read()             -> (size_t)-EINVAL
+>      vb2_fop_read()         -> -EINVAL
+>
+> This relies on implicit conversions that are not obvious.
+>
+> These helpers are exported (EXPORT_SYMBOL_GPL) and part of the
+> vb2 API, so changing their return type may affect existing users.
+>
+> However, they conceptually follow read/write semantics, where
+> ssize_t is typically used to return either a byte count or a
+> negative error code.
+>
+> Switch vb2_read() and vb2_write() to ssize_t, and update
+> __vb2_perform_fileio() accordingly.
+>
+> This is an RFC to gather feedback.
+>
+> Signed-off-by: Zile Xiong <xiongzile99@gmail.com>
 
-Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
----
-Checked with scripts/checkpatch.pl - no errors, no warnings.
----
- drivers/staging/media/av7110/av7110.c | 1 -
- 1 file changed, 1 deletion(-)
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
 
-diff --git a/drivers/staging/media/av7110/av7110.c b/drivers/staging/media/av7110/av7110.c
-index 607992100baf..c4d54d10d753 100644
---- a/drivers/staging/media/av7110/av7110.c
-+++ b/drivers/staging/media/av7110/av7110.c
-@@ -762,7 +762,6 @@ static int StartHWFilter(struct dvb_demux_filter *dvbdmxfilter)
- 	u16 buf[20];
- 	int ret, i;
- 	u16 handle;
--//	u16 mode = 0x0320;
- 	u16 mode = 0xb96a;
- 
- 	dprintk(4, "%p\n", av7110);
+vb2_fop_read() and vb2_fop_write() return ssize_t type, so the same 
+should be used for vb2_read() and vb2_write(), as well as 
+__vb2_perform_fileio(). This issue was there from the beginning of this 
+code, so it would make sense to add:
 
----
-base-commit: 82e1c68ac206efe42854296c462aa83f541ea22c
-change-id: 20260320-av7110-dead-code-e50a245de380
+Fixes: b25748fe6126 ("[media] v4l: videobuf2: add read() and write() 
+emulator")
 
-Best regards,
+> ---
+>   drivers/media/common/videobuf2/videobuf2-core.c | 6 +++---
+>   include/media/videobuf2-core.h                  | 4 ++--
+>   2 files changed, 5 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+> index adf668b213c2..8a2b8156e9da 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-core.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
+> @@ -2990,7 +2990,7 @@ static int __vb2_cleanup_fileio(struct vb2_queue *q)
+>    * @nonblock:	mode selector (1 means blocking calls, 0 means nonblocking)
+>    * @read:	access mode selector (1 means read, 0 means write)
+>    */
+> -static size_t __vb2_perform_fileio(struct vb2_queue *q, char __user *data, size_t count,
+> +static ssize_t __vb2_perform_fileio(struct vb2_queue *q, char __user *data, size_t count,
+>   		loff_t *ppos, int nonblock, int read)
+>   {
+>   	struct vb2_fileio_data *fileio;
+> @@ -3154,14 +3154,14 @@ static size_t __vb2_perform_fileio(struct vb2_queue *q, char __user *data, size_
+>   	return ret;
+>   }
+>   
+> -size_t vb2_read(struct vb2_queue *q, char __user *data, size_t count,
+> +ssize_t vb2_read(struct vb2_queue *q, char __user *data, size_t count,
+>   		loff_t *ppos, int nonblocking)
+>   {
+>   	return __vb2_perform_fileio(q, data, count, ppos, nonblocking, 1);
+>   }
+>   EXPORT_SYMBOL_GPL(vb2_read);
+>   
+> -size_t vb2_write(struct vb2_queue *q, const char __user *data, size_t count,
+> +ssize_t vb2_write(struct vb2_queue *q, const char __user *data, size_t count,
+>   		loff_t *ppos, int nonblocking)
+>   {
+>   	return __vb2_perform_fileio(q, (char __user *) data, count,
+> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
+> index 4424d481d7f7..bf20bcb1d366 100644
+> --- a/include/media/videobuf2-core.h
+> +++ b/include/media/videobuf2-core.h
+> @@ -1093,7 +1093,7 @@ __poll_t vb2_core_poll(struct vb2_queue *q, struct file *file,
+>    * @ppos:	file handle position tracking pointer
+>    * @nonblock:	mode selector (1 means blocking calls, 0 means nonblocking)
+>    */
+> -size_t vb2_read(struct vb2_queue *q, char __user *data, size_t count,
+> +ssize_t vb2_read(struct vb2_queue *q, char __user *data, size_t count,
+>   		loff_t *ppos, int nonblock);
+>   /**
+>    * vb2_write() - implements write() syscall logic.
+> @@ -1103,7 +1103,7 @@ size_t vb2_read(struct vb2_queue *q, char __user *data, size_t count,
+>    * @ppos:	file handle position tracking pointer
+>    * @nonblock:	mode selector (1 means blocking calls, 0 means nonblocking)
+>    */
+> -size_t vb2_write(struct vb2_queue *q, const char __user *data, size_t count,
+> +ssize_t vb2_write(struct vb2_queue *q, const char __user *data, size_t count,
+>   		loff_t *ppos, int nonblock);
+>   
+>   /**
+
+Best regards
 -- 
-Tomasz Unger <tomasz.unger@yahoo.pl>
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
