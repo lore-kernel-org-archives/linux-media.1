@@ -1,41 +1,73 @@
-Received: from spark.kcore.it (spark.kcore.it [49.13.27.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C4842EC0A1;
-	Fri, 20 Mar 2026 09:36:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.13.27.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6CB538657E
+	for <linux-media@vger.kernel.org>; Fri, 20 Mar 2026 09:37:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773999378; cv=none; b=UMpICaerMWAvFOI7YLPKPsBijQv4MJ8h7oeoFoR+MN9TdpMF1HhgfinfXDngx/1fhGXON2qUR21xAX8QGLJRZ6OGciSa9a87EE/QO0AYHTpQJfD+S3tXxuTgQPjUrE68Uf9bZv0FsTERFOMyVX81114n7Mz3T5ZrwCi333nVFG8=
+	t=1773999454; cv=none; b=ixrrniR4bNO7+/9B7vSxglLbBXcUn7Vv8sAui+R4THX65mOv1AYPWlziXWnAh8Vj6HNl6JzF1MQPmM36kJPh//EkveVGQZ2+XHoSyobMht+aR614A8z2cgVrTX7xl5oGLh4VnXItpKj/Pwn9xlivilqBkziejIadnljxzC/5bSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773999378; c=relaxed/simple;
-	bh=dZJOCTFtJZUHOSWu4g1IyyCntjRf3+ekzG1jr2dP3Xc=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=hdChdMqase0iuZF+U7MWtwRxagDjnwBnV0uakN4rmM/d0dlmNqu+HK/uIo9k2Cdp9r9TDDkophzxkaHNvLAR7zcI/le6svdSMBX+mSXF7UAnePuxJ+7auG4uMc3LbQ3Bo1jCY3G0o2lSFTYqWy/B8fW45SnVdLlBbfxR/6FgBIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kcore.it; spf=pass smtp.mailfrom=kcore.it; dkim=pass (1024-bit key) header.d=kcore.it header.i=@kcore.it header.b=Lga/W2Lo; arc=none smtp.client-ip=49.13.27.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kcore.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kcore.it
+	s=arc-20240116; t=1773999454; c=relaxed/simple;
+	bh=/RroFt/aDThaig1a7ciA5DMyFlmPG1G0vZnwb7/wNb0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o0xIDoYXjn6mV0zkGQTMBOvuKp59hUns8A4KSkNW0JEFLAf+nBLPjUTlcPNPFKB72Ufgm+TGBKOVOPX203ozhX78uenm5H0VlZIA5eaakYbiGA0uvoIRSffCFY/A9e6/mxMEutkTTnov28CqfFEK/musr+BBgKMHkpywcBOPlAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=mLI4IOsN; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=kcore.it header.i=@kcore.it header.b="Lga/W2Lo"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kcore.it;
-	s=spark; h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-Transfer-Encoding:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=lIp77/TP6ytXFAvgPrHJFSRHfrvMY13Xe/mGpLjDEFE=; b=Lga/W2LoJNljlC/Xwi4ZJabD8D
-	dEN4aBODcakNOXKBDK1zZQEtpSd5Z4MlUfVTBYh5s9/SfFGYzG+FvYpBF+uhJu6rEZ75eQuyXPksV
-	PSL2mbg1qjTY3HkqGlktNoiKLpq189tNonfSyrU3F9tDarNNQF1s0Ye5ZpxSoMxQU85k=;
-Received: from mnencia by spark.kcore.it with local (Exim 4.96)
-	(envelope-from <mnencia@kcore.it>)
-	id 1w3WDs-005Yt2-36;
-	Fri, 20 Mar 2026 10:32:52 +0100
-Date: Fri, 20 Mar 2026 10:32:52 +0100
-From: Marco Nenciarini <mnencia@kcore.it>
-To: platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org
-Cc: hao.yao@intel.com, hdegoede@redhat.com, sakari.ailus@linux.intel.com,
-	andy@kernel.org
-Subject: [PATCH] platform/x86: int3472: Add GPIO type 0x02 (strobe) mapping
-Message-ID: <ab0URIrzZPsYjWrM@spark.kcore.it>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="mLI4IOsN"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-48540d21f7dso4476445e9.0
+        for <linux-media@vger.kernel.org>; Fri, 20 Mar 2026 02:37:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1773999448; x=1774604248; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=eD4dBMvjtmZ/uGxmRy1So/8YVPy0MK5aKa2M09OXdww=;
+        b=mLI4IOsNodpyfdYPs/3nAj3/qLlMYjxybpdfUFRWNXrxvvxK/uU7FOd7jO+SLzEdeX
+         x9ryKe+SJkhW5gzAz/d/YNEiXfKBgafuUevD51gnAI4N3pnst87cQhUMsHWropHiH0Xi
+         J4JrNQyWlXDjJzWYibHd+2zTtHJC9Xj9BfADpbARMaFAcvAhAGYpDvdvRheR9u3fnZly
+         Fqxsi7uEoCNiCgTSJDwxQYa/3QY2wlP6Z6ttssdBp+pio968FIw3+HgXHPScguXoeS6J
+         0PQvj3djI/c7VgZCQgo7mj0Dqw8RPeW2jyXUxqIFxS/m5Fx+QkyoVv71Af6aFfu1kHCd
+         wAuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1773999448; x=1774604248;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=eD4dBMvjtmZ/uGxmRy1So/8YVPy0MK5aKa2M09OXdww=;
+        b=Vvxfyc88rutLcwjtBhbUO5t6bd1lsk3Gy/p/6rTppMmkLpVt4j72SHz4gpBtXhn17r
+         xZCOWax4kOnGPXKfOUGeOSrqyAFt9Z4nhpp0FTHxtqeWDq1d/iJ+5QuqyEWDFwEd+lih
+         AuE4bMX1WzMNNEeGgvXrchJivRWxRtplIAGpPZVS60xCXmRe+uQ5MU7MR3QKBO25tk90
+         +gfUv0Y2mgZaqfDcNE9d4y0FLVWoSeroAIfSo0cqZJIOzo83V3oSvpUbVP/GsMB46MOL
+         QvTOd87MqGl5JswMstN3REOLMQaYM7/iCRy6o8jMOlU2dbcTDFcUm+rAFCi+jgFtg6zB
+         6z+Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVWPqLcotl+Y/SBmrEQ+F6ZY4ZFxRXcB3/4dDMh9ijyUC70FX/KWuuhhPhBZGsQ6I/Q32l5XKnP5L6Gqw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzgM8vrHv8gndVQawJVyO6jF/S3o8BUaioCmyEYtnveZ1SiXxsk
+	1Yc6AhpzxzdJtSv6ZKvUG6R9XhggaKU9iMCFcl8bcvR5SSVyIF6oIvmg1C0jOdz1YD4=
+X-Gm-Gg: ATEYQzzqiNH/UJ4lRV95Odi16OLQUq5/wXPBiRw5nKqh6gWYGbfqxijnu39BVE5CzjI
+	DLf3BYKva8Cf61bEySaBny65JXo2QIjs/8BqRNfekYRxWs3/m4T34FICcTu3fiEI6BlaDK2l596
+	DYLC1rn6hnYC5m2yIUtF9CIXIuAjCA4yr+UtUVrT139SrDSGFUmsnnphkWGgsUNDu0ySHQvtzIm
+	b/gD5zmK0pPj4EfVvw9sRUur/laSHX/oLZOnEDH35XDsUXVb4kXOvdWq0t9aJjOZX5Nt2seh6N7
+	v4iIrnQE8tlwebm3yASVyT/3cKw0Cnv0hg4SoyamifEMMKDNriX3o5gsRc5JubRKaJgLPvqFPp3
+	NxjZyuFpJsdFeGA0ocA29A5shS2FXQ4GqLyGh06O2HYoj12VpO08zc8RiLIwprZZJLgzZ3rfLvg
+	F/eUB2x4Kdx36RUTptaqg881qvy4Xk
+X-Received: by 2002:a05:600c:17d8:b0:483:703e:4ad9 with SMTP id 5b1f17b1804b1-486ff0291d7mr19670865e9.19.1773999447715;
+        Fri, 20 Mar 2026 02:37:27 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b644ae048sm5267437f8f.1.2026.03.20.02.37.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Mar 2026 02:37:27 -0700 (PDT)
+Date: Fri, 20 Mar 2026 12:37:24 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Tomasz Unger <tomasz.unger@yahoo.pl>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: media: av7110: remove print_time() dead code
+Message-ID: <ab0VVFimveEhibR6@stanley.mountain>
+References: <20260320-av7110-remove-print-time-v1-1-05402287078a.ref@yahoo.pl>
+ <20260320-av7110-remove-print-time-v1-1-05402287078a@yahoo.pl>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -44,77 +76,70 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20260320-av7110-remove-print-time-v1-1-05402287078a@yahoo.pl>
 
-Some ACPI tables on Intel Meteor Lake and Arrow Lake platforms define
-GPIO resources with type 0x02 for INT3472 camera sensor power control.
-This type is not currently handled, causing a "GPIO type 0x02 unknown;
-the sensor may not work" warning and preventing proper sensor power
-sequencing.
+On Fri, Mar 20, 2026 at 09:46:15AM +0100, Tomasz Unger wrote:
+> The DEBUG_TIMING macro is commented out and can never be defined,
+> making the print_time() function body always empty. Remove the
+> commented-out macro, the unused function definition and all its
+> call sites as they serve no purpose.
+> 
+> Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
+> ---
+> Checked with scripts/checkpatch.pl - no errors, no warnings.
+> Compiled and verified by loading the module in QEMU.
+> ---
+>  drivers/staging/media/av7110/av7110.c | 14 --------------
+>  1 file changed, 14 deletions(-)
+> 
+> diff --git a/drivers/staging/media/av7110/av7110.c b/drivers/staging/media/av7110/av7110.c
+> index 607992100baf..9f4ed1e24b17 100644
+> --- a/drivers/staging/media/av7110/av7110.c
+> +++ b/drivers/staging/media/av7110/av7110.c
+> @@ -314,17 +314,6 @@ static int DvbDmxFilterCallback(u8 *buffer1, size_t buffer1_len,
+>  	}
+>  }
+>  
+> -//#define DEBUG_TIMING
+> -static inline void print_time(char *s)
+> -{
+> -#ifdef DEBUG_TIMING
+> -	struct timespec64 ts;
+> -
+> -	ktime_get_real_ts64(&ts);
+> -	pr_info("%s(): %ptSp\n", s, &ts);
+> -#endif
+> -}
+> -
+>  #define DEBI_READ 0
+>  #define DEBI_WRITE 1
+>  static inline void start_debi_dma(struct av7110 *av7110, int dir,
+> @@ -353,7 +342,6 @@ static void debiirq(struct tasklet_struct *t)
+>  	int handle = (type >> 8) & 0x1f;
+>  	unsigned int xfer = 0;
+>  
+> -	print_time("debi");
+>  	dprintk(4, "type 0x%04x\n", type);
+>  
+>  	if (type == -1) {
+> @@ -473,7 +461,6 @@ static void gpioirq(struct tasklet_struct *t)
+>  	txbuf = irdebi(av7110, DEBINOSWAP, TX_BUFF, 0, 2);
+>  	len = (av7110->debilen + 3) & ~3;
+>  
+> -	print_time("gpio");
+>  	dprintk(8, "GPIO0 irq 0x%04x %d\n", av7110->debitype, av7110->debilen);
+>  
+>  	switch (av7110->debitype & 0xff) {
+> @@ -2785,7 +2772,6 @@ static void av7110_irq(struct saa7146_dev *dev, u32 *isr)
+>  {
+>  	struct av7110 *av7110 = dev->ext_priv;
+>  
+> -	//print_time("av7110_irq");
+>  
+>  	/* Note: Don't try to handle the DEBI error irq (MASK_18), in
 
-Map GPIO type 0x02 (strobe) to the privacy LED handler, matching the
-approach used for similar illumination-related GPIOs. This is consistent
-with the original proposal by Hao Yao [1].
+Delete the extra blank line as well.
 
-Tested on a Dell Pro Max 16 Premium (Arrow Lake-H) with OmniVision
-OV08F4 sensor connected via Intel IPU6 and Synaptics SVP7500 USBIO
-bridge. With this patch applied, the int3472-discrete driver no longer
-warns about unknown GPIO type 0x02, and the sensor probes successfully.
-
-[1] https://lore.kernel.org/all/20231007021309.9332-1-hao.yao@intel.com/
-
-Link: https://bugs.debian.org/1130114
-Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2138991
-Cc: Hao Yao <hao.yao@intel.com>
-Cc: Hans de Goede <hdegoede@redhat.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Andy Shevchenko <andy@kernel.org>
-Signed-off-by: Marco Nenciarini <mnencia@kcore.it>
----
- drivers/platform/x86/intel/int3472/discrete.c | 3 +++
- include/linux/platform_data/x86/int3472.h     | 1 +
- 2 files changed, 4 insertions(+)
-
-diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
-index 1505fc3..39ca60b 100644
---- a/drivers/platform/x86/intel/int3472/discrete.c
-+++ b/drivers/platform/x86/intel/int3472/discrete.c
-@@ -211,6 +211,7 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
- 		*con_id = "clk-enable";
- 		*gpio_flags = GPIO_ACTIVE_HIGH;
- 		break;
-+	case INT3472_GPIO_TYPE_STROBE:
- 	case INT3472_GPIO_TYPE_PRIVACY_LED:
- 		*con_id = "privacy-led";
- 		*gpio_flags = GPIO_ACTIVE_HIGH;
-@@ -330,6 +331,7 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
- 
- 		break;
- 	case INT3472_GPIO_TYPE_CLK_ENABLE:
-+	case INT3472_GPIO_TYPE_STROBE:
- 	case INT3472_GPIO_TYPE_PRIVACY_LED:
- 	case INT3472_GPIO_TYPE_POWER_ENABLE:
- 	case INT3472_GPIO_TYPE_HANDSHAKE:
-@@ -347,6 +349,7 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
- 				err_msg = "Failed to register clock\n";
- 
- 			break;
-+		case INT3472_GPIO_TYPE_STROBE:
- 		case INT3472_GPIO_TYPE_PRIVACY_LED:
- 			ret = skl_int3472_register_pled(int3472, gpio);
- 			if (ret)
-diff --git a/include/linux/platform_data/x86/int3472.h b/include/linux/platform_data/x86/int3472.h
-index b1b8375..85adeb0 100644
---- a/include/linux/platform_data/x86/int3472.h
-+++ b/include/linux/platform_data/x86/int3472.h
-@@ -23,6 +23,7 @@
- /* PMIC GPIO Types */
- #define INT3472_GPIO_TYPE_RESET					0x00
- #define INT3472_GPIO_TYPE_POWERDOWN				0x01
-+#define INT3472_GPIO_TYPE_STROBE				0x02
- #define INT3472_GPIO_TYPE_POWER_ENABLE				0x0b
- #define INT3472_GPIO_TYPE_CLK_ENABLE				0x0c
- #define INT3472_GPIO_TYPE_PRIVACY_LED				0x0d
--- 
-2.47.3
-
+regards,
+dan carpenter
 
