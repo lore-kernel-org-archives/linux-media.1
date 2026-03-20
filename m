@@ -1,30 +1,30 @@
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC85F331209;
-	Fri, 20 Mar 2026 06:00:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05E18326941;
+	Fri, 20 Mar 2026 06:00:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773986404; cv=none; b=fuY+pVW7yKT8HhGjvSQ3hfdm0M+GhBUkc+hEn2WfnHMGGYPJyTHxhEh3hW6W22WFsyx5rNZz95phi+ZstQw39mRGg/zXL4z3LTv4FIzT77ONKnL1XmAxFA4L5DqqHiD/w9rvwPEx8Me4wjzBs/V1AFzExECc1d24IgGIkrj1sGQ=
+	t=1773986405; cv=none; b=JVB3scqbUz6RckTc7bcB+d6bY9eqvv3a1tFLzU+Kuep4njeP34hhVkVEcOlsouoA8Qb+AezQ1Fh5L7TrinWqgT4ylu9cBSCS2S55GT0PWItmRrvR4+2u1HjKHdnrovCbHzkHVQbV7Qni6YuS1S8X1U+/HOHBXv0hwYW0TAknvB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773986404; c=relaxed/simple;
-	bh=+wFEPaNL73TRmZRuCjbQVE75loQmTGAi/5Y+WV4nY7I=;
+	s=arc-20240116; t=1773986405; c=relaxed/simple;
+	bh=rSr/pv8SZw9Yf6whgtLxjUq/cK/1y/xVDEEjfBQbOtM=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=E4xIAv5JBIk0U5sHFZA+r5WV9AdIpUPcZrKqe7lZyMIMJpG72cB9K9sc2b1ArdMOjGwEICQwIHuk0bdUAXd8RjKLes0kZq0oVqpX0cpGGmcqi+2Z8ja38B6R1Weje6Ea6oTF9GnnWh1vq6CYbfh1PmZUT16UhC1G5Jv/zIzNbSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=Q9mAJvH6; arc=none smtp.client-ip=210.61.82.184
+	 MIME-Version:Content-Type; b=WCgoA1pOuac4ZgPivbaFEQU3UJV+QckgaV2tRsxqRPVyZJsivvPUWdjIFCJcEpfA6icl684vkL5d1Ma0/3nGpuCdVYclACxtK8DNattjvnZ/nPdv6mv58+l7y80ED5hA3lMu2BAVbGJ3dXeCRe/IDwFSlEvda5ZKeJ06u+e8VaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=ESrGgqXx; arc=none smtp.client-ip=210.61.82.184
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="Q9mAJvH6"
-X-UUID: 04623260242211f1a39cd589f645bc18-20260320
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="ESrGgqXx"
+X-UUID: 0602ae56242211f1a39cd589f645bc18-20260320
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=pOeTSNP1jGoaAWWqJ57CJ9aLrwRavYis1ib+3e3hXxM=;
-	b=Q9mAJvH69HRnMbKZRhxf6/1BLdquxPlRqjkWgjoQOSX2Hn+fCEBeJMuhlZa0d+kmrdpz80Ruhj/KMCJ4i5iyi9iJWJcPIfNYksdL/I2wvZaonVjZPTRlC8lic0gM7jntZbiLMOiP/7leixZTFaB+d6TsMUlP3AC33jQrZVjrucY=;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=5Hv4QPBia2TeSq1sGjiT/CarT8jJCkRHdgN7+rXyT7Y=;
+	b=ESrGgqXxogcwEfWhAgkDLjpAImglIvbcC3P4Ch9sPNkmv8szLVKqJmsRAJO5cebeeVCLSFjfb/yxjVnR9VyBrtnaZc40aKGtUy71pT77vKnDca5BaqxSLcAYfvCx+VoraLoyFS3ld6B6JC0mhDPdhttACkTs0ZojMhCz5aIWfaY=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:063b1a87-a77b-408e-90c0-2ea732a818ee,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:bc380394-f8ef-4ca8-bea0-143568f9ca1d,B
+X-CID-O-INFO: VERSION:1.3.12,REQID:0996a171-a524-4095-8469-199545d6eb4a,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:e7bac3a,CLOUDID:be380394-f8ef-4ca8-bea0-143568f9ca1d,B
 	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|888|898,TC:-5,Content:
 	0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI
 	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
@@ -32,18 +32,18 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 04623260242211f1a39cd589f645bc18-20260320
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by mailgw02.mediatek.com
+X-UUID: 0602ae56242211f1a39cd589f645bc18-20260320
+Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw02.mediatek.com
 	(envelope-from <kyrie.wu@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1995128817; Fri, 20 Mar 2026 13:59:54 +0800
+	with ESMTP id 1882601424; Fri, 20 Mar 2026 13:59:57 +0800
 Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 20 Mar 2026 13:59:53 +0800
+ 15.2.2562.29; Fri, 20 Mar 2026 13:59:55 +0800
 Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
  mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Fri, 20 Mar 2026 13:59:52 +0800
+ 15.2.2562.29 via Frontend Transport; Fri, 20 Mar 2026 13:59:54 +0800
 From: Kyrie Wu <kyrie.wu@mediatek.com>
 To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
 	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
@@ -59,9 +59,9 @@ To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
 	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
 CC: Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Pietrasiewicz
 	<andrzejtp2010@gmail.com>, Yilong Zhou <yilong.zhou@mediatek.com>
-Subject: [PATCH v8 7/9] media: mediatek: vcodec: Fix media device node number
-Date: Fri, 20 Mar 2026 13:59:38 +0800
-Message-ID: <20260320055940.15961-8-kyrie.wu@mediatek.com>
+Subject: [PATCH v8 9/9] media: mediatek: encoder: Add MT8189 encoder compatible data
+Date: Fri, 20 Mar 2026 13:59:40 +0800
+Message-ID: <20260320055940.15961-10-kyrie.wu@mediatek.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20260320055940.15961-1-kyrie.wu@mediatek.com>
 References: <20260320055940.15961-1-kyrie.wu@mediatek.com>
@@ -75,33 +75,46 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-MTK: N
 
-change media register device node number to a correct value.
-The vfd minor is used to record the number of registered
-video device nodes. The mdev_dec.devnode minor counter is
-used to record the number of registered media device nodes.
+add MT8189 compatible data to initialize platform data for encoder.
 
-Fixes: 41f03c673cb7b ("media: mediatek: vcodec: replace pr_* with dev_* for v4l2 debug message")
 Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- .../platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c      | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ .../mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c   | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-index dc67c2b84776..edf0caf3efce 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-@@ -495,7 +495,8 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
- 			goto err_media_reg;
- 		}
+diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
+index 23e47f462f49..16d75680d1e9 100644
+--- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
++++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
+@@ -469,6 +469,19 @@ static const struct mtk_vcodec_enc_pdata mt8196_pdata = {
+ 	.set_dma_bit_mask = true,
+ };
  
--		dev_dbg(&pdev->dev, "media registered as /dev/media%d", vfd_dec->minor);
-+		dev_dbg(&pdev->dev, "media registered as /dev/media%d",
-+			dev->mdev_dec.devnode->minor);
- 	}
- 
- 	mtk_vcodec_dbgfs_init(dev, false);
++static const struct mtk_vcodec_enc_pdata mt8189_pdata = {
++	.venc_model_num = 8189,
++	.capture_formats = mtk_video_formats_capture_h264,
++	.num_capture_formats = ARRAY_SIZE(mtk_video_formats_capture_h264),
++	.output_formats = mtk_video_formats_output,
++	.num_output_formats = ARRAY_SIZE(mtk_video_formats_output),
++	.min_bitrate = 64,
++	.max_bitrate = 100000000,
++	.core_id = VENC_SYS,
++	.uses_common_fw_iface = true,
++	.set_dma_bit_mask = true,
++};
++
+ static const struct of_device_id mtk_vcodec_enc_match[] = {
+ 	{.compatible = "mediatek,mt8173-vcodec-enc",
+ 			.data = &mt8173_avc_pdata},
+@@ -479,6 +492,7 @@ static const struct of_device_id mtk_vcodec_enc_match[] = {
+ 	{.compatible = "mediatek,mt8192-vcodec-enc", .data = &mt8192_pdata},
+ 	{.compatible = "mediatek,mt8195-vcodec-enc", .data = &mt8195_pdata},
+ 	{.compatible = "mediatek,mt8196-vcodec-enc", .data = &mt8196_pdata},
++	{.compatible = "mediatek,mt8189-vcodec-enc", .data = &mt8189_pdata},
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, mtk_vcodec_enc_match);
 -- 
 2.45.2
 
