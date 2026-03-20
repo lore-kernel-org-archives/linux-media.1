@@ -1,125 +1,120 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262A92F3600
-	for <linux-media@vger.kernel.org>; Fri, 20 Mar 2026 05:40:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF4282F360A;
+	Fri, 20 Mar 2026 05:59:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1773985205; cv=none; b=ccHrsFlT1FoZHlqBJsTwcP+E4ca7DfZ58u9SGwVhzzRMkvRChMnIVvzBq9x2e8e+7jPAahJZLsyyMo/6QrnaB+4S/O6FBo/5XFnh+wGYlnbJcCp9bR+r+Hc2ErvGkHuARYF/z+MCbWLwnew+MGQZWV6VZZEKsPx4d3nnSWWE+1g=
+	t=1773986396; cv=none; b=m2IGWVh8LmqWJGULnid7VgB1PTGDDm+fG9qSXjZ2WJ6qlmiN5a++8HwdAouO2gzrO3j9MSuSOHUr4ifCgZQLYZmwSKYOOLuWX8Xz+jXVuQ8Gmzh2VOv+7x+DXHjK3bMM0C75ANbmHY+OBPbZB8GXuOtqHUnzoITnRdEQPRdVOHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1773985205; c=relaxed/simple;
-	bh=Ae22RPic1YEH5csFBH6HCV3HSnfo+KfeW0NO5YO2dJk=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=aaoHGCPRtmWc6lOu6anpXQv6iKrrlW4tPHhLSgw5FzrUIk933R0UnAa3UMsZLAWta3xS0okxOfUVeFXRwXp2bjO+nKr5j07Y37SCVwio/yEo95wXCnN9BCz6ij2L7Y0mZyS1GG+xmrM2QskJmJ3w8Jm0Mw9qIlR0q9mmhQhTcjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Ts678KlG; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1773986396; c=relaxed/simple;
+	bh=cziYfs0U76ZCGMxZhfyz4A6Do/VDXzBlZRinINiINKU=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ayBaQdGXzmSJ6D0kTnFHebxjmxCWTqKwys5cy6dsggC4hzOdnltAQSsym/mYJkkJ+N/jLT0osnPxPvDHWp3bBNQR9n8ijN5J04wp1+7xHxO18PeeDo846YRIT6YHBJz62nNKjDJijuYuomuuDQTSC8GWzHfc6RPMG9Fbv9hrbeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=Qu18c3p5; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Ts678KlG"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-48557c8ad47so12935545e9.0
-        for <linux-media@vger.kernel.org>; Thu, 19 Mar 2026 22:40:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1773985202; x=1774590002; darn=vger.kernel.org;
-        h=user-agent:content-disposition:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=BPHK7nGCZz/oSDUy2MClP0uGtGGKcCDrTU26qey0lE0=;
-        b=Ts678KlGu1/gVuP2FXnWTXdRfvLaepyGBDh5r3EDgTG1hWC0Mmwtssolr6DhOPBBKJ
-         CcDPFnaOyrv6JyT2JOqPdbvQwRL9B6p/LFtleJowLz5oGFLXzazIxYbjTVgayyiE0y+X
-         7HuvoNWZhjPevEG/yPkdDMO4fZpU5p54pTLk3pzBaWYtLgver9LBiGVpmZlDgytlJHhV
-         MzeBj/QSsbX+YadOPr4xAp2XgXRId+qnpfccmeuqqGYq4j3DjO8Jxdl/sHVVizu3tk9j
-         Dj6i3wLGU5K1w4ou8bVPJz6+I1vrjwi/BnV4SQqr8w0kkSWqteGyuIudn68winuBkZxo
-         foGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773985202; x=1774590002;
-        h=user-agent:content-disposition:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BPHK7nGCZz/oSDUy2MClP0uGtGGKcCDrTU26qey0lE0=;
-        b=kVcWuTLp6+2Pu5+k/nLqxW4E8AsKyKCv88YbATkBt5NiXjNxq3huXSiyOFGuFf7Rx3
-         bnG1068twjFkUXTUoTvPSZN57YewPQBvIMVHWj/EKdUzz76s9nwLeH62B1TMu75rnRU4
-         k1agL/my2KItkpkPTkFN/Ixh/QhRcIN/oC8VI0N7QeEWXSYSU0zcg7OgH+L1q5ynfLZD
-         2SlV3G+xAy9y16l4epoFhzIpSnxeX/HK1/igrj6u3JbI+m2oDk5qoDeGA1U0/oikU8H7
-         mqJqcKRZCwrg0T/EbtUbGBsShPk8Fl6/jCSTBsksBmNdAq8/fqy5eJImG6dqFKbiCP6h
-         BDyA==
-X-Gm-Message-State: AOJu0Yynn48NkkJCEZYOWQJCejRwbgaVtSQIquBGp1yqoFh46hP/5Yar
-	bcjHxzhcNfeyXec5GNf3IULMiBZ+iWRDP9phqR+g51bR5EUXTCP2Zi+0huiITpfpyUE=
-X-Gm-Gg: ATEYQzyoSw9POJdzZG1+V5ncbg637LPQHFLNCmqUcEgfIxH1d9vY5CG39S+TNlJl8m2
-	qr6HUBr1KOJQFUcxh3zJ3yXW2qohTHS7TUjBaqhnZHkJQOOEG/hmzoEe+mqXGoZwlx+0DVamN7O
-	Y8wu4mx1i9OwyHlzXjRUv4CxUzw3+ZiETgJxFFR+yU16nvT0mibg8yNXORanwXqC/PXHh4jNS3/
-	13PxSKUCB3EzCKD9Jz3vzmiDQNX1gKB/oZ4d3ii5ISCdv3lZ4opWFTsr2akVSOJ3O3m3DHe8+ks
-	LcP3VEUC8msYQN2V+22QoQ6DiJHQ1kn6zlJ5jmRlamRp38aN5tQ8AC2ZfbNmtwKgAgbSKehJjWE
-	cOkr4SYKZ5/ghui869T8CLGo1W06/4mk3E2J0eb0Mwz31+TUBlS1PcKSOpA2oct/vyi+NhkiT/3
-	0XoMaiPNol4tAaX4RO/pRbn8g9GFucCpRHJuKD/6kTnrbb7dh55Q==
-X-Received: by 2002:a05:600c:83c8:b0:477:5c58:3d42 with SMTP id 5b1f17b1804b1-486fedbd0a5mr21577325e9.10.1773985202413;
-        Thu, 19 Mar 2026 22:40:02 -0700 (PDT)
-Received: from r1chard (1-164-68-48.dynamic-ip.hinet.net. [1.164.68.48])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35bd410e7b8sm785693a91.14.2026.03.19.22.39.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Mar 2026 22:40:01 -0700 (PDT)
-Date: Fri, 20 Mar 2026 13:39:57 +0800
-From: Richard Lyu <richard.lyu@suse.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@intel.com>,
-	Tianshu Qiu <tian.shu.qiu@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Richard Lyu <richard.lyu@suse.com>,
-	Dan Carpenter <dan.carpenter@linaro.org>
-Subject: [PATCH RESEND v2] media: staging: ipu3: img-mmu: fix
- sign-to-unsigned conversion
-Message-ID: <20260320053914.52916-2-richard.lyu@suse.com>
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="Qu18c3p5"
+X-UUID: ffc1eef8242111f1a02d4725871ece0b-20260320
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=PYvG3A9bhcpcCBRSGioZeJBjwhbqKSxm5F0PwaNR9Wc=;
+	b=Qu18c3p50oU8iJ2uh0BSGXe1SmzE7ltaX6kSw9++82kMUaxpEPaYIHt4G5XuEn9jQgXkAv/ygpaXrsfva7GoSc0JuFzLKi984FoL7O3DZf5ens9RzOTsvI9i/aFYJ1VmqrKusclNQXZ07k9BPJ2ODWYWbgYtWL/h00Po/JFbss4=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:27f73fc2-6326-48b1-8d80-ae536145b7a9,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:e7bac3a,CLOUDID:51380394-f8ef-4ca8-bea0-143568f9ca1d,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|888|898,TC:-5,Content:
+	0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI
+	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: ffc1eef8242111f1a02d4725871ece0b-20260320
+Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by mailgw01.mediatek.com
+	(envelope-from <kyrie.wu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1712127322; Fri, 20 Mar 2026 13:59:46 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Fri, 20 Mar 2026 13:59:45 +0800
+Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Fri, 20 Mar 2026 13:59:44 +0800
+From: Kyrie Wu <kyrie.wu@mediatek.com>
+To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
+	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Kyrie Wu <kyrie.wu@mediatek.com>,
+	Hans Verkuil <hverkuil@xs4all.nl>, Nicolas Dufresne
+	<nicolas.dufresne@collabora.com>, Nathan Hebert <nhebert@chromium.org>, Arnd
+ Bergmann <arnd@arndb.de>, Irui Wang <irui.wang@mediatek.com>, George Sun
+	<george.sun@mediatek.com>, <linux-media@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
+CC: Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Pietrasiewicz
+	<andrzejtp2010@gmail.com>, Yilong Zhou <yilong.zhou@mediatek.com>
+Subject: [PATCH v8 1/9] dt-bindings: media: mediatek: decoder: Add MT8189 mediatek,vcodec-decoder
+Date: Fri, 20 Mar 2026 13:59:32 +0800
+Message-ID: <20260320055940.15961-2-kyrie.wu@mediatek.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20260320055940.15961-1-kyrie.wu@mediatek.com>
+References: <20260320055940.15961-1-kyrie.wu@mediatek.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email 2.51.0
-User-Agent: Mutt/2.2.13 (2024-03-09)
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-imgu_mmu_unmap() returns size_t (unsigned), representing the number of
-bytes successfully unmapped. However, when the alignment check fails,
-it currently returns -EINVAL.
+Add compatible for video decoder on MT8189 platform. Compared with
+former ICs, the MT8189 decoder use iommu to instead of smmu, and
+use scp architecture, the frequency is only 406MHZ, and cannot reach
+more than 700MHZ. It uses only one clock. At the same time, the decoder
+supports the vp9 decoding protocol for the first time in single IC.
 
-On 64-bit systems, this negative error code is implicitly converted
-to a very large unsigned value (18446744073709551594). The same happens
-on 32-bit systems as well, although the resulting value is smaller.
-
-Return 0 when the alignment check fails to correctly indicate that
-no bytes were unmapped while resolving the following
--Wsign-conversion warning:
-
-drivers/staging/media/ipu3/ipu3-mmu.c:393:24: warning: unsigned
-conversion from 'int' to 'size_t' {aka 'long unsigned int'} changes
-value from '-22' to '18446744073709551594' [-Wsign-conversion]
-  393 |         return -EINVAL;
-
-All callers ignore the return value, so this change does not affect
-existing behavior.
-
-Fixes: 26f5689592e2 ("media: staging/intel-ipu3: mmu: Implement driver")
-Signed-off-by: Richard Lyu <richard.lyu@suse.com>
-Reviewed-by: Dan Carpenter <dan.carpenter@linaro.org>
+Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 ---
- drivers/staging/media/ipu3/ipu3-mmu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../bindings/media/mediatek,vcodec-subdev-decoder.yaml       | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/staging/media/ipu3/ipu3-mmu.c b/drivers/staging/media/ipu3/ipu3-mmu.c
-index b196a5815903..fcea125e5935 100644
---- a/drivers/staging/media/ipu3/ipu3-mmu.c
-+++ b/drivers/staging/media/ipu3/ipu3-mmu.c
-@@ -390,7 +390,7 @@ size_t imgu_mmu_unmap(struct imgu_mmu_info *info, unsigned long iova,
- 	if (!IS_ALIGNED(iova | size, IPU3_PAGE_SIZE)) {
- 		dev_err(mmu->dev, "unaligned: iova 0x%lx size 0x%zx\n",
- 			iova, size);
--		return -EINVAL;
-+		return 0;
- 	}
+diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml
+index 74e1d88d3056..ee2bbbdb2d50 100644
+--- a/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml
++++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml
+@@ -75,6 +75,7 @@ properties:
+       - mediatek,mt8192-vcodec-dec
+       - mediatek,mt8186-vcodec-dec
+       - mediatek,mt8188-vcodec-dec
++      - mediatek,mt8189-vcodec-dec
+       - mediatek,mt8195-vcodec-dec
+       - mediatek,mt8196-vcodec-dec
  
- 	dev_dbg(mmu->dev, "unmap this: iova 0x%lx size 0x%zx\n", iova, size);
+@@ -132,11 +133,11 @@ patternProperties:
+           Refer to bindings/iommu/mediatek,iommu.yaml.
+ 
+       clocks:
+-        minItems: 4
++        minItems: 1
+         maxItems: 5
+ 
+       clock-names:
+-        minItems: 4
++        minItems: 1
+         maxItems: 5
+ 
+       assigned-clocks:
 -- 
-2.51.0
+2.45.2
 
