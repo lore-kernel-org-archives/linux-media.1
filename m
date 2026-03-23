@@ -1,36 +1,42 @@
 Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0AB035D615;
-	Mon, 23 Mar 2026 08:30:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F5DF7404E;
+	Mon, 23 Mar 2026 08:30:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774254641; cv=none; b=kBAdi9wGzQ2FwvFoA3ka9tOqUSU/CC5jZ3McHpuwp/9Ti2q0uAbOUCwIm+m5K7GL3QvPTaJ7Nxp2gWtmVMES7dldrS/2T4/QJRT0KkPmVc3nJqUNWKVc5xxXNYnWwZo+0MNdFJX9NVw9Vq4/BrNaR9kYa6oWApsyG+vJ6QLNzyE=
+	t=1774254642; cv=none; b=g83BeHLSMwHrk4ue8Kicpt+GKzlI1L/sAAlDJMTQ96Er20sMwv0euQSahCAtlPSE6OEXb08iTT+bE/vH1Kl7pKyLIBM29daRu1AEjZVlTS0g8H2mcp8SjqZlKUm6fSSszAaeRZdn9UMv7cfTMHwTAOhoERJVGtt42oNYsxILl2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774254641; c=relaxed/simple;
-	bh=ZE3Gy4rrbXh77juSOs6V3jV1ew0+ePIwyVi9fDou43s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F/IwjCxJcnC6mT1w99rjqc58d1TyWORvYr4Kg97PWes+JZj3HkeX3aRWTBXzE6J9aj3g3fgZJaIz/j2HZeUjCJ6ISchEJ0zOSDEgqzo6/E7TxfKVT0mqkAm5g4mSnzgq0lVNvP21jml6beuinavHiMC8b8+q2lWZP/8Q6PVSyOU=
+	s=arc-20240116; t=1774254642; c=relaxed/simple;
+	bh=daaBGV5H2AOvuS5QSuAjGe1Xj2PrkECRfxkI+NwtPeQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fCHQs2BnD7/UarCTdNIzolg1soZXlljp54K4RvK7LPX8uPCL5+lgXg22g7TAUiax9e3O+jOi9pjzgXmJla7PCEWalLv943Si1jvmv12FpHTfujsdJlkKFWw5w2s9n7WagwnY5HKbBSDBwKn8TgMnLkvhZFzhx6AqaLOwRUdcDrE=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [111.196.245.197])
-	by APP-03 (Coremail) with SMTP id rQCowABXcNcn+sBpFsqHCw--.33847S2;
+	by APP-03 (Coremail) with SMTP id rQCowACHqN8n+sBpE8qHCw--.12667S2;
 	Mon, 23 Mar 2026 16:30:32 +0800 (CST)
 From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: mchehab@kernel.org
-Cc: hverkuil@kernel.org,
-	nicolas.dufresne@collabora.com,
-	sakari.ailus@linux.intel.com,
-	laurent.pinchart@ideasonboard.com,
-	opensource206@gmail.com,
-	jernej.skrabec@gmail.com,
+To: jernej.skrabec@gmail.com
+Cc: mripard@kernel.org,
+	paulk@sys-base.io,
+	mchehab@kernel.org,
+	gregkh@linuxfoundation.org,
+	wens@kernel.org,
+	samuel@sholland.org,
 	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	pengpeng@iscas.ac.cn
-Subject: [PATCH v2] media: v4l2-ctrls: validate HEVC slice reference lists
+Subject: Re: [PATCH 7/7] media: cedrus: validate HEVC slice reference lists
 Date: Mon, 23 Mar 2026 16:30:31 +0800
-Message-ID: <20260323083031.30941-1-pengpeng@iscas.ac.cn>
+Message-ID: <20260323083031.30930-1-pengpeng@iscas.ac.cn>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260323070314.42949-1-pengpeng@iscas.ac.cn>
+References: <20260323070314.42949-1-pengpeng@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -38,80 +44,33 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABXcNcn+sBpFsqHCw--.33847S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJr4fAr4kCF47Cw43WrWkXrb_yoW8uFyxpr
-	WYqrnIvryUJr43AF4akr1UXF98Ca93JFW5CrWay3WxZF47tF17Jw1UGry8ZF48ArsY93y7
-	tF12qrWUKFy3CF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUGVWUXwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
-	nIWIevJa73UjIFyTuYvjfUeXocUUUUU
+X-CM-TRANSID:rQCowACHqN8n+sBpE8qHCw--.12667S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYP7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E
+	6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28Cjx
+	kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8I
+	cVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2js
+	IEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE
+	5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r4j6F4UMcvjeV
+	CFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1l
+	FIxGxcIEc7CjxVA2Y2ka0xkIwI1l42xK82IYc2Ij64vIr41l4c8EcI0Ec7CjxVAaw2AFwI
+	0_Jw0_GFyl4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s02
+	6x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0x
+	vE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE
+	42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6x
+	kF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUb0D73UUUUU==
 X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-HEVC slice parameters are shared stateless V4L2 controls, but the common
-control validation path currently does not verify the active reference
-counts or the ref_idx_l0/ref_idx_l1 entries before driver-specific code
-uses them to index fixed 16-entry DPB arrays.
+Hi Jernej,
 
-The original report was triggered by Cedrus, but the missing validation
-is not Cedrus-specific. Move the bounds checks into the common HEVC slice
-control validation path so every stateless HEVC driver gets the same
-basic guarantees as soon as the control is queued.
+Thanks, that makes sense.
 
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
-v2:
-- move the validation from Cedrus-specific try_ctrl() into
-  drivers/media/v4l2-core/v4l2-ctrls-core.c
-- keep the checks limited to HEVC slice reference counts and indices
+You're right, this is not really Cedrus-specific. The missing validation
+belongs in the common HEVC slice control path, so I'll respin it there
+instead of keeping it in the Cedrus driver.
 
- drivers/media/v4l2-core/v4l2-ctrls-core.c | 24 +++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+Thanks for pointing that out.
 
-diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-index 6b375720e395..4e7563c8bf4a 100644
---- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
-+++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-@@ -1260,6 +1260,30 @@ static int std_validate_compound(const struct v4l2_ctrl *ctrl, u32 idx,
- 		break;
- 
- 	case V4L2_CTRL_TYPE_HEVC_SLICE_PARAMS:
-+		p_hevc_slice_params = p;
-+
-+		if (p_hevc_slice_params->num_ref_idx_l0_active_minus1 >=
-+		    V4L2_HEVC_DPB_ENTRIES_NUM_MAX)
-+			return -EINVAL;
-+
-+		for (i = 0; i <= p_hevc_slice_params->num_ref_idx_l0_active_minus1;
-+		     i++)
-+			if (p_hevc_slice_params->ref_idx_l0[i] >=
-+			    V4L2_HEVC_DPB_ENTRIES_NUM_MAX)
-+				return -EINVAL;
-+
-+		if (p_hevc_slice_params->slice_type != V4L2_HEVC_SLICE_TYPE_B)
-+			break;
-+
-+		if (p_hevc_slice_params->num_ref_idx_l1_active_minus1 >=
-+		    V4L2_HEVC_DPB_ENTRIES_NUM_MAX)
-+			return -EINVAL;
-+
-+		for (i = 0; i <= p_hevc_slice_params->num_ref_idx_l1_active_minus1;
-+		     i++)
-+			if (p_hevc_slice_params->ref_idx_l1[i] >=
-+			    V4L2_HEVC_DPB_ENTRIES_NUM_MAX)
-+				return -EINVAL;
- 		break;
- 
- 	case V4L2_CTRL_TYPE_HEVC_EXT_SPS_ST_RPS:
--- 
-2.50.1 (Apple Git-155)
+Best regards,
+Pengpeng
 
