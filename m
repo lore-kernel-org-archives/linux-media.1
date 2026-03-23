@@ -1,119 +1,154 @@
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B24A8383C91
-	for <linux-media@vger.kernel.org>; Tue, 24 Mar 2026 02:05:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B80388E43
+	for <linux-media@vger.kernel.org>; Tue, 24 Mar 2026 02:30:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774317912; cv=none; b=un/AwI0Rxf0I6EkZGncGHEkyUMk+5l67CMbeoUKS3drbNWPi2NwUlDKn/OgFjdyiRzv0l31GSCXepgImzYXeTuJl1VwXV413DykarjgWQtAVH0Xsve0aGea0DLti2e2sBAY5KyoDlXRB+n9m8JGIg70yoCE3iS9l+Vi/fNMGqlU=
+	t=1774319414; cv=none; b=fhnHCwd33aslHRPV3Ey6z4HIsIGs28R7F0OHEcfg+NgVZqvTU64IW7ftuJwqAOdVJ0GWsrAIRX3/Lunu2YAuDs0VzBG10zAtgpXMuLx2Ezl4q6QjlE9/RIeOOEOZHa2Gy4A+FhmDeijNi5aKSgbAAIoY5zBLww2x7txfT6o8eU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774317912; c=relaxed/simple;
-	bh=+ehVjjn+FFP1aRjNxMvD8VGxFjrfQtZn+7RGgcX7Sic=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jBx+owDZTyfNEiCNHcw+1qIWfN5AzmDXnX4IcrgdeVvTbddlXD+7qciEZ2YY7bXqBkm1eMNVAVeXWqxB7wpCoiebf5Yf3kmzKp9xo9OCAeq2CHj1wliYepjOhSyGdqrcxD2WrRY9G2+QHnfTD5V4UZusNlhIvzNHHTIL9osQLtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nzYjxuNV; arc=none smtp.client-ip=209.85.222.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774319414; c=relaxed/simple;
+	bh=Vr+wLb3/yfuaY7Ek50G5tqooWQuxrr2KXAF3tU7VBDw=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:References; b=K8htJFDl+IljydT/BkBwEHSl6AWZQe9/qqgVIhYaM/Kjqv9FYS8ly+vPScZikHw9SeulEIqC31fT9moO3n6QattfXHjg8uPsu78RyrRfa5L2G9x8lADw/ibCiUYRU2zV6n9Om/n4QVB3yDtSRonvOGM7MrVf2agZ04OYhgClM+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=RTFBubUc; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nzYjxuNV"
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-8cd78a4ce8dso445950985a.3
-        for <linux-media@vger.kernel.org>; Mon, 23 Mar 2026 19:05:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774317908; x=1774922708; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=WhBxiKr+CpFwBrUC+deA+ndmr0D+vf1b3ZxKGdD13Q8=;
-        b=nzYjxuNVWsy2FAJrdUup/mIJSbRkLFV8btqoBVKVP6d3j7kaRWMaVCI1a9kj5foQ6S
-         dNkE2Ur1Mcd6lE2LZ5+/gkgtKM0ls0uYRXYuAvYgnJwg+bmjKkVlRZlObOn3qVfzTN8R
-         HH4viLyYStE366bC3xc700XYNzdbUVq2FgELOFvyEMqN2gmUOAt3r4ZiWNVE20yvNN8s
-         BZDDAHTmYUNlIhCFRyC4WVuL2lmUGpr5WNwEPmhwmvgqkyhcoeiw3yGJ/gahQExhMZ+x
-         +q2lDIpIk6GrGVGXcvcrj1qxwqJSTezPv4CIOUaxx7371PuaZH8t9xo+WPcqSHRODHgI
-         XPGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774317908; x=1774922708;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=WhBxiKr+CpFwBrUC+deA+ndmr0D+vf1b3ZxKGdD13Q8=;
-        b=dtPrnlejqMfiVAVbKPCfe9MwYa7hssFfeNzgrmkd7zMFHnWHivu8bVkUNs+vd8MWOb
-         UjS+pmz3GafdoMcMFJT3vFpC0YKW8v4QpxeTv+iK+zVTD0X1vaKtffJJw5OoVs4RWUaI
-         0RFf3C2FzxKzR24f4I3m9OTSB/tjLDlIR2gXAKDJvrRvVH2FKSRiOCy8kl0sAHqnc6lJ
-         R90iddVGRvpZCoZXagoPBeU5mFnPbzKfAtSKtgdmVNC2KOPuYlKFBVYmPAQ/MQAQTEWH
-         fNqUZhS9W+g74E2jUnhFT6RhWyuN2X1NzzsGT5wG4Vcm8gk0Sn8b+5oyWD0LZlhScKvR
-         hJEQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVkLNQqouxOwq9Zvm0iWahyKXxdqMdBtcj/DA0w5zHeRje569sldnpFNt/DyYrs4FAKpLZ7nKd3tDWRgA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YylrxoBxFwnk2yANtjwjEjXnbHaJ1o9l2fslIyxj30SXHFx6TMs
-	HeuEBT+sx+0Hsqta70mP7vlQUbgNd3HEpVPSmOb9xIe14JkRe12xKyqe
-X-Gm-Gg: ATEYQzy7mWHQ9+CpK5JMtpiwSETfjLz2Pp9tMjBNYhtlA7FNBi9jSi7pZAH9XaaRGmV
-	Srui0/O3cDtOAgQwTjUcfDsf2cpQ79SmjX+A/Y5rTfWYbVAAsQMjcWREwkKy21UIOWUtxfZQLPo
-	Hpm/2W0R5WBvl2/fJDpIzbTY8WpbtmMBp+Cxun3UZ4vPGqC66MXUNOLCeOxAiiBCenO7ISWT9+R
-	d6U0YzmVrDZNp+WAbKNnvuJRmJFCjfTqlRqDjh0AWEmCk7IVirsy4TGDk04SvqjpnEHm4PS+KL1
-	sSBkk8/9AJtrb2Y4mozldrvYrXar1XHBESzWkBwORIhqnlzkwlKmkupUEF6eq/R12c8h+ROZ9G5
-	FozzCkFbCc2Ysd9k/jJutQzbGmnBa3SFXck6TQIVDrKdTLIiv4I2dHnLd1UFgH6iZ7wG/r3pqkC
-	s7fvU+BQ6Shw5a4hQn96Ljgy5ckKS73O50wUOzv5VxqLEI9iO74MquJWipqC2XADP2sP9Aw+Fcn
-	Ic8iU5U1BCMvSE=
-X-Received: by 2002:a05:620a:4543:b0:8cd:bfd9:e2a2 with SMTP id af79cd13be357-8cfc7f33feemr2140906985a.43.1774317908192;
-        Mon, 23 Mar 2026 19:05:08 -0700 (PDT)
-Received: from localhost (bras-base-toroon21-grc-75-184-144-58-243.dsl.bell.ca. [184.144.58.243])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8cff5d486basm50081285a.45.2026.03.23.19.05.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Mar 2026 19:05:07 -0700 (PDT)
-Date: Mon, 23 Mar 2026 22:05:52 -0400
-From: Richard Acayan <mailingradian@gmail.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-	Todor Tomov <todor.too@gmail.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Tianshu Qiu <tian.shu.qiu@intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Robert Mader <robert.mader@collabora.com>,
-	phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v9 7/7] arm64: dts: qcom: sdm670-google-sargo: add imx355
- front camera
-Message-ID: <acHxgIsyPiQTeqCB@rdacayan>
-References: <20260217002738.133534-1-mailingradian@gmail.com>
- <20260217002738.133534-8-mailingradian@gmail.com>
- <1349f725-a20f-4935-a829-208c8e583ad9@ixit.cz>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="RTFBubUc"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260324023002epoutp02b081f4bfbea3a38fb18d178f54879f42~fphiT0GLN1688216882epoutp02f
+	for <linux-media@vger.kernel.org>; Tue, 24 Mar 2026 02:30:02 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260324023002epoutp02b081f4bfbea3a38fb18d178f54879f42~fphiT0GLN1688216882epoutp02f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1774319402;
+	bh=xiEG8fs8U4waGFe76frAqj8GUGT8PfbUsJqfEpDU4H0=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=RTFBubUceVdG5dBZjg2EJuOun+7AvU7K1xXJVOiY75v5S6AwPDX0GCIymngOFAphd
+	 E4RA3K/kK+gtTKLgy3khdnDiPmc2cGWIz79uHvHB6IujWAiNQY1L9e+YM2hT5hM2cb
+	 67/UCzZXuKEnGh+5DWuT53H601jKazX4GP44bHGA=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20260324023002epcas5p3c3a08032a55b26ba4a7023fdeaebf3cd~fphhsTMXr1327213272epcas5p3T;
+	Tue, 24 Mar 2026 02:30:02 +0000 (GMT)
+Received: from epcpadp1new (unknown [182.195.40.141]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4ffvBx72xwz2SSKf; Tue, 24 Mar
+	2026 02:30:01 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20260323172713epcas5p4dd04df01adb71b7563e1cac14b927632~fiHlqRiPK1063110631epcas5p4A;
+	Mon, 23 Mar 2026 17:27:13 +0000 (GMT)
+Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip1.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20260323172656epsmtip1078ac64ab1a734cd90e8019874a7de3a~fiHV3p2Rc1639516395epsmtip1L;
+	Mon, 23 Mar 2026 17:26:55 +0000 (GMT)
+From: "Alim Akhtar" <alim.akhtar@samsung.com>
+To: "'Vladimir Oltean'" <vladimir.oltean@nxp.com>,
+	<linux-phy@lists.infradead.org>
+Cc: "'Vinod Koul'" <vkoul@kernel.org>, "'Neil Armstrong'"
+	<neil.armstrong@linaro.org>, <dri-devel@lists.freedesktop.org>,
+	<freedreno@lists.freedesktop.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-arm-msm@vger.kernel.org>, <linux-can@vger.kernel.org>,
+	<linux-gpio@vger.kernel.org>, <linux-ide@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
+	<linux-pci@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>,
+	<linux-riscv@lists.infradead.org>, <linux-rockchip@lists.infradead.org>,
+	<linux-samsung-soc@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+	<linux-sunxi@lists.linux.dev>, <linux-tegra@vger.kernel.org>,
+	<linux-usb@vger.kernel.org>, <netdev@vger.kernel.org>,
+	<spacemit@lists.linux.dev>, <UNGLinuxDriver@microchip.com>, "'Bart Van
+ Assche'" <bvanassche@acm.org>, "'Peter Griffin'" <peter.griffin@linaro.org>,
+	"'James E.J. Bottomley'" <James.Bottomley@HansenPartnership.com>, "'Martin
+ K. Petersen'" <martin.petersen@oracle.com>, "'Krzysztof Kozlowski'"
+	<krzk@kernel.org>, "'Chanho Park'" <chanho61.park@samsung.com>
+In-Reply-To: <20260319223241.1351137-10-vladimir.oltean@nxp.com>
+Subject: RE: [PATCH v5 phy-next 09/27] scsi: ufs: exynos: stop poking into
+ struct phy guts
+Date: Mon, 23 Mar 2026 22:56:51 +0530
+Message-ID: <1891546521.01774319401971.JavaMail.epsvc@epcpadp1new>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1349f725-a20f-4935-a829-208c8e583ad9@ixit.cz>
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQJoz1sM+EbPjkyDopxrfJVWkMJWdwIGLiEOAj0DJam0ghnJMA==
+Content-Language: en-us
+X-CMS-MailID: 20260323172713epcas5p4dd04df01adb71b7563e1cac14b927632
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+X-CPGSPASS: Y
+X-Hop-Count: 3
+X-CMS-RootMailID: 20260319223312epcas5p183a1e0c31206025da8cf00b5d745a0ce
+References: <20260319223241.1351137-1-vladimir.oltean@nxp.com>
+	<CGME20260319223312epcas5p183a1e0c31206025da8cf00b5d745a0ce@epcas5p1.samsung.com>
+	<20260319223241.1351137-10-vladimir.oltean@nxp.com>
 
-On Fri, Mar 13, 2026 at 07:26:47PM +0100, David Heidelberg wrote:
-> On 17/02/2026 01:27, Richard Acayan wrote:
-> [...]
-> 
-> > +&cci_i2c1 {
-> > +	camera@1a {
-> > +		compatible = "sony,imx355";
-> > +		reg = <0x1a>;
-> > +
-> > +		clocks = <&camcc CAM_CC_MCLK2_CLK>;
-> > +
-> > +		assigned-clocks = <&camcc CAM_CC_MCLK2_CLK>;
-> > +		assigned-clock-rates = <19200000>;
-> 
-> Extract from #sdm670-mainline:erebion.eu discussion:
-> The imx355 can operate on 24 MHz (on both Pixel 3 and 3a), but Linux kernel
-> driver can operate only with 19.2 MHz.
-> 
-> I assume it would be worth it mention at least by comment here.
+HI Vladimir,
 
-This might set the series back because the devicetree isn't meant to be
-written for specific software, but it's included in v11 because you
-already asked twice.
+> -----Original Message-----
+> From: Vladimir Oltean <vladimir.oltean@nxp.com>
+> Sent: Friday, March 20, 2026 4:02 AM
+> To: linux-phy@lists.infradead.org
+> Cc: Vinod Koul <vkoul@kernel.org>; Neil Armstrong
+> <neil.armstrong@linaro.org>; dri-devel@lists.freedesktop.org;
+> freedreno@lists.freedesktop.org; linux-arm-kernel@lists.infradead.org;
+> linux-arm-msm@vger.kernel.org; linux-can@vger.kernel.org; linux-
+> gpio@vger.kernel.org; linux-ide@vger.kernel.org; linux-
+> kernel@vger.kernel.org; linux-media@vger.kernel.org; linux-
+> pci@vger.kernel.org; linux-renesas-soc@vger.kernel.org; linux-
+> riscv@lists.infradead.org; linux-rockchip@lists.infradead.org;
+linux-samsung-
+> soc@vger.kernel.org; linux-scsi@vger.kernel.org;
+linux-sunxi@lists.linux.dev;
+> linux-tegra@vger.kernel.org; linux-usb@vger.kernel.org;
+> netdev@vger.kernel.org; spacemit@lists.linux.dev;
+> UNGLinuxDriver@microchip.com; Bart Van Assche <bvanassche@acm.org>;
+> Alim Akhtar <alim.akhtar@samsung.com>; Peter Griffin
+> <peter.griffin@linaro.org>; James E.J. Bottomley
+> <James.Bottomley@HansenPartnership.com>; Martin K. Petersen
+> <martin.petersen@oracle.com>; Krzysztof Kozlowski <krzk@kernel.org>;
+> Chanho Park <chanho61.park@samsung.com>
+> Subject: [PATCH v5 phy-next 09/27] scsi: ufs: exynos: stop poking into
+struct
+> phy guts
+> 
+> The Exynos host controller driver is clearly a PHY consumer (gets the
+> ufs->phy using devm_phy_get()), but pokes into the guts of struct phy
+> to get the generic_phy->power_count.
+> 
+> The UFS core (specifically ufshcd_link_startup()) may call the variant
+> operation exynos_ufs_pre_link() -> exynos_ufs_phy_init() multiple times if
+> the link startup fails and needs to be retried.
+> 
+> However ufs-exynos shouldn't be doing what it's doing, i.e. looking at the
+> generic_phy->power_count, because in the general sense of the API, a
+> single Generic PHY may have multiple consumers. If ufs-exynos looks at
+> generic_phy->power_count, there's no guarantee that this ufs-exynos
+> instance is the one who previously bumped that power count. So it may be
+> powering down the PHY on behalf of another consumer.
+> 
+> The correct way in which this should be handled is ufs-exynos should
+> *remember* whether it has initialized and powered up the PHY before, and
+> power it down during link retries. Not rely on the power_count (which,
+btw,
+> on the writer side is modified under &phy->mutex, but on the reader side
+is
+> accessed unlocked). This is a discouraged pattern even if here it doesn't
+> cause functional problems.
+> 
+> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+> Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+> ---
+Thanks for the patch
+Acked-by: Alim Akhtar <alim.akhtar@samsung.com>
 
-The frequency could also be stated as having "better software support"
-in general without mentioning Linux as the reason.
+Tested this patch for basic UFS functionality, UFS still works. 
+Feel free to add
+Tested-by: Alim Akhtar <alim.akhtar@samsung.com>
+
+
+
