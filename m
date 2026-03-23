@@ -1,201 +1,319 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012030.outbound.protection.outlook.com [40.107.200.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF623BADB3;
-	Mon, 23 Mar 2026 17:06:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774285612; cv=fail; b=dpm8cgPyVo+xTEIvwgudPloBAc/YsWu03UV0bMvLF9eSNBrRFEJBvgAGafUKz5m67P2Tt30EeMqn/te6VmPHjDaYyouTooLPc4ubXKCEHDiwALgtAwj8+OcgXWs6IJw2uR2ttPQTyLmoFvqh0Qc2CEhPHdUimixnVprDGyUgwjY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774285612; c=relaxed/simple;
-	bh=WvBWK66bUCwq42aCQ9nlU7BBa6vu/7r5Ya8vu3p+z7U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=OxJSvZijD66AiXfGClgl/hXcJY415WU+h0RuwaZt9Z9ohyq+8k1v8LqLojZJUdD1A72i+jQsdX/N+7MfwfDi7zu4thNCmQcLH8f6U/9KxTYGVMU/SW1N8t9DWkTqUt89Ufcue9ugMP60oYabOBoDRvETaWdHqYj7aGKoI4Yu69o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=UQtVioMO; arc=fail smtp.client-ip=40.107.200.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14403C8735
+	for <linux-media@vger.kernel.org>; Mon, 23 Mar 2026 17:38:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774287514; cv=none; b=HO9EXwyZxokiZzbzIU5hYXmYPNkk/7y77c5uDDQ15toLskYRuJ9zGyaY0AUjbo7Gjy0ww1AT7nmZTM7u/K0CRSi2AyNh043qDicYXC6FHtjw9eYFciiLyE5JObhrKbNRW8MO+HFKi4el+iPV7TJw8UIDLNJUAxZ4Jq9EPWB1pWI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774287514; c=relaxed/simple;
+	bh=u+QxrN6yRvEFv7W2foss8WfpryKhzVVEeP59FzIovWw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qiKcyrHqc+62HiXPsBdX95lGJUQBQOsIMp6SrZ9CAZLxFUXY7IJ6ckrZ6GnJ6kxqPJiWhPTdaOd9UT2Pymc8J1gvTpj+eIaN1xia7OOFxe0v7W0be4K4/VNe4jY/uUqLj+DHaFf7djAGtrFqAid+Phy+RoxBSbcpxCt1U+wDcbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hBZ1K7Rl; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="UQtVioMO"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Dk8TEs7y0aSbgNr5LUT4yYpIZKjY5kGyOoQppTeI4QnrzmMaOsrDr65i0VOLm+aUsPzf7QLhZJ5/QawebSvrkMKQ6Zh3mgBfe/g4EbI+Nte9nmCH+p+rSCJRbX+dtCaDCWSD5vkDiWDZ14XRMh9QZ1CTdqoNgOQGwKX3pmlB5z/nPSiou/GBlypMTmVroOPqFgsqHe/QrA2jzC9YjFm4aTTPyg+wkhOHiwZ61puJqUIab+f7+isGFX3Z5iKxUlEyRC2cBfDqWtt09royZwTtF9sYoLnfMDC0ExGhqNq7HKrLATT+DgS8C11tTDgPSu8AKU4z+N1zQ17erotDbjtnKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TTDlvRkC9mkvhDVpZYOLma/9B820MzPnJouaH2c22Jg=;
- b=hB64XxaltrRc1vWW3IxG++viEeGZFhs0v7gdJUH7V+rFcDmPtTfl05E4fpva0kP87mKpRwbMpX/h6QqdY9UQyFR4uFxscK6B5SFy5Y3Go5uq9natQIXRcN724MXK1slICWwXmMa23aiaS8VRkmeg96yvbx17a7Ixxi8nqNibcRJ7K3GEVu09czlD9YP/MCPGyqHfn+WM3i4SXDpKflUuA0D/PT7AF/qFoSRCG0ii9P14azmXcglZPciAXq/kuZ5SV+DrCP4ke/Ypmd0TXFKRzZjn4cSgRPLw9a+cb0JGFXBfFxrOs7otDs7GZ/KZ5xIT88uZPRKIi7GX4ZXCcRiA8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=chipsnmedia.com smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TTDlvRkC9mkvhDVpZYOLma/9B820MzPnJouaH2c22Jg=;
- b=UQtVioMOgPi0k85XnnYGoevHruHf1MWkULSYMCpOfeOqjpS0k+GNROUWT3rIw1mVQv7q3xKl10adKEYt+neYha3xCa0ySsea57dWg+wjM51R81g1rsYZvueXjO1dAcCmqY3bBitWRJnJxvMoXBmDN8ccdpqv5cf4LgkM7nFRSWk=
-Received: from MN0PR03CA0019.namprd03.prod.outlook.com (2603:10b6:208:52f::29)
- by DS7PR10MB5213.namprd10.prod.outlook.com (2603:10b6:5:3aa::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.25; Mon, 23 Mar
- 2026 17:06:46 +0000
-Received: from BL02EPF00021F69.namprd02.prod.outlook.com
- (2603:10b6:208:52f:cafe::ec) by MN0PR03CA0019.outlook.office365.com
- (2603:10b6:208:52f::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Mon,
- 23 Mar 2026 17:06:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- BL02EPF00021F69.mail.protection.outlook.com (10.167.249.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.19 via Frontend Transport; Mon, 23 Mar 2026 17:06:41 +0000
-Received: from DLEE212.ent.ti.com (157.170.170.114) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 23 Mar
- 2026 12:06:40 -0500
-Received: from DLEE215.ent.ti.com (157.170.170.118) by DLEE212.ent.ti.com
- (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 23 Mar
- 2026 12:06:40 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE215.ent.ti.com
- (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Mon, 23 Mar 2026 12:06:40 -0500
-Received: from [128.247.81.76] (b-brnich.dhcp.ti.com [128.247.81.76])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 62NH6e2T649033;
-	Mon, 23 Mar 2026 12:06:40 -0500
-Message-ID: <f1b92f5b-c21c-44c0-a711-251e49b69114@ti.com>
-Date: Mon, 23 Mar 2026 12:06:40 -0500
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hBZ1K7Rl"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2aecefc7503so33330115ad.1
+        for <linux-media@vger.kernel.org>; Mon, 23 Mar 2026 10:38:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774287512; x=1774892312; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=/VQfIr9mRYQK6rBx33dhRkkPsspMzawtgBrkSlvn7oA=;
+        b=hBZ1K7Rlq7MUvmcAayXCO84WR5ltmy5Qnma+y7yCxRWXwS+YH/22s3rhBZU93gO4xe
+         LQYR83wxb7+2uuRSkBIANeNhT002jxfSfXqsqfc1mwqDlFCLeCxQpMxEgj2EXFKqI5vK
+         qtO2KuHN4IWgXcjOq/NkekH4D145Yn5R+7H07uZrhbxZ1TtA2kxys/YtLX3UdhXUsWAk
+         QGPogCx7vcvswgLcLsWO6xoEf0wDT5B05IYKk5Y2sZJBtI6m9RjBdED37hXxLg9e0hOL
+         HRj/Z2mDXCvsvfjfot79yPP4+JlO/R6CgQRr0bYFuRKC0ZSTKjLifuMYJNsNIfmR7C0B
+         cllA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774287512; x=1774892312;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/VQfIr9mRYQK6rBx33dhRkkPsspMzawtgBrkSlvn7oA=;
+        b=f3xZt1GyJHBkist+YcuiXY0jR6XMgntyjSJiHVK0YSsd2Mqhnca48GX5QYeTw39OFE
+         lz3iuC1pDPgYo4nQIIKiF8+ta0mxQmInwg9Dxoe/7J5iMgBrBTBukugfoeAK7/pEWxPt
+         eyyedZmHUL/fFbWe1dw2RStVOf063MDvUbY6qUW+rXryBdbQZyepy1pLj+p4NhNxXM84
+         SDbWt+7Vg3CcKUhk/DZ0g51nt+8Ze/dtxiuUe18H1ewDvLtV31BQO/OCX2a4ev5m4o8a
+         pctxIjPozxTZdER1Dt3Y9ExiPCFLnKaEm2WMuCJTA4ZQve74v1VTtHdzZjmLvyaKl2r5
+         QLwQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXnmOdmXSpgy2jTbqIk4sNaDvarqFbOpBxkefUrfVtADbx5GBgaP9ObknxHnHxfG+VIyuAgX0iYHA0QaA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzuMxXEjxqZUJYqlpt0fqWQEo8Y5ha3oUmc+OlNJ4pX7m3pIENP
+	vIM2g6FSZgK4NwMmOajKHPXyKS0CsFgwUAKIgMz0pEAPPgihnY4gl3Fs
+X-Gm-Gg: ATEYQzz+P2xebwx1enYCrnEVOGkyQPTAG4JJK9WO9qnlVNjXmwnmroWtrmGV1US7V96
+	u1WhhYFsSwaXJV8dS6lsSGr12odz9berRYzZFWcZVVuooNTojBs8JQ9ZGch4OYfrJ5ouSCY5Hc0
+	8NU1AiBNAehzqVRZ7W30uAS9a5MhUsOc7NtpLsrDt+rXkYA6Pi1g/68mROt4SEKeyReB+JT2w+f
+	soLf8SaN0xf94C57osbORpOTNkWOWZK/7Tiqql4dc6Cp280+iQUFVjJUVEWSuwLdn1CYYORXxqC
+	aF/J2NeO2XAse3dsdLAw0jcw/W+Gcuj/ScCTrm8xg4E7J7BIj96ZHBHqbngubV1fRSJFye9Cnvb
+	9VNB7XrTx3/zimMnPIcvX1ZpVNM2383BRTLhOlsjMdr3gcNbz+hTYiLEWZ1CXMG7UJ0Nj6OWYXh
+	o5FsCAHp9ukw69HrPn+ZKRgiFb8ASoYM9f9qHU7Gmpszbllng=
+X-Received: by 2002:a17:902:f651:b0:2b0:4d7d:fbc8 with SMTP id d9443c01a7336-2b0825e0b04mr119953635ad.0.1774287512015;
+        Mon, 23 Mar 2026 10:38:32 -0700 (PDT)
+Received: from xufowonmvnism.localdomain ([2409:893d:dfc:c0d:ad9b:7685:578e:c20c])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b0836955dbsm158835965ad.72.2026.03.23.10.38.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Mar 2026 10:38:31 -0700 (PDT)
+From: Lian Xiangyu <lin25001x@gmail.com>
+To: sakari.ailus@linux.intel.com,
+	gregkh@linuxfoundation.org
+Cc: bingbu.cao@intel.com,
+	mchehab@kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-media@vger.kernel.org,
+	Lian Xiangyu <lin25001x@gmail.com>
+Subject: [PATCH v2] staging: media: ipu7: remove 'U' suffix from hexadecimal literals
+Date: Tue, 24 Mar 2026 01:31:40 +0800
+Message-Id: <20260323173140.993436-1-lin25001x@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v0 2/3] media: chips-media: wave5: Support CBP profile
-To: jackson.lee <jackson.lee@chipsnmedia.com>, Nicolas Dufresne
-	<nicolas.dufresne@collabora.com>, "mchehab@kernel.org" <mchehab@kernel.org>,
-	"hverkuil-cisco@xs4all.nl" <hverkuil-cisco@xs4all.nl>,
-	"bob.beckett@collabora.com" <bob.beckett@collabora.com>
-CC: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, lafley.kim
-	<lafley.kim@chipsnmedia.com>, "hverkuil@xs4all.nl" <hverkuil@xs4all.nl>, "Nas
- Chung" <nas.chung@chipsnmedia.com>
-References: <20260319053210.90-1-jackson.lee@chipsnmedia.com>
- <20260319053210.90-3-jackson.lee@chipsnmedia.com>
- <5d1cf57fcfa10d224b05f6f1fe5bb33979dce750.camel@collabora.com>
- <PU4P216MB11491F8F792A075D77749805ED4CA@PU4P216MB1149.KORP216.PROD.OUTLOOK.COM>
-Content-Language: en-US
-From: Brandon Brnich <b-brnich@ti.com>
-In-Reply-To: <PU4P216MB11491F8F792A075D77749805ED4CA@PU4P216MB1149.KORP216.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F69:EE_|DS7PR10MB5213:EE_
-X-MS-Office365-Filtering-Correlation-Id: a0700f9e-6872-40d3-fac4-08de88fe8db8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|7416014|376014|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	GHBLMF+UKQbReHQ7PLlqoLpQJ5XWDcXicLlkU29/GuhAUemhdXFklFfH44V/y9khe+VVHBibnS2snjj9Vv+TzCKstMOTMY2oGSjY/3YaI8zWq9lmh94U6zG5K1IoltXdzHnTIWblE/euH4BRHmlsdi5NaA9eo8Ay4eJYzy0nmiseDx1fLloIMQC3n0fyHuuv5I1SYi4wB7NVzIzxRdqcq4NasfA7qfP20xcRubnw44pEd0Q6ST0cOgpRp3Dt7Lf7uCGkRmCepv4oU8Br2ePKp67UIxp35LNU1yM0N4bKLa9kZTtI2kmaZ9zOvCRqBqHm3Xwq59aKYfu4SrNTX230oqjOAoFTa3HUDXYsinQXtmbE+55w4ssD+4pfOVo+C8KhFV2iuPlj/kmct5EKC1Z6IqYBFppUumN21fb7RKJyHby+EuGhhUKCOtIb83MztGf3U/KrLxUdbWvmyQSD78BhtmpnjZFmgQcfxTdWNPvh/BVM0wTwReAxIkXXv6blMFcMxFAaSAFyqUdXpGGMoLLTvlOFUKD0M0mgNKFJ+J71bR2hIC7rsjN1iLKdioqf8jwqNnl7hKq8G96dUHTlI0vJ5+HXp24QtrysVi8UdBF/xRixiXjRSOePQags2eP3ttsxFONNtOBlEo6QeWEHif1b3YWDx7tdwmFSuApCy7r/z0a0LTBkfMpCmGrUHxO3fM/5io7Mv7FbdavcUsd+XrxuseYIcv2MNUEa2SFvTBpMaDyOvr6fukiOzQXrKhyI8NX7rUTsVf8hsNgnsRDNaDLnkw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(7416014)(376014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	tvfF1A8QvPR1DV+7WSUWgZvpJueEvqHcyjjNZN9J/F7Q4lCMyLmMzB6FiB5y6fYYmvDwrK3qtoMZoBOMVVJoOW0a9cgu1j/WTc432WczLqttptsLM6QZLTL4AhjoNEiEVIrDdjC3CIMNKhP7eFNHzfDeHi/JYQorFWWT91uqG2PXbd4vCCdjAKdu2kSSi3oVI98Pb7hM3mVV1PLQwnOE7qipxNPloyzLvEkYd/u7GQXWMbq5avvSoeDqxgCTDL699whw+zQDs9FCVrIKLVGtN07JnGl0nrHq4geHnzLk0ni0kD5nD55NlwKTwRMk1K5kikwSkqrPpji3BGSNYyqdZA6vOyNyZb2PyeRdcWUTAZQTzfIkQQlgsGF/qQIpRShQNqC6I8AtDrGii7eKSAP7K+QxAAByuoCMggp5smnM54Y3aFDYs7TV2T21GRWA+lv3
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 17:06:41.2763
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0700f9e-6872-40d3-fac4-08de88fe8db8
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF00021F69.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB5213
 
-Hi Jackson,
+The ipu7 driver's TODO specifies that the 'U' suffix should be
+removed from hexadecimal values in register definitions.
 
-On 3/19/26 20:23, jackson.lee wrote:
-> Hi Nicolas
-> 
+This patch cleans up the definitions in the header files within the
+ipu7 directory to comply with the requirements and improve consistency.
 
-[...]
+The modification was verified by comparing the disassembly of the
+built-in.a archive before and after the change. The MD5 hashes of the
+disassembly output remained identical, confirming that this is a
+purely cosmetic cleanup with no functional impact on the binary.
 
->> *ctrl)
->>>   		case V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_BASELINE:
->>>   			inst->enc_param.profile = H264_PROFILE_BP;
->>>   			inst->bit_depth = 8;
->>> +			if (ctrl->val ==
->> V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_BASELINE)
->>> +				inst->enc_param.constraint_set1_flag = 1;
->>>   			break;
->>>   		case V4L2_MPEG_VIDEO_H264_PROFILE_MAIN:
->>>   			inst->enc_param.profile = H264_PROFILE_MP; @@ -1214,9
->> +1216,11 @@
->>> static int wave5_set_enc_openparam(struct enc_open_param *open_param,
->>>   			open_param->wave_param.decoding_refresh_type =
->> DEC_REFRESH_TYPE_IDR;
->>>   			open_param->wave_param.intra_period =
->> input.avc_idr_period;
->>>   		}
->>> -	} else {
->>> +	} else if (inst->std == W_AVC_ENC)
->>> +		open_param->wave_param.constraint_set1_flag =
->> input.constraint_set1_flag;
->>> +	else
->>>   		open_param->wave_param.avc_idr_period = input.avc_idr_period;
->>> -	}
+Signed-off-by: Lian Xiangyu <lin25001x@gmail.com>
+---
+v2:
+ - Only remove the 'U' suffix from hexadecimal literals to align with
+   preferred kernel style, while keeping it for decimal values as
+   suggested by Sakari Ailus.
+ - Verified binary identity on x86_64 by comparing MD5/SHA256 hashes
+   of the disassembly output.
 
-The above code breaks setting GOP size for the AVC case. Any reason this 
-shouldn't remain just an if else where the else sets both constraint 
-flag and avc period?
+ .../staging/media/ipu7/abi/ipu7_fw_boot_abi.h | 78 +++++++++----------
+ .../media/ipu7/abi/ipu7_fw_common_abi.h       |  4 +-
+ .../staging/media/ipu7/abi/ipu7_fw_msg_abi.h  | 12 +--
+ .../staging/media/ipu7/ipu7-buttress-regs.h   | 10 +--
+ 4 files changed, 52 insertions(+), 52 deletions(-)
 
-Best,
-Brandon
-
->>
->> nit: Just keep the bracket, so that all branches have brackets.
->>
->> cheers,
->> Nicolas
->>
->>> +
->>>   	open_param->wave_param.entropy_coding_mode =
->> input.entropy_coding_mode;
->>>   	open_param->wave_param.lossless_enable = input.lossless_enable;
->>>   	open_param->wave_param.const_intra_pred_flag =
->>> input.const_intra_pred_flag; @@ -1687,7 +1691,7 @@ static int
->> wave5_vpu_open_enc(struct file *filp)
->>>   			  -6, 6, 1, 0);
->>>   	v4l2_ctrl_new_std(v4l2_ctrl_hdl, &wave5_vpu_enc_ctrl_ops,
->>>   			  V4L2_CID_MPEG_VIDEO_H264_8X8_TRANSFORM,
->>> -			  0, 1, 1, 1);
->>> +			  0, 1, 1, 0);
->>>   	v4l2_ctrl_new_std(v4l2_ctrl_hdl, &wave5_vpu_enc_ctrl_ops,
->>>
->> 	  V4L2_CID_MPEG_VIDEO_H264_CONSTRAINED_INTRA_PREDICTION,
->>>   			  0, 1, 1, 0);
->>> diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
->>> b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
->>> index dc31689e0d27..7b08fef58217 100644
->>> --- a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
->>> +++ b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
->>> @@ -570,6 +570,7 @@ struct enc_wave_param {
->>>   	u32 transform8x8_enable: 1; /* enable 8x8 intra prediction and 8x8
->> transform */
->>>   	u32 mb_level_rc_enable: 1; /* enable MB-level rate control */
->>>   	u32 forced_idr_header_enable: 1; /* enable header encoding before
->>> IDR frame */
->>> +	u32 constraint_set1_flag: 1; /* enable CBP */
->>>   	u32 bg_detection: 1; /* enable background detection */
->>>   };
->>>
+diff --git a/drivers/staging/media/ipu7/abi/ipu7_fw_boot_abi.h b/drivers/staging/media/ipu7/abi/ipu7_fw_boot_abi.h
+index a1519c4fe66..56b90aab83e 100644
+--- a/drivers/staging/media/ipu7/abi/ipu7_fw_boot_abi.h
++++ b/drivers/staging/media/ipu7/abi/ipu7_fw_boot_abi.h
+@@ -42,7 +42,7 @@ struct ia_gofo_logger_config {
+ 	((IA_GOFO_BUTTRESS_FW_BOOT_PARAMS_IS_OFFSET) + \
+ 	(u32)(IA_GOFO_BUTTRESS_FW_BOOT_PARAMS_MAX_REG_IDX_PER_APP))
+ #define IA_GOFO_BUTTRESS_FW_BOOT_PARAMS_PRIMARY_OFFSET (0U)
+-#define IA_GOFO_CCG_IPU_BUTTRESS_FW_BOOT_PARAMS_SECONDARY_OFFSET (0x3000U / 4U)
++#define IA_GOFO_CCG_IPU_BUTTRESS_FW_BOOT_PARAMS_SECONDARY_OFFSET (0x3000 / 4U)
+ #define IA_GOFO_HKR_IPU_BUTTRESS_FW_BOOT_PARAMS_SECONDARY_OFFSET \
+ 	(IA_GOFO_BUTTRESS_FW_BOOT_PARAMS_MAX_REG_IDX_PER_APP * 2U)
+ #define IA_GOFO_HKR_HIF_BUTTRESS_FW_BOOT_PARAMS_SECONDARY_OFFSET \
+@@ -75,7 +75,7 @@ enum ia_gofo_boot_uc_tile_frequency_units {
+ };
+ 
+ #define IA_GOFO_FW_BOOT_STATE_IS_CRITICAL(boot_state) \
+-	(0xdead0000U == ((boot_state) & 0xffff0000U))
++	(0xdead0000 == ((boot_state) & 0xffff0000))
+ 
+ struct ia_gofo_boot_config {
+ 	u32 length;
+@@ -104,35 +104,35 @@ struct ia_gofo_secondary_boot_config {
+ 
+ #pragma pack(pop)
+ 
+-#define IA_GOFO_WDT_TIMEOUT_ERR			0xdead0401U
+-#define IA_GOFO_MEM_FATAL_DME_ERR		0xdead0801U
+-#define IA_GOFO_MEM_UNCORRECTABLE_LOCAL_ERR	0xdead0802U
+-#define IA_GOFO_MEM_UNCORRECTABLE_DIRTY_ERR	0xdead0803U
+-#define IA_GOFO_MEM_UNCORRECTABLE_DTAG_ERR	0xdead0804U
+-#define IA_GOFO_MEM_UNCORRECTABLE_CACHE_ERR	0xdead0805U
+-#define IA_GOFO_DOUBLE_EXCEPTION_ERR		0xdead0806U
+-#define IA_GOFO_BIST_DMEM_FAULT_DETECTION_ERR	0xdead1000U
+-#define IA_GOFO_BIST_DATA_INTEGRITY_FAILURE	0xdead1010U
++#define IA_GOFO_WDT_TIMEOUT_ERR			0xdead0401
++#define IA_GOFO_MEM_FATAL_DME_ERR		0xdead0801
++#define IA_GOFO_MEM_UNCORRECTABLE_LOCAL_ERR	0xdead0802
++#define IA_GOFO_MEM_UNCORRECTABLE_DIRTY_ERR	0xdead0803
++#define IA_GOFO_MEM_UNCORRECTABLE_DTAG_ERR	0xdead0804
++#define IA_GOFO_MEM_UNCORRECTABLE_CACHE_ERR	0xdead0805
++#define IA_GOFO_DOUBLE_EXCEPTION_ERR		0xdead0806
++#define IA_GOFO_BIST_DMEM_FAULT_DETECTION_ERR	0xdead1000
++#define IA_GOFO_BIST_DATA_INTEGRITY_FAILURE	0xdead1010
+ 
+ enum ia_gofo_boot_state {
+-	IA_GOFO_FW_BOOT_STATE_SECONDARY_BOOT_CONFIG_READY = 0x57a7b000U,
+-	IA_GOFO_FW_BOOT_STATE_UNINIT = 0x57a7e000U,
+-	IA_GOFO_FW_BOOT_STATE_STARTING_0 = 0x57a7d000U,
+-	IA_GOFO_FW_BOOT_STATE_CACHE_INIT_DONE = 0x57a7d010U,
+-	IA_GOFO_FW_BOOT_STATE_MEM_INIT_DONE = 0x57a7d020U,
+-	IA_GOFO_FW_BOOT_STATE_STACK_INIT_DONE = 0x57a7d030U,
+-	IA_GOFO_FW_BOOT_STATE_EARLY_BOOT_DONE = 0x57a7d100U,
+-	IA_GOFO_FW_BOOT_STATE_BOOT_CONFIG_START = 0x57a7d200U,
+-	IA_GOFO_FW_BOOT_STATE_QUEUE_INIT_DONE = 0x57a7d300U,
+-	IA_GOFO_FW_BOOT_STATE_READY = 0x57a7e100U,
+-	IA_GOFO_FW_BOOT_STATE_CRIT_UNSPECIFIED = 0xdead0001U,
+-	IA_GOFO_FW_BOOT_STATE_CRIT_CFG_PTR = 0xdead0101U,
+-	IA_GOFO_FW_BOOT_STATE_CRIT_CFG_VERSION = 0xdead0201U,
+-	IA_GOFO_FW_BOOT_STATE_CRIT_MSG_VERSION = 0xdead0301U,
++	IA_GOFO_FW_BOOT_STATE_SECONDARY_BOOT_CONFIG_READY = 0x57a7b000,
++	IA_GOFO_FW_BOOT_STATE_UNINIT = 0x57a7e000,
++	IA_GOFO_FW_BOOT_STATE_STARTING_0 = 0x57a7d000,
++	IA_GOFO_FW_BOOT_STATE_CACHE_INIT_DONE = 0x57a7d010,
++	IA_GOFO_FW_BOOT_STATE_MEM_INIT_DONE = 0x57a7d020,
++	IA_GOFO_FW_BOOT_STATE_STACK_INIT_DONE = 0x57a7d030,
++	IA_GOFO_FW_BOOT_STATE_EARLY_BOOT_DONE = 0x57a7d100,
++	IA_GOFO_FW_BOOT_STATE_BOOT_CONFIG_START = 0x57a7d200,
++	IA_GOFO_FW_BOOT_STATE_QUEUE_INIT_DONE = 0x57a7d300,
++	IA_GOFO_FW_BOOT_STATE_READY = 0x57a7e100,
++	IA_GOFO_FW_BOOT_STATE_CRIT_UNSPECIFIED = 0xdead0001,
++	IA_GOFO_FW_BOOT_STATE_CRIT_CFG_PTR = 0xdead0101,
++	IA_GOFO_FW_BOOT_STATE_CRIT_CFG_VERSION = 0xdead0201,
++	IA_GOFO_FW_BOOT_STATE_CRIT_MSG_VERSION = 0xdead0301,
+ 	IA_GOFO_FW_BOOT_STATE_CRIT_WDT_TIMEOUT = IA_GOFO_WDT_TIMEOUT_ERR,
+-	IA_GOFO_FW_BOOT_STATE_WRONG_DATA_SECTION_UNPACKING = 0xdead0501U,
+-	IA_GOFO_FW_BOOT_STATE_WRONG_RO_DATA_SECTION_UNPACKING = 0xdead0601U,
+-	IA_GOFO_FW_BOOT_STATE_INVALID_UNTRUSTED_ADDR_MIN = 0xdead0701U,
++	IA_GOFO_FW_BOOT_STATE_WRONG_DATA_SECTION_UNPACKING = 0xdead0501,
++	IA_GOFO_FW_BOOT_STATE_WRONG_RO_DATA_SECTION_UNPACKING = 0xdead0601,
++	IA_GOFO_FW_BOOT_STATE_INVALID_UNTRUSTED_ADDR_MIN = 0xdead0701,
+ 	IA_GOFO_FW_BOOT_STATE_CRIT_MEM_FATAL_DME = IA_GOFO_MEM_FATAL_DME_ERR,
+ 	IA_GOFO_FW_BOOT_STATE_CRIT_MEM_UNCORRECTABLE_LOCAL =
+ 	IA_GOFO_MEM_UNCORRECTABLE_LOCAL_ERR,
+@@ -146,18 +146,18 @@ enum ia_gofo_boot_state {
+ 	IA_GOFO_DOUBLE_EXCEPTION_ERR,
+ 	IA_GOFO_FW_BOOT_STATE_CRIT_BIST_DMEM_FAULT_DETECTION_ERR =
+ 	IA_GOFO_BIST_DMEM_FAULT_DETECTION_ERR,
+-	IA_GOFO_FW_BOOT_STATE_CRIT_DATA_INTEGRITY_FAILURE = 0xdead1010U,
+-	IA_GOFO_FW_BOOT_STATE_CRIT_STACK_CHK_FAILURE = 0xdead1011U,
++	IA_GOFO_FW_BOOT_STATE_CRIT_DATA_INTEGRITY_FAILURE = 0xdead1010,
++	IA_GOFO_FW_BOOT_STATE_CRIT_STACK_CHK_FAILURE = 0xdead1011,
+ 	IA_GOFO_FW_BOOT_STATE_CRIT_SYSCOM_CONTEXT_INTEGRITY_FAILURE =
+-	0xdead1012U,
+-	IA_GOFO_FW_BOOT_STATE_CRIT_MPU_CONFIG_FAILURE = 0xdead1013U,
+-	IA_GOFO_FW_BOOT_STATE_CRIT_SHARED_BUFFER_FAILURE = 0xdead1014U,
+-	IA_GOFO_FW_BOOT_STATE_CRIT_CMEM_FAILURE = 0xdead1015U,
+-	IA_GOFO_FW_BOOT_STATE_SHUTDOWN_CMD = 0x57a7f001U,
+-	IA_GOFO_FW_BOOT_STATE_SHUTDOWN_START = 0x57a7e200U,
+-	IA_GOFO_FW_BOOT_STATE_INACTIVE = 0x57a7e300U,
+-	IA_GOFO_FW_BOOT_HW_CMD_ACK_TIMEOUT = 0x57a7e400U,
+-	IA_GOFO_FW_BOOT_SYSTEM_CYCLES_ERROR = 0x57a7e500U
++	0xdead1012,
++	IA_GOFO_FW_BOOT_STATE_CRIT_MPU_CONFIG_FAILURE = 0xdead1013,
++	IA_GOFO_FW_BOOT_STATE_CRIT_SHARED_BUFFER_FAILURE = 0xdead1014,
++	IA_GOFO_FW_BOOT_STATE_CRIT_CMEM_FAILURE = 0xdead1015,
++	IA_GOFO_FW_BOOT_STATE_SHUTDOWN_CMD = 0x57a7f001,
++	IA_GOFO_FW_BOOT_STATE_SHUTDOWN_START = 0x57a7e200,
++	IA_GOFO_FW_BOOT_STATE_INACTIVE = 0x57a7e300,
++	IA_GOFO_FW_BOOT_HW_CMD_ACK_TIMEOUT = 0x57a7e400,
++	IA_GOFO_FW_BOOT_SYSTEM_CYCLES_ERROR = 0x57a7e500
+ };
+ 
+ #endif
+diff --git a/drivers/staging/media/ipu7/abi/ipu7_fw_common_abi.h b/drivers/staging/media/ipu7/abi/ipu7_fw_common_abi.h
+index 7bb6fac585a..398a1335048 100644
+--- a/drivers/staging/media/ipu7/abi/ipu7_fw_common_abi.h
++++ b/drivers/staging/media/ipu7/abi/ipu7_fw_common_abi.h
+@@ -60,7 +60,7 @@ struct ia_gofo_tlv_list {
+ 
+ #define IA_GOFO_MSG_ERR_MAX_DETAILS		(4U)
+ #define IA_GOFO_MSG_ERR_OK			(0U)
+-#define IA_GOFO_MSG_ERR_UNSPECIFED		(0xffffffffU)
++#define IA_GOFO_MSG_ERR_UNSPECIFED		(0xffffffff)
+ #define IA_GOFO_MSG_ERR_GROUP_UNSPECIFIED	(0U)
+ #define IA_GOFO_MSG_ERR_IS_OK(err)	(IA_GOFO_MSG_ERR_OK == (err).err_code)
+ 
+@@ -145,7 +145,7 @@ struct ia_gofo_msg_indirect {
+ #define IA_GOFO_MSG_LOG_DOC_FMT_ID_MIN	(0U)
+ 
+ #define IA_GOFO_MSG_LOG_DOC_FMT_ID_MAX	(4095U)
+-#define IA_GOFO_MSG_LOG_FMT_ID_INVALID	(0xfffffffU)
++#define IA_GOFO_MSG_LOG_FMT_ID_INVALID	(0xfffffff)
+ 
+ struct ia_gofo_msg_log_info {
+ 	u16 log_counter;
+diff --git a/drivers/staging/media/ipu7/abi/ipu7_fw_msg_abi.h b/drivers/staging/media/ipu7/abi/ipu7_fw_msg_abi.h
+index 8a78dd0936d..31124838599 100644
+--- a/drivers/staging/media/ipu7/abi/ipu7_fw_msg_abi.h
++++ b/drivers/staging/media/ipu7/abi/ipu7_fw_msg_abi.h
+@@ -69,11 +69,11 @@ struct ipu7_msg_cb_profile {
+ 
+ #define IPU_MSG_NODE_MAX_PROFILES	(2U)
+ #define IPU_MSG_NODE_DEF_PROFILE_IDX	(0U)
+-#define IPU_MSG_NODE_RSRC_ID_EXT_IP	(0xffU)
++#define IPU_MSG_NODE_RSRC_ID_EXT_IP	(0xff)
+ 
+-#define IPU_MSG_NODE_DONT_CARE_TEB_HI	(0xffffffffU)
+-#define IPU_MSG_NODE_DONT_CARE_TEB_LO	(0xffffffffU)
+-#define IPU_MSG_NODE_RSRC_ID_IS		(0xfeU)
++#define IPU_MSG_NODE_DONT_CARE_TEB_HI	(0xffffffff)
++#define IPU_MSG_NODE_DONT_CARE_TEB_LO	(0xffffffff)
++#define IPU_MSG_NODE_RSRC_ID_IS		(0xfe)
+ 
+ struct ipu7_msg_node {
+ 	struct ia_gofo_tlv_header tlv_header;
+@@ -160,7 +160,7 @@ struct ipu7_msg_link_ep_pair {
+ #define IPU_MSG_LINK_FOREIGN_KEY_MAX		(64U)
+ #define IPU_MSG_LINK_PBK_ID_DONT_CARE		(255U)
+ #define IPU_MSG_LINK_PBK_SLOT_ID_DONT_CARE	(255U)
+-#define IPU_MSG_LINK_TERM_ID_DONT_CARE		(0xffU)
++#define IPU_MSG_LINK_TERM_ID_DONT_CARE		(0xff)
+ 
+ struct ipu7_msg_link {
+ 	struct ia_gofo_tlv_header tlv_header;
+@@ -333,7 +333,7 @@ enum ipu7_msg_err_device {
+ #pragma pack(pop)
+ 
+ #pragma pack(push, 1)
+-#define IPU_MSG_GRAPH_ID_UNKNOWN	(0xffU)
++#define IPU_MSG_GRAPH_ID_UNKNOWN	(0xff)
+ #define IPU_MSG_GRAPH_SEND_MSG_ENABLED	1U
+ #define IPU_MSG_GRAPH_SEND_MSG_DISABLED	0U
+ 
+diff --git a/drivers/staging/media/ipu7/ipu7-buttress-regs.h b/drivers/staging/media/ipu7/ipu7-buttress-regs.h
+index 3eafd6a3813..7b646aa538c 100644
+--- a/drivers/staging/media/ipu7/ipu7-buttress-regs.h
++++ b/drivers/staging/media/ipu7/ipu7-buttress-regs.h
+@@ -287,7 +287,7 @@
+ 
+ #define BUTTRESS_TSC_CMD_START_TSC_SYNC		BIT(0)
+ #define BUTTRESS_PWR_STATUS_HH_STATUS_SHIFT	11
+-#define BUTTRESS_PWR_STATUS_HH_STATUS_MASK	(0x3U << 11)
++#define BUTTRESS_PWR_STATUS_HH_STATUS_MASK	(0x3 << 11)
+ #define BUTTRESS_TSW_WA_SOFT_RESET		BIT(8)
+ /* new for PTL */
+ #define BUTTRESS_SEL_PB_TIMESTAMP		BIT(9)
+@@ -326,8 +326,8 @@
+ #define BUTTRESS_CSE2IUDATA0_IPC_NACK_MASK 0xffff
+ 
+ /* IS/PS freq control */
+-#define BUTTRESS_IS_FREQ_CTL_RATIO_MASK	0xffU
+-#define BUTTRESS_PS_FREQ_CTL_RATIO_MASK	0xffU
++#define BUTTRESS_IS_FREQ_CTL_RATIO_MASK	0xff
++#define BUTTRESS_PS_FREQ_CTL_RATIO_MASK	0xff
+ 
+ #define IPU7_IS_FREQ_MAX		450
+ #define IPU7_IS_FREQ_MIN		50
+@@ -350,11 +350,11 @@
+ /* buttree power status */
+ #define IPU_BUTTRESS_PWR_STATE_IS_PWR_SHIFT	0
+ #define IPU_BUTTRESS_PWR_STATE_IS_PWR_MASK	\
+-	(0x3U << IPU_BUTTRESS_PWR_STATE_IS_PWR_SHIFT)
++	(0x3 << IPU_BUTTRESS_PWR_STATE_IS_PWR_SHIFT)
+ 
+ #define IPU_BUTTRESS_PWR_STATE_PS_PWR_SHIFT	4
+ #define IPU_BUTTRESS_PWR_STATE_PS_PWR_MASK	\
+-	(0x3U << IPU_BUTTRESS_PWR_STATE_PS_PWR_SHIFT)
++	(0x3 << IPU_BUTTRESS_PWR_STATE_PS_PWR_SHIFT)
+ 
+ #define IPU_BUTTRESS_PWR_STATE_DN_DONE		0x0
+ #define IPU_BUTTRESS_PWR_STATE_UP_PROCESS	0x1
+-- 
+2.34.1
 
