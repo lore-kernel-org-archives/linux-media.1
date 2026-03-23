@@ -1,130 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 500D41946BC;
-	Mon, 23 Mar 2026 13:01:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F46D1BD9CE;
+	Mon, 23 Mar 2026 13:03:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774270878; cv=none; b=fZmI8apuaekm4NvM/8I2eNvnFKTpxuz8GaJWufaMjGQBLx1cj/qgURfmA9L2CBq8uUetgbhHOg58itUtB0H3FhRwHZNNq1jg1j+P7K7OPBFbHJXCq19fXlLhK7j/WGlEfVzz/d6DbxjwGQwO5g0QDrYuLcl2txGdbwx5MB7HVoM=
+	t=1774270992; cv=none; b=kpYvSQIjwr7VuS19T8VeYiHUwoyA+ybR3eCkuKcI/b/KU09Yixr/4C/+I8RxT1YwV9Ikteba6MwubeEz5FgXByQyqIG0ZT6EyJ3dB06gRV8X63JbW0uDT2j41YDi0yaG6uPu5mCJBFEx4CkptCI0bkjzPk8d/j9iUTUbChwiyss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774270878; c=relaxed/simple;
-	bh=VHSP/3HxZRiZrR1EBuPV5EE+ZKFRtnX/Jig0jtt+O30=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KKGy2ofA/giqmG0F9nf+phxe4fyLTm2pJgiCbt7ZGmKV0gHL6tvcSZHE6eMNEofVvM5QHX8eORfg4JQpX7pbq4bX3Bk6wpYyPQbb7ElCz6+8Q9HgtXHW2QG7hpbBq288wX5L4pMM+BYuGuUIyBhjFVxyMPtZMXEWv7cjzCxQM0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VsIz4BKK; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774270992; c=relaxed/simple;
+	bh=Tk7AEuVV6ndbpjTrtP+kp0OL5C5X36tTLwvYycCGgoM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q6XsxMfZPLuaBSbMoL48UVD8FyFFC9IvIQHFQlm14m3ydmonThgVR/NPg2LIPKIgfTgk/wLCdJhCWzijS7fVOqggivqmrjNfGbbuQUBup9u7biRKSZmZ+vvW9A7G7WybIM9+GoQseX2mn4DTQURNAFGjzhgMmyOKeQR1ZD8Gu+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N8Q66bf0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VsIz4BKK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36476C4CEF7;
-	Mon, 23 Mar 2026 13:01:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N8Q66bf0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D14CC2BC9E;
+	Mon, 23 Mar 2026 13:03:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774270877;
-	bh=VHSP/3HxZRiZrR1EBuPV5EE+ZKFRtnX/Jig0jtt+O30=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VsIz4BKKNr5zD6NxUiPN+ZyH2K7G6mW06vF88wJIeWeZg6vCyCns3s8BAQFVWYqAJ
-	 soWLj3bmIApwDsJGR4ez1uVODIqanQMZeuMSUqjOUfD7f9j5xXecbzxbqTYmk2EOas
-	 EH2+F/zb0wr9/8c9phiA5W2OOTw9pMvq/balc+x21AT2qwzhY5BJSG7N3qYN20Dd0l
-	 bVtRwTNEZv4jSbkskiPYkh1K7RaF8uNWQivU/IcouchUPENHfc5Dl7N1pC0gGuqAQr
-	 rEDwGhp8z+WAV0WJNN/rekPkrfZtmTK31Cq4Q1iL2gNfpE6QQC+wlQ+aG264dk3oLH
-	 ly3vuSHiEqdEA==
-Date: Mon, 23 Mar 2026 18:31:00 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-	linux-media@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-	linux-remoteproc@vger.kernel.org, andersson@kernel.org,
-	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
-	akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
-	jesszhan0024@gmail.com, marijn.suijten@somainline.org,
-	airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
-	dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
-	mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
-	trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
-	jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
-	vignesh.viswanathan@oss.qualcomm.com,
-	srinivas.kandagatla@oss.qualcomm.com,
-	amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
-	op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
-	skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
-	Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v2 02/15] firmware: qcom: Add a generic PAS service
-Message-ID: <acE5jPxBJxOr3N5l@sumit-xelite>
-References: <20260312062756.694390-1-sumit.garg@kernel.org>
- <20260312062756.694390-3-sumit.garg@kernel.org>
- <20260313075948.nbopdkctdcvzlj3f@hu-mojha-hyd.qualcomm.com>
+	s=k20201202; t=1774270992;
+	bh=Tk7AEuVV6ndbpjTrtP+kp0OL5C5X36tTLwvYycCGgoM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=N8Q66bf06G1dsP9YjDVy45z/OBnME4cBHyHwO3Gy5BmnfNzhrN4+TIdSYomXlep5r
+	 pjfJeOMArWSQRlCxJs8WIrmBu+jW2vYk/YcBbNQeWm/o0lWrAYiT+ctX7NrJvWiD6j
+	 yD8xUvfKicElNppjhGXMCYG34sZqkWxEmbBOzDPQ/M/uCT4OEjixVzp1bVOivROeKv
+	 HXHpMc4Nzc7A+0ua/gSllR1bLm4OV+h3c+GXz8ynm4qtW3FcG2w2Mah4ElOVNaRBpb
+	 wH/YfD4G10Gk/zb6a5YqX3P9jiPUUuyOzQa7joV/4s8q5Xk7z5FNp49cH5iLOqIdFF
+	 TkDcNKiCl9JSg==
+Message-ID: <0b2bbf85-9534-4eee-b31b-5bc9db326b43@kernel.org>
+Date: Mon, 23 Mar 2026 13:03:07 +0000
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260313075948.nbopdkctdcvzlj3f@hu-mojha-hyd.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 3/3] arm64: dts: qcom: qcm2290: Add CAMSS OPE node
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ vladimir.zapolskiy@linaro.org, laurent.pinchart@ideasonboard.com,
+ kieran.bingham@ideasonboard.com, robh@kernel.org, krzk+dt@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ johannes.goede@oss.qualcomm.com, mchehab@kernel.org
+References: <20260323125824.211615-1-loic.poulain@oss.qualcomm.com>
+ <kQjTNLd-JD3vGP5gW5LKd2C5hr2k3PuPhOk6Ow6FH1zWeQmsQdPVIgl5TS5_LyL2qkcNQM87wEPGIcpeWqNhxQ==@protonmail.internalid>
+ <20260323125824.211615-4-loic.poulain@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20260323125824.211615-4-loic.poulain@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Mar 13, 2026 at 01:29:48PM +0530, Mukesh Ojha wrote:
-> On Thu, Mar 12, 2026 at 11:57:43AM +0530, Sumit Garg wrote:
-> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > 
-> > Qcom platforms has the legacy of using non-standard SCM calls
-> > splintered over the various kernel drivers. These SCM calls aren't
-> > compliant with the standard SMC calling conventions which is a
-> > prerequisite to enable migration to the FF-A specifications from Arm.
-> > 
-> > OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
-> > support these non-standard SCM calls. And even for newer architectures
-> > with S-EL2 and Hafnium support, QTEE won't be able to support SCM
-> > calls either with FF-A requirements coming in. And with both OP-TEE
-> > and QTEE drivers well integrated in the TEE subsystem, it makes further
-> > sense to reuse the TEE bus client drivers infrastructure.
-> > 
-> > The added benefit of TEE bus infrastructure is that there is support
-> > for discoverable/enumerable services. With that client drivers don't
-> > have to manually invoke a special SCM call to know the service status.
-> > 
-> > So enable the generic Peripheral Authentication Service (PAS) provided
-> > by the firmware. It acts as the common layer with different TZ
-> > backends plugged in whether it's an SCM implementation or a proper
-> > TEE bus based PAS service implementation.
-> > 
-> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > ---
-> >  drivers/firmware/qcom/Kconfig          |   8 +
-> >  drivers/firmware/qcom/Makefile         |   1 +
-> >  drivers/firmware/qcom/qcom_pas.c       | 298 +++++++++++++++++++++++++
-> >  drivers/firmware/qcom/qcom_pas.h       |  53 +++++
-> >  include/linux/firmware/qcom/qcom_pas.h |  41 ++++
-> >  5 files changed, 401 insertions(+)
-> >  create mode 100644 drivers/firmware/qcom/qcom_pas.c
-> >  create mode 100644 drivers/firmware/qcom/qcom_pas.h
-> >  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
-> > 
-
-<snip>
-
-> > diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qcom_pas.c
-> > new file mode 100644
-> > index 000000000000..beb1bae55546
-> > --- /dev/null
-> > +++ b/drivers/firmware/qcom/qcom_pas.c
-> > @@ -0,0 +1,298 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/*
-> > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> > + */
+On 23/03/2026 12:58, Loic Poulain wrote:
+> Add the Qualcomm CAMSS Offline Processing Engine (OPE) node for
+> QCM2290. The OPE is a memory-to-memory image processing block used in
+> offline imaging pipelines.
 > 
-> I know, this is new file but most of the documentation and some of the
-> function are rename to reflect pas service.
+> The node includes register regions, clocks, interconnects, IOMMU
+> mappings, power domains, interrupts, and an associated OPP table.
 > 
-> Should this carry original file copyright ? Not sure..
->
+> At the moment we assign a fixed rate to GCC_CAMSS_AXI_CLK since this
+> clock is shared across multiple CAMSS components and there is currently
+> no support for dynamically scaling it.
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+>   arch/arm64/boot/dts/qcom/agatti.dtsi | 72 ++++++++++++++++++++++++++++
+>   1 file changed, 72 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/agatti.dtsi b/arch/arm64/boot/dts/qcom/agatti.dtsi
+> index f9b46cf1c646..358ebfc99552 100644
+> --- a/arch/arm64/boot/dts/qcom/agatti.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/agatti.dtsi
+> @@ -1935,6 +1935,78 @@ port@1 {
+>   			};
+>   		};
+> 
+> +		isp_ope: isp@5c42400 {
 
-This file only contains the wrapper generic PAS APIs which aren't
-re-used from any other file. Carrying copyrights solely based on moving
-API documentation in not very clear to me. Any other thoughts?
+Should be a sub-node of CAMSS.
 
--Sumit
+---
+bod
