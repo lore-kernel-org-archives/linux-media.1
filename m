@@ -1,141 +1,110 @@
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+Received: from spark.kcore.it (spark.kcore.it [49.13.27.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8B433B5842
-	for <linux-media@vger.kernel.org>; Mon, 23 Mar 2026 15:38:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE5F3BC69E
+	for <linux-media@vger.kernel.org>; Mon, 23 Mar 2026 15:40:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.13.27.68
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774280287; cv=none; b=hPtBvAyNhA5C0CBx06Ul+dnpflySt7r3y5KA4jpHdI+fuQf3vVp8iO1ja/j3TtrZ6Ylb7nnNizgEcCAR7T30ogPhfi0dLNMaZkF5050Ak+v7rA8fcVlIuWTM2cTqPJzVoyLtJfqvX5WsbjCRTLNKGEAlABqeAaq7ZYTYKNWF2pQ=
+	t=1774280449; cv=none; b=Au+B+1UL+P1iQBaK5/isSIUX7sw1CNEw6Weh8toDmj5xyl+Aa+y15nRLDbiJeIYm3RVz5BvAv/bsTIYZcouJg6STMhsepZdksus3t8RFHBpfvi7PueIMrQcMlUn1BrjVPOtkgHVQI6uRhKcw8O2gYjOvyWM/g7LvJjT6Wx1oEI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774280287; c=relaxed/simple;
-	bh=vToF1UbNvL4l1OkVwlOI7+XcnxHkjKZMzjHswh/EJ+k=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
-	 Content-Type:References; b=kzfm7YwHYdrYW2Jzwm+IaAzJNBdjtDLW/PSB5T/BOP98Q3bi/cru4eBnDfV1d5YB18qLkpshVVfF2NAPsReMOyvy9NLl9J7lKRsBrVtWizwdaDE0RSZsk0miy3maflExjQrKZ7jGRLLqEheDDBQpVuZ0EqDsxSlym2sVDX1IPlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=mgU9aFrC; arc=none smtp.client-ip=203.254.224.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1774280449; c=relaxed/simple;
+	bh=jpVXurKoSOkSjTpeZXMkzBOkIy5RBv7iV1rZlIyYyE8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mXDVEEZUusBGtX6BS+JnU+Ktrk1pVTNEr1ZHDBzP8mpcK6YclSCkaAsK3QKb6KkcBP3gwCMtCfA5yQPzGy8cG0sXpAFjkQB/dV4Vu9RiyKP3Dq3oVjZIRxeLaJkV/UPq0yXk134oIWFNGegOgh0B3N5uihb5UZKHlzT8uKx+sjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kcore.it; spf=pass smtp.mailfrom=kcore.it; dkim=pass (1024-bit key) header.d=kcore.it header.i=@kcore.it header.b=mkvM3aWb; arc=none smtp.client-ip=49.13.27.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kcore.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kcore.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="mgU9aFrC"
-Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20260323153802epoutp0363cbe07c3ef666adac291ef7320fa14b~fgoRC14VY2035420354epoutp03b
-	for <linux-media@vger.kernel.org>; Mon, 23 Mar 2026 15:38:02 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20260323153802epoutp0363cbe07c3ef666adac291ef7320fa14b~fgoRC14VY2035420354epoutp03b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1774280282;
-	bh=MYU9K1BczlLtBMfJPDu28QIk9pzoA+hXl3yf17nC2HI=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
-	b=mgU9aFrC+5Kx+21CCBQ48vtUtevP0XGV5aHjupTGFTw7s0wbx2FYZ7piHu2gEGNx9
-	 7FiJ9iRzTsn7N6OtZVcQFwqx9+/yRy1FbPgDJReQh76dJWCUi3xQdbS9llr9OgF8ia
-	 3KFTDuksHm5/ZDwJUU6SICm8wW+RY1yai4quNiMM=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20260323153802epcas5p1bb1e979594c5257c037cdf6411e7a177~fgoQZrLX82373723737epcas5p1t;
-	Mon, 23 Mar 2026 15:38:02 +0000 (GMT)
-Received: from epcpadp2new (unknown [182.195.40.142]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4ffckf0KMvz3hhT4; Mon, 23 Mar
-	2026 15:38:02 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
-	20260323123542epcas5p349d0e7c45d02ccaa06c84dbdf1777126~feJElRtj12139221392epcas5p34;
-	Mon, 23 Mar 2026 12:35:42 +0000 (GMT)
-Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip2.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20260323123538epsmtip2099c850de3b514ee4ac3f5a0092dd02a~feJAkDKG92361023610epsmtip2P;
-	Mon, 23 Mar 2026 12:35:38 +0000 (GMT)
-From: "Alim Akhtar" <alim.akhtar@samsung.com>
-To: "'Vladimir Oltean'" <vladimir.oltean@nxp.com>, "'Martin K. Petersen'"
-	<martin.petersen@oracle.com>
-Cc: <linux-phy@lists.infradead.org>, "'Vinod Koul'" <vkoul@kernel.org>,
-	"'Neil	Armstrong'" <neil.armstrong@linaro.org>,
-	<dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-arm-msm@vger.kernel.org>,
-	<linux-can@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
-	<linux-ide@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-media@vger.kernel.org>, <linux-pci@vger.kernel.org>,
-	<linux-renesas-soc@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
-	<linux-rockchip@lists.infradead.org>, <linux-samsung-soc@vger.kernel.org>,
-	<linux-scsi@vger.kernel.org>, <linux-sunxi@lists.linux.dev>,
-	<linux-tegra@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <spacemit@lists.linux.dev>,
-	<UNGLinuxDriver@microchip.com>, "'Bart Van Assche'" <bvanassche@acm.org>,
-	"'Peter Griffin'" <peter.griffin@linaro.org>, "'James E.J. Bottomley'"
-	<James.Bottomley@HansenPartnership.com>, "'Krzysztof	Kozlowski'"
-	<krzk@kernel.org>, "'Chanho Park'" <chanho61.park@samsung.com>
-In-Reply-To: <20260323115848.ghdu4sbk75tvggfb@skbuf>
-Subject: RE: [PATCH v5 phy-next 09/27] scsi: ufs: exynos: stop poking into
- struct phy guts
-Date: Mon, 23 Mar 2026 18:05:36 +0530
-Message-ID: <1891546521.01774280282025.JavaMail.epsvc@epcpadp2new>
+	dkim=pass (1024-bit key) header.d=kcore.it header.i=@kcore.it header.b="mkvM3aWb"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kcore.it;
+	s=spark; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:
+	To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=VwA2t0rZ0VXagRzbDgknzd9x+x1n4+XqfjXeSxWz6AA=; b=mkvM3aWbEXmV5PK4eiKzv12xqA
+	q8QDifbDjNPnGMrBOnM47LpTuCdYgF7p36PEsushlmXZHlvgtJmKQxJxdfIgAJM8mpsNwoUNALhCe
+	LRS7lojlyl4I0PfmmrW0vIl+jkqbEEecw/ZJjUV+gVDxsBnvxnoRUrJ1XKfLgwjeWefI=;
+Received: from mnencia by spark.kcore.it with local (Exim 4.96)
+	(envelope-from <mnencia@kcore.it>)
+	id 1w4hOP-005tTD-10;
+	Mon, 23 Mar 2026 16:40:37 +0100
+From: Marco Nenciarini <mnencia@kcore.it>
+To: linux-media@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com,
+	bingbu.cao@intel.com,
+	tian.shu.qiu@intel.com,
+	Marco Nenciarini <mnencia@kcore.it>
+Subject: [PATCH] media: intel/ipu6: Fix DWC PHY HSFREQRANGE band selection for overlapping ranges
+Date: Mon, 23 Mar 2026 16:40:37 +0100
+Message-Id: <20260323154037.1404865-1-mnencia@kcore.it>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQJoz1sM+EbPjkyDopxrfJVWkMJWdwI9AyWpAaSC6pgB9ZOp/gJXIgBltGJxFXA=
-Content-Language: en-us
-X-CMS-MailID: 20260323123542epcas5p349d0e7c45d02ccaa06c84dbdf1777126
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-X-CPGSPASS: Y
-X-Hop-Count: 3
-X-CMS-RootMailID: 20260323115859epcas5p10177db12a2e8aee9578271ff1411137b
-References: <20260319223241.1351137-1-vladimir.oltean@nxp.com>
-	<20260319223241.1351137-10-vladimir.oltean@nxp.com>
-	<yq1a4w3l04g.fsf@ca-mkp.ca.oracle.com>
-	<CGME20260323115859epcas5p10177db12a2e8aee9578271ff1411137b@epcas5p1.samsung.com>
-	<20260323115848.ghdu4sbk75tvggfb@skbuf>
+Content-Transfer-Encoding: 8bit
 
-Hi Vladimir
+The get_hsfreq_by_mbps() function searches the freqranges[] table
+backward (from highest to lowest index). Because adjacent frequency
+bands overlap, a data rate that falls in the overlap region always
+lands on the higher-indexed band.
 
-> -----Original Message-----
-> From: Vladimir Oltean <vladimir.oltean@nxp.com>
-> Sent: Monday, March 23, 2026 5:29 PM
-> To: Martin K. Petersen <martin.petersen@oracle.com>
-> Cc: linux-phy@lists.infradead.org; Vinod Koul <vkoul@kernel.org>; Neil
-> Armstrong <neil.armstrong@linaro.org>; dri-devel@lists.freedesktop.org;
-> freedreno@lists.freedesktop.org; linux-arm-kernel@lists.infradead.org;
-> linux-arm-msm@vger.kernel.org; linux-can@vger.kernel.org; linux-
-> gpio@vger.kernel.org; linux-ide@vger.kernel.org; linux-
-> kernel@vger.kernel.org; linux-media@vger.kernel.org; linux-
-> pci@vger.kernel.org; linux-renesas-soc@vger.kernel.org; linux-
-> riscv@lists.infradead.org; linux-rockchip@lists.infradead.org;
-linux-samsung-
-> soc@vger.kernel.org; linux-scsi@vger.kernel.org;
-linux-sunxi@lists.linux.dev;
-> linux-tegra@vger.kernel.org; linux-usb@vger.kernel.org;
-> netdev@vger.kernel.org; spacemit@lists.linux.dev;
-> UNGLinuxDriver@microchip.com; Bart Van Assche <bvanassche@acm.org>;
-> Alim Akhtar <alim.akhtar@samsung.com>; Peter Griffin
-> <peter.griffin@linaro.org>; James E.J. Bottomley
-> <James.Bottomley@HansenPartnership.com>; Krzysztof Kozlowski
-> <krzk@kernel.org>; Chanho Park <chanho61.park@samsung.com>
-> Subject: Re: [PATCH v5 phy-next 09/27] scsi: ufs: exynos: stop poking into
-> struct phy guts
-> 
-> On Thu, Mar 19, 2026 at 10:15:17PM -0400, Martin K. Petersen wrote:
-> > Vladimir,
-> >
-> > > The Exynos host controller driver is clearly a PHY consumer (gets
-> > > the
-> > > ufs->phy using devm_phy_get()), but pokes into the guts of struct
-> > > ufs->phy
-> > > to get the generic_phy->power_count.
-> >
-> > Ah, newer version. Would still like an ack from Samsung.
-> >
-> > And I hit the wrong key, I did not actually apply this...
-> 
-> I will have to resend v6 because of an armv7 build error I've caused for
-ufs-
-> qcom.c (which doesn't #include <linux/interrupt.h>, and relies on a
-transitive
-> inclusion from <linux/phy/phy.h>). It would be nice to get the ack from
-> Samsung, but I'll send the next version in the upcoming hours regardless.
-Will review and possibly test on one of the board later tonight
+For data rates up to 1500 Mbps (index 42) every band uses
+osc_freq_target 335. Starting at index 43 (1461-1640 Mbps) the
+osc_freq_target drops to 208. A sensor running at 1498 Mbps sits in
+the overlap between index 42 (1414-1588, osc 335) and index 43
+(1461-1640, osc 208). The backward search picks index 43, programming
+the lower osc_freq_target of 208 instead of the optimal 335.
 
+This causes DDL lock instability and CSI-2 CRC errors on affected
+configurations, such as the OmniVision OV08X40 sensor on Intel Arrow
+Lake platforms (Dell Pro Max 16).
 
+Add a check after get_hsfreq_by_mbps() that shifts to the previous
+band when it also covers the requested data rate and provides a higher
+osc_freq_target, ensuring stable DDL lock at boundary data rates.
+
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Bingbu Cao <bingbu.cao@intel.com>
+Signed-off-by: Marco Nenciarini <mnencia@kcore.it>
+---
+ .../media/pci/intel/ipu6/ipu6-isys-dwc-phy.c  | 21 +++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-dwc-phy.c b/drivers/media/pci/intel/ipu6/ipu6-isys-dwc-phy.c
+index db28748..450e7a2 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-dwc-phy.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-dwc-phy.c
+@@ -317,6 +317,27 @@ static int ipu6_isys_dwc_phy_config(struct ipu6_isys *isys,
+ 		return -EINVAL;
+ 	}
+ 
++	/*
++	 * The overlapping frequency ranges combined with the backward
++	 * search in get_hsfreq_by_mbps() can select a band where the
++	 * data rate sits at the lower edge and osc_freq_target drops
++	 * (335 -> 208 at index 43). When the previous band also covers
++	 * this rate and has a higher osc_freq_target, prefer it for
++	 * better DDL lock stability. This fixes CRC errors seen at
++	 * 1498 Mbps (e.g. OV08X40 on Arrow Lake).
++	 */
++	if (index > 0 &&
++	    mbps >= freqranges[index - 1].min &&
++	    mbps <= freqranges[index - 1].max &&
++	    freqranges[index - 1].osc_freq_target >
++	    freqranges[index].osc_freq_target) {
++		dev_dbg(dev, "Dphy %u: shift band %u->%u for %u mbps (osc %u->%u)",
++			phy_id, index, index - 1, mbps,
++			freqranges[index].osc_freq_target,
++			freqranges[index - 1].osc_freq_target);
++		index--;
++	}
++
+ 	dwc_dphy_write_mask(isys, phy_id, IPU6_DWC_DPHY_HSFREQRANGE,
+ 			    freqranges[index].hsfreq, 0, 7);
+ 
+-- 
+2.47.3
 
