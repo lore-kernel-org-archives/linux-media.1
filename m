@@ -1,178 +1,141 @@
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8AE3B19AA
-	for <linux-media@vger.kernel.org>; Mon, 23 Mar 2026 15:37:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774280278; cv=pass; b=bWKBletFV2XyvyfFsL3D/+Uq+Yrb8EOjmBjDzRgZdj1+NCiozx0uA3qChGSuu6VMRWVuVceh7U4eAALs2D0laWXMRRRJ/OrA98AjzopuMch4nsxEA165Ui0Xw0Dvd/YktsyBIOT7cflgcbtBTiHWhm22ECDetZinRIxZf8USg/M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774280278; c=relaxed/simple;
-	bh=NPBZu9fTz00phfR8AvUCoM9kehhC0ewbcsS67oGkNdw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=poxfluc+AbaTpLvrgKwk6v+INsHCcuhmBf0geTOeWDtAh9ep6NcgdDyzHkPdzhLqokvLmik4gKTOQPHNcKj/SJjkHqvYtHPMERTjVlTkFhTs4fq7Z06ljdKMthWjq0u11pbG/Xshg+SaxNhcA+VMpXhi5ffN8NcajXhruVU67Kg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=Pj5+mKyk; arc=pass smtp.client-ip=74.125.224.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8B433B5842
+	for <linux-media@vger.kernel.org>; Mon, 23 Mar 2026 15:38:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774280287; cv=none; b=hPtBvAyNhA5C0CBx06Ul+dnpflySt7r3y5KA4jpHdI+fuQf3vVp8iO1ja/j3TtrZ6Ylb7nnNizgEcCAR7T30ogPhfi0dLNMaZkF5050Ak+v7rA8fcVlIuWTM2cTqPJzVoyLtJfqvX5WsbjCRTLNKGEAlABqeAaq7ZYTYKNWF2pQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774280287; c=relaxed/simple;
+	bh=vToF1UbNvL4l1OkVwlOI7+XcnxHkjKZMzjHswh/EJ+k=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:References; b=kzfm7YwHYdrYW2Jzwm+IaAzJNBdjtDLW/PSB5T/BOP98Q3bi/cru4eBnDfV1d5YB18qLkpshVVfF2NAPsReMOyvy9NLl9J7lKRsBrVtWizwdaDE0RSZsk0miy3maflExjQrKZ7jGRLLqEheDDBQpVuZ0EqDsxSlym2sVDX1IPlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=mgU9aFrC; arc=none smtp.client-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="Pj5+mKyk"
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-64ea5b45673so4143602d50.0
-        for <linux-media@vger.kernel.org>; Mon, 23 Mar 2026 08:37:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774280275; cv=none;
-        d=google.com; s=arc-20240605;
-        b=L1k9GDuJqld+Z0wuQniGEepyRt1rGjdRr7slm5jp1B/FoY3sZechvlZqMnjsSkqadV
-         g4W+baZuQyhjpT7p9WTikty+3QsPSzqurUxRpPxEjRTqsKjR6ToP0b2/8QT0/TZpkTAL
-         PxC1yZ7sbIn0ApYD3lWLNaJXLvsk/Xr/SzLU5gBSWXy/olEayttVSqUjgOm3wweNSaiv
-         8mE5cszFGrN9Wj1CS7r9ZBK/oUpinkwKtKXmqS7Q4Gfy9GfLtu6P3HycqsGRQwqyogFw
-         VongwTlv21NIB6nDracDVAeVIh+VUZJsm87ZJappyipcXnYAVg2Qh02XPpdw8iiJqopU
-         qY7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=cPUg6Q95DL8NV4y71GhAY/ww78q1UpeJPCQwYj3WZW4=;
-        fh=aHw1vE/INPf/OjGEJ6dHmhuLEgAXOxeG1erzrFhWuKk=;
-        b=HTIHYQAyyhP3FkcDgBJW65Y5r9wDDG0PDlcXYkboGeANjhxHvhQTF2nzw9JZUEFcTu
-         mY5oc778FDJ+OLPkX8i19pwHpRuNXI3sHBRbajEJ+Ru9Cj0yXw+liG/dFExlcXRijF/a
-         J1R1CmScF/+IntuoNqKtL23dEavaQzSH0nfbbQIUj0QHtgxlmbDP4UaPPgR8VdTpSulj
-         OSm0G5OvxoZjYyun0q0xQy6sfoQ5+ZDt3ZLMtQYSrIDPSO/cpWOGE0tE9oJj5x8KSTEx
-         G8UGpoxUIZsl934R9drc6DE8IiQOtVdwWGHdOblZXh+qZGJyBlH6wIk0/f7BAzeSFx7u
-         rX0w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1774280275; x=1774885075; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=cPUg6Q95DL8NV4y71GhAY/ww78q1UpeJPCQwYj3WZW4=;
-        b=Pj5+mKyk0+ZHSHNlDjsM/i9D2ybR3FS9bFhk/wwSr+qYlby1+u5lFUhtD7ELmHlSIa
-         8Qzhvoc2iFOOFmemqAzX1Hm+Nn6Kgis8GznC53ZigVktIdp9ED+KzEdFxnSy97yHZmwH
-         tQ6y/3BhgrwcLQT+j8OM7ggzIvl41yCMXONmQNoxf/Ngub7BO5fstEaYoEbH5IaLoQIN
-         JXmZ4wTYb2wyIoxNwO4i0Jm9W6sGOM+lDseyuSbGAc9cnD46yuVEwWCLsMnWhO0g2ZxY
-         ZKq5jV1yRXYC1KMpbUZfAGzzPw82lFhGK1dmhwL8w0vKN5gph2VAv9NR+YU59is42ocf
-         GXtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774280275; x=1774885075;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cPUg6Q95DL8NV4y71GhAY/ww78q1UpeJPCQwYj3WZW4=;
-        b=TxQStRfbQCovQ7Ajl4ZjxspGFP1/lr20DdOfgDdR94YK5dCCqaPFg05vQ1SklBdaYx
-         yKYnaRe6CpVA0kGKldms0vibq9DS4MnSW9mWo/7HeI0+5LPPjD2HpUH+C1vftEC7RvPB
-         I1c4iIyxbX442ybwwjQTiDUAt8yTiRigIKRnP93kN1/noxI2N3fL+X5Xd0x8Q13JAKsr
-         As0fXM8uqWWy6YRlo/edZ6FtDBLtVYOsPiJwy+Wv3aIRKv8OfqKshQWM5dC8R1t+4hBS
-         P72xDVuKGZFzO+ryAfcKGR7WiF2NVMe7+n95z82DILBbyspX5Q8CSiJE77Ljncx+fwbR
-         hDSA==
-X-Forwarded-Encrypted: i=1; AJvYcCVl18GGsiFtcHF0oRN0axvIqxc8FNgXwoNaN/sxXNx3z9tn7yQZdDLy/Ufh4dz+NWZHhGfPuNM7yp3wdw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yys5LpQSr6cz54OcQBOsEF6LhqSrnY2RpUJBZaKEOAL5VU3Beck
-	4ko9Lhzhqb/QZOmxUBOuoe47zqAM4AjZh1NStbsGo8fXgFRLgUyWKqBlt5//Z9WkxkdnthzJ9SG
-	S/GKCnLt4F4+yDck8qzLnwNfc/23jmUoU9WK7iaMKRw==
-X-Gm-Gg: ATEYQzyz14aFacrla+ISkzTY6y4M2R3dOmg/l2x+t423q+KOW14zjZ9LuT4AEcVqKf2
-	03rgz4C+ZktgT4Nl2IgYfZ25mtl5vtWMmsCixE0HHh7zhUNjcHC+kkMipekS5ByJhc9l0kfm+A5
-	l2B+c1JG0CDvzOiFtpwCGIMjXdjKiDUu0aZ1bEndDEzBuIpbCt+/HlMhAQv9YURFpoIPOarlGom
-	Y+2EVc0l5hvURt4PdzjibjgWRDftATU7n8GmX8RThNP3ypAVuGrAvLMBdLWwQStXOA0S5+RtgB4
-	iz6kM+TXSXi6szH+l3OeXImkVkRzJ/2fEaZ4oIs=
-X-Received: by 2002:a53:e031:0:b0:64e:7311:eb85 with SMTP id
- 956f58d0204a3-64ed7916779mr14985d50.24.1774280274611; Mon, 23 Mar 2026
- 08:37:54 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="mgU9aFrC"
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20260323153802epoutp0363cbe07c3ef666adac291ef7320fa14b~fgoRC14VY2035420354epoutp03b
+	for <linux-media@vger.kernel.org>; Mon, 23 Mar 2026 15:38:02 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20260323153802epoutp0363cbe07c3ef666adac291ef7320fa14b~fgoRC14VY2035420354epoutp03b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1774280282;
+	bh=MYU9K1BczlLtBMfJPDu28QIk9pzoA+hXl3yf17nC2HI=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=mgU9aFrC+5Kx+21CCBQ48vtUtevP0XGV5aHjupTGFTw7s0wbx2FYZ7piHu2gEGNx9
+	 7FiJ9iRzTsn7N6OtZVcQFwqx9+/yRy1FbPgDJReQh76dJWCUi3xQdbS9llr9OgF8ia
+	 3KFTDuksHm5/ZDwJUU6SICm8wW+RY1yai4quNiMM=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
+	20260323153802epcas5p1bb1e979594c5257c037cdf6411e7a177~fgoQZrLX82373723737epcas5p1t;
+	Mon, 23 Mar 2026 15:38:02 +0000 (GMT)
+Received: from epcpadp2new (unknown [182.195.40.142]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4ffckf0KMvz3hhT4; Mon, 23 Mar
+	2026 15:38:02 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
+	20260323123542epcas5p349d0e7c45d02ccaa06c84dbdf1777126~feJElRtj12139221392epcas5p34;
+	Mon, 23 Mar 2026 12:35:42 +0000 (GMT)
+Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip2.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20260323123538epsmtip2099c850de3b514ee4ac3f5a0092dd02a~feJAkDKG92361023610epsmtip2P;
+	Mon, 23 Mar 2026 12:35:38 +0000 (GMT)
+From: "Alim Akhtar" <alim.akhtar@samsung.com>
+To: "'Vladimir Oltean'" <vladimir.oltean@nxp.com>, "'Martin K. Petersen'"
+	<martin.petersen@oracle.com>
+Cc: <linux-phy@lists.infradead.org>, "'Vinod Koul'" <vkoul@kernel.org>,
+	"'Neil	Armstrong'" <neil.armstrong@linaro.org>,
+	<dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-arm-msm@vger.kernel.org>,
+	<linux-can@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
+	<linux-ide@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-media@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+	<linux-rockchip@lists.infradead.org>, <linux-samsung-soc@vger.kernel.org>,
+	<linux-scsi@vger.kernel.org>, <linux-sunxi@lists.linux.dev>,
+	<linux-tegra@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <spacemit@lists.linux.dev>,
+	<UNGLinuxDriver@microchip.com>, "'Bart Van Assche'" <bvanassche@acm.org>,
+	"'Peter Griffin'" <peter.griffin@linaro.org>, "'James E.J. Bottomley'"
+	<James.Bottomley@HansenPartnership.com>, "'Krzysztof	Kozlowski'"
+	<krzk@kernel.org>, "'Chanho Park'" <chanho61.park@samsung.com>
+In-Reply-To: <20260323115848.ghdu4sbk75tvggfb@skbuf>
+Subject: RE: [PATCH v5 phy-next 09/27] scsi: ufs: exynos: stop poking into
+ struct phy guts
+Date: Mon, 23 Mar 2026 18:05:36 +0530
+Message-ID: <1891546521.01774280282025.JavaMail.epsvc@epcpadp2new>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260322135348.11339-1-surajsonawane0215@gmail.com>
-In-Reply-To: <20260322135348.11339-1-surajsonawane0215@gmail.com>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Mon, 23 Mar 2026 15:37:37 +0000
-X-Gm-Features: AQROBzAbDpd6RhrVm1H8H0pT4OlirwzVY_OTpC_XPzSIAOxZNSgcMEmVW-yO5U4
-Message-ID: <CAPY8ntAKzB42sNzW+FV283rHktD3OEE9cePS4Dg1iihJtB3nyA@mail.gmail.com>
-Subject: Re: [PATCH] media: i2c: ov5647: handle V4L2_CID_LINK_FREQ in s_ctrl
-To: Suraj Sonawane <surajsonawane0215@gmail.com>
-Cc: Jacopo Mondi <jacopo@jmondi.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQJoz1sM+EbPjkyDopxrfJVWkMJWdwI9AyWpAaSC6pgB9ZOp/gJXIgBltGJxFXA=
+Content-Language: en-us
+X-CMS-MailID: 20260323123542epcas5p349d0e7c45d02ccaa06c84dbdf1777126
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+X-CPGSPASS: Y
+X-Hop-Count: 3
+X-CMS-RootMailID: 20260323115859epcas5p10177db12a2e8aee9578271ff1411137b
+References: <20260319223241.1351137-1-vladimir.oltean@nxp.com>
+	<20260319223241.1351137-10-vladimir.oltean@nxp.com>
+	<yq1a4w3l04g.fsf@ca-mkp.ca.oracle.com>
+	<CGME20260323115859epcas5p10177db12a2e8aee9578271ff1411137b@epcas5p1.samsung.com>
+	<20260323115848.ghdu4sbk75tvggfb@skbuf>
 
-Hi Suraj
+Hi Vladimir
 
-On Sun, 22 Mar 2026 at 13:59, Suraj Sonawane
-<surajsonawane0215@gmail.com> wrote:
->
-> Handle V4L2_CID_LINK_FREQ in ov5647_s_ctrl().
->
-> Currently this control is defined but not handled in s_ctrl(),
-> so V4L2 falls back to estimating link frequency from pixel rate
-> and prints warning like:
->
->   v4l2_get_link_freq: Link frequency estimated using pixel rate:
->   result might be inaccurate
->   v4l2_get_link_freq: Consider implementing support for V4L2_CID_LINK_FREQ
->   in the transmitter driver
->
-> Handle it as no-op since link frequency is fixed per mode and
-> not meant to be changed at runtime.
+> -----Original Message-----
+> From: Vladimir Oltean <vladimir.oltean@nxp.com>
+> Sent: Monday, March 23, 2026 5:29 PM
+> To: Martin K. Petersen <martin.petersen@oracle.com>
+> Cc: linux-phy@lists.infradead.org; Vinod Koul <vkoul@kernel.org>; Neil
+> Armstrong <neil.armstrong@linaro.org>; dri-devel@lists.freedesktop.org;
+> freedreno@lists.freedesktop.org; linux-arm-kernel@lists.infradead.org;
+> linux-arm-msm@vger.kernel.org; linux-can@vger.kernel.org; linux-
+> gpio@vger.kernel.org; linux-ide@vger.kernel.org; linux-
+> kernel@vger.kernel.org; linux-media@vger.kernel.org; linux-
+> pci@vger.kernel.org; linux-renesas-soc@vger.kernel.org; linux-
+> riscv@lists.infradead.org; linux-rockchip@lists.infradead.org;
+linux-samsung-
+> soc@vger.kernel.org; linux-scsi@vger.kernel.org;
+linux-sunxi@lists.linux.dev;
+> linux-tegra@vger.kernel.org; linux-usb@vger.kernel.org;
+> netdev@vger.kernel.org; spacemit@lists.linux.dev;
+> UNGLinuxDriver@microchip.com; Bart Van Assche <bvanassche@acm.org>;
+> Alim Akhtar <alim.akhtar@samsung.com>; Peter Griffin
+> <peter.griffin@linaro.org>; James E.J. Bottomley
+> <James.Bottomley@HansenPartnership.com>; Krzysztof Kozlowski
+> <krzk@kernel.org>; Chanho Park <chanho61.park@samsung.com>
+> Subject: Re: [PATCH v5 phy-next 09/27] scsi: ufs: exynos: stop poking into
+> struct phy guts
+> 
+> On Thu, Mar 19, 2026 at 10:15:17PM -0400, Martin K. Petersen wrote:
+> > Vladimir,
+> >
+> > > The Exynos host controller driver is clearly a PHY consumer (gets
+> > > the
+> > > ufs->phy using devm_phy_get()), but pokes into the guts of struct
+> > > ufs->phy
+> > > to get the generic_phy->power_count.
+> >
+> > Ah, newer version. Would still like an ack from Samsung.
+> >
+> > And I hit the wrong key, I did not actually apply this...
+> 
+> I will have to resend v6 because of an armv7 build error I've caused for
+ufs-
+> qcom.c (which doesn't #include <linux/interrupt.h>, and relies on a
+transitive
+> inclusion from <linux/phy/phy.h>). It would be nice to get the ack from
+> Samsung, but I'll send the next version in the upcoming hours regardless.
+Will review and possibly test on one of the board later tonight
 
-I'm confused by this description compared to the patch.
-
-v4l2_get_link_freq searches for the V4L2_CID_LINK_FREQ control, and if
-found then it calls g_ctrl (not s_ctrl).
-If it can't find the control then it searches for V4L2_CID_PIXEL_RATE
-and will log the error message quoted.
-
-The control is registered by the ov5647 driver, therefore it should
-never go into that second clause, so how have you got that error
-message logged?
-
-AFAIK no part of that code path will result in a call to ov5647_s_ctrl
-that you're patching.
-I've just run with the ov5647 driver on a Pi5 (which uses
-v4l2_get_link_freq) running 7.0.0-rc5, and I can't get an error
-logged. v4l2_get_link_freq finds V4L2_CID_LINK_FREQ and uses the value
-it reports.
 
 
-You are right that ov5647_s_ctrl doesn't handle V4L2_CID_LINK_FREQ,
-which could mean that an error is returned from the __v4l2_ctrl_s_ctrl
-calls from within the driver to change the link frequency and lead to
-the dev_info in the driver being logged iff the sensor was powered up
-at the time (otherwise pm_runtime_get_if_in_use will fail). Generally
-the sensor won't be powered on as the pad format is set before
-enable_streams, and it shouldn't be possible to change it whilst
-streaming.
-
-However, as I understand it, the current preferred way to handle this
-case of read only controls where the value is changed by the driver is
-to pass NULL as the ops for the ctrl when registering. That is already
-the case looking at c6e115144b50 ("media: i2c: ov5647: Add
-V4L2_CID_LINK_FREQUENCY control"). So how are you managing to get
-ov5647_s_ctrl called for control V4L2_CID_LINK_FREQ at all when it has
-no s_ctrl op?
-
-Have I totally missed something here?
-
-  Dave
-
-> Avoid these warnings when control is queried.
->
-> Signed-off-by: Suraj Sonawane <surajsonawane0215@gmail.com>
-> ---
->  drivers/media/i2c/ov5647.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
-> index 6a46ef723..a5a9cff5a 100644
-> --- a/drivers/media/i2c/ov5647.c
-> +++ b/drivers/media/i2c/ov5647.c
-> @@ -999,6 +999,9 @@ static int ov5647_s_ctrl(struct v4l2_ctrl *ctrl)
->                 ret = cci_write(sensor->regmap, OV5647_REG_HTS,
->                                 sensor->mode->format.width + ctrl->val, &ret);
->                 break;
-> +       case V4L2_CID_LINK_FREQ:
-> +               ret = 0;
-> +               break;
->         case V4L2_CID_TEST_PATTERN:
->                 ret = cci_write(sensor->regmap, OV5647_REG_ISPCTRL3D,
->                                 ov5647_test_pattern_val[ctrl->val], NULL);
-> --
-> 2.34.1
->
