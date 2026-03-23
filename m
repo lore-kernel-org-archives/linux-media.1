@@ -1,153 +1,152 @@
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7FF286A4
-	for <linux-media@vger.kernel.org>; Mon, 23 Mar 2026 13:03:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBAA245948;
+	Mon, 23 Mar 2026 13:03:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774271001; cv=none; b=C21j7jsiKFfD2jhPseJtNNObRfRJeoveg5nVeS9cV0AooBV2ihrZbzJKiKizAzWm4mF2ebcXkog/6N4qva4u7DewYRrk8VcE9mH+f25jvt48kDhdcsAVxJDsnemvtjNBiBD2HPKPytuApIw7ixKObLx3AJmWRAuE9y/aTIjcX60=
+	t=1774271039; cv=none; b=nMjxmpgygDtO2kdkLQlQumCmApcGu4qm7tmpZMwe0rxyxTsKFyL9gesK/wlCFJY5zZTY/75HTT/oOpfxDEHn80eq2JYdeTYdzSs329KuK+bKMwAn8r5im3GUFUi2fxlJLrKJ5yfdd94+Q8zOKSH+P9mpLCvHHGN9CiFLiN1UUlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774271001; c=relaxed/simple;
-	bh=rm8yRXyKEMtcqCElasHXW+eehwQwuzwxvRFVsv2V3QE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Aa2GhOnBqiydq8LJwg9bkdcx65FOnQEYqa5DlWDRmK0MrOT1zbclmtFZ4AnvKqzBqoAZ3uNe9SS2AnsXjSKHruI8z4WHhFgwIREgio6noMPctaQrfNAY9eUaufw+DNTzSgMf/iO2iI0ija6TxTW0llLlC+ukZYSwjYghLmrodVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=geSBPm+J; arc=none smtp.client-ip=209.85.167.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1774271039; c=relaxed/simple;
+	bh=eOq3p1NWC2WtqLymqnqa8aOtLmixWFFaTMIvL28OBp0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ukbx/mOAsFHYD3QOvr0IAESyShnYiISxM0tDpBRoTLY7Z7bZYOhaH1hNsnuIAzTBdZquiDL8l927F6P6NNEjJm0L7AbSv8UlTFcrVgxwNt9DYWGltojCAEgPIrmJZeZiEIQFJswiG0ddAzXmKp+2xbWp0f38Rsdkl0nXkwua96w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TNb5LRUn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="geSBPm+J"
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5a12c19affeso5197367e87.1
-        for <linux-media@vger.kernel.org>; Mon, 23 Mar 2026 06:03:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1774270998; x=1774875798; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=rum/8YcSfFzn+mIlRZrRd8RBJkU4CF1JIzKByDx2Qcc=;
-        b=geSBPm+J+umm9t+vd3JeuXnuQm6SBGqG34cLEXmjfgejaCv8hbzsBPXZ3wGyoi5vX8
-         4VUWKD0FRWyoXGi22Sfd1QHqOiThegLN4tz6W8KKfQQ44qRcwEwEkV8FF0JOUH1hRJ2T
-         2dcpItemcmDk5kqA7zZhkXEHvoQDklBzTYxWg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774270998; x=1774875798;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rum/8YcSfFzn+mIlRZrRd8RBJkU4CF1JIzKByDx2Qcc=;
-        b=KXAId0TuaXtJGIlwPhQqGyKrq5GXa3oZKVOipYiC9fiGXIUcX2udL9CB7Z163xZGe7
-         AfZ+m+YWuDCzFjnWO+q2bQ5WM/fBth94/DBHHqOUD3Y9C6xGy5qzywmWQVjCN/PInfYD
-         J5opov++Tw1qU8wT99rI+TTvYhfv3FJ37ONzgS/1VHNWAHPLrPpeaIaNGdcBqrpe1Vom
-         f8Qzxx2I8cAhjIc9Zzc9aTMzq0jBjvhXLSA+oq6pCnxY9sH+VgBmQyenyxQkx8s/DmkX
-         t8RAEml129oCUOZiDampRutLetASFkAJQojB+YE8fZes00Pzvq2Jt8e1aQbvjQCaIOJX
-         07EA==
-X-Gm-Message-State: AOJu0YytN1ejyb0h+NrVJbcjf/pSiJY7K/7oguZRdVCJkjTAK9BNGjqZ
-	KtpjHq73LqI+j3pwi2QLm+CTljc0FtbAqYqKzARrEXpkmSxtk5YUjNMl2FZ5saZjLQ==
-X-Gm-Gg: ATEYQzzC/ksyXn1ejzCyiZA5P/WmvNi1/A7o6rIRbLmp+7jj718aBzJ8k6T3sMZ+VuH
-	YWzOv3PlqHHbNyDpedzMrS3ewbYyev3l3W+DEi1q2VBYXQRNe7+q7Br+08eUZYBzuojj76V/2NT
-	Qr8vVifR8KgJPHQKjel4XkAMg+F0CSiirJCKpIiICkwZRNQy4WQQ9pSXLvv8e5upTRpZBmp8mfL
-	N3+kOiVo8TFQUEBm6PaXEftcDcorsUcRdSadNYI3iL22XK0z4wmvnHPl1gEEyBqJh4fetoEO5I+
-	3dxMBIH9fO2h50uw4Nt1eAPGEHJEr+BsUNdhSQghq0cO4ULSHrHHOPZurEo0z3k3hnXTF3jSwzf
-	wJbQhteAYJXzoOrjF0Pkex4YPWJHJQqbFGNdyaJwLW6lhtUPIBU8dpr2lPUAPGRnOi/k42/PCI+
-	qhM+nbVzvrSaJ8WslUeoIPBCnztlgoa/xdtFLIdPVEkDxtGaTrElf2ZPIT9eqRdzU43FiAUG8kX
-	1XE8p45QWbRQC3RjQ==
-X-Received: by 2002:ac2:4e01:0:b0:5a1:5994:2773 with SMTP id 2adb3069b0e04-5a2855efc89mr3443970e87.14.1774270997925;
-        Mon, 23 Mar 2026 06:03:17 -0700 (PDT)
-Received: from ribalda.c.googlers.com (252.116.88.34.bc.googleusercontent.com. [34.88.116.252])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a28530bd55sm2534556e87.72.2026.03.23.06.03.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Mar 2026 06:03:15 -0700 (PDT)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 23 Mar 2026 13:03:03 +0000
-Subject: [PATCH] media: uvcvideo: Undup use uvc_endpoint_max_bpi() code
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TNb5LRUn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89C04C4CEF7;
+	Mon, 23 Mar 2026 13:03:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774271039;
+	bh=eOq3p1NWC2WtqLymqnqa8aOtLmixWFFaTMIvL28OBp0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=TNb5LRUnEVs6B8GBucNGrx/lmo8WvUV72bAguN/XRFfbbHrZnmXvgaTLg/YuQiuPr
+	 +g8QPK92j+KGQCltqJEDn7jE8lsi+zsgW69unJIDIm64+6thh+QPYApmeYNSXREFmS
+	 McfUvQTBxV+bIeiA+Kl2RReJbIbeokZznj7cCsKgHa/Y9VCi4nWHxlkLk7slUjJfuO
+	 lCKSaj0j9C4nhwagmSJ1te+QlPR3kqtBULuu+sGvpjQCfXXyqkbueQHFuXe5CRYY7w
+	 ZANXIYjzi5q+jbBtOw8upony0XJ2UgEOC/r5uHmknpJxKbyEgAabB8QCtEBwTRPDW9
+	 wJxfklak3l7wQ==
+Message-ID: <94b415bf-9a76-4d31-add4-6283e8b43b72@kernel.org>
+Date: Mon, 23 Mar 2026 14:03:54 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/3] dt-bindings: media: qcom: Add CAMSS Offline
+ Processing Engine (OPE)
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>, bod@kernel.org,
+ vladimir.zapolskiy@linaro.org, laurent.pinchart@ideasonboard.com,
+ kieran.bingham@ideasonboard.com, robh@kernel.org, krzk+dt@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ johannes.goede@oss.qualcomm.com, mchehab@kernel.org
+References: <20260323125824.211615-1-loic.poulain@oss.qualcomm.com>
+ <20260323125824.211615-2-loic.poulain@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260323125824.211615-2-loic.poulain@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260323-uvc-backport-bpi-v1-1-5b62c6798ccf@chromium.org>
-X-B4-Tracking: v=1; b=H4sIAAY6wWkC/x3MQQqAIBBA0avIrBtIDZOuEi3KphoCFa0IorsnL
- d/i/wcyJaYMnXgg0cWZgy+QlQC3jX4l5LkYVK1MrZXG83I4jW6PIR04RUZjtbG0yEa2GkoWEy1
- 8/8t+eN8P4ra/Q2IAAAA=
-X-Change-ID: 20260323-uvc-backport-bpi-68368ef14173
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>
-X-Mailer: b4 0.14.3
 
-[ Upstream commit 5b9c75c794ce041e6e00789efef75d71915c4f4c ]
+On 23/03/2026 13:58, Loic Poulain wrote:
+> Add Devicetree binding documentation for the Qualcomm Camera Subsystem
+> Offline Processing Engine (OPE) found on platforms such as Agatti.
+> The OPE is a memory-to-memory image processing block which operates
+> on frames read from and written back to system memory.
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-Replace manual decoding of psize in uvc_parse_streaming(), with the code
-from uvc_endpoint_max_bpi(). It also handles usb3 devices.
+I don't see explanation in cover letter why this is RFC, so I assume
+this is not ready, thus not a full review but just few nits to spare you
+resubmits later when this becomes reviewable.
 
-Cc: stable@vger.kernel.org # v5.4+
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
----
-The commit: 9764401bf6f8 ("media: uvcvideo: Fix bandwidth issue for Alcor
-camera"), which has been backported to 5.4+, depends on this patch.
+> ---
+>  .../bindings/media/qcom,camss-ope.yaml        | 86 +++++++++++++++++++
+>  1 file changed, 86 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/qcom,camss-ope.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,camss-ope.yaml b/Documentation/devicetree/bindings/media/qcom,camss-ope.yaml
+> new file mode 100644
+> index 000000000000..509b4e89a88a
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/qcom,camss-ope.yaml
 
-Without it, cameras connected to USB3.0 will stop working properly,
-because the bandwidth quirk will be applied wrongly.
+Filename must match compatible.
 
-Please help adding this patch to 5.4, 5.10 and 5.15.
+> @@ -0,0 +1,86 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
 
-Thanks!
----
- drivers/media/usb/uvc/uvc_driver.c | 4 +---
- drivers/media/usb/uvc/uvc_video.c  | 3 +--
- drivers/media/usb/uvc/uvcvideo.h   | 1 +
- 3 files changed, 3 insertions(+), 5 deletions(-)
+...
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - interconnects
+> +  - interconnect-names
+> +  - iommus
+> +  - power-domains
+> +  - power-domain-names
+> +
+> +additionalProperties: true
 
-diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index 858fc5b26a5e..4ee187a503b8 100644
---- a/drivers/media/usb/uvc/uvc_driver.c
-+++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -1007,9 +1007,7 @@ static int uvc_parse_streaming(struct uvc_device *dev,
- 				streaming->header.bEndpointAddress);
- 		if (ep == NULL)
- 			continue;
--
--		psize = le16_to_cpu(ep->desc.wMaxPacketSize);
--		psize = (psize & 0x07ff) * (1 + ((psize >> 11) & 3));
-+		psize = uvc_endpoint_max_bpi(dev->udev, ep);
- 		if (psize > streaming->maxpsize)
- 			streaming->maxpsize = psize;
- 	}
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index f868a13280a1..fb69d534e299 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -1797,8 +1797,7 @@ static void uvc_video_stop_transfer(struct uvc_streaming *stream,
- /*
-  * Compute the maximum number of bytes per interval for an endpoint.
-  */
--static unsigned int uvc_endpoint_max_bpi(struct usb_device *dev,
--					 struct usb_host_endpoint *ep)
-+u16 uvc_endpoint_max_bpi(struct usb_device *dev, struct usb_host_endpoint *ep)
- {
- 	u16 psize;
- 	u16 mult;
-diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-index 95af1591f105..f5bc9fa2c385 100644
---- a/drivers/media/usb/uvc/uvcvideo.h
-+++ b/drivers/media/usb/uvc/uvcvideo.h
-@@ -920,6 +920,7 @@ void uvc_simplify_fraction(u32 *numerator, u32 *denominator,
- u32 uvc_fraction_to_interval(u32 numerator, u32 denominator);
- struct usb_host_endpoint *uvc_find_endpoint(struct usb_host_interface *alts,
- 					    u8 epaddr);
-+u16 uvc_endpoint_max_bpi(struct usb_device *dev, struct usb_host_endpoint *ep);
- 
- /* Quirks support */
- void uvc_video_decode_isight(struct uvc_urb *uvc_urb,
+There are no bindings like that. You cannot have here true.
 
----
-base-commit: 91d48252ad4b17577cf8cc8d3e1353402e4da8f1
-change-id: 20260323-uvc-backport-bpi-68368ef14173
+Also, lack of example is a no-go.
+
+BTW, also remember about proper versioning of your patchset. b4 would do
+that for you, but since you did not use it, you must handle it.
 
 Best regards,
--- 
-Ricardo Ribalda <ribalda@chromium.org>
-
+Krzysztof
