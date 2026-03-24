@@ -1,323 +1,144 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50AF38AC75
-	for <linux-media@vger.kernel.org>; Tue, 24 Mar 2026 15:58:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774367886; cv=pass; b=epiOUiRvDLRjh37HyzBDxeKYIEqBwNegusVDHxx6JoaKpyiZ0rj/ANF3oJzUTVsYUhvtXMhKL+wkuKPiUEdEXHQBX03mERtVexshos5k649XG/lSPy9vqP+BE+nHX6/qVU3huRDT5kWoRyxlcezjZAYn6CrVqdRMmZvBbv+WMKk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774367886; c=relaxed/simple;
-	bh=U7DMFwg+q2iJjApPB0UHhcc+bNMMjYSNE1WuG+detXQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KE32z4ncnl7r1W9rqpgfQK+C3QMZa8F2c9CBcd627SvJ5fOFR7tX7nJxgLRThg97Qp/7Lw6I075akrcAi1FwsKpngAZD355gSYyxbTSVDAGi/bxCW+9RGCzlUWJeMt4/q07wZSBJzWGQES7q2IRj3Kq1daIrRP88WPG5BQUNEU4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cySCBaT/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AmIXZAZ/; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cySCBaT/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AmIXZAZ/"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62OFmf533903834
-	for <linux-media@vger.kernel.org>; Tue, 24 Mar 2026 15:58:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1wWpoJyvSSyHlOMX1vzM1IdBQR5SP9psU6+O/Lr9SLA=; b=cySCBaT/y2OuNHrX
-	DkTABeKgFJMbEng+rFRYUXROiAxqfKXnKkmITqfqE332GOKySzw0tOfQQnf9kLbP
-	Be+o4um/oujWLcHcuGPHDkqTFpJW1PhDXquyWyFvuJlD/WdmHDLDU5E82ItL3/lN
-	qhT8as0JmdZyyltpcyfeINr2FrFDQLCxQmPCAyMy7QKBztVkUF1YsBzyrXBp9PlS
-	Je4Jh7uZufVsGQ+DUOeZcFz4ywnIBKfqydBMRhOtfta3O9fCZ+5ZFzcen5xT/KXx
-	5hlkMb6HsWer6xgBozy+DDiaZWCzzaJ1DnjauxgRLpkHRYiE1g5K9piV+fYZAGYg
-	HRst1A==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d3jt0jqrh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 24 Mar 2026 15:58:03 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-8954803bd74so7215856d6.0
-        for <linux-media@vger.kernel.org>; Tue, 24 Mar 2026 08:58:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774367883; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Q3sjhAGl8biDGZlNTm6VvL9Lr2z9yuyqolUm5PP3rdTLExv1Ntzk4Nyqm48aIXoTeL
-         fhO7WZhfy4Ww38o5wPrFYvzaMlfi9o90UGr/FnyoWY5AAtUjl0b/Y+ZqlXDxUN/PZuIh
-         m34ht5GS4mR1QA9vB/Wbfu1dltscreiLGpOLvqJ9wXKazU7SxmV+iIMfOmxuxm6/xADT
-         EXrBez9cyYBGXpUbjSv0JX4uFp2NXuEqNKfqcctPurLZrumyYXVtLMmo0YshUkUFXOsK
-         NGaafNFi0OaViGB39pZh54xkI1IpiFCSr/+hSO6hKC82PPLOV3NLS9usTpRutw2jsFz6
-         ByuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1wWpoJyvSSyHlOMX1vzM1IdBQR5SP9psU6+O/Lr9SLA=;
-        fh=gv39W1Ypt8y15+q/qGrZMZJeqF1R0q6lTvBTNGoi+ss=;
-        b=c8ZxgY8tdDUm6Q3kGrcmyRinf9EhYw5BzItuwsYjfuRFY9HO22+s8BlE+Z5w7zxwke
-         Q12mLNjbBvS7XMqmg637j5I9FRToJfkRYP0VsFB8G0Os8Cx1uxD2LD9/RU+wk92n7rku
-         nYByxMW9eyHlpUnY/pho7/w/GK6BySFQTn1RGYV65Ngc+V2QUGH5Hj7IWnM9agwkzqUY
-         BqqVUtqf7Xs6VrFpMUPyIIAhIKgqE9pThrnG9t+r0jzVZuSgc+Cw2qKBeAZWTzFmCOqi
-         e247WTZygBOkr9vnmhGPc3LXQY8d0XjuhJxCocYbKLRzatNb+5yQtItIhW7zC7kvvAkS
-         8Cyg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774367883; x=1774972683; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1wWpoJyvSSyHlOMX1vzM1IdBQR5SP9psU6+O/Lr9SLA=;
-        b=AmIXZAZ/D21yR3LUKf6hLOhKzqWXl6tR2ijkPFfAcW/ijsxR5HctPo+/XBCrK2YxkR
-         nwWmEw7BU9t0yUfPeqmILfNR2yeFhZq6q+SEWqRFkTh9nx03cXIQ0KQEJJiX+qerRYa4
-         5NzLn7nIUT5ERZP0EksUbptYf0H+CyabCQzfRmJgp0EjHD/54HJV/p3q/SxcY9nniAFV
-         z9rC1kG2VDAadZYu/eglDZ79s5u6dPYQGCmxqVm7jxcgFn+RB08DbeP0zx2wK3/RuASz
-         nQc5FlhHSP6KncqUDU7uT5rVzvvagIJpVCfmwXzA1Nk31TcbvDx0Fw29XtR/f+9qC2GV
-         ec1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774367883; x=1774972683;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=1wWpoJyvSSyHlOMX1vzM1IdBQR5SP9psU6+O/Lr9SLA=;
-        b=UCQbRwmSkLsDXR7OtU/VX8TmlndTini/JW9VUWT+jVCGds7IzQ4VWkhBkKHOIKvTm9
-         9hO+1eRWnXfQkfyPAHw2xqUwhj7uU69EV+nUKYVpZQvmf0HX/la8rU6RzeO9daOKUW/p
-         j5U0p7YGAULP232OXS3leYwkJ4DTnZmYpub2Ooq6v23k+h3lgxMhxmY6RR8FzyMCXkqW
-         PuM/DRgW+zeOxY56rgyabt5HtTxgOaeIukGpFAXmnS/1V1cfHfHH/ZBG2vxBEE7Gp/aY
-         i03inRqfoLxtZEO/+MORxvhPoPR0dsnHExUbXoT4pOHa4Z14qfTTasCC1nhRZaT2EDAZ
-         RV1g==
-X-Forwarded-Encrypted: i=1; AJvYcCXdVLGYSe8XO6yUbYEKwfZ33NAjqeA74BcJzbV8n2RDDK/784bZjgpUmWySiyK09pir493ho6qxzVVUAg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyfatpllqxszJ9Rccb4AUvO9RzVNdrCLkTHAWWJMgxRbKRbVbVn
-	EaOMTpEIf0PviKzH9BWdfuJ5OgIzw/SaMTqlpVqxFQLaU8ui6q0Bf94ZYWbmoY6fPhsGZ+rnJo0
-	AXoe6FlC5jF6zb/ccdTowWdUsx8+F4w26tc1aRjSyC5ONSoKefSOOoS0Q7uGA4FPfK8n+O43YmS
-	PisHmoCBJRB0RSSKJMnHuHiWmPfpaZGhVxSwy9vDjo
-X-Gm-Gg: ATEYQzzFN/mH9P2jdE58YjgBCed4Nuo05GahIZt+C9rBmnGO4cnhNbt/lSAWH4xNwuF
-	awO0Rnse/Z50OEdqHMYR5kBrIG/tx2ZZEzGeUlrJb+ZSeWFdamkbQiOrM6Lyfs6Pm5wNzC9qLeh
-	Bdzbw1n3T+SDRBAfXBMS0gD+cvd2c/4DjSPWL8YDsdXFhJOFJn84/NdXCuPgyegunASRSFJq2QH
-	2n0WXm38ynyWF2VfrIhAxAbl8eTLCQzExGnsDo=
-X-Received: by 2002:a05:6214:570d:b0:899:f5a4:8110 with SMTP id 6a1803df08f44-89cc4adc756mr1982356d6.56.1774367882637;
-        Tue, 24 Mar 2026 08:58:02 -0700 (PDT)
-X-Received: by 2002:a05:6214:570d:b0:899:f5a4:8110 with SMTP id
- 6a1803df08f44-89cc4adc756mr1981856d6.56.1774367882087; Tue, 24 Mar 2026
- 08:58:02 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9985A389DF0
+	for <linux-media@vger.kernel.org>; Tue, 24 Mar 2026 16:14:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774368846; cv=none; b=nL5qpc0qFeDuf7WaN/E8WFkqEJN3RbEXqGJPJITRSIL1oxqDXvLNcPZ/RXoQ8HpLoRRVFPJs8sJhKiySA1l6YUZQ11CYJNXAsWIiNCAQDy6Rwf4/zT7lvHQ+hE1WH7Sycdky2twEV8lbfQJaGJuTCQz7npCXeHCUwVxSd4mPtgA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774368846; c=relaxed/simple;
+	bh=7AKvBSytO+0EDPLcfR7qFItoRg+qDA1zFe9xFObUDBw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dLwszqW2uq0hUvLVTpeQT58stDRX90zNTIob1lqMNZ6SNMcRkAB0KZJ3C5x81H8oa+hPNLqynU9sn74Iz0p/WM7NHD2PCteU8fTXhI0AZGQquM1bD1Nryse8eaWMbJKmANJVbo8q+ocSiQca4CLqaVu2MfN0jCiDevm6JJkAgNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.1])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <s.pueschel@pengutronix.de>)
+	id 1w54OA-0004bA-PA; Tue, 24 Mar 2026 17:13:54 +0100
+Message-ID: <8af3e277-a901-4b31-9729-032df3c0d56c@pengutronix.de>
+Date: Tue, 24 Mar 2026 17:13:51 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260323125824.211615-1-loic.poulain@oss.qualcomm.com>
- <m61yNNvSrw6AIq7_-g2h7VQLmGJ_5iCLg5JTlfQDcL5LlBq37ifAeXw-K3AlRBck5Mb4uVQq0pzeBNAybQNk4w==@protonmail.internalid>
- <20260323125824.211615-3-loic.poulain@oss.qualcomm.com> <1ba54ec0-be51-4694-a79b-f272e76303d2@kernel.org>
- <X-Lw_zi1o015-V1Cv4dY_ik6SfTB8TTcLmn1l-Ta7UviYTJ6gwMBn4B4ulYwjd_Aetul5xUt0T6ln9E-Hl5h4g==@protonmail.internalid>
- <CAFEp6-3ziXJTYADOFj--rZL5TumroXuW+=SnUQ9XakRxHT-ypg@mail.gmail.com> <12194cc0-0960-486c-be7e-1a22d95de340@kernel.org>
-In-Reply-To: <12194cc0-0960-486c-be7e-1a22d95de340@kernel.org>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Tue, 24 Mar 2026 16:57:51 +0100
-X-Gm-Features: AaiRm52QkkxQCqRqr-Jt62eDyvDcyXaIOYwIWRquF6V_Pbmf84Rb_fN-zDuHgQA
-Message-ID: <CAFEp6-0qb4SUrNZ03+EsEj6qAynH2RL+AQG6F1F8K0ceX3JpUg@mail.gmail.com>
-Subject: Re: [RFC PATCH 2/3] media: qcom: camss: Add CAMSS Offline Processing
- Engine driver
-To: "Bryan O'Donoghue" <bod@kernel.org>
-Cc: vladimir.zapolskiy@linaro.org, laurent.pinchart@ideasonboard.com,
-        kieran.bingham@ideasonboard.com, robh@kernel.org, krzk+dt@kernel.org,
-        andersson@kernel.org, konradybcio@kernel.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        johannes.goede@oss.qualcomm.com, mchehab@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-ORIG-GUID: IKf1APEf_YfxffG3aw1_JNgWVNhpsJH6
-X-Authority-Analysis: v=2.4 cv=Nc3rFmD4 c=1 sm=1 tr=0 ts=69c2b48b cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8 a=lx2B71hQoDIPyAvjx6AA:9
- a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-GUID: IKf1APEf_YfxffG3aw1_JNgWVNhpsJH6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDEyMyBTYWx0ZWRfXyIwfe0JvP3QL
- JKigUXKFSaLilHuymTDJpIJX63e8HR4oU87Jm+uU7h647V5i2z3FTIESEtsQ1e/N+RHQLUZApAy
- /THuRs4k7SeJ/tHmq8CctFhc5XIoA6S6S/jmbJu07ihi7BKUGkOMq7Yv87V9YyUCw7ifNI06wLR
- MLjLlcwQoA4tqUNIE2OJJD0QFb0Yn0z5Qj6dPjFO9A7HRWrBc//Tvos7Yg2vwN9F96mKVUXv57p
- ekQjwNd4LL3t/NQH5f+j5WV9poCBfS+libpBO0RcOiZJpdX8F6IounwetcXz7Hc6RNKZWxZm9y6
- eLPiDOa1uxWdHCC+2BpzRbfRqBojW0hxTRrXIRF5YmnvhnN3hL3nUkjlqbCdBXWsG1QmKWVIPyW
- rHavGcpZma5x0FGhzpwYvpJm6wSIta+5BaHmDZUCuXWNEXfr4Qnonc/1wWQB0NOdtMQcqT/pyph
- 5OlMwytoqPHJek2iMGg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-24_03,2026-03-23_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 spamscore=0 clxscore=1015 priorityscore=1501
- bulkscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240123
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 11/27] media: rockchip: rga: avoid odd frame sizes for
+ YUV formats
+To: Nicolas Dufresne <nicolas@ndufresne.ca>,
+ Jacob Chen <jacob-chen@iotwrt.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner
+ <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, kernel@pengutronix.de
+References: <20260127-spu-rga3-v3-0-77b273067beb@pengutronix.de>
+ <20260127-spu-rga3-v3-11-77b273067beb@pengutronix.de>
+ <c154098ce7fd5d6bfcb44066b7c1f0cde07ff81d.camel@ndufresne.ca>
+Content-Language: en-US
+From: =?UTF-8?Q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+In-Reply-To: <c154098ce7fd5d6bfcb44066b7c1f0cde07ff81d.camel@ndufresne.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Hi Bryan,
+Hi Nicolas,
 
-On Tue, Mar 24, 2026 at 12:00=E2=80=AFPM Bryan O'Donoghue <bod@kernel.org> =
-wrote:
+On 3/20/26 6:47 PM, Nicolas Dufresne wrote:
+> Le mardi 27 janvier 2026 à 15:39 +0100, Sven Püschel a écrit :
+>> Avoid odd frame sizes for YUV formats, as they may cause undefined
+>> behavior. This is done in preparation for the RGA3, which hangs when the
+>> output format is set to 129x129 pixel YUV420 SP (NV12).
+>>
+>> This requirement is documented explicitly for the RGA3 in  section 5.6.3
+>> of the RK3588 TRM Part 2. For the RGA2 the RK3588 TRM Part 2
+>> (section 6.1.2) and RK3568 TRM Part 2 (section 14.2) only mentions the
+>> x/y offsets and stride aligning requirements. But the vendor driver for
+>> the RGA2 also contains checks for the width and height to be aligned to
+>> 2 bytes.
+>>
+>> Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+>> ---
+>>   drivers/media/platform/rockchip/rga/rga.c | 19 ++++++++++++++-----
+>>   1 file changed, 14 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+>> index 21a3c6cd38dbc..4fa6adb10b7ee 100644
+>> --- a/drivers/media/platform/rockchip/rga/rga.c
+>> +++ b/drivers/media/platform/rockchip/rga/rga.c
+>> @@ -337,6 +337,19 @@ static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
+>>   	struct rga_ctx *ctx = file_to_rga_ctx(file);
+>>   	const struct rga_hw *hw = ctx->rga->hw;
+>>   	struct rga_fmt *fmt;
+>> +	struct v4l2_frmsize_stepwise frmsize = {
+>> +		.min_width = hw->min_width,
+>> +		.max_width = hw->max_width,
+>> +		.min_height = hw->min_height,
+>> +		.max_height = hw->max_height,
+>> +		.step_width = 1,
+>> +		.step_height = 1,
+>> +	};
+>> +
+>> +	if (v4l2_is_format_yuv(v4l2_format_info(pix_fmt->pixelformat))) {
+>> +		frmsize.step_width = 2;
+>> +		frmsize.step_height = 2;
+> For V4L2_PIX_FMT_YUV422P and NV16 this is 2/1. I believe you can generalize this
+> with the format info, and skip this conditions:
 >
-> On 23/03/2026 15:31, Loic Poulain wrote:
-> >>> +
-> >>> +static void ope_prog_bayer2rgb(struct ope_dev *ope)
-> >>> +{
-> >>> +     /* Fixed Settings */
-> >>> +     ope_write_pp(ope, 0x860, 0x4001);
-> >>> +     ope_write_pp(ope, 0x868, 128);
-> >>> +     ope_write_pp(ope, 0x86c, 128 << 20);
-> >>> +     ope_write_pp(ope, 0x870, 102);
-> >> What are the magic numbers about ? Please define bit-fields and offset=
-s.
-> > There are some registers I can't disclose today, which have to be
-> > configured with working values,
-> > Similarly to some sensor configuration in media/i2c.
+> 		.step_with = info->vdiv,
+> 		.step_height = info->hdiv
 >
-> Not really the same thing, all of the offsets in upstream CAMSS and its
-> CLC are documented. Sensor values are typically upstreamed by people who
-> don't control the documentation, that is not the case with Qcom
-> submitting this code upstream now.
+> Though, I'm saying that from a pixel format perspective, if the HW needs 2/2 for
+> all YUV formats, let me know, I'll give my Rb.
+
+I've introduced this limitation after running into the 129x129 hang and 
+noticing that the librga just disallowed it. I've did a quick test with 
+128x129 RK_FORMAT_YCbCr_422_SP (NV16) and the librga also doesn't allow it:
+
+rga_api version 1.10.1_[4]
+[  303.177480] rga: 1807   1807  : [tgid:1807] Destroy handle[1] when 
+the user exits
+101, check error! Invalid parameters: src, Error yuv not align to 2, 
+rect[x,y,w,h] = [0, 0, 128, 129], wstride = 128, hstride = 129, format = 
+0x800(cbcr422sp)
+
+The librga docs [1] also indicate that for all YUV formats on all RGA 
+versions the "height stride must be 2-aligned" (based on the librga 
+error output "height stride" probably means "height in pixels"). 
+Therefore I've copied this requirement globally into the driver to avoid 
+potential problems (e.g. hangs or using memory outside of the actual image).
+
+Sincerely
+     Sven
+
+[1] 
+https://codeberg.org/airockchip/librga/src/branch/main/docs/Rockchip_Developer_Guide_RGA_EN.md#image-format-alignment-instructions
+
+> Nicolas
 >
-> Are you guys doing an upstream implementation or not ?
-
-Yes, but some configuration will be static and non-parametrable, I
-will check if we can at least document the layout.
-
->
-> >> Parameters passed in from user-space/libcamera and then translated to
-> >> registers etc.
-> > The above fixed settings will not be part of the initial parameters.
-> >
-> >>> +}
-> >>> +
-> >>> +static void ope_prog_wb(struct ope_dev *ope)
-> >>> +{
-> >>> +     /* Default white balance config */
-> >>> +     u32 g_gain =3D OPE_WB(1, 1);
-> >>> +     u32 b_gain =3D OPE_WB(3, 2);
-> >>> +     u32 r_gain =3D OPE_WB(3, 2);
-> >>> +
-> >>> +     ope_write_pp(ope, OPE_PP_CLC_WB_GAIN_WB_CFG(0), g_gain);
-> >>> +     ope_write_pp(ope, OPE_PP_CLC_WB_GAIN_WB_CFG(1), b_gain);
-> >>> +     ope_write_pp(ope, OPE_PP_CLC_WB_GAIN_WB_CFG(2), r_gain);
-> >>> +
-> >>> +     ope_write_pp(ope, OPE_PP_CLC_WB_GAIN_MODULE_CFG, OPE_PP_CLC_WB_=
-GAIN_MODULE_CFG_EN);
-> >>> +}
-> >> Fixed gains will have to come from real data.
-> > These gains will indeed need to be configurable, most likely via ISP
-> > parameters, here, they have been adjusted based on colorbar test
-> > pattern from imx219 sensors but also tested with real capture.
-> >
-> >>> +
-> >>> +static void ope_prog_stripe(struct ope_ctx *ctx, struct ope_stripe *=
-stripe)
-> >>> +{
-> >>> +     struct ope_dev *ope =3D ctx->ope;
-> >>> +     int i;
-> >>> +
-> >>> +     dev_dbg(ope->dev, "Context %p - Programming S%u\n", ctx, ope_st=
-ripe_index(ctx, stripe));
-> >>> +
-> >>> +     /* Fetch Engine */
-> >>> +     ope_write_rd(ope, OPE_BUS_RD_CLIENT_0_UNPACK_CFG_0, stripe->src=
-.format);
-> >>> +     ope_write_rd(ope, OPE_BUS_RD_CLIENT_0_RD_BUFFER_SIZE,
-> >>> +                  (stripe->src.width << 16) + stripe->src.height);
-> >>> +     ope_write_rd(ope, OPE_BUS_RD_CLIENT_0_ADDR_IMAGE, stripe->src.a=
-ddr);
-> >>> +     ope_write_rd(ope, OPE_BUS_RD_CLIENT_0_RD_STRIDE, stripe->src.st=
-ride);
-> >>> +     ope_write_rd(ope, OPE_BUS_RD_CLIENT_0_CCIF_META_DATA,
-> >>> +                  FIELD_PREP(OPE_BUS_RD_CLIENT_0_CCIF_MD_PIX_PATTERN=
-, stripe->src.pattern));
-> >>> +     ope_write_rd(ope, OPE_BUS_RD_CLIENT_0_CORE_CFG, OPE_BUS_RD_CLIE=
-NT_0_CORE_CFG_EN);
-> >>> +
-> >>> +     /* Write Engines */
-> >>> +     for (i =3D 0; i < OPE_WR_CLIENT_MAX; i++) {
-> >>> +             if (!stripe->dst[i].enabled) {
-> >>> +                     ope_write_wr(ope, OPE_BUS_WR_CLIENT_CFG(i), 0);
-> >>> +                     continue;
-> >>> +             }
-> >>> +
-> >>> +             ope_write_wr(ope, OPE_BUS_WR_CLIENT_ADDR_IMAGE(i), stri=
-pe->dst[i].addr);
-> >>> +             ope_write_wr(ope, OPE_BUS_WR_CLIENT_IMAGE_CFG_0(i),
-> >>> +                          (stripe->dst[i].height << 16) + stripe->ds=
-t[i].width);
-> >>> +             ope_write_wr(ope, OPE_BUS_WR_CLIENT_IMAGE_CFG_1(i), str=
-ipe->dst[i].x_init);
-> >>> +             ope_write_wr(ope, OPE_BUS_WR_CLIENT_IMAGE_CFG_2(i), str=
-ipe->dst[i].stride);
-> >>> +             ope_write_wr(ope, OPE_BUS_WR_CLIENT_PACKER_CFG(i), stri=
-pe->dst[i].format);
-> >>> +             ope_write_wr(ope, OPE_BUS_WR_CLIENT_CFG(i),
-> >>> +                          OPE_BUS_WR_CLIENT_CFG_EN + OPE_BUS_WR_CLIE=
-NT_CFG_AUTORECOVER);
-> >>> +     }
-> >>> +
-> >>> +     /* Downscalers */
-> >>> +     for (i =3D 0; i < OPE_DS_MAX; i++) {
-> >>> +             struct ope_dsc_config *dsc =3D &stripe->dsc[i];
-> >>> +             u32 base =3D ope_ds_base[i];
-> >>> +             u32 cfg =3D 0;
-> >>> +
-> >>> +             if (dsc->input_width !=3D dsc->output_width) {
-> >>> +                     dsc->phase_step_h |=3D DS_RESOLUTION(dsc->input=
-_width,
-> >>> +                                                        dsc->output_=
-width) << 30;
-> >>> +                     cfg |=3D OPE_PP_CLC_DOWNSCALE_MN_DS_CFG_H_SCALE=
-_EN;
-> >>> +             }
-> >>> +
-> >>> +             if (dsc->input_height !=3D dsc->output_height) {
-> >>> +                     dsc->phase_step_v |=3D DS_RESOLUTION(dsc->input=
-_height,
-> >>> +                                                        dsc->output_=
-height) << 30;
-> >>> +                     cfg |=3D OPE_PP_CLC_DOWNSCALE_MN_DS_CFG_V_SCALE=
-_EN;
-> >>> +             }
-> >>> +
-> >>> +             ope_write_pp(ope, OPE_PP_CLC_DOWNSCALE_MN_DS_CFG(base),=
- cfg);
-> >>> +             ope_write_pp(ope, OPE_PP_CLC_DOWNSCALE_MN_DS_IMAGE_SIZE=
-_CFG(base),
-> >>> +                          ((dsc->input_width - 1) << 16) + dsc->inpu=
-t_height - 1);
-> >>> +             ope_write_pp(ope, OPE_PP_CLC_DOWNSCALE_MN_DS_MN_H_CFG(b=
-ase), dsc->phase_step_h);
-> >>> +             ope_write_pp(ope, OPE_PP_CLC_DOWNSCALE_MN_DS_MN_V_CFG(b=
-ase), dsc->phase_step_v);
-> >>> +             ope_write_pp(ope, OPE_PP_CLC_DOWNSCALE_MN_CFG(base),
-> >>> +                          cfg ? OPE_PP_CLC_DOWNSCALE_MN_CFG_EN : 0);
-> >>> +     }
-> >>> +}
-> >> So - this is where the CDM should be used - so that you don't have to =
-do
-> >> all of these MMIO writes inside of your ISR.
-> > Indeed, and that also the reason stripes are computed ahead of time,
-> > so that they can be further 'queued' in a CDM.
-> >
-> >> Is that and additional step after the RFC ?
-> > The current implementation (without CDM) already provides good results
-> > and performance, so CDM can be viewed as a future enhancement.
->
-> That's true but then the number of MMIO writes per ISR is pretty small
-> right now. You have about 50 writes here.
-
-Right, it will increase significantly. The idea was to start with a
-version that omits CDM so that we can focus on the other functional
-aspects of the ISP for now.
-
->
-> > As far as I understand, CDM could also be implemented in a generic way
-> > within CAMSS, since other CAMSS blocks make use of CDM as well.
-> > This is something we should discuss further.
-> My concern is even conservatively if each module adds another 10 ?
-> writes by the time we get to denoising, sharpening, lens shade
-> correction, those writes could easily look more like 100.
->
-> What user-space should submit is well documented data-structures which
-> then get translated into CDM buffers by the OPE and IFE for the various
-> bits of the pipeline.
-
-Yes it will.
-
-Regards,
-Loic
+>> +	}
+>>   
+>>   	if (V4L2_TYPE_IS_CAPTURE(f->type)) {
+>>   		const struct rga_frame *frm;
+>> @@ -358,11 +371,7 @@ static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
+>>   	if (!fmt)
+>>   		fmt = &hw->formats[0];
+>>   
+>> -	pix_fmt->width = clamp(pix_fmt->width,
+>> -			       hw->min_width, hw->max_width);
+>> -	pix_fmt->height = clamp(pix_fmt->height,
+>> -				hw->min_height, hw->max_height);
+>> -
+>> +	v4l2_apply_frmsize_constraints(&pix_fmt->width, &pix_fmt->height, &frmsize);
+>>   	v4l2_fill_pixfmt_mp(pix_fmt, fmt->fourcc, pix_fmt->width, pix_fmt->height);
+>>   	pix_fmt->field = V4L2_FIELD_NONE;
+>>   
