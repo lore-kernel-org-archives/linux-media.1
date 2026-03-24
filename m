@@ -1,137 +1,160 @@
-Received: from lx20.hoststar.hosting (lx20.hoststar.hosting [168.119.41.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618EA33065D;
-	Tue, 24 Mar 2026 07:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.41.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF8538C43C
+	for <linux-media@vger.kernel.org>; Tue, 24 Mar 2026 07:56:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774337548; cv=none; b=p4vG5n9u/iIzHPEhwG0DuBdySHnhX9C3grOKtRbxnMnrkEPUTqETCMlPUxc0LFxUQ1ptRN4fm0Jagpv09Qt1T4szEQukJKw0tVpfP1NB9/IFITqZ1RP6LTDgZ1kf7CojtoXrKXsGLjv/bz4VZQem9iZ8Xqv8iXfxx6W+HoulHC0=
+	t=1774339023; cv=none; b=j5z7p9iSdeNCZQaOjoK2+i2u6kXBYRZ1V49tknnKte9Gt5p6kEl2IwO/V2BJ0ufUfO2kPS2x86SJ0d85C9NpbY31nCPDnA9rldDk6+2V6afnjFNrfPSBP3PqzLkprKT/VTMSpvS91mxJA60hXa5RrzQd5N841ctzu73J7wAse40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774337548; c=relaxed/simple;
-	bh=DoySZJb+/dX4tX+SckY2cfiJpr62a6BkVboaZ+y3eVU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YN0IUT6FHTIa8D1vrhQrxSi+GVa88b+Byac4viJhzm+gYSORQYZJIOt6RHeU8KDMtKVoOsXfp0nhya+sQmfOuH3yUWlOv+fBvLqr62dmydrgFBTpatKggelPPuYDfXsqd2El0f4lN9vo3fHqF5vbxhoWPTQDIGeBidOQgiYfXjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at; spf=pass smtp.mailfrom=emfend.at; dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b=aMHgH1lo; arc=none smtp.client-ip=168.119.41.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=emfend.at
+	s=arc-20240116; t=1774339023; c=relaxed/simple;
+	bh=p70KRl2iyiH98RwY4hlNKdUPjdh2xLhI1lhyiI1eZxQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jxjqH2AOjlR7/eX4FT56U1RWQ8HJBQaX8G8W5bbuclnG0snDA60NcM2p5C7kPhcAgrgtUy9hrdoRj+MzXE2M7MLX1xu6lioM9G5dm02xBxGnTjubfD1jypMfHlMr0ESIJsyC6YdqLNJSHqsdggBi8wNbR20EGFfsOQvktKticR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dpnTVyaj; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b="aMHgH1lo"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=emfend.at;
-	 s=mail; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:Content-Description
-	:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=KS6J46kYK+sVTlFskCuxSfFQijC3eqAgPVExn/P68gI=; b=aMHgH1locKZJ7MEsKcLzpSNyRr
-	utWm2qH8ZZDRLXPCY3lFQSAomDAKdhhiDdUgjf6rH4AUR8CU/N8e0zlASKii6LXm4Qs0MgxRladQZ
-	icDW7twLiONsVl1Y8qgb2G9EzhIQPabmPAgfPdpO4OgLHS8o/9opAZ3xbZBOduMho/Ng=;
-Received: from 194-208-208-245.tele.net ([194.208.208.245]:62112 helo=[127.0.1.1])
-	by lx20.hoststar.hosting with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <matthias.fend@emfend.at>)
-	id 1w4vvO-009jM8-AH; Tue, 24 Mar 2026 08:11:41 +0100
-From: Matthias Fend <matthias.fend@emfend.at>
-Date: Tue, 24 Mar 2026 08:11:25 +0100
-Subject: [PATCH RESEND v2] media: i2c: imx283: add support for
- non-continuous MIPI clock mode
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dpnTVyaj"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4852afd42ceso6913345e9.2
+        for <linux-media@vger.kernel.org>; Tue, 24 Mar 2026 00:56:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774339011; x=1774943811; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wFYRVrG/zXzLAZQPA+I4Qd5czvKYpC40unjGxYVlu9I=;
+        b=dpnTVyajGyko46qKfF9oJZ1GoBN61/iuw4gwkAxiw9Ll46ZAqTJVFYZrsldIOyDn74
+         h3p8oVpQkKr0YssyhCg8+qEtDtb/aeLZkrFMYamO/b8E3Y9zBUOTOv/4/C9n2NBkU9To
+         NSmqlYGdp7WaPR+cW8/3yV/ZW/MSbWQGHp9N3nX+ScTT1yarC54UtPoTh+Wr6cMHBLRA
+         zd5w2UvE0LYGytWlgpEWbKlV3NLYp89sBtnWnhQtkuVxEjUERifwzVCg5BuXKAFVP2Hb
+         mU8/mSX7IeKJgZJyfS0v6tBVbjrVxYKuAwjmx30s84SevOVN3DCxF/mm+WNxLeH57HEK
+         1ZJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774339011; x=1774943811;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=wFYRVrG/zXzLAZQPA+I4Qd5czvKYpC40unjGxYVlu9I=;
+        b=WkZyzsQIvGowMmyYwwPpiT2r8ZG1OCRRjGw4POKvFW2+itAcfY7AJjfOIi0TxNRkgi
+         zAwhsuevJggMv98UJ9nq9at50vntIW2pGmYIzDCJbvMJzfB66ogLu4BA4KY+KAAxijgd
+         GS09Rg7dKPtfrb1ydbCobrW1Ek4QQarpvrQ2/pfpiO9LnlyEGDbVIMZzVzjNNyfnkYJu
+         vi5ZnRztdkv3obp/YHyoMtSiYFiOK6iZ+KSwFrekTMvlTx4pgHiY2V1i+kElhSbxROzm
+         DplAQta6G6/nu5n6GWdt87uLq5A+hpPkuVF5KxD1+KbRQwDBta4+eGobjfuuKjPwel+W
+         LbWg==
+X-Gm-Message-State: AOJu0YxvB1xcSnDrJD9mgPzZSVvVMWBSm5BVLZj4uJ8n7MiIMVjX/Kj2
+	bGxOZFU4ssoeWoFsAWbAcY/y5iMIl9kGlbQmNlLvH2uLvRsKocJDP3b7
+X-Gm-Gg: ATEYQzwdib0jVHB7AGS4lpT3m9hs6+bDkI3rjoZCNUaCMlo5nri8TvouF+nX6JtwbnT
+	a15mH0wAZYrgx+C7kY2NirPnt36M015guxOoZJ30nY0dLwpjBsbO0vQyrrL8vpo+HWBcDerFcLa
+	cSrsx3G+UMPt4ruM71pBmhRYO7tezvw43xosEn9HtfEqXNPbnxrRzmQIg0frnuzzvsKxeq384K4
+	aANPihnyZYvdVms/HcDLiITL4M9uvZmtSwNRNv8RNk+ErCx3tNXj7VGSrELvmkoGAOByNsA5FBl
+	7GmRoNZK3Slh3Mxxe93mbXmppXcpkKzcKBoYtUM/D9ScS04wWRvRynT0u88cTpgjUQ4N2/CVJFF
+	7wRCv3Dc45X1Qe0CVZ8waulsPLvoLjwawfTREzNUjPRZl9B9ld/EXx9yhLhY/rgSG24YnM28kgj
+	71QDxTs+576+L9ICFY0WwhzbeO57YgrgsIvJFR05VOJsgZ2RCg2K1nPvmV2wH1eDD8Z8PPJQus4
+	4v3Fr/tjFg=
+X-Received: by 2002:a05:600c:4707:b0:480:20f1:7aa6 with SMTP id 5b1f17b1804b1-486fee231cdmr200567305e9.21.1774339011116;
+        Tue, 24 Mar 2026 00:56:51 -0700 (PDT)
+Received: from jernej-laptop.localnet (31.red-83-50-72.dynamicip.rima-tde.net. [83.50.72.31])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-487110dd718sm12885685e9.29.2026.03.24.00.56.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Mar 2026 00:56:50 -0700 (PDT)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski <paulk@sys-base.io>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Pengpeng Hou <pengpeng@iscas.ac.cn>
+Cc: linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, pengpeng@iscas.ac.cn,
+ nicolas.dufresne@collabora.com
+Subject: Re: [PATCH] media: cedrus: validate H.264 reference list indices
+Date: Tue, 24 Mar 2026 08:56:46 +0100
+Message-ID: <5056688.GXAFRqVoOG@jernej-laptop>
+In-Reply-To: <20260324020431.1800-1-pengpeng@iscas.ac.cn>
+References: <20260324020431.1800-1-pengpeng@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260324-imx283-ext-v2-1-4931dbd46c95@emfend.at>
-To: Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- Umang Jain <uajain@igalia.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Matthias Fend <matthias.fend@emfend.at>
-X-Mailer: b4 0.14.2
-X-Spam-Score: 
-X-Spam-Bar: 
-X-Spam-Report: 
 
-Add support for selecting between continuous and non-continuous MIPI clock
-mode.
+CC: Nicolas
 
-Previously, the CSI-2 non-continuous clock endpoint flag was ignored and
-the sensor was always configured for non-continuous clock mode. For
-existing device tree nodes that do not have this property enabled, this
-update will therefore change the actual clock mode.
+Dne torek, 24. marec 2026 ob 03:04:31 Srednjeevropski standardni =C4=8Das j=
+e Pengpeng Hou napisal(a):
+> Cedrus validates HEVC slice reference lists in cedrus_try_ctrl(), but
+> the H.264 path still consumes ref_pic_list0/ref_pic_list1 indices
+> straight from the stateless slice control. Those indices are later
+> used to index the fixed-size decode_params->dpb[] array in
+> _cedrus_write_ref_list().
+>=20
+> Reject H.264 slice controls whose active reference counts or
+> reference indices exceed V4L2_H264_NUM_DPB_ENTRIES before the driver
+> reaches the DPB lookup. This keeps the validation next to the existing
+> Cedrus stateless control checks and avoids driver-specific
+> out-of-bounds reads from malformed userspace control payloads.
+>=20
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Signed-off-by: Matthias Fend <matthias.fend@emfend.at>
----
-Add support for selecting the MIPI clock mode (continuous, non-continuous).
----
-Changes in v2:
-- Drop '[PATCH 1/3] media: dt-bindings: imx283: add clock-noncontinuous' (Krzysztof)
-- Drop '[PATCH 3/3] media: i2c: imx283: implement {g,s}_register' (Dave)
-- Link to v1: https://lore.kernel.org/r/20251217-imx283-ext-v1-0-906a762f592d@emfend.at
----
- drivers/media/i2c/imx283.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+This has same issue as doing it in common code, e.g. it would break
+userspace.
 
-diff --git a/drivers/media/i2c/imx283.c b/drivers/media/i2c/imx283.c
-index 8ab63ad8f385f6e2a2d7432feff0af09a5356dc4..7a6ab2941ea985401b21d60163b58e980cf31ddc 100644
---- a/drivers/media/i2c/imx283.c
-+++ b/drivers/media/i2c/imx283.c
-@@ -149,6 +149,9 @@
- #define IMX283_REG_PLSTMG02		CCI_REG8(0x36aa)
- #define   IMX283_PLSTMG02_VAL		0x00
- 
-+#define IMX283_REG_MIPI_CLK		CCI_REG8(0x3a43)
-+#define   IMX283_MIPI_CLK_NONCONTINUOUS	BIT(0)
-+
- #define IMX283_REG_EBD_X_OUT_SIZE	CCI_REG16_LE(0x3a54)
- 
- /* Test pattern generator */
-@@ -565,6 +568,7 @@ struct imx283 {
- 	struct v4l2_ctrl *hblank;
- 	struct v4l2_ctrl *vflip;
- 
-+	bool mipi_clk_noncontinuous;
- 	unsigned long link_freq_bitmap;
- 
- 	u16 hmax;
-@@ -988,6 +992,7 @@ static int imx283_set_pad_format(struct v4l2_subdev *sd,
- static int imx283_standby_cancel(struct imx283 *imx283)
- {
- 	unsigned int link_freq_idx;
-+	u8 mipi_clk;
- 	int ret = 0;
- 
- 	cci_write(imx283->cci, IMX283_REG_STANDBY,
-@@ -1007,6 +1012,10 @@ static int imx283_standby_cancel(struct imx283 *imx283)
- 	/* Enable PLL */
- 	cci_write(imx283->cci, IMX283_REG_STBPL, IMX283_STBPL_NORMAL, &ret);
- 
-+	/* Configure MIPI clock mode */
-+	mipi_clk = imx283->mipi_clk_noncontinuous ? IMX283_MIPI_CLK_NONCONTINUOUS : 0;
-+	cci_write(imx283->cci, IMX283_REG_MIPI_CLK, mipi_clk, &ret);
-+
- 	/* Configure the MIPI link speed */
- 	link_freq_idx = __ffs(imx283->link_freq_bitmap);
- 	cci_multi_reg_write(imx283->cci, link_freq_reglist[link_freq_idx].regs,
-@@ -1426,6 +1435,9 @@ static int imx283_parse_endpoint(struct imx283 *imx283)
- 		goto done_endpoint_free;
- 	}
- 
-+	imx283->mipi_clk_noncontinuous =
-+		bus_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK;
-+
- 	ret = v4l2_link_freq_to_bitmap(imx283->dev, bus_cfg.link_frequencies,
- 				       bus_cfg.nr_of_link_frequencies,
- 				       link_frequencies, ARRAY_SIZE(link_frequencies),
+One improvement would be to skip all indices which have value higher
+or equal to V4L2_H264_NUM_DPB_ENTRIES here:
 
----
-base-commit: 3aa9296a23ec41a8424e9a2346eea59fb6cb7d8c
-change-id: 20251216-imx283-ext-5968a658dbe6
+https://elixir.bootlin.com/linux/v6.19.9/source/drivers/staging/media/sunxi=
+/cedrus/cedrus_h264.c#L212
 
 Best regards,
--- 
-Matthias Fend <matthias.fend@emfend.at>
+Jernej
+
+> ---
+>  drivers/staging/media/sunxi/cedrus/cedrus.c | 23 +++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
+>=20
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus.c b/drivers/stagin=
+g/media/sunxi/cedrus/cedrus.c
+> index d68da1eaa7aa..905084c097a9 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus.c
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus.c
+> @@ -42,6 +42,29 @@ static int cedrus_try_ctrl(struct v4l2_ctrl *ctrl)
+>  		if (sps->bit_depth_luma_minus8 !=3D 0)
+>  			/* Only 8-bit is supported */
+>  			return -EINVAL;
+> +	} else if (ctrl->id =3D=3D V4L2_CID_STATELESS_H264_SLICE_PARAMS) {
+> +		const struct v4l2_ctrl_h264_slice_params *slice =3D ctrl->p_new.p_h264=
+_slice_params;
+> +		unsigned int i;
+> +
+> +		if (slice->num_ref_idx_l0_active_minus1 >=3D
+> +		    V4L2_H264_NUM_DPB_ENTRIES)
+> +			return -EINVAL;
+> +
+> +		for (i =3D 0; i <=3D slice->num_ref_idx_l0_active_minus1; i++)
+> +			if (slice->ref_pic_list0[i].index >=3D
+> +			    V4L2_H264_NUM_DPB_ENTRIES)
+> +				return -EINVAL;
+> +
+> +		if (slice->slice_type =3D=3D V4L2_H264_SLICE_TYPE_B) {
+> +			if (slice->num_ref_idx_l1_active_minus1 >=3D
+> +			    V4L2_H264_NUM_DPB_ENTRIES)
+> +				return -EINVAL;
+> +
+> +			for (i =3D 0; i <=3D slice->num_ref_idx_l1_active_minus1; i++)
+> +				if (slice->ref_pic_list1[i].index >=3D
+> +				    V4L2_H264_NUM_DPB_ENTRIES)
+> +					return -EINVAL;
+> +		}
+>  	} else if (ctrl->id =3D=3D V4L2_CID_STATELESS_HEVC_SPS) {
+>  		const struct v4l2_ctrl_hevc_sps *sps =3D ctrl->p_new.p_hevc_sps;
+>  		struct cedrus_ctx *ctx =3D container_of(ctrl->handler, struct cedrus_c=
+tx, hdl);
+>=20
+
+
+
 
