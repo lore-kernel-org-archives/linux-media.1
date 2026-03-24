@@ -1,39 +1,39 @@
 Received: from lx20.hoststar.hosting (lx20.hoststar.hosting [168.119.41.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF3BA2FC881;
-	Tue, 24 Mar 2026 10:42:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F003D1CD7;
+	Tue, 24 Mar 2026 10:42:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.41.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774348928; cv=none; b=h51SruMZumydEj6DAdpqEERS2qJjqOMw+9uTwtnmdnfJuHxJXnFTNxrYwsPX+WJBqaPCc8lO4ikLEL2Npm2ogGZ4M7Exjp4n5SJ1T8FdDCquAJTx63qBmUNkwbbVqqI1KUyPRJUZY3MBhePC5jhkDMUql3qhhmJwOv/z7cH517Q=
+	t=1774348928; cv=none; b=mtXiqwT/VuwqhOvpyZ8txdy/K0v8WZr0dOKgaxJ4xiXP5vkFVLvHk5QxiaPKu6ajRdTFSj/7mHBuyylrdjt6xx50IZ8wZ+yco8HoZ2puBNnqb5rPK2ashSow7Lt7XGTof59h4gmW7haZFYKZzjFAa9WmYb8ouxROAlSi4X+MkOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774348928; c=relaxed/simple;
-	bh=LkYekURlHQ/xRWAUE37U+PfeGGBR1LGZc2y2icp3qWI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=iW4TAFSznKkLk0UQwlJOYoc7qsiWDje8T9DRf2m87a1T875jDikdIF6bvhiaZgeMm0mQt1mXujt6gakXGFls66xbfa+8/s3KACY/cLZrF7MDIChBx68zT6DBkbLUGVgid3d3LtIaBCZuYpk8jOPTCHCfc8qNDPVhF6V3NaAJhI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at; spf=pass smtp.mailfrom=emfend.at; dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b=jo5SdLNA; arc=none smtp.client-ip=168.119.41.54
+	bh=9m8usDxjoIYEaL2IG/QrB3J6DW7Hoz4wLcyyEMK0pAE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=sCQFBaBLXic7o0TmNzCac9lq5uoCugh3NOQ8z4BdpOJTqzeRK1yEoIC697nVvighFFPOyvBb6CokQboYO+X0W+g9rBb87+GHzDrMZbUFmzjM0D9gGivbIfvwuaYoZ0V4t4fKTaNyk/1IvBnmw3krH+BvKE6GzdqZhQkNkhy9+yU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at; spf=pass smtp.mailfrom=emfend.at; dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b=Hok0jLrz; arc=none smtp.client-ip=168.119.41.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=emfend.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b="jo5SdLNA"
+	dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b="Hok0jLrz"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=emfend.at;
-	 s=mail; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
-	Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	 s=mail; h=Cc:To:In-Reply-To:References:Message-Id:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
 	List-Post:List-Owner:List-Archive;
-	bh=ZoLMhud2jqBOnRRgyr+4KjPNazRdiHOcLwP3PsaFso4=; b=jo5SdLNA0JgQJhrCTx//vVmifC
-	kHYJQ/Dnmsu5WSKPSlQ8WAs6JXso62ULlUcCN0KIzrs1dDwyyHK4zmhwHCo8SEhusgLXHqbu+s3m1
-	cmgSUg8blyVl2oEvnIGj9Txiao9DyKH4J4nr1Z57EyvZAABP7y5A8CdAIkXsWTfXVACo=;
+	bh=XnozTzcJqIffnJeCxoJ2SjzuE5JsUzNHOv3KnWqTbfc=; b=Hok0jLrzpJZA6BEbabcznRXcjA
+	3QsmuvYVj7vlDrU9tqlWkO/K4P7L+JTnole1A72avxAKdD07fkaPgNz3ns81/u8NA7MeR0BU+7UKk
+	QyQI7lYMRtFUj3rbMEXPhUA69pUXXYm711Paag4Jdxmzv8CHE5Tm7krrTgsxNVDS8iqM=;
 Received: from 194-208-208-245.tele.net ([194.208.208.245]:55336 helo=[127.0.1.1])
 	by lx20.hoststar.hosting with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.93)
 	(envelope-from <matthias.fend@emfend.at>)
-	id 1w4zCy-00DIvK-Sw; Tue, 24 Mar 2026 11:42:01 +0100
+	id 1w4zD1-00DIvK-9n; Tue, 24 Mar 2026 11:42:03 +0100
 From: Matthias Fend <matthias.fend@emfend.at>
-Subject: [PATCH v3 0/9] drivers: media: i2c: Omnivision OV08D10
- improvements
-Date: Tue, 24 Mar 2026 11:41:34 +0100
-Message-Id: <20260324-ov08d10-v3-0-1e44069cf91e@emfend.at>
+Date: Tue, 24 Mar 2026 11:41:37 +0100
+Subject: [PATCH v3 3/9] media: i2c: ov08d10: remove duplicate register
+ write
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -42,11 +42,9 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAF5qwmkC/02MwQ7CIBAFf6XhLAaWFllP/ofxUMpiOdgaaIim6
- b9Lm2g9zsubmVmiGCixczWzSDmkMA4F1KFiXd8Od+LBFWYgQAuAho9ZGCcFP1mJxtcI1tWsvJ+
- RfHhtpeutcB/SNMb3Fs5yXb8N/WtkyQXvVItSK20kqAs9PA3u2E5sbWTYPSVw96B4RnpjG4eIp
- v73lmX5ACDe1K/WAAAA
-X-Change-ID: 20260225-ov08d10-7b198f492bd4
+Message-Id: <20260324-ov08d10-v3-3-1e44069cf91e@emfend.at>
+References: <20260324-ov08d10-v3-0-1e44069cf91e@emfend.at>
+In-Reply-To: <20260324-ov08d10-v3-0-1e44069cf91e@emfend.at>
 To: Jimmy Su <jimmy.su@intel.com>, 
  Sakari Ailus <sakari.ailus@linux.intel.com>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -54,60 +52,52 @@ To: Jimmy Su <jimmy.su@intel.com>,
  Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, Matthias Fend <matthias.fend@emfend.at>, 
- bsp-development.geo@leica-geosystems.com, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ bsp-development.geo@leica-geosystems.com
 X-Mailer: b4 0.14.2
-X-Spam-Score: 
-X-Spam-Bar: 
-X-Spam-Report: 
+X-Spam-Score: -1.0
+X-Spam-Bar: -
+X-Spam-Report: Spam detection software, running on the system "lx20.hoststar.hosting",
+ has NOT identified this incoming email as spam.  The original
+ message has been attached to this so you can view it or label
+ similar future email.  If you have any questions, see
+ the administrator of that system for details.
+ 
+ Content preview:  The current settings for the "image vertical start" register
+    appear to be incorrect. While this only results in an incorrect start line
+    for native modes, this faulty setting causes actual problems in [...] 
+ 
+ Content analysis details:   (-1.0 points, 5.0 required)
+ 
+  pts rule name              description
+ ---- ---------------------- --------------------------------------------------
+ -1.0 ALL_TRUSTED            Passed through trusted hosts only via SMTP
+  0.0 TVD_RCVD_IP            Message was received from an IP address
+  0.0 KAM_DMARC_STATUS       Test Rule for DKIM or SPF Failure with Strict
+                             Alignment (older systems)
+  0.0 Local_hs_NotFromHoststar Sender is NOT hoststar.(ch|at|com)
+  0.0 Local_hs_NotToHoststar Recipient is NOT hoststar.(ch|at|com)
 
-This series provides basic device tree support and handling for power
-supplies, an optional reset, and the option to use a 24MHz input clock.
-
-In addition to a few minor fixes, a major problem with the configuration of
-the sensor modes has also been resolved.
-
-The changes have been tested on an i.MX8MP platform. Originally, the sensor
-was apparently only used with ACPI - unfortunately, I do not have such a
-hardware setup available.
+Register P1:0x33 is written twice with the same value in the
+'lane_2_mode_1632x1224' sequence. Remove one unnecessary write access.
 
 Signed-off-by: Matthias Fend <matthias.fend@emfend.at>
 ---
-Changes in v3:
-- List me as maintainer in bindings (Sakari)
-- Added myself as reviewer (Sakari)
-- Rebased 
-- Link to v2: https://lore.kernel.org/r/20260309-ov08d10-v2-0-81f8b5d99984@emfend.at
+ drivers/media/i2c/ov08d10.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Changes in v2:
-- Drop 'YAML' in bindings commit message (Krzysztof)
-- Use devm_reset_control_get_optional_exclusive() (Philipp)
-- Separate commit to fix PM handling in probe (Sakari)
-- Added two 'Fixes' tags
-- Resort series to get fixes first
-- Link to v1: https://lore.kernel.org/r/20260226-ov08d10-v1-0-c3a916368123@emfend.at
+diff --git a/drivers/media/i2c/ov08d10.c b/drivers/media/i2c/ov08d10.c
+index 5e1b8b58b3d64bcf20a7b1a4e47f547d2fd82998..9d54170cdf7da6fe4f03dbf64d5e8976df247846 100644
+--- a/drivers/media/i2c/ov08d10.c
++++ b/drivers/media/i2c/ov08d10.c
+@@ -381,7 +381,6 @@ static const struct ov08d10_reg lane_2_mode_1632x1224[] = {
+ 	{0x07, 0x05},
+ 	{0x21, 0x02},
+ 	{0x24, 0x30},
+-	{0x33, 0x03},
+ 	{0x31, 0x06},
+ 	{0x33, 0x03},
+ 	{0x01, 0x03},
 
----
-Matthias Fend (9):
-      media: i2c: ov08d10: fix runtime PM handling in probe
-      media: i2c: ov08d10: fix image vertical start setting
-      media: i2c: ov08d10: remove duplicate register write
-      media: i2c: ov08d10: fix some typos in comments
-      media: i2c: ov08d10: add missing newline to prints
-      dt-bindings: media: i2c: document Omnivision OV08D10 CMOS image sensor
-      media: i2c: ov08d10: add support for binding via device tree
-      media: i2c: ov08d10: add support for reset and power management
-      media: i2c: ov08d10: add support for 24 MHz input clock
-
- .../bindings/media/i2c/ovti,ov08d10.yaml           | 101 +++++++++
- MAINTAINERS                                        |   2 +
- drivers/media/i2c/ov08d10.c                        | 246 ++++++++++++++++-----
- 3 files changed, 298 insertions(+), 51 deletions(-)
----
-base-commit: 0e2c4117c3512cf6b8f54c2c3d37564bfa3ccd67
-change-id: 20260225-ov08d10-7b198f492bd4
-
-Best regards,
 -- 
-Matthias Fend <matthias.fend@emfend.at>
+2.34.1
 
