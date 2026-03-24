@@ -1,78 +1,141 @@
-Received: from mx1.tpz.ru (unknown [109.236.72.118])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2994282F04;
-	Tue, 24 Mar 2026 16:20:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.236.72.118
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774369227; cv=none; b=AbcMj4rNLpxOfglMHksEBPiKY8G7sjKgsOJTNz+GdHVn1JrvIBqpJKIxkD9fkuGVZSl/QtoEM1oWlPVBJciXO5idv8CK2dTJi7bAV5tp3s3cDal5cxpRAVj8H+HShZ9Q7PihoWOKz1Fh6oqoQA0+gylH8dSCJ8ArBBYAHJSy9Rc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774369227; c=relaxed/simple;
-	bh=uvuEnpo9EGl+hoaLG86C+hdGDJiVEJNPV8+6VEDdHfE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fkkD8FOPuCnZirVmqitWR1PhvELi0oLu9739KDklbs9fZhx+KRkZ7kGtEAH3mL80X7LTH/cfrHeNV+BiQkZlLjR5xT1iVQ6L5WT6g+u3yRmIuB8YTCMpJsVGMvubxCojFfrG10+BaOpvUHc971lPvXjYPEgFOoz50PKpwUEQ0qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tpz.ru; spf=pass smtp.mailfrom=tpz.ru; arc=none smtp.client-ip=109.236.72.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tpz.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tpz.ru
-Received: from localhost.localdomain (unknown [87.249.24.51])
-	by mx1.tpz.ru (Postfix) with ESMTPSA id 4fgFRR0LLFzXhML;
-	Tue, 24 Mar 2026 19:12:03 +0300 (MSK)
-From: Ilya Krutskih <devsec@tpz.ru>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Ilya Krutskih <devsec@tpz.ru>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-patches@linuxtesting.org,
-	lvc-project@linuxtesting.org,
-	stable@vger.kernel.org
-Subject: [PATCH v5] media: dvb: mb86a16: fix array overflow in mb86a16_set_fe()
-Date: Tue, 24 Mar 2026 16:11:45 +0000
-Message-ID: <20260324161146.532632-1-devsec@tpz.ru>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60A939D6D2;
+	Tue, 24 Mar 2026 16:29:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774369749; cv=pass; b=psLcpe4xQUxSmFoDXZjTlU0qe63SskyGnIau35HLFjUlHTRYVWNy0kreDo3VJX2H4nuydhhive4HG6gdgI5/BTtcAMtD+VLvRISl4pP6uxbSsGy5Az5KSf5QFgL3z3VYhX58RcXQmZ3xKR0T/8/zkJZ5q3SrkHTn1IRrxbbs6Ro=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774369749; c=relaxed/simple;
+	bh=ecvPWdJIf11yJW5qL7+HunMgOS/3TYaaLwweMrzg/4A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Mb+UI3tvyNxJEevrGL6BfMZvgb6ZFiN2+AVqDOZH3Acy9aWhs2yIoyDu06ZjH26mqqEoXxFgGlkJa5Uka2Qjnsvei5lr3sMVFlxpvPHpG+eVGZ+MR4FBzm1j7a2ksH+9h+766NwoRBdyc8t7RmmjJQXtmqQR1Wnt+rFWCM3e2Sc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=benjamin.gaignard@collabora.com header.b=ktXrz/zN; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=benjamin.gaignard@collabora.com header.b="ktXrz/zN"
+ARC-Seal: i=1; a=rsa-sha256; t=1774369730; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=eI9dMyF9lyTBU47/dNjJX4pYrTLhKGPqdtY8yk6tX5oCIOG4y8LQU+Jizxu15GDLuqrY4uqt2WHUvati3yXIze5uBujqYGwtFBY5H5mHTLvxHm2zWW4fFZ6BDhA9i4bMKiDSsiV2EQe5c+2jbNO0zcqCWfGLVuBX/wvk/vOyep8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1774369730; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=t5X3SqA0NrhU8AeVF5jet7aCXTAzqHe7Enn6xkPUCkU=; 
+	b=FxFfhtT6NX1Ud2ZwoYXinAAViGyyojNLA8ssB0d+eFn4Pzwezq1KrBA29ZZljWyPz1GJpa/xtOLRWk2X5ckIfSFNgKTSzfohcI84yQORpBeVr0+Mp7RIbXmNb/vee68LX6S0+8MiV3G1t3ws2N7aG34q+3JSmjFLZUFpaSkEF18=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=benjamin.gaignard@collabora.com;
+	dmarc=pass header.from=<benjamin.gaignard@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774369730;
+	s=zohomail; d=collabora.com; i=benjamin.gaignard@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=t5X3SqA0NrhU8AeVF5jet7aCXTAzqHe7Enn6xkPUCkU=;
+	b=ktXrz/zNw7uP6zfATbCvxvk+TSkFH+917YIv5Z8vAOMJP1mD9pejXujIsLd2f/wG
+	U9hj/gBTuad5HtS3WfWSZJYkecZNVQZh/fpypDRSoKDwXQswj0oLcxOQb+V+l5bF0qK
+	bIUZnFgrHbIgxYKBFxloim2OU3i+5tDxWK2YQUx4=
+Received: by mx.zohomail.com with SMTPS id 1774369728573435.9502112379421;
+	Tue, 24 Mar 2026 09:28:48 -0700 (PDT)
+Message-ID: <e083e933-2746-4b26-ac33-3b32d362b28e@collabora.com>
+Date: Tue, 24 Mar 2026 17:28:44 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 3/6] iommu: Add verisilicon IOMMU driver
+To: Will Deacon <will@kernel.org>
+Cc: joro@8bytes.org, robin.murphy@arm.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, heiko@sntech.de,
+ nicolas.dufresne@collabora.com, p.zabel@pengutronix.de, mchehab@kernel.org,
+ iommu@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-media@vger.kernel.org
+References: <20260216095144.107356-1-benjamin.gaignard@collabora.com>
+ <20260216095144.107356-4-benjamin.gaignard@collabora.com>
+ <acKxzGk1Z541yoZ4@willie-the-truck>
+Content-Language: en-US
+From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+In-Reply-To: <acKxzGk1Z541yoZ4@willie-the-truck>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The size of prev_swp_freq[] is a fixed constant unrelated to
-the number of possible detection attempts. Index 'prev_freq_num'
-of array 'prev_swp_freq' is incremented by each step in cycle.
-If index exceeds the total length of array, an out-of-bounds
-access might happen, in case of repeated unsuccessful signal
-acquisition. Add check to prevent this.
 
-Cc: stable@vger.kernel.org
-Fixes: 41e840b13e11 ("V4L/DVB (13699): [Mantis, MB86A16] Initial checkin: Mantis, MB86A16")
-Signed-off-by: Ilya Krutskih <devsec@tpz.ru>
----
-v2: Add check for array's length on each cycle step,
-edit patch description, edit tag 'fixes'.
-https://lore.kernel.org/all/20251211172251.852254-1-devsec@tpz.ru/
-v3: Edit condition to > ARRAY_SIZE() - 1, add a reason because of
-overflow can happen in description of patch
-v4: Edit condition to >= ARRAY_SIZE()
-v5: delete unnecessary check after incrementing
+Le 24/03/2026 à 16:46, Will Deacon a écrit :
+> On Mon, Feb 16, 2026 at 10:51:35AM +0100, Benjamin Gaignard wrote:
+>> The Verisilicon IOMMU hardware block can be found in combination
+>> with Verisilicon hardware video codecs (encoders or decoders) on
+>> different SoCs.
+>> Enable it will allow us to use non contiguous memory allocators
+>> for Verisilicon video codecs.
+>> If both decoder and this iommu driver are compiled has modules
+>> there is undefined symboles issues so this iommu driver could
+>> only be compiled has built-in.
+>>
+>> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+>> ---
+>>   MAINTAINERS               |   8 +
+>>   drivers/iommu/Kconfig     |  11 +
+>>   drivers/iommu/Makefile    |   1 +
+>>   drivers/iommu/vsi-iommu.c | 794 ++++++++++++++++++++++++++++++++++++++
+>>   include/linux/vsi-iommu.h |  21 +
+>>   5 files changed, 835 insertions(+)
+>>   create mode 100644 drivers/iommu/vsi-iommu.c
+>>   create mode 100644 include/linux/vsi-iommu.h
+> [...]
+>
+>> +static size_t vsi_iommu_unmap(struct iommu_domain *domain, unsigned long _iova,
+>> +			      size_t size, size_t count, struct iommu_iotlb_gather *gather)
+>> +{
+>> +	struct vsi_iommu_domain *vsi_domain = to_vsi_domain(domain);
+>> +	dma_addr_t pte_dma, iova = (dma_addr_t)_iova;
+>> +	unsigned long flags;
+>> +	phys_addr_t pt_phys;
+>> +	u32 dte;
+>> +	u32 *pte_addr;
+>> +	size_t unmap_size = 0;
+>> +
+>> +	spin_lock_irqsave(&vsi_domain->lock, flags);
+>> +
+>> +	dte = vsi_domain->dt[vsi_iova_dte_index(iova)];
+>> +	/* Just return 0 if iova is unmapped */
+>> +	if (!vsi_dte_is_pt_valid(dte))
+>> +		goto unlock;
+>> +
+>> +	pt_phys = vsi_dte_pt_address(dte);
+>> +	pte_addr = (u32 *)phys_to_virt(pt_phys) + vsi_iova_pte_index(iova);
+>> +	pte_dma = pt_phys + vsi_iova_pte_index(iova) * sizeof(u32);
+>> +	unmap_size = vsi_iommu_unmap_iova(vsi_domain, pte_addr, pte_dma, size);
+>> +
+>> +unlock:
+>> +	spin_unlock_irqrestore(&vsi_domain->lock, flags);
+>> +
+>> +	return unmap_size;
+>> +}
+> I still think you need TLB invalidation here.
+>
+> I looked at the downstream code that you linked to and it litters the
+> invalidation in the callers via mpp_iommu_flush_tlb(), which tend to
+> invalidate _before_ starting an operation. That's very likely buggy and
+> certainly not something we want upstream.
+>
+> The unmap routine should do the invalidation so that, when it returns,
+> the pages really are unmapped from the device (assuming strict mode).
+>
+> I know you said that you tried to add invalidation here and it "didn't
+> work", but that's not something I can really help you with.
 
- drivers/media/dvb-frontends/mb86a16.c | 4 ++++
- 1 file changed, 4 insertions(+)
+I know you expect the hardware to work like that but that isn't not the case.
+I spend quite long to try to found hidden bit(s) or an other way to do like
+you want but I can't find any solution.
+As you mention the downstream code suggest that the iommu can't invalidate
+TLB in unmap routine so I don't see how to progress.
+Maybe we should just admit that is how the hardware work.
+This v13 has fixed the documentation so I don't plan to spend more time on this driver.
 
-diff --git a/drivers/media/dvb-frontends/mb86a16.c b/drivers/media/dvb-frontends/mb86a16.c
-index 9033e39d75f4..5fabb6b884b5 100644
---- a/drivers/media/dvb-frontends/mb86a16.c
-+++ b/drivers/media/dvb-frontends/mb86a16.c
-@@ -1157,6 +1157,10 @@ static int mb86a16_set_fe(struct mb86a16_state *state)
- 		v = 0;
- 
- 		while (loop == 1) {
-+			if (prev_freq_num >= ARRAY_SIZE(prev_swp_freq)) {
-+				dprintk(verbose, MB86A16_ERROR, 1, "Signal detection retry attempts failed");
-+				return -1;
-+			}
- 			swp_info_get(state, fOSC_start, state->srate,
- 				     v, R, swp_ofs, &fOSC,
- 				     &afcex_freq, &AFCEX_L, &AFCEX_H);
--- 
-2.43.0
+Benjamin
 
+>
+> Will
