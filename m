@@ -1,55 +1,57 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E353932D4
-	for <linux-media@vger.kernel.org>; Tue, 24 Mar 2026 07:11:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029633B19AA
+	for <linux-media@vger.kernel.org>; Tue, 24 Mar 2026 07:12:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774336295; cv=none; b=GLpQTjgSsRI0Kx70472+/9s6cleYeZo3jDsjLBXiR8sno1GXiOVo7b3tonzd1Md/UJCcHyeLZ5nUybvmXkrY6cUz4mP1av281Xg+TMWZMHoqh9cqWiBra0W4tl08qZKxy0/3mAruIsHubKqN97CusW6A/UQpPtJ1ksdAW39YlLY=
+	t=1774336354; cv=none; b=Ezs8Xnkm82qwl6WyDboCGeT4m8aEKcLHI7ZdkdK3zXTeqPfATGTnouUu1V0XmMOsbGzN411Kpa1dHttlxzyVfETyY6FCAGNAX5hXFcJ5qLvWk73jKO+F6IFOYHoyM0fEP6ZVa+ezg4tJzsc7UHDBTtF0hJg8eexGRbftwG16NQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774336295; c=relaxed/simple;
-	bh=oxh+KVIp4LZDxKzMohp0VChHjBb4qF5rpmqF5blb1B4=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=gFGTfHPo4BQHeQV+KiqbKi2Lv3lnTctpKt+dkT3OA8lXdfW6J+Xp15hFwfy7b0GXsxPZZWjSRrsX5REloeGQOyQV/tQ+uyUVpTVFXPALpPAofPY7H4uUNo9+8+Y9eeM5j8cOaqiI7eLiRUMrsEb1lAEjDBrZfM7mFQF+bFKtgco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=C2xBY9Gx; arc=none smtp.client-ip=192.198.163.18
+	s=arc-20240116; t=1774336354; c=relaxed/simple;
+	bh=+YJ3MMQs02X8THkPSby+VzLQLOJSub+VSSICb2uIdjQ=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=IQm4YdGwAAadtH/ppPOQOSuKRuhKfAHRsdVv2N+AWwvBycKIs5NkMaHjQ4UfDSZ7Bh/Wngofrofx6YwBZjk99bQ57iF04B79XfLVQvQkhqVP1ECol1tLzvTiP8fj5KKwgSNVTI/isnWqZ64fGwb1A5lc7YznDmsNE+z+xrsRpSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GEmK6EHR; arc=none smtp.client-ip=198.175.65.20
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="C2xBY9Gx"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GEmK6EHR"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774336288; x=1805872288;
+  t=1774336348; x=1805872348;
   h=date:from:to:cc:subject:message-id;
-  bh=oxh+KVIp4LZDxKzMohp0VChHjBb4qF5rpmqF5blb1B4=;
-  b=C2xBY9GxuXBfRnzHZ3jBMfHF9g7uowfS+nSv9eJYXwsnp0lgsHexZ1k7
-   V9DG/JpNcbwGLzgPPPGUfVpAaXGqVR1mUKSOyQXz2Rest0obZFg6Fm3Xn
-   Qryo/0XmmFbFaHj9cy0vm/KZPN9FtVbPD0VP3bRSQFMnatDilfzu1urM/
-   r4RDIRz2jvNmVI4AgIik8PmoaS5/wJmub6375fKNfpzzxLTQqqI4kRP70
-   8zqhG8VxInUtlk2A3qN0VoSYftHOszoHkDU1p5go7SdPAxDgm7mWjIHME
-   8k0gS6OAOvg2WBHmAWI+cXXzm/rkvjAZur2rAXY5alNqrloFpD4WdwgLG
-   Q==;
-X-CSE-ConnectionGUID: 8SgHTt3DQcWLsFgR9OgG0A==
-X-CSE-MsgGUID: lxHc+yl5SS+t9lPgPMMheQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11738"; a="74529948"
+  bh=+YJ3MMQs02X8THkPSby+VzLQLOJSub+VSSICb2uIdjQ=;
+  b=GEmK6EHRDPboswawFtAbw/loDbD5JmmNKLf/KIMtCVwEZNXOzmtbUwlb
+   GJSLbcob6PwLQ+ccBvKajCLIzUC8zLSGhhB5XGh7Jy5D97QAEUQFjtdbk
+   oQly77NeyTYEc3oh5FyhUmSz3XFta9qhIHeqdLn1+6sFP5Hr9+nGz06oO
+   puLhWiSqp0E8CwxaZvC3BP1Kj9aq8ktkH24lrmnPcDa+s/LkdUaZoWyzT
+   GcG5gKjHLKFQEY9HLoQvBSXq7FdGgI3kgMzHNtyirOtjGKv3LqEaQ49cu
+   Sxxxfk8C/O6NkInxPc212mMvhEK6FCyUFyE2QoFfCPBEOZAuKFNBEiP55
+   w==;
+X-CSE-ConnectionGUID: BIxY77VXRW2ZGDP52CVGDQ==
+X-CSE-MsgGUID: RVm2khvMS+Oz+3wO5S+5WQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11738"; a="75057500"
 X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; 
-   d="scan'208";a="74529948"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Mar 2026 00:11:27 -0700
-X-CSE-ConnectionGUID: ciNz6AzPQaiHsQ5WrDpv1g==
-X-CSE-MsgGUID: FFttSiyrQtWqEz9E6iyTVw==
+   d="scan'208";a="75057500"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Mar 2026 00:12:27 -0700
+X-CSE-ConnectionGUID: 1lCQRgswTbeVt2GIXWhauA==
+X-CSE-MsgGUID: ghEvPJNnQBqMi5yb58Dt1Q==
 X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; 
+   d="scan'208";a="221377358"
 Received: from lkp-server01.sh.intel.com (HELO 3905d212be1b) ([10.239.97.150])
-  by fmviesa003.fm.intel.com with ESMTP; 24 Mar 2026 00:11:25 -0700
+  by fmviesa008.fm.intel.com with ESMTP; 24 Mar 2026 00:12:25 -0700
 Received: from kbuild by 3905d212be1b with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1w4vv9-00000000489-0G4h;
-	Tue, 24 Mar 2026 07:11:23 +0000
-Date: Tue, 24 Mar 2026 15:10:47 +0800
+	id 1w4vw7-0000000048F-1DB3;
+	Tue, 24 Mar 2026 07:12:23 +0000
+Date: Tue, 24 Mar 2026 15:12:05 +0800
 From: kernel test robot <lkp@intel.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: linux-media@vger.kernel.org
-Subject: [sailus-media-tree:cleanup] BUILD SUCCESS
- f6c511b24e9ebabbdc9a333dd1b1a9170add3952
-Message-ID: <202603241538.Jgi2NhLQ-lkp@intel.com>
+Subject: [sailus-media-tree:int3472] BUILD SUCCESS
+ 84e7c8cc504665fee00f964d3a676e0815982f70
+Message-ID: <202603241557.7FvKpUfc-lkp@intel.com>
 User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -57,10 +59,10 @@ List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 
-tree/branch: git://linuxtv.org/sailus/media_tree.git cleanup
-branch HEAD: f6c511b24e9ebabbdc9a333dd1b1a9170add3952  staging: media: ipu7: Update TODO
+tree/branch: git://linuxtv.org/sailus/media_tree.git int3472
+branch HEAD: 84e7c8cc504665fee00f964d3a676e0815982f70  platform: int3472: Drop redundant initialisation to 0 and NULL
 
-elapsed time: 737m
+elapsed time: 738m
 
 configs tested: 163
 configs skipped: 2
