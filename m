@@ -1,63 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx1.tpz.ru (unknown [109.236.72.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E4337FF76;
-	Tue, 24 Mar 2026 16:18:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2994282F04;
+	Tue, 24 Mar 2026 16:20:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.236.72.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774369104; cv=none; b=MBlHA38KhtJii/0l30Hu1p/9Sose1BD+Qq3Y9ZiEhWPLgUNOrP2Ta4EWxhtdnozrfGyjz9xiCSm+hez+ZSIZ8hOShmAt6T/VqnAJYqj8pkr7mbIsezs18D7snddoLwL7qX0g/iYbA0uP0UutnL6dfvoKjysHNNtD+NNuAdzNZTo=
+	t=1774369227; cv=none; b=AbcMj4rNLpxOfglMHksEBPiKY8G7sjKgsOJTNz+GdHVn1JrvIBqpJKIxkD9fkuGVZSl/QtoEM1oWlPVBJciXO5idv8CK2dTJi7bAV5tp3s3cDal5cxpRAVj8H+HShZ9Q7PihoWOKz1Fh6oqoQA0+gylH8dSCJ8ArBBYAHJSy9Rc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774369104; c=relaxed/simple;
-	bh=LlVeOfDVevG1mtL5gPrbnLLYTM883Ynrytxdj0M10CQ=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=XiQ2nBVNKOlQieZrYM/v9psSaqcj6xVmbXF8ZnToVzw4BEjWXWiJb0a+5Gw3TTUMRk6VnkS1w65Dekq/ziK1Xv/ma0eTowS/915EXSGqOKjYAfGNRlVoO/wfV9FGUJ904g9Vo8g2l203+n0GeXubvHmlI6ju3FAdFiDQQuj396E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VfD7a256; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VfD7a256"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A5FAC2BC87;
-	Tue, 24 Mar 2026 16:18:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774369104;
-	bh=LlVeOfDVevG1mtL5gPrbnLLYTM883Ynrytxdj0M10CQ=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
-	b=VfD7a256EhOAMTm28uRlGtoSior3AiYJqFQtMM4OzDlfJPsJeTihmtGMmyvxd4Wox
-	 VhbF+bjNr/CAR+hOp9CNxqBQ9c+zFFW5u3CoFxgbvsPFDPm74fMR15GXIQrdG/mIJy
-	 yFMZkLy2MELqJOpdS6+CHPN0bGh442A1IECGpQuiQz/QZ3SpgHH85ocv2a6oimPIN1
-	 r5m3zZ9XZOfptJhzN+uZlF165Oj0zK9ddeMPl7MXXxLrOL8jRz+kXWwEWru+3ksmmA
-	 jRutE1fZWLqlyDD8g7uQZwp/ps2zX/PUkRhWuD10HWJPzYa5aTTFuJZDkeY5febtSi
-	 4ud23rLTLsGZA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3FE703808203;
-	Tue, 24 Mar 2026 16:18:13 +0000 (UTC)
-Subject: Re: [GIT PULL for v7.0-rc6] media fixes
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20260323111101.098ba268@foz.lan>
-References: <20260323111101.098ba268@foz.lan>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20260323111101.098ba268@foz.lan>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media.git media/v7.0-5
-X-PR-Tracked-Commit-Id: e8d97c270cb46a2a88739019d0f8547adc7d97da
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 97a48d1aab549acb9b7f4a80d484f59710643199
-Message-Id: <177436909179.1187739.12682489810527531290.pr-tracker-bot@kernel.org>
-Date: Tue, 24 Mar 2026 16:18:11 +0000
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>, Linux Media Mailing List <linux-media@vger.kernel.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+	s=arc-20240116; t=1774369227; c=relaxed/simple;
+	bh=uvuEnpo9EGl+hoaLG86C+hdGDJiVEJNPV8+6VEDdHfE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fkkD8FOPuCnZirVmqitWR1PhvELi0oLu9739KDklbs9fZhx+KRkZ7kGtEAH3mL80X7LTH/cfrHeNV+BiQkZlLjR5xT1iVQ6L5WT6g+u3yRmIuB8YTCMpJsVGMvubxCojFfrG10+BaOpvUHc971lPvXjYPEgFOoz50PKpwUEQ0qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tpz.ru; spf=pass smtp.mailfrom=tpz.ru; arc=none smtp.client-ip=109.236.72.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tpz.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tpz.ru
+Received: from localhost.localdomain (unknown [87.249.24.51])
+	by mx1.tpz.ru (Postfix) with ESMTPSA id 4fgFRR0LLFzXhML;
+	Tue, 24 Mar 2026 19:12:03 +0300 (MSK)
+From: Ilya Krutskih <devsec@tpz.ru>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Ilya Krutskih <devsec@tpz.ru>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-patches@linuxtesting.org,
+	lvc-project@linuxtesting.org,
+	stable@vger.kernel.org
+Subject: [PATCH v5] media: dvb: mb86a16: fix array overflow in mb86a16_set_fe()
+Date: Tue, 24 Mar 2026 16:11:45 +0000
+Message-ID: <20260324161146.532632-1-devsec@tpz.ru>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-The pull request you sent on Mon, 23 Mar 2026 11:11:01 +0100:
+The size of prev_swp_freq[] is a fixed constant unrelated to
+the number of possible detection attempts. Index 'prev_freq_num'
+of array 'prev_swp_freq' is incremented by each step in cycle.
+If index exceeds the total length of array, an out-of-bounds
+access might happen, in case of repeated unsuccessful signal
+acquisition. Add check to prevent this.
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media.git media/v7.0-5
+Cc: stable@vger.kernel.org
+Fixes: 41e840b13e11 ("V4L/DVB (13699): [Mantis, MB86A16] Initial checkin: Mantis, MB86A16")
+Signed-off-by: Ilya Krutskih <devsec@tpz.ru>
+---
+v2: Add check for array's length on each cycle step,
+edit patch description, edit tag 'fixes'.
+https://lore.kernel.org/all/20251211172251.852254-1-devsec@tpz.ru/
+v3: Edit condition to > ARRAY_SIZE() - 1, add a reason because of
+overflow can happen in description of patch
+v4: Edit condition to >= ARRAY_SIZE()
+v5: delete unnecessary check after incrementing
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/97a48d1aab549acb9b7f4a80d484f59710643199
+ drivers/media/dvb-frontends/mb86a16.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Thank you!
-
+diff --git a/drivers/media/dvb-frontends/mb86a16.c b/drivers/media/dvb-frontends/mb86a16.c
+index 9033e39d75f4..5fabb6b884b5 100644
+--- a/drivers/media/dvb-frontends/mb86a16.c
++++ b/drivers/media/dvb-frontends/mb86a16.c
+@@ -1157,6 +1157,10 @@ static int mb86a16_set_fe(struct mb86a16_state *state)
+ 		v = 0;
+ 
+ 		while (loop == 1) {
++			if (prev_freq_num >= ARRAY_SIZE(prev_swp_freq)) {
++				dprintk(verbose, MB86A16_ERROR, 1, "Signal detection retry attempts failed");
++				return -1;
++			}
+ 			swp_info_get(state, fOSC_start, state->srate,
+ 				     v, R, swp_ofs, &fOSC,
+ 				     &afcex_freq, &AFCEX_L, &AFCEX_H);
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+2.43.0
+
