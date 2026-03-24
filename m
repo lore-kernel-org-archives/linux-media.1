@@ -1,238 +1,120 @@
-Received: from rmisp-mx-out1.tele.net (rmisp-mx-out1.tele.net [194.208.23.36])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B08315793;
-	Tue, 24 Mar 2026 08:20:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.208.23.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85761386568;
+	Tue, 24 Mar 2026 08:21:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774340411; cv=none; b=q2kz7OswlXjIMO+Zpmt9z0R7ehfKcI6qJ8WYrhmmsWp7lvIlqxt2HYmxSZW7vfmoyPRSnzezvg9qKc04eTHG4JbNiUw7XZ5ivh+qshpDIMi5s4Iu2MRBxxgQKENirNLrlR1Vtyx90v1UhBUzM5udJCyn2yHuOEhLd3azSuZ1HLw=
+	t=1774340514; cv=none; b=eQTBPpH/iF7fIHWjyUrF75zZI+wvC4oRFgcFcbQgxJys1jSGjmdTtNhQT1H7gtsWrU4nQ8ZUkuFLuBAvENX5AafT5KWi2sgKWx+JaTMu9oj58R3uS7O6wKeBjbtCWhvldEzzG2FftGIpzQ1urBNxe1YsTBiD82Ti5QgUtmpj6yE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774340411; c=relaxed/simple;
-	bh=6Nj7K0puMLvdvQEy4b5/QBJf7rztEGJDx6sVVYANlq0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uOmP+iuAuTgU4lhDe8YNUl4ypkeI9Bbkw/pnkqn2+ZomdexwukoYnv3MsLBzu7oKr5wWTZoN787i9A4N4Qg8i4tze5/YXi9DK3rIqMBnG5VSUyXssNu/nkazqrFK8gJR+PgFShVWuiyIzue8BKL32i+VN39DnCPximmPlL237PQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at; spf=fail smtp.mailfrom=emfend.at; arc=none smtp.client-ip=194.208.23.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=emfend.at
-Received: from [192.168.0.207] (194-208-208-245.tele.net [194.208.208.245])
-	by rmisp-mx-out1.tele.net (Postfix) with ESMTPA id 3D9F110E3CAA;
-	Tue, 24 Mar 2026 09:12:40 +0100 (CET)
-Message-ID: <47cee08f-4500-48ee-aea6-afba5a611211@emfend.at>
-Date: Tue, 24 Mar 2026 09:12:40 +0100
+	s=arc-20240116; t=1774340514; c=relaxed/simple;
+	bh=kLbn6CpeCLlcUGQJtvkc4TtsFrF3ow6aFa6JcCqKc14=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SX+YWMp7nabaFXYCz340iKc5AyOvgLV/8mJUQL/MlsDUC+La/Xk3CQT7GHefaRDwijCWU8OOmFKS3mJKooCIcoJVGvJAw65/LoaeI9xFEIBdDtSkBZiDP9THgd5Ji51Ta/+bcbsIb1NFdO447kOEmJbGuT4Nsebd/xLYibLtOJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=YZehMhlI; arc=none smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="YZehMhlI"
+X-UUID: 7d81eab0275a11f1a39cd589f645bc18-20260324
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=LKXbwPKaenlaIt9A1BwOx+fSLPnB8ta5mrz3U1z0gts=;
+	b=YZehMhlIck4HMyD6prRHckgPndqe5O2PAWgGYX4kLIootLsJuWA5+Mgi2LpW0Q/h9+h+sZMu3xDnRs7wvmg8TTvodxRGf2iy2m1fvpCb19ryoAInt8zUO4hvxw5XZOmFBC6jD4xStPg1/5QAP/12/90ZwxF4IXBiukRu7j0p+eg=;
+X-CID-CACHE: Type:Local,Time:202603241609+08,HitQuantity:1
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:b3780c08-b22a-466f-9133-47948d5b9556,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:e7bac3a,CLOUDID:bce9a18e-6df4-4a3d-a7a4-fbdc42d669ce,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102|110|836|888|898,TC:0,Content:-7|
+	-6|0|14|51,EDM:-3,IP:nil,URL:1,File:6|81|127|130,RT:0,Bulk:nil,QS:nil,BEC:
+	-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 7d81eab0275a11f1a39cd589f645bc18-20260324
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by mailgw02.mediatek.com
+	(envelope-from <jianhua.lin@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 917805723; Tue, 24 Mar 2026 16:21:43 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Tue, 24 Mar 2026 16:21:42 +0800
+Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Tue, 24 Mar 2026 16:21:41 +0800
+From: Jianhua Lin <jianhua.lin@mediatek.com>
+To: <nicolas@ndufresne.ca>, <mchehab@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <matthias.bgg@gmail.com>,
+	<angelogioacchino.delregno@collabora.com>
+CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-media@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mediatek@lists.infradead.org>,
+	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
+	<sirius.wang@mediatek.com>, <vince-wl.liu@mediatek.com>,
+	<jh.hsu@mediatek.com>
+Subject:
+Date: Tue, 24 Mar 2026 16:21:38 +0800
+Message-ID: <20260324082141.31292-1-jianhua.lin@mediatek.com>
+X-Mailer: git-send-email 2.46.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 8/9] media: i2c: ov08d10: add support for reset and
- power management
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Jimmy Su <jimmy.su@intel.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, bsp-development.geo@leica-geosystems.com
-References: <20260309-ov08d10-v2-0-81f8b5d99984@emfend.at>
- <20260309-ov08d10-v2-8-81f8b5d99984@emfend.at>
- <abkUy5U-cwK-6_kz@kekkonen.localdomain>
-Content-Language: de-DE
-From: Matthias Fend <matthias.fend@emfend.at>
-In-Reply-To: <abkUy5U-cwK-6_kz@kekkonen.localdomain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Hi Sakari,
+From: Jianhua Lin <jianhua.lin@mediatek.com>
+Date: Mon, 23 Mar 2026 16:12:30 +0800
+Subject: [PATCH v3 0/3] Mediatek MT8189 JPEG support
 
-Thanks for your comments.
+This series is based on tag: next-20260320, linux-next/master
 
-Am 17.03.2026 um 09:46 schrieb Sakari Ailus:
-> On Mon, Mar 09, 2026 at 06:07:10PM +0100, Matthias Fend wrote:
->> Add support for the required power supplies as well as the control of an
->> optional sensor reset.
->>
->> Signed-off-by: Matthias Fend <matthias.fend@emfend.at>
->> ---
->>   drivers/media/i2c/ov08d10.c | 93 ++++++++++++++++++++++++++++++++++++++++++++-
->>   1 file changed, 92 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/media/i2c/ov08d10.c b/drivers/media/i2c/ov08d10.c
->> index ce0fa30a86129302b5dda0b8796e44054fd77c88..19035991e8bb164d4fca5d87ee4551191974e8bb 100644
->> --- a/drivers/media/i2c/ov08d10.c
->> +++ b/drivers/media/i2c/ov08d10.c
->> @@ -8,6 +8,7 @@
->>   #include <linux/module.h>
->>   #include <linux/pm_runtime.h>
->>   #include <linux/regulator/consumer.h>
->> +#include <linux/reset.h>
->>   #include <media/v4l2-ctrls.h>
->>   #include <media/v4l2-device.h>
->>   #include <media/v4l2-fwnode.h>
->> @@ -513,9 +514,17 @@ static const char * const ov08d10_test_pattern_menu[] = {
->>   	"Standard Color Bar",
->>   };
->>   
->> +static const char *const ov08d10_supply_names[] = {
->> +	"dovdd",	/* Digital I/O power */
->> +	"avdd",		/* Analog power */
->> +	"dvdd",		/* Digital core power */
->> +};
->> +
->>   struct ov08d10 {
->>   	struct device *dev;
->>   	struct clk *clk;
->> +	struct reset_control *reset;
->> +	struct regulator_bulk_data supplies[ARRAY_SIZE(ov08d10_supply_names)];
->>   
->>   	struct v4l2_subdev sd;
->>   	struct media_pad pad;
->> @@ -1265,6 +1274,56 @@ static const struct v4l2_subdev_internal_ops ov08d10_internal_ops = {
->>   	.open = ov08d10_open,
->>   };
->>   
->> +static int ov08d10_power_off(struct device *dev)
->> +{
->> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
->> +	struct ov08d10 *ov08d10 = to_ov08d10(sd);
->> +
->> +	reset_control_assert(ov08d10->reset);
->> +
->> +	regulator_bulk_disable(ARRAY_SIZE(ov08d10->supplies),
->> +			       ov08d10->supplies);
->> +
->> +	clk_disable_unprepare(ov08d10->clk);
->> +
->> +	return 0;
->> +}
->> +
->> +static int ov08d10_power_on(struct device *dev)
->> +{
->> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
->> +	struct ov08d10 *ov08d10 = to_ov08d10(sd);
->> +	int ret;
->> +
->> +	ret = regulator_bulk_enable(ARRAY_SIZE(ov08d10->supplies),
->> +				    ov08d10->supplies);
->> +	if (ret < 0) {
->> +		dev_err(dev, "failed to enable regulators: %d\n", ret);
->> +		return ret;
->> +	}
->> +
->> +	ret = clk_prepare_enable(ov08d10->clk);
->> +	if (ret < 0) {
->> +		regulator_bulk_disable(ARRAY_SIZE(ov08d10->supplies),
->> +				       ov08d10->supplies);
->> +
->> +		dev_err(dev, "failed to enable imaging clock: %d\n", ret);
->> +		return ret;
->> +	}
->> +
->> +	if (ov08d10->reset) {
->> +		/* Delay from DVDD stable to sensor XSHUTDN pull up: 5ms */
->> +		fsleep(5 * USEC_PER_MSEC);
->> +
->> +		reset_control_deassert(ov08d10->reset);
->> +
->> +		/* Delay from XSHUTDN pull up to SCCB start: 8ms */
->> +		fsleep(8 * USEC_PER_MSEC);
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->>   static int ov08d10_identify_module(struct ov08d10 *ov08d10)
->>   {
->>   	struct i2c_client *client = v4l2_get_subdevdata(&ov08d10->sd);
->> @@ -1371,6 +1430,10 @@ static void ov08d10_remove(struct i2c_client *client)
->>   	media_entity_cleanup(&sd->entity);
->>   	v4l2_ctrl_handler_free(sd->ctrl_handler);
->>   	pm_runtime_disable(ov08d10->dev);
->> +	if (!pm_runtime_status_suspended(ov08d10->dev)) {
->> +		ov08d10_power_off(ov08d10->dev);
->> +		pm_runtime_set_suspended(ov08d10->dev);
->> +	}
->>   	mutex_destroy(&ov08d10->mutex);
->>   }
->>   
->> @@ -1378,6 +1441,7 @@ static int ov08d10_probe(struct i2c_client *client)
->>   {
->>   	struct ov08d10 *ov08d10;
->>   	unsigned long freq;
->> +	unsigned int i;
->>   	int ret;
->>   
->>   	ov08d10 = devm_kzalloc(&client->dev, sizeof(*ov08d10), GFP_KERNEL);
->> @@ -1403,12 +1467,32 @@ static int ov08d10_probe(struct i2c_client *client)
->>   		return ret;
->>   	}
->>   
->> +	ov08d10->reset = devm_reset_control_get_optional_exclusive(ov08d10->dev, NULL);
->> +	if (IS_ERR(ov08d10->reset))
->> +		return dev_err_probe(ov08d10->dev, PTR_ERR(ov08d10->reset),
->> +				     "failed to get reset\n");
->> +	reset_control_assert(ov08d10->reset);
->> +
->> +	for (i = 0; i < ARRAY_SIZE(ov08d10_supply_names); i++)
-> 
-> You can declare i here.
+Changes compared with v2:
+- Dropped the dts patch (arm64: dts: mt8188: update JPEG encoder/decoder
+  compatible) as it belongs to a different tree/series.
+- Patches 1/3 (dt-bindings: decoder):
+  - Changed the MT8189 compatible to be a standalone `const` instead of
+    an `enum`.
+  - Added an `allOf` block with conditional checks to enforce the single
+    clock ("jpgdec") requirement for MT8189, while preserving the
+    two-clock requirement for older SoCs.
+  - Updated commit message to reflect the schema structure changes and
+    hardware differences.
+- Patches 2/3 (dt-bindings: encoder):
+  - Changed the MT8189 compatible to be a standalone `const` instead of
+    an `enum` inside the `items` list, as it does not fallback to
+    "mediatek,mtk-jpgenc" due to 34-bit IOVA requirements.
+  - Updated commit message to explain the standalone compatible design.
+- Patches 3/3 (media: mediatek: jpeg):
+  - Refined commit message for better clarity regarding 34-bit IOVA and
+    single clock configuration.
 
-Right. But since the variable will also be needed in other places in the 
-next commit, it would have to be moved again. Therefore, in the end, 
-might it be simpler to leave it where it is?
+Changes compared with v1:
+- Patches 1/4:
+  - Updating commit message
+- Patches 2/4, 3/4: 
+  - Updating commit message
+  - Adjusted property descriptions acorrding to hardware requirements
+  - Improved formatting for better readability and consistency
+- Patches 4/4:
+  - Updating commit message
 
-Thanks
-  ~Matthias
+Jianhua Lin (3):
+  dt-bindings: media: mediatek-jpeg-decoder: add MT8189 compatible
+    string
+  dt-bindings: media: mediatek-jpeg-encoder: add MT8189 compatible
+    string
+  media: mediatek: jpeg: add compatible for MT8189 SoC
 
-> 
->> +		ov08d10->supplies[i].supply = ov08d10_supply_names[i];
->> +
->> +	ret = devm_regulator_bulk_get(ov08d10->dev,
->> +				      ARRAY_SIZE(ov08d10->supplies),
->> +				      ov08d10->supplies);
->> +	if (ret)
->> +		return dev_err_probe(ov08d10->dev, ret,
->> +				     "failed to get regulators\n");
->> +
->>   	v4l2_i2c_subdev_init(&ov08d10->sd, client, &ov08d10_subdev_ops);
->>   
->> +	ret = ov08d10_power_on(ov08d10->dev);
->> +	if (ret)
->> +		return dev_err_probe(ov08d10->dev, ret, "failed to power on\n");
->> +
->>   	ret = ov08d10_identify_module(ov08d10);
->>   	if (ret) {
->>   		dev_err(ov08d10->dev, "failed to find sensor: %d\n", ret);
->> -		return ret;
->> +		goto probe_error_power_off;
->>   	}
->>   
->>   	mutex_init(&ov08d10->mutex);
->> @@ -1452,9 +1536,15 @@ static int ov08d10_probe(struct i2c_client *client)
->>   	v4l2_ctrl_handler_free(ov08d10->sd.ctrl_handler);
->>   	mutex_destroy(&ov08d10->mutex);
->>   
->> +probe_error_power_off:
->> +	ov08d10_power_off(ov08d10->dev);
->> +
->>   	return ret;
->>   }
->>   
->> +static DEFINE_RUNTIME_DEV_PM_OPS(ov08d10_pm_ops,
->> +				 ov08d10_power_off, ov08d10_power_on, NULL);
->> +
->>   #ifdef CONFIG_ACPI
->>   static const struct acpi_device_id ov08d10_acpi_ids[] = {
->>   	{ "OVTI08D1" },
->> @@ -1473,6 +1563,7 @@ MODULE_DEVICE_TABLE(of, ov08d10_of_match);
->>   static struct i2c_driver ov08d10_i2c_driver = {
->>   	.driver = {
->>   		.name = "ov08d10",
->> +		.pm = pm_ptr(&ov08d10_pm_ops),
->>   		.acpi_match_table = ACPI_PTR(ov08d10_acpi_ids),
->>   		.of_match_table = ov08d10_of_match,
->>   	},
->>
-> 
+ .../bindings/media/mediatek-jpeg-decoder.yaml | 39 +++++++++++++---
+ .../bindings/media/mediatek-jpeg-encoder.yaml | 20 ++++++---
+ .../platform/mediatek/jpeg/mtk_jpeg_core.c    | 44 +++++++++++++++++++
+ 3 files changed, 91 insertions(+), 12 deletions(-)
+
+-- 
+2.45.2
 
