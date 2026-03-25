@@ -1,165 +1,165 @@
-Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021127.outbound.protection.outlook.com [40.107.51.127])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE383CF682;
-	Wed, 25 Mar 2026 11:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.127
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774439343; cv=fail; b=udNQphKo5w7aO8oEQ9KJK9CBKO4hROCirdObaE2PcImLs9lbkjQPM8BbptfCdScsUUTJgZWZxhawaUY+35ulAwJlE0VerKEWx+7mEuDmEFPiANR20DBtNjlx9tqK2moEEtjUPNfVHMmSpbwB719wDU2DOIVhZQ7/nsK3BQY5cK8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774439343; c=relaxed/simple;
-	bh=3PwNVPVDu+JxJ3x1Zd7k8XdVH8O9no2lWXwCpXG1Vtg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=k50fJ1E+meFi2xkibANZWUbd/4GPD0rJi2bfaohZbjr6JEnQ17Zk68cvvSblsVLniX6ApaYkqKZWC1wEqODaxahvI2xwtJj7IHFjvsUcX9VeRfqO6HifIF2VMc6O/5Q+nDs1O5NfiMDYz5j9FeWWjMl/GWquu6ZLidz2cJIqPZ4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=pass (2048-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=TNW89bbC; arc=fail smtp.client-ip=40.107.51.127
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B33AF3CFF7A;
+	Wed, 25 Mar 2026 11:51:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774439469; cv=none; b=O5oqqFFiQlCv6IunMtnF6E9wHX+wQ3pNjssKnZ7SgH+jEUESjkhT3cGsYcPnbBHGx0oWEpGZgsO+fhdMNsPf/sUrAwGNl28PgGc/+EtiG4uLKVQ5KIkWvP/FGjjy/SR55MsWWIlnSrCbovQEl18GuiCws9jEpSY62QVHI7IPe04=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774439469; c=relaxed/simple;
+	bh=KeHI21tX17zitbyWM/R6acwXiOl1c2DxdhSIx3r5B2Q=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=a8I8+kppSeDqP0l0uzfDcAAg14ob3sJNfv57LbasNxpiZMFVg3Oap0M61GDrjS1IukeLry/7arSt1Esy6k2M1Zy1KGsljVtNT6FH2SMHlas4g8YmwLo97r2HM4Sr6kXF/ZAMT9vgOOMUd4rlAk7PPeSr8WtuiFJNOsPFYYZdt/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=At+9rire; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="TNW89bbC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pa5YjgoZSNRLOXH/bQniKRVjpjATwNmg8I6Su2/6hR2UL/XgQGAKT3dB2+zkamUP2CMZmi8FJB/5gyKX+Bg6c4/2OxzycW0Gt8USv6SfZf73bUOb9RKyS8kjRcTrJWEYgrPOI2Ra2ojtojUkd4ICwsEfHr06B5VI0zgcN5V9qlUFuqUoJgJXLwV8PT5xJbeYrylwgQMx9Riqq0EUNrq/an3faBwHSeMLb1QACPmo41IBq/cr7InQegq1wF1UT8TQ83a84PDZbJxswxFgUSNlMIQqvljAtj8gvmnPJCTL1YfEd/N2mQkvwE1Q+N4Dw3wW53owaPtlOvmIhP57o4cNkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aJfSq97S8IQu2PVFaoAywcU/qdgoohCm6Tra0yejqXs=;
- b=IQacYaw8HqvAFm6iNqYRu66/DtuXO99uMlgtz0u0Z1eDYXfjl8zxkHC32WEFJ5XoXC/dvnU7pQhQrE24eQaDVl88eG/wK8CzxkbgmjS27es35dma8tOfbmZjh4vYiiZ74RlUcFCYf632r/plCeeQZ+f1yUtMNM2XHaLpM6rfrJvXhOrfPDSlZSTiQLZFp66hqLoEOn1RNrNgzcCsyRmiRaxCnsoILpcTjbwJTRwUwmpusJPA1XLawhm9lbbTtkM3Lc7f9JeSMnTuPvG06XOqfsmIfX90v6Q1goUfPkwTk+MtGiiR8eTMZLsP+t56jdTl6A8NtMqPPfp6PpMxs2Z40w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
- header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aJfSq97S8IQu2PVFaoAywcU/qdgoohCm6Tra0yejqXs=;
- b=TNW89bbC8FHzovXcmD4qzGmMDI3ZPqA3uNV7qSHRViIlTzlrYkvFxojrOBTQCewrRuNK2IdegMVpB0TkEaCsy9d4sYrFQNQgjx34OqjEwsBS794i05hBc/97ibbOlyP52oE5uxRRWbuLfi6/2gvP66DZmRsFcWf3eiKFOlRNeI5hM7wgMVIDJ4QF+CUCemoa5dhuSPJ5NrEK7tX7PSkaG0m94LHpSf3sk7wQLVAJFZUM5zfE/MN2KeGipaRzATqRbLLPe+npcfbOhz6kUP4l5ewZq+irM3O7zfsmE8m7rTSwNPNQdaG71KA4UdnLFXfg8im1lVBRlC77EGdMY+gCqQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siliconsignals.io;
-Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
- by MA0P287MB0017.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:5c::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 11:48:57 +0000
-Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
- ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
- ([fe80::ce63:5749:b390:508b%6]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
- 11:48:57 +0000
-From: Tarang Raval <tarang.raval@siliconsignals.io>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Tarang Raval <tarang.raval@siliconsignals.io>,
-	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
-	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 15/15] media: i2c: os05b10: fix negative hblank calculation
-Date: Wed, 25 Mar 2026 17:14:01 +0530
-Message-Id: <20260325114404.95188-16-tarang.raval@siliconsignals.io>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260325114404.95188-1-tarang.raval@siliconsignals.io>
-References: <20260325114404.95188-1-tarang.raval@siliconsignals.io>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PN2P287CA0008.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:21b::13) To PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:199::7)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="At+9rire"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 599CDC2BCB0;
+	Wed, 25 Mar 2026 11:51:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774439469;
+	bh=KeHI21tX17zitbyWM/R6acwXiOl1c2DxdhSIx3r5B2Q=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=At+9rirePFu0GD7weoBRWDz/whd0ugh9kPLeHHXaiK3Q3TxqVl3rTDh5hjUD93SHP
+	 MLlpTzsLA0Mx63R+/BYSXQEOpzYhSSZbINB8UhSk33TwYDSMJHQq2BW3cFgaHRXNKU
+	 1c6Ssc3ayoFu17qONPzv0XFw6h7ZjqskRMOb3daRx9RZt2A2h9Ly+gOcyxda9EqeAG
+	 h5y2WVIfX5EF8FDnl23xgt8algGEHgYuliiGn6egUzWpE9x2mG6gGopRZ9bvkDzRKh
+	 V/XP1y/DBFf6jVlKxom70UTe/xfB1tP+6FKdPSd0vkGCALRyG0vO25D0GI+Vp4kWJU
+	 psYReOh/D+3qQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 46FB6103A9BF;
+	Wed, 25 Mar 2026 11:51:09 +0000 (UTC)
+From: Michael Riesch via B4 Relay <devnull+michael.riesch.collabora.com@kernel.org>
+Date: Wed, 25 Mar 2026 12:51:06 +0100
+Subject: [PATCH v3 1/9] Documentation: admin-guide: media: add rk3588 vicap
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN3P287MB1829:EE_|MA0P287MB0017:EE_
-X-MS-Office365-Filtering-Correlation-Id: a470a12a-dac6-4a32-c4b7-08de8a647f6d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|52116014|366016|38350700014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	zD6JUU0aeqZM8jQIw8YmSFOl1gLeoU5MLzN+pgkvGSdHCmEkdS7s5hG3VVQUOigtSTEgsz4PVx0xxSoklOlTDR/DxLYiJetUk5c0vjodBusBhdzuWFE8y9GEK4L6AREPqeH9wqQjjexn3B0TP8FR2hee4okG9IUh5j2TEHvY3aq5trx8RmjbmxZR8dq8Ye9mWJkRme2iXjWN3eJiRhLkV/gkGM+4uL0yXQWFJ7f3mbjYc4IZ5HfJmIMZvx87ODRvQuGVoRE4tEvL/l/0h3aMkhFq5gYyNw8N6w1RhcqeP0+HmMUS/QqfYL6K7HoZnzQFErUK1B22xju+hbKSv/Pn3fXrEyJR9GK8C4p8B6fmLxD8iW8vq7vRxXm07fnvcoeD9/WvyWjCqvUedCrOA5qbVXnc1IZ3lnf15vG0D51FvZGvQbH09+g2hrAF35QTNITK/dndi5lV+TNrpVqjRWDEWIkTXECUknAD6SPdZwWEJeco3B1rahwSLE3FesR25r9SEag+huHFVN7ZZVAYLoiXxh6jXcCGV1vRx0pEdVUr9ZOh/QM83WzGhb8HiNesDF7JNuHxR/ucXYpcXj44W2vp2+2s2bq1BNVqRXvUTA55iNzEjpxWWFOIvPpSwVvVlXp1zYVxHlARD7Peal+DRjkcQizPppPD7o2QgWMQ8vHOmFpt52v2iFiVx0tzRpcfrbfwr5EpjXKPQjjF6R+YIrr2nR+1KGNanJKUUcYX0HsTBClN90xVRs+BrDZU/vyeVyQbqAX4bxE3ccCsKmG2tuxVKi2tjIajfcIWV+JMHQWqPhU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(52116014)(366016)(38350700014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?C43XifZ9u6vV0FvBSuyRDwqskNQQ0wn5IoB1/6RmZqTYOEXCXUsS0dlrA5rG?=
- =?us-ascii?Q?Av0TCO5ZzGDqWOPuRmpfAFgkNYlwKg87cNOIMjw3yKk6j2YF8cxNn8C6teex?=
- =?us-ascii?Q?uzobKb1BfHoM4n/28e55fHVGoHbhd9v0R2ZhVDSMwwgcXSpnxpHzrCihaU7I?=
- =?us-ascii?Q?5LY8dNAZGRYXFSdAnOieEBop3rq4Bus/UH27bEibt/m/SvcgUB9fEvYCN/EV?=
- =?us-ascii?Q?juiYC0wJ6P689QzML3lFPW0lfXc5o9vc8q7HCASuolebZtpPtIp/oXIPgFJB?=
- =?us-ascii?Q?yRXq3vW38aIMcVdUKuL67sO2fYhW7iesvTrcddfmoISsnVeDxL9pmzpXKGYs?=
- =?us-ascii?Q?EEDVspQR9lxBr50TDT3x+PHRaaiXoyDQ+3qWFcstYmu8N8VOmjMgQ21pYLR6?=
- =?us-ascii?Q?W9Ge7qO6EBODZgv9MJ7rm6TRx3GQUeEQUnt4RlKpDuF2BQuLRJOQj/CL6Ufj?=
- =?us-ascii?Q?wpYTvOiCgq6R95qemAdH60KHH7PGBT0DBx/klK8Rb2aFVkjMcKFKRD6RVGsO?=
- =?us-ascii?Q?+bs8Goy0rQS2iNr+7R6kUPLpa52s27bg1OMUPlNUNczxQoFCInB+7S+dJnqy?=
- =?us-ascii?Q?2qf6QKD4CX0imP+S7L7g8wwSNdBJySP55QkLrQq/7cOVIBctyI1j2Z5/Tq3l?=
- =?us-ascii?Q?gN/wTvr35N7o1FAoX/XnM5E7gTsElk14Rjm+NXm6SRnvnHcdt4AqfRUSD0SK?=
- =?us-ascii?Q?LwPMAxwGEFwPBIC3eR3EbQcgjrYEX2cYY0uCJrPVF/JDX6P6p0S8D0GlTUi/?=
- =?us-ascii?Q?TJ3X6e73FFkqLRptsPt0VQJRGjWlF6krlw4msE/H+RCLK6mkDaBfDZLloRWE?=
- =?us-ascii?Q?Ar8YCZIATUo0717ryfA6Xnj3lhv7ai1sAK8riweOHKi4/vIjqHn0ZkRCOgPk?=
- =?us-ascii?Q?s5WctL580AAo38a31W7dFtNTjEShXiQvP6ZcLJLRS0QEwLZK6fXoGr5PB/OJ?=
- =?us-ascii?Q?nJVjBPRPd4xhkNUYfQDS63AaiqI4DVGq0+wxLWefvu3S4UPerwS0sFezVQ2w?=
- =?us-ascii?Q?h5ZwkxXavzkcsEAPm9TYCUSNlhBkWJTc0omVar6rOia7IAGk8nvOXe2P3VTq?=
- =?us-ascii?Q?7sEanVUTmNXlc6wqqo3uZ+MNwmXi793kq5LiMYsWVn2odQwvhSdOk6EtzX+9?=
- =?us-ascii?Q?VfqTMsb7D4qm9g7SU/rH+WHNs3FVqm4QGmfdcpRdZ6FWd/3/0NpM8vmXwefL?=
- =?us-ascii?Q?dwjahoZ7IYv3i4RRGsXMOILKzjmuVu2q/8DvHusXDEpyRx/qVB8edwU6L6/L?=
- =?us-ascii?Q?wfSNRF5Sf0n9v/7BxiJY55SfED6Eh4hZcrSYIn38kdZvMQ4PJKqLm2UUEbw1?=
- =?us-ascii?Q?6bOnp3732/JoFMgo7dGNGJuLPYmzH+o44au9l8uKJIrtQzMDQ5PQqPN1gnia?=
- =?us-ascii?Q?8bIYrg8EbQRFeWcqloq3Kne8N5x0zRjcXcB2CDyyOcfCQtOfXPy5LaVK6VFe?=
- =?us-ascii?Q?Jo+yxWokBG00q4WyfDTm5zkkd6a5WabnJrYgH4UUeOeDlWdfloEqEY/kXjwO?=
- =?us-ascii?Q?aIHKiZ2Gvw7mVaSvyP1bDaJbacw/ewlmSn0UZjz6fgeUE4dvJ8ErfzxrhcqU?=
- =?us-ascii?Q?GOJQZZ4bLug11tlQ5nvjrVm6Ql6wru7C2n2pCPUcwfMtcj5c3w61Tsln5iR9?=
- =?us-ascii?Q?7+oOTp4W7yyTkqDn464YGT2pzCsF9TnWZYLagNWnhza7vdtPFVGPkDBhxu2X?=
- =?us-ascii?Q?OIt3VemeWYHnKVypXfUu9eizlwd9wnMZHOk3V8D1SQFBMsCGMQr+vCbjplCb?=
- =?us-ascii?Q?7ldySMcu8fczO/NmtHLFHMafq0T4DBE=3D?=
-X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-Network-Message-Id: a470a12a-dac6-4a32-c4b7-08de8a647f6d
-X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 11:48:57.6984
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YZqgaR2XX/y90rBr2kNZu+QOiA89clept3sDq9O27qLhE3PpRzcrEOEgP6AYKPO8RMDwUm7l/p2kK5oEDy1JARrbPHJwYlerDQVfXHKBsuI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA0P287MB0017
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250430-rk3588-vicap-v3-1-e38e428868cc@collabora.com>
+References: <20250430-rk3588-vicap-v3-0-e38e428868cc@collabora.com>
+In-Reply-To: <20250430-rk3588-vicap-v3-0-e38e428868cc@collabora.com>
+To: Mehdi Djait <mehdi.djait@linux.intel.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Kever Yang <kever.yang@rock-chips.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>, 
+ =?utf-8?q?=D0=9A=D1=83=D0=B7=D0=BD=D0=B5=D1=86=D0=BE=D0=B2_=D0=9C=D0=B8=D1=85=D0=B0=D0=B8=D0=BB?= <mai.kuznetsov.misha@gmail.com>, 
+ Charalampos Mitrodimas <charmitro@posteo.net>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Michael Riesch <michael.riesch@collabora.com>
+X-Mailer: b4 0.12.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774439467; l=4759;
+ i=michael.riesch@collabora.com; s=20250410; h=from:subject:message-id;
+ bh=pTp72GEyrYn0y0wkkq8ExYmYCRhqw9pZRiQOONnrYOg=;
+ b=p2ddiO+BNbwKEbQI2oCzFXph9RouyAdBUN4czfnPoJacnmUU/dKwQD+L6044pVvnKJvLJ9BDG
+ waqddnjf5dIC+pFg7zc77LLwOEViCQeUny03d8eFb6zzHdFo/Dw9WF1
+X-Developer-Key: i=michael.riesch@collabora.com; a=ed25519;
+ pk=+MWX1fffLFZtTPG/I6XdYm/+OSvpRE8D9evQaWbiN04=
+X-Endpoint-Received: by B4 Relay for michael.riesch@collabora.com/20250410
+ with auth_id=371
+X-Original-From: Michael Riesch <michael.riesch@collabora.com>
+Reply-To: michael.riesch@collabora.com
 
-Using HTS directly in the hblank calculation results in a negative
-value, such as 2592x1944 with HTS set to 1744.
+From: Michael Riesch <michael.riesch@collabora.com>
 
-Scale HTS by 2 before subtracting the active width so that hblank is
-derived correctly.
+Add a section that describes the Rockchip RK3588 VICAP.
 
-The datasheet describes 0x380c/0x380d as HTS, but does not document the
-exact unit used for this value.
-
-Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
+Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
 ---
- drivers/media/i2c/os05b10.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ .../admin-guide/media/rkcif-rk3588-vicap.dot       | 29 ++++++++++++++++++++
+ Documentation/admin-guide/media/rkcif.rst          | 32 ++++++++++++++++++++++
+ 2 files changed, 61 insertions(+)
 
-diff --git a/drivers/media/i2c/os05b10.c b/drivers/media/i2c/os05b10.c
-index bdfd203bf672..8acb4d76c90f 100644
---- a/drivers/media/i2c/os05b10.c
-+++ b/drivers/media/i2c/os05b10.c
-@@ -877,7 +877,16 @@ static int os05b10_set_framing_limits(struct os05b10 *os05b10,
- 	if (ret)
- 		return ret;
- 
--	hblank = mode->hts - mode->width;
-+	/*
-+	 * Using HTS directly results in a negative hblank.
-+	 * (e.g. 2592x1944 with HTS = 1744). Doubling HTS produces a valid
-+	 * horizontal blanking value.
-+	 *
-+	 * The datasheet defines HTS (0x380c/0x380d) as total horizontal
-+	 * timing size, but does not specify the unit (whether it is
-+	 * in pixel clocks or requires scaling).
-+	 */
-+	hblank = mode->hts * 2 - mode->width;
- 	ret = __v4l2_ctrl_modify_range(os05b10->hblank, hblank, hblank, 1,
- 				       hblank);
- 	if (ret)
+diff --git a/Documentation/admin-guide/media/rkcif-rk3588-vicap.dot b/Documentation/admin-guide/media/rkcif-rk3588-vicap.dot
+new file mode 100644
+index 000000000000..f6d3404920b5
+--- /dev/null
++++ b/Documentation/admin-guide/media/rkcif-rk3588-vicap.dot
+@@ -0,0 +1,29 @@
++digraph board {
++        rankdir=TB
++        n00000007 [label="{{<port0> 0} | rkcif-mipi2\n/dev/v4l-subdev0 | {<port1> 1}}", shape=Mrecord, style=filled, fillcolor=green]
++        n00000007:port1 -> n0000000a
++        n00000007:port1 -> n00000010 [style=dashed]
++        n00000007:port1 -> n00000016 [style=dashed]
++        n00000007:port1 -> n0000001c [style=dashed]
++        n0000000a [label="rkcif-mipi2-id0\n/dev/video0", shape=box, style=filled, fillcolor=yellow]
++        n00000010 [label="rkcif-mipi2-id1\n/dev/video1", shape=box, style=filled, fillcolor=yellow]
++        n00000016 [label="rkcif-mipi2-id2\n/dev/video2", shape=box, style=filled, fillcolor=yellow]
++        n0000001c [label="rkcif-mipi2-id3\n/dev/video3", shape=box, style=filled, fillcolor=yellow]
++        n00000025 [label="{{<port0> 0} | rkcif-mipi4\n/dev/v4l-subdev1 | {<port1> 1}}", shape=Mrecord, style=filled, fillcolor=green]
++        n00000025:port1 -> n00000028
++        n00000025:port1 -> n0000002e [style=dashed]
++        n00000025:port1 -> n00000034 [style=dashed]
++        n00000025:port1 -> n0000003a [style=dashed]
++        n00000028 [label="rkcif-mipi4-id0\n/dev/video4", shape=box, style=filled, fillcolor=yellow]
++        n0000002e [label="rkcif-mipi4-id1\n/dev/video5", shape=box, style=filled, fillcolor=yellow]
++        n00000034 [label="rkcif-mipi4-id2\n/dev/video6", shape=box, style=filled, fillcolor=yellow]
++        n0000003a [label="rkcif-mipi4-id3\n/dev/video7", shape=box, style=filled, fillcolor=yellow]
++        n00000043 [label="{{<port0> 0} | dw-mipi-csi2rx fdd30000.csi\n/dev/v4l-subdev2 | {<port1> 1}}", shape=Mrecord, style=filled, fillcolor=green]
++        n00000043:port1 -> n00000007:port0
++        n00000048 [label="{{<port0> 0} | dw-mipi-csi2rx fdd50000.csi\n/dev/v4l-subdev3 | {<port1> 1}}", shape=Mrecord, style=filled, fillcolor=green]
++        n00000048:port1 -> n00000025:port0
++        n0000004d [label="{{} | imx415 3-001a\n/dev/v4l-subdev4 | {<port0> 0}}", shape=Mrecord, style=filled, fillcolor=green]
++        n0000004d:port0 -> n00000043:port0
++        n00000051 [label="{{} | imx415 4-001a\n/dev/v4l-subdev5 | {<port0> 0}}", shape=Mrecord, style=filled, fillcolor=green]
++        n00000051:port0 -> n00000048:port0
++}
+diff --git a/Documentation/admin-guide/media/rkcif.rst b/Documentation/admin-guide/media/rkcif.rst
+index 2558c121abc4..313a0ea45d16 100644
+--- a/Documentation/admin-guide/media/rkcif.rst
++++ b/Documentation/admin-guide/media/rkcif.rst
+@@ -77,3 +77,35 @@ and the following video devices:
+ .. kernel-figure:: rkcif-rk3568-vicap.dot
+     :alt:   Topology of the RK3568 Video Capture (VICAP) unit
+     :align: center
++
++Rockchip RK3588 Video Capture (VICAP)
++-------------------------------------
++
++The RK3588 Video Capture (VICAP) unit features a digital video port and six
++MIPI CSI-2 capture interfaces that can receive video data independently.
++The DVP accepts parallel video data, BT.656 and BT.1120.
++Since the BT.1120 protocol may feature more than one stream, the RK3588 VICAP
++DVP features four DMA engines that can capture different streams.
++Similarly, the RK3588 VICAP MIPI CSI-2 receivers feature four DMA engines each
++to handle different Virtual Channels (VCs).
++
++The rkcif driver represents this hardware variant by exposing the following
++V4L2 subdevices:
++
++* dw-mipi-csi2rx fdd30000.csi: MIPI CSI-2 receiver connected to MIPI DPHY0
++* dw-mipi-csi2rx fdd50000.csi: MIPI CSI-2 receiver connected to MIPI DPHY1
++* rkcif-mipi2: INTERFACE/CROP block for the MIPI CSI-2 receiver connected to
++  MIPI DPHY0
++* rkcif-mipi4: INTERFACE/CROP block for the MIPI CSI-2 receiver connected to
++  MIPI DPHY1
++
++and the following video devices:
++
++* rkcif-mipi2-id{0,1,2,3}: The DMA engines connected to the rkcif-mipi2
++  INTERFACE/CROP block.
++* rkcif-mipi4-id{0,1,2,3}: The DMA engines connected to the rkcif-mipi4
++  INTERFACE/CROP block.
++
++.. kernel-figure:: rkcif-rk3588-vicap.dot
++    :alt:   Topology of the RK3588 Video Capture (VICAP) unit
++    :align: center
+
 -- 
-2.34.1
+2.39.5
+
 
