@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5336339B96B
-	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 10:58:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1384D3C8728
+	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 10:58:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774436331; cv=none; b=sDNpG4U+Y3UuwN9Whm7RrebsVl1z2Tlvn3gJ0GgTRmxz7t4eObaEI/30ivEoNGbbBy1I3zqNkiePZ1lTpRMMbdvA4UT+tUF5QqOw3Np6MP4GUUfyofTMRPwPXvajTRkyUpQPBojYNE8rQ0oDwbGSZdRmIzTle5Ytn7LPL2CNowA=
+	t=1774436332; cv=none; b=iXMcFh1zvhVOhJVNp0WfJE0cIeosUYeggX6ygUlEMr23OhWX6GztOsJccArMhP4b3B05YtSzTnU2QD4TMGn2KLXAaASYg2MF+l5VKIz5hyAsy4xD8ff5bAV3iYsRoLHTv2YVr0Y3mQBKXWlO1oM4u25pWWAWRllQCqZzTpFUvp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774436331; c=relaxed/simple;
+	s=arc-20240116; t=1774436332; c=relaxed/simple;
 	bh=eC/g/BB3ptL9As+MQeQclsXvXodNTzzp+uj4SLpGek0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=koLrCQ3V4eYZwKzC6EVf30zeyXsemn4dYoWcC2ka50WdYHBYGyVRFUX78HXZP/kJ8MhK9rA3yO9sZRoT8b9/ncJ5q4uj/jyfZoSYeH1Sz4sZoh9kH+L2F+m3I39cWXlqJYVO5xidHuQRfRtJ/hjE+hgPd9jpKX75grqfxXl10SU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ds+U8yDE; arc=none smtp.client-ip=192.198.163.19
+	 MIME-Version; b=tR4rbr0TsKDjcVqVZnFrjkqojh1okaQjBvJWM4YQfx4K7mt76Izwr8xNcRTwNRsuP4tRXBS3KzB3Msn8ApQEd+df7nkpge5GXYF9qWmyb5qpY5YuBJCuccQiBmot0S03Fgbyt26RrOmEWrlk4vt6Lwy+YLYKW11zW1kyDiOZC48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bUgj3BTP; arc=none smtp.client-ip=192.198.163.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ds+U8yDE"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bUgj3BTP"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774436330; x=1805972330;
+  t=1774436331; x=1805972331;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
   bh=eC/g/BB3ptL9As+MQeQclsXvXodNTzzp+uj4SLpGek0=;
-  b=ds+U8yDE3ZTGQ63ljWvI/phj74NRNSnLeFGxEG7dvofRSSUC/ZQDbpfO
-   o8k1T+zkiTlub6CsFJBl7AcJuoPuVh2PgqRzGPuFaB0B+dwWZzPvm4JND
-   3ycgRTPToqUxwqp3U1ZdBSrPBWz2c4HaKejBEEeG0aO24r/rkXhIblaAy
-   6F3rFA+2nGn/rvdlRcq/GzV8YtHMkg+5yU3HEsA2IBZ2ICMhO/E+sfSup
-   mZ4c21xn86n6PfDrNMSC1AffL9cGjFuffPU1yx5VA0u2ahyql/QThYALf
-   gYLFmpzl2LvD9f4FP/ph0Pjs9hFiOGVKlSoLvoRprfEWanxgAuz4GH/OH
-   Q==;
-X-CSE-ConnectionGUID: GuSN6/woQXWcfxQUz7bd/g==
-X-CSE-MsgGUID: UgQnj4DrRvCh46/9KMR5fg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="74496432"
+  b=bUgj3BTP+Ix02+lXd2iuy8lAHzQ7YbeIfpjPCHvtTTWpC7YcBRGsAs14
+   YZoRJPPG3z8r7XzI8K5WTP2kW2eyjlfADE9PRv1V8mot+V5Koep0uqYHu
+   fUNxAqJbYX1rWdRcdz+KaFUb2+/s1IKgFqE0y2KrvV7yIOVL0W85HpdhB
+   /vfPvqDfbo7uEm958/p4taePVUZbsXh63yFcEuBdIlwhpOsYPfCUVIH2b
+   +xY+2MDBlJugkFuANmYV42Xq1RxXQlu2JZEhWGtms47TNTpVtlinVoaUN
+   GfRpnD8+e+M5aLmltcq5Pbk40dK2ht2pex/rO0nzZ7eIlz4MH6JV7oxKg
+   A==;
+X-CSE-ConnectionGUID: thYK5MmBRDa2IQvp9lD4Ng==
+X-CSE-MsgGUID: d/CYD7zKTOW+WThdqDxElw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="74496445"
 X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="74496432"
+   d="scan'208";a="74496445"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
   by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:49 -0700
-X-CSE-ConnectionGUID: cyqMg5d+RO29CqDom/UQzg==
-X-CSE-MsgGUID: eLrozSQvSDio9Ab7txBjtg==
+X-CSE-ConnectionGUID: ybvUcegMS2qlGYPoi/mLJA==
+X-CSE-MsgGUID: aAU4jaTTSxuByqZ9aa/6ig==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="221763533"
+   d="scan'208";a="221763537"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.64])
   by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:43 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id B961F1224B3;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id AB0A01223F8;
 	Wed, 25 Mar 2026 12:58:30 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1w5LwJ-00000004wAx-0kEH;
+	id 1w5LwJ-00000004wAh-0SHo;
 	Wed, 25 Mar 2026 12:58:19 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -81,9 +81,9 @@ Cc: hans@jjverkuil.nl,
 	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>
-Subject: [PATCH v3 17/22] media: Improve enable_streams and disable_streams documentation
-Date: Wed, 25 Mar 2026 12:58:14 +0200
-Message-ID: <20260325105818.1176816-19-sakari.ailus@linux.intel.com>
+Subject: [PATCH v3 14/14] media: Improve enable_streams and disable_streams documentation
+Date: Wed, 25 Mar 2026 12:58:10 +0200
+Message-ID: <20260325105818.1176816-15-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
 References: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
