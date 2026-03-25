@@ -1,26 +1,26 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A643FCB38
-	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 14:51:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E46D3F65F0
+	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 14:51:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774450274; cv=none; b=Ilavf2BdO9yVqAp4i0/MzMiJZqNwR+dM6ybroKkc0JSmEWWFXfom3ccA/gekNw+qUHzTKsd7+tKbdmfPesaTFk6ckng33pkv5enVVJWdrGis4Glnxx1g+EfE5IW1en/dTXieoIB+i5Wsdz9iI07sanBhgRKy0oPhCB0udVUXzuk=
+	t=1774450277; cv=none; b=cXKs1x+X9tVUNLb9ZTziQIav1KyEhhlvaFSdEucenUNOsrpp/KV1CJdRBc4JTbcxqy33A3trQawO/XojK0XcSQq5Q+XsKw2pCowAS9x+a8EIhucoxyINgvOicJCsRPKe2s0apTecCWz50Zi+mNZkLLDEEpI8LMXSfkykqI6lZTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774450274; c=relaxed/simple;
-	bh=uoHeHlsfds/qqI2snQv2er1oCC5Zq5SxHe1tZGWlDnc=;
+	s=arc-20240116; t=1774450277; c=relaxed/simple;
+	bh=L2RLeX58RWJrOJCyQlLypImAQFl7uH3kq7hYltPkvcc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eIVVwX230ynENuBE8nLW9a4Yo1Zp605aTVyfWiDVwrpNjw1pFKvcCxklJOkgjdgMUkQXxB8kaT7m0j5L2cMNcltEBLQ4EASY9LMvGXN4Dt89f10hysWsnTpl19rGhy4V4rWPSN24Y0To1L5mEU7VKInJWJT8o2Qu7nq3Q/aaEEA=
+	 In-Reply-To:To:Cc; b=fvZ19r+iUeMwQeLDYjcyP+CjWAzwkVi4OTsbjpCqFgcydJ6D4knmPs1mDchTZkeeo0C8zV3IWJyiog/kEbOVQD+S6bx9n6uyktSK0KJ2zGYSh3ANqofmXCQp1Vfj+uvkHfdLElm0oZVX2c+kXG+HdGDU98utBhFZQh447Eyou+A=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1w5PZV-00050C-L1; Wed, 25 Mar 2026 15:51:01 +0100
+	id 1w5PZW-00050C-UM; Wed, 25 Mar 2026 15:51:02 +0100
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Wed, 25 Mar 2026 15:50:50 +0100
-Subject: [PATCH v4 19/27] media: rockchip: rga: support external iommus
+Date: Wed, 25 Mar 2026 15:50:56 +0100
+Subject: [PATCH v4 25/27] media: rockchip: rga: disable multi-core support
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -29,7 +29,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260325-spu-rga3-v4-19-e90ec1c61354@pengutronix.de>
+Message-Id: <20260325-spu-rga3-v4-25-e90ec1c61354@pengutronix.de>
 References: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
 In-Reply-To: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -50,159 +50,88 @@ X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-In preparation for the RGA3 add support for external iommus. This is a
-transition step to just disable the RGA2 specific mmu table setup code.
+Disable multi-core support in preparation of the RGA3 addition. The
+RK3588 SoC features two equal RGA3 cores. This allows scheduling of the
+work between both cores, which is not yet implemented. Until it is
+implemented avoid exposing both cores as independent video devices to
+prevent an ABI breakage when multi-core support is added.
 
-Currently a simple rga_hw struct field is used to set the internal iommu.
-But to handle the case of more sophisticated detection mechanisms
-(e.g. check for an iommu property in the device tree), it is abstracted
-by an inline function.
+This patch is copied from the Hantro driver patch to disable multi core
+support by Sebastian Reichel. See
+commit ccdeb8d57f7f ("media: hantro: Disable multicore support")
 
+Link: https://lore.kernel.org/all/20240618183816.77597-4-sebastian.reichel@collabora.com/
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga-buf.c | 31 ++++++++++++++++++---------
- drivers/media/platform/rockchip/rga/rga-hw.c  |  1 +
- drivers/media/platform/rockchip/rga/rga.c     | 11 ++++++++--
- drivers/media/platform/rockchip/rga/rga.h     |  6 ++++++
- 4 files changed, 37 insertions(+), 12 deletions(-)
+ drivers/media/platform/rockchip/rga/rga.c | 47 +++++++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga-buf.c b/drivers/media/platform/rockchip/rga/rga-buf.c
-index bc349d0a46365..4e82ca1a5e8d9 100644
---- a/drivers/media/platform/rockchip/rga/rga-buf.c
-+++ b/drivers/media/platform/rockchip/rga/rga-buf.c
-@@ -12,6 +12,7 @@
- #include <media/v4l2-ioctl.h>
- #include <media/v4l2-mem2mem.h>
- #include <media/videobuf2-dma-sg.h>
-+#include <media/videobuf2-dma-contig.h>
- #include <media/videobuf2-v4l2.h>
- 
- #include "rga.h"
-@@ -82,6 +83,9 @@ static int rga_buf_init(struct vb2_buffer *vb)
- 	if (IS_ERR(f))
- 		return PTR_ERR(f);
- 
-+	if (!rga_has_internal_iommu(rga))
-+		return 0;
-+
- 	n_desc = DIV_ROUND_UP(f->size, PAGE_SIZE);
- 
- 	rbuf->n_desc = n_desc;
-@@ -136,17 +140,21 @@ static int rga_buf_prepare(struct vb2_buffer *vb)
- 	for (i = 0; i < vb->num_planes; i++) {
- 		vb2_set_plane_payload(vb, i, f->pix.plane_fmt[i].sizeimage);
- 
--		/* Create local MMU table for RGA */
--		n_desc = fill_descriptors(&rbuf->dma_desc[curr_desc],
--					  rbuf->n_desc - curr_desc,
--					  vb2_dma_sg_plane_desc(vb, i));
--		if (n_desc < 0) {
--			v4l2_err(&ctx->rga->v4l2_dev,
--				 "Failed to map video buffer to RGA\n");
--			return n_desc;
-+		if (rga_has_internal_iommu(ctx->rga)) {
-+			/* Create local MMU table for RGA */
-+			n_desc = fill_descriptors(&rbuf->dma_desc[curr_desc],
-+						  rbuf->n_desc - curr_desc,
-+						  vb2_dma_sg_plane_desc(vb, i));
-+			if (n_desc < 0) {
-+				v4l2_err(&ctx->rga->v4l2_dev,
-+					 "Failed to map video buffer to RGA\n");
-+				return n_desc;
-+			}
-+			dma_addrs[i] = curr_desc << PAGE_SHIFT;
-+			curr_desc += n_desc;
-+		} else {
-+			dma_addrs[i] = vb2_dma_contig_plane_dma_addr(vb, i);
- 		}
--		dma_addrs[i] = curr_desc << PAGE_SHIFT;
--		curr_desc += n_desc;
- 	}
- 
- 	/* Fill the remaining planes */
-@@ -176,6 +184,9 @@ static void rga_buf_cleanup(struct vb2_buffer *vb)
- 	struct rga_ctx *ctx = vb2_get_drv_priv(vb->vb2_queue);
- 	struct rockchip_rga *rga = ctx->rga;
- 
-+	if (!rga_has_internal_iommu(rga))
-+		return;
-+
- 	dma_free_coherent(rga->dev, rbuf->n_desc * sizeof(*rbuf->dma_desc),
- 			  rbuf->dma_desc, rbuf->dma_desc_pa);
- }
-diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
-index bf4a86a640ec5..2013b59701d12 100644
---- a/drivers/media/platform/rockchip/rga/rga-hw.c
-+++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-@@ -577,6 +577,7 @@ static struct rga_fmt formats[] = {
- 
- const struct rga_hw rga2_hw = {
- 	.card_type = "rga2",
-+	.has_internal_iommu = true,
- 	.formats = formats,
- 	.num_formats = ARRAY_SIZE(formats),
- 	.cmdbuf_size = RGA_CMDBUF_SIZE,
 diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index 421a70558c3c7..5bdc8dc51ab68 100644
+index b0c88ad647e96..fd92ecf408e0c 100644
 --- a/drivers/media/platform/rockchip/rga/rga.c
 +++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -23,6 +23,7 @@
- #include <media/v4l2-ioctl.h>
- #include <media/v4l2-mem2mem.h>
- #include <media/videobuf2-dma-sg.h>
-+#include <media/videobuf2-dma-contig.h>
- #include <media/videobuf2-v4l2.h>
+@@ -708,6 +708,49 @@ static int rga_parse_dt(struct rockchip_rga *rga)
+ 	return 0;
+ }
  
- #include "rga.h"
-@@ -95,7 +96,10 @@ queue_init(void *priv, struct vb2_queue *src_vq, struct vb2_queue *dst_vq)
- 	src_vq->io_modes = VB2_MMAP | VB2_DMABUF;
- 	src_vq->drv_priv = ctx;
- 	src_vq->ops = &rga_qops;
--	src_vq->mem_ops = &vb2_dma_sg_memops;
-+	if (rga_has_internal_iommu(ctx->rga))
-+		src_vq->mem_ops = &vb2_dma_sg_memops;
-+	else
-+		src_vq->mem_ops = &vb2_dma_contig_memops;
- 	src_vq->gfp_flags = __GFP_DMA32;
- 	src_vq->buf_struct_size = sizeof(struct rga_vb_buffer);
- 	src_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
-@@ -110,7 +114,10 @@ queue_init(void *priv, struct vb2_queue *src_vq, struct vb2_queue *dst_vq)
- 	dst_vq->io_modes = VB2_MMAP | VB2_DMABUF;
- 	dst_vq->drv_priv = ctx;
- 	dst_vq->ops = &rga_qops;
--	dst_vq->mem_ops = &vb2_dma_sg_memops;
-+	if (rga_has_internal_iommu(ctx->rga))
-+		dst_vq->mem_ops = &vb2_dma_sg_memops;
-+	else
-+		dst_vq->mem_ops = &vb2_dma_contig_memops;
- 	dst_vq->gfp_flags = __GFP_DMA32;
- 	dst_vq->buf_struct_size = sizeof(struct rga_vb_buffer);
- 	dst_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
-diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index 025b1df594e9a..95fa7fd1c509a 100644
---- a/drivers/media/platform/rockchip/rga/rga.h
-+++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -146,6 +146,7 @@ static inline void rga_mod(struct rockchip_rga *rga, u32 reg, u32 val, u32 mask)
- 
- struct rga_hw {
- 	const char *card_type;
-+	bool has_internal_iommu;
- 	struct rga_fmt *formats;
- 	u32 num_formats;
- 	size_t cmdbuf_size;
-@@ -161,6 +162,11 @@ struct rga_hw {
- 	void (*get_version)(struct rockchip_rga *rga);
- };
- 
-+static inline bool rga_has_internal_iommu(const struct rockchip_rga *rga)
++/*
++ * Some SoCs, like RK3588 have multiple identical RGA3 cores, but the
++ * kernel is currently missing support for multi-core handling. Exposing
++ * separate devices for each core to userspace is bad, since that does
++ * not allow scheduling tasks properly (and creates ABI). With this workaround
++ * the driver will only probe for the first core and early exit for the other
++ * cores. Once the driver gains multi-core support, the same technique
++ * for detecting the main core can be used to cluster all cores together.
++ */
++static int rga_disable_multicore(struct device *dev)
 +{
-+	return rga->hw->has_internal_iommu;
++	struct device_node *node = NULL;
++	const char *compatible;
++	bool is_main_core;
++	int ret;
++
++	/* Intentionally ignores the fallback strings */
++	ret = of_property_read_string(dev->of_node, "compatible", &compatible);
++	if (ret)
++		return ret;
++
++	/* The first compatible and available node found is considered the main core */
++	do {
++		node = of_find_compatible_node(node, NULL, compatible);
++		if (of_device_is_available(node))
++			break;
++	} while (node);
++
++	if (!node)
++		return -EINVAL;
++
++	is_main_core = (dev->of_node == node);
++
++	of_node_put(node);
++
++	if (!is_main_core) {
++		dev_info(dev, "missing multi-core support, ignoring this instance\n");
++		return -ENODEV;
++	}
++
++	return 0;
 +}
 +
- extern const struct rga_hw rga2_hw;
+ static int rga_probe(struct platform_device *pdev)
+ {
+ 	struct rockchip_rga *rga;
+@@ -718,6 +761,10 @@ static int rga_probe(struct platform_device *pdev)
+ 	if (!pdev->dev.of_node)
+ 		return -ENODEV;
  
- #endif
++	ret = rga_disable_multicore(&pdev->dev);
++	if (ret)
++		return ret;
++
+ 	rga = devm_kzalloc(&pdev->dev, sizeof(*rga), GFP_KERNEL);
+ 	if (!rga)
+ 		return -ENOMEM;
 
 -- 
 2.53.0
