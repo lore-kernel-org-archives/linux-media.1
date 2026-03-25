@@ -1,82 +1,96 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from mx.gpxsee.org (mx.gpxsee.org [37.205.14.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE1A3D1CAD;
-	Wed, 25 Mar 2026 12:08:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D2F3C944C;
+	Wed, 25 Mar 2026 12:12:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.205.14.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774440512; cv=none; b=ZqOcmT94Ulf2S2n3PlhzA/cBS/qXZGENQtkZgIhUqhZ6uCVFkEagsSuVyu8xcvU5iLGe4P9NS5X/HSjM9+qFJsC1xAYtNoLv+wnKosXoGJVEToOlOcz7LAwEcPJ/fDs6D3IR6IOTkm5DCT53CygojetHisvCGdvHntjDsrvZwOc=
+	t=1774440729; cv=none; b=OAnw/FVlHrdwhPKFlJyMlBTbLCd9Ycu9Wlp2zJClFlUVdeLZMvTvYSiOTR8aGG55mrmb14bL9E/OBnRrLNTZRivShjIZ9x3Fcyr/u0cc0VDzTW9Czoqcx68P/gP9dXLS3IVCsk5KYPRnL6k+zFqL+03dC4YIHfZjwG1b9gXQneo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774440512; c=relaxed/simple;
-	bh=5yuJSLQ7z5NpTLLdJi81NteytuRZpaVCcXKOaqqjLyo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O4G4UImIMB2tP6sXvHgOCcefrtedrQKnM267/5860X3sSEAtSRLFH5WDlJ+m5mIMEPrHG0sQubIj5BQbbsJP5ta+SufP+9GtkqIKr7DCxckpF1g9ZZZA8Bv5RpqRxYr68nMuG6W+c0nOlRaufBezcegel+4DNPr84UMjjDnRHs0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jpnxEcm2; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jpnxEcm2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774440511; x=1805976511;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5yuJSLQ7z5NpTLLdJi81NteytuRZpaVCcXKOaqqjLyo=;
-  b=jpnxEcm23jF5oezRH6ywPFrDwcb6Z/j1uM9nEsbzhicQnJBt6GpJbXjO
-   tRNYKqgc9FfvBByeLPUWr7q+giNuLekCt/cOv5za/yUIjJRqJq6rip5cU
-   79FpNCGu+UuYLKmNt50bgpgCDRV2EHHladrkF7efVurkXqB+sUkwpt7PD
-   wCi8GcdP1dKhuI6Q42pnbm0Oj8YMmrhG9w4+LfSZWrdZUk4UPVi+WAjhP
-   NUw609dk+medlGTtBIbmKk2AKaoHbdeSTVvRij3l7xj9LIJH4v84q0kQg
-   rEnvw5ZT8jhb5KC1BBO5k4xPh9yH2bNoLULsAN1tCdfBFkPrlbp1R5MzE
-   A==;
-X-CSE-ConnectionGUID: Ozpxm0/iQI+dqd/HPIrg5w==
-X-CSE-MsgGUID: uNI0xWgeSByIUuhNez1xoA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="79381716"
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="79381716"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 05:08:30 -0700
-X-CSE-ConnectionGUID: CDBfxRZtT/uoMei0Ecq7VQ==
-X-CSE-MsgGUID: LV2mQTE9SsmMnJ3+Cv1/QQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="255161078"
-Received: from dalessan-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.32])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 05:08:28 -0700
-Date: Wed, 25 Mar 2026 14:08:26 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Anushka Badhe <anushkabadhe@gmail.com>
-Cc: andy@kernel.org, gregkh@linuxfoundation.org, hansg@kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev, mchehab@kernel.org,
-	sakari.ailus@linux.intel.com
-Subject: Re: [PATCH v3] staging: media: atomisp: pci: fix block comment style
- and merge split declaration
-Message-ID: <acPQOplQWD_-saf9@ashevche-desk.local>
-References: <20260324180821.42084-1-anushkabadhe@gmail.com>
- <20260324194356.49090-1-anushkabadhe@gmail.com>
+	s=arc-20240116; t=1774440729; c=relaxed/simple;
+	bh=oZ8UEsD8iI4rqf0PJp/6PIJDooFWtqEI7i7UpEcZuog=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=b4R5ZagV9a6IvpWDUkbGsC0o8jgKZ22UpBi6tLu4yu6Doc/IDUrbcLN7dk78yFAXyALqsUXzpWIMtCJkwCo4S8AyPKUCF7PkmW7O2e786KetyWfDbLgEMZSXbf9wvMXrLTH1pxn48V7BRHekhfd0by5jy522JE2LiqV8j57+9g4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gpxsee.org; spf=pass smtp.mailfrom=gpxsee.org; arc=none smtp.client-ip=37.205.14.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gpxsee.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gpxsee.org
+Received: from localhost (unknown [62.77.71.229])
+	by mx.gpxsee.org (Postfix) with ESMTPSA id B422B58C32;
+	Wed, 25 Mar 2026 13:01:59 +0100 (CET)
+From: tumic@gpxsee.org
+To: mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: =?UTF-8?q?Martin=20T=C5=AFma?= <martin.tuma@digiteqautomotive.com>
+Subject: [PATCH] media: mgb4: Fix DV timings limits
+Date: Wed, 25 Mar 2026 13:01:18 +0100
+Message-ID: <20260325120118.5072-1-tumic@gpxsee.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260324194356.49090-1-anushkabadhe@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Mar 25, 2026 at 01:13:56AM +0530, Anushka Badhe wrote:
-> The closing */ of a block comment is on the same line as the comment
-> text, violating kernel coding style. GP_TIMER_BASE declaration is also
-> unnecessarily split across two lines. Fix both issues.
+From: Martin Tůma <martin.tuma@digiteqautomotive.com>
 
-You are doing two things in one change. And doing first half-way...
-NAK.
+Provide the real DV timings limits in VIDIOC_DV_TIMINGS_CAP. For the
+outputs the pixelclock is limited by the CMT table <25000kHz, 2*94642kHz>,
+for the inputs a slightly broader range is possible. The minimal
+supported/tested resolution is 64px.
 
+Signed-off-by: Martin Tůma <martin.tuma@digiteqautomotive.com>
+---
+ drivers/media/pci/mgb4/mgb4_vin.c  | 8 ++++----
+ drivers/media/pci/mgb4/mgb4_vout.c | 8 ++++----
+ 2 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/media/pci/mgb4/mgb4_vin.c b/drivers/media/pci/mgb4/mgb4_vin.c
+index 74fb00c4a408..b24785455691 100644
+--- a/drivers/media/pci/mgb4/mgb4_vin.c
++++ b/drivers/media/pci/mgb4/mgb4_vin.c
+@@ -85,12 +85,12 @@ static const struct mgb4_i2c_kv gmsl1_i2c[] = {
+ static const struct v4l2_dv_timings_cap video_timings_cap = {
+ 	.type = V4L2_DV_BT_656_1120,
+ 	.bt = {
+-		.min_width = 240,
++		.min_width = 64,
+ 		.max_width = 4096,
+-		.min_height = 240,
++		.min_height = 64,
+ 		.max_height = 4096,
+-		.min_pixelclock = 1843200, /* 320 x 240 x 24Hz */
+-		.max_pixelclock = 530841600, /* 4096 x 2160 x 60Hz */
++		.min_pixelclock = 20000000,
++		.max_pixelclock = 200000000,
+ 		.standards = V4L2_DV_BT_STD_CEA861 | V4L2_DV_BT_STD_DMT |
+ 			V4L2_DV_BT_STD_CVT | V4L2_DV_BT_STD_GTF,
+ 		.capabilities = V4L2_DV_BT_CAP_PROGRESSIVE |
+diff --git a/drivers/media/pci/mgb4/mgb4_vout.c b/drivers/media/pci/mgb4/mgb4_vout.c
+index 7725bcd55e4c..22fbc9e53819 100644
+--- a/drivers/media/pci/mgb4/mgb4_vout.c
++++ b/drivers/media/pci/mgb4/mgb4_vout.c
+@@ -53,12 +53,12 @@ static const struct mgb4_i2c_kv gmsl1_i2c[] = {
+ static const struct v4l2_dv_timings_cap video_timings_cap = {
+ 	.type = V4L2_DV_BT_656_1120,
+ 	.bt = {
+-		.min_width = 240,
++		.min_width = 64,
+ 		.max_width = 4096,
+-		.min_height = 240,
++		.min_height = 64,
+ 		.max_height = 4096,
+-		.min_pixelclock = 1843200, /* 320 x 240 x 24Hz */
+-		.max_pixelclock = 530841600, /* 4096 x 2160 x 60Hz */
++		.min_pixelclock = 25000000,
++		.max_pixelclock = 189284000,
+ 		.standards = V4L2_DV_BT_STD_CEA861 | V4L2_DV_BT_STD_DMT |
+ 			V4L2_DV_BT_STD_CVT | V4L2_DV_BT_STD_GTF,
+ 		.capabilities = V4L2_DV_BT_CAP_PROGRESSIVE |
+
+base-commit: 0e2c4117c3512cf6b8f54c2c3d37564bfa3ccd67
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
