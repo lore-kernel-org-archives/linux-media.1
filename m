@@ -1,99 +1,84 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CB03FB7E0;
-	Wed, 25 Mar 2026 17:38:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A81410D1F;
+	Wed, 25 Mar 2026 18:06:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774460304; cv=none; b=WzUhkHogEyfcTu23r9sMLNUOLQ6owgPz0ESNItfmCLUu3+VvEVUeGmj/tUv9ofIga9Vt5l4dpYfmtvUzqnbj0AnyBd0VZs+M4xeQPaHWwzGK0w+ec5uDO+SMLEA8gmYw+e/SE/9RQLGwVVqvl/SIzbLbAuESY5J3SQ5RgzbRb6o=
+	t=1774462012; cv=none; b=f69dpl5kpAxdkeVYeK6b+C1uO4stUnBQXqVmSZ8WHuWs7anlkNpE6LrblP3itBMbyTrhNpEWS0eFeWPKMd6HqhjT0x3KiBeqRbn6IadCEbtIU6scPlF8dGlhxgMMTwf7uhRiADUuerMMafnCOq+H1OFF2KZplK4QiBlj7oarQEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774460304; c=relaxed/simple;
-	bh=tTM6qpl5dmfbHIRbO8CS8UflwO2BMvQhMGPDek8bavg=;
+	s=arc-20240116; t=1774462012; c=relaxed/simple;
+	bh=NrASyDXrPTRzOdXMt+rY87vftM8wegQWKG3EcVZsavw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PDBlzMRqWdbvykrrZm/j5U4cEHytis3F/8Cl+kH39pAEpsX2FTTQ8EY0BWN57z0sDoVhQmqwkrHli9AW0fctgQwVAhhuoXX+1YZbElWA34w3EwzLexGp0QSWqIf2hh8RTrDsn5ALrBYH5/fF7G6N5W0ehs3vb3Shn4jUdBj5+UU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NPJ7DfLy; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=u4/7WHSKckzjqMeQnLHAfw5FtPrhFhLJb78sCszsUoo6Qin05vaC3wZJ3E8Nq5G8SN3mDB8HHusTggfA1jzeq0MHB4q1uJo70peH1BTBZgjEoOJKYuJ2tKNIDDoBjOiALz3Po24zzyeLnhsCAyUwq9efSUwyS9RWqpYNE7P1BNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AUU+WkdG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NPJ7DfLy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774460302; x=1805996302;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=tTM6qpl5dmfbHIRbO8CS8UflwO2BMvQhMGPDek8bavg=;
-  b=NPJ7DfLyqjXoka9XhbqbSBmSQ77bu4NTy0DkiEj6lSoreTWVXLmxjFNP
-   5voLBGd5DNA6RC35B/5YYsGzLFWJbR9VgchP81V8z+xYGZDdpSKEfkpia
-   DLd6Y3h/uDfDIH/oaoZYvTUvqplsd1dCcKS3Qw4ny6X+GFHSFFMiH3eUq
-   iWrvD7MqFqHdmb0XmietrDE+2M8ORXfxn25cMFWKUYQ0SJS+H6sq3JV5t
-   7KR8Q8dipyZgJ/La4GRjCUyqTAd8FB7nzjYAASx4lKNtW7/v4mgOrNzoX
-   r/f+5X1Z4rekcq6Tb8/MpUOAeC/jBMfXrNEbRN9zCaZMyBWdBeXRRBdQ5
-   Q==;
-X-CSE-ConnectionGUID: ZkvZDmEMTRiwm3XwQDAbzQ==
-X-CSE-MsgGUID: gtS8rzu3SkWrprWbJoNQPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11740"; a="75527086"
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="75527086"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 10:38:21 -0700
-X-CSE-ConnectionGUID: O2KGlQQqTJadrw+GoRloHw==
-X-CSE-MsgGUID: 3jjEfzDVTpCR49VsLPA4fA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="220347066"
-Received: from vpanait-mobl.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.245.187])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 10:38:17 -0700
-Date: Wed, 25 Mar 2026 18:38:10 +0100
-From: Mehdi Djait <mehdi.djait@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AUU+WkdG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1384AC19423;
+	Wed, 25 Mar 2026 18:06:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774462011;
+	bh=NrASyDXrPTRzOdXMt+rY87vftM8wegQWKG3EcVZsavw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AUU+WkdGqhPPGBJsyxlRKgS0WHccD27F+kY9qWgUG84BLHPPtNPWCGQoCOk3YFWXX
+	 V9vPXLoZ0Roax9hgRmUZ2qlbxZpoZ8vsYPe3HMkLaEB1bpKgkZIXu9syWEB/whji4C
+	 fRMlKI+MnZWtlCX4H3el/NZLyHHtdF+pcdyUt2xN1n19Rocynt9flKl74H66r+EmNb
+	 NrwXGDDKNgKtyrm7TID9cyxtEKTSz2xr2CmsJzm3DXwz8wOnV9Tj3LavZz5XtD/UOu
+	 mIbUJ99sSOq4eLYnbdmpJw67p39qmaLom0FUhjoED+uvH6G/Tlc2VCXMH9FnV4OJN9
+	 CepO2tOLvWKIg==
+Date: Wed, 25 Mar 2026 18:06:45 +0000
+From: Conor Dooley <conor@kernel.org>
 To: michael.riesch@collabora.com
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Kever Yang <kever.yang@rock-chips.com>, 
-	Jagan Teki <jagan@amarulasolutions.com>, 
-	=?utf-8?B?0JrRg9C30L3QtdGG0L7QsiDQnNC40YXQsNC40Ls=?= <mai.kuznetsov.misha@gmail.com>, Charalampos Mitrodimas <charmitro@posteo.net>, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>, Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
-	Collabora Kernel Team <kernel@collabora.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+Cc: Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Kever Yang <kever.yang@rock-chips.com>,
+	Jagan Teki <jagan@amarulasolutions.com>,
+	=?utf-8?B?0JrRg9C30L3QtdGG0L7QsiDQnNC40YXQsNC40Ls=?= <mai.kuznetsov.misha@gmail.com>,
+	Charalampos Mitrodimas <charmitro@posteo.net>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Collabora Kernel Team <kernel@collabora.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/9] media: rockchip: rkcif: add support for rk3588
- vicap mipi capture
-Message-ID: <acQdGy39-3H_nyKL@mdjait-mobl>
+Subject: Re: [PATCH v3 2/9] media: dt-bindings: add rockchip rk3588 vicap
+Message-ID: <20260325-goofiness-smoky-05a9da4ab7c7@spud>
 References: <20250430-rk3588-vicap-v3-0-e38e428868cc@collabora.com>
- <20250430-rk3588-vicap-v3-3-e38e428868cc@collabora.com>
+ <20250430-rk3588-vicap-v3-2-e38e428868cc@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="S07loI5ARDnCLB+6"
+Content-Disposition: inline
+In-Reply-To: <20250430-rk3588-vicap-v3-2-e38e428868cc@collabora.com>
+
+
+--S07loI5ARDnCLB+6
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250430-rk3588-vicap-v3-3-e38e428868cc@collabora.com>
 
-Hi Michael,
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Thank you for the patch!
+--S07loI5ARDnCLB+6
+Content-Type: application/pgp-signature; name="signature.asc"
 
-On Wed, Mar 25, 2026 at 12:51:08PM +0100, Michael Riesch via B4 Relay wrote:
-> From: Michael Riesch <michael.riesch@collabora.com>
-> 
-> The RK3588 Video Capture (VICAP) unit features a Digital Video Port
-> (DVP) and six MIPI CSI-2 capture interfaces. Add initial support
-> for this variant to the rkcif driver and enable the MIPI CSI-2
-> capture interfaces.
-> 
+-----BEGIN PGP SIGNATURE-----
 
-Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+iHQEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCacQkNQAKCRB4tDGHoIJi
+0trSAP9NhcSN5IwjQxra/MoajEVkzUk285uvd3tnxxt6xebTeQD40Ti+GjJ8RBsz
+y/CiyatNQxTRh/VP0eEHfoLlCuj6BA==
+=yM+a
+-----END PGP SIGNATURE-----
 
-> Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
-> ---
->  .../platform/rockchip/rkcif/rkcif-capture-mipi.c   | 141 +++++++++++++++++++++
->  .../platform/rockchip/rkcif/rkcif-capture-mipi.h   |   1 +
->  .../media/platform/rockchip/rkcif/rkcif-common.h   |   2 +-
->  drivers/media/platform/rockchip/rkcif/rkcif-dev.c  |  18 +++
->  4 files changed, 161 insertions(+), 1 deletion(-)
-
---
-Kind Regards
-Mehdi Djait
+--S07loI5ARDnCLB+6--
