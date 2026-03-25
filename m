@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8933C5DC4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552AF3C6616
 	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 10:58:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774436326; cv=none; b=fBxK2iezKP72/LzT3xWQUikxCJT9AUxVASsTw3p9NWppV6I5na1Fm2+8FmsCdbqt15V9pdqoxp6LpD3icJ8NuS9AoCREG7HyWyvM9PtJJidNMe4ew9Kl0u7ZK3VQY4WrBBOGx+tWzpDoqmcWd0GrEDOoV5J4eA9Hi4elz0UKDFs=
+	t=1774436326; cv=none; b=KR2PYfCz4FcQajnOpdvxmhjPUAowHMNJVsR5CoaG+YJvC2+Yd0x9MASzUs32vrN8dh/CJzjGKxB4DXu6L1H9ZzbHoI26AEDtKusec3COHEZvKUMHO2odghKw4ysEx1/Tr/XodBt1SLnHSFKgZ8lv87/9nle4yyFOZLT2tj4188g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774436326; c=relaxed/simple;
-	bh=YlSpV75Lex/EOsT6TeF6z7ZdLFILOmWHShbtZaBuY20=;
+	bh=8+741WyPF7M6ISstnCoDke+c6jFXT2o32LPP66ZtgtQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DhAHM+uqZSXgcC3ayBCJ/TrwF9YkZ5tkBLZQvqp7ZCGTO/xjYl6iStsV8jMCWhpPVZ8U3fHHUHM9WLYDbMdQZI1O4f9Ku8ipKlVLEx204ZCVb2R5nG8aoyBAlMKM2fKzknrlvVZv8uDIe6lTCcDKy3xpV270y4Waoma84rKjqpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SFMVP/1I; arc=none smtp.client-ip=192.198.163.19
+	 MIME-Version; b=EhZ/Tvlp/P3uoZojoQa7u9/O+AY5Sr9ie/IRYlocohT3wIiKuuEx/q4jqMMxHFISpP6XLoAzWqyS/RuGR/LNtGls/VhRj64SUWqz9R12IiLJ24AGQtQ3Nu/D/R7PLU3r+Ilhfy3lR69fLY9n3Al+gYPX8HnclHA/OeemotrOHQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ag7AGJzX; arc=none smtp.client-ip=192.198.163.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SFMVP/1I"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ag7AGJzX"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1774436325; x=1805972325;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=YlSpV75Lex/EOsT6TeF6z7ZdLFILOmWHShbtZaBuY20=;
-  b=SFMVP/1IC/jPUccezDdM6MNmB9iTWkHdH6piPJUdQfNI0M3pbuMRN8Uc
-   OXtnRuobs7L4dE+i53tbLxSshW7ERyRXq3u+DWI8FLacE5pe+ASoawkTY
-   4AJJvGj+cpaIGAmEYXX1GARUTmqtXptVeSnWcRLq7h1q4zRCQpeauzjgX
-   wMuVN24zroxSqIVoaUuFzdf0hG+OKFnFSnoF1S4TP5PauW9qcEfHvpBqx
-   ZgkXDJVo4fvAV+YeSgYlCxtobBnWXJxn67FulXO1bUy20XIZeHMBIOc/r
-   Ay1ItjKVfYkum+mgK1dZTK8aeE/516VzK80W6ilTEoJ4qm9qcXPLFRsYy
-   Q==;
-X-CSE-ConnectionGUID: iHObEB65QOy0yKlsYLYSiw==
-X-CSE-MsgGUID: vkesNR5fQXm1CtADbJ7ZAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="74496340"
+  bh=8+741WyPF7M6ISstnCoDke+c6jFXT2o32LPP66ZtgtQ=;
+  b=Ag7AGJzX1EB+IXdB/sKCsd4IkzkZW0SCvYDkwdFlfg8IET1LnOf2S6qu
+   kK9zQOGSOlguYQ07Nx2T8Csil3X+VQnPem4voA/59o9D37i+hPZNC/r54
+   hng+WlgoYpcXorarEilVdUZb/yd7XoNXuiAm0j2jrHmi3+968XU1N9LbW
+   QayH5zHJHp1ydfrQn6k42RrCnBABjt4lheOieqJdKqTy2Ue6Bpnz7UZjZ
+   eFMg8A0qPVZPPS4edMNYB4tAJGv3cOS9VmJJIDpDg2q9cNrnHkAo8zZ9k
+   WD8//sBS9odu+CiIEuZdpimfZxGdL4+aBDScYHGrTMDdQJsG/DtpseXSO
+   g==;
+X-CSE-ConnectionGUID: 8TfSv0Q8Tj2LirPk2bAPaQ==
+X-CSE-MsgGUID: 2nY7CiyqSNGGhG956JL3Ew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="74496353"
 X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="74496340"
+   d="scan'208";a="74496353"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
   by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:42 -0700
-X-CSE-ConnectionGUID: aGZqbIWnRzimZJMs+aFJHQ==
-X-CSE-MsgGUID: 3tjRxNrqT7GTVyOsLcfjlA==
+X-CSE-ConnectionGUID: vuB33pzASMuUYVmEhsT1Cg==
+X-CSE-MsgGUID: wTVzmPAHQ+eCl+jGPHWKNQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="221763487"
+   d="scan'208";a="221763483"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.64])
   by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:35 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id AA21212231C;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 9A8281220F7;
 	Wed, 25 Mar 2026 12:58:30 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1w5LwJ-00000004wAd-0MHk;
+	id 1w5LwJ-00000004wAV-0Dyb;
 	Wed, 25 Mar 2026 12:58:19 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -81,9 +81,9 @@ Cc: hans@jjverkuil.nl,
 	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>
-Subject: [PATCH v3 13/22] media: mc: Separate single link validation into a new function
-Date: Wed, 25 Mar 2026 12:58:09 +0200
-Message-ID: <20260325105818.1176816-14-sakari.ailus@linux.intel.com>
+Subject: [PATCH v3 11/22] media: v4l2-subdev: Allow accessing routes with STREAMS client capability
+Date: Wed, 25 Mar 2026 12:58:07 +0200
+Message-ID: <20260325105818.1176816-12-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
 References: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
@@ -95,108 +95,40 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a new function __media_pipeline_validate_one() to validate a single
-link in a pipeline. This will soon be used for performing validation in
-multiple phases.
+Disable access to routes when the STREAMS client capability bit isn't set.
+Routes aren't relevant otherwise anyway.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Reviewed-by <mirela.rabulea@nxp.com>
 ---
- drivers/media/mc/mc-entity.c | 74 ++++++++++++++++++++----------------
- 1 file changed, 42 insertions(+), 32 deletions(-)
+ drivers/media/v4l2-core/v4l2-subdev.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/media/mc/mc-entity.c b/drivers/media/mc/mc-entity.c
-index 6bf4730b89d2..717569bd1a8c 100644
---- a/drivers/media/mc/mc-entity.c
-+++ b/drivers/media/mc/mc-entity.c
-@@ -768,6 +768,45 @@ static int media_pipeline_populate(struct media_pipeline *pipe,
- 	return ret;
- }
+diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+index f8fde395a53a..647587c0499a 100644
+--- a/drivers/media/v4l2-core/v4l2-subdev.c
++++ b/drivers/media/v4l2-core/v4l2-subdev.c
+@@ -1020,6 +1020,9 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 		if (!(sd->flags & V4L2_SUBDEV_FL_STREAMS))
+ 			return -ENOIOCTLCMD;
  
-+static int
-+__media_pipeline_validate_one(struct media_pad *origin,
-+			      struct media_pad *pad, struct media_link *link,
-+			      bool *has_enabled_link)
-+{
-+	struct media_device *mdev = origin->graph_obj.mdev;
-+	struct media_entity *entity = pad->entity;
-+	int ret;
++		if (!client_supports_streams)
++			return -EINVAL;
 +
-+	/* Return here if the link is disabled. */
-+	if (!(link->flags & MEDIA_LNK_FL_ENABLED))
-+		return 0;
-+
-+	if (has_enabled_link)
-+		*has_enabled_link = true;
-+
-+	/* Skip validation if the current pad isn't the sink pad of the link. */
-+	if (link->sink != pad)
-+		return 0;
-+
-+	if (!entity->ops || !entity->ops->link_validate)
-+		return 0;
-+
-+	ret = entity->ops->link_validate(link);
-+	if (ret) {
-+		dev_dbg(mdev->dev,
-+			"Link '%s':%u -> '%s':%u failed validation: %d\n",
-+			link->source->entity->name, link->source->index,
-+			link->sink->entity->name, link->sink->index, ret);
-+		return ret;
-+	}
-+
-+	dev_dbg(mdev->dev, "Link '%s':%u -> '%s':%u is valid\n",
-+		link->source->entity->name, link->source->index,
-+		link->sink->entity->name, link->sink->index);
-+
-+	return 0;
-+}
-+
- __must_check int __media_pipeline_start(struct media_pad *origin,
- 					struct media_pipeline *pipe)
- {
-@@ -838,39 +877,10 @@ __must_check int __media_pipeline_start(struct media_pad *origin,
- 			if (link->sink != pad && link->source != pad)
- 				continue;
+ 		memset(routing->reserved, 0, sizeof(routing->reserved));
  
--			/*
--			 * Ensure the link is enabled and if so, record
--			 * it. Proceed to the next link if the current pad isn't
--			 * the sink pad of the link.
--			 */
--			if (!(link->flags & MEDIA_LNK_FL_ENABLED))
--				continue;
--
--			has_enabled_link = true;
--
--			if (link->sink != pad)
--				continue;
--
--			if (!entity->ops || !entity->ops->link_validate)
--				continue;
--
--			ret = entity->ops->link_validate(link);
--			if (ret) {
--				dev_dbg(mdev->dev,
--					"Link '%s':%u -> '%s':%u failed validation: %d\n",
--					link->source->entity->name,
--					link->source->index,
--					link->sink->entity->name,
--					link->sink->index, ret);
-+			ret = __media_pipeline_validate_one(origin, pad, link,
-+							    &has_enabled_link);
-+			if (ret)
- 				goto error;
--			}
--
--			dev_dbg(mdev->dev,
--				"Link '%s':%u -> '%s':%u is valid\n",
--				link->source->entity->name,
--				link->source->index,
--				link->sink->entity->name,
--				link->sink->index);
- 		}
+ 		copy_routes_state_to_routing(routing, state);
+@@ -1041,6 +1044,9 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 		if (!(sd->flags & V4L2_SUBDEV_FL_STREAMS))
+ 			return -ENOIOCTLCMD;
  
- 		/*
++		if (!client_supports_streams)
++			return -EINVAL;
++
+ 		if (routing->which != V4L2_SUBDEV_FORMAT_TRY && ro_subdev)
+ 			return -EPERM;
+ 
 -- 
 2.47.3
 
