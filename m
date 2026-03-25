@@ -1,27 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A6823815B
-	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 14:51:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E83C3EFD2C
+	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 14:51:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774450270; cv=none; b=K/TEzV5zkbIZhwqevhB2ObqlED6khLsNvYfhVZoTasMtt8t+lFXnS2340mG1kvVviT8mrasgAw0RMfg8t2iC6zn6pRcrak1vEbGhQ1qky7tb5i5iuThM14ZpPcGPAJnQ/+UqjOn11JTiZbV+SFF840fMzgqbsYz/CnIefHAFHVc=
+	t=1774450270; cv=none; b=ajGrZ/9QIB0pY3u3CXwprNkc5q3PRA8X7npozqiFMMoRawn6AWrch6Y0VykH9V2YbWkTmutVCmmNWf0xk3FQzzuTHhUmm5P3v+9IG6J+1DHYlDsSpn+DTEJVgBEaXbFi0MavmqoUt4uO+2j7Qg89HEQgDZUwrdhghRU2seurwbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774450270; c=relaxed/simple;
-	bh=cH+QIdGv9CHGmBvpCSP+1qJWfJB8rOdt6vvgyGRyHPg=;
+	bh=/jgWszF8gm0ylwnjFVFhbuME+xU+3fFrdzbxXr3e8Uo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UW+rVVQjL64qO8pxlbpxH5k4TDzqSamFNJHwN02fQHncdwWd3FeBLKt13RccHK32P4Fp7qBVlDKgo/os/jSMm5ydHHSJ050WBbLsXbAMwZpUypYS35CZD1U8p67adYnAbrWesr4kbiJF10+yf3fil1gSIQuNfFm5dwG3clY8ztk=
+	 In-Reply-To:To:Cc; b=DD6+zT/+SN/4tU4nqsHRh4f2ZH6Iy5MliJusjOze6DeP1NXHAXiWDOqjW8MfkgzwRNuxEG05rt/UnMhlMompIPeR+rm5PTpwZGqHox0mlSc8PpguKwY3mW44DMGjWj3xF+8udF6PalZtSHTurvcOH6Fyus/yx5pLdJg1P2bn/Ac=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1w5PZT-00050C-8W; Wed, 25 Mar 2026 15:50:59 +0100
+	id 1w5PZU-00050C-AD; Wed, 25 Mar 2026 15:51:00 +0100
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Wed, 25 Mar 2026 15:50:36 +0100
-Subject: [PATCH v4 05/27] media: v4l2-common: add
- v4l2_fill_pixfmt_mp_aligned helper
+Date: Wed, 25 Mar 2026 15:50:43 +0100
+Subject: [PATCH v4 12/27] media: rockchip: rga: calculate x_div/y_div using
+ v4l2_format_info
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -30,7 +30,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260325-spu-rga3-v4-5-e90ec1c61354@pengutronix.de>
+Message-Id: <20260325-spu-rga3-v4-12-e90ec1c61354@pengutronix.de>
 References: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
 In-Reply-To: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -43,156 +43,197 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@pengutronix.de, nicolas@ndufresne.ca, 
  sebastian.reichel@collabora.com, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>
 X-Mailer: b4 0.15.0
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Add a v4l2_fill_pixfmt_mp_aligned helper which allows the user to
-specify a custom stride alignment in bytes. This is necessary for
-hardware like the Rockchip RGA3, which requires the stride value to be
-aligned to a 16 bytes boundary.
+Calculate the x_div and y_div variables with the information from
+v4l2_format_info instead of storing these in the rga_fmt struct.
 
-The code makes some assumptions about the v4l2 format to simplify the
-calculation. They currently hold for all known v4l2 formats.
-
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/v4l2-core/v4l2-common.c | 51 ++++++++++++++++++++++++++---------
- include/media/v4l2-common.h           |  4 +++
- 2 files changed, 43 insertions(+), 12 deletions(-)
+ drivers/media/platform/rockchip/rga/rga-hw.c | 45 +++++++---------------------
+ drivers/media/platform/rockchip/rga/rga.h    |  2 --
+ 2 files changed, 11 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
-index 2b5ccedeb6841..d64d7e76c834d 100644
---- a/drivers/media/v4l2-core/v4l2-common.c
-+++ b/drivers/media/v4l2-core/v4l2-common.c
-@@ -431,14 +431,28 @@ static inline unsigned int v4l2_format_block_height(const struct v4l2_format_inf
- }
- 
- static inline unsigned int v4l2_format_plane_stride(const struct v4l2_format_info *info, int plane,
--						    unsigned int width)
-+						    unsigned int width, u8 byte_alignment)
+diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
+index c0218a71fee04..7405355c334ad 100644
+--- a/drivers/media/platform/rockchip/rga/rga-hw.c
++++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+@@ -42,6 +42,7 @@ rga_get_addr_offset(struct rga_frame *frm, struct rga_addr_offset *offset,
  {
- 	unsigned int hdiv = plane ? info->hdiv : 1;
- 	unsigned int aligned_width =
- 		ALIGN(width, v4l2_format_block_width(info, plane));
+ 	struct rga_corners_addr_offset offsets;
+ 	struct rga_addr_offset *lt, *lb, *rt, *rb;
++	const struct v4l2_format_info *format_info;
+ 	unsigned int x_div = 0,
+ 		     y_div = 0, uv_stride = 0, pixel_width = 0;
  
--	return DIV_ROUND_UP(aligned_width, hdiv) *
--	       info->bpp[plane] / info->bpp_div[plane];
-+	/*
-+	 * Formats with a single memory plane derive the stride of the
-+	 * other planes from the y stride. Due to chroma subsampling this
-+	 * may cause the other plane strides to break the byte_alignment.
-+	 * Increase the alignment if necessary to prevent this.
-+	 *
-+	 * It assumes the following format properties:
-+	 * - bpp_div[0] == bpp_div[1]
-+	 * - The multiplication factor doesn't differ between the non y planes
+@@ -50,8 +51,16 @@ rga_get_addr_offset(struct rga_frame *frm, struct rga_addr_offset *offset,
+ 	rt = &offsets.right_top;
+ 	rb = &offsets.right_bottom;
+ 
+-	x_div = frm->fmt->x_div;
+-	y_div = frm->fmt->y_div;
++	format_info = v4l2_format_info(frm->pix.pixelformat);
++	/* x_div is only used for the u/v planes.
++	 * When the format doesn't have these, use 1 to avoid a division by zero.
 +	 */
-+	if (info->mem_planes == 1 && info->comp_planes > 1 && plane == 0)
-+		byte_alignment *= info->hdiv * info->bpp[0] / info->bpp[1];
-+
-+	return ALIGN(DIV_ROUND_UP(aligned_width, hdiv) * info->bpp[plane] /
-+			     info->bpp_div[plane],
-+		     byte_alignment);
- }
++	if (format_info->bpp[1])
++		x_div = format_info->hdiv * format_info->bpp_div[1] /
++			format_info->bpp[1];
++	else
++		x_div = 1;
++	y_div = format_info->vdiv;
+ 	uv_stride = frm->stride / x_div;
+ 	pixel_width = frm->stride / frm->pix.width;
  
- static inline unsigned int v4l2_format_plane_height(const struct v4l2_format_info *info, int plane,
-@@ -452,9 +466,10 @@ static inline unsigned int v4l2_format_plane_height(const struct v4l2_format_inf
- }
+@@ -476,128 +485,96 @@ static struct rga_fmt formats[] = {
+ 		.color_swap = RGA_COLOR_ALPHA_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_ABGR8888,
+ 		.depth = 32,
+-		.y_div = 1,
+-		.x_div = 1,
+ 	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_ABGR32,
+ 		.color_swap = RGA_COLOR_RB_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_ABGR8888,
+ 		.depth = 32,
+-		.y_div = 1,
+-		.x_div = 1,
+ 	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_XBGR32,
+ 		.color_swap = RGA_COLOR_RB_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_XBGR8888,
+ 		.depth = 32,
+-		.y_div = 1,
+-		.x_div = 1,
+ 	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_RGB24,
+ 		.color_swap = RGA_COLOR_NONE_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_RGB888,
+ 		.depth = 24,
+-		.y_div = 1,
+-		.x_div = 1,
+ 	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_BGR24,
+ 		.color_swap = RGA_COLOR_RB_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_RGB888,
+ 		.depth = 24,
+-		.y_div = 1,
+-		.x_div = 1,
+ 	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_ARGB444,
+ 		.color_swap = RGA_COLOR_RB_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_ABGR4444,
+ 		.depth = 16,
+-		.y_div = 1,
+-		.x_div = 1,
+ 	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_ARGB555,
+ 		.color_swap = RGA_COLOR_RB_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_ABGR1555,
+ 		.depth = 16,
+-		.y_div = 1,
+-		.x_div = 1,
+ 	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_RGB565,
+ 		.color_swap = RGA_COLOR_RB_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_BGR565,
+ 		.depth = 16,
+-		.y_div = 1,
+-		.x_div = 1,
+ 	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_NV21,
+ 		.color_swap = RGA_COLOR_UV_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_YUV420SP,
+ 		.depth = 12,
+-		.y_div = 2,
+-		.x_div = 1,
+ 	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_NV61,
+ 		.color_swap = RGA_COLOR_UV_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_YUV422SP,
+ 		.depth = 16,
+-		.y_div = 1,
+-		.x_div = 1,
+ 	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_NV12,
+ 		.color_swap = RGA_COLOR_NONE_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_YUV420SP,
+ 		.depth = 12,
+-		.y_div = 2,
+-		.x_div = 1,
+ 	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_NV12M,
+ 		.color_swap = RGA_COLOR_NONE_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_YUV420SP,
+ 		.depth = 12,
+-		.y_div = 2,
+-		.x_div = 1,
+ 	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_NV16,
+ 		.color_swap = RGA_COLOR_NONE_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_YUV422SP,
+ 		.depth = 16,
+-		.y_div = 1,
+-		.x_div = 1,
+ 	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_YUV420,
+ 		.color_swap = RGA_COLOR_NONE_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_YUV420P,
+ 		.depth = 12,
+-		.y_div = 2,
+-		.x_div = 2,
+ 	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_YUV422P,
+ 		.color_swap = RGA_COLOR_NONE_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_YUV422P,
+ 		.depth = 16,
+-		.y_div = 1,
+-		.x_div = 2,
+ 	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_YVU420,
+ 		.color_swap = RGA_COLOR_UV_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_YUV420P,
+ 		.depth = 12,
+-		.y_div = 2,
+-		.x_div = 2,
+ 	},
+ };
  
- static inline unsigned int v4l2_format_plane_size(const struct v4l2_format_info *info, int plane,
--						  unsigned int width, unsigned int height)
-+						  unsigned int width, unsigned int height,
-+						  u8 stride_alignment)
- {
--	return v4l2_format_plane_stride(info, plane, width) *
-+	return v4l2_format_plane_stride(info, plane, width, stride_alignment) *
- 	       v4l2_format_plane_height(info, plane, height);
- }
- 
-@@ -475,8 +490,9 @@ void v4l2_apply_frmsize_constraints(u32 *width, u32 *height,
- }
- EXPORT_SYMBOL_GPL(v4l2_apply_frmsize_constraints);
- 
--int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt,
--			u32 pixelformat, u32 width, u32 height)
-+int v4l2_fill_pixfmt_mp_aligned(struct v4l2_pix_format_mplane *pixfmt,
-+				u32 pixelformat, u32 width, u32 height,
-+				u8 stride_alignment)
- {
- 	const struct v4l2_format_info *info;
- 	struct v4l2_plane_pix_format *plane;
-@@ -493,23 +509,34 @@ int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt,
- 
- 	if (info->mem_planes == 1) {
- 		plane = &pixfmt->plane_fmt[0];
--		plane->bytesperline = v4l2_format_plane_stride(info, 0, width);
-+		plane->bytesperline = v4l2_format_plane_stride(info, 0, width,
-+							       stride_alignment);
- 		plane->sizeimage = 0;
- 
- 		for (i = 0; i < info->comp_planes; i++)
- 			plane->sizeimage +=
--				v4l2_format_plane_size(info, i, width, height);
-+				v4l2_format_plane_size(info, i, width, height,
-+						       stride_alignment);
- 	} else {
- 		for (i = 0; i < info->comp_planes; i++) {
- 			plane = &pixfmt->plane_fmt[i];
- 			plane->bytesperline =
--				v4l2_format_plane_stride(info, i, width);
-+				v4l2_format_plane_stride(info, i, width,
-+							 stride_alignment);
- 			plane->sizeimage = plane->bytesperline *
- 				v4l2_format_plane_height(info, i, height);
- 		}
- 	}
- 	return 0;
- }
-+EXPORT_SYMBOL_GPL(v4l2_fill_pixfmt_mp_aligned);
-+
-+int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt,
-+			u32 pixelformat, u32 width, u32 height)
-+{
-+	return v4l2_fill_pixfmt_mp_aligned(pixfmt, pixelformat,
-+					   width, height, 1);
-+}
- EXPORT_SYMBOL_GPL(v4l2_fill_pixfmt_mp);
- 
- int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt, u32 pixelformat,
-@@ -529,12 +556,12 @@ int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt, u32 pixelformat,
- 	pixfmt->width = width;
- 	pixfmt->height = height;
- 	pixfmt->pixelformat = pixelformat;
--	pixfmt->bytesperline = v4l2_format_plane_stride(info, 0, width);
-+	pixfmt->bytesperline = v4l2_format_plane_stride(info, 0, width, 1);
- 	pixfmt->sizeimage = 0;
- 
- 	for (i = 0; i < info->comp_planes; i++)
- 		pixfmt->sizeimage +=
--			v4l2_format_plane_size(info, i, width, height);
-+			v4l2_format_plane_size(info, i, width, height, 1);
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(v4l2_fill_pixfmt);
-diff --git a/include/media/v4l2-common.h b/include/media/v4l2-common.h
-index 401d8506c24b5..edd416178c333 100644
---- a/include/media/v4l2-common.h
-+++ b/include/media/v4l2-common.h
-@@ -558,6 +558,10 @@ int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt, u32 pixelformat,
- 		     u32 width, u32 height);
- int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt, u32 pixelformat,
- 			u32 width, u32 height);
-+/* @stride_alignment is a power of 2 value in bytes */
-+int v4l2_fill_pixfmt_mp_aligned(struct v4l2_pix_format_mplane *pixfmt,
-+				u32 pixelformat, u32 width, u32 height,
-+				u8 stride_alignment);
- 
- /**
-  * v4l2_get_link_freq - Get link rate from transmitter
+diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
+index 640e510285341..27b3c9b4f220c 100644
+--- a/drivers/media/platform/rockchip/rga/rga.h
++++ b/drivers/media/platform/rockchip/rga/rga.h
+@@ -20,8 +20,6 @@
+ struct rga_fmt {
+ 	u32 fourcc;
+ 	int depth;
+-	u8 y_div;
+-	u8 x_div;
+ 	u8 color_swap;
+ 	u8 hw_format;
+ };
 
 -- 
 2.53.0
