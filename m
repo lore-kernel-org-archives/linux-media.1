@@ -1,96 +1,197 @@
-Received: from mx.gpxsee.org (mx.gpxsee.org [37.205.14.76])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D2F3C944C;
-	Wed, 25 Mar 2026 12:12:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.205.14.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA113033E3
+	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 12:21:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774440729; cv=none; b=OAnw/FVlHrdwhPKFlJyMlBTbLCd9Ycu9Wlp2zJClFlUVdeLZMvTvYSiOTR8aGG55mrmb14bL9E/OBnRrLNTZRivShjIZ9x3Fcyr/u0cc0VDzTW9Czoqcx68P/gP9dXLS3IVCsk5KYPRnL6k+zFqL+03dC4YIHfZjwG1b9gXQneo=
+	t=1774441264; cv=none; b=oVxF3uGv+vMcYmHv9agsfd41uRdspNV+UjZcnTWHXV+uT4sGmZRScfcWtcyff5MxI/eKrtH73R/uIlkl3i99tmfSpp8tkfFGXh8OwBzUJss4IuRjvxJz9vsfp3HKFGKlVhEqQeBB6APhsalUwf8BuqnkUvLJY/x0khjiA1ryU7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774440729; c=relaxed/simple;
-	bh=oZ8UEsD8iI4rqf0PJp/6PIJDooFWtqEI7i7UpEcZuog=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=b4R5ZagV9a6IvpWDUkbGsC0o8jgKZ22UpBi6tLu4yu6Doc/IDUrbcLN7dk78yFAXyALqsUXzpWIMtCJkwCo4S8AyPKUCF7PkmW7O2e786KetyWfDbLgEMZSXbf9wvMXrLTH1pxn48V7BRHekhfd0by5jy522JE2LiqV8j57+9g4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gpxsee.org; spf=pass smtp.mailfrom=gpxsee.org; arc=none smtp.client-ip=37.205.14.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gpxsee.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gpxsee.org
-Received: from localhost (unknown [62.77.71.229])
-	by mx.gpxsee.org (Postfix) with ESMTPSA id B422B58C32;
-	Wed, 25 Mar 2026 13:01:59 +0100 (CET)
-From: tumic@gpxsee.org
-To: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Martin=20T=C5=AFma?= <martin.tuma@digiteqautomotive.com>
-Subject: [PATCH] media: mgb4: Fix DV timings limits
-Date: Wed, 25 Mar 2026 13:01:18 +0100
-Message-ID: <20260325120118.5072-1-tumic@gpxsee.org>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1774441264; c=relaxed/simple;
+	bh=m7wNcvXrY2HTA+b2BQ1oS1dJWpDM66eUZX6SlxkJ91s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XFYr0nv0koiYby8/RzqTZ9YxhNmbXKSUfGwR6DavEtu7CtDX56NSLTDtz6c57lG9v3ZKTsXo2U23YEd0BinIsAEdflpHL4ZJRVWhrndNwfwz/zBjqhaaOLEpPUt37o723WAjeP5mAjBgFQC9F82ckMd9PsEB8YuBEPcXvfguz7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AC0T9XWd; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AC0T9XWd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774441263; x=1805977263;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=m7wNcvXrY2HTA+b2BQ1oS1dJWpDM66eUZX6SlxkJ91s=;
+  b=AC0T9XWd/le7zCTHG5GeOQV0A+mwpLvYcDKp5vVRgWMVRECtdCKZannf
+   Aw5liHMN/5iCGPqNCsua191c/98NYuGVsukJhL0u76rYNLRgkN+ssBwUQ
+   kDvzLbDvCvrGlsrH8osbmfIMBHDfYW8jrvEhnfQAwavC+slKgiw3PX1IC
+   34av8SXV5oFZctCeYEs9JEZtO/elxIwWGxC75urN7q15OEoZwUmkDsyuV
+   0HaPUCIZClopJEIb48+YtAwjfCUTIm1NK9dhT34pFYoXF1qIt8pfcPy4R
+   9a1qBK24e8fwcRitGb2dVSS3FaqXeF0RiqpJGpJE015LMRkEXra2bZMnl
+   w==;
+X-CSE-ConnectionGUID: OaUp5rhvQJSjz39BO7YrnQ==
+X-CSE-MsgGUID: Ch7LoenrRN+4jdmLFx/few==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="79331415"
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
+   d="scan'208";a="79331415"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 05:21:02 -0700
+X-CSE-ConnectionGUID: kexaQFgfQkCxIV+Ej6kvOQ==
+X-CSE-MsgGUID: QwzlEpMBS1K+est2QdROqg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
+   d="scan'208";a="224927884"
+Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.64])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 05:20:56 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 0FF4B121CF9;
+	Wed, 25 Mar 2026 14:20:59 +0200 (EET)
+Date: Wed, 25 Mar 2026 14:20:59 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
+	laurent.pinchart@ideasonboard.com,
+	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
+	Tommaso Merciai <tomm.merciai@gmail.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Julien Massot <julien.massot@collabora.com>,
+	Naushir Patuck <naush@raspberrypi.com>,
+	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
+	"Cao, Bingbu" <bingbu.cao@intel.com>,
+	"Qiu, Tian Shu" <tian.shu.qiu@intel.com>,
+	Stefan Klug <stefan.klug@ideasonboard.com>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	=?iso-8859-1?Q?Andr=E9?= Apitzsch <git@apitzsch.eu>,
+	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Ricardo Ribalda Delgado <ribalda@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	David Plowman <david.plowman@raspberrypi.com>,
+	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
+	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>
+Subject: Re: [PATCH v3 03/22] media: imx219: Set horizontal blanking on mode
+ change
+Message-ID: <acPTK315ZABIo5Dh@kekkonen.localdomain>
+References: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
+ <20260325105818.1176816-4-sakari.ailus@linux.intel.com>
+ <CAPY8ntBdZvsxxmeH42vVif0Dn8LmUxb7mezWk57sg=YtdQmMyA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPY8ntBdZvsxxmeH42vVif0Dn8LmUxb7mezWk57sg=YtdQmMyA@mail.gmail.com>
 
-From: Martin Tůma <martin.tuma@digiteqautomotive.com>
+Hi Dave,
 
-Provide the real DV timings limits in VIDIOC_DV_TIMINGS_CAP. For the
-outputs the pixelclock is limited by the CMT table <25000kHz, 2*94642kHz>,
-for the inputs a slightly broader range is possible. The minimal
-supported/tested resolution is 64px.
+Thanks for the review.
 
-Signed-off-by: Martin Tůma <martin.tuma@digiteqautomotive.com>
----
- drivers/media/pci/mgb4/mgb4_vin.c  | 8 ++++----
- drivers/media/pci/mgb4/mgb4_vout.c | 8 ++++----
- 2 files changed, 8 insertions(+), 8 deletions(-)
+On Wed, Mar 25, 2026 at 11:48:26AM +0000, Dave Stevenson wrote:
+> Hi Sakari
+> 
+> On Wed, 25 Mar 2026 at 10:58, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
+> >
+> > The driver UAPI is mode-based, allowing the user to choose a mode from a
+> > small list based on the output size. The vertical blanking is set based on
+> > the mode, do the same for horizontal blanking so the frame rate obtained
+> > is constant.
+> >
+> > Additinally, it's best to use a known-good horizontal blanking value as
+> 
+> s/Additinally/Additionally
 
-diff --git a/drivers/media/pci/mgb4/mgb4_vin.c b/drivers/media/pci/mgb4/mgb4_vin.c
-index 74fb00c4a408..b24785455691 100644
---- a/drivers/media/pci/mgb4/mgb4_vin.c
-+++ b/drivers/media/pci/mgb4/mgb4_vin.c
-@@ -85,12 +85,12 @@ static const struct mgb4_i2c_kv gmsl1_i2c[] = {
- static const struct v4l2_dv_timings_cap video_timings_cap = {
- 	.type = V4L2_DV_BT_656_1120,
- 	.bt = {
--		.min_width = 240,
-+		.min_width = 64,
- 		.max_width = 4096,
--		.min_height = 240,
-+		.min_height = 64,
- 		.max_height = 4096,
--		.min_pixelclock = 1843200, /* 320 x 240 x 24Hz */
--		.max_pixelclock = 530841600, /* 4096 x 2160 x 60Hz */
-+		.min_pixelclock = 20000000,
-+		.max_pixelclock = 200000000,
- 		.standards = V4L2_DV_BT_STD_CEA861 | V4L2_DV_BT_STD_DMT |
- 			V4L2_DV_BT_STD_CVT | V4L2_DV_BT_STD_GTF,
- 		.capabilities = V4L2_DV_BT_CAP_PROGRESSIVE |
-diff --git a/drivers/media/pci/mgb4/mgb4_vout.c b/drivers/media/pci/mgb4/mgb4_vout.c
-index 7725bcd55e4c..22fbc9e53819 100644
---- a/drivers/media/pci/mgb4/mgb4_vout.c
-+++ b/drivers/media/pci/mgb4/mgb4_vout.c
-@@ -53,12 +53,12 @@ static const struct mgb4_i2c_kv gmsl1_i2c[] = {
- static const struct v4l2_dv_timings_cap video_timings_cap = {
- 	.type = V4L2_DV_BT_656_1120,
- 	.bt = {
--		.min_width = 240,
-+		.min_width = 64,
- 		.max_width = 4096,
--		.min_height = 240,
-+		.min_height = 64,
- 		.max_height = 4096,
--		.min_pixelclock = 1843200, /* 320 x 240 x 24Hz */
--		.max_pixelclock = 530841600, /* 4096 x 2160 x 60Hz */
-+		.min_pixelclock = 25000000,
-+		.max_pixelclock = 189284000,
- 		.standards = V4L2_DV_BT_STD_CEA861 | V4L2_DV_BT_STD_DMT |
- 			V4L2_DV_BT_STD_CVT | V4L2_DV_BT_STD_GTF,
- 		.capabilities = V4L2_DV_BT_CAP_PROGRESSIVE |
+Yes.
 
-base-commit: 0e2c4117c3512cf6b8f54c2c3d37564bfa3ccd67
+> 
+> > choosing the value freely may affect image quality. While the minimum
+> > value may not be the best value for horizontal blanking, at least it is
+> > constant rather than a minimum value of a different configuration.
+> 
+> I've never known what the preferred behaviour is here. Ranges
+> typically change on mode change, and v4l2_ctrl_modify_range will reset
+> to the default if the current value is out of range, but otherwise
+> leave things alone.
+> 
+> Seeing as you would be the one defining the preferred behaviour, I'll
+> take this desire as gospel.
+
+I wouldn't do this for freely configurable drivers but this driver has a
+list of modes that obviously have hand-picked cropping, binning and frame
+rate configuration. The further patches (metadata branch in my linuxtv.org
+tree) adding support to the Common Raw Sensor Model implement a different
+behaviour actually. I guess in practice the difference will be minor as
+libcamera presumably sets the control values in any case to its liking.
+
+Maybe adding a few words of documentation on this could make sense?
+
+> 
+> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> 
+> With the typo corrected:
+> Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+
+Thanks!
+
+> 
+> > ---
+> >  drivers/media/i2c/imx219.c | 15 +++------------
+> >  1 file changed, 3 insertions(+), 12 deletions(-)
+> >
+> > diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+> > index 89061dc1842d..62a23541b1dc 100644
+> > --- a/drivers/media/i2c/imx219.c
+> > +++ b/drivers/media/i2c/imx219.c
+> > @@ -837,11 +837,9 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+> >         struct v4l2_mbus_framefmt *format;
+> >         struct v4l2_rect *crop;
+> >         u8 bin_h, bin_v, binning;
+> > -       u32 prev_line_len;
+> >         int ret;
+> >
+> >         format = v4l2_subdev_state_get_format(state, 0);
+> > -       prev_line_len = format->width + imx219->hblank->val;
+> >
+> >         /*
+> >          * Adjust the requested format to match the closest mode. The Bayer
+> > @@ -882,7 +880,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+> >         if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
+> >                 int exposure_max;
+> >                 int exposure_def;
+> > -               int hblank, llp_min;
+> > +               int llp_min;
+> >                 int pixel_rate;
+> >
+> >                 /* Update limits and set FPS to default */
+> > @@ -924,15 +922,8 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+> >                                                llp_min - mode->width);
+> >                 if (ret)
+> >                         return ret;
+> > -               /*
+> > -                * Retain PPL setting from previous mode so that the
+> > -                * line time does not change on a mode change.
+> > -                * Limits have to be recomputed as the controls define
+> > -                * the blanking only, so PPL values need to have the
+> > -                * mode width subtracted.
+> > -                */
+> > -               hblank = prev_line_len - mode->width;
+> > -               ret = __v4l2_ctrl_s_ctrl(imx219->hblank, hblank);
+> > +
+> > +               ret = __v4l2_ctrl_s_ctrl(imx219->hblank, llp_min - mode->width);
+> >                 if (ret)
+> >                         return ret;
+> >
+
 -- 
-2.53.0
+Kind regards,
 
+Sakari Ailus
