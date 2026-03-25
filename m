@@ -1,52 +1,92 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0CB3A8721;
-	Wed, 25 Mar 2026 10:58:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774436297; cv=pass; b=shonHQDeVmD5BZ7ZO9du7pNoGaEaqNS/p1gNcn6IiWXbcqM+693NVRFqQ86orb6aMRPKhloU4373tGLRY/yiJ8XY/0zLCU+yuPLGMcLZ5FT61FJZ3RwipUu0iQisuUZmb3OOv60Z8OdI6wFPHZBpurkNpPoLlUAbs4k3wMhMJ3I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774436297; c=relaxed/simple;
-	bh=A+bdSqXFXVm/PoON4Ql3pNe4T0JuqG8zJ4wWht72dkk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LwgOODBM9OttP6MaRXo31XyEQSOcYAaTi14rQGB9ddT2cjTCw09x2uYMIRXjXGNyQx/Bwt0wtsynLHUhPbZfNSmk1XdtB5fthY8S2sdhPi19Tj9qxkT/B25il+d2njCJ6ilAzy6GYb+WIChiePsqCdcMddxYjoT7Tn5tpC56+m0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=C3xDVnHm; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D60E2F290B
+	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 10:58:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774436317; cv=none; b=geq3o8z9zto9z0Kg4J1poDnl6lhbPhiwOWxZojRcWtRC/fNopbUw7yTOeulXGlHAQXAiGBtbMylRGkOtwQHRYt17uRHafH3fjT/uqFvMxEpAwVomSX1JiOQPguC/WaAQ+a3vvDIhEb8W4iiaQ5JsFik/cNVKRF+KNeEVbHnsfUI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774436317; c=relaxed/simple;
+	bh=n55vQASObQEFlCDfmgHVdeUWCqh9AyJe6dUm3UFzswA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FjzsAD19Tv7MS+ykUbUpNQvIESBbPDLKU72lfFnDtRAZhMyL4jrbppPgBsXhswdH4B0cADevJ/SuoRvg3GJkrrgujen36dkIe3Vj4ABiyLjXHOnj4/1Bch7LGpYA+W2FTDXOCpBih0Atempv9xma2nPlXcK+y4pAye/5gXMYlKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OuPFVLwY; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="C3xDVnHm"
-ARC-Seal: i=1; a=rsa-sha256; t=1774436278; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Y7YCwHKzH8hiDAmnV1KUrd+IVN07UtPzFkqbD9FwE9D5lEDFGtb0pzQuy6wIWTTiyRrQA+9boVCvdlYQwC8J118KESfTl03jOaKpBWCAMObuNBdsqoQtNFWEwB8bM+nQuHNPleBHD9g3FEiVJwvp3MKB1+rFx5OWkQJVODGtVD4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1774436278; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=LZX8KGo4PZ6B753XIW7wXx0NwuBo24mvyseB5KdfeiA=; 
-	b=CSLvxmGzf4i89ZEayN2s55qxcZIMlJhv2q1BTjRTfONKLbEW6Qrh/dyGxrlawwXo4KZz82vY+FMhWmK0XWpilb8+NLTmajP2yZ6zBspNjaf8DI5twM7KLFkLZviuq9kbvHmXPhXeX+vzEEoNk1Tmwiqn3KOnsPkDLaPj9GXGzbU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774436277;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=LZX8KGo4PZ6B753XIW7wXx0NwuBo24mvyseB5KdfeiA=;
-	b=C3xDVnHmMoUC+rQxmG9E1JQGdTZt5KBGSMQtDER/26nRZ60Ab2ZVKuGGoUUlngr3
-	x0GgV++pKowKdzTmJZAgMWAJgRt4YkB8ukFwD6DHLEzDXJmuE74FaxMLTC37YmifT19
-	bwy5QQJ78qoC3xTCMy58YLRQGVaSW/k49DFv4cfg=
-Received: by mx.zohomail.com with SMTPS id 1774436275676558.7550111861934;
-	Wed, 25 Mar 2026 03:57:55 -0700 (PDT)
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@xs4all.nl>,
-	Ross Cawston <ross@r-sc.ca>
-Cc: kernel@collabora.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org
-Subject: [PATCH v2] media: synopsys: hdmirx: Fix HPD lane hold time
-Date: Wed, 25 Mar 2026 13:57:42 +0300
-Message-ID: <20260325105742.63236-1-dmitry.osipenko@collabora.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OuPFVLwY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774436315; x=1805972315;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=n55vQASObQEFlCDfmgHVdeUWCqh9AyJe6dUm3UFzswA=;
+  b=OuPFVLwY3CvHttbs1U9Pdj9N5Y3W7qoGaXmtXk+RwyRj6mgr/vfgAIdo
+   846DllUz84IsCdOHC1wsUOTR7xMDwdg0j3ZONAL0u12JvpWGM8R2Or8Y5
+   7bOCKBIzg3o71OYxK/lwTd+YbgTpfeVgBKpxzIyGt0Y7mwbVeTRUEJ70Z
+   REtCkSZ3FyJM2ptjygUNtj6eVu0sH5Th7iKCgZFj9Cjfq95ImZdn3H7xm
+   YFH+8nnIYrRJubla8uYzoj11/rXPPMyCt4o8w9eZ+cGkRL1LN2Jt5rdnN
+   Xex+X/SMTHyG8PrlrWOiI01LNGHlGLpIWQ9ry9+1JwEITBSu3DNUzylQS
+   Q==;
+X-CSE-ConnectionGUID: sl19gIDCQza3XbwKWFvGyw==
+X-CSE-MsgGUID: GvrWDBW3Ta6v+/PeABd1HQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="75186750"
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
+   d="scan'208";a="75186750"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:33 -0700
+X-CSE-ConnectionGUID: Yp/K1Br2Qdac9opAe6sbWw==
+X-CSE-MsgGUID: XkccJqi9TzG0hLvicp2lhQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
+   d="scan'208";a="262568552"
+Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.64])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:27 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 78B35121CF9;
+	Wed, 25 Mar 2026 12:58:30 +0200 (EET)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1w5LwI-00000004w9r-3gZF;
+	Wed, 25 Mar 2026 12:58:18 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-media@vger.kernel.org
+Cc: hans@jjverkuil.nl,
+	laurent.pinchart@ideasonboard.com,
+	Prabhakar <prabhakar.csengg@gmail.com>,
+	Kate Hsuan <hpa@redhat.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Tommaso Merciai <tomm.merciai@gmail.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Julien Massot <julien.massot@collabora.com>,
+	Naushir Patuck <naush@raspberrypi.com>,
+	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
+	"Cao, Bingbu" <bingbu.cao@intel.com>,
+	"Qiu, Tian Shu" <tian.shu.qiu@intel.com>,
+	Stefan Klug <stefan.klug@ideasonboard.com>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	=?UTF-8?q?Andr=C3=A9=20Apitzsch?= <git@apitzsch.eu>,
+	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Ricardo Ribalda Delgado <ribalda@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	David Plowman <david.plowman@raspberrypi.com>,
+	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
+	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>
+Subject: [PATCH v3 01/22] media: imx219: Rename "PIXEL_ARRAY" as "VISIBLE"
+Date: Wed, 25 Mar 2026 12:57:57 +0200
+Message-ID: <20260325105818.1176816-2-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
+References: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -54,41 +94,80 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
-Increase time of holding HPD lane low by 50ms. This fixes EDID change not
-detected by source/display side.
+The imx219 driver uses macros for denoting the size of the pixel array.
+The values reflect the area of manufacturer-designated visible pixels,
+reflect this in the naming by calling it "VISIBLE" instead of
+"PIXEL_ARRAY".
 
-Fixes: 7b59b132ad43 ("media: platform: synopsys: Add support for HDMI input driver")
-Reported-by: Ross Cawston <ross@r-sc.ca>
-Closes: https://lore.kernel.org/linux-rockchip/20260209061654.54757-1-ross@r-sc.ca/
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
+ drivers/media/i2c/imx219.c | 28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
-Changelog:
-
-v2: - Corrected commit title prefix as was suggested by Sebastian Reichel
-    - Corrected mixed up s/sink/source/ in the commit message.
-
- drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-index 61ad20b18b8d..4c8957505a50 100644
---- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-+++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-@@ -506,9 +506,9 @@ static void hdmirx_hpd_ctrl(struct snps_hdmirx_dev *hdmirx_dev, bool en)
- 	hdmirx_writel(hdmirx_dev, CORE_CONFIG,
- 		      hdmirx_dev->hpd_trigger_level_high ? en : !en);
+diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+index 7da02ce5da15..cbd151d4af5f 100644
+--- a/drivers/media/i2c/imx219.c
++++ b/drivers/media/i2c/imx219.c
+@@ -142,10 +142,10 @@
+ /* IMX219 native and active pixel array size. */
+ #define IMX219_NATIVE_WIDTH		3296U
+ #define IMX219_NATIVE_HEIGHT		2480U
+-#define IMX219_PIXEL_ARRAY_LEFT		8U
+-#define IMX219_PIXEL_ARRAY_TOP		8U
+-#define IMX219_PIXEL_ARRAY_WIDTH	3280U
+-#define IMX219_PIXEL_ARRAY_HEIGHT	2464U
++#define IMX219_VISIBLE_LEFT		8U
++#define IMX219_VISIBLE_TOP		8U
++#define IMX219_VISIBLE_WIDTH		3280U
++#define IMX219_VISIBLE_HEIGHT		2464U
  
--	/* 100ms delay as per HDMI spec */
-+	/* 100ms delay as per HDMI spec + extra 50ms to cover internal delay */
- 	if (!en)
--		msleep(100);
-+		msleep(100 + 50);
- }
+ /* Mode : resolution and related config&values */
+ struct imx219_mode {
+@@ -675,13 +675,13 @@ static int imx219_set_framefmt(struct imx219 *imx219,
+ 	bpp = imx219_get_format_bpp(format);
  
- static void hdmirx_write_edid_data(struct snps_hdmirx_dev *hdmirx_dev,
+ 	cci_write(imx219->regmap, IMX219_REG_X_ADD_STA_A,
+-		  crop->left - IMX219_PIXEL_ARRAY_LEFT, &ret);
++		  crop->left - IMX219_VISIBLE_LEFT, &ret);
+ 	cci_write(imx219->regmap, IMX219_REG_X_ADD_END_A,
+-		  crop->left - IMX219_PIXEL_ARRAY_LEFT + crop->width - 1, &ret);
++		  crop->left - IMX219_VISIBLE_LEFT + crop->width - 1, &ret);
+ 	cci_write(imx219->regmap, IMX219_REG_Y_ADD_STA_A,
+-		  crop->top - IMX219_PIXEL_ARRAY_TOP, &ret);
++		  crop->top - IMX219_VISIBLE_TOP, &ret);
+ 	cci_write(imx219->regmap, IMX219_REG_Y_ADD_END_A,
+-		  crop->top - IMX219_PIXEL_ARRAY_TOP + crop->height - 1, &ret);
++		  crop->top - IMX219_VISIBLE_TOP + crop->height - 1, &ret);
+ 
+ 	imx219_get_binning(state, &bin_h, &bin_v);
+ 	cci_write(imx219->regmap, IMX219_REG_BINNING_MODE_H, bin_h, &ret);
+@@ -867,8 +867,8 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 	 * Use binning to maximize the crop rectangle size, and centre it in the
+ 	 * sensor.
+ 	 */
+-	bin_h = min(IMX219_PIXEL_ARRAY_WIDTH / format->width, 2U);
+-	bin_v = min(IMX219_PIXEL_ARRAY_HEIGHT / format->height, 2U);
++	bin_h = min(IMX219_VISIBLE_WIDTH / format->width, 2U);
++	bin_v = min(IMX219_VISIBLE_HEIGHT / format->height, 2U);
+ 
+ 	/* Ensure bin_h and bin_v are same to avoid 1:2 or 2:1 stretching */
+ 	binning = min(bin_h, bin_v);
+@@ -967,10 +967,10 @@ static int imx219_get_selection(struct v4l2_subdev *sd,
+ 
+ 	case V4L2_SEL_TGT_CROP_DEFAULT:
+ 	case V4L2_SEL_TGT_CROP_BOUNDS:
+-		sel->r.top = IMX219_PIXEL_ARRAY_TOP;
+-		sel->r.left = IMX219_PIXEL_ARRAY_LEFT;
+-		sel->r.width = IMX219_PIXEL_ARRAY_WIDTH;
+-		sel->r.height = IMX219_PIXEL_ARRAY_HEIGHT;
++		sel->r.top = IMX219_VISIBLE_TOP;
++		sel->r.left = IMX219_VISIBLE_LEFT;
++		sel->r.width = IMX219_VISIBLE_WIDTH;
++		sel->r.height = IMX219_VISIBLE_HEIGHT;
+ 
+ 		return 0;
+ 	}
 -- 
-2.53.0
+2.47.3
 
