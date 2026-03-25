@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F37B3C6A4C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79223C73DE
 	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 10:58:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774436327; cv=none; b=lA9kVkfMONoLMFljEJkYWTqp/UBm6UKHelHdLYBSXC4vbVJ45o5caERAQQIiCvUvvWTYbw/2LhdNgo35POZ5xF9gQ1sH3azBwH46zD1Ce7wZqW1e2pmVj6kgPs5zPY862GMAiLTxlG19QTiisZ/5XP8ZMibgEhE+ywt6ibg6cwA=
+	t=1774436328; cv=none; b=KC557MZ0I7bZmQ19SZEo7L937xAGAqWBJv6SXUMd974TItxi3s02ImL/Q0Odl/sC5u0JGFwR3mbVi9IUshLiC3iKSwLDUQhAhLlwQDq5enPL5XbBvFJRsDpssXq53Pqp7EAiUDXlq7vDLpTnwZ7SJz0ywKsqJK+aDilyH+QlPS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774436327; c=relaxed/simple;
-	bh=ml09cA0p6zFoDJr6MZ7B7NnmiROtlae2iQng9MlxANA=;
+	s=arc-20240116; t=1774436328; c=relaxed/simple;
+	bh=UcZ0lkDypFFiA3hVUS0c44fquslrKlzn0Bf+ggYGfEs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=N0u0kro/jMzUHqm5N9dXBoPDZzhYZaFLRMryw7qiZogOWhoJ4aEEQFlcwGl6eET0L8n2cLoDOyYsWEJuyZ8bz4bQOKnoQgOP48RTyKOL5HDVVGKZo+JctM4Y12JU8vxWjBG0Sc79ZNWlKLCJivX3/M0aV35ceutI1PXu3raAkz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QW++Y1pv; arc=none smtp.client-ip=192.198.163.19
+	 MIME-Version; b=aezygqPFTle09EbaJrcsmKi5MjSR14YTlsOz98nZ0eiPYX9NwmOjxxjktFBlTO6IajES3+xfrxqmRUFcqB6kebTDpWiJ2tMyxiMfYXT0zkP4uFB7cw+g2VuQ6bHxFuvaJgBQp0wHkz+Mv0hHQCUyOruZt7NMeOG5Wunw3eSzRnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eiblf48f; arc=none smtp.client-ip=192.198.163.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QW++Y1pv"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eiblf48f"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1774436327; x=1805972327;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=ml09cA0p6zFoDJr6MZ7B7NnmiROtlae2iQng9MlxANA=;
-  b=QW++Y1pvCoJ76bohMC9L5lIu4Epdl1vwOg+7yLuHnFbYGKwLW9GgiJhX
-   71lwz4CE+WHBpK2aydHHnZpov6P3B03tXL5X6ac9V0Hbes0gIXFMo09RY
-   TUPy+fHewF1o3tiEff2acyppaghp0qLY+nr57n75Kqq81BYWlNXjT0dvD
-   dC+jhEksDXtY3uWWqBbPa64Qz1DdS7FVk93VpaSCBEaKeJI7A3tV5pRD6
-   vIr9LWLupaETvCq0U6L7TWunCLJk8SxR0RGYSbeyuLAUZS/i/eVom31Sf
-   l7RuUbwya9SPlupR5VIPdHYNDpeHFWiuRS5Qd35Q4/eFth8c58X5A7HZ1
-   A==;
-X-CSE-ConnectionGUID: YJy8OHLVStmZsZ3NGxqQhA==
-X-CSE-MsgGUID: J5SSP7L3Rp+Db3/khOu5ag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="74496376"
+  bh=UcZ0lkDypFFiA3hVUS0c44fquslrKlzn0Bf+ggYGfEs=;
+  b=eiblf48fFh3hZvM4RVQS46JzzA5Vs1UIWF/u3GgzE5chToP0+GBlrVP+
+   Lgt6rzYIjlpeQs1zrS6pNqW8Wby1K/S4n20AT8yOZ/Fm6aih3DHJyGBxg
+   2g0IwO/BYtnErd533Kwpb954QTCwtp6fi4SjtxvMKrzWPK0VJPtPYVvSu
+   ScHVmkXTpKjncW6wkbh0dHXtKpr53MdYjjhE7/bRMCc1yk0xsGcay9onA
+   1YuP0qZ7OC/Dtpuo4bbeS+NrMs1XNJk2eLwwN8SEmJ8+3CJYmQmA+LTlE
+   F4/Dt445AV2peHC6e+10JJbMzf7heOZOVVQuk1L+YxdjHn76ZQdW4J9xq
+   w==;
+X-CSE-ConnectionGUID: vUdGFy0ZTu66lE4HAmyc2Q==
+X-CSE-MsgGUID: LuQ+sUlpRi61hQq5RXVJAg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="74496388"
 X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="74496376"
+   d="scan'208";a="74496388"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
   by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:42 -0700
-X-CSE-ConnectionGUID: g6GbgSBWTWes+o3sDf5V2g==
-X-CSE-MsgGUID: PgBmq1duQg+VzNdS3fRHnw==
+X-CSE-ConnectionGUID: 0f0uyrO8R9iBI76FNU+ORQ==
+X-CSE-MsgGUID: wMdqxHfaRQWlfQQzLGTljw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="221763490"
+   d="scan'208";a="221763491"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.64])
   by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:35 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 9CCB812229E;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 94390121E39;
 	Wed, 25 Mar 2026 12:58:30 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1w5LwJ-00000004wAZ-0IAK;
+	id 1w5LwJ-00000004wAN-06CB;
 	Wed, 25 Mar 2026 12:58:19 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -81,9 +81,9 @@ Cc: hans@jjverkuil.nl,
 	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>
-Subject: [PATCH v3 12/22] media: mc: Simplify link processing in __media_pipeline_start()
-Date: Wed, 25 Mar 2026 12:58:08 +0200
-Message-ID: <20260325105818.1176816-13-sakari.ailus@linux.intel.com>
+Subject: [PATCH v3 09/22] media: Documentation: Improve pixel rate calculation documentation
+Date: Wed, 25 Mar 2026 12:58:05 +0200
+Message-ID: <20260325105818.1176816-10-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
 References: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
@@ -95,41 +95,33 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-There are two conditions checking the ENABLED link flag in the loop
-going through the links related to an entity. Drop the other one and
-simplify the remaining code.
+Improve documentation on calculating the pixel rate, by adding references
+to relevant functions and mentioning V4L2 fwnode endpoint instead of OF
+endpoint.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- drivers/media/mc/mc-entity.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ Documentation/driver-api/media/tx-rx.rst | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/mc/mc-entity.c b/drivers/media/mc/mc-entity.c
-index 3fa0bc687851..6bf4730b89d2 100644
---- a/drivers/media/mc/mc-entity.c
-+++ b/drivers/media/mc/mc-entity.c
-@@ -838,17 +838,16 @@ __must_check int __media_pipeline_start(struct media_pad *origin,
- 			if (link->sink != pad && link->source != pad)
- 				continue;
+diff --git a/Documentation/driver-api/media/tx-rx.rst b/Documentation/driver-api/media/tx-rx.rst
+index 7df2407817b3..9b231fa0216a 100644
+--- a/Documentation/driver-api/media/tx-rx.rst
++++ b/Documentation/driver-api/media/tx-rx.rst
+@@ -104,7 +104,11 @@ where
+    * - k
+      - 16 for D-PHY and 7 for C-PHY.
  
--			/* Record if the pad has links and enabled links. */
--			if (link->flags & MEDIA_LNK_FL_ENABLED)
--				has_enabled_link = true;
--
- 			/*
--			 * Validate the link if it's enabled and has the
--			 * current pad as its sink.
-+			 * Ensure the link is enabled and if so, record
-+			 * it. Proceed to the next link if the current pad isn't
-+			 * the sink pad of the link.
- 			 */
- 			if (!(link->flags & MEDIA_LNK_FL_ENABLED))
- 				continue;
+-Information on whether D-PHY or C-PHY is used, and the value of ``nr_of_lanes``, can be obtained from the OF endpoint configuration.
++Information on whether D-PHY or C-PHY is used as well as the value of
++``nr_of_lanes`` can be obtained from the V4L2 endpoint configuration; see
++:c:func:`v4l2_fwnode_endpoint_alloc_parse()`,
++:c:func:`v4l2_fwnode_endpoint_parse()` and
++:c:func:`v4l2_get_active_data_lanes()`.
  
-+			has_enabled_link = true;
-+
- 			if (link->sink != pad)
- 				continue;
+ .. note::
  
 -- 
 2.47.3
