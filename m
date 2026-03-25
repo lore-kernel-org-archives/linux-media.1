@@ -1,55 +1,55 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E31E3C456B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F37B3C6A4C
 	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 10:58:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774436327; cv=none; b=o4Eg3LP9gGFrrcoBEHFbfZ8n+hF4ubZqMl7l3Vk/3ZvDdzSGIMvFcd5MUxyNuNH6XTgrLDb6q4Wj9FuncI48FsaYN7x6wySILYaWMIpUZ168LlZrKr6z9vRpl1OjPYAFaGw1S9EewEwdTijKUd47AQ2WVpG0OSqZkHhNDP+o0Ck=
+	t=1774436327; cv=none; b=lA9kVkfMONoLMFljEJkYWTqp/UBm6UKHelHdLYBSXC4vbVJ45o5caERAQQIiCvUvvWTYbw/2LhdNgo35POZ5xF9gQ1sH3azBwH46zD1Ce7wZqW1e2pmVj6kgPs5zPY862GMAiLTxlG19QTiisZ/5XP8ZMibgEhE+ywt6ibg6cwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774436327; c=relaxed/simple;
-	bh=Z6MyDWrZviFYM6hf/z+ARRiW75XDAvHjdaUGyb9jj9Q=;
+	bh=ml09cA0p6zFoDJr6MZ7B7NnmiROtlae2iQng9MlxANA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UbzAbBfsZDwxGs6OBo0eqNLD8RPoH/HL93/DEAOozaML8tOtwihMw2mQRCmj4J1HcqLmL0bhT0nQLAQX8M8j5u6HJLDWvmT0Vpzwg6blACCSzwSAs2X4/z8xwcSd/KCv5KW1PCthnh779wUbaVzK/2LwLe6X+7ZLwB78ICd9Hzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ePFZDH6a; arc=none smtp.client-ip=192.198.163.19
+	 MIME-Version; b=N0u0kro/jMzUHqm5N9dXBoPDZzhYZaFLRMryw7qiZogOWhoJ4aEEQFlcwGl6eET0L8n2cLoDOyYsWEJuyZ8bz4bQOKnoQgOP48RTyKOL5HDVVGKZo+JctM4Y12JU8vxWjBG0Sc79ZNWlKLCJivX3/M0aV35ceutI1PXu3raAkz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QW++Y1pv; arc=none smtp.client-ip=192.198.163.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ePFZDH6a"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QW++Y1pv"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774436326; x=1805972326;
+  t=1774436327; x=1805972327;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Z6MyDWrZviFYM6hf/z+ARRiW75XDAvHjdaUGyb9jj9Q=;
-  b=ePFZDH6a0JMZbZLVXXdsx+kIzDy3SiQAu4C7h4Tvp3xyMTVXTjf5tZKp
-   +vViSZCEfko2FalTf3tFTMZQ4AtTPCHL+B79Cg9MBqO8LHEa0aGrphMtn
-   ODLJsTNnj0qOl6yb+knALCQHv+kVa7nt1glDS19uAiMRYGLM/s8goxBon
-   QlsKkbxzS3l+zrjanXItv21WxiNrTWClUgsGpgxjCSEZbM80cv4uW6fNL
-   VGUI9ocFrX3bX55oeRTASokgpbMgjkj3FpY08NWagu8T3fb9u0ECVASUV
-   Qg/sq8Rdi8ftAUinlFHPBVlIMp5WX/i6UvjAJ6RYIlLN4QyU5WvGMu5DK
-   Q==;
-X-CSE-ConnectionGUID: JdPdPpftT/K+hDw49ZfJ8g==
-X-CSE-MsgGUID: g/cdjZipSjeJZcRdF4yYTA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="74496364"
+  bh=ml09cA0p6zFoDJr6MZ7B7NnmiROtlae2iQng9MlxANA=;
+  b=QW++Y1pvCoJ76bohMC9L5lIu4Epdl1vwOg+7yLuHnFbYGKwLW9GgiJhX
+   71lwz4CE+WHBpK2aydHHnZpov6P3B03tXL5X6ac9V0Hbes0gIXFMo09RY
+   TUPy+fHewF1o3tiEff2acyppaghp0qLY+nr57n75Kqq81BYWlNXjT0dvD
+   dC+jhEksDXtY3uWWqBbPa64Qz1DdS7FVk93VpaSCBEaKeJI7A3tV5pRD6
+   vIr9LWLupaETvCq0U6L7TWunCLJk8SxR0RGYSbeyuLAUZS/i/eVom31Sf
+   l7RuUbwya9SPlupR5VIPdHYNDpeHFWiuRS5Qd35Q4/eFth8c58X5A7HZ1
+   A==;
+X-CSE-ConnectionGUID: YJy8OHLVStmZsZ3NGxqQhA==
+X-CSE-MsgGUID: J5SSP7L3Rp+Db3/khOu5ag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="74496376"
 X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="74496364"
+   d="scan'208";a="74496376"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
   by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:42 -0700
-X-CSE-ConnectionGUID: ZGoI9YryR7OfxzYVYpHukw==
-X-CSE-MsgGUID: 1TpQyy2BSOmdos094Jr61A==
+X-CSE-ConnectionGUID: g6GbgSBWTWes+o3sDf5V2g==
+X-CSE-MsgGUID: PgBmq1duQg+VzNdS3fRHnw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="221763484"
+   d="scan'208";a="221763490"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.64])
   by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:35 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 8C40C121DA0;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 9CCB812229E;
 	Wed, 25 Mar 2026 12:58:30 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1w5LwI-00000004wAF-4ADy;
-	Wed, 25 Mar 2026 12:58:18 +0200
+	id 1w5LwJ-00000004wAZ-0IAK;
+	Wed, 25 Mar 2026 12:58:19 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: linux-media@vger.kernel.org
@@ -81,9 +81,9 @@ Cc: hans@jjverkuil.nl,
 	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>
-Subject: [PATCH v3 07/22] media: imx219: Rename "binning" as "bin_hv" in imx219_set_pad_format
-Date: Wed, 25 Mar 2026 12:58:03 +0200
-Message-ID: <20260325105818.1176816-8-sakari.ailus@linux.intel.com>
+Subject: [PATCH v3 12/22] media: mc: Simplify link processing in __media_pipeline_start()
+Date: Wed, 25 Mar 2026 12:58:08 +0200
+Message-ID: <20260325105818.1176816-13-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
 References: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
@@ -95,61 +95,42 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Rename "binning" as "bin_hv" in anticipation of having a variable called
-"binning" for another purpose.
+There are two conditions checking the ENABLED link flag in the loop
+going through the links related to an entity. Drop the other one and
+simplify the remaining code.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/i2c/imx219.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/media/mc/mc-entity.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-index ca6a5939773d..5a85d76af65a 100644
---- a/drivers/media/i2c/imx219.c
-+++ b/drivers/media/i2c/imx219.c
-@@ -825,7 +825,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
- 	const struct imx219_mode *mode;
- 	struct v4l2_mbus_framefmt *format;
- 	struct v4l2_rect *crop;
--	u8 bin_h, bin_v, binning;
-+	u8 bin_h, bin_v, bin_hv;
- 	int ret;
+diff --git a/drivers/media/mc/mc-entity.c b/drivers/media/mc/mc-entity.c
+index 3fa0bc687851..6bf4730b89d2 100644
+--- a/drivers/media/mc/mc-entity.c
++++ b/drivers/media/mc/mc-entity.c
+@@ -838,17 +838,16 @@ __must_check int __media_pipeline_start(struct media_pad *origin,
+ 			if (link->sink != pad && link->source != pad)
+ 				continue;
  
- 	format = v4l2_subdev_state_get_format(state, 0);
-@@ -858,11 +858,11 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
- 	bin_v = min(IMX219_VISIBLE_HEIGHT / format->height, 2U);
+-			/* Record if the pad has links and enabled links. */
+-			if (link->flags & MEDIA_LNK_FL_ENABLED)
+-				has_enabled_link = true;
+-
+ 			/*
+-			 * Validate the link if it's enabled and has the
+-			 * current pad as its sink.
++			 * Ensure the link is enabled and if so, record
++			 * it. Proceed to the next link if the current pad isn't
++			 * the sink pad of the link.
+ 			 */
+ 			if (!(link->flags & MEDIA_LNK_FL_ENABLED))
+ 				continue;
  
- 	/* Ensure bin_h and bin_v are same to avoid 1:2 or 2:1 stretching */
--	binning = min(bin_h, bin_v);
-+	bin_hv = min(bin_h, bin_v);
++			has_enabled_link = true;
++
+ 			if (link->sink != pad)
+ 				continue;
  
- 	crop = v4l2_subdev_state_get_crop(state, 0);
--	crop->width = format->width * binning;
--	crop->height = format->height * binning;
-+	crop->width = format->width * bin_hv;
-+	crop->height = format->height * bin_hv;
- 	crop->left = (IMX219_NATIVE_WIDTH - crop->width) / 2;
- 	crop->top = (IMX219_NATIVE_HEIGHT - crop->height) / 2;
- 
-@@ -872,15 +872,15 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
- 
- 		/* Update limits and set FPS to default */
- 		ret = __v4l2_ctrl_modify_range(imx219->vblank,
--					       (int)(mode->height / binning),
-+					       (int)(mode->height / bin_hv),
- 					       IMX219_FLL_MAX - mode->height, 1,
--					       (int)(mode->fll_def / binning) -
-+					       (int)(mode->fll_def / bin_hv) -
- 					       (int)mode->height);
- 		if (ret)
- 			return ret;
- 
- 		ret = __v4l2_ctrl_s_ctrl(imx219->vblank,
--					 (int)(mode->fll_def / binning) -
-+					 (int)(mode->fll_def / bin_hv) -
- 					 (int)mode->height);
- 		if (ret)
- 			return ret;
 -- 
 2.47.3
 
