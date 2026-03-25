@@ -1,27 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E723FBEDA
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A6823815B
 	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 14:51:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774450268; cv=none; b=nR7KTgcfmD1yXmGMQPCDxo451Z2pZ76lwAhCiaG1Cp4gS6IKYewVHL95wof2ODk5eMkEAJ7/liLz4XZEyzLsSFsE2jopOX4uF7R9/Jl7w0srAlwSlsUsDHSuz4N7ONYLLbhlL2bdt+hpcEmGFKAaRM09C0J6qrQhnxcuLSPpAmI=
+	t=1774450270; cv=none; b=K/TEzV5zkbIZhwqevhB2ObqlED6khLsNvYfhVZoTasMtt8t+lFXnS2340mG1kvVviT8mrasgAw0RMfg8t2iC6zn6pRcrak1vEbGhQ1qky7tb5i5iuThM14ZpPcGPAJnQ/+UqjOn11JTiZbV+SFF840fMzgqbsYz/CnIefHAFHVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774450268; c=relaxed/simple;
-	bh=Eah6nbj6fv/GEwwxOD+3SZVtUS7j/CDbvGz1YNm1N3o=;
+	s=arc-20240116; t=1774450270; c=relaxed/simple;
+	bh=cH+QIdGv9CHGmBvpCSP+1qJWfJB8rOdt6vvgyGRyHPg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bg05+EgcbFeLA5tXZS4KqolHI8SbXbKJj2r5zavQTfy7ZmGErjZqEYhYGTWMG82hZo5PWCXA/EQq2vlrd1sVo7eQEhbZis0cw6tYokp2uzDVz5I2xqcYiiWcUKuS+0tgTr9NfJv/ROiROtAGeIuhK5Lfye1HEPF30t00Ty7ueFk=
+	 In-Reply-To:To:Cc; b=UW+rVVQjL64qO8pxlbpxH5k4TDzqSamFNJHwN02fQHncdwWd3FeBLKt13RccHK32P4Fp7qBVlDKgo/os/jSMm5ydHHSJ050WBbLsXbAMwZpUypYS35CZD1U8p67adYnAbrWesr4kbiJF10+yf3fil1gSIQuNfFm5dwG3clY8ztk=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1w5PZT-00050C-GJ; Wed, 25 Mar 2026 15:50:59 +0100
+	id 1w5PZT-00050C-8W; Wed, 25 Mar 2026 15:50:59 +0100
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Wed, 25 Mar 2026 15:50:38 +0100
-Subject: [PATCH v4 07/27] media: rockchip: rga: use stride for offset
- calculation
+Date: Wed, 25 Mar 2026 15:50:36 +0100
+Subject: [PATCH v4 05/27] media: v4l2-common: add
+ v4l2_fill_pixfmt_mp_aligned helper
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -30,7 +30,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260325-spu-rga3-v4-7-e90ec1c61354@pengutronix.de>
+Message-Id: <20260325-spu-rga3-v4-5-e90ec1c61354@pengutronix.de>
 References: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
 In-Reply-To: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -43,218 +43,156 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@pengutronix.de, nicolas@ndufresne.ca, 
  sebastian.reichel@collabora.com, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
 X-Mailer: b4 0.15.0
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Use the stride instead of the width for the offset calculation. This
-ensures that the bytesperline value doesn't need to match the width
-value of the image.
+Add a v4l2_fill_pixfmt_mp_aligned helper which allows the user to
+specify a custom stride alignment in bytes. This is necessary for
+hardware like the Rockchip RGA3, which requires the stride value to be
+aligned to a 16 bytes boundary.
 
-Furthermore this patch removes the dependency on the uv_factor property
-and instead reuses the v4l2_format_info to determine the correct
-division factor.
+The code makes some assumptions about the v4l2 format to simplify the
+calculation. They currently hold for all known v4l2 formats.
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga-buf.c | 14 +++++++++-----
- drivers/media/platform/rockchip/rga/rga.c     | 16 ----------------
- drivers/media/platform/rockchip/rga/rga.h     |  1 -
- 3 files changed, 9 insertions(+), 22 deletions(-)
+ drivers/media/v4l2-core/v4l2-common.c | 51 ++++++++++++++++++++++++++---------
+ include/media/v4l2-common.h           |  4 +++
+ 2 files changed, 43 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga-buf.c b/drivers/media/platform/rockchip/rga/rga-buf.c
-index bb575873f2b24..65fc0d5b4aa10 100644
---- a/drivers/media/platform/rockchip/rga/rga-buf.c
-+++ b/drivers/media/platform/rockchip/rga/rga-buf.c
-@@ -14,7 +14,6 @@
- #include <media/videobuf2-dma-sg.h>
- #include <media/videobuf2-v4l2.h>
+diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
+index 2b5ccedeb6841..d64d7e76c834d 100644
+--- a/drivers/media/v4l2-core/v4l2-common.c
++++ b/drivers/media/v4l2-core/v4l2-common.c
+@@ -431,14 +431,28 @@ static inline unsigned int v4l2_format_block_height(const struct v4l2_format_inf
+ }
  
--#include "rga-hw.h"
- #include "rga.h"
+ static inline unsigned int v4l2_format_plane_stride(const struct v4l2_format_info *info, int plane,
+-						    unsigned int width)
++						    unsigned int width, u8 byte_alignment)
+ {
+ 	unsigned int hdiv = plane ? info->hdiv : 1;
+ 	unsigned int aligned_width =
+ 		ALIGN(width, v4l2_format_block_width(info, plane));
  
- static ssize_t fill_descriptors(struct rga_dma_desc *desc, size_t max_desc,
-@@ -95,14 +94,19 @@ static int rga_buf_init(struct vb2_buffer *vb)
+-	return DIV_ROUND_UP(aligned_width, hdiv) *
+-	       info->bpp[plane] / info->bpp_div[plane];
++	/*
++	 * Formats with a single memory plane derive the stride of the
++	 * other planes from the y stride. Due to chroma subsampling this
++	 * may cause the other plane strides to break the byte_alignment.
++	 * Increase the alignment if necessary to prevent this.
++	 *
++	 * It assumes the following format properties:
++	 * - bpp_div[0] == bpp_div[1]
++	 * - The multiplication factor doesn't differ between the non y planes
++	 */
++	if (info->mem_planes == 1 && info->comp_planes > 1 && plane == 0)
++		byte_alignment *= info->hdiv * info->bpp[0] / info->bpp[1];
++
++	return ALIGN(DIV_ROUND_UP(aligned_width, hdiv) * info->bpp[plane] /
++			     info->bpp_div[plane],
++		     byte_alignment);
+ }
+ 
+ static inline unsigned int v4l2_format_plane_height(const struct v4l2_format_info *info, int plane,
+@@ -452,9 +466,10 @@ static inline unsigned int v4l2_format_plane_height(const struct v4l2_format_inf
+ }
+ 
+ static inline unsigned int v4l2_format_plane_size(const struct v4l2_format_info *info, int plane,
+-						  unsigned int width, unsigned int height)
++						  unsigned int width, unsigned int height,
++						  u8 stride_alignment)
+ {
+-	return v4l2_format_plane_stride(info, plane, width) *
++	return v4l2_format_plane_stride(info, plane, width, stride_alignment) *
+ 	       v4l2_format_plane_height(info, plane, height);
+ }
+ 
+@@ -475,8 +490,9 @@ void v4l2_apply_frmsize_constraints(u32 *width, u32 *height,
+ }
+ EXPORT_SYMBOL_GPL(v4l2_apply_frmsize_constraints);
+ 
+-int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt,
+-			u32 pixelformat, u32 width, u32 height)
++int v4l2_fill_pixfmt_mp_aligned(struct v4l2_pix_format_mplane *pixfmt,
++				u32 pixelformat, u32 width, u32 height,
++				u8 stride_alignment)
+ {
+ 	const struct v4l2_format_info *info;
+ 	struct v4l2_plane_pix_format *plane;
+@@ -493,23 +509,34 @@ int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt,
+ 
+ 	if (info->mem_planes == 1) {
+ 		plane = &pixfmt->plane_fmt[0];
+-		plane->bytesperline = v4l2_format_plane_stride(info, 0, width);
++		plane->bytesperline = v4l2_format_plane_stride(info, 0, width,
++							       stride_alignment);
+ 		plane->sizeimage = 0;
+ 
+ 		for (i = 0; i < info->comp_planes; i++)
+ 			plane->sizeimage +=
+-				v4l2_format_plane_size(info, i, width, height);
++				v4l2_format_plane_size(info, i, width, height,
++						       stride_alignment);
+ 	} else {
+ 		for (i = 0; i < info->comp_planes; i++) {
+ 			plane = &pixfmt->plane_fmt[i];
+ 			plane->bytesperline =
+-				v4l2_format_plane_stride(info, i, width);
++				v4l2_format_plane_stride(info, i, width,
++							 stride_alignment);
+ 			plane->sizeimage = plane->bytesperline *
+ 				v4l2_format_plane_height(info, i, height);
+ 		}
+ 	}
  	return 0;
  }
- 
--static int get_plane_offset(struct rga_frame *f, int plane)
-+static int get_plane_offset(struct rga_frame *f,
-+			    const struct v4l2_format_info *info,
-+			    int plane)
- {
-+	u32 stride = f->pix.plane_fmt[0].bytesperline;
++EXPORT_SYMBOL_GPL(v4l2_fill_pixfmt_mp_aligned);
 +
- 	if (plane == 0)
- 		return 0;
- 	if (plane == 1)
--		return f->width * f->height;
-+		return stride * f->height;
- 	if (plane == 2)
--		return f->width * f->height + (f->width * f->height / f->fmt->uv_factor);
-+		return stride * f->height +
-+		       (stride * f->height / info->hdiv / info->vdiv);
++int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt,
++			u32 pixelformat, u32 width, u32 height)
++{
++	return v4l2_fill_pixfmt_mp_aligned(pixfmt, pixelformat,
++					   width, height, 1);
++}
+ EXPORT_SYMBOL_GPL(v4l2_fill_pixfmt_mp);
  
- 	return -EINVAL;
+ int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt, u32 pixelformat,
+@@ -529,12 +556,12 @@ int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt, u32 pixelformat,
+ 	pixfmt->width = width;
+ 	pixfmt->height = height;
+ 	pixfmt->pixelformat = pixelformat;
+-	pixfmt->bytesperline = v4l2_format_plane_stride(info, 0, width);
++	pixfmt->bytesperline = v4l2_format_plane_stride(info, 0, width, 1);
+ 	pixfmt->sizeimage = 0;
+ 
+ 	for (i = 0; i < info->comp_planes; i++)
+ 		pixfmt->sizeimage +=
+-			v4l2_format_plane_size(info, i, width, height);
++			v4l2_format_plane_size(info, i, width, height, 1);
+ 	return 0;
  }
-@@ -148,7 +152,7 @@ static int rga_buf_prepare(struct vb2_buffer *vb)
- 	/* Fill the remaining planes */
- 	info = v4l2_format_info(f->fmt->fourcc);
- 	for (i = info->mem_planes; i < info->comp_planes; i++)
--		offsets[i] = get_plane_offset(f, i);
-+		offsets[i] = get_plane_offset(f, info, i);
+ EXPORT_SYMBOL_GPL(v4l2_fill_pixfmt);
+diff --git a/include/media/v4l2-common.h b/include/media/v4l2-common.h
+index 401d8506c24b5..edd416178c333 100644
+--- a/include/media/v4l2-common.h
++++ b/include/media/v4l2-common.h
+@@ -558,6 +558,10 @@ int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt, u32 pixelformat,
+ 		     u32 width, u32 height);
+ int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt, u32 pixelformat,
+ 			u32 width, u32 height);
++/* @stride_alignment is a power of 2 value in bytes */
++int v4l2_fill_pixfmt_mp_aligned(struct v4l2_pix_format_mplane *pixfmt,
++				u32 pixelformat, u32 width, u32 height,
++				u8 stride_alignment);
  
- 	rbuf->offset.y_off = offsets[0];
- 	rbuf->offset.u_off = offsets[1];
-diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index 4e710a050cb7c..c07207edffdb6 100644
---- a/drivers/media/platform/rockchip/rga/rga.c
-+++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -190,7 +190,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_ALPHA_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR8888,
- 		.depth = 32,
--		.uv_factor = 1,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -199,7 +198,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR8888,
- 		.depth = 32,
--		.uv_factor = 1,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -208,7 +206,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_XBGR8888,
- 		.depth = 32,
--		.uv_factor = 1,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -217,7 +214,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_RGB888,
- 		.depth = 24,
--		.uv_factor = 1,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -226,7 +222,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_RGB888,
- 		.depth = 24,
--		.uv_factor = 1,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -235,7 +230,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR4444,
- 		.depth = 16,
--		.uv_factor = 1,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -244,7 +238,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR1555,
- 		.depth = 16,
--		.uv_factor = 1,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -253,7 +246,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_BGR565,
- 		.depth = 16,
--		.uv_factor = 1,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -262,7 +254,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_UV_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420SP,
- 		.depth = 12,
--		.uv_factor = 4,
- 		.y_div = 2,
- 		.x_div = 1,
- 	},
-@@ -271,7 +262,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_UV_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV422SP,
- 		.depth = 16,
--		.uv_factor = 2,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -280,7 +270,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420SP,
- 		.depth = 12,
--		.uv_factor = 4,
- 		.y_div = 2,
- 		.x_div = 1,
- 	},
-@@ -289,7 +278,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420SP,
- 		.depth = 12,
--		.uv_factor = 4,
- 		.y_div = 2,
- 		.x_div = 1,
- 	},
-@@ -298,7 +286,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV422SP,
- 		.depth = 16,
--		.uv_factor = 2,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -307,7 +294,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420P,
- 		.depth = 12,
--		.uv_factor = 4,
- 		.y_div = 2,
- 		.x_div = 2,
- 	},
-@@ -316,7 +302,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV422P,
- 		.depth = 16,
--		.uv_factor = 2,
- 		.y_div = 1,
- 		.x_div = 2,
- 	},
-@@ -325,7 +310,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_UV_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420P,
- 		.depth = 12,
--		.uv_factor = 4,
- 		.y_div = 2,
- 		.x_div = 2,
- 	},
-diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index 2db10acecb405..477cf5b62bbb2 100644
---- a/drivers/media/platform/rockchip/rga/rga.h
-+++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -17,7 +17,6 @@
- struct rga_fmt {
- 	u32 fourcc;
- 	int depth;
--	u8 uv_factor;
- 	u8 y_div;
- 	u8 x_div;
- 	u8 color_swap;
+ /**
+  * v4l2_get_link_freq - Get link rate from transmitter
 
 -- 
 2.53.0
