@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3603C3C14
-	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 10:58:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDB73C553B
+	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 10:58:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774436333; cv=none; b=k+muGOR162WJWD2UHYnagBZkj2EEbZUwQWMvOtGBb+bJKR+0RqiWXgaoF/DSOYObCJrY/9ybrRydIxr5Jh4MzsPuP7JLbXyIRX00u7EbrF3+OQP+BL20oKgDhcmYzhb+oFc02CD3wmcyELBqoAm3QvqmHYRuDa3pl1Dtjxt1GJM=
+	t=1774436336; cv=none; b=cd3SEHD8LLz1SfSn5tU44t8AJ9T4MpYt2WupRyezxr60O4aec7tplGim36R5F4UMLa9zp7664Pb1qirO+Qc74+NrBVexlUap9fDCifyUB7nsNu50DKpOyo19k/OIMhGEuzawr6rzx3iSbeP826VVdcKEuXsiw4ynZI6QEXIC1vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774436333; c=relaxed/simple;
-	bh=fyJS04qVVvuviElqdbYerP70AsDnz2rzizZGdZSRsL0=;
+	s=arc-20240116; t=1774436336; c=relaxed/simple;
+	bh=qzxHIyXafS2NwDK9ZtUkBLpR4UVsTCKaEVFwE/deQMQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rYmg/Qr5BSHT9BCcTcyW2ziWuSBrQbMm7uXwbgn6xiW5gZbEoMGnVVoEO4D5wk+TpMTYaIdpF4xNQJ9/M3eiSu1SALDZtVAsT+zZqAzjLAG0AIQl7nhCK3M+tqbJndDAEscEJ7/K0upVT89ht9Y4FEGLZvaEiS4woo6jop2Fxhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JRScy7Ix; arc=none smtp.client-ip=192.198.163.19
+	 MIME-Version; b=cYFs4bqpwNXXwyQVdZKpoyIDz8zBRPTVJ1l1jdC3UbxyY3kKrV8YoBhuCPkqSXz6Yd1t/fSjKNqm4wMkv7Vfj+SpokW7I5m8IFi/XxJBWv4Qlof17ZJmHItN9jatei7iHyBGZCmlHGUk1jakf9ZugqQsGP8j9uNrcwkbM6zYmm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kVnh40Bd; arc=none smtp.client-ip=192.198.163.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JRScy7Ix"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kVnh40Bd"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774436331; x=1805972331;
+  t=1774436333; x=1805972333;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=fyJS04qVVvuviElqdbYerP70AsDnz2rzizZGdZSRsL0=;
-  b=JRScy7IxxraP0zqlHgIjAPtEa/xbm82PInFg84UXvi+dE3Xrw2d6ObYx
-   wVX7pPJ1RJgKTHkuEMlk1cgEmayft0F4ZQ7CxqezIP4nQpn1m0wHsgLJW
-   72iGGKI63VmrDXv4stYE9nRA9gVEoNvTzpn5CAj1MpcnTNE0+u+/sVlNl
-   KtMYvSAEmBS0AQ13wSAGoXSO/IMBJd4YPBVjzM/YCCJlakgR2++ZQTjnB
-   ug0YrUwOE8kE4RuHzDFajx3mOASu08Af05sdo1c/Hm7ljD+X1NzlXzRDF
-   sr24T7bgr8K+zYUYWSGHFyUlI2VAnfneOoRW16kZUiiCyc1vlK3Nv/Rih
+  bh=qzxHIyXafS2NwDK9ZtUkBLpR4UVsTCKaEVFwE/deQMQ=;
+  b=kVnh40BdrC2PB0hCTmUV9KQPE6G7HiEi9G500VY0Ol7kHa9e3Qkkka5F
+   linRICKANjfxaVIDEpkaLhtn0/HJyXmIQvzNbxLinpjrqhXhSFNpD56uu
+   SB6/q4YrN+aC1nLnIOKMBQmKC5VdYudjCmi/0KGL1e0DoGTlLXRidL2ij
+   NToTcOLtLUjYx4KhpwJ+qv72ZCIX4zN//E1DJl63WLs1X8gLX88uGaUol
+   aJLzcPCGfwmO2w4BsTGIwXNKgR7F3JNR/MWRpCn2yCK6eawncvraZopkk
+   YLC299540a55yJxMYLKeY4dKqznKQq9ChkAobDqAr8qJOMRKhB2hRj+/0
    Q==;
-X-CSE-ConnectionGUID: rKTBkWVYSfCDSsNNqn6qFg==
-X-CSE-MsgGUID: CKEulalHTYq2zfM6UWYSew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="74496456"
+X-CSE-ConnectionGUID: NwllRk2YSgeYj3eke+uKpw==
+X-CSE-MsgGUID: OZZ9HVg4RLSHcRZr2E9xFg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="74496482"
 X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="74496456"
+   d="scan'208";a="74496482"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
   by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:50 -0700
-X-CSE-ConnectionGUID: XDjcCTw3T4e3g8OeseAUHQ==
-X-CSE-MsgGUID: SMvXne/ASJWvFJy9KBj1xw==
+X-CSE-ConnectionGUID: W+G+n4dZQAyHFGk+Dtm3ug==
+X-CSE-MsgGUID: 7X1Q+nCzTvu3ZKBUFcsHQA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="221763534"
+   d="scan'208";a="221763543"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.64])
   by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:43 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id BFE341224E6;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id B9EE51224DC;
 	Wed, 25 Mar 2026 12:58:30 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1w5LwJ-00000004wB9-0via;
+	id 1w5LwJ-00000004wB1-0oCn;
 	Wed, 25 Mar 2026 12:58:19 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -81,9 +81,9 @@ Cc: hans@jjverkuil.nl,
 	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>
-Subject: [PATCH v3 20/22] media: v4l2-subdev: Add v4l2_subdev_call_ci_active_state
-Date: Wed, 25 Mar 2026 12:58:17 +0200
-Message-ID: <20260325105818.1176816-22-sakari.ailus@linux.intel.com>
+Subject: [PATCH v3 18/22] media: v4l2-subdev: Move subdev client capabilities into a new struct
+Date: Wed, 25 Mar 2026 12:58:15 +0200
+Message-ID: <20260325105818.1176816-20-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
 References: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
@@ -95,81 +95,98 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add v4l2_subdev_call_ci_active_state(), to call sub-device pad ops that
-take struct v4l2_subdev_client_info pointer as an argument.
+Add struct v4l2_subdev_client_info to hold sub-device client capability
+bits that used to be stored in the client_caps field of struct
+v4l2_subdev_fh. The intent is to enable passing this struct to sub-device
+pad operation callbacks for capability information. The main reason why
+this is a new struct instead of a u64 field is that modifying the callback
+arguments requires touching almost every sub-device driver and that is
+desirable to avoid in the future, should more than the client capability bits
+need to be known to the callbacks.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
 ---
- include/media/v4l2-subdev.h | 49 ++++++++++++++++++++++++++++---------
- 1 file changed, 38 insertions(+), 11 deletions(-)
+ drivers/media/v4l2-core/v4l2-subdev.c |  8 ++++----
+ include/media/v4l2-subdev.h           | 12 ++++++++++--
+ 2 files changed, 14 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+index 647587c0499a..f437bd0e528f 100644
+--- a/drivers/media/v4l2-core/v4l2-subdev.c
++++ b/drivers/media/v4l2-core/v4l2-subdev.c
+@@ -611,7 +611,7 @@ subdev_ioctl_get_state(struct v4l2_subdev *sd, struct v4l2_subdev_fh *subdev_fh,
+ 	case VIDIOC_SUBDEV_S_FRAME_INTERVAL: {
+ 		struct v4l2_subdev_frame_interval *fi = arg;
+ 
+-		if (!(subdev_fh->client_caps &
++		if (!(subdev_fh->ci.client_caps &
+ 		      V4L2_SUBDEV_CLIENT_CAP_INTERVAL_USES_WHICH))
+ 			fi->which = V4L2_SUBDEV_FORMAT_ACTIVE;
+ 
+@@ -651,7 +651,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 	struct v4l2_subdev_fh *subdev_fh = to_v4l2_subdev_fh(vfh);
+ 	bool ro_subdev = test_bit(V4L2_FL_SUBDEV_RO_DEVNODE, &vdev->flags);
+ 	bool streams_subdev = sd->flags & V4L2_SUBDEV_FL_STREAMS;
+-	bool client_supports_streams = subdev_fh->client_caps &
++	bool client_supports_streams = subdev_fh->ci.client_caps &
+ 				       V4L2_SUBDEV_CLIENT_CAP_STREAMS;
+ 	int rval;
+ 
+@@ -1118,7 +1118,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 	case VIDIOC_SUBDEV_G_CLIENT_CAP: {
+ 		struct v4l2_subdev_client_capability *client_cap = arg;
+ 
+-		client_cap->capabilities = subdev_fh->client_caps;
++		client_cap->capabilities = subdev_fh->ci.client_caps;
+ 
+ 		return 0;
+ 	}
+@@ -1138,7 +1138,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 		client_cap->capabilities &= (V4L2_SUBDEV_CLIENT_CAP_STREAMS |
+ 					     V4L2_SUBDEV_CLIENT_CAP_INTERVAL_USES_WHICH);
+ 
+-		subdev_fh->client_caps = client_cap->capabilities;
++		subdev_fh->ci.client_caps = client_cap->capabilities;
+ 
+ 		return 0;
+ 	}
 diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
-index 9706bc22d64d..97b487b1507a 100644
+index 4588992b4417..6106e4409575 100644
 --- a/include/media/v4l2-subdev.h
 +++ b/include/media/v4l2-subdev.h
-@@ -1968,6 +1968,22 @@ extern const struct v4l2_subdev_ops v4l2_subdev_call_wrappers;
- 		__result;						\
- 	})
+@@ -734,6 +734,14 @@ struct v4l2_subdev_state {
+ 	struct v4l2_subdev_stream_configs stream_configs;
+ };
  
-+#define v4l2_subdev_call_drop_fourth(first, second, third, fourth, rest...) \
-+	v4l2_subdev_call(first, second, third, ##rest)
-+
-+#define __v4l2_subdev_call_state_active(call, sd, o, f, args...) \
-+	({								\
-+		int __result;						\
-+		struct v4l2_subdev_state *state;			\
-+		state = v4l2_subdev_get_unlocked_active_state(sd);	\
-+		if (state)						\
-+			v4l2_subdev_lock_state(state);			\
-+		__result = call(sd, o, f, NULL, state, ##args);		\
-+		if (state)						\
-+			v4l2_subdev_unlock_state(state);		\
-+		__result;						\
-+	})
-+
- /**
-  * v4l2_subdev_call_state_active - call an operation of a v4l2_subdev which
-  *				   takes state as a parameter, passing the
-@@ -1986,17 +2002,28 @@ extern const struct v4l2_subdev_ops v4l2_subdev_call_wrappers;
-  * active state, lock it before calling the op and unlock it after the call.
-  */
- #define v4l2_subdev_call_state_active(sd, o, f, args...)		\
--	({								\
--		int __result;						\
--		struct v4l2_subdev_state *state;			\
--		state = v4l2_subdev_get_unlocked_active_state(sd);	\
--		if (state)						\
--			v4l2_subdev_lock_state(state);			\
--		__result = v4l2_subdev_call(sd, o, f, state, ##args);	\
--		if (state)						\
--			v4l2_subdev_unlock_state(state);		\
--		__result;						\
--	})
-+	__v4l2_subdev_call_state_active(v4l2_subdev_call_drop_fourth,	\
-+					sd, o, f, ##args)
-+
 +/**
-+ * v4l2_subdev_call_ci_state_active - call an operation of a v4l2_subdev which
-+ *				      takes state as a parameter, passing the
-+ *				      subdev its active state.
-+ *
-+ * @sd: pointer to the &struct v4l2_subdev
-+ * @o: name of the element at &struct v4l2_subdev_ops that contains @f.
-+ *     Each element there groups a set of callbacks functions.
-+ * @f: callback function to be called.
-+ *     The callback functions are defined in groups, according to
-+ *     each element at &struct v4l2_subdev_ops.
-+ * @args: arguments for @f.
-+ *
-+ * This macro is just as v4l2_subdev_call_state_active(), with the exception
-+ * that it passes NULL as the client info to sub-device ops that need it
-+ * (currently pad ops get_fmt, set_fmt, get_selection and set_selection).
++ * struct v4l2_subdev_client_info - Sub-device client information
++ * @client_caps: bitmask of ``V4L2_SUBDEV_CLIENT_CAP_*``
 + */
-+#define v4l2_subdev_call_ci_state_active(sd, o, f, args...)		\
-+	__v4l2_subdev_call_state_active(v4l2_subdev_call, sd, o, f, ##args)
- 
++struct v4l2_subdev_client_info {
++	u64 client_caps;
++};
++
  /**
-  * v4l2_subdev_call_state_try - call an operation of a v4l2_subdev which
+  * struct v4l2_subdev_pad_ops - v4l2-subdev pad level operations
+  *
+@@ -1129,14 +1137,14 @@ struct v4l2_subdev {
+  * @vfh: pointer to &struct v4l2_fh
+  * @state: pointer to &struct v4l2_subdev_state
+  * @owner: module pointer to the owner of this file handle
+- * @client_caps: bitmask of ``V4L2_SUBDEV_CLIENT_CAP_*``
++ * @ci: sub-device client info related to this file handle
+  */
+ struct v4l2_subdev_fh {
+ 	struct v4l2_fh vfh;
+ 	struct module *owner;
+ #if defined(CONFIG_VIDEO_V4L2_SUBDEV_API)
+ 	struct v4l2_subdev_state *state;
+-	u64 client_caps;
++	struct v4l2_subdev_client_info ci;
+ #endif
+ };
+ 
 -- 
 2.47.3
 
