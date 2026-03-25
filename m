@@ -1,138 +1,233 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E46D3F65F0
-	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 14:51:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECF73EC2C5
+	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 15:10:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774450277; cv=none; b=cXKs1x+X9tVUNLb9ZTziQIav1KyEhhlvaFSdEucenUNOsrpp/KV1CJdRBc4JTbcxqy33A3trQawO/XojK0XcSQq5Q+XsKw2pCowAS9x+a8EIhucoxyINgvOicJCsRPKe2s0apTecCWz50Zi+mNZkLLDEEpI8LMXSfkykqI6lZTw=
+	t=1774451435; cv=none; b=IK1ztThJQ8LWGS9n1ACrbkDUfz0NwXen1tleIoUNzKjRbKASNrUaufJTmE5QVPH79RKbLF2e03A9/afbgSVxLstp5kJTDiV2PiwXdTS/pVoeNlK/xpmhamYVeyANDpN+zPJRU3wlRa3wauwcZc6t29qZ3bdOHMBosHTNQOlCuho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774450277; c=relaxed/simple;
-	bh=L2RLeX58RWJrOJCyQlLypImAQFl7uH3kq7hYltPkvcc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fvZ19r+iUeMwQeLDYjcyP+CjWAzwkVi4OTsbjpCqFgcydJ6D4knmPs1mDchTZkeeo0C8zV3IWJyiog/kEbOVQD+S6bx9n6uyktSK0KJ2zGYSh3ANqofmXCQp1Vfj+uvkHfdLElm0oZVX2c+kXG+HdGDU98utBhFZQh447Eyou+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1w5PZW-00050C-UM; Wed, 25 Mar 2026 15:51:02 +0100
-From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Wed, 25 Mar 2026 15:50:56 +0100
-Subject: [PATCH v4 25/27] media: rockchip: rga: disable multi-core support
+	s=arc-20240116; t=1774451435; c=relaxed/simple;
+	bh=ZxQippknm3j62I6Jp9U2pT0kpqpuo+x9nwZCCQAspsw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Dt9Iifuv/V1XMTuSjOCRud5YrEioKMxr5+S9+NytTWLPkVC6gV7wnp8wCfW6LioFzVuPCrT1d6Rlp9vpXFg0uKldXlG+mZVxXRypSqSW3ElZ2dTxKNNLx0wn9tAupQKPym5IzhqeycRA856BhqXZ7wKO1R46npPjBMBNfRmQwDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jXdOQg4y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZOEW6giv; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jXdOQg4y";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZOEW6giv"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62PBGXbj051842
+	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 15:10:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	xtE4+84n9r+ybTVsuVpzR5BgwB77paJIB/iP6lAPjeA=; b=jXdOQg4yOpBTwPC4
+	bXol2Jm/1QTPgXiiIsuUowmRLL1+x/GVw8R+9S75/ormqR+rAm34O6a7PM67RlVb
+	34m5/h1eWxQ+vhBfT4JZl6/57TdsZmRaERsFvhA8Z4uEC1dLEr4Ms2k8mK88tPsY
+	fCw/PYGd6r0Q+r0iTQunb+VPk3QbAGpGAT0KTYWPMkDOgTaIQm9ykXEviTbkY/ng
+	jZMymY3BKvhDiixMwxeGB9Hl7r9UbK5KVX4i63Cm+EZ2PbeTt3jBdL+yfhXyJ3iw
+	C7ACxl04G5w4zlLLXKGPZBZbyrtDID0bpv8xky9FNAofV42/NAF1BjNDXxo8s3H4
+	jlTgPA==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d46tp2ma9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 15:10:33 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2b0565d77a6so37276155ad.2
+        for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 08:10:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774451433; x=1775056233; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xtE4+84n9r+ybTVsuVpzR5BgwB77paJIB/iP6lAPjeA=;
+        b=ZOEW6giv/0YGM45qWSlniiHNwMoStebf+HP2s5Xl1BdxhzjBnUdqCeQLpb1tiNwwdz
+         IpvvOWDuBNBE1jt8LnKSHXuJyMVFq4F2UJEbwoz+S9JLPN8XMrmt3p7A+aTMvsEc29iL
+         /OdCIWD0gFgZaxoBg77nktmyXMOa4VVkZcngKsbrU0ft144ZAxRMnn31Po56qx9ccTLr
+         /JIrKajg7LSe9WwnBGruoubwJAgzsYvHV2141IZXk3E2NXOvDq3/+5rzsId6ljUJ5rMF
+         +ryDv+KJF8bs3D0AMsKjeTZ4tPDw2vZQ52ZUMse0UPmJMPAxesaQVzpUvPxDtSMXynq/
+         MqgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774451433; x=1775056233;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xtE4+84n9r+ybTVsuVpzR5BgwB77paJIB/iP6lAPjeA=;
+        b=Dyqlovf+DwIsrSNIck3/OBREKki1ekuphpDsFxMAkcCQdQDVmPvS3WTbfRznMJjGTN
+         7bQnPJ2cRRHjIYUQfoK5pb5g+ieMBD4U2LAcazep60FHqsSrkLLHaEpYdTKi/B8d4012
+         mVs2SCqDjppUYoFREl+R3nzJknWLEZzxrTspD5VZ/Egq5x8apCbFqNDsbXaAX9CKXul1
+         RusmIsmi/0bGgyJkWGKQwXUjX3ypjYdwn+RWcM19i6gS9ikd0RbYHiGq5UikeIU+AYzs
+         EcMTZRtrc07JLLUWuPijb/Uw2pl/VuSFiG1gLIPHmcJQgOqUEadeCCKztfmMUGNydxGj
+         PaNw==
+X-Forwarded-Encrypted: i=1; AJvYcCVwTQEl26WGISpISMrClH1AGCCJ37nept0k8g/1yyxQePUUaxQUE6NzeM+vn4IXLqhe9w/cPSn2ND4yEw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxLf4yehbHr6z79E54jJJ/QRUV0o4lWtYZ3Lh7h570sQCPWzs0Z
+	TfZyly0scwZLWOaKKuHaVDdV1tGWoA9QY5U88JbHKNDMX8c7TclrVCLOVzYQoRETbqd8xvbJvem
+	oARZSEBEGl0n4EO75W22rOzN+ZEzNC201XwJaR8jIfs4PgAYVdx6Crl8jHV1e4ViPOg==
+X-Gm-Gg: ATEYQzz66bUM9MBIBvamyFHLiaQSswM+0zvljKVa7ZUDn/qo3DSnKyegexQFBb3Lsbg
+	5eIaf6wFA2MAKkv4HYdfRqR6ic3y8H7d1m9dioOoI7PfIreHuVX//uJQTEQUYgOBPksGteVhkY3
+	F3g5Uux+hHK0M01qBAlcjblvX90WWr/wfB1fVaJkDUop/CsdZgIHNOIMG2CsqLHaAISvD0FfesG
+	tYXsAFQxqrZ8A5g985TSBn80e4YHKxbanjADDdOhTWlkI5v/3y+uEd9HLNIS4BRQrlKowVk8ZT9
+	YC5uHB9sHr1sTwEan8T6jYMP72Fsmx85ebrkMlybtQ5Xd3sgGWXiWgz3ysPEM9UXmiUvGMU0zSQ
+	3WTZ8LLM/Vd65unV/ZVqqgxURFCgU7OsuGxGR96S93j5G4Rltz5Xi5A==
+X-Received: by 2002:a17:903:2a8d:b0:2b0:6e8f:8e73 with SMTP id d9443c01a7336-2b0b0b2d665mr46305085ad.44.1774451432471;
+        Wed, 25 Mar 2026 08:10:32 -0700 (PDT)
+X-Received: by 2002:a17:903:2a8d:b0:2b0:6e8f:8e73 with SMTP id d9443c01a7336-2b0b0b2d665mr46304635ad.44.1774451431825;
+        Wed, 25 Mar 2026 08:10:31 -0700 (PDT)
+Received: from [10.204.101.77] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b0bc7a9deesm1665755ad.28.2026.03.25.08.10.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Mar 2026 08:10:31 -0700 (PDT)
+Message-ID: <bdae0b95-ee88-4398-8690-031803a85a92@oss.qualcomm.com>
+Date: Wed, 25 Mar 2026 20:40:23 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260325-spu-rga3-v4-25-e90ec1c61354@pengutronix.de>
-References: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
-In-Reply-To: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
-To: Jacob Chen <jacob-chen@iotwrt.com>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, kernel@pengutronix.de, nicolas@ndufresne.ca, 
- sebastian.reichel@collabora.com, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>
-X-Mailer: b4 0.15.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-media@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/7] media: dt-bindings: qcom-kaanapali-iris: Add
+ kaanapali video codec binding
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+        Hans Verkuil <hverkuil+cisco@kernel.org>,
+        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        iommu@lists.linux.dev, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260313-kaanapali-iris-v3-0-9c0d1a67af4b@oss.qualcomm.com>
+ <20260313-kaanapali-iris-v3-1-9c0d1a67af4b@oss.qualcomm.com>
+ <hfuqu5uwjuh4ie55zwaqqbsflhf5yn55hnjva356nivoq46m2i@o5pkjnfrwycq>
+ <62027e78-4b7a-4b94-a51a-13a9ae77b722@oss.qualcomm.com>
+ <5otifv465c7duslmogb5uzaxrh2k3u2ayiylcd6dnz3kc7win5@kltv3fxhtso4>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <5otifv465c7duslmogb5uzaxrh2k3u2ayiylcd6dnz3kc7win5@kltv3fxhtso4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: l1YwD0cl6i1bW1wP9wKT0fURhyojKSCU
+X-Authority-Analysis: v=2.4 cv=F4lat6hN c=1 sm=1 tr=0 ts=69c3fae9 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=puI59K64icZz00i_70MA:9
+ a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: l1YwD0cl6i1bW1wP9wKT0fURhyojKSCU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDEwOSBTYWx0ZWRfX5/+3IFWqXLBm
+ SjhvM/tO/vqbqxem6v2PyNb1MI9UFCgBa0VtQ6lES/PrzeKvEcMGlH1+oIg6YtsATI/ksqxgwLA
+ HRe58FlOSabQvwd46YcRpeQRA/o4CmOFqEwkz60U4rXGWyDHKHxtrjgsV9c4tgA1t1ZuFNBIk8v
+ 6MVoJs4IScPlXYlJor99WhEieDkvHQilPRt5Pca3wR7PdCsJd0jl32xv3J0+lKZo0i07lbPDL7y
+ ZKqe681L+d0BwA1nouTySiRqNlP9/O3gIyjX4+/LsNs4R1cIVkS9nvn9VFGi+r300C6o3DCXw8l
+ lMaEhNlV6Z5SLyz6PFWtgSn06p4lTCb2XGpGjE10VoRKp5iMzQ3CBPUMqUUvM5aYsnZzBpEqvNM
+ 03raj1XiIbmc3JHPEWLOzsLD3yGFy6UjYDgXh5W6od29Mw3VRw9nIUorfin7xHCFDHPFQsnzEU9
+ GM5/EeYGkpjNBX8a4VQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-25_04,2026-03-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 suspectscore=0 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603250109
 
-Disable multi-core support in preparation of the RGA3 addition. The
-RK3588 SoC features two equal RGA3 cores. This allows scheduling of the
-work between both cores, which is not yet implemented. Until it is
-implemented avoid exposing both cores as independent video devices to
-prevent an ABI breakage when multi-core support is added.
 
-This patch is copied from the Hantro driver patch to disable multi core
-support by Sebastian Reichel. See
-commit ccdeb8d57f7f ("media: hantro: Disable multicore support")
+On 3/13/2026 9:10 PM, Dmitry Baryshkov wrote:
+> On Fri, Mar 13, 2026 at 08:46:52PM +0530, Vikash Garodia wrote:
+>>
+>> On 3/13/2026 8:32 PM, Dmitry Baryshkov wrote:
+>>> On Fri, Mar 13, 2026 at 06:49:35PM +0530, Vikash Garodia wrote:
+>>>> Kaanapali SOC brings in the new generation of video IP i.e iris4. When
+>>>> compared to previous generation, iris3x, it has,
+>>>> - separate power domains for stream and pixel processing hardware blocks
+>>>>     (bse and vpp).
+>>>> - additional power domain for apv codec.
+>>>> - power domains for individual pipes (VPPx).
+>>>> - different clocks and reset lines.
+>>>>
+>>>> This patch depends on
+>>>> https://github.com/devicetree-org/dt-schema/pull/184/changes/d341298d62805bc972dfba691da6b3b62aa3ff15
+>>>>
+>>>> Nacked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+>>>> ---
+>>>>    .../bindings/media/qcom,kaanapali-iris.yaml        | 254 +++++++++++++++++++++
+>>>>    include/dt-bindings/media/qcom,kaanapali-iris.h    |  18 ++
+>>>>    2 files changed, 272 insertions(+)
+>>>
+>>>> +
+>>>> +    video-codec@2000000 {
+>>>> +        compatible = "qcom,kaanapali-iris";
+>>>> +        reg = <0x02000000 0xf0000>;
+>>>> +
+>>>> +        clocks = <&gcc_video_axi0_clk>,
+>>>> +                 <&video_cc_mvs0c_clk>,
+>>>> +                 <&video_cc_mvs0_clk>,
+>>>> +                 <&gcc_video_axi1_clk>,
+>>>> +                 <&video_cc_mvs0c_freerun_clk>,
+>>>> +                 <&video_cc_mvs0_freerun_clk>,
+>>>> +                 <&video_cc_mvs0b_clk>,
+>>>> +                 <&video_cc_mvs0_vpp0_clk>,
+>>>> +                 <&video_cc_mvs0_vpp1_clk>,
+>>>> +                 <&video_cc_mvs0a_clk>;
+>>>> +        clock-names = "iface",
+>>>> +                      "core",
+>>>> +                      "vcodec0_core",
+>>>> +                      "iface1",
+>>>> +                      "core_freerun",
+>>>> +                      "vcodec0_core_freerun",
+>>>> +                      "vcodec_bse",
+>>>> +                      "vcodec_vpp0",
+>>>> +                      "vcodec_vpp1",
+>>>> +                      "vcodec_apv";
+>>>> +
+>>>> +        dma-coherent;
+>>>> +
+>>>> +        interconnects = <&gem_noc_master_appss_proc &config_noc_slave_venus_cfg>,
+>>>> +                        <&mmss_noc_master_video_mvp &mc_virt_slave_ebi1>;
+>>>> +        interconnect-names = "cpu-cfg",
+>>>> +                             "video-mem";
+>>>> +
+>>>> +        interrupts = <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>;
+>>>> +
+>>>> +        iommu-map = <IRIS_BITSTREAM &apps_smmu 0x1944 0x0 0x1>,
+>>>> +                    <IRIS_NON_PIXEL &apps_smmu 0x1940 0x0 0x1>,
+>>>> +                    <IRIS_NON_PIXEL &apps_smmu 0x1a20 0x0 0x1>,
+>>>
+>>> It think we still haven't settled on letting iommu-map to have several
+>>> entries for a single function.
+>>
+>> I have described the hardware aspects in the discussion [1], if there is any
+>> alternate way to handle this, we can discuss in the same discussion.
+> 
+> Yes. But how do you plan to merge this? You've split away the patches,
+> they don't seem to be listed as dependencies, etc.
+> 
 
-Link: https://lore.kernel.org/all/20240618183816.77597-4-sebastian.reichel@collabora.com/
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
----
- drivers/media/platform/rockchip/rga/rga.c | 47 +++++++++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+1:1 mapping of function ID with stream ID is closing on the reviews. I 
+will have to update this patch to represent it in 1:1 mapping.
 
-diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index b0c88ad647e96..fd92ecf408e0c 100644
---- a/drivers/media/platform/rockchip/rga/rga.c
-+++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -708,6 +708,49 @@ static int rga_parse_dt(struct rockchip_rga *rga)
- 	return 0;
- }
- 
-+/*
-+ * Some SoCs, like RK3588 have multiple identical RGA3 cores, but the
-+ * kernel is currently missing support for multi-core handling. Exposing
-+ * separate devices for each core to userspace is bad, since that does
-+ * not allow scheduling tasks properly (and creates ABI). With this workaround
-+ * the driver will only probe for the first core and early exit for the other
-+ * cores. Once the driver gains multi-core support, the same technique
-+ * for detecting the main core can be used to cluster all cores together.
-+ */
-+static int rga_disable_multicore(struct device *dev)
-+{
-+	struct device_node *node = NULL;
-+	const char *compatible;
-+	bool is_main_core;
-+	int ret;
-+
-+	/* Intentionally ignores the fallback strings */
-+	ret = of_property_read_string(dev->of_node, "compatible", &compatible);
-+	if (ret)
-+		return ret;
-+
-+	/* The first compatible and available node found is considered the main core */
-+	do {
-+		node = of_find_compatible_node(node, NULL, compatible);
-+		if (of_device_is_available(node))
-+			break;
-+	} while (node);
-+
-+	if (!node)
-+		return -EINVAL;
-+
-+	is_main_core = (dev->of_node == node);
-+
-+	of_node_put(node);
-+
-+	if (!is_main_core) {
-+		dev_info(dev, "missing multi-core support, ignoring this instance\n");
-+		return -ENODEV;
-+	}
-+
-+	return 0;
-+}
-+
- static int rga_probe(struct platform_device *pdev)
- {
- 	struct rockchip_rga *rga;
-@@ -718,6 +761,10 @@ static int rga_probe(struct platform_device *pdev)
- 	if (!pdev->dev.of_node)
- 		return -ENODEV;
- 
-+	ret = rga_disable_multicore(&pdev->dev);
-+	if (ret)
-+		return ret;
-+
- 	rga = devm_kzalloc(&pdev->dev, sizeof(*rga), GFP_KERNEL);
- 	if (!rga)
- 		return -ENOMEM;
+Once done, this patch can be merged with the dependency marked in this 
+patch i.e 
+https://github.com/devicetree-org/dt-schema/pull/184/changes/d341298d62805bc972dfba691da6b3b62aa3ff15
 
--- 
-2.53.0
+>>
+>> [1] https://lore.kernel.org/all/21fda4d2-72e1-4e5b-aee0-a799886f53b7@oss.qualcomm.com/
+> 
 
+Regards,
+Vikash
