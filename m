@@ -1,301 +1,146 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C4D33CA492
-	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 10:58:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774436338; cv=none; b=hXYjcMpLnkmrY+G+Ay3py8zXMumRgHyF8+UjhNN8aXyhb/3QejQMh5w36P0HrknjDEakvyZ32dJhIaArQ7C3Yj/jh0oQ+PJg0Oyin9t4d1DRQjv4XJn4U79lp2Z5s9n2wi+BXVyqSYS9lbuV1sBVyN5ax/TSmjrWb5vJkQi37dw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774436338; c=relaxed/simple;
-	bh=y8zTeLJ9tc/06iYjwMNwGz02GzlJ1WD4QBgEnKc9F6E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F0qNUNMhtg6e4BJdm2GHceVCH03LiQPtdx1ijZhgivIZvigLBoQOTjqDB/ffKaigCMkDpILGdGosOoOiYFaQf+x3NEevCRM5UN8LAGYrGDetVtrMqxw5y8hMlczX2EutZZeU/HMTUw4XNLf+sOkW2MJ76Gmh+OsatcO6xbYB0Bo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=H3Tq72Co; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD4A3CF048
+	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 11:36:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774438588; cv=pass; b=nwoIk8fpwF8T2L4MUIV+n6ODWaWeJuljLsNtQzAb6DbbifWq1pQfNaRSRshTpbdQUM10rI6fTPuhmebuOKCZ/LJqGPwBo1iAAuWZdUNVtRjP+YrjJqscsrKpo46YOiEciA9erVCMwKTHRwAdak9kma6KkwdZJUAkqGSIWiuOokA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774438588; c=relaxed/simple;
+	bh=jYJ6VW6cqloRi2yxY2TmIyUbCQp72oo8EzkOARRZiMQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RXVBCSFrL02C2QFiZjRzUWbPvtj6paGzZmA/ZBlXR6+iD09/MHnGrxQSt1dOKHxJoCX34kHKXSfOZh8enTD8SmziZvRGrEKokMgGj7B0sjecqxCX2AI1NXSz77DOP/4Rp1uPrmz3GHxqTKGtDW1+cpZZrfx+CkKmrNm4/y1NU1M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=OOBF4T/8; arc=pass smtp.client-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="H3Tq72Co"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774436335; x=1805972335;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=y8zTeLJ9tc/06iYjwMNwGz02GzlJ1WD4QBgEnKc9F6E=;
-  b=H3Tq72Co41UXBp1gMzg+DhX5YanamAAAfBQfS/M3POdcK61id5Wyyfg8
-   rKkniQZfvQGcek8hHC2WGV6ziRoG5rhTNb10lHlH64+dfttcmidOPOhhR
-   IHAFM2oMIoK7AIsQB2j6crZwkQb8EdZEG+KBDE3V8tihoRGZn2/OeELQW
-   8Kj4LRFGJWlnD3XnS8nqGqBLeweWf9uyjdxA3lwaQEm3Gu8gCZhPaZwCQ
-   QiJlNUbeTsj/R9bgMeIFp20x1asT2HjwfjWsJ+9lMutJa8/9YsXNE4EMU
-   caNrcz59BIOw+LL8kcteVORQi50s0hukOJ2fXRZmgkDikYyFnNlgZtp2Y
-   Q==;
-X-CSE-ConnectionGUID: 0SCchw78RhOY7G+KbzL7sw==
-X-CSE-MsgGUID: JTaMvaZqTDyR9YfZpQrXZA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="74496500"
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="74496500"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:50 -0700
-X-CSE-ConnectionGUID: me+r6jFsTfyRh7m6ZwjS9A==
-X-CSE-MsgGUID: z8D8lKGQQ4CtUheeujpHiw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="221763545"
-Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.64])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:43 -0700
-Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id B66E61224A5;
-	Wed, 25 Mar 2026 12:58:30 +0200 (EET)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
-	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1w5LwJ-00000004wAt-0g9j;
-	Wed, 25 Mar 2026 12:58:19 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: linux-media@vger.kernel.org
-Cc: hans@jjverkuil.nl,
-	laurent.pinchart@ideasonboard.com,
-	Prabhakar <prabhakar.csengg@gmail.com>,
-	Kate Hsuan <hpa@redhat.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Tommaso Merciai <tomm.merciai@gmail.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Julien Massot <julien.massot@collabora.com>,
-	Naushir Patuck <naush@raspberrypi.com>,
-	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	"Cao, Bingbu" <bingbu.cao@intel.com>,
-	"Qiu, Tian Shu" <tian.shu.qiu@intel.com>,
-	Stefan Klug <stefan.klug@ideasonboard.com>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	=?UTF-8?q?Andr=C3=A9=20Apitzsch?= <git@apitzsch.eu>,
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Ricardo Ribalda Delgado <ribalda@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	David Plowman <david.plowman@raspberrypi.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>
-Subject: [PATCH v3 16/22] media: mc: Add MEDIA_LNK_FL_VALIDATE_LATE
-Date: Wed, 25 Mar 2026 12:58:13 +0200
-Message-ID: <20260325105818.1176816-18-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
-References: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="OOBF4T/8"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-7982c3b7da9so22789617b3.1
+        for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 04:36:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774438586; cv=none;
+        d=google.com; s=arc-20240605;
+        b=PORwaBwChRYGqDaPPUulWTNsCyA3R9azOGlCL9yaEZDMHX/wEEkrQF1XbvitQGethI
+         qOAkFe4Kk4GG1swbHcfX+qgvceSQT3v0gj1PHFcHURFMQHP90nOflLwIoBTkzXMArIrc
+         8nedWu9PfftJFRd8r9p2kpnMy6bUBl6XLwnhX/Ds1YIjl0AxDOLbEnSH20dX1JstHAnS
+         SkOx1gq9B2DGVT73N5VVBxSDEp7hMG4Qngw3gEHaQTvs0/yhZL5NTuujQHlRDc0FtG7U
+         L+1Fq+wWDyrPeHTsd27WgP3eA3EpcQemlDs9t7yCe4xM6Wmg9IKYUd+9g3H2GUniEFCT
+         6r4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=IBlF4KOxbpKPe6Mg6fSVT0yKogrzCqPzXiPVSkS0bEI=;
+        fh=5fvgRv0JFQ+qxRjMG7lVpR2l1RbaMPElunm4U+F9zxc=;
+        b=VbbPFPQMOPLN+PpB0p8m6nGtV4N6UI/SRKUznsM4ypIJlKWY5oSClFe5CDsGGXIatv
+         Y4qTTAQF7+ItmarwGklOsjcphxL0uBucC4cxWUX+8P80JbQ80ZzVj866hDAkH2u8OLti
+         n1kvkAc6764sqYSPCuqlX7cL12rGmfKZuD7vYjx/FfL9/ILcRCPlTl37qQjX50XrLSmC
+         VJSWTzAUWIgExoL9R4lTIZ3i0VeqVcp70FTPh25Sc/SgTWtIDcFAWcmhE0Cef0DAZ3g2
+         YXVlMAE9a1Kz6p8eLCrf06kshShBUWNfWpuLaYCAvOC+P3FOE27+dSo4pkNtqnkp6+fm
+         DJsA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1774438586; x=1775043386; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=IBlF4KOxbpKPe6Mg6fSVT0yKogrzCqPzXiPVSkS0bEI=;
+        b=OOBF4T/8ndlCAr4s51S6F9LCjYV9kapkOg7MNFJ/WSWjrLMmkaVutMXUYZZsp+TA+s
+         mPCgsbTObwacz4OZkk2wgrLI9yNSIY7zS/HosaOih88IBK0BFBruz8wJyDoINKS/zVAq
+         3Tnm1NIfs8vMinHcZxPU6JUIIzqa/kjn4/AHCInt/xRRAHB6yAwHTmp3B2VtACFfo5uP
+         ctQun+vwMWywzc2rHwaTSZ2AuFzp840fZbybou0zZqGWiCt9pwOjiYd73hpXwRkZ8n5Q
+         dYePJ4GJGEMIl58T9alDK7q839TZEiDh2FOL/C9h6hn9BJxnFTJvkxCJMi6FCAhFioT9
+         r2tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774438586; x=1775043386;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IBlF4KOxbpKPe6Mg6fSVT0yKogrzCqPzXiPVSkS0bEI=;
+        b=BJtXF3uHsLhDl+k6G1JMp9cc2QrGW3iZk4Il//9G72KuHiGbszakJUFBJi2tRSJ41y
+         M3vlndtb93CdoEZCLGEdTRzxO7LN7HTvwhmJHMXi0BuCOQnh3OpKUMJ5Goehk6oSmjIZ
+         s1SE3lYk5nw+bENf0AwXJiyyFVr+W2pYqzKx/GhzZWoOr/L8HasdX0dMem4PMh8ro/0t
+         ieehY5NImjwGSNtqV0apL6sg+ipOGUoIfExOBVIInnmKg4BYyL9NRvoJYmCnzeOANRO5
+         4IUlWvSID4YV0g28AaHtdL73FiAEWdxH/VbKmoq4HhSZltGhVRrHJk/rdendjQhpAmyV
+         byLA==
+X-Gm-Message-State: AOJu0Yx+wNGgwHywNT2xN+N4ZgzJ+60pQHkcgXiH8Hf/XO8RJAub3hb8
+	AFx5qig0GphUKttlNerHDpO/3Zf8VKHV1n25kS5dCOuEM7NQM6gkKBZCd05PXujIApiHTgpjDgk
+	yFK0yF8w5DJIV39QcfzJaY5FiNYgrcTEgHJfg2kdReQ==
+X-Gm-Gg: ATEYQzyk7dQb2eT+mnhHek8/QoLMpCXyg6K6W0dGo1jhfWXtr3Jnys+a8A7zH32HgP4
+	bIJmCPO+5GxltoqREza4s3j2MBjA0AAZr+tjCJ9G74S3BRVAf1Kr2JQJecjrHUXegnsvG1MEGHS
+	kdDwLqdwO7xu3h779cV2o60nok1V1ivH2SAcjt19Dfxba1goJD4jj3dPOK7+/oywm8jx2QtscFd
+	RaFvJCCRrZDNA0nh38zCmvIHzRPTWbr+KhBC7U1Pak1t93q+XZOGD/6z/U4HAA9TfuWfjVNa0/x
+	gcgLJK42uu++ECgobCuu5D8+mWQop9JUm6myag==
+X-Received: by 2002:a05:690c:c4cb:b0:794:ecaf:c501 with SMTP id
+ 00721157ae682-79acf6c89c9mr30923677b3.46.1774438585605; Wed, 25 Mar 2026
+ 04:36:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260325105818.1176816-1-sakari.ailus@linux.intel.com> <20260325105818.1176816-3-sakari.ailus@linux.intel.com>
+In-Reply-To: <20260325105818.1176816-3-sakari.ailus@linux.intel.com>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Wed, 25 Mar 2026 11:36:09 +0000
+X-Gm-Features: AQROBzAXOp3kglL4hAfuouozUMb9MZaofXq9rB9_TdcbnAUlcF_lf3J9Rc3pQqU
+Message-ID: <CAPY8ntAowXdWcHe1fnDfonx8VMB7dfGf3xLX_B6uBoyGUaN9wA@mail.gmail.com>
+Subject: Re: [PATCH v3 02/22] media: imx219: Fix maximum frame length in lines
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl, 
+	laurent.pinchart@ideasonboard.com, Prabhakar <prabhakar.csengg@gmail.com>, 
+	Kate Hsuan <hpa@redhat.com>, Tommaso Merciai <tomm.merciai@gmail.com>, 
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
+	Sylvain Petinot <sylvain.petinot@foss.st.com>, 
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Julien Massot <julien.massot@collabora.com>, 
+	Naushir Patuck <naush@raspberrypi.com>, "Yan, Dongcheng" <dongcheng.yan@intel.com>, 
+	"Cao, Bingbu" <bingbu.cao@intel.com>, "Qiu, Tian Shu" <tian.shu.qiu@intel.com>, 
+	Stefan Klug <stefan.klug@ideasonboard.com>, Mirela Rabulea <mirela.rabulea@nxp.com>, 
+	=?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
+	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>, 
+	Kieran Bingham <kieran.bingham@ideasonboard.com>, Mehdi Djait <mehdi.djait@linux.intel.com>, 
+	Ricardo Ribalda Delgado <ribalda@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+	David Plowman <david.plowman@raspberrypi.com>, "Yu, Ong Hock" <ong.hock.yu@intel.com>, 
+	"Ng, Khai Wen" <khai.wen.ng@intel.com>, Jai Luthra <jai.luthra@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Add MEDIA_LNK_FL_VALIDATE_LATE flag to support late validation of links.
-This is serving the use case where video devices are configured and
-started streaming indepenently of each other but this sequence may be run
-in series, in such a way that a video device in a pipeline starts
-streaming before another one is configured.
+Hi Sakari
 
-Before this flag, drivers have resorted to implementing the link
-validation separately for the video nodes as part of streaming start
-sequence.
+On Wed, 25 Mar 2026 at 10:58, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
+>
+> The driver used the maximum frame length in lines value of 0xffff, but the
+> maximum appears to be 0xfffe instead. Fix it.
 
-media_pipeline_start() shall be called on each leaf entity connected to
-the graph with a link where MEDIA_LNK_FL_VALIDATE_LATE is set before
-uphardware operation.
+Agreed that the datasheet says the max_frame_length_lines register
+0x1142/0x1143 defaults to 0xfffe (and is read-only).
+I haven't checked whether using 0xffff actually works or not, but it
+makes no real difference.
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
----
- .../media/mediactl/media-ioc-setup-link.rst   |  4 +
- .../media/mediactl/media-types.rst            |  5 ++
- drivers/media/mc/mc-entity.c                  | 82 ++++++++++++++++++-
- include/uapi/linux/media.h                    |  1 +
- 4 files changed, 88 insertions(+), 4 deletions(-)
+> Fixes: 1283b3b8f82b ("media: i2c: Add driver for Sony IMX219 sensor")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-diff --git a/Documentation/userspace-api/media/mediactl/media-ioc-setup-link.rst b/Documentation/userspace-api/media/mediactl/media-ioc-setup-link.rst
-index 23208300cb61..7c2bced57e77 100644
---- a/Documentation/userspace-api/media/mediactl/media-ioc-setup-link.rst
-+++ b/Documentation/userspace-api/media/mediactl/media-ioc-setup-link.rst
-@@ -49,6 +49,10 @@ Only links marked with the ``DYNAMIC`` link flag can be enabled/disabled
- while streaming media data. Attempting to enable or disable a streaming
- non-dynamic link will return an ``EBUSY`` error code.
- 
-+Pipeline validation may be delayed for links marked with the ``VALIDATE_LATE``
-+flag until actual hardware operation even if the rest of the pipeline would be
-+validated at an earlier point of time.
-+
- If the specified link can't be found the driver returns with an ``EINVAL``
- error code.
- 
-diff --git a/Documentation/userspace-api/media/mediactl/media-types.rst b/Documentation/userspace-api/media/mediactl/media-types.rst
-index 6332e8395263..d6a690655a01 100644
---- a/Documentation/userspace-api/media/mediactl/media-types.rst
-+++ b/Documentation/userspace-api/media/mediactl/media-types.rst
-@@ -391,6 +391,7 @@ must be set for every pad.
- .. _MEDIA-LNK-FL-ENABLED:
- .. _MEDIA-LNK-FL-IMMUTABLE:
- .. _MEDIA-LNK-FL-DYNAMIC:
-+.. _MEDIA-LNK-FL-VALIDATE-LATE:
- .. _MEDIA-LNK-FL-LINK-TYPE:
- 
- .. flat-table:: Media link flags
-@@ -410,6 +411,10 @@ must be set for every pad.
-        -  The link enabled state can be modified during streaming. This flag
- 	  is set by drivers and is read-only for applications.
- 
-+    *  -  ``MEDIA_LNK_FL_VALIDATE_LATE``
-+       -  The validation of the link may be delayed up to until the start of
-+	  hardware operation.
-+
-     *  -  ``MEDIA_LNK_FL_LINK_TYPE``
-        -  This is a bitmask that defines the type of the link. The following
- 	  link types are currently supported:
-diff --git a/drivers/media/mc/mc-entity.c b/drivers/media/mc/mc-entity.c
-index 287eded356bb..bb639ce4d86e 100644
---- a/drivers/media/mc/mc-entity.c
-+++ b/drivers/media/mc/mc-entity.c
-@@ -771,7 +771,7 @@ static int media_pipeline_populate(struct media_pipeline *pipe,
- static int
- __media_pipeline_validate_one(struct media_pad *origin,
- 			      struct media_pad *pad, struct media_link *link,
--			      bool *has_enabled_link)
-+			      bool *has_enabled_link, bool skip_validation)
- {
- 	struct media_device *mdev = origin->graph_obj.mdev;
- 	struct media_entity *entity = pad->entity;
-@@ -784,6 +784,9 @@ __media_pipeline_validate_one(struct media_pad *origin,
- 	if (has_enabled_link)
- 		*has_enabled_link = true;
- 
-+	if (skip_validation)
-+		return 0;
-+
- 	/* Skip validation if the current pad isn't the sink pad of the link. */
- 	if (link->sink != pad)
- 		return 0;
-@@ -825,11 +828,48 @@ __must_check int __media_pipeline_start(struct media_pad *origin,
- 		return -EINVAL;
- 
- 	/*
--	 * If the pipeline has already been started, it is guaranteed to be
--	 * valid, so just increase the start count.
-+	 * Increase start count on pipelines that have been validated
-+	 * earlier. Also check links with the VALIDATE_LATE flag here.
- 	 */
- 	if (pipe->start_count) {
-+		struct media_link *link;
-+
-+		link = __media_entity_next_link(origin->entity, NULL,
-+						MEDIA_LNK_FL_DATA_LINK);
-+		if (link && link->flags & MEDIA_LNK_FL_VALIDATE_LATE) {
-+			struct media_link *link2 =
-+				__media_entity_next_link(origin->entity, link,
-+							 MEDIA_LNK_FL_DATA_LINK);
-+			bool has_enabled_link = false;
-+
-+			/*
-+			 * Only a single pad is allowed for VALIDATE_LATE
-+			 * links. That pad needs to have exactly one link.
-+			 */
-+			if (origin->entity->num_pads != 1)
-+				return -EINVAL;
-+
-+			if (!link || link2)
-+				return -EINVAL;
-+
-+			dev_dbg(mdev->dev,
-+				"Validating pad '%s':%u late\n",
-+				origin->entity->name, origin->index);
-+
-+			ret = __media_pipeline_validate_one(link->sink,
-+							    link->sink, link,
-+							    &has_enabled_link,
-+							    false);
-+			if (ret)
-+				return ret;
-+
-+			if (origin->flags & MEDIA_PAD_FL_MUST_CONNECT &&
-+			    !has_enabled_link)
-+				return -ENOLINK;
-+		}
-+
- 		pipe->start_count++;
-+
- 		return 0;
- 	}
- 
-@@ -873,12 +913,19 @@ __must_check int __media_pipeline_start(struct media_pad *origin,
- 		 * the connected sink pad to avoid duplicating checks.
- 		 */
- 		for_each_media_entity_data_link(entity, link) {
-+			/* Skip late-validated links not connected to origin. */
-+			bool skip_validation =
-+				link->flags & MEDIA_LNK_FL_VALIDATE_LATE &&
-+				(link->sink == origin ||
-+				 link->source == origin);
-+
- 			/* Skip links unrelated to the current pad. */
- 			if (link->sink != pad && link->source != pad)
- 				continue;
- 
- 			ret = __media_pipeline_validate_one(origin, pad, link,
--							    &has_enabled_link);
-+							    &has_enabled_link,
-+							    skip_validation);
- 			if (ret)
- 				goto error;
- 		}
-@@ -1158,6 +1205,33 @@ media_create_pad_link(struct media_entity *source, u16 source_pad,
- 	if (WARN_ON(!(sink->pads[sink_pad].flags & MEDIA_PAD_FL_SINK)))
- 		return -EINVAL;
- 
-+	/*
-+	 * With the late validate flag, either source or sink shall have exactly
-+	 * one pad and no links before this one. Similarly, no links may be
-+	 * added to entities with a single pad and an existing late-validated
-+	 * link.
-+	 */
-+	if (flags & MEDIA_LNK_FL_VALIDATE_LATE) {
-+		if (!(source->num_pads == 1 && !source->num_links) &&
-+		    !(sink->num_pads == 1 && !sink->num_links))
-+			return -EINVAL;
-+	} else {
-+		struct media_entity *entities[] = { source, sink };
-+
-+		for (unsigned int i = 0; i < ARRAY_SIZE(entities); i++) {
-+			if (entities[i]->num_pads != 1)
-+				continue;
-+
-+			struct media_link *__link =
-+				__media_entity_next_link(entities[i], NULL,
-+							 MEDIA_LNK_FL_DATA_LINK);
-+
-+			if (__link &&
-+			    __link->flags & MEDIA_LNK_FL_VALIDATE_LATE)
-+				return -EINVAL;
-+		}
-+	}
-+
- 	link = media_add_link(&source->links);
- 	if (link == NULL)
- 		return -ENOMEM;
-diff --git a/include/uapi/linux/media.h b/include/uapi/linux/media.h
-index 1c80b1d6bbaf..c96e2118ea99 100644
---- a/include/uapi/linux/media.h
-+++ b/include/uapi/linux/media.h
-@@ -219,6 +219,7 @@ struct media_pad_desc {
- #define MEDIA_LNK_FL_ENABLED			(1U << 0)
- #define MEDIA_LNK_FL_IMMUTABLE			(1U << 1)
- #define MEDIA_LNK_FL_DYNAMIC			(1U << 2)
-+#define MEDIA_LNK_FL_VALIDATE_LATE		(1U << 3)
- 
- #define MEDIA_LNK_FL_LINK_TYPE			(0xf << 28)
- #  define MEDIA_LNK_FL_DATA_LINK		(0U << 28)
--- 
-2.47.3
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
+> ---
+>  drivers/media/i2c/imx219.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+> index cbd151d4af5f..89061dc1842d 100644
+> --- a/drivers/media/i2c/imx219.c
+> +++ b/drivers/media/i2c/imx219.c
+> @@ -72,7 +72,7 @@
+>
+>  /* V_TIMING internal */
+>  #define IMX219_REG_FRM_LENGTH_A                CCI_REG16(0x0160)
+> -#define IMX219_FLL_MAX                 0xffff
+> +#define IMX219_FLL_MAX                 0xfffe
+>  #define IMX219_VBLANK_MIN              32
+>  #define IMX219_REG_LINE_LENGTH_A       CCI_REG16(0x0162)
+>  #define IMX219_LLP_MIN                 0x0d78
+> --
+> 2.47.3
+>
