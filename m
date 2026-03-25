@@ -1,55 +1,55 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80B953A6F04
-	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 10:58:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9C935A3B7
+	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 10:58:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774436323; cv=none; b=BgsPvce6pylOX1JJ6FJzuQqOCztxLFIv7Kz/hkj6F9BG6tFNhHLPInVjKJs1JHefyAhAMvYB7jUtECSE+iuL6cE8onwJHUwS6oI+1PVJxlnC6owkEcazbu8VqpB3eY4BabSHOtXwWA6C3cIMtRnkXZ/j6AnGs6He4UlVzqBfsBQ=
+	t=1774436324; cv=none; b=kdBcK8gqaOwhL07EvwtDvbXWi6HlJ3QXEuKMfSmOh5DRu/ubdVSl/oCAdP7Oy+O/GBN9SL/HiHtw0MiEMK03XRz4m4Gl9UglLYe83cofts7NZaCKjBDfcty62SSAfXWjkeak/W5F8WZHiv2bC90rM71FAmfy7jeOuncldubtxJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774436323; c=relaxed/simple;
-	bh=QJr3IO0NBhQN06ES4RQzVF/mhvyAkuI4PXtOR+OpcJQ=;
+	s=arc-20240116; t=1774436324; c=relaxed/simple;
+	bh=blCU1YDYTf+exv4TLHu/bS1Q1d5U1mSnefsRXOzKjdM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hEyDi/mI8vrMXrcKVwLiP85CMw0zB0vJqBLONQ4cBMMWu4+TAsmQyHWhvMtcuFMVkA60KO9PMQDIwGkZXe+AVdmoxWL6M+/56gtGiAVn6KEDDv58qN2lJILnXrR7AbnLxTbGebQwrL065iI87DvG51ytfXDuVypwhNX8bKnCnEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lCRVMUO4; arc=none smtp.client-ip=192.198.163.19
+	 MIME-Version; b=ZxEGnfRyqbu6iY6TCbe3CHaKlxO9bDVahYsiZAPdfMrH6J8SOhWUCcUCWYUg4zQR9l8KGfQ1ltHh0l2EryPKwBET0XFlg0ybQIGUEPI2j8UhIeEuIRtZ672h7+s79+EvHOdMbWpQguOuN5VOvqeJKsybgWNmIcLyn204a8iJTQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=axOIaczJ; arc=none smtp.client-ip=192.198.163.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lCRVMUO4"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="axOIaczJ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774436323; x=1805972323;
+  t=1774436324; x=1805972324;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=QJr3IO0NBhQN06ES4RQzVF/mhvyAkuI4PXtOR+OpcJQ=;
-  b=lCRVMUO4ssUGA6qnY6yflKQgrtMm+KGgRW5TlQLmQCVeaOAJv+aenHdS
-   xKoGBe2s3LEzBZsnJ9Q/FVL3TmmGI49AhIbCALinEmGWc9Lau4hUeOJfM
-   3qUVHnx3Q34wYeCL8amcRn5s1ocwjlc6QjW9c2SvE/XbiXyvxD9lyMTzF
-   +ojcc0QzKmQKP0VC62CtAGD9f2Eafwxf45GNHBNEye3TZWXcBFJS9Kt4Z
-   CARlYHcNt/ei3UwkuZxiVduVRW9VxweHfLtVXaAs+wx0Em/aMZR30oZh3
-   mP4cHiXXmI9NtiivtoemXeFGi5KmS9oAIi1gMOJSPdDtE2HSe092wzg5k
-   w==;
-X-CSE-ConnectionGUID: A6qPSlZRSca+9BSetN6KOg==
-X-CSE-MsgGUID: sxMKCTYVQGaOiPRn3YpkYw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="74496305"
+  bh=blCU1YDYTf+exv4TLHu/bS1Q1d5U1mSnefsRXOzKjdM=;
+  b=axOIaczJRmsgeVqOB5InUuooGgpqhfmeKiDf3xQZldsVLsgp5CSsYaT8
+   2D1io+RT1fpwWUdeVHm99v3+VK5x1R7xwwhboI5E6ordFBoVE6SYrzofa
+   eDZEslqyXoMKuqlvgMHH8+wodaovXlmfAIwn5lCLO4icq0ugT86hVGnDq
+   t061VHh2JUjZHaVo9SwP7LdeerS0dQ9Bbcy2fph8J/HxbjB8kfhoz8CRL
+   TqFgQ8WJTGqT/dX7o2wJGRjcuEnwzWjxoEfQ7TzsSgbpl9YnOycTC1UXz
+   oBmRIW1XAu5PMFlAWwGet9fPJQv7CRf+MuDKtHyqUJQTGE2iyQhvtIYEO
+   Q==;
+X-CSE-ConnectionGUID: S1mB9GYbTyKDt82FMbO+Lw==
+X-CSE-MsgGUID: AweZLLhSRuuWzBa/qnGg8A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="74496293"
 X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="74496305"
+   d="scan'208";a="74496293"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
   by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:41 -0700
-X-CSE-ConnectionGUID: 71xYAD/OThiuYbhrvNWZqA==
-X-CSE-MsgGUID: 9QZ63VWDSfKtp/JFa1Mg1A==
+X-CSE-ConnectionGUID: Fns5N9jWSf246+3SFbbPSw==
+X-CSE-MsgGUID: o7AT9QVgQvOUivZlvj7XVg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="221763481"
+   d="scan'208";a="221763475"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.64])
   by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:35 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id AB120122422;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 873AA121D53;
 	Wed, 25 Mar 2026 12:58:30 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1w5LwJ-00000004wAl-0XGe;
-	Wed, 25 Mar 2026 12:58:19 +0200
+	id 1w5LwI-00000004wAB-46IY;
+	Wed, 25 Mar 2026 12:58:18 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: linux-media@vger.kernel.org
@@ -81,9 +81,9 @@ Cc: hans@jjverkuil.nl,
 	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>
-Subject: [PATCH v3 14/22] media: uapi: Bump the STREAMS bit a little
-Date: Wed, 25 Mar 2026 12:58:11 +0200
-Message-ID: <20260325105818.1176816-16-sakari.ailus@linux.intel.com>
+Subject: [PATCH v3 06/22] media: imx219: Don't update exposure limits while setting format
+Date: Wed, 25 Mar 2026 12:58:02 +0200
+Message-ID: <20260325105818.1176816-7-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
 References: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
@@ -95,33 +95,46 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Bump the V4L2_SUBDEV_CAP_STREAMS by one bit up, order to avoid confusing
-libcamera with streams that has moved forward from the original libcamera
-implementation. The bit can presumably be taken into use but only after
-the other free bits.
+Don't update exposure limits explicitly while setting format. This is
+already done through the s_ctrl() callback.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- include/uapi/linux/v4l2-subdev.h | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/media/i2c/imx219.c | 14 --------------
+ 1 file changed, 14 deletions(-)
 
-diff --git a/include/uapi/linux/v4l2-subdev.h b/include/uapi/linux/v4l2-subdev.h
-index 2347e266cf75..6160c3e21436 100644
---- a/include/uapi/linux/v4l2-subdev.h
-+++ b/include/uapi/linux/v4l2-subdev.h
-@@ -196,8 +196,11 @@ struct v4l2_subdev_capability {
- /* The v4l2 sub-device video device node is registered in read-only mode. */
- #define V4L2_SUBDEV_CAP_RO_SUBDEV		0x00000001
+diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+index a72630ad1561..ca6a5939773d 100644
+--- a/drivers/media/i2c/imx219.c
++++ b/drivers/media/i2c/imx219.c
+@@ -867,8 +867,6 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 	crop->top = (IMX219_NATIVE_HEIGHT - crop->height) / 2;
  
-+/* Reserved, old STREAMS bit libcamera used before API stabilisation. */
-+/* #define V4L2_SUBDEV_CAP_STREAMS_PRELIMINARY	0x00000002 */
-+
- /* The v4l2 sub-device supports routing and multiplexed streams. */
--#define V4L2_SUBDEV_CAP_STREAMS			0x00000002
-+#define V4L2_SUBDEV_CAP_STREAMS			0x00000004
+ 	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
+-		int exposure_max;
+-		int exposure_def;
+ 		int llp_min;
+ 		int pixel_rate;
  
- /*
-  * Is the route active? An active route will start when streaming is enabled
+@@ -887,18 +885,6 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 		if (ret)
+ 			return ret;
+ 
+-		/* Update max exposure while meeting expected vblanking */
+-		exposure_max = mode->fll_def - IMX219_EXPOSURE_OFFSET;
+-		exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
+-				exposure_max : IMX219_EXPOSURE_DEFAULT;
+-		ret = __v4l2_ctrl_modify_range(imx219->exposure,
+-					       imx219->exposure->minimum,
+-					       exposure_max,
+-					       imx219->exposure->step,
+-					       exposure_def);
+-		if (ret)
+-			return ret;
+-
+ 		/*
+ 		 * With analog binning the default minimum line length of 3448
+ 		 * can cause artefacts with RAW10 formats, because the ADC
 -- 
 2.47.3
 
