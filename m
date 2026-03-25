@@ -1,162 +1,128 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E951A683E
-	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 03:01:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774407716; cv=pass; b=LxP5ZlsbE01R02IBjh4Z6uUZd4yv60vzXje2hE23EdhG6n6vY5G+7Vo2uciODeWRnd8RTRdma04UgbYPOcS+clDdEMRe+LNaLIAceh74FHngC7hKxEAC1VXuT3Jz3MHTN53UdEoKhQoQFlYA/Bj0C5HqN2kv+yN7lk7xDdjb6ro=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774407716; c=relaxed/simple;
-	bh=c8uuQfVRa+Dt+o2XGFI5BzuN2KZpr2uZGIJvoO2A35M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sEVQVjJVU7Yl1hQXPPq8y4GSOKQz3cvL6vP4S2f1bgdl3MEjGhooJrBSX4XanDjYa3lntmwH3bF8CysHrno8odJD1UTuo7tOaX+VHbiiweYNcQ2e1D22A45qcCWM46TNlwS22ilFK3x4mGn5BwoylU+l6lpwiNMQy9VPpldNKRI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hDuegeE2; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=aXxXvFH6; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B689182D0;
+	Wed, 25 Mar 2026 03:58:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774411132; cv=none; b=RJNy3fDNbLnC+BTR2S9u+Sjei9sE5/Mvo51nu6nC+QDngD3hJ4+72KjDjHZTVScjXnELJxAY884NEjI2dtxsG8dg+Wp9QGumo89PVy6EVHwnYLL4fFD/te4ljiHsVSIN/9JK3VEl6u8kJKwtG94rfsJqg0WPflUGYT/z9v6WZZ0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774411132; c=relaxed/simple;
+	bh=ewGqWnyweb8vsGwXxtVETWjGmYpEUMuFYGxFZ39IMhY=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mrsMJeq320KOb9ATUOXR71Y/d40gJEl72Zyj+VXf7mfKFjm7ooXg77W6/EOF4+Tq6+q6WDhu09bBlz850nNAWK+Ih7RMZJJSnKP3pbtrEOfI/K2XVWMLh/xALJa6P2tfxhMBnnC+x+42PmsJAe0QOoUzFQtzq0S1vbqxrEvr75Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=mmp+ADqu; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hDuegeE2";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="aXxXvFH6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1774407714;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CwLuChi8C3fBUa0FAgkm09m+GW65kdJiiEE5BuFjeoc=;
-	b=hDuegeE2ps4W+4O+Jy2L6XkSBqJa7cIw/brR3aRYx5relUu8EFjyeKFHL5HuUlGxpH7SqE
-	7DEYzr8o7rSdsj3UvbRvqIIplccEfUQQxItWDTeSxY7EOb16wSGSAWIsLrhbwWEUxDfG0N
-	RXGEgYZ6JImhyrGSrrxg1Q7sNrvWEKk=
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
- [209.85.167.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-378-NJ-HIfRHOxGiGxRolcmh3A-1; Tue, 24 Mar 2026 23:01:52 -0400
-X-MC-Unique: NJ-HIfRHOxGiGxRolcmh3A-1
-X-Mimecast-MFC-AGG-ID: NJ-HIfRHOxGiGxRolcmh3A_1774407712
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-46a0a8fb1cfso10257708b6e.0
-        for <linux-media@vger.kernel.org>; Tue, 24 Mar 2026 20:01:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774407711; cv=none;
-        d=google.com; s=arc-20240605;
-        b=gjWRzOexhbjxJcLkwiKe0vNQzONnGq0YHOMduvP76TPE5GZlMD9YcGWHdZsYTBqtHV
-         5/TzDuots1bgAN9BJIDlFaLsQYVxnA3pYrmvDAmeZVfD38PFovAucy/s1SftukaNXq17
-         BrxrRac1dFVbheb2kDdXiyPkAVq6vPDuMR2hJTycf1FoI2Qx3DwoORtGhHNcjh4UpUkk
-         KM4zDmPXA1M7MGsInbn+WvsI19beU3ZN9VDvBm+tOGEWzaS9r6oS0h7xOFJ3oreqd06Z
-         K0W4C/JREKuwy38edZzN7tRNib0o0j5hpabhp0jhaB6i4rzYqxCD40ddhnVAos/Dcied
-         1jPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CwLuChi8C3fBUa0FAgkm09m+GW65kdJiiEE5BuFjeoc=;
-        fh=XY7U/4ldB7wAlIlywCcl1595XnB1LBb2HQImoS2Los8=;
-        b=BVHGt4cupr5kDtvSXsOoLv3lW2bxx0M+K/Ie7IudX4ttUo6NLSG/vGqeO8x9OI+mSq
-         mfyuOQzdrGN2RrgCOLsu7Z7w44zj0HL8zodrJrSqTCItf42WLpSKpIgMzXpKb+6jBYdF
-         nBQyCoUqCRVM6+YYsNegSb3ehqXTHHqAybeNtQ5/J6BQWgYI8yAxnjEY/0HixpjwuIHk
-         QBmVYDdTMitCeG89vsw2h5u79pLAi2zd5WJIc1d/gtPosWybM7m6IycDV3wnom+p8xXn
-         vTbaM/zjcXGHWKB2W9yppFLHZb3Vx852TgwD9WtPNIU4t4te4t9hwACvb4LmcthK1BND
-         NVTA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1774407711; x=1775012511; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CwLuChi8C3fBUa0FAgkm09m+GW65kdJiiEE5BuFjeoc=;
-        b=aXxXvFH60M+TTo2ZQcoNQ6Pc39uxCMtWCrJFEzPT0W5Rqkp+xp2uH5NJ8CiRf2Rsoa
-         w9EtzTf/bEhLwlPsaLYGhVjZdONoJPz5LGwtepTz+YYqkhdu6UsTc5A6mKivuf6JPTpR
-         ofw4M1l6aVYDyeXhtQX+VHJaaj+4c9OtjwHFLIc1TNsrFmZYluQdD70g0+JsV/lNRkKI
-         6SdXifwb2zfUvkCvkEMyl+slQ9wwbHfXoQZsSFTxbLtgdMEbY3mk2S48Zj9b+gvleOr5
-         nv3CYHttaaqhTrgU7DqoyrlwYcaaLPwJKi0hNLQFCBxQy2SnChkRyNsZo9npfn5usKQ5
-         l8fQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774407711; x=1775012511;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=CwLuChi8C3fBUa0FAgkm09m+GW65kdJiiEE5BuFjeoc=;
-        b=YP/dqpalYBQtH2jvn0myLaZ/MSVDkSQ+osbp+qYkvuRTowmoXxLVVC+3PqmsQOUvcl
-         ORKnstqTIew3Y6jcBEypkR2knhhzmGmCBqYZ9m0FBEyEAeTYZDqlUzUkCF1eqbvtWCUJ
-         bqXogvT2/0LqUNnp+B8rwvwmLNp3XINBLcJfw+DpGa8Ae0nEro4Q2qFkX4PP4iwz8zZS
-         YehPjOUTOIOX0UB9HMyVpGaimuq3IbiYrAFXPSbmw0KXVBjAHvvQWIQ6GUbvGiTWXGwh
-         6nipFUvipgo/9SxLZ2TRRzmOxjuTLjjpTPT8LwmLetDMKo0Nn8mOC4s9c2hCyS0YNzx0
-         UMsQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWQvXNyrFKxVQTNja0datRXyNlH2FbDbs6BN/wxz9rY4I0ZT+AlrhlERiNmi7v1mJPBWNQQ9m0rOwrKUw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxbaLg0vEfGLz5djUdh5EueFRPOd97Qna2APcGBcPHSZ+vXUG6W
-	S+O6s6UoFwbpa3mUeyY+p2dEZYpdiczS2t4U9zmyxaOVk7Ex9xNdeW1a7/SUJ36NPlP/k/OKNhr
-	xGh7W+vzF15Zj1juOeLsdjVo/ubs3dpeyXJMiK+yl1JMzCjwhMg6Dvm0pp/pYFUZ6Un5h9REBNE
-	FNZ1S5lq7Tzg2vmmHJZHJfVa6kCrqO91SQpQ3T213Zvbt6VSQ=
-X-Gm-Gg: ATEYQzw3xBGH/86E6gvMtj393n6t5SCMHQQb8lIBknG+DWerqYRyGM1n6Zgd1WH/4TV
-	NDJ6X9PTshUCK6WdtxLWoz0+XPG0yeLN23gPW2FqqhF2FMGkEqMeD3JeEnOvZZJ/7i5RAdz9AZa
-	gbVKO7xShwpRmyJYdCcA80ajKEaRtAliLgHqcV+7Oz+UOEaGUef1LkshI72Kz4NYK9ZfzabTK5Q
-	08JmA==
-X-Received: by 2002:a05:6808:c166:b0:45f:434:9c1c with SMTP id 5614622812f47-46a5c5a5decmr842827b6e.12.1774407711401;
-        Tue, 24 Mar 2026 20:01:51 -0700 (PDT)
-X-Received: by 2002:a05:6808:c166:b0:45f:434:9c1c with SMTP id
- 5614622812f47-46a5c5a5decmr842819b6e.12.1774407711035; Tue, 24 Mar 2026
- 20:01:51 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="mmp+ADqu"
+X-UUID: ebb4d78227fe11f1a02d4725871ece0b-20260325
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=PsFnUndvokLgegb2ZHoPiKDdXphFCn+7q1JGafzTybE=;
+	b=mmp+ADqupn7AVng0QcpmZ8bR6IngBivfq7V5rOcQW15NXbskt6r4nEnMobEjCcYG/vNmCJTRa6EMVVw/yfAERDYTQniM8SOEjqdrjUS2svYWRfqFkaToqO/aBv7SM+8RA5Nt8SxgNCFRrM4cPVYcDlIPb796kXx6eYDNRsRZhwE=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:95a0c574-3fde-4500-a180-a6eb5b7c199c,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:e7bac3a,CLOUDID:a43faa8e-6df4-4a3d-a7a4-fbdc42d669ce,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|888|898,TC:-5,Content:
+	0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI
+	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: ebb4d78227fe11f1a02d4725871ece0b-20260325
+Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw01.mediatek.com
+	(envelope-from <jason-jh.lin@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1952398773; Wed, 25 Mar 2026 11:58:45 +0800
+Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
+ MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 25 Mar 2026 11:58:44 +0800
+Received: from mtksitap99.mediatek.inc (10.233.130.16) by
+ mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Wed, 25 Mar 2026 11:58:44 +0800
+From: Jason-JH Lin <jason-jh.lin@mediatek.com>
+To: Jassi Brar <jassisinghbrar@gmail.com>, Chun-Kuang Hu
+	<chunkuang.hu@kernel.org>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Nicolas Dufresne
+	<nicolas@ndufresne.ca>, Mauro Carvalho Chehab <mchehab@kernel.org>
+CC: Matthias Brugger <matthias.bgg@gmail.com>, Jason-JH Lin
+	<jason-jh.lin@mediatek.com>, Nancy Lin <nancy.lin@mediatek.com>, Singo Chang
+	<singo.chang@mediatek.com>, Paul-PL Chen <paul-pl.chen@mediatek.com>, Moudy
+ Ho <moudy.ho@mediatek.com>, Xiandong Wang <xiandong.wang@mediatek.com>,
+	Sirius Wang <sirius.wang@mediatek.com>, Fei Shao <fshao@chromium.org>,
+	Chen-yu Tsai <wenst@chromium.org>,
+	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
+	<linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+	<linux-mediatek@lists.infradead.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-media@vger.kernel.org>, CK Hu <ck.hu@mediatek.com>
+Subject: [PATCH v2 3/5] drm/mediatek:Use reg_write function pointer for subsys ID compatibility
+Date: Wed, 25 Mar 2026 11:57:40 +0800
+Message-ID: <20260325035836.2110757-4-jason-jh.lin@mediatek.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20260325035836.2110757-1-jason-jh.lin@mediatek.com>
+References: <20260325035836.2110757-1-jason-jh.lin@mediatek.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260323071647.38086-1-hpa@redhat.com> <0532e7b1-b3c5-4bb3-80e4-76db00c385ea@kernel.org>
- <acKREpGPr1J_1Oaj@kekkonen.localdomain> <63e50918-60d3-4a01-b28d-77c8580f1260@kernel.org>
-In-Reply-To: <63e50918-60d3-4a01-b28d-77c8580f1260@kernel.org>
-From: Kate Hsuan <hpa@redhat.com>
-Date: Wed, 25 Mar 2026 11:01:39 +0800
-X-Gm-Features: AQROBzBc1nb4vq06OBlhAszo3eugTasLyVRwQ5jIaDuXSbKDTqraSmhFcUrqkmM
-Message-ID: <CAEth8oF=qr4KAOSRU29n5DOhaAAo=VH9gfp7r25n0vwkuhfduA@mail.gmail.com>
-Subject: Re: [PATCH v12] media: Add t4ka3 camera sensor driver
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <johannes.goede@oss.qualcomm.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Hans de Goede <hansg@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-Hi Hans,
+Switch to reg_write and reg_write_mask function pointers for register
+access, enabling compatibility with platforms regardless of subsys ID
+support.
 
-On Tue, Mar 24, 2026 at 9:48=E2=80=AFPM Hans Verkuil <hverkuil+cisco@kernel=
-.org> wrote:
->
-> On 24/03/2026 14:26, Sakari Ailus wrote:
-> > Hi Hans,
-> >
-> > On Tue, Mar 24, 2026 at 02:17:38PM +0100, Hans Verkuil wrote:
-> >> I'm missing an entry for the MAINTAINERS file.
-> >
-> > Thanks for noticing. I already picked this and it's in a PR... there ar=
-e a
-> > few other (minor) remaining matters, too, which I asked Kate to address=
- on
-> > a follow-up patch. Would it be ok to address these at the same time, af=
-ter
-> > the driver is merged?
-> >
->
-> I prefer to have the MAINTAINERS entry before I merge this driver. Other
-> minor matters are fine for a follow-up patch, but a new driver shouldn't
-> be merged without the corresponding MAINTAINERS entry.
->
-> If Kate can post a patch for that entry tomorrow, and you Ack it, then I =
-can just
-> add it to the PR.
+Signed-off-by: Jason-JH Lin <jason-jh.lin@mediatek.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Reviewed-by: CK Hu <ck.hu@mediatek.com>
+---
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-I'll try to propose a new revision of the patch today to include the MAINTA=
-INER.
-
-Thank you :)
-
->
-> Regards,
->
->         Hans
->
-
-
---=20
-BR,
-Kate
+diff --git a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
+index 9672ea1f91a2..9ffb7761f680 100644
+--- a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
++++ b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
+@@ -72,8 +72,8 @@ void mtk_ddp_write(struct cmdq_pkt *cmdq_pkt, unsigned int value,
+ {
+ #if IS_REACHABLE(CONFIG_MTK_CMDQ)
+ 	if (cmdq_pkt)
+-		cmdq_pkt_write(cmdq_pkt, cmdq_reg->subsys,
+-			       cmdq_reg->offset + offset, value);
++		cmdq_reg->pkt_write(cmdq_pkt, cmdq_reg->subsys, cmdq_reg->pa_base,
++				    cmdq_reg->offset + offset, value);
+ 	else
+ #endif
+ 		writel(value, regs + offset);
+@@ -85,8 +85,8 @@ void mtk_ddp_write_relaxed(struct cmdq_pkt *cmdq_pkt, unsigned int value,
+ {
+ #if IS_REACHABLE(CONFIG_MTK_CMDQ)
+ 	if (cmdq_pkt)
+-		cmdq_pkt_write(cmdq_pkt, cmdq_reg->subsys,
+-			       cmdq_reg->offset + offset, value);
++		cmdq_reg->pkt_write(cmdq_pkt, cmdq_reg->subsys, cmdq_reg->pa_base,
++				    cmdq_reg->offset + offset, value);
+ 	else
+ #endif
+ 		writel_relaxed(value, regs + offset);
+@@ -98,8 +98,8 @@ void mtk_ddp_write_mask(struct cmdq_pkt *cmdq_pkt, unsigned int value,
+ {
+ #if IS_REACHABLE(CONFIG_MTK_CMDQ)
+ 	if (cmdq_pkt) {
+-		cmdq_pkt_write_mask(cmdq_pkt, cmdq_reg->subsys,
+-				    cmdq_reg->offset + offset, value, mask);
++		cmdq_reg->pkt_write_mask(cmdq_pkt, cmdq_reg->subsys, cmdq_reg->pa_base,
++					 cmdq_reg->offset + offset, value, mask);
+ 	} else {
+ #endif
+ 		u32 tmp = readl(regs + offset);
+-- 
+2.43.0
 
