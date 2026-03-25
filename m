@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D7F3C456B
-	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 10:58:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB8613C4574
+	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 10:58:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774436325; cv=none; b=IzbyPQYmuNka7vFMXMTWrRlpsuSd21Psvfg2+fu2ahCGfJrhYA2efXJ/GXavQGKP1UaVqSEEwA/J5+qTdqVEy8Rurr/Qq7kYqtR4PDCFsKci0wevvYO6vcfsvYi46vMSr7Wq25O+zt4S3i5M6P3CD74XZkpxThWVTdXpdWxmTOs=
+	t=1774436326; cv=none; b=Yai+u6DtbnsteMrNCdBpgu87uQgFCGtPbmGXwksWY3unAiChS5QHvGwHskGb3X1R7i4IRYZWIo/ZdjLZ61zBM0shoXY6/9GRNWIPyBSWiiPShzz8mhlKwXXDfOc96StDvgvxE6DSVW1BkgXLHE4LGRVLCVcflvrnSP1Nrekx83A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774436325; c=relaxed/simple;
-	bh=wYNnny9oXXzq29zZc10s3/tHyMrNU2YdK+d6JfinpMw=;
+	s=arc-20240116; t=1774436326; c=relaxed/simple;
+	bh=+qnSYt82nBFk0VGTnlxnFHBa7kXtdA9kCT7lSOsaas8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mlptgBuKw8yiZWDsdKeSNLw72z41nTjyEOPbgZHDbuq/ilvY/OLOH2r7aochsrYSqZc5U8jYMsiOcbY3b3C1XfYljioX5sWGoOvZETe40p1aW02TSyFxHcgWIAxIfZ4OGQSpi6q5vFmWlYjfoB283RKgiKfU6BHp9+hXMp6+uoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=i+KfVldV; arc=none smtp.client-ip=192.198.163.19
+	 MIME-Version; b=HAMr46tS6MdBoM5EVxFLAbsUQcJ5c9RuRsdt+0HvZrXKdgHaMm0ZYUNzqMzHZcBAP9vKQ6s/U35HDgPJBd+mnR6on2duWgM3ICH9OOG3ylVj3m39FPfiOYzJjZ2QedY33b2B/zgBfL0h3D3bQXP+9CUe+9pI1mnV3Q8lfD1AvbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NmeHu3LT; arc=none smtp.client-ip=192.198.163.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="i+KfVldV"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NmeHu3LT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774436324; x=1805972324;
+  t=1774436325; x=1805972325;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=wYNnny9oXXzq29zZc10s3/tHyMrNU2YdK+d6JfinpMw=;
-  b=i+KfVldV87jPBcrGU1mFwv/4eJzVwUH1+yPhawPF4PwjJZUoPUYhv60F
-   cbqHJUmbTsAyzZgPf00qckY5XiFUNqWHMjFbqvUWdH2WD5NeNgFJsGjMV
-   IiHLlq2IiBuZuRLsnY1UNXrpA60F0FRVTku5sDcGhCknTaPfxwg0uzH9x
-   fkBcz0uSjINXgMy1BSTyAaTYbyst3bIyQRnfEI7Mv/AzJsGw+KLpgrzjg
-   Fgn9CY1fqGX8lMyv1/JhX3r3FtTrY3HBVO2Gt2ClZjlS/GsjPzkad51kT
-   9N5GuAfbJ2GNNrx3h57auA3s5eNgpe9BblaiqGmKxg+xbkj/+ScdInIYm
-   g==;
-X-CSE-ConnectionGUID: KQeGAyNNTnC0gRBHXdQFUA==
-X-CSE-MsgGUID: C3Ne9MBGTXmYxr2jAcaB/g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="74496317"
+  bh=+qnSYt82nBFk0VGTnlxnFHBa7kXtdA9kCT7lSOsaas8=;
+  b=NmeHu3LTDfxOXFB/hUAT/zRnLmWAvTSGvFVV4PxG3Ss87BYvgiNxyDgi
+   SbhGVljt4oJGn2Wn++2FEs/Lg8SFdQSoX+NeJ+4Ac427wlAwIpQhtGHXH
+   XYBMl+YzSi9/WjgCpWN28EF/TDgZZdFGAKopdCMjdOvIk05rZUMZ9+Xnj
+   QOI3OsfscmHn/dsemTJB4asMsxd2sW0GOlTTiW8+nUJMUQvI++i1xsxzo
+   9eiK0616uF6qw3m5rAyMVzfycbTn/Wx2vDzJovgmtW1eDOtIPN5vECLrH
+   DTwkpZPPg1rVSIfI236OD73pg0DqRmexDthP7KWkEQyhX5EsrhtNfQD/+
+   Q==;
+X-CSE-ConnectionGUID: FbrTqfkCR8acNeTANwC/qg==
+X-CSE-MsgGUID: xWJHRUpCTFWVbBU1wecbZg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="74496329"
 X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="74496317"
+   d="scan'208";a="74496329"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
   by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:42 -0700
-X-CSE-ConnectionGUID: 3ENSlRd8RY2kpnturKJyZQ==
-X-CSE-MsgGUID: Z4Z6ROMWRX6LQtAwhoQTUg==
+X-CSE-ConnectionGUID: vJ+Z+jw4QFWaf+OVdJb2IA==
+X-CSE-MsgGUID: vi0DAftlScqNxdQpzHrNQg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="221763482"
+   d="scan'208";a="221763485"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.64])
   by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:35 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 8F043121DB7;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 98252121E4C;
 	Wed, 25 Mar 2026 12:58:30 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1w5LwJ-00000004wAJ-02RI;
+	id 1w5LwJ-00000004wAR-0APL;
 	Wed, 25 Mar 2026 12:58:19 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -81,9 +81,9 @@ Cc: hans@jjverkuil.nl,
 	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>
-Subject: [PATCH v3 08/22] media: Documentation: Improve LINK_FREQ documentation
-Date: Wed, 25 Mar 2026 12:58:04 +0200
-Message-ID: <20260325105818.1176816-9-sakari.ailus@linux.intel.com>
+Subject: [PATCH v3 10/22] media: v4l2-subdev: Refactor returning routes
+Date: Wed, 25 Mar 2026 12:58:06 +0200
+Message-ID: <20260325105818.1176816-11-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
 References: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
@@ -95,46 +95,87 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a reference to the LINK_FREQ control and clarify the meaning of the
-control as for C-PHY the matter is less obvious.
+Refactor returning the routes by adding a new function that essentially
+does a memcopy and sets the number of the routes in the routing table.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- Documentation/driver-api/media/tx-rx.rst                      | 3 ++-
- .../userspace-api/media/v4l/ext-ctrls-image-process.rst       | 4 +++-
- 2 files changed, 5 insertions(+), 2 deletions(-)
+ drivers/media/v4l2-core/v4l2-subdev.c | 34 +++++++++++++--------------
+ 1 file changed, 16 insertions(+), 18 deletions(-)
 
-diff --git a/Documentation/driver-api/media/tx-rx.rst b/Documentation/driver-api/media/tx-rx.rst
-index 22e1b13ecde9..7df2407817b3 100644
---- a/Documentation/driver-api/media/tx-rx.rst
-+++ b/Documentation/driver-api/media/tx-rx.rst
-@@ -93,7 +93,8 @@ where
-    * - variable or constant
-      - description
-    * - link_freq
--     - The value of the ``V4L2_CID_LINK_FREQ`` integer64 menu item.
-+     - The value of the :ref:`V4L2_CID_LINK_FREQ <v4l2-cid-link-freq>` integer64
-+       menu item.
-    * - nr_of_lanes
-      - Number of data lanes used on the CSI-2 link.
-    * - 2
-diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
-index 6d516f041ca2..ee88933256dd 100644
---- a/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
-+++ b/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
-@@ -24,7 +24,9 @@ Image Process Control IDs
- .. _v4l2-cid-link-freq:
+diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+index 831c69c958b8..f8fde395a53a 100644
+--- a/drivers/media/v4l2-core/v4l2-subdev.c
++++ b/drivers/media/v4l2-core/v4l2-subdev.c
+@@ -629,6 +629,19 @@ subdev_ioctl_get_state(struct v4l2_subdev *sd, struct v4l2_subdev_fh *subdev_fh,
+ 			     v4l2_subdev_get_unlocked_active_state(sd);
+ }
  
- ``V4L2_CID_LINK_FREQ (integer menu)``
--    The frequency of the data bus (e.g. parallel or CSI-2).
-+    The fundamental frequency of the operating symbol rate (serial interfaces
-+    such as CSI-2) or the sampling rate (parallel interfaces such as DVP or
-+    Bt.565) of the data interface.
++static void copy_routes_state_to_routing(struct v4l2_subdev_routing *routing,
++					 const struct v4l2_subdev_state *state)
++{
++	struct v4l2_subdev_route *routes =
++		(struct v4l2_subdev_route *)(uintptr_t)routing->routes;
++	u32 copy_routes = min(routing->len_routes, state->routing.num_routes);
++
++	for (u32 i = 0; i < copy_routes; i++)
++		routes[i] = state->routing.routes[i];
++
++	routing->num_routes = state->routing.num_routes;
++}
++
+ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 			    struct v4l2_subdev_state *state)
+ {
+@@ -1000,7 +1013,6 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
  
- .. _v4l2-cid-pixel-rate:
+ 	case VIDIOC_SUBDEV_G_ROUTING: {
+ 		struct v4l2_subdev_routing *routing = arg;
+-		struct v4l2_subdev_krouting *krouting;
  
+ 		if (!v4l2_subdev_enable_streams_api)
+ 			return -ENOIOCTLCMD;
+@@ -1010,13 +1022,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 
+ 		memset(routing->reserved, 0, sizeof(routing->reserved));
+ 
+-		krouting = &state->routing;
+-
+-		memcpy((struct v4l2_subdev_route *)(uintptr_t)routing->routes,
+-		       krouting->routes,
+-		       min(krouting->num_routes, routing->len_routes) *
+-		       sizeof(*krouting->routes));
+-		routing->num_routes = krouting->num_routes;
++		copy_routes_state_to_routing(routing, state);
+ 
+ 		return 0;
+ 	}
+@@ -1084,11 +1090,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 		 * the routing table.
+ 		 */
+ 		if (!v4l2_subdev_has_op(sd, pad, set_routing)) {
+-			memcpy((struct v4l2_subdev_route *)(uintptr_t)routing->routes,
+-			       state->routing.routes,
+-			       min(state->routing.num_routes, routing->len_routes) *
+-			       sizeof(*state->routing.routes));
+-			routing->num_routes = state->routing.num_routes;
++			copy_routes_state_to_routing(routing, state);
+ 
+ 			return 0;
+ 		}
+@@ -1102,11 +1104,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 		if (rval < 0)
+ 			return rval;
+ 
+-		memcpy((struct v4l2_subdev_route *)(uintptr_t)routing->routes,
+-		       state->routing.routes,
+-		       min(state->routing.num_routes, routing->len_routes) *
+-		       sizeof(*state->routing.routes));
+-		routing->num_routes = state->routing.num_routes;
++		copy_routes_state_to_routing(routing, state);
+ 
+ 		return 0;
+ 	}
 -- 
 2.47.3
 
