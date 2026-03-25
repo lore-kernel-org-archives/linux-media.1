@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0193B19A3
-	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 10:58:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C28B39FCA2
+	for <linux-media@vger.kernel.org>; Wed, 25 Mar 2026 10:58:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774436318; cv=none; b=luoSS9HqQ6ynPgerOu0v65eGBUwkGs7VIFbSnVfi6IS6ksjBifWjKUyiHGf8Tvg3YQadGYvFFNnRPxC2NIqsAhL6lrX4inU0zccCnGHLfLKuqQ7KwR8vRILP25w/5Wqp1JTyDWpNMkulsDiEke9aBEoE3yTF8tbcLH2EZSy4I3k=
+	t=1774436320; cv=none; b=cmF6wIDRgitJe2R6nyhiIlpaxE5EGyCSyV4xtVI748xr2LIoGkzQkvmbqGMEGGxyJrNzhynxIdEL1IdOkUKmauOC58HOktdmk9sNU6b44UyZW0gdZ/Qqivkv+ABNuh7PNlRY2wqdIYRXijAFzBgvNvVh6VASaXdH393qxh15oiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774436318; c=relaxed/simple;
-	bh=zZiwcQs4wU0fDKP8GMwptrx18CX35FO/FOa2JWqSwrs=;
+	s=arc-20240116; t=1774436320; c=relaxed/simple;
+	bh=j+13JDSRgL3DT64HztntgxDNmEWh7wHGkzBzQE4MW/w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T9FTnHBd1aISlWsI6Zc958TWLFWz6TOXdYCLWIiG6YuhmE6hTf0dhpWmwtZTXJYr9W9LsN4c1/uyIe7LLYJ0ybd7ZEbLdZXIg5hLIfoFR/B7cyeV8HikoFuBTM5ZMMZuGfdUGrNkjW/cSxxv72aRTiQb7QFjX2i3TA17y0OsYKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=X6shmuRs; arc=none smtp.client-ip=198.175.65.20
+	 MIME-Version; b=OAc5uhC4E64eamYWy++GNtWzFciYnDuVAHmmRQ0KvGR+xx/c7XRmp8Vp+DmtXumeJ/YKpXIE6J1bvyFNonbv4pgx/rpdOf/yj6J9J1kcbTZuFT1K1O8lqsbjH3XW13hkbvPkcEwr3pbWsOF/iIN7eBvcUffcVNl8XQi1Sl9ABn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=H+DDiMob; arc=none smtp.client-ip=198.175.65.20
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="X6shmuRs"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="H+DDiMob"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774436315; x=1805972315;
+  t=1774436318; x=1805972318;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=zZiwcQs4wU0fDKP8GMwptrx18CX35FO/FOa2JWqSwrs=;
-  b=X6shmuRsMg5wuGfJ/au4wK6Ny9IlaFJ7S+2xJ3Epv0UZKvYfkoRgewhP
-   A4gv98DDWYoY0BjaMzAHxdYeGRKBj7SYY5BRjdJCNLFmzhqh0IkMn897h
-   D1txq+I8QrXJaElfV4bK1VmrVX2cxzgyM4AHE/WJVIX3RbkZ4l8XDyZDP
-   k0F1ny3CEbE4+F1lBxQDBvk/am65HsrpqrCE++f/MpkfwK0vaTz4zUWD8
-   ZGqEAkyMFs/aT3CE++5e0DaJYoXivO/XotN0VYXaXatX22TKfWcIXUFXO
-   J5yifzR5unSsNJEla8GbiWWrkuViCwmQecbXRfFuefmS1uG01xt5yM0iO
-   g==;
-X-CSE-ConnectionGUID: fX/HufgrRp+zmnDZaINVEw==
-X-CSE-MsgGUID: rTnRzCc3T66qfQYdtcxJhw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="75186738"
+  bh=j+13JDSRgL3DT64HztntgxDNmEWh7wHGkzBzQE4MW/w=;
+  b=H+DDiMobJBr4UDXq8vm7kwRJMwDhLof8TPck1/qz1h3uUrZBws+HOzKy
+   wInuhi2TJIuVEBIeJGBeQ0LYy3y5ftSQDlhOgaPfBtrARlSpEbbDp4wuZ
+   r7KQzpPfCCI0hpIBJNSDPXZzorUTVagHuGrUrDoo8C9umjSmruogUbJma
+   3W954SP0aGIs4fhnm0lLukqo4QIc8+GSYbO5eZeXhm/aaJCwPAc8QeInA
+   HhNGv81/ccjZopQULon4FHEi+S7Ns6DUrQfu9MEKXJUcTsgtQxWlKgl0v
+   m+LZkYkXj+S495HyCCzFX9DpLJYfZKmMPXP+FM8LhzWVew0f7spyGY5FP
+   w==;
+X-CSE-ConnectionGUID: XLKH9op2TJqENSXa8RZa2Q==
+X-CSE-MsgGUID: 2fz3Pr+7Rm6ajIo0m9UKGQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="75186762"
 X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="75186738"
+   d="scan'208";a="75186762"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
   by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:33 -0700
-X-CSE-ConnectionGUID: HKdq/t+JQzuS/AGxXjQ3Ow==
-X-CSE-MsgGUID: 2UzS2lKpRiOxwmvpy2wiAQ==
+X-CSE-ConnectionGUID: FQqDHhsQSuOhAfizrQaZ/Q==
+X-CSE-MsgGUID: 7TNTlRy6Su+1P5yVL+4lbw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; 
-   d="scan'208";a="262568550"
+   d="scan'208";a="262568555"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.64])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Mar 2026 03:58:27 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 79CBC121D1F;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 7A4A3121D20;
 	Wed, 25 Mar 2026 12:58:30 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1w5LwI-00000004w9v-3ner;
+	id 1w5LwI-00000004w9z-3sqT;
 	Wed, 25 Mar 2026 12:58:18 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -81,9 +81,9 @@ Cc: hans@jjverkuil.nl,
 	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>
-Subject: [PATCH v3 02/22] media: imx219: Fix maximum frame length in lines
-Date: Wed, 25 Mar 2026 12:57:58 +0200
-Message-ID: <20260325105818.1176816-3-sakari.ailus@linux.intel.com>
+Subject: [PATCH v3 03/22] media: imx219: Set horizontal blanking on mode change
+Date: Wed, 25 Mar 2026 12:57:59 +0200
+Message-ID: <20260325105818.1176816-4-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
 References: <20260325105818.1176816-1-sakari.ailus@linux.intel.com>
@@ -95,29 +95,64 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The driver used the maximum frame length in lines value of 0xffff, but the
-maximum appears to be 0xfffe instead. Fix it.
+The driver UAPI is mode-based, allowing the user to choose a mode from a
+small list based on the output size. The vertical blanking is set based on
+the mode, do the same for horizontal blanking so the frame rate obtained
+is constant.
 
-Fixes: 1283b3b8f82b ("media: i2c: Add driver for Sony IMX219 sensor")
-Cc: stable@vger.kernel.org
+Additinally, it's best to use a known-good horizontal blanking value as
+choosing the value freely may affect image quality. While the minimum
+value may not be the best value for horizontal blanking, at least it is
+constant rather than a minimum value of a different configuration.
+
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/i2c/imx219.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/i2c/imx219.c | 15 +++------------
+ 1 file changed, 3 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-index cbd151d4af5f..89061dc1842d 100644
+index 89061dc1842d..62a23541b1dc 100644
 --- a/drivers/media/i2c/imx219.c
 +++ b/drivers/media/i2c/imx219.c
-@@ -72,7 +72,7 @@
+@@ -837,11 +837,9 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 	struct v4l2_mbus_framefmt *format;
+ 	struct v4l2_rect *crop;
+ 	u8 bin_h, bin_v, binning;
+-	u32 prev_line_len;
+ 	int ret;
  
- /* V_TIMING internal */
- #define IMX219_REG_FRM_LENGTH_A		CCI_REG16(0x0160)
--#define IMX219_FLL_MAX			0xffff
-+#define IMX219_FLL_MAX			0xfffe
- #define IMX219_VBLANK_MIN		32
- #define IMX219_REG_LINE_LENGTH_A	CCI_REG16(0x0162)
- #define IMX219_LLP_MIN			0x0d78
+ 	format = v4l2_subdev_state_get_format(state, 0);
+-	prev_line_len = format->width + imx219->hblank->val;
+ 
+ 	/*
+ 	 * Adjust the requested format to match the closest mode. The Bayer
+@@ -882,7 +880,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
+ 		int exposure_max;
+ 		int exposure_def;
+-		int hblank, llp_min;
++		int llp_min;
+ 		int pixel_rate;
+ 
+ 		/* Update limits and set FPS to default */
+@@ -924,15 +922,8 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 					       llp_min - mode->width);
+ 		if (ret)
+ 			return ret;
+-		/*
+-		 * Retain PPL setting from previous mode so that the
+-		 * line time does not change on a mode change.
+-		 * Limits have to be recomputed as the controls define
+-		 * the blanking only, so PPL values need to have the
+-		 * mode width subtracted.
+-		 */
+-		hblank = prev_line_len - mode->width;
+-		ret = __v4l2_ctrl_s_ctrl(imx219->hblank, hblank);
++
++		ret = __v4l2_ctrl_s_ctrl(imx219->hblank, llp_min - mode->width);
+ 		if (ret)
+ 			return ret;
+ 
 -- 
 2.47.3
 
