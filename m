@@ -1,34 +1,35 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4434378821;
-	Fri, 27 Mar 2026 17:10:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E2D038B7DE;
+	Fri, 27 Mar 2026 17:10:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774631446; cv=none; b=r7BZSVCJXJUpRStegQWbWic9okfVZ1ic7d75eqpOWcka3atBo+slWltgKOKYxiabgz/fA6Uydp/4QMgYA+FPiJhpoNzTQ4VLyFwpSoXWNoZcsdJ3uLiPlgpYUSpGoHe7mMtrCxBNZuSNRt9NIKvCGzBhpkpbSCmiDRiT6UDw/DI=
+	t=1774631447; cv=none; b=JRoJMJF75UNF+yfFT8RRkTNivS6C7GT0zcZiCwXl78n9m3EKzqq4Dnzq2FM9UjXawjHY+HhQOa+bAv5YFRZEZBgmuqSRwz7BfDGmmtAyNHl+jFsM0e4NMwHszR8Q8XukSqs6bpOqFwyK1cbTTpI0k2zhWup+Sxm8q/cvOXXTRYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774631446; c=relaxed/simple;
-	bh=a8k3H7vZ9QOrPOBqIcGdLUleWexFOI1HoCBd5CaHisA=;
+	s=arc-20240116; t=1774631447; c=relaxed/simple;
+	bh=MxvJxr3tjV6KouUxD2dM4s/fwnpeEv5SUNCOEJn7yEM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nRUGVSXajbnaXjiDrTA0hcCwuEEiup3Vt2kVixtKgMJLAkUHwRmLXuclJlfD0pcxaFDE4QBv1ZaSsXxUqi9co1k4R3M483p++ccAPz2AthvWK0RKdto8Dfak3fWK8QwWlYzIgonVku+gG2AdCdoyM/iIq9oD8gMPY0Qmm/VbatE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=DqEtW8NE; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=aPgAVKpKqM56icO3KXe4zBUpDUlzuzyjKI3U9+JuWcK+UhCSQNxJvJJMk7BJJz0wone7PncpOu/x9HjWZ7vFVD/ZzjQ+hMN+QMR/tcd1fVuQLZuZrzbNWCsH9YcsMscOqwN/8azFbUg+SaJoIXBskyvKon0+0u62swc5ZlRbyKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=v3V8GpDl; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="DqEtW8NE"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="v3V8GpDl"
 Received: from [100.93.44.16] (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AAC323026;
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 146A52F85;
 	Fri, 27 Mar 2026 18:09:18 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1774631359;
-	bh=a8k3H7vZ9QOrPOBqIcGdLUleWexFOI1HoCBd5CaHisA=;
+	s=mail; t=1774631358;
+	bh=MxvJxr3tjV6KouUxD2dM4s/fwnpeEv5SUNCOEJn7yEM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=DqEtW8NEdbtdMfOResH6o7yEIloTBVRP96rQ42bEXIoRyw51O7DSRynynM0Jt92Js
-	 hL+QcoXzQ7cDQFxNTg1etOUrpz/ryzrncH/bDDDw54y1Art2w++dzA78Y/pnAxKgeP
-	 2u1iFVc3F3dRokoqyCO9WVYlVZ2MKeUsGdMJ1UD8=
+	b=v3V8GpDlH1fSVZ2TMvzlOEZC2H0pnThpOlEn0lm1ITi0V2iBeRxnmyg/6hiURhEGy
+	 l9OxspKHtS+1oQHNoRrMerE1t2HOpviLpnHfXBWoVVinL4C2MS1Bjke035oO9Sm9lM
+	 ilrFbQ2DT2B1LIjdMfJyL9dxJo6bROZkXoJZJwVI=
 From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Date: Fri, 27 Mar 2026 18:10:09 +0100
-Subject: [PATCH 04/14] media: rzg2l-cru: Use proper guard() in irq handler
+Date: Fri, 27 Mar 2026 18:10:08 +0100
+Subject: [PATCH 03/14] media: rzg2l-cru: Modernize spin_lock usage with
+ cleanup.h
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -37,7 +38,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260327-b4-cru-rework-v1-4-3b7d0430f538@ideasonboard.com>
+Message-Id: <20260327-b4-cru-rework-v1-3-3b7d0430f538@ideasonboard.com>
 References: <20260327-b4-cru-rework-v1-0-3b7d0430f538@ideasonboard.com>
 In-Reply-To: <20260327-b4-cru-rework-v1-0-3b7d0430f538@ideasonboard.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -53,161 +54,169 @@ Cc: Daniel Scally <dan.scally@ideasonboard.com>,
  Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
  Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4506;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4664;
  i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
- bh=ATRTxSt143KObiy2/iwP7rOhh1jLna5JlBP7Bra3N1Q=;
- b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBpxroJY93sZQXMvc6cia/Xr6dAfl1jjS4O2i9Iz
- h4ILolFg4qJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCaca6CQAKCRByNAaPFqFW
- PKAsEADAVLSzdAZXfV+LD0y7i5nwjxfvrUjL8bqmm0SBUtXx4XyYSlliVcE+kjRaUP1kjBvdhBK
- sQ/tDkVK526qpJq0XvAkUnQ4hJcWlDjEl6uFfae/BUCvf8iCAgveYualUkWVVSpPqyhvPxnwR+W
- A9r2KO/1Gup4zcedVSHN+p1BqqpJs8H28tuDZgCtH9yYDWXKJA4XX3Y3DS5F/d4nGclyXbVzkZM
- /c/R23Ja8LTxZ0/ZrBVYTULxzZ1Sz99RYBuTEWztJYMvXmu2u5hgBGNy072sgXcG7/A7IKMmZ52
- ARi9vIDVYhO91cVuSLHiw/ip9bHU0RFNI1CEoEbabAkczbHBYfT2Ldc1ABcueAAFrxP8YA0MEC6
- GSoileW9DXmTtPvVIySfksp9iSYXWmp925zyte+dFvfn2H6CIYO5FhQNVZeMsAFzKy3pZt04Flk
- 4h+2jqmVnPgvkPCf1QTLSW6jEQd/dTEjwi74F8crqbGvj5R92n5oGyQ5N9/qbH2L68n0XK2oy8X
- 9NeRpXZEIxhc40BTTv4YacwTDLIZGaPtRzObyDFSgstE66R0r+UmEflUewvwf716EBlF/8rpsaO
- /W6+Oki/dtvh+gU66JUbT3RPNglkPjatKgiZ9Gm7RKFETB1b8lpyUoutYN/CIPwU+/ls/kiC4HU
- ni7Hn2/WHY7Dbww==
+ bh=Kpy40z4eXxLX6E90WDM9lgvUSvCSjh+mGWRH1VWJQ6c=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBpxroJprL+CuO4cNzJ9I7F1LdJJgUKLrrUE3KbQ
+ QrW5cXQnzWJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCaca6CQAKCRByNAaPFqFW
+ PKowD/9M0GhE7CH5Xau+NbCq7FFFb6nPiD1QJj5y5qLpqN1Nx4EF/lOtUQJvcvBOD44kzsiPsVX
+ mow/4E0bkzHhhMD2Ur2oY01ia0l7I7KndONglXy5wg5C7Smo+xRoPbOiaEGDBg0mAz+AQzAqmE+
+ AR1P9/zpeW6OmRSFqdyobsS00F1IyLKH07de6aO0eDmL+SdEluBUajpQjsKWrkg5/+aF35N+Eyz
+ hFz/CyQSk21EpBEBPalIrIW9YEvQNLYjZZkS/YyczNAQrIPZhwsQXFFL99a0uD8lLe+7n20j8UA
+ C4kHpeJ9gZidgCvAq1Je8Q8wL9REtfK+sXMUqCpLCGsIefSyZwduyaRxJNLcRB836QCRAMbgu/G
+ ZOhPj3GIOEqAq0mBuSmUiTrFyAZ2TAC4bad4HaN+LnEMYuIrwxyQByN1zE0fUxnhH8x1SfO9oP+
+ 77jJQ0DE+fAelQHs3Kq9b2p5HiUliibdbMWpRAgvYkal42w/Fvrsw6hsz0DrU2jRjkX1N9gC6A7
+ fUvIE72oGkcFblDvh7cVxN6Wa75KkdTj0dQyiNi4G7YyNd9YrEZTRDpNRTh9wKtabrchJ+aMCAt
+ 87WYOkXv02rcNTRVjr7kpM+kTvgSy72Y5JZ61vVae0N5tzePJm8IcSA9XEdJs/QKfJSFZYUfs+Y
+ VO6M+iQBDnf9tTQ==
 X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
  fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 
 From: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
 
-The irq handler uses a scoped_guard() that covers the whole function
-body.
-
-Replace it with a more appropriate guard() and reduce the indentation.
+Use more modern constructs from cleanup.h to express the locking
+sequences in the rzg2l driver.
 
 Signed-off-by: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
 ---
- .../media/platform/renesas/rzg2l-cru/rzg2l-video.c | 104 ++++++++++-----------
- 1 file changed, 52 insertions(+), 52 deletions(-)
+ .../media/platform/renesas/rzg2l-cru/rzg2l-video.c | 32 +++++++---------------
+ 1 file changed, 10 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-index 2d7ac9f37291..b041c72837c6 100644
+index 98b6afbc708d..2d7ac9f37291 100644
 --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
 +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-@@ -671,70 +671,70 @@ irqreturn_t rzg3e_cru_irq(int irq, void *data)
- 	u32 irq_status;
- 	int slot;
+@@ -11,6 +11,7 @@
+  * Copyright (C) 2008 Magnus Damm
+  */
  
--	scoped_guard(spinlock, &cru->qlock) {
--		irq_status = rzg2l_cru_read(cru, CRUnINTS2);
--		if (!irq_status)
--			return IRQ_NONE;
-+	guard(spinlock)(&cru->qlock);
++#include <linux/cleanup.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/pm_runtime.h>
+@@ -110,10 +111,10 @@ static void return_unused_buffers(struct rzg2l_cru_dev *cru,
+ 				  enum vb2_buffer_state state)
+ {
+ 	struct rzg2l_cru_buffer *buf, *node;
+-	unsigned long flags;
+ 	unsigned int i;
  
--		dev_dbg(cru->dev, "CRUnINTS2 0x%x\n", irq_status);
-+	irq_status = rzg2l_cru_read(cru, CRUnINTS2);
-+	if (!irq_status)
-+		return IRQ_NONE;
- 
--		rzg2l_cru_write(cru, CRUnINTS2, rzg2l_cru_read(cru, CRUnINTS2));
-+	dev_dbg(cru->dev, "CRUnINTS2 0x%x\n", irq_status);
- 
--		/* Nothing to do if capture status is 'RZG2L_CRU_DMA_STOPPED' */
--		if (cru->state == RZG2L_CRU_DMA_STOPPED) {
--			dev_dbg(cru->dev, "IRQ while state stopped\n");
--			return IRQ_HANDLED;
--		}
-+	rzg2l_cru_write(cru, CRUnINTS2, rzg2l_cru_read(cru, CRUnINTS2));
- 
--		if (cru->state == RZG2L_CRU_DMA_STOPPING) {
--			if (irq_status & CRUnINTS2_FExS(0) ||
--			    irq_status & CRUnINTS2_FExS(1) ||
--			    irq_status & CRUnINTS2_FExS(2) ||
--			    irq_status & CRUnINTS2_FExS(3))
--				dev_dbg(cru->dev, "IRQ while state stopping\n");
--			return IRQ_HANDLED;
--		}
-+	/* Nothing to do if capture status is 'RZG2L_CRU_DMA_STOPPED' */
-+	if (cru->state == RZG2L_CRU_DMA_STOPPED) {
-+		dev_dbg(cru->dev, "IRQ while state stopped\n");
-+		return IRQ_HANDLED;
-+	}
- 
--		slot = rzg3e_cru_get_current_slot(cru);
--		if (slot < 0)
--			return IRQ_HANDLED;
-+	if (cru->state == RZG2L_CRU_DMA_STOPPING) {
-+		if (irq_status & CRUnINTS2_FExS(0) ||
-+		    irq_status & CRUnINTS2_FExS(1) ||
-+		    irq_status & CRUnINTS2_FExS(2) ||
-+		    irq_status & CRUnINTS2_FExS(3))
-+			dev_dbg(cru->dev, "IRQ while state stopping\n");
-+		return IRQ_HANDLED;
-+	}
- 
--		dev_dbg(cru->dev, "Current written slot: %d\n", slot);
--		cru->buf_addr[slot] = 0;
--
--		/*
--		 * To hand buffers back in a known order to userspace start
--		 * to capture first from slot 0.
--		 */
--		if (cru->state == RZG2L_CRU_DMA_STARTING) {
--			if (slot != 0) {
--				dev_dbg(cru->dev, "Starting sync slot: %d\n", slot);
--				return IRQ_HANDLED;
--			}
--			dev_dbg(cru->dev, "Capture start synced!\n");
--			cru->state = RZG2L_CRU_DMA_RUNNING;
--		}
-+	slot = rzg3e_cru_get_current_slot(cru);
-+	if (slot < 0)
-+		return IRQ_HANDLED;
- 
--		/* Capture frame */
--		if (cru->queue_buf[slot]) {
--			struct vb2_v4l2_buffer *buf = cru->queue_buf[slot];
--
--			buf->field = cru->format.field;
--			buf->sequence = cru->sequence;
--			buf->vb2_buf.timestamp = ktime_get_ns();
--			vb2_buffer_done(&buf->vb2_buf, VB2_BUF_STATE_DONE);
--			cru->queue_buf[slot] = NULL;
--		} else {
--			/* Scratch buffer was used, dropping frame. */
--			dev_dbg(cru->dev, "Dropping frame %u\n", cru->sequence);
-+	dev_dbg(cru->dev, "Current written slot: %d\n", slot);
-+	cru->buf_addr[slot] = 0;
+-	spin_lock_irqsave(&cru->qlock, flags);
++	guard(spinlock_irqsave)(&cru->qlock);
 +
-+	/*
-+	 * To hand buffers back in a known order to userspace start
-+	 * to capture first from slot 0.
-+	 */
-+	if (cru->state == RZG2L_CRU_DMA_STARTING) {
-+		if (slot != 0) {
-+			dev_dbg(cru->dev, "Starting sync slot: %d\n", slot);
-+			return IRQ_HANDLED;
- 		}
-+		dev_dbg(cru->dev, "Capture start synced!\n");
-+		cru->state = RZG2L_CRU_DMA_RUNNING;
-+	}
+ 	for (i = 0; i < cru->num_buf; i++) {
+ 		if (cru->queue_buf[i]) {
+ 			vb2_buffer_done(&cru->queue_buf[i]->vb2_buf,
+@@ -126,7 +127,6 @@ static void return_unused_buffers(struct rzg2l_cru_dev *cru,
+ 		vb2_buffer_done(&buf->vb.vb2_buf, state);
+ 		list_del(&buf->list);
+ 	}
+-	spin_unlock_irqrestore(&cru->qlock, flags);
+ }
  
--		cru->sequence++;
-+	/* Capture frame */
-+	if (cru->queue_buf[slot]) {
-+		struct vb2_v4l2_buffer *buf = cru->queue_buf[slot];
+ static int rzg2l_cru_queue_setup(struct vb2_queue *vq, unsigned int *nbuffers,
+@@ -165,13 +165,9 @@ static void rzg2l_cru_buffer_queue(struct vb2_buffer *vb)
+ {
+ 	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
+ 	struct rzg2l_cru_dev *cru = vb2_get_drv_priv(vb->vb2_queue);
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&cru->qlock, flags);
  
--		/* Prepare for next frame */
--		rzg2l_cru_fill_hw_slot(cru, slot);
-+		buf->field = cru->format.field;
-+		buf->sequence = cru->sequence;
-+		buf->vb2_buf.timestamp = ktime_get_ns();
-+		vb2_buffer_done(&buf->vb2_buf, VB2_BUF_STATE_DONE);
-+		cru->queue_buf[slot] = NULL;
-+	} else {
-+		/* Scratch buffer was used, dropping frame. */
-+		dev_dbg(cru->dev, "Dropping frame %u\n", cru->sequence);
++	guard(spinlock_irqsave)(&cru->qlock);
+ 	list_add_tail(to_buf_list(vbuf), &cru->buf_list);
+-
+-	spin_unlock_irqrestore(&cru->qlock, flags);
+ }
+ 
+ static void rzg2l_cru_set_slot_addr(struct rzg2l_cru_dev *cru,
+@@ -465,7 +461,6 @@ void rzg2l_cru_disable_interrupts(struct rzg2l_cru_dev *cru)
+ int rzg2l_cru_start_image_processing(struct rzg2l_cru_dev *cru)
+ {
+ 	struct v4l2_mbus_framefmt *fmt = rzg2l_cru_ip_get_src_fmt(cru);
+-	unsigned long flags;
+ 	u8 csi_vc;
+ 	int ret;
+ 
+@@ -475,7 +470,7 @@ int rzg2l_cru_start_image_processing(struct rzg2l_cru_dev *cru)
+ 	csi_vc = ret;
+ 	cru->svc_channel = csi_vc;
+ 
+-	spin_lock_irqsave(&cru->qlock, flags);
++	guard(spinlock_irqsave)(&cru->qlock);
+ 
+ 	/* Select a video input */
+ 	rzg2l_cru_write(cru, CRUnCTRL, CRUnCTRL_VINSEL(0));
+@@ -492,7 +487,6 @@ int rzg2l_cru_start_image_processing(struct rzg2l_cru_dev *cru)
+ 	/* Initialize image convert */
+ 	ret = rzg2l_cru_initialize_image_conv(cru, fmt, csi_vc);
+ 	if (ret) {
+-		spin_unlock_irqrestore(&cru->qlock, flags);
+ 		return ret;
  	}
  
-+	cru->sequence++;
-+
-+	/* Prepare for next frame */
-+	rzg2l_cru_fill_hw_slot(cru, slot);
-+
- 	return IRQ_HANDLED;
+@@ -502,8 +496,6 @@ int rzg2l_cru_start_image_processing(struct rzg2l_cru_dev *cru)
+ 	/* Enable image processing reception */
+ 	rzg2l_cru_write(cru, ICnEN, ICnEN_ICEN);
+ 
+-	spin_unlock_irqrestore(&cru->qlock, flags);
+-
+ 	return 0;
+ }
+ 
+@@ -573,16 +565,15 @@ irqreturn_t rzg2l_cru_irq(int irq, void *data)
+ {
+ 	struct rzg2l_cru_dev *cru = data;
+ 	unsigned int handled = 0;
+-	unsigned long flags;
+ 	u32 irq_status;
+ 	u32 amnmbs;
+ 	int slot;
+ 
+-	spin_lock_irqsave(&cru->qlock, flags);
++	guard(spinlock_irqsave)(&cru->qlock);
+ 
+ 	irq_status = rzg2l_cru_read(cru, CRUnINTS);
+ 	if (!irq_status)
+-		goto done;
++		return IRQ_RETVAL(handled);
+ 
+ 	handled = 1;
+ 
+@@ -591,14 +582,14 @@ irqreturn_t rzg2l_cru_irq(int irq, void *data)
+ 	/* Nothing to do if capture status is 'RZG2L_CRU_DMA_STOPPED' */
+ 	if (cru->state == RZG2L_CRU_DMA_STOPPED) {
+ 		dev_dbg(cru->dev, "IRQ while state stopped\n");
+-		goto done;
++		return IRQ_RETVAL(handled);
+ 	}
+ 
+ 	/* Increase stop retries if capture status is 'RZG2L_CRU_DMA_STOPPING' */
+ 	if (cru->state == RZG2L_CRU_DMA_STOPPING) {
+ 		if (irq_status & CRUnINTS_SFS)
+ 			dev_dbg(cru->dev, "IRQ while state stopping\n");
+-		goto done;
++		return IRQ_RETVAL(handled);
+ 	}
+ 
+ 	/* Prepare for capture and update state */
+@@ -621,7 +612,7 @@ irqreturn_t rzg2l_cru_irq(int irq, void *data)
+ 	if (cru->state == RZG2L_CRU_DMA_STARTING) {
+ 		if (slot != 0) {
+ 			dev_dbg(cru->dev, "Starting sync slot: %d\n", slot);
+-			goto done;
++			return IRQ_RETVAL(handled);
+ 		}
+ 
+ 		dev_dbg(cru->dev, "Capture start synced!\n");
+@@ -646,9 +637,6 @@ irqreturn_t rzg2l_cru_irq(int irq, void *data)
+ 	/* Prepare for next frame */
+ 	rzg2l_cru_fill_hw_slot(cru, slot);
+ 
+-done:
+-	spin_unlock_irqrestore(&cru->qlock, flags);
+-
+ 	return IRQ_RETVAL(handled);
  }
  
 
