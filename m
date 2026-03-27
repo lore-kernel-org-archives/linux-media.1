@@ -1,128 +1,103 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from sender4-pp-o94.zoho.com (sender4-pp-o94.zoho.com [136.143.188.94])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE4440F8DB
-	for <linux-media@vger.kernel.org>; Fri, 27 Mar 2026 18:31:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774636269; cv=none; b=WmxsSWFw+TSBfeang4TetSq+SZeaKdeyv4L6iZxjCiMhiN4ASOI3u2gX39C+sewEtVahXKKt0VAPvqyR+0sd3Uo6YSMCMO6gRIZ4B7q+ujOXPHMlwhXaQ+KbEJedpYyRlLMLfINqZg4B9jPjeD0tnCn+0+Gf9RLR8hbZCjXbB4E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774636269; c=relaxed/simple;
-	bh=Ifcn1AfKDzBS9qJI4NReDoaj23BTLnMBIwTJc8lvNR8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=abW9GERLtjOr8zg4374ffNgfXBwNjCXxiIahRt+Str4P9qx9V1YmIyfJMhO0WmiZAHcpdfIvtDKpLbOMVnZeHp8mYqmhtR1wMPyZS1b6an4Y8Zus2bOWIKp5z6C9MXYNmrcoA8s8zsYt5xcpS5TZvv+KAvkGtxQD8JmIirioNyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=as1TFFnn; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hWOJrg4W; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81933256C6C;
+	Fri, 27 Mar 2026 18:47:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.94
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774637273; cv=pass; b=q7dJk/neluHbchTqZUFTLkt3c4dkp/8ZSR/GMyEP1503XXyda5DdUK6ByEKiFlFKYNq2BiPZe5saxxcNbgKdJQzviuDzY5+qYD/nSWTSZ1V+cZFqvPnvclWr6GJhrM4JXmWUw+N72UXA4sVBl8xWOf3GjbAElEglSkH6r6Juu2U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774637273; c=relaxed/simple;
+	bh=+zLhFjmQDcbbt7AWjLmj5y51IOac2tCxLouPPcLnI8s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YCwkRXhihr+1S6hUCah2gARQ00eKuCfp1ORXe0NNQqWaoSIKwymPbYbKGKYq2/mFR0dt6THwH4G91hsTGvnT/8T/JskvfeHwLp8c2q/Sh5Um1aH0YyEV6K6lpI+NGPkjq1k2X/WJC8KjSj7WRqtMscyCNb3+08O2npFDLSEHamE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b=TrdolQ4+; arc=pass smtp.client-ip=136.143.188.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="as1TFFnn";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hWOJrg4W"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1774636267;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5iEHOk6nNhGlwlFUIMmU5iNZeSjQ/0MnQ4ckFaUEcIE=;
-	b=as1TFFnn0JHHMjtJg4dJTTcVliy1od8+udKlpqtOSxSKnKmYcaJjbG/AvAMTUrgZlNDqtw
-	9y5LyodoVCym1iXd3rmRZRY/vbe8u/iNQfrN83VfbNPZOIAOW+Cg8BZM7I+yuROYEF9jgU
-	wM0eiT/cqZi7qTsoju3K2BIPoZ6/THQ=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-519-PBr-1h3BNPm9AIGn96HCjg-1; Fri, 27 Mar 2026 14:31:05 -0400
-X-MC-Unique: PBr-1h3BNPm9AIGn96HCjg-1
-X-Mimecast-MFC-AGG-ID: PBr-1h3BNPm9AIGn96HCjg_1774636264
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-487219e0800so15031485e9.2
-        for <linux-media@vger.kernel.org>; Fri, 27 Mar 2026 11:31:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1774636264; x=1775241064; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=5iEHOk6nNhGlwlFUIMmU5iNZeSjQ/0MnQ4ckFaUEcIE=;
-        b=hWOJrg4WohUUK3Fnlxva9gAr2uq4/NpSSMXZrgZO16q9ZA8NMwtyQ6zrJkerI+5UPQ
-         Gqw14HW6iflgNmpE8TYN5eHQmE7wHKDLgwA9NvnJk+zGcKd5VKXFnPK0gCCtLCB7RUwy
-         VOCr/4NAh3YhyvBDe1mueRLD89iXHfl4DaResq2jW4O2ATETcxrL5OfLmp1DuRx5Ofw5
-         PfLj9mjVIQLzQoeGNqAn+8mXj+l84eEIVQvnpd1U5z4dHnUBOsbH6FcUYbdZu/1fSPz8
-         iKbyPdT0/8mOsl7l7SveyRQGsHm9mFzGBfHkGi2TGof/7VkqzX1JtEYByLtj1GFKji6G
-         w16w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774636264; x=1775241064;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=5iEHOk6nNhGlwlFUIMmU5iNZeSjQ/0MnQ4ckFaUEcIE=;
-        b=coyqPM/fUjrg3QYi1y5orjb629SUD7PW9w5+QOwd3Cj5qOeBK2xpJ5Oe/mELvTwKoA
-         gsru3/etCXarX8Nv/dPFgfJp65+p4TovJVN/QTHtOlH1n3O8wBgbADD8lVu+7nfgCrBA
-         7zMYN4MBVgBuaaSRf5P+p2LGsuVFt5PdXrwfxVJ56K4+ZZ4xyZm5Twpi0Rcv7uuQ99cG
-         JGuKo7zMDpLiJtefPIXE8qpw+VZ06hXlHn5CHqIjcZA98dXkubXc6rgsFedf0QQr/w+Z
-         b4FYWdro3WIlwlJjQyNZW/QJtZfv6hZhCOo2CmEHtlxm0mYfoo/Gs4bNr2uZ7Nd+MPe+
-         Rbbw==
-X-Forwarded-Encrypted: i=1; AJvYcCV4PHKIqJMH/rDSk42/c3WLswar0sBWKmsxZhCTX+G1SsdtANOwqfThzU8GVxaJP2RhiB3Rn1lKJrUydQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwJt4+vWgXudSQpj4Z+ZxNCIxRayXitLEe03KQ0BWDWV+rqSgI6
-	H4vRADj3OZHBqsV9E+/arPkhty7OA0e2GbRgPFYqzKmPHGz69Hvbzcol033S7jVGxKkbiMqClVT
-	hs5poFtY6VRS5F9YXoa4DO3ilqM26t1NWA9urrkbNu//LQY44DLP1FxC7VwgScjB0
-X-Gm-Gg: ATEYQzyJ8qbVOXnW50ZPfHabI0f9VuyhIIbhM2ywsY8pQCqCt/0+PUG9fGqq0xxnixe
-	JMbzgUxQ0Q2m7Nc8zilZOjlC4iegquPnJEbE1OPo/Mt/gsqRolFgC1u9YGBH3+WSM9zFUuIujvj
-	Y/6hXvhFYU44U6LcOUiPe9BlVPR18JC/HjjNw2lr+c/b+0adLZzHUGPOYPH7YQ1GfQ6kK7yCohB
-	PlSRGoNWtPkhnTV1qO6m1hsn5W7OHba59FjGtLM1DK+RIN2GGUOmKbvyAWMt6AVLTfrHKLkvAMM
-	/BPpYQ+tIfJmgRp+Skshys+qonmKGqWe6oLhhftzEXFLYoO1CE8Zo89PKWUZU6uDli7jKJ2f0VU
-	4c63/UEA2CBZoVLg0jHP7pD8YVMEAfSboCxOBl7w5yoFYuvPgvPbz475L
-X-Received: by 2002:a05:600c:4e08:b0:487:1fb4:7b3 with SMTP id 5b1f17b1804b1-48727ef0cc2mr62499395e9.23.1774636263740;
-        Fri, 27 Mar 2026 11:31:03 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e08:b0:487:1fb4:7b3 with SMTP id 5b1f17b1804b1-48727ef0cc2mr62498965e9.23.1774636263168;
-        Fri, 27 Mar 2026 11:31:03 -0700 (PDT)
-Received: from [192.168.88.32] ([216.128.11.222])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48722c9506dsm106101905e9.7.2026.03.27.11.31.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Mar 2026 11:31:02 -0700 (PDT)
-Message-ID: <b38d2d08-7ee3-4356-94b9-d9c885238cbf@redhat.com>
-Date: Fri, 27 Mar 2026 19:31:00 +0100
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b="TrdolQ4+"
+ARC-Seal: i=1; a=rsa-sha256; t=1774637264; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Wa0Z53itwQFqASrzKx8rouFn/yL36+kjWbjuYLxvYg15Ec0p/u7DRq+EXAI8A1Fs4oCA267gwiZyfK7vuOAvGmTVdGumQbM17ythpYXPd4nEc1sBI7Zt/YHCoM3Cj6VEccYu/v8ZOnNT+5OUdRR/nvGFgLhc0tb+3Xe9H/28VoE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1774637264; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Y7oh+a8faCMP0nn2EAP8q8UOeOBQTSgBhDx/Ls2KJr4=; 
+	b=mFu5RJfqmq8TW6AP01Jkd3/fYIzSKEqEv2aotQIzFEci0/6RPYRqO1INbwb+zGqkSk4HeeIUxXltJ7MmG/BrK0Oe+NxHMhOyFuqmjvn2Os+49LWaUxZIzasGtynoIfVjOhsdB53lUIWlIcSYNy7xNodp9D5theO/DMbBkiCpE6g=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
+	dmarc=pass header.from=<ming.li@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774637264;
+	s=zm2022; d=zohomail.com; i=ming.li@zohomail.com;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Feedback-ID:Reply-To;
+	bh=Y7oh+a8faCMP0nn2EAP8q8UOeOBQTSgBhDx/Ls2KJr4=;
+	b=TrdolQ4+1rO+JaByD0f/IPjIlmPfiouYzZCe/we3b/YH3rcNmJnb4b47PrV2INB4
+	T4u9GlEacILLaMlo+porIHSCdZ/S6+h6hHYbQHXwSxn7nXcSEMz6t9ajNsvb0ZCO5m+
+	V5St6yxmPuhoD96nPCwe8YKf2w7aw5yRuxKslb2Q=
+Received: by mx.zohomail.com with SMTPS id 1774637262091797.4127866298093;
+	Fri, 27 Mar 2026 11:47:42 -0700 (PDT)
+From: Li Ming <ming.li@zohomail.com>
+Date: Sat, 28 Mar 2026 02:47:24 +0800
+Subject: [PATCH RESEND] dma-fence: Dereference correct dma_fence in
+ dma_fence_chain_find_seqno()
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] octeontx2-af: add WQ_PERCPU to alloc_workqueue users
-To: Marco Crivellari <marco.crivellari@suse.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Frederic Weisbecker <frederic@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Michal Hocko <mhocko@suse.com>, Sunil Goutham <sgoutham@marvell.com>,
- Linu Cherian <lcherian@marvell.com>, Geetha sowjanya <gakula@marvell.com>,
- Jerin Jacob <jerinj@marvell.com>, hariprasad <hkelam@marvell.com>,
- Subbaraya Sundeep <sbhatta@marvell.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>
-References: <20260113141248.203944-1-marco.crivellari@suse.com>
- <CAAofZF5k1SO-RwfgZMvDTxJ2Go=NZuPEeGFM8gF==ZQzh_SXKg@mail.gmail.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <CAAofZF5k1SO-RwfgZMvDTxJ2Go=NZuPEeGFM8gF==ZQzh_SXKg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260328-fix_dma_fence_chain_find_seqno-v1-1-3847c8ef0292@zohomail.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Cc: =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+ Li Ming <ming.li@zohomail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774637259; l=1233;
+ i=ming.li@zohomail.com; s=20260210; h=from:subject:message-id;
+ bh=+zLhFjmQDcbbt7AWjLmj5y51IOac2tCxLouPPcLnI8s=;
+ b=HFIUy3+KdDFXVMti/Ga/SxpCMQOaEDfvxnCIt8Wj8X+yVkCUbfSkpmZieZXXc00RDhKtIUJFF
+ AK+F53ygqNLCK2Y1OKwgzSKCdvD+AAwqB3RUtIDzRal2eXT4qjI8hew
+X-Developer-Key: i=ming.li@zohomail.com; a=ed25519;
+ pk=JfhrdHjyYJMXt47Hy8d/fsqZuhGPD4Z3whV5lTfVvhE=
+Feedback-ID: rr08011228b211dd271431ffbf402eaf1e0000b83e2267d51a1f7e34f210ea5ac143badbbdb7ca67a49d823375:zu0801122773f2ec82482f97e6caa0fb030000c3261d8540fa7ed02b3199d1d6543ffa4200911cde1f047276:rf0801122d2538852d2bc1da22113372b30000278184736ab56759343bdfb987b5b1873b0691eb11ba36abdbe3fcf81e8b24:ZohoMail
+X-ZohoMailClient: External
 
-On 3/27/26 5:03 PM, Marco Crivellari wrote:
-> On Tue, Jan 13, 2026 at 3:13 PM Marco Crivellari
-> <marco.crivellari@suse.com> wrote:
->> [...]
->>  drivers/net/ethernet/marvell/octeontx2/af/rvu.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> Hi,
-> 
-> Gentle ping.
+dma_fence_chain_find_seqno() uses dma_fence_chain_for_each() to walk a
+given dma_fence_chain. dma_fence_chain_for_each() always holds a
+reference for the current fence during iteration. The reference must
+be dropped after breaking out. Instead of dereferencing the last fence
+as intended, dma_fence_chain_find_seqno() incorrectly dereferences the
+first fence in the chain.
 
-I looks like the above patch did not land into the netdev ML. You have
-to resubmit with the correct recipients list and including 'net-next'
-into the subj prefix.
+Fixes: 7bf60c52e093 ("dma-buf: add new dma_fence_chain container v7")
+Signed-off-by: Li Ming <ming.li@zohomail.com>
+---
+ drivers/dma-buf/dma-fence-chain.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
+diff --git a/drivers/dma-buf/dma-fence-chain.c b/drivers/dma-buf/dma-fence-chain.c
+index a8a90acf4f34..71fa173aef13 100644
+--- a/drivers/dma-buf/dma-fence-chain.c
++++ b/drivers/dma-buf/dma-fence-chain.c
+@@ -103,7 +103,7 @@ int dma_fence_chain_find_seqno(struct dma_fence **pfence, uint64_t seqno)
+ 		    to_dma_fence_chain(*pfence)->prev_seqno < seqno)
+ 			break;
+ 	}
+-	dma_fence_put(&chain->base);
++	dma_fence_put(*pfence);
+ 
+ 	return 0;
+ }
 
-Paolo
+---
+base-commit: c369299895a591d96745d6492d4888259b004a9e
+change-id: 20260327-fix_dma_fence_chain_find_seqno-7adea64efe01
+
+Best regards,
+-- 
+Li Ming <ming.li@zohomail.com>
 
