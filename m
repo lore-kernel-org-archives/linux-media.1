@@ -1,169 +1,126 @@
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04935263C8C
-	for <linux-media@vger.kernel.org>; Fri, 27 Mar 2026 17:10:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774631434; cv=pass; b=F2FXclLNsmhtdST3ptCfxSr9upqEa7CEjdDsHNy2XH7m264QSJ1dmeR590OSeNB/V8gbXRm9zO0guKr1pj5gp/TTG+4z2jvw0JWPQwo/PrwzBfWuqf0wO9GOZGccSqhfUxI/+1Y1SIA4aU1vnQ3KgAmuto/bMGtDMrGBvgqIUus=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774631434; c=relaxed/simple;
-	bh=RiLdmFAG6rzjt3NdgrPWGBfa4yukoYq3tZh2mFKSfFk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tHJ1dVoIKJdLYDnpyQOQAxl7lYDe2xVTIBPSD1QeZJEBRzBIwq3swB2o1jerRv2i3SpfwrqndypKRLU7EDUMLrnAQi1ZnF9ev0LdMNKli3+kBP/eFm1DoVsTyf4S84F1yEMVOOiHDPK+iznKEEiDTu9w07fufd0ndP2Mggczy+k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uh7V6/mk; arc=pass smtp.client-ip=209.85.160.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E3D34107A;
+	Fri, 27 Mar 2026 17:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774631440; cv=none; b=Su28bJcEa3cXx6Ms/Pwc4Yv8NJvvgFZ8DT/zapPIw/MBBe2WFl8mXGmPzhIzEPlWL4FDaVoe1AovXue4TMnvp8Cmqfu60FpP8EGw3MT7kECXgNQzv80m92WfAuG/YoSpj6RWTyMmqsw6Oukh9hC5Rhm4OPhwUUk61e9DSq1Zv60=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774631440; c=relaxed/simple;
+	bh=I0Fe6R9aZANzFW2MXqhySfLHgdmw2At0tLxMgznYH+8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hloOwPtHIt7BSzG+lrXHOndwTMvvNA+RjT7d20rNcF9VWO7Grrm5HUXhe/jWcEtKcLt3qjDREFc5kkgrnr9aFZX6MHTsnTKxu0zjKd67IqInwRH7sO5aqvbUzhHeRJBskl2aIkD0U+qH4EOVvYdZ6yXl2Xl3WWyRGk7eONZMJbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=q08zsj8J; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uh7V6/mk"
-Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-40ede943bf0so1489900fac.2
-        for <linux-media@vger.kernel.org>; Fri, 27 Mar 2026 10:10:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774631432; cv=none;
-        d=google.com; s=arc-20240605;
-        b=GAUzvQPU58NesSFFK5O7IpZcKAxNPSWq5O/Ea4biWRDoH2/Mz9PNtbAQYC/kiNeTcc
-         AUOrNTErAEpz/9ARQckhHDPF6wMnq3R3BG4FSS9bEveeMHWIXB5d7x8SmDW3+VdVP7MU
-         tjnZw1HsKpWetiJTS+pRuAeGBE1D2/+yHaSNy88X2Jt/J+tn1KURjibrwq+B9pUoz/Qs
-         RYWQXysEbY6wkgmWKyDYhU7I+hyGlBi2MmGeuayXn4FjbeBbRso1QdNyRgYdt+Dq8wZW
-         1YaMmd7N60iotMVmoP1m08y6xcuueG347ia0JyClxugXvu7VgR803fXBWR4YpO7kZumA
-         vAkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=8AvHeaWZczLND5McWF4Y3v90ltLIbni7gd+Xa/oJ55k=;
-        fh=CTNryDK/9GV/KMYYU5PqmO6QHxnvrGzPXKNq0myC3/c=;
-        b=FZC2pVFNxbrwy87ZXry/FhqnN27WEFNYwQse4zJlGCKKuEmlF/V8lx4y1fV+ctPxO1
-         HqXOciBeM9b7csTPjOenCKJ1/CBg9FzcRNIBiRTbxvg2aNlrIpC3V/s7rCQQN64ZI6s2
-         Y6buFarlQHoE7tRi7oHn1o/c7/vAsSxp3aA1ve3mqN/TjmmANvH5DhoydGU3BOb6KaJE
-         kH8vVw8BfUK5AYAod42XYEo2RSFB9wCc9dTZMO1p7POE1WkTSKPzdE86vQnwukrmLv0W
-         C8kwf3hITWZ2DLUfMoiN9RI8W4raD20+TIuyNI70/Ps8zpsKFS4DBz6wSjCj8qOxh41k
-         wfNQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774631432; x=1775236232; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8AvHeaWZczLND5McWF4Y3v90ltLIbni7gd+Xa/oJ55k=;
-        b=Uh7V6/mkTEfXxLU4ZIsIEbv3ZnZHt0Lk5wjkfMVm00oMhwT7sQsaZda5XWxGXlGl5v
-         KoODwVVAj7qCYtJMMffqJmkhYzImCPA9ydqgyX741eMfW1K5yqHeJqE781L86N9hBM0i
-         MO9PeK9k6kVFthBiz+3tR3/YSP3K6ztimzZzePfCmnyL41g97f/dNBZ47SN8sbVj5GiR
-         V7TjP7zEJVJYQ2AGopypNq/qcwvC9jtEoAGDxWCnMJ4mMdlyDeUMMfVC2MWBu5uWwWR+
-         7m/CCU2CiuUjTRWJARS+COt/XAj1bc0+IEKrcZ45urNCz/U4S88nQtheyIqnQQqv/Zn6
-         HAiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774631432; x=1775236232;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=8AvHeaWZczLND5McWF4Y3v90ltLIbni7gd+Xa/oJ55k=;
-        b=a4RltfusiOQ3s1NfOj2djAlrLkfHQ1H7jpb01hdhrrpkfo+yMzJ+QN88KjFbHzv///
-         S7Ehq069Qx4PZZewtHm9uLtGS1XY9Saw8he56o39VlkqL8BFIstdw4hxypiKYXtCkgPU
-         hnoVJVMSX2QkjngBAzekdFj3rz1XKZaUEMdgIetsAJ7ONx0EXsTtyrtgRUE1ojGP1/bS
-         fRQRCI6R5UiVvY4A33i7ZKDQLIz6cN2ecB7S51ahzSSjyHW7CHHJo2OZNvJu1bsZzBCB
-         KZLLPGZqejJBXAoVNkMRTFIpwz50bhwdNms6MCxjKIL2sjspWztgQrsaizCHuc55LN7n
-         N7VA==
-X-Forwarded-Encrypted: i=1; AJvYcCVLnz+ihPhDdQa0DFW73Vj4+M/x2DqTp8CNEqLBpOE71Luk0Tjtvih8QuyG6h3w96FqClSnx2GDrp+x2g==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyfNAT/JD964Q4a0Ky+rWh+mrDszFAbzmbySQKDcsaGV800jFE4
-	uRnSSOhUqvHrfEaOQOU29YULWGjSwqqrnbcJ+pHVbkgqfMW+eU5FskZ1abPNQmh51bJ3QfT5Gf7
-	FzlQCLs9t061M5jYhJtxxKD8tcuTKYgk=
-X-Gm-Gg: ATEYQzwU1VQ4Yr1xXfrT5VXxycvQRxKrX6+YtSpldkA2+wJ7xXKJE2/0er6/nGjOtXb
-	Tj0YtQMjRALsFvoEVtd5dH0zjlHVe1A/pnQ/y+XGi2BlsxFQ26JXhRVMq4j1DCwTQk8IIW+sfMi
-	tKT2M6gp0YkDRsWhEQ5J1ubLFWxsrqADWkToamMxD37BzU/I6cnxynPkIHRThQdo6r8VbDSUiYb
-	X843d/PKLJ0mx4HqSI2c5kpGbgiC9IQn7+DIPnHQL0vV9/U8XpkR0csRF6rM54JYClhTpjnePSG
-	wqnvY3o2PaGotHo6ISYZPRTJKu3RLP6gvCclIg==
-X-Received: by 2002:a05:6871:550:b0:41c:6b77:b7fa with SMTP id
- 586e51a60fabf-41cec06f29cmr1656646fac.5.1774631431790; Fri, 27 Mar 2026
- 10:10:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="q08zsj8J"
+Received: from [100.93.44.16] (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 22850225;
+	Fri, 27 Mar 2026 18:09:16 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1774631356;
+	bh=I0Fe6R9aZANzFW2MXqhySfLHgdmw2At0tLxMgznYH+8=;
+	h=From:Subject:Date:To:Cc:From;
+	b=q08zsj8JZympvZmjLgAdaNL1Nmxh6JpQrhKJNupaJxmN8kfnbRzgQHE9xzU+Iv9Nt
+	 Co1M0qPO4h3fD7Q2jRRPaKlDTnFWmWP7TEO/U5U8MS0xzsqAoFgb/EWhB2Ib2Bxzox
+	 6U0Q5a5rVsDkZ0O3PIcTtIK4UcX3b3pDGTMyqa7Y=
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Subject: [PATCH 00/14] media: rzg2l-cru: Rework slot programming for
+ V2H/G3E
+Date: Fri, 27 Mar 2026 18:10:05 +0100
+Message-Id: <20260327-b4-cru-rework-v1-0-3b7d0430f538@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260327150707.256752-1-devnexen@gmail.com> <20260327150707.256752-3-devnexen@gmail.com>
- <aca4W1BY4vbqIMnz@zed>
-In-Reply-To: <aca4W1BY4vbqIMnz@zed>
-From: David CARLIER <devnexen@gmail.com>
-Date: Fri, 27 Mar 2026 17:10:20 +0000
-X-Gm-Features: AQROBzD6nmypbcDz7acc5dBlnxelfIzp3V75SnQufk8XzIihRPDraowBfMoiFMA
-Message-ID: <CA+XhMqxxdbS4NaGBCURR3mg7046ZzkcGRHBwk85hvcX1pPP5jg@mail.gmail.com>
-Subject: Re: [PATCH v3 3/3] media: mali-c55: fix probe error path skipping pm_runtime_disable()
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Nayden Kanchev <nayden.kanchev@arm.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAO25xmkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDYyMz3SQT3eSiUt2i1PL8omzdpETjJHNDo6Rkc0NTJaCegqLUtMwKsHn
+ RsbW1ABWZbyBfAAAA
+X-Change-ID: 20260326-b4-cru-rework-ba3b712bc715
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Biju Das <biju.das.jz@bp.renesas.com>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
+ =?utf-8?q?Barnab=C3=A1s_P=C5=91cze?= <pobrn@protonmail.com>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, stable@vger.kernel.org, 
+ Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>, 
+ Daniel Scally <dan.scally+renesas@ideasonboard.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2067;
+ i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
+ bh=I0Fe6R9aZANzFW2MXqhySfLHgdmw2At0tLxMgznYH+8=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBpxroJnfJQ1OTkptkEXd3yRYKC5ul7oMQG9B9la
+ hYdg/CvDmWJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCaca6CQAKCRByNAaPFqFW
+ PA4qEADCKTp5JrRQOxzSpYyf51NvHYMgi8IsLpggPeEfcmBdsXUD9IVBqhb2GGe0CdYwZAvuTUh
+ 1YlyHmbDJtfWot+qZ3syPEjzrjzTuXUe0rGUdN2M5CQji9ExrO3dTejXH3XtkSjN3sbtULzNe4/
+ LxZHDs82A61JTsvBDOGMfZ0pRZXvVhbX3WX34vLolSfyPjQBiAYnaf0dYJyZjp+Kr33YK616d9j
+ M2rMd/oC9ZjJ2X2+uW6KBge2fsoJPPNOTrnqr6zKt0LXSlZOsbu3qMlkWrPVWsfxWnm2JruDJAB
+ U39KwVsC0PWCIOsDpF1X4Yl6taNDctY598S4Cy++s1k7UHtfJZGr82LWa0249XMq7BNpoUOm4+K
+ 2zy+1EbG01okVQk41a66fnMZD8DaAolBhXjWYY5ihVh3PjqnO1Hpoh3fuLOwbDg0m0AP7y1kM4c
+ 3+wbnlPPwIaouYFnLOhCPaMVtR47Bh+vS1d4BRENLKycD4eduljTmPM6DjUR9ppXBedswGV8BPp
+ 1CINAGSLL4fV5P+D+n5lmEFUGBR9+QPEN+KCYKj/cB3eQzyI+ggAw70yW+ADP8Y6GJCiuB0C5lD
+ HUb9JqQFbQEyyRP0bZe6zUQLHVzcs6pQ+WZr7fzYQnt7wNisiAYs7OJHtC+sPKGiUlPlmGNf8zq
+ LZPGg0RS2vRhGiw==
+X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
+ fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 
-On Fri, 27 Mar 2026 at 17:04, Jacopo Mondi
-<jacopo.mondi@ideasonboard.com> wrote:
->
-> Hi David
->
-> On Fri, Mar 27, 2026 at 03:07:07PM +0000, David Carlier wrote:
-> > When mali_c55_media_frameworks_init() fails, the goto target jumps to
-> > err_free_context_registers, skipping pm_runtime_disable() despite
-> > pm_runtime having already been enabled earlier in the function.
-> >
-> > Fix this by adding an err_pm_runtime_disable label and redirecting the
-> > frameworks init failure to it, so pm_runtime is properly unwound on
-> > that error path.
-> >
-> > Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-> > Signed-off-by: David Carlier <devnexen@gmail.com>
-> > ---
-> >  drivers/media/platform/arm/mali-c55/mali-c55-core.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/driv=
-ers/media/platform/arm/mali-c55/mali-c55-core.c
-> > index 38b11d5ba168..f998f914b355 100644
-> > --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> > +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> > @@ -828,7 +828,7 @@ static int mali_c55_probe(struct platform_device *p=
-dev)
-> >
-> >       ret =3D mali_c55_media_frameworks_init(mali_c55);
-> >       if (ret)
-> > -             goto err_free_context_registers;
-> > +             goto err_pm_runtime_disable;
-> >
-> >       pm_runtime_idle(&pdev->dev);
-> >
-> > @@ -843,8 +843,8 @@ static int mali_c55_probe(struct platform_device *p=
-dev)
-> >
-> >  err_deinit_media_frameworks:
-> >       mali_c55_media_frameworks_deinit(mali_c55);
-> > +err_pm_runtime_disable:
->
-> Is it necessary to
->
->         pm_runtime_set_suspended(&pdev->dev);
->
-> ?
->
-> >       pm_runtime_disable(&pdev->dev);
-> > -err_free_context_registers:
-> >       kfree(mali_c55->context.registers);
-> >  err_power_off:
-> >       __mali_c55_power_off(mali_c55);
-> > --
+This patch series starts by collecting a patch sent from Dan in the past
+which improves the HW slot programming on V2H(P) to avoid losing frames
+under heavy system load conditions.
 
-Hi,
+Tommaso also sent a series a few months ago for the CRU from which I
+collected the first two patches.
 
-  Good point =E2=80=94 yes, pm_runtime_set_active() is called earlier in
-probe, so the error unwind should also call pm_runtime_set_suspended()
-to undo it and decrement the
-  parent's usage count. Same applies to the remove path.
+Around it, I've reworked a bit the locking in the driver which is a bit
+coarse and causes lost of frames under heavy system load conditions.
 
-  I'll send a v4 with that added to both patches 2 and 3.
+Along with these, bit of drive-by cometic changes here and there to
+modernize the driver code.
 
-  Thanks for the review,
-  David
+I've tested on V2H(P) but I've also modified the G2L IRQ handler, so if
+anyone could test on G2L and G3E it would be great!
 
+Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+---
+Daniel Scally (1):
+      media: rzg2l-cru: Rework rzg2l_cru_fill_hw_slot()
 
-> > 2.53.0
-> >
-> >
+Jacopo Mondi (11):
+      media: rzg2l-cru: Modernize spin_lock usage with cleanup.h
+      media: rzg2l-cru: Use proper guard() in irq handler
+      media: rzg2l-cru: Remove locking from start/stop routines
+      media: rzg2l-cru: Do not use irqsave when not needed
+      media: rzg2l-cru: Remove wrong locking comment
+      media: rz2gl-cru: Introduce a spinlock for hw operations
+      media: rzg2l-cru: Split hw locking from buffers
+      media: rzg2l-cru: Manually track active slot number
+      media: rz2gl-cru: Return pending buffers in order
+      media: rzg2l-cru: Remove the 'state' variable
+      media: rzg2l-cru: Simplify irq return value handling
+
+Tommaso Merciai (2):
+      media: rzg2l-cru: Skip ICnMC configuration when ICnSVC is used
+      media: rzg2l-cru: Use only frame end interrupts
+
+ .../platform/renesas/rzg2l-cru/rzg2l-cru-regs.h    |   2 +
+ .../media/platform/renesas/rzg2l-cru/rzg2l-cru.h   |  28 +-
+ .../media/platform/renesas/rzg2l-cru/rzg2l-video.c | 328 ++++++++-------------
+ 3 files changed, 140 insertions(+), 218 deletions(-)
+---
+base-commit: 4fbeef21f5387234111b5d52924e77757626faa5
+change-id: 20260326-b4-cru-rework-ba3b712bc715
+
+Best regards,
+-- 
+Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+
