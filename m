@@ -1,33 +1,41 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout.web.de (mout.web.de [212.227.15.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD8E234B434;
-	Fri, 27 Mar 2026 13:39:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766213ED13E;
+	Fri, 27 Mar 2026 13:44:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774618776; cv=none; b=Njt+QfpblRldCbEXKDPSpZq+kp6L/dPcPBISIHZyak6SJCsw8+pPTjhjqgdaHUyn7I+EvJYhndYy6KSHn+/zBFVB4OAkuk2+k16kIrS1rZRWk28rBV9Ft3+n6n4wMrQdjjMMLwKujonid6sZlK9EuunXFrWI173LjNtMVZTJ2Ic=
+	t=1774619064; cv=none; b=OvULSsBqniMr7vTcoWHhYNQHSwoXEiFlSOpUIRRBtO91CHKp4rvo/GBUXJqtGH5sVwf1aMn4xardkiyHik9D/7YcvgAxL3LXATsgiHfb3AH5N+0lqFaBALoWEfh3JYji1pl+jXF3P7szfupszSD0Y7kgCNq5OSJs3QMOmyvmwmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774618776; c=relaxed/simple;
-	bh=EK3L84nzzwEQPvQOCJndbS7CWv2sJDVmRS0NFbkNFt4=;
+	s=arc-20240116; t=1774619064; c=relaxed/simple;
+	bh=zp4B8gtOxCsufdh7wy4QZSlBVelDOoXz75eKfybgmTU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YYMy1XWqfnLoDqeNLPMSxbVl7YLKw0rqsEVlRZNFxd2IHVr6znWdKnV33854Y8hOfvnoHpjM53CUQ1IBAy+A8BVssTV0S6E7k9ZLuz9Rzu2Y82vCgJahObBWTLlshMu+FePlLIRef092EwBLNDdOopk4NDPTLr8YpnzZENjJuhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gZ2a9OOm; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=LLXiIXa3H949P6p+TYxcVslblXc0phDizLKDLG1sntheIF1dsthoq4w838vApEe+JwsWeCZlY9zgUd8kND6c7BplNSOPtPwz/MHxxl6R2KMM4jp/2dVJuJZmpbIdmBw1i4eyXuBDWvOZtDaDIN0385bGWBAs4B5ozxgqCwPraf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=UiLRe9jJ; arc=none smtp.client-ip=212.227.15.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gZ2a9OOm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2EF8C19423;
-	Fri, 27 Mar 2026 13:39:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774618776;
-	bh=EK3L84nzzwEQPvQOCJndbS7CWv2sJDVmRS0NFbkNFt4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=gZ2a9OOmIUE9p1djDWK+JEQLE1+0jE5+eHqkLh0g4U+My9MeFyfXvW8YyFq805afi
-	 Mrhqpi0tviIOqOjc2irCWiYCF1mQOpnX/ZgjyLQUyNzp3RFW8qM+aKwuyeQPAJgSA0
-	 6wPdrWKseyd0ZYZuS8WB7cZi1N+PVw7RrzzgJOAcllE8v4VGoNpaLbxjvxoVN3sWng
-	 G22Co7kk/1POJ7t06mXgXbeqzdMcKYD7o/7DaHBMQkvF2hcgOA8JXt58wkDndNlpe1
-	 97UWhS+jO80p3kcwYdY5DfYiELCVdjQlPIugLIUtArmmyE5ZxIE/+DJ2HxOA2JDiKH
-	 6dPWYSZ4WIkWw==
-Message-ID: <2da6cbcc-677d-4ba8-9762-ecb47b157f21@kernel.org>
-Date: Fri, 27 Mar 2026 14:39:24 +0100
+	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="UiLRe9jJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1774619049; x=1775223849; i=markus.elfring@web.de;
+	bh=jTyYuoqxeyiOIyclnpl5xPZNS+Xje0DXiwYwhpsRafM=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=UiLRe9jJV1L823s9sfZ8OPDx2PR5E6yVatDTZvy4ROz0yiLATbA4yZxoR2+nhEol
+	 iiod+SDLFbiimdV7kn+IKHgcoYbGYO7ckFod5bmW54LKh4v/0M9XMpJiPWvxhrEQp
+	 gyz+Tfh7716LODRNMwhA3yvdvWM0hmlicA+XhsRScYsZM1pxY3jJ4L4K+LG7sW35S
+	 /MdSfSEKY9Z/LbrwddvzFGMcR5w9t71fOXjOCWc9ayid0rv0pIKlRfKUJtn0PFrvH
+	 nCM/vQBoFIq1ZFpM92nuak/aglQJ2O526v2RfskGY7ncAwWUdu1lzbVE7zDDnhqcW
+	 sBhOmexTjebeRKY7KA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MhFlm-1vaeWI3IDy-00p8qM; Fri, 27
+ Mar 2026 14:38:24 +0100
+Message-ID: <0201d4dd-f7dd-40af-90e6-0865bfdb5190@web.de>
+Date: Fri, 27 Mar 2026 14:38:22 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,104 +43,131 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/15] firmware: qcom: Add a generic PAS service
-To: Sumit Garg <sumit.garg@kernel.org>,
- Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, andersson@kernel.org,
- konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
- elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
- jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
- vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-References: <20260312062756.694390-1-sumit.garg@kernel.org>
- <20260312062756.694390-3-sumit.garg@kernel.org>
- <20260313072450.sx7vqtvh62nflhff@hu-mojha-hyd.qualcomm.com>
- <acE3MR4SVCPUzcgR@sumit-xelite>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <acE3MR4SVCPUzcgR@sumit-xelite>
+Subject: Re: [PATCH v4] media: tuner: add error handling for I2C transfers in
+ set_type()
+To: Wenyuan Li <2063309626@qq.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, linux-media@vger.kernel.org
+Cc: stable@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ gszhai@bjtu.edu.cn, 23120469@bjtu.edu.cn, 25125332@bjtu.edu.cn,
+ 25125283@bjtu.edu.cn
+References: <20260327100815.23565-1-2063309626@qq.com>
+ <tencent_3F73117D57532EA69EDD2C9E2BA48A5EBA09@qq.com>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <tencent_3F73117D57532EA69EDD2C9E2BA48A5EBA09@qq.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:k83fKmn5KHlhxebbQsj/6pzWah7pUy7UqT+MTFCr2qbhy+Fu0hk
+ eGVfNP9kC/VnHWvpX/V+B8oXm42Py77DSHjsm3/aO2nlk2z8cA3cvZJ7I+ViqiXUaQGwLor
+ Qqpx9RYD8QORyhFsBZACWOLzCSM6sDCc/cSqx0A0QK/Ju6ORJBzkaNYTTnEjdC7WeF4rSZg
+ GzyrkdTggErYdkHhQU6dQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:SbOBkcrHn4Q=;ugIMbLDaZxJQWPwK3Iammw0bTve
+ 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
+ i7
 
-On 23/03/2026 13:50, Sumit Garg wrote:
->>> +
->>> +#include <linux/device/devres.h>
->>> +#include <linux/firmware/qcom/qcom_pas.h>
->>> +#include <linux/kernel.h>
->>> +#include <linux/module.h>
->>> +
->>> +#include "qcom_pas.h"
->>> +
->>> +struct qcom_pas_ops *ops_ptr;
->>
->> Should this be static ?
-> 
-> It was static earlier in v1. I dropped it based on earlier v1 discussion
-> with Krzysztof. Let me conclude that discussion on the other thread
-> again.
+=E2=80=A6
+> Fix this by:
+> - Adding a helper function tuner_i2c_send() that checks the return
+>   value of i2c_master_send() and logs errors with %pe format
+> - Replacing direct i2c_master_send() calls with tuner_i2c_send()
+> - Propagating errors to the attach_failed path
+>=20
+> This ensures that I2C communication failures during tuner
+> initialization are properly detected and handled.
 
-The discussion was whether this should be singleton in the first place,
-not making it a global singleton.
+See also:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/process/submitting-patches.rst?h=3Dv7.0-rc5#n94
 
-Of course it cannot be anything else than static - nothing should poke here.
 
-Best regards,
-Krzysztof
+=E2=80=A6
+> Signed-off-by: Wenyuan Li <2063309626@qq.com>
+>=20
+> v4:
+> - Added Cc: stable@vger.kernel.org
+> - Updated Fixes: to original commit (93df3413f1b4)
+> ---
+>  drivers/media/v4l2-core/tuner-core.c | 22 +++++++++++++++++++---
+=E2=80=A6
+
+Please move patch version descriptions behind the marker line.
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/process/submitting-patches.rst?h=3Dv7.0-rc5#n785
+
+Regards,
+Markus
