@@ -1,120 +1,183 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F8C1CAA78
-	for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 14:59:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774709942; cv=none; b=RqaYrPMzaPOe/CrMLTfPR+nwDjUYguFf14CNx12eyCtJDvLJTfFmTTFdw/DBYin6xAzW/nF5sEs9bzV85pCKcEIct71B5I+hdKCh2GPiHeLS2WO48ZlM4rkX+ON3CNmWtU/aXHlsnBtHDrKxXtTpdk7hjVc7N8hDBwx8py5k+OI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774709942; c=relaxed/simple;
-	bh=5mmjhWAxCiYFPAEUtWK8vIBoYVI6QTdkJFmQtrU9oyY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LOdI0iRPKfnEgI+N4EwutbUR3mZNIcKfVpIoQvZyFrnciIcD///fHa3dQpi7rLUZPXfVlcChtakQnqaTBS1f+GNhlTmne95xpASzKHzbFSYg35T33hMai4dDe/3gZTWStz8Nn5yNYI9aqZLKGXMHOVoMmL1L9CsUINMwnSRjT3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=RMSXO1yR; arc=none smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F3D632D452
+	for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 15:09:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774710594; cv=pass; b=D+IrqF+6QXRtyw72TjERmZa7QrasotqM3zP0oHxmu97O7+1aeAv9qWOiwTviJPkn8q2p5tKdoqIYRRch2pbLVIH8SLThiB61+CH05Nz/gQ8+WPmaj7Si1w1j2H9IyBfSwQy+e52jfJ5m4E/44pzm6srg0E4UtwuqWcRDhYN8+4s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774710594; c=relaxed/simple;
+	bh=IioqiuEnWClehqyf6kuLnL06MkxuADF1V4yo9xN84uk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VPZfJrjJDIYOA3SQ47D1rUUDLhrjHy6+CISDZsjM8p0jwnyyNoH20xQVXINc62El7AQnzyrK9qUZbEE9CeEj57WZX/UPibVeIPNhWP/XoDFUMjvAarRGLFzCaNNRe0osbO3injPwA9LhfA6PfdOT4KWqNjb1sCkql8ulcanGXvg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WfBL5UsL; arc=pass smtp.client-ip=209.85.210.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="RMSXO1yR"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-65c0891f4e9so5702433a12.1
-        for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 07:59:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WfBL5UsL"
+Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-7d74aa6bcdbso1722553a34.2
+        for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 08:09:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774710592; cv=none;
+        d=google.com; s=arc-20240605;
+        b=dwxy3cg93igjj5bXXZlteQWKGU9a1wgqsekfcuRpDZB41itThSsDycxIcFIhrD/Nf7
+         88f50/b84222nWvkIrIWAHMTfFmtj47/UZI+C1diRdfETsScLwr32l5kd7VcUhGjnycH
+         mwJRcS8gn7VRhedcrTTpM2lm7p/hJqqxMxBJRw+UEITESHnjsguFbsADx8RWZHrnsur7
+         paoxeNEQ4kPW6DwIeXW9WUFc0YqSWviTTNlwr8dHWAQdoXG6fTHcJcgK2zgwVp96A5RT
+         RojyxqzSkE2qcEej9Sye5xNrpmd3fg6HzLg4MQ+wr4ryavAc+pl5Ubc0LNRJt/aXsDUc
+         JDBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=t4pH2aZy44NwbJt2RTZwPfT6J+uUkQC1o5bzn/r9BTY=;
+        fh=PRYtMFE/mkhS1KVCZGaO9lCDpL6yWVHp57HWOh3PzVE=;
+        b=AxyAz/mptVfpNbsSgronArBGNbHoL4OR+C3n3YdfIuMcb2T+Vs9epjB1YHpzGZbxSk
+         oRUDfA73Z/8Y9SvbIoh7tQDnVAyvY4GkzNVpgDZATmBLZb94hrfeb/A8Qf467obiQ9xu
+         0nzc4GIjNH1rUMHEnSUWFkQWW/jGL+32QBh+l2M2oBoAQhsGPgYRkC52wxShZIQuQb1V
+         o6BPPCJQgeO1fyk/jbfZyzpvqJ3wus2wfljh1JtLXmahMrGjerkIGpxTibbtYfEnqwIe
+         BFbbCjH30cFzoyTxMMHxHd+SM3/pGPRZkuRcPmehwc898cl7lfeUrgy8I5UDyC+nJtWM
+         oAbA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774709939; x=1775314739; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=IpiZdUca/KvBHgqMWXQPF+EJwwgHXh6W6A/k2bT285Y=;
-        b=RMSXO1yR4T4uuAX/fvyiCpfUjZ4FqZp5WSUY8yikWrKwG96ovtkQtG3TdtvbM6JMe8
-         DVV/Tav482z4raTrr3p8lq9rYuH2ucAxBAxa0ntHn9VatoGBWoJRRI/YjEMwHHhIjOdl
-         Qc6gxPgIKZ/xGVCfRyW1ujaqMVNS4OMn1ZICswrcaD+Yp9AuYeahPQtjmO6zpXWhheOV
-         GJ2r0bHhCbuR5POGvtGU8QFVHswL1+302yAwPiS946ovQ/mJKOMZGs59KF1kNBi15Mv7
-         N9/God0oyoCPrxaVSQ1mt+6NAIltPD7MiiLbdklN8N8QrCtJvBUnCa8MEcKTviL/28Ix
-         4WoQ==
+        d=gmail.com; s=20251104; t=1774710592; x=1775315392; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=t4pH2aZy44NwbJt2RTZwPfT6J+uUkQC1o5bzn/r9BTY=;
+        b=WfBL5UsLBlpKCRBco6kDzGom3KjxWt3+X5JzfV8JYnv6p4UUaZPMsbs1BOYyt0zE8w
+         hasuwHbkxMWn65F+UziaoaTDgXBYJRVVfS6kCjO88YCtOH1INO1vXMQRqu5QN7MdtTT1
+         wdQfST0dIbJGWjOKLEyJqPEKslmAzju+EAVvyV9g3kSrhnIrAtP8Sd4Ly9IxsZH/LLwP
+         /KC5UQi6xYRo4sUiiZQXsCyWHLj5pVWYaGdcLpXssdGmMR/gQqZA/dXXQ6gz31tS4gWR
+         S7z1jYEQsQFuEfYYZb/0/xKfF0iLNXpi/0NShvoNNoSP+BQvbsPiR7z7OCak2ER4azSs
+         JuzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774709939; x=1775314739;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=IpiZdUca/KvBHgqMWXQPF+EJwwgHXh6W6A/k2bT285Y=;
-        b=BJ0WtP3R2RnIRuQWb4Ao6m3d2XoSWbJ2EQAwG7A+vQVOozPU80uTRV/LSNRuHJuF1H
-         sUa5vlUn4Yf1DmQiLpwDq7g/JXZaDTckJHR+g9689gaLamiO6SKNaQBi3U7EasIRFDnP
-         1BSo+dXlV9qyqxSyMfqHJtgAIonVipi8zye8AONBvTpbGlwDRpfdAGnmwIM8/Ulo4S5P
-         KTQAXALzqtSg26CKPmMCWRAUZLNDzkHifbAFuP4oEgnH2XIrNbsMHihiyInL/XDCmFDb
-         cHvQ5lhLGj7HTZFalwnbLw0tPOY0fZU6o10lOuXUiyoZUBtT2/xJpETm0Aa0dgFZ1XXk
-         RlaQ==
-X-Gm-Message-State: AOJu0YyxokZrcDNvPUYsHAiQEhzIFyxjLrHcRuEDXEaeFOX55muvfNTh
-	gCaHeTV3GTbvnTJC7RTCCKByQOyK2/SxSfUodEORCVZfaUCap3yfGZcYEmYhzScmyZKlv0tZmgs
-	YXGNE
-X-Gm-Gg: ATEYQzxpsGGRfrI7JnnT+0dG3CdP6o+nmD9hQ/eVFmWD1gVcVCJEcSgtByzAYAYTM02
-	ogPcKfQ15HIR/Cfdoc7caD649QlwBbwsrdowbMxv6IIGjXyU8TPxYLBkqH4uldQ8RGxYeZzAAEw
-	9kBC6OTxp6SyhO8/GTIpsTlPQiipCbCkQ+k8EmuYjzDQPNfyWy+pqmldBtRdRTV7LR1d/5N+u80
-	fe3/SU8UMwKbHuKh+etetq6BNuNEbDr9MlmRlSbGPANH13qiXwcB3+aKmdanqwfG324skKNFCHC
-	+YhzquCAjkEbHfKRUdwqdw8uiIVgSPm3+wk8WlwhHJFyVp8t1xpdAXkU3z6A/vY1BT8WQ3+97eX
-	fWZwqjN+2Tijrsx6i9c4RLxlpQrZVdrykgtdywLnA9fam6lA4PKSpQw00qzUoCZS1bUtb1XVEwK
-	0DCz6AmxF69Ye4Lypkd9txizV0OSyF7AZwooPGfvd8cBAT4w==
-X-Received: by 2002:a05:6000:430e:b0:43b:436d:77f8 with SMTP id ffacd0b85a97d-43b9ea4acbemr9747762f8f.29.1774699315674;
-        Sat, 28 Mar 2026 05:01:55 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.108.64])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43cf21e2727sm4926384f8f.2.2026.03.28.05.01.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 28 Mar 2026 05:01:55 -0700 (PDT)
-Message-ID: <f2e9a9fa-f089-42b1-90ff-572f620b127e@linaro.org>
-Date: Sat, 28 Mar 2026 12:01:53 +0000
+        d=1e100.net; s=20251104; t=1774710592; x=1775315392;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=t4pH2aZy44NwbJt2RTZwPfT6J+uUkQC1o5bzn/r9BTY=;
+        b=gZeWNtimR7TkMR+BEyiQWycAUbqZ1rRAzYT0ggToJLE2Y8RJcmNztNhHNXmg+AFrxS
+         Q0aON7NlWgHS8kjhB7XYXtGbzicsobI7I/xYF/Uk9wV93G5fM2IUzv8+6smeau77LvUU
+         5WsTAVupj8DEHHxju+VQCXx7dnMitAIri9XK4h4ewZYes5bP/6ZxgD6BlWJLKKGXoVkX
+         jHlXjJSL5LuIlZzc3oCpnLVMNk7fz7BvL1HuuVQqyjF2QOCb9UjDGCBjwITHb6vsNB8W
+         xXLQ+EvxgmbnJksBvLXgjBpA/L8aVRtx+u2YYtkYDWdu6YP9ZDNDM9J336IvbNKj2Vmv
+         CNmw==
+X-Forwarded-Encrypted: i=1; AJvYcCV+W70OFrrU/xrZUmJTMvNi4jED8OpecJ8Azz/WjduGhZfE+HWDsgaLIBsqBE22sY8QlZ9X++eMZFpTiQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzUI8mBRx6WyZfZ8X73qJXbkMOLtYGnRl6d6bQIpY/vJ8OBOYUP
+	bjgLouuU0RwLJso5HOcXHwKna74MXeOPtgFYXUBZZWv6F81dhZL0tTOFUI9XAZvAHCcmR55O6Vm
+	pVPH9hK1WNnjrGkERaNNBap63d5nTgTrnb70Jrw4=
+X-Gm-Gg: ATEYQzwX4NO2Ry4QjtzmtPSZElcVtElsM/mS42PvdT1JrmR2Cjk/AWFE7gI5zdsAI5H
+	/wq9DwcDfQK6Eir5ZWJbYRJhCfgRGzAn5JHU2sYPQO2ucOP6IKM83erj0m6GEhSr/j1LEHWZCwy
+	wN31CGYqlZXnfpqZFuZuIc0gTUGNIhcBqcRGO26ehpbWrNTYHEk3gg8rEiWcdC/l7eDdcnxkRO6
+	hTn5hO9TQB5n9LqGl7EYq3NXd44gIgBs8An5z4qsqcd43FvcAhkws+UXJrRG257ztSITpc2ojmE
+	IlhFRZE6Qum2DA023zCtShRCtDY/iTJAoXiJxw==
+X-Received: by 2002:a05:6808:ec4:b0:467:f636:23bd with SMTP id
+ 5614622812f47-46a8a5d55cdmr2874982b6e.42.1774710592461; Sat, 28 Mar 2026
+ 08:09:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] media: qcom: camss: Fix csid IRQ offset for
- sa8775p
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>, Robert Foss
- <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Vikram Sharma <quic_vikramsa@quicinc.com>,
- Suresh Vankadara <quic_svankada@quicinc.com>,
- Wenmeng Liu <quic_wenmliu@quicinc.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260313-vfelite_fix-v2-0-7014429c8345@oss.qualcomm.com>
- <20260313-vfelite_fix-v2-1-7014429c8345@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <20260313-vfelite_fix-v2-1-7014429c8345@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260327150707.256752-1-devnexen@gmail.com> <20260327150707.256752-2-devnexen@gmail.com>
+ <aca3Y6FHItK1cb9l@zed> <acfrMuiiRdCTNoMw@zed>
+In-Reply-To: <acfrMuiiRdCTNoMw@zed>
+From: David CARLIER <devnexen@gmail.com>
+Date: Sat, 28 Mar 2026 15:09:40 +0000
+X-Gm-Features: AQROBzAGlf0vcuBeV5AWNpamqI7OJ93nPOzrJojRzE52EEvmlh8RKegH80JOmv8
+Message-ID: <CA+XhMqxnjxfKdHZC7XOW5K9TgZPD-MHyiNZggHhNFdTpwCa9mA@mail.gmail.com>
+Subject: Re: [PATCH v3 2/3] media: mali-c55: add missing pm_runtime_disable()
+ in remove
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Nayden Kanchev <nayden.kanchev@arm.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 13/03/2026 10:13, Wenmeng Liu wrote:
-> Fix BUF_DONE_IRQ_STATUS_RDI_OFFSET calculation for csid lite on
-> sa8775p platform. The offset should be 0 for csid lite on sa8775p,
-> 
-> Fixes: ed03e99de0fa ("media: qcom: camss: Add support for CSID 690")
-> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/camss/camss-csid-gen3.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen3.c b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
-> index 664245cf6eb0cac662b02f8b920cd1c72db0aeb2..bd059243790edeb045080905eb76fef3b12caae1 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csid-gen3.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
-> @@ -48,9 +48,9 @@
->   #define IS_CSID_690(csid)	((csid->camss->res->version == CAMSS_8775P) \
->   				 || (csid->camss->res->version == CAMSS_8300))
->   #define CSID_BUF_DONE_IRQ_STATUS	0x8C
-> -#define BUF_DONE_IRQ_STATUS_RDI_OFFSET  (csid_is_lite(csid) ?\
-> -						1 : (IS_CSID_690(csid) ?\
-> -						13 : 14))
-> +#define BUF_DONE_IRQ_STATUS_RDI_OFFSET  (csid_is_lite(csid) ? \
-> +						((IS_CSID_690(csid) ? 0 : 1)) : \
-> +						((IS_CSID_690(csid) ? 13 : 14)))
->   #define CSID_BUF_DONE_IRQ_MASK		0x90
->   #define CSID_BUF_DONE_IRQ_CLEAR		0x94
->   #define CSID_BUF_DONE_IRQ_SET		0x98
-> 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Hi sorry I missed your previous messages ok looking into it. Cheers.
 
+On Sat, 28 Mar 2026 at 14:58, Jacopo Mondi
+<jacopo.mondi@ideasonboard.com> wrote:
+>
+> Hi David
+>   since you have to send a v4 anyway, would you care about also
+> powering off the device duing remove ?
+>
+> I have a patch, but since you're already looking at this it doesn't
+> make much sense to pile another one on top.
+>
+> Could you squash in the below suggestions ?
+>
+> On Fri, Mar 27, 2026 at 06:01:29PM +0100, Jacopo Mondi wrote:
+> > Hi David
+> >
+> > On Fri, Mar 27, 2026 at 03:07:06PM +0000, David Carlier wrote:
+> > > pm_runtime_enable() is called during probe but mali_c55_remove() never
+> > > calls pm_runtime_disable(), leaving the device's runtime PM state
+> > > enabled after the driver is unbound.
+>
+> I would use these as the commit message and the commit title:
+>
+>     media: mali-c55: Power-off the peripheral in remove()
+>
+>     The Mali C55 driver doesn't depend on PM. For this reason, if pm_runtime
+>     is not compiled in it is required to manually power-off the peripheral
+>     during the driver's remove() handler.
+>
+>     Also pm_runtime_enable() is called during probe but mali_c55_remove() never
+>     calls pm_runtime_disable(), leaving the device's runtime PM state enabled
+>     after the driver is unbound.
+>
+>     Manually power-off the peripheral in remove() if the peripheral has not
+>     been suspended using runtime_pm and disable runtime pm.
+>
+> > >
+> > > Add the missing pm_runtime_disable() call to the remove path.
+> >
+> > The driver doesn't depend on PM, so we need to explicitly power-off
+> > the peripheral in remove() (and set the pm_runtime status to
+> > suspended)
+> >
+> > >
+> > > Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+> > > Signed-off-by: David Carlier <devnexen@gmail.com>
+> >
+> > Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> >
+> > This patch is however correct, I'll add the power-off on top.
+> >
+> > > ---
+> > >  drivers/media/platform/arm/mali-c55/mali-c55-core.c | 1 +
+> > >  1 file changed, 1 insertion(+)
+> > >
+> > > diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> > > index 5cb59c70ffc9..38b11d5ba168 100644
+> > > --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> > > +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> > > @@ -859,6 +859,7 @@ static void mali_c55_remove(struct platform_device *pdev)
+> > >     struct mali_c55 *mali_c55 = platform_get_drvdata(pdev);
+> > >
+> > >     mali_c55_media_frameworks_deinit(mali_c55);
+>
+> And this should become:
+>
+> +       if (!pm_runtime_suspended(&pdev->dev)) {
+> +               __mali_c55_power_off(mali_c55);
+> +               pm_runtime_set_suspended(&pdev->dev);
+> +       }
+> > > +   pm_runtime_disable(&pdev->dev);
+>
+> Otherwise, if you want to keep your patch simpler, I'll add a patch
+> for power-off on top.
+>
+> Thanks
+>    j
+>
+> > >     kfree(mali_c55->context.registers);
+> > >     of_reserved_mem_device_release(&pdev->dev);
+> > >  }
+> > > --
+> > > 2.53.0
+> > >
+> > >
