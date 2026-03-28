@@ -1,144 +1,321 @@
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A24433890ED;
-	Sat, 28 Mar 2026 11:37:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3CC738735C
+	for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 11:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774697879; cv=none; b=ED/dvMEH4C/P1RYmIvIiyD2mtNNL0rq3EGzHxsn4RaJtP+eB/WmNDjHZGAYmpJcawL/RClM/HA2sPvNpAqsbcJ5/Sht4vYTVS2KaR+WGWS7GyZWjdpnUi4oK8lBa7uShcXD5rclF1li7SDTn6cQa0ZBYHzZeubosk0CxGTv6oVg=
+	t=1774698651; cv=none; b=u8PRV00j6d0hP0PK8JGpXfqI7UVRgUle1eqXXl8W1DpRDr3HRzS8xWZehO4L2CkmJCiWpERYaqwAkwtsANx0W1LqNdOraTY1ePKCf4Ddv2O1+OW4mL4ztILp8p7e1lZNA3UnGnhsOt85xR2iNjQutyI1QBn1I7ysR7uD+LBzFVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774697879; c=relaxed/simple;
-	bh=LkDJmadL615W4q00l7NDdJK9EtbSo9KpRQOXiC2c5hU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TXv63h+7t3SUFd+26AYD/k828FtcFzWx5F5WF4jL/9cbvWi2YvZ90YCZn+BGirpcEk1Px0lJmg4dsFEYkZpq3qWbmZNcwpeg82BU4PF6UqaooJ/H2Blfe1FYb3MVTd19m35KYIkiMCyML3wP2llOLMPZFRkVdodrBc0otaUEug8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=PHmaBbPs; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=2J/acEMG; arc=none smtp.client-ip=202.12.124.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1774698651; c=relaxed/simple;
+	bh=/dlx7KWj5vhfpEv1MoSZnbLHolNpt373+6+mrG/OOs0=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=BXicypr6SPelCpwJHx5Fdakz5jgcUVo8I4cbSQYJXt64JZleEP955i71XG8OYMPM4hfWi5DSNOQuffUltL9XFna4Tb41v2n+hLQNRkBPaFdkmbCpvDg5iAEeQhJv9LQrC4DQmXb/ZZy/9dnAOIdmTLTN6Sp9D4AU+qxdm2kliwI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CJjIuppb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jnBZzVUY; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="PHmaBbPs";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="2J/acEMG"
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfout.stl.internal (Postfix) with ESMTP id BBAAE1D001A0;
-	Sat, 28 Mar 2026 07:37:54 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-08.internal (MEProxy); Sat, 28 Mar 2026 07:37:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1774697874;
-	 x=1774784274; bh=PTd2pk8Y/+znmp8P0psuOqPXJpEyyacbHu+SbMYHSN8=; b=
-	PHmaBbPsV2OTbR9JWMgA7ehBXInZwrFnFkGFb/FMRYDmyFG5A7d/Q22juhsdoe+Y
-	IUYUU0vuEeDoPIqV+hwcft232ghe4xI4VLdOT3/sILW+Mp5QtTUNAdnZJkSjZoPU
-	xjCX6zQBMFAkVDUa22Ed7SMqKnFTr0/RPjv642UrM4oQ8CEWsKS0loHGQWEcAkhD
-	IeCqXW8BfHG7HzVaTFsFXcEP8vXT0+50BKryOiiN995zzLdjbt7EZk+U8UzXrJn6
-	FqEZyPFsyG+j9Xe8SoCIlVqmDc19XwlntkTbXhThTH2OMEh/OpKeXuCTlASTzJOM
-	PRJOeIU6aDqV3MSVQz4/Aw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1774697874; x=
-	1774784274; bh=PTd2pk8Y/+znmp8P0psuOqPXJpEyyacbHu+SbMYHSN8=; b=2
-	J/acEMG0Ka3barJs0x/+zf07nOlQbuUxjxoTAetzASOoav6S5VeVVO03AbpGRUzN
-	7KXxW+gXG/CVdFF6001CHGsxR0QFvQdqs6pQI7swXZTQKgQgrXjWdoraQmt83Vps
-	GIfeidqt05tmYA1WtWvJk4xONG/VkP8YDKxnHNw1WzGCSkdTwL5TQpb1+Me1txyg
-	lgUy3U34J/BB4ExQsRN7HUEYbA3yRhc26I+8XV+TIFhzh9nZEsp3jY7I6Usj+aL4
-	fpqyEtBLEiNIrNGQndiMziTd58WvoOoCXSMZJPjr8JwaES4OxFj2ucldSwDDP5/C
-	3B5EgJIBF6crpIMV0f/jA==
-X-ME-Sender: <xms:kb3HadCU7DHeZ4UDxdr4eDTyAxV4-U6ByQIkEZOWx7-tVhpVZuDFCw>
-    <xme:kb3HaVMfuzwlEFuU0cR3G1-K74we4GBOEGGwNfQCTtZgJOz64U_273HP0Ap1utl80
-    ynqm7ugaJbgYyhtcK13mrsoXtH6wq5Wyo6MEaEFkCqvH65NFA>
-X-ME-Received: <xmr:kb3HaX4pttNIG2iOi_yBDr4REp7gjRsHTsCYbb7YKv8GuwAA94JImy6AEeA5kR9b8VR9znO2l3GfRnvquA1PlJ_P-SXluv020mqLssvm-aM>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdeffeeftdejucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucenucfjughrpeffhffvvefukfhfgggtugfgjgesthekre
-    dttddtjeenucfhrhhomhepifhrvghgucfmjfcuoehgrhgvgheskhhrohgrhhdrtghomheq
-    necuggftrfgrthhtvghrnhepleekheejjeeiheejvdetheejveekudegueeigfefudefgf
-    ffhfefteeuieekudefnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhushht
-    vghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvgheskhhrohgrhh
-    drtghomhdpnhgspghrtghpthhtohepfedtpdhmohguvgepshhmthhpohhuthdprhgtphht
-    thhopeguvghvnhgvgigvnhesghhmrghilhdrtghomhdprhgtphhtthhopehlrghurhgvnh
-    htrdhpihhntghhrghrthesihguvggrshhonhgsohgrrhgurdgtohhmpdhrtghpthhtohep
-    mhgthhgvhhgrsgeskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepfhhrrghnkhdrlhhise
-    hngihprdgtohhmpdhrtghpthhtohepshdrhhgruhgvrhesphgvnhhguhhtrhhonhhigidr
-    uggvpdhrtghpthhtohepkhgvrhhnvghlsehpvghnghhuthhrohhnihigrdguvgdprhgtph
-    htthhopehfvghsthgvvhgrmhesghhmrghilhdrtghomhdprhgtphhtthhopehjrggtohhp
-    ohesjhhmohhnughirdhorhhgpdhrtghpthhtoheprghishhhvghnghdrughonhhgsehngi
-    hprdgtohhm
-X-ME-Proxy: <xmx:kb3Haf38_2FPlxhNNos9IFMbsBN7LOQO-Oi0s8NMTdV8ibfL2TY9XQ>
-    <xmx:kb3HaWpaTrM1gkArlHVQeyD67VVQly80TeBsp6X4T9ftX_JXaxkk3w>
-    <xmx:kb3HaW9fSaDcLgREkK2tgn6UhzupkHJ8ZACymagJoYkJ9cqrLp6dHA>
-    <xmx:kb3HaZ65IoRqWDf-4etebvhEwAHDI1yhOX8fQ8uoI5p_YtxDHdMyLQ>
-    <xmx:kr3HaSvVLQgFq0nvqlCVieN6KT3kjY4cXPuvIF7FW8eAzJdnJVLYc6EL>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 28 Mar 2026 07:37:52 -0400 (EDT)
-Date: Sat, 28 Mar 2026 12:37:29 +0100
-From: Greg KH <greg@kroah.com>
-To: David CARLIER <devnexen@gmail.com>
-Cc: laurent.pinchart@ideasonboard.com, mchehab@kernel.org, Frank.Li@nxp.com,
-	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
-	jacopo@jmondi.org, aisheng.dong@nxp.com, guoniu.zhou@nxp.com,
-	linux-media@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] media: nxp: imx8-isi: fix memory leaks in probe error
- paths and remove
-Message-ID: <2026032832-reputably-bankroll-1205@gregkh>
-References: <20260327222711.268132-1-devnexen@gmail.com>
- <20260328100010.41236-1-devnexen@gmail.com>
- <2026032803-tree-stubbed-1e9b@gregkh>
- <CA+XhMqw+pR3fLGbysq3FnfpH+b2GtmdhSjjgCKhTwfZFrF0_0w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CJjIuppb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jnBZzVUY"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62S2qPrj566898
+	for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 11:50:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Dld5selLQ1J9MQ4u6bdHYyqpBvugOu7TPOGeAA3ulRE=; b=CJjIuppbrcqftwQU
+	Ao8XLTmwKvWGSULHW447kNmatmu4f+c1hne9c9maOa3xv8o5mo1IcBBsvrm2GV1c
+	0+9J2+E0uZgRxjBfGw1FA+KyPAINH46uk9D/7TjoP9LX30h5+EwaApha92gRinnf
+	9Sx3zaHTG+d8UziBXtCZWT0aJCOpmKCOjTTmbf4csTBzcKQQ/knLaxldSe3s13rG
+	sZES4LN3sXBc+y/pAmywE7B4ZdGCAZgMzCW0dvXoe1Nk3EeBNNeFUsDEcp8aCjz8
+	SpOsTnqiqrXOlmr5+j/MjaE63hg04LR4Ej0lwOwVE8QxEZAupOUDAAR8hj8iL5xP
+	bmQFjQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d66jwgspj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 11:50:49 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5094ba09affso86236911cf.2
+        for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 04:50:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774698648; x=1775303448; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Dld5selLQ1J9MQ4u6bdHYyqpBvugOu7TPOGeAA3ulRE=;
+        b=jnBZzVUYG96znZRt5i1iNXSdQbvsmi4aMbyCIfaCosEkaZRjkz2FztEEp8xMhXOmmO
+         f5OFkGvl4u7wsYDN/kD0du3DNFj2jgeChbZqjxCVjxcq2torwriFH2fL0QKJfVuSd/h6
+         XVzLz4u44kLt/o9KnGic6Xjgut+6TsYO9wKTxaGHl4MTk4H2dQxIr35YkLWH9avW02oi
+         CqwRDXbsM7/24P2mejsqxucgr0baEmdyf3ApzoBo0jytT/cUsjBgs0AkraCkN3Zz1ghc
+         ZjBVrrHhQs+u7aEY+WirqO99j8kCXijFk3s11hZjwi4BuOH7hic6UR4afHWxd+q3HGmi
+         7M/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774698648; x=1775303448;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Dld5selLQ1J9MQ4u6bdHYyqpBvugOu7TPOGeAA3ulRE=;
+        b=qwDGKJ4o892rDWsOsqdFRggvfGa0hjcCT72NIXBwUKntkrF1a81x31tFUs6khVEA9C
+         E3S9UWe6mDCrJFUYsr2KS4pswC/MVdNfkEjMEy8DY/UUx+KZIJr5Qe82kEE9lVbHi6Qa
+         dwfzZ98utqYx/XChfXeynaWXqSn7l+XjDaaCzLPGXIqyTuP7B6jMwcVIKCc3EojhFU7w
+         SQ3DyLn2UuDCh1XuJtgW9jn1aqMqUYliTTnxSTbskBZtBXencvEWFVC/7Ei9StnpVvLY
+         hu2A7iMSKnTTqWdvOLJiiIsSVWhqG/WkjWGhNyQXWEmfXt6NC5G0VpnQib+xjlfFrSbp
+         z/1A==
+X-Forwarded-Encrypted: i=1; AJvYcCWurhsUMWWy4yyY3N8NF1lBFLcx8inrWRRErd1MRYGv6BqwMU+KqCG6je7yeLCWZw+PyP9zZ7DvFGvhyQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyDQ1R2UouO0qa02328h1hfRMFXuVr8VpcC3lMt30pUiD6GGLIE
+	e+RdDkoVG/I3O8Me8HDVB7LLtOpQdvK/tGMAoES2LNKCPPOfxcY+CQOUeAUfmay1YTUkrXkalER
+	ML8fa/hL9Y8XrRWHMiNnhcbP7Angs7iQrX8SVN/nPsA7wmGgqyZtyhbtMilPClfWo2A==
+X-Gm-Gg: ATEYQzxLvkfXSzo1jRgI7k5v9LSprSBuq0JU1PKcinMqflAoi+IM9vRxeglJ4UPTUm9
+	G2XgriFDAAmMtUDzj8pO1Wqv5+sOhkzVRucREXbHP+4xLcD1TDZwVUciKbBA/8rhTJjbcs8F4i0
+	zOk7NF2PHuwqH36fWsSZjrgisfTHyFyOjj9YPyHuCPXgAckmkUMuI04zDs9wW5T/GOWZyIVKWaI
+	O1+Lm87hKxr6Np3RdXbGy2PP6CFeFG1n+XS3vfessKow0/ivupFw7k4Uhc9GQ+4+baT4KH3YZtz
+	RcMPElgLKxOGzqU/62W+zl0fSql32TtfoLoIpSeDSqj6t1IF8iRDpuRPitc4JGfLQaQVvbkK7rL
+	PAnEEqUri1mW8WPWZFWw6UemijeuxokPkoPuWQFKPgKCueSiJ7JykujZTdI2salU2F4lu3SFbFN
+	6iqKgfEId3SM+JAoA9y7Sya6KNls5RJWug39rhUUBYwbtJMRtrHwAEVtpdwyH5XwP7seETVrHz/
+	hjEQhD6W9SO+Pet
+X-Received: by 2002:a05:622a:548:b0:50b:34b7:fd62 with SMTP id d75a77b69052e-50ba388e98emr73972281cf.25.1774698648333;
+        Sat, 28 Mar 2026 04:50:48 -0700 (PDT)
+X-Received: by 2002:a05:622a:548:b0:50b:34b7:fd62 with SMTP id d75a77b69052e-50ba388e98emr73971941cf.25.1774698647805;
+        Sat, 28 Mar 2026 04:50:47 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a2b13fd743sm412475e87.21.2026.03.28.04.50.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 28 Mar 2026 04:50:45 -0700 (PDT)
+Message-ID: <e0d704f8-180c-4167-90f0-a9052d8f85b3@oss.qualcomm.com>
+Date: Sat, 28 Mar 2026 12:50:43 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CA+XhMqw+pR3fLGbysq3FnfpH+b2GtmdhSjjgCKhTwfZFrF0_0w@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+From: johannes.goede@oss.qualcomm.com
+Subject: Re: [PATCH v6 1/2] platform/x86: int3472: Add TPS68470 board data for
+ Intel nvl
+To: Arun T <arun.t@intel.com>
+Cc: sakari.ailus@linux.intel.com, arec.kao@intel.com,
+        ilpo.jarvinen@linux.intel.com, dan.scally@ideasonboard.com,
+        platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
+        linux-kernel@vger.kernel.org, mehdi.djait@intel.com
+References: <20260327181959.3528753-1-arun.t@intel.com>
+ <20260327181959.3528753-2-arun.t@intel.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260327181959.3528753-2-arun.t@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=I8dohdgg c=1 sm=1 tr=0 ts=69c7c099 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=QyXUC8HyAAAA:8
+ a=P1BnusSwAAAA:8 a=EUspDBNiAAAA:8 a=MB0jrDmmLyahN4NmXrMA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22 a=D0XLA9XvdZm18NrgonBM:22
+X-Proofpoint-GUID: 04K9yDMPPkdh3TKUWsP4C13DEUKD07CT
+X-Proofpoint-ORIG-GUID: 04K9yDMPPkdh3TKUWsP4C13DEUKD07CT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI4MDA4NiBTYWx0ZWRfXwlaXCQGFU5m+
+ T57roun7ioUUs6hYO+ghn0NDCJ13kZKBXpyKZrzGdLYL/HbwFm4hUrA6hJnxgspsO9aVHiV63Gh
+ NgWTgABCiqsPxJpwMzRxLOluX7mfcs4aD+TImiVoJVi5PeTSq3f7h+/aPDrDg5yMT6sPkRtVAJj
+ X5V+0SgT8qebR63t7pSwUjhxsIXY6r057P6givonPAEpYEUETy58Xi1xcr2xlSHFNgbiSl4l6oC
+ rvNZqeEouxb6de2qIZzXvjuLvdTmAazR/aCnQQt32pilXaEqNeh3wLj34RxYGpKlZi4ZEVIfdAW
+ kJBtBzJgaGVBgH7D9/uIFtB76ZzfdPSjOxm0puqO+yb28xU0XWYfcC3RVSQ0qiR9UxaNEWXPs8/
+ QDpcHV5HSxXSfl1k8CLxkzvKfONpU4NprelkBBia1DZQOSzfey9b+UHERW5lZjegTxfATxemskq
+ BLiQmXitfPnnzNnL5QA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-27_02,2026-03-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 spamscore=0 adultscore=0 suspectscore=0
+ malwarescore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603280086
 
-On Sat, Mar 28, 2026 at 11:15:18AM +0000, David CARLIER wrote:
-> On Sat, 28 Mar 2026 at 10:21, Greg KH <greg@kroah.com> wrote:
-> >
-> > On Sat, Mar 28, 2026 at 10:00:10AM +0000, David Carlier wrote:
-> > > mxc_isi_probe() allocates isi->pipes with kzalloc_objs() but never
-> > > frees it on any probe failure path or in mxc_isi_remove(), leaking the
-> > > allocation on every failed probe and every normal unbind.
-> > >
-> > > Additionally, when mxc_isi_pipe_init() fails partway through the
-> > > channel loop or when mxc_isi_v4l2_init() fails, the already initialized
-> > > pipes are not cleaned up — their media entities and mutexes are leaked.
-> > >
-> > > Fix both by adding kfree(isi->pipes) to all probe error paths and to
-> > > mxc_isi_remove(), and cleaning up already-initialized pipes in the
-> > > err_xbar error path.
-> > >
-> > > Fixes: cf21f328fcaf ("media: nxp: Add i.MX8 ISI driver")
-> > > Signed-off-by: David Carlier <devnexen@gmail.com>
-> > > ---
-> >
-> > <formletter>
-> >
-> > This is not the correct way to submit patches for inclusion in the
-> > stable kernel tree.  Please read:
-> >     https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
-> > for how to do this properly.
+Hi,
+
+On 27-Mar-26 19:19, Arun T wrote:
+> The Intel NVL platform uses IPU8 is powered by a TPS68470 PMIC,requiring board
+> data to configure the GPIOs and regulators for proper camera sensor operation.
 > 
-> Apologies for the confusion — I wasn't submitting this for stable
-> inclusion directly. The Cc was added based on CI bot feedback since
-> the Fixes target is in the
->   stable tree, but I understand the correct flow is to let it go
-> through the maintainer tree first and let the Fixes tag handle stable
-> backporting.
+> Signed-off-by: Arun T <arun.t@intel.com>
+> Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
 
-If you read the above, "Fixes:" does not guarantee backporting at all,
-so NEVER rely on that if you know you want something applied to a stable
-kernel tree.
+Thanks, patch looks good to me:
 
-thanks,
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 
-greg k-h
+Regards,
+
+Hans
+
+
+
+> ---
+>  .../x86/intel/int3472/tps68470_board_data.c   | 121 ++++++++++++++++++
+>  1 file changed, 121 insertions(+)
+> 
+> diff --git a/drivers/platform/x86/intel/int3472/tps68470_board_data.c b/drivers/platform/x86/intel/int3472/tps68470_board_data.c
+> index 71357a036292..f0309fd1e515 100644
+> --- a/drivers/platform/x86/intel/int3472/tps68470_board_data.c
+> +++ b/drivers/platform/x86/intel/int3472/tps68470_board_data.c
+> @@ -143,6 +143,20 @@ static struct regulator_consumer_supply int3479_aux2_consumer_supplies[] = {
+>  	REGULATOR_SUPPLY("dovdd", "i2c-INT3479:00"),
+>  };
+>  
+> +/* Settings for Intel NVL platform */
+> +
+> +static struct regulator_consumer_supply ovti13b1_core_consumer_supplies[] = {
+> +	REGULATOR_SUPPLY("dvdd", "i2c-OVTI13B1:01"),
+> +};
+> +
+> +static struct regulator_consumer_supply ovti13b1_ana_consumer_supplies[] = {
+> +	REGULATOR_SUPPLY("avdd", "i2c-OVTI13B1:01"),
+> +};
+> +
+> +static struct regulator_consumer_supply ovti13b1_vsio_consumer_supplies[] = {
+> +	REGULATOR_SUPPLY("dovdd", "i2c-OVTI13B1:01"),
+> +};
+> +
+>  static const struct regulator_init_data dell_7212_tps68470_core_reg_init_data = {
+>  	.constraints = {
+>  		.min_uV = 1200000,
+> @@ -220,6 +234,77 @@ static const struct regulator_init_data dell_7212_tps68470_aux2_reg_init_data =
+>  	.consumer_supplies = int3479_aux2_consumer_supplies,
+>  };
+>  
+> +static const struct regulator_init_data intel_nvl_tps68470_core_reg_init_data = {
+> +	.constraints = {
+> +		.min_uV = 1200000,
+> +		.max_uV = 1200000,
+> +		.apply_uV = true,
+> +		.valid_ops_mask = REGULATOR_CHANGE_STATUS,
+> +	},
+> +	.num_consumer_supplies = ARRAY_SIZE(ovti13b1_core_consumer_supplies),
+> +	.consumer_supplies = ovti13b1_core_consumer_supplies,
+> +};
+> +
+> +static const struct regulator_init_data intel_nvl_tps68470_ana_reg_init_data = {
+> +	.constraints = {
+> +		.min_uV = 2815200,
+> +		.max_uV = 2815200,
+> +		.apply_uV = true,
+> +		.valid_ops_mask = REGULATOR_CHANGE_STATUS,
+> +	},
+> +	.num_consumer_supplies = ARRAY_SIZE(ovti13b1_ana_consumer_supplies),
+> +	.consumer_supplies = ovti13b1_ana_consumer_supplies,
+> +};
+> +
+> +static const struct regulator_init_data intel_nvl_tps68470_vcm_reg_init_data = {
+> +	.constraints = {
+> +		.min_uV = 2815200,
+> +		.max_uV = 2815200,
+> +		.apply_uV = true,
+> +		.valid_ops_mask = REGULATOR_CHANGE_STATUS,
+> +	},
+> +
+> +};
+> +
+> +/* Ensure the always-on VIO regulator has the same voltage as VSIO */
+> +static const struct regulator_init_data intel_nvl_tps68470_vio_reg_init_data = {
+> +	.constraints = {
+> +		.min_uV = 1800600,
+> +		.max_uV = 1800600,
+> +		.apply_uV = true,
+> +		.always_on = true,
+> +	},
+> +};
+> +
+> +static const struct regulator_init_data intel_nvl_tps68470_vsio_reg_init_data = {
+> +	.constraints = {
+> +		.min_uV = 1800600,
+> +		.max_uV = 1800600,
+> +		.apply_uV = true,
+> +		.valid_ops_mask = REGULATOR_CHANGE_STATUS,
+> +	},
+> +	.num_consumer_supplies = ARRAY_SIZE(ovti13b1_vsio_consumer_supplies),
+> +	.consumer_supplies = ovti13b1_vsio_consumer_supplies,
+> +};
+> +
+> +static const struct regulator_init_data intel_nvl_tps68470_aux1_reg_init_data = {
+> +	.constraints = {
+> +		.min_uV = 2815200,
+> +		.max_uV = 2815200,
+> +		.apply_uV = 1,
+> +		.valid_ops_mask = REGULATOR_CHANGE_STATUS,
+> +	},
+> +};
+> +
+> +static const struct regulator_init_data intel_nvl_tps68470_aux2_reg_init_data = {
+> +	.constraints = {
+> +		.min_uV = 1800600,
+> +		.max_uV = 1800600,
+> +		.apply_uV = 1,
+> +		.valid_ops_mask = REGULATOR_CHANGE_STATUS,
+> +	},
+> +};
+> +
+>  static const struct tps68470_regulator_platform_data dell_7212_tps68470_pdata = {
+>  	.reg_init_data = {
+>  		[TPS68470_CORE] = &dell_7212_tps68470_core_reg_init_data,
+> @@ -232,6 +317,18 @@ static const struct tps68470_regulator_platform_data dell_7212_tps68470_pdata =
+>  	},
+>  };
+>  
+> +static const struct tps68470_regulator_platform_data intel_nvl_tps68470_pdata = {
+> +	.reg_init_data = {
+> +		[TPS68470_CORE] = &intel_nvl_tps68470_core_reg_init_data,
+> +		[TPS68470_ANA]  = &intel_nvl_tps68470_ana_reg_init_data,
+> +		[TPS68470_VCM]  = &intel_nvl_tps68470_vcm_reg_init_data,
+> +		[TPS68470_VIO] = &intel_nvl_tps68470_vio_reg_init_data,
+> +		[TPS68470_VSIO] = &intel_nvl_tps68470_vsio_reg_init_data,
+> +		[TPS68470_AUX1] = &intel_nvl_tps68470_aux1_reg_init_data,
+> +		[TPS68470_AUX2] = &intel_nvl_tps68470_aux2_reg_init_data,
+> +	},
+> +};
+> +
+>  static struct gpiod_lookup_table surface_go_int347a_gpios = {
+>  	.dev_id = "i2c-INT347A:00",
+>  	.table = {
+> @@ -258,6 +355,14 @@ static struct gpiod_lookup_table dell_7212_int3479_gpios = {
+>  	}
+>  };
+>  
+> +static struct gpiod_lookup_table intel_nvl_ovti13b1_gpios = {
+> +	.dev_id = "i2c-OVTI13B1:01",
+> +	.table = {
+> +		GPIO_LOOKUP("tps68470-gpio", 9, "reset", GPIO_ACTIVE_LOW),
+> +		{ }
+> +	}
+> +};
+> +
+>  static const struct int3472_tps68470_board_data surface_go_tps68470_board_data = {
+>  	.dev_name = "i2c-INT3472:05",
+>  	.tps68470_regulator_pdata = &surface_go_tps68470_pdata,
+> @@ -287,6 +392,15 @@ static const struct int3472_tps68470_board_data dell_7212_tps68470_board_data =
+>  	},
+>  };
+>  
+> +static const struct int3472_tps68470_board_data intel_nvl_tps68470_board_data = {
+> +	.dev_name = "i2c-INT3472:04",
+> +	.tps68470_regulator_pdata = &intel_nvl_tps68470_pdata,
+> +	.n_gpiod_lookups = 1,
+> +	.tps68470_gpio_lookup_tables = {
+> +		&intel_nvl_ovti13b1_gpios,
+> +	},
+> +};
+> +
+>  static const struct dmi_system_id int3472_tps68470_board_data_table[] = {
+>  	{
+>  		.matches = {
+> @@ -316,6 +430,13 @@ static const struct dmi_system_id int3472_tps68470_board_data_table[] = {
+>  		},
+>  		.driver_data = (void *)&dell_7212_tps68470_board_data,
+>  	},
+> +	{
+> +		.matches = {
+> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Intel Corporation"),
+> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Nova Lake Client Platform"),
+> +		},
+> +	       .driver_data = (void *)&intel_nvl_tps68470_board_data,
+> +	},
+>  	{ }
+>  };
+>  
+
