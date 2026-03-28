@@ -1,82 +1,86 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC4832B99F
-	for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 15:23:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A7F930EF86
+	for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 15:27:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774711419; cv=none; b=eAtGMN7othnRxu+ae+NVirOD0i34ZKbl5pEpoarALuCaV5kRyTbR/VIrqgfXXLUTbXr0mt/IqVUFXq5UI/cRSwH2++SbLClclxD+uj7wpPnXwQIbLHVN4yFRnDFOgfhmdX9nsbDwAevvOujPrSHQj5hSwHsEHdvKtzCRO8TM84M=
+	t=1774711674; cv=none; b=pWVs2cG0dA7b/8R/PS9DNh2wwY4mi6VZtipwlaKOKsHY80ITrNNpIY/roDdg5eqdP0lT3fmvcm+bAUlqVwPE0r/KZJSXpH2YS37jg5NTww8FdMU3Z99WyCgIALXwdlMvSXpYwI5rYck9zMc0+y6DgU73x2tIDv75M//vzNE93E0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774711419; c=relaxed/simple;
-	bh=DDxcgTMqVStcQgFfJEtZCeD2KwTgSjwDBMGcMyfbmOQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=npSJhPwEoyvOeVxEzPidbpHdxqxhT58RBVhZsk2tEvdNIsigi4dPac0TKR8Jk71pYsWntIW7UT5lNqvmWv/hHe3TG537Al4JJCCm+aqKZyXVfg4WV1K5dfma0/1++L9kuZdByMsXNelle8ElSktgtRqCt7qYKg8Z/KgNUjsjZxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LS3TMnwm; arc=none smtp.client-ip=209.85.218.45
+	s=arc-20240116; t=1774711674; c=relaxed/simple;
+	bh=aPmpfFpggnZ7yh+fNy8bK/Rco8BtGKmejVmvEZpM/zo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SkWfoyhV3DGsMW3F0rIXqlN3czbtDUBMcyteYIYvSqlX8HgMFjs9o90I2umYglHh+djD6FXnz5J1RxsnFCRsObvIn2z9kGf/lPFMMINItZKL6fAEn02lfnmGh8ETfjiEBRUp+CKi3sJw2SwCGwMVDzK71heiGO8GF5fsL6PL7gM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JdCdRjvT; arc=none smtp.client-ip=209.85.208.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LS3TMnwm"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-b9a0762ed5fso424706666b.1
-        for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 08:23:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JdCdRjvT"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-66a82351490so5464587a12.0
+        for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 08:27:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774711417; x=1775316217; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6LWhF3uaArkhQK+8SH0+E8r9jK9foFcw9lUUPANL8Bg=;
-        b=LS3TMnwmqJIaKbtO84k79yDBrcppQ4hRUd8TUpvmuWM44h/XGcais4rNtZLC4TGXe+
-         DZeQmYUxLrn+ySjC9tvJXpCuq4GZQG2XMzlxJfB9X/MQfJUtBA9QCp8zD1pn3+2m7/8A
-         Ldw7XkYSioQUPwrqPYPMkcIj3kg9Asrll/k01tDcwRVfbtyYlyBP/dUCX3nytzvEBaA4
-         gi8xak+pX1YU1w4nIGpUq2qaLEG9IOga6ZzRnpSbW3KvrX/TEvD5xRl9dWYn84GazO7N
-         8WLybCGD7hw0azQett5FtxmLUyNHFfkloyP1yoQF0J/zGHIG+6gv+3G9B/T7URNdEC1d
-         j7iw==
+        d=gmail.com; s=20251104; t=1774711671; x=1775316471; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=sKTzUyCJVefkIQog5iRQn1oimRCi8Kk7F9aJbK64clc=;
+        b=JdCdRjvTRHdM1aJKOgg5T+z6XtFR4Q1EguvHSZ/0KrXOtOylbAwtPzkTWYLJV/gtok
+         8eoQXO1WaCw3AAA3/gcLGRfKaGKS7TLB0sk+nQtK1na6RX4dAokWiA2rY9TB7AeqZ5Nn
+         /YPS++5mDZOh11WilJmKjJnjZJ0jizv8uPO64bdtt8bl5rWqBhsH/ALS15TpMAp6HCd1
+         UU4tqYEbx69YQk5byC34dqVP+y8Oz6RnHDJyPoRTZ38Nf3edcKBtdc4nvngoDWZxS64Y
+         fRcVehGwzi7BOR3H9F2wnoAftrWNN/xxQxYLbrqkil8FL85hKLXWG7BzUlQ6jh4RK4Dc
+         2i3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774711417; x=1775316217;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=6LWhF3uaArkhQK+8SH0+E8r9jK9foFcw9lUUPANL8Bg=;
-        b=n/MZl0NG4DXM7FrL9/awmgIbnl24OMVPIUl4xyexwbfjjFrSmPoTnr2iNQfb0iHtgJ
-         V8FKinNDu5WX0/7/0dpmBcaXZEV4j7mwzt9vei8RqEn9nseUHpZbFJsTbgD6S3T0Ki16
-         gDUiDo3nTuPkQMFXf4suN/GilIAOUnplvkQj6iUnBWPDUVCjSz+utOy8iFBI5ahWXhBj
-         /Ku9DZDdhDd6NxjPcsLFlpjOWOKfj6RuZQIvnEJcR/wVojaRUbfTPxpF0fzOUFlH9wPf
-         YRl3JJf56F0L8P20aUcUIdz+VhYbRILx+DUqzl05COV/wBsC9XpFh3illhAD8vvGVjdN
-         z0iA==
-X-Forwarded-Encrypted: i=1; AJvYcCUyHz+6jHOCb7RpNqtyx3Zp7v6R/EDXMN2kLI8HX5g/jMeUD7UBPtUkYZeUDzU3RKerd9M5/OquadVVnA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwLnJyVa91vvsUDl5spTK4oKguZPXG/OI9sBlj0nyrBuZnjkZwG
-	4D+eUHEa318GnrBdbdC7HFsbjcHJI8mzAf0HfR6L/nm96HlE+2dGxHrQCARfnhRudG3p8g==
-X-Gm-Gg: ATEYQzyJk41HTmWJZ+Q8jP9RbQUNXjIlsQ31RE9aH1E8QVjHHYbAcm6XBWlUZBLp8Ok
-	utGjkcIZa8PitA2Mdk0lNcH6mHH7zb98oFe8YADDPY8ll40VTz0VVQCQP1FEJHFrm6EZRKpUrF1
-	Nz9NcDe5dSyJc40n9nK4WG1qRJP+zClHQQznOCxob1q9RKvLC31geySfZ/vb7oRNM1E7ZU7o4Rw
-	SXOB1MjhoCU1ocZFkVHEHhaNaFlXd/juPflXeKnmEmIap+1fsFgCX1aAfLXNeH/yYTGvy4ruit7
-	iKi4k129qDZPgoVwdQtYET3p5bg2n3Y+pPsYijpVq1mKvwi+/fAPDWQN4YOVGD7GDRLYDuZRl+7
-	WOilmn4XzIauuxyrv0R+VeWNoc1qCZGGi8/GGbDCjhG6n47RotFwnnb8MH9g7vMM7KCrnaifHG5
-	ER4DsyYRQHq9r9xo7tzitzkStm7bF6YA2SHazVJ3PvUbpygaK5b/pvBlfQ/5PRYdf+FiZ+g4OxA
-	yB7+0MmyDw6
-X-Received: by 2002:a05:600c:6986:b0:46e:59bd:f7e2 with SMTP id 5b1f17b1804b1-48729109c35mr80167305e9.11.1774697013685;
-        Sat, 28 Mar 2026 04:23:33 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-487305da785sm41491685e9.0.2026.03.28.04.23.32
+        d=1e100.net; s=20251104; t=1774711671; x=1775316471;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=sKTzUyCJVefkIQog5iRQn1oimRCi8Kk7F9aJbK64clc=;
+        b=EbqxQCzcKmjOAzMxeEQ9I3XnRcm4/W8rhPCPGIHfTnI9tRh1cFohtIQuzLrfEBRR7L
+         Zgm0sJo6h4jOjlTokAv1epndEv6sYx6d52IUKXg8kL4rxm9OeYPhe4LMPUVyU1UMFlif
+         Y3Ni1i47QAgyR1KdlrzBP9BXj9XY1GbiFz6YFSMJUQN/2rim+yU6mOaSn7jkg9bLCrYD
+         udER6Do/GJyT7QrwDu73vC71GhLl3AaoNSD7QJNoFLpWmLFUYXkX3v5zNM8W/fJ1UWuQ
+         SwQJFiHIyByV/M9b8ddMcGKV92SUVm/9neOGR7svuDIHB7Mg5botEHYn8DpYuQRo1cTW
+         qMHw==
+X-Gm-Message-State: AOJu0Yz2pQNjE7Ig37A3rGQKDDdRMkS1waox6+sAsiBnAKtJTbI+gTRF
+	BAIWTyZul+iVhDb2UJsosAh8LCxUXJKxckEfhdqvSGgEbbPsGPw8REbLWjTawF3yAXA=
+X-Gm-Gg: ATEYQzwshSFWxer9K7ZOa1455wDIEJLTwdj6INZILd2LRb5j3do4SzTfH79/adb6NtH
+	QC6l3vCp8yMPWcr2BAJKQaT4nYjpR6dy2ULmrYRATLb7xDbAzIXksLSUJF6VLGJCxuGEJOAjPeM
+	+XWrifU+Vb4wLwzHh+4mqLmnHCLaYl7JuxWv34HTF/fSb5kZrgrdo+VNKSIlkIHXhucGbHxIKg4
+	H8tuM/50JG0DUcPLRvhHFkAsuBPRhyjYAhR/2gdt86g1Him2xuCHg73MDrzZwaF9L91ptG1DwXj
+	G4r9SyD5ZcKXXAucJCQuokhQ78AH9UeDzRhJmJ7U3jGptU1hZ/zoo/eFcuJ90t4TUaLORNPVOea
+	AMNPZOl55xukqbhP54J8GyVovgazatQZ69zv7NBkdOFhQxtntCXSHXQtXk2CXQ5yvroO0/Es5hY
+	ZCCOg+jfVhdrGgvMeANxKLF7cJjytTacaBUmFC0Cps+YYbeC9kASn5hPkP9ApG2/tmeD5E1wj9Q
+	ZfKywwxbtL0vX0RG5tJjEwxSvMVC3kyIcMrjFfX7Mx076Y=
+X-Received: by 2002:a05:6000:3109:b0:43c:a352:c34f with SMTP id ffacd0b85a97d-43ca352c69cmr6097729f8f.7.1774704567550;
+        Sat, 28 Mar 2026 06:29:27 -0700 (PDT)
+Received: from iku.example.org ([2a06:5906:61b:2d00:e1de:7c03:e16f:8136])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43cf21e265fsm5369110f8f.1.2026.03.28.06.29.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Mar 2026 04:23:33 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: eajames@linux.ibm.com,
-	mchehab@kernel.org
-Cc: joel@jms.id.au,
-	andrew@codeconstruct.com.au,
-	hverkuil@kernel.org,
-	linux-media@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org,
+        Sat, 28 Mar 2026 06:29:27 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Xiaolei Wang <xiaolei.wang@windriver.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>
-Subject: [PATCH v2] media: aspeed: fix missing of_reserved_mem_device_release() on probe failure
-Date: Sat, 28 Mar 2026 11:23:30 +0000
-Message-ID: <20260328112330.50726-1-devnexen@gmail.com>
+	linux-renesas-soc@vger.kernel.org,
+	Prabhakar <prabhakar.csengg@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v2 0/2] media: ov5645: Implement frame descriptor reporting and convert to CCI register access helpers
+Date: Sat, 28 Mar 2026 13:29:00 +0000
+Message-ID: <20260328132902.776757-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260327220827.266556-1-devnexen@gmail.com>
-References: <20260327220827.266556-1-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -85,37 +89,40 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-aspeed_video_init() calls of_reserved_mem_device_init() to associate
-reserved memory regions with the device. When aspeed_video_setup_video()
-subsequently fails in aspeed_video_probe(), the error path frees the
-JPEG buffer and unprepares the clocks but does not release the reserved
-memory association, leaking the rmem_assigned_device entry on the global
-list.
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-The normal remove path already calls of_reserved_mem_device_release()
-correctly; only the probe error path was missing it.
+Hi all,
 
-Add the missing of_reserved_mem_device_release() call to the
-aspeed_video_setup_video() failure cleanup.
+This series implements the .get_frame_desc() subdev operation for the
+OV5645 camera sensor driver to report information about streams to the
+connected CSI-2 receiver. This is required to let the CSI-2 receiver
+driver know about virtual channels and data types for each stream.
 
-Fixes: d2b4387f3bdf ("media: platform: Add Aspeed Video Engine driver")
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
- drivers/media/platform/aspeed/aspeed-video.c | 1 +
- 1 file changed, 1 insertion(+)
+The series also converts the OV5645 driver to use CCI register access
+helpers, which simplifies the code and improves error handling.
 
-diff --git a/drivers/media/platform/aspeed/aspeed-video.c b/drivers/media/platform/aspeed/aspeed-video.c
-index 41cb96f60110..a292275f6b7b 100644
---- a/drivers/media/platform/aspeed/aspeed-video.c
-+++ b/drivers/media/platform/aspeed/aspeed-video.c
-@@ -2343,6 +2343,7 @@ static int aspeed_video_probe(struct platform_device *pdev)
- 	rc = aspeed_video_setup_video(video);
- 	if (rc) {
- 		aspeed_video_free_buf(video, &video->jpeg);
-+		of_reserved_mem_device_release(&pdev->dev);
- 		clk_unprepare(video->vclk);
- 		clk_unprepare(video->eclk);
- 		return rc;
+v1->v2
+- Fixed selecting V4L2_CCI_I2C config option for the OV5645 driver.
+- Fixed checkpatch warnings limiting to 80 characters per line.
+
+Note
+- patch 1/2 was origally part of series [0], patches 1-7 from series
+  [0] have been already merged.
+- patches apply on top of media/next commit-id 2c8fe1f14240
+
+[0] https://lore.kernel.org/all/20241018153230.235647-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+
+Cheers,
+Prabhakar
+
+Lad Prabhakar (2):
+  media: i2c: ov5645: Report streams using frame descriptors
+  media: i2c: ov5645: Convert to CCI register access helpers
+
+ drivers/media/i2c/Kconfig  |   1 +
+ drivers/media/i2c/ov5645.c | 934 ++++++++++++++++++-------------------
+ 2 files changed, 462 insertions(+), 473 deletions(-)
+
 -- 
 2.53.0
 
