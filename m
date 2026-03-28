@@ -1,79 +1,82 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3C9349AFC
-	for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 15:22:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC4832B99F
+	for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 15:23:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774711351; cv=none; b=ExNhKNOUTiC0is+RC1MPuIhWxNrYBZeqZPi1kg9a8SLr86eCBPwLAsivT3UAjvjjut9w/POXQVM35F/gATZAu3wyqk5kA5YrSYI9VCttfYeeJDk6BP4xMYO9rSeVHJrDvxrQSPsX6QRT7UR2iQ+ElFjAUlQU8DbVqn6wrtCK+ls=
+	t=1774711419; cv=none; b=eAtGMN7othnRxu+ae+NVirOD0i34ZKbl5pEpoarALuCaV5kRyTbR/VIrqgfXXLUTbXr0mt/IqVUFXq5UI/cRSwH2++SbLClclxD+uj7wpPnXwQIbLHVN4yFRnDFOgfhmdX9nsbDwAevvOujPrSHQj5hSwHsEHdvKtzCRO8TM84M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774711351; c=relaxed/simple;
-	bh=YHJ1Q9r2nFzI40oj0hLyuUwDuuKsB5TRZDY4YRqCeQM=;
+	s=arc-20240116; t=1774711419; c=relaxed/simple;
+	bh=DDxcgTMqVStcQgFfJEtZCeD2KwTgSjwDBMGcMyfbmOQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M0CSk8bsW7JvAYrq2a5zeYRW2PEfEJCKZnMe7K7/zmBLvdz2J0SVa0cHbAwk4xWDZOVPd2GSJIPUqNdmmoU9RsCuadOkvbAjvHUCbPPgSbt/LDDhcSRcfnMVbYG/n5i4IN1pHuH+bIY7NKlMuFHpRBGTVjq7mxa6CiEKNX7JG34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aXs/R/5N; arc=none smtp.client-ip=209.85.221.49
+	 MIME-Version; b=npSJhPwEoyvOeVxEzPidbpHdxqxhT58RBVhZsk2tEvdNIsigi4dPac0TKR8Jk71pYsWntIW7UT5lNqvmWv/hHe3TG537Al4JJCCm+aqKZyXVfg4WV1K5dfma0/1++L9kuZdByMsXNelle8ElSktgtRqCt7qYKg8Z/KgNUjsjZxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LS3TMnwm; arc=none smtp.client-ip=209.85.218.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aXs/R/5N"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-439c56e822eso3314731f8f.2
-        for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 08:22:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LS3TMnwm"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-b9a0762ed5fso424706666b.1
+        for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 08:23:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774711348; x=1775316148; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1774711417; x=1775316217; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0sT0vAeKWbNcBHjzXmZNOmFDiqgcHVu5KL+cg6ECaM0=;
-        b=aXs/R/5NtIbMv69Xv7uvV4cpXrqEv3M+ugcY/zKHLIXRcCjY7JmB4gZpfbeCDqFspg
-         dtKIYl743bondh0ZKCvxusisNSIACwMusOtMuz4OnHxTHvkIX8wkQpTmAhmhw6OP6yQU
-         OgyG7pe+c/WQTDBVG/XxnoyFJAsywJKBK7+NVvQaXNpHQgA5L85t+8x1rvJ6YtxKU444
-         T/BLFzQ9WAvIE0T3jfwUm/mmG8MJiiPiaZjE3LN/9+JqRfV6KdXNbpD5OCHL8aPqEcg/
-         JFeHM3ElsbDgLVxRfu/n9ykYIbslfYnUD/5Y9jpWBwF7/pIz3VoDZ6TKQKq8H+NGULYj
-         wBiA==
+        bh=6LWhF3uaArkhQK+8SH0+E8r9jK9foFcw9lUUPANL8Bg=;
+        b=LS3TMnwmqJIaKbtO84k79yDBrcppQ4hRUd8TUpvmuWM44h/XGcais4rNtZLC4TGXe+
+         DZeQmYUxLrn+ySjC9tvJXpCuq4GZQG2XMzlxJfB9X/MQfJUtBA9QCp8zD1pn3+2m7/8A
+         Ldw7XkYSioQUPwrqPYPMkcIj3kg9Asrll/k01tDcwRVfbtyYlyBP/dUCX3nytzvEBaA4
+         gi8xak+pX1YU1w4nIGpUq2qaLEG9IOga6ZzRnpSbW3KvrX/TEvD5xRl9dWYn84GazO7N
+         8WLybCGD7hw0azQett5FtxmLUyNHFfkloyP1yoQF0J/zGHIG+6gv+3G9B/T7URNdEC1d
+         j7iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774711348; x=1775316148;
+        d=1e100.net; s=20251104; t=1774711417; x=1775316217;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=0sT0vAeKWbNcBHjzXmZNOmFDiqgcHVu5KL+cg6ECaM0=;
-        b=NOMzwqLH1/A5Tdph3MK+kCJE9bi6xurgF+G363id7pagmE5qpXdIlsKvvG4ijKDnkV
-         u2hFeB4r26lfUHOCkqNOMlJZ8BkeT2bX27yQuRID38JONMXHh4DZc5KA/ydktbmfA3DF
-         +t97NRbXVC424wYVWyPJ7vnH/VmjixAtYQkcU+E5AC7nyhxwRxntO17kxq6sm8OE0LLU
-         V4Cb7of2pr7oJ8CMVYHNQSHfvHq2CJmnUzyq8o8EcsJbADfFyqdDcFFWc3ck0vsIz67o
-         82UtgjfUJ26Mb5ceZB0qwaYqJQDYkjXfUGSm9mhlZqNuGbv22zddllY9aFlKkSpPG6Fz
-         be2w==
-X-Forwarded-Encrypted: i=1; AJvYcCXWZfgQPdjw1PqP/5QiOglMt26cvUcktlCNUQerfhQkLkjw1JiN1ZbzGgCuGsBn95ygV63HsKrSv9FS2g==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyPsHwEaZF1FhzLzsSA5ygyAy/Bkmvi1SCev7KpI+pabMf2TK8t
-	6Uy3MuHff8F9s2WuqWix2VB6NnE/66+iJOMQrljElAheAFzKkPMKj/Wl00Tt9kvDjnA=
-X-Gm-Gg: ATEYQzySXNFqClP+QBRIdZh5Q2ddeBczsrOLCzWsE/GiIf/0CwFYcf+R79NlBCxBn8m
-	j9+OF7UDboY8r0B9tfArFNKxcuNNeaCp1LCkIO7L7qFnRHmu0uvuoSRtJP3Bob6KdgMKfjR/V9z
-	AOx6gNaQIQeY032CryNHGhYjKxQhYK79k30lcczgIycIrT7zL3bXBYl3kxNfiHJ9CEYuHX3yap1
-	EJc9dnP0/PU0AfbNfkwjodPjP3I5mOdDLYSc6j//46DPKdT6yyuMY3vfLaRPaDtxkKHSxSEHuOh
-	ttTlqL0nK2N9qimqyFmV7AT6x/7Yrra8wftLqWqnJP3SWmJO/JgWQ+Dt80R2MdYJySieKtkFNdG
-	+6xWs/S2U0apI5UcxNcJaDiII8a+fj/kgAosjeMvkZLaK0xGQvOOu7+mNbnU9x21Y+VXmbxSa1n
-	wF6uoga2iFQ0Bb/UUlk2sVssKLE9yqHcI57gI1kLQ1Jq4IN9fzJ8W4OWIt/0nLmSC9odyL7j+qD
-	0n/nCrMxy7miN1teofAZH8=
-X-Received: by 2002:a05:600c:c086:b0:485:4388:3492 with SMTP id 5b1f17b1804b1-48727d7355fmr86777215e9.11.1774710899496;
-        Sat, 28 Mar 2026 08:14:59 -0700 (PDT)
+        bh=6LWhF3uaArkhQK+8SH0+E8r9jK9foFcw9lUUPANL8Bg=;
+        b=n/MZl0NG4DXM7FrL9/awmgIbnl24OMVPIUl4xyexwbfjjFrSmPoTnr2iNQfb0iHtgJ
+         V8FKinNDu5WX0/7/0dpmBcaXZEV4j7mwzt9vei8RqEn9nseUHpZbFJsTbgD6S3T0Ki16
+         gDUiDo3nTuPkQMFXf4suN/GilIAOUnplvkQj6iUnBWPDUVCjSz+utOy8iFBI5ahWXhBj
+         /Ku9DZDdhDd6NxjPcsLFlpjOWOKfj6RuZQIvnEJcR/wVojaRUbfTPxpF0fzOUFlH9wPf
+         YRl3JJf56F0L8P20aUcUIdz+VhYbRILx+DUqzl05COV/wBsC9XpFh3illhAD8vvGVjdN
+         z0iA==
+X-Forwarded-Encrypted: i=1; AJvYcCUyHz+6jHOCb7RpNqtyx3Zp7v6R/EDXMN2kLI8HX5g/jMeUD7UBPtUkYZeUDzU3RKerd9M5/OquadVVnA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwLnJyVa91vvsUDl5spTK4oKguZPXG/OI9sBlj0nyrBuZnjkZwG
+	4D+eUHEa318GnrBdbdC7HFsbjcHJI8mzAf0HfR6L/nm96HlE+2dGxHrQCARfnhRudG3p8g==
+X-Gm-Gg: ATEYQzyJk41HTmWJZ+Q8jP9RbQUNXjIlsQ31RE9aH1E8QVjHHYbAcm6XBWlUZBLp8Ok
+	utGjkcIZa8PitA2Mdk0lNcH6mHH7zb98oFe8YADDPY8ll40VTz0VVQCQP1FEJHFrm6EZRKpUrF1
+	Nz9NcDe5dSyJc40n9nK4WG1qRJP+zClHQQznOCxob1q9RKvLC31geySfZ/vb7oRNM1E7ZU7o4Rw
+	SXOB1MjhoCU1ocZFkVHEHhaNaFlXd/juPflXeKnmEmIap+1fsFgCX1aAfLXNeH/yYTGvy4ruit7
+	iKi4k129qDZPgoVwdQtYET3p5bg2n3Y+pPsYijpVq1mKvwi+/fAPDWQN4YOVGD7GDRLYDuZRl+7
+	WOilmn4XzIauuxyrv0R+VeWNoc1qCZGGi8/GGbDCjhG6n47RotFwnnb8MH9g7vMM7KCrnaifHG5
+	ER4DsyYRQHq9r9xo7tzitzkStm7bF6YA2SHazVJ3PvUbpygaK5b/pvBlfQ/5PRYdf+FiZ+g4OxA
+	yB7+0MmyDw6
+X-Received: by 2002:a05:600c:6986:b0:46e:59bd:f7e2 with SMTP id 5b1f17b1804b1-48729109c35mr80167305e9.11.1774697013685;
+        Sat, 28 Mar 2026 04:23:33 -0700 (PDT)
 Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4873069961esm51573795e9.12.2026.03.28.08.14.58
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-487305da785sm41491685e9.0.2026.03.28.04.23.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Mar 2026 08:14:59 -0700 (PDT)
+        Sat, 28 Mar 2026 04:23:33 -0700 (PDT)
 From: David Carlier <devnexen@gmail.com>
-To: dan.scally@ideasonboard.com,
-	jacopo.mondi@ideasonboard.com,
+To: eajames@linux.ibm.com,
 	mchehab@kernel.org
-Cc: nayden.kanchev@arm.com,
-	hverkuil+cisco@kernel.org,
+Cc: joel@jms.id.au,
+	andrew@codeconstruct.com.au,
+	hverkuil@kernel.org,
 	linux-media@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
 	David Carlier <devnexen@gmail.com>
-Subject: [PATCH v4 3/3] media: mali-c55: fix probe error path skipping pm_runtime_disable()
-Date: Sat, 28 Mar 2026 15:14:52 +0000
-Message-ID: <20260328151452.148901-3-devnexen@gmail.com>
+Subject: [PATCH v2] media: aspeed: fix missing of_reserved_mem_device_release() on probe failure
+Date: Sat, 28 Mar 2026 11:23:30 +0000
+Message-ID: <20260328112330.50726-1-devnexen@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260328151452.148901-1-devnexen@gmail.com>
-References: <20260328151452.148901-1-devnexen@gmail.com>
+In-Reply-To: <20260327220827.266556-1-devnexen@gmail.com>
+References: <20260327220827.266556-1-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -82,45 +85,37 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When mali_c55_media_frameworks_init() fails, the goto target jumps to
-err_free_context_registers, skipping pm_runtime_disable() despite
-pm_runtime having already been enabled earlier in the function.
+aspeed_video_init() calls of_reserved_mem_device_init() to associate
+reserved memory regions with the device. When aspeed_video_setup_video()
+subsequently fails in aspeed_video_probe(), the error path frees the
+JPEG buffer and unprepares the clocks but does not release the reserved
+memory association, leaking the rmem_assigned_device entry on the global
+list.
 
-Fix this by adding an err_pm_runtime_disable label and redirecting the
-frameworks init failure to it, so pm_runtime is properly unwound on
-that error path. The runtime PM status is also set back to suspended
-before disabling, to undo the pm_runtime_set_active() from probe.
+The normal remove path already calls of_reserved_mem_device_release()
+correctly; only the probe error path was missing it.
 
-Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+Add the missing of_reserved_mem_device_release() call to the
+aspeed_video_setup_video() failure cleanup.
+
+Fixes: d2b4387f3bdf ("media: platform: Add Aspeed Video Engine driver")
 Signed-off-by: David Carlier <devnexen@gmail.com>
 ---
- drivers/media/platform/arm/mali-c55/mali-c55-core.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/media/platform/aspeed/aspeed-video.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-index cf238bdf65c8..0f0043927cfa 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-@@ -828,7 +828,7 @@ static int mali_c55_probe(struct platform_device *pdev)
- 
- 	ret = mali_c55_media_frameworks_init(mali_c55);
- 	if (ret)
--		goto err_free_context_registers;
-+		goto err_pm_runtime_disable;
- 
- 	pm_runtime_idle(&pdev->dev);
- 
-@@ -843,8 +843,9 @@ static int mali_c55_probe(struct platform_device *pdev)
- 
- err_deinit_media_frameworks:
- 	mali_c55_media_frameworks_deinit(mali_c55);
-+err_pm_runtime_disable:
-+	pm_runtime_set_suspended(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
--err_free_context_registers:
- 	kfree(mali_c55->context.registers);
- err_power_off:
- 	__mali_c55_power_off(mali_c55);
+diff --git a/drivers/media/platform/aspeed/aspeed-video.c b/drivers/media/platform/aspeed/aspeed-video.c
+index 41cb96f60110..a292275f6b7b 100644
+--- a/drivers/media/platform/aspeed/aspeed-video.c
++++ b/drivers/media/platform/aspeed/aspeed-video.c
+@@ -2343,6 +2343,7 @@ static int aspeed_video_probe(struct platform_device *pdev)
+ 	rc = aspeed_video_setup_video(video);
+ 	if (rc) {
+ 		aspeed_video_free_buf(video, &video->jpeg);
++		of_reserved_mem_device_release(&pdev->dev);
+ 		clk_unprepare(video->vclk);
+ 		clk_unprepare(video->eclk);
+ 		return rc;
 -- 
 2.53.0
 
