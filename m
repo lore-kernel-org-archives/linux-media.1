@@ -1,124 +1,191 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 983203064A9;
-	Sat, 28 Mar 2026 11:55:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41DB92472AF
+	for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 12:02:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774698934; cv=none; b=esVz1TW+EEjaHB/VLCI1gPmt9xo5N8HRi+kS9eknDbiDaFFMBKGzBX7WrrboC7FPkZPZnmXY5vjOkyWpWJ20pCzukP0fYiqhSEKlXUoG3sHB4t4h7PgrDHa5TW8FTZd466ualm2T9TPApK9Ko1H+c74568W47NgGOWpjJyMVN/g=
+	t=1774699329; cv=none; b=U+XZJu5OnoROQXL2JQyI4nuJbio6EIwWOf514s1ycQ3Zmtar0bA5WLidlzanoweXUgW01MnNmAWGJs6ohf/aXu5GVQbx7x4cOz44oHmrMGSrz6vDkHBI3l21sDLNKY0imSQ96wFDnrprKmampb+F7836Pf7N7qx/ZkbKnmOM5QQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774698934; c=relaxed/simple;
-	bh=klZ2SzkCb0n5jxiB/B0foHVKhb8SkmZtAYYj+wa0zvE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ar79/7XdtVhHs3wYgsaEFgm8qb/nESwUBrTAhJvaQsKyK68WeDAN26zo7ZG2v53YfQ4rMTWicFAKCZpN5k/hrFbB56lV+RrnIvfjQliu0yHzTJwnMDeqn5Jo/nltS4Y5vsR5S9DBx0tVVAv18CXOyKwCzwEaBhavAQAX4UKgM4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=TS4CMPb8; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1774699329; c=relaxed/simple;
+	bh=uvVVub+gmQlPjulx8qodfzDWFFTVrM/t5QvQMJsmEao=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ECi+5NYFOoQ2vAHo3XcF6yd0F2NNlNi200UYeMZq1ELiYXaw3F4XoZFH3uEioYD2e/Jk4ILhUXYHEHCnXU9h49//GIflEgtW7USrqYqWUGffH5pzJLYITMcEA7Qtw7i/ZbooIowSUO74q2Uhz+SYm7Jvxx+qNzhj8E7qFUeDbf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=LtYV0j5G; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="TS4CMPb8"
-Received: from ideasonboard.com (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6881B63D;
-	Sat, 28 Mar 2026 12:54:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1774698848;
-	bh=klZ2SzkCb0n5jxiB/B0foHVKhb8SkmZtAYYj+wa0zvE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TS4CMPb8w0IlXqQu+iBjRGl3mzIMt9uT4FQVWMgVvw6KI9shNc8s9lrBAWd9iU5ti
-	 AdicS9wPLKiUff1mthUxNVxSQGhTgYX+4Mddbs/oAoSV73kIIRN073zaANWkvHIVh/
-	 t86AWo+XXYUXm0b4EAXu9MJMzAayyRBSQAjs0Hy8=
-Date: Sat, 28 Mar 2026 12:55:25 +0100
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <pobrn@protonmail.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>, 
-	Daniel Scally <dan.scally+renesas@ideasonboard.com>
-Subject: Re: [PATCH 00/14] media: rzg2l-cru: Rework slot programming for
- V2H/G3E
-Message-ID: <acfBaMdKDThNhfcX@zed>
-References: <20260327-b4-cru-rework-v1-0-3b7d0430f538@ideasonboard.com>
- <CA+V-a8tGfAzMdFgY7U+pLitDXbnj3xD8-RzXjbkOQ-iH4mtkug@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="LtYV0j5G"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-43b7481f9d3so1669194f8f.3
+        for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 05:02:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1774699327; x=1775304127; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=si+LqWUeUzQbWuRX0yXTIaRmzGoM4iuF22tOkmbkOQQ=;
+        b=LtYV0j5GahKTzqeGxujV4swdvlfL7UoMh21tzAIhYPkkQ7Vb23EHPQjEM36D+uO+yj
+         Vm4uPXSWjaQewMZJKfBCPlH0BpQLnjjfKqu7x+VeUoEFA0jlVT81i3NYzuxBMEzYoI2+
+         ifPb6PBjABj8gDghHK2sVoUS6iZx3Bnp0N8z4svpeyLM5YEyoWU2J1HalADSMtQeCY4l
+         HASc9rugyZdPyX9CflgJ1wIHAi0R/KccBUHNHt3XQGTJHl94l+lT03MaOtTRnJbJQOts
+         d2QSm4Uh37P8JrYTo4ltx8OkflPnMbAYw8gwuH76aIY2jDkvIc/q4BcLN6Xi2Ul+wZ0o
+         Kqfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774699327; x=1775304127;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=si+LqWUeUzQbWuRX0yXTIaRmzGoM4iuF22tOkmbkOQQ=;
+        b=DfxR5kz4Zs8L0a9NJ/Db1AE1MtfoaPcH5bS3M+3htvFwtqMJUPXc5xc1IM2l8Xx5Sj
+         KwxdSJYy9tk+UOOFYv/2if0oTmogmHGPkKsLh/C2GvzHftXgGRhuXq77DQXOVVLe7l8D
+         xuLeAjpEbvADcPn6VtbrTzcFmNffdA285LrmVmikWCvoGt38A7jmBh4sTzz9I5Pc+pyi
+         oJLMk6SwqF+XOhrn4wiEbqiLTsMO/VBZuy1ft82RVd0o/owz/OIzThQXsLvDgCz6tHzP
+         TClvQayK8IsYTLduOD2Yn5dZaKHbIBuN47ajvUM8BqEeSV8IVszAvoqEu+tK70LOk7Ig
+         7jXQ==
+X-Gm-Message-State: AOJu0Yx5I1Ht6s14DRB6XR7i/Um5Gtepq5fCAD1Q6CsUGq1eRO4gLINP
+	56kifQi2mJVDZqHGpM+8xbP+q8gRM9VGGyTsxIPWku6QwCUKFVJjSoJTNrDtfmcIyEY=
+X-Gm-Gg: ATEYQzyUBiusPrX3d6g+iVQsKIGbTgRGUmGsRbGFTV5Fggjuk0qCG9pBFPKoxnp271z
+	8AmX0DtJ9snOKoEw3+zG8JwpE4HZgPjPLLwJD+M2OUUZsppVh6HxRuyAP+nAOi5LY9WkL9VgLVp
+	7zBP0Ek4FNHa3y+LAkEDFIR1G0vLVWMHE1p9t+N4/JS6RHipiGzn1GPwHv9+tbegMwgo7sj1Q6d
+	DM+3TEab5gjCyWqNb81wgWeyMwba+bViIy9YHGZXGRtHfwBiyZLe1aF6eTJGOV8/MbQW0Aw912J
+	i3b9nPVJMmt4z3EcZ33F3R0HcTbtt/uG4UGghF/Aqxp7PqfN55HGUgFbZ+grcvZyRIxRcFY9Gkx
+	Y7m/o1i7J54oZN0XOyV87Y30Lz/YhSr8QRSB+44haHkoIpcRFODUUujM7uC3DMNv4wX920bkkLr
+	zFLmKVf1SYSYWKtcTQ81lBKUJ5X4FQz09RO8s=
+X-Received: by 2002:a05:6000:144d:b0:43b:94d0:4d8 with SMTP id ffacd0b85a97d-43b9ea4af78mr10369975f8f.34.1774699326323;
+        Sat, 28 Mar 2026 05:02:06 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.108.64])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43cf2580194sm3855810f8f.37.2026.03.28.05.02.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 28 Mar 2026 05:02:05 -0700 (PDT)
+Message-ID: <417a34c5-6c51-4c5d-8796-7212e566c23e@linaro.org>
+Date: Sat, 28 Mar 2026 12:02:04 +0000
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CA+V-a8tGfAzMdFgY7U+pLitDXbnj3xD8-RzXjbkOQ-iH4mtkug@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] media: qcom: camss: Fix csid clock configuration
+ for sa8775p
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>, Robert Foss
+ <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Vikram Sharma <quic_vikramsa@quicinc.com>,
+ Suresh Vankadara <quic_svankada@quicinc.com>,
+ Wenmeng Liu <quic_wenmliu@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260313-vfelite_fix-v2-0-7014429c8345@oss.qualcomm.com>
+ <20260313-vfelite_fix-v2-2-7014429c8345@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+In-Reply-To: <20260313-vfelite_fix-v2-2-7014429c8345@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Prabhakar
-
-On Fri, Mar 27, 2026 at 05:25:30PM +0000, Lad, Prabhakar wrote:
-> Hi Jacopo,
->
-> Thank you for the patches.
->
-> On Fri, Mar 27, 2026 at 5:19 PM Jacopo Mondi
-> <jacopo.mondi@ideasonboard.com> wrote:
-> >
-> > This patch series starts by collecting a patch sent from Dan in the past
-> > which improves the HW slot programming on V2H(P) to avoid losing frames
-> > under heavy system load conditions.
-> >
-> > Tommaso also sent a series a few months ago for the CRU from which I
-> > collected the first two patches.
-> >
-> > Around it, I've reworked a bit the locking in the driver which is a bit
-> > coarse and causes lost of frames under heavy system load conditions.
-> >
-> > Along with these, bit of drive-by cometic changes here and there to
-> > modernize the driver code.
-> >
-> > I've tested on V2H(P) but I've also modified the G2L IRQ handler, so if
-> > anyone could test on G2L and G3E it would be great!
-> >
-> > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > ---
-> > Daniel Scally (1):
-> >       media: rzg2l-cru: Rework rzg2l_cru_fill_hw_slot()
-> >
-> > Jacopo Mondi (11):
-> >       media: rzg2l-cru: Modernize spin_lock usage with cleanup.h
-> >       media: rzg2l-cru: Use proper guard() in irq handler
-> >       media: rzg2l-cru: Remove locking from start/stop routines
-> >       media: rzg2l-cru: Do not use irqsave when not needed
-> >       media: rzg2l-cru: Remove wrong locking comment
-> >       media: rz2gl-cru: Introduce a spinlock for hw operations
-> >       media: rzg2l-cru: Split hw locking from buffers
-> >       media: rzg2l-cru: Manually track active slot number
-> You beat me to it, I had a similar patch internally.
-
-Oh that's great, I wasn't sure how this was going to be received!
-
->
-> >       media: rz2gl-cru: Return pending buffers in order
-> >       media: rzg2l-cru: Remove the 'state' variable
-> >       media: rzg2l-cru: Simplify irq return value handling
-> >
-> > Tommaso Merciai (2):
-> >       media: rzg2l-cru: Skip ICnMC configuration when ICnSVC is used
-> >       media: rzg2l-cru: Use only frame end interrupts
-> >
-> >  .../platform/renesas/rzg2l-cru/rzg2l-cru-regs.h    |   2 +
-> >  .../media/platform/renesas/rzg2l-cru/rzg2l-cru.h   |  28 +-
-> >  .../media/platform/renesas/rzg2l-cru/rzg2l-video.c | 328 ++++++++-------------
-> >  3 files changed, 140 insertions(+), 218 deletions(-)
->
-> I'll test these patches with ISP enabled next week.
-
-My testing platform is v2h with the ISP, if you have a G2L could you
-maybe give it a spin there as I don't have any board with that SoC ?
-
-Thanks
-   j
-
->
-> Cheers,
-> Prabhakar
+On 13/03/2026 10:13, Wenmeng Liu wrote:
+> Fix the mismatch between clock list and clock rate table for CSID lite
+> instances. The current implementation has 5 clocks defined but only 2
+> are actually needed (vfe_lite_csid and vfe_lite_cphy_rx), while the
+> clock rate table doesn't match this configuration.
+> 
+> Update both clock list and rate table to maintain consistency:
+> - Remove unused clocks: cpas_vfe_lite, vfe_lite_ahb, vfe_lite
+> - Update clock rate table to match the remaining two clocks
+> 
+> Fixes: ed03e99de0fa ("media: qcom: camss: Add support for CSID 690")
+> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+> ---
+>   drivers/media/platform/qcom/camss/camss.c | 40 ++++++++++++-------------------
+>   1 file changed, 15 insertions(+), 25 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+> index 00b87fd9afbd89871ffaee9cb2b2db6538e1d70d..cb013471898506f483e5b2779cfd4f679dc083e8 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -3598,12 +3598,10 @@ static const struct camss_subdev_resources csid_res_8775p[] = {
+>   	/* CSID2 (lite) */
+>   	{
+>   		.regulators = {},
+> -		.clock = { "cpas_vfe_lite", "vfe_lite_ahb",
+> -			   "vfe_lite_csid", "vfe_lite_cphy_rx",
+> -			   "vfe_lite"},
+> +		.clock = { "vfe_lite_csid", "vfe_lite_cphy_rx" },
+>   		.clock_rate = {
+> -			{ 0, 0, 400000000, 400000000, 0},
+> -			{ 0, 0, 400000000, 480000000, 0}
+> +			{ 400000000, 480000000 },
+> +			{ 400000000, 480000000 }
+>   		},
+>   		.reg = { "csid_lite0" },
+>   		.interrupt = { "csid_lite0" },
+> @@ -3617,12 +3615,10 @@ static const struct camss_subdev_resources csid_res_8775p[] = {
+>   	/* CSID3 (lite) */
+>   	{
+>   		.regulators = {},
+> -		.clock = { "cpas_vfe_lite", "vfe_lite_ahb",
+> -			   "vfe_lite_csid", "vfe_lite_cphy_rx",
+> -			   "vfe_lite"},
+> +		.clock = { "vfe_lite_csid", "vfe_lite_cphy_rx" },
+>   		.clock_rate = {
+> -			{ 0, 0, 400000000, 400000000, 0},
+> -			{ 0, 0, 400000000, 480000000, 0}
+> +			{ 400000000, 480000000 },
+> +			{ 400000000, 480000000 }
+>   		},
+>   		.reg = { "csid_lite1" },
+>   		.interrupt = { "csid_lite1" },
+> @@ -3636,12 +3632,10 @@ static const struct camss_subdev_resources csid_res_8775p[] = {
+>   	/* CSID4 (lite) */
+>   	{
+>   		.regulators = {},
+> -		.clock = { "cpas_vfe_lite", "vfe_lite_ahb",
+> -			   "vfe_lite_csid", "vfe_lite_cphy_rx",
+> -			   "vfe_lite"},
+> +		.clock = { "vfe_lite_csid", "vfe_lite_cphy_rx" },
+>   		.clock_rate = {
+> -			{ 0, 0, 400000000, 400000000, 0},
+> -			{ 0, 0, 400000000, 480000000, 0}
+> +			{ 400000000, 480000000 },
+> +			{ 400000000, 480000000 }
+>   		},
+>   		.reg = { "csid_lite2" },
+>   		.interrupt = { "csid_lite2" },
+> @@ -3655,12 +3649,10 @@ static const struct camss_subdev_resources csid_res_8775p[] = {
+>   	/* CSID5 (lite) */
+>   	{
+>   		.regulators = {},
+> -		.clock = { "cpas_vfe_lite", "vfe_lite_ahb",
+> -			   "vfe_lite_csid", "vfe_lite_cphy_rx",
+> -			   "vfe_lite"},
+> +		.clock = { "vfe_lite_csid", "vfe_lite_cphy_rx" },
+>   		.clock_rate = {
+> -			{ 0, 0, 400000000, 400000000, 0},
+> -			{ 0, 0, 400000000, 480000000, 0}
+> +			{ 400000000, 480000000 },
+> +			{ 400000000, 480000000 }
+>   		},
+>   		.reg = { "csid_lite3" },
+>   		.interrupt = { "csid_lite3" },
+> @@ -3674,12 +3666,10 @@ static const struct camss_subdev_resources csid_res_8775p[] = {
+>   	/* CSID6 (lite) */
+>   	{
+>   		.regulators = {},
+> -		.clock = { "cpas_vfe_lite", "vfe_lite_ahb",
+> -			   "vfe_lite_csid", "vfe_lite_cphy_rx",
+> -			   "vfe_lite"},
+> +		.clock = { "vfe_lite_csid", "vfe_lite_cphy_rx" },
+>   		.clock_rate = {
+> -			{ 0, 0, 400000000, 400000000, 0},
+> -			{ 0, 0, 400000000, 480000000, 0}
+> +			{ 400000000, 480000000 },
+> +			{ 400000000, 480000000 }
+>   		},
+>   		.reg = { "csid_lite4" },
+>   		.interrupt = { "csid_lite4" },
+> 
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
