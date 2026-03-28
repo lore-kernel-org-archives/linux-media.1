@@ -1,203 +1,126 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D37372EC0
-	for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 08:43:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21752D73AE;
+	Sat, 28 Mar 2026 10:21:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774687412; cv=none; b=jAEH7XjdBVDKPXx2BuX6J2EHAspLoFJH/MA+4iaepstYHfrArFB359IwCwS0AvYtuBH3+ezzuGki9rAOkH38x8sE6FKimmQ/Dh1z1vhoGAygXumyB966pfqYDiUZBNG2eRpFgt6D3YBwD7Y3edIzvjQPW+mnjgngIatQz+vKZGk=
+	t=1774693303; cv=none; b=rHTPFd/uuiX9GhjNkTuPyA2gVx2rsmHsN5WN0DH10YmYYO1MsayERl9oSmxtxNscJzWLhW3XtQbvbNk3aaXG4T8sRYfE48Fisp/pD0L1F3+fQz8dlHhazFDY98tpKNOxJ0Xw7ygcwmGpsEg/m5OJQObkY90TUjZ2bkoLY/J4imQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774687412; c=relaxed/simple;
-	bh=ZOYMIbcc/EUyf/Nvkdem/j5BDajcNON6kPzgAvE4W3k=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=KFE4xqnJ2r2quReqxRPt0HfzXnzk7XpMW/9TX+MpOqG6MxpMQXBR6cRb7rJ1+gQwzTP+Rwae8rOPH9XtqwjDCdUb19up0O9UkS5rvlxr/KURiVotor5aBiJ43N7YBd2fZsJs+7r6DSdEyhgYh/b+zfvqZxdY11U4gOyoVxqmfA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZAwSuP4P; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774693303; c=relaxed/simple;
+	bh=rG565eeekN4O8fh1pyKvCFYBqmHBIvM79s0tfBIYolY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s0rzD0Vyf+HXDprAKIFVOqnUSr2BFFDcPL8cO0is4jNU+aFDOUPydmjLp6D2kUhcttJk9/r7DDVbDQKp1SWxTu9Sk6Otr4lIakO+onsuhBShuma+O0pmkwVxNRN5JV6ZOQA+iLmox0XRDE+GKp5xM3BfuJCOkT8v/2pskl2m1es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=O409+/aJ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=anbg3YV2; arc=none smtp.client-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZAwSuP4P"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-829a9d08644so1551415b3a.1
-        for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 01:43:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774687411; x=1775292211; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=U3nzGNu2xZzw2bp3cLzv9/0z36OymtFn658cP1Xjwg8=;
-        b=ZAwSuP4PBN7KPDlUs5Ao2Jk9ml9nmbwcYX1dXpFK0fahwYiY3Jn2GPGchzIS+73DvI
-         Mh1yML35DoHs1sDkn1rgxo1jypRrU9u9JeaGRr12I5wi/9GEdh/ObwOboWPKGSggieMo
-         tueDH2uvziDxaB3PQD+c9f+2RzUNO06IhperGi2qFNBWhsZV4THHOSMfP1851cH165Xy
-         5KXhY31YPcE26CgU4fIUSHWH2mqPC8lxLNq/FTLa1SqO3zliuRfmxhbHx5esoHsE8mZQ
-         7Fjw4Quasnj0kPMh//TvYAcpZhYlJTzFRDNcXJNJZWRdIey+rKuC6DvWO+GnUp37GWAb
-         nLeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774687411; x=1775292211;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=U3nzGNu2xZzw2bp3cLzv9/0z36OymtFn658cP1Xjwg8=;
-        b=NR/Ep3UCQYWWhi2VbJyHij0GIveGY5WU/oGx31JLoA53vVZxMfyia/ijb5L5O0eJoQ
-         H7B4rWwV0Dy844OIBDz+xsRcFNL2NHa3Hvgeb6atu+FYRe9yPIsHuOYRSzIae6crukos
-         3xe3haEYqn6E3HnO0tAjUblwmkWNrfYDC6zdabnBDKMkLMRMLXiVxPnwMbd+KvBa57Ha
-         q8yAmjeM1fcT/veXcqejbjsxm1cOHaaCi/MQ0W6lDhrM3zFDCEZYJ5WfntpMSZFPCjNk
-         J5Kg3RZCSuWyA6DqrdJ2Y79gtC0z5dljk2BmkJH3mhbsMyRMMifv4ea8UJJBE7RIKZIi
-         iRHg==
-X-Forwarded-Encrypted: i=1; AJvYcCVvSaZcWDfugxB7AEnSx43gd0YUHdWt5pqgAWCjenQWv7W7wpe+7pCkgc548JkBaJRvffgsgt4YZj+BmA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwXnSNSbdXOESipJV/40/St5Uf7RRKFfC0I9Z7n2WM2E2PrNdRx
-	YCKURje3ToYCmbJCLX6oLaJf8QJqx0B0UkFq4jg3GZXhbRea4uW+buX1jgwNrXHw
-X-Gm-Gg: ATEYQzwiZoFUVyW5vTeENQ3yPltAMwKaOkROln+GBveUhCPTqFkVK2T0rr3MkfVCQlw
-	Tl+ey7YLV7cLaH0jl9pTzNFcyn7E3ijdUNiShDzLv4nsP6E2wQkeKEiGVhgYEXbj421Fd6PRbv2
-	uLj+GMFXfIGHNMdtEhH7snH/+H3APO6MW85z4KbEpVW29K0XUyNg7hT4B4Vwaga+ZL4A2GH2OOr
-	BMpQvHeHO/ujFo1O3i4zxHZep+2cQ/JPON2m93/zP0QyFmNRDEmrozPOUA/+I1w+VghLMjeRhJk
-	LVjpoKVVRikFTlSjI7ZbdvKAOgDdId/7i5Fi/Vcv4dfJqM9dFccVtYqZ2xT+K4JcjE6i3Sx+fuM
-	nQ0EO791SmSR35lYzOvK4smPGpeAttLpRVkq/2+ZIDUFxZeCeVRRKhguQnHlaO5nfWMci25Aq7R
-	lIU7fXS1shPVM3ulDsJ+foKyVCQKoJ0hknCwCUz5vMxCpsUSJrb+CaTk9pwYx1+EWDbkd1uH4Nk
-	9cQDGhBAgVfhAsoUxYURLMJoxc=
-X-Received: by 2002:a05:6a00:a902:b0:81c:717b:9d39 with SMTP id d2e1a72fcca58-82c960b1473mr5412817b3a.56.1774687410773;
-        Sat, 28 Mar 2026 01:43:30 -0700 (PDT)
-Received: from pranav.. ([2401:4900:c0bc:73e0:ffb5:d097:4f0:3e88])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82ca843b20csm1795725b3a.8.2026.03.28.01.43.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Mar 2026 01:43:30 -0700 (PDT)
-From: Pranav Kharche <pranavkharche7@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Pranav Kharche <pranavkharche7@gmail.com>
-Subject: [PATCH 1/1] dt-bindings: media: convert hix5hd2-ir to DT schema
-Date: Sat, 28 Mar 2026 14:12:38 +0530
-Message-Id: <20260328084238.201452-2-pranavkharche7@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260328084238.201452-1-pranavkharche7@gmail.com>
-References: <20260328084238.201452-1-pranavkharche7@gmail.com>
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="O409+/aJ";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="anbg3YV2"
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfout.stl.internal (Postfix) with ESMTP id 164FC1D00009;
+	Sat, 28 Mar 2026 06:21:38 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-08.internal (MEProxy); Sat, 28 Mar 2026 06:21:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1774693297;
+	 x=1774779697; bh=KNApZDYZ9r9b/kyaSUMYOzqKnJ2bmvMoejAncB7Lq6Q=; b=
+	O409+/aJYgKUjy/y5VGjOuXtWj7VRsa2Kv7zb18GemGRj6JTiatNtLBAULC5lqXu
+	WkfRq4kUOZO5muMJEBr8dcapMx3v0YIx+MvcHaugY7b/rNa/hi2uafye6e1m1aHr
+	FeN+k3kOCMNqgQ7HcYdEfFdlOetMxp/Y14hTcK7q8MZcgfte/zxMywY2EjaW9Gwz
+	1u0eNYu4Kel39rExLvPtIUfd51NKh7hxTkXnnXgxFxAusiYxE3iOXrc5ysg9qwer
+	P/CCOxqwFVOVGKYyWtIHT8GnuH599uAeojqv4FcbU4LiszDiegy9CRP2KWSip4Pc
+	Mcy/tVI6pSUhoPX8DcrNNQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1774693297; x=
+	1774779697; bh=KNApZDYZ9r9b/kyaSUMYOzqKnJ2bmvMoejAncB7Lq6Q=; b=a
+	nbg3YV2nK0EIa4O1n90nPeOGJxmgbgs3eAwUxjKSXi6464pHb+u2ywso+ecwjUiI
+	gtI3GmCM+96OzlYHzkkypQDCIckCQ+eMwCNW8sEHgFdCsrDC6jOfkrH2iuOv0/+R
+	Pf1h/VL9OEJ4AYhDJplnm5kQMX9qOFdUuPnd6VAu0U4ALZJXnRiiX1MT9z2d4ZEu
+	moEn/pkgPLDiRqQqNkzGCVrqGYrpQP8gxAGe++jzZDddEXbwXf4SFps1n8LOnXRR
+	TSSRbtYb2nWjaOqC8Jjfco9PmiX+0DtczriNuGsXeRkSSGqQ7qvB6uDRck+o6VCn
+	Md+fzBdpVCf4lIdcYyjtg==
+X-ME-Sender: <xms:savHaQrsc1xYN9JR0HV1UOR993isdgSmPh1QenlDZQ_WDDy4GmIUzA>
+    <xme:savHaQVfMaYnhvlvhELDOxI1LrqrHP-F7yqN44uV8aVkf1UomOliC_qG_dbV1mK1v
+    UooXpMurBYzFGoOwuCHgylf_Q3mdHZU_qYKuzS85qDu9M4yPgs>
+X-ME-Received: <xmr:savHaUg0YQzpV8g_ec-10RMFlYPTYpzrCECbQoSUzZEHKIFeS3KldVkQYS-t16xuOJ4DWQI-KNQqj3ye6kP7k8U_3OIxhyvwi4_AMW6EHqU>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdeffedvleduucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucenucfjughrpeffhffvvefukfhfgggtugfgjgesthekre
+    dttddtjeenucfhrhhomhepifhrvghgucfmjfcuoehgrhgvgheskhhrohgrhhdrtghomheq
+    necuggftrfgrthhtvghrnhepleekheejjeeiheejvdetheejveekudegueeigfefudefgf
+    ffhfefteeuieekudefnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhushht
+    vghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvgheskhhrohgrhh
+    drtghomhdpnhgspghrtghpthhtohepfedtpdhmohguvgepshhmthhpohhuthdprhgtphht
+    thhopeguvghvnhgvgigvnhesghhmrghilhdrtghomhdprhgtphhtthhopehlrghurhgvnh
+    htrdhpihhntghhrghrthesihguvggrshhonhgsohgrrhgurdgtohhmpdhrtghpthhtohep
+    mhgthhgvhhgrsgeskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepfhhrrghnkhdrlhhise
+    hngihprdgtohhmpdhrtghpthhtohepshdrhhgruhgvrhesphgvnhhguhhtrhhonhhigidr
+    uggvpdhrtghpthhtohepkhgvrhhnvghlsehpvghnghhuthhrohhnihigrdguvgdprhgtph
+    htthhopehfvghsthgvvhgrmhesghhmrghilhdrtghomhdprhgtphhtthhopehjrggtohhp
+    ohesjhhmohhnughirdhorhhgpdhrtghpthhtoheprghishhhvghnghdrughonhhgsehngi
+    hprdgtohhm
+X-ME-Proxy: <xmx:savHaf8QvUzL_Ch4OPl78alDw-8dRDCuR5Gcb63o-ACbsV9zYRt2bw>
+    <xmx:savHaUSrobMZQuKmlIkfiw_uwnpksRyGsuuFTmrHooXsznS5hR2XYw>
+    <xmx:savHaUGoXjNFOsMMjkGe7CBxAzz51iLTRTBH40DKGCOmgqiViuYhoA>
+    <xmx:savHaQhnN4HWL11wLZ6kAjfq9FOQBQtvFL7mcrku_1TM6XP0oVXxGw>
+    <xmx:savHafT71wd9gaDA9uMheZHjg7ZBWfKy40mITMqlmf1yGDtwAwEYMDlG>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 28 Mar 2026 06:21:36 -0400 (EDT)
+Date: Sat, 28 Mar 2026 11:21:13 +0100
+From: Greg KH <greg@kroah.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: laurent.pinchart@ideasonboard.com, mchehab@kernel.org, Frank.Li@nxp.com,
+	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
+	jacopo@jmondi.org, aisheng.dong@nxp.com, guoniu.zhou@nxp.com,
+	linux-media@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] media: nxp: imx8-isi: fix memory leaks in probe error
+ paths and remove
+Message-ID: <2026032803-tree-stubbed-1e9b@gregkh>
+References: <20260327222711.268132-1-devnexen@gmail.com>
+ <20260328100010.41236-1-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260328100010.41236-1-devnexen@gmail.com>
 
-Convert the legacy plaintext binding for HiSilicon hix5hd2 IR remote
-controller to JSON Schema (DT schema) format in YAML.
+On Sat, Mar 28, 2026 at 10:00:10AM +0000, David Carlier wrote:
+> mxc_isi_probe() allocates isi->pipes with kzalloc_objs() but never
+> frees it on any probe failure path or in mxc_isi_remove(), leaking the
+> allocation on every failed probe and every normal unbind.
+> 
+> Additionally, when mxc_isi_pipe_init() fails partway through the
+> channel loop or when mxc_isi_v4l2_init() fails, the already initialized
+> pipes are not cleaned up — their media entities and mutexes are leaked.
+> 
+> Fix both by adding kfree(isi->pipes) to all probe error paths and to
+> mxc_isi_remove(), and cleaning up already-initialized pipes in the
+> err_xbar error path.
+> 
+> Fixes: cf21f328fcaf ("media: nxp: Add i.MX8 ISI driver")
+> Signed-off-by: David Carlier <devnexen@gmail.com>
+> ---
 
-This binding documents the infrared remote receiver found in HiSilicon
-SoCs such as hix5hd2 and hi3796cv300. The conversion includes:
+<formletter>
 
-- Standardized property definitions with types and constraints
-- Reference to rc.yaml base schema for remote controller properties
-- Addition of include directives for interrupt-controller bindings
-- Proper example with GIC interrupt specifiers
-- Schema validation support for device tree sources
+This is not the correct way to submit patches for inclusion in the
+stable kernel tree.  Please read:
+    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+for how to do this properly.
 
-The new schema enables:
-- Validation improvement
-
-tested with: make dt_binding_check DT_SCHEMA_FILES=...
-All schema validation checks pass.
-
-Signed-off-by: Pranav Kharche <pranavkharche7@gmail.com>
----
- .../devicetree/bindings/media/hix5hd2-ir.txt  | 26 ---------
- .../devicetree/bindings/media/hix5hd2-ir.yaml | 53 +++++++++++++++++++
- 2 files changed, 53 insertions(+), 26 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/media/hix5hd2-ir.txt
- create mode 100644 Documentation/devicetree/bindings/media/hix5hd2-ir.yaml
-
-diff --git a/Documentation/devicetree/bindings/media/hix5hd2-ir.txt b/Documentation/devicetree/bindings/media/hix5hd2-ir.txt
-deleted file mode 100644
-index ca4cf774662e..000000000000
---- a/Documentation/devicetree/bindings/media/hix5hd2-ir.txt
-+++ /dev/null
-@@ -1,26 +0,0 @@
--Device-Tree bindings for hix5hd2 ir IP
--
--Required properties:
--	- compatible: Should contain "hisilicon,hix5hd2-ir", or:
--		- "hisilicon,hi3796cv300-ir" for Hi3796CV300 IR device.
--	- reg: Base physical address of the controller and length of memory
--	  mapped region.
--	- interrupts: interrupt-specifier for the sole interrupt generated by
--	  the device. The interrupt specifier format depends on the interrupt
--	  controller parent.
--	- clocks: clock phandle and specifier pair.
--
--Optional properties:
--	- linux,rc-map-name: see rc.txt file in the same directory.
--	- hisilicon,power-syscon: DEPRECATED. Don't use this in new dts files.
--		Provide correct clocks instead.
--
--Example node:
--
--	ir: ir@f8001000 {
--		compatible = "hisilicon,hix5hd2-ir";
--		reg = <0xf8001000 0x1000>;
--		interrupts = <0 47 4>;
--		clocks = <&clock HIX5HD2_IR_CLOCK>;
--		linux,rc-map-name = "rc-tivo";
--	};
-diff --git a/Documentation/devicetree/bindings/media/hix5hd2-ir.yaml b/Documentation/devicetree/bindings/media/hix5hd2-ir.yaml
-new file mode 100644
-index 000000000000..91cba6ec88c5
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/hix5hd2-ir.yaml
-@@ -0,0 +1,53 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/hix5hd2-ir.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: HiSilicon Hix5hd2 infrared remote controller
-+
-+maintainers:
-+  - Pranav Kharche <pranavkharche7@gmail.com>
-+
-+allOf:
-+  - $ref: rc.yaml#
-+
-+description: |
-+  This binding describes the infrared remote controller found in
-+  HiSilicon SoCs such as hix5hd2 and hi3796cv300.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - hisilicon,hix5hd2-ir
-+      - hisilicon,hi3796cv300-ir
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    ir: ir@f8001000 {
-+        compatible = "hisilicon,hix5hd2-ir";
-+        reg = <0xf8001000 0x1000>;
-+        interrupts = <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&clock 0>;
-+        linux,rc-map-name = "rc-tivo";
-+    };
--- 
-2.34.1
-
+</formletter>
