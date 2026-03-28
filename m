@@ -1,178 +1,174 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918BA13AA2F;
-	Sat, 28 Mar 2026 13:59:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44C4F946C
+	for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 14:47:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774706389; cv=none; b=F5TEswicgAG8nAsmCEY2rM5LmwCR0ARAwf7AMU+rvVS19OiAyCSZOk9/6bzY1BszB3C6LMDESNTiAZMHdvGIFGrwioZJ+A2IaAWRJDnSSZ7jaqxxgA7XjvMOznctJ+mYaXIWOByBo4UquKAtPD4rdgTgphv7NqaQYT0vg+yOfu8=
+	t=1774709243; cv=none; b=ltKjSgquwUGpbg0Lz3lvcy8xtv1CuUWgQHVLt6neB5qu18WiBku3vACTwq2NV7aLRH1Gd4fGZkBAoshZUz1CaR6ehsC3oDtzoPzOIqI0dqr4jUQ0c25hdRXy25LUlPGKthJxJT9XU5ksmIwak9MRmw9A/u5oyyS4xxVnxDERltc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774706389; c=relaxed/simple;
-	bh=h/tKi6QrqOTDKr4SqP1BIjcSeikVfTPP+W8yGCH6ZKg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u5R+H+/npIqHM9JZs95yLUE4bAM9Zm6C4OErHRMI+BYCKRyfnmd5wG0htqOEIU/zXxN/A0yNphCvupAwDOiavd/Ib4oudWG0GBv1/m7/Nvl/NgFjl0dQMvCiu1ipK+2VfII/J974fuVukYkCgLCdU3GzJLiX2JdmyzneJY18p/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b/ywmdGQ; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1774709243; c=relaxed/simple;
+	bh=A6MoI/96KtmHHQEY1kMP2uWxdbmW5+XGXps7ROfY0nU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DqwpbUgHa1lVem1yIi00NTIKhV4lav0b/QKMciJ4IhzFNLvBYvzZsK5xdBc6cyaUcDe8/S3/wNCgEh6HvaMI3P1dKQyyhqC3jXdde79i6fgyrBMKqFK3ey0uAiEVvk7ssFwoXntUpM12BfP6DBWIgoq1qjTu0COW0Kqe+nnq/C8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rKDpf+dA; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b/ywmdGQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774706388; x=1806242388;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=h/tKi6QrqOTDKr4SqP1BIjcSeikVfTPP+W8yGCH6ZKg=;
-  b=b/ywmdGQVk5+LK2ljewhfhadf3hB0rwkseFi8bIwd71B1RKdwFSbAzYX
-   RL6v5yRuVgI0X9CCcZZiR/B4MaX/PBVNhdc1o/tDHbUuP4p7sCK4fMwFr
-   1YWnylLGBhX7uQQSD1IHhe5ns2P8eSLJkjopoiysa23jheAqVq32J+Vxh
-   mCHi5XTGBIavmeHY6zwslk4okiUg99Nh5x1VUrU7YVYycG53IGa0/Uuqk
-   FnUsMaiSLS7lnwej9k6jhVNJN9WAdKhDN/t6pyZc0H6L3fWN0eL1E0nfA
-   H2FZrZLVCkKNAaCx79t+RBgee1Z3G++l8zNLfCjGXgevM53CqSOPlqdOS
-   Q==;
-X-CSE-ConnectionGUID: Z/qEywF3TT2IqgR9DkVKLg==
-X-CSE-MsgGUID: WutoUK08SPuk+O6MRSY28Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11742"; a="74941681"
-X-IronPort-AV: E=Sophos;i="6.23,146,1770624000"; 
-   d="scan'208";a="74941681"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Mar 2026 06:59:47 -0700
-X-CSE-ConnectionGUID: Xtwd/9HMSvafUDAoEddeDg==
-X-CSE-MsgGUID: iTaJ75wkQcqbMOqqbZfwNg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,146,1770624000"; 
-   d="scan'208";a="230354890"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.251])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Mar 2026 06:59:44 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id ECDAD121D3E;
-	Sat, 28 Mar 2026 15:59:47 +0200 (EET)
-Date: Sat, 28 Mar 2026 15:59:47 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Xiaolei Wang <xiaolei.wang@windriver.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Subject: Re: [PATCH v2 1/2] media: i2c: ov5645: Report streams using frame
- descriptors
-Message-ID: <acfe0wCdyX20In8I@kekkonen.localdomain>
-References: <20260328132902.776757-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260328132902.776757-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rKDpf+dA"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-486fd3a577eso26537705e9.1
+        for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 07:47:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774709241; x=1775314041; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MorpkP6r/T60MTiGCUcfsot6ur/wG/ccNFtLOYY+Uxo=;
+        b=rKDpf+dATWSB14S4UGWZaYYHX0FjEtC3gglAQqpwbh5HEaErkhrgKk3vFb1xS9Gynv
+         Sm2oEFYy3yPwsXCuWTNPoUXz3RtanBhQXiUPaLhJVZNXLXnWuYkn1GGccRcazEavgDDH
+         /G0fuQLRbfRhUiqx0eX80+hjalrhxLf6jBoV9CNkN9TPWFHo6ClSKn8tz4y3TCxZyDnV
+         5fZGdy9bR5xTqyaaPwP7FbAZuPYJRbj+NmIv08tcft6hoRLteA+OWhJ/VYxXYGcsk4hA
+         FUUZ0mrwsW0Mri1Mt/aWRrr2d0U9+1RDudE/B3zVjcfA9OOgzn1HwdBdOtC0oGPcR1jd
+         w+gQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774709241; x=1775314041;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=MorpkP6r/T60MTiGCUcfsot6ur/wG/ccNFtLOYY+Uxo=;
+        b=VXaE+3I1m/TAasORTzWPs7wv4Iz1pcbztXUhiC1CiHkPinYNDLqzxFmyRhTMbGYhby
+         SbFY8tCivxlxRMKXUSkWDgS9CVDkJ3jlAzS8nNEQwznpNVh6Fr5ZvASgwmPQRpRtpNnf
+         8qiNYTUtIaXJrCbsqOzKsJZCx8AL7VHKLjCmO4RR7epTaaXXGXT7cEOl9klfDZK5tHFo
+         SQ4R/i6qUAmiWKZ+SVWgYDlRNQHr6H4ITNx+XA5GjPSJtyRjNt4V5DrhMz813zV+Doaj
+         TJiEjymcs1ctEwlg4H0MklDBQRqJDKXZkHEu+UeTTAqGWz0K/vKT+6DGiwPtJVqOrNVg
+         vq/w==
+X-Gm-Message-State: AOJu0Yyb5QF81eEhZ6UCzIsY2MBOPd/mpNxssr6y8ceP6wugQ5J+Gjb8
+	rSo4wEjREuy34le3hcIoBGlLDq45bcKBTeRK57rnrBdI0HreJaIXEG5z
+X-Gm-Gg: ATEYQzwwQcHWEbriV0r/rBU++W7fCtBGTzX2SCWvKBYj7E4B6n+5zIG82sJfrD9jyES
+	0lGojKjb8lN431zCuZKSBoXyAw/c2QLESQl6DD65O+2+IenWlRZtoPorHmP99zfRN95cStubY0u
+	aKnJh9ZLfTgnf61baHdmxlqPPxqMMKEgFGJ81HsSDNOJ7Rv/LimYaHEM90zx62phngLlVIauNaY
+	m5ISW4Ru3aLXg/uXDHMQIAJJ9Dxx7fJ0tYH0pCnic3rUHLXhe1rTCX8OYdtxcWI2/EpnBGUCatk
+	jOsyNwg+rP9lxIuyj1dOBXW9zMTCMrAj8rRdD8QAiZdcVpAFAFBq+q0FBhSdtH6v1bp8z2XpWM3
+	JTDoXwLYmuqNvIRKtQz4Vqwzl6tC7miDduAmdIdG4TH+UMzunE8DpqLXOXwtp8LVV5K+aMPgXyt
+	civl79NSInuWbhn4b26hVsSxk30mUum7sgo9q08kf9bPYOX4YaN+NWdZAGiycrT3F4aQyNSYpqi
+	ITJfBlCQacQ
+X-Received: by 2002:a05:600c:6287:b0:485:3b5b:eb8 with SMTP id 5b1f17b1804b1-48727ef6617mr104982175e9.26.1774709240531;
+        Sat, 28 Mar 2026 07:47:20 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43cf21f279bsm5077450f8f.16.2026.03.28.07.47.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 28 Mar 2026 07:47:20 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: kwliu@nuvoton.com,
+	kflin@nuvoton.com,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>
+Subject: [PATCH v2 2/2] media: nuvoton: npcm-video: fix memory leaks in probe and remove
+Date: Sat, 28 Mar 2026 14:47:17 +0000
+Message-ID: <20260328144718.68282-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260327221905.267410-2-devnexen@gmail.com>
+References: <20260327221905.267410-2-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260328132902.776757-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Prabhakar,
+npcm_video_probe() allocates the npcm_video structure with kzalloc_obj()
+but never frees it on any probe error path or in npcm_video_remove(),
+leaking the allocation on every failed probe and every normal unbind.
 
-Thanks for the patch.
+Additionally, when npcm_video_setup_video() fails, the reserved memory
+association established by of_reserved_mem_device_init() in
+npcm_video_init() is not released, leaking the rmem_assigned_device
+entry on the global list.
 
-On Sat, Mar 28, 2026 at 01:29:01PM +0000, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> Implement the .get_frame_desc() subdev operation to report information
-> about streams to the connected CSI-2 receiver. This is required to let
-> the CSI-2 receiver driver know about virtual channels and data types for
-> each stream.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> ---
-> Changes since v3 [0],
-> - Added a macro for the source pad index.
-> - Updated ov5645_init_state() to use the new macro.
-> 
-> [0] https://lore.kernel.org/all/20241018153230.235647-9-prabhakar.mahadev-lad.rj@bp.renesas.com/
-> 
-> Hi Laurent,
-> 
-> Ive restored your RB tag with the above changes. Please let me know if
-> you have any further comments.
-> Cheers,
-> Prabhakar
-> ---
->  drivers/media/i2c/ov5645.c | 29 ++++++++++++++++++++++++++++-
->  1 file changed, 28 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/i2c/ov5645.c b/drivers/media/i2c/ov5645.c
-> index b10d408034a1..df9001fce44d 100644
-> --- a/drivers/media/i2c/ov5645.c
-> +++ b/drivers/media/i2c/ov5645.c
-> @@ -28,6 +28,7 @@
->  #include <linux/regulator/consumer.h>
->  #include <linux/slab.h>
->  #include <linux/types.h>
-> +#include <media/mipi-csi2.h>
->  #include <media/v4l2-ctrls.h>
->  #include <media/v4l2-fwnode.h>
->  #include <media/v4l2-subdev.h>
-> @@ -68,6 +69,8 @@ static const char * const ov5645_supply_name[] = {
->  
->  #define OV5645_NUM_SUPPLIES ARRAY_SIZE(ov5645_supply_name)
->  
-> +#define OV5645_PAD_SOURCE	0
-> +
->  struct reg_value {
->  	u16 reg;
->  	u8 val;
-> @@ -817,6 +820,29 @@ static const struct v4l2_ctrl_ops ov5645_ctrl_ops = {
->  	.s_ctrl = ov5645_s_ctrl,
->  };
->  
-> +static int ov5645_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
-> +				 struct v4l2_mbus_frame_desc *fd)
-> +{
-> +	struct v4l2_subdev_state *state;
-> +	u32 code;
-> +
-> +	state = v4l2_subdev_lock_and_get_active_state(sd);
-> +	code = v4l2_subdev_state_get_format(state, OV5645_PAD_SOURCE, 0)->code;
-> +	v4l2_subdev_unlock_state(state);
-> +
-> +	fd->type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
-> +	fd->num_entries = 1;
-> +
-> +	memset(fd->entry, 0, sizeof(fd->entry));
-> +
-> +	fd->entry[0].pixelcode = code;
-> +	fd->entry[0].stream = 0;
-> +	fd->entry[0].bus.csi2.vc = 0;
-> +	fd->entry[0].bus.csi2.dt = MIPI_CSI2_DT_YUV422_8B;
+Fix both by adding kfree(video) to all probe error paths and to
+npcm_video_remove(), and adding the missing
+of_reserved_mem_device_release() call when npcm_video_setup_video()
+fails.
 
-Instead of doing this, could you use my patch here
-<URL:https://git.linuxtv.org/sailus/media_tree.git/commit/?h=metadata&id=56eaab0eed55e5e777344e0b3973d8072786dd98>?
+Fixes: 46c15a4ff1f4 ("media: nuvoton: Add driver for NPCM video capture and encoding engine")
+Signed-off-by: David Carlier <devnexen@gmail.com>
+---
+ drivers/media/platform/nuvoton/npcm-video.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
 
-Every caller needs to be changed, too, but there are less than ten so
-that's a non-issue.
-
-> +
-> +	return 0;
-> +}
-> +
->  static int ov5645_enum_mbus_code(struct v4l2_subdev *sd,
->  				 struct v4l2_subdev_state *sd_state,
->  				 struct v4l2_subdev_mbus_code_enum *code)
-
+diff --git a/drivers/media/platform/nuvoton/npcm-video.c b/drivers/media/platform/nuvoton/npcm-video.c
+index 5c6bddfe8073..87b09979cc52 100644
+--- a/drivers/media/platform/nuvoton/npcm-video.c
++++ b/drivers/media/platform/nuvoton/npcm-video.c
+@@ -1749,6 +1749,7 @@ static int npcm_video_probe(struct platform_device *pdev)
+ 
+ 	regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(regs)) {
++		kfree(video);
+ 		dev_err(&pdev->dev, "Failed to parse VCD reg in DTS\n");
+ 		return PTR_ERR(regs);
+ 	}
+@@ -1756,33 +1757,44 @@ static int npcm_video_probe(struct platform_device *pdev)
+ 	video->vcd_regmap = devm_regmap_init_mmio(&pdev->dev, regs,
+ 						  &npcm_video_regmap_cfg);
+ 	if (IS_ERR(video->vcd_regmap)) {
++		kfree(video);
+ 		dev_err(&pdev->dev, "Failed to initialize VCD regmap\n");
+ 		return PTR_ERR(video->vcd_regmap);
+ 	}
+ 
+ 	video->reset = devm_reset_control_get(&pdev->dev, NULL);
+ 	if (IS_ERR(video->reset)) {
++		kfree(video);
+ 		dev_err(&pdev->dev, "Failed to get VCD reset control in DTS\n");
+ 		return PTR_ERR(video->reset);
+ 	}
+ 
+ 	video->gcr_regmap = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
+ 							    "nuvoton,sysgcr");
+-	if (IS_ERR(video->gcr_regmap))
++	if (IS_ERR(video->gcr_regmap)) {
++		kfree(video);
+ 		return PTR_ERR(video->gcr_regmap);
++	}
+ 
+ 	video->gfx_regmap = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
+ 							    "nuvoton,sysgfxi");
+-	if (IS_ERR(video->gfx_regmap))
++	if (IS_ERR(video->gfx_regmap)) {
++		kfree(video);
+ 		return PTR_ERR(video->gfx_regmap);
++	}
+ 
+ 	rc = npcm_video_init(video);
+-	if (rc)
++	if (rc) {
++		kfree(video);
+ 		return rc;
++	}
+ 
+ 	rc = npcm_video_setup_video(video);
+-	if (rc)
++	if (rc) {
++		of_reserved_mem_device_release(&pdev->dev);
++		kfree(video);
+ 		return rc;
++	}
+ 
+ 	dev_info(video->dev, "NPCM video driver probed\n");
+ 	return 0;
+@@ -1800,6 +1812,7 @@ static void npcm_video_remove(struct platform_device *pdev)
+ 	v4l2_device_unregister(v4l2_dev);
+ 	if (video->ece.enable)
+ 		npcm_video_ece_stop(video);
++	kfree(video);
+ 	of_reserved_mem_device_release(dev);
+ }
+ 
 -- 
-Regards,
+2.53.0
 
-Sakari Ailus
