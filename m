@@ -1,49 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD9838735C;
-	Sat, 28 Mar 2026 12:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF01B26ED33;
+	Sat, 28 Mar 2026 13:53:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774700578; cv=none; b=FMNHiWstkYdWeXjSBpyv5hynIOp3BJ5yogqpoVxdthBnY1H90PO9+I4HwzLOn+gTjymictQh0TSJOvgCgTUKbVDOyeyy8TtHyVumHZLLcy+9FKqJjYcmpae8rOkfTx3phSf+HzwfHKsu7U6k3qWIFlTRO5ljxQCAXq/sKVJTZ48=
+	t=1774706007; cv=none; b=IKYiywad0hV9QSEcvzx8HwAM2yvYY8sJHLzI9VmkVroJeNAZ8XgNeUn8EK27FArNxYFQ2cY8HxMwmBsef/GngvjspCK8jLdxZabRz1YDQKWwqYs7hyfJEL6RftuDl6+BiXuvSySsFtxyLO6l7gmCbCkqjMdrUtDB7JQ1MLR7xKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774700578; c=relaxed/simple;
-	bh=Mly8B4u7fTwOeSb20IKpa1TiC6F4KcjHsnLcnx0UgTg=;
+	s=arc-20240116; t=1774706007; c=relaxed/simple;
+	bh=G/09hTinm8kWqgpJvEJp97Hm8K/quuFhiNsAyvPUTN0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FWuyeJNUeANSbVlFHXpIxQ8XnTaxu0QOeBeVYc72lumyH/1wXAuh6iMiG6PfvRsZG9BIaUWFjD0fVQxTYKL9VeU5wjtmS3+YzPz11n4kfi5WrrJxA5q7ATX0bQUI/g6on74ZE2D524cdBPVGw4ZhxWgtTmyH7P4w+bi7bvmXfYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hcz/+6YA; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=asEk3XTe8KKc98zrYtW8sZdBc9Dth/PQAuqtg/ddCADoCF4ktGUhq2PRUPg/CViULWUh0pT5CEmJaUwSXEwirRJ6kUrldAuX83CjVmpVUU3Pw3ecrVQd+T5J2uQ+h5aKrnPDKFxuysz+qq9U6j2eSsQ1TpkYsR/+0BofcfyFzDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UXCOmf9V; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hcz/+6YA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64274C4CEF7;
-	Sat, 28 Mar 2026 12:22:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774700578;
-	bh=Mly8B4u7fTwOeSb20IKpa1TiC6F4KcjHsnLcnx0UgTg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hcz/+6YAHhlvNN8zkv8SgKEkEyCL39Ya/SRpYpqYI6z20GT5IHXyuu6dvHq/A7yT7
-	 YRJD5976OaqZxNf1/cCTNERJm1F8Ol589NZZhjvB7xL6C79f9ihePa2bclpA4/Bd9n
-	 mn4IR5tkobFPDPXtelyuH9LkB8pUKn0DIsg8lYhqG1xSs5A3cQzpQ/9Iw7BCnzQZtw
-	 MANAej57BdfimWpod33B0gEY7buwBc4ofyhv6MGFd4+oSYfXtfvMC1a5J9oSSqALtU
-	 o7SPZRs3PgusxdaWnT+2lGVO89x8HN2UIH1Z5px25yvAHO3YkSe16nZ2kQpXTtOqlA
-	 LGADZHY6rOoKQ==
-Date: Sat, 28 Mar 2026 13:22:55 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yunfei Dong <yunfei.dong@mediatek.com>
-Cc: =?utf-8?B?TsOtY29sYXMgRiAuIFIgLiBBIC4=?= Prado <nfraprado@collabora.com>, 
-	Sebastian Fricke <sebastian.fricke@collabora.com>, Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
-	Nathan Hebert <nhebert@chromium.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Hsin-Yi Wang <hsinyi@chromium.org>, Fritz Koenig <frkoenig@chromium.org>, 
-	Daniel Vetter <daniel@ffwll.ch>, Steve Cho <stevecho@chromium.org>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	Project_Global_Chrome_Upstream_Group@mediatek.com
-Subject: Re: [PATCH v4 11/14] dt-bindings: media: mediatek: vcodec: add
- decoder dt-bindings for mt8196
-Message-ID: <20260328-tangible-guppy-of-emphasis-7685f3@quoll>
-References: <20260328051630.7937-1-yunfei.dong@mediatek.com>
- <20260328051630.7937-12-yunfei.dong@mediatek.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UXCOmf9V"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774706005; x=1806242005;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=G/09hTinm8kWqgpJvEJp97Hm8K/quuFhiNsAyvPUTN0=;
+  b=UXCOmf9V/V9GNiials2Z41+mQA3zY7EjolsS6K1GXJNZPXTIENanu441
+   n2QvpAybbzY65JsZNWZYouhNkx6omYsUFRwRp1a1/Jv39dlaMqHIlHRIe
+   SyqBlC5mLdr+dsYTIyQRkwyZ5r40tORZiOEB/yKYlwlgxj6W9ZWaqHWH+
+   4t/EKIL30Iwb0bBE+QpMzzY52tQShW+tZjoyMGLvd1b8UP3YZFcS414OW
+   AnEs/pu5Q8tvdEzxkzAaNZwMgN6LXD+5NemduAUUU7CaGvxA96iZPS+5/
+   3AnM3CNt5RJSMARaLwdB6eoq5N0z5443B0XKGlRp6ZhuNfRB5cWGmdbn/
+   g==;
+X-CSE-ConnectionGUID: njLT2wcIQMaCMPkfx8/Qjw==
+X-CSE-MsgGUID: zlMMqv7BR5+zkheRbo52SA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11742"; a="98373443"
+X-IronPort-AV: E=Sophos;i="6.23,146,1770624000"; 
+   d="scan'208";a="98373443"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Mar 2026 06:53:25 -0700
+X-CSE-ConnectionGUID: Oy0K7YAzRiSrp5gncHUXxw==
+X-CSE-MsgGUID: Z3ERc57LSaWgFNr0Astc5g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,146,1770624000"; 
+   d="scan'208";a="225474896"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.251])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Mar 2026 06:53:23 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 489E2121D3E;
+	Sat, 28 Mar 2026 15:53:27 +0200 (EET)
+Date: Sat, 28 Mar 2026 15:53:27 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+Cc: Michael Riesch <michael.riesch@collabora.com>,
+	Tarang Raval <tarang.raval@siliconsignals.io>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] media: i2c: imx415: Drop redundant runtime PM callbacks
+Message-ID: <acfdV6sRfP9HGIxV@kekkonen.localdomain>
+References: <20260324124524.135278-1-elgin.perumbilly@siliconsignals.io>
+ <1378ed13-6744-422a-b0b8-02621117238f@collabora.com>
+ <acPU3H9pYEwzuuOS@kekkonen.localdomain>
+ <3875be43-63b9-4e49-a0d8-175dd9268788@collabora.com>
+ <MA0P287MB21780F5BC2F8113A10B6F0718854A@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -52,31 +70,56 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260328051630.7937-12-yunfei.dong@mediatek.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <MA0P287MB21780F5BC2F8113A10B6F0718854A@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
 
-On Sat, Mar 28, 2026 at 01:16:21PM +0800, Yunfei Dong wrote:
-> Add decoder document in dt-bindings yaml file for mt8196 platform.
-> 
-> Signed-off-by: Yunfei Dong <yunfei.dong@mediatek.com>
-> Acked-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-> ---
->  .../bindings/media/mediatek,vcodec-subdev-decoder.yaml           | 1 +
->  1 file changed, 1 insertion(+)
+Hi Elgin,
 
-Still incomplete constraints. If the binding defines flexibly/variable
-lists, each device MUST have them constrained.
+On Sat, Mar 28, 2026 at 06:11:43AM +0000, Elgin Perumbilly wrote:
+> Hi Michael, Sakari,                                                             
+> Sorry for the late reply, and thanks for the feedback.                          
+>                                                                                 
+> >Hi Elgin, Sakari,                                                              
+> >                                                                               
+> >On 3/25/26 13:28, Sakari Ailus wrote:                                          
+> >> Hi Michael,                                                                  
+> >>                                                                              
+> >> On Tue, Mar 24, 2026 at 08:42:31PM +0100, Michael Riesch wrote:              
+> >>> Hi Elgin,                                                                   
+> >>>                                                                             
+> >>> Thanks for the patch but...                                                 
+> >>>                                                                             
+> >>> On 3/24/26 13:45, Elgin Perumbilly wrote:                                   
+> >>>> Replace runtime_suspend/resume wrappers by using power helpers             
+> >>>> directly with DEFINE_RUNTIME_DEV_PM_OPS().                                 
+> >>>                                                                             
+> >>> ...why? What advantage does this refactoring bring?                         
+> >>                                                                              
+> >> It looks like patch removes two redundant functions, doesn't it? :-)         
+> >                                                                               
+> >Well yes. 10 lines saved. Not sure whether this was the biggest issue          
+> >with this driver -- surely it was not a big issue for me.                      
+> >                                                                               
+> >Elgin, I was wondering whether this change is within a certain context         
+> >or whether there is something I fail to recognize.                             
+> >                                                                               
+> >Anyway, if you absolutely want this change: I feel it would be nicer if        
+> >you left the imx415_runtime_{resume,suspend} and moved the bit of code         
+> >from imx415_power_{on,off} to them. Reasons for that may be mostly             
+> >aesthetical -- I claim better readability that way.                            
+>                                                                                 
+> The intent of this change is to remove redundant runtime PM                     
+> wrappers and simplify the code, without altering behavior.                      
+>                                                                                 
+> If you’re okay with this approach, we can proceed as is. If you                 
+> feel it’s not necessary at this point, that’s fine as well.                     
 
-Or explained WHY NOT in the commit msg. You have entire commit msg to
-say something useful explaining unexpected changes, instead of repeating
-the subject.
+Can you address Michael's comments?
 
-Also, reversed subject prefix:
-Please use subject prefixes matching the subsystem. You can get them for
-example with 'git log --oneline -- DIRECTORY_OR_FILE' on the directory
-your patch is touching. For bindings, the preferred subjects are
-explained here:
-https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
+Code tends to be copied to other drivers so cleaning up existing drivers is
+worthwhile.
 
-Best regards,
-Krzysztof
+-- 
+Regards,
 
+Sakari Ailus
