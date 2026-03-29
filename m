@@ -1,126 +1,108 @@
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33B284502F
-	for <linux-media@vger.kernel.org>; Sun, 29 Mar 2026 06:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3E2288530;
+	Sun, 29 Mar 2026 06:35:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774765379; cv=none; b=bgxT4asa79PNqKvl34hNunlHjrowRCxRoYL5Z+5PDNeEphyoBbjI2iyMZwVkPMC0fe21f0PQdXPcAo24EAUKYlG/lUhKzjcmanmn8hCv3Cm2ZjCvDqHd5aqtWb93FznETJOoxGv3PHtWqru2rOfoZtv6zG/VT30sqFGh0oK0lo8=
+	t=1774766139; cv=none; b=TiMiaFEKX5KDmuP+Y0f6XPcCF4qi6E65QHpzLU84w50v5EWjDtEHFsHWqt7RYOZ+mRJr3oTX6DNQ9ngZWrfvV4zDroWNC84EuH0Xa74dMKyN8d0YIRTygcMaevTWth06IlLUxi51thJgiiFzBX888esCn/a6KUoqfsTMy3tazq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774765379; c=relaxed/simple;
-	bh=WTY2Bs+KWBi/xry+kQfHDmPb8Mrycu7xQELHKazIz0Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=m4rGnGNyGIrKpFQ/0RfhcnEkFaLbc2qer4DuU8lPcEBG19i8lQo30f7z44x9uu1d2vWynD8ZNyPaTExy0lKrg85KQJhUkR+0T6DQxZAFT1GZPUPjYsqdti0HWQ3YWsTRygOFXGaUxTsWFjGtR5ht4yRnC8jscjRoL2kRkduvYmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gFKg2Bkk; arc=none smtp.client-ip=209.85.222.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774766139; c=relaxed/simple;
+	bh=rW+ND+3JbUkWM3lXVcAkjV7CsU2FDSrrp5aDczXqKFI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qJxpEBn+GajZPeQTRQlUGRry66wvOdSJWi1TGW6WIN1YE1v2AysskZ+Bpir6WcTWmJE+PTmqUTFsHt+D9mPOuMxVY2evyhaUWsbl6vdbEx0Kp22YOQtJoGl1RsoHLUFfhrM/Uckbh1PXGJaar4rvGFfLAQ/GMvHlwXvXFQreah0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FWCPNX1n; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gFKg2Bkk"
-Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-950bcf4df06so987914241.2
-        for <linux-media@vger.kernel.org>; Sat, 28 Mar 2026 23:22:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774765377; x=1775370177; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JjxqXxyKEmiZIG77mggO3OoX/XZCUgPWLAbtN+CQczY=;
-        b=gFKg2BkkoGkfk4zRVsj0ovI4XMQF6j0jpH64A88179VxCdtZtMUl0x49r+a4GIjWF8
-         Tk1f/z8kPzylDtcG7dEEPvxhaIW9/fGu1i5u4puY9KT4JidOv606vhdL/+NLn74B2L9m
-         az0TlXookYYCd3hIglEaMuhTIDvPlqhSd8H5XY1SSd4NFZkO2xDz6bJZatkxL/o0ieKW
-         tgifOqzrxe4k7crRr7t969MBVjjjJAj/kvyG4TfQ+Bym8OywpGYlLF8PXSQ2GtGNa3Mo
-         b4pSxpw5slohadpMXKy0++01majuaHljxoHerkbc7BD3Xo5T2y2i2RSD3zIGazlWRpSg
-         mDNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774765377; x=1775370177;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=JjxqXxyKEmiZIG77mggO3OoX/XZCUgPWLAbtN+CQczY=;
-        b=rbdURlw40aMLOblC6/GZFLFm/F75hSIQLI+PrZ3EhCvzxlZsdP8V6CEe0hn11b+E8C
-         C25i9PZ2AblTqbO/XCXHm/SYz41/rScDinF4HAfLXPOCyGTlvQdz8Rr+L0+21StmTmmF
-         KMOoB/Mv7EwV6oFE/BTdpE9dXKx/glRKhDykCaKY3+pxz+4TRwzIpz3fYDzFXAT3RIVh
-         5JKL2fzPRN01LzPZL0xvepnTyEpUwtMdSEuf7jGlLj8h+5y4U/ekgXD7so241evl9qu0
-         cYA0YDvHTF8jXV4eaL5zdWIDEiAKwmmceh7WLJPsm0aa2+WnzzTmu/A2Xl7iRa4SSwla
-         fi6w==
-X-Forwarded-Encrypted: i=1; AJvYcCWkb7JkYq8ugf8asCbhHJaTK223RjByEyks0Auu9Jx0JnLSYHyPj4k5421tl3ecv4kCpPTvIbMAExNUUA==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw5bSRzr7gaYMw85AXG9A2p/WuWNh/sZv+tGnIKGqxelP+2EfZD
-	eyLGezZNDIlw3Yo7DmlVNxIyyZVrvhEeuzGNVr9Dr2DiYDFRj9JK5H3A
-X-Gm-Gg: ATEYQzzzTls3o8Kdtgu6d3aIoLBgPCJboRZi1K5nTKVMPHMahyo6WUb3MBFIxBhzxEN
-	9/Z+17z8f0TcTzZVsQN+bz1JDcWixGPKf2nnH1tNFyZBTczx+Exoh6ieDhHHqS41KRP4QLhdfTX
-	XMihk0u3169G5dj/oj58fQF/tljqF+znErkKSN5mhjwh+m+t+Y+4B8Ts/rfLvbkiznf46OslW9T
-	yojQ3TPM/otUmTNd3QyRsN7aFG9tW+WXLVVxuRfG/K+JxHWzJ7hsdQc24nGqqNdF3wR/Ur5HRCl
-	cNmQ2uF9oHGM+cpXuazkjb2IZjnlXDF3p8+NNESYSZersddi4VX6smz6rnzhSieRett1wX3qbK7
-	oiDyKdFojGqjxVUH+C3Z/N8BCg914xpYLCduEiMad6XyFy61rCg+rKGspB9YWcg8/XwXEOgKyRU
-	xkTJwOKC6teKqBf4jVOMgt72mf
-X-Received: by 2002:a05:6102:160c:b0:602:86a6:986a with SMTP id ada2fe7eead31-604f92f1d79mr2960909137.27.1774765377217;
-        Sat, 28 Mar 2026 23:22:57 -0700 (PDT)
-Received: from localhost.localdomain ([2a09:bac6:d6db:aa::11:19a])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-60512d3a037sm4475072137.9.2026.03.28.23.22.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Mar 2026 23:22:56 -0700 (PDT)
-From: Sebastian Josue Alba Vives <sebasjosue84@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: bcm-kernel-feedback-list@broadcom.com,
-	linux-staging@lists.linux.dev,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-media@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FWCPNX1n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8BDAC116C6;
+	Sun, 29 Mar 2026 06:35:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1774766139;
+	bh=rW+ND+3JbUkWM3lXVcAkjV7CsU2FDSrrp5aDczXqKFI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FWCPNX1njz1LpAyMDmFTGlpVYZD5kkGOkpzjLQZnvwJfjUxlSjhr+v44XoREwNiZQ
+	 T9hoJbIVjnEApr1ysxFKuBGU+qr+ZXI4OzU7QH372Qzesk7KsK2t3h+2iw3FR+Ddi/
+	 /SYwUt0FnLRASMLAOgrrcmFgKrNdrwz4BXW1MhG4=
+Date: Sun, 29 Mar 2026 08:35:36 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Sebastian Josue Alba Vives <sebasjosue84@gmail.com>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-staging@lists.linux.dev, linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
 	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	kernel-list@raspberrypi.com,
-	=?UTF-8?q?Sebasti=C3=A1n=20Alba=20Vives?= <sebasjosue84@gmail.com>
-Subject: [PATCH 4/4] staging: vc04_services: vchiq-mmal: fix integer underflow in port_parameter_get()
-Date: Sun, 29 Mar 2026 00:21:14 -0600
-Message-ID: <20260329062229.493430-5-sebasjosue84@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260329062229.493430-1-sebasjosue84@gmail.com>
+	kernel-list@raspberrypi.com
+Subject: Re: [PATCH 1/4] staging: vc04_services: vchiq-mmal: fix OOB array
+ access in event_to_host_cb()
+Message-ID: <2026032936-deniable-visa-2459@gregkh>
 References: <20260329062229.493430-1-sebasjosue84@gmail.com>
+ <20260329062229.493430-2-sebasjosue84@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260329062229.493430-2-sebasjosue84@gmail.com>
 
-From: Sebasti√°n Alba Vives <sebasjosue84@gmail.com>
+On Sun, Mar 29, 2026 at 12:21:11AM -0600, Sebastian Josue Alba Vives wrote:
+> From: Sebasti·n Alba Vives <sebasjosue84@gmail.com>
+> 
+> event_to_host_cb() uses msg->u.event_to_host.client_component as an
+> index into the instance->component[] array (size VCHIQ_MMAL_MAX_COMPONENTS
+> = 64) without any bounds validation. The client_component value comes
+> from the VideoCore GPU firmware via VCHIQ message passing.
+> 
+> A malicious or buggy GPU firmware could send a crafted
+> MMAL_MSG_TYPE_EVENT_TO_HOST message with client_component >= 64 (or
+> negative), causing an out-of-bounds array access in kernel memory. This
+> results in reading/dereferencing a bogus vchiq_mmal_component structure
+> from memory beyond the array, which can lead to kernel crashes or
+> potentially arbitrary kernel memory access.
 
-port_parameter_get() subtracts 2 * sizeof(u32) from the GPU firmware's
-reply size field to compute the parameter value size. The reply size is
-a u32 provided by the VideoCore firmware. If the firmware returns a
-size smaller than 8, the subtraction wraps around to a large value due
-to unsigned integer underflow.
+The kernel trusts the hardware the driver is bound to, so this shouldn't
+be happening ever, right?
 
-The underflowed size is then:
-1) Used in a comparison that selects the wrong copy path
-2) Stored back to the caller via *value_size, propagating a bogus
-   size (up to ~4GB) to subsequent operations
+> 
+> Add a bounds check on comp_idx before using it as an array index.
+> Move the component pointer assignment after the validation.
+> 
+> Fixes: b18ee53ad297 ("staging: bcm2835: Break MMAL support out from camera")
+> Signed-off-by: Sebasti·n Alba Vives <sebasjosue84@gmail.com>
 
-Add a minimum size check before the subtraction and return -EPROTO if
-the reply is malformed.
+No cc: stable?
 
-Fixes: b18ee53ad297 ("staging: bcm2835: Break MMAL support out from camera")
-Signed-off-by: Sebasti√°n Alba Vives <sebasjosue84@gmail.com>
----
- drivers/staging/vc04_services/vchiq-mmal/mmal-vchiq.c | 4 ++++
- 1 file changed, 4 insertions(+)
+> ---
+>  drivers/staging/vc04_services/vchiq-mmal/mmal-vchiq.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/staging/vc04_services/vchiq-mmal/mmal-vchiq.c b/drivers/staging/vc04_services/vchiq-mmal/mmal-vchiq.c
+> index d36ad71cc..4772126d7 100644
+> --- a/drivers/staging/vc04_services/vchiq-mmal/mmal-vchiq.c
+> +++ b/drivers/staging/vc04_services/vchiq-mmal/mmal-vchiq.c
+> @@ -477,12 +477,19 @@ static void event_to_host_cb(struct vchiq_mmal_instance *instance,
+>  			     struct mmal_msg *msg, u32 msg_len)
+>  {
+>  	int comp_idx = msg->u.event_to_host.client_component;
+> -	struct vchiq_mmal_component *component =
+> -					&instance->component[comp_idx];
+> +	struct vchiq_mmal_component *component;
+>  	struct vchiq_mmal_port *port = NULL;
+>  	struct mmal_msg_context *msg_context;
+>  	u32 port_num = msg->u.event_to_host.port_num;
+>  
+> +	if (comp_idx < 0 || comp_idx >= VCHIQ_MMAL_MAX_COMPONENTS) {
+> +		pr_err("%s: component index %d out of range\n",
+> +		       __func__, comp_idx);
 
-diff --git a/drivers/staging/vc04_services/vchiq-mmal/mmal-vchiq.c b/drivers/staging/vc04_services/vchiq-mmal/mmal-vchiq.c
-index 11af71309..914ab9215 100644
---- a/drivers/staging/vc04_services/vchiq-mmal/mmal-vchiq.c
-+++ b/drivers/staging/vc04_services/vchiq-mmal/mmal-vchiq.c
-@@ -1436,6 +1436,10 @@ static int port_parameter_get(struct vchiq_mmal_instance *instance,
- 	/* port_parameter_get_reply.size includes the header,
- 	 * whilst *value_size doesn't.
- 	 */
-+	if (rmsg->u.port_parameter_get_reply.size < (2 * sizeof(u32))) {
-+		ret = -EPROTO;
-+		goto release_msg;
-+	}
- 	rmsg->u.port_parameter_get_reply.size -= (2 * sizeof(u32));
- 
- 	if (ret || rmsg->u.port_parameter_get_reply.size > *value_size) {
--- 
-2.43.0
+dev_err() is best, right?
 
+And are you going to allow a malicious hardware device to spam the
+kernel log?  :)
+
+thanks,
+
+greg k-h
