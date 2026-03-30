@@ -1,46 +1,46 @@
 Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A49303ACA4C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A49C43ACA51;
 	Mon, 30 Mar 2026 08:12:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774858339; cv=none; b=Rr8D9zN06msENE2J/xBtu32Rk2qVUlsylXRTvZ6qY0Wte5aUrLNLgTjZRaRLkcpnW8QPQBCORCd7c/GrA/iFGBH/L/Pw3BbmWkgzba1RLNsVe3xmhc1Y5Tql2wRdlmscjYHmGCoEN1293KR/31PMguH+pnKZUOmUIbJq67fdi+k=
+	t=1774858339; cv=none; b=tpBJvdS5Kk71xv7dOv8/yRkekz+2bao8LyNHG9Av4mW/+qJnl7wNVqSvM2CdzpRsl3Hpa3UjvNwyrhp+lLDMRGwbDBo/IZb6WVCrTXSS2YLBvV0A7wz6iL7VNR6baiYnQO5587SOOMgQbK/VPyssLZNGDp1hqSObix1NDdNg1eo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774858339; c=relaxed/simple;
-	bh=Vt9rOXVB86+YkZB8q2mFlAfVz6lvZRqkwWqglbkw5dY=;
+	bh=/yF7BgXFlPY5bgvNPfE6BIw+//D50tMFfBnZCd0SRJg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=ccKK0DlPHMtwA9PjMbpT24prym81tjl/jR2AqgHzMNfI4prB98SZMLv2VLucbKLe/sLjwW85n9uOgrR0ri+Ts36wQQLSvq1Etj/dmhyYbvLQJEvyT065iMZ24Sdl3BRVWet9zJrpF+COhLfK7n2WG4GGLs0troqM9sAvN3oO3H0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=UuJxpzjS; arc=none smtp.client-ip=185.132.180.163
+	 In-Reply-To:To:CC; b=aUfGjvWDNZwwFHsbIPB/135Ehp/+rJVnnnoovBmprqLWO4s2X4X8IbKks5auSaFspz0lpQXWWpNy5757gDdEMoNCrNMpwuGo3NaM+XF/0s8lobgGFh5L/nQJLOF3lQIqTXAph0a2usNmqBd4P8bdxl1Ugz6hILMrpHzDGvpYY5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=smMB3OvY; arc=none smtp.client-ip=185.132.180.163
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="UuJxpzjS"
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="smMB3OvY"
 Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62U5HJTj174202;
-	Mon, 30 Mar 2026 08:57:01 +0100
+	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62U5HJTp174202;
+	Mon, 30 Mar 2026 08:57:03 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=q
-	ejdoNCNFywlFiCDSneRuoAYHrORMXz0cJXIt13Na/I=; b=UuJxpzjSO1Xq+bM24
-	xIozSQHzNhYhNHVkn2FcJvn6gTbMOj7ZgcJHxQKatiJx/NNf49Npo9mM+jAPt1+d
-	I9MDPOybwr8KV8xuA5Rn5/kmUHj3a+w+/EsST/yTovSqzLTiahn9esEnt002i/+E
-	cqo2g1bVvfFsorhuiA+yiWEumIISPGaznfST2XDPW4/bR5FQSH8mr3hFStFntHMY
-	OtkSkHblfvAVkUA5Di/R4M7lLA6WORbbtwsH/6NnZdsh6nydedH/U9gnqm+MuFY5
-	1mc8Az2WyfWVJ1IUcvR0Zq6O4o2rto3R7oa7lrmxSaRzyzM1RbTCO0NFAHUB0Hya
-	wnh6A==
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=j
+	hCCpkEt+BkB84N1zMr4Vl04qUsVX6qxkMXkjdr3+Xg=; b=smMB3OvY7SY0HkV1k
+	7bkGL23Yc9LMGcLqO7mJvkL4fP/hEYA/prpNDfmU4I1okFZB+APeoJpyLKHgzoJd
+	BzbnVYp//WENvpChim7jTe+AKWFCZMfb/AEogJ520PSPMCAp5veUiytPwiU7F2NG
+	RN/p/TpB29n+65SMFanMWylU5PTmNAssaCYRRe6QBYIjg/Aras49whi/0K1UaAsG
+	YVhem+UgO46pW0uuSChbb6vzJxqRBfE8w+TF28T1EzATZAIbrxxEcmjS93QpR167
+	s1ueOo7kmbQla6659hT7ZkyCFziz/qp2kaxcZWY9yp2aMnHMtKyIwfC694WBNoB1
+	ISFdA==
 Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4d67xusfkv-3
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4d67xusfkv-9
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 30 Mar 2026 08:57:00 +0100 (BST)
+	Mon, 30 Mar 2026 08:57:03 +0100 (BST)
 Received: from NP-A-BELLE.kl.imgtec.org (172.25.6.106) by
  HHMAIL01.hh.imgtec.org (10.100.10.19) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 30 Mar 2026 08:56:59 +0100
+ 15.2.2562.37; Mon, 30 Mar 2026 08:57:01 +0100
 From: Alessio Belle <alessio.belle@imgtec.com>
-Date: Mon, 30 Mar 2026 08:56:37 +0100
-Subject: [PATCH 2/8] drm/imagination: Fit paired fragment job in the
- correct CCCB
+Date: Mon, 30 Mar 2026 08:56:43 +0100
+Subject: [PATCH 8/8] drm/imagination: Minor improvements to job submission
+ code documentation
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -49,7 +49,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260330-job-submission-fixes-cleanup-v1-2-7de8c09cef8c@imgtec.com>
+Message-ID: <20260330-job-submission-fixes-cleanup-v1-8-7de8c09cef8c@imgtec.com>
 References: <20260330-job-submission-fixes-cleanup-v1-0-7de8c09cef8c@imgtec.com>
 In-Reply-To: <20260330-job-submission-fixes-cleanup-v1-0-7de8c09cef8c@imgtec.com>
 To: Frank Binns <frank.binns@imgtec.com>,
@@ -69,178 +69,158 @@ To: Frank Binns <frank.binns@imgtec.com>,
 CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
         <linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>,
         "Alessio
- Belle" <alessio.belle@imgtec.com>, <stable@vger.kernel.org>
+ Belle" <alessio.belle@imgtec.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774857418; l=7023;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774857418; l=5384;
  i=alessio.belle@imgtec.com; s=20251208; h=from:subject:message-id;
- bh=Vt9rOXVB86+YkZB8q2mFlAfVz6lvZRqkwWqglbkw5dY=;
- b=CBjen60I2AGSU+xH3JvmaR2YAsCFobGFvOeC6SmM7XCUiLkI5vmv5evZjyOwvAa3P4cjOJVWL
- z12lwSjnsWmA7aF11rZ1Ryd6uaXgK8wNDCfOUwOZy5DUmWy2pkzHzNB
+ bh=/yF7BgXFlPY5bgvNPfE6BIw+//D50tMFfBnZCd0SRJg=;
+ b=vzkL/Rb9EvRS8z1K3VHubqV2TS66bAjYhwngM7cK+U0Y1w9kTtqr4cL/EPYutBLkvx9VKkx1f
+ hiQ280MZ06ZBnpOBZpcqgG5aGIpKEO681AwfTjxUzYO6qyZ6MSotSUi
 X-Developer-Key: i=alessio.belle@imgtec.com; a=ed25519;
  pk=2Vtuk+GKBRjwMqIHpKk+Gx6zl7cgtq0joszcOc0zF4g=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA2MSBTYWx0ZWRfX2I0bMxkF/Teu
- /ySiTbnC5EcIsVvZMxxosRqRQnSevy4m9CC4kOtmO4CHUSTntb3LZe7tyygqrUuqxeg9cc4E81u
- TXdXspPcNss9fbkJvjOc/dx0A6TgnO6T/oB2lpo5m0wHTJnYc8osD5Ft8BaKEthljV2HAzAZmFG
- AjAszJYPiHUC54h2emhDn1pogIdUouVfQ/yZR/7KxTXdYBKlDhR4aZDeMbXGsHnAftMK3QnpNpg
- OvKdQDfSb0KJgVKwoIcxeEJSAd6BAd9pspEO1r/tIxMUVrIpVnPJOVpbo9VIDgtIMVGrGpRRhnV
- p5ke4h/SpkjbcYv/en5WJgDyaL3uKXIS1uHFuXzesnRz9AeWV6Tl12DUmSxN7COoztGsg3hLVVm
- XvP0gTjKhy0nKdm29z/PplhJNAb8CcL3kRand152VDOnlFGuYGPF1WzlfiIjjE9EVXBz2fPdR4e
- Jil/qNq48GvBTf/sgtw==
-X-Authority-Analysis: v=2.4 cv=QO9lhwLL c=1 sm=1 tr=0 ts=69ca2ccc cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA2MSBTYWx0ZWRfXzfQ1IDE1g9IL
+ DtTr64FZbO4eQUEIc48jvCjh9kHOf02NQfmlo58hbt0LC9X345+aLuoSzG/uwZjdU+gDjEZzWw/
+ pZ4/Un439IC4Mrt/aOmDv3Y0fn1G8ETGh+v+hg3vlcjjRQCgwyS3bCxUqbAGKTaQmzS0ldOUNzb
+ 4aI+dD80jSXOJXxdbr4GV/dftdq/HnZc1UuPdNfQto8yC56mbLNHVgNWmfBRdjQLRbTOLPJ7zja
+ 1PhddJ+szUBJEuL0g2IMQXtGznY+eiTAHs4V42NzugL/U4XcShXiS2mkuz6PcebhgpjYlWBrfSb
+ Dg6zOkV+swOPVYXz7veHELpVcKqCjdaozM15H3ClClY/9o1UAMhtjW9EB4rU7gwwPebMxpjDQXy
+ O1aC4Wx1K+banTkgeCoy/XAqV0TU4Ob/CMet7FOihOr+AeXqqu4JmB5RZz2yl/IwyS37ESJQXEO
+ T97JAQDhlwPbenqByUA==
+X-Authority-Analysis: v=2.4 cv=QO9lhwLL c=1 sm=1 tr=0 ts=69ca2ccf cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=txNhvCuK94MA:10 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=VwQbUJbxAAAA:8 a=r_1tXGB3AAAA:8 a=TlYXyb1RBqvdDQlp59oA:9 a=QEXdDO2ut3YA:10
+ a=r_1tXGB3AAAA:8 a=KCFfvmjXgMu-EKTFBUoA:9 a=QEXdDO2ut3YA:10
  a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-GUID: fnLGrxZ8qoXfarF7PMyEDN5P3FxINxls
-X-Proofpoint-ORIG-GUID: fnLGrxZ8qoXfarF7PMyEDN5P3FxINxls
+X-Proofpoint-GUID: hqAUf5kEAgU4PDF-85MHTxc2iYqDLrnB
+X-Proofpoint-ORIG-GUID: hqAUf5kEAgU4PDF-85MHTxc2iYqDLrnB
 
-For geometry jobs with a paired fragment job, at the moment, the
-DRM scheduler's prepare_job() callback:
+Mixed list of clarifications and typo fixes.
 
-- checks for internal (driver) dependencies for the geometry job;
-- calls into pvr_queue_get_paired_frag_job_dep() to check for external
-  dependencies for the fragment job (the two jobs are submitted together
-  but the common scheduler code doesn't know about it, so this needs to
-  be done at this point in time);
-- calls into the prepare_job() callback again, but for the fragment job,
-  to check its internal dependencies as well, passing the fragment job's
-  drm_sched_job and the geometry job's drm_sched_entity / pvr_queue.
-
-The problem with the last step is that pvr_queue_prepare_job() doesn't
-always take the mismatched fragment job and geometry queue into account,
-in particular when checking whether there is space for the fragment
-command to be submitted, so the code ends up checking for space in the
-geometry (i.e. wrong) CCCB.
-The rest of the nested prepare_job() callback happens to work fine at
-the moment as the other internal dependencies are not relevant for a
-paired fragment job.
-
-Move the initialisation of a paired fragment job's done fence and CCCB
-fence to pvr_queue_get_paired_frag_job_dep(), inferring the correct
-queue from the fragment job itself.
-
-This fixes cases where prepare_job() wrongly assumed that there was
-enough space for a paired fragment job in its own CCCB, unblocking
-run_job(), which then returned early without writing the full sequence
-of commands to the CCCB.
-
-The above lead to kernel warnings such as the following and potentially
-job timeouts (depending on waiters on the missing commands):
-
-  [  552.421075] WARNING: drivers/gpu/drm/imagination/pvr_cccb.c:178 at pvr_cccb_write_command_with_header+0x2c4/0x330 [powervr], CPU#2: kworker/u16:5/63
-  [  552.421230] Modules linked in:
-  [  552.421592] CPU: 2 UID: 0 PID: 63 Comm: kworker/u16:5 Tainted: G        W           7.0.0-rc2-gc5d053e4dccb #39 PREEMPT
-  [  552.421625] Tainted: [W]=WARN
-  [  552.421637] Hardware name: Texas Instruments AM625 SK (DT)
-  [  552.421655] Workqueue: powervr-sched drm_sched_run_job_work [gpu_sched]
-  [  552.421744] pstate: 80000005 (Nzcv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-  [  552.421766] pc : pvr_cccb_write_command_with_header+0x2c4/0x330 [powervr]
-  [  552.421850] lr : pvr_queue_submit_job_to_cccb+0x57c/0xa74 [powervr]
-  [  552.421923] sp : ffff800084c47650
-  [  552.421936] x29: ffff800084c47740 x28: 0000000000000df8 x27: ffff800088a77000
-  [  552.421979] x26: 0000000000000030 x25: ffff800084c47680 x24: 0000000000001000
-  [  552.422017] x23: ffff800084c47820 x22: 1ffff00010988ecc x21: 0000000000000008
-  [  552.422055] x20: 0000000000000208 x19: ffff000006ad5a88 x18: 0000000000000000
-  [  552.422093] x17: 0000000020020000 x16: 0000000000020000 x15: 0000000000000000
-  [  552.422130] x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
-  [  552.422167] x11: 000000000000f2f2 x10: 00000000f3000000 x9 : 00000000f3f3f3f3
-  [  552.422204] x8 : 00000000f2f2f200 x7 : ffff700010988ecc x6 : 0000000000000008
-  [  552.422241] x5 : 0000000000000000 x4 : 1ffff0001114ee00 x3 : 0000000000000000
-  [  552.422278] x2 : 0000000000000007 x1 : 0000000000000fff x0 : 000000000000002f
-  [  552.422316] Call trace:
-  [  552.422330]  pvr_cccb_write_command_with_header+0x2c4/0x330 [powervr] (P)
-  [  552.422411]  pvr_queue_submit_job_to_cccb+0x57c/0xa74 [powervr]
-  [  552.422486]  pvr_queue_run_job+0x3a4/0x990 [powervr]
-  [  552.422562]  drm_sched_run_job_work+0x580/0xd48 [gpu_sched]
-  [  552.422623]  process_one_work+0x520/0x1288
-  [  552.422657]  worker_thread+0x3f0/0xb3c
-  [  552.422679]  kthread+0x334/0x3d8
-  [  552.422706]  ret_from_fork+0x10/0x20
-
-Fixes: eaf01ee5ba28 ("drm/imagination: Implement job submission and scheduling")
-Cc: stable@vger.kernel.org
 Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
 ---
- drivers/gpu/drm/imagination/pvr_queue.c | 32 ++++++++++++++------------------
- 1 file changed, 14 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/imagination/pvr_queue.c            | 38 ++++++++++++++--------
+ .../gpu/drm/imagination/pvr_rogue_fwif_shared.h    | 10 +-----
+ 2 files changed, 26 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
-index 836feaa0b295..f1e54e6d940d 100644
+index 303f4d6cc09e..b5bec656d13c 100644
 --- a/drivers/gpu/drm/imagination/pvr_queue.c
 +++ b/drivers/gpu/drm/imagination/pvr_queue.c
-@@ -488,10 +488,11 @@ pvr_queue_get_job_kccb_fence(struct pvr_queue *queue, struct pvr_job *job)
+@@ -200,6 +200,13 @@ pvr_queue_fence_is_ufo_backed(struct dma_fence *f)
+  * already backed by a UFO.
+  * @f: The dma_fence to turn into a pvr_queue_fence.
+  *
++ * This could be called on:
++ * - a job fence directly, in which case it simply returns the containing pvr_queue_fence;
++ * - a drm_sched_fence's scheduled or finished fence, in which case it will first try to follow
++ *   the parent pointer to find the job fence (note that the parent pointer is initialized
++ *   only after the run_job() callback is called on the drm_sched_fence's owning job);
++ * - any other dma_fence, in which case it will return NULL.
++ *
+  * Return:
+  *  * A non-NULL pvr_queue_fence object if the dma_fence is backed by a UFO, or
+  *  * NULL otherwise.
+@@ -367,11 +374,14 @@ static u32 ufo_cmds_size(u32 elem_count)
+ 
+ static u32 job_cmds_size(struct pvr_job *job, u32 ufo_wait_count)
+ {
+-	/* One UFO cmd for the fence signaling, one UFO cmd per native fence native,
+-	 * and a command for the job itself.
++	/*
++	 * One UFO command per native fence this job will be waiting on (unless any are
++	 * signaled by the time the job is submitted), plus a command for the job itself,
++	 * plus one UFO command for the fence signaling.
+ 	 */
+-	return ufo_cmds_size(1) + ufo_cmds_size(ufo_wait_count) +
+-	       pvr_cccb_get_size_of_cmd_with_hdr(job->cmd_len);
++	return ufo_cmds_size(ufo_wait_count) +
++	       pvr_cccb_get_size_of_cmd_with_hdr(job->cmd_len) +
++	       ufo_cmds_size(1);
  }
  
- static struct dma_fence *
--pvr_queue_get_paired_frag_job_dep(struct pvr_queue *queue, struct pvr_job *job)
-+pvr_queue_get_paired_frag_job_dep(struct pvr_job *job)
- {
- 	struct pvr_job *frag_job = job->type == DRM_PVR_JOB_TYPE_GEOMETRY ?
- 				   job->paired_job : NULL;
-+	struct pvr_queue *frag_queue = frag_job ? frag_job->ctx->queues.fragment : NULL;
- 	struct dma_fence *f;
- 	unsigned long index;
+ static bool
+@@ -517,12 +527,16 @@ pvr_queue_get_paired_frag_job_dep(struct pvr_job *job)
+ 	if (!frag_job)
+ 		return NULL;
  
-@@ -510,7 +511,10 @@ pvr_queue_get_paired_frag_job_dep(struct pvr_queue *queue, struct pvr_job *job)
- 		return dma_fence_get(f);
++	/* Have the geometry job wait on the paired fragment job's dependencies as well. */
+ 	xa_for_each(&frag_job->base.dependencies, index, f) {
+ 		/* Skip already signaled fences. */
+ 		if (dma_fence_is_signaled(f))
+ 			continue;
+ 
+-		/* Skip our own fence. */
++		/*
++		 * The paired job fence won't be signaled until both jobs have
++		 * been submitted, so we can't wait on it to schedule them.
++		 */
+ 		if (f == &job->base.s_fence->scheduled)
+ 			continue;
+ 
+@@ -665,6 +679,7 @@ static void pvr_queue_submit_job_to_cccb(struct pvr_job *job)
+ 		if (!jfence)
+ 			continue;
+ 
++		/* Some dependencies might have been signaled since prepare_job() */
+ 		if (dma_fence_is_signaled(&jfence->base))
+ 			continue;
+ 
+@@ -714,7 +729,7 @@ static void pvr_queue_submit_job_to_cccb(struct pvr_job *job)
+ 	pvr_cccb_write_command_with_header(cccb, job->fw_ccb_cmd_type, job->cmd_len, job->cmd,
+ 					   job->id, job->id);
+ 
+-	/* Signal the job fence. */
++	/* Update command to signal the job fence. */
+ 	pvr_fw_object_get_fw_addr(queue->timeline_ufo.fw_obj, &ufos[0].addr);
+ 	ufos[0].value = job->done_fence->seqno;
+ 	pvr_cccb_write_command_with_header(cccb, ROGUE_FWIF_CCB_CMD_TYPE_UPDATE,
+@@ -744,10 +759,8 @@ static struct dma_fence *pvr_queue_run_job(struct drm_sched_job *sched_job)
  	}
  
--	return frag_job->base.sched->ops->prepare_job(&frag_job->base, &queue->entity);
-+	/* Initialize the paired fragment job's done_fence, so we can signal it. */
-+	pvr_queue_job_fence_init(frag_job->done_fence, frag_queue);
-+
-+	return pvr_queue_get_job_cccb_fence(frag_queue, frag_job);
+ 	/* The only kind of jobs that can be paired are geometry and fragment, and
+-	 * we bail out early if we see a fragment job that's paired with a geomtry
+-	 * job.
+-	 * Paired jobs must also target the same context and point to the same
+-	 * HWRT.
++	 * we bail out early if we see a fragment job that's paired with a geometry job.
++	 * Paired jobs must also target the same context and point to the same HWRT.
+ 	 */
+ 	if (WARN_ON(job->paired_job &&
+ 		    (job->type != DRM_PVR_JOB_TYPE_GEOMETRY ||
+@@ -966,9 +979,8 @@ pvr_queue_signal_done_fences(struct pvr_queue *queue)
  }
  
  /**
-@@ -529,11 +533,6 @@ pvr_queue_prepare_job(struct drm_sched_job *sched_job,
- 	struct pvr_queue *queue = container_of(s_entity, struct pvr_queue, entity);
- 	struct dma_fence *internal_dep = NULL;
+- * pvr_queue_check_job_waiting_for_cccb_space() - Check if the job waiting for CCCB space
+- * can be unblocked
+- * pushed to the CCCB
++ * pvr_queue_check_job_waiting_for_cccb_space() - Check if a job waiting for CCCB space
++ * can be unblocked and pushed to the CCCB.
+  * @queue: Queue to check
+  *
+  * If we have a job waiting for CCCB, and this job now fits in the CCCB, we signal
+diff --git a/drivers/gpu/drm/imagination/pvr_rogue_fwif_shared.h b/drivers/gpu/drm/imagination/pvr_rogue_fwif_shared.h
+index 869d904e3649..fe54c1cad7a9 100644
+--- a/drivers/gpu/drm/imagination/pvr_rogue_fwif_shared.h
++++ b/drivers/gpu/drm/imagination/pvr_rogue_fwif_shared.h
+@@ -14,15 +14,7 @@
  
--	/*
--	 * Initialize the done_fence, so we can signal it. This must be done
--	 * here because otherwise by the time of run_job() the job will end up
--	 * in the pending list without a valid fence.
--	 */
- 	if (job->type == DRM_PVR_JOB_TYPE_FRAGMENT && job->paired_job) {
- 		/*
- 		 * This will be called on a paired fragment job after being
-@@ -543,18 +542,15 @@ pvr_queue_prepare_job(struct drm_sched_job *sched_job,
- 		 */
- 		if (job->paired_job->has_pm_ref)
- 			return NULL;
--
--		/*
--		 * In this case we need to use the job's own ctx to initialise
--		 * the done_fence.  The other steps are done in the ctx of the
--		 * paired geometry job.
--		 */
--		pvr_queue_job_fence_init(job->done_fence,
--					 job->ctx->queues.fragment);
--	} else {
--		pvr_queue_job_fence_init(job->done_fence, queue);
- 	}
+ #define ROGUE_NUM_GEOM_CORES_SIZE 2U
  
-+	/*
-+	 * Initialize the done_fence, so we can signal it. This must be done
-+	 * here because otherwise by the time of run_job() the job will end up
-+	 * in the pending list without a valid fence.
-+	 */
-+	pvr_queue_job_fence_init(job->done_fence, queue);
-+
- 	/* CCCB fence is used to make sure we have enough space in the CCCB to
- 	 * submit our commands.
- 	 */
-@@ -575,7 +571,7 @@ pvr_queue_prepare_job(struct drm_sched_job *sched_job,
+-/*
+- * Maximum number of UFOs in a CCB command.
+- * The number is based on having 32 sync prims (as originally), plus 32 sync
+- * checkpoints.
+- * Once the use of sync prims is no longer supported, we will retain
+- * the same total (64) as the number of sync checkpoints which may be
+- * supporting a fence is not visible to the client driver and has to
+- * allow for the number of different timelines involved in fence merges.
+- */
++/* Maximum number of UFOs in a CCB command. */
+ #define ROGUE_FWIF_CCB_CMD_MAX_UFOS (32U + 32U)
  
- 	/* The paired job fence should come last, when everything else is ready. */
- 	if (!internal_dep)
--		internal_dep = pvr_queue_get_paired_frag_job_dep(queue, job);
-+		internal_dep = pvr_queue_get_paired_frag_job_dep(job);
- 
- 	return internal_dep;
- }
+ /*
 
 -- 
 2.43.0
