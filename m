@@ -1,46 +1,46 @@
 Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4C093ACA6B;
-	Mon, 30 Mar 2026 08:12:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B623AD53F;
+	Mon, 30 Mar 2026 08:12:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774858340; cv=none; b=FV+QOZEnIhaIYUPet5kEx9vh4KvKHCkxydsh3SmIQ23OGSeMuuiEXL6uB6GXFg9znlRlXuLRsqLQm67t3YHhkPRvlhHNct6UpaiREAh2BIwsY6ZGnZHHtHPo50ImCZ75ENFWua3VIztDzsYTVWSxFkhrT2WICrJwI4yQiJNddO4=
+	t=1774858342; cv=none; b=EqZmEk/t3b1jOAaaDzk6c2vlOnyFy7xNCs0sNiZFyd1ImAZJc92IHOpYaYpy2jakyliN/h41U0xSWJdeUrXVaqOJWCqmetHO6owjLIDQ/DyZSr2Arg8uNxJjholu4jVEmv2pDAqWLy/PtShOuJdHervTF7lHlRa7qjrmhpO8HVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774858340; c=relaxed/simple;
-	bh=wKjXJFqWeTAgI5IR63yIm5CTJ4kzsbDkfI4R87cC/mc=;
+	s=arc-20240116; t=1774858342; c=relaxed/simple;
+	bh=kdk/oC7sY4R+WxO1hIAkVwVRZkcXYFspZAuC3d55vOM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=sxcgiPR+BeUYkahfrkTso0uNKpO40n8s3CzsPZy1+t6sN2t8Bp6lSHICsu/py82U3D2Bw+/ZFDo7WymQCN+2TTzGY649jjUg2z/dQQTO7UpUmStFSboBtaGWVSoFOXoNBjLKXPibPJfjRnBiQycqdtEZK+YNJ1RIYsAH5tmItu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=fD+vwSqu; arc=none smtp.client-ip=185.132.180.163
+	 In-Reply-To:To:CC; b=lDKaLOy+Fs+WTs/XtPa4istJe+e/UklmM/7S5K0QRlfkkJhlaiKrDRPVEggfv+Y7g1qHo+cob4f7NJJLPF/ooM1QVVb0d5Uif9qYbs/q75eEQTsbDoMU2eFnWb7qFrtolZj7uamDSFMt8LJ+38FfWbwsQVDrj9/9jhEUdcjWJD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=PrqUUOvV; arc=none smtp.client-ip=185.132.180.163
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="fD+vwSqu"
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="PrqUUOvV"
 Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62U5HJTi174202;
-	Mon, 30 Mar 2026 08:57:00 +0100
+	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62U5HJTl174202;
+	Mon, 30 Mar 2026 08:57:01 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=3
-	wZDnaH+feEDKlSy0EuW3u44hA4Mz71lJfa0cw+XKSc=; b=fD+vwSquK7hE2uxhl
-	cRZ5rO/4BkNMFVbtkRMpK1B5ZONq1xAQLZb3ab9G6RtFGLfy+mcDtw7KgxpJ37CH
-	zLvmGNKkbCcZ2ZDCcsanzA3y5G1pzfXxj04pkZyQ04pRqK+O0///WvTWMHmDggug
-	LMFWwIL4vuoM30b2rmauxgqR6+V/+/o+9nuoj3jBN5/U/Y7nZP2BS/wRzvvg6ney
-	uUH4zGXDd2lAy/r51tmsjwRGBkwKNCsIqNA0z8XbSZwvIRh/EKGFcHMMJH9sHJsj
-	wMdQxSJlORG1uqXmJ/CoeQxVH2owg5EVi8xzSpE04qjc4QZfOV+5gpnLzuo5dE9A
-	96zIw==
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=h
+	1sJSKMVxHc+3A5Iix0o1+ziE+itBfbRCmdfz7cB1kA=; b=PrqUUOvV3hsZliwYr
+	vN/yhwxwhqrGs8+PPrBEduFaad90XiZYNylnl17+H/AjPkugo4E4zZCdZd8cTfzq
+	dh+Z0+bsVd4yi6i7sZP3G3F4R2IWjmSTiFRjdtMp/FblUR85TObD+pVHigqm9GSy
+	Sgpfjf30jT4e4SUu7OveahIsXwuJ3mF/jSv98dQnG/DxBbLQa4Th2VEoyVYIB8mG
+	qbOkNLKd+LfYy9Hrm2iQKL+Zr1I4s1ZSNjeoLJuntp54TaR3sVRoDTRPNE7j/NkW
+	CRZFxU2C9QnQHL59faIFNeBOyAK6UwZjTTwyg1btpRDx6lQua/rPn0Rq2LHfTXvH
+	K2V+g==
 Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4d67xusfkv-2
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4d67xusfkv-5
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 30 Mar 2026 08:57:00 +0100 (BST)
+	Mon, 30 Mar 2026 08:57:01 +0100 (BST)
 Received: from NP-A-BELLE.kl.imgtec.org (172.25.6.106) by
  HHMAIL01.hh.imgtec.org (10.100.10.19) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 30 Mar 2026 08:56:59 +0100
+ 15.2.2562.37; Mon, 30 Mar 2026 08:57:00 +0100
 From: Alessio Belle <alessio.belle@imgtec.com>
-Date: Mon, 30 Mar 2026 08:56:36 +0100
-Subject: [PATCH 1/8] drm/imagination: Count paired job fence as dependency
- in prepare_job()
+Date: Mon, 30 Mar 2026 08:56:40 +0100
+Subject: [PATCH 5/8] drm/imagination: Rename fence returned by
+ pvr_queue_job_arm()
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -49,7 +49,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260330-job-submission-fixes-cleanup-v1-1-7de8c09cef8c@imgtec.com>
+Message-ID: <20260330-job-submission-fixes-cleanup-v1-5-7de8c09cef8c@imgtec.com>
 References: <20260330-job-submission-fixes-cleanup-v1-0-7de8c09cef8c@imgtec.com>
 In-Reply-To: <20260330-job-submission-fixes-cleanup-v1-0-7de8c09cef8c@imgtec.com>
 To: Frank Binns <frank.binns@imgtec.com>,
@@ -69,155 +69,108 @@ To: Frank Binns <frank.binns@imgtec.com>,
 CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
         <linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>,
         "Alessio
- Belle" <alessio.belle@imgtec.com>, <stable@vger.kernel.org>
+ Belle" <alessio.belle@imgtec.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774857418; l=5861;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774857418; l=2991;
  i=alessio.belle@imgtec.com; s=20251208; h=from:subject:message-id;
- bh=wKjXJFqWeTAgI5IR63yIm5CTJ4kzsbDkfI4R87cC/mc=;
- b=c0bP4kLXTzDwLuUDEj9PIZ3HXIUNOz05Jr2kq9sSW76g8lEh8Yui/uE//fJJDweaPrKrze2my
- CcWvmiEqE6ZCzU/Y5k7vrUQND53sYci+YMupgQJfN+5PU3Gn+xDK7MG
+ bh=kdk/oC7sY4R+WxO1hIAkVwVRZkcXYFspZAuC3d55vOM=;
+ b=VcUZVMk6a20FtQkGaKtDTkfhbKCkark8UL0R3e7epwd5wdGvTjTfFpUu/X9fKqe1ICbId9ZcD
+ JxDHfv19+5ZBakvox4JkQUqONnn51vxpRPU3GD2pxqmUIxpHrXic5Qz
 X-Developer-Key: i=alessio.belle@imgtec.com; a=ed25519;
  pk=2Vtuk+GKBRjwMqIHpKk+Gx6zl7cgtq0joszcOc0zF4g=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA2MSBTYWx0ZWRfX/N7qpW4/2LB1
- eae7z9vuC8F0ddChcs6a0Wf1x17yvi9N7r651jLqe1cXz4/ceHXlcFodL7GFjXFteAGSZ3lPws0
- X1XoxDz2yizzvcNFSqUhAy98YjUzAlxaPOiOVfm3MDf6WNYqJ9yKRgWSvCodkWCp+GS42wa5QL8
- JI/jrHRmWw4GWMz0GhyWJV9WGg/f13QTMcerKpkVRRX7HCmstSmJC4If7FbU01Azfryazk3tjDu
- nA13eKOmsuv5Ne9oCgE7u+d9rDshs1jdtrG1PfSiVYrTuIxLGXJzO6/a3t0EOwjW4mAOniF3RlF
- 64dQJI6ABvc78+zQ1JGWz6kKC687DXPtNJ7kk1U7XHUQHGUw43oIkgek0CC8KfRb5fuk7RVSA3z
- ey7TjhcIaifZRUVxjf0VAeuZXXYiB7bhHD/pOL17mvcDnUVZEeteRzliGFTrOrBZxvMQ1vyjvhp
- uZPp/TOCzj2d6cRIVdA==
-X-Authority-Analysis: v=2.4 cv=QO9lhwLL c=1 sm=1 tr=0 ts=69ca2ccc cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA2MSBTYWx0ZWRfX032EfnSrGDqD
+ AlQDA/W4dMKGIx2nMc3+glLUEFq8TwM789XPIu1ULwjgsZ2wRg8hq7f1WuRJsEq+MjRCdv/xHit
+ DKHEnUOY5TD6uqiiUIFnZ2ECdGcDGeTAN6EdLKVDMlqEnyIEPIdCV2uyTDxOhon3Ia+gfr6/9l2
+ RruBWI+2b65Wz5SKopHaflnWSEIMunxtSrRsXrLH0GO7MIWoHTK/lzYxzxJ87juUV6g7UQ4Fh0V
+ 6pgY86SoqIQjct3V6IEXjFfQVXDaE52GXLlF/O8hnOplR91mzUGg6KfLhQNi7oN6Rrs440Tq17Z
+ IiA8fLB4RLA3kCwg5mdQcoMZNDS/PRY9YEWKNM0Th4YFYRgA4M2lQcFhxc0ChBpqN6yAESVDM78
+ 8cprBawsD4z8N+YnQxCOeYAW1a0S4aUY0QDx6Spo7tVYdailY4dovmJNEaVmZwt23HoIMGoQ9BS
+ cPF9cHYdAAxTZTYQBsA==
+X-Authority-Analysis: v=2.4 cv=QO9lhwLL c=1 sm=1 tr=0 ts=69ca2ccd cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=txNhvCuK94MA:10 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=VwQbUJbxAAAA:8 a=r_1tXGB3AAAA:8 a=TaBFbORYhpiWZ8GSrjAA:9 a=QEXdDO2ut3YA:10
+ a=r_1tXGB3AAAA:8 a=t4At8a9FtDHClisqYPoA:9 a=QEXdDO2ut3YA:10
  a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-GUID: G79BI5Zqk6h1XdZcmjflEqYcXrG6dwHH
-X-Proofpoint-ORIG-GUID: G79BI5Zqk6h1XdZcmjflEqYcXrG6dwHH
+X-Proofpoint-GUID: abByBp9JlzIzgcVJF8B4tV6QyzPaiTP2
+X-Proofpoint-ORIG-GUID: abByBp9JlzIzgcVJF8B4tV6QyzPaiTP2
 
-The DRM scheduler's prepare_job() callback counts the remaining
-non-signaled native dependencies for a job, preventing job submission
-until those (plus job data and fence update) can fit in the job queue's
-CCCB.
+Rename from done_fence to finished_fence, both because the function
+returns a drm_sched_fence's finished fence, and to avoid confusion with
+the job fence, which is called the same but has a different purpose.
 
-This means checking which dependencies can be waited upon in the
-firmware, i.e. whether they are backed by a UFO object, i.e. whether
-their drm_sched_fence::parent has been assigned to a
-pvr_queue_fence::base fence. That happens when the job owning the fence
-is submitted to the firmware.
-
-Paired geometry and fragment jobs are submitted at the same time, which
-means the dependency between them can't be checked this way before
-submission.
-
-Update job_count_remaining_native_deps() to take into account the
-dependency between paired jobs.
-
-This fixes cases where prepare_job() underestimated the space left in
-an almost full fragment CCCB, wrongly unblocking run_job(), which then
-returned early without writing the full sequence of commands to the
-CCCB.
-
-The above lead to kernel warnings such as the following and potentially
-job timeouts (depending on waiters on the missing commands):
-
-  [  375.702979] WARNING: drivers/gpu/drm/imagination/pvr_cccb.c:178 at pvr_cccb_write_command_with_header+0x2c4/0x330 [powervr], CPU#1: kworker/u16:3/47
-  [  375.703160] Modules linked in:
-  [  375.703571] CPU: 1 UID: 0 PID: 47 Comm: kworker/u16:3 Tainted: G        W           7.0.0-rc2-g817eb6b11ad5 #40 PREEMPT
-  [  375.703613] Tainted: [W]=WARN
-  [  375.703627] Hardware name: Texas Instruments AM625 SK (DT)
-  [  375.703645] Workqueue: powervr-sched drm_sched_run_job_work [gpu_sched]
-  [  375.703741] pstate: 80000005 (Nzcv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-  [  375.703764] pc : pvr_cccb_write_command_with_header+0x2c4/0x330 [powervr]
-  [  375.703847] lr : pvr_queue_submit_job_to_cccb+0x578/0xa70 [powervr]
-  [  375.703921] sp : ffff800084a97650
-  [  375.703934] x29: ffff800084a97740 x28: 0000000000000958 x27: ffff80008565d000
-  [  375.703979] x26: 0000000000000030 x25: ffff800084a97680 x24: 0000000000001000
-  [  375.704017] x23: ffff800084a97820 x22: 1ffff00010952ecc x21: 0000000000000008
-  [  375.704056] x20: 00000000000006a8 x19: ffff00002ff7da88 x18: 0000000000000000
-  [  375.704093] x17: 0000000020020000 x16: 0000000000020000 x15: 0000000000000000
-  [  375.704132] x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
-  [  375.704168] x11: 000000000000f2f2 x10: 00000000f3000000 x9 : 00000000f3f3f3f3
-  [  375.704206] x8 : 00000000f2f2f200 x7 : ffff700010952ecc x6 : 0000000000000008
-  [  375.704243] x5 : 0000000000000000 x4 : 1ffff00010acba00 x3 : 0000000000000000
-  [  375.704279] x2 : 0000000000000007 x1 : 0000000000000fff x0 : 000000000000002f
-  [  375.704317] Call trace:
-  [  375.704331]  pvr_cccb_write_command_with_header+0x2c4/0x330 [powervr] (P)
-  [  375.704411]  pvr_queue_submit_job_to_cccb+0x578/0xa70 [powervr]
-  [  375.704487]  pvr_queue_run_job+0x3a4/0x990 [powervr]
-  [  375.704562]  drm_sched_run_job_work+0x580/0xd48 [gpu_sched]
-  [  375.704623]  process_one_work+0x520/0x1288
-  [  375.704658]  worker_thread+0x3f0/0xb3c
-  [  375.704680]  kthread+0x334/0x3d8
-  [  375.704706]  ret_from_fork+0x10/0x20
-  [  375.704736] ---[ end trace 0000000000000000 ]---
-
-Fixes: eaf01ee5ba28 ("drm/imagination: Implement job submission and scheduling")
-Cc: stable@vger.kernel.org
 Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
 ---
- drivers/gpu/drm/imagination/pvr_queue.c | 27 +++++++++++++++++++++++----
- 1 file changed, 23 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/imagination/pvr_job.c  | 8 ++++----
+ drivers/gpu/drm/imagination/pvr_sync.c | 4 ++--
+ drivers/gpu/drm/imagination/pvr_sync.h | 2 +-
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
-index dd88949f6194..836feaa0b295 100644
---- a/drivers/gpu/drm/imagination/pvr_queue.c
-+++ b/drivers/gpu/drm/imagination/pvr_queue.c
-@@ -179,7 +179,7 @@ static const struct dma_fence_ops pvr_queue_job_fence_ops = {
+diff --git a/drivers/gpu/drm/imagination/pvr_job.c b/drivers/gpu/drm/imagination/pvr_job.c
+index 0c2f511a6178..dd9f5df01e08 100644
+--- a/drivers/gpu/drm/imagination/pvr_job.c
++++ b/drivers/gpu/drm/imagination/pvr_job.c
+@@ -326,7 +326,7 @@ prepare_job_syncs(struct pvr_file *pvr_file,
+ 		  struct pvr_job_data *job_data,
+ 		  struct xarray *signal_array)
+ {
+-	struct dma_fence *done_fence;
++	struct dma_fence *finished_fence;
+ 	int err = pvr_sync_signal_array_collect_ops(signal_array,
+ 						    from_pvr_file(pvr_file),
+ 						    job_data->sync_op_count,
+@@ -359,13 +359,13 @@ prepare_job_syncs(struct pvr_file *pvr_file,
+ 			return err;
+ 	}
  
- /**
-  * to_pvr_queue_job_fence() - Return a pvr_queue_fence object if the fence is
-- * backed by a UFO.
-+ * already backed by a UFO.
-  * @f: The dma_fence to turn into a pvr_queue_fence.
-  *
-  * Return:
-@@ -356,6 +356,15 @@ static u32 job_cmds_size(struct pvr_job *job, u32 ufo_wait_count)
- 	       pvr_cccb_get_size_of_cmd_with_hdr(job->cmd_len);
+-	/* We need to arm the job to get the job done fence. */
+-	done_fence = pvr_queue_job_arm(job_data->job);
++	/* We need to arm the job to get the job finished fence. */
++	finished_fence = pvr_queue_job_arm(job_data->job);
+ 
+ 	err = pvr_sync_signal_array_update_fences(signal_array,
+ 						  job_data->sync_op_count,
+ 						  job_data->sync_ops,
+-						  done_fence);
++						  finished_fence);
+ 	return err;
  }
  
-+static bool
-+is_paired_job_fence(struct dma_fence *fence, struct pvr_job *job)
-+{
-+	/* This assumes "fence" is one of "job"'s drm_sched_job::dependencies */
-+	return job->type == DRM_PVR_JOB_TYPE_FRAGMENT &&
-+	       job->paired_job &&
-+	       &job->paired_job->base.s_fence->scheduled == fence;
-+}
-+
- /**
-  * job_count_remaining_native_deps() - Count the number of non-signaled native dependencies.
-  * @job: Job to operate on.
-@@ -371,6 +380,17 @@ static unsigned long job_count_remaining_native_deps(struct pvr_job *job)
- 	xa_for_each(&job->base.dependencies, index, fence) {
- 		struct pvr_queue_fence *jfence;
+diff --git a/drivers/gpu/drm/imagination/pvr_sync.c b/drivers/gpu/drm/imagination/pvr_sync.c
+index 757a18b1ab8f..936f840a5221 100644
+--- a/drivers/gpu/drm/imagination/pvr_sync.c
++++ b/drivers/gpu/drm/imagination/pvr_sync.c
+@@ -160,7 +160,7 @@ int
+ pvr_sync_signal_array_update_fences(struct xarray *array,
+ 				    u32 sync_op_count,
+ 				    const struct drm_pvr_sync_op *sync_ops,
+-				    struct dma_fence *done_fence)
++				    struct dma_fence *finished_fence)
+ {
+ 	for (u32 i = 0; i < sync_op_count; i++) {
+ 		struct dma_fence *old_fence;
+@@ -175,7 +175,7 @@ pvr_sync_signal_array_update_fences(struct xarray *array,
+ 			return -EINVAL;
  
-+		if (is_paired_job_fence(fence, job)) {
-+			/*
-+			 * A fence between paired jobs won't resolve to a pvr_queue_fence (i.e.
-+			 * be backed by a UFO) until the jobs have been submitted, together.
-+			 * The submitting code will insert a partial render fence command for this.
-+			 */
-+			WARN_ON(dma_fence_is_signaled(fence));
-+			remaining_count++;
-+			continue;
-+		}
-+
- 		jfence = to_pvr_queue_job_fence(fence);
- 		if (!jfence)
- 			continue;
-@@ -630,9 +650,8 @@ static void pvr_queue_submit_job_to_cccb(struct pvr_job *job)
- 		if (!jfence)
- 			continue;
+ 		old_fence = sig_sync->fence;
+-		sig_sync->fence = dma_fence_get(done_fence);
++		sig_sync->fence = dma_fence_get(finished_fence);
+ 		dma_fence_put(old_fence);
  
--		/* Skip the partial render fence, we will place it at the end. */
--		if (job->type == DRM_PVR_JOB_TYPE_FRAGMENT && job->paired_job &&
--		    &job->paired_job->base.s_fence->scheduled == fence)
-+		/* This fence will be placed last, as partial render fence. */
-+		if (is_paired_job_fence(fence, job))
- 			continue;
+ 		if (WARN_ON(!sig_sync->fence))
+diff --git a/drivers/gpu/drm/imagination/pvr_sync.h b/drivers/gpu/drm/imagination/pvr_sync.h
+index db6ccfda104a..48501ad27794 100644
+--- a/drivers/gpu/drm/imagination/pvr_sync.h
++++ b/drivers/gpu/drm/imagination/pvr_sync.h
+@@ -70,7 +70,7 @@ int
+ pvr_sync_signal_array_update_fences(struct xarray *array,
+ 				    u32 sync_op_count,
+ 				    const struct drm_pvr_sync_op *sync_ops,
+-				    struct dma_fence *done_fence);
++				    struct dma_fence *finished_fence);
  
- 		if (dma_fence_is_signaled(&jfence->base))
+ void
+ pvr_sync_signal_array_push_fences(struct xarray *array);
 
 -- 
 2.43.0
