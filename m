@@ -1,125 +1,215 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3288292B44;
-	Mon, 30 Mar 2026 07:08:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3ADE175A96;
+	Mon, 30 Mar 2026 07:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774854537; cv=none; b=vDNL3+qDNt0vxKPQ6WkLksI2WAMe3GBikAsSzG6VtPek7nK5qAR9D8eU5CgO9r5ZVFUbtWB/p+iECZv/IjwOjC5CRM1/evRQzhwfXwBxr8Vy0BSafvBp+gRkWz7aXzd5H8cLOb3wfh9tvv3gjzNgGEJk5JoF64XE/CqvJC+5kFg=
+	t=1774855828; cv=none; b=n8Xgcs3Zppo+DjSLN5xGgiKVAhIIVs5tosB44al4Zr00eUIcXPqy87syxwLQgF0x14zwnmnaUFQfwMLX0S0tVaPwpR4jsbdHrGLERUEEWW4pY1wGWMVkbc6iKXC36DbQFmWsL3kKUBxdnAIn9o7nL7p0y5U/XMHJDcd6cSPp+9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774854537; c=relaxed/simple;
-	bh=/jDwCS37ClQxnMNZi4IpdtAvb0wwJQBYhYWpxA7NdaE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cuNNaZ9Q1/LbtJsMGydPVKlJEIz3+kd8u9J1OkORbMntEM+Bgl4gC8ywBtGF0CD1fjLIBpcTMOAG4OfbdO+DLb7HRVxWUUHMvdDoUYE5D+Iah0ASiaARO3+ZGoZtSKX8HtZOGeAw0gb4ZgrlDm8JquG3mftcAU1+tIqDcFe/rc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MWwAMHbX; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774855828; c=relaxed/simple;
+	bh=qsC4dWrtSWxzwrvwvrROM2SL+2nFBTQ7l+hPcR8W2D8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FmohGXAjGerRFO8u6+wsWIH0ZnlcN9k5AuiQn2a4+VbCqCR9sY0N0ssYzAiadgG/2KK3Y7YK0/g/l7MYND3NZKJrqFBCpEvzz1N59tI6B+LjAhGUICZrX1msjWr+HTcgFV3TdySlCR1z/FuAgUoN6/tBT1zxpHDuyo9uCml7+7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=uvsilpPG; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MWwAMHbX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C37DEC4CEF7;
-	Mon, 30 Mar 2026 07:08:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774854537;
-	bh=/jDwCS37ClQxnMNZi4IpdtAvb0wwJQBYhYWpxA7NdaE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MWwAMHbXhHOam7pxS91Eazmz+hUaoDAf2swLU3Xxq0gOap3WbmlYuHlA7Lt16iHk/
-	 okQRjsC54iUTWRm7vbYcOl63AQeNSP1MNEgw1swjH48UQtjagL+B86CXREPNJzOwOq
-	 Cp8lf0iFOXffdYv5f1ZGoX72EDi3p7JUGh67peAHFMO9Q/7XBtMWuezArFeYv8+qt4
-	 fgq1SWLpceGxYsLEgK9CZjwsuKJFx4nOY6DeWoYA4vzLl8bC5lMBjrcNcnMwUkRVKt
-	 CDc0Q5JxKQzahwBZXb6knpLrYwg3kt1+XvW2qSNHe45aTGMzshmNSA4zgJNCA3qG5D
-	 kMXWwGLdrpl2w==
-Date: Mon, 30 Mar 2026 12:38:37 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-	linux-media@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-	linux-remoteproc@vger.kernel.org, andersson@kernel.org,
-	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
-	akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
-	jesszhan0024@gmail.com, marijn.suijten@somainline.org,
-	airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
-	dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
-	mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
-	trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
-	pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
-	tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
-	srinivas.kandagatla@oss.qualcomm.com,
-	amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
-	op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
-	skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
-	Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v2 02/15] firmware: qcom: Add a generic PAS service
-Message-ID: <acohdYeKYSDQrKUZ@sumit-xelite>
-References: <20260312062756.694390-1-sumit.garg@kernel.org>
- <20260312062756.694390-3-sumit.garg@kernel.org>
- <28d63822-f191-400a-8005-5185dd480dbb@kernel.org>
- <acE-kAi2tkPh2qie@sumit-xelite>
- <5c5b49aa-7819-44c6-b5f7-19ec780d73fa@kernel.org>
- <2e55bdc3-54a1-4f18-b9ad-fe03f21fc4da@oss.qualcomm.com>
- <a0a7269d-7a09-4a78-a4b0-b39b67bc253b@kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="uvsilpPG"
+Received: from [192.168.0.43] (cpc141996-chfd3-2-0-cust928.12-3.cable.virginm.net [86.13.91.161])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A936B20FF;
+	Mon, 30 Mar 2026 09:28:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1774855735;
+	bh=qsC4dWrtSWxzwrvwvrROM2SL+2nFBTQ7l+hPcR8W2D8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=uvsilpPGJUlp94DOEP0olm9FwEdT7qV+HEtyRl4nbG39GYh+uLPSimrBei4CeSYPb
+	 HwI7epRFnQ+1xgSnrVDUZDSLFtRAw5jSQK2SU7xDSZ881cksI726VDcmh3/+khqcRO
+	 mFj9vK5bKAY7joa28eV9WE5DK9gn3+xnuKjkBYxs=
+Message-ID: <a0fb0bbe-b4ac-4a4a-bb5a-7e35035cbedf@ideasonboard.com>
+Date: Mon, 30 Mar 2026 08:30:13 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a0a7269d-7a09-4a78-a4b0-b39b67bc253b@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/14] media: rzg2l-cru: Modernize spin_lock usage with
+ cleanup.h
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: =?UTF-8?Q?Barnab=C3=A1s_P=C5=91cze?= <pobrn@protonmail.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
+References: <20260327-b4-cru-rework-v1-0-3b7d0430f538@ideasonboard.com>
+ <20260327-b4-cru-rework-v1-3-3b7d0430f538@ideasonboard.com>
+Content-Language: en-US
+From: Dan Scally <dan.scally@ideasonboard.com>
+In-Reply-To: <20260327-b4-cru-rework-v1-3-3b7d0430f538@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Mar 27, 2026 at 02:56:40PM +0100, Krzysztof Kozlowski wrote:
-> On 23/03/2026 15:26, Konrad Dybcio wrote:
-> >>>
-> >>> This pattern has been carried from the PAS API contract among kernel
-> >>> clients and the SCM PAS service earlier. The clients don't hold a
-> >>> reference to the PAS data like underlying platform or TEE device etc.
-> >>> Hence the need to have a global data pointer to hold reference to the
-> >>> ops data structure registered by drivers having different lifetime of
-> >>> devices. Also, the PAS APIs can be called from very different client
-> >>> driver contexts.
-> >>>
-> >>> Surely, avoiding global data is always better given a better alternative
-> >>> is there. Do you have any better alternative proposal here?
-> >>
-> >> Why it cannot be part of the context?
-> >>
-> >> Look at your API, e.g.:
-> >> qcom_pas_init_image(). It takes struct qcom_pas_context which should
-> >> contain the ops.
+Morning Jacopo - thanks for the set
 
-Have a look at all other PAS client APIs, the context isn't something
-that each client takes a reference and pass it on for every PAS
-invocation. And changing the PAS API contract for kernel clients is out
-of scope of this patch-set.
-
-> > 
-> > This would make the client have to select the ops. The whole point is to
-> > avoid that, since the client has no clue (and is supposed not to have any).
+On 27/03/2026 17:10, Jacopo Mondi wrote:
+> From: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
 > 
-> Yeah, I see. The problem is that this patchset just keeps growing the
-> singletons so except existing 'struct qcom_scm *__scm' in qcom_scm.c,
-> this one brings at least three new: 'ops_ptr', 'qcom_pas_ops_scm' and
-> 'qcom_pas_ops_tee'.
-
-Not sure how you equate ops structure __pointer__ to the ops structure
-itself. Can you enlighten me how in the rest of the kernel ops data
-structures are shared among independent modules registering on different
-bus types?
-
+> Use more modern constructs from cleanup.h to express the locking
+> sequences in the rzg2l driver.
 > 
-> I don't think you need all four in total, but only one which will hold
-> whatever pointers are necessary.
+> Signed-off-by: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
+> ---
 
-Your arguments seems to be in favour of the existing monolithic SCM
-driver design but you need to understand that's not how underlying TZ
-services are implemented. The PAS service in TZ has nothing to do with
-the ICE service for inline crypto as an example.
+Looks good to me:
 
-Please go through the motivation of this patch-set and the corresponding
-OP-TEE implementation as TZ which is all open source.
+Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
 
--Sumit
+>   .../media/platform/renesas/rzg2l-cru/rzg2l-video.c | 32 +++++++---------------
+>   1 file changed, 10 insertions(+), 22 deletions(-)
+> 
+> diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> index 98b6afbc708d..2d7ac9f37291 100644
+> --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> @@ -11,6 +11,7 @@
+>    * Copyright (C) 2008 Magnus Damm
+>    */
+>   
+> +#include <linux/cleanup.h>
+>   #include <linux/clk.h>
+>   #include <linux/delay.h>
+>   #include <linux/pm_runtime.h>
+> @@ -110,10 +111,10 @@ static void return_unused_buffers(struct rzg2l_cru_dev *cru,
+>   				  enum vb2_buffer_state state)
+>   {
+>   	struct rzg2l_cru_buffer *buf, *node;
+> -	unsigned long flags;
+>   	unsigned int i;
+>   
+> -	spin_lock_irqsave(&cru->qlock, flags);
+> +	guard(spinlock_irqsave)(&cru->qlock);
+> +
+>   	for (i = 0; i < cru->num_buf; i++) {
+>   		if (cru->queue_buf[i]) {
+>   			vb2_buffer_done(&cru->queue_buf[i]->vb2_buf,
+> @@ -126,7 +127,6 @@ static void return_unused_buffers(struct rzg2l_cru_dev *cru,
+>   		vb2_buffer_done(&buf->vb.vb2_buf, state);
+>   		list_del(&buf->list);
+>   	}
+> -	spin_unlock_irqrestore(&cru->qlock, flags);
+>   }
+>   
+>   static int rzg2l_cru_queue_setup(struct vb2_queue *vq, unsigned int *nbuffers,
+> @@ -165,13 +165,9 @@ static void rzg2l_cru_buffer_queue(struct vb2_buffer *vb)
+>   {
+>   	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
+>   	struct rzg2l_cru_dev *cru = vb2_get_drv_priv(vb->vb2_queue);
+> -	unsigned long flags;
+> -
+> -	spin_lock_irqsave(&cru->qlock, flags);
+>   
+> +	guard(spinlock_irqsave)(&cru->qlock);
+>   	list_add_tail(to_buf_list(vbuf), &cru->buf_list);
+> -
+> -	spin_unlock_irqrestore(&cru->qlock, flags);
+>   }
+>   
+>   static void rzg2l_cru_set_slot_addr(struct rzg2l_cru_dev *cru,
+> @@ -465,7 +461,6 @@ void rzg2l_cru_disable_interrupts(struct rzg2l_cru_dev *cru)
+>   int rzg2l_cru_start_image_processing(struct rzg2l_cru_dev *cru)
+>   {
+>   	struct v4l2_mbus_framefmt *fmt = rzg2l_cru_ip_get_src_fmt(cru);
+> -	unsigned long flags;
+>   	u8 csi_vc;
+>   	int ret;
+>   
+> @@ -475,7 +470,7 @@ int rzg2l_cru_start_image_processing(struct rzg2l_cru_dev *cru)
+>   	csi_vc = ret;
+>   	cru->svc_channel = csi_vc;
+>   
+> -	spin_lock_irqsave(&cru->qlock, flags);
+> +	guard(spinlock_irqsave)(&cru->qlock);
+>   
+>   	/* Select a video input */
+>   	rzg2l_cru_write(cru, CRUnCTRL, CRUnCTRL_VINSEL(0));
+> @@ -492,7 +487,6 @@ int rzg2l_cru_start_image_processing(struct rzg2l_cru_dev *cru)
+>   	/* Initialize image convert */
+>   	ret = rzg2l_cru_initialize_image_conv(cru, fmt, csi_vc);
+>   	if (ret) {
+> -		spin_unlock_irqrestore(&cru->qlock, flags);
+>   		return ret;
+>   	}
+>   
+> @@ -502,8 +496,6 @@ int rzg2l_cru_start_image_processing(struct rzg2l_cru_dev *cru)
+>   	/* Enable image processing reception */
+>   	rzg2l_cru_write(cru, ICnEN, ICnEN_ICEN);
+>   
+> -	spin_unlock_irqrestore(&cru->qlock, flags);
+> -
+>   	return 0;
+>   }
+>   
+> @@ -573,16 +565,15 @@ irqreturn_t rzg2l_cru_irq(int irq, void *data)
+>   {
+>   	struct rzg2l_cru_dev *cru = data;
+>   	unsigned int handled = 0;
+> -	unsigned long flags;
+>   	u32 irq_status;
+>   	u32 amnmbs;
+>   	int slot;
+>   
+> -	spin_lock_irqsave(&cru->qlock, flags);
+> +	guard(spinlock_irqsave)(&cru->qlock);
+>   
+>   	irq_status = rzg2l_cru_read(cru, CRUnINTS);
+>   	if (!irq_status)
+> -		goto done;
+> +		return IRQ_RETVAL(handled);
+>   
+>   	handled = 1;
+>   
+> @@ -591,14 +582,14 @@ irqreturn_t rzg2l_cru_irq(int irq, void *data)
+>   	/* Nothing to do if capture status is 'RZG2L_CRU_DMA_STOPPED' */
+>   	if (cru->state == RZG2L_CRU_DMA_STOPPED) {
+>   		dev_dbg(cru->dev, "IRQ while state stopped\n");
+> -		goto done;
+> +		return IRQ_RETVAL(handled);
+>   	}
+>   
+>   	/* Increase stop retries if capture status is 'RZG2L_CRU_DMA_STOPPING' */
+>   	if (cru->state == RZG2L_CRU_DMA_STOPPING) {
+>   		if (irq_status & CRUnINTS_SFS)
+>   			dev_dbg(cru->dev, "IRQ while state stopping\n");
+> -		goto done;
+> +		return IRQ_RETVAL(handled);
+>   	}
+>   
+>   	/* Prepare for capture and update state */
+> @@ -621,7 +612,7 @@ irqreturn_t rzg2l_cru_irq(int irq, void *data)
+>   	if (cru->state == RZG2L_CRU_DMA_STARTING) {
+>   		if (slot != 0) {
+>   			dev_dbg(cru->dev, "Starting sync slot: %d\n", slot);
+> -			goto done;
+> +			return IRQ_RETVAL(handled);
+>   		}
+>   
+>   		dev_dbg(cru->dev, "Capture start synced!\n");
+> @@ -646,9 +637,6 @@ irqreturn_t rzg2l_cru_irq(int irq, void *data)
+>   	/* Prepare for next frame */
+>   	rzg2l_cru_fill_hw_slot(cru, slot);
+>   
+> -done:
+> -	spin_unlock_irqrestore(&cru->qlock, flags);
+> -
+>   	return IRQ_RETVAL(handled);
+>   }
+>   
+> 
+
