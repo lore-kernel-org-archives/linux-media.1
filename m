@@ -1,46 +1,46 @@
 Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B6D3ACA66;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A489C3A1A28;
 	Mon, 30 Mar 2026 08:12:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774858339; cv=none; b=iZQCFrYPk41jMXd8Kyu3B+lcaeOlQgqAq0s4hprFnuR5Sl3TwgXgioMfnkrIaToHDO6CH3c6aPCpa3lhbOX7Tm41BbxN0ApbldHRbRnEA7QLPguUagbKc6dz7uCpelmU6zwCCe/TF8i+8C0IKlBt4HZhDyHYXy+bbK6hak0Zk7Q=
+	t=1774858339; cv=none; b=JgRBkp+NrNRKRhv52nA6DgZ2iZNOq5y+1Y9tZKXpprBt2XJVAcVYAgQw/yF9mUWYP0fPh5uuG2nKgrfLfDMJwWNC4qs1kjmdwlahKP19xlNllnB2+7BzJLMarxswSxImgwEDbg6CPBtBb7u+cRhiqRrmvqK65N64O5YqMNmPu2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774858339; c=relaxed/simple;
-	bh=Jud123WWRsFViT++lGJXkizulPVbeyW2ltbMqISSRbY=;
+	bh=1ruZS5mWr1hpnoKHvH8FYZr7dg1gu8aYTEEk7UMdO64=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=gRSSdaxmxwJ4cMpa7oNU3KWA0aHX4T9h54a3NPHCFg7KKYsGnEkdXASgOdy8HdoDZh81iV5sfu6tYIBFmDXTv+t1BuhIbSHYiznNiw96/uLgnE7OBTvgJL7b/hoR8Geln2V6vd/y5WEOm7VYBd7U6ThoOAUfUN+G3EQkykVdWOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=qcRyE5kF; arc=none smtp.client-ip=185.132.180.163
+	 In-Reply-To:To:CC; b=jYobIpIKBBAHB3EN0IerJqYiNX5UjUlAZHkP+rAGTkFaxUw0kLe3L5SzqcNEB83/HLoz0keokC0fu+AKkkJzG5lkYrbOy5UWYXTOSJesC1ZAdY7JNuShedggwuzDORTwkVvaNkIbbLI9pdlN4uMmmUnvSbeEI8mSpfwzCGlg4Vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=Jc8mdmrR; arc=none smtp.client-ip=185.132.180.163
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="qcRyE5kF"
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="Jc8mdmrR"
 Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62U5HJTm174202;
-	Mon, 30 Mar 2026 08:57:02 +0100
+	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62U5HJTk174202;
+	Mon, 30 Mar 2026 08:57:01 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=/
-	8FiZRrrQ/O+Rf5kOsCDAWuTUsDDkKsfFbvZz4NC9po=; b=qcRyE5kF9iQ1avMmt
-	nH1fDHUusK7FSJ5LO/93IJHb2M2LeuFB67un+nJ0ETmVdeqChRl8nDHoqXEJ5LbX
-	N+8mxjSCtIrn1ow2RAfUMTtueZty7ifFO1BfIgYo/5PTFdIsDTqmN/eITA73araw
-	2i8WWJhuhu/gsWuVEIRITS9IsSbpR+uaM1CV5pGud22S261NyGo72nlAxoMZvqKS
-	sEd7hpKRkmhjyLxJz3zzcv4lzOl7qk+tii8XL1SIpyezmDywLAdLRjXCE3seOzX/
-	CDXgkjlPh6dnlAU2A3dtgr47KnB60XFN9VSA37IkNA24wZaKuXHudjIKZcbnh+6Z
-	dF9LQ==
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=W
+	Ss4R+WJLlaRlbUhl44LAW/kP57HIL0JMAq4hjBcz4I=; b=Jc8mdmrRwGmCRzZUu
+	CIyvDl7b0ayy5gUk3vZsghlDn3DfsBO/hrbVmiJc6XlFiW+5mZb/Cr4IOrUoVTDs
+	5xoZ19mi3IbD3thYMc8ShQBdGnQ6t6szkV0I/sArLsXxBHqYJf7jTDne6cDUdjV/
+	4b3XN7O+7ZsK8bsfT7ZlmN/7FdLkaJdEd55SdQBbNaOBQYje8IB8rXD445c1iT44
+	MFh9YQcbxUWxS8+ZS280tlrIGrICnwSC411DJGgTxZaRupP/ljaabxejY3USaWz8
+	JktqsJEWry3kKRpO/+4D2ajTP+AjT5pJK3CuhWLrr1g+4eP6A6U+TXmuz/Mbyw1P
+	WJu5Q==
 Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4d67xusfkv-6
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4d67xusfkv-4
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 30 Mar 2026 08:57:02 +0100 (BST)
+	Mon, 30 Mar 2026 08:57:01 +0100 (BST)
 Received: from NP-A-BELLE.kl.imgtec.org (172.25.6.106) by
  HHMAIL01.hh.imgtec.org (10.100.10.19) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 30 Mar 2026 08:57:00 +0100
+ 15.2.2562.37; Mon, 30 Mar 2026 08:56:59 +0100
 From: Alessio Belle <alessio.belle@imgtec.com>
-Date: Mon, 30 Mar 2026 08:56:41 +0100
-Subject: [PATCH 6/8] drm/imagination: Move repeated job fence check to its
- own function
+Date: Mon, 30 Mar 2026 08:56:38 +0100
+Subject: [PATCH 3/8] drm/imagination: Skip check on paired job fence during
+ job submission
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -49,7 +49,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260330-job-submission-fixes-cleanup-v1-6-7de8c09cef8c@imgtec.com>
+Message-ID: <20260330-job-submission-fixes-cleanup-v1-3-7de8c09cef8c@imgtec.com>
 References: <20260330-job-submission-fixes-cleanup-v1-0-7de8c09cef8c@imgtec.com>
 In-Reply-To: <20260330-job-submission-fixes-cleanup-v1-0-7de8c09cef8c@imgtec.com>
 To: Frank Binns <frank.binns@imgtec.com>,
@@ -71,87 +71,73 @@ CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
         "Alessio
  Belle" <alessio.belle@imgtec.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774857418; l=1816;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774857418; l=1762;
  i=alessio.belle@imgtec.com; s=20251208; h=from:subject:message-id;
- bh=Jud123WWRsFViT++lGJXkizulPVbeyW2ltbMqISSRbY=;
- b=Us8Uqg2bcIei5LQeqV5+A3+PeVxiODs7azGrw4HFJvCPdodnoBN9XaRjosJv9U3EBmzjuJWrE
- wMTYRH4ofcNDWIcj5jOmJfWGTAyXXhqmoQ8Y11jl8NSM3fRo8OlmIy1
+ bh=1ruZS5mWr1hpnoKHvH8FYZr7dg1gu8aYTEEk7UMdO64=;
+ b=Hr15ss6AMBUbiy+fmwm5/Y3mpSmrLZJ8SOZMNz5jrX5xTuhQHJgJc6D+iMsZ4YpGmy5qWog6s
+ kwh7wmusx9DAjxsMfMBrg5HWjTQPLi6ArKu3CeLK7ZeBw31shpK4bih
 X-Developer-Key: i=alessio.belle@imgtec.com; a=ed25519;
  pk=2Vtuk+GKBRjwMqIHpKk+Gx6zl7cgtq0joszcOc0zF4g=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA2MSBTYWx0ZWRfX3LbZ7G18Zoin
- YFA4KSKSmaBVaJMwkomSPR16kvSZcBU9TKLTl9KWzSE03/iHGkLDlvN6y2YSgz+jlzZD4u8mB2T
- lOMD8YdBoKCfnwQ0PiNYXuMKm2gXRrnPRTTskFkxfTDQg5t54fqcHYKSXu9YX+iDzTVDqka3kqS
- saWPiWuYWvVZzzyxiHj25XPlZaiWTo6XeS3LpSDtR/Kx2I+VJdecJ8hCn6AL8p44OTBfjZVqwTJ
- 93Ue1u+sL6A3rD6UJ6raAPIkdNaMF6JFd9dhpGYP+vzVlhztK/B+s8uSZ34EZeyouUI6I8163xt
- MQbOr2U30RYP5v7E6KNFvdo1ISjs5gK42ZnhuizRnmkjmJ/3VDtmJ4+pJlPP+/AZlQcu+ip8rq7
- JU5SypaLRZEs02emRGnilz7WkpDMqOXC/Pmig1n6MLqzd1fQ3LOkjlnfUIpNuwdFjkLgiXd31kA
- r7YRCbf/OePJozP631w==
-X-Authority-Analysis: v=2.4 cv=QO9lhwLL c=1 sm=1 tr=0 ts=69ca2cce cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMwMDA2MSBTYWx0ZWRfX3NNUR7xCuwGU
+ nvZp334Sq2koxY8z6tHxyR8FVAHb7MMfQTWLLxfrbzJXLuD3duLp3Fx/62GxDQ57bI1bkB6Qh4T
+ KY8tjyPGvPvTnKnq8rqh4s4+wKI286pQlUbqCyT3ph9jSy8JNhUnddYAI9EVtIZOV3jLTDX5ZZm
+ p5d5Unp+sD0F+M5LrI7m7tYaoruTrQWQMUuCbHe6tphqPyeMbSXTCEk3cHnLCbak1ESy7jk0Y0y
+ FUHO11npqYdGGGN/uMPCHsNNHvQVNx6jY4v5At5CTLeFtFBChWXk8LHWcyIvDbMI0oEi8ujmfj4
+ zKS8zvD5fyHEoo677mgnld8+7KQ90/FWJJo0QKEGIsmf2iEsMEOUjEc121TJ0cTIPAXqEYdvdvC
+ WSITs4vo1dD83qkSWWRU60ejQHDLIUGKSa5SGOJrxRt/9Hp1eoh6L8w1mtTejHkfhYUPUbIPpjC
+ okVE356rlu/swrH7wxQ==
+X-Authority-Analysis: v=2.4 cv=QO9lhwLL c=1 sm=1 tr=0 ts=69ca2ccd cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=txNhvCuK94MA:10 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=qN8rWf0lohQvQRdMElYA:9 a=QEXdDO2ut3YA:10
+ a=r_1tXGB3AAAA:8 a=_Y7jKtEYzl7tsisHUWkA:9 a=QEXdDO2ut3YA:10
  a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-GUID: tYoNvPJFFQmVQXx88G-m8Pt_uuTJnAhj
-X-Proofpoint-ORIG-GUID: tYoNvPJFFQmVQXx88G-m8Pt_uuTJnAhj
+X-Proofpoint-GUID: MoVJ07EmUFPgzr_k86aZsHFyRHmJytHT
+X-Proofpoint-ORIG-GUID: MoVJ07EmUFPgzr_k86aZsHFyRHmJytHT
 
-This should make the code slightly clearer.
+While submitting a paired fragment job, there is no need to manually
+look for, and skip, the paired job fence, as the existing logic to
+resolve dependencies to pvr_queue_fence objects will have failed to
+resolve it already and continued with the next one.
+
+Point this out where the fence is actually accessed and drop the related
+check.
 
 Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
 ---
- drivers/gpu/drm/imagination/pvr_queue.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/imagination/pvr_queue.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
-index df0a110ed96f..4a49d954562e 100644
+index f1e54e6d940d..527eae1309d8 100644
 --- a/drivers/gpu/drm/imagination/pvr_queue.c
 +++ b/drivers/gpu/drm/imagination/pvr_queue.c
-@@ -177,6 +177,24 @@ static const struct dma_fence_ops pvr_queue_job_fence_ops = {
- 	.release = pvr_queue_fence_release,
- };
+@@ -646,10 +646,6 @@ static void pvr_queue_submit_job_to_cccb(struct pvr_job *job)
+ 		if (!jfence)
+ 			continue;
  
-+/**
-+ * pvr_queue_fence_is_ufo_backed() - Check if a dma_fence is backed by a UFO.
-+ * @f: The dma_fence to check.
-+ *
-+ * Return:
-+ * * true if the dma_fence is backed by a UFO, or
-+ * * false otherwise.
-+ */
-+static inline bool
-+pvr_queue_fence_is_ufo_backed(struct dma_fence *f)
-+{
-+	/*
-+	 * Currently the only dma_fence backed by a UFO object is the job fence,
-+	 * e.g. pvr_job::done_fence, wrapped by a pvr_queue_fence object.
-+	 */
-+	return f && f->ops == &pvr_queue_job_fence_ops;
-+}
-+
- /**
-  * to_pvr_queue_job_fence() - Return a pvr_queue_fence object if the fence is
-  * already backed by a UFO.
-@@ -194,7 +212,7 @@ to_pvr_queue_job_fence(struct dma_fence *f)
- 	if (sched_fence)
- 		f = sched_fence->parent;
- 
--	if (f && f->ops == &pvr_queue_job_fence_ops)
-+	if (pvr_queue_fence_is_ufo_backed(f))
- 		return container_of(f, struct pvr_queue_fence, base);
- 
- 	return NULL;
-@@ -915,10 +933,7 @@ bool pvr_queue_fence_is_native(struct dma_fence *f)
- 	    sched_fence->sched->ops == &pvr_queue_sched_ops)
- 		return true;
- 
--	if (f && f->ops == &pvr_queue_job_fence_ops)
--		return true;
+-		/* This fence will be placed last, as partial render fence. */
+-		if (is_paired_job_fence(fence, job))
+-			continue;
 -
--	return false;
-+	return pvr_queue_fence_is_ufo_backed(f);
- }
+ 		if (dma_fence_is_signaled(&jfence->base))
+ 			continue;
  
- /**
+@@ -664,8 +660,13 @@ static void pvr_queue_submit_job_to_cccb(struct pvr_job *job)
+ 		}
+ 	}
+ 
+-	/* Partial render fence goes last. */
+ 	if (job->type == DRM_PVR_JOB_TYPE_FRAGMENT && job->paired_job) {
++		/*
++		 * The loop above will only process dependencies backed by a UFO i.e. with
++		 * a valid parent fence assigned, but the paired job dependency won't have
++		 * one until both jobs have been submitted. Access the parent fence directly
++		 * here instead, submitting it last as partial render fence.
++		 */
+ 		jfence = to_pvr_queue_job_fence(job->paired_job->done_fence);
+ 		if (!WARN_ON(!jfence)) {
+ 			pvr_fw_object_get_fw_addr(jfence->queue->timeline_ufo.fw_obj,
 
 -- 
 2.43.0
