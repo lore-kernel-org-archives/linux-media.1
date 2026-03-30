@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 925793BED58;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E263BED6E;
 	Mon, 30 Mar 2026 10:11:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774865516; cv=none; b=QnVKSVr3GRTOxuEQH+uiYGFj7FH/ZABMkSkBHEsEgUXsH6dqQ1si0BUJ4bPWTnDunwbgN6f2165WNEwhH3/qSa7ojhyhggoZGeUqNryRNIPqB2Fsub0pwV2rtlo+i/CLcvdQTdT5Ja+TKpQaUaIJtcwI2mT21UetNf5993HiTfQ=
+	t=1774865516; cv=none; b=axI5clqsH24YmwV4Sizq+QeNbtRkBqfyYZ8vzFoHmrLBhy34qxoporHA0ZB6v5T3HqxtjZNQ4VKvULvxFUFytdaUSNtpsKEVhXUL0bxozOHn0Qg7oHEuWrWYmNWrtEWEFPDgyx/2kj8uWZLQ+ESpLCJm9l30xM6VLSVqONE2Rvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774865516; c=relaxed/simple;
-	bh=9/pTkhn2u2LSwJWS3DyDgtL8TAWdS/g1l4ZFCYjsYio=;
+	bh=4on6QHPozqnGQIG0eBs3EcvebQJWDyF4s4eHR6wrc/4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=er1Vx6xCSTSausFNNWGhDgAzW+YTW9z3dw8FLpavBr4EIUNjyXIzPOk8p1tBSqDVP2x2kFz510xbtNcaMP17TuS2zzCRJooYYKW1yPLev+JcUECsi2CB1DvELM/VTiguR7LvZi1H+iRqWuukZkoiNn/r6z5uOn2nOiyLEpnzNeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s6jAlVAs; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version; b=t7OzxB6os5ARR6GG5C5YElATckS2P7tny6nl5wBlxkALngPfnaQUtJ+NYHVfc+S215jV5/SjyDlU3adj6mq6Qgu/VfZn2plIkn2r2U/7gXzcgqYaM6a8CV7jpv6zEgg9cRZQuNrzO2eEJnboPsePGzHm+u6tnzkN6hUAcjpL/e0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HyhDzL/K; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s6jAlVAs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F5B9C2BCB3;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HyhDzL/K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AD31C2BCB2;
 	Mon, 30 Mar 2026 10:11:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1774865516;
-	bh=9/pTkhn2u2LSwJWS3DyDgtL8TAWdS/g1l4ZFCYjsYio=;
+	bh=4on6QHPozqnGQIG0eBs3EcvebQJWDyF4s4eHR6wrc/4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=s6jAlVAscj5D3hAlHXt6P8nkcGjbsXp9T11dY+dUwjTqtONYDTlh9UTWBT+XD8T4l
-	 sH5xbxXXRM3NxIexG23NiSLa3ex68nLMt0KpchGwIme1YYP2ICpZVAYYlD7pGrW3l2
-	 Ri2jMaLx+FjSrb68Qe7FXduSK6rRzo9lzyksstLW1SVLFR7NTbyWnVzgtaxB+nDGXu
-	 DBrX8acXEuIrCEvbOQwPaCwoOC0ongeopUglUoD1DsVH5EscTcKR/R7uympswkOiyK
-	 8r7lgVdslm5ANekAE6XYU0sKzEuV0KUDbGMqoAREP9QkxAXfjEMHKCHvkFQqUu3K9z
-	 HrNPfhQdad1wA==
+	b=HyhDzL/KeXaCuhAY8ki8kQtd8oL6SdaR44FapaHdUpOnpI4DArqenLW6xF7HdeRCC
+	 DFHoYkuGSXHVFRiZsCCUvAUDsCU4emIdrEtjROOyjXr5vvEFvVWhz8xB4gFhV2ScT+
+	 mDPTwn0TbWwV6dfo5yFhZD3H/SMVAwKapJjbpzgvFmsHksOTKjqZynTu/eWMc1W0AQ
+	 0s9hlrvGSOhaRGu8jB9I37sSEuwAptTuKK2V25PmG1Oi/ruG/icIu3zquilg18AHTm
+	 /RCfopXUeV33Ik9jhFHys8+5u4+v55KQBVOPboY7/MnfhqTFyL/YcBBucPJ5gTkadF
+	 fO8Rv/z5KnIng==
 Received: from johan by xi.lan with local (Exim 4.98.2)
 	(envelope-from <johan@kernel.org>)
-	id 1w79b8-00000006yvk-1TFJ;
+	id 1w79b8-00000006yvc-1K9C;
 	Mon, 30 Mar 2026 12:11:54 +0200
 From: Johan Hovold <johan@kernel.org>
 To: Hans Verkuil <hverkuil@kernel.org>,
@@ -37,9 +37,9 @@ To: Hans Verkuil <hverkuil@kernel.org>,
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Johan Hovold <johan@kernel.org>
-Subject: [PATCH 5/6] media: hdpvr: refactor endpoint lookup
-Date: Mon, 30 Mar 2026 12:11:40 +0200
-Message-ID: <20260330101141.1664143-6-johan@kernel.org>
+Subject: [PATCH 1/6] media: si470x-usb: refactor endpoint lookup
+Date: Mon, 30 Mar 2026 12:11:36 +0200
+Message-ID: <20260330101141.1664143-2-johan@kernel.org>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260330101141.1664143-1-johan@kernel.org>
 References: <20260330101141.1664143-1-johan@kernel.org>
@@ -51,66 +51,43 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use the common USB helper for looking up bulk-in endpoints instead of
-open coding.
+Use the common USB helper for looking up interrupt-in endpoints instead
+of open coding.
 
 Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
- drivers/media/usb/hdpvr/hdpvr-core.c | 26 ++++++++------------------
- 1 file changed, 8 insertions(+), 18 deletions(-)
+ drivers/media/radio/si470x/radio-si470x-usb.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/media/usb/hdpvr/hdpvr-core.c b/drivers/media/usb/hdpvr/hdpvr-core.c
-index d42336836b18..849a2be416bd 100644
---- a/drivers/media/usb/hdpvr/hdpvr-core.c
-+++ b/drivers/media/usb/hdpvr/hdpvr-core.c
-@@ -265,13 +265,10 @@ static int hdpvr_probe(struct usb_interface *interface,
- 		       const struct usb_device_id *id)
+diff --git a/drivers/media/radio/si470x/radio-si470x-usb.c b/drivers/media/radio/si470x/radio-si470x-usb.c
+index 318b5f6d4202..869b1e7e34b9 100644
+--- a/drivers/media/radio/si470x/radio-si470x-usb.c
++++ b/drivers/media/radio/si470x/radio-si470x-usb.c
+@@ -565,8 +565,7 @@ static int si470x_usb_driver_probe(struct usb_interface *intf,
  {
- 	struct hdpvr_device *dev;
--	struct usb_host_interface *iface_desc;
- 	struct usb_endpoint_descriptor *endpoint;
- #if IS_ENABLED(CONFIG_I2C)
- 	struct i2c_client *client;
- #endif
--	size_t buffer_size;
--	int i;
- 	int dev_num;
- 	int retval = -ENOMEM;
+ 	struct si470x_device *radio;
+ 	struct usb_host_interface *iface_desc;
+-	struct usb_endpoint_descriptor *endpoint;
+-	int i, int_end_size, retval;
++	int int_end_size, retval;
+ 	unsigned char version_warning = 0;
  
-@@ -321,25 +318,18 @@ static int hdpvr_probe(struct usb_interface *interface,
+ 	/* private data allocation and initialization */
+@@ -595,12 +594,8 @@ static int si470x_usb_driver_probe(struct usb_interface *intf,
+ 	iface_desc = intf->cur_altsetting;
  
- 	/* set up the endpoint information */
- 	/* use only the first bulk-in and bulk-out endpoints */
--	iface_desc = interface->cur_altsetting;
+ 	/* Set up interrupt endpoint information. */
 -	for (i = 0; i < iface_desc->desc.bNumEndpoints; ++i) {
 -		endpoint = &iface_desc->endpoint[i].desc;
--
--		if (!dev->bulk_in_endpointAddr &&
--		    usb_endpoint_is_bulk_in(endpoint)) {
--			/* USB interface description is buggy, reported max
--			 * packet size is 512 bytes, windows driver uses 8192 */
--			buffer_size = 8192;
--			dev->bulk_in_size = buffer_size;
--			dev->bulk_in_endpointAddr = endpoint->bEndpointAddress;
--		}
--
+-		if (usb_endpoint_is_int_in(endpoint))
+-			radio->int_in_endpoint = endpoint;
 -	}
--	if (!dev->bulk_in_endpointAddr) {
-+	if (usb_find_bulk_in_endpoint(interface->cur_altsetting, &endpoint)) {
- 		v4l2_err(&dev->v4l2_dev, "Could not find bulk-in endpoint\n");
- 		goto error_put_usb;
- 	}
- 
-+	/*
-+	 * USB interface description is buggy, reported max packet size is 512
-+	 * bytes, windows driver uses 8192
-+	 */
-+	dev->bulk_in_size = 8192;
-+	dev->bulk_in_endpointAddr = endpoint->bEndpointAddress;
-+
- 	/* init the device */
- 	if (hdpvr_device_init(dev)) {
- 		v4l2_err(&dev->v4l2_dev, "device init failed\n");
+-	if (!radio->int_in_endpoint) {
++	retval = usb_find_int_in_endpoint(iface_desc, &radio->int_in_endpoint);
++	if (retval) {
+ 		dev_info(&intf->dev, "could not find interrupt in endpoint\n");
+ 		retval = -EIO;
+ 		goto err_usbbuf;
 -- 
 2.52.0
 
