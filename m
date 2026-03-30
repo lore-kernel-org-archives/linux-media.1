@@ -1,131 +1,99 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8903AF67A
-	for <linux-media@vger.kernel.org>; Mon, 30 Mar 2026 09:52:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 879043BED40;
+	Mon, 30 Mar 2026 10:11:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774864363; cv=none; b=a58kbNuSV9hJvu+pQ74V8uxAYzTSsf3lr4fXBrBDk43U7qUnBPDXhNFfOTqcKtED+U4yngUrrQp7RqthEz53CMHhiXMp94RUGl9QdmUlGq+oChhpZeIT2bTvCICHSDBrouAboRolk36AA+5QyeYwNLSc6xN3dRp53UgB6McOKJY=
+	t=1774865516; cv=none; b=SoV4/LS1MhyqHmumkgbguLBuJw0JT9y+gigL43MWhAJ1lRHmyvjt95vv9UkVKAfhv+e9mj1N+T6By7EfFwBEATL3IyY/ImdIUVQ6/E4FMKO1pHXVzbbPWi5ZY2HbNRQRO8zhc8Vopx5oCfY8Xi6S/vFJjuARg3uOlNzAnJcyqcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774864363; c=relaxed/simple;
-	bh=I9JWL0TnRVg/zBZcrP4TkUOOuUEXZ2luMJ61hcty0oE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TnGwuDqbDoOMqExpOFbAZOObXErDMsurFLUzmj7khLdraugYHfDG4wjenx05lhxzfm0XMtAutloQMDNnDqeHvv0H5me4jkDI8ITWjhaIkfsqrFDm3cnWgKUxsbDq++CoHej7ooodWL7BCLuWjv9+L63Po/XE9kB0r/ldNmoJCKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l3HOaNQw; arc=none smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774865516; c=relaxed/simple;
+	bh=w6KzY0XzyjcyMRUlPVjJZv6AcnGT6wLQdMD+us8oX/4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uqxKCqeJMVk3UFYvexRis9d9CFbwpdZhbRMRha/HSLs1WinNMMmQh9/UEzDMvqjswcD4ibqIEzG8kt3wbY+Bu1lS1KnDN5yxrw26dhZX0O4owXuYPswHtI0d67OuLxrOApIDOH7GrYuRqL7MxDssqUDo0MgDfzvjE9zSivEPqSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ry7RZOy5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l3HOaNQw"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-66b2f6e983bso4562919a12.0
-        for <linux-media@vger.kernel.org>; Mon, 30 Mar 2026 02:52:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774864360; x=1775469160; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=cn7BPueizG0aOaXVcVQhQ6g9SE/PtvAJOzX0fQc+gbI=;
-        b=l3HOaNQwnRoDqfzMKpf7olWVTGhjZn94vLmBIeQtBcg2loi+stpi9YZbvtumaZnNem
-         dWBWCkGCD3smRdkBHauDsKNdq136oLBm5r5VRY6Kdj4XsSkAFXYuL/AauO/WU1ugRl+L
-         va8uqZKNoA26yulNMm9p599v8tuDR2PgMRv1RcI423DW8PrQI+dH5TtL7MqlJQpXIPda
-         v3lKbHXca3B8bYJX070aTa9bOrLG3JzZNNzjzTn8LkCCEKmvEJP6mWW9bWF/Q4epBF7u
-         6IrMzdZyGk98s9CeswI6RW2qc69QZ1WeM2jz642UpPkUi/hUVpw+DgsmeE6xC0RyX9W1
-         gFng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774864360; x=1775469160;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=cn7BPueizG0aOaXVcVQhQ6g9SE/PtvAJOzX0fQc+gbI=;
-        b=pzYZFdBJLFQ4sGENFBIbxUcljApYXqExWxXwjqTknLBjGK/JJdUP6mbMpPcrLp+kdJ
-         REAse1XMFYL1Kfz4Oh6+DpkOm7mEMSYzSiCDb0ycQ8dDVIadtdK0MhC1EKa7BZSJH1QW
-         oFLoW0eqGjZSvtm6Ow4IeOjAL0QRBbuY9yPr6zB1KIOYMJXdDgazz6hvfJ+cgQ/wN6VS
-         8KA1rbBK26xYo5t0m3qwuyPnSIksp57a9fZfAofBnyuT9z32royHtoBs8wGNOCotVMH2
-         277K0eQ1DI1IvDIn/A1UW45W/yhK2iiTmkFNizzybzuT/pBSIUQzu1b8Aj9a10d5tFGJ
-         O0sw==
-X-Forwarded-Encrypted: i=1; AJvYcCU3xFz0Az4ceEDghnqXvIY1Pzd+cvzDf7NTfrPeQXXJ/OvKq9zKlbw6wu9cVfzrpX2h6Zv+f1Z1LKrvkg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyJ0P2/w4KOyV8vvNJAUr1aUl4WMawut34Me+iy92cZILFny6WG
-	pC7gqBsiecBgjuQLQ2QwwwUiEJezax1Uo0uMy4gn4EQGTjn3ZQhcDycD
-X-Gm-Gg: ATEYQzzAElJwwhDVaj9IP1Wq1hK6vnQ/vjbL0+irQWojo4JUuoVEAH5I7hnPHh/w2OY
-	XYn4J1V++ZRSrFakDNkyLpFfzpmTej8G90bji6MeAO3M88G3uJtw+KHqNRcglkMffqXXifV50t9
-	VehBa3YQ8ymzs/ykB4c4VP3r2v15mTwOzE9oH+PsHYq7jXPm5LkEOCiBq4sI6djFQJfrcFYLqxP
-	Z/t5LSIhH5Gd3C36MM7UEafLpcWi93z3BxRuNRN/zW9xUzydY/15ZzC4u8mUVhXTq2klfpDGyl0
-	NOMvoRm4PUqj/37pV9o+OgH8ER0fyRApadIdeZ761cIgudBV7/UlXl+ATySdIkU4DoGgPS0BAnw
-	YqSn/CP28L21AC5SxQ8BMPVjXKBZAl7kZEnpVe+/kgVd6/nL7s4EE/IVy60VAsbg1psB5WTNpMD
-	cloVwG1UN6wh/24xNrh+x6rPcq3BFydpUG65JXqaO+GjZQ
-X-Received: by 2002:a05:6402:528f:b0:66c:12ad:d769 with SMTP id 4fb4d7f45d1cf-66c12add9fbmr216280a12.7.1774864360007;
-        Mon, 30 Mar 2026 02:52:40 -0700 (PDT)
-Received: from [192.168.178.84] ([134.19.50.110])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-66b75ba970esm2306523a12.19.2026.03.30.02.52.39
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 30 Mar 2026 02:52:39 -0700 (PDT)
-Message-ID: <45754304-12c4-44b2-965c-fee97f839808@gmail.com>
-Date: Mon, 30 Mar 2026 11:52:38 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ry7RZOy5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D276C2BCB4;
+	Mon, 30 Mar 2026 10:11:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774865516;
+	bh=w6KzY0XzyjcyMRUlPVjJZv6AcnGT6wLQdMD+us8oX/4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ry7RZOy5B1YvtLjvnkCyB2d/qGBT0h9iJ3fkbKdgbJ4iZb+GcQhvmFY90Krz5N7Xi
+	 v+rpSbLVXsomwLl+N3erzReMxsfClkBgA0H1ELMsy58LawUXarWrz1t96oyQkr9djd
+	 Lk995DyGBQSDGz1B1yVcAfSBWIWzyMQLQoic6aCEmBGUXgc/w7jLQnGC7dohsYNhdT
+	 Zp3GDP9NppBduFYYm39ZATlUUZheJ9oiqSkDbANSA9hSSwViup4pAkzsVwUjac4Bxw
+	 1XTkB94EVfHeYuPPbGZrZbww1Bgi4KswXTmXlHSafVRC4tj6kGciI/A8Dnq69xpOAo
+	 dxfEIXao27xXw==
+Received: from johan by xi.lan with local (Exim 4.98.2)
+	(envelope-from <johan@kernel.org>)
+	id 1w79b8-00000006yve-1MUj;
+	Mon, 30 Mar 2026 12:11:54 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Hans Verkuil <hverkuil@kernel.org>,
+	Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Johan Hovold <johan@kernel.org>
+Subject: [PATCH 2/6] media: imon_raw: refactor endpoint lookup
+Date: Mon, 30 Mar 2026 12:11:37 +0200
+Message-ID: <20260330101141.1664143-3-johan@kernel.org>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260330101141.1664143-1-johan@kernel.org>
+References: <20260330101141.1664143-1-johan@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-fence: Dereference correct dma_fence in
- dma_fence_chain_find_seqno()
-To: Li Ming <ming.li@zohomail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-References: <20260327-fix_dma_fence_chain_find_seqno-v1-1-60e80bfb43c8@zohomail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20260327-fix_dma_fence_chain_find_seqno-v1-1-60e80bfb43c8@zohomail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 3/27/26 15:33, Li Ming wrote:
-> dma_fence_chain_find_seqno() uses dma_fence_chain_for_each() to walk a
-> given dma_fence_chain. dma_fence_chain_for_each() always holds a
-> reference for the current fence during iteration. The reference must
-> be dropped after breaking out. Instead of dereferencing the last fence
-> as intended, dma_fence_chain_find_seqno() incorrectly dereferences the
-> first fence in the chain.
+Use the common USB helper for looking up interrupt-in endpoints instead
+of open coding.
 
-Well once more: Absolutely clear NAK and please search the mailing list for similar changes before you send a patch out.
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
+ drivers/media/rc/imon_raw.c | 18 ++++--------------
+ 1 file changed, 4 insertions(+), 14 deletions(-)
 
-The existing code is perfectly correct and I can't count how often I had to reject that patch.
-
-I think the functionality is obvious but it looks like we really need to add a comment here.
-
-Regards,
-Christian.
-
-> 
-> Fixes: 7bf60c52e093 ("dma-buf: add new dma_fence_chain container v7")
-> Signed-off-by: Li Ming <ming.li@zohomail.com>
-> ---
->  drivers/dma-buf/dma-fence-chain.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/dma-buf/dma-fence-chain.c b/drivers/dma-buf/dma-fence-chain.c
-> index a8a90acf4f34..71fa173aef13 100644
-> --- a/drivers/dma-buf/dma-fence-chain.c
-> +++ b/drivers/dma-buf/dma-fence-chain.c
-> @@ -103,7 +103,7 @@ int dma_fence_chain_find_seqno(struct dma_fence **pfence, uint64_t seqno)
->                     to_dma_fence_chain(*pfence)->prev_seqno < seqno)
->                         break;
->         }
-> -       dma_fence_put(&chain->base);
-> +       dma_fence_put(*pfence);
-> 
->         return 0;
->  }
-> 
-> ---
-> base-commit: c369299895a591d96745d6492d4888259b004a9e
-> change-id: 20260327-fix_dma_fence_chain_find_seqno-7adea64efe01
-> 
-> Best regards,
-> --
-> Li Ming <ming.li@zohomail.com>
-> 
+diff --git a/drivers/media/rc/imon_raw.c b/drivers/media/rc/imon_raw.c
+index 3a526dea6532..295acd6ba9e1 100644
+--- a/drivers/media/rc/imon_raw.c
++++ b/drivers/media/rc/imon_raw.c
+@@ -105,26 +105,16 @@ static void imon_ir_rx(struct urb *urb)
+ static int imon_probe(struct usb_interface *intf,
+ 		      const struct usb_device_id *id)
+ {
+-	struct usb_endpoint_descriptor *ir_ep = NULL;
+-	struct usb_host_interface *idesc;
++	struct usb_endpoint_descriptor *ir_ep;
+ 	struct usb_device *udev;
+ 	struct rc_dev *rcdev;
+ 	struct imon *imon;
+-	int i, ret;
++	int ret;
+ 
+ 	udev = interface_to_usbdev(intf);
+-	idesc = intf->cur_altsetting;
+-
+-	for (i = 0; i < idesc->desc.bNumEndpoints; i++) {
+-		struct usb_endpoint_descriptor *ep = &idesc->endpoint[i].desc;
+-
+-		if (usb_endpoint_is_int_in(ep)) {
+-			ir_ep = ep;
+-			break;
+-		}
+-	}
+ 
+-	if (!ir_ep) {
++	ret = usb_find_int_in_endpoint(intf->cur_altsetting, &ir_ep);
++	if (ret) {
+ 		dev_err(&intf->dev, "IR endpoint missing");
+ 		return -ENODEV;
+ 	}
+-- 
+2.52.0
 
