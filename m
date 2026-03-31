@@ -1,35 +1,35 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADCBE3EDAC6;
-	Tue, 31 Mar 2026 10:28:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912E53F0A85;
+	Tue, 31 Mar 2026 10:28:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774952885; cv=none; b=IhO3oA2ta8TdTgN6qIurVvOrfula37cwz5V2AU3gg36mYTTWz/4ng3hJnaxEpXxe3GR3hPlDFeO6ykGf3T7WhNwkwNTheqFS79VEAZc7R18WkqTT3vH4vcIJtHNR3XVij0zISDCPVVChXyzRmR7xb7PFpowJ63UW4CAJEyW7Ex0=
+	t=1774952885; cv=none; b=FO4Dh1vQBCODS8vZuXZkk+ocdXKWccDG2L1yLLGA7076IdkLEpiZS0AcCVM/Je7HqJFLNaxL7+gtOAc9hqte4bz9GV+etctm9/VmadSuWdMNf7VsB1iAiWEQy3EbRZRG4Pxt9zFkFySGE2PQl6BiOBWFxWGwPwLPyijHb3QTQ2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774952885; c=relaxed/simple;
-	bh=kX+ISnjO+wiRcsff0j8EClx9Y2S6Wmthb5WFQGtIgdw=;
+	bh=9+DkOdmPSrP4JYMm1m74gDbtMNLLMgFNuSUFBiWA0U8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bL2jDBao+zUNbfSTG1zQLNGbO7CTcwvM6IlHodbrGuOg2tDRrBMYITRLcazJnlygr/lOGO+fYI5divEL+e8wjbXO6Hrwn/saE2vGkFg37BqgvnsB6ygB9d/gDyEWZDKmspWlORcx3KKUPeanzSQ6yfjsLXLTTVPyOuob8ttR4yM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=I/ugPnnv; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=nTZz1vQQUvzq1RM1FKCAyXdL9juvZkhFFeF0LMVvCAA9ROs5vYjWwFBsiOvcCg9qpH4HfG8Nh69SDIhSX/AeUnU9Asglo0odPfdXTLiD7BiHW8M/BWUUyidqm2ZTdvwsR/CHJ7wjtyQ+F/6VrY4w+8XtbFbR+MqRA0dnbRu4XKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=FKOI3QE2; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="I/ugPnnv"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="FKOI3QE2"
 Received: from [100.93.44.16] (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 575C920FF;
-	Tue, 31 Mar 2026 12:26:35 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 12FB423B9;
+	Tue, 31 Mar 2026 12:26:36 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1774952795;
-	bh=kX+ISnjO+wiRcsff0j8EClx9Y2S6Wmthb5WFQGtIgdw=;
+	s=mail; t=1774952796;
+	bh=9+DkOdmPSrP4JYMm1m74gDbtMNLLMgFNuSUFBiWA0U8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=I/ugPnnvyn3obu7jouJ8xZW9xevFXuM+iTh23PUstfm18TRHrQDNKYacqfZ0wnKJH
-	 UCgmJun0TXryDZpEeVF8s6deW7pVAkgZmVOBaRXKTP4WsaXLH7ZI3/8wQ3sHgRKG82
-	 eylSsNV4xwFu/8ESgQgx+u9ahI2wA5Xp6g7ryOH8=
+	b=FKOI3QE2cEao1N+upbhcZinZ5peIDKmoX0AuxqFmMMYk0Dl0bU8sgZLSlA9drHY7j
+	 NmUVnVA8YD1zyq9x9pmwKZF5jGR1HNgTd4GYW3syxl98VW18XPUiNNjSLFTBx9/nHj
+	 i7V4iblAtbCTmjpIiIj6D+gUWkmc1/sEoX94GiTg=
 From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Date: Tue, 31 Mar 2026 12:27:35 +0200
-Subject: [PATCH v2 05/15] media: rzg2l-cru: Remove locking from start/stop
- routines
+Date: Tue, 31 Mar 2026 12:27:36 +0200
+Subject: [PATCH v2 06/15] media: rzg2l-cru: Do not use irqsave when not
+ needed
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260331-b4-cru-rework-v2-5-f94b238b35d4@ideasonboard.com>
+Message-Id: <20260331-b4-cru-rework-v2-6-f94b238b35d4@ideasonboard.com>
 References: <20260331-b4-cru-rework-v2-0-f94b238b35d4@ideasonboard.com>
 In-Reply-To: <20260331-b4-cru-rework-v2-0-f94b238b35d4@ideasonboard.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -54,96 +54,60 @@ Cc: Daniel Scally <dan.scally@ideasonboard.com>,
  Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
  Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2737;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1586;
  i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
- bh=Uuk7lcfbtpAjlHBBE22CWr+cqDkZ2gR9YusOOZ7JHJI=;
- b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBpy6GoQXJDm0RclbCA5qOpLwStSDFm6ehex9c1A
- kQyDm+Lg3iJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCacuhqAAKCRByNAaPFqFW
- PDTTD/0Vk6wvKhqXOr1t1tX1tMaFOrZbNLdbV0VPcwsirtx7SQm9tFbS+EA4WZ88X2RQAx6b2An
- JthOobUc+VVOAb+t3ceT4ue4AYGqsDAjrKUfSxVtb2ARiPG+urXaCCxglOCufjTBsblTz4zmBAs
- 3gxKrA6DiZjuYeOvZ7yNOH68oXnffPhBk0uFX1vOAy6jBYczlE+gPfcqLCGodcjLra8hpe4j8WR
- khe7Kj9xGQj1PkbVwd4PworPQjmDyExLbKi36cmFiIKI4eIVZ14oivHrfXO8IzyhjMca2b31Yq6
- x8dMtmAemnGBsBCea2n9MT961L192DDeW19SPUSHKos+d77kl1VCVKxLxkUEAbFWpfB7QKgudJj
- /UW1VWT6/Mrw3jdBUBNBEu6FRbf0urUcDpxxFdTwOsyOGOU0kU5jR+nFz+3EQlBdRR1wKXaNGz1
- zM/k8zKnhk5aJFB95LjKLWHsFm07jTYGMHHQiMrMbYkxQcxeO+35CfzKyK93Aiye0dlu6rs9v3S
- UvqUBVO+BHvEp9Lkbq0aaGF5RgToo9y4R7DGbnn4WEHw5j1aO8tj2XSzXpbDX+xRDGoeruns5PX
- 0npmYyIfxAR5Wn+DlPDj9nhKu4dHtnoFafT1nnlFALKRgVuld91UwfwbDgJSR1LzE8lNfN71Eg7
- f8RtM8ueb/NRMYg==
+ bh=fvrKTvFhlxX/fsq2GGPQYdxvVmmQtfy/A5/fGBE/O/Y=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBpy6GogViIbL9f/0ktxfsvsLoU2Q99rl2pDrWWo
+ 6T2PTZnzJ2JAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCacuhqAAKCRByNAaPFqFW
+ PBjPD/0aBGgtwiwTZTXhSSrFspwpSqpw+sGk6KctamJf0WA6wa6ioaBF9WNkuhilZLBU+kNM6Bx
+ wj1d+NDP2RcqUq8q51YuCp//YRQlbFfro+eiLzq7du928dqIibMkQv1heKnJr0MUajU7WFEZnjS
+ tMMjhF2YDS2O6/S6R9GyfCcaHc7WYh7Iw3LW1m+ZXu23aP1jvkjtRpLqZrX8hzkfxPcZ31J/ulq
+ GDlovtK3zOJl29SepeocRhjo7nWMnCH4IiYyZsrACFPC7O/eq5hqbOWSI4ecOs5iyYqkDQOzo2z
+ IBqXFErMd3zVel3qu+ZWmmgBLyvwgm198QeetJh9y2JXLHwLlND5OK/N2kvUAGQpYRYGx9ZYm00
+ OYndWcKNTgTWWgZHgXY78bYW89UbkPjZTa2xNTUdpaZF6o46dJTOUjJ1LGgnWzgXumYcLzfZAmr
+ cAcy6QBQISAsMgM8IuCadLW729StkdYk12mU+IJBkORVwU7fxsPIptUPalTPc/Fdq35UQBeUxRb
+ 7tTOV5l/Vl516VOa/29s58Da5wHEnMOFL+yc/j/bZR24bHWcJYmqnIwsUA9I50aMObUkoDxHeql
+ QEWVsdeRjrpNW1OFcP/U6zyrCdIbZIQkI3x4g1mewfuy18O69D5eY13H2OjlZ7TzwNksZ6+QkqZ
+ ke/by4j56wOPsqQ==
 X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
  fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 
 From: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
 
-The start/stop streaming routines do not need to lock the whole function
-body against possible concurrent accesses to the CRU buffers or hardware
-registers.
-
-The stop function starts by disabling interrupts, and only this portion
-needs to be protected not to race against a possible IRQ.
-
-Once interrupts are disabled, nothing in the video device driver can race
-and once the peripheral has been disabled we can release all pending
-buffers.
+The return_unused_buffers() and rzg2l_cru_buffer_queue() functions
+are never called from an interrupt context, hence they do not need to
+use the irqsave version of the spinlock primitives.
 
 Signed-off-by: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
-Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
 Tested-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 Reviewed-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
+Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
- drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c | 18 +++++-------------
- 1 file changed, 5 insertions(+), 13 deletions(-)
+ drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-index 75928b0f48be..96c71f1357f8 100644
+index 96c71f1357f8..b2d1b6a4aaaa 100644
 --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
 +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-@@ -340,23 +340,19 @@ bool rzg2l_fifo_empty(struct rzg2l_cru_dev *cru)
- void rzg2l_cru_stop_image_processing(struct rzg2l_cru_dev *cru)
- {
- 	unsigned int retries = 0;
--	unsigned long flags;
- 	u32 icnms;
- 
--	spin_lock_irqsave(&cru->qlock, flags);
--
--	/* Disable and clear the interrupt */
--	cru->info->disable_interrupts(cru);
-+	scoped_guard(spinlock_irq, &cru->qlock) {
-+		/* Disable and clear the interrupt */
-+		cru->info->disable_interrupts(cru);
-+	}
- 
- 	/* Stop the operation of image conversion */
- 	rzg2l_cru_write(cru, ICnEN, 0);
- 
- 	/* Wait for streaming to stop */
--	while ((rzg2l_cru_read(cru, ICnMS) & ICnMS_IA) && retries++ < RZG2L_RETRIES) {
--		spin_unlock_irqrestore(&cru->qlock, flags);
-+	while ((rzg2l_cru_read(cru, ICnMS) & ICnMS_IA) && retries++ < RZG2L_RETRIES)
- 		msleep(RZG2L_TIMEOUT_MS);
--		spin_lock_irqsave(&cru->qlock, flags);
--	}
- 
- 	icnms = rzg2l_cru_read(cru, ICnMS) & ICnMS_IA;
- 	if (icnms)
-@@ -400,8 +396,6 @@ void rzg2l_cru_stop_image_processing(struct rzg2l_cru_dev *cru)
- 
- 	/* Resets the image processing module */
- 	rzg2l_cru_write(cru, CRUnRST, 0);
--
--	spin_unlock_irqrestore(&cru->qlock, flags);
- }
- 
- static int rzg2l_cru_get_virtual_channel(struct rzg2l_cru_dev *cru)
-@@ -469,8 +463,6 @@ int rzg2l_cru_start_image_processing(struct rzg2l_cru_dev *cru)
- 	csi_vc = ret;
- 	cru->svc_channel = csi_vc;
+@@ -112,7 +112,7 @@ static void return_unused_buffers(struct rzg2l_cru_dev *cru,
+ 	struct rzg2l_cru_buffer *buf, *node;
+ 	unsigned int i;
  
 -	guard(spinlock_irqsave)(&cru->qlock);
--
- 	/* Select a video input */
- 	rzg2l_cru_write(cru, CRUnCTRL, CRUnCTRL_VINSEL(0));
++	guard(spinlock_irq)(&cru->qlock);
+ 
+ 	for (i = 0; i < cru->num_buf; i++) {
+ 		if (cru->queue_buf[i]) {
+@@ -165,7 +165,7 @@ static void rzg2l_cru_buffer_queue(struct vb2_buffer *vb)
+ 	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
+ 	struct rzg2l_cru_dev *cru = vb2_get_drv_priv(vb->vb2_queue);
+ 
+-	guard(spinlock_irqsave)(&cru->qlock);
++	guard(spinlock_irq)(&cru->qlock);
+ 	list_add_tail(to_buf_list(vbuf), &cru->buf_list);
+ }
  
 
 -- 
