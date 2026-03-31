@@ -1,34 +1,34 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 026DF3EC2FD;
-	Tue, 31 Mar 2026 10:28:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD7213F7AA1;
+	Tue, 31 Mar 2026 10:28:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774952894; cv=none; b=mBuUac0ksQIXLqo/JAwdCPO4+zOecJ3Ipjtnm2rGjZTtOS4Zu98+3d16PBX3ZP6IWFdf5FxOQM3fJxYQZKOuNm4nF86sYcsRyk6T5++hajg55Pt/BlD9zI6Ygdyfswea5eitJr1ZXnZq1PZV+pcF13b5Hh7v4yCWgNNGs53r1VI=
+	t=1774952897; cv=none; b=s/4tTS5poWTRC0y4pHHTso2vyhrQ7DVJSZIhFmlcMrpTAkys23ZwIHEBkQUp48DPJwmFAPZrXQ7AbzBIeqpL38GFtS83l0rZSwN/mx3jQRHf+KdJVkKUvsFHSIWZmQM7ablBUxIboCfcK6UHfCV+ZrkzsnIev+F44/6g32LztQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774952894; c=relaxed/simple;
-	bh=OoieGw6jzWNZjHjstsNnv/QsL4XDmWs/j7EO8XzjtSo=;
+	s=arc-20240116; t=1774952897; c=relaxed/simple;
+	bh=qH4nCv8vXyo9/IPFH82Fal0ZJSpo50I0muPguZaT6k8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JS1hadBd8prfwToBr81cxxgpUluDnCoEQQvmFb6q2zTfbSly6G1dxHPBbKxaSk4FzKpCSDXMrW2cLvYDe95CK7lTXENnWNyoDAxwZEi4kgsS89PS1M28M7KFUjAlIpnhmHvWe/vgze8/98LDFoaZ4Y7ultL9a9JffHgnGUTaPDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=iQGePsos; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=CiUXYGNHp+DAdI3sm3IYHZhH81+5q4RDk9DA/0rAe6UExhCgWaHV7zJbbEokKrsgW54rlos0gnkMzgqO9rngbxSE8UL0IWfLfFXf+e6/5bnP3WKBIjpmLVdpbXjLzcvmZzFjUiYEDkhFchpFv3+RQe9TcaPC34dsFMxZNhGPlPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=QMEmwKSt; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="iQGePsos"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="QMEmwKSt"
 Received: from [100.93.44.16] (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 98B0D2450;
-	Tue, 31 Mar 2026 12:26:39 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1AB8A25B5;
+	Tue, 31 Mar 2026 12:26:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1774952800;
-	bh=OoieGw6jzWNZjHjstsNnv/QsL4XDmWs/j7EO8XzjtSo=;
+	s=mail; t=1774952801;
+	bh=qH4nCv8vXyo9/IPFH82Fal0ZJSpo50I0muPguZaT6k8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=iQGePsoslXEfV9B6gn1ETnNOOkDFNWbO3xG5SNN1u9T9iUjP4Jbb47dVXL5erq8n1
-	 T5q/hWPUnX4O03JNyXYiO6Oev4FPOAqS4yC+S6lJqjoOlHPw25e2xHL696ua0k5Bo7
-	 i5ckkcL5neZGkYyn7c9AtEoL4XU/Dn9j+jfRY0go=
+	b=QMEmwKStJs7VvCRgcSozLd5YmmMmw/gpj4qNtlQ9+v0qsiHPC727VIisQnghe00Yg
+	 jjDYKgkVnCctR5aBAp0H/yZ3r04Suj3xlxJZ40Reu6CzxW3uuOjuxXbIyNrWdd8niO
+	 LCthb62CIiHClodMJzQlXp2vZsUIHQUF+ajWg0z0=
 From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Date: Tue, 31 Mar 2026 12:27:41 +0200
-Subject: [PATCH v2 11/15] media: rz2gl-cru: Return pending buffers in order
+Date: Tue, 31 Mar 2026 12:27:43 +0200
+Subject: [PATCH v2 13/15] media: rzg2l-cru: Remove the 'state' variable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260331-b4-cru-rework-v2-11-f94b238b35d4@ideasonboard.com>
+Message-Id: <20260331-b4-cru-rework-v2-13-f94b238b35d4@ideasonboard.com>
 References: <20260331-b4-cru-rework-v2-0-f94b238b35d4@ideasonboard.com>
 In-Reply-To: <20260331-b4-cru-rework-v2-0-f94b238b35d4@ideasonboard.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -53,181 +53,216 @@ Cc: Daniel Scally <dan.scally@ideasonboard.com>,
  Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
  Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5845;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6353;
  i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
- bh=A1FzSvYw84JOw3sSlYJVCkdw3sLrXGqFAB1yi5yUc3I=;
- b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBpy6Go1zOuIloedcTIvyR5AgDpl0oGZIEbtnsU6
- nE4JdnWgnCJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCacuhqAAKCRByNAaPFqFW
- PFL0EACR4FfZHLbd4Csa8W8W8eHjDhRMWxGfg7EE2Kx0rY+C7bQtT4WgwcZ2euuR9qTU7zaoNKf
- Ib+vUwcNYuLxeLbbnSzEHsDUlDihex3vIGlKudxCwswAaGWiA5b/xVcbP0zhgvcX5IcUd1HD0RE
- TzsG6oezx/3mqiC/Xu62u6An8CD92+c74SiGUpnqm4vAeMvHI5mXXpI2jWYyb0Tg/ap8ggwNrf/
- WNiI8nImHraBblvdp6bBdHVgTqUSHpTJOxbp/s1k6UEhSiILG02V5Xv7nPRCIA3QB4Cju1S7QkX
- RQjj1dyAqdpa/MAJ7pqoabafAPtSvMKxyMTLdoj4qODM1R9ujs8tzCCSJPi+3UitYmWpr+fJedh
- z6BvkhiZw9oxPvyKnQb3zL7KA2Rfz/i0kbj9sEUVpTIK+MxvyB9QXXLkYYp4YwZ7BCqzVeO2nqA
- wbXAK2PzblX0mpdHKq3H0wR5uhXQLgI/thH/lsRU0UNY1fgdWAhmR2rQ12dbG/ls4YR8gbB8/11
- F5UyZ9I905ULU1HZ/uu1mrcVYVgUfMDhwydUYIuGdQBgyOP6p+nhAEjmnd4culYdKRdJUwXPXbW
- MBOzMsqHftawFOn0t6eokeQXm14MgNG+0UnPKjOL/Xr1n9CCdJUbFukRCGCqfoUWPLN++0821SZ
- RoO4mPx02EBVMeg==
+ bh=QxY8Z5F5lVXBXuCYF7kEh7KCYBVT9AiINb5jhs28FgY=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBpy6Gplhmal/K0mu4J6lIZ26gzwG5S5mO6+UTEM
+ EEcGQdCdGaJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCacuhqQAKCRByNAaPFqFW
+ PGmbEACCItw5KabMCeXY6r3/MGulNUId0apEf8AnqTYnaKk/4y1rXBtQWbKiY2Rm+DUSUPsdeqI
+ rh6pEDGpEPOLqeNhXdqn+GuA2tThDo5jHL6711pcbcIzwFk9NRQE0PtHTHi0p9NUPLxPM1TcVe4
+ r1UmALurtVs6WMzAGVNj4J27uX4CiCIk8NfmNLZ+gwono5Nb9aV8/YEE+GYgZqN/e7srjvpC1bE
+ 8HL8Tc3kU4bPMzyiCwckpMnmi7zM6CI3WKsT9cPVWWVkAAWjSIySw7qXGPn3goKIZhe6vI7rdWE
+ wRbNoUHFHjkQt4G0zLNBy4oertyAULRsS82U2BbWeqfwEPI5/k4/WpzwB8WvBHRMb5yOHTcMwMD
+ gxM/wJp0c0rurNiIJMUKDfmSHWR17Uk3arddjgaQ5gsdZJO3VzY7IM4cYumzcgUAc7rJgd2UDuK
+ PkTWaJiCO1OPwVq+UxofMywdgtQZxLenEReLFjMz/6/+p0Vp/gL+hNXMHe7cVfV5QiLoS/tsNOD
+ AmA56I/kNgNdg0GbF4ee6e+yxr9XM2VKfhM/8SPoYiCev0a/1BN61dP6JZ3nBMmGb2jXFY5Vya1
+ 5lSO9fKVKdLT28bxqmcPqntiJoaiXifGnuiC2hKRIt4EM4qGm/rqg31mR7f0Y9yR05W/mSa8TcP
+ hv2FohSzKHlnCfw==
 X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
  fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 
 From: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
 
-Buffers are programmed into slots in queueing order.
+The cru driver uses a 'state' variable for debugging purpose in the
+interrupt handler. The state is used to detect invalid usage conditions
+that are not meant to happen unless the driver has a bug in handling the
+stop and start conditions.
 
-When returning pending buffers we can't simply start from the first slot
-but we should actually iterate slots starting from the one is use. The
-rzg3e_cru_irq() handler already uses 'active_slot', make rzg2l_cru_irq()
-use it as well to know where to start iterating from.
-
-As the pattern of iterating over slots in order will be used for slots
-programming in the next patches, provide an helper macro to do that.
-
-While at it, rename return_unused_buffers() to rzg2l_cru_return_buffers().
+Remove the state variable which seems to be a debugging leftover.
 
 Signed-off-by: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
-Tested-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
 ---
- .../media/platform/renesas/rzg2l-cru/rzg2l-video.c | 68 +++++++++++++++-------
- 1 file changed, 47 insertions(+), 21 deletions(-)
+ .../media/platform/renesas/rzg2l-cru/rzg2l-cru.h   | 15 -----
+ .../media/platform/renesas/rzg2l-cru/rzg2l-video.c | 71 +---------------------
+ 2 files changed, 3 insertions(+), 83 deletions(-)
 
+diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
+index 25f17069585c..5bf334e173d2 100644
+--- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
++++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
+@@ -38,20 +38,6 @@ enum rzg2l_csi2_pads {
+ 
+ struct rzg2l_cru_dev;
+ 
+-/**
+- * enum rzg2l_cru_dma_state - DMA states
+- * @RZG2L_CRU_DMA_STOPPED:   No operation in progress
+- * @RZG2L_CRU_DMA_STARTING:  Capture starting up
+- * @RZG2L_CRU_DMA_RUNNING:   Operation in progress have buffers
+- * @RZG2L_CRU_DMA_STOPPING:  Stopping operation
+- */
+-enum rzg2l_cru_dma_state {
+-	RZG2L_CRU_DMA_STOPPED = 0,
+-	RZG2L_CRU_DMA_STARTING,
+-	RZG2L_CRU_DMA_RUNNING,
+-	RZG2L_CRU_DMA_STOPPING,
+-};
+-
+ struct rzg2l_cru_csi {
+ 	struct v4l2_async_connection *asd;
+ 	struct v4l2_subdev *subdev;
+@@ -174,7 +160,6 @@ struct rzg2l_cru_dev {
+ 	struct vb2_v4l2_buffer *queue_buf[RZG2L_CRU_HW_BUFFER_MAX];
+ 	struct list_head buf_list;
+ 	unsigned int sequence;
+-	enum rzg2l_cru_dma_state state;
+ 
+ 	struct v4l2_pix_format format;
+ };
 diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-index b02940369a18..a5197196a408 100644
+index f061bee51ea8..721057edca6b 100644
 --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
 +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-@@ -42,6 +42,24 @@ struct rzg2l_cru_buffer {
- #define to_buf_list(vb2_buffer) \
- 	(&container_of(vb2_buffer, struct rzg2l_cru_buffer, vb)->list)
+@@ -398,8 +398,6 @@ void rzg2l_cru_stop_image_processing(struct rzg2l_cru_dev *cru)
+ 	if (icnms)
+ 		dev_err(cru->dev, "Failed stop HW, something is seriously broken\n");
  
-+/*
-+ * The CRU hardware cycles over its slots when transferring frames. All drivers
-+ * structure that contains programming data for the slots, such as the memory
-+ * destination addresses have to be iterated as they were circular buffers.
-+ *
-+ * Provide here utilities to iterate over slots and the associated data.
-+ */
-+static inline unsigned int rzg2l_cru_slot_next(struct rzg2l_cru_dev *cru,
-+					       unsigned int slot)
-+{
-+	return (slot + 1) % cru->num_buf;
-+}
-+
-+/* Start cycling on cru slots from the one after 'start'. */
-+#define for_each_cru_slot_from(cru, slot, start)			\
-+	for (slot = rzg2l_cru_slot_next(cru, start);			\
-+	     slot != start; slot = rzg2l_cru_slot_next(cru, slot))
-+
- /* -----------------------------------------------------------------------------
-  * DMA operations
-  */
-@@ -105,28 +123,36 @@ __rzg2l_cru_read_constant(struct rzg2l_cru_dev *cru, u32 offset)
- 	 __rzg2l_cru_read_constant(cru, offset) : \
- 	 __rzg2l_cru_read(cru, offset))
+-	cru->state = RZG2L_CRU_DMA_STOPPED;
+-
+ 	/* Wait until the FIFO becomes empty */
+ 	for (retries = 5; retries > 0; retries--) {
+ 		if (cru->info->fifo_empty(cru))
+@@ -587,8 +585,6 @@ static int rzg2l_cru_set_stream(struct rzg2l_cru_dev *cru, int on)
  
--static void return_unused_buffers(struct rzg2l_cru_dev *cru,
--				  enum vb2_buffer_state state)
-+static void rzg2l_cru_return_buffers(struct rzg2l_cru_dev *cru,
-+				     enum vb2_buffer_state state)
+ static void rzg2l_cru_stop_streaming(struct rzg2l_cru_dev *cru)
  {
- 	struct rzg2l_cru_buffer *buf, *node;
--	unsigned int i;
- 
- 	scoped_guard(spinlock_irq, &cru->hw_lock) {
--		for (i = 0; i < cru->num_buf; i++) {
--			if (cru->queue_buf[i]) {
--				vb2_buffer_done(&cru->queue_buf[i]->vb2_buf,
--						state);
--				cru->queue_buf[i] = NULL;
--			}
-+		/* Return the buffer in progress first, if not completed yet. */
-+		unsigned int slot = cru->active_slot;
-+
-+		if (cru->queue_buf[slot]) {
-+			vb2_buffer_done(&cru->queue_buf[slot]->vb2_buf, state);
-+			cru->queue_buf[slot] = NULL;
- 		}
--	}
- 
--	scoped_guard(spinlock_irq, &cru->qlock) {
--		list_for_each_entry_safe(buf, node, &cru->buf_list, list) {
--			vb2_buffer_done(&buf->vb.vb2_buf, state);
--			list_del(&buf->list);
-+		/* Return all the pending buffers after the active one. */
-+		for_each_cru_slot_from(cru, slot, cru->active_slot) {
-+			if (!cru->queue_buf[slot])
-+				continue;
-+
-+			vb2_buffer_done(&cru->queue_buf[slot]->vb2_buf, state);
-+			cru->queue_buf[slot] = NULL;
- 		}
- 	}
-+
-+	guard(spinlock_irq)(&cru->qlock);
-+
-+	list_for_each_entry_safe(buf, node, &cru->buf_list, list) {
-+		vb2_buffer_done(&buf->vb.vb2_buf, state);
-+		list_del(&buf->list);
-+	}
+-	cru->state = RZG2L_CRU_DMA_STOPPING;
+-
+ 	rzg2l_cru_set_stream(cru, 0);
  }
  
- static int rzg2l_cru_queue_setup(struct vb2_queue *vq, unsigned int *nbuffers,
-@@ -588,16 +614,16 @@ irqreturn_t rzg2l_cru_irq(int irq, void *data)
+@@ -600,8 +596,6 @@ irqreturn_t rzg2l_cru_irq(int irq, void *data)
+ 	u32 amnmbs;
+ 	int slot;
  
- 	/* Prepare for capture and update state */
+-	guard(spinlock_irqsave)(&cru->hw_lock);
+-
+ 	irq_status = rzg2l_cru_read(cru, CRUnINTS);
+ 	if (!irq_status)
+ 		return IRQ_RETVAL(handled);
+@@ -610,20 +604,9 @@ irqreturn_t rzg2l_cru_irq(int irq, void *data)
+ 
+ 	rzg2l_cru_write(cru, CRUnINTS, rzg2l_cru_read(cru, CRUnINTS));
+ 
+-	/* Nothing to do if capture status is 'RZG2L_CRU_DMA_STOPPED' */
+-	if (cru->state == RZG2L_CRU_DMA_STOPPED) {
+-		dev_dbg(cru->dev, "IRQ while state stopped\n");
+-		return IRQ_RETVAL(handled);
+-	}
+-
+-	/* Increase stop retries if capture status is 'RZG2L_CRU_DMA_STOPPING' */
+-	if (cru->state == RZG2L_CRU_DMA_STOPPING) {
+-		if (irq_status & CRUnINTS_SFS)
+-			dev_dbg(cru->dev, "IRQ while state stopping\n");
+-		return IRQ_RETVAL(handled);
+-	}
++	/* Calculate slot and prepare for new capture. */
++	guard(spinlock_irqsave)(&cru->hw_lock);
+ 
+-	/* Prepare for capture and update state */
  	amnmbs = rzg2l_cru_read(cru, AMnMBS);
--	slot = amnmbs & AMnMBS_MBSTS;
-+	cru->active_slot = amnmbs & AMnMBS_MBSTS;
+ 	cru->active_slot = amnmbs & AMnMBS_MBSTS;
  
- 	/*
- 	 * AMnMBS.MBSTS indicates the destination of Memory Bank (MB).
- 	 * Recalculate to get the current transfer complete MB.
- 	 */
--	if (slot == 0)
-+	if (cru->active_slot == 0)
- 		slot = cru->num_buf - 1;
+@@ -636,20 +619,6 @@ irqreturn_t rzg2l_cru_irq(int irq, void *data)
  	else
--		slot--;
-+		slot = cru->active_slot - 1;
+ 		slot = cru->active_slot - 1;
  
- 	/*
- 	 * To hand buffers back in a known order to userspace start
-@@ -666,7 +692,7 @@ irqreturn_t rzg3e_cru_irq(int irq, void *data)
- 	}
+-	/*
+-	 * To hand buffers back in a known order to userspace start
+-	 * to capture first from slot 0.
+-	 */
+-	if (cru->state == RZG2L_CRU_DMA_STARTING) {
+-		if (slot != 0) {
+-			dev_dbg(cru->dev, "Starting sync slot: %d\n", slot);
+-			return IRQ_RETVAL(handled);
+-		}
+-
+-		dev_dbg(cru->dev, "Capture start synced!\n");
+-		cru->state = RZG2L_CRU_DMA_RUNNING;
+-	}
+-
+ 	/* Capture frame */
+ 	if (cru->queue_buf[slot]) {
+ 		cru->queue_buf[slot]->field = cru->format.field;
+@@ -677,49 +646,18 @@ irqreturn_t rzg3e_cru_irq(int irq, void *data)
+ 	u32 irq_status;
+ 	int slot;
  
+-	guard(spinlock)(&cru->hw_lock);
+-
+ 	irq_status = rzg2l_cru_read(cru, CRUnINTS2);
+ 	if (!irq_status)
+ 		return IRQ_NONE;
+ 
+-	dev_dbg(cru->dev, "CRUnINTS2 0x%x\n", irq_status);
+-
+ 	rzg2l_cru_write(cru, CRUnINTS2, rzg2l_cru_read(cru, CRUnINTS2));
+ 
+-	/* Nothing to do if capture status is 'RZG2L_CRU_DMA_STOPPED' */
+-	if (cru->state == RZG2L_CRU_DMA_STOPPED) {
+-		dev_dbg(cru->dev, "IRQ while state stopped\n");
+-		return IRQ_HANDLED;
+-	}
+-
+-	if (cru->state == RZG2L_CRU_DMA_STOPPING) {
+-		if (irq_status & CRUnINTS2_FExS(0) ||
+-		    irq_status & CRUnINTS2_FExS(1) ||
+-		    irq_status & CRUnINTS2_FExS(2) ||
+-		    irq_status & CRUnINTS2_FExS(3))
+-			dev_dbg(cru->dev, "IRQ while state stopping\n");
+-		return IRQ_HANDLED;
+-	}
+-
++	guard(spinlock)(&cru->hw_lock);
  	slot = cru->active_slot;
--	cru->active_slot = (cru->active_slot + 1) % cru->num_buf;
-+	cru->active_slot = rzg2l_cru_slot_next(cru, cru->active_slot);
+ 	cru->active_slot = rzg2l_cru_slot_next(cru, cru->active_slot);
  
  	dev_dbg(cru->dev, "Current written slot: %d\n", slot);
- 	cru->buf_addr[slot] = 0;
-@@ -737,7 +763,7 @@ static int rzg2l_cru_start_streaming_vq(struct vb2_queue *vq, unsigned int count
- 	cru->scratch = dma_alloc_coherent(cru->dev, cru->format.sizeimage,
- 					  &cru->scratch_phys, GFP_KERNEL);
- 	if (!cru->scratch) {
--		return_unused_buffers(cru, VB2_BUF_STATE_QUEUED);
-+		rzg2l_cru_return_buffers(cru, VB2_BUF_STATE_QUEUED);
- 		dev_err(cru->dev, "Failed to allocate scratch buffer\n");
- 		ret = -ENOMEM;
- 		goto assert_presetn;
-@@ -748,7 +774,7 @@ static int rzg2l_cru_start_streaming_vq(struct vb2_queue *vq, unsigned int count
  
- 	ret = rzg2l_cru_set_stream(cru, 1);
- 	if (ret) {
--		return_unused_buffers(cru, VB2_BUF_STATE_QUEUED);
-+		rzg2l_cru_return_buffers(cru, VB2_BUF_STATE_QUEUED);
+-	/*
+-	 * To hand buffers back in a known order to userspace start
+-	 * to capture first from slot 0.
+-	 */
+-	if (cru->state == RZG2L_CRU_DMA_STARTING) {
+-		if (slot != 0) {
+-			dev_dbg(cru->dev, "Starting sync slot: %d\n", slot);
+-			return IRQ_HANDLED;
+-		}
+-		dev_dbg(cru->dev, "Capture start synced!\n");
+-		cru->state = RZG2L_CRU_DMA_RUNNING;
+-	}
+-
+ 	/* Capture frame */
+ 	if (cru->queue_buf[slot]) {
+ 		struct vb2_v4l2_buffer *buf = cru->queue_buf[slot];
+@@ -788,7 +726,6 @@ static int rzg2l_cru_start_streaming_vq(struct vb2_queue *vq, unsigned int count
  		goto out;
  	}
  
-@@ -785,7 +811,7 @@ static void rzg2l_cru_stop_streaming_vq(struct vb2_queue *vq)
- 	dma_free_coherent(cru->dev, cru->format.sizeimage,
- 			  cru->scratch, cru->scratch_phys);
+-	cru->state = RZG2L_CRU_DMA_STARTING;
+ 	dev_dbg(cru->dev, "Starting to capture\n");
+ 	return 0;
  
--	return_unused_buffers(cru, VB2_BUF_STATE_ERROR);
-+	rzg2l_cru_return_buffers(cru, VB2_BUF_STATE_ERROR);
+@@ -861,8 +798,6 @@ int rzg2l_cru_dma_register(struct rzg2l_cru_dev *cru)
+ 	spin_lock_init(&cru->hw_lock);
+ 	spin_lock_init(&cru->qlock);
  
- 	reset_control_assert(cru->presetn);
- 	clk_disable_unprepare(cru->vclk);
+-	cru->state = RZG2L_CRU_DMA_STOPPED;
+-
+ 	for (i = 0; i < RZG2L_CRU_HW_BUFFER_MAX; i++)
+ 		cru->queue_buf[i] = NULL;
+ 
 
 -- 
 2.53.0
