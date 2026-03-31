@@ -1,200 +1,158 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21A673D7D9C
-	for <linux-media@vger.kernel.org>; Tue, 31 Mar 2026 08:12:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774944743; cv=pass; b=YqrweupNtJqovA0xZWG8weXR5sds4WOEsafQX4BifvrOukEnke0SMlrOJ//VTsWxwmuuctho2Gat6WBnHA00m45VfkyfhRY0kCfaLppP+kZZeyAH++yDJxEUvBjGVCCzIMOwxNsQ5CUdRnMSftcCtGO24dbW8MJXiRHnUs0EnwM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774944743; c=relaxed/simple;
-	bh=0Zl5CWKhPITZPSvP54H54L1AkhKwfVxlmnolCbOPxuk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BHPt7YnGp6P+d/7G7gUoWi0j8C8MyrUoz2P8QaKe/2Z5/sESjsex0Ee1+3L2i9xBcOBdO/CfRZrpVcxcxJgHYCNpGxcNsJSoDERJJm30LGs8iBCs+INdq/Pf5Kwo+7ULxXvp+sQroxsjNhUts82yoUN4lrBBox3BBIr10EG4A+k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HEiN6XvG; arc=pass smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9872E371888
+	for <linux-media@vger.kernel.org>; Tue, 31 Mar 2026 08:20:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774945235; cv=none; b=mWwo3tY1lFUQixuOK6zTQdVa8ucKk9uU5Xazeu/LQVZ6FImqW9clQc0/yoz41+lxrqfjy67yTEYO1ZsZHPD5HhqfdOEOEhbQf4l+VRGjIrL+oia3c2sZPN+O0DekomPJLu27x/VvnUXqjOKL+iwWAMv7gbwIWBKYzvxaF9BAT9o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774945235; c=relaxed/simple;
+	bh=pIn7DVo83rKFtZQ4lodJgGsSWTKSw7e3XyL9bBLwCOI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=p6TlXaohaAznCJD+MThsbvUJ8+Pz8u3qrW4yVhBIgTjb5sTN18or6CQ+pkZs7IZ1EzuRX6K3TvveRNybJot3U5DBXgVss4UzfpZhpuAN7/6+ggWHkT6upW60dDsN70ZsomPZ16d/3OYtJBYbkBsEDoPyR257ZSRo++nSnP9a7eE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Wk85xRbJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Q+zvWklN; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HEiN6XvG"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-43b95e5b3afso3097701f8f.3
-        for <linux-media@vger.kernel.org>; Tue, 31 Mar 2026 01:12:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774944740; cv=none;
-        d=google.com; s=arc-20240605;
-        b=h7VtChCklvcVq9u7a5ISYXaiJJrzb6QEhvj+tl/TZ5+FjNnItiQswNKLrKdd/UPIZb
-         4pbm1yO+GYFvDU3gQu7oihTuxJPtztSphVKUxwIE2JBNhrEao6R+g/emmNBLS2CWBYO1
-         8mFGmK+gFrcQbN2OEgorNlkqPZ4BdFRvCtowR98B99o26mfYZIxpO06I9zlgEZRUg7Nd
-         4wYD76FhBT1DtM7ZiZeoGxWyI82w7U2KbJ4fP41ZMVB9F5/bRd2P9dg889EsgaM0Af1V
-         5XMUBO5R+5/ZTkNXC0Y+A+8/dI008A+FMhsobsLWC01uS6WclObYxtdWIfKzqaTeT2JX
-         8+Ig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5H6e4woLSlNv/I8A+61lkE0sUcjGGP+QYwwxTSSFSJk=;
-        fh=Ly2fjsxMpiJ6h9GsZ4veDuVeTiZqFK7IKV31laBx1rM=;
-        b=gw2g9v9TJW2qsfBqmJm3VyFXlAPnpxM3LBrLzrww0NHa6twmcSr00JqU0IbT06v26d
-         XTUI6HlsNUx4VNhMHlhO1+5Ruac+Dor3fZoJ0tYUmhTYOR+/RuGXmTA2ms2Oc/SXbvPF
-         i/jtxCjJ/VjYb3/10jeqlKQ1poFr747+vLVT6UFzkssZlisLM5aq3bTjH3rgYvpZI5dI
-         HY752WZmoxy3/kygNqbw8BliG8BBbwOVbLEUhXYzH4XdwWP1GSZwzJ6MLDZ2vsa/LH5c
-         LRi9eOoZKbyKE5mnj0elbi3mC/oZq0paQ/VYsvX9/lBKoidgyj10L/Z/PKtWIswrUVFj
-         A32Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Wk85xRbJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q+zvWklN"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62V6A6361090724
+	for <linux-media@vger.kernel.org>; Tue, 31 Mar 2026 08:20:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BG1I/liNZmNcrk2tkigeYR5Je0NJszVTJPmGzNZ557U=; b=Wk85xRbJ/ntis3Z+
+	Dhhc9zf1ImvmsxEsvaPG1qqvEceuza5QEtVsZTpleMgA2EIbh/4qzqYUTWNDyMpB
+	5RuuZe1ObVti7NPPMc6GMdbK/OZmpv4foFfYmjK5wKfh782JnVHwkkD0yf8TUr1c
+	Y8DzGb5XoJM5x3ejmCUy8HTdwPZNuYYai5La0njIEUZYhczQRXtMnOxgG1qDjkqu
+	RLBc4A6afMz2T2Yp0paWi489yCWGs35hf61Tf4KLCWMBXl06wE0Mvjy7oW7OAAoU
+	DTXikLj7F05QnSdgmQX9vtcSqY1vztUnUUpzQr3k3seTfOyHCGietHg4TermHOSp
+	k8xnmQ==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7trd3qmy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 31 Mar 2026 08:20:31 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-35daf3d3030so1629094a91.1
+        for <linux-media@vger.kernel.org>; Tue, 31 Mar 2026 01:20:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774944740; x=1775549540; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5H6e4woLSlNv/I8A+61lkE0sUcjGGP+QYwwxTSSFSJk=;
-        b=HEiN6XvGaEjtUYaYFxzjm3yrWuApPoArctyBYcrHRdXNjFVXoM9PRmuf6g5epQ4lZ8
-         XoMoWgbCj1wXcS5JTH6KQLTVh+wvmXuj80MqCwWJhhH274mA0mhDHbtLx9n6SPgOLrf5
-         4/XVTSd5xtnRRTTGyCUY+TUDC89lJrDvTGxUydWhhukqAG5sWvxpunoSYf6lJrpwxry6
-         NMU1/BGc864WHnL2q9LLUNYpalLoekqLfemEMjBwdHKAfauRjmxeo8JqDqWCuQhGOkf1
-         Clhtp6gIl9nmezWar6igGKXnjP81k2m6Yt6IWpALDhm5YHuunzuiHEKy7DR8sko0MYXK
-         ALtg==
+        d=oss.qualcomm.com; s=google; t=1774945231; x=1775550031; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=BG1I/liNZmNcrk2tkigeYR5Je0NJszVTJPmGzNZ557U=;
+        b=Q+zvWklNYPcunN46OkLuUblcNtykZyWpPRMS2lzbZqE7DQcpWB2ZIWehsZfrOeIbCF
+         kiEOF6nX3vT6+6i++luREMKynilzkLC+PBOUzyVg7bxBKkvWzUxI7v4aJkm/MT8CaARk
+         wyr7hWyxFTP7fTKY4zVrw9ZKFIbRif7//cfE0ax1gURaDEjMMO06vYFdK/yQE16w9aP4
+         6MpM3selLekny7irmPou4aNnOujzyriqmX/cAFOoDo+w92QTj7iVyYpEz2v4VZf27JSO
+         Wc9W0KP3ra51XQzOCUEKpxScXce/xTVx9Hrn/P2btUKBPoPd8HNvavGKHBdkQ4TgaZf4
+         UmIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774944740; x=1775549540;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=5H6e4woLSlNv/I8A+61lkE0sUcjGGP+QYwwxTSSFSJk=;
-        b=cwvgG1IbMpuqPfFEo5pTAR3barSR4R/5TQt42KW0yi7/+jL1kIBkr7ZVmGkavnxG91
-         CZ6H3RJYKKSNuA9shaJL0ut3Z6f24A42EBTQUUgXpTIjMvhgDgjJ5D8643BXcWbAmL+A
-         XAAb1PAcouysE7ZON3MaQN/0uIpNmd4v+DbeIE6f3ZbT+ajW51m1qRArRqSk3XFiBXbH
-         hbGv4KFpAJ6IwLeYVfDyNz5X7Ggr+x3uzhJym3OL0ajLfpbX9ZYymupiMa6ruKKDrARU
-         qCruPnYSazmc9fxgAA1UXee+WQmUqT6IHdGp4TbPdEtEpliLGzrTZKkhE6qwdT6d+UIS
-         TCpw==
-X-Forwarded-Encrypted: i=1; AJvYcCUEmCwneJd/pHOyXIZVTlrpVXBy5UMwE9WwmE/rXBBi+Ogz571BTX8X7KNKweerVeTapCDT7bLeWLE24Q==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzL6Fbc60pfjCxah7nGp/C+BZ7MHQ2tIXx/VfgPAK34w5bSmQgD
-	4tq1arwRKDomF41gayD51LicOFX9R6lV5+ETizQDtQb+PQfgLd4oBk07HEa0qhVGNwYd73ueZ5Q
-	qOseEm7AAmBiZsHVpPhCnEaPI1D4Yxig=
-X-Gm-Gg: ATEYQzw4w3ZEKoDpkT9kVUe/MxOHiAqFYpU+Q9/9nsDhqbKZi9ThR9YPwis8gm3oy8Q
-	QUZDXOKbA5+ertMOTalwkcN9mZDurztSHe4GM3TIFBK9q8Z6KnXa44XjeFVaQyTv8YUbgdh6P34
-	P4x/Ppk3LDk72EgNQ8l8SKXGQrnOiLbQ6LrkjX5wfGAFKPnaX+Lr1FQeCMu9xYJOk6Fy7XbomYk
-	+NYi4BWhBzi+57rvmTb/0G4Rba6Qe+OXcnQ79Ms/pwVny4dKd/+cNwDnNQSMvgX8eitwMBy9mAr
-	4QZHVZaEpRAF8xOb2lheQCMhITwI/2hRTFRLNLMYLxSrQb/eeDBJoAp+TmspCbsokeXHwg==
-X-Received: by 2002:a05:6000:4009:b0:43d:30f:122c with SMTP id
- ffacd0b85a97d-43d030f12d4mr8748177f8f.5.1774944740074; Tue, 31 Mar 2026
- 01:12:20 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1774945231; x=1775550031;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=BG1I/liNZmNcrk2tkigeYR5Je0NJszVTJPmGzNZ557U=;
+        b=IuNG3UXqTm8UupAsZuI7wbwlBXu+dZcq7Jpy9n4kYOkdjntXOYwuWcwPRGC6UPaIkD
+         ZVn6Qq1CSBRVCJHK0ihKP92mJ+N3lcWtlPIWib6g8sdH065IfIabm85XB3GdeNSQRTb/
+         ZB83nU3u2MSjDSOpvPY7BTiBwx1Bw26gsrKYoWJBs1uTh9YleqOcNrZbVrVYBkxQwGw3
+         JKviV1MyFJUlmkZx1O9FHtv30kW/XPxPYHjv05yHcqEtHfwfQjeX1UqRudU9dNJznZC0
+         sCQAblfeN/E4BJf6sdtuzqvsIoGqS8ywZAyHW1cPkxwFEwPbR66uCMbIBWeMKm5xjc9G
+         ZQYw==
+X-Gm-Message-State: AOJu0YwjgjuNtf8imNeF/epYYt7L/OYbRnRXGeJQWw/OyE1BzyFOrlVc
+	BKLwgSx4GmhH9ruWTriPtzGSZo4LTYk0bJPMvSkL83GTFmtKK+mhOxjoLIeuy7DrkT9k9j+uNJ7
+	Zcbm9XK4UQZiHIjVyWrPsZnt75ULibjG03ApcBxFlF9Fxs3vNwXl40IZCQ/BLL8cMNw==
+X-Gm-Gg: ATEYQzz0mK3K6Krf2iZF3fvrYYHrh9W5EBX6PGhZhrOp4l+vebxpGq53Sz9qVqRVq+B
+	cgJK3tOuWSk1PUtMmyAqpvT7ayY9OD4HCEca56I+Mp/5m8AO46jN0n9WKpOkhzYn7XGHviDVUEI
+	wZLipkMIvrNN/a0sT/eWsLe25zVTiqRakax4Pni2199Z9n9X2bBgZhi4MqOWgfkSCKSLvYdV4iH
+	yBeGhKf8HECO2N/ETvG+fX3UqrIWQD3g6eB03b4ZPIyzHdA1t4z9VLwXBuYuGT+BNbj99zEim8+
+	INP8bDrXXLrS9YmmtsNxULIB2KVNsBrfyHNaJ1/jXZYUnQCTzbq6KYb9gyfhtanDvCY7qK1N3tD
+	8+vMCWLXtHJBZ3P8h0zHhcKV30UxeFzjyxzoXp3hZ/2hLzvUZxUYWAg==
+X-Received: by 2002:a17:90b:5288:b0:35d:a557:e41 with SMTP id 98e67ed59e1d1-35da5572476mr7580362a91.14.1774945231124;
+        Tue, 31 Mar 2026 01:20:31 -0700 (PDT)
+X-Received: by 2002:a17:90b:5288:b0:35d:a557:e41 with SMTP id 98e67ed59e1d1-35da5572476mr7580341a91.14.1774945230674;
+        Tue, 31 Mar 2026 01:20:30 -0700 (PDT)
+Received: from [10.204.101.77] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35dbe959886sm852242a91.14.2026.03.31.01.20.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 31 Mar 2026 01:20:30 -0700 (PDT)
+Message-ID: <1f2e1608-100d-4a3e-99cf-6a7a6d39fbef@oss.qualcomm.com>
+Date: Tue, 31 Mar 2026 13:50:25 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260327-b4-cru-rework-v1-0-3b7d0430f538@ideasonboard.com> <20260327-b4-cru-rework-v1-8-3b7d0430f538@ideasonboard.com>
-In-Reply-To: <20260327-b4-cru-rework-v1-8-3b7d0430f538@ideasonboard.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Tue, 31 Mar 2026 09:11:53 +0100
-X-Gm-Features: AQROBzAQyDLcCkXvBR1txNY6IDJbXqKx-FUFZVM2Ptxs0XEgBnsBP1VHv5nNVBg
-Message-ID: <CA+V-a8tvzYSxqr4Onb4g5v3iX6dxB6pe7oHmq2NRp6+STBM0eA@mail.gmail.com>
-Subject: Re: [PATCH 08/14] media: rz2gl-cru: Introduce a spinlock for hw operations
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, =?UTF-8?B?QmFybmFiw6FzIFDFkWN6ZQ==?= <pobrn@protonmail.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] media: iris: Switch to hardware mode after
+ firmware boot
+To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Hans Verkuil <hverkuil+cisco@kernel.org>,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260331-kodiak-gen2-support-v3-0-958296fab838@oss.qualcomm.com>
+ <20260331-kodiak-gen2-support-v3-1-958296fab838@oss.qualcomm.com>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <20260331-kodiak-gen2-support-v3-1-958296fab838@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: mwWwwOUZ-E--6mYgqcovNjMe8kuiPWYK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDA3OSBTYWx0ZWRfXyAAldSI1rmaC
+ p0Yv003iRgfNTs1a4WMhm09pC7sAyD+hKFp/oovnVWDxR1U+okachPOWaAQ4zJQowfz0ENARSlS
+ H002nyWc1EerHPBX5l4wkQ2y5Z2tWUgm+WfwKrued48R5woNCjQKufkkWRcajj2BaxqltFmwhAp
+ PWasheBQPyG5hm0/EuoMdXeUWoCvgFNSiSYTeAnj375a3vreOzRCD1zaPEGEMjR9Y1wYfdROphE
+ F/TICU9lhWrASIC2gruK98Qr6U9nluwwfADgpEbINdr0pKUEJKm/7+abBO9k90T9VpgnhU1bgDQ
+ 7w6K8NCWCjtyldzpPNIDprva37zXHdM06Qqij+oasj1LZo74UMxiE5FrAfYP97U9Kk2VgrP3S4F
+ JjlBPu/FpfLZsb/Y3GvoA0BUouQu8C0NVc+MctxmO74EOAJLkdjJYs0lQwnQx5KO9StQUMaZH/g
+ osKzwD4E0B65Bq1URHA==
+X-Proofpoint-ORIG-GUID: mwWwwOUZ-E--6mYgqcovNjMe8kuiPWYK
+X-Authority-Analysis: v=2.4 cv=H8/WAuYi c=1 sm=1 tr=0 ts=69cb83cf cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=vonRipBiouzHufA7OUcA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-31_02,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 bulkscore=0 spamscore=0 lowpriorityscore=0
+ clxscore=1015 impostorscore=0 phishscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603310079
 
-Hi Jacopo,
 
-Thank you for the patch.
 
-On Fri, Mar 27, 2026 at 5:21=E2=80=AFPM Jacopo Mondi
-<jacopo.mondi@ideasonboard.com> wrote:
->
-> From: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
->
-> The CRU driver uses a single spinlock to protect the buffers queue and
-> the hardware operations.
->
-> This single spinlock is held for the whole duration of the interrupt
-> handler, causing all other driver's operations to freeze.
->
-> Under heavy system stress conditions with userspace not providing
-> buffers fast enough, this causes loss of frames.
->
-> Prepare to re-work the driver locking by introducing (but not using yet)
-> a new spinlock to protect the hardware registers programming.
->
-Is there a specific reason to split this into a separate patch? I
-think it's better to squash the patches.
-
-Cheers,
-Prabhakar
-
-> Signed-off-by: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
+On 3/31/2026 1:09 PM, Dikshita Agarwal wrote:
+> Currently the driver switches the vcodec GDSC to hardware (HW) mode
+> before firmware load and boot sequence. GDSC can be powered off,
+> keeping in hw mode, thereby the vcodec registers programmed in TrustZone
+> (TZ) carry default (reset) values.
+> Move the transition to HW mode after firmware load and boot sequence.
+> 
+> The bug was exposed with driver configuring different stream ids to
+> different devices via iommu-map. With registers carrying reset values,
+> VPU would not generate desired stream-id, thereby leading to SMMU fault.
+> 
+> The efuse tells us which hardware blocks are actually present. If efuse
+> status is disabled for a block, the driver will skip powering it on or
+> resetting it. otherwise the driver will perform the necessary resets and
+> then switch that block into hardware mode. This makes sure we only touch
+> hardware that really exists and is enabled on the silicon.
+> 
+> Fixes: dde659d37036 ("media: iris: Introduce vpu ops for vpu4 with necessary hooks")
+> Co-developed-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vikash Garodia<vikash.garodia@oss.qualcomm.com>
+> Signed-off-by: Dikshita Agarwal<dikshita.agarwal@oss.qualcomm.com>
 > ---
->  drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h   | 10 +++++++---
->  drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c |  1 +
->  2 files changed, 8 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h b/drive=
-rs/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
-> index 3a200db15730..b46696a0012b 100644
-> --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
-> +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
-> @@ -109,7 +109,6 @@ struct rzg2l_cru_info {
->   * @v4l2_dev:          V4L2 device
->   * @num_buf:           Holds the current number of buffers enabled
->   * @svc_channel:       SVC0/1/2/3 to use for RZ/G3E
-> - * @buf_addr:          Memory addresses where current video data is writ=
-ten.
->   * @notifier:          V4L2 asynchronous subdevs notifier
->   *
->   * @ip:                        Image processing subdev info
-> @@ -118,6 +117,10 @@ struct rzg2l_cru_info {
->   * @mdev_lock:         protects the count, notifier and csi members
->   * @pad:               media pad for the video device entity
->   *
-> + * @hw_lock:           protects the slot counter, hardware programming o=
-f
-> + *                     slot addresses and the @buf_addr[] list
-> + * @buf_addr:          Memory addresses where current video data is writ=
-ten
-> + *
->   * @lock:              protects @queue
->   * @queue:             vb2 buffers queue
->   * @scratch:           cpu address for scratch buffer
-> @@ -147,8 +150,6 @@ struct rzg2l_cru_dev {
->         u8 num_buf;
->
->         u8 svc_channel;
-> -       dma_addr_t buf_addr[RZG2L_CRU_HW_BUFFER_DEFAULT];
-> -
->         struct v4l2_async_notifier notifier;
->
->         struct rzg2l_cru_ip ip;
-> @@ -157,6 +158,9 @@ struct rzg2l_cru_dev {
->         struct mutex mdev_lock;
->         struct media_pad pad;
->
-> +       spinlock_t hw_lock;
-> +       dma_addr_t buf_addr[RZG2L_CRU_HW_BUFFER_DEFAULT];
-> +
->         struct mutex lock;
->         struct vb2_queue queue;
->         void *scratch;
-> diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/dri=
-vers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> index 27079c17a54c..a79b17e146bf 100644
-> --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> @@ -844,6 +844,7 @@ int rzg2l_cru_dma_register(struct rzg2l_cru_dev *cru)
->         mutex_init(&cru->lock);
->         INIT_LIST_HEAD(&cru->buf_list);
->
-> +       spin_lock_init(&cru->hw_lock);
->         spin_lock_init(&cru->qlock);
->
->         cru->state =3D RZG2L_CRU_DMA_STOPPED;
->
-> --
-> 2.53.0
->
->
+
+It is missing the RB tags
