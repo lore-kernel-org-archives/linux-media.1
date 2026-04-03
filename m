@@ -1,238 +1,202 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012024.outbound.protection.outlook.com [52.101.43.24])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1AAE64;
-	Fri,  3 Apr 2026 08:37:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775205441; cv=fail; b=Y6Uqi8vQ97Vb1JCG7OBb2i1ML3fBXzyPefabs8wBhjVUD5uW3TJMW+gqruKrtyanCjyTUvQ/pU1k+pCVnka+ZaQeVFdcUWxwDxW1gYsQzqqfhnFvIs6nDhe9ptCpN+WbRK5W0x6V+Um3onmL19ji0DV963lvtQE7dmaXpC5aj4A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775205441; c=relaxed/simple;
-	bh=wpM2F6fW2VviMK3JDTWo+9Y+1Hyy1zMIWe3ei5GkWUA=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=U+CdI2Ka/xXX6PLhikphRSxqh9HDVePGJ40qgGHUWQjF99zAATE7GjCzrbV14kbYcAmcXK3tinJFY9Y8/FKmg+feDzhg9j7Yu5RxHKSrsZz4PmC7V82YygKNKDhvolqfHQtixfRyGIPRx3p+c6DUSVnvlU6cxDntjcAFPYxEzXM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Qnnv1BcZ; arc=fail smtp.client-ip=52.101.43.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1F9372EEE
+	for <linux-media@vger.kernel.org>; Fri,  3 Apr 2026 08:41:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775205707; cv=none; b=tJKMh2LUo7GMPEO8GuzfqeltZ8CCCrvYccWio9xXigB6L6Kyi3u+qlOZCj+uKHRQPQmcDEYRWOF2HCJlicP7YckzBCjj/aA1wlFy4X2yZz7dzUhiIZ6pZ5OWWyDAvuL+lnZC5GEjQzsUDTeTLzpyzMXBwFy+ZyJelKm5CUyHDk8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775205707; c=relaxed/simple;
+	bh=/xJ8nlzEUwBgB9odC2pDNog1qLXHQGWB2GUPekbM6FY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MoHveTne0qsgQO0/SfAICBsWr/BZHtyxspx5HMDls6V4GxNds3X/oad1a2QQ9U67MnwSveEiaXBOsOHahu9gpTvR7qIWIhW6zN2h/I//dFFLNT1X5fnGS2fW1/MLnI00cOcLjvwSI+43kefQ1WWOpQwiFVNHnwlUB+iPaBkZ/QM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ej4FKVO2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZMPbFf3+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Qnnv1BcZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j2RCgVRn+yp36nT6ms/9bNuLjh0KDPOilNP7ZjcuZtcYX+iqu+YL7Z/2BS+jI9EnPmMU6NHh4/hS4pq5BieQqnYQdBfEHzcfqSwOrTV19XHfPYxRhU11M0QMS9tqymfSvh6642yJ3BtT93BZydEcB4cLkA2wDG1kqavRj3fkmOfnQjU0gaOhRBV+tEk1p2QVCSqSd06S/hab55Ls65M6ENtrzvFYYisKvXAtnnMxqA5jvX1TYaAVdDKd9QNGAExsKGBgXU5EuxBXkMfOplMxgYQZZwMr/5oO0+bakSdcGTgIWBT59id5Fl4dzBg9OBzYjzBEOaTaIAETDnSnrQQ8BQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ryMxY/LUgK6bFkIZLfE4qne7H3Zb47m4Jobg0VE1agU=;
- b=hFkeptrHJ0YJgjx5GGWCHGaYl23yH50VsenwzPA1IYY23HsVgqCeTgHDxclARapoM5tXEW93fysfaRWtLHZZ/oJh7D/bWwDqXjfOtmP6pbp7jWRFDOw48gxD3Wkk/yUml33hO2OiJRxlnp1892CgB+LQPOUJ+omZyGvRlxGlaQT18xTcUJnNVd+hIYjEPGvgyJpyZDqsMojl+nuD/CQT12+dbV5Ql8a5Lultvk3yJR8wMZVGBJIP9+Jkr3Q6BJThciJprEaa5tGW/dK6ITNO8DSqevfieDJBLFvi7/T8xJ6DMk99y0NkN1BJLp7Ub1AtxqboA+X1q7wRGP6swzI8Ag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ryMxY/LUgK6bFkIZLfE4qne7H3Zb47m4Jobg0VE1agU=;
- b=Qnnv1BcZD992q4bzzlbKYwlArznbQ0bQY2IyVfIb9oAiMRwqNNbM28Gb9Kff4aIWNQxjGBPsHzmy33oNpyCmzni8iis1Z8I1etvUusB2Dy5npdmiax9F3DJ9fsvL/0GW2xdrjjRKyxAk/wFxE+V9Q7HnqC1cLrzbqKpCyYQZVT8=
-Received: from SJ0PR03CA0210.namprd03.prod.outlook.com (2603:10b6:a03:2ef::35)
- by MW5PR12MB5650.namprd12.prod.outlook.com (2603:10b6:303:19e::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Fri, 3 Apr
- 2026 08:37:12 +0000
-Received: from SJ1PEPF0000231A.namprd03.prod.outlook.com
- (2603:10b6:a03:2ef:cafe::f0) by SJ0PR03CA0210.outlook.office365.com
- (2603:10b6:a03:2ef::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.20 via Frontend Transport; Fri,
- 3 Apr 2026 08:37:11 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF0000231A.mail.protection.outlook.com (10.167.242.231) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Fri, 3 Apr 2026 08:37:11 +0000
-Received: from FRAPPELLOUX01-WSLPUB.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Fri, 3 Apr 2026 03:37:07 -0500
-From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sumit Semwal
-	<sumit.semwal@linaro.org>
-CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
-	<amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
-	<linaro-mm-sig@lists.linaro.org>
-Subject: [PATCH v5 6/7] drm/amdgpu: rename amdgpu_fill_buffer as amdgpu_ttm_clear_buffer
-Date: Fri, 3 Apr 2026 10:35:54 +0200
-Message-ID: <20260403083602.1771-6-pierre-eric.pelloux-prayer@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260403083602.1771-1-pierre-eric.pelloux-prayer@amd.com>
-References: <20260403083602.1771-1-pierre-eric.pelloux-prayer@amd.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ej4FKVO2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZMPbFf3+"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63342OFo3780261
+	for <linux-media@vger.kernel.org>; Fri, 3 Apr 2026 08:41:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=QmKfAmOnOoidKU2K7M065NqSIxZq6+lb/9v
+	nAIyjv3o=; b=ej4FKVO2FH0oAp4MNdN5hb1b9k5gUhvwvlo86YCJVpzdmzRdxvR
+	tVGpIhdjlHoSoeJQnQY+VGGu8Ul+8RQTGPYnGX6MaynkGvZFP2sZgBKU2uwphhzo
+	s5MJt6+hP552oi9ARgCgfGY++KgDQVAKc2sgtxwtD7dK3hni3/1DQDOIcBi/+EN8
+	o4uqXMR6qtpoDohrSaLpUpuJfRVVSgt2JgUrMWBNq9DQj/QABvcvWuwPi9pZ6Ju/
+	hqfMW06cN+a7m2Zz8zYklHS6vFkvZypXv27+X3/vsSj9u3UDBLwD5taGuJgBncyK
+	RLZsY9ex3S8ZCYn58Pvu9/UXYxA1DWpWDvA==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4da663gsgg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Fri, 03 Apr 2026 08:41:44 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-82c646e980bso951709b3a.0
+        for <linux-media@vger.kernel.org>; Fri, 03 Apr 2026 01:41:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1775205704; x=1775810504; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=QmKfAmOnOoidKU2K7M065NqSIxZq6+lb/9vnAIyjv3o=;
+        b=ZMPbFf3+ogIAK80b+3QVo+7FSh4eWr1JFUQW95LT2EJXYuLFaGkplNIY30wgvtcYPD
+         HaLAdxI9AdzAXDdPL7udyy7uEDNFBECwVGm4t1EEgWQf6M3hInqbwbcumOOkKjugiIVw
+         6yTvgC2sVGHp1jtuv1XUsZ5VHCv5PgQfGgl5MFYJYl0LhF7J9JRiaenwqJvIAZRPiZHV
+         tZ1dhYOGY6wswJOoOTWzQq2iRbLcPaL/CXL9LHXKntLvZcGMj1t7DmYkDD0q+qTjI6ej
+         04xvELaJlIdFVhnhYERmPWQ9rtMpD6jEw2Yeow3jbQ/ciT9eDAwg+J5EqCEwfOyW0r7X
+         XTBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775205704; x=1775810504;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QmKfAmOnOoidKU2K7M065NqSIxZq6+lb/9vnAIyjv3o=;
+        b=WRVrMsgBEIMHngNZVzI7VBjzsnFXhyFBZdcNplPxAra2IosG3UCc6PY5+j1qnOtUbx
+         I4ihxHTnXLA8EjaikB1uvQbgLCXhuTR/jqhhf7ngMWgCIB1bO1lXIticeSUliiTuNNkc
+         YsRx2veNYZlhcFoGFmZwwDfgK0F7b0ugt1xRhDBVLa6zDOF8Vz1KERpKWp4S87SlU93U
+         ed17zH/J21kseKSffiT3YgKUyhjbNMjaZ9GwVu/6IrFyH3pdNVVE2zqTLYhvDjeHxt2/
+         zb6W5TindmL5+M2c4PAtsanA9SQ5ONQCWvsXulhbFGydboWgoXapyad+3pQhNhDYDlY9
+         Ybuw==
+X-Forwarded-Encrypted: i=1; AJvYcCWgQt8e6wOo9729BQ9zNCE1QAD7Fa/zj9TPUoDn64C8/onsTkdnECjX9aIx6iuxbS082rgQ2kvYdWFZZw==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw7DT+FmO3iWmkvYGwMrVaKKv+CPbLaG1JtYqc14RHQrW+r41XN
+	BtAuq08YiNEfs7CTx48e5jLqJfelYbIloePduzrvv3eJx3xVJ+B5R4saPFaF730mocL8f/h/HdL
+	gytk42Oj3BQ50gtZuFixy3elvYTIeR7DD3FUvdCblZAA39QXGGXhlyGL5j2ZGziJOHg==
+X-Gm-Gg: AeBDievwt8rnh/r/JbYEwrQq7uEBpz50kC6btoOZFZO2+WC8MBSntV9EO9gLP4bUUZ0
+	G6R7A4pnzM9vPt/Uckzz3faTDbJAQ/uzfWr23rSZhmxSiKfukwjr6gy5IBTdigiaGcvY8j1K7hs
+	nQR1PSJfqAjhaDyTQ9sBKxcMXTZVP/y+Ffq6Bl8BFdYC3INPxb5QpdDWiDgh3fAHXe/rjLQVbxY
+	piibA9i04ntD1AFNii6tMftWZ6HzcZY45kU/zK2NjSxPyGrIEMk30bdaGTN5AIqNuZYIZ5zurf9
+	QBLx6zcnAVAp0J1QfsvFQF9xOwiJ9A0a78O8W1WLpkWyoyJ/yl8Yd8k8v6RW5Nr1Fa3kr46rdvQ
+	C9O1UvpC1pz2YZmtFSxZf4o0E1EGeKDQxW5y2/Z4nef52c0xXZcx6VXYp
+X-Received: by 2002:a05:6a00:2d10:b0:82c:9c47:fef9 with SMTP id d2e1a72fcca58-82d0da34535mr2228687b3a.2.1775205704178;
+        Fri, 03 Apr 2026 01:41:44 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2d10:b0:82c:9c47:fef9 with SMTP id d2e1a72fcca58-82d0da34535mr2228649b3a.2.1775205703692;
+        Fri, 03 Apr 2026 01:41:43 -0700 (PDT)
+Received: from hu-arandive-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82cf9b2714dsm6757172b3a.1.2026.04.03.01.41.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Apr 2026 01:41:43 -0700 (PDT)
+From: Aniket Randive <aniket.randive@oss.qualcomm.com>
+To: mukesh.savaliya@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
+        andi.shyti@kernel.org, sumit.semwal@linaro.org,
+        christian.koenig@amd.com
+Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+        naresh.maramaina@oss.qualcomm.com, aniket.randive@oss.qualcomm.com
+Subject: [PATCH V3] i2c: qcom-geni: Avoid extra TX DMA TRE for single read message in GPI mode
+Date: Fri,  3 Apr 2026 14:11:35 +0530
+Message-Id: <20260403084135.1300931-1-aniket.randive@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231A:EE_|MW5PR12MB5650:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa1ec0b7-7b69-44db-2ec8-08de915c3357
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|376014|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	nGKW9Z5mYPS1/Cw8juY47q8VZPXRUJnhk4FTfnnzZkQihtCiUiqBtXcm8o/t83CoFbvOmLdGDx4un1FwgtnBGJSKEJ3iVqAhO/rwDivDB4fpaq7c4JYP8ktbm/nMGRtTXt4cP7zwBVPdYZbRcnFCITjZLh1aXvDaMObjkyHjFPxpV/3xT+qX3ZsR8HChAP1W2jnYOt0geN6u/+wuTotKtEfZKN834UKRKI10M5DYRWpoYIcOvdpkdcikyB8E15o9TWXw6j7Hn8xNzQW3isl+K8HoWcHl5XnfJnZoRX6YXiHD1L44n2VcgfvWbyfjFULdV0c9Fg7vykN+VaVeIDrtiVqwbz4woIfuawEr/XyTQ2hN+EXNkRUBJB1m7kDk4qWYyGk6CZUKsluDwn9t4CxJq+dnK6rfKVK6G4BeFbJIfp82QTCJaPxhh+2uh7rm/gpWlU9vpTJjhT1XXVDMFKRrvg6ZLmKXgCx6RribtJXr1IJNfn2Pb16FSURCj+ri0MpYq/IbTLtp9tPb7gNaNm/hJb+5dmjpEgSxjHo+GXwKeq5sAkFhina+9WREF86iYsZA21yHh3Y5O2zrJRlUXjq6/8vA4i5m41mYIUFDNqGW+OR52yP1te2/mpMvtbL3MAjbxvNj2wTROSpdNmBk6SnPLi85u09+7M7bgWZ/Nc/5bocNSm+EpsOOXaFNnzKTp3PDOjEwTbbsWgkHbvyIB8QbytIo9kwroUjzc+PR7+bpHyaPBBLHNC8f6R92lpR9HQiW26mBpFC/MvmK9PI9WIRlrg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	6+dqMqU2/brdOu8tWy4hJ/S92SKsu+fNM6nwLdjcXGOfq8Pn43G/C50SvyiYcyhiBcC98jHQRQ7OwxBDqkZvGIbki8+bZeXB07WEkaOUOoQwPce6v6TbKhA4rPLOaPkmZR5BQomchnXGZKvzodXTELuXpi9hlUKflwNwt7ze9+mjSZ5TKU7Ic6pwTI9IzlfqBCVnB0enlPX3P5IjVYUDChLGfeW5SqquB6ohJlltN8JgM1Sgj/6fCoaIynRhgK5c92UhZC+ZTE5MPJNbP4qoPhR4QFVu0WaYJS7ARTZG686ZyQqtSZHFNM4HnAQ9UWboYXTBHUoVTxDJD/HB4teovgQn6ZB750ulIiH6hoZxtVjDHrOmTqAbL9Ws+W8btQaGNcW6YN3QAvQy/aCDGqDy/1/+kwgNJOGiBP+C63AXeBtn7pyiqBkWjZ2Z20OlRVDh
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2026 08:37:11.6212
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa1ec0b7-7b69-44db-2ec8-08de915c3357
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF0000231A.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5650
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDA3NiBTYWx0ZWRfXwqlJT7joiHOT
+ IJS0/C6uDZp0QGvQ2GAhDVMQdlyiGwJ3SXBdZ8WQM/oY0jy4FsES5xATQ/l+Cw3hinsr6gnL9nx
+ peuEZo8X602nklMHyznFFgieUiAofluki/3e3e2aZYIIiTn7uYWgCm97iLPujU/I+8PoghRdGQf
+ 4iJbVSmTUZNNnpJuVKl0BIHsO1HZ73a09eiD9bLyq+Gd9juPEB0ljevI7lH3Pa+WkXKMqnga8gr
+ FVhpk8FKn/hxCmsVZBm69In63YmzRepvP8IjhuepoKtN0guop5so7Ei7q9ALyfH2Q4TYzjG6Zj0
+ aVQEnzH1lVZJYHOABhdrREx4QhmnkS6uzJTMzmMV1viMfar3Ybbejc9h1t+LMZ98T8LHaD8f71X
+ 5uqfz24tsmLcCksp3664ZdU3enQMQ+zasb8zc3/O6K0qplt+4irUeK1WmeSqwHTaLlGHEpRRlbn
+ 1OyVd7MK+PnaJZQAWOw==
+X-Proofpoint-GUID: DsDNLjJNQIdpqqXpw4thl_JhcoyBwYl2
+X-Proofpoint-ORIG-GUID: DsDNLjJNQIdpqqXpw4thl_JhcoyBwYl2
+X-Authority-Analysis: v=2.4 cv=Acu83nXG c=1 sm=1 tr=0 ts=69cf7d48 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=qPv6kJ6rrmvbaMxWJaQA:9 a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-03_02,2026-04-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 adultscore=0 clxscore=1015 priorityscore=1501
+ phishscore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604030076
 
-This is the only use case for this function.
+In GPI mode, the I2C GENI driver programs an extra TX DMA transfer
+descriptor (TRE) on the TX channel when handling a single read message.
+This results in an unintended write phase being issued on the I2C bus,
+even though a read transaction does not require any TX data.
 
+For a single-byte read, the correct hardware sequence consists of the
+CONFIG and GO commands followed by a single RX DMA TRE. Programming an
+additional TX DMA TRE is redundant, causes unnecessary DMA buffer
+mapping on the TX channel, and may lead to incorrect bus behavior.
+
+Update the transfer logic to avoid programming a TX DMA TRE for single
+read messages in GPI mode.
+
+Co-developed-by: Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
+Signed-off-by: Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
+Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
 ---
-v2: amdgpu_ttm_clear_buffer instead of amdgpu_clear_buffer
----
+Changes in v3:
+  - Added comment in the driver for better readability and changed the
+    position of 'skip_dma' label to allow dma engine configuration.
 
-Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 12 +++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 23 ++++++++++------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    | 13 ++++++------
- 3 files changed, 22 insertions(+), 26 deletions(-)
+Changes in v2:
+  - Updated the commit message.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index d0884bbffa75..195cb1c814d1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -717,9 +717,9 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
- 	    bo->tbo.resource->mem_type == TTM_PL_VRAM) {
- 		struct dma_fence *fence;
- 
--		r = amdgpu_fill_buffer(amdgpu_ttm_next_clear_entity(adev),
--				       bo, 0, NULL, &fence,
--				       true, AMDGPU_KERNEL_JOB_ID_TTM_CLEAR_BUFFER);
-+		r = amdgpu_ttm_clear_buffer(amdgpu_ttm_next_clear_entity(adev),
-+					    bo, NULL, &fence,
-+					    true, AMDGPU_KERNEL_JOB_ID_TTM_CLEAR_BUFFER);
- 		if (unlikely(r))
- 			goto fail_unreserve;
- 
-@@ -1329,9 +1329,9 @@ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo)
- 	if (r)
- 		goto out;
- 
--	r = amdgpu_fill_buffer(amdgpu_ttm_next_clear_entity(adev),
--			       abo, 0, &bo->base._resv, &fence,
--			       false, AMDGPU_KERNEL_JOB_ID_CLEAR_ON_RELEASE);
-+	r = amdgpu_ttm_clear_buffer(amdgpu_ttm_next_clear_entity(adev),
-+				    abo, &bo->base._resv, &fence,
-+				    false, AMDGPU_KERNEL_JOB_ID_CLEAR_ON_RELEASE);
- 	if (WARN_ON(r))
- 		goto out;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index a3d0998b8cec..e74f9f8a88dc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -417,8 +417,8 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
- 	if (old_mem->mem_type == TTM_PL_VRAM &&
- 	    (abo->flags & AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE)) {
- 		struct dma_fence *wipe_fence = NULL;
--		r = amdgpu_fill_buffer(entity, abo, 0, NULL, &wipe_fence,
--				       false, AMDGPU_KERNEL_JOB_ID_MOVE_BLIT);
-+		r = amdgpu_ttm_clear_buffer(entity, abo, NULL, &wipe_fence,
-+					    false, AMDGPU_KERNEL_JOB_ID_MOVE_BLIT);
- 		if (r) {
- 			goto error;
- 		} else if (wipe_fence) {
-@@ -2572,26 +2572,23 @@ static int amdgpu_ttm_fill_mem(struct amdgpu_device *adev,
- }
- 
- /**
-- * amdgpu_fill_buffer - fill a buffer with a given value
-+ * amdgpu_ttm_clear_buffer - fill a buffer with 0
-  * @entity: entity to use
-  * @bo: the bo to fill
-- * @src_data: the value to set
-  * @resv: fences contained in this reservation will be used as dependencies.
-  * @out_fence: the fence from the last clear will be stored here. It might be
-  *             NULL if no job was run.
-- * @dependency: optional input dependency fence.
-  * @consider_clear_status: true if region reported as cleared by amdgpu_res_cleared()
-  *                         are skipped.
-  * @k_job_id: trace id
-  *
-  */
--int amdgpu_fill_buffer(struct amdgpu_ttm_buffer_entity *entity,
--		       struct amdgpu_bo *bo,
--		       uint32_t src_data,
--		       struct dma_resv *resv,
--		       struct dma_fence **out_fence,
--		       bool consider_clear_status,
--		       u64 k_job_id)
-+int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buffer_entity *entity,
-+			    struct amdgpu_bo *bo,
-+			    struct dma_resv *resv,
-+			    struct dma_fence **out_fence,
-+			    bool consider_clear_status,
-+			    u64 k_job_id)
+ drivers/i2c/busses/i2c-qcom-geni.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
+index a4acb78fafb6..78b92db7c7fd 100644
+--- a/drivers/i2c/busses/i2c-qcom-geni.c
++++ b/drivers/i2c/busses/i2c-qcom-geni.c
+@@ -625,8 +625,8 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
  {
- 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
- 	struct dma_fence *fence = NULL;
-@@ -2622,7 +2619,7 @@ int amdgpu_fill_buffer(struct amdgpu_ttm_buffer_entity *entity,
- 			goto error;
+ 	struct gpi_i2c_config *peripheral;
+ 	unsigned int flags;
+-	void *dma_buf;
+-	dma_addr_t addr;
++	void *dma_buf = NULL;
++	dma_addr_t addr = 0;
+ 	enum dma_data_direction map_dirn;
+ 	enum dma_transfer_direction dma_dirn;
+ 	struct dma_async_tx_descriptor *desc;
+@@ -639,6 +639,12 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
+ 	gi2c_gpi_xfer = &gi2c->i2c_multi_desc_config;
+ 	msg_idx = gi2c_gpi_xfer->msg_idx_cnt;
  
- 		r = amdgpu_ttm_fill_mem(adev, entity,
--					src_data, to, cur_size, resv,
-+					0, to, cur_size, resv,
- 					&next, true, k_job_id);
- 		if (r)
- 			goto error;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index 436a3e09a178..d7b14d5cac77 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -187,13 +187,12 @@ int amdgpu_copy_buffer(struct amdgpu_device *adev,
- 		       struct dma_resv *resv,
- 		       struct dma_fence **fence,
- 		       bool vm_needs_flush, uint32_t copy_flags);
--int amdgpu_fill_buffer(struct amdgpu_ttm_buffer_entity *entity,
--		       struct amdgpu_bo *bo,
--		       uint32_t src_data,
--		       struct dma_resv *resv,
--		       struct dma_fence **out_fence,
--		       bool consider_clear_status,
--		       u64 k_job_id);
-+int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buffer_entity *entity,
-+			    struct amdgpu_bo *bo,
-+			    struct dma_resv *resv,
-+			    struct dma_fence **out_fence,
-+			    bool consider_clear_status,
-+			    u64 k_job_id);
- struct amdgpu_ttm_buffer_entity *amdgpu_ttm_next_clear_entity(struct amdgpu_device *adev);
++	/* Skip TX DMA map for I2C_WRITE operation to avoid unintended write cycle */
++	if (op == I2C_WRITE && msgs[msg_idx].flags & I2C_M_RD) {
++		peripheral->multi_msg = true;
++		goto skip_dma;
++	}
++
+ 	dma_buf = i2c_get_dma_safe_msg_buf(&msgs[msg_idx], 1);
+ 	if (!dma_buf) {
+ 		ret = -ENOMEM;
+@@ -658,6 +664,7 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
+ 		goto out;
+ 	}
  
- int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo);
++skip_dma:
+ 	if (gi2c->is_tx_multi_desc_xfer) {
+ 		flags = DMA_CTRL_ACK;
+ 
+@@ -740,9 +747,12 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
+ 	return 0;
+ 
+ err_config:
+-	dma_unmap_single(gi2c->se.dev->parent, addr,
+-			 msgs[msg_idx].len, map_dirn);
+-	i2c_put_dma_safe_msg_buf(dma_buf, &msgs[msg_idx], false);
++	/* Avoid DMA unmap as the write operation skipped DMA mapping */
++	if (dma_buf) {
++		dma_unmap_single(gi2c->se.dev->parent, addr,
++				 msgs[msg_idx].len, map_dirn);
++		i2c_put_dma_safe_msg_buf(dma_buf, &msgs[msg_idx], false);
++	}
+ 
+ out:
+ 	gi2c->err = ret;
 -- 
-2.43.0
+2.34.1
 
