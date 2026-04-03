@@ -1,62 +1,58 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2FF37F8C4
-	for <linux-media@vger.kernel.org>; Fri,  3 Apr 2026 08:42:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC5529D266
+	for <linux-media@vger.kernel.org>; Fri,  3 Apr 2026 08:42:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775205726; cv=none; b=OWb7hxMrS+Nc8oh5/1KuynkGpQWnkBFiUW1oiBrVJ8CjYJaKCP7Pt2wK3n1MYs/6tFdv51gGQZtmS/O9eE+dgdOfhc/mApW2HM6qX3Z254N8V7KdBL8M3UJqsh38/F+5yBdk4uPbYxEoukKCV/Nrrtv53WQ4xyohXKJQngzWXu4=
+	t=1775205781; cv=none; b=Q5XdJL49I49CZ3xtWpLBPvhxltVUZe0ojphyQefytWKCWOjPe40Nex0fqYLRXTueMjSaA4sCFk0eKz4T7/oUDJ577vsAClOFpe9rPppzCK/vmuVvjdABFq3X6aJCzHEVANZSR6XXdKw+3b1bTSmDXLcHmGiGseo5DiF+DsjVUV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775205726; c=relaxed/simple;
-	bh=OM7JAe9idMfjXGZ/45XJ/LV7IOy95UVMAYPkep6LA7c=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=YWlbyb32HqXcUoicOZ64WBD0OG6TvJIfeMcmLCcGizYgITa+WBmfTL3acPsY/2bI4rHi0UVhU0o62wWFrO0R948JZu/oF1/QF6YK9qkTXHKtpDuuXRz+aMsu8WKZILtBX9fQBXqeiKCX4MlQ4TKg7kQs4Dp2tadaS3Am4yUIBow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LcEffWPZ; arc=none smtp.client-ip=192.198.163.8
+	s=arc-20240116; t=1775205781; c=relaxed/simple;
+	bh=ntcrkaQdjSZi+luHzYneUO6Gtw76vghb/jUOQsutuwo=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=YGFss88IjUR6ffuiCllKvywqrO6UcwzxKLKU0/krp4KQhKNlLOpR3sL5cq6uXvb6cIKlYtlHsnUxFnJjZ+8OpzR3Ea9JyR5pPggB8Ny2pFmz/94CxtqjUCG1W0lBMNWoQOS2M2g192v8PUIHhCnx5SjRNBgLSufQJw6Fio2FvYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TdiK6TBt; arc=none smtp.client-ip=192.198.163.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LcEffWPZ"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TdiK6TBt"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775205722; x=1806741722;
+  t=1775205780; x=1806741780;
   h=date:from:to:cc:subject:message-id;
-  bh=OM7JAe9idMfjXGZ/45XJ/LV7IOy95UVMAYPkep6LA7c=;
-  b=LcEffWPZ2ndy66+a6HU2bDWPQ2Twp4YpzDU7K8S9Rkx9xyG3s0rwu4QO
-   W/MQK//wPmFQLKF70YNhWim1UpaZbnwZ72fXvf8Zscw6kwiKSWlUE2kE7
-   3vghUOdTMy3RMWMY7nl+B73Ys6qe5hXY6af9TneUaNQsKbwRB3R6R4e7I
-   UXje5NNxjSWQSkdpenq5/P+Oovi1mzXyYe0KlFWh1dTbk1+E9/LTk8j8r
-   w0YzF7NpmF25EJfndw62tx4H51lT5lSmiYTBR2QBDbxSDByNYg28WWU5C
-   QZ10hyIVl4dg8kjfwHSdNGPIDMPzaOaHQDajBt2PyG4Fkk/TVoqmNyA/3
+  bh=ntcrkaQdjSZi+luHzYneUO6Gtw76vghb/jUOQsutuwo=;
+  b=TdiK6TBtWkqI3rE6Ot6plPqJMfaECZm5fU1hGolIZUV8yxetBsW31avb
+   3coI+HdkowRyI5kAXwvcC1ehXEtKoMFQ+GzNP82DRYpIb2TBhxyUC7R6k
+   KKKnJvgfIBXYzcTQP1TZE7bU0OHy+QKuq8P5qRD3noXdYPBFV4Tujs5e/
+   CgTlHO9hkA9bW1luoMNQWGAreyyiTcRwBgVy9uQ8dARtYNGvdau7T76fn
+   f2x41xp6ybAcVRX2vDsfLYMLqyxJ8MrHpCQJFBQpY5nHckDMt4q84LN5l
+   piP0rO4AqmrkfBxe6hi4cjPFHUozKCdkyZULC2A3MDA+HGbj+oji9zCwV
    A==;
-X-CSE-ConnectionGUID: fCz6a8XERra9qDz2CfuGUA==
-X-CSE-MsgGUID: 1xkfspaUTMejP5w+4I1/qQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11747"; a="93852145"
+X-CSE-ConnectionGUID: kylO47WBT52KQTXhQho5Ww==
+X-CSE-MsgGUID: GSOR0XCOS1Oyz/bu6B+vLA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11747"; a="75311898"
 X-IronPort-AV: E=Sophos;i="6.23,157,1770624000"; 
-   d="scan'208";a="93852145"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Apr 2026 01:41:59 -0700
-X-CSE-ConnectionGUID: uNNi8nbyQc2E0d1TtQdXQA==
-X-CSE-MsgGUID: EUJPpgEhQIO6xqhXA3rnvQ==
+   d="scan'208";a="75311898"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Apr 2026 01:42:59 -0700
+X-CSE-ConnectionGUID: nfx0rur3S+OA874U5xWbBw==
+X-CSE-MsgGUID: CjgmzEVNRHiN2gvIUvMObQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,157,1770624000"; 
-   d="scan'208";a="223943094"
+   d="scan'208";a="250286604"
 Received: from lkp-server01.sh.intel.com (HELO 064ad336901d) ([10.239.97.150])
-  by fmviesa007.fm.intel.com with ESMTP; 03 Apr 2026 01:41:57 -0700
+  by fmviesa002.fm.intel.com with ESMTP; 03 Apr 2026 01:42:57 -0700
 Received: from kbuild by 064ad336901d with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1w8a6E-00000000133-2uXN;
-	Fri, 03 Apr 2026 08:41:54 +0000
-Date: Fri, 03 Apr 2026 16:41:06 +0800
+	id 1w8a7D-0000000013g-1xzQ;
+	Fri, 03 Apr 2026 08:42:55 +0000
+Date: Fri, 03 Apr 2026 16:42:11 +0800
 From: kernel test robot <lkp@intel.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-media@vger.kernel.org,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Hans de Goede <hansg@kernel.org>
-Subject: [sailus-media-tree:pld 24/32]
- drivers/media/v4l2-core/v4l2-fwnode.c:831:3: error: call to undeclared
- function '__acpi_handle_debug'; ISO C99 and later do not support implicit
- function declarations
-Message-ID: <202604022233.XxAwrVdV-lkp@intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-media@vger.kernel.org
+Subject: [sailus-media-tree:pld 32/32]
+ drivers/media/pci/intel/ipu-bridge.c:300:47: error: 'dev' undeclared; did you
+ mean 'adev'?
+Message-ID: <202604022305.mNTpVYLs-lkp@intel.com>
 User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -66,86 +62,328 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 
 tree:   git://linuxtv.org/sailus/media_tree.git pld
 head:   b8c5b499767feb946c184029ff272276a036623e
-commit: 010794c2fea2ddf1d1556e40bcd97c3c3b952825 [24/32] media: v4l: fwnode: Support ACPI's _PLD for v4l2_fwnode_device_parse
-config: hexagon-randconfig-001-20260402 (https://download.01.org/0day-ci/archive/20260402/202604022233.XxAwrVdV-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260402/202604022233.XxAwrVdV-lkp@intel.com/reproduce)
+commit: b8c5b499767feb946c184029ff272276a036623e [32/32] media: ipu-bridge: Prioritise _PLD over SSDB in rotation
+config: i386-randconfig-r071-20260402 (https://download.01.org/0day-ci/archive/20260402/202604022305.mNTpVYLs-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+smatch: v0.5.0-9004-gb810ac53
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260402/202604022305.mNTpVYLs-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202604022233.XxAwrVdV-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202604022305.mNTpVYLs-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
->> drivers/media/v4l2-core/v4l2-fwnode.c:831:3: error: call to undeclared function '__acpi_handle_debug'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     831 |                 acpi_handle_debug(ACPI_HANDLE(dev), "cannot obtain _PLD\n");
-         |                 ^
-   include/linux/acpi.h:1275:26: note: expanded from macro 'acpi_handle_debug'
-    1275 |         _dynamic_func_call(fmt, __acpi_handle_debug,                    \
-         |                                 ^
-   1 error generated.
+   In file included from drivers/media/pci/intel/ipu-bridge.c:4:
+   drivers/media/pci/intel/ipu-bridge.c: In function 'ipu_bridge_parse_rotation':
+>> drivers/media/pci/intel/ipu-bridge.c:300:47: error: 'dev' undeclared (first use in this function); did you mean 'adev'?
+     300 |                 acpi_handle_debug(ACPI_HANDLE(dev),
+         |                                               ^~~
+   include/linux/acpi.h:1281:48: note: in definition of macro 'acpi_handle_debug'
+    1281 |                 acpi_handle_printk(KERN_DEBUG, handle, fmt, ##__VA_ARGS__); \
+         |                                                ^~~~~~
+   include/linux/acpi.h:58:41: note: in expansion of macro 'to_acpi_device_node'
+      58 | #define ACPI_COMPANION(dev)             to_acpi_device_node((dev)->fwnode)
+         |                                         ^~~~~~~~~~~~~~~~~~~
+   include/linux/acpi.h:61:60: note: in expansion of macro 'ACPI_COMPANION'
+      61 | #define ACPI_HANDLE(dev)                acpi_device_handle(ACPI_COMPANION(dev))
+         |                                                            ^~~~~~~~~~~~~~
+   drivers/media/pci/intel/ipu-bridge.c:300:35: note: in expansion of macro 'ACPI_HANDLE'
+     300 |                 acpi_handle_debug(ACPI_HANDLE(dev),
+         |                                   ^~~~~~~~~~~
+   drivers/media/pci/intel/ipu-bridge.c:300:47: note: each undeclared identifier is reported only once for each function it appears in
+     300 |                 acpi_handle_debug(ACPI_HANDLE(dev),
+         |                                               ^~~
+   include/linux/acpi.h:1281:48: note: in definition of macro 'acpi_handle_debug'
+    1281 |                 acpi_handle_printk(KERN_DEBUG, handle, fmt, ##__VA_ARGS__); \
+         |                                                ^~~~~~
+   include/linux/acpi.h:58:41: note: in expansion of macro 'to_acpi_device_node'
+      58 | #define ACPI_COMPANION(dev)             to_acpi_device_node((dev)->fwnode)
+         |                                         ^~~~~~~~~~~~~~~~~~~
+   include/linux/acpi.h:61:60: note: in expansion of macro 'ACPI_COMPANION'
+      61 | #define ACPI_HANDLE(dev)                acpi_device_handle(ACPI_COMPANION(dev))
+         |                                                            ^~~~~~~~~~~~~~
+   drivers/media/pci/intel/ipu-bridge.c:300:35: note: in expansion of macro 'ACPI_HANDLE'
+     300 |                 acpi_handle_debug(ACPI_HANDLE(dev),
+         |                                   ^~~~~~~~~~~
+>> include/acpi/acpi_bus.h:526:37: error: passing argument 1 of 'is_acpi_device_node' makes pointer from integer without a cast [-Wint-conversion]
+     526 |                 is_acpi_device_node(__to_acpi_device_node_fwnode) ?     \
+         |                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         |                                     |
+         |                                     int
+   include/linux/acpi.h:1281:48: note: in definition of macro 'acpi_handle_debug'
+    1281 |                 acpi_handle_printk(KERN_DEBUG, handle, fmt, ##__VA_ARGS__); \
+         |                                                ^~~~~~
+   include/linux/acpi.h:58:41: note: in expansion of macro 'to_acpi_device_node'
+      58 | #define ACPI_COMPANION(dev)             to_acpi_device_node((dev)->fwnode)
+         |                                         ^~~~~~~~~~~~~~~~~~~
+   include/linux/acpi.h:61:60: note: in expansion of macro 'ACPI_COMPANION'
+      61 | #define ACPI_HANDLE(dev)                acpi_device_handle(ACPI_COMPANION(dev))
+         |                                                            ^~~~~~~~~~~~~~
+   drivers/media/pci/intel/ipu-bridge.c:300:35: note: in expansion of macro 'ACPI_HANDLE'
+     300 |                 acpi_handle_debug(ACPI_HANDLE(dev),
+         |                                   ^~~~~~~~~~~
+   In file included from include/linux/acpi.h:38:
+   include/acpi/acpi_bus.h:514:54: note: expected 'const struct fwnode_handle *' but argument is of type 'int'
+     514 | bool is_acpi_device_node(const struct fwnode_handle *fwnode);
+         |                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~
+>> include/linux/container_of.h:21:35: error: invalid type argument of unary '*' (have 'int')
+      21 |         static_assert(__same_type(*(ptr), ((type *)0)->member) ||       \
+         |                                   ^~~~~~
+   include/linux/acpi.h:1281:48: note: in definition of macro 'acpi_handle_debug'
+    1281 |                 acpi_handle_printk(KERN_DEBUG, handle, fmt, ##__VA_ARGS__); \
+         |                                                ^~~~~~
+   include/linux/build_bug.h:77:34: note: in expansion of macro '__static_assert'
+      77 | #define static_assert(expr, ...) __static_assert(expr, ##__VA_ARGS__, #expr)
+         |                                  ^~~~~~~~~~~~~~~
+   include/linux/container_of.h:21:9: note: in expansion of macro 'static_assert'
+      21 |         static_assert(__same_type(*(ptr), ((type *)0)->member) ||       \
+         |         ^~~~~~~~~~~~~
+   include/linux/container_of.h:21:23: note: in expansion of macro '__same_type'
+      21 |         static_assert(__same_type(*(ptr), ((type *)0)->member) ||       \
+         |                       ^~~~~~~~~~~
+   include/acpi/acpi_bus.h:527:25: note: in expansion of macro 'container_of'
+     527 |                         container_of(__to_acpi_device_node_fwnode,      \
+         |                         ^~~~~~~~~~~~
+   include/linux/acpi.h:58:41: note: in expansion of macro 'to_acpi_device_node'
+      58 | #define ACPI_COMPANION(dev)             to_acpi_device_node((dev)->fwnode)
+         |                                         ^~~~~~~~~~~~~~~~~~~
+   include/linux/acpi.h:61:60: note: in expansion of macro 'ACPI_COMPANION'
+      61 | #define ACPI_HANDLE(dev)                acpi_device_handle(ACPI_COMPANION(dev))
+         |                                                            ^~~~~~~~~~~~~~
+   drivers/media/pci/intel/ipu-bridge.c:300:35: note: in expansion of macro 'ACPI_HANDLE'
+     300 |                 acpi_handle_debug(ACPI_HANDLE(dev),
+         |                                   ^~~~~~~~~~~
+   include/linux/container_of.h:22:35: error: invalid type argument of unary '*' (have 'int')
+      22 |                       __same_type(*(ptr), void),                        \
+         |                                   ^~~~~~
+   include/linux/acpi.h:1281:48: note: in definition of macro 'acpi_handle_debug'
+    1281 |                 acpi_handle_printk(KERN_DEBUG, handle, fmt, ##__VA_ARGS__); \
+         |                                                ^~~~~~
+   include/linux/build_bug.h:77:34: note: in expansion of macro '__static_assert'
+      77 | #define static_assert(expr, ...) __static_assert(expr, ##__VA_ARGS__, #expr)
+         |                                  ^~~~~~~~~~~~~~~
+   include/linux/container_of.h:21:9: note: in expansion of macro 'static_assert'
+      21 |         static_assert(__same_type(*(ptr), ((type *)0)->member) ||       \
+         |         ^~~~~~~~~~~~~
+   include/linux/container_of.h:22:23: note: in expansion of macro '__same_type'
+      22 |                       __same_type(*(ptr), void),                        \
+         |                       ^~~~~~~~~~~
+   include/acpi/acpi_bus.h:527:25: note: in expansion of macro 'container_of'
+     527 |                         container_of(__to_acpi_device_node_fwnode,      \
+         |                         ^~~~~~~~~~~~
+   include/linux/acpi.h:58:41: note: in expansion of macro 'to_acpi_device_node'
+      58 | #define ACPI_COMPANION(dev)             to_acpi_device_node((dev)->fwnode)
+         |                                         ^~~~~~~~~~~~~~~~~~~
+   include/linux/acpi.h:61:60: note: in expansion of macro 'ACPI_COMPANION'
+      61 | #define ACPI_HANDLE(dev)                acpi_device_handle(ACPI_COMPANION(dev))
+         |                                                            ^~~~~~~~~~~~~~
+   drivers/media/pci/intel/ipu-bridge.c:300:35: note: in expansion of macro 'ACPI_HANDLE'
+     300 |                 acpi_handle_debug(ACPI_HANDLE(dev),
+         |                                   ^~~~~~~~~~~
+   include/linux/compiler_types.h:617:27: error: expression in static assertion is not an integer
+     617 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
+         |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/acpi.h:1281:48: note: in definition of macro 'acpi_handle_debug'
+    1281 |                 acpi_handle_printk(KERN_DEBUG, handle, fmt, ##__VA_ARGS__); \
+         |                                                ^~~~~~
+   include/linux/build_bug.h:77:34: note: in expansion of macro '__static_assert'
+      77 | #define static_assert(expr, ...) __static_assert(expr, ##__VA_ARGS__, #expr)
+         |                                  ^~~~~~~~~~~~~~~
+   include/linux/container_of.h:21:9: note: in expansion of macro 'static_assert'
+      21 |         static_assert(__same_type(*(ptr), ((type *)0)->member) ||       \
+         |         ^~~~~~~~~~~~~
+   include/linux/container_of.h:21:23: note: in expansion of macro '__same_type'
+      21 |         static_assert(__same_type(*(ptr), ((type *)0)->member) ||       \
+         |                       ^~~~~~~~~~~
+   include/acpi/acpi_bus.h:527:25: note: in expansion of macro 'container_of'
+     527 |                         container_of(__to_acpi_device_node_fwnode,      \
+         |                         ^~~~~~~~~~~~
+   include/linux/acpi.h:58:41: note: in expansion of macro 'to_acpi_device_node'
+      58 | #define ACPI_COMPANION(dev)             to_acpi_device_node((dev)->fwnode)
+         |                                         ^~~~~~~~~~~~~~~~~~~
+   include/linux/acpi.h:61:60: note: in expansion of macro 'ACPI_COMPANION'
+      61 | #define ACPI_HANDLE(dev)                acpi_device_handle(ACPI_COMPANION(dev))
+         |                                                            ^~~~~~~~~~~~~~
+   drivers/media/pci/intel/ipu-bridge.c:300:35: note: in expansion of macro 'ACPI_HANDLE'
+     300 |                 acpi_handle_debug(ACPI_HANDLE(dev),
+         |                                   ^~~~~~~~~~~
+--
+   In file included from ipu-bridge.c:4:
+   ipu-bridge.c: In function 'ipu_bridge_parse_rotation':
+   ipu-bridge.c:300:47: error: 'dev' undeclared (first use in this function); did you mean 'adev'?
+     300 |                 acpi_handle_debug(ACPI_HANDLE(dev),
+         |                                               ^~~
+   include/linux/acpi.h:1281:48: note: in definition of macro 'acpi_handle_debug'
+    1281 |                 acpi_handle_printk(KERN_DEBUG, handle, fmt, ##__VA_ARGS__); \
+         |                                                ^~~~~~
+   include/linux/acpi.h:58:41: note: in expansion of macro 'to_acpi_device_node'
+      58 | #define ACPI_COMPANION(dev)             to_acpi_device_node((dev)->fwnode)
+         |                                         ^~~~~~~~~~~~~~~~~~~
+   include/linux/acpi.h:61:60: note: in expansion of macro 'ACPI_COMPANION'
+      61 | #define ACPI_HANDLE(dev)                acpi_device_handle(ACPI_COMPANION(dev))
+         |                                                            ^~~~~~~~~~~~~~
+   ipu-bridge.c:300:35: note: in expansion of macro 'ACPI_HANDLE'
+     300 |                 acpi_handle_debug(ACPI_HANDLE(dev),
+         |                                   ^~~~~~~~~~~
+   ipu-bridge.c:300:47: note: each undeclared identifier is reported only once for each function it appears in
+     300 |                 acpi_handle_debug(ACPI_HANDLE(dev),
+         |                                               ^~~
+   include/linux/acpi.h:1281:48: note: in definition of macro 'acpi_handle_debug'
+    1281 |                 acpi_handle_printk(KERN_DEBUG, handle, fmt, ##__VA_ARGS__); \
+         |                                                ^~~~~~
+   include/linux/acpi.h:58:41: note: in expansion of macro 'to_acpi_device_node'
+      58 | #define ACPI_COMPANION(dev)             to_acpi_device_node((dev)->fwnode)
+         |                                         ^~~~~~~~~~~~~~~~~~~
+   include/linux/acpi.h:61:60: note: in expansion of macro 'ACPI_COMPANION'
+      61 | #define ACPI_HANDLE(dev)                acpi_device_handle(ACPI_COMPANION(dev))
+         |                                                            ^~~~~~~~~~~~~~
+   ipu-bridge.c:300:35: note: in expansion of macro 'ACPI_HANDLE'
+     300 |                 acpi_handle_debug(ACPI_HANDLE(dev),
+         |                                   ^~~~~~~~~~~
+>> include/acpi/acpi_bus.h:526:37: error: passing argument 1 of 'is_acpi_device_node' makes pointer from integer without a cast [-Wint-conversion]
+     526 |                 is_acpi_device_node(__to_acpi_device_node_fwnode) ?     \
+         |                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         |                                     |
+         |                                     int
+   include/linux/acpi.h:1281:48: note: in definition of macro 'acpi_handle_debug'
+    1281 |                 acpi_handle_printk(KERN_DEBUG, handle, fmt, ##__VA_ARGS__); \
+         |                                                ^~~~~~
+   include/linux/acpi.h:58:41: note: in expansion of macro 'to_acpi_device_node'
+      58 | #define ACPI_COMPANION(dev)             to_acpi_device_node((dev)->fwnode)
+         |                                         ^~~~~~~~~~~~~~~~~~~
+   include/linux/acpi.h:61:60: note: in expansion of macro 'ACPI_COMPANION'
+      61 | #define ACPI_HANDLE(dev)                acpi_device_handle(ACPI_COMPANION(dev))
+         |                                                            ^~~~~~~~~~~~~~
+   ipu-bridge.c:300:35: note: in expansion of macro 'ACPI_HANDLE'
+     300 |                 acpi_handle_debug(ACPI_HANDLE(dev),
+         |                                   ^~~~~~~~~~~
+   In file included from include/linux/acpi.h:38:
+   include/acpi/acpi_bus.h:514:54: note: expected 'const struct fwnode_handle *' but argument is of type 'int'
+     514 | bool is_acpi_device_node(const struct fwnode_handle *fwnode);
+         |                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~
+>> include/linux/container_of.h:21:35: error: invalid type argument of unary '*' (have 'int')
+      21 |         static_assert(__same_type(*(ptr), ((type *)0)->member) ||       \
+         |                                   ^~~~~~
+   include/linux/acpi.h:1281:48: note: in definition of macro 'acpi_handle_debug'
+    1281 |                 acpi_handle_printk(KERN_DEBUG, handle, fmt, ##__VA_ARGS__); \
+         |                                                ^~~~~~
+   include/linux/build_bug.h:77:34: note: in expansion of macro '__static_assert'
+      77 | #define static_assert(expr, ...) __static_assert(expr, ##__VA_ARGS__, #expr)
+         |                                  ^~~~~~~~~~~~~~~
+   include/linux/container_of.h:21:9: note: in expansion of macro 'static_assert'
+      21 |         static_assert(__same_type(*(ptr), ((type *)0)->member) ||       \
+         |         ^~~~~~~~~~~~~
+   include/linux/container_of.h:21:23: note: in expansion of macro '__same_type'
+      21 |         static_assert(__same_type(*(ptr), ((type *)0)->member) ||       \
+         |                       ^~~~~~~~~~~
+   include/acpi/acpi_bus.h:527:25: note: in expansion of macro 'container_of'
+     527 |                         container_of(__to_acpi_device_node_fwnode,      \
+         |                         ^~~~~~~~~~~~
+   include/linux/acpi.h:58:41: note: in expansion of macro 'to_acpi_device_node'
+      58 | #define ACPI_COMPANION(dev)             to_acpi_device_node((dev)->fwnode)
+         |                                         ^~~~~~~~~~~~~~~~~~~
+   include/linux/acpi.h:61:60: note: in expansion of macro 'ACPI_COMPANION'
+      61 | #define ACPI_HANDLE(dev)                acpi_device_handle(ACPI_COMPANION(dev))
+         |                                                            ^~~~~~~~~~~~~~
+   ipu-bridge.c:300:35: note: in expansion of macro 'ACPI_HANDLE'
+     300 |                 acpi_handle_debug(ACPI_HANDLE(dev),
+         |                                   ^~~~~~~~~~~
+   include/linux/container_of.h:22:35: error: invalid type argument of unary '*' (have 'int')
+      22 |                       __same_type(*(ptr), void),                        \
+         |                                   ^~~~~~
+   include/linux/acpi.h:1281:48: note: in definition of macro 'acpi_handle_debug'
+    1281 |                 acpi_handle_printk(KERN_DEBUG, handle, fmt, ##__VA_ARGS__); \
+         |                                                ^~~~~~
+   include/linux/build_bug.h:77:34: note: in expansion of macro '__static_assert'
+      77 | #define static_assert(expr, ...) __static_assert(expr, ##__VA_ARGS__, #expr)
+         |                                  ^~~~~~~~~~~~~~~
+   include/linux/container_of.h:21:9: note: in expansion of macro 'static_assert'
+      21 |         static_assert(__same_type(*(ptr), ((type *)0)->member) ||       \
+         |         ^~~~~~~~~~~~~
+   include/linux/container_of.h:22:23: note: in expansion of macro '__same_type'
+      22 |                       __same_type(*(ptr), void),                        \
+         |                       ^~~~~~~~~~~
+   include/acpi/acpi_bus.h:527:25: note: in expansion of macro 'container_of'
+     527 |                         container_of(__to_acpi_device_node_fwnode,      \
+         |                         ^~~~~~~~~~~~
+   include/linux/acpi.h:58:41: note: in expansion of macro 'to_acpi_device_node'
+      58 | #define ACPI_COMPANION(dev)             to_acpi_device_node((dev)->fwnode)
+         |                                         ^~~~~~~~~~~~~~~~~~~
+   include/linux/acpi.h:61:60: note: in expansion of macro 'ACPI_COMPANION'
+      61 | #define ACPI_HANDLE(dev)                acpi_device_handle(ACPI_COMPANION(dev))
+         |                                                            ^~~~~~~~~~~~~~
+   ipu-bridge.c:300:35: note: in expansion of macro 'ACPI_HANDLE'
+     300 |                 acpi_handle_debug(ACPI_HANDLE(dev),
+         |                                   ^~~~~~~~~~~
+   include/linux/compiler_types.h:617:27: error: expression in static assertion is not an integer
+     617 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
+         |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/acpi.h:1281:48: note: in definition of macro 'acpi_handle_debug'
+    1281 |                 acpi_handle_printk(KERN_DEBUG, handle, fmt, ##__VA_ARGS__); \
+         |                                                ^~~~~~
+   include/linux/build_bug.h:77:34: note: in expansion of macro '__static_assert'
+      77 | #define static_assert(expr, ...) __static_assert(expr, ##__VA_ARGS__, #expr)
+         |                                  ^~~~~~~~~~~~~~~
+   include/linux/container_of.h:21:9: note: in expansion of macro 'static_assert'
+      21 |         static_assert(__same_type(*(ptr), ((type *)0)->member) ||       \
+         |         ^~~~~~~~~~~~~
+   include/linux/container_of.h:21:23: note: in expansion of macro '__same_type'
+      21 |         static_assert(__same_type(*(ptr), ((type *)0)->member) ||       \
+         |                       ^~~~~~~~~~~
+   include/acpi/acpi_bus.h:527:25: note: in expansion of macro 'container_of'
+     527 |                         container_of(__to_acpi_device_node_fwnode,      \
+         |                         ^~~~~~~~~~~~
+   include/linux/acpi.h:58:41: note: in expansion of macro 'to_acpi_device_node'
+      58 | #define ACPI_COMPANION(dev)             to_acpi_device_node((dev)->fwnode)
+         |                                         ^~~~~~~~~~~~~~~~~~~
+   include/linux/acpi.h:61:60: note: in expansion of macro 'ACPI_COMPANION'
+      61 | #define ACPI_HANDLE(dev)                acpi_device_handle(ACPI_COMPANION(dev))
+         |                                                            ^~~~~~~~~~~~~~
+   ipu-bridge.c:300:35: note: in expansion of macro 'ACPI_HANDLE'
+     300 |                 acpi_handle_debug(ACPI_HANDLE(dev),
+         |                                   ^~~~~~~~~~~
 
 
-vim +/__acpi_handle_debug +831 drivers/media/v4l2-core/v4l2-fwnode.c
+vim +300 drivers/media/pci/intel/ipu-bridge.c
 
-   820	
-   821	static int v4l2_fwnode_device_parse_acpi(struct device *dev,
-   822						 struct v4l2_fwnode_device_properties *props)
-   823	{
-   824		struct acpi_pld_info *pld;
-   825		int ret = 0;
-   826	
-   827		if (!is_acpi_device_node(dev_fwnode(dev)))
-   828			return 0;
-   829	
-   830		if (!acpi_get_physical_device_location(ACPI_HANDLE(dev), &pld)) {
- > 831			acpi_handle_debug(ACPI_HANDLE(dev), "cannot obtain _PLD\n");
-   832			return 0;
-   833		}
-   834	
-   835		if (props->orientation == V4L2_FWNODE_PROPERTY_UNSET) {
-   836			switch (pld->panel) {
-   837			case ACPI_PLD_PANEL_FRONT:
-   838				props->orientation = V4L2_FWNODE_ORIENTATION_FRONT;
-   839				break;
-   840			case ACPI_PLD_PANEL_BACK:
-   841				props->orientation = V4L2_FWNODE_ORIENTATION_BACK;
-   842				break;
-   843			case ACPI_PLD_PANEL_TOP:
-   844			case ACPI_PLD_PANEL_LEFT:
-   845			case ACPI_PLD_PANEL_RIGHT:
-   846			case ACPI_PLD_PANEL_UNKNOWN:
-   847				props->orientation = V4L2_FWNODE_ORIENTATION_EXTERNAL;
-   848				break;
-   849			default:
-   850				acpi_handle_warn(ACPI_HANDLE(dev),
-   851						 "invalid panel %u in _PLD\n",
-   852						 pld->panel);
-   853				ret = -EINVAL;
-   854				goto done;
-   855			}
-   856		}
-   857	
-   858		if (props->rotation == V4L2_FWNODE_PROPERTY_UNSET) {
-   859			switch (pld->rotation) {
-   860			case 0 ... 7:
-   861				props->rotation = pld->rotation * 45;
-   862				break;
-   863			default:
-   864				acpi_handle_warn(ACPI_HANDLE(dev),
-   865						 "invalid rotation %u in _PLD\n",
-   866						 pld->rotation);
-   867				ret = -EINVAL;
-   868				goto done;
-   869			}
-   870		}
-   871	
-   872	done:
-   873		ACPI_FREE(pld);
-   874		return ret;
-   875	}
-   876	
+   286	
+   287	static u32 ipu_bridge_parse_rotation(struct acpi_device *adev,
+   288					     struct ipu_sensor_ssdb *ssdb,
+   289					     struct v4l2_fwnode_device_properties *props)
+   290	{
+   291		const struct dmi_system_id *dmi_id;
+   292		struct acpi_pld_info *pld;
+   293	
+   294		dmi_id = dmi_first_match(upside_down_sensor_dmi_ids);
+   295		if (dmi_id && acpi_dev_hid_match(adev, dmi_id->driver_data))
+   296			return 180;
+   297	
+   298		if (acpi_get_physical_device_location(adev->handle, &pld) &&
+   299		    pld->rotation < 8) {
+ > 300			acpi_handle_debug(ACPI_HANDLE(dev),
+   301					  "_PLD exists; not use rotation %u from SSDB\n",
+   302					  ssdb->degree);
+   303			return 0;
+   304		}
+   305	
+   306		if (props->rotation != V4L2_FWNODE_PROPERTY_UNSET)
+   307			return props->rotation;
+   308	
+   309		switch (ssdb->degree) {
+   310		case IPU_SENSOR_ROTATION_NORMAL:
+   311			return 0;
+   312		case IPU_SENSOR_ROTATION_INVERTED:
+   313			return 180;
+   314		}
+   315	
+   316		acpi_handle_warn(acpi_device_handle(adev),
+   317				 "Unknown rotation %d. Assume 0 degree rotation\n",
+   318				 ssdb->degree);
+   319		return 0;
+   320	}
+   321	
 
 -- 
 0-DAY CI Kernel Test Service
