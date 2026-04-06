@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527FA2EAD15;
-	Mon,  6 Apr 2026 15:37:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B9263126DA;
+	Mon,  6 Apr 2026 16:09:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775489862; cv=none; b=Zf7ieuvZE4AescmxzPN1aHDh8L3AclqbVAd4Jeb8PqkEFulgZ/BSz73zARRd3NzhTU/vuPhTLodUL4cKlXPkrtt53JDYCxRgA5AXHW2AT10+sABQIzyBunMCYSQvH8vx/I3DbUMya+sBiV/yBvKn+0MLDm9JpYROdDKclgUz1ow=
+	t=1775491752; cv=none; b=sx6i9Kgc/TWINbaVEOdxc+jyK3RRBr4lhmnzr7/Y8+faD3c4sogbjUg3ovG/o6mljjpIPz6m2iJIEK4wH1g00tNoAi9LVnWEPsokcs2svH20iXJXAcYmmzCSfFyJkc10yFh0rhVN93ukdlNyboIPd/5ayhxnLYBdmbQLrjDGWUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775489862; c=relaxed/simple;
-	bh=trgx0SrQvYQd2nngBh4hc3KHxII4z5j1juLG5NRASmQ=;
+	s=arc-20240116; t=1775491752; c=relaxed/simple;
+	bh=ed7II0ObwxWjBKbVe/fCrXnK0q9Aq6GdXdPXUMMh3R8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Iu6+Fz+MnF/qbhxBfA0q3i/fs6Mn5ME8O2pQERkBPNI/AXtiwQBkMZQsjDo59Yc+lepQHWQ/9U+tTXxNfKMoC92bmHxTPwkqSKC05LdMvJgB6tIZYse/kosrF0wh7DmdbkIM8mNl7juhxxKgQwzFBmv05ODcvNx17TJmwRJennI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GR14fQSx; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=dWBXGg0GlfNdqtG/AmPw4ETaNxACrD6frc8haOeZKE6mrLn4XRYLP2JX512IhtQckIaekIVYkNx73bPH6/ew9t4NUvoRiW0aApfxaw85TxOw1+2348TChypjXUUnms4Gbz25n2SOZcbavekTFiAX8mXuw7S7GL8ncQitcgKLsEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TWKlIHeQ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GR14fQSx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FD41C4CEF7;
-	Mon,  6 Apr 2026 15:37:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TWKlIHeQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB9AFC4CEF7;
+	Mon,  6 Apr 2026 16:09:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775489861;
-	bh=trgx0SrQvYQd2nngBh4hc3KHxII4z5j1juLG5NRASmQ=;
+	s=k20201202; t=1775491752;
+	bh=ed7II0ObwxWjBKbVe/fCrXnK0q9Aq6GdXdPXUMMh3R8=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=GR14fQSxvsIM15o7/6sL9XZrVLRdS8fO03y8ZLCk447TwI/yk2AVpPRhsv4V+jO4n
-	 +Bdmk8NLOqPs4swI9ZO4mgrFhvAkFjw1oTFrt6zkrjt1czrPQEsZmX5ZfR4bLsKWDp
-	 LTo1MFB9rtAtkPy6b11VNoGVBFzxWbeyFuTDnWjsbPzBvYaRF2ZrhIWV/ZemTGwgFp
-	 F2eeaFbmM+sTWlK6kLTiB8UdBDGFIJbuwf3apyxiARAFWFeX24A8z7Oz+0ad8LC0Wf
-	 2Rb5k2eYt5r30QsWqd3HNI+mJEAd3f5NFwcmA/6wwu0QfGwkP00vcXbnkRp811O8L2
-	 3VeYUAZtI+cpg==
-Message-ID: <a310c4bc-0ebe-4caf-b784-e438c9460487@kernel.org>
-Date: Mon, 6 Apr 2026 16:37:37 +0100
+	b=TWKlIHeQtZzDQNcGz1g34T5V/iTr4mMr8+ZebfM1TlhULst44Qf+BaGzc3ugj5gXi
+	 1hGyeteza7wdjCV9us8urgP6BEcqukHlG2XtOUFFMXwBiLdNpGayCc4iJf1EfsvlM6
+	 FZAMmkXWDkH3jMf9SUe6ko4kTsKoxDJAtoAcNPqAiNIC4kgMhoV5bjsCsbRfbV9SkJ
+	 eI+ssatG7Hz1gF65Kd90C2YS5TQuwTElRA3E+5tzivqnd47dXjeyiqliTxI1Ni0rEJ
+	 dSP5roBLruOST2cVfQ+rn08AivzG15UlPuJvC2xSnG2mDiYHM/oYjWtlmaVfypuP3l
+	 jyziOFpFPDfdw==
+Message-ID: <8bd6abed-a317-416f-9301-f218ea766b1d@kernel.org>
+Date: Mon, 6 Apr 2026 18:09:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,40 +35,110 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I
- <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+Subject: Re: [PATCH 1/3] media: i2c: gc0310: fix probe error handling and
+ unwind resources properly
+To: Sanjay Chitroda <sanjayembeddedse@gmail.com>,
+ sakari.ailus@linux.intel.com, mchehab@kernel.org
+Cc: hverkuil+cisco@kernel.org, linux-media@vger.kernel.org,
  linux-kernel@vger.kernel.org
-References: <20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org>
- <20260326-x1e-csi2-phy-v5-2-0c0fc7f5c01b@linaro.org>
- <4A_In93EaOJI3pe3dV74CQmAmTe8rJkOYlMdGodO2l8jXQ6mPJdmnQ3VpfHRoduYhZdm0PpwNjm9sZHu-vjNug==@protonmail.internalid>
- <qrzaihfpujlhqeukp7wioqrqjbpih65smmieliixavzlev6las@odmnpbuc3wrm>
-Content-Language: en-US
-From: Bryan O'Donoghue <bod@kernel.org>
-In-Reply-To: <qrzaihfpujlhqeukp7wioqrqjbpih65smmieliixavzlev6las@odmnpbuc3wrm>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260401181657.654055-1-sanjayembedded@gmail.com>
+ <20260401181657.654055-2-sanjayembedded@gmail.com>
+ <38dc77ed-2427-44df-847d-4d41183e0df2@kernel.org>
+ <DB5F4EC4-0754-483E-B59A-595A565E628A@gmail.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <DB5F4EC4-0754-483E-B59A-595A565E628A@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 06/04/2026 15:28, Abel Vesa wrote:
->> +
->> +	for (i = 0; i < num_pds; i++) {
->> +		csi2phy->pds[i] = dev_pm_domain_attach_by_name(dev,
->> +							       csi2phy->soc_cfg->genpd_names[i]);
-> You need to do detach these on error, otherwise you get:
+Hi Sanjay,
+
+On 5-Apr-26 12:16, Sanjay Chitroda wrote:
 > 
->   sysfs: cannot create duplicate filename '/devices/genpd:0:acec000.phy'
->   CPU: 1 UID: 0 PID: 93 Comm: kworker/u49:2 Not tainted 7.0.0-rc6-00062-gd691cf9ea708 #12 PREEMPT
->   Hardware name: Dell Inc. XPS 13 9345/05H2K4, BIOS 2.11.0 09/21/2025
->   Workqueue: events_unbound deferred_probe_work_func
+> 
+> On 2 April 2026 12:36:33 am IST, Hans de Goede <hansg@kernel.org> wrote:
+>> Hi,
+>>
+>> On 1-Apr-26 20:16, Sanjay Chitroda wrote:
+>>> From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
+>>>
+>>> The GC0310 probe path currently performs error cleanup by jumping to a
+>>> common label that mirrors the driver's remove() callback. This is unsafe,
+>>> as remove() assumes that the subdevice has been fully registered with
+>>> the V4L2 framework, media and control resources have been initialized.
+>>
+>> That is simply not true, all functions called in remove() internally
+>> check if their init counter-part has succeeded and if not are a no-op.
+>>
+>> If you're aware of any specific calls in remove() where this is not
+>> the case, please explicitly describe these cases and describe an
+>> example exit-error path from probe() where things actually go wrong.
+>>
+> 
+> Hi Hans,
+> 
+> Thanks for the clarification - agreed, the remove helpers are defensively implemented and the existing code is not incorrect for a functional point. I should not have stated gc0310_remov() from a probe failure is unsafe.
+> 
+>>> Calling remove() from probe can result in unregistering or cleaning up
+>>> subdevice, leading to resource leaks and subtle lifecycle bugs.
+>>>
+>>> Rewrite the probe() error handling to unwind resources explicitly, using
+>>> fine‑grained goto labels along with appropriate error logs. Each failure
+>>> path now frees only successfully acquired resource, without remove().
+>>>
+>>> This aligns the driver with standard V4L2 sensor lifecycle expectations
+>>> and avoids incorrect teardown during probe failures.
+>>
+>> The rest of this reads very much like this was AI generated.
+>>
+>> Did you use AI to generate these patches ? If so please:
+>>
+>> Make sure you actually understand what the patch is doing and
+>> very yourself that it actually is correct, which in this case
+>> I believe it is not.
+>>
+>> Regards,
+>>
+>> Hans
+>>
+> 
+> Yes, I did use AI assistance to help draft the commit message, but the patch logic itself was written and reviewed by me. However, your feedback makes it clear that i did not sufficiently validate internals of existing remove() based cleanup.
+> 
+> 
+> I would like to propose commit message that align with change and existing kernel internals:
+> 
+> -------
+> media: i2c: gc0310: make probe error unwinding explicit
+> 
+> The gc0310 probe path unwinds failures by jumping to a single label remove-style cleanup.
+> 
+> Refactor the probe error handling so that resources are unwound explicitly and in reverse order of initialization using fine-grained goto labels.
+> 
+> This improves clarity and maintains symmetry with the probe initialization path.
+> 
+> No functional change intended.
+> -------
+> 
+> Kindly share your input on the same, according I will plan to resend v2 with an updated commit message as above.
 
-Yeah I noticed that myself, thanks for posting.
+The problem is that your patch makes the code more complicated.
 
----
-bod
+Since we know that gc0310_remove() is always safe to call
+the simplest and cleanest code is to simply keep calling
+gc0310_remove().
+
+If you plan to do a v2 of this series please drop this patch.
+
+Note I see no need for a v2. Patch 3/3 is good to have and
+v1 of that can be merged. The other 2 patches should be dropped.
+
+Regards,
+
+Hans
+
+
+
+
+> 
+>>
+
