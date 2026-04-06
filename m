@@ -1,234 +1,177 @@
-Received: from mail-oo1-f80.google.com (mail-oo1-f80.google.com [209.85.161.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E64311963
-	for <linux-media@vger.kernel.org>; Mon,  6 Apr 2026 20:04:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74F8939C63E;
+	Mon,  6 Apr 2026 20:15:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775505868; cv=none; b=ltCW5iuLHZoRla9Yjl0ssYATHSOlc6rlzo6EI8s5PDwR0sTuKA6C1tgd+q+GiJkg541/xwu/8LkUVJm62wUK2Xg8hwxfUZT+jBOEAsqZD6pKzHMzWtgNJFqCF6yonTBwNRXV2jxVr71Q3T5byGXfPpaZTjOAmRQCyqXseDlEzKc=
+	t=1775506521; cv=none; b=I+bD9XsOaP7dwDBtxM6FQMpbV0CekCh8tQxC398ifpAiZwZVY2lj5kANkRWKckAp4Ir7S8ijRvKFqRVNqJHXPdmEQPjla5wuF6Lgb3D/Tl6C2ud4JcUpnA8Lo+kxJdL/AjRKXdbIgDRXu6HVCJWxxtkxTnwV8DqoMYF6DLJFa18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775505868; c=relaxed/simple;
-	bh=Q3IF9LtoK5CiISJjYZR3IPfPs2OSbvwU/HxXHv4nT2U=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=XsgCXKGDs51f6QcNDn/Yi+XQGyqtQM6Zc/2bcdpzJuaQnBn9zLyknZqDsqa5Xd9JsHzCtSN+FpDdJdkEH1LLdl7UXC6wOH1ZBjOGok2ezbA9EPhYE5RDoIosVAUi27Z/Vvi/CV0yCZiI/wyvtT7ruatBkKyKWRWVW7A0cGFIIKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f80.google.com with SMTP id 006d021491bc7-67a1e063795so12618276eaf.1
-        for <linux-media@vger.kernel.org>; Mon, 06 Apr 2026 13:04:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775505865; x=1776110665;
-        h=to:from:subject:message-id:date:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=AA6tmpz0oO17jdG6+AAgEp8lIVjb3vtI3aNAWWVubf8=;
-        b=RLiQIez7rezHnu3HXr4BWN7+dJdqNI+D1EzVn5YozntbUMYF7iOl62ZjdBCLgytZWP
-         OZYipHVAXFCKHBOlsYGh8BlgEkdWLejNJ1NJwk0Pf+bdOs/RA1gfnWgEDs0V9vn68ZEr
-         5tyDUALY0ZJKna0aASPRzvOfTR7dJ10Mv4GE+fUSjFX4Qt9pFtpz6GyZyuw35NXRML5M
-         OMlfRSizpoRy4LIDN+MpHyZ3lJPThVPEwFWB67FyzKejCi5ZrDhTYd2ReyWi1ZKQsXhw
-         jN0RrFYm/66N5Ev2hgOxbrqZ7AjDG2CzmX0rtwClAM/4QPG0EtwYa7flXHUVsE8PFN2R
-         LORw==
-X-Forwarded-Encrypted: i=1; AJvYcCXntJQZ6ObtE/FO5CpNxYkrimu0SF4rwQ48UfS/Dw3V8PY23JjzAlisePuhpq5u8WBeVk/8xlyNVKtZMA==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyk/N/yG2wLxDeB6l6ifc/4RFjnHcY5ZaYnLG0sZhNombJ9sYND
-	CRk4hZS4kQuhcCMyXdk7eDIENHhJtpXkbJTkRTHpkoTLMOna7fCdBkXPF2U5m4i0+l51v0fmiT/
-	lOSWIipWdA7zHTZkQjtNy0IPmXDpi05wO4tAe3sVomulpnHA9usycQL9vZ/8=
+	s=arc-20240116; t=1775506521; c=relaxed/simple;
+	bh=slk4MNgaSC+kx7c2W231pz1R1uk/0PZTCyNeXo53Hek=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=KrTC8DGHCRCQfpir6uuEQx/cCXoUTX0q9h0x/nuUMz+s6GFKbKNsuci+CazKD8eMBykN8vvadjzpErxh/Ck7mIn1x2qYnsn0UbrbNZJS8NVkorqxdS6deCsBDnitssw933r0VzzeUYHx+ypHjgp9qhZNTuzx0TdR7nEZQHydxCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nMjq8TK2; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nMjq8TK2"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3480CC19425;
+	Mon,  6 Apr 2026 20:15:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775506521;
+	bh=slk4MNgaSC+kx7c2W231pz1R1uk/0PZTCyNeXo53Hek=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=nMjq8TK24j3D63dSO4imLTwT3pwAmhb60Ugm2mOs7ntNshQls6p5RZG4gae+PG0Zc
+	 3amAqPSDKhvw+DGuEdjUKhL0XX6295iNLWO8+5IQzWUnEwzJEjSKi9KRHpmdTxSqhc
+	 c5P2n+NgoB2roiYzadhAp63AibafVK6uKQ/1v4kZRPN34QL3A8dCtFS81XIiNQfeIy
+	 leCkMMmIWsE+aMjIJjOAjqRK6bNU/JW1eclG8rwJHrMaMQpUQL8FWw73/nfPHflNNX
+	 mcxoPjV4EhCN0GasxHJWWSB9PM/JYLBVk2oEEfaNNczCiHw1mZ/M+e+d2Uwtj+/UWM
+	 gV59807RTBRAg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CE4BF46C78;
+	Mon,  6 Apr 2026 20:15:21 +0000 (UTC)
+From: Dumitru Ceclan via B4 Relay <devnull+dumitru.ceclan.analog.com@kernel.org>
+Date: Mon, 06 Apr 2026 23:14:40 +0300
+Subject: [PATCH v10 01/22] media: mc: Add INTERNAL pad flag
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:55c9:10b0:67d:f215:e785 with SMTP id
- 006d021491bc7-680f7e96326mr5908842eaf.5.1775505865496; Mon, 06 Apr 2026
- 13:04:25 -0700 (PDT)
-Date: Mon, 06 Apr 2026 13:04:25 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <69d411c9.a70a0220.a26f2.003e.GAE@google.com>
-Subject: [syzbot] [media?] memory leak in vidtv_psi_short_event_desc_init
-From: syzbot <syzbot+afc686a471d70896c5d9@syzkaller.appspotmail.com>
-To: dwlsalmeida@gmail.com, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, mchehab@kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260406-gmsl2-3_serdes-v10-1-645560fedca5@analog.com>
+References: <20260406-gmsl2-3_serdes-v10-0-645560fedca5@analog.com>
+In-Reply-To: <20260406-gmsl2-3_serdes-v10-0-645560fedca5@analog.com>
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>, 
+ =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Cosmin Tanislav <cosmin.tanislav@analog.com>
+Cc: mitrutzceclan@gmail.com, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org, 
+ =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
+ Martin Hecht <Martin.Hecht@avnet.eu>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775506518; l=4211;
+ i=dumitru.ceclan@analog.com; s=20240313; h=from:subject:message-id;
+ bh=AreK0kDB/CS0mvU6CVYiJXYgsOXsG4rDStXAaRX8fng=;
+ b=+vIQLXVmK0Ie8XAN23rqnkTqkJO+5z+G1Q2Eg871gD5nkQ3ILglp2zgpZQy2noi7ZQyDponFo
+ CG2Smw1YPWtBL3kupQZmSmYlSNBfXcoxTtXki4gCs7mHVV3r2zGaPtI
+X-Developer-Key: i=dumitru.ceclan@analog.com; a=ed25519;
+ pk=HdqMlVyrcazwoiai7oN6ghU+Bj1pusGUFRl30jhS7Bo=
+X-Endpoint-Received: by B4 Relay for dumitru.ceclan@analog.com/20240313
+ with auth_id=140
+X-Original-From: Dumitru Ceclan <dumitru.ceclan@analog.com>
+Reply-To: dumitru.ceclan@analog.com
 
-Hello,
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-syzbot found the following issue on:
+Internal sink pads will be used as routing endpoints in V4L2 [GS]_ROUTING
+IOCTLs, to indicate that the stream begins in the entity. Internal sink
+pads are pads that have both SINK and INTERNAL flags set.
 
-HEAD commit:    591cd656a1bf Linux 7.0-rc7
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=11ca55da580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=e2bba615ee79faa5
-dashboard link: https://syzkaller.appspot.com/bug?extid=afc686a471d70896c5d9
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=127ad46a580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16cf33da580000
+Also prevent creating links to pads that have been flagged as internal and
+initialising SOURCE pads with INTERNAL flag set.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/6b8983945f60/disk-591cd656.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/a97f51ce06d9/vmlinux-591cd656.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/e945a74880b8/bzImage-591cd656.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+afc686a471d70896c5d9@syzkaller.appspotmail.com
-
-BUG: memory leak
-unreferenced object 0xffff8881145cb200 (size 64):
-  comm "syz.0.17", pid 6104, jiffies 4294941873
-  hex dump (first 32 bytes):
-    0b 4c 75 64 77 69 67 20 76 61 6e 20 42 65 65 74  .Ludwig van Beet
-    68 6f 76 65 6e 3a 20 46 fc 72 20 45 6c 69 73 65  hoven: F.r Elise
-  backtrace (crc 6d5386ce):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4543 [inline]
-    slab_alloc_node mm/slub.c:4866 [inline]
-    __do_kmalloc_node mm/slub.c:5259 [inline]
-    __kmalloc_node_track_caller_noprof+0x3e0/0x5d0 mm/slub.c:5368
-    __kmemdup_nul mm/util.c:64 [inline]
-    kstrdup+0x3c/0x80 mm/util.c:84
-    vidtv_psi_short_event_desc_init+0x1f0/0x220 drivers/media/test-drivers/vidtv/vidtv_psi.c:467
-    vidtv_channel_s302m_init+0x1c2/0x2a0 drivers/media/test-drivers/vidtv/vidtv_channel.c:124
-    vidtv_channels_init+0x1b/0x40 drivers/media/test-drivers/vidtv/vidtv_channel.c:524
-    vidtv_mux_init+0x372/0x390 drivers/media/test-drivers/vidtv/vidtv_mux.c:515
-    vidtv_start_streaming drivers/media/test-drivers/vidtv/vidtv_bridge.c:194 [inline]
-    vidtv_start_feed+0x1d4/0x260 drivers/media/test-drivers/vidtv/vidtv_bridge.c:239
-    dmx_ts_feed_start_filtering+0x8e/0x130 drivers/media/dvb-core/dvb_demux.c:747
-    dvb_dmxdev_start_feed+0x11c/0x170 drivers/media/dvb-core/dmxdev.c:658
-    dvb_dmxdev_filter_start+0xd8/0x440 drivers/media/dvb-core/dmxdev.c:769
-    dvb_demux_do_ioctl+0x297/0x7d0 drivers/media/dvb-core/dmxdev.c:1065
-    dvb_usercopy+0x116/0x2d0 drivers/media/dvb-core/dvbdev.c:996
-    dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1201
-    vfs_ioctl fs/ioctl.c:51 [inline]
-    __do_sys_ioctl fs/ioctl.c:597 [inline]
-    __se_sys_ioctl fs/ioctl.c:583 [inline]
-    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
-    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-    do_syscall_64+0xe2/0xf80 arch/x86/entry/syscall_64.c:94
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-BUG: memory leak
-unreferenced object 0xffff888127ff87a0 (size 32):
-  comm "syz.0.17", pid 6104, jiffies 4294941873
-  hex dump (first 32 bytes):
-    08 80 fd 80 1b e0 83 ff 27 81 88 ff ff 00 00 00  ........'.......
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-  backtrace (crc 52407852):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4543 [inline]
-    slab_alloc_node mm/slub.c:4866 [inline]
-    __kmalloc_cache_noprof+0x377/0x480 mm/slub.c:5375
-    kmalloc_noprof include/linux/slab.h:950 [inline]
-    kzalloc_noprof include/linux/slab.h:1188 [inline]
-    vidtv_psi_sdt_service_init+0x32/0xa0 drivers/media/test-drivers/vidtv/vidtv_psi.c:1441
-    vidtv_channel_sdt_serv_cat_into_new drivers/media/test-drivers/vidtv/vidtv_channel.c:229 [inline]
-    vidtv_channel_si_init+0x230/0x750 drivers/media/test-drivers/vidtv/vidtv_channel.c:435
-    vidtv_mux_init+0x115/0x390 drivers/media/test-drivers/vidtv/vidtv_mux.c:519
-    vidtv_start_streaming drivers/media/test-drivers/vidtv/vidtv_bridge.c:194 [inline]
-    vidtv_start_feed+0x1d4/0x260 drivers/media/test-drivers/vidtv/vidtv_bridge.c:239
-    dmx_ts_feed_start_filtering+0x8e/0x130 drivers/media/dvb-core/dvb_demux.c:747
-    dvb_dmxdev_start_feed+0x11c/0x170 drivers/media/dvb-core/dmxdev.c:658
-    dvb_dmxdev_filter_start+0xd8/0x440 drivers/media/dvb-core/dmxdev.c:769
-    dvb_demux_do_ioctl+0x297/0x7d0 drivers/media/dvb-core/dmxdev.c:1065
-    dvb_usercopy+0x116/0x2d0 drivers/media/dvb-core/dvbdev.c:996
-    dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1201
-    vfs_ioctl fs/ioctl.c:51 [inline]
-    __do_sys_ioctl fs/ioctl.c:597 [inline]
-    __se_sys_ioctl fs/ioctl.c:583 [inline]
-    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
-    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-    do_syscall_64+0xe2/0xf80 arch/x86/entry/syscall_64.c:94
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-BUG: memory leak
-unreferenced object 0xffff888127ff83e0 (size 32):
-  comm "syz.0.17", pid 6104, jiffies 4294941873
-  hex dump (first 32 bytes):
-    00 00 00 00 00 00 00 00 48 19 02 0c 50 85 36 11  ........H...P.6.
-    81 88 ff ff 0a b0 82 36 11 81 88 ff ff 00 00 00  .......6........
-  backtrace (crc e8912ca1):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4543 [inline]
-    slab_alloc_node mm/slub.c:4866 [inline]
-    __kmalloc_cache_noprof+0x377/0x480 mm/slub.c:5375
-    kmalloc_noprof include/linux/slab.h:950 [inline]
-    kzalloc_noprof include/linux/slab.h:1188 [inline]
-    vidtv_psi_service_desc_init+0x74/0x1b0 drivers/media/test-drivers/vidtv/vidtv_psi.c:288
-    vidtv_psi_desc_clone+0x137/0x160 drivers/media/test-drivers/vidtv/vidtv_psi.c:506
-    vidtv_channel_sdt_serv_cat_into_new drivers/media/test-drivers/vidtv/vidtv_channel.c:236 [inline]
-    vidtv_channel_si_init+0x1d8/0x750 drivers/media/test-drivers/vidtv/vidtv_channel.c:435
-    vidtv_mux_init+0x115/0x390 drivers/media/test-drivers/vidtv/vidtv_mux.c:519
-    vidtv_start_streaming drivers/media/test-drivers/vidtv/vidtv_bridge.c:194 [inline]
-    vidtv_start_feed+0x1d4/0x260 drivers/media/test-drivers/vidtv/vidtv_bridge.c:239
-    dmx_ts_feed_start_filtering+0x8e/0x130 drivers/media/dvb-core/dvb_demux.c:747
-    dvb_dmxdev_start_feed+0x11c/0x170 drivers/media/dvb-core/dmxdev.c:658
-    dvb_dmxdev_filter_start+0xd8/0x440 drivers/media/dvb-core/dmxdev.c:769
-    dvb_demux_do_ioctl+0x297/0x7d0 drivers/media/dvb-core/dmxdev.c:1065
-    dvb_usercopy+0x116/0x2d0 drivers/media/dvb-core/dvbdev.c:996
-    dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1201
-    vfs_ioctl fs/ioctl.c:51 [inline]
-    __do_sys_ioctl fs/ioctl.c:597 [inline]
-    __se_sys_ioctl fs/ioctl.c:583 [inline]
-    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
-    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-    do_syscall_64+0xe2/0xf80 arch/x86/entry/syscall_64.c:94
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-BUG: memory leak
-unreferenced object 0xffff888127ff81a0 (size 32):
-  comm "syz.0.17", pid 6104, jiffies 4294941873
-  hex dump (first 32 bytes):
-    00 01 ee d0 18 00 00 23 59 59 80 8d 80 b0 6f 14  .......#YY....o.
-    81 88 ff ff 00 00 00 00 00 00 00 00 00 00 00 00  ................
-  backtrace (crc 79354a12):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4543 [inline]
-    slab_alloc_node mm/slub.c:4866 [inline]
-    __kmalloc_cache_noprof+0x377/0x480 mm/slub.c:5375
-    kmalloc_noprof include/linux/slab.h:950 [inline]
-    kzalloc_noprof include/linux/slab.h:1188 [inline]
-    vidtv_psi_eit_event_init+0x6d/0x1b0 drivers/media/test-drivers/vidtv/vidtv_psi.c:1983
-    vidtv_channel_eit_event_cat_into_new drivers/media/test-drivers/vidtv/vidtv_channel.c:182 [inline]
-    vidtv_channel_si_init+0x31b/0x750 drivers/media/test-drivers/vidtv/vidtv_channel.c:439
-    vidtv_mux_init+0x115/0x390 drivers/media/test-drivers/vidtv/vidtv_mux.c:519
-    vidtv_start_streaming drivers/media/test-drivers/vidtv/vidtv_bridge.c:194 [inline]
-    vidtv_start_feed+0x1d4/0x260 drivers/media/test-drivers/vidtv/vidtv_bridge.c:239
-    dmx_ts_feed_start_filtering+0x8e/0x130 drivers/media/dvb-core/dvb_demux.c:747
-    dvb_dmxdev_start_feed+0x11c/0x170 drivers/media/dvb-core/dmxdev.c:658
-    dvb_dmxdev_filter_start+0xd8/0x440 drivers/media/dvb-core/dmxdev.c:769
-    dvb_demux_do_ioctl+0x297/0x7d0 drivers/media/dvb-core/dmxdev.c:1065
-    dvb_usercopy+0x116/0x2d0 drivers/media/dvb-core/dvbdev.c:996
-    dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1201
-    vfs_ioctl fs/ioctl.c:51 [inline]
-    __do_sys_ioctl fs/ioctl.c:597 [inline]
-    __se_sys_ioctl fs/ioctl.c:583 [inline]
-    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
-    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-    do_syscall_64+0xe2/0xf80 arch/x86/entry/syscall_64.c:94
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
-
-
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ .../userspace-api/media/mediactl/media-types.rst          |  9 +++++++++
+ drivers/media/mc/mc-entity.c                              | 15 ++++++++++++---
+ include/uapi/linux/media.h                                |  1 +
+ 3 files changed, 22 insertions(+), 3 deletions(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/Documentation/userspace-api/media/mediactl/media-types.rst b/Documentation/userspace-api/media/mediactl/media-types.rst
+index 6332e8395263..200c37a1da26 100644
+--- a/Documentation/userspace-api/media/mediactl/media-types.rst
++++ b/Documentation/userspace-api/media/mediactl/media-types.rst
+@@ -361,6 +361,7 @@ Types and flags used to represent the media graph elements
+ .. _MEDIA-PAD-FL-SINK:
+ .. _MEDIA-PAD-FL-SOURCE:
+ .. _MEDIA-PAD-FL-MUST-CONNECT:
++.. _MEDIA-PAD-FL-INTERNAL:
+ 
+ .. flat-table:: Media pad flags
+     :header-rows:  0
+@@ -381,6 +382,14 @@ Types and flags used to represent the media graph elements
+ 	  enabled links even when this flag isn't set; the absence of the flag
+ 	  doesn't imply there is none.
+ 
++    *  -  ``MEDIA_PAD_FL_INTERNAL``
++       -  The internal flag indicates an internal pad that has no external
++	  connections. As they are internal to entities, internal pads shall not
++	  be connected with links.
++
++	  The internal flag may currently be present only in a sink pad where it
++	  indicates that the :ref:``stream <media-glossary-stream>`` originates
++	  from within the entity.
+ 
+ One and only one of ``MEDIA_PAD_FL_SINK`` and ``MEDIA_PAD_FL_SOURCE``
+ must be set for every pad.
+diff --git a/drivers/media/mc/mc-entity.c b/drivers/media/mc/mc-entity.c
+index 9519a537bfa2..df20356fa98b 100644
+--- a/drivers/media/mc/mc-entity.c
++++ b/drivers/media/mc/mc-entity.c
+@@ -209,11 +209,16 @@ int media_entity_pads_init(struct media_entity *entity, u16 num_pads,
+ 		mutex_lock(&mdev->graph_mutex);
+ 
+ 	media_entity_for_each_pad(entity, iter) {
++		const u32 pad_flags = iter->flags & (MEDIA_PAD_FL_SINK |
++						     MEDIA_PAD_FL_SOURCE |
++						     MEDIA_PAD_FL_INTERNAL);
++
+ 		iter->entity = entity;
+ 		iter->index = i++;
+ 
+-		if (hweight32(iter->flags & (MEDIA_PAD_FL_SINK |
+-					     MEDIA_PAD_FL_SOURCE)) != 1) {
++		if (pad_flags != MEDIA_PAD_FL_SINK &&
++		    pad_flags != (MEDIA_PAD_FL_SINK | MEDIA_PAD_FL_INTERNAL) &&
++		    pad_flags != MEDIA_PAD_FL_SOURCE) {
+ 			ret = -EINVAL;
+ 			break;
+ 		}
+@@ -1118,7 +1123,8 @@ int media_get_pad_index(struct media_entity *entity, u32 pad_type,
+ 
+ 	for (i = 0; i < entity->num_pads; i++) {
+ 		if ((entity->pads[i].flags &
+-		     (MEDIA_PAD_FL_SINK | MEDIA_PAD_FL_SOURCE)) != pad_type)
++		     (MEDIA_PAD_FL_SINK | MEDIA_PAD_FL_SOURCE |
++		      MEDIA_PAD_FL_INTERNAL)) != pad_type)
+ 			continue;
+ 
+ 		if (entity->pads[i].sig_type == sig_type)
+@@ -1148,6 +1154,9 @@ media_create_pad_link(struct media_entity *source, u16 source_pad,
+ 		return -EINVAL;
+ 	if (WARN_ON(!(sink->pads[sink_pad].flags & MEDIA_PAD_FL_SINK)))
+ 		return -EINVAL;
++	if (WARN_ON(source->pads[source_pad].flags & MEDIA_PAD_FL_INTERNAL) ||
++	    WARN_ON(sink->pads[sink_pad].flags & MEDIA_PAD_FL_INTERNAL))
++		return -EINVAL;
+ 
+ 	link = media_add_link(&source->links);
+ 	if (link == NULL)
+diff --git a/include/uapi/linux/media.h b/include/uapi/linux/media.h
+index 1c80b1d6bbaf..80cfd12a43fc 100644
+--- a/include/uapi/linux/media.h
++++ b/include/uapi/linux/media.h
+@@ -208,6 +208,7 @@ struct media_entity_desc {
+ #define MEDIA_PAD_FL_SINK			(1U << 0)
+ #define MEDIA_PAD_FL_SOURCE			(1U << 1)
+ #define MEDIA_PAD_FL_MUST_CONNECT		(1U << 2)
++#define MEDIA_PAD_FL_INTERNAL			(1U << 3)
+ 
+ struct media_pad_desc {
+ 	__u32 entity;		/* entity ID */
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+-- 
+2.51.0
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
