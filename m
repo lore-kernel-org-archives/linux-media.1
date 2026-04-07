@@ -1,102 +1,91 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C37F33E34B;
-	Tue,  7 Apr 2026 15:12:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C003434751F;
+	Tue,  7 Apr 2026 18:10:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775574736; cv=none; b=IoZyngfIfvMfJJm8FnrRA1tXxgoESFf6KPB57UMNiSQgf/axgUZAmzORYAWHO6k74FZag6C6NP676576bVypoQc+zdIU4lRPcyb56Y+cKz0UwGNG5ZVYXwS2nZNSqpc8k3ghBgu8wF4BT59/eoKc7Ofn0DW4wVmPVPAhyYwfYCA=
+	t=1775585416; cv=none; b=UNJ5XcyxulQzRDDWTXNUmEeTaflmywCISrmXn3SEa7dvnB1v2Twf2blHlNxS7WDF+EVfsH8HY+8aDmpZQGsZFWPCr8FPmGatW/Zd2GPXHm7s4MLA3/jPrb2MskuHpJEs98JlXDteFWAOVNlABXb5P3sNKlvqo6G05DPOzDQy4S8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775574736; c=relaxed/simple;
-	bh=ksaPGYZ9IDzRDhhhQbnkR90C6+w3bzomRLvdju5WGHo=;
+	s=arc-20240116; t=1775585416; c=relaxed/simple;
+	bh=9fjuIFhmUoz+pTrO13nFTJUB6S3fQXknIHSx7EgxRZI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CO3I0RXGepIDrCMNOI3fxaktiVHfdPRVVtBE3ebcbVdfl2zXuAdRRnVzUpiB234JH43a79DbU7AH5EUrptZiHVUJSqk/IsmtXrrUCYF8EC2u/j3z0OZmqEzvZqsfbDvUUOJBnAtKjR/CtH7ATzBIHlukw75ZAnrdHmfdKrzzepA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e2I7+TrM; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=speEUZK8AYpfqt0NA3tk0+08MhclHiERW8dAbqiU0Ljw+4s9I79K9E6C6P5yfrjFtUpsan6Mmt9TOw/GGm3+YJJj5eWOjVWKmDRj87vwBJy35KnAhH4lyP2OQsxCdX7a9t8u7pOKQVJSwl7Cqxh/98XT1zllOX9kE+a7GHiB3dI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dT8gTIpS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e2I7+TrM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775574736; x=1807110736;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ksaPGYZ9IDzRDhhhQbnkR90C6+w3bzomRLvdju5WGHo=;
-  b=e2I7+TrMGCoY8aPcoNCWNGNoBfS1P/kd+ReS3WJji/UijJ2YiOB2WoN7
-   hkSYQh1pTc0w7aXk8A6bvoX8AYeaQ0GHz5X2X0yqD40dNDm5IuaJY5WHE
-   tU1WXgxKUV+Rkeh9DGEdSwenscv06Ka+tpcVl1FpeZQx6VNumvs+KNGMb
-   rxiQNe4OpdabX4WPgNECPjGTd2vJ0BJ0ltDG9kb1Y634FRbzFv7iiLkvp
-   DtRLSCOV9QU00L/ToY/2wf00Aw/Ty5PXNe+IcXkBNu11cZ4ZC6d02ZM3O
-   c25oDY7W8byv/PiUWwi23jrdarhUm1ojJANIJ+D6s8BPA0RsWYYfFFM42
-   w==;
-X-CSE-ConnectionGUID: XLT1mF1QQtWekmnT5m6uJw==
-X-CSE-MsgGUID: Dl6f5YmQSXW8AD6mWrWqxQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="86833223"
-X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; 
-   d="scan'208";a="86833223"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Apr 2026 08:12:15 -0700
-X-CSE-ConnectionGUID: rk/XMJc1Q0uC4KoCJTZNJA==
-X-CSE-MsgGUID: cMVQU6sQSbaeXq+xPWqEPw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; 
-   d="scan'208";a="233070942"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.182])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Apr 2026 08:12:13 -0700
-Date: Tue, 7 Apr 2026 18:12:11 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: linux-staging@lists.linux.dev, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC] staging: media: atomisp: change copy_from_compatible to
- iov_iter
-Message-ID: <adUeywfiQzZ5JgEd@ashevche-desk.local>
-References: <CALoEA-wrnqUM_5hDGUL1xJi3crf64ApE7fUrb2_47xVzhBT35Q@mail.gmail.com>
- <adUddSgsIhsZ9WP3@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dT8gTIpS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DFCDC116C6;
+	Tue,  7 Apr 2026 18:10:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775585416;
+	bh=9fjuIFhmUoz+pTrO13nFTJUB6S3fQXknIHSx7EgxRZI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dT8gTIpSJ89F+AHfiGM46qYbQ39i+NWIhwAa8WarZjcopRFBIdCHC1IzpIlk0NiPO
+	 HeRXXpKvxuAFyEvqJfVGM2u6hrtFZ+BLucPGY0G8Ogdf6LJ2U41qTWY+gnAnPRt5MP
+	 tw5QouUWRBTt0c/3Or3/5I4/Ju2QV5jZmHtOS0aCp4dFhlR1Yn8lsEcXsK2MQru/Nq
+	 DWEfqvMe6RnBweQKFoQbOuYvoiqb7FkTvzf5HHn2BrtuDtJT2TSPi7MV8c20OczSrV
+	 crugcMLxlbegmrtvSFVc3yBYgDrnsXBBN9n0J5Et3ejufmxx/ygfrWxQWX2Ulnkipb
+	 gGokkkjHXJegg==
+Date: Tue, 7 Apr 2026 13:10:14 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Sven =?iso-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>
+Cc: Jacob Chen <jacob-chen@iotwrt.com>, devicetree@vger.kernel.org,
+	sebastian.reichel@collabora.com,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, kernel@pengutronix.de,
+	nicolas@ndufresne.ca, linux-media@vger.kernel.org
+Subject: Re: [PATCH v4 01/27] media: dt-bindings: media: rockchip-rga: add
+ rockchip,rk3588-rga3
+Message-ID: <177558541397.3220552.1652779778691249972.robh@kernel.org>
+References: <20260325-spu-rga3-v4-0-e90ec1c61354@pengutronix.de>
+ <20260325-spu-rga3-v4-1-e90ec1c61354@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <adUddSgsIhsZ9WP3@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260325-spu-rga3-v4-1-e90ec1c61354@pengutronix.de>
 
-On Tue, Apr 07, 2026 at 06:06:33PM +0300, Andy Shevchenko wrote:
-> On Tue, Apr 07, 2026 at 04:46:49PM +0200, Joshua Crofts wrote:
-> 
-> > I've had some spare time and looked at the copy_from_compatible function
-> > in pci/atomisp_cmd.c. You've recommended checking out the korg1212 driver
-> > and patch for adding iov_iter support. What I find strange is that the korg1212
-> > driver already expects to receive the userspace data in the form of iov_iter,
-> > meanwhile atomisp expects a from and to pointer along with a boolean
-> > whether it's coming from the kernel or userspace. My question is whether
-> > you meant this as a local fix where I'd use an iov_iter in the atomisp_cmd.c
-> > file (maybe separating the functions to user/kernel, since I don't
-> > really like the
-> > passing of the from_user boolean)
-> 
-> iov_iter has a type that implies the user or kernel buffer.
-> 
-> > or if you were hinting to a ground-up
-> > rebuild of the underlying atomisp architecture (which is definitely a tedious
-> > task, looking at the source code).
-> 
-> I believe the second (latter) option. The code has to be revisited to convert
-> using iov_iter and drop the custom code.
 
-FWIW, the core part of the sound change is here
-cf393babb37a ("ALSA: pcm: Add copy ops with iov_iter")
-
-> > Thanks for your time.
+On Wed, 25 Mar 2026 15:50:32 +0100, Sven Püschel wrote:
+> Add a new compatible for the RGA3 (Raster Graphic Acceleration 3)
+> peripheral found on the RK3588 SoC. Also specify an iommu property,
+> as the RGA3 contains the generic rockchip iommu. While other versions
+> also have an iommu, it's usually specific to them.
 > 
-> Thanks for looking into that!
+> The RK3588 contains one RGA2-Enhance core (also contained on the RK3399)
+> and two RGA3 cores. Both feature a similar functionality of scaling,
+> cropping and rotating of up to two input images into one output image.
+> Key differences of the RGA3 are:
+> 
+> - supports 10bit YUV output formats
+> - supports 8x8 tiles and FBCD as inputs and outputs
+> - supports BT2020 color space conversion
+> - max output resolution of (8192-64)x(8192-64)
+> - MMU can map up to 32G DDR RAM
+> - fully planar formats (3 planes) are not supported
+> - max scale up/down factor of 8 (RGA2 allows up to 16)
+> 
+> Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+> 
+> ---
+> 
+> Changed in v3/v4:
+> - Dropped Acked-by: Krzysztof Kozlowski due to the added iommus property
+>   and description adjustments.
+> ---
+>  Documentation/devicetree/bindings/media/rockchip-rga.yaml | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
 
--- 
-With Best Regards,
-Andy Shevchenko
-
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
