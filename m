@@ -1,127 +1,145 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9353AE185
-	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 14:43:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775659441; cv=pass; b=DnQe7/Jc8sfx4fFSX0VEW9RAfs0bYHr7NxHfqd7tYokG1aA2ILJ8Ag+g447GgjGuARlcA4GLsMh2lPcFWArqQYXiw6u2RucRtE1racxFdW18nA/BD0DqQcdnzTyKvOCJDdDRurFRhw0ro2WsZE7WIs2lbpRAkcux0LGuYqSsHxg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775659441; c=relaxed/simple;
-	bh=OOswY/Ipkijjre+mn0uarCeO5cEqMPLTrmpqvF3+54c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dGiaxcRsDbDos9YLVbokR0G1jpOz11V5rHgiSGI7sT7RKFmoVgj7GIgBjpDt7s0VM3bKrYYvZszkFW/iKzC5kj5FbuiYuY/ZGIHqnAc+JIpBcfIYpKD3u6uo8Y8/rLBOWt6W0hK6d6e51EfX1/J058HmeGE+tWL8NEpTLePMaZc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X53+jW4f; arc=pass smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C2B3D3D0E
+	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:39:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775662787; cv=none; b=qWjECQPfgYWOPj3v01jU5B0b19iZD9G5DEgYADeZKR/KG5ZRRwmvC715aK3qr20T4vmxRefDUVRad5yqp/V5zVjJ34ThxIj+ILvc3GqGqz0HK90+4N5aFPlBf6gp7wT9SUpPXVqIeDqRIOycYwhlF62v5yeN5X9Z1GGDhjLbALA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775662787; c=relaxed/simple;
+	bh=lt7bCPHbpYooKcYOEuDZsDHcs9l7wNzglDdc3ZkPHxg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NpeNaldkvcFtm9lvUT1HlabRIRORba7yD8r8g3HZyr0w11EztQiSsyx3CbYgyZ/S0VtOqMUZ+6CmHelK+r8ZIOl+nmSOX3cUXyl+S4Qt6Kvow5ftmdc0oymWBfJjMvCzKE3E+RUudmRUaCEvgfR1tUhzpWGdUsWhTYGN0phy7kw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bDnvvUGB; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X53+jW4f"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-488af9fdaa7so21267355e9.1
-        for <linux-media@vger.kernel.org>; Wed, 08 Apr 2026 07:43:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775659438; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Fntluk9PO0TVKAlnHlswYNWoMUwj9Sbk8Im/Q07GrSKRj/8fQjhoeOwAoFuWEVv058
-         W6jU+hWB7sc3bRAivEnQvFglyiukcPi9SLSOlTGo1vgSq4AimrCUAGkq7cnRJfkTqAye
-         FU7bcfOhrLOgUQ5skdKMNlrBQkcUFqiUsNrvqgiQL88SQUIeDfG34fXRhsW2RS746aM2
-         sNrSBtMKCpgOxbYOCW0gaZBkUWtadf40r2ehz0wTKK3QMPtgGgMpRIyBxVAHcGRUdZIZ
-         3Op8k1s7I0uuXP7qbu2QEDUyoKHFFT257IOgQ7s5SxzATbeKhJ7Yvf8Ttp1GrPktVZl4
-         ig7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=0czAAXyphBQaflwQueiStfy5GAXWQrSV//xTTHBsKyY=;
-        fh=IPy9cGRx0HOsAyXxsbplGjKlSkBbBYphqGkzYU8RAKY=;
-        b=epVZ862wPyqGePwFKalhRPFFEN7b5CYnzGJvJx83sA/+L/+oDLa8L6Si0nan7rR44s
-         ruSbp93M9wWU270Khb3ChMhm3KUOHhcupqqZpJe3UnEWH2qFIkCTrI/TwCJuTePQMfqL
-         OF92ARGa9ia6sr6bfnJ7sggYIgo2z/fcv2lgXrudTmyPuaYWyuwru47+IRAQvHeQphQv
-         XJd+unfFew1NXVfb6NaF/mBsLJNfa7naDCnDRGVA/yTigz+HSx+i6KAlIedp6wbRSkJW
-         dk2fwH1USXYzR/MCrhhgQNNgyKvjk/rY4UsEfOsJwgmyryNLxO+r+9LpgfA/pja0bzfx
-         Lmdg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775659438; x=1776264238; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=0czAAXyphBQaflwQueiStfy5GAXWQrSV//xTTHBsKyY=;
-        b=X53+jW4frHx8COiox+H4ymyUV7HHB/H143D/e0DUXPyFOOyQeoH4Sjtoq/tQ5EfgFP
-         DSj8/T/EYHLSbpD0cH+u2YPzAKAXhL253pZeSc2BlpDEGlFgI+VqCqxpkx7kMunAFezY
-         P6vz1pvaROhRvDVnryhjbiSYcbtsVhocOCXgW5hdKXlm3Ic3Nw7zXwakq7iInW6uO0nJ
-         xNQXkXJF6MJHaDgjsOJ10ATidpOFMLjrLYeEvQ2Tq5xJh+Z4atsWoRXIHrwmAcUfCY2m
-         HK1PToUF/LTFXUcBiWs+sUSg0l5r3PweWr8pHp3Gf/Q6lMxo8w4ryjOb/o+uXGnzIQV3
-         esIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775659438; x=1776264238;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0czAAXyphBQaflwQueiStfy5GAXWQrSV//xTTHBsKyY=;
-        b=jtcYUh9THMzz93e2xh56LKV9a6bd7o0Uiv/E+Flc2hWVWlBUkfz+O/vTtDTG/100+Y
-         SYRqzkNWVyALGtxteWENtzpjZejc8tT+gDxf/sZmqy23W92ypZM3xUMizQ1/bppjFsrr
-         iPMfdEoANKdBzX4lluSGjsewf6nJq/3V5GZPVbwL3SYjssCK9lTg55HRlC214cX6DD5N
-         ppliuLrhQmQGuf3iJAU6ur1zWli9jc/Wss3h3s/zzhWUZWMUB5uFGnv4iIwJV/fZJJXo
-         ms3ueFBktS3ETjs57uo3CVcd2xf6LgXAgs2jgwUelTipKO18kBdBntu8qEwIn8xeVy9c
-         Utyg==
-X-Forwarded-Encrypted: i=1; AJvYcCV4VRVUvskaT0fGMEhgNX72rBKoGif9E+8At2OZGz87zDIhCZnCbWcmbBZE9vgSowK/WxgTuGTfTW88GA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzjtdE+mIHI0jt2S8yE0640RT4NH+swIONBBMLEemJO65nabTA3
-	0WVwyszmDmqTp453OK2z/6R8rRgrT/dTvLe2jIYohrz9QUh+d69TJEOe+OZ+kH+bbQUkVmxd0xC
-	JboX6XCvf2dehbQvrqpzj8QnPwgJ2Vdg=
-X-Gm-Gg: AeBDiesLHrzvUIq3dsQnEGVHzpkcRoVzUPGEcDrILJDYmbsJ0oBTkx/TEeq4HOaIF9U
-	HNQsvTHA5tIfhHcTMns6BzPYDUWpUUUAW1Wum0TKIyRWNMgnQtWdwViQcV6xOsMUgeNGQwTZZeg
-	CMrPbkEExCBIi93Nf3x1koU/YO3vK3mPt8aW7e8G4n72nURJqU3AKkvHf6jbMi085emXVTraAR4
-	iEQHYZL61+gw8K1+oighyNAT6I4Zg2cLRf2W+zLq58Oijx3bXeRUyk+xyAR5e3KRdcUc4/+ppF/
-	QbD6JAkRPWLGt5v2MhUMM269NhM4RDsnD2sgSqzRwBLvOV6y9dGVaEYf1wEEaP7d48IOlH8Z3Wx
-	ZSgHpSbPNAkMDXUcvIrcA/F9uYA==
-X-Received: by 2002:a05:600c:638e:b0:483:6d4a:7e6d with SMTP id
- 5b1f17b1804b1-488997d4dbdmr298973535e9.30.1775659437790; Wed, 08 Apr 2026
- 07:43:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bDnvvUGB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1775662785; x=1807198785;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=lt7bCPHbpYooKcYOEuDZsDHcs9l7wNzglDdc3ZkPHxg=;
+  b=bDnvvUGBWtIVeeYSjU54j9VItixSVJFxkb+4YGG8B+Ady+eb0AGpWcsK
+   zYUWUlrQNWgEk4xwJ7kvOfAb2gGqLIQiQdqaZHSWCwszcCfH8NMd7mFE4
+   YR7MOVsgTl8OFKTRmJtxfAylJTUT4VAUhkcKaiTtYKA/Q1rmR9G68opP2
+   VJu5NCaNOdnGwhQ+iVvRbMgyHC43HdyHxpuq+mdu8Q6Lta/fMno2S6d8P
+   6+sHjtKQ9kZbpG6Ao6mlHXaqftemshudN9gAfwD0XEt6bRjP9Ni/yhKMR
+   TwKWJCAzZQS+gMNg66+B4uau7NhhJLijTjCB8h9cX043o1B0++EkxPj3p
+   g==;
+X-CSE-ConnectionGUID: fSk3v5vVRU61wtERwepeqw==
+X-CSE-MsgGUID: MtAw4rOxS9W/ws1nm+S/Fw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="80510265"
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
+   d="scan'208";a="80510265"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:39:43 -0700
+X-CSE-ConnectionGUID: R1ACDL6bSEeFjWZAnX/Z5g==
+X-CSE-MsgGUID: fYqSGGdtS/W06iY7Ylsclw==
+X-ExtLoop1: 1
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.104])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:39:37 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id CDC88121D19;
+	Wed, 08 Apr 2026 18:39:50 +0300 (EEST)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1wAV0F-000000044CY-1B43;
+	Wed, 08 Apr 2026 18:39:39 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-media@vger.kernel.org
+Cc: hans@jjverkuil.nl,
+	laurent.pinchart@ideasonboard.com,
+	Prabhakar <prabhakar.csengg@gmail.com>,
+	Kate Hsuan <hpa@redhat.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Tommaso Merciai <tomm.merciai@gmail.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Julien Massot <julien.massot@collabora.com>,
+	Naushir Patuck <naush@raspberrypi.com>,
+	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
+	"Cao, Bingbu" <bingbu.cao@intel.com>,
+	"Qiu, Tian Shu" <tian.shu.qiu@intel.com>,
+	Stefan Klug <stefan.klug@ideasonboard.com>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	=?UTF-8?q?Andr=C3=A9=20Apitzsch?= <git@apitzsch.eu>,
+	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Ricardo Ribalda Delgado <ribalda@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	David Plowman <david.plowman@raspberrypi.com>,
+	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
+	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Rishikesh Donadkar <r-donadkar@ti.com>
+Subject: [PATCH v4 04/29] media: imx219: Scale the vblank limits according to rate_factor
+Date: Wed,  8 Apr 2026 18:39:13 +0300
+Message-ID: <20260408153939.969381-5-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
+References: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <adUeywfiQzZ5JgEd@ashevche-desk.local> <20260408134612.1380-1-joshua.crofts1@gmail.com>
- <adZlX-5rx0jtIMpD@ashevche-desk.local> <adZmWZ0SXRhHPyQ9@ashevche-desk.local>
-In-Reply-To: <adZmWZ0SXRhHPyQ9@ashevche-desk.local>
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-Date: Wed, 8 Apr 2026 16:43:53 +0200
-X-Gm-Features: AQROBzA2gsi2sxeg_LLS0hIjZh4oCbfwJKIM_K4Q2Fbup6b8Hi9JApfFBX639V8
-Message-ID: <CALoEA-yJTdX8rBp9EJQ63cqBPziVO7X+RtQ1RacdupW-qy18NQ@mail.gmail.com>
-Subject: Re: [RFC] media: atomisp: change copy_from_compatible to iov_iter
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-staging@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 8 Apr 2026 at 16:29, Andy Shevchenko
-<andriy.shevchenko@intel.com> wrote:
->
-> > It doesn't change any architectural decision here. Basically you need to have
-> > s3a_output_bytes to be already iov_iter at this point. So, import_ubuf() has to
-> > happen somewhere else.
+The limits for vertical blanking (and frame length in pixels) is related
+to the properties of the hardware, it's not in half-line units the driver
+uses. Multiply the vertical blanking limits by the rate_factor to satisty
+hardware requirements.
 
-Yes, I know it's not an architectural change, more of a temporary
-band-aid for better pointer
-management, but fair, pointless for now.
+Fixes: f513997119f4 ("media: i2c: imx219: Scale the pixel rate for analog binning")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+---
+ drivers/media/i2c/imx219.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-> which suggests that iov_iter should be somewhere here, in the struct
-> atomisp_subdev_params. But you need to read much more code and get familiar
-> with this. I wouldn't expect any meaningful change by a few days, maybe by
-> a few weeks as this driver is quite complicated.
-
-I agree, the codebase is complicated, I definitely won't send any
-changes at the moment
-(unless they would be checkpatch.pl changes, which are low priority
-ofc). However, the
-iov_iter problem is intriguing and I'll surely spend some time working on it.
-
-> In any case, thanks into trying with this, will be very appreciated
-> when the task is logically finished.
-
-Not promising anything. Thanks for your response!
-
+diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+index 62a23541b1dc..6819a2fa3262 100644
+--- a/drivers/media/i2c/imx219.c
++++ b/drivers/media/i2c/imx219.c
+@@ -878,14 +878,17 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 	crop->top = (IMX219_NATIVE_HEIGHT - crop->height) / 2;
+ 
+ 	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
++		unsigned int rate_factor = imx219_get_rate_factor(state);
+ 		int exposure_max;
+ 		int exposure_def;
+ 		int llp_min;
+ 		int pixel_rate;
+ 
+ 		/* Update limits and set FPS to default */
+-		ret = __v4l2_ctrl_modify_range(imx219->vblank, IMX219_VBLANK_MIN,
+-					       IMX219_FLL_MAX - mode->height, 1,
++		ret = __v4l2_ctrl_modify_range(imx219->vblank,
++					       IMX219_VBLANK_MIN * rate_factor,
++					       (IMX219_FLL_MAX - mode->height) *
++					       rate_factor, rate_factor,
+ 					       mode->fll_def - mode->height);
+ 		if (ret)
+ 			return ret;
+@@ -928,8 +931,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 			return ret;
+ 
+ 		/* Scale the pixel rate based on the mode specific factor */
+-		pixel_rate = imx219_get_pixel_rate(imx219) *
+-			     imx219_get_rate_factor(state);
++		pixel_rate = imx219_get_pixel_rate(imx219) * rate_factor;
+ 		ret = __v4l2_ctrl_modify_range(imx219->pixel_rate, pixel_rate,
+ 					       pixel_rate, 1, pixel_rate);
+ 		if (ret)
 -- 
-Kind regards
+2.47.3
 
-CJD
