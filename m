@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A539E3D75C9
-	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:40:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E19F3D6CC3
+	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:40:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775662832; cv=none; b=HjTBM1pqaVShjnmGdu6a6UdSmV+8JIKfe3ylQzs3p9iU/J6IHk2uw6n/cLCV2XM8F28dPBHhsRuANAVRFpAdglqCuX0/HvVzw+EoAoDgv+HFeJdtJSJLUG89ZWeji22K6KtjZXLsjdkW6dhV32HJOHFLEROPJj6ro4Cne5hYymA=
+	t=1775662835; cv=none; b=g/LKrv0nS6oE81AMMDbYZtgj2UM8LvK9xblXvNk/7/gZThZIl7+swqtnTIJVyyUujXbighgDEwB0PY1BT6hDzeWXUMkrWJT+c7ZBDu8rET0ftQnotlDTb7LlHSW+k7daIYM2YrwRyUWmYMEkrJFAuB6USD2wWgs/qGnPz6B+wh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775662832; c=relaxed/simple;
-	bh=7ABJ2Ki7srfiQp3SqKRcsqAxLFiZ+S9j+uwF6+JAoPg=;
+	s=arc-20240116; t=1775662835; c=relaxed/simple;
+	bh=vHZtsQrbllUZ3cvw+Q8ExaK1SemsHbQ4fzHkMIJId9I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ge8ck9kZHqTg5tOWIPiWbktRxZSD2poATgMWVkOfYpsBRQNVoeJsizOQ0HuF73h7IlxoH8buttLHlnaBkNHyy3xPl//Pj6fOG/ozpe38kTz1LtWtqlScClz0I58Lf9MJQqrGQRvQ1QsDrGZ48EdDCRMR9JtdA77WOWwkIQgAjv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PsupchRc; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=G7d1qozSU6yB562CctN/qRstVHSq3agYE0f0ALIo5cnTqvV3f9ICN3zlicxVOkrDOXcqFmg0UgiR4iCmwrYA+Qy3GMOQFUIi2RHvWYbS3ErFvnib0SDND+CabqBp5gQfnkM5z93aERYGwRW5JEroYhT64O6crnymn4gYIpaOsec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GJpxJiFw; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PsupchRc"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GJpxJiFw"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775662829; x=1807198829;
+  t=1775662830; x=1807198830;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=7ABJ2Ki7srfiQp3SqKRcsqAxLFiZ+S9j+uwF6+JAoPg=;
-  b=PsupchRchfrRLf1LZYnd85I5JrQ8LF8eEKuiS7R0vk/C7Du3T2Ea07mf
-   IGdSEtuCF2ycX2BLcpJEarq6npo9H7UifG3LXEGumqZUIiNPtXZvbBJ1Y
-   ghYm8h6rZqY72OkcU8QZwkLALVdhW/kajW1qxhlrQoixB+0AYXD9r1fLp
-   T06s29V1SUuf1ZC79S39Wtu9KIPE55zB4EqlU/OxzbhgxG2kge1zwQ/Lh
-   XUQ2mTKYdoyw8KQmKgE9FjpVq3HUAl2x/oYxkQ3r97gfhwNHZesQEsPL6
-   NnaYjaVG+8lEh1ccoY51En76g32AAP2gLoSoA0MaDunx73MDKVUvSiD9h
-   Q==;
-X-CSE-ConnectionGUID: qXJuxHitRW+ysvnNlennUg==
-X-CSE-MsgGUID: QQzZ5/1QRDO2GJvhxkn7YA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038555"
+  bh=vHZtsQrbllUZ3cvw+Q8ExaK1SemsHbQ4fzHkMIJId9I=;
+  b=GJpxJiFwWoAsi23RIcN7AhcgR/xeZE9ymKHuri/aXN766Wd5z4ztm5pC
+   xJILWTksXQl2HiVG8L/7XDGIAtJBnrNU8r8vspXHo+bGYDZEkf7NF9gLj
+   4E7gYkkdVQMrwZsp11b7pzVotPg69Ka0COQCOHKF7rkTg6teX6uG9Tsvs
+   ygr+3AZ59VCS0cyvPl0Gk0Vw8tcjQnDjPZVw8FiEFUShQg3cumHNXCGEH
+   CKHbWrR50mFdJ7M3A6RDuI5qHhdb5ERYce+Ll7foCJP4ECRnsSV+j4c5k
+   Zq4ZMtZ/Oca20KVshshhBjrQYhF3F+RlrGOmRGdAaZPjdvSgghQdE3ZAU
+   w==;
+X-CSE-ConnectionGUID: PM9uvUImSomO7z+xpJTpOw==
+X-CSE-MsgGUID: QkwQQLflRSSym9W667mBdw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038569"
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="94038555"
+   d="scan'208";a="94038569"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:40:02 -0700
-X-CSE-ConnectionGUID: rPJV3lA7R+mDaitE6ikKPg==
-X-CSE-MsgGUID: Vq+xiRvAQgO3zO6WUA1cTw==
+X-CSE-ConnectionGUID: qB1T7ySJRk2UvMneOTrseQ==
+X-CSE-MsgGUID: MqAbSQFgTiCy1b9q5Yg+oA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="223740404"
+   d="scan'208";a="223740405"
 Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.104])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:39:54 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 4CC65122125;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 4A2CA122122;
 	Wed, 08 Apr 2026 18:39:51 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAV0F-000000044Dy-34B8;
+	id 1wAV0F-000000044Du-2yEB;
 	Wed, 08 Apr 2026 18:39:39 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -82,9 +82,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v4 26/29] media: v4l2-subdev: Add struct v4l2_subdev_client_info pointer to pad ops
-Date: Wed,  8 Apr 2026 18:39:35 +0300
-Message-ID: <20260408153939.969381-27-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 25/29] media: v4l2-subdev: Move subdev client capabilities into a new struct
+Date: Wed,  8 Apr 2026 18:39:34 +0300
+Message-ID: <20260408153939.969381-26-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
 References: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
@@ -96,247 +96,98 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a pointer to const struct v4l2_subdev_client_info to the get_fmt,
-set_fmt, get_selection and set_selection sub-device pad ops. The client
-info struct will soon be used to differentiate UAPI based on client
-capabilities.
+Add struct v4l2_subdev_client_info to hold sub-device client capability
+bits that used to be stored in the client_caps field of struct
+v4l2_subdev_fh. The intent is to enable passing this struct to sub-device
+pad operation callbacks for capability information. The main reason why
+this is a new struct instead of a u64 field is that modifying the callback
+arguments requires touching almost every sub-device driver and that is
+desirable to avoid in the future, should more than the client capability bits
+need to be known to the callbacks.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
 ---
- drivers/media/v4l2-core/v4l2-subdev.c | 72 +++++++++++++++++++--------
- include/media/v4l2-subdev.h           |  9 +++-
- 2 files changed, 60 insertions(+), 21 deletions(-)
+ drivers/media/v4l2-core/v4l2-subdev.c |  8 ++++----
+ include/media/v4l2-subdev.h           | 12 ++++++++++--
+ 2 files changed, 14 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-index eaa408832c6b..7723e37a0ff5 100644
+index 40b28e070726..eaa408832c6b 100644
 --- a/drivers/media/v4l2-core/v4l2-subdev.c
 +++ b/drivers/media/v4l2-core/v4l2-subdev.c
-@@ -246,19 +246,21 @@ static inline int check_format(struct v4l2_subdev *sd,
- }
+@@ -612,7 +612,7 @@ subdev_ioctl_get_state(struct v4l2_subdev *sd, struct v4l2_subdev_fh *subdev_fh,
+ 	case VIDIOC_SUBDEV_S_FRAME_INTERVAL: {
+ 		struct v4l2_subdev_frame_interval *fi = arg;
  
- static int call_get_fmt(struct v4l2_subdev *sd,
-+			const struct v4l2_subdev_client_info *ci,
- 			struct v4l2_subdev_state *state,
- 			struct v4l2_subdev_format *format)
- {
- 	return check_format(sd, state, format) ? :
--	       sd->ops->pad->get_fmt(sd, state, format);
-+		sd->ops->pad->get_fmt(sd, ci, state, format);
- }
+-		if (!(subdev_fh->client_caps &
++		if (!(subdev_fh->ci.client_caps &
+ 		      V4L2_SUBDEV_CLIENT_CAP_INTERVAL_USES_WHICH))
+ 			fi->which = V4L2_SUBDEV_FORMAT_ACTIVE;
  
- static int call_set_fmt(struct v4l2_subdev *sd,
-+			const struct v4l2_subdev_client_info *ci,
- 			struct v4l2_subdev_state *state,
- 			struct v4l2_subdev_format *format)
- {
- 	return check_format(sd, state, format) ? :
--	       sd->ops->pad->set_fmt(sd, state, format);
-+		sd->ops->pad->set_fmt(sd, ci, state, format);
- }
+@@ -652,7 +652,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 	struct v4l2_subdev_fh *subdev_fh = to_v4l2_subdev_fh(vfh);
+ 	bool ro_subdev = test_bit(V4L2_FL_SUBDEV_RO_DEVNODE, &vdev->flags);
+ 	bool streams_subdev = sd->flags & V4L2_SUBDEV_FL_STREAMS;
+-	bool client_supports_streams = subdev_fh->client_caps &
++	bool client_supports_streams = subdev_fh->ci.client_caps &
+ 				       V4L2_SUBDEV_CLIENT_CAP_STREAMS;
+ 	int rval;
  
- static int call_enum_mbus_code(struct v4l2_subdev *sd,
-@@ -309,19 +311,21 @@ static inline int check_selection(struct v4l2_subdev *sd,
- }
+@@ -1119,7 +1119,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 	case VIDIOC_SUBDEV_G_CLIENT_CAP: {
+ 		struct v4l2_subdev_client_capability *client_cap = arg;
  
- static int call_get_selection(struct v4l2_subdev *sd,
-+			      const struct v4l2_subdev_client_info *ci,
- 			      struct v4l2_subdev_state *state,
- 			      struct v4l2_subdev_selection *sel)
- {
- 	return check_selection(sd, state, sel) ? :
--	       sd->ops->pad->get_selection(sd, state, sel);
-+		sd->ops->pad->get_selection(sd, ci, state, sel);
- }
+-		client_cap->capabilities = subdev_fh->client_caps;
++		client_cap->capabilities = subdev_fh->ci.client_caps;
  
- static int call_set_selection(struct v4l2_subdev *sd,
-+			      const struct v4l2_subdev_client_info *ci,
- 			      struct v4l2_subdev_state *state,
- 			      struct v4l2_subdev_selection *sel)
- {
- 	return check_selection(sd, state, sel) ? :
--	       sd->ops->pad->set_selection(sd, state, sel);
-+		sd->ops->pad->set_selection(sd, ci, state, sel);
- }
- 
- static inline int check_frame_interval(struct v4l2_subdev *sd,
-@@ -524,6 +528,21 @@ static int call_s_stream(struct v4l2_subdev *sd, int enable)
- 			v4l2_subdev_unlock_state(state);                   \
- 		return ret;                                                \
+ 		return 0;
  	}
-+#define DEFINE_CI_STATE_WRAPPER(f, arg_type)                               \
-+	static int call_##f##_state(struct v4l2_subdev *sd,		   \
-+				    const struct v4l2_subdev_client_info *ci, \
-+				    struct v4l2_subdev_state *_state,      \
-+				    arg_type *arg) \
-+	{                                                                  \
-+		struct v4l2_subdev_state *state = _state;                  \
-+		int ret;                                                   \
-+		if (!_state)                                               \
-+			state = v4l2_subdev_lock_and_get_active_state(sd); \
-+		ret = call_##f(sd, ci, state, arg);			   \
-+		if (!_state && state)                                      \
-+			v4l2_subdev_unlock_state(state);                   \
-+		return ret;                                                \
-+	}
+@@ -1139,7 +1139,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 		client_cap->capabilities &= (V4L2_SUBDEV_CLIENT_CAP_STREAMS |
+ 					     V4L2_SUBDEV_CLIENT_CAP_INTERVAL_USES_WHICH);
  
- #else /* CONFIG_MEDIA_CONTROLLER */
+-		subdev_fh->client_caps = client_cap->capabilities;
++		subdev_fh->ci.client_caps = client_cap->capabilities;
  
-@@ -535,15 +554,24 @@ static int call_s_stream(struct v4l2_subdev *sd, int enable)
- 		return call_##f(sd, state, arg);                     \
+ 		return 0;
  	}
- 
-+#define DEFINE_CI_STATE_WRAPPER(f, arg_type)                            \
-+	static int call_##f##_state(struct v4l2_subdev *sd,          \
-+				    const struct v4l2_subdev_client_info *ci, \
-+				    struct v4l2_subdev_state *state, \
-+				    arg_type *arg)                   \
-+	{                                                            \
-+		return call_##f(sd, ci, state, arg);		     \
-+	}
-+
- #endif /* CONFIG_MEDIA_CONTROLLER */
- 
--DEFINE_STATE_WRAPPER(get_fmt, struct v4l2_subdev_format);
--DEFINE_STATE_WRAPPER(set_fmt, struct v4l2_subdev_format);
-+DEFINE_CI_STATE_WRAPPER(get_fmt, struct v4l2_subdev_format);
-+DEFINE_CI_STATE_WRAPPER(set_fmt, struct v4l2_subdev_format);
- DEFINE_STATE_WRAPPER(enum_mbus_code, struct v4l2_subdev_mbus_code_enum);
- DEFINE_STATE_WRAPPER(enum_frame_size, struct v4l2_subdev_frame_size_enum);
- DEFINE_STATE_WRAPPER(enum_frame_interval, struct v4l2_subdev_frame_interval_enum);
--DEFINE_STATE_WRAPPER(get_selection, struct v4l2_subdev_selection);
--DEFINE_STATE_WRAPPER(set_selection, struct v4l2_subdev_selection);
-+DEFINE_CI_STATE_WRAPPER(get_selection, struct v4l2_subdev_selection);
-+DEFINE_CI_STATE_WRAPPER(set_selection, struct v4l2_subdev_selection);
- 
- static const struct v4l2_subdev_pad_ops v4l2_subdev_call_pad_wrappers = {
- 	.get_fmt		= call_get_fmt_state,
-@@ -805,7 +833,8 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
- 
- 		memset(format->reserved, 0, sizeof(format->reserved));
- 		memset(format->format.reserved, 0, sizeof(format->format.reserved));
--		return v4l2_subdev_call(sd, pad, get_fmt, state, format);
-+		return v4l2_subdev_call(sd, pad, get_fmt, &subdev_fh->ci, state,
-+					format);
- 	}
- 
- 	case VIDIOC_SUBDEV_S_FMT: {
-@@ -819,7 +848,8 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
- 
- 		memset(format->reserved, 0, sizeof(format->reserved));
- 		memset(format->format.reserved, 0, sizeof(format->format.reserved));
--		return v4l2_subdev_call(sd, pad, set_fmt, state, format);
-+		return v4l2_subdev_call(sd, pad, set_fmt, &subdev_fh->ci, state,
-+					format);
- 	}
- 
- 	case VIDIOC_SUBDEV_G_CROP: {
-@@ -836,8 +866,8 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
- 		sel.stream = crop->stream;
- 		sel.target = V4L2_SEL_TGT_CROP;
- 
--		rval = v4l2_subdev_call(
--			sd, pad, get_selection, state, &sel);
-+		rval = v4l2_subdev_call(sd, pad, get_selection, &subdev_fh->ci,
-+					state, &sel);
- 
- 		crop->rect = sel.r;
- 
-@@ -862,8 +892,8 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
- 		sel.target = V4L2_SEL_TGT_CROP;
- 		sel.r = crop->rect;
- 
--		rval = v4l2_subdev_call(
--			sd, pad, set_selection, state, &sel);
-+		rval = v4l2_subdev_call(sd, pad, set_selection, &subdev_fh->ci,
-+					state, &sel);
- 
- 		crop->rect = sel.r;
- 
-@@ -933,8 +963,8 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
- 			sel->stream = 0;
- 
- 		memset(sel->reserved, 0, sizeof(sel->reserved));
--		return v4l2_subdev_call(
--			sd, pad, get_selection, state, sel);
-+		return v4l2_subdev_call(sd, pad, get_selection, &subdev_fh->ci,
-+					state, sel);
- 	}
- 
- 	case VIDIOC_SUBDEV_S_SELECTION: {
-@@ -947,8 +977,8 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
- 			sel->stream = 0;
- 
- 		memset(sel->reserved, 0, sizeof(sel->reserved));
--		return v4l2_subdev_call(
--			sd, pad, set_selection, state, sel);
-+		return v4l2_subdev_call(sd, pad, set_selection, &subdev_fh->ci,
-+					state, sel);
- 	}
- 
- 	case VIDIOC_G_EDID: {
-@@ -1343,7 +1373,7 @@ v4l2_subdev_link_validate_get_format(struct media_pad *pad, u32 stream,
- 	else
- 		state = v4l2_subdev_lock_and_get_active_state(sd);
- 
--	ret = v4l2_subdev_call(sd, pad, get_fmt, state, fmt);
-+	ret = v4l2_subdev_call(sd, pad, get_fmt, NULL, state, fmt);
- 
- 	if (!states_locked && state)
- 		v4l2_subdev_unlock_state(state);
-@@ -1924,7 +1954,9 @@ v4l2_subdev_init_stream_configs(struct v4l2_subdev_stream_configs *stream_config
- 	return 0;
- }
- 
--int v4l2_subdev_get_fmt(struct v4l2_subdev *sd, struct v4l2_subdev_state *state,
-+int v4l2_subdev_get_fmt(struct v4l2_subdev *sd,
-+			const struct v4l2_subdev_client_info *ci,
-+			struct v4l2_subdev_state *state,
- 			struct v4l2_subdev_format *format)
- {
- 	struct v4l2_mbus_framefmt *fmt;
 diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
-index e0861acc638d..1ce1c18f84a9 100644
+index 93b672edd08e..e0861acc638d 100644
 --- a/include/media/v4l2-subdev.h
 +++ b/include/media/v4l2-subdev.h
-@@ -850,15 +850,19 @@ struct v4l2_subdev_pad_ops {
- 				   struct v4l2_subdev_state *state,
- 				   struct v4l2_subdev_frame_interval_enum *fie);
- 	int (*get_fmt)(struct v4l2_subdev *sd,
-+		       const struct v4l2_subdev_client_info *ci,
- 		       struct v4l2_subdev_state *state,
- 		       struct v4l2_subdev_format *format);
- 	int (*set_fmt)(struct v4l2_subdev *sd,
-+		       const struct v4l2_subdev_client_info *ci,
- 		       struct v4l2_subdev_state *state,
- 		       struct v4l2_subdev_format *format);
- 	int (*get_selection)(struct v4l2_subdev *sd,
-+			     const struct v4l2_subdev_client_info *ci,
- 			     struct v4l2_subdev_state *state,
- 			     struct v4l2_subdev_selection *sel);
- 	int (*set_selection)(struct v4l2_subdev *sd,
-+			     const struct v4l2_subdev_client_info *ci,
- 			     struct v4l2_subdev_state *state,
- 			     struct v4l2_subdev_selection *sel);
- 	int (*get_frame_interval)(struct v4l2_subdev *sd,
-@@ -1461,6 +1465,7 @@ __v4l2_subdev_state_get_interval(struct v4l2_subdev_state *state,
-  * @sd: subdevice
-  * @state: subdevice state
-  * @format: pointer to &struct v4l2_subdev_format
-+ * @ci: pointer to sub-device client information, including client capabilities
-  *
-  * Fill @format->format field based on the information in the @format struct.
-  *
-@@ -1470,7 +1475,9 @@ __v4l2_subdev_state_get_interval(struct v4l2_subdev_state *state,
-  *
-  * Returns 0 on success, error value otherwise.
-  */
--int v4l2_subdev_get_fmt(struct v4l2_subdev *sd, struct v4l2_subdev_state *state,
-+int v4l2_subdev_get_fmt(struct v4l2_subdev *sd,
-+			const struct v4l2_subdev_client_info *ci,
-+			struct v4l2_subdev_state *state,
- 			struct v4l2_subdev_format *format);
+@@ -734,6 +734,14 @@ struct v4l2_subdev_state {
+ 	struct v4l2_subdev_stream_configs stream_configs;
+ };
  
++/**
++ * struct v4l2_subdev_client_info - Sub-device client information
++ * @client_caps: bitmask of ``V4L2_SUBDEV_CLIENT_CAP_*``
++ */
++struct v4l2_subdev_client_info {
++	u64 client_caps;
++};
++
  /**
+  * struct v4l2_subdev_pad_ops - v4l2-subdev pad level operations
+  *
+@@ -1129,14 +1137,14 @@ struct v4l2_subdev {
+  * @vfh: pointer to &struct v4l2_fh
+  * @state: pointer to &struct v4l2_subdev_state
+  * @owner: module pointer to the owner of this file handle
+- * @client_caps: bitmask of ``V4L2_SUBDEV_CLIENT_CAP_*``
++ * @ci: sub-device client info related to this file handle
+  */
+ struct v4l2_subdev_fh {
+ 	struct v4l2_fh vfh;
+ 	struct module *owner;
+ #if defined(CONFIG_VIDEO_V4L2_SUBDEV_API)
+ 	struct v4l2_subdev_state *state;
+-	u64 client_caps;
++	struct v4l2_subdev_client_info ci;
+ #endif
+ };
+ 
 -- 
 2.47.3
 
