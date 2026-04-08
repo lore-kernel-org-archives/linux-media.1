@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D30D3D75D4
-	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:40:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B488D3D34BB
+	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:40:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775662826; cv=none; b=FWJtGYtGSSH20YLi+P2ES4Tkab/EdrM7WwNwHaq/P6rpn8b31b6bcI7xbxj4eqxaJZG5SrfgGJkFE/JxLVE4Ff9migCns8YaBoHUPc2OyqO+5w6QNHiGLdkSPnSjcfWnGWL+7mMCzLkg9+int9PXzipXkxkHz6LIhd3fbUlMCZA=
+	t=1775662826; cv=none; b=ZBmTHlsIeSuXUI6O+CMVyC81B8bOqLwu6Yo/a6dAj20X6Feq1q28hIec6SUqelxS25jf6tfz1DOz2E6vwoswE6PXiij8fcuX1ZXklkeiH6gTK+serChPjuGQsw7mfhcjpJFZofByZlrWSeeUpmdnTvKqWUIRD4dInKh0+VzJkr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775662826; c=relaxed/simple;
-	bh=QJr3IO0NBhQN06ES4RQzVF/mhvyAkuI4PXtOR+OpcJQ=;
+	bh=KSMSdhZ6/yX1qgLA+n7Xqsg4MeLLRAz+lF3J9uYnp9M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r519VLTYOualXCZ9dopxkglMUpqQjLIZxLxhpw51rV/h7H5smDx5qWVbszf4n+TJW52UxgprtfpNitdJKLFSZfqWScQ3eRl+F4ZYkRISKrNy0Q4zY2i0obtMeOWqr18MRj8U3K5MMVBSawMteGvlZBELQoJ6w0Wensg+vXju2PA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b53WJTCA; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=e8QdqptCeW+6QlLwvToWc7oEoyCe7e3GJzFu1+rr30wcHDp8wV0lYa7cT9RSLSNynvYDYyzByB+WkLBfLKgM+VMUi8bMz2+kxeDBzoxx3FCEgHl4HRI9HXKwKxY8Ab39joveSshdxv0s/OzNHfo0SuuLqbXhIPcoixaes8IWp7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DRUWtPQm; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b53WJTCA"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DRUWtPQm"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775662822; x=1807198822;
+  t=1775662824; x=1807198824;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=QJr3IO0NBhQN06ES4RQzVF/mhvyAkuI4PXtOR+OpcJQ=;
-  b=b53WJTCAvJK2A5hj/bd3Jgfqlg3tbPHkG3K+EXF4k+z/Z9w5MczLhoSY
-   yQpvOZowhkJzxS+x9dieZRNHe0u4FUzOsEdoLlZc3f1jR/nBxzAEtMgBS
-   /16icc91X2RA9WXpnNfpvNSgAYyBRGJdu8YcCC3G6QFYZCXJancztK0iw
-   +SFnY71psO94Kvt0e+XSGbE0kMVU9a/wsrYf5T1CIWzQ2O8SJUMgN6WAV
-   /pcDlGwx8fjpZ+2urWpk4r9uBkHcFvl99s2F/UqP4kpGPLlmI0pRfvOkF
-   dI+HIdCPSM+CwYdjC4MP0ro+6xMQudwNAjoc5bfF3N1063G3Ut/i9zbc6
-   w==;
-X-CSE-ConnectionGUID: CB2UsVJySo6wt+2wM7JyZA==
-X-CSE-MsgGUID: Ah9um0yDSKGF6RLVVQiYNw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038491"
+  bh=KSMSdhZ6/yX1qgLA+n7Xqsg4MeLLRAz+lF3J9uYnp9M=;
+  b=DRUWtPQmh9LnudXyKZXtKAKIr43mPnhyFwQqM95ehtqHtzX3fFBG78F3
+   GZDOAn6oQR3qNz+dOupSORwOBPaTzne85zTp5DACUV3/bXkXAxHAndL8L
+   B1T+ayAy7Elm/jHu0VaP478aNbyctIDOI5Z4TmTkKDr7STHSJhn+ZJcIJ
+   XVBgYlqZUwl18YPG3BhF1jn8i+3h4MQZQaBacL/M/UUnVExoVfCr6h3Fv
+   4a3U98ApfNF9L0QrpZJCG6QvXhAvBSjwT/HqQij3heQ89M24d+59tfBZr
+   hOyKKN7dY4mEfdkZhdUqAS8R4ekEUI0GhIWcVD5hZ0W5Kp/pvJ17FGrYg
+   g==;
+X-CSE-ConnectionGUID: wUauHaJjRRaO2LcYLNwWgA==
+X-CSE-MsgGUID: SrfTLOwMRg6eW2bqdHCX8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038503"
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="94038491"
+   d="scan'208";a="94038503"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:40:01 -0700
-X-CSE-ConnectionGUID: 3PVdJPPeQo2HMS84K5sHPA==
-X-CSE-MsgGUID: nv6u7exoT42XbvKIOr8R3Q==
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:40:02 -0700
+X-CSE-ConnectionGUID: JEqBnTC8TYyB1ZaYSpYNag==
+X-CSE-MsgGUID: 0A9/IEbQTxmGQT9WhusvEA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="223740392"
+   d="scan'208";a="223740391"
 Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.104])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:39:53 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 341B712206F;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 19637121FEE;
 	Wed, 08 Apr 2026 18:39:51 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAV0F-000000044Db-2ZEy;
+	id 1wAV0F-000000044DK-2FcC;
 	Wed, 08 Apr 2026 18:39:39 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -82,9 +82,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v4 20/29] media: uapi: Bump the STREAMS bit a little
-Date: Wed,  8 Apr 2026 18:39:29 +0300
-Message-ID: <20260408153939.969381-21-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 16/29] media: v4l2-subdev: Refactor returning routes
+Date: Wed,  8 Apr 2026 18:39:25 +0300
+Message-ID: <20260408153939.969381-17-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
 References: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
@@ -96,33 +96,88 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Bump the V4L2_SUBDEV_CAP_STREAMS by one bit up, order to avoid confusing
-libcamera with streams that has moved forward from the original libcamera
-implementation. The bit can presumably be taken into use but only after
-the other free bits.
+Refactor returning the routes by adding a new function that essentially
+does a memcopy and sets the number of the routes in the routing table.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
 ---
- include/uapi/linux/v4l2-subdev.h | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/media/v4l2-core/v4l2-subdev.c | 34 +++++++++++++--------------
+ 1 file changed, 16 insertions(+), 18 deletions(-)
 
-diff --git a/include/uapi/linux/v4l2-subdev.h b/include/uapi/linux/v4l2-subdev.h
-index 2347e266cf75..6160c3e21436 100644
---- a/include/uapi/linux/v4l2-subdev.h
-+++ b/include/uapi/linux/v4l2-subdev.h
-@@ -196,8 +196,11 @@ struct v4l2_subdev_capability {
- /* The v4l2 sub-device video device node is registered in read-only mode. */
- #define V4L2_SUBDEV_CAP_RO_SUBDEV		0x00000001
+diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+index 831c69c958b8..f8fde395a53a 100644
+--- a/drivers/media/v4l2-core/v4l2-subdev.c
++++ b/drivers/media/v4l2-core/v4l2-subdev.c
+@@ -629,6 +629,19 @@ subdev_ioctl_get_state(struct v4l2_subdev *sd, struct v4l2_subdev_fh *subdev_fh,
+ 			     v4l2_subdev_get_unlocked_active_state(sd);
+ }
  
-+/* Reserved, old STREAMS bit libcamera used before API stabilisation. */
-+/* #define V4L2_SUBDEV_CAP_STREAMS_PRELIMINARY	0x00000002 */
++static void copy_routes_state_to_routing(struct v4l2_subdev_routing *routing,
++					 const struct v4l2_subdev_state *state)
++{
++	struct v4l2_subdev_route *routes =
++		(struct v4l2_subdev_route *)(uintptr_t)routing->routes;
++	u32 copy_routes = min(routing->len_routes, state->routing.num_routes);
 +
- /* The v4l2 sub-device supports routing and multiplexed streams. */
--#define V4L2_SUBDEV_CAP_STREAMS			0x00000002
-+#define V4L2_SUBDEV_CAP_STREAMS			0x00000004
++	for (u32 i = 0; i < copy_routes; i++)
++		routes[i] = state->routing.routes[i];
++
++	routing->num_routes = state->routing.num_routes;
++}
++
+ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 			    struct v4l2_subdev_state *state)
+ {
+@@ -1000,7 +1013,6 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
  
- /*
-  * Is the route active? An active route will start when streaming is enabled
+ 	case VIDIOC_SUBDEV_G_ROUTING: {
+ 		struct v4l2_subdev_routing *routing = arg;
+-		struct v4l2_subdev_krouting *krouting;
+ 
+ 		if (!v4l2_subdev_enable_streams_api)
+ 			return -ENOIOCTLCMD;
+@@ -1010,13 +1022,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 
+ 		memset(routing->reserved, 0, sizeof(routing->reserved));
+ 
+-		krouting = &state->routing;
+-
+-		memcpy((struct v4l2_subdev_route *)(uintptr_t)routing->routes,
+-		       krouting->routes,
+-		       min(krouting->num_routes, routing->len_routes) *
+-		       sizeof(*krouting->routes));
+-		routing->num_routes = krouting->num_routes;
++		copy_routes_state_to_routing(routing, state);
+ 
+ 		return 0;
+ 	}
+@@ -1084,11 +1090,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 		 * the routing table.
+ 		 */
+ 		if (!v4l2_subdev_has_op(sd, pad, set_routing)) {
+-			memcpy((struct v4l2_subdev_route *)(uintptr_t)routing->routes,
+-			       state->routing.routes,
+-			       min(state->routing.num_routes, routing->len_routes) *
+-			       sizeof(*state->routing.routes));
+-			routing->num_routes = state->routing.num_routes;
++			copy_routes_state_to_routing(routing, state);
+ 
+ 			return 0;
+ 		}
+@@ -1102,11 +1104,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 		if (rval < 0)
+ 			return rval;
+ 
+-		memcpy((struct v4l2_subdev_route *)(uintptr_t)routing->routes,
+-		       state->routing.routes,
+-		       min(state->routing.num_routes, routing->len_routes) *
+-		       sizeof(*state->routing.routes));
+-		routing->num_routes = state->routing.num_routes;
++		copy_routes_state_to_routing(routing, state);
+ 
+ 		return 0;
+ 	}
 -- 
 2.47.3
 
