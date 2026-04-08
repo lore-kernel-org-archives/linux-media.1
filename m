@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3003C3D88E1
-	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:40:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0BAC3D75A5
+	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:40:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775662829; cv=none; b=KalJnn+jcn0PldFk6kq9p3JKzuFq7mHd8aCQhZRvbQf2V4Y5zi0oTnY5MRdETz4SdHBjMXEf/ap/bhFx2KB7pSmIbG28QiKCdt9wfw8wGZDtyBmS7mhnpdhJwcDalpXwUnGcpC1Ee0TOO99TijhRZsxBUy2zp7KhC9+JY3rkv0E=
+	t=1775662832; cv=none; b=t72z8z3a0IGZH08aPGzDruXPYVoutUA8RjfYOzlxlDP8M0YnheVX3KnnflKqj4n0ZDZ6arIgvYcQEOdXYLwcfK8MXX0/sYyEdcLWiP4PP4DGbrVkvuKlimmpHoE6bvmWzfeDI/OqPrg2jzQXfiZzvs9AnmpHitqdSkO1dR41b+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775662829; c=relaxed/simple;
-	bh=fLE2L9wVPZbgOglahBC2yifL9AoLHijzvqlQUVhRg2w=;
+	s=arc-20240116; t=1775662832; c=relaxed/simple;
+	bh=CFpCbThpSIVIrtX2sttGBGjl4mtGqj1OcSCXNrLh7+0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JBB/pw5x52VFUmEQGeAGi2hMT4P458pNw67psJDLJjd4ma4iYZpVDlqwLqihd+8XtyvTRRC9UPnkd66CytaW2YmszHycrXrYPmtjaJcvNblLR4hlnDirhICjVq/d/3H/TfdAuHv4ipAsZuhgZeLd+RHXMtDIyU+5DvhURkj3Duk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZXMGxccH; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=ryJ6pZngPcMFaj8qwpaEBHEsQONIDybOTP7M6g274Nr95mF5h3Vd7mvCscAqI0sIkpSGufy8Dr46crkB8pc8jJ80B/w0NA3/So6Q2Jzp8kzTmHvuZVAHLYJLpPkakbvvCzoTznk8UFOihL08bztM+LEk9PIMVlX/2OsXMB+RIvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nVhtxhmA; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZXMGxccH"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nVhtxhmA"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775662827; x=1807198827;
+  t=1775662830; x=1807198830;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=fLE2L9wVPZbgOglahBC2yifL9AoLHijzvqlQUVhRg2w=;
-  b=ZXMGxccHIwYYnyTMTp6xxH8WbNiyg1dicc6GzjG3xaz/9IOpNJxrDrZz
-   7lJDQBR+3G3RCQ73a1RGbRig/WyOtzfu90cfkcwDA87hJwQnX8S8DIOLT
-   F9dZVczESsbdSd8WiExFw0wMDVulnMe40kPVu3Vf/YLTvfUC6/aLAdllj
-   tw5f5UAAuin/CXahW1v6XRrTlwhJ8+H+2KPyNp7BD2s1XM2VUozqnrhR/
-   mu/t+tf81TG1cLpnZV3b6Tn8ClMwn0k/BcwwaAzppW77kaitw6eiuGCYo
-   OSblsDdCz5eyR3YPTJ40lW0a2bAezqAjbtA1PO8ucSRA+nqq71KEhPVYW
-   Q==;
-X-CSE-ConnectionGUID: 5CxR+2zTQ2e/C3o6sTQ/tQ==
-X-CSE-MsgGUID: yJufMIlLQU+c92fWnnafqw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038526"
+  bh=CFpCbThpSIVIrtX2sttGBGjl4mtGqj1OcSCXNrLh7+0=;
+  b=nVhtxhmATauMpJBkUFf3Z+m7NwCAjeLKt4fKZYCBm4/T6BefLXlAEO1N
+   YxQRI7+fHQXUPUBWBLdVYpI9nieT2thjyPv4nWYO5v7ftcNe1FhFis1Gl
+   8uZkA9a0p7huAe79g1ACKWOMFNW/qu340Nb5UEzPiYAKppGPFNAy46CiO
+   Gy62ajavZbYpU1u0K6zlNzSbX30VZ83iW8AGS9bCLyigBO16l4jM9D2Z2
+   gACF0IGa+9yUxCgjdYEi34S3R82bvb9g1MX2vyDdFJvh2k2Kpt1pXVNSF
+   TkQ0DYkp3wnFVpnz3r77T5W/oe1CR5TLUx5Spl5jdnRSxgtcqxx3UpG4k
+   w==;
+X-CSE-ConnectionGUID: 4lVeNkc2Rgur3I5K4+JfDQ==
+X-CSE-MsgGUID: +f2lJZrUTW+XtQgEZLbB2g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038578"
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="94038526"
+   d="scan'208";a="94038578"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:40:02 -0700
-X-CSE-ConnectionGUID: DU65cD8HR1SQdyajJUzU3w==
-X-CSE-MsgGUID: z5Jyiko9SMKgxn2Dg4qOZQ==
+X-CSE-ConnectionGUID: XDzE8hfrQg6hmcvhRSuTlQ==
+X-CSE-MsgGUID: qVN3vZj3TpKMcincMMQ4+A==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="223740396"
+   d="scan'208";a="223740407"
 Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.104])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:39:53 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 387741220BD;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 453AD122109;
 	Wed, 08 Apr 2026 18:39:51 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAV0F-000000044Dj-2iG1;
+	id 1wAV0F-000000044Dr-2tJf;
 	Wed, 08 Apr 2026 18:39:39 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -82,9 +82,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v4 22/29] media: mc: Add MEDIA_LNK_FL_VALIDATE_LATE
-Date: Wed,  8 Apr 2026 18:39:31 +0300
-Message-ID: <20260408153939.969381-23-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 24/29] media: v4l2-subdev: Introduce v4l2_subdev_get_frame_desc()
+Date: Wed,  8 Apr 2026 18:39:33 +0300
+Message-ID: <20260408153939.969381-25-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
 References: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
@@ -96,207 +96,159 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add MEDIA_LNK_FL_VALIDATE_LATE flag to support late validation of links.
-This is serving the use case where video devices are configured and
-started streaming indepenently of each other but this sequence may be run
-in series, in such a way that a video device in a pipeline starts
-streaming before another one is configured.
-
-Before this flag, drivers have resorted to implementing the link
-validation separately for the video nodes as part of streaming start
-sequence.
-
-media_pipeline_start() shall be called on each leaf entity connected to
-the graph with a link where MEDIA_LNK_FL_VALIDATE_LATE is set before
-uphardware operation.
+Introduce v4l2_subdev_get_frame_desc() in order to facilitate implementing
+drivers that need frame descriptors. If the remote sub-device does not
+support frame descriptors, v4l2_subdev_get_frame_desc() creates one (with
+a single entry) opportunistically, thus avoiding the need to add frame
+descriptor support to sensor drivers the device for which only generates a
+single stream, or managing the situation on the caller side.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- .../media/mediactl/media-ioc-setup-link.rst   |  4 +
- .../media/mediactl/media-types.rst            |  5 ++
- drivers/media/mc/mc-entity.c                  | 82 ++++++++++++++++++-
- include/uapi/linux/media.h                    |  1 +
- 4 files changed, 88 insertions(+), 4 deletions(-)
+ drivers/media/v4l2-core/v4l2-subdev.c | 96 +++++++++++++++++++++++++++
+ include/media/v4l2-subdev.h           | 20 ++++++
+ 2 files changed, 116 insertions(+)
 
-diff --git a/Documentation/userspace-api/media/mediactl/media-ioc-setup-link.rst b/Documentation/userspace-api/media/mediactl/media-ioc-setup-link.rst
-index 23208300cb61..7c2bced57e77 100644
---- a/Documentation/userspace-api/media/mediactl/media-ioc-setup-link.rst
-+++ b/Documentation/userspace-api/media/mediactl/media-ioc-setup-link.rst
-@@ -49,6 +49,10 @@ Only links marked with the ``DYNAMIC`` link flag can be enabled/disabled
- while streaming media data. Attempting to enable or disable a streaming
- non-dynamic link will return an ``EBUSY`` error code.
+diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+index 647587c0499a..40b28e070726 100644
+--- a/drivers/media/v4l2-core/v4l2-subdev.c
++++ b/drivers/media/v4l2-core/v4l2-subdev.c
+@@ -20,6 +20,7 @@
+ #include <linux/version.h>
+ #include <linux/videodev2.h>
  
-+Pipeline validation may be delayed for links marked with the ``VALIDATE_LATE``
-+flag until actual hardware operation even if the rest of the pipeline would be
-+validated at an earlier point of time.
++#include <media/mipi-csi2.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-event.h>
+@@ -2758,3 +2759,98 @@ void v4l2_subdev_put_privacy_led(struct v4l2_subdev *sd)
+ #endif
+ }
+ EXPORT_SYMBOL_GPL(v4l2_subdev_put_privacy_led);
 +
- If the specified link can't be found the driver returns with an ``EINVAL``
- error code.
- 
-diff --git a/Documentation/userspace-api/media/mediactl/media-types.rst b/Documentation/userspace-api/media/mediactl/media-types.rst
-index 6332e8395263..d6a690655a01 100644
---- a/Documentation/userspace-api/media/mediactl/media-types.rst
-+++ b/Documentation/userspace-api/media/mediactl/media-types.rst
-@@ -391,6 +391,7 @@ must be set for every pad.
- .. _MEDIA-LNK-FL-ENABLED:
- .. _MEDIA-LNK-FL-IMMUTABLE:
- .. _MEDIA-LNK-FL-DYNAMIC:
-+.. _MEDIA-LNK-FL-VALIDATE-LATE:
- .. _MEDIA-LNK-FL-LINK-TYPE:
- 
- .. flat-table:: Media link flags
-@@ -410,6 +411,10 @@ must be set for every pad.
-        -  The link enabled state can be modified during streaming. This flag
- 	  is set by drivers and is read-only for applications.
- 
-+    *  -  ``MEDIA_LNK_FL_VALIDATE_LATE``
-+       -  The validation of the link may be delayed up to until the start of
-+	  hardware operation.
++static int get_mipi_dt_for_mbus(u32 code)
++{
++	switch (code) {
++	case MEDIA_BUS_FMT_BGR888_1X24:
++		return MIPI_CSI2_DT_RGB888;
++	case MEDIA_BUS_FMT_Y8_1X8:
++	case MEDIA_BUS_FMT_SBGGR8_1X8:
++	case MEDIA_BUS_FMT_SGBRG8_1X8:
++	case MEDIA_BUS_FMT_SGRBG8_1X8:
++	case MEDIA_BUS_FMT_SRGGB8_1X8:
++		return MIPI_CSI2_DT_RAW8;
++	case MEDIA_BUS_FMT_Y10_1X10:
++	case MEDIA_BUS_FMT_SBGGR10_1X10:
++	case MEDIA_BUS_FMT_SGBRG10_1X10:
++	case MEDIA_BUS_FMT_SGRBG10_1X10:
++	case MEDIA_BUS_FMT_SRGGB10_1X10:
++		return MIPI_CSI2_DT_RAW10;
++	case MEDIA_BUS_FMT_Y12_1X12:
++	case MEDIA_BUS_FMT_SBGGR12_1X12:
++	case MEDIA_BUS_FMT_SGBRG12_1X12:
++	case MEDIA_BUS_FMT_SGRBG12_1X12:
++	case MEDIA_BUS_FMT_SRGGB12_1X12:
++		return MIPI_CSI2_DT_RAW12;
++	case MEDIA_BUS_FMT_Y14_1X14:
++	case MEDIA_BUS_FMT_SBGGR14_1X14:
++	case MEDIA_BUS_FMT_SGBRG14_1X14:
++	case MEDIA_BUS_FMT_SGRBG14_1X14:
++	case MEDIA_BUS_FMT_SRGGB14_1X14:
++		return MIPI_CSI2_DT_RAW14;
++	case MEDIA_BUS_FMT_Y16_1X16:
++	case MEDIA_BUS_FMT_SBGGR16_1X16:
++	case MEDIA_BUS_FMT_SGBRG16_1X16:
++	case MEDIA_BUS_FMT_SGRBG16_1X16:
++	case MEDIA_BUS_FMT_SRGGB16_1X16:
++		return MIPI_CSI2_DT_RAW16;
++	case MEDIA_BUS_FMT_SBGGR20_1X20:
++	case MEDIA_BUS_FMT_SGBRG20_1X20:
++	case MEDIA_BUS_FMT_SGRBG20_1X20:
++	case MEDIA_BUS_FMT_SRGGB20_1X20:
++		return MIPI_CSI2_DT_RAW20;
++	default:
++		return -EINVAL;
++	}
++}
 +
-     *  -  ``MEDIA_LNK_FL_LINK_TYPE``
-        -  This is a bitmask that defines the type of the link. The following
- 	  link types are currently supported:
-diff --git a/drivers/media/mc/mc-entity.c b/drivers/media/mc/mc-entity.c
-index 287eded356bb..5b0162f81425 100644
---- a/drivers/media/mc/mc-entity.c
-+++ b/drivers/media/mc/mc-entity.c
-@@ -771,7 +771,7 @@ static int media_pipeline_populate(struct media_pipeline *pipe,
- static int
- __media_pipeline_validate_one(struct media_pad *origin,
- 			      struct media_pad *pad, struct media_link *link,
--			      bool *has_enabled_link)
-+			      bool *has_enabled_link, bool skip_validation)
- {
- 	struct media_device *mdev = origin->graph_obj.mdev;
- 	struct media_entity *entity = pad->entity;
-@@ -784,6 +784,9 @@ __media_pipeline_validate_one(struct media_pad *origin,
- 	if (has_enabled_link)
- 		*has_enabled_link = true;
- 
-+	if (skip_validation)
-+		return 0;
++int v4l2_subdev_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
++			       struct v4l2_mbus_frame_desc *desc)
++{
++	struct v4l2_subdev_format subdev_fmt = {
++		.which = V4L2_SUBDEV_FORMAT_ACTIVE,
++		.pad = pad,
++	};
++	int ret;
 +
- 	/* Skip validation if the current pad isn't the sink pad of the link. */
- 	if (link->sink != pad)
- 		return 0;
-@@ -825,11 +828,48 @@ __must_check int __media_pipeline_start(struct media_pad *origin,
- 		return -EINVAL;
- 
- 	/*
--	 * If the pipeline has already been started, it is guaranteed to be
--	 * valid, so just increase the start count.
-+	 * Increase start count on pipelines that have been validated
-+	 * earlier. Also check links with the VALIDATE_LATE flag here.
- 	 */
- 	if (pipe->start_count) {
-+		struct media_link *link;
++	if (v4l2_subdev_has_op(sd, pad, get_frame_desc)) {
++		unsigned int type = desc->type;
 +
-+		link = __media_entity_next_link(origin->entity, NULL,
-+						MEDIA_LNK_FL_DATA_LINK);
-+		if (link && link->flags & MEDIA_LNK_FL_VALIDATE_LATE) {
-+			struct media_link *link2 =
-+				__media_entity_next_link(origin->entity, link,
-+							 MEDIA_LNK_FL_DATA_LINK);
-+			bool has_enabled_link = false;
++		ret = v4l2_subdev_call(sd, pad, get_frame_desc, pad, desc);
 +
-+			/*
-+			 * Only a single pad is allowed for VALIDATE_LATE
-+			 * links. That pad needs to have exactly one link.
-+			 */
-+			if (origin->entity->num_pads != 1)
-+				return -EINVAL;
-+
-+			if (!link || link2)
-+				return -EINVAL;
-+
-+			dev_dbg(mdev->dev,
-+				"Validating pad '%s':%u late\n",
-+				origin->entity->name, origin->index);
-+
-+			ret = __media_pipeline_validate_one(link->sink,
-+							    link->sink, link,
-+							    &has_enabled_link,
-+							    false);
-+			if (ret)
-+				return ret;
-+
-+			if (origin->flags & MEDIA_PAD_FL_MUST_CONNECT &&
-+			    !has_enabled_link)
-+				return -ENOLINK;
-+		}
-+
- 		pipe->start_count++;
-+
- 		return 0;
- 	}
- 
-@@ -873,12 +913,19 @@ __must_check int __media_pipeline_start(struct media_pad *origin,
- 		 * the connected sink pad to avoid duplicating checks.
- 		 */
- 		for_each_media_entity_data_link(entity, link) {
-+			/* Skip late-validated links not connected to origin. */
-+			bool skip_validation =
-+				link->flags & MEDIA_LNK_FL_VALIDATE_LATE &&
-+				link->sink != origin &&
-+				link->source != origin;
-+
- 			/* Skip links unrelated to the current pad. */
- 			if (link->sink != pad && link->source != pad)
- 				continue;
- 
- 			ret = __media_pipeline_validate_one(origin, pad, link,
--							    &has_enabled_link);
-+							    &has_enabled_link,
-+							    skip_validation);
- 			if (ret)
- 				goto error;
- 		}
-@@ -1158,6 +1205,33 @@ media_create_pad_link(struct media_entity *source, u16 source_pad,
- 	if (WARN_ON(!(sink->pads[sink_pad].flags & MEDIA_PAD_FL_SINK)))
- 		return -EINVAL;
- 
-+	/*
-+	 * With the late validate flag, either source or sink shall have exactly
-+	 * one pad and no links before this one. Similarly, no links may be
-+	 * added to entities with a single pad and an existing late-validated
-+	 * link.
-+	 */
-+	if (flags & MEDIA_LNK_FL_VALIDATE_LATE) {
-+		if (!(source->num_pads == 1 && !source->num_links) &&
-+		    !(sink->num_pads == 1 && !sink->num_links))
++		if (desc->type != type)
 +			return -EINVAL;
-+	} else {
-+		struct media_entity *entities[] = { source, sink };
 +
-+		for (unsigned int i = 0; i < ARRAY_SIZE(entities); i++) {
-+			if (entities[i]->num_pads != 1)
-+				continue;
-+
-+			struct media_link *__link =
-+				__media_entity_next_link(entities[i], NULL,
-+							 MEDIA_LNK_FL_DATA_LINK);
-+
-+			if (__link &&
-+			    __link->flags & MEDIA_LNK_FL_VALIDATE_LATE)
-+				return -EINVAL;
-+		}
++		return ret;
 +	}
 +
- 	link = media_add_link(&source->links);
- 	if (link == NULL)
- 		return -ENOMEM;
-diff --git a/include/uapi/linux/media.h b/include/uapi/linux/media.h
-index 1c80b1d6bbaf..c96e2118ea99 100644
---- a/include/uapi/linux/media.h
-+++ b/include/uapi/linux/media.h
-@@ -219,6 +219,7 @@ struct media_pad_desc {
- #define MEDIA_LNK_FL_ENABLED			(1U << 0)
- #define MEDIA_LNK_FL_IMMUTABLE			(1U << 1)
- #define MEDIA_LNK_FL_DYNAMIC			(1U << 2)
-+#define MEDIA_LNK_FL_VALIDATE_LATE		(1U << 3)
++	if (desc->type != V4L2_MBUS_FRAME_DESC_TYPE_PARALLEL &&
++	    desc->type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2)
++		return -EINVAL;
++
++	ret = v4l2_subdev_call(sd, pad, get_fmt, NULL, NULL,
++			       &subdev_fmt);
++	if (ret)
++		return ret;
++
++	struct v4l2_mbus_frame_desc_entry entry = {
++		.pixelcode = subdev_fmt.format.code,
++	};
++
++	if (desc->type == V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
++		int dt;
++
++		dt = get_mipi_dt_for_mbus(subdev_fmt.format.code);
++		if (dt < 0)
++			return dt;
++
++		entry.bus.csi2.dt = dt;
++	}
++
++	desc->entry[0] = entry;
++	desc->num_entries = 1;
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(v4l2_subdev_get_frame_desc);
+diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
+index 4588992b4417..93b672edd08e 100644
+--- a/include/media/v4l2-subdev.h
++++ b/include/media/v4l2-subdev.h
+@@ -2058,4 +2058,24 @@ void v4l2_subdev_notify_event(struct v4l2_subdev *sd,
+  */
+ bool v4l2_subdev_is_streaming(struct v4l2_subdev *sd);
  
- #define MEDIA_LNK_FL_LINK_TYPE			(0xf << 28)
- #  define MEDIA_LNK_FL_DATA_LINK		(0U << 28)
++/**
++ * v4l2_subdev_get_frame_desc() - Get a pad's frame descriptor
++ * @sd: The sub-device
++ * @pad: The number of the pad in @sd from which to obtain the frame descriptor
++ * @desc: A pointer to a frame descriptor, with its type field set
++ *
++ * Obtain a frame descriptor from a sub-device. If the sub-device supports the
++ * get_frame_desc pad operation, its result is returned, just like calling it
++ * directly using v4l2_subdev_call(). If the sub-device driver does not support
++ * it, then one containing a single entry is created using the information from
++ * the sub-device active state, which this function locks for the duration of
++ * the call to obtain it.
++ *
++ * The caller is required to set @desc->type to the expected bus type.
++ *
++ * Return: %0 on success or negative error code on failure.
++ */
++int v4l2_subdev_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
++			       struct v4l2_mbus_frame_desc *desc);
++
+ #endif /* _V4L2_SUBDEV_H */
 -- 
 2.47.3
 
