@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB7E3D75DA
-	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:39:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDB53D6CCD
+	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:40:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775662804; cv=none; b=L8/DqYTIjubHMwLjtd/1MFIX0LF+ee4citbESxa7XfLDf43w9wZX0Jkyq8BDLmCpzOQL4T47tKtWs6jHjDgFjAWkjA0VrIQBkuqZ3iXkoAxX4BwYaod3mAGyTpF9tXjj5lEfm/ds33F8nsU7a8xKl2L4xJTyGFPDMEZQWsLkP+Q=
+	t=1775662806; cv=none; b=uBS6h/yFc9DYQW9VivQY7I9Z7QqALSgI9wrHgl3/YX8LFGd8DJGxNOjgeqMvaJaLZ4+p+jTqNrK8zUPvihuMr01pBavt+4CSUBLmQLo5vN8dfVTuYqS7guIowFn+32KeHuF8RZgJYgSok8MLZPx594Ufm5pONq7nTRiUYjx7/AQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775662804; c=relaxed/simple;
-	bh=pYFozUXBhOHY2SCGb7DsIAqay6Mv9Li+qN0aPfoeNO8=;
+	s=arc-20240116; t=1775662806; c=relaxed/simple;
+	bh=sMx1BAC0rTQO9irSYSSFp0Fn4NTWHvNZN/sAKLa7bpI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LzfECski1bk3AGfrz8aiqggucLFxWIKlFoOmSKdq5bAt8LRVmOoN5aAOewGJu+o3bj+wFniwe9XZTXnDFdTA+PTUMKd9DRJCZ66ieWSgpgJM8QApOwcnhmP0AporU4En/bDroPtS3QqLdjRZfihauSjN0/1ugndasf3Q7QNPyHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Jc1si2Y3; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=Aol8ttr//Ck8Wod7OktZdC90Hss9TcqvAyNtw52+YXgcSNY0a2094mFYPz0mpiQ87iZDbhjgPw2vbQcdzdZEvwKtCEuLPFA9bqA3XyFIlMRPe3DqZjffa1iDJMbRnN/JMrSPdCm6mknzS9Xgw6MtYoRL8UVSfxHF5ZOkezzHnq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=c5s7/f4e; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Jc1si2Y3"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="c5s7/f4e"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775662799; x=1807198799;
+  t=1775662802; x=1807198802;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=pYFozUXBhOHY2SCGb7DsIAqay6Mv9Li+qN0aPfoeNO8=;
-  b=Jc1si2Y30FR+01mG+EpjYW3QX180F8lIlcJCFqKjlHQKvIS90IaEdQ04
-   3QdMlGmS2gAw2omW7ccrzV/bzIzZot3t6zj6/qIOkOryEnBhpX0T1wevL
-   0H/zlkmYL0IY95KTUAVdfMeBvHHihSuAggLh3Ps6eu/R2PVCRoQRwP2/P
-   fYX7n8AAVoCdcVKZF7K5v8Lj/n5DMmKywAnc8HHoglNZX9d+iVPowKm5d
-   Rpn8WXCB7NqZ2jFD4N1fjQJKaNXq0BZiJLJFdvvewXxeuG6dP4G81rpem
-   ZnyWGj5NNeFDS8mU1utb7m5qI1j63qB0iV4iZXBqeC88DGKdcPCPRcfsB
-   g==;
-X-CSE-ConnectionGUID: 2ksu7he5SaqOk4FtlL3hOQ==
-X-CSE-MsgGUID: La+JSxmCQXWYA7iuIzKYtw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038337"
+  bh=sMx1BAC0rTQO9irSYSSFp0Fn4NTWHvNZN/sAKLa7bpI=;
+  b=c5s7/f4eTmu95It4O07rHDQ+B06ma1Q5o/S6AUSI+1d01rVD+TbcaW2s
+   yEpSHCPRaAwhgG6eegN16pn+WlDRLV1dna8Eld0r6SzqGa3vTFQQsaLb1
+   YVGv9C7r6vTq7j+oVyzWOEG4VJKSc33YXyMpji5+O04jYSsf7RaSE/2wL
+   b7pCNBVjhDELQRVn2jzzCffiQwRkp89OLVaUfYp5G0ibNq2XJwjRAzHqR
+   cf+PU+MmfusEdQ1kskRELm06YI8ZJy4/Y11uGIiPVQp/HFzWep6q50M46
+   xyDBoOqU1XKnb5LjRBIss3ZWZJui32BC8lbIjfOCtdMlVLpi3XvPf6VJL
+   w==;
+X-CSE-ConnectionGUID: V4M1uWUjQWi23LMlAjBxug==
+X-CSE-MsgGUID: 9dg4O8NcQWyCPdtecdL9/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038350"
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="94038337"
+   d="scan'208";a="94038350"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:39:53 -0700
-X-CSE-ConnectionGUID: 6ReD4yWrQka0pXDQqtuHWA==
-X-CSE-MsgGUID: 4ro9JN7mTJmrrF85R63lKQ==
+X-CSE-ConnectionGUID: Cp9ZjpUcQvG6tRV/fEF+SQ==
+X-CSE-MsgGUID: wEt9RDMPS+Wr5nizmDo+cw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="223740280"
+   d="scan'208";a="223740282"
 Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.104])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:39:45 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id D4C60121DD9;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id F190E121E1D;
 	Wed, 08 Apr 2026 18:39:50 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAV0F-000000044Cc-1GP0;
+	id 1wAV0F-000000044Cs-1fe1;
 	Wed, 08 Apr 2026 18:39:39 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -82,9 +82,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v4 05/29] media: imx219: Fix vertical blanking and exposure for analogue binning
-Date: Wed,  8 Apr 2026 18:39:14 +0300
-Message-ID: <20260408153939.969381-6-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 09/29] media: imx334: Remove redundant kernel-doc comments
+Date: Wed,  8 Apr 2026 18:39:18 +0300
+Message-ID: <20260408153939.969381-10-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
 References: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
@@ -96,112 +96,195 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When vertical analogue binning is in use, the minimum frame length in
-lines decreases to around half of the normal. In relation to the sensor's
-output size this means vertical blanking can be negative but that's not an
-issue as control values are signed. Remove the workaround for this
-non-issue that doubled the pixel rate, frame length in lines and exposure
-time.
+Remove kernel-doc comments from regular callback functions. These comments
+have no information value.
 
-The resulting change also fixes the minimum, the maximum and the step
-values for the control.
-
-Fixes: f513997119f4 ("media: i2c: imx219: Scale the pixel rate for analog binning")
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/i2c/imx219.c | 29 +++++++++--------------------
- 1 file changed, 9 insertions(+), 20 deletions(-)
+ drivers/media/i2c/imx334.c | 93 --------------------------------------
+ 1 file changed, 93 deletions(-)
 
-diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-index 6819a2fa3262..a72630ad1561 100644
---- a/drivers/media/i2c/imx219.c
-+++ b/drivers/media/i2c/imx219.c
-@@ -420,15 +420,6 @@ static void imx219_get_binning(struct v4l2_subdev_state *state, u8 *bin_h,
- 
+diff --git a/drivers/media/i2c/imx334.c b/drivers/media/i2c/imx334.c
+index 9654f9268056..553a16b84f4d 100644
+--- a/drivers/media/i2c/imx334.c
++++ b/drivers/media/i2c/imx334.c
+@@ -566,18 +566,6 @@ static int imx334_update_exp_gain(struct imx334 *imx334, u32 exposure, u32 gain)
+ 	return ret;
  }
  
--static inline u32 imx219_get_rate_factor(struct v4l2_subdev_state *state)
--{
--	u8 bin_h, bin_v;
--
--	imx219_get_binning(state, &bin_h, &bin_v);
--
--	return (bin_h & bin_v) == IMX219_BINNING_X2_ANALOG ? 2 : 1;
--}
--
- /* -----------------------------------------------------------------------------
-  * Controls
-  */
-@@ -440,12 +431,10 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
- 	struct i2c_client *client = v4l2_get_subdevdata(&imx219->sd);
- 	const struct v4l2_mbus_framefmt *format;
- 	struct v4l2_subdev_state *state;
--	u32 rate_factor;
- 	int ret = 0;
+-/**
+- * imx334_set_ctrl() - Set subdevice control
+- * @ctrl: pointer to v4l2_ctrl structure
+- *
+- * Supported controls:
+- * - V4L2_CID_VBLANK
+- * - cluster controls:
+- *   - V4L2_CID_ANALOGUE_GAIN
+- *   - V4L2_CID_EXPOSURE
+- *
+- * Return: 0 if successful, error code otherwise.
+- */
+ static int imx334_set_ctrl(struct v4l2_ctrl *ctrl)
+ {
+ 	struct imx334 *imx334 =
+@@ -678,14 +666,6 @@ static int imx334_get_format_code(struct imx334 *imx334, u32 code)
+ 	return imx334_mbus_codes[0];
+ }
  
- 	state = v4l2_subdev_get_locked_active_state(&imx219->sd);
- 	format = v4l2_subdev_state_get_format(state, 0);
--	rate_factor = imx219_get_rate_factor(state);
+-/**
+- * imx334_enum_mbus_code() - Enumerate V4L2 sub-device mbus codes
+- * @sd: pointer to imx334 V4L2 sub-device structure
+- * @sd_state: V4L2 sub-device state
+- * @code: V4L2 sub-device code enumeration need to be filled
+- *
+- * Return: 0 if successful, error code otherwise.
+- */
+ static int imx334_enum_mbus_code(struct v4l2_subdev *sd,
+ 				 struct v4l2_subdev_state *sd_state,
+ 				 struct v4l2_subdev_mbus_code_enum *code)
+@@ -698,14 +678,6 @@ static int imx334_enum_mbus_code(struct v4l2_subdev *sd,
+ 	return 0;
+ }
  
- 	if (ctrl->id == V4L2_CID_VBLANK) {
- 		int exposure_max, exposure_def;
-@@ -478,7 +467,7 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
- 		break;
- 	case V4L2_CID_EXPOSURE:
- 		cci_write(imx219->regmap, IMX219_REG_EXPOSURE,
--			  ctrl->val / rate_factor, &ret);
-+			  ctrl->val, &ret);
- 		break;
- 	case V4L2_CID_DIGITAL_GAIN:
- 		cci_write(imx219->regmap, IMX219_REG_DIGITAL_GAIN,
-@@ -495,7 +484,7 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
- 		break;
- 	case V4L2_CID_VBLANK:
- 		cci_write(imx219->regmap, IMX219_REG_FRM_LENGTH_A,
--			  (format->height + ctrl->val) / rate_factor, &ret);
-+			  format->height + ctrl->val, &ret);
- 		break;
- 	case V4L2_CID_HBLANK:
- 		cci_write(imx219->regmap, IMX219_REG_LINE_LENGTH_A,
-@@ -878,7 +867,6 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
- 	crop->top = (IMX219_NATIVE_HEIGHT - crop->height) / 2;
+-/**
+- * imx334_enum_frame_size() - Enumerate V4L2 sub-device frame sizes
+- * @sd: pointer to imx334 V4L2 sub-device structure
+- * @sd_state: V4L2 sub-device state
+- * @fsize: V4L2 sub-device size enumeration need to be filled
+- *
+- * Return: 0 if successful, error code otherwise.
+- */
+ static int imx334_enum_frame_size(struct v4l2_subdev *sd,
+ 				  struct v4l2_subdev_state *sd_state,
+ 				  struct v4l2_subdev_frame_size_enum *fsize)
+@@ -749,14 +721,6 @@ static void imx334_fill_pad_format(struct imx334 *imx334,
+ 	fmt->format.xfer_func = V4L2_XFER_FUNC_NONE;
+ }
  
- 	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
--		unsigned int rate_factor = imx219_get_rate_factor(state);
- 		int exposure_max;
- 		int exposure_def;
- 		int llp_min;
-@@ -886,15 +874,16 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+-/**
+- * imx334_get_pad_format() - Get subdevice pad format
+- * @sd: pointer to imx334 V4L2 sub-device structure
+- * @sd_state: V4L2 sub-device state
+- * @fmt: V4L2 sub-device format need to be set
+- *
+- * Return: 0 if successful, error code otherwise.
+- */
+ static int imx334_get_pad_format(struct v4l2_subdev *sd,
+ 				 struct v4l2_subdev_state *sd_state,
+ 				 struct v4l2_subdev_format *fmt)
+@@ -776,14 +740,6 @@ static int imx334_get_pad_format(struct v4l2_subdev *sd,
+ 	return 0;
+ }
  
- 		/* Update limits and set FPS to default */
- 		ret = __v4l2_ctrl_modify_range(imx219->vblank,
--					       IMX219_VBLANK_MIN * rate_factor,
--					       (IMX219_FLL_MAX - mode->height) *
--					       rate_factor, rate_factor,
--					       mode->fll_def - mode->height);
-+					       (int)(mode->height / binning),
-+					       IMX219_FLL_MAX - mode->height, 1,
-+					       (int)(mode->fll_def / binning) -
-+					       (int)mode->height);
- 		if (ret)
- 			return ret;
+-/**
+- * imx334_set_pad_format() - Set subdevice pad format
+- * @sd: pointer to imx334 V4L2 sub-device structure
+- * @sd_state: V4L2 sub-device state
+- * @fmt: V4L2 sub-device format need to be set
+- *
+- * Return: 0 if successful, error code otherwise.
+- */
+ static int imx334_set_pad_format(struct v4l2_subdev *sd,
+ 				 struct v4l2_subdev_state *sd_state,
+ 				 struct v4l2_subdev_format *fmt)
+@@ -815,13 +771,6 @@ static int imx334_set_pad_format(struct v4l2_subdev *sd,
+ 	return ret;
+ }
  
- 		ret = __v4l2_ctrl_s_ctrl(imx219->vblank,
--					 mode->fll_def - mode->height);
-+					 (int)(mode->fll_def / binning) -
-+					 (int)mode->height);
- 		if (ret)
- 			return ret;
+-/**
+- * imx334_init_state() - Initialize sub-device state
+- * @sd: pointer to imx334 V4L2 sub-device structure
+- * @sd_state: V4L2 sub-device state
+- *
+- * Return: 0 if successful, error code otherwise.
+- */
+ static int imx334_init_state(struct v4l2_subdev *sd,
+ 			     struct v4l2_subdev_state *sd_state)
+ {
+@@ -856,15 +805,6 @@ static int imx334_set_framefmt(struct imx334 *imx334)
+ 	return -EINVAL;
+ }
  
-@@ -931,7 +920,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
- 			return ret;
+-/**
+- * imx334_enable_streams() - Enable specified streams for the sensor
+- * @sd: pointer to the V4L2 subdevice
+- * @state: pointer to the subdevice state
+- * @pad: pad number for which streams are enabled
+- * @streams_mask: bitmask specifying the streams to enable
+- *
+- * Return: 0 if successful, error code otherwise.
+- */
+ static int imx334_enable_streams(struct v4l2_subdev *sd,
+ 				 struct v4l2_subdev_state *state, u32 pad,
+ 				 u64 streams_mask)
+@@ -929,15 +869,6 @@ static int imx334_enable_streams(struct v4l2_subdev *sd,
+ 	return ret;
+ }
  
- 		/* Scale the pixel rate based on the mode specific factor */
--		pixel_rate = imx219_get_pixel_rate(imx219) * rate_factor;
-+		pixel_rate = imx219_get_pixel_rate(imx219);
- 		ret = __v4l2_ctrl_modify_range(imx219->pixel_rate, pixel_rate,
- 					       pixel_rate, 1, pixel_rate);
- 		if (ret)
+-/**
+- * imx334_disable_streams() - Enable specified streams for the sensor
+- * @sd: pointer to the V4L2 subdevice
+- * @state: pointer to the subdevice state
+- * @pad: pad number for which streams are disabled
+- * @streams_mask: bitmask specifying the streams to disable
+- *
+- * Return: 0 if successful, error code otherwise.
+- */
+ static int imx334_disable_streams(struct v4l2_subdev *sd,
+ 				  struct v4l2_subdev_state *state, u32 pad,
+ 				  u64 streams_mask)
+@@ -1067,12 +998,6 @@ static const struct v4l2_subdev_internal_ops imx334_internal_ops = {
+ 	.init_state = imx334_init_state,
+ };
+ 
+-/**
+- * imx334_power_on() - Sensor power on sequence
+- * @dev: pointer to i2c device
+- *
+- * Return: 0 if successful, error code otherwise.
+- */
+ static int imx334_power_on(struct device *dev)
+ {
+ 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+@@ -1101,12 +1026,6 @@ static int imx334_power_on(struct device *dev)
+ 	return ret;
+ }
+ 
+-/**
+- * imx334_power_off() - Sensor power off sequence
+- * @dev: pointer to i2c device
+- *
+- * Return: 0 if successful, error code otherwise.
+- */
+ static int imx334_power_off(struct device *dev)
+ {
+ 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+@@ -1206,12 +1125,6 @@ static int imx334_init_controls(struct imx334 *imx334)
+ 	return 0;
+ }
+ 
+-/**
+- * imx334_probe() - I2C client device binding
+- * @client: pointer to i2c client device
+- *
+- * Return: 0 if successful, error code otherwise.
+- */
+ static int imx334_probe(struct i2c_client *client)
+ {
+ 	struct imx334 *imx334;
+@@ -1311,12 +1224,6 @@ static int imx334_probe(struct i2c_client *client)
+ 	return ret;
+ }
+ 
+-/**
+- * imx334_remove() - I2C client device unbinding
+- * @client: pointer to I2C client device
+- *
+- * Return: 0 if successful, error code otherwise.
+- */
+ static void imx334_remove(struct i2c_client *client)
+ {
+ 	struct v4l2_subdev *sd = i2c_get_clientdata(client);
 -- 
 2.47.3
 
