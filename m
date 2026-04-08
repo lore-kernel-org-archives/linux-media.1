@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9AB175A63
-	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:40:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A4B3D5238
+	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:40:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775662815; cv=none; b=nLIonrMGPn5/+69WPfdXYo0oVtS/UVGNapYIl1rCdHduCDQs6eNjfNzgYbj6NVDNWRbWP0svKfX4S56NPMFTV+z7b4GJZtiZSFl7FzbWDJQbe4gqclbmcIkZoO67DB+GjgbefxPmTAk0z5k4yQ8TeIgiNm6YCWNX/lC14ez2S7g=
+	t=1775662817; cv=none; b=o4ULft/wi3FAFkM/DRR2fOb9OSGUfkqTsDmHtIE5SrIF9ps0RG+CAtHRBQ8dE+5rCpYpX5FYH3BbxdPgkBwDzD1o1cydxA9GeUiA3eBYkKtL/aH6rYkz+4s5mSap7bfXN6delKLZEkxQyaXJJuwwVQ1c7CMk71P6Q9ZEMOBM0QU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775662815; c=relaxed/simple;
-	bh=p1ChjdlUdlU9EfV7WyFxL00sbB2pUyUXrpQBue8z2NA=;
+	s=arc-20240116; t=1775662817; c=relaxed/simple;
+	bh=fFDIYTfO3BoZruAtF9QRkwTyTsJj/ZfxTSVhaMSGEJc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dAZoAn+wCDLxE7/4qGXbQAd/XYGya9BfvOLlS2NgbYaEfUTbz1AQZINnNrDtzZwNE+cs6NQ7/kyPnUy6exZ2mBiZXVvSzU9bzuuVzmZr+4gMRjYX9DMZiR/zqXYC23f8+p48wtYmPanRUT1cb4uETwBx0AfQlEWXz84Bwm88BP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nkC0UYIU; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=BdQlNA4vtEJv0UnuSlN0DKROFI8pLSAbpzBZAtrOZ8KQ77OKbq3zV9l6J/bh9KRU/4kPx2L0it166uhOCthX4dsoPcumrJTAp2XHk6grO1waWwh0l4wvtxM/gXQPMzsAxPyQ7/UpOQVTsm1vYV3u+w6Eb3kch75mRexCfIWDsno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PG92xTxF; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nkC0UYIU"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PG92xTxF"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775662811; x=1807198811;
+  t=1775662813; x=1807198813;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=p1ChjdlUdlU9EfV7WyFxL00sbB2pUyUXrpQBue8z2NA=;
-  b=nkC0UYIUiW3kUaPDdRUZazzBFc3ZLQURvBOukSuNiw6vGtGS9tANKvKV
-   O/yZ7Dyw+fULY8iv6leBXfzcjAL1jo9cz1KCfUJOCm5cWpsfolEmQYcpb
-   sWmAyBd0Lx7eS7JVN/mrFrgaQAJ21VizZo+Z31FEOv8SQm65C0nMMmpuC
-   U9RzYyLl6m1IQxqhI7TkhNFIj0d8iuZ6flm+IZkKSWRsANpQG9NDdpAiT
-   j1O+6lHOLhTSDAqqfylx0NYn/w4AevvtmIbPszios2zDsMgVZEFqUbVrG
-   o4vFpl7P95edmlZiJkMvk4iwc8LnFzgumsmh6DrwkjlgSLMFNDpjMBt9w
-   w==;
-X-CSE-ConnectionGUID: 8kSOE1XdQGm2T4SWCLsMZQ==
-X-CSE-MsgGUID: o9VWa3KLStu187gERKzimA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038387"
+  bh=fFDIYTfO3BoZruAtF9QRkwTyTsJj/ZfxTSVhaMSGEJc=;
+  b=PG92xTxFgSlFZa/b7JTXTI6Ol0ez1vRX+IaeAeKwRsomaJb1eCqBF+jg
+   LWGy+IjRxBzO16NkQGl8bmrDvFQl9IGEXLH7d2BXzvmoI9IJzVNlXbw59
+   65+oII6FR43b163iKZPsODmkUHiMQN4j13S+EWXxT8W6DPOTgYf0BPoE4
+   Z9h36YHeyhYyrBlKoEqP9isgMrDyeZVjGxl3qdHNWe7OyEvz+EB2K4d6n
+   q4ivXEPLhL+BQdyikNDnt7EwCymwDi/+mHpqy+QUAewHlQ74UOoiRED3j
+   onVz27x8oF8Q0t/prGMWUj3LC9xPk7mBCd60wQoo1LyrOpqhHb+sPvfV9
+   A==;
+X-CSE-ConnectionGUID: MijNEpZnRpGFeKo0l2Q+zw==
+X-CSE-MsgGUID: Tk1/jaGiQxCgzFf/cRl3Xw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038410"
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="94038387"
+   d="scan'208";a="94038410"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:39:54 -0700
-X-CSE-ConnectionGUID: 2W6XScs8R3uEQcYqoChVdw==
-X-CSE-MsgGUID: EyIpTvHpRNC70SY0oUk+Yg==
+X-CSE-ConnectionGUID: RoxzWhpcRgmFwBK6Lw99hg==
+X-CSE-MsgGUID: SRaxjGTHQtq51PmMQJKy4Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="223740289"
+   d="scan'208";a="223740295"
 Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.104])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:39:45 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 013D7121E39;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 1036D121F82;
 	Wed, 08 Apr 2026 18:39:51 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAV0F-000000044Cw-1kBB;
+	id 1wAV0F-000000044D8-2188;
 	Wed, 08 Apr 2026 18:39:39 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -82,9 +82,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v4 10/29] media: imx335: Remove redundant kernel-doc comments
-Date: Wed,  8 Apr 2026 18:39:19 +0300
-Message-ID: <20260408153939.969381-11-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 13/29] media: tvp514x: Remove redundant kernel-doc comments
+Date: Wed,  8 Apr 2026 18:39:22 +0300
+Message-ID: <20260408153939.969381-14-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
 References: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
@@ -101,175 +101,115 @@ have no information value.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/i2c/imx335.c | 87 --------------------------------------
- 1 file changed, 87 deletions(-)
+ drivers/media/i2c/tvp514x.c | 55 +------------------------------------
+ 1 file changed, 1 insertion(+), 54 deletions(-)
 
-diff --git a/drivers/media/i2c/imx335.c b/drivers/media/i2c/imx335.c
-index 5790aa4fabeb..1f777a1a8192 100644
---- a/drivers/media/i2c/imx335.c
-+++ b/drivers/media/i2c/imx335.c
-@@ -698,18 +698,6 @@ static int imx335_update_test_pattern(struct imx335 *imx335, u32 pattern_index)
- 	return ret;
+diff --git a/drivers/media/i2c/tvp514x.c b/drivers/media/i2c/tvp514x.c
+index f9c9c80c33ac..7af8f37646d6 100644
+--- a/drivers/media/i2c/tvp514x.c
++++ b/drivers/media/i2c/tvp514x.c
+@@ -686,13 +686,6 @@ static int tvp514x_s_routing(struct v4l2_subdev *sd,
+ 	return 0;
  }
  
 -/**
-- * imx335_set_ctrl() - Set subdevice control
+- * tvp514x_s_ctrl() - V4L2 decoder interface handler for s_ctrl
 - * @ctrl: pointer to v4l2_ctrl structure
 - *
-- * Supported controls:
-- * - V4L2_CID_VBLANK
-- * - cluster controls:
-- *   - V4L2_CID_ANALOGUE_GAIN
-- *   - V4L2_CID_EXPOSURE
-- *
-- * Return: 0 if successful, error code otherwise.
+- * If the requested control is supported, sets the control's current
+- * value in HW. Otherwise, returns -EINVAL if the control is not supported.
 - */
- static int imx335_set_ctrl(struct v4l2_ctrl *ctrl)
+ static int tvp514x_s_ctrl(struct v4l2_ctrl *ctrl)
  {
- 	struct imx335 *imx335 =
-@@ -800,14 +788,6 @@ static int imx335_get_format_code(struct imx335 *imx335, u32 code)
- 	return imx335_mbus_codes[0];
- }
- 
--/**
-- * imx335_enum_mbus_code() - Enumerate V4L2 sub-device mbus codes
-- * @sd: pointer to imx335 V4L2 sub-device structure
-- * @sd_state: V4L2 sub-device configuration
-- * @code: V4L2 sub-device code enumeration need to be filled
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
- static int imx335_enum_mbus_code(struct v4l2_subdev *sd,
- 				 struct v4l2_subdev_state *sd_state,
- 				 struct v4l2_subdev_mbus_code_enum *code)
-@@ -820,14 +800,6 @@ static int imx335_enum_mbus_code(struct v4l2_subdev *sd,
+ 	struct v4l2_subdev *sd = to_sd(ctrl);
+@@ -789,13 +782,6 @@ tvp514x_set_frame_interval(struct v4l2_subdev *sd,
  	return 0;
  }
  
 -/**
-- * imx335_enum_frame_size() - Enumerate V4L2 sub-device frame sizes
-- * @sd: pointer to imx335 V4L2 sub-device structure
-- * @sd_state: V4L2 sub-device configuration
-- * @fsize: V4L2 sub-device size enumeration need to be filled
+- * tvp514x_s_stream() - V4L2 decoder i/f handler for s_stream
+- * @sd: pointer to standard V4L2 sub-device structure
+- * @enable: streaming enable or disable
 - *
-- * Return: 0 if successful, error code otherwise.
+- * Sets streaming to enable or disable, if possible.
 - */
- static int imx335_enum_frame_size(struct v4l2_subdev *sd,
+ static int tvp514x_s_stream(struct v4l2_subdev *sd, int enable)
+ {
+ 	int err = 0;
+@@ -850,14 +836,6 @@ static const struct v4l2_ctrl_ops tvp514x_ctrl_ops = {
+ 	.s_ctrl = tvp514x_s_ctrl,
+ };
+ 
+-/**
+- * tvp514x_enum_mbus_code() - V4L2 decoder interface handler for enum_mbus_code
+- * @sd: pointer to standard V4L2 sub-device structure
+- * @sd_state: subdev state
+- * @code: pointer to v4l2_subdev_mbus_code_enum structure
+- *
+- * Enumertaes mbus codes supported
+- */
+ static int tvp514x_enum_mbus_code(struct v4l2_subdev *sd,
  				  struct v4l2_subdev_state *sd_state,
- 				  struct v4l2_subdev_frame_size_enum *fsize)
-@@ -871,14 +843,6 @@ static void imx335_fill_pad_format(struct imx335 *imx335,
- 	fmt->format.xfer_func = V4L2_XFER_FUNC_NONE;
- }
- 
--/**
-- * imx335_set_pad_format() - Set subdevice pad format
-- * @sd: pointer to imx335 V4L2 sub-device structure
-- * @sd_state: V4L2 sub-device configuration
-- * @fmt: V4L2 sub-device format need to be set
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
- static int imx335_set_pad_format(struct v4l2_subdev *sd,
- 				 struct v4l2_subdev_state *sd_state,
- 				 struct v4l2_subdev_format *fmt)
-@@ -923,13 +887,6 @@ static int imx335_set_pad_format(struct v4l2_subdev *sd,
- 	return ret;
- }
- 
--/**
-- * imx335_init_state() - Initialize sub-device state
-- * @sd: pointer to imx335 V4L2 sub-device structure
-- * @sd_state: V4L2 sub-device configuration
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
- static int imx335_init_state(struct v4l2_subdev *sd,
- 			     struct v4l2_subdev_state *sd_state)
- {
-@@ -947,14 +904,6 @@ static int imx335_init_state(struct v4l2_subdev *sd,
- 	return imx335_set_pad_format(sd, sd_state, &fmt);
- }
- 
--/**
-- * imx335_get_selection() - Selection API
-- * @sd: pointer to imx335 V4L2 sub-device structure
-- * @sd_state: V4L2 sub-device configuration
-- * @sel: V4L2 selection info
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
- static int imx335_get_selection(struct v4l2_subdev *sd,
- 				struct v4l2_subdev_state *sd_state,
- 				struct v4l2_subdev_selection *sel)
-@@ -1011,15 +960,6 @@ static int imx335_set_framefmt(struct imx335 *imx335)
- 	return ret;
- }
- 
--/**
-- * imx335_enable_streams() - Enable sensor streams
-- * @sd: V4L2 subdevice
-- * @state: V4L2 subdevice state
-- * @pad: The pad to enable
-- * @streams_mask: Bitmask of streams to enable
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
- static int imx335_enable_streams(struct v4l2_subdev *sd,
- 				 struct v4l2_subdev_state *state, u32 pad,
- 				 u64 streams_mask)
-@@ -1097,15 +1037,6 @@ static int imx335_enable_streams(struct v4l2_subdev *sd,
- 	return ret;
- }
- 
--/**
-- * imx335_disable_streams() - Disable sensor streams
-- * @sd: V4L2 subdevice
-- * @state: V4L2 subdevice state
-- * @pad: The pad to disable
-- * @streams_mask: Bitmask of streams to disable
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
- static int imx335_disable_streams(struct v4l2_subdev *sd,
- 				  struct v4l2_subdev_state *state, u32 pad,
- 				  u64 streams_mask)
-@@ -1299,12 +1230,6 @@ static int imx335_power_on(struct device *dev)
- 	return ret;
- }
- 
--/**
-- * imx335_power_off() - Sensor power off sequence
-- * @dev: pointer to i2c device
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
- static int imx335_power_off(struct device *dev)
- {
- 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-@@ -1430,12 +1355,6 @@ static int imx335_init_controls(struct imx335 *imx335)
+ 				  struct v4l2_subdev_mbus_code_enum *code)
+@@ -877,14 +855,6 @@ static int tvp514x_enum_mbus_code(struct v4l2_subdev *sd,
  	return 0;
  }
  
 -/**
-- * imx335_probe() - I2C client device binding
-- * @client: pointer to i2c client device
+- * tvp514x_get_pad_format() - V4L2 decoder interface handler for get pad format
+- * @sd: pointer to standard V4L2 sub-device structure
+- * @sd_state: subdev state
+- * @format: pointer to v4l2_subdev_format structure
 - *
-- * Return: 0 if successful, error code otherwise.
+- * Retrieves pad format which is active or tried based on requirement
 - */
- static int imx335_probe(struct i2c_client *client)
+ static int tvp514x_get_pad_format(struct v4l2_subdev *sd,
+ 				  struct v4l2_subdev_state *sd_state,
+ 				  struct v4l2_subdev_format *format)
+@@ -909,14 +879,6 @@ static int tvp514x_get_pad_format(struct v4l2_subdev *sd,
+ 	return 0;
+ }
+ 
+-/**
+- * tvp514x_set_pad_format() - V4L2 decoder interface handler for set pad format
+- * @sd: pointer to standard V4L2 sub-device structure
+- * @sd_state: subdev state
+- * @fmt: pointer to v4l2_subdev_format structure
+- *
+- * Set pad format for the output pad
+- */
+ static int tvp514x_set_pad_format(struct v4l2_subdev *sd,
+ 				  struct v4l2_subdev_state *sd_state,
+ 				  struct v4l2_subdev_format *fmt)
+@@ -1014,15 +976,7 @@ tvp514x_get_pdata(struct i2c_client *client)
+ 	return pdata;
+ }
+ 
+-/**
+- * tvp514x_probe() - decoder driver i2c probe handler
+- * @client: i2c driver client device structure
+- *
+- * Register decoder as an i2c client device and V4L2
+- * device.
+- */
+-static int
+-tvp514x_probe(struct i2c_client *client)
++static int tvp514x_probe(struct i2c_client *client)
  {
- 	struct imx335 *imx335;
-@@ -1530,12 +1449,6 @@ static int imx335_probe(struct i2c_client *client)
+ 	struct tvp514x_platform_data *pdata = tvp514x_get_pdata(client);
+ 	struct tvp514x_decoder *decoder;
+@@ -1113,13 +1067,6 @@ tvp514x_probe(struct i2c_client *client)
  	return ret;
  }
  
 -/**
-- * imx335_remove() - I2C client device unbinding
-- * @client: pointer to I2C client device
+- * tvp514x_remove() - decoder driver i2c remove handler
+- * @client: i2c driver client device structure
 - *
-- * Return: 0 if successful, error code otherwise.
+- * Unregister decoder as an i2c client device and V4L2
+- * device. Complement of tvp514x_probe().
 - */
- static void imx335_remove(struct i2c_client *client)
+ static void tvp514x_remove(struct i2c_client *client)
  {
  	struct v4l2_subdev *sd = i2c_get_clientdata(client);
 -- 
