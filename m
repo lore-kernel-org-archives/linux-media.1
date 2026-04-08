@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43BDE3D75C9
-	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:40:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC76F3D47A5
+	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:40:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775662827; cv=none; b=D6AejWw5wFxuyy/jGpuahko7xlqp/mQedBkV4KazdO9/ok6LnXMwDzZkkHuVkHg9GNHUp1H9WkyOVvGwidj0ttwfDyF2hDCZdqKZyFgvv0LkzFAb1/zAzjJwkdIqjLy5dpve5W5XxZtuiiECy3gJdeEMh77sHHetEaqOTKYDIuU=
+	t=1775662828; cv=none; b=Q1rQGx+IVAF3CKefCKE7UbAalTSav3EBBsXO3C+2WPmyQGKzq+6nnORyPWU8BxTp/QEqsTuyJi/1qleY519HijHTuNdjfSKl3+9igJTCmXeOvaGDxSLbALFcn0N7ofhHtFZqH2fvKB6zG5/ORsJbPNHBFrC96lqzh/55KK3hVKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775662827; c=relaxed/simple;
-	bh=eC/g/BB3ptL9As+MQeQclsXvXodNTzzp+uj4SLpGek0=;
+	s=arc-20240116; t=1775662828; c=relaxed/simple;
+	bh=4qwME4bFcW63izNidqlxsL7O/G8cgz8uOodADpThi2A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mNBlZrqx8YISSZCY1Qx+Vbwwsk6hLSRhUDRgH3cA2LY1zPzDvfQGNx9GuXTeiixk7BxOHYpqrQoocgzLLkpaDGIkTQWPtrqbxNz+HeBMpvDmtnj0MLSAVPMb/V4D1B4KpMKyBFSHkyl84MazHdfpGZpm7yp4TP3IYMPTww1f/KY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HtkufbtU; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=conCICNtBajmXcCewkm1Xg6t+Hh16pxzO+BjhoIY6U26C+PDvh2S2OcrqLBnvPv3yrTlc8NaFLeY8YSz4ZoUCxTuZBk/A0CVL52oeC4FvV+WceROzNXarbByxngXR5TW1ZSxFLlRiWucJSv1cwNxvtPsI6cRrLVH9KFsFkJhWic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Bb0OXNAR; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HtkufbtU"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Bb0OXNAR"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775662825; x=1807198825;
+  t=1775662828; x=1807198828;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=eC/g/BB3ptL9As+MQeQclsXvXodNTzzp+uj4SLpGek0=;
-  b=HtkufbtUFnzg9+d7HE6ljUvtWeFc0hjwWI879e73BWo/jAHGRrevJUsv
-   WowoZ6F6qN61J22GDVd3UT9xBzoqD+tI9N8dkiaYjQT7nZzXtRWgXYhY0
-   qXCYBhnXA9n9Gw3F29jjEBLZaq/ThLhnlMBH0kRDN1u4A47ZaM+3ohrKu
-   C/s8TRzogcXngUtCU94YtoEHyDZJAOMQFZmvPVbQn/sic0hKxGqliVKhz
-   prbcHmePDnc+fCaP/EqjOGwK6HlYKCYoKM/p3Ay7d139o/9eZyGiDN7PB
-   2XXdryiBULC759FoDCRh2ytC31YA9vTRhdqD5LMxp2DfnTJk3/+YQHdEG
-   g==;
-X-CSE-ConnectionGUID: 3hC8y0VTQl2qLAX8SAIJXg==
-X-CSE-MsgGUID: B9VnWNaERx68l5CsPmbrGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038510"
+  bh=4qwME4bFcW63izNidqlxsL7O/G8cgz8uOodADpThi2A=;
+  b=Bb0OXNAR4pZ1TJHV15k30PJCjZTq8GgFWdJjKHmUvDFUSr9PCSLLmtza
+   CmtTFK3wc9XORAVy75a5zSr39JAlG/U9c+2OaTUCdghZcFkXkZeC5VH2/
+   LQ7npuyPhL4Nsu+kU70RzGEPZTEnRVfx0twdLIxFd94UCuhGBmbw371Kq
+   nQmixBGfAvTR2F1DYZLDZNpRvpY4peCOqbsJ11vfacC0eG+au9aiZMUni
+   4Aj0CoxPOOvNRYXq+7eG8sBf90InxPcb6BU5X7EVmr7Bl81PDF5wV8lF0
+   DtpI5TqHwWMsRF178jxXHMuDaoNIiUL4A3HZyLy3/qJTjyFtvRZDlklVJ
+   w==;
+X-CSE-ConnectionGUID: YVYj8G/NRyWmjTesFfefvA==
+X-CSE-MsgGUID: GHQ369JiRIKDf3MmXnqvdA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038529"
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="94038510"
+   d="scan'208";a="94038529"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:40:02 -0700
-X-CSE-ConnectionGUID: p1D02Q5nTN2fXLVV97nirA==
-X-CSE-MsgGUID: 0CiCxv7HSpabJ0WcKiK+lg==
+X-CSE-ConnectionGUID: ICocAxI0RsWz0ak/6fDEJA==
+X-CSE-MsgGUID: fPRdbPPhRe+2XpwYUvMLMw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="223740394"
+   d="scan'208";a="223740401"
 Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.104])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:39:53 -0700
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:39:54 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 3AF43122102;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 54DD612229E;
 	Wed, 08 Apr 2026 18:39:51 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAV0F-000000044Dn-2nHy;
+	id 1wAV0F-000000044E6-3DHd;
 	Wed, 08 Apr 2026 18:39:39 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -82,9 +82,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v4 23/29] media: Improve enable_streams and disable_streams documentation
-Date: Wed,  8 Apr 2026 18:39:32 +0300
-Message-ID: <20260408153939.969381-24-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 28/29] media: v4l2-subdev: Perform client info changes to i2c drivers
+Date: Wed,  8 Apr 2026 18:39:37 +0300
+Message-ID: <20260408153939.969381-29-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
 References: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
@@ -96,42 +96,68 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document that enable_streams may start additional streams and
-disable_streams may not disable requested streams if other related streams
-are still enabled.
+Perform client info argument related changes to two i2c drivers (s5k5baf
+and tc358743). These changes are not done by Coccinelle scripts in the
+following patch and will be squashed to the previous patch eventually.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
 ---
- include/media/v4l2-subdev.h | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/media/i2c/og01a1b.c                     | 2 +-
+ drivers/media/i2c/s5k5baf.c                     | 1 +
+ drivers/media/i2c/tc358743.c                    | 2 +-
+ drivers/media/pci/intel/ipu6/ipu6-isys-subdev.h | 1 +
+ 4 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
-index d256b7ec8f84..4588992b4417 100644
---- a/include/media/v4l2-subdev.h
-+++ b/include/media/v4l2-subdev.h
-@@ -814,6 +814,10 @@ struct v4l2_subdev_state {
-  *	V4L2_SUBDEV_CAP_STREAMS sub-device capability flag can ignore the mask
-  *	argument.
-  *
-+ *	Starting the requested streams may require starting additional
-+ *	streams. Streams that are started together due to hardware are called a
-+ *	stream group.
-+ *
-  * @disable_streams: Disable the streams defined in streams_mask on the given
-  *	source pad. Subdevs that implement this operation must use the active
-  *	state management provided by the subdev core (enabled through a call to
-@@ -823,6 +827,9 @@ struct v4l2_subdev_state {
-  *	Drivers that support only a single stream without setting the
-  *	V4L2_SUBDEV_CAP_STREAMS sub-device capability flag can ignore the mask
-  *	argument.
-+ *
-+ *	A stream group is disabled when one or more streams in the stream
-+ *	group are disabled.
-  */
- struct v4l2_subdev_pad_ops {
- 	int (*enum_mbus_code)(struct v4l2_subdev *sd,
+diff --git a/drivers/media/i2c/og01a1b.c b/drivers/media/i2c/og01a1b.c
+index 1675f0460969..1d109ca75d76 100644
+--- a/drivers/media/i2c/og01a1b.c
++++ b/drivers/media/i2c/og01a1b.c
+@@ -763,7 +763,7 @@ static int og01a1b_init_state(struct v4l2_subdev *sd,
+ 		},
+ 	};
+ 
+-	og01a1b_set_format(sd, state, &fmt);
++	og01a1b_set_format(sd, NULL, state, &fmt);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/media/i2c/s5k5baf.c b/drivers/media/i2c/s5k5baf.c
+index d1d00eca8708..a580b7e63302 100644
+--- a/drivers/media/i2c/s5k5baf.c
++++ b/drivers/media/i2c/s5k5baf.c
+@@ -1463,6 +1463,7 @@ static bool s5k5baf_cmp_rect(const struct v4l2_rect *r1,
+ }
+ 
+ static int s5k5baf_set_selection(struct v4l2_subdev *sd,
++				 const struct v4l2_subdev_client_info *ci,
+ 				 struct v4l2_subdev_state *sd_state,
+ 				 struct v4l2_subdev_selection *sel)
+ {
+diff --git a/drivers/media/i2c/tc358743.c b/drivers/media/i2c/tc358743.c
+index a0ca19359c43..59f509aa1939 100644
+--- a/drivers/media/i2c/tc358743.c
++++ b/drivers/media/i2c/tc358743.c
+@@ -1822,7 +1822,7 @@ static int tc358743_set_fmt(struct v4l2_subdev *sd,
+ 	struct tc358743_state *state = to_state(sd);
+ 
+ 	u32 code = format->format.code; /* is overwritten by get_fmt */
+-	int ret = tc358743_get_fmt(sd, sd_state, format);
++	int ret = tc358743_get_fmt(sd, ci, sd_state, format);
+ 
+ 	if (code == MEDIA_BUS_FMT_RGB888_1X24 ||
+ 	    code == MEDIA_BUS_FMT_UYVY8_1X16)
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-subdev.h b/drivers/media/pci/intel/ipu6/ipu6-isys-subdev.h
+index 35069099c364..d4f76d513dc6 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-subdev.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-subdev.h
+@@ -31,6 +31,7 @@ bool ipu6_isys_is_bayer_format(u32 code);
+ u32 ipu6_isys_convert_bayer_order(u32 code, int x, int y);
+ 
+ int ipu6_isys_subdev_set_fmt(struct v4l2_subdev *sd,
++			     const struct v4l2_subdev_client_info *ci,
+ 			     struct v4l2_subdev_state *state,
+ 			     struct v4l2_subdev_format *fmt);
+ int ipu6_isys_subdev_enum_mbus_code(struct v4l2_subdev *sd,
 -- 
 2.47.3
 
