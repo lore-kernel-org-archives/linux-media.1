@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940E235F163
-	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:40:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D30D3D75D4
+	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:40:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775662823; cv=none; b=r2TJuG8aHZEkCxyiuivFflWw49meetMG5n2uCnTBhSfsHYVwIUs+m2x+1zw1Ks9n3ySxR/eZKQCSRBnw7/N93KMUCr6iABjs17zSwGDyuHW4VBgHvQJNXJrzSAT61PipHIHvMGVxv7aXoY21uMoR5M93GLfv1yVbRBPmsg4Glwg=
+	t=1775662826; cv=none; b=FWJtGYtGSSH20YLi+P2ES4Tkab/EdrM7WwNwHaq/P6rpn8b31b6bcI7xbxj4eqxaJZG5SrfgGJkFE/JxLVE4Ff9migCns8YaBoHUPc2OyqO+5w6QNHiGLdkSPnSjcfWnGWL+7mMCzLkg9+int9PXzipXkxkHz6LIhd3fbUlMCZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775662823; c=relaxed/simple;
-	bh=UcZ0lkDypFFiA3hVUS0c44fquslrKlzn0Bf+ggYGfEs=;
+	s=arc-20240116; t=1775662826; c=relaxed/simple;
+	bh=QJr3IO0NBhQN06ES4RQzVF/mhvyAkuI4PXtOR+OpcJQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BGy3w55YaD/zrG3nS6bZfZbPxAcyC9UqHu996D3MX2jbUCpQ0QR4x3eYvV5uNC6hnpU5LjLGWg7amw1C4M3evTfhtx5nPvV90DYPXAZgGJfAsx5FFCvT7dF3BJrq+e7WN4YPur9zL5Ch1rUuQYfuk8s0y2yOmBa+xUbK9yJmaC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nMTVP8Ew; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=r519VLTYOualXCZ9dopxkglMUpqQjLIZxLxhpw51rV/h7H5smDx5qWVbszf4n+TJW52UxgprtfpNitdJKLFSZfqWScQ3eRl+F4ZYkRISKrNy0Q4zY2i0obtMeOWqr18MRj8U3K5MMVBSawMteGvlZBELQoJ6w0Wensg+vXju2PA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b53WJTCA; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nMTVP8Ew"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b53WJTCA"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775662819; x=1807198819;
+  t=1775662822; x=1807198822;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=UcZ0lkDypFFiA3hVUS0c44fquslrKlzn0Bf+ggYGfEs=;
-  b=nMTVP8EwxQRJFm5zNuC3NKXsZAnDOIoZG/cI5cRYWi/5OQh52cdMs4An
-   2ikff4d/J+u8EF9WBd6oXyw/8q9bDrxHXjpW6mSmrAsqvUtHJ32QjYisU
-   JQkyFyNMQ1hzn4/FnFw393oTrBhPM9lIZ0IF3mLGETblyqnEt0G2xj3Mx
-   tY/qARqc947LWIaKRSwhUVjmKvA3qSjrstbrG3jk3bQ+tKRxe+49njnV8
-   MOwemI52bbGGx3ePdyz0ZAKd/Isdv9ZQpmppgwBRWAD1DBx8VCsOJ6yCt
-   1dbMDZV+GgOTNbifKRe4WMoeX8BseCAIAy9X5REH6q2d0S4lSH8KxK+SM
-   g==;
-X-CSE-ConnectionGUID: sTPf4EJRSqatNo1Md6k9+g==
-X-CSE-MsgGUID: SoPvv29QSCK0LVkPvRXq1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038471"
+  bh=QJr3IO0NBhQN06ES4RQzVF/mhvyAkuI4PXtOR+OpcJQ=;
+  b=b53WJTCAvJK2A5hj/bd3Jgfqlg3tbPHkG3K+EXF4k+z/Z9w5MczLhoSY
+   yQpvOZowhkJzxS+x9dieZRNHe0u4FUzOsEdoLlZc3f1jR/nBxzAEtMgBS
+   /16icc91X2RA9WXpnNfpvNSgAYyBRGJdu8YcCC3G6QFYZCXJancztK0iw
+   +SFnY71psO94Kvt0e+XSGbE0kMVU9a/wsrYf5T1CIWzQ2O8SJUMgN6WAV
+   /pcDlGwx8fjpZ+2urWpk4r9uBkHcFvl99s2F/UqP4kpGPLlmI0pRfvOkF
+   dI+HIdCPSM+CwYdjC4MP0ro+6xMQudwNAjoc5bfF3N1063G3Ut/i9zbc6
+   w==;
+X-CSE-ConnectionGUID: CB2UsVJySo6wt+2wM7JyZA==
+X-CSE-MsgGUID: Ah9um0yDSKGF6RLVVQiYNw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038491"
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="94038471"
+   d="scan'208";a="94038491"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:40:01 -0700
-X-CSE-ConnectionGUID: RIwBBEK1SUCWvySfULweeg==
-X-CSE-MsgGUID: 4Y7ReXueRHaURz6cImsJ4w==
+X-CSE-ConnectionGUID: 3PVdJPPeQo2HMS84K5sHPA==
+X-CSE-MsgGUID: nv6u7exoT42XbvKIOr8R3Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="223740386"
+   d="scan'208";a="223740392"
 Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.104])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:39:53 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 183AC121F8E;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 341B712206F;
 	Wed, 08 Apr 2026 18:39:51 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAV0F-000000044DG-2Afc;
+	id 1wAV0F-000000044Db-2ZEy;
 	Wed, 08 Apr 2026 18:39:39 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -82,9 +82,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v4 15/29] media: Documentation: Improve pixel rate calculation documentation
-Date: Wed,  8 Apr 2026 18:39:24 +0300
-Message-ID: <20260408153939.969381-16-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 20/29] media: uapi: Bump the STREAMS bit a little
+Date: Wed,  8 Apr 2026 18:39:29 +0300
+Message-ID: <20260408153939.969381-21-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
 References: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
@@ -96,34 +96,33 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Improve documentation on calculating the pixel rate, by adding references
-to relevant functions and mentioning V4L2 fwnode endpoint instead of OF
-endpoint.
+Bump the V4L2_SUBDEV_CAP_STREAMS by one bit up, order to avoid confusing
+libcamera with streams that has moved forward from the original libcamera
+implementation. The bit can presumably be taken into use but only after
+the other free bits.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- Documentation/driver-api/media/tx-rx.rst | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ include/uapi/linux/v4l2-subdev.h | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/driver-api/media/tx-rx.rst b/Documentation/driver-api/media/tx-rx.rst
-index 7df2407817b3..9b231fa0216a 100644
---- a/Documentation/driver-api/media/tx-rx.rst
-+++ b/Documentation/driver-api/media/tx-rx.rst
-@@ -104,7 +104,11 @@ where
-    * - k
-      - 16 for D-PHY and 7 for C-PHY.
+diff --git a/include/uapi/linux/v4l2-subdev.h b/include/uapi/linux/v4l2-subdev.h
+index 2347e266cf75..6160c3e21436 100644
+--- a/include/uapi/linux/v4l2-subdev.h
++++ b/include/uapi/linux/v4l2-subdev.h
+@@ -196,8 +196,11 @@ struct v4l2_subdev_capability {
+ /* The v4l2 sub-device video device node is registered in read-only mode. */
+ #define V4L2_SUBDEV_CAP_RO_SUBDEV		0x00000001
  
--Information on whether D-PHY or C-PHY is used, and the value of ``nr_of_lanes``, can be obtained from the OF endpoint configuration.
-+Information on whether D-PHY or C-PHY is used as well as the value of
-+``nr_of_lanes`` can be obtained from the V4L2 endpoint configuration; see
-+:c:func:`v4l2_fwnode_endpoint_alloc_parse()`,
-+:c:func:`v4l2_fwnode_endpoint_parse()` and
-+:c:func:`v4l2_get_active_data_lanes()`.
++/* Reserved, old STREAMS bit libcamera used before API stabilisation. */
++/* #define V4L2_SUBDEV_CAP_STREAMS_PRELIMINARY	0x00000002 */
++
+ /* The v4l2 sub-device supports routing and multiplexed streams. */
+-#define V4L2_SUBDEV_CAP_STREAMS			0x00000002
++#define V4L2_SUBDEV_CAP_STREAMS			0x00000004
  
- .. note::
- 
+ /*
+  * Is the route active? An active route will start when streaming is enabled
 -- 
 2.47.3
 
