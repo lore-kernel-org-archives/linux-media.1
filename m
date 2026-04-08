@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594233D4131
-	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:40:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD03A3A2579
+	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:40:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775662820; cv=none; b=krZnohErjMi9ZhyrntcXKFvYiEKtV0GqA28kDYl8Xlc5ug0NtOk7++tYfcjBYjjrsSLPkV06cw9Y2UM77B7E3qoMixqQU01GR9rx1kndJWNr9MmGlEn1Ds0L+o1AJNfrumx3Px5qMBojqGBKHUp4b4iPOud/j2RsbXjbDhD5WHQ=
+	t=1775662823; cv=none; b=Osl9FaortDNzkF/iEOhlAYNMm4bkWYu1yvyebiB88D7E+Aflg+Xexyh6Chjc0LS9CoygJpnbLt2Xuaz7hLgF/3jNU+y57K4KHATai74VvgbAXnmHQ+yWpAjz7kcP4b2h6mB7ff5vlPRYbgDzBYTQdi2LwoYZbTtR2nSmHbnVi8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775662820; c=relaxed/simple;
-	bh=UvPWqLhCQMB93578Gw+6pMtEfXhRc3BIVSXw0GJOG1M=;
+	s=arc-20240116; t=1775662823; c=relaxed/simple;
+	bh=d6ewd0OgnjdCKMEMQLVVi5WVY9nK65gp+GsUlIM3QjM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=boJkuIxtQn+gJbbX72fLXGIdBJq7yrkFxfxT2/JXj1LuYw2mfku4QBZCBu1s2Mz+OUIKa8V93AXmQDR8MnHpqfitBlsznAPH6aeAZSAdWu37EnJQn+2rz/TGMinuHtWmID11eG538zhyxL44ltGFicisMjV9PPVckSN0G5SH8pA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cbcLyz2/; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=RSJVJ1UuvBNrPVusR3r9cvRv98jVlE+xJU121U+IAW+SQ/n2M0vzmMn+Cebg8NfRAq30TQR4SBsXejaKOL0c1EZmvBlFjQNsyjEaN7cNpqQlQkS4S2NRsM6JxYHOPZ6OeuHYGxdzfPedmNfTBQynDmbHM67/fPj7lI7f1bEV8Cc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hkk92LZT; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cbcLyz2/"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hkk92LZT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775662818; x=1807198818;
+  t=1775662820; x=1807198820;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=UvPWqLhCQMB93578Gw+6pMtEfXhRc3BIVSXw0GJOG1M=;
-  b=cbcLyz2/y80fKQqf1ff0Hg2vuQw5kTl8TQTBmZdejTnnqt97CjNs+JcM
-   qfEUwGIeYgazgNLMvk8OfSWnqKuBct0K4QPj0sczMhcBtcSq5RELR0pqS
-   jZdRQxlww9aHBpblECFNrISeJ8cFqoZqNDQ2L/kv4eL8svxSSIcacA5wt
-   OvArB5r5MOY/G4CYpGkSvIi7fVp2BfPOoPczfywSaeERCkjw1lCOtldJf
-   +N1nTtAf5rnfdxb6JXH4w2HfwZ1eym3B3TUtIHnbFMn6/CCqAFOXiQJK1
-   PIysdg8CFZTB95SmSZZuop6sLYyUHlt4Nyp08aq8W9uey/M3/b69xdg1s
-   Q==;
-X-CSE-ConnectionGUID: EtBqWE4HTUWE79AwJo3LBQ==
-X-CSE-MsgGUID: 4vqaSBNeS3u/nTDgUxA/MA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038460"
+  bh=d6ewd0OgnjdCKMEMQLVVi5WVY9nK65gp+GsUlIM3QjM=;
+  b=hkk92LZTwZD/mo4E4Rl++IRdN7rUNESHu5IBROuF44o6UPBDuLS8nojK
+   x7MU3X+N5FJ0Cy5X+WnpbPuiLSE2EvzJIXsNwIvwU4F7O1dWWHW/YoqOs
+   0YbT4ZhrTFl6K6RxQl2sk2/JGTjbRXXYggHmoCx7NkICXQX7PphvXxgTF
+   8B+zY0J5gfpEgiwzxTvYyX+uBWIqEK7vyc/XnrdX9tmSFNztuJC9Qg9MD
+   CxhnmaBy1e4qWjEJWCgTSNXdUh5L/KotEVxZj8wiJE2cFwA3Nxht2M7FP
+   7JyCPEz0GU4+Ab9ualA4Uw0vLGh6/c/i4LLiDjqDhhzl/540upVZN/lgc
+   g==;
+X-CSE-ConnectionGUID: U5021tn6Rz+WA0VHHjYYpA==
+X-CSE-MsgGUID: 8vJ/otGXRROO7SGH7EMm8Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038479"
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="94038460"
+   d="scan'208";a="94038479"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:40:01 -0700
-X-CSE-ConnectionGUID: tWBB/06oQNKWADotNjyALw==
-X-CSE-MsgGUID: J/JMjzyZS1ODnyZB+UupXQ==
+X-CSE-ConnectionGUID: hpRdWruSSg25XTv6SJC7dA==
+X-CSE-MsgGUID: R+KzmNenTOmTgFmm1/liLw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="223740383"
+   d="scan'208";a="223740387"
 Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.104])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:39:53 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 20F65122014;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 341DA1220BA;
 	Wed, 08 Apr 2026 18:39:51 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAV0F-000000044DO-2KaE;
+	id 1wAV0F-000000044De-2dKz;
 	Wed, 08 Apr 2026 18:39:39 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -82,9 +82,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v4 17/29] media: v4l2-subdev: Allow accessing routes with STREAMS client capability
-Date: Wed,  8 Apr 2026 18:39:26 +0300
-Message-ID: <20260408153939.969381-18-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 21/29] media: mc: Don't care about unsettable flags in MEDIA_IOC_LINK_SETUP
+Date: Wed,  8 Apr 2026 18:39:30 +0300
+Message-ID: <20260408153939.969381-22-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
 References: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
@@ -96,41 +96,45 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Disable access to routes when the STREAMS client capability bit isn't set.
-Routes aren't relevant otherwise anyway.
+The implementation of MEDIA_IOC_LINK_SETUP currently requires that all
+flags that are set by the driver are correctly set as the driver expects.
+This poses a problem for adding new flags as programs could not work with
+links that have unknown flags even when the use of these flags wouldn't
+affect the program.
+
+Ignore the non-settable link flags.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
-Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
 ---
- drivers/media/v4l2-core/v4l2-subdev.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/media/mc/mc-entity.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-index f8fde395a53a..647587c0499a 100644
---- a/drivers/media/v4l2-core/v4l2-subdev.c
-+++ b/drivers/media/v4l2-core/v4l2-subdev.c
-@@ -1020,6 +1020,9 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
- 		if (!(sd->flags & V4L2_SUBDEV_FL_STREAMS))
- 			return -ENOIOCTLCMD;
+diff --git a/drivers/media/mc/mc-entity.c b/drivers/media/mc/mc-entity.c
+index 717569bd1a8c..287eded356bb 100644
+--- a/drivers/media/mc/mc-entity.c
++++ b/drivers/media/mc/mc-entity.c
+@@ -1319,7 +1319,7 @@ static int __media_entity_setup_link_notify(struct media_link *link, u32 flags)
  
-+		if (!client_supports_streams)
-+			return -EINVAL;
-+
- 		memset(routing->reserved, 0, sizeof(routing->reserved));
+ int __media_entity_setup_link(struct media_link *link, u32 flags)
+ {
+-	const u32 mask = MEDIA_LNK_FL_ENABLED;
++	const u32 settable_flags = MEDIA_LNK_FL_ENABLED;
+ 	struct media_device *mdev;
+ 	struct media_pad *source, *sink;
+ 	int ret = -EBUSY;
+@@ -1327,9 +1327,9 @@ int __media_entity_setup_link(struct media_link *link, u32 flags)
+ 	if (link == NULL)
+ 		return -EINVAL;
  
- 		copy_routes_state_to_routing(routing, state);
-@@ -1041,6 +1044,9 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
- 		if (!(sd->flags & V4L2_SUBDEV_FL_STREAMS))
- 			return -ENOIOCTLCMD;
+-	/* The non-modifiable link flags must not be modified. */
+-	if ((link->flags & ~mask) != (flags & ~mask))
+-		return -EINVAL;
++	/* Only allow changing user-settable flags. */
++	flags &= settable_flags;
++	flags |= link->flags & ~settable_flags;
  
-+		if (!client_supports_streams)
-+			return -EINVAL;
-+
- 		if (routing->which != V4L2_SUBDEV_FORMAT_TRY && ro_subdev)
- 			return -EPERM;
- 
+ 	if (link->flags & MEDIA_LNK_FL_IMMUTABLE)
+ 		return link->flags == flags ? 0 : -EINVAL;
 -- 
 2.47.3
 
