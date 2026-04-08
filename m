@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4743D6CDB
-	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:40:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9983A2579
+	for <linux-media@vger.kernel.org>; Wed,  8 Apr 2026 15:40:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775662807; cv=none; b=pN5RyguZrMpuMN0NUDGAPWLYmbaNP3hBcrdRHih9c/LTYitOvSQq3dG3EF/BX/G4L9pCwgBfxZmoPlqjuiEojMMfmHnAupe+5LkTFtuc9ogITp/nUfjdMIRNwfCf8BR3gZccwM61LbrdRO8JR8o7zbFHngVbdYI2036lA8aO4Pg=
+	t=1775662811; cv=none; b=JCVQ894A60uICzbS4kfPDKRvVp5P4vzYFnMx9sKFGeGkKdSh/Y2+n9npYCbt7xKSY3alsHHcPuV7xSeQ5KTrkJIV6eABbVsPEd1BzCwrGBX/Tn3haf3+m4JT2boG0488dfGiTfNl4qDXFHIh0jsZGhSYOaarmPp8JtyUHAml1aY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775662807; c=relaxed/simple;
-	bh=Ss3ejvuvBjdpUiaPaAGMCsm9lCz59N0pupQKwuvxTI4=;
+	s=arc-20240116; t=1775662811; c=relaxed/simple;
+	bh=wYNnny9oXXzq29zZc10s3/tHyMrNU2YdK+d6JfinpMw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tEJ7Tpm2t+VsADicc6mua1TEalLNYjYZ6r6XHDrMyxkENMMDNsY8LHweI0PWaAfBSgsQEneyKT1mlRZvBMHLlsi0AkK/Ek7Hd4KEcJijdfflmlhmw4AZRE22xVXtyEA+mQro1qZMXz3Jo5IZOmrbnCflfgwq2RC1wqR99atdwZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IdjnN7gI; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=SageTDHHJyENfR3sQzw2UEyZ/0keoLByV2Zn6j/3sBWmyRxZ1yViuGRKco0E00mFsS7Fb48kmdWYk2ovXmdOhDGZ80JIXmBOISt3Qme9zDlRSjqQWxo6qorm3pH16u69hqYABT3jw48B75rv9ee3uFI1+KpS6BiGRTTLyIXwzo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LjFCl5Vi; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IdjnN7gI"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LjFCl5Vi"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775662803; x=1807198803;
+  t=1775662808; x=1807198808;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Ss3ejvuvBjdpUiaPaAGMCsm9lCz59N0pupQKwuvxTI4=;
-  b=IdjnN7gIqIr5RPhDAxirgobW7DdWUvG/VVH5aHPLeAhDaO6Yv/0969nb
-   mx3ou9WKm696VP3YNj9TqfW1Z0LfA6hpx5+r1AvKV4GnQpP/NEX6vIBqe
-   FbPqhi0XjnLgRc/iqrAGYcW6WtzxuKQk9Hrf/VrtWUela4dhloAdTyn6l
-   ttyH6N+2A2aBqy1Jp+Sy69vQ+EApIAncqZ/FcUqLMkqi/UPtRiWi2XRuZ
-   +xMCwx0nvS5sJguZLmhY1hoQTh0NRlEru8DlQoQQR/uny1O+1aiKD5u4q
-   gUu6jU531L/f5B2x8kgRd0nvI/HGkEDXMVBuBgVuqTOgJ8BBXfkK3Z0oY
-   w==;
-X-CSE-ConnectionGUID: 7RrVpGVbTVK9rgyH0C7vtw==
-X-CSE-MsgGUID: D6CqrF/DQq6+hVpNFEmewQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038368"
+  bh=wYNnny9oXXzq29zZc10s3/tHyMrNU2YdK+d6JfinpMw=;
+  b=LjFCl5Vi4O0hS++2uqJ1B6C83hAVdzZqOuTj52d3LIHfsQHMTkNbSGlM
+   Q8S5MGfI0zMxcgGLM2eJiFEW7cet/Ub62T/I4UewkwhMzuVXBSU8fswy3
+   z03iRE1DPMAE0ZGDvlz21XcrLt769F/HSEjD0LNT44RL0GWc7xx7VHOAA
+   isrl8GHnPQxHTF6ODqkKvl7NVTi1A6faM0NkLEfyyWhxLnUW58+O4JaDK
+   osQUfM5nfkziJ5xwcBZlDfQeO8t3JioltJn9KiWRJ1uyaOY4fM1hQ9EWN
+   wO/uAathUs++aANfZY5T+7puGDLYLW4e0FEqHv9nUJ2Nw94/G9OH8z8uR
+   g==;
+X-CSE-ConnectionGUID: WAjVwFjJR8mOJphm5YKN2w==
+X-CSE-MsgGUID: YuBqkTnaSr+0jDL9l8AfSA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94038388"
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="94038368"
+   d="scan'208";a="94038388"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:39:53 -0700
-X-CSE-ConnectionGUID: j0/+neZHTViFnsHmNzGNLA==
-X-CSE-MsgGUID: sAp0cHuRQAmKp469/P7Abg==
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:39:54 -0700
+X-CSE-ConnectionGUID: 2KM/W1IQQWKSkkFN/xsfHA==
+X-CSE-MsgGUID: MbxKfKlKRj2uFE80hPo5Sw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="223740288"
+   d="scan'208";a="223740292"
 Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.104])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Apr 2026 08:39:45 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 05952121F78;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 12654121F87;
 	Wed, 08 Apr 2026 18:39:51 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAV0F-000000044D5-1vKT;
+	id 1wAV0F-000000044DC-25WE;
 	Wed, 08 Apr 2026 18:39:39 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -82,9 +82,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v4 12/29] media: ov9282: Remove redundant kernel-doc comments
-Date: Wed,  8 Apr 2026 18:39:21 +0300
-Message-ID: <20260408153939.969381-13-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 14/29] media: Documentation: Improve LINK_FREQ documentation
+Date: Wed,  8 Apr 2026 18:39:23 +0300
+Message-ID: <20260408153939.969381-15-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
 References: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
@@ -96,148 +96,46 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Remove kernel-doc comments from regular callback functions. These comments
-have no information value.
+Add a reference to the LINK_FREQ control and clarify the meaning of the
+control as for C-PHY the matter is less obvious.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- drivers/media/i2c/ov9282.c | 67 --------------------------------------
- 1 file changed, 67 deletions(-)
+ Documentation/driver-api/media/tx-rx.rst                      | 3 ++-
+ .../userspace-api/media/v4l/ext-ctrls-image-process.rst       | 4 +++-
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-index 2167fb73ea41..5b6f897a74fc 100644
---- a/drivers/media/i2c/ov9282.c
-+++ b/drivers/media/i2c/ov9282.c
-@@ -586,18 +586,6 @@ static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
- 	return DIV_ROUND_UP(value * frame_width, OV9282_STROBE_SPAN_FACTOR);
- }
+diff --git a/Documentation/driver-api/media/tx-rx.rst b/Documentation/driver-api/media/tx-rx.rst
+index 22e1b13ecde9..7df2407817b3 100644
+--- a/Documentation/driver-api/media/tx-rx.rst
++++ b/Documentation/driver-api/media/tx-rx.rst
+@@ -93,7 +93,8 @@ where
+    * - variable or constant
+      - description
+    * - link_freq
+-     - The value of the ``V4L2_CID_LINK_FREQ`` integer64 menu item.
++     - The value of the :ref:`V4L2_CID_LINK_FREQ <v4l2-cid-link-freq>` integer64
++       menu item.
+    * - nr_of_lanes
+      - Number of data lanes used on the CSI-2 link.
+    * - 2
+diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
+index 6d516f041ca2..ee88933256dd 100644
+--- a/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
++++ b/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
+@@ -24,7 +24,9 @@ Image Process Control IDs
+ .. _v4l2-cid-link-freq:
  
--/**
-- * ov9282_set_ctrl() - Set subdevice control
-- * @ctrl: pointer to v4l2_ctrl structure
-- *
-- * Supported controls:
-- * - V4L2_CID_VBLANK
-- * - cluster controls:
-- *   - V4L2_CID_ANALOGUE_GAIN
-- *   - V4L2_CID_EXPOSURE
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
- static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
- {
- 	struct ov9282 *ov9282 =
-@@ -704,14 +692,6 @@ static const struct v4l2_ctrl_ops ov9282_ctrl_ops = {
- 	.try_ctrl = ov9282_try_ctrl,
- };
+ ``V4L2_CID_LINK_FREQ (integer menu)``
+-    The frequency of the data bus (e.g. parallel or CSI-2).
++    The fundamental frequency of the operating symbol rate (serial interfaces
++    such as CSI-2) or the sampling rate (parallel interfaces such as DVP or
++    Bt.565) of the data interface.
  
--/**
-- * ov9282_enum_mbus_code() - Enumerate V4L2 sub-device mbus codes
-- * @sd: pointer to ov9282 V4L2 sub-device structure
-- * @sd_state: V4L2 sub-device configuration
-- * @code: V4L2 sub-device code enumeration need to be filled
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
- static int ov9282_enum_mbus_code(struct v4l2_subdev *sd,
- 				 struct v4l2_subdev_state *sd_state,
- 				 struct v4l2_subdev_mbus_code_enum *code)
-@@ -780,14 +760,6 @@ static void ov9282_fill_pad_format(struct ov9282 *ov9282,
- 	fmt->format.xfer_func = V4L2_XFER_FUNC_NONE;
- }
+ .. _v4l2-cid-pixel-rate:
  
--/**
-- * ov9282_get_pad_format() - Get subdevice pad format
-- * @sd: pointer to ov9282 V4L2 sub-device structure
-- * @sd_state: V4L2 sub-device configuration
-- * @fmt: V4L2 sub-device format need to be set
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
- static int ov9282_get_pad_format(struct v4l2_subdev *sd,
- 				 struct v4l2_subdev_state *sd_state,
- 				 struct v4l2_subdev_format *fmt)
-@@ -807,14 +779,6 @@ static int ov9282_get_pad_format(struct v4l2_subdev *sd,
- 	return 0;
- }
- 
--/**
-- * ov9282_set_pad_format() - Set subdevice pad format
-- * @sd: pointer to ov9282 V4L2 sub-device structure
-- * @sd_state: V4L2 sub-device configuration
-- * @fmt: V4L2 sub-device format need to be set
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
- static int ov9282_set_pad_format(struct v4l2_subdev *sd,
- 				 struct v4l2_subdev_state *sd_state,
- 				 struct v4l2_subdev_format *fmt)
-@@ -852,13 +816,6 @@ static int ov9282_set_pad_format(struct v4l2_subdev *sd,
- 	return ret;
- }
- 
--/**
-- * ov9282_init_state() - Initialize sub-device state
-- * @sd: pointer to ov9282 V4L2 sub-device structure
-- * @sd_state: V4L2 sub-device configuration
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
- static int ov9282_init_state(struct v4l2_subdev *sd,
- 			     struct v4l2_subdev_state *sd_state)
- {
-@@ -1157,12 +1114,6 @@ static const struct v4l2_subdev_internal_ops ov9282_internal_ops = {
- 	.init_state = ov9282_init_state,
- };
- 
--/**
-- * ov9282_power_on() - Sensor power on sequence
-- * @dev: pointer to i2c device
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
- static int ov9282_power_on(struct device *dev)
- {
- 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-@@ -1206,12 +1157,6 @@ static int ov9282_power_on(struct device *dev)
- 	return ret;
- }
- 
--/**
-- * ov9282_power_off() - Sensor power off sequence
-- * @dev: pointer to i2c device
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
- static int ov9282_power_off(struct device *dev)
- {
- 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-@@ -1333,12 +1278,6 @@ static int ov9282_init_controls(struct ov9282 *ov9282)
- 	return 0;
- }
- 
--/**
-- * ov9282_probe() - I2C client device binding
-- * @client: pointer to i2c client device
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
- static int ov9282_probe(struct i2c_client *client)
- {
- 	struct ov9282 *ov9282;
-@@ -1435,12 +1374,6 @@ static int ov9282_probe(struct i2c_client *client)
- 	return ret;
- }
- 
--/**
-- * ov9282_remove() - I2C client device unbinding
-- * @client: pointer to I2C client device
-- *
-- * Return: 0 if successful, error code otherwise.
-- */
- static void ov9282_remove(struct i2c_client *client)
- {
- 	struct v4l2_subdev *sd = i2c_get_clientdata(client);
 -- 
 2.47.3
 
