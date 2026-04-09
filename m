@@ -1,52 +1,54 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DE434751E
-	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4AEC3446C3
+	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765736; cv=none; b=WL2v3YUxxws46kUsORNom4FexPBMsU5RI1DAF+dYXeS1XmX7dHSUD9LiTXXZHEKcpwkOoP6Q3E/1smxZ2uZwFM73euRjtbZV3UdogaF3c93/EyoQ/ySZu+Bf7bb4CiDk5bD0BTWERwZGhZ8QF8g78SW4386m/fHgmnxvj7u/UnI=
+	t=1775765737; cv=none; b=Laq+AcEWOsY/DBZLS8dlxaARA0ig22BMtt/zc2Pg3yj/NLSlC6/RiLlPaOhiRUkeNlYNLkR4nN2PTmvzSWASvpn5NugBuiHwbH2o1wa7g0F7DWxVl+wXcYF2mzRFQ+wXzx1x3csbDbUIMbzlgle+yhRnbqaZnUC8B36FdDINYEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775765736; c=relaxed/simple;
-	bh=gulW1dzIwWpc+ISFZK0Loy/aQHOvUskSDaHX1PkCUfo=;
+	s=arc-20240116; t=1775765737; c=relaxed/simple;
+	bh=RXY7mLJa/mcFbtgWufbuVq4q7gFlSMHXrAHW1R0Brdg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LW+wvRxYN7Fmbq0K2ulhEdH4juTdmzWvOLei71J+4yQkHwi5p2pR24UVp4zde0lbTb8+ZfYQMEHMhUCbWh3SzzqxJvrl9c0cNmsY0edkrEqOP50W0415IFeIBEMBJx1ssWEQUs95WZ5Voq2E9yVU71kmT4YX+KlkLoJOVh+IYcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dSxDXTQ2; arc=none smtp.client-ip=192.198.163.11
+	 MIME-Version; b=psFLHZao99YHxkFlIeujGD7Ttb0010CZpXIujyqkESEE3FN16gxRaIhxjzys9SkFks5qzLfX+c+NBbrD/bOCZkyo3tSGd9sWmJZIADqX905VVt0c5f4/IvXLFQNIC1+oerresKaKEQOU05s39cRqHbYbfG83ANArHNYVCKCwJ6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ny1c6+rg; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dSxDXTQ2"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ny1c6+rg"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775765734; x=1807301734;
+  t=1775765736; x=1807301736;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=gulW1dzIwWpc+ISFZK0Loy/aQHOvUskSDaHX1PkCUfo=;
-  b=dSxDXTQ2nnn8od3cOrzjwxJ8uyWS8jiiaRmFlmTTrbH1PV/40pqLXhDx
-   +lbEfqWUZZvGC1qT8glqrXD4SnbcVsyu2LBQhD0o1A72sHmcRU5/V8Kl6
-   U1f1v9wBbNegBuXX+IcUZTP0w8r9duaOETUu96TL34W4BwaO0Rw8L6yuy
-   xt48U1r/wQf0HTx0FIq7L1jm++so6rlKL2tZ8ukZ9xW0f++4QImQ/m1/L
-   2VKrf+E28gl2IUgHRYMMnycYyFZOQ1XssdJwop9xGzz+Xx93dXCOv4F59
-   KWq5eFypediLDSOEO/uF/AKf27FFG/bIaZzUanoU0I/di13+qiiZZa1pP
-   Q==;
-X-CSE-ConnectionGUID: ddAdPFOhRbKZxey47Ak6Lw==
-X-CSE-MsgGUID: 9wl0AX1hRxSPDb4/scO15g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="87409155"
+  bh=RXY7mLJa/mcFbtgWufbuVq4q7gFlSMHXrAHW1R0Brdg=;
+  b=ny1c6+rge4Xbk4zY+R2U77h5lGgu+08+6T2/OcH618E+w5GDDgvXWhE6
+   +D4HcJpvWa27gXP3qrzZU4d+Kf0DWj5JORJVYlNceUVjrFVUe3hYVanmV
+   4fIPxy/EJ0wPZDSiMDzQi9lDuiCM1lObGMHxC2Pc8FX/pljL5CxlvxDDD
+   OaT8qpFbRlaBbPmwr3hsyL81WIOwcN09MSjqF9cSPOzHPqmoiTz+w8CZ3
+   j0pXjr7S2A6yZQqwCukLlR0OI50TE/l2eZjzdWg+Dw7iefYrPcOOaaV0/
+   VcyA9wbuM/nwyFxlRkbWf1e16Pf+8W/gQ46RgTY/8qokpcO5KAY50K3CW
+   A==;
+X-CSE-ConnectionGUID: FJAj+Q+mRS+w2JExW1Hs9A==
+X-CSE-MsgGUID: jHcSPi4RSj+H5k4EXjWVSQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176557"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="87409155"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:18 -0700
-X-CSE-ConnectionGUID: lZqm+jdKQFCMuOne2o0OTA==
-X-CSE-MsgGUID: A/4J1YfDQ+6NT5xnoLTOKQ==
+   d="scan'208";a="94176557"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:26 -0700
+X-CSE-ConnectionGUID: mmo7YcmjRA2L82LzUqFfeg==
+X-CSE-MsgGUID: rfnIhVeeRoK+ccKKPXMIDg==
 X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
+   d="scan'208";a="228047544"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:11 -0700
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:19 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 6C18E1226BD;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 880CA1227D2;
 	Thu, 09 Apr 2026 23:15:13 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmH-000000045lh-3a1y;
+	id 1wAvmH-000000045mD-46SR;
 	Thu, 09 Apr 2026 23:15:01 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -77,9 +79,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 16/86] media: uapi: Correct generic CSI-2 metadata format 4cc
-Date: Thu,  9 Apr 2026 23:13:51 +0300
-Message-ID: <20260409201501.975242-17-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 24/86] media: Documentation: Add scaling and post-scaler crop for common raw
+Date: Thu,  9 Apr 2026 23:13:59 +0300
+Message-ID: <20260409201501.975242-25-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -91,174 +93,67 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Rework the pixelformat 4cc for CSI-2 generic metadata, the 16- and 24-bit
-variants are not specific to CSI-2. This can be done as no driver uses
-this yet and the interface is disabled.
+Document scaling and post-scaler digital crop operations for the common
+raw sensor model.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 ---
- .../media/v4l/metafmt-generic.rst             | 40 +++++++++----------
- .../media/pci/intel/ipu6/ipu6-isys-video.c    |  2 +-
- drivers/media/v4l2-core/v4l2-ioctl.c          |  8 ++--
- include/uapi/linux/videodev2.h                | 12 +++---
- 4 files changed, 30 insertions(+), 32 deletions(-)
+ .../media/v4l/subdev-config-model.rst         | 26 ++++++++++++++-----
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/userspace-api/media/v4l/metafmt-generic.rst b/Documentation/userspace-api/media/v4l/metafmt-generic.rst
-index 7226b4810088..07147b4d0dd2 100644
---- a/Documentation/userspace-api/media/v4l/metafmt-generic.rst
-+++ b/Documentation/userspace-api/media/v4l/metafmt-generic.rst
-@@ -2,7 +2,7 @@
- .. c:namespace:: V4L
+diff --git a/Documentation/userspace-api/media/v4l/subdev-config-model.rst b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
+index b450f698a608..1525119cbeb9 100644
+--- a/Documentation/userspace-api/media/v4l/subdev-config-model.rst
++++ b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
+@@ -146,12 +146,19 @@ binning and sub-sampling to achieve the desired size.
  
- ********************************************************************************************************************************************************************************************************************************************************************************
--V4L2_META_FMT_GENERIC_8 ('MET8'), V4L2_META_FMT_GENERIC_CSI2_10 ('MC1A'), V4L2_META_FMT_GENERIC_CSI2_12 ('MC1C'), V4L2_META_FMT_GENERIC_CSI2_14 ('MC1E'), V4L2_META_FMT_GENERIC_CSI2_16 ('MC1G'), V4L2_META_FMT_GENERIC_CSI2_20 ('MC1K'), V4L2_META_FMT_GENERIC_CSI2_24 ('MC1O')
-+V4L2_META_FMT_GENERIC_8 ('MET8'), V4L2_META_FMT_GENERIC_CSI2_10 ('MECA'), V4L2_META_FMT_GENERIC_CSI2_12 ('MECC'), V4L2_META_FMT_GENERIC_CSI2_14 ('MECE'), V4L2_META_FMT_GENERIC_16 ('METG'), V4L2_META_FMT_GENERIC_CSI2_20 ('MECK'), V4L2_META_FMT_GENERIC_24 ('METO')
- ********************************************************************************************************************************************************************************************************************************************************************************
+ The digital crop operation takes place after binning and sub-sampling. It is
+ configured by setting the ``V4L2_SEL_TGT_CROP`` rectangle on (pad, stream) pair
+-0/0. The resulting image size is further output by the sensor on the sensor's
+-data interface.
++0/0.
++
++The scaling operation is performed after the digital crop. It is configured by
++setting the ``V4L2_SEL_TGT_COMPOSE`` rectangle on (pad, stream) pair 0/0,
++relative to the digital crop. The resulting image size is further output by the
++sensor on the sensor's data interface.
  
+ The sensor's output mbus code is configured by setting the format on the (pad,
+-stream) pair 0/0. When setting the format, always use the same width and height
+-as for the digital crop setting.
++stream) pair 0/0. The width and height fields are used to configure post-scaler
++digital crop if supported by the driver, affecting the right and bottom edges of
++the frame. If post-scaler digital crop is not supported, the width and height
++fields of the format will match the compose rectangle sizes applied on the same
++0/0 (pad, stream) pair.
  
-@@ -29,7 +29,7 @@ is used on CSI-2 for 8 bits per :term:`Data Unit`.
- 
- Additionally it is used for 16 bits per Data Unit when two bytes of metadata are
- packed into one 16-bit Data Unit. Otherwise the 16 bits per pixel dataformat is
--:ref:`V4L2_META_FMT_GENERIC_CSI2_16 <v4l2-meta-fmt-generic-csi2-16>`.
-+:ref:`V4L2_META_FMT_GENERIC_16 <v4l2-meta-fmt-generic-16>`.
- 
- **Byte Order Of V4L2_META_FMT_GENERIC_8.**
- Each cell is one byte. "M" denotes a byte of metadata.
-@@ -112,8 +112,8 @@ the data is defined in the MIPI CCS specification.
- 
- This format is also used in conjunction with 24 bits per :term:`Data Unit`
- formats that pack two bytes of metadata into one Data Unit. Otherwise the
--24 bits per pixel dataformat is :ref:`V4L2_META_FMT_GENERIC_CSI2_24
--<v4l2-meta-fmt-generic-csi2-24>`.
-+24 bits per pixel dataformat is :ref:`V4L2_META_FMT_GENERIC_24
-+<v4l2-meta-fmt-generic-24>`.
- 
- This format is little endian.
- 
-@@ -185,16 +185,15 @@ Each cell is one byte. "M" denotes a byte of metadata and "x" a byte of padding.
-       - x
-       - x
- 
--.. _v4l2-meta-fmt-generic-csi2-16:
-+.. _v4l2-meta-fmt-generic-16:
- 
--V4L2_META_FMT_GENERIC_CSI2_16
-------------------------------
-+V4L2_META_FMT_GENERIC_16
-+------------------------
- 
--V4L2_META_FMT_GENERIC_CSI2_16 contains 8-bit generic metadata packed in 16-bit
--Data Units, with one padding byte after every byte of metadata. This format is
--typically used by CSI-2 receivers with a source that transmits
--MEDIA_BUS_FMT_META_16 and the CSI-2 receiver writes the received data to memory
--as-is.
-+V4L2_META_FMT_GENERIC_16 contains 8-bit generic metadata packed in 16-bit Data
-+Units, with one padding byte after every byte of metadata. This format is also
-+used by CSI-2 receivers with a source that transmits MEDIA_BUS_FMT_META_16 and
-+the CSI-2 receiver writes the received data to memory as-is.
- 
- The packing of the data follows the MIPI CSI-2 specification and the padding of
- the data is defined in the MIPI CCS specification.
-@@ -205,7 +204,7 @@ Some devices support more efficient packing of metadata in conjunction with
- 
- This format is little endian.
- 
--**Byte Order Of V4L2_META_FMT_GENERIC_CSI2_16.**
-+**Byte Order Of V4L2_META_FMT_GENERIC_16.**
- Each cell is one byte. "M" denotes a byte of metadata and "x" a byte of padding.
- 
- .. tabularcolumns:: |p{2.4cm}|p{1.2cm}|p{.8cm}|p{1.2cm}|p{.8cm}|p{1.2cm}|p{.8cm}|p{1.2cm}|p{.8cm}|
-@@ -287,16 +286,15 @@ Each cell is one byte. "M" denotes a byte of metadata and "x" a byte of padding.
-       - x
-       - x
- 
--.. _v4l2-meta-fmt-generic-csi2-24:
-+.. _v4l2-meta-fmt-generic-24:
- 
--V4L2_META_FMT_GENERIC_CSI2_24
-------------------------------
-+V4L2_META_FMT_GENERIC_24
-+------------------------
- 
--V4L2_META_FMT_GENERIC_CSI2_24 contains 8-bit generic metadata packed in 24-bit
--Data Units, with two padding bytes after every byte of metadata. This format is
--typically used by CSI-2 receivers with a source that transmits
--MEDIA_BUS_FMT_META_24 and the CSI-2 receiver writes the received data to memory
--as-is.
-+V4L2_META_FMT_GENERIC_24 contains 8-bit generic metadata packed in 24-bit Data
-+Units, with two padding bytes after every byte of metadata. This format is also
-+used by CSI-2 receivers with a source that transmits MEDIA_BUS_FMT_META_24 and
-+the CSI-2 receiver writes the received data to memory as-is.
- 
- The packing of the data follows the MIPI CSI-2 specification and the padding of
- the data is defined in the MIPI CCS specification.
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-index 3ac48d2076da..cf0eef64e503 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-@@ -105,7 +105,7 @@ const struct ipu6_isys_pixelformat ipu6_isys_pfmts[] = {
- 	  IPU6_FW_ISYS_FRAME_FORMAT_RAW10, true },
- 	{ V4L2_META_FMT_GENERIC_CSI2_12, 12, 12, MEDIA_BUS_FMT_META_12,
- 	  IPU6_FW_ISYS_FRAME_FORMAT_RAW12, true },
--	{ V4L2_META_FMT_GENERIC_CSI2_16, 16, 16, MEDIA_BUS_FMT_META_16,
-+	{ V4L2_META_FMT_GENERIC_16, 16, 16, MEDIA_BUS_FMT_META_16,
- 	  IPU6_FW_ISYS_FRAME_FORMAT_RAW16, true },
- };
- 
-diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
-index 5fda3835f680..8e99cdefead3 100644
---- a/drivers/media/v4l2-core/v4l2-ioctl.c
-+++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-@@ -1489,9 +1489,9 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
- 	case V4L2_META_FMT_GENERIC_CSI2_10:	descr = "8-bit Generic Meta, 10b CSI-2"; break;
- 	case V4L2_META_FMT_GENERIC_CSI2_12:	descr = "8-bit Generic Meta, 12b CSI-2"; break;
- 	case V4L2_META_FMT_GENERIC_CSI2_14:	descr = "8-bit Generic Meta, 14b CSI-2"; break;
--	case V4L2_META_FMT_GENERIC_CSI2_16:	descr = "8-bit Generic Meta, 16b CSI-2"; break;
-+	case V4L2_META_FMT_GENERIC_16:	descr = "8-bit Generic Meta, 16b"; break;
- 	case V4L2_META_FMT_GENERIC_CSI2_20:	descr = "8-bit Generic Meta, 20b CSI-2"; break;
--	case V4L2_META_FMT_GENERIC_CSI2_24:	descr = "8-bit Generic Meta, 24b CSI-2"; break;
-+	case V4L2_META_FMT_GENERIC_24:	descr = "8-bit Generic Meta, 24b"; break;
- 
- 	default:
- 		/* Compressed formats */
-@@ -1579,9 +1579,9 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
- 		case V4L2_META_FMT_GENERIC_CSI2_10:
- 		case V4L2_META_FMT_GENERIC_CSI2_12:
- 		case V4L2_META_FMT_GENERIC_CSI2_14:
--		case V4L2_META_FMT_GENERIC_CSI2_16:
-+		case V4L2_META_FMT_GENERIC_16:
- 		case V4L2_META_FMT_GENERIC_CSI2_20:
--		case V4L2_META_FMT_GENERIC_CSI2_24:
-+		case V4L2_META_FMT_GENERIC_24:
- 			fmt->flags |= V4L2_FMT_FLAG_META_LINE_BASED;
- 			break;
- 		default:
-diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
-index 901c2b788edd..fe5bb00ffe91 100644
---- a/include/uapi/linux/videodev2.h
-+++ b/include/uapi/linux/videodev2.h
-@@ -901,12 +901,12 @@ struct v4l2_pix_format {
-  * adding new ones!
-  */
- #define V4L2_META_FMT_GENERIC_8		v4l2_fourcc('M', 'E', 'T', '8') /* Generic 8-bit metadata */
--#define V4L2_META_FMT_GENERIC_CSI2_10	v4l2_fourcc('M', 'C', '1', 'A') /* 10-bit CSI-2 packed 8-bit metadata */
--#define V4L2_META_FMT_GENERIC_CSI2_12	v4l2_fourcc('M', 'C', '1', 'C') /* 12-bit CSI-2 packed 8-bit metadata */
--#define V4L2_META_FMT_GENERIC_CSI2_14	v4l2_fourcc('M', 'C', '1', 'E') /* 14-bit CSI-2 packed 8-bit metadata */
--#define V4L2_META_FMT_GENERIC_CSI2_16	v4l2_fourcc('M', 'C', '1', 'G') /* 16-bit CSI-2 packed 8-bit metadata */
--#define V4L2_META_FMT_GENERIC_CSI2_20	v4l2_fourcc('M', 'C', '1', 'K') /* 20-bit CSI-2 packed 8-bit metadata */
--#define V4L2_META_FMT_GENERIC_CSI2_24	v4l2_fourcc('M', 'C', '1', 'O') /* 24-bit CSI-2 packed 8-bit metadata */
-+#define V4L2_META_FMT_GENERIC_CSI2_10	v4l2_fourcc('M', 'E', 'C', 'A') /* 10-bit CSI-2 packed 8-bit metadata */
-+#define V4L2_META_FMT_GENERIC_CSI2_12	v4l2_fourcc('M', 'E', 'C', 'C') /* 12-bit CSI-2 packed 8-bit metadata */
-+#define V4L2_META_FMT_GENERIC_CSI2_14	v4l2_fourcc('M', 'E', 'C', 'E') /* 14-bit CSI-2 packed 8-bit metadata */
-+#define V4L2_META_FMT_GENERIC_16	v4l2_fourcc('M', 'E', 'T', 'G') /* Generic 16-bit 8-bit metadata */
-+#define V4L2_META_FMT_GENERIC_CSI2_20	v4l2_fourcc('M', 'E', 'C', 'K') /* 20-bit CSI-2 packed 8-bit metadata */
-+#define V4L2_META_FMT_GENERIC_24	v4l2_fourcc('M', 'E', 'T', 'O') /* Generic 24-bit 8-bit metadata */
- #endif
- 
- /* priv field value to indicates that subsequent fields are valid. */
+ Drivers may only support some or even none of these configurations, in which
+ case they do not expose the corresponding selection rectangles. If any selection
+@@ -220,12 +227,19 @@ Also refer to :ref:`Selection targets <v4l2-selection-targets-table>`.
+       - X
+       - Digital crop. This rectangle is relative to the ``V4L2_SEL_TGT_COMPOSE``
+         rectangle on (pad, stream) pair 1/0.
++    * - 0/0
++      - ``V4L2_SEL_TGT_COMPOSE``
++      - \-
++      - X
++      - Scaling. This rectangle is relative to the ``V4L2_SEL_TGT_CROP``
++        rectangle on (pad, stream) pair 0/0.
+     * - 0/0
+       - Format
+       - X
+       - X
+-      - Image data source format. Always assign the width and height fields of
+-        the format to the same values than for the ``V4L2_SEL_TGT_CROP``
++      - Image data source format and post-scaler crop. The width and height
++        fields of the format, used to configure post-scaler crop on the right
++        and bottom edges of the image, are related to the ``V4L2_SEL_TGT_COMPOSE``
+         rectangle on (pad, stream) pair 0/0. The media bus code reflects the
+         pixel data output of the sensor. Setting the media bus code on this pad
+         configures the output format.
 -- 
 2.47.3
 
