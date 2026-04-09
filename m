@@ -1,55 +1,55 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4AEC3446C3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B6E345724
 	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765737; cv=none; b=Laq+AcEWOsY/DBZLS8dlxaARA0ig22BMtt/zc2Pg3yj/NLSlC6/RiLlPaOhiRUkeNlYNLkR4nN2PTmvzSWASvpn5NugBuiHwbH2o1wa7g0F7DWxVl+wXcYF2mzRFQ+wXzx1x3csbDbUIMbzlgle+yhRnbqaZnUC8B36FdDINYEY=
+	t=1775765737; cv=none; b=Ml7xlcCyawCSxoDTnZZ1C0P0Ivq2yzW6+NfFnKGvEiVtw3gIDhm/E7HNL/1fzvM5J+G1EFD9ONmPtFnIASgZdBtxa+QHu8bl4RMGFJad85Nte+TQa/1Lpti9iWObJ2gKGeUO1FA7gMlyuMULKqLHpN9njKiZM02CVEzvICxyDu8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775765737; c=relaxed/simple;
-	bh=RXY7mLJa/mcFbtgWufbuVq4q7gFlSMHXrAHW1R0Brdg=;
+	bh=GdjAOPtDm7eAbzHJ63A0E8IBJdJemQeoRyp1Z2w16CA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=psFLHZao99YHxkFlIeujGD7Ttb0010CZpXIujyqkESEE3FN16gxRaIhxjzys9SkFks5qzLfX+c+NBbrD/bOCZkyo3tSGd9sWmJZIADqX905VVt0c5f4/IvXLFQNIC1+oerresKaKEQOU05s39cRqHbYbfG83ANArHNYVCKCwJ6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ny1c6+rg; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=r4gYqFgFV5l4S4x5AFDnCuF2I+DmDk8nB+6fTatPAQgbFQ5PWSrtsMQ+dmaPNqTQY30TQd3fjNlgywHDxHn/FMKVStXQZBIQJGtHS9qgQ535KuWXJupIgvc6B3QsBOz82Wa3mVIpej7PD/6M/S+//mzj5BUAd3f4fc/eqTR/K5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cYujrpG1; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ny1c6+rg"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cYujrpG1"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1775765736; x=1807301736;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=RXY7mLJa/mcFbtgWufbuVq4q7gFlSMHXrAHW1R0Brdg=;
-  b=ny1c6+rge4Xbk4zY+R2U77h5lGgu+08+6T2/OcH618E+w5GDDgvXWhE6
-   +D4HcJpvWa27gXP3qrzZU4d+Kf0DWj5JORJVYlNceUVjrFVUe3hYVanmV
-   4fIPxy/EJ0wPZDSiMDzQi9lDuiCM1lObGMHxC2Pc8FX/pljL5CxlvxDDD
-   OaT8qpFbRlaBbPmwr3hsyL81WIOwcN09MSjqF9cSPOzHPqmoiTz+w8CZ3
-   j0pXjr7S2A6yZQqwCukLlR0OI50TE/l2eZjzdWg+Dw7iefYrPcOOaaV0/
-   VcyA9wbuM/nwyFxlRkbWf1e16Pf+8W/gQ46RgTY/8qokpcO5KAY50K3CW
-   A==;
-X-CSE-ConnectionGUID: FJAj+Q+mRS+w2JExW1Hs9A==
-X-CSE-MsgGUID: jHcSPi4RSj+H5k4EXjWVSQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176557"
+  bh=GdjAOPtDm7eAbzHJ63A0E8IBJdJemQeoRyp1Z2w16CA=;
+  b=cYujrpG1TjQ8l+PGMXDYh8b5fivWagXPCMQjL+WDupjzJI2D5GEl2JKK
+   IMZDkXsZ7LnrkNY4AErDbLrGy0X9xpq8j+UZ2NLowBg9Kqqe+Hyh0dAq7
+   xoY6s0Iut3X/p66r1dPCf1uyu7vdSRn2S6sOk8yelKgwP+DfZZq+s0UwJ
+   BOqlA2zSptx2/gRZk0Ygb5hl3hJ8FVXE31bA9GO+3dFAyfTAziP6PQHqm
+   6e7iNhnDu+Kz3dBLJAwRydib5nd+cWIrkfEMQv+HKlLDRDodiAOHy+MXC
+   7qH+yRvs5uIu6mmRqbW71jhuFPJtd5I1aBZojZVIRTv7BXy/vAF2R3qEy
+   g==;
+X-CSE-ConnectionGUID: vEQKJPZhS3G9OJuOutU4jA==
+X-CSE-MsgGUID: w87zL/GBSgy9FjDWUipMuw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176532"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="94176557"
+   d="scan'208";a="94176532"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:26 -0700
-X-CSE-ConnectionGUID: mmo7YcmjRA2L82LzUqFfeg==
-X-CSE-MsgGUID: rfnIhVeeRoK+ccKKPXMIDg==
+X-CSE-ConnectionGUID: DPGS/vLkQPG1lRQs8p5UOw==
+X-CSE-MsgGUID: YFspiuc2R4S5JnbAYdynYg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="228047544"
+   d="scan'208";a="228047543"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
   by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:19 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 880CA1227D2;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 8E60B122836;
 	Thu, 09 Apr 2026 23:15:13 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmH-000000045mD-46SR;
-	Thu, 09 Apr 2026 23:15:01 +0300
+	id 1wAvmI-000000045mL-02Kv;
+	Thu, 09 Apr 2026 23:15:02 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: linux-media@vger.kernel.org
@@ -79,9 +79,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 24/86] media: Documentation: Add scaling and post-scaler crop for common raw
-Date: Thu,  9 Apr 2026 23:13:59 +0300
-Message-ID: <20260409201501.975242-25-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 26/86] media: uapi: Add V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR
+Date: Thu,  9 Apr 2026 23:14:01 +0300
+Message-ID: <20260409201501.975242-27-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -93,67 +93,99 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document scaling and post-scaler digital crop operations for the common
-raw sensor model.
+Add V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR client capability bit to
+signal the userspace's support for the common raw sensor model and
+document it. A specific capability bit is required for the purpose of
+adding support for the common raw sensor model to existing drivers that
+already have a well-established UAPI that cannot be modified without
+breaking the userspace.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- .../media/v4l/subdev-config-model.rst         | 26 ++++++++++++++-----
- 1 file changed, 20 insertions(+), 6 deletions(-)
+ .../userspace-api/media/v4l/ext-ctrls-image-process.rst     | 2 ++
+ .../userspace-api/media/v4l/subdev-config-model.rst         | 5 ++++-
+ .../userspace-api/media/v4l/vidioc-subdev-g-client-cap.rst  | 6 ++++++
+ drivers/media/v4l2-core/v4l2-subdev.c                       | 3 ++-
+ include/uapi/linux/v4l2-subdev.h                            | 6 ++++++
+ 5 files changed, 20 insertions(+), 2 deletions(-)
 
+diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
+index 51188e7febae..983c7412c9f4 100644
+--- a/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
++++ b/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
+@@ -59,6 +59,8 @@ Image Process Control IDs
+     digital gain the control value needs to be 0x100. The no-gain
+     configuration is also typically the default.
+ 
++.. _v4l2-cid-config-model:
++
+ ``V4L2_CID_CONFIG_MODEL (bitmask)``
+     Which configuration models the sub-device supports. Please see
+     :ref:`media_subdev_config_model`. This is a read-only control.
 diff --git a/Documentation/userspace-api/media/v4l/subdev-config-model.rst b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-index b450f698a608..1525119cbeb9 100644
+index 3011643d58cf..0fb01bf6c825 100644
 --- a/Documentation/userspace-api/media/v4l/subdev-config-model.rst
 +++ b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-@@ -146,12 +146,19 @@ binning and sub-sampling to achieve the desired size.
+@@ -41,7 +41,10 @@ necessarily offered by all drivers.
  
- The digital crop operation takes place after binning and sub-sampling. It is
- configured by setting the ``V4L2_SEL_TGT_CROP`` rectangle on (pad, stream) pair
--0/0. The resulting image size is further output by the sensor on the sensor's
--data interface.
-+0/0.
+ A sub-device complies with the common raw sensor model if the
+ ``V4L2_CONFIG_MODEL_COMMON_RAW_SENSOR`` bit is set in the
+-``V4L2_CID_CONFIG_MODEL`` control of the sub-device.
++``V4L2_CID_CONFIG_MODEL`` control of the sub-device. A client supporting the
++common raw sensor model shall set the
++``V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR`` :ref:`sub-device client capability
++<VIDIOC_SUBDEV_G_CLIENT_CAP>` bit.
+ 
+ The common raw camera sensor model is aligned with
+ :ref:`media_using_camera_sensor_drivers`. Please refer to that regarding aspects
+diff --git a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-client-cap.rst b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-client-cap.rst
+index da4a358ce762..50ac223e10db 100644
+--- a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-client-cap.rst
++++ b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-client-cap.rst
+@@ -91,6 +91,12 @@ is unknown to the kernel.
+         ``which`` field. If this is not set (which is the default), the
+         ``which`` field is forced to ``V4L2_SUBDEV_FORMAT_ACTIVE`` by the
+         kernel.
++    * - ``V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR``
++      - The client is aware of the :ref:`common raw sensor model
++        <media_subdev_config_model_common_raw_sensor>` and expects it where it
++        is supported, as indicated by the :ref:`V4L2_CID_CONFIG_MODEL
++        <v4l2-cid-config-model>` control bit
++        ``V4L2_CONFIG_MODEL_COMMON_RAW_SENSOR``.
+ 
+ Return Value
+ ============
+diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+index c6d8399c2252..4b7830f705a2 100644
+--- a/drivers/media/v4l2-core/v4l2-subdev.c
++++ b/drivers/media/v4l2-core/v4l2-subdev.c
+@@ -1200,7 +1200,8 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+ 
+ 		/* Filter out unsupported capabilities */
+ 		client_cap->capabilities &= (V4L2_SUBDEV_CLIENT_CAP_STREAMS |
+-					     V4L2_SUBDEV_CLIENT_CAP_INTERVAL_USES_WHICH);
++					     V4L2_SUBDEV_CLIENT_CAP_INTERVAL_USES_WHICH |
++					     V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR);
+ 
+ 		subdev_fh->ci.client_caps = client_cap->capabilities;
+ 
+diff --git a/include/uapi/linux/v4l2-subdev.h b/include/uapi/linux/v4l2-subdev.h
+index 477d3ce3ddb4..9d5ba062be19 100644
+--- a/include/uapi/linux/v4l2-subdev.h
++++ b/include/uapi/linux/v4l2-subdev.h
+@@ -270,6 +270,12 @@ struct v4l2_subdev_routing {
+  */
+ #define V4L2_SUBDEV_CLIENT_CAP_INTERVAL_USES_WHICH	(1ULL << 1)
+ 
++/*
++ * The client is aware of the common raw sensor model and expects that on camera
++ * sensor UAPI where supported.
++ */
++#define V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR	(1ULL << 2)
 +
-+The scaling operation is performed after the digital crop. It is configured by
-+setting the ``V4L2_SEL_TGT_COMPOSE`` rectangle on (pad, stream) pair 0/0,
-+relative to the digital crop. The resulting image size is further output by the
-+sensor on the sensor's data interface.
- 
- The sensor's output mbus code is configured by setting the format on the (pad,
--stream) pair 0/0. When setting the format, always use the same width and height
--as for the digital crop setting.
-+stream) pair 0/0. The width and height fields are used to configure post-scaler
-+digital crop if supported by the driver, affecting the right and bottom edges of
-+the frame. If post-scaler digital crop is not supported, the width and height
-+fields of the format will match the compose rectangle sizes applied on the same
-+0/0 (pad, stream) pair.
- 
- Drivers may only support some or even none of these configurations, in which
- case they do not expose the corresponding selection rectangles. If any selection
-@@ -220,12 +227,19 @@ Also refer to :ref:`Selection targets <v4l2-selection-targets-table>`.
-       - X
-       - Digital crop. This rectangle is relative to the ``V4L2_SEL_TGT_COMPOSE``
-         rectangle on (pad, stream) pair 1/0.
-+    * - 0/0
-+      - ``V4L2_SEL_TGT_COMPOSE``
-+      - \-
-+      - X
-+      - Scaling. This rectangle is relative to the ``V4L2_SEL_TGT_CROP``
-+        rectangle on (pad, stream) pair 0/0.
-     * - 0/0
-       - Format
-       - X
-       - X
--      - Image data source format. Always assign the width and height fields of
--        the format to the same values than for the ``V4L2_SEL_TGT_CROP``
-+      - Image data source format and post-scaler crop. The width and height
-+        fields of the format, used to configure post-scaler crop on the right
-+        and bottom edges of the image, are related to the ``V4L2_SEL_TGT_COMPOSE``
-         rectangle on (pad, stream) pair 0/0. The media bus code reflects the
-         pixel data output of the sensor. Setting the media bus code on this pad
-         configures the output format.
+ /**
+  * struct v4l2_subdev_client_capability - Capabilities of the client accessing
+  *					  the subdev
 -- 
 2.47.3
 
