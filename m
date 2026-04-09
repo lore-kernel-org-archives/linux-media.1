@@ -1,217 +1,116 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD1123D333C;
-	Thu,  9 Apr 2026 13:55:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3CB23D813E
+	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 13:59:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775742939; cv=none; b=kbgHE+lQ+Zq39bnG9tJTmbKgvhFIiR4oeXAzbYnTlNUXBli6mmhFBHvs7LKbN0JuFq1eJfcikMGUMAB/wnGPexkpCxM15IExckDIHV4JiYd5rda9z8UD4utcwIibLI0d/5fv12Zc2QUebv7w4N58HpKWRzCYx2gpeOTWwVWDWXQ=
+	t=1775743149; cv=none; b=gYg8NHK1cNwvfgL2/ww8Tfo41ncxX6u0h8k8IGdrPnq0ebx6Ao54JVLXPD+jtXQtF+DiM8yyZ3XuZjQtkknOX1Fr5Zdct4puAmWsnGYgtdieDC1vdT86ZI+qddZIVDVkBm9XsISAMs1E1EHw8KW2/2OhHRyYX5T2RFmhtyl8VgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775742939; c=relaxed/simple;
-	bh=/wyN074ozyoyiY3SXF9S2Zxhqlxqtyee4oZd5bQXtI8=;
-	h=From:Date:Message-ID:To:Cc:In-Reply-To:References:Subject; b=CgW0fD3UAur/3S9Q9bC0jAFGIdGxIk65+Md9EAONaRxqVxkCopVbZsDki2yQNVD522IF/3tjr1njrFgkJNPxOLhbsntalHOVvk2y3wOaWRrIBKgI35X+C8rrSByEy3weYNkS4/Z89UZAlmv6e9vKKiIaF0omhVIa1F8a7TqHlkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from 0001-cedrus-h264-active-v2.eml (unknown [111.196.245.116])
-	by APP-01 (Coremail) with SMTP id qwCowADHM2_Er9dpNYa+DA--.16410S2;
-	Thu, 09 Apr 2026 21:55:17 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Date: Thu, 9 Apr 2026 21:30:00 +0800
-Message-ID: <20260409223001.1-cedrus-h264-active-v2-pengpeng@iscas.ac.cn>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Paul Kocialkowski <paulk@sys-base.io>, Mauro Carvalho Chehab <mchehab@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Nicolas Dufresne <nicolas.dufresne@collabora.com>, linux-media@vger.kernel.org, linux-staging@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, pengpeng@iscas.ac.cn
-In-Reply-To: <20260324080856.56787-1-pengpeng@iscas.ac.cn>
-References: <20260324080856.56787-1-pengpeng@iscas.ac.cn>
-Subject: [PATCH v2] media: cedrus: reject invalid active H.264 ref indices
-X-CM-TRANSID:qwCowADHM2_Er9dpNYa+DA--.16410S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3JF1DAr1ftF13Gr4rKr15Jwb_yoW7tr1kpF
-	45Cr1DJF4UJr15GFW8JFW8Z3WakFyrXry7JryrKw1jvFy7try7tF1ak34Yvr45Z3yDCrsa
-	yF4ay3y8Cr48ArUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcVAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kI
-	c2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbV
-	WUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF
-	67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42
-	IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF
-	0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxh
-	VjvjDU0xZFpf9x0JUZYFZUUUUU=
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+	s=arc-20240116; t=1775743149; c=relaxed/simple;
+	bh=SjUVD1JC1R0gPuwyuI6arJxxJM/n1CCSElx0byNqKaE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U0Pc8C1jpTh2t5hayuJoq5lrL/tykHX8zpMLVGcRZIEmpR15Hj9jWKry6w/TAmyfz9KH+ZUwl0ijNLMmnEsivV0Nmqc2B1HsaCFgPR2u9AsYPbW19vZbgkZf4w4QamyYJzhzZOWYV1LNkDO7Sq5AqQaiJA1n/tC4jjT4jtkXmdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=MSFlSKBh; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="MSFlSKBh"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=cQyv2LnxUKMjBM+EOj064AVlbTpkbGhSbXBnBwtzWn0=; b=MSFlSKBh67kJ1UZ+jodufZmqM6
+	ZRnMe7w4LtvMYi0/X4UYlmxBF11TKCKCpLGEdAw8azbovuId5HdABuuSoEEZ2sM2h4fCDKLwv3Ua0
+	wClCrzN3+rQU1YwFUANnIu5Bk6qReZOvEvEKQ0xwx0iL0D4puHQgc4NQAByIOtLpIrCMdynQgcLru
+	Kqtj0O4uaNEUG0Sf1fDtgFMyV8RviToihKGvmgDws89WpB5Rn8qYoJrxEHKWCWVFffq1Z/kTVtqL1
+	kP10+umJ/hdDdIr9SQOrHKWs7JVHGLf05OMuWbxqZVovZuFPukMFxJJImIuwlu7OGivIN8mUWoldo
+	YC+lFOng==;
+Received: from [90.240.106.137] (helo=[192.168.0.101])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1wApuB-00Dxtg-Um; Thu, 09 Apr 2026 15:58:47 +0200
+Message-ID: <918805b0-2cb9-454a-9048-84cc5bfc8798@igalia.com>
+Date: Thu, 9 Apr 2026 14:58:47 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-fence: Move signalling tracepoint to before ops
+ detach
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+References: <20260330133623.17704-1-tvrtko.ursulin@igalia.com>
+ <20260331094944.772833c0@fedora>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260331094944.772833c0@fedora>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Cedrus consumes the active ref_pic_list0/ref_pic_list1 entries and uses
-their indices to look up decode->dpb[] in _cedrus_write_ref_list().
 
-Those active portions are the first
-num_ref_idx_l0_active_minus1 + 1 / num_ref_idx_l1_active_minus1 + 1
-entries in the two reference lists.
+On 31/03/2026 08:49, Boris Brezillon wrote:
+> On Mon, 30 Mar 2026 14:36:23 +0100
+> Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
+> 
+>> Move the signalling tracepoint to before fence->ops are reset otherwise
+>> tracepoint will dereference a null pointer.
+> 
+> I suspect other trace points are impacted too
+> (trace_dma_fence_destroy() is, at the very least).
 
-An out-of-range index in that active portion can therefore read past the
-fixed V4L2_H264_NUM_DPB_ENTRIES array.
+Indeed. I wonder why that did not trigger for me, while the one I fix 
+here was an insta-crash...
 
-Checking this in cedrus_try_ctrl() is awkward because the request-local
-DPB state may not have been applied yet. Instead, validate the active
-entries at the actual Cedrus use site and fail setup with -EINVAL if one
-points past decode->dpb[].
+To fix trace_dma_fence_destroy I think we need a new tracepoint 
+definition ie. move it away from the existing event class - make it just 
+log the context and seqno.
 
-Entries beyond the active reference counts remain ignored as before, so
-this does not change how Cedrus treats unused tail data in the
-reference-list controls.
+Anyone has a better idea?
 
-Fixes: 6eb9b758e307 ("media: cedrus: Add H264 decoding support")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
-Changes since v1:
-- reject invalid indices in the active reference list entries instead of
-  silently skipping them
-- keep the validation at the Cedrus use site, but propagate -EINVAL back
-  through setup
+Regards,
 
- drivers/staging/media/sunxi/cedrus/cedrus_h264.c | 32 ++++++++++++++--
- 1 file changed, 29 insertions(+), 3 deletions(-)
+Tvrtko
 
-diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h264.c b/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
-index 3e2843ef6cce..58c411c580f3 100644
---- a/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
-+++ b/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
-@@ -186,10 +186,10 @@ static int cedrus_write_frame_list(struct cedrus_ctx *ctx,
- 
- #define CEDRUS_MAX_REF_IDX	32
- 
--static void _cedrus_write_ref_list(struct cedrus_ctx *ctx,
--				   struct cedrus_run *run,
--				   const struct v4l2_h264_reference *ref_list,
--				   u8 num_ref, enum cedrus_h264_sram_off sram)
-+static int _cedrus_write_ref_list(struct cedrus_ctx *ctx,
-+				  struct cedrus_run *run,
-+				  const struct v4l2_h264_reference *ref_list,
-+				  u8 num_ref, enum cedrus_h264_sram_off sram)
- {
- 	const struct v4l2_ctrl_h264_decode_params *decode = run->h264.decode_params;
- 	struct vb2_queue *cap_q;
-@@ -210,6 +210,9 @@ static void _cedrus_write_ref_list(struct cedrus_ctx *ctx,
- 		u8 dpb_idx;
- 
- 		dpb_idx = ref_list[i].index;
-+		if (dpb_idx >= V4L2_H264_NUM_DPB_ENTRIES)
-+			return -EINVAL;
-+
- 		dpb = &decode->dpb[dpb_idx];
- 
- 		if (!(dpb->flags & V4L2_H264_DPB_ENTRY_FLAG_ACTIVE))
-@@ -229,28 +232,30 @@ static void _cedrus_write_ref_list(struct cedrus_ctx *ctx,
- 
- 	size = min_t(size_t, ALIGN(num_ref, 4), sizeof(sram_array));
- 	cedrus_h264_write_sram(dev, sram, &sram_array, size);
-+
-+	return 0;
- }
- 
--static void cedrus_write_ref_list0(struct cedrus_ctx *ctx,
--				   struct cedrus_run *run)
-+static int cedrus_write_ref_list0(struct cedrus_ctx *ctx,
-+				  struct cedrus_run *run)
- {
- 	const struct v4l2_ctrl_h264_slice_params *slice = run->h264.slice_params;
- 
--	_cedrus_write_ref_list(ctx, run,
--			       slice->ref_pic_list0,
--			       slice->num_ref_idx_l0_active_minus1 + 1,
--			       CEDRUS_SRAM_H264_REF_LIST_0);
-+	return _cedrus_write_ref_list(ctx, run,
-+				      slice->ref_pic_list0,
-+				      slice->num_ref_idx_l0_active_minus1 + 1,
-+				      CEDRUS_SRAM_H264_REF_LIST_0);
- }
- 
--static void cedrus_write_ref_list1(struct cedrus_ctx *ctx,
--				   struct cedrus_run *run)
-+static int cedrus_write_ref_list1(struct cedrus_ctx *ctx,
-+				  struct cedrus_run *run)
- {
- 	const struct v4l2_ctrl_h264_slice_params *slice = run->h264.slice_params;
- 
--	_cedrus_write_ref_list(ctx, run,
--			       slice->ref_pic_list1,
--			       slice->num_ref_idx_l1_active_minus1 + 1,
--			       CEDRUS_SRAM_H264_REF_LIST_1);
-+	return _cedrus_write_ref_list(ctx, run,
-+				      slice->ref_pic_list1,
-+				      slice->num_ref_idx_l1_active_minus1 + 1,
-+				      CEDRUS_SRAM_H264_REF_LIST_1);
- }
- 
- static void cedrus_write_scaling_lists(struct cedrus_ctx *ctx,
-@@ -338,8 +343,8 @@ static void cedrus_skip_bits(struct cedrus_dev *dev, int num)
- 	}
- }
- 
--static void cedrus_set_params(struct cedrus_ctx *ctx,
--			      struct cedrus_run *run)
-+static int cedrus_set_params(struct cedrus_ctx *ctx,
-+			     struct cedrus_run *run)
- {
- 	const struct v4l2_ctrl_h264_decode_params *decode = run->h264.decode_params;
- 	const struct v4l2_ctrl_h264_slice_params *slice = run->h264.slice_params;
-@@ -351,6 +356,7 @@ static void cedrus_set_params(struct cedrus_ctx *ctx,
- 	size_t slice_bytes = vb2_get_plane_payload(src_buf, 0);
- 	unsigned int pic_width_in_mbs;
- 	bool mbaff_pic;
-+	int ret;
- 	u32 reg;
- 
- 	cedrus_write(dev, VE_H264_VLD_LEN, slice_bytes * 8);
-@@ -393,11 +399,17 @@ static void cedrus_set_params(struct cedrus_ctx *ctx,
- 
- 	if ((slice->slice_type == V4L2_H264_SLICE_TYPE_P) ||
- 	    (slice->slice_type == V4L2_H264_SLICE_TYPE_SP) ||
--	    (slice->slice_type == V4L2_H264_SLICE_TYPE_B))
--		cedrus_write_ref_list0(ctx, run);
-+	    (slice->slice_type == V4L2_H264_SLICE_TYPE_B)) {
-+		ret = cedrus_write_ref_list0(ctx, run);
-+		if (ret)
-+			return ret;
-+	}
- 
--	if (slice->slice_type == V4L2_H264_SLICE_TYPE_B)
--		cedrus_write_ref_list1(ctx, run);
-+	if (slice->slice_type == V4L2_H264_SLICE_TYPE_B) {
-+		ret = cedrus_write_ref_list1(ctx, run);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	// picture parameters
- 	reg = 0;
-@@ -478,6 +490,8 @@ static void cedrus_set_params(struct cedrus_ctx *ctx,
- 		     VE_H264_CTRL_SLICE_DECODE_INT |
- 		     VE_H264_CTRL_DECODE_ERR_INT |
- 		     VE_H264_CTRL_VLD_DATA_REQ_INT);
-+
-+	return 0;
- }
- 
- static enum cedrus_irq_status
-@@ -531,9 +545,7 @@ static int cedrus_h264_setup(struct cedrus_ctx *ctx, struct cedrus_run *run)
- 	if (ret)
- 		return ret;
- 
--	cedrus_set_params(ctx, run);
--
--	return 0;
-+	return cedrus_set_params(ctx, run);
- }
- 
- static int cedrus_h264_start(struct cedrus_ctx *ctx)
--- 
-2.50.1
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Fixes: 541c8f2468b9 ("dma-buf: detach fence ops on signal v3")
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Philipp Stanner <phasta@kernel.org>
+>> Cc: Boris Brezillon <boris.brezillon@collabora.com>
+>> Cc: linux-media@vger.kernel.org
+>> Cc: linaro-mm-sig@lists.linaro.org
+>> ---
+>>   drivers/dma-buf/dma-fence.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+>> index 1826ba73094c..1c1eaecaf1b0 100644
+>> --- a/drivers/dma-buf/dma-fence.c
+>> +++ b/drivers/dma-buf/dma-fence.c
+>> @@ -363,6 +363,8 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+>>   				      &fence->flags)))
+>>   		return;
+>>   
+>> +	trace_dma_fence_signaled(fence);
+>> +
+>>   	/*
+>>   	 * When neither a release nor a wait operation is specified set the ops
+>>   	 * pointer to NULL to allow the fence structure to become independent
+>> @@ -377,7 +379,6 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+>>   
+>>   	fence->timestamp = timestamp;
+>>   	set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags);
+>> -	trace_dma_fence_signaled(fence);
+>>   
+>>   	list_for_each_entry_safe(cur, tmp, &cb_list, node) {
+>>   		INIT_LIST_HEAD(&cur->node);
+> 
 
