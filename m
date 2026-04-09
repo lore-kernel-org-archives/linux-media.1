@@ -1,228 +1,245 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8D33DB651;
-	Thu,  9 Apr 2026 14:29:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775744993; cv=pass; b=kY4QPAXctpj1qXSaPY3UqWNOMjv3abVk/NyPx8u8AEQn3n9VyZLNW3bLGWr1+ouNGe0gsweyZwqlOXH55dCXPxL7rYvonodsYvnUxL2Lp9wdEYLwI4avY5gPCxDnr7KSdZ4Ggdk4MkrvUqZQnT9Y/ylfHySiCrlOiaQqXuBZDus=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775744993; c=relaxed/simple;
-	bh=gj3vWQRuhNmYjlPBtsaDDdEB599GjW6VNEcE/RyUL2Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VrZcfEx/+B17YFc2Ms7SyMhiFTmOOHgQiz8z/7XPqjWhT93jLXHWyHZUwFxqyXUX2Vxito2Ux9UfgOIdjs+opN0Hpu6IRW10Cyg2rlxX/XvY8FLX4HSlB+daMwArBP4+TqzDc80nZYAc9rheOWborbvPkveziP9pR9sEU6Zvhsc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b=AhaDif0s; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b="AhaDif0s"
-ARC-Seal: i=1; a=rsa-sha256; t=1775744962; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=iwdDStjy1cdrXLE1JCJAYfLrd7FffWJYfu9OB/A8Q5UsNERnIXsqj9b9in11rt+5oT9Lu6G7KwqCk3boSPj9OY8vskNNeq0f79teqNwQDfuDNEX0qwPah3L257RjSBYKp8h/w8F8CbIg6eXFZbq6FuqZX8P5jewbw6yFK3xbNa8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1775744962; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=naDRmm0MM0WP+mSb+OhGMjRTyDM6lQGDHz2YaDAdfQ8=; 
-	b=OB4GrK4sl26bfcBg3lBvyYPkyEznlknhhOIPJm1WZ85CFKmUAe6psezd+QBOPqMr8GpUs8oxQggS8f1D9RTC7X/APSvZ169SWqffikgVCeHqpvmvqKGxMlDUlT2hjyX4iFMmU3itLOt4fRFwnWM3/GRMY4C4nTW1oDf+mBApg2c=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
-	dmarc=pass header.from=<detlev.casanova@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775744962;
-	s=zohomail; d=collabora.com; i=detlev.casanova@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=naDRmm0MM0WP+mSb+OhGMjRTyDM6lQGDHz2YaDAdfQ8=;
-	b=AhaDif0sTnHOO9nABQArM+2Ndx0Nic87K7hL5ocYHdJlnrafXjoYyQyC4y4x7mX9
-	qdvofsh4JSKJfIQYqKfKBFdfhuFyGbNmuawYdu0caXriPqcrOt0agmDZl48BDwxkdld
-	FcZBPZPcEbqpqtcziNql+THIqTs+/sb9gfb931DE=
-Received: by mx.zohomail.com with SMTPS id 1775744959635728.7774325162087;
-	Thu, 9 Apr 2026 07:29:19 -0700 (PDT)
-Message-ID: <9fdca013-32f7-4ce1-a296-f2f36ef31b50@collabora.com>
-Date: Thu, 9 Apr 2026 10:29:17 -0400
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C515117745;
+	Thu,  9 Apr 2026 14:31:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775745104; cv=none; b=ICoB6GrjcQjipLUNx3bmX+nRFNet11PVK05cmDM5HYBSW7zGnPYbhHBv1uJjroxiH6Un8RQb/vgrCq4Fw/+XaWh05tIJVCDXekXQyOEV06yDWixuYez2K/3S8rJ7h5yG0X6zaxaBG5ZevMaJtcGP1PdDQ4SK/6/gv5EYbKPMBNY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775745104; c=relaxed/simple;
+	bh=P/YfQOtwjLOP/lcGW8lJlKyL1A/iEGQcOkauFWYi2Xg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RzXSPPPhgJPEPebubEkBRXvOQFv19bzMeL9yaCxc99QKuUek1idxx17fBoYiwico5mpRMj/5BASXgHv30LOUh9vct4+21k9cpOYYkRMT2GnTWHTN9ty2tpeyCpSkueWeEeq4tBNZuVAhLSgHXOVGOz375zwPOU8jgMECTg4tp5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id D92361F8005D;
+	Thu,  9 Apr 2026 14:31:34 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id DEF66B401BC; Thu,  9 Apr 2026 14:31:32 +0000 (UTC)
+X-Spam-Level: 
+Received: from shepard (unknown [192.168.1.1])
+	by laika.paulk.fr (Postfix) with ESMTPSA id 2976AB401B3;
+	Thu,  9 Apr 2026 14:31:31 +0000 (UTC)
+Date: Thu, 9 Apr 2026 16:31:29 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>, mripard@kernel.org,
+	mchehab@kernel.org, gregkh@linuxfoundation.org, wens@kernel.org,
+	jernej.skrabec@gmail.com, samuel@sholland.org,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: cedrus: skip invalid H.264 reference list entries
+Message-ID: <ade4Qe4OS04au2Ba@shepard>
+References: <20260324080856.56787-1-pengpeng@iscas.ac.cn>
+ <adeqkmA9VhaPkSAk@shepard>
+ <4bd5d70a6144f3e8d4356c182f314cf735f1921c.camel@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/7] media: v4l2-ctrls: Add V4L2_CID_MEMORY_USAGE
- control
-To: Nicolas Dufresne <nicolas@ndufresne.ca>,
- "Ming Qian(OSS)" <ming.qian@oss.nxp.com>, Frank Li <Frank.li@nxp.com>
-Cc: linux-media@vger.kernel.org, mchehab@kernel.org,
- hverkuil-cisco@xs4all.nl, sebastian.fricke@collabora.com,
- shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- festevam@gmail.com, linux-imx@nxp.com, xiahong.bao@nxp.com,
- eagle.zhou@nxp.com, imx@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260331072347.253-1-ming.qian@oss.nxp.com>
- <20260331072347.253-2-ming.qian@oss.nxp.com>
- <acvbOo17tU-s20BS@lizhi-Precision-Tower-5810>
- <079b1630abe5dd22e032797fc12925c9c79ea305.camel@ndufresne.ca>
- <d8c12ba1-5004-4a51-8a2b-3d500184778b@oss.nxp.com>
- <5c24fe3f-a1c7-4fd6-b5e6-c920bc3e7fcb@oss.nxp.com>
- <8911674f2f86a4b75e1f44d6e9b66a28f6e74e56.camel@ndufresne.ca>
-Content-Language: en-US
-From: Detlev Casanova <detlev.casanova@collabora.com>
-In-Reply-To: <8911674f2f86a4b75e1f44d6e9b66a28f6e74e56.camel@ndufresne.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="LUVlA+KHkNw9pXHz"
+Content-Disposition: inline
+In-Reply-To: <4bd5d70a6144f3e8d4356c182f314cf735f1921c.camel@collabora.com>
 
 
+--LUVlA+KHkNw9pXHz
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 4/8/26 17:11, Nicolas Dufresne wrote:
-> Le jeudi 02 avril 2026 à 11:14 +0800, Ming Qian(OSS) a écrit :
->> Hi Nicolas,
->>
->> On 4/1/2026 10:23 AM, Ming Qian(OSS) wrote:
->>> Hi Nicolas,
->>>
->>> On 3/31/2026 10:54 PM, Nicolas Dufresne wrote:
->>>> Le mardi 31 mars 2026 à 10:33 -0400, Frank Li a écrit :
->>>>> On Tue, Mar 31, 2026 at 03:23:11PM +0800, ming.qian@oss.nxp.com wrote:
->>>>>> From: Ming Qian <ming.qian@oss.nxp.com>
->>>>>>
->>>>>> Add a new read-only control V4L2_CID_MEMORY_USAGE that allows
->>>>>> applications to query the total amount of memory currently used
->>>>>> by a device instance.
->>>>>>
->>>>>> This control reports the memory consumption in bytes, including
->>>>>> internal buffers, intermediate processing data, and other
->>>>>> driver-managed allocations. Applications can use this information
->>>>>> for debugging, resource monitoring, or making informed decisions
->>>>>> about buffer allocation strategies.
->>>>>>
->>>>>> Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
->>>>>> ---
->>>>> Not sure why not export these information by debugfs, or any benefit vs
->>>>> debugfs?
->>>> There is also a on-going proposal that uses fdinfo.
->>>>
->>>> Nicolas
->>>>
->>> Thanks for the reminder about the ongoing fdinfo proposal.
->>>
->>> Just to confirm, you are referring to Detlev’s ongoing fdinfo proposal,
->>> specifically this series:
->>> https://lore.kernel.org/lkml/20260212162328.192217-1-
->>> detlev.casanova@collabora.com/
->>>
->>> I will align my work with it and switch to using fdinfo.
->>> Once the show_fdinfo support from that series is merged, I will prepare
->>> the next revision of my patch accordingly.
->>>
->>> Regards,
->>> Ming
->>>
->> Regarding the discussion about using fdinfo instead of a V4L2 control, I
->> have two questions:
->>
->> 	1. Key consistency in fdinfo
->> 	fdinfo uses key–value pairs, which is flexible, but if multiple
->> 	drivers want to expose the same “memory usage” information,
->> 	they need to agree on a common key name and meaning. Otherwise
->> 	user‑space must handle each driver differently. A V4L2 control
->> 	naturally provides a unified interface without this coordination
->> 	effort.
->>
->>
->> 	2. Lack of notification in fdinfo
->> 	With a control, user‑space can subscribe to control events and
->> 	receive notifications when the memory usage changes. fdinfo does
->> 	not have a built‑in event mechanism, so users must either poll
->> 	or rely on additional eventfd‑like or custom event mechanisms.
->>
->> Do you have any suggestions or existing practices to address these two
->> issues when using fdinfo?
->>
->> Thanks again for your time and comments.
-> Added Detlev in CC. You can also refer to his work through:
->
-> https://lore.kernel.org/all/20260212162328.192217-1-detlev.casanova@collabora.com/
->
+Hi Nicolas,
+
+On Thu 09 Apr 26, 10:00, Nicolas Dufresne wrote:
+> Le jeudi 09 avril 2026 =C3=A0 15:33 +0200, Paul Kocialkowski a =C3=A9crit=
+=C2=A0:
+> > Hi,
+> >=20
+> > On Tue 24 Mar 26, 16:08, Pengpeng Hou wrote:
+> > > Cedrus consumes H.264 ref_pic_list0/ref_pic_list1 entries from the
+> > > stateless slice control and later uses their indices to look up
+> > > decode->dpb[] in _cedrus_write_ref_list().
+> > >=20
+> > > Rejecting such controls in cedrus_try_ctrl() would break existing
+> > > userspace, since stateless H.264 reference lists may legitimately car=
+ry
+> > > out-of-range indices for missing references. Instead, guard the actual
+> > > DPB lookup in Cedrus and skip entries whose indices do not fit the fi=
+xed
+> > > V4L2_H264_NUM_DPB_ENTRIES array.
+> >=20
+> > Could you explain why it is legitimate that userspace would pass indice=
+s that
+> > are not in the dpb list? As far as I remember from the H.264 spec, the =
+L0/L1
+> > lists are constructed from active references only and the number of ite=
+ms
+> > there
+> > should be given by num_ref_idx_l0_active_minus1/num_ref_idx_l1_active_m=
+inus1.
+> > We can tolerate invalid data beyond these indices, but certainly not as=
+ part
+> > of the indices that should be valid.
+> >=20
+> > However I agree that cedrus_try_ctrl is maybe not the right place to ch=
+eck it
+> > since I'm not sure we are guaranteed that the slice params control will=
+ be
+> > checked before the new DPB (from the same request) is applied, so we mi=
+ght end
+> > up checking against the dpb from the previous decode request.
+> >=20
+> > But I think we should error out and not just skip the invalid reference.
+>=20
+> Its been a long time I haven't looked into this. But what happens here is=
+ that
+> once you lost a reference, the userspace DPB will hold a gap picture, whi=
+ch as
+> no backing storage. Since it has no backing storage, there is no cookie
+> (timestamp) associated with it. This gap picture will still make it to the
+> reference lists, since the position of the reference in the list is impor=
+tant
+> (you cannot just remove an item). It is an established practice in usersp=
+ace to
+> simply fill the void with an invalid index, typically 0xff, which is alwa=
+ys
+> invalid. Because that's what some userspace do, it became part of our ABI.
+
+Right we definitely need to keep the order of the L0/L1 lists even with mis=
+sing
+references and the question is whether the hardware can deal with it or not.
+
+Our uAPI specification currently doesn't say anything about handling missing
+references. I'm generally not very keen on considering that undefined behav=
+ior
+becomes de-facto uAPI that should never be broken, because there are cases =
+where
+it is obviously incorrect and the fact that it didn't fail previously is the
+result of a bug in the implementation.
+
+But in this situation I agree we do need a way to indicate that references =
+are
+missing and using 0xff sounds like a good plan to me, given that we provide=
+ a
+uAPI header define with this value and that the doc mentions it.
+
+> Decoders are expected be fault tolerant, though the tolerance level is ha=
+rdware
+> specific, and so failing in the common code would be inappropriate (faili=
+ng in
+> Cedrus could be acceptable, assuming it can't work with missing reference=
+s,
+> which the implementation seems to be fine with).
+
+Okay I agree that we should not fail in common code and tolerate a value to
+indicate a missing reference.
+
+What the current proposal is doing (skipping the reference) results in the
+SRAM entry for the reference remaining untouched, which will keep its value
+=66rom the previous frame. This seems clearly incorrect.
+
+> Hantro G1 notably have a flag to report missing reference to the HW, and =
+it will
+> manage concealement internally. G2/RKVDEC don't, and we try and pick the =
+most
+> recent frame as a replacement backing storage, which most of the time min=
+imises
+> the damages.
+
+It sounds like an approach that could work for cedrus too.
+
+> As future refinement, we need drivers in the long term to properly report=
+ the
+> damages (perhaps through additional RO request controls). As discussed fe=
+w years
+> ago in the error handling wip for rkvdec, the V4L2 doc specify that any s=
+ort of
+> damages known to exist in a frame shall results in the ERROR flag being s=
+et. We
+> can deduce that the error flag with a payload of 0 indicates to userspace=
+ to not
+> use the frame (which typically happen on hard errors, or errror at entropy
+> decode staged) and ERROR flag with a correct payload signal some level of
+> corruption, and its left to the application to decide what to do.
+
+I think it make sense yes, but it would be good to document it in the uAPI
+document too.
+
+All the best,
+
+Paul
+
 > Nicolas
-Hi Ming !
+>=20
+> >=20
+> > All the best,
+> >=20
+> > Paul
+> >=20
+> > >=20
+> > > This keeps the fix local to the driver use site and avoids out-of-bou=
+nds
+> > > reads from malformed or unsupported reference list entries.
+> > >=20
+> > > Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+> > > ---
+> > > =C2=A0drivers/staging/media/sunxi/cedrus/cedrus_h264.c | 3 +++
+> > > =C2=A01 file changed, 3 insertions(+)
+> > >=20
+> > > diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
+> > > b/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
+> > > --- a/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
+> > > +++ b/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
+> > > @@ -210,6 +210,9 @@ static void _cedrus_write_ref_list(struct cedrus_=
+ctx
+> > > *ctx,
+> > > =C2=A0		u8 dpb_idx;
+> > > =C2=A0
+> > > =C2=A0		dpb_idx =3D ref_list[i].index;
+> > > +		if (dpb_idx >=3D V4L2_H264_NUM_DPB_ENTRIES)
+> > > +			continue;
+> > > +
+> > > =C2=A0		dpb =3D &decode->dpb[dpb_idx];
+> > > =C2=A0
+> > > =C2=A0		if (!(dpb->flags & V4L2_H264_DPB_ENTRY_FLAG_ACTIVE))
+> > > --=20
+> > > 2.50.1
+> > >=20
 
-One of the reasons for using fdinfo is that it's already being used in 
-the drm subsystem and it is working well.
-Of course, in DRM, drivers don't allocate a lot of memory themselves, 
-userspace drivers (in mesa) go through the DRM uAPI to allocate buffers, 
-making the DRM subsystem aware of all allocated memory.
-That lets DRM show memory stats in a standard way for all drm drivers. 
-In v4l2, memory allocation is shared between userspace and the driver.
-We could have drivers report memory usage through a callback and 
-v4l2-core can add the standard field based on that.
 
-For notifications, I don't really see a need for that, most tracing 
-tools will use polling (I'm thinking perfetto, but also top-like tools).
-We could have a max-mem-usage field if we'd want to make sure we don't 
-miss the maximum memory usage between 2 polls.
 
-Finally, I think v4l2 controls should only be used to control, configure 
-and exchange data with video devices, not get stat information on what 
-the driver is doing.
+--=20
+Paul Kocialkowski,
 
-Detlev.
->
->> Regards,
->> Ming
->>
->>>>> Generanlly document should be first patch, then driver change.
->>>>>
->>>>> Frank
->>>>>
->>>>>>    drivers/media/v4l2-core/v4l2-ctrls-defs.c | 8 ++++++++
->>>>>>    include/uapi/linux/v4l2-controls.h        | 4 +++-
->>>>>>    2 files changed, 11 insertions(+), 1 deletion(-)
->>>>>>
->>>>>> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/
->>>>>> media/v4l2-core/v4l2-ctrls-defs.c
->>>>>> index 551426c4cd01..053db78ff661 100644
->>>>>> --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
->>>>>> +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
->>>>>> @@ -831,6 +831,7 @@ const char *v4l2_ctrl_get_name(u32 id)
->>>>>>        case V4L2_CID_ALPHA_COMPONENT:        return "Alpha Component";
->>>>>>        case V4L2_CID_COLORFX_CBCR:        return "Color Effects, CbCr";
->>>>>>        case V4L2_CID_COLORFX_RGB:              return "Color Effects,
->>>>>> RGB";
->>>>>> +    case V4L2_CID_MEMORY_USAGE:        return "Memory Usage";
->>>>>>
->>>>>>        /*
->>>>>>         * Codec controls
->>>>>> @@ -1476,6 +1477,13 @@ void v4l2_ctrl_fill(u32 id, const char
->>>>>> **name, enum v4l2_ctrl_type *type,
->>>>>>            *min = 0;
->>>>>>            *max = 0xffff;
->>>>>>            break;
->>>>>> +    case V4L2_CID_MEMORY_USAGE:
->>>>>> +        *type = V4L2_CTRL_TYPE_INTEGER64;
->>>>>> +        *flags |= V4L2_CTRL_FLAG_READ_ONLY;
->>>>>> +        *min = 0;
->>>>>> +        *max = S64_MAX;
->>>>>> +        *step = 1;
->>>>>> +        break;
->>>>>>        case V4L2_CID_FLASH_FAULT:
->>>>>>        case V4L2_CID_JPEG_ACTIVE_MARKER:
->>>>>>        case V4L2_CID_3A_LOCK:
->>>>>> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/
->>>>>> linux/v4l2-controls.h
->>>>>> index 68dd0c4e47b2..02c6f960d38e 100644
->>>>>> --- a/include/uapi/linux/v4l2-controls.h
->>>>>> +++ b/include/uapi/linux/v4l2-controls.h
->>>>>> @@ -110,8 +110,10 @@ enum v4l2_colorfx {
->>>>>>    #define V4L2_CID_COLORFX_CBCR            (V4L2_CID_BASE+42)
->>>>>>    #define V4L2_CID_COLORFX_RGB            (V4L2_CID_BASE+43)
->>>>>>
->>>>>> +#define V4L2_CID_MEMORY_USAGE            (V4L2_CID_BASE+44)
->>>>>> +
->>>>>>    /* last CID + 1 */
->>>>>> -#define V4L2_CID_LASTP1                         (V4L2_CID_BASE+44)
->>>>>> +#define V4L2_CID_LASTP1                         (V4L2_CID_BASE+45)
->>>>>>
->>>>>>    /* USER-class private control IDs */
->>>>>>
->>>>>> -- 
->>>>>> 2.53.0
->>>>>>
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
 
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--LUVlA+KHkNw9pXHz
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmnXuEEACgkQhP3B6o/u
+lQx37RAAjcuV3N9iurEZViUlvh0HCe+Uf8aIugIBVA027PVD70pQ8gUeJ3uaWmNx
+4iFHr7M9T2VxVcIdoDXcgUrw/6ptYmi6bXtPhTt2Ktm8gy1p7uR6PIRmSk+qAkWj
+6NSsZuSNWp2BomyP337Kl9/dj4M6txYnLx4kjJl2fbPLlPxndnWFf1GpSmlPFUeT
+fttZ4aJHRnEElrtZ7bzOqCgvtSd5TDGjbzjfaJV5cvAx6iDKHCj7uHHBxdTKUrGa
+fZ1+mPFmRHo+N1EeICtR6wPAtL3mHAvAKLYopX9Sz8uwy0ilci/3IJQ/iAun7p+W
+PWAH+8h31CI2pYWst6XZPa/diBMEMpKN85Igt24U6L7RQk/jTJTTBcB7HST5rCI8
+JSXnQx4gcmY+J3B3ysGUX0UTYoAAXYEWHTAX65PGMOvFLnNGEASdzjQ1tYrphFkL
+RfxdUmOudot0gONj/zIxJ+q7L1UJP/GSRAeVVu/y6yjSmv/gBK6H5zCqCHgbdf4j
+T3PNaCrDRVjilSlcHJQIi8UVBCg5lkObO1pqQ1UuHDA/+eq1zzZM6JEXjds5MoVX
+Y3PZhJGaTPAz4Jb4xdQ6xyEwuMwVX0Uu+06usTtw9aylL8LgmKicqWHu9cE1Uv/R
+c/nlwWXgjtUM7h1SN5A/l/XzJhuSbIxPXls+W+p+jYn63fVACyo=
+=qfUh
+-----END PGP SIGNATURE-----
+
+--LUVlA+KHkNw9pXHz--
