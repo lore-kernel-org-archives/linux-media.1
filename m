@@ -1,55 +1,55 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24EEA346A08
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A90E346FAB
 	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765735; cv=none; b=SnUbIIVXsAOpthUZX0qltvJ2/aihRaECGj6yJrFk32RBnvRgyl5xm7hfspd/yzFnxR1OcU6dXWDQfyuL+6VC7vsu0UWSUmNmaWTyRNoliJTuUBxGl9XEIyhPpnotFmZjzaO6lidxA4grWKYPGZaNDpTSbYoOuyfjekIf+Bdu/Fw=
+	t=1775765736; cv=none; b=g/c2Td70KJr+qz+S2NCFe46cmrB6LacqGgrjxt3AIIIpbwy3qVYypB60lCMX+3GKkppKA9a+ZusTAwaHon7FGPiVdpIp2EshZ/dfIjHzW2nf5GMt0ytN435jlisA/W2iXrboY923QAmJMAXRnSGEFDZm+BlLQ1ZuIcrXDD7mztI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775765735; c=relaxed/simple;
-	bh=ntMlB8k4iMpkSdxXBR7Sy3KrR/fO+j3pgfSdMGM/Ce8=;
+	s=arc-20240116; t=1775765736; c=relaxed/simple;
+	bh=JlyLyzLKg29aOTNi9MnM+J183BDjfRHhdHOq3O1W9g4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C2rq9dWSgBYrxhQIvTdh/kTbpObzIa0OzWkuU9RqmyslFaxIO29tsaREYniJ3cvIc8phvF8N36EPyFSGsZTwzxib6ghctuLdY3InjQaHLLCogCqAJQV/ZeWc+5HxZ34dSgA3Z9hFbz2BztQttu3pUzkgt9af8Iwfci4RXB2+huo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PgBJWAas; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=t5vjOnwPcw7854d53wiVnaLw9SpTEBue7vWySsOoAN3tIO0Edu2WmaL8FiXbryTBZve+pTNUii7DD9kGS1SInZ4kDEYibfFCSlqWMmEBmUg7mmFBgBJ571jexK9z0s2n2fqX4KEj1GulAGoG3UGhMEHnvnTqkWRr8kjcBR31p5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UTMmM/lc; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PgBJWAas"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UTMmM/lc"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775765734; x=1807301734;
+  t=1775765735; x=1807301735;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=ntMlB8k4iMpkSdxXBR7Sy3KrR/fO+j3pgfSdMGM/Ce8=;
-  b=PgBJWAas75ZvGObvc6NCrvUln1Lr7pdf4uH5cAZONWO9DylJ7olmnH9n
-   zjrkWVMc40DJjXsUDesiEn6/WUedVmZv3FrCm/toStPGh1WTM3ExBsbDG
-   aYMusUNjEAw7lPU1laOLkVsV9WFqBtZsGRID4b7EmkJ65dnWBlD5fbUrk
-   NjD1MC8yMZ5YpycvxkGNbT78N70pKALzaaXDdfg0L3ci6vpeym/1wNxbx
-   1oKgSUBS6mMkb8OIcz6WlT2PbxfNVqjqvCBfu6Cey0sRsmxFP21jpRaAD
-   TmKcEaDSo+h7DyqfCznFfzY1fmvmFBUYjO/vn+lc3JBTyt6tL9O0+r6mb
-   g==;
-X-CSE-ConnectionGUID: qOaWEA8jS0mLQIVc6+u/MQ==
-X-CSE-MsgGUID: q6JBh7OiRwC4Fsdj4JU8wQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176518"
+  bh=JlyLyzLKg29aOTNi9MnM+J183BDjfRHhdHOq3O1W9g4=;
+  b=UTMmM/lc4D1E0o/B8LjNL0bL1dAoIc1l7eniY0hct8wGeWuPB5xrDj7o
+   VzwswByY/Xpe14kaVhJtoA5Ty6VtFH+yDy82B2tBMm++62MIYFXMzDWbk
+   Fms+XaeDNlB3GLOmx8HG45XHFwFTG/yBCsNuwvqswzJSzcVp2HK0fy/Ik
+   TVSzC6FxvUNxowRjsxWN3TLTrIdy7aciZmBFECCmrW6lYgsI31C/Ee7xH
+   Q4rOoCpyX61QvnqD4WDfnQR4LxnBh2pdjTQ3xH+6PcuGz4WuMDBziY4G6
+   8QImoudBdbORhFnn7dDdb4waNVwmCMI7/efSNaIHToBWo3k7XInmeI+Au
+   w==;
+X-CSE-ConnectionGUID: tPV04ZBVRWSrQp2YG4JOTA==
+X-CSE-MsgGUID: tOCPH9i1TiuD82X3JCnkAQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176531"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="94176518"
+   d="scan'208";a="94176531"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:26 -0700
-X-CSE-ConnectionGUID: IzmbLgsZTsmTYIw3J8LhMw==
-X-CSE-MsgGUID: VQORDjPtSmyzLuZ5mdfYVA==
+X-CSE-ConnectionGUID: Lo1x1pktQdCiU+jYn59Stg==
+X-CSE-MsgGUID: ES61e1kqTzOKKCPYHKXTxA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="228047538"
+   d="scan'208";a="228047540"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:19 -0700
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:20 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 7A44F122734;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id AD9BE1228C6;
 	Thu, 09 Apr 2026 23:15:13 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmH-000000045m1-3twY;
-	Thu, 09 Apr 2026 23:15:01 +0300
+	id 1wAvmI-000000045mn-0U91;
+	Thu, 09 Apr 2026 23:15:02 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: linux-media@vger.kernel.org
@@ -79,9 +79,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 21/86] media: Documentation: Document IMMUTABLE and STATIC route flags
-Date: Thu,  9 Apr 2026 23:13:56 +0300
-Message-ID: <20260409201501.975242-22-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 33/86] media: uapi: Add new controls for camera sensor FLL and LLP
+Date: Thu,  9 Apr 2026 23:14:08 +0300
+Message-ID: <20260409201501.975242-34-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -93,40 +93,67 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Include the V4L2_SUBDEV_ROUTE_FL_IMMUTABLE and V4L2_SUBDEV_ROUTE_FL_STATIC
-flags in V4L2 sub-device documentation that discusses routing.
+Add new controls for camera sensors, V4L2_CID_LINE_LENGTH_PIXELS and
+V4L2_CID_FRAME_LENGTH_LINES, to convey the combined size of the analogue
+crop rectangle and horizontal and vertical blanking.
+
+The reason for adding the new controls is that they're much easier to use
+as the user doesn't have to be concerned of the analogue crop in the same
+context. Secondarily, the newly added common raw sensor model uses
+different values for the same.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- .../userspace-api/media/v4l/dev-subdev.rst         | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ .../userspace-api/media/v4l/ext-ctrls-image-source.rst | 10 ++++++++++
+ drivers/media/v4l2-core/v4l2-ctrls-defs.c              |  2 ++
+ include/uapi/linux/v4l2-controls.h                     |  3 +++
+ 3 files changed, 15 insertions(+)
 
-diff --git a/Documentation/userspace-api/media/v4l/dev-subdev.rst b/Documentation/userspace-api/media/v4l/dev-subdev.rst
-index 57bd44dbbeea..6b67f526f312 100644
---- a/Documentation/userspace-api/media/v4l/dev-subdev.rst
-+++ b/Documentation/userspace-api/media/v4l/dev-subdev.rst
-@@ -602,11 +602,15 @@ depending on the hardware. In all cases, however, only routes that have the
- ``V4L2_SUBDEV_ROUTE_FL_ACTIVE`` flag set are active.
+diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
+index 63e53c883db6..fb4dee1b4f94 100644
+--- a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
++++ b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
+@@ -201,3 +201,13 @@ For instance, a value of ``0x0001000300020003`` indicates binning by 3
+     Sub-sampling is used to downscale an image, horizontally and vertically, by
+     discarding a part of the image data. Typically sub-sampling produces lower
+     quality images than binning.
++
++.. _image_source_control_frame_length:
++
++``V4L2_CID_FRAME_LENGTH_LINES (integer)``
++    Frame length in lines. The value of the control is the number of lines
++    captured in the sensor's pixel array added to the vertical blanking.
++
++``V4L2_CID_LINE_LENGTH_PIXELS (integer)``
++    Line length in pixels. The value of the control is the number of pixels per
++    line captured in the sensor's pixel array added to the horizontal blanking.
+diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+index 227bcb5a549d..bd23c5640722 100644
+--- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
++++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+@@ -1163,6 +1163,8 @@ const char *v4l2_ctrl_get_name(u32 id)
+ 	case V4L2_CID_BINNING_FACTORS:		return "Binning Factors";
+ 	case V4L2_CID_SUBSAMPLING_HORIZONTAL:	return "Sub-Sampling Factor, Horizontal";
+ 	case V4L2_CID_SUBSAMPLING_VERTICAL:	return "Sub-Sampling Factor, Vertical";
++	case V4L2_CID_FRAME_LENGTH_LINES:	return "Frame Length in Lines";
++	case V4L2_CID_LINE_LENGTH_PIXELS:	return "Line Length in Pixels";
  
- Devices generating the streams may allow enabling and disabling some of the
--routes or have a fixed routing configuration. If the routes can be disabled, not
--declaring the routes (or declaring them without ``V4L2_SUBDEV_ROUTE_FL_ACTIVE``
--flag set) in ``VIDIOC_SUBDEV_S_ROUTING`` will disable the routes.
--``VIDIOC_SUBDEV_S_ROUTING`` will still return such routes back to the user in
--the routes array, with the ``V4L2_SUBDEV_ROUTE_FL_ACTIVE`` flag unset.
-+routes or have a fixed routing configuration. Routes that are bound to hardware
-+resources and are always present are marked with ``V4L2_SUBDEV_ROUTE_FL_STATIC``
-+flag. Static routes that cannot be disabled are marked with
-+``V4L2_SUBDEV_ROUTE_FL_IMMUTABLE`` route flag. Static routes can be disabled by
-+not declaring the routes (or declaring them without
-+``V4L2_SUBDEV_ROUTE_FL_ACTIVE`` flag set) in
-+``VIDIOC_SUBDEV_S_ROUTING``. ``VIDIOC_SUBDEV_S_ROUTING`` will still return such
-+routes back to the user in the routes array, with the
-+``V4L2_SUBDEV_ROUTE_FL_ACTIVE`` flag unset.
+ 	/* Image processing controls */
+ 	/* Keep the order of the 'case's the same as in v4l2-controls.h! */
+diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+index acb6f9ad4d1b..60f0fb599926 100644
+--- a/include/uapi/linux/v4l2-controls.h
++++ b/include/uapi/linux/v4l2-controls.h
+@@ -1253,6 +1253,9 @@ enum v4l2_jpeg_chroma_subsampling {
+ #define V4L2_CID_SUBSAMPLING_HORIZONTAL		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 14)
+ #define V4L2_CID_SUBSAMPLING_VERTICAL		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 15)
  
- Devices transporting the streams almost always have more configurability with
- respect to routing. Typically any route between the sub-device's sink and source
++#define V4L2_CID_FRAME_LENGTH_LINES		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 16)
++#define V4L2_CID_LINE_LENGTH_PIXELS		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 17)
++
+ /* Image processing controls */
+ 
+ #define V4L2_CID_IMAGE_PROC_CLASS_BASE		(V4L2_CTRL_CLASS_IMAGE_PROC | 0x900)
 -- 
 2.47.3
 
