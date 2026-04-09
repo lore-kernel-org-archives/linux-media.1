@@ -1,55 +1,55 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CFE3446A6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C54B342CBA
 	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765733; cv=none; b=Ueps2pb7oI58SrYUf2+NDMsxqIde/ec1aM9/25cKAlL/XmtBYNlOvTSxX7Ejax0wTRnHADr0M2Q+3qEuYyWk/AsO91D7fSpEord4+eB52aJFae+vkr9SvvGpke1WjuKz02ft7KnzX6YTU6pbHa636IZb9AegnspsFzOTwdoMhYQ=
+	t=1775765734; cv=none; b=cxv+NwyVQ4vgpKpwKKp0o/loKDUPxo5QSKFbGPB5ww30xOpc0HclsEHn4vdq2xkXlUwvBTen/xuBEDXgtQ7COV1z64U8SRVE1xRNyrd96YnMn0vkcYdHaERWBwwZKNudT1LpKoDVVKk/nWE6WpqKcjP5arEJnN1wzpAq5zgfuYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775765733; c=relaxed/simple;
-	bh=bh1OGej4wkJ+GP7BDmK7ahH/MRhI258u7ESCnuvFCW8=;
+	s=arc-20240116; t=1775765734; c=relaxed/simple;
+	bh=oLfm7W1lexeKYW6WKnolXXU+zcmSnrPNvSSJt/eKRTA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AuZfKh8TqDhRjKbLSvWs/F/14C9g5rIG8QfdNkxGHMF7/N65ywfC1+Qs8XDETCljI92Z9ARJde5lf4kfB+PoUkCSgrv5JN3T+OWRFQ5/d9u1N+gLOsLIoq0M+qppDomjJVFIkPmTBBjtpHUgVJcn0Lbi8zraOdJRgqiKB8jD76Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aiS6yw53; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=bnmFJ0wDg61JSosB9h2AK/cwTR2HwWwaO8RX6Joz6HKK1MniFI39fC2n1EKmpGkHSxvAAg/icTvWiU7zIWYhO16QoeFKUSMKmlkxYFm/UAEA27RTkunB+keWCeLYuy8cFE0JgMelBvrziGv8ZvD3H9iOXgsyK72iOAHt03w1p1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cUCgYnbq; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aiS6yw53"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cUCgYnbq"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775765733; x=1807301733;
+  t=1775765732; x=1807301732;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=bh1OGej4wkJ+GP7BDmK7ahH/MRhI258u7ESCnuvFCW8=;
-  b=aiS6yw53JWR4low++elAXLj+KQyM1TO5jcPPqIdXI/QK/1cRmZV9Xnm/
-   jZMQQ1Xj9WSGeBjmshTMVo3da4I2bDOBH29kgGYo0QYHCu+RbFPTE4/12
-   65uh1eW21gyPLEN33niEWZ4nX6XlaX5w4aV3ARIKu2TIWG/uYUE9PKS/P
-   QbKeYROiWyLNMxQRKT62oam3lHua+QMZh3FD5j80z8BpbOSM8Xu66o172
-   gowctaaZrKHSMmfxHJUc0SPJttjfV038gWp6aJ3k8+MLMVrqj+KNTDXhM
-   Kgu3RasqJeZxECLq6QQDP8I6AJAu4xxjnoPA0iC+n2yZjmRK4+pOwkwnX
-   g==;
-X-CSE-ConnectionGUID: KS243e0jQ3qU06EMGzCXsA==
-X-CSE-MsgGUID: 6PE+2uzzTlaUoSJ9DPFewQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176495"
+  bh=oLfm7W1lexeKYW6WKnolXXU+zcmSnrPNvSSJt/eKRTA=;
+  b=cUCgYnbqkx4sSv/XEBt+iBOzWv4xB3IS9gsHkyRXLVvFnr1ueeddMY9w
+   E4xWggLpKzrsejVr6pUZGsbR1Pby2MwygnxHNgt+NAxhFKtWh8UqGd6Om
+   2vNGJjZqFNsWmOn9vyFtsjEorjSx1HC+jKlC5ISsRPBt2lwidgXSd3wAC
+   j2YOq5HYsAyrW1YaudUAs0odshrJzU3lirCyYbSIo2APTEgFGqU/FegpZ
+   dQw9nG39O/Xdrxu/hLFH1tA4fD6A93E7sXW91jr26/FPeEZCqzXzqsR1d
+   +pWyI4gGpF9PswkaCWLUkBkRZ/QMhY0YPgjwHPSTsy2FwMwXK4gSJ12kB
+   Q==;
+X-CSE-ConnectionGUID: SqlMbSCQTeWIGLjMqbf0aw==
+X-CSE-MsgGUID: JpY7c4uFRkelre6812N53Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176470"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="94176495"
+   d="scan'208";a="94176470"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:26 -0700
-X-CSE-ConnectionGUID: tMZlXI70RSqDW+q5gB/ToQ==
-X-CSE-MsgGUID: EG51qYl3SXSwr8uCh0ZZgw==
+X-CSE-ConnectionGUID: RRyY85nJT/iQDBU7aWxBZA==
+X-CSE-MsgGUID: 8uvAGbCYTIiMLc3eoI57RQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="228047532"
+   d="scan'208";a="228047530"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:19 -0700
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:20 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 7FA121227A6;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id AFBFF1228C8;
 	Thu, 09 Apr 2026 23:15:13 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmH-000000045m9-426k;
-	Thu, 09 Apr 2026 23:15:01 +0300
+	id 1wAvmI-000000045mr-0YaY;
+	Thu, 09 Apr 2026 23:15:02 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: linux-media@vger.kernel.org
@@ -79,9 +79,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 23/86] media: v4l2-subdev: Prevent accessing internal pads without STREAMS cap
-Date: Thu,  9 Apr 2026 23:13:58 +0300
-Message-ID: <20260409201501.975242-24-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 34/86] media: uapi: Add binning factor helper macros
+Date: Thu,  9 Apr 2026 23:14:09 +0300
+Message-ID: <20260409201501.975242-35-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -93,104 +93,30 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The internal pads are expected to be accessed by users that are aware of
-streams. Require the V4L2_SUBDEV_CLIENT_CAP_STREAMS client capability to
-be set before allowing accessing internal pads from the user space.
+Add helper macros for handling binning factor integer control menu items.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/v4l2-core/v4l2-subdev.c | 41 ++++++++++++++++++++++++---
- 1 file changed, 37 insertions(+), 4 deletions(-)
+ include/uapi/linux/v4l2-controls.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-index 7723e37a0ff5..c6d8399c2252 100644
---- a/drivers/media/v4l2-core/v4l2-subdev.c
-+++ b/drivers/media/v4l2-core/v4l2-subdev.c
-@@ -234,6 +234,18 @@ static int check_state(struct v4l2_subdev *sd, struct v4l2_subdev_state *state,
- 	return 0;
- }
+diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+index 60f0fb599926..aaa0d88d7e6e 100644
+--- a/include/uapi/linux/v4l2-controls.h
++++ b/include/uapi/linux/v4l2-controls.h
+@@ -1250,6 +1250,13 @@ enum v4l2_jpeg_chroma_subsampling {
+ #define V4L2_CID_METADATA_LAYOUT		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 12)
  
-+static inline int check_caps(struct v4l2_subdev *sd,
-+			     struct v4l2_subdev_state *state,
-+			     const struct v4l2_subdev_client_info *ci,
-+			     u32 pad)
-+{
-+	if (sd->entity.pads[pad].flags & MEDIA_PAD_FL_INTERNAL)
-+		return ci->client_caps & V4L2_SUBDEV_CLIENT_CAP_STREAMS ?
-+			0 : -EINVAL;
-+
-+	return 0;
-+}
-+
- static inline int check_format(struct v4l2_subdev *sd,
- 			       struct v4l2_subdev_state *state,
- 			       struct v4l2_subdev_format *format)
-@@ -245,12 +257,21 @@ static inline int check_format(struct v4l2_subdev *sd,
- 	       check_state(sd, state, format->which, format->pad, format->stream);
- }
- 
-+static inline int check_format_caps(struct v4l2_subdev *sd,
-+				    const struct v4l2_subdev_client_info *ci,
-+				    struct v4l2_subdev_state *state,
-+				    struct v4l2_subdev_format *format)
-+{
-+	return check_format(sd, state, format) ?:
-+		check_caps(sd, state, ci, format->pad);
-+}
-+
- static int call_get_fmt(struct v4l2_subdev *sd,
- 			const struct v4l2_subdev_client_info *ci,
- 			struct v4l2_subdev_state *state,
- 			struct v4l2_subdev_format *format)
- {
--	return check_format(sd, state, format) ? :
-+	return check_format_caps(sd, ci, state, format) ? :
- 		sd->ops->pad->get_fmt(sd, ci, state, format);
- }
- 
-@@ -259,7 +280,7 @@ static int call_set_fmt(struct v4l2_subdev *sd,
- 			struct v4l2_subdev_state *state,
- 			struct v4l2_subdev_format *format)
- {
--	return check_format(sd, state, format) ? :
-+	return check_format_caps(sd, ci, state, format) ? :
- 		sd->ops->pad->set_fmt(sd, ci, state, format);
- }
- 
-@@ -310,12 +331,24 @@ static inline int check_selection(struct v4l2_subdev *sd,
- 	       check_state(sd, state, sel->which, sel->pad, sel->stream);
- }
- 
-+static inline int check_selection_caps(struct v4l2_subdev *sd,
-+				       const struct v4l2_subdev_client_info *ci,
-+				       struct v4l2_subdev_state *state,
-+				       struct v4l2_subdev_selection *sel)
-+{
-+	if (!sel)
-+		return -EINVAL;
-+
-+	return check_selection(sd, state, sel) ? :
-+		check_caps(sd, state, ci, sel->pad);
-+}
-+
- static int call_get_selection(struct v4l2_subdev *sd,
- 			      const struct v4l2_subdev_client_info *ci,
- 			      struct v4l2_subdev_state *state,
- 			      struct v4l2_subdev_selection *sel)
- {
--	return check_selection(sd, state, sel) ? :
-+	return check_selection_caps(sd, ci, state, sel) ? :
- 		sd->ops->pad->get_selection(sd, ci, state, sel);
- }
- 
-@@ -324,7 +357,7 @@ static int call_set_selection(struct v4l2_subdev *sd,
- 			      struct v4l2_subdev_state *state,
- 			      struct v4l2_subdev_selection *sel)
- {
--	return check_selection(sd, state, sel) ? :
-+	return check_selection_caps(sd, ci, state, sel) ? :
- 		sd->ops->pad->set_selection(sd, ci, state, sel);
- }
+ #define V4L2_CID_BINNING_FACTORS		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 13)
++#define V4L2_BINNING_FACTORS_MAKE(hnum, hdem, vnum, vdem)		\
++	(((uint64_t)(0xffff & hnum) << 48) | ((uint64_t)(0xffff & hdem) << 32) | \
++	 ((uint64_t)(0xffff & vnum) << 16) | (uint64_t)(0xffff & vdem))
++#define V4L2_BINNING_FACTORS_HNUM(binning)	((binning >> 48) & 0xffff)
++#define V4L2_BINNING_FACTORS_HDEM(binning)	((binning >> 32) & 0xffff)
++#define V4L2_BINNING_FACTORS_VNUM(binning)	((binning >> 16) & 0xffff)
++#define V4L2_BINNING_FACTORS_VDEM(binning)	(binning & 0xffff)
+ #define V4L2_CID_SUBSAMPLING_HORIZONTAL		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 14)
+ #define V4L2_CID_SUBSAMPLING_VERTICAL		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 15)
  
 -- 
 2.47.3
