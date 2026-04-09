@@ -1,205 +1,154 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE54437B40B
-	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 07:43:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CAE37F735
+	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 07:44:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775720592; cv=none; b=CB0/1leOJXMGPJKu+5Jxh1u3RlDTwSz3FlCHJup67sEpr5dFNj59exwKYZu2Qeei1OZeu/iSzPzMXi9SybD9rg8VX6T+G25BoS6JJYbyCQoCzZRhm4MKeD9eLQbwNqOY1LweMawxcQPtkZu+2TBkxQnCoPBh9S1brgnoptxXPU4=
+	t=1775720664; cv=none; b=T2DCTMp63GgnAFtBBdiSftnkDzCwP6krk+TAbxa3tGiGVl9Ov5/hGg0iuMS39SUZXa7V0VGkKymgmlaygtXPBQ9lAGiZ8JfR6Qb3lkKDG776SXAcr6fH2lAOxUrKEYNx4qnw3/SrS3Y05hkTd3rFkMrk53CaQFOV6MgKP0bHbSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775720592; c=relaxed/simple;
-	bh=p15WCfIkJ4SuEu8l36dZ0rdpBrY1geE7hTvdbwzRuog=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=tI9PxO0OB+kF3NQAGGiL0JO0rtJ8Ji6iun6tjMHw1siM9aYIsBCEzm3XBQswe+pMeBNTX5dM6fevoOi8Ns2krfyMnc7wWqkfVc6tyvGyt5+W6xrQEjHh0afaWS5Z8yShbXgIxoSKacn8u0tQlIqs7AWc/1HM/2kzlWl24oLNk6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=p730qma9; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1775720664; c=relaxed/simple;
+	bh=UceDUxbj39VIyLOljIKZQz5Zivv141yWASgZkCD7G34=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZilVD85pi29LUAJ1mo2bVxBFJTRZQ3XqjcYSjWDQ2eNqmt3dWQHCRU9BIGnDZQHgr6XQx+4v8jMDczsTa2dzIVh/9pACMNCWqGOsy6unCeM/lsBbBBJqguJhFhO1ifadEqMAJ7QkL2aqN/XMXxxkRhJuPoAjVdU9EQfNwuCd4Fc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=jphein.com; spf=pass smtp.mailfrom=jphein.com; dkim=pass (2048-bit key) header.d=jphein.com header.i=@jphein.com header.b=kgDlSdY1; arc=none smtp.client-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=jphein.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jphein.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="p730qma9"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-483487335c2so5673175e9.2
-        for <linux-media@vger.kernel.org>; Thu, 09 Apr 2026 00:43:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=jphein.com header.i=@jphein.com header.b="kgDlSdY1"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-2b4520f6b32so395724eec.0
+        for <linux-media@vger.kernel.org>; Thu, 09 Apr 2026 00:44:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1775720589; x=1776325389; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Y4vfOVI2lZlL/h4O6xl86sUjxxrqaTqlcGZT6I0Ul4I=;
-        b=p730qma93HiWUROiqyzh1t/JxqNoePaQB9CwXS/9VRfmCJZWmF/s6nOxGJgMqWx/PP
-         ugBPj7SPRIh+LsrnTeAVWQ3IrdePIG5GAPHMI29UYkwGIYWZQnT7zhEalJdyBNKJBuLB
-         X51+rA0LJFRlDncpgLGHKaVq2OR+QraCk0rFD2a/qbIMWw0f/vcYU8rOpN8taZ1B9+ev
-         2cpLNOaG8F0UiU/6Cb0GtvJswGg5XVB6EvhRNRW5R90AWQGxE4LuQd+jUEJe25+e4MSe
-         /RmhbnDyXKb1UvbHNqWnrtdxgDJ2Z370aBbGP+oWoFv3Il/nGZZhIANW5lwDq2X/AfmG
-         94+w==
+        d=jphein.com; s=google; t=1775720661; x=1776325461; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ELuTqBhnkDSZI0fi8C1chvAelXix4ySX6h2QqrIkrPo=;
+        b=kgDlSdY1mP/R6rTkfzLmgwiEvFM+nSFzxJTm3w7tU2Av2wrfQQWJCw1GjvDHCyxu1y
+         YjivBdB5bpEjE2FvEnw1qJUskbaaK3Q8NtbLTP856wXYMNbPgfiJdyg376jEU1avwyIF
+         6Z+9mdPUq3Aye4eFMuwCzZ6ttT/KbTRj0ar24Jug5CNF9v8ccSQ63HGvekSJ5g5r1BwS
+         bMNTUBibBhgQuCMFCaELHcUyW+3Szsc6LW2qMtMGdeLZB6Z6O9ARrNamd5Wv9gIgfGPM
+         PV1Y3YbA1Yw5SMRVdqhANvxe91c6or0m9wqVXnvLbOyxcYU3Ml7E+5CoHntHdw+NEwQA
+         IBng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775720589; x=1776325389;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Y4vfOVI2lZlL/h4O6xl86sUjxxrqaTqlcGZT6I0Ul4I=;
-        b=hGteZ/AwHUBwMoN/wUj6BjO3eMu5SvDOJ0sjsGwmnIXzfXp7OaeLk2RN0X14oIhaMa
-         5BXTgOtv8U6x1INgvdF7irnVCtQa8KN+gCaTt+dausmZIDyjNuHDxcTdtSOrttAb0B8v
-         chyf7N5n3abiLXw/hLj3hh9UuQT7N0BlEvVCeUxk2hWaOA7LRmFxcoEXMz6yHs12C8hr
-         twtEk5qYt3t8QsxLJXaYBe1IZvr3cvH2vZwxnEqvoCVWnuNRCR8ko8TP7BI94yaDGxQP
-         nqtOsQBVb9Utw+/5KtDLZ3787tc6VO3uVm54aG2CFQqHCEeId5ZRdpvTg2ofScbVQQ4p
-         Kegw==
-X-Forwarded-Encrypted: i=1; AJvYcCWki6J5rEHC1ktf25XGDtgb4zfx2J4mGbqpLZvavBI90lqj95EZ5WxGwc5WtoVmSwW2C64Hj5nfUMtB9Q==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyDqkR5tw1XQqTZwnvnKr7LXsIxygy+FFvIwGKhMJq0ZdKRQSeh
-	jBlMHgFIZT8yI0cpjn/V7GMlXDbjkB36jbBWXJvBV5OMzZweuv+V010Kn1EMmq4tfxY=
-X-Gm-Gg: AeBDieuKwG5M0edjxCexuiXwW/gCzry0sGzDjnduT79ZQ9no13l4MwzukqJAQjxR6j9
-	FKQ1TlT1EhpJEDvUe4eg+DcuXAx4dEPI0MkXRKYlRIg/t1A4y3m0Hecxxm28NNzvvePwv7NOJIl
-	Ne6BBBF/IMzL55ipf3d/T0JSbJ+y9Yt3/l/y6enp65kKSrIU4WMcsEWmrTmQh3btogmg2nA44I8
-	EpU5SqhDP0QWjiAPdbl1fREB3OZAYffEILs1sQl7Ax/ruBFlH+WYh3CDG3v0UAC0iTm9sHtNG0V
-	2FT/q+dnFq8M2bBeMi7KYluGDqXGsJNkUOhOR01088nh1/c6reDxAK+PW3iiiv0dbhFVd01f3iE
-	5fxuS2lSx2Z+L9g9Lqg7RpGtd9BMbBtn2OrtqMInU6S2u6X4zV+bSjoRqblroEYAfzHjGHWle9A
-	Nqeg1GI6nET/mGs76vrNM+scbhgAdNXH1mN4CQQ3QBxXhURVb4LiuMmuqW/VzeGuzT2gOWHQDDf
-	CDqtyQ=
-X-Received: by 2002:a05:600c:630a:b0:485:2fe9:336f with SMTP id 5b1f17b1804b1-488998e3cbemr338436225e9.30.1775720589094;
-        Thu, 09 Apr 2026 00:43:09 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:70d5:8219:5bd4:e213? ([2a01:e0a:106d:1080:70d5:8219:5bd4:e213])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488cfa5d118sm34101905e9.11.2026.04.09.00.43.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Apr 2026 00:43:08 -0700 (PDT)
-Message-ID: <5ceff68e-f636-40d3-a189-8ead1be936c1@linaro.org>
-Date: Thu, 9 Apr 2026 09:43:08 +0200
+        d=1e100.net; s=20251104; t=1775720661; x=1776325461;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ELuTqBhnkDSZI0fi8C1chvAelXix4ySX6h2QqrIkrPo=;
+        b=m4k1Q5RpsDqcNFvCMvprmgXpJxCzHfjUZ7PYQU3Qp19HJtAb33iFTqaxWtOLYzPZNO
+         ZERSONy7EiDegqkX11/ADeeTsVP8WU6FAD8KJR5x1fytGxGWoIgrbLa7mHzDvJeihoY5
+         wqkmpVxKqddOnp7WgcIHgBRiDXwJoFZWcNlKGPW9DK6fP3HR3GMUBHtyaHSVyp43nAv5
+         Gv6xcSMO1fzy4sK6ANP2fbMEcPYj3cBSkzDY38nmIRcxSqjeQYSWAXXJlB0v6vP8d8OL
+         kp/OzXvvmJRkbjqWowjcgN4aGpiQ7Qyhe56eO/Lm6vIAQd1Q0ULJ8q0NTwjkhep1pfYt
+         zz5g==
+X-Gm-Message-State: AOJu0YzmSXkiUxM0Yz8tZocRntqW6bJete3aZZARkMOft+47HtbFKIze
+	4hsWnR8Tdpf4QyfwsZGMT9YEXLyhKTbK84f3WmQNcDSaVD8b5FGBzdrVLBu3vqFl5Q==
+X-Gm-Gg: AeBDieuGWfzzFv3ZJL7MA/tQPvFL+Q8QIbnHujF1FhNLAl4bwRjuI5xdW5b4e48Y5yd
+	NhD+8bhEvDXiOey7VIJ/KoraQjgJk50IaXlfWRDD89plxWEPf02TtoKKIMFh23dmFyMCao0MQa0
+	nJurKWjbQLSybgw0THDQ7j1DR/wshObF34oDGa0nVCTXR3p+hHrOwsCFpjITTU9V41wBswU9/ru
+	3mobR6aD2EaGXQN9wKJmUOn21V2gzFxSqslMZQVITKe9SI2TpUk9hupePdhrcbGPmmcI1jVTRN/
+	rXCiF3lKs0G+T/N3YDJYaCtz02hA7XXffeIVXyjt1BBXF/zQ7yghn0Zt37lMPcV6HNI8lKSeaMj
+	7i813iXNy4az+eQF7/HXVExcgP+NUwtbI+TvWnjy/CMvM74fvM73kAe24iD0cDf4JN2iOU7u/ee
+	sloEpgpCWSEr9cc7yweTPXbVjHCpnMruAKY81DAQ==
+X-Received: by 2002:a05:7022:4585:b0:128:ce44:be90 with SMTP id a92af1059eb24-12bfb75c3c4mr11867062c88.28.1775720660987;
+        Thu, 09 Apr 2026 00:44:20 -0700 (PDT)
+Received: from katana.dragonfish-mirfak.ts.net ([108.74.4.89])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12bf90973b6sm25154047c88.9.2026.04.09.00.44.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Apr 2026 00:44:20 -0700 (PDT)
+From: JP Hein <jp@jphein.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-media@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	Michal Pecio <michal.pecio@gmail.com>,
+	JP Hein <jp@jphein.com>
+Subject: [PATCH v6 0/2] media: uvcvideo: Add quirks to prevent Razer Kiyo Pro xHCI cascade failure
+Date: Thu,  9 Apr 2026 00:42:40 -0700
+Message-ID: <20260409074242.2115657-1-jp@jphein.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260331003806.212565-1-jp@jphein.com>
+References: <20260331003806.212565-1-jp@jphein.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH RFC 0/7] media: qcom: iris: add support for decoding 10bit
- formats
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Nicolas Dufresne <nicolas@ndufresne.ca>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260408-topic-sm8x50-iris-10bit-decoding-v1-0-428c1ec2e3f3@linaro.org>
- <b4uqpepf6caojxe463izkmnrlayrdrgce6jusak33ewcr5yd4w@ukwbo7zfphn2>
- <454f0f277cbaee5774c25d34a33fc3bc478fa756.camel@ndufresne.ca>
- <mdsl5mcgk734p2ypfdeete3ggfnmwizvbl2mulkxeoupm4kqz6@4z544eijvmqw>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <mdsl5mcgk734p2ypfdeete3ggfnmwizvbl2mulkxeoupm4kqz6@4z544eijvmqw>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 4/9/26 03:40, Dmitry Baryshkov wrote:
-> On Wed, Apr 08, 2026 at 09:04:02PM -0400, Nicolas Dufresne wrote:
->> Hi,
->>
->> Le jeudi 09 avril 2026 à 03:02 +0300, Dmitry Baryshkov a écrit :
->>> On Wed, Apr 08, 2026 at 06:43:53PM +0200, Neil Armstrong wrote:
->>>> This adds the plumbing to support decoding HEVC and AV1
->>>> streams into 10bit pixel formats, linear and compressed.
->>>>
->>>> This has only been tested on SM8650 with HEVC, and was inspired by
->>>> Venus and the downstream vidc driver for the buffer
->>>> calculations and HFI messages.
->>>>
->>>> I was unable to get 10bit decoding working with Gstreamer
->>>> and ffmpeg, but v4l2-ctl works with:
->>>
->>> Any particular errors? I assume Gstreamer needs to be taught about
->>> Q10C. But P010 should (hopefully) work.
->>
->> P010 should work for both Gst and FFMPEG, its probably a user error, or there is
->> a hidden bug in the driver that make it fail, v4l2-ctl is very permissive as it
->> simply dump to disk. You should provide an updated fluster score, so you have to
->> use one of these.
->>
->> For Q10C on GStreamer, it needs mapping [0] and you need some bugfix [1] and
->> another that I will be sending tomorrow. We had never tested video compression
->> with this module before.
->>
->> [0] https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/8195
->> [1] https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/11222
->>
->> The last issue has to do with:
->> https://gitlab.freedesktop.org/gstreamer/gstreamer/-/blob/38965e2d9c1119674a65dc437ee7e8ec95339f31/subprojects/gst-plugins-good/sys/v4l2/gstv4l2object.c#L4378
->>
->> V4L2 format gives us the number of allocation, but not really the number of
->> planes, and we forgot to initialize that number for the "opaque" format case. A
->> tempory fix might be to add this after S_FMT:
->>
->> if (GST_VIDEO_INFO_FORMAT (&info.vinfo) == GST_VIDEO_FORMAT_DMA_DRM)
->>    n_v4l_planes = format.fmt.pix_mp.num_planes;
->>
->> Works for AFBC and QC at leat, since both are unambiguously single plane, and so
->> cannot have mplane variants.
-> 
-> Reading this made me realize another suggestion for Neil:
-> 
-> Please check that the data returned by Iris matches the display driver
-> expectations. See the comments in the _dpu_format_populate_addrs_ubwc().
+The Razer Kiyo Pro (1532:0e05) is a USB 3.0 webcam whose firmware has a
+well-documented failure mode that cascades into complete xHCI host
+controller death, disconnecting every USB device on the bus -- including
+keyboards and mice, requiring a hard reboot.
 
-I just checked and they match as I already checked against the venus driver already,
-which shares the same calculation scheme.
+The device has two crash triggers:
 
-I had to add the HFI_PROP_UBWC_STRIDE_SCANLINE command otherwise the firmware
-would give other alignments and wouldn't display properly with some streams.
+  1. LPM/autosuspend resume: Device enters LPM or autosuspend, fails to
+     reinitialize on resume, producing EPIPE (-32) on UVC SET_CUR. The
+     stalled endpoint triggers an xHCI stop-endpoint timeout, and the
+     kernel declares the host controller dead.
 
-Neil
+  2. Rapid control transfers: sustained rapid UVC control operations
+     (hundreds over several seconds) overwhelm the firmware. The error-code
+     query (GET_CUR on UVC_VC_REQUEST_ERROR_CODE_CONTROL) amplifies the
+     failure by sending a second transfer to the already-stalling device,
+     pushing it into a full lockup and xHCI controller death.
 
-> 
->>
->> Let me know how far you get! Please be aware that Robert and I are making these
->> patches based on feedback, we don't have access to any boards capable of
->> decoding to QC compressed formats.
->>
->>>
->>>> v4l2-ctl --verbose --set-fmt-video-out=pixelformat=HEVC --set-fmt-video=pixelformat=P010 --stream-mmap --stream-out-mmap --stream-from-hdr Big_Buck_Bunny_1080_10s_30MB_main10.h265.hdr --stream-to out.P010
->>>> v4l2-ctl --verbose --set-fmt-video-out=pixelformat=HEVC --set-fmt-video=pixelformat=Q10C --stream-mmap --stream-out-mmap --stream-from-hdr Big_Buck_Bunny_1080_10s_30MB_main10.h265.hdr --stream-to out.QC10
->>>>
->>>> The non-10bit decoding still works as before.
->>>>
->>>> With Big_Buck_Bunny_1080_10s_30MB reencoded in 10-bit profile
->>>> and tranformed in v4l2 header format with [1]:
->>>> ffmpeg -i Big_Buck_Bunny_1080_10s_30MB.h264 -pix_fmt yuv420p10le -c:v libx265 -crf 28 -x265-params profile=main10 Big_Buck_Bunny_1080_10s_30MB_main10.h265
->>>> /path/to/mkhdr.sh Big_Buck_Bunny_1080_10s_30MB_main10.h265 raw Big_Buck_Bunny_1080_10s_30MB_main10.h265.hdr
->>>>
->>>> The frames correctness has been verified buy displaying them
->>>> via Vulkan DMA_BUF import, including QC10C and QC08C.
->>
->> In GStreamer, once the video4linux plugin issues are fixed, you should be able
->> to display the frames using glimagesink. GL only allow for RGB render, which
->> damages the data, so its not good enough for conformance testing with
->> compression enabled, but usually just doing visual inspection is acceptable.
-> 
-> Nice! Looking forward to testing Q08C aka NV12-UBWC on the display.
-> Maybe I should try rebuilding the plugins with the mentioned patches and
-> provide my r-b or report issues there.
-> 
-> 
+Patch 1 of the original 3-patch series (USB_QUIRK_NO_LPM for 1532:0e05)
+has been merged by Greg Kroah-Hartman and backported to stable kernels
+6.1, 6.6, 6.12, 6.18, and 6.19.
+
+This v6 series covers the remaining two UVC patches:
+
+Patch 1/2: UVC driver -- introduce UVC_QUIRK_CTRL_THROTTLE to rate-limit
+  all USB control transfers (50ms minimum interval) in __uvc_query_ctrl()
+  and skip the error-code query after EPIPE errors on affected devices.
+
+Patch 2/2: UVC driver -- add Razer Kiyo Pro device table entry with
+  UVC_QUIRK_CTRL_THROTTLE, UVC_QUIRK_DISABLE_AUTOSUSPEND, and
+  UVC_QUIRK_NO_RESET_RESUME.
+
+Changes since v5:
+  - Moved throttle from uvc_query_ctrl() to __uvc_query_ctrl() so
+    all callers are covered, including uvc_set_video_ctrl() which
+    bypasses the higher-level function (Ricardo Ribalda)
+  - Throttle now applies to all query types, not just SET_CUR -- the
+    firmware doesn't distinguish between query directions under load
+    (Ricardo Ribalda)
+  - Added lsusb -v Device Descriptor to patch 2/2 commit message
+    (Ricardo Ribalda)
+  - Bug reproduced on two separate Kiyo Pro units, confirming not
+    unit-specific
+
+Changes since v4:
+  - Dropped stable CC (new quirks, not regression fixes)
+  - Updated cover letter with 6.17 test results
+
+Changes since v3:
+  - Regenerated patches against media-committers next branch to fix
+    context mismatch (v3 was based on Ubuntu 6.8 source)
+
+Tested on:
+  - Kernel: 6.17.0-20-generic (Ubuntu 24.04 HWE) and 6.8.0-106-generic
+  - Hardware: Intel Cannon Lake PCH xHCI (8086:a36d)
+  - Device: Two Razer Kiyo Pro units (1532:0e05), firmware 1.5.0.1
+
+Stress test, crash evidence, and debug logs:
+  https://github.com/jphein/kiyo-xhci-fix
+
+JP Hein (2):
+  media: uvcvideo: add UVC_QUIRK_CTRL_THROTTLE for fragile USB firmware
+  media: uvcvideo: add Razer Kiyo Pro to device info table
+
+ drivers/media/usb/uvc/uvc_driver.c | 16 ++++++++++++++++
+ drivers/media/usb/uvc/uvc_video.c  | 30 ++++++++++++++++++++++++++++++
+ drivers/media/usb/uvc/uvcvideo.h   |  3 +++
+ 3 files changed, 49 insertions(+)
+
+-- 
+2.43.0
 
