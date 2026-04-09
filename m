@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B6E345724
-	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1D333DEDF
+	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765737; cv=none; b=Ml7xlcCyawCSxoDTnZZ1C0P0Ivq2yzW6+NfFnKGvEiVtw3gIDhm/E7HNL/1fzvM5J+G1EFD9ONmPtFnIASgZdBtxa+QHu8bl4RMGFJad85Nte+TQa/1Lpti9iWObJ2gKGeUO1FA7gMlyuMULKqLHpN9njKiZM02CVEzvICxyDu8=
+	t=1775765737; cv=none; b=pW5F+vMd1HqPnAOzDdjrNsMygnA7Rs6ZsYrF0rUukdPXHqsbD6NumBpXmno/SHQ8MNvTZ5F3GOoq6fDJhtI2v8CKd86laFJPKvCHheb6OWbslD8YEf5hVTLaKk8G038usl9FUz7/SGcE6DJ4zHDJbXwZ6vF5lHINqRys1YKMsxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775765737; c=relaxed/simple;
-	bh=GdjAOPtDm7eAbzHJ63A0E8IBJdJemQeoRyp1Z2w16CA=;
+	bh=nIPQY511UNTMFbKBi8r+dK7AoVg6JGxrJIV2oZmHKl8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r4gYqFgFV5l4S4x5AFDnCuF2I+DmDk8nB+6fTatPAQgbFQ5PWSrtsMQ+dmaPNqTQY30TQd3fjNlgywHDxHn/FMKVStXQZBIQJGtHS9qgQ535KuWXJupIgvc6B3QsBOz82Wa3mVIpej7PD/6M/S+//mzj5BUAd3f4fc/eqTR/K5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cYujrpG1; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=jCRUGoWrbADxpE9vq1702OHN5I8pZpu+g4yAGqyc3SEHSWKp0P8IKUkz+n53EAABq2rMWOYxYI5jI9OPEPKFcgv6ud7r/eZYCHkXj2lacTcPN5pgwNej/SuNG/XYJDyzwBjmNyhMw7q5bmt6Dni4Aa9EaWfo1KN/Od+GrDsQTCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=A9MYj8JS; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cYujrpG1"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="A9MYj8JS"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1775765736; x=1807301736;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=GdjAOPtDm7eAbzHJ63A0E8IBJdJemQeoRyp1Z2w16CA=;
-  b=cYujrpG1TjQ8l+PGMXDYh8b5fivWagXPCMQjL+WDupjzJI2D5GEl2JKK
-   IMZDkXsZ7LnrkNY4AErDbLrGy0X9xpq8j+UZ2NLowBg9Kqqe+Hyh0dAq7
-   xoY6s0Iut3X/p66r1dPCf1uyu7vdSRn2S6sOk8yelKgwP+DfZZq+s0UwJ
-   BOqlA2zSptx2/gRZk0Ygb5hl3hJ8FVXE31bA9GO+3dFAyfTAziP6PQHqm
-   6e7iNhnDu+Kz3dBLJAwRydib5nd+cWIrkfEMQv+HKlLDRDodiAOHy+MXC
-   7qH+yRvs5uIu6mmRqbW71jhuFPJtd5I1aBZojZVIRTv7BXy/vAF2R3qEy
-   g==;
-X-CSE-ConnectionGUID: vEQKJPZhS3G9OJuOutU4jA==
-X-CSE-MsgGUID: w87zL/GBSgy9FjDWUipMuw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176532"
+  bh=nIPQY511UNTMFbKBi8r+dK7AoVg6JGxrJIV2oZmHKl8=;
+  b=A9MYj8JSrNNSk+S6XFUVht1WeyaxfCB+DyDtwn1yiC8y2RLQhPe9ARoG
+   UhAV0+hZQr1N4HA6WaxN2DW2yjuVzyQAzR9MgiUdtnch5Vsm/ci2Lu5Cn
+   PdXCiOdTZ9QcJqgSbb4EXljRRAxOqLEvu48Hyjsk2poclq5c2oEVcDbb1
+   nXWlYbj1GCaaMflA9pGst2jiPoRE3j6aGvRHcJK6kcmyTx2cy9U0huyp8
+   3RkjreQHJzNJZsByUTG2Gwsp0lUZVeKPZW9In0wH4M9DQ8tKcOOEvpfXI
+   RzeqHJ5jgbHxwP+owv/JlKliOVvU6r52LJgeTXoI6bT24Gol4Xorqje8D
+   A==;
+X-CSE-ConnectionGUID: bUgktdSYTxKJRUep2k14QQ==
+X-CSE-MsgGUID: DgGPFXMBT16Dbq1/yNJrLA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176558"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="94176532"
+   d="scan'208";a="94176558"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:26 -0700
-X-CSE-ConnectionGUID: DPGS/vLkQPG1lRQs8p5UOw==
-X-CSE-MsgGUID: YFspiuc2R4S5JnbAYdynYg==
+X-CSE-ConnectionGUID: ACkhWQITQpSwWFpnNmYxvQ==
+X-CSE-MsgGUID: hmAbdQCqT/2ILuxeYRSPCw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="228047543"
+   d="scan'208";a="228047546"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:19 -0700
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:20 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 8E60B122836;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id BB1371228FF;
 	Thu, 09 Apr 2026 23:15:13 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmI-000000045mL-02Kv;
+	id 1wAvmI-000000045n3-0mNc;
 	Thu, 09 Apr 2026 23:15:02 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -79,9 +79,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 26/86] media: uapi: Add V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR
-Date: Thu,  9 Apr 2026 23:14:01 +0300
-Message-ID: <20260409201501.975242-27-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 37/86] media: Documentation: Add sub-device internal pads example
+Date: Thu,  9 Apr 2026 23:14:12 +0300
+Message-ID: <20260409201501.975242-38-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -93,99 +93,153 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR client capability bit to
-signal the userspace's support for the common raw sensor model and
-document it. A specific capability bit is required for the purpose of
-adding support for the common raw sensor model to existing drivers that
-already have a well-established UAPI that cannot be modified without
-breaking the userspace.
+Add an example using sub-device internal pads, with the Sony IMX219 camera
+sensor.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 ---
- .../userspace-api/media/v4l/ext-ctrls-image-process.rst     | 2 ++
- .../userspace-api/media/v4l/subdev-config-model.rst         | 5 ++++-
- .../userspace-api/media/v4l/vidioc-subdev-g-client-cap.rst  | 6 ++++++
- drivers/media/v4l2-core/v4l2-subdev.c                       | 3 ++-
- include/uapi/linux/v4l2-subdev.h                            | 6 ++++++
- 5 files changed, 20 insertions(+), 2 deletions(-)
+ .../userspace-api/media/v4l/dev-subdev.rst    | 129 ++++++++++++++++++
+ 1 file changed, 129 insertions(+)
 
-diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
-index 51188e7febae..983c7412c9f4 100644
---- a/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
-+++ b/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
-@@ -59,6 +59,8 @@ Image Process Control IDs
-     digital gain the control value needs to be 0x100. The no-gain
-     configuration is also typically the default.
+diff --git a/Documentation/userspace-api/media/v4l/dev-subdev.rst b/Documentation/userspace-api/media/v4l/dev-subdev.rst
+index 2fc81e0205dc..a9d462b57b54 100644
+--- a/Documentation/userspace-api/media/v4l/dev-subdev.rst
++++ b/Documentation/userspace-api/media/v4l/dev-subdev.rst
+@@ -729,4 +729,133 @@ To configure this pipeline, the userspace must take the following steps:
+    controls are present on the source sub-device to obtain the pixel array CFA
+    pattern and metadata layout.
  
-+.. _v4l2-cid-config-model:
++Internal pads setup example
++---------------------------
 +
- ``V4L2_CID_CONFIG_MODEL (bitmask)``
-     Which configuration models the sub-device supports. Please see
-     :ref:`media_subdev_config_model`. This is a read-only control.
-diff --git a/Documentation/userspace-api/media/v4l/subdev-config-model.rst b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-index 3011643d58cf..0fb01bf6c825 100644
---- a/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-+++ b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-@@ -41,7 +41,10 @@ necessarily offered by all drivers.
- 
- A sub-device complies with the common raw sensor model if the
- ``V4L2_CONFIG_MODEL_COMMON_RAW_SENSOR`` bit is set in the
--``V4L2_CID_CONFIG_MODEL`` control of the sub-device.
-+``V4L2_CID_CONFIG_MODEL`` control of the sub-device. A client supporting the
-+common raw sensor model shall set the
-+``V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR`` :ref:`sub-device client capability
-+<VIDIOC_SUBDEV_G_CLIENT_CAP>` bit.
- 
- The common raw camera sensor model is aligned with
- :ref:`media_using_camera_sensor_drivers`. Please refer to that regarding aspects
-diff --git a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-client-cap.rst b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-client-cap.rst
-index da4a358ce762..50ac223e10db 100644
---- a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-client-cap.rst
-+++ b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-client-cap.rst
-@@ -91,6 +91,12 @@ is unknown to the kernel.
-         ``which`` field. If this is not set (which is the default), the
-         ``which`` field is forced to ``V4L2_SUBDEV_FORMAT_ACTIVE`` by the
-         kernel.
-+    * - ``V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR``
-+      - The client is aware of the :ref:`common raw sensor model
-+        <media_subdev_config_model_common_raw_sensor>` and expects it where it
-+        is supported, as indicated by the :ref:`V4L2_CID_CONFIG_MODEL
-+        <v4l2-cid-config-model>` control bit
-+        ``V4L2_CONFIG_MODEL_COMMON_RAW_SENSOR``.
- 
- Return Value
- ============
-diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-index c6d8399c2252..4b7830f705a2 100644
---- a/drivers/media/v4l2-core/v4l2-subdev.c
-+++ b/drivers/media/v4l2-core/v4l2-subdev.c
-@@ -1200,7 +1200,8 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
- 
- 		/* Filter out unsupported capabilities */
- 		client_cap->capabilities &= (V4L2_SUBDEV_CLIENT_CAP_STREAMS |
--					     V4L2_SUBDEV_CLIENT_CAP_INTERVAL_USES_WHICH);
-+					     V4L2_SUBDEV_CLIENT_CAP_INTERVAL_USES_WHICH |
-+					     V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR);
- 
- 		subdev_fh->ci.client_caps = client_cap->capabilities;
- 
-diff --git a/include/uapi/linux/v4l2-subdev.h b/include/uapi/linux/v4l2-subdev.h
-index 477d3ce3ddb4..9d5ba062be19 100644
---- a/include/uapi/linux/v4l2-subdev.h
-+++ b/include/uapi/linux/v4l2-subdev.h
-@@ -270,6 +270,12 @@ struct v4l2_subdev_routing {
-  */
- #define V4L2_SUBDEV_CLIENT_CAP_INTERVAL_USES_WHICH	(1ULL << 1)
- 
-+/*
-+ * The client is aware of the common raw sensor model and expects that on camera
-+ * sensor UAPI where supported.
-+ */
-+#define V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR	(1ULL << 2)
++A simple example of a multiplexed stream setup might be as follows:
 +
- /**
-  * struct v4l2_subdev_client_capability - Capabilities of the client accessing
-  *					  the subdev
++- An IMX219 camera sensor source sub-device, with one source pad (0), one
++  internal sink pad (1) as the source of the image data and an internal sink
++  pad (2) as the source of the embedded data. There are two routes, one from the
++  internal sink pad 1 to the source pad 0 (image data) and another from the
++  internal sink pad 2 to the source pad 0 (embedded data). Both streams are
++  always active, i.e. there is no need to separately enable the embedded data
++  stream. The sensor uses the CSI-2 interface.
++
++- A CSI-2 receiver in the SoC. The receiver has a single sink pad (pad 0),
++  connected to the sensor's source pad (0), and two source pads (pads 1 and 2),
++  to two DMA engines. The receiver demultiplexes the incoming streams to the
++  source pads.
++
++- Two DMA engines in the SoC, one for each stream. Each DMA engine is connected
++  to a different source pad of the receiver.
++
++The sensor and the receiver are modelled as V4L2 sub-devices, exposed to
++userspace via /dev/v4l-subdevX device nodes. The DMA engines are modelled as
++V4L2 video devices, exposed to userspace via /dev/videoX nodes.
++
++To configure this pipeline, the userspace must take the following steps:
++
++1) Set up media links between entities: enable the links from the sensor to the
++   receiver and from the receiver to the DMA engines. This step does not differ
++   from normal non-multiplexed media controller setup.
++
++2) Configure routing
++
++.. flat-table:: Camera sensor. There are no configurable routes.
++    :header-rows: 1
++
++    * - Sink Pad/Stream
++      - Source Pad/Stream
++      - Routing Flags
++      - Comments
++    * - 1/0
++      - 0/0
++      - V4L2_SUBDEV_ROUTE_FL_ACTIVE | V4L2_SUBDEV_ROUTE_FL_IMMUTABLE |
++        V4L2_SUBDEV_ROUTE_FL_STATIC
++      - Pixel data stream from the internal image sink pad
++    * - 2/0
++      - 0/1
++      - V4L2_SUBDEV_ROUTE_FL_ACTIVE | V4L2_SUBDEV_ROUTE_FL_IMMUTABLE |
++        V4L2_SUBDEV_ROUTE_FL_STATIC
++      - Metadata stream from the internal embedded data sink pad
++
++While both routes are immutable for the IMX219, other camera sensors may offer
++more flexible configuration options. Routing configuration is dictated by the
++hardware capabilities: camera sensors typically always produce an image data
++stream, but some of them support enabling and disabling the embedded data
++stream.
++
++.. flat-table:: Receiver routing table. Typically both routes need to be
++		explicitly created.
++    :header-rows:  1
++
++    * - Sink Pad/Stream
++      - Source Pad/Stream
++      - Routing Flags
++      - Comments
++    * - 0/0
++      - 1/0
++      - V4L2_SUBDEV_ROUTE_FL_ACTIVE
++      - Pixel data stream from camera sensor
++    * - 0/1
++      - 2/0
++      - V4L2_SUBDEV_ROUTE_FL_ACTIVE
++      - Metadata stream from camera sensor
++
++3) Configure formats
++
++   This example assumes that the formats are propagated from sink pad to the
++   source pad as-is. The tables contain fields of both struct v4l2_subdev_format
++   and struct v4l2_mbus_framefmt.
++
++.. flat-table:: Formats set on the sub-devices. Bold values are set, others are
++                static or propagated. The order is aligned with configured
++                routes.
++    :header-rows: 1
++    :fill-cells:
++
++    * - Sub-device
++      - Pad/Stream
++      - Width
++      - Height
++      - Code
++    * - :rspan:`3` IMX219
++      - 1/0
++      - 3296
++      - 2480
++      - MEDIA_BUS_FMT_RAW_10
++    * - 0/0
++      - 3296
++      - 2480
++      - **MEDIA_BUS_FMT_RAW_10**
++    * - 2/0
++      - 3296
++      - 2
++      - MEDIA_BUS_FMT_META_10
++    * - 0/1
++      - 3296
++      - 2
++      - MEDIA_BUS_FMT_META_10
++    * - :rspan:`3` CSI-2 receiver
++      - 0/0
++      - **3296**
++      - **2480**
++      - **MEDIA_BUS_FMT_RAW_10**
++    * - 1/0
++      - 3296
++      - 2480
++      - MEDIA_BUS_FMT_RAW_10
++    * - 0/1
++      - **3296**
++      - **2**
++      - **MEDIA_BUS_FMT_META_10**
++    * - 2/0
++      - 3296
++      - 2
++      - MEDIA_BUS_FMT_META_10
++
++The embedded data format does not need to be configured on the sensor's pads as
++the format is dictated by the pixel data format in this case.
++
+ .. include:: subdev-config-model.rst
 -- 
 2.47.3
 
