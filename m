@@ -1,54 +1,52 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436383368BF
-	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC71533D51F
+	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765729; cv=none; b=boV3yDb0FjBpZr3/jJyW38maJ/Lrgpca2DLs6dRdZ/PmY/CEqgVtZBrcBBAxNFCT/vrP51ZI5eZkcwUrBjovEX3X852gqUzCXHrC93iGNnnFcK7ywoBDRY7zVDOgfJoR6Kvsqkt/QvNIvhwBR+bbDQxRY0JU0n2k04sVPP1MdcE=
+	t=1775765730; cv=none; b=Ca6ewSm7943rERhfW5dQABuqluCQmSTzCF8ZM536yog5bNy2uCDb8mlFnhmLnPhrzaU+Hfh1KgF6JBUSOvJqlKNFIT0LZ1dUiSK9n6YXLnasUqn3sZbjvqlvAiHQpDa5m5JdtKo4sNURPSbvah/cxnSQ0yS37kxw/jmnjuPV270=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775765729; c=relaxed/simple;
-	bh=T5S2bvQj6fXB70DjJp8NzQpwZVtkHUorK2aq8hBMPc0=;
+	s=arc-20240116; t=1775765730; c=relaxed/simple;
+	bh=js3S6ceMZfoX8E1cwBfbf7CvTn9K/9LNZJvZTwODSSY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vt3vLIqMXnlg4vypvHFb0Via8wkbGKQtATbxPOceqwzpbZDtwpE5DD+j49AyRLQuVV5w9LvBEDFylEGHVB/T58cDP8lnZS2JlOxWwhyT3uYjkOaolihDMicqmvPF165xYcFLYsy5M5u3PsOGOUX9Az306TYq8NoCds38xHG9X6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IecPp4wN; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=H2mPflnqHUBmvQs8NA9g9eL6ZraSWa4f9CgGSgSVCOEm1sS2QvD4hUltbajSdldsEmPLvPKnK4Rc1fD3I62JZmtGn/r0UOf/40IaI0mhhHYu4fR7d9n12vlUzhsZx+sjzHmx+C5ENOHx8bbMkM2XOZ4BU2EBNpGFmIr6GQ4euk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IXsPXoYZ; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IecPp4wN"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IXsPXoYZ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775765728; x=1807301728;
+  t=1775765726; x=1807301726;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=T5S2bvQj6fXB70DjJp8NzQpwZVtkHUorK2aq8hBMPc0=;
-  b=IecPp4wNYR7c2SLIlhsBiKmmqiMuewTKVn97GvjxdyeE38QF2G/ttWpF
-   3oDC3TW1l4mQb9dj+eD0et1TuSMs3SaFL5UQ36DcfPPSPstZNAuDwMHer
-   MC5Eh0CsELM3MjrS2gNgBm/fcdukjD6JrZRwJlWM/afK4DCBD+Vud4Cgs
-   gvbq0aIbVJqHHBgh9UIa0frSMecNrVXdweC50eIUF2PvliMX6tKDQw7Ru
-   WoX3Oumf/apQhoD3qNa50PiYY/sktJH8AmJCLymECBFkii5/p2BaVun3y
-   blJqoSMCMESUR113fpO9j7qwdWRaKroOaWN6Qf3gXmgn5BkF+Zq9T4FA2
-   Q==;
-X-CSE-ConnectionGUID: CdG9X+hwShanhdHVdT6vLw==
-X-CSE-MsgGUID: LaNTWYezRJSXj0lLRlh1pw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176399"
+  bh=js3S6ceMZfoX8E1cwBfbf7CvTn9K/9LNZJvZTwODSSY=;
+  b=IXsPXoYZI/a0KdhqUfJSYouak6feBXZTY11DToYj0B6qs6RQdXYfCLoK
+   VjIvVl/l5OyCpPoNqhbW2Gr3Exm5G0fdWakVZ7XLpYzL4eVlLn3//5ExI
+   q7sojfRRVYjRJDINnL+uaAfD8AP3KJMeobNdGPRb1OARoC85uMLirs+fw
+   sIZyfDvrwt9iotq2TzPfrjjwVKzFVtwdc/dJjb2erU2nTL7QFQXAe29U5
+   gLAXWAnnlgOv/3n4XmHgbzibXUkHsWY7L8UugPeFmL/0kIPTmJLG4yCed
+   abC+GKyENLcq9Q3+uBoB1bjTrXYC1+XQvTHMPialmxmQuS03ceXsKAi0/
+   A==;
+X-CSE-ConnectionGUID: gcjpJfKkRaKmWCGARsZYVw==
+X-CSE-MsgGUID: KnRz5qzZSCak2gymMC7QMQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="87409012"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="94176399"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:25 -0700
-X-CSE-ConnectionGUID: yjlPaDXgQDSzHu99wZWX8g==
-X-CSE-MsgGUID: WN13hxJ5TBWoE735dbpE3g==
+   d="scan'208";a="87409012"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:17 -0700
+X-CSE-ConnectionGUID: tme/TdDFT8WWm04M59b1eg==
+X-CSE-MsgGUID: Uq1zXXurTamjpTL8PWcmlA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="228047515"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:19 -0700
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:11 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 713101226D1;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 3ED9A122182;
 	Thu, 09 Apr 2026 23:15:13 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmH-000000045lp-3iFP;
+	id 1wAvmH-000000045l3-2rdH;
 	Thu, 09 Apr 2026 23:15:01 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -79,9 +77,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 18/86] media: v4l: Add V4L2_SUBDEV_ROUTE_FL_IMMUTABLE sub-device routing flag
-Date: Thu,  9 Apr 2026 23:13:53 +0300
-Message-ID: <20260409201501.975242-19-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 06/86] media: Documentation: Reference CFA pattern control in pixelformat docs
+Date: Thu,  9 Apr 2026 23:13:41 +0300
+Message-ID: <20260409201501.975242-7-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -93,64 +91,45 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a flag to denote immutable routes, V4L2_SUBDEV_ROUTE_FL_IMMUTABLE.
-Such routes cannot be changed and they're always active.
+Refer to the CFA pattern control in the generic raw pixelformat
+documentation.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 ---
- Documentation/userspace-api/media/v4l/dev-subdev.rst         | 4 +++-
- .../userspace-api/media/v4l/vidioc-subdev-g-routing.rst      | 5 +++++
- include/uapi/linux/v4l2-subdev.h                             | 5 +++++
- 3 files changed, 13 insertions(+), 1 deletion(-)
+ .../userspace-api/media/v4l/ext-ctrls-image-source.rst        | 2 ++
+ Documentation/userspace-api/media/v4l/pixfmt-raw-generic.rst  | 4 +++-
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/userspace-api/media/v4l/dev-subdev.rst b/Documentation/userspace-api/media/v4l/dev-subdev.rst
-index 39c281991460..78842b9fbe67 100644
---- a/Documentation/userspace-api/media/v4l/dev-subdev.rst
-+++ b/Documentation/userspace-api/media/v4l/dev-subdev.rst
-@@ -571,7 +571,9 @@ internal pad always has a single stream only (0).
- Routes from an internal sink pad to an external source pad are created by the
- driver and can be activated and deactivated using the
- :ref:`V4L2_SUBDEV_ROUTE_FL_ACTIVE <v4l2-subdev-routing-flags>` flag, depending
--on the device capabilities.
-+on the device capabilities. The :ref:`V4L2_SUBDEV_ROUTE_FL_IMMUTABLE
-+<v4l2-subdev-routing-flags>` flag indicates that the
-+``V4L2_SUBDEV_ROUTE_FLAG_ACTIVE`` of the route may not be unset.
+diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
+index b09ad4b4576e..2328ac99e97a 100644
+--- a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
++++ b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
+@@ -94,6 +94,8 @@ Image Source Control IDs
+     is reported as being (say) 128, then a value of 192 would represent
+     a gain of exactly 1.5.
  
- Interaction between routes, streams, formats and selections
- -----------------------------------------------------------
-diff --git a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
-index 6f66ca38589e..2fd55d875075 100644
---- a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
-+++ b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
-@@ -146,6 +146,11 @@ wants to retrieve the missing routes, it can issue a new
-     * - V4L2_SUBDEV_ROUTE_FL_ACTIVE
-       - 0x0001
-       - The route is enabled. Set by applications.
-+    * - V4L2_SUBDEV_ROUTE_FL_IMMUTABLE
-+      - 0x0002
-+      - The route is immutable. Set by the driver. Indicates that the
-+	``V4L2_SUBDEV_ROUTE_FL_ACTIVE`` flag of an immutable route may not be
-+	unset.
++.. _image-source-control-cfa-pattern:
++
+ ``V4L2_CID_CFA_PATTERN (integer)``
+     This control determines the color components and native pixel order in the
+     sensor's CFA (Color Filter Array) when used in conjunction with
+diff --git a/Documentation/userspace-api/media/v4l/pixfmt-raw-generic.rst b/Documentation/userspace-api/media/v4l/pixfmt-raw-generic.rst
+index 254f8f18c7c5..708aa17b80b0 100644
+--- a/Documentation/userspace-api/media/v4l/pixfmt-raw-generic.rst
++++ b/Documentation/userspace-api/media/v4l/pixfmt-raw-generic.rst
+@@ -13,7 +13,9 @@ Description
  
- Return Value
- ============
-diff --git a/include/uapi/linux/v4l2-subdev.h b/include/uapi/linux/v4l2-subdev.h
-index 6160c3e21436..2be7db814288 100644
---- a/include/uapi/linux/v4l2-subdev.h
-+++ b/include/uapi/linux/v4l2-subdev.h
-@@ -207,6 +207,11 @@ struct v4l2_subdev_capability {
-  * on a video node.
-  */
- #define V4L2_SUBDEV_ROUTE_FL_ACTIVE		(1U << 0)
-+/*
-+ * Is the route immutable? The ACTIVE flag of an immutable route may not be
-+ * unset.
-+ */
-+#define V4L2_SUBDEV_ROUTE_FL_IMMUTABLE		(1U << 1)
+ These generic raw image data formats define the memory layout of the data without
+ defining the order of the colour components or even the colour components
+-themselves.
++themselves. These formats may only be used with a Media Controller pipeline where
++the more specific format is reported by the :ref:`V4L2_CID_CFA_PATTERN
++<image-source-control-cfa-pattern>` control on the source sub-device.
  
- /**
-  * struct v4l2_subdev_route - A route inside a subdev
+ .. _v4l2-pix-fmt-raw-8:
+ 
 -- 
 2.47.3
 
