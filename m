@@ -1,54 +1,52 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B406340D9A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9592F341AD6
 	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765732; cv=none; b=Y7hU65/icl6VtIRmKpQBl8E5R0KlYC83VkJimH7BXhvfUKMPfoXbBPkTuObcSrVltwdVdwWKPTVOtvJBuDS8sKrNUYncuCzUF/zla2rLRyhKWdOAeBO5zjxgmyzh2fOrF9yic2Ayln9aAIClRKmS0uXc6NNBOwu/yrRScKuaeag=
+	t=1775765733; cv=none; b=iSzeKMQabFLzNGqA1QosNFOwEVTnrzjZyF6vw/jU8bhmibehFcSqKo7kCzhyfvRov1H2/XV0X8sCCfUrrhs7zuNvkeBxJTnAHysxYWjFbJnaT6COlT9s7nVydTwb/U64NLJJA9M9b+JH+3dTUbPf4gNF/O+ZJXw2DtvRjz21h3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775765732; c=relaxed/simple;
-	bh=kzE8X6kEuYodQd5rOAg9J+8eEtaa5fgRS2kW+LoeL98=;
+	s=arc-20240116; t=1775765733; c=relaxed/simple;
+	bh=T7SWsJuxjyloUisRKKKluQnUnYjxUV1B6yiaErfrEJc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fr5PtrdI0zHC0xAM9cc9cjGQt8nsJ2EqwiLCaBXwHL03ag6gF/OIRaN5ipsjgjuPNVVihPSpubDoZsbPPJTyVzWcbTFsRuSP1LnpAzMJBuP4ybjN2qPEBZwGFua1lf19k9TnEABleYyF1Gp48rrLBGH2qRFySJV2dSLJdtn1OLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Uhris9ME; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=oP9V1LVxIk1ql1y6P1fFxRR9mF3Dj8YDsTbW6EEXUsvjv1wbOpalZ3BEMcfaczQSy7j7S/X0S3yK1Qc/Q+WDa5LbGm18P2lGbEaaQ4WEzTRvEtkvK5J4M/13a506UU5JhzR5BABPndeMyAQrzf9PR5G9MTI6Ka61V8XovGlgcJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IPgrsXMG; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Uhris9ME"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IPgrsXMG"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1775765731; x=1807301731;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=kzE8X6kEuYodQd5rOAg9J+8eEtaa5fgRS2kW+LoeL98=;
-  b=Uhris9MERzSTwmC/NS0GDPmU62PDWnRd4OzY9Lmx9EyhQsiac5B0yhxM
-   jw3BuNDzWKFQgCUUpNMa2/Bd9uMYgghx2QfMtRI5eTnF+mPwC15d7rBD6
-   w54nnAu+Jig5riJzuJh6Or9epOiE6opAksHkDWMCSwFsG+XdMMoIReS8S
-   Lh4YWBeabMKUDHRhgAkvYa5mAJUZfbl5Os9Rw9ZKRq+ak6SZxkZW71t2i
-   VIAUCD8QElY0FJKoqP0kRM+pcPZXb/ONU6xx/Ldj5VgsmCQNv+T/jC31F
-   Hemqib6U7kEdR30dxhH7of/gOaIYAZQiYR0Ri/XuNEQ+ogHtklCU8ZNP6
-   g==;
-X-CSE-ConnectionGUID: ovpjNZvgTSuw+/xAYBv86g==
-X-CSE-MsgGUID: jEcWk3PZRqy2TxNQpHrKtQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176467"
+  bh=T7SWsJuxjyloUisRKKKluQnUnYjxUV1B6yiaErfrEJc=;
+  b=IPgrsXMGGzBagSM6mG2exdw566Oqe6yeihjDtbGMI7Q4GNQhojpqdn4b
+   28pNdWIjNUfMd/LyldUuYT/6K2lv/wY49WJrRxY9jYrwo6+iq17oTY1FU
+   xfv8Ya+J++lHTOua4qIzmLgy3dnSZEB0YAJbjMaywzsUAQ4qv4ugLIS26
+   i69sTGB29FPk72obVayjAQjTZW8uYYjKjP7clLhsYh0RawwH0raVBBM6O
+   YYj3Z3LWN4J/FGfB0V5thuoAU43q1b2zquqGsGZZLFS/tiBlXkOuaqEK8
+   f3wOctoVkODc/+L25ai0V9Uj+PyzrDFEC4Cslquhb8rnVC8zUJMdeoSU+
+   w==;
+X-CSE-ConnectionGUID: DAPNJbOITz+GjJ1oAeW8rQ==
+X-CSE-MsgGUID: kl1fSxWHRFSWb0Rip8VyuQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="87409094"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="94176467"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:26 -0700
-X-CSE-ConnectionGUID: nGNi9Ag4SBadclMypKSwGQ==
-X-CSE-MsgGUID: qlzPs1YASH+qOdBCe2NghA==
+   d="scan'208";a="87409094"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:18 -0700
+X-CSE-ConnectionGUID: iH1ES4UdSqmJmfxKqz1biA==
+X-CSE-MsgGUID: rB+5AC6+T+aegp5c+lsO/g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="228047529"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:19 -0700
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:11 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 8CB591227EC;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 57421122609;
 	Thu, 09 Apr 2026 23:15:13 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmH-000000045mH-4Ami;
+	id 1wAvmH-000000045lN-3Cqb;
 	Thu, 09 Apr 2026 23:15:01 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -79,9 +77,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 25/86] media: uapi: Add MIPI CCS configuration model
-Date: Thu,  9 Apr 2026 23:14:00 +0300
-Message-ID: <20260409201501.975242-26-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 11/86] media: uapi: Add V4L2_CID_METADATA_LAYOUT control
+Date: Thu,  9 Apr 2026 23:13:46 +0300
+Message-ID: <20260409201501.975242-12-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -93,43 +91,69 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a configuration model for MIPI CCS sensors and refer to the CCS driver
-documentation from it. If more drivers start implementing the CCS model
-the documentation should be split into two but that appears to be unlikely
-at the moment.
+The metadata layout control defines the layout of the metadata on the bus.
+It is used on sub-devices that use generic metadata mbus codes on at least
+one of the pads.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- .../userspace-api/media/v4l/subdev-config-model.rst         | 6 ++++++
- include/uapi/linux/v4l2-controls.h                          | 1 +
- 2 files changed, 7 insertions(+)
+ .../userspace-api/media/v4l/ext-ctrls-image-source.rst     | 6 ++++++
+ drivers/media/v4l2-core/v4l2-ctrls-defs.c                  | 7 +++++++
+ include/uapi/linux/v4l2-controls.h                         | 1 +
+ 3 files changed, 14 insertions(+)
 
-diff --git a/Documentation/userspace-api/media/v4l/subdev-config-model.rst b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-index 1525119cbeb9..3011643d58cf 100644
---- a/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-+++ b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-@@ -262,3 +262,9 @@ space may obtain the size of the embedded data once the image data size on the
- source pad has been configured.
+diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
+index e1f96987ad59..e369978c2b50 100644
+--- a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
++++ b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
+@@ -152,3 +152,9 @@ Image Source Control IDs
+     is provided as well.
  
- Also see :ref:`media_using_camera_sensor_drivers_embedded_data`.
+     This is a read-only control.
 +
-+MIPI Camera Command Set (CCS) model
-+-----------------------------------
-+
-+The MIPI Camera Command Set configuration model is implemented by the :ref:`CCS
-+driver <media-ccs-uapi>`.
++``V4L2_CID_METADATA_LAYOUT (integer)``
++    The metadata layout control defines the metadata layout on the device's data
++    interface for metadata streams. The control is used in conjunction with
++    :ref:`generic metadata formats <media-bus-format-generic-meta>` formats to
++    specify the layout of the data.
+diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+index 32a4b1b3fc0e..4618252d24f2 100644
+--- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
++++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+@@ -1159,6 +1159,7 @@ const char *v4l2_ctrl_get_name(u32 id)
+ 	case V4L2_CID_NOTIFY_GAINS:		return "Notify Gains";
+ 	case V4L2_CID_CFA_PATTERN:		return "Color Filter Array Pattern";
+ 	case V4L2_CID_CFA_PATTERN_FLIP:		return "CFA Pattern Flip";
++	case V4L2_CID_METADATA_LAYOUT:		return "Metadata Layout";
+ 
+ 	/* Image processing controls */
+ 	/* Keep the order of the 'case's the same as in v4l2-controls.h! */
+@@ -1322,6 +1323,12 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
+ 		*min = 0;
+ 		*max = *step = 1;
+ 		break;
++	case V4L2_CID_METADATA_LAYOUT:
++		*type = V4L2_CTRL_TYPE_INTEGER;
++		*flags |= V4L2_CTRL_FLAG_READ_ONLY;
++		*min = 0;
++		*step = 1;
++		break;
+ 	case V4L2_CID_ROTATE:
+ 		*type = V4L2_CTRL_TYPE_INTEGER;
+ 		*flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
 diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
-index 2f0bd33bbc3d..1bf6d298e3c4 100644
+index d5cedb28a564..2f0bd33bbc3d 100644
 --- a/include/uapi/linux/v4l2-controls.h
 +++ b/include/uapi/linux/v4l2-controls.h
-@@ -1262,6 +1262,7 @@ enum v4l2_jpeg_chroma_subsampling {
- #define V4L2_CID_CONFIG_MODEL			(V4L2_CID_IMAGE_PROC_CLASS_BASE + 6)
+@@ -1247,6 +1247,7 @@ enum v4l2_jpeg_chroma_subsampling {
+ #define V4L2_CFA_PATTERN_FLIP_BOTH \
+ 	(V4L2_CFA_PATTERN_FLIP_HORIZONTAL | V4L2_CFA_PATTERN_FLIP_VERTICAL)
  
- #define V4L2_CONFIG_MODEL_COMMON_RAW_SENSOR	(1U << 0)
-+#define V4L2_CONFIG_MODEL_MIPI_CCS		(1U << 1)
++#define V4L2_CID_METADATA_LAYOUT		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 12)
  
- /*  DV-class control IDs defined by V4L2 */
- #define V4L2_CID_DV_CLASS_BASE			(V4L2_CTRL_CLASS_DV | 0x900)
+ /* Image processing controls */
+ 
 -- 
 2.47.3
 
