@@ -1,55 +1,55 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE8733B970
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CFE3446A6
 	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765733; cv=none; b=QwcBeJJqLNXc/UIPmPK24l1Bqkx9GbIcpclS5IXxONMcWppoJWCYQo0gqwayJZ9rvFL86yzRvbmJgIgzae6H3MC9JNSJCj8lavIFPKVX+P/U0uag3cPhVssRwEU3Hw85cCrktSOznczeiD/CpPYEk5Dk/Ma/59P26P3gYgJwdpg=
+	t=1775765733; cv=none; b=Ueps2pb7oI58SrYUf2+NDMsxqIde/ec1aM9/25cKAlL/XmtBYNlOvTSxX7Ejax0wTRnHADr0M2Q+3qEuYyWk/AsO91D7fSpEord4+eB52aJFae+vkr9SvvGpke1WjuKz02ft7KnzX6YTU6pbHa636IZb9AegnspsFzOTwdoMhYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775765733; c=relaxed/simple;
-	bh=G1Jq09kAIPrhLlXnBT28MIGa7AvCvLJ2b63vI4B2S/Q=;
+	bh=bh1OGej4wkJ+GP7BDmK7ahH/MRhI258u7ESCnuvFCW8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SeuYCuZvKiEn6mx0kGQ3QP+CZyAWWVKM+7BTaC8ULq/l2Le2p8shB0XQ6zaAVJrOgkYbbxxK8swdMiyw8eyCOQRJPEhShRFUvEkYJL7bNEhbUdM7c4AsLuiyu0+fFpqfosJQFgdxCdDNC6x2S+WDKAB/rfO2horqehRfrBmMQGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VJMPY1Hz; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=AuZfKh8TqDhRjKbLSvWs/F/14C9g5rIG8QfdNkxGHMF7/N65ywfC1+Qs8XDETCljI92Z9ARJde5lf4kfB+PoUkCSgrv5JN3T+OWRFQ5/d9u1N+gLOsLIoq0M+qppDomjJVFIkPmTBBjtpHUgVJcn0Lbi8zraOdJRgqiKB8jD76Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aiS6yw53; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VJMPY1Hz"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aiS6yw53"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1775765733; x=1807301733;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=G1Jq09kAIPrhLlXnBT28MIGa7AvCvLJ2b63vI4B2S/Q=;
-  b=VJMPY1Hz+P2mjkzvTqNugKFrc9f10zoo7ech9cW++2mupEO4NTBRIDz4
-   jUNcv0/Xi4+2vVI4jvYpjZozsx7COiAzU4PWoWThRtz3CoKI/AEFhHTlS
-   DqzfmkoXliuxsY+kjuIscl4tBYp+EIohDbBxaYp5rpLP0OR0eLCDFzMsf
-   XZDMgHqQwnBobn00QrAbVKWylb+3P8iGtqmi5/Ra+8uuIHZfsSvGs+NME
-   rPTbrG33kHb6LXXr4l0wiAtw7r5VzJCE1dzzN/j3GdaHY7qkdWK3OGotZ
-   WNW4j5ioYRyav1J25EySakQxhzvjec867xiVBbwPASbB9oE3N/yySiQC3
-   w==;
-X-CSE-ConnectionGUID: O/v+rZtpSvOUiTHSv9q6Ww==
-X-CSE-MsgGUID: vAApMiukSsWxvt0H18heVg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176483"
+  bh=bh1OGej4wkJ+GP7BDmK7ahH/MRhI258u7ESCnuvFCW8=;
+  b=aiS6yw53JWR4low++elAXLj+KQyM1TO5jcPPqIdXI/QK/1cRmZV9Xnm/
+   jZMQQ1Xj9WSGeBjmshTMVo3da4I2bDOBH29kgGYo0QYHCu+RbFPTE4/12
+   65uh1eW21gyPLEN33niEWZ4nX6XlaX5w4aV3ARIKu2TIWG/uYUE9PKS/P
+   QbKeYROiWyLNMxQRKT62oam3lHua+QMZh3FD5j80z8BpbOSM8Xu66o172
+   gowctaaZrKHSMmfxHJUc0SPJttjfV038gWp6aJ3k8+MLMVrqj+KNTDXhM
+   Kgu3RasqJeZxECLq6QQDP8I6AJAu4xxjnoPA0iC+n2yZjmRK4+pOwkwnX
+   g==;
+X-CSE-ConnectionGUID: KS243e0jQ3qU06EMGzCXsA==
+X-CSE-MsgGUID: 6PE+2uzzTlaUoSJ9DPFewQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176495"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="94176483"
+   d="scan'208";a="94176495"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:26 -0700
-X-CSE-ConnectionGUID: VApJF4upSgWEKC1SopS4ug==
-X-CSE-MsgGUID: OsGxhZ90Syaeptz2Z187zA==
+X-CSE-ConnectionGUID: tMZlXI70RSqDW+q5gB/ToQ==
+X-CSE-MsgGUID: EG51qYl3SXSwr8uCh0ZZgw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="228047536"
+   d="scan'208";a="228047532"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
   by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:19 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 9D64312288C;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 7FA121227A6;
 	Thu, 09 Apr 2026 23:15:13 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmI-000000045mb-0HEP;
-	Thu, 09 Apr 2026 23:15:02 +0300
+	id 1wAvmH-000000045m9-426k;
+	Thu, 09 Apr 2026 23:15:01 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: linux-media@vger.kernel.org
@@ -79,9 +79,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 30/86] media: Documentation: Add binning and sub-sampling controls
-Date: Thu,  9 Apr 2026 23:14:05 +0300
-Message-ID: <20260409201501.975242-31-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 23/86] media: v4l2-subdev: Prevent accessing internal pads without STREAMS cap
+Date: Thu,  9 Apr 2026 23:13:58 +0300
+Message-ID: <20260409201501.975242-24-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -93,55 +93,105 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document the binning and scaling controls (V4L2_CID_BINNING and
-V4L2_CID_SUBSAMPLING_{HORIZONTAL,VERTICAL}) in the common raw sensor
-model.
+The internal pads are expected to be accessed by users that are aware of
+streams. Require the V4L2_SUBDEV_CLIENT_CAP_STREAMS client capability to
+be set before allowing accessing internal pads from the user space.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- .../media/v4l/subdev-config-model.rst         | 20 ++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+ drivers/media/v4l2-core/v4l2-subdev.c | 41 ++++++++++++++++++++++++---
+ 1 file changed, 37 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/userspace-api/media/v4l/subdev-config-model.rst b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-index 0fb01bf6c825..fb6d8a1bcac7 100644
---- a/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-+++ b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-@@ -144,8 +144,12 @@ separately horizontally and vertically.
+diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+index 7723e37a0ff5..c6d8399c2252 100644
+--- a/drivers/media/v4l2-core/v4l2-subdev.c
++++ b/drivers/media/v4l2-core/v4l2-subdev.c
+@@ -234,6 +234,18 @@ static int check_state(struct v4l2_subdev *sd, struct v4l2_subdev_state *state,
+ 	return 0;
+ }
  
- The combined effect of binning and sub-sampling is configured using the
- ``V4L2_SEL_TGT_COMPOSE`` rectangle, relative to the analogue crop rectangle, on
--(pad, stream) pair 1/0. The driver implementation determines how to configure
--binning and sub-sampling to achieve the desired size.
-+(pad, stream) pair 1/0. It depends on the driver which of these operations are
-+being used to achieve the resulting size. Binning and sub-sampling are also
-+directly configured using :ref:`V4L2_CID_BINNING_FACTORS
-+<image_source_control_binning_factors>` and
-+:ref:`V4L2_CID_SUBSAMPLING_HORIZONTAL and V4L2_CID_SUBSAMPLING_VERTICAL
-+<image_source_control_subsampling>` controls on drivers that support them.
++static inline int check_caps(struct v4l2_subdev *sd,
++			     struct v4l2_subdev_state *state,
++			     const struct v4l2_subdev_client_info *ci,
++			     u32 pad)
++{
++	if (sd->entity.pads[pad].flags & MEDIA_PAD_FL_INTERNAL)
++		return ci->client_caps & V4L2_SUBDEV_CLIENT_CAP_STREAMS ?
++			0 : -EINVAL;
++
++	return 0;
++}
++
+ static inline int check_format(struct v4l2_subdev *sd,
+ 			       struct v4l2_subdev_state *state,
+ 			       struct v4l2_subdev_format *format)
+@@ -245,12 +257,21 @@ static inline int check_format(struct v4l2_subdev *sd,
+ 	       check_state(sd, state, format->which, format->pad, format->stream);
+ }
  
- The digital crop operation takes place after binning and sub-sampling. It is
- configured by setting the ``V4L2_SEL_TGT_CROP`` rectangle on (pad, stream) pair
-@@ -216,9 +220,15 @@ Also refer to :ref:`Selection targets <v4l2-selection-targets-table>`.
-       - \-
-       - X
-       - Binning and sub-sampling. This rectangle is relative to the
--        ``V4L2_SEL_TGT_CROP`` rectangle on the same (pad, stream). The
--        combination of binning and sub-sampling is configured using this
--        selection target.
-+        ``V4L2_SEL_TGT_CROP`` rectangle on the same (pad, stream). Binning is
-+        configured using the :ref:`V4L2_CID_BINNING_FACTORS
-+        <image_source_control_binning_factors>` control and sub-sampling is configured
-+        using the :ref:`V4L2_CID_SUBSAMPLING_HORIZONTAL and
-+        V4L2_CID_SUBSAMPLING_VERTICAL <image_source_control_subsampling>`
-+        controls on drivers that support these controls. To configure binning
-+        and sub-sampling on drivers that do not support these controls, the
-+        selection rectangle may be changed directly to configure the combined
-+        effect on the image size.
-     * - 2/0
-       - Format
-       - X
++static inline int check_format_caps(struct v4l2_subdev *sd,
++				    const struct v4l2_subdev_client_info *ci,
++				    struct v4l2_subdev_state *state,
++				    struct v4l2_subdev_format *format)
++{
++	return check_format(sd, state, format) ?:
++		check_caps(sd, state, ci, format->pad);
++}
++
+ static int call_get_fmt(struct v4l2_subdev *sd,
+ 			const struct v4l2_subdev_client_info *ci,
+ 			struct v4l2_subdev_state *state,
+ 			struct v4l2_subdev_format *format)
+ {
+-	return check_format(sd, state, format) ? :
++	return check_format_caps(sd, ci, state, format) ? :
+ 		sd->ops->pad->get_fmt(sd, ci, state, format);
+ }
+ 
+@@ -259,7 +280,7 @@ static int call_set_fmt(struct v4l2_subdev *sd,
+ 			struct v4l2_subdev_state *state,
+ 			struct v4l2_subdev_format *format)
+ {
+-	return check_format(sd, state, format) ? :
++	return check_format_caps(sd, ci, state, format) ? :
+ 		sd->ops->pad->set_fmt(sd, ci, state, format);
+ }
+ 
+@@ -310,12 +331,24 @@ static inline int check_selection(struct v4l2_subdev *sd,
+ 	       check_state(sd, state, sel->which, sel->pad, sel->stream);
+ }
+ 
++static inline int check_selection_caps(struct v4l2_subdev *sd,
++				       const struct v4l2_subdev_client_info *ci,
++				       struct v4l2_subdev_state *state,
++				       struct v4l2_subdev_selection *sel)
++{
++	if (!sel)
++		return -EINVAL;
++
++	return check_selection(sd, state, sel) ? :
++		check_caps(sd, state, ci, sel->pad);
++}
++
+ static int call_get_selection(struct v4l2_subdev *sd,
+ 			      const struct v4l2_subdev_client_info *ci,
+ 			      struct v4l2_subdev_state *state,
+ 			      struct v4l2_subdev_selection *sel)
+ {
+-	return check_selection(sd, state, sel) ? :
++	return check_selection_caps(sd, ci, state, sel) ? :
+ 		sd->ops->pad->get_selection(sd, ci, state, sel);
+ }
+ 
+@@ -324,7 +357,7 @@ static int call_set_selection(struct v4l2_subdev *sd,
+ 			      struct v4l2_subdev_state *state,
+ 			      struct v4l2_subdev_selection *sel)
+ {
+-	return check_selection(sd, state, sel) ? :
++	return check_selection_caps(sd, ci, state, sel) ? :
+ 		sd->ops->pad->set_selection(sd, ci, state, sel);
+ }
+ 
 -- 
 2.47.3
 
