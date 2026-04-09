@@ -1,55 +1,55 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D7E233FE26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B406340D9A
 	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765732; cv=none; b=ZHQgZgjdKPs0ef5Z6Zmdiuu4Nmw3529TVHKechqzTNBOENJJ/CrUoP60BXaytjn1FVmAY3et8LjxZor87QfdPD/wp4rmMqPR5dlFLXtaWEOfgqSXTTSe3LndjG6uCs61aIXFcufCIw5m2GMC9NRjBAvBFB+LhZpG6fzsaAVoIsY=
+	t=1775765732; cv=none; b=Y7hU65/icl6VtIRmKpQBl8E5R0KlYC83VkJimH7BXhvfUKMPfoXbBPkTuObcSrVltwdVdwWKPTVOtvJBuDS8sKrNUYncuCzUF/zla2rLRyhKWdOAeBO5zjxgmyzh2fOrF9yic2Ayln9aAIClRKmS0uXc6NNBOwu/yrRScKuaeag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775765732; c=relaxed/simple;
-	bh=swYpDtr9A5O9KJZdJVVvgMR0YgjRGyv7HzwA9+dUsiM=;
+	bh=kzE8X6kEuYodQd5rOAg9J+8eEtaa5fgRS2kW+LoeL98=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Yw7QKBOIwQ/zZAwYTFYrrzLdEXet8p/FSwtKu44mtGjG2ByGTHZYUpbd74F5ImIvrG+VH/TCxsIiQofxGygCAzqhdKBmYHB/HB/7WwCrUAmGapy1/Qz09An/OMPo1hzzPNQjGdRxYswLuQZqC68IGbyby1FlTnRf7KqymcotYfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YFUUNM+K; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=fr5PtrdI0zHC0xAM9cc9cjGQt8nsJ2EqwiLCaBXwHL03ag6gF/OIRaN5ipsjgjuPNVVihPSpubDoZsbPPJTyVzWcbTFsRuSP1LnpAzMJBuP4ybjN2qPEBZwGFua1lf19k9TnEABleYyF1Gp48rrLBGH2qRFySJV2dSLJdtn1OLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Uhris9ME; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YFUUNM+K"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Uhris9ME"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1775765731; x=1807301731;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=swYpDtr9A5O9KJZdJVVvgMR0YgjRGyv7HzwA9+dUsiM=;
-  b=YFUUNM+K2XKugA0rlRDGAQWVitde81w5khPF5RGL6HJ5OluGHiu3aTNz
-   yISPs0Qk9Bnfr6s38znyWEbo6Wb6HkItuGwfo7u/f2ysCsMw2bJ0t039F
-   eHG6t+Po4KWg6/jYbe1aqhi/CETiqhOH/3yTChdiGyGMlHBM/x0GCGHyo
-   THgcwYY5RQhusATQCWBay0uNAhp08535SqR0dYo+s+TFC+qKp10qqYL0Y
-   glR4HyPbov8xr+RHC8vJokHY1SAEa8/Hat1fMKMuLhukHjUSchPUOm+EW
-   j1VGiWRNUe2Hvp9DFW3hWY77W6oTHHk3+2Ck6YgW8zOS8GPh12Kx0scwx
-   A==;
-X-CSE-ConnectionGUID: +n8a5qMYQfSmD/YO4mDRcQ==
-X-CSE-MsgGUID: 0MjCEqb+QiCFVxxo6fwMWg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176454"
+  bh=kzE8X6kEuYodQd5rOAg9J+8eEtaa5fgRS2kW+LoeL98=;
+  b=Uhris9MERzSTwmC/NS0GDPmU62PDWnRd4OzY9Lmx9EyhQsiac5B0yhxM
+   jw3BuNDzWKFQgCUUpNMa2/Bd9uMYgghx2QfMtRI5eTnF+mPwC15d7rBD6
+   w54nnAu+Jig5riJzuJh6Or9epOiE6opAksHkDWMCSwFsG+XdMMoIReS8S
+   Lh4YWBeabMKUDHRhgAkvYa5mAJUZfbl5Os9Rw9ZKRq+ak6SZxkZW71t2i
+   VIAUCD8QElY0FJKoqP0kRM+pcPZXb/ONU6xx/Ldj5VgsmCQNv+T/jC31F
+   Hemqib6U7kEdR30dxhH7of/gOaIYAZQiYR0Ri/XuNEQ+ogHtklCU8ZNP6
+   g==;
+X-CSE-ConnectionGUID: ovpjNZvgTSuw+/xAYBv86g==
+X-CSE-MsgGUID: jEcWk3PZRqy2TxNQpHrKtQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176467"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="94176454"
+   d="scan'208";a="94176467"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:26 -0700
-X-CSE-ConnectionGUID: abYpBkOFRsuhkaq11Cv87g==
-X-CSE-MsgGUID: BpcWZgNeR9GNv+h3HBdFlA==
+X-CSE-ConnectionGUID: nGNi9Ag4SBadclMypKSwGQ==
+X-CSE-MsgGUID: qlzPs1YASH+qOdBCe2NghA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="228047526"
+   d="scan'208";a="228047529"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
   by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:19 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 9B7A9122884;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 8CB591227EC;
 	Thu, 09 Apr 2026 23:15:13 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmI-000000045mX-0DWU;
-	Thu, 09 Apr 2026 23:15:02 +0300
+	id 1wAvmH-000000045mH-4Ami;
+	Thu, 09 Apr 2026 23:15:01 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: linux-media@vger.kernel.org
@@ -79,9 +79,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 29/86] media: v4l2-mc: Add v4l2_subdev_sensor_fll_llp_set()
-Date: Thu,  9 Apr 2026 23:14:04 +0300
-Message-ID: <20260409201501.975242-30-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 25/86] media: uapi: Add MIPI CCS configuration model
+Date: Thu,  9 Apr 2026 23:14:00 +0300
+Message-ID: <20260409201501.975242-26-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -93,126 +93,43 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add v4l2_subdev_sensor_fll_llp_set() to facilitate driver implementation
-of both blanking and line and frame lenght controls.
+Add a configuration model for MIPI CCS sensors and refer to the CCS driver
+documentation from it. If more drivers start implementing the CCS model
+the documentation should be split into two but that appears to be unlikely
+at the moment.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/v4l2-core/v4l2-mc.c | 67 +++++++++++++++++++++++++++++++
- include/media/v4l2-mc.h           |  8 ++++
- 2 files changed, 75 insertions(+)
+ .../userspace-api/media/v4l/subdev-config-model.rst         | 6 ++++++
+ include/uapi/linux/v4l2-controls.h                          | 1 +
+ 2 files changed, 7 insertions(+)
 
-diff --git a/drivers/media/v4l2-core/v4l2-mc.c b/drivers/media/v4l2-core/v4l2-mc.c
-index 937d358697e1..2e0be23d7511 100644
---- a/drivers/media/v4l2-core/v4l2-mc.c
-+++ b/drivers/media/v4l2-core/v4l2-mc.c
-@@ -14,6 +14,7 @@
- #include <linux/usb.h>
- #include <media/media-device.h>
- #include <media/media-entity.h>
-+#include <media/v4l2-ctrls.h>
- #include <media/v4l2-fh.h>
- #include <media/v4l2-mc.h>
- #include <media/v4l2-subdev.h>
-@@ -427,6 +428,72 @@ int v4l2_create_fwnode_links(struct v4l2_subdev *src_sd,
- }
- EXPORT_SYMBOL_GPL(v4l2_create_fwnode_links);
+diff --git a/Documentation/userspace-api/media/v4l/subdev-config-model.rst b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
+index 1525119cbeb9..3011643d58cf 100644
+--- a/Documentation/userspace-api/media/v4l/subdev-config-model.rst
++++ b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
+@@ -262,3 +262,9 @@ space may obtain the size of the embedded data once the image data size on the
+ source pad has been configured.
  
-+int v4l2_subdev_sensor_fll_llp_set(struct v4l2_ctrl *fll, struct v4l2_ctrl *vblank,
-+				   struct v4l2_ctrl *llp, struct v4l2_ctrl *hblank,
-+				   struct v4l2_ctrl *exposure,
-+				   const struct v4l2_mbus_framefmt *format,
-+				   struct v4l2_ctrl *src, bool *setting_ctrl,
-+				   int exposure_margin)
-+{
-+	struct v4l2_ctrl *dest;
-+	s32 val;
-+	int ret;
+ Also see :ref:`media_using_camera_sensor_drivers_embedded_data`.
 +
-+	/* Was setting the control user-initiated or were we called again? */
-+	if (*setting_ctrl) {
-+		*setting_ctrl = false;
-+		return 0;
-+	}
++MIPI Camera Command Set (CCS) model
++-----------------------------------
 +
-+	/* Are we being called for writing a value to a register? */
-+	if (src->val == src->cur.val)
-+		return 0;
-+
-+	switch (src->id) {
-+	case V4L2_CID_FRAME_LENGTH_LINES:
-+		dest = vblank;
-+		val = src->val - format->height;
-+		break;
-+	case V4L2_CID_VBLANK:
-+		dest = fll;
-+		val = src->val + format->height;
-+		break;
-+	case V4L2_CID_LINE_LENGTH_PIXELS:
-+		dest = hblank;
-+		val = src->val - format->width;
-+		break;
-+	case V4L2_CID_HBLANK:
-+		dest = llp;
-+		val = src->val + format->width;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (val == dest->val)
-+		return 0;
-+
-+	*setting_ctrl = true;
-+
-+	ret = __v4l2_ctrl_s_ctrl(dest, val);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Only modify exposure range when setting fll, directly or via vblank.
-+	 */
-+	if (src->id != V4L2_CID_FRAME_LENGTH_LINES &&
-+	    dest->id != V4L2_CID_FRAME_LENGTH_LINES)
-+		return 0;
-+
-+	int exposure_max = fll->val - exposure_margin;
-+
-+	return __v4l2_ctrl_modify_range(exposure, exposure->minimum,
-+					exposure_max, exposure->step,
-+					exposure_max);
-+}
-+EXPORT_SYMBOL_GPL(v4l2_subdev_sensor_fll_llp_set);
-+
- /* -----------------------------------------------------------------------------
-  * Pipeline power management
-  *
-diff --git a/include/media/v4l2-mc.h b/include/media/v4l2-mc.h
-index 1837c9fd78cf..8618a74e4e0c 100644
---- a/include/media/v4l2-mc.h
-+++ b/include/media/v4l2-mc.h
-@@ -18,6 +18,7 @@
- /* We don't need to include pci.h or usb.h here */
- struct pci_dev;
- struct usb_device;
-+struct v4l2_ctrl;
++The MIPI Camera Command Set configuration model is implemented by the :ref:`CCS
++driver <media-ccs-uapi>`.
+diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+index 2f0bd33bbc3d..1bf6d298e3c4 100644
+--- a/include/uapi/linux/v4l2-controls.h
++++ b/include/uapi/linux/v4l2-controls.h
+@@ -1262,6 +1262,7 @@ enum v4l2_jpeg_chroma_subsampling {
+ #define V4L2_CID_CONFIG_MODEL			(V4L2_CID_IMAGE_PROC_CLASS_BASE + 6)
  
- #ifdef CONFIG_MEDIA_CONTROLLER
- /**
-@@ -139,6 +140,13 @@ int v4l2_create_fwnode_links_to_pad(struct v4l2_subdev *src_sd,
- int v4l2_create_fwnode_links(struct v4l2_subdev *src_sd,
- 			     struct v4l2_subdev *sink_sd);
+ #define V4L2_CONFIG_MODEL_COMMON_RAW_SENSOR	(1U << 0)
++#define V4L2_CONFIG_MODEL_MIPI_CCS		(1U << 1)
  
-+int v4l2_subdev_sensor_fll_llp_set(struct v4l2_ctrl *fll, struct v4l2_ctrl *vblank,
-+				   struct v4l2_ctrl *llp, struct v4l2_ctrl *hblank,
-+				   struct v4l2_ctrl *exposure,
-+				   const struct v4l2_mbus_framefmt *format,
-+				   struct v4l2_ctrl *src, bool *setting_ctrl,
-+				   int exposure_margin);
-+
- /**
-  * v4l2_pipeline_pm_get - Increase the use count of a pipeline
-  * @entity: The root entity of a pipeline
+ /*  DV-class control IDs defined by V4L2 */
+ #define V4L2_CID_DV_CLASS_BASE			(V4L2_CTRL_CLASS_DV | 0x900)
 -- 
 2.47.3
 
