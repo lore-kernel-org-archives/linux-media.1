@@ -1,52 +1,52 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FB63368AB
-	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CEC733AD9C
+	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765717; cv=none; b=iICCoyJxALH5HfeMEZutB+0WaCI7498brFLvzGtEX146D3WYT8LWFxvxKK9Xq4mAHEFCTqrIQVYG7wjgP7ednHq3U85dNU8Y0jo3GOTz8r84MKHJM77ghDrwuj/r45xXy+Ap5mAHQEgUt4qYryGdNlt/g18YOLIr/qKGFfkKHG4=
+	t=1775765717; cv=none; b=HhA5gPsuXzxpubuOWY7nCLqF5Iv5iRCvQlxyJK1WkiLyfDgtDwBHGm8MBjTYvnYWAi8usl+tHXGSbD2Wu94rNP67JsiqJYeKjYe45r/pxgWOQcsp94lz5+MAfsIpVektzF5A8XpmCL8tQZoazp0xZB/qgxdEqZWpPazv1Lj8VDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775765717; c=relaxed/simple;
-	bh=mh8GWOTVHWR164mnbRolvsiRel3N3/ci6+THyTN+P+g=;
+	bh=3U3pAtnij25RtMXSC0+p5ERrDmHCjTnzZTS2H0KuUgY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IrMG57KE+lLLTK6S2jyUGNSfUu9ubAQJOLJ83CvAKO0uqx43tfS0mfC827VTTCYhy5zW+rAtZ14GFvPGglJ4qewGs6vC61ImM56YjKEe5eH9EwKRkxmu2977zi4nkasoHYwjqdUTVsUZh3uPfWfxD7cDnsyT+upuA3tkdQPZP6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aX1AgJbz; arc=none smtp.client-ip=192.198.163.11
+	 MIME-Version; b=tA18ACiuQXWQwKzufMnlT7Z+mO2N4WyaZak/TEVR6+nXDS10LN9VS5R/9i4hBH7pNJPfywolPNZEpsK1Fzt8Oyxzyxi/IMboQGWIud6bcA9x7j44U2O1htxAyW0v8gU2/6zQQxjHgastG8vk/X1Rsb757OFd9xHiTKTOrym8ca8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Emq7E5jV; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aX1AgJbz"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Emq7E5jV"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1775765716; x=1807301716;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=mh8GWOTVHWR164mnbRolvsiRel3N3/ci6+THyTN+P+g=;
-  b=aX1AgJbz/wwZNVl1itPFDJbzXTjj8OfjzXUTwA2bqonBCo5+4rYLIbj0
-   +3GR7VEPw6QTHvO8edPa+1CMGYceQssQMrkGmXGwqAG9qIayJMA/v965K
-   8CQIDqSUYmt38BPeyNjfMU1LZP4BJUyEvosgfuIBrTQa2T16q0V2nPbC4
-   hepBPRG3W5OJXoBa8EHzcF7fkqEhMgBgYvs6ksTMHHPGhDOv5pzF3iZqa
-   OR9Uwm2s96PCnFtZWQ9io851IYof2lQRjgudLn/J8Bkawu3Fzsnttg2EE
-   B+6Ih+X4Awph/cmPN28n/rjmLJVJLJuwTiA9bZSMvvz1JsyqKAUkFvc/q
-   w==;
-X-CSE-ConnectionGUID: zjRmI+jmQUSBxwxIHDENRQ==
-X-CSE-MsgGUID: 6PWeALbhSBmFDf2Id/L4hA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="87408780"
+  bh=3U3pAtnij25RtMXSC0+p5ERrDmHCjTnzZTS2H0KuUgY=;
+  b=Emq7E5jVmsGNtS6qumIWpPGw/YD9B9cd7z69hZALekMwwnm1xp1E5rSW
+   BdIsqxFhgkewczeFEmoRyWh4fyYN8/DCL7fOIlb1J0HwbuMEqWw+NrXt7
+   0T8Wo+kpkDz3wBTgrnMKoqhXTFPaJuA7uH+zySd6D5kK8xoDdLalIjyCa
+   Fu5F8BJ7Fk/DDPaM8CaokRNgF3IAwdk/Bt9gTf8KNOaesN3udDRB2R7Cc
+   vCcXeTV2mQ8cG3t9GKklEsmcJDoVMIAWvioWtkGsCPmhgCzAFLWc1yDN0
+   c1CjzLmTN5HAZhTWzkkjg5JuqWYDfY0VHgeV96gbOsJ+jjk37hv1K10t4
+   A==;
+X-CSE-ConnectionGUID: BOIthvpjRMmyyizWwQm/dQ==
+X-CSE-MsgGUID: k6suCHjYQkC54ujM3fDd0g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="87408799"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="87408780"
+   d="scan'208";a="87408799"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
   by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:10 -0700
-X-CSE-ConnectionGUID: 0YDbZJlFSTufdlO1xXqj/Q==
-X-CSE-MsgGUID: eeiGQZINTOGC1vZWqvxRng==
+X-CSE-ConnectionGUID: H12kaWxdQ8SrZhBhI7bl+w==
+X-CSE-MsgGUID: YGcpE+LuQq286U5As8XW3w==
 X-ExtLoop1: 1
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
   by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:03 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 4F834121FEE;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 57625122034;
 	Thu, 09 Apr 2026 23:15:03 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmI-000000045po-3HyA;
+	id 1wAvmI-000000045py-3R2J;
 	Thu, 09 Apr 2026 23:15:02 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -77,9 +77,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 74/86] media: ipu6: Start streaming once all queues have started, stop when not
-Date: Thu,  9 Apr 2026 23:14:49 +0300
-Message-ID: <20260409201501.975242-75-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 76/86] media: ipu6: Remove nr_queues and nr_streaming fields in ipu6_isys_stream
+Date: Thu,  9 Apr 2026 23:14:51 +0300
+Message-ID: <20260409201501.975242-77-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -91,135 +91,250 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Start streaming once all buffer queues connected via enabled routes have
-been set streaming, similarly stop when the first queue is stopped.
+nr_queues and nr_streaming fields were being used to determine whether
+streaming was to be started in the upstream sub-device. As we store the
+streaming state in the CSI-2 sub-device, there's no longer need for that.
+Drop these fields.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c | 45 +++++++++++++++++++
- .../media/pci/intel/ipu6/ipu6-isys-queue.c    |  7 +--
- 2 files changed, 46 insertions(+), 6 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c |  5 ++++
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h |  1 +
+ .../media/pci/intel/ipu6/ipu6-isys-queue.c    | 24 +++++++++----------
+ .../media/pci/intel/ipu6/ipu6-isys-video.c    | 19 ++++-----------
+ .../media/pci/intel/ipu6/ipu6-isys-video.h    |  7 ++----
+ 5 files changed, 25 insertions(+), 31 deletions(-)
 
 diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-index 04825cdce7c0..8deafe38be5d 100644
+index f37e25063d6d..c2f4ea444e8e 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
 +++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-@@ -12,6 +12,7 @@
- #include <linux/io.h>
- #include <linux/minmax.h>
- #include <linux/sprintf.h>
-+#include <linux/string_choices.h>
+@@ -432,6 +432,8 @@ static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
+ 	if (ret)
+ 		goto err_stop_stream_csi2;
  
- #include <media/media-entity.h>
- #include <media/v4l2-ctrls.h>
-@@ -347,6 +348,42 @@ static int ipu6_isys_csi2_set_stream(struct v4l2_subdev *sd,
- 	return ret;
- }
++	csi2->streaming = true;
++
+ 	return 0;
  
-+static bool ipu6_isys_csi2_streaming_change(struct ipu6_isys_subdev *asd,
-+					    struct v4l2_subdev_state *state,
-+					    u32 pad, bool enable)
-+{
-+	u32 streams_enabled = 0, nodes_streaming = 0;
-+	struct v4l2_subdev_route *route;
-+
-+	for_each_active_route(&state->routing, route) {
-+		struct media_pad *video_pad =
-+			media_pad_remote_pad_unique(&asd->sd.entity.pads[route->source_pad]);
-+		struct ipu6_isys_video *av = !video_pad ? NULL :
-+			container_of_const(video_pad,
-+					   struct ipu6_isys_video, pad);
-+
-+		if (!av) {
-+			dev_dbg(asd->sd.dev,
-+				"can't find source pad for \"%s\":%u\n",
-+				asd->sd.entity.name, route->source_pad);
-+			return false;
-+		}
-+
-+		streams_enabled++;
-+		if (av->streaming || (enable && pad == route->source_pad))
-+			nodes_streaming++;
-+	}
-+
-+	if (streams_enabled == nodes_streaming) {
-+		dev_dbg(asd->sd.dev,
-+			"changing streaming state to %s on \"%s\":%u\n",
-+			str_enabled_disabled(enable), asd->sd.entity.name, pad);
-+		return true;
-+	}
-+
-+	return false;
-+}
-+
- static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
- 					 struct v4l2_subdev_state *state,
- 					 u32 pad, u64 streams_mask)
-@@ -364,6 +401,9 @@ static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
- 
- 	list_add(&av->csi2_entry, &csi2->av_head);
- 
-+	if (!ipu6_isys_csi2_streaming_change(asd, state, pad, true))
-+		return 0;
-+
- 	ret = ipu6_isys_start_stream_firmware(av);
- 	if (ret) {
- 		dev_err(sd->dev, "start stream of firmware failed\n");
-@@ -409,6 +449,7 @@ static int ipu6_isys_csi2_disable_streams(struct v4l2_subdev *sd,
- 					  struct v4l2_subdev_state *state,
+ err_stop_stream_csi2:
+@@ -452,6 +454,7 @@ static int ipu6_isys_csi2_disable_streams(struct v4l2_subdev *sd,
  					  u32 pad, u64 streams_mask)
  {
-+	struct ipu6_isys_subdev *asd = to_ipu6_isys_subdev(sd);
+ 	struct ipu6_isys_subdev *asd = to_ipu6_isys_subdev(sd);
++	struct ipu6_isys_csi2 *csi2 = ipu6_isys_subdev_to_csi2(asd);
  	struct media_pad *remote_pad,
  		*vdev_pad = media_pad_remote_pad_unique(&sd->entity.pads[pad]);
  	struct ipu6_isys_video *av =
-@@ -416,6 +457,9 @@ static int ipu6_isys_csi2_disable_streams(struct v4l2_subdev *sd,
- 	struct v4l2_subdev *remote_sd;
- 	u64 sink_streams;
- 
-+	if (!ipu6_isys_csi2_streaming_change(asd, state, pad, false))
-+		goto out_del_csi2_entry;
-+
- 	sink_streams =
- 		v4l2_subdev_state_xlate_streams(state, pad, CSI2_PAD_SINK,
- 						&streams_mask);
-@@ -431,6 +475,7 @@ static int ipu6_isys_csi2_disable_streams(struct v4l2_subdev *sd,
+@@ -479,6 +482,8 @@ static int ipu6_isys_csi2_disable_streams(struct v4l2_subdev *sd,
  
  	ipu6_isys_close_streaming_firmware(av);
  
-+out_del_csi2_entry:
++	csi2->streaming = false;
++
+ out_del_csi2_entry:
  	list_del(&av->csi2_entry);
  
- 	return 0;
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
+index bcddd5626531..9178638edd37 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
+@@ -44,6 +44,7 @@ struct ipu6_isys_csi2 {
+ 	u32 receiver_errors;
+ 	unsigned int nlanes;
+ 	unsigned int port;
++	bool streaming;
+ };
+ 
+ struct ipu6_isys_csi2_timing {
 diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-index 13d759b27ca0..7df13d330667 100644
+index 7df13d330667..b7c7ccae0452 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
 +++ b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-@@ -585,14 +585,10 @@ static int start_streaming(struct vb2_queue *q, unsigned int count)
+@@ -296,6 +296,9 @@ static int ipu6_isys_stream_start(struct ipu6_isys_video *av)
+ 	if (ret)
+ 		return ret;
+ 
++	if (!av->csi2->streaming)
++		return 0;
++
+ 	do {
+ 		struct ipu6_fw_isys_frame_buff_set_abi *buf = NULL;
+ 		struct isys_fw_msgs *msg;
+@@ -343,6 +346,7 @@ static void buf_queue(struct vb2_buffer *vb)
+ 	struct device *dev = &av->isys->adev->auxdev.dev;
+ 	struct ipu6_fw_isys_frame_buff_set_abi *buf = NULL;
+ 	struct ipu6_isys_stream *stream = av->stream;
++	struct ipu6_isys_csi2 *csi2;
+ 	struct ipu6_isys_buffer_list bl;
+ 	struct isys_fw_msgs *msg;
+ 	unsigned long flags;
+@@ -366,7 +370,8 @@ static void buf_queue(struct vb2_buffer *vb)
+ 
+ 	mutex_lock(&stream->mutex);
+ 
+-	if (stream->nr_streaming != stream->nr_queues) {
++	csi2 = ipu6_isys_subdev_to_csi2(stream->asd);
++	if (!csi2->streaming) {
+ 		dev_dbg(dev, "not streaming yet, adding to incoming\n");
+ 		goto out;
+ 	}
+@@ -530,7 +535,8 @@ static int start_streaming(struct vb2_queue *q, unsigned int count)
+ 		ipu6_isys_get_isys_format(ipu6_isys_get_format(av), 0);
+ 	struct ipu6_isys_stream *stream;
+ 	struct media_pad *source_pad, *remote_pad;
+-	int nr_queues, ret;
++	bool first;
++	int ret;
+ 
+ 	dev_dbg(dev, "stream: %s: width %u, height %u, css pixelformat %u\n",
+ 		av->vdev.name, ipu6_isys_get_frame_width(av),
+@@ -550,11 +556,12 @@ static int start_streaming(struct vb2_queue *q, unsigned int count)
+ 		goto out_return_buffers;
+ 	}
+ 
+-	ret = ipu6_isys_setup_video(av, remote_pad, source_pad, &nr_queues);
++	ret = ipu6_isys_setup_video(av, remote_pad, source_pad);
+ 	if (ret < 0) {
+ 		dev_dbg(dev, "failed to setup video\n");
+ 		goto out_return_buffers;
+ 	}
++	first = ret;
+ 
+ 	ret = ipu6_isys_link_fmt_validate(aq);
+ 	if (ret) {
+@@ -570,17 +577,12 @@ static int start_streaming(struct vb2_queue *q, unsigned int count)
+ 
+ 	stream = av->stream;
+ 	mutex_lock(&stream->mutex);
+-	if (!stream->nr_streaming) {
+-		ret = ipu6_isys_video_prepare_stream(av, source_pad->entity,
+-						     nr_queues);
++	if (first) {
++		ret = ipu6_isys_video_prepare_stream(av, source_pad->entity);
+ 		if (ret)
+ 			goto out_fw_close;
+ 	}
+ 
+-	stream->nr_streaming++;
+-	dev_dbg(dev, "queue %u of %u\n", stream->nr_streaming,
+-		stream->nr_queues);
+-
+ 	list_add(&aq->node, &stream->queues);
  	ipu6_isys_configure_stream_watermark(av, source_pad->entity);
  	ipu6_isys_update_stream_watermark(av, true);
- 
--	if (stream->nr_streaming != stream->nr_queues)
--		goto out;
--
- 	ret = ipu6_isys_stream_start(av);
- 	if (ret)
- 		goto out_stream_start;
- 
--out:
- 	mutex_unlock(&stream->mutex);
- 
- 	return 0;
-@@ -626,8 +622,7 @@ static void stop_streaming(struct vb2_queue *q)
+@@ -596,7 +598,6 @@ static int start_streaming(struct vb2_queue *q, unsigned int count)
+ out_stream_start:
  	ipu6_isys_update_stream_watermark(av, false);
+ 	list_del(&aq->node);
+-	stream->nr_streaming--;
  
- 	mutex_lock(&av->isys->stream_mutex);
--	if (stream->nr_streaming == stream->nr_queues)
--		ipu6_isys_video_set_streaming(av, 0);
-+	ipu6_isys_video_set_streaming(av, 0);
+ out_fw_close:
+ 	mutex_unlock(&stream->mutex);
+@@ -626,7 +627,6 @@ static void stop_streaming(struct vb2_queue *q)
  	list_del(&aq->node);
  	mutex_unlock(&av->isys->stream_mutex);
  
+-	stream->nr_streaming--;
+ 	mutex_unlock(&stream->mutex);
+ 
+ 	ipu6_isys_stream_cleanup(av);
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+index 1165d5bc693b..9d0ed47df280 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+@@ -714,16 +714,11 @@ void ipu6_isys_close_streaming_firmware(struct ipu6_isys_video *av)
+ }
+ 
+ int ipu6_isys_video_prepare_stream(struct ipu6_isys_video *av,
+-				   struct media_entity *source_entity,
+-				   int nr_queues)
++				   struct media_entity *source_entity)
+ {
+ 	struct ipu6_isys_stream *stream = av->stream;
+ 	struct ipu6_isys_csi2 *csi2;
+ 
+-	if (WARN_ON(stream->nr_streaming))
+-		return -EINVAL;
+-
+-	stream->nr_queues = nr_queues;
+ 	atomic_set(&stream->sequence, 0);
+ 
+ 	stream->seq_index = 0;
+@@ -1099,7 +1094,7 @@ void ipu6_isys_fw_close(struct ipu6_isys *isys)
+ 
+ int ipu6_isys_setup_video(struct ipu6_isys_video *av,
+ 			  struct media_pad *remote_pad,
+-			  struct media_pad *source_pad, int *nr_queues)
++			  struct media_pad *source_pad)
+ {
+ 	const struct ipu6_isys_pixelformat *pfmt =
+ 		ipu6_isys_get_isys_format(ipu6_isys_get_format(av), 0);
+@@ -1113,16 +1108,11 @@ int ipu6_isys_setup_video(struct ipu6_isys_video *av,
+ 	struct ipu6_isys_subdev *asd = to_ipu6_isys_subdev(remote_sd);
+ 	int ret = -EINVAL;
+ 
+-	*nr_queues = 0;
+-
+ 	/* Find the root */
+ 	state = v4l2_subdev_lock_and_get_active_state(remote_sd);
+-	for_each_active_route(&state->routing, r) {
+-		(*nr_queues)++;
+-
++	for_each_active_route(&state->routing, r)
+ 		if (r->source_pad == remote_pad->index)
+ 			route = r;
+-	}
+ 
+ 	if (!route) {
+ 		v4l2_subdev_unlock_state(state);
+@@ -1150,6 +1140,7 @@ int ipu6_isys_setup_video(struct ipu6_isys_video *av,
+ 		return ret;
+ 	}
+ 
++	pipeline = video_device_pipeline(&av->vdev);
+ 	ret = video_device_pipeline_alloc_start(&av->vdev);
+ 	if (ret < 0) {
+ 		dev_dbg(dev, "media pipeline start failed\n");
+@@ -1163,7 +1154,7 @@ int ipu6_isys_setup_video(struct ipu6_isys_video *av,
+ 		return -EINVAL;
+ 	}
+ 
+-	return 0;
++	return !pipeline;
+ }
+ 
+ /*
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.h b/drivers/media/pci/intel/ipu6/ipu6-isys-video.h
+index c1d10a9f44f2..5dd70175a857 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.h
+@@ -51,8 +51,6 @@ struct ipu6_isys_stream {
+ 	unsigned int nr_output_pins;
+ 	struct ipu6_isys_subdev *asd;
+ 
+-	int nr_queues;	/* Number of capture queues */
+-	int nr_streaming;
+ 	struct list_head queues;
+ 	struct completion stream_open_completion;
+ 	struct completion stream_close_completion;
+@@ -106,14 +104,13 @@ int ipu6_isys_start_stream_firmware(struct ipu6_isys_video *av);
+ void ipu6_isys_stop_streaming_firmware(struct ipu6_isys_video *av);
+ void ipu6_isys_close_streaming_firmware(struct ipu6_isys_video *av);
+ int ipu6_isys_video_prepare_stream(struct ipu6_isys_video *av,
+-				   struct media_entity *source_entity,
+-				   int nr_queues);
++				   struct media_entity *source_entity);
+ int ipu6_isys_video_set_streaming(struct ipu6_isys_video *av, int state);
+ int ipu6_isys_fw_open(struct ipu6_isys *isys);
+ void ipu6_isys_fw_close(struct ipu6_isys *isys);
+ int ipu6_isys_setup_video(struct ipu6_isys_video *av,
+ 			  struct media_pad *remote_pad,
+-			  struct media_pad *source_pad, int *nr_queues);
++			  struct media_pad *source_pad);
+ int ipu6_isys_video_init(struct ipu6_isys_video *av);
+ void ipu6_isys_video_cleanup(struct ipu6_isys_video *av);
+ void ipu6_isys_put_stream(struct ipu6_isys_stream *stream);
 -- 
 2.47.3
 
