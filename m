@@ -1,52 +1,52 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF2F344D83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EEC93451A6
 	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765734; cv=none; b=HAoaR0VJ8WzuS0joPbb5KTBd0hw7DpapmChVemBE3pU1s2ZQ3WnKk7ZPrpVWL4Q0MO21WmlWm8q2TEp+eOzXpq7gGBJWqW3747LlvjoBN3Pvz93vSlaATFmLj0rJ0sKdpM/rDTm8m78IO7vFoOU+bcDTF5QA3bihh9GS2mdgTKs=
+	t=1775765734; cv=none; b=gX5C3PHLMqcftrKuas8gviUdNxrG7muoFlqY3rgiBYB2Fmy0wcxdkejIZnW5lJ6NXtv7zfv1jWqFVC1j43sfFYBWkhkNiSIp5AG4N+J52qHEnWeIjj6noAqbCtGJE/c8+G7WiHMW3YN1LXHnFR+Q0dKK1FVJtS1R97tZfBzA1Ak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775765734; c=relaxed/simple;
-	bh=478ULRabJKYfzjppZ8RLDd2ZFdo3bKhlhsjjh5IOp5k=;
+	bh=9HPwYzzNKCeBR09lC5sKNinj7KtoZwN0iDIT99bkfgs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=emmaqJEycdeAav6S4G/eOMbYnh/N4YLYwcprkKv5/NUAhWrrLXpsWrLrw82nlSzJ/Mh9O4GmkAyTeD3vt21nWscPOjoGmcL2XLUTApvCJPXtz+t6RUw/eYicN9XPvwjzNqJcEc+g555aaZOFqG+8zOHfeXzAaC055DoINCElxWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RSjpLJfy; arc=none smtp.client-ip=192.198.163.11
+	 MIME-Version; b=o54NMZcMCnW+igCkzrYCWS58ayxNJD4c35+20d5S6xpgrcAt9zVmqtBOUD7JbLuS0FIlFyGSA4WDOkkLaeYHRWT/sn4Mx71jykDSXoHZbpah4K7APVtxkylvPNbDukeV8QgWX8G4X0PZ9okWeZgF4+gsKNv1qDBGSn5A+Zhbyg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=egXKvPq6; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RSjpLJfy"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="egXKvPq6"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1775765733; x=1807301733;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=478ULRabJKYfzjppZ8RLDd2ZFdo3bKhlhsjjh5IOp5k=;
-  b=RSjpLJfy038yU5b0W0otTI7Y+djJQjXQYIlKl+xgF2iZP0Tv/QbCW331
-   KHrFpmG72oKSIP9vGM2cxj1U9MLUYsMnEaY5lSdIBeGCMbB3QNTV776MS
-   PI+/56sES67sR7Xf3jD7yR1fLJam1p8jxRSWeNBSPCCvckcQHmtOUVX+q
-   VSuJt00CI/YN6ImIfTKucn/ldlHYrYPLgQJeqiFm9QAWMXu1IoGUg1vIT
-   +pubwSjtAPKwfI8vSBWClf3sJw+yKdE33y6l2CTUWx4J9NPS2OY0WFjo0
-   MRfHITXr4BDG1d07CxnBT10nWS8OYZg2RqlTVZpfX/82wbaJbrFm7WPyn
-   A==;
-X-CSE-ConnectionGUID: dUKpOYAVTq6whsEjAg/lDA==
-X-CSE-MsgGUID: alox8Ii2SG6YRxMnXyjIoA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="87409121"
+  bh=9HPwYzzNKCeBR09lC5sKNinj7KtoZwN0iDIT99bkfgs=;
+  b=egXKvPq6Y6fqu3m+mY2Uq2GVOOdTajotSL9YBSf1d7vtP+g4+2NI0wu1
+   O85CYEZVUIRq5u+JHoKGvOZ7NxBDd7DnUyttE6lwgLXuCEPosavUMHtoL
+   WWvTXr3F/rcqMoTO9mDR/7AHsUeN2abgRLpQP1OTTS14iwKE0I0G5erIi
+   ZStuvC+fSxtYyfGzBY+J2f2Aj4SN4yoi/tpKTpZ6vt2zr3ChaEDoUxn68
+   cKCrZJ41ybV+lCuPfHOJ0sOitpTu9C2g1Z4zQKJHMfIeqUi9KVnYgIfc2
+   6ZI/kIn6M/sFS3PbK4t6ke+GVya1HLPZDnKGeIWwqUR8GLZbD/a/tyR47
+   g==;
+X-CSE-ConnectionGUID: lCMZDIrDTR+3o2KVxv/ZsA==
+X-CSE-MsgGUID: 9fo1L2xlRoSmyAXKHT/ZLg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="87409141"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="87409121"
+   d="scan'208";a="87409141"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
   by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:18 -0700
-X-CSE-ConnectionGUID: joFuKoifRuqz3UM639X+dA==
-X-CSE-MsgGUID: 2S71c6oqSAOKmd3HefoGAA==
+X-CSE-ConnectionGUID: mH98pPA4Sou0aONWUH8yCQ==
+X-CSE-MsgGUID: eCTICfM+Q+mhM86yxIfXMA==
 X-ExtLoop1: 1
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
   by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:11 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 5D0B1122693;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 6D0371226C5;
 	Thu, 09 Apr 2026 23:15:13 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmH-000000045lV-3MQy;
+	id 1wAvmH-000000045ll-3eQ8;
 	Thu, 09 Apr 2026 23:15:01 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -77,9 +77,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 13/86] media: Documentation: v4l: Document internal sink pads
-Date: Thu,  9 Apr 2026 23:13:48 +0300
-Message-ID: <20260409201501.975242-14-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 17/86] Revert "media: uapi: v4l: Don't expose generic metadata formats to userspace"
+Date: Thu,  9 Apr 2026 23:13:52 +0300
+Message-ID: <20260409201501.975242-18-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -91,71 +91,38 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document internal sink pads, pads that have both SINK and INTERNAL flags
-set. Use the IMX219 camera sensor as an example.
+This reverts commit d69c8429ea80af02e89e5b3eecb78e417ad049c8.
+
+Now that the API has stabilised, make the generic metadata formats visible
+for the userspace again.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Julien Massot <julien.massot@collabora.com>
 Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
 ---
- .../userspace-api/media/v4l/dev-subdev.rst    | 24 +++++++++++++++++++
- .../media/v4l/ext-ctrls-image-source.rst      |  2 ++
- 2 files changed, 26 insertions(+)
+ include/uapi/linux/videodev2.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/Documentation/userspace-api/media/v4l/dev-subdev.rst b/Documentation/userspace-api/media/v4l/dev-subdev.rst
-index 142e2cd95062..39c281991460 100644
---- a/Documentation/userspace-api/media/v4l/dev-subdev.rst
-+++ b/Documentation/userspace-api/media/v4l/dev-subdev.rst
-@@ -554,6 +554,25 @@ A stream at a specific point in the media pipeline is identified by the
- sub-device and a (pad, stream) pair. For sub-devices that do not support
- multiplexed streams the 'stream' field is always 0.
+diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
+index fe5bb00ffe91..3ba872deeeb9 100644
+--- a/include/uapi/linux/videodev2.h
++++ b/include/uapi/linux/videodev2.h
+@@ -895,7 +895,6 @@ struct v4l2_pix_format {
+ #define V4L2_META_FMT_MALI_C55_PARAMS	v4l2_fourcc('C', '5', '5', 'P') /* ARM Mali-C55 Parameters */
+ #define V4L2_META_FMT_MALI_C55_STATS	v4l2_fourcc('C', '5', '5', 'S') /* ARM Mali-C55 3A Statistics */
  
-+Internal sink pads and routing
-+------------------------------
-+
-+Cases where a single sub-device source pad is carries multiple streams, one or
-+more of which originate from within the sub-device itself, are special as there
-+is no external sink pad for such routes. In those cases, the sources of the
-+internally generated streams are represented by internal sink pads, which are
-+sink pads that have the :ref:`MEDIA_PAD_FL_INTERNAL <MEDIA-PAD-FL-INTERNAL>` pad
-+flag set.
-+
-+Internal pads have all the properties of an external pad, including formats and
-+selections. The format in this case is the source format of the stream. An
-+internal pad always has a single stream only (0).
-+
-+Routes from an internal sink pad to an external source pad are created by the
-+driver and can be activated and deactivated using the
-+:ref:`V4L2_SUBDEV_ROUTE_FL_ACTIVE <v4l2-subdev-routing-flags>` flag, depending
-+on the device capabilities.
-+
- Interaction between routes, streams, formats and selections
- -----------------------------------------------------------
+-#ifdef __KERNEL__
+ /*
+  * Line-based metadata formats. Remember to update v4l_fill_fmtdesc() when
+  * adding new ones!
+@@ -907,7 +906,6 @@ struct v4l2_pix_format {
+ #define V4L2_META_FMT_GENERIC_16	v4l2_fourcc('M', 'E', 'T', 'G') /* Generic 16-bit 8-bit metadata */
+ #define V4L2_META_FMT_GENERIC_CSI2_20	v4l2_fourcc('M', 'E', 'C', 'K') /* 20-bit CSI-2 packed 8-bit metadata */
+ #define V4L2_META_FMT_GENERIC_24	v4l2_fourcc('M', 'E', 'T', 'O') /* Generic 24-bit 8-bit metadata */
+-#endif
  
-@@ -691,3 +710,8 @@ To configure this pipeline, the userspace must take the following steps:
-    the configurations along the stream towards the receiver, using
-    :ref:`VIDIOC_SUBDEV_S_FMT <VIDIOC_SUBDEV_G_FMT>` ioctls to configure each
-    stream endpoint in each sub-device.
-+
-+   In case generic raw and metadata formats are used, :ref:`V4L2_CID_CFA_PATTERN
-+   <image-source-control-cfa-pattern>` and :ref:`V4L2_CID_METADATA_LAYOUT
-+   <image_source_control_metadata_layout>` controls are present on the source
-+   sub-device to obtain the pixel array CFA pattern and metadata layout.
-diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
-index e369978c2b50..490cd16186cd 100644
---- a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
-+++ b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
-@@ -153,6 +153,8 @@ Image Source Control IDs
- 
-     This is a read-only control.
- 
-+.. _image_source_control_metadata_layout:
-+
- ``V4L2_CID_METADATA_LAYOUT (integer)``
-     The metadata layout control defines the metadata layout on the device's data
-     interface for metadata streams. The control is used in conjunction with
+ /* priv field value to indicates that subsequent fields are valid. */
+ #define V4L2_PIX_FMT_PRIV_MAGIC		0xfeedcafe
 -- 
 2.47.3
 
