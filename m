@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1D333DEDF
-	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C8634751E
+	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765737; cv=none; b=pW5F+vMd1HqPnAOzDdjrNsMygnA7Rs6ZsYrF0rUukdPXHqsbD6NumBpXmno/SHQ8MNvTZ5F3GOoq6fDJhtI2v8CKd86laFJPKvCHheb6OWbslD8YEf5hVTLaKk8G038usl9FUz7/SGcE6DJ4zHDJbXwZ6vF5lHINqRys1YKMsxQ=
+	t=1775765738; cv=none; b=A1gvyqCu03uqUvon+syHK2XUHd880gCSxewOg+qcfRexe6kprN6QeBHpPARsZsBb7/OJH8CUBEM4vp7rGXOf3k25yu047tz7G8PW7MBUn1yvj/3h2cb3rsIhKbT19rcGndKE14lZPcaTa8VN9v69/eTksmmIrMjQ5Rj9IrPZiaw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775765737; c=relaxed/simple;
-	bh=nIPQY511UNTMFbKBi8r+dK7AoVg6JGxrJIV2oZmHKl8=;
+	s=arc-20240116; t=1775765738; c=relaxed/simple;
+	bh=DPTidinhnCY5NNjcHuKs0zz/BoUnnRFtfQ1k29vJZbE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jCRUGoWrbADxpE9vq1702OHN5I8pZpu+g4yAGqyc3SEHSWKp0P8IKUkz+n53EAABq2rMWOYxYI5jI9OPEPKFcgv6ud7r/eZYCHkXj2lacTcPN5pgwNej/SuNG/XYJDyzwBjmNyhMw7q5bmt6Dni4Aa9EaWfo1KN/Od+GrDsQTCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=A9MYj8JS; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=LJEalbMrfGXKx1oXJemBf2fPvgt+aAYAXBgewgBQn3cCHUXBxyzCRUYPojWj9N5P7EI4/bEKk4WiWgKhvrKEmrz6/+DYRzVYQvpM0UE6uyHvR4P8w2gNW5rrc3SreqlZ3qWpfWtZAWdiDckDfgJMvS5bDHTR7YI2N3+hJk3KAb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YSS91cEh; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="A9MYj8JS"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YSS91cEh"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775765736; x=1807301736;
+  t=1775765738; x=1807301738;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=nIPQY511UNTMFbKBi8r+dK7AoVg6JGxrJIV2oZmHKl8=;
-  b=A9MYj8JSrNNSk+S6XFUVht1WeyaxfCB+DyDtwn1yiC8y2RLQhPe9ARoG
-   UhAV0+hZQr1N4HA6WaxN2DW2yjuVzyQAzR9MgiUdtnch5Vsm/ci2Lu5Cn
-   PdXCiOdTZ9QcJqgSbb4EXljRRAxOqLEvu48Hyjsk2poclq5c2oEVcDbb1
-   nXWlYbj1GCaaMflA9pGst2jiPoRE3j6aGvRHcJK6kcmyTx2cy9U0huyp8
-   3RkjreQHJzNJZsByUTG2Gwsp0lUZVeKPZW9In0wH4M9DQ8tKcOOEvpfXI
-   RzeqHJ5jgbHxwP+owv/JlKliOVvU6r52LJgeTXoI6bT24Gol4Xorqje8D
-   A==;
-X-CSE-ConnectionGUID: bUgktdSYTxKJRUep2k14QQ==
-X-CSE-MsgGUID: DgGPFXMBT16Dbq1/yNJrLA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176558"
+  bh=DPTidinhnCY5NNjcHuKs0zz/BoUnnRFtfQ1k29vJZbE=;
+  b=YSS91cEhb12IdCLfq41UFHwYFO+Bw2HkI2oVEIQabEylT3CiazY8NAVv
+   Du5jwY0PQv72GbaPsIIhBNml6AGcjI6fH+03zLNcPPry/KH1TrSLuiuX0
+   1Zu88p21+1Y8bRN+TG43IjV7WcxlMwziA8QLzEgB+4EAIxqFVuHmtewLM
+   C3Zpmh/N8dq+NL0XT5BZZZp2iGEGNJtnbvH3Jb8U5ii1x/rFeSwWS1DJ8
+   WbTVDFZs5VnFqUereknRiKoYkUMca6be9JJMqI4YlLWp3ieY+Mnv388Ej
+   1ZAOJsFSOddp4nZa08U3Ym0vQHWLn04xLiKPg1rWxi4MiQ6h7varws8Yw
+   Q==;
+X-CSE-ConnectionGUID: xm/bwVxUQQyDcEEY1pnAWg==
+X-CSE-MsgGUID: 0S9wWg6MRuSy4blpInvKDw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176578"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="94176558"
+   d="scan'208";a="94176578"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:26 -0700
-X-CSE-ConnectionGUID: ACkhWQITQpSwWFpnNmYxvQ==
-X-CSE-MsgGUID: hmAbdQCqT/2ILuxeYRSPCw==
+X-CSE-ConnectionGUID: YOHlZaYzQAC715Uykga6xw==
+X-CSE-MsgGUID: 7Un/qYPyQtOxXi2mJi1wow==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="228047546"
+   d="scan'208";a="228047548"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
   by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:20 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id BB1371228FF;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id B12A01228F5;
 	Thu, 09 Apr 2026 23:15:13 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmI-000000045n3-0mNc;
+	id 1wAvmI-000000045mv-0dEj;
 	Thu, 09 Apr 2026 23:15:02 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -79,9 +79,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 37/86] media: Documentation: Add sub-device internal pads example
-Date: Thu,  9 Apr 2026 23:14:12 +0300
-Message-ID: <20260409201501.975242-38-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 35/86] media: Documentation: Document frame controls for common raw sensor model
+Date: Thu,  9 Apr 2026 23:14:10 +0300
+Message-ID: <20260409201501.975242-36-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -93,153 +93,61 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add an example using sub-device internal pads, with the Sony IMX219 camera
-sensor.
+Document that V4L2_CID_LINE_LENGTH_PIXELS V4L2_CID_FRAME_LENGTH_LINES are
+used to configure frame rate in common raw camera sensor model. Also
+mention the controls in camera sensor documentation.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 ---
- .../userspace-api/media/v4l/dev-subdev.rst    | 129 ++++++++++++++++++
- 1 file changed, 129 insertions(+)
+ .../userspace-api/media/drivers/camera-sensor.rst         | 8 ++++++++
+ .../userspace-api/media/v4l/subdev-config-model.rst       | 8 ++++++++
+ 2 files changed, 16 insertions(+)
 
-diff --git a/Documentation/userspace-api/media/v4l/dev-subdev.rst b/Documentation/userspace-api/media/v4l/dev-subdev.rst
-index 2fc81e0205dc..a9d462b57b54 100644
---- a/Documentation/userspace-api/media/v4l/dev-subdev.rst
-+++ b/Documentation/userspace-api/media/v4l/dev-subdev.rst
-@@ -729,4 +729,133 @@ To configure this pipeline, the userspace must take the following steps:
-    controls are present on the source sub-device to obtain the pixel array CFA
-    pattern and metadata layout.
+diff --git a/Documentation/userspace-api/media/drivers/camera-sensor.rst b/Documentation/userspace-api/media/drivers/camera-sensor.rst
+index aa05681c7090..6d9dadab3277 100644
+--- a/Documentation/userspace-api/media/drivers/camera-sensor.rst
++++ b/Documentation/userspace-api/media/drivers/camera-sensor.rst
+@@ -61,6 +61,8 @@ There are two different methods for obtaining possibilities for different frame
+ intervals as well as configuring the frame interval. Which one to implement
+ depends on the type of the device.
  
-+Internal pads setup example
-+---------------------------
++.. _media_camera_sensor_frame_rate_raw:
 +
-+A simple example of a multiplexed stream setup might be as follows:
+ Raw camera sensors
+ ~~~~~~~~~~~~~~~~~~
+ 
+@@ -78,6 +80,12 @@ The formula is bus independent and is applicable for raw timing parameters on
+ large variety of devices beyond camera sensors. Devices that have no analogue
+ crop, use the full source image size, i.e. pixel array size.
+ 
++The combined *analogue crop width + horizontal blanking* and *analogue crop
++height + vertical blanking* can be controlled directly using the
++:ref:`V4L2_CID_LINE_LENGTH_PIXELS and V4L2_CID_FRAME_LENGTH_LINES
++<image_source_control_frame_length>` controls, respectively, should the driver
++support them.
 +
-+- An IMX219 camera sensor source sub-device, with one source pad (0), one
-+  internal sink pad (1) as the source of the image data and an internal sink
-+  pad (2) as the source of the embedded data. There are two routes, one from the
-+  internal sink pad 1 to the source pad 0 (image data) and another from the
-+  internal sink pad 2 to the source pad 0 (embedded data). Both streams are
-+  always active, i.e. there is no need to separately enable the embedded data
-+  stream. The sensor uses the CSI-2 interface.
+ Horizontal and vertical blanking are specified by ``V4L2_CID_HBLANK`` and
+ ``V4L2_CID_VBLANK``, respectively. The unit of the ``V4L2_CID_HBLANK`` control
+ is pixels and the unit of the ``V4L2_CID_VBLANK`` is lines. The pixel rate in
+diff --git a/Documentation/userspace-api/media/v4l/subdev-config-model.rst b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
+index fb6d8a1bcac7..1923ccbafdd0 100644
+--- a/Documentation/userspace-api/media/v4l/subdev-config-model.rst
++++ b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
+@@ -262,6 +262,14 @@ Also refer to :ref:`Selection targets <v4l2-selection-targets-table>`.
+       - \-
+       - Embedded data source format.
+ 
++Frame rate
++^^^^^^^^^^
 +
-+- A CSI-2 receiver in the SoC. The receiver has a single sink pad (pad 0),
-+  connected to the sensor's source pad (0), and two source pads (pads 1 and 2),
-+  to two DMA engines. The receiver demultiplexes the incoming streams to the
-+  source pads.
++Drivers supporting the Common raw camera sensor model support
++:ref:`V4L2_CID_LINE_LENGTH_PIXELS and V4L2_CID_FRAME_LENGTH_LINES
++<image_source_control_frame_length>` controls for :ref:`frame rate configuration
++<media_camera_sensor_frame_rate_raw>`.
 +
-+- Two DMA engines in the SoC, one for each stream. Each DMA engine is connected
-+  to a different source pad of the receiver.
-+
-+The sensor and the receiver are modelled as V4L2 sub-devices, exposed to
-+userspace via /dev/v4l-subdevX device nodes. The DMA engines are modelled as
-+V4L2 video devices, exposed to userspace via /dev/videoX nodes.
-+
-+To configure this pipeline, the userspace must take the following steps:
-+
-+1) Set up media links between entities: enable the links from the sensor to the
-+   receiver and from the receiver to the DMA engines. This step does not differ
-+   from normal non-multiplexed media controller setup.
-+
-+2) Configure routing
-+
-+.. flat-table:: Camera sensor. There are no configurable routes.
-+    :header-rows: 1
-+
-+    * - Sink Pad/Stream
-+      - Source Pad/Stream
-+      - Routing Flags
-+      - Comments
-+    * - 1/0
-+      - 0/0
-+      - V4L2_SUBDEV_ROUTE_FL_ACTIVE | V4L2_SUBDEV_ROUTE_FL_IMMUTABLE |
-+        V4L2_SUBDEV_ROUTE_FL_STATIC
-+      - Pixel data stream from the internal image sink pad
-+    * - 2/0
-+      - 0/1
-+      - V4L2_SUBDEV_ROUTE_FL_ACTIVE | V4L2_SUBDEV_ROUTE_FL_IMMUTABLE |
-+        V4L2_SUBDEV_ROUTE_FL_STATIC
-+      - Metadata stream from the internal embedded data sink pad
-+
-+While both routes are immutable for the IMX219, other camera sensors may offer
-+more flexible configuration options. Routing configuration is dictated by the
-+hardware capabilities: camera sensors typically always produce an image data
-+stream, but some of them support enabling and disabling the embedded data
-+stream.
-+
-+.. flat-table:: Receiver routing table. Typically both routes need to be
-+		explicitly created.
-+    :header-rows:  1
-+
-+    * - Sink Pad/Stream
-+      - Source Pad/Stream
-+      - Routing Flags
-+      - Comments
-+    * - 0/0
-+      - 1/0
-+      - V4L2_SUBDEV_ROUTE_FL_ACTIVE
-+      - Pixel data stream from camera sensor
-+    * - 0/1
-+      - 2/0
-+      - V4L2_SUBDEV_ROUTE_FL_ACTIVE
-+      - Metadata stream from camera sensor
-+
-+3) Configure formats
-+
-+   This example assumes that the formats are propagated from sink pad to the
-+   source pad as-is. The tables contain fields of both struct v4l2_subdev_format
-+   and struct v4l2_mbus_framefmt.
-+
-+.. flat-table:: Formats set on the sub-devices. Bold values are set, others are
-+                static or propagated. The order is aligned with configured
-+                routes.
-+    :header-rows: 1
-+    :fill-cells:
-+
-+    * - Sub-device
-+      - Pad/Stream
-+      - Width
-+      - Height
-+      - Code
-+    * - :rspan:`3` IMX219
-+      - 1/0
-+      - 3296
-+      - 2480
-+      - MEDIA_BUS_FMT_RAW_10
-+    * - 0/0
-+      - 3296
-+      - 2480
-+      - **MEDIA_BUS_FMT_RAW_10**
-+    * - 2/0
-+      - 3296
-+      - 2
-+      - MEDIA_BUS_FMT_META_10
-+    * - 0/1
-+      - 3296
-+      - 2
-+      - MEDIA_BUS_FMT_META_10
-+    * - :rspan:`3` CSI-2 receiver
-+      - 0/0
-+      - **3296**
-+      - **2480**
-+      - **MEDIA_BUS_FMT_RAW_10**
-+    * - 1/0
-+      - 3296
-+      - 2480
-+      - MEDIA_BUS_FMT_RAW_10
-+    * - 0/1
-+      - **3296**
-+      - **2**
-+      - **MEDIA_BUS_FMT_META_10**
-+    * - 2/0
-+      - 3296
-+      - 2
-+      - MEDIA_BUS_FMT_META_10
-+
-+The embedded data format does not need to be configured on the sensor's pads as
-+the format is dictated by the pixel data format in this case.
-+
- .. include:: subdev-config-model.rst
+ Embedded data
+ ^^^^^^^^^^^^^
+ 
 -- 
 2.47.3
 
