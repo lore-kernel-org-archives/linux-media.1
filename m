@@ -1,55 +1,53 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C54B342CBA
-	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF2F344D83
+	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765734; cv=none; b=cxv+NwyVQ4vgpKpwKKp0o/loKDUPxo5QSKFbGPB5ww30xOpc0HclsEHn4vdq2xkXlUwvBTen/xuBEDXgtQ7COV1z64U8SRVE1xRNyrd96YnMn0vkcYdHaERWBwwZKNudT1LpKoDVVKk/nWE6WpqKcjP5arEJnN1wzpAq5zgfuYM=
+	t=1775765734; cv=none; b=HAoaR0VJ8WzuS0joPbb5KTBd0hw7DpapmChVemBE3pU1s2ZQ3WnKk7ZPrpVWL4Q0MO21WmlWm8q2TEp+eOzXpq7gGBJWqW3747LlvjoBN3Pvz93vSlaATFmLj0rJ0sKdpM/rDTm8m78IO7vFoOU+bcDTF5QA3bihh9GS2mdgTKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775765734; c=relaxed/simple;
-	bh=oLfm7W1lexeKYW6WKnolXXU+zcmSnrPNvSSJt/eKRTA=;
+	bh=478ULRabJKYfzjppZ8RLDd2ZFdo3bKhlhsjjh5IOp5k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bnmFJ0wDg61JSosB9h2AK/cwTR2HwWwaO8RX6Joz6HKK1MniFI39fC2n1EKmpGkHSxvAAg/icTvWiU7zIWYhO16QoeFKUSMKmlkxYFm/UAEA27RTkunB+keWCeLYuy8cFE0JgMelBvrziGv8ZvD3H9iOXgsyK72iOAHt03w1p1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cUCgYnbq; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=emmaqJEycdeAav6S4G/eOMbYnh/N4YLYwcprkKv5/NUAhWrrLXpsWrLrw82nlSzJ/Mh9O4GmkAyTeD3vt21nWscPOjoGmcL2XLUTApvCJPXtz+t6RUw/eYicN9XPvwjzNqJcEc+g555aaZOFqG+8zOHfeXzAaC055DoINCElxWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RSjpLJfy; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cUCgYnbq"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RSjpLJfy"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775765732; x=1807301732;
+  t=1775765733; x=1807301733;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=oLfm7W1lexeKYW6WKnolXXU+zcmSnrPNvSSJt/eKRTA=;
-  b=cUCgYnbqkx4sSv/XEBt+iBOzWv4xB3IS9gsHkyRXLVvFnr1ueeddMY9w
-   E4xWggLpKzrsejVr6pUZGsbR1Pby2MwygnxHNgt+NAxhFKtWh8UqGd6Om
-   2vNGJjZqFNsWmOn9vyFtsjEorjSx1HC+jKlC5ISsRPBt2lwidgXSd3wAC
-   j2YOq5HYsAyrW1YaudUAs0odshrJzU3lirCyYbSIo2APTEgFGqU/FegpZ
-   dQw9nG39O/Xdrxu/hLFH1tA4fD6A93E7sXW91jr26/FPeEZCqzXzqsR1d
-   +pWyI4gGpF9PswkaCWLUkBkRZ/QMhY0YPgjwHPSTsy2FwMwXK4gSJ12kB
-   Q==;
-X-CSE-ConnectionGUID: SqlMbSCQTeWIGLjMqbf0aw==
-X-CSE-MsgGUID: JpY7c4uFRkelre6812N53Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176470"
+  bh=478ULRabJKYfzjppZ8RLDd2ZFdo3bKhlhsjjh5IOp5k=;
+  b=RSjpLJfy038yU5b0W0otTI7Y+djJQjXQYIlKl+xgF2iZP0Tv/QbCW331
+   KHrFpmG72oKSIP9vGM2cxj1U9MLUYsMnEaY5lSdIBeGCMbB3QNTV776MS
+   PI+/56sES67sR7Xf3jD7yR1fLJam1p8jxRSWeNBSPCCvckcQHmtOUVX+q
+   VSuJt00CI/YN6ImIfTKucn/ldlHYrYPLgQJeqiFm9QAWMXu1IoGUg1vIT
+   +pubwSjtAPKwfI8vSBWClf3sJw+yKdE33y6l2CTUWx4J9NPS2OY0WFjo0
+   MRfHITXr4BDG1d07CxnBT10nWS8OYZg2RqlTVZpfX/82wbaJbrFm7WPyn
+   A==;
+X-CSE-ConnectionGUID: dUKpOYAVTq6whsEjAg/lDA==
+X-CSE-MsgGUID: alox8Ii2SG6YRxMnXyjIoA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="87409121"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="94176470"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:26 -0700
-X-CSE-ConnectionGUID: RRyY85nJT/iQDBU7aWxBZA==
-X-CSE-MsgGUID: 8uvAGbCYTIiMLc3eoI57RQ==
+   d="scan'208";a="87409121"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:18 -0700
+X-CSE-ConnectionGUID: joFuKoifRuqz3UM639X+dA==
+X-CSE-MsgGUID: 2S71c6oqSAOKmd3HefoGAA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="228047530"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:20 -0700
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:11 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id AFBFF1228C8;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 5D0B1122693;
 	Thu, 09 Apr 2026 23:15:13 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmI-000000045mr-0YaY;
-	Thu, 09 Apr 2026 23:15:02 +0300
+	id 1wAvmH-000000045lV-3MQy;
+	Thu, 09 Apr 2026 23:15:01 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: linux-media@vger.kernel.org
@@ -79,9 +77,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 34/86] media: uapi: Add binning factor helper macros
-Date: Thu,  9 Apr 2026 23:14:09 +0300
-Message-ID: <20260409201501.975242-35-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 13/86] media: Documentation: v4l: Document internal sink pads
+Date: Thu,  9 Apr 2026 23:13:48 +0300
+Message-ID: <20260409201501.975242-14-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -93,31 +91,71 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add helper macros for handling binning factor integer control menu items.
+Document internal sink pads, pads that have both SINK and INTERNAL flags
+set. Use the IMX219 camera sensor as an example.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Julien Massot <julien.massot@collabora.com>
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
 ---
- include/uapi/linux/v4l2-controls.h | 7 +++++++
- 1 file changed, 7 insertions(+)
+ .../userspace-api/media/v4l/dev-subdev.rst    | 24 +++++++++++++++++++
+ .../media/v4l/ext-ctrls-image-source.rst      |  2 ++
+ 2 files changed, 26 insertions(+)
 
-diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
-index 60f0fb599926..aaa0d88d7e6e 100644
---- a/include/uapi/linux/v4l2-controls.h
-+++ b/include/uapi/linux/v4l2-controls.h
-@@ -1250,6 +1250,13 @@ enum v4l2_jpeg_chroma_subsampling {
- #define V4L2_CID_METADATA_LAYOUT		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 12)
+diff --git a/Documentation/userspace-api/media/v4l/dev-subdev.rst b/Documentation/userspace-api/media/v4l/dev-subdev.rst
+index 142e2cd95062..39c281991460 100644
+--- a/Documentation/userspace-api/media/v4l/dev-subdev.rst
++++ b/Documentation/userspace-api/media/v4l/dev-subdev.rst
+@@ -554,6 +554,25 @@ A stream at a specific point in the media pipeline is identified by the
+ sub-device and a (pad, stream) pair. For sub-devices that do not support
+ multiplexed streams the 'stream' field is always 0.
  
- #define V4L2_CID_BINNING_FACTORS		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 13)
-+#define V4L2_BINNING_FACTORS_MAKE(hnum, hdem, vnum, vdem)		\
-+	(((uint64_t)(0xffff & hnum) << 48) | ((uint64_t)(0xffff & hdem) << 32) | \
-+	 ((uint64_t)(0xffff & vnum) << 16) | (uint64_t)(0xffff & vdem))
-+#define V4L2_BINNING_FACTORS_HNUM(binning)	((binning >> 48) & 0xffff)
-+#define V4L2_BINNING_FACTORS_HDEM(binning)	((binning >> 32) & 0xffff)
-+#define V4L2_BINNING_FACTORS_VNUM(binning)	((binning >> 16) & 0xffff)
-+#define V4L2_BINNING_FACTORS_VDEM(binning)	(binning & 0xffff)
- #define V4L2_CID_SUBSAMPLING_HORIZONTAL		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 14)
- #define V4L2_CID_SUBSAMPLING_VERTICAL		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 15)
++Internal sink pads and routing
++------------------------------
++
++Cases where a single sub-device source pad is carries multiple streams, one or
++more of which originate from within the sub-device itself, are special as there
++is no external sink pad for such routes. In those cases, the sources of the
++internally generated streams are represented by internal sink pads, which are
++sink pads that have the :ref:`MEDIA_PAD_FL_INTERNAL <MEDIA-PAD-FL-INTERNAL>` pad
++flag set.
++
++Internal pads have all the properties of an external pad, including formats and
++selections. The format in this case is the source format of the stream. An
++internal pad always has a single stream only (0).
++
++Routes from an internal sink pad to an external source pad are created by the
++driver and can be activated and deactivated using the
++:ref:`V4L2_SUBDEV_ROUTE_FL_ACTIVE <v4l2-subdev-routing-flags>` flag, depending
++on the device capabilities.
++
+ Interaction between routes, streams, formats and selections
+ -----------------------------------------------------------
  
+@@ -691,3 +710,8 @@ To configure this pipeline, the userspace must take the following steps:
+    the configurations along the stream towards the receiver, using
+    :ref:`VIDIOC_SUBDEV_S_FMT <VIDIOC_SUBDEV_G_FMT>` ioctls to configure each
+    stream endpoint in each sub-device.
++
++   In case generic raw and metadata formats are used, :ref:`V4L2_CID_CFA_PATTERN
++   <image-source-control-cfa-pattern>` and :ref:`V4L2_CID_METADATA_LAYOUT
++   <image_source_control_metadata_layout>` controls are present on the source
++   sub-device to obtain the pixel array CFA pattern and metadata layout.
+diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
+index e369978c2b50..490cd16186cd 100644
+--- a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
++++ b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
+@@ -153,6 +153,8 @@ Image Source Control IDs
+ 
+     This is a read-only control.
+ 
++.. _image_source_control_metadata_layout:
++
+ ``V4L2_CID_METADATA_LAYOUT (integer)``
+     The metadata layout control defines the metadata layout on the device's data
+     interface for metadata streams. The control is used in conjunction with
 -- 
 2.47.3
 
