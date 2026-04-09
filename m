@@ -1,53 +1,55 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896CC345724
-	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FFDD342523
+	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765734; cv=none; b=TZ8BCW3nhN+P3bk6LTsIHmhuxBnZtmE8FDGSlShkCRtyYb3vpPVIYX6xcCJGt8ogxBr7Un41x9EJMZD2d/dBRB3aUWY31756UUlvAo/WMrQCGUzLZs33FfkqdyqjFsH3KME+FpHiDkPwS2w81eYNrkJ3AcA5MsdmNhbF33kRBJY=
+	t=1775765735; cv=none; b=iACH0vHY1IbLqMPDskAZkciV1sBIH83bOa44H4y16CP+11JHs+1gOMqgvnLuHBXp9/QOY4NGAsw4iAZq3APezK4I6UU1RqQONFz/Y9/kaSf7fhOoeWS0PZYs7MXrTSobQGBiqMjv4pZHHbU0bUMVeHrFlVFlgc/Nkdyj9IvN1ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775765734; c=relaxed/simple;
-	bh=n0N4kXmSvUGOCkefV8fZpTl9zTNQUahjAqEYmJMyqI0=;
+	s=arc-20240116; t=1775765735; c=relaxed/simple;
+	bh=XE2jaSktc+PbpgidHQ+xG0/AcM9uG8YWR5uuFb3cV9I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bD7fO/yx0Iq7dzdK/+bCy/wKGlXRnQecqGDOZwWOR/0UpY/BW8hLdCMZvhYa/t0IjORm63Mhl9u/FvDR5yJU5Hwbs/HdZof+90BLjD0DHED9BWQ7oYL658JSBH9tHQe1CUlMh9I/aWUjoVz3GcXBaOHlsAKpjem6/fMUzYz04Ls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GKqNaZot; arc=none smtp.client-ip=192.198.163.11
+	 MIME-Version; b=mQPxcSkpwmwENspRxAAn5aXyP3Ge2EOcKyLXSG4oeQ6W6K503EfC0L/OXTpgYdVDF3NptxKjnebP7Ex3TJmV699og1YQQ5yqOXFb4xKJnq52a1ipt0YGH6nSAjTmCI6I0VF1QmF4AuOQX339iAcJhV1nh9l8Aw7/cKJ7SJhjCMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UCtWqF79; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GKqNaZot"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UCtWqF79"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775765733; x=1807301733;
+  t=1775765734; x=1807301734;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=n0N4kXmSvUGOCkefV8fZpTl9zTNQUahjAqEYmJMyqI0=;
-  b=GKqNaZotJRb1WefyYqdruFSgOliPbRsvBDHdySQq1Bo4cenXmPfJ4PXk
-   TDhWf5QioxjJuGJowtRKUEbouDClLEspb+4KKdevI3JUugQuOmTjUT2kb
-   CbMeHTYIK3yblwoegMMLrB7r85Cgt0KsEa2R8JojOQyufV1XZd6vTPECw
-   cHIvmbetIB5fCUtli2SICvRbin41944Q3F0UFP6nO1ZiDLRS1iB/D4YR6
-   3+RYaJ3Nc53mVXSHmLRxnV2KAbi3eMEPjO2mzZTz1iaIh4TTsMDmTReGx
-   Fyl+/+t+9oVf+xGsWWr22LOBRzvb4894B7aszwmpF2X5sg/82qitt7pdA
-   Q==;
-X-CSE-ConnectionGUID: 0GDAHqlGRO+CbP+X6GQd7Q==
-X-CSE-MsgGUID: bk6waqVbR9qnPMWZXk/QiQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="87409145"
+  bh=XE2jaSktc+PbpgidHQ+xG0/AcM9uG8YWR5uuFb3cV9I=;
+  b=UCtWqF79QQu7NNnNIJm6WSsD9zM6B5I/aQK+9xsKnh+6MdtR6PFMbfG/
+   Xd0B+hk32NIt4s1NzRrV2v45AJAgct8/guB9tzyJAv9jXyNzhCtOGJlTJ
+   rn5DVLpNQfwsoDDuqoznET90qIML1H6lmtqX/yLqqLV8Wkc7ZIQbODfjF
+   kznPD01dWelYLG0+m1rr7EiyClCkPKw0lsCcPnZnnkflGKj8kdmIHYWH3
+   VWEEgcR3NvrM31QY5xy0UKA1FvvvEz0hwob+ruRkHFqKMm+1W6AbChe6w
+   RsXK9sC+uGqmz1WUp79b0oipuK326DrpXwjjzV6F9KMZ7Y1ZNDQZ+MiA9
+   g==;
+X-CSE-ConnectionGUID: detptdXlSMO/BvmaOUphlw==
+X-CSE-MsgGUID: 3rytf+NoRFu0NnV8sbBCqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176508"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="87409145"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:18 -0700
-X-CSE-ConnectionGUID: mcqOTqpXSQi5nRAE9ZcQNQ==
-X-CSE-MsgGUID: q/Skv7P5SNCvg3uPKb1bnQ==
+   d="scan'208";a="94176508"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:26 -0700
+X-CSE-ConnectionGUID: +TP5x4T5Qqudo4ULDaAqfw==
+X-CSE-MsgGUID: x85LY+LVRauJTZMN9XNTOw==
 X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
+   d="scan'208";a="228047534"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:11 -0700
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:20 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 58F6112260E;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id B97871228F7;
 	Thu, 09 Apr 2026 23:15:13 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmH-000000045lR-3GvH;
-	Thu, 09 Apr 2026 23:15:01 +0300
+	id 1wAvmI-000000045mz-0hJG;
+	Thu, 09 Apr 2026 23:15:02 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: linux-media@vger.kernel.org
@@ -77,9 +79,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 12/86] media: Documentation: Refer to metadata layout in metadata documentation
-Date: Thu,  9 Apr 2026 23:13:47 +0300
-Message-ID: <20260409201501.975242-13-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 36/86] media: v4l2-ctrl: Improve v4l2_ctrl_g_ctrl{,int64} documentation
+Date: Thu,  9 Apr 2026 23:14:11 +0300
+Message-ID: <20260409201501.975242-37-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -91,39 +93,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Using generic metadata mbus codes requires the use of
-V4L2_CID_METADATA_LAYOUT control to define the metadata layout. Document
-this in generic metadata format documentation.
+Improve documentation of v4l2_ctrl_g_ctrl() and v4l2_ctrl_g_ctrl_int64()
+by documenting what the function returns on error (i.e. 0).
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 ---
- Documentation/userspace-api/media/v4l/metafmt-generic.rst | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ include/media/v4l2-ctrls.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/Documentation/userspace-api/media/v4l/metafmt-generic.rst b/Documentation/userspace-api/media/v4l/metafmt-generic.rst
-index 23f69e1a1afa..7226b4810088 100644
---- a/Documentation/userspace-api/media/v4l/metafmt-generic.rst
-+++ b/Documentation/userspace-api/media/v4l/metafmt-generic.rst
-@@ -8,12 +8,16 @@ V4L2_META_FMT_GENERIC_8 ('MET8'), V4L2_META_FMT_GENERIC_CSI2_10 ('MC1A'), V4L2_M
+diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
+index 327976b14d50..183683b6add8 100644
+--- a/include/media/v4l2-ctrls.h
++++ b/include/media/v4l2-ctrls.h
+@@ -1105,6 +1105,8 @@ const s64 *v4l2_ctrl_get_int_menu(u32 id, u32 *len);
+  * used from within the &v4l2_ctrl_ops functions.
+  *
+  * This function is for integer type controls only.
++ *
++ * Returns: the value of the control or 0 on error.
+  */
+ s32 v4l2_ctrl_g_ctrl(struct v4l2_ctrl *ctrl);
  
- Generic line-based metadata formats
- 
--
- Description
- ===========
- 
- These generic line-based metadata formats define the memory layout of the data
--without defining the format or meaning of the metadata itself.
-+without defining the format or meaning of the metadata itself. These formats may
-+only be used with a Media Controller pipeline where the exact metadata layout is
-+reported using the :ref:`V4L2_CID_METADATA_LAYOUT control
-+<image_source_control_metadata_layout>` by the sub-device generating the
-+metadata. See also :ref:`source routes <subdev-routing>`.
-+
- 
- .. _v4l2-meta-fmt-generic-8:
+@@ -1156,6 +1158,8 @@ static inline int v4l2_ctrl_s_ctrl(struct v4l2_ctrl *ctrl, s32 val)
+  * used from within the &v4l2_ctrl_ops functions.
+  *
+  * This function is for 64-bit integer type controls only.
++ *
++ * Returns: the value of the control or 0 on error.
+  */
+ s64 v4l2_ctrl_g_ctrl_int64(struct v4l2_ctrl *ctrl);
  
 -- 
 2.47.3
