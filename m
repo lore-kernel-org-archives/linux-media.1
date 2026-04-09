@@ -1,53 +1,55 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11C60342C8B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE8733B970
 	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765733; cv=none; b=GbfxAanPkxNoMf7h0dLcXJLlveqnGadZ54fKTJ2LOQky+YgFGHxJCPzroi24K4hsCyb7lNZbdBKnx11BY9J76FYtcuRBhrqisG89Oqm/HP+cecnnofBlrCZSs5/cgjHvJfZh7UEYubsJ3taFhmxfEEMCjHGkpo0vJc5F0zqJEgo=
+	t=1775765733; cv=none; b=QwcBeJJqLNXc/UIPmPK24l1Bqkx9GbIcpclS5IXxONMcWppoJWCYQo0gqwayJZ9rvFL86yzRvbmJgIgzae6H3MC9JNSJCj8lavIFPKVX+P/U0uag3cPhVssRwEU3Hw85cCrktSOznczeiD/CpPYEk5Dk/Ma/59P26P3gYgJwdpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775765733; c=relaxed/simple;
-	bh=k1NrOMfI2tzAZDAZ+YBnxP3sziYL4HgAp4wFMtJRmZ4=;
+	bh=G1Jq09kAIPrhLlXnBT28MIGa7AvCvLJ2b63vI4B2S/Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VlWJCf/ew1v7fKKs8hDksbLG4IkMsdHVIilK1BMaf7PQyJLBH9biMgEk0/afuDbJow1Dnplvu60tGwz+0vchNv4eOnmhPJi3lI5P8HulxU2VqwFQvhBmNbOXpWEr/vH6lm3Dh70klr8gD1HiSzGq5+1X2mogD/q4lDggZd4yYco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=V+32KBtn; arc=none smtp.client-ip=192.198.163.11
+	 MIME-Version; b=SeuYCuZvKiEn6mx0kGQ3QP+CZyAWWVKM+7BTaC8ULq/l2Le2p8shB0XQ6zaAVJrOgkYbbxxK8swdMiyw8eyCOQRJPEhShRFUvEkYJL7bNEhbUdM7c4AsLuiyu0+fFpqfosJQFgdxCdDNC6x2S+WDKAB/rfO2horqehRfrBmMQGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VJMPY1Hz; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="V+32KBtn"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VJMPY1Hz"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775765732; x=1807301732;
+  t=1775765733; x=1807301733;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=k1NrOMfI2tzAZDAZ+YBnxP3sziYL4HgAp4wFMtJRmZ4=;
-  b=V+32KBtngVI9GD89FWS58wYsRXajIyXBTx4IOdjOssuKMRmAEA06aGIZ
-   Vg5lkuZLXhgvM+MRtcDil/Mw6Vy2dh/y02klVYsY8HcOhlKpCwlbTOuAC
-   ykvGU0sfcUbTGbH0UcAXRrAxPpx8lMkxQ2Je0D1EhZcZNIXmYFVANPTN6
-   Vw4giCbC2Obc1llIT5m8rp1FLIZ7dyniq7Xr6EmeWg7L/mLw7N89HW9sU
-   axcrn8QVf8de4X/Enmb7/IGsGcgQMGsW+ugTWELOupXSIKCSPBXFdpa+Z
-   nD/bGoF9UwNIWnTNVdHb/HRtAbSSgZo3hcJIRhaWcp3ZtnsEQJuWLB9YX
-   g==;
-X-CSE-ConnectionGUID: J+mvV2apT120N37f3oc7zA==
-X-CSE-MsgGUID: Parkw2KaTdOPsWvfnDpM6A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="87409119"
+  bh=G1Jq09kAIPrhLlXnBT28MIGa7AvCvLJ2b63vI4B2S/Q=;
+  b=VJMPY1Hz+P2mjkzvTqNugKFrc9f10zoo7ech9cW++2mupEO4NTBRIDz4
+   jUNcv0/Xi4+2vVI4jvYpjZozsx7COiAzU4PWoWThRtz3CoKI/AEFhHTlS
+   DqzfmkoXliuxsY+kjuIscl4tBYp+EIohDbBxaYp5rpLP0OR0eLCDFzMsf
+   XZDMgHqQwnBobn00QrAbVKWylb+3P8iGtqmi5/Ra+8uuIHZfsSvGs+NME
+   rPTbrG33kHb6LXXr4l0wiAtw7r5VzJCE1dzzN/j3GdaHY7qkdWK3OGotZ
+   WNW4j5ioYRyav1J25EySakQxhzvjec867xiVBbwPASbB9oE3N/yySiQC3
+   w==;
+X-CSE-ConnectionGUID: O/v+rZtpSvOUiTHSv9q6Ww==
+X-CSE-MsgGUID: vAApMiukSsWxvt0H18heVg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176483"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="87409119"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:18 -0700
-X-CSE-ConnectionGUID: ++emIfYqRTuBaWowOBrZ6w==
-X-CSE-MsgGUID: xxpy2efGQziLHTyYwef/EA==
+   d="scan'208";a="94176483"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:26 -0700
+X-CSE-ConnectionGUID: VApJF4upSgWEKC1SopS4ug==
+X-CSE-MsgGUID: OsGxhZ90Syaeptz2Z187zA==
 X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
+   d="scan'208";a="228047536"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:11 -0700
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:19 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 64C281226B4;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 9D64312288C;
 	Thu, 09 Apr 2026 23:15:13 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmH-000000045ld-3V3w;
-	Thu, 09 Apr 2026 23:15:01 +0300
+	id 1wAvmI-000000045mb-0HEP;
+	Thu, 09 Apr 2026 23:15:02 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: linux-media@vger.kernel.org
@@ -77,9 +79,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 15/86] media: Documentation: Document non-CCS use of CCS embedded data layout
-Date: Thu,  9 Apr 2026 23:13:50 +0300
-Message-ID: <20260409201501.975242-16-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 30/86] media: Documentation: Add binning and sub-sampling controls
+Date: Thu,  9 Apr 2026 23:14:05 +0300
+Message-ID: <20260409201501.975242-31-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -91,38 +93,55 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The CCS embedded data layout has multiple aspects (packing, encoding and
-the rest, including register addresses and semantics). Explicitly allow
-non-compliant embedded data to use the two former to reduce redundant
-documentation.
+Document the binning and scaling controls (V4L2_CID_BINNING and
+V4L2_CID_SUBSAMPLING_{HORIZONTAL,VERTICAL}) in the common raw sensor
+model.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- .../userspace-api/media/drivers/camera-sensor.rst   | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ .../media/v4l/subdev-config-model.rst         | 20 ++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/userspace-api/media/drivers/camera-sensor.rst b/Documentation/userspace-api/media/drivers/camera-sensor.rst
-index 87f86a2f6cc5..88d8c5c04e54 100644
---- a/Documentation/userspace-api/media/drivers/camera-sensor.rst
-+++ b/Documentation/userspace-api/media/drivers/camera-sensor.rst
-@@ -136,3 +136,16 @@ via the ``VIDIOC_SUBDEV_S_ROUTING`` IOCTL.
- In general, changing the embedded data layout from the driver-configured values
- is not supported. The width of the metadata is device-specific and equal to or
- less than the width of the image data, as configured on the pixel data stream.
-+
-+CCS and non-CCS embedded data layout
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+
-+Embedded data which is fully compliant with CCS definitions uses :ref:`CCS
-+embedded data layout <media-metadata-layout-ccs>` (level 3) for :ref:`the
-+metadata layout control <image_source_control_metadata_layout>`. Device-specific
-+embedded data compliant with either MIPI CCS embedded data levels 1 or 2 only
-+shall not use CCS embedded data value ``V4L2_METADATA_LAYOUT_CCS`` for metadata
-+layout, but may refer to CCS embedded data documentation with the level of
-+conformance specified and omit documenting these aspects of the layout. The rest
-+of the device-specific embedded data layout is documented in the context of the
-+data layout itself.
+diff --git a/Documentation/userspace-api/media/v4l/subdev-config-model.rst b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
+index 0fb01bf6c825..fb6d8a1bcac7 100644
+--- a/Documentation/userspace-api/media/v4l/subdev-config-model.rst
++++ b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
+@@ -144,8 +144,12 @@ separately horizontally and vertically.
+ 
+ The combined effect of binning and sub-sampling is configured using the
+ ``V4L2_SEL_TGT_COMPOSE`` rectangle, relative to the analogue crop rectangle, on
+-(pad, stream) pair 1/0. The driver implementation determines how to configure
+-binning and sub-sampling to achieve the desired size.
++(pad, stream) pair 1/0. It depends on the driver which of these operations are
++being used to achieve the resulting size. Binning and sub-sampling are also
++directly configured using :ref:`V4L2_CID_BINNING_FACTORS
++<image_source_control_binning_factors>` and
++:ref:`V4L2_CID_SUBSAMPLING_HORIZONTAL and V4L2_CID_SUBSAMPLING_VERTICAL
++<image_source_control_subsampling>` controls on drivers that support them.
+ 
+ The digital crop operation takes place after binning and sub-sampling. It is
+ configured by setting the ``V4L2_SEL_TGT_CROP`` rectangle on (pad, stream) pair
+@@ -216,9 +220,15 @@ Also refer to :ref:`Selection targets <v4l2-selection-targets-table>`.
+       - \-
+       - X
+       - Binning and sub-sampling. This rectangle is relative to the
+-        ``V4L2_SEL_TGT_CROP`` rectangle on the same (pad, stream). The
+-        combination of binning and sub-sampling is configured using this
+-        selection target.
++        ``V4L2_SEL_TGT_CROP`` rectangle on the same (pad, stream). Binning is
++        configured using the :ref:`V4L2_CID_BINNING_FACTORS
++        <image_source_control_binning_factors>` control and sub-sampling is configured
++        using the :ref:`V4L2_CID_SUBSAMPLING_HORIZONTAL and
++        V4L2_CID_SUBSAMPLING_VERTICAL <image_source_control_subsampling>`
++        controls on drivers that support these controls. To configure binning
++        and sub-sampling on drivers that do not support these controls, the
++        selection rectangle may be changed directly to configure the combined
++        effect on the image size.
+     * - 2/0
+       - Format
+       - X
 -- 
 2.47.3
 
