@@ -1,52 +1,52 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F303B2AD10
-	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7110F2FFF81
+	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765712; cv=none; b=n3XLpMP1TgCopNTBOx93L4DUls2TWNCMkqSXvOtGQOptkkaIhLjmCkkhyHelb86PpE6/9KOjjtKt6twjD0ffoX2jE0KKuU8kboHX4VC3mRiDSEcngmLh+17xNtxCuacwhmTb5AmI8HLTQsZivxvZ7nqtZrEgQuZUwFyudi7Ruq4=
+	t=1775765712; cv=none; b=HsZiPLZbZtvORq35Q8LmXNJxjTFCaAv8QYAv6Mj4F8i29xGLQBSbcB364+lf1hsVZ6aPN4GaP1gdpEwc2ozXMO/9AioTvDTVxRqR4Yt4rnJyx8C/f+3L8uu0onsLPgPJjpyeM4sE3H3v51w+mkm0Qa3y7LadLWo7l+Ty6KXArwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775765712; c=relaxed/simple;
-	bh=oovfIaEwhDUWtRjdLqwrycjxsjiaBKkWGRFlEzWdOTc=;
+	bh=kbxomBXqULxRyovMMSTKZ9VqegyniKcoJSqlp3oUuO0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NbRSSp+0/f0jeepavOpZoSXwyKVXsjvbnMVsYjJPZcQmI9rcbEpA1duQF4Fo6yHVYlr3noqOOrl6cRKUS0p3A70btk7aeo+0Z631O2pvNKI7hv4aPSD4T4ZOUAuqSbO8Lu14lGT60VyHoKtlz256ef3WsdrzQ/6+mjmOlBLe4WQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LKExttqC; arc=none smtp.client-ip=192.198.163.11
+	 MIME-Version; b=aztkoQN3kwMp/arxGgUK/2V8fa3Q3wdlPlDdjvOdA2vFF75S3NPjabV40lKaQmm4RhFhFm3e10DSVclWEqsc2YUZYVHx3ZcOoFj/y8lnHkkJ1PyfNAd0U7THgJtMP+xdfi9dgagEXgICqjocJ9UE5MTIOfT2BCWi6xZGTw0QQDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=K1LMJz8K; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LKExttqC"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="K1LMJz8K"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1775765711; x=1807301711;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=oovfIaEwhDUWtRjdLqwrycjxsjiaBKkWGRFlEzWdOTc=;
-  b=LKExttqCu0IKLrdpROmN/NiL4XNaXWrZxEQ0zxF6lCZFdjOvJGH7R1Vr
-   iX8pueNbE0h1pCJwtZ5VGtlZkONGrgaFzkfeY1hMwRa27m665F0oZuyig
-   +Y7cHKtjKogMwSMs4NTEBhCUPBo2AJLUTMV/hMOnk0v1ql4JyRMcYjV42
-   9sDmOSPu7z3nVyA5PZPRTTTjvW93TG7skH8ZuZV6e+XXKnroL83p9zUL5
-   IPtY0EX+JaIquCT/zYhTfWEEUTcJCjgTRHkSdu0CFBXvgBnWVrKlRCaGM
-   e3fsiaA4mJxPSRJAWUHXZWIPnVndT1wXt+X9xvWRnnVY3ArMjBLBmFcjC
+  bh=kbxomBXqULxRyovMMSTKZ9VqegyniKcoJSqlp3oUuO0=;
+  b=K1LMJz8K5M29A7OyIiAL9b0OI2BfUWQZQaKMSM+Xcm8KoM8w/luhFCnO
+   acyaUOzGlThQLrnEw7f7BxwhS72Oii8wTjr88eBvIE9Uv5REXei5UPZ92
+   fk/+oj0J1njjboxM5uMMXpYhbZtFa2gF4rbR8ni7CE6Hcmsif55P9M3cL
+   olxIJB2EAQR8IMFLaRrU82ctqFY3Pohf1O3dOaYtkfbPQFCUMJ46dPrVa
+   DKKk5w7MjhjGoYu8CDBf4yWIPJlZBrdjBGBMJDJmpaBzLt46Gwk+EhDJA
+   Q0oPG3n0cKzrp5L93hOrIUB6PkH4f24B5j6Jz5gC/1aBel+/hWUuVZST1
    g==;
-X-CSE-ConnectionGUID: JxpKatWISuWInRTV4FJCZQ==
-X-CSE-MsgGUID: yRudxMkcTuy0u9kQHDnR6Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="87408667"
+X-CSE-ConnectionGUID: wgtdCnoITGSCWSwAse8bvQ==
+X-CSE-MsgGUID: /+gRK8kCRKWVIjqx4OSshw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="87408682"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="87408667"
+   d="scan'208";a="87408682"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
   by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:09 -0700
-X-CSE-ConnectionGUID: cdaZHUYjR9KMNt8cxoqzEQ==
-X-CSE-MsgGUID: 7m19IblQQaGqrphR2stJ8Q==
+X-CSE-ConnectionGUID: jaxh4s/9TLmqEw9RI2lV4Q==
+X-CSE-MsgGUID: m+DBsVAIR12d2KknQWJvwA==
 X-ExtLoop1: 1
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
   by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:03 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 3BAF8121E09;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 318B0121D57;
 	Thu, 09 Apr 2026 23:15:03 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmI-000000045pO-2xVB;
+	id 1wAvmI-000000045p9-2lCj;
 	Thu, 09 Apr 2026 23:15:02 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -77,9 +77,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 69/86] media: ipu6: Rename misnamed out_free_watermark label in video init
-Date: Thu,  9 Apr 2026 23:14:44 +0300
-Message-ID: <20260409201501.975242-70-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 66/86] media: ipu6: Use VALIDATE_LATE flag to postpone V4L2 format validation
+Date: Thu,  9 Apr 2026 23:14:41 +0300
+Message-ID: <20260409201501.975242-67-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -91,36 +91,29 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ipu6_isys_video_init() has a label in the error path where it is used to
-destroy a mutex. Rename the label as err_mutex_destroy.
+Postpone V4L2 format validation until streamon time on each video node.
+This allows changing V4L2 format on video nodes while performing pipeline
+validation through media_pipeline_start().
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-isys-video.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-isys.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-index 164000985c0d..eebce7593b3f 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-@@ -1206,7 +1206,7 @@ int ipu6_isys_video_init(struct ipu6_isys_video *av)
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+index c9cdeb7054d7..1a2d6b107b73 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+@@ -209,7 +209,8 @@ static int isys_csi2_create_media_links(struct ipu6_isys *isys)
+ 			struct ipu6_isys_video *av = &isys->csi2[i].av[j];
  
- 	ret = ipu6_isys_queue_init(&av->aq);
- 	if (ret)
--		goto out_free_watermark;
-+		goto out_mutex_destroy;
- 
- 	av->pad.flags = MEDIA_PAD_FL_SINK | MEDIA_PAD_FL_MUST_CONNECT;
- 	ret = media_entity_pads_init(&av->vdev.entity, 1, &av->pad);
-@@ -1243,7 +1243,7 @@ int ipu6_isys_video_init(struct ipu6_isys_video *av)
- out_vb2_queue_release:
- 	vb2_queue_release(&av->aq.vbq);
- 
--out_free_watermark:
-+out_mutex_destroy:
- 	mutex_destroy(&av->mutex);
- 
- 	return ret;
+ 			ret = media_create_pad_link(sd, CSI2_PAD_SRC + j,
+-						    &av->vdev.entity, 0, 0);
++						    &av->vdev.entity, 0,
++						    MEDIA_LNK_FL_VALIDATE_LATE);
+ 			if (ret) {
+ 				dev_err(dev, "CSI2 can't create link\n");
+ 				return ret;
 -- 
 2.47.3
 
