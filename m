@@ -1,53 +1,53 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE4AD33A9DB
-	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BABD33B6C8
+	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765721; cv=none; b=mKGNXsZVyQ10UwbzL+1zPmz0CWlCAS69CmZ1hq0L3plg3pmhKYTXJbiJDrIz+7lQJVEwqn6oIpPYwwgvmtNbCoBHqha4Ga81CmYu1t+yC0297DF6MDtQ7NtovMO2DXJQKL+/ctfdaYzPTpNCXDWC2OwcXZZYFD4VLiLCVJuNcms=
+	t=1775765722; cv=none; b=tXpaxCYuKKeg2DYcg9jPbIxEzjAwTNd0xGqch53GM/XSOhptj9VvRsBvnGQUpcgfVHSF6EKSqZlbfsA1N7oBX3JXUAhp9g9x6Qe22OEc+fIMPbpksx/mldBSHpJHxm11/6kJBomGXCcajOHrdARHM5jaWbZmRZhspFbHTtzLnIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775765721; c=relaxed/simple;
-	bh=72C4jG7LVJY/1YS4jYQFYft1TEc358kAGdoD+pxd9eQ=;
+	s=arc-20240116; t=1775765722; c=relaxed/simple;
+	bh=FamP04/RqVdu56kY9frHn7pKQWFGaHMB/rh3QVLs3w8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ee5zo8jmmJXKX9X1l2L8oQT7kqDZLzwaLtkMjTUn2pK42ATVVDmkCDDURpGj1Axcbc65cK5nwBeKNbhJGDYc2zdFq4lVJkEGM/vMR9yk0Lc8cMND0rjrhB/Ewa4BHK7sgq03ptOCyD3QUtmnFXg8Wgm29EcdcGnnG2kh/x9NaDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lUBDXg6f; arc=none smtp.client-ip=192.198.163.11
+	 MIME-Version; b=OAQiQHrF810rMrM0EaTKV3fncW0Shepjy/JYpMmCiVHjNvZc3r/cUFc+uc1HU8mAKmrYc7QtgvzD48VBSdCYRDKJ43axW5LWdgv3x3K0JlpiiFt5Em2v8aoir/JeRmjtynxBNROgc7YNHfyTFDlDOCPbXB60mW+GXIzQNGNpol8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Dx3Wa5s4; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lUBDXg6f"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Dx3Wa5s4"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775765720; x=1807301720;
+  t=1775765721; x=1807301721;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=72C4jG7LVJY/1YS4jYQFYft1TEc358kAGdoD+pxd9eQ=;
-  b=lUBDXg6fSRA+wMerArPk8qoRB8n5elJIh4STVULEh8EssdQf0xfyPZ2C
-   RQQ8XH51pSFuRSTpWVvA5fO1VTsvjA9/p/PdZ1oz/iLx+AU3pnr7OPJYj
-   N6skXeTzroPbZRI1d6q1F1TnbDVXCLQPvRl0UVOPjP79W+XsSo2uYYLld
-   60ylHkkyGnrX707ek7Z/CAVBdf69qH34rzpNQvXTV+fyVac45jAK7w/7n
-   +edyzAOi5i5ead6pQgfGcjWbuqpzxs0mmrbUdiTJPUui9eOox1dABdxA3
-   jdwck81ceO6k4c6gSqQPhaOuV1ZobP/6kJJsZRcHI8qRU9qCL01IT2ptw
-   g==;
-X-CSE-ConnectionGUID: 3+T+iwOHSjiAhcfird3EyA==
-X-CSE-MsgGUID: H+iCHyqbTk2wu5on+/BTFQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="87408857"
+  bh=FamP04/RqVdu56kY9frHn7pKQWFGaHMB/rh3QVLs3w8=;
+  b=Dx3Wa5s4VzPdFgb4OUCzZeT9Zjxu0VvT3K3pBWcY0SlXZHmBo2gvSxQK
+   tu4PDOHDyfk7kths76vw640adIDITqNUDDF/bAcanw9jeHrlXX1uB+wj2
+   zrcH4IAjjIxm2Wufs6+76PAyL8FhMW8xHDXDG2cS3DXrQ4SFLMvgb86Iu
+   1QUwFETaSX+/mf3hUmygFMqeiYenVB1IY4/Ie2ctSo4ABf0EvqpJTfwEZ
+   1EQ7IX6+rXOFcIvskdaAuXCXgMgraBmfWTk7ny+vJS0s4EilRodPDCRpT
+   Mr0PYm+um5pNq8jhVmbUPK6nGNRSHZf+BuD7EuYYKtS+KUHz4c43CTFsT
+   Q==;
+X-CSE-ConnectionGUID: swbHgt3dQS66G21ohhKK5w==
+X-CSE-MsgGUID: JXJWWm2BTXeTqrC+ASVHGQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="87408907"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="87408857"
+   d="scan'208";a="87408907"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:11 -0700
-X-CSE-ConnectionGUID: kU1GdzdyRXK4JdfwXYKTqg==
-X-CSE-MsgGUID: +sOOxrnRTEGiHbGmWW0tcQ==
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:16 -0700
+X-CSE-ConnectionGUID: 4vlxwTzaTiGSzTW86MP+0Q==
+X-CSE-MsgGUID: ONvAyaAfSIWE5E54OeGWfw==
 X-ExtLoop1: 1
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:04 -0700
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:11 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 73021122122;
-	Thu, 09 Apr 2026 23:15:03 +0300 (EEST)
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 35FA3121CE5;
+	Thu, 09 Apr 2026 23:15:13 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmI-000000045qW-3uCK;
-	Thu, 09 Apr 2026 23:15:02 +0300
+	id 1wAvmH-000000045kr-2fu2;
+	Thu, 09 Apr 2026 23:15:01 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: linux-media@vger.kernel.org
@@ -77,9 +77,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 83/86] media: ipu6: Serialise access to stream pointers by isys stream_lock
-Date: Thu,  9 Apr 2026 23:14:58 +0300
-Message-ID: <20260409201501.975242-84-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 03/86] media: uapi: Add new media bus codes for generic raw formats
+Date: Thu,  9 Apr 2026 23:13:38 +0300
+Message-ID: <20260409201501.975242-4-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -91,99 +91,76 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Re-purpose the unused stream_lock in struct ipu6_isys to serialise access
-to streams_by_handle (struct ipu6_isys) and streams_by_vc (struct
-ipu6_isys_csi2). Switch to scoped_guard() while at it.
+Add new media bus codes for generic raw formats that are not specific to
+the colour filter array but that simply specify the bit depth. The layout
+(packing) of the data is interface specific.
+
+The rest of the properties of the format are specified with controls in
+the image source.
+
+The mbus codes added by this patch have bit depth of 8, 10, 12 and 14.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 ---
- .../media/pci/intel/ipu6/ipu6-isys-video.c    |  6 ++---
- drivers/media/pci/intel/ipu6/ipu6-isys.c      | 23 ++++++++++---------
- 2 files changed, 14 insertions(+), 15 deletions(-)
+ .../media/v4l/subdev-formats.rst              | 27 +++++++++++++++++++
+ include/uapi/linux/media-bus-format.h         |  6 +++++
+ 2 files changed, 33 insertions(+)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-index 9eb22e456834..0c3223c4d019 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-@@ -714,7 +714,7 @@ static int ipu6_isys_close_streaming_firmware(struct ipu6_isys_stream *stream,
- 	else
- 		dev_dbg(dev, "close stream: complete\n");
+diff --git a/Documentation/userspace-api/media/v4l/subdev-formats.rst b/Documentation/userspace-api/media/v4l/subdev-formats.rst
+index c9999b929773..fecb786cb8af 100644
+--- a/Documentation/userspace-api/media/v4l/subdev-formats.rst
++++ b/Documentation/userspace-api/media/v4l/subdev-formats.rst
+@@ -3855,6 +3855,33 @@ organization is given as an example for the first pixel only.
  
--	scoped_guard(spinlock_irqsave, &stream->isys->power_lock) {
-+	scoped_guard(spinlock_irqsave, &stream->isys->streams_lock) {
- 		stream->isys->streams_by_handle[stream->stream_handle] = NULL;
- 		csi2->streams_by_vc[stream->vc] = NULL;
- 	}
-@@ -794,8 +794,6 @@ int ipu6_isys_alloc_start_streams_firmware(struct ipu6_isys_csi2 *csi2,
- 				break;
+     \endgroup
  
- 		if (list_entry_is_head(stream, &csi2->streams, csi2_entry)) {
--			unsigned long flags;
--
- 			stream = kzalloc(sizeof(*stream), GFP_KERNEL);
- 			if (!stream) {
- 				ret = -ENOMEM;
-@@ -821,7 +819,7 @@ int ipu6_isys_alloc_start_streams_firmware(struct ipu6_isys_csi2 *csi2,
- 			stream->asd = &csi2->asd;
- 			stream->vc = entry->bus.csi2.vc;
- 
--			scoped_guard(spinlock_irqsave, &stream->isys->power_lock) {
-+			scoped_guard(spinlock_irqsave, &stream->isys->streams_lock) {
- 				stream->isys->streams_by_handle[stream->stream_handle] =
- 					stream;
- 				csi2->streams_by_vc[stream->vc] = stream;
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-index fb46ded122fa..0c2adfa01034 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-@@ -311,10 +311,8 @@ static void isys_setup_hw(struct ipu6_isys *isys)
- 
- static void ipu6_isys_csi2_isr(struct ipu6_isys_csi2 *csi2)
- {
--	struct ipu6_isys_stream *stream;
- 	unsigned int i;
- 	u32 status;
--	int source;
- 
- 	ipu6_isys_register_errors(csi2);
- 
-@@ -324,17 +322,18 @@ static void ipu6_isys_csi2_isr(struct ipu6_isys_csi2 *csi2)
- 	writel(status, csi2->base + CSI_PORT_REG_BASE_IRQ_CSI_SYNC +
- 	       CSI_PORT_REG_BASE_IRQ_CLEAR_OFFSET);
- 
--	source = csi2->asd.source;
--	for (i = 0; i < NR_OF_CSI2_VC; i++) {
--		if (status & IPU_CSI_RX_IRQ_FS_VC(i)) {
--			stream = csi2->streams_by_vc[i];
--			if (stream)
-+	scoped_guard(spinlock, &csi2->isys->streams_lock) {
-+		for (i = 0; i < NR_OF_CSI2_VC; i++) {
-+			struct ipu6_isys_stream *stream =
-+				csi2->streams_by_vc[i];
++Generic raw formats on serial interfaces
++^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 +
-+			if (!stream)
-+				continue;
++Those formats transfer raw pixel data typically from raw camera sensors using
++Bayer and other Colour Filter Arrays (CFAs) on serial interfaces. The packing of
++the data on the bus is determined by the hardware, however the bit depth is
++still specific to the format.
 +
-+			if (status & IPU_CSI_RX_IRQ_FS_VC(i))
- 				ipu6_isys_csi2_sof_event_by_stream(stream);
--		}
- 
--		if (status & IPU_CSI_RX_IRQ_FE_VC(i)) {
--			stream = csi2->streams_by_vc[i];
--			if (stream)
-+			if (status & IPU_CSI_RX_IRQ_FE_VC(i))
- 				ipu6_isys_csi2_eof_event_by_stream(stream);
- 		}
- 	}
-@@ -1176,6 +1175,8 @@ static int isys_isr_one(struct ipu6_bus_device *adev)
- 			"FW error resp error %d, details %d\n",
- 			resp->error_info.error, resp->error_info.error_details);
- 
-+	guard(spinlock_irqsave)(&isys->streams_lock);
++.. tabularcolumns:: |p{2.0cm}|p{4.0cm}|p{11.3cm}|
 +
- 	if (resp->stream_handle >= IPU6_ISYS_MAX_STREAMS) {
- 		dev_err(&adev->auxdev.dev, "bad stream handle %u\n",
- 			resp->stream_handle);
++.. cssclass:: longtable
++
++.. flat-table:: Generic raw formats on serial buses
++    :header-rows:  1
++    :stub-columns: 0
++    :widths:       1 1
++
++    * - Format name
++      - Bit depth
++    * - MEDIA_BUS_FMT_RAW_8
++      - 8
++    * - MEDIA_BUS_FMT_RAW_10
++      - 10
++    * - MEDIA_BUS_FMT_RAW_12
++      - 12
++    * - MEDIA_BUS_FMT_RAW_14
++      - 14
+ 
+ Packed YUV Formats
+ ^^^^^^^^^^^^^^^^^^
+diff --git a/include/uapi/linux/media-bus-format.h b/include/uapi/linux/media-bus-format.h
+index 6005f033e62c..83feeae6a31e 100644
+--- a/include/uapi/linux/media-bus-format.h
++++ b/include/uapi/linux/media-bus-format.h
+@@ -190,4 +190,10 @@
+ #define MEDIA_BUS_FMT_META_20			0x8006
+ #define MEDIA_BUS_FMT_META_24			0x8007
+ 
++/* Generic (CFA independent) pixel data formats. Next is 0x9005. */
++#define MEDIA_BUS_FMT_RAW_8			0x9001
++#define MEDIA_BUS_FMT_RAW_10			0x9002
++#define MEDIA_BUS_FMT_RAW_12			0x9003
++#define MEDIA_BUS_FMT_RAW_14			0x9004
++
+ #endif /* __LINUX_MEDIA_BUS_FORMAT_H */
 -- 
 2.47.3
 
