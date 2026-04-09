@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD7D33F5B4
-	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D7E233FE26
+	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765732; cv=none; b=HPdIHT8WRpy1MuRoP/FvzfuYKc+wICoAesaPf5uyha/h/JGHeruY9HG1XD+i6YSvQeJaAPl91C73nTtyO4DtNAEFPT2oPoyHRZmXUle42gHpft6+rYGamWc1pZmfT7bKcL4/A8aGDwEEk6s/gDyJstXjNW57Z2ZhZRXHwctOxmQ=
+	t=1775765732; cv=none; b=ZHQgZgjdKPs0ef5Z6Zmdiuu4Nmw3529TVHKechqzTNBOENJJ/CrUoP60BXaytjn1FVmAY3et8LjxZor87QfdPD/wp4rmMqPR5dlFLXtaWEOfgqSXTTSe3LndjG6uCs61aIXFcufCIw5m2GMC9NRjBAvBFB+LhZpG6fzsaAVoIsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775765732; c=relaxed/simple;
-	bh=CyXV1MMGELZcGn+UinvKpGpHtbbTdNWkHpt04Bdgsoc=;
+	bh=swYpDtr9A5O9KJZdJVVvgMR0YgjRGyv7HzwA9+dUsiM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nLUZRRnlx7wmu5sXrtblBmWbniqdacesRZ8Oa/pKRf5E0Ry/ZZ2YZcYKWW09bf0HI7vJGbFXTvo1QIlk6LNzteAVVNjdaP6VrS29DQJsUE8Llpj2A0EO9yR0gjxdsPIZoIZTxtg8r4BBH5Xc8nr2o4nRKW4VbY9kVB/MDXBk/OM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iSqVCKMT; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=Yw7QKBOIwQ/zZAwYTFYrrzLdEXet8p/FSwtKu44mtGjG2ByGTHZYUpbd74F5ImIvrG+VH/TCxsIiQofxGygCAzqhdKBmYHB/HB/7WwCrUAmGapy1/Qz09An/OMPo1hzzPNQjGdRxYswLuQZqC68IGbyby1FlTnRf7KqymcotYfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YFUUNM+K; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iSqVCKMT"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YFUUNM+K"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1775765731; x=1807301731;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=CyXV1MMGELZcGn+UinvKpGpHtbbTdNWkHpt04Bdgsoc=;
-  b=iSqVCKMTdhQz5TCdmNY3GQH8ZzQF0MMsPtiv9o0i2o+mqrIolpmk7bOK
-   TD0xPfflTqQH1Y1XhnmvJVnffOk3iEJ4dMp+rsO64K+kklm1VhnPIr8A2
-   NglOq7VsXnJlLXx3D1Uwk/6G8rHa2lBzJdPzDqCTndEiMaksclDmobiOL
-   nkiCwTCeGDRTq1LCtxK4mA1Y4B7VFeXfVqfZ6ajNPUWFWEb4yjEurLEGR
-   MnRUpZGKqvjeEcekR1OLEO3Lr/B6zmKYCDHflusjcUsezYQflrQS2Ugsr
-   ZAyg3a6XuZXfK5VkKERuHJdPlZVgS77YIiZp24fUSGJDsXtSPwnxQVkCh
-   w==;
-X-CSE-ConnectionGUID: rT5w0rSoTDetJ7/pxXjCFw==
-X-CSE-MsgGUID: 0tt2Dhp/S26E/HAyxKw8cg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176445"
+  bh=swYpDtr9A5O9KJZdJVVvgMR0YgjRGyv7HzwA9+dUsiM=;
+  b=YFUUNM+K2XKugA0rlRDGAQWVitde81w5khPF5RGL6HJ5OluGHiu3aTNz
+   yISPs0Qk9Bnfr6s38znyWEbo6Wb6HkItuGwfo7u/f2ysCsMw2bJ0t039F
+   eHG6t+Po4KWg6/jYbe1aqhi/CETiqhOH/3yTChdiGyGMlHBM/x0GCGHyo
+   THgcwYY5RQhusATQCWBay0uNAhp08535SqR0dYo+s+TFC+qKp10qqYL0Y
+   glR4HyPbov8xr+RHC8vJokHY1SAEa8/Hat1fMKMuLhukHjUSchPUOm+EW
+   j1VGiWRNUe2Hvp9DFW3hWY77W6oTHHk3+2Ck6YgW8zOS8GPh12Kx0scwx
+   A==;
+X-CSE-ConnectionGUID: +n8a5qMYQfSmD/YO4mDRcQ==
+X-CSE-MsgGUID: 0MjCEqb+QiCFVxxo6fwMWg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="94176454"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="94176445"
+   d="scan'208";a="94176454"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:26 -0700
-X-CSE-ConnectionGUID: i67k7TZuRqObiyW3L1ScVg==
-X-CSE-MsgGUID: WPBzIs/eS96Zqz3GwjaOpA==
+X-CSE-ConnectionGUID: abYpBkOFRsuhkaq11Cv87g==
+X-CSE-MsgGUID: BpcWZgNeR9GNv+h3HBdFlA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="228047525"
+   d="scan'208";a="228047526"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
   by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:19 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 96F4C12283F;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 9B7A9122884;
 	Thu, 09 Apr 2026 23:15:13 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmI-000000045mP-068G;
+	id 1wAvmI-000000045mX-0DWU;
 	Thu, 09 Apr 2026 23:15:02 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -79,9 +79,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 27/86] media: uapi: Add V4L2_CID_BINNING control for binning configuration
-Date: Thu,  9 Apr 2026 23:14:02 +0300
-Message-ID: <20260409201501.975242-28-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 29/86] media: v4l2-mc: Add v4l2_subdev_sensor_fll_llp_set()
+Date: Thu,  9 Apr 2026 23:14:04 +0300
+Message-ID: <20260409201501.975242-30-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -93,116 +93,126 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add V4L2_CID_BINNING control for configuring binning and enumerating a
-camera sensor's binning capabilities. The control combines horizontal and
-vertical binning into a single control as the two are generally related.
-
-New drivers should use this control to configure binning.
+Add v4l2_subdev_sensor_fll_llp_set() to facilitate driver implementation
+of both blanking and line and frame lenght controls.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- .../media/drivers/camera-sensor.rst           | 12 ++++++++
- .../media/v4l/ext-ctrls-image-source.rst      | 30 +++++++++++++++++++
- drivers/media/v4l2-core/v4l2-ctrls-defs.c     |  2 ++
- include/uapi/linux/v4l2-controls.h            |  2 ++
- 4 files changed, 46 insertions(+)
+ drivers/media/v4l2-core/v4l2-mc.c | 67 +++++++++++++++++++++++++++++++
+ include/media/v4l2-mc.h           |  8 ++++
+ 2 files changed, 75 insertions(+)
 
-diff --git a/Documentation/userspace-api/media/drivers/camera-sensor.rst b/Documentation/userspace-api/media/drivers/camera-sensor.rst
-index d8ba809486c5..12f075379bc8 100644
---- a/Documentation/userspace-api/media/drivers/camera-sensor.rst
-+++ b/Documentation/userspace-api/media/drivers/camera-sensor.rst
-@@ -120,6 +120,18 @@ values programmed by the register sequences. The default values of these
- controls shall be 0 (disabled). Especially these controls shall not be inverted,
- independently of the sensor's mounting rotation.
+diff --git a/drivers/media/v4l2-core/v4l2-mc.c b/drivers/media/v4l2-core/v4l2-mc.c
+index 937d358697e1..2e0be23d7511 100644
+--- a/drivers/media/v4l2-core/v4l2-mc.c
++++ b/drivers/media/v4l2-core/v4l2-mc.c
+@@ -14,6 +14,7 @@
+ #include <linux/usb.h>
+ #include <media/media-device.h>
+ #include <media/media-entity.h>
++#include <media/v4l2-ctrls.h>
+ #include <media/v4l2-fh.h>
+ #include <media/v4l2-mc.h>
+ #include <media/v4l2-subdev.h>
+@@ -427,6 +428,72 @@ int v4l2_create_fwnode_links(struct v4l2_subdev *src_sd,
+ }
+ EXPORT_SYMBOL_GPL(v4l2_create_fwnode_links);
  
-+Binning
-+-------
++int v4l2_subdev_sensor_fll_llp_set(struct v4l2_ctrl *fll, struct v4l2_ctrl *vblank,
++				   struct v4l2_ctrl *llp, struct v4l2_ctrl *hblank,
++				   struct v4l2_ctrl *exposure,
++				   const struct v4l2_mbus_framefmt *format,
++				   struct v4l2_ctrl *src, bool *setting_ctrl,
++				   int exposure_margin)
++{
++	struct v4l2_ctrl *dest;
++	s32 val;
++	int ret;
 +
-+Binning has traditionally been configured using :ref:`the compose selection
-+rectangle <v4l2-selection-targets-table>`. The :ref:`V4L2_CID_BINNING
-+<image_source_control_binning_factors>` control is also available for binning
-+configuration and users should use it when it's available. Drivers supporting
-+the control shall also support the compose rectangle, albeit the rectangle may
-+be read-only when the control is present.
++	/* Was setting the control user-initiated or were we called again? */
++	if (*setting_ctrl) {
++		*setting_ctrl = false;
++		return 0;
++	}
 +
-+Binning isn't affected by flipping.
++	/* Are we being called for writing a value to a register? */
++	if (src->val == src->cur.val)
++		return 0;
 +
- .. _media_using_camera_sensor_drivers_embedded_data:
++	switch (src->id) {
++	case V4L2_CID_FRAME_LENGTH_LINES:
++		dest = vblank;
++		val = src->val - format->height;
++		break;
++	case V4L2_CID_VBLANK:
++		dest = fll;
++		val = src->val + format->height;
++		break;
++	case V4L2_CID_LINE_LENGTH_PIXELS:
++		dest = hblank;
++		val = src->val - format->width;
++		break;
++	case V4L2_CID_HBLANK:
++		dest = llp;
++		val = src->val + format->width;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	if (val == dest->val)
++		return 0;
++
++	*setting_ctrl = true;
++
++	ret = __v4l2_ctrl_s_ctrl(dest, val);
++	if (ret)
++		return ret;
++
++	/*
++	 * Only modify exposure range when setting fll, directly or via vblank.
++	 */
++	if (src->id != V4L2_CID_FRAME_LENGTH_LINES &&
++	    dest->id != V4L2_CID_FRAME_LENGTH_LINES)
++		return 0;
++
++	int exposure_max = fll->val - exposure_margin;
++
++	return __v4l2_ctrl_modify_range(exposure, exposure->minimum,
++					exposure_max, exposure->step,
++					exposure_max);
++}
++EXPORT_SYMBOL_GPL(v4l2_subdev_sensor_fll_llp_set);
++
+ /* -----------------------------------------------------------------------------
+  * Pipeline power management
+  *
+diff --git a/include/media/v4l2-mc.h b/include/media/v4l2-mc.h
+index 1837c9fd78cf..8618a74e4e0c 100644
+--- a/include/media/v4l2-mc.h
++++ b/include/media/v4l2-mc.h
+@@ -18,6 +18,7 @@
+ /* We don't need to include pci.h or usb.h here */
+ struct pci_dev;
+ struct usb_device;
++struct v4l2_ctrl;
  
- Embedded data
-diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
-index 490cd16186cd..0ef76b02a6e1 100644
---- a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
-+++ b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
-@@ -160,3 +160,33 @@ Image Source Control IDs
-     interface for metadata streams. The control is used in conjunction with
-     :ref:`generic metadata formats <media-bus-format-generic-meta>` formats to
-     specify the layout of the data.
-+
-+.. _image_source_control_binning_factors:
-+
-+``V4L2_CID_BINNING_FACTORS (integer menu)``
-+
-+    This control determines horizontal and vertical binning factors. Binning
-+    combines several horizontal, vertical or both pixel values into a single
-+    pixel. It is a way to scale an image. Binning typically produces fairly good
-+    quality output.
-+
-+    Determines both horizontal and vertical binning factors for a camera
-+    sensor. The values are encoded in the following way:
-+
-+.. flat-table::
-+    :header-rows:  1
-+    :stub-columns: 0
-+
-+    * - Bits
-+      - Synopsis
-+    * - 48--63
-+      - Horizontal binning numerator.
-+    * - 32--47
-+      - Horizontal binning denominator.
-+    * - 16--31
-+      - Vertical binning numerator.
-+    * - 0--15
-+      - Vertical binning denominator.
-+
-+For instance, a value of ``0x0001000300020003`` indicates binning by 3
-+(horizontally) * 3/2 (vertically).
-diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-index 4618252d24f2..fee343667b69 100644
---- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-+++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-@@ -1160,6 +1160,7 @@ const char *v4l2_ctrl_get_name(u32 id)
- 	case V4L2_CID_CFA_PATTERN:		return "Color Filter Array Pattern";
- 	case V4L2_CID_CFA_PATTERN_FLIP:		return "CFA Pattern Flip";
- 	case V4L2_CID_METADATA_LAYOUT:		return "Metadata Layout";
-+	case V4L2_CID_BINNING_FACTORS:		return "Binning Factors";
+ #ifdef CONFIG_MEDIA_CONTROLLER
+ /**
+@@ -139,6 +140,13 @@ int v4l2_create_fwnode_links_to_pad(struct v4l2_subdev *src_sd,
+ int v4l2_create_fwnode_links(struct v4l2_subdev *src_sd,
+ 			     struct v4l2_subdev *sink_sd);
  
- 	/* Image processing controls */
- 	/* Keep the order of the 'case's the same as in v4l2-controls.h! */
-@@ -1438,6 +1439,7 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
- 	case V4L2_CID_HDR_SENSOR_MODE:
- 		*type = V4L2_CTRL_TYPE_MENU;
- 		break;
-+	case V4L2_CID_BINNING_FACTORS:
- 	case V4L2_CID_LINK_FREQ:
- 		*type = V4L2_CTRL_TYPE_INTEGER_MENU;
- 		break;
-diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
-index 1bf6d298e3c4..5496b1664432 100644
---- a/include/uapi/linux/v4l2-controls.h
-+++ b/include/uapi/linux/v4l2-controls.h
-@@ -1249,6 +1249,8 @@ enum v4l2_jpeg_chroma_subsampling {
- 
- #define V4L2_CID_METADATA_LAYOUT		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 12)
- 
-+#define V4L2_CID_BINNING_FACTORS		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 13)
++int v4l2_subdev_sensor_fll_llp_set(struct v4l2_ctrl *fll, struct v4l2_ctrl *vblank,
++				   struct v4l2_ctrl *llp, struct v4l2_ctrl *hblank,
++				   struct v4l2_ctrl *exposure,
++				   const struct v4l2_mbus_framefmt *format,
++				   struct v4l2_ctrl *src, bool *setting_ctrl,
++				   int exposure_margin);
 +
- /* Image processing controls */
- 
- #define V4L2_CID_IMAGE_PROC_CLASS_BASE		(V4L2_CTRL_CLASS_IMAGE_PROC | 0x900)
+ /**
+  * v4l2_pipeline_pm_get - Increase the use count of a pipeline
+  * @entity: The root entity of a pipeline
 -- 
 2.47.3
 
