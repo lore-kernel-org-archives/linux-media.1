@@ -1,146 +1,83 @@
-Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA59040DFA4;
-	Thu,  9 Apr 2026 13:33:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49ED73A5459;
+	Thu,  9 Apr 2026 13:49:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775741602; cv=none; b=BE80x8yv9UqQLGtDTXIQrLYncLsKl+fqVDaw/B4SbwfbZpYBZrAZ9pv7Z4dxGsUmWskiNuLtpfA2Js36TCM9wkLeIFR9/MGklaNIcKXvQnFAELzwwwoB6dsBxgrW+j0stwvesaObRJV0V/4gT1bBoxsrmZns2bdOTjj6D1Ggoqc=
+	t=1775742588; cv=none; b=B08YZL0rbYGyKNoTw8mkgrOyt9jHEAmnTabTjRbocYDAkUGk8HFQmYo22Kl73Z8AuywpnKbtplrchpbicCkKkGxOnwcmWYiHmjl4ATEga1Lfd2QtrHk/rCltSyYFgD8g+DNcdnExUCaCsKwhUl2opfcQpsUqUB35pNEUeSKf2N8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775741602; c=relaxed/simple;
-	bh=Vk3pPD/Gc1p88nyH4rzkDAj4Wlf9h7ovPxfYHM4QgZo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lWWAq3kjvtw2elN/Ht9rguuN3U346gcMTkrTv6BS4bCI33+64K43KM0N4PgaHOjFS4CukeOdbfYhPKZgMy1HrGRApLugtgIC40uTwVsScKdapWVGu6G3LlarYtlN8sb+KXMHsOSZIccJGGeQUKpQIJ0+gM/dugiAUkf3QT84SrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
-Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
-	by leonov.paulk.fr (Postfix) with ESMTPS id 470561F8005E;
-	Thu,  9 Apr 2026 13:33:12 +0000 (UTC)
-Received: by laika.paulk.fr (Postfix, from userid 65534)
-	id 63F63B401AE; Thu,  9 Apr 2026 13:33:10 +0000 (UTC)
-X-Spam-Level: 
-Received: from shepard (unknown [192.168.1.1])
-	by laika.paulk.fr (Postfix) with ESMTPSA id E0762B401A5;
-	Thu,  9 Apr 2026 13:33:08 +0000 (UTC)
-Date: Thu, 9 Apr 2026 15:33:06 +0200
-From: Paul Kocialkowski <paulk@sys-base.io>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: mripard@kernel.org, mchehab@kernel.org, gregkh@linuxfoundation.org,
-	wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org,
-	nicolas.dufresne@collabora.com, linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: cedrus: skip invalid H.264 reference list entries
-Message-ID: <adeqkmA9VhaPkSAk@shepard>
-References: <20260324080856.56787-1-pengpeng@iscas.ac.cn>
+	s=arc-20240116; t=1775742588; c=relaxed/simple;
+	bh=Accc1DDK59ZqoGajH/rYDRfinvJ7K8paT0pHNtx24w0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dvSS5ckTIWsAKdnREhDkfqcon3LV2yAUDZ13dbdDHzfLHNW6VPI27uvAKssjkY9C02Fa/f6lNUxhtTd19Kq4hc8yzK+qp8LEZBQ87UT1FmbvQQ/3aBmz1gB9PAS7ZSqETAUvFMhD8mZJcmEA6HlHMYTjrDxgJDdWRggCfPd1gvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WQH9jp1/; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WQH9jp1/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57965C4CEF7;
+	Thu,  9 Apr 2026 13:49:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1775742587;
+	bh=Accc1DDK59ZqoGajH/rYDRfinvJ7K8paT0pHNtx24w0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=WQH9jp1/kHy0PEbkH1WQaylDACvj/DqUGwPtg00UUmIKUWzf4BZTU1L9i5lixxtrJ
+	 /zrZfH5/6O1/gwzWv4iCwVh4iOWQgU9dA8EQtJrHsp2wW7opcUidWoiPyQTI3l5Pou
+	 8/X6yW50v8T4HzOU2MxXJiKKjRMMjDadZzIadOK8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	stable <stable@kernel.org>
+Subject: [PATCH 2/3] media: stv090x: bound DiSEqC reply length to msg[] size
+Date: Thu,  9 Apr 2026 15:49:45 +0200
+Message-ID: <2026040943-goliath-both-2ee5@gregkh>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026040943-finishing-daredevil-d6e0@gregkh>
+References: <2026040943-finishing-daredevil-d6e0@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qcME/vMivydd7zm5"
-Content-Disposition: inline
-In-Reply-To: <20260324080856.56787-1-pengpeng@iscas.ac.cn>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1428; i=gregkh@linuxfoundation.org; h=from:subject:message-id; bh=Accc1DDK59ZqoGajH/rYDRfinvJ7K8paT0pHNtx24w0=; b=owGbwMvMwCRo6H6F97bub03G02pJDJnX11XYCU3YVVBzM1V+be/mO8ryPLsebgjX3NRTJy4ae +XZdvYjHbEsDIJMDLJiiixftvEc3V9xSNHL0PY0zBxWJpAhDFycAjCRg+UMC1aYMR8syYkv/Oe4 wUvq6qaa+R8uRDEsWHzVP6Wde5rzPMsp3i/TyxVTvN8/BAA=
+X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp; fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
+Content-Transfer-Encoding: 8bit
 
+The FIFO_BYTENBR_FIELD register field is 4 bits wide, giving a length
+of 0..15, but reply->msg is __u8[4] in struct dvb_diseqc_slave_reply.
+A faulty or malicious DiSEqC slave (or i2c bus glitch) reporting more
+than 4 bytes will the array and clobber the stack.
 
---qcME/vMivydd7zm5
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The stb0899, tda10071, and s5h1420 drivers all properly bound the FIFO
+count against sizeof(reply->msg) before the read loop, so do the same
+thing in this driver.
 
-Hi,
+Cc: Hans Verkuil <hverkuil@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Fixes: e415c689a884 ("V4L/DVB (11579): Initial go at TT S2-1600")
+Cc: stable <stable@kernel.org>
+Assisted-by: gregkh_clanker_t1000
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/media/dvb-frontends/stv090x.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-On Tue 24 Mar 26, 16:08, Pengpeng Hou wrote:
-> Cedrus consumes H.264 ref_pic_list0/ref_pic_list1 entries from the
-> stateless slice control and later uses their indices to look up
-> decode->dpb[] in _cedrus_write_ref_list().
->=20
-> Rejecting such controls in cedrus_try_ctrl() would break existing
-> userspace, since stateless H.264 reference lists may legitimately carry
-> out-of-range indices for missing references. Instead, guard the actual
-> DPB lookup in Cedrus and skip entries whose indices do not fit the fixed
-> V4L2_H264_NUM_DPB_ENTRIES array.
+diff --git a/drivers/media/dvb-frontends/stv090x.c b/drivers/media/dvb-frontends/stv090x.c
+index 657df713865e..d4bf6d28961a 100644
+--- a/drivers/media/dvb-frontends/stv090x.c
++++ b/drivers/media/dvb-frontends/stv090x.c
+@@ -3902,6 +3902,8 @@ static int stv090x_recv_slave_reply(struct dvb_frontend *fe, struct dvb_diseqc_s
+ 
+ 	if (rx_end) {
+ 		reply->msg_len = STV090x_GETFIELD_Px(reg, FIFO_BYTENBR_FIELD);
++		if (reply->msg_len > sizeof(reply->msg))
++			reply->msg_len = sizeof(reply->msg);
+ 		for (i = 0; i < reply->msg_len; i++)
+ 			reply->msg[i] = STV090x_READ_DEMOD(state, DISRXDATA);
+ 	}
+-- 
+2.53.0
 
-Could you explain why it is legitimate that userspace would pass indices th=
-at
-are not in the dpb list? As far as I remember from the H.264 spec, the L0/L1
-lists are constructed from active references only and the number of items t=
-here
-should be given by num_ref_idx_l0_active_minus1/num_ref_idx_l1_active_minus=
-1.
-We can tolerate invalid data beyond these indices, but certainly not as part
-of the indices that should be valid.
-
-However I agree that cedrus_try_ctrl is maybe not the right place to check =
-it
-since I'm not sure we are guaranteed that the slice params control will be
-checked before the new DPB (from the same request) is applied, so we might =
-end
-up checking against the dpb from the previous decode request.
-
-But I think we should error out and not just skip the invalid reference.
-
-All the best,
-
-Paul
-
->=20
-> This keeps the fix local to the driver use site and avoids out-of-bounds
-> reads from malformed or unsupported reference list entries.
->=20
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-> ---
->  drivers/staging/media/sunxi/cedrus/cedrus_h264.c | 3 +++
->  1 file changed, 3 insertions(+)
->=20
-> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h264.c b/drivers/s=
-taging/media/sunxi/cedrus/cedrus_h264.c
-> --- a/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
-> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
-> @@ -210,6 +210,9 @@ static void _cedrus_write_ref_list(struct cedrus_ctx =
-*ctx,
->  		u8 dpb_idx;
-> =20
->  		dpb_idx =3D ref_list[i].index;
-> +		if (dpb_idx >=3D V4L2_H264_NUM_DPB_ENTRIES)
-> +			continue;
-> +
->  		dpb =3D &decode->dpb[dpb_idx];
-> =20
->  		if (!(dpb->flags & V4L2_H264_DPB_ENTRY_FLAG_ACTIVE))
-> --=20
-> 2.50.1
->=20
-
---=20
-Paul Kocialkowski,
-
-Independent contractor - sys-base - https://www.sys-base.io/
-Free software developer - https://www.paulk.fr/
-
-Expert in multimedia, graphics and embedded hardware support with Linux.
-
---qcME/vMivydd7zm5
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmnXqpIACgkQhP3B6o/u
-lQzEug/+L0i5WTWsYIfonjrs2jQjpLwvRKyR7+XhxwJUfL+txU8E2UXge7nNq3ja
-ArsUnJXyjCzhaj1Tot8ptBKjfcSYOjbsFYHeiUIHvHNIm56Q0G1k+801TVEWRcXQ
-LwKfkyBAl9HMf4FtR++yMoZ4f90tSJzpQJqjp04pTxQKErxB2S8V3HeW85m7qs/y
-tORRrEawCMgs8J/Wn23IAl5j7mJKE9BK4WMasgmTqOG1qmTpw7FzyOR4peCD/pUx
-L+QonrV1TRVGR3HW2ICL4Gmmu7utCzdgy7Sy/JN1wMgM1mLIEhIz+YuMmMjUVR+o
-/yae3q+Ht3a2L/+nm4fhpElg2AVi/Eo0YpIrdE7TqqmHMxtY5sXllJBZGUHwdr/L
-wF2XxBcP7bNx4IfBwkT62iAVxGaag4fzRsYGr3uG3En8i9Oo96p4rD8cDRS1/l8N
-3WSYF8oVIG7hkaiqX4drUkqXGkt14HLB8+iNPz8a5cE9WW9CYeYwVJ2IC9F0DEgW
-PbAvNDNpaCLdJjNxV0eFdggl0Ipq94xALhjOSFobhOlJjreOqNjLrsKpynsnD5K6
-FWAw+Pj/fPDMhZvj8lfW3RW4T6pZ/KTFHzZ9wWjEgCiTbFNtjOxWc2V2CY9Q2YNI
-3fDtG+tv1cKs0uLyMdwLLYcyo8BdtoCuTQas99LdqZv4TTKafxU=
-=1orP
------END PGP SIGNATURE-----
-
---qcME/vMivydd7zm5--
