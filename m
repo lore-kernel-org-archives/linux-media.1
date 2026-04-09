@@ -1,52 +1,52 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8018D31AA8F
-	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B56213635E
+	for <linux-media@vger.kernel.org>; Thu,  9 Apr 2026 20:15:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765710; cv=none; b=JwQYWve2js21HbFQgabCmGzk9GsEDpmsewTrGI6rhlR37364zCMDfaZ+ShmdSlx66JvWAMVlhe9TynbOINfwtO9K8G4C1D63FmoK9Qg+DlBSNt45s5EkLyYLiwzwow722C9EGnD00i4JreJCHPNHiKl5IP7V7sC+cRcMzjw3I0w=
+	t=1775765711; cv=none; b=NzXqnUX9tWZC1GWlf+1zyrGTUMJuF5zh9XrbYkOqR/iwRBm2fkYcyozj7Go/Z6YtbQh2twxs9IcosQFfdKnUPoiwq4bOQXJh4Kbl1OswqtSTW9QAGSzDQ+FuAXCNk0DXcFhqw+HfNqUCYEPbzLFfQBlH7PrWAGdI0rea/hvoTFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775765710; c=relaxed/simple;
-	bh=8fIUaHx1Un6+g47msrH+RVw4pgiKVcXpMw9YMPZnUuE=;
+	s=arc-20240116; t=1775765711; c=relaxed/simple;
+	bh=ZHt5cecpWuZYbS8uwamLVIUKFZtf0Kcz/FzaCHf5zEk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ofuklAXzzd/W0oT7GfF16DdQ7GkLyRit8RZCvmDxE8OwB4XcNvLe5LulJKJRtRzDkZ/6v1SCLE1IQXIwh7E6hwXoj3DVhmLRwqI4AW9JpqVRM4zfkSa8RAGOUJudF7lHRzhxPXIUc+1JrDgsVngwku4sppkOV85snHRWzCZEUlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=B+q2NBoa; arc=none smtp.client-ip=192.198.163.11
+	 MIME-Version; b=NhgRE6jb9WDYXbGTjgIzAdUf4c+hdxPa+5IREiNIqIIQgpSd9QHjXkU3Zr9zvv9l0ndmOtDcFzMRO57dmChvdsvIWzhdJpGIZimz6eQ2JoYBdOOV4X3QjKGBO7EGdk0zICIFO6coR+WL5U4sQZPebdIqqe1EluZ5slOUNsIuAnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k1uObbO8; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="B+q2NBoa"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k1uObbO8"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775765709; x=1807301709;
+  t=1775765710; x=1807301710;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=8fIUaHx1Un6+g47msrH+RVw4pgiKVcXpMw9YMPZnUuE=;
-  b=B+q2NBoalMGAIkTygDbK2xQKdMFXqELXkTTApzffsHk9gQRLTlE8nPIZ
-   3Dg8M6eoniPMWhbq0J5mkVZLdamGXh3xEBRfr6hbMaD37nWYC7ZTwENq+
-   kY7yZnE16xcPn/BycCgkIg4Yi7JvafrLmxOS5PT7t01JAewiyGB2Vbuw6
-   toA5eaHTbfLXMCQgup57HT9RL7K9fckHI2D57xML39VvZrMCIeWmNI1Sl
-   1ScAjqHjEk293SEqDMkXygJEstzyHZuIXVLqce0qeANz+mu3XZtoW9rOq
-   s+pWzl6JufaDwXdhXWi8ClRviO6lHk0JQNaAZLlTx21LOj2NoHikwENME
-   w==;
-X-CSE-ConnectionGUID: a/O0NKOaSQuKAoGddQJ6OQ==
-X-CSE-MsgGUID: ar9D9wpJTluqXpbqOmtNSQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="87408641"
+  bh=ZHt5cecpWuZYbS8uwamLVIUKFZtf0Kcz/FzaCHf5zEk=;
+  b=k1uObbO8XLVFILnLRoNi0fhH4oDwj7Hs6JgSqVxLSjsj4hzBGN0vmxJ1
+   Djq7p+sq0VmQlHzjgVdqBQbXUWyv9XPTWuKhztMnesg9yixzwEiFslenG
+   d9Uc8ir/9fkAfqUioQrHiG/AEci7Oh3PLw6ZMl6gXzBbQ9tllMckQX2aO
+   tGni3CFMYLF5D072AFP3tbG69UXM7fnDkI+P3dT7hflInO9mI5usY6SCT
+   vexjx3gxItGJacaaC1OzldYEmVlvpLj2hFdL4yOIcKyt69XZwedTPddrW
+   p2EIHaogtObIv8ILq6SB6tP+f8Nj7tT7oGIw86EWlVWwrNXAs0r70qzTX
+   A==;
+X-CSE-ConnectionGUID: jJI9zDQPTbuofqXkKLQXow==
+X-CSE-MsgGUID: lLL7CGYOSP6aozwp8vDNKw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="87408654"
 X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
-   d="scan'208";a="87408641"
+   d="scan'208";a="87408654"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
   by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:09 -0700
-X-CSE-ConnectionGUID: Oc4aApUGTOKxTrAzxESWHQ==
-X-CSE-MsgGUID: wm0zRcuKQjmp963p3j5icQ==
+X-CSE-ConnectionGUID: dJBqUG9ISWSeBPEFbW8eHQ==
+X-CSE-MsgGUID: LkH7UH4sRcSfu0wgugE/yg==
 X-ExtLoop1: 1
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.29])
   by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 13:15:03 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 3FD91121E84;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 36EC3121DC9;
 	Thu, 09 Apr 2026 23:15:03 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wAvmI-000000045pT-31Km;
+	id 1wAvmI-000000045pJ-2skg;
 	Thu, 09 Apr 2026 23:15:02 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -77,9 +77,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v12 70/86] media: ipu6: Always request a capture ack
-Date: Thu,  9 Apr 2026 23:14:45 +0300
-Message-ID: <20260409201501.975242-71-sakari.ailus@linux.intel.com>
+Subject: [PATCH v12 68/86] media: ipu6: Stream number on CSI-2 receiver source pads is always 0
+Date: Thu,  9 Apr 2026 23:14:43 +0300
+Message-ID: <20260409201501.975242-69-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
 References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
@@ -91,68 +91,91 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Always request a capture ack from a queued buffer. If streaming is
-disabled, no buffers would have been queued in the first place. Remove the
-streaming field from struct ipu6_isys_stream as well.
+The stream number on the video nodes' single pad is always 0, thus the
+stream number of the CSI-2 receivers' source pads is also 0. Remove the
+complexity that is there to come up with 0.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-isys-queue.c | 10 ++--------
- drivers/media/pci/intel/ipu6/ipu6-isys-video.h |  1 -
- 2 files changed, 2 insertions(+), 9 deletions(-)
+ .../media/pci/intel/ipu6/ipu6-isys-video.c    | 49 ++-----------------
+ 1 file changed, 5 insertions(+), 44 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-index 7f24b113338c..13d759b27ca0 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-@@ -266,10 +266,7 @@ ipu6_isys_buf_to_fw_frame_buf(struct ipu6_fw_isys_frame_buff_set_abi *set,
- 	set->send_irq_eof = 0;
- 	set->send_resp_eof = 0;
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+index b6f2ef0822a7..164000985c0d 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+@@ -967,66 +967,27 @@ ipu6_isys_query_stream_by_source(struct ipu6_isys *isys, int source, u8 vc)
+ 	return stream;
+ }
  
--	if (stream->streaming)
--		set->send_irq_capture_ack = 0;
--	else
--		set->send_irq_capture_ack = 1;
-+	set->send_irq_capture_ack = 1;
- 	set->send_irq_capture_done = 0;
- 
- 	set->send_resp_capture_ack = 1;
-@@ -299,8 +296,6 @@ static int ipu6_isys_stream_start(struct ipu6_isys_video *av)
- 	if (ret)
- 		return ret;
- 
--	stream->streaming = 1;
+-static u64 get_stream_mask_by_pipeline(struct ipu6_isys_video *__av)
+-{
+-	struct media_pipeline *pipeline =
+-		media_entity_pipeline(&__av->vdev.entity);
+-	unsigned int i;
+-	u64 stream_mask = 0;
 -
- 	do {
- 		struct ipu6_fw_isys_frame_buff_set_abi *buf = NULL;
- 		struct isys_fw_msgs *msg;
-@@ -631,13 +626,12 @@ static void stop_streaming(struct vb2_queue *q)
- 	ipu6_isys_update_stream_watermark(av, false);
+-	for (i = 0; i < NR_OF_CSI2_SRC_PADS; i++) {
+-		struct ipu6_isys_video *av = &__av->csi2->av[i];
+-
+-		if (pipeline == media_entity_pipeline(&av->vdev.entity))
+-			stream_mask |= BIT_ULL(av->source_stream);
+-	}
+-
+-	return stream_mask;
+-}
+-
+ int ipu6_isys_video_set_streaming(struct ipu6_isys_video *av, int state)
+ {
+-	struct v4l2_subdev_krouting *routing;
+-	struct ipu6_isys_stream *stream = av->stream;
+-	struct v4l2_subdev_state *subdev_state;
+ 	struct device *dev = &av->isys->adev->auxdev.dev;
+ 	struct v4l2_subdev *sd;
+ 	struct media_pad *r_pad;
+-	u32 sink_pad, sink_stream;
+-	u64 r_stream;
+-	u64 stream_mask = 0;
+ 	int ret = 0;
  
- 	mutex_lock(&av->isys->stream_mutex);
--	if (stream->nr_streaming == stream->nr_queues && stream->streaming)
-+	if (stream->nr_streaming == stream->nr_queues)
- 		ipu6_isys_video_set_streaming(av, 0);
- 	list_del(&aq->node);
- 	mutex_unlock(&av->isys->stream_mutex);
+-	dev_dbg(dev, "set stream: %d\n", state);
+-
+-	sd = &stream->asd->sd;
++	sd = &av->stream->asd->sd;
+ 	r_pad = media_pad_remote_pad_first(&av->pad);
+-	r_stream = ipu6_isys_get_src_stream_by_src_pad(sd, r_pad->index);
+-
+-	subdev_state = v4l2_subdev_lock_and_get_active_state(sd);
+-	routing = &subdev_state->routing;
+-	ret = v4l2_subdev_routing_find_opposite_end(routing, r_pad->index,
+-						    r_stream, &sink_pad,
+-						    &sink_stream);
+-	v4l2_subdev_unlock_state(subdev_state);
+-	if (ret)
+-		return ret;
  
- 	stream->nr_streaming--;
--	stream->streaming = 0;
- 	mutex_unlock(&stream->mutex);
- 
- 	ipu6_isys_stream_cleanup(av);
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.h b/drivers/media/pci/intel/ipu6/ipu6-isys-video.h
-index 72d413026d3e..d07c16e79877 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.h
-@@ -53,7 +53,6 @@ struct ipu6_isys_stream {
- 
- 	int nr_queues;	/* Number of capture queues */
- 	int nr_streaming;
--	int streaming;	/* Has streaming been really started? */
- 	struct list_head queues;
- 	struct completion stream_open_completion;
- 	struct completion stream_close_completion;
+-	stream_mask = get_stream_mask_by_pipeline(av);
+ 	if (!state) {
+ 		/* stop sub-device which connects with video */
+-		dev_dbg(dev, "stream off entity %s pad:%d mask:0x%llx\n",
+-			sd->name, r_pad->index, stream_mask);
+-		ret = v4l2_subdev_disable_streams(sd, r_pad->index,
+-						  stream_mask);
++		dev_dbg(dev, "stream off %s pad:%d\n", sd->name, r_pad->index);
++		ret = v4l2_subdev_disable_streams(sd, r_pad->index, 1);
+ 		if (ret)
+ 			dev_err(dev, "stream off %s failed with %d\n", sd->name,
+ 				ret);
+ 	} else {
+ 		/* start sub-device which connects with video */
+-		dev_dbg(dev, "stream on %s pad %d mask 0x%llx\n", sd->name,
+-			r_pad->index, stream_mask);
+-		ret = v4l2_subdev_enable_streams(sd, r_pad->index, stream_mask);
++		dev_dbg(dev, "stream on %s pad %d\n", sd->name, r_pad->index);
++		ret = v4l2_subdev_enable_streams(sd, r_pad->index, 1);
+ 		if (ret)
+ 			dev_err(dev, "stream on %s failed with %d\n", sd->name,
+ 				ret);
 -- 
 2.47.3
 
