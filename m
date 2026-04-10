@@ -1,56 +1,54 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6C73AB27C
-	for <linux-media@vger.kernel.org>; Fri, 10 Apr 2026 09:02:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765433A3E91
+	for <linux-media@vger.kernel.org>; Fri, 10 Apr 2026 09:02:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775811746; cv=none; b=F+OckTpLl3QUPaMCBvkZ0MWFd16G17BWzTRczVGYH2CRB8kiaeLIB+zs+ZbAZnLpe0IeXUy8eVnNTeFc3YAr8FSsKSGiG0V0P+b0wRmrfJBXXHEYiv9gSJuYwghWpFy6kfebjFjZleuoCP+eYFq3W9gLTpZiC2fPmwf+CYhJKMA=
+	t=1775811763; cv=none; b=Enps0itDKb/P8vXIGRSrgYYZFEYfSQsFrIkCB91fkJ7dRF1g30d2CyNULQTCcQEc2EW1xSAEPgWRmP/oPLO349iy6B/FdnkkE56VUG4LegOPzaefLqaWXOaEJaF5WQmp5FyRCPykSQOUSoU3CmTqz6XBZhPN9Hf4HKUkcdutYIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775811746; c=relaxed/simple;
-	bh=98/AxvG6TrIsB3uYPTAV8V6Gx7JT9SblQXn1H4lHVJs=;
+	s=arc-20240116; t=1775811763; c=relaxed/simple;
+	bh=kO7MvhVbMx7aovqZdkfWOvKWlzoj89MHiJGnbgZ5fWM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tnR3Vmlcx3khLU9FzEZzfRDPSVm0lNLqW+g6p44MfJoQDRJepYavdsr+dQMGRpFLdpqFKNdMsxxCuoWr9AsXuNxCIz7+Nzphf/Qp5p3j+kZA1o7jdwtDvIk5Bhm2UTe/3gyPwV+vAvwixQ6YYw9Tu/9gmDa6J1x6MUvqA/QZmAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Vlg1640U; arc=none smtp.client-ip=213.167.242.64
+	 Content-Type:Content-Disposition:In-Reply-To; b=PPC7GOKqMdLFLY436EXe1QrZ2cojzNe0u0SuVTYOz+LtJ8WXUTqlEwrOIJfNBlnzF4oQ6VSNddcLd17Rr6WO34eqoTQGrxYlDa+LCrpoFiSKPeQZBj9he1M23gO0f2soqxDSRrvUzLUnVz9x9UzG+extbK5k0Z+HMHzX2G1ySxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=O6aqfBjf; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Vlg1640U"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="O6aqfBjf"
 Received: from ideasonboard.com (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7F4E91BA;
-	Fri, 10 Apr 2026 11:00:53 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9AA281BA;
+	Fri, 10 Apr 2026 11:01:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1775811653;
-	bh=98/AxvG6TrIsB3uYPTAV8V6Gx7JT9SblQXn1H4lHVJs=;
+	s=mail; t=1775811671;
+	bh=kO7MvhVbMx7aovqZdkfWOvKWlzoj89MHiJGnbgZ5fWM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Vlg1640UBl6YdNPBp147D8lsjzRq6nPMVCy1jsajG7jCrZ0EZ6K1AJYa438X3ZMN2
-	 FCf+6D+C+B2/lFNBTZCSFOop8ED4ffZXd9hjtXQI1Yi5j/yhDo991kjbEQyLNUQN90
-	 AV6YE74C4Gu/Ww1zn4XKQC1xDoI/GmLVLyu0Q53o=
-Date: Fri, 10 Apr 2026 11:02:20 +0200
+	b=O6aqfBjf8PgPKKVibiPXiTIB8EspiuFcHydCsZ+AovITWcgJ63zwx+3kpjo711X68
+	 1HJTSPPW3mUJ/uwlBCFktMZ+yZBzLYiQ/Bz1cajb8rLd/k28UKkFPGDRJ/L0zDdwk9
+	 m1hOG3lLA8vv41wNB1xUesGqknNW49ATRz5xprW8=
+Date: Fri, 10 Apr 2026 11:02:37 +0200
 From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	linux-media@vger.kernel.org, hans@jjverkuil.nl, laurent.pinchart@ideasonboard.com, 
-	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, Tommaso Merciai <tomm.merciai@gmail.com>, 
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, 
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Julien Massot <julien.massot@collabora.com>, 
-	Naushir Patuck <naush@raspberrypi.com>, "Yan, Dongcheng" <dongcheng.yan@intel.com>, 
-	"Cao, Bingbu" <bingbu.cao@intel.com>, "Qiu, Tian Shu" <tian.shu.qiu@intel.com>, 
-	Stefan Klug <stefan.klug@ideasonboard.com>, Mirela Rabulea <mirela.rabulea@nxp.com>, 
-	=?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>, Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, Mehdi Djait <mehdi.djait@linux.intel.com>, 
-	Ricardo Ribalda Delgado <ribalda@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl, 
+	laurent.pinchart@ideasonboard.com, Prabhakar <prabhakar.csengg@gmail.com>, 
+	Kate Hsuan <hpa@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	Tommaso Merciai <tomm.merciai@gmail.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
+	Sylvain Petinot <sylvain.petinot@foss.st.com>, Christophe JAILLET <christophe.jaillet@wanadoo.fr>, 
+	Julien Massot <julien.massot@collabora.com>, Naushir Patuck <naush@raspberrypi.com>, 
+	"Yan, Dongcheng" <dongcheng.yan@intel.com>, "Cao, Bingbu" <bingbu.cao@intel.com>, 
+	"Qiu, Tian Shu" <tian.shu.qiu@intel.com>, Stefan Klug <stefan.klug@ideasonboard.com>, 
+	Mirela Rabulea <mirela.rabulea@nxp.com>, =?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>, 
+	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Mehdi Djait <mehdi.djait@linux.intel.com>, Ricardo Ribalda Delgado <ribalda@kernel.org>, 
+	Hans de Goede <hansg@kernel.org>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
 	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, David Plowman <david.plowman@raspberrypi.com>, 
 	"Yu, Ong Hock" <ong.hock.yu@intel.com>, "Ng, Khai Wen" <khai.wen.ng@intel.com>, 
 	Jai Luthra <jai.luthra@ideasonboard.com>, Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v4 08/29] media: imx274: Remove redundant kernel-doc
+Subject: Re: [PATCH v4 09/29] media: imx334: Remove redundant kernel-doc
  comments
-Message-ID: <adi8gmI07F0efBIx@zed>
+Message-ID: <adi8ortNix1C4uld@zed>
 References: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
- <20260408153939.969381-9-sakari.ailus@linux.intel.com>
- <adi5CH2yE4CLikVv@zed>
- <adi6yoeos-ClRh6V@kekkonen.localdomain>
+ <20260408153939.969381-10-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -59,42 +57,204 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <adi6yoeos-ClRh6V@kekkonen.localdomain>
+In-Reply-To: <20260408153939.969381-10-sakari.ailus@linux.intel.com>
 
 Hi Sakari
 
-On Fri, Apr 10, 2026 at 11:54:34AM +0300, Sakari Ailus wrote:
-> Hi Jacopo,
+On Wed, Apr 08, 2026 at 06:39:18PM +0300, Sakari Ailus wrote:
+> Remove kernel-doc comments from regular callback functions. These comments
+> have no information value.
 >
-> Thank you for the review.
->
-> On Fri, Apr 10, 2026 at 10:48:24AM +0200, Jacopo Mondi wrote:
-> > Hi Sakari
-> >
-> > On Wed, Apr 08, 2026 at 06:39:17PM +0300, Sakari Ailus wrote:
-> > > Remove kernel-doc comments from  regular callback functions. These
-> > > comments have no information value.
-> > >
-> > > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> >
-> > This might be easy, but how is this related to metadata ?
-> > This is a 29 patch series that prepares for an 89 patch series.
->
-> Not directly, but not doing this now will require documenting the new
-> arguments soon or we'd start getting warnings from the build. Writing
-> documentation that shouldn't exist would be entirely non-productive work.
->
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-I see. Thanks for explaining
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 
-> >
-> > review time is not free, piling stuff over stuff is a recipe for
-> > making sure we'll never merge this.
-> >
-> > Anyway
-> > Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> ---
+>  drivers/media/i2c/imx334.c | 93 --------------------------------------
+>  1 file changed, 93 deletions(-)
 >
-> Thank you.
+> diff --git a/drivers/media/i2c/imx334.c b/drivers/media/i2c/imx334.c
+> index 9654f9268056..553a16b84f4d 100644
+> --- a/drivers/media/i2c/imx334.c
+> +++ b/drivers/media/i2c/imx334.c
+> @@ -566,18 +566,6 @@ static int imx334_update_exp_gain(struct imx334 *imx334, u32 exposure, u32 gain)
+>  	return ret;
+>  }
 >
+> -/**
+> - * imx334_set_ctrl() - Set subdevice control
+> - * @ctrl: pointer to v4l2_ctrl structure
+> - *
+> - * Supported controls:
+> - * - V4L2_CID_VBLANK
+> - * - cluster controls:
+> - *   - V4L2_CID_ANALOGUE_GAIN
+> - *   - V4L2_CID_EXPOSURE
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_set_ctrl(struct v4l2_ctrl *ctrl)
+>  {
+>  	struct imx334 *imx334 =
+> @@ -678,14 +666,6 @@ static int imx334_get_format_code(struct imx334 *imx334, u32 code)
+>  	return imx334_mbus_codes[0];
+>  }
+>
+> -/**
+> - * imx334_enum_mbus_code() - Enumerate V4L2 sub-device mbus codes
+> - * @sd: pointer to imx334 V4L2 sub-device structure
+> - * @sd_state: V4L2 sub-device state
+> - * @code: V4L2 sub-device code enumeration need to be filled
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_enum_mbus_code(struct v4l2_subdev *sd,
+>  				 struct v4l2_subdev_state *sd_state,
+>  				 struct v4l2_subdev_mbus_code_enum *code)
+> @@ -698,14 +678,6 @@ static int imx334_enum_mbus_code(struct v4l2_subdev *sd,
+>  	return 0;
+>  }
+>
+> -/**
+> - * imx334_enum_frame_size() - Enumerate V4L2 sub-device frame sizes
+> - * @sd: pointer to imx334 V4L2 sub-device structure
+> - * @sd_state: V4L2 sub-device state
+> - * @fsize: V4L2 sub-device size enumeration need to be filled
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_enum_frame_size(struct v4l2_subdev *sd,
+>  				  struct v4l2_subdev_state *sd_state,
+>  				  struct v4l2_subdev_frame_size_enum *fsize)
+> @@ -749,14 +721,6 @@ static void imx334_fill_pad_format(struct imx334 *imx334,
+>  	fmt->format.xfer_func = V4L2_XFER_FUNC_NONE;
+>  }
+>
+> -/**
+> - * imx334_get_pad_format() - Get subdevice pad format
+> - * @sd: pointer to imx334 V4L2 sub-device structure
+> - * @sd_state: V4L2 sub-device state
+> - * @fmt: V4L2 sub-device format need to be set
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_get_pad_format(struct v4l2_subdev *sd,
+>  				 struct v4l2_subdev_state *sd_state,
+>  				 struct v4l2_subdev_format *fmt)
+> @@ -776,14 +740,6 @@ static int imx334_get_pad_format(struct v4l2_subdev *sd,
+>  	return 0;
+>  }
+>
+> -/**
+> - * imx334_set_pad_format() - Set subdevice pad format
+> - * @sd: pointer to imx334 V4L2 sub-device structure
+> - * @sd_state: V4L2 sub-device state
+> - * @fmt: V4L2 sub-device format need to be set
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_set_pad_format(struct v4l2_subdev *sd,
+>  				 struct v4l2_subdev_state *sd_state,
+>  				 struct v4l2_subdev_format *fmt)
+> @@ -815,13 +771,6 @@ static int imx334_set_pad_format(struct v4l2_subdev *sd,
+>  	return ret;
+>  }
+>
+> -/**
+> - * imx334_init_state() - Initialize sub-device state
+> - * @sd: pointer to imx334 V4L2 sub-device structure
+> - * @sd_state: V4L2 sub-device state
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_init_state(struct v4l2_subdev *sd,
+>  			     struct v4l2_subdev_state *sd_state)
+>  {
+> @@ -856,15 +805,6 @@ static int imx334_set_framefmt(struct imx334 *imx334)
+>  	return -EINVAL;
+>  }
+>
+> -/**
+> - * imx334_enable_streams() - Enable specified streams for the sensor
+> - * @sd: pointer to the V4L2 subdevice
+> - * @state: pointer to the subdevice state
+> - * @pad: pad number for which streams are enabled
+> - * @streams_mask: bitmask specifying the streams to enable
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_enable_streams(struct v4l2_subdev *sd,
+>  				 struct v4l2_subdev_state *state, u32 pad,
+>  				 u64 streams_mask)
+> @@ -929,15 +869,6 @@ static int imx334_enable_streams(struct v4l2_subdev *sd,
+>  	return ret;
+>  }
+>
+> -/**
+> - * imx334_disable_streams() - Enable specified streams for the sensor
+> - * @sd: pointer to the V4L2 subdevice
+> - * @state: pointer to the subdevice state
+> - * @pad: pad number for which streams are disabled
+> - * @streams_mask: bitmask specifying the streams to disable
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_disable_streams(struct v4l2_subdev *sd,
+>  				  struct v4l2_subdev_state *state, u32 pad,
+>  				  u64 streams_mask)
+> @@ -1067,12 +998,6 @@ static const struct v4l2_subdev_internal_ops imx334_internal_ops = {
+>  	.init_state = imx334_init_state,
+>  };
+>
+> -/**
+> - * imx334_power_on() - Sensor power on sequence
+> - * @dev: pointer to i2c device
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_power_on(struct device *dev)
+>  {
+>  	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+> @@ -1101,12 +1026,6 @@ static int imx334_power_on(struct device *dev)
+>  	return ret;
+>  }
+>
+> -/**
+> - * imx334_power_off() - Sensor power off sequence
+> - * @dev: pointer to i2c device
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_power_off(struct device *dev)
+>  {
+>  	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+> @@ -1206,12 +1125,6 @@ static int imx334_init_controls(struct imx334 *imx334)
+>  	return 0;
+>  }
+>
+> -/**
+> - * imx334_probe() - I2C client device binding
+> - * @client: pointer to i2c client device
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_probe(struct i2c_client *client)
+>  {
+>  	struct imx334 *imx334;
+> @@ -1311,12 +1224,6 @@ static int imx334_probe(struct i2c_client *client)
+>  	return ret;
+>  }
+>
+> -/**
+> - * imx334_remove() - I2C client device unbinding
+> - * @client: pointer to I2C client device
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static void imx334_remove(struct i2c_client *client)
+>  {
+>  	struct v4l2_subdev *sd = i2c_get_clientdata(client);
 > --
-> Sakari Ailus
+> 2.47.3
+>
+>
