@@ -1,32 +1,32 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1BF336896
-	for <linux-media@vger.kernel.org>; Fri, 10 Apr 2026 09:26:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5C7D3B3C00
+	for <linux-media@vger.kernel.org>; Fri, 10 Apr 2026 09:29:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775813215; cv=none; b=ZSL3jk4ORM8RfgH/8qko8yH8vbdeIMVH2x4smPi/rF36ydBm0C7+sHkOcL7+IM+rLyVTrJVsjR/rNbt7Db8YMNmXI1+zN4CUmlm6Kw6rSfpYQISjOTh4Fnln1RTK48YRPeN5JfvRCSRMSmQ0ejMAxfnvFy3YpW+0Lt5/xexcTfM=
+	t=1775813384; cv=none; b=km1S+doYnTdN/KceTxDPf359KVgJEjJBQ9snraUSD+noBROZc8pIBYBbyWEXws6VxdeaDxP53RVQn8svA9imPLOk9YYbFADo6/a3yBIgcyJBLsl6lr8C1vLGYQ/XoEnjtod/yvpjScO9kCvkZFnqV042jAMcpLkzpB/OHOs/wdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775813215; c=relaxed/simple;
-	bh=Axaw6U5flZs1+LjMfymXgYXNe4xwLpGZpBVj2lRfEJo=;
+	s=arc-20240116; t=1775813384; c=relaxed/simple;
+	bh=0ul6Hy7vt2LqmKbNQ7VCQhBI5Ysa7dEW7Ewf4uPTwjw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GiutGQJ6dylpSWx8m3zIvZjXJbjWqQ6siJ3GjHqapgnGlccZo41qj4LkhXWLX+pYkAdeWAY+lrajcHokd7izmHuoa7XL0jE14+Z9ezCv0UVPo+UPDItCKK259WkP0A8/kM5JXclsCQs2xPGcUR+xdZb2/TvPw7TnZYs2d7cKuNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=woInyyeC; arc=none smtp.client-ip=213.167.242.64
+	 Content-Type:Content-Disposition:In-Reply-To; b=I+VappnxkQND0/JKSZLSEX/lyf56i7WflpMafJVJ3MqV8IMYj8fHFzFoV0Lp6bYUAnNnhQi/VUlW+h17zItHnQRa3X3P8MpQZt9nts8iJF/czlKVAm8+H9V5KxsAXE39h1VsfwRvh7mzPo/1Dw/L/fu5/2EuMxKo+c2lAW3QSvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=GIdQZVbY; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="woInyyeC"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="GIdQZVbY"
 Received: from ideasonboard.com (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B3118225;
-	Fri, 10 Apr 2026 11:25:21 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6C431225;
+	Fri, 10 Apr 2026 11:28:09 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1775813121;
-	bh=Axaw6U5flZs1+LjMfymXgYXNe4xwLpGZpBVj2lRfEJo=;
+	s=mail; t=1775813289;
+	bh=0ul6Hy7vt2LqmKbNQ7VCQhBI5Ysa7dEW7Ewf4uPTwjw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=woInyyeCe3sd7x+Z+G/sUq224At6ByH2zd/z4sRg9qhTxJIJQeCQqbCGKm6AeufeZ
-	 7jtLYWK/qvk8YP/IuXqbnVvwBzRMvpqVNQdt8Mcc4gQQFHK6pX6f18B+1S8uQxhQr3
-	 5ltciAMqv+dAbE/XpU1vM6NvvrliWnS6fa/pYX2c=
-Date: Fri, 10 Apr 2026 11:26:47 +0200
+	b=GIdQZVbYHBAT5p9q1c1YYytNcKtxJoJ/zKh9vLk//TaQXYniPbWlsh+R1Fhf5q06x
+	 XGlGGrFBO55TPkjjbGY1w/YD1PywiA1/Gc4q2bqaa9BXnhBqgwVDSN1ra0Q1v2mSoD
+	 AjigTmbFWLHRipnjf35E5mXVZbJXJFvIRnXc1kbg=
+Date: Fri, 10 Apr 2026 11:29:36 +0200
 From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl, 
@@ -44,11 +44,11 @@ Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
 	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, David Plowman <david.plowman@raspberrypi.com>, 
 	"Yu, Ong Hock" <ong.hock.yu@intel.com>, "Ng, Khai Wen" <khai.wen.ng@intel.com>, 
 	Jai Luthra <jai.luthra@ideasonboard.com>, Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v4 18/29] media: mc: Simplify link processing in
- __media_pipeline_start()
-Message-ID: <adjCTYM7-71g4xvR@zed>
+Subject: Re: [PATCH v4 19/29] media: mc: Separate single link validation into
+ a new function
+Message-ID: <adjC9IsNCdAMLxaj@zed>
 References: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
- <20260408153939.969381-19-sakari.ailus@linux.intel.com>
+ <20260408153939.969381-20-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -57,14 +57,14 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260408153939.969381-19-sakari.ailus@linux.intel.com>
+In-Reply-To: <20260408153939.969381-20-sakari.ailus@linux.intel.com>
 
 Hi Sakari
 
-On Wed, Apr 08, 2026 at 06:39:27PM +0300, Sakari Ailus wrote:
-> There are two conditions checking the ENABLED link flag in the loop
-> going through the links related to an entity. Drop the other one and
-> simplify the remaining code.
+On Wed, Apr 08, 2026 at 06:39:28PM +0300, Sakari Ailus wrote:
+> Add a new function __media_pipeline_validate_one() to validate a single
+> link in a pipeline. This will soon be used for performing validation in
+> multiple phases.
 >
 > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 > Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
@@ -72,36 +72,102 @@ On Wed, Apr 08, 2026 at 06:39:27PM +0300, Sakari Ailus wrote:
 Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 
 > ---
->  drivers/media/mc/mc-entity.c | 11 +++++------
->  1 file changed, 5 insertions(+), 6 deletions(-)
+>  drivers/media/mc/mc-entity.c | 74 ++++++++++++++++++++----------------
+>  1 file changed, 42 insertions(+), 32 deletions(-)
 >
 > diff --git a/drivers/media/mc/mc-entity.c b/drivers/media/mc/mc-entity.c
-> index 3fa0bc687851..6bf4730b89d2 100644
+> index 6bf4730b89d2..717569bd1a8c 100644
 > --- a/drivers/media/mc/mc-entity.c
 > +++ b/drivers/media/mc/mc-entity.c
-> @@ -838,17 +838,16 @@ __must_check int __media_pipeline_start(struct media_pad *origin,
+> @@ -768,6 +768,45 @@ static int media_pipeline_populate(struct media_pipeline *pipe,
+>  	return ret;
+>  }
+>
+> +static int
+> +__media_pipeline_validate_one(struct media_pad *origin,
+> +			      struct media_pad *pad, struct media_link *link,
+> +			      bool *has_enabled_link)
+> +{
+> +	struct media_device *mdev = origin->graph_obj.mdev;
+> +	struct media_entity *entity = pad->entity;
+> +	int ret;
+> +
+> +	/* Return here if the link is disabled. */
+> +	if (!(link->flags & MEDIA_LNK_FL_ENABLED))
+> +		return 0;
+> +
+> +	if (has_enabled_link)
+> +		*has_enabled_link = true;
+> +
+> +	/* Skip validation if the current pad isn't the sink pad of the link. */
+> +	if (link->sink != pad)
+> +		return 0;
+> +
+> +	if (!entity->ops || !entity->ops->link_validate)
+> +		return 0;
+> +
+> +	ret = entity->ops->link_validate(link);
+> +	if (ret) {
+> +		dev_dbg(mdev->dev,
+> +			"Link '%s':%u -> '%s':%u failed validation: %d\n",
+> +			link->source->entity->name, link->source->index,
+> +			link->sink->entity->name, link->sink->index, ret);
+> +		return ret;
+> +	}
+> +
+> +	dev_dbg(mdev->dev, "Link '%s':%u -> '%s':%u is valid\n",
+> +		link->source->entity->name, link->source->index,
+> +		link->sink->entity->name, link->sink->index);
+> +
+> +	return 0;
+> +}
+> +
+>  __must_check int __media_pipeline_start(struct media_pad *origin,
+>  					struct media_pipeline *pipe)
+>  {
+> @@ -838,39 +877,10 @@ __must_check int __media_pipeline_start(struct media_pad *origin,
 >  			if (link->sink != pad && link->source != pad)
 >  				continue;
 >
-> -			/* Record if the pad has links and enabled links. */
-> -			if (link->flags & MEDIA_LNK_FL_ENABLED)
-> -				has_enabled_link = true;
+> -			/*
+> -			 * Ensure the link is enabled and if so, record
+> -			 * it. Proceed to the next link if the current pad isn't
+> -			 * the sink pad of the link.
+> -			 */
+> -			if (!(link->flags & MEDIA_LNK_FL_ENABLED))
+> -				continue;
 > -
->  			/*
-> -			 * Validate the link if it's enabled and has the
-> -			 * current pad as its sink.
-> +			 * Ensure the link is enabled and if so, record
-> +			 * it. Proceed to the next link if the current pad isn't
-> +			 * the sink pad of the link.
->  			 */
->  			if (!(link->flags & MEDIA_LNK_FL_ENABLED))
->  				continue;
+> -			has_enabled_link = true;
+> -
+> -			if (link->sink != pad)
+> -				continue;
+> -
+> -			if (!entity->ops || !entity->ops->link_validate)
+> -				continue;
+> -
+> -			ret = entity->ops->link_validate(link);
+> -			if (ret) {
+> -				dev_dbg(mdev->dev,
+> -					"Link '%s':%u -> '%s':%u failed validation: %d\n",
+> -					link->source->entity->name,
+> -					link->source->index,
+> -					link->sink->entity->name,
+> -					link->sink->index, ret);
+> +			ret = __media_pipeline_validate_one(origin, pad, link,
+> +							    &has_enabled_link);
+> +			if (ret)
+>  				goto error;
+> -			}
+> -
+> -			dev_dbg(mdev->dev,
+> -				"Link '%s':%u -> '%s':%u is valid\n",
+> -				link->source->entity->name,
+> -				link->source->index,
+> -				link->sink->entity->name,
+> -				link->sink->index);
+>  		}
 >
-> +			has_enabled_link = true;
-> +
->  			if (link->sink != pad)
->  				continue;
->
+>  		/*
 > --
 > 2.47.3
 >
