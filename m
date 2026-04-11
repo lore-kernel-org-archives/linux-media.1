@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF641212548;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E1B1DD0EF;
 	Sat, 11 Apr 2026 13:13:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775913194; cv=none; b=mDtKjRWZK9fc0tVNU+AF/sR4/y0t7GW8fmvTB+nw7J8S2TUbmukDyutYFZFOBFjC3pFT7rrjVx57KMdjNqoZvxG45eY0DIRmTQp19/FXSlEf9E5Q10I18qn81YnoaKucpSeLdzypUSOmaARH+OYres/48bqMPEt+MdA2hsCmNq0=
+	t=1775913193; cv=none; b=CAOrNU3FniZ3L+hEcesU7qPv51zMvl9zXX4fJ+xtFI+eHaZ2r41X8Jy9vTYj6I11s+fosMxKJBGSlleFBkxVVprsQUvEWA8NJCYJ4XfRXKULfVoDgn69V7lWZcBAfBEguR/pmL/xtJmJ65mZtA9IuLybKCzA3bgGlCLhnee1084=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775913194; c=relaxed/simple;
-	bh=gYvw5ZKRCl0RH8BgUOu5V3anD1d0+Iic81fLL49D928=;
+	s=arc-20240116; t=1775913193; c=relaxed/simple;
+	bh=2ENfBnHpWpi0r3ZLXmWmDjqJ8aRPN1NeTlp9MkMlkUg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KaSxdJi2bbpvb5MBC6ULe9fmKNtuNanZ/3mHVt52rFymTwz2gflRO+Ldyvu0svn+r7f+8jh3zfdRBiV/jjJ5cZUsTOv/ubOsg+70qYXA0NW/A2cD1YRiGWFYCTZV1UJWHbA1JVLQWzTlOvkY4fvcBQYIhgbcUrfJkay74kEgU3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nunJRZKv; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=d3SJW3d5S3Lf7F/oizpJmRVZAjtx9I9l6V7hp8hWjdhzsbILs6k9RUEd7zD/IOB1+LwUWYOzDYJnJwfFDGAE9YbSgNeUMurazMJJOOKSHryLLbrEJzQUOoGu1zutrRwTDFPtaDyAQCDOwQ+V1HC1wDZkztd6s05kyVYM4TFA5sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mafzj2Xf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nunJRZKv"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B5625C2BCB3;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mafzj2Xf"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9717EC2BC9E;
 	Sat, 11 Apr 2026 13:13:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1775913193;
-	bh=gYvw5ZKRCl0RH8BgUOu5V3anD1d0+Iic81fLL49D928=;
+	bh=2ENfBnHpWpi0r3ZLXmWmDjqJ8aRPN1NeTlp9MkMlkUg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=nunJRZKv+bX5GutT7y2MU+Ql+3/2vb2vEHZFTNhhznSFU/QtmH/XsHFZymosX4azG
-	 O/fLz0c/cNm1PXrDEe5xEU0BLDLjJCFVSpT5GZ+cVebstRPN0tyB43vZ2LhRjQLyqa
-	 XBJdK/gYB7MkQRJ8N78xEIey8nrs6u/cnv82lysG5F3ZEEdLp1EWrCAlSuxPLyiq5T
-	 tOucuHkFMYaVjrL8B7vqfaChpKGqKNC4IEBdGmCOu0HAUYEimfxh/fRlJnnljJ/DHo
-	 zCcDGKDptulKUTjhWZBV4HSTRLPrE+ZL4DEB4p6OxKCn9x/hNbWDqjbcpa1MAwgf+h
-	 vwJ1JtsHL2JMg==
+	b=Mafzj2Xfxs1JswfQVghhSTG7/vfIawzdxdpuzCz4ntD0WJ8prFosYBci+9yLHI2WD
+	 SqTO/amraJOW0852zWyDReSZ4XW44Ktup8R+lsiG0b24ob0tzpkvV8rsBv0PtTvtOW
+	 +AhpkkkoWCTE9LLiWfkfaq20u7E8c049R4pc0dAIe/XqPfhvQfeD5QC8NB9oXDUwxc
+	 iP41/kerJi2TkIBtmMbSLf5ZNrV8b9pU31SuUv+/qOogrDZOGpwL7sVfB9Z+TOSWgP
+	 VfO8w8F1bctthbNuj5du7C368mVNOsRX1oat6gclGI+EvN44dvlNbHwZmsM9BXt4Za
+	 jmRGsCCBWBtLw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ABE32F3ED53;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 88E84F3ED4F;
 	Sat, 11 Apr 2026 13:13:13 +0000 (UTC)
 From: Vasiliy Doylov via B4 Relay <devnull+nekocwd.mainlining.org@kernel.org>
-Date: Sat, 11 Apr 2026 16:13:10 +0300
-Subject: [PATCH v5 3/3] MAINTAINERS: Add entry for Onsemi LC898217XC lens
- voice coil driver
+Date: Sat, 11 Apr 2026 16:13:08 +0300
+Subject: [PATCH v5 1/3] media: dt-bindings: Add LC898217XC documentation
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260411-media-i2c-lc898217xc-initial-driver-v5-3-c71ddcf40bad@mainlining.org>
+Message-Id: <20260411-media-i2c-lc898217xc-initial-driver-v5-1-c71ddcf40bad@mainlining.org>
 References: <20260411-media-i2c-lc898217xc-initial-driver-v5-0-c71ddcf40bad@mainlining.org>
 In-Reply-To: <20260411-media-i2c-lc898217xc-initial-driver-v5-0-c71ddcf40bad@mainlining.org>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -51,15 +50,16 @@ Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
  Vitalii Skorkin <nikroks@mainlining.org>, 
  Antonio Rische <nt8r@protonmail.com>, 
- Vasiliy Doylov <nekocwd@mainlining.org>
+ Vasiliy Doylov <nekocwd@mainlining.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=790;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2204;
  i=nekocwd@mainlining.org; h=from:subject:message-id;
- bh=47zPYZVQfTlmz5yR21UDZYEArwVIUE2fjhcCknakC2A=;
- b=owGbwMvMwCVmXFbadLHr1XTG02pJDJm3PF7oOn+d/NHi/3RJ+9A9a9JL/c280jTeRNv+Ph/a5
- 3Yt8XlSRykLgxgXg6yYIkv3+8P3HszjZS1V/8QLM4eVCWQIAxenAEzkmRjDP6scCb98vyzG8vR1
- KWvLc+dx3kzbqsf9/e7S3EednySXejD8d5rBWuY5jT/2h2DlscC7d+J+M6slPRfd0xUyQ8328qH
- P/AA=
+ bh=s4FrTZ3Fx26kAj8zMlKs4iZ3umFcszpWLs1SXRZOPZs=;
+ b=owGbwMvMwCVmXFbadLHr1XTG02pJDJm3PF5wrD+dsuxJwrHOXN5pVp3vJ/WGifmICd7dc91/m
+ kTSzKagjlIWBjEuBlkxRZbu94fvPZjHy1qq/okXZg4rE8gQBi5OAZjIRztGhicvMiVOs00WmPd+
+ z/t+o6xTIhE2r569D5ObckAqdOkrYV6G/6mm2ydWs4jGWk08o7JiZ/vKU9KtP12fxAucdJ/Ju6m
+ 3nA0A
 X-Developer-Key: i=nekocwd@mainlining.org; a=openpgp;
  fpr=8BEFC3DEE09E0D057527F20D33767582D18AEA97
 X-Endpoint-Received: by B4 Relay for nekocwd@mainlining.org/default with
@@ -69,31 +69,80 @@ Reply-To: nekocwd@mainlining.org
 
 From: Vasiliy Doylov <nekocwd@mainlining.org>
 
-Add entry for Onsemi LC898217XC lens voice coil driver
+Add device tree bindings documentation for ON Semiconductor
+LC898217XC voice coil motor.
 
 Signed-off-by: Vasiliy Doylov <nekocwd@mainlining.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
+ .../bindings/media/i2c/onnn,lc898217xc.yaml        | 59 ++++++++++++++++++++++
+ 1 file changed, 59 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d4b396dccfe9..a87c03ad740b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19938,6 +19938,13 @@ S:	Supported
- W:	http://www.onsemi.com
- F:	drivers/net/phy/ncn*
- 
-+ONSEMI LC898217XC LENS VOICE COIL DRIVER
-+M:	Vasiliy Doylov <nekocwd@mainlining.org>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/i2c/onnn,lc898217xc.yaml
-+F:	drivers/media/i2c/lc898217xc.c
+diff --git a/Documentation/devicetree/bindings/media/i2c/onnn,lc898217xc.yaml b/Documentation/devicetree/bindings/media/i2c/onnn,lc898217xc.yaml
+new file mode 100644
+index 000000000000..3dd137d4c67c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/onnn,lc898217xc.yaml
+@@ -0,0 +1,59 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright 2025 Vasiliy Doylov <nekocwd@mainlining.org>
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/onnn,lc898217xc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- OP-TEE DRIVER
- M:	Jens Wiklander <jens.wiklander@linaro.org>
- L:	op-tee@lists.trustedfirmware.org (moderated for non-subscribers)
++title: ON Semiconductor LC898217XC Voice Coil Motor (VCM) Lens
++
++maintainers:
++  - Vasiliy Doylov <nekocwd@mainlining.org>
++
++description:
++  The LC898217XC is a 11-bit digital-to-analog (DAC) converter.
++  VCM current is controlled with a linear mode driver.The DAC is controlled
++  via a 2-wire (I2C-compatible) serial interface that operates at clock
++  rates up to 1MHz. This chip integrates Advanced Actuator Control (AAC)
++  technology and is intended for driving voice coil lenses in camera modules.
++
++properties:
++  compatible:
++    enum:
++      - onnn,lc898217xc
++
++  reg:
++    maxItems: 1
++
++  vana-supply:
++    description:
++      Definition of the regulator used as motor voltage supply.
++
++  vdd-supply:
++    description:
++      Definition of the regulator used as digital core voltage supply.
++
++required:
++  - compatible
++  - reg
++  - vana-supply
++  - vdd-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camera-lens@74 {
++            compatible = "onnn,lc898217xc";
++            reg = <0x74>;
++
++            vana-supply = <&mt6358_vaf_reg>;
++            vdd-supply = <&mt6358_vcamio_reg>;
++        };
++    };
++
++...
 
 -- 
 2.50.1
