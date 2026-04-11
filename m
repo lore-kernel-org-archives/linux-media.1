@@ -1,144 +1,101 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from linuxtv.org (140-211-166-241-openstack.osuosl.org [140.211.166.241])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F391EB1AA
-	for <linux-media@vger.kernel.org>; Sat, 11 Apr 2026 21:11:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A861F936
+	for <linux-media@vger.kernel.org>; Sat, 11 Apr 2026 21:56:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.241
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775941897; cv=none; b=J+mDrCW+d1MrT4JqYapFmLyn5AcTjtwYD+SopNJATE/pyBmeei7ln4EPJSnYyCo48OwtwGBwaAwsCj06RlksF0wSWLub1HCfDUb1YCu+jFaR/6V+9WIytOu3JlpdSsibHIIIUZ1HxwoMMDwFapksxGA1E6TbSE7CkV9qasy4+qY=
+	t=1775944602; cv=none; b=vGmiXMGu3kbd+ld9RU0xNZj11YwDKi/NWzOwWajg5FOOdbDAWQOLhlygXP+oJHFc5n29cMF1h8avxVV1em2vPjS/1rNygrq/ZXvW8GZNfiAX3I7CuQuSOOOXE4h7SSSl+StW5r77uI++lSlSBkBMFVQwYX3jctl4GOhS+JiTKZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775941897; c=relaxed/simple;
-	bh=gi15hcyqfgdadvIhdvu5Qn7qP7o4w4fImY4nXxFjqQc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DgHNohPZw7y1TcHrlwl+VTWVQpZqxijr5VLKpBj0S9N1WxS7WdX/O7/tW9UwJc7/EkYHukMGq6WRJoIUWa2agK2U/ScTvdQinmMeH3Xvtf5fg1XmSAFJlJl6YfjhS1ff6fWtQgI7jc1znsE4Urva2eqifCzzTZCwqJC7NSkn/w4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ixj8ZSCf; arc=none smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775944602; c=relaxed/simple;
+	bh=ytkQBdiYwFF+2eaGgoc523RW4XbtoR7eE3IO5Khss4M=;
+	h=Date:From:To:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=jbtckLY7bfgjsBir359af38zkSgdWKXZrsGjK7mYny357f+as5MBvsZz6i9pJhZCHftQSaEWnLPhczyy45m1e10UG6pNB3fQHFG60SqsTCeCJ4K9Qs49pcXrNBgGXCvewbNg1IK68VSUGoHQsLT/EUrFxvjRu8wZayGzsrAZ1Vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxtv.org; spf=pass smtp.mailfrom=linuxtv.org; dkim=pass (2048-bit key) header.d=linuxtv.org header.i=@linuxtv.org header.b=bJxn1WJG; arc=none smtp.client-ip=140.211.166.241
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxtv.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtv.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ixj8ZSCf"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6634bb959a2so4495109a12.1
-        for <linux-media@vger.kernel.org>; Sat, 11 Apr 2026 14:11:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775941893; x=1776546693; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=7sJmPJWyRpJ6XpOWhqHf2lRa3H2nAMFw7nJfxUU+y3o=;
-        b=Ixj8ZSCfh9qoyLBz05ac4nnJJeza7KmqAD8wV816BmzFZN5hwn0CqobIIF3Z98nPJQ
-         d1mFxY/boyPEG3/fpS0fr7OP7ltIrnVm5S/rVPX5MuYVZs+97JXkES534wjObAWrxSln
-         Edh3zs2miqDRGa0YcYp6EwEbP3d8dtRAzrtUtiGDbInT9xqR1NrcQ9DKgCJdYY4SNjfe
-         woVUlpP6RCizXf0wRfvel6Aa2MKCl+SekvcNN8ujiz+UUjqlUGiO+s2Y7bZbFrURi9ds
-         9141oz4vBiZoAJt7h7PATVjpKTijn+//SmhG5UOkkfxv0grMEEaOtcYFamnGcM4fgfJA
-         Jyiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775941893; x=1776546693;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7sJmPJWyRpJ6XpOWhqHf2lRa3H2nAMFw7nJfxUU+y3o=;
-        b=N2JJmm7R/mlXpE72v7JMUrYJOmBY0wCt7e4U3NAGDdEKinPIHVlr9cJupL5B49/WCn
-         UQyp0lYB9P0V4kgrAcAMOdJ6txVZMmzl4Xt9CyVOuPvXegDLT8Gm1igWTY3zFczbYCUv
-         d/1AXOsLPdTl3c5ceNwmE9c7L3pteTpyzUDpnkRXUgf4ZVMGB67Ou4q4fEoVvQ2zPp70
-         jvwosl6svChsXTReMjx+uGlaBqsrsCruqXKBn+Zb+NlyFKH8bbAyb0Ej+4WTf6lR3hPo
-         jJcgRfFm9blVZ+GQ2ZV/+ld6MMNspHtd0Kk5Mj20o8lME3ygMKZhRxLroq7lktczI41G
-         sc/Q==
-X-Forwarded-Encrypted: i=1; AJvYcCW0dM2BkZLfMVuDIfKYEUUbfxigxK81y4Sw6ciy0+YqGJX3PZ2N6HC8sSLIvhOMF/r2ZSMwbZpdQMoJlQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzBbQnsH+1rBKwabQHjYFuq64djw/7Vbnrx162nFjfhgBwZ1uAe
-	jK4bB/n95zJw6BVfuKVlDOr9+sp3pP/CtNjF2sAu9aVJYs1jJF5JCG0B
-X-Gm-Gg: AeBDievXXoGboDgy368puGSlyNdID/zcsLc0mra06wP8nemWBTBFKv67GDPeCGfWD6O
-	BELtvt8ldTX92x1hsW+WgGnNXUqJPJ2pz9TLA+yjgNM5LxLvKPx8y0ZPnKYqDPGL8v9aw0ksxQ5
-	PxKVJOgy8PNAZa67Z2wDYYzZPyqABNzFuc5SujReR6Hj8iimvDB3qAtqhaMTwb/Eux8neROfkgy
-	O8LfPUMVJ2T8MmWgFonoJ39jEUMBrDIdYmqotPDxMdU4P/vpKimi86UKMVuDdeYkLcxBuOmaOnW
-	PF1jhzjidfkUskLO28RGpXsTUDYTI/eGciFIr2t3jlxd/O+jZOpML9LZb8TVtcfcKytYXObrstd
-	kfjqDXjfi1OZ1Pe0jOMU76xC9ebgiODfDsOdo2LzZIcE5H2mzrZqywMvh3//CrUE+3ugsS1Kc0W
-	dQeXeqK28spiEPGkRuewprx/Ty3w95kNDBEskWDd/E1/fcq3ODVX/FcU2SN28yymtT9EntgrcG+
-	9Jax74ChiWzjUHNtF+UPpkELJXjl7hUUtjlASHT3oK35cYr9tAH8Eci4BQS3kgfCT6O15rbz9fd
-	S5H5LA==
-X-Received: by 2002:a05:6402:280c:b0:670:64fd:2301 with SMTP id 4fb4d7f45d1cf-670795162d8mr3722324a12.15.1775941893193;
-        Sat, 11 Apr 2026 14:11:33 -0700 (PDT)
-Received: from ahossu.residents.sin.openfiber.nl ([88.202.160.248])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-670702eec8asm1511110a12.2.2026.04.11.14.11.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Apr 2026 14:11:31 -0700 (PDT)
-From: Alexandru Hossu <hossu.alexandru@gmail.com>
-To: Thierry Reding <thierry.reding@gmail.com>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Alexandru Hossu <hossu.alexandru@gmail.com>
-Subject: [PATCH 1/2] staging: media: tegra-video: fix wrong return type in tegra_get_format_fourcc_by_idx()
-Date: Sat, 11 Apr 2026 23:10:04 +0200
-Message-ID: <20260411211006.150782-1-hossu.alexandru@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=linuxtv.org header.i=@linuxtv.org header.b="bJxn1WJG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=linuxtv.org
+	; s=s1; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:
+	References:In-Reply-To:Message-ID:To:From:Date:Sender:Reply-To:Cc:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=ytkQBdiYwFF+2eaGgoc523RW4XbtoR7eE3IO5Khss4M=; b=bJxn1WJGtGAKH2UwXVfkdLahdV
+	T5RXjeunxQAGNTGGtf6qX+bfkciD/c4HaNPWy+cHIpwuCr2c9246r91ZW+hypCxFffeYRR6H4GUdp
+	khmjoME97mIIJAjIf8I1mxJSDsHRE8Dwn/zaVf7fEYrlCFRTX+vTwy1lcv47qqtJcXCGih3uUvNz6
+	bSluhYYaiuAEoepHlZnVIelbL0LqvBmvgTDClVk4xAvWfCZD/gb+KVIYRmZMIRmnl2JffBW/bOd++
+	F06ogQihz36n+5pPfq08QuSOnT4uDXohM4Ex51JfkW0TVKwncBc9NjznLutQW7IfUv8yfI+zPpga6
+	lfwXBGHw==;
+Received: from [2605:bc80:3010:501:f816:3eff:fed7:54db] (helo=builder.linuxtv.org)
+	by linuxtv.org with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <jenkins@linuxtv.org>)
+	id 1wBgJk-0002Eb-2C;
+	Sat, 11 Apr 2026 21:56:40 +0000
+Received: from localhost ([127.0.0.1] helo=builder.linuxtv.org)
+	by builder.linuxtv.org with esmtp (Exim 4.96)
+	(envelope-from <jenkins@linuxtv.org>)
+	id 1wBgJk-000hAM-24;
+	Sat, 11 Apr 2026 21:56:40 +0000
+Date: Sat, 11 Apr 2026 21:56:40 +0000 (UTC)
+From: Jenkins Builder Robot  <jenkins@linuxtv.org>
+To: mchehab@kernel.org, linux-media@vger.kernel.org
+Message-ID: <1201123717.2.1775944600638@builder.linuxtv.org>
+In-Reply-To: <181607545.1.1775906070029@builder.linuxtv.org>
+References: <181607545.1.1775906070029@builder.linuxtv.org>
+Subject: Build failed in Jenkins: dtv-scan-tables #42
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Instance-Identity: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApAf928QubrKEjMQ0IZR0WWXn8zG7uTdH33F2Idx4Xmlp6Z138NdNMQYNG71OKzmvn3/E1G4rpd9JsMls16nRZ2NAPgOWX0qfFr6HyOoQklLGZt+vkOFb0BvmBFfdI+00J5B1SPupxv4pT3bDLSiwbBNCOLY4sdB0gG1ng14mzu47G8zmH6l2ZE/9urEd6OLFhzrb6ym4vlkCE8uvNJAdAWbeafd1plHSLdU/TVqHMZELuM0wt9khqhUOkfE+dHr7h6DNrkFpvm/8j/5wTuy98ZwwWimP+pfjSQMgKrhXjwHcJJa2N9v1HdwrwlUaRYuA6o8fwUHNC9vLj7cCXM3qiwIDAQAB
+X-Jenkins-Job: dtv-scan-tables
+X-Jenkins-Result: FAILURE
+Auto-submitted: auto-generated
 
-The function is declared to return u32, but returns -EINVAL on the error
-path. Due to implicit conversion, -EINVAL (-22) becomes 0xFFFFFFEA as u32,
-which is an invalid V4L2 pixel format value.
+See <https://builder.linuxtv.org/job/dtv-scan-tables/42/display/redirect>
 
-The caller tegra_channel_enum_format() assigns this garbage value directly
-to f->pixelformat and returns 0 (success) to userspace via VIDIOC_ENUM_FMT,
-giving applications a silently wrong format descriptor instead of an error.
+Changes:
 
-Fix this by changing the return type to int and propagating the error
-correctly in the caller.
 
-Signed-off-by: Alexandru Hossu <hossu.alexandru@gmail.com>
----
- drivers/staging/media/tegra-video/vi.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/staging/media/tegra-video/vi.c b/drivers/staging/media/tegra-video/vi.c
-index 9c0b38585d63..afc7327ef318 100644
---- a/drivers/staging/media/tegra-video/vi.c
-+++ b/drivers/staging/media/tegra-video/vi.c
-@@ -77,13 +77,13 @@ static int tegra_get_format_idx_by_code(struct tegra_vi *vi,
- 	return -1;
- }
- 
--static u32 tegra_get_format_fourcc_by_idx(struct tegra_vi *vi,
-+static int tegra_get_format_fourcc_by_idx(struct tegra_vi *vi,
- 					  unsigned int index)
- {
- 	if (index >= vi->soc->nformats)
- 		return -EINVAL;
- 
--	return vi->soc->video_formats[index].fourcc;
-+	return (int)vi->soc->video_formats[index].fourcc;
- }
- 
- static const struct tegra_video_format *
-@@ -395,6 +395,7 @@ static int tegra_channel_enum_format(struct file *file, void *fh,
- 	struct tegra_vi_channel *chan = video_drvdata(file);
- 	unsigned int index = 0, i;
- 	unsigned long *fmts_bitmap = chan->tpg_fmts_bitmap;
-+	int ret;
- 
- 	if (!IS_ENABLED(CONFIG_VIDEO_TEGRA_TPG))
- 		fmts_bitmap = chan->fmts_bitmap;
-@@ -405,7 +406,11 @@ static int tegra_channel_enum_format(struct file *file, void *fh,
- 	for (i = 0; i < f->index + 1; i++, index++)
- 		index = find_next_bit(fmts_bitmap, MAX_FORMAT_NUM, index);
- 
--	f->pixelformat = tegra_get_format_fourcc_by_idx(chan->vi, index - 1);
-+	ret = tegra_get_format_fourcc_by_idx(chan->vi, index - 1);
-+	if (ret < 0)
-+		return ret;
-+
-+	f->pixelformat = ret;
- 
- 	return 0;
- }
--- 
-2.53.0
-
+------------------------------------------
+Started by user Mauro Carvalho Chehab
+Running as Mauro Carvalho Chehab
+Building remotely on slave1 in workspace <https://builder.linuxtv.org/job/dtv-scan-tables/ws/>
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir <https://builder.linuxtv.org/job/dtv-scan-tables/ws/.git> # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url git://linuxtv.org/dtv-scan-tables.git # timeout=10
+Fetching upstream changes from git://linuxtv.org/dtv-scan-tables.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+ > git fetch --tags --force --progress -- git://linuxtv.org/dtv-scan-tables.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision be35975ac877ba020aaf1df4e0e352c9d11ffcf1 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f be35975ac877ba020aaf1df4e0e352c9d11ffcf1 # timeout=10
+Commit message: "Update satellite lists from Lyngsat and KingOfSat"
+ > git rev-list --no-walk be35975ac877ba020aaf1df4e0e352c9d11ffcf1 # timeout=10
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse be35975ac877ba020aaf1df4e0e352c9d11ffcf1^{commit} # timeout=10
+The recommended git tool is: NONE
+No credentials specified
+[GitCheckoutListener] Recording commits of 'git git://linuxtv.org/dtv-scan-tables.git'
+[GitCheckoutListener] Found previous build 'dtv-scan-tables #41' that contains recorded Git commits
+[GitCheckoutListener] -> Starting recording of new commits since 'be35975'
+[GitCheckoutListener] -> Single parent commit found - branch is already descendant of target branch head
+[GitCheckoutListener] -> Using head commit 'be35975' as starting point
+[GitCheckoutListener] -> No new commits found
+[GitCheckoutListener] -> Git commit decorator could not be created for SCM 'hudson.plugins.git.GitSCM@12096e71'
+[dtv-scan-tables] $ /bin/sh -xe /tmp/jenkins7549330139950608287.sh
++ git clone git://linuxtv.org/v4l-utils.git v4l-utils
+fatal: destination path 'v4l-utils' already exists and is not an empty directory.
+Build step 'Execute shell' marked build as failure
