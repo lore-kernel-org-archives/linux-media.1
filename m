@@ -1,58 +1,59 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCFA280CFB
-	for <linux-media@vger.kernel.org>; Sat, 11 Apr 2026 03:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7822923BD1B
+	for <linux-media@vger.kernel.org>; Sat, 11 Apr 2026 09:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775878982; cv=none; b=mZxExhIrSbbqvJ3OUtgeZuyKwsS1pHpSCsyy+XplhERigCk9UOIEahamx65e4QDIGJO1HUVvAjOUwo8yV9I69fAQb4ozotEJSHQa/7z3H2Fx+wB/uOazrrRQ+rhnh4L9Fnri6ueshEgQlNZS8zC0soPzrhMhhxGLIQ6ANcxbUtg=
+	t=1775898504; cv=none; b=SKNuSa+cz9+c7F23rKhZVDjtHAJRibM6Whd04mTpgIXQBgpmGRilgahyrGYUN/pqmviZRmEbuYGg6vjN10ByjaewHKAWdFIKibS1S7/xku9yrO6gajPDXdc1B/AtHGd9F9qOy1ZweU2YXI071pbSX9twvuvvEZYz7NHmwRuEOJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775878982; c=relaxed/simple;
-	bh=D8JLvZudWYPw8KEuqIcwICczZgGDzXdU89Gvz+A8dQ0=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=PCoNg2mbszki022cg/i97mdC1NF6nTv3SQg0VA5sPAH2+sibfNdrabqQFDLnwi9g7L9QkjMyx/zO6ekgAVESEmYpL3O/SdWptdvm+Z0tway2IHIdITQ7zgsr8Xg8MVqdBS+4DfJ5vLuRVex32knNzRKglfCNHcAGE2k7guSaRuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=V+O4fV/C; arc=none smtp.client-ip=192.198.163.13
+	s=arc-20240116; t=1775898504; c=relaxed/simple;
+	bh=WXLhIIBQjRiMyeHXZHyORNpHnhBtzSzN0Hv660kO2IU=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=WnSu8SQT+o0Aaylz3/QSw5FSC0nacmsHBuoKeJ9Xs6QNLisPt8adpEL1kZDm1C86HmxczCYNihafIlFAtvVSb1XqGP7TY1X0rMB8EbDn006kJoynDPtk2yF30lla52Vo2D1Alk4dpe556NON8fXjfoHX9JQpXhSx/f+FvvCep5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XAq++Pft; arc=none smtp.client-ip=192.198.163.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="V+O4fV/C"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XAq++Pft"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775878981; x=1807414981;
+  t=1775898503; x=1807434503;
   h=date:from:to:cc:subject:message-id;
-  bh=D8JLvZudWYPw8KEuqIcwICczZgGDzXdU89Gvz+A8dQ0=;
-  b=V+O4fV/CmWMpAWqvE0hoXD6U0bxwnjfzx6EIblWyKX8xKy7WUMaypnun
-   LPIf1kV8lz7w5Y7WjmQrUfpICWXvOLYL1OwvxK5cm7A15Oek+tvgQwvxC
-   0Z8aymbqT5bbvHkgazTt9TykJ7stJw+t4BCqeS61uAv/gW+Zd1UXIGG8C
-   A9l+B1I+uUsOeMUoqljoxBVo8DSesoIV7XKKgAB8IpF51zUYR0U+fUWMX
-   D6ZxZN+QpmuBEXT8HypPEdLzsrqG/mj2CTs1RJAi7jQtw/fvlGABGPvo+
-   D5xN6Y1Q9hY9pKY8w/QURylgU7CYr+/UVUXXwGrONuHh/O8sNVYxJb+Hj
-   w==;
-X-CSE-ConnectionGUID: B18Md/VBR5GkK842QBhWXA==
-X-CSE-MsgGUID: etrYgnGnQrWkttsq0Eb5JA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11755"; a="79485181"
-X-IronPort-AV: E=Sophos;i="6.23,172,1770624000"; 
-   d="scan'208";a="79485181"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Apr 2026 20:43:00 -0700
-X-CSE-ConnectionGUID: gV7tfCPeSkWqVfOL8tfWnw==
-X-CSE-MsgGUID: 7axVnIEGSaG0PmDwT3hr8w==
+  bh=WXLhIIBQjRiMyeHXZHyORNpHnhBtzSzN0Hv660kO2IU=;
+  b=XAq++PftNYNsCzH7twrdmWc32AbOIgMTB8oLk9+e6X1wU3IE6284AS45
+   4Lb1sv3DsNs5lZvOZAaHb8g1gUDnIJoeDAdm4dDSrksUPOxZ4Vf7Bz3dI
+   IluWEEz3TGeSX1iuZVk/crw8A99vwrSqjxQ4hivQd/UBTnlY9xwNQF5M6
+   Twg8eirMUarxhJDBP2hBg1U3Mp6saLaJ2kwmvoXMpS8/OSFj62wAi92Va
+   c8eyvNafmEQFKuf2vaiCc6ZrXwHHH/18Dj8qfcMx4ayMcLUXcytr8sxWE
+   QhWvcGpj2HM+O0YcWooIK9kxnUhZfkAGHCvnX/GN9pDrM6BMLWWVaYlfk
+   g==;
+X-CSE-ConnectionGUID: +/KsdeYrTkOe0iorveiEvQ==
+X-CSE-MsgGUID: cfyY7WNhQHqm+8ytwlRmrQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11755"; a="75947681"
+X-IronPort-AV: E=Sophos;i="6.23,173,1770624000"; 
+   d="scan'208";a="75947681"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Apr 2026 02:08:22 -0700
+X-CSE-ConnectionGUID: qHgnhC3STDauAQ+9RKxHcw==
+X-CSE-MsgGUID: PXpI48QxRoWjKaP8MOpZ4Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,172,1770624000"; 
-   d="scan'208";a="233336561"
+X-IronPort-AV: E=Sophos;i="6.23,173,1770624000"; 
+   d="scan'208";a="228462592"
 Received: from lkp-server01.sh.intel.com (HELO 3eaaf1a74b89) ([10.239.97.150])
-  by orviesa003.jf.intel.com with ESMTP; 10 Apr 2026 20:42:59 -0700
+  by orviesa010.jf.intel.com with ESMTP; 11 Apr 2026 02:08:20 -0700
 Received: from kbuild by 3eaaf1a74b89 with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1wBPFH-000000000iX-3yO8;
-	Sat, 11 Apr 2026 03:42:55 +0000
-Date: Sat, 11 Apr 2026 11:42:07 +0800
+	id 1wBUK7-0000000011R-2hso;
+	Sat, 11 Apr 2026 09:08:15 +0000
+Date: Sat, 11 Apr 2026 17:07:59 +0800
 From: kernel test robot <lkp@intel.com>
 To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-media@vger.kernel.org,
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-media@vger.kernel.org,
  Sakari Ailus <sakari.ailus@linux.intel.com>
-Subject: [sailus-media-tree:pld 5/11] ERROR: modpost:
- "v4l2_fwnode_device_parse" [drivers/media/pci/intel/ipu-bridge.ko] undefined!
-Message-ID: <202604111142.iUEyM6oM-lkp@intel.com>
+Subject: [sailus-media-tree:pld 5/11] ld.lld: error: undefined
+ symbol: v4l2_fwnode_device_parse
+Message-ID: <202604111705.kwsmT0KM-lkp@intel.com>
 User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -63,18 +64,20 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 tree:   git://linuxtv.org/sailus/media_tree.git pld
 head:   eb7a465247c98700986d85aa41baadbd0734dead
 commit: 00b2c5aa794c2da0ab85ba2ea8cece4e14bd3ecf [5/11] media: ipu-bridge: Use v4l2_fwnode_device_parse helper
-config: x86_64-randconfig-016-20260410 (https://download.01.org/0day-ci/archive/20260411/202604111142.iUEyM6oM-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260411/202604111142.iUEyM6oM-lkp@intel.com/reproduce)
+config: loongarch-randconfig-002-20260411 (https://download.01.org/0day-ci/archive/20260411/202604111705.kwsmT0KM-lkp@intel.com/config)
+compiler: clang version 18.1.8 (https://github.com/llvm/llvm-project 3b5b5c1ec4a3095ab096dd780e84d7ab81f3d7ff)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260411/202604111705.kwsmT0KM-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202604111142.iUEyM6oM-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202604111705.kwsmT0KM-lkp@intel.com/
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
+All errors (new ones prefixed by >>):
 
->> ERROR: modpost: "v4l2_fwnode_device_parse" [drivers/media/pci/intel/ipu-bridge.ko] undefined!
+>> ld.lld: error: undefined symbol: v4l2_fwnode_device_parse
+   >>> referenced by ipu-bridge.c
+   >>>               drivers/media/pci/intel/ipu-bridge.o:(ipu_bridge_parse_ssdb) in archive vmlinux.a
 
 -- 
 0-DAY CI Kernel Test Service
