@@ -1,82 +1,83 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB24C285CA4
-	for <linux-media@vger.kernel.org>; Sat, 11 Apr 2026 17:34:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31732FFDE3
+	for <linux-media@vger.kernel.org>; Sat, 11 Apr 2026 21:11:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775928888; cv=none; b=RBkiFwFbzPphAcSHudM1QIfBSUz/8x1gqdqNSCCyQ9vznYyZL+t2TwgQYluY8yZWsfaiEcT20Tmm7/gQN1fl1PVKyWPp7a62MEI6+A0Xgq8mEqEhzFRN+Vxwso5m/ScF2Lgqasi+hv6r+nsRMmqTv+vNGU+29OYvkWaz0C+DpN0=
+	t=1775941897; cv=none; b=rch8Cl7ATuYpoDdwRvxIh5c0P8uW/4Mncj/Eevzlp1hCbmwyPdo7VDCbYf4t7LP5fF+qR5NwsvLESdVWpionOn2Mjme1wFefDsZZ4ES7eG7O+2mfZFp4gUw35qsjq5bivmbSgOIm9NXx+4N1mM7AKt4zB0lq2lbDfxU/bOO8XmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775928888; c=relaxed/simple;
-	bh=TVUmmcEGpWyuwDQqSCraoxd2R9SWXANWLHXdECuOFG0=;
+	s=arc-20240116; t=1775941897; c=relaxed/simple;
+	bh=nhMSujJJRVBmSCprErQbzFzUxp1Z3dBMo2c0e3hpQHI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eSC8/md8WieJBCrPlar1qFQ+xvXAsvCnUjTGmn8jx1m4zgM7c6NNvKst7m0jbNsNH75FD58eJYm177hHhLce2v21jB5So086cM+DRqYxfykmh6asQ+CnhSzcyOJfMmoPt7ihcfUhcmaJEIBMGa+JqSFQpSTNpsmfAtK9ZDle0UM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bX+DzwVu; arc=none smtp.client-ip=209.85.214.175
+	 MIME-Version; b=baPwLGfJSU2KvMdr3kl6z1itQSkIMZvzTPwR3Ym1xPSRhWJ+kxImfvTiN+38dLYDKpzbvKr59D2qWdinbGbBfxDr1EU2Gvxlqao0DWzY3OOTinJKjx/ymEauomtWO0hQf+9rxg92c+9qTyOJgQu/PzQO8ivUmzV5nAirSEy2d9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U/1c1C7v; arc=none smtp.client-ip=209.85.208.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bX+DzwVu"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ad4d639db3so14144295ad.0
-        for <linux-media@vger.kernel.org>; Sat, 11 Apr 2026 10:34:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U/1c1C7v"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-670c6c6e64dso1859833a12.2
+        for <linux-media@vger.kernel.org>; Sat, 11 Apr 2026 14:11:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775928887; x=1776533687; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1775941894; x=1776546694; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EjJYUGwxxGgqwtKOdyqSDtrzAYZSru7BIzGMtnuqExI=;
-        b=bX+DzwVuIBZE3Aa8jiczIC8BEMEl5sANb7PaeK8UXZ5pxTxDu5jlUd0TR0P9mgGXR+
-         +Nx8UII1I29TjibLLek99UKeoYTlt6/SRtz2CGkim6+JYwBq/1xo9TpAqLOF2eCyc1NN
-         md8k+djv7LQXfAqXJUABIhQczw2CJ48wx27yvvcN6bJbiBNdCwvBUGk2skZmAhBZ85hm
-         fumXKdiaBR9Kv5SJuhHZWB4yM1dfgiAfiBWatHiTfZZ7ohhjcPJO8V9Maf/1cJSvVytP
-         XiSEoh8kDDJ2/GanmAtQ9bDaJw7qGmtmSbAg9lJahFjwrk9FtXLPpJb59NAAlBCIVX2v
-         0J5w==
+        bh=jwSw6IsbUHDab63/LFAeDKthmZW0BMxAR2iJQycE4LQ=;
+        b=U/1c1C7vZsUELJS7q8baHmiRUFvreL5/FTVnz8/XAyUNAkE0CNO0qHJgWUa4u1xHJM
+         RaLQaCTKhQdhaHZygar7QRgC5X2Py58oOLCPHUQw+5E+4kY7VyqhgX9Tr8Ypx0jvyspW
+         sm2L15z/SIOhsNRkdYKW5nP6N4d0Q6JU+/Qd96ZtGf+9du6ySVBrlaL4nFbfjMjwJV2q
+         /7map1upzLTmS7f5sMtDGwa99Gpx7SEV1xhuSmLvzMm8C8AOVSVfKo09cVKrVyVvEbqC
+         USv/zxfyJMmgT/JwuI9/3CR/hFTmknPOEBXWedorK7U74JppUAiphC0sTeoQBgr8vjor
+         nXhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775928887; x=1776533687;
+        d=1e100.net; s=20251104; t=1775941894; x=1776546694;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=EjJYUGwxxGgqwtKOdyqSDtrzAYZSru7BIzGMtnuqExI=;
-        b=OL1F0A6TIZ1XCUsVTmJ4qkFIGGAqKaeOngp6jiUYHskUFB6L3zCmtfApfJp3g6AHkr
-         qvh9t8HOK2VtcT6wvx6771enxFHJKbNSHpVpSl4vI/nQSj7anIp7CCbuTVAQD+MWHzuS
-         dRhkqH7krs1rNGS4DwST0GpE9Do8ogSM9wIMZgpoH5Woptm1Sl5uOPLD82aYHqSvCo8C
-         wt/7EOeKkJCz45Gwg41fIcJR2zGflz8CQXAO87wJYwD9RH6O6/gspjv/X5jyLNULnJ5H
-         ZtGm8YV5iv/94SKSXHQj7TcsSRa069usS/3tQBVnB4yO6mnpBxv+4aa1eQk2KNYsUpJa
-         GZlA==
-X-Forwarded-Encrypted: i=1; AFNElJ8XWzpNSnLEitoreK6jP1dGZfbjFvYJcymmgwQ+O0AewB+TEhbVPAGLKgVI6mkeqoTGAYm3ipI0v7uqYQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwrGbOXt+FG6Hs7rn9G9ryVEOu9yKuArnnu/IMJFSez7Ua/QQwg
-	+jYrcWerso79xiE/goiK0IwtiYadXqtVSkto6th7SYiXQbI7Doi3pDgc
-X-Gm-Gg: AeBDiesR6u8kf3ngEi212yR5isdzZqb/iZNt4PlOb+XP7l/leH0Qlm/mZohwxOdYRKW
-	RwgZYz9xiYx2fcglXA8ZvG2LBSS++4o0iWaGQV+cFb/CwL+xKmE8cFB2Z1dk3vvjvNZ/zVrJCSV
-	HeVHqCNqhbT0PKtG3k+1R4W59BQZi6rk0wGsy8mGY6aHk8VrIB/qSrfZbq6Gz7VzjzrnzBchAXj
-	oH7qtbj3jNwBlGtsp7h5ozRMEk/tc9xzpfYImU73qVYqdBUQWZo4TphEY8n+NOs6inbEVkmhBTz
-	jRXIPSaaeMJ8rVlXRDPn/0dPKttCQLePYVFnr4+7uwQdOD2AMPy2Xhfp0HmI+RSPhAPcmd2xZoe
-	4zoQtEzjvGEvPXPPailvCJqiVTGy/bjTTDPxRa4GQ3kvw9jMK1tk26DZTfku3MMxAdPb/kU/0cc
-	KgkKPFKV4a1RkI+JPAujOcdx+N8ByC2LkGFY9bXZrznrH9X1xKL2zzUCw7uwguoIzXHi8qErS8P
-	OGhH/9MQr6XnNGaNDBe1Kl3cK8ZcFdG
-X-Received: by 2002:a17:903:144e:b0:2b2:58c7:2ce1 with SMTP id d9443c01a7336-2b2d5a7773emr76956635ad.36.1775928887277;
-        Sat, 11 Apr 2026 10:34:47 -0700 (PDT)
-Received: from michael-mint.tail2556e3.ts.net ([50.47.84.240])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2d4dd67ecsm67009125ad.21.2026.04.11.10.34.46
+        bh=jwSw6IsbUHDab63/LFAeDKthmZW0BMxAR2iJQycE4LQ=;
+        b=WpXY0GvIxXHVXOZ1yOoWUuxcu15SIjpb+Vu4AgAQlRmSff5gpNrNw5OiImec7IUyNC
+         16P2d+MFqMBNsJkNZEiRHFi+NOXi+2ndgDSNy5BXZqIIToLlGVmUseNmPaCeQ/hQ6NaC
+         1WLatBqBq0loHlZJmmSdPeyukaH+uGMRnQ8OKdEnCHiCIonQ8Vqd+m81pFBQjzIhLVCj
+         m/9WkHDghBorsyDQer0lWHDooTuV0PIbvZFTkUVt7QzLB4iu367X4vSzv3GNfVR5g7kB
+         cWGXA5trwKfvefqVz1Nxi8ZTdFRVKPi2rkB3xmDoCJDKBJMmJphi44pxn4Noolio05wF
+         BqGQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUbTdtMX8c+UAbx75pE8iN7KhxrAWz6fitHspKqcBIcH8De8BrlmKmu8U6W+Rf7DhdxMNiyhUHu4V7l7A==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzjcvls1ZC7fErSvxZNWwzNPtfBabQwmG/IWalWTy1TiRunLM69
+	HbRx/lZFJ1d3Oo3ZWlXY1hG2UV5TTS4Lf5Cz4lcrQvD9hZHfF+CqoVhT
+X-Gm-Gg: AeBDieve33K4a/LmJkI5GF0P2rqjK0WEnCl4SZe0dqa89QLLpO1ZIyqs9cpq0tyEo9+
+	A39KBuN76WA1aUcH7dwNwA/GN+cn6j9uCh3n3vuBolDmXutlPzr8I5nYyFyJFjjP4bAetAOzf7J
+	bEpFi2ghVqBoCZniKNcytjPp8a70tXw8AHIGkEiU2ncjCAMcfFaXw/gCjyCI2viUnTnvAMy5u+y
+	Rez9EC1VZ+Efr4/TRu3fr7VD6HdsCuUQz5w27MYS1aSKpbRqckVBbpr9bM021zsedw4+dh4wMLi
+	pi0Hkg6LlIxXaJZ6t9n3BN/GICtm1hyV0VjIdVEcmy6ac1sAOolfP7lRuG8DnwGd8EGnEAR597e
+	AtnQTuUFA1s+ecO2RFYliooeL0TTtgqD9GRZioGidc4Q+aFVHgbDs1r5T77vULwd03J1EzLSi5c
+	Xg1GvXIzXxOaINRP21HF+PThRdIMutZBIOG+YzEKfzfaxtXEEodn/Z0MhW887i0DmDMtV08hqPE
+	gi+b07dOmnM12jU03QTyDJ/rsdE6ocbmrVQl07i7WC4UkU5k8kxlHh+9SMEFnRhtmZ3qpj9CUmp
+	jLv/6Q==
+X-Received: by 2002:a05:6402:1f4d:b0:670:a401:c977 with SMTP id 4fb4d7f45d1cf-670a401d3fdmr3133815a12.25.1775941893972;
+        Sat, 11 Apr 2026 14:11:33 -0700 (PDT)
+Received: from ahossu.residents.sin.openfiber.nl ([88.202.160.248])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-670702eec8asm1511110a12.2.2026.04.11.14.11.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Apr 2026 10:34:46 -0700 (PDT)
-From: Michael Ugrin <mugrinphoto@gmail.com>
-To: hansg@kernel.org,
-	mchehab@kernel.org
-Cc: sakari.ailus@linux.intel.com,
-	andy@kernel.org,
-	gregkh@linuxfoundation.org,
-	Dan Carpenter <error27@gmail.com>,
-	David Laight <david.laight.linux@gmail.com>,
+        Sat, 11 Apr 2026 14:11:33 -0700 (PDT)
+From: Alexandru Hossu <hossu.alexandru@gmail.com>
+To: Thierry Reding <thierry.reding@gmail.com>,
+	Sowjanya Komatineni <skomatineni@nvidia.com>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
 	linux-staging@lists.linux.dev,
-	Michael Ugrin <mugrinphoto@gmail.com>
-Subject: [PATCH v2] staging: media: atomisp: use umin() for strscpy size arguments
-Date: Sat, 11 Apr 2026 10:34:05 -0700
-Message-ID: <20260411173405.14485-1-mugrinphoto@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260411005512.46142-1-mugrinphoto@gmail.com>
-References: <20260411005512.46142-1-mugrinphoto@gmail.com>
+	linux-kernel@vger.kernel.org,
+	Alexandru Hossu <hossu.alexandru@gmail.com>
+Subject: [PATCH 2/2] staging: media: tegra-video: add missing error checks in vi_tpg_fmts_bitmap_init()
+Date: Sat, 11 Apr 2026 23:10:05 +0200
+Message-ID: <20260411211006.150782-2-hossu.alexandru@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260411211006.150782-1-hossu.alexandru@gmail.com>
+References: <20260411211006.150782-1-hossu.alexandru@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -85,57 +86,40 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace open-coded ternary min expressions with umin() in
-strscpy() calls, as suggested by Dan Carpenter.
+tegra_get_format_idx_by_code() returns -1 when the requested format is
+not found in the SoC format table. vi_tpg_fmts_bitmap_init() does not
+check this return value before passing it to bitmap_set(). A negative
+index converted to unsigned would result in an out-of-bounds memory
+access, corrupting adjacent kernel memory.
 
-Signed-off-by: Michael Ugrin <mugrinphoto@gmail.com>
+Add WARN_ON() guards so that any future SoC addition or Kconfig change
+that exposes this path fails loudly rather than silently corrupting memory.
+
+Signed-off-by: Alexandru Hossu <hossu.alexandru@gmail.com>
 ---
- .../atomisp/pci/runtime/debug/src/ia_css_debug.c      | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+ drivers/staging/media/tegra-video/vi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c b/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
-index b411ca2f415e0..60bb10dac5891 100644
---- a/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
-+++ b/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
-@@ -1256,8 +1256,7 @@ ia_css_debug_pipe_graph_dump_stage(
- 				while (ei[p] != ',')
- 					p--;
- 				/* Last comma found, copy till that comma */
--				strscpy(enable_info1, ei,
--                                        p > sizeof(enable_info1) ? sizeof(enable_info1) : p);
-+				strscpy(enable_info1, ei, umin(p, sizeof(enable_info1)));
+diff --git a/drivers/staging/media/tegra-video/vi.c b/drivers/staging/media/tegra-video/vi.c
+index afc7327ef318..e6416ea8503e 100644
+--- a/drivers/staging/media/tegra-video/vi.c
++++ b/drivers/staging/media/tegra-video/vi.c
+@@ -1025,11 +1025,15 @@ static void vi_tpg_fmts_bitmap_init(struct tegra_vi_channel *chan)
  
- 				ei += p + 1;
- 				l = strlen(ei);
-@@ -1268,8 +1267,7 @@ ia_css_debug_pipe_graph_dump_stage(
- 					 * it is not guaranteed dword aligned
- 					 */
+ 	index = tegra_get_format_idx_by_code(chan->vi,
+ 					     MEDIA_BUS_FMT_SRGGB10_1X10, 0);
++	if (WARN_ON(index < 0))
++		return;
+ 	bitmap_set(chan->tpg_fmts_bitmap, index, 1);
  
--					strscpy(enable_info2, ei,
--						l > sizeof(enable_info2) ? sizeof(enable_info2) : l);
-+					strscpy(enable_info2, ei, umin(l, sizeof(enable_info2)));
+ 	index = tegra_get_format_idx_by_code(chan->vi,
+ 					     MEDIA_BUS_FMT_RGB888_1X32_PADHI,
+ 					     0);
++	if (WARN_ON(index < 0))
++		return;
+ 	bitmap_set(chan->tpg_fmts_bitmap, index, 1);
+ }
  
- 					snprintf(enable_info, sizeof(enable_info), "%s\\n%s",
- 						 enable_info1, enable_info2);
-@@ -1280,8 +1278,7 @@ ia_css_debug_pipe_graph_dump_stage(
- 					while (ei[p] != ',')
- 						p--;
- 
--					strscpy(enable_info2, ei,
--						p > sizeof(enable_info2) ? sizeof(enable_info2) : p);
-+					strscpy(enable_info2, ei, umin(p, sizeof(enable_info2)));
- 
- 					ei += p + 1;
- 					l = strlen(ei);
-@@ -1303,7 +1300,7 @@ ia_css_debug_pipe_graph_dump_stage(
- 						while (ei[p] != ',')
- 							p--;
- 						strscpy(enable_info3, ei,
--							p > sizeof(enable_info3) ? sizeof(enable_info3) : p);
-+							umin(p, sizeof(enable_info3)));
- 						ei += p + 1;
- 						strscpy(enable_info3, ei,
- 							sizeof(enable_info3));
 -- 
-2.43.0
+2.53.0
 
