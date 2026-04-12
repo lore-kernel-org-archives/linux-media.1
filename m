@@ -1,69 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB1AC2C027C;
-	Sun, 12 Apr 2026 04:52:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 254EF2C0296
+	for <linux-media@vger.kernel.org>; Sun, 12 Apr 2026 08:49:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775969567; cv=none; b=JxAyietBRKwE0tlppELKuRRPMZtKoujpyF4Utx5F3ylKofsJWGiS25YxfGXcCzP1/mHsGANE+Xq1639UOE5diQ2xWt5UwsX8N32g/l1IbZY42kfSyfVimCSmuhzV+YhK6Y6LJP8kfajtaJvVnSSMhN1F4nRc/MF2h28hICB/zp4=
+	t=1775983778; cv=none; b=fBWBYVu7wPL5UZtSbT0nE6XuB+5F0RPRnPL2cHueVG5kwb2nQiWjpwV0PZd+yi8YSZ14V3a3GwOgIMXwJA8PUvtHl3WyNkYa6aO+dBzLI5mpG1wHzjYDzGqrRXmJTBxO4v2MKnsN+D8GR4wcLVcDWgMV6LMI7MWn5PfCmoT5dZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775969567; c=relaxed/simple;
-	bh=vCNTuqhCplT0OgoGRN8meGqKIW1Zum6FeqiTRsFcJLQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X3AOW1mjth8T7Pn+hzE07Ync+gDpBiSeF1TLUEH5oiT/+9HGWEr9nmbph+tG9lfaBZkHMGBaPCBDKI/ZOC7/NJu4/fCdfThw07y8jbftHya8PPS1pZbxA5TVmpB3g3Fws+Qzjkv8jhSOm8xcJ4terkqV4qVsLNJ/f3fQ4gMT+L4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qVOXrKHG; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775983778; c=relaxed/simple;
+	bh=Zh1gMWcDLON+NjfzXUS2eYcY2NU/RrfJ8BIhx6gE90w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Tn1PMvNj1jCp6dsYnW4UFVQqOFbiV62VSFSj/aHOS2NZ2WijmbHm+FjFpiIoqpElNfhaMussQ+Gngdt61jyLQC0YxsCjlJJAqZNg3jRezfedd0QpI8UZRUwMR5ZvWrmyd9+94a0qq8ZbLqvAoSMY7P00si+Zflhirs0v0WLQO0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iBxb5y51; arc=none smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qVOXrKHG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACD94C19424;
-	Sun, 12 Apr 2026 04:52:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1775969567;
-	bh=vCNTuqhCplT0OgoGRN8meGqKIW1Zum6FeqiTRsFcJLQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qVOXrKHG3cmWWG3mBJkpTzVM9oGzfl6THntyvKryHTLSk4DKmUd44nH9BMpTRd0Dn
-	 6mn8+HS4YSgWXfbpBcUjRQrkeeG4rLLbkRbnspjOx8hwYbBxyap46k8wwYN1SeJuSJ
-	 nIEUrJN4j5sA7SFfc3jhmCao3UsOU2TfcmoXEGqc=
-Date: Sun, 12 Apr 2026 06:52:44 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Alexandru Hossu <hossu.alexandru@gmail.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iBxb5y51"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-b9c01854477so557419766b.0
+        for <linux-media@vger.kernel.org>; Sun, 12 Apr 2026 01:49:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775983775; x=1776588575; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=U+KERGfJ0lgKno7VzsagW4vKndlmZyVJae2CPohMXXU=;
+        b=iBxb5y51wrQK1NV3WgNsk50NxLIsFxZuC9xecAUt6PmH6MHEfTRDIUdfmo8P2zTo9k
+         1taWXM19afs8cuyi9nmsObviYpMz0mG1uiqaSdKVLa6SDB31R8nOr427MhPRR8yDgOik
+         TyLI56tJLGBmcDR+NMwLOaEKTmVk7B2zhSKs2uFB8clO6ub49OCNsqIQGvjnU73W/jq6
+         OZRhhgskzq/e1DbglsVby+/k+m522EyOXtuJgej0fQshxxdQqVAm7d4CAFCWCc0RZ51U
+         2RXT0a1Lopwl4ohyZH6lQP6t0PfnLV0N6aE/HEmPlbJ/nW07YJAEPfJMnDg89qir6WAU
+         5W2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775983775; x=1776588575;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=U+KERGfJ0lgKno7VzsagW4vKndlmZyVJae2CPohMXXU=;
+        b=ca/doF3FX0WJIwxTc98Po44qD/N2ZegdgpXadPR+Xeoqaqfof6oJYH+MIWpThjEvq2
+         DAuV5aWwU5bWRn4EjRK2VWELCn4CNK/PrpZsFmXpOBFO17BNt9eJw/tDRGRHPY32z1Vc
+         OOlnsAKPI/KHVQS8xBpQdw50WdpEbTIafgK3eTiuiu4+jgZw5kHB5ANs+wtKKulpVc7q
+         EvvY7rQv72FufOT8lqW4J7TpwzDU4lQy5aWBgYgfMQpeeEUrILDwMa9fwkLpgiP8MLxh
+         klNbmh89CdN1FDtotU5Qc82s9C7OMCa18yEnbo/RQPaewZ1sKemJqIdLOiI49t7qvPXi
+         1Izg==
+X-Forwarded-Encrypted: i=1; AJvYcCXWuP/AIDn1ZaFHDJGqykbtUG5tx26anBpOJERrjtdFA4qCZOwuCXe8f2hNaK/g0/KqGhHs7plcQqxIMg==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx3HlyJbpu0fZqWprVl2pQuoM6yXrCbb9+kePL3AI9B4kcMB1Nu
+	9jL3/AFDxODbTKX3dCxMwVPnNIPHeaTibTLj9fD6Ctc1CE5EYGKs0j//
+X-Gm-Gg: AeBDiet1Pt9H5aNJgVFIXVQ3jOehlNSYGfBScrpSuDmfePmg5Qjr6qhFYKGgI9ZAWBW
+	cIrZWeEbBDgbJFZ3H+v7r0yd9P8cFtTliSANSGXN8vfDedjsqoE3+TcGJIbQCxPrqcLxwSDBpxY
+	y4+U/Vp7A5ps4HYnttHkaVqJ9A1lZmjjzWQXLEczEyQsmS7J2j5cZtNoLkguze8zz8iTPCpURmx
+	R8m95pKPdcPelgQIMPaPPHSqmXg7GoOiCFLYIPWqGff4LzF6kFbC+V/j6CERIfon3q/DYDM6IoM
+	wPHbTmLsELDlpXsn4FqvAWjlNfGhPyuQtEKKA98wlJxjBZupyyllJj2BYcm0yPUQPaNo8HpL6Sz
+	4F6SFHkG1P3iGrx4WlhXDzoPjfXeelWo5FpIh8JYXfaIEJpvESlckVnpiPsv8xYb6fjDKNMWNEM
+	xMPxFwlJxAO7XC9ZHYfPLsOjGSBlRsm27vjIbMcGHSTD6KbrL/ccACz9lfTGU+lehHkBcfQnh6h
+	RcbcONKabz4vx7uBsx3QbzC0M0ShlIwMbPd0hmLeXt1RlKqEW1o0kAhSPf8y1hqzSzgciX8+mvI
+	3mtMKQ==
+X-Received: by 2002:a17:907:3f87:b0:b9d:df73:f0b8 with SMTP id a640c23a62f3a-b9ddf7429e8mr7795766b.32.1775983775119;
+        Sun, 12 Apr 2026 01:49:35 -0700 (PDT)
+Received: from ahossu.residents.sin.openfiber.nl ([88.202.160.248])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9d6dfd89a9sm226253366b.25.2026.04.12.01.49.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 12 Apr 2026 01:49:34 -0700 (PDT)
+From: Alexandru Hossu <hossu.alexandru@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Sowjanya Komatineni <skomatineni@nvidia.com>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>,
 	Luca Ceresoli <luca.ceresoli@bootlin.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] staging: media: tegra-video: add missing error
- checks in vi_tpg_fmts_bitmap_init()
-Message-ID: <2026041250-footwear-ashes-84da@gregkh>
-References: <20260411211006.150782-1-hossu.alexandru@gmail.com>
- <20260411211006.150782-2-hossu.alexandru@gmail.com>
+	linux-media@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Alexandru Hossu <hossu.alexandru@gmail.com>
+Subject: [PATCH 2/2] staging: media: tegra-video: add missing error checks in vi_tpg_fmts_bitmap_init()
+Date: Sun, 12 Apr 2026 10:48:08 +0200
+Message-ID: <20260412084808.232010-1-hossu.alexandru@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260412045245.GA2019381@kroah.com>
+References: <20260412045245.GA2019381@kroah.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260411211006.150782-2-hossu.alexandru@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Apr 11, 2026 at 11:10:05PM +0200, Alexandru Hossu wrote:
-> tegra_get_format_idx_by_code() returns -1 when the requested format is
-> not found in the SoC format table. vi_tpg_fmts_bitmap_init() does not
-> check this return value before passing it to bitmap_set(). A negative
-> index converted to unsigned would result in an out-of-bounds memory
-> access, corrupting adjacent kernel memory.
-> 
-> Add WARN_ON() guards so that any future SoC addition or Kconfig change
-> that exposes this path fails loudly rather than silently corrupting memory.
+tegra_get_format_idx_by_code() returns -1 when the requested format is
+not found in the SoC format table. vi_tpg_fmts_bitmap_init() does not
+check this return value before passing it to bitmap_set(). A negative
+index converted to unsigned would result in an out-of-bounds memory
+access, corrupting adjacent kernel memory.
 
-That is not "failing" that is "rebooting the box and loosing all of the
-user's data" for when panic-on-warn is set, that will happen.
+Add WARN_ON() guards so that any future SoC addition or Kconfig change
+that exposes this path fails loudly rather than silently corrupting memory.
 
-Please don't do that, if this can be handled by logic, then handle it,
-report the error, and move on.  Don't crash systems.
+Signed-off-by: Alexandru Hossu <hossu.alexandru@gmail.com>
+---
+ drivers/staging/media/tegra-video/vi.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-thanks,
+diff --git a/drivers/staging/media/tegra-video/vi.c b/drivers/staging/media/tegra-video/vi.c
+index afc7327ef318..d1d934e361f7 100644
+--- a/drivers/staging/media/tegra-video/vi.c
++++ b/drivers/staging/media/tegra-video/vi.c
+@@ -1017,7 +1017,7 @@ static int tegra_channel_setup_ctrl_handler(struct tegra_vi_channel *chan)
+ }
+ 
+ /* VI only support 2 formats in TPG mode */
+-static void vi_tpg_fmts_bitmap_init(struct tegra_vi_channel *chan)
++static int vi_tpg_fmts_bitmap_init(struct tegra_vi_channel *chan)
+ {
+ 	int index;
+ 
+@@ -1025,12 +1025,22 @@ static void vi_tpg_fmts_bitmap_init(struct tegra_vi_channel *chan)
+ 
+ 	index = tegra_get_format_idx_by_code(chan->vi,
+ 					     MEDIA_BUS_FMT_SRGGB10_1X10, 0);
++	if (index < 0) {
++		dev_err(chan->vi->dev, "format SRGGB10_1X10 not found\n");
++		return -EINVAL;
++	}
+ 	bitmap_set(chan->tpg_fmts_bitmap, index, 1);
+ 
+ 	index = tegra_get_format_idx_by_code(chan->vi,
+ 					     MEDIA_BUS_FMT_RGB888_1X32_PADHI,
+ 					     0);
++	if (index < 0) {
++		dev_err(chan->vi->dev, "format RGB888_1X32_PADHI not found\n");
++		return -EINVAL;
++	}
+ 	bitmap_set(chan->tpg_fmts_bitmap, index, 1);
++
++	return 0;
+ }
+ 
+ static int vi_fmts_bitmap_init(struct tegra_vi_channel *chan)
+@@ -1410,7 +1420,9 @@ int tegra_v4l2_nodes_setup_tpg(struct tegra_video_device *vid)
+ 			goto cleanup;
+ 
+ 		v4l2_set_subdev_hostdata(&csi_chan->subdev, vi_chan);
+-		vi_tpg_fmts_bitmap_init(vi_chan);
++		ret = vi_tpg_fmts_bitmap_init(vi_chan);
++		if (ret < 0)
++			goto cleanup;
+ 		csi_chan = list_next_entry(csi_chan, list);
+ 	}
+ 
+-- 
+2.53.0
 
-greg k-h
