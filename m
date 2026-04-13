@@ -1,92 +1,93 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0B13B892D
-	for <linux-media@vger.kernel.org>; Mon, 13 Apr 2026 10:02:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E57B7366057
+	for <linux-media@vger.kernel.org>; Mon, 13 Apr 2026 10:05:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776074579; cv=none; b=DS4i32rE9ci+YaKXhzMFEDsKGdXtQ8RiR8+t0JCTaAyegeGDIGftDymcphzOklPuahGzX2EwEqEJszeHYZ6hMRkVtAq9Q+tRlfHIaaZ4n0byas9gAmmXVJ0VPmSn/eattJvQxhp9Z4oDBFAhe3tIFuiKpmM0obZqQ3TterF/1x8=
+	t=1776074761; cv=none; b=ho4JZjlaMpPaXG5osOVYECc2xlUIVIunUUkTM5mP34E+Pnalep5dzJOaUSjHC0Uiy8xqrhqnhvjvEwp58NTJRG3rvmvqdARCodCN0HtTTol5adFkB6/gPUbtblrsb3s4wyhDoeqAvpQs9mSjJcNgD7Vn1znEmK2lgOkF2DAYNTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776074579; c=relaxed/simple;
-	bh=kcFblZIautjwHK2Vy2J3AGSdQpVSXAg+nv5VyeOoIG0=;
-	h=Message-ID:Date:Content-Type:MIME-Version:From:To:Cc:Subject:
-	 In-Reply-To:References; b=UxIhlnldOe+luMoUaAFzKjyPd98WmND9x1KAwWGKLYoEJZsOnsv6vp/c6dMeJKotOL3hqPOpKXkNhyrZRAkzSrni/3M6uuChlN4/mjGn9pM9b1cAvSutSZ2ATRG9i2kumZIanFW1Ruk+hhivLeUy841YRCJEAStMEzIZPAtgzYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lVYWRSkf; arc=none smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1776074761; c=relaxed/simple;
+	bh=eoOmjhohqlc4bD9VkeDoWJkaId5oyMWFqJyMp8PKmmg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=mKz2YrPMbn9SBpDanHho8gkqUy3Akr7Nqd5WCpUsHhRJUYLDcjSXAJGVpXs2l8Ne5x6ql9f05cFPqaO3QyqH9wpS0vJ5TzYt48Im75V/0Dt7tLnFtXj3B/TEuRODGp6YydVcwBHcPQrKugCwinGyCda9olplDzv4med6owVVM6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=h3zjTJe6; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lVYWRSkf"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-66ba9898ae8so6324021a12.1
-        for <linux-media@vger.kernel.org>; Mon, 13 Apr 2026 03:02:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776074573; x=1776679373; darn=vger.kernel.org;
-        h=references:in-reply-to:subject:cc:to:from:content-transfer-encoding
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=09a3O6d1W+1rc2kx9Pz8OV5bGy+ArYt+o+cPEdWVuHE=;
-        b=lVYWRSkfHe5q59cGnMsqB9WrjsW6BHINQrgyuXGUh1+uv74lf65Xd6WnJXJSYuqGil
-         D/By5bCww61lwJUn9mZFql+9VTNvbv4i3KhK/PqbX/eUq19n2B8iDii+fbyYJNb4DKaD
-         DQRT0vNCWRjgHyj9RNqDmUfMccF1B3FB1yxhBrcPq0jeZNa0CXfGlfNTFLzWD/csk0tA
-         wEXbBc6uqTYrfAcuItuxT0uPTgJIjV/i+dAk/6ehtHh6POmXi7ZsLzDvnYPFQhewnlXK
-         NYNE5fN8eF0o3lypOvU9ko1xcpkZy1NMErTtWC41AR6994bCK0ZQ1l43DcAYRWYhLPJ5
-         aaxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776074573; x=1776679373;
-        h=references:in-reply-to:subject:cc:to:from:content-transfer-encoding
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=09a3O6d1W+1rc2kx9Pz8OV5bGy+ArYt+o+cPEdWVuHE=;
-        b=n5Fmr5p0MPctQWdtpk56LxPV+lVJjYkDjSM7oFvq9BIJ4pJWuJI5U6cpAiDfAQYfu3
-         ScSoJToBJjn49W9OYhwP0JcXhmBUrv2dQFvsJHgUogp42KM+6nU0xEPZVBnwvfqUMn/H
-         jPIn5BTIkfFrEC7YJGsBM3ToXli+uOONi/uh/VPz6KEk3IxeZf7tOl3L4AlI7JNIScFe
-         4S4uYUI2XKkIvF1TnzSqhhLfRlUX46N4Q2MXDyH4ZT5BdmnKZF7cDVagXldUntRcbk3Z
-         5P2cCjFsOZSTTOqpOJkprl0wPJ6K39zM8EvnfBZ5+nbbTELfCljtIl/bEiCK7odj6KLS
-         EwJQ==
-X-Gm-Message-State: AOJu0YxFORsEJd3A+wCXlNJj+VXm9Duf42+jUPipGR8wxQfFPuah1Lm+
-	OczfWHN33gN7zJBB7Z36+kjISSRVi1bsS7pXd62m+/DMg/1WAS3dl26i
-X-Gm-Gg: AeBDietUP/JgYASI7MAVTr5quQq5pvSfCb9vG5hjfQn4M/YwGiVPv+qwidEYXCYwX01
-	ITKKiJfemyGUEmkF5VQFB1S6OWfLRUejAHiPFVw3U2KujFfoKiJH2X9BRWpYNHtQtV7uN4cyhHs
-	8kpnew61hh4LtXiLN3IZ7lXOIpIB7glYXpWsnImLB/OVnXsg12OBWkw049FTd+u25cTDyYdPcCb
-	G3sRdlauBLGqq/fzFDe+H2Btxcj6UmvUv0VFYxlb4UMn2dLnbzLG7NgurJhKHjAXrJfS3Dqnv3N
-	tFXxN/JPHl+PHcymVJP91j/2sg8+ytYdYdMI972OPn28PrDFOetkq9HNDsg3Bv+/3GfAL/b4VL0
-	6wF+UtxQhP0BDNpL6nzO1a0uIeUzUNlnE1W3j+24esWCN+SxGg98JW2kz/yKgK1S1V6cp8ysqK7
-	eQ27sN2+5/h0g6DCZFRu7qSxqPYJNHxgXVrJdwmpjwXMcFSbH0k4xs76ARmY4tCrY9ibvCsTgCL
-	k7b/CMZvmwpK4GmAWPaMYmNYO9QMtEvxkyY1IBbCmoqglpZdttZjwq36Em0wQ==
-X-Received: by 2002:a17:906:dc8e:b0:b9c:ba09:db7d with SMTP id a640c23a62f3a-b9d76d8e108mr590538266b.20.1776074573148;
-        Mon, 13 Apr 2026 03:02:53 -0700 (PDT)
-Received: from ahossu.localdomain ([88.202.160.248])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9d6e7c8a78sm298786666b.50.2026.04.13.03.02.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Apr 2026 03:02:52 -0700 (PDT)
-Message-ID: <69dcbf4c.170a0220.3ae28e.ec02@mx.google.com>
-Date: Mon, 13 Apr 2026 03:02:52 -0700 (PDT)
-Content-Type: text/plain; charset="us-ascii"
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="h3zjTJe6"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=uCpVefvv5ROP1tgitV0gkmnvwqRDrAl+dZVonDpY3E4=; b=h3zjTJe6X4is8rzoinQsqmcjQH
+	KZNRglTsXxg3UhlgM+8TuHHwhPNgUtVQWeEIHC2M+vYasin+X3pytf0O41VGmykYHhfbX74DHm09X
+	wbvtmmyn7clzL8fs/pf+59vWpPHq0F47FgujR26xqaHuc7sWXnAXBB9cWg6n2GrSKGI6uX/pIX07o
+	QMsp1OIMIszzODgxSJdZGNYsM8/+COgSLRnFMaw2PioeHIgS8D3DI+45KGPdssqhnj0Qxy5Ke5eJp
+	XY5KfPoWWDBb8iiEYCQTpeWVjQmZG14g1WYy7YQdqhTZMH5sUjEcnEKfO+UoiUKf6y3X3Ta2J/wLG
+	mPMjMl8g==;
+Received: from [90.240.106.137] (helo=localhost)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1wCEAv-00FL6B-Pw; Mon, 13 Apr 2026 12:05:49 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org
+Subject: [PATCH 1/3] dma-fence: Silce sparse warning in dma_fence_describe
+Date: Mon, 13 Apr 2026 11:05:24 +0100
+Message-ID: <20260413100526.15729-1-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Alexandru Hossu <hossu.alexandru@gmail.com>
-To: Dan Carpenter <error27@gmail.com>
-Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, bingbu.cao@intel.com, mchehab@kernel.org, gregkh@linuxfoundation.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/5] staging: media: ipu7: fix double-free of pdata in error paths
-In-Reply-To: <20260412205057.386856-5-hossu.alexandru@gmail.com>
-References: <20260412205057.386856-5-hossu.alexandru@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Apr 13, 2026, Dan Carpenter wrote:
-> We need a Fixes tag.
->
-> The put_device() frees isys_adev as well so this is a use after free.
->
->     ret = dev_err_probe(dev, PTR_ERR(isys_adev->mmu), ...
->     put_device();
->     return ret;
+Sparse complains about assigning a string to a __rcu annotated local
+variable:
 
-Good catch on the use-after-free in the return value. Will send v2 with:
-- Fixes: b7fe4c0019b1 ("media: staging/ipu7: add Intel IPU7 PCI device driver")
-- Save error code via ret = dev_err_probe() before put_device() in both
-  ipu7_isys_init() and ipu7_psys_init(), then return ERR_PTR(ret)
+drivers/dma-buf/dma-fence.c:1040:38: warning: incorrect type in initializer (different address spaces)
+drivers/dma-buf/dma-fence.c:1040:38:    expected char const [noderef] __rcu *timeline
+drivers/dma-buf/dma-fence.c:1040:38:    got char *
+drivers/dma-buf/dma-fence.c:1041:36: warning: incorrect type in initializer (different address spaces)
+drivers/dma-buf/dma-fence.c:1041:36:    expected char const [noderef] __rcu *driver
+drivers/dma-buf/dma-fence.c:1041:36:    got char *
 
-Alexandru
+It is harmless but lets silence it.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Fixes: ac364014fd81 ("dma-buf: cleanup dma_fence_describe v3")
+Cc: Christian König <christian.koenig@amd.com>
+Cc: linux-media@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linaro-mm-sig@lists.linaro.org
+---
+ drivers/dma-buf/dma-fence.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+index 1826ba73094c..a2aa82f4eedd 100644
+--- a/drivers/dma-buf/dma-fence.c
++++ b/drivers/dma-buf/dma-fence.c
+@@ -1037,8 +1037,8 @@ EXPORT_SYMBOL(dma_fence_set_deadline);
+  */
+ void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq)
+ {
+-	const char __rcu *timeline = "";
+-	const char __rcu *driver = "";
++	const char __rcu *timeline = (const char __rcu *)"";
++	const char __rcu *driver = (const char __rcu *)"";
+ 	const char *signaled = "";
+ 
+ 	rcu_read_lock();
+-- 
+2.52.0
+
