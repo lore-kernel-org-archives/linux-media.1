@@ -1,90 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E33388383;
-	Wed, 15 Apr 2026 21:31:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF3117A2EA;
+	Wed, 15 Apr 2026 22:07:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776288698; cv=none; b=bwCONaQlYWbs0u5aaGhjLTDiWiskIHwquz5HWH/vePqJgc0wTsXq19RfAdRqkIdxnexttBjQJMmLKqoZCO3y4ajJXHjgFlzGNv0pgN6Fld59r4KUS1kndtTRQQ6Ou212OJojOEDiDxrulVTWi8HYAxs4V5/Vg9AJdFK/ZGVyIxk=
+	t=1776290833; cv=none; b=ZbrregYoWAN4I0ApJM647I6KXpH/k52AK2y6QMfh62v9en+qXtl6DZjkBiQRCw5OhTsml0aDQh+FrBnHZYMuDsSngdLSz1w10RvBBfHHFKxYy2wZxRbUnA7TsS0TYSH6G0YFFopK+g7HuK8d8x0DkLl6q4WqNa35bnEkbFiMMkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776288698; c=relaxed/simple;
-	bh=CrpGpxzSa2UXFtd3Z2bKLYI55LaUXTkcwLdBVgLKboA=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=hG2m2mIrug4bFsIXodvxancMaUKhh6uP7EWdyqbyvYkgSmVIcmqqe6EGe0/h6zH3heJqnsBEMagnc/orrNE51KMTJKA0fnoAKtZvO4eZpavYJ+3ac3R8WNvULUsvguALbqC1Z5wcCsffZEb/7yuOBkqqk1rPBEQ/VFsFZIDpAw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WVDZEL3f; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776290833; c=relaxed/simple;
+	bh=BBBQ9gbHiCf9xaemK5ba58xuP5YK+2O+OVL7gV1vBkU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EsPjy7eyZiF5zaMgmHCSXuBa/dow2R1lL7WUDb1ZpJzt5L+lJXGZsqn/O1xXTQb5oBorTmLisZvrZ+ICqvOnyY81ZeqKcdJMF9bvsH6mOi+lIrXHptJDLa9GaWpeM+pCZlI/wZtvRLccjT/xjSa7iHLJShdNYssFgflxhGosFgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dTvNuVKv; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WVDZEL3f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2898EC19424;
-	Wed, 15 Apr 2026 21:31:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dTvNuVKv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1364C19424;
+	Wed, 15 Apr 2026 22:07:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776288698;
-	bh=CrpGpxzSa2UXFtd3Z2bKLYI55LaUXTkcwLdBVgLKboA=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=WVDZEL3fR0bHKreaKLWmL78cFVtLK70guQ9e31ySFba5PnO+C0B6KZbCH01NYioZV
-	 IJwQDlAriJP2k+3g9wl5NRJ09ykrQ3feUjtb1GFE0BlBQFEm8Pola85/XgDUwob1iA
-	 +7yH68KwR709E8glGdzwWWte+2kFz5bzn6wb5OuZ9tnCjJvbDn4fkWpLl8k4RUVRL/
-	 faWJbVZMZQyACbcNKyOOwO3coBMeoqyrgxvhmm2uTMQ2/5+eKhIKohJrDRl6mjUjK5
-	 DccWbFkLnLsOrh60sRRkuurWrEQ4yHqPWrfR8Wr8v4VSxzuxAJWZMFhZ4286QjYZeN
-	 BH9XeQSHJqMBQ==
-Date: Wed, 15 Apr 2026 16:31:35 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20201202; t=1776290833;
+	bh=BBBQ9gbHiCf9xaemK5ba58xuP5YK+2O+OVL7gV1vBkU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dTvNuVKvICGgkyw3qzB5rHvvXx0bxMcuuxfo4X+/1XMEExI5grXgrZ54q7UNFPFzl
+	 izrFP+9gXvH1HWDP5hHyiwx2I0FtBEXVhIZCHBWGo3lnWGSSodRghrglfCKaRAIOSf
+	 kqzAGqmJr5LvSi7ut2OpnwTXMQqWAXmuui0jXPptwRFd1BJxV+SywqRJssg4qlYwaN
+	 fOkrmnmz3PLImO92xPw41Lzg7gcGBruzzJ6Cb/fVi7nc1XhuK/RS9RBSL81exU5ufd
+	 uAci/PRRfLT9dHnTgXVSnal8xCfoDOM3DdnbRxrVnKrG5isNz1/TjhLeaqUhB0ERu4
+	 +2Thjh+jSHH+w==
+Date: Wed, 15 Apr 2026 17:07:10 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org
+Subject: Re: [PATCH v1 1/1] dt-bindings: media: mt9m114: document common
+ video device properties
+Message-ID: <177629083018.750921.11968530700134617704.robh@kernel.org>
+References: <20260406081330.30362-1-clamor95@gmail.com>
+ <20260406081330.30362-2-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: anthony.mcgivern@arm.com, linux-media@vger.kernel.org, 
- alexi.birlinger@nxp.com, conor+dt@kernel.org, ai.luthra@ideasonboard.com, 
- devicetree@vger.kernel.org, julien.vuillaumier@nxp.com, krzk+dt@kernel.org, 
- imx@lists.linux.dev, mchehab@kernel.org, laurent.pinchart@ideasonboard.com, 
- frank.li@nxp.com, michael.riesch@collabora.com, 
- linux-kernel@vger.kernel.org, paul.elder@ideasonboard.com, 
- daniel.baluta@nxp.com, jacopo.mondi@ideasonboard.com, peng.fan@nxp.com
-To: Antoine Bouyer <antoine.bouyer@nxp.com>
-In-Reply-To: <20260413160331.2611829-6-antoine.bouyer@nxp.com>
-References: <20260413160331.2611829-1-antoine.bouyer@nxp.com>
- <20260413160331.2611829-6-antoine.bouyer@nxp.com>
-Message-Id: <177628869587.561223.12597697847678078632.robh@kernel.org>
-Subject: Re: [PATCH v1 05/11] dt-bindings: media: Add nxp neoisp support
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260406081330.30362-2-clamor95@gmail.com>
 
 
-On Mon, 13 Apr 2026 18:03:25 +0200, Antoine Bouyer wrote:
-> Add the yaml binding for NXP's Neo Image Signal Processor (ISP).
+On Mon, 06 Apr 2026 11:13:30 +0300, Svyatoslav Ryhel wrote:
+> Document common video interface device properties, such as rotation and
+> orientation.
 > 
-> Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 > ---
->  .../bindings/media/nxp,imx95-neoisp.yaml      | 62 +++++++++++++++++++
->  1 file changed, 62 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/nxp,imx95-neoisp.yaml
+>  .../devicetree/bindings/media/i2c/onnn,mt9m114.yaml          | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 > 
 
-My bot found errors running 'make dt_binding_check' on your patch:
-
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/nxp,imx95-neoisp.yaml: $id: Cannot determine base path from $id, relative path/filename doesn't match actual path or filename
- 	 $id: http://devicetree.org/schemas/media/nxp,neoisp.yaml
- 	file: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/nxp,imx95-neoisp.yaml
-Documentation/devicetree/bindings/media/nxp,imx95-neoisp.example.dtb: /example-0/isp@4ae00000: failed to match any schema with compatible: ['nxp,neoisp-imx95-b0']
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260413160331.2611829-6-antoine.bouyer@nxp.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
