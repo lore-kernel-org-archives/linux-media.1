@@ -1,32 +1,32 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A233DEAD0
-	for <linux-media@vger.kernel.org>; Thu, 16 Apr 2026 14:26:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D766D330D36
+	for <linux-media@vger.kernel.org>; Thu, 16 Apr 2026 14:27:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776349597; cv=none; b=mW5NURPM+OFkIkMQ9qAXu+M2BSkie+NgmpCV7nzp40I6BKz3WtPRQpzi/97qE+x3/RccZjsRGOGEKw/noh6MBkxVURBFVGVFb7fTsfEXhp2Pp+ZJSkq+tkpTJ7TQx7UNTREDHAaEKPBtqvahumbGnRQnR8pVvMYgNafAuMsh5J4=
+	t=1776349635; cv=none; b=eqOEdunj2hEg2aO8BAKuH0AgAgobDGEGvzmB0GXHBKmtaE3GyOFDrAQ7uo784DtClHMegxOZH/bW/TsDJkYxERUQo7XmLXr8TtDofiKc5hnKtp5+/j5LTHFV49wtGqYDjOhNK8f8Gnsq/D6P3pR6sYXRl4f2ton393Nug1KinBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776349597; c=relaxed/simple;
-	bh=liMcROrd+XfFb0OfzlTVB2CZpEnUjFm8/p7/s2mNc3M=;
+	s=arc-20240116; t=1776349635; c=relaxed/simple;
+	bh=ETiTD68f2xAAia62znH3/fzc0EXdjrJI68nQeKopA5M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VGC6TQHDlg2So8DjG/pmsa0C33XCIMnqP1Ft3gCu0sSENwoF76b+XDSTkbQ8YFg/ANbKf2fwLtzDTR+42Vms0SzbBOI/GAL47Sn8OJs1Po1I8e+C44on4V/TRRkFMSqYiD1lvvx6N74aR9WYv/ylvv1ZtZLL+HdbvKAOuRiu8gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Ep6CdnXB; arc=none smtp.client-ip=213.167.242.64
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mj2cnM+TSXisVarnjcpX+91p56z/VLJ7zCgKcmFSR47vGN9pyIRMyScnJ9cq0RY/cZkngunYtV3nihaNn30TBPv5E+wCZolyzRqBzyMu2tAVG5fMw4JZODf2RyyidsVLkVmfybgqf9nctxz99RV370e1e1xmoz4q6/OOAlIaz6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vdFh9Sx8; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Ep6CdnXB"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vdFh9Sx8"
 Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
-	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 06818BB;
-	Thu, 16 Apr 2026 16:25:00 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 6EE04132;
+	Thu, 16 Apr 2026 16:25:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1776349500;
-	bh=liMcROrd+XfFb0OfzlTVB2CZpEnUjFm8/p7/s2mNc3M=;
+	s=mail; t=1776349538;
+	bh=ETiTD68f2xAAia62znH3/fzc0EXdjrJI68nQeKopA5M=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ep6CdnXBOuCHoU9O/yvjpPwlFCzQjajsp8ytY3YC48vyh1yyzl5FJuXpu/Cyh4uug
-	 dJ1nmtXp9xhW7xMmfc+yZ0amMJvST3bd0ls+P4Ojs1bhBEL7+sFziCCdTrzDKFYZjD
-	 t2BFgyJuXFYNO1ebuuCbddx1h9yoYk1U7i1P1mMY=
-Date: Thu, 16 Apr 2026 17:26:32 +0300
+	b=vdFh9Sx8oKcTxacn+dfFEZVBEAzE1BnwKQxZuVoaAXmBsVe9immn/iMG0oKkgE9yo
+	 91az3UV00tvmgUZUVoVtFpUEHsGc2YS/ucQHS/HkRkEDg1lpeRp/6FQsHhaEVMfN8f
+	 kkgBlpICw2xumRa7BR8rlj47YIGk800auBhYQy4w=
+Date: Thu, 16 Apr 2026 17:27:11 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
@@ -56,11 +56,11 @@ Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v4 08/29] media: imx274: Remove redundant kernel-doc
+Subject: Re: [PATCH v4 09/29] media: imx334: Remove redundant kernel-doc
  comments
-Message-ID: <20260416142632.GF1775831@killaraus.ideasonboard.com>
+Message-ID: <20260416142711.GG1775831@killaraus.ideasonboard.com>
 References: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
- <20260408153939.969381-9-sakari.ailus@linux.intel.com>
+ <20260408153939.969381-10-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,90 +69,201 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260408153939.969381-9-sakari.ailus@linux.intel.com>
+In-Reply-To: <20260408153939.969381-10-sakari.ailus@linux.intel.com>
 
-On Wed, Apr 08, 2026 at 06:39:17PM +0300, Sakari Ailus wrote:
-> Remove kernel-doc comments from  regular callback functions. These
-> comments have no information value.
+On Wed, Apr 08, 2026 at 06:39:18PM +0300, Sakari Ailus wrote:
+> Remove kernel-doc comments from regular callback functions. These comments
+> have no information value.
 > 
 > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
 Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
 > ---
->  drivers/media/i2c/imx274.c | 38 --------------------------------------
->  1 file changed, 38 deletions(-)
+>  drivers/media/i2c/imx334.c | 93 --------------------------------------
+>  1 file changed, 93 deletions(-)
 > 
-> diff --git a/drivers/media/i2c/imx274.c b/drivers/media/i2c/imx274.c
-> index 8ec78b60bea6..241821572e03 100644
-> --- a/drivers/media/i2c/imx274.c
-> +++ b/drivers/media/i2c/imx274.c
-> @@ -897,14 +897,6 @@ static int imx274_regulators_get(struct device *dev, struct stimx274 *imx274)
->  					imx274->supplies);
+> diff --git a/drivers/media/i2c/imx334.c b/drivers/media/i2c/imx334.c
+> index 9654f9268056..553a16b84f4d 100644
+> --- a/drivers/media/i2c/imx334.c
+> +++ b/drivers/media/i2c/imx334.c
+> @@ -566,18 +566,6 @@ static int imx334_update_exp_gain(struct imx334 *imx334, u32 exposure, u32 gain)
+>  	return ret;
 >  }
 >  
 > -/**
-> - * imx274_s_ctrl - This is used to set the imx274 V4L2 controls
-> - * @ctrl: V4L2 control to be set
+> - * imx334_set_ctrl() - Set subdevice control
+> - * @ctrl: pointer to v4l2_ctrl structure
 > - *
-> - * This function is used to set the V4L2 controls for the imx274 sensor.
+> - * Supported controls:
+> - * - V4L2_CID_VBLANK
+> - * - cluster controls:
+> - *   - V4L2_CID_ANALOGUE_GAIN
+> - *   - V4L2_CID_EXPOSURE
 > - *
-> - * Return: 0 on success, errors otherwise
+> - * Return: 0 if successful, error code otherwise.
 > - */
->  static int imx274_s_ctrl(struct v4l2_ctrl *ctrl)
+>  static int imx334_set_ctrl(struct v4l2_ctrl *ctrl)
 >  {
->  	struct v4l2_subdev *sd = ctrl_to_sd(ctrl);
-> @@ -1059,16 +1051,6 @@ static int __imx274_change_compose(struct stimx274 *imx274,
+>  	struct imx334 *imx334 =
+> @@ -678,14 +666,6 @@ static int imx334_get_format_code(struct imx334 *imx334, u32 code)
+>  	return imx334_mbus_codes[0];
+>  }
+>  
+> -/**
+> - * imx334_enum_mbus_code() - Enumerate V4L2 sub-device mbus codes
+> - * @sd: pointer to imx334 V4L2 sub-device structure
+> - * @sd_state: V4L2 sub-device state
+> - * @code: V4L2 sub-device code enumeration need to be filled
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_enum_mbus_code(struct v4l2_subdev *sd,
+>  				 struct v4l2_subdev_state *sd_state,
+>  				 struct v4l2_subdev_mbus_code_enum *code)
+> @@ -698,14 +678,6 @@ static int imx334_enum_mbus_code(struct v4l2_subdev *sd,
 >  	return 0;
 >  }
 >  
 > -/**
-> - * imx274_get_fmt - Get the pad format
-> - * @sd: Pointer to V4L2 Sub device structure
-> - * @sd_state: Pointer to sub device state structure
-> - * @fmt: Pointer to pad level media bus format
+> - * imx334_enum_frame_size() - Enumerate V4L2 sub-device frame sizes
+> - * @sd: pointer to imx334 V4L2 sub-device structure
+> - * @sd_state: V4L2 sub-device state
+> - * @fsize: V4L2 sub-device size enumeration need to be filled
 > - *
-> - * This function is used to get the pad format information.
-> - *
-> - * Return: 0 on success
+> - * Return: 0 if successful, error code otherwise.
 > - */
->  static int imx274_get_fmt(struct v4l2_subdev *sd,
->  			  struct v4l2_subdev_state *sd_state,
->  			  struct v4l2_subdev_format *fmt)
-> @@ -1081,16 +1063,6 @@ static int imx274_get_fmt(struct v4l2_subdev *sd,
+>  static int imx334_enum_frame_size(struct v4l2_subdev *sd,
+>  				  struct v4l2_subdev_state *sd_state,
+>  				  struct v4l2_subdev_frame_size_enum *fsize)
+> @@ -749,14 +721,6 @@ static void imx334_fill_pad_format(struct imx334 *imx334,
+>  	fmt->format.xfer_func = V4L2_XFER_FUNC_NONE;
+>  }
+>  
+> -/**
+> - * imx334_get_pad_format() - Get subdevice pad format
+> - * @sd: pointer to imx334 V4L2 sub-device structure
+> - * @sd_state: V4L2 sub-device state
+> - * @fmt: V4L2 sub-device format need to be set
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_get_pad_format(struct v4l2_subdev *sd,
+>  				 struct v4l2_subdev_state *sd_state,
+>  				 struct v4l2_subdev_format *fmt)
+> @@ -776,14 +740,6 @@ static int imx334_get_pad_format(struct v4l2_subdev *sd,
 >  	return 0;
 >  }
 >  
 > -/**
-> - * imx274_set_fmt - This is used to set the pad format
-> - * @sd: Pointer to V4L2 Sub device structure
-> - * @sd_state: Pointer to sub device state information structure
-> - * @format: Pointer to pad level media bus format
+> - * imx334_set_pad_format() - Set subdevice pad format
+> - * @sd: pointer to imx334 V4L2 sub-device structure
+> - * @sd_state: V4L2 sub-device state
+> - * @fmt: V4L2 sub-device format need to be set
 > - *
-> - * This function is used to set the pad format.
-> - *
-> - * Return: 0 on success
+> - * Return: 0 if successful, error code otherwise.
 > - */
->  static int imx274_set_fmt(struct v4l2_subdev *sd,
->  			  struct v4l2_subdev_state *sd_state,
->  			  struct v4l2_subdev_format *format)
-> @@ -1423,16 +1395,6 @@ static void imx274_load_default(struct stimx274 *priv)
->  	priv->ctrls.test_pattern->val = TEST_PATTERN_DISABLED;
+>  static int imx334_set_pad_format(struct v4l2_subdev *sd,
+>  				 struct v4l2_subdev_state *sd_state,
+>  				 struct v4l2_subdev_format *fmt)
+> @@ -815,13 +771,6 @@ static int imx334_set_pad_format(struct v4l2_subdev *sd,
+>  	return ret;
 >  }
 >  
 > -/**
-> - * imx274_s_stream - It is used to start/stop the streaming.
-> - * @sd: V4L2 Sub device
-> - * @on: Flag (True / False)
+> - * imx334_init_state() - Initialize sub-device state
+> - * @sd: pointer to imx334 V4L2 sub-device structure
+> - * @sd_state: V4L2 sub-device state
 > - *
-> - * This function controls the start or stop of streaming for the
-> - * imx274 sensor.
-> - *
-> - * Return: 0 on success, errors otherwise
+> - * Return: 0 if successful, error code otherwise.
 > - */
->  static int imx274_s_stream(struct v4l2_subdev *sd, int on)
+>  static int imx334_init_state(struct v4l2_subdev *sd,
+>  			     struct v4l2_subdev_state *sd_state)
 >  {
->  	struct stimx274 *imx274 = to_imx274(sd);
+> @@ -856,15 +805,6 @@ static int imx334_set_framefmt(struct imx334 *imx334)
+>  	return -EINVAL;
+>  }
+>  
+> -/**
+> - * imx334_enable_streams() - Enable specified streams for the sensor
+> - * @sd: pointer to the V4L2 subdevice
+> - * @state: pointer to the subdevice state
+> - * @pad: pad number for which streams are enabled
+> - * @streams_mask: bitmask specifying the streams to enable
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_enable_streams(struct v4l2_subdev *sd,
+>  				 struct v4l2_subdev_state *state, u32 pad,
+>  				 u64 streams_mask)
+> @@ -929,15 +869,6 @@ static int imx334_enable_streams(struct v4l2_subdev *sd,
+>  	return ret;
+>  }
+>  
+> -/**
+> - * imx334_disable_streams() - Enable specified streams for the sensor
+> - * @sd: pointer to the V4L2 subdevice
+> - * @state: pointer to the subdevice state
+> - * @pad: pad number for which streams are disabled
+> - * @streams_mask: bitmask specifying the streams to disable
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_disable_streams(struct v4l2_subdev *sd,
+>  				  struct v4l2_subdev_state *state, u32 pad,
+>  				  u64 streams_mask)
+> @@ -1067,12 +998,6 @@ static const struct v4l2_subdev_internal_ops imx334_internal_ops = {
+>  	.init_state = imx334_init_state,
+>  };
+>  
+> -/**
+> - * imx334_power_on() - Sensor power on sequence
+> - * @dev: pointer to i2c device
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_power_on(struct device *dev)
+>  {
+>  	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+> @@ -1101,12 +1026,6 @@ static int imx334_power_on(struct device *dev)
+>  	return ret;
+>  }
+>  
+> -/**
+> - * imx334_power_off() - Sensor power off sequence
+> - * @dev: pointer to i2c device
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_power_off(struct device *dev)
+>  {
+>  	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+> @@ -1206,12 +1125,6 @@ static int imx334_init_controls(struct imx334 *imx334)
+>  	return 0;
+>  }
+>  
+> -/**
+> - * imx334_probe() - I2C client device binding
+> - * @client: pointer to i2c client device
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static int imx334_probe(struct i2c_client *client)
+>  {
+>  	struct imx334 *imx334;
+> @@ -1311,12 +1224,6 @@ static int imx334_probe(struct i2c_client *client)
+>  	return ret;
+>  }
+>  
+> -/**
+> - * imx334_remove() - I2C client device unbinding
+> - * @client: pointer to I2C client device
+> - *
+> - * Return: 0 if successful, error code otherwise.
+> - */
+>  static void imx334_remove(struct i2c_client *client)
+>  {
+>  	struct v4l2_subdev *sd = i2c_get_clientdata(client);
 
 -- 
 Regards,
