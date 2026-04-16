@@ -1,32 +1,32 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0395619D093
-	for <linux-media@vger.kernel.org>; Thu, 16 Apr 2026 15:49:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2908D288505
+	for <linux-media@vger.kernel.org>; Thu, 16 Apr 2026 15:59:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776354561; cv=none; b=GuyMyd0VptrdnTmIP0BYjWmhwJ334gYUulTHNaRuvTMynrW04uq1mSoDcNuokNE1AbqPrH1g+mCnmVgfsoQtze+5IZs+fM/meUZgd5O/+CkNOwQcqULUVaCCwtJh0/VzblAXUTNeDYF4O1nf6mVKqLjtQlXRfMwN0yu0AHQtJHM=
+	t=1776355164; cv=none; b=A42Y62h91HDmfl8ljBp3WyemHFXlHTbxLphkXrMBQvBCBegJowlViKu2+lFntS+VoZcXPb1FRZ5Kmfp0gCwgWclFPwz2LcPlXq4seSssnWWEuBLP7JVYDQF75QtbtQM3IDV2ZEGW0ZR8fOkMJN3US4uYhoRyfOAZ9puhzsq8InE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776354561; c=relaxed/simple;
-	bh=zPhftcwFY85Mwl9OokxsyOXxy6xqqEuZ/YAXM6qe31c=;
+	s=arc-20240116; t=1776355164; c=relaxed/simple;
+	bh=+he7TfvNH6kojfp6QCkH0BOp2hAxg/+VHy+6UufLVBU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mcvP9IE26zlX3o5zWrzbXu7WnK3ZON7cXawJ9tPWNYp/wOmF1AhWqyENlgdDHTV9L6bT01vonaFTTrJdM6SZYqvW16RqRFK9l+mOupXX+G+l6N5B/SjIWlWVquVLETuOPXe5NE/kRhdaagt8eRY+TjfiZB5cgjw24MY5wshZwSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=YqBiD8Uk; arc=none smtp.client-ip=213.167.242.64
+	 Content-Type:Content-Disposition:In-Reply-To; b=KwSvVLXBt77yPLnfHb8RRUtzrMJH7+2/E1UVvX+lvxBqLX3nQy9fbbMl/ZPi0f/I89dM5t7TWufO1LCuRnX4uOuhlvvt7hC9eOjn0FOzieI4qpPznaHkJ5RtKTyNx5ar4WlJ/Ld6mpgtEUSGnOQL97RsPaWG1wFcFbMIV6IxAms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=YPDnxo6j; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YqBiD8Uk"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YPDnxo6j"
 Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
-	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 3CD81107;
-	Thu, 16 Apr 2026 17:47:42 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 472A1107;
+	Thu, 16 Apr 2026 17:57:45 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1776354462;
-	bh=zPhftcwFY85Mwl9OokxsyOXxy6xqqEuZ/YAXM6qe31c=;
+	s=mail; t=1776355065;
+	bh=+he7TfvNH6kojfp6QCkH0BOp2hAxg/+VHy+6UufLVBU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YqBiD8UkeroRhSBS7aZabDUjRDWulfbZjvONgqfVAbLFuoPbiTpsIFsyrbCkzV6JZ
-	 ytvOi4CCA2uMXsc+/QkJvvxBzDDo244qTms19JhS6KtyUU8KrGAYxZupb9wkL3Vq2z
-	 XlRgBesXYIqrvgg4QBGd5inXXBFFs2HR8WS5/FBM=
-Date: Thu, 16 Apr 2026 18:49:14 +0300
+	b=YPDnxo6j14N7HXMJiCxiSu7/BvIAohjT1mYYogaQvx1/U3tHfWB8Nj4xXD763xkwr
+	 7JSz286u4r15cuQ8sd4ja1guzxsPAwU73TnVobWhawHOjitsJZnqr2jesOlTy+MuBO
+	 Z2ZB4voaB/pWCc6+jDpfPZEmSRx/H0FXoDOhyg5g=
+Date: Thu, 16 Apr 2026 18:59:17 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
@@ -56,11 +56,11 @@ Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v4 23/29] media: Improve enable_streams and
- disable_streams documentation
-Message-ID: <20260416154914.GA1823068@killaraus.ideasonboard.com>
+Subject: Re: [PATCH v4 21/29] media: mc: Don't care about unsettable flags in
+ MEDIA_IOC_LINK_SETUP
+Message-ID: <20260416155917.GB1823068@killaraus.ideasonboard.com>
 References: <20260408153939.969381-1-sakari.ailus@linux.intel.com>
- <20260408153939.969381-24-sakari.ailus@linux.intel.com>
+ <20260408153939.969381-22-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,49 +69,59 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260408153939.969381-24-sakari.ailus@linux.intel.com>
+In-Reply-To: <20260408153939.969381-22-sakari.ailus@linux.intel.com>
 
-On Wed, Apr 08, 2026 at 06:39:32PM +0300, Sakari Ailus wrote:
-> Document that enable_streams may start additional streams and
-> disable_streams may not disable requested streams if other related streams
-> are still enabled.
+Hi Sakari,
+
+Thank you for the patch.
+
+On Wed, Apr 08, 2026 at 06:39:30PM +0300, Sakari Ailus wrote:
+> The implementation of MEDIA_IOC_LINK_SETUP currently requires that all
+> flags that are set by the driver are correctly set as the driver expects.
+> This poses a problem for adding new flags as programs could not work with
+> links that have unknown flags even when the use of these flags wouldn't
+> affect the program.
+
+I suppose applications could be instructed to preserve the flags they
+don't know about, but some existing applications probably don't do that.
+
+> Ignore the non-settable link flags.
 > 
 > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
 > ---
->  include/media/v4l2-subdev.h | 7 +++++++
->  1 file changed, 7 insertions(+)
+>  drivers/media/mc/mc-entity.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 > 
-> diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
-> index d256b7ec8f84..4588992b4417 100644
-> --- a/include/media/v4l2-subdev.h
-> +++ b/include/media/v4l2-subdev.h
-> @@ -814,6 +814,10 @@ struct v4l2_subdev_state {
->   *	V4L2_SUBDEV_CAP_STREAMS sub-device capability flag can ignore the mask
->   *	argument.
->   *
-> + *	Starting the requested streams may require starting additional
-> + *	streams. Streams that are started together due to hardware are called a
-> + *	stream group.
-> + *
->   * @disable_streams: Disable the streams defined in streams_mask on the given
->   *	source pad. Subdevs that implement this operation must use the active
->   *	state management provided by the subdev core (enabled through a call to
-> @@ -823,6 +827,9 @@ struct v4l2_subdev_state {
->   *	Drivers that support only a single stream without setting the
->   *	V4L2_SUBDEV_CAP_STREAMS sub-device capability flag can ignore the mask
->   *	argument.
-> + *
-> + *	A stream group is disabled when one or more streams in the stream
-> + *	group are disabled.
+> diff --git a/drivers/media/mc/mc-entity.c b/drivers/media/mc/mc-entity.c
+> index 717569bd1a8c..287eded356bb 100644
+> --- a/drivers/media/mc/mc-entity.c
+> +++ b/drivers/media/mc/mc-entity.c
+> @@ -1319,7 +1319,7 @@ static int __media_entity_setup_link_notify(struct media_link *link, u32 flags)
+>  
+>  int __media_entity_setup_link(struct media_link *link, u32 flags)
+>  {
+> -	const u32 mask = MEDIA_LNK_FL_ENABLED;
+> +	const u32 settable_flags = MEDIA_LNK_FL_ENABLED;
+>  	struct media_device *mdev;
+>  	struct media_pad *source, *sink;
+>  	int ret = -EBUSY;
+> @@ -1327,9 +1327,9 @@ int __media_entity_setup_link(struct media_link *link, u32 flags)
+>  	if (link == NULL)
+>  		return -EINVAL;
+>  
+> -	/* The non-modifiable link flags must not be modified. */
+> -	if ((link->flags & ~mask) != (flags & ~mask))
+> -		return -EINVAL;
+> +	/* Only allow changing user-settable flags. */
+> +	flags &= settable_flags;
+> +	flags |= link->flags & ~settable_flags;
 
-This contradicts the commit message. Did you mean that a stream group
-will be disabled when all the streams it contains are disabled ?
+Now that the link can be configured with different flags than the ones
+set by userspace, I think the ioctl should return the actual link flags.
 
->   */
->  struct v4l2_subdev_pad_ops {
->  	int (*enum_mbus_code)(struct v4l2_subdev *sd,
+>  
+>  	if (link->flags & MEDIA_LNK_FL_IMMUTABLE)
+>  		return link->flags == flags ? 0 : -EINVAL;
 
 -- 
 Regards,
