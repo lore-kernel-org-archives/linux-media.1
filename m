@@ -1,216 +1,170 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5437D3BED7A
-	for <linux-media@vger.kernel.org>; Thu, 16 Apr 2026 13:46:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B551E3D410E
+	for <linux-media@vger.kernel.org>; Thu, 16 Apr 2026 13:52:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776347188; cv=none; b=dbmErCiv+rQzCYAEYdJYpQGMeXjEFKwiz0BR8HHf5tOjQ+CQliH66ulgnxMAvZ8BuxisA0yRHhiQtDKZRg8hSOK+Nh1DU49bCxrqayupwkgTd+hmDszn7l7k96hQpXrmxd3M1vg71insZCiC0KYQnMlUfIdSE2+Lmg//ioBeWGc=
+	t=1776347567; cv=none; b=hKDvBTho6Lbpj35RJmz0fKPmhDCkNsBriSe6tjoIWwsKh8e+faILhNiAYEjNTrdPwfcxY8wTTnbY5l2QdZN24RVbjEa9VPuBXEPpynZByDr1ZHvdbI7xuOe6o5a2xPoiOxON8v+evnO+aUDyJ3PH41aleozwXRwvGkoy7bXJSnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776347188; c=relaxed/simple;
-	bh=3EAwYE7+t5LBGy+Qw2ONJz+RCqEsQCzzTpMO2mrhpIw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KyvlQj9064BC8eUfjJ6e3AKsaRKpW4eqcmuKMfaX40A8zBwo9ezhfJ3EvO4wx8Y6DcqFf+ESM9rXuSR0ejeMSriwKYIeYm1bltQyf2nf3xurOodp8NyhnBwa6A/tUYClzD64XOTWf2o9s1qMaAeKBPsTdTXFvt7TivvKQ4zwf6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OfOl6X1I; arc=none smtp.client-ip=74.125.82.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1776347567; c=relaxed/simple;
+	bh=B70FZ+Ga8PwVGy83BiIRKB7y4GG12RQVNQwTwJXCbn4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=utZbbVIXsbrSKTYDjxiDfyl42tbf7ZBCl2I7qf9+wnl84ilM60PYu/yzNLO+V3ohs17/FcOyUPsl3juraqVSGJlNVOuFCjlNodxuIrl/rA+uBjuwTT+rvs1dFAd+JQLnp1PWm9L8GVQ4y6Kgvdca9GUCf6w5n7XHKSH56W5PaFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pDuIPU58; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jPctGZyQ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OfOl6X1I"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-2bdcf5970cdso526945eec.0
-        for <linux-media@vger.kernel.org>; Thu, 16 Apr 2026 06:46:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pDuIPU58";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jPctGZyQ"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63G8YY7Z1702831
+	for <linux-media@vger.kernel.org>; Thu, 16 Apr 2026 13:52:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	+OFWZqVzZGSVKYR/6nGUmZmi/+VsR+GRP+LJUeyBYjU=; b=pDuIPU58c4TY3F7n
+	SZFptInWYSXM0aMao40zBx1KsOP0xDNt7CYf0FMjjqrvHa7gWfVfiAhcR2x7KzZG
+	HJ/hdYMcAhlutyD9Gn48ZQ9OKTqfO6VrNs+q8x1zSAWcpI2Thuw8Uybbr29VYbU5
+	XMEZ0gFCtTO3jtOl+KxPs8skaGXHsqu8cUJkd+bxEBpgj7VBuvENRBLQuqsJ6rjA
+	YMDkfpkHEuaeaiWLyB0OTmgO3eab9ILSsLXYrqRS4DpeMFZEwmim+bfsQA5xrOoV
+	kBNm/snElZGuWNf/MtE9gU/3SLbZspvVlhXvHw2ixJAgZsoiGNRxWPmBSnGe9kRa
+	xNOG4A==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4djdamm1tm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 16 Apr 2026 13:52:43 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50d9f1bccd7so12504481cf.1
+        for <linux-media@vger.kernel.org>; Thu, 16 Apr 2026 06:52:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776347186; x=1776951986; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=So59SyK+EyB2Z67BGgN+VJWPDFL7GSSTqAp2bhFGkV4=;
-        b=OfOl6X1IOC1hQmUh31TkatZmGWoeZn+VVMIi1Zn1Np0ViNyZyzRt5SG9R+QeEo0LKS
-         lVkMJGZS8e9/On1HsLKucmwhTz6MDkPNrz6KWNu3nJOCDy7xXS4fAr9+HLcQHLHHFdra
-         OguF49wvH96d0kF6/TMefw8as85RiMi82WsKsbO/r/ryw742pvsPuJ6WjesNAVFTvwYy
-         fF0SitVGNwoykTrjeVkH+esytXR7M3tBbSCuf1CrzQY5Xp3kmZ2MO3zJgQVxzrIcYLKO
-         9th2iK3y/KwWg9XJloFTh4eckIltiUSEAgX5hDPL9oiHNPAzbhNahnZJElZiqjD4cYr1
-         C6gQ==
+        d=oss.qualcomm.com; s=google; t=1776347562; x=1776952362; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+OFWZqVzZGSVKYR/6nGUmZmi/+VsR+GRP+LJUeyBYjU=;
+        b=jPctGZyQpv37z4zB6wUgC/rVTEsPdobGZuD/silq0fWFNHWG0YREGQnjfeHhWk/vK8
+         zMS/Sqrski0JYIJ1HyBOXwtJ/XLF4VHmpJJkbtKcVAvzAOnPdMX4iH7+HcgZZQBIDarR
+         2EWZzd/7nxkrwb9yVkL6c7W6zyoMi0lnZp66mAMIDueP+AZ8mZyccS9FNu81H+ztkGRB
+         CxMbflr5asYalAEskpbYToXy+/gEoUAgLOWpdFmEqnhoOHy2E+9NjWqSFMppHKoO8vK8
+         ZNHiSgzRK/XsS+Gqph1XufejvUYO9fU74s/oAaxBZx3vZx5mnkAAgngVRRD+FQZfvCAR
+         0nXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776347186; x=1776951986;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=So59SyK+EyB2Z67BGgN+VJWPDFL7GSSTqAp2bhFGkV4=;
-        b=R+uIhtpdNs4foYETxH1ban8pvZv6NTDd5iVOGJTOVEzu1OZYhBZJHvH/YUQ0Irw2HM
-         QKVcAB0ZcmXvA2IhMoS5R1jRr/xIUQYdaeSqexOl7hLLhmjMVCPkSfnzHaOs4D/TWSNH
-         oiNBRPEoOzqerYMhSMnr0l1PJas8hg8yyN5ShCer0Z1fnH05ETxYjauXERLd1qlLFQnS
-         ipTBLdMplZACz6GYRLyFX2mPUtt6uM5RkyoqqAnT9ks8zlbmhBMVwKHl0u/PcXxupo1O
-         jPkAcO/JOS9siIHKYGk1DI448RaBGmXNTgCs9fHjgPl5yC+NEIl86ouGGXpCK3aatS7I
-         Z/1w==
-X-Forwarded-Encrypted: i=1; AFNElJ++Wv5JZfd8J8htAku9sgywdwBZvWOEYZS+CZI1xXSv2Ngnp6xCkRUPJeD+mHwMmxyCMjwmSSnbXMGfNg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzjyM7w6B7oE+3VU0d4N/3m5p76kE9skTznlA51+uzMvk/IzRZK
-	WQaeGZKNrUzzz/xQatePp+U4OLQ+Git0F0fTFSer7Ottu/TOzwPHS9Sh
-X-Gm-Gg: AeBDievMNQhjM0ye/PCh5g5E8ncUisuu4nL5ffupnR4mw0l8JDxDiKHO6EBjAWu9TvB
-	AhssFdzFjPCyikHiGGF1ZOAMwEuKNlILWPQzTyIy1j74CsxhR73xXoRFLGtAN5V07c3tneToouz
-	bVn4BnYWL5pyHr62E8TUfmUjtI+Ur9UccsvHfy4yvc6R0gfogFBRbUDNkJc5l0n/wYii2jUKAjD
-	IMMJbWlGszIer6dhSbTxiR6SN3bG7SgCyddLpmmFbqH0FiOl2Y58HOaWMMrR7B+XDsAtfJXxX4n
-	EKQBlipQWzvVvuNZrHnofrnOr20OFHgbT+nlUuyJVSgCrnRwG6Ikkrjr5VpVr0fmmbq+dJbQiPq
-	FYo5djf49cnFkcTt6B7QgQRRLCWvy/lYD8gtjKcGdAbMmu30Cn6Rm4cgGZo3IvDD1AfCWHNQmgd
-	2LPBF3xnqiTmwV0M9AUyxnELeqE3T4oL7LAMOfow==
-X-Received: by 2002:a05:7300:ac81:b0:2c6:67b6:3acc with SMTP id 5a478bee46e88-2df7f4671e7mr1831946eec.15.1776347186136;
-        Thu, 16 Apr 2026 06:46:26 -0700 (PDT)
-Received: from pedro-oxean-machine ([2804:214:400b:a09:b5a8:d8b1:e224:db26])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2de8f965c5fsm7256740eec.26.2026.04.16.06.46.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Apr 2026 06:46:25 -0700 (PDT)
-From: Pedro Pontes <pontescpedro@gmail.com>
-To: hansg@kernel.org,
-	gregkh@linuxfoundation.org,
-	mchehab@kernel.org
-Cc: andy@kernel.org,
-	sakari.ailus@linux.intel.com,
-	kees@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Pedro Pontes <pontescpedro@gmail.com>
-Subject: [PATCH] media: atomisp: use kmalloc_objs for array allocations
-Date: Thu, 16 Apr 2026 10:42:15 -0300
-Message-ID: <20260416134214.130665-2-pontescpedro@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1776347562; x=1776952362;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=+OFWZqVzZGSVKYR/6nGUmZmi/+VsR+GRP+LJUeyBYjU=;
+        b=mPdH+wdNfRm0lxJUHY2Y7gwM6+x+1SQMwVwJkCo+OtSKLVNwipoS5ZN2h3qzY8AdAW
+         oyNbwkYDy5m1f7ku3ESE374RaoKl32prMnOISY8ONUXYTqsth5QEziuV+5Tq+hbb5eYH
+         rKTggDoPTHlA5HUkEbKjxxBLb7ls+H87Jmx8QNMzjVDqkLaMka/QNbhwXCm7EukLyiKc
+         htJrOpoIT6mXrgUE/C0NGF80u3TMee7OpBP9M/BQCfW37nK9vWuNRvyyAOUcGW/mK6oA
+         sf6I2Cv8rGspoGo9pl6ApIxv/XUXOs/51nWXh4Sj5VA0O2ujNef/gZBEvCG6y56sqVjW
+         jeGQ==
+X-Gm-Message-State: AOJu0YysSQZO9RP8h8r4XM6M6lwoXsuF/sq42/tG4oE2uhcbeHflNhyA
+	RsNNAQDAw6mcg8BWhOvIyZViBUNnWFEvBd0rialAEAPt7ezaPUP6xgHtvMVvpHb59raHV4zdrNh
+	dB9pV1Ck7+0gdXrmwpR1J7bjBsLGqoh4iodASZxp8KDtTxzR+rOpf6grO/tGkKrA8Wg==
+X-Gm-Gg: AeBDietj15ogUp9wUVhmI2FDWMRjj1115a0dYSLuc9hl6xI6iyxT16fPnr3j67kzmeg
+	Yq+Dwsy3i8QiDsCTbsw3YVKWYVzYsmWdtBtuvSNPRAlhM99KzKs7w4z5T1d1rFZQ8YeW9M6b9dz
+	P4tUxuYS43GqbE8RlUXyH6MMMd8rjjQBECf4IvmkR/yG/GbAGF6GiX19/CaruDtKz3j5R47rldI
+	fHdkMDXLYIs0XM78s3vs3SGRS17pxT1rZGU+YMWlvzZyjBxDPpCSGMtU+vGfSpvC9N04MFwV0nf
+	Pn6dj9zWwSwH9p8H8nPDMO+xnp0r7DbCiHl1rkicFgWe4MPhjRQr7ZVeeFVeImFwLl9Hl15tVzD
+	XoSN+DLbtF5LH4wHK25M9yQCE3M7hC2wLHdO+GDC2SBwfc7DEKDMhcTmAypZzU7j3L9KEJdCfKL
+	IFJtXPK5zpIoKCbA==
+X-Received: by 2002:a05:622a:481a:b0:50b:2275:8c1f with SMTP id d75a77b69052e-50e28cf24f4mr24101541cf.0.1776347562454;
+        Thu, 16 Apr 2026 06:52:42 -0700 (PDT)
+X-Received: by 2002:a05:622a:481a:b0:50b:2275:8c1f with SMTP id d75a77b69052e-50e28cf24f4mr24100991cf.0.1776347561884;
+        Thu, 16 Apr 2026 06:52:41 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba170629d7bsm171699866b.0.2026.04.16.06.52.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 16 Apr 2026 06:52:40 -0700 (PDT)
+Message-ID: <b7b6c3e7-f8e6-4b73-b17a-e5e1691a54f8@oss.qualcomm.com>
+Date: Thu, 16 Apr 2026 15:52:37 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 00/10] media: qcom: venus: add MSM8939 support
+To: Erikas Bitovtas <xerikasxx@gmail.com>, Bryan O'Donoghue <bod@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+        phone-devel@vger.kernel.org
+References: <20260416-msm8939-venus-rfc-v1-0-a09fcf2c23df@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260416-msm8939-venus-rfc-v1-0-a09fcf2c23df@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 0Y7sUU_QTHrNvb_WdgHchZO7MmpV9srJ
+X-Authority-Analysis: v=2.4 cv=HMjz0Itv c=1 sm=1 tr=0 ts=69e0e9ab cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=Hal5A9k0WOgLizwzjeAA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: 0Y7sUU_QTHrNvb_WdgHchZO7MmpV9srJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE2MDEzMyBTYWx0ZWRfX9EzW8e6wcciW
+ z27bnNyurqlM7fxjpYBDHa2s01L3LDJdHjlfKsdjsNnEpZBlT1Yvn5zRkHSW1x95nHGdvypnEQz
+ Qm4AeklX4ej6iE65RZhYn/D6EHXZwGuhkKn+nO/U5q+/z+hu0m4xAEpWqW6g0rhybtUIsZAZC6M
+ bBpf1z9u1GfvJKvqwZ1QXRwP90EJbvF2m3z0mFniBTbj6r65RgMh/a4BkshpStTbmc8Tg0WoI8J
+ 8uYa7joFrvyhK5GkRvYvMLIUb0oGlnK9dyuMZw7qkDtrFhIL94Z9kjemupilRAKFzHFCLOWIfGC
+ OuEThR0rdMpGg+UB4pmXDBm7BZjmr4ndpjVREieWAizdgIAJwTv0iZYldpsZicTNnRg6HUF++Gi
+ 1MYPt/O/Tj2ZHqYqIWkQHNwa6vOdJQ5ECn0A10obmt7YJeWT7qWBzqtLyjyET9c+jKxTyIz8YoV
+ l1UOJ0nmt1Kf3rc5b9A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-16_03,2026-04-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 priorityscore=1501
+ clxscore=1015 impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604160133
 
-Convert manual kmalloc() multiplications to the modern kmalloc_objs()
-interface to improve type safety and prevent potential integer
-overflows.
+On 4/16/26 3:43 PM, Erikas Bitovtas wrote:
+> This patch series adds support for Venus on MSM8939. It is mostly
+> similar to MSM8916 Venus, except it needs two additional cores to be
+> powered on before it can start decoding.
+> 
+> This patch series is marked as an RFC. Before submitting a non-RFC
+> series, I would like to have some details clarified regarding how Venus
+> works in order to improve and eventually upstream support for MSM8939.
+> 
+> 1. In downstream, particularly in LA.BR.1.2.9.1_rb1.5, the buses
+>    for vcodec0 cores have only decoding bits enabled, as depicted
+>    by qcom,bus-configs property of qcom,msm-bus-clients children
+>    in qcom,vidc node. Do I understand correctly that these cores
+>    are only needed for decoding, and not for encoding?
+> 2. Currently in device tree there is a video-decoder subnode for Venus
+>    node, however, for SDM845-v2 (and newer) chipsets, Venus does not use
+>    subnodes. Does this mean it should be dropped for MSM8939 as well?
+> 3. MSM8939 supports HEVC decoding, however, as the patchset is written
+>    now, it does not work. It can be enabled, however, it will result in
+>    breakage of Venus for faulty MSM8916 firmwares, because the code
+>    disabling HEVC for HFI v1 needs to be removed, and as per commit
+>    c50cc6dc6c48 ("media: venus: hfi_parser: Ignore HEVC encoding for V1"),
+>    this would break support for some MSM8916 devices. What could be the
+>    best way to work around this?
 
-Signed-off-by: Pedro Pontes <pontescpedro@gmail.com>
----
-This patch is a refresh and modernization of the following work by
-Qianfeng Rong from August 2025:
-Link: https://lore.kernel.org/all/20250821081746.528018-1-rongqianfeng@vivo.com/
+if (!device_is_compatible(core->dev, "qcom,msm8939-venus"))?
 
-The original version used manual multiplications; I have updated it
-to use the newer kmalloc_objs() macro and enforced pointer-based
-type inference (e.g., *descr->in_info) as is now the preferred
-standard for these cleanups.
+Also, you mentioned HEVC *de*coding, while the commit you pointed to
+disables *en*coding (decoding had been already disabled prior to that
+commit)
 
-The patch has been verified with a W=1 build for pci/sh_css.o. Since I
-don't own the hardware.
-
-Please note that, since I'm a new contributor, I wasn't quite sure in
-how to proceed in this scenario of "redoing" an older contribution.
-I've credited the original author with the "Originally-authored-by"
-tag. Please let me know if I should have done something differently.
-
- drivers/staging/media/atomisp/pci/sh_css.c | 57 ++++++++++++----------
- 1 file changed, 30 insertions(+), 27 deletions(-)
-
-diff --git a/drivers/staging/media/atomisp/pci/sh_css.c b/drivers/staging/media/atomisp/pci/sh_css.c
-index 6cda5925fa45..26b7ea560c02 100644
---- a/drivers/staging/media/atomisp/pci/sh_css.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css.c
-@@ -5819,36 +5819,37 @@ static int ia_css_pipe_create_cas_scaler_desc_single_output(
- 		i *= max_scale_factor_per_stage;
- 	}
-
--	descr->in_info = kmalloc(descr->num_stage *
--				 sizeof(struct ia_css_frame_info),
--				 GFP_KERNEL);
-+	descr->in_info = kmalloc_objs(*descr->in_info,
-+				      descr->num_stage,
-+				      GFP_KERNEL);
- 	if (!descr->in_info) {
- 		err = -ENOMEM;
- 		goto ERR;
- 	}
--	descr->internal_out_info = kmalloc(descr->num_stage *
--					   sizeof(struct ia_css_frame_info),
--					   GFP_KERNEL);
-+	descr->internal_out_info = kmalloc_objs(*descr->internal_out_info,
-+						descr->num_stage,
-+						GFP_KERNEL);
- 	if (!descr->internal_out_info) {
- 		err = -ENOMEM;
- 		goto ERR;
- 	}
--	descr->out_info = kmalloc(descr->num_stage *
--				  sizeof(struct ia_css_frame_info),
--				  GFP_KERNEL);
-+	descr->out_info = kmalloc_objs(*descr->out_info,
-+				       descr->num_stage,
-+				       GFP_KERNEL);
- 	if (!descr->out_info) {
- 		err = -ENOMEM;
- 		goto ERR;
- 	}
--	descr->vf_info = kmalloc(descr->num_stage *
--				 sizeof(struct ia_css_frame_info),
--				 GFP_KERNEL);
-+	descr->vf_info = kmalloc_objs(*descr->vf_info,
-+				      descr->num_stage,
-+				      GFP_KERNEL);
- 	if (!descr->vf_info) {
- 		err = -ENOMEM;
- 		goto ERR;
- 	}
--	descr->is_output_stage = kmalloc(descr->num_stage * sizeof(bool),
--					 GFP_KERNEL);
-+	descr->is_output_stage = kmalloc_objs(*descr->is_output_stage,
-+					      descr->num_stage,
-+					      GFP_KERNEL);
- 	if (!descr->is_output_stage) {
- 		err = -ENOMEM;
- 		goto ERR;
-@@ -5968,35 +5969,37 @@ ia_css_pipe_create_cas_scaler_desc(struct ia_css_pipe *pipe,
-
- 	descr->num_stage = num_stages;
-
--	descr->in_info = kmalloc_objs(struct ia_css_frame_info,
--				      descr->num_stage);
-+	descr->in_info = kmalloc_objs(*descr->in_info,
-+				      descr->num_stage,
-+				      GFP_KERNEL);
- 	if (!descr->in_info) {
- 		err = -ENOMEM;
- 		goto ERR;
- 	}
--	descr->internal_out_info = kmalloc(descr->num_stage *
--					   sizeof(struct ia_css_frame_info),
--					   GFP_KERNEL);
-+	descr->internal_out_info = kmalloc_objs(*descr->internal_out_info,
-+						descr->num_stage,
-+						GFP_KERNEL);
- 	if (!descr->internal_out_info) {
- 		err = -ENOMEM;
- 		goto ERR;
- 	}
--	descr->out_info = kmalloc(descr->num_stage *
--				  sizeof(struct ia_css_frame_info),
--				  GFP_KERNEL);
-+	descr->out_info = kmalloc_objs(*descr->out_info,
-+				       descr->num_stage,
-+				       GFP_KERNEL);
- 	if (!descr->out_info) {
- 		err = -ENOMEM;
- 		goto ERR;
- 	}
--	descr->vf_info = kmalloc(descr->num_stage *
--				 sizeof(struct ia_css_frame_info),
--				 GFP_KERNEL);
-+	descr->vf_info = kmalloc_objs(*descr->vf_info,
-+				      descr->num_stage,
-+				      GFP_KERNEL);
- 	if (!descr->vf_info) {
- 		err = -ENOMEM;
- 		goto ERR;
- 	}
--	descr->is_output_stage = kmalloc(descr->num_stage * sizeof(bool),
--					 GFP_KERNEL);
-+	descr->is_output_stage = kmalloc_objs(*descr->is_output_stage,
-+					      descr->num_stage,
-+					      GFP_KERNEL);
- 	if (!descr->is_output_stage) {
- 		err = -ENOMEM;
- 		goto ERR;
---
-2.53.0
+Konrad
