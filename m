@@ -1,187 +1,155 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022075.outbound.protection.outlook.com [52.101.126.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C5937C924;
-	Thu, 16 Apr 2026 13:25:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776345907; cv=fail; b=g9tVsUmBe1UxETemeluNTqtjsCm4UO6hdj/oUaNhadOedcG2h4pLxnK9Q9EItEiwlqb8kDTP028opmVEgRhDXe2LKk76Y7IHTDlx8z+BNF1mNc1vvztS/Y62J/kWKsMqkxTB66fvjSm3KXNQAu1VWtRukmmy//J8cEh7HAWHuJE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776345907; c=relaxed/simple;
-	bh=XrKx/tBYQ4eYvvYkq63KNBM2NEEGnEq3hCKT1KgwXCM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KLwcCC2d+ct65qiTrg6uHE/bLZ+fWUMPLt65XM9CkaZ06MmEL6n0lwnPupW7WXezRXgXtJsDE901B3oYpEUFNm5tyWZyfH++Ml3+EoKIrHheXleVMRu/9DT/AYT0fYcQpEwEqQgkdtVjWxZeR4PV8kIewfXRv9JeHmPPGEi7/pc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=smu.edu.sg; spf=pass smtp.mailfrom=smu.edu.sg; dkim=pass (2048-bit key) header.d=smu.edu.sg header.i=@smu.edu.sg header.b=dLvpiWyF; arc=fail smtp.client-ip=52.101.126.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=smu.edu.sg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smu.edu.sg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52DF3CB2F0
+	for <linux-media@vger.kernel.org>; Thu, 16 Apr 2026 13:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776347051; cv=none; b=QChPXkUgFp/hmg+JWiHHkU8PC4Oql9XM+y8id+XtVy/tjdIUDaJwqBeCIChfUo+oXk2ea0vRAdCdFmhmlNMUvLgLDbfM+V/9NVXKDfwTasezdBT/ocE1oMpL/fUeYk1DD/JcJCAQrKekb4RuCkuen1bRWvffqtrr8aSJ4dyxcsY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776347051; c=relaxed/simple;
+	bh=Vb2BjE43Rj7+B5nWp9dgRNQNG7l6Oph7RvS6ZEaJ7QQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lqueJBVdoOU4c1jqQsgOWuYPDLou+QudOx0vNEzZmuc80qvyis2y6NmHeA99MZk/9lvr+rrhU8z715kxnaerXlo6sqQQxF83ni41cC5VyHeQXF6Xt7LgOgNeBkN+CpnZMq9XnK5rRguDDZg8WD2DLfwvxhESEFBwwxUP0DiJYL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PJH9CrUL; arc=none smtp.client-ip=209.85.128.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=smu.edu.sg header.i=@smu.edu.sg header.b="dLvpiWyF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ubAxjWrqS14FQjZ46v33z+x/exqkwaaf1rDpl26tAhOH5akse+AQuG1kHP+6zIITtmHaHGo6198vfiVM48RRBG+SBS+CU1MWdmDHaLubjpcdV+M4ivzU3zzh/v8J6cefS0h+66CCo5jMWgvUr+zg2RFE5YHmTdXEP3xdpQyR5NieAZBKf27Bo5xGWoP1bKj+IvGA+SDf/FBXF7IgDv3oXSrArOdbwNCNwIUqwBVJbH4iZ7vH2StXyG0/Zp1hnAVobAdK9DwO2OGiAH2FJ+IvwPR8VPxCorEWzen7qK8zdiK8YTBWG91Qbv2y0ZOEjG1JZ3LgC2tmGQ91alONuv6Ymw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fb+ybnVMWHSgleIwVQ3/TzrQ43Xb0vCaNUu4zJHWvnc=;
- b=tvWTidA3z4w/1AuqS/yVLQqtTEYRCI2wo0ABB7CSm6fnmqVF1YQr4vg4+a5BnMfWkwXJqQ/DI8HUGeIy9V24AH391uJTtRyxgIpfk3JcIRwr/IpV2MyphKn6M9WGP9/pkASFC8res5v9f87P6OR1OX11SrK6bfFkjGE7SJ/5v6ukIrXeuIpwXOAv1jDjt+Tri0xkXD5pV5XqUpHuDxxyzdNBkroy4cR80pznvBLcB4vmgyKut88vj+x4pZXaguI7R+chFofEWJnUD247jXsUK2H/cBO/SVEt4ULWpgMaAhW4nGFhOaXMNrb5u+naEhicheqwcpjuSPDobT2dhEpHdg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=smu.edu.sg; dmarc=pass action=none header.from=smu.edu.sg;
- dkim=pass header.d=smu.edu.sg; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smu.edu.sg;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fb+ybnVMWHSgleIwVQ3/TzrQ43Xb0vCaNUu4zJHWvnc=;
- b=dLvpiWyF/SuUJwSjqOq4/G+SQq4VfNHRa5RkZckT+o89FagAO6157klfDvBzdvtlPOVLSXUEdb4MFDiUFbecOYgmt+fqV8VhOhC9lqA/djQCf9K5hZD+OtZi8c82CrLZITGSw60lus+FRgsDEkitPqAThlCQ8uyF34Wsa/bhIBVC1d91vqNj+Y9qQrHoaWl5CsoFV3QnNwZTRbmuWeNEsfUZj/ZrpF0wy24ZzYvJIllxoV41+8D55LPy1gwc2Ny2iYWnLOegl0O1TUXKqUEowDEbOo9cBCGgDKS2vTGY6OrTvtrGvDPB+El7kWpaK7KB4YWLljCn/JR6CjygFC4akA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=smu.edu.sg;
-Received: from KUXPR01MB7791.apcprd01.prod.exchangelabs.com
- (2603:1096:d10:3f::9) by OSNPR01MB7554.apcprd01.prod.exchangelabs.com
- (2603:1096:604:31f::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.21; Thu, 16 Apr
- 2026 13:24:58 +0000
-Received: from KUXPR01MB7791.apcprd01.prod.exchangelabs.com
- ([fe80::6bd0:d704:7d90:a595]) by KUXPR01MB7791.apcprd01.prod.exchangelabs.com
- ([fe80::6bd0:d704:7d90:a595%5]) with mapi id 15.20.9769.046; Thu, 16 Apr 2026
- 13:24:58 +0000
-From: Huihui Huang <hhhuang@smu.edu.sg>
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Huihui Huang <hhhuang@smu.edu.sg>
-Subject: [PATCH v2] staging: media: atomisp: fix map and vmap leaks in stat buffer allocation
-Date: Thu, 16 Apr 2026 21:24:50 +0800
-Message-ID: <20260416132450.2546774-1-hhhuang@smu.edu.sg>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260416072731.2489513-1-hhhuang@smu.edu.sg>
-References: <20260416072731.2489513-1-hhhuang@smu.edu.sg>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR02CA0030.apcprd02.prod.outlook.com
- (2603:1096:4:195::17) To KUXPR01MB7791.apcprd01.prod.exchangelabs.com
- (2603:1096:d10:3f::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PJH9CrUL"
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-79ab3e26cceso78580927b3.3
+        for <linux-media@vger.kernel.org>; Thu, 16 Apr 2026 06:44:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776347043; x=1776951843; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=U1Cj4R8nBBYaIsGoCFVXiPj3J3o46qtr7Y2+nHFPGus=;
+        b=PJH9CrULMHMRp2wDjf2bfsZIb7I3ZL+ZhTVErbdCWEkNI3hWAdiKIj9lFDyik/z8uT
+         ioDtXzEfn6s9jUYWiRg5N+15+DUHfKNrCvIjqCR3sIJL37QfK80JFoN97EBMtr5+mmJF
+         6EaNZX3k14Zzx5NtJKhBHdND2Lkb0f5rcTCKLXrNmnYHz8D5Dt731HjYaqa+fNAXhQVp
+         cyimAp57JnSZZprh3LrpITbBTDqijma2O0yAnG27VqPQRwVt2+PHrvkEg+H0x/ckTpVk
+         JXGxsiEnLmRVVG6KqvIn14jIx/+cPucPIguij5c7N1rSugFwVP0hKAd1HmfSTjlpOKlg
+         P90Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776347043; x=1776951843;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=U1Cj4R8nBBYaIsGoCFVXiPj3J3o46qtr7Y2+nHFPGus=;
+        b=VhwoPeS7amUlo4H7z9BKy9WbXDpxLct6FZO3AwVFDX9prV0izKll4/MwnUc02jNxg2
+         5TP8eKOB/g3vEIq9vj3buTUueH0R32IDaFdihM6qZBvbMyXVn8l5XFkke4F8uCyKvF7x
+         mQ2p/Ahm4DyKlwxWgW+OQ3Ib89i1g3hF/CBcU3BcgPeouj0k66hoj7bwt1xdCg9smpRE
+         qnxGqc/nIeFRierldePXIXkEvMjv/6w19Yg2tluADUa5WjkRWcveis6AUqEH2XLKQ+mh
+         xtlcudvI5xPQITpQk6CTlDSL13EH/HONVZg3TbWWDW7RcZQwKSi6d9qGoqn3RQyTcv5t
+         8lfg==
+X-Gm-Message-State: AOJu0Ywnrnmi/i2vEwlHEZWX5iZT5ravfF89gDpktUcg0OAS6XA5cerz
+	X/MkgSHod7HuqILo/CB/b/PFxIqz888u6y9VK2bkqoxdTi2azvIbMI36
+X-Gm-Gg: AeBDiev2UaQ5dD7x4kiJFyjG8LpNaT6HO2R3G5IXYRTBObEFyN/Iev6vlKfZuOKYdnl
+	pIWzeKILFJTqpJSH9VuLpNuanKaT4rqAlJBW1RqR7f46BxtwUybM7nGnInkb8KRIbQ9IL/Hy2Qt
+	7mFDDgxOJsQZiygKEwngLt3wFsgdwawnxfRXgmWJMwGoz8YmY7sF9V+1co+gpWll3G54ygK45h4
+	26Ql5PFZtZYO7+C+cbg99UTyqINLo3NHCyG/d4tz59lSlrPTFNm8/2vEVc05U6hDlkjIdbLE1oZ
+	bt8NNgx5YERsL8rDtYzypUtYCWE5wrGCyUR+hyL0RCGiSoSPPrxdYk91Qzf3YNqMCTMuwi7f8/Y
+	FeRjnL+TiaNQEN2+EtJf2BSCM4wExnbjuBlPawKM3RoUSQN+O21YM4xlJiysKtmGqiSfwtDsfhp
+	2w27Kq7MCc1Gwtq/UoRoJFjhsNFQ==
+X-Received: by 2002:a05:690c:4990:b0:7b8:c19c:ee89 with SMTP id 00721157ae682-7b8c19cf5f3mr23684577b3.42.1776347042637;
+        Thu, 16 Apr 2026 06:44:02 -0700 (PDT)
+Received: from [192.168.0.39] ([79.133.247.80])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-7b76931854esm23363737b3.37.2026.04.16.06.43.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Apr 2026 06:44:01 -0700 (PDT)
+From: Erikas Bitovtas <xerikasxx@gmail.com>
+Subject: [PATCH RFC 00/10] media: qcom: venus: add MSM8939 support
+Date: Thu, 16 Apr 2026 16:43:47 +0300
+Message-Id: <20260416-msm8939-venus-rfc-v1-0-a09fcf2c23df@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KUXPR01MB7791:EE_|OSNPR01MB7554:EE_
-X-MS-Office365-Filtering-Correlation-Id: cec91fc0-f08f-4bc0-5ef8-08de9bbb8e1f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|786006|52116014|366016|22082099003|18002099003|56012099003|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	s+P+5rcRLUF95Fstlnm3CTNU9QdXduoBfjjF3tfuwhcJ1+KN0e9kXsjE0QBGNj2iUYTBdtRWmUdS+0zGndG3gp0gm7z5M0oV+yNbAdApzoYjBCbO6SFuNNsFYaBls/4WF0E8rE/E9rmHjEZAjUn3MU6leMIlPj0L2qMuzJj6Y9b/exYwTz0SwL5HwpR7RqEmoeDH/yk84ClBUJSqMA75S8BRcnn6sakcj8aJ2jZIp2b+1nLDbhMIJ1E54ZSBgDNc0OFis2J+BWCP6y+/HHtKMy7029XsAtW0bBpZ6MHN5pOx2nqTfjLWxQrj8Jtxsymk+5qxaEZwaXAU0k7/xYgSV/ON1fAg8wc4+z9rvFAXLlPq6Oe7SfOix1Kc+U9Eu6QJ6Yk5H2lAbCKGECEAQyaaFFuAC6Pcb5XyA7qPlbZptqYnxx2y29OCo/7/chyeZaaQNT+o2EGB7Tk+8CGUKAAkc4e1L0NZRZAm1eP/+1kG2A6PrVTzRBy+dm1Q18GPUZaNKbfbHCZfm7jcvJnYJ+Vckt0wKT+Fg/jEr1ybRI2Znf7IfnZyqpHq+bUbCIRAhoB49/XlD6AkLNdxMfTSiYey6ZzP7ejOuGh6SiQRnPY+SMAUNocTRU0oWflsQGxxgs/wMH0mOP/DgQi0gVDQzw5UzlmSwER4W30Z4I7uunkge9yCuN1tbfa3PP0Uxs2L03G2z/ZnZiBnwVXzoqZ/3VRZdWwPL35Uidil30GydS7/C4r+q8/iNjNNRK+5f8TMbCxbTlBefT4rgIXMmb3wBSNgCQzd9GxBRuOMtI68UT+jvT0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KUXPR01MB7791.apcprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(786006)(52116014)(366016)(22082099003)(18002099003)(56012099003)(38350700014);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?EFOz4iy36Auq0EkK6CuoDHF2EYh+kNZKBJK+GFfEGLvlIg/RKHXQEipHBiu6?=
- =?us-ascii?Q?1jS4cAVFjGdsxQaytff8PnrrSR3TQdQCFXg/ktF4SP3h5S/iqQlFVJ0IBCiV?=
- =?us-ascii?Q?TWhxbiIUfhj+W2ooXpvNexlCJ8TqhR7JHT2W82VdmTaYwgDTbAlUukMBJOn0?=
- =?us-ascii?Q?qobwi27v2Sn++l6hApv6Gi7+jR4AgZ6v2DkfmyrFJNqGAfuyd7TA4xMpU4cB?=
- =?us-ascii?Q?/GKa7qhCQiYFd5/S/mhwVTCrJ5mA5wDz8oecn6z/vzyCXWFDqJfRzQPKtQkW?=
- =?us-ascii?Q?rLjodjxSEJHGnDHfFgkkcivrIm1jMbvLw3Ziami8rBBlUbt9m5UZD8zX0Njl?=
- =?us-ascii?Q?4vCIZ0hQn6/HL7/Vv8nUCpnwB24bBr19nBdlMN4iMgu3ha4i1DaM6o6AP5Pq?=
- =?us-ascii?Q?9A5oEZg+QvmzqYZjUZ55BEnX8lmfY30OcSpgvDOfn5n7KDpQQKvY/wh4rFk9?=
- =?us-ascii?Q?EN8rRd1FM5RrP7CR5Ju2LcHOiDpLWIx3QdlKERQKEzmZ/qaL+2qHDl+7t4oX?=
- =?us-ascii?Q?yd0g2ZwBQUF3zyygXjTd3a0ZEJ6tTTDZ9UNeOkXswLypzEjiGNouTkGKhBss?=
- =?us-ascii?Q?7MwciTfB3Cqu8/wkTcAsx+ZK66zKZUPZ50IgdDn2PotjrRTnQlz5Ju0IgZJ7?=
- =?us-ascii?Q?JOIcganftdYM790mZLAozpEfUZAPzyUqveUUTjVqqluaEI+16vefBU4mxmlk?=
- =?us-ascii?Q?/XzP+8lBCSmhZ//qA0KnyEVljyD7Hi4dmIXlJ3cLPxaXg/ETEIpyalJfaZjN?=
- =?us-ascii?Q?/xpmw4yAjvnVdZA6FDfG9LK7WVXpMMPV2qIb8EdWgzIIh33m5oZGbnxuwN1p?=
- =?us-ascii?Q?EsI3BZisKiBshGjIG/S0TdkseNXhbl5ycv4BK0e5dGySRUb78dynzd1/gpih?=
- =?us-ascii?Q?1+VpT2aLww0QF42vmgQGl7AcvQWw/Zbyz3hFPlbc0Q+Rbs7zGE5eR92OT+zI?=
- =?us-ascii?Q?/DUbU4TSRK24dmKCUryfIwbKmoxFeYMdp/UrloCuhenGLVPMdAx5BVaDSaDu?=
- =?us-ascii?Q?PTZCqEMfw9Jo7bymoeBFRnneVH0ZMLCHtP2dN9mVvwUuhHWB+6HheEFdXxhf?=
- =?us-ascii?Q?rGRQoxHcY+5WsyuXWFueDxNiZJKDd7KcL4DsWT9D3zkHzU2iMd0AohtWozF+?=
- =?us-ascii?Q?/4PdrpAQ4i6PhT9yy6LSea2VSt1J/qkfQJVQPPNRHfgfkL0CkCxwiPz5/oh8?=
- =?us-ascii?Q?6QTYRy2Nk0x7HwRxKJJWbYpSdbRjiQP3U2nhFF/S7Djj3W2Etz1FSlonrWU6?=
- =?us-ascii?Q?4F1G0Iqd2/Qny4XlSeQ9bVzrk4mQONvEN2v0x2IQHwtPHm+l+0dK3X5prhVP?=
- =?us-ascii?Q?tP7txlZ78PO5l8+kc7lXfPZOwTP+J6JPmSEk/dcEW4K26UcMlik4S8HR1IUs?=
- =?us-ascii?Q?up6dBItBJedD5sNcYpdhGkONTWtaC71mhSFZPD3VPO2GF3imnrsfhDQF9HsX?=
- =?us-ascii?Q?c5t3cof93BXRQ90v/3eXVCnyeS/MCU/w8EzDvYdLvImXPTzJdcIP0ovbbJpB?=
- =?us-ascii?Q?mTonvFUCuBBQ1Vk0QwlHvnEQNiUpsTAtXPdXULjkeUok8Ey7shb9YErstJpC?=
- =?us-ascii?Q?Uy6Sg9xl5REcdlZVX/OErNPmFbzbOhoXqz3nlPx92oRmZy7ZPOMK01vUjR8B?=
- =?us-ascii?Q?txWSpWGbG0veoITkQCjn86PrFqLfMULHUpCyQUHTxHMfyPwWS3/KjuUAelb8?=
- =?us-ascii?Q?VufoBu1cPghGJvvIYE99xvvMRTt5Q0wOHTOWoF9ouBFZNpHtqSERgAFoWWQR?=
- =?us-ascii?Q?WinzS2QH9A=3D=3D?=
-X-OriginatorOrg: smu.edu.sg
-X-MS-Exchange-CrossTenant-Network-Message-Id: cec91fc0-f08f-4bc0-5ef8-08de9bbb8e1f
-X-MS-Exchange-CrossTenant-AuthSource: KUXPR01MB7791.apcprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 13:24:57.9874
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: c98a79ca-5a9a-4791-a243-f06afd67464d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PjvYJBtiSM6ibvxCoVmwRMbQHfIv4nRRvgdOSRNyooCBMor6UgkjD/wx/wZfs3hOGQCO6+9XBdU5qcUZz2lDWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSNPR01MB7554
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDE0Mz3dziXAtLY0vdstS80mLdorRk3WQDI9Nkk2Rzk7TEVCWgvoKi1LT
+ MCrCZ0UpBbs5KsRDB4tKkrNTkEpBpSrW1APOsIyp6AAAA
+X-Change-ID: 20260416-msm8939-venus-rfc-c025c4c74fae
+To: Bryan O'Donoghue <bod@kernel.org>, 
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ phone-devel@vger.kernel.org, Erikas Bitovtas <xerikasxx@gmail.com>
+X-Mailer: b4 0.15.2
 
-There are memory leaks in
-drivers/staging/media/atomisp/pci/atomisp_compat_css20.c.
+This patch series adds support for Venus on MSM8939. It is mostly
+similar to MSM8916 Venus, except it needs two additional cores to be
+powered on before it can start decoding.
 
-In atomisp_css_allocate_stat_buffers(), s3a_map is allocated by
-ia_css_isp_3a_statistics_map_allocate() and its backing memory is
-mapped via hmm_vmap(). When dis_buf allocation fails, the error path
-frees s3a_data but does not unmap or free s3a_map. Similarly, when
-md_buf allocation fails, neither s3a_map nor dvs_map (and their hmm
-vmaps) are freed.
+This patch series is marked as an RFC. Before submitting a non-RFC
+series, I would like to have some details clarified regarding how Venus
+works in order to improve and eventually upstream support for MSM8939.
 
-Add the missing hmm_vunmap() and map free calls on both error paths,
-matching the cleanup order used in atomisp_css_free_3a_buffer() and
-atomisp_css_free_dis_buffer().
+1. In downstream, particularly in LA.BR.1.2.9.1_rb1.5, the buses
+   for vcodec0 cores have only decoding bits enabled, as depicted
+   by qcom,bus-configs property of qcom,msm-bus-clients children
+   in qcom,vidc node. Do I understand correctly that these cores
+   are only needed for decoding, and not for encoding?
+2. Currently in device tree there is a video-decoder subnode for Venus
+   node, however, for SDM845-v2 (and newer) chipsets, Venus does not use
+   subnodes. Does this mean it should be dropped for MSM8939 as well?
+3. MSM8939 supports HEVC decoding, however, as the patchset is written
+   now, it does not work. It can be enabled, however, it will result in
+   breakage of Venus for faulty MSM8916 firmwares, because the code
+   disabling HEVC for HFI v1 needs to be removed, and as per commit
+   c50cc6dc6c48 ("media: venus: hfi_parser: Ignore HEVC encoding for V1"),
+   this would break support for some MSM8916 devices. What could be the
+   best way to work around this?
+4. To attach vcodec0 power domain list to dev_{dec,enc}, I had to move
+   vdec_get and venc_get later in the probe. Should this be avoided, and
+   is there a better way to attach vcodec power domains?
 
-Signed-off-by: Huihui Huang <hhhuang@smu.edu.sg>
+There may be some other issues with this patchset - this is WIP code, so
+feedback is very appreciated. Thank you!
+
+Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
 ---
-v2: Reword commit message per review feedback. Remove unnecessary
-    NULL assignments on error paths.
----
- .../media/atomisp/pci/atomisp_compat_css20.c      | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+André Apitzsch (4):
+      media: dt-bindings: venus: Add qcom,msm8939 schema
+      media: venus: core: Add msm8939 resource struct
+      arm64: dts: qcom: msm8939: Add venus node
+      arm64: dts: qcom: msm8939-longcheer-l9100: Enable venus node
 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
-index be5f37f4a6fd..27e6f6563f14 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
-@@ -1116,8 +1116,11 @@ int atomisp_css_allocate_stat_buffers(struct atomisp_sub_device   *asd,
- 					dvs_grid_info);
- 		if (!dis_buf->dis_data) {
- 			dev_err(isp->dev, "dvs buf allocation failed.\n");
--			if (s3a_buf)
-+			if (s3a_buf) {
-+				hmm_vunmap(s3a_buf->s3a_data->data_ptr);
-+				ia_css_isp_3a_statistics_map_free(s3a_buf->s3a_map);
- 				ia_css_isp_3a_statistics_free(s3a_buf->s3a_data);
-+			}
- 			return -EINVAL;
- 		}
- 
-@@ -1131,10 +1134,16 @@ int atomisp_css_allocate_stat_buffers(struct atomisp_sub_device   *asd,
- 		md_buf->metadata = ia_css_metadata_allocate(
- 				       &asd->stream_env[stream_id].stream_info.metadata_info);
- 		if (!md_buf->metadata) {
--			if (s3a_buf)
-+			if (s3a_buf) {
-+				hmm_vunmap(s3a_buf->s3a_data->data_ptr);
-+				ia_css_isp_3a_statistics_map_free(s3a_buf->s3a_map);
- 				ia_css_isp_3a_statistics_free(s3a_buf->s3a_data);
--			if (dis_buf)
-+			}
-+			if (dis_buf) {
-+				hmm_vunmap(dis_buf->dis_data->data_ptr);
-+				ia_css_isp_dvs_statistics_map_free(dis_buf->dvs_map);
- 				ia_css_isp_dvs2_statistics_free(dis_buf->dis_data);
-+			}
- 			dev_err(isp->dev, "metadata buf allocation failed.\n");
- 			return -EINVAL;
- 		}
--- 
-2.50.1
+Erikas Bitovtas (6):
+      media: venus: add pmdomains to the struct based on the purpose of cores
+      arm64: dts: qcom: msm8939-asus-z00t: add Venus
+      clk: qcom: gcc-msm8939: mark Venus core GDSCs as hardware controlled
+      media: venus: move getting vdec and venc for later
+      media: qcom: venus: Move HFI v3 venc and vdec methods to HFI v1
+      media: venus: add power domain enable logic for Venus cores
+
+ .../bindings/media/qcom,msm8939-venus.yaml         | 104 ++++++++++++
+ arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts     |   8 +
+ .../boot/dts/qcom/msm8939-longcheer-l9100.dts      |   8 +
+ arch/arm64/boot/dts/qcom/msm8939.dtsi              |  24 +++
+ drivers/clk/qcom/gcc-msm8939.c                     |   4 +
+ drivers/media/platform/qcom/venus/core.c           |  39 +++++
+ drivers/media/platform/qcom/venus/core.h           |   8 +
+ drivers/media/platform/qcom/venus/pm_helpers.c     | 187 ++++++++++++++++++---
+ drivers/media/platform/qcom/venus/vdec.c           |  12 +-
+ drivers/media/platform/qcom/venus/venc.c           |  12 +-
+ 10 files changed, 374 insertions(+), 32 deletions(-)
+---
+base-commit: 936c21068d7ade00325e40d82bfd2f3f29d9f659
+change-id: 20260416-msm8939-venus-rfc-c025c4c74fae
+
+Best regards,
+--  
+Erikas Bitovtas <xerikasxx@gmail.com>
 
