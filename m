@@ -1,160 +1,245 @@
-Received: from birdy.pmhahn.de (birdy.pmhahn.de [88.198.22.186])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9A637107F;
-	Fri, 17 Apr 2026 12:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=88.198.22.186
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF0B637107F;
+	Fri, 17 Apr 2026 12:13:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776427535; cv=none; b=gZgKmBTGb9T5iqabzyBmm3NJNyydWwx7RtJILPMP88gik7bsC14MVfozYZ5E4KUVtHaLNU7nCARDkpnS9nE20mFZoXp8WurkIjUx5mukC9AWfLu710Cd2Jwk/Jl4IspkMvkIO5VobP0nTRwXBke9I/SFyiT30x5KehKfK7aqvm4=
+	t=1776428024; cv=none; b=HRJmk7LDDKG+LGwa46/3PGOddwjWhapsvpkkiNu5AG9Hlqrvw9/DIvmdxNQnahHfoAZECNfwDX8wYMHTc6AMVQyxvwLbKNH+SiCVbEfheOI0obkjyu3Qb+BwDlYZ3Kq3tKGJ7khQX4HYWJnmPv6iAMf9AUYRG1sKrpHTwLZkQ28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776427535; c=relaxed/simple;
-	bh=YNg7qs2dFydyCydzwujJ+D3KjtzRCAcUh97+llup8jw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Nmt8tuALrZj03zRi57pCVW7MXzGAfoNIz3Hr4eHDtL45s6+ZEq1ZxJQ4sBS4GF7sfsIpqnNH2a2Heapz02Mnp5h+BvdwI45Kt5ha9m5z0UcYt1k8FFFqy6AE+8eouJQ5Fnnpvpyp57RyHE/Dn5KTIKoVyAHUGDa0UdvWfE8MEJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pmhahn.de; spf=pass smtp.mailfrom=pmhahn.de; dkim=fail (2048-bit key) header.d=pmhahn.de header.i=@pmhahn.de header.b=KThBx1mM reason="signature verification failed"; arc=none smtp.client-ip=88.198.22.186
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pmhahn.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pmhahn.de
+	s=arc-20240116; t=1776428024; c=relaxed/simple;
+	bh=6vV0tPd+iDgulVpOy/wCn3Ur6rPXEv+SBjpAHinR6GA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G5DBcWlZ8tx+a8OjWkISI3Qr4prYvtzmZHltLbCGutSWlslPi6RGhIuu1eO3xzHuJaVkdJwnF+YaYXcNyXzJ8goUQ/U6KDBwKGw+m/O1fxnyX/P7NQTvfVeyhWZMYyBAi3y9zLJE3MlWsB6qKnyvSbSSV5n1f5uLH1JAUm4bLpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LK8MztV+; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=pmhahn.de header.i=@pmhahn.de header.b="KThBx1mM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=pmhahn.de; s=202501;
-	t=1776427523; bh=YNg7qs2dFydyCydzwujJ+D3KjtzRCAcUh97+llup8jw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=KThBx1mMxUCjS5ndXTYvAgAH+zaIWVBT6vGJ/qyk3rCcY48unDBLPjcZ1kywA36vN
-	 s4nvf6YBmyl1krztihSr1FPwCl4IrSWjB2Yl1EwuHJTsCT7BTLEhibhrzeLOocUX4i
-	 uovShimKTpdMyp5b1PyJ8myJBQdQNj/UXQNUt8ZOPR0IuXlDdvLbc2KIguTfbconto
-	 +dP9fvXkGL12VtIhLQO3URG/PD42Purig5z7VlEhrO0w9waHEGudCWitt9CxsUgbh9
-	 PfTCTM1SNf2x1jaiqw+zk7VoGmnR/eafp0Gn+TEGXbqCElO+J6nfc2sWVgc2hDZFuA
-	 B47KRaCgewwEQ==
-Received: from jovis.fritz.box (p200300e2773852006e6c8d9d01a0fe6e.dip0.t-ipconnect.de [IPv6:2003:e2:7738:5200:6e6c:8d9d:1a0:fe6e])
-	by birdy.pmhahn.de (Postfix) with ESMTPSA id 70FEF22057F7;
-	Fri, 17 Apr 2026 14:05:23 +0200 (CEST)
-Received: by jovis.fritz.box (Postfix, from userid 1000)
-	id 2A0B25F; Fri, 17 Apr 2026 14:05:23 +0200 (CEST)
-From: Philipp Matthias Hahn <pmhahn@pmhahn.de>
-To: Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Philipp Matthias Hahn <pmhahn@pmhahn.de>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] media: gspca: Handle SENSOR_HV7131R
-Date: Fri, 17 Apr 2026 14:05:07 +0200
-Message-ID: <b47942db47b3e5b0e388d2c4038555bc90cbd0a7.1776426352.git.pmhahn@pmhahn.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1776426352.git.pmhahn@pmhahn.de>
-References: <cover.1776426352.git.pmhahn@pmhahn.de>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LK8MztV+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1776428022; x=1807964022;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6vV0tPd+iDgulVpOy/wCn3Ur6rPXEv+SBjpAHinR6GA=;
+  b=LK8MztV+MBL+zfTSwQY/RKRhpzpgNR8dMJP0CeftRCkMoqQGa+Z/LE5D
+   lVgZdHgrDgg08II8yxJ6uJKFV7GHgpubcAiV06PW4Py7p7ziaN9pIb6D8
+   j8tvkGOXRAxxGiHaGsrzpe+sXTYCY2akouPn3nnG87M+HBWeHDLH7ooEp
+   OxO4Y6rZEsHiMFEDp2ajPKdS6w79NA+uhRyYrFfu0jsqYZ9SoSdoMkRtT
+   XOsNK9bDbeAXSsr517eRYLd9+uqd+ukuIQkkB/rvsejvTN9jMyL/5TLla
+   fDV4G5d37sKKpmf79BhbwrBGLZCBm/4Fs637jA5mFnzWGQGhIjrnOiMTP
+   Q==;
+X-CSE-ConnectionGUID: aT8muja8QrmWfIOCxSPKGw==
+X-CSE-MsgGUID: Q9JLF0hPS1ybxVE1PxZLKg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11761"; a="77350876"
+X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; 
+   d="scan'208";a="77350876"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Apr 2026 05:13:42 -0700
+X-CSE-ConnectionGUID: dxklX58ZSlSVM03O5JizWQ==
+X-CSE-MsgGUID: qwUNsMKoS8egrTXkrJ1FHg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; 
+   d="scan'208";a="227891219"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.170])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Apr 2026 05:13:38 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id DFF30120E0E;
+	Fri, 17 Apr 2026 15:13:57 +0300 (EEST)
+Date: Fri, 17 Apr 2026 15:13:57 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH v1 5/5] dt-bindings: leds: Document TI LM3560 Synchronous
+ Boost Flash Driver
+Message-ID: <aeIkBR4cx54OVmGo@kekkonen.localdomain>
+References: <20260417114226.100033-1-clamor95@gmail.com>
+ <20260417114226.100033-6-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260417114226.100033-6-clamor95@gmail.com>
 
-I found an old USB webcam 0c45:602d Microdia VideoCAM ExpressII. `vlc`
-triggered an OOPS as soon as I opened the device:
+Hi Svyatoslav,
 
-> BUG: kernel NULL pointer dereference, address: 0000000000000068
-> #PF: supervisor read access in kernel mode
-> #PF: error_code(0x0000) - not-present page
-> PGD 0 P4D 0
-> Oops: Oops: 0000 [#1] PREEMPT SMP NOPTI
-> CPU: 8 UID: 1000 PID: 19655 Comm: vlc Tainted: G O 7.0.0+ #1 Debian
-> Tainted: [O]=OOT_MODULE
-> RIP: 0010:do_autogain+0x7d/0x100 [gspca_sonixb]
-> Code: 74 21 0f af 90 c4 00 00 00 89 d0 48 63 d2 48 69 d2 09 04 02 81
-> 48 c1 ea 20 01 c2 c1 f8 1f c1 fa 06 29 c2 48 8b 83 48 06 00 00 <48>
-> 81 78 68 f3 01 00 00 7f 34 48 89 df e8 41 f1 3b 00 85 c0 74 07
+Thanks for the set.
 
-(The out-of-tree-module is v4l2-loopback.)
+This patch should be the first one in the set, or at least before those
+using the bindings defined here.
 
-Adding addition debug information I found out, that the cam is based on
-an SENSOR_HV7131R:
+On Fri, Apr 17, 2026 at 02:42:26PM +0300, Svyatoslav Ryhel wrote:
+> Document TI LM3560 Synchronous Boost Flash Driver used for camera flash
+> LEDs.
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  .../devicetree/bindings/leds/ti,lm3560.yaml   | 134 ++++++++++++++++++
+>  1 file changed, 134 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3560.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/leds/ti,lm3560.yaml b/Documentation/devicetree/bindings/leds/ti,lm3560.yaml
+> new file mode 100644
+> index 000000000000..460ea1fbc1e5
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/leds/ti,lm3560.yaml
+> @@ -0,0 +1,134 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/leds/ti,lm3560.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: TI LM3560 Synchronous Boost Flash Driver
+> +
+> +maintainers:
+> +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> +
+> +description:
+> +  The LM3560 is a 2-MHz fixed frequency synchronous boost converter with two
+> +  1000-mA constant current drivers for high-current white LEDs. The dual high-
+> +  side current sources allow for grounded cathode LED operation and can be
+> +  tied together for providing flash currents at up to 2 A through a single LED.
+> +  An adaptive regulation method ensures the current for each LED remains in
+> +  regulation and maximizes efficiency.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ti,lm3559
+> +      - ti,lm3560
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+> +
+> +  enable-gpios:
+> +    description: GPIO connected to the HWEN pin.
+> +    maxItems: 1
+> +
+> +  vin-supply:
+> +    description: Supply connected to the IN line.
+> +
+> +  ti,peak-current-microamp:
+> +    description:
+> +      The LM3560 features 4 selectable current limits 1.6A, 2.3A, 3A, and 3.6A.
+> +      When the current limit is reached, the LM3560 stops switching for the
+> +      remainder of the switching cycle.
+> +    enum: [16000000, 23000000, 30000000, 36000000]
+> +    default: 36000000
+> +
+> +  ti,max-flash-timeout-ms:
+> +    description:
+> +      Maximum flash timeout in ms with step 32ms.
+> +    minimum: 32
+> +    maximum: 1024
+> +    default: 1024
+> +
+> +patternProperties:
+> +  '^led@[01]$':
+> +    description: LED control bank nodes.
+> +    $ref: /schemas/leds/common.yaml#
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        description: Control bank selection (0 = bank A, 1 = bank B).
+> +        maximum: 1
+> +
+> +      ti,max-flash-current-microamp:
+> +        description:
+> +          Maximum flash current in uA with step 62500uA.
+> +        minimum: 62500
+> +        maximum: 1000000
+> +        default: 1000000
+> +
+> +      ti,max-torch-current-microamp:
 
-> gspca_main: sonixb-2.14.0 probing 0c45:602d
-> sonixb 1-3:1.0: sd_config(sensor=01 bridge=00)
+Don't the LED flash bindings already have standardised properties for
+these?
 
-In case of an SENSOR_HV7131R `gspca_dev->exposure` is not setup.
-Enabling auto-gain will result in the above OOPS.
+> +        description:
+> +          Maximum flash current in uA with step 31250uA.
+> +        minimum: 31250
+> +        maximum: 250000
+> +        default: 250000
+> +
+> +    required:
+> +      - reg
 
-1. Check for `gspca_dev->exposure != NULL` before dereferencing it.
+I'd say the max current properties are required as well, same for the
+timeouts. Or make the lowest the default. The lowest values are very seldom
+used in practice though.
 
-Even after that there's 2nd OOPS:
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - '#address-cells'
+> +  - '#size-cells'
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        led-controller@53 {
+> +            compatible = "ti,lm3560";
+> +            reg = <0x53>;
+> +
+> +            enable-gpios = <&gpio 28 GPIO_ACTIVE_HIGH>;
+> +            vin-supply = <&vdd_3v3_sys>;
+> +
+> +            ti,peak-current-microamp = <16000000>;
+> +            ti,max-flash-timeout-ms = <1024>;
+> +
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            led@0 {
+> +                reg = <0>;
+> +
+> +                label = "white::flash";
+> +                linux,default-trigger = "flash";
+> +
+> +                ti,max-flash-current-microamp = <562500>;
+> +                ti,max-torch-current-microamp = <156250>;
+> +            };
+> +
+> +            led@1 {
+> +                reg = <1>;
+> +
+> +                label = "yellow::flash";
+> +                linux,default-trigger = "flash";
+> +
+> +                ti,max-flash-current-microamp = <562500>;
+> +                ti,max-torch-current-microamp = <156250>;
+> +            };
+> +        };
+> +    };
 
-> BUG: kernel NULL pointer dereference, address: 0000000000000034
-> #PF: supervisor read access in kernel mode
-> #PF: error_code(0x0000) - not-present page
-> PGD 0 P4D 0
-> Oops: Oops: 0000 [#1] SMP NOPTI
-> CPU: 1 UID: 1000 PID: 709 Comm: vlc Tainted: G E 7.0.0+ #6 Debian
-> Tainted: [E]=UNSIGNED_MODULE
-> RIP: 0010:v4l2_ctrl_g_ctrl+0x36/0x80 [videodev]
-> Code: 20 65 48 8b 05 63 17 b1 c8 48 89 44 24 18 31 c0 c7 44 24 14 00
-> 00 00 00 48 c7 44 24 04 00 00 00 00 48 c7 44 24 0c 00 00 00 00 <f6>
-> 47 34 20 74 2e 48 8d 74 24 04 c7 44 24 10 00 00 00 00 e8 72 fd
-
-This is caused by v4l2_ctrl_g_ctrl() dereferencing gspca_dev->autogain,
-which remains NULL as gspca_dev->exposure is NULL.
-
-Check for `gspca_dev->autogain != NULL` before dereferencing it via
-gspca_expo_autogain().
-
-Signed-off-by: Philipp Matthias Hahn <pmhahn@pmhahn.de>
----
-v1 -> v2:
-- Use __func__ instead of hard-coding the function name
-- Break long code lines over 100 character long
-- Break long commit message lines over 72 character long
-
- drivers/media/usb/gspca/sonixb.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/media/usb/gspca/sonixb.c b/drivers/media/usb/gspca/sonixb.c
-index 4d655e2da9cb..d1c7868b4a6b 100644
---- a/drivers/media/usb/gspca/sonixb.c
-+++ b/drivers/media/usb/gspca/sonixb.c
-@@ -900,11 +900,11 @@ static void do_autogain(struct gspca_dev *gspca_dev)
- 	if (sd->brightness)
- 		desired_avg_lum = sd->brightness->val * desired_avg_lum / 127;
- 
--	if (gspca_dev->exposure->maximum < 500) {
-+	if (gspca_dev->exposure && gspca_dev->exposure->maximum < 500) {
- 		if (gspca_coarse_grained_expo_autogain(gspca_dev, avg_lum,
- 				desired_avg_lum, deadzone))
- 			sd->autogain_ignore_frames = AUTOGAIN_IGNORE_FRAMES;
--	} else {
-+	} else if (gspca_dev->autogain) {
- 		int gain_knee = (s32)gspca_dev->gain->maximum * 9 / 10;
- 		if (gspca_expo_autogain(gspca_dev, avg_lum, desired_avg_lum,
- 				deadzone, gain_knee, sd->exposure_knee))
-@@ -927,6 +927,9 @@ static int sd_config(struct gspca_dev *gspca_dev,
- 	sd->sensor = id->driver_info >> 8;
- 	sd->bridge = id->driver_info & 0xff;
- 
-+	dev_info(gspca_dev->v4l2_dev.dev, "%s(sensor=%02x bridge=%02x)\n",
-+		__func__, sd->sensor, sd->bridge);
-+
- 	cam = &gspca_dev->cam;
- 	if (!(sensor_data[sd->sensor].flags & F_SIF)) {
- 		cam->cam_mode = vga_mode;
-@@ -958,7 +961,7 @@ static int sd_s_ctrl(struct v4l2_ctrl *ctrl)
- 
- 	gspca_dev->usb_err = 0;
- 
--	if (ctrl->id == V4L2_CID_AUTOGAIN && ctrl->is_new && ctrl->val) {
-+	if (ctrl->id == V4L2_CID_AUTOGAIN && ctrl->is_new && ctrl->val && gspca_dev->exposure) {
- 		/* when switching to autogain set defaults to make sure
- 		   we are on a valid point of the autogain gain /
- 		   exposure knee graph, and give this change time to
-@@ -976,7 +979,8 @@ static int sd_s_ctrl(struct v4l2_ctrl *ctrl)
- 		setbrightness(gspca_dev);
- 		break;
- 	case V4L2_CID_AUTOGAIN:
--		if (gspca_dev->exposure->is_new || (ctrl->is_new && ctrl->val))
-+		if ((gspca_dev->exposure && gspca_dev->exposure->is_new) ||
-+			(ctrl->is_new && ctrl->val))
- 			setexposure(gspca_dev);
- 		if (gspca_dev->gain->is_new || (ctrl->is_new && ctrl->val))
- 			setgain(gspca_dev);
 -- 
-2.47.3
+Kind regards,
 
+Sakari Ailus
