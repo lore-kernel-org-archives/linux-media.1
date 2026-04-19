@@ -1,52 +1,83 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9F430F533;
-	Sun, 19 Apr 2026 11:43:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776599014; cv=none; b=owDEyd9y/F0SocoZm4sZsaEyeuLSSCtfP6R3OwK5FiHj6k3ZHUu3CG1auKyNIIDraNccOb2dpDq8ZtdbDxZ1gJflq8lGNsC9O99IlCKoFZMXsrCBix1Rg2Lw8EDbfps5bqbWXEKj1XsCaIF8HSd5Ixdb+q6Jyx/DiINe3r8RmmE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776599014; c=relaxed/simple;
-	bh=IMDxIvzyumDawQtoXNv/Xd38pSmE6XvbynP3ndCwjJQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=FzRFqETW9OPHKwKTX+GKH0vKK0mKa5y+lLloPsg2pTJo0RHeLHTCEaYrD+4zSkcwYo2OaQKr0dxYwTbM4AiysIKulq7aPjid2qaboYF2nFlHF9h+qxn0GdPu1RR78VBDxZMzvvrrPse67G7qpXYz1sIeRDkhKkuFrJ58V2Fc4+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=QVa3xvBZ; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C783A3DBA0;
+	Sun, 19 Apr 2026 12:46:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776602763; cv=pass; b=cqkarJvqb0fiXFxSmneoOsZV/IQ4New4gwxlhMlLuFQFZbTNWjfj15mNAKRmdmkbrbhhFphHkkeKjvqkQlgQ/BAfCWw+OE+4ImnGwB3/mfOORrXwrR0nC1NP7wNRceulZ00SozVjNOY1KOfHyoBox0hnQqdossLxLxBdhMHI45E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776602763; c=relaxed/simple;
+	bh=Dq8jvaEy/2xDuvJqxWr4iqf41wbnZCSlx4JjRbkM8Vc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Moy5quqrwqqhLrSQ++sXpPi8Pyi3uLUe2j0XrlniCD2FGqEynTGRb4YVjIldahuZ5w5FRQRqd5aU6/ToXN9w/rzVFzg9ANtVlPMkK5irftPabm4EOUWLe89qo00ScNeK70fJ9IIKmJ86/Ex+7Wq6fq99YmeY4IJyAsWr5EGJRhY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=uEjpiXQA; arc=pass smtp.client-ip=185.185.170.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="QVa3xvBZ"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net A7D4B40B0C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1776599012; bh=IMDxIvzyumDawQtoXNv/Xd38pSmE6XvbynP3ndCwjJQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=QVa3xvBZScmeUvqxIn2pX6iESz0anZ5QgZnlLPQurU7HQciufu+fjinOgMLN4rxp9
-	 3JGLM3RK1zlnvJejJZ1zlNRn8AlcUleDOifNwK6nN8jQORT8e/jghXZTuB6GjKqlv4
-	 5CUbA5V3SYW1bKY9ArozMT8fAb+mTh0vhQnZZFe7iV+46d2uJE9W9d+l057jiXhSvx
-	 7U8F6fqu0WQFzCJ3//E5Q8RIbt4Crg70sX2jpjVu5xthB+XavZ/5+1lK9XNZd1hi2t
-	 pAbLYPoj4E1k6DpE0YrOgOsRteLR5KhwR4UleZ+t2SYqdI+hICdJyUMe98KZiHYZ4A
-	 xX21nGWLWd89w==
-Received: from localhost (mdns.lwn.net [45.79.72.68])
+	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="uEjpiXQA"
+Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id A7D4B40B0C;
-	Sun, 19 Apr 2026 11:43:31 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Manuel Ebner <manuelebner@mailbox.org>, Shuah Khan
- <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-Cc: lrcu@vger.kernel.org, linux-kernel@vger.kernel.org,
- workflows@vger.kernel.org, linux-sound@vger.kernel.org,
- rcu@vger.kernel.org, linux-media@vger.kernel.org, Kees Cook
- <kees@kernel.org>
-Subject: Re: [PATCH] Documentation: adopt new coding style of type-aware
- kmalloc-family
-In-Reply-To: <295490d9bd8b9d519dda5c4551e7dbaf36492a8a.camel@mailbox.org>
-References: <20260419065824.165921-4-manuelebner@mailbox.org>
- <87se8rw8df.fsf@trenco.lwn.net>
- <295490d9bd8b9d519dda5c4551e7dbaf36492a8a.camel@mailbox.org>
-Date: Sun, 19 Apr 2026 05:43:27 -0600
-Message-ID: <87o6jfw4yo.fsf@trenco.lwn.net>
+	(Authenticated sender: sailus)
+	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4fz7dY623dz49Px3;
+	Sun, 19 Apr 2026 15:45:53 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
+	t=1776602754;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XUS6peXPqwCSs05o7nCKuDQ+D3wbXWfhUIX+k+zv860=;
+	b=uEjpiXQAK0/0vcOB3Z331fhWinSHV9BQuJrV1fLqdP8te6knSd4b8TBrEyhmRQDfzw05xa
+	RKDEHghGPO1i8tNZe6+fhpGOSBNfQcTvyoOrKzqFzH69SBPQgZhPU7JlxAFC/d5Xwgu58u
+	Ev40BzPzu/PW/c2bsO8BHYVz+UHe3kL8sOefatTcEsWqJgkh6C5I7JsE4Lcwy0Cwf++ePr
+	DADhy9EDKvU9wVpGDn7KUvv0vaYRmLTjH4JyJLnQBhLvByQzDBhOmXH6HmidCBoyjVISzH
+	UJZLSh5dmAjlysETRgV8QG86D1Loqr36T5UR3RumT8DsP4STnk3FBQ8RvdRmQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=lahtoruutu; t=1776602754;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XUS6peXPqwCSs05o7nCKuDQ+D3wbXWfhUIX+k+zv860=;
+	b=NC5hfF2qkGwrMFq1hExYo27hes4pFJH9QnZXjfR9XsjUpg99UoXXf6HFYkxX+beZ0yOn47
+	Z07c8smN4pGKHohJf7dgvjjPIYfW1fmIvtcbtVi7bJnvpicOwas2mhclA2QKoo0q9ITERz
+	os58OrtnjjcyqwZOVlxFhfJ795c8W2Iw4YV3ZtyckkLDQSuvjwDWxh0vW/nWfBunRVx+1y
+	kE49+Mcpn4kSJ1saqFNoAPLflp4osv0A4E5nX6QlN5Z+Z35SY69tX4Tu9adMZugg/UOCsD
+	fLnd4ndSEYcWSFEJUXCNKwZ0C3Ho8SxQEzqgdGLk0Dmpa61rrGAKEj92MvIU5Q==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1776602754;
+	b=d5243cq/EqGRe0OJY8rJZXYeI8cvetNB1TU1SQH1+GdtcFrQAtDJ4ziyQ1pHR86/ESbqVJ
+	M+ZUUM0yjRMuKd6iiwKtX1vNocvG5eHQfUHbktBM9XD0/CDMnr1m7g7M3duf5bCrsAf7vc
+	P/hN3xMuEw4yF0xqvdzahTcL4Mb1lao0IURVw1JK1zJPAhg69cqZtoN+tobE+YFqfrLqOB
+	spay1rbZzpqai7TTMTMegg+iEKOuYqliarFCh1hDJdsJNpoTJrkCckKG0TMLgMB3NwwiWM
+	7yT2IfBW5ffmgjO7g9Uy0JHrpSAznKSsM/M8N3HC0EArKaH6CbseiugblqCaEw==
+Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id CED00634C4E;
+	Sun, 19 Apr 2026 15:45:52 +0300 (EEST)
+Date: Sun, 19 Apr 2026 15:45:52 +0300
+From: Sakari Ailus <sakari.ailus@iki.fi>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Ayush Kumar <ayushkr0s@gmail.com>, hansg@kernel.org, mchehab@kernel.org,
+	sakari.ailus@linux.intel.com, andy@kernel.org,
+	gregkh@linuxfoundation.org, hverkuil@kernel.org,
+	ribalda@chromium.org, abdelrahmanfekry375@gmail.com,
+	santiagorr@riseup.net, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
+	kernel-newbies@vger.kernel.org
+Subject: Re: [PATCH] media: atomisp: coding style: Move trailing statements
+ to next line
+Message-ID: <aeTOgEq9X192XPgG@valkosipuli.retiisi.eu>
+References: <20251126190026.37436-1-ayushkr0s@gmail.com>
+ <aeQDxUI8F1b7Hy8s@valkosipuli.retiisi.eu>
+ <CAHp75VcyO4rJMyVyUP6aKLugEBik_FPsyO4cgbPkTgnKUzhG+A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -54,22 +85,32 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHp75VcyO4rJMyVyUP6aKLugEBik_FPsyO4cgbPkTgnKUzhG+A@mail.gmail.com>
 
-Manuel Ebner <manuelebner@mailbox.org> writes:
+Moi,
 
->> So you have not gone with the "implicit GFP_KERNEL" approach that Linus
->> added.=C2=A0 Given that, I assume, he wanted that to be the normal style=
-, we
->> should probably go with it.
->
-> I scanned those 8 replies by Linus, but i can't figure out what you mean =
-with
-> implicit GFP_Kernel approach, can you give me a hint?
->
-> https://lore.kernel.org/all/?q=3Dslab%3A+Introduce+kmalloc_obj%28%29+and+=
-family+f%3Atorvalds
+On Sun, Apr 19, 2026 at 11:32:45AM +0300, Andy Shevchenko wrote:
+> On Sun, Apr 19, 2026 at 1:20 AM Sakari Ailus <sakari.ailus@iki.fi> wrote:
+> 
+> > On Wed, Nov 26, 2025 at 07:00:26PM +0000, Ayush Kumar wrote:
+> > > Adhering to Linux kernel coding style guidelines (Chapter 3: Indentation).
+> > >
+> > > Signed-off-by: Ayush Kumar <ayushkr0s@gmail.com>
+> >
+> > This has been addressed by commit 003c2c39ec77c84d704ee8effe170fd8658fde0b
+> > in my atomisp branch.
+> 
+> Btw, can you rebase your branch and drop "staging" word from the
+> Subject in all current patches?
 
-See https://lwn.net/Articles/1062856/
+Good question. The staging: prefix has been used in the past for atomisp
+patches and a lot of the rest appears to be doing that as well but
+definitely not all. I don't really have an opinion but we should do that
+consistently whichever is chosen.
 
-jon
+-- 
+Terveisin,
+
+Sakari Ailus
