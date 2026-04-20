@@ -1,133 +1,128 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A7627B32C
-	for <linux-media@vger.kernel.org>; Mon, 20 Apr 2026 06:34:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 294A0382F09
+	for <linux-media@vger.kernel.org>; Mon, 20 Apr 2026 06:47:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776666886; cv=pass; b=B7OmlhFme2AicCbzyIsDYC3yARlSZKIJo0HQGHLF5N1E7HemXSw7U1fmd/euOWVPiNIQ/5Ht7iNVWkQJBYWYz7nsw6ENUyOsc44p3jb9+A11lgS1EG9HZDhofro2Eh/+VyidOmlbIIhC2Gsml2ScqjRS2HyDyDXlqaN70wJSQ78=
+	t=1776667639; cv=pass; b=OSMB7RqKeue3Bres7XZ3OJcb5+gjaHLvRclSflXjtCgJBeOS4dObTWf1s7LhZkI6nDDA5fOThSjEOp0Q99dpcEdfmPqnEPbEU4rBUt/aAbMthDEsC2PKvrYkdXslIsz3Uq38KUcrK1IFVcAoVKJwWFYv6tTNqkwboQu0s7Bmkl4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776666886; c=relaxed/simple;
-	bh=81PEkTTgJBxoeay/TLfhpVbql70yqz+B4ECmxiW0Wf0=;
+	s=arc-20240116; t=1776667639; c=relaxed/simple;
+	bh=N1haeHF9uSlmHMWw+cJ4oHIeP1NSc5nux6yAR2Hd7gE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bsS0o+Eqg1FhJQjG9FBtiglBo6z08ud9/SMHoEbybHRb55S6affz415Zk/UMaBPbIxyZIlmveAM4qpTLWPQJfFVLX/qXFlLZ9mT8BFG556A/0+ANqLBO3rrClzmi9FZk4IyrRwomONqgBJ+8r82WXMLa+XiGvvwFwvdZ4PdGAvg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kkkhNoIC; arc=pass smtp.client-ip=209.85.218.54
+	 To:Cc:Content-Type; b=i4sk9ObIHYnyJjdHq3vYn2ZDnkr9wmsW7fVX/9TNv1FeGkzDXpx5dnMxMotEafSXiKuILxSQu+xFq+JNE3OO6Z3Ws6wgwzqLt6NAztXA/axypaVi4ED5kLIdLB+pNmwptEhhbom25qzz8uZIozjov1/77DXT253SNY1DmOWQaoA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TOCEq/Ud; arc=pass smtp.client-ip=209.85.218.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kkkhNoIC"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-ba6b39871a3so164281666b.0
-        for <linux-media@vger.kernel.org>; Sun, 19 Apr 2026 23:34:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776666883; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TOCEq/Ud"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-ba25fd27571so385317666b.0
+        for <linux-media@vger.kernel.org>; Sun, 19 Apr 2026 23:47:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776667636; cv=none;
         d=google.com; s=arc-20240605;
-        b=kF6oDU5esvtcq8jim0VO1OPG3VNhQY47HpRR2eFbWBKrPj4RnbzdLuISctlY/AeQpY
-         XolqQXHEG/h5sbM2caImDwKuCD1q+zCplnjVYDQGqT9V9dRYwLmOzOE1IBia0gO1k624
-         Cee/ji0Pmdq5q3VfeSfuEmTo2/fmQcC0E9UKpK+QCy6XJSXxxMK32IX8UVouoP7IjCyi
-         zmMDchILHiezzhY6Fe41izkt08tr7sFw0w0NDHe9Wk/lqNoFvylcNSkElkb5yWWkypny
-         zZgvepzlHe1Oy7AgbBgiQgM1JEv3ROYfkX/LpD9m1UAv6OCEsZ9Yh9k5BU2r2yMAHP0i
-         veEg==
+        b=MA7HDghzyXmAOJSrYLMoph8kzZvjjdqU2Vp0oxKQNkGTxXAX4z57XEgkYcuTunjAfT
+         Jwiy6lODmATp4johqKfMOt4yuo9De+AswmXIZWklXqeoUbXeGqty+RfXTQotBDTYggzU
+         qAo+AXie1gv+muk/DVy7PwNoynCUxkwZbulmX/Fy6xuVbGIzRcxNNgwwQ9T9kHaN35WX
+         AIOlIUD0aplHoXJdnw+JfIXWwe0J0x+2azT9uxCZwb6Q1uvejQXy62jXz7Iv31blLUEI
+         s+P7M0DQoSSIn8EvAY4rXy5g9AThzHixNfjuBUDEYWOrd6+Jmkw73KQE75IpeOcZ8wBp
+         XKiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=81PEkTTgJBxoeay/TLfhpVbql70yqz+B4ECmxiW0Wf0=;
-        fh=vUvXfJVceHFgWUpRt3hdStg8WNBVvvze/3gUGoS31Bc=;
-        b=FxJxOVyi7DnHy/6uVnKN7SaptJ4Fw3rEPPb91pKeQzVSytSU2DPsuOLjqv2BEKo+Jh
-         2eV8bYGMDXTL0FtYTLT7ACmMaG+CuBJ9Kw7TkiTPQySq5Zfcpf7Lli+lmshLj3rrcYUx
-         9CRFfEThAbFwXta6M0Hg5ajKnFzTcUbk6iiqIRqar8GPPKmxKJpoCDgNNZ4HCsknyKXH
-         phX2NPXj8EV7hu30pGNVqaEOd5YJ7rMGzWn7PuaRjFa0C3eiK3P2qEXSvhxnmHlars/0
-         e4QjTOUd/MASnITJFPXI1oTKqTnt3YdeLmYPq+yfSKzqkZ+pq1Mn5cflTMiZoaXp40En
-         MEgg==;
+        bh=N1haeHF9uSlmHMWw+cJ4oHIeP1NSc5nux6yAR2Hd7gE=;
+        fh=uTY92wr8RvGVvjnrYfRLecw10c1NtZNrVms8xNhcFF4=;
+        b=cfM0iv2og1hepnFmuDc2WvfvOFtQV6tdMGHqVQ1N9z1w5A8P3KLZJ9vNax58jQXCbu
+         0WEvrxGNHGK9UpAnLAyf5ZdUXcfjcjnJ7SeC4/zxnftGFMahP8XcQXSGR6477VmHzI5v
+         7q5rRoePH1swXBX6t6ByJqorhAKqEDb/gC5nRo4O5T+qSiSrSD3e802l+XAJr9vnsatF
+         zBQcsvo41LEQjoKC3bgxwt6pC1/+Fdms3dk8GsY2fqM90UFttlukeaY8u5WG47da/9MK
+         MjestPx3PUNYkS1z2Ra3y+eA6IwKOHfPNs5Fn/LvQiDlyQiXHxnNSNKwG+fEcMCPUAv5
+         FRDA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776666883; x=1777271683; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1776667636; x=1777272436; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=81PEkTTgJBxoeay/TLfhpVbql70yqz+B4ECmxiW0Wf0=;
-        b=kkkhNoICaD3FlCu1la2bUdGwojNDkLhrcno7cnQ19k+R9aHpg13ymMdsMjtazQpHQr
-         2LQbjbSGQ3hRnoSEhk04W78+R6gL147FWTo65CQyGZU3DBvbB/24NXkRiowTPMf6baMN
-         jlZXZxMpbUy3+W+2CHR6Ws0hnT4hrilYELdZFxFs4YgCRNJSm/YxBrsw1zkBl1dKYJ8p
-         nVqUlN3k1R8IyT/cJTjW6ntIY3DIrAhHR5B3zKDPsEqbhMdKLvylVIJRsfJ/hb48GbtH
-         BTsXhWZtQ/vDBYt7bPmOvKTECh2cSrR+9vDcFDyyHVhIC8SkXW1NwlV7eVJXdiwPlxkR
-         QBzg==
+        bh=N1haeHF9uSlmHMWw+cJ4oHIeP1NSc5nux6yAR2Hd7gE=;
+        b=TOCEq/UdT2mpCNaUaQJ78z78SF65ZJTWfDQbk0FTVlAxzPUACM+oRtL2NpAb5FSVDZ
+         FNntrihkCvwdtNyndFJO1mz1/kZyu0b4sFdYSUhOP0dKafq22b+CuXCg9O8f3O2b3Onn
+         aDBucBDqreHriTtZnBNnsWbw4FdbcWUlZAMUscfnWfciz4zjjKXGmjSDjnLnALbEPEnj
+         y4cw3Wziq0eZTeUY8BFezYTKNRd5BtamoWhy5MMTrUTaIofikIVcL3B5qaFjiZ6M60U8
+         XRUxS6DO31v+Ej1p26ZkUT9Ag0HqTHkxq169TYDsP9T4WOiu2Wq962ESJOjxJ4O48K+C
+         Eldw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776666883; x=1777271683;
+        d=1e100.net; s=20251104; t=1776667636; x=1777272436;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=81PEkTTgJBxoeay/TLfhpVbql70yqz+B4ECmxiW0Wf0=;
-        b=Vb+vAnSjnw2JWLEHeW1zR94kp7FJD/BqdCHGYRwPgG+cWryz8KkwL1naQN5VdIxvy2
-         d25N3KBkc7CKKFxGu4218v3Yp6OfaV4rIf722ffQrfsBTcTWnU1bRVSyIFuDVYLOhaa1
-         jH2+aehpx8ZZalTfoYOxsZZCVzj2L01tlEDiWtCa9i64RINcUDIXDJ53YJk6q2QgljJ0
-         pu3anyMYolnMKdl2pVKhR1OIS9ySB3EoqzhNvioJVzmBBt+SReFfTIS1vkCnBe0M2Bdc
-         mam9jAiYBWYSCyqGW2Ed00Y2b5ILz6uPmgf9h5op4V4OOvnGxdYA5EWCnX2VS9KOzXwu
-         5MkA==
-X-Forwarded-Encrypted: i=1; AFNElJ8t2ImG8PqlcNvtq6Ta1qIIAve8SCBJBVKz/GgMOf+oWBABEAL5U+JChvJWbz2b+gF7ODcfkZiyStO/ag==@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywf+xbBGGnV4SJYDmhhEWZ3zO+OShYfjZjJ4b3HhSfNiCydc7BE
-	q09ofC0ZOHw3tqQe/+88MgJBKSIlbMsE3/7QMl5UgjZ5zPJEzNrlZUoufotDhiO3JTfmN1ZmyNk
-	D5ffftGeASQ9SlRylmvs3nQe0dCKC+S8=
-X-Gm-Gg: AeBDieuik4aB1vOPRuX5s52S6qKbV7A0Y7LDF3Bm05IzV75A+1yUIWsl1iTGzkLMTk+
-	QGg1KAjOc0GYqOTu2dDUuhQqgq1vrLn+Bmv0a6CN63q1CDHaMHpFlbmoxJr+AhNpM5Pkshz7eW8
-	3rLSDt2xFXkJVVFzrOzwdEvNakR4/D3Duj+rIZ0Yqtz3APZwdIRn2ddRROxBkcWtigJ9MgxzQ7B
-	JhmwJfw23zO6RmsR11WloOv1l4In0cL9WppXFnCpmqP9zMtw7LcX8ogmYnQ0f3WRdViDtP7jtwA
-	03kx+PsbokVwHvy6y9HK9WlKl63fVQuPTc4xBbqCpOGegGSK/5P2tApzbGys0OZcu4cdnbD4fm/
-	57vaYL0vOEbHF3PVjRHGTIEQlVtBjKQ==
-X-Received: by 2002:a17:906:c102:b0:b97:b88c:386b with SMTP id
- a640c23a62f3a-ba4229d7784mr517181366b.29.1776666882701; Sun, 19 Apr 2026
- 23:34:42 -0700 (PDT)
+        bh=N1haeHF9uSlmHMWw+cJ4oHIeP1NSc5nux6yAR2Hd7gE=;
+        b=gGQXcj8VULJa/HMadKBRihngYinaJ4fa6d4p6V+SQTNflycw1K/+vWqWjyfTCfmK0R
+         rSxZL752i+D77zkod536kiqbFZX4/qhR9BJD2blVVq6L8hBos18EzniUuvY65mXJLjNO
+         38hW3sD30HiRjh5X5Pkfc7uNzU9SI6Inck8N/kwxgSbdXhzuZhsh+jVAWbINBBbGwyYa
+         vfQZQS44+lYrJIBlBa7v7NI+lvs3evkyT9dKa4RILf3f3wj3ytf2FFXgUvl4K7l+6gf3
+         yAAMv3SgsSBDxuOL8g2tX22gwxSrGwbG7b/e0JJW3IWkSNIHOaMGUrfEOtPr592iGhuz
+         Vw6Q==
+X-Forwarded-Encrypted: i=1; AFNElJ//hmHPhv+N0NSr2Jg9dBtq3t7S5I5sEwk/R7486kY7OwzTupT6ymFN/OO1xAacK7r904r4ipDBYqYB7g==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzQs8gJN7Y/4t5WKfmSTXTEjnSEyxeXWPN8n/s0bcyjxhdDYQhz
+	biPo51lmOt19W42L++VYqQRrBx/+S1R+LNHur2NYOXRwTF2iaMt6k3VoZL8xu+bJXaVp/kuk7vr
+	JB+k4NV1mMx7pNXwVsVUf8xO6as2X5A8=
+X-Gm-Gg: AeBDiesJdzd/sIh9Oql++xvRdPyCn6q/stgmBnXW48AvNhCe5beFivXBJeXwsOXe5Hd
+	TFV/AnFRzEwqK+8b0o42hiK8Uu883N9Ut4fyTkr4vMaDsnaIAfAEXwYtVIMk0KBu/ht8rpnoxa0
+	7rR9uiu6x9FLbffIqoKqXWUekus7RpqCkYRCI/anMJaW7BjbgQnFXT/JPtyvCQuG1nTXqBf3Ttg
+	3U4V6ZTGAzXeHhOaS4rFFFlziGvk7m+jF1BqSsKUYIf0A9YKN5dua6WJ4rObvsiPmdYewW9b8qd
+	KJav/IkvR+Mp5Xi3fY+iAonHSrJBaZWliYJPW9zxMrfT8Tv5NttW7PKHnN9sfh/x8TjgOrXFxpV
+	0F5YyAt1GeRD5e+xupA==
+X-Received: by 2002:a17:907:3f11:b0:ba8:a829:e64a with SMTP id
+ a640c23a62f3a-ba8a82a9a1amr15950666b.23.1776667636060; Sun, 19 Apr 2026
+ 23:47:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20251126190026.37436-1-ayushkr0s@gmail.com> <aeQDxUI8F1b7Hy8s@valkosipuli.retiisi.eu>
- <CAHp75VcyO4rJMyVyUP6aKLugEBik_FPsyO4cgbPkTgnKUzhG+A@mail.gmail.com> <aeTOgEq9X192XPgG@valkosipuli.retiisi.eu>
-In-Reply-To: <aeTOgEq9X192XPgG@valkosipuli.retiisi.eu>
+References: <20260420032701.33250-1-debjeetbanerjee48@gmail.com> <20260420043442.60982-1-debjeetbanerjee48@gmail.com>
+In-Reply-To: <20260420043442.60982-1-debjeetbanerjee48@gmail.com>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 20 Apr 2026 09:34:06 +0300
-X-Gm-Features: AQROBzBewWjAdKOSwG5n3rKZavdSyvwChWgRt8qbEPE0icMpjbHA5j266FgrIVg
-Message-ID: <CAHp75VcHXFr3PrmxyE7FxvzTwkCrPpHKc+6e=ziXCGFrBY269g@mail.gmail.com>
-Subject: Re: [PATCH] media: atomisp: coding style: Move trailing statements to
- next line
-To: Sakari Ailus <sakari.ailus@iki.fi>
-Cc: Ayush Kumar <ayushkr0s@gmail.com>, hansg@kernel.org, mchehab@kernel.org, 
-	sakari.ailus@linux.intel.com, andy@kernel.org, gregkh@linuxfoundation.org, 
-	hverkuil@kernel.org, ribalda@chromium.org, abdelrahmanfekry375@gmail.com, 
-	santiagorr@riseup.net, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, 
-	kernel-newbies@vger.kernel.org
+Date: Mon, 20 Apr 2026 09:46:39 +0300
+X-Gm-Features: AQROBzDARcD5sLeznh1z-l3-bWrWKreTWgrMaYI-OYrDcqQB7Ms6YHfZhqQl0vc
+Message-ID: <CAHp75VfxwFW3nWLjKS6TXPHYJsqPJWB6G_M08t6eTkcodOj7zA@mail.gmail.com>
+Subject: Re: [PATCH v2] staging: media: atomisp: csi2: Fix DPCM decompression
+ for source pad format
+To: Debjeet Banerjee <debjeetbanerjee48@gmail.com>
+Cc: hansg@kernel.org, mchehab@kernel.org, gregkh@linuxfoundation.org, 
+	andy@kernel.org, sakari.ailus@linux.intel.com, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Apr 19, 2026 at 3:46=E2=80=AFPM Sakari Ailus <sakari.ailus@iki.fi> =
-wrote:
-> On Sun, Apr 19, 2026 at 11:32:45AM +0300, Andy Shevchenko wrote:
-> > On Sun, Apr 19, 2026 at 1:20=E2=80=AFAM Sakari Ailus <sakari.ailus@iki.=
-fi> wrote:
-> > > On Wed, Nov 26, 2025 at 07:00:26PM +0000, Ayush Kumar wrote:
-> > > > Adhering to Linux kernel coding style guidelines (Chapter 3: Indent=
-ation).
-> > > >
-> > > > Signed-off-by: Ayush Kumar <ayushkr0s@gmail.com>
-> > >
-> > > This has been addressed by commit 003c2c39ec77c84d704ee8effe170fd8658=
-fde0b
-> > > in my atomisp branch.
-> >
-> > Btw, can you rebase your branch and drop "staging" word from the
-> > Subject in all current patches?
+On Mon, Apr 20, 2026 at 7:35=E2=80=AFAM Debjeet Banerjee
+<debjeetbanerjee48@gmail.com> wrote:
 >
-> Good question. The staging: prefix has been used in the past for atomisp
-> patches and a lot of the rest appears to be doing that as well but
-> definitely not all. I don't really have an opinion but we should do that
-> consistently whichever is chosen.
+> The CSI2 source pad format was set by blindly copying the sink pad
+> format, regardless of whether the sink pad is receiving a DPCM-compressed
+> mbus code. This was marked with a FIXME comment.
+>
+> When a sensor transmits DPCM-compressed data over MIPI CSI-2 (e.g.
+> MEDIA_BUS_FMT_SGRBG10_DPCM8_1X8), the Atom ISP hardware decompresses it
+> before passing it to the ISP pipeline. Therefore the source pad must
+> expose the uncompressed format (e.g. MEDIA_BUS_FMT_SGRBG10_1X10), not
+> the compressed one.
+>
+> atomisp_subdev_uncompressed_code() already implements this mapping via
+> the compressed_codes[] table in atomisp_subdev.c, which pairs each
+> DPCM mbus code with its uncompressed counterpart. For codes that are not
+> DPCM-compressed, the function returns the code unchanged, so this change
+> is a no-op for all non-DPCM formats.
 
-I believe you were Cc'ed to the (private) email response from Hans
-where he explained why it should be dropped. Let me find if I still
-have it and bounce to you.
+No, please spend your time first on learning the process. When sending
+patches like this, do not rush with the new versions, keep at least
+24h distance between them.
 
+...
+
+Also, drop the "staging:" prefix from the Subject.
 
 --=20
 With Best Regards,
