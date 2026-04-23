@@ -1,49 +1,49 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F378C306D2A;
-	Thu, 23 Apr 2026 07:34:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B9E72FE057;
+	Thu, 23 Apr 2026 07:34:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776929650; cv=none; b=V+L/VwYmBKpm33KZwjgirkfs1zwYns9h9b6M3wXJJebpMl0EnzjZW3EEFVIeDdM6ZpDZAHO6eTc0sbONQxQ8XXGKFFdFYDiVEdADsY3pMR7VD1Inqsv3XvhIHIgT9FWOX3+rUeqW1OSXhszzabMpGf1rxSOYKGxbIqnk7/8Aa2A=
+	t=1776929651; cv=none; b=dTr2sA16ZnDxx8KYW+Q8B0Jfh3KTtP+s+F4C1nwyrt4Av4WpB1oSe+QjO+2G5YYoi5MHELbA+iINAFCzwdSHNcNJRcve/81Vx3oe6l621Fc8wvHvy63bCm4mHjxHrcN48WQ5734k4MSfwInHFPlVuAwVQCDCRru2XqbNMERpOqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776929650; c=relaxed/simple;
-	bh=iWpfT8iLKfphSpPkInMeTYw2s0IHEKJ0WsSZcyc6MQU=;
+	s=arc-20240116; t=1776929651; c=relaxed/simple;
+	bh=XjtH9UaKNXUEw2WLmJ+ej294qEzpO0nL7e2PohsdWUo=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oWyR3f0grlGnvLzrjh35z0vWsn3MQsrf6W1UkF4WxIG3nNFkVQCmLhCtNNJhEe7LAfKhLuZIk3pxRZzQGkqNk64YtQ5dAHxsWLUwvZX8LzycSmHirTg8BOO5BnzJzThREBEat6KDTHjTuWNu8Yteo0itgzxkBAbMS6xiEbsY4Os=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=Ax9OdihA; arc=none smtp.client-ip=60.244.123.138
+	 MIME-Version:Content-Type; b=C2uYNRUZfBEORvxxfJhGGC61o2x/NZjEZ0VM46qaP8y0zjCuk25VV/7PPKeCnVfDDIqHSSi8P130Y3iX/Ix+C/lgpQKcAzvoswM10mhF7nV1NqUUokpKr8DeNDoU/Q0r/wY8ZdgTYQ1qZLjBXS/U+CIoh0fqwJT9feAQxV66eoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=iKBL06Tf; arc=none smtp.client-ip=210.61.82.184
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="Ax9OdihA"
-X-UUID: caaabf123ee611f19781c1a04af40193-20260423
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="iKBL06Tf"
+X-UUID: cbd3c5323ee611f19a16598d5ca7f8ec-20260423
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=eQAc7yZzqT1pGw1ermvcGYGfV7r9fJcNjn+m0zQKMsw=;
-	b=Ax9OdihA73pM4ZhA8+nObU6mIgfMJ7ziBuMeoev2uaWOkMgDwvZs7x9qlskbu2x8J6t1ld/IuuXJOYgJFBfOCxDxnnV8dAV1GGRoE42PDV5Nbxa6zKkXNIXXu8uHtxgrf8TohwM8inGCewr48Qbz3TWjz6UMaD+Sg5p0PW14BTQ=;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=EqTcbhfqO9Fl0LIzueqOlkh4bfPzPS/ZebY5V5Vzsy4=;
+	b=iKBL06TfnO0iApKcR8yNnQT8oheV4yDCUM0oVQLL+mViT0YzAQIAc72ySHvKrkl0Iraxj4qHC8Mgjwj0E5fy8bgtMPwytMXdpBhymIuAeRseqMy2s45IU7qshDaOwGk+V9YewS5rQzahCOrLedGJzyDL8MaPyGsgJOnysY1p8ys=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:7ad675d5-e2e6-42cc-974f-6442ec979500,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:e7bac3a,CLOUDID:3a7c39d6-060f-4ecc-9ee0-121eeeb4a682,B
+X-CID-O-INFO: VERSION:1.3.12,REQID:b52f648d-7940-4036-97b1-1391d88b32d5,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACT
+	ION:release,TS:-50
+X-CID-META: VersionHash:e7bac3a,CLOUDID:ae577c64-469e-4eb6-aeb8-4b21454b0f32,B
 	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|865|888|898,TC:-5,Cont
-	ent:0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+	ent:0|15|50,EDM:2,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,
+	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: caaabf123ee611f19781c1a04af40193-20260423
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw01.mediatek.com
+X-UUID: cbd3c5323ee611f19a16598d5ca7f8ec-20260423
+Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by mailgw02.mediatek.com
 	(envelope-from <irui.wang@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1059268346; Thu, 23 Apr 2026 15:33:58 +0800
+	with ESMTP id 1671307729; Thu, 23 Apr 2026 15:34:00 +0800
 Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Thu, 23 Apr 2026 15:33:57 +0800
+ 15.2.2562.29; Thu, 23 Apr 2026 15:33:59 +0800
 Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
  mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Thu, 23 Apr 2026 15:33:55 +0800
+ 15.2.2562.29 via Frontend Transport; Thu, 23 Apr 2026 15:33:58 +0800
 From: Irui Wang <irui.wang@mediatek.com>
 To: Hans Verkuil <hverkuil-cisco@xs4all.nl>, Mauro Carvalho Chehab
 	<mchehab@kernel.org>, Rob Herring <robh+dt@kernel.org>, Matthias Brugger
@@ -57,9 +57,9 @@ CC: Yunfei Dong <yunfei.dong@mediatek.com>, Maoguang Meng
 	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-mediatek@lists.infradead.org>
-Subject: [PATCH v6 4/6] media: mediatek: encoder: Add support for VCP encode process
-Date: Thu, 23 Apr 2026 15:33:41 +0800
-Message-ID: <20260423073345.27402-5-irui.wang@mediatek.com>
+Subject: [PATCH v6 6/6] media: mediatek: encoder: Add MT8196 encoder compatible data
+Date: Thu, 23 Apr 2026 15:33:43 +0800
+Message-ID: <20260423073345.27402-7-irui.wang@mediatek.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20260423073345.27402-1-irui.wang@mediatek.com>
 References: <20260423073345.27402-1-irui.wang@mediatek.com>
@@ -73,180 +73,86 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-MTK: N
 
-Adapt the encoder driver to support VCP firmware interface.
-
-Set the encoder driver firmware type to 'VCP'.
-Allocate RC buffers using the VCP device.
-Send the shared memory address to VCP and map the encoder VSI address
-to the CPU address space using the VCP shared memory address.
+MT8196 encoder use common firmware interface, add compatible data to
+support MT8196 encoding, and need set dma mask to support 34bit.
 
 Signed-off-by: Irui Wang <irui.wang@mediatek.com>
 ---
- .../mediatek/vcodec/common/mtk_vcodec_fw.c    |  6 +++++
- .../mediatek/vcodec/common/mtk_vcodec_fw.h    |  1 +
- .../vcodec/common/mtk_vcodec_fw_priv.h        |  1 +
- .../vcodec/common/mtk_vcodec_fw_vcp.c         |  6 +++++
- .../vcodec/encoder/mtk_vcodec_enc_drv.c       |  3 +++
- .../vcodec/encoder/venc/venc_common_if.c      | 23 ++++++++++++++-----
- .../mediatek/vcodec/encoder/venc_vpu_if.c     | 14 ++++++++++-
- 7 files changed, 47 insertions(+), 7 deletions(-)
+ .../vcodec/encoder/mtk_vcodec_enc_drv.c       | 19 +++++++++++++++++++
+ .../vcodec/encoder/mtk_vcodec_enc_drv.h       |  2 ++
+ 2 files changed, 21 insertions(+)
 
-diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.c
-index 0381acceda25..7a504f093bd8 100644
---- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.c
-+++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.c
-@@ -105,3 +105,9 @@ int mtk_vcodec_fw_get_type(struct mtk_vcodec_fw *fw)
- 	return fw->type;
- }
- EXPORT_SYMBOL_GPL(mtk_vcodec_fw_get_type);
-+
-+struct device *mtk_vcodec_fw_get_dev(struct mtk_vcodec_fw *fw)
-+{
-+	return fw->ops->get_fw_dev(fw);
-+}
-+EXPORT_SYMBOL_GPL(mtk_vcodec_fw_get_dev);
-diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.h b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.h
-index e7304a7dd3e0..56c26b91651e 100644
---- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.h
-+++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.h
-@@ -43,5 +43,6 @@ int mtk_vcodec_fw_ipi_send(struct mtk_vcodec_fw *fw, int id,
- int mtk_vcodec_fw_get_type(struct mtk_vcodec_fw *fw);
- int mtk_vcodec_fw_get_ipi(enum mtk_vcodec_fw_type type, int hw_id);
- int mtk_vcodec_fw_get_venc_ipi(enum mtk_vcodec_fw_type type);
-+struct device *mtk_vcodec_fw_get_dev(struct mtk_vcodec_fw *fw);
- 
- #endif /* _MTK_VCODEC_FW_H_ */
-diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_priv.h b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_priv.h
-index 0a2a9b010244..710c83c871f4 100644
---- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_priv.h
-+++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_priv.h
-@@ -29,6 +29,7 @@ struct mtk_vcodec_fw_ops {
- 	int (*ipi_send)(struct mtk_vcodec_fw *fw, int id, void *buf,
- 			unsigned int len, unsigned int wait);
- 	void (*release)(struct mtk_vcodec_fw *fw);
-+	struct device *(*get_fw_dev)(struct mtk_vcodec_fw *fw);
- };
- 
- #if IS_ENABLED(CONFIG_VIDEO_MEDIATEK_VCODEC_VPU)
-diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
-index 6b69ce44d4bb..2859fe78f67d 100644
---- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
-+++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
-@@ -500,6 +500,11 @@ static void mtk_vcodec_vcp_release(struct mtk_vcodec_fw *fw)
- 
- }
- 
-+static struct device *mtk_vcodec_vcp_get_fw_dev(struct mtk_vcodec_fw *fw)
-+{
-+	return fw->vcp->vcp_device->dev;
-+}
-+
- static const struct mtk_vcodec_fw_ops mtk_vcodec_vcp_msg = {
- 	.load_firmware = mtk_vcodec_vcp_load_firmware,
- 	.get_vdec_capa = mtk_vcodec_vcp_get_vdec_capa,
-@@ -508,6 +513,7 @@ static const struct mtk_vcodec_fw_ops mtk_vcodec_vcp_msg = {
- 	.ipi_register = mtk_vcodec_vcp_set_ipi_register,
- 	.ipi_send = mtk_vcodec_vcp_ipi_send,
- 	.release = mtk_vcodec_vcp_release,
-+	.get_fw_dev = mtk_vcodec_vcp_get_fw_dev,
- };
- 
- struct mtk_vcodec_fw *mtk_vcodec_fw_vcp_init(void *priv, enum mtk_vcodec_fw_use fw_use)
 diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-index 4e4541b2fc8e..2f6ee0cd15e3 100644
+index 7b644f55963b..d7328d013ff6 100644
 --- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
 +++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-@@ -262,6 +262,9 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
- 	} else if (!of_property_read_u32(pdev->dev.of_node, "mediatek,scp",
- 					 &rproc_phandle)) {
- 		fw_type = SCP;
-+	} else if (!of_property_read_u32(pdev->dev.of_node, "mediatek,vcp",
-+					 &rproc_phandle)) {
-+		fw_type = VCP;
- 	} else {
- 		dev_err(&pdev->dev, "[MTK VCODEC] Could not get venc IPI device");
- 		return -ENODEV;
-diff --git a/drivers/media/platform/mediatek/vcodec/encoder/venc/venc_common_if.c b/drivers/media/platform/mediatek/vcodec/encoder/venc/venc_common_if.c
-index 050b827f0fd0..d981155aeb8c 100644
---- a/drivers/media/platform/mediatek/vcodec/encoder/venc/venc_common_if.c
-+++ b/drivers/media/platform/mediatek/vcodec/encoder/venc/venc_common_if.c
-@@ -480,8 +480,13 @@ static void venc_free_rc_buf(struct venc_inst *inst,
- {
- 	int i;
- 	struct device *dev;
-+	struct mtk_vcodec_fw *fw = inst->ctx->dev->fw_handler;
+@@ -20,6 +20,8 @@
+ #include "mtk_vcodec_enc_pm.h"
+ #include "../common/mtk_vcodec_intr.h"
+ 
++#define VENC_DMA_BIT_MASK 34
 +
-+	if (mtk_vcodec_fw_get_type(fw) == VCP)
-+		dev = mtk_vcodec_fw_get_dev(fw);
-+	else
-+		dev = &inst->ctx->dev->plat_dev->dev;
+ static const struct mtk_video_fmt mtk_video_formats_output[] = {
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_NV12M,
+@@ -309,6 +311,9 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
+ 		goto err_res;
+ 	}
  
--	dev = &inst->ctx->dev->plat_dev->dev;
- 	mtk_venc_mem_free(inst, dev, &bufs->rc_code);
- 
- 	for (i = 0; i < core_num; i++)
-@@ -530,12 +535,18 @@ static int venc_alloc_rc_buf(struct venc_inst *inst,
- 	struct device *dev;
- 	void *tmp_va;
- 
--	dev = &inst->ctx->dev->plat_dev->dev;
--	if (mtk_venc_mem_alloc(inst, dev, &bufs->rc_code))
--		return -ENOMEM;
-+	if (mtk_vcodec_fw_get_type(fw) == VCP) {
-+		dev = mtk_vcodec_fw_get_dev(fw);
-+		if (mtk_venc_mem_alloc(inst, dev, &bufs->rc_code))
-+			return -ENOMEM;
-+	} else {
-+		dev = &inst->ctx->dev->plat_dev->dev;
-+		if (mtk_venc_mem_alloc(inst, dev, &bufs->rc_code))
-+			return -ENOMEM;
- 
--	tmp_va = mtk_vcodec_fw_map_dm_addr(fw, bufs->rc_code.pa);
--	memcpy(bufs->rc_code.va, tmp_va, bufs->rc_code.size);
-+		tmp_va = mtk_vcodec_fw_map_dm_addr(fw, bufs->rc_code.pa);
-+		memcpy(bufs->rc_code.va, tmp_va, bufs->rc_code.size);
-+	}
- 
- 	for (i = 0; i < core_num; i++) {
- 		if (mtk_venc_mem_alloc(inst, dev, &bufs->rc_info[i]))
-diff --git a/drivers/media/platform/mediatek/vcodec/encoder/venc_vpu_if.c b/drivers/media/platform/mediatek/vcodec/encoder/venc_vpu_if.c
-index 7772b8442ebc..0f4693e04a9f 100644
---- a/drivers/media/platform/mediatek/vcodec/encoder/venc_vpu_if.c
-+++ b/drivers/media/platform/mediatek/vcodec/encoder/venc_vpu_if.c
-@@ -8,13 +8,23 @@
- #include "venc_ipi_msg.h"
- #include "venc_vpu_if.h"
- 
-+#define VSI_OFFSET_MASK 0x0FFFFFFF
++	if (dev->venc_pdata->set_dma_bit_mask)
++		dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(VENC_DMA_BIT_MASK));
 +
- static void handle_enc_init_msg(struct venc_vpu_inst *vpu, const void *data)
- {
- 	const struct venc_vpu_ipi_msg_init_comm *msg = data;
- 	struct mtk_vcodec_fw *fw = vpu->ctx->dev->fw_handler;
-+	u64 pa_start, vsi_offset;
+ 	mutex_init(&dev->enc_mutex);
+ 	mutex_init(&dev->dev_mutex);
+ 	spin_lock_init(&dev->dev_ctx_lock);
+@@ -460,6 +465,19 @@ static const struct mtk_vcodec_enc_pdata mt8195_pdata = {
+ 	.core_id = VENC_SYS,
+ };
  
- 	vpu->inst_addr = msg->init_ack.vpu_inst_addr;
--	vpu->vsi = mtk_vcodec_fw_map_dm_addr(fw, vpu->inst_addr);
++static const struct mtk_vcodec_enc_pdata mt8196_pdata = {
++	.venc_model_num = 8196,
++	.capture_formats = mtk_video_formats_capture_h264,
++	.num_capture_formats = ARRAY_SIZE(mtk_video_formats_capture_h264),
++	.output_formats = mtk_video_formats_output,
++	.num_output_formats = ARRAY_SIZE(mtk_video_formats_output),
++	.min_bitrate = 64,
++	.max_bitrate = 100000000,
++	.core_id = VENC_SYS,
++	.uses_common_fw_iface = true,
++	.set_dma_bit_mask = true,
++};
 +
-+	if (mtk_vcodec_fw_get_type(fw) == VCP) {
-+		pa_start = (u64)fw->vcp->iova_addr;
-+		vsi_offset = (msg->vpu_vsi_addr & VSI_OFFSET_MASK) - (pa_start & VSI_OFFSET_MASK);
-+		vpu->vsi = mtk_vcodec_fw_map_dm_addr(fw, ENCODER_MEM) + vsi_offset;
-+	} else {
-+		vpu->vsi = mtk_vcodec_fw_map_dm_addr(fw, msg->vpu_vsi_addr);
-+	}
+ static const struct of_device_id mtk_vcodec_enc_match[] = {
+ 	{.compatible = "mediatek,mt8173-vcodec-enc",
+ 			.data = &mt8173_avc_pdata},
+@@ -469,6 +487,7 @@ static const struct of_device_id mtk_vcodec_enc_match[] = {
+ 	{.compatible = "mediatek,mt8188-vcodec-enc", .data = &mt8188_pdata},
+ 	{.compatible = "mediatek,mt8192-vcodec-enc", .data = &mt8192_pdata},
+ 	{.compatible = "mediatek,mt8195-vcodec-enc", .data = &mt8195_pdata},
++	{.compatible = "mediatek,mt8196-vcodec-enc", .data = &mt8196_pdata},
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, mtk_vcodec_enc_match);
+diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.h b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.h
+index 769fb5009964..475953d39aa4 100644
+--- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.h
++++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.h
+@@ -32,6 +32,7 @@
+  * @core_id: stand for h264 or vp8 encode index
+  * @uses_34bit: whether the encoder uses 34-bit iova
+  * @uses_common_fw_iface: whether the encoder uses common driver interface
++ * @set_dma_bit_mask: whether the encoder need set extra DMA bit mask
+  */
+ struct mtk_vcodec_enc_pdata {
+ 	u16 venc_model_num;
+@@ -45,6 +46,7 @@ struct mtk_vcodec_enc_pdata {
+ 	u8 core_id;
+ 	bool uses_34bit;
+ 	bool uses_common_fw_iface;
++	bool set_dma_bit_mask;
+ };
  
- 	/* Firmware version field value is unspecified on MT8173. */
- 	if (mtk_vcodec_fw_get_type(fw) == VPU)
-@@ -155,6 +165,8 @@ int vpu_enc_init(struct venc_vpu_inst *vpu)
- 	out.base.venc_inst = (unsigned long)vpu;
- 	if (MTK_ENC_DRV_IS_COMM(vpu->ctx)) {
- 		out.codec_type = vpu->ctx->q_data[MTK_Q_DATA_DST].fmt->fourcc;
-+		if (mtk_vcodec_fw_get_type(vpu->ctx->dev->fw_handler) == VCP)
-+			out.shared_iova = vpu->ctx->dev->fw_handler->vcp->iova_addr;
- 		msg_size = sizeof(struct venc_ap_ipi_msg_init_comm);
- 	} else {
- 		msg_size = sizeof(struct venc_ap_ipi_msg_init);
+ /*
 -- 
 2.45.2
 
