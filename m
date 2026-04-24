@@ -1,166 +1,220 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com [205.220.178.238])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFA2311C35
-	for <linux-media@vger.kernel.org>; Fri, 24 Apr 2026 23:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777072221; cv=none; b=JXbKG0zyB3k0HXavQUsK5Wb0utCkKqy0BqMuWtadM7Y957hVUCszdTog43Pqgw3YaHF8vCzqALtzBhpY1WoP5mFU1kvqD16nPzUMbOXulUYAM/zzIKWG7yRmP8iyns9E7gaEXVxlJKb6le1KyLly28b1U267ePC5IVOfRRYMGuI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777072221; c=relaxed/simple;
-	bh=N09YNoupJhmv1sapC/t38hsbn3OUvdSVBkUzd+3dwtM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Pm/vQ/sphHoqZK7w2I9a4Z4pRV61d+S1Khlvs08lwANpDPMU7IP/l5lSXtnBJEoodOR5oB7m1BT5xt0Ac+BYJapSI5EaU1+JSABFvmyqoq2JBR/CQGpfgJHdkN8e4eMkDbfrHBcqBBP8Ary6j7oHICZkHHYqf8JFsUOUnnL+Zlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fgRIJhlb; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=XUBFS90S; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E946359A91;
+	Fri, 24 Apr 2026 23:20:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.178.238
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777072860; cv=fail; b=AUkr//QvzmvQ4hZYMy/PQSliikgKhgLbSKIbl97Cc4717EWRXPSEC8zSJyKxGtOioz2bU3hz4YDOuLD6os7sEgLpDHRmspPTtJkrhfn1O7nbReqOAVKVX4300vZlskODqUPApk8VJ0hXFZ+DSg0IQZZfNLcoVP09o8rn3Ar96rY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777072860; c=relaxed/simple;
+	bh=Hcgs70l3YfAM8wyA0zd6t2Ii101QV9/Gc01wKOezIac=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=lVn5Tpz+gITcQvlyjRK0Bb3rPsBgDSerRLZK57MvGEfUurcsumNYC9hxWUD6Vm0C10af85crrcZ7gBOG5BgqW6XC5XIAR+yYEXKTAi5f9be4R4wf03EpxfFUDTCe/xQsXhQn7bbHU0wL2ob4hjmpS8mvjE/zfRa0qjmsq9Fek2o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=pass smtp.mailfrom=windriver.com; dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b=DC3dqXYw; arc=fail smtp.client-ip=205.220.178.238
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=windriver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fgRIJhlb";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="XUBFS90S"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1777072219;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=N09YNoupJhmv1sapC/t38hsbn3OUvdSVBkUzd+3dwtM=;
-	b=fgRIJhlblErDzfxZL7WOdBVvGI2JqM5hI6/SWvu0nYBP1PbASuHWqyDa7V5D6MygffIHw/
-	oK4/eeB0miQjOWA18LbtEUMrK3xDmx/sUQA/pnQ71s3hpUOvWCD6+tyowCABciqiMpQEMf
-	MFbAph/bl6oEPmFwsD8qfbJYbFK6kzQ=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-515-6r2z6EXKOfqwPwPdLvuz3w-1; Fri, 24 Apr 2026 19:10:18 -0400
-X-MC-Unique: 6r2z6EXKOfqwPwPdLvuz3w-1
-X-Mimecast-MFC-AGG-ID: 6r2z6EXKOfqwPwPdLvuz3w_1777072218
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-8eb52a22eb6so1227274185a.0
-        for <linux-media@vger.kernel.org>; Fri, 24 Apr 2026 16:10:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1777072218; x=1777677018; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=N09YNoupJhmv1sapC/t38hsbn3OUvdSVBkUzd+3dwtM=;
-        b=XUBFS90SeyLLNtOpgSR8qBWFiAzpkt4Hi1jRwvxjhGzXmlCo3HFlYrmistM+4G5moy
-         4uwDLoYlCUpl3oTZ5Tq9I55nhfas9Sd1daH8vgHmJ5QgZjlALv96ICTwmvNGsMTLSYrH
-         gBd63GHhBxPu1HNkAKzWtz2H8+QW7D58u+0EYqomWW++PdxwJ4XIyBpGJrXPRJksGWkp
-         f8CKZSekYRp+fPIeFgX+JMxsexo/iaFbhOabGH/NaHS/YCZMaLxfR4kcjtIU1Bynl62E
-         yNoizokHP9cZ1mVNXnrME6fH23UpeVCSlzWxXc9A26K6+fEJISSy588p7W6Y0jHTppKr
-         637Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777072218; x=1777677018;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=N09YNoupJhmv1sapC/t38hsbn3OUvdSVBkUzd+3dwtM=;
-        b=LyRPYVO/mPGjevsiLjM+5QjCeetUd23gKPl+QFeJaM5ob91Svc78mTPiYYePHzxjWO
-         F1TF1SJucBvzMkHZld7p/BnO5QA8wr7ydTwYwl+BtDVw1iATCVAYESK6lIISnwP030Xf
-         nvHQS8WLSvXMf9WYLW2OLX1zrHqoGEZsy0mfm+QwtVg+0SbER8WKCjQFzwqdSQPjkr32
-         OuuU9AZkO7dlQzFJZh/jDEsEQC2hDH1X1MedraDkvREWX0TV1yJ8V0EzN9lbKPuga0q9
-         zWxGXfhXD3cAkwAgB5aspfplZnCoSqwKxlL5AxmxhpL2YKquyXP+qGPcIjNH5mMUpuUC
-         8ENQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/rVCgy2s3hoXNUXTGts6jcObOYWuSsJMA6RCXI/aPIXDWksD+aa49i2PPnKosXYpcwMy/fcBTyp3GaSw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxQkdZVlfnNlstn44nncHHwQMeOtVd99LTlZ54VM8Lpj3g3viDF
-	uD0Pcrw1ylIO6PSeCDj71egbieQmqy0NaQlQVUZfUXBRCMEvQn3OT3dDgaz4DHCD9lu+CFsyQSe
-	6QicBIID+kvIV+xusH3LbMigu6teOQX0Bld6LAC058fBX2PyAqN8d0Yd0HSlqHr6P
-X-Gm-Gg: AeBDieulraI1FKJqaRqPtkUsXjpjaUJnDOSmFPghHalWC3L806k9cHmyOhR+xbYbaYm
-	dAb1JSH5rXx9XLmMhFLfYR0uDwzMIJfKyyDORS7Rkcg38YV2SxP+fK+fVg9ylt8p1XHfq4B7F9y
-	Jjp7soRYO6ewbV2Gtq/vb0Q1n3RICaQv3zpUBicnWYideR04afrDpbouz52JgcLILahjEZKR5zK
-	gfJuNHFbDSwh1q3/4SyWCUDclWTemPtJadM+LEimbZf82i28M2igHIqHpmKltFu/WAyOtPqxY7y
-	LqVa+j7s+PbO5eTca3qA5IU69TxdC3RdYg6n3BQVrCIRniyUOWHtfUa5N9HLJCUJyrUsKwwyFgI
-	zxvIIAfpd27UrSyctLi9SGbJdzRdv
-X-Received: by 2002:a05:620a:f0b:b0:8eb:cbf8:85e7 with SMTP id af79cd13be357-8ebcbf89261mr3123558885a.34.1777072217896;
-        Fri, 24 Apr 2026 16:10:17 -0700 (PDT)
-X-Received: by 2002:a05:620a:f0b:b0:8eb:cbf8:85e7 with SMTP id af79cd13be357-8ebcbf89261mr3123553685a.34.1777072217335;
-        Fri, 24 Apr 2026 16:10:17 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8e7d69ad48asm1913863785a.19.2026.04.24.16.10.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Apr 2026 16:10:16 -0700 (PDT)
-Message-ID: <ed26658c461020547e058b237575324adcbaca59.camel@redhat.com>
-Subject: Re: [PATCH v12 4/5] rust: drm: gem: Introduce shmem::SGTable
-From: lyude@redhat.com
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: nouveau@lists.freedesktop.org, Gary Guo <gary@garyguo.net>, Daniel
- Almeida	 <daniel.almeida@collabora.com>, rust-for-linux@vger.kernel.org,
- Danilo Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
- Matthew Maurer <mmaurer@google.com>,  FUJITA Tomonori
- <fujita.tomonori@gmail.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
-	christian.koenig@amd.com, Asahi Lina <lina@asahilina.net>, Miguel Ojeda	
- <ojeda@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Simona Vetter
-	 <simona@ffwll.ch>, Alice Ryhl <aliceryhl@google.com>, Boqun Feng	
- <boqun@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Krishna Ketan
- Rai	 <prafulrai522@gmail.com>, linux-media@vger.kernel.org, Shankari Anand	
- <shankari.ak0208@gmail.com>, David Airlie <airlied@gmail.com>, Benno Lossin
-	 <lossin@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	linaro-mm-sig@lists.linaro.org, Asahi Lina <lina+kernel@asahilina.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, kernel@vger.kernel.org
-Date: Fri, 24 Apr 2026 19:10:14 -0400
-In-Reply-To: <DI0MI6UF325Y.2TDWZGCN3WGIG@nvidia.com>
-References: <20260421235346.672794-1-lyude@redhat.com>
-	 <20260421235346.672794-5-lyude@redhat.com>
-	 <DI0MI6UF325Y.2TDWZGCN3WGIG@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b="DC3dqXYw"
+Received: from pps.filterd (m0250811.ppops.net [127.0.0.1])
+	by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63OEYPH8697676;
+	Fri, 24 Apr 2026 23:20:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	PPS06212021; bh=/A8IoIsIuVtdfrnmo2fIFXoPIMQjScSjh3nykQ1cSP4=; b=
+	DC3dqXYw7rw4wv7GQ4z5+nTSXh4JiHo4thtgAm1d8Tp/tF3wNVlImw6WrQA8AyBr
+	aAvfNnOy79FeVZyGfcMdkl9S9nQh8QMiUlpyDERligyD+yIwd58BbV38XLuYZ/A+
+	4i9ZRwDmL5ITnnqQOhVnhjYbK77WEy3ja3idDsS3Ys7cXuWfyB1cRYSC62nq51M4
+	jxubpjEFJ7ZHq9iqwiihiucWluA00mZjKCMKBbtfqJ/mvYK8AkvtdIutxjQa31Wf
+	+tc3ArKP26rlSej2IqRwM9lXoV4raxpHUGlJSt5T4lQMxzZmz2FY8JER48Xt+2fK
+	kA2EFH2jm6r1X2nAQxaybw==
+Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11012065.outbound.protection.outlook.com [52.101.48.65])
+	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 4dq8qc2nb3-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 24 Apr 2026 23:20:03 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A3V3ofj1A4IPeGSLlIeAeikQydPrU41zM2fhIxfUpZZrIUY8PEQfyIq73WEjHgp9mgrNALUAbv+RYdDicgXqOHXdYK1cNMwmF5h7nDBcHzGxPt1ZjSz1tVr+iGgiPnPv49mpgOC183p0J5/fFijOAbtv4u9DfZscWCJFx0juS55eGrfzU/O3c5jW97py7/cpiEnrxvdQh5P0yP7ROUPFA9f6Lu65sYFWTXti4qTca9/WWa++JVwHbJlki7NTP/G8sshJqTktDr28Oofcn89e6c84xmXISXdk/e1Z/x20rwcHA/jeL/7HQSvTV7OahMw1K+xSZvPxxj65V6ZMKZuNmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/A8IoIsIuVtdfrnmo2fIFXoPIMQjScSjh3nykQ1cSP4=;
+ b=I1OicE3NDC3+lLczYsACgm6K2F51y6Eynl5fWnWOyQICMpdLD3ynww494xUc9eRzbL//i+MBCw/izMfX/ch31AhbI+t7mjue7VqJG5G1snffvx8AnX0UwFkzg5k2SSCxNAQdiPpH50LEeJX9WP1YmDo1ty30q1fkFmDzb/zqkNbRSLwYBnzqaXOMQsgFgF02KmljBgMJm7aqxtMbhXsFCWNBUb7fkFPPSnVRGLRXTvbsd8dMSmjKJcvQpWgE4gB6l30mttAwrAZqP7K1Oc1cTZbrqXf9AsdKWNfxxv4H/MrS4/JLzfpM4SZmXla3PXRC9lHjaFGjXm/0EQh7Ua/lHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=windriver.com; dmarc=pass action=none
+ header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
+Received: from DS4PPFD667CEBB6.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::53) by PH8PR11MB8061.namprd11.prod.outlook.com
+ (2603:10b6:510:250::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Fri, 24 Apr
+ 2026 23:20:00 +0000
+Received: from DS4PPFD667CEBB6.namprd11.prod.outlook.com
+ ([fe80::b919:1e6b:48a6:f655]) by DS4PPFD667CEBB6.namprd11.prod.outlook.com
+ ([fe80::b919:1e6b:48a6:f655%6]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
+ 23:20:00 +0000
+From: Xiaolei Wang <xiaolei.wang@windriver.com>
+To: laurent.pinchart@ideasonboard.com, mchehab@kernel.org, Frank.Li@nxp.com,
+        s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
+        aisheng.dong@nxp.com, jacopo@jmondi.org, guoniu.zhou@nxp.com,
+        s.riedmueller@phytec.de, Xiaolei.Wang@windriver.com
+Cc: linux-media@vger.kernel.org, imx@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+Subject: [PATCH 1/3] media: imx8-isi: fix use-after-free on remove
+Date: Sat, 25 Apr 2026 07:19:24 +0800
+Message-ID: <20260424231926.406079-2-xiaolei.wang@windriver.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260424231926.406079-1-xiaolei.wang@windriver.com>
+References: <20260424231926.406079-1-xiaolei.wang@windriver.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR02CA0032.apcprd02.prod.outlook.com
+ (2603:1096:4:195::12) To DS4PPFD667CEBB6.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::53)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PPFD667CEBB6:EE_|PH8PR11MB8061:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb852884-20ae-42ba-c947-08dea2580185
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|52116014|7416014|376014|1800799024|56012099003|38350700014|22082099003|921020|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	CMTAwe0d87Ti5TvETn24T5cttCEjFV6Qw2J/ewbU4OXrBDI6VxA9ByXRcsnWVnRCocbPBd6rKZTfRP2DqRHtL1aEDRKQ4VI/KCeJspr49TJWNlRa70m2l59dKCzYYGpeCG3/COpNFXTCmwHQ5qG5C6GUuYlTBF7tRaJssuENKyB018c4w6TKpBR3go+1gLN0+OZNVwxMkruzwd5+KAI9ieEazPTiJBzbarKPUIIcb58OiTkeYJ/JbJ0rKm6TgkBkwgqia5cSYbGyh8rQE0gtO6qFLuuuEyAbkGRgRsj/bXahWx7YdgNrfGDJAB8/aczl3ALmUD66zf9npvIJUjHvReQFAreC1V6j6O2N1phR6K82TdCQhvfVz9aS3p4SEJuj5L4u43FLFZCdsGR00vMRmhvR8hOSwIuFhnqgRk0jKXOf2sDek1ZerFmx3FcGHyObfrMfeNFCzSOV5nPm0JRZ2xImmaZEMUX7z6q0IugSwyk5CUCUL7AD/cG1XuWpboc5T1Fe/dhMQ5nkvBEMdkX9JViJStB+K8AU0FllUolZshwS/Q9ps6Rk0L5XzFJGlZKkR+6AzNVFes2DkTs4VO+PlSWGDuyW0osEs+Aas3s8tr8hWwULw5AeXz88vzI43+0NBT4DzFEQrn6+nhjzSRaIcNnpEp0nTN5GKE8kcyHIccCveAgCzg3yTfx7K5iv2tOP9aGMNOlwJd1l/itO1P1iGgb/rTIRy8OLP96/JPSi+u+CEUznoUpuklKMSrxVVL9zEm+tXTIaDvdIQiE5OVFdveO2XHZWfKRGnX2e2jtcubih2OPVLloWZh+6LAGGpM2N
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPFD667CEBB6.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(7416014)(376014)(1800799024)(56012099003)(38350700014)(22082099003)(921020)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?qOIg6Oo5NNPVK2ClQis82UpZCdCsAuDQIfGSAUFZ4ouLDiW+KHrMJel+JuJ5?=
+ =?us-ascii?Q?YsIF5qrJVZ3DFdPogBhsMnbest37Qcm8et3e3R97/B2oC2oAem5XNJRO0r8w?=
+ =?us-ascii?Q?jR6jHtyxqG45jvigT7UpwArvZoRE3XeUhVuJXMBFztSqgCIHbbsQ92hQ80YC?=
+ =?us-ascii?Q?/8B974mdpHsiI7VHHRD3ZtezCjEMb5t7wtioEKD/ttPmj47hS+VQwHB8R97Z?=
+ =?us-ascii?Q?cuzzYjpRKAQ5u11B2LLJFDQluLmgBVkC34PVE7mV/1QMHa51SmMGVf7HTB4h?=
+ =?us-ascii?Q?s/BMlmAsK/eS5XgbmT4zhPGs3GqjU++vDQyrvAXcOwVk5A/7SE64yTeiVbaR?=
+ =?us-ascii?Q?oaKB4louMKZS7+YtLM6fM1KqlkWMRtWv9sz5ip7e1RazHIrPjKT2GgsikRsf?=
+ =?us-ascii?Q?Sx0JK7cI09BLTMHDTZXArjMZcPQJZmYOydRZpjXeuerdaws2S152wEOtT+oJ?=
+ =?us-ascii?Q?ondJAarPD/Cdf4RUDPv6XMXOA8lV3xJbfc7QWyj0T3HGdiAzFJaEo9ChTtkO?=
+ =?us-ascii?Q?9xEf9ZZ3sUckT4cRCX6zKW3GGsfWtMMZv4fHNzESZhnve/AQQhuAPpVLM4wI?=
+ =?us-ascii?Q?iDm80gR5SDtrdPP2Kex5SeNctpIPAsnsflzD5aNNudOuJ5YPrbNYPQxSoGWi?=
+ =?us-ascii?Q?EP+WrDjzell0bChsQjbaJ4XuhrMu2QffavlenSaw57qvLvANPUMtkpv7No7R?=
+ =?us-ascii?Q?uX7uhYTYdYRe0+QtMe6WqroXEAepv1amSjDiww852TTXEvAxL9OZW4RkQgis?=
+ =?us-ascii?Q?oz7bjGO8i+4j09KGeBj50Ve48BSp3eE87G789/mjbz/LCrJdfbBUNzdlh3L4?=
+ =?us-ascii?Q?5R8Od/DhnnZyamRPzrhUfTETDdQaHNa51sK45V83yBjhMeLx//zBJuG+Y4vd?=
+ =?us-ascii?Q?SiFWORValmIrrYdsdQWHvxUujtaU9s3y2PznMwViqRI2S43bQWVTPIGhZZ7Y?=
+ =?us-ascii?Q?3Gh7JDLiC8lEel1PmtoDKuAnn93bE1b6/OXxxyH71XcWF2U5PlT/Jq1PgbC9?=
+ =?us-ascii?Q?MF+tfVMUidEfa93/WhHSCDiXT4jyRngPQS/9XhpDcYRFH+CqWjWUtoizuF0B?=
+ =?us-ascii?Q?6XRXiC33p4tWZoFX2zYjcAb2GLzdESk70+Ugx/cZhDFEZCCcnXMUaCRoEeoS?=
+ =?us-ascii?Q?BsjTXF+xPIqZ8WVwNtv7yRB28klKhdlm6HWfLzcDWDG/1/wdRTjtmERoMuQa?=
+ =?us-ascii?Q?fa497X5NaFElaQx9G3Sm/3vKxsE57Jswj2CfmI8YUSK7lt6Kh9GRTN8vqUTj?=
+ =?us-ascii?Q?WZVgNh1yOy9Ebwr7mugWm7YwLTmwVwGvUKcc7ten//IBlQkOiHS+Y88Pz03d?=
+ =?us-ascii?Q?p3X3/7iAyhveaQQw+yZFZi1Sn+HMGf0dD46F5CvmjA2yz7hynFkBbgFfQCxu?=
+ =?us-ascii?Q?O1E/NijIhHkhWAZIsWrhJA8BWcfn9L8rhC+GmsHMJwCsEVHZSi/1qisvCKM2?=
+ =?us-ascii?Q?Kq70QuWuNhMAzUgLJn+XSIqlpgSu8mfkGY+DhzAclUIbXt986uxq80DImWBu?=
+ =?us-ascii?Q?TJcKJgmMOjqCCNuto3aG4KD/COgoCR4mRju1tWLW0h9edY3SC3ffh9rqHU8r?=
+ =?us-ascii?Q?eBbXMXbN1sEnrAC3APRLMvMDaE7qudh3s5/abjrQAwA397ObmvKlirg8Wmfn?=
+ =?us-ascii?Q?Q09LyUs/VCcPzeIe1p3iVJ/i+ANfP1Tbpzk0PU1xphHHcNBC05QLyzy9v+wa?=
+ =?us-ascii?Q?+Bgyx2LgYKCX0X2e2QXvrofF88zG6+cfD8T3Of46mG4uEk6Cox22tvRrzmXb?=
+ =?us-ascii?Q?vEhYOwGZ9VKFbS2DNzm38rP7Edhhe1s=3D?=
+X-Exchange-RoutingPolicyChecked:
+	dka9aIyF0FGE+pHcAyp108U/c26TU9rYvHkRfMaAkK3dLt9khGkQaryQri0VHWwtQ5pxC65q5fDfrGUz1xOPKOzGQFID0lw7/6NSUIomm+BnjQpcoHDAIyPDaTNpAaZfGhjaHSKde1i9Cw2tuQSvntgpaBvHYtU2gN8Cgtw0EQVBK+H+Dib8/fi5lSug5P2TJK2vMeHPV9YDMzKecj06PsPj8ruKMayETSQ1K6YWQZNdDsEV+PBn1up4UN9CZmVflCB7VkQh30bpIdu8FrvGr8xen1fdokvNIh7uM5yJyBlXMDHb44HlK6BqxYntHlWNbiZH5Fj/jvxfAqNRfOyqtA==
+X-OriginatorOrg: windriver.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb852884-20ae-42ba-c947-08dea2580185
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPFD667CEBB6.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 23:20:00.4704
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: N4u76ip6gkQpSeXp7zhILadbdYyOl6wrwgXoYlT25sYf2dXhUWyCIPEZ0J4z52A1UmCyqSldxptU6GKINHNZormN0WMTtkbvRSgnbDfJCg0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB8061
+X-Proofpoint-GUID: vB92T57ye1VgvPJPedgXsL8ZnunUe7GU
+X-Proofpoint-ORIG-GUID: vB92T57ye1VgvPJPedgXsL8ZnunUe7GU
+X-Authority-Analysis: v=2.4 cv=EY74hvmC c=1 sm=1 tr=0 ts=69ebfaa3 cx=c_pps
+ a=W8nThqPTbj8xD7CpgneC0w==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=bi6dqmuHe4P4UrxVR6um:22 a=klDOsUkWDRETUCZYPvoE:22 a=VwQbUJbxAAAA:8
+ a=t7CeM3EgAAAA:8 a=UgOjM9SW4ZuDxLeMq3wA:9 a=FdTzh2GWekK77mhwV6Dw:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI0MDIyNyBTYWx0ZWRfX4X2cE6z5A3Mi
+ KotxS5jbDBFBsHvzY6a1tzAzfUM861fDDnxwvZ7eTVApdiz9HDRgIovt3V+UvrkcQVTaGFiAtKy
+ m+4oy2TnhltTOKz2Yv6HPDkSjh3P67iy7gQljA8fCnpELEeoFM03qMpCHgBZ4CbIOnPksO4a9H1
+ tkLlfrtOb9zFn7E1FFlD/tZfo8bVR1Tp7W4qiYrag9sW4p268biM2yKovbgzIKFtivVV5EmH6Xk
+ bVf5LE2l6Bz3FQ77Fa/3P14wlpJRxmZ4qeKquN+tbvzMg2PjLg+4f3XNoMllc2QwcxNONylX7c/
+ XQUHxahx2VwicNNnclHdmg+9nN8Papeq4un3hF6rnlKqZ7URx9xHZQrZXvM8gCT8ZwokX+rpPH7
+ /xYmuo3cAiqw6EpJcT1WL1vIqZY8EsW2LQJqKB08YdnJMaikGxhD44AOvfj5xIe89DBNVXxvN0T
+ hZ+yaemt0rihLHUOIhw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-24_04,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ adultscore=0 clxscore=1015 phishscore=0 bulkscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604240227
 
+KASAN reports a slab-use-after-free in __media_entity_remove_link()
+during rmmod of imx8_isi:
 
-On Fri, 2026-04-24 at 00:01 +0900, Alexandre Courbot wrote:
-> There are 4 sites where we acquire and release the DMA resv lock,
-> each
-> of which require unsafe blocks and carrying the risk that we forget
-> releasing the lock in the end. For this method in particular we need
-> to
-> jump through hoops a bit and store the return value into a temporary
-> variable so we can unlock the DMA reservation.
->=20
-> Let's do ourselves a favor and implement a small, private guard type:
->=20
-> =C2=A0=C2=A0=C2=A0 struct DmaResvGuard<'a, T: DriverObject>(&'a Object<T>=
-);
->=20
-> =C2=A0=C2=A0=C2=A0 impl<'a, T: DriverObject> DmaResvGuard<'a, T> {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fn new(object: &'a Object<T>) =
--> Self {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAF=
-ETY: This lock is initialized throughout the
-> lifetime of `object`
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe=
- { bindings::dma_resv_lock(object.raw_dma_resv(),
-> ptr::null_mut()) };
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Self(o=
-bject)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> =C2=A0=C2=A0=C2=A0 }
->=20
-> =C2=A0=C2=A0=C2=A0 impl<'a, T> Drop for DmaResvGuard<'a, T>
-> =C2=A0=C2=A0=C2=A0 where
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 T: DriverObject,
-> =C2=A0=C2=A0=C2=A0 {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fn drop(&mut self) {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAF=
-ETY: We are releasing the lock grabbed during the
-> creation of this object.
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe=
- { bindings::dma_resv_unlock(self.0.raw_dma_resv())
-> };
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> =C2=A0=C2=A0=C2=A0 }
->=20
-> There here you would just do
->=20
-> =C2=A0=C2=A0=C2=A0 let _dma_resv =3D DmaResvGuard::new(self);
+  BUG: KASAN: slab-use-after-free in __media_entity_remove_link+0x608/0x650
+  Read of size 2 at addr ffff0000d47cb02a by task rmmod/724
 
-I thought of doing this but lost track of how many times I was actually
-grabbing this lock=E2=80=A6
-BTW - want me to just give you authorship on the patch for adding
-DmaResvGuard? Since on my branch I've pretty much only just added two
-inline annotations, it's otherwise identical to what you wrote here.
+  Call trace:
+   __media_entity_remove_link+0x608/0x650
+   __media_entity_remove_links+0x78/0x144
+   __media_device_unregister_entity+0x150/0x280
+   media_device_unregister_entity+0x48/0x68
+   v4l2_device_unregister_subdev+0x158/0x300
+   v4l2_async_unbind_subdev_one+0x22c/0x358
+   v4l2_async_nf_unbind_all_subdevs+0xfc/0x1c0
+   v4l2_async_nf_unregister+0x5c/0x14c
+   mxc_isi_remove+0x124/0x2a0 [imx8_isi]
+
+  Allocated by task 249:
+   __kmalloc_noprof+0x27c/0x690
+   mxc_isi_crossbar_init+0x22c/0x560 [imx8_isi]
+
+  Freed by task 724:
+   kfree+0x1e4/0x5b0
+   mxc_isi_crossbar_cleanup+0x34/0x80 [imx8_isi]
+   mxc_isi_remove+0x11c/0x2a0 [imx8_isi]
+
+The problem is that mxc_isi_remove() calls mxc_isi_crossbar_cleanup()
+before mxc_isi_v4l2_cleanup(). The crossbar cleanup frees the media
+entity pads, but the subsequent v4l2 cleanup still tries to remove
+media links that reference those pads.
+
+Fix this by calling mxc_isi_v4l2_cleanup() before
+mxc_isi_crossbar_cleanup() to ensure all media entities are properly
+unregistered while the pads are still valid.
+
+Fixes: cf21f328fcaf ("media: nxp: Add i.MX8 ISI driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xiaolei Wang <xiaolei.wang@windriver.com>
+---
+ drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+index 4bf8570e1b9e..2d639b789910 100644
+--- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
++++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+@@ -556,8 +556,8 @@ static void mxc_isi_remove(struct platform_device *pdev)
+ 		mxc_isi_pipe_cleanup(pipe);
+ 	}
+ 
+-	mxc_isi_crossbar_cleanup(&isi->crossbar);
+ 	mxc_isi_v4l2_cleanup(isi);
++	mxc_isi_crossbar_cleanup(&isi->crossbar);
+ }
+ 
+ static const struct of_device_id mxc_isi_of_match[] = {
+-- 
+2.43.0
 
