@@ -1,156 +1,182 @@
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76E23DA5CA
-	for <linux-media@vger.kernel.org>; Fri, 24 Apr 2026 13:55:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777038920; cv=pass; b=aDnBkir+4X/oOfDPAuRu+zmH67XCE3WxOOPDpc6dEAB3x4W5V1zmnYyw9f0rSzdjnV6XEg6SuX9T44VYuyDNdOWst3hV2PGPM2rNOPv5rBLIH4/mpN/Zhtgm9pjzegUEjjYZfSF8EnbiubCYD4Yn/k6ZT/jFVocaBB+lYN6eAmw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777038920; c=relaxed/simple;
-	bh=F2Sfgreqd140b+7/7jU7cKPSDXMhHuQeiyipDJjiIos=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aN7uj5rnJfxWeT56POlFxKqiV+sIdYrD8KzKHPVlukTAJPdenhjW65/if2uxeCGnBbr+SPj8TiNgLcFzzqz3U4hmHgSjjvPZZjJAejS+CuaQ7EA8+KZh0yxnWo1/+OOHaDYppQokKlO9WT2zSsHGpYHdCaY7Bv616g4HeVVHZOE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ef10MmLp; arc=pass smtp.client-ip=209.85.161.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D1A3845CB;
+	Fri, 24 Apr 2026 14:02:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777039343; cv=none; b=QwqGNvsoSkUbh19EmdDdmaeoYvUoiFqmJalbYArGGi1ky/NKHmOFA5XpmrNn20EgTLQXs0O4ue+OccyvgLDTEll0zbWjxD/40o4wlMHkjI/mFjcRvb6H1PMqm+nfw25nejI88ZBRZeWNQ4uEGTrcskgIlmNwYuzwkGldAWI1mj4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777039343; c=relaxed/simple;
+	bh=ack7mYbip6ZcuORQPpGdCVHFIO+2WE0qOIuDR99tjcI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sRoOebb+MrJ65ce4GV1vlcQOxqpjMMYEex+ohRjF59lHBiYNqKWetpbbNSIUlPv+gONPHAXDBQqsS2m63cSsxFnD56Zfh1qFcM3ba/54O9Ogj3/YxVYnmP0q1SNU1fBS7HbvC4abiRkLgDVyXm5kYHm3re82Qpg3Sp0zSXleqGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eVrbBPSa; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ef10MmLp"
-Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-694885bf090so2978304eaf.0
-        for <linux-media@vger.kernel.org>; Fri, 24 Apr 2026 06:55:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777038910; cv=none;
-        d=google.com; s=arc-20240605;
-        b=MOxxcckFda6xOlK6TWbJpoGWF3FJyFubVgLUomzUZxWX7pDWlDjRSn/vU7lfYvB/5r
-         NpAat3yCaIYD893HPyeKMN5+9uwZPbqJqx1AHPMFlm2vMH6enpaX3PdFfQEb4XZRDHbj
-         m48Hk7PVzSv99EPicLOPOjyrCs1xSpeNW2hQ5Cy26AYvAYLYlhJlWosnErdjsWiWF9M+
-         ZStyDaFwkWp4qXSaGzcEV0irxYrNwiEBKgrT+GCSTccrB/IllE6Z35c5mcYwYRjLXW5f
-         yQMLgc2wjWG6L9jxXJrik6rAPUqMVI3G7dvstvpdUr9M1J+Z7DTg5Mscx2iz/PTZDlbZ
-         knLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yw39fPCT3qzGj5AIQ5F5EFjcjfDzFEDb1o1Zmyb9i38=;
-        fh=cFfxAAaaHtcat0xwJ3GZosuKzP8gideBM8nOpIt+2Uc=;
-        b=MsE1M2QYL0WrJ3PmbEn+e24OjsRfBm+UDKtL7WlJKj9+Sm/y8gmOxhSLM7BjVO5Yt1
-         BW8BMUpBmay8V+9nsYCSAykdLYwXhm8rGmZhpO2gNXlHT2QJ5/58wG76XceqKF5wBabp
-         gg+ppiwgX6msvtoCRaWalrg3vwCt/AW/G+tuFd2p1d1NZs5ySdSDxOLunOpWPWKM7xat
-         cFCy2TWN3XLu8SwpgdKXYRyZRkJDe3+zxRBArqQ2xOE1M8HmUd6P35R3myMl9yWcY7mb
-         mbiCnfDXZmmfmDL+fAuALaNTtKoAompQRYh7Cqvw7dW/N2PFLSR2FmhKSBDwnBwf+mIN
-         6v6Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777038910; x=1777643710; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=yw39fPCT3qzGj5AIQ5F5EFjcjfDzFEDb1o1Zmyb9i38=;
-        b=Ef10MmLp+EGPi4rTTlLDpptNSCJ87/KZKGmQfS2lgi5jyYNY/kRhS7FIny7CdypKtD
-         ssd4oLY3QXjwUeDSahHwRhbpdc5mtg24IHVm9JeOuS3MFPIbOw4ya3RiRLbeFkWAahPW
-         okhSXI5Qd20QLjztT9XaqRgcfS2+ozgE7vI+auzJtStRPGVsycPpr1NFP1R2o3hSeGm9
-         QdezeLrO/ZEWKSPj1tCHRH3vYkPTIViz2NzRA4SNLcobejRASJixxG4OG9cyCvCJBNiS
-         MJdfVlFVwoblGyZmnCODYaDsRcgJuF6wh5j76CApBk8u+0cT4cD8KVWBPT2Rros9T7Wi
-         pPYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777038910; x=1777643710;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=yw39fPCT3qzGj5AIQ5F5EFjcjfDzFEDb1o1Zmyb9i38=;
-        b=XNOoO3T3iphPPqRelL2TFZ4A+/LBtTNsbQJFpBbZXl8CI2d3NGn5ErfKtgCtQxfMLq
-         LL7zmzFbYv5ahR2PLivCMouvIuui76bs7M0NFaTdvU/mW9fnNWacDk8Q1oBs0CIV2O2+
-         cvWO3TLWGN4utYGlzjlm5m2Riryy4+NfKAgU+FpJxEIUr0z0+t/cIfM/KuzHnu5dw8pM
-         cyOVRpTM+vpFbDiCwow2GpzXh+usUbrppuXLy/tc2mr/bWB+C2eQg8BGOWS82bF88WQA
-         VORc6+yF8JcqH+JU/Ps6Cgh9zca6Us4iifIbCQyR3kaI0pI2DzegSEwulURNwI9d7wAd
-         IB7g==
-X-Gm-Message-State: AOJu0Yw6tPuYSoz3PUHK2R+Bl3bsPQqtVS47kdG/cksAY9c9VkHdrfAX
-	K/KI7LbtPw3A6Aqm7knCY8osJoVH84xS9N4mq1KNCpX+x6zmxlR3Aj2LHO2VjlaTT/teR/QSsm8
-	BP8H/KJqSHOVH4HGr2N4sl/XlnpIno+zDAsxRstc=
-X-Gm-Gg: AeBDievvLfrGkkoyq4frc+OxSlXrUx+M1gymSqjOEGDNsEUbJTUJiWdrku9HbqrZMGi
-	siUhSCFRViwnZIR9IfGZKQIOz1qdfRiA/m2Xzj2cj5F/ugiPlSDN3n1S+N523neG5LpAx26dkO3
-	FD5yFwAUMbTdfYhZZgVs0rbpIZ2rrL9nR9cojIPUTd96iBsLsFX78h4z0DgvOv+5PhfJy2PNtXV
-	QqK0rgklCQU1bh9LkeZ37FeUtqLUCDgk0XKdxIO+5Sz07w9xvjUg5HpDDRPow2uOr3BtXomd7m4
-	lE4zGx8Kqqcv16kuFmt0yAXeOS5N8JQRdcf2W/bFWTws1oLQT4aItwa6HE8w+9wg6IVGfWR8DO2
-	F2P+BvtBv7QPYxQ==
-X-Received: by 2002:a05:6820:4de7:b0:694:9a67:edf6 with SMTP id
- 006d021491bc7-6949a67fadcmr9420043eaf.17.1777038910195; Fri, 24 Apr 2026
- 06:55:10 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eVrbBPSa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300E0C19425;
+	Fri, 24 Apr 2026 14:02:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1777039342;
+	bh=ack7mYbip6ZcuORQPpGdCVHFIO+2WE0qOIuDR99tjcI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=eVrbBPSay5lsKqpmLH1QRqkLYOnAbpPXdwffDswEX5wCx3OM8YNgFVoAszeWet41J
+	 N7en7QHUFyw55uVogTj/9asNhK9JcorV9woWHwY6p95kzbYb9NwfRCbUQ+iccUgFGa
+	 1atSKUuBQu1QGh/D5JqOoasZsOzablfgD/xYZz5k=
+Date: Fri, 24 Apr 2026 15:34:38 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Stefan Schmidt <stefan.schmidt@linaro.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Jonathan Hunter <jonathanh@nvidia.com>, linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
+	linux-tegra@vger.kernel.org,
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v2 02/13] drivers: base: Add generic dma context bus
+Message-ID: <2026042442-luxurious-antonym-f20c@gregkh>
+References: <20260423-glymur-v2-0-0296bccb9f4e@oss.qualcomm.com>
+ <20260423-glymur-v2-2-0296bccb9f4e@oss.qualcomm.com>
+ <2026042346-trustable-register-095a@gregkh>
+ <06c04947-e72e-679b-493b-e112d693f391@oss.qualcomm.com>
+ <2026042422-deem-chemist-8d0f@gregkh>
+ <4c3fa710-f61a-4aad-622d-54909190cb9e@oss.qualcomm.com>
+ <2026042428-blemish-helpline-7d8d@gregkh>
+ <1e039dd5-da3f-19b2-ef98-29e64fdd925d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260217064050.18388-1-arash.golgol@gmail.com>
-In-Reply-To: <20260217064050.18388-1-arash.golgol@gmail.com>
-From: arash golgol <arash.golgol@gmail.com>
-Date: Fri, 24 Apr 2026 17:25:23 +0330
-X-Gm-Features: AQROBzCawSZU9BOdYpPlI1AqZnivVmdDHQlwin0eS1mu9a_t4eRrabSdWe-hL9g
-Message-ID: <CAMxPZkgOGY+yaLUmFQ-mkF-qUJd6r0BKi7gf47_nALvrCR5JbA@mail.gmail.com>
-Subject: Re: [PATCH v1 0/3] media: sun6i-csi: Convert to active state and
- improve MC support
-To: linux-media@vger.kernel.org
-Cc: yong.deng@magewell.com, paulk@sys-base.io, mchehab@kernel.org, 
-	wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, 
-	laurent.pinchart@ideasonboard.com, linux-sunxi@lists.linux.dev, 
-	sakari.ailus@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1e039dd5-da3f-19b2-ef98-29e64fdd925d@oss.qualcomm.com>
 
-Hi,
+On Fri, Apr 24, 2026 at 06:12:09PM +0530, Vishnu Reddy wrote:
+> 
+> On 4/24/2026 5:25 PM, Greg Kroah-Hartman wrote:
+> > On Fri, Apr 24, 2026 at 05:15:02PM +0530, Vishnu Reddy wrote:
+> >> On 4/24/2026 4:43 PM, Greg Kroah-Hartman wrote:
+> >>> On Fri, Apr 24, 2026 at 04:01:13PM +0530, Vishnu Reddy wrote:
+> >>>> On 4/23/2026 7:07 PM, Greg Kroah-Hartman wrote:
+> >>>>> On Thu, Apr 23, 2026 at 06:59:31PM +0530, Vishnu Reddy wrote:
+> >>>>>> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> >>>>>>
+> >>>>>> When a driver needs to create virtual device at runtime and map it to
+> >>>>>> an IOMMU context for memory isolation, there is no common bus available
+> >>>>>> for this purpose. Each driver ends up implementing its own bus type,
+> >>>>>> leading to duplicated logic across multiple drivers.
+> >>>>>>
+> >>>>>> host1x driver implemented its own bus type to attach an IOMMU context to
+> >>>>>> a dynamically created device. The Iris VPU driver now has the same
+> >>>>>> requirement. Rather than duplicating the same bus logic again, a shared
+> >>>>>> bus type is introduced under drivers/base that multiple drivers can use
+> >>>>>> directly.
+> >>>>>>
+> >>>>>> The bus takes care of creating a device and attaching the IOMMU context
+> >>>>>> to it based on the client inputs.
+> >>>>>>
+> >>>>>> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> >>>>>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> >>>>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> >>>>>> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> >>>>>> ---
+> >>>>>>  drivers/base/Kconfig            |  3 ++
+> >>>>>>  drivers/base/Makefile           |  1 +
+> >>>>>>  drivers/base/dma_context_bus.c  | 77 +++++++++++++++++++++++++++++++++++++++++
+> >>>>>>  include/linux/dma_context_bus.h | 26 ++++++++++++++
+> >>>>>>  4 files changed, 107 insertions(+)
+> >>>>> as you can not have a device on multiple busses at the same time, this
+> >>>>> makes no sense to me at all.  "dma context" is a bus-specific thing, so
+> >>>>> please add it to the bus that you are wanting it for.  It can't be a
+> >>>>> generic bus as that just doesn't work.
+> >>>>>
+> >>>>> Or what am I missing here?
+> >>>>>
+> >>>>> And why is DMA somehow "special" here from any other hardware attribute?
+> >>>> Let me give brief information which was discussed, in the initial series,
+> >>>> the iris VPU used platform bus for dynamically created devices and we got
+> >>>> the comment/suggestion from Robin to implement a proper bus_type with a
+> >>>> .dma_configure callback.
+> >>>>
+> >>>> https://lore.kernel.org/all/02b3d0f5-f94c-43cd-93af-97cfcf7751b1@arm.com/
+> >>>>
+> >>>> based on the discussion, implemented the dma_context_bus and used for iris
+> >>>> VPU devices instead of platform bus.
+> >>> Why not make a irus_vpu_bus where you can do what you want?
+> >> Initially iris_vpu_bus was introduced, and it was made generic based on the
+> >> discussion,
+> >>
+> >> https://lore.kernel.org/all/20260227-kaanapali-iris-v2-3-850043ac3933@oss.qualcomm.com/
+> > I don't really see that request here, I see a "make this better and more
+> > generic for other busses" but that does not mean "dump it into
+> > drivers/bus/ for someone else to maintain" :)
+> >
+> >>>> Here, the device have only one bus (dma_context_bus), not multiple buses.
+> >>>>
+> >>>> Regarding the "DMA" naming, the core operation of this bus is its
+> >>>> .dma_configure callback, which calls of_dma_configure_id() to map the device
+> >>>> to a corresponding IOMMU stream ID. The name "dma_context" reflects this
+> >>>> purpose.
+> >>>>
+> >>>> I am open to suggestions from you or Robin or anyone else, if there is a
+> >>>> better or preferred way to achieve this, I am happy to consider it and
+> >>>> rework the implementation accordingly.
+> >>> As there is only one user, just make this your own bus please and do all
+> >>> of the needed bus operations for your devices there (i.e. don't hang an
+> >>> "empty" device off of it.)
+> >> The reasoning behind to make it generic was to have more users - host1x,
+> >> Iris VPU, QDA on the generic context bus, instead of each of them having
+> >> their own. Let me know if you suggest to have the iris_vpu_bus.
+> > But you did not add such users here, so how would we know this?
+> >
+> > And still, I have no idea what this bus really is doing.  Is it dynamic?
+> > Is it self-describing?  Why not just use aux-bus?  What is it supposed
+> > to be doing and used for?
+> 
+> This bus will allow users to create a dynamic device and map to IOMMU stream
+> ID via .dma_configure callback which calls the of_dma_confgure_id() based on
+> the user inputs. This bus is under the iommu_buses list to register for bus
+> notifier callbacks for iommu_probe_device() and iommu_release_device() during
+> add and remove.
 
-This is a gentle ping on the series.
-Link to series:
-https://patchwork.kernel.org/project/linux-media/list/?series=3D1054768
+But a device is nothing on its own.  You can not just have a random
+'struct device' hanging out there that does nothing but iommu, right?
+It should be doing something else that is very "bus" specific.
 
---=20
-Regards,
-Arash Golgol
+Again, why not create a bus for your hardware type and have that control
+the bindings of drivers to the devices, like it should be done.  You
+better not be creating platform devices for these things :)
 
-On Tue, Feb 17, 2026 at 10:11=E2=80=AFAM Arash Golgol <arash.golgol@gmail.c=
-om> wrote:
->
-> Hi,
->
-> This series modernizes the sun6i-csi driver by aligning the bridge and
-> capture components with the V4L2 subdev active state API and improving
-> media controller integration.
->
-> The first patch migrates the bridge driver to the V4L2 subdev active
-> state framework. The private mbus_format field and its associated lock
-> are removed, with the framework-managed state becoming the single
-> source of truth. As part of this change, the capture driver no longer
-> accesses bridge-private data directly and instead resolves the active
-> format through the subdev pad API. Since the hardware does not perform
-> format conversion, identical formats are enforced on both pads.
->
-> The second patch implements vidioc_enum_framesizes for the capture
-> device, reporting a stepwise range of even frame sizes within the
-> hardware limits.
->
-> The final patch adds MC-centric format enumeration support by filtering
-> pixel formats based on the provided mbus code and advertises
-> V4L2_CAP_IO_MC to reflect the intended usage within a media graph.
->
-> Hardware testing performed on LicheePi Zero Dock (Allwinner V3s):
->
->   - Parallel pipeline (csi1):
->     ov7670 -> sun6i-csi-bridge -> sun6i-csi-capture
->
->   - MIPI pipeline (csi0):
->     ov5647 -> sun6i-mipi-csi2 -> sun6i-csi-bridge -> sun6i-csi-capture
->
->
-> Arash Golgol (3):
->   media: sun6i-csi: bridge: Use V4L2 subdev active state
->   media: sun6i-csi: capture: Implement vidioc_enum_framesizes
->   media: sun6i-csi: capture: Support MC-centric format enumeration
->
->  .../sunxi/sun6i-csi/sun6i_csi_bridge.c        | 154 ++++++++----------
->  .../sunxi/sun6i-csi/sun6i_csi_bridge.h        |   9 -
->  .../sunxi/sun6i-csi/sun6i_csi_capture.c       |  87 ++++++++--
->  3 files changed, 142 insertions(+), 108 deletions(-)
->
-> --
-> 2.34.1
->
+> auxilary bus don't have the .dma_callback and bus notifier callbacks where it
+> can do iommu_probe_device() and iommu_release_device(). iommu_release_device(),
+> being a static api, need to be called from bus notifier callbacks which should
+> be under the list of iommu_buses.
+
+True, because aux bus devices don't do that directly, they are "sharing"
+resources with their parent device and something has to mediate for it.
+So yes, you are right, that is not a good idea.  Make a custom bus type
+instead please.
+
+thanks,
+
+greg k-h
