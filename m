@@ -1,217 +1,210 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013027.outbound.protection.outlook.com [52.101.83.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC33F3451B5
-	for <linux-media@vger.kernel.org>; Fri, 24 Apr 2026 05:49:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777009756; cv=none; b=miQAmHNnQ2BEp6pD/OaOQ58NWBn73ESZuhM5EF+j6Z3NJ0okNmLMH3mbKC1/bU14OdBuY2BM/v60nqedOZYjcSll51yt3X6csD+FtdcJH72NEiw96anTixIrTJI3XAwqIk4ccixTrUFKhmMfZmAGNW6FDPubymgw9OzJOmDkBoc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777009756; c=relaxed/simple;
-	bh=Ln7XoFFRgbpVTzwb9HPAuoSFU75gRiPCvs2/RLkCEsQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OcEc9gE9dbcRTznhRWrCVkzGO588JkC4jGShcgAifeXcXRTdnFXIcp48w5AJ0DzQjr7mxwEgx9zuSdOEOxoGezcGjYLqgl+rjhpgWBW1raeTAl0/zogLfFsIeqooB3at4+cDVnlgmHZL83ZF9EsDerF8AdpqPe1P9E2lR1+1NyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jzSNeVEr; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79421DDC2B;
+	Fri, 24 Apr 2026 06:48:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777013288; cv=fail; b=puAOZOvSNp2QU2nMV8luy+GQNuBABajRo7c+9iz/HHMWccVry5NISmxbeu8b1BzkAAvX8ngc5FDTT4h/OsvkEs+B4UVwYC3FrdkqKezzdrRAExJGznhwra4PaLdTcrNftk38MkKppv6ecm3O3RNccakoN78Ddsc6P2UsEkF53IU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777013288; c=relaxed/simple;
+	bh=pwEkce4XM8PYyYN3+Sut3Seajm4enQZ8Kkbnib9GgD4=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=o6w6AnwwZ478sLPuhD9DeDwO8y4grdAp617MHjAR7DlMS6fen7uuRCw6T157/BDPtySoQ5Iau5SHQea1oFfzqQfL1EADbq+jnXuYP1H5NO9wfZPbIiWyJtrFoZ6Eolup95LZohJ84Nd42mRajDfcpzadmiMgxcpoFGgt4uKGJ78=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=wIAbiLAT; arc=fail smtp.client-ip=52.101.83.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jzSNeVEr"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-35f9ab079bdso4954826a91.2
-        for <linux-media@vger.kernel.org>; Thu, 23 Apr 2026 22:49:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777009754; x=1777614554; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RoXnYHhu5OJq+pQQ/T7jeG1ntNKoLYxlZRpY7d5kjto=;
-        b=jzSNeVErcDeX2ZGTIQOUdHQdB4Vxrx5ct/o3AX+z7z338ql3tuPM5q1FkkTKL0ohun
-         tHmuMXPPEIxoMjvuraoKiqw5ucgWuZ+wTm+2+LeJ5mTARgAo2p69yeGvUr2qsU3dMGC2
-         wtpLdQqSsXTeG+0kr+7ILeE+10yvdVzEKApcyUgoZOTTfJt7tAPaknuQcBEZ+b2Nvz0t
-         tWmWog/4ccDiBvWmaUIiEHuN00coTljNQu95YK2KUs+xrq6eACRf06a67RHsMW9vJ6W1
-         GHqfv8J+WuBrwSq+o3AGe8pJEUBBcSykP1NhAYmyVpVPVYtnlPefZlJb+UG2kBSSbfSJ
-         IBzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777009754; x=1777614554;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=RoXnYHhu5OJq+pQQ/T7jeG1ntNKoLYxlZRpY7d5kjto=;
-        b=aGKf19sk7O7Y/E6mHFvIuszIDhwvEZQpOO4jiP/FMqJ/6Hvr5TF200KoQbhE4VmLW4
-         tCXaKtl2iXn74j+OF0glUx3xfaV1Y7ECGJ1Zb0T5Stef+4IVykPZANjLVUq9pXszhJaw
-         x4F2JnPyE2uvtUysZkm4Xs9ghtptqHmJSwSJIhJuO4eLgK+FHMxcyHDssyegVt9iPyy7
-         wMCD4fEQ5iqt+U3OB1mFBcv/ZepfaenJ3MZwZMIwM38f2LN/DU/Yf/f4ogz7scW8yW2c
-         FN8nsvS+/lEvMOFaoFrlrEyFztY4yRI2CbvNflW85+zgAam90XXMKnhyvgCLosDfFz7f
-         Rj9g==
-X-Forwarded-Encrypted: i=1; AFNElJ+wUY990HMvwR1u6km7Qs2T6OjZ/j1vzEeJWtvNoXEcN1V+cDU/5iPZtStxuPQR6CvRp65pXL2aXljsIQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwDC7lMu2x96ZW2KRDV53XC3kdTz/cenOkXMjSDM3aLaYW/HFiC
-	VDhYLm8VsaNhAgo4Kg7Yy2X/i7lFf7PI7C0ScDDzzSEsjnd2+NFNqtpA
-X-Gm-Gg: AeBDiesiFkhsma0Fe0wsZsZg17fv1FsrJm5klr/XbBDdy3KiBclL6Wp2l8y0KSkSUqk
-	EW8OUFwLf8+pr3s90hrrbnIR+eLOrhY4dp4vYVdIAY0Yh0uvg0uX+PYKCtzp2bVrsspppgFW1kY
-	m46zIKx0/C0pzXdKF3tUnFGarCLMN7HOHySiTe+UDQMM08RXJWGg8oA3pRAo1pGZzfKmWFQRsbX
-	x4fMZ71CrNZcQ+ZgnE3mCtB8kh8/Shd/IwSiz/hdQv2AvaYRUG8125cKEoNiuqPgKN7wIpAnGB+
-	N/AsVtViQE403iBZA4Dqn20Eqo7djBCWlaUhwkVDr3uNnEV2FMTTNU8B6EKbgpb5ApVsNfRNkPb
-	GL9WLMQSOY/m0erYS5JFiCZHSCf6ebyO7HbeSQAwAEuHQm/wXo3ZLLGlL5dlwpuRBNoJI8fn5rg
-	x4L7FqAkJoBlge8Csp1lj7FrsBsoviaPfW0vMoom7Bftw8rZ4nxyyvKDZ3pabOV21PR/kNDp+sk
-	dxnDWcCPBu+Xtc=
-X-Received: by 2002:a17:903:1446:b0:2b2:42b1:ad95 with SMTP id d9443c01a7336-2b5f9ee2835mr352292775ad.16.1777009754030;
-        Thu, 23 Apr 2026 22:49:14 -0700 (PDT)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.bl1-in.ibm.com ([129.41.58.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b5faa176e9sm208778245ad.20.2026.04.23.22.49.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Apr 2026 22:49:13 -0700 (PDT)
-From: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
-To: maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	peterz@infradead.org,
-	jpoimboe@kernel.org,
-	jbaron@akamai.com,
-	aliceryhl@google.com,
-	rostedt@goodmis.org,
-	ardb@kernel.org,
-	sumit.semwal@linaro.org,
-	christian.koenig@amd.com,
-	ojeda@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	nathan@kernel.org,
-	nick.desaulniers+lkml@gmail.com,
-	morbo@google.com,
-	justinstitt@google.com,
-	tamird@kernel.org,
-	arnd@arndb.de,
-	nsc@kernel.org,
-	mkchauras@gmail.com,
-	simona.vetter@ffwll.ch,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	rust-for-linux@vger.kernel.org,
-	llvm@lists.linux.dev
-Cc: Link Mauve <linkmauve@linkmauve.fr>,
-	Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-Subject: [PATCH V13 7/7] powerpc: Enable Rust for ppc64le
-Date: Fri, 24 Apr 2026 11:17:42 +0530
-Message-ID: <20260424054742.45832-8-mkchauras@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260424054742.45832-1-mkchauras@gmail.com>
-References: <20260424054742.45832-1-mkchauras@gmail.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="wIAbiLAT"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Y06wF7FM2qVvkCTKWMrlFxmLAKl/6aAxJ1ZhdRIFd7yuzKZx5kowsVR4kXbJEIlQKqbJMtAbCH/DPR5KX2Y0KoPDDbTT5ZnPjJc2RKdjsP4mWFCPYd3m90+gEKOH8rQi8auNxGRPQEtjc1svqFEkU3fVpF94gEn8E550DiFqeQdxOGdB9Tb4JNRArq2O8YCRFRoUWhl10uCAcAqG2S4dw7j+5Pp0G39Zp0PYXfTw9x5a+n8M1kV7wVBN4iUSaDFG5haB+g9LZ8euGeMnfOBOXNNyyXsBZyc69UZBN9weDHpFssHXadYwpjJw3FGtn1891MIzaPI9u618Bm5Vyq87gA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ugtIIw3a3Rrt7NM/Ow3hm9sQ97KPTEleeHCrULCoBLY=;
+ b=Qhya0rRhdc5Xb+xRbikxqZjQrguf5PAhTlEHIGizfmMpvMnChF7oXOvqsLHDN8T09fYeoYog0jnTwwgm1Ow+5YqoGBFI6wLpwLOGbjz7Yo3F4jQFeRxlxkFhEsdrRs9Nvk1gC3p/ujQFAQr7kLS1S9wkPcm/F8Td7EzH03g2LpUGm5fS9J38PB6BEyobR9ZF2kFe8HRN5DTiYIi8lSxCyKLbgWhRPendgDV9SVFCYHRtWhlZMe2Plk59NOmPG5jtRElO4rIk+iHm60C8tErPQ4v6Yiu2jinDjSp5eXcdnJ/avChpgvBBhLGm/NvpoMDkWU5EQ4/JNTghldvY7r1ULw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ugtIIw3a3Rrt7NM/Ow3hm9sQ97KPTEleeHCrULCoBLY=;
+ b=wIAbiLATU7qg5UcOMTIWIRwguUoqlyNUNte2TnXMROVNeFKruxgHJ3NXJ4unvsipX35O+/+VLgC0/xiWiYYurbAk+UcIh8ff2L0myBfZDLhd2Dv+5d5MbeX/ZY+bOcrotTnk5kw4ODg+QgR3tnilBGSA0Dy947AxWY0RiAwGF8akQpcDkZVETvXHVw3TzPFz4dFn00/biblVyxSvR35MMWLS6Lhi/9ewVeJex5w88nFKrSjK9PL3MTdrzv3BkmbkdqHNwhVD7Wm9D/mH4R8RdMlJm2A8cxDOMcncWpDCOu+Oz7XDCVSjHZwEfPdDBNX+rzsq/l+J7d75nrKesdPDbQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AS8PR04MB9080.eurprd04.prod.outlook.com (2603:10a6:20b:447::16)
+ by PA4PR04MB7903.eurprd04.prod.outlook.com (2603:10a6:102:b9::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.18; Fri, 24 Apr
+ 2026 06:48:02 +0000
+Received: from AS8PR04MB9080.eurprd04.prod.outlook.com
+ ([fe80::92c2:2e03:bf99:68eb]) by AS8PR04MB9080.eurprd04.prod.outlook.com
+ ([fe80::92c2:2e03:bf99:68eb%6]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
+ 06:48:02 +0000
+From: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Subject: [PATCH v12 0/2] Add i.MX8ULP ISI and CSI-2 support
+Date: Fri, 24 Apr 2026 14:49:49 +0800
+Message-Id: <20260424-csi2_imx8ulp-v12-0-da148eabc035@oss.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAI0S62kC/13RS27DIBAG4KtEXheLGd5d5R5VVYGBBKmxIzu20
+ ka5e3HUNoblgL6fGebWTGFMYWped7dmDEua0tDnAvBl13RH2x8CST4fNEhRUA2GdFPCj3S66vn
+ zTIx3TEvvpfOxyeQ8hpiuj7y391zHcTiRy3EMdhuCaxCyFigYxgUBcpiHPs3t93GY98M0tf313
+ HbDaY08pukyjF+PDhdcg39jEMteFiSUoLScc2a4kWL/l7J2srAtFRVlmTKhtbDOSnRdSfmW6or
+ yTC1GoxwI54wuqXhSQ6GiIlOpjOQeuILISio3FFRF5Tors0wIozHEWFL1T4Eiq6jKVITO5SV0Q
+ RlXUv2kADXV66vBBaZ0VPm+pGZDsZ7VZEqF4+C0UUHQkgJ9WqT1diBTAoZ23nqH1G4+6n6//wB
+ wY4+0xAIAAA==
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Fabio Estevam <festevam@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, Guoniu Zhou <guoniu.zhou@oss.nxp.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777013438; l=2222;
+ i=guoniu.zhou@oss.nxp.com; s=20250815; h=from:subject:message-id;
+ bh=pwEkce4XM8PYyYN3+Sut3Seajm4enQZ8Kkbnib9GgD4=;
+ b=HGtdha5MiGAy8L4co1mxR4XB7zFnWL0DTc8xmRcxgfGzgL75b10mlxiGr3VDxdN3rrb1Dd/Sh
+ HtzRJyMVb/mCdRT/sI65nEsjZABQmYxvhgBrkc7no8eGWKIoUDVS0qJ
+X-Developer-Key: i=guoniu.zhou@oss.nxp.com; a=ed25519;
+ pk=MM+/XICg5S78/gs+f9wtGP6yIvkyjTdZwfaxXeu5rlo=
+X-ClientProxiedBy: MA5PR01CA0100.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d1::8) To AS8PR04MB9080.eurprd04.prod.outlook.com
+ (2603:10a6:20b:447::16)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8PR04MB9080:EE_|PA4PR04MB7903:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb5b98f6-4084-4394-0af8-08dea1cd6e27
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|376014|366016|7416014|52116014|19092799006|1800799024|56012099003|18002099003|38350700014|921020;
+X-Microsoft-Antispam-Message-Info:
+ 8NAnwpcjoFYB9Zs1scmiGuokwUYbLCSQX0ElKmXoaIwPC2Mg2zc50MWdysGfdhPAgJFGSdcdT/v7hvTxvOoAEk7oXzLf5JZN52EtiaFQsf8m9fv8QLZVleou4LiGOGrCOWDHQdziC/S2Qaf7yGkQLu3qP3JS6Jv6HVrbs9vliqglIi7fZDpDNkPsEoROu57HMKIqkqyoZAW/5aGFS8SqZ5A75uqu0Y0SvD8RghpTG8eHPsOMEE7HxUjg3xHIe2Y4J1cU1qX6iMqdzd7tVBfOMiQ8ry6KwfVAnAOIZohycxCWZm262jlHd6k4r6qOp+XRpfyzI9eLS6iezSJl4vVK2TUOjBIZ4miAM+c61+EO7MNCnPxY+2BilllXHUEu8E81yDXNnzemsApHxtgdYqPmGK1nvXRx1UGygzjY/tGjiScTPDAsnn9YmOySI4GvOwGSUy9yppdoszbtr7hfrFFwQFp1Moo7F9j0NaDgy2qI8bybqHNgG7naHqB41GJLnROPtSXl7Dyx8SYxVfwEj0O9Zh8bwSCKhBTMrp2rbgd7Lx9JkSAhNXTPHCgC7RNXZaD4WxI1Y2TQOa1yrs6k+rzVlSHJjZEjNa6atBzRff2eNqZz8CWDi6+oDrPAsyTOhTENrgmGxkjAYk97ipIj5hnA6lvZGJrtGWzYG1oh8JALOYHy5dOWzf8pHoRGcrPCiBuscC34cJNky46V4H8Mtnbvnjdzaco3igbjOLP+fTSbXuk3kjgUsokREJHNUJauJExKwH5Gcpo4ulT89VoEbKy3vEsFigPevObXRlB2xjtLJ2ZkE6QZkdM/BKRl2gYJdXcJ
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB9080.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(52116014)(19092799006)(1800799024)(56012099003)(18002099003)(38350700014)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?UnpVL04wWkVKYkhaRlBSYUtMcjhPNTVIRnFBYkVHQ2pnSVp4NkRFSUI5aGNY?=
+ =?utf-8?B?R3JWb2hPZkFkMU83UWZyNEs5K21NVUhqSGUrOUFpMjVrY3lBZGkwSnREVFdS?=
+ =?utf-8?B?Y3AwbGdiOXpZZnJRRGhDSE9iK3JYcy9HcHVoTTl5Nk1LbEtSRlV2Uy9RM0hU?=
+ =?utf-8?B?cXo3VFU0SWx5YnBwd25XUGtFRUpQcXdPMXNvZ0pUMVM2Qyt2dEE5TWN3Qm90?=
+ =?utf-8?B?Y1N2M0Y1dzBKYUczU2pacFAwcHFTanBBZlFVa3Aya0J5UWxsRWZXSVhXWHVS?=
+ =?utf-8?B?SFdiaE40QWh2a2k4UGhCajB0OVltVyszSGVGQlJCVnhSRjJRNExmTUdmTVZ1?=
+ =?utf-8?B?QjYrYzBFb0gxS1FLRFlOb05PRy9EbU5OR2t4U2lIWHpRd1EyaGxkdSs2c2Fv?=
+ =?utf-8?B?NUN0WEg1YVNjOEpCK1Q1WCsvMUNzMkZ3Q2Y0SFAvYUZ0YTk4cmsxWGx1MkZ4?=
+ =?utf-8?B?UVRzdVN3SWhTb0U2TFliQk9TVlBrQm1ma3dRQmF3YkJraUlYL21FNjk4aEx6?=
+ =?utf-8?B?UEJlQTNJQlB6ajMrdlgxbFpmNS9KY0w2cHdteWJNazVhV0NoSktmYWlSUVZX?=
+ =?utf-8?B?R1RnZGpNNUNDK3FvNHZlTVhiNmk1MGUrWkdIaWhHZmF4Sm9hTWZpRW9nVmpo?=
+ =?utf-8?B?SUxjQllzNitrRUF4U0J5ZHdEMlkzSTBtV1VsZWY5UXVuYWo1SHJ4RVNUOVh0?=
+ =?utf-8?B?S0dhVUNkNmlndWlpeEtNenZDSWFBU1pkcXJla09Eb2Z6NFBlYUZZdEVzS3Zn?=
+ =?utf-8?B?ZTgrbFpUQTdZLzdsS21YZllvK0NORDFwaEVGdW9CcGl4VUxoSDZvR2FJZnVi?=
+ =?utf-8?B?V05QeGRydkVBWUo5RUhYVWx0Sld3RGJmUCtRY1RaWHkvdU1pcXJSY1VNWlBD?=
+ =?utf-8?B?REVzRzhZMVE0b3V3L3daajc1RmNwTXRrNFZwSG8rblJUajNWRFpYb29XMkhk?=
+ =?utf-8?B?U3ZyUTdGVHlzQWluYXBXQk9URzdJVTNucWdyaUZRU2hodmNSNHhpQTRxZVdv?=
+ =?utf-8?B?MVorcFNhMkhObDZmaW5zTEZUR29hamdTQXVTeThsOWFhSm1FK0cydGxZdTVF?=
+ =?utf-8?B?M2huMnA4NTNGOFJ6d3hmSUVyaHU2RHNkVENwRVJLWU0ya3drb1RGWTdIUENh?=
+ =?utf-8?B?aGlVUmtVVnczbmUxeVIvQkcxU1BlaEVRYldxN0VMZVZsTU1obEYxdkgrd0xj?=
+ =?utf-8?B?VjFmRll6b2ZYMzlDbzR1ZkxZV3phcEpOa3B1Sm0zS2ZaYUpMdmFIYkR1Tk51?=
+ =?utf-8?B?WUdkcm5iL21BcG5peExWWm5mYU40WXVOa2x3VHpwVGJaNWREaldMZm4yL21j?=
+ =?utf-8?B?YUo0TzFaRGZsdUdReXZueVRWMHUveFZMMWd4d3dCcDZjMmlxSnk0NDU0eXZR?=
+ =?utf-8?B?SmxCeWJ4aEJqUVdIN1p6bmo0ZTVYWk9KR1Q5NUFnalNZOFV1U05wVy9sYXpp?=
+ =?utf-8?B?ZGVJb25kZEIxRms4OXc0cXFiY3FEdGpvaVJMSjdTemVjcCtNT000M1BqdmtU?=
+ =?utf-8?B?bjdtdTBHTkIzYkJ0bFhYUmFKNGs0UUZtaCtzcDJubnhMbmdPUnpBVmpMa1VQ?=
+ =?utf-8?B?aDNDOGlTQlFMUDZ0L2FobFk1MjB5NFFneVd2dnRvajhLVUlLTnN1ek11STgr?=
+ =?utf-8?B?c3YwMXpVVVZuTUQ3RzBWMDFlL0gvbWI0R1ZJeDI3MVhiOG05dTQ2NDVEbzZa?=
+ =?utf-8?B?N2VjMkhmWG5OVnlhVkVOc3puWkM2NkhUcnF4OG1pV1JMTVFOaVNkaVRuMWJs?=
+ =?utf-8?B?TDZneWlRWUszMkZnOXUrb045cE5PYmNQdnhZSFAyWlZ6N0RtS0FpYmptRUNk?=
+ =?utf-8?B?elpna05WS2k2V283dXowRDNyYkJ0a2RYdmQxZnc0TmVEMjlNZmlFNkEvQkhl?=
+ =?utf-8?B?TTl0d2piN0I5ZGI1THdxbXJidng3VjVIV0wrM00vNkFFekhLQlpVb21DWEdZ?=
+ =?utf-8?B?MVBRMnF6M2x4WlRsVk45eWMzalIrZGNKRTd6L29UY0FCcHdlb2luVUVHc0xr?=
+ =?utf-8?B?Mm5xem1iVWlsZi9vS0IxQ3VaVFNkSTVEZGJYb1FhcXdIeUlERFJuNUJpbzdN?=
+ =?utf-8?B?cWpnblJnN0RCWUZtNndlM0NxaWJUU0hlcGJsRzIvRDc4WFNvc1h2bXRTNC9Z?=
+ =?utf-8?B?STA3N2hQR1pSRU1DT2hKREorYkFUSlZ0bDMxSGc4dzZoNzBlMndXb2JOKzQr?=
+ =?utf-8?B?MHhsd05LaGJtUG9TQlo2c2h0bUwrS1ZuUjcyZFJMQWR1d0tIMmNYMHh0d2lh?=
+ =?utf-8?B?TjdyWUR1RU12UU5BR05iMjlreU5DTUdlVktXUVRmOUZnRW42RkZBSlBRdit1?=
+ =?utf-8?B?akhheCtWY2VuSTIwWkJuVk03U0RZYmNuWEVHdWJ3b1NYSCtrci8vdz09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb5b98f6-4084-4394-0af8-08dea1cd6e27
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB9080.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 06:48:02.3090
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lwhQHT/4fsedevou6dKoW/ad53He+f07S2suOKyw1He7buDpGm2O3B4tKW7yuGXp9OPBeCVpjXFKucWokjxojw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7903
 
-Enabling rust support for ppc64le.
+Add support for the Image Sensing Interface (ISI) and MIPI CSI-2 receiver
+on i.MX8ULP.
 
-Tested on pseries Power11:
-╰─❯ dmesg | grep rust
-[    0.225728] Initialise system trusted keyrings
-[    0.270961] rust_minimal: Rust minimal sample (init)
-[    0.270968] rust_minimal: Am I built-in? true
-[    0.270974] rust_minimal: test_parameter: 1
-[    0.270983] rust_misc_device: Initialising Rust Misc Device Sample
-[    0.271012] rust_print: Rust printing macros sample (init)
-[    0.271019] rust_print: Emergency message (level 0) without args
-[    0.271023] rust_print: Alert message (level 1) without args
-[    0.271026] rust_print: Critical message (level 2) without args
-[    0.271030] rust_print: Error message (level 3) without args
-[    0.271033] rust_print: Warning message (level 4) without args
-[    0.271037] rust_print: Notice message (level 5) without args
-[    0.271040] rust_print: Info message (level 6) without args
-[    0.271043] rust_print: A line that is continued without args
-[    0.271054] rust_print: Emergency message (level 0) with args
-[    0.271064] rust_print: Alert message (level 1) with args
-[    0.271072] rust_print: Critical message (level 2) with args
-[    0.271077] rust_print: Error message (level 3) with args
-[    0.271083] rust_print: Warning message (level 4) with args
-[    0.271091] rust_print: Notice message (level 5) with args
-[    0.271097] rust_print: Info message (level 6) with args
-[    0.271102] rust_print: A line that is continued with args
-[    0.271110] rust_print: 1
-[    0.271113] rust_print: "hello, world"
-[    0.271121] rust_print: [samples/rust/rust_print_main.rs:35:5] c = "hello, world"
-[    0.271129] rust_print: Arc<dyn Display> says 42
-[    0.271130] rust_print: Arc<dyn Display> says hello, world
-[    0.271136] rust_print: "hello, world"
-[    0.271198] usbcore: registered new interface driver rust_driver_usb
-[    0.271207] rust_faux_driver: Initialising Rust Faux Device Sample
-[    0.271227] faux_driver rust-faux-sample-device: Hello from faux device!
-[    0.271297] rust_configfs: Rust configfs sample (init)
-
-Reviewed-by: Link Mauve <linkmauve@linkmauve.fr>
-Tested-by: Link Mauve <linkmauve@linkmauve.fr>
-Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-Tested-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-Link: https://github.com/Rust-for-Linux/linux/issues/105
-Link: https://github.com/linuxppc/issues/issues/451
-Acked-by: Gary Guo <gary@garyguo.net>
-Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 ---
- arch/powerpc/Kconfig  | 1 +
- arch/powerpc/Makefile | 7 ++++++-
- rust/Makefile         | 6 ++++++
- 3 files changed, 13 insertions(+), 1 deletion(-)
+This was previously sent as patch 5/5 in the v10 series based on media
+tree [1]. Patches 1-4 have already been applied to linux-next tree.
 
-diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
-index 4ac897b650d4..2e3065bce9cd 100644
---- a/arch/powerpc/Kconfig
-+++ b/arch/powerpc/Kconfig
-@@ -286,6 +286,7 @@ config PPC
- 	select HAVE_RELIABLE_STACKTRACE
- 	select HAVE_RSEQ
- 	select HAVE_RUST			if PPC32
-+	select HAVE_RUST			if PPC64 && CPU_LITTLE_ENDIAN
- 	select HAVE_SAMPLE_FTRACE_DIRECT	if HAVE_DYNAMIC_FTRACE_WITH_DIRECT_CALLS
- 	select HAVE_SAMPLE_FTRACE_DIRECT_MULTI	if HAVE_DYNAMIC_FTRACE_WITH_DIRECT_CALLS
- 	select HAVE_SETUP_PER_CPU_AREA		if PPC64
-diff --git a/arch/powerpc/Makefile b/arch/powerpc/Makefile
-index 589613eaa5dc..9385db478c59 100644
---- a/arch/powerpc/Makefile
-+++ b/arch/powerpc/Makefile
-@@ -61,7 +61,12 @@ else
- KBUILD_LDFLAGS_MODULE += $(objtree)/arch/powerpc/lib/crtsavres.o
- endif
- 
--KBUILD_RUSTFLAGS 	+= --target=powerpc-unknown-linux-gnu
-+ifdef CONFIG_PPC64
-+KBUILD_RUSTFLAGS	+= --target=powerpc64le-unknown-linux-gnu
-+KBUILD_RUSTFLAGS	+= -Ctarget-feature=-mma,-vsx,-hard-float,-altivec
-+else
-+KBUILD_RUSTFLAGS	+= --target=powerpc-unknown-linux-gnu
-+endif
- 
- ifdef CONFIG_CPU_LITTLE_ENDIAN
- KBUILD_CPPFLAGS	+= -mlittle-endian
-diff --git a/rust/Makefile b/rust/Makefile
-index fd9c1bf026ca..d7b74b209a33 100644
---- a/rust/Makefile
-+++ b/rust/Makefile
-@@ -408,7 +408,13 @@ BINDGEN_TARGET_x86	:= x86_64-linux-gnu
- BINDGEN_TARGET_arm64	:= aarch64-linux-gnu
- BINDGEN_TARGET_arm	:= arm-linux-gnueabi
- BINDGEN_TARGET_loongarch	:= loongarch64-linux-gnusf
-+
-+ifdef CONFIG_PPC64
-+BINDGEN_TARGET_powerpc	:= powerpc64le-linux-gnu
-+else
- BINDGEN_TARGET_powerpc	:= powerpc-linux-gnu
-+endif
-+
- BINDGEN_TARGET_um	:= $(BINDGEN_TARGET_$(SUBARCH))
- BINDGEN_TARGET		:= $(BINDGEN_TARGET_$(SRCARCH))
- 
+Changes in v12:
+- Add one new patch
+- Swap ISI axi and apb clocks to align with dt-binding requirements 
+- Update commit message
+- See each patch's changelog for details.
+
+Changes in v11:
+- Rebased on latest media/next
+- Removed #include <dt-bindings/reset/imx8ulp-pcc-reset.h> which was
+  deleted by Rob's dt-bindings cleanup series [2]
+- Replaced reset macros with numeric values and added comments to
+  document the reset indices
+- Link to v10: https://lore.kernel.org/r/20251205-csi2_imx8ulp-v10-5-190cdadb20a3@nxp.com
+
+Changes in v6:
+- Update compatible string in dts for csi node.
+- Link to v5: https://lore.kernel.org/r/20250901-csi2_imx8ulp-v5-4-67964d1471f3@nxp.com
+
+Changes in v4:
+- Change csr clock name to pclk which is more readability.
+- Link to v3: https://lore.kernel.org/all/20250825-csi2_imx8ulp-v3-4-35885aba62bc@nxp.com
+
+Changes in v3:
+- Change pclk clock name to csr to match IP port name.
+- Link to v2: https://lore.kernel.org/all/20250822-csi2_imx8ulp-v2-4-26a444394965@nxp.com
+
+Changes in v2:
+- Move dts patch as the last one.
+- Add "fsl,imx8qxp-mipi-csi2" to compatible string list of csi node.
+- Link to v1: https://lore.kernel.org/all/20250812081923.1019345-3-guoniu.zhou@oss.nxp.com
+
+[1] https://lore.kernel.org/all/20251205-csi2_imx8ulp-v10-0-190cdadb20a3@nxp.com/
+[2] https://lore.kernel.org/all/20251212231203.727227-1-robh@kernel.org/
+
+---
+Guoniu Zhou (2):
+      media: dt-bindings: nxp,imx8-isi: Drop fsl,blk-ctrl requirement for i.MX8ULP
+      arm64: dts: imx8ulp: Add MIPI CSI-2 and ISI nodes
+
+ .../devicetree/bindings/media/nxp,imx8-isi.yaml    |  4 +-
+ arch/arm64/boot/dts/freescale/imx8ulp.dtsi         | 66 ++++++++++++++++++++++
+ 2 files changed, 69 insertions(+), 1 deletion(-)
+---
+base-commit: 4fbeef21f5387234111b5d52924e77757626faa5
+change-id: 20250819-csi2_imx8ulp-9db386dd6bdf
+
+Best regards,
 -- 
-2.53.0
+Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 
