@@ -1,182 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D1A3845CB;
-	Fri, 24 Apr 2026 14:02:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DBAC3DB64B
+	for <linux-media@vger.kernel.org>; Fri, 24 Apr 2026 14:08:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777039343; cv=none; b=QwqGNvsoSkUbh19EmdDdmaeoYvUoiFqmJalbYArGGi1ky/NKHmOFA5XpmrNn20EgTLQXs0O4ue+OccyvgLDTEll0zbWjxD/40o4wlMHkjI/mFjcRvb6H1PMqm+nfw25nejI88ZBRZeWNQ4uEGTrcskgIlmNwYuzwkGldAWI1mj4=
+	t=1777039692; cv=none; b=LCCDJTt1YtzInYuimiDlK5ICMQ+MWAFbOwFajg7R8TPYi4vSjstG0D3oqLazGP4B/9LqaKuRrSmYA9WG03hEJ5qRsxDHSOo8pAwYFaWLZFBALUv26Yk9micSVIFInnKVPD2N6geDKs0PBgUzMl99AvYoYI1OtvBZviPvLfafCLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777039343; c=relaxed/simple;
-	bh=ack7mYbip6ZcuORQPpGdCVHFIO+2WE0qOIuDR99tjcI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sRoOebb+MrJ65ce4GV1vlcQOxqpjMMYEex+ohRjF59lHBiYNqKWetpbbNSIUlPv+gONPHAXDBQqsS2m63cSsxFnD56Zfh1qFcM3ba/54O9Ogj3/YxVYnmP0q1SNU1fBS7HbvC4abiRkLgDVyXm5kYHm3re82Qpg3Sp0zSXleqGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eVrbBPSa; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777039692; c=relaxed/simple;
+	bh=eqsoHMIOOabBLTi9Vt6IUu2GMKr3JRX0N3iuQ2xWg/Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iVnLLZJ83DqWIUdQ+vLQOFMgfMcz4XImcGn6pWwlTG8p5q1y4AStjT5W96Zy4GghPtCGSiDiUhapPA2pMt3fdBSwiexFjaJbSTURGCtzl5AOpm/RWmnYjrxx1Q61hZkP3uGNuMSDS5icBsJIAVf0Ma95EHq687UWgvbwQYV2WJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fxXR2Fm9; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eVrbBPSa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300E0C19425;
-	Fri, 24 Apr 2026 14:02:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1777039342;
-	bh=ack7mYbip6ZcuORQPpGdCVHFIO+2WE0qOIuDR99tjcI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=eVrbBPSay5lsKqpmLH1QRqkLYOnAbpPXdwffDswEX5wCx3OM8YNgFVoAszeWet41J
-	 N7en7QHUFyw55uVogTj/9asNhK9JcorV9woWHwY6p95kzbYb9NwfRCbUQ+iccUgFGa
-	 1atSKUuBQu1QGh/D5JqOoasZsOzablfgD/xYZz5k=
-Date: Fri, 24 Apr 2026 15:34:38 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Stefan Schmidt <stefan.schmidt@linaro.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Jonathan Hunter <jonathanh@nvidia.com>, linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-	driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
-	linux-tegra@vger.kernel.org,
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v2 02/13] drivers: base: Add generic dma context bus
-Message-ID: <2026042442-luxurious-antonym-f20c@gregkh>
-References: <20260423-glymur-v2-0-0296bccb9f4e@oss.qualcomm.com>
- <20260423-glymur-v2-2-0296bccb9f4e@oss.qualcomm.com>
- <2026042346-trustable-register-095a@gregkh>
- <06c04947-e72e-679b-493b-e112d693f391@oss.qualcomm.com>
- <2026042422-deem-chemist-8d0f@gregkh>
- <4c3fa710-f61a-4aad-622d-54909190cb9e@oss.qualcomm.com>
- <2026042428-blemish-helpline-7d8d@gregkh>
- <1e039dd5-da3f-19b2-ef98-29e64fdd925d@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fxXR2Fm9"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-82418b0178cso4968974b3a.1
+        for <linux-media@vger.kernel.org>; Fri, 24 Apr 2026 07:08:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777039690; x=1777644490; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=H8i0Gpepc+zFweLSIN4Cg/R5ifn3iGWjVwE5PfxJUKQ=;
+        b=fxXR2Fm9GUuCDlkvZ98tIX4UJXqKIU0OM7457fN6WTnN91K8CevFZkUZCywzcAN/QX
+         7Hw1K+LSk/U5CWugbAjXXRnyqwjaRmhJFh4dmL1X2TPe0bcNalHnhioa5lcOOY3l5ze/
+         3v/+P+Ejl+l9LZE2y+cAt/X18v3HxeKAtAOMXjP+i8dg1BJEIeFSDVTxMEXvuHJU7LQV
+         Ms0bdLSIOPOimpoqPXuHk8iydvltF8Sq0hDq7/MIskvXbJNIYdEZ4da0cKBqmehtMU8H
+         E1JqRBI1HQwwhi2fmz68tdBjsKMH6LXAGE5D1rkPdddQkdQP8XnM3kf6vHuEbTguU+5a
+         e29w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777039690; x=1777644490;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=H8i0Gpepc+zFweLSIN4Cg/R5ifn3iGWjVwE5PfxJUKQ=;
+        b=JR0gDsQJtBhKl2HJZMMKj64pDKspwQ3f5aeVqLyRaXM7y/XVG2a5ZQDDfPSDBtjpLx
+         jmpULC0NGgV0axdbm/TpcykBo2f0dF0wV7sj+K4y5AFbKIbhFaM+vYAFc1ZxSksOOnwk
+         jCkjOw+QSo/RLWWkC4GFGBwaayegbd9V0E8Q1KJVZwsU8L6EBsw10Kpwmq0gmBt+/Pvr
+         bAFOSVRGAWtKU+MczLAuzLbncR/2cg2bDu9Kw/wI+cMHWsTtF5qaBgV0x3XNexYxvWMH
+         Xm0+nIcdB9+5u7BhPqYoo7YkS8m//zaJruNa+j2u0pbZHxOq6qEWkWN/Fk9WQBF0MAsI
+         XJ1g==
+X-Forwarded-Encrypted: i=1; AFNElJ/AX2qQs8wJayK+nfE8dQs5ardDx1Zs6uKjbadmG0GsSotGQpJ8XBW9e1YKMNnYwcGkGmI2IPFlSOj62g==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzN9QaiZO9PUy69VS/ezJsTssENU5HD2HDUOEw9WDUqLEcQS+4f
+	nifTIWcuxY+mRcaSLOGgfMrBJyhScaWVqsmh34Tih7hUq9ChfoPztbM=
+X-Gm-Gg: AeBDieu2M6a0bgwzAN37LfwVmK6sX59RKRAc59/D+2DjdqVaDpC1lUg/ZNavOPDGBs8
+	jR0O7ZsbEy2ASxNhIlC2LLEDEDI1xPjMp8x5tjY4sJAFPfeUnRAyuNPy5PAyaLabhxRmdsrlqx/
+	zB2SulW94fyYW259OMMGXmMnNT4KNQQSYhDTdPnSRDtdOMliGQLOIPFzbVAJj7T7zAqrto1YyfC
+	scBl2y/YwjONfBakJwjfiwzq7McfoDrGsgLuqL6cLXa+WUe5Q7MT9vak4/2axow8IDDdtWsxyY+
+	jC/jS4rMPeviFutEK2U17V4KpCC0zQm8VYEkohrV4xZL882Q9Hvzl+X0YR/2JFlyJKSfdGtfB2P
+	dDCsc15ii1/x0s3Rep+buoJqTfPj6YBcj6ZpEXOmODfXMKUnngHjPHG3B/dBwcHCi7PoflEAE0b
+	MrAZWShXEiz9IXKTj1xYNvkHXT+6VmJvTkVC5qzgopbnPp81dVd9+LlBZdZASTLQHsmeSzPnuKK
+	k4S+zgr0nPtUDA=
+X-Received: by 2002:a05:6a00:2d03:b0:82c:ebae:3cb with SMTP id d2e1a72fcca58-82f8c91924dmr33416449b3a.43.1777039690269;
+        Fri, 24 Apr 2026 07:08:10 -0700 (PDT)
+Received: from localhost.localdomain ([1.226.165.54])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f8e9d9a1csm25404664b3a.20.2026.04.24.07.08.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 24 Apr 2026 07:08:09 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Myeonghun Pak <mhun512@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] media: i2c: vd56g3: Clean up subdev state on probe failure
+Date: Fri, 24 Apr 2026 23:07:41 +0900
+Message-ID: <20260424140804.31568-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1e039dd5-da3f-19b2-ef98-29e64fdd925d@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Apr 24, 2026 at 06:12:09PM +0530, Vishnu Reddy wrote:
-> 
-> On 4/24/2026 5:25 PM, Greg Kroah-Hartman wrote:
-> > On Fri, Apr 24, 2026 at 05:15:02PM +0530, Vishnu Reddy wrote:
-> >> On 4/24/2026 4:43 PM, Greg Kroah-Hartman wrote:
-> >>> On Fri, Apr 24, 2026 at 04:01:13PM +0530, Vishnu Reddy wrote:
-> >>>> On 4/23/2026 7:07 PM, Greg Kroah-Hartman wrote:
-> >>>>> On Thu, Apr 23, 2026 at 06:59:31PM +0530, Vishnu Reddy wrote:
-> >>>>>> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> >>>>>>
-> >>>>>> When a driver needs to create virtual device at runtime and map it to
-> >>>>>> an IOMMU context for memory isolation, there is no common bus available
-> >>>>>> for this purpose. Each driver ends up implementing its own bus type,
-> >>>>>> leading to duplicated logic across multiple drivers.
-> >>>>>>
-> >>>>>> host1x driver implemented its own bus type to attach an IOMMU context to
-> >>>>>> a dynamically created device. The Iris VPU driver now has the same
-> >>>>>> requirement. Rather than duplicating the same bus logic again, a shared
-> >>>>>> bus type is introduced under drivers/base that multiple drivers can use
-> >>>>>> directly.
-> >>>>>>
-> >>>>>> The bus takes care of creating a device and attaching the IOMMU context
-> >>>>>> to it based on the client inputs.
-> >>>>>>
-> >>>>>> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> >>>>>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> >>>>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> >>>>>> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> >>>>>> ---
-> >>>>>>  drivers/base/Kconfig            |  3 ++
-> >>>>>>  drivers/base/Makefile           |  1 +
-> >>>>>>  drivers/base/dma_context_bus.c  | 77 +++++++++++++++++++++++++++++++++++++++++
-> >>>>>>  include/linux/dma_context_bus.h | 26 ++++++++++++++
-> >>>>>>  4 files changed, 107 insertions(+)
-> >>>>> as you can not have a device on multiple busses at the same time, this
-> >>>>> makes no sense to me at all.  "dma context" is a bus-specific thing, so
-> >>>>> please add it to the bus that you are wanting it for.  It can't be a
-> >>>>> generic bus as that just doesn't work.
-> >>>>>
-> >>>>> Or what am I missing here?
-> >>>>>
-> >>>>> And why is DMA somehow "special" here from any other hardware attribute?
-> >>>> Let me give brief information which was discussed, in the initial series,
-> >>>> the iris VPU used platform bus for dynamically created devices and we got
-> >>>> the comment/suggestion from Robin to implement a proper bus_type with a
-> >>>> .dma_configure callback.
-> >>>>
-> >>>> https://lore.kernel.org/all/02b3d0f5-f94c-43cd-93af-97cfcf7751b1@arm.com/
-> >>>>
-> >>>> based on the discussion, implemented the dma_context_bus and used for iris
-> >>>> VPU devices instead of platform bus.
-> >>> Why not make a irus_vpu_bus where you can do what you want?
-> >> Initially iris_vpu_bus was introduced, and it was made generic based on the
-> >> discussion,
-> >>
-> >> https://lore.kernel.org/all/20260227-kaanapali-iris-v2-3-850043ac3933@oss.qualcomm.com/
-> > I don't really see that request here, I see a "make this better and more
-> > generic for other busses" but that does not mean "dump it into
-> > drivers/bus/ for someone else to maintain" :)
-> >
-> >>>> Here, the device have only one bus (dma_context_bus), not multiple buses.
-> >>>>
-> >>>> Regarding the "DMA" naming, the core operation of this bus is its
-> >>>> .dma_configure callback, which calls of_dma_configure_id() to map the device
-> >>>> to a corresponding IOMMU stream ID. The name "dma_context" reflects this
-> >>>> purpose.
-> >>>>
-> >>>> I am open to suggestions from you or Robin or anyone else, if there is a
-> >>>> better or preferred way to achieve this, I am happy to consider it and
-> >>>> rework the implementation accordingly.
-> >>> As there is only one user, just make this your own bus please and do all
-> >>> of the needed bus operations for your devices there (i.e. don't hang an
-> >>> "empty" device off of it.)
-> >> The reasoning behind to make it generic was to have more users - host1x,
-> >> Iris VPU, QDA on the generic context bus, instead of each of them having
-> >> their own. Let me know if you suggest to have the iris_vpu_bus.
-> > But you did not add such users here, so how would we know this?
-> >
-> > And still, I have no idea what this bus really is doing.  Is it dynamic?
-> > Is it self-describing?  Why not just use aux-bus?  What is it supposed
-> > to be doing and used for?
-> 
-> This bus will allow users to create a dynamic device and map to IOMMU stream
-> ID via .dma_configure callback which calls the of_dma_confgure_id() based on
-> the user inputs. This bus is under the iommu_buses list to register for bus
-> notifier callbacks for iommu_probe_device() and iommu_release_device() during
-> add and remove.
+vd56g3_subdev_init() calls v4l2_subdev_init_finalize(), which allocates
+the subdev active state and requires v4l2_subdev_cleanup() to release it.
 
-But a device is nothing on its own.  You can not just have a random
-'struct device' hanging out there that does nothing but iommu, right?
-It should be doing something else that is very "bus" specific.
+If vd56g3_update_controls() fails after finalize succeeds, the probe error
+path currently skips v4l2_subdev_cleanup() and returns an error. The driver
+.remove() callback is not called after a failed probe, so the active state
+is leaked.
 
-Again, why not create a bus for your hardware type and have that control
-the bindings of drivers to the devices, like it should be done.  You
-better not be creating platform devices for these things :)
+Route this error through a subdev cleanup label before freeing the control
+handler and media entity.
 
-> auxilary bus don't have the .dma_callback and bus notifier callbacks where it
-> can do iommu_probe_device() and iommu_release_device(). iommu_release_device(),
-> being a static api, need to be called from bus notifier callbacks which should
-> be under the list of iommu_buses.
+Fixes: 87aa97fc3157 ("media: i2c: Add driver for ST VD56G3 camera sensor")
+Cc: stable@vger.kernel.org
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/media/i2c/vd56g3.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-True, because aux bus devices don't do that directly, they are "sharing"
-resources with their parent device and something has to mediate for it.
-So yes, you are right, that is not a good idea.  Make a custom bus type
-instead please.
-
-thanks,
-
-greg k-h
+diff --git a/drivers/media/i2c/vd56g3.c b/drivers/media/i2c/vd56g3.c
+index 157acea9e2..43f792288a 100644
+--- a/drivers/media/i2c/vd56g3.c
++++ b/drivers/media/i2c/vd56g3.c
+@@ -1427,11 +1427,14 @@ static int vd56g3_subdev_init(struct vd56g3 *sensor)
+ 	v4l2_subdev_unlock_state(state);
+ 	if (ret) {
+ 		dev_err(sensor->dev, "Controls update failed: %d\n", ret);
+-		goto err_ctrls;
++		goto err_subdev;
+ 	}
+ 
+ 	return 0;
+ 
++err_subdev:
++	v4l2_subdev_cleanup(&sensor->sd);
++
+ err_ctrls:
+ 	v4l2_ctrl_handler_free(sensor->sd.ctrl_handler);
+ 
+-- 
+2.50.1
