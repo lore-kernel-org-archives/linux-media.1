@@ -1,30 +1,30 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDD9318EDA;
-	Fri, 24 Apr 2026 03:05:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4689431F993;
+	Fri, 24 Apr 2026 03:05:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776999948; cv=none; b=rFoaVIBiWasSU+LQ+fRZA+yqTL+YBd8Efqf9R5MjRjyZNs3szW6+VhTDQAVyRIq9SGyPK+GY8hbeE26L84G/l0U9KVdynaY9vK8OqulwSWNUOmN2+X/+C9QMwe/uktKihpYSYtSV6GsAJirsUubfGqEJBxn7k1ZoBOKfIa7uRco=
+	t=1776999959; cv=none; b=DLAn4l6rZC+flCEgpQibcN5Agx5HBS7zmjEnYRT1Jk+TmGTJt+0/coOXffjJHRkjVvLMiViKz5ncf2tjOD0JQ+iNiPxdgueurfA0CUWZzW34KbhKj8mo9UkenZ6b2UWAZ3of+eVzMkcVSUBIfjmhZZra/+XnWdRU5MnZ3NBd8FU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776999948; c=relaxed/simple;
-	bh=zRrGpYijobv41SDf5fThjYVeStJsFL67ysEtXIG/4/k=;
+	s=arc-20240116; t=1776999959; c=relaxed/simple;
+	bh=+wFEPaNL73TRmZRuCjbQVE75loQmTGAi/5Y+WV4nY7I=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VvW8cevfKynQN+Be7+mOgD2bmJ6yo8JT2izTbnVg2jvSQwpwCgd/Flr5kRug7UqTDcIv9Yk4HVnakTL0jTu3mG6Aah1Vx2nPZ9FVqXHE2gImuoEADzih6AuOAyIsf5H+V9O8wI5P8NEyY2zyK82Bbo2qhsejfHhI3K7mWPjLBww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=Q7zGZiIF; arc=none smtp.client-ip=210.61.82.184
+	 MIME-Version:Content-Type; b=iDWZb+UqamXD1FEZtT6W8HPNbWrI7IFNpJpOn47/HYMqdDa63PJ/vV28FtVAfX5u4VBREM1PflAimgRg0kU0zNJiVSZjqtdFUiWHSVhrxeaQBF1e1V5/1rmY4e6D8iiYQWxLAgWSWwpChKh2iqZYLO4sWIsdtmeR+ayXpec2VLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=K83O962O; arc=none smtp.client-ip=60.244.123.138
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="Q7zGZiIF"
-X-UUID: 78dae1403f8a11f19a16598d5ca7f8ec-20260424
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="K83O962O"
+X-UUID: 7a7036683f8a11f19781c1a04af40193-20260424
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=fPSoltAWqRNdGx5x1MosYdXTReKu5HH7DLOlNS2XzX4=;
-	b=Q7zGZiIFj6nB768UjpiIU8mvy51AyqM475PwDBp7XqKt1V8qSF4o1IKPj248sSBPHQQM0ahnA/Wyep0xxTChy95AFSmmti9BCPpylly2vNe1qIFSCrR2RLDnxwVkY2ferM5nDZRCCvaJVBXR7jv+1z1t1LHILg0lfaiAjKo7Nk4=;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=pOeTSNP1jGoaAWWqJ57CJ9aLrwRavYis1ib+3e3hXxM=;
+	b=K83O962OGZprCfjr8FqWzD+90YnZtR4AE38ym/YQ4h7BXxObl9ImmkbNcNcYiig9O0pMFhppSGa1S2hhQ2BvdhE+jHaoWnb/+6Bb1i4AcDdplWNVLtO79Cgv9r294ua+dq/ag/rGZMB4D5/W58mrf5OY5szEUQmA5e+T4VZL1F0=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:cc46e133-65cb-4a17-90d3-c5eebeda6fba,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACT
-	ION:release,TS:-50
-X-CID-META: VersionHash:e7bac3a,CLOUDID:2b545ebe-65a8-4b41-ac18-3671578a914d,B
+X-CID-O-INFO: VERSION:1.3.12,REQID:72a9c98a-bf9b-4093-9602-8213088edda9,IP:0,U
+	RL:0,TC:0,Content:0,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:e7bac3a,CLOUDID:87fa8664-469e-4eb6-aeb8-4b21454b0f32,B
 	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|865|888|898,TC:-5,Cont
 	ent:0|15|50,EDM:2,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,
 	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
@@ -32,18 +32,18 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 78dae1403f8a11f19a16598d5ca7f8ec-20260424
-Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw02.mediatek.com
+X-UUID: 7a7036683f8a11f19781c1a04af40193-20260424
+Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw01.mediatek.com
 	(envelope-from <kyrie.wu@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 272641751; Fri, 24 Apr 2026 11:05:39 +0800
+	with ESMTP id 2019481213; Fri, 24 Apr 2026 11:05:41 +0800
 Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 24 Apr 2026 11:05:38 +0800
+ 15.2.2562.29; Fri, 24 Apr 2026 11:05:41 +0800
 Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
  mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Fri, 24 Apr 2026 11:05:37 +0800
+ 15.2.2562.29 via Frontend Transport; Fri, 24 Apr 2026 11:05:40 +0800
 From: Kyrie Wu <kyrie.wu@mediatek.com>
 To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
 	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
@@ -59,9 +59,9 @@ To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
 	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
 CC: Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Pietrasiewicz
 	<andrzejtp2010@gmail.com>, Yilong Zhou <yilong.zhou@mediatek.com>
-Subject: [PATCH v9 5/9] media: mediatek: vcodec: Fix vp9 4096x2176 fail for profile2
-Date: Fri, 24 Apr 2026 11:05:23 +0800
-Message-ID: <20260424030527.10656-6-kyrie.wu@mediatek.com>
+Subject: [PATCH v9 7/9] media: mediatek: vcodec: Fix media device node number
+Date: Fri, 24 Apr 2026 11:05:25 +0800
+Message-ID: <20260424030527.10656-8-kyrie.wu@mediatek.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20260424030527.10656-1-kyrie.wu@mediatek.com>
 References: <20260424030527.10656-1-kyrie.wu@mediatek.com>
@@ -75,41 +75,33 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-MTK: N
 
-The DRAM address of the VP9 decoder tile info buffers may require
-as much as 36bits for 4096x2176 resolution. Fold the 4 most significant
-bits into the lower (padding) four bits of address.
+change media register device node number to a correct value.
+The vfd minor is used to record the number of registered
+video device nodes. The mdev_dec.devnode minor counter is
+used to record the number of registered media device nodes.
 
-Fixes: 5d418351ca8f1 ("media: mediatek: vcodec: support stateless VP9 decoding")
+Fixes: 41f03c673cb7b ("media: mediatek: vcodec: replace pr_* with dev_* for v4l2 debug message")
 Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- .../mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ .../platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c      | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c
-index e02dcf81b3cb..c9eb9ebe4116 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c
-@@ -1138,9 +1138,17 @@ static int vdec_vp9_slice_setup_tile_buffer(struct vdec_vp9_slice_instance *inst
- 					return -EINVAL;
- 			}
- 			tiles->size[i][j] = size;
-+			/*
-+			 * If the system supports 64-bit DMA addresses, the upper 4 bits
-+			 * of the address are also encoded into the buffer entry.
-+			 * The buffer pointer (tb) is incremented after each entry is written.
-+			 */
- 			if (tiles->mi_rows[i]) {
- 				*tb++ = (size << 3) + ((offset << 3) & 0x7f);
--				*tb++ = pa & ~0xf;
-+				*tb = pa & GENMASK(31, 4);
-+				if (IS_ENABLED(CONFIG_ARCH_DMA_ADDR_T_64BIT))
-+					*tb |= (pa >> 32) & GENMASK(3, 0);
-+				tb++;
- 				*tb++ = (pa << 3) & 0x7f;
- 				mi_row = (tiles->mi_rows[i] - 1) & 0x1ff;
- 				mi_col = (tiles->mi_cols[j] - 1) & 0x3f;
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+index dc67c2b84776..edf0caf3efce 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
++++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+@@ -495,7 +495,8 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
+ 			goto err_media_reg;
+ 		}
+ 
+-		dev_dbg(&pdev->dev, "media registered as /dev/media%d", vfd_dec->minor);
++		dev_dbg(&pdev->dev, "media registered as /dev/media%d",
++			dev->mdev_dec.devnode->minor);
+ 	}
+ 
+ 	mtk_vcodec_dbgfs_init(dev, false);
 -- 
 2.45.2
 
