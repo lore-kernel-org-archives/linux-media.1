@@ -1,216 +1,106 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6308223DE7
-	for <linux-media@vger.kernel.org>; Fri, 24 Apr 2026 05:47:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E3533ADAD
+	for <linux-media@vger.kernel.org>; Fri, 24 Apr 2026 05:48:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777009682; cv=none; b=ox3+rQh3yhqTOsANyRl1bcgpCgRIjDEMb21wBdOZScGuyHaEbrhC+/UmJzuB9sWAVfxWg7PU8U0+vzY4rSuFGownXK4IB794mdgXYEREeS5lvndX5CzqoCB/zUjdKAk8Af4/beggEoqJPbU3DCf7Yvznjav9IQuq9nN/ia6So/k=
+	t=1777009687; cv=none; b=kosjAxRb9gPLc5yWqwc+hqsL++iOWP+h1nzI6B96ApzHfNy8DcvsDPGfTxDTA33VkthkEMuV6NffbrJj/nVlHiKC5BkcdwRwf8DdIk1i1XnfsCDbdHQn0pVILzW9nmZ/KNCxZcKvjNjbC1rtB22xtCAi3p6rv+8tI5wbHU5HyyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777009682; c=relaxed/simple;
-	bh=Wbj58W73Rvn11UjYWl9yYv7iLUdHME6E7yi35WzUH1g=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MBVy1eSmqINmaPTee6MdPDnAIEtFV+43yf6MrMolnwrosVoXiZqpnHQ0zq6cdH7bu7JpSHcWJVON6A9uaeafrw6f3ff72Ov7kFlH6PSO+qfoP9iZCBdbnMw/ZKpW/vEqbkAQdBzDAlRnr17fN/ii+9865RsCu1R0ZkSGbnoKy3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cHMqY7He; arc=none smtp.client-ip=209.85.214.173
+	s=arc-20240116; t=1777009687; c=relaxed/simple;
+	bh=cEiTno/uh3xHogJLY1rD/3Lq75ip7IpQ33GgXc+X/wI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e0f6NvuaoD1z2LKs1/XIc5Ubi4N6aVT25kQY4izFBw+LOgQ8QONpsAdV8Qrc+YI2IeRjIlChyuO8105kfHPbiQG/jgemtDfKzW/vSWZ3nTBOQ/yZo1CJdoUPW7gMrB+Lvtg2VhzYZQntx37gtUVSY9TcwWyHqU5cq6oNVe6iepc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gucVLpRM; arc=none smtp.client-ip=209.85.210.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cHMqY7He"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2b7adb38d65so13792425ad.2
-        for <linux-media@vger.kernel.org>; Thu, 23 Apr 2026 22:47:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gucVLpRM"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-82f943870baso2991261b3a.1
+        for <linux-media@vger.kernel.org>; Thu, 23 Apr 2026 22:48:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777009679; x=1777614479; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q7M2fwY604nxmRG1YIO02Z14fgzwwg1Pa67qHupVFxk=;
-        b=cHMqY7He+W2KB9nqyY8WWga6dOfHRzrhkB2ojWV9hG4/tUkwbWI8E3xNEUv430vMug
-         hJb1hnUxJ7CxHksmxdFV/NgfRch6aXRo9JxJQxHkdUxTt4DVIZCY1qaY7SbGCZktpu9R
-         ZnpEGZjyy+Pak3g6YS0CjQTKUlNJG1EC4Cv/VPpf2SD5bJE9ZIERx2Gkjupu6cb/dFFP
-         Lb9m3iFpFQD43/mjg8cgJ4lgV4yq34z2aogqpXizwJWHkc/RTpqYqk/dqW2HsVsND+md
-         4aHzWgK84BgRpYdu48MLUznmzmmk2akOAb0BZtYimhb9zVjH8W3yjwgoFd5UxNKizgb5
-         BI3A==
+        d=gmail.com; s=20251104; t=1777009685; x=1777614485; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=cEiTno/uh3xHogJLY1rD/3Lq75ip7IpQ33GgXc+X/wI=;
+        b=gucVLpRM7HwbbqX3RvG6lhuvYvUwFYrupZk16LxZCvgSzJ1qh45SvQP3j2v5HUBaew
+         npy88TnPaQEa8djB/aHneswmxBiVMnXhkkTBmHO8YVyanG7UpY1wbWT/jXB9me12HZWj
+         CF4GzxtDkyD4uaT1hg4z0IYQvP1QncHhy+Q7RYr0hVldABq3ljangK9BOw5uvmNQIW7F
+         9wvoacsWmKEY1XktO75It5j+2vWhad8fGu+WiuNSaGRUTOrXQfKtww86WNCOcGt0Pi9g
+         DZYnabaIXzJAgiL8bBmSZYktTVOEZaiCLjWYlIA1YhNIWlxHyF6JZhBkIwMaXK+DDYBS
+         UL0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777009679; x=1777614479;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Q7M2fwY604nxmRG1YIO02Z14fgzwwg1Pa67qHupVFxk=;
-        b=mLA8nnomogYnC9YzURD/6lbdOmLa4s/gFFGPvnWL9/oqEfAdZa25iKCSKbPWd+fEPj
-         8afoBdVx2Gx8XYViao1PlokP5dEb/6WD495EmD5Zc/nBr/7ftJuysbYDOALZI/Nnv2Ev
-         hkJ3FcVImR9C2O9yuwLoMoEM7j7tYATHReSJRxUy2fxwlPuauz5hDhqgS8HKNbbWwUc3
-         GlRuBAmJdBUsBo5DDxRFE+L1DRNZRdPHemFNMpu2Wp4iRa+RbmXKYHyaUQB5nZU2oXUg
-         sjMy20xxJ0AcX3sm/hHBcVGw0P11vXlHK6QF4cDuDthPWNiDX2JkE4ZB/CKxGOHogIh7
-         zRJQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9f3pAM6IhpO91517QgOeCJviDQR+cYNGR2KuLEpEgI0/fDO08G8rJ4Z46FbW5H2JkLHaQz100qNsBDNA==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxh0uvyJg0DGvY6WTIVH0N/CzJ7dFXdRLT1AsgIdK/1VLNPweqL
-	6YedM5FVqIRkXrmBJwWvnH0SVeIFF8OD/eAhdsQZXUMPx8FPgSy4fZQZ
-X-Gm-Gg: AeBDieuLTqtwrKN0tOcvxSbkoK/ohljfA0P94IncNGG6neQIKnUyPPyEG79DiKbV1LY
-	wBTNgDTK2CyFwLC80+7axnlIJG9wiK1tRtF7Tlc6hRfq7HVV1aLCqtBm3c9NYcg/UY/xslOFO0i
-	Rq14aHjuN/blFWK1B5br8X37d7bjybzqZ1pO+2UQTnJgEbwMThe5wQM3CWeOTx5GQpqjkU7O6Q1
-	dL9BGD5Pt/mdr2a+/Mi0RJE6g3GA7tCIumsi7Ir2Gzvug8GO+lAFJ6eWkf+IojL39hhd7FTL8vV
-	FATLL0GULrwO0MggMsN5dE0I/1dXWlzbJ8HsFTgjnbP57WeKmniYso//+mIVvq43IY6Q9bhLxDi
-	tYzXSUdAp/MVMHdYdNmdsSO36GwzkLlOOomos5LqDCHBs99/8dfRsYSmmAn4r6aT0DrJ3jWYTOd
-	OUD0VikFzx6K44NoRcQ6aGs/CZatzjaLmJBMIQmu8izWXar+ESGXMwWpkdQGv3cZN6IcKVF8ky2
-	zTIp8kaU7rA1ns=
-X-Received: by 2002:a17:903:28e:b0:2b0:7531:b61e with SMTP id d9443c01a7336-2b5f9f9f125mr305572665ad.41.1777009679150;
-        Thu, 23 Apr 2026 22:47:59 -0700 (PDT)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.bl1-in.ibm.com ([129.41.58.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b5faa176e9sm208778245ad.20.2026.04.23.22.47.48
+        d=1e100.net; s=20251104; t=1777009685; x=1777614485;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=cEiTno/uh3xHogJLY1rD/3Lq75ip7IpQ33GgXc+X/wI=;
+        b=YNk14dig9QTwLJcN6UFVwzDTNOQ1rjvAkLQqy4ez04OwrJTb2DXqA4RPT8yDfnhy0e
+         SL15u7gtQAt3C6bTBVrM1ufadBpjCpMUcFwcdRze0/v3wFNs+eEqGl61lxSlRTRB9+F2
+         PCrsIiKN46cn7Fh8+lfHsayRorlXaUbz3bgt329fpQVqtcjv9MOtPfBun6L6gcCeVexJ
+         uR808bXuel9I7Z+Q/kkqHkzYo1+CjcJX71+TH4WeqJx8gdADRsq/ThBEpFr7CJp4YkV8
+         CU0JTd1NOnNyJt/0HtsAX4xOjt11rGqXjc0Xre8t+D8brph6wJXAWHPZgpO1cxrOPxYS
+         2kQw==
+X-Forwarded-Encrypted: i=1; AFNElJ8srKfnOMEEwIAbFgBSx2nWLl/DIb/IgdwstBlljpd7PNn6Kbu3KW0zESyKt+mUroB3Dbec9VjnGdv1iw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxQaKjIGMPV4+TTx2Q7GIMHzcb3d51YZcHe6h/DPW73QLW1qzYD
+	UnC2Bb8DhKxqFuXNkZ0F3tQhl8/i3uHlQ2sWjYP88NlezbL5Ge440Nj9
+X-Gm-Gg: AeBDievbXFkWgjytQuuCJLJNuL5Ec73tjhQLzUUNgY13HQgk5ICX/qPFIjefK8YCyGQ
+	6CjCS5oMPmgWur6qdq5ngr20imnHTmMcPj59lpoMWBoA9tzPYyj/BdBA3EwyjLvvLwTrOT7Ma85
+	VnhD5jrqtV0K85AUccVbXt/niP6BvsgxqeAZW3Mg2zcVc9TYQyPOQQ9ASVpg2TnWMP6kfRp5Nqw
+	Qwslqi1mClLAwzyauS7Qs2qTX5iBXfiSKfyB5D16jwNtbPHk1RmKblhsujEfkNTgcnVAE3NK2wd
+	i4Td7kdVssA0vEy8M1VMbwMMinkDm3J7UkJsu8LahUY4CmluzZ4+CGrHSlqmVoXc04Y0/FXqDdc
+	kj1YSaegwaxhCA+V7JsH5IWbezXa5qd8W/ayQgNgkgJTTSwqqbjj16D70UB4d+xY7gDNtSBWFIZ
+	BmJc4xGhQ0Aar45om0jZlfnbPUjFY31+BxWMNq
+X-Received: by 2002:a05:6a00:3cca:b0:82f:120:fd6f with SMTP id d2e1a72fcca58-82f8c40ae88mr31344043b3a.0.1777009684887;
+        Thu, 23 Apr 2026 22:48:04 -0700 (PDT)
+Received: from soyboi ([2402:8780:1073:993:9321:304a:9347:5e0e])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f8e9e0f40sm24070785b3a.17.2026.04.23.22.48.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Apr 2026 22:47:58 -0700 (PDT)
-From: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
-To: maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	peterz@infradead.org,
-	jpoimboe@kernel.org,
-	jbaron@akamai.com,
-	aliceryhl@google.com,
-	rostedt@goodmis.org,
-	ardb@kernel.org,
-	sumit.semwal@linaro.org,
-	christian.koenig@amd.com,
-	ojeda@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	nathan@kernel.org,
-	nick.desaulniers+lkml@gmail.com,
-	morbo@google.com,
-	justinstitt@google.com,
-	tamird@kernel.org,
-	arnd@arndb.de,
-	nsc@kernel.org,
-	mkchauras@gmail.com,
-	simona.vetter@ffwll.ch,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	rust-for-linux@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: [PATCH V13 0/7] Rust support for powerpc
-Date: Fri, 24 Apr 2026 11:17:35 +0530
-Message-ID: <20260424054742.45832-1-mkchauras@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Thu, 23 Apr 2026 22:48:04 -0700 (PDT)
+Date: Fri, 24 Apr 2026 12:47:58 +0700
+From: Robertus Diawan Chris <robertusdchris@gmail.com>
+To: Dan Carpenter <error27@gmail.com>
+Cc: andy@kernel.org, hansg@kernel.org, mchehab@kernel.org,
+	sakari.ailus@linux.intel.com, gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel-mentees@lists.linuxfoundation.org,
+	skhan@linuxfoundation.org, me@brighamcampbell.com
+Subject: Re: [PATCH RFT] media: atomisp: Add error check in
+ create_host_regular_capture_pipeline()
+Message-ID: <aesEDiGBZiScCb0D@soyboi>
+References: <20260423060246.296986-1-robertusdchris@gmail.com>
+ <aenHeWS4y8iLkMAn@stanley.mountain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aenHeWS4y8iLkMAn@stanley.mountain>
 
-Enable experimental rust support for ppc64le and ppc32be. The patch for
-ppc32 has been provided by Link Mauve[1] and ppc64le support[2] has been
-merged over it. ppc32 needs some toolchain fixes mentioned in the patch
-`rust: Add PowerPC support` and the discussion for that is done here[1].
+Hello Dan,
 
-This has been tested on
-- powernv9 hardware
-- pseries P11 hardware
-- pseries(9, 10) qemu
-- powernv(9, 10) qemu
-- rustdoc on x86 and powerpc64le
-- rusttest on x86 and powerpc64le
+On Thu, Apr 23, 2026 at 10:17:13AM +0300, Dan Carpenter wrote:
+> On Thu, Apr 23, 2026 at 01:02:46PM +0700, Robertus Diawan Chris wrote:
+> > When calling ia_css_pipeline_create_and_add_stage() function, there's no
+> > condition to check whether ia_css_pipeline_create_and_add_stage() throw
+> > an error or not. So add conditional check for the return value of
+> > ia_css_pipeline_create_and_add_stage() function.
+> >
+> > This is reported by Coverity Scan with CID 1408952 as UNUSED_VALUE.
+> >
+> > Signed-off-by: Robertus Diawan Chris <robertusdchris@gmail.com>
+> > ---
+>
+> You need a Fixes tag.
 
-We are actively working with our LLVM team to get the target for ppc,
-ppc64 and ppc64le in the rust compiler.
+Oh I didn't know that we need to add Fixes tag too. Alright, I will add
+Fixes tag in the next iteration of the patch.
 
-[1] https://lore.kernel.org/all/20260204030507.8203-1-linkmauve@linkmauve.fr
-[2] https://lore.kernel.org/all/20260204042417.83903-1-mkchauras@gmail.com
+Thank you for the feedback.
 
-Changelog:
-V12 -> V13:
-- Added a patch for fixing build issue on ppc32 by Link Mauve
-- Added another patch to fix a build issue in dma-buf
-- Added another patch to enforce minimum `rustc` version for powerpc
-V12: https://lore.kernel.org/all/20260421120958.190430-1-mkchauras@gmail.com/
-
-V11 -> V12:
-- Rebased to mainline (rust/Makefile conflict resolved)
-V11: https://lore.kernel.org/all/20260417152253.2312961-1-mkchauras@gmail.com/
-
-V10 -> V11:
-- Updated `rust/Makefile`
-- Not all libraries are move to `rust/host` directory now. Only
-  proc_macro2, quote and syn are moved
-- Special handling for pin init is added. Details in commit
-- Removed mkdir for `rust/host`, this is now handled by toolchain.
-V10: https://lore.kernel.org/all/20260406200149.3727922-1-mkchauras@gmail.com/
-
-V9 -> V10:
-- rust/Makefile updated with review comments from Miguel
-- Patch 1/4 updated with commit message and subject
-V9: https://lore.kernel.org/all/20260404121610.1956528-1-mkchauras@gmail.com/
-
-V8 -> V9:
-- rust/Makefile updated with a directory instead of abspath
-V8: https://lore.kernel.org/all/20260403145308.1042622-1-mkchauras@gmail.com/
-
-V7 -> V8:
-- rust/Makefile updated to separate host libraries from target
-V7: https://lore.kernel.org/all/20260329160254.2592207-1-mkchauras@gmail.com/
-
-Changelog:
-V6 -> V7:
-- Documentation removed as powerpc is still under development
-- Added a fix for race condition in rust/Makefile
-V6: https://lore.kernel.org/all/20260210090023.2587534-1-mkchauras@gmail.com
-
-V5 -> V6:
-- Added a missing Tested by from Venkat which got missed since V3
-- Support is marked as Maintained instead of experimental
-V5: https://lore.kernel.org/all/20260210053756.2088302-1-mkchauras@gmail.com
-
-V4 -> V5:
-- Removed a nested ifdef from PPC64 for Little endian toolchain
-V4: https://lore.kernel.org/all/20260209105456.1551677-1-mkchauras@gmail.com
-
-V3 -> V4:
-- Co-developed-by header added in patch 1
-V3: https://lore.kernel.org/all/20260205180429.3280657-1-mkchauras@gmail.com
-
-V2 -> V3:
-- Splited HAVE_RUST in 2 lines
-- BINDGEN_TARGET_powerpc initialized before assigning the same to
-  BINDGEN_TARGET
-V2: https://lore.kernel.org/all/20260204210125.613350-1-mkchauras@gmail.com
-
-V1 -> V2:
-- jump label fix for rust has been moved to a separate patch
-- PPC32 support has been taken
-- rust support has been marked experimental
-- target.json dependency has been removed
-- HAVE_RUST now depends on CPU_LITTLE_ENDIAN for PPC64
-
-Link Mauve (2):
-  rust: Make __udivdi3() and __umoddi3() panic
-  rust: Add PowerPC support
-
-Mukesh Kumar Chaurasiya (IBM) (5):
-  rust: Fix "multiple candidates for rmeta dependency core" error
-  dma-resv: Fix undefined symbol when CONFIG_DMA_SHARED_BUFFER is
-    disabled
-  powerpc/jump_label: adjust inline asm to be consistent
-  rust/powerpc: Set min rustc version for powerpc
-  powerpc: Enable Rust for ppc64le
-
- arch/powerpc/Kconfig                  |  2 ++
- arch/powerpc/Makefile                 |  7 ++++
- arch/powerpc/include/asm/jump_label.h | 23 ++++++------
- include/linux/dma-resv.h              |  2 +-
- rust/Makefile                         | 52 +++++++++++++++++----------
- rust/compiler_builtins.rs             |  6 ++++
- scripts/min-tool-version.sh           |  6 +++-
- 7 files changed, 68 insertions(+), 30 deletions(-)
-
--- 
-2.53.0
-
+Best regards,
+Robertus Diawan Chris
