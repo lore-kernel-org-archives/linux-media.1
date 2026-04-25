@@ -1,312 +1,158 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from sonic307-53.consmr.mail.ir2.yahoo.com (sonic307-53.consmr.mail.ir2.yahoo.com [87.248.110.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB01392811
-	for <linux-media@vger.kernel.org>; Sat, 25 Apr 2026 10:56:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B34C15B998
+	for <linux-media@vger.kernel.org>; Sat, 25 Apr 2026 11:32:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=87.248.110.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777114612; cv=none; b=ud7EI2uKMhqEhoDW0tfhqzNCSldDomQ/vxid5t0mTTreiEmWDubSPxeRZRKiXSLThZnCwqQe67kHmbx/58Yr4Ni1pUGJq0vRsxyewq7dhtm1E8GkjdQP4+e0uuJniSCCaGhquaFpZ+qbDE7jiILhbefGlqi0B9OTy15CPSVZ28U=
+	t=1777116737; cv=none; b=YBqaoIFL/lFymNzPJSa8+wK0KaTIED4oUz54Dxtd8W05qVIE15dH1cWp8T4uPS59itomLsOls5y/9OXBINR01xSCnC4RNtcTiMfzwCBVpciTJJgcCHYgk84hguvjTt3HsEuY4oHC8KmD+syM+o1+AIZU0BixzwW1OdGWXvFkOO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777114612; c=relaxed/simple;
-	bh=j92iOYgKQ7RjjOLofBQE3Vd++tZ0z/woMt8SEp8QCZo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aP1VmXxGy/Uxz+PQzYHzFMsoZS27c4X6MKGs8NQCW/7sorG9M5LbQAdu12/m2Gp28QmgfsUnQ7p8pTHrTaAimvjij2e4zHvFGy9N+fihDkMXREZZWKSgbby+UP6YouNE6S1YiUAG9TQ9FNi8jqDGmrcEy6jualwnHj7m2zfmMvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cy/T4de0; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777116737; c=relaxed/simple;
+	bh=+ku/a+4nr0zQWDANZaP2afrAcx+aGSH6EXjBTIYdUmg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
+	 References; b=oYG0c3cI0J5rUcopbaND6Yf6761qDkG6gWBQXkTr07+9NXK+k0GJZyY3CkAz8Mp5DiCOYdJouX9K4qZE/iyIhBdNbD1rQi/SIEeZp1P7FxNf39Z9om6m+otWH+v7JNG10GQ9Pd7ybHaaIuuUBeBlP57Mpy+pmtWpmqAOGEj1R6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl; spf=pass smtp.mailfrom=yahoo.pl; dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b=IK3LgJUT; arc=none smtp.client-ip=87.248.110.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cy/T4de0"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2b23fcf90b2so82725015ad.3
-        for <linux-media@vger.kernel.org>; Sat, 25 Apr 2026 03:56:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777114611; x=1777719411; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hXgloxp5cdGXbJc9mmRLA5BQUt4nlOpF3BcjxCU2IHU=;
-        b=Cy/T4de0glMoZvobRKvlj9PMd914hdEQHtP/N/WaVTSjrZLyFeN6v/o8Km+MEAOQBg
-         Ml2qsU8mFNBt0c1eUIukhrEhk2n/5cvK/A/NR6lXcvdouM2hl/8SzXkO/D+AhtCFS8x0
-         4H4GU8HRjZ+bKEzVe0Q/O7B4TDXDIdUCL6xWuCQqeRPSDus/AOTWnSo+6ArEyqJr4LAN
-         OoTkIFA0xpCMH3OxLdAu7E2Mk8y+dNl5DyPaOm5aFUJGBzLOqSI9GUX7pUM4TotC7x61
-         5w2IQ1WuH3iczDo8Pmj12x2QlyO3g7T/aUYQgMHQUZmafMxWrtPxPlNASs7H9aQ7aTip
-         IvpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777114611; x=1777719411;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=hXgloxp5cdGXbJc9mmRLA5BQUt4nlOpF3BcjxCU2IHU=;
-        b=WUV9WbDPLEaadbzWSEBkNRuvFYnLstC3bmgOMddXok24f+pKn0KQMH+vUKeMF7FWoz
-         V0NfqF3OXivuyGI9fBKdLALEhCFmUzcXkMBD4MnFpOqSS7JdMNDY02YRpMGEMe1PE8tN
-         RMK+A2uu0Ho37q26aiwiANB0D2kMuswltt3TQOEBZAL/ECZDuw4pxcf3vItyxoSB5JUZ
-         kjoCqC4tEIgIZvE14Yf8wlA2MRWTJY9wYcAgSuGztldK+Z9IB8VYgf3thS2jBJTxSAuA
-         JM1e0e58GH5OVqvIq6E+zbVBbxsCTIX58Xk0620ZFzS73SBpXqPiLetacNq75O0Sgd/4
-         v5sw==
-X-Forwarded-Encrypted: i=1; AFNElJ8UBufiY9sIgGZgyvt3HSn38pLqBl5IkEBHI+z2AWyq9OjfsY2MIj11ijGQ5nZSsmHDi1alCR/JIUbBgQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwSsyh+De853Z9ekzK+lirANXVfFDSgC5FxgyigmP0CAIUfpXC+
-	LW6USmuRl/IA7E1sfL6lvLX3qJSb5cNPBP1v2NzApEi2hFOqwr2mU9jo
-X-Gm-Gg: AeBDieuitN6VSJ5w/2SFw2uB9PIie79huitXfr/DVleVabwx8U9Gl5a7qLB4R3ATmW8
-	izx4qtpEfuKH5myVHpawR8mEvfqtskqtTMVaZ4NGiaXC3pBh3F/7u+vtLuSt+ZmLQH2rRGXxiNl
-	52k01oNT9dmpsoJEgdc3Sj7bfCLH0ShN52mjFCHOEFntkaycOooOBe9Iez1ktSZ2z3p5DFD0JGF
-	LVHzbGpKayUZMh0nzLzL0ZJwTOzDJEor/ZbxnuDzG/58r8uUMfke2WROaPuSapBwPfZ/GoiGXe9
-	2VAFYn62l6b7MFXL7Fr2LJJ7v2V9wEFm72tl6Mj8BO1UWvBK5r2CZaL8CMdVXUp6xl4guXjvhMA
-	NFyb/yn4XGp21q1Z89da0IvyPvEo+VxI8w0CUNCoV+izU+MIT9EEx3dlltcw4RrbOQqO2s6L/WJ
-	yiMe+DbWxSveRx9MZ98IDaQA44nOH+
-X-Received: by 2002:a17:902:a516:b0:2b2:4f43:b48c with SMTP id d9443c01a7336-2b5f9ea55d1mr247155295ad.14.1777114611051;
-        Sat, 25 Apr 2026 03:56:51 -0700 (PDT)
-Received: from nuvole ([144.202.86.13])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b5faa33486sm303832345ad.33.2026.04.25.03.56.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Apr 2026 03:56:50 -0700 (PDT)
-From: Pengyu Luo <mitltlatltl@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Martin Kepplinger-Novakovic <martink@posteo.de>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Martin Kepplinger <martin.kepplinger@puri.sm>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	Pengyu Luo <mitltlatltl@gmail.com>
-Subject: [PATCH 4/4] arm64: dts: qcom: sc8280xp: gaokun3: describe rear camera module information as musch as possible
-Date: Sat, 25 Apr 2026 18:53:00 +0800
-Message-ID: <20260425105300.745044-5-mitltlatltl@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260425105300.745044-1-mitltlatltl@gmail.com>
-References: <20260425105300.745044-1-mitltlatltl@gmail.com>
+	dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b="IK3LgJUT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1777116733; bh=dgWe6lU1p3t1mqUvUApDNSJpSB96TldhXWlxyy8ysxE=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=IK3LgJUTzwYucRyeiwW0sXsosqAXBmZgqYs/s+LgAeiXkD8ah6cCab0GPhPG98DqXCVgP0R04hPvaFkGsNgGHfpQfnNmls8BtiVLuXY2DhT5IlzIPNK6+pRCjz3LFL2NzEHq+6wCqmz+N1cLbZY8K20YRHWYBmWo7mb7uIxyaX6Uiu4Sa90PrdfrluGnP9+E3m4zDYtWUWrXw0BfEFZgt9XWXWbJGULInM2kazDzWmYANarj0EYynI/ntT8FIJtgvi8TWbhOfcZDk/vEpLIb0ZrJ7ml2HQV0RXavqsY+Gks0C1WOkHv0iTxWW17VGnKBFtq1UM2olQ/vI9nyrxVKxQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1777116733; bh=1dJE46QELxGkfJdLuhpPwiGtzvFcZLzvX1GvtBmo1C3=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=pdJqFzNGBO4oqcZ4iM14wworlsuXwmDU9otaQ7ldihAl+/kmEmoeCa6RxGJW4hj87Uz8E2/sdV6iQKSBxg2GYPZGkhBgwLsOr1uDZ4fCZcDOuRyukg3atXfWwMgpLPrxtBg+IE0putpP+oRyICAANuq/yJbWGVM4+itrbEU0XzgqjVuNbQB8WipF+22zjPzeN+M6uZaD4nAR1mK4wNABCPj7wCbyId8pRKBBKzso/g5tg1wMvLTv+tZIpbF2seIxh5uamnB3FXloft/1LUxArYja+eUH0gCciGJrjCUxZE4WiAX26vGY3ZFHz92A5hWDUE1vx/uOnpRSWT1LHlAPgA==
+X-YMail-OSG: oHKPHSIVM1l6tXvbQu4jniqHWiqjSTLubu8Aj5veDioyPenhP.XV2MwD1SlIdBY
+ t7oDZm7XtcT0Xb0Bywuk2GGtQkNwvSQ7zchQ3h16YukcCnL1WbXDVvuldmBug7b8xErdiTDsye15
+ iAbsaNoT2whPpLEk.ZFb8y11YlPoOuPnr9oTyFrnhfvNOXMDb8ZtmvjLK0F9tcnbOz7TQ2pVfpew
+ xUq..3LB8nZJgfgYAw8aiSrlC8LjzJ9WbTGgXLw2K.nqpMjaDQQiMPie6TguwtaLPziUFCt.dkcT
+ Ye75Og5L.CyjSbiiNYzVxE7X9l5oOpn_GrKlAiWYG9afxQdaJy8wTOOfK19tlAWiOYMCNsimt7H9
+ Z0IfhG8hWBhstKt86.pJPw25lkKlfVVylqnWvUkVviPpbG6BqJaZZfdSoijsBm99M3ZblWm52uzE
+ L3dnVAP7lju8SV.whwEEcVPTuD92spJOAEq2ZZzxYqqHthbrPzPzcxUla5GbBpin1q5jNf5OWlsY
+ uyXbQKh4xoQwLEiqrySXdeBkWASp30kCp9Gfxnjd.hpDWMC1hfRREoO5_P6i4qFfYgybFBNccLTw
+ r10yFQVLBEI6jdIMZxlpje_U.gNbbA2n4BoJIzJ8h73i5cwgmiNJmxqDEimPiwuizq8NR1ICdL1J
+ yd5ERkt_wIVSOGPv60.TTYMjSKBUYdwn6zj6ph6ih3UYK1s5Yz9brsr3.ZEbRQJ3xDp3ngZVVq1k
+ YUboZHH_Wrp_XfvvDa43S5vRGzYTbT2NZ99cyubqew7vp8gMvLmVVsipOSqMxm32WoHCWJfRJooe
+ 7yTcTyoFtz5mNVG1C1TrtYiqau0F8qYsLZPefaW3RoDw_ac4hZuonZrbjD60moM4j9aOkBARoMtn
+ G77P7s9bXwo3t7JCRT6LZey3zh76lVTkibcU1dwp4s_Z8YX2pHwjdA07xdxUrY0v5dEmM8Vq8PLD
+ UMNA4Ky9eJqEtVix798Se5KbAHeJGy6dIwTbu3odW19Us55jcUb9sZOXuxYvdZBdpaBsl36iw2Xe
+ 7ZVnzNWIzHvoP6IfhP4uRM2hW5UZp_jHNYsXqDuoJcwOQL.DXIOeD_LussQtt8my0EPKamdRhD0Y
+ 8Ote8wlf0cJFEU34Xhy3YiMbvhtu856GwxuVR5wLYAxES29T99OUufOmVWFlJmpA1rZ0Y4kQi0ZI
+ OGrrSwu0BgWFT3Bo_wQaK8z7Ju5fyQQ9bbxEot8TjxwVeyxPifNN2AAGu5aB.AKvwKNeOwdWpa9x
+ 3QWsA2dgmUCKYFf.pTpOlqIuZb3vS2tzDktb4wNjITppJ09XeUsSwUD7XIYFlRXyR6nx_G2OO1c1
+ z9lFA7mOahliW9i69hTgaCczZ.NYXDs2OLBtOSl0A8PMAmuslHoE2DyAGIx7yE2xAu91PZ0iZiSv
+ jitWP4rtEnCKLj9dS1QwQxPegXwngsLo7LEUzepuBXAEjfhDF0fbWZ4t_U5ExuHJEzwsrDGT51ub
+ BruTTU8v5.W6t1ijLdiklLmQytxKvGy9QExRn9cXNMZVOeb7MKRr_267qK8fI2EkdkCET9h7WoKT
+ KG0fikMbXssvDrk4xTVr.tgey4MaXAc27tZd7Zo1GNFzVY.a9Zge8.asD_nN8oDt9k5B5GVI6zln
+ PhORxVOw00K8MPjv4GodKIdSp7yWumlvV1ruQZbhQL_FiVkZGEN0MqCygcqD6U7ekek2oa3DNW7U
+ Y.XCVITHd99NootzumOe.fvukZIkhP56WCy_jqtvFv5goVRNrsLeJhpTEAQP53lkw3dNI66VuRgI
+ BWKfXCx4Y1qJrjB5Ur8zXAoyMOyKHk0pJz_jC0zU4XkY7hEK6nV_eiZ.jMF.VoP0l_E00bgi0ho4
+ komwtYb5ffaMjIuHbCYQ2D5tpcJq8yk6vq_e6.lrqeG1g2S3jAvMYwhwu1_iY9ZdSZnM8fwgblFQ
+ kP7gy7CkZkXttf679SjA6bYaqN9AshG7xEwsyv8ynIBmuIFMduQQ.N0R9ZVS0p2VHVZJ3y9isb5V
+ 1.z2pzHTy.WK3sjgdoyYMdpye.Mp0xbjiqcMlEE9wRnuvToC0SKHoSzsbdmx0tFgThqsljRsd2_X
+ bK4rsMNWjlr1yJyQJpyBjsRDcgtMgLntHzhaY4uOC5kcB1Lg.f5RqFqXR0p279LRlfAUdIsd5V..
+ s.3th9skCVXSfIyJ6TeavvnRtvO.9UUFBjHn95KgBdEZReoMXzRR_iUMOM6fsFrHm2eWCscvWasx
+ 7TYgbxcnLgTiPAeh1OVzC4rG3MGUi.b3qhXD.rPxZouknawHS7cK5rQnl4_mXkDyQ1JMLdBLR6_e
+ 6IGRCEdsl8gwrB1BVHGDdt2rdrJ8kVPHrWA5P
+X-Sonic-MF: <tomasz.unger@yahoo.pl>
+X-Sonic-ID: aec62254-987c-4565-8041-de158bd81302
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic307.consmr.mail.ir2.yahoo.com with HTTP; Sat, 25 Apr 2026 11:32:13 +0000
+Received: by hermes--production-ir2-89844b765-fcdgd (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 6dba02b77df0017c6e65044697a472c6;
+          Sat, 25 Apr 2026 10:22:57 +0000 (UTC)
+From: Tomasz Unger <tomasz.unger@yahoo.pl>
+Date: Sat, 25 Apr 2026 12:22:37 +0200
+Subject: [PATCH] staging: media: atomisp: fix typo "stablization" in
+ comments
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260425-atomisp-fix-typo-stabilization-v1-1-92f31b43ba63@yahoo.pl>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWN0QrCMAxFf2Xk2cBaZ2H+ivjQrZlGdC1NFHXs3
+ 436eODccxcQqkwC+2aBSg8WzrOB2zQwnuN8IuRkDL71oe38DqPmG0vBiZ+or5JRNA585XdUm2J
+ wk+/ctu9DSmCRUsnM38Hh+Ge5Dxca9VuFdf0AppgNjYIAAAA=
+X-Change-ID: 20260425-atomisp-fix-typo-stabilization-61f2413996dd
+To: Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-staging@lists.linux.dev, Tomasz Unger <tomasz.unger@yahoo.pl>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777112576; l=2810;
+ i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
+ bh=+ku/a+4nr0zQWDANZaP2afrAcx+aGSH6EXjBTIYdUmg=;
+ b=ljU+IbANmCuztvG86w4xsn/bkn7fD+NbG5ifKtgRNBXBku/5Bev+dfjlsOTD27G+30VPbVAQJ
+ 03CfwvJJELpDup1Pg4He4qkSwv/PpQxlX5+kHgGs4L9m3oYzYku/Ijm
+X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
+ pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
+References: <20260425-atomisp-fix-typo-stabilization-v1-1-92f31b43ba63.ref@yahoo.pl>
 
-The rear sensor is S5K3L6, describing it but dropping compatible
-string, since there is no upstream driver. A funcitonal downstream
-driver is in comment.
+Fix a repeated typo "stablization" -> "stabilization" in comments
+across three files. Found with codespell.
 
-The VCM is dw9714, describe it.
-
-Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
 ---
-Please take this patch as a RFC, I am not sure, how much I am allowed
-to add without a sensor driver.
----
- .../boot/dts/qcom/sc8280xp-huawei-gaokun3.dts | 129 +++++++++++++++++-
- 1 file changed, 123 insertions(+), 6 deletions(-)
+ drivers/staging/media/atomisp/pci/atomisp_cmd.c          | 4 ++--
+ drivers/staging/media/atomisp/pci/atomisp_cmd.h          | 2 +-
+ drivers/staging/media/atomisp/pci/atomisp_compat_css20.c | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-index 39e559e91289..76b1ecb3819d 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-@@ -22,12 +22,18 @@
- #include "sc8280xp.dtsi"
- #include "sc8280xp-pmics.dtsi"
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.c b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
+index fec369575d88..47e2b5f317e1 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_cmd.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
+@@ -1575,7 +1575,7 @@ int atomisp_set_dis_vector(struct atomisp_sub_device *asd,
+ }
  
-+/* remove due to gpio pins collision, skip 2nd instance won't break things */
-+/delete-node/ &cci1_i2c1;
-+/delete-node/ &cci1_i2c1_default;
-+/delete-node/ &cci1_i2c1_sleep;
-+
- / {
- 	chassis-type = "tablet";
- 	model = "Matebook E Go";
- 	compatible = "huawei,gaokun3", "qcom,sc8280xp";
+ /*
+- * Function to set/get image stablization statistics
++ * Function to set/get image stabilization statistics
+  */
+ int atomisp_get_dis_stat(struct atomisp_sub_device *asd,
+ 			 struct atomisp_dis_statistics *stats)
+@@ -3232,7 +3232,7 @@ int atomisp_bad_pixel_param(struct atomisp_sub_device *asd, int flag,
+ }
  
- 	aliases {
-+		i2c1 = &cci1_i2c0;
- 		i2c2 = &cci2_i2c1;
- 		i2c4 = &i2c4;
- 		i2c15 = &i2c15;
-@@ -52,9 +58,17 @@ framebuffer0: framebuffer@c6200000 {
- 	leds {
- 		compatible = "gpio-leds";
+ /*
+- * Function to enable/disable video image stablization
++ * Function to enable/disable video image stabilization
+  */
+ int atomisp_video_stable(struct atomisp_sub_device *asd, int flag,
+ 			 __s32 *value)
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.h b/drivers/staging/media/atomisp/pci/atomisp_cmd.h
+index 82199dc9284e..d3d1f2574e77 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_cmd.h
++++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.h
+@@ -153,7 +153,7 @@ int atomisp_bad_pixel(struct atomisp_sub_device *asd, int flag,
+ int atomisp_bad_pixel_param(struct atomisp_sub_device *asd, int flag,
+ 			    struct atomisp_dp_config *config);
  
--		pinctrl-0 = <&cam_indicator_en>;
-+		pinctrl-0 = <&cam_indicator_en>, <&camera_flash_en>;
- 		pinctrl-names = "default";
+-/* Function to enable/disable video image stablization */
++/* Function to enable/disable video image stabilization */
+ int atomisp_video_stable(struct atomisp_sub_device *asd, int flag,
+ 			 __s32 *value);
  
-+		camera_flash: led {
-+			function = LED_FUNCTION_FLASH;
-+			color = <LED_COLOR_ID_WHITE>;
-+			gpios = <&tlmm 93 GPIO_ACTIVE_HIGH>;
-+			linux,default-trigger = "none";
-+			default-state = "off";
-+		};
-+
- 		privacy_led: privacy-led {
- 			function = LED_FUNCTION_INDICATOR;
- 			color = <LED_COLOR_ID_WHITE>;
-@@ -129,6 +143,18 @@ vreg_camf_1p2: regulator-camf-1p2 {
- 		pinctrl-names = "default";
- 	};
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
+index be5f37f4a6fd..eb5b3d91e58c 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
+@@ -3002,7 +3002,7 @@ int atomisp_css_get_zoom_factor(struct atomisp_sub_device *asd,
+ }
  
-+	vreg_camr: regulator-camr {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "vreg_camr";
-+
-+		gpio = <&tlmm 92 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&camr_reg_en>;
-+		pinctrl-names = "default";
-+	};
-+
- 	vreg_misc_3p3: regulator-misc-3p3 {
- 		compatible = "regulator-fixed";
- 
-@@ -387,8 +413,8 @@ vreg_l1b: ldo1 {
- 
- 		vreg_l2b: ldo2 {
- 			regulator-name = "vreg_l2b";
--			regulator-min-microvolt = <1904000>;
--			regulator-max-microvolt = <1904000>;
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2800000>;
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
- 		};
- 
-@@ -433,10 +459,9 @@ vreg_l6b: ldo6 {
- 
- 		vreg_l7b: ldo7 {
- 			regulator-name = "vreg_l7b";
--			regulator-min-microvolt = <1800000>;
--			regulator-max-microvolt = <1800000>;
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
--			regulator-boot-on;
- 		};
- 
- 		vreg_l9b: ldo9 {
-@@ -622,6 +647,16 @@ &camss {
- 	status = "okay";
- 
- 	ports {
-+		port@0 {
-+			csiphy0_ep: endpoint@0 {
-+				reg = <0>;
-+
-+				clock-lanes = <7>;
-+				data-lanes = <0 1 2 3>;
-+				remote-endpoint = <&s5k3l6_ep>;
-+			};
-+		};
-+
- 		port@3 {
- 			csiphy3_ep: endpoint@0 {
- 				reg = <0>;
-@@ -634,6 +669,58 @@ csiphy3_ep: endpoint@0 {
- 	};
- };
- 
-+&cci1 {
-+	status = "okay";
-+};
-+
-+&cci1_i2c0 {
-+	voice_coil_motor: vcm@c {
-+		compatible = "dongwoon,dw9714";
-+		reg = <0xc>;
-+		vcc-supply = <&vreg_l7b>; /* FIXME: require l2c on first */
-+	};
-+
-+	/*
-+	 * https://source.puri.sm/Librem5/linux/-/blob/pureos/latest/drivers/media/i2c/s5k3l6xx.c
-+	 *
-+	 * This sensor has never been detected on Goakun3(2.69GHz)
-+	 */
-+	camera_rear: camera@10 {
-+		reg = <0x10>;
-+
-+		pinctrl-0 = <&camr_rgb_default>;
-+		pinctrl-names = "default";
-+
-+		clocks = <&camcc CAMCC_MCLK4_CLK>;
-+		clock-names = "mclk";
-+		clock-frequency = <24000000>;
-+
-+		rstn-gpios = <&tlmm 7 GPIO_ACTIVE_LOW>;
-+
-+		vddio-supply = <&vreg_camr>;
-+		vdda-supply = <&vreg_l2b>;
-+		vddd-supply = <&vreg_l2c>;
-+
-+		/* &camera_flash can't be enabled directly for now */
-+		leds = <&privacy_led>;
-+		led-names = "privacy";
-+
-+		lens-focus = <&voice_coil_motor>;
-+
-+		orientation = <1>;
-+		rotation = <180>;
-+
-+		port {
-+			s5k3l6_ep: endpoint {
-+				data-lanes = <1 2 3 4>;
-+				remote-endpoint = <&csiphy0_ep>;
-+			};
-+		};
-+	};
-+
-+	/* eeprom@50/51 */
-+};
-+
- &cci2 {
- 	status = "okay";
- };
-@@ -1423,6 +1510,13 @@ cam_indicator_en: cam-indicator-en-state {
- 		bias-disable;
- 	};
- 
-+	camera_flash_en: camera-flash-en-state {
-+		pins = "gpio93";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
- 	camf_1p2_reg_en: camf-1p2-reg-en-state {
- 		pins = "gpio44";
- 		function = "gpio";
-@@ -1446,6 +1540,29 @@ sc-rgb-xshut-n-pins {
- 		};
- 	};
- 
-+	camr_reg_en: camr-reg-en-state {
-+		pins = "gpio92";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	camr_rgb_default: camr-rgb-default-state {
-+		mclk-pins {
-+			pins = "gpio6";
-+			function = "cam_mclk";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
-+
-+		sc-rgb-xshut-n-pins {
-+			pins = "gpio7";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
-+
- 	i2c4_default: i2c4-default-state {
- 		pins = "gpio171", "gpio172";
- 		function = "qup4";
--- 
-2.54.0
+ /*
+- * Function to set/get image stablization statistics
++ * Function to set/get image stabilization statistics
+  */
+ int atomisp_css_get_dis_stat(struct atomisp_sub_device *asd,
+ 			     struct atomisp_dis_statistics *stats)
+
+---
+base-commit: 27d128c1cff64c3b8012cc56dd5a1391bb4f1821
+change-id: 20260425-atomisp-fix-typo-stabilization-61f2413996dd
+
+Best regards,
+--  
+Tomasz Unger <tomasz.unger@yahoo.pl>
 
