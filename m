@@ -1,281 +1,102 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D11379EE7
-	for <linux-media@vger.kernel.org>; Sat, 25 Apr 2026 18:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2991D33D4EC;
+	Sat, 25 Apr 2026 21:50:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777141905; cv=none; b=aYHOIufArMDDz5hLQu8zMPx2iMZzsZxvJp3OpVuX6rPxnI7eOj1cqOrkIgsZTPpnMBLelbYCviiTpLU/+NCKFABXHOfy91vUWCUsdwJ7oNdme5GKaSRE2JtoOxKWwRuQhPhhnM10SCbgaI36royzSaHx3rLNoxBjpjB3O/YfyIQ=
+	t=1777153849; cv=none; b=P1wjHa0071gwa9voKsBzaW1jeVe4ZF9dVccpmIvVoWQeZKyEAxRdJf6EmlC1eq40X1ZqXqizoTfXMdmL0uJe6Udh5UzC6jNYrNKlWaRXgyygrL3XkoKIC1PuzE4tZd+3LKG9azN8gv4xrOZNpzV353Dae4qfLdSfREMVgQkH5bc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777141905; c=relaxed/simple;
-	bh=W/jdrMMOR+FvAcaLb6DCGvMLoN/HdffKmNBgDjoCT/A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=csF0gIxoSM2J4kl8tlCi7dg+5z9gsTphFLQLM2PVDDH25/u6XACBBMST5pt+WLb0XDwjb3yDqgNrA98cwCTyeNc1b/gaCXzB6ZoX3s61nfiWAKoPDiSd0kYHKRC2OFZ04Y69KgHt2z3ltHHsdyfIj1T7lRxj7yQhiUUiD55tUxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=diQ/aa5R; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777153849; c=relaxed/simple;
+	bh=Eqeee3zzZnMu2texkvZlN8dC6INnUSCAuuPOCps11Ac=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=maVRjtvstk9jkxxkGmLRRIneEFFSU8d5AnsP7B8OzTgeWmdgrH60EO0Nh/F6vSLvpM2+kDfe6sxMeXg8C6LvlZX+FtKIa1N+1GwzyYjqzjfbzZGa68AuL5Wc+fdACTH3QWFWYU6PjMDCtPGAZJCo0uR7gIDxdonExv1N3TpBJLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=S1YdDhbb; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="diQ/aa5R"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4891b0786beso60215965e9.1
-        for <linux-media@vger.kernel.org>; Sat, 25 Apr 2026 11:31:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777141898; x=1777746698; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=R+ZGKTVkBXN8ikP50VcfnPbIIQ0Oi7+ClKejUhvLkNg=;
-        b=diQ/aa5RqTpDkQMgSCyElAlSPA7r3WnXC1b7wunCfTqkWDvOOhkpGvFsg+iJ5f/Ia9
-         +dmsMLioTqXa/3AY0CnDbVGsr+xZMMDGEOs47JXM35yC4fnd06eciVxagGwFtwN0BLv6
-         deWNdMYZmCvl7ojOdlUlGkKRqImXk8xrXtBJozLCVeDK9EIv3Ov2ThvRJupIiZjHEnJC
-         vh13RJPsPxUPqAopJ/Jzzj+yYMMffcXma+gXyBmnTCrovCIJUxV9KtUi4OgYdzEU6r43
-         mnA140VcHdaM7gagye92k0KR816FuFEn6j/qGv/F3mq24s/B5sR9tZ2fa/xz2v4Tt3W/
-         hLrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777141898; x=1777746698;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=R+ZGKTVkBXN8ikP50VcfnPbIIQ0Oi7+ClKejUhvLkNg=;
-        b=s2hk4cqihSKE4yG1+fcLf9xAoYNtFectxc/oC5LeI51mIKxhQStnhdZuEkEgyKuJwF
-         41juhnSzovAxK+Iirqq+tHqBU7oQMOhJyRHDVApbXbFe4TWKOs0vDm0g8vW2P+0/GlhQ
-         twk+dDQ7yEaTBwaOTnsQCDjSgaqY3/qKxLo0CI+sMUV3FRoqhr991MKL6ACFZmael/BE
-         xbDlpw/CXklUIxhZ8WuvwSDEKGmnHr7JzSDW9IfrnxG335Mxa5gdz0VBRk9DuUhxKfFj
-         ykBVpa3iAHRAllh7XIRaZxTyJFy6iYw9wCsW6plRckapaoNHjX2n7jTLhUepkKTeA09I
-         e0pg==
-X-Gm-Message-State: AOJu0Yx/jxmdNNvcHcCPRHSYFlThDmjX+LTZwdXQPsT4AaBjILRD+88h
-	9AfGrOlQaG5lDK8UY9vhh9GM37W+Q3/y139GT47P4c1wfcK7WMsHzsO9
-X-Gm-Gg: AeBDietETxAfnDUytA/VgQ9Bu4V9tEMsv0UzdP/a4Wa2cWteSwS72sMvSeubB8adE5g
-	Zgputyn1C7FEWtZadqlbG0qye/P8xiWWBoIubFWRTPhk3zKRpotZasTYteovSO/gYO+/qAhDicB
-	8N5Pe+xrRV7+Aw/L/a3WQILrKQdTNkp+Dgoo8f/LVHR2vl8t5ZHmKGMCdfWKF53wKgLG9s78Kuv
-	pkOC2BbbntjxVJ8HFk3iSKevL0TEbxHL7LlMZRwT3iNIv+N3aDCQOnqJh/IwI6S6cINN7NMexP1
-	1NflC7GTUfI+HiyebzuZ0xIf0mAU37nM0ERXpUQ5D4flPAZICWWPH9bWZGG/OAiIgJB40ij7AFf
-	S41JKmHy5+sewrsxSOKNJ/KdR27yluiSDmoCU86jB7nMFE7/OcbkuwJztK8t5TGu7k/CI+1SKux
-	c1Un6V8+vi/DyQ5GcwxSZ/F+bex0/kwnn/YHQ=
-X-Received: by 2002:a05:600c:37c6:b0:48a:65a5:750f with SMTP id 5b1f17b1804b1-48a65a57563mr105835535e9.21.1777141898345;
-        Sat, 25 Apr 2026 11:31:38 -0700 (PDT)
-Received: from [192.168.8.79] ([2a00:f502:260:fa4:a26c:adcb:8da8:3])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4899dc95920sm133613675e9.6.2026.04.25.11.31.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Apr 2026 11:31:38 -0700 (PDT)
-From: Erikas Bitovtas <xerikasxx@gmail.com>
-Date: Sat, 25 Apr 2026 21:31:11 +0300
-Subject: [PATCH RFC v2 10/11] media: qcom: venus: add power domain enable
- logic for Venus cores
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="S1YdDhbb"
+Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C4D779A6;
+	Sat, 25 Apr 2026 23:48:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1777153738;
+	bh=Eqeee3zzZnMu2texkvZlN8dC6INnUSCAuuPOCps11Ac=;
+	h=From:To:Cc:Subject:Date:From;
+	b=S1YdDhbbIVFE/1L8uCnzNh/L6vgGpll3lL6IhGYZNrB2o+yqULEl2Gw3EoGMQFNih
+	 MvV2KsCu8U/3naEpUZ4mN4cCeKjEvKLcaka9uEX+4YzB3I2hrFKui+Uhdu5kPBvWjh
+	 JEFbiw/0CYfbkO7Ugkk0LQAjf7Cvem5FY5ltSF3s=
+From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+To: linux-media@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH] Revert "media: renesas: vsp1: brx: Fix format propagation"
+Date: Sun, 26 Apr 2026 00:50:37 +0300
+Message-ID: <20260425215037.3557213-1-laurent.pinchart+renesas@ideasonboard.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260425-msm8939-venus-rfc-v2-10-f69e52b36207@gmail.com>
-References: <20260425-msm8939-venus-rfc-v2-0-f69e52b36207@gmail.com>
-In-Reply-To: <20260425-msm8939-venus-rfc-v2-0-f69e52b36207@gmail.com>
-To: Bryan O'Donoghue <bod@kernel.org>, 
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
- phone-devel@vger.kernel.org, Erikas Bitovtas <xerikasxx@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-Attach power domains for vdec and venc cores and power them up if a vdec
-or venc session is started.
+This reverts commit 937f3e6b51f1cea079be9ba642665f2bf8bcc31f.
 
-Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
+The change to format propagation in the BRx broke configuration of the
+DRM pipeline. Revert it to fix the regression.
+
+The original commit was meant to fix a v4l2-compliance failure, with no
+known userspace applications being affected beside test tools. Reverting
+is the simplest option, a more comprehensive fix can be developed (and
+tested more thoroughly) later.
+
+Reported-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Closes: https://lore.kernel.org/linux-media/CA+V-a8t481xuwava0nb7uY9CUPqFWZ_8EP0xrK3BgumP7HDcLg@mail.gmail.com
+Fixes: 937f3e6b51f1 ("media: renesas: vsp1: brx: Fix format propagation")
+Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 ---
- drivers/media/platform/qcom/venus/pm_helpers.c | 121 ++++++++++++++++++++++++-
- 1 file changed, 119 insertions(+), 2 deletions(-)
+This is a fix for a v7.1 regression.
 
-diff --git a/drivers/media/platform/qcom/venus/pm_helpers.c b/drivers/media/platform/qcom/venus/pm_helpers.c
-index cc21a4762188..41272c194a6d 100644
---- a/drivers/media/platform/qcom/venus/pm_helpers.c
-+++ b/drivers/media/platform/qcom/venus/pm_helpers.c
-@@ -246,6 +246,94 @@ static int load_scale_bw(struct venus_core *core)
- 	return icc_set_bw(core->video_path, total_avg, total_peak);
- }
- 
-+static int vcodec_domains_get_v1(struct venus_core *core, struct device *dev,
-+				 struct dev_pm_domain_list **pmdomains,
-+				 const char **pmdomain_names,
-+				 unsigned int pmdomains_num)
-+{
-+	int ret;
-+	struct dev_pm_domain_attach_data vcodec_data = {
-+		.pd_names = pmdomain_names,
-+		.num_pd_names = pmdomains_num,
-+		.pd_flags = PD_FLAG_NO_DEV_LINK,
-+	};
-+
-+	if (!pmdomain_names)
-+		return 0;
-+
-+	ret = devm_pm_domain_attach_list(dev, &vcodec_data, pmdomains);
-+	return ret;
-+}
-+
-+static int vdec_domains_attach(struct venus_core *core)
-+{
-+	struct device *dev = core->dev_dec;
-+	const struct venus_resources *res = core->res;
-+
-+	return vcodec_domains_get_v1(core, dev, &core->vcodec0_pmdomains,
-+				     res->vcodec0_pmdomains,
-+				     res->vcodec_pmdomains_num);
-+}
-+
-+static int venc_domains_attach(struct venus_core *core)
-+{
-+	struct device *dev = core->dev_enc;
-+	const struct venus_resources *res = core->res;
-+
-+	return vcodec_domains_get_v1(core, dev, &core->vcodec1_pmdomains,
-+				     res->vcodec1_pmdomains,
-+				     res->vcodec_pmdomains_num);
-+}
-+
-+static int vcodec_domains_enable_v1(struct venus_core *core,
-+				    struct dev_pm_domain_list *pmdomains,
-+				    unsigned int pmdomains_num)
-+{
-+	int i, ret;
-+
-+	if (!pmdomains)
-+		return 0;
-+
-+	for (i = 0; i < pmdomains_num; i++) {
-+		ret = pm_runtime_resume_and_get(pmdomains->pd_devs[i]);
-+		if (ret)
-+			goto err;
-+	}
-+
-+	return ret;
-+
-+err:
-+	while (i--)
-+		pm_runtime_put_sync(pmdomains->pd_devs[i]);
-+
-+	return ret;
-+}
-+
-+static int vdec_domains_get(struct venus_core *core)
-+{
-+	const struct venus_resources *res = core->res;
-+
-+	return vcodec_domains_enable_v1(core, core->vcodec0_pmdomains,
-+					res->vcodec_pmdomains_num);
-+}
-+
-+static int venc_domains_get(struct venus_core *core)
-+{
-+	const struct venus_resources *res = core->res;
-+
-+	return vcodec_domains_enable_v1(core, core->vcodec1_pmdomains,
-+					res->vcodec_pmdomains_num);
-+}
-+
-+static void vcodec_domains_put_v1(struct dev_pm_domain_list *pmdomains,
-+				  unsigned int pmdomains_num)
-+{
-+	unsigned int i = pmdomains_num;
-+
-+	while (i--)
-+		pm_runtime_put_sync(pmdomains->pd_devs[i]);
-+}
-+
- static int load_scale_v1(struct venus_inst *inst)
- {
- 	struct venus_core *core = inst->core;
-@@ -331,6 +419,11 @@ static int core_power_v1(struct venus_core *core, int on)
- static int vdec_get_v1(struct device *dev)
- {
- 	struct venus_core *core = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = vdec_domains_attach(core);
-+	if (ret < 0)
-+		return ret;
- 
- 	return vcodec_clks_get(core, dev, core->vcodec0_clks,
- 			       core->res->vcodec0_clks);
-@@ -339,8 +432,18 @@ static int vdec_get_v1(struct device *dev)
- static int vdec_power_v1(struct device *dev, int on)
- {
- 	struct venus_core *core = dev_get_drvdata(dev);
-+	const struct venus_resources *res = core->res;
- 	int ret = 0;
- 
-+	if (on == POWER_ON)
-+		ret = vdec_domains_get(core);
-+	else
-+		vcodec_domains_put_v1(core->vcodec0_pmdomains,
-+				      res->vcodec_pmdomains_num);
-+
-+	if (ret)
-+		return ret;
-+
- 	if (on == POWER_ON)
- 		ret = vcodec_clks_enable(core, core->vcodec0_clks);
- 	else
-@@ -352,6 +455,11 @@ static int vdec_power_v1(struct device *dev, int on)
- static int venc_get_v1(struct device *dev)
- {
- 	struct venus_core *core = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = venc_domains_attach(core);
-+	if (ret < 0)
-+		return ret;
- 
- 	return vcodec_clks_get(core, dev, core->vcodec1_clks,
- 			       core->res->vcodec1_clks);
-@@ -360,8 +468,17 @@ static int venc_get_v1(struct device *dev)
- static int venc_power_v1(struct device *dev, int on)
- {
- 	struct venus_core *core = dev_get_drvdata(dev);
-+	const struct venus_resources *res = core->res;
- 	int ret = 0;
- 
-+	if (on == POWER_ON)
-+		ret = venc_domains_get(core);
-+	else
-+		vcodec_domains_put_v1(core->vcodec1_pmdomains,
-+				      res->vcodec_pmdomains_num);
-+	if (ret)
-+		return ret;
-+
- 	if (on == POWER_ON)
- 		ret = vcodec_clks_enable(core, core->vcodec1_clks);
- 	else
-@@ -905,7 +1022,7 @@ static int venc_power_v4(struct device *dev, int on)
- 	return ret;
- }
- 
--static int vcodec_domains_get(struct venus_core *core)
-+static int vcodec_domains_get_v4(struct venus_core *core)
- {
- 	int ret;
- 	struct device *dev = core->dev;
-@@ -1023,7 +1140,7 @@ static int core_get_v4(struct venus_core *core)
- 	if (ret)
- 		return ret;
- 
--	ret = vcodec_domains_get(core);
-+	ret = vcodec_domains_get_v4(core);
- 	if (ret)
- 		return ret;
- 
+Prabhakar, I have test this on R-Car Gen3 with
+kms-test-plane-position.py and it fixes the regression I reproduced. The
+symptoms were not identical to the ones you reported on RZ/V2H, so I
+would appreciated if you could confirm that the patch fixes the
+regression for you too.
+---
+ drivers/media/platform/renesas/vsp1/vsp1_brx.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
+diff --git a/drivers/media/platform/renesas/vsp1/vsp1_brx.c b/drivers/media/platform/renesas/vsp1/vsp1_brx.c
+index b1a2c68e9944..9d93cb8b8e82 100644
+--- a/drivers/media/platform/renesas/vsp1/vsp1_brx.c
++++ b/drivers/media/platform/renesas/vsp1/vsp1_brx.c
+@@ -156,20 +156,14 @@ static int brx_set_format(struct v4l2_subdev *subdev,
+ 		compose->height = format->height;
+ 	}
+ 
+-	/*
+-	 * Propagate the format code to all pads, and the whole format to the
+-	 * source pad.
+-	 */
++	/* Propagate the format code to all pads. */
+ 	if (fmt->pad == BRX_PAD_SINK(0)) {
+ 		unsigned int i;
+ 
+-		for (i = 0; i < brx->entity.source_pad; ++i) {
++		for (i = 0; i <= brx->entity.source_pad; ++i) {
+ 			format = v4l2_subdev_state_get_format(state, i);
+ 			format->code = fmt->format.code;
+ 		}
+-
+-		format = v4l2_subdev_state_get_format(state, i);
+-		*format = fmt->format;
+ 	}
+ 
+ done:
 -- 
-2.54.0
+Regards,
+
+Laurent Pinchart
 
