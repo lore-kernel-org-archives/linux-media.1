@@ -1,119 +1,130 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD0F39FCCF
-	for <linux-media@vger.kernel.org>; Mon, 27 Apr 2026 21:47:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E503F27E056
+	for <linux-media@vger.kernel.org>; Mon, 27 Apr 2026 21:57:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777326478; cv=none; b=JWUVz7EHKm6R+fqAwvZyNIkREWNfjxHpnmQcFTxF520OKQjs0/k4kGYWGfSMBs+Ln6l6YnrVoFRJiHeV70YGTLcHwDYzJmkh7h8EXFo5gPkmSERuyrDQcsW/4hcKi7/RIjoFcVAwbBB4YKyI1CYe5dkwi+C1Uz5B0Nob2EwvdfU=
+	t=1777327056; cv=none; b=KaFBSamw9mG2Kz8blm5BY3nnj8QYha6roGgbD+w8DvKdMLcB+jb8JLEbW3TgOd68+YyjfpU0qVo++ateKM53h0lWSQqOB8v+UE+BXhOH6Vo6IL0GuXtZZPSuO8XlE4Q4fRzc2tE+LG3OyBZC6nNsJQA12BDpqXAgzcmCW7aFpME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777326478; c=relaxed/simple;
-	bh=i/k46YQbNxc6jmDhpSrBTZQploRe2hY24KQV/uGHVj8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gNwk4BOJQLTGD02D8CFJelwBRA90iJFXzvRpa8KXJpOKfrd4scwjrZzH0QL3mcja6cSsjN7/kShzqp4zlhW+B0xfAYhorxOTzd8Rcj0tB05fIc2/w3XZRkGnA0ot7IgtbmzacL+nAus3jzYQ9Z7zuMNSnMYIeqUgiyYcliTXydk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=PrFQTTYV; arc=none smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1777327056; c=relaxed/simple;
+	bh=OFgtGCn1mfUaoCP8LhdAyM8uQwb3Te8gLBE/Ti+VRMI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=D6ZDWjg1reI9mXyEtZEYPnxsR+7IcGJaQqqQtZxsNmSfAvnECfyZgOg5fCdbnA+/NcnLhbiguZLoY6MQa6ODWVyhMyag/KFfTdjPxIB8aa7WO/zfBiDm44F8d6RKP469kyKwrCftTmX9ZRSQcOgpG0/DeUVuBja3CDRVSMmN4/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=sMyQxbao; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="PrFQTTYV"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-678adefbd26so5634915a12.3
-        for <linux-media@vger.kernel.org>; Mon, 27 Apr 2026 14:47:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="sMyQxbao"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-488af9fdaa7so63506285e9.1
+        for <linux-media@vger.kernel.org>; Mon, 27 Apr 2026 14:57:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1777326475; x=1777931275; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=DjF1Jdn4Kp6xFyaBmAP2391GfFF2q7kuOVlruTChM90=;
-        b=PrFQTTYVMHv4cnMKFqL0+s+aKDM2oGr6hXF5ZXSY29SIbrfPeSjtL30Zp2T+mxOk82
-         W3QBQ1HvYT++hMjE0DUX48V3wUWia/xaRg36CCxr37/pc+/dK6kr2PG6Nk/DepbBR64f
-         D3w5WwhGx9NP2NpkHwDC+Mwe+lrlrype0kD20=
+        d=linaro.org; s=google; t=1777327053; x=1777931853; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=kV+WIZsj9AmJtT9rTaHxlweLR0VMyPyAnS2ki5QOUJg=;
+        b=sMyQxbaoFGJX/irParUdWhOOocCeUXvxFueNP6tsUkKMDA09z0L27fpY339j5ZCWOJ
+         eVzCjDzD7vnD2t2iCuSoLzQnv8USvbSt3L5MxtOEvVMMsKRrHEN7CIJ7Ulxt3yKHD9rU
+         ztw18e5W+kSqQHS/HYUdoXTEBfEYL5cNNw50k/MGVAFE2645Bh6ZHm8MLFtuOZPFXKs2
+         K8cp10m4Ix5aYnNASAg3qCMpay1gY4706zIWd6QX752KDNbqy1i0ZvFqGRtaPrll93QD
+         gr9BHek6wJpEQzL+mHVhiOaVsUl6npQ8cQJpWbOeGOtPrZG87br/DgVk19I4KrDSDGtY
+         eTQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777326475; x=1777931275;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DjF1Jdn4Kp6xFyaBmAP2391GfFF2q7kuOVlruTChM90=;
-        b=C7ZZXcD3mftWggbj7Ne4lMVJ/4mo2oS6pKno3iiWlhRmQaj88TuDtws+iuW5aW1VHP
-         1dZoy8in6Q65CxbgJ1ZWgEgjrApg3uQ4+vhPVqiSQevAAH2wZAxAuXHEtV0o3ErW92xB
-         Q5hD5TH4xv4+3xRv2IMSKxfZ4UnkksU9NypmBzvffdZuWZn9MfpgOQ3RSTF57+tjcy61
-         4wMAVOQRpj8aX5M2VLPUgwRrgqziEp7eiOizOX+Py8DciOkfYVCKH/CPPTetQdrhZnm3
-         Ro8zjKc25qsuJrMDC7FRpOWSFtPhqHUdmmstDyXehz6YoqRBP3FFmY8e11MGRdMDUjPm
-         8DDg==
-X-Forwarded-Encrypted: i=1; AFNElJ+h2fZAkibmeeMn00JuEE24QDGowjsHYeEmIoA6SAuRpBGs2nCHFzpUs6x/G8cN9XdzPF7yF7dm3/UIyg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzenCZcL5j7JgK2FXqyan9OkwvAWfWeauq9AHTh3k6K/oT16wYa
-	nu8PhJmCdRMnedidpt5nq+sgU/BTEcHoVVaeRacz3aewogZtvezumJrwHAQBEbJs8p/2LR+x7vQ
-	VfuOduFZpVg==
-X-Gm-Gg: AeBDieuQZZBcpCOsjxKUW/ueYOp926VLCSNlk7WjsaT7vh0JM+XCcraeJZ3cuvJZiZU
-	8PO+7sXXv3sgsxF4Z4vuFVRzzY74CeB93XS9NXlmJ+9XEQQqUkQX/3TWdk21xKf1TpFvxkx1HuJ
-	KjPTXey/QjjCpSJNZuUuPVcUG0KGXxyjaQU49pRsIDoCPDfY8oIi2T3BCH6/VpG8xpCk/L28L23
-	iyBPjT7UNk/nZYGzJ0VpQKNZMEJh5R5+ZumPjTDA8YPqR/vQBpNiVnqmf6dazg/ov9uNY2wXWUJ
-	JH44vaCeAxApJY3byLDVgDrwOKam5jw+VqYvH26duE1DipgmUJgKYakRsJc1v2v1S2NXYeAl6V1
-	RzcseAKVWe4Hm7Lh5Ng8kZF7TI5CMajk+nolIz+MtajtQXUaWPBlKKQrvT57u4ebkBE0+OGSw/Q
-	67bchgM+qsZLqNtr6QBV6gT+ajJFvR2ans36GJ4zBouvXv8LpmaKleImvaadHrM7bhDHeVACXhP
-	MIGOnPVkSA=
-X-Received: by 2002:a17:907:6ea2:b0:bad:d530:dbf7 with SMTP id a640c23a62f3a-bb804727dfemr27900566b.32.1777326474573;
-        Mon, 27 Apr 2026 14:47:54 -0700 (PDT)
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com. [209.85.218.45])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bb80c081c40sm9659866b.55.2026.04.27.14.47.54
-        for <linux-media@vger.kernel.org>
+        d=1e100.net; s=20251104; t=1777327053; x=1777931853;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kV+WIZsj9AmJtT9rTaHxlweLR0VMyPyAnS2ki5QOUJg=;
+        b=P55B1ROiIlFAtl4spjzykPWNCfyBf06+A2ArGD/D3WHYjiudY9Y5WJ+r2U/gz255qk
+         tc6F8xcsJ4e3n4ghAnd4uE9/gb52/1xqJkOJdAun5SbBYkK61m9v76OKL4+Qr6H5VOU5
+         /jbvh82lPPqakmO5SrW7Do7/NKAE4pLQ7EZF8DEhUqN0M5QY+D7QmHO4GF/eK6H6B5y3
+         nu/yapAIc3196bJKWpWZwFXtvCPRI87wZq7Ij60oljfW5rWxoRvbVSsmdNHV5sJjjlOm
+         P3vtjKg78rWjFWsAxmiF2BnYJmXdoJ8XD/znWQiv1LvH6IQ91caxuvaCo7TxKWWWkCxA
+         Qxpg==
+X-Gm-Message-State: AOJu0YwDpxSFydcpefucBTEvZaUKdQxdyQClWeRtTUhJgTrh4lNGS5Tw
+	E8tB+4nMF5v3pnSpGdMzR7MMlmzYxAqGFBP9GOslp6KTtQ0nc7Bz664P5gM4czu+TM8=
+X-Gm-Gg: AeBDietOhQKO8x1nMZGkHyzw7wpeRM5G+52HqUJdze6G6X/Uu6CdYh0hwKb5w04pN2k
+	myjI+wT8fQgeRP9kNg1LFF5s13AQNZNotzdKJ0ZJQDqQVAOJeakoalaMqmQbQN2CfypUlj4bYi2
+	HROs+ZpSdqEQ9niQgz0eh72noX9JwJ10Ng3lhfk9fEnrkClmmbKeW9JIIT2E9oYAlI1k8KETY71
+	IEa0su3dwPFVigO8LqftYeI31oNaZf4GIEURAf/rL5a+ZrxVs23RCC0VPwUCq94Fdl9ZI+jqcn5
+	aDBfeHEzVgwYsvWltciQcZ4L3jLKp5l/QwaSqE2fUp0y8lGt8xC1lL064RY8YNXHrw4qPsg/+ao
+	WbaR6GVkdNwJqJJEgdOpvPPH2aDA4QkYcSv5GDAnHsDG8uiySFt8T/XPBI/W7DYB/vXkJ/IU3/P
+	zafF81QKxGskZLmxB1WBt2AO+zz3i2ncucb671p+8bMwUNubxT+j7OWQ==
+X-Received: by 2002:a05:600c:4f0b:b0:48a:55d8:7882 with SMTP id 5b1f17b1804b1-48a77ae6477mr5384895e9.9.1777327052826;
+        Mon, 27 Apr 2026 14:57:32 -0700 (PDT)
+Received: from [10.156.67.45] ([89.101.53.25])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a77609a82sm3993585e9.36.2026.04.27.14.57.28
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Apr 2026 14:47:54 -0700 (PDT)
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-b8f97c626aaso849673966b.2
-        for <linux-media@vger.kernel.org>; Mon, 27 Apr 2026 14:47:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+J512BOc8xcuMTPe842A1cMEY1A29bYlNi5oVSHr9sqIjCR6mBBh4klOUYvwTCVbP6E7OeoDfdjLoTFQ==@vger.kernel.org
-X-Received: by 2002:a05:6402:5216:b0:679:1f4f:9d30 with SMTP id
- 4fb4d7f45d1cf-679bb04c1a2mr179970a12.4.1777325976937; Mon, 27 Apr 2026
- 14:39:36 -0700 (PDT)
+        Mon, 27 Apr 2026 14:57:32 -0700 (PDT)
+Message-ID: <1b914585-4c27-4f4d-8264-181340c27791@linaro.org>
+Date: Mon, 27 Apr 2026 22:57:26 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1777306795.git.chleroy@kernel.org> <289b424e243ba2c4139ea04009cf8b9c448a87ff.1777306795.git.chleroy@kernel.org>
- <CAHk-=whC1DZojwdMB1=sJWG2=dsCdfyU8N6tDE1qx50HRZ-WJQ@mail.gmail.com> <20260427222914.1cb2dd3b@pumpkin>
-In-Reply-To: <20260427222914.1cb2dd3b@pumpkin>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 27 Apr 2026 14:39:20 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wg0SGbRYhdZ1kvJUTv1HEvmRJyQauFtBGV_fMcZVF8UpQ@mail.gmail.com>
-X-Gm-Features: AVHnY4I-AxqvQRk42MegvhKMp_z4sSEpEzhzpgw2GyV2bV8dezSPoI0JTlwB18Y
-Message-ID: <CAHk-=wg0SGbRYhdZ1kvJUTv1HEvmRJyQauFtBGV_fMcZVF8UpQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v1 5/9] uaccess: Switch to copy_{to/from}_user_partial()
- when relevant
-To: David Laight <david.laight.linux@gmail.com>
-Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Yury Norov <ynorov@nvidia.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Thomas Gleixner <tglx@linutronix.de>, 
-	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	kvm@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
-	linux-um@lists.infradead.org, dmaengine@vger.kernel.org, 
-	linux-efi@vger.kernel.org, linux-fsi@lists.ozlabs.org, 
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	intel-gfx@lists.freedesktop.org, linux-wpan@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	linux-spi@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-staging@lists.linux.dev, linux-serial@vger.kernel.org, 
-	linux-usb@vger.kernel.org, xen-devel@lists.xenproject.org, 
-	linux-fsdevel@vger.kernel.org, ocfs2-devel@lists.linux.dev, 
-	bpf@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
-	linux-x25@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-sound@vger.kernel.org, sound-open-firmware@alsa-project.org, 
-	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
-	loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org, 
-	linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
-	linux-sh@vger.kernel.org, linux-arch@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 12/14] media: uapi: Add CAMSS ISP configuration
+ definition
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Bryan O'Donoghue <bod@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+ devicetree@vger.kernel.org, laurent.pinchart@ideasonboard.com,
+ kieran.bingham@ideasonboard.com
+References: <20260427-camss-isp-ope-v2-0-f430e7485009@oss.qualcomm.com>
+ <20260427-camss-isp-ope-v2-12-f430e7485009@oss.qualcomm.com>
+Content-Language: en-US
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <20260427-camss-isp-ope-v2-12-f430e7485009@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, 27 Apr 2026 at 14:29, David Laight <david.laight.linux@gmail.com> wrote:
->
-> I think there is a slight difference in that the normal copy_to_user()
-> will determine the exact offset of the error by retrying with byte copies.
+On 27/04/2026 13:43, Loic Poulain wrote:
+> +/**
+> + * struct camss_params_wb_gain - White Balance gains
+> + *
+> + * @header:   generic block header; @header.type = CAMSS_PARAMS_WB_GAIN
+> + * @g_gain:   green channel gain (15uQ10)
+> + * @b_gain:   blue channel gain (15uQ10)
+> + * @r_gain:   red channel gain (15uQ10)
+> + */
+> +struct camss_params_wb_gain {
+> +	struct v4l2_isp_params_block_header header;
+> +	__u16 g_gain;
+> +	__u16 b_gain;
+> +	__u16 r_gain;
+> +	__u16 _pad;
+> +} __attribute__((aligned(8)));
 
-I have this dim memory that we decided that you can't reply on byte
-exactness anyway, because not all architectures gave that guarantee
-for the user copies.
+So I published a comprehensive list of these structures a few days ago.
 
-But that thing came up many years ago, I might mis-remember.
+https://lore.kernel.org/linux-media/20260426000418.1158716-1-bryan.odonoghue@linaro.org/T/#u
 
-            Linus
+See:
+
+struct camss_params_wb_gain - White balance gains and offsets
+
+The ICP/HFI structures - at least for the stats I believe are how 
+hardware writes data to memory.
+
+OTOH on the way in, the params ought to be pretty uniform as again 
+HFI/ICP needs to take that representation and either
+
+- Hand it over to CDM or
+- Pass it over HFI so that ICP can hand it over to CDM
+
+The ordering and precision is a resolved thing. I'm ~ sure OPE must 
+write and consume in the same format.
+
+---
+bod
