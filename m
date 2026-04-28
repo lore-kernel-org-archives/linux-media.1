@@ -1,69 +1,69 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010028.outbound.protection.outlook.com [52.101.84.28])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012014.outbound.protection.outlook.com [52.101.66.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A56AD24;
-	Tue, 28 Apr 2026 08:41:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 032FD2DCC01;
+	Tue, 28 Apr 2026 08:41:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.14
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777365665; cv=fail; b=OJBTh8U/vZWUDbrNPX4o9nywaL7JZaHajHwps8kMWvEBvX7BZgfmiEBJZ/ylwg2rVBfwuho8QjFEtSh2ea4QbOGPwkmxqK/6P8AWMWfRqNFYWob0gauvQCHtgiRIUkhVxlAhgv9zsAYxbAEsdSmVaAlktYvKTzL+Lz4uXaPYU3o=
+	t=1777365667; cv=fail; b=bRXCZwn8sUYJzcRYfnrJZbPSK2P6EY7K43NY3y3jwJkzarpbUB3QvCJ+RJrW+CckyFMACuA9EtlFBi3HUEVqcLEPofarwuqWpWVja6Jgu/FrVrI0QyrmWt8fosoje6KiWpcZZ+QVxrz+EsL5K5J5puEvSahfq6pZw3tS54ALAZw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777365665; c=relaxed/simple;
-	bh=TtHV4JozkEOAbTSb+XgXPHsj7blKoy+zCVQgTG9rEjk=;
-	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=uRSwgGzB5f9sE2SKLBDS6ls8ic+tpClEGkh9Igcp5Atx4stkjLR+NuuO4wtOTN8SBy83lpV2wO19mVyoYZDGl9hxJ6ELotk3tnYGdZo9a//9sxS3clcVTcNpXc/Yhhi5FE3JIVQce1l3p4QFBRibL6Fw2ot7/42CCZMAa1q2wB8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=GWZ7UOYP; arc=fail smtp.client-ip=52.101.84.28
+	s=arc-20240116; t=1777365667; c=relaxed/simple;
+	bh=kilHZ0x3ScyEtUgGi1wLSklQthfNdlNvNMHBH71xiIw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=niRN/wxPw9sI+4BDCdDts4lyLUQZ+zZor5qyhFtShIXhbMf8iW2sjQSKvIypunqAmce8ZDFECVW4ovu05XY7BjA6huRapovxDAHV8HFQxG1f6C7SCmV5030iRF2bMg3YwG2uXHkE37fBm5gv1zozzE+GECk7KNpdgt+HYA669/Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=etZHRHWJ; arc=fail smtp.client-ip=52.101.66.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="GWZ7UOYP"
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="etZHRHWJ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xM/FaCecMYcyYObudq7fgALCvpPWfSLftGbRSMvQem6JehWi7br1lrtx4dOlSSAvsjFXcpKGKNSElsDvxy1vHxkW/HUr34Lv0zeWwt6n8frLAJ3vKjIVeOoWdEHvFwcFratZc67P8U5ghaIw9KPBpU8DFMTSWz2m+Q+hAmDMz0HsL5x//3UQKZxbne0qL2+cTST/n4MB4eAS8cgMAxdMf4bhiJl2GtFFy1ouxVINEDMoBndtD0nyYJWGJ6HtVRkRq3EPHUZddPLtexNOAb6ll3eZn499yYdN0GdN48y3MODqUqyfQwSKhQBC3USSzTsUVKa81NVc8xy/9BwBhMidyQ==
+ b=FLxiAd3zUdBuDh6hECil0+y2uiVmumo2JF/uyPJ0KOG4/UrU9CphcCzPuGxN9nADEK84G3CRysfyZrUHDfq/L27wYu7+gI58InhXQefTJUCVSKPas33WjM88BMFHZ6+vaztbje7dVfjs78smp0DRUYzQsqM8EUBcW5S+Q1J2rM99KPPKfHzJ6uv5c9NcYYTf6UmKPL/w+EfGRqSc/0DKOgnvct94ujA0T6JXYlAL3qMGz+rgvUJg54XaqNPCjunSdacZHsKIC68/cfGgPKRs0qUzg4Zn+VEryqrHX+MGdnhB51BqYCwvTi4AMmLGp+OD/JwBw5vBjdjsKxm5cunXxQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XiPlte0x8kyHO2sjHpDO2qCHHt76ileAEvtgDp4UyAA=;
- b=Vw4PqjHlRYoRvm+FLHZnQ4R24UurdnMA2D39d+g8buMPlx+xb7nqQZbX9As7MahVAZJU+plJKmSmdsLuSLXfCj2Mo3AFwikezBTE+E7WPuv6sYIbslMBhw/KWQAGBJF7qd/C6gbkrRIl2ZwaOaeb8TqEOIecif/JWyzi+cqY6WUK8Kq8YM4nXq3ETmEJ9sedULR1OCLY3vRXpEUFoxPYbENjrkJmKAL+N4gzX+qrY6qPXXfl8cwPtiLadFqWH2JLNlkO2QvsNc0QtPnRr7Lnn4c7jVZkAgRun1/FAQU+rHw4QWzkrrNPkbBT95uafGwqVNVYR7OhogwE1d2VjXwalg==
+ bh=rboA/EhHDCOnI9zRFirCKI20oVezFDqNeIq9dIOVQ6k=;
+ b=LMs80uR5r72C3p1MqkVphw8tvVGj0bEsWRSk4VDFy2VfZDtGA2PZCjVlHqsR6n4x6wTXmeOlvAheu4yZG1fHfpJWOLDBYLyRpy6Nvlo63RJ0ezN1MVEePY+mAhh1/yVFx5XYXiibRx8WzXJIfmc9WYGwpOPRPp9NGJg1ttG53/TacSevGdgRXDpFiCzonYkDz8JI1XP7IFZQF2OlnKPT096iYhJGIOapkKKFPnkIeuzkr8LgZpRl6kRtPoFEEqF+gX8Ycm5TupKyVOzoo/EgQTjGJcRvKSR2pR8Fm3EMXfAL8FA5C9qhpUCXMUj4XiBubiu2SH7evMWOFn+IfwTjNg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
+ 164.130.1.60) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XiPlte0x8kyHO2sjHpDO2qCHHt76ileAEvtgDp4UyAA=;
- b=GWZ7UOYPBaS6tHzmJufuwZX+bkUGW4fhOaVxpZ49mKZN5fXdRGm0r+fTpjr5efq+DiIRfgnP6Ek47t3Q4VdcmDPlQhwBmsDvQqZ1Ih1q9tyua2b+wQZAv5Ursrc7//JxXcuzgX2lvKFZ7ENdZSypZpLCkdpZ/wiCS1PuuG6e9Uwv89fvzWukdRrBxV0AYFAxu2CSWV1Z+r/BCk9EU3pGiVb1v0Z12JTkmy7/qMcYSIpbha3Hdr4m/bcpz8hcO/HO2UIJrYtW/E9yLTr7q0rNFqmFbAlSplnWOTEcncUI5X7P5+hAs2l+QRMJv327ZT5fS9itdvGynowj9JMtCygtww==
-Received: from AM0P309CA0011.EURP309.PROD.OUTLOOK.COM (2603:10a6:20b:28f::33)
- by DU2PR10MB7646.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:492::21) with
+ bh=rboA/EhHDCOnI9zRFirCKI20oVezFDqNeIq9dIOVQ6k=;
+ b=etZHRHWJHt6A96qsS2HpeyRrERTvZ4uKNbv2YbIQy+T6ZRTOeexsUq5OdUC5ZSEcvkgMK4LlYPeZiRgCooRlXMUGXSM7b6sN6PlwEudRNQGCi5m6aO47116fQt/MqFyF5BohvfZIgeNujIOWtxq5RXA0WXXpbWE8tqNmWS0hLtwIb1jeBWHUmoJOKlB7DCVfBaQgDZyHY2qfB03S+MloBPzJ7nY4amCiWK3PNT0bkv1ClnTofiHOnVMOg5oHbEB2jYHlHrQxdaxbkKE8V9M/m5Pgv2Oh7+jfGPWFPSGyvg3EG1a24i/6rmwOqkdcrhJbeP+uz9eoRUECk4JZsHY0FQ==
+Received: from AS4P192CA0014.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:5da::14)
+ by PA2PR10MB8942.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:416::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Tue, 28 Apr
- 2026 08:40:58 +0000
-Received: from AMS0EPF000001B1.eurprd05.prod.outlook.com
- (2603:10a6:20b:28f:cafe::80) by AM0P309CA0011.outlook.office365.com
- (2603:10a6:20b:28f::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.12 via Frontend Transport; Tue,
- 28 Apr 2026 08:40:57 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ 2026 08:41:00 +0000
+Received: from AM4PEPF00025F97.EURPRD83.prod.outlook.com
+ (2603:10a6:20b:5da:cafe::fb) by AS4P192CA0014.outlook.office365.com
+ (2603:10a6:20b:5da::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.26 via Frontend Transport; Tue,
+ 28 Apr 2026 08:41:00 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
  smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
 Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- AMS0EPF000001B1.mail.protection.outlook.com (10.167.16.165) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Tue, 28 Apr 2026 08:40:57 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AM4PEPF00025F97.mail.protection.outlook.com (10.167.16.6) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.0 via Frontend Transport; Tue, 28 Apr 2026 08:41:00 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Tue, 28 Apr
- 2026 10:44:28 +0200
+ 2026 10:44:12 +0200
 Received: from localhost (10.252.13.121) by STKDAG1NODE2.st.com
  (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Tue, 28 Apr
- 2026 10:40:56 +0200
+ 2026 10:40:59 +0200
 From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-Subject: [PATCH 0/5] media: i2c: vd55g1: Add vd55g4 support and various
- fixes
-Date: Tue, 28 Apr 2026 10:40:54 +0200
-Message-ID: <20260428-vd55g4_and_fixes-v1-0-4f745a83b87e@foss.st.com>
+Date: Tue, 28 Apr 2026 10:40:57 +0200
+Subject: [PATCH 3/5] media: i2c: vd55g1: Fix manual digital gain on color
+ variant
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -72,10 +72,9 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJZy8GkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDEyML3bIUU9N0k/jEvJT4tMyK1GJdS/OUZCPjJLM0IzMzJaC2gqJUsAR
- QV3QshF9cmpSVmlwCMkepthYA4CXhLHQAAAA=
-X-Change-ID: 20260428-vd55g4_and_fixes-97dc23b6f266
+Message-ID: <20260428-vd55g4_and_fixes-v1-3-4f745a83b87e@foss.st.com>
+References: <20260428-vd55g4_and_fixes-v1-0-4f745a83b87e@foss.st.com>
+In-Reply-To: <20260428-vd55g4_and_fixes-v1-0-4f745a83b87e@foss.st.com>
 To: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus
 	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -87,54 +86,76 @@ X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF000001B1:EE_|DU2PR10MB7646:EE_
-X-MS-Office365-Filtering-Correlation-Id: df85e11a-ad0e-47dc-b6bd-08dea501de63
+X-MS-TrafficTypeDiagnostic: AM4PEPF00025F97:EE_|PA2PR10MB8942:EE_
+X-MS-Office365-Filtering-Correlation-Id: 496e8243-9396-4305-2145-08dea501e01e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|376014|18002099003|56012099003;
+	BCL:0;ARA:13230040|376014|36860700016|1800799024|82310400026|22082099003|18002099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	rWb/+GyOXsWQkSAFZ3GIku4gRKq811AIKQlN6+FBES82AmGPQH+M40BVyq1tKozj9dr0s5Z+UGFdxAwujwBu8V0Rt8MZT07UEBc1UvzpOknakXB1xCii+qTk8icqRx1Mp7rzEXOluCiE5PGOimw4Ww8FX8EZRzxI9M6MyY/HCJR+1ZfZH3RFgXSQ6tYDxSf4UBa2flvDqfQQxzhdZUyqItNRjdcle5szKZd5Jqy1/z8mf5FfpyQ2ZMngFm2CDOhoDI4d+Q9jrG7c4rT446MWNzjk6bN+9yJ6hf85sN0j5KM0Bxtj9DHWq67wAFn0Z0VJHfnER6K+8sw1BYHqdGjJaKy3xfazMxArFBwfz3SdUcNYJJNX4Z1/xfZAOAtO0J9fB2N1083YrfDnYEoMgKwVuhtArNMTdWK5tzpghbFfSA/0c2KtOM9coMqZwm929ttSOkYzIx5hz25FUUJT2V2an2LyC95dZYJnRmlUnMWARVB6xOAghsp+/8d1X8o0Vi513U/+ffQRUzVR2BZgryzNrFBk85uuh5c63D31IlGRmXY/AsLqDt5B82cAr0ukTMMu/j6KzKXUnwWnXDkNqXB4bN4xGmpWouNtQWEa4A0e/fo3TY6C1eInsFtPHfE45yjZdDhrSru6OeNp5sI/ePQp9wFxmeFOdDKJw5p1cKGN9vhp/Ggwbn0axbiAoYvHBgSDUqpBNXdylW5WZ3Uxzhse02VOgLVNILbLDz7NPK7U7wqgfC8p1ekGSg/MiwC5g96xvpp3yPoB1CQx90LX1EFzDA==
+	k/3CRTE0EvO30Jjy0AFhWXPRW80cesrCHpI8Fw2JCbqL9Iewwffartff6iHyWJnN9mFa1VBpga6ir+Mgg+ztXsjIWwF2BrTzxHqLUC/ff0RVMJKv0D49rOJXPPKJKYvQQ+2XumZV24mZ1G0ialHbMMqdFENHEtZADtkQWWi3z1MkihZUJrb1ydQBHMReZKdGOe7NUfHv5kKaRYdnkiwV94bdOIpKc8bjLvf7WnFV6wvWLYifE9M/sF3rHJjCe2xH/AD2sR5E6fGLumZG9e4FPRzRY8f4trzaJ+YRIEM15vbSGBFlWHqT54NesWOpYPH8l6/nawFcTZdEnYjzIl+9YugP0vBUToYISV0feH+nA3M3NQHp2sPC9lbMdT+LdJvTrU7+2YmTWJ2E31AtWirmsMTL12qdmxRbpuyf+iH7J3utS8qhTdN8B8oFrZi93PiCfMu+tEKjKoIHErbotgztxXOc+wxNU7HKH4hHeU0lf8b/YfdDbZfr60UjVwmf/zIe3LbDbe9UPKMbpHLNahKoJNOJ9PJbVnYnGgsae3/kFppyoYkM4LX27D7T6jsXfooMQU2TM4Q6nJQGLr8Z5CCZnGP4unID4ctu+qD23bHsv9Dzf39CivEgbSHtssCfTlnp/afrZ5Mq+4u8bnKq/LIjLa9+HAmvAnNrBkPbcH5G00x6CIfs476Km3EoEQAYIrzoZ8yFdLyN+FxI/qNAuj7lhNNlO+yz6ytCeajcqP5E2YfkoKqQxzg2cdGIsdgw7dfAfDk1hGoPMZ0fsVlwVGOoTw==
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	Wvoyj/9Ve6bYiZzMC6X06+zLKZViTTdKt7lodVU62BKbDN+QRmC4Q/sTfpLyqZsZC3P6GELCjUSf634jFbPMBQyMPa/xJrVQ8aDl56rWHtAXKGWQ4Y0dcJLvODhRs1EvHx0pVG4ooHKnL8CHQaUsMXxHvpiVB83BilKsk4Wl+2lIeqK/JVV07gBnnx/eN0KjHiL/5Sit6Qc5t/ecE6+CpwI5QTue5BXTeXAq0YEUTCUshvSAy/dYc7Y3LYEN/KyN4y+XMU1/8Wb88fCg/E/7OMSn1iH5+lAhM7f026ADbURc0QqHDfclgvfbpQu+IIQigntVwoYE2QKP1xBn1Q7VP8i8i1VzHkQ8u1zX2y7TYW8OjNywmu0n0nsLzs9v1nNA4mLVMLBOzeGK26YFYog4KvikdHXLFCLgFSqAkOpw5ReOpo5A+MSH2LG1v3S5BhWR
+	5r9cfAwwJLObTTs2EcR7XLalLCgrH0DEgh2Ls6d1XYrvNMYc93CWBG81HWLb1GDnpM3+xby02H23dMnaKzHt/0XvA5aInLOStajUpH7sCI2plrbJDwwNc505NC2VKtUJ/AV0N2gMnsVMx1dQZNUcBkM6ELCid0L9r3C+/6aOM0qJ+l2M8ajd8JXrxlJIhlV5ZXSyPIcKSDlqGoZ/PIE6QhSNNZMTLVj00OTRaLyYQb2fQ54jJMSqzw5Jnyu9U/nLWmoJ8n4h5YS67t23y7ODiin+ktJPybT3KOdoGaE9hQKUcWH9b+A8r6wcKvm6gUywJ6Yl+2d13YRgoGobPcVqHf7ZhzspUFoTsmJMUuQQQedQeSh6BcQi/k9AB9aeg66+99ZnKio7UI8+etgySPDCAGwzFg4lxbcWBMPXH9oljleY9yVZjYdL3TnSXOWYaHTS
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 08:40:57.6932
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 08:41:00.5946
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: df85e11a-ad0e-47dc-b6bd-08dea501de63
+X-MS-Exchange-CrossTenant-Network-Message-Id: 496e8243-9396-4305-2145-08dea501e01e
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF000001B1.eurprd05.prod.outlook.com
+	AM4PEPF00025F97.EURPRD83.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR10MB7646
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR10MB8942
 
-The vd55g4 is the monochrome variant of the vd56g4. This series adds the
-necessary code in the driver to probe and stream from the sensor
-in the correct format, and a new compatible in device tree bindings.
+Apply digital gain to all channels, each channel representing a color.
 
-This series also fixes some issues I encountered while developing.
+Fixes: e138e7f00042 ("media: i2c: vd55g1: Add support for vd65g4 RGB variant")
 
 Signed-off-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
 ---
-Benjamin Mugnier (5):
-      media: i2c: vd55g1: Fix media bus code initialization
-      media: i2c: vd55g1: Remove spurious pad format update on init_state()
-      media: i2c: vd55g1: Fix manual digital gain on color variant
-      media: i2c: vd55g1: Add support for vd55g4
-      media: dt-bindings: vd55g1: Add vd55g4 compatible
+ drivers/media/i2c/vd55g1.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
- .../devicetree/bindings/media/i2c/st,vd55g1.yaml   |   3 +-
- drivers/media/i2c/vd55g1.c                         | 141 ++++++++++++++-------
- 2 files changed, 99 insertions(+), 45 deletions(-)
----
-base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
-change-id: 20260428-vd55g4_and_fixes-97dc23b6f266
+diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+index e44174056ace..2c962fcb41d2 100644
+--- a/drivers/media/i2c/vd55g1.c
++++ b/drivers/media/i2c/vd55g1.c
+@@ -60,7 +60,10 @@
+ #define VD55G1_PATGEN_ENABLE				BIT(0)
+ #define VD55G1_REG_MANUAL_ANALOG_GAIN			CCI_REG8(0x0501)
+ #define VD55G1_REG_MANUAL_COARSE_EXPOSURE		CCI_REG16_LE(0x0502)
+-#define VD55G1_REG_MANUAL_DIGITAL_GAIN			CCI_REG16_LE(0x0504)
++#define VD55G1_REG_MANUAL_DIGITAL_GAIN_CH0		CCI_REG16_LE(0x0504)
++#define VD55G1_REG_MANUAL_DIGITAL_GAIN_CH1		CCI_REG16_LE(0x0506)
++#define VD55G1_REG_MANUAL_DIGITAL_GAIN_CH2		CCI_REG16_LE(0x0508)
++#define VD55G1_REG_MANUAL_DIGITAL_GAIN_CH3		CCI_REG16_LE(0x050a)
+ #define VD55G1_REG_APPLIED_COARSE_EXPOSURE		CCI_REG16_LE(0x00e8)
+ #define VD55G1_REG_APPLIED_ANALOG_GAIN			CCI_REG16_LE(0x00ea)
+ #define VD55G1_REG_APPLIED_DIGITAL_GAIN			CCI_REG16_LE(0x00ec)
+@@ -850,9 +853,16 @@ static int vd55g1_update_expo_cluster(struct vd55g1 *sensor, bool is_auto)
+ 		vd55g1_write(sensor, VD55G1_REG_MANUAL_ANALOG_GAIN,
+ 			     sensor->again_ctrl->val, &ret);
+ 
+-	if (!is_auto && sensor->dgain_ctrl->is_new)
+-		vd55g1_write(sensor, VD55G1_REG_MANUAL_DIGITAL_GAIN,
++	if (!is_auto && sensor->dgain_ctrl->is_new) {
++		vd55g1_write(sensor, VD55G1_REG_MANUAL_DIGITAL_GAIN_CH0,
+ 			     sensor->dgain_ctrl->val, &ret);
++		vd55g1_write(sensor, VD55G1_REG_MANUAL_DIGITAL_GAIN_CH1,
++			     sensor->dgain_ctrl->val, &ret);
++		vd55g1_write(sensor, VD55G1_REG_MANUAL_DIGITAL_GAIN_CH2,
++			     sensor->dgain_ctrl->val, &ret);
++		vd55g1_write(sensor, VD55G1_REG_MANUAL_DIGITAL_GAIN_CH3,
++			     sensor->dgain_ctrl->val, &ret);
++	}
+ 
+ 	return ret;
+ }
 
-Best regards,
---  
-Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+-- 
+2.43.0
 
