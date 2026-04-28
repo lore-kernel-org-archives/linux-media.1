@@ -1,126 +1,189 @@
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D0E840627F
-	for <linux-media@vger.kernel.org>; Tue, 28 Apr 2026 12:41:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE80B4418DB
+	for <linux-media@vger.kernel.org>; Tue, 28 Apr 2026 12:57:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777380105; cv=none; b=bQnxLldeEZS87QVEDLDxwnjuZ0lnj+E/zvREEXBsxHT8PRbRVstY0JAcu6uUvsA+BYVFDsQu8yoejUXzv4vsJ0TLYsQRrDraqRjI2CzDgCeJgINcI81jbKFg+HbQpSLh56PJnq8OAt9hMXGg3CJiqp2fRh+60NR5Xo29YE94NEA=
+	t=1777381041; cv=none; b=OdE9kVatKfPe56fAX4HDfvdNgb1iA6/AiBNd6DwL0tDcyvGyyzDnKAJToHUywPJu4EPZDxpMS9/Yf+xASQTGD7xpiLaVbYlnZwsMlp+65SQGeHWYpjbGvsPGaBrxLq91RHziljIjKVpWupgw4F8HPc+P+dMUYUrJM2xVh9iuVbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777380105; c=relaxed/simple;
-	bh=hCPBwrO7oEPx4oAfnxuwrKTDAkZAjcnkILOS9aX1IJM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GfhbHGpMXE3jRubX+UcmW2vx0HAUgt02yUyTeLvC0XRqhsIeKGb6RLfkVR9sZONFuDE4qCqJBZ80hlsmrJFKjmZ4KBGtbtLWMcGRJUw3lQBL5abmvlK8/m0mdjKdikadELAgB5FEnXUF/F+IAFiqKRtmG2UjPdasKJGaIdXOGWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=b1ZcT20v; arc=none smtp.client-ip=209.85.167.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1777381041; c=relaxed/simple;
+	bh=VqeLDQRLMKU7s+EZS+ig8a/zapOpnhK489qRigdsGcU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NTJWlhnEWSzi4qQvpEJvcZ76syf96lmVYZCBB6vokECSTSkgJHi255C2NPuDrT7Fal10GwqWIYggn9OcQyi1eZXhHonR4w8gvvhkmOT5KgperWvw3Akj6kLHBnGqdM+PRG30nkJxu4JqWxxj1EBlIlft+NgANSAzWWNqgC+fTU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ErnTEDRi; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="b1ZcT20v"
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5a413f83226so11242540e87.1
-        for <linux-media@vger.kernel.org>; Tue, 28 Apr 2026 05:41:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ErnTEDRi"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2b24fcc2b5dso72322865ad.1
+        for <linux-media@vger.kernel.org>; Tue, 28 Apr 2026 05:57:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1777380086; x=1777984886; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=zJpnDr7u/wKl3rrXJo90bPq9ktWJpQktU2t3Cy7i01Y=;
-        b=b1ZcT20vy5OLr9QrXkY/DwH/VnLXp+8ZHulAnnQ9nP8l2ipUjFjgwpEE9l8vcGDDxK
-         oSkKUL1IRvXdLGRSHxhfcwIjiT3hybI2y5dph7XxAyEKwrdmgJBkeQ9sHBUD4LthC+6/
-         isXJ3lzwP4rakZeZjg+KEJpfjD1crokb8Bkxg=
+        d=gmail.com; s=20251104; t=1777381036; x=1777985836; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9ZBVJ20UhMxUS07PwK3D+4nyCgSd/sgxQDWyRFPlgUE=;
+        b=ErnTEDRiERA4qEU89zuDMOY8E+K0ICn72917+vcp5no0B2eiRCBOOcDQWNZpPrRJKe
+         aB3fjwkxkxUYhXiiHax7hjK1wnoDGnuee/sq2ui5NRJekBjqCKBQkqkXGjKgEIC8PRLf
+         Q58DDXHVBfwBBkqVO0fKW7iW6X31Bkv7YE82fPur4t08dYIqynf0iBZaNZqpSlJqZ9DI
+         5Lcbehv2RVY1C5A9RwDZGF0w/8nsSf/x9GdgxtYcuZhfwFBmnLmu7b0/tG2o8yY980RN
+         gUSKt1Wg8XYhnk8iEZbZvQXA/0/kiDPiFugnwZHvCu5Ok9Edbhg/a+tZya3OnNDs5iF0
+         1Qog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777380086; x=1777984886;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=zJpnDr7u/wKl3rrXJo90bPq9ktWJpQktU2t3Cy7i01Y=;
-        b=Y+5tY74U4vyvhF+6Ueog7QTzCM+kqNR2VnaK1HohAQSH0ctpwtA3HFmyhxv3bGI7KA
-         lbukZ8YESSMDl0WfjNk3XQuCSQVrt4K8Bks0pRtYE0m1bG+voCkLBwp9palxFNi9Fda6
-         KsBgI0NKCwCURwwh0qd2J8uAozB4TEHHlrzqb6MCihUwDlAFr7TEsM5SjaEczZEOFnRG
-         9NbVNXj4Na8UASqa4gXkr6xcOiWo8dc+baVWuwxlfwlqxzDs9FWVLZgWYlkMYLssdUYC
-         s+xjIGVcYo68Q+Pdy6/dK1jJ+DSFw/XlwOAJtR9mIz2cwfc38xgKMQhI3Y8IgUxUKI7/
-         pZKQ==
-X-Gm-Message-State: AOJu0YzmR29jorjWbfJYDzlDTDbr4pSHUenL8iqYopSMxmiEoQokPrjs
-	FTmxor9MmTre2T0+I7nSEQ2TaM3aqeR5MuRaQKyTCssumYI0I7ohM4N+lY2VBrzTCw==
-X-Gm-Gg: AeBDieuBGPVnShuKeICRMB0oSb/K0CDCBspLcF9nbuEjbjqr2ql3X3nBfiI+0wwEYi7
-	za0pV+lZ6Cl5x3q23c5sCzvyyO2WmLqKfATnsgOJdaK6Em8ke6K2JbGt0BUm9XriJuQgmoLJR64
-	eUdpmNj8Rc/9Epd+H5wTy+4Uyn2k0CfzMk0m4mhR6njKCP2XMorqD/3Q6uy0MC/c+vQR2MadJED
-	kju6t9W1+GKd/KaSg0ZGDbxPg+QvV4Xxk2pGhT1SZlGDOY0S8DHhjolNXSOI8XHyr9D+17xmN6F
-	JaSymDx5Ax5GPeg8FDvXN2Yc/sR3+r1uS+FnYeOKp3+zKOBmvFIJvvzVhjxRFxE971XbD3cZ++6
-	Pq18zP8X3WXVT7CL1Xu6V1iAHvDDc2cLp4WGdwQnu1nfvks85GjywQm4E2As0XzWz2pBhccRd1F
-	aQ+layxQnNHHA7FN1H0kzm+h79q8Gfhk2HxASu8l8Esp4l/B673fyomJfpD4DZEvyBXTzR32Ytu
-	2lIQu8FmZlCItNXbeRTQXS58JCj
-X-Received: by 2002:a05:6512:1323:b0:5a2:b86b:56c2 with SMTP id 2adb3069b0e04-5a7466896f5mr950419e87.21.1777380085786;
-        Tue, 28 Apr 2026 05:41:25 -0700 (PDT)
-Received: from ribalda.c.googlers.com (52.163.228.35.bc.googleusercontent.com. [35.228.163.52])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a7463f5fb5sm594617e87.38.2026.04.28.05.41.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Apr 2026 05:41:24 -0700 (PDT)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Tue, 28 Apr 2026 12:41:11 +0000
-Subject: [PATCH 5/6] media: staging: ipu3-imgu: Add range check for
- imgu_css_cfg_acc_stripe
+        d=1e100.net; s=20251104; t=1777381036; x=1777985836;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9ZBVJ20UhMxUS07PwK3D+4nyCgSd/sgxQDWyRFPlgUE=;
+        b=fNbf8L6QfaGarpV5iVvgpRa0fLhtRG6NB8AKPLmvGDftmFaQyIU8TSWR6DBqR336xR
+         fmzgDApz07PY4ZkB3w0ZCOIB7sOKiefrRs77Ts46W/Y08JdYYgQNceI8ePGpP8HU18vJ
+         uf74en6xACvKxTmgl7mTZZhcdtzZzZifQpSAmjRwzNr/NBSxYzOc8Y98eeBoObLocABs
+         +s0tcJPiyrLhAKaWhwiHxEoCOo0E7GqhCiDPpN/rQQsd2ywQVo28PsphKNQGH2LnE1Pn
+         6cZqnw2lSrwbHJnrcJXEyGUAJxa47cx3PrhMC64BcBODX05XszP3+F617EXYMOn/bcNz
+         ejlQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9W/KD1KOZ20bqu25OCvVoGC4ehBYk24x5aEE27GrwkacI3VN2HEiPoxV8Al3Pf3e5tnAC26xImxWNajQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx9GXo5DdN+oYNhAdjqz+XoBv6T8Dmo6lBPARTgKDsdOrO3ETdL
+	FJ19jFORUBgoQ5CSXQF4xR+W4QsFRvBFY/A8bYSaHjbf1JKUQPTPXmU=
+X-Gm-Gg: AeBDiet4ONzlLnHXFFaVubIVVyxBX0hg+QeCg6PxYSPk3ocw2+LGO9DL+w14BlOAQFN
+	QPq7M+EgCaNMDA9OdiA4DENCbmKYJnPUvWBbS5PFuVTAVRi9wdCCx5lTEHTBwysN1VMfwxeTO0/
+	JY+uWWhnjvliH6X19M5NfOsSg+TJYkLD469FesVb0nTj0sYx4WVNkrzfHdgzwSX057tZxLxtkNX
+	ON2cNP+F+EixYzB2n7pX+4gIfVncJro1uazzEu0eBbzZ6rgW49/0c1SnjyahKnJiGVqPGY5k8my
+	wB1S5tWxgE/sPsOlyJIw1wZctlgnYnKkWcVGArymytBN2AMGlSY2XDd4N5IG/9dY0BwVFAdaG/8
+	sVXeu+YRh0IQAqFzO9FxFk8e4bUZ+2kKHveK1ozwtORP05X8jhHSHCExgg+U4MLO83Mp5n81Nop
+	pPde6lM4R5XmIu3O1oPZSbgwsM/yjknwnqhcd5PZtCfNQPpO7uAN0hLlu2lr+5eLrxV3mRE2WRh
+	dNhjFo1W6AVlYY=
+X-Received: by 2002:a17:903:1b2c:b0:2b2:a267:784a with SMTP id d9443c01a7336-2b97c47b88fmr29441165ad.24.1777381035694;
+        Tue, 28 Apr 2026 05:57:15 -0700 (PDT)
+Received: from localhost.localdomain ([1.226.165.54])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b97aca8b4esm26483825ad.73.2026.04.28.05.57.12
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 28 Apr 2026 05:57:15 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+Cc: Myeonghun Pak <mhun512@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] media: rcar-vin: Clean up notifier on probe failure
+Date: Tue, 28 Apr 2026 21:57:04 +0900
+Message-ID: <20260428125708.93102-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260428-smatch-7-1-v1-5-46890dffb611@chromium.org>
-References: <20260428-smatch-7-1-v1-0-46890dffb611@chromium.org>
-In-Reply-To: <20260428-smatch-7-1-v1-0-46890dffb611@chromium.org>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Hans Verkuil <hverkuil@kernel.org>, Nas Chung <nas.chung@chipsnmedia.com>, 
- Jackson Lee <jackson.lee@chipsnmedia.com>, 
- Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Keke Li <keke.li@amlogic.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-staging@lists.linux.dev, Ricardo Ribalda <ribalda@chromium.org>
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
 
-If the driver's stripe information is invalid it can result in an integer
-overflow. Add a range check with a WARN_ON to expose this kind of
-error.
+rvin_group_notifier_init() initializes the group notifier before
+parsing the graph and adding async connections. If parsing fails
+after that point, the function returns without cleaning up the
+notifier, leaving the async connections and their fwnode references
+behind.
 
-This patch fixes the following smatch error:
-drivers/staging/media/ipu3/ipu3-css-params.c:1792 imgu_css_cfg_acc_stripe() warn: 'acc->stripe.bds_out_stripes[0]->width - 2 * f' 4294967168 can't fit into 65535 'acc->stripe.bds_out_stripes[1]->offset'
+The Gen2/default probe path also fails to drop the group reference
+when rvin_group_notifier_init() returns an error after
+rvin_group_get() succeeded. Unlike a successful probe, .remove() is
+not called for this path, so the probe error path must unwind it
+directly.
 
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+Route notifier-init failures through a common cleanup path, clear
+the cached async connection pointers after cleanup, and make the
+default probe path mirror the CSI-2/ISP group unwind.
+
+Fixes: 856b49c71ae5 ("media: rcar-vin: Merge all notifiers")
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/staging/media/ipu3/ipu3-css-params.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ .../media/platform/renesas/rcar-vin/rcar-core.c    | 32 ++++++++++++++++++----
+ 1 file changed, 26 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/staging/media/ipu3/ipu3-css-params.c b/drivers/staging/media/ipu3/ipu3-css-params.c
-index 2c48d57a3180..6ed23c7a0c3f 100644
---- a/drivers/staging/media/ipu3/ipu3-css-params.c
-+++ b/drivers/staging/media/ipu3/ipu3-css-params.c
-@@ -1770,6 +1770,8 @@ static int imgu_css_cfg_acc_stripe(struct imgu_css *css, unsigned int pipe,
- 		acc->stripe.bds_out_stripes[0].width =
- 			ALIGN(css_pipe->rect[IPU3_CSS_RECT_BDS].width, f);
- 	} else {
-+		u32 offset;
+diff --git a/drivers/media/platform/renesas/rcar-vin/rcar-core.c b/drivers/media/platform/renesas/rcar-vin/rcar-core.c
+index c8d564aa1e..8ba8d49c3e 100644
+--- a/drivers/media/platform/renesas/rcar-vin/rcar-core.c
++++ b/drivers/media/platform/renesas/rcar-vin/rcar-core.c
+@@ -318,6 +318,20 @@ static const struct v4l2_async_notifier_operations rvin_group_notify_ops = {
+ 	.complete = rvin_group_notify_complete,
+ };
+ 
++static void rvin_group_notifier_cleanup(struct rvin_group *group)
++{
++	v4l2_async_nf_cleanup(&group->notifier);
 +
- 		/* Image processing is divided into two stripes */
- 		acc->stripe.bds_out_stripes[0].width =
- 			acc->stripe.bds_out_stripes[1].width =
-@@ -1788,8 +1790,10 @@ static int imgu_css_cfg_acc_stripe(struct imgu_css *css, unsigned int pipe,
- 			acc->stripe.bds_out_stripes[1].width += f;
++	guard(mutex)(&group->lock);
++
++	for (unsigned int i = 0; i < RCAR_VIN_NUM; i++)
++		if (group->vin[i])
++			group->vin[i]->parallel.asc = NULL;
++
++	for (unsigned int i = 0; i < ARRAY_SIZE(group->remotes); i++)
++		group->remotes[i].asc = NULL;
++}
++
+ static int rvin_group_parse_of(struct rvin_dev *vin, unsigned int port,
+ 			       unsigned int id)
+ {
+@@ -440,7 +454,7 @@ static int rvin_group_notifier_init(struct rvin_dev *vin, unsigned int port,
+ 		/* Parse local subdevice. */
+ 		ret = rvin_parallel_parse_of(vin->group->vin[i]);
+ 		if (ret)
+-			return ret;
++			goto err_cleanup;
+ 
+ 		/* Parse shared subdevices. */
+ 		for (id = 0; id < max_id; id++) {
+@@ -449,7 +463,7 @@ static int rvin_group_notifier_init(struct rvin_dev *vin, unsigned int port,
+ 
+ 			ret = rvin_group_parse_of(vin->group->vin[i], port, id);
+ 			if (ret)
+-				return ret;
++				goto err_cleanup;
  		}
- 		/* Overlap between stripes is IPU3_UAPI_ISP_VEC_ELEMS * 4 */
--		acc->stripe.bds_out_stripes[1].offset =
--			acc->stripe.bds_out_stripes[0].width - 2 * f;
-+		offset = acc->stripe.bds_out_stripes[0].width - 2 * f;
-+		if (WARN_ON(offset > 65535))
-+			return -EINVAL;
-+		acc->stripe.bds_out_stripes[1].offset = offset;
  	}
  
- 	acc->stripe.effective_stripes[0].height =
-
+@@ -460,11 +474,14 @@ static int rvin_group_notifier_init(struct rvin_dev *vin, unsigned int port,
+ 	ret = v4l2_async_nf_register(&vin->group->notifier);
+ 	if (ret < 0) {
+ 		vin_err(vin, "Notifier registration failed\n");
+-		v4l2_async_nf_cleanup(&vin->group->notifier);
+-		return ret;
++		goto err_cleanup;
+ 	}
+ 
+ 	return 0;
++
++err_cleanup:
++	rvin_group_notifier_cleanup(vin->group);
++	return ret;
+ }
+ 
+ /* -----------------------------------------------------------------------------
+@@ -1228,8 +1245,11 @@ static int rcar_vin_probe(struct platform_device *pdev)
+ 		break;
+ 	default:
+ 		ret = rvin_group_get(vin, rvin_parallel_setup_links, NULL);
+-		if (!ret)
++		if (!ret) {
+ 			ret = rvin_group_notifier_init(vin, 0, 0);
++			if (ret)
++				rvin_group_put(vin);
++		}
+ 
+ 		if (vin->info->scaler)
+ 			vin->scaler = vin->info->scaler;
+@@ -1264,7 +1284,7 @@ static void rcar_vin_remove(struct platform_device *pdev)
+ 
+ 	if (&vin->v4l2_dev == vin->group->notifier.v4l2_dev) {
+ 		v4l2_async_nf_unregister(&vin->group->notifier);
+-		v4l2_async_nf_cleanup(&vin->group->notifier);
++		rvin_group_notifier_cleanup(vin->group);
+ 	}
+ 
+ 	rvin_group_put(vin);
 -- 
-2.54.0.545.g6539524ca2-goog
-
+2.49.0
