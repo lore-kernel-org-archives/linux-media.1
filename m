@@ -1,27 +1,26 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3E563DD50B
-	for <linux-media@vger.kernel.org>; Tue, 28 Apr 2026 09:01:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33D93E0257
+	for <linux-media@vger.kernel.org>; Tue, 28 Apr 2026 09:01:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777366862; cv=none; b=nmCVmbDBjO2XOAa2iNMcb3Lxy7A8U9pgLmN+BahYjkw+IswLVzsoXgvYUObFrEnJqVP08isY/Q7yHYGa4iMcur/+Y+SCjBYWeDqRMxGs/w3bGmQDEoduiuw953g7gJXMHGTozDwNVCVXLFwoUeldLhCQ13QufA1MeNZ3khCvNLQ=
+	t=1777366864; cv=none; b=LMl+vV+Ya9h/t/BTTKYVgYsdxJhveFvm1eS2TMg9MEAlH1MZgXdIkIheW+0h4oZRNQ9Nmjp+oxKZwDdxMzgHaKGqjfQBQFPQ8OTzy7SQ4/5O8Doq2s8Tp64iI77G6YG9p2ThYi134+DiNeiAAOtXNEYMOKzvPwSWZmRmS7PZ9HQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777366862; c=relaxed/simple;
-	bh=BH2oF6z4IcbYRERqJXEJ87CMKAgRRaFDo4Hk4DFuD5Q=;
+	s=arc-20240116; t=1777366864; c=relaxed/simple;
+	bh=TTPvb0x4OqQ5w6C/6ClXG5pZvqC8ITR3Tf7/nAb0BGE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Gm8DhoMkO8S01QeUnvczdgHu21kTxd+FW6Df2307riComc4Ko6gyljkeGx6Nw9HKdY5Rb2FDPVXTi8GuydjZohlpuXBuqZ392jsHbnOopojlIDeqHEcOA9drpwnV+Cnry0A3/AFWuqJxxOGYc/f0ZCDpCtdxk/D/N/Xv+PokY08=
+	 In-Reply-To:To:Cc; b=A0LpKJowGiuQLo46s1OBI9RsmcP32IN+Fv5Jk9hxfxywAUDwN4dOHTzsl91bLRm7HOCNRC+knyNHnaUJ+i/p5dEpKpvKOHHuqnSeR/BL73WQhLDgu/aobnmHJdYdOHV6S1O0p8eQK+NA93PK0mvBvaiKisJNHATFg659X3I9sag=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wHeJE-0004Lz-7d; Tue, 28 Apr 2026 11:00:48 +0200
+	id 1wHeJF-0004Lz-Pm; Tue, 28 Apr 2026 11:00:49 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Tue, 28 Apr 2026 11:00:47 +0200
-Subject: [PATCH v5 12/29] media: rockchip: rga: avoid odd frame sizes for
- YUV formats
+Date: Tue, 28 Apr 2026 11:00:50 +0200
+Subject: [PATCH v5 15/29] media: rockchip: rga: align stride to 4 bytes
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -30,7 +29,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260428-spu-rga3-v5-12-eb7f5d019d86@pengutronix.de>
+Message-Id: <20260428-spu-rga3-v5-15-eb7f5d019d86@pengutronix.de>
 References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 In-Reply-To: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -43,66 +42,81 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@pengutronix.de, nicolas@ndufresne.ca, 
  sebastian.reichel@collabora.com, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>
 X-Mailer: b4 0.15.2
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Avoid odd frame sizes for YUV formats, as they may cause undefined
-behavior. This is done in preparation for the RGA3, which hangs when the
-output format is set to 129x129 pixel YUV420 SP (NV12).
+Add an alignment setting to rga_hw to set the desired stride alignment.
+As the RGA2 register for the stride counts in word units, the code
+already divides the bytesperline value by 4 when writing it into the
+register. Therefore fix the alignment to a multiple of 4 to avoid
+potential off by one errors due from the division.
 
-This requirement is documented explicitly for the RGA3 in  section 5.6.3
-of the RK3588 TRM Part 2. For the RGA2 the RK3588 TRM Part 2
-(section 6.1.2) and RK3568 TRM Part 2 (section 14.2) only mentions the
-x/y offsets and stride aligning requirements. But the vendor driver for
-the RGA2 also contains checks for the width and height to be aligned to
-2 bytes.
-
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+ drivers/media/platform/rockchip/rga/rga-hw.c |  1 +
+ drivers/media/platform/rockchip/rga/rga.c    | 11 ++++++-----
+ drivers/media/platform/rockchip/rga/rga.h    |  1 +
+ 3 files changed, 8 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
+index 9881c14f908d5..dac3cb6aa17d3 100644
+--- a/drivers/media/platform/rockchip/rga/rga-hw.c
++++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+@@ -580,6 +580,7 @@ const struct rga_hw rga2_hw = {
+ 	.max_width = MAX_WIDTH,
+ 	.min_height = MIN_HEIGHT,
+ 	.max_height = MAX_HEIGHT,
++	.stride_alignment = 4,
+ 
+ 	.start = rga_hw_start,
+ 	.handle_irq = rga_handle_irq,
 diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index f599c992829dd..77b8c7ab74274 100644
+index bf6bbcbfc869b..16a663aeef8c9 100644
 --- a/drivers/media/platform/rockchip/rga/rga.c
 +++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -337,6 +337,19 @@ static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
- 	struct rga_ctx *ctx = file_to_rga_ctx(file);
- 	const struct rga_hw *hw = ctx->rga->hw;
- 	struct rga_fmt *fmt;
-+	struct v4l2_frmsize_stepwise frmsize = {
-+		.min_width = hw->min_width,
-+		.max_width = hw->max_width,
-+		.min_height = hw->min_height,
-+		.max_height = hw->max_height,
-+		.step_width = 1,
-+		.step_height = 1,
-+	};
-+
-+	if (v4l2_is_format_yuv(v4l2_format_info(pix_fmt->pixelformat))) {
-+		frmsize.step_width = 2;
-+		frmsize.step_height = 2;
-+	}
+@@ -234,10 +234,10 @@ static int rga_open(struct file *file)
+ 	ctx->in = def_frame;
+ 	ctx->out = def_frame;
  
- 	if (V4L2_TYPE_IS_CAPTURE(f->type)) {
- 		const struct rga_frame *frm;
-@@ -358,11 +371,7 @@ static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
- 	if (!fmt)
+-	v4l2_fill_pixfmt_mp(&ctx->in.pix,
+-			    ctx->in.fmt->fourcc, def_width, def_height);
+-	v4l2_fill_pixfmt_mp(&ctx->out.pix,
+-			    ctx->out.fmt->fourcc, def_width, def_height);
++	v4l2_fill_pixfmt_mp_aligned(&ctx->in.pix, ctx->in.fmt->fourcc,
++				    def_width, def_height, rga->hw->stride_alignment);
++	v4l2_fill_pixfmt_mp_aligned(&ctx->out.pix, ctx->out.fmt->fourcc,
++				    def_width, def_height, rga->hw->stride_alignment);
+ 
+ 	if (mutex_lock_interruptible(&rga->mutex)) {
+ 		ret = -ERESTARTSYS;
+@@ -393,7 +393,8 @@ static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
  		fmt = &hw->formats[0];
  
--	pix_fmt->width = clamp(pix_fmt->width,
--			       hw->min_width, hw->max_width);
--	pix_fmt->height = clamp(pix_fmt->height,
--				hw->min_height, hw->max_height);
--
-+	v4l2_apply_frmsize_constraints(&pix_fmt->width, &pix_fmt->height, &frmsize);
- 	v4l2_fill_pixfmt_mp(pix_fmt, fmt->fourcc, pix_fmt->width, pix_fmt->height);
+ 	v4l2_apply_frmsize_constraints(&pix_fmt->width, &pix_fmt->height, &frmsize);
+-	v4l2_fill_pixfmt_mp(pix_fmt, fmt->fourcc, pix_fmt->width, pix_fmt->height);
++	v4l2_fill_pixfmt_mp_aligned(pix_fmt, pix_fmt->pixelformat,
++				    pix_fmt->width, pix_fmt->height, hw->stride_alignment);
  	pix_fmt->field = V4L2_FIELD_NONE;
  
+ 	return 0;
+diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
+index 04aeb7b429523..38518146910a6 100644
+--- a/drivers/media/platform/rockchip/rga/rga.h
++++ b/drivers/media/platform/rockchip/rga/rga.h
+@@ -150,6 +150,7 @@ struct rga_hw {
+ 	size_t cmdbuf_size;
+ 	u32 min_width, min_height;
+ 	u32 max_width, max_height;
++	u8 stride_alignment;
+ 
+ 	void (*start)(struct rockchip_rga *rga,
+ 		      struct rga_vb_buffer *src, struct rga_vb_buffer *dst);
 
 -- 
 2.54.0
