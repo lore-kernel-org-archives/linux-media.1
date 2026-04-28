@@ -1,99 +1,119 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3603C1F;
-	Tue, 28 Apr 2026 08:59:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 804FD3D7D6C
+	for <linux-media@vger.kernel.org>; Tue, 28 Apr 2026 09:00:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777366795; cv=none; b=rsr/u4b3bRwxF5JQsBjipSUCSDbb1aNaTedffcmjB4I9KSSfpLfCGcNHRIqbPUuTpNxuXmPx0j9vtmVveoejt6/56dEkWcmalQ0civov9yu8LuXCbrHa5F/CAB+ZCk8gTie4lN47lHlUNKsioNHaZJGRvGEw1YhJjpKs/CUUryw=
+	t=1777366857; cv=none; b=g5hqaxzejnFFKNe4kLSxcr1rwhGBbdvKf7CFYEHBySn6gH1q7uzbMvG+L8WUvG8GNQnJy0SMPBHHKr9nxKAVj5hEegQUJpltKJrnHw0pHw1QrQsPnddF75API1cB+SdDN8X4r3Wv/sD9teLo8Um1zR6UVKiVvvWo3YltHESCy8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777366795; c=relaxed/simple;
-	bh=A8mYPFb8sbnOQ4syqsN5w2yehB+6fF93UgowW68OsyE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Sub6jszYbda/wxO4LhQ1xXCw99h/edza8OpDJLNAbWgE36dOlv/uvCs+KdPadfm0SAY8A+skdoCI5FdFQ2ZydxMhxYrHiqmqDiihHgswMvH29jxvFpdin7m6IP7Kv0sb7BdnS3wvbPJvA/8N4gTsIA8u3BeI9oyaboFhXrN9Qog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=TB6cqteP; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="TB6cqteP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1777366762;
-	bh=A8mYPFb8sbnOQ4syqsN5w2yehB+6fF93UgowW68OsyE=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=TB6cqteP2u4d7bx22tgyGVdbUhAG9QgzlU4+HAhz7ovGbXHjdT7ZNtGLANMOVAQ51
-	 BSrqHYO9SjuxykxVE4G8q3YTcoC/AtY4vuGnNQTiXRDAHHdjrkiwv3Jt981RCSYO16
-	 efKP5wEFomZNL35PzZ+dphfnxGrcYlN7CjSmu160=
-X-QQ-mid: zesmtpip3t1777366744t926689e0
-X-QQ-Originating-IP: Ieehv/HRYEeC4IUIhcXSKRJEUN/kBgZA1Ulmm8I5h/Y=
-Received: from localhost.localdomain ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 28 Apr 2026 16:59:02 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 346598132270762092
-EX-QQ-RecipientCnt: 11
-From: Haowen Tu <tuhaowen@uniontech.com>
-To: oneukum@suse.com
-Cc: hansg@kernel.org,
-	laurent.pinchart@ideasonboard.com,
-	lenb@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	mchehab@kernel.org,
-	pavel@kernel.org,
-	rafael@kernel.org,
-	tuhaowen@uniontech.com
-Subject: Re: [PATCH 2/2] media: uvcvideo: skip resume when writing hibernation image
-Date: Tue, 28 Apr 2026 16:58:59 +0800
-Message-Id: <20260428085859.1840613-1-tuhaowen@uniontech.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <937aca8d-805b-418e-a2ed-58c1e38f45e7@suse.com>
-References: <937aca8d-805b-418e-a2ed-58c1e38f45e7@suse.com>
+	s=arc-20240116; t=1777366857; c=relaxed/simple;
+	bh=ljhyyAVAsaT41Rpt30YyAO53+U3vqFIqV/OgI67rHP8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=oUzGashYIzGAlTWLB9HMJQ/kD2tyIAcUn+0eJ4I0dEAxlsQQYBGwqA5JKQRj/u3WiHlKOAP0VTjAqyKhwvEBBa7d13rqt0p7uOtu2ZpIHOWSWY2ePxiZG49S6OxZe+ZRQgvUjq5qRyX7Z0qh36eR8GSXGQxtlj3UbU1Yqvhi+dk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <s.pueschel@pengutronix.de>)
+	id 1wHeJ7-0004Lz-SE; Tue, 28 Apr 2026 11:00:41 +0200
+From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+Date: Tue, 28 Apr 2026 11:00:36 +0200
+Subject: [PATCH v5 01/29] media: dt-bindings: media: rockchip-rga: add
+ rockchip,rk3588-rga3
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NI6TJc3opC6FET3uPTLYQyZ1qdIKMgP/5Kf6sbL4WTgPhmRIhowxKroL
-	6IESgh6kbsjMjhMuOewRE4uCvd9aRgbhZ/+2x+5Gz4E4zMVN/7aCMz2fx9Rwl4xT+09o58w
-	b29tpVNG8f7btMF5Fbo4CE91g4U1YCVr0zS+8JY4Yh+ZrmX6fG8kVPbZBaCnl1+aaUoDuss
-	VkpD/LzDekE+qld6YyONQIM3zeDYUs+iHUuh1YY0cySwQvj8tsM8MKouqCERVWtBcmMA4fR
-	GrBF4usUCqinoCTKNZBxnegE3BZU8QBGWzqras57bYzBY235WU8oxyRtvJ8dH0KDmt6Uj7O
-	B6LRBeJoIfolYKXgFvqKqNMcZ4E9xCJYesG6BZzxSRkfe1oa39pjix5Tov8zfiAVYj17C6e
-	nucpU4cmCTz4zjDm8H4zFrGq7JS4MsYCbhkaZvtZiKeMTj/KaodEiJBH9FmayLhvgOcalii
-	CvIEp190Bj6VKHyjygnlqZAQT55B6CzRXKUD8dCNsFDeHDfqR/6Ve0kBMp+QyqCEBOOCsvl
-	G2auUxVJczP3pxlwuZjsxmGz0iiHr/dh2YyLjLufjwpgH6KYZznz1cekaGKbUzqBVfBCCgW
-	QE6NyEtHN4lX/cAR5S93Q6jfLrH3A0DltlVTeXt5I8SxPot+HrivvKXbx62nvG+Cid34l8U
-	e0z1uYV8+De5cx9cBod3BNeMwDdekIjD0cVWFE1U7ksqQDALJJUommBJjV2t2QDRfjtdLWb
-	z6xFjx+QjYM4ZmVfu32Lb54NEUxaaR8Lep4wySb6TaQ/ikhS0zIobe8/+SmkbMAkDtnMmoc
-	V38yRr2bpou11tvbLV/Bi+PBd5R5/B+hBYwx5f+zPOaH/QjorbJhhmGgi2MXQgquQKet5W4
-	t1s+iaoHtKWx1nM1MzENQ/mhUnAXXM86RYGrPJMndnx1x+NZvRJtEqZFC89UqijJGlNRKfI
-	e/iN9CAaC1xCzeDBLsxlKYozPZLkpbJ8YUjFTxZd01ex1bmQNdUqlCnYsIv5zdVt6n4SiFr
-	h/w6GANG+OtYtrEhX8KMfnf/4UKKGQCbSkKNBS+ApLsRurSYLyOEfoKS5VdXIzgCHVr3WKz
-	7f47ua3R6v+
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+Message-Id: <20260428-spu-rga3-v5-1-eb7f5d019d86@pengutronix.de>
+References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
+In-Reply-To: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
+To: Jacob Chen <jacob-chen@iotwrt.com>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@pengutronix.de, nicolas@ndufresne.ca, 
+ sebastian.reichel@collabora.com, 
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+X-Mailer: b4 0.15.2
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Hi Oliver,
+Add a new compatible for the RGA3 (Raster Graphic Acceleration 3)
+peripheral found on the RK3588 SoC. Also specify an iommu property,
+as the RGA3 contains the generic rockchip iommu. While other versions
+also have an iommu, it's usually specific to them.
 
-On Tue, 28 Apr 2026, Oliver Neukum wrote:
-> What happens if writing out the image fails?
+The RK3588 contains one RGA2-Enhance core (also contained on the RK3399)
+and two RGA3 cores. Both feature a similar functionality of scaling,
+cropping and rotating of up to two input images into one output image.
+Key differences of the RGA3 are:
 
-Thanks for pointing this out.
+- supports 10bit YUV output formats
+- supports 8x8 tiles and FBCD as inputs and outputs
+- supports BT2020 color space conversion
+- max output resolution of (8192-64)x(8192-64)
+- MMU can map up to 32G DDR RAM
+- fully planar formats (3 planes) are not supported
+- max scale up/down factor of 8 (RGA2 allows up to 16)
 
-If swsusp_write() fails, the system resumes in the original kernel
-instead of powering off, so the failure path needs to be considered as
-well. I was reasoning about the successful hibernation path here, but
-you are right that skipping resume work during THAW may not be safe if
-the image write does not complete.
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+---
+Changed in v3/v4:
+- Dropped Acked-by: Krzysztof Kozlowski due to the added iommus property
+  and description adjustments.
+---
+ Documentation/devicetree/bindings/media/rockchip-rga.yaml | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-I will trace the failure path more carefully and update the series
-accordingly.
+diff --git a/Documentation/devicetree/bindings/media/rockchip-rga.yaml b/Documentation/devicetree/bindings/media/rockchip-rga.yaml
+index ac17cda65191b..7bd92f7336664 100644
+--- a/Documentation/devicetree/bindings/media/rockchip-rga.yaml
++++ b/Documentation/devicetree/bindings/media/rockchip-rga.yaml
+@@ -9,7 +9,11 @@ title: Rockchip 2D raster graphic acceleration controller (RGA)
+ description:
+   RGA is a standalone 2D raster graphic acceleration unit. It accelerates 2D
+   graphics operations, such as point/line drawing, image scaling, rotation,
+-  BitBLT, alpha blending and image blur/sharpness.
++  BitBLT, alpha blending and image blur/sharpness. There exist many versions
++  of this unit that differ in the supported inputs/output formats,
++  the attached IOMMU and the supported operations on the input. As some SoCs
++  include multiple RGA units with different versions, a more specific
++  compatible name to differentiate the concrete unit is used for them.
+ 
+ maintainers:
+   - Jacob Chen <jacob-chen@iotwrt.com>
+@@ -20,6 +24,7 @@ properties:
+     oneOf:
+       - const: rockchip,rk3288-rga
+       - const: rockchip,rk3399-rga
++      - const: rockchip,rk3588-rga3
+       - items:
+           - enum:
+               - rockchip,rk3228-rga
+@@ -45,6 +50,9 @@ properties:
+   power-domains:
+     maxItems: 1
+ 
++  iommus:
++    maxItems: 1
++
+   resets:
+     maxItems: 3
+ 
 
-Thanks,
-Haowen Tu
+-- 
+2.54.0
+
