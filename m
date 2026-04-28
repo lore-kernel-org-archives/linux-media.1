@@ -1,26 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556853E1206
-	for <linux-media@vger.kernel.org>; Tue, 28 Apr 2026 09:01:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A569C3E2749
+	for <linux-media@vger.kernel.org>; Tue, 28 Apr 2026 09:01:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777366866; cv=none; b=QJ9o5m/SQGLTD/H3ajtbx3LHwxEyWty13d4mMwan3eBrwPaNoLXkEILATTfihLef3GADy5areEIfAM6+uDK7lS1Rs1ABlF/IWrv2Ll/KhwTULBq3bLB+Sj1QUjJIpWPtU5PEeth/4bZ2G34+vccnIE6UdHdAIJOOCyJRBPNKd+I=
+	t=1777366867; cv=none; b=Ni03v/TepdxmZVhw28++T4V/vxPgDCVI6ZlKeTtUnW0+HJb3LGvl8zJ0da1qJvlng8SzUKm/tTGnzaGkjh715ahKK9jXahAekFjTt3rRfjFr80804wfOh5orBfVIQakUoMvDu1Kp6i6wlEarUudKcLVCt2ECJ3EfOLFWAytnxjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777366866; c=relaxed/simple;
-	bh=IV1MPqpIuDVqI5WDTyEOgup2JhW6cyHgQx0jC+JgUIk=;
+	s=arc-20240116; t=1777366867; c=relaxed/simple;
+	bh=1JlY+N4SnPm5stESttpyK4IG+iwzAporxN+TRokWNcw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pBmb7lx1HaZ6Iq2iu9wMchAHDc5UPerjZy/L4ypfsjDNpb6xQ9Pkroz4wjJgLQkri934L/59QGXujSGz2fX9qjSnWKswvqvbsY8qawuMJ4VoOU1R8ZNm1Db7+jlE65v40IqHgCN0OXqhS+BAiX/jkxFdbqi5htdzkME/e9+9ZXc=
+	 In-Reply-To:To:Cc; b=sdZ4nMLBX/+FmKfyPCGBvEvEtXzV4qXkc9Pr6ICFy0Hexb8xrJijy75cgXjtTbGYPi3k3V+WBJsJjNOf82PHWQOR2RkDeY9DypukF8P3cZYlsbOMiC5InyP7ItrBJkk+rDPYljackuNMhebI+NCGogCXzvQ6W3xnyX1xAoVuKtQ=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wHeJA-0004Lz-NE; Tue, 28 Apr 2026 11:00:44 +0200
+	id 1wHeJH-0004Lz-TH; Tue, 28 Apr 2026 11:00:51 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Tue, 28 Apr 2026 11:00:41 +0200
-Subject: [PATCH v5 06/29] media: rockchip: rga: fix too small buffer size
+Date: Tue, 28 Apr 2026 11:00:54 +0200
+Subject: [PATCH v5 19/29] media: rockchip: rga: use card type to specify
+ rga type
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -29,7 +30,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260428-spu-rga3-v5-6-eb7f5d019d86@pengutronix.de>
+Message-Id: <20260428-spu-rga3-v5-19-eb7f5d019d86@pengutronix.de>
 References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 In-Reply-To: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -42,56 +43,66 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@pengutronix.de, nicolas@ndufresne.ca, 
  sebastian.reichel@collabora.com, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>
 X-Mailer: b4 0.15.2
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Fix the command buffer size being only a quarter of the actual size.
-The RGA_CMDBUF_SIZE macro was potentially intended to specify the length
-of the cmdbuf u32 array pointer. But as it's used to specify the size of
-the allocation, which is counted in bytes. Therefore adjust the macro
-size to bytes as it better matches the variable name and adjust it's
-users accordingly.
+In preparation of the RGA3 support add a filed to the rga_hw struct
+to specify the desired card type value. This allows the user to
+differentiate the RGA2 and RGA3 video device nodes.
 
-As the command buffer is relatively small, it probably didn't caused
-an issue due to being smaller than a single page.
-
-Fixes: f7e7b48e6d79 ("[media] rockchip/rga: v4l2 m2m support")
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga-hw.c | 2 +-
- drivers/media/platform/rockchip/rga/rga-hw.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/media/platform/rockchip/rga/rga-hw.c | 1 +
+ drivers/media/platform/rockchip/rga/rga.c    | 4 +++-
+ drivers/media/platform/rockchip/rga/rga.h    | 1 +
+ 3 files changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
-index 43ed742a16492..d1618bb247501 100644
+index 11a1a914668f6..931b4c4074a29 100644
 --- a/drivers/media/platform/rockchip/rga/rga-hw.c
 +++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-@@ -414,7 +414,7 @@ static void rga_cmd_set(struct rga_ctx *ctx,
+@@ -588,6 +588,7 @@ static struct rga_fmt formats[] = {
+ };
+ 
+ const struct rga_hw rga2_hw = {
++	.card_type = "rga2",
+ 	.formats = formats,
+ 	.num_formats = ARRAY_SIZE(formats),
+ 	.cmdbuf_size = RGA_CMDBUF_SIZE,
+diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+index 75d05c86b1c00..421a70558c3c7 100644
+--- a/drivers/media/platform/rockchip/rga/rga.c
++++ b/drivers/media/platform/rockchip/rga/rga.c
+@@ -306,8 +306,10 @@ static const struct v4l2_file_operations rga_fops = {
+ static int
+ vidioc_querycap(struct file *file, void *priv, struct v4l2_capability *cap)
  {
- 	struct rockchip_rga *rga = ctx->rga;
++	struct rockchip_rga *rga = video_drvdata(file);
++
+ 	strscpy(cap->driver, RGA_NAME, sizeof(cap->driver));
+-	strscpy(cap->card, "rockchip-rga", sizeof(cap->card));
++	strscpy(cap->card, rga->hw->card_type, sizeof(cap->card));
+ 	strscpy(cap->bus_info, "platform:rga", sizeof(cap->bus_info));
  
--	memset(rga->cmdbuf_virt, 0, RGA_CMDBUF_SIZE * 4);
-+	memset(rga->cmdbuf_virt, 0, RGA_CMDBUF_SIZE);
+ 	return 0;
+diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
+index 454af283b1694..dc6f90b843c32 100644
+--- a/drivers/media/platform/rockchip/rga/rga.h
++++ b/drivers/media/platform/rockchip/rga/rga.h
+@@ -145,6 +145,7 @@ static inline void rga_mod(struct rockchip_rga *rga, u32 reg, u32 val, u32 mask)
+ };
  
- 	rga_cmd_set_src_addr(ctx, src->dma_desc_pa);
- 	/*
-diff --git a/drivers/media/platform/rockchip/rga/rga-hw.h b/drivers/media/platform/rockchip/rga/rga-hw.h
-index cc6bd7f5b0300..2b8537a5fd0d7 100644
---- a/drivers/media/platform/rockchip/rga/rga-hw.h
-+++ b/drivers/media/platform/rockchip/rga/rga-hw.h
-@@ -6,7 +6,7 @@
- #ifndef __RGA_HW_H__
- #define __RGA_HW_H__
- 
--#define RGA_CMDBUF_SIZE 0x20
-+#define RGA_CMDBUF_SIZE 0x80
- 
- /* Hardware limits */
- #define MAX_WIDTH 8192
+ struct rga_hw {
++	const char *card_type;
+ 	struct rga_fmt *formats;
+ 	u32 num_formats;
+ 	size_t cmdbuf_size;
 
 -- 
 2.54.0
