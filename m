@@ -1,64 +1,64 @@
-Received: from mail-wr1-f73.google.com (mail-wr1-f73.google.com [209.85.221.73])
+Received: from mail-wr1-f74.google.com (mail-wr1-f74.google.com [209.85.221.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55A43A7F7A
-	for <linux-media@vger.kernel.org>; Wed, 29 Apr 2026 08:05:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B62A03A6B68
+	for <linux-media@vger.kernel.org>; Wed, 29 Apr 2026 08:11:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777449960; cv=none; b=eMwO7qBaaR4guQB/9jY2P54VBy+C6XJAxWuHP2VI9jJCcB/6h7avpP2e32Z3QZCejw/WhHVFcL89yfgBDUJspX9hpY/eQQZlusr/cNUWL2+Uo+4BgaBYNlaGfvIlGohAPgsa2NBBJ60aYEXay5HPn1kCwo3lgVirCeIoNNZ7XgY=
+	t=1777450294; cv=none; b=tywCuBns8az5bIu29IUSx4q5+u4LFx66hFQIKXEHI/w5CapP0OqFXhOLeb8Qho8CNYRCdMZbBtfJCzsot0n/IZ/FFbO0+5Zts+vKAOvYHjHf1+5ZAPGVkEbKiGR569cr9s4w8XJx+OXQuIq0y6hQbY0g1ylh5Hn5t6Wq8YX5EJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777449960; c=relaxed/simple;
-	bh=7PKamtfmq5JClsXy15li/SjWhFAvdUqut66TbU8qjjc=;
+	s=arc-20240116; t=1777450294; c=relaxed/simple;
+	bh=ko3LtTan+YBnb5IBwV2Fax/nNK6MsboBYeqY18CuzuM=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Cf33wLKECL6Hj+P12hzoCnTIg9J0ln8M5Lhz/r+hhuJ5rymEPW3cF9ePpr3fR1VRZvZIysH9BdezYYKGd34vxR4qDhizdigX4iQaFZtHRuNaHJ1zdOW+kv9mh5/CaqNsLD002d36AcA1EKBq61t6uILC/9BllIFXPbehczFLzAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=p1Wsr0XN; arc=none smtp.client-ip=209.85.221.73
+	 To:Cc:Content-Type; b=HBusq6L6zW/nDE9TM/2BYYcZoELTsUgNVcyTezLZdnSSjXebiU/IVbRU8a3/NAqmdDVCX2aR2QcDfq5oFjB+ryBWZ1snWz1LcELomqsZ56eNkEHDZabgZFNxtc86WVsmofmVooo2ScqFg7VASt6oowWEox9GM/y1UHoJpejVqDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=iJ3g9kL1; arc=none smtp.client-ip=209.85.221.74
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="p1Wsr0XN"
-Received: by mail-wr1-f73.google.com with SMTP id ffacd0b85a97d-43d7757463eso328272f8f.0
-        for <linux-media@vger.kernel.org>; Wed, 29 Apr 2026 01:05:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="iJ3g9kL1"
+Received: by mail-wr1-f74.google.com with SMTP id ffacd0b85a97d-4411a215f17so8497582f8f.1
+        for <linux-media@vger.kernel.org>; Wed, 29 Apr 2026 01:11:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1777449956; x=1778054756; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1777450291; x=1778055091; darn=vger.kernel.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=S6Sri/DxWYhekkoJhKaFCAGZ5nRi8N5LN4MWLa1I+oA=;
-        b=p1Wsr0XN9r8hw6Xc3Tc73Ouyx6KJzolyn+dIRO8DR9s2G35Zs+4fhY803DnC/gAfGm
-         VhGkYrYyPYjP29V3gR+ADRsaLKVo+dxShewfuOVC0pe9c4EmD6Xj3LDAPtOg2iuDEoh6
-         F3w/Rxgs/FKIdc+KiSNw2xb5mgmLAuXNHgT5ji649O3VFiELCNhZaa48wAvLx3HhwYeN
-         zeGDCwE4Tet76hCbjSWRD06Ys5sIOJy+zI3bpttBAAR20xkghWfvLkyYYhvkLJO5+u/Y
-         CBXl1715Y6/wdXBS6/RIxff2o6ceCBiBWI0/X5Xy8aejhq4BAt2IWQ/IigBXYd4NzFI+
-         +YVg==
+        bh=5lr17Jge9GgkiGKrAiGt8x+/cqgjgJIF0Kac8aOzuZk=;
+        b=iJ3g9kL12Z0L4R5lqmoMKyi4LFow6eWuSU44OG15aQ5C5eSKJR4enpXyDqExypXVRq
+         JJxmyIQZNPtMJHPHxx7x2d8/jWH16OiLJJVaOff3weMoY8Ol3evQb1+Avc7hRK7hz22s
+         QQs0BZsNaNLb52T46eo0iX4VtQOMIDjbW5MB84YDncap3Jt9H0rHFfVNEU2rtKQSY01F
+         A87BmDmLk+JTRFX40xU7xxxxrSBK2PpM+xVMOh8RJTEP6P/2PXiO/OwI0cJCPKMi4auo
+         3FF0e/xaxO0XuFeu+PcRv7c86keNK9EoZS/vrllp5/GzdvzaiGJNjR0nZrmVVP3FH/ZX
+         qNfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777449956; x=1778054756;
+        d=1e100.net; s=20251104; t=1777450291; x=1778055091;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=S6Sri/DxWYhekkoJhKaFCAGZ5nRi8N5LN4MWLa1I+oA=;
-        b=NjUO812eoSzjnO1ia6Ry1DOsuRXgIKaRpd7oUQZY34dgj8VKENw7JadRowe0G97ipe
-         8zvRR179Odh9V1fkQWiCe+YPB4UZ2nW+ZadV1rnuVMfSdUFLlUIK9XpTNiJsV5hWzRiT
-         3Ejb7ch8vCDtFQFWjM+N1sXzSRybwO8KDPppOsEoHPvFU8LA+xdDrkM20ivYFMJTrN1m
-         cXU4VLVYqqHmdqfr6YfyVP8S4dg1mG7KY93HPtLkMRNPviTWGD9ish+RxERwpCjrb5dr
-         tv9kFBHJQonGRjz4oVY/hXncP7kYZWRpBZVMAAdPcagnupFi5FsPCMnxawh5c7zQ6bEW
-         FEQg==
-X-Forwarded-Encrypted: i=1; AFNElJ8sF5VdJYxsbH2knQoB5KBWuGGa3+IFPvFeDDk++G0Xxa3j4PSLpG9CSQV5YwpGh0GiUEzSsFNMJA17lw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyAhudTwE4SW9D6ySyS88yxfOVZQ9o5xLvJLXf/jQPeiiJ+NG86
-	oUkyrALbPbSOu+z5dD/SmR2ooxUqwnApYca+FidxtAlqNxhb2TLzG6fjH79PBzk3k8TzPXNPzBy
-	DT2KT+b5OmzrEhPk4BA==
-X-Received: from wmkz21.prod.google.com ([2002:a7b:c7d5:0:b0:48a:5351:7e80])
+        bh=5lr17Jge9GgkiGKrAiGt8x+/cqgjgJIF0Kac8aOzuZk=;
+        b=rP3FKPSi/9mnzgvr1Oe+A0z0mXD7d1ge7cmlzCnK4BGWsLQlXm739yE2lD6zL5hfnV
+         r3x6K3Ddmm9UtEH1IxE2UO3VH1Yr8I75rIu+wClG0ZvcbWz4/Ea9iNxBoPAV+HiUA8d4
+         44m2rPiA1tWePZzecbxXOZihzYBbk5JK9JRjtNXG1sikncf3O1m8KR8usRDn4Dmq6Rub
+         qz5cRAZoLWmdxdT3dzrx8wpona7Pa3+6wIf5TrKSWWcT9YWCZXcJaPDwhsRA/6T85AwZ
+         ZQ43HeUnywBC6GKwWLw8w705rJbgqCX/t13cf2EFaOXN4WYggfwi6kZHeTqcjK3I7Hap
+         C6Og==
+X-Forwarded-Encrypted: i=1; AFNElJ/a9nIw24K43fCQgLURqyw2WKw2UNeH6C/NvI0cbuOEFt5cx1RJ+SlvvMtudBXtZ7tKItWVYFS4+sq9dg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwkgDGiX50Qsf3s+W7bQMraWQhZ7yBz65nrtlfzLA8/S9GpIdSl
+	rEiFJPb0njthkym2N7tWec+gvF3aY0WilHpzErPOw+G+PcmRyITMHTnL3NmrrMv+77pC35pIgLz
+	EQ8XOlhzXnBCf2xm0Kg==
+X-Received: from wrhm3.prod.google.com ([2002:a05:6000:1803:b0:43f:e56f:629b])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:8012:b0:486:f893:56c6 with SMTP id 5b1f17b1804b1-48a7bfb4564mr34552015e9.10.1777449956055;
- Wed, 29 Apr 2026 01:05:56 -0700 (PDT)
-Date: Wed, 29 Apr 2026 08:05:55 +0000
-In-Reply-To: <20260428190605.3355690-2-lyude@redhat.com>
+ 2002:a05:6000:186d:b0:43b:3d02:7806 with SMTP id ffacd0b85a97d-446494ea007mr11517494f8f.28.1777450290684;
+ Wed, 29 Apr 2026 01:11:30 -0700 (PDT)
+Date: Wed, 29 Apr 2026 08:11:29 +0000
+In-Reply-To: <20260428190605.3355690-4-lyude@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260428190605.3355690-1-lyude@redhat.com> <20260428190605.3355690-2-lyude@redhat.com>
-Message-ID: <afG744xkGUZBgNth@google.com>
-Subject: Re: [PATCH v13 1/5] rust: drm: gem: s/device::Device/Device/ for shmem.rs
+References: <20260428190605.3355690-1-lyude@redhat.com> <20260428190605.3355690-4-lyude@redhat.com>
+Message-ID: <afG9MTFxCbKE8OOZ@google.com>
+Subject: Re: [PATCH v13 3/5] rust: drm: gem/shmem: Add DmaResvGuard helper
 From: Alice Ryhl <aliceryhl@google.com>
 To: Lyude Paul <lyude@redhat.com>
 Cc: nouveau@lists.freedesktop.org, Gary Guo <gary@garyguo.net>, 
@@ -75,12 +75,23 @@ Cc: nouveau@lists.freedesktop.org, Gary Guo <gary@garyguo.net>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, kernel@vger.kernel.org
 Content-Type: text/plain; charset="utf-8"
 
-On Tue, Apr 28, 2026 at 03:03:41PM -0400, Lyude Paul wrote:
-> We're about to start explicitly mentioning kernel devices as well in this
-> file, so this makes it easier to differentiate the two by allowing us to
-> import `device` as `kernel::device`.
+On Tue, Apr 28, 2026 at 03:03:43PM -0400, Lyude Paul wrote:
+> Just a temporary holdover to make locking/unlocking the dma_resv lock much
+> easier.
 > 
 > Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Co-authored-by: Alexandre Courbot <acourbot@nvidia.com>
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Needs Alexandre's SoB.
+
+> +/// Private helper-type for holding the `dma_resv` object for a GEM shmem object.
+> +///
+> +/// When this is dropped, the `dma_resv` lock is dropped as well.
+> +///
+> +// TODO: This should be replace with a WwMutex equivalent once we have such bindings in the kernel.
+> +struct DmaResvGuard<'a, T: DriverObject>(&'a Object<T>);
+
+We will also need this in GPUVM, so I don't think it needs to be private
+to shmem.
+
+Alice
