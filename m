@@ -1,113 +1,107 @@
-Received: from web04.chillydomains.com (web04.chillydomains.com [193.19.92.170])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBDA43921D8
-	for <linux-media@vger.kernel.org>; Wed, 29 Apr 2026 20:00:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.19.92.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 460B8349AEA;
+	Wed, 29 Apr 2026 20:24:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777492813; cv=none; b=sLyhIKbYQccftDkhflnIpG0G5LmQr3GmaPHUu23YxPV1WeL+wXnNGtwtuCXc3ACgnqQrULtjL/pgz3yY1LX4uU37v83enDpHN1WEfLvn0AnGXeHJRR44dE6pQHVfZsP3TKIFVUtv/VCRam2gG3XHXcTgKQeyHbQ4Kcmzan7VFV8=
+	t=1777494296; cv=none; b=LnYyIP9lUfVUISH6pEzBBmzIiEnwDqPNMFktr1C5I1ssbSzl3Jh8DZVsbb98B8OCBdcUAjku6K2M3wx0uPoyEQ3NuDBb6o+vJXY062RCDopxIkPnCGOt7p1GYRywyVIw8I9yBRX40qXb2NydIueV39NrU23vRhAmHpCV/WeyjnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777492813; c=relaxed/simple;
-	bh=bpQhwmNJ5Qt5Sm/H8ouckcbUEO59Haf+aSyRcPSnAZ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KmR0vUk4jcMpa3rldDNmlDvjeEawciNKVvSmY45AbbPtQ58JYPhKnNFRViGi9fQ/CRLTWBcUpcQw3WVI9gjd6EhiZ1yO5tBW89m5I4J7knKqivDdFbd9GmpVR2qhC7WJL+KZ9wvhOfa/pwF70eEnM/spL6ofhCOAwBu5tuEI47g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reauktion.de; spf=none smtp.mailfrom=reauktion.de; dkim=pass (2048-bit key) header.d=web04.chillydomains.com header.i=@web04.chillydomains.com header.b=lrxD/WNw; arc=none smtp.client-ip=193.19.92.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reauktion.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=reauktion.de
+	s=arc-20240116; t=1777494296; c=relaxed/simple;
+	bh=iulvXbZkDJGHDtvEgdroSaDsaJI2XiR6VVQNupN5ODQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UI3zILGCCq8oAMWV6fXHt26nyZ6ny+RXRyvaJsO7UouqogHQBvhtLhre6I9i3K+cIekvNF+N366lRZcsb2pYZ+Xm56kNUip7k3WVpqfmN8Og7X5Gqkt9lv3Y4Pj0OKXdIw92IR7ydvAoDnNU2o/H88mzIwH+o81Qd6gWhHjOUiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=mpXcpYwi; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web04.chillydomains.com header.i=@web04.chillydomains.com header.b="lrxD/WNw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=web04.chillydomains.com; s=dkim; h=From:To:Cc:Subject:Date:
-	Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=+BMPRzE2ZaYndt8PUP9j3vTLvi6F1/BIe/
-	+XCjPPh4w=; b=lrxD/WNwHIEekuNqi8vyqW3sAshhJYlyBWCJnbqSeTMYEytjp+
-	UyGR2ATf8nRI1fDgeTXCln6LGbfU4BNAUXh/sUDzdti6LlZajf/4fLrePDzBpnfR
-	Zo7FfaU9+6/4cWOP1EtpX0Nzmz3AyYUTl73wrxubhby8h1gzOUF1xTtmF0vyGvLV
-	CjZU8gbZvp74M1UX9jJuJSqdVC+xjGUQYsICFy+ocDlBL0TMO0Ua+6ZF5cHRPUD/
-	DjvymalihIlfMzkrStbDUkw4uHkM/LTqfTPDlJT+m0gGPrUxqjE7F2chM01iLOPb
-	OTNNJgyb9YhYocCpHiL/e7PC4y/B+Zw4YCyA==
-Received: (qmail 2739579 invoked by uid 7799); 29 Apr 2026 21:53:28 +0200
-Received: by simscan 1.4.0 ppid: 2739543, pid: 2739553, t: 0.6181s
-         scanners: clamav: 0.103.9/m:62/d:27778
-Received: from 31.29.52.71.dynamic-pppoe.dt.ipv4.wtnet.de (HELO localhost) (automation@reauktion.de@31.29.52.71) by web04.chillydomains.com with SMTP [61968]; 29 Apr 2026 21:53:28 +0200
-From: Markus Fritsche <mfritsche@reauktion.de>
-To: Tomasz Figa <tfiga@chromium.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jacob Chen <jacob-chen@iotwrt.com>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH RFC 2/3] media: hantro: attach dma_resv release fence at buf_queue
-Date: Wed, 29 Apr 2026 19:53:05 +0000
-Message-ID: <20260429195306.239666-3-mfritsche@reauktion.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260429195306.239666-1-mfritsche@reauktion.de>
-References: <20260429195306.239666-1-mfritsche@reauktion.de>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="mpXcpYwi"
+Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0E4DA4BB;
+	Wed, 29 Apr 2026 22:23:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1777494187;
+	bh=iulvXbZkDJGHDtvEgdroSaDsaJI2XiR6VVQNupN5ODQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mpXcpYwiPr8eUp6AkpxGzmu1k1aNB/KQrgO1GOaTZ7snIManyeSmjnrd7OclWFFBZ
+	 ubK/pLXk0K3JhWohalEDH7h9ROoIhZfFIhpvpEJ6XzapiifohBObKl9sqgQL2BXK06
+	 ZAcGVHKmlD0AVcoT2ISTeo/FScLavX9p+GNiRnyA=
+Date: Wed, 29 Apr 2026 23:24:49 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Michal Simek <michal.simek@amd.com>, linux-media@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: Re: [PATCH][next] media: xilinx: Avoid
+ -Wflex-array-member-not-at-end warning
+Message-ID: <20260429202449.GA132396@killaraus.ideasonboard.com>
+References: <afJiL-iZ4QbJ5v12@kspp>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <afJiL-iZ4QbJ5v12@kspp>
 
-Opt the hantro driver into the new vb2 release-fence helper.
+CC'ing Tomi Valkeinen.
 
-When userspace QBUFs a buffer to hantro, the buffer is added to the
-driver's m2m queue via v4l2_m2m_buf_queue. We additionally call
-vb2_buffer_attach_release_fence() so each plane's dmabuf->resv
-gets a real producer fence attached. The fence is signalled by
-vb2_buffer_done when hantro completes the decode (via
-v4l2_m2m_buf_done_and_job_finish in hantro_drv.c, which converges
-on vb2_buffer_done).
+On a side note, Tomi, can I send a patch to add you to the "XILINX VIDEO
+IP CORES" section of MAINTAINERS ?
 
-Wayland compositors (and any other userspace) that import hantro
-CAPTURE buffers and wait on the dmabuf's implicit-sync fence now
-wait on a real fence representing the producer's actual completion,
-not a stub. Validated end-to-end on PineTab2 (RK3566 / Mali-G52 /
-mainline 6.19 with this series backported) playing 1080p30 H.264 in
-chromium under stock KDE Plasma 6.6.4 Wayland: KWin's
-Transaction::watchDmaBuf wait completes correctly the moment
-hantro's IRQ fires, instead of falling back to a stub-resolved
-poll.
+On Wed, Apr 29, 2026 at 01:55:27PM -0600, Gustavo A. R. Silva wrote:
+> -Wflex-array-member-not-at-end was introduced in GCC-14, and we are
+> getting ready to enable it, globally.
+> 
+> Use the TRAILING_OVERLAP() helper to fix the following warning:
+> 
+> drivers/media/platform/xilinx/xilinx-dma.h:99:41: warning: structure containing a flexible array member is not at the end of another structure [-Wflex-array-member-not-at-end]
+> 
+> This helper creates a union between a flexible-array member (FAM)
+> and a set of members that would otherwise follow it. This overlays
+> the trailing members onto the FAM while preserving the original
+> memory layout.
+> 
+> Lastly, the static_assert() ensures the alignment between the FAM
+> and struct data_chunk sgl; is not inadvertently changed, and it's
+> intentionally placed inmediately after the related structure (that
+> is, no blank line in between).
+> 
+> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
 
-Signed-off-by: Markus Fritsche <mfritsche@reauktion.de>
----
- drivers/media/platform/verisilicon/hantro_v4l2.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
-diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
-index 62d3962c1..e95a3433a 100644
---- a/drivers/media/platform/verisilicon/hantro_v4l2.c
-+++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
-@@ -877,6 +877,18 @@ static void hantro_buf_queue(struct vb2_buffer *vb)
- 	}
- 
- 	v4l2_m2m_buf_queue(ctx->fh.m2m_ctx, vbuf);
-+
-+	/*
-+	 * Opt in to vb2's dma_resv release-fence path. Userspace
-+	 * consumers that imported this buffer's dmabuf and wait on
-+	 * its implicit-sync fence (poll(POLLIN) or
-+	 * DMA_BUF_IOCTL_EXPORT_SYNC_FILE) get a real producer fence
-+	 * representing this device's completion, instead of the stub
-+	 * fence dma_buf_export_sync_file substitutes when dma_resv
-+	 * is empty. Best-effort: a fence-allocation failure means we
-+	 * lose implicit-sync precision, no functional regression.
-+	 */
-+	(void)vb2_buffer_attach_release_fence(vb);
- }
- 
- static bool hantro_vq_is_coded(struct vb2_queue *q)
+> ---
+>  drivers/media/platform/xilinx/xilinx-dma.h | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/media/platform/xilinx/xilinx-dma.h b/drivers/media/platform/xilinx/xilinx-dma.h
+> index 18f77e1a7b39..65f6147ff6c6 100644
+> --- a/drivers/media/platform/xilinx/xilinx-dma.h
+> +++ b/drivers/media/platform/xilinx/xilinx-dma.h
+> @@ -96,9 +96,14 @@ struct xvip_dma {
+>  
+>  	struct dma_chan *dma;
+>  	unsigned int align;
+> -	struct dma_interleaved_template xt;
+> -	struct data_chunk sgl;
+> +
+> +	/* Must be last as it ends in a flexible-array member. */
+> +	TRAILING_OVERLAP(struct dma_interleaved_template, xt, sgl,
+> +		struct data_chunk sgl;
+> +	);
+>  };
+> +static_assert(offsetof(struct xvip_dma, xt.sgl) ==
+> +	      offsetof(struct xvip_dma, sgl));
+>  
+>  #define to_xvip_dma(vdev)	container_of(vdev, struct xvip_dma, video)
+>  
+
 -- 
-2.47.3
+Regards,
 
+Laurent Pinchart
