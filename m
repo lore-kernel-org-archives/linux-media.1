@@ -1,96 +1,75 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9399737E2F8
-	for <linux-media@vger.kernel.org>; Wed, 29 Apr 2026 15:26:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161CE341AB8
+	for <linux-media@vger.kernel.org>; Wed, 29 Apr 2026 15:26:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777476401; cv=none; b=JnwM/Ta9zd5g+2OIHNVT9FGh9R+dZNRihr8qG+S8pab/kAY+1sTf38M+8eScEIRxf/KUsD5xAJRkwRIwnw5xLEbJSxagrUAOdxb1uNl3YOsnQE64kB6ys5KMTvUu4y9IM9BMF0CeTa49KXDNddRWNzyDdZeIMGiQY04P9JGxlwY=
+	t=1777476401; cv=none; b=b/iXa/2pLKKH+kJ2MSmyiklEVAi8y7BFrih1kL+NtRdqiaL2WP7r+WireJE3FkXevP5C7h2RE3YTxiFHGZyePTssl7Cd1hDAxW3iDZ/5jeYuQwiEq30dLu4rG5VFvzCrBSV7dcCqLBgftLoQD18DR7qS1X8U4vk01BnFxWJ7++o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1777476401; c=relaxed/simple;
-	bh=Rg4ViyjWjJ0uH1MionkRUKz+M0sp6VZkQ9UyDJex3kw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O0akUxskZO+ktSS6fcR5L42Hxk2elenLFA77MCxuxw8WREGoCV/pDx+9Fp6bfPzKSrM5BCCu9J9oEQt2crzSiu/WoxucjeOT+gyHJzlWvxCDQS/JB0ndREOjj93hlZVVVKhiYH4NovpWJYGZawl/q/wcPjLr2/iL0Ze1se8lJFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZxbT4MqG; arc=none smtp.client-ip=209.85.221.52
+	bh=TNbU8+MjC7fg+gzsTlY9VKgO7+m4Z/JOjzFMK6wCecQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AkBk8cLt3GeKm0fUCPR9uXN00PSxBTgxjWR6EUwpu8zyUG0oPq8/DgKRJxj3qqXTMr2c5AM5iIY2YwjciJRgy37KsM5MbgVJTs76CF5dIrwn3XtbF9KlvfECZ/c6Ml8zn8QbB5vMvhgNGcde2CiNN0ey5eEEuqGqzjFRTAQRCiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IAemwcGx; arc=none smtp.client-ip=209.85.222.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZxbT4MqG"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-43eada6d900so12149096f8f.0
-        for <linux-media@vger.kernel.org>; Wed, 29 Apr 2026 08:26:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IAemwcGx"
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-8d65f4073bfso1683230185a.3
+        for <linux-media@vger.kernel.org>; Wed, 29 Apr 2026 08:26:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777476393; x=1778081193; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nOTrV0WGracSIFm0V666o5CRu83OUP8NlZEfiWwVSJE=;
-        b=ZxbT4MqGYb41heJHzUNkeNrQqqbwivoko4YMr5UyQTxSL8WB1OyORAio38DxntrS6u
-         auZrBgzdXlS/Zd+QO9j19xJeT986+p4M04JYGsA9Cy1qY7tyv6ZXSsqeu3lOu5KcvgSf
-         bwH040Jp458XcQ78nGYH+2kcXG0HqNQhcSaQEopmU66xpyEEMarI7UgAdVTwheElzo5Z
-         2HR0Fn7PnbcP6s0xfsjdbr5X0o3yQ4BN/63ISgNQnvQCaJQJJrImNwWpwl1p/TSCFX2Z
-         otPWWi2MPrnCArGZBi2AILWhP9XjXJtLKVR4fjzxCf2rtAdcaSa+MtvsIi8IVnFvQkLk
-         9NQQ==
+        d=gmail.com; s=20251104; t=1777476399; x=1778081199; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=XS3dtDxzU2kxeMHxbKYApVqMr2WXis7MX2GRKVmVEqQ=;
+        b=IAemwcGxM8zbmFxK+EW+u/+y8ZxXmhBbR4Ajqkwx/VZf3T+pUCjCQbVav4pGDVWYJg
+         4ewmZ9ViwlKPh70FXzQI8oCCudqX28IOmH244hcq30rTfQiE8kHsE3z5zJO+P+n/Gdab
+         SpfI8tNkGJcwgter2zXKwtwrisMpr62i6MlRWJjN1988GmTH5TozYm7Qi9yCrVyaBNxu
+         2ZWiqrZ0v1WRltHpAfJTE6ouK0ZSll+Zw/Z/WOYtukEyrElfLd4tEuJ6ecFlH+RxvjyU
+         m10hrsrX6ajqH8jDKc28xtJgVHZnYyh7PDyfGpuolC2CFSae5TEOvyuPGkwaWd+KbA5F
+         dBbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777476393; x=1778081193;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=nOTrV0WGracSIFm0V666o5CRu83OUP8NlZEfiWwVSJE=;
-        b=ZuTN8jlUwBoCHHDcEdjBUqND/HwDT4UQegrZ7p6jTOFwqWtEfYedscNn6DYOk/dCdd
-         zVzl4q83T0m48PY6YetvDYA705A8GQE0JG5RCuWu1SzvqSJGazue1EuLZiO+iGCQdClH
-         fVrlQrvA23xzqXyLK68iUpCyprQPBXadZeshTgIQIPHFe/dtgDXYt388DRP7lScLVkKC
-         n5FrL74gsNzY0dEC21+0CqIoohVsrLFaQ/vj5Log5ZBlx8/Bz6DM2gQa2VexXn/WEM5m
-         vA9Jac1y0lO5nsnLvXtx4uVXiE0bTxn/6TD88luV37XAxSUDbgOCtWVLDS3EMKzQp6jw
-         n8mA==
-X-Forwarded-Encrypted: i=1; AFNElJ9CQv2j201We/T4S7XlEWEWswfbEQ9uL7oFjAnCUtxsROqck66RESu4wgekTwA0dkSAvg1ubIdgDstuxg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwhPXxCLXgVMssRrTzs4GbWZ4oclr9jzX8xUlCCGdaXRIrPkTnp
-	Lx4I1953G/sWinkfHqRocBLkiwxKX7Y/UD00GlGyskuRLEi1aTLxcFnz
-X-Gm-Gg: AeBDietPsqvSMZbolAacecFAljULLgZEm4W2PXChvHyVOJVqriLxQO6Zq5y+eZ3zxEU
-	M1fR8cUnSxSWi3DlL7i1JTAxJsqMoDqJvKdxHUSRnrDyZ7VU+JQ/CT2Sid9k8m4dsxAM/9vUS5D
-	eUz6w/kHcu/DjK5OpCJ24P35AGX/h/57Gs4xoVns4tE/bOlCDIx7SmVDdGSKadCcHiBMK7gul2K
-	VBobcx65YXvxOFtEdvdFx71q1k6dwXY3+W8fvlSbZnwoSNmT/DVpNhoS8D/WDjXjBjr1sawNTKA
-	3b7U7U6qoNxuYbLXFJngT/ldp2tDRAkaQ/mhwZMZ9eLuDl+L7Dy/Spsa9p/7SuPAoNh3RXcqgBx
-	4tF3d97OhM61+fKuu+knslWDbzJPx6J4SLqNXt5giLlKil0PIwbLIs9iVza4K2popQZ+bZWx8mP
-	UsxQLEyP7moO7R08NX/Le7IOh7wyMXCpZpRWNVJ8IoyJpeYz9yZWfmnHqfwf8z1Xqf7gY2QFsOI
-	n9RFQDZQKSuzyGS3dr0O+pnQr/kzsaI+/+koTiJBOhF
-X-Received: by 2002:a05:6000:250f:b0:43f:e41d:85f2 with SMTP id ffacd0b85a97d-4464839c9bcmr15101656f8f.2.1777476392719;
-        Wed, 29 Apr 2026 08:26:32 -0700 (PDT)
-Received: from 127.0.0.1localhost ([82.132.184.31])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-447b76e5c22sm6382951f8f.28.2026.04.29.08.26.28
+        d=1e100.net; s=20251104; t=1777476399; x=1778081199;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XS3dtDxzU2kxeMHxbKYApVqMr2WXis7MX2GRKVmVEqQ=;
+        b=fyewNap9tbO9VvqOjAgqrwTY7+6DJcUNRexZMVzpz8Bd2HeToIbfEjHJV3mDI6AmZX
+         djD3lxghOCS9S/Z6SKPZrbC7k1Ra4Vm+XxVyWZcJMOu7KNVFNqXFGh8FZUyI4tKCHO5o
+         ZzQIKxCo11bQbZViCp06br63tdp556GejBoKJioyTLynMfOxPAD/cCBGjHBdke7+J1Nk
+         FL+aMV6/p5lv6hSoJ5n6xMnz0N0tCj0FFEQHHlEg8z5IUVDfE38FgMRo6/ekh9IDzUzg
+         GWj22VJyBbobHLDB5mylYakTGwAuKv4W5MpaEbcagoemGBMQ/FIp/2notnYQw5cW/53n
+         Dbrg==
+X-Forwarded-Encrypted: i=1; AFNElJ8eKGiejs3wbYvUXj3DmY/UwK0wdnKQvH/vSecssCTnQOnKnhM8uJDpdCjgavThCySwgxbbQYkxzQxGVQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxuriKrmDq7rBSniWQxPHrdxAUuzWgnPxEWAKsGrOMxF3BpHS1i
+	45BQMpcFjjl1ikwP0eowoAcGbDXMbV/7q0PFWFR6KL0mQdYvyFlZ7aum
+X-Gm-Gg: AeBDieuIMgB+OLNfGwkQsT3MaP/RImomEyvN9XjOJuwitj51uxks88slXmA9R3yanP8
+	VsEg192UB8oj+/VjPMrOr61ooM3t0rrNvUjLTXdg7Nl+BZ+hxnliyzibZi6WyNqO2EcSQNFSqFM
+	hU2aXH6aITZfnJQtZcMEZfKUkv891RHsT236V2FNMDlPstyDHYZnWpif/+035IaMJhAeJ+bPi0B
+	U3uNJTSv2Zqgcs8FPviFv9o63thbWALcURUdvyfTkDgNpLcFRlY/Un5KZt48eVf9habpAl7VmV1
+	2scTdN+ai715L4HCIk4zHyMCt/P0J5nWIoH+euuslXCvjYF5vixcYpEneChxQkjv35xlB9fisRp
+	LzZE7/rPPD6jOAl96kY6nKyQVVUJtP77RlvBxkSk+tXxDXWZy744vrEtNz4w9efczYdv23JxbtR
+	+B+rKtgksoesEgOjsYym9nmxiCHeqF6SrFYgRPbXmb1PCCqY7aZaMG+JwkmhLKdUsX/dmg
+X-Received: by 2002:a05:620a:4081:b0:8eb:73f6:b5a5 with SMTP id af79cd13be357-8f7d950233cmr1109929485a.44.1777476399131;
+        Wed, 29 Apr 2026 08:26:39 -0700 (PDT)
+Received: from House.mynetworksettings.com ([2600:4040:2afb:6400:84bc:8954:e2b9:d27d])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8f93f583408sm202219285a.23.2026.04.29.08.26.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Apr 2026 08:26:32 -0700 (PDT)
-From: Pavel Begunkov <asml.silence@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>,
-	Keith Busch <kbusch@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	io-uring@vger.kernel.org,
+        Wed, 29 Apr 2026 08:26:38 -0700 (PDT)
+From: Maha Maryam Javaid <mahamaryamjavaid@gmail.com>
+To: neil.armstrong@linaro.org,
+	mchehab@kernel.org
+Cc: gregkh@linuxfoundation.org,
+	khilman@baylibre.com,
 	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org
-Cc: asml.silence@gmail.com,
-	Nitesh Shetty <nj.shetty@samsung.com>,
-	Kanchan Joshi <joshi.k@samsung.com>,
-	Anuj Gupta <anuj20.g@samsung.com>,
-	Tushar Gohad <tushar.gohad@intel.com>,
-	William Power <william.power@intel.com>,
-	Phil Cayton <phil.cayton@intel.com>,
-	Jason Gunthorpe <jgg@nvidia.com>
-Subject: [PATCH v3 03/10] block: move bvec init into __bio_clone
-Date: Wed, 29 Apr 2026 16:25:49 +0100
-Message-ID: <43a91f54d61d3329316e40c69ace781b4d35fe0b.1777475843.git.asml.silence@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1777475843.git.asml.silence@gmail.com>
-References: <cover.1777475843.git.asml.silence@gmail.com>
+	linux-amlogic@lists.infradead.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Maha Maryam Javaid <mahamaryamjavaid@gmail.com>
+Subject: [PATCH] staging: media: meson: fix typo in codec files
+Date: Wed, 29 Apr 2026 11:25:32 -0400
+Message-Id: <20260429152532.29302-1-mahamaryamjavaid@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -99,47 +78,26 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-To quote Cristoph: "Historically __bio_clone itself does not clone the
-payload, just the bio. But we got rid of the callers that want to clone
-a bio but not the payload long time ago". So let's move ->bi_io_vec
-assignment into __bio_clone(), so we have a single point where it's set.
+Fix spelling mistake: substracted -> subtracted
 
-Suggested-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
+Signed-off-by: Maha Maryam Javaid <mahamaryamjavaid@gmail.com>
 ---
- block/bio.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/staging/media/meson/vdec/codec_h264.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/block/bio.c b/block/bio.c
-index 4d46af0cd256..0734b50d4992 100644
---- a/block/bio.c
-+++ b/block/bio.c
-@@ -851,6 +851,7 @@ static int __bio_clone(struct bio *bio, struct bio *bio_src, gfp_t gfp)
- 	bio->bi_write_hint = bio_src->bi_write_hint;
- 	bio->bi_write_stream = bio_src->bi_write_stream;
- 	bio->bi_iter = bio_src->bi_iter;
-+	bio->bi_io_vec = bio_src->bi_io_vec;
+diff --git a/drivers/staging/media/meson/vdec/codec_h264.c b/drivers/staging/media/meson/vdec/codec_h264.c
+index 89e0f8624e5b..a6074de15118 100644
+--- a/drivers/staging/media/meson/vdec/codec_h264.c
++++ b/drivers/staging/media/meson/vdec/codec_h264.c
+@@ -16,7 +16,7 @@
+ #define SIZE_SEI	(8 * SZ_1K)
  
- 	if (bio->bi_bdev) {
- 		if (bio->bi_bdev == bio_src->bi_bdev &&
-@@ -893,8 +894,6 @@ struct bio *bio_alloc_clone(struct block_device *bdev, struct bio *bio_src,
- 		bio_put(bio);
- 		return NULL;
- 	}
--	bio->bi_io_vec = bio_src->bi_io_vec;
--
- 	return bio;
- }
- EXPORT_SYMBOL(bio_alloc_clone);
-@@ -914,7 +913,7 @@ int bio_init_clone(struct block_device *bdev, struct bio *bio,
- {
- 	int ret;
- 
--	bio_init(bio, bdev, bio_src->bi_io_vec, 0, bio_src->bi_opf);
-+	bio_init(bio, bdev, NULL, 0, bio_src->bi_opf);
- 	ret = __bio_clone(bio, bio_src, gfp);
- 	if (ret)
- 		bio_uninit(bio);
+ /*
+- * Offset added by the firmware which must be substracted
++ * Offset added by the firmware which must be subtracted
+  * from the workspace phyaddr
+  */
+ #define WORKSPACE_BUF_OFFSET	0x1000000
 -- 
-2.53.0
+2.34.1
 
