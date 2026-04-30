@@ -1,335 +1,227 @@
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010005.outbound.protection.outlook.com [52.101.69.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F553BA229
-	for <linux-media@vger.kernel.org>; Thu, 30 Apr 2026 11:00:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.176
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777546845; cv=none; b=m70EYDMX6HaUpoLo9oVNE3UH4z8bRLnHQZGMZymJTF3riExUkCo1mPt3Gf293NXPMY5dXjdfDVQnlxxPVlbc9J5ezLWMErRBWbetuRaewpIlnrxLC/BQdkiLVyV7McECOtsfAjYSvrhM3hnJXc5vrniDfylZ+IIUbsFRXVdiaCc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777546845; c=relaxed/simple;
-	bh=4XLAVbaZpTk3wINhLWZowaujYOwzPCe+OLMhBJ6fubQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=St2sC1N0fiKV8Gdz3aDNC9vZX63kCQje7vXUqVdhqWBZ5pBgDjYSLLbdWjluE5wlpZMbbuuHpcVDAG1vOtT34XLh/suNSFe+w5dIMl9qpPN4ec4x9UH9/imaIrcbuVrgtn7dRiSeDyILoXZuLwcHNHvdoBumqwMzwyP4Qr3k1ig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=XcYxx0ah; arc=none smtp.client-ip=209.85.208.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F54E19E839;
+	Thu, 30 Apr 2026 11:07:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.5
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777547223; cv=fail; b=q/seDnvYZdhN/9kZlfRRoT47rxh7LrNJ0Q8M8QdhSSDaVi9sT58gZIzbIxMTiOtpMTkyyidIR0i86tSKIr8fg1G+IOGifdIsvUOUy/RvXtMZdl9LIuIfLGRTqYjZipYsXZqZeDV/VTzgRU1Zl6yUK8+Kx3WsEWZsGcVsaTlF3bk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777547223; c=relaxed/simple;
+	bh=54G7TRODDIJN8SbJYv5ZtcElhkwDxxe+Ks+m6aVW0pg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=lRPdBQYMW/NWoFByx2qpAoQwNrz/85BXjS7eT1ERjO5MQZrzSKbLdIifla4JRbXUNITiZTYc6Ttn2KRXjyMWsZFDAdyqdGCCnFQI/KqWWGEYXZlS6yG/fAK3HqILt2wePCZE3jeeFjUZ3k+0/d+sSPh819x4wmvcAp5chECUK2A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=nxJqJXEF; arc=fail smtp.client-ip=52.101.69.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="XcYxx0ah"
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-38e935bd6e5so955501fa.2
-        for <linux-media@vger.kernel.org>; Thu, 30 Apr 2026 04:00:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777546842; x=1778151642; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wqmpJe7hg5NPSfjQFL8LIdfA62WQcT26qf/cbgPS9B4=;
-        b=XcYxx0ah+ixsinfwEU9AZdppurUpZvE4883kEakMJObQ294gKX9kNkNTtxpko4m5l8
-         QoldGsbWHOkMJJNEVpTfn0h8/b1KLljCdN+C0SpNBqq4dsGqJD7glmL1XIj+L6fOKX0u
-         +yzAxjKWAa17WNh/2EyIvUyZ4yyVdmmyOJbTPUlL4PBIgZNRUx58W5hhjHkpCnqdi7X7
-         3f0ugpfRXLyPs99uZpb8QUXgdjPx2GOm5TB89Y/5NxOhSECfgBxPFJDv6Oq+FHjaRHRn
-         sN5NGtlI9/w2pb8Ma3bsnJKQXMDizlmDyOSJmv/fzmy3ZH/xTfPxL1f4AShJn1kI2ySu
-         dMUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777546842; x=1778151642;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=wqmpJe7hg5NPSfjQFL8LIdfA62WQcT26qf/cbgPS9B4=;
-        b=TCQ3ts+YhAoMc5OedxAptrb/GeYsDcg857rsz3CJOKg0i0ZlFBIlvIQcS/2W0G1Nya
-         RZPAWlq1uDbbDF8vK/3fwDnyR7OXf9aQt64LvBA1ByuhVCavEzSJBMUONr4/VpFx7F1Q
-         LaxowSIevwjJ9rI/UPPzyLdk9f+UEvqr6W0aL+zsZFaaiKzsPWCJlp6LdpIsV7MJt1mk
-         PiEeAIIdyJ+4QVwS1+j6ypG4U0qj0cmwjiJ57NAw7QeXOaDXZatG4B7xZkamdo2DikM8
-         lnsojBrS9uwc1fZTU4XokwtnXCHLYDj8veaHqO1pSE+H/mNGuMQXbEajRl6WAeVdygVT
-         f7aA==
-X-Forwarded-Encrypted: i=1; AFNElJ+d+wuHSwL5yILPSOPeeiTKaCa1ZV+C6wvL5ItF9AY4zRl2jVOpExV8LVBO3Op9nv6dtS93QsRpvD+Mkw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw0LVJs03JsnK1U24uzDfHTycLclkf70bGUZ6oXs4D1CcOTPK+6
-	8ckejsMMY9+i5MhJpDsf05APXBxOCXrS2KnrbShe+qQYJGGx2waiMv7ed95vZ1WaINQ=
-X-Gm-Gg: AeBDieudZnbup2zPX5kSMYxBbtQirnF5gM1ZEz+wbV4H0bZCe1/aCKsCyNR7gHjPE13
-	SxjT7KFPX3QGFoKVn7gZaK+y+Od66gCpSFHW4wd7voT7iGoSdFXauz226SRYm/w3F5tq0gKXR6i
-	MbJRoc4nz/q7eEn2PkTY4PD07+5sLQoY5KE3oKo407HhhVfKxqVWRhnBADgvSmflBkxDVAUXmsK
-	fRfNX35oaRqUbSz34ZnsFCBDgOMo9NJ01QA+VehJPpeIagm1Ypb9ZwJi4h085rFIauV02jKrCE2
-	B6ObxyF654yELm0ROZgieR2Ac9kqY0aQnnVzls66kTmUfi+l4+ivIyR/+2/H/ywvv3jxl2yX49u
-	RWWfBpUOTvNIDUnLufupP+jHtW6lQZ8DYw4PFREjNWme7gy7vzNOj0IGguyLXnwHJvC+YTUhnja
-	naYpoP6q0sEO4w2pFjS7SycUuCaSTyRIAezr2vrkfEf7IbEspWdV4HZYZgGIBlZzAVA6lKdYdBa
-	5O7G714uw1jrWuf
-X-Received: by 2002:a05:6512:224e:b0:5a3:ff48:f7fd with SMTP id 2adb3069b0e04-5a8522de224mr321512e87.8.1777546842144;
-        Thu, 30 Apr 2026 04:00:42 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a74a6fa2b4sm1357336e87.35.2026.04.30.04.00.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Apr 2026 04:00:41 -0700 (PDT)
-Message-ID: <db441eb6-195e-4018-a84d-77b2d1531243@linaro.org>
-Date: Thu, 30 Apr 2026 14:00:39 +0300
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="nxJqJXEF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DdQIfyoWPcYB6jtqZvwZPYRnIPS/BlBittLu8Im2OOYOwP/0Eh5P9Y/r1tmVIIubdOw+5e1nyI/8TTJPjPHkT19/qTRxHQnwj8060vAad4U6qqcuMvQ4PUyTaLp6fx3toAt6L7PdAcycTShDCSUErFteKM0XsLfIDV3dSMJxGX+TEhy4JGMf0e8/FODSzXnAhro6c+N7G4Wg7xVyHwR7hlewGZgh+Y0W7KR+GafUo4t0F1Ya93JiFrwAmI2jT4XCQVPc4mxqnBRy356OIho46oQNYRiUXHlDgx7jftQDMk4eGRRuwAAFL9uBdcLY14FNJum6zd2HAGlWx9v1UBCHOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jKwE4FvD116+ghF8di6dMrH+jwBPGos7uX0Kschl048=;
+ b=hxXJYTl5wmCfv1EIsYQ2S0KHgt7taYs3PoRhEiXSHhUwpZwKSLFO56l52hbhBBsuRGlaPNT68lpWd1p92zBciiUFeUQkXdNoxhxRjOACgfN+Xzg8na4tQ55RKtZVILndHBuQmrc4BFXQaQBAdjpVqJp61+UqMl6y5Lo3gosAuN2aR+BgxWEgyjUX8PpvTtGye9jBXA2Ooaka6whUnFeAw0/oV2C0VMGmh6HGB/pkVHYWjq0HTZWEvQGHyljqe1rTYaZCs9aLKKzWrh2VMD2hB22/SV0+2B5i0fFLCT27ZXQfZUt2x6kLYVRdBZQ0u7KYVvJ0tSo5GOco9iwYLOzy3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jKwE4FvD116+ghF8di6dMrH+jwBPGos7uX0Kschl048=;
+ b=nxJqJXEFNKOsHI2AvIlYgLKLU9Wd+6X2TUFgVhcDo0T/DOgmXRkXa8RtBcTnnZjf9hnyDEF5XlmEdTDR+fv9PlToC8XKOWDAfnifCMM8k2SRJRgOJJFe/meWxDer2yCvgsoPxIJqblVFNm09KlwnIWbv7jwleCq71gE5zby8nRJ7oBTtfzhTsF3PYlFQN8ZCtnMPIu76FiF0+xZAIBwwiE3tw7QNr7E5nkTYnySpb8J5DCPKE6rXylqReVJc77CGVhywCOemltbxmdpVDGbYvo+IiXJkkO25gJViX1zZ756ILEzmGO9eM79I+2df/3FZmRFKIBr+KljabefSp64bdw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
+ by GVXPR04MB10609.eurprd04.prod.outlook.com (2603:10a6:150:219::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.18; Thu, 30 Apr
+ 2026 11:06:57 +0000
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9846.025; Thu, 30 Apr 2026
+ 11:06:57 +0000
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: linux-phy@lists.infradead.org
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-can@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	linux-tegra@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	netdev@vger.kernel.org,
+	spacemit@lists.linux.dev,
+	UNGLinuxDriver@microchip.com,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>
+Subject: [PATCH v7 phy-next 01/27] ata: add <linux/pm_runtime.h> where missing
+Date: Thu, 30 Apr 2026 14:06:26 +0300
+Message-Id: <20260430110652.558622-2-vladimir.oltean@nxp.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260430110652.558622-1-vladimir.oltean@nxp.com>
+References: <20260430110652.558622-1-vladimir.oltean@nxp.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AM0PR02CA0123.eurprd02.prod.outlook.com
+ (2603:10a6:20b:28c::20) To AM9PR04MB8585.eurprd04.prod.outlook.com
+ (2603:10a6:20b:438::13)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] arm64: dts: qcom: sc8280xp: gaokun3: describe rear
- camera module information as musch as possible
-To: Pengyu Luo <mitltlatltl@gmail.com>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Martin Kepplinger-Novakovic <martink@posteo.de>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>,
- Martin Kepplinger <martin.kepplinger@puri.sm>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-References: <20260425105300.745044-1-mitltlatltl@gmail.com>
- <20260425105300.745044-5-mitltlatltl@gmail.com>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <20260425105300.745044-5-mitltlatltl@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|GVXPR04MB10609:EE_
+X-MS-Office365-Filtering-Correlation-Id: de4ddc80-8124-438c-4287-08dea6a8983a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|376014|7416014|10070799003|1800799024|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	sEcQvROVo7d0fMsWAsl3bByT62/dYS+K10I+wm51Jxe5dnTidsjxb61xbvxvPgqH268OA70rnfRaFWZqJZzM2aqqbI8ZWhADosUo7zqo8JLbmMyOJiNrE0gNJHrfdarxOvItNyt5MTBohUZ5f9/K2RnYO1LWjRYlVxogj6SNeqqfVVjkxfSIUuIbEJsOP4qCRHnhO60OU6ZaB1H0fW6YNn5xQgSOEZavPYHGyVFS9eoqWoO5j3wzEUN72kef9OHOnFf+D/XE1+8mOsZfmIA44uvAkh+lT7YJXtvri9PnOHUk0nj8GUvIvMeiDUxb8oC+Z3eZTYhDq1+Wm0277cbwPccA141s6w10HViOLKJJhelE5K2Ube6Ko4Pvt/ZeQl7Sz9OFWN0UuwSYhW2//qBQP/AgQOGdB44GQLQ9tDo05m3TK+cnuM1UQokyJaGGXYI2vehqUnJ1PuNNrl6ARUeBWP+jOJDikRMavKBEz+5vWmlFWzNyLUK7K7GLRz2ZF0YRTRoh7bP6Uz7Kx+qI85HDwVN2MUw/25eZWFQjl7zRSLQZ7yx9FWVD/2XwM/r7EfRP/nD170mGkBAyQejUSyGkJA5N4LYOtvw0YIE8sogJaf8E6wQX/dFkq4/WKzzjiRXB5AitlIox4NjeI40wd4gbAcXB2R6HO41Rabw48QOnZUxRdaNtAJgvMBTtvMcz/jVkKiibOExrsvCw9a2upV7yM1SGkBdUjHiuZ5kqNVzpuyc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8585.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(376014)(7416014)(10070799003)(1800799024)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?P0SOLbTZoYyfdxaZE3qsZ0rI5R5eJBqx4h/ZD7CH+kposvovyzvCCuMmoP4p?=
+ =?us-ascii?Q?+QTaUJuM2rfpUhFeB5lsLQUGl849G9lwKI4xz+4hk8o8bxagK56vGB/zyPLZ?=
+ =?us-ascii?Q?QNCgB8ycTUz3Ff/s9ipqGne11I7vohpFdXt5IoXb1f1S8YrTrZfoG5eKJzu6?=
+ =?us-ascii?Q?8cS4EhrGOQ9O2ItYkaEUP+59OKVcdbUK3dHMbw85Hj+TMi3yRAaL1rlTCOiz?=
+ =?us-ascii?Q?Aelcta1VwuPyeJSBkdE9xMcRl7urYSJhTKtAMRftCIb2rRVhljVBiDgSwuvX?=
+ =?us-ascii?Q?ykTrfY4CWwdmHjmxxxREeDFBpfdkoST8nzw9vFoZdBVcyTEhXdd1IL7K+QX+?=
+ =?us-ascii?Q?fPWxvKIyM06NE7zqD9btG6OaeuDmbbsbb2I3/uA18n0QinicLwoo1PKKg0LZ?=
+ =?us-ascii?Q?IxQKKWQni2k3Or5flIuhLjb+SH59IYVmmByOYCY/x/yPESf5AT/OHUMGhUZp?=
+ =?us-ascii?Q?UAkHrXp93k6oTECFbfk2/dcoY1FbWke8TMeS8LHBVSYFtGMKAAcuKq07r5ur?=
+ =?us-ascii?Q?zkYRU40C+EmYIXK5n54ueYTzCpIIjDSkPU+/cAa+23jnH/kAsPPpZILx4xSf?=
+ =?us-ascii?Q?ymjJOJCFazkfKtho6+bYzgitnYG3lPytG4YFlgjVuuzQlO75ujh9gNHsLp9v?=
+ =?us-ascii?Q?F1Va8qMCcTehVaWI0omUNwHPVeTlWYbLBt/HfGXkuJf+C++xKyKxQ8+ZGyfe?=
+ =?us-ascii?Q?S199DL/cmad2XX9USasaOx7Oa4mGwf0osnR7ukmUxbYVPGYKKJDsYGiGTodO?=
+ =?us-ascii?Q?9UMmfyimjLtRtEEhYBqJkNAvC8xTX+mmVKMk/xGMMe43yOuY2t2Z9ciB9eoh?=
+ =?us-ascii?Q?IAaJ9ABM2fWqCN1UghJYPReJIwC2VtJq7cbKBXBSCwsvwPeKqFfarymNrf+n?=
+ =?us-ascii?Q?xrhDOi6dcuE8TtK9XRcDcZw2WCD0MTIBZelccwHnRt6gCC95qedVMp0y1MBC?=
+ =?us-ascii?Q?RlMIALJ/RL2RYCDtJxim/hJoVsKrNvvNh2uyHCblyxEBe4N8QCfWrlTLflew?=
+ =?us-ascii?Q?SEy+9Aw/L93ZKuOQQInI5UhafHjWfCulFAGiUCv22I4ghi0VXcR49myS+Q04?=
+ =?us-ascii?Q?5xZCxXIf7lI0FTkh+rtlMhMr3Wkb0sGfWz7bALuvSzIc/V5m0B93GUh9bGsw?=
+ =?us-ascii?Q?uX3TeO5V+fvIvjVtKCDdlJNnLHMOvk/fG6Z8R0+sk5oJBFD+AE3Yza3NbRnW?=
+ =?us-ascii?Q?XK81MKVKY2DXr+4nWecn92146H3PDZf39Wb9yeSnbzDjp3iXylHi/9Mt5P5F?=
+ =?us-ascii?Q?BUrxe6BZn+0vDn7zO2R4A5kRQphje7KPEGnixKfByPtaZD6oJ6GCKzUkDINU?=
+ =?us-ascii?Q?LtHXE8MZCnj8dATLanOwm5zIMxPj0F4QD4tvffJW2B/tPJgM966sL9Y6gtpS?=
+ =?us-ascii?Q?6V0ui3NFVkEW5+SpCyhCaRPp9oEPpHOCVjQ6dgg5MsItE8TugQgrFuRmzyqx?=
+ =?us-ascii?Q?x9jM8XIWbR9dYDnw2IED3gmewhjzxDdX/+0E6bXbDTdh4+rgB6abvemWC75G?=
+ =?us-ascii?Q?SPeWvMXCrCcu3gPpwqJlAzZBxLEArZJoxkG0isC/OWiqxw63lAYMnEYz01Oa?=
+ =?us-ascii?Q?MHBNAOswQ06f+31IIA7Qleoea3Dk5DegteQkZQ1KZrzy4D58WEX8+Ioqw2w9?=
+ =?us-ascii?Q?ZfOtj8YJ2rkeDEL1i4o9jXY4bvmmboOKMe9Ou56QtWqsk2rk6Yan1tT7QZTa?=
+ =?us-ascii?Q?xg/L5qU/e2MFDEUml2auCpuRNo6NomCgjtjJ5THcsigb1bzlrsEOKiU/zftP?=
+ =?us-ascii?Q?spAhUgMoSqi55zKl2CSuxU/8BmOoPqrWTkjS7CgeAaiPXqWEBbWi?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: de4ddc80-8124-438c-4287-08dea6a8983a
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 11:06:57.3816
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2NEkdICbkplZeCoO/Rvm+/OYm5Zkf7K+qSqYyoTVhpt7htG3YtPI8OFuZIiAxw169ax55rc20WBHorqr/rF+kA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10609
 
-On 4/25/26 13:53, Pengyu Luo wrote:
-> The rear sensor is S5K3L6, describing it but dropping compatible
-> string, since there is no upstream driver. A funcitonal downstream
-> driver is in comment.
-> 
-> The VCM is dw9714, describe it.
-> 
-> Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
-> ---
-> Please take this patch as a RFC, I am not sure, how much I am allowed
-> to add without a sensor driver.
-> ---
->   .../boot/dts/qcom/sc8280xp-huawei-gaokun3.dts | 129 +++++++++++++++++-
->   1 file changed, 123 insertions(+), 6 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-> index 39e559e91289..76b1ecb3819d 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-> @@ -22,12 +22,18 @@
->   #include "sc8280xp.dtsi"
->   #include "sc8280xp-pmics.dtsi"
->   
-> +/* remove due to gpio pins collision, skip 2nd instance won't break things */
-> +/delete-node/ &cci1_i2c1;
-> +/delete-node/ &cci1_i2c1_default;
-> +/delete-node/ &cci1_i2c1_sleep;
+It appears that libahci.c, ahci.c as well as the ahci_brcm, ahci_ceva
+and ahci_qoriq drivers are using runtime PM operations without including
+<linux/pm_runtime.h>. This header is somehow being indirectly provided
+by <linux/phy/phy.h>, which would like to drop it (none of the functions
+it exports need it).
 
-Instead of removal 'cci1_default' and 'cci1_sleep' nodes shall be rewritten
-by excluding 'cci1_i2c1_default' and 'cci1_i2c1_sleep' from them.
+Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Acked-by: Damien Le Moal <dlemoal@kernel.org>
+---
+Cc: Damien Le Moal <dlemoal@kernel.org>
+Cc: Niklas Cassel <cassel@kernel.org>
 
-> +
->   / {
->   	chassis-type = "tablet";
->   	model = "Matebook E Go";
->   	compatible = "huawei,gaokun3", "qcom,sc8280xp";
->   
->   	aliases {
-> +		i2c1 = &cci1_i2c0;
+v2->v7: none
+v1->v2: collect tag
+---
+ drivers/ata/ahci.c       | 1 +
+ drivers/ata/ahci_brcm.c  | 1 +
+ drivers/ata/ahci_ceva.c  | 1 +
+ drivers/ata/ahci_qoriq.c | 1 +
+ drivers/ata/libahci.c    | 1 +
+ 5 files changed, 5 insertions(+)
 
-Likely this I2C alias can be removed.
-
->   		i2c2 = &cci2_i2c1;
->   		i2c4 = &i2c4;
->   		i2c15 = &i2c15;
-> @@ -52,9 +58,17 @@ framebuffer0: framebuffer@c6200000 {
->   	leds {
->   		compatible = "gpio-leds";
->   
-> -		pinctrl-0 = <&cam_indicator_en>;
-> +		pinctrl-0 = <&cam_indicator_en>, <&camera_flash_en>;
->   		pinctrl-names = "default";
->   
-> +		camera_flash: led {
-> +			function = LED_FUNCTION_FLASH;
-> +			color = <LED_COLOR_ID_WHITE>;
-> +			gpios = <&tlmm 93 GPIO_ACTIVE_HIGH>;
-> +			linux,default-trigger = "none";
-> +			default-state = "off";
-> +		};
-> +
->   		privacy_led: privacy-led {
->   			function = LED_FUNCTION_INDICATOR;
->   			color = <LED_COLOR_ID_WHITE>;
-> @@ -129,6 +143,18 @@ vreg_camf_1p2: regulator-camf-1p2 {
->   		pinctrl-names = "default";
->   	};
->   
-> +	vreg_camr: regulator-camr {
-> +		compatible = "regulator-fixed";
-> +
-> +		regulator-name = "vreg_camr";
-> +
-> +		gpio = <&tlmm 92 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +
-> +		pinctrl-0 = <&camr_reg_en>;
-> +		pinctrl-names = "default";
-> +	};
-> +
->   	vreg_misc_3p3: regulator-misc-3p3 {
->   		compatible = "regulator-fixed";
->   
-> @@ -387,8 +413,8 @@ vreg_l1b: ldo1 {
->   
->   		vreg_l2b: ldo2 {
->   			regulator-name = "vreg_l2b";
-> -			regulator-min-microvolt = <1904000>;
-> -			regulator-max-microvolt = <1904000>;
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <2800000>;
->   			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
->   		};
->   
-> @@ -433,10 +459,9 @@ vreg_l6b: ldo6 {
->   
->   		vreg_l7b: ldo7 {
->   			regulator-name = "vreg_l7b";
-> -			regulator-min-microvolt = <1800000>;
-> -			regulator-max-microvolt = <1800000>;
-> +			regulator-min-microvolt = <2800000>;
-> +			regulator-max-microvolt = <2800000>;
->   			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> -			regulator-boot-on;
->   		};
-
-ldo2 and ldo7 changes shall be done in separate commits.
-
->   
->   		vreg_l9b: ldo9 {
-> @@ -622,6 +647,16 @@ &camss {
->   	status = "okay";
->   
->   	ports {
-> +		port@0 {
-> +			csiphy0_ep: endpoint@0 {
-> +				reg = <0>;
-> +
-> +				clock-lanes = <7>;
-
-Please remove 'clock-lanes' property here.
-
-> +				data-lanes = <0 1 2 3>;
-> +				remote-endpoint = <&s5k3l6_ep>;
-> +			};
-> +		};
-> +
->   		port@3 {
->   			csiphy3_ep: endpoint@0 {
->   				reg = <0>;
-> @@ -634,6 +669,58 @@ csiphy3_ep: endpoint@0 {
->   	};
->   };
->   
-> +&cci1 {
-> +	status = "okay";
-> +};
-> +
-> +&cci1_i2c0 {
-> +	voice_coil_motor: vcm@c {
-> +		compatible = "dongwoon,dw9714";
-> +		reg = <0xc>;
-> +		vcc-supply = <&vreg_l7b>; /* FIXME: require l2c on first */
-> +	};
-> +
-> +	/*
-> +	 * https://source.puri.sm/Librem5/linux/-/blob/pureos/latest/drivers/media/i2c/s5k3l6xx.c
-> +	 *
-> +	 * This sensor has never been detected on Goakun3(2.69GHz)
-> +	 */
-> +	camera_rear: camera@10 {
-> +		reg = <0x10>;
-> +
-> +		pinctrl-0 = <&camr_rgb_default>;
-> +		pinctrl-names = "default";
-> +
-> +		clocks = <&camcc CAMCC_MCLK4_CLK>;
-> +		clock-names = "mclk";
-> +		clock-frequency = <24000000>;
-> +
-> +		rstn-gpios = <&tlmm 7 GPIO_ACTIVE_LOW>;
-> +
-> +		vddio-supply = <&vreg_camr>;
-> +		vdda-supply = <&vreg_l2b>;
-> +		vddd-supply = <&vreg_l2c>;
-> +
-> +		/* &camera_flash can't be enabled directly for now */
-> +		leds = <&privacy_led>;
-> +		led-names = "privacy";
-> +
-> +		lens-focus = <&voice_coil_motor>;
-> +
-> +		orientation = <1>;
-> +		rotation = <180>;
-> +
-> +		port {
-> +			s5k3l6_ep: endpoint {
-> +				data-lanes = <1 2 3 4>;
-> +				remote-endpoint = <&csiphy0_ep>;
-> +			};
-> +		};
-> +	};
-> +
-> +	/* eeprom@50/51 */
-> +};
-
-I believe it is unacceptable to add device tree nodes like this one
-without a compatible property. While the motivation behind it is clear,
-unfortunately it has to be removed.
-
-> +
->   &cci2 {
->   	status = "okay";
->   };
-> @@ -1423,6 +1510,13 @@ cam_indicator_en: cam-indicator-en-state {
->   		bias-disable;
->   	};
->   
-> +	camera_flash_en: camera-flash-en-state {
-> +		pins = "gpio93";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-disable;
-> +	};
-> +
->   	camf_1p2_reg_en: camf-1p2-reg-en-state {
->   		pins = "gpio44";
->   		function = "gpio";
-> @@ -1446,6 +1540,29 @@ sc-rgb-xshut-n-pins {
->   		};
->   	};
->   
-> +	camr_reg_en: camr-reg-en-state {
-> +		pins = "gpio92";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-disable;
-> +	};
-> +
-> +	camr_rgb_default: camr-rgb-default-state {
-> +		mclk-pins {
-> +			pins = "gpio6";
-> +			function = "cam_mclk";
-> +			drive-strength = <6>;
-> +			bias-disable;
-> +		};
-
-MCLK pad function shoul be a part of the change to sc8280xp.dtsi
-
-> +
-> +		sc-rgb-xshut-n-pins {
-> +			pins = "gpio7";
-> +			function = "gpio";
-> +			drive-strength = <2>;
-> +			bias-disable;
-> +		};
-> +	};
-> +
->   	i2c4_default: i2c4-default-state {
->   		pins = "gpio171", "gpio172";
->   		function = "qup4";
-
+diff --git a/drivers/ata/ahci.c b/drivers/ata/ahci.c
+index 1d73a53370cf..1396a53bd6df 100644
+--- a/drivers/ata/ahci.c
++++ b/drivers/ata/ahci.c
+@@ -26,6 +26,7 @@
+ #include <linux/device.h>
+ #include <linux/dmi.h>
+ #include <linux/gfp.h>
++#include <linux/pm_runtime.h>
+ #include <scsi/scsi_host.h>
+ #include <scsi/scsi_cmnd.h>
+ #include <linux/libata.h>
+diff --git a/drivers/ata/ahci_brcm.c b/drivers/ata/ahci_brcm.c
+index 29be74fedcf0..48460e515722 100644
+--- a/drivers/ata/ahci_brcm.c
++++ b/drivers/ata/ahci_brcm.c
+@@ -16,6 +16,7 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/reset.h>
+ #include <linux/string.h>
+ 
+diff --git a/drivers/ata/ahci_ceva.c b/drivers/ata/ahci_ceva.c
+index 2d6a08c23d6a..3938bf378341 100644
+--- a/drivers/ata/ahci_ceva.c
++++ b/drivers/ata/ahci_ceva.c
+@@ -12,6 +12,7 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/reset.h>
+ #include "ahci.h"
+ 
+diff --git a/drivers/ata/ahci_qoriq.c b/drivers/ata/ahci_qoriq.c
+index 0dec1a17e5b1..409152bfefb6 100644
+--- a/drivers/ata/ahci_qoriq.c
++++ b/drivers/ata/ahci_qoriq.c
+@@ -14,6 +14,7 @@
+ #include <linux/device.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/libata.h>
+ #include "ahci.h"
+ 
+diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
+index c79abdfcd7a9..e0de4703a4f2 100644
+--- a/drivers/ata/libahci.c
++++ b/drivers/ata/libahci.c
+@@ -30,6 +30,7 @@
+ #include <scsi/scsi_cmnd.h>
+ #include <linux/libata.h>
+ #include <linux/pci.h>
++#include <linux/pm_runtime.h>
+ #include "ahci.h"
+ #include "libata.h"
+ 
 -- 
-Best wishes,
-Vladimir
+2.34.1
+
