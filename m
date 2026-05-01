@@ -1,219 +1,112 @@
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322F937648D;
-	Fri,  1 May 2026 09:56:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01696347514
+	for <linux-media@vger.kernel.org>; Fri,  1 May 2026 09:57:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777629410; cv=none; b=uZTDwANQAmdcGoervVzZzZzibX7DQDUwkwX+vM+Irzy6deKvI2tgUtqzlh7+TeqL3He16RZTXz+NfYj2v5fRt9KlbulpqfFbaLx0aEwB4Zdmvk+nI4n1ieKkR6+ybPs93DuMjj+qs/3E1BBZehE9N2Ulzm1sG1UAQnMLWBVFSEU=
+	t=1777629440; cv=none; b=HebNX323gpj+TXt34fZp9XVwdX/2ZT6KGINL1+Ibd+WrmljkqGHDJaGZ2AZVaFb4ZeLwFmqQ8ZgRCCGnsfZAQx8JBW5i9xV8RhHOVyrdXV+gBZ32G325C/MxlWVnX0dzUzYWNnPikKIl12+xfP8EGxUH6/YAqdsIbFKz/yURMVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777629410; c=relaxed/simple;
-	bh=xkmd82RUYG5KiSvpdFUVX5vVkkk4O6llL0QfHCzNy6E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pTltcElWr3M92A0vfjyHUnIe9D8SHroFvXkr+40WrkIBeKIL0Ol2Ut67OorrMU/8S+9ov2D9taKVqgQMoYAkyoZKOxL/C3M6FO+XTmFd0h+od6AB3UY6MRkzyBtCTiyy9fQsPJF848f3V8qWmlio3oP5yuEfbrMqg4WjXsCqoWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=pA/SG4ND; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jb6xZRp0; arc=none smtp.client-ip=202.12.124.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1777629440; c=relaxed/simple;
+	bh=XL4uV6GkgD4RcOl+wpvrwdX7d246PTROEpd1HxkSjpA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d1ByluZEFiGxg7wY4vtyrCWvQOWennim/8wU4zSQL4gRF4dVmIxj9sNt18am65HGwKpG3M4tPVNweiKltMpRKFZHCYkfTDReUocpX+fyNt8G+Jd9P34gI/uWG1sbdj1uFawPlnLYxjWPhairaLEoeO5ileFjnelwNNd4lvqmrkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pMqGUJlu; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="pA/SG4ND";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jb6xZRp0"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 6179C7A00EC;
-	Fri,  1 May 2026 05:56:44 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Fri, 01 May 2026 05:56:44 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1777629404;
-	 x=1777715804; bh=uAESboFKnySwKs6D2+s2OjVRVncaD9sdlhpIm8QtCnw=; b=
-	pA/SG4ND0P40yLOAt5DqD3XC2tG71u/t4BSXe5mi4X/MQ2IuN+AABZQbDmDzQ083
-	z3GONWTo5QREL7Rtw6gBT/hwFU9GUrwm82GL+O8D6fiELvuQ6pJabJtTsyaqP0lk
-	trKfWUqWIQZ0nKStMk4L2qF1s+ML/hBsIL/BE+/ggPUIsdrspItQsWvDBK/FLDWv
-	bBv6utNKLHWZk0G2cFOIN+Ibyoy7VXgznhlivINgLtXStes5KbMQtMDSP+paknFv
-	O+tFTpMCnsApuOc40/tXmXAIlarGHRZOI+dzPHPRvfKg8jKeWORJgM+H+9r0iTsx
-	6h1VgrdJ0EIjoeuG5vxc4w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1777629404; x=
-	1777715804; bh=uAESboFKnySwKs6D2+s2OjVRVncaD9sdlhpIm8QtCnw=; b=j
-	b6xZRp0eQb/w4rRNNjkgxk4ShGv8yRpTBmITL4SvjoGYhwelx+Zt52GnRVyUMT2w
-	BZFDR2OT0QKvSscR9nUVk2cwOjUFS74Y1XFdbitplDtT7CQv7Y3G2wFln3j10+ZG
-	9V9eAsBetNumFoim+BRIvpT1VCuYLfN0g9j3wvOR1LAsgvUyUXl5GeABS0bvcCQX
-	03jgPdMCFXIfZDCDDqwQ0Ltx6noDkl5d898cIIfz6FuPW4Mo3Ii3TVbUhu+4wI8P
-	cS8teFe4LEObX2BWuT0hNi0lSd6KkI4euSpxwHylkN5v/C4n8rcHD5Bd2hhT+X3G
-	VAzaEme17jSefsOvFaXqg==
-X-ME-Sender: <xms:23j0aRtsCkfi8fkLiHSgAWiPh6xI_UviR_RP5fVKGZSiR7gSivHQWg>
-    <xme:23j0aWdHLJBh8sWAb7PCZP9y3He5bwJXsV-pb9r_QdlMrMT4gKzvS1eizFBVmGOVm
-    1-tflu46kncfsEqpOvdcfQq5qB6dakH9s06gZ1dxiRAe8cI9NSXqXs>
-X-ME-Received: <xmr:23j0aW9BuNIzahK9z6phajRCkziC9s6RP1HfRyEasOfi8M38KPhbRLsPoMJJs3hk6jgWUY4nwZhvYCL0krM6IgjpDdLWYeOqyatL>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdekleeklecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpeffhffvvefukfhfgggtugfgjgesthekredttddtjeenucfhrhhomheppfhikhhlrghs
-    ucfunpguvghrlhhunhguuceonhhikhhlrghsrdhsohguvghrlhhunhgusehrrghgnhgrth
-    gvtghhrdhsvgeqnecuggftrfgrthhtvghrnhepveetgedtvddvhfdtkeeghfeffeehteeh
-    keekgeefjeduieduueelgedtheekkeetnecuvehluhhsthgvrhfuihiivgeptdenucfrrg
-    hrrghmpehmrghilhhfrhhomhepnhhikhhlrghsrdhsohguvghrlhhunhgusehrrghgnhgr
-    thgvtghhrdhsvgdpnhgspghrtghpthhtohepkedpmhhouggvpehsmhhtphhouhhtpdhrtg
-    hpthhtohepmhhhuhhnheduvdesghhmrghilhdrtghomhdprhgtphhtthhopehmtghhvghh
-    rggssehkvghrnhgvlhdrohhrghdprhgtphhtthhopehgvggvrhhtodhrvghnvghsrghsse
-    hglhhiuggvrhdrsggvpdhrtghpthhtohepmhgrghhnuhhsrdgurghmmhesghhmrghilhdr
-    tghomhdprhgtphhtthhopehlihhnuhigqdhmvgguihgrsehvghgvrhdrkhgvrhhnvghlrd
-    horhhgpdhrtghpthhtoheplhhinhhugidqrhgvnhgvshgrshdqshhotgesvhhgvghrrdhk
-    vghrnhgvlhdrohhrghdprhgtphhtthhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrd
-    hkvghrnhgvlhdrohhrghdprhgtphhtthhopegrvgekjeektddttdesghhmrghilhdrtgho
-    mh
-X-ME-Proxy: <xmx:23j0aZR2RQpfTJcDp5UN3qIK9AjgSsBAJhhglpKynXZDtOsocU9rdw>
-    <xmx:23j0afpJqvf_XUTH35JyLxD-_srQ9sylBuu9s8j6iLE-9nsnNbnzdQ>
-    <xmx:23j0aenQ_H1qycnaTjO3Igyb_YZGbPL73QITqH0wgUqkfjAZiKUoYA>
-    <xmx:23j0aQd5ou5fofgb5Ut9vVo96NNyxMHvJHqObnle5TjKzomOPXdIlg>
-    <xmx:3Hj0aVfzqk_dXFw5q7z60wm6TtxL7hEStSHMfY0OOSewjayG-jWM-ghN>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 1 May 2026 05:56:43 -0400 (EDT)
-Date: Fri, 1 May 2026 11:56:41 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH] media: rcar-vin: Clean up notifier on probe failure
-Message-ID: <20260501095641.GF6708@ragnatech.se>
-References: <20260428125708.93102-1-mhun512@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pMqGUJlu"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c6dd5b01e14so689138a12.0
+        for <linux-media@vger.kernel.org>; Fri, 01 May 2026 02:57:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777629437; x=1778234237; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=KJvh/XpegIBYrHOJk7E96WpmL8EapMHXqu052w960x0=;
+        b=pMqGUJlu25T4TEHj0avnhGmcW8vNRkmGZL1ndvRnDk/PNnWBUWCp+Mklf0G3Qa636m
+         TBUdiVywJ/VJnQDd7KeX0HCHT3MwNjPATvwH2dzcxllcKjqyZIwpPNFkSgT0B565Q6D/
+         GL83D1bh3ZL6/ESrcMPE7+EpiVVdow4KwLwytPwqEKwvOxu12ahZNeptR53zMI32VoQo
+         pJf1/H0RHBC16MmHiF25JpghprMHTTvjCO9Kf7fWYhxDfQRowKjKdUl0MdaTks5MDazw
+         wadSOViqfHPgHnXbyfvkrIYC5Z6CqFGvs5lP338MaFtN38ATlR3J3L6/nLPnJL15Ob1P
+         43Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777629437; x=1778234237;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KJvh/XpegIBYrHOJk7E96WpmL8EapMHXqu052w960x0=;
+        b=FEOrmIcpzwAoA++MXIZR6XPf+cbF/wGEduAVQwuMkafnQN2Tvoeb6pBjY7TMMjfflU
+         hfULV8RlWT82i60/IqEu1UQ3dqOACeXFw/GFni/enuEgfyWF0lvQYxljKVWgdaaXEZg+
+         YGjNZdUc7+oNKiXoKfjhlkPyA5UuEUkC85dXTu2KAdyHCF46ef+T7f7MwXIqLSRVEOGK
+         fjIFTqxf/QQT676J/aDyPr9RP1cIX/cv5uDMh7PVdlJGVtcsKJGCvwmEClKjE1mFaIY+
+         iIKayZ5dgZoX7xLLOoII0oSg3ky27rfrT/Yl429qzVremqHYy0E/ptiQKnDFLJOCZhfl
+         RqIw==
+X-Forwarded-Encrypted: i=1; AFNElJ+VyiGutqTgEc++jl1xS8R7E9qYUocX9O2lYXVu9d1TVFfA/IW1xyASs7VLBfbbftZQh4ADQdlBBk8QuA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzwoOkmyb9tBsFebyx49mJP4A4eAcGpFlNs9iiDJ+J1FOFnYXel
+	DOlkmICJbp7cKUwEODFBTUetexVflVsERvLEldeI+/IL7ewFkq//yI+p
+X-Gm-Gg: AeBDieuR7BP9i4gW9B7on5soD5NSnQ8pCVf6S/ntvdBy4yDg6tgusHAnIwRGNNYgIko
+	aCEnsuXeQC0f8rpi8IubbMytufpBfGLtzTAZ9k/5840ZVLijcQWmqYWrNX32rMrjUajR2gB73k9
+	8DF8W/K5j5Ti0mzUE0tjzjk++XnedN0SOgcCvPWsOXHMgL1chMCN/IGZQlV+GmPL+YlgbsSXhML
+	03mZNgVzfjZqOBdsQZvtetHZUz3zxXC1unf9d39l3BU8THxm5w3jIDWLLsZbUgJLCQgrkE7yEnE
+	tnir2bPWfO3eM+inv7H+KdIhq6CfWjlgYBZ3nwROKU5/+KbD+a842uIA48I6HFegSC+miPRlX2w
+	MU4wuG0pKewfc8ew2S0u8T2ji/d+iANKm6APIr0DY/ARpr2qLbTnwON5usfKabUwulTNIrTltsk
+	BBP8dP+rE8GqYgWA==
+X-Received: by 2002:a05:6a20:6a0b:b0:3a2:c683:fa84 with SMTP id adf61e73a8af0-3a3cf77ba41mr7322916637.27.1777629436989;
+        Fri, 01 May 2026 02:57:16 -0700 (PDT)
+Received: from nuvole ([2409:8a34:5f36:7c14::f7f])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c7ffbcac2cfsm1731381a12.32.2026.05.01.02.57.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 01 May 2026 02:57:16 -0700 (PDT)
+From: Pengyu Luo <mitltlatltl@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Martin Kepplinger-Novakovic <martink@posteo.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>
+Cc: devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	Pengyu Luo <mitltlatltl@gmail.com>
+Subject: [PATCH v2 0/4] fix and improve for Hi846
+Date: Fri,  1 May 2026 17:54:29 +0800
+Message-ID: <20260501095433.1609309-1-mitltlatltl@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260428125708.93102-1-mhun512@gmail.com>
 
-Hello Myeonghun and Ijae,
+This series fixes a error blocking Hi846 driver function, fixes
+link frequency and supports 6MP and 8MP modes on Hi846.
 
-Thanks for your patch.
+Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+---
+Changes in v2:
+- remove uncessary `else` (Sakari)
+- fix link frequency (Sakari)
+- correct link frequency for DT
+- Link to v1: https://lore.kernel.org/linux-media/20260429070351.1307204-1-mitltlatltl@gmail.com
 
-On 2026-04-28 21:57:04 +0900, Myeonghun Pak wrote:
-> rvin_group_notifier_init() initializes the group notifier before
-> parsing the graph and adding async connections. If parsing fails
-> after that point, the function returns without cleaning up the
-> notifier, leaving the async connections and their fwnode references
-> behind.
-> 
-> The Gen2/default probe path also fails to drop the group reference
-> when rvin_group_notifier_init() returns an error after
-> rvin_group_get() succeeded. Unlike a successful probe, .remove() is
-> not called for this path, so the probe error path must unwind it
-> directly.
-> 
-> Route notifier-init failures through a common cleanup path, clear
-> the cached async connection pointers after cleanup, and make the
-> default probe path mirror the CSI-2/ISP group unwind.
-> 
-> Fixes: 856b49c71ae5 ("media: rcar-vin: Merge all notifiers")
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Pengyu Luo (4):
+  media: hi846: fix hi846_write_reg_16 handling
+  media: hi846: fix link frequency handling
+  media: hi846: Add 6MP and 8MP modes support
+  arm64: dts: imx8mq-librem5: Correct link frequency list
 
-Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-
-> ---
->  .../media/platform/renesas/rcar-vin/rcar-core.c    | 32 ++++++++++++++++++----
->  1 file changed, 26 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/media/platform/renesas/rcar-vin/rcar-core.c b/drivers/media/platform/renesas/rcar-vin/rcar-core.c
-> index c8d564aa1e..8ba8d49c3e 100644
-> --- a/drivers/media/platform/renesas/rcar-vin/rcar-core.c
-> +++ b/drivers/media/platform/renesas/rcar-vin/rcar-core.c
-> @@ -318,6 +318,20 @@ static const struct v4l2_async_notifier_operations rvin_group_notify_ops = {
->  	.complete = rvin_group_notify_complete,
->  };
->  
-> +static void rvin_group_notifier_cleanup(struct rvin_group *group)
-> +{
-> +	v4l2_async_nf_cleanup(&group->notifier);
-> +
-> +	guard(mutex)(&group->lock);
-> +
-> +	for (unsigned int i = 0; i < RCAR_VIN_NUM; i++)
-> +		if (group->vin[i])
-> +			group->vin[i]->parallel.asc = NULL;
-> +
-> +	for (unsigned int i = 0; i < ARRAY_SIZE(group->remotes); i++)
-> +		group->remotes[i].asc = NULL;
-> +}
-> +
->  static int rvin_group_parse_of(struct rvin_dev *vin, unsigned int port,
->  			       unsigned int id)
->  {
-> @@ -440,7 +454,7 @@ static int rvin_group_notifier_init(struct rvin_dev *vin, unsigned int port,
->  		/* Parse local subdevice. */
->  		ret = rvin_parallel_parse_of(vin->group->vin[i]);
->  		if (ret)
-> -			return ret;
-> +			goto err_cleanup;
->  
->  		/* Parse shared subdevices. */
->  		for (id = 0; id < max_id; id++) {
-> @@ -449,7 +463,7 @@ static int rvin_group_notifier_init(struct rvin_dev *vin, unsigned int port,
->  
->  			ret = rvin_group_parse_of(vin->group->vin[i], port, id);
->  			if (ret)
-> -				return ret;
-> +				goto err_cleanup;
->  		}
->  	}
->  
-> @@ -460,11 +474,14 @@ static int rvin_group_notifier_init(struct rvin_dev *vin, unsigned int port,
->  	ret = v4l2_async_nf_register(&vin->group->notifier);
->  	if (ret < 0) {
->  		vin_err(vin, "Notifier registration failed\n");
-> -		v4l2_async_nf_cleanup(&vin->group->notifier);
-> -		return ret;
-> +		goto err_cleanup;
->  	}
->  
->  	return 0;
-> +
-> +err_cleanup:
-> +	rvin_group_notifier_cleanup(vin->group);
-> +	return ret;
->  }
->  
->  /* -----------------------------------------------------------------------------
-> @@ -1228,8 +1245,11 @@ static int rcar_vin_probe(struct platform_device *pdev)
->  		break;
->  	default:
->  		ret = rvin_group_get(vin, rvin_parallel_setup_links, NULL);
-> -		if (!ret)
-> +		if (!ret) {
->  			ret = rvin_group_notifier_init(vin, 0, 0);
-> +			if (ret)
-> +				rvin_group_put(vin);
-> +		}
->  
->  		if (vin->info->scaler)
->  			vin->scaler = vin->info->scaler;
-> @@ -1264,7 +1284,7 @@ static void rcar_vin_remove(struct platform_device *pdev)
->  
->  	if (&vin->v4l2_dev == vin->group->notifier.v4l2_dev) {
->  		v4l2_async_nf_unregister(&vin->group->notifier);
-> -		v4l2_async_nf_cleanup(&vin->group->notifier);
-> +		rvin_group_notifier_cleanup(vin->group);
->  	}
->  
->  	rvin_group_put(vin);
-> -- 
-> 2.49.0
+ .../boot/dts/freescale/imx8mq-librem5.dtsi    |   2 +-
+ drivers/media/i2c/hi846.c                     | 226 +++++++++++++++---
+ 2 files changed, 190 insertions(+), 38 deletions(-)
 
 -- 
-Kind Regards,
-Niklas Söderlund
+2.54.0
+
