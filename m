@@ -1,143 +1,105 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181D22F4A0C
-	for <linux-media@vger.kernel.org>; Sat,  2 May 2026 08:25:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9705E13E02A;
+	Sat,  2 May 2026 08:33:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777710327; cv=none; b=ce+2k+R2eyTvSFWClJv/ZT3XJqrI7GUU1H0T+Q/j9X6AUJ/CV43Z7kZIzsK8ZvgN84onC8eC92cda7b3cCo7tNqmh6NnaUWljaWnimQGjkxrRMfoKMOMU4/CecGjYB5phkY/QZsLFQvrBwnT2NEXev7b34NViSww/Qf2W9zDEKU=
+	t=1777710829; cv=none; b=mM9cqkipYy0E7i8Z/2ghJxMtCEojArJPyDJKmhNXqYPwYcj2HIJVtdzxURMd1WfU9tA89opWOPvpjVpw643plBKn5JLjE2XQl+2rl8jIPjDWFSuj/SDC4kUKPbGZmK1aqQnD+y7OIzEyiIur/xa1yw6sppY4VtRT/j30rMcWKKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777710327; c=relaxed/simple;
-	bh=0WAZDhluGVrY0GiqCvIRLbyr+zl9TYqg+4LeOUz2ppk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uaNCi8+1HlpXgRoh0dn3Cry2os6igF2BsWV2U1tSboK5lVuWBwwEQxHDNP9y3y15Fjbh7P3SxaZQAkZX78NMZ2oisTWno9OqpkW9MBxVO1YMcr0dnvYHj0r2SWaQ8ljWrQV1fQvl8hR0QxzlsZ7Nw5l0xU7SaWtl0IxgbwFT/RM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TbHOWqF7; arc=none smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777710829; c=relaxed/simple;
+	bh=VB19/zkvBY4xE5+EFo2uc+xPeEKE+LR6F/7J/kXudpQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=URCE3qoUfPYJCg5s4kB97hLuNoJj40e2pN+9iCWEOcY8I6CqeY5eShqPIMDXWm4xt22zdnohFB8hLk1yonZZrSbrAqivU1DXrL1u0Zp2C5hSP3rMHzLKR3f49ddi5YZRIy1gMJdw8M/ro15+kAt5IXailPqPAok6g9B7pZlQe8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DzXlBRxT; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TbHOWqF7"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-83537a80ab6so53681b3a.1
-        for <linux-media@vger.kernel.org>; Sat, 02 May 2026 01:25:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777710325; x=1778315125; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=LDLzCL5jMxLJXRki96FPHhfOoa6lvhYX7V+gzTmTkqU=;
-        b=TbHOWqF7d8vAq0/E0G4GA4MWa6tZlfiDr5ZJnpKgmsO2dp/xe3gWcMKAV9NBcnPuRQ
-         djud4dHn4CoGlxcJSDhqEUk8vwdLJHHy/t2gxCMEVa14tJFIQ8+V1gZCSgzgxNZJc0h2
-         4Osq7JvjPuH9CI+nqSxgtnXm+W0wYnvo3soJwYLfmy4U0wGHT2GQ8k4GnrTNHG1lu5Px
-         ZfqlpxTBpJYmJd7s23d13h5x/BoV/CWcctDcdtu8CBx33R6W59b2RDU3/pvUG+sT/ur9
-         k93LIkq8tsytPmF7A95wmj7ZffAxdb0wPqHy4OCz1NidmhfYeWeZpU3vOdv4cP5hKEym
-         IwKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777710325; x=1778315125;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LDLzCL5jMxLJXRki96FPHhfOoa6lvhYX7V+gzTmTkqU=;
-        b=NdvuU/Nrfb1t/LSuSrzgqlfqt8uFNdhMFLDErxJXvjGe8c0pMJtxSQNf36loQIr0c+
-         DXDh9oc4HYF/oG4GhvHcpn5ikGWE/lBtxihzk2SJqWK7b/kXsZZy3ejKUGgVsf5lzgFS
-         /dkyWO7/sIgAA7n7uDHw2Hd0YP2AxbNQsM0TxXHkARfd2rhyfgvuRc6n0SQJwbx+saT/
-         I1By6L+nBI7a9asAkH3OIMz3T35hjkxDU0+Wv9ryq5/eI8FZ8EjZemyF0+gIqgoj2GBw
-         RYVv9wnonUTvL5QwwPdgAEquz1LzjSmvuZkg0hJsAIvX5n3FusZX5/qK4QRWoc1XrIce
-         /Jfg==
-X-Forwarded-Encrypted: i=1; AFNElJ94O4Q1Y4A3vs8+KBNH+fjbJxOWa125RJ63ctukndZzLUvmHv/3PllK6SR3kjrpDj6ywrT9770mYHk5rg==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw4drw1mGOncqx/63sciF2oxYHICiuWS9T+M9nLrba12JTZ5oVk
-	qq03FCSOIIQZE2/be2D3DeA2cHNK1qTLW3zj+ZCLkXYSfQtpqLGE4xSD
-X-Gm-Gg: AeBDiesbnCgZ24EGF+NZ6/cZUjql5jFn7vL0MnuxcGPQ7OvTXdiQ16qoMM0bMQquUXb
-	nk27jBFBSjPSc5H24wdvht99zprMpy8K+xhuv/T4zzWxgtBqmmubcTTu4VDbPv9Nb18wI4vPk1T
-	cn7nIabeHqGQhZAq2JwqPHLTk3cenBPEJqJ3sqlqVQFFLxyO6N696FEQOL/1acyXY+LfKfTVcbu
-	PkQOgwQqiA/Iz9zaJsylVN73jm786H2UWy0kg4c8Vx3fz4IcIoFDfixwNqEQ3cmlO+5JqDf3dMj
-	QyvhPXh/O2yAqLpnwR1WGUptbkQ3WrWY50UDoLTbXRzTVRnAHSg6YtGrJbask3TznK6YnPKDUTO
-	m7T+Y7QwY4+CHB+4s5Z7yb3eUyI0y5C4bMW9ZiCezkza1m61XofT7iDfQvPtjvMiofpHrIPVPWW
-	KnemURGGwh18G2Ept8dXHoc/5sVuj6N4j505kiABLi/RusJzVPXrIE
-X-Received: by 2002:a05:6a00:b904:b0:82d:162c:581f with SMTP id d2e1a72fcca58-8352d2efbfcmr2346847b3a.48.1777710325373;
-        Sat, 02 May 2026 01:25:25 -0700 (PDT)
-Received: from shirinkaul.localdomain ([122.172.84.203])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8351d08065asm4133233b3a.3.2026.05.02.01.25.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 02 May 2026 01:25:24 -0700 (PDT)
-From: Shirin Kaul <shirin.kaul11@gmail.com>
-To: linux-staging@lists.linux.dev
-Cc: gregkh@linuxfoundation.org,
-	hansg@kernel.org,
-	mchehab@kernel.org,
-	sakari.ailus@linux.intel.com,
-	andy@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shirin Kaul <shirin.kaul11@gmail.com>
-Subject: [PATCH] staging: atomisp: isp: xnr 3.0 fix whitespace issue
-Date: Sat,  2 May 2026 08:25:16 +0000
-Message-ID: <20260502082516.16302-1-shirin.kaul11@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DzXlBRxT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777710828; x=1809246828;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=VB19/zkvBY4xE5+EFo2uc+xPeEKE+LR6F/7J/kXudpQ=;
+  b=DzXlBRxTBcllEb7i2u1F2jYRoOGvgbxXoc5dG4InOm796RIxpBxdwbug
+   CK69tn3s8QWtw0zTw/nlnS/Xl9gMvhX3yn9TCMaR/EAfbjKRJgbHaMcQG
+   UGDPy3sLx3sL6sOMHV59xjLunEdAqeqowbGYmqmtbEywi9PAkogdfB+e8
+   7KdZI+m9D091ICwQV0blqb1lPME6CAC47HMyLOQ5MGUOeIjwsMoseyenS
+   EX1Nb/DA4wOwiAVTvhZkqb09WYV3y1GooGwS7mrHwR2feFJxE0o/4J0QI
+   /Hokka1vfQCMSjhrUi2K0oMugtJpfONvmSq/Mnro+xm4akjfjioYhP7qc
+   Q==;
+X-CSE-ConnectionGUID: ykPRgR90Svuy5vmixU6CaQ==
+X-CSE-MsgGUID: 1+Yu20EMR0G2y7HkxShd3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11773"; a="90118303"
+X-IronPort-AV: E=Sophos;i="6.23,211,1770624000"; 
+   d="scan'208";a="90118303"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 May 2026 01:33:47 -0700
+X-CSE-ConnectionGUID: vRDo2F4lQWyYv5MGV7zEDA==
+X-CSE-MsgGUID: dFphSG4bQcezPYqRcEa+9A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,211,1770624000"; 
+   d="scan'208";a="273163945"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.18])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 May 2026 01:33:45 -0700
+Date: Sat, 2 May 2026 11:33:42 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Shirin Kaul <shirin.kaul11@gmail.com>
+Cc: linux-staging@lists.linux.dev, gregkh@linuxfoundation.org,
+	hansg@kernel.org, mchehab@kernel.org, sakari.ailus@linux.intel.com,
+	andy@kernel.org, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: atomisp: isp: xnr 3.0 fix whitespace issue
+Message-ID: <afW25ktg74Xfae-B@ashevche-desk.local>
+References: <20260502082516.16302-1-shirin.kaul11@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260502082516.16302-1-shirin.kaul11@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Fix spaces by replacing them with tabs in function calls to comply
-with kernel coding style.
+On Sat, May 02, 2026 at 08:25:16AM +0000, Shirin Kaul wrote:
+> Fix spaces by replacing them with tabs in function calls to comply
+> with kernel coding style.
 
-Signed-off-by: Shirin Kaul <shirin.kaul11@gmail.com>
----
- .../kernels/xnr/xnr_3.0/ia_css_xnr3.host.c    | 20 +++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+...
 
-diff --git a/drivers/staging/media/atomisp/pci/isp/kernels/xnr/xnr_3.0/ia_css_xnr3.host.c b/drivers/staging/media/atomisp/pci/isp/kernels/xnr/xnr_3.0/ia_css_xnr3.host.c
-index e90dea58215b..3da73001d645 100644
---- a/drivers/staging/media/atomisp/pci/isp/kernels/xnr/xnr_3.0/ia_css_xnr3.host.c
-+++ b/drivers/staging/media/atomisp/pci/isp/kernels/xnr/xnr_3.0/ia_css_xnr3.host.c
-@@ -34,8 +34,8 @@ static const s16 x[XNR3_LOOK_UP_TABLE_POINTS] = {
- 
- static const s16 a[XNR3_LOOK_UP_TABLE_POINTS] = {
- 	-7213, -5580, -4371, -3421, -2722, -2159, -6950, -5585,
--	    -4529, -3697, -3010, -2485, -2070, -1727, -1428, 0
--    };
-+	-4529, -3697, -3010, -2485, -2070, -1727, -1428, 0
-+	};
- 
- static const s16 b[XNR3_LOOK_UP_TABLE_POINTS] = {
- 	4096, 3603, 3178, 2811, 2497, 2226, 1990, 1783,
-@@ -125,9 +125,9 @@ compute_blending(int strength)
- 
- void
- ia_css_xnr3_encode(
--    struct sh_css_isp_xnr3_params *to,
--    const struct ia_css_xnr3_config *from,
--    unsigned int size)
-+	struct sh_css_isp_xnr3_params *to,
-+	const struct ia_css_xnr3_config *from,
-+	unsigned int size)
- {
- 	int kernel_size = XNR_FILTER_SIZE;
- 	int adjust_factor = roundup_pow_of_two(kernel_size);
-@@ -180,9 +180,9 @@ ia_css_xnr3_encode(
- */
- void
- ia_css_xnr3_vmem_encode(
--    struct sh_css_isp_xnr3_vmem_params *to,
--    const struct ia_css_xnr3_config *from,
--    unsigned int size)
-+	struct sh_css_isp_xnr3_vmem_params *to,
-+	const struct ia_css_xnr3_config *from,
-+	unsigned int size)
- {
- 	unsigned int i, j, base;
- 	const unsigned int total_blocks = 4;
-@@ -232,8 +232,8 @@ ia_css_xnr3_vmem_encode(
- /* Dummy Function added as the tool expects it*/
- void
- ia_css_xnr3_debug_dtrace(
--    const struct ia_css_xnr3_config *config,
--    unsigned int level)
-+	const struct ia_css_xnr3_config *config,
-+	unsigned int level)
- {
- 	(void)config;
- 	(void)level;
+>  static const s16 a[XNR3_LOOK_UP_TABLE_POINTS] = {
+>  	-7213, -5580, -4371, -3421, -2722, -2159, -6950, -5585,
+> -	    -4529, -3697, -3010, -2485, -2070, -1727, -1428, 0
+> -    };
+> +	-4529, -3697, -3010, -2485, -2070, -1727, -1428, 0
+
+Leave trailing comma, as it's not a sign that this array has a terminator.
+
+> +	};
+
+Wrong indentation.
+
+...
+
+>  void
+>  ia_css_xnr3_encode(
+> -    struct sh_css_isp_xnr3_params *to,
+> -    const struct ia_css_xnr3_config *from,
+> -    unsigned int size)
+> +	struct sh_css_isp_xnr3_params *to,
+> +	const struct ia_css_xnr3_config *from,
+> +	unsigned int size)
+
+It's half-baked solution. Moreover there were handful of patches (better than
+this one) to address the same, please, study preexisting work (linux-media
+mailing list archives is for your help).
+
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
