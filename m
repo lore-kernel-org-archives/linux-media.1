@@ -1,97 +1,76 @@
-Received: from out203-205-221-153.mail.qq.com (out203-205-221-153.mail.qq.com [203.205.221.153])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 759DF3806C4;
-	Sat,  2 May 2026 13:09:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BBBE273D8D;
+	Sat,  2 May 2026 14:16:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777727371; cv=none; b=uDkAG3zBRW3BuOXCAChxCQpUrxVgnmLHUCDAmuMeXso6Y50OPiiYOh33Yl66AwoM6xpCZPMb/BTGggnRT0LcIBPNhtWjyHUvJGK/+lTwuRkUTCAhrK3p/whyTWhHuWYtfVfhzqatzXG8y3n9VqmE43Hy23wyQTSTBR5bZKG239Y=
+	t=1777731384; cv=none; b=Fk+XZ00hKgqm0vjWwmz7FtSLWiKzYf+jSsGnPrRVy9WaiPWA1kKiVtILWAalWjRY3ItHBcE+1EdnJCyuEHa74oq/ZBfHRXkAQGEljGYLNAjQK4wmL1DIjiWtRTkieLBV5EXkdD/+xKsIoiCAnGIC0ImjoqgZCFjb2ow9x2beXik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777727371; c=relaxed/simple;
-	bh=z+W/yjquw37SF0By8PEAxaL4ODnBVGLJHUR6gmAC5nQ=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=GzQNfuO0aYKEVYp8JU0w5NTWeaYsQltst4+kCXK1WLEt7NPzqGqM9TtoUstlicYCrGBEoe4wAZkRBlguzL2WY9GoM+2EYuLP9ItQXBQxyTD55cZX44bnIfGFxHfeGn+Auo2GSaPv7I9XXfLnbNxmtDahU59wAdD5VZlCVtqn8c4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=hPYYpV5v; arc=none smtp.client-ip=203.205.221.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1777731384; c=relaxed/simple;
+	bh=TwR1HvQDRtMP4izVvC6fWbPtDEp9YlwBpZW1/Ldrki0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eSElYncSuaiKfe6clelS89NTnmioE4i04PS5zdxCKgskCjTuNcwbft9YaBqt8nJyJyw5xTCnBGzTlfUAV7DfdKEqTy9iOag06dfvwh0Nnxg1WC7CFG1J8A3JvyF+v3nZLd+3hhyDs3SnWmRdL3Lemitg2DYHwFQMopxHFg9iITQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=AedyKaSR; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="hPYYpV5v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1777727366; bh=z+W/yjquw37SF0By8PEAxaL4ODnBVGLJHUR6gmAC5nQ=;
-	h=From:To:Cc:Subject:Date;
-	b=hPYYpV5vEenFbBfRh0aVD0aFYxIyuM7YBeu3VAI3IqNXO5pDg2cBzaUBYkXjueuQG
-	 BnOHpt/IbdeErEYEtjvd+sl6uDOunzC7tT9lSkEjIr1mGtDVxbs9x1UpHqPH6XmZtw
-	 y9ALlEMrfG6PJzgssAfWmW26pQoLo+nF9G1yTx8w=
-Received: from Lang.smartont.net ([2409:8a44:2312:14e1:56d8:1e1e:3f0b:d0f3])
-	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
-	id 25602278; Sat, 02 May 2026 21:09:22 +0800
-X-QQ-mid: xmsmtpt1777727362tzookrlu4
-Message-ID: <tencent_4146F4975C2BC4DC82A0655C1C24F1CDD308@qq.com>
-X-QQ-XMAILINFO: MKUhwZFKNyqxSbeA+sASx3u1uYJ7AfytbBDGtganaIuYjwqDti/5ckMIxXeym7
-	 8sdqF7pHHg9TWGeugy0okyBLfnh7c8mJoAXkqWKvYWdRmDPwQeDT9cvdzM6BpYe9yThJEIwHLds7
-	 WWbNgAgJOl0hgcC4ZLI6B/co8tHst+8EF/KXUpE99y5/97FquhXeWvaIpGvsfJB9g/0bFzCm02xz
-	 gY31eTvLSlBHsGU3qat7eMFfsMZaH7K1xFJQmcFbzbOzVvOJCsPVouTBWqgPy53ls/mGDofFNFsK
-	 DNJVB/zQ8mEfVDPIWz5jcxhWT+Wyy9ilGQwZeleaIT6a5WHheKnYMNfMH9njBiuI1UxnLLNJoGA/
-	 btYcvXQ7RPG+9Es3uy7d2zs8RzbUS30tqs+PzI0vzcV1eU3ddrNHr5JR0pIqAaDTS6K2fMunCYsh
-	 dQ9DRp2TduPtWp+NaPmkZz1BEwzE+JWfCPbHW+fkQBa9CTOGOb+WX9swk/WbhnVIqjyUiDfDzjsR
-	 gL5zI36TIN6/EbDQZ2AYyze7sCxUUxaeItZbZx7BK4aUigmKfYWmFrvB1VNeqH8wztEcJWwCBhSR
-	 /2hnlzE5el1h1z7U0s1A1RsMserSIYTTQGzQMV9TX00FxBwZshRkjzMFcdp7RfmPrfSoRr8s1gvH
-	 DHzIPJfkJzYhK8f2Rz23mj70QegQnyxXBWRx4vKuvC0COXhZpKuusycTqR2U7as4Bu7xaGXYnoUG
-	 5M4ZmXfGSc6nS3lNuFy0zDqJmBMMbX5YUuYHSVTiDzeyS6LEFY40/EDIKrdOBYELro5o5ebo/rXo
-	 Snuozx+V/MWqegHChTQu2fsr7Ru2gPN7pV8taRAQbjT4olYiSKCVukCLyxUeLZt2xXZvw2KMtU15
-	 NKhemyomYS7WjR+p4XwJTlt+U1Tr/vVO/6VtQtPhL3HPtp6nyPOlWLhrx9/nQF5K8+Kbh0ksqf9a
-	 aiFD6S9NcUeVT2mpNHzgeJa/SpMKCwO5EjQVBRWeElxARKr2G56LKtRhylJDY2khQBDVxRasTL1w
-	 fkPfVHzMjOvdWKE/50grkVFVn2nvY7dgkBjRGJZb0NedWS8jspdosl+Xv/tM+JslbJ4jcgFZaPAC
-	 PBJon0
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-From: Wang Zihan <jiyu03@qq.com>
-To: netdev@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-um@lists.infradead.org
-Cc: davem@davemloft.net,
-	kuba@kernel.org,
-	corbet@lwn.net,
-	mchehab@kernel.org,
-	richard@nod.at,
-	linux-kernel@vger.kernel.org,
-	Wang Zihan <3772548978@qq.com>
-Subject: [WITHDRAW] Documentation: Fix duplicated words - "in in" was not an error
-Date: Sat,  2 May 2026 21:09:18 +0800
-X-OQ-MSGID: <20260502130921.638440-1-jiyu03@qq.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="AedyKaSR"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=vkdJUl9byqmgdH4ISrrSUbw86t4D/yEgNaaTqWmyKRE=; b=Ae
+	dyKaSRwo8iamjOkvzOLPx0wAtoj63h4rJf+NDQ+B4HrTfC1iaJUoZelsMWgFb216+JISuUJ1Sy2f5
+	0hwh7a0gDKqfiRJSg5x+Exg/Ps76LJ0e1KrwEAdaN4yWGrnuxD/NWJsjtb0S1vIV0yO3ERDdUJGaX
+	7cE11VZbDlHywBY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wJB8T-0011Vh-Ph; Sat, 02 May 2026 16:16:01 +0200
+Date: Sat, 2 May 2026 16:16:01 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Wang Zihan <3772548978@qq.com>
+Cc: netdev@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-media@vger.kernel.org, linux-um@lists.infradead.org,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
+	skhan@linuxfoundation.org, mchehab@kernel.org, richard@nod.at,
+	anton.ivanov@cambridgegreys.com, johannes@sipsolutions.net,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Documentation: Fix duplicated words
+Message-ID: <918f7cdc-c0bc-4cbb-8385-ca0ddb2180c1@lunn.ch>
+References: <tencent_B1D6CBBF95486E31D04C2E1B92F5E605A307@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <tencent_B1D6CBBF95486E31D04C2E1B92F5E605A307@qq.com>
 
-From: Wang Zihan <3772548978@qq.com>
+On Sat, May 02, 2026 at 07:19:16PM +0800, Wang Zihan wrote:
+> Remove duplicated words in three documentation files:
+> - "in in" -> "in" (switchdev.rst)
+> - "The the" -> "The" (dmx-reqbufs.rst)
+> - "on on" -> "on" (user_mode_linux_howto_v2.rst)
 
-I apologize for another incorrect patch. After review by Björn Persson,
-I realized that "in in" in switchdev.rst was not an error:
+https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
 
-Original: "what position a port is in in the overall topology"
+* don’t repost your patches within one 24h period
 
-This is correct English:
-- "what position a port is in" = the position that a port occupies
-- "in the overall topology" = within the overall topology
+We have already told you one of the fixes is wrong, but you did not
+wait 24 hours, so have not see our feedback.
 
-My change incorrectly altered the meaning to suggest that a port IS a position,
-when in fact a port is IN a position IN the topology.
+Also, in general when using a tool, assume it is wrong, and convince
+yourself it is correct, before making a change. "The the in this
+sentence is the subject." What does the bot make of that? Can you
+convince yourself the bot is correct?
 
-I am withdrawing the "in in" part of this patch:
-- Message-ID: <20260502111916.145238-1-3772548978@qq.com>
+    Andrew
 
-The other parts ("The the" -> "The" and "on on" -> "on") were also incorrect
-as previously acknowledged.
-
-Thank you for the correction. I will be more careful in analyzing English
-grammar before submitting patches.
-
-Apologies for the noise.
-
-Wang Zihan
-
+---
+pw-bot: cr
