@@ -1,82 +1,76 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16EB837CD22
-	for <linux-media@vger.kernel.org>; Sun,  3 May 2026 16:45:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D56234964
+	for <linux-media@vger.kernel.org>; Sun,  3 May 2026 17:22:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777826713; cv=none; b=VITPZrF8jc4xs/0bCaY2Vn6y8WdTICcjnYu0G4eK0Llhnggbp74luZBmGqinRQE0iMOGZMX2Z86whoX80G+/Zg/KvnAGFmdCm34irWfdKaLc/TvqG9ybAGtz1Wg/CUohokFMwhhmkISa0a2l0oVXxGpj8/KJ6coxXVitg5yHNqs=
+	t=1777828944; cv=none; b=Y202pJALYf75CkG6Dve1tZSD0zaGLdYPoT+5uhAz3av3ZZQCfHfKsPXiqWTb9GDlOKa4d3vwetGPUULHi8YWVy1Y7SqqR8Z5X8A+y/smVdmFGmKjB9v7elTzIs2XAAb1JY62m6gVm8uXRp/s+hTr98GYPcImn/kpR6gOSGsDg7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777826713; c=relaxed/simple;
-	bh=PXMbL35meuA3K4hWiUmh26Ifh+2vO6KRGqztajociNo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aEbi6QU77SAyMTF67p7Hrssod6Sx6Ipil9Iu3wqSvf3EXbGvyEkRDHdXycdJlvlt3PUh3IXE8hWE0eXKuUAzXrXDcpcBe7oNCAyNw78ht+9B+VonsKkwksmkPbu074NQtF81s2e9xkotQYOOTvT0+oMnEXOQnJ6+wDgJkgqsghg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ElGr9luZ; arc=none smtp.client-ip=209.85.208.42
+	s=arc-20240116; t=1777828944; c=relaxed/simple;
+	bh=aD59ht4Z8ccP5j0CsxyfzMmCi+t73MZoK0HM0pakRB8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eZgP4G0v1EWhGMl8q4CmVJRPwaJiFxCnKFjpN/akJNotxSByhFRXLCgMN+QqZlyFhU/ucBsg9GFDKEaObJLZqjkvDCYd/Cvpyt/sYK/K7wkr8eNHs3eh/HK9x4sCcjDwjS4tp2khfZQWHLR1U1ywigS1H5c0TzrFGkyeDIh2Hdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E+kWs0Cj; arc=none smtp.client-ip=209.85.215.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ElGr9luZ"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-67389cf78b0so6572709a12.2
-        for <linux-media@vger.kernel.org>; Sun, 03 May 2026 09:45:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E+kWs0Cj"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-c8027e876fcso111749a12.1
+        for <linux-media@vger.kernel.org>; Sun, 03 May 2026 10:22:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777826704; x=1778431504; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=sRXkstlVfDTEdoKTn7b1ddY7nla/Jav5UO7h+m11Go8=;
-        b=ElGr9luZA0OJ5FVLJTAGW7vaysrroq6JUTWHJLSizlBnhGbc+KWWvi1LFYVgv1AbxC
-         GC5ML+UZupBN8CSarMuTOKFW9XdjvMlMPq8AtURO7u4Luom1dfkHPTv9b8JKyAnIkSR6
-         3Yp5N3D90g885uJONZgupf4ShUTvdM53Nn1tGyw+Hpxhs4816bjfxinnDT8yLE+Z6cz3
-         GWtBpYaRuXtrjzYB9jankuJm8MEeoEWeWpyLWx3sy/3bxXiRtL2cIpQNvvL2MCqS+78a
-         37M8tELMGYjqdbWIp7KpB8/KAGe3Ll+RcB0U5rOzIls2SCgN7ub27OKvMZYEGgzkzNvb
-         nHFg==
+        d=gmail.com; s=20251104; t=1777828943; x=1778433743; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=XJnjzlMwpMniUmbSXdrplWdAlDcFpdzwd1bfSco5uao=;
+        b=E+kWs0Cja1pK5dzQ+jFnwCCNolkkO0YqP+eoqQNtbljnShfGHedRWhjdd/1bpkpx3w
+         amSbV5tFphCNwsKNgFCmBTcBmlc5exewWgzLOFTb7cx2y7TWEoJ2L4nu6OzMbpmGoMwp
+         1frTpyLUOmx1ssTI80mXYdwcsyV17dSWj8oYLB2EzBFvx5v25oKe8Evl1PMrEkEOGIle
+         oCzKJVrIqY4zTg1h6nwT05jrMp7flII27oVABMtq1yiW2Mjb3Np1VL9MUHVoJavcU72l
+         I/gqnhYqsG9ORJqMqEyl4C3QH+ptGD2J4XBclrl7IlmzmEkLKCT1aaGc8XC05eNVeCn7
+         yXeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777826704; x=1778431504;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=sRXkstlVfDTEdoKTn7b1ddY7nla/Jav5UO7h+m11Go8=;
-        b=nIpssvYFNn9CJZb7D3wwVrfmoXujp3AnRjTumvI+7XeOOdAE94AVqZKaS0XjEA/y81
-         p//F0VlRuKkFB21B+VDCvu0owdY3+HIEcFoIkWZaniUwDYtH/iMTUeectLcP8rTyGvuZ
-         JqwXSpzOf/ZjlwflurIr4UnvBtaIzrPg8hqlplnmhSpyhgzd+bclwTu1szKivVRI3Fk7
-         ldMAkibr0/cRDMIKtSIywq3wxMdRh02QtHsS8yn0kOlvoQscGVSEDQe51Rfr777pJsCu
-         BagUUG3LzGXVtvv2FW3s3NCyYMpokH25z0YO8sPCEnb6zOmkbAwvDW4oQAMwlDhK+/Cq
-         /8uA==
-X-Forwarded-Encrypted: i=1; AFNElJ9HHUey1sIsSeZtvkQDAxm+M/LnInhQkJiEJDqeUFYc8G0O7ctf5SpyE4jLzOYOwrSE/Urq7JT5jaQMzg==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyj/bUwwaUyY3tT7b/Jp004S7olu/i55gXUl0oR3ig0Us83FjeZ
-	9d3aOBwVQObs5/PI1tECrvf2rxA19H5oFptKEJcQRNUG0XqDpo01v1md943uXQ==
-X-Gm-Gg: AeBDietfz7auMXyyPAoLDQchWMAZu0ebTxms8HbZCUku+ZQsGSmKFH4iz/hJ5tOdLYD
-	rhbdbI0lnMNgCz+9qbGcFBS3mY7EZcuqsRqLuJ+HxtyxIKCGILBxARyZ2zrUSGAzzlNYq754Bl0
-	GO69r6XO7YBy4eJwGimi5AeubwJI/xZV47o2Xr0Ljfzs6r8D0vwRhylREhug1J6FgEME5+15c8r
-	k4TuYY6gCpbfYPHZ5UAexisbK0krvHevFbCnNaj8M0p3xbm+/uGnVSAAsmaQ4zfapTqQCoYCaDB
-	UljmAKbyqrJwvyfjPHng025BFiyeFU03C2V1EV0NwuRT4Rmmc+9pJVRe8/VrBeSY90TBMHlNv7S
-	trDachx9RKKOszmRjBmRNN8eg19HopXunQ0APSOKvOR/ELK+YLshT43iAphz3TBaOEdlNjHKdXN
-	BTUT7Mx1go4J0SeEioLja4a1c=
-X-Received: by 2002:a17:907:930d:b0:bad:52bd:8764 with SMTP id a640c23a62f3a-bbffcf919b4mr313501666b.24.1777826704242;
-        Sun, 03 May 2026 09:45:04 -0700 (PDT)
-Received: from xeon ([188.163.112.56])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bc237ef8297sm27430566b.57.2026.05.03.09.45.03
+        d=1e100.net; s=20251104; t=1777828943; x=1778433743;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XJnjzlMwpMniUmbSXdrplWdAlDcFpdzwd1bfSco5uao=;
+        b=IacKg1XD3ysmeIAOCtwo6igacFRnhFvFbyBv/muDEe3ziBT3tqnqbrEoNHXiNI8eH0
+         fLOXApyhUkbXrr6Ib+jrXLMLdntMKXob2lSPHj9qBnxisO3NHrEK6j07SCzKWNgw5u9C
+         K6Ak5iQX3HZ+KMlSy+Ud12v7gNWFB/fdHf8ngt4jKI+xLUunXRfaXCv87JC8R74YJLiR
+         ucEAfJNMXihxwo52vUqgnopSoQ+MM1/KetJARQkN7R+uXiXk0AUVpDajhX1dxUrd/k4w
+         75PwXtEdP52fIOWKlOsHs44p27y+ppTkMmUcHD4F09mpJHOAZUzPnHMTyBf1j/qUBLKU
+         OAhg==
+X-Forwarded-Encrypted: i=1; AFNElJ/lwTTVKaZjnNZLuDmV56tTTxZQ7VRcwsHGVYhSOGbcUcMZ/DjoL5P4wb0kVduk0rNYO6gdQ0qmZPl0dg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzclgHNetI4GIxTKmWRWRvoY+OnS7F/tlOqZD+ml7Rwn+eX1OsA
+	MQYs4y9gS9hnUZb9MV9ZB+PRkHvYS+S4UUSu3VH1D0a3GOsT6XEvuBPK
+X-Gm-Gg: AeBDiev0WHiEGrdpjiw0z6BJETQted67/B+QW3Xx4C68oVqNeqIsuOf1GHShnHf924K
+	iCc226t4AsOVdVpROaPhtxMlAIfnnDfUHD3uzFukRTU/7lzbNpR13PcND8l7V/G6oDuhX34ve+7
+	gSLgNYg8+ZJ4uMwjn9Fal2rHLo6uii+nUYDCVFs/nxXAGEQFbwEAQHCAt4jmq5AhgBKzYfLhPvQ
+	1d0tmbEXegXfmiwPPAFMlKIlHGWxmyl9f3PbYDE1uVNJOThPkbbBhLCAFuyZ+PY6+aVEp+3lp62
+	JTRdd7f8edDLZkIZuwGQyPPMR2ZtgVV1q8o6lawndWMSWqRuqQaZMBnyvIQXUs7AuFMJvZ4gmXc
+	OFV1l9sEA60JXj1Q8KQtXoxrtbL+iaptKxYrnpbSje9/4EP3KPswge7w3ThUppgu/5dhHaYmJDv
+	xlahys8kDKVXefHyLFd+PwdV2OTuu95rM15OzVRk+BUhSUEEL0rKlNZMg0PbqW/q+8n1r/YYjoN
+	znmhESLOwTPv0f5dYyDjZ4IjtAP349sXw==
+X-Received: by 2002:a05:6a20:a109:b0:3a2:f05a:7952 with SMTP id adf61e73a8af0-3a7f1c52da1mr6699896637.39.1777828942939;
+        Sun, 03 May 2026 10:22:22 -0700 (PDT)
+Received: from shyam-VMware-Virtual-Platform.localdomain ([223.181.115.140])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c7ffbca2c49sm7367257a12.26.2026.05.03.10.22.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 03 May 2026 09:45:03 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
+        Sun, 03 May 2026 10:22:22 -0700 (PDT)
+From: Shyam Sunder Reddy Padira <shyamsunderreddypadira@gmail.com>
+To: andy@kernel.org,
+	hansg@kernel.org,
+	mchehab@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: sakari.ailus@linux.intel.com,
 	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org
-Subject: [PATCH v5 5/6] media: i2c: lm3560: Add support for PM features
-Date: Sun,  3 May 2026 19:44:44 +0300
-Message-ID: <20260503164445.215540-6-clamor95@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260503164445.215540-1-clamor95@gmail.com>
-References: <20260503164445.215540-1-clamor95@gmail.com>
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	Shyam Sunder Reddy Padira <shyamsunderreddypadira@gmail.com>
+Subject: [PATCH] staging: media: atomisp: drop unnecessary else block after return/break
+Date: Sun,  3 May 2026 22:52:00 +0530
+Message-ID: <20260503172200.94712-1-shyamsunderreddypadira@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -85,252 +79,107 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for power management features to better control the LM3560
-within the media framework. To achieve the desired PM support, the HWEN
-GPIO and VIN power supply were added and configured into power on/off
-sequences. Added PM operations along with the PM configuration setup.
+Remove redundant else blocks following return or break
+statements.As control flow exits in these cases, the
+else branch is unnecessary.Dropping it improves code
+readability.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+No functional change.
+
+Signed-off-by: Shyam Sunder Reddy Padira <shyamsunderreddypadira@gmail.com>
 ---
- drivers/media/i2c/lm3560.c | 117 ++++++++++++++++++++++++++++++++++---
- 1 file changed, 110 insertions(+), 7 deletions(-)
+ .../staging/media/atomisp/pci/atomisp_fops.c  | 18 +++++------
+ .../staging/media/atomisp/pci/atomisp_v4l2.c  | 30 +++++++++----------
+ 2 files changed, 22 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/media/i2c/lm3560.c b/drivers/media/i2c/lm3560.c
-index ce4b09d1f208..15741ea5684f 100644
---- a/drivers/media/i2c/lm3560.c
-+++ b/drivers/media/i2c/lm3560.c
-@@ -12,13 +12,16 @@
- #include <linux/bitmap.h>
- #include <linux/delay.h>
- #include <linux/module.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
- #include <linux/slab.h>
- #include <linux/mod_devicetable.h>
- #include <linux/mutex.h>
- #include <linux/of.h>
-+#include <linux/pm_runtime.h>
- #include <linux/property.h>
- #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/videodev2.h>
- #include <media/i2c/lm3560.h>
- #include <media/v4l2-ctrls.h>
-@@ -49,6 +52,8 @@ enum led_enable {
-  * @dev: pointer to &struct device
-  * @regmap: reg. map for i2c
-  * @lock: muxtex for serial access.
-+ * @hwen_gpio: line connected to HWEN pin
-+ * @vin_supply: line connected to IN supply (2.5V - 5.5V)
-  * @led_mode: V4L2 LED mode
-  * @ctrls_led: V4L2 controls
-  * @subdev_led: V4L2 subdev
-@@ -63,6 +68,9 @@ struct lm3560_flash {
- 	struct regmap *regmap;
- 	struct mutex lock;
- 
-+	struct gpio_desc *hwen_gpio;
-+	struct regulator *vin_supply;
-+
- 	enum v4l2_flash_led_mode led_mode;
- 	struct v4l2_ctrl_handler ctrls_led[LM3560_LED_MAX];
- 	struct v4l2_subdev subdev_led[LM3560_LED_MAX];
-@@ -177,12 +185,17 @@ static int lm3560_get_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
- 	struct lm3560_flash *flash = to_lm3560_flash(ctrl, led_no);
- 	int rval = -EINVAL;
- 
-+	if (!pm_runtime_get_if_in_use(flash->dev))
-+		return 0;
-+
- 	if (ctrl->id == V4L2_CID_FLASH_FAULT) {
- 		s32 fault = 0;
- 		unsigned int reg_val;
- 		rval = regmap_read(flash->regmap, REG_FLAG, &reg_val);
--		if (rval < 0)
-+		if (rval < 0) {
-+			pm_runtime_put(flash->dev);
- 			return rval;
-+		}
- 		if (reg_val & FAULT_SHORT_CIRCUIT)
- 			fault |= V4L2_FLASH_FAULT_SHORT_CIRCUIT;
- 		if (reg_val & FAULT_OVERTEMP)
-@@ -192,6 +205,8 @@ static int lm3560_get_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
- 		ctrl->cur.val = fault;
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_fops.c b/drivers/staging/media/atomisp/pci/atomisp_fops.c
+index c7aef066f209..1aee082d34bf 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_fops.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_fops.c
+@@ -125,10 +125,8 @@ static int atomisp_q_one_metadata_buffer(struct atomisp_sub_device *asd,
+ 					     stream_id, css_pipe_id)) {
+ 		list_add(&metadata_buf->list, metadata_list);
+ 		return -EINVAL;
+-	} else {
+-		list_add_tail(&metadata_buf->list,
+-			      &asd->metadata_in_css[md_type]);
  	}
++	list_add_tail(&metadata_buf->list, &asd->metadata_in_css[md_type]);
+ 	asd->metadata_bufs_in_css[stream_id][css_pipe_id]++;
  
-+	pm_runtime_put(flash->dev);
-+
- 	return rval;
- }
- 
-@@ -201,6 +216,9 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
- 	u8 tout_bits;
- 	int rval = -EINVAL;
- 
-+	if (!pm_runtime_get_if_in_use(flash->dev))
-+		return 0;
-+
- 	switch (ctrl->id) {
- 	case V4L2_CID_FLASH_LED_MODE:
- 		flash->led_mode = ctrl->val;
-@@ -246,6 +264,8 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
- 		break;
- 	}
- 
-+	pm_runtime_put(flash->dev);
-+
- 	return rval;
- }
- 
-@@ -409,6 +429,38 @@ static int lm3560_init_device(struct lm3560_flash *flash)
- 	return rval;
- }
- 
-+static int __maybe_unused lm3560_power_off(struct device *dev)
-+{
-+	struct lm3560_flash *flash = dev_get_drvdata(dev);
-+
-+	gpiod_set_value_cansleep(flash->hwen_gpio, 0);
-+	regulator_disable(flash->vin_supply);
-+
-+	return 0;
-+}
-+
-+static int __maybe_unused lm3560_power_on(struct device *dev)
-+{
-+	struct lm3560_flash *flash = dev_get_drvdata(dev);
-+	int rval;
-+
-+	rval = regulator_enable(flash->vin_supply);
-+	if (rval < 0) {
-+		dev_err(flash->dev, "failed to enable vin power supply\n");
-+		return rval;
-+	}
-+
-+	gpiod_set_value_cansleep(flash->hwen_gpio, 1);
-+
-+	rval = lm3560_init_device(flash);
-+	if (rval < 0) {
-+		lm3560_power_off(dev);
-+		return rval;
-+	}
-+
-+	return 0;
-+}
-+
- static void lm3560_subdev_cleanup(struct lm3560_flash *flash)
- {
- 	int led_no;
-@@ -442,6 +494,17 @@ static int lm3560_probe(struct i2c_client *client)
- 
- 	bitmap_zero(flash->led_id, LM3560_LED_MAX);
- 
-+	flash->hwen_gpio = devm_gpiod_get_optional(flash->dev, "enable",
-+						   GPIOD_OUT_LOW);
-+	if (IS_ERR(flash->hwen_gpio))
-+		return dev_err_probe(flash->dev, PTR_ERR(flash->hwen_gpio),
-+				     "failed to get hwen gpio\n");
-+
-+	flash->vin_supply = devm_regulator_get(flash->dev, "vin");
-+	if (IS_ERR(flash->vin_supply))
-+		return dev_err_probe(flash->dev, PTR_ERR(flash->vin_supply),
-+				     "failed to get vin-supply\n");
-+
- 	flash->peak = LM3560_PEAK_1600mA;
- 	rval = device_property_read_u32(flash->dev,
- 					"ti,peak-current-microamp", &peak_ua);
-@@ -469,9 +532,19 @@ static int lm3560_probe(struct i2c_client *client)
- 				 &flash->max_flash_timeout);
- 	flash->max_flash_timeout /= 1000;
- 
-+	rval = regulator_enable(flash->vin_supply);
-+	if (rval < 0)
-+		return dev_err_probe(flash->dev, rval,
-+				     "failed to enable vin power supply\n");
-+
-+	gpiod_set_value_cansleep(flash->hwen_gpio, 1);
-+
- 	rval = lm3560_init_device(flash);
- 	if (rval < 0)
--		return rval;
-+		goto error_disable;
-+
-+	pm_runtime_set_active(flash->dev);
-+	pm_runtime_enable(flash->dev);
- 
- 	for_each_available_child_of_node(dev_of_node(flash->dev), node) {
- 		u32 reg;
-@@ -492,10 +565,10 @@ static int lm3560_probe(struct i2c_client *client)
- 
- 			rval = lm3560_subdev_init(flash, reg, node);
- 			if (rval < 0) {
--				lm3560_subdev_cleanup(flash);
--				return dev_err_probe(flash->dev, rval,
--						    "failed to register led%d\n",
--						    reg);
-+				dev_err(flash->dev,
-+					"failed to register led%d: %d\n",
-+					reg, rval);
-+				goto error_clean;
- 			}
- 
- 			set_bit(reg, flash->led_id);
-@@ -504,7 +577,23 @@ static int lm3560_probe(struct i2c_client *client)
- 
- 	i2c_set_clientdata(client, flash);
- 
-+	pm_runtime_set_autosuspend_delay(flash->dev, 1000);
-+	pm_runtime_use_autosuspend(flash->dev);
-+	pm_runtime_idle(flash->dev);
-+
  	return 0;
-+
-+error_clean:
-+	pm_runtime_disable(flash->dev);
-+	pm_runtime_set_suspended(flash->dev);
-+
-+	lm3560_subdev_cleanup(flash);
-+
-+error_disable:
-+	gpiod_set_value_cansleep(flash->hwen_gpio, 0);
-+	regulator_disable(flash->vin_supply);
-+
-+	return rval;
- }
+@@ -165,11 +163,10 @@ static int atomisp_q_one_s3a_buffer(struct atomisp_sub_device *asd,
+ 		/* got from head, so return back to the head */
+ 		list_add(&s3a_buf->list, s3a_list);
+ 		return -EINVAL;
+-	} else {
+-		list_add_tail(&s3a_buf->list, &asd->s3a_stats_in_css);
+-		if (s3a_list == &asd->s3a_stats_ready)
+-			dev_dbg(asd->isp->dev, "drop one s3a stat with exp_id %d\n", exp_id);
+ 	}
++	list_add_tail(&s3a_buf->list, &asd->s3a_stats_in_css);
++	if (s3a_list == &asd->s3a_stats_ready)
++		dev_dbg(asd->isp->dev, "drop one s3a stat with exp_id %d\n", exp_id);
  
- static void lm3560_remove(struct i2c_client *client)
-@@ -512,8 +601,22 @@ static void lm3560_remove(struct i2c_client *client)
- 	struct lm3560_flash *flash = i2c_get_clientdata(client);
+ 	asd->s3a_bufs_in_css[css_pipe_id]++;
+ 	return 0;
+@@ -206,11 +203,10 @@ static int atomisp_q_one_dis_buffer(struct atomisp_sub_device *asd,
+ 		list_add_tail(&dis_buf->list, &asd->dis_stats);
+ 		spin_unlock_irqrestore(&asd->dis_stats_lock, irqflags);
+ 		return -EINVAL;
+-	} else {
+-		spin_lock_irqsave(&asd->dis_stats_lock, irqflags);
+-		list_add_tail(&dis_buf->list, &asd->dis_stats_in_css);
+-		spin_unlock_irqrestore(&asd->dis_stats_lock, irqflags);
+ 	}
++	spin_lock_irqsave(&asd->dis_stats_lock, irqflags);
++	list_add_tail(&dis_buf->list, &asd->dis_stats_in_css);
++	spin_unlock_irqrestore(&asd->dis_stats_lock, irqflags);
  
- 	lm3560_subdev_cleanup(flash);
+ 	asd->dis_bufs_in_css++;
+ 
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+index 900a67552d6a..bef803ece2dd 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+@@ -467,22 +467,22 @@ static int atomisp_mrfld_pre_power_down(struct atomisp_device *isp)
+ 			__func__, irq);
+ 		spin_unlock_irqrestore(&isp->lock, flags);
+ 		return -EAGAIN;
+-	} else {
+-		pci_read_config_dword(pdev, PCI_INTERRUPT_CTRL, &irq);
+-		irq &= BIT(INTR_IIR);
+-		pci_write_config_dword(pdev, PCI_INTERRUPT_CTRL, irq);
+-
+-		pci_read_config_dword(pdev, PCI_INTERRUPT_CTRL, &irq);
+-		if (!(irq & BIT(INTR_IIR))) {
+-			atomisp_css2_hw_store_32(MRFLD_INTR_ENABLE_REG, 0x0);
+-			goto done;
+-		}
+-		dev_err(isp->dev,
+-			"%s: error in iunit interrupt. status reg=0x%x\n",
+-			__func__, irq);
+-		spin_unlock_irqrestore(&isp->lock, flags);
+-		return -EAGAIN;
+ 	}
++	pci_read_config_dword(pdev, PCI_INTERRUPT_CTRL, &irq);
++	irq &= BIT(INTR_IIR);
++	pci_write_config_dword(pdev, PCI_INTERRUPT_CTRL, irq);
 +
-+	/*
-+	 * Disable runtime PM. In case runtime PM is disabled in the kernel,
-+	 * make sure to turn power off manually.
-+	 */
-+	pm_runtime_disable(&client->dev);
-+	if (!pm_runtime_status_suspended(&client->dev)) {
-+		lm3560_power_off(&client->dev);
-+		pm_runtime_set_suspended(&client->dev);
++	pci_read_config_dword(pdev, PCI_INTERRUPT_CTRL, &irq);
++	if (!(irq & BIT(INTR_IIR))) {
++		atomisp_css2_hw_store_32(MRFLD_INTR_ENABLE_REG, 0x0);
++		goto done;
 +	}
- }
- 
-+static const struct dev_pm_ops lm3560_pm_ops = {
-+	SET_RUNTIME_PM_OPS(lm3560_power_off, lm3560_power_on, NULL)
-+};
++	dev_err(isp->dev,
++		"%s: error in iunit interrupt. status reg=0x%x\n",
++		__func__, irq);
++	spin_unlock_irqrestore(&isp->lock, flags);
++	return -EAGAIN;
 +
- static const struct of_device_id lm3560_of_match[] = {
- 	{ .compatible = "ti,lm3559" },
- 	{ .compatible = "ti,lm3560" },
-@@ -532,7 +635,7 @@ MODULE_DEVICE_TABLE(i2c, lm3560_id_table);
- static struct i2c_driver lm3560_i2c_driver = {
- 	.driver = {
- 		   .name = LM3560_NAME,
--		   .pm = NULL,
-+		   .pm = pm_ptr(&lm3560_pm_ops),
- 		   .of_match_table = lm3560_of_match,
- 		   },
- 	.probe = lm3560_probe,
+ done:
+ 	/*
+ 	 * MRFLD WORKAROUND:
 -- 
-2.51.0
+2.43.0
 
