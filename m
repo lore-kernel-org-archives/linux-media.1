@@ -1,59 +1,59 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0741C31A7E4;
-	Mon,  4 May 2026 08:46:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E4F937702A;
+	Mon,  4 May 2026 09:20:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777884363; cv=none; b=lxT+N7012rHu5s40RlICDm4R609DiMOBXxBmcYcjcSGF4v4BT1dqa4jj5VTJdS/NYwVLdJ1nPhOR567oZgBvX/pQTYW8wWUW9mKL9kGggTioDPZDt/xJjVtukRCdaaa2+b25FnfCKk9OdfhD1yy/0Y3GuBsNMdk+Y2s7vStFW5o=
+	t=1777886405; cv=none; b=Bv57R0v9VXb8SGlHQ+44/3U1oL8eoQRPMCUL7duPoKs63urbTF7VRT9d7XH2ICvrEWUwUBy5orczxVFm144RouGnq+CPiMS8oyfWhTkJSYNACT/QVIftmtrE3Ue7znwKtApV2l4A4WRcotmm9FBKQHTX072PSApCIrQQqjbVrUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777884363; c=relaxed/simple;
-	bh=yWEzCDgoGDnMWPKJjVfR9r0muUqxhdSGv8T8xVqkZ8g=;
+	s=arc-20240116; t=1777886405; c=relaxed/simple;
+	bh=yupxrrPMZBoEUv4zEx6yv+pw0K30bFRGJXzOH7fKlYQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iN7stCjLvvLoQ9a1/xXeFUvj/5M3DvV7shULsFNKzAD/u1eJUpWAQ54dibswdYaulmLSjFkpbdgZhDZPVQXwQWxNFVvPplPkNHDMkPd1eydLc1llk8XXPOufe4v8UopiVOzBH9nFCXjhepeirtlynLnKaFF4zMy1IaJUx7KY4kw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DtvPvzgh; arc=none smtp.client-ip=198.175.65.15
+	 Content-Type:Content-Disposition:In-Reply-To; b=riJjUv1ljW8FwGETwt9TFwwswOqr/zR4W2u9NIN0Uu7ostNFIKHgapdvdcTNXR3NjOBvUBl+a82GSJgxM3gfn8C4thf450ZpplQBi455gvIyzlEThw0V8VHjZXwaTicqZz+dVw8Ws+HnIh3oklmZ1xLLbqa78UJ2ya4ibe08R+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ypn+5Ppj; arc=none smtp.client-ip=198.175.65.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DtvPvzgh"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ypn+5Ppj"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777884361; x=1809420361;
+  t=1777886403; x=1809422403;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=yWEzCDgoGDnMWPKJjVfR9r0muUqxhdSGv8T8xVqkZ8g=;
-  b=DtvPvzgh0I8aMasYcLz2tP3SUoaQCXZjrvoo/qVbUNIduhFFpa+9EMs0
-   LWNpquREBajvfcGhYSwX0JCQb+KzyDtfWJyi+mgCviVN+CjBXsMBeIv9p
-   /QdCARrxmIIfwm2AwCHE9f5qrxNoDXk7YMYuxFl9Uu/7E8sp/JSaowIR1
-   udfD4oHsQE6S3MqS6n91YPGqJhaqC9G0zI0KLBA5+8y69eyvJYHPH/DOY
-   1DUdtxbZoQRQd7/yL7KO4fVMiNatPNo/OanekEzto7ONA5+KbQWmOMV42
-   kqRNDu9TDT6gNXymr49Vsf+8J8HZUohXnVrrb0as/4D+bO5RueN1XpFCZ
-   Q==;
-X-CSE-ConnectionGUID: J4k6KAkGTu66VX2fDaV+ww==
-X-CSE-MsgGUID: 90tLP/XeTJKLdBwoWvKwtA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11775"; a="82349928"
+  bh=yupxrrPMZBoEUv4zEx6yv+pw0K30bFRGJXzOH7fKlYQ=;
+  b=Ypn+5PpjnuDhYsdfrhvlC6RKCW+uoEyAqlpVm8nLIxnBfjfB4a/uJPsZ
+   uDNyCyW1AFMSXjo5GpA+6XuR2TrLLEcNVxp6ppxDNFComX59CSBD4AOB1
+   QbdyZQhFZ9VrbXjtx0oW8JGFPu1ptD2NpkX0AiaEhhvWwS/6wtObH6eZi
+   EdbL8RB9yiCvI8vBU/GNuUjMTVBLwpbidZ+ywy3p+GFpzdNY9/EL5kCk7
+   sCJE6QIfmkPbdNkF8xjuWPCAGKBPdgRbnnjK9LMceNjrC9xL6gRftQByR
+   krfvxeUfEwFA3w6dGup4X6p326aBOjOK6ryZ50CEv56OOZji2PRHYbVKp
+   g==;
+X-CSE-ConnectionGUID: anH+5T9BR/Ogvp77HIGZtg==
+X-CSE-MsgGUID: WxFXfdLFS2uxweXn378INw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11775"; a="78732170"
 X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; 
-   d="scan'208";a="82349928"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 01:46:01 -0700
-X-CSE-ConnectionGUID: S6cLh6lERmaxYO/jal4ZyA==
-X-CSE-MsgGUID: q5GrRO34S1m1keH3QGBBtg==
+   d="scan'208";a="78732170"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 02:20:03 -0700
+X-CSE-ConnectionGUID: dUg4em3cRuiM6xkO6m9NfA==
+X-CSE-MsgGUID: jCnSynjuRaO8TvxDy36VuQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; 
-   d="scan'208";a="240441681"
+   d="scan'208";a="265814320"
 Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 01:45:58 -0700
-Date: Mon, 4 May 2026 11:45:56 +0300
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 02:20:01 -0700
+Date: Mon, 4 May 2026 12:19:58 +0300
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Shirin Kaul <shirin.kaul11@gmail.com>
-Cc: linux-staging@lists.linux.dev, gregkh@linuxfoundation.org,
-	hansg@kernel.org, mchehab@kernel.org, sakari.ailus@linux.intel.com,
-	andy@kernel.org, linux-media@vger.kernel.org,
+To: Stepan Ionichev <sozdayvek@gmail.com>
+Cc: hansg@kernel.org, mchehab@kernel.org, sakari.ailus@linux.intel.com,
+	andy@kernel.org, gregkh@linuxfoundation.org,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] staging: atomisp: isp: xnr 3.0 fix whitespace issue
-Message-ID: <afhcxJeQ19nXKvAo@ashevche-desk.local>
-References: <20260502082516.16302-1-shirin.kaul11@gmail.com>
- <20260503105445.45058-1-shirin.kaul11@gmail.com>
+Subject: Re: [PATCH] staging: media: atomisp: fix typos in
+ input_formatter_rst() comment
+Message-ID: <afhkvt283Okjs0Xy@ashevche-desk.local>
+References: <20260503164755.1899-1-sozdayvek@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -62,32 +62,20 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260503105445.45058-1-shirin.kaul11@gmail.com>
+In-Reply-To: <20260503164755.1899-1-sozdayvek@gmail.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, May 03, 2026 at 10:54:45AM +0000, Shirin Kaul wrote:
-> Fix spaces by replacing them with tabs in function calls to comply
-> with kernel coding style with checkpatch.pl.
+On Sun, May 03, 2026 at 09:47:55PM +0500, Stepan Ionichev wrote:
+> Fix two typos in the TEMPORARY HACK comment in input_formatter_rst():
+> 
+>   WICH         -> WHICH
+>   STREAM2MEMRY -> STREAM2MEMORY
+> 
+> No functional change.
 
-Subject is wrong. The patch doesn't cover things outside the single file.
-The patch does two things (has to be split). Also patch doesn't anyhow
-rely on the preexisted changes that were submitted to the mailing list
-(that cover much more that this one).
-
-> v2:
-> - Added trailing commas in arrays
-> - Fixed indentation
-
-We have special place for the changelog and comments...
-
-> Signed-off-by: Shirin Kaul <shirin.kaul11@gmail.com>
-> ---
-
-...somewhere here.
-
->  .../kernels/xnr/xnr_3.0/ia_css_xnr3.host.c    | 29 +++++++++----------
->  1 file changed, 13 insertions(+), 16 deletions(-)
+NAK. There are a few reasons why, please start reviewing others' changes
+and learn from other reviews.
 
 -- 
 With Best Regards,
