@@ -1,377 +1,183 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298E82E1C7C
-	for <linux-media@vger.kernel.org>; Mon,  4 May 2026 07:40:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777880455; cv=pass; b=KC+/y8bj1I0tDlnMdrIpPaq73j9Pz76qz0fIFrxdDMyNph0zu9QWxB/rxRJcAuaaxJaZ4MFXdDOEfEnwFAW0AR/SNYvwQKCI38M4q0HhPoJznMeRPq8Y7DuroF8+nAkzDBuU+1q8cLc1JSd/xSOLTeKTefOPTSbCKUFLB5i4qe8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777880455; c=relaxed/simple;
-	bh=PimAmDBuePoh/qzM8yI1lcGMvx3ktmORhXvgjq11LY0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=B2wZGE2OVCKTwcGdBjmTHWKDIxD4TETJLbsX6MIIIE5Qeifie6ou1QjmzWzr080GG0lDe4ClXPkwtnFVLyfZnY39tmBbew87/CnrBuAOSqyJBGcizEkfZ8w5o2ibY9f6iRJIS+sSs32+kaNF0FtEDiC7CCRJ3SI47YzHqOFNiT8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VniDPVhr; arc=pass smtp.client-ip=74.125.82.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E722E040D
+	for <linux-media@vger.kernel.org>; Mon,  4 May 2026 07:46:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777880793; cv=none; b=QsIn0RcdRbp9qAG3bBRO7gxOUCNy14imkOjg8JCGkr+7WL2/W5qdfr2psIVhelwkgFXBqlFP5BES5NcoFf632frY3knYPhZiVr4/JVIu5vwZs9xfq7q6qXFkzpYcYKDrit/lZc0ad9gmBjIeojZmhbyklD+wEPwCWQsFp6u3JxI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777880793; c=relaxed/simple;
+	bh=TanX2QkRkYajOs9rJv8M1UwUtn7GDNYNuUGF1xCpVF4=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:References:
+	 In-Reply-To:Content-Type; b=Aidh9Da+DOP1N9NxOdRUmE8jqCigvZvckd8x7u1XrKUtIMsTZyMuZFPxJIC4UFlmOOBAaVNOD7s43fQJzGO6nrp3EDDLaIsGoFcyckiS8xJ2hA8OmxA0zqVdEbaMuRy2nTBgLMnMUFFO+VryPnYGG7gzBMwX+8rEmKyhrytsEpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NwqR/8Ev; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VniDPVhr"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-2ee1054627bso2385375eec.1
-        for <linux-media@vger.kernel.org>; Mon, 04 May 2026 00:40:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777880453; cv=none;
-        d=google.com; s=arc-20240605;
-        b=A67mgxymtf07ZOv4mFcK373xixk9IFofqkBlRQ2436bRM7JLT3YBkKdvo0iXq27hAl
-         IMk57ulRlCsbl7AjdSu1MqvzTa2z9EOZCRFcBJEqbiMToBecooCdzD4Yell/KsxUcTif
-         33I+KxGNifHTL6soEUYUeaDinBX3ZMupwCFkwmZhGAo4/+a74WKLphn4VcTjEc3Uxu6a
-         OefhoZVULqE+JpI2vhrN/zaIOTaHT3wshb1J45aLwou3+cddTdEEPpjKEL0E5fs1Yj8q
-         u5SX5Dba0OvvIT+ibyJvJJ1IFhKifp8ETEz67+vJOWHeOJmoPWcZ7y1/DJWk7mV/SLoU
-         Fhlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LCkxhAVa2Kz1UkiVBw7mtm2nSh9PR7uQTdGuhJ6wxIw=;
-        fh=YDXVlyLXhE3qEbYX338wU8TP3bbNzvIixyz9DxYumbU=;
-        b=EGYb3y0g4IAw8fibxCo1vMsy+niL57Ntfy6aZT7sXvt1ujp6sEPaFs691mjAQPSbix
-         IIu9owul0MSHkYRuf7bhEsnoBMM9ZGyc5LM/L9viCoXP9Sk78uMtxXywiyx0bE296pzR
-         lpFvKclq3ZYjDQhPQdwoV1yRBX9IuQPCXjtQmllBGeIjmPkS5Nh3pAf7o4UrXMDrhXyA
-         kVieapjh5qe7VkFP4j5/1tQHx7CXK5tETVMEDf1ErKUR+WZ9nUwDypH3/xCpmGlFZmJv
-         FjsmqPiwKQSqvahPs25fEzQ5/cSxQfX0LPS6LBJN1isP1yiU+ImqcHNsr68EYjesfwqd
-         hEVA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777880453; x=1778485253; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LCkxhAVa2Kz1UkiVBw7mtm2nSh9PR7uQTdGuhJ6wxIw=;
-        b=VniDPVhrmSQNP8Y5k6ysXC+9H869N3Vwa1K/o2EMU/Zj2i+9sEV/UhaOooiVssNThg
-         AosQ0qH55dxnOdH6sPTF1pWmWWO36n011l6DWI9mmZZFvNBZqRW8uKIsvmaN39wYXSJw
-         FiJcndlMIHXxGCRfKSW6GGiWK29pFHN5enYSCuEgZuyWM7EyCvqohFI1yC7LZOXhn0XB
-         D7BNADLdlUN6sPnlhNYJWOrykQn9kL+9mCCcjGWLUTNMxbDEqqI/GrSK9AVBUKm01TxS
-         76mHklzw9lHqjuKsUnHnhNz5s9hLBR2eGuX+C0mb0VilTqpCVjawq34AF97BHPpJ0Tov
-         r2rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777880453; x=1778485253;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=LCkxhAVa2Kz1UkiVBw7mtm2nSh9PR7uQTdGuhJ6wxIw=;
-        b=jKLguGfuXSseQaxrVkjwz1M1QPMXrCkhaeuHID75nPxqzSoIJ9qMcJXn7AZU4K7V7k
-         b7c4+K1fkM0QpI6YjAWk8+3nMOoQDV3SZ8bx4aVRCxTP2kl/sufQW3hsb+z2zaaOvfkF
-         CKa2ONVYsTh+Q/jbSYeDZQpO/wK3kdQVpSEWxc6dF+0mMbemxrSwjEErbrjySsF8v1TK
-         5UkPL2vpFx0J/NZ6D4+ksM+HM7f4IJ5OJBYKbmdNyM6eX67DpKUKDe5xQYVzkIP0bYIs
-         iiQE2+52u9tx3HJFuTx+W2YbMBVpAqNmaP6o2tx/6hDEZm+9QT8e+uOjQV+ozzWlH5so
-         CXdA==
-X-Forwarded-Encrypted: i=1; AFNElJ+s3GSl19uoJ/Od0m2/stDqxuaYkj8qj6OwSpKQ33+LnfGecsACRYKnYWJmDUfVm2umwIJEEf7KVju8VQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz60kdwiuN228TV2lZJFHr8JTvbs61JMWhVxh+EIxD2zmImJwJ1
-	/CRrqoGTs/pLXXl3bvHywoxqpBW4V9oePckAJAqyV1ZylX63O1jV6q1M2PDWA1rrND8EGcdkDah
-	TfT08Xb/DqPnu46MAXBobbxRSe014jfuDdg==
-X-Gm-Gg: AeBDiesBLKnwZhM5M5oRzJlo2tHE1fdJgsXmbJ1KRMf+AKkk26B5Jna1JcFbK7syxz0
-	MTg9ex0Cz2wv0ZYnlgFIchpAc7P6xFnf6QUJYD0u+2bW/XxgIvCW4xBWoRwCcs17K1HFYEJszjN
-	+5l+sjYKY5ZIBnhbemIjyPltjp+pNIdzsO6f6JwMWSH2weHB7N00tryk3Z8hS1+7zTLQvc37NFy
-	BN3c/XI8Q2aJyn7A2Dh2TO7v40AeVj06Ukpx1qIfM3L8Gqz0QRReHbfotvEoYhEQYIjZNTTSHgm
-	wdraxQhKDaN3+Qnwqno=
-X-Received: by 2002:a05:693c:3003:b0:2f0:ee2:f6c6 with SMTP id
- 5a478bee46e88-2f00ee2fb33mr2488478eec.19.1777880453124; Mon, 04 May 2026
- 00:40:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NwqR/8Ev"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C702C2BCB8;
+	Mon,  4 May 2026 07:46:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777880793;
+	bh=TanX2QkRkYajOs9rJv8M1UwUtn7GDNYNuUGF1xCpVF4=;
+	h=Date:From:Subject:To:References:In-Reply-To:From;
+	b=NwqR/8Evr2t3QmGQ/S3g71cYHF0iK4Dwfh7P5Vc066OhswrHOc3ue1Dbnm4CFxg0W
+	 w7wrVkTGEKpeL+UkHXyQAEPoyApBG0MH/PIvcJxoWmEqHtx1Zm85bXvXiAVmZay585
+	 eg6CSrNosB6vWTA4abA/+ewwmY0BgUvFx4CEXn+LrLhdVZo52768fcScIeqXDaNOg+
+	 jJMDyyRMYWq+HpQbcYk+t2LYAxU3pR5Ksu1Qp/8z8s9lxi40ByMEe13DkM4ybtuInu
+	 zC+nFIZ7OI6W/vAIWvgaIsTGDO3SOp0R45gxiCYLnmJ2m779Q7X2aMOacAnXSvLzDu
+	 h/2pqTJQska0g==
+Message-ID: <d3801f35-96ec-4b66-a43a-39923a8ef421@kernel.org>
+Date: Mon, 4 May 2026 09:46:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260503164445.215540-1-clamor95@gmail.com> <20260503164445.215540-6-clamor95@gmail.com>
- <afg-ldFd7hockYn-@kekkonen.localdomain>
-In-Reply-To: <afg-ldFd7hockYn-@kekkonen.localdomain>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Mon, 4 May 2026 10:40:40 +0300
-X-Gm-Features: AVHnY4KoMtn8TXLLhoDJp5ms6MrAvqPdKX7PT1fN5YHojIBWSmaMZ63320KsPn0
-Message-ID: <CAPVz0n0w90AuczbhdPrWewpKpJC_iJ5u3LsPug5mVPJ+KDnZRQ@mail.gmail.com>
-Subject: Re: [PATCH v5 5/6] media: i2c: lm3560: Add support for PM features
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [GIT PULL FOR 7.2] Media codec for 7.2 2026-05-03
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ linux-media@vger.kernel.org
+References: <06ca2e5f94b207d693e7959d8912cfb8694ce08f.camel@collabora.com>
+Content-Language: en-US, nl
+In-Reply-To: <06ca2e5f94b207d693e7959d8912cfb8694ce08f.camel@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-=D0=BF=D0=BD, 4 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 09:37=
- Sakari Ailus <sakari.ailus@linux.intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> Hi Svyatoslav,
->
-> On Sun, May 03, 2026 at 07:44:44PM +0300, Svyatoslav Ryhel wrote:
-> > Add support for power management features to better control the LM3560
-> > within the media framework. To achieve the desired PM support, the HWEN
-> > GPIO and VIN power supply were added and configured into power on/off
-> > sequences. Added PM operations along with the PM configuration setup.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >  drivers/media/i2c/lm3560.c | 117 ++++++++++++++++++++++++++++++++++---
-> >  1 file changed, 110 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/drivers/media/i2c/lm3560.c b/drivers/media/i2c/lm3560.c
-> > index ce4b09d1f208..15741ea5684f 100644
-> > --- a/drivers/media/i2c/lm3560.c
-> > +++ b/drivers/media/i2c/lm3560.c
-> > @@ -12,13 +12,16 @@
-> >  #include <linux/bitmap.h>
-> >  #include <linux/delay.h>
-> >  #include <linux/module.h>
-> > +#include <linux/gpio/consumer.h>
-> >  #include <linux/i2c.h>
-> >  #include <linux/slab.h>
-> >  #include <linux/mod_devicetable.h>
-> >  #include <linux/mutex.h>
-> >  #include <linux/of.h>
-> > +#include <linux/pm_runtime.h>
-> >  #include <linux/property.h>
-> >  #include <linux/regmap.h>
-> > +#include <linux/regulator/consumer.h>
-> >  #include <linux/videodev2.h>
-> >  #include <media/i2c/lm3560.h>
-> >  #include <media/v4l2-ctrls.h>
-> > @@ -49,6 +52,8 @@ enum led_enable {
-> >   * @dev: pointer to &struct device
-> >   * @regmap: reg. map for i2c
-> >   * @lock: muxtex for serial access.
-> > + * @hwen_gpio: line connected to HWEN pin
-> > + * @vin_supply: line connected to IN supply (2.5V - 5.5V)
-> >   * @led_mode: V4L2 LED mode
-> >   * @ctrls_led: V4L2 controls
-> >   * @subdev_led: V4L2 subdev
-> > @@ -63,6 +68,9 @@ struct lm3560_flash {
-> >       struct regmap *regmap;
-> >       struct mutex lock;
-> >
-> > +     struct gpio_desc *hwen_gpio;
-> > +     struct regulator *vin_supply;
-> > +
-> >       enum v4l2_flash_led_mode led_mode;
-> >       struct v4l2_ctrl_handler ctrls_led[LM3560_LED_MAX];
-> >       struct v4l2_subdev subdev_led[LM3560_LED_MAX];
-> > @@ -177,12 +185,17 @@ static int lm3560_get_ctrl(struct v4l2_ctrl *ctrl=
-, enum lm3560_led_id led_no)
-> >       struct lm3560_flash *flash =3D to_lm3560_flash(ctrl, led_no);
-> >       int rval =3D -EINVAL;
-> >
-> > +     if (!pm_runtime_get_if_in_use(flash->dev))
-> > +             return 0;
-> > +
-> >       if (ctrl->id =3D=3D V4L2_CID_FLASH_FAULT) {
-> >               s32 fault =3D 0;
-> >               unsigned int reg_val;
-> >               rval =3D regmap_read(flash->regmap, REG_FLAG, &reg_val);
-> > -             if (rval < 0)
-> > +             if (rval < 0) {
-> > +                     pm_runtime_put(flash->dev);
-> >                       return rval;
-> > +             }
-> >               if (reg_val & FAULT_SHORT_CIRCUIT)
-> >                       fault |=3D V4L2_FLASH_FAULT_SHORT_CIRCUIT;
-> >               if (reg_val & FAULT_OVERTEMP)
-> > @@ -192,6 +205,8 @@ static int lm3560_get_ctrl(struct v4l2_ctrl *ctrl, =
-enum lm3560_led_id led_no)
-> >               ctrl->cur.val =3D fault;
-> >       }
-> >
-> > +     pm_runtime_put(flash->dev);
-> > +
-> >       return rval;
-> >  }
-> >
-> > @@ -201,6 +216,9 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, =
-enum lm3560_led_id led_no)
-> >       u8 tout_bits;
-> >       int rval =3D -EINVAL;
-> >
-> > +     if (!pm_runtime_get_if_in_use(flash->dev))
->
-> This should be pm_runtime_get_if_active().
->
+Hi Nicolas,
 
-Noted
+On 03/05/2026 17:50, Nicolas Dufresne wrote:
+> Hi Mauro, Hans,
+> 
+> This contains several fixes and improvement in codec drivers. In Verisilicon
+> driver, an internal AV1 helper has been created in preparation of new chips
+> versions support and a fix around pixel format selection has been added to fix
+> possibly loosing film grain. In rkvdec, a minimal bitwriter has been generalized
+> inside the driver and some of the bitfield have been ported to that. This should
+> help significantly reduce stack usage with clang and ASAN. The HEVC slice
+> compound controls have common validation and more validation specific to the
+> cedrus driver was added. Chips&Media Wave5 drivers now supports constrained-
+> baseline profile and has a new control to enable background detection in the
+> decoder. The rest is mostly cleanup and fixup of issues mostly found by static
+> analyses.
+> 
+> cheers,
+> Nicolas
+> 
+> The following changes since commit 254f49634ee16a731174d2ae34bc50bd5f45e731:
+> 
+>   Linux 7.1-rc1 (2026-04-26 14:19:00 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://gitlab.freedesktop.org/linux-media/users/ndufresne.git tags/for-7.2-media-codecs-2026-05-03
+> 
+> for you to fetch changes up to 9f670b8e9507766a833bbf18c351a8155ab119ed:
+> 
+>   media: v4l2-common: Add YUV24 format info (2026-05-03 11:34:19 -0400)
+> 
+> ----------------------------------------------------------------
+> Fixes across codec drivers and new wave5 features
+> 
+> ----------------------------------------------------------------
+> Benjamin Gaignard (2):
+>       media: verisilicon: Create AV1 helper library
 
-> > +             return 0;
-> > +
-> >       switch (ctrl->id) {
-> >       case V4L2_CID_FLASH_LED_MODE:
-> >               flash->led_mode =3D ctrl->val;
-> > @@ -246,6 +264,8 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, =
-enum lm3560_led_id led_no)
-> >               break;
-> >       }
-> >
-> > +     pm_runtime_put(flash->dev);
-> > +
-> >       return rval;
-> >  }
-> >
-> > @@ -409,6 +429,38 @@ static int lm3560_init_device(struct lm3560_flash =
-*flash)
-> >       return rval;
-> >  }
-> >
-> > +static int __maybe_unused lm3560_power_off(struct device *dev)
-> > +{
-> > +     struct lm3560_flash *flash =3D dev_get_drvdata(dev);
-> > +
-> > +     gpiod_set_value_cansleep(flash->hwen_gpio, 0);
-> > +     regulator_disable(flash->vin_supply);
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static int __maybe_unused lm3560_power_on(struct device *dev)
-> > +{
-> > +     struct lm3560_flash *flash =3D dev_get_drvdata(dev);
-> > +     int rval;
-> > +
-> > +     rval =3D regulator_enable(flash->vin_supply);
-> > +     if (rval < 0) {
-> > +             dev_err(flash->dev, "failed to enable vin power supply\n"=
-);
-> > +             return rval;
-> > +     }
-> > +
-> > +     gpiod_set_value_cansleep(flash->hwen_gpio, 1);
-> > +
-> > +     rval =3D lm3560_init_device(flash);
-> > +     if (rval < 0) {
-> > +             lm3560_power_off(dev);
-> > +             return rval;
-> > +     }
-> > +
-> > +     return 0;
-> > +}
-> > +
-> >  static void lm3560_subdev_cleanup(struct lm3560_flash *flash)
-> >  {
-> >       int led_no;
-> > @@ -442,6 +494,17 @@ static int lm3560_probe(struct i2c_client *client)
-> >
-> >       bitmap_zero(flash->led_id, LM3560_LED_MAX);
-> >
-> > +     flash->hwen_gpio =3D devm_gpiod_get_optional(flash->dev, "enable"=
-,
-> > +                                                GPIOD_OUT_LOW);
-> > +     if (IS_ERR(flash->hwen_gpio))
-> > +             return dev_err_probe(flash->dev, PTR_ERR(flash->hwen_gpio=
-),
-> > +                                  "failed to get hwen gpio\n");
-> > +
-> > +     flash->vin_supply =3D devm_regulator_get(flash->dev, "vin");
-> > +     if (IS_ERR(flash->vin_supply))
-> > +             return dev_err_probe(flash->dev, PTR_ERR(flash->vin_suppl=
-y),
-> > +                                  "failed to get vin-supply\n");
-> > +
-> >       flash->peak =3D LM3560_PEAK_1600mA;
-> >       rval =3D device_property_read_u32(flash->dev,
-> >                                       "ti,peak-current-microamp", &peak=
-_ua);
-> > @@ -469,9 +532,19 @@ static int lm3560_probe(struct i2c_client *client)
-> >                                &flash->max_flash_timeout);
-> >       flash->max_flash_timeout /=3D 1000;
-> >
-> > +     rval =3D regulator_enable(flash->vin_supply);
-> > +     if (rval < 0)
-> > +             return dev_err_probe(flash->dev, rval,
-> > +                                  "failed to enable vin power supply\n=
-");
-> > +
-> > +     gpiod_set_value_cansleep(flash->hwen_gpio, 1);
-> > +
-> >       rval =3D lm3560_init_device(flash);
-> >       if (rval < 0)
-> > -             return rval;
-> > +             goto error_disable;
-> > +
-> > +     pm_runtime_set_active(flash->dev);
-> > +     pm_runtime_enable(flash->dev);
-> >
-> >       for_each_available_child_of_node(dev_of_node(flash->dev), node) {
-> >               u32 reg;
-> > @@ -492,10 +565,10 @@ static int lm3560_probe(struct i2c_client *client=
-)
-> >
-> >                       rval =3D lm3560_subdev_init(flash, reg, node);
-> >                       if (rval < 0) {
-> > -                             lm3560_subdev_cleanup(flash);
-> > -                             return dev_err_probe(flash->dev, rval,
-> > -                                                 "failed to register l=
-ed%d\n",
-> > -                                                 reg);
-> > +                             dev_err(flash->dev,
-> > +                                     "failed to register led%d: %d\n",
-> > +                                     reg, rval);
-> > +                             goto error_clean;
-> >                       }
-> >
-> >                       set_bit(reg, flash->led_id);
-> > @@ -504,7 +577,23 @@ static int lm3560_probe(struct i2c_client *client)
-> >
-> >       i2c_set_clientdata(client, flash);
-> >
-> > +     pm_runtime_set_autosuspend_delay(flash->dev, 1000);
-> > +     pm_runtime_use_autosuspend(flash->dev);
-> > +     pm_runtime_idle(flash->dev);
-> > +
-> >       return 0;
-> > +
-> > +error_clean:
-> > +     pm_runtime_disable(flash->dev);
-> > +     pm_runtime_set_suspended(flash->dev);
-> > +
-> > +     lm3560_subdev_cleanup(flash);
-> > +
-> > +error_disable:
-> > +     gpiod_set_value_cansleep(flash->hwen_gpio, 0);
-> > +     regulator_disable(flash->vin_supply);
-> > +
-> > +     return rval;
-> >  }
-> >
-> >  static void lm3560_remove(struct i2c_client *client)
-> > @@ -512,8 +601,22 @@ static void lm3560_remove(struct i2c_client *clien=
-t)
-> >       struct lm3560_flash *flash =3D i2c_get_clientdata(client);
-> >
-> >       lm3560_subdev_cleanup(flash);
-> > +
-> > +     /*
-> > +      * Disable runtime PM. In case runtime PM is disabled in the kern=
-el,
-> > +      * make sure to turn power off manually.
-> > +      */
-> > +     pm_runtime_disable(&client->dev);
-> > +     if (!pm_runtime_status_suspended(&client->dev)) {
-> > +             lm3560_power_off(&client->dev);
-> > +             pm_runtime_set_suspended(&client->dev);
-> > +     }
-> >  }
-> >
-> > +static const struct dev_pm_ops lm3560_pm_ops =3D {
-> > +     SET_RUNTIME_PM_OPS(lm3560_power_off, lm3560_power_on, NULL)
-> > +};
-> > +
-> >  static const struct of_device_id lm3560_of_match[] =3D {
-> >       { .compatible =3D "ti,lm3559" },
-> >       { .compatible =3D "ti,lm3560" },
-> > @@ -532,7 +635,7 @@ MODULE_DEVICE_TABLE(i2c, lm3560_id_table);
-> >  static struct i2c_driver lm3560_i2c_driver =3D {
-> >       .driver =3D {
-> >                  .name =3D LM3560_NAME,
-> > -                .pm =3D NULL,
-> > +                .pm =3D pm_ptr(&lm3560_pm_ops),
-> >                  .of_match_table =3D lm3560_of_match,
-> >                  },
-> >       .probe =3D lm3560_probe,
->
-> --
-> Kind regards,
->
-> Sakari Ailus
+I'm dropping this patch from this PR. The others look good to me, but this
+one needs a bit more work IMHO.
+
+Regards,
+
+	Hans
+
+>       media: verisilicon: Export only needed pixels formats
+> 
+> Brandon Brnich (3):
+>       media: chips-media: wave5: Move src_buf Removal to finish_encode
+>       media: chips-media: wave5: Release m2m_ctx after Instance Removed from List
+>       media: chips-media: wave5: Fix Reports from Kernel Lock Validator
+> 
+> Chen-Yu Tsai (1):
+>       dt-bindings: media: sun4i-a10-video-engine: Add interconnect properties
+> 
+> Detlev Casanova (4):
+>       media: rkvdec: Introduce a global bitwriter helper
+>       media: rkvdec: Use the global bitwriter instead of local one
+>       media: rkvdec: common: Drop bitfields for the bitwriter
+>       media: rkvdec: vdpu383: Drop bitfields for the bitwriter
+> 
+> Fritz Koenig (1):
+>       Documentation: media: Fix v4l2_vp9_segmentation
+> 
+> Jackson Lee (4):
+>       media: v4l2-controls: Add control for background detection
+>       media: chips-media: wave5: Add support for background detection
+>       media: chips-media: wave5: Support CBP profile
+>       media: chips-media: wave5: Add Support for Packed YUV422 Formats
+> 
+> Louis-Alexis Eyraud (1):
+>       media: mtk-jpeg: cancel workqueue on release for supported platforms only
+> 
+> Nas Chung (1):
+>       media: v4l2-common: Add YUV24 format info
+> 
+> Pengpeng Hou (2):
+>       media: v4l2-ctrls: validate HEVC active reference counts
+>       media: cedrus: skip invalid H.264 reference list entries
+> 
+> Rouven Czerwinski (1):
+>       media: verisilicon: remove hantro_run declaration
+> 
+> Samuel Holland (2):
+>       media: cedrus: Fix missing cleanup in error path
+>       media: cedrus: Fix failure to clean up hardware on probe failure
+> 
+>  Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml               |  10 ++
+>  Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst                         |   2 +-
+>  Documentation/userspace-api/media/v4l/ext-ctrls-codec.rst                                   |   6 ++
+>  drivers/media/platform/chips-media/wave5/wave5-helper.c                                     |   4 +-
+>  drivers/media/platform/chips-media/wave5/wave5-helper.h                                     |   2 +-
+>  drivers/media/platform/chips-media/wave5/wave5-hw.c                                         |   7 +-
+>  drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c                                    |  47 +++++++---
+>  drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c                                    |  73 +++++++++------
+>  drivers/media/platform/chips-media/wave5/wave5-vpuapi.h                                     |   2 +
+>  drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c                                        |   3 +-
+>  drivers/media/platform/rockchip/rkvdec/rkvdec-bitwriter.h                                   |  39 ++++++++
+>  drivers/media/platform/rockchip/rkvdec/rkvdec-h264-common.c                                 |  51 +---------
+>  drivers/media/platform/rockchip/rkvdec/rkvdec-h264-common.h                                 |  40 ++------
+>  drivers/media/platform/rockchip/rkvdec/rkvdec-h264.c                                        | 109 +++++++++-------------
+>  drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c                                 |  93 ++++---------------
+>  drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.h                                 |  57 +++---------
+>  drivers/media/platform/rockchip/rkvdec/rkvdec-hevc.c                                        | 171 +++++++++++++++-------------------
+>  drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c                                | 351 +++++++++++++++++++++++++++------------------------------------------
+>  drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c                                | 502 ++++++++++++++++++++++++++++++++++++++++++++------------------------------------------------------
+>  drivers/media/platform/verisilicon/Makefile                                                 |   7 +-
+>  drivers/media/platform/verisilicon/hantro_av1.c                                             | 780 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+>  drivers/media/platform/verisilicon/hantro_av1.h                                             |  62 +++++++++++++
+>  drivers/media/platform/verisilicon/{rockchip_av1_entropymode.c => hantro_av1_entropymode.c} |  18 ++--
+>  drivers/media/platform/verisilicon/{rockchip_av1_entropymode.h => hantro_av1_entropymode.h} |  18 ++--
+>  drivers/media/platform/verisilicon/{rockchip_av1_filmgrain.c => hantro_av1_filmgrain.c}     |  82 ++++++++--------
+>  drivers/media/platform/verisilicon/hantro_av1_filmgrain.h                                   |  44 +++++++++
+>  drivers/media/platform/verisilicon/hantro_hw.h                                              |   8 +-
+>  drivers/media/platform/verisilicon/hantro_v4l2.c                                            |   6 +-
+>  drivers/media/platform/verisilicon/rockchip_av1_filmgrain.h                                 |  36 --------
+>  drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c                             | 935 +++++++++++++++++----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+>  drivers/media/platform/verisilicon/rockchip_vpu_hw.c                                        |   7 +-
+>  drivers/media/v4l2-core/v4l2-common.c                                                       |   1 +
+>  drivers/media/v4l2-core/v4l2-ctrls-core.c                                                   |  13 +++
+>  drivers/media/v4l2-core/v4l2-ctrls-defs.c                                                   |   2 +
+>  drivers/staging/media/sunxi/cedrus/cedrus.c                                                 |   5 +-
+>  drivers/staging/media/sunxi/cedrus/cedrus_h264.c                                            |   3 +
+>  include/uapi/linux/v4l2-controls.h                                                          |   2 +
+>  37 files changed, 1744 insertions(+), 1854 deletions(-)
+>  create mode 100644 drivers/media/platform/rockchip/rkvdec/rkvdec-bitwriter.h
+>  create mode 100644 drivers/media/platform/verisilicon/hantro_av1.c
+>  create mode 100644 drivers/media/platform/verisilicon/hantro_av1.h
+>  rename drivers/media/platform/verisilicon/{rockchip_av1_entropymode.c => hantro_av1_entropymode.c} (99%)
+>  rename drivers/media/platform/verisilicon/{rockchip_av1_entropymode.h => hantro_av1_entropymode.h} (95%)
+>  rename drivers/media/platform/verisilicon/{rockchip_av1_filmgrain.c => hantro_av1_filmgrain.c} (92%)
+>  create mode 100644 drivers/media/platform/verisilicon/hantro_av1_filmgrain.h
+>  delete mode 100644 drivers/media/platform/verisilicon/rockchip_av1_filmgrain.h
+> 
+
