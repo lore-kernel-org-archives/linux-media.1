@@ -1,460 +1,271 @@
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0FAC1C84CB;
-	Mon,  4 May 2026 01:09:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1DE7126F3B
+	for <linux-media@vger.kernel.org>; Mon,  4 May 2026 04:06:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777856970; cv=none; b=qe9gprXa9Ut4aw7IargRGskZl7aCwAKTk8/nOLPVJe3T2Al8xcCNv5A0yNGuiIpKPcDsdq094KzGUyqvH/MiCtO99e6pCmxZXmOU4+IxzUBfc3gqn2VEbBQbvcVBpNRoXaRSWez25dXRMjR20ShUd3l+eZkHSkECJJEvuMc3Smw=
+	t=1777867592; cv=none; b=mz98/dbclFf2IsB0rRfwreLBf+vE0iq02iXLYsYzj1K4mtTlNAiYfDYER4eEXzOUfmugYYwHaZd6jVdThUcUAlfHEAUludSsrIy6s/x2jDbJ8UzU73a2W7GGY/iTI8N6mX67apDQ36miWd0Ra0pca0x36KPODFjv1xI33uGq8A4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777856970; c=relaxed/simple;
-	bh=8LpN/LTVegctm2dg0EX+wOqjuxMbVFyYF71Yo4jrcf8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PF+rIb45BH4JQm7ah1WXpSj4xv7sNbkFOjGWi98gc8Sdmo7KfzidA9ej83Q9Y4yywmX8/RcM+E618kZ9A50uKdd6ifkQ38xHlpAEwABPsbluPj7SJvgYADO9ZZSQrDT7BKmoQFNqwFFcGFd1Gzd7FGYXNKZbuBu5p24lRaq9zo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=SKnBN4cC; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=qo0EcE+H; arc=none smtp.client-ip=202.12.124.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1777867592; c=relaxed/simple;
+	bh=12pRirn1zk1xj1elPFSKYdiBh1v8/jVlyKYve51i0pk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GfN/PsCY2Ui+HgRBAraJAvMDfXeryXqSbgqxzwOQ9hVgGq202drUtzFphFwHr0ugp3wjvvlG0FGM0nQGH2/veJd9TTkMHvKduKTTqanm3lliyvGHNxKXozwNdDvh7dlMhcTzt5V8hG4uqT8ErJQgjZmc0Ts92ZBX0RhJUnkdXYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fDkn2F09; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gIO+qw1a; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="SKnBN4cC";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="qo0EcE+H"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id 31F641D000A1;
-	Sun,  3 May 2026 21:09:24 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Sun, 03 May 2026 21:09:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1777856964;
-	 x=1777943364; bh=ml9IWa3W1zLifz8HPYdHvhsOylHzyNCbsPf8Tk3UM4Q=; b=
-	SKnBN4cC0jYA5Sa+ZpyH4ZejXKIWC66X743kKGj7h/Rpc6Lyu1QSf5Kl1mmqMuj2
-	studpVXHevBa5Wg5zcif8Oyanc58epn9BwxfCywB9MaZlJV+m7FTXlS3P7ZiqV91
-	+5vg5xDuqo8BXnePt2ZFtNvQcuVeyjDZbUAXxhAO3lQ0ykky1h3vdfHfiAmQ6ALb
-	4iWED4wqIcroU0MpF7exA4SQ8qUllkFzj7Sg0SMC6KitHb5QUD1bdHWJ4VpNvsAR
-	CCagOA9muCVT+5Rj5h40Yzc8Cl00WCeT4sprLlFpRnGzKsRkmWqhM0g8tXjJ0VNI
-	ctkw8FU+1qHJMND9UG4FWA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1777856964; x=
-	1777943364; bh=ml9IWa3W1zLifz8HPYdHvhsOylHzyNCbsPf8Tk3UM4Q=; b=q
-	o0EcE+HjY0Iu3BKpovyLDDva28NTYvj7co3kJzTG+xNR/S7V9ZcmvrNYM16ofsxN
-	FonhxPDv+jsbiJOlEIL7CR6riSsp0iG92Jt6wuyCZZGx2qqj+lRvXPSkoJJg327n
-	ozZMqZ3PymO46KAQ7jvGwr0lEpuXCRp87zwTGQc+5qKJIXY8QMFYmYnKVUjg1TMC
-	rzIHuoZhFM4mBzaHzBGTS53mM+M3WixBkiRvpOoBcOvnxxjlym96PjoKepp0w3wz
-	v4HReZYysDRmkkbODJ656opjBF9g6mdK1g4IPRLLk5W3/d4Yf1U/MnbGSeOOVYYE
-	g0c5czZGseelnktBA+NTQ==
-X-ME-Sender: <xms:w_H3aZzK4CCRmRYdkjn-na6gBJLltIczEr3_geIAl6hCPnWXO5V6kQ>
-    <xme:w_H3aa1olc5Q5YVNwyda_0k2t50jngezhdYLbVPpn1RtzBPERbHh3_FMNXwWYShHR
-    LmS4Ce3NMYwBMZ7ipeDVMvz8a5deYcYsKlBXptkLaIie0ocbAD_Kg4>
-X-ME-Received: <xmr:w_H3aZrm8C6zbhyCznqkWqKEO5RZC4ScyCO7cjdLqSHLt4wiKDahRR0wIOlM_P0qQiL5kiC9H2TWZoJgjrS4maIs1JHOXp5jicHT>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdeljeegkecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpefhvfevufffkffojghfgggtgfesthekredtredtjeenucfhrhhomheppfhikhhlrghs
-    ucfunpguvghrlhhunhguuceonhhikhhlrghsrdhsohguvghrlhhunhguodhrvghnvghsrg
-    hssehrrghgnhgrthgvtghhrdhsvgeqnecuggftrfgrthhtvghrnhepheeigfeuveeutdef
-    hfehgeekvedtleeuueekveefudehhffhjeffgfegffelfeegnecuvehluhhsthgvrhfuih
-    iivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepnhhikhhlrghsrdhsohguvghrlhhu
-    nhgusehrrghgnhgrthgvtghhrdhsvgdpnhgspghrtghpthhtohepledpmhhouggvpehsmh
-    htphhouhhtpdhrtghpthhtohepjhgrihdrlhhuthhhrhgrodhrvghnvghsrghssehiuggv
-    rghsohhnsghorghrugdrtghomhdprhgtphhtthhopehmtghhvghhrggssehkvghrnhgvlh
-    drohhrghdprhgtphhtthhopehkuhhnihhnohhrihdrmhhorhhimhhothhordhggiesrhgv
-    nhgvshgrshdrtghomhdprhgtphhtthhopehjrggtohhpohdrmhhonhguihesihguvggrsh
-    honhgsohgrrhgurdgtohhmpdhrtghpthhtoheplhgruhhrvghnthdrphhinhgthhgrrhht
-    sehiuggvrghsohhnsghorghrugdrtghomhdprhgtphhtthhopehlihhnuhigqdhmvgguih
-    grsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplhhinhhugidqrhgvnhgv
-    shgrshdqshhotgesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehlihhnuh
-    igqdhkvghrnhgvlhesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehnihhk
-    lhgrshdrshhouggvrhhluhhnugdorhgvnhgvshgrshesrhgrghhnrghtvggthhdrshgv
-X-ME-Proxy: <xmx:w_H3aXXEXgFiJcZpkNSQ_7fChHv6rv2wjQlZdLO6yzA3nnOTyz42Ow>
-    <xmx:w_H3aSrFK3wt4OeqSuN_7vA5xaaKB-j7yF3jVdXa-YPE1xPNIKy0JA>
-    <xmx:w_H3aeCGnLzkrJ42WvCe37n3joBF1RluVqyNnHv7Dk1_uoKs3L1-gA>
-    <xmx:w_H3aegkVV8IsjgkZL7aMX2DtWikpnA7rm44V0yG5eUYpgAAiUjdhA>
-    <xmx:xPH3aQOmYVpT4telMUnv-sTZjlw3m1AAYDPOgRtNKBUGVqDE-tC-pbo->
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 3 May 2026 21:09:22 -0400 (EDT)
-From: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux-media@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Subject: [v8 13/14] media: rppx1: bd: Add support for bilateral denoising
-Date: Mon,  4 May 2026 03:05:55 +0200
-Message-ID: <20260504010556.2796398-14-niklas.soderlund+renesas@ragnatech.se>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260504010556.2796398-1-niklas.soderlund+renesas@ragnatech.se>
-References: <20260504010556.2796398-1-niklas.soderlund+renesas@ragnatech.se>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fDkn2F09";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gIO+qw1a"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6443o1gU3243260
+	for <linux-media@vger.kernel.org>; Mon, 4 May 2026 04:06:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=3zhF01JXEYpr/3XOfnPCDP
+	F1pYnEF63r+hp7fuv2gmo=; b=fDkn2F09kvBji05y1QOvbiCy4WuzXBvfsHZZMw
+	lyMMSflfgKp81lMpt69nPbu+OPm86sR/xmW/+JeHUL/3RArxrAW36a8Pyllb7trm
+	cCzacKlPe57ROTZexSmsn6nPjbeMezaRXRvVG04n5BYPx6o2QipPHN2DbYrOMGWz
+	QBM/vsVgxQ4n6zyaU5HMC5GCW4Z5uO5H0NBo5xNke4E8Gf5Z7dEY8RQjndMnasDZ
+	+LSUdrg++39PwMnBvJalPzzpkeni7fuSYLZtGAL6yJLPdXFYLxlhYjJgq8Xig0GG
+	K1ep3pLr3fNX6KBwTn3mj95OE6RB1AUAQPo6IBVLZt7BdeCg==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dw6mpce36-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 04 May 2026 04:06:29 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-83565161a6eso278398b3a.1
+        for <linux-media@vger.kernel.org>; Sun, 03 May 2026 21:06:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1777867589; x=1778472389; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=3zhF01JXEYpr/3XOfnPCDPF1pYnEF63r+hp7fuv2gmo=;
+        b=gIO+qw1acnnlpigxebC2LOupP1mFN1WdhwuMBEcFwFQEKKcKiwIKYvasDwNI2Ipw4o
+         zzSPV3lu0flrsOl2AwUDY5KMj+4ozVTAZ1Y1Y9J6bpnk+fa0zuvE5rEt1oLOZ1P2eCqH
+         uAgmitWWHbAK/DW3y/1xTk5Mn9013GVqhs4bFzaFhWor/V3tAS18nQ+mAVY9HbgbhfOx
+         jlfYhoEarHmdVuIJIBAeSfBrd6R0FT0cReUjzluAoCs6+ttNVA2IC0VY9C687OK3vSw7
+         7D8B5X1qUuO76DkLf2yG7ArjdMT2XjHEimtNtfdOcWXr3Gnp9u/iel5YN2ONN2RYUQR9
+         TVxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777867589; x=1778472389;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3zhF01JXEYpr/3XOfnPCDPF1pYnEF63r+hp7fuv2gmo=;
+        b=sRVJq9F4KbVlhnj7T5VNP1aiAORardxIvbc1STdJun2ABKz8nCPmosnFlogk6mcieH
+         POuHiQGjTTvFRNsrL/+YlNft62WcURW4TDzRQdbmRsdI5+UOhhzQ1o/ROn4xhcjmCctB
+         QFmd/Lvny6ekYHo4X6w0ThnRKjkLYJWWPnyzpLhhtOIrk81Og5RcY1s1ToMRB/Ptb1P0
+         RSRTZulcwpPge/g8itWH8oPlF+kkD2LQUiW1xBMo8+AzyBENILyIRploN4+Q3DL9OV5A
+         5IyJlvKMpF6vObPER0aBajyrhdN0ciRrMWsnBC5+s59LVxQ/DS34l9ZlahFA8hX0DiTY
+         mGBw==
+X-Gm-Message-State: AOJu0YxQJ0cVtYxSVyCbbNSBY4nOm1JyJNomAVmyU+Jmd9u+I+3VtWQe
+	nVfwDhGDg/4hdwhCiCPJBQHU2n6VUgezHltxbwxMiGNx/r1mXDVAAi2I8k0GAyNNZf3Wf02pKEk
+	pdH5LVV0fE/S2AeFwghvd9C7i57ySq7l1/Mvqo9ikzGwNmXpXjk5d5qhS2iNAIrrR+Q==
+X-Gm-Gg: AeBDietJq0yd01fovNfFNEKtkY8l83hJm7xmgewl7BT4Ws0/FDV9cRcrf74Nnci0I6q
+	5ti8yG8uKmhb5dRsHTM2oN1pxwNo6OYva3jdmPLtPZ2rT42ZDtJ60wymrxYnoEhKXULx4Qoskcw
+	8bVqlH8Yu7GMT4fKXtTPG6jEE7JdPUJeTDHgkOgK0r/a19QtP8tvT5FEba45ZkFhm5Eppkul0Th
+	DxIi7oxC9a6zqY/ilyvsSj97GEGyKBvhv9epSt6Aonnqra/S2Q0ao1kQdP6ePXHKtKELG+Ao5Ry
+	Oo7kmrbmRH+7kDWN7lqVLO16gV411KOY3oaT2XUZOBuQ3J85QrVQ2YeCJLQQG4Iw/qSCoUO2XIf
+	i4QtpaQar1kmtdxOaw9xpa7uElruvOnUB3d9bsok9RYWd3QaC86faIhfyzwBnkH9kFA==
+X-Received: by 2002:a05:6a00:b85:b0:82f:9a88:9092 with SMTP id d2e1a72fcca58-835001ab087mr13431548b3a.33.1777867588566;
+        Sun, 03 May 2026 21:06:28 -0700 (PDT)
+X-Received: by 2002:a05:6a00:b85:b0:82f:9a88:9092 with SMTP id d2e1a72fcca58-835001ab087mr13431519b3a.33.1777867588086;
+        Sun, 03 May 2026 21:06:28 -0700 (PDT)
+Received: from hu-bvisredd-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8351582dc36sm11086428b3a.6.2026.05.03.21.06.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 03 May 2026 21:06:27 -0700 (PDT)
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Date: Mon, 04 May 2026 09:35:47 +0530
+Subject: [PATCH v2] media: iris: optimize COMV buffer allocation for VPU3x
+ and VPU4x
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260504-optimize_comv_buffer-v2-1-69379a59e17d@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIABob+GkC/4WNTQ6CMBCFr0JmbUlbSBtceQ9DSC2DTCIUW2hU0
+ rtbuYCbl3wv72eHgJ4wwLnYwWOkQG7OIE8F2NHMd2TUZwbJpeK1FMwtK030wc66KXa3bRjQM4N
+ acK10pXgDubp4HOh1zF7bzCOF1fn38RLFz/0zGAUTTNvGyLo3lemriwuhfG7mkVNTmQXalNIXo
+ XRDbr8AAAA=
+X-Change-ID: 20260421-optimize_comv_buffer-ae7107673609
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777867584; l=5920;
+ i=busanna.reddy@oss.qualcomm.com; s=20260216; h=from:subject:message-id;
+ bh=12pRirn1zk1xj1elPFSKYdiBh1v8/jVlyKYve51i0pk=;
+ b=GJluqoVPIgFjhGqPFJi2MOWMxUP41SONq7ntZOcFcQo+biTqegs9fmQUpHj9RaCaeU+q8n9iI
+ J2kEMYoSp9qBZqIIx7TV7jfN5lFgV1SNOWXaTr51GwwqvVFqIIyQfWg
+X-Developer-Key: i=busanna.reddy@oss.qualcomm.com; a=ed25519;
+ pk=9vmy9HahBKVAa+GBFj1yHVbz0ey/ucIs1hrlfx+qtok=
+X-Authority-Analysis: v=2.4 cv=H6rrBeYi c=1 sm=1 tr=0 ts=69f81b45 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=1JcM8n5T7VQChgOHro0A:9 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDA0MSBTYWx0ZWRfX/XNtJr/Qb4Ec
+ FAofYlbMP3tLAWQFrH2ijg8jrxD6rPp1OEVEloCqGLg/q5YwMbSppQ6qroM8GB9g69iCDwOHb8b
+ pfcJI3gd3Io/yO572gdzgzub5s5+a8hZzrVM8mixeJe8K7DQgRN0GGn6wBR2uiwYn8Bwq8O3svs
+ kSzZVbwNEN8eh/VZHJwmff8zqibVXucgaTZd8n2sSwm5hj4cTeGB+L4CPnvEVp+NlvmbNeB08Ex
+ 0kRIPXEGeqVm9YcJ72VsiNLZi7y+GkNcxSRrgc/YjM+YDdW9XxzWopb0HlVK7pTFcLfDEOmXY8Y
+ o9H5v2SKC/yufsq+iLgRt6pD+vPkLol99IgAYsq4a7hF6encDj8yjQyL7uvv2283f4newWdVjyu
+ iyvJvuE/22ZUYd6CLZDXwoLQZgcHyCXRO7Dm1BjOwRyTLDQ/JdMdHOzVKLRda47O7nUcgWQBdMy
+ 7N1cEiIulbbLNxwQjHg==
+X-Proofpoint-GUID: 6SFae_d8DtsMB-_c5-jHpEud9ALswo5d
+X-Proofpoint-ORIG-GUID: 6SFae_d8DtsMB-_c5-jHpEud9ALswo5d
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-04_02,2026-04-30_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 phishscore=0 malwarescore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 impostorscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605040041
 
-Extend the RPPX1 driver to allow setting the bilateral denoising
-configuration parameters. It uses the RPPX1 framework for parameters and
-its writer abstraction to allow the user to control how, and when,
-configuration is applied to the RPPX1.
+The existing iris_vpu_dec_comv_size() used VIDEO_MAX_FRAME (32) as
+num_comv count unconditionally when calculating the co-located motion
+vector (COMV) buffer size. This resulted in an oversized COMV buffer
+allocation throughout decode session, wasting memory regardless of
+actual number of buffers required.
 
-Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-Co-developed-by: Jai Luthra <jai.luthra+renesas@ideasonboard.com>
-Signed-off-by: Jai Luthra <jai.luthra+renesas@ideasonboard.com>
+For VPU3x and VPU4x platforms, introduce iris_vpu3x_4x_dec_comv_size() to
+replace iris_vpu_dec_comv_size(). These derive num_comv dynamically, it
+uses inst->fw_min_count once the firmware has reported its buffer
+requirements, and fallback to output count during initialization before
+firmware has communicated its requirements. This aligns the COMV buffer
+size to the actual count needed rather than always allocating with fixed
+VIDEO_MAX_FRAME value.
+
+Additionally, during iris_vdec_inst_init(), fw_min_count was initialized
+to MIN_BUFFERS instead of 0. This masked the fallback logic and caused the
+COMV size calculation to use MIN_BUFFERS even before firmware had reported
+its actual requirements. Fix this by initializing fw_min_count to 0.
+
+During testing of 1080p AVC, it reduces the COMV buffer size from 32.89MB
+to 6.16MB per decode session, significantly reducing memory consumption.
+
+Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 ---
- .../platform/dreamchip/rppx1/rpp_module.h     |   1 +
- .../platform/dreamchip/rppx1/rpp_params.c     |   5 +
- .../media/platform/dreamchip/rppx1/rppx1_bd.c | 119 +++++++++++++++
- .../uapi/linux/media/dreamchip/rppx1-config.h | 141 +++++++++++++++++-
- 4 files changed, 265 insertions(+), 1 deletion(-)
+Changes in v2:
+- Update commit description (Bryan)
+- Update hfi comv buffer count value to use actual num_comv count which
+  used for buffer calculation to avoid any overhead or fixed values (Vikash)
+- Link to v1: https://lore.kernel.org/r/20260421-optimize_comv_buffer-v1-1-7c9a24da3ad3@oss.qualcomm.com
+---
+ .../platform/qcom/iris/iris_hfi_gen2_command.c     |  9 +-------
+ drivers/media/platform/qcom/iris/iris_vdec.c       |  2 +-
+ drivers/media/platform/qcom/iris/iris_vpu_buffer.c | 26 ++++++++++++++++++++--
+ 3 files changed, 26 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/media/platform/dreamchip/rppx1/rpp_module.h b/drivers/media/platform/dreamchip/rppx1/rpp_module.h
-index 064da13082fe..136ec4d48054 100644
---- a/drivers/media/platform/dreamchip/rppx1/rpp_module.h
-+++ b/drivers/media/platform/dreamchip/rppx1/rpp_module.h
-@@ -88,6 +88,7 @@ union rppx1_params_block {
- 	struct rppx1_bls_params bls;
- 	struct rppx1_lsc_params lsc;
- 	struct rppx1_awbg_params awbg;
-+	struct rppx1_bd_params bd;
- 	struct rppx1_db_demosaic_params db_demosaic;
- 	struct rppx1_db_filter_params db_filter;
- 	struct rppx1_ccor_params ccor;
-diff --git a/drivers/media/platform/dreamchip/rppx1/rpp_params.c b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
-index 3320ca3998bd..edea25293d64 100644
---- a/drivers/media/platform/dreamchip/rppx1/rpp_params.c
-+++ b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
-@@ -22,6 +22,8 @@ rppx1_ext_params_blocks_info[] = {
- 	RPPX1_PARAMS_BLOCK_INFO(LSC_PRE2, lsc),
- 	RPPX1_PARAMS_BLOCK_INFO(AWBG_PRE1, awbg),
- 	RPPX1_PARAMS_BLOCK_INFO(AWBG_PRE2, awbg),
-+	RPPX1_PARAMS_BLOCK_INFO(BD_PRE1, bd),
-+	RPPX1_PARAMS_BLOCK_INFO(BD_PRE2, bd),
- 	RPPX1_PARAMS_BLOCK_INFO(DB_DEMOSAIC_POST, db_demosaic),
- 	RPPX1_PARAMS_BLOCK_INFO(DB_FILTER_POST, db_filter),
- 	RPPX1_PARAMS_BLOCK_INFO(CCOR_POST, ccor),
-@@ -76,6 +78,9 @@ int rppx1_params(struct rppx1 *rpp, struct vb2_buffer *vb, size_t max_size,
- 		case RPPX1_PARAMS_BLOCK_TYPE_AWBG_PRE1:
- 			module = &rpp->pre1.awbg;
- 			break;
-+		case RPPX1_PARAMS_BLOCK_TYPE_BD_PRE1:
-+			module = &rpp->pre1.bd;
-+			break;
- 		case RPPX1_PARAMS_BLOCK_TYPE_DB_DEMOSAIC_POST:
- 		case RPPX1_PARAMS_BLOCK_TYPE_DB_FILTER_POST:
- 			/* Both types handled by the same block. */
-diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1_bd.c b/drivers/media/platform/dreamchip/rppx1/rppx1_bd.c
-index acbfbcd59591..08f9eca80b4d 100644
---- a/drivers/media/platform/dreamchip/rppx1/rppx1_bd.c
-+++ b/drivers/media/platform/dreamchip/rppx1/rppx1_bd.c
-@@ -47,6 +47,125 @@ static int rppx1_bd_probe(struct rpp_module *mod)
- 	return 0;
- }
+diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
+index 30bfd90d423b..3ade359f21e5 100644
+--- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
++++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
+@@ -10,7 +10,6 @@
  
-+static int
-+rppx1_bd_fill_params(struct rpp_module *mod,
-+		     const union rppx1_params_block *block,
-+		     rppx1_reg_write write, void *priv)
-+{
-+	const struct rppx1_bd_params *cfg = &block->bd;
-+	unsigned int isp_dpf_mode, spatial_coeff;
-+
-+	/* If the modules is disabled, simply bypass it. */
-+	if (cfg->header.flags & V4L2_ISP_PARAMS_FL_BLOCK_DISABLE) {
-+		write(priv, mod->base + DPF_MODE_REG, 0);
-+		return 0;
-+	}
-+
-+	/* Module version 5 adds shadowing for mode and spatial weights. */
-+	write(priv, mod->base + DPF_STRENGTH_R_REG, cfg->strength.r);
-+	write(priv, mod->base + DPF_STRENGTH_G_REG, cfg->strength.g);
-+	write(priv, mod->base + DPF_STRENGTH_B_REG, cfg->strength.b);
-+
-+	/*
-+	 * RPP DB module version 4 and later removed the AWB_GAIN_COMP bit.
-+	 * Always use programmed nf-gains for gain compensation. Emulate the
-+	 * old behavior by programming default gains when gain compensation
-+	 * is not requested.
-+	 */
-+	bool awb_gain_comp = false;
-+
-+	switch (cfg->gain.mode) {
-+	case RPPX1_BD_GAIN_USAGE_NF_GAINS:
-+		awb_gain_comp = true;
-+		isp_dpf_mode = DPF_MODE_USE_NF_GAIN;
-+		break;
-+	case RPPX1_BD_GAIN_USAGE_LSC_GAINS:
-+		isp_dpf_mode = DPF_MODE_LSC_GAIN_COMP;
-+		break;
-+	case RPPX1_BD_GAIN_USAGE_NF_LSC_GAINS:
-+		awb_gain_comp = true;
-+		isp_dpf_mode = DPF_MODE_USE_NF_GAIN | DPF_MODE_LSC_GAIN_COMP;
-+		break;
-+	case RPPX1_BD_GAIN_USAGE_AWB_GAINS:
-+		awb_gain_comp = true;
-+		isp_dpf_mode = 0;
-+		break;
-+	case RPPX1_BD_GAIN_USAGE_AWB_LSC_GAINS:
-+		awb_gain_comp = true;
-+		isp_dpf_mode = DPF_MODE_LSC_GAIN_COMP;
-+		break;
-+	case RPPX1_BD_GAIN_USAGE_DISABLED:
-+	default:
-+		isp_dpf_mode = 0;
-+		break;
-+	}
-+
-+	/* NOTE: Hardware bit for scale_mode is inverted compared to RkISP1. */
-+	if (cfg->nll.scale_mode == RPPX1_BD_SCALE_LINEAR)
-+		isp_dpf_mode |= DPF_MODE_NLL_SEGMENTATION;
-+	if (cfg->rb_flt.fltsize == RPPX1_BD_FILTERSIZE_9x9)
-+		isp_dpf_mode |= DPF_MODE_RB_FILTER_SIZE;
-+	if (!cfg->rb_flt.r_enable)
-+		isp_dpf_mode |= DPF_MODE_R_FILTER_OFF;
-+	if (!cfg->rb_flt.b_enable)
-+		isp_dpf_mode |= DPF_MODE_B_FILTER_OFF;
-+	if (!cfg->g_flt.gb_enable)
-+		isp_dpf_mode |= DPF_MODE_GB_FILTER_OFF;
-+	if (!cfg->g_flt.gr_enable)
-+		isp_dpf_mode |= DPF_MODE_GR_FILTER_OFF;
-+
-+	isp_dpf_mode |= DPF_MODE_DPF_ENABLE;
-+
-+	if (awb_gain_comp) {
-+		write(priv, mod->base + DPF_NF_GAIN_B_REG, cfg->gain.nf_b_gain);
-+		write(priv, mod->base + DPF_NF_GAIN_R_REG, cfg->gain.nf_r_gain);
-+		write(priv, mod->base + DPF_NF_GAIN_GB_REG, cfg->gain.nf_gb_gain);
-+		write(priv, mod->base + DPF_NF_GAIN_GR_REG, cfg->gain.nf_gr_gain);
-+	} else {
-+		write(priv, mod->base + DPF_NF_GAIN_B_REG, 0x100);
-+		write(priv, mod->base + DPF_NF_GAIN_R_REG, 0x100);
-+		write(priv, mod->base + DPF_NF_GAIN_GB_REG, 0x100);
-+		write(priv, mod->base + DPF_NF_GAIN_GR_REG, 0x100);
-+	}
-+
-+	for (unsigned int i = 0; i < RPPX1_BD_NLF_COEFFS_MAX; i++) {
-+		write(priv, mod->base + DPF_NLL_G_COEFF_REG(i), cfg->nll.coeff[i]);
-+		write(priv, mod->base + DPF_NLL_RB_COEFF_REG(i), cfg->nll.coeff[i]);
-+	}
-+
-+	spatial_coeff = cfg->g_flt.spatial_coeff[0] |
-+			(cfg->g_flt.spatial_coeff[1] << 8) |
-+			(cfg->g_flt.spatial_coeff[2] << 16) |
-+			(cfg->g_flt.spatial_coeff[3] << 24);
-+	write(priv, mod->base + DPF_S_WEIGHT_G_1_4_REG, spatial_coeff);
-+
-+	spatial_coeff = cfg->g_flt.spatial_coeff[4] |
-+			(cfg->g_flt.spatial_coeff[5] << 8);
-+	write(priv, mod->base + DPF_S_WEIGHT_G_5_6_REG, spatial_coeff);
-+
-+	spatial_coeff = cfg->rb_flt.spatial_coeff[0] |
-+			(cfg->rb_flt.spatial_coeff[1] << 8) |
-+			(cfg->rb_flt.spatial_coeff[2] << 16) |
-+			(cfg->rb_flt.spatial_coeff[3] << 24);
-+	write(priv, mod->base + DPF_S_WEIGHT_RB_1_4_REG, spatial_coeff);
-+
-+	spatial_coeff = cfg->rb_flt.spatial_coeff[4] |
-+			(cfg->rb_flt.spatial_coeff[5] << 8);
-+	write(priv, mod->base + DPF_S_WEIGHT_RB_5_6_REG, spatial_coeff);
-+
-+	/*
-+	 * Bilateral Denoising does not react on RPP_HDR_UPD::regs_gen_cfg_upd
-+	 * (see Table 25). A change in configuration needs write of 1 to
-+	 * RPP_HDR_UPD::regs_cfg_upd.
-+	 */
-+	write(priv, 4, 1);
-+
-+	write(priv, mod->base + DPF_MODE_REG, isp_dpf_mode);
+ #define UNSPECIFIED_COLOR_FORMAT 5
+ #define NUM_SYS_INIT_PACKETS 8
+-#define NUM_COMV_AV1 18
+ 
+ #define SYS_INIT_PKT_SIZE (sizeof(struct iris_hfi_header) + \
+ 	NUM_SYS_INIT_PACKETS * (sizeof(struct iris_hfi_packet) + sizeof(u32)))
+@@ -1212,13 +1211,7 @@ static int iris_set_num_comv(struct iris_inst *inst)
+ 	u32 num_comv;
+ 
+ 	caps = core->iris_platform_data->inst_caps;
+-
+-	/*
+-	 * AV1 needs more comv buffers than other codecs.
+-	 * Update accordingly.
+-	 */
+-	num_comv = (inst->codec == V4L2_PIX_FMT_AV1) ?
+-				NUM_COMV_AV1 : caps->num_comv;
++	num_comv = caps->num_comv;
+ 
+ 	return core->hfi_ops->session_set_property(inst,
+ 						   HFI_PROP_COMV_BUFFER_COUNT,
+diff --git a/drivers/media/platform/qcom/iris/iris_vdec.c b/drivers/media/platform/qcom/iris/iris_vdec.c
+index 719217399a30..f433065e08b2 100644
+--- a/drivers/media/platform/qcom/iris/iris_vdec.c
++++ b/drivers/media/platform/qcom/iris/iris_vdec.c
+@@ -24,7 +24,7 @@ int iris_vdec_inst_init(struct iris_inst *inst)
+ 	inst->fmt_src = kzalloc_obj(*inst->fmt_src);
+ 	inst->fmt_dst = kzalloc_obj(*inst->fmt_dst);
+ 
+-	inst->fw_min_count = MIN_BUFFERS;
++	inst->fw_min_count = 0;
+ 
+ 	f = inst->fmt_src;
+ 	f->type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE;
+diff --git a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c b/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
+index 9270422c1601..924b210cc4cd 100644
+--- a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
++++ b/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
+@@ -731,6 +731,28 @@ static u32 iris_vpu_dec_comv_size(struct iris_inst *inst)
+ 	u32 height = f->fmt.pix_mp.height;
+ 	u32 width = f->fmt.pix_mp.width;
+ 
++	if (inst->codec == V4L2_PIX_FMT_H264)
++		return hfi_buffer_comv_h264d(width, height, num_comv);
++	else if (inst->codec == V4L2_PIX_FMT_HEVC)
++		return hfi_buffer_comv_h265d(width, height, num_comv);
 +
 +	return 0;
 +}
 +
- const struct rpp_module_ops rppx1_bd_ops = {
- 	.probe = rppx1_bd_probe,
-+	.fill_params = rppx1_bd_fill_params,
- };
-diff --git a/include/uapi/linux/media/dreamchip/rppx1-config.h b/include/uapi/linux/media/dreamchip/rppx1-config.h
-index 378b18dbc48d..0246e9af1d1d 100644
---- a/include/uapi/linux/media/dreamchip/rppx1-config.h
-+++ b/include/uapi/linux/media/dreamchip/rppx1-config.h
-@@ -93,6 +93,8 @@ enum rppx1_meas_chan {
-  * @RPPX1_PARAMS_BLOCK_TYPE_GA_MV: Machine Vision Gamma Out Correction
-  * @RPPX1_PARAMS_BLOCK_TYPE_DB_DEMOSAIC_POST: Debayer demosaicing
-  * @RPPX1_PARAMS_BLOCK_TYPE_DB_FILTER_POST: Debayer filtering
-+ * @RPPX1_PARAMS_BLOCK_TYPE_BD_PRE1: PRE1 pipe De-noise Pre-Filter
-+ * @RPPX1_PARAMS_BLOCK_TYPE_BD_PRE2: PRE2 pipe De-noise Pre-Filter
-  */
- enum rppx1_params_block_type {
- 	RPPX1_PARAMS_BLOCK_TYPE_WBMEAS_POST,
-@@ -113,6 +115,8 @@ enum rppx1_params_block_type {
- 	RPPX1_PARAMS_BLOCK_TYPE_GA_MV,
- 	RPPX1_PARAMS_BLOCK_TYPE_DB_DEMOSAIC_POST,
- 	RPPX1_PARAMS_BLOCK_TYPE_DB_FILTER_POST,
-+	RPPX1_PARAMS_BLOCK_TYPE_BD_PRE1,
-+	RPPX1_PARAMS_BLOCK_TYPE_BD_PRE2,
- };
++static u32 iris_vpu3x_4x_dec_comv_size(struct iris_inst *inst)
++{
++	u32 num_comv = iris_vpu_buf_count(inst, BUF_OUTPUT);
++	struct v4l2_format *f = inst->fmt_src;
++	u32 height = f->fmt.pix_mp.height;
++	u32 width = f->fmt.pix_mp.width;
++	struct platform_inst_caps *caps;
++
++	if (inst->fw_min_count)
++		num_comv = inst->fw_min_count;
++
++	caps = inst->core->iris_platform_data->inst_caps;
++	caps->num_comv = num_comv;
++
+ 	if (inst->codec == V4L2_PIX_FMT_H264)
+ 		return hfi_buffer_comv_h264d(width, height, num_comv);
+ 	else if (inst->codec == V4L2_PIX_FMT_HEVC)
+@@ -2025,7 +2047,7 @@ u32 iris_vpu_buf_size(struct iris_inst *inst, enum iris_buffer_type buffer_type)
  
- /**
-@@ -598,6 +602,139 @@ struct rppx1_db_filter_params {
- 	__u32 fac_bl1;
- };
+ 	static const struct iris_vpu_buf_type_handle dec_internal_buf_type_handle[] = {
+ 		{BUF_BIN,         iris_vpu_dec_bin_size             },
+-		{BUF_COMV,        iris_vpu_dec_comv_size            },
++		{BUF_COMV,        iris_vpu3x_4x_dec_comv_size       },
+ 		{BUF_NON_COMV,    iris_vpu_dec_non_comv_size        },
+ 		{BUF_LINE,        iris_vpu_dec_line_size            },
+ 		{BUF_PERSIST,     iris_vpu_dec_persist_size         },
+@@ -2098,7 +2120,7 @@ u32 iris_vpu4x_buf_size(struct iris_inst *inst, enum iris_buffer_type buffer_typ
  
-+/**
-+ * struct rppx1_bd_strength - Bilateral filter strength configuration
-+ *
-+ * @r: filter strength for RED
-+ * @g: filter strength for GREEN
-+ * @b: filter strength for BLUE
-+ */
-+struct rppx1_bd_strength {
-+	__u8 r;
-+	__u8 g;
-+	__u8 b;
-+};
-+
-+/**
-+ * enum rppx1_bd_gain_mode - Bilateral filter noise function gain usage mode
-+ *
-+ * @RPPX1_BD_GAIN_USAGE_DISABLED: gain not used
-+ * @RPPX1_BD_GAIN_USAGE_NF_GAINS: use noise function gains
-+ * @RPPX1_BD_GAIN_USAGE_LSC_GAINS: use LSC gains
-+ * @RPPX1_BD_GAIN_USAGE_NF_LSC_GAINS: use noise function and LSC gains
-+ * @RPPX1_BD_GAIN_USAGE_AWB_GAINS: use AWB gains
-+ * @RPPX1_BD_GAIN_USAGE_AWB_LSC_GAINS: use AWB and LSC gains
-+ */
-+enum rppx1_bd_gain_mode {
-+	RPPX1_BD_GAIN_USAGE_DISABLED,
-+	RPPX1_BD_GAIN_USAGE_NF_GAINS,
-+	RPPX1_BD_GAIN_USAGE_LSC_GAINS,
-+	RPPX1_BD_GAIN_USAGE_NF_LSC_GAINS,
-+	RPPX1_BD_GAIN_USAGE_AWB_GAINS,
-+	RPPX1_BD_GAIN_USAGE_AWB_LSC_GAINS,
-+};
-+
-+/**
-+ * struct rppx1_bd_gain - Bilateral filter noise function gain configuration
-+ *
-+ * @mode: gain usage mode (from enum rppx1_bd_gain_mode)
-+ * @nf_r_gain: noise function gain replacing AWB gain for red
-+ * @nf_b_gain: noise function gain replacing AWB gain for blue
-+ * @nf_gr_gain: noise function gain replacing AWB gain for green-in-red
-+ * @nf_gb_gain: noise function gain replacing AWB gain for green-in-blue
-+ */
-+struct rppx1_bd_gain {
-+	__u32 mode;
-+	__u16 nf_r_gain;
-+	__u16 nf_b_gain;
-+	__u16 nf_gr_gain;
-+	__u16 nf_gb_gain;
-+};
-+
-+#define RPPX1_DB_SPATIAL_COEFFS_MAX 6
-+
-+/**
-+ * struct rppx1_bd_g_flt - Bilateral filter green filter configuration
-+ *
-+ * @spatial_coeff: spatial weight coefficients
-+ * @gr_enable: enable filter for green-in-red pixels
-+ * @gb_enable: enable filter for green-in-blue pixels
-+ */
-+struct rppx1_bd_g_flt {
-+	__u8 spatial_coeff[RPPX1_DB_SPATIAL_COEFFS_MAX];
-+	__u8 gr_enable;
-+	__u8 gb_enable;
-+};
-+
-+/**
-+ * enum rppx1_bd_filtersize - Bilateral filter red/blue filter kernel size
-+ *
-+ * @RPPX1_BD_FILTERSIZE_13x9: 13x9 filter size
-+ * @RPPX1_BD_FILTERSIZE_9x9: 9x9 filter size
-+ */
-+enum rppx1_bd_filtersize {
-+	RPPX1_BD_FILTERSIZE_13x9,
-+	RPPX1_BD_FILTERSIZE_9x9,
-+};
-+
-+/**
-+ * struct rppx1_bd_rb_flt - Bilateral filter red/blue filter configuration
-+ *
-+ * @fltsize: filter kernel size (from enum rppx1_bd_filtersize)
-+ * @spatial_coeff: spatial weight coefficients
-+ * @r_enable: enable filter for red pixels
-+ * @b_enable: enable filter for blue pixels
-+ */
-+struct rppx1_bd_rb_flt {
-+	__u32 fltsize;
-+	__u8 spatial_coeff[RPPX1_DB_SPATIAL_COEFFS_MAX];
-+	__u8 r_enable;
-+	__u8 b_enable;
-+};
-+
-+#define RPPX1_BD_NLF_COEFFS_MAX 17
-+
-+/**
-+ * enum rppx1_bd_scale_mode - Bilateral filter noise level lookup scale mode
-+ *
-+ * @RPPX1_BD_SCALE_LINEAR: linear scaling
-+ * @RPPX1_BD_SCALE_LOGARITHMIC: logarithmic scaling
-+ */
-+enum rppx1_bd_scale_mode {
-+	RPPX1_BD_SCALE_LINEAR,
-+	RPPX1_BD_SCALE_LOGARITHMIC,
-+};
-+
-+/**
-+ * struct rppx1_bd_nll - Bilateral filter noise level lookup
-+ *
-+ * @coeff: noise level lookup coefficients
-+ * @scale_mode: noise level lookup scale mode (from enum rppx1_bd_scale_mode)
-+ */
-+struct rppx1_bd_nll {
-+	__u16 coeff[RPPX1_BD_NLF_COEFFS_MAX];
-+	__u32 scale_mode;
-+};
-+
-+/**
-+ * struct rppx1_bd_params - De-noising Pre-Filter configuration
-+ *
-+ * @header: block header (type = RPPX1_PARAMS_BLOCK_TYPE_BD)
-+ * @strength: colour filter strength
-+ * @gain: noise function gain
-+ * @g_flt: green filter configuration
-+ * @rb_flt: red/blue filter configuration
-+ * @nll: noise level lookup
-+ */
-+struct rppx1_bd_params {
-+	struct v4l2_isp_params_block_header header;
-+	struct rppx1_bd_strength strength;
-+	struct rppx1_bd_gain gain;
-+	struct rppx1_bd_g_flt g_flt;
-+	struct rppx1_bd_rb_flt rb_flt;
-+	struct rppx1_bd_nll nll;
-+};
-+
- /**
-  * RPPX1_PARAMS_MAX_SIZE - Maximum size of all RPP-X1 parameter blocks
-  *
-@@ -622,7 +759,9 @@ struct rppx1_db_filter_params {
- 	sizeof(struct rppx1_ga_params)				+	\
- 	sizeof(struct rppx1_ga_params)				+	\
- 	sizeof(struct rppx1_db_demosaic_params)			+	\
--	sizeof(struct rppx1_db_filter_params))
-+	sizeof(struct rppx1_db_filter_params)			+	\
-+	sizeof(struct rppx1_bd_params)				+	\
-+	sizeof(struct rppx1_bd_params))
- 
- /* ---------------------------------------------------------------------------
-  * Statistics Structures
+ 	static const struct iris_vpu_buf_type_handle dec_internal_buf_type_handle[] = {
+ 		{BUF_BIN,         iris_vpu_dec_bin_size         },
+-		{BUF_COMV,        iris_vpu_dec_comv_size        },
++		{BUF_COMV,        iris_vpu3x_4x_dec_comv_size   },
+ 		{BUF_NON_COMV,    iris_vpu_dec_non_comv_size    },
+ 		{BUF_LINE,        iris_vpu4x_dec_line_size      },
+ 		{BUF_PERSIST,     iris_vpu4x_dec_persist_size   },
+
+---
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+change-id: 20260421-optimize_comv_buffer-ae7107673609
+
+Best regards,
 -- 
-2.54.0
+Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 
