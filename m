@@ -1,63 +1,64 @@
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12CD42D780A
-	for <linux-media@vger.kernel.org>; Mon,  4 May 2026 06:54:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C43B2D5A19
+	for <linux-media@vger.kernel.org>; Mon,  4 May 2026 06:54:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777877651; cv=none; b=jjvrAOgxJsNaOhl8uoBQ1xjWq22sbFsvTld5gSLc6gCXVB3WazeyUvQMIX+SCpqkyS3YSzPJZUhc0bfnv56kVklMQpQ4utWk58tG5W5y7UV8Yuo4cq35Un8zJGk40gjt8MuEUmZ8nVk7qzaWXRYPPYCsTf23SowVgODzsGoQXfs=
+	t=1777877655; cv=none; b=Iy+UKjYSZ3N8saSXuOAh72R2+nCz5yUxRoQ7A77WW9UkN/zgO4/57l4p1FN6lHBvR/IsjYELbcBzR9p5D9WQjHNEKVhwwTSO8MxvT7yiyFlrqLIuLtRzjaZ9xWUXgpS8mEBL0yuOWN3EjrJGIGti8qUyo7kxkrVPPua3XgWUVRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777877651; c=relaxed/simple;
-	bh=ne42xYajKx8Kiea21amC61A8URblNNdzVSYQ5+DXQtM=;
+	s=arc-20240116; t=1777877655; c=relaxed/simple;
+	bh=tLwMsZtKESL5KitvooJvICOu2RrZ4OM6qvgcLZaroZk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HvtPaDzKHj8L+CTM4xsLvNCBwdUDyggtBGe6EWAtgH7TssCyLwOjX3hixTOygPmJI412JHM37+eyyqRQeM6mOImY51xikdTaXvoNhO6R1+glJBMfOp4tz72K7YtNxXBpLrGxGwbL0aBFqGCr/xrZr47xajnCU7HNt8JDaK68HTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=LwLwZp0a; arc=none smtp.client-ip=209.85.167.46
+	 In-Reply-To:To:Cc; b=POsirjqBibn7d6BMw6gbkPfMHVdvxwVfSbxFLrEDUUDGSOuoL9hCXQAnHigDUU9SkY4AKEFiYyr1T0t5ELq/bNQmNBns4Dr6EDCWGw8gaSzPkOTxggAr/u8QNdGFwwVqTcD0uQybvLgdjn6/tOOBRWwDr9X4wpkWLWSCsUQVBeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Y+/PNc+g; arc=none smtp.client-ip=209.85.167.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="LwLwZp0a"
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5a525aedb24so4311548e87.2
-        for <linux-media@vger.kernel.org>; Sun, 03 May 2026 23:54:09 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Y+/PNc+g"
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5a86c1fe573so1653794e87.3
+        for <linux-media@vger.kernel.org>; Sun, 03 May 2026 23:54:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1777877648; x=1778482448; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1777877653; x=1778482453; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=VgEZKNrl10DgxlH1xZQyC/yRD4psOac+PKsvu6TEYIs=;
-        b=LwLwZp0a3pKasW8GKqYw8ksSg8hE4RoCL8jyB1WycftvZZk3+I8dmQpPkWURtRt9zF
-         4o+w3z7/r2s/EyANmyjK+2XUGW5CgMqNNZ0XNDyiJqPaEkc1fpCV38Koi16C7m2PjTYw
-         9qCJczD0OjNlAh9p1mlKjCBPK1PQqcXjHrf+4=
+        bh=DO6EYg4vrsGld5Vns0zx8Rx5L9ViOljnC9zyP7KqNys=;
+        b=Y+/PNc+gBaOBV/R3yZtS5BkfC9QiihrpbwSro68IdCRdRKsH2o6digdm3TTAJd41c+
+         T6l0jM0/e84bge60od94j/4YWysqdeE5mqVQE31FNcFfl52QQC1bXPCU1ra9H3GTOeww
+         FdnH1eUUa2dTg690mvhRTJQ/f7gb3cvjUYTTQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777877648; x=1778482448;
+        d=1e100.net; s=20251104; t=1777877653; x=1778482453;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=VgEZKNrl10DgxlH1xZQyC/yRD4psOac+PKsvu6TEYIs=;
-        b=PW3+W+D8urV09kFTvDw/ZknX8WBX/lcsMqVMse6C/ewxg5gryC2Mk2WQ64d9oaTwZ3
-         lUrkj7BWzTU1exLtXbPn17ovzLBBhoMW1doZ/skBmlXGH8hIhqawkU5RgAWi8/5x8Jc1
-         l/zi7PYDNM4hus5YXu+YKu5CcE9QSgXrGgYduVQNpxmTE3FNWEz5tV0nMAM0/DR2+L3z
-         d5ovtlPi8yFphmbu+DpDR6/nKw5JoGAKuHS43x/dKqgy6RY/qQRDFppPgAICYxPx0nts
-         nH+HIz5KZ8BPi/Ni1qfCr+mW6MlXYK6VgpDKU8ta1yUzll+p2Alt6Ty1ghUgLXEq9n7A
-         nRmA==
-X-Gm-Message-State: AOJu0YwyQnUCklbhWotBnoT2QMfSZw57JoY0b/0z63OTR54+KG0/sBYL
-	qznW1ax1ASM1wIJdn4xJn++XR7yxsHFkA6a/61aFvljroS50WD7Js9oPHpR4T9yFiA==
-X-Gm-Gg: AeBDietD0SMuaWvCSaSPSOsiPv/vCLkK6HTvWWy+D8XIvwZbOfF5C1YEhFghZbv1RsS
-	dRfVarxy5MMVaevZfcd88WRHiYgW+ou5INhqtsB2uNKCYPa/rtzWTMwHnt+4qIod6UmjFFat41P
-	6zFN37D5CxMTnf4VPrfgL/f80WL9z9DgrvXwA6vdTdyA4v05PqpF3l4G2bQzRmSOb5vQ3hcf8xr
-	P0e7WtVBNU177+qbeFGyRBgUIMCWpOxuiuQ/LRzjvGuQ2crC7FxYe3cp1Xz1BIu2MyF8NR31Vhn
-	KXZHoDYt8yN6TEfIN6R3NVzsQta2zl8kq0PdeLrtGPgb5OR8Yv/c7zwv81g0IAmI/K0xk2iK/Jy
-	VRmjQ/ydn2w450FPNMapcN85D+jXRBWyLVrnopOTYVSk+X+CL6IFGGNfxL1stPCxQoPN++qHuLQ
-	mrsi2xKNu7pYJAPpAQ7XcngK40y8mahHY9bkUWdBCB/alwfYqMdmP9VauiQCiwszZ61FClh8Xbr
-	1w2w2XxtS1s69uqmw==
-X-Received: by 2002:a05:6512:114d:b0:5a8:7352:a885 with SMTP id 2adb3069b0e04-5a87352aa2bmr615908e87.17.1777877648177;
-        Sun, 03 May 2026 23:54:08 -0700 (PDT)
+        bh=DO6EYg4vrsGld5Vns0zx8Rx5L9ViOljnC9zyP7KqNys=;
+        b=Y2PlKMLdQKhrmUL2VF+wVBhJW9Iq2vRN78AcZYebLII8zTYNvlIOTLSgi4DMOtcE4O
+         AuMoCxkzeqLpMJxEMldg3PG3jJI/FlsROzE5dzyF2q5fJ4G/XYcLOiHOV2kvhHi8qo3J
+         jOpjrMBvQqmcHIqehwJmV79gNWsbr6hdzoV0iAWmJ+e80Y0zQ5/39gt+RN1Vgo8Q50Pm
+         jGJNkwiNb3Le0+pj0zFwa+Qc5cqpQdfNzM0/Yum2aZntj0uvgrWbsv10+Xeaod4lK5kn
+         dsEHBKdtLPX7u+j/LBg6po+n/inMSetmOyzW5oSCLiElBSSuJPelGaCtDrALddrFOgwm
+         t7wg==
+X-Gm-Message-State: AOJu0YyhHcC/E539j8YxYbd5TeyNp0zNM5fKO2ooCTe3KC6XaEkAs/I4
+	rOL8vr8ACOf7CfGXrgwfAAqhargSQt64Bn0hxaerOkWdDomM6cBU8TqcPgO94LYodg==
+X-Gm-Gg: AeBDieuLQ3RPNs/WiGDZwt/BHGPD4SJuiGWdGYRNmhSOAzV9bdRAXwL88K2+eEPnMY7
+	C1zqY2S5rVtwk+NoHDBYUsziZIynvwkk8OZbAnqen6ibN3iuMu5Fq1Ho4KMYiSvpqGIH22lIHZT
+	y2XDO7HyxhRuVPuSEtdCL7/VvZlj1xkQM9LNMo/FnXR56J8tIUvBgt+WY+KcyOpjjsX1ijht8/x
+	hhBqxtrmdi55EFuWwbV+9mazxUjeyurtebDs1/+uV65+HHiQU+W0AI+gwN3KxP6H/sqK6zldBmL
+	XSNAJMZ3weyrN+243IrykX2sMLUcR7jJrGthoVabufmURldlfFNkELN/lfMA7SxAYP44EmsEZJ4
+	6bPJWS9hyidS2vQMITz+aUBxAOnKTIod8FUJmw2s/5mleWR648ewh9wNKPynZvQt2rEA21ErsEk
+	Zp2qS96gjtJGIDyFov9AssPy6rhMD0GJgSkUKWLIcobrSkrsonBYTETyYYJF4zdknD2OxAlObdp
+	d/m0aHYppICPRlnRaFpDMyZvtLC
+X-Received: by 2002:a05:6512:3ba2:b0:5a3:d1d9:6080 with SMTP id 2adb3069b0e04-5a8631c00famr2451231e87.29.1777877651260;
+        Sun, 03 May 2026 23:54:11 -0700 (PDT)
 Received: from ribalda.c.googlers.com (52.163.228.35.bc.googleusercontent.com. [35.228.163.52])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a85c22e1d4sm2674579e87.9.2026.05.03.23.54.06
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a85c22e1d4sm2674579e87.9.2026.05.03.23.54.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 03 May 2026 23:54:07 -0700 (PDT)
+        Sun, 03 May 2026 23:54:09 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 04 May 2026 06:54:04 +0000
-Subject: [PATCH v3 1/6] media: v4l2-dev: Add range check for vdev->minor
+Date: Mon, 04 May 2026 06:54:05 +0000
+Subject: [PATCH v3 2/6] media: i2c: mt9p031: Rewrite assignment to make
+ smatch happy
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -66,7 +67,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260504-smatch-7-1-v3-1-fda125c30058@chromium.org>
+Message-Id: <20260504-smatch-7-1-v3-2-fda125c30058@chromium.org>
 References: <20260504-smatch-7-1-v3-0-fda125c30058@chromium.org>
 In-Reply-To: <20260504-smatch-7-1-v3-0-fda125c30058@chromium.org>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -84,37 +85,31 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  Ricardo Ribalda <ribalda@chromium.org>
 X-Mailer: b4 0.14.3
 
-If the fixed minor ranges are not properly set we could end up in a
-situation where the calculated minor is invalid. Add a check for this in
-the code to make it more robust.
+The current code makes smatch a bit uncomfortable:
+drivers/media/i2c/mt9p031.c:799 mt9p031_s_ctrl() warn: assigning (-1952) to unsigned variable 'data'
 
-This check also fixes the following false positive smatch warning:
-
-drivers/media/v4l2-core/v4l2-dev.c:1036 __video_register_device() error: buffer overflow 'video_devices' 256 <= 288
-drivers/media/v4l2-core/v4l2-dev.c:1043 __video_register_device() error: buffer overflow 'video_devices' 256 <= 288
-drivers/media/v4l2-core/v4l2-dev.c:1101 __video_register_device() error: buffer overflow 'video_devices' 256 <= 288
+Probably because smatch is not clever enough (yet). Do a simple rewrite
+to make sure that smatch understands what we are doing here.
 
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/v4l2-core/v4l2-dev.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/media/i2c/mt9p031.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l2-core/v4l2-dev.c
-index 6ce623a1245a..5516b2bbb08f 100644
---- a/drivers/media/v4l2-core/v4l2-dev.c
-+++ b/drivers/media/v4l2-core/v4l2-dev.c
-@@ -1032,6 +1032,11 @@ int __video_register_device(struct video_device *vdev,
- 	vdev->minor = i + minor_offset;
- 	vdev->num = nr;
+diff --git a/drivers/media/i2c/mt9p031.c b/drivers/media/i2c/mt9p031.c
+index ea5d43d925ff..8dc57eeba606 100644
+--- a/drivers/media/i2c/mt9p031.c
++++ b/drivers/media/i2c/mt9p031.c
+@@ -796,7 +796,8 @@ static int mt9p031_s_ctrl(struct v4l2_ctrl *ctrl)
+ 			data = (1 << 6) | (ctrl->val >> 1);
+ 		} else {
+ 			ctrl->val &= ~7;
+-			data = ((ctrl->val - 64) << 5) | (1 << 6) | 32;
++			data = ((ctrl->val - 64) >> 3) & 0x7f;
++			data = (data << 8) | (1 << 6) | 32;
+ 		}
  
-+	if (WARN_ON(vdev->minor >= VIDEO_NUM_DEVICES)) {
-+		mutex_unlock(&videodev_lock);
-+		return -EINVAL;
-+	}
-+
- 	/* Should not happen since we thought this minor was free */
- 	if (WARN_ON(video_devices[vdev->minor])) {
- 		mutex_unlock(&videodev_lock);
+ 		return mt9p031_write(client, MT9P031_GLOBAL_GAIN, data);
 
 -- 
 2.54.0.545.g6539524ca2-goog
