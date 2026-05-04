@@ -1,96 +1,101 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47CD93C456D
-	for <linux-media@vger.kernel.org>; Mon,  4 May 2026 13:22:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368E8315785;
+	Mon,  4 May 2026 14:19:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777900939; cv=none; b=GDo2wCruO3UxVLNSs7RgNTIGM/EsKj/yegFSKgXuWWaGY/kMNbU3jwmW6ymirHKixkGEnmShf8Eb9iUMLUZo1iCJEdwaLbW62CtOEYgMzF7QGoSPxV2qDiyQuONRt/G90bFmSgfnzZ6wKdV6LNkSEDufCTcbfLCjQT+tjBY6kLg=
+	t=1777904361; cv=none; b=aWh05NXzg4nkXyvbkKQOUWgks2xvBHvdSCnu10x91s47DkSNe0LTareseBywVKtlLUDSsuy5g9YkPjq3/6Jr7w181bibA9Ov5rubxkkFpqN6MY5kYC23wmQHlj1TzRoHgHVXvJN99FacFQhVLxFFgG32nh6uj0NLuX9reXnfzSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777900939; c=relaxed/simple;
-	bh=W3CN97qP6afD4yAvPDQST1Pd9/ZzjfuD1DjcKlTqkzg=;
+	s=arc-20240116; t=1777904361; c=relaxed/simple;
+	bh=ve2+6uy3tfhEbqBKOTdfZIY1nkAqD8oVN2/BMbHEqNc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=khPEsIhKtHH+VCNzXm76d2JSZAcVwj6hrBKCq+wCAP9R+0u6DB6Hts0CeOIaRfVmC2ZSN8hOF+wO0I7fH5FLyjcI4DSBvUkx+foVex9EGEFi2R7EbD3dhsQ9/K8oyBRbiX75jr2BCzWfqSG8dHpRIKqL0i9OdHcQWfQGEk+GeSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=u+gbxfDK; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=O/deAcxHtB9zjNBXgyckGz1btlHDYhluVzSc4eWut47US74ufNQ7OC6TwDkWDX4od/yxZzypg3rdVl8VhpJ90aQJ0hlStX+woV+FrmLKotlPmaInPHdgN9myMy9cVLCroiT24OIPO9g9vFOiI5blc7ODvRE5hud/FK4hrxn4Jjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DbLehRun; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="u+gbxfDK"
-Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9BE399C;
-	Mon,  4 May 2026 15:22:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1777900934;
-	bh=W3CN97qP6afD4yAvPDQST1Pd9/ZzjfuD1DjcKlTqkzg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=u+gbxfDKkGiuuV+daWhi8gI1qOtijL4wzs0GPGpCb+uQNvvkgJSDHp9Sq7vVudwL6
-	 f6tiy5OoHVRXO/7q3goROJRY+3KaIn+akk34GFMAYfilvYSRc8Kb63lwtNdOX4sDKo
-	 jL79G/MFo5uBLiC7ZUR0JvohkO7nxa3UnaZ7ZDXY=
-Date: Mon, 4 May 2026 16:22:14 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, David Heidelberg <david@ixit.cz>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Subject: Re: [PATCH 1/1] media: v4l2-subdev: Fail {enable,disable}_streams
- and s_streaming nicely
-Message-ID: <20260504132214.GA1371451@killaraus.ideasonboard.com>
-References: <20260504123503.417044-1-sakari.ailus@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DbLehRun"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777904360; x=1809440360;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ve2+6uy3tfhEbqBKOTdfZIY1nkAqD8oVN2/BMbHEqNc=;
+  b=DbLehRun/r4Fxikl35RNIe+483eyU6ZzBzLVJOa9Vobh7MO6tbzH284V
+   +N9yvvgMbAyn145c7R3LNxP1+aoXPzpYLHD/s0ivU0a2abaX+yxYlKbXf
+   UENlaXgi/1lSkDSekSfH9yNZfrswCMGzZfpHHQu6an6lguwJy+brZPEf7
+   P9ngL4eZ29ePqofCzzKY3e1gg919jMx2na4k0WRQ6ahWetLxqus/wiCS8
+   XtT+ijmduTJ+YaKK2zFORM3WTuGh5hs6sCglru4OqgiA+UCmNLl6zNAbc
+   usD3bQIMeG5m6Lh603xiV6EvcaqGgmx8A9p2XxHsvGoS/WYjXcVQhOfTP
+   A==;
+X-CSE-ConnectionGUID: H/BQybDURNKDArHH7Iq5vQ==
+X-CSE-MsgGUID: gWhyoK0wReuBWOWygtnKnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="90220004"
+X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; 
+   d="scan'208";a="90220004"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 07:19:19 -0700
+X-CSE-ConnectionGUID: hAMz4Bx5SGyK6cwwBb7Lvg==
+X-CSE-MsgGUID: txtLm08ZSLSR1wGZLwpQPg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; 
+   d="scan'208";a="232867222"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.198])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 07:19:17 -0700
+Date: Mon, 4 May 2026 17:19:15 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Shyam Sunder Reddy Padira <shyamsunderreddypadira@gmail.com>
+Cc: andy@kernel.org, hansg@kernel.org, mchehab@kernel.org,
+	gregkh@linuxfoundation.org, sakari.ailus@linux.intel.com,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev
+Subject: Re: [PATCH] staging: media: atomisp: consolidate function
+ declarations
+Message-ID: <afiq4wU6j3GbQvOl@ashevche-desk.local>
+References: <20260503173846.108790-1-shyamsunderreddypadira@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260504123503.417044-1-sakari.ailus@linux.intel.com>
+In-Reply-To: <20260503173846.108790-1-shyamsunderreddypadira@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, May 04, 2026 at 03:35:03PM +0300, Sakari Ailus wrote:
-> If a sub-device does not set enable_streams() and disable_streams() pad
-> ops while it sets the s_stream() video op to
-> v4l2_subdev_s_stream_helper(), enabling or disabling streaming either way
-> on the sub-device will result calling v4l2_subdev_s_stream_helper() and
-> v4l2_subdev_{enable,disable}_streams() recursively, exhausting the stack.
-> Return -ENOIOCTLCMD in this case to handle the situation gracefully.
-> 
-> Reported-by: David Heidelberg <david@ixit.cz>
-> Fixes: b62949ddaa52 ("media: subdev: Support single-stream case in v4l2_subdev_enable/disable_streams()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> ---
-> since v2:
-> 
-> - Move the check, with checking the pad ops, to
->   v4l2_subdev_s_stream_helper().
-> 
->  drivers/media/v4l2-core/v4l2-subdev.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-> index 831c69c958b8..3b726f044d3f 100644
-> --- a/drivers/media/v4l2-core/v4l2-subdev.c
-> +++ b/drivers/media/v4l2-core/v4l2-subdev.c
-> @@ -2504,6 +2504,10 @@ int v4l2_subdev_s_stream_helper(struct v4l2_subdev *sd, int enable)
->  	u64 source_mask = 0;
->  	int pad_index = -1;
+On Sun, May 03, 2026 at 11:08:46PM +0530, Shyam Sunder Reddy Padira wrote:
+> Consolidate split function declarations into a single
+> lines to fix checkpatch.pl warnings and improve code
+> readability.This change aligns with the kernel coding
+> style.
+
+Too condensed text. We have room for ~72 character per line.
+
+> No functional changes.
+
+...
+
+> -const struct
+> -atomisp_format_bridge *atomisp_get_format_bridge(unsigned int pixelformat);
+> +const struct atomisp_format_bridge *atomisp_get_format_bridge(unsigned int pixelformat);
 >  
-> +	if (WARN_ON_ONCE(!v4l2_subdev_has_op(sd, pad, enable_streams) ||
-> +			 !v4l2_subdev_has_op(sd, pad, disable_streams)))
+> -const struct
+> -atomisp_format_bridge *atomisp_get_format_bridge_from_mbus(u32 mbus_code);
+> +const struct atomisp_format_bridge *atomisp_get_format_bridge_from_mbus(u32 mbus_code);
 
-Is this indicates a clear bug, I would use WARN_ON() instead of
-WARN_ON_ONCE(). Up to you.
+It breaks V4L2 coding style expectations.
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+NAK.
 
-> +		return -ENOIOCTLCMD;
-> +
->  	/*
->  	 * Find the source pad. This helper is meant for subdevs that have a
->  	 * single source pad, so failures shouldn't happen, but catch them
+Also other problems mentioned many times in the mailing list. Please, start
+reviewing others' patches and learn from other reviews before doing your
+changes.
 
 -- 
-Regards,
+With Best Regards,
+Andy Shevchenko
 
-Laurent Pinchart
+
