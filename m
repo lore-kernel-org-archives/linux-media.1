@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B212438550C;
-	Tue,  5 May 2026 11:40:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44A239A7FD;
+	Tue,  5 May 2026 12:05:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777981244; cv=none; b=gAYOvANinuSVPVCvN04D6SUFZoF2LdfggQwhwFMJQ0kL+FVIoEqPSbHbcjalXTRWEZJhcUqoidYXxCxYgdEoOPxIGkGFC9mDlXemGOwee8o8VKebodYgskDgKsIawOlIe0T0DhMekmlHzh3398rm6tOkitycseNCoM58a+F3Qj8=
+	t=1777982755; cv=none; b=cSQe+IIO7ged2peeU04gJGAyl/xTOTknnjshE1Nb9dQg4HTTkfCXgHuSneUPfSI7HDQa9cb4fihY3vrje56MOaIAZ1qAE0UXhgpCvkCsEGJSqKuSYbORuIILJX6WNgr3q9V3dgy8HPocuFvoiDcQpP88FhO/fbnrAd2WAi8I4/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777981244; c=relaxed/simple;
-	bh=4+Iu46KmbMltdWMjKfTVCvDNPFKWfMnkj1wvZLVT7oc=;
+	s=arc-20240116; t=1777982755; c=relaxed/simple;
+	bh=tFcPGTWeki9Taijwy4G4ifPpnSu4/IV8i4QfyCO1ngc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J/mpHYPmSTVmdNTuC9EjZi1BwuWDjqjJiIJlH1EOsDqoucbhGzNkZag66MiNeEf1bKGN7p5D4BqDcGKDaGVv3QB+ioZ8jGZm8CGEwK0YZtexrI2k7Jpj3AmsFSWHJ4sbUqG9reASiC5ERPcbiGMR7OMKkFo3smTGzplzJawxL+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J/ntJLGM; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=SXHvgd1fPssFkwJm0ON76rzWbea8Co0bEHYeXyhlJRAWLmBG1HLemjo/+Vh2DSKIT7dzniNqd8PUHlJE53OEA7iwDlyoMuew0c7FjmpAr6Yj2sTLKqI9VYFDD2R3E6XZ8szsJkWjMzK8I/EAZ5Cg5TMTQkViQIw6Vpgi6wNr7So=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=geC38nXa; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J/ntJLGM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 067FEC2BCB4;
-	Tue,  5 May 2026 11:40:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="geC38nXa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA4FC2BCB4;
+	Tue,  5 May 2026 12:05:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777981244;
-	bh=4+Iu46KmbMltdWMjKfTVCvDNPFKWfMnkj1wvZLVT7oc=;
+	s=k20201202; t=1777982755;
+	bh=tFcPGTWeki9Taijwy4G4ifPpnSu4/IV8i4QfyCO1ngc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=J/ntJLGMTyoKqqLlFe8fcMmMZxpgTO3QrCREk+dbG0lZv3g0+OzBiLSuY7SNqBL/q
-	 jk+yCyLlDIUZPXBlwpyS7S4YK5gy1O9bYVXzydzQ7NvmgHF54zjztvPmuK0yJHbALl
-	 Swfp/qfM7e7pFHFxsAySCv0iQuKXesyU4UiOEfAjn4FiPw/AG6LVn+zunwF/T3cfZ1
-	 lrQe2ubne4LutvlaXsKcXyE2BmD7N6AgXU8J7/RjYNtvGhRPjZ+epBxBKfOPHZIR/d
-	 n0nPCOCaQtBGDGbRyxSd2hHliM+GT20dPyZVO/mBuyLRp1+fCYFAGme/ba9BjWR5Xi
-	 3Qt0seZU4dlOA==
-Message-ID: <4ea02e8e-c0e1-4da9-b7bb-d2ecdc7f1194@kernel.org>
-Date: Tue, 5 May 2026 13:40:40 +0200
+	b=geC38nXa6csEkTLKYAawWN8RrwJl41tXmaj1xWMjq0ujUUBcAwhKtyHeyPlvxZXDl
+	 1TDps2n6W762c0Tu+mn7bo9T2i2nMufXDVVT5dWnWpku9PpKG4zGZEHA43Numyv9dd
+	 +XUd/iZlXAAtw0ZAe1Tn2SKrlQ+CCXTgLvZ9FlGI3iQrVjoqV6NtiN5f4bZvZ7R5Qd
+	 NfWaHGGjRe3k5hX4I1s3nELijKuUL2QCuZE6pc0DCiJ7jo/AMLODHyLt7v/d8fHWON
+	 XiVLiUc0dBQabY1qQOUMoPcuQ9AI19AwBbJqlqTRQC/Xh+2oZso2y4HJM9AqP8G6HJ
+	 ZU+ZnBBXRTVMg==
+Message-ID: <79449571-d8c6-4fa7-8d53-5b358b73d34f@kernel.org>
+Date: Tue, 5 May 2026 14:05:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,74 +35,116 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7] staging: media: av7110: fix coding style
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Chethan C <mail.chethanc@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Petr Mladek <pmladek@suse.com>, Kees Cook <kees@kernel.org>,
- Osama Albahrani <osalbahr@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260328165049.899917-1-mail.chethanc@gmail.com>
- <CAGhNHKgiMQ1Km-JZKQTfkw6aXh-KDKM3gjKyNiyhRwQRvyptPA@mail.gmail.com>
- <adY7MwE5dorn9FlT@ashevche-desk.local>
+Subject: Re: [PATCH v4] media: tuner: check return value of I2C transfers in
+ set_type()
+To: Wenyuan Li <2063309626@qq.com>, Andy Walls <awalls@md.metrocast.net>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ gszhai@bjtu.edu.cn, 25125332@bjtu.edu.cn, 25125283@bjtu.edu.cn,
+ 23120469@bjtu.edu.cn, stable@vger.kernel.org
+References: <tencent_46889E152DE22B7E8A0CBB3311C556F92E09@qq.com>
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 Content-Language: en-US
-In-Reply-To: <adY7MwE5dorn9FlT@ashevche-desk.local>
+In-Reply-To: <tencent_46889E152DE22B7E8A0CBB3311C556F92E09@qq.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 4/8/26 13:25, Andy Shevchenko wrote:
-> On Wed, Apr 08, 2026 at 10:33:28AM +0530, Chethan C wrote:
->> Hi,
->>
->> Just a gentle ping on this patch.
->>
->> I wanted to check if there are any comments or changes needed from my side.
->>
->> Thanks for your time.
+On 3/29/26 12:51, Wenyuan Li wrote:
+> In set_type(), several I2C transfers are performed to initialize
+> specific tuners (e.g. FMD1216ME, FMD1216MEX, TD1316), but the return
+> value of i2c_master_send() is not checked.
 > 
-> You need to:
-> - do not top-post!
-> - do not quote hundreds of lines just for this message!
-> - wait a bit more, we are almost at the merge window time, quite unlikely
-> somebody will take this right away
-
-Yup, but now I'm picking it up!
-
-> - the Subject should have "staging:" part to be dropped; all media patches
-> are started with "media: " even for the staging folder
-
-Actually, either way is fine, as long as the 'media:' part is present in the
-subject.
-
+> If an I2C transfer fails, the initialization sequence may be
+> incomplete, potentially leaving the tuner in an inconsistent state
+> without any error being reported.
 > 
-> Also note the formatting patches are lowest in the priority.
+> Check the return value of i2c_master_send() and propagate failures
+> to the attach_failed path. A small helper is introduced to reduce
+> duplication and provide consistent error reporting.
+> 
+> This ensures that I2C communication errors during tuner
+> initialization are properly detected and handled.
+> 
+> Fixes: 93df3413f1b4 ("[PATCH] v4l: 655: added support for the philips td1316 tuner")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wenyuan Li <2063309626@qq.com>
+> 
+> ---
+> v5:
+> - Reword commit message to better explain rationale
+> - Clarify error handling approach
+> - No functional changes
+> 
+> v4:
+> - Added Cc: stable@vger.kernel.org
+> - Updated Fixes tag
+> ---
+>  drivers/media/v4l2-core/tuner-core.c | 22 +++++++++++++++++++---
+>  1 file changed, 19 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/v4l2-core/tuner-core.c b/drivers/media/v4l2-core/tuner-core.c
+> index 004ec4d7beea..01f28436a1f8 100644
+> --- a/drivers/media/v4l2-core/tuner-core.c
+> +++ b/drivers/media/v4l2-core/tuner-core.c
+> @@ -280,6 +280,19 @@ static const struct analog_demod_ops tuner_analog_ops = {
+>   * Functions to select between radio and TV and tuner probe/remove functions
+>   */
+>  
+> +static int tuner_i2c_send(struct i2c_client *c, u8 *buf, int len)
+> +{
+> +	int ret = i2c_master_send(c, buf, len);
+> +
+> +	if (ret != len) {
+> +		int err = ret < 0 ? ret : -EIO;
+> +
+> +		dev_err(&c->dev, "I2C send failed: %pe\n", ERR_PTR(err));
+> +		return err;
+> +	}
+> +	return 0;
+> +}
+> +
 
-Low prio, yes, but to be honest it is nice to get rid of the camelcase in this
-driver :-)
+I think this is overkill, and I also like to keep changes to this old code
+to a minimum.
+
+>  /**
+>   * set_type - Sets the tuner type for a given device
+>   *
+> @@ -351,11 +364,13 @@ static void set_type(struct i2c_client *c, unsigned int type,
+>  		buffer[1] = 0xdc;
+>  		buffer[2] = 0x9c;
+>  		buffer[3] = 0x60;
+> -		i2c_master_send(c, buffer, 4);
+> +		if (tuner_i2c_send(c, buffer, 4))
+> +			goto attach_failed;
+
+Just keep it simple:
+
+		if (i2c_master_send(c, buffer, 4) != 4)
+			goto attach_failed;
+
+Ditto below.
+
+>  		mdelay(1);
+>  		buffer[2] = 0x86;
+>  		buffer[3] = 0x54;
+> -		i2c_master_send(c, buffer, 4);
+> +		if (tuner_i2c_send(c, buffer, 4))
+> +			goto attach_failed;
+>  		if (!dvb_attach(simple_tuner_attach, &t->fe,
+>  				t->i2c->adapter, t->i2c->addr, t->type))
+>  			goto attach_failed;
+> @@ -365,7 +380,8 @@ static void set_type(struct i2c_client *c, unsigned int type,
+>  		buffer[1] = 0xdc;
+>  		buffer[2] = 0x86;
+>  		buffer[3] = 0xa4;
+> -		i2c_master_send(c, buffer, 4);
+> +		if (tuner_i2c_send(c, buffer, 4))
+> +			goto attach_failed;
+>  		if (!dvb_attach(simple_tuner_attach, &t->fe,
+>  				t->i2c->adapter, t->i2c->addr, t->type))
+>  			goto attach_failed;
 
 Regards,
 
 	Hans
-
-> If you wish to provide a real contribution, try something else. For example,
-> one of the listed in [1]. It's not that your patch is bad or unwelcome, no,
-> this is about the change that does almost nothing to the driver that needs
-> more real work.
-> 
->> On Sat, Mar 28, 2026 at 10:21 PM Chethan C <mail.chethanc@gmail.com> wrote:
-> 
->>> Fix indentation and alignment issues reported by checkpatch.pl.
->>>
->>> Rename enums av7110_rec_play_state, av7110_type_rec_play_format,
->>> and av7110_encoder_command to follow kernel naming style.
->>>
->>> Rename wssData and wssMode to wss_data and wss_mode to avoid
->>> camelCase identifiers.
-> 
-> [1]: https://gist.github.com/andy-shev/a2cb1ee4767d6d2f5d20db53ecb9aabc
-> 
-
