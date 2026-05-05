@@ -1,92 +1,146 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECBA833EB17
-	for <linux-media@vger.kernel.org>; Tue,  5 May 2026 13:03:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D688447A0DE;
+	Tue,  5 May 2026 13:09:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777986183; cv=none; b=uDsmAQtp2Q/sLNOu6o16gOkplJ2j5p0DuMCeAR7j/bBpL5FPgSLDwZTCnU5Y49atBv7Mxg961GUzoWr1z8BBuJ+YBhD3kM1N3DBJLnaF+h8qEw4nIyqQUgK6udTq2An0MHTdS6z5fKXpdb3ZPk1jQLLf0g4FWIwUCA2q8mLJ6Qo=
+	t=1777986591; cv=none; b=AdJyTh+Sibqi7XU+PgfnTiTbIhPJPlb7ayvoLi7aLkSo3hvQ5Mxm2IDVJwt4lKdJviG1fKTU9R64ipdcwlaXL/AguX4uDDWVJ5fYyaWQEaq9oP1ocXyBPvSIcJ5QgE0lTfba2fh3DOcptTW1LIRikaKIcacIxS8radjMCA1EB/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777986183; c=relaxed/simple;
-	bh=JLYTr15VdQPAoay2dFvierboxsfdwS3Os0ik8jks8g0=;
+	s=arc-20240116; t=1777986591; c=relaxed/simple;
+	bh=5ieFLJMSGOSPSZfYVl+lUg2WjCFI+Kug2GPWbar7ei4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M1TxCBUYGXHrKrrgu4R9QgRLd186PomusO0uArl1Bo+JDoevFac2ipsRSawBnF/kuOeY6c1CmvTIriAS7fC9R0TXd+/GLFNrVTvZ/YG6suH24+IYuYNB3rxOFkhLd29PjXCILhLs6jXsIrAfy71EDGjQLTvjN7a5kW60TulD8TM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=HFEBFlRf; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="HFEBFlRf"
-Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 4493C874;
-	Tue,  5 May 2026 15:02:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1777986177;
-	bh=JLYTr15VdQPAoay2dFvierboxsfdwS3Os0ik8jks8g0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HFEBFlRfpdaXW0rQ1RFAg6mlgT1BRKnDtEW2mApXgQt0phIEbGPM0+qhGnbv25gxy
-	 rBZLyaJskBQMh0YQrb5GgipxB7MQeRfpIdja0wB9Z84+K+28E4zYbcNaH+vvhoIveM
-	 sFL1IPi/GS0kZuNYkblDUcHTpPOoKy7GKXRTJ9xY=
-Date: Tue, 5 May 2026 16:02:58 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org
-Subject: Re: [PATCH 1/1] media: Documentation: Use right function to test
- device power state
-Message-ID: <20260505130258.GA1601351@killaraus.ideasonboard.com>
-References: <20260326104611.1586131-1-sakari.ailus@linux.intel.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=IrHGt5yFeRI9S9ORuh+LCk5zJCses9kCbvC21Xl0EoxO5xphUpH5HnGpLnIqT3qi3cb++xVcW05VrjPKl9EAYZf6M1locUNul4p6oxnCIMNr34p5/M6wqBoVVm7qNnLlYSR3sJW61dlhRsFdNnnMgiZinXyyQsYm3yLQvas3QzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id A329B1F8005D;
+	Tue,  5 May 2026 13:09:32 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id EDF06B40540; Tue,  5 May 2026 13:09:30 +0000 (UTC)
+X-Spam-Level: 
+Received: from shepard (unknown [192.168.1.1])
+	by laika.paulk.fr (Postfix) with ESMTPSA id 72EE5B40540;
+	Tue,  5 May 2026 13:09:29 +0000 (UTC)
+Date: Tue, 5 May 2026 15:09:26 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: =?utf-8?B?67CV66qF7ZuI?= <mhun512@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Subject: Re: [PATCH v2] media: cedrus: clean up media device on probe failure
+Message-ID: <afnsBu1nepWi8yy_@shepard>
+References: <20260430142534.12928-1-pakmyeonghun@bagmyeonghun-ui-MacBookPro.local>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="OKqRcrL7IoYtAh8b"
+Content-Disposition: inline
+In-Reply-To: <20260430142534.12928-1-pakmyeonghun@bagmyeonghun-ui-MacBookPro.local>
+
+
+--OKqRcrL7IoYtAh8b
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260326104611.1586131-1-sakari.ailus@linux.intel.com>
+Content-Transfer-Encoding: quoted-printable
 
-Hi Sakari,
+Hi,
 
-Thank you for the patch.
+On Thu 30 Apr 26, 23:25, =EB=B0=95=EB=AA=85=ED=9B=88 wrote:
+> From: Myeonghun Pak <mhun512@gmail.com>
+>=20
+> cedrus_probe() initializes the media device before registering the video
+> device, the media controller, and the media device. If any of those later
+> steps fails, probe returns without calling media_device_cleanup(), so the
+> media device internals initialized by media_device_init() are left behind.
+>=20
+> Add a media-device cleanup label to the probe unwind path and route video
+> registration failures through it as well.
 
-On Thu, Mar 26, 2026 at 12:46:11PM +0200, Sakari Ailus wrote:
-> Tell driver authors to use pm_runtime_get_if_active() instead of
-> pm_runtime_get_if_in_use() to check the device's power state in the s_ctrl
-> callback. pm_runtime_get_if_active() is the right function to use here
-> since it returns non-zero if the device is powered on rather than its
-> PM runtime usage_count is non-zero.
-> 
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+The label should be named "err_media" instead of "err_media_cleanup" to be
+consistent with the other labels. With that fixed:
+
+Reviewed-by: Paul Kocialkowski <paulk@sys-base.io>
+
+Thanks for the fix!
+
+Paul
+
+> Fixes: 50e761516f2b8c ("media: platform: Add Cedrus VPU decoder driver")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 > ---
->  Documentation/driver-api/media/camera-sensor.rst | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/driver-api/media/camera-sensor.rst b/Documentation/driver-api/media/camera-sensor.rst
-> index 94bd1dae82d5..c8552f70f496 100644
-> --- a/Documentation/driver-api/media/camera-sensor.rst
-> +++ b/Documentation/driver-api/media/camera-sensor.rst
-> @@ -114,7 +114,7 @@ of the device. This is because the power state of the device is only changed
->  after the power state transition has taken place. The ``s_ctrl`` callback can be
->  used to obtain device's power state after the power state transition:
->  
-> -.. c:function:: int pm_runtime_get_if_in_use(struct device *dev);
-> +.. c:function:: int pm_runtime_get_if_active(struct device *dev);
+> Changes in v2:
+> - Drop the now-unused err_m2m label.
+>=20
+>  drivers/staging/media/sunxi/cedrus/cedrus.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus.c b/drivers/stagin=
+g/media/sunxi/cedrus/cedrus.c
+> index 6600245dff..2c25654640 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus.c
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus.c
+> @@ -507,7 +507,7 @@ static int cedrus_probe(struct platform_device *pdev)
+>  	ret =3D video_register_device(vfd, VFL_TYPE_VIDEO, 0);
+>  	if (ret) {
+>  		v4l2_err(&dev->v4l2_dev, "Failed to register video device\n");
+> -		goto err_m2m;
+> +		goto err_media_cleanup;
+>  	}
+> =20
+>  	v4l2_info(&dev->v4l2_dev,
+> @@ -533,6 +533,7 @@ static int cedrus_probe(struct platform_device *pdev)
+>  	v4l2_m2m_unregister_media_controller(dev->m2m_dev);
+>  err_video:
+>  	video_unregister_device(&dev->vfd);
+> -err_m2m:
+> +err_media_cleanup:
+> +	media_device_cleanup(&dev->mdev);
+>  	v4l2_m2m_release(dev->m2m_dev);
+>  err_v4l2:
+> --=20
+> 2.50.1
 
-This looks fine, but I think we should also mass-convert drivers. There
-are more drivers using pm_runtime_get_if_in_use() than
-pm_runtime_get_if_active(), so we'll keep seeing new code using the
-former due to cargo cult.
+--=20
+Paul Kocialkowski,
 
-For this patch,
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Expert in multimedia, graphics and embedded hardware support with Linux.
 
-Should I submit a series to mass-convert drivers, or will you do it ?
+--OKqRcrL7IoYtAh8b
+Content-Type: application/pgp-signature; name=signature.asc
 
->  
->  The function returns a non-zero value if it succeeded getting the power count or
->  runtime PM was disabled, in either of which cases the driver may proceed to
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Regards,
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmn57AYACgkQhP3B6o/u
+lQxYTQ//Vg6dZ/FBGwVcZvEbR67CmVXDfwgz6zE8GeXVEXwu7GY40c3yev5F2pNn
+0N2ec5Jj2a+nTeRv62lgSsUBy1K+YsRhcQ30RpCkrRGYXESPJ5WeFBU/+IYRJjmN
+G6hW5bN7ZiOZN2jQ53swcwHOZq5cZcxdtpSG9OFDDB66E46fCs67UnfLuv6koUFH
+wtGTgHJKOg5MkO4SjNpN2KEZmDcuPodnaHdvRo/BX1rkY+fS3GKIP5Dtd6W5xBVn
+6ag9Wrwr24akqGWfjRTstDTFglqPIvUZtXJp1w4QVqYsik1o0d9UY+rLqe66DzQZ
+KGNSe9DufKyB9WmeaaXlGFhCbMdLKqWr+LfiVKY0fmEkJlPJkjazs4eKm/c8VN2i
+9TfeW8hlaWev8RrC/pLJxcnJOWNtJCo7pjp2d4zIXg629SAN2yIqn2hMi4cQtpOL
+Ixc3c30xVlEAnSSVXXZgaMGCCgIoSY7JcuWq6JE4cxMmAnZe+zWZKNI8gyi7906r
+mx/ZsKPA91CmsZn02R3/RnaAhHKRTxvRPI3oAnK4mLrzDkNy+1JurgxAr8IuKBQ8
+BLzJr4XI0W1YIrXzo1vMn2PSdaLmroX8ok3TEXS/JAsoeCEjlTsBy2TS1Bliq/2t
++YNKoMFNF6OU34nh+74LO9nsvS/hlPFSixiBiIDOH8zl9AmemqU=
+=PbbW
+-----END PGP SIGNATURE-----
 
-Laurent Pinchart
+--OKqRcrL7IoYtAh8b--
