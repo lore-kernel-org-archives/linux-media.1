@@ -1,54 +1,54 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF5C39EF0B
-	for <linux-media@vger.kernel.org>; Tue,  5 May 2026 06:27:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5EB039EF0B
+	for <linux-media@vger.kernel.org>; Tue,  5 May 2026 06:28:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777962433; cv=none; b=DKoLhRCxa/LF4lpxmmGkNMNdC5jkKeiyfwfbmGOyHK/qsqM6Sr/BHL6otHtHh1dMMJBGxcfaxaysurREzr8kmkMqaBQWDWf/aZVS7o7gZYurtn6lolEoeq8n8qz15tXr+DOfExeXklYW/KDdRBTwfrD/EZ1q1s9A9th22bKfhq0=
+	t=1777962526; cv=none; b=QEkYThKDNavCnH/Xixj8rjoo1QXGuYkn/5eYT2k4ZxB5u0e659t3MLomL4CBenIO3ItasNUetUj0hCTn22V0BBSeSA9sXDIohxEsgq73FRppB5fEEsBWE9q+UHyNKGaCoifqNzWPlTrNRZdW1sQ+6t+UZ+zM97PmM94LbRs5HH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777962433; c=relaxed/simple;
-	bh=TdF8pyWgxeYwKqPJ0luBfMinauTCQ6ZvAXtM2iE9OC0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uAI3e7Tsesf9N9l2pDPNfbIr7+j7CmsftqUuw5d3z6nbfldombRR5ySD9TgzmzgAxZjlU8SvXWm8zmSNMPu30qywjR7Gp9UjWkjl0W5osDsHVv1VGqkRBn7c67PhOoPWjCe5ujDthfh1sDgDncLlW52AG4uo1Gydk6BMibfAjgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WAfSD7jY; arc=none smtp.client-ip=198.175.65.13
+	s=arc-20240116; t=1777962526; c=relaxed/simple;
+	bh=Z5q9kbpu+YVibmPZ3irN56OC9K7TS0y54QdFeo2dXQY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ptxR0HL+1Vifg4EPDVsIiFsWlnP8f+ZRJsMqLjY2dkFwxYrKsYbgDFLk/l2wHjgoJJQEZcS0m0i/mbZexI2DzQwlVbfioBInkcvobKQ7RpSi8lrLjfMipgTETz3bk5SDYk+7eld3m/ylvRN511p0y6oHi4E43g6PuBKoaHC2FvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=leXi1OVu; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WAfSD7jY"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="leXi1OVu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777962431; x=1809498431;
+  t=1777962525; x=1809498525;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=TdF8pyWgxeYwKqPJ0luBfMinauTCQ6ZvAXtM2iE9OC0=;
-  b=WAfSD7jYmj1dc3bR5xJR7CkdzKi6Y0USCrwBYWo/vk5A3ySr4IU9SeNu
-   gp7c0sMKk5jZVSSR6iZCWagZSBKkXbRBf7jh/V8unNOc/dyxehK6Cp7I8
-   MzdU3NvAWo7FSxjNfk1Z+9JeMK/HClrWHbRhbEbpyAbK60o4GrtLhKiJi
-   PT9nLCO7D1pJUSh7zosyl8wohKU/ZZiBXLTHPFvQ+SxiGkr6TSH7/W6jz
-   XC1FnN+cZ6cwRTGi+R/aomxudGK5Bw3JdAvJ6q3StO3CoCigWzslqBNUD
-   b1wzeY6hXDvMfYxKVyhJpTRF9HzYssUi54NpgbNuiSLrVd9gRPUXK9nuP
-   Q==;
-X-CSE-ConnectionGUID: hl/PcD7jSBubb1MvUaSU6A==
-X-CSE-MsgGUID: nTJJNI+aSTirI10spjAI0g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="89928313"
+  bh=Z5q9kbpu+YVibmPZ3irN56OC9K7TS0y54QdFeo2dXQY=;
+  b=leXi1OVuP5yfcYL/DAmY5PFeID8v94cvW67jHKrG0tSg/w8Kuo4kDcqL
+   eLKKxoOOHbsT6IFyyf7chlZRfXBmoAHbmOnirhizMkTWITH7Mw6q2dQXr
+   9wOjGJFRX+/iWdll+BX4NNDSyyfn4+hx3AsX6yDM9W13rp99b+EXeJixP
+   0VXhHqhPWf220xkfyhnIVK5UjYtOvB+2uy4rnp6B5xsiEk1gqVs4QRcmP
+   f9myL1e3O8ikZhzk05B4nyhaOKHE0n3IYpuOwY1a4C4LqpPOzhppONzGv
+   qrTCr+KrthzvbtX4eesABtHAzoLQWrx2/l/C4EWFWAk9/3XmhW7RcI5/H
+   A==;
+X-CSE-ConnectionGUID: crBh2DWVRqCFokRqVz1/zg==
+X-CSE-MsgGUID: kMS7o9UWTnKpkv+1gK0jCw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="89414633"
 X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; 
-   d="scan'208";a="89928313"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 23:27:11 -0700
-X-CSE-ConnectionGUID: QjGOI9HoTiWH+LZvJJ58cg==
-X-CSE-MsgGUID: XtpA3T6wR7OF5c+2ZsVefw==
+   d="scan'208";a="89414633"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 23:28:44 -0700
+X-CSE-ConnectionGUID: f/rTviV7QnKIlHjeHIrqtQ==
+X-CSE-MsgGUID: QdCo8/JESOOREf4e9T61Sg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; 
-   d="scan'208";a="231351936"
+   d="scan'208";a="259392988"
 Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.23])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 23:27:09 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 23:28:42 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 310BA121CB0;
-	Tue, 05 May 2026 09:27:09 +0300 (EEST)
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id AB225121CB0;
+	Tue, 05 May 2026 09:28:42 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wK9FM-00000001keQ-1EZm;
-	Tue, 05 May 2026 09:27:08 +0300
+	id 1wK9Gr-00000001kfs-3mGW;
+	Tue, 05 May 2026 09:28:41 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: linux-media@vger.kernel.org
@@ -57,9 +57,9 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
 	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Subject: [PATCH v4 1/1] media: v4l2-subdev: Fail {enable,disable}_streams and s_streaming nicely
-Date: Tue,  5 May 2026 09:27:08 +0300
-Message-ID: <20260505062708.417646-1-sakari.ailus@linux.intel.com>
+Subject: [PATCH v5 1/1] media: v4l2-subdev: Fail {enable,disable}_streams and s_streaming nicely
+Date: Tue,  5 May 2026 09:28:41 +0300
+Message-ID: <20260505062841.417736-1-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -82,7 +82,9 @@ Cc: stable@vger.kernel.org
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 ---
-since v3:
+since v4:
+
+- Send correct patch (v4 was the same as v3).
 
 - Use WARN_ON() instead of WARN_ON_ONCE().
 
@@ -90,15 +92,15 @@ since v3:
  1 file changed, 4 insertions(+)
 
 diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-index 831c69c958b8..3b726f044d3f 100644
+index 831c69c958b8..d00d27d49060 100644
 --- a/drivers/media/v4l2-core/v4l2-subdev.c
 +++ b/drivers/media/v4l2-core/v4l2-subdev.c
 @@ -2504,6 +2504,10 @@ int v4l2_subdev_s_stream_helper(struct v4l2_subdev *sd, int enable)
  	u64 source_mask = 0;
  	int pad_index = -1;
  
-+	if (WARN_ON_ONCE(!v4l2_subdev_has_op(sd, pad, enable_streams) ||
-+			 !v4l2_subdev_has_op(sd, pad, disable_streams)))
++	if (WARN_ON(!v4l2_subdev_has_op(sd, pad, enable_streams) ||
++		    !v4l2_subdev_has_op(sd, pad, disable_streams)))
 +		return -ENOIOCTLCMD;
 +
  	/*
