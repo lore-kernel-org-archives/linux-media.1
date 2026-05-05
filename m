@@ -1,150 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44A239A7FD;
-	Tue,  5 May 2026 12:05:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777982755; cv=none; b=cSQe+IIO7ged2peeU04gJGAyl/xTOTknnjshE1Nb9dQg4HTTkfCXgHuSneUPfSI7HDQa9cb4fihY3vrje56MOaIAZ1qAE0UXhgpCvkCsEGJSqKuSYbORuIILJX6WNgr3q9V3dgy8HPocuFvoiDcQpP88FhO/fbnrAd2WAi8I4/c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777982755; c=relaxed/simple;
-	bh=tFcPGTWeki9Taijwy4G4ifPpnSu4/IV8i4QfyCO1ngc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SXHvgd1fPssFkwJm0ON76rzWbea8Co0bEHYeXyhlJRAWLmBG1HLemjo/+Vh2DSKIT7dzniNqd8PUHlJE53OEA7iwDlyoMuew0c7FjmpAr6Yj2sTLKqI9VYFDD2R3E6XZ8szsJkWjMzK8I/EAZ5Cg5TMTQkViQIw6Vpgi6wNr7So=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=geC38nXa; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C7443CEC6
+	for <linux-media@vger.kernel.org>; Tue,  5 May 2026 12:25:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777983937; cv=pass; b=UOIDYSU5s/J7xcShkOE2/BsWNEmVrt383YUd5bgjNVA9dBOdCTw3q+P1r2PDvl4bjFt2pVCapKXbBazy/yOYZcEovFZr1DwRGbGGsMYnr1SjNQFedH/QQvT+MZDrv8QwuPf5Bn5sk34pN3h5oq/jwR8pK0nG4ClOch5Li5uStQ4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777983937; c=relaxed/simple;
+	bh=HZWYzWladWJeV9q+/l+O6PxJw3m9uSCSBP6PCqtZITI=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=nrh59aX98mOG321umU/KyEeq9K3pp+ArUedvJ548gdHGCkdePFYbP/gEDCKkymbFnf/nU2E7f4jNVNoUDHbZuXRlIk1vdIuDGwgU05+xHJpCATsST3RXZFCzNLUv6sxxmW8408CSdYAuJ+aNgkPhQpGsTbvN0Aje6Mc9CM7Hp70=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZQOU3M/j; arc=pass smtp.client-ip=74.125.224.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="geC38nXa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA4FC2BCB4;
-	Tue,  5 May 2026 12:05:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777982755;
-	bh=tFcPGTWeki9Taijwy4G4ifPpnSu4/IV8i4QfyCO1ngc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=geC38nXa6csEkTLKYAawWN8RrwJl41tXmaj1xWMjq0ujUUBcAwhKtyHeyPlvxZXDl
-	 1TDps2n6W762c0Tu+mn7bo9T2i2nMufXDVVT5dWnWpku9PpKG4zGZEHA43Numyv9dd
-	 +XUd/iZlXAAtw0ZAe1Tn2SKrlQ+CCXTgLvZ9FlGI3iQrVjoqV6NtiN5f4bZvZ7R5Qd
-	 NfWaHGGjRe3k5hX4I1s3nELijKuUL2QCuZE6pc0DCiJ7jo/AMLODHyLt7v/d8fHWON
-	 XiVLiUc0dBQabY1qQOUMoPcuQ9AI19AwBbJqlqTRQC/Xh+2oZso2y4HJM9AqP8G6HJ
-	 ZU+ZnBBXRTVMg==
-Message-ID: <79449571-d8c6-4fa7-8d53-5b358b73d34f@kernel.org>
-Date: Tue, 5 May 2026 14:05:51 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZQOU3M/j"
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-64d5a7926cfso5019903d50.2
+        for <linux-media@vger.kernel.org>; Tue, 05 May 2026 05:25:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777983935; cv=none;
+        d=google.com; s=arc-20240605;
+        b=CWnURG+kx77HQG3XTSBMnyNHRYvfcevGj576M4f4i8m2ylu6in/tQbNMAYc3hcOQHJ
+         Rb4SwfGYtLr+ZklXGIiHyWESV0A+J9DhdU4B8EHpm11s2rF4znvDFxBQN7oJHP+wv6m6
+         EBaNTIgDVOnP2ozuJDzCuyZUhpVNuQKijvyOhsHlBRPbAWEJV3iSHwp7RpzWEhM3wWxC
+         xj5gyqjmUWZx02OMwUO0UAhbekcNXNOpBQN78sXmnjP+8b6GUksy0mI69CMPcm8nok20
+         X++0aEN12B6k/hbqsowzpPzl0HG14lFHbgr3OAzWYFf7jQqhS6XILVQG7vyr3WkTTfNL
+         4xyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=HZWYzWladWJeV9q+/l+O6PxJw3m9uSCSBP6PCqtZITI=;
+        fh=yPYvDOY9WZowN7u7UCHjGgKRqyPg/lLnZar50jOXrCI=;
+        b=hElp9WHtN2YDLwACBfqxkEJ7WMufU4dPcHlCa2M5tU6ExR4r+3ucf6ZkoDkMog2GcR
+         yPRi3IKSsS4APoX+0fY1WQm2OOehe2yXnHdue3jXmcWAgH88dUc99CwAQG8wPUuosbd1
+         IspP602oraSZQITXtd8eudfzhQD2jw6WpBtEeAO8J4gKe9Gm/O1YeqT9+oSnQlCrKwjb
+         ct3qcrDqfcLzqHf6AIWNTtDX3Df9eTC7f74Z/gUKJKa/a5CHM4PODrUEAPRrV0xR+7QM
+         RtbGRlDhUFNXpOnMvOrqIjXAZaviqHSYJZqiJuDEG1PsjcHFXSB4GdJJIB1Bd9xFdTQ6
+         lKqw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777983935; x=1778588735; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=HZWYzWladWJeV9q+/l+O6PxJw3m9uSCSBP6PCqtZITI=;
+        b=ZQOU3M/jG+OwqxFi729qgWQmFUv+ytbhs1jBEIQar5Sq2VGaMcFgpBe3e/Zrr4sB04
+         k2MCsjSWVe9m+nUGYbwADmXCg36vV3r1oVznnJSlQWENc5gKk+EJ1EWQybXccT2Uocnw
+         N73ZwF76OJFX4vK+WsiFgerU4zKGQ93hRYvxMMX7nRBuDPq00sORmxXhSvtZCgXJomzP
+         JL2LHIC7Y6DTQmUsS/G4mtkWIxMPswCCdO1YmJpf7ABZsVJDOr3SKCI7UTwJ7eri2Azo
+         Uew5lb+uP5efwW1WAmbZX+lY0S96cfjJdSSuGT68vU/qmq7jSSmQhqJtb4zro75C9z+p
+         IFIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777983935; x=1778588735;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=HZWYzWladWJeV9q+/l+O6PxJw3m9uSCSBP6PCqtZITI=;
+        b=SmaThLEjObkKAxE6L/bbbAlInA7jx44AE4IzqqGajKciokJNqRcYvZbJfwS1TvZVKi
+         Yci4BrUg0sGQPCNgj/zuY0W9LnYJN/G5tPvCRv9T4qpTumBy5ps8hQs411t3TOJiuDkI
+         1gXTkNWPaHy+w3a7/DB3PZDxfkYQ7nJwmTVX95pTMIF9v2gJ6m/zX/Z/R3X45UNajBVg
+         FtiQAW/eDvyS1OJPzhyO0UT1Wf1+ydEXLnItaMuTvy9gLwqBshbMyk9YbSt/hZRLKxdx
+         h2woZ/0Dqb4DKNPL+Pq0CXMQRqAHgnJBK2jeb55JpfSpckiaMTJkr7zh9MMr9lg6EMNM
+         Fbww==
+X-Forwarded-Encrypted: i=1; AFNElJ/szgH1N9EUaLs8ZhpZgJDe3/7M8QOjd6T5NdBC8A5W+rpf+X4f+xrQbzTk/WEnTjExK5+zkdwJpTISVg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyI9Xo4svi91YyXSrLLGklCYYmKESWy2zVCYneoMq6JHEscqsck
+	8jFJEzviye+G/FoCrkBYCPrssOlEXoKcExvJvkR9zVbX9x+fIQTaLyRlXsbqeUvtelnIh2E3vaW
+	CzarTksUcTqRTm8dHlubwL5FGrHFVrCA=
+X-Gm-Gg: AeBDiesFTzzGzuP7Go4GHr6WHUAgDTjiRET/RsqTnF5vXO0Pt18oW+c6CqAycFYnTNq
+	XbUvSfhEfpZL5ETKds8mL9NadqhE9RM3jJ3MP7X4J1TIwzBDzpiGFwjmGZXu66FxP2bPPRylR0m
+	Y8Tbohlmo99OAAbl7go8pVMiP6gIp1xcXTGjIocZDmyo7RlOqZcxtA3n01JHYvKFJxfTfJWsy0m
+	nWGQA+bcmentW4YVJEaDcOM4DV7DdihVN9vmJHLEX11FeREpqvhBqknblDjebqCTKfEHgmGOvK1
+	PZUbPrhCsscbI0eD3CQp/CUJDtvbJxvDd8W66ohPHWq7hy/4b92X2a0x8ro=
+X-Received: by 2002:a05:690e:bcc:b0:651:c642:92aa with SMTP id
+ 956f58d0204a3-65c3d96c23cmr13772518d50.4.1777983934692; Tue, 05 May 2026
+ 05:25:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] media: tuner: check return value of I2C transfers in
- set_type()
-To: Wenyuan Li <2063309626@qq.com>, Andy Walls <awalls@md.metrocast.net>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- gszhai@bjtu.edu.cn, 25125332@bjtu.edu.cn, 25125283@bjtu.edu.cn,
- 23120469@bjtu.edu.cn, stable@vger.kernel.org
-References: <tencent_46889E152DE22B7E8A0CBB3311C556F92E09@qq.com>
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Content-Language: en-US
-In-Reply-To: <tencent_46889E152DE22B7E8A0CBB3311C556F92E09@qq.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Julian Orth <ju.orth@gmail.com>
+Date: Tue, 5 May 2026 14:25:23 +0200
+X-Gm-Features: AVHnY4LL44QJqBkbe9sCcXJw21A8-75K1LYnugX0XOneV6VVtcfwiV6fhBeQKiE
+Message-ID: <CAHijbEXhuVRgkkPA2dAC=njGBU7vpAbxAbsSmxvvPznO-ckVRA@mail.gmail.com>
+Subject: Regression due to /sys/kernel/dmabuf/buffers removal
+To: "T.J. Mercier" <tjmercier@google.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	corbet@lwn.net, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	Sumit Semwal <sumit.semwal@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 3/29/26 12:51, Wenyuan Li wrote:
-> In set_type(), several I2C transfers are performed to initialize
-> specific tuners (e.g. FMD1216ME, FMD1216MEX, TD1316), but the return
-> value of i2c_master_send() is not checked.
-> 
-> If an I2C transfer fails, the initialization sequence may be
-> incomplete, potentially leaving the tuner in an inconsistent state
-> without any error being reported.
-> 
-> Check the return value of i2c_master_send() and propagate failures
-> to the attach_failed path. A small helper is introduced to reduce
-> duplication and provide consistent error reporting.
-> 
-> This ensures that I2C communication errors during tuner
-> initialization are properly detected and handled.
-> 
-> Fixes: 93df3413f1b4 ("[PATCH] v4l: 655: added support for the philips td1316 tuner")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wenyuan Li <2063309626@qq.com>
-> 
-> ---
-> v5:
-> - Reword commit message to better explain rationale
-> - Clarify error handling approach
-> - No functional changes
-> 
-> v4:
-> - Added Cc: stable@vger.kernel.org
-> - Updated Fixes tag
-> ---
->  drivers/media/v4l2-core/tuner-core.c | 22 +++++++++++++++++++---
->  1 file changed, 19 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/v4l2-core/tuner-core.c b/drivers/media/v4l2-core/tuner-core.c
-> index 004ec4d7beea..01f28436a1f8 100644
-> --- a/drivers/media/v4l2-core/tuner-core.c
-> +++ b/drivers/media/v4l2-core/tuner-core.c
-> @@ -280,6 +280,19 @@ static const struct analog_demod_ops tuner_analog_ops = {
->   * Functions to select between radio and TV and tuner probe/remove functions
->   */
->  
-> +static int tuner_i2c_send(struct i2c_client *c, u8 *buf, int len)
-> +{
-> +	int ret = i2c_master_send(c, buf, len);
-> +
-> +	if (ret != len) {
-> +		int err = ret < 0 ? ret : -EIO;
-> +
-> +		dev_err(&c->dev, "I2C send failed: %pe\n", ERR_PTR(err));
-> +		return err;
-> +	}
-> +	return 0;
-> +}
-> +
+In ab4c3dcf9a71582503b4fb25aeab884c696cab25 ("dma-buf: Remove DMA-BUF
+sysfs stats") the /sys/kernel/dmabuf/buffer directory was removed.
 
-I think this is overkill, and I also like to keep changes to this old code
-to a minimum.
+I've been using this interface, specifically the exporter_name file,
+to detect dmabufs created via udmabuf. Such dmabufs show "udmabuf" in
+exporter_name. I've been doing this for two reasons: 1) to detect that
+mmap on such buffers will be fast and 2) to detect that GPU access to
+such buffers will be slow.
 
->  /**
->   * set_type - Sets the tuner type for a given device
->   *
-> @@ -351,11 +364,13 @@ static void set_type(struct i2c_client *c, unsigned int type,
->  		buffer[1] = 0xdc;
->  		buffer[2] = 0x9c;
->  		buffer[3] = 0x60;
-> -		i2c_master_send(c, buffer, 4);
-> +		if (tuner_i2c_send(c, buffer, 4))
-> +			goto attach_failed;
+With the removal of that file, that detection mechanism no longer works.
 
-Just keep it simple:
+I'm not particularly fond of that mechanism but it was the only one
+providing that functionality that I could find at the time. If there
+is another one, ideally an ioctl on the dmabuf, please let me know.
 
-		if (i2c_master_send(c, buffer, 4) != 4)
-			goto attach_failed;
+Shipping an entire BPF compiler in my application, which the original
+patch suggests as the replacement, is not an option when the removed
+alternative was simply reading a file.
 
-Ditto below.
-
->  		mdelay(1);
->  		buffer[2] = 0x86;
->  		buffer[3] = 0x54;
-> -		i2c_master_send(c, buffer, 4);
-> +		if (tuner_i2c_send(c, buffer, 4))
-> +			goto attach_failed;
->  		if (!dvb_attach(simple_tuner_attach, &t->fe,
->  				t->i2c->adapter, t->i2c->addr, t->type))
->  			goto attach_failed;
-> @@ -365,7 +380,8 @@ static void set_type(struct i2c_client *c, unsigned int type,
->  		buffer[1] = 0xdc;
->  		buffer[2] = 0x86;
->  		buffer[3] = 0xa4;
-> -		i2c_master_send(c, buffer, 4);
-> +		if (tuner_i2c_send(c, buffer, 4))
-> +			goto attach_failed;
->  		if (!dvb_attach(simple_tuner_attach, &t->fe,
->  				t->i2c->adapter, t->i2c->addr, t->type))
->  			goto attach_failed;
-
-Regards,
-
-	Hans
+Thanks, Julian
