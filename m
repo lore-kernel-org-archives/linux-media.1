@@ -1,35 +1,34 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9E248032F;
-	Tue,  5 May 2026 14:12:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A44147F2E8;
+	Tue,  5 May 2026 14:12:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777990368; cv=none; b=mDrjZFqiAd3HJYluZnwjCYhZZFvUobRseXonY/4uE+3+vC6o0bP8fOZhXgUPY9SzPRdQRpODfJXunyBuuqaavPK5e1XFAv/GW1rZt6ddNjxgMBZRjmeCGGwYvMH8rn4YqE9nngsyxloDESy5VSxm84qPIMcq+eEv/HhG71ChpwE=
+	t=1777990378; cv=none; b=Gwdr2jvYpBPKKCJ0rFZDHGwIWXmSGHN+ccTPFT/mmqIRiLEvetIgzZX57G4d/xqZYD6nDetNUrAwOeeGhZBpZR6ZKxv0tk3FOHMNLU+QRfPIKBR9v/gMQ9w09H3SKTrhp3OOUHD+qbg4jlKQT940q6u4GsrXVAGDmpNg3ENZjGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777990368; c=relaxed/simple;
-	bh=6cpwZlYBX25LxZlVKKxAzE8ienKp5EIXWJ0alPjFWO0=;
+	s=arc-20240116; t=1777990378; c=relaxed/simple;
+	bh=41S+ZeIQVev9eVoYtAcBbO2DN3BHJm0Mrl6dgk7LAJg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=q+hJwH5jwWvYQuG8cPDWQXNF/jhV6YZaMwx8BvSohWL29wbgSe3XKyMVQjuVI3lvRBuP5yOFsuVPE9r+wOCvBvdb0CpKUEMNzhF+85oaLUEyaC2Exq5z6nfLdrgEHIv13RJhupcFSby6C+dqCUFRK7kbpU5S8dVtSf+DPfb/mdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=r9fK/Usz; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=L3RRbhptkapH/VpejrIasgL6VH9SHgofbdibdxGynHnhcDJFggtrdetfAxioaEKMoBfHnhHtc8krFHCeUJgCBBRfoDdnu/tTppeg7IR1PwqYISsSxDdmGr+clCAhUlNFIPMzm8UTjULlPzv9/5bEdFuN4Eymdrhqo8X3Y5ZG2jQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=NL6HMGll; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="r9fK/Usz"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="NL6HMGll"
 Received: from [192.168.1.83] (unknown [IPv6:2001:b07:6462:5de2:520d:d7a3:63ca:99e8])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DBE341121;
-	Tue,  5 May 2026 16:12:35 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AEBC92451;
+	Tue,  5 May 2026 16:12:37 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1777990356;
-	bh=6cpwZlYBX25LxZlVKKxAzE8ienKp5EIXWJ0alPjFWO0=;
+	s=mail; t=1777990358;
+	bh=41S+ZeIQVev9eVoYtAcBbO2DN3BHJm0Mrl6dgk7LAJg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=r9fK/UszoDf5or5mcWna9IttkBeY/J9JrNUDgnvZgfhaOmQkRvl5ZQMcygME6q3+C
-	 DThsxedbURTEZ4swqqrIA+VBOszSsca4tHFcGoWC7RtvfyjL757ZhGox0C5vxWl9i1
-	 8cR8PvkB3PZ1e12w7X5cXTbEzCQnZc3g9oICu4Vc=
+	b=NL6HMGllt+pQ4CHmqvNsRXnWhMwpmk32bBWPyvuzcS9J4171fBo+6uhsUAQBxb6aF
+	 eRlh4afLvQJ1i6XT9Gek1mZWspiu2o6XLRprMLS2a4Hyq6mPISksSfFR87oVBWxyWi
+	 wfKvSDvmPUM/qNayVUj1+lqJOPx7RJ+uT/mWAghE=
 From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Date: Tue, 05 May 2026 16:12:13 +0200
-Subject: [PATCH 2/6] media: Documentation: uapi: Update V4L2 ISP for
- extensible stats
+Date: Tue, 05 May 2026 16:12:15 +0200
+Subject: [PATCH 4/6] media: v4l2-isp: Add per-block validation callback
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -38,7 +37,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260505-extensible-stats-v1-2-e16f326b8dad@ideasonboard.com>
+Message-Id: <20260505-extensible-stats-v1-4-e16f326b8dad@ideasonboard.com>
 References: <20260505-extensible-stats-v1-0-e16f326b8dad@ideasonboard.com>
 In-Reply-To: <20260505-extensible-stats-v1-0-e16f326b8dad@ideasonboard.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -52,109 +51,88 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4275;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2781;
  i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
- bh=FjWOxxtsPzgrK1twE+7vwZ0Gd7DpMY7KtdZmVJPZXUc=;
- b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBp+frTNWKRrAxUy6GsyyPfHamSHH2RZbEp9QVo5
- ByVHW6NkKWJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCafn60wAKCRByNAaPFqFW
- PJncD/9EBmK1fSgSGP7/1mBXxYcTH837Dcw4KgGowxEHKlLAPKRNXrjDv5JmvdvQJ2apg1ew6c5
- 9WXrqzCxjwA9JLXlWNZHTQbxiNgBZhwsLAmi0EodybmbMiqNl8E+rl70/ylfpUUTGbITmenY0bm
- Cf6dAEirBXt6P8mvCCtbFj/atoc8+f3h8jhvJugdqya7+fSpJTYwxnrBLo+JKrMhtEsyMw6w2nY
- GrkzcEtu9zRxR0bLcKpR7PRGnIRC8R81sMvs2jIJlB/sobJSIsavEzZXCwhJm80EGg/yAh5XKPU
- cd2I7i8/cGN0UEbikUTgtsaulN/i9IIPOfCWg9BTyAMYkUDURFkmto65EBI0JGvF+knhtSHTBgm
- L3tQbs+0LV8BE4D36E8mGrcyq06GNAc2XV35HTmVcepeHeGE+8wTZIKkVY10+st2yeEaet7H7Mp
- tUDbEHGWDVQtlz8P0JZSICfDpHyf3JN3Z+gF4okTkDd79w8NLQlZBH4IUQIRTUlv2tvpSCAsfEb
- qJasJSs7l1j5PyPjl63GJ/ZlWCqzYe6BEry2V4wDpBI2eSNbw9CPj4X/qhXfFTHkj/gkvdGN4Ok
- ukPgDRoRixcj8947SNh7s8u/fzW/tc2WHdEWAwbp006CsP3JRfPoH6NpHjhSBISBk64hg2CdhHm
- zQ9IYVT2gC57tVQ==
+ bh=41S+ZeIQVev9eVoYtAcBbO2DN3BHJm0Mrl6dgk7LAJg=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBp+frTVSWF7yv4xDBcD0gjY4dugGG9XfOy++9yV
+ VVorFkXOA+JAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCafn60wAKCRByNAaPFqFW
+ PIz8EACj7V+zRXC4u5qfikTaL6FKwppx79pILp9nFP7AlqQTjG0kvz8AxwMO2P4Ttz6GGcJFrFY
+ Heynk/Ml4WTxVH/XYjO0pFr87dQFWAdofepBDQP/mWBf9SnPGAxl/C7fOy+3SGqaX9RwFbXp2EK
+ /zNZFPWfPOmvu7dKYFFgTs/DSlZplqeIBwWWwmCaI/eX7B/T06sJ2eynOBW5AU1VnwnMg+WPDuB
+ PCCIBbhtMeojhD6wYXskV8Og34XHcrE+mWSd+oe/NXdpmZgibs/YV5WMYMkmaIrFK1/4jCmYxW+
+ BM1MzeHbAGjLTa73eUxzIwLhtF6tef/Q/jSQX8/otFT+NBT/SH70iJxDzvf3z3TLjUIsxhXP5Dr
+ 25zkHLqJUbndWEN1jY+8DUgmq41Ag3+ZK2g3RPJ9B1sb/AeWAnw5AKogAzquPY/6eP0Cdxb6+Nm
+ mGchhHWy0rZcQVkwjXkV2W2cEvX0usdWqojT5+ZZSFmkFbSw8uTBDAmhxfiHlwQCLHHgJ+lh4T7
+ eMRIwFOKHDZK8T0ZMBttYvuyCnGQLWlAMV7Wkk45aaz0YnrJ2hYWjeDaZxwidZq04tGSyamw7VH
+ pNF3gskzYgQyQNzPHESonll4oprEM3faSSLHS/PLFsG+OXAb/onE53JdwbCVV3unxxOVwKPP1LR
+ 1CgTUy7xNDrIrWA==
 X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
  fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 
-From: Antoine Bouyer <antoine.bouyer@nxp.com>
+Drivers are expected to provide to the helper function
+v4l2_isp_params_validate_buffer() a list of 'struct
+v4l2_isp_params_block_type_info' entries, one for each supported ISP block.
 
-Rework the userspace-api documentation of V4L2 ISP to support
-statistics.
+The type 'struct v4l2_isp_params_block_type_info' so far only contained the
+expected block size for the core framework to validate the declared block
+size against the expected one.
 
-Update all occurences of 'v4l2_isp_param' types to match the uAPI
-changes and add a section to document the statistics serialization
-format.
+For some blocks, drivers might want to implement more precise per-block
+validations. Add a function pointer member to 'struct
+v4l2_isp_params_block_type_info' to allow drivers to register a callback
+and call it from the core framework during validation.
 
-Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
-[Update on uAPI changes]
 Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- Documentation/userspace-api/media/v4l/v4l2-isp.rst | 45 ++++++++++++++++------
- 1 file changed, 34 insertions(+), 11 deletions(-)
+ drivers/media/v4l2-core/v4l2-isp.c |  4 ++++
+ include/media/v4l2-isp.h           | 11 ++++++++---
+ 2 files changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/userspace-api/media/v4l/v4l2-isp.rst b/Documentation/userspace-api/media/v4l/v4l2-isp.rst
-index facf6dba1ca7..8a3f05b5e85f 100644
---- a/Documentation/userspace-api/media/v4l/v4l2-isp.rst
-+++ b/Documentation/userspace-api/media/v4l/v4l2-isp.rst
-@@ -18,22 +18,22 @@ single C structure that contains a header, followed by a binary buffer where
- userspace programs a variable number of ISP configuration data block, one for
- each supported ISP feature.
+diff --git a/drivers/media/v4l2-core/v4l2-isp.c b/drivers/media/v4l2-core/v4l2-isp.c
+index 29831f7032e9..10760659f8a3 100644
+--- a/drivers/media/v4l2-core/v4l2-isp.c
++++ b/drivers/media/v4l2-core/v4l2-isp.c
+@@ -114,6 +114,10 @@ int v4l2_isp_params_validate_buffer(struct device *dev, struct vb2_buffer *vb,
+ 			return -EINVAL;
+ 		}
  
--The :c:type:`v4l2_isp_params_buffer` structure defines the buffer header which
--is followed by a binary buffer of ISP configuration data. Userspace shall
--correctly populate the buffer header with the generic parameters format version
--and with the size (in bytes) of the binary data buffer where it will store the
--ISP blocks configuration.
--
--Each *ISP configuration block* is preceded by an header implemented by the
--:c:type:`v4l2_isp_params_block_header` structure, followed by the configuration
-+The :c:type:`v4l2_isp_buffer` structure defines the buffer header which is
-+followed by a binary buffer of ISP configuration data. Userspace shall correctly
-+populate the buffer header with the serialization format version and with the
-+size (in bytes) of the binary data buffer where it will store the ISP blocks
-+configuration.
++		if (type_info->block_validate &&
++		    type_info->block_validate(dev, block))
++			return -EINVAL;
 +
-+Each *ISP configuration block* is preceded by a header implemented by the
-+:c:type:`v4l2_isp_block_header` structure, followed by the configuration
- parameters for that specific block, defined by the ISP driver specific data
- types.
+ 		block_offset += block->size;
+ 		buffer_size -= block->size;
+ 	}
+diff --git a/include/media/v4l2-isp.h b/include/media/v4l2-isp.h
+index d70ed6b431e7..1f35a52f978a 100644
+--- a/include/media/v4l2-isp.h
++++ b/include/media/v4l2-isp.h
+@@ -55,17 +55,22 @@ int v4l2_isp_params_validate_buffer_size(struct device *dev,
+ /**
+  * struct v4l2_isp_params_block_type_info - V4L2 ISP per-block-type info
+  * @size: the block type expected size
++ * @block_validate: driver's callback to implement per-block validation
+  *
+  * The v4l2_isp_params_block_type_info collects information of the ISP
+- * configuration block types for validation purposes. It currently only contains
+- * the expected block type size.
++ * configuration block types for validation purposes. It contains the expected
++ * block type size and a function pointer where drivers can register a callback
++ * for additional per-block validation purposes. The validation function is
++ * expected to return 0 on success or a negative error number for errors.
+  *
+  * Drivers shall prepare a list of block type info, indexed by block type, one
+  * for each supported ISP block type and correctly populate them with the
+- * expected block type size.
++ * expected block type size and the optional callback.
+  */
+ struct v4l2_isp_params_block_type_info {
+ 	size_t size;
++	int (*block_validate)(struct device *dev,
++			      const struct v4l2_isp_block_header *block);
+ };
  
- Userspace applications are responsible for correctly populating each block's
- header fields (type, flags and size) and the block-specific parameters.
- 
--ISP block enabling, disabling and configuration
-------------------------------------------------
-+ISP parameters block enabling, disabling and configuration
-+----------------------------------------------------------
- 
- When userspace wants to configure and enable an ISP block it shall fully
- populate the block configuration and set the V4L2_ISP_PARAMS_FL_BLOCK_ENABLE
-@@ -59,7 +59,30 @@ definition without invalidating the existing ones.
- ISP statistics
- ==============
- 
--Support for generic statistics format is not yet implemented in Video4Linux2.
-+The generic ISP statistics format is identical to the generic ISP configuration
-+parameters format. It is realized by defining a C structure that contains a
-+header, followed by binary buffer where the ISP driver copies a variable number
-+of ISP statistics blocks.
-+
-+Extensible statistics buffers have :c:type:`v4l2_isp_buffer` header followed by
-+a binary buffer of ISP statistics data. ISP drivers populate the buffer header
-+with the serialization format version and with the size (in bytes) of the binary
-+data buffer where ISP statistics data are serialized. Applications shall
-+validate that the serialization format version matches the expected one and that
-+the buffer size doesn't exceed the maximum size for a statistics buffer as
-+declared by the driver's uAPI header.
-+
-+Each *ISP statistics block* is preceded by a header implemented by the
-+:c:type:`v4l2_isp_block_header` structure, followed by the statistics data for
-+that specific block. The driver might optionally report platform-specific flags
-+associated with each statistics block.
-+
-+Applications inspect the statistics block type as reported in the header and
-+validates the reported size matches the block's expected size before accessing
-+the ISP statistics data.
-+
-+Extension to the statistics format can be implemented by adding new blocks
-+definition without invalidating the existing ones.
- 
- V4L2 ISP uAPI data types
- ========================
+ /**
 
 -- 
 2.53.0
