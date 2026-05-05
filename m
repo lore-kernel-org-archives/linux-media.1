@@ -1,125 +1,201 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B0F3EE1C4;
-	Tue,  5 May 2026 16:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E34448C8A4;
+	Tue,  5 May 2026 16:32:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777998391; cv=none; b=b2XqrhMSx9cgqNL5aIJy/EEMCa4y7XwGuepE7hurErLXRA/YP+qllxrFRA6frgYh6ik4XxdbRKMG3XxjzkJ5CpIYcU/98fjbb+v02TWZrWiYpLGc2cW3qHOoHeERPPSI7gFQjYbtQab9wwxkU+/yVJgo2bijO+gucVg7GiOaj/g=
+	t=1777998774; cv=none; b=YgI3W54xH60A4HbGp77KI8dkozkR1D4GxAbSG62LiQQ/5iNMZ9xUkHSx1kNg4j3xxs6z8K/VKl6PbdhBsNQwyG+z5sbaTXf3++kA2Hy5LuHAfO0W1u4Bm5MAIEP5QjiK3bhmLgBMPJgO/Z1FR8Ll9/GIAnIZrfokX0ytq15kCN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777998391; c=relaxed/simple;
-	bh=d9oRhAaRGwydDiDuK7BhCRvRWDp8pOBlU9+d0qcoLXY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=YjO8IVpMtSzCXGDC2g79qdmSNbTcXozg1SPKqgVjg/MPfo+j/eJYcAoIiSrMv0yC2XUaaLSE6CFwkfpe0i40Hb0Ukrk+jajW6M67+pxCmfcbur3xRzWfG3w1C/EKjxUMVnc8yjw1nBI3bv2L42x3uN9ljDkWbOiEsxuHHHZEPM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P3c57A43; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777998774; c=relaxed/simple;
+	bh=dnfLGzurewhGYmAkfx0e1+N3a4xmKjPSdyc6YJYICe0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NMR4T+0c4bnPDhqDeVeeXOH+GAk/oFwfndTdOp+0ziVoGTtlj+SgGS/xFpnTIaWql2vBu/58pS86ptVknwU9QJI4JviIzQ9dGoQ4saKrhlg+VeeIUn3h0mBYQgsE+pbyZ0E+oifIZUIMfpA6C3/wKO/wTl8XrWJqE9mnS3QcA8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=chnNGEJP; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P3c57A43"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D7D5C2BCB4;
-	Tue,  5 May 2026 16:26:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777998391;
-	bh=d9oRhAaRGwydDiDuK7BhCRvRWDp8pOBlU9+d0qcoLXY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=P3c57A43Ly9U95oakv1tzSfsBDMAQvbGX3L5fDur0PPxN8g/BkGWOrF0IQ1vnb8kn
-	 q5FpFULXXt5CFm8Sy/qdB+pGfZ+595OPQ/+H2h/dpiAmaAvc14vlTx4Z7a774smhAG
-	 mRi8mWrUgi+n3TQ7klBwMiCHYz3eCKtTXeoo5Vugwd9W8wFUQWC/qxp4tUJmAVvLgS
-	 jHSgvFYD9WkXPVvCXJZvfwe/RjozMVbFHi4OoCu3mLeSQZDLHCSt79QQSlDeG2UmtL
-	 GPSyoqLckepvJjFkRnrQa3yfyKh+iIz18B0bEQzeLYkJERNnopW8hE0+mQWVZV5SLC
-	 bwYA1sJR8mQqw==
-Date: Tue, 5 May 2026 11:26:29 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: linux-phy@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
-	linux-usb@vger.kernel.org, netdev@vger.kernel.org,
-	spacemit@lists.linux.dev, UNGLinuxDriver@microchip.com,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Manikandan K Pillai <mpillai@cadence.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>, Tom Joseph <tjoseph@cadence.com>
-Subject: Re: [PATCH v8 phy-next 01/31] PCI: cadence: Preserve all error codes
- in cdns_plat_pcie_probe()
-Message-ID: <20260505162629.GA734488@bhelgaas>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="chnNGEJP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1777998770;
+	bh=dnfLGzurewhGYmAkfx0e1+N3a4xmKjPSdyc6YJYICe0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=chnNGEJP+I5Tqr/+EzV+BAGa2W8876nPXG15BSzH3+oTObFtVw/uGnWFO4iEfi6Yu
+	 qjVJu+SBs/mo/Sk7SE3fHq+sYl6hc9nf05jEVXaxQ0cR2WLGatLnbs2uyeBwE3/aND
+	 hPWcmnyKFANowsOdgQrWSSRX5HuTRQJWzrUOmENA5qa4LqYsM1N1mfdKOXp3ZrkQLl
+	 1cfuK86dMDOdfh1iedj/t8nURvTzZQRQyNPGBFwpt35AlXQk1bcM/ikK9HdqWi765l
+	 ElVgV22rH5VsA7nb4eBu3bdhO9NoRLdMYZaMe1aI7S9wmGx7xHEbvKlpJGoSAiu6xm
+	 5UrIfFmlWFH5w==
+Received: from fedora (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B811917E0F07;
+	Tue,  5 May 2026 18:32:49 +0200 (CEST)
+Date: Tue, 5 May 2026 18:32:44 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Ketil Johnsen <ketil.johnsen@arm.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Jonathan
+ Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Sumit
+ Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>,
+ John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Steven Price
+ <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 6/8] drm/panthor: Explicit expansion of locked VM region
+Message-ID: <20260505183244.0830c34c@fedora>
+In-Reply-To: <20260505140516.1372388-7-ketil.johnsen@arm.com>
+References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
+	<20260505140516.1372388-7-ketil.johnsen@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260505100523.1922388-2-vladimir.oltean@nxp.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-[+cc Tom, author of bd22885aa188 in case there's something subtle here]
+On Tue,  5 May 2026 16:05:12 +0200
+Ketil Johnsen <ketil.johnsen@arm.com> wrote:
 
-On Tue, May 05, 2026 at 01:04:53PM +0300, Vladimir Oltean wrote:
-> The blamed commit functionally changed the error path of
-> cdns_pcie_host_probe(), now cdns_plat_pcie_probe().
+> Currently the panthor_vm_lock_region() function will implicitly expand
+> an already locked VM region. This can be problematic because the caller
+> do not reliably know if it needs to call panthor_vm_unlock_region()
+> or not.
 > 
-> When the old code path executed "goto err_get_sync", the PCIe controller
-> probe function propagated the pm_runtime_get_sync() error code. The new
-> code doesn't, and returns 0.
+> Worth noting, there is currently no known issues with this as the code
+> is written today.
 > 
-> Similarly for the "goto err_init" previously triggered by
-> cdns_pcie_host_init() errors, and now triggered by
-> cdns_pcie_host_setup() and cdns_pcie_ep_setup() errors. These are not
-> propagated and will result in probing success, which is incorrect.
+> This change introduces panthor_vm_expand_region() which will only work
+> if there is already a locked VM region. This again means that the
+> original lock and unlock functions can work as a pair. This pairing is
+> needed for subsequent protected memory changes.
 > 
-> Fixes: bd22885aa188 ("PCI: cadence: Refactor driver to use as a core library")
-> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+> Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
 > ---
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> Cc: Manikandan K Pillai <mpillai@cadence.com>
-> Cc: Manivannan Sadhasivam <mani@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
-
-I guess this driver is orphaned.
-
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
-
-> v7->v8: patch is new, issue was flagged by Sashiko
-> https://sashiko.dev/#/patchset/20260430110652.558622-1-vladimir.oltean@nxp.com
-> ---
->  drivers/pci/controller/cadence/pcie-cadence-plat.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 69 +++++++++++++++++++--------
+>  1 file changed, 50 insertions(+), 19 deletions(-)
 > 
-> diff --git a/drivers/pci/controller/cadence/pcie-cadence-plat.c b/drivers/pci/controller/cadence/pcie-cadence-plat.c
-> index b067a3296dd3..8b12a46b5601 100644
-> --- a/drivers/pci/controller/cadence/pcie-cadence-plat.c
-> +++ b/drivers/pci/controller/cadence/pcie-cadence-plat.c
-> @@ -126,7 +126,7 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
->  	while (phy_count--)
->  		device_link_del(cdns_plat_pcie->pcie->link[phy_count]);
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index fc930ee158a52..07f54176ec1bf 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -1701,15 +1701,36 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
+>  	struct panthor_device *ptdev = vm->ptdev;
+>  	int ret = 0;
 >  
-> -	return 0;
+> -	/* sm_step_remap() can call panthor_vm_lock_region() to account for
+> -	 * the wider unmap needed when doing a partial huge page unamp. We
+> -	 * need to ignore the lock if it's already part of the locked region.
+> -	 */
+> -	if (start >= vm->locked_region.start &&
+> -	    start + size <= vm->locked_region.start + vm->locked_region.size)
+> -		return 0;
+> +	if (drm_WARN_ON(&ptdev->base, vm->locked_region.size))
+> +		return -EINVAL;
+
+How about we have a helper called panthor_vm_apply_as_lock() that would
+only take care of the AS_LOCKADDR() sequence. panthor_vm_lock_region()
+would have this WARN_ON(), the pack_region_range() and a call to
+panthor_vm_apply_as_lock(). Similarly,
+panthor_vm_expand_locked_region() would rely on
+panthor_vm_apply_as_lock() to apply the expanded lock.
+
+> +
+> +	mutex_lock(&ptdev->mmu->as.slots_lock);
+> +	if (vm->as.id >= 0 && size) {
+> +		/* Lock the region that needs to be updated */
+> +		gpu_write64(ptdev, AS_LOCKADDR(vm->as.id),
+> +			    pack_region_range(ptdev, &start, &size));
+> +
+> +		/* If the lock succeeded, update the locked_region info. */
+> +		ret = as_send_cmd_and_wait(ptdev, vm->as.id, AS_COMMAND_LOCK);
+> +	}
+>  
+> -	/* sm_step_remap() may need a locked region that isn't a strict superset
+> +	if (!ret) {
+> +		vm->locked_region.start = start;
+> +		vm->locked_region.size = size;
+> +	}
+> +	mutex_unlock(&ptdev->mmu->as.slots_lock);
+> +
 > +	return ret;
+> +}
+> +
+> +static int panthor_vm_expand_region(struct panthor_vm *vm, u64 start, u64 size)
 
-This affects cases where pm_runtime_get_sync(),
-cdns_pcie_host_setup(), or cdns_pcie_ep_setup() return failure.
+s/panthor_vm_expand_region/panthor_vm_expand_locked_region/
 
-Seems right to me to fail the probe when these fail.
-
-Not all users of pm_runtime_get_sync() check for failure, but I think
-all the other controller drivers that do check return failures from
-the .probe().
-
->  }
+> +{
+> +	struct panthor_device *ptdev = vm->ptdev;
+> +	u64 end;
+> +	int ret = 0;
+> +
+> +	/* This function is here to handle the following case:
+> +	 * sm_step_remap() may need a locked region that isn't a strict superset
+>  	 * of the original one because of having to extend unmap boundaries beyond
+>  	 * it to deal with partial unmaps of transparent huge pages. What we want
+>  	 * in those cases is to lock the union of both regions. The new region must
+> @@ -1717,16 +1738,24 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
+>  	 * boundaries in a remap operation can only shift up or down respectively,
+>  	 * but never otherwise.
+>  	 */
+> -	if (vm->locked_region.size) {
+> -		u64 end = max(vm->locked_region.start + vm->locked_region.size,
+> -			      start + size);
 >  
->  static void cdns_plat_pcie_shutdown(struct platform_device *pdev)
-> -- 
-> 2.34.1
-> 
+> -		drm_WARN_ON_ONCE(&vm->ptdev->base, (start + size <= vm->locked_region.start) ||
+> -				 (start >= vm->locked_region.start + vm->locked_region.size));
+> +	/* This function can only expand an already locked region */
+> +	if (drm_WARN_ON(&ptdev->base, !vm->locked_region.size))
+> +		return -EINVAL;
+>  
+> -		start = min(start, vm->locked_region.start);
+> -		size = end - start;
+> -	}
+> +	/* Early out if requested range is already locked */
+> +	if (start >= vm->locked_region.start &&
+> +	    start + size <= vm->locked_region.start + vm->locked_region.size)
+> +		return 0;
+> +
+> +	end = max(vm->locked_region.start + vm->locked_region.size,
+> +		  start + size);
+> +
+> +	drm_WARN_ON_ONCE(&ptdev->base, (start + size <= vm->locked_region.start) ||
+> +			 (start >= vm->locked_region.start + vm->locked_region.size));
+> +
+> +	start = min(start, vm->locked_region.start);
+> +	size = end - start;
+>  
+>  	mutex_lock(&ptdev->mmu->as.slots_lock);
+>  	if (vm->as.id >= 0 && size) {
+> @@ -2252,11 +2281,13 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
+>  	unmap_hugepage_align(&op->remap, &unmap_start, &unmap_range);
+>  
+>  	/* If the range changed, we might have to lock a wider region to guarantee
+> -	 * atomicity. panthor_vm_lock_region() bails out early if the new region
+> -	 * is already part of the locked region, so no need to do this check here.
+> +	 * atomicity.
+>  	 */
+>  	if (!unmap_vma->evicted) {
+> -		panthor_vm_lock_region(vm, unmap_start, unmap_range);
+> +		ret = panthor_vm_expand_region(vm, unmap_start, unmap_range);
+> +		if (ret)
+> +			return ret;
+> +
+>  		panthor_vm_unmap_pages(vm, unmap_start, unmap_range);
+>  	}
+>  
+
