@@ -1,42 +1,43 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDB123EAB4
-	for <linux-media@vger.kernel.org>; Tue,  5 May 2026 22:33:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80182D061D
+	for <linux-media@vger.kernel.org>; Tue,  5 May 2026 22:33:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778020432; cv=none; b=tcV8QesSWYa58lX5/o812Q/MoPnHetYbUZEkYhMctzKmi6EGhX6sMLtWKzZrVOnBOtZrnSWwvPqA5dQUpwVPsFdZ46CSIP7D9h2s5wumCXeZ2wfzY0sUMqCcs0fsENpEIN/GTMtE1OMyKh3zFxU+7qxKLyOZsNZk/Si2F+VwfuY=
+	t=1778020434; cv=none; b=mhFXsfjeYAy+eW5hLOR51NZSWP+W07NChZcM/7SBfU7FB8gKf4ZTcyupyiZZV0OBLN+QKp1H3J91SMEmLCPOcL0dUY3kDi5AZ53LJDyxoRUG+xoRf/49qIm+jO3p7zppB9qobb1CFkvFgX1V1IUlaUwNo676UcAEPyd7z5NpNFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778020432; c=relaxed/simple;
-	bh=TT/Se4e2m0QR8mZX+OJWs/QHBj1lm/16+6WStrtFkKo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nDYPs9RbELXDiiMLh7gENAw53tyDNBuicaQUxbGHfHeZZNoXZyeQNfWCulsGSBApxA4pHW1/h1q4qhX6rbo8+nEYgipbGlaV9YOMv9MSJu4XqCNMPQE9MZqCvFqBAfPql9eded7lCtjHQB+13uXODNpmho8LU2Qa5V37cNDEvpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=O1Bn4god; arc=none smtp.client-ip=198.175.65.19
+	s=arc-20240116; t=1778020434; c=relaxed/simple;
+	bh=ZI9QAqPTKHIuHkljrSxaxrd+l8tSYMcSn6ynPqZMGis=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=l/ZWG9PT1HKz1zOm40xKvUq9TRHshS5ktUJMKg7VH6iNTddXfCZgspaq17ROXmFpIP05BvKs7YHqL5BxmCCvDpi0OzrAsgWWFCRk7cG+C1ni1cpY7sdymZK582GJgm9lmmF3585fGgi4hhSCr+oIqr0XyFcNtjGNr/67NrLWpCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cDT2pnT5; arc=none smtp.client-ip=198.175.65.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="O1Bn4god"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cDT2pnT5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778020431; x=1809556431;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=TT/Se4e2m0QR8mZX+OJWs/QHBj1lm/16+6WStrtFkKo=;
-  b=O1Bn4godb+dSuquJEFeLlw5eyJjUpmVP9o64CmlC8REdsCfhu9f1qbZ0
-   L16Zcj4fM44ErPoQ3z+/t/oKfRBjE3rZa4SYq/bx4Ete0KiPhZMxg8tCK
-   EC78QcPRRgHTZOTtWbit8rNQwHcfWUt0hd64fjH1kzJgR97owjEQrm8PJ
-   QSAfEPnrGJZ4YrASY2/3+D1rgaAgJdPVS+1S8GOiHdcrwHZ1Kgd1UytvI
-   NzHn0WopELj/BPVCSs3/XMG4YIYzcW5+6VBn90nCJputYCEedqzk5O0yM
-   MUAMn/vDjlQLvuxxFDmtxA1XEt1zfZCp36y1+LExapbnDfVcLlWSe7sGS
-   A==;
-X-CSE-ConnectionGUID: +py/FfINR/SXfX2Z6+6rUw==
-X-CSE-MsgGUID: AjGpGa9zSgOt84VeGtzMmQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11777"; a="78843610"
+  t=1778020433; x=1809556433;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=ZI9QAqPTKHIuHkljrSxaxrd+l8tSYMcSn6ynPqZMGis=;
+  b=cDT2pnT5RvvE+WI6ou5sxMXflSJQ7b61gdK+TdpwTGwSJCF0F+oTfERk
+   N5E4UAXeK5c5cX77lBurtFJgksTTcaWm/pLB2en0Y94lgwvzOvAgzm5kb
+   hVnwxJIQld+HFONeahwRrPyfEJ9TOJ+elMgHR0PiMIPDBOLPEWq/KetJ4
+   qCNVyEo+zCkj8vVLIWus24ececkSslplzOGBskth/B0RoXM2cCzJXMN1s
+   yt7mvFZiUEZVjQkPWvXk+WYV1o5i54qsPGNiFTvl+bv/oHTm32jqlGQ40
+   P/vY/88D52Jwoe6WEqcv7DgOixbzL1qfL87m7ikgE5MPc/BClS/bcBULL
+   w==;
+X-CSE-ConnectionGUID: 3srN79HhQuaTuS8l9Aqn8Q==
+X-CSE-MsgGUID: Jiz44wOoTN6BEkMI/yakJA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11777"; a="78843612"
 X-IronPort-AV: E=Sophos;i="6.23,218,1770624000"; 
-   d="scan'208";a="78843610"
+   d="scan'208";a="78843612"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
   by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 May 2026 15:33:50 -0700
-X-CSE-ConnectionGUID: qY5TbGLCRwSNNtWgMVYiHw==
-X-CSE-MsgGUID: tjPT3EhRQ1Ob/7OQbKu2PA==
+X-CSE-ConnectionGUID: fIB1zzXzSS+1waJct8OsAg==
+X-CSE-MsgGUID: 3ZxpVGiMRcSkpbTyCW+AHg==
 X-ExtLoop1: 1
 Received: from ubuntu.jf.intel.com ([10.54.60.90])
   by fmviesa003.fm.intel.com with ESMTP; 05 May 2026 15:33:49 -0700
@@ -46,10 +47,12 @@ Cc: sakari.ailus@linux.intel.com,
 	antti.laakso@linux.intel.com,
 	mehdi.djait@linux.intel.com,
 	miguel.vadillo@intel.com
-Subject: [PATCH 0/2] media: i2c: cvs: Add driver of Intel Computer Vision Sensing Controller(CVS)
-Date: Tue,  5 May 2026 15:30:03 -0700
-Message-ID: <20260505223005.84162-1-miguel.vadillo@intel.com>
+Subject: [PATCH 2/2] media: pci: intel: Add CVS support for IPU bridge driver
+Date: Tue,  5 May 2026 15:30:05 -0700
+Message-ID: <20260505223005.84162-3-miguel.vadillo@intel.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260505223005.84162-1-miguel.vadillo@intel.com>
+References: <20260505223005.84162-1-miguel.vadillo@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -58,195 +61,57 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Cover Letter
-------------
+CVS is located between IPU device and sensors and is available in
+existing commercial platforms from multiple OEMs. The connection
+information between them in firmware is not enough to build a V4L2
+connection graph. This patch parses the connection properties from the
+SSDB buffer in DSDT and builds the connection using software nodes.
 
-This patch series introduces support for Intel Computer Vision Sensing
-(CVS) devices found on Intel Luna Lake (LNL), Panther Lake (PTL), and
-Arrow Lake (ARL) platforms.
+From the IPU bridge point of view, CVS is just like IVSC.
 
-OVERVIEW
---------
+Signed-off-by: Miguel Vadillo <miguel.vadillo@intel.com>
+---
+ drivers/media/pci/intel/ipu-bridge.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-The CVS device acts as a V4L2 sub-device bridge that manages CSI-2
-link ownership between the host (Linux) and firmware for camera
-sensors. It provides:
-
-1. CSI-2 link ownership arbitration between host and CVS firmware
-2. MIPI CSI-2 configuration management
-3. Privacy LED control coordination
-4. Power management integration with runtime PM
-
-The driver consists of two main components:
-- core.c: Core driver with probe, command transport, and PM callbacks
-- v4l2.c: V4L2 sub-device and media framework integration
-
-HARDWARE DETAILS
-----------------
-
-CVS devices interface via:
-- I2C for command/control communication with the device firmware
-- GPIO signals for ownership handshaking (request/response)
-- Optional reset and wake interrupt for full-capability variants
-- Integration with Intel IPU (Image Processing Unit) via ipu_bridge
-
-The driver supports two hardware capability levels:
-- Light capability: Basic GPIO-based ownership (2 GPIOs)
-- Full capability: Enhanced with reset control and wake IRQ (4 GPIOs)
-
-In order to support both configurations and all devices on the field,
-the driver detects the number of GPIOs and uses add_driver_gpios
-respectively.
-
-DEVICE QUIRKS
--------------
-
-The driver includes a quirk table to handle device-specific variations
-across different CVS implementations (e.g., Lattice, Synaptics vendors)
-that may differ in:
-- MIPI configuration requirements
-- Buffer and header sizes
-- Reset sequence requirements
-
-FIRMWARE PROTOCOL
------------------
-
-The CVS firmware supports a command-response protocol over I2C with:
-- Device state queries (GET_DEV_STATE, GET_DEV_CAPABILITY)
-- Host identification (SET_DEV_HOST_ID)
-- MIPI configuration (HOST_SET_MIPI_CONFIG, HOST_GET_MIPI_CONFIG)
-- CSI ownership control (HOST_SENSOR_OWNER)
-
-The protocol supports versioning (currently 2.2+) and optional
-response prefixes for backward compatibility.
-
-V4L2 INTEGRATION
-----------------
-
-The CVS driver registers as a V4L2 sub-device exposing:
-- Sink pad: Receives frames from remote camera sensor
-- Source pad: Emits frames to downstream IPU/consumers
-- Async notifier: Discovers and connects to upstream sensors via ACPI
-
-It implements standard V4L2 operations:
-- enable/disable_stream: Start/stop streaming with ownership handoff
-- set_fmt/get_fmt: Format negotiation with format mirroring
-- get_mbus_config: CSI-2 bus configuration queries
-
-PLATFORM SUPPORT
-----------------
-
-In addition to I2C-based operation, the driver supports platform device
-instantiation for systems where CVS is exposed without I2C transport,
-falling back to GPIO-only ownership control.
-
-BIOS is presenting the device wrongly in some cases. These devices are
-already on the field thus need to support as is.
-
-POWER MANAGEMENT
-----------------
-
-Runtime PM integration allows the device to:
-- Auto-suspend after 1 second of inactivity
-- Resume on streaming start or firmware operations
-- Coordinate with IPU power states
-
-A PM runtime device link (DL_FLAG_PM_RUNTIME) is registered between
-IPU (consumer) and CVS (supplier) so that the PM framework
-automatically resumes CVS before IPU begins capture. CSI-2 link
-ownership is claimed in cvs_runtime_resume() and released in
-cvs_runtime_suspend(), decoupling ownership management from the V4L2
-streaming path.
-
-DEPENDENCIES
-------------
-
-- Intel IPU bridge (ipu-bridge.ko) for ACPI sensor discovery
-
-SYSTEM DIAGRAM
---------------
-
-Below diagram shows connections of CVS/ISH/IPU and Camera Sensor:
-
- -----------------------------------------------------------------------
-| Host Processor                                                        |
-|                                                                       |
-|   ---------------   ---------------   ---------------                 |
-|   |             |   |             |   |             |                 |
-|   |     IPU     |   |     ISH     |   |camera driver|----|            |
-|   |             |   |             |   |             |    |            |
-|   ---------------   ---------------   ---------------    |            |
-|         |                 |                 |            |            |
-|         |                 |                 |            |            |
-|         |                 |           ---------------    |            |
-|         |                 |           |             |    |            |
-|         |                 |           |  CVS driver |    |            |
-|         |                 |           |             |    |            |
-|         |                 |           ---------------    |            |
-|         |                 |                 |            |            |
- ---------|-----------------|-----------------|------------|------------
-          | CSI             | I2C             | I2C        |
-          |                 |                 |            |
- ---------|-----------------|-----------------|----------  |
-| CVS     |                                   |         |  |
-|         |                                   |         |  | I2C
-|   -----------------------------             |         |  |
-|   |                           |-------------|         |  |
-|   |          CVS FW           |                       |  |
-|   |                           |                       |  |
-|   -----------------------------                       |  |
-|         | CSI                                         |  |
- ---------|---------------------------------------------   |
-          | CSI                                            |
-          |                                                |
-      --------------------------------                     |
-      |                              | I2C                 |
-      |         Camera Sensor        |---------------------|
-      |                              |
-      --------------------------------
-
-USAGE EXAMPLE
--------------
-
-  # Load driver
-  modprobe intel_cvs
-
-  # Configure media pipeline (example with IPU7 + ov08x40)
-  media-ctl -v -V \
-    "\"Intel CVS\":1 [fmt:SGRBG10/3856x2176]"
-  media-ctl -v -V \
-    "\"Intel IPU7 CSI2 0\":0 [fmt:SGRBG10/3856x2176]"
-  media-ctl -v -V \
-    "\"Intel IPU7 CSI2 0\":1 [fmt:SGRBG10/3856x2176]"
-  media-ctl -v -l \
-    "\"Intel CVS\":1 -> \"Intel IPU7 CSI2 0\":0[1]"
-  media-ctl -v -l \
-    "\"Intel IPU7 CSI2 0\":1 -> \"Intel IPU7 ISYS Capture 0\":0[1]"
-  media-ctl -v -V \
-    "\"ov08x40 8-0010\":0 [fmt:SGRBG10/3856x2176]"
-  yavta -c1 -n1 -s 3856x2176 \
-    --file=/tmp/frame-CSI1.bin -f SGRBG10 /dev/video0
-
-Miguel Vadillo (2):
-  media: i2c: cvs: Add driver of Intel Computer Vision Sensing
-    Controller(CVS)
-  media: pci: intel: Add CVS support for IPU bridge driver
-
- drivers/media/i2c/Kconfig            |   1 +
- drivers/media/i2c/Makefile           |   1 +
- drivers/media/i2c/cvs/Kconfig        |  21 +
- drivers/media/i2c/cvs/Makefile       |   4 +
- drivers/media/i2c/cvs/core.c         | 984 +++++++++++++++++++++++++++
- drivers/media/i2c/cvs/icvs.h         | 515 ++++++++++++++
- drivers/media/i2c/cvs/v4l2.c         | 618 +++++++++++++++++
- drivers/media/pci/intel/ipu-bridge.c |  13 +-
- 8 files changed, 2155 insertions(+), 2 deletions(-)
- create mode 100644 drivers/media/i2c/cvs/Kconfig
- create mode 100644 drivers/media/i2c/cvs/Makefile
- create mode 100644 drivers/media/i2c/cvs/core.c
- create mode 100644 drivers/media/i2c/cvs/icvs.h
- create mode 100644 drivers/media/i2c/cvs/v4l2.c
-
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 32cc95a766b7..c895584e25a0 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -152,6 +152,9 @@ static const struct acpi_device_id ivsc_acpi_ids[] = {
+ 	{ "INTC1095" },
+ 	{ "INTC100A" },
+ 	{ "INTC10CF" },
++	{ "INTC10DE" }, /* LNL */
++	{ "INTC10E0" }, /* ARL */
++	{ "INTC10E1" }, /* PTL */
+ };
+ 
+ static struct acpi_device *ipu_bridge_get_ivsc_acpi_dev(struct acpi_device *adev)
+@@ -205,7 +208,13 @@ static struct device *ipu_bridge_get_ivsc_csi_dev(struct acpi_device *adev)
+ 		return csi_dev;
+ 	}
+ 
+-	return NULL;
++	/* Try to locate CVS device on the I2C bus */
++	csi_dev = bus_find_device_by_acpi_dev(&i2c_bus_type, adev);
++	if (csi_dev)
++		return csi_dev;
++
++	/* Fallback to platform bus for CVS device */
++	return bus_find_device_by_acpi_dev(&platform_bus_type, adev);
+ }
+ 
+ static int ipu_bridge_check_ivsc_dev(struct ipu_sensor *sensor,
+@@ -219,7 +228,7 @@ static int ipu_bridge_check_ivsc_dev(struct ipu_sensor *sensor,
+ 		csi_dev = ipu_bridge_get_ivsc_csi_dev(adev);
+ 		if (!csi_dev) {
+ 			acpi_dev_put(adev);
+-			dev_err(ADEV_DEV(adev), "Failed to find MEI CSI dev\n");
++			dev_err(ADEV_DEV(adev), "Failed to find MEI or CVS CSI dev\n");
+ 			return -ENODEV;
+ 		}
+ 
 -- 
 2.43.0
 
