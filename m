@@ -1,155 +1,104 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E4B648034B
-	for <linux-media@vger.kernel.org>; Wed,  6 May 2026 14:26:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F6C44DB76;
+	Wed,  6 May 2026 14:30:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778077597; cv=none; b=Aob1n7qfXE+LtY2alAkNbLSTKkeXs+cLFbN5KYhaPCNKQuFWACoKsdSF+Su7Enfdu3oQCAuxUPeE7ZKuiLr6tLb0/b3FpI0fvg7Hj0EbYqUkXBbuwxQQ4IGnf+2OQQrWRAm147bYDAO7d3CWvOTyRAoQiNYnoC7rSYXpAwQztmU=
+	t=1778077841; cv=none; b=G6Ife+EDpUYnlXs5tROcpLKITYJ/rGJP1wp7d5r39IKIBUm5snG1G1wP8HgnBcE9UigcVs33Y+Zw4UIIr1YhphG3JYX+EAham4qguQu+8u/Fsvp3iaPo95OLncdJZqJ158egV+s9goA6kU0bbsDOlXmKeWm62n5IsneshjRXBjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778077597; c=relaxed/simple;
-	bh=srPsf9DGtjuwNp0lmZ/jXjqw3neX9w70YKOrPJckz/A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sp2Xux0U+Uw+AjvNqPUxwHnDwbh2Iav2szYg2HcKZwkSMXBXC9B2ljCi0G/2cMBaBdNkF6CdxNb3G9OOx9hgw4lPmVYzOCfrEHLT+1EITbzU57hmYR1iyDTRU15yZTKU5lkFrKfPUWuvmk58kpiwXXKUAWCAPmqfn7tgoavympQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iN1G/EWN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NvtkZsZF; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1778077841; c=relaxed/simple;
+	bh=XSvJ+OmVlLTqJ7h113TNTtPCVhXQ8dW2y/GYuT/4Yc0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fPMlprfz0WMeCKNLsTO8h7ywoz5MXko8YMtpfLQngcOAV2pFrfULW5E5t9H9cC4ATL54qXtfLtTFFEmxbTvK6TFbqacWaNnZ6YfLGfLhYDfGk2tdZyBVM31cJs5M6xg70oPtuAONJO/jy/IrxKHtOi3MKnOhAz6jQwJ5Ec0JYiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=WrehR2Tj; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iN1G/EWN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NvtkZsZF"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 646Bqqf52581342
-	for <linux-media@vger.kernel.org>; Wed, 6 May 2026 14:26:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rqf4RBq3GqNRH4BGmUrshX4k7nqqdx7ZkyuDEuKF3e0=; b=iN1G/EWNwfgWQKL3
-	YAX+dNLrgxe2qqzkPQEvOTz9o8n8gYjG7HIbqbrC2dQ48IromOGPqNvckoG7DZUm
-	YMO+2WEfAZPWoygw22tPuxiAD/h6hOndd+qVPjNqUqVRFRM6tGdtUqqM45pMfRdp
-	XocTHk1vLrByN6EWoqEqhTNyBZBHOB5b5YceOBvwtrKR8MYSM71ZWotYXEId+SS/
-	UMwJWBgTzPwoMThpSEhpbiqecdJibaGDgMNoNp4Bq9RAIKotGSQrGHjBacQsHnz0
-	8LDRjA1lCwoPo8jw+yGY+eQz4Qi6m+3mXezqCYhCE5tTPSwx6+s1H879cO2FAT+i
-	4t2eFQ==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dyyvw1y7m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 06 May 2026 14:26:33 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-836cfd84728so458080b3a.0
-        for <linux-media@vger.kernel.org>; Wed, 06 May 2026 07:26:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778077593; x=1778682393; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=rqf4RBq3GqNRH4BGmUrshX4k7nqqdx7ZkyuDEuKF3e0=;
-        b=NvtkZsZFEwZi/479mxw8kezbBqwrCiUc8ummFTwSSJgHaffXvJdLFBYkRA214aQ7BA
-         r3HKzrr0ikF3E3vw0oUWOexuGK9yR45CJEtpt6hjOr157SA/Y2fW5jpqTlXuaOLTMRGk
-         ivWEC0dAY3fqkSrPFQpM0nCTysMhPAWzqAxqDtRXftcU+5hLEIEdTSsVfvoMY6jtbYob
-         WwyCtFoIbxGBVDgLchzajLcdBAu1bpgLd8n88tt9tw0L7I5L3WCxfEa4U7lhbBj3mr/Z
-         FeWcKjx7xBPu81PWQFyLa469RfL1FEIzehXfmNJFo7l0t5bnPcMLko/vbq360uyxbNDt
-         O4aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778077593; x=1778682393;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=rqf4RBq3GqNRH4BGmUrshX4k7nqqdx7ZkyuDEuKF3e0=;
-        b=U6yj0Qz6vpxxGNAd83uykFcGnz7O3nkWNi6YqZ+VpSAi91JOD0sOY+ySk65SxyK3OS
-         uHkh9r+53hVWXDNczHRn53n8Mz1gVPWaS+opSHXBfoH2PzrLkLqOgzaxgsaz2OK083gA
-         JlNfoGXJgH0ZeMKNgc6jILD0mtr/1p9LBb36mE914Hhx9JXHp6GQ42xtAXwre+ybC7KS
-         hwB/EblY0/Y05taz+dDx4BbIGxRPdZBzqs/n/DhcGSWiA9a1EKLGwKCVR6/krj12eYwz
-         thtacdX4Xf2hzbAIEioIGVCXxDa2DB4MKcgpJwSlpENraWSKiQEwiZBB0zAc6kALub88
-         ND8A==
-X-Gm-Message-State: AOJu0YwLpfhH7kvUn+V4FLm8tiQGOJgV8GriCMEhaQ6+tydRR3dRDFN8
-	ulQrqZPYqzPcBiSeuuto2kIcB2wm9zSJ5c99K3iKgycgJF8128WKv259vvrhAH6dg4Ljb7xAA64
-	AoWMEl1uJ5+4lP+ccmQiCFsHHjVEtTrXXdLCuA5vq3fevhT9eR8Npkfpe/44FQDBZpg==
-X-Gm-Gg: AeBDieslFa2GFRzs0G3fnowwPRDRzFaZ0yhiBdlEB06OriJa+5OgFkECslz22Mm3Uqg
-	t14vqGQBalFt06RNl/dOazgcLlt95Vfo5UwlUxe1MUNUdQ/1vi7EdH6pfuuMGB3Osh6uCJThu/o
-	rHXHVKGFXBrC8CG6juicKzzWhJ3CRzAE/5vqD9y/n/ok2l2HAZut92qTnWWT92RHUMbqLvPQhbM
-	/SHCm4RAzs1ipQOFS2mKL6Wt7tbHqUKWVINwx+g92CRRJLRklNG5rOUbAAo96BVXiFmqBrCyGPT
-	Vzn+VDm6+qljdshZzniLfgRAQWPpdZGuA60Oe/R+3RZOZsv4kcGfgzlQu5JITELSbZh9j1UhtWo
-	VlYwQ6Tun3OlLhDQWSH4qWK1yfmEk75vJPraU3kTawxr2ahToWr8upAnjjl1wBiNN
-X-Received: by 2002:a05:6a00:98f:b0:835:3f9c:c681 with SMTP id d2e1a72fcca58-838fed5e872mr6814183b3a.34.1778077592423;
-        Wed, 06 May 2026 07:26:32 -0700 (PDT)
-X-Received: by 2002:a05:6a00:98f:b0:835:3f9c:c681 with SMTP id d2e1a72fcca58-838fed5e872mr6814130b3a.34.1778077591827;
-        Wed, 06 May 2026 07:26:31 -0700 (PDT)
-Received: from [10.204.101.47] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83965d36c10sm7146996b3a.25.2026.05.06.07.26.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 06 May 2026 07:26:31 -0700 (PDT)
-Message-ID: <0c33ae9b-db53-4557-8fff-27c2da69366c@oss.qualcomm.com>
-Date: Wed, 6 May 2026 19:56:23 +0530
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="WrehR2Tj"
+Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BFFB563D;
+	Wed,  6 May 2026 16:30:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1778077834;
+	bh=XSvJ+OmVlLTqJ7h113TNTtPCVhXQ8dW2y/GYuT/4Yc0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WrehR2TjrLABvwpBHdQYZ7tO33iW32DNapFqFOa+/lw7mhXsNCishbETpUzkCOuLf
+	 26z6X1VrNPFIW6G56jxVf5rtRPGNrqL6x4qQag1QjIbhq6EhJKH/oGU7AIHC6m9FQ6
+	 h4DYzE8LkU5rlC+llbnw6sykd8Y9qsY4NX/lzZsA=
+Date: Wed, 6 May 2026 17:30:36 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Robby Cai <robby.cai@nxp.com>, Frank.Li@nxp.com, martink@posteo.de,
+	rmfrfs@gmail.com, kernel@puri.sm, mchehab@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
+	martin.kepplinger@puri.sm, imx@lists.linux.dev,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: dt-bindings: nxp,imx8mq-mipi-csi2: Fix example
+ endpoint label typo
+Message-ID: <20260506143036.GS1598374@killaraus.ideasonboard.com>
+References: <20260506090124.2960477-1-robby.cai@nxp.com>
+ <5ad1e2df-85f3-4f9a-ab9d-b6ae34eebed3@kernel.org>
+ <20260506142155.GR1598374@killaraus.ideasonboard.com>
+ <73111cb1-2019-4faf-abc6-c7deea603eb1@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 06/13] media: iris: Add context bank hooks for platform
- specific initialization
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        iommu@lists.linux.dev
-References: <20260505-glymur-v4-0-17571dbd1caa@oss.qualcomm.com>
- <20260505-glymur-v4-6-17571dbd1caa@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20260505-glymur-v4-6-17571dbd1caa@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=YYCNIQRf c=1 sm=1 tr=0 ts=69fb4f99 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=LctZHUKdXz4wyCJjwzEA:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA2MDE0MiBTYWx0ZWRfX3eVF1cQDOOwU
- LagtlIq6YsHciqxpaexk2Nu38NTWVvIWIVd+7EO0K37tsSirf+aerhg4oEaGUI8APzk2VwzgFNt
- fYXwn51ibF0TBAhafB2Yh25k+UqSymTDI1gEZaIvQX02pMMZp/xjsPn8lNi1Eb1iDBvPCme2vr7
- Pt+b4spqVGBqpvRF3VdRFJQLVwS+ZQ/5d78fQN7dOHF4GXWrhPUGYdivV20TpsnXNf8Mo+jEtey
- Ppe9SjfEbuDRtyhx93oey0lA0kEylUqjp62KWMVeNYx9e6cb7+SSh/KnwNHlxF3c9DBSE62a2r/
- N5DXNE8xr+PbxuoWVnTnpw/lGcbyVcTbrsrPyiWTo/utKyeSBYpHiC2G7Mp42PUhVsDpX3PXzsz
- ir4fd5WH6MANedqmvjVaxdvvRxHLgPSxQ4is3A6nfdMVi45qqNp+pDyNnSYwYglAitVAJLz9Iwh
- nwYFH3PTS+qkKr+nuKw==
-X-Proofpoint-ORIG-GUID: dDrEc4QPPGBFeQVxEOQaHeWgyz0VG_eY
-X-Proofpoint-GUID: dDrEc4QPPGBFeQVxEOQaHeWgyz0VG_eY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-05_03,2026-05-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 impostorscore=0 malwarescore=0 clxscore=1015
- lowpriorityscore=0 priorityscore=1501 spamscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605060142
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <73111cb1-2019-4faf-abc6-c7deea603eb1@kernel.org>
 
-
-On 5/5/2026 12:29 PM, Vishnu Reddy wrote:
-> The Glymur platform requires a dedicated firmware context bank device
-> which is mapped to the firmware stream ID to load the firmware.
+On Wed, May 06, 2026 at 04:24:35PM +0200, Krzysztof Kozlowski wrote:
+> On 06/05/2026 16:21, Laurent Pinchart wrote:
+> > On Wed, May 06, 2026 at 03:33:57PM +0200, Krzysztof Kozlowski wrote:
+> >> On 06/05/2026 11:01, Robby Cai wrote:
+> >>> The example in imx8mq-mipi-csi2.yaml uses imx8mm_mipi_csi_{in,out} endpoint
+> >>> labels, which is confusing for an i.MX8MQ binding. Rename the labels to
+> >>> imx8mq_mipi_csi_{in,out} for consistency.
+> >>>
+> >>> Fixes: 37255747ecbd ("media: dt-bindings: media: document the nxp,imx8mq-mipi-csi2 receiver phy and controller")
+> >>
+> >> Nothing to fix here. Otherwise explain the bug.
+> >>
+> >>> Signed-off-by: Robby Cai <robby.cai@nxp.com>
+> >>> ---
+> >>>  .../devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml       | 4 ++--
+> >>>  1 file changed, 2 insertions(+), 2 deletions(-)
+> >>>
+> >>> diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
+> >>> index 4fcfc4fd3565..71f79651dd96 100644
+> >>> --- a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
+> >>> +++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
+> >>> @@ -220,7 +220,7 @@ examples:
+> >>>              port@0 {
+> >>>                  reg = <0>;
+> >>>  
+> >>> -                imx8mm_mipi_csi_in: endpoint {
+> >>> +                imx8mq_mipi_csi_in: endpoint {
+> >>
+> >> Drop the labels instead - they are not used.
+> > 
+> > I think the label has value, it improves readability of the example by
+> > making the purpose of the endpoints more explicit. I won't fight for it
+> > though, I know it's hard to change your mind.
 > 
-> Add init and deinit hooks in the platform data for context bank setup.
-> These hooks allow platform specific code to initialize and tear down
-> context banks.
-> 
-> Signed-off-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
-> ---
+> Then should not have imx8mq in the first place. The only information
+> coming here is that it is input endpoint. IMO it is close to obvious
+> from the opposite of "remote-endpoint = <&imx477_out>;" (if remote is
+> OUT, then this must be IN). But keeping the redundant data or actually
+> correcting wrong redundant data into correct redundant data, is still
+> undesirable. Such patterns then keep spreading to new code.
 
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Dropping the imx8mm_ prefix instead of renaming it is a good idea,
+thanks for proposing it. As for the Fixes: tag, I don't see a need to
+backport this, so I'd leave it out too.
+
+-- 
+Regards,
+
+Laurent Pinchart
