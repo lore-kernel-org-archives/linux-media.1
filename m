@@ -1,212 +1,699 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012070.outbound.protection.outlook.com [52.101.66.70])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A7653233F4;
-	Wed,  6 May 2026 08:51:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778057508; cv=fail; b=OkPhCtzvmocBVdyNvXCyW/NMZRiX5PMrQhujNFaj65fIkejbQttENfPSBlE5mYtqo9EFq9/7Ba67XL+GvNwxMCbQBqz7DIVsflYYy9YrTa8J2yKxTUGfWe59YjGqht01tBXRE57gKv3XE6ka2nsJMK82i8dJD1PVDH4VzZKXlEQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778057508; c=relaxed/simple;
-	bh=uh/7JQo+FsK9qFNgIBVtaplLH1ca70SbvuXDxJTTaiI=;
-	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=MKX/hC6ouIydKO1dRLRpdweGZICzC7HHAhxjGhnhmcgZiyNf5qVHiSy+vn8UUI8hu0d8RozsGVvzG2kI1LveOLvJ0z7fTvvPbEeQ3bGrzDUG4rvKA2VIu6V4wd1a9sTCtnIsZSvESuW8POMl70Ql8peNGm3NKE5f5X6yt2RYcq8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=nhabj0VI; arc=fail smtp.client-ip=52.101.66.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 062D3322C78;
+	Wed,  6 May 2026 08:51:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778057514; cv=none; b=L/EoX56+k2ZAvGc/BVrh0z02N7khhMYCMTaSVR0wGHkxan+tIH37lLzkkguHwHhJj+NKrWJjyaCiiE/clW+Xyh3AnU+LvsyH1fEoBQa1qM1UCwCrupZrkgDez/ONtSQG8G8r00guQvy0+UhQAjy2namRIjtHizPpO8p+fXTw2cY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778057514; c=relaxed/simple;
+	bh=qn8hCXeok/i1qfKg2+apfL6WRVPA2S3XWp9AscVrXqY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=V1Hws74BzZQbK+qzFwflJYKLwUkL2CPSgC4kKBhMf90t9m5ViUou2r2qSV3+mkdFI3RDKLwqPkY9vkYD7bpwp1qwvzo/Oyw+OaP7RYSOuNtKA8omBkUYS3JkIjcK4rkT5HtoeRJcJkyCSe5elSDnnAvoohZK5Sjy3Em+MWvNqN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=lKCgYU5q; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="nhabj0VI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZF54l2oQ+ZQynjqR0/xsfdSMUZw5tNEZqYxNISYuXVtJtZ7Zo93U92XpOexSOXz2pzByZXr9bCRvnLw+6d/qtt2deOgPBG1gyl28p1ToGcU1EM4+QUCy84Dj1SbOhcv/78X1wXWKANiGXhL5CNtp1D6fK1IgFANCleZv6m9+ZMWBvOsxzTecljeOJ1TRt5ZmPdPYWqGGm7tH4fZ0c+4A6KXdwjke4fvWo3ZY7FIA3NszfQ/K6lvK2NBwxVYaxjjXFs2zBbHre7CI0iJ6fKuqTXC9tTX5parytzQaweUf39J9wz3i/4sul/Bua+71lk0AMN0tfac2efcAn3XEaNqUuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j0rqxRO6QeP0IK2vFrxSGZUWz6a88Xzli7wMghiGwcI=;
- b=ETj2RwRbRMIimz5EcNsVgoVsVvBOJjyheCcjJirhLD7+WnQUV1/kwm4euVP70VeY6W4zFF6nie/Wioa6roP8LuNzldNmsLPn0txUSAOfv5a8fI7uviakDnKbHYoo5eM0z/D5s4RCKWZu3zR+DC1xIGYGZO4+TPT4D50357w5Xs8POqgAMZvk64X9A0nOUd0hp6HG3ifQJ/FFU/oyYzOmqmcbgRBBe77TF+uPlO5GsuKiGejNOt1N3648Ekz/O7OzvRgFrgtRmkpTYyw+TYh5zedWqesxkGM/lVEyVlHiayh8q8UzaElHiFAlPB0XRuCG8v4Ms8HcH6ZI40wxSheg7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j0rqxRO6QeP0IK2vFrxSGZUWz6a88Xzli7wMghiGwcI=;
- b=nhabj0VICF12VghDo0BmHyLyDjcqsT2XdmrjtlTXzNN12m5qaoJnxKo+eMXSfqjeGiA5uAn3q5AL99FWwWyKyOhWiNROOoyr1gs+wzqZBZe6gOcAJSE9saKengvmAgc5QOhJp32PyGwtfJpiUG0LTsf0j2I1kqGQ/3lBoiPBwUJp0GsS0x4dTbJ2Uqh7+VzUGK1Hjh5hQ2xpwQ4+HYrou/bCZp7mtdJ7XrcPBWpDWpAwZhEHMF9x/3MNeOFekbooCb//EpgXJOW1l9ZHXbx3d5+4wFz2Cd00GkUAEhx2EYfWhjh0qF/ttUWAogpEJJ0q/RdWrv32OlAGycl2R3ZYcw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AS8PR04MB9080.eurprd04.prod.outlook.com (2603:10a6:20b:447::16)
- by PA1PR04MB10443.eurprd04.prod.outlook.com (2603:10a6:102:450::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Wed, 6 May
- 2026 08:51:42 +0000
-Received: from AS8PR04MB9080.eurprd04.prod.outlook.com
- ([fe80::92c2:2e03:bf99:68eb]) by AS8PR04MB9080.eurprd04.prod.outlook.com
- ([fe80::92c2:2e03:bf99:68eb%6]) with mapi id 15.20.9891.008; Wed, 6 May 2026
- 08:51:42 +0000
-From: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Subject: [PATCH v3 0/7] media: synopsys: enhancements and i.MX95 support
-Date: Wed, 06 May 2026 16:53:59 +0800
-Message-Id: <20260506-csi2_imx95-v3-0-953b6e1a80dd@oss.nxp.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKcB+2kC/1XMSwqDMBSF4a1Ixo0kNw9rR91HKSXEpN6BRpISL
- OLeG4WCDs+B/1tIchFdIrdqIdFlTBjGMsSlIrY349tR7MomwEAzySW1CeGFw9wqqpXpmGu8Fsy
- QEkzReZx37PEsu8f0CfG725lv759RRyZzymjTaeGFYteGt/eQUj3OU23DQDYowyEGcYqhxK2Ql
- oEXEsCc43Vdf3Ewk2rjAAAA
-To: Michael Riesch <michael.riesch@collabora.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Frank Li <Frank.Li@nxp.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Mehdi Djait <mehdi.djait@linux.intel.com>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- Guoniu Zhou <guoniu.zhou@oss.nxp.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778057665; l=2687;
- i=guoniu.zhou@oss.nxp.com; s=20250815; h=from:subject:message-id;
- bh=uh/7JQo+FsK9qFNgIBVtaplLH1ca70SbvuXDxJTTaiI=;
- b=JvdxpWEOfNdFRe7dyaxxFs800A8pWCCgFCOd2YJ4/k2cLUop19IJmadKzCwhiqqoBBAzOI+3Y
- uf8Cws6aajaBA13VWVL0nKlBHA172JEtHRpauEa8sCvS0KIe1MLGsSP
-X-Developer-Key: i=guoniu.zhou@oss.nxp.com; a=ed25519;
- pk=MM+/XICg5S78/gs+f9wtGP6yIvkyjTdZwfaxXeu5rlo=
-X-ClientProxiedBy: SG2PR04CA0203.apcprd04.prod.outlook.com
- (2603:1096:4:187::22) To AS8PR04MB9080.eurprd04.prod.outlook.com
- (2603:10a6:20b:447::16)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="lKCgYU5q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1778057510;
+	bh=qn8hCXeok/i1qfKg2+apfL6WRVPA2S3XWp9AscVrXqY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=lKCgYU5q+LWXj791/sVDxiKvYI4BFPtsXRvttcatIxuqT3J1yAni62KB0nbdUOxLk
+	 v4ivYv29NjLOBkUC2QBpKm9WbmcgfBFie34FXsFNNZYxPCL8Pmq/M/miBfkkboBu2t
+	 6R6uOqNJ0/wXMkvRsMAy+thzbYcQW40ZDDNpqgtY0Dcq2Da8ddgHFaD+M9xXoW53ZZ
+	 fRNgKmf/5ddJU9wqgVEocXO3lvgDxbsqSbgdir2cLL3ccBtHwrfSvIv088woF/ln6K
+	 Oj/3co90eLSWpB933nfuKazT99hfaDovfSpZefjzk5c+dc1GzIilxOlkSWuhVYjJdb
+	 GSmnSlW1VQ1Gw==
+Received: from fedora (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D164117E1321;
+	Wed,  6 May 2026 10:51:48 +0200 (CEST)
+Date: Wed, 6 May 2026 10:51:45 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Ketil Johnsen <ketil.johnsen@arm.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Jonathan
+ Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Sumit
+ Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>,
+ John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Steven Price
+ <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ Florent Tomasin <florent.tomasin@arm.com>, Paul Toadere
+ <paul.toadere@arm.com>, Samuel Percival <samuel.percival@arm.com>
+Subject: Re: [PATCH 7/8] drm/panthor: Add support for entering and exiting
+ protected mode
+Message-ID: <20260506105145.6f25181d@fedora>
+In-Reply-To: <20260505140516.1372388-8-ketil.johnsen@arm.com>
+References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
+	<20260505140516.1372388-8-ketil.johnsen@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8PR04MB9080:EE_|PA1PR04MB10443:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9dd40f73-9638-41e7-d8c9-08deab4cb1b7
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|1800799024|366016|52116014|19092799006|376014|7416014|18002099003|56012099003|921020|38350700014;
-X-Microsoft-Antispam-Message-Info:
- eg7c5OfWo450zHBRK7KpoNjXCeEhL5Bjnsl5pE2b72eslYIynexz3S7SzyRePV7PTqh1TpwuLbvQZgcjMkGCb6wfa98TKCpHtXDmhFYEcmxQV0lu3IQeoNc8QOD/ibKx90yZ1e2B5il3zkLznYJXmra0xNzjO0CpkYqMVMuroflcUEY7aYi0D+dYlioH5hszQgPZ9wHp1TGnY/sBdPcxnQNxZKRTZ4wVIJQ4kDT/kcn8he38oqmIGNQDQouPMfrpgqDzo9HkBo33jpF8n19knzaznPtdBO64Pjr+RWjdbNAQUiUek7cV1djEhxQnGoYMadZd9ZF1ZS4O0VO64LqA7lMdMfhBwhOmFN3CMKeBh/AVV+8MJH+QYOpRrhrMItTx4XGfsCwZDxa+wT+e4opY6aAhTRflxe4smij/Cl7evqRDlvDdK+82I6Xj+kUGO0ed8AK3k3bHk/GcEBEqU5crzTwmv2nV4exlCErIA6CkXfs5W6RC58LiSdcviB8qFc4ADivH5HCoC6uoHcUxe4pmLsHLb0GEpwfdwDv3AjVKFTLsNyIHIlJoRsnQVGVDR10cO5Yhcfo4U29HL4h3LUzBZxbDdprGIrE0yxz1DkcT/byRYyUzDYq6XVy7sMSTTAIw9vs9hRTUmWWnpIm/f5KEOt67aQYfjq1zDg6CbpYZ3pT6WRlOCuZegtHhxG/2MeieMfZ3gS7OwhN+rzFkqfkmfQXak1WNGWHcLGsYuVOF9U4QEeNPK346yaY2gqwXeSpRKjZIL/9riLNSs/cNqVk6Cg==
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB9080.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(52116014)(19092799006)(376014)(7416014)(18002099003)(56012099003)(921020)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?ejYzU25oNDZnc254ZTdjb1daNFlsUzU1OStKbmhkaWhpV1MzL3pOZTFIQTRG?=
- =?utf-8?B?aFdlSU1aakJ6ZXFHM1pod0VWRzl0eDMxYjlmNnJLdDVnVmtoeDJEcGUyZGJL?=
- =?utf-8?B?TmtleUpwNUxvNHljTlBuV3dOdEp0WUM0cEUyR2FQK1BqZW5DRlFEVi9ZSi9n?=
- =?utf-8?B?bXRkbG9ZUUd3dWxxM3ZKb3hTZGlTOTVkOXVZRUpVWDg4d2JpdzJSUjNLV1Bi?=
- =?utf-8?B?YWpaaFJWUnlVNWZEcXlndysyeGtscTB5UEFXT2J0TnVLUGRtaTQ5TTdMeEM1?=
- =?utf-8?B?ei9Lc2FWVGdQbFMxTkhjb2ErcUxvdnprWkVnSnZBTFV4Wk9yS2dkTFZ1eFFi?=
- =?utf-8?B?aHRwdjZxWERCQ01tckdmZ2hlQ3RVd3VEa2RvQjJKSUp1VTB4QWl5ZnZCYlJC?=
- =?utf-8?B?aFZ1KzVpdVVHYmFKbE16TU45YndRbVpYL2NFSzkzRDlNclFvTWphRml5cVBp?=
- =?utf-8?B?NnZjY043NFdhemwrcmR2cUZiK2o4WE1iait6eVp3Q1l6Z05ES2ttbkRkd0Np?=
- =?utf-8?B?T2swKzdCZWsveHBKUHNjeTQwaHFpWXB3VnQ5WUlkQTdTd2k3QXNyazZtdVRC?=
- =?utf-8?B?bytlWjVId2VRY0RWSkM1QjZFSnZKZmY2V2VvRnNleDFuald1VTZUYzQ0b05Y?=
- =?utf-8?B?T3o1WVN0TkZtb3hIeGh1ajZhNllBMlZvdk81MmJpNmorbENxeHpPdlppMWVr?=
- =?utf-8?B?OFN0STkwVlZuSGl3OHBQWkpmODA1OVE2UXJRNDZtREQ1WVllYTBsbTd3RmYx?=
- =?utf-8?B?S0hERzUwdjA3dWgyaEE5T29VbHRNTitRUURGVnBMOWF5M3JVeFhyaE96akFQ?=
- =?utf-8?B?SE55VHdTNmVKYkk3ZjBibm5rMDI1UG5IRjZIaHhCQUxVbk83VnJQYTFpNzhn?=
- =?utf-8?B?WTg0VXYyY0ZxVGRUdlB3cEx4Sktjdk1nUHFKbDJUYzFqcmdqWGF5VE9XbEhl?=
- =?utf-8?B?b0pWd3dHM1FncXJCbmVBTW9vNkorMkhHbmRPMGpxYzFBb1g2dEF3ZzBmQXA3?=
- =?utf-8?B?MHpzQmRMZGhGUGF3ZDFlV2Y1UjJtWjZFS2tyTlZ6bTFQZTFJdW9za05IZmZ1?=
- =?utf-8?B?T3VHajllN0pvdlNHSzVrdHdkdnVMeC9oS0tFQjR1Wml0R1MrdkZ1OENTRDM4?=
- =?utf-8?B?QzJxRVJ5MnN4dCtQMkY2RVNQVjBSbGsxMjdQUWlHNEZGUWswZktJMTc5YWRy?=
- =?utf-8?B?Q0RXZTU5SGsydXY3bG1FS2UvdWlQSEpOUExvMG1ScHFJL3hTQWRCd2oyQVkr?=
- =?utf-8?B?UjFtVkhwbWhtWmpiZEx4QkhkelhXbmZTWGhVM2hycFZrNCthK1Y0dWVKOG9v?=
- =?utf-8?B?d2x3cXFnaCt6Ry85QVNvVHZqTmxQQ2s4RU91QXh2enA5MkVORnptc3N2T1Nk?=
- =?utf-8?B?NXBXZFdvZGNvKzdTRHFBVmQyV1RTaVkzdXM4VGwzRUZ1TVRnYnlvcko5b3k0?=
- =?utf-8?B?WUtEQnJIb3czV0paRTdPZVZBVmFDaWlWQmFnWGVTZVdtQkcySWV3R0pFUEhD?=
- =?utf-8?B?dU53Tmc2ckt0V290cUxveFVibksxYUJqMUUycUhFZ0RjMnR4Z3VsQ01mN2VD?=
- =?utf-8?B?OEhweWMyRXFVbHdLR1BHUjM0ZW1Td096Zisvd3lDZ09IMTJqNnozZTNsT25G?=
- =?utf-8?B?ZzlYVVYrdklUYmJCQTZlckQrNDlRNjJlQzRDc3VJaXB4M1ZoVi93RURLZ2No?=
- =?utf-8?B?clVVSDVzdWZwVGhOTFVhWmJhYUdUUXZIUCtIZkpZSldWMnJUenVFNGpaekpP?=
- =?utf-8?B?QW80UHdRVm9nNXMrVTBWVHUrYTRzNzZOMjh5TWN2NFR2UGM5YzZtTVdURTJr?=
- =?utf-8?B?L3pNbTU4Ri9xbGpCbVhIbm1Sa2hHcFVhMENPeXpyVnIxak1OK1h3TEVEcnFt?=
- =?utf-8?B?N0JWUzNWVWNNQys1WXZFUGxaWDRITDk1RFJaUWNXUGd6NERSQ2paelNZbE1u?=
- =?utf-8?B?V0VnaHNuTzNiK3RFNkZDbTRmTU5Kd05jRWtRUk5WSElJeE9ncXorNUg3Y3V3?=
- =?utf-8?B?clFLeWpzZEFpdXBDNHE1RHhmQVh3SUNFOHQvOWJ5S25uNG5CeE5iVDRFN2VX?=
- =?utf-8?B?Vkp0dHZ0dzRUU2tlNnM3aDF5R3hHRFpxWklYYzkydmJibzYxaDY5VFhacFBl?=
- =?utf-8?B?YzdNYVNTTjl5Tk1HMVZ2ZEJGb29YWUZFYm16WTZLSmhxdXh0WkRCNUl6SUdq?=
- =?utf-8?B?R3l6OVhBc2lpVTQwVWQrMG5ZcWFvcHgydC85cTBHY3pmQzd6UGkxYlFhdDNi?=
- =?utf-8?B?TGZwYk5ZUVJZQmhia1BXU2ROb3FCMGQ0bjhVR1VyN0liRzZ6YnNJcEtjMS9E?=
- =?utf-8?B?VlBVczlldUdkaWVnUVVxQ0l2eVptSnFzK0RpVytmSEV5VzZVWjVzQT09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9dd40f73-9638-41e7-d8c9-08deab4cb1b7
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB9080.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 08:51:42.2656
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Go9QIjSsnzPVNFPt3tBkYGRtG/bKmiwt4gM+zkPnZ+OrocJd1ng4jQdGaQdhfbazEfoehQPSncTvd5QDRUrF0w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10443
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-This series enhances the Synopsys DesignWare MIPI CSI-2 receiver driver
-with multiple stream support and adds i.MX95 platform support.
+On Tue,  5 May 2026 16:05:13 +0200
+Ketil Johnsen <ketil.johnsen@arm.com> wrote:
 
-The i.MX95 variant is similar to i.MX93 but uses IDI instead of IPI. Since
-IDI is software transparent, only a different register map is needed.
+Here comes the second part of the review :-).
 
-Tested on i.MX93 and i.MX95 platforms.
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> index 2ab444ee8c710..e93042eaf3fc8 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -100,8 +100,11 @@ static void panthor_gpu_irq_handler(struct panthor_device *ptdev, u32 status)
+>  			 fault_status, panthor_exception_name(ptdev, fault_status & 0xFF),
+>  			 address);
+>  	}
+> -	if (status & GPU_IRQ_PROTM_FAULT)
+> +	if (status & GPU_IRQ_PROTM_FAULT) {
+>  		drm_warn(&ptdev->base, "GPU Fault in protected mode\n");
+> +		panthor_gpu_disable_protm_fault_interrupt(ptdev);
 
-Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
----
-Changes in v3:
-- Added Reviewed-by tag from Frank Li for patches 1-6
-- Fix formats array out-of-bounds read during enumeration
-- Add NULL check for csi2->formats to handle unexpected format lookup failures
-- Call pm_runtime_put() after dw_mipi_csi2rx_stop()
-- Balance PM runtime get/put for asymmetric stream enable/disable operations
-- Add Reviewed-by tag from Krzysztof Kozlowski
-- See each patch's changelog for details.
-- Link to v2: https://lore.kernel.org/r/20260423-csi2_imx95-v2-0-934c02f3422a@oss.nxp.com
+It's only used in a single place, so I'd just inline the content of
+panthor_gpu_disable_protm_fault_interrupt() here. Also, I think
+panthor_gpu_disable_protm_fault_interrupt() is not taking the right
+lock (see below).
 
-Changes in v2:
-- Add two new patches
-- Simplify error handling by keeping goto labels instead of early returns
-- Removes redundant register availability check
-- Uses read_poll_timeout() with dw_mipi_csi2rx_read() instead of
-  readl_poll_timeout() with direct register address
-- Fixes stopstate condition logic
-- Check PHY stopstate after sensor enable instead of before to ensure
-  correct timing.
-- Optimize PHY stopstate polling parameters (1000us->10us, 2s->1ms) to
-  balance performance and responsiveness.
-- Add dedicated constraint block for i.MX95 to reflect different clock
-  requirements (only per clock needed vs i.MX93 which needs both per and
-  pixel clocks)
-- Update commit message to include more details about interface differences
-- Add Reviewed-by tag from Frank Li <Frank.Li@nxp.com>
-- Update commit message
-- See each patch's changelog for details.
-- Link to v1: https://lore.kernel.org/r/20260415-csi2_imx95-v1-0-7d63f3508719@oss.nxp.com
+> +		panthor_device_schedule_reset(ptdev);
+> +	}
+>  
+>  	spin_lock(&ptdev->gpu->reqs_lock);
+>  	if (status & ptdev->gpu->pending_reqs) {
+> @@ -367,6 +370,10 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev)
+>  	unsigned long flags;
+>  
+>  	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> +
+> +	/** Re-enable the protm_irq_fault when reset is complete */
+> +	ptdev->gpu->irq.mask |= GPU_IRQ_PROTM_FAULT;
 
----
-Guoniu Zhou (7):
-      media: synopsys: Fix out-of-bounds check in enum_mbus_code
-      media: synopsys: Fix IPI using hardcoded datatype
-      media: synopsys: Add support for RAW16 Bayer formats
-      media: synopsys: Add support for multiple streams
-      media: synopsys: Add PHY stopstate wait for i.MX93
-      media: dt-bindings: add NXP i.MX95 compatible string
-      media: synopsys: Add support for i.MX95
+panthor_irq::mask should only be modified with the
+panthor_irq::mask_lock held. Besides, we have a helper for
+that:
 
- .../bindings/media/rockchip,rk3568-mipi-csi2.yaml  |  16 +++
- drivers/media/platform/synopsys/dw-mipi-csi2rx.c   | 130 ++++++++++++++++++---
- 2 files changed, 132 insertions(+), 14 deletions(-)
----
-base-commit: 4fbeef21f5387234111b5d52924e77757626faa5
-change-id: 20260414-csi2_imx95-65ad0e7f630a
+	panthor_gpu_irq_enable_events(&ptdev->gpu->irq,	GPU_IRQ_PROTM_FAULT);
 
-Best regards,
--- 
-Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+> +
+>  	if (!drm_WARN_ON(&ptdev->base,
+>  			 ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED)) {
+>  		ptdev->gpu->pending_reqs |= GPU_IRQ_RESET_COMPLETED;
+> @@ -427,3 +434,8 @@ void panthor_gpu_resume(struct panthor_device *ptdev)
+>  	panthor_hw_l2_power_on(ptdev);
+>  }
+>  
+> +void panthor_gpu_disable_protm_fault_interrupt(struct panthor_device *ptdev)
+> +{
+> +	scoped_guard(spinlock_irqsave, &ptdev->gpu->reqs_lock)
+> +		ptdev->gpu->irq.mask &= ~GPU_IRQ_PROTM_FAULT;
 
+Same problem with wrong lock being taken to modify the mask, and
+panthor_gpu_irq_disable_events() probably being a better option?
+
+> +}
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.h b/drivers/gpu/drm/panthor/panthor_gpu.h
+> index 12c263a399281..ca66c73f543e6 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.h
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.h
+> @@ -54,4 +54,10 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev);
+>  void panthor_gpu_power_changed_off(struct panthor_device *ptdev);
+>  int panthor_gpu_power_changed_on(struct panthor_device *ptdev);
+>  
+> +/**
+> + * panthor_gpu_disable_protm_fault_interrupt() - Disable GPU_PROTECTED_FAULT interrupt
+> + * @ptdev: Device.
+> + */
+> +void panthor_gpu_disable_protm_fault_interrupt(struct panthor_device *ptdev);
+> +
+>  #endif
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index 07f54176ec1bf..702f537905b56 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -31,6 +31,7 @@
+>  #include <linux/sizes.h>
+>  
+>  #include "panthor_device.h"
+> +#include "panthor_fw.h"
+>  #include "panthor_gem.h"
+>  #include "panthor_gpu.h"
+>  #include "panthor_heap.h"
+> @@ -1704,8 +1705,12 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
+>  	if (drm_WARN_ON(&ptdev->base, vm->locked_region.size))
+>  		return -EINVAL;
+>  
+> +	down_read(&ptdev->protm.lock);
+> +
+>  	mutex_lock(&ptdev->mmu->as.slots_lock);
+>  	if (vm->as.id >= 0 && size) {
+> +		panthor_fw_protm_exit_sync(ptdev);
+> +
+>  		/* Lock the region that needs to be updated */
+>  		gpu_write64(ptdev, AS_LOCKADDR(vm->as.id),
+>  			    pack_region_range(ptdev, &start, &size));
+> @@ -1720,6 +1725,9 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
+>  	}
+>  	mutex_unlock(&ptdev->mmu->as.slots_lock);
+>  
+> +	if (ret)
+> +		up_read(&ptdev->protm.lock);
+
+Let's try to keep the locked section local to a function: the protm.lock
+should, IMHO, be taken/released in panthor_vm_exec_op(). If we go for
+that, this also makes the panthor_vm_lock_region() vs
+panthor_vm_expand_locked_region() distinction useless, though it's
+probably fine to keep it for clarity.
+
+> +
+>  	return ret;
+>  }
+>  
+> @@ -1805,6 +1813,8 @@ static void panthor_vm_unlock_region(struct panthor_vm *vm)
+>  	vm->locked_region.start = 0;
+>  	vm->locked_region.size = 0;
+>  	mutex_unlock(&ptdev->mmu->as.slots_lock);
+> +
+> +	up_read(&ptdev->protm.lock);
+>  }
+>  
+>  static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 987072bd867c4..acb04250c7def 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -308,6 +308,15 @@ struct panthor_scheduler {
+>  		 */
+>  		struct list_head stopped_groups;
+>  	} reset;
+> +
+> +	/** @protm: Protected mode related fields. */
+> +	struct {
+> +		/** @protected_mode: True if GPU is in protected mode. */
+> +		bool protected_mode;
+
+nit: s/protected_mode/enabled/s. But do we even need that boolean?
+Isn't active_group != NULL providing the same info?
+
+> +
+> +		/** @active_group: The active protected group. */
+> +		struct panthor_group *active_group;
+> +	} protm;
+>  };
+>  
+>  /**
+> @@ -570,6 +579,16 @@ struct panthor_group {
+>  	/** @fatal_queues: Bitmask reflecting the queues that hit a fatal exception. */
+>  	u32 fatal_queues;
+>  
+> +	/**
+> +	 * @protm_pending_queues: Bitmask reflecting the queues that are waiting
+> +	 *                        on a CS_PROTM_PENDING.
+> +	 *
+> +	 * The GPU will set the bit associated to the queue pending protected mode
+> +	 * when a PROT_REGION command is executing or when trying to resume previously
+> +	 * suspended protected mode jobs.
+> +	 */
+> +	u32 protm_pending_queues;
+> +
+>  	/** @tiler_oom: Mask of queues that have a tiler OOM event to process. */
+>  	atomic_t tiler_oom;
+>  
+> @@ -1176,6 +1195,7 @@ queue_resume_timeout(struct panthor_queue *queue)
+>   * @ptdev: Device.
+>   * @csg_id: Group slot ID.
+>   * @cs_id: Queue slot ID.
+> + * @protm_ack: Acknowledge pending protected mode queues
+>   *
+>   * Program a queue slot with the queue information so things can start being
+>   * executed on this queue.
+> @@ -1472,6 +1492,34 @@ csg_slot_prog_locked(struct panthor_device *ptdev, u32 csg_id, u32 priority)
+>  	return 0;
+>  }
+>  
+> +static void
+> +cs_slot_process_protm_pending_event_locked(struct panthor_device *ptdev,
+> +					   u32 csg_id, u32 cs_id)
+> +{
+> +	struct panthor_scheduler *sched = ptdev->scheduler;
+> +	struct panthor_csg_slot *csg_slot = &sched->csg_slots[csg_id];
+> +	struct panthor_group *group = csg_slot->group;
+> +
+> +	lockdep_assert_held(&sched->lock);
+> +
+> +	if (!group)
+> +		return;
+> +
+> +	/* No protected memory heap, a user space program tried to
+> +	 * submit a protected mode jobs resulting in the GPU raising
+> +	 * a CS_PROTM_PENDING request.
+> +	 *
+> +	 * This scenario is invalid and the protected mode jobs must
+> +	 * not be allowed to progress.
+> +	 */
+> +	if (!ptdev->protm.heap)
+> +		return;
+
+Should we flag the group unusable when that happens and schedule it out
+as soon as possible?
+
+	if (!ptdev->protm.heap)
+		group->fatal_queues |= BIT(cs_id);
+	else
+		group->protm_pending_queues |= BIT(cs_id);
+
+	sched_queue_delayed_work(sched, tick, 0);
+
+> +
+> +	group->protm_pending_queues |= BIT(cs_id);
+> +
+> +	sched_queue_delayed_work(sched, tick, 0);
+> +}
+> +
+>  static void
+>  cs_slot_process_fatal_event_locked(struct panthor_device *ptdev,
+>  				   u32 csg_id, u32 cs_id)
+> @@ -1718,6 +1766,9 @@ static bool cs_slot_process_irq_locked(struct panthor_device *ptdev,
+>  	if (events & CS_TILER_OOM)
+>  		cs_slot_process_tiler_oom_event_locked(ptdev, csg_id, cs_id);
+>  
+> +	if (events & CS_PROTM_PENDING)
+> +		cs_slot_process_protm_pending_event_locked(ptdev, csg_id, cs_id);
+> +
+>  	/* We don't acknowledge the TILER_OOM event since its handling is
+>  	 * deferred to a separate work.
+>  	 */
+> @@ -1848,6 +1899,17 @@ static void sched_process_idle_event_locked(struct panthor_device *ptdev)
+>  	sched_queue_delayed_work(ptdev->scheduler, tick, 0);
+>  }
+>  
+> +static void sched_process_protm_exit_event_locked(struct panthor_device *ptdev)
+> +{
+> +	lockdep_assert_held(&ptdev->scheduler->lock);
+> +
+> +	/* Acknowledge the protm exit and schedule a tick. */
+> +	panthor_fw_protm_exit(ptdev);
+
+Let's just inline the content of panthor_fw_protm_exit() here.*
+It doesn't make sense to have all these indirections, especially
+since PROTM and scheduling are intertwined anyway, so I consider
+it part of the scheduler responsibility (just like the scheduler
+deals with other GLB events).
+
+The same goes for the other panthor_fw_protm_ helpers defined in
+panthor_fw.c, I think panthor_sched.c would be a better fit for
+those, or even inlining their content if they are only used in
+a single place.
+
+> +	sched_queue_delayed_work(ptdev->scheduler, tick, 0);
+> +	ptdev->scheduler->protm.protected_mode = false;
+> +	ptdev->scheduler->protm.active_group = NULL;
+> +}
+> +
+>  /**
+>   * sched_process_global_irq_locked() - Process the scheduling part of a global IRQ
+>   * @ptdev: Device.
+> @@ -1863,6 +1925,9 @@ static void sched_process_global_irq_locked(struct panthor_device *ptdev)
+>  	ack = READ_ONCE(glb_iface->output->ack);
+>  	evts = (req ^ ack) & GLB_EVT_MASK;
+>  
+> +	if (evts & GLB_PROTM_EXIT)
+> +		sched_process_protm_exit_event_locked(ptdev);
+> +
+>  	if (evts & GLB_IDLE)
+>  		sched_process_idle_event_locked(ptdev);
+>  }
+> @@ -1872,23 +1937,71 @@ static void process_fw_events_work(struct work_struct *work)
+>  	struct panthor_scheduler *sched = container_of(work, struct panthor_scheduler,
+>  						      fw_events_work);
+>  	u32 events = atomic_xchg(&sched->fw_events, 0);
+> +	u32 csg_events = events & ~JOB_INT_GLOBAL_IF;
+>  	struct panthor_device *ptdev = sched->ptdev;
+>  
+>  	mutex_lock(&sched->lock);
+>  
+> +	while (csg_events) {
+> +		u32 csg_id = ffs(csg_events) - 1;
+> +
+> +		sched_process_csg_irq_locked(ptdev, csg_id);
+> +		csg_events &= ~BIT(csg_id);
+> +	}
+
+I'm sure you have a good reason to re-order the processing
+of CSG and GLB events, and it'd be good to have it documented
+in a comment.
+
+> +
+>  	if (events & JOB_INT_GLOBAL_IF) {
+>  		sched_process_global_irq_locked(ptdev);
+>  		events &= ~JOB_INT_GLOBAL_IF;
+>  	}
+>  
+> -	while (events) {
+> -		u32 csg_id = ffs(events) - 1;
+> +	mutex_unlock(&sched->lock);
+> +}
+>  
+> -		sched_process_csg_irq_locked(ptdev, csg_id);
+> -		events &= ~BIT(csg_id);
+> +static void handle_protm_fault(struct panthor_device *ptdev)
+
+This is a bit of a misnomer, I think. It doesn't seem to be triggered
+by a FAULT event, it's more a timeout on a PROTM section that would
+lead to a reset being scheduled, and this "blocked-in-protm" situation
+being detected as part of the reset.
+
+> +{
+> +	struct panthor_scheduler *sched = ptdev->scheduler;
+> +	u32 csg_id;
+> +	struct panthor_group *protm_group;
+> +
+> +	guard(mutex)(&sched->lock);
+> +
+> +	if (!sched->protm.protected_mode)
+> +		return;
+> +
+> +	protm_group = sched->protm.active_group;
+> +
+> +	if (drm_WARN_ON(&ptdev->base, !protm_group))
+> +		return;
+
+See, that's a perfect example of sched->protm.protected_mode being redundant.
+Now you're left with a potential protected_mode=true,active_group=NULL
+inconsistency you don't expect.
+
+> +
+> +	/* Group will be terminated by the device reset */
+> +	protm_group->fatal_queues |= GENMASK(protm_group->queue_count - 1, 0);
+> +
+> +	if (!panthor_fw_protm_exit_wait_event_timeout(ptdev))
+> +		goto cleanup_protm;
+> +
+> +	/**
+> +	 * GPU failed to exit protected mode. Mark all non-protected mode CSGs
+
+	/* GPU failed to exit protected mode. Mark all non-protected mode CSGs
+
+> +	 * as suspended so that they are unaffected by the GPU reset.
+> +	 */
+> +
+> +	for (csg_id = 0; csg_id < sched->csg_slot_count; csg_id++) {
+> +		struct panthor_group *group = sched->csg_slots[csg_id].group;
+> +
+> +		if (!group || group == protm_group)
+> +			continue;
+> +
+> +		group->state = PANTHOR_CS_GROUP_SUSPENDED;
+> +
+> +		group_unbind_locked(group);
+> +
+> +		list_move(&group->run_node, group_is_idle(group) ?
+> +						&sched->groups.idle[group->priority] :
+> +						&sched->groups.runnable[group->priority]);
+
+nit: Let's use a local struct list_head * variable to select the right list.
+
+>  	}
+>  
+> -	mutex_unlock(&sched->lock);
+> +cleanup_protm:
+> +	sched->protm.protected_mode = false;
+> +	sched->protm.active_group = NULL;
+>  }
+>  
+>  /**
+> @@ -2029,6 +2142,7 @@ struct panthor_sched_tick_ctx {
+>  	bool immediate_tick;
+>  	bool stop_tick;
+>  	u32 csg_upd_failed_mask;
+> +	struct panthor_group *protm_group;
+>  };
+>  
+>  static bool
+> @@ -2299,6 +2413,7 @@ tick_ctx_evict_group(struct panthor_scheduler *sched,
+>  
+>  static void
+>  tick_ctx_reschedule_group(struct panthor_scheduler *sched,
+> +			  struct panthor_sched_tick_ctx *ctx,
+>  			  struct panthor_csg_slots_upd_ctx *upd_ctx,
+>  			  struct panthor_group *group,
+>  			  int new_csg_prio)
+> @@ -2321,6 +2436,30 @@ tick_ctx_reschedule_group(struct panthor_scheduler *sched,
+>  					csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
+>  					CSG_ENDPOINT_CONFIG);
+>  	}
+> +
+> +	if (ctx->protm_group == group) {
+> +		for (u32 q = 0; q < group->queue_count; q++) {
+> +			struct panthor_fw_cs_iface *cs_iface;
+> +
+> +			if (!(group->protm_pending_queues & BIT(q)))
+> +				continue;
+> +
+> +			cs_iface = panthor_fw_get_cs_iface(ptdev, group->csg_id, q);
+> +			panthor_fw_update_reqs(cs_iface, req, cs_iface->output->ack,
+> +					       CS_PROTM_PENDING);
+> +		}
+> +
+> +		panthor_fw_toggle_reqs(csg_iface, doorbell_req, doorbell_ack,
+> +				       group->protm_pending_queues);
+> +		csgs_upd_ctx_ring_doorbell(upd_ctx, group->csg_id);
+> +		group->protm_pending_queues = 0;
+> +
+> +		/*
+> +		 * We only allow one protected group to run at same time,
+> +		 * as it makes it easier to handle faults in protected mode.
+
+It's more something to document in the panthor_scheduler::protm::active_group
+section.
+
+> +		 */
+> +		sched->protm.active_group = group;
+
+Would it make sense to move this logic to a tick_ctx_handle_protm_group()
+helper that's called before/after tick_ctx_reschedule_group()? This way
+there's no extra if (ctx->protm_group == group) conditional branch in here.
+
+
+static void
+tick_ctx_handle_protm_group(struct panthor_scheduler *sched,
+			    struct panthor_sched_tick_ctx *ctx,
+ 			    struct panthor_csg_slots_upd_ctx *upd_ctx)
+{
+	struct panthor_device *ptdev = sched->ptdev;
+	struct panthor_group *group = ctx->protm_group;
+	struct panthor_fw_csg_iface *csg_iface;
+
+	if (!group || drm_WARN_ON(&ptdev->base, group->csg_id < 0))
+		return;
+
+	csg_iface = panthor_fw_get_csg_iface(ptdev, group->csg_id);
+	for (u32 q = 0; q < group->queue_count; q++) {
+		struct panthor_fw_cs_iface *cs_iface;
+
+		if (!(group->protm_pending_queues & BIT(q)))
+			continue;
+
+		cs_iface = panthor_fw_get_cs_iface(ptdev, group->csg_id, q);
+		panthor_fw_update_reqs(cs_iface, req, cs_iface->output->ack,
+				       CS_PROTM_PENDING);
+	}
+
+	panthor_fw_toggle_reqs(csg_iface, doorbell_req, doorbell_ack,
+			       group->protm_pending_queues);
+	csgs_upd_ctx_ring_doorbell(upd_ctx, group->csg_id);
+	group->protm_pending_queues = 0;
+	sched->protm.active_group = group;
+}
+
+> +	}
+>  }
+>  
+>  static void
+> @@ -2336,6 +2475,17 @@ tick_ctx_schedule_group(struct panthor_scheduler *sched,
+>  	group_bind_locked(group, csg_id);
+>  	csg_slot_prog_locked(ptdev, csg_id, csg_prio);
+>  
+> +	/* If the group was waiting for protected mode before suspension,
+> +	 * and the tick context enters this mode, it should be serviced
+> +	 * immediately because the slot reset should have set the
+> +	 * CS_PROTM_PENDING bit to zero, and cs_prog_slot_locked() sets it to
+> +	 * zero too.
+> +	 * It's not clear if we will get a new CS_PROTM_PENDING event in that
+> +	 * case, but it should be safe either way.
+> +	 */
+> +	if (group->protm_pending_queues && ctx->protm_group)
+> +		group->protm_pending_queues = 0;
+
+I'd move this to the path where we do the SUSPEND, or group_unbind(), even.
+
+> +
+>  	csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, csg_id,
+>  				group->state == PANTHOR_CS_GROUP_SUSPENDED ?
+>  				CSG_STATE_RESUME : CSG_STATE_START,
+> @@ -2365,7 +2515,7 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
+>  
+>  		/* Update priorities on already running groups. */
+>  		list_for_each_entry(group, &ctx->groups[prio], run_node) {
+> -			tick_ctx_reschedule_group(sched, &upd_ctx, group, new_csg_prio--);
+> +			tick_ctx_reschedule_group(sched, ctx, &upd_ctx, group, new_csg_prio--);
+>  		}
+>  	}
+>  
+> @@ -2457,6 +2607,15 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
+>  
+>  	sched->used_csg_slot_count = ctx->group_count;
+>  	sched->might_have_idle_groups = ctx->idle_group_count > 0;
+> +
+> +	if (ctx->protm_group) {
+> +		ret = panthor_fw_protm_enter(ptdev);
+> +		if (ret) {
+> +			panthor_device_schedule_reset(ptdev);
+> +			ctx->csg_upd_failed_mask = U32_MAX;
+
+It's weird to flag it as all CSGs update failed. Should we instead
+have
+
+			/* If we failed to enter PROTM, consider the group who
+			 * requested it as failed.
+			 */
+			ctx->csg_upd_failed_mask |= BIT(ctx->protm_group->csg_id);
+
+> +		}
+> +		sched->protm.protected_mode = true;
+
+I'd move that to a tick_ctx_service_protm_req() helper that has the
+panthor_fw_protm_enter() inlined, because again, it doesn't make
+sense to have this defined in panthor_fw.c if the only user lives
+in panthor_sched.c
+
+> +	}
+>  }
+>  
+>  static u64
+> @@ -2490,7 +2649,7 @@ static void tick_work(struct work_struct *work)
+>  	u64 resched_target = sched->resched_target;
+>  	u64 remaining_jiffies = 0, resched_delay;
+>  	u64 now = get_jiffies_64();
+> -	int prio, ret, cookie;
+> +	int prio, protm_prio, ret, cookie;
+>  	bool full_tick;
+>  
+>  	if (!drm_dev_enter(&ptdev->base, &cookie))
+> @@ -2564,14 +2723,49 @@ static void tick_work(struct work_struct *work)
+>  		}
+>  	}
+>  
+> +	/* Check if the highest priority group want to switch to protected mode */
+> +	for (protm_prio = PANTHOR_CSG_PRIORITY_COUNT - 1; protm_prio >= 0; protm_prio--) {
+> +		struct panthor_group *group;
+> +
+> +		group = list_first_entry_or_null(&ctx.groups[protm_prio],
+> +						 struct panthor_group,
+> +						 run_node);
+> +		if (group) {
+> +			ctx.protm_group = group;
+> +			break;
+> +		}
+
+Should this be
+
+		if (group) {
+			if (group->protm_pending_queues)
+				ctx.protm_group = group;
+
+			break;
+		}
+
+?
+
+> +	}
+> +
+>  	/* If we have free CSG slots left, pick idle groups */
+> -	for (prio = PANTHOR_CSG_PRIORITY_COUNT - 1;
+> -	     prio >= 0 && !tick_ctx_is_full(sched, &ctx);
+> -	     prio--) {
+
+How about we keep it a single indentation level and skip higher prios if
+PROTM is requested:
+
+		/* Pick only idle groups with equal or lower priority than the
+		 * group triggering protected mode. Do not bother picking
+		 * unscheduled idle groups.
+		 */
+		if (ctx.protm_group && prio < protm_prio)
+			continue;
+
+This saves us an indentation level and limits the code duplication.
+
+> -		/* Check the old_group queue first to avoid reprogramming the slots */
+> -		tick_ctx_pick_groups_from_list(sched, &ctx, &ctx.old_groups[prio], false, true);
+> -		tick_ctx_pick_groups_from_list(sched, &ctx, &sched->groups.idle[prio],
+> -					       false, false);
+> +	if (ctx.protm_group) {
+> +		/* Pick only idle groups with equal or lower priority than the
+> +		 * group triggering protected mode. Do not bother picking
+> +		 * unscheduled idle groups.
+> +		 */
+> +		for (prio = protm_prio;
+> +		     prio >= 0 && !tick_ctx_is_full(sched, &ctx);
+> +		     prio--)
+> +			tick_ctx_pick_groups_from_list(sched, &ctx,
+> +						       &ctx.old_groups[prio],
+> +						       false, true);
+> +	} else {
+> +		/* No switch to protected, just pick any idle group according
+> +		 * to priority
+> +		 */
+> +		for (prio = PANTHOR_CSG_PRIORITY_COUNT - 1;
+> +		     prio >= 0 && !tick_ctx_is_full(sched, &ctx);
+> +		     prio--) {
+> +			/* Check the old_group queue first to avoid
+> +			 * reprogramming the slots
+> +			 */
+> +			tick_ctx_pick_groups_from_list(sched, &ctx,
+> +						       &ctx.old_groups[prio],
+> +						       false, true);
+> +			tick_ctx_pick_groups_from_list(sched, &ctx,
+> +						       &sched->groups.idle[prio],
+> +						       false, false);
+> +		}
+> +
+>  	}
+>  
+>  	tick_ctx_apply(sched, &ctx);
+> @@ -2993,6 +3187,8 @@ void panthor_sched_pre_reset(struct panthor_device *ptdev)
+>  	cancel_work_sync(&sched->sync_upd_work);
+>  	cancel_delayed_work_sync(&sched->tick_work);
+>  
+> +	handle_protm_fault(ptdev);
+
+I actually wonder if this should be part of the panthor_sched_suspend()
+logic. That is, we would automatically flag all non-protm groups as
+suspended if the GPU was in PROTM mode at the time the hang happened.
+
+> +
+>  	panthor_sched_suspend(ptdev);
+>  
+>  	/* Stop all groups that might still accept jobs, so we don't get passed
+
+Regards,
+
+Boris
