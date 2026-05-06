@@ -1,139 +1,128 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6EB0449EC3;
-	Wed,  6 May 2026 12:44:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778071462; cv=pass; b=Cmm/J6xPn2BYJ9UbO3zX8rWy3CTpvZdJwB/n8rxFrpcdGDFAzOXU+LCDvUHfYlb5nW2ALFbthvymJCLX6xjFUrnl4bEctqsXEdp5DDMxRPdEnwQY/5klOhQA2wOIko761QN3m/HBKQJ/v1B81jl73b1N1wbXeSItAazmXyjNPgc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778071462; c=relaxed/simple;
-	bh=BBh5xHp0EE+u0cr6D75njYc0+dmuhkoDFGJHTVXTNJo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ig/+8MFkPE4OF0MriURmBWtiIV53/eOZ951NDj5DYvCv1FyYwzgE8cC7JasGmoCP7JMvIFry6Gh5vV8QyxpTtjQvdoICFv79u3iUL2Q7gib3mfgAqTVQI+ko5Zh1wcIj+sYPy3U7SQ3WUXbLW/Zr/8EcDtKfW5gSF3o4VJww3xA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b=bpzqFq8Z; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D41C03FA5FF;
+	Wed,  6 May 2026 12:49:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778071764; cv=none; b=qjPvGR9BkuZaH1YIw6w7v0KN9Jg0azazMzRLpR1hxDyov0lMQx+fX/bFEwHBFC+hLYN3K9ly8Z2/Aww8j7PXbSZefatY1AjdKTJEUSIr5U7f8lOOOc5CtzGynde/8MGq05epmvvlo/OTgPX7VxgA0S6X7B8lIdbw1OL3gYCHEzg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778071764; c=relaxed/simple;
+	bh=DuKkAM8zgu3C6odRXS0BgAJ9k5Xa+l28U9H+xIGpQRg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lVh+L7P0zSZn6FPjAcYF+CWTmgcu+k+lhhggOhoTMwy3MJw5SfeFdYw1uFFh/fIesJjBjLbYKphkncNIZQSKmmr1UrfCMfbefRsKifXN3XnX9q9B1J7gOLT06IeKfjFkAG4nt8zVAzWy1gnOOKz0dIJUYktO0K55L0E5T92laWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Ptno7vSD; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="bpzqFq8Z"
-ARC-Seal: i=1; a=rsa-sha256; t=1778071430; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=lwcAHOQ9qKgB6gd/9on1FXLK0UkDSvYUDqw8dWjksSDlhrGY71mr6dLuvD+Juxe7xZVjqeJdePgX0oelI7eQUHqqowgB8a6OMxv6o1UV6i0eChNz60qd+WnKM+eJoBrwIjImFw07Yt0V27nCcqSlbOo6ShtG+Fo4J4K4qq2kCS8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1778071430; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=4WOETdo7BhC8/fmfwEMHN4WnoE6JbrZL+S0o9p8CuQg=; 
-	b=QQtT0Z2HOlpHk1d9Psdmk2ZCNNPApPHJlD8+9lgEYkTjwIU+QWETNPS0/0co+QVLUGW99oqJLrb2APT0E4slFtgSK84HyYQSTdb7+WUFt9JJi0L0l9LJFfnCCLxwnWo5UvjBeYpz5WfQatVYER/N+9ert4DqpakFi/YFAGl6j+8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
-	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1778071430;
-	s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
-	bh=4WOETdo7BhC8/fmfwEMHN4WnoE6JbrZL+S0o9p8CuQg=;
-	b=bpzqFq8ZonERTui7D7EsOZ4TgLTnWPmS5jc1gVcCh9oknNoPr4foc8lVt6qDxno8
-	NEFNeYkeNwiwAWclb9gxJan+sWCuuXr5s7umaNf7RGIRgmWvVTXIMxOC8jV1DLLjjvM
-	Nm1YHD+K9808tVd7G2lSqrJ4FTNe1uXI84ums7Cw=
-Received: by mx.zohomail.com with SMTPS id 1778071429188905.6876124875138;
-	Wed, 6 May 2026 05:43:49 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Ketil Johnsen <ketil.johnsen@arm.com>, Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, Florent Tomasin <florent.tomasin@arm.com>
-Subject:
- Re: [PATCH 4/8] drm/panthor: Add support for protected memory allocation in
- panthor
-Date: Wed, 06 May 2026 14:43:42 +0200
-Message-ID: <SurytM7FTOazQNVXXqCU7g@collabora.com>
-In-Reply-To: <20260506-energetic-azure-pig-2b6ec4@houat>
-References:
- <20260505140516.1372388-1-ketil.johnsen@arm.com>
- <20260505140516.1372388-5-ketil.johnsen@arm.com>
- <20260506-energetic-azure-pig-2b6ec4@houat>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Ptno7vSD"
+Received: from ideasonboard.com (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7D72B63D;
+	Wed,  6 May 2026 14:49:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1778071757;
+	bh=DuKkAM8zgu3C6odRXS0BgAJ9k5Xa+l28U9H+xIGpQRg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Ptno7vSDnOfojk8eyP2rF5O9ERRrAUPacwU2ITOE4q70HDQzITXVd8pJf+l+nyJAG
+	 6rdSlfSMUah/cKd3/7arIOjGBwATBxMSmGTH1tPCeBYysaTe2GmR/uJISdRFi0R0J+
+	 E55aowcLpoijqQKYYwX2pA2ex3KFAvOrpxZgm3yo=
+Date: Wed, 6 May 2026 14:49:17 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Jai Luthra <jai.luthra+renesas@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [v8 00/14] media: Add support for R-Car ISP using Dreamchip
+ RPPX1 ISP
+Message-ID: <afs3U2zudfJEXkY4@zed>
+References: <20260504010556.2796398-1-niklas.soderlund+renesas@ragnatech.se>
+ <CAMuHMdUGo0G1ZjuXa=PA_2fa8JpU+z6gbp-Dh4FWPK69V4SvJQ@mail.gmail.com>
+ <20260506122954.GL683841@ragnatech.se>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260506122954.GL683841@ragnatech.se>
 
-On Wednesday, 6 May 2026 12:08:24 Central European Summer Time Maxime Ripard wrote:
-> Hi,
-> 
-> On Tue, May 05, 2026 at 04:05:10PM +0200, Ketil Johnsen wrote:
-> > From: Florent Tomasin <florent.tomasin@arm.com>
-> > 
-> > This patch allows Panthor to allocate buffer objects from a
-> > protected heap. The Panthor driver should be seen as a consumer
-> > of the heap and not an exporter.
-> > 
-> > Protected memory buffers needed by the Panthor driver:
-> > - On CSF FW load, the Panthor driver must allocate a protected
-> >   buffer object to hold data to use by the FW when in protected
-> >   mode. This protected buffer object is owned by the device
-> >   and does not belong to a process.
-> > - On CSG creation, the Panthor driver must allocate a protected
-> >   suspend buffer object for the FW to store data when suspending
-> >   the CSG while in protected mode. The kernel owns this allocation
-> >   and does not allow user space mapping. The format of the data
-> >   in this buffer is only known by the FW and does not need to be
-> >   shared with other entities.
-> > 
-> > The driver will retrieve the protected heap using the name of the
-> > heap provided to the driver as module parameter.
-> 
-> I know it's what dma_heap_find asks for, but I wonder if it wouldn't be
-> better in the device tree and lookup through the device node? heaps are
-> going to have a node anyway, right?
-> 
-> This would allow you to have a default that works and not mess to much
-> with the kernel parameters that aren't always easy to change for
-> end-users.
+Hello,
 
-Hopefully the kernel parameters aren't easy to change for end-users on
-systems that deploy this. :) The use-case is copy protection for embedded
-devices running on locked-down systems. Though admittedly the mechanism
-works even on "tampered"-with systems, as long as the underlying hardware
-implements the access restrictions properly.
+On Wed, May 06, 2026 at 02:29:54PM +0200, Niklas Söderlund wrote:
+> Hi Geert,
+>
+> On 2026-05-06 14:19:28 +0200, Geert Uytterhoeven wrote:
+> > Hi Niklas,
+> >
+> > On Mon, 4 May 2026 at 03:08, Niklas Söderlund
+> > <niklas.soderlund+renesas@ragnatech.se> wrote:
+> > > This series adds support for two different devices that together enable
+> > > ISP support on Renesas R-Car Gen4 ISP processing. The first driver added
+> > > is for Dreamchip RPPX1 ISP, this device purely deals with image
+> > > processing algorithms, statistics and image conversion; but have no DMA
+> > > engines. The second driver is for the R-Car ISP CORE, this device
+> > > deals with DMA to/from the RPPX1 ISP and provides a V4L2 user-space
+> > > interface for the ISP.
+> >
+> > Thanks for your series!
+> >
+> > > This series depends on the ISP extensible statistics definitions
+> > > out-of-tree patches.
+> >
+> > So that is:
+> >   1. "[PATCH v1 00/11] media: Add iMX95 neoisp driver"
+> >      https://lore.kernel.org/20260413160331.2611829-1-antoine.bouyer@nxp.com/
+> >      for v4l2_isp_block_header,
+> >   2. Jacopo's reply https://lore.kernel.org/aeHd0G_JDaROMWDd@zed/
+> >      for v4l2_isp_buffer_size.
+> >
+> > However, that still leaves me with undefined struct v4l2_isp_block_type_info,
+> > and lore couldn't help in locating the patch series that adds it :-(
 
-I'm a bit hesitant about making this DT myself. It would solve the problem
-that panthor could probe before the heap provider and needs to handle
-deferral by itself, but it does mean that we'd be putting software
-configuration into the device tree. Having the secure heap be a node with
-no address would allow the tee (or whatever else) to still dynamically
-allocate it wherever, and let us handle the dependency relationship
-between dma heap and GPU, but then we require that tee heap driver
-implementations play nice with this scheme, and bring OF into the
-dma_heap APIs.
+This version is based on a preliminary version of the extensible
+statistics. I can provide you the patches in case you're interested.
 
-I'm not against making the dma heap a phandle property for the GPU
-node and then extending the dma-heap API to get a heap by name or
-by index from a user device's standardised phandle property/names
-property, but that's potentially a very large can of worms to open.
+>
+> As Jacopo have kindly pointed out to me in private, this work was based
+> on an early version of [2] that was not published, but as I found [1] I
+> thought it was.
+>
+> I will rebase this on [2] and address Jacopo's comments and repost.
 
-> 
-> Maxime
-> 
+Don't :)
 
-Kind regards,
-Nicolas Frattaroli
+Please re-base on:
+https://patchwork.linuxtv.org/project/linux-media/list/?series=24772
+which I sent yesterday instead.
 
+If you're using b4 you can simply point the pre-requisites to this
 
+change-id: 20260504-extensible-stats-f2d6befcc1ce
+
+Thanks
+  j
+
+>
+> >
+> > Where can I find it? Thanks!
+> >
+> > Gr{oetje,eeting}s,
+> >
+> >                         Geert
+> >
+> >
+> > --
+> > Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> >
+> > In personal conversations with technical people, I call myself a hacker. But
+> > when I'm talking to journalists I just say "programmer" or something like that.
+> >                                 -- Linus Torvalds
+>
+> --
+> Kind Regards,
+> Niklas Söderlund
