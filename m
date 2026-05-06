@@ -1,153 +1,154 @@
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A16480DCA
-	for <linux-media@vger.kernel.org>; Wed,  6 May 2026 14:34:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B583ED5CD;
+	Wed,  6 May 2026 14:38:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778078070; cv=none; b=c1PSjorWRPQsRGDuEvteCi977ahCoZZOK/vE8oA5XmvsOfkrocmb6z8ivQRNmVko7dXtujlYsOETlJUrjgd5zXuPbUWpMAkfrgihvC2uu14ewgJK43pU6FDapGPfliD7mC8ZXxXvGm+D/vS6AMqnlVHmTbHHcoC/Ki5jmM3LdvA=
+	t=1778078291; cv=none; b=pPuRbGGyfaQ47GxGbFZ77+jjo9gOwFPSIJ/48kvs0meCR+aP86HLfaSECygK2ZEEO5/1/75PngPFMCo7OmamhnyEgFu+BPeOZ2rUUjrEhF7+LigUq/R/ZvEamEantIx+cQaA7g9e2u7uJ2wGLPRnGsd4ZqgbaWLXtZd5vhD7CaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778078070; c=relaxed/simple;
-	bh=YJHhuXmcmAbbsrOx/1EkRrG2CsYJcpBD2mAbpq2+4uM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OumEkHMYsmUtUaUpkQofNvxU/bIFuNvtzjc4qPSsjgzJmFgjnTElUu5ePio/9RZWc4V/Tf045F5WJlVIb+RrEaW5xHRhMFkEGJA0ygwlzbAmEeTWP8KyLn3Rdx/Vh557UqyxnnfTLDDIkYmiQM5e/cySdrlffswOE7wpjaouy4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.167.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5a887ebb416so988162e87.2
-        for <linux-media@vger.kernel.org>; Wed, 06 May 2026 07:34:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778078067; x=1778682867;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=iGwBD/Xye3jm815Ej5TC/rh/kNzvD/6gf/0ous2Pk1s=;
-        b=CegOZA3tQYOn3AyYIzeVbV5FVAccTZGB3WA9MV7yr9k5ltDuix5rLhulgSl/L2ISxZ
-         BOGGvHZumkDVvjUs68n4aBabqYNehgNb2/3/yVIhuNPgRjtQibJssFmglJnIXGwcQ1Or
-         jCpXB1zoMxm+Ye9K73FbHy9iSxGJBpmFIYsWsUNDy03N5flZDuKzuCu8dTH7LYpX9VUu
-         pnvlcnMPrgsNGtMUpb0DCOdQZj+OwQK+CV2ztBiErNjFJp5HZUSMk7AFLAss7RIlLBi3
-         /mu38V1N9TpIGQfC+H+7HLqqhJihoRnJ6jrBFr0WYPmmrnTF0PyullSpSfTzBAiXm7AV
-         YjOg==
-X-Forwarded-Encrypted: i=1; AFNElJ/HpN9umTyF3Fq5+TODLTGlmKdRrmi+bk6dL7INM8GsybpAvKhglMZy2xfdqM3IAsX1FuNd3cOhH9MR+A==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy6cWAV1YkZl0M5pHX2JoE0Krpuk9TNW2hy7o8kj7yFfgq/FxJB
-	Hb78I+sKvC9mWUUpccKgCVCjcesz1iWw7wCwJdVDXCMV5Bw9vdXUieEWsFKubpuAkvQ=
-X-Gm-Gg: AeBDiesV9IU6G4b1WI6Y0Zrmr/BlSXU++dR4VeSl29WP5JtMSMZ7Y4a17WefbZ585Cj
-	owSORMKJ41U9tpcj3iGgJAO4V3eO+Dt8MqMRMM9NU9WDpv+t53ztKUxZNaBt2WBPqigEhxbGEEJ
-	X9SUEwdKSZQfENyetnkCfWFlT/JDArmFcwf+aAJ4v4UM0Iiqcf0H5wDDVvPaXCFCWq8I/zoghhK
-	p8AYLR8pNbajQeXXCgxHNEo299cZff/Q6QAmIq9RyOYaY/iBaVnRuJOoxdZDHdx65wmygbn7p8g
-	TAaDzxyHvdR4IraVQWvzfWpkq67iqAjhmS4sd6WeiRJrO2mGpbjhzjFtQ4LW0Ntru6kBtAKRhHl
-	Z7al+amtzw8OlTUxVtS+YEYi1oecKGX508R4pvZ9lmwiuMbxpQ9MQeUM0xhDzbeFSaqILPFP8Cd
-	juEiZx0l+glreHQxi+O4ILCkbnhtrGa97X+AS5mMbuxJkVkjpiCqcm5VDTmY67EPePYFJhwYURD
-	u0=
-X-Received: by 2002:a05:6512:131e:b0:5a8:6cfc:8379 with SMTP id 2adb3069b0e04-5a887cebdeamr1452667e87.39.1778078066535;
-        Wed, 06 May 2026 07:34:26 -0700 (PDT)
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com. [209.85.208.182])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39361300b58sm50978861fa.20.2026.05.06.07.34.26
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 06 May 2026 07:34:26 -0700 (PDT)
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-38e7c3a2deaso61257861fa.2
-        for <linux-media@vger.kernel.org>; Wed, 06 May 2026 07:34:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8sOrKsbTTfOto0H447x0EVRwoM+YY5Vz+ZBbSVFaUoo8dOHnTIuzt3EVNB34Zv28r3Wf7ofXFVwA+bAg==@vger.kernel.org
-X-Received: by 2002:a05:6402:1f46:b0:67d:1e9b:990d with SMTP id
- 4fb4d7f45d1cf-67d642bc4b7mr1875234a12.16.1778077594610; Wed, 06 May 2026
- 07:26:34 -0700 (PDT)
+	s=arc-20240116; t=1778078291; c=relaxed/simple;
+	bh=ckTxYuVYS5Rz3zH0pIi1LUW90v3+Olkd4kOfbm6F23M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d/kepqJBUzBHXpomLfA6CyO9x1KclzsF5sqC2yQspCQAriEEo661nnv1KoJGmSVA5zJ9YKZd7sQhqB0Uhqy095owWMk3IMypf28qbkwCQHwRVtNrh+qAepIvRkQsHZ3gbDbLasyZyKksfYGPqFAaOV5hrUHEng9Sz0kFBAoUigE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fGKVYOL2; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fGKVYOL2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3CD9C2BCB0;
+	Wed,  6 May 2026 14:38:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778078290;
+	bh=ckTxYuVYS5Rz3zH0pIi1LUW90v3+Olkd4kOfbm6F23M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=fGKVYOL2jktUhU0keJPgg7vbstw5G5EoV2Vi9772iwM1OIjJPOmBSC37RxCBi5IyD
+	 5WyEyPfgEvkRX0v1ljxS0XvlmsxjBjjwkAYFn9Lo42auROoMkIZpX5WQr465lAAHk8
+	 8I+bYyOCfOXby31r1+OvZpN54aYsCBuB7bghbwWrz1LZP8ax+70WTF9exhvO794a29
+	 kDYq/UiOKbjwxNaDUFtkNZQEKyY7p9RHqPH0gGv8yVCsvxCNCj/8+CzFCta8ExzFWP
+	 707jFuJzF0JVnLS/0CN1TTC1tNoOYh0tjqTprHXni55axwfKltzp4BFeqAehKVyg9U
+	 tHHBmID+sZ7XQ==
+Message-ID: <6f12536b-59fc-4598-b174-460a32aa275a@kernel.org>
+Date: Wed, 6 May 2026 16:38:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260413160331.2611829-1-antoine.bouyer@nxp.com> <20260413160331.2611829-10-antoine.bouyer@nxp.com>
-In-Reply-To: <20260413160331.2611829-10-antoine.bouyer@nxp.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 6 May 2026 16:26:20 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXrvn+kwBsc96SQxWMABZv3Y6EPc3FLU7f-pOi2+J+S1A@mail.gmail.com>
-X-Gm-Features: AVHnY4Jz5uRp9a-KMKa4ktgjK5kRGGM5ufVLGN1Ppw7eSDSfOOOzlRIBWUnB9YY
-Message-ID: <CAMuHMdXrvn+kwBsc96SQxWMABZv3Y6EPc3FLU7f-pOi2+J+S1A@mail.gmail.com>
-Subject: Re: [PATCH v1 09/11] media: platform: Add NXP Neoisp Image Signal Processor
-To: Antoine Bouyer <antoine.bouyer@nxp.com>
-Cc: julien.vuillaumier@nxp.com, alexi.birlinger@nxp.com, daniel.baluta@nxp.com, 
-	peng.fan@nxp.com, frank.li@nxp.com, jacopo.mondi@ideasonboard.com, 
-	laurent.pinchart@ideasonboard.com, mchehab@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, michael.riesch@collabora.com, 
-	anthony.mcgivern@arm.com, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	ai.luthra@ideasonboard.com, paul.elder@ideasonboard.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: dt-bindings: nxp,imx8mq-mipi-csi2: Fix example
+ endpoint label typo
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Robby Cai <robby.cai@nxp.com>, Frank.Li@nxp.com, martink@posteo.de,
+ rmfrfs@gmail.com, kernel@puri.sm, mchehab@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, festevam@gmail.com, martin.kepplinger@puri.sm,
+ imx@lists.linux.dev, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260506090124.2960477-1-robby.cai@nxp.com>
+ <5ad1e2df-85f3-4f9a-ab9d-b6ae34eebed3@kernel.org>
+ <20260506142155.GR1598374@killaraus.ideasonboard.com>
+ <73111cb1-2019-4faf-abc6-c7deea603eb1@kernel.org>
+ <20260506143036.GS1598374@killaraus.ideasonboard.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260506143036.GS1598374@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Antoine,
+On 06/05/2026 16:30, Laurent Pinchart wrote:
+> On Wed, May 06, 2026 at 04:24:35PM +0200, Krzysztof Kozlowski wrote:
+>> On 06/05/2026 16:21, Laurent Pinchart wrote:
+>>> On Wed, May 06, 2026 at 03:33:57PM +0200, Krzysztof Kozlowski wrote:
+>>>> On 06/05/2026 11:01, Robby Cai wrote:
+>>>>> The example in imx8mq-mipi-csi2.yaml uses imx8mm_mipi_csi_{in,out} endpoint
+>>>>> labels, which is confusing for an i.MX8MQ binding. Rename the labels to
+>>>>> imx8mq_mipi_csi_{in,out} for consistency.
+>>>>>
+>>>>> Fixes: 37255747ecbd ("media: dt-bindings: media: document the nxp,imx8mq-mipi-csi2 receiver phy and controller")
+>>>>
+>>>> Nothing to fix here. Otherwise explain the bug.
+>>>>
+>>>>> Signed-off-by: Robby Cai <robby.cai@nxp.com>
+>>>>> ---
+>>>>>  .../devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml       | 4 ++--
+>>>>>  1 file changed, 2 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
+>>>>> index 4fcfc4fd3565..71f79651dd96 100644
+>>>>> --- a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
+>>>>> +++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
+>>>>> @@ -220,7 +220,7 @@ examples:
+>>>>>              port@0 {
+>>>>>                  reg = <0>;
+>>>>>  
+>>>>> -                imx8mm_mipi_csi_in: endpoint {
+>>>>> +                imx8mq_mipi_csi_in: endpoint {
+>>>>
+>>>> Drop the labels instead - they are not used.
+>>>
+>>> I think the label has value, it improves readability of the example by
+>>> making the purpose of the endpoints more explicit. I won't fight for it
+>>> though, I know it's hard to change your mind.
+>>
+>> Then should not have imx8mq in the first place. The only information
+>> coming here is that it is input endpoint. IMO it is close to obvious
+>> from the opposite of "remote-endpoint = <&imx477_out>;" (if remote is
+>> OUT, then this must be IN). But keeping the redundant data or actually
+>> correcting wrong redundant data into correct redundant data, is still
+>> undesirable. Such patterns then keep spreading to new code.
+> 
+> Dropping the imx8mm_ prefix instead of renaming it is a good idea,
+> thanks for proposing it. As for the Fixes: tag, I don't see a need to
+> backport this, so I'd leave it out too.
 
-On Mon, 13 Apr 2026 at 18:10, Antoine Bouyer <antoine.bouyer@nxp.com> wrote:
-> First NXP neoisp driver version with the following contents:
->
-> This driver was initially inspired from raspberrypi pisp_be driver. It
-> reuses same approach for ISP job scheduling.
->
-> The Neoisp driver supports:
-> * 8, 10, 12, 14 and 16-bits RAW Bayer images input.
-> * Monochrome sensors input.
-> * RGB/YUV, IR and Greyscale output formats.
->
-> The neoisp features are:
-> * Provides single context to limit amount of v4l2 devices.
-> * Supports M2M operations.
-> * Support SDR and HDR modes.
-> * Supports generic v4l2-isp framework for extensible Parameters and
-> Statistics buffers.
-> * Provides a `core_media_register` API to register neoisp's media entities
-> into another media graph.
-> * A module parameter to run in standalone mode with its own media device.
->
-> Co-developed-by: Alexi Birlinger <alexi.birlinger@nxp.com>
-> Signed-off-by: Alexi Birlinger <alexi.birlinger@nxp.com>
-> Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
+Fixes is not only for backporting but indicating that there was a bug,
+being fixed here. For example for stats. There was no bug, because DTS
+example absolutely does not matter - it's example code - therefore
+redundant incorrect information in label matters even less.
 
-Thanks for your patch!
-
-> --- /dev/null
-> +++ b/drivers/media/platform/nxp/neoisp/Kconfig
-> @@ -0,0 +1,15 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +config VIDEO_NXP_NEOISP
-> +       tristate "NXP NEOISP v4l2 hardware driver"
-> +       depends on VIDEO_DEV
-
-depends on ARCH_MXC || COMPILE_TEST
-
-> +       select MEDIA_CONTROLLER
-> +       select VIDEOBUF2_DMA_CONTIG
-> +       select V4L2_ISP
-> +       help
-> +         Enable this to support the NXP NEO Image Signal Processing (ISP)
-> +         module present in various NXP SoCs. This module offers multiple
-> +         functions for processing RAW images and generating RGB or YUV images.
-> +
-> +         To compile this driver as a module, choose M here: the module
-> +         will be called neoisp.
-
-
-> +#define NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2_MASK GENMASK(23, 16)
-> +#define NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2_SET(x) (((x) & GENMASK(7, 0)) << 16)
-> +#define NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2_GET(x) (((x) >> 16) &  GENMASK(7, 0))
-
-What about just:
-
-    #define NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2 GENMASK(23, 16)
-
-and using the helpers from include/linux/bitfield.h in the driver code?
-
-    FIELD_PREP(NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2, val)
-    FIELD_GET(NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2, reg)
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Best regards,
+Krzysztof
