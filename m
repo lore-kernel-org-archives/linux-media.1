@@ -1,96 +1,86 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72FBF368275;
-	Wed,  6 May 2026 11:20:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2F143D50B
+	for <linux-media@vger.kernel.org>; Wed,  6 May 2026 11:38:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778066413; cv=none; b=uhHKMPoXGBvxOpfes3+JlCMBIPKLKES86fxvosVun02a+7hJ0t/7PkVOY4XADmkJRWeSuLya1VBCfVtg5D34dA9OaAVzx2iHeMw9xPUpXphheoCRErEgjMVr5wWgQz3GFZZQcoZz0vxMj5Atubp0+YYMBLIoDT9PPAREPgTKnfs=
+	t=1778067489; cv=none; b=G0I7fivqrfQUyiZkky/3xOZd0Hp5j69gKRbhMxkil2ORdP1ZlbfWotfWztxRSJGbtGW46xYNjuI56czmdRjWH57arbTIqo6ASFdj1AeU6hqGaFh7vIj4nSjSbZlXDjqQ69fIyIyFEKjgD9S4rNC8AWdb3dqQWD16l57baoeUNiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778066413; c=relaxed/simple;
-	bh=+nUdTQL/+FvfuWAAGXkRsJ122b/1Kj58MJeHDQn6nlY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LhvaG0wODLv1xhQsaS7H0MtoSbTX7BVTSu3s0AF86ndhLovunemS+xXWelL0BqIo0Zq5KTUHlku3vqDhB9ySK6AzV4wMLE/bVHiiji3LWrigK+DsVRvVKPxSQBmv2GBN1BDxmWFX8r3+kbifAmQbj1bmj9RDZLPVAPJIIscRoS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=aGVkRYjy; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1778067489; c=relaxed/simple;
+	bh=4sdC7kwKSXuS6KgRZzxsbtJl62bxQOYB9GQUjBKu4sQ=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=cxdijENTTJYpDbffnqM5g6N2lc6Q5VtZCkC8gI1WUhwEuDAYZEUVHCjA2Qx40bmv7p7vpMpiOKAh6DNSGmjj9NYP6RCBN/PBKS3PY2M5+hWfSvLLqck861ZqV7qk2okGuydoa37fa5jIs2cNrIGLbqpUCoRWla2GOlMAkmgzGYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=e1wsCWxA; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="aGVkRYjy"
-Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D970DC21;
-	Wed,  6 May 2026 13:20:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1778066408;
-	bh=+nUdTQL/+FvfuWAAGXkRsJ122b/1Kj58MJeHDQn6nlY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=aGVkRYjyvzx1Epvvka4sDCYZKNzllTUbRdMRtNAQbie70SiIeQSnHPKyabi5fMyE5
-	 rHaIAWnZFjYt10UMzE/5omQOi2nzv0Wy245NqdR4pU9ECaghw+QubNYbh3/J0ssb0z
-	 DBMWmq9Xo87aj94QmlfUe+gQvshQPrNzsCKV5VXw=
-Date: Wed, 6 May 2026 14:20:09 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Robby Cai <robby.cai@nxp.com>
-Cc: Frank.Li@nxp.com, martink@posteo.de, rmfrfs@gmail.com, kernel@puri.sm,
-	mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
-	festevam@gmail.com, martin.kepplinger@puri.sm, imx@lists.linux.dev,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: dt-bindings: nxp,imx8mq-mipi-csi2: Fix example
- endpoint label typo
-Message-ID: <20260506112009.GM1598374@killaraus.ideasonboard.com>
-References: <20260506090124.2960477-1-robby.cai@nxp.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="e1wsCWxA"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 04C581A352C;
+	Wed,  6 May 2026 11:38:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id CD7F66053C;
+	Wed,  6 May 2026 11:38:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6A4E9102F1D29;
+	Wed,  6 May 2026 13:38:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1778067485; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=LQcm/xArV6CJVfiI15lYMkR7QKqELsBqKy8G3M2hjoE=;
+	b=e1wsCWxAaWftZoU4FBEJx+l2Spsa/qIv/l6/3EaHfxVCX2x045rfr7cK3mLyprm6BT7jHo
+	yUpimppLOGLKHBoBavKT3QbpYFtbT09szsCPTfb8zE7vzOECcfOuXeWhg2YEy0uvoxZ4UP
+	OekVuMP//mj9p+JPLSg7qP+kQ32ac95qjLcdw9gULZ9hft8PQRMyEJyBierUrVe68MCVU7
+	Q27H01aTIWhoORW26FR/b8wguwoH2b3XFYRYZKy0g/kArjF2KhCX4soMIAsgRFZ+Tydiu9
+	A2JJjHAWaV+ZBGm+IBMqxq/CZwXgreH9i0rkslRuMuxussKAoqncyjm0HiyIQQ==
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260506090124.2960477-1-robby.cai@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 1/1] media: tegra-video: vi: fix invalid u32 return
+ value in format lookup
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: thierry.reding@kernel.org, jonathanh@nvidia.com, skomatineni@nvidia.com, 
+ luca.ceresoli@bootlin.com, mchehab@kernel.org, gregkh@linuxfoundation.org, 
+ hverkuil+cisco@kernel.org, dan.carpenter@linaro.org, 
+ linux-media@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20260506075745.28574-2-dennylin0707@gmail.com>
+References: <20260506075745.28574-1-dennylin0707@gmail.com>
+ <20260506075745.28574-2-dennylin0707@gmail.com>
+Date: Wed, 06 May 2026 13:37:56 +0200
+Message-Id: <177806747690.1370967.12191518933369462727.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Robby,
-
-Thank you for the patch.
-
-On Wed, May 06, 2026 at 05:01:24PM +0800, Robby Cai wrote:
-> The example in imx8mq-mipi-csi2.yaml uses imx8mm_mipi_csi_{in,out} endpoint
-> labels, which is confusing for an i.MX8MQ binding. Rename the labels to
-> imx8mq_mipi_csi_{in,out} for consistency.
+On Wed, 06 May 2026 07:57:45 +0000, Hungyu Lin <dennylin0707@gmail.com> wrote:
+> tegra_get_format_fourcc_by_idx() returns a u32 but uses -EINVAL to
+> signal an out-of-bounds index. This results in a large unsigned
+> value being returned, which may be interpreted as a valid fourcc.
 > 
-> Fixes: 37255747ecbd ("media: dt-bindings: media: document the nxp,imx8mq-mipi-csi2 receiver phy and controller")
-> Signed-off-by: Robby Cai <robby.cai@nxp.com>
-
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-
-> ---
->  .../devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml       | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> Returning 0 is not a valid fourcc either. This condition should
+> never happen, so use WARN_ON_ONCE() to catch unexpected out-of-bounds
+> access and return a valid fallback format instead.
 > 
-> diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
-> index 4fcfc4fd3565..71f79651dd96 100644
-> --- a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
-> +++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
-> @@ -220,7 +220,7 @@ examples:
->              port@0 {
->                  reg = <0>;
->  
-> -                imx8mm_mipi_csi_in: endpoint {
-> +                imx8mq_mipi_csi_in: endpoint {
->                      remote-endpoint = <&imx477_out>;
->                      data-lanes = <1 2 3 4>;
->                  };
-> @@ -229,7 +229,7 @@ examples:
->              port@1 {
->                  reg = <1>;
->  
-> -                imx8mm_mipi_csi_out: endpoint {
-> +                imx8mq_mipi_csi_out: endpoint {
->                      remote-endpoint = <&csi_in>;
->                  };
->              };
+> Suggested-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+
+Being a fix it should have a Fixes tag and Cc stable. I think the right
+commit is 3d8a97eabef0, so:
+
++Cc: stable@vger.kernel.org
++Fixes: 3d8a97eabef0 ("media: tegra-video: Add Tegra210 Video input driver")
+
+With that added:
++Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 -- 
-Regards,
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-Laurent Pinchart
