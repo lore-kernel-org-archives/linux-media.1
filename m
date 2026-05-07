@@ -1,79 +1,80 @@
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B58A372B23
-	for <linux-media@vger.kernel.org>; Thu,  7 May 2026 16:03:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEB23B583E
+	for <linux-media@vger.kernel.org>; Thu,  7 May 2026 16:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778169794; cv=pass; b=X6uHYk1/TPZoy7LTVut917jQp/bLzZ4/aRcogfunvZUTiHlpHdL2CsfG950uRbP9GxZXICSTWHnh669oaKSCX2Uh0BCnacsy00nRz1d4ndFWz274NxLUqgH9kpHMupOKqYQ1YdNBWAK6JmhoweBb/ilLW16IcsMBI10yb3SmdOw=
+	t=1778169891; cv=pass; b=EZ5MfXUR8SUR3Xh0WX+yNOHZRKrpPnb/GDHwPb6Rg8LKXY0XnTep7WCTXcAOB9k4HubSNlrmKKSDZBM7G82eHZVFGcxFe/o691GAWo9dx/LyBGVlRAhajcVdyWG0CoWGOJIr3O45HtY5+w7VJwKQVXjKd/R5h4Dm35yrJlC5FHI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778169794; c=relaxed/simple;
-	bh=CEhvezj9XUvsQzprwkB8A9BTXN2jjrQ9THtR9Owth/c=;
+	s=arc-20240116; t=1778169891; c=relaxed/simple;
+	bh=2wD2kavczCnryPJWhPiesAN7Mdkma4UQLXcGYexMyTA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=arJFO8O0ZBHOn0hzhv/xCmaegjHNAtM5vzJ39rUHZtNj7C/REsVwVZs2bcRjm7hX9JTXs+LzroDfE7qufJ4cHJwwwbn8f7DRcoywbtTrOvRQ9spPG80bw3nMExncz3jvgnzF5zCA0Ps1wzdcfUa724UsGzG7SmpG1EKuzdKFrwU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mY/C3+Mh; arc=pass smtp.client-ip=209.85.167.41
+	 To:Cc:Content-Type; b=rjcWFjDWNuOVozFctmVSTWiVs3P5dwwM/aa6O9OUMl7H23kPezefmbQz4kH4a5k4YvdmYIvOUxPQN1mUasobzdbovK0gaF6UJibaP3rIpxmZpo+HAb/PL2F7twxAPL3kfr+DTPyrBl83ZWknCyC4hXv3GnW4CIpyddmz6hV9N40=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rqcpDmqd; arc=pass smtp.client-ip=209.85.218.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mY/C3+Mh"
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-59e5aa4ca41so996020e87.2
-        for <linux-media@vger.kernel.org>; Thu, 07 May 2026 09:03:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778169791; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rqcpDmqd"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-bc47a96d3bbso146307966b.3
+        for <linux-media@vger.kernel.org>; Thu, 07 May 2026 09:04:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778169888; cv=none;
         d=google.com; s=arc-20240605;
-        b=BQz4OK+XFxXowIq1xYArGEvBzjL7kQJFYfLxdfAdoCkMc6y2ohBN/0xF4mYbUjkGpm
-         bRjRK/5uMaNl8Mt5ZYYVa88RwfwDhaoVowUs9y86Jgct41tqri93OOUj8nl42en3IxaF
-         MniDIdcFKx8fV1fjjAgBT1gxAacDYhFXS04ohNHHFKjkC9l+zzDJusY33qIhWg8jvcGd
-         xY3ghXbX/qBs6xswT9CqnNkzODs7WpoXkS3tm7gQgRqfW5tqRRzDkZT72gtboVJDl/Tm
-         vOjWpbnJq4iMnqeCB9UT47SQ/8NiJBg3tGSI9vBnIdZM++sNjIy6+vveZY50WRtHNmzy
-         3USg==
+        b=BfG91d5E5x17iKt/8lNjga95RPIeHMqCRb02/2+N8J0wcOdeEN7+ugEc34ighwuG8q
+         eEiVKjOSvS3Tp3ZFCMKwRXZ/T8q61mwf5jBwnzpAYSMpsYZNNtAWTRnNLkJyhBbKpNNs
+         z9neSnXaARubz0ZVjWmQF23Hq/1XCTHu0TdMOmQ5uLUBzPdOiOq15m+x60Wj74BaTZRp
+         7Ze+V+pIHqZl3+cthc+OXw9cvpTzlR7LiRR0+UbIObdHYqF+lCTwi/+1we8djP2Hs/3r
+         vwzWmy9TWqMPOPQLv1R4ovtXpBQZkc5dI5zbnzJSNU3QTCI7y9fZwF0twoU/oEaxBBvg
+         Tjng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=kSXScqi0MCR7jDi6r5iGbgrFKyoI44KBhr9uakdnSD0=;
+        bh=rRYcM1ymeTGiiOTPFjh0iZEJpeegme9tULbG2S+4zjE=;
         fh=DzH5D0UyybDWQEWQWoohfJyqsy2HvxQwJVg2/sJglig=;
-        b=AtaLGfU/8CPYfSi0XP6WdGR3JlojOkzgo3EH6OremM/jCYYrg2jtv2//rvizcxvGIw
-         8TjNFBCJxre26XdCzrlqyh4HFd1rRZ0hAC/M39V3WoyWZRtZpy6cXFXIYScWid5nWAhY
-         P+LfX6rDZ/3DgUclBRFRrAXPYDviIbadleiFIZf3kbPjHIA/pB8/maIb5f9iwDe4hewE
-         dK0QlMOivi5nCKNojcHuLy92M/T5sAAT+lLUxLyGxQf5cO5zPeghgmsZvjrhzO/kn2ZI
-         v0dIQreoMPY1OaSAoNMpGIVEMiu3SCy14qpT1B4WCo0p9XARrQa6lUvDr6NTHA1O2yw9
-         WMKg==;
+        b=UQkfWobbOlg4jPVUGYGaKQtSsgCneLYBYydtrUX1dripgdyxT0jhCam1ff1OmB674B
+         krt2zeV4iRw+EIsYuHjK5oqYvleQ03i0n2TdirQsFuBuAez7XHQlk0VJGgIOASHyn/Ke
+         yOCMFo5LYnTGsexbg14b/kH/5RzdPYLY6FScc1G9Zi3An3FfcJ5XJvQ1HHw5YCMGyS/N
+         yFXlmOnntHGndwTslQptgWfG/cLy7RsLkePNRJsX4JUIUhPeK3v06g2Vwj02qp12G/XT
+         ExaIEpzBeF+f7cF/5WjKGGdaS5bfIP0jWcwOhlHnK+rVHtw8YwmsxgJCdtFaZ6zieN0+
+         WOIw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778169791; x=1778774591; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778169888; x=1778774688; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kSXScqi0MCR7jDi6r5iGbgrFKyoI44KBhr9uakdnSD0=;
-        b=mY/C3+MhRUUicqMBIiNaf2AKrUJ+hf5+hBmzNnVlWYEyXf9hQS76BxxbV+6nphPJYf
-         l9rhZFi6sPygxTTT4wMig6pKiinGRJPx0JgRByh522dTnYuqD3XgAFp5N6YIs49B6pM8
-         75iD4NEulnJDtQH1OMW4oerP04w6tuLuRd4y1QoSfOD9PEC1jScr/nMHnhHw0ipoBYx9
-         havJfR3W6Xrv7n6G673cLBrgKukmP5/2TA8fX2ZaW5faSkhtsrnfESWzAccIpqQ+l0LD
-         y2PtmFasQNMeAB1PJFOmFEI7qXiV7OjjnVE/8UWjDmwhqR/dGyfg1e/XcbVHtEEf4Zf4
-         48/g==
+        bh=rRYcM1ymeTGiiOTPFjh0iZEJpeegme9tULbG2S+4zjE=;
+        b=rqcpDmqdCWNDWcpWefWv/cbgjdO/d532HU4+1nqY5rup2FETbT3X/YMykgAfDyUeXd
+         Zv5b2JQRlKnWlrjT2AkVB1bkKe3/6q7jSNww5UJDcYXbr1xMCi8EFg5E/wlGEJW1KLf0
+         +5QbYaUp4D+NV83bldLpu4yJpI3asBnKW3IsuMtNZBm/5+ez8u7TwXzEH8LSIJG1qdRj
+         kpDf7JjkT9V7p6h/tbQFDc6T0fNpcgH3iu3XKU58X6LxDK5rsUJ+v/r3g0rKSHLU4sDT
+         NFUetP/l/Mgd8/WZupu2PaTl/uaKS7S0FI/FkCzkU8mXwrCn82NECa/MEYtxDpU0ghe/
+         P2fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778169791; x=1778774591;
+        d=1e100.net; s=20251104; t=1778169888; x=1778774688;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=kSXScqi0MCR7jDi6r5iGbgrFKyoI44KBhr9uakdnSD0=;
-        b=VgDK66epGbRZ4Ui2fURkDoUZLJwo/eD8zqFIkSD5cRVJeIWNjPUK00DDqfibgVkbmk
-         /q/dxZV9M8tCDpAX7WMXJ3+EDivuqJxWnoJUSino61Z1H64eKzllMaXOoy1E1hWrWpIf
-         dL7tsKqNBXKCQ4WKkA1APN6AHboSRZHhRF2L44NSIcwULQcbV4U2m0Hk/p1IoTdI26YQ
-         M1JxZI7cL/CTnhk/UVKyIhbB3I8CuGvNaSeBrZna5CyAIjLLb6XMKprY1JHr4w4fLpk9
-         cybhgeIjcogpP8CPD/tk0pJp1WcqnJ8pS55MfzTm57JV16y+k/2mfzp0A08rOQPlFYPA
-         8bVw==
-X-Gm-Message-State: AOJu0Yy2MihmsztdfiXpi2q2n4iywVR4XGMY7rg0IYBhB0HAVTPO8I6c
-	yCpfhD/pzZNpEaeBv+6LWfCtGtX6nMo88nATILB78Dc8HMGoV6bbefHOm/fEm9Eyyogd6xm57Bj
-	Elveqvwsm8i1AP+KxYPwgUq+3pqgswbhH2xPyrms=
-X-Gm-Gg: AeBDies4H2scHaAdVhF3XwE69FarzIvXUNytUWTLgmvBr3Xre655Ft1CRV6GUUOwE9p
-	/Q4aoV53BylcLw1sM2pzk8JWDIZkeV2odlROoL5FN6N3p/fwVp1GNeUko6lrseAlno+e6jk5ZUN
-	q4WWYcwptlyOcMw9Y3/IwGmJeZJ4zZKsNWgkWkk/0E5w4cCqjDL5UziRZ6IVM87rY8bGoTX+gj3
-	QUuebTqgUPcvuXTdsLgYe+9jWK9nsP3gC4fJBih2Zxp3noNZS1//4W8qMaAsAp0UE2nv1HNNcn1
-	Ymo/EXKBHAh8VduxAs3/Wav4w2b2W/whdGJs3kfZ09nck8sseRUXOW+pSi3zU/YTC7DoUg==
-X-Received: by 2002:a17:906:9fcc:b0:bbe:7709:5a8c with SMTP id
- a640c23a62f3a-bc56ac3700amr483762566b.1.1778169712056; Thu, 07 May 2026
- 09:01:52 -0700 (PDT)
+        bh=rRYcM1ymeTGiiOTPFjh0iZEJpeegme9tULbG2S+4zjE=;
+        b=rOnN7UelAPX1RQflotTlPegzDlO2PMupHk2dozfFSClpAJNshP6HN1EzxleIk+ul+j
+         5mCs7pLY7A3qGIJ0BLJUHmMHDfrRHBqcG16wPD2KfdRssrVXbKMKdVcJUyRzRbf9uTa+
+         /PHHJn24cL0l5snYnugG90kaqDi185B/sS+K1LR0jXBxhFFgI8B+4U9p1n2c8DTfDYiv
+         b0bNFKT+Pvag+iZd2HOGEUNifXHSqNk8MoUy+p1+HxH3xVFOM9ddE0yKM3TkUEp5OpcL
+         rufastjWw7dplrCFdM0pR+t+RL/5eQTXWYo1s5TRbujmXUWpr22c/O+/V45K18+hAaQ8
+         llmA==
+X-Gm-Message-State: AOJu0YxFm8ExVZMtP4qxKpz0bPNVGZ/fQBj6i8ngWGX9Ufw4t4r2hiDs
+	qPRtmdHnBhj+AZ4AbUEIiW1H3SsFt8ZJ02VII12iUt+c2EWcE7/UiHMzpSM2TRVbbE41cv2oluq
+	cC4gTQR8o9jtZbLmvlX0WMUZrwtD9gG8=
+X-Gm-Gg: AeBDievu9f+O5uFGEBWOb3rjX+Xa7So/OgNUiQNVRNCynQx3a+E26ViMLYBLPQn2ZsR
+	bUTBpsG+QC245xPk1UdZxkJBunL6Gr2rcfnlOsGbxcEwFzv6WY1BUF6CmjzaGVXm+KwOVdFz2fK
+	AfrvF5JKGfc2V9nBeCtkZrr+rr2eLLNM1RuPwNll/yVxQ0WRCE7NGQvdgmLfP258a2H73rswjL3
+	idHRiCcjdS4HFoC/jmV1Z0ms+qSxY/C4X4AgXp98xNhD8CnJZyO1Y7BNdhr1FTJeJzfosraMsHK
+	ouGbgsWQygcwLb/9zY9eDOg3xA1lDvaPlGAR0tA6ovrq+XmgI5Yt6q76nV9nA8ge18C+bJp+XPJ
+	w6CzO
+X-Received: by 2002:a17:906:9fcc:b0:bb9:2893:6a45 with SMTP id
+ a640c23a62f3a-bc56e906631mr509502466b.44.1778169752978; Thu, 07 May 2026
+ 09:02:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -81,14 +82,13 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20260506215650.1897177-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260506215650.1897177-2-laurent.pinchart+renesas@ideasonboard.com>
-In-Reply-To: <20260506215650.1897177-2-laurent.pinchart+renesas@ideasonboard.com>
+ <20260506215650.1897177-3-laurent.pinchart+renesas@ideasonboard.com>
+In-Reply-To: <20260506215650.1897177-3-laurent.pinchart+renesas@ideasonboard.com>
 From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 7 May 2026 17:01:25 +0100
-X-Gm-Features: AVHnY4JAgm7pFZJtm-HLuXQ0MLjv1zwhY7Qw5YYwBrvyZIESDCz-x-IW0ECt4q4
-Message-ID: <CA+V-a8vXBPhvpC6hSKykBUdpLm5dJ4oBEWERsKWY46HN4JFtUg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] Revert "media: renesas: vsp1: Initialize format on
- all pads"
+Date: Thu, 7 May 2026 17:02:06 +0100
+X-Gm-Features: AVHnY4KlCXTWJqOAp_aqpaGJYpjfW3718jgkImCY1CyoWY67EfXWi7FF_O9PVIk
+Message-ID: <CA+V-a8sws8WgSzMyXSKVsSCj2FhUy9CDt7qikB6d3e_xuQpEBA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] Revert "media: renesas: vsp1: brx: Fix format propagation"
 To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 Cc: linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
@@ -96,28 +96,28 @@ Cc: linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, May 6, 2026 at 11:00=E2=80=AFPM Laurent Pinchart
+On Wed, May 6, 2026 at 10:57=E2=80=AFPM Laurent Pinchart
 <laurent.pinchart+renesas@ideasonboard.com> wrote:
 >
-> This reverts commit 133ac42af0a1b389e8b7b3dc7c1cc8c30ff162b6.
+> This reverts commit 937f3e6b51f1cea079be9ba642665f2bf8bcc31f.
 >
-> The change to format initialization, along with the change to format
-> propagation in the BRx in commit 937f3e6b51f1 ("media: renesas: vsp1:
-> brx: Fix format propagation"), broke configuration of the DRM pipeline.
-> Revert it to fix the regression.
+> The change to format propagation in the BRx broke configuration of the
+> DRM pipeline. Revert it to fix the regression.
 >
 > The original commit was meant to fix a v4l2-compliance failure, with no
 > known userspace applications being affected beside test tools. Reverting
 > is the simplest option, a more comprehensive fix can be developed (and
 > tested more thoroughly) later.
 >
-> Fixes: 133ac42af0a1 ("media: renesas: vsp1: Initialize format on all pads=
-")
+> Reported-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> Closes: https://lore.kernel.org/linux-media/CA+V-a8t481xuwava0nb7uY9CUPqF=
+WZ_8EP0xrK3BgumP7HDcLg@mail.gmail.com
+> Fixes: 937f3e6b51f1 ("media: renesas: vsp1: brx: Fix format propagation")
 > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.co=
 m>
 > ---
->  drivers/media/platform/renesas/vsp1/vsp1_entity.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/media/platform/renesas/vsp1/vsp1_brx.c | 10 ++--------
+>  1 file changed, 2 insertions(+), 8 deletions(-)
 >
 Tested-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com> # On RZ/=
 T2H
@@ -126,22 +126,37 @@ Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Cheers,
 Prabhakar
 
-
-> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_entity.c b/drivers/=
-media/platform/renesas/vsp1/vsp1_entity.c
-> index 1dad9589768c..839b75b62ceb 100644
-> --- a/drivers/media/platform/renesas/vsp1/vsp1_entity.c
-> +++ b/drivers/media/platform/renesas/vsp1/vsp1_entity.c
-> @@ -380,7 +380,7 @@ static int vsp1_entity_init_state(struct v4l2_subdev =
-*subdev,
->         unsigned int pad;
+> diff --git a/drivers/media/platform/renesas/vsp1/vsp1_brx.c b/drivers/med=
+ia/platform/renesas/vsp1/vsp1_brx.c
+> index b1a2c68e9944..9d93cb8b8e82 100644
+> --- a/drivers/media/platform/renesas/vsp1/vsp1_brx.c
+> +++ b/drivers/media/platform/renesas/vsp1/vsp1_brx.c
+> @@ -156,20 +156,14 @@ static int brx_set_format(struct v4l2_subdev *subde=
+v,
+>                 compose->height =3D format->height;
+>         }
 >
->         /* Initialize all pad formats with default values. */
-> -       for (pad =3D 0; pad < subdev->entity.num_pads; ++pad) {
-> +       for (pad =3D 0; pad < subdev->entity.num_pads - 1; ++pad) {
->                 struct v4l2_subdev_format format =3D {
->                         .pad =3D pad,
->                         .which =3D sd_state ? V4L2_SUBDEV_FORMAT_TRY
+> -       /*
+> -        * Propagate the format code to all pads, and the whole format to=
+ the
+> -        * source pad.
+> -        */
+> +       /* Propagate the format code to all pads. */
+>         if (fmt->pad =3D=3D BRX_PAD_SINK(0)) {
+>                 unsigned int i;
+>
+> -               for (i =3D 0; i < brx->entity.source_pad; ++i) {
+> +               for (i =3D 0; i <=3D brx->entity.source_pad; ++i) {
+>                         format =3D v4l2_subdev_state_get_format(state, i)=
+;
+>                         format->code =3D fmt->format.code;
+>                 }
+> -
+> -               format =3D v4l2_subdev_state_get_format(state, i);
+> -               *format =3D fmt->format;
+>         }
+>
+>  done:
 > --
 > Regards,
 >
