@@ -1,177 +1,117 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013056.outbound.protection.outlook.com [40.93.196.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75C83939C8;
-	Thu,  7 May 2026 09:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.56
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778145026; cv=fail; b=ZKjszUiWMUEJSZuI9glAxvkV7R9Pv7qf3lvPyDJfIilK1wRKgKUcbyIDz8Hkcx9KKvoavcLQWRGIr6B5LYSL7JTrpXd6Sg1E6KQqIDcisbIXOkM/RVU/TaNhHbAmEqbgLo9SAbEq8TkQDnM4vlwu/IJvk+8TMA6M2NiAOBMIwJ0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778145026; c=relaxed/simple;
-	bh=Ks1Xp7srjagTTKku7z0NtBqdrBdryuSX5SNQ1OOWhzo=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=dZ9QOpxNZ7HAZUnD8ruRpHImjv8hH1JN2tOBjBBQBk+85c8vU8jrlQ+H/XQQPttKIWMMBLJStgTTtIj3hz7ZV86QAGwlba4ryqYc9AO7gmdGsMlWb4K/rlBx03+EOMBdhUV3pYbn86YpA6wgccnZLNhKW6sa0DtfvVvfJNZRBhU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=R7H7A5Xs; arc=fail smtp.client-ip=40.93.196.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091F537EFE1;
+	Thu,  7 May 2026 09:10:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778145045; cv=none; b=n0n8ddZf1YT5KJ2pgmk2qEk2xv3L7yYXIYvZ7Xx5ZSg9LhCPxmqxsWNj/1jKCwpTDJKYw1MmfnL2ubQJlwIFvKUBRCfCdu+zORZP4aHxEF4SpA7KfCh42ZTMzoXXZuGK9McTRo+ZxcgRYMSa6HqHhk54rxfNB3Sv/FaOYoKjgyU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778145045; c=relaxed/simple;
+	bh=KrOWVyklxktWUvuewCX59mvY1PbJ8FeIsvjCSRqvlPc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K9fQ5VIBWHu3YPKozj2GTlcUwmUu8IXMETRigGxDfzbjYdzduhMWGhMo77fAqWEFWeMss01BhELZnLwN9Hkvldpgpg8iplCFXgRgPdc7/IeSngm8pSQvwqQaOvEAcQ1AK67emsnrvASGFc8F9QrcIFycHzuL7JA5KHX202BkkP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A9OYY5/z; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="R7H7A5Xs"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xQBRGDmwaI2Y6Kjc+Pj2sW1ff5r4UkyEMipOGiKvgOOP3tLjCmWSz4lSdZ2jyA9gEEnybu9pCXCkJgfdsunpdqWu+WV9ixrZJ+ZyBMBe7z8XEVI4sMxi/F5tJfITPa2HrqSJ9BmXgS2FcYS9w24hBXMxtTWKi2CG71JvP2KXkh3jWJAzEFTtPtOHxugxSZfkfm4X0eAMj3Cocj0jZw7Cml0uO/sHvmC1o3U2G5MR39EGC+5r2BzjSrewtzlvr39zWIRV0mC/9U6DWm3Wf3rrsTdOLdN1/RJDMPMzQL7n1SvtikMY1GgYRRv16H2kht9JIPM3dAPkRV/i3ICysEHq1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j99NuJDAmwqo+J3Hk7o3bLwrrzjexHVAJRgaFoZDfPY=;
- b=m+CmLQsj5ar9Sb/rA1QF8fy/rWggVmG3vghBVFYwrnsLgIi4zHXDYHrs2Xh7idQZL3HGAWXW0mC07DXe1tDhQe0o0eSucBOmEeLD9dG0z+PtcBH0BO1oTXKqyk4DYdWo91V4+OVX4F5Ojf/gcDCwvsJlKvD7p1XT6LyulCD/beWuQ/IMhu6bHvmM7Nb5auFBvFmrYYjdWrLESiOsf09Btq6xQfddrQ7HiuMGdNy3NvoyjCHRtBucEOtTK5ZNam2R/Tu0tnUp67Yk14SeKow12kdidJgkRxJ8WozbRa4vvWQDZpRszVN3CFbQLbxyzCmGccnlCGWTQfxi4ZF4HixVKA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j99NuJDAmwqo+J3Hk7o3bLwrrzjexHVAJRgaFoZDfPY=;
- b=R7H7A5XsZlRNTSGTWpLnY8ssXl+2+RsdpswEvByK2A4bIB5TCz9O5k7vHqAzoSxyU/+VrAfA0MlazHNvxm+ZWTeu47SXo85yU6d5VeY02MK9cWr0KxjmTX4RWzBugux9jEjD/Dm9oAoiqLkH37tyw7GeC77uXN4C+RhikpO07e4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA0PR12MB8693.namprd12.prod.outlook.com (2603:10b6:208:48e::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Thu, 7 May
- 2026 09:10:13 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.023; Thu, 7 May 2026
- 09:10:13 +0000
-Message-ID: <762200d5-7631-4db7-b8a1-a2078344826f@amd.com>
-Date: Thu, 7 May 2026 11:10:04 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] Let userspace explicitly trigger memory reclaims
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>, Steven Price <steven.price@arm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260506-panthor-explicit-reclaim-v1-0-44f82ac147ce@collabora.com>
- <829b8887-48de-4cfa-8bb2-79db1471bb8d@arm.com>
- <qxAaM8FMQLuQt09qti64IA@collabora.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <qxAaM8FMQLuQt09qti64IA@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0099.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a1::16) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A9OYY5/z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2D67C2BCB2;
+	Thu,  7 May 2026 09:10:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778145044;
+	bh=KrOWVyklxktWUvuewCX59mvY1PbJ8FeIsvjCSRqvlPc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=A9OYY5/zu2m0DD+/b0kTfHy/pYdA1QeAHmZfnVpZQ9jYFytL0FsWvRZFZGGC7QGOD
+	 9E+Tis7KzBLQAfNwo8/RiSGHw2MoD4QBnr/5rSSfAsAQI1Z8GOZ98+N7JdmG4ZOA0t
+	 7DNA9p6aUWrDrPMkpk72/j6N5BVonIc1gcZJfxtLnZpxLH9+9xe0kOOtkjCSgWtaqL
+	 kJrW21IRkNMYPybSU7mBad1JWuOZ20+h/JPRyzr27kXq0Fj0pImv+Qg7ax++XgdH1Y
+	 GtsY6iBnGPzDCGP35phY+BZEMkCI0JhuA7kvx5G0R2xqT4DtzmiNINskb+8GwA1M9Z
+	 LZ3/Z6NLEbHnA==
+Message-ID: <91ef405e-28c8-470c-af8f-ead3fbb310b9@kernel.org>
+Date: Thu, 7 May 2026 10:10:37 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB8693:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe5d03a3-2308-4e68-12b5-08deac187240
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|921020|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	ef7BrHfA1qfa8eQ6js/yUSUYAecjdFDXNTIFQ8wvi3qWR+IqKcHP6iVmJGQaZmM5kLMZafIUHfmrwbQvMHu29KM49s8MxNrTli8SpozsQq7GEp9qiRnFn3GellLDNdOtMvvgHeM2u30l9JsSiR4t6rHeBzwFEVY3Qr+LycpFGNjZw/9xzGOa1UtcSaAcHUbiJdIOY2ACGVZ102kyQsKNtuV6y5ol1g0XuatkPQniXylpJpKcAj2cGC0+JnHOZ2AxAm64dkwzo6yRPs4Vukbc0qnwAIiGsGqlej76rE/IoqvCvk6+Vz4FJ7Wqy9Iq0C1T4/3tXV4YMB6LlLqf/XsA0he1On1MsbixaQX/5+66FbXevTT/NNVk/reqxGMF6MuPic9xD8alRpqfa4MNcotE51GSDmoh8VKsNexL9kcwUSw5ORPVUGzvcTqsI3QhqQ0aL1ke0WqVzut2K5BY3FszKHdGt17qh/F0MUs1+n+QniY2GRg4o5/pCV/ADGF6PeCWAa8TMiIYbtJ9PQqU/x6N2RBa7bogV692vAE+Ex7/Ge5ye2c0ONd1STI1YXCX+kAW8NaxuGY7rYjCoNAeu0XHq/0RloVISwWNMR2T1c0IbuXSPZlI/RbTdHaaAnt/m9IyR8Gn6lSkWtPG9UmCbTgmrIiWZVh6XRivBGUNO204EJULFt2QD5YZ4e8BHwHy+x/iiwn27+6DqkndjKXJpmCzlKFJhI/4sdcvqRWh4rJjYQ9Ty5K+YoaqvFti5POODsxv
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(921020)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RncveXE0TW1xSWxXbXM1ZVlvcVF0dkduOTdsSXdmMmRCdndhcCt0c3drQXNU?=
- =?utf-8?B?ZnkycTdBRWZLOTFEMlpZLzNlRUs0SWwyWVFmTDZzWU9pVzRwNGdaTWRWenVS?=
- =?utf-8?B?bjNRRm9qbGdHWVJ1OWxZdEdWZ0U4MkN3Qk9oaVUrRm4rQmthTFc2S29UZGRr?=
- =?utf-8?B?NitrbnA4N21qWHAzM2Q5MUZwc3R2cWFwOGY0emJjSjJTcEEwejZ1N2NkdXVp?=
- =?utf-8?B?S3k2WUtCd0d1b3ZXV0grWXI5SHRlZkxWK3FrcXdibENzSUJSMTJRWDVXWEVy?=
- =?utf-8?B?ZjRETW1pb3d1VGJ3bW5vRnFBN3B1cXMxcVFPbHVCa3RxTDhpZCtRU1Nob1lD?=
- =?utf-8?B?R0g2NDB4dEYxUHJIUlpJVlFFa04xbXJNNXJVVHRPZVRlVWYxZ0tKUWJ3blVM?=
- =?utf-8?B?N2MxNkdDbE5WbFl3a0lZRm5qYXNDcThiNU45YXFSZ2ZQVC9jWTMxcDN1VzUr?=
- =?utf-8?B?RzFpc05JTm9RSmxTZTVNRkZmWW1tNVhRY2pCMllpT0VRdFdtMmxHS1ZpSEVC?=
- =?utf-8?B?c1RYU0xadWdzc3RSc0lVSFNzMWEwRG1kVmdvNEtKVWljVHVLZVN2V21QWVNB?=
- =?utf-8?B?VnBmRXNhdXNNZFVScStYaU4vOStjN0RqQkltWFhHN2lKWGdSUVBIT0dBOStE?=
- =?utf-8?B?Y0NWR2RWOGpUOXJ4R3VLVjU4Y2NlTjUxQW5QWDdmNG42UDYyNXFaK2FyTUo3?=
- =?utf-8?B?TW83cldDMU0vODdDMHhVRFByd1pORGczWEh6c29IR2p5ZGdjNkxmY0J0SmJZ?=
- =?utf-8?B?Z2hEVjJOdnZTUnp2MjJ5ZnZMcFo1L3AvNXozVUZCUVRlMjBnRDV4Mlg2R3Rm?=
- =?utf-8?B?UGYvcDdnOTZQSmtzaDVadGQwZFluZFVwQVo4WUt6SlRoT3FBTHpDUGNvaWlT?=
- =?utf-8?B?RFZkWXlReWJhM0lacm1hWG9IdG0wRUdYejNkZTQvbWJ6SSthd2R3MXhZN0JH?=
- =?utf-8?B?SmZBR1J5SFBiSndkNXRIQjZxMGlGK3BCaHU0bi9ORDFQWjA0KzZua3BKSVJY?=
- =?utf-8?B?b2hRNFoxb3lCQS9RRHhwYUJmTWFMcjJDL3VKaHpaV2twbm5aQTIwOEdrMGxs?=
- =?utf-8?B?NnQwc3h1N2M0eVRhVE1XVzUraDEvczVNWE9RSUNUelNscmRoaWpWenBJeHZR?=
- =?utf-8?B?eWpnV3VyMGlHVnRTaU5EaEJUQ3pUR1BuNkxaK3R4Vkt2Y29mSGJOZE9LVzhm?=
- =?utf-8?B?bGNpbDRMUGcyNUdDQjRORElaMW5HbDM2aEVVRlZOQndlTzdGOVBrUG0rdm9L?=
- =?utf-8?B?T09ScEhoZ2NnZlYxSlhPZm1PaFlYcjhjUmdZNWVSMDREdlJYdHRRZzBvWTl1?=
- =?utf-8?B?NWp5VUFqcElLZGpqVnhXT0lKRXNLMVVyTHBNNmczbmI4ekFNK2ludElvd0do?=
- =?utf-8?B?bmRpVE1DSHh0d0lxWkUzV1djaDQ4dmd5eDFWeThLMWNoTENkSmlmeUk3eXVp?=
- =?utf-8?B?WXUra0lNKzQ1RzRLZ2JQYnZyYnV1K0MzNTMyV3J6My9zWEsxaXpBcEhTbDVk?=
- =?utf-8?B?VlArK0orWUJoa1Z0dGg1NGhvSnlCVVQ0Z3k1MjRWczRlZDl5aWFIUUNJUzU0?=
- =?utf-8?B?a01tdkZpcEd0UmNjT0xxVmVCeEFSUy9Hbll4bTgwdDhMYUFPb3J0VHo1aUZO?=
- =?utf-8?B?L052cjFtWGF3Z0xmNzc1Y2F2eWlZUEhJcjd2Y21PektLaTJxQVc0aElqS2FJ?=
- =?utf-8?B?dFFFRjRtSU50b01zMU5LZ0NDRHRvWjRpcUVLbkRjWm9nY3FVcTdOMXJnWGRs?=
- =?utf-8?B?MWlWUEd2eG82NTNTcGdQVG5seHFlb1RFY0JUMG44Zk9qaEtoNm04Q25Nclow?=
- =?utf-8?B?TktmaW5YeUIvVWFFaUplUGtnWVR2VlBMOHNLTmltMWpoRWFCQWVrMU0yM0tN?=
- =?utf-8?B?UzJudVN5anFkVzZNdndkeWhCdWZFQUg0LysrR2JzeFZsUys0U2I2S0pBZ1Nm?=
- =?utf-8?B?VllwVTA5dzZLb1dkc1Npakc3SDNMaFVrWktvWFlhQlpzcWI5VXdkSGdxTHZL?=
- =?utf-8?B?NWxwa1BmYi9HN21rMkI4RldCUTZRM0hQSTlHNytVcEtLakR2RHpTN2JCS3VZ?=
- =?utf-8?B?eUY3RHZhbERKVitWdHJUaWk5V2RETW9yMk43eWUvWnNTRi9oL2hsTGJmQ25t?=
- =?utf-8?B?NWNjMHRkOWd2bW56QlJ5ZFFkSVhRTzFXOG0xT1ZxdCtQb2JEK0xVOW13V21l?=
- =?utf-8?B?V1BHRHRnWHlzaXdFUE53SGVuZE9WUjBseVV3L3Q0UWEwdU44dGF3QXpuM3Rq?=
- =?utf-8?B?RnhsY1RCRXdiT0RTWUxaWkk0cVRrZzRwQW5uMm1TejI0N3ZGTElUYVVJZHB2?=
- =?utf-8?Q?JvUJ2/aeWvMT0kZPzP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe5d03a3-2308-4e68-12b5-08deac187240
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 09:10:13.2376
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jHIXHdn9cadTC4A+LdlvMeVx+nYy30ulIc+gRMFq9w/wXzFT0a9fmgQlFsXKPQAy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8693
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 6/8] media: qcom: venus: add power domain enable logic
+ for Venus cores
+To: Erikas Bitovtas <xerikasxx@gmail.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org
+References: <20260507-msm8939-venus-rfc-v5-0-d7b5ea2ce591@gmail.com>
+ <NKDr05opwdmbkLx617QRk-R0foXgb0E2_3_RD2qymAYEMnCYw8dD-dsSmj2Lrknh9Edo-M5KNzSxk91GWgtNZQ==@protonmail.internalid>
+ <20260507-msm8939-venus-rfc-v5-6-d7b5ea2ce591@gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260507-msm8939-venus-rfc-v5-6-d7b5ea2ce591@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 5/6/26 17:43, Nicolas Frattaroli wrote:
-> On Wednesday, 6 May 2026 17:06:56 Central European Summer Time Steven Price wrote:
->> On 06/05/2026 11:45, Nicolas Frattaroli wrote:
->>> RAM is not, in fact, cheap. Especially on embedded systems with a low
->>> amount of memory, but known and well-defined userspace, more explicit
->>> resource management can lead to better utilisation patterns. As an
->>> example, a resource manager process on a purpose-built device may wish
->>> to launch, and then explicitly swap out, memory of processes that are
->>> kept "warm", to improve perceived startup latency of individual
->>> full-screen applications without making the kernel figure out the usage
->>> pattern from observation alone in order to swap out the right pages.
->>
->> Have you considered memory control groups (memcg) for this purpose?
->> Imposing a lower limit than currently allocated should trigger reclaim,
->> so 'background' applications could have the limit lowered and then
->> restored when moved to the foreground.
+On 07/05/2026 09:32, Erikas Bitovtas wrote:
+> Attach power domains for vdec and venc cores and power them up if a vdec
+> or venc session is started.
 > 
-> This is a suggestion in line with what I've made to the entity for
-> whom I am adding this, but was told that for them they really do want
-> tight control without having to use cgroups into technically doing it
-> by dynamically adjusting the limits of them.
+> Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
+This looks fine to me but, will need to be tested/verified on 8916 to 
+make sure nothing explodes there prior to hitting -next.
 
-I agree with Steven that cgroups looks like a better fit for this.
+Reviewed-by: Bryan O'Donoghue <bod@kernel.org>
 
-We had similar approaches for DMA-buf where Android people upstreamed their hand crafted resource reporting framework exposed through sysfs. That turned into a quite a mess and was recently reverted after Greg intervened and said that this is not really a good use case for sysfs.
-
-This case here is of course different since it is only for a specific driver and not kernel wide framework etc... so I don't think that Dave, Simona, Greg or Linus will block it.
-
-But the question is still if it wouldn't be better to solve it in a generalized manner and not each driver implementing its own sysfs interface.
-
-> I do think that writing 0 to `memory.high` to swap it out and `"max"`
-> to allow it to swap back in might work, though that'll then apply to
-> all of the process' memory, not just the GPU resources.
-> 
-> I will ask for clarification internally.
-
-I think you need to come up with some kind of justification which not only explains why you want this, but also why cgroups can't be used and maybe even why crgoups can't be extended to do this.
-
-Regards,
-Christian.
+---
+bod
