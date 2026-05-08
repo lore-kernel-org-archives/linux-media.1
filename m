@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFFBF366814;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEB23410D12;
 	Fri,  8 May 2026 19:31:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778268718; cv=none; b=Us28lUuO4gTc4ZK+yDRTT8GktH4yJP0XygbZ6KaZubhiIJqrev0f0s8aLhzF32Je2V/xlZFcormlOmKgq48kqqotNGBrggOZYiYrF61JabTkyRMQBdvi4/Wd/a2bhTbGSi9XsDOAVcc36b0yfzc5+FXaETtqMbku+pU3sFU9TUA=
+	t=1778268718; cv=none; b=VueZDvpcumYZzjFgYiYrfGOt8uuW5DrUrWV3nXmAqvOE6gtcZIFPTHOWMuYspxRTWy1t/OMLLfTGZ0INquQlQd1SJAqJLbZPHfwcDlPXUgj0LtfLkucVFpP8haGOiDA8WaGmw+T9FskNiLbBL2CB1u0k7shYLb78mHrFesVcOtI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778268718; c=relaxed/simple;
-	bh=vBOdldmiISrDth84K4tomVLNfpZm1Axek6gl8sV6YCE=;
+	bh=5GdndQH11O0jnQvspCfNA/O+zyU14vg0pR6Vqar72vk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=K+yCdxRYAXc+L04H2mU6N2b03lGCtH7G88RqGuETtY2tWt9i62s6ULlHPfyuKSNvvGDhgRl7RTUH7BrvBpnMkcCV1KX68uPBNQCTbKYAzxdy0VuuCxJF0QxnwEDI6CwregnZ8eIqLtOROTgrU0vCd4PQDJ+H6HTcB+itE6EJyIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nn13t837; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=m7xNtAFjPMJ84lfObeSqNpf9q61AE2GhKMM5Ppeexdr1c3d5dYzOOFZPiOZcuLeQ8WcMDYkD0arS0+NHZgTam4wDzPG1tr8NAlvArx3YLIGCtn0GWpjM+hSrRl84eJPDP7NwO9Xw/MRGUl9v59xs/WP1WsUtB/wLlJzZ9B/JoJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dd4Ez4GE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nn13t837"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 996DDC2BCF6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dd4Ez4GE"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B9F69C2BCFB;
 	Fri,  8 May 2026 19:31:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1778268718;
-	bh=vBOdldmiISrDth84K4tomVLNfpZm1Axek6gl8sV6YCE=;
+	bh=5GdndQH11O0jnQvspCfNA/O+zyU14vg0pR6Vqar72vk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=nn13t837jRDNWszBl2r9uU5O5TJ7EarvzBd4f8Zdkauk/yBm/Y37e46BN3ukfGm5X
-	 91l4DwOUQLECK3LVi8KDYV2XEekWvu19cx/no/TE+cbM8ZsbcGAMTX0WveA5VXNMMM
-	 uXzbZC5UxtaYeTnN1gg5bPw6GaSzqlFy6XOoU/bmciYP0+kG4NnA/VM3UHs1yMWyzs
-	 xqNHb0cW/4I2WFaVryxHab9nwWlUSWegp7D3ivzG326K97Bd8zPfRor/gsCKMI0iGa
-	 SFXMeNE/hTaHThN7m1dauUJKVHbssl3t7lO8gB/2SGqe+lrg1axBdBrQekMVqhWFu+
-	 huHMQNp2fIUcQ==
+	b=dd4Ez4GEK7tAdNAbHU29w7Lw2/3pxuwwey92LkraeBpn2ReB3ieFDl9p1rJN0nN+s
+	 faoWzI+3vlFPQJHSJN7TnE0uIQNDpPwZPioic1bRMuQhQEMHehkN0JhFWnbzQ2muAY
+	 mV8K7LyJeUc2SKwQFn3DSSZNBmoa9hp72n0Kpzx9I4NAaQNqbzwpFDDKA8o+pNREXD
+	 7ezxXt/dJzvl7YiqjwhbNQCqZlL4GhEqaGgKeME5rNQ6xqZTtmKbYju/9d4Z1U1GQC
+	 sme2NumTyvv+0nLMHY5kUX5f1omh5yYdPiMkYv+qVaRXZDpWCgpq0xDIsKMzjHmfKG
+	 MI9Ai9Tt+HpSQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 90301CD342F;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B18F6CD37B2;
 	Fri,  8 May 2026 19:31:58 +0000 (UTC)
 From: Michael Riesch via B4 Relay <devnull+michael.riesch.collabora.com@kernel.org>
-Date: Fri, 08 May 2026 21:31:47 +0200
-Subject: [PATCH DONOTMERGE v4 4/8] arm64: dts: rockchip: add mipi csi-2
- receiver nodes to rk3588
+Date: Fri, 08 May 2026 21:31:49 +0200
+Subject: [PATCH v4 6/8] arm64: dts: rockchip: add radxa camera 4k on rock
+ 5b+ cam0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260508-rk3588-vicap-v4-4-6a6cd6f7c90b@collabora.com>
+Message-Id: <20260508-rk3588-vicap-v4-6-6a6cd6f7c90b@collabora.com>
 References: <20260508-rk3588-vicap-v4-0-6a6cd6f7c90b@collabora.com>
 In-Reply-To: <20260508-rk3588-vicap-v4-0-6a6cd6f7c90b@collabora.com>
 To: Mehdi Djait <mehdi.djait@linux.intel.com>, 
@@ -61,11 +61,11 @@ Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Michael Riesch <michael.riesch@collabora.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778268716; l=2720;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778268716; l=4379;
  i=michael.riesch@collabora.com; s=20260428; h=from:subject:message-id;
- bh=dZdZT5orbsEANcy4d6TWcsk4E00WD7gaPMXPl877FMo=;
- b=SryYqWtWJS3nSiljHzA4N63DthH/H5DnC9LGpReBuC2FUWhPmUMonNT7DcfCGTXJBR+5FryF0
- nlaiBS8AA4pBrN3TEguTCefuWXFlEdJWRodeUzyi3QysIYPpUnpkmxN
+ bh=3FVePkpPkw9zXNZmHFNf4wZoNKo/VGldfB5CgIPNdtw=;
+ b=GcdMDOgNjJ6gNrNnNjIs64/mGdHAFuxpUqhkkC+ZXJyA4zfpw049Q4qotDQ57BhmSFSoziLYd
+ rJEj5Oat2EcC0q+UMnnt1XxPCM2b3bkROSTxbi7hjBz/LnNLDIqQ9rx
 X-Developer-Key: i=michael.riesch@collabora.com; a=ed25519;
  pk=tAbmpPTE1MELYweXqqDU40fa18uCO6s32GJL/RzyW2Y=
 X-Endpoint-Received: by B4 Relay for michael.riesch@collabora.com/20260428
@@ -75,89 +75,143 @@ Reply-To: michael.riesch@collabora.com
 
 From: Michael Riesch <michael.riesch@collabora.com>
 
-This patch is discussed over at
-https://lore.kernel.org/all/20260305-rk3588-csi2rx-v2-0-79d01b615486@collabora.com
-included here for testing purposes only.
-
-The Rockchip RK3588 features six MIPI CSI-2 receiver units:
- - MIPI0: connected to MIPI DCPHY0 (not supported)
- - MIPI1: connected to MIPI DCPHY1 (not supported)
- - MIPI2: connected to MIPI DPHY0
- - MIPI3: connected to MIPI DPHY0-1 (not supported)
- - MIPI4: connected to MIPI DPHY1
- - MIPI5: connected to MIPI DPHY1-1 (not supported)
-As the MIPI DCPHYs as well as the split DPHY mode of the DPHYs
-are not yet supported, add only the device tree nodes for the
-MIPI2 and MIPI4 units.
+Add device tree overlay for the Radxa Camera 4K (featuring the Sony IMX415
+image sensor) to applied on the Radxa ROCK 5B+ CAM0 port.
 
 Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 52 +++++++++++++++++++++++++++
- 1 file changed, 52 insertions(+)
+ arch/arm64/boot/dts/rockchip/Makefile              |  5 ++
+ .../rk3588-rock-5b-plus-radxa-cam4k-cam0.dtso      | 99 ++++++++++++++++++++++
+ 2 files changed, 104 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index 4fb8888c281c8c7ce31e90e91abe1fd703804dd2..4d80e5e1f0339b6e91adf40da6cc8389ffd4ddc9 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1430,6 +1430,58 @@ av1d: video-codec@fdc70000 {
- 		resets = <&cru SRST_A_AV1>, <&cru SRST_P_AV1>, <&cru SRST_A_AV1_BIU>, <&cru SRST_P_AV1_BIU>;
- 	};
+diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
+index cb55c6b70d0e569abd9efc4e88ff908b6a682cf1..d4ff476fb9814b18c74c6d59d73cf5d8e6ee9ca7 100644
+--- a/arch/arm64/boot/dts/rockchip/Makefile
++++ b/arch/arm64/boot/dts/rockchip/Makefile
+@@ -206,6 +206,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-pcie-ep.dtbo
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-pcie-srns.dtbo
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-plus.dtb
++dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-plus-radxa-cam4k-cam0.dtbo
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5t.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-haikou.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-haikou-video-demo.dtbo
+@@ -321,6 +322,10 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-pcie-srns.dtb
+ rk3588-rock-5b-pcie-srns-dtbs := rk3588-rock-5b.dtb \
+ 	rk3588-rock-5b-pcie-srns.dtbo
  
-+	csi2: csi@fdd30000 {
-+		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
-+		reg = <0x0 0xfdd30000 0x0 0x10000>;
-+		interrupts = <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH 0>,
-+			     <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH 0>;
-+		interrupt-names = "err1", "err2";
-+		clocks = <&cru PCLK_CSI_HOST_2>;
-+		phys = <&csi_dphy0>;
-+		power-domains = <&power RK3588_PD_VI>;
-+		resets = <&cru SRST_P_CSI_HOST_2>;
-+		status = "disabled";
++dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-plus-radxa-4k-cam.dtb
++rk3588-rock-5b-plus-radxa-4k-cam-dtbs := rk3588-rock-5b-plus.dtb \
++	rk3588-rock-5b-plus-radxa-cam4k-cam0.dtbo
 +
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-haikou-haikou-video-demo.dtb
+ rk3588-tiger-haikou-haikou-video-demo-dtbs := rk3588-tiger-haikou.dtb \
+ 	rk3588-tiger-haikou-video-demo.dtbo
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam0.dtso b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam0.dtso
+new file mode 100644
+index 0000000000000000000000000000000000000000..ee9ecf68a88663a04e1c33a718894490ef475203
+--- /dev/null
++++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam0.dtso
+@@ -0,0 +1,99 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Device tree overlay for the Radxa Camera 4K attached to the CAM0 port of
++ * the Radxa ROCK 5B+.
++ */
 +
-+			csi2_in: port@0 {
-+				reg = <0>;
-+			};
++/dts-v1/;
++/plugin/;
 +
-+			csi2_out: port@1 {
-+				reg = <1>;
++#include <dt-bindings/clock/rockchip,rk3588-cru.h>
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/pinctrl/rockchip.h>
++
++&{/} {
++	savdd_cam0: regulator-savdd-cam0 {
++		compatible = "regulator-fixed";
++		regulator-min-microvolt = <2900000>;
++		regulator-max-microvolt = <2900000>;
++		regulator-name = "savdd_cam0";
++		vin-supply = <&vcc_3v3_s3>;
++	};
++
++	sdvdd_cam0: regulator-sdvdd-cam0 {
++		compatible = "regulator-fixed";
++		regulator-min-microvolt = <1100000>;
++		regulator-max-microvolt = <1100000>;
++		regulator-name = "sdvdd_cam0";
++		vin-supply = <&vcc5v0_sys>;
++	};
++
++	siovdd_cam0: regulator-siovdd-cam0 {
++		compatible = "regulator-fixed";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		regulator-name = "siovdd_cam0";
++		vin-supply = <&vcc_3v3_s3>;
++	};
++};
++
++&i2c3 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	status = "okay";
++
++	imx415: camera-sensor@1a {
++		compatible = "sony,imx415";
++		reg = <0x1a>;
++		assigned-clocks = <&cru CLK_MIPI_CAMARAOUT_M3>;
++		assigned-clock-rates = <37125000>;
++		avdd-supply = <&savdd_cam0>;
++		clocks = <&cru CLK_MIPI_CAMARAOUT_M3>;
++		dvdd-supply = <&sdvdd_cam0>;
++		orientation = <2>; /* External */
++		ovdd-supply = <&siovdd_cam0>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&cam0_rstn &mipim0_camera3_clk>;
++		reset-gpios = <&gpio4 RK_PA0 GPIO_ACTIVE_LOW>;
++
++		port {
++			imx415_output: endpoint {
++				data-lanes = <1 2 3 4>;
++				link-frequencies = /bits/ 64 <445500000>;
++				remote-endpoint = <&csi2_input>;
 +			};
 +		};
 +	};
++};
 +
-+	csi4: csi@fdd50000 {
-+		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
-+		reg = <0x0 0xfdd50000 0x0 0x10000>;
-+		interrupts = <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH 0>,
-+			     <GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH 0>;
-+		interrupt-names = "err1", "err2";
-+		clocks = <&cru PCLK_CSI_HOST_4>;
-+		phys = <&csi_dphy1>;
-+		power-domains = <&power RK3588_PD_VI>;
-+		resets = <&cru SRST_P_CSI_HOST_4>;
-+		status = "disabled";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			csi4_in: port@0 {
-+				reg = <0>;
-+			};
-+
-+			csi4_out: port@1 {
-+				reg = <1>;
-+			};
++&pinctrl {
++	cam0 {
++		cam0_rstn: cam0-rstn-pinctrl {
++			rockchip,pins = <4 RK_PA0 RK_FUNC_GPIO &pcfg_pull_none>;
 +		};
 +	};
++};
 +
- 	vop: vop@fdd90000 {
- 		compatible = "rockchip,rk3588-vop";
- 		reg = <0x0 0xfdd90000 0x0 0x4200>, <0x0 0xfdd95000 0x0 0x1000>;
++&csi2 {
++	status = "okay";
++};
++
++&csi2_in {
++	csi2_input: endpoint {
++		data-lanes = <1 2 3 4>;
++		link-frequencies = /bits/ 64 <445500000>;
++		remote-endpoint = <&imx415_output>;
++	};
++};
++
++&csi_dphy0 {
++	status = "okay";
++};
++
++&vicap {
++	status = "okay";
++};
++
++&vicap_mmu {
++	status = "okay";
++};
 
 -- 
 2.47.3
