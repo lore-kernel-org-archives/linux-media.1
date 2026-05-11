@@ -1,119 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57983FBEC7;
-	Mon, 11 May 2026 15:34:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4E22264D9;
+	Mon, 11 May 2026 15:43:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778513641; cv=none; b=tWi3OwzyiVAme42gtzgu4D91p0GfoFAC0DNT80alalK3Id4saTqJIot2Q6tgmumPS8enf9kPj/ouwcCipQP70DlcMVjENurfVgQGn1JQidROE/AIpbmHZt7tyPUGadPE3BLG2iq+vkO/di1PW/ARhyC0WRy521/iPsg4cJjUgpU=
+	t=1778514217; cv=none; b=FEB4MRZGiLjfwIOAHAHbdmuCAmUPCKtiag71IOlScNnVzdfhdkQy/E0Ctw9V3wM02Zy4auDFPrTXhzFZ7AxbHtJWXjfC8+F0nq/IPijIuEXOPQ81G7wElUEJUdMqqchKy4OilrxEDIdJIKXvoRgHwjRpFSKp3rWV24gj1yjtW6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778513641; c=relaxed/simple;
-	bh=tpucqBj5L2KIFfzz/gYAoELO2yy4xnrUBIOiwqW+DtM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Bn36tgCM3TSLZvfOGerQMZVvnSfisZOlnenlu4neI4iHnH8l9ri3iZWkxlPdHyFsA9pe1A25FGM+TnDEC2Svzp09d+hvtHeV5vYuFg1eUM4qxuMurQV8Syzr82+rVeBHGvOQ9vRmgG78U6G4C5Q0lBNkNc7UN+Q8/MMF/11wtXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c6AIXThI; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778514217; c=relaxed/simple;
+	bh=nMYKw9ofUkFWHVFjnLDo6sFguwvLWaN21ikxxm1fVz8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Qi/GuGd5XGlF/JhQbxZFhi/aRG+OkA6lpD55gbAecY7idHdMvFa8JZtfay88rTpAk3maUND/yT+sEa5Bv6RvxIhIQu+UnN/y4Xv+w7x4rNHzPnTeyNS1s3MWvqhSVNryGi3i+w0WMi8/jaBSWoi4RFy4+We24Y01R5t3jWbsBR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Mimgsen2; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c6AIXThI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D612BC2BCB0;
-	Mon, 11 May 2026 15:33:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778513641;
-	bh=tpucqBj5L2KIFfzz/gYAoELO2yy4xnrUBIOiwqW+DtM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=c6AIXThI/kg7pQyGHoR7DEbScTMYKjIusSpMegFdkgI3hg2l1kSlkX6QFHVgRKB8V
-	 tuVoCXrxvUi0F9eMJqOTM1w883pFucYgOZ/a7vCntUaffsw9WA/tyKteN27NJK+Pm3
-	 06s0kkcgM/uWnktaFSIe6rZrY4Qalu4WiVf07occ/lJIzkroGGJQdJ2m8Ru5jRZ1Vd
-	 Ig7+gXB634VmqHz1R7HgMX6qtaTd/5VPSUXTlxseHzcD/7xw8Ch2bBPNjoc29QtQ2x
-	 U/t1cG4+eIisOH/i9zTz9BKJRkblcBkbzaRBNK5gmbP5eX+3COyg4Ho5J0FWmBSO0c
-	 qpg6hHpefhSIA==
-Message-ID: <43c521f8-f3c2-40c1-bb9b-04ffcf079c47@kernel.org>
-Date: Mon, 11 May 2026 17:33:58 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Mimgsen2"
+Received: from ideasonboard.com (mob-109-113-28-211.net.vodafone.it [109.113.28.211])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5EDE31544;
+	Mon, 11 May 2026 17:43:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1778514207;
+	bh=nMYKw9ofUkFWHVFjnLDo6sFguwvLWaN21ikxxm1fVz8=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Mimgsen2rxGr6kPb9FL/tgCOF/Y5oGDUJfjSTatrv1lVTbOL8dKcRLElzFqYzfpYL
+	 60cxUn3kerzcj/Benh/R61u0JXV16OQN/nIn8EQmYkJx5wYXB9Iz/f9LiaqtnIMXM+
+	 wtzWy9hUb/poqPK7Bok+tLazmc0HgxBzwZw+K0jc=
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	linux-renesas-soc@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: rzg2l-cru: Add MAINTAINERS entry
+Date: Mon, 11 May 2026 17:43:23 +0200
+Message-ID: <20260511154324.141703-1-jacopo.mondi@ideasonboard.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] media: uvcvideo: Relax the constrains for
- interpolating the hw clock
-To: Ricardo Ribalda <ribalda@chromium.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Tomasz Figa
- <tfiga@chromium.org>, Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Yunke Cao <yunkec@google.com>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260323-uvc-hwtimestamp-v1-0-aa42e3865204@chromium.org>
- <20260323-uvc-hwtimestamp-v1-3-aa42e3865204@chromium.org>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260323-uvc-hwtimestamp-v1-3-aa42e3865204@chromium.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+The CRU was missing a MAINTAINERS entry.
 
-On 23-Mar-26 14:10, Ricardo Ribalda wrote:
-> In the initial version we set the min value to 250msec. Looks like
-> 100msec can also provide a good value.
-> 
-> Now that we are at it, refactor a bit the code to make it cleaner.
-> 
-> Fixes: 6243c83be6ee8 ("media: uvcvideo: Allow hw clock updates with buffers not full")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+Add it.
 
-Thanks, patch looks good to me:
+Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+---
+ MAINTAINERS | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f2be8f02dffb..d5448b82a644 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22683,6 +22683,15 @@ S:	Supported
+ F:	Documentation/devicetree/bindings/timer/renesas,rz-mtu3.yaml
+ F:	drivers/counter/rz-mtu3-cnt.c
 
-Regards,
-
-Hans
-
-
-
-> ---
->  drivers/media/usb/uvc/uvc_video.c | 18 +++++++++++-------
->  1 file changed, 11 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> index c7ebedb3450f..dcbc0941ffe6 100644
-> --- a/drivers/media/usb/uvc/uvc_video.c
-> +++ b/drivers/media/usb/uvc/uvc_video.c
-> @@ -494,6 +494,13 @@ static int uvc_commit_video(struct uvc_streaming *stream,
->   * Clocks and timestamps
->   */
->  
-> +/*
-> + * The accuracy of the hardware timestamping depends on having enough data to
-> + * interpolate between the different clock domains. This value is sof cycles,
-> + * this is, milliseconds.
-> + */
-> +#define MIN_HW_TIMESTAMP_DIFF 100
-> +
->  static inline ktime_t uvc_video_get_time(void)
->  {
->  	if (uvc_clock_param == CLOCK_MONOTONIC)
-> @@ -834,15 +841,12 @@ void uvc_video_clock_update(struct uvc_streaming *stream,
->  		y2 += 2048 << 16;
->  
->  	/*
-> -	 * Have at least 1/4 of a second of timestamps before we
-> -	 * try to do any calculation. Otherwise we do not have enough
-> -	 * precision. This value was determined by running Android CTS
-> -	 * on different devices.
-> +	 * Check that we have enough data to do the interpolation.
->  	 *
-> -	 * dev_sof runs at 1KHz, and we have a fixed point precision of
-> -	 * 16 bits.
-> +	 * y1 and y2 are dev_sof with a fixed point precision of 16 bits.
->  	 */
-> -	if (clock->size != clock->count && (y2 - y1) < ((1000 / 4) << 16))
-> +	if (clock->size != clock->count &&
-> +	    (y2 - y1) < (MIN_HW_TIMESTAMP_DIFF << 16))
->  		goto done;
->  
->  	y = (u64)(y2 - y1) * (1ULL << 31) + (u64)y1 * (u64)x2
-> 
++RENESAS RZ/G2L / RZ/V2H(P) CRU
++M:	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
++M:	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
++S:	Maintained
++L:	linux-renesas-soc@vger.kernel.org
++L:	linux-media@vger.kernel.org
++F:	Documentation/devicetree/bindings/media/renesas,rzg2l-cru.yaml
++F:	drivers/media/platform/renesas/rzg2l-cru/
++
+ RENESAS RZ/T2H / RZ/N2H A/D DRIVER
+ M:	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+ L:	linux-iio@vger.kernel.org
+--
+2.53.0
 
