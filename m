@@ -1,119 +1,193 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 149F73D6CDA
-	for <linux-media@vger.kernel.org>; Mon, 11 May 2026 10:43:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF14037649A
+	for <linux-media@vger.kernel.org>; Mon, 11 May 2026 11:46:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778496226; cv=none; b=S9WyS0t2FR7Bvo9OUCjplD/0qFWH+oMLbKVlQ/wc1TRo6xIZFTaTM4ohlEnv9sl55cBnLPbtBZUQhLjC3DVsR4Kn+z8ByX7MTr4K6GzGL5I2zp5ArhBbpjlxybXjt3CPBLfP6Tzt2uenOYjaHmU/TrKJ2wO5+G3KPAMvLLAPPS4=
+	t=1778499972; cv=none; b=JX/rb6HkNZeFL+rQLyJqqYa1ExfLTU+PyaB25z9C9VSW6hDbmwqWeVWhgkPSvA3loPJbahRnJcwD9UJrRY3jpkt0CbJy9fuy3BM+T29Ni0yivIEpaHUGf5s+JP+EaM9vTLLTLF/2dpN0xR7o8AB2MB43dquzyHnVa2s9y5Zvqz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778496226; c=relaxed/simple;
-	bh=iazWrLtJH0ZvfQXHNMDmWoeTvLKqPTMtY7iZ5ZxXJzU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r15kBdXyCzCKUiostpf9X+gF1et2FHRZD+y6r4nI2J/X4yxOLKI+HzZwUqQfj5n4IM206kAkQlLwVE3bvXwKQko6w2o4GYvOGoVylih/6Und82gelJAPUAhfAT4d1+yeWQeSK4SBRKz/C+hxdspncdPvvVUZSJK6KFwMLeCovsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G1YBd4ez; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G1YBd4ez"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-36608b2f2dcso2647776a91.2
-        for <linux-media@vger.kernel.org>; Mon, 11 May 2026 03:43:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778496224; x=1779101024; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4EVdxV8Se2LiyuEjyoag3giBCPKNVKgEYji5bgopuUQ=;
-        b=G1YBd4ez9CQtjhhETw5Njv00Z30Tw6REtL+hUEJGvTswY9Ln+ArL3qS/i4tRJ922/f
-         PHiBA/ln6yrFXc87Xm+CCFfty1Ga8Q30lCnjFZlygxr6NF0QJ56c6YGi1IgSR0fxvTi3
-         TZxpr6zk1s53HG+PVBMg2txKfcwAcsReejfTPMwtbIilMER1WcOWKZE/X9Z6u7mMjn+d
-         HvQalqXYIF3FLUggh0eyFe/c07CAcEA/bTnKeDFL11/2/nvNDdM//0Zm8JaExAa4b2SB
-         +M6al5aITPAQBNF4JH2sgtB235L20wp0pMOdGg2Ihd1NFKCzQk9B/d14O/j8PkgFE9ZE
-         Gr/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778496224; x=1779101024;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=4EVdxV8Se2LiyuEjyoag3giBCPKNVKgEYji5bgopuUQ=;
-        b=c7oSsDhZe4HEwTY6qmcLnkcwRcPoDB7oYTbfZCeneyejQjt10lEppyiHW0XfCfM0Pu
-         zWtTgdW/BVpHdqS+07e179ZCii2Ocl0AfYwO9evRMbNaXmfO8MMj8O2jr8qlWdY9EEvN
-         3ECuZl0+a24YosfC5xmA/jViEOhZxEPvN86w96au3AmFLlLeoCWeoZZ3OLjTekY3x9oV
-         yVIqdGsPxyL5fICFXTY2Sdfg0StHcHRCplJ1zNG+2zZPwy8Bb2ieXV8L2myNFg9Bm5Gh
-         WwQbhQTk5mQeTtSD8tPl94hJAKaR6HRedGmQVPpOOXMLWjhjA7hDHDczLefqGO2hUy4d
-         seZw==
-X-Forwarded-Encrypted: i=1; AFNElJ/FA/BaDgV52VVTTqtnRx56BM8YCfa2LIeSXKyX8tOZT1/zVX7ewjhP1CaeX4d3K+bnlSdOq7M1ZcJmSw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy59ME51/HvN233MoJC28p2mu/HT0KxlOhlh840flSIT8wABE5J
-	8jRT3XrAvKTZ6kyBmOTHTgOX4gdo3tPZn47Vy/ek37Wl7rDiZj5gq07c
-X-Gm-Gg: Acq92OFRIIaGxCwNLt3Qy+1MaDkflWiFkCN1xt+qszitokXFzs+F42zqJ8r7fEBcklT
-	+t7Y99c/2UJTAzPOsxQJ42SXs/sqO/wLxwh1CufJKRmFS323fKaPGiqz/PLaxRNJdvwqzsNI5Bj
-	myluDdNLjCpQfDGFkW18I2ZmAkalXKXofmAIp2ClHXWtoDds5NRdRqd9cUwSpUx0mPwq7RCXKXN
-	hDuHbhVGJWHdiqFpsassyJKydtGtQKnR2OK6eYKBvTDsOaMgIh6+sg7Qqt9TfaY6ouSluG3vULC
-	whknyg/UPKEcIjaGLr+lqjjp3YsvuUpPR4Iv7gQDAVApylR8lXiY40d4AFziwp/4LBEj+aKcuQz
-	VfTIk2A1sWhgynQQkjSkfH1FIgMVJwr8P+BTvemFwv3nfgLVrSwrxK7HnTDg+OD2IJ5oV/JR399
-	qh04ey19eWJkE//xL98860gJeQC3N9E1O5KInTxTc=
-X-Received: by 2002:a17:90b:57e5:b0:367:b9ed:665f with SMTP id 98e67ed59e1d1-367b9ed8035mr11528030a91.13.1778496224312;
-        Mon, 11 May 2026 03:43:44 -0700 (PDT)
-Received: from nuvole ([144.202.86.13])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-367d684009esm7533423a91.11.2026.05.11.03.43.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 May 2026 03:43:43 -0700 (PDT)
-From: Pengyu Luo <mitltlatltl@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Martin Kepplinger-Novakovic <martink@posteo.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
-Cc: devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	Pengyu Luo <mitltlatltl@gmail.com>
-Subject: [PATCH v4 5/5] arm64: dts: imx8mq-librem5: Correct link frequency list
-Date: Mon, 11 May 2026 18:39:27 +0800
-Message-ID: <20260511103927.279550-6-mitltlatltl@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260511103927.279550-1-mitltlatltl@gmail.com>
-References: <20260511103927.279550-1-mitltlatltl@gmail.com>
+	s=arc-20240116; t=1778499972; c=relaxed/simple;
+	bh=j0dMVqiIZO2JjGHEVzHFLf+iveSuOFuVYFGYRAItV6g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VnwTJGmuvqYrviOj3Do/CPEpCYwwxctbRtDUdD67X/vjiq5UwzAA3RFbH91U7zJ77UGrzZtXrbIGwczGOsMC/mvQOu4t0gdJe3bgAWF2fHOaMZNWt51iXnkNAXQxBuWdrGyBxvfH09X8zXbJ2d0MEG64zqFO48yL2sJyIn7d9+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=fail smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1wMP4s-0000sp-0i; Mon, 11 May 2026 13:45:38 +0200
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1wMP4q-000FMB-0p;
+	Mon, 11 May 2026 13:45:37 +0200
+Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1wMP4q-0000000FFNo-3bOa;
+	Mon, 11 May 2026 13:45:36 +0200
+Date: Mon, 11 May 2026 13:45:36 +0200
+From: Marco Felsch <m.felsch@pengutronix.de>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Frank Li <frank.li@nxp.com>, imx@lists.linux.dev, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Guoniu Zhou <guoniu.zhou@nxp.com>, linux-arm-kernel@lists.infradead.org, 
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH v6 1/2] media: dt-bindings: Add CSI Pixel Formatter DT
+ bindings
+Message-ID: <yez4p77eclr4hfhb5ytyr64ponp4plpefxhfszqfvdinpvamuv@jod7fsgilowq>
+References: <20260511-csi_formatter-v6-0-01028e312e2b@oss.nxp.com>
+ <20260511-csi_formatter-v6-1-01028e312e2b@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260511-csi_formatter-v6-1-01028e312e2b@oss.nxp.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: mfe@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-According to the hi846 datasheet and the register lists, they are
+On 26-05-11, Guoniu Zhou wrote:
+> From: Guoniu Zhou <guoniu.zhou@nxp.com>
+> 
+> The i.MX9 CSI pixel formatting module uses packet info, pixel and
+> non-pixel data from the CSI-2 host controller and reformat them to
+> match Pixel Link(PL) definition.
 
-mclk / prediv * multiplier / post_div1 / post_div2 =
-25Mhz / 3 * 90 / 1 / {1,2} = 187.5Mhz, 375Mhz
+Sorry for chiming in very late, but can you please provide on which
+i.MX9 devices this formatting module is present? I've checked the i.MX93
+reference manual and found no info instead I found a CAMERA_MUX register
+which does something similiar but is not the same. Please provide a more
+specific compatible if this IP is only be present on i.MX95 devices.
 
-Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
----
- arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Regards,
+  Marco
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-index f5d529c5baf3..cc5604172192 100644
---- a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-@@ -1122,7 +1122,7 @@ port {
- 			camera1_ep: endpoint {
- 				data-lanes = <1 2>;
- 				link-frequencies = /bits/ 64
--					<80000000 200000000 300000000>;
-+					<187500000 375000000>;
- 				remote-endpoint = <&mipi1_sensor_ep>;
- 			};
- 		};
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@nxp.com>
+> ---
+>  .../bindings/media/fsl,imx9-csi-formatter.yaml     | 87 ++++++++++++++++++++++
+>  1 file changed, 87 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/fsl,imx9-csi-formatter.yaml b/Documentation/devicetree/bindings/media/fsl,imx9-csi-formatter.yaml
+> new file mode 100644
+> index 000000000000..774d37d2b987
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/fsl,imx9-csi-formatter.yaml
+> @@ -0,0 +1,87 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/fsl,imx9-csi-formatter.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: i.MX9 CSI Pixel Formatter
+> +
+> +maintainers:
+> +  - Guoniu Zhou <guoniu.zhou@nxp.com>
+> +
+> +description:
+> +  The CSI pixel formatting module uses packet info, pixel and non-pixel
+> +  data from the CSI-2 host controller and reformat them to match Pixel
+> +  Link(PL) definition.
+> +
+> +properties:
+> +  compatible:
+> +    const: fsl,imx9-csi-formatter
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: MIPI CSI-2 RX IDI interface
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Pixel Link Interface
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - power-domains
+> +  - ports
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/nxp,imx95-clock.h>
+> +
+> +    formatter@20 {
+> +        compatible = "fsl,imx9-csi-formatter";
+> +        reg = <0x20 0x100>;
+> +        clocks = <&cameramix_csr IMX95_CLK_CAMBLK_CSI2_FOR0>;
+> +        power-domains = <&scmi_devpd 3>;
+> +
+> +        ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            port@0 {
+> +                reg = <0>;
+> +
+> +                endpoint {
+> +                    remote-endpoint = <&mipi_csi_0_out>;
+> +                };
+> +            };
+> +
+> +            port@1 {
+> +                reg = <1>;
+> +
+> +                endpoint {
+> +                    remote-endpoint = <&isi_in_2>;
+> +                };
+> +            };
+> +        };
+> +    };
+> 
+> -- 
+> 2.34.1
+> 
+> 
+> 
+
 -- 
-2.54.0
+#gernperDu 
+#CallMeByMyFirstName
 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
