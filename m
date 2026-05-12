@@ -1,249 +1,187 @@
-Received: from mail-qt1-f193.google.com (mail-qt1-f193.google.com [209.85.160.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D3633812F1
-	for <linux-media@vger.kernel.org>; Tue, 12 May 2026 15:09:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981C937C92F
+	for <linux-media@vger.kernel.org>; Tue, 12 May 2026 15:21:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778598581; cv=none; b=X54L86KiwHHdG1bxoudmfpNPQSMajh5mQ0N4tMcqpplP21vEHdwyrolJyrvDiBvDsm4s5EupSxDkdUgjLg3vmHEyutJxYN5UHGgXivCgp37z845aeYFSTSLnZiGXPq/XT9xR6P/3rHzI6XWWa4leZz0WXV39plykoZsIb/6sV3c=
+	t=1778599276; cv=none; b=RNjm3T3nZ1Jt3X9JrdfmN1IhM3ackJi00AKVKPa6M1JLmJvjIQSa7LHK/OYvGULyxcaxlT2FCAarmsUeVKs0dlbKinv6ucvu6dqa9/CjQb3vyYs79WMbtLMGCbHzKRcaTnifyPKr1kTry9Qy2x7ynBaoXFYwI/qfIO8J22clp3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778598581; c=relaxed/simple;
-	bh=lUCx5uFXTTWqLehLj1KPSUPQozM+3vjKHNmquKV+oo0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=L8IWE4eUP6+5n2R6MAVlXPpSNKAfjsdAmuiTuf5K8eaCtxMdb4VTpA2K439zrZMGXh55grUSBDwyjwaIgEoHrIEdIpIQ1BFeeE7lxXA3VeD7A1W3r4wzEHuHWZDXmfEQucyaT9u04BU7QF8uR+OVMeWUBfyFGtZU9aQA3ZI31PM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=SpWeMTXA; arc=none smtp.client-ip=209.85.160.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1778599276; c=relaxed/simple;
+	bh=HCRGBUtkrSoGUk8jEGoVTJVZHXmbNMegp9Xp5SSwp60=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=jpr8qYrdbVZpZvtjFc58HwBESj2tnOsKsfyGRy9tocHzS4YJ33ILQq46LpKxFYD7Q8/eV5NKwJNIz7AD8XZ1C3mPXx+xkMASJE1+0p13rR0MqXR3YL2ancyJ9Qj5T1mv7C7t+fcLUd1FyJj2FMJFv78fhnS/TJ7P3uhTAXzDXLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D33mOYUn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eZmJv8Rh; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="SpWeMTXA"
-Received: by mail-qt1-f193.google.com with SMTP id d75a77b69052e-50d876329bbso53527371cf.2
-        for <linux-media@vger.kernel.org>; Tue, 12 May 2026 08:09:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D33mOYUn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eZmJv8Rh"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64CAkYcp739985
+	for <linux-media@vger.kernel.org>; Tue, 12 May 2026 15:21:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	02ovJpLqS/OJQIwZyeSKKeC+6lmXh6VPbB9glk5k+CY=; b=D33mOYUnSqrJbovu
+	J6zlRYOyZ5QcoVa2I8B7m7nWtzLVP3WjUbq9mtapvqzjurJ/c3N2TJnLoOHCyRiq
+	gv2aYdkKoNFYg3wl7DOs2cJbYdlOk0GUJcFgW5yt1MfiVqaPKldZKNRTiJmiLtlz
+	ZowXgMzTrVOlRNp+jzAgTMB3Tl+5syx+b6yRIldOPjrPwj3thUMOcea8nfyNEPR/
+	SJWiWD8TE75CEPjXBn+lmnDeA1Pr0blYzTinEjVX9fQDW8GHkyDn0194CLBk1MW9
+	1ESTchTOjyZYSpLPbbbeKby4nuzfmTacbf30Z6/faUF3KRqWTkQslHY3AUkmbTnN
+	knSpIA==
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e42rhs5e3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 12 May 2026 15:21:14 +0000 (GMT)
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-69b4f753046so4336232eaf.2
+        for <linux-media@vger.kernel.org>; Tue, 12 May 2026 08:21:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1778598579; x=1779203379; darn=vger.kernel.org;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=e1GJZ3i503zdsckWYgIltPX4s+TXFKGqeqpxW9ex+gs=;
-        b=SpWeMTXA75Lx0BqUFlDaJNteIGw5mMT8LYIZU7bmdX3Cczsslb0+kUBSU/Y66xmV+T
-         w4I5GmgpOg9qswTHDpDMl5jX/NrC0zyzozuEKst3BSjwjKLjUPpSffw/AbXhHW75O3f/
-         BbQH+Y1K7CX9XIRj+0CExdPDdqvwH6BlHhXR8ymF8azBmbg0AiyRzwza8em3QtT39lQj
-         JU5AfoHXU/8V0kQmAXwZtp+948l/6i5QqRriV6oWQZKGc46WSN8rk0OH8MVjbaa0EJTs
-         ov9MYmB+kigPabl/Fzm1DAhRcvXMrOnkd+9Fs0J0Xmxck2zIVBq6BwG7HKwEUj4cEhos
-         zFvw==
+        d=oss.qualcomm.com; s=google; t=1778599274; x=1779204074; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=02ovJpLqS/OJQIwZyeSKKeC+6lmXh6VPbB9glk5k+CY=;
+        b=eZmJv8RhQh0rZX4aT+j87hAl0eJvKOd9tE2sD4KpWlUBmce1WCALJlsk/yUAbiWkjR
+         xGztCib0fWHriX0TIxtOThwoui2tktc8bjzYvAUXQF0epVbHoFPuj5xXoBE+G8febq5r
+         aGMO5Bw20Sa2MtxLsECi/d5q4p8iHYCQhwrzrHnlecuctR76IEmxOiT+mIcI7DNstNba
+         AnHC/19d6TtPomk7KTQgv9cMschN1dsSCGhtOmRFueWVlKRo3fBgm4cyBoGMeQgD9W1S
+         R1FscNofqs9olZkZ3APSNkKP68ep3ETR2qBUrk5e7yZV2H3tdsu41oOjW8fzHhnroafS
+         fS7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778598579; x=1779203379;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=e1GJZ3i503zdsckWYgIltPX4s+TXFKGqeqpxW9ex+gs=;
-        b=IL15jXfNP4cqWOkckA9B/8KGzLU4wYV6Di+aE93+ggiZhFCFbckxJQga+uE/NTxGnW
-         6nmaKxt8ja9bwN2VUS+MkKZLQqUbPOHm/uQVIJB50JdCLepnUUl8PUz/DcqYvL+98vKg
-         arMZ9BqOFZhsiYXp1S1pqDnoTRH/UddimQf6eSYvauAp6KbS6HTA432Px2JyN1YmnRPX
-         l1WT9409/hVlkXvBGGYEnHmbS5AzWqTwCFF7H8PoXjXhUAkzQcFj5gTK/eG5ZMyrzJuO
-         SgmhfdTeQMtvulhJlL6QCVcY2MEuvWqYm6ejxf1Bf7W/OsdTLhVO227bCk1FcB7PQ0Fe
-         YS0A==
-X-Gm-Message-State: AOJu0Yx9D+yba3tAbjbugP+XCx6CtsSEZr3UEj5A6CVJ8npo9MUGJ9UR
-	xW750bahcMmQHzpVL+2FInbZJ8JRh977hSR3Q5Y0KwHDOuYm5C79Z8SbTI1nMNCbUTs=
-X-Gm-Gg: Acq92OFC2btiPZHbnuWmehLzwTv0CZ/K4FFr6EeD2JN9WpDZVHXBZcpX76W2/JtVp2+
-	/A9W3sPcJoGAGClzgUQURQpedEZkxXIHMzNMJRpT7XNvCXL+P9Fn4lcoPmXhhHsvfABSG2DH+XK
-	iFXl1v63gS+kIxKgJJwe8Q8dbVdnBVs7IvqVB5YiM7fRNs9PrQ87sfXdbT5wHpZxfC3s3GwSZf8
-	fmUQI2Pc/bUZWKf1/U16/YDVB9KwfJmiYbZAYpDZhitkijTM5CoqvH3zNg1uDR9GpMkSz/5Z1ea
-	DyoX6I9zxnnLtnrX7wXlae9Df0f93RFx5vpAShYrOmJ3lw9Loxw18+5wVqLFzx0sY4OdohoGkNL
-	A6MyomtIPiN+eR57vG4Jro5sL/nG9s+e5gAEhZauE09aei8wnorix5niXAnMvrqQHKKb3UCZJJr
-	3bqTDaJcdoLM0gn8piOVXS61gimIJqMeTZlLFFq3A=
-X-Received: by 2002:a05:622a:341:b0:510:138e:b83c with SMTP id d75a77b69052e-514d20e0341mr47122861cf.33.1778598578821;
-        Tue, 12 May 2026 08:09:38 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e06b::c41? ([2606:6d00:15:e06b::c41])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5148e656452sm136800971cf.7.2026.05.12.08.09.37
+        d=1e100.net; s=20251104; t=1778599274; x=1779204074;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=02ovJpLqS/OJQIwZyeSKKeC+6lmXh6VPbB9glk5k+CY=;
+        b=fiBmKlzsB/8ZVD5cK/VCS/1vs5Q3++rlA9MP05J5FpgdNWjnuqBAOFw0PAeMmqw9NG
+         J8sVQUQQBVrZAK0Tg88HnxBHbGt19Bmd4JSzpRN17uwnBoUeBJG22HUwLPX5ubl6xFrz
+         JoX/MY+vrZaqsTR82kude6KNdUiIRwUGQOAB2e6eMJTlSIetTJCdgtZ84rfwprp+Rpf+
+         NpSV0vGl57tYGKNUt6vNm4ubm4tG+dLL65RQ/PMPjh2iY7ydrC+wHlpFg9hrTU6zp4Zs
+         dDLbT05MeB6fmHX3nzf5wdqhcd5AKrNt4hrpddR5A5Uby2rDBH5b7Itpwo45L5mbAZJ2
+         PJOg==
+X-Gm-Message-State: AOJu0YxbxRKEdHkwN4s6wYntqKqXP/vpKpxZEG2pnnwyZGzS7YjgOw4u
+	+Pi3hREAgbqud4Ca3IrBArd+/eByoG6n/GqjzI2ThTJdMRw4MSSTlRBEDFz/zu15FSjVAC49A1P
+	xVfQmw4aVTPL4kby/IDWHnZ3HCBE2LDDR45b2Mz+/TleuJqQJdxD4HnT5bLa0xkkLkA==
+X-Gm-Gg: Acq92OFplJWCd81m+Ila+93noiPXE2CtfEhzDF/XH7aycVEIQRXgb27fqt0tDn8Ub4o
+	W/BjJwJtc7/wMqIZe8H/O7uvrkOTekuZGooZ8E8Ukcz75fGPd4yT0ptWZp9k3JQopIiiuOgt6V9
+	mwxMprPTt0DcVTk4SuyIcR68WPqK1Cij1YxHu4C7mUOqM3AxcZJSCLgYZ0BNiUWXTF/ARxiU9sP
+	880o+/loBBwmYoI5JFuI+1gOWTEuw0YtMmbrkJqal8raFxS+MqukPXUcJzwH5BLCGdgilNWUPme
+	TkfwVaM7PlsqRf9z6+nch2GitUrI0xKTcUkNLHP5DQoQ1frjdHuXGa3AFXw8Sd2aqT9ZA/7IJPU
+	sLY9mz/0WBUZw031HC63fyj83HtrAftGxwagvvjZdKuM1inU2NDMxx1cE17OY4ggHikNInCDLPe
+	yZZOGCUTHCQzbuuCUF9B3vbCw1EOGR8Lgi8lI=
+X-Received: by 2002:a05:6820:80a:b0:695:818c:e56c with SMTP id 006d021491bc7-69998c8f448mr15047273eaf.7.1778599273930;
+        Tue, 12 May 2026 08:21:13 -0700 (PDT)
+X-Received: by 2002:a05:6820:80a:b0:695:818c:e56c with SMTP id 006d021491bc7-69998c8f448mr15047244eaf.7.1778599273394;
+        Tue, 12 May 2026 08:21:13 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-393f6268ddesm34036571fa.37.2026.05.12.08.21.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2026 08:09:37 -0700 (PDT)
-Message-ID: <b354afdfd28ec3736791755d9ce8cae49a744a96.camel@ndufresne.ca>
-Subject: Re: [PATCH v5 12/29] media: rockchip: rga: avoid odd frame sizes
- for YUV formats
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Sven =?ISO-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>, Jacob Chen
-	 <jacob-chen@iotwrt.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Rob Herring
-	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	 <conor+dt@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, kernel@pengutronix.de, 
-	sebastian.reichel@collabora.com
-Date: Tue, 12 May 2026 11:09:35 -0400
-In-Reply-To: <e6d562e7-a9d2-4a1a-a139-c6e05eb4aaef@pengutronix.de>
-References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
-	 <20260428-spu-rga3-v5-12-eb7f5d019d86@pengutronix.de>
-	 <4f5e481c8883b358ee4cef64f26f3f00f0ac7304.camel@ndufresne.ca>
-	 <e6d562e7-a9d2-4a1a-a139-c6e05eb4aaef@pengutronix.de>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-qN1+gvfnAtUxv/ubnzMi"
-User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
+        Tue, 12 May 2026 08:21:12 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Tue, 12 May 2026 18:21:09 +0300
+Subject: [PATCH v5 1/2] media: iris: Initialize HFI ops after firmware load
+ in core init
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260512-kodiak-gen2-support-v4-v5-1-a98968423d24@oss.qualcomm.com>
+References: <20260512-kodiak-gen2-support-v4-v5-0-a98968423d24@oss.qualcomm.com>
+In-Reply-To: <20260512-kodiak-gen2-support-v4-v5-0-a98968423d24@oss.qualcomm.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1650;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=KiFa/JqpExwVeRLpQRB6b6/r3uzswFx4pVVeS9KUMuI=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqA0Vl//QAeOSbmqNmESKLZA9iLZNeydJOb/N4M
+ rfYk4itFsCJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCagNFZQAKCRCLPIo+Aiko
+ 1fIbB/9IgdORjEiBFONrCN3BW+BB1uI+80ILQKcUydZQF6tznJWOsDwUoxTlHHmF2qo8ke8f4yd
+ SAtcRnP0SKkyWTruPN/p86izEdk41GtPjCdkZnHK6Moaa4QTLKcNFVXi4O57Mu/HnHAX7beDAyL
+ CAMLGnM0VjvQ6YZcPO4q5k9HrfEtO0xXw88Z9RgG7T3x/wwEuk8+tC8+1B4sypiXYvhHjmXUd8K
+ LtnvW6h9ml9pMYYqNNx+K+GR6hLOMFKpOEz/cH3Aa4IsARb7T41DTMd+R+0XYzilihQG9ZwYQY3
+ DO8iBGwjIZsVALiF4KUN8Z1adJS9Dutpm75RNK9Jb3IMZJrl
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDE1OSBTYWx0ZWRfX3OSqANMMK9W1
+ 4E3lPCwlH5V9X9wBBjqTGi26f5S/gtXGxRMZBPAzOn42w+LRI4G5G0U33wUv/CjVgp4UBKVMcH5
+ eRuFkeX/1CyE7Vf7Ul8u/nzA3JPShFFbktDUZsdKRdYahyIUtHDubq4UFwkctlmgWnnVA0xzHIO
+ OAMVjwVYR4xLrJV1AJ+Sc1vfzeQGmiEjI+bmb4yEEXJCI1Jqq0h9LU5ix+RLmzHvFHbH4xakCiQ
+ TvUtd06yzc24GYKSVzDWWWDbUAD7xP07uQLTAHLJEtkldQBfT320qTG9Ia+yDwrUKUi0OxvnOor
+ 3vm0xqR6amIOTDoySaFr+lOU91iybwxqWAa78N88bLGO2mY2dP26K01Ocii2uGyZN3Bg8mtjB64
+ RG6rE0FCCXj0BFBz3K5MK9ne8qDBO4FXDQZtg2IGCjE4MrTXUQGxgNq4bA4gvT2A5Mon23ugVCj
+ KgimsjP4QjgigfZz7Dw==
+X-Proofpoint-GUID: 1g1LP79ftVgdjTEPOrLSK8nMCn7cJfD0
+X-Authority-Analysis: v=2.4 cv=GbMnWwXL c=1 sm=1 tr=0 ts=6a03456a cx=c_pps
+ a=V4L7fE8DliODT/OoDI2WOg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=KKAkSRfTAAAA:8 a=_zkiGRivnqQB5cGHL1IA:9 a=QEXdDO2ut3YA:10
+ a=WZGXeFmKUf7gPmL3hEjn:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: 1g1LP79ftVgdjTEPOrLSK8nMCn7cJfD0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 bulkscore=0 adultscore=0 clxscore=1015
+ priorityscore=1501 suspectscore=0 lowpriorityscore=0 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605050000
+ definitions=main-2605120159
 
+From: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
 
---=-qN1+gvfnAtUxv/ubnzMi
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The HFI sys ops were previously initialized in probe() but, we don't
+have firmware loaded at probe time. Since HFI is tightly coupled to
+firmware, initialize the HFI sys ops after firmware has been successfully
+loaded and booted.
 
-Le mardi 12 mai 2026 =C3=A0 16:56 +0200, Sven P=C3=BCschel a =C3=A9crit=C2=
-=A0:
-> Hi Nicolas,
->=20
-> On 5/8/26 11:18 PM, Nicolas Dufresne wrote:
-> > Le mardi 28 avril 2026 =C3=A0 11:00 +0200, Sven P=C3=BCschel a =C3=A9cr=
-it=C2=A0:
-> > > Avoid odd frame sizes for YUV formats, as they may cause undefined
-> > > behavior. This is done in preparation for the RGA3, which hangs when =
-the
-> > > output format is set to 129x129 pixel YUV420 SP (NV12).
-> > >=20
-> > > This requirement is documented explicitly for the RGA3 in=C2=A0 secti=
-on 5.6.3
-> > > of the RK3588 TRM Part 2. For the RGA2 the RK3588 TRM Part 2
-> > > (section 6.1.2) and RK3568 TRM Part 2 (section 14.2) only mentions th=
-e
-> > > x/y offsets and stride aligning requirements. But the vendor driver f=
-or
-> > > the RGA2 also contains checks for the width and height to be aligned =
-to
-> > > 2 bytes.
-> > >=20
-> > > Signed-off-by: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
-> > > ---
-> > > =C2=A0=C2=A0drivers/media/platform/rockchip/rga/rga.c | 19 ++++++++++=
-++++-----
-> > > =C2=A0=C2=A01 file changed, 14 insertions(+), 5 deletions(-)
-> > >=20
-> > > diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/medi=
-a/platform/rockchip/rga/rga.c
-> > > index f599c992829dd..77b8c7ab74274 100644
-> > > --- a/drivers/media/platform/rockchip/rga/rga.c
-> > > +++ b/drivers/media/platform/rockchip/rga/rga.c
-> > > @@ -337,6 +337,19 @@ static int vidioc_try_fmt(struct file *file, voi=
-d *priv, struct v4l2_format *f)
-> > > =C2=A0=C2=A0	struct rga_ctx *ctx =3D file_to_rga_ctx(file);
-> > > =C2=A0=C2=A0	const struct rga_hw *hw =3D ctx->rga->hw;
-> > > =C2=A0=C2=A0	struct rga_fmt *fmt;
-> > > +	struct v4l2_frmsize_stepwise frmsize =3D {
-> > > +		.min_width =3D hw->min_width,
-> > > +		.max_width =3D hw->max_width,
-> > > +		.min_height =3D hw->min_height,
-> > > +		.max_height =3D hw->max_height,
-> > > +		.step_width =3D 1,
-> > > +		.step_height =3D 1,
-> > > +	};
-> > > +
-> > > +	if (v4l2_is_format_yuv(v4l2_format_info(pix_fmt->pixelformat))) {
-> > > +		frmsize.step_width =3D 2;
-> > > +		frmsize.step_height =3D 2;
-> > I think its fine like this, so let's start with:
-> >=20
-> > Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-> >=20
-> > But it does not feel like a hardware alignment to me. When we process i=
-n
-> > software these things, the minimum alignment is bound to the subsamplin=
-g, since
-> > there is no way to store half or quarter pixels, the padded width/heigh=
-t
-> > requires a step that follow the subsampling, something like:
-> >=20
-> > 		frmsize.step_width =3D finfo->hdiv;
-> > 		frmsize.step_height =3D finfo->vdiv;
->=20
-> I agree that this looks better. My main intention is to be more=20
-> conservative, as the Rockchip related code/docs seem to always ensure a=
-=20
-> 2 pixel alignment in both directions even for formats like YUV422, where=
-=20
-> we shouldn't have an alignment requirement in the height. Besides the=20
-> vendor driver and TRM mentioned in the datasheet, the librga and it's=20
-> docs also mention an alignment of 2 (pixels?!) for all YUV formats (see=
-=20
-> format alignment list in [1] and Q2.5 in [2]).
->=20
-> Given that the driver currently doesn't have any way to get the cores=20
-> unstuck/reset in case of a hang, I'd like to play it more safely by=20
-> adhering to what the vendor does instead of trying to do more and=20
-> therefore allowing some potential breaking format. E.g. I've also=20
-> experimented with sizes of=C2=A068x2, which the librga allows as input/ou=
-tput=20
-> of the RGA3 (whereas the TRM specifies a min size of 128x128), but=20
-> quickly dropped it as it produced some interesting broken outputs.
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ drivers/media/platform/qcom/iris/iris_core.c  | 2 ++
+ drivers/media/platform/qcom/iris/iris_probe.c | 1 -
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-Agreed, simply preserve my Rb in next version.
+diff --git a/drivers/media/platform/qcom/iris/iris_core.c b/drivers/media/platform/qcom/iris/iris_core.c
+index 1f326f696d08..52bf56e517f9 100644
+--- a/drivers/media/platform/qcom/iris/iris_core.c
++++ b/drivers/media/platform/qcom/iris/iris_core.c
+@@ -78,6 +78,8 @@ int iris_core_init(struct iris_core *core)
+ 	if (ret)
+ 		goto error_unload_fw;
+ 
++	core->iris_firmware_data->init_hfi_ops(core);
++
+ 	ret = iris_hfi_core_init(core);
+ 	if (ret)
+ 		goto error_unload_fw;
+diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
+index d36f0c0e785b..dbc15edc602b 100644
+--- a/drivers/media/platform/qcom/iris/iris_probe.c
++++ b/drivers/media/platform/qcom/iris/iris_probe.c
+@@ -266,7 +266,6 @@ static int iris_probe(struct platform_device *pdev)
+ 	disable_irq_nosync(core->irq);
+ 
+ 	iris_init_ops(core);
+-	core->iris_firmware_data->init_hfi_ops(core);
+ 
+ 	ret = iris_init_resources(core);
+ 	if (ret)
 
-cheers,
-Nicolas
+-- 
+2.47.3
 
->=20
-> Sincerely
-> =C2=A0=C2=A0 =C2=A0 Sven
->=20
->=20
-> [1]=20
-> https://codeberg.org/airockchip/librga/src/branch/main/docs/Rockchip_Deve=
-loper_Guide_RGA_EN.md#image-format-alignment-instructions
->=20
-> [2]=20
-> https://codeberg.org/airockchip/librga/src/branch/main/docs/Rockchip_FAQ_=
-RGA_EN.md
->=20
-> >=20
-> > Nicolas
-> >=20
-> >=20
-> > > +	}
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0	if (V4L2_TYPE_IS_CAPTURE(f->type)) {
-> > > =C2=A0=C2=A0		const struct rga_frame *frm;
-> > > @@ -358,11 +371,7 @@ static int vidioc_try_fmt(struct file *file, voi=
-d *priv, struct v4l2_format *f)
-> > > =C2=A0=C2=A0	if (!fmt)
-> > > =C2=A0=C2=A0		fmt =3D &hw->formats[0];
-> > > =C2=A0=20
-> > > -	pix_fmt->width =3D clamp(pix_fmt->width,
-> > > -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hw->min_width, hw->max_width=
-);
-> > > -	pix_fmt->height =3D clamp(pix_fmt->height,
-> > > -				hw->min_height, hw->max_height);
-> > > -
-> > > +	v4l2_apply_frmsize_constraints(&pix_fmt->width, &pix_fmt->height, &=
-frmsize);
-> > > =C2=A0=C2=A0	v4l2_fill_pixfmt_mp(pix_fmt, fmt->fourcc, pix_fmt->width=
-, pix_fmt->height);
-> > > =C2=A0=C2=A0	pix_fmt->field =3D V4L2_FIELD_NONE;
-> > > =C2=A0=20
-
---=-qN1+gvfnAtUxv/ubnzMi
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCagNCsAAKCRDZQZRRKWBy
-9C0fAP457K60/ZJ3ZLSyjkjg60UiJKpqRH2brs1rrxHPVXniJgEA9cbujVJ5Cbin
-Jn9LmlNpceZNGbjSuImEtMjHkEqw3AU=
-=l7Hh
------END PGP SIGNATURE-----
-
---=-qN1+gvfnAtUxv/ubnzMi--
