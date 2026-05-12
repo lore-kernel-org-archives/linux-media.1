@@ -1,63 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B5F284690
-	for <linux-media@vger.kernel.org>; Tue, 12 May 2026 06:46:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB4E368D47;
+	Tue, 12 May 2026 06:54:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778568380; cv=none; b=IH5/nbzo57L40GnMH1FyKzyzeIcc1uo0/nWufs2uC52c9Aju8U0mE8hlMx3MIO3dA8AXrCvFSJ05OEHaMjsTv8eYmRwigJdcSLmssQUlguTOWPMjKznjMHPHgu0F0cZ8j0o5Xxq7strn+6DdfDbi9rCehoXTR7FtnYcuzgF2y80=
+	t=1778568895; cv=none; b=FNQJNI4ho2C0n4kiKmrdYTqbWTCM1SNQKQGp/4wk3JMEsqGWAjQ+4Y0ECeHtIqBqhTrgMrlmoGGMRmQ6r5DLn+pJtDGwpMAsQWE2T2HZbeDhKciQFaqpEusdlhFG0Nh49s7dFBoGJaTAt+0NZ83MpGIk6V7PiFzfIaTVUQ4BSZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778568380; c=relaxed/simple;
-	bh=CLY42ZZOGo+4sQn8BGDBCrauhj4O6Tqcq/5giz2mCCc=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Content-Type; b=DXtpxQlte2QOqezWOpfTZTRv6dZ89riyg74UtFL+GZQN8MfafBs+agwRMQNgaWXxQBA8/3eL9kPeelmPxR0+kn/UJLoMdht581u37Cg5AtYCMHajIp5uPdcv4zA1zGiZr8jTJW8/uE9QxSu9ijxuMa7kmAAcgqp0cikgEulXiBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RCfOGKJU; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778568895; c=relaxed/simple;
+	bh=MVqKZ0vuXMFTpxC/6KdkRp2/82BwHmKzBiNojqDY/rY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WU/USg7auxEM8jei/gmTT+6HRdW7iCSIiEaJp+qU5cvrBZ0H8S7CmDYNqOriQ4EeB0v23owBroEGsxjd7I/g+RnpUvJb4g4T+WWZ4v55C2tX+0fCZITeuTqPs0pWZ0LFwUoeLVI754cKBafYaEkgC6IrdoANZ+lQr4rEQhpqBSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=CtLS/moH; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RCfOGKJU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D446C2BCB0
-	for <linux-media@vger.kernel.org>; Tue, 12 May 2026 06:46:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778568377;
-	bh=CLY42ZZOGo+4sQn8BGDBCrauhj4O6Tqcq/5giz2mCCc=;
-	h=Date:From:Subject:To:From;
-	b=RCfOGKJUBOPM9hASx/rgGiuNHBWYXlgbNdkin7pbcURBO+h5u8XrtJSdmZF/p37Bz
-	 ElanYeR2E1eNwMF11f+4IyksPWx74IRs55APoGwGIxEdgxnCuXo/4eVjhUFS8jIroL
-	 CLPWNiCYUysXZkbZgVXSxavyoKq8Z0hKXe1TSe1KN1Hn5rGGrxCoC2Ubz4BsqJq+Va
-	 7Oe49e4eDxM1MMp7YR6k5jKPSYWt4Aps6qjRfMdXgMIrbeD8kfCEsM1eUPrKA39fD7
-	 Iu8UegO/U3jRisoFOgQKusEdP/VEtLPtGDmVqvK2mS7Fp9mt94MvqsaMVYlXTkYEy8
-	 ffLUizEylzQ0Q==
-Message-ID: <b643993f-e445-4be6-9f14-74d4c05c4b06@kernel.org>
-Date: Tue, 12 May 2026 08:46:15 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="CtLS/moH"
+Received: from ideasonboard.com (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D01C6454;
+	Tue, 12 May 2026 08:54:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1778568876;
+	bh=MVqKZ0vuXMFTpxC/6KdkRp2/82BwHmKzBiNojqDY/rY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=CtLS/moH2yO+gJNksIaz2984CYOA7psu9vpEH3FgDmUNn2x7Ta7KgDDxcTEFRL5+y
+	 7NnGCmpeoz9/0NlQ2fdbYn0l8onRhV9W7Cz5WnlyJhfrKvVdp1EdwI1vUvHdMQXRs5
+	 BgGV25n6UejLLflY+V3n8OAVnUoDVfNqX26f5vz4=
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	linux-renesas-soc@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] media: rzg2l-cru: Add MAINTAINERS entry
+Date: Tue, 12 May 2026 08:54:26 +0200
+Message-ID: <20260512065428.147375-1-jacopo.mondi@ideasonboard.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Content-Language: en-US, nl
-Subject: [PATCH] media: visl: check if ctx->tpg_str_buf allocation failed
-To: Linux Media Mailing List <linux-media@vger.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-The result of ctx->tpg_str_buf = kzalloc(TPG_STR_BUF_SZ, GFP_KERNEL); was
-never checked. Add this.
+The CRU was missing a maintainer entry.
+Add it.
 
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+
 ---
-diff --git a/drivers/media/test-drivers/visl/visl-core.c b/drivers/media/test-drivers/visl/visl-core.c
-index 127ab18bce99..5e9bdd425d4a 100644
---- a/drivers/media/test-drivers/visl/visl-core.c
-+++ b/drivers/media/test-drivers/visl/visl-core.c
-@@ -339,6 +339,10 @@ static int visl_open(struct file *file)
- 	}
+v2:
+- Re-sort entries
+---
+ MAINTAINERS | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
- 	ctx->tpg_str_buf = kzalloc(TPG_STR_BUF_SZ, GFP_KERNEL);
-+	if (!ctx->tpg_str_buf) {
-+		rc = -ENOMEM;
-+		goto free_ctx;
-+	}
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f2be8f02dffb..c15d00d4f0e0 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22683,6 +22683,15 @@ S:	Supported
+ F:	Documentation/devicetree/bindings/timer/renesas,rz-mtu3.yaml
+ F:	drivers/counter/rz-mtu3-cnt.c
 
- 	v4l2_fh_init(&ctx->fh, video_devdata(file));
- 	ctx->dev = dev;
++RENESAS RZ/G2L / RZ/V2H(P) CRU
++M:	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
++M:	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
++L:	linux-renesas-soc@vger.kernel.org
++L:	linux-media@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/media/renesas,rzg2l-cru.yaml
++F:	drivers/media/platform/renesas/rzg2l-cru/
++
+ RENESAS RZ/T2H / RZ/N2H A/D DRIVER
+ M:	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+ L:	linux-iio@vger.kernel.org
+--
+2.53.0
+
