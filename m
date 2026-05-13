@@ -1,55 +1,56 @@
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38AEC3D6699;
-	Wed, 13 May 2026 07:18:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89FE13D47BC;
+	Wed, 13 May 2026 07:18:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778656683; cv=none; b=oyiJGZVFZMZ6VgHMiapg8A1Hc18zro70af3Iq3bxZPQaeeWle34GSMhsPr8AByZ4jN8nydELEFzYfk26E6givivec8s/JAiUnKYyolHcgJcdi6UC/5clQfq5TI4svI3smGawYrZjya6tCf/prhAyXaYbQ39bboYhq4Qj3m+Ncqw=
+	t=1778656692; cv=none; b=DC4neKGrBojCcyJQSb2adxuFg1UnYZpJ8O2rQ5jQQC/folIo6TN6bnpghMdxbBPro4KSJ84J2ySvSsyPAOOB7riqz/Ukc6Zwm9jbsbyPuWlESeNGpJ+awxWWr0OETsZDMnQ9E9897aLwPZ6feK7TuwXO2XD79K5W870AWyecy3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778656683; c=relaxed/simple;
-	bh=plHrpEXuH6kFYdgM+b8Q8Q2nKexGKx87z+mC65uBPnM=;
+	s=arc-20240116; t=1778656692; c=relaxed/simple;
+	bh=WqY41+TA/Cu2ZBpBlhUCQyjQZQR/yf4ZUqVaZ6BEAco=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DiacqELCfBWo5s+ng25tP+MmKgIx95gYQRT/dR6kI3Y4jBUGZkhNxECEn3VMBuxCKDrl8KQ3bbPfJVCPVwnbCR9aqpThVQtnmFwvdsW43YItLrXFYjk5+LLBGZx6G86M5Yyi+rN85RHAAw0K0TSRz6eoHjIdvoM1+rnDhwl4qNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=vEHPxfAt; arc=none smtp.client-ip=68.232.154.123
+	 MIME-Version:Content-Type; b=s2Ld8Rc4qSidufyNka5eIVm5CsKfv31B2mr3N2Iq/cFi0GVkinAo7+GNid7BN2rwFZ05ANA5NRE7E+hZUQJIfwb5dlMm7HOnlovJdoUbNDA9fMgwN9s62imwYGH1ZQtK2p7EZEnDswsiiuS8Yo4oKxADer6HVQoxc8S6pyMVrrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=aEk+X2mg; arc=none smtp.client-ip=68.232.154.123
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="vEHPxfAt"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="aEk+X2mg"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1778656682; x=1810192682;
+  t=1778656688; x=1810192688;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=plHrpEXuH6kFYdgM+b8Q8Q2nKexGKx87z+mC65uBPnM=;
-  b=vEHPxfAtUTU38lLTxk+B0kDeNLn2TzTQrOHepgvEJhxhOPJDmrqlWLd9
-   MZoYH5bEXr70DVktB+dVLXaEK/b2CyEHlr8FOzClEqwBkzbV7fwIIbhjr
-   4Ke5geLYGkQ9rN527aU1SShOn3QHez92Wf0t3Xd6Opq/enZd1A6yCSXPz
-   hc00/khK9Dg/Hvuem999sBS2YGhxDBC6ZuBAcTiGMqe55H9LflEbP6M70
-   OwppuenlKKHuLtAvFEfHKm9ZC/uXBWtYVdmPg8S5mooM3qpfv1TT2EWJL
-   WJjYV10L0J4Q9mPjowEmUb3+MNdAHvKYuBQMuUxucLz5aAaKep0+ZbLE5
-   Q==;
-X-CSE-ConnectionGUID: VxTTGQqyQtCR1O/+XjELGw==
-X-CSE-MsgGUID: me8fhpGnRde5F1WUfkuRkg==
+  bh=WqY41+TA/Cu2ZBpBlhUCQyjQZQR/yf4ZUqVaZ6BEAco=;
+  b=aEk+X2mg6gAH4ya6ddexXkM/BWRXIdF5DjpRDphdPvtVbA8ptkh1/8iX
+   m8xEdapTvpCnezbQaENddr8Oe0Pvl2jV+KlkhjW9xrCzUi/kTKU6CawLs
+   xN5uAAWJ1V3YIOUX4inYxuFrBd+t+3L1O2BIdCIkAgyuX+D1mL1C9s/hL
+   3IwRuTQGFFWL+xV0Z61qRfAlIHeXb+4RY5T2DVupNvw3Wa7H31BmX+qM5
+   aIPXE5ajBW/aGUlXX79JX6vIxh8xV2D2dLKLei7DGsMYMyNcmY/yOywZm
+   kfqap+VYfk0F5wFM09lwFqe/pAAntjUDCdTLu+VIXQE+g1TValXrdQB7N
+   w==;
+X-CSE-ConnectionGUID: oa9dgZfKSwWKc4464C1eKA==
+X-CSE-MsgGUID: 00GrWWu3Q1eihsD1b/bOSA==
 X-IronPort-AV: E=Sophos;i="6.23,232,1770620400"; 
-   d="scan'208";a="224672547"
+   d="scan'208";a="56656520"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 13 May 2026 00:18:01 -0700
+  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 13 May 2026 00:18:08 -0700
 Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
  chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Wed, 13 May 2026 00:18:01 -0700
+ 15.1.2507.58; Wed, 13 May 2026 00:18:07 -0700
 Received: from che-ll-i71840.microchip.com (10.10.85.11) by
  chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 13 May 2026 00:17:58 -0700
+ 15.1.2507.58 via Frontend Transport; Wed, 13 May 2026 00:18:04 -0700
 From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 To: <linux-media@vger.kernel.org>
 CC: <mchehab@kernel.org>, <hverkuil@kernel.org>,
-	<nicolas.ferre@microchip.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 05/15] media: microchip-isc: add driver documentation
-Date: Wed, 13 May 2026 12:47:32 +0530
-Message-ID: <20260513071742.97263-6-balakrishnan.s@microchip.com>
+	<nicolas.ferre@microchip.com>, <linux-kernel@vger.kernel.org>,
+	"Balamanikandan Gunasundar" <balamanikandan.gunasundar@microchip.com>
+Subject: [PATCH v3 07/15] media: microchip-isc: configure DPC and pipeline for SAMA7G5
+Date: Wed, 13 May 2026 12:47:34 +0530
+Message-ID: <20260513071742.97263-8-balakrishnan.s@microchip.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260513071742.97263-1-balakrishnan.s@microchip.com>
 References: <20260512154339.210444-1-balakrishnan.s@microchip.com>
@@ -63,128 +64,62 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain
 
-Document V4L2 controls and pipeline modes for ISC/XISC camera interface
-on SAMA5D2, SAMA7G5, and SAM9X7.
+Enable DPC_GDCENABLE for RGB output. Disable pipeline for raw Bayer
+passthrough to provide unmodified sensor data for software ISP.
 
+Co-developed-by: Balamanikandan Gunasundar <balamanikandan.gunasundar@micro=
+chip.com>
+Signed-off-by: Balamanikandan Gunasundar <balamanikandan.gunasundar@microch=
+ip.com>
 Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 ---
- .../userspace-api/media/drivers/index.rst     |  1 +
- .../media/drivers/microchip-isc.rst           | 71 +++++++++++++++++++
- MAINTAINERS                                   |  1 +
- 3 files changed, 73 insertions(+)
- create mode 100644 Documentation/userspace-api/media/drivers/microchip-isc=
-.rst
+ drivers/media/platform/microchip/microchip-isc-base.c    | 7 ++-----
+ drivers/media/platform/microchip/microchip-sama7g5-isc.c | 3 ++-
+ 2 files changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/userspace-api/media/drivers/index.rst b/Document=
-ation/userspace-api/media/drivers/index.rst
-index 02967c9b18d6..65ef6ba3523e 100644
---- a/Documentation/userspace-api/media/drivers/index.rst
-+++ b/Documentation/userspace-api/media/drivers/index.rst
-@@ -34,6 +34,7 @@ For more details see the file COPYING in the source distr=
-ibution of Linux.
- 	imx-uapi
- 	mali-c55
- 	max2175
-+	microchip-isc
- 	npcm-video
- 	omap3isp-uapi
- 	thp7312
-diff --git a/Documentation/userspace-api/media/drivers/microchip-isc.rst b/=
-Documentation/userspace-api/media/drivers/microchip-isc.rst
-new file mode 100644
-index 000000000000..2a436fd19272
---- /dev/null
-+++ b/Documentation/userspace-api/media/drivers/microchip-isc.rst
-@@ -0,0 +1,71 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+Microchip ISC/XISC Driver
-+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-+
-+The Image Sensor Controller (ISC) on SAMA5D2 and eXtended ISC (XISC) on
-+SAMA7G5/SAM9X7 provide camera capture with hardware image processing.
-+
-+Supported Hardware
-+------------------
-+
-+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-+SoC         Controller  Max Resolution  Interface         Hue/Saturation
-+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-+SAMA5D2     ISC         2592x1944       12-bit parallel   No
-+SAMA7G5     XISC        3264x2464       12-bit + CSI-2    Yes
-+SAM9X7      XISC        2560x1920       12-bit + CSI-2    Yes
-+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-+
-+SAM9X7 shares the XISC pipeline with SAMA7G5 but has a smaller internal
-+line buffer, limiting horizontal resolution to 2560 pixels.
-+
-+Controls
-+--------
-+
-+Standard V4L2 controls:
-+
-+* ``V4L2_CID_BRIGHTNESS``: -1024..1023, default 0
-+* ``V4L2_CID_CONTRAST``: -2048..2047, default 256 (1.0x)
-+* ``V4L2_CID_GAMMA``: 0..2 selects curve (0=3D2.4, 1=3D2.2, 2=3D1.8)
-+* ``V4L2_CID_AUTO_WHITE_BALANCE``: Enable kernel Grey World AWB
-+* ``V4L2_CID_DO_WHITE_BALANCE``: Trigger one-shot AWB
-+
-+SAMA7G5/SAM9X7 add:
-+
-+* ``V4L2_CID_HUE``: -180..180 degrees
-+* ``V4L2_CID_SATURATION``: 0..255, default 16
-+
-+Custom controls (defined in ``atmel-isc-media.h``):
-+
-+* ``ISC_CID_R_GAIN``, ``ISC_CID_B_GAIN``, ``ISC_CID_GR_GAIN``,
-+  ``ISC_CID_GB_GAIN``: WB gains, 0..8191, Q2.9 (512 =3D 1.0x)
-+* ``ISC_CID_R_OFFSET``, ``ISC_CID_B_OFFSET``, ``ISC_CID_GR_OFFSET``,
-+  ``ISC_CID_GB_OFFSET``: WB offsets, -4096..4095
-+* ``ISC_CID_CC_RR`` ... ``ISC_CID_CC_BB``: 3x3 color correction matrix,
-+  signed Q4.8 (256 =3D 1.0)
-+* ``ISC_CID_CC_OR``, ``ISC_CID_CC_OG``, ``ISC_CID_CC_OB``: RGB offsets
-+* ``ISC_CID_GAMMA_R_LUT``, ``ISC_CID_GAMMA_G_LUT``,
-+  ``ISC_CID_GAMMA_B_LUT``: Per-channel gamma LUTs, 64-entry arrays
-+
-+Pipeline
-+--------
-+
-+Pipeline modules: DPC -> WB -> CFA -> CC -> GAM -> CBHS/CBC -> CSC -> SUB
-+
-+* DPC: Defective Pixel Correction (XISC only), black level subtraction
-+  to sensor bit depth, green disparity correction
-+* WB: White Balance gains/offsets
-+* CFA: Color Filter Array interpolation (demosaic)
-+* CC: Color Correction matrix
-+* GAM: Gamma correction (preset or per-channel LUT)
-+* CBHS: Contrast/Brightness/Hue/Saturation (XISC only)
-+* CBC: Contrast/Brightness (ISC only)
-+* CSC: Color Space Conversion (RGB to YCbCr)
-+* SUB: Chroma subsampling (4:2:2, 4:2:0)
-+
-+Pipeline usage depends on input and output formats:
-+
-+* Raw Bayer input, RGB output: DPC, WB, CFA, CC, GAM
-+* Raw Bayer input, YUV output: Full pipeline including CSC, CBHS/CBC, SUB
-+* Non-RAW input (YUV/RGB sensor): Pipeline bypassed
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 0efa8cc6775b..fe5c3bb03e60 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17052,6 +17052,7 @@ L:	linux-media@vger.kernel.org
- S:	Supported
- F:	Documentation/devicetree/bindings/media/atmel,isc.yaml
- F:	Documentation/devicetree/bindings/media/microchip,xisc.yaml
-+F:	Documentation/userspace-api/media/drivers/microchip-isc.rst
- F:	drivers/media/platform/microchip/microchip-isc*
- F:	drivers/media/platform/microchip/microchip-sama*-isc*
- F:	drivers/staging/media/deprecated/atmel/atmel-isc*
+diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/driver=
+s/media/platform/microchip/microchip-isc-base.c
+index f61a5d5a3e04..23a09ed12946 100644
+--- a/drivers/media/platform/microchip/microchip-isc-base.c
++++ b/drivers/media/platform/microchip/microchip-isc-base.c
+@@ -800,7 +800,7 @@ static int isc_try_configure_pipeline(struct isc_device=
+ *isc)
+ 		if (ISC_IS_FORMAT_RAW(isc->try_config.sd_format->mbus_code)) {
+ 			isc->try_config.bits_pipeline =3D CFA_ENABLE |
+ 				WB_ENABLE | GAM_ENABLES | DPC_BLCENABLE |
+-				CC_ENABLE;
++				DPC_GDCENABLE | CC_ENABLE;
+ 		} else {
+ 			isc->try_config.bits_pipeline =3D 0x0;
+ 		}
+@@ -850,10 +850,7 @@ static int isc_try_configure_pipeline(struct isc_devic=
+e *isc)
+ 		}
+ 		break;
+ 	default:
+-		if (ISC_IS_FORMAT_RAW(isc->try_config.sd_format->mbus_code))
+-			isc->try_config.bits_pipeline =3D WB_ENABLE | DPC_BLCENABLE;
+-		else
+-			isc->try_config.bits_pipeline =3D 0x0;
++		isc->try_config.bits_pipeline =3D 0x0;
+ 	}
+=20
+ 	/* Tune the pipeline to product specific */
+diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/dri=
+vers/media/platform/microchip/microchip-sama7g5-isc.c
+index 4119cfe12cdf..04930aa0f289 100644
+--- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
++++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+@@ -59,7 +59,8 @@
+ #define ISC_SAM9X7_MAX_SUPPORT_HEIGHT   1920
+=20
+ #define ISC_SAMA7G5_PIPELINE \
+-	(WB_ENABLE | CFA_ENABLE | CC_ENABLE | GAM_ENABLES | CSC_ENABLE | \
++	(DPC_DPCENABLE | DPC_GDCENABLE | DPC_BLCENABLE | \
++	WB_ENABLE | CFA_ENABLE | CC_ENABLE | GAM_ENABLES | CSC_ENABLE | \
+ 	CBC_ENABLE | SUB422_ENABLE | SUB420_ENABLE)
+=20
+ /* This is a list of the formats that the ISC can *output* */
 --=20
 2.34.1
 
