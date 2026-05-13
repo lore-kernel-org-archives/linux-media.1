@@ -1,54 +1,53 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E8D3EE1C1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 609DE3EF64E
 	for <linux-media@vger.kernel.org>; Wed, 13 May 2026 10:44:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778669046; cv=none; b=l2G542qjUl07+PCWKgUqrXoJYBk4yFEIreZpMWDoXzI0xBo86pHzb5CdNHsa3M2EEEC6M+v4oGztac+Pvx3FKrKv5iRDcRxYmqugSBpUY983UxReGPD7RAfGwUInIVj7hDW65AJyT2Jo9r5KZsL9dsc+hS2Wh9Idtm4FNzXwQ/w=
+	t=1778669046; cv=none; b=SccvBWTHsF6Bh1udCpe6RzUTUuf8g1fcLVijWxxeCStL6DOlo6abjlJFtr5hF4CxLVKRLA2n3FJ0sGJGI6CV0+VWrg9OMj0/dB/upwn+dP1N/EopfZWjunPIRcRtJozdUO3ROwF9mDuJDk9xQ2RX1js6DsJvTCULHB2k+vS2/lw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778669046; c=relaxed/simple;
-	bh=hLVDVKLLxN9t5/hqUSAYjs0UZX0z2dqoV5rEeeVEPGI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IsJsMxe/h/2AsTi88xuLjDq2ARPePkwAAl7tcxe3XJdLkpF54+aJoKqcfICH5/sVBoGbQ+s65VIXbTI4+ZCm+peVkk84E/IOb0Br4DwZkjCIYVJqmKr0si5waVRZIXKeOqWyRVsvDTReSY4CvVGE3VGDvElt5Tq5Jb2APfdBxOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gtbBXHEL; arc=none smtp.client-ip=198.175.65.14
+	bh=W4YuarePKu51g6tF30wLW5/SuKEHm8DhPc17lllLX0k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HbRHYDNAf7gqxVJZ6GAivgdh9DxjWOdqRSaH3oh0m4D0xAXKb3L6NuqlzRcq7LmSFFY9sV+r22kZnnTmubdZ/7vbK+Z7dDTFbSK9AakpUMfKjSFu0PAbe2zZCvfa7TRXE4fMJ1EGlvUrKZWLSRY+jFdeuhm6eXIW5AeHWd68wzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HgBQnzHI; arc=none smtp.client-ip=198.175.65.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gtbBXHEL"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HgBQnzHI"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778669045; x=1810205045;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=hLVDVKLLxN9t5/hqUSAYjs0UZX0z2dqoV5rEeeVEPGI=;
-  b=gtbBXHELDREPuKKijBROiqauwOB3GN3x1+rdP14AqJrj2QFQCD2gXRC3
-   m+Ft82VrvX/qQUmL0MWteHB9I74hYG4wxlfGF2ndrkpgnquI0muOlssFA
-   2JpcqEMjFmgLXccZLA7Yry8U+2UtfZEc9l+HegAtPGHTCQpaWx2d8g9Gl
-   bKWu6F+NewpMI/DMZ7JfCzooTMylhR3y/NQM+81+YzMHm1Oq39JsH7DJd
-   VO56QBJS+f51MHyu19USo5RES6DAt4Jxwsnn39GOslUSPSsG3y3JojCOO
-   KX/zJtJgd9g/zixrsslZBlv4zJe4WJ13hA/Lyuh38z36cTORbkrPjwaLd
-   w==;
-X-CSE-ConnectionGUID: 0wfUWi4uQSyBFIVZLVaq3A==
-X-CSE-MsgGUID: DHKdbPUoSNGoHUv1MEQwMA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="83464442"
+  t=1778669046; x=1810205046;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=W4YuarePKu51g6tF30wLW5/SuKEHm8DhPc17lllLX0k=;
+  b=HgBQnzHI51Yt3XKYrTvvae4gols0lwbkvb8ZfLz3D9kt1OcP26/TTgVZ
+   ht+he7laclfMA7JHem61v3n5Qy/8fIKSfD6lbOOHMbxxU3Mk9cSasCWfc
+   LcTBafI/AkK24iVEjuYtAyF/km0XtVGNl1Psb9v5nga/Ui8+hhFBIpBkn
+   y1InluuFQsbjr9aRPLjbjVMc8o564ftKcKz01Dj72YWAgUb3/ldv4mO7T
+   FVKSpsjyrlyJ0M2UWiWQ3LgirQVONnUknBRI+Tunfj444ElK0j7UMpsFj
+   3OZsREL8hm64pE66OoJ58vCy401VTmCxodXm4X5dLoF3WU6V1wcvKGifL
+   g==;
+X-CSE-ConnectionGUID: PnQbHTCERRG364xgnuw/Qw==
+X-CSE-MsgGUID: 8bk1GOaoT9KUJAU/G58OPw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="83464445"
 X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; 
-   d="scan'208";a="83464442"
+   d="scan'208";a="83464445"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 03:44:04 -0700
-X-CSE-ConnectionGUID: flWKH2lKTOi2+WHSd51jqA==
-X-CSE-MsgGUID: 5RSJIKN+TMq+NGwlczHzaw==
+X-CSE-ConnectionGUID: O6Oa6x11R7yMmYubDW2CDQ==
+X-CSE-MsgGUID: 1l8AxzAxTzGtAg9ZvxcICw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; 
-   d="scan'208";a="233599240"
+   d="scan'208";a="233599243"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.111])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 03:44:01 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id BFD73121CA5;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id BEFE011F80B;
 	Wed, 13 May 2026 13:43:59 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wN74I-00000009S1C-2wwh;
+	id 1wN74I-00000009S15-2nEa;
 	Wed, 13 May 2026 13:43:58 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -59,12 +58,10 @@ Cc: laurent.pinchart@ideasonboard.com,
 	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Mehdi Djait <mehdi.djait@linux.intel.com>
-Subject: [PATCH 02/17] media: v4l2-subdev: Align frame descriptor error codes with routing
-Date: Wed, 13 May 2026 13:43:43 +0300
-Message-ID: <20260513104358.2252605-3-sakari.ailus@linux.intel.com>
+Subject: [PATCH 00/17] Rework frame descriptors
+Date: Wed, 13 May 2026 13:43:41 +0300
+Message-ID: <20260513104358.2252605-1-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260513104358.2252605-1-sakari.ailus@linux.intel.com>
-References: <20260513104358.2252605-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -73,32 +70,67 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__v4l2_subdev_get_frame_desc_passthrough() returns -ENOSPC when there are
-too many routes. There's a subtle difference when compared to -E2BIG, but
--E2BIG can be used in this case as well. In practice this was unlikely to
-having been ever returned from the kernel as things currently stand.
+Hi folks,
 
--ENOSPC can be then repurposed for signalling of running out of entries in
-the statically allocated array.
+This smallish set makes frame descriptors dynamically allocated and
+implements a single-entry frame descriptor based on the device's format,
+using a new helper called v4l2_subdev_get_frame_desc(). All drivers that
+do not obtain their frame descriptor from upstream are converted. The
+helper also obtains a frame descriptor for the desired type (parallel or
+CSI-2) and checks there's at least one entry there. These checks are
+removed from drivers that currently perform them. (Some drivers also check
+there's exactly a single frame descriptor entry but I think in most cases
+this check could be loosened. That could be done after this set.)
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
----
- drivers/media/v4l2-core/v4l2-subdev.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On callee side these patches introduce no changes as the number of
+pre-allocated memory for 8 frame descriptors remains as-is. The
+get_frame_desc() pad op can return more than 8 frame descriptors by
+setting the num_entries to the desired number and returning -ENOSPC.
 
-diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-index e9f81b9be9e2..d93ed50255ed 100644
---- a/drivers/media/v4l2-core/v4l2-subdev.c
-+++ b/drivers/media/v4l2-core/v4l2-subdev.c
-@@ -2639,7 +2639,7 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
- 
- 			if (fd->num_entries >= V4L2_FRAME_DESC_ENTRY_MAX) {
- 				dev_dbg(dev, "Frame desc entry limit reached\n");
--				return -ENOSPC;
-+				return -E2BIG;
- 			}
- 
- 			fd->entry[fd->num_entries] = *source_entry;
+If people prefer using cleanup.h / __free() to release the dynamically
+allocated array (I think I'd almost require that), I'll merge the
+now-separate __v4l2_subdev_get_frame_desc() into
+v4l2_subdev_get_frame_desc().
+
+More formats can be added to df-to-mbus conversion as needed. These are
+meant to be initial formats that are enough for typical raw sensors (and
+one RGB format, too).
+
+Sakari Ailus (17):
+  media: v4l2-common: Add mipi_csi2_dt_for_mbus()
+  media: v4l2-subdev: Align frame descriptor error codes with routing
+  media: v4l2-subdev: Prepare for changes in getting frame descriptors
+  media: v4l2-subdev: Allocate frame descriptors based on the need
+  media: v4l2-subdev: Provide a cleanup-friendly get_frame_desc
+  media: v4l2-subdev: Change the maximum number of routes
+  media: v4l2-subdev: Return dynamically allocated pass-through routes
+  media: v4l2-subdev: Always return at least one frame descriptor
+  media: bcm2835-unicam: Use v4l2_subdev_get_frame_desc()
+  media: nxp: imx8-isi: Use v4l2_subdev_get_frame_desc()
+  media: raspberrypi: cfe: Use v4l2_subdev_get_frame_desc()
+  media: rzg2l-cru: Use v4l2_subdev_get_frame_desc()
+  media: rkisp1: Use v4l2_subdev_get_frame_desc()
+  media: exynos4-is: Use v4l2_subdev_get_frame_desc()
+  media: ti: cal: Use v4l2_subdev_get_frame_desc()
+  media: ipu6: Use v4l2_subdev_get_frame_desc()
+  staging: media: ipu7: Use v4l2_subdev_get_frame_desc()
+
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c |  23 ++-
+ .../media/platform/broadcom/bcm2835-unicam.c  |  20 +--
+ .../platform/nxp/imx8-isi/imx8-isi-crossbar.c |  15 +-
+ .../media/platform/raspberrypi/rp1-cfe/cfe.c  |  29 ++--
+ .../platform/renesas/rzg2l-cru/rzg2l-video.c  |  21 +--
+ .../platform/rockchip/rkisp1/rkisp1-isp.c     |  12 +-
+ .../samsung/exynos4-is/fimc-capture.c         |  16 +-
+ drivers/media/platform/ti/cal/cal-camerarx.c  |  25 ++-
+ drivers/media/v4l2-core/v4l2-common.c         |  47 ++++++
+ drivers/media/v4l2-core/v4l2-subdev.c         | 156 +++++++++++++++---
+ .../staging/media/ipu7/ipu7-isys-csi-phy.c    |  16 +-
+ drivers/staging/media/ipu7/ipu7-isys-csi2.c   |  22 ++-
+ include/media/mipi-csi2.h                     |   2 +
+ include/media/v4l2-subdev.h                   |  76 ++++++++-
+ 14 files changed, 344 insertions(+), 136 deletions(-)
+
 -- 
 2.47.3
 
