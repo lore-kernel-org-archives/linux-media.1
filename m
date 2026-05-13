@@ -1,75 +1,153 @@
-Received: from outbound.ci.icloud.com (ci-2004f-snip4-3.eps.apple.com [57.103.89.56])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF5238B7B1
-	for <linux-media@vger.kernel.org>; Wed, 13 May 2026 10:48:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.89.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2ED38F935
+	for <linux-media@vger.kernel.org>; Wed, 13 May 2026 10:50:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778669283; cv=none; b=c8KolOlJZo7lmm0cmPES3GBkzGD+vNZpHD0RXfrmQbogclDt0rw5qg4NCbhrSfyD7vtQNZO3bg2C8oV3qRS7maIby4AKnh5GSCXQqYAzToNGRw4gcvtLYhsOUZ9bKHxn9XFRIbvQckpMpnA4fGKTXg4jqTq7VtkNTprp2dLAr98=
+	t=1778669403; cv=none; b=sn9poxz6TFwvHzjb5Wrc5y0D1NrDnt38ZPjrhQO9r7YxRJAY5pjmqOnwrDyHbtOfbx+oaxWm49kw3ngZNa6yaYpE4F6yx/BdbeCUD7UBT/uqNHP+8I4mhEP/fCV2WMIL+4V8yQMGkt8+CsN/xTr3l4Ng+CGRcBewRtSYc/jzsV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778669283; c=relaxed/simple;
-	bh=L/Z9gU6k6e4i7AdpW08MHfdPkbxdagX9ILHtKnhumHQ=;
-	h=Content-Type:From:Mime-Version:Subject:Date:Message-Id:References:
-	 Cc:In-Reply-To:To; b=FgaHfQVA71mYgQKXMUOXajrg2S2Qnri3ZTp9KPCMTvMRUqUDi4bDmGFihfNtVoCZ+KA/ORwfWl74ABexfzLUwBiwXHTXPJ/7cH6cV19qqHxHUfO2ZV0UnCEzucjUiB3V522O8gywuul4Lj2QVnsSe2gRV14UUOU1UqPcYmCtDBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=nW5JYQgd; arc=none smtp.client-ip=57.103.89.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	s=arc-20240116; t=1778669403; c=relaxed/simple;
+	bh=ymkXFwxWeVoAvJD5TRg7vNGUmjB+3vDW3rHIV9EqBMM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QH5fdh+18mLOqLg8h+m7KD8g9+XCKMU4Nh27uICVNaITMclYxUpeg4tWlXHT00zNz7IVUiER/rXE76Y0vg+wFZBFAzS0k68S/FwQiQVW15rHcZszIb/cjFuSxTXhLfIb0xXPoF5/xUjlxep8dUb2yDrqSibdGPdc1nBTNG82w1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TSGhW6iE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dj14LACu; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="nW5JYQgd"
-Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-central-1k-60-percent-3 (Postfix) with ESMTPS id E3795180016F;
-	Wed, 13 May 2026 10:47:59 +0000 (UTC)
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQxWB1sZUgVeDkETCFNWVgVUGV0AUgNfFU0LUgBSH3IZWhRcGFNFUR9UWFUJCg9HHVgWXghfBlcEShleCEMrWxNVF0YJGQhdHRkKUFAGWxIYXBRcUFgeRhJWDV0JGQhbXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJCld0MX9Kdl1xUx9HCEl1QANbCkcUOgIrD0Z0NXpAC1UOKAU1DjxzBFQHXQVdVlACWlUSBEAIVlBeCF4fTBw=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1778669282; x=1781261282; bh=L/Z9gU6k6e4i7AdpW08MHfdPkbxdagX9ILHtKnhumHQ=; h=Content-Type:From:Mime-Version:Subject:Date:Message-Id:To:x-icloud-hme; b=nW5JYQgdyghBsWM4rNbkIAkwS6RsLAdreIvaiuGdk+/fFw32NmW9TY2yO4dhYpd0wevhFMowhT7xRz9807kRdEYtpJZSwq1e8RvlcNHs6hXr9jT/Uk1UnAlrrtwpI0pugx5o0LHMBPU77KYSwQIj9zBKocf961fwP6yvOvfVG6i8u2PaWVYVC04DWEDECGx4Rocr30EAote3AQ5k6HoC9PjHOH87EhdCaMir025n13G65IUb8awPfNPYNaAP3TxoSqAhD5jgEdPonrDXo7OHk8b9eXDnJYKdUnzDbGhD3y/d7BFd1gmTpxIcLQWhlOntDRy7ob4bodx55HV/6uX2RA==
-Received: from smtpclient.apple (unknown [17.57.156.36])
-	by p00-icloudmta-asmtp-us-central-1k-60-percent-3 (Postfix) with ESMTPSA id 0271318000FD;
-	Wed, 13 May 2026 10:47:59 +0000 (UTC)
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: "M.samet Duman" <dumanmehmetsamet@icloud.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TSGhW6iE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dj14LACu"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64D9k0Gr3008285
+	for <linux-media@vger.kernel.org>; Wed, 13 May 2026 10:50:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=YZ4B8Nyvk2agWZPoGiLkxwg0
+	6cZjsgMkxTD3jPL+MYs=; b=TSGhW6iEJ8DKpUrKdVIYITZEboywVdB/nksd2FEO
+	rLc05p6pkhBadeTV7Z73iRYFw95NwWOkD5SVPlCr9RDDPwpg79F4Iuy/KxLqcQ+k
+	QesCKiAWwAf4nBdOPpguZo0LaVA5nTLrx1VTkUETUpDGrobPIhJfLmxZ49VRa8v2
+	VNKfgHJNy53BuGZSikBMQoDirzTEtlGqp3DDBfUMNWvA+RmO+yq/uNzt08J443+S
+	3CsyI46gczC4sXfOH8rzpbDaVRFkDJYZ5qaAMvA0Z+R9Bn/axly34T0y1kq6QKBl
+	ry8RtieETj5agZk0jjMIux5D1mmNcAPhktYzeJ4dCiSGYQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4py0g7r6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 13 May 2026 10:50:01 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-90d6fe98316so272850085a.3
+        for <linux-media@vger.kernel.org>; Wed, 13 May 2026 03:50:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778669400; x=1779274200; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=YZ4B8Nyvk2agWZPoGiLkxwg06cZjsgMkxTD3jPL+MYs=;
+        b=dj14LACumWtYvGRDA3w3HGR8RtI6ZObiPESew4ukENY9lTWXf9hIEg71U9IBEzPX3c
+         pGe0TU2z4OBFLGS1ysvUPBkGi5CcORVfQ97KCsVuzPOrVjS0cmHpWHx/I39XgrtYdK4k
+         PI29aDe1r1NeiKsu2oYHEdeu/1yQ8Q9rSiC3xYt9HCO0zXxZfmuQMkECyr8231tHOgj4
+         f3FttR83UOcYtGzby8y6MviarZca1Om/43g58WNx0LN+5UxOwxnqzOHBxRxJFrik9zmZ
+         18oKXK6Fb2p6yQrQdfTLDVojYRVQaatngi0IjS7Bg7xUXAVD03HiAdG5PCxrpklrmxXV
+         5eTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778669400; x=1779274200;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=YZ4B8Nyvk2agWZPoGiLkxwg06cZjsgMkxTD3jPL+MYs=;
+        b=KILfAvgVDQiQFPY7RpeQmmr5XqhXq9q2zeHGLilJVGKi3fK0xTu/rEZ4ocuB6sX9d7
+         CRSp1loh6HVHsFPnyfGjNln3vig9e9uF0NtGhgy4CAbd0DtLqJCfcB3I9qJbsldcMvsc
+         iFuSM64q/5D6dd2s2nmqOJC0+U8TC6lIo7BctPh/t4ocPBuIcGn57mhfdLiI2VvMA8p7
+         mV8XSEaqewmasv68o/8A6J3sjgWMMgJmBZ83gY5HgM+UsdzI0U0c2pMYWnS/fO3V4/va
+         rmNYcArJOE7BQt7IlitAi5+p3/mhcFEihThrxwyw3kzlMosj6s3Bz/09lKFYdM98y0TE
+         HJYg==
+X-Forwarded-Encrypted: i=1; AFNElJ/YU8WtwHTnY6k+LTl9mcWXf6hYfLhptYDR8WHdcZFwhVeXcZuTfZpdEiMPH53BiMJNFD5KlrlHczhiSA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzpmM/5DzukiorbVMi1TmsnJfUdcUjWmE0QH13YxJz6akuOpJVK
+	0pk0hp/+kXOualMMxNiNsY6HN1mk8cwnmJZPbULV+rak5IoxcleEzW9+T9i4QovCO83Do6ug5T2
+	Q8xUM3AaJfSpsWwyta4MCn7dOzD/7yH2ou7txynQbsIbI0YY0U4WJ9AWd0S14M+ukwQ==
+X-Gm-Gg: Acq92OGek1QlZQ5e8NnW4TCQMdZjoJBFCax9dIEvD+HxTxlf+fh3XtKXrpJ8TF61Yh6
+	cNaZyHlkIILLBCaay5TXqxqshJ7yfVm/6PUaocrMODcLRDwAz5VW18IL8ScANMuLVmLAjPL/FcE
+	1WEqaPpOX3EuK30Bv0se8r8F23U8jWkNjgRoJFr7QYOCYsaTJRLSh0oEHZ56fGhATypdd2aP3zy
+	BIpPlw8dU5nt0OnJvYrtoEV+n58SrZ9512xVomiyP7GyOlCod0Fd9YPVy2JFnsAzi9V+gkYzdy6
+	d63VzVzKllWtVMROonLI52gCF4y8UaxWnMVRLYbUejtlcyovGsa9WBwmAcqwF1Sy+FLWr9OKP52
+	sgzEtsWE4gPfwAoSYfouccYNMGox8stFRHWASulS4JFozOh3uSnCdkrKiPoA7d4KxWyjPP86/oW
+	kad9fVr7kjFQ0ZRU1zKw0cxHgAUX5W3D0oHxc=
+X-Received: by 2002:a05:622a:1f8f:b0:50d:62d1:c3fa with SMTP id d75a77b69052e-5162f422543mr35030681cf.2.1778669400321;
+        Wed, 13 May 2026 03:50:00 -0700 (PDT)
+X-Received: by 2002:a05:622a:1f8f:b0:50d:62d1:c3fa with SMTP id d75a77b69052e-5162f422543mr35030301cf.2.1778669399875;
+        Wed, 13 May 2026 03:49:59 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-393f5d5d5f9sm39939781fa.0.2026.05.13.03.49.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 13 May 2026 03:49:58 -0700 (PDT)
+Date: Wed, 13 May 2026 13:49:57 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Wangao Wang <wangao.wang@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 1/6] media: qcom: iris: Add intra refresh support for
+ gen1 encoder
+Message-ID: <glr5fyee7q2gx2swg7pgk4plbjxuj6kg63kea4vdjo5qxlrlki@h7kzzbvoabgg>
+References: <20260512-batch2_features-v7-0-4954e3b4df84@oss.qualcomm.com>
+ <20260512-batch2_features-v7-1-4954e3b4df84@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (1.0)
-Subject: Re: [PATCH v4] staging: media: atomisp: remove stale "Generated code" comments
-Date: Wed, 13 May 2026 13:47:46 +0300
-Message-Id: <FAF2E0F8-711F-4087-B1F8-FEC8889C7E7D@icloud.com>
-References: <20260512-atomisp-remove-generated-comment-v4-1-4095ab7e2c14@yahoo.pl>
-Cc: Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-staging@lists.linux.dev,
- Andy Shevchenko <andriy.shevchenko@intel.com>,
- Tomasz Unger <tomasz.unger@yahoo.pl>
-In-Reply-To: <20260512-atomisp-remove-generated-comment-v4-1-4095ab7e2c14@yahoo.pl>
-To: Tomasz Unger <tomasz.unger@yahoo.pl>
-X-Mailer: iPhone Mail (23D8133)
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDExMyBTYWx0ZWRfX9fpyi5r8TIeg
- 3shTq81B6p1RLxyItpO/Qt/AraCPZ40ePIazpgnr9voSnNpaXWkTCjzfbVSxI7ilK+rUWeKvxHi
- Ly6UZ0HxslY0rTSF3s9/UwgaM6kSfy1yF/eYS5eyerGIgWObP4LwMeHc3X1yAAwUtOZgzARbV/x
- mNartaJZRjyMmMlSHAyOhQwswvKdEQpp772Gb/5U1XeJXxszXdck/JFqDBb8huEZBGIP1/1g6Pa
- fbVj1mghKJCMhCJUxp0YghzFojkfbNOk63muYSVamrfGPJTq/uks1fl8zMVI2HT193IObu2aOvH
- DVcV46NVbu63g425mHhfjsL9QtIM99vemVOMqcgLIgKIDCLIrnJ088Y5lbCmIk=
-X-Proofpoint-ORIG-GUID: fhbFFq9RK_W9RMz5aRm33gjGgKOcorKR
-X-Authority-Info-Out: v=2.4 cv=FY86BZ+6 c=1 sm=1 tr=0 ts=6a0456e0
- cx=c_apl:c_pps:t_out a=2G65uMN5HjSv0sBfM2Yj2w==:117
- a=2G65uMN5HjSv0sBfM2Yj2w==:17 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
- a=x7bEGLp0ZPQA:10 a=aRhIMoA-k8UA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0eSXS4il8qRmlOZU7j4A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: fhbFFq9RK_W9RMz5aRm33gjGgKOcorKR
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260512-batch2_features-v7-1-4954e3b4df84@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDExMyBTYWx0ZWRfXxOu3bFJlGasQ
+ aaUKaynxiiOfp228BuOyWLyHhtyo5exmfHGPi6X5KWk1tmYwiJMbDrG4VbVp6QQvxIYtaVkLd+G
+ 1LTnWKQ1azMOyWIt9szcjS5EcBPLHhh8EwyTHGgfe/Rk10RYeQ5gfI+4BtBUYxSk8kUu+ESEi57
+ Xibf1qbIUxRmsystkWgj3a22C7kjcddRyqmJl4GNs/WyOu9BbO96KNyoU8V4Tw0Jgmwgrwqmf9B
+ DVG/+WUcfOvB5g1gfgDIk3L2Y6AuaBbiUavcRJxCzgL/XRXw7SSFwWfoz2IRdj/H3Por+wPF00E
+ 7PVU+o/cf1AUS8vYM0zECNvBKTEScU6PpC8nlZrWT19n05HUARduSc0XL0bcR8+vMi042/fWSfj
+ 3WJzmnP1vuBjbQBBEHZ4QEChu4NZJANx4OX2BRebwoNxu60EU/gGLk4vUdNs+Wd1XagmB+OGJtv
+ l2LhdCMXN2nlZu43cPA==
+X-Authority-Analysis: v=2.4 cv=XqXK/1F9 c=1 sm=1 tr=0 ts=6a045759 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=KKAkSRfTAAAA:8 a=8SZKpzWjcR6UzJCnZioA:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: ObmrSwRW7fNKtYcUvwOpRqnZVK3iih6W
+X-Proofpoint-GUID: ObmrSwRW7fNKtYcUvwOpRqnZVK3iih6W
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 phishscore=0 bulkscore=0 impostorscore=0
+ lowpriorityscore=0 malwarescore=0 adultscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605130113
 
-It's interesting that there's an extra 'm', and I think it must be left over=
- from the porting application they used when they first tried to include thi=
-s driver.
+On Tue, May 12, 2026 at 04:55:10PM +0800, Wangao Wang wrote:
+> Add support for intra refresh configuration on gen1 encoder by enabling
+> V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD and
+> V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE controls.
+> 
+> Reviewed-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8650-HDK
+> Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
+> ---
+>  drivers/media/platform/qcom/iris/iris_ctrls.c      | 39 +++++++++++++++++++++-
+>  drivers/media/platform/qcom/iris/iris_ctrls.h      |  3 +-
+>  drivers/media/platform/qcom/iris/iris_hfi_gen1.c   | 19 +++++++++++
+>  .../platform/qcom/iris/iris_hfi_gen1_command.c     |  8 +++++
+>  .../platform/qcom/iris/iris_hfi_gen1_defines.h     | 13 ++++++++
+>  drivers/media/platform/qcom/iris/iris_hfi_gen2.c   |  2 +-
+>  6 files changed, 81 insertions(+), 3 deletions(-)
+> 
 
---
-Samet
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-> 2026. 5. 12. =EC=98=A4=ED=9B=84 10:39, Tomasz Unger <tomasz.unger@yahoo.pl=
-> =EC=9E=91=EC=84=B1:
->=20
-> generated
+
+-- 
+With best wishes
+Dmitry
