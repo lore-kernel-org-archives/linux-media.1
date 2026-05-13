@@ -1,56 +1,56 @@
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 391DC38F24F;
-	Wed, 13 May 2026 07:17:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E013D6674;
+	Wed, 13 May 2026 07:17:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778656675; cv=none; b=HF0HHaRl4ZpYAbwVqWyMwphxOCrFoAlRFD4N5Rg//C9/gb2sxyVWBfcuBR2a3SqlGDtiiR7dBe44YBO3HqA6pR23qPO6p7OIh2fwHWFrdYaSAb37TdBCOL6zt78IAuCMuZRxUqo40XhqlOSaJNnVLRDjJevaezdfxVDVTJfrlds=
+	t=1778656677; cv=none; b=ah4h3yJcuKqX6ZN9E2Ukv5xxW6WqxZatuIT8L0pwgEZ+cE8LsEUWArmDimD+4AbvDgaTtPMGCPKszmEbnDQwOOK8d4SpEl8y49auxfHAXZ2aMcZMOhD+zwMxeCRMLpilLPNUptCciG/xebU3DOzCePWC8AYhVxk8uQtqjhTQy64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778656675; c=relaxed/simple;
-	bh=X0YmPiVlS70Xa4jOMVrIitInitNKZcj46Ur/AgTBx4U=;
+	s=arc-20240116; t=1778656677; c=relaxed/simple;
+	bh=JsQDnXvipvbo4kWLlUqj0uQttCJfUclcjuvwV9jSCyo=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RNYohii5wo+IbZAusVW462mTbZAZhcICIQ48H/ntfVzWaAYCQxJ0rGcIIAU72xSEhvWek94PGbk8B5PjgigPgyIEQW8cD3vbpMgDKJhFrcH1gckYNnLBJhEm/rkWfKNxO0RK4iRP8bvujDi72JO4suVpiZYGJ7WJ2akapRwOT3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=SGawe0Af; arc=none smtp.client-ip=68.232.154.123
+	 MIME-Version:Content-Type; b=L1tAJSOLMgewXdfo46v72jrXjuCywTk/XXT+2RvW5Ujqw3l4TnrRJB9AfAAYuj6RQuFnsQ5MBE+enmtNkPgr+Rr/H2l1l2djY9emcJRXZCHMugft+OlA/FZHzZlCD6D8ZspCYjEOpBHuxWEjP5GOQy5rwhzazHIYBRLDS/cQdvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=OFQlc09K; arc=none smtp.client-ip=68.232.154.123
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="SGawe0Af"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="OFQlc09K"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1778656674; x=1810192674;
+  t=1778656675; x=1810192675;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=X0YmPiVlS70Xa4jOMVrIitInitNKZcj46Ur/AgTBx4U=;
-  b=SGawe0AfuJVwOpcdqjZt8vAfNkrt36OoedLQqAeDJgoB5ADsU20YrKLI
-   Ftg4Y5g4YKWveUmnkPtDLX7oAZWy3nj8BCTRRApxDrgxuGaWpp+AGnPNe
-   qVcUB6X3cfvIh1JNbdzl/dcNtmtjHPLQ8JW+V+RNcWyWKtZwXNiM0eKtT
-   2Z9dM5Sc/Hzrh3+6KM6qW4f62rcWZQZsB/1VA/0EJFACFe6FlxWAuHIMO
-   a5aGun8yXDXrFFO4yo1eBp9j1pnQaZvJoXtqDuUrnNlUeBQcbhVCtMgS6
-   M2BrxIdEOX8E4NkSbzZe4WFiUvMSjDcDp/R2GiOE272ByO7JQdPXxHGlb
-   A==;
-X-CSE-ConnectionGUID: VPV7Io09TZylsWsU4dTq0w==
-X-CSE-MsgGUID: J8l6IWfVR4+pg5AlWAUKoA==
+  bh=JsQDnXvipvbo4kWLlUqj0uQttCJfUclcjuvwV9jSCyo=;
+  b=OFQlc09KbZle4zXBtp/j/B82KoXdSqpEdQ1RbjsVwmSnSQnq8a6yf9OF
+   rHF273JJasmRFugVC/6MjCiv4cOKRSQDshBIB7YY3lOBjXm3+s3ixxtKj
+   gT14bTvShV/DTfFf8Mj4PSRR+yLB7yTcL67OFUyHLSx0g6NYUb1dZDOpN
+   sfLmPLJgDE1RVTonXDXEYWLbyS4DX4r/MURFgh0tIBt0Ccky5ZsuBlaKD
+   Mxu+PwiLM65zVXQUeQWCvmffZ9+4nYuJ6T3UQcDgPZT9XsijX9PC+Sfgi
+   6xhRq1PvbiXavjMs5DvQVdPeQMmeiHkP34cC85eDdTP5R3ECa901BNuSr
+   g==;
+X-CSE-ConnectionGUID: +pPdk6uMTcKwk7YiDwhrOg==
+X-CSE-MsgGUID: dffE35G8RTaggUf1qbd5nA==
 X-IronPort-AV: E=Sophos;i="6.23,232,1770620400"; 
-   d="scan'208";a="57838961"
+   d="scan'208";a="57838965"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 13 May 2026 00:17:49 -0700
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 13 May 2026 00:17:55 -0700
 Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
  chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Wed, 13 May 2026 00:17:49 -0700
+ 15.1.2507.58; Wed, 13 May 2026 00:17:55 -0700
 Received: from che-ll-i71840.microchip.com (10.10.85.11) by
  chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 13 May 2026 00:17:46 -0700
+ 15.1.2507.58 via Frontend Transport; Wed, 13 May 2026 00:17:52 -0700
 From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 To: <linux-media@vger.kernel.org>
 CC: <mchehab@kernel.org>, <hverkuil@kernel.org>,
 	<nicolas.ferre@microchip.com>, <linux-kernel@vger.kernel.org>,
 	<stable@vger.kernel.org>
-Subject: [PATCH v3 01/15] media: microchip-isc: fix SBGGR10 Bayer pattern
-Date: Wed, 13 May 2026 12:47:28 +0530
-Message-ID: <20260513071742.97263-2-balakrishnan.s@microchip.com>
+Subject: [PATCH v3 03/15] media: microchip-isc: fix race condition on stream stop
+Date: Wed, 13 May 2026 12:47:30 +0530
+Message-ID: <20260513071742.97263-4-balakrishnan.s@microchip.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260513071742.97263-1-balakrishnan.s@microchip.com>
 References: <20260512154339.210444-1-balakrishnan.s@microchip.com>
@@ -64,30 +64,57 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain
 
-SBGGR10 was mapped to ISC_BAY_CFG_RGRG instead of ISC_BAY_CFG_BGBG,
-causing red/blue channel swap.
+Disable histogram and drain AWB work queue before releasing DMA
+buffers to prevent use-after-free if histogram IRQ fires during
+stream stop.
 
 Fixes: 91b4e487b0c6 ("media: microchip: add ISC driver as Microchip ISC")
 Cc: stable@vger.kernel.org
 Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 ---
- drivers/media/platform/microchip/microchip-sama7g5-isc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../platform/microchip/microchip-isc-base.c   | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/dri=
-vers/media/platform/microchip/microchip-sama7g5-isc.c
-index b0302dfc3278..ca23e8adecbd 100644
---- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-@@ -156,7 +156,7 @@ static struct isc_format sama7g5_formats_list[] =3D {
- 		.fourcc		=3D V4L2_PIX_FMT_SBGGR10,
- 		.mbus_code	=3D MEDIA_BUS_FMT_SBGGR10_1X10,
- 		.pfe_cfg0_bps	=3D ISC_PFG_CFG0_BPS_TEN,
--		.cfa_baycfg	=3D ISC_BAY_CFG_RGRG,
-+		.cfa_baycfg	=3D ISC_BAY_CFG_BGBG,
- 	},
- 	{
- 		.fourcc		=3D V4L2_PIX_FMT_SGBRG10,
+diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/driver=
+s/media/platform/microchip/microchip-isc-base.c
+index 45b94f1e89d8..b19c5a63b4bd 100644
+--- a/drivers/media/platform/microchip/microchip-isc-base.c
++++ b/drivers/media/platform/microchip/microchip-isc-base.c
+@@ -427,6 +427,14 @@ static void isc_stop_streaming(struct vb2_queue *vq)
+=20
+ 	mutex_unlock(&isc->awb_mutex);
+=20
++	/*
++	 * Disable the histogram so the ISR stops firing HISREQ, then drain
++	 * any work that was already queued before returning.  This must happen
++	 * after releasing awb_mutex because isc_awb_work also takes it.
++	 */
++	isc_set_histogram(isc, false);
++	cancel_work_sync(&isc->awb_work);
++
+ 	/* Disable DMA interrupt */
+ 	regmap_write(isc->regmap, ISC_INTDIS, ISC_INT_DDONE);
+=20
+@@ -1519,10 +1527,17 @@ static int isc_s_awb_ctrl(struct v4l2_ctrl *ctrl)
+ 		}
+ 		mutex_unlock(&isc->awb_mutex);
+=20
+-		/* if we have autowhitebalance on, start histogram procedure */
++		/*
++		 * If AWB auto mode is requested and we are streaming RAW,
++		 * start the histogram procedure, but only if it is not
++		 * already running. Repeated enable requests would reset
++		 * hist_id, preventing the 4-channel Bayer cycle from
++		 * completing.
++		 */
+ 		if (ctrls->awb =3D=3D ISC_WB_AUTO &&
+ 		    vb2_is_streaming(&isc->vb2_vidq) &&
+-		    ISC_IS_FORMAT_RAW(isc->config.sd_format->mbus_code))
++		    ISC_IS_FORMAT_RAW(isc->config.sd_format->mbus_code) &&
++		    ctrls->hist_stat !=3D HIST_ENABLED)
+ 			isc_set_histogram(isc, true);
+=20
+ 		/*
 --=20
 2.34.1
 
