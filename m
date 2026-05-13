@@ -1,56 +1,56 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 963BB3D45F7;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A09C13D47A1;
 	Wed, 13 May 2026 07:18:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778656693; cv=none; b=Oee6eWiS3D76x9Y2Qee5JFo8FAABy5qaivbcIEk0lpYkWZ3lKHLzO7AgS3frN2XygL04fXWlO27OgRXzgkNLjBd2WE1fHbAwL97PfCEFnLjbwCDv4vEFcFLeHb6QHvQ02M7pI5XnsdJv6zHbBH6bja/gu4k3X7LIHtNx1ksOwuQ=
+	t=1778656693; cv=none; b=suAs1RcRPFgFczkwIznLStag97UdfbxCy858nxACGWOfyh3ejVB8lSN2yg/Jkj++N235v4hyqVoITMZhSY7CZe02VBUKEPNGDXOafaCkhvAqfJIJ7PvqI8aTZA/9LS2WxUqb07uWCoZf48+ClemV5oi4Gu/e1WX1cmJ+/Kgt0YQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778656693; c=relaxed/simple;
-	bh=oZSD2KDakx59aC+Mb6xKnFe1creCRvE9kRs+j1VJ1QI=;
+	bh=nN0rf7xTB1OQOg1b0V+DQCqgq8N+dmLjdSCCiQAYtQw=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oRPerVL7qeilzem9GB1wsdypaAZfXdNlJUW4TWJMjoQHkWI/Oqbj8txT5enzcVOP1eTI5S60DlTvrs+Kb2U73VAlWLgMbgRCHdK9dLey8VGBNXcvr4T28E2KgoRZtBNJG7WRzx/DIO2qBPpVxibCQq2rIcnFAQg+E3K+HSnAD3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=1+zsK7/r; arc=none smtp.client-ip=68.232.154.123
+	 MIME-Version:Content-Type; b=iEgl7/HcAKzz/DEaca+GzsE+vUtLJShLjYae6EG33G8A4Dkw2ypYP9Hdg66pWNRTQ4VbtY87sN0uGpzMQPcM14eoWKZ9TqLWQt1nf9692h++C/ClbQ6FOOchOeDNaOeNlgv0cQdI/WYgtzNRb3tcbflYC1/4d3/jR5boIbIkKGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=ZszRtgxb; arc=none smtp.client-ip=68.232.153.233
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="1+zsK7/r"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="ZszRtgxb"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
   t=1778656691; x=1810192691;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=oZSD2KDakx59aC+Mb6xKnFe1creCRvE9kRs+j1VJ1QI=;
-  b=1+zsK7/rX0F9uUOnJ0OVba4YjbvMUdzfV8sQAg4HhkQSRPsoVYPJbQqv
-   ShlcMm2+E9IkCZXCE6s2k9uwm5wJ9c8FQiOh1Q6Xhc10sSbejz+VWvEwz
-   IWfAi/SnDbqOl7F+oy6ZjPz7cIdBh8jAUR+VdnALw4HMkOlYQVbYvbV47
-   8TuNMWxk5MhP3PsAqXeyaHNQDAl/4PYs+JhlzzFSKB9AZIXl/F1DbHzS2
-   SO3fmG/rZ6KTZf0R9yPsbcB5G7+F3oYMq6sCWR3HeFmH0XNQ6cvEXGP9m
-   Q1NQ+mYS4DUZSqIjw/rZrLHneLwXMi3S/CvAGADM7BT/q0bOjFDSJtQVq
-   A==;
-X-CSE-ConnectionGUID: drQh/DjOQ1KOHxomtOGmPA==
-X-CSE-MsgGUID: TznxtzkcR9GFyA+uwsZwdw==
+  bh=nN0rf7xTB1OQOg1b0V+DQCqgq8N+dmLjdSCCiQAYtQw=;
+  b=ZszRtgxbtisYIbE1hlf/wrYP37CfggaaNaj2B6TObXDMXHWt1FxsEFpl
+   Gc1BKffljP+cJ6aTabdvunmNNe2UgrytQpdqFUe4zZkvE2LAbVI34/tJZ
+   PcwuGjj6sWFDOUCox1zl6Y3AUE5XcPZokAhSbw39hPLM9STRmC5IwHby1
+   gOrl5AbqSPsMW6CV0wUvCTfAGAJuS5Ypo4ouYz2MtCoTDcVruWRhahrU2
+   tVp0RCxv6EJG1N9GH+z5dURJWj7wG9zy05letiGQ8iDfR2btP8nQzrxiv
+   AD8j6Z1YMFitI906I6V8AmRRZ2Kz/JeZSEwUmCcECCu1ab36cc8rp7wxA
+   Q==;
+X-CSE-ConnectionGUID: RIE7Drp7QHumCMy5TdwwSg==
+X-CSE-MsgGUID: ZaRQj648SM+1DQ+I096iQQ==
 X-IronPort-AV: E=Sophos;i="6.23,232,1770620400"; 
-   d="scan'208";a="224672549"
+   d="scan'208";a="65766801"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 00:18:11 -0700
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 00:18:04 -0700
 Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
  chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.37; Wed, 13 May 2026 00:18:10 -0700
+ 15.2.2562.37; Wed, 13 May 2026 00:18:04 -0700
 Received: from che-ll-i71840.microchip.com (10.10.85.11) by
  chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 13 May 2026 00:18:08 -0700
+ 15.1.2507.58 via Frontend Transport; Wed, 13 May 2026 00:18:01 -0700
 From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 To: <linux-media@vger.kernel.org>
 CC: <mchehab@kernel.org>, <hverkuil@kernel.org>,
 	<nicolas.ferre@microchip.com>, <linux-kernel@vger.kernel.org>,
 	"Balamanikandan Gunasundar" <balamanikandan.gunasundar@microchip.com>
-Subject: [PATCH v3 08/15] media: microchip-isc: add gamma 1.8 and 2.4 correction curves
-Date: Wed, 13 May 2026 12:47:35 +0530
-Message-ID: <20260513071742.97263-9-balakrishnan.s@microchip.com>
+Subject: [PATCH v3 06/15] media: microchip-isc: set SAM9X7 maximum resolution to 2560x1920
+Date: Wed, 13 May 2026 12:47:33 +0530
+Message-ID: <20260513071742.97263-7-balakrishnan.s@microchip.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260513071742.97263-1-balakrishnan.s@microchip.com>
 References: <20260512154339.210444-1-balakrishnan.s@microchip.com>
@@ -64,8 +64,10 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain
 
-Add gamma 1.8 and 2.4 curves alongside the existing 2.2 (sRGB).
-V4L2_CID_GAMMA selects preset curves: 0=3D2.4, 1=3D2.2, 2=3D1.8.
+SAM9X7 XISC uses the same image processing pipeline as SAMA7G5 but has
+a smaller internal line buffer. The reduced RAM constrains the maximum
+horizontal resolution to 2560 pixels (compared to 3264 on SAMA7G5),
+resulting in a maximum capture resolution of 2560x1920.
 
 Co-developed-by: Balamanikandan Gunasundar <balamanikandan.gunasundar@micro=
 chip.com>
@@ -73,102 +75,41 @@ Signed-off-by: Balamanikandan Gunasundar <balamanikandan.gunasundar@microch=
 ip.com>
 Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 ---
- .../platform/microchip/microchip-isc-base.c   |  3 +-
- .../microchip/microchip-sama7g5-isc.c         | 54 ++++++++++++++-----
- 2 files changed, 41 insertions(+), 16 deletions(-)
+ .../media/platform/microchip/microchip-sama7g5-isc.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/driver=
-s/media/platform/microchip/microchip-isc-base.c
-index 23a09ed12946..ae2a0c6ba566 100644
---- a/drivers/media/platform/microchip/microchip-isc-base.c
-+++ b/drivers/media/platform/microchip/microchip-isc-base.c
-@@ -1647,8 +1647,7 @@ static int isc_ctrl_init(struct isc_device *isc)
- 	ctrls->brightness =3D 0;
-=20
- 	v4l2_ctrl_new_std(hdl, ops, V4L2_CID_BRIGHTNESS, -1024, 1023, 1, 0);
--	v4l2_ctrl_new_std(hdl, ops, V4L2_CID_GAMMA, 0, isc->gamma_max, 1,
--			  isc->gamma_max);
-+	v4l2_ctrl_new_std(hdl, ops, V4L2_CID_GAMMA, 0, isc->gamma_max, 1, 1);
- 	isc->awb_ctrl =3D v4l2_ctrl_new_std(hdl, &isc_awb_ops,
- 					  V4L2_CID_AUTO_WHITE_BALANCE,
- 					  0, 1, 1, 1);
 diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/dri=
 vers/media/platform/microchip/microchip-sama7g5-isc.c
-index 04930aa0f289..8b73b625d92b 100644
+index ca23e8adecbd..4119cfe12cdf 100644
 --- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
 +++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-@@ -320,21 +320,47 @@ static void isc_sama7g5_adapt_pipeline(struct isc_dev=
-ice *isc)
- 	isc->try_config.bits_pipeline &=3D ISC_SAMA7G5_PIPELINE;
- }
+@@ -55,6 +55,9 @@
+ #define ISC_SAMA7G5_MAX_SUPPORT_WIDTH   3264
+ #define ISC_SAMA7G5_MAX_SUPPORT_HEIGHT  2464
 =20
--/* Gamma table with gamma 1/2.2 */
-+/* Gamma tables with gamma values 0.42, 0.45(Default), 0.56 */
- static const u32 isc_sama7g5_gamma_table[][GAMMA_ENTRIES] =3D {
--	/* index 0 --> gamma bipartite */
-+	/* index 0 --> gamma bipartite 1/2.4(=3D0.42) */
- 	{
--	      0x980,  0x4c0320,  0x650260,  0x7801e0,  0x8701a0,  0x940180,
--	   0xa00160,  0xab0120,  0xb40120,  0xbd0120,  0xc60100,  0xce0100,
--	   0xd600e0,  0xdd00e0,  0xe400e0,  0xeb00c0,  0xf100c0,  0xf700c0,
--	   0xfd00c0, 0x10300a0, 0x10800c0, 0x10e00a0, 0x11300a0, 0x11800a0,
--	  0x11d00a0, 0x12200a0, 0x12700a0, 0x12c0080, 0x13000a0, 0x1350080,
--	  0x13900a0, 0x13e0080, 0x1420076, 0x17d0062, 0x1ae0054, 0x1d8004a,
--	  0x1fd0044, 0x21f003e, 0x23e003a, 0x25b0036, 0x2760032, 0x28f0030,
--	  0x2a7002e, 0x2be002c, 0x2d4002c, 0x2ea0028, 0x2fe0028, 0x3120026,
--	  0x3250024, 0x3370024, 0x3490022, 0x35a0022, 0x36b0020, 0x37b0020,
--	  0x38b0020, 0x39b001e, 0x3aa001e, 0x3b9001c, 0x3c7001c, 0x3d5001c,
--	  0x3e3001c, 0x3f1001c, 0x3ff001a, 0x40c001a },
-+	      0x940,  0x4b0310,  0x630250,  0x7601d0,  0x840190,  0x910170,
-+	   0x9d0150,  0xa80110,  0xb10110,  0xba0110,  0xc300f0,  0xcb00f0,
-+	   0xd300e0,  0xda00e0,  0xe100c0,  0xe800c0,  0xee00c0,  0xf400c0,
-+	   0xfa00a0, 0x10000a0, 0x10500a0, 0x10b00a0, 0x11000a0, 0x11500a0,
-+	  0x11a0080, 0x11f0080, 0x1240080, 0x1290080, 0x12e0080, 0x1330070,
-+	  0x1380070, 0x13c0070, 0x1410070, 0x17a0060, 0x1aa0052, 0x1d40046,
-+	  0x1f90042, 0x21b003c, 0x23a0038, 0x2570034, 0x2720030, 0x28b002e,
-+	  0x2a3002c, 0x2ba002a, 0x2d0002a, 0x2e60028, 0x2fa0026, 0x30e0026,
-+	  0x3210024, 0x3330022, 0x3450022, 0x3560020, 0x3670020, 0x3770020,
-+	  0x387001e, 0x396001e, 0x3a5001c, 0x3b3001c, 0x3c1001c, 0x3cf001a,
-+	  0x3dd001a, 0x3eb0018, 0x3f90018, 0x4070016 },
-+	/* index 1 --> gamma bipartite 1/2.2(=3D0.45) */
-+	{
-+	     0x980,  0x4c0320,  0x650260,  0x7801e0,  0x8701a0,  0x940180,
-+	  0xa00160,  0xab0120,  0xb40120,  0xbd0120,  0xc60100,  0xce0100,
-+	  0xd600e0,  0xdd00e0,  0xe400e0,  0xeb00c0,  0xf100c0,  0xf700c0,
-+	  0xfd00c0, 0x10300a0, 0x10800c0, 0x10e00a0, 0x11300a0, 0x11800a0,
-+	 0x11d00a0, 0x12200a0, 0x12700a0, 0x12c0080, 0x13000a0, 0x1350080,
-+	 0x13900a0, 0x13e0080, 0x1420076, 0x17d0062, 0x1ae0054, 0x1d8004a,
-+	 0x1fd0044, 0x21f003e, 0x23e003a, 0x25b0036, 0x2760032, 0x28f0030,
-+	 0x2a7002e, 0x2be002c, 0x2d4002c, 0x2ea0028, 0x2fe0028, 0x3120026,
-+	 0x3250024, 0x3370024, 0x3490022, 0x35a0022, 0x36b0020, 0x37b0020,
-+	 0x38b0020, 0x39b001e, 0x3aa001e, 0x3b9001c, 0x3c7001c, 0x3d5001c,
-+	 0x3e3001c, 0x3f1001c, 0x3ff001a, 0x40c001a },
-+	/* index 2 --> gamma bipartite 1/1.8(=3D0.56) */
-+	{
-+	      0xa62,  0x4f0350,  0x680280,  0x7e0200,  0x8d01c0,  0x9a01a0,
-+	   0xa50180,  0xb00140,  0xb90140,  0xc20120,  0xcb0120,  0xd30100,
-+	   0xdb0100,  0xe300e0,  0xea00e0,  0xf100e0,  0xf700c0,  0xfd00c0,
-+	  0x10300c0, 0x10900a0, 0x10e00a0, 0x11400a0, 0x11900a0, 0x11e00a0,
-+	  0x12300a0, 0x12800a0, 0x12d0080, 0x1320080, 0x1370080, 0x13c0080,
-+	  0x1410080, 0x1460080, 0x14a0070, 0x1830060, 0x1b40052, 0x1df0048,
-+	  0x2040042, 0x2250040, 0x2440038, 0x2600036, 0x27b0032, 0x2940030,
-+	  0x2ac002e, 0x2c4002c, 0x2da002a, 0x2f0002a, 0x3050028, 0x3190026,
-+	  0x32c0026, 0x33e0024, 0x3500024, 0x3610022, 0x3720020, 0x3820020,
-+	  0x3920020, 0x3a2001e, 0x3b1001e, 0x3c0001c, 0x3ce001c, 0x3dc001c,
-+	  0x3ea001a, 0x3f8001a, 0x4060018, 0x4130018 },
- };
-=20
- static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
-@@ -434,7 +460,7 @@ static int microchip_xisc_probe(struct platform_device =
-*pdev)
- 	}
-=20
++#define ISC_SAM9X7_MAX_SUPPORT_WIDTH    2560
++#define ISC_SAM9X7_MAX_SUPPORT_HEIGHT   1920
++
+ #define ISC_SAMA7G5_PIPELINE \
+ 	(WB_ENABLE | CFA_ENABLE | CC_ENABLE | GAM_ENABLES | CSC_ENABLE | \
+ 	CBC_ENABLE | SUB422_ENABLE | SUB420_ENABLE)
+@@ -432,8 +435,13 @@ static int microchip_xisc_probe(struct platform_device=
+ *pdev)
  	isc->gamma_table =3D isc_sama7g5_gamma_table;
--	isc->gamma_max =3D 0;
-+	isc->gamma_max =3D 2;
+ 	isc->gamma_max =3D 0;
 =20
- 	if (of_machine_is_compatible("microchip,sam9x7")) {
- 		isc->max_width =3D ISC_SAM9X7_MAX_SUPPORT_WIDTH;
+-	isc->max_width =3D ISC_SAMA7G5_MAX_SUPPORT_WIDTH;
+-	isc->max_height =3D ISC_SAMA7G5_MAX_SUPPORT_HEIGHT;
++	if (of_machine_is_compatible("microchip,sam9x7")) {
++		isc->max_width =3D ISC_SAM9X7_MAX_SUPPORT_WIDTH;
++		isc->max_height =3D ISC_SAM9X7_MAX_SUPPORT_HEIGHT;
++	} else {
++		isc->max_width =3D ISC_SAMA7G5_MAX_SUPPORT_WIDTH;
++		isc->max_height =3D ISC_SAMA7G5_MAX_SUPPORT_HEIGHT;
++	}
+=20
+ 	isc->config_dpc =3D isc_sama7g5_config_dpc;
+ 	isc->config_csc =3D isc_sama7g5_config_csc;
 --=20
 2.34.1
 
