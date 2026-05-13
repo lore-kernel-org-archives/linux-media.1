@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A603FCB1F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77043FE342
 	for <linux-media@vger.kernel.org>; Wed, 13 May 2026 10:44:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778669054; cv=none; b=n3ekQYWfa/U4SrA1ovv4yWcTZP93zQJCcgXIVT4T5eOYYA+AMhzNQGTtTn4iHOjNUPHT2YvzYoihn/U6zfk6sKWOGmB7OiNsc9AS4wurTqm5nCilwnB8iSTbQ9Q2DYBAUDiN1MG1+HfxgD+tNwLR308vCXJkopdYXVulKgvPPQ4=
+	t=1778669055; cv=none; b=VX9DhPoeWszhpLJU09p3iSRlKeVWmot2UCD2YTg9dxMohj7LUbQod1g9TAvI/5hInzc4CDxXc9q4tcHjVnfbWWJpmXFxVe+gIopIBI8mcktvjNTGXzRLpcKJ6m7mzZWS1WmO/Q05KQBXjj5jT0uYeWjBLzqgZOhyBJ+6jCs9vMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778669054; c=relaxed/simple;
-	bh=7p7k643r5Rz+M8RPUIqqvyB9PUohinV4VFwG5+UmvB0=;
+	s=arc-20240116; t=1778669055; c=relaxed/simple;
+	bh=5XCORmoRb6GHcmShviuFCNFDG0+1/1zKMr21GMDicjg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m6l50J0R6VDCYp7PCtbBlBPDyjj7o4jP2aC9rc7aKNYRY0nHBOx/Z8jApgXdy/zz/Dp515YYreyQWYWqoOfWfxHZnbyqfBy7tC/jgikS0D2yPwg+7ah4CBEqRSsIkEPKc6T8tG+6nVvf7FiiFHNXE9Wy9bt97X0xDtsg4YuUuq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Np7/q6Ef; arc=none smtp.client-ip=198.175.65.14
+	 MIME-Version; b=NnWVGLJ7EySU0DqNse13UZ+59XQQ+e5poeuAC58tiKCxmStQ5ECCn3SAd3BHpmBKLcKKKD71or195Iqd0PQGZ8ifII7SXBOyD/9WKUx5LUDo0zq/EYs6SCBgqeWJBjKM6k4cjvvMPglnswyqjOzQfQHbpIW10zk5K0ZmW7ld2R8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=E30dtbGg; arc=none smtp.client-ip=198.175.65.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Np7/q6Ef"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="E30dtbGg"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778669053; x=1810205053;
+  t=1778669054; x=1810205054;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=7p7k643r5Rz+M8RPUIqqvyB9PUohinV4VFwG5+UmvB0=;
-  b=Np7/q6EfxytAxL61YlILcsH3PZ6Nr7jyyn7UpxkhOzr031SISdYL9M25
-   WS1AKm45mWdhcfWokUdQVTf+Hn1reuWNfgIws0ssfLUmfTNK4xm+vOdA1
-   MY5RgpvDgLmxiFc99Vu59Eu3oM/VxQwvnKPhV5hAGIR9EW6/dQ1tyye1k
-   pRRTiGDPqnULhffElhvEiXYYvsAKrp1GSyn9dBb8+WAD/aslTtz3TBD2Q
-   SipXTOZyvbEZRWr1rQlF/1qIMZknJxbSqaiv1qCp4L4qQBJQ8VkjLIrzH
-   cq8iH2JlH1O21H9Nvql38UksH7ITW8US3lLXdU/nk85xFbCxZKPaRAkz5
-   g==;
-X-CSE-ConnectionGUID: RZjhDIF5Q06mJVOZrHfOBg==
-X-CSE-MsgGUID: ELqhZjuSR3CeB8Tr1quPEQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="83464495"
+  bh=5XCORmoRb6GHcmShviuFCNFDG0+1/1zKMr21GMDicjg=;
+  b=E30dtbGg75olw09vZjpy41CPHpv/dSy0998+osBWOrqucl2YYeJLIndp
+   ytpIzns6kqdRRUr6wiSCzB2PRNM59Ktc9E98BQsTdzG1MZQh/bkSWJ+E2
+   lhCXAh97F4Y7Ci6m8YUYm7Qg9pzo1tIOudigq4uSwZYj6yG163E4tYepJ
+   JX5DEA9So6eo2phocD3zr4ujn9f8GcXEwDa2NYbWe0hWkrFlH1nvNs1eq
+   NmFwfKayH9xmivNg+qymWuvdEx9Oo5cYPkumKvBcF0K9GCYMHR0IYejuD
+   nCnbeh6COpTUaLsadomyV5/WXYMY5Amosb6XyqJSnTYi/i53769aXk2/U
+   A==;
+X-CSE-ConnectionGUID: I8JrCwE6S4urnRJek7VK4A==
+X-CSE-MsgGUID: xiGJ56GJTiC6W+Jis0eh9g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="83464497"
 X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; 
-   d="scan'208";a="83464495"
+   d="scan'208";a="83464497"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 03:44:12 -0700
-X-CSE-ConnectionGUID: cd+MDVk4R/SUWSVyPYgDdg==
-X-CSE-MsgGUID: 5RJcylrKRH+eFv+5VyiiwA==
+X-CSE-ConnectionGUID: lypMi5qESdaPtBcuB6Y8Yg==
+X-CSE-MsgGUID: KZxEj6GuRsWJ5gdQaO6HiA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; 
-   d="scan'208";a="233599293"
+   d="scan'208";a="233599295"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.111])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 03:44:09 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id ED571121DCB;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id E66C3121DBC;
 	Wed, 13 May 2026 13:43:59 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wN74I-00000009S2O-3qf8;
+	id 1wN74I-00000009S2E-3j8k;
 	Wed, 13 May 2026 13:43:58 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -59,9 +59,9 @@ Cc: laurent.pinchart@ideasonboard.com,
 	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Mehdi Djait <mehdi.djait@linux.intel.com>
-Subject: [PATCH 17/17] staging: media: ipu7: Use v4l2_subdev_get_frame_desc()
-Date: Wed, 13 May 2026 13:43:58 +0300
-Message-ID: <20260513104358.2252605-18-sakari.ailus@linux.intel.com>
+Subject: [PATCH 15/17] media: ti: cal: Use v4l2_subdev_get_frame_desc()
+Date: Wed, 13 May 2026 13:43:56 +0300
+Message-ID: <20260513104358.2252605-16-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260513104358.2252605-1-sakari.ailus@linux.intel.com>
 References: <20260513104358.2252605-1-sakari.ailus@linux.intel.com>
@@ -78,111 +78,72 @@ preferred over calling the get_frame_desc() pad operation directly.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- .../staging/media/ipu7/ipu7-isys-csi-phy.c    | 16 ++++++--------
- drivers/staging/media/ipu7/ipu7-isys-csi2.c   | 22 +++++++++----------
- 2 files changed, 17 insertions(+), 21 deletions(-)
+ drivers/media/platform/ti/cal/cal-camerarx.c | 25 +++++++++-----------
+ 1 file changed, 11 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/staging/media/ipu7/ipu7-isys-csi-phy.c b/drivers/staging/media/ipu7/ipu7-isys-csi-phy.c
-index 3f15af3b4c79..75ac77e1b782 100644
---- a/drivers/staging/media/ipu7/ipu7-isys-csi-phy.c
-+++ b/drivers/staging/media/ipu7/ipu7-isys-csi-phy.c
-@@ -5,6 +5,7 @@
+diff --git a/drivers/media/platform/ti/cal/cal-camerarx.c b/drivers/media/platform/ti/cal/cal-camerarx.c
+index 00a71dac0ff4..8a81fecc00af 100644
+--- a/drivers/media/platform/ti/cal/cal-camerarx.c
++++ b/drivers/media/platform/ti/cal/cal-camerarx.c
+@@ -9,6 +9,7 @@
+  *	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+  */
  
- #include <linux/bitmap.h>
- #include <linux/bug.h>
 +#include <linux/cleanup.h>
+ #include <linux/clk.h>
  #include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/iopoll.h>
-@@ -300,7 +301,8 @@ static int ipu7_isys_csi_ctrl_dids_config(struct ipu7_isys_csi2 *csi2, u32 id)
+ #include <linux/mfd/syscon.h>
+@@ -872,7 +873,8 @@ static int cal_camerarx_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+ 				       struct v4l2_mbus_frame_desc *fd)
  {
- 	struct v4l2_mbus_frame_desc_entry *desc_entry = NULL;
- 	struct device *dev = &csi2->isys->adev->auxdev.dev;
--	struct v4l2_mbus_frame_desc desc;
-+	struct v4l2_mbus_frame_desc *desc __free(v4l2_subdev_free_frame_desc) =
-+		NULL;
- 	struct v4l2_subdev *ext_sd;
- 	struct media_pad *pad;
- 	unsigned int i;
-@@ -318,17 +320,13 @@ static int ipu7_isys_csi_ctrl_dids_config(struct ipu7_isys_csi2 *csi2, u32 id)
- 		 pad->entity->name))
- 		return -ENODEV;
+ 	struct cal_camerarx *phy = to_cal_camerarx(sd);
+-	struct v4l2_mbus_frame_desc remote_desc;
++	struct v4l2_mbus_frame_desc *remote_desc
++		__free(v4l2_subdev_free_frame_desc) = NULL;
+ 	const struct media_pad *remote_pad;
+ 	struct v4l2_subdev_state *state;
+ 	u32 sink_stream;
+@@ -893,24 +895,19 @@ static int cal_camerarx_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+ 		goto out_unlock;
+ 	}
  
--	ret = v4l2_subdev_call(ext_sd, pad, get_frame_desc, pad->index, &desc);
-+	desc = v4l2_subdev_get_frame_desc(ext_sd, pad->index,
-+					  V4L2_MBUS_FRAME_DESC_TYPE_CSI2);
- 	if (ret)
- 		return ret;
- 
--	if (desc.type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
--		dev_warn(dev, "Unsupported frame descriptor type\n");
--		return -EINVAL;
--	}
+-	ret = v4l2_subdev_call(phy->source, pad, get_frame_desc,
+-			       remote_pad->index, &remote_desc);
+-	if (ret)
+-		goto out_unlock;
 -
--	for (i = 0; i < desc.num_entries; i++) {
--		desc_entry = &desc.entry[i];
-+	for (i = 0; i < desc->num_entries; i++) {
-+		desc_entry = &desc->entry[i];
- 		if (desc_entry->bus.csi2.vc < IPU7_NR_OF_CSI2_VC) {
- 			ret = __dids_config(csi2, id, desc_entry->bus.csi2.vc,
- 					    desc_entry->bus.csi2.dt);
-diff --git a/drivers/staging/media/ipu7/ipu7-isys-csi2.c b/drivers/staging/media/ipu7/ipu7-isys-csi2.c
-index f34eabfe8a98..5a4a53ae1104 100644
---- a/drivers/staging/media/ipu7/ipu7-isys-csi2.c
-+++ b/drivers/staging/media/ipu7/ipu7-isys-csi2.c
-@@ -6,6 +6,7 @@
- #include <linux/atomic.h>
- #include <linux/bits.h>
- #include <linux/bug.h>
-+#include <linux/cleanup.h>
- #include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/io.h>
-@@ -491,7 +492,8 @@ int ipu7_isys_csi2_get_remote_desc(u32 source_stream,
- {
- 	struct v4l2_mbus_frame_desc_entry *desc_entry = NULL;
- 	struct device *dev = &csi2->isys->adev->auxdev.dev;
--	struct v4l2_mbus_frame_desc desc;
-+	struct v4l2_mbus_frame_desc *desc __free(v4l2_subdev_free_frame_desc) =
-+		NULL;
- 	struct v4l2_subdev *source;
- 	struct media_pad *pad;
- 	unsigned int i;
-@@ -505,18 +507,14 @@ int ipu7_isys_csi2_get_remote_desc(u32 source_stream,
- 	if (!pad)
- 		return -EPIPE;
+-	if (remote_desc.type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
+-		cal_err(phy->cal,
+-			"Frame descriptor does not describe CSI-2 link");
+-		ret = -EINVAL;
++	remote_desc = v4l2_subdev_get_frame_desc(phy->source, remote_pad->index,
++						 V4L2_MBUS_FRAME_DESC_TYPE_CSI2);
++	if (IS_ERR(remote_desc)) {
++		ret = PTR_ERR(remote_desc);
+ 		goto out_unlock;
+ 	}
  
--	ret = v4l2_subdev_call(source, pad, get_frame_desc, pad->index, &desc);
-+	desc = v4l2_subdev_get_frame_desc(source, pad->index,
-+					  V4L2_MBUS_FRAME_DESC_TYPE_CSI2);
- 	if (ret)
- 		return ret;
- 
--	if (desc.type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
--		dev_err(dev, "Unsupported frame descriptor type\n");
--		return -EINVAL;
--	}
--
--	for (i = 0; i < desc.num_entries; i++) {
--		if (source_stream == desc.entry[i].stream) {
--			desc_entry = &desc.entry[i];
-+	for (i = 0; i < desc->num_entries; i++) {
-+		if (source_stream == desc->entry[i].stream) {
-+			desc_entry = &desc->entry[i];
+-	for (i = 0; i < remote_desc.num_entries; i++) {
+-		if (remote_desc.entry[i].stream == sink_stream)
++	for (i = 0; i < remote_desc->num_entries; i++) {
++		if (remote_desc->entry[i].stream == sink_stream)
  			break;
- 		}
- 	}
-@@ -534,8 +532,8 @@ int ipu7_isys_csi2_get_remote_desc(u32 source_stream,
- 
- 	*entry = *desc_entry;
- 
--	for (i = 0; i < desc.num_entries; i++) {
--		if (desc_entry->bus.csi2.vc == desc.entry[i].bus.csi2.vc)
-+	for (i = 0; i < desc->num_entries; i++) {
-+		if (desc_entry->bus.csi2.vc == desc->entry[i].bus.csi2.vc)
- 			(*nr_queues)++;
  	}
  
+-	if (i == remote_desc.num_entries) {
++	if (i == remote_desc->num_entries) {
+ 		cal_err(phy->cal, "Stream %u not found in remote frame desc\n",
+ 			sink_stream);
+ 		ret = -EINVAL;
+@@ -919,7 +916,7 @@ static int cal_camerarx_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+ 
+ 	fd->type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
+ 	fd->num_entries = 1;
+-	fd->entry[0] = remote_desc.entry[i];
++	fd->entry[0] = remote_desc->entry[i];
+ 
+ out_unlock:
+ 	v4l2_subdev_unlock_state(state);
 -- 
 2.47.3
 
