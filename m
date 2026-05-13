@@ -1,115 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3373D75B6
-	for <linux-media@vger.kernel.org>; Wed, 13 May 2026 08:52:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D7838F651
+	for <linux-media@vger.kernel.org>; Wed, 13 May 2026 09:05:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778662361; cv=none; b=joxVPHyCXlFscTMF8G9OBViPdH9BtLKkAZLeY6jnTJqeKq4Ml6LcdSX6ibiaiVgnEhLfppbRlXvnj59zx0TcKh2F9bMW4SrK8sorbyz9yyXRMwkDDzlOwNS+QWNkT2rZ4wXdYMUwAiEMy2JY1mjfyBCe/ww/dHsh13hpjcUHBAs=
+	t=1778663141; cv=none; b=Vr7UjYI6gwEkGT1MbccQHypt8mxZjvVWoK6o54vV/30qJKUUB3WjOWkWO64yrxQ4kk7+OwRgO5XdGzT6F7pnjeVNCCt9EWdXshq3lDozwZ7Cwny/Neb2J1RINR0hcXII5f8M0LyuzcqqjU/t7oHa88prUnzoME0yt2acjMosZZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778662361; c=relaxed/simple;
-	bh=1+i0e5dyp5VVQu0mDRDzIqCF+QKUyKPxnyyR9U4TFyc=;
-	h=Message-ID:Date:MIME-Version:From:To:Subject:Content-Type; b=iByxUbaeKOWi5vt2WI/+39fXQXW0w4Q9v9ToSaj0vclXPRBCu6i09F1mUhCoyl54PKVECvdLBpuKuTs253htzB8+vkl/B9TLPtDB0oyh2aCY26tFB3r/PBxnCvqTVD3Vykxx4CYqKUhkTBYpw0j4HXkpuVJLABebn8h4rxk4Xdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sN4EVJj6; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778663141; c=relaxed/simple;
+	bh=C1ziSEdobrXsbK2xiVb14LieEOtlJUO9xkYHdMrgq7Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tRBQ9cRf1QwO1I7ZNlYl9/ZXxmyNiEPI8lIlt7665jymGd+o/cYhlMQx47yt08D47n52oTARDIBWTzKJvz3Ps1Q+clPYSRc7MY0d/olh7uA2kjCUqo76elYc6V96323tYNxBsZBMuZWV7jcSsxndTJnLIYd/jOAegn9zVrvD1EE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pao1pS8c; arc=none smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sN4EVJj6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CC16C2BCB7
-	for <linux-media@vger.kernel.org>; Wed, 13 May 2026 08:52:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778662361;
-	bh=1+i0e5dyp5VVQu0mDRDzIqCF+QKUyKPxnyyR9U4TFyc=;
-	h=Date:From:To:Subject:From;
-	b=sN4EVJj6N+0A3rODPocwXM9pK6tgrdmf9oUKAEJIuWq7rwPQy9KWq32Swv01dSNDr
-	 qTXcMwDpZAbHcQRxC+m4PG6t9tmYvKsJ70oa+Y4eAvNeid2nrCiqaYKy4WmjVSAnSs
-	 lI2Af7fo2aChhSCYbwVI/c39BbZHl4mr5rpY+iRUsQN69utfrfoY25s/k+b7dNmxrO
-	 C4+6k61m2Tq5LakZAaB3Qfxo2t9y2hkXPi4JxMVuMJ71Y8Hcc6XIX90VCFGuanmarF
-	 W/ghs8frLjGGfIx7iLkFBfwOwaTqW0Sqc9OoqCY1YVVQma0cAZhenotzX07gQuQmRx
-	 3ikd5rf267mcg==
-Message-ID: <3016ee7c-9a4f-4fcf-b17f-0dce5bbc9260@kernel.org>
-Date: Wed, 13 May 2026 10:52:39 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pao1pS8c"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-b8f9568e074so1015485366b.0
+        for <linux-media@vger.kernel.org>; Wed, 13 May 2026 02:05:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778663137; x=1779267937; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=C1ziSEdobrXsbK2xiVb14LieEOtlJUO9xkYHdMrgq7Y=;
+        b=pao1pS8cld3Ak+BqHgAFuZoOp8NhOdxyNeG5GXGfvTFOdE4vlgYCp08tXJvDVlJYD1
+         C+S5jVo/m/rASopPTUpZTu7SMCQpzpMq1EsGjxoacKnJ7rw15lmyan9kJEmXdLLWfKhg
+         gheUKzSH0Qb4rOW6udJ4Na9gnt4Y7HNGj2ImUBmHZLSdrbeRyvge4HZnwy+2ZoPisli+
+         EmwPlpzWjGKH89nB6E53bP6y97+8FeIKhRxctq5cPa4Foldt8bHMLdgsK3ahb1JWs9ci
+         6Rm808IisQ1RV4CdZhn/sg3eYs/TOu7wkYH+nqcAd7Qf58oUzsGEV3olM9OvNBz/u85j
+         njmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778663137; x=1779267937;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=C1ziSEdobrXsbK2xiVb14LieEOtlJUO9xkYHdMrgq7Y=;
+        b=MfeaaBNh77zSekU7vP+8MbLNtwP1q3buDo6UDsZ1TKsJ2jd5OpInEHHXkOnDMpZD62
+         b/83NgCAdvflhNZGxNvUj4YfXmChHhDKTfWeWe5LeGcBMEZxodAy7TMIlYUW8LvG1p+g
+         Nxdm92YLGVIgE5gyT6hXlRtzsfdwoxlcP8MnVDqxl6SUiY1XI3oMPn3ZBO4YE0vNSSYi
+         p9e+VRL8jY30VmovKHxSlh7weSjoelRYyBE0EQHg8mpfRKEiTWkQ39TusTZRVYLQVJ6u
+         xNjxqbBOkUH9b0Eta3JawtBCsxNRAhPax0W8iLsXb4S2yY28P6lPBuGMKSNLeQXsoLPg
+         oFqA==
+X-Forwarded-Encrypted: i=1; AFNElJ9JCeDt1KqEEHdh92gTGys+tWvg7hUpqva/3weX7oXGc8M+b5BSH3b7m0Fz8xLLB6vrRqrIr4GFRof94Q==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzWWsCsidFrSF9EaI6Tgk8YQ4LSkGcnr4mXE4r9Ysr7WKfKoB8E
+	GBHVWuTXexD36b/gEyGRVV/EWamOqO4JuMteNIQBaLHCNCbHGny/HN+a
+X-Gm-Gg: Acq92OHd4EtSPaoqxTGs6UUG8niVdso+3ib8d6yo0IHeGRvk/CmixwWOYgIl82FtKWu
+	UjClca0D7TxzRmSh9HSU+PjZLoIXYZpA5KZfkozYWBY+Wojf//g7KJWOg6VQIz3TZoMC/ZtnQ8I
+	yKwvrG3UBGLhXV3RpkRkpruHrsC9PWZr5R97zBOjo7Dl30n3NfXe6v8yqWPCGJ+QMCkB3uLW3qu
+	er/XvcHTm8xI30d/yiVbPYwhO3//c1+Ir7zPsLKuhEeR7s+jCzTD6g3AkhXq1NXswKw8gQMWyH/
+	VhGp3KndYBNHvOwx039Di60njT3/xSysfvQ9vicx1/rUo+sLstTK2zhRSAsy7aR7dO9VK5HcyY0
+	hktJ8KcMC59Qir1k/ZvEYf5qSosyDDeDX57gB0PmJDFExQMY/PJ18vzYxqox3N6xTjPMx7DrrcD
+	xbGxwZfdXiImD6idbOWqTiyttUH7s=
+X-Received: by 2002:a17:906:fe43:b0:bd0:20ae:a9a2 with SMTP id a640c23a62f3a-bd3bf197d13mr139133066b.4.1778663137407;
+        Wed, 13 May 2026 02:05:37 -0700 (PDT)
+Received: from gmail.com ([212.75.105.246])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bcc384b75b9sm659528966b.21.2026.05.13.02.05.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 13 May 2026 02:05:36 -0700 (PDT)
+Date: Wed, 13 May 2026 11:05:35 +0200
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+To: syzbot <syzbot+afc686a471d70896c5d9@syzkaller.appspotmail.com>
+Cc: dwlsalmeida@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, mchehab@kernel.org, syzkaller-bugs@googlegroups.com
+Subject: Re: [PATCH] media: dvb-core: fix memory leak in dvb_dmxdev_add_pid()
+ on start failure
+Message-ID: <agQ-Pq7o6LXwxUEg@gmail.com>
+References: <69d411c9.a70a0220.a26f2.003e.GAE@google.com>
+ <advi5yTDwVkRTpV5@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US, nl
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-To: Linux Media Mailing List <linux-media@vger.kernel.org>
-Subject: [PATCH] media: vivid: check vb2_is_busy before calling
- vivid_update_format_cap/out
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <advi5yTDwVkRTpV5@gmail.com>
 
-The vivid_update_format_cap/out() functions must only be called if the
-capture/output queue are not busy. But for several controls that is not
-checked.
+On Sun, Apr 12, 2026 at 08:25:51PM +0200, Jose A. Perez de Azpillaga wrote:
+> When dvb_dmxdev_add_pid() adds a new dmxdev_feed to the filter's ts list
+> and then dvb_dmxdev_start_feed() fails, the function returns the error
+> code but leaves the orphaned feed entry in the list without cleaning up.
+>
+> Fix this by removing the orphaned feed from the list and freeing it when
+> dvb_dmxdev_start_feed() fails in dvb_dmxdev_add_pid().
+>
+> Fixes: 1cb662a31449 ("V4L/DVB (12275): Add two new ioctls: DMX_ADD_PID and DMX_REMOVE_PID")
+> Reported-by: syzbot+afc686a471d70896c5d9@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=afc686a471d70896c5d9
+> Tested-by: syzbot+afc686a471d70896c5d9@syzkaller.appspotmail.com
+> Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-Only when streaming starts will they be set to 'grabbed' and it is
-impossible to change the control, but between REQBUFS and STREAMON you
-are still allowed to set these controls. Since vivid_update_format_cap/out
-will change the format, this can cause unexpected results.
+hi,
 
-I suspect that this is the cause of this syzbot bug:
+just a gentle ping for this patch. is there anything else needed from my
+side?
 
-https://syzkaller.appspot.com/bug?extid=dac8f5eaa46837e97b89
+thanks
 
-But since we never have reproducers, it is hard to be certain. In any case,
-these checks are needed regardless.
-
-Reported-by: syzbot+dac8f5eaa46837e97b89@syzkaller.appspotmail.com
-Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
----
-diff --git a/drivers/media/test-drivers/vivid/vivid-ctrls.c b/drivers/media/test-drivers/vivid/vivid-ctrls.c
-index f94c15ff84f7..e40ff999cad8 100644
---- a/drivers/media/test-drivers/vivid/vivid-ctrls.c
-+++ b/drivers/media/test-drivers/vivid/vivid-ctrls.c
-@@ -608,18 +608,26 @@ static int vivid_vid_cap_s_ctrl(struct v4l2_ctrl *ctrl)
- 		tpg_s_vflip(&dev->tpg, dev->sensor_vflip ^ dev->vflip);
- 		break;
- 	case VIVID_CID_REDUCED_FPS:
-+		if (vb2_is_busy(&dev->vb_vid_cap_q))
-+			return -EBUSY;
- 		dev->reduced_fps = ctrl->val;
- 		vivid_update_format_cap(dev, true);
- 		break;
- 	case VIVID_CID_HAS_CROP_CAP:
-+		if (vb2_is_busy(&dev->vb_vid_cap_q))
-+			return -EBUSY;
- 		dev->has_crop_cap = ctrl->val;
- 		vivid_update_format_cap(dev, true);
- 		break;
- 	case VIVID_CID_HAS_COMPOSE_CAP:
-+		if (vb2_is_busy(&dev->vb_vid_cap_q))
-+			return -EBUSY;
- 		dev->has_compose_cap = ctrl->val;
- 		vivid_update_format_cap(dev, true);
- 		break;
- 	case VIVID_CID_HAS_SCALER_CAP:
-+		if (vb2_is_busy(&dev->vb_vid_cap_q))
-+			return -EBUSY;
- 		dev->has_scaler_cap = ctrl->val;
- 		vivid_update_format_cap(dev, true);
- 		break;
-@@ -1116,14 +1124,20 @@ static int vivid_vid_out_s_ctrl(struct v4l2_ctrl *ctrl)
-
- 	switch (ctrl->id) {
- 	case VIVID_CID_HAS_CROP_OUT:
-+		if (vb2_is_busy(&dev->vb_vid_out_q))
-+			return -EBUSY;
- 		dev->has_crop_out = ctrl->val;
- 		vivid_update_format_out(dev);
- 		break;
- 	case VIVID_CID_HAS_COMPOSE_OUT:
-+		if (vb2_is_busy(&dev->vb_vid_out_q))
-+			return -EBUSY;
- 		dev->has_compose_out = ctrl->val;
- 		vivid_update_format_out(dev);
- 		break;
- 	case VIVID_CID_HAS_SCALER_OUT:
-+		if (vb2_is_busy(&dev->vb_vid_out_q))
-+			return -EBUSY;
- 		dev->has_scaler_out = ctrl->val;
- 		vivid_update_format_out(dev);
- 		break;
+--
+jose a. p-a
