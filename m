@@ -1,66 +1,65 @@
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553E93FFAAA
-	for <linux-media@vger.kernel.org>; Wed, 13 May 2026 11:49:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C473FF89F
+	for <linux-media@vger.kernel.org>; Wed, 13 May 2026 11:49:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778672972; cv=none; b=ipWyFEDIEkEWgvXGIwafxl7NALa/t6flHW0egn6ZR4/Hm3QoFuRYLBLNlPnmuJ7GyhVjzdHQCk1Xietn0HZKwv+jInRVhsoxLOn0SqcYV+WBqE4+dGzTLjGOxvfAn5MesxiRLhs0KgnpNjxS5c5vLbWKuJuuraTAxlFLIlXNQmE=
+	t=1778672973; cv=none; b=uqld5W7e45XihOT+6M7yBhmIHN81WqodRR4EgsBKWR2dBejcwQsc9+1+oYPJH/Gn5A6CQTgzJINODHpVhfHlCKmyynytkO4z5X1xRrXeV7sQDwoWINu2enUs9EjJTDcJrBko5mxZz/7T6lakyDliJ0qYrNOBUugkM6hlmSe1Ne0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778672972; c=relaxed/simple;
-	bh=JUaMHkC5DDmGPxOxMX018PdMdBjM0VT9k/OIdCbMX/w=;
+	s=arc-20240116; t=1778672973; c=relaxed/simple;
+	bh=RF4pGcE9NoU02iwInJt+MH18862e4woYfVw3r5w+0sE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=U/WtFbfXf0wShiTLV74s1izqJDqqSl4cu+mH+IdAC16UqhRCRhfRL/AJmLnbJVO1cxzKIRrjAZ37LZlTCllBVwiVmA9LcINEvgBcWizwFVuX3ERupMEetxX1GqhwBozIcc0I35s1gil2qFyajmADGSo7vYVDWxy5jyDoQoxrdIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=GuxwttD6; arc=none smtp.client-ip=209.85.208.174
+	 In-Reply-To:To:Cc; b=GmaEMzF7/ZmixuMr+k8iLvS5NsAtG56Jifwb/ROdDIZ1ww8moyNAW1S+qci8jBnORIG9391SdqbcFF9arcqwU/6IzqfuhcXsbBKSK3StlN76Z1A/x8QxdMu/nxNHva6PWO4Z/kGmZFEEe/Nq5cDo+w/0QckQf8yIofTIn9mDMcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ivksZWN/; arc=none smtp.client-ip=209.85.208.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="GuxwttD6"
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-392445f11c5so68342671fa.1
-        for <linux-media@vger.kernel.org>; Wed, 13 May 2026 04:49:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ivksZWN/"
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-393a49d2e5eso56580021fa.2
+        for <linux-media@vger.kernel.org>; Wed, 13 May 2026 04:49:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1778672969; x=1779277769; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1778672970; x=1779277770; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Bmtb+ICKBQ1P69XGsTJCXIGwUDaGvqHA8PV94ag1Rbs=;
-        b=GuxwttD67/612PrCpbW3r5nKyITrCcIr26pX5oQirvgkobSFARzoagLuvrO0edYYyw
-         7lp7kWSV1eM6EYnkrbR5HlGQhGhkygNNkXPnFsCozSNEWiy2yxOk3m/II0wNnJxHyMT7
-         ezYsv/AAbskZWz2cqDJrdII8F4ZK6bqNXNEWM=
+        bh=S0ZRwxo5likBdhusuGC3nYZtwDAXyPPbS6VC4yvRn8U=;
+        b=ivksZWN/IchrCl6FYZBkoW4qS/MBnvbVC0cADUGPwCYyN7lLgtBG801nhv61Kvqjr4
+         HHM8BOoAzQSqd2lxQWT9esGMtdnoQmnWIiUnRRxZjLuba5O4iloxTzE35qS2H4cHhhLq
+         +RpKgHqi2/XvAod89aIDZtWJMq9/GptwetbYM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778672969; x=1779277769;
+        d=1e100.net; s=20251104; t=1778672970; x=1779277770;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=Bmtb+ICKBQ1P69XGsTJCXIGwUDaGvqHA8PV94ag1Rbs=;
-        b=mEVgfL7qadgHw92riKQp5rAdFqzOZbir3/hLSBaVFU6aUFZvQedAppXkcCRPdlLu8R
-         C+yYA1Shur/nl6G2ZxRHg0Si/1skVL+9C/TJjNsi5xy4v5/WkIeki0/DgEU9qOafa6oj
-         c7wsE5BklZsPa04TrXTh7vo0AKGUrTd3wtufyyMoWsd8AVYovjYdWhojqmoB+UO0PVAw
-         KCQz20VzjfZ9asyQi8bmo01rjtE+MDFzSeskEt2ms/m4u682Pwwl6Li/flrryKNCLTui
-         vYLe2yJaDYvuxGJPRVK2JulK9fY3lZrEuvTr7QoBkf9gSAneo8drlrp0ogVV5kbmjBKg
-         gXeg==
-X-Forwarded-Encrypted: i=1; AFNElJ/CQm/L1O+/l8PLkCTjFWSsDHn7wmyJIxX10A9jyQD2JpAP+cT3ytOz5vJZseoGd+WTPEFKPyYiWEQZxg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzafN6Ryel6x1eWkgS4fF7hc1Klt/dyfv65PQQpjQ0XJQrWWDTg
-	F0rybPJ5wx34a7YlAlYTs8XnPm1DBnEbaytQEaqOzAKK8/199venuGEtg8KJoLoGgvTzuy538Nv
-	QpDxbj8cp
-X-Gm-Gg: Acq92OEcMceBjEtljfu8ixVOajsojjeLmzUAgZh/M3Xad9vfn6xMxq5tkU+xulby2Qw
-	dcc/gE9wyO/DeTamULNo3iF83CxkYtJqWT3XwzXwykZT+lKIt/H65oAxB45DJzo2cd38a6PQKxV
-	rAIG9B49m/+AHYoWlBARGcAZwt2Shz/heH2AEFKDnq6lrexqOBQnkNiDMYpTx0AXcK3QqCIhLAb
-	j7m13WWvdoXF+uO3mWscn6d3FicbXOsnO9iyFmY1FZcrXsP51xUG4xW4OTB0PWNKljfzA87kNUg
-	GTThU2hIC+NFtOKG8XpnE21mU40zsCPiJWLDsJpRDOKFjlCoYLfGsiSRVvB/ZW9aIk4mAB4kGcm
-	n1cDnsFOWN1mxF0TuE8XtRdqDCSa8CMCu65txHwP0BwVZD1JgSP4XoMefhXvfCPxweA/vVRbOhH
-	xYXPVHcqp6IKHPtdQR9ZLIohzehialEpuarJ56qmQnvI3WH/n6APXS9FGRTQ1650R/jzthoZNIP
-	w==
-X-Received: by 2002:a05:651c:41d8:b0:394:8fc:8c3d with SMTP id 38308e7fff4ca-3944af67cbdmr9578691fa.4.1778672968626;
-        Wed, 13 May 2026 04:49:28 -0700 (PDT)
+        bh=S0ZRwxo5likBdhusuGC3nYZtwDAXyPPbS6VC4yvRn8U=;
+        b=jB4DIrV4NM3xibxV7nBhxTQ/AJfrwmpBMmZl3GNDitNx4AI81BhJpDJy5YSoLHaKcX
+         u3gIsjoeuPQT1D9/TteR35fTK6U1kY8IxCem2tqJnGpNEiUa3rzla/5++IWKNG93LRwt
+         xFuPQIgYUJ5N7vE2U+l9CB0fa+g5Zzp4wDLjhaobBEUXFG+Mm0Pjxr+6B9pV4aYUpdgG
+         TFsmOJqWep7LQS1+sRKACZR3O8Q38OgoUpiJWpCbagB42br7Je3NBhg0oFA1CdhFShHe
+         c5uVc7Nfl9bpDG6IR4ACUcglLLan7PUW3Jp6AsdBYjFhLbAQzL56f3Tu85Jyr0gsnc/u
+         UiUQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/xnF8gP9+6tkt0uhRXs8MJqnm84+av/p3IHJm3Rh3/oMLL5D1LePZTACN+4HMSgqsPWiyIsV1H2gMgtg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyF3ZXXwiogK4MGSCvMwfMD+3cosJoM/T8/fwFpUkVOtPxzowVw
+	z2cb2e9Vw6/3rdG2CvW2aMfFRtwElR1jT2AaqCesEEVrBhR+730PEYE4iImox664QQ==
+X-Gm-Gg: Acq92OGnqbEvNj9qGmuC4sfhU9wKwqljZ0YYc+s1GuJgGZndQyDZMK68pW8KJglUw9d
+	6Gdp3TgRl5OuzqOhfEdPhhTPsx99w8alfeHat6T6cAy5g1bnjx49nfuxVajfap9CqhP7u7ISTeY
+	ycBu9lCFh/LQ1V3pw/1Putf5hx3dhj7XYPjQbV+3hCFyuIq+kYXPomES7K2aoEKj84MoQtDoG1J
+	pjgD2DjBvuCKdTbFDWoGqC1xpRAfYrGPEMFjB5p6gO7taNDgrFUS60vzW6nJ1mEeOuluIvBJUlr
+	LS8CzNstNyZHBuPofaCSEDE7E0NitabhZ78C1xY5amQnq4F934OW/zpmnFFVl2OYgY7GNnNuzif
+	7YX565VFPAwgm4c+pT6WOjdvRIqNER5rYV2yaUehYkRmaKFSMugvImRYtyPH7yXMLHLPHoh6Hbf
+	zNUXVjmJZNPSfsFanMp7IF1I1iRhhwG766r/rTzx49ysMh7VCenQ1+H/3huA/gqRQQp+bym11GM
+	HUZvJjUl3s/
+X-Received: by 2002:a2e:b52a:0:b0:38e:98b9:9fcd with SMTP id 38308e7fff4ca-3944ea71a76mr5768831fa.27.1778672969751;
+        Wed, 13 May 2026 04:49:29 -0700 (PDT)
 Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-393f60db4f1sm40971071fa.27.2026.05.13.04.49.27
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-393f60db4f1sm40971071fa.27.2026.05.13.04.49.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 May 2026 04:49:27 -0700 (PDT)
+        Wed, 13 May 2026 04:49:28 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Wed, 13 May 2026 11:49:22 +0000
-Subject: [PATCH v3 3/6] media: uvcvideo: Relax the constrains for
- interpolating the hw clock
+Date: Wed, 13 May 2026 11:49:23 +0000
+Subject: [PATCH v3 4/6] media: uvcvideo: Do not add clock samples with
+ small sof delta
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,7 +68,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260513-uvc-hwtimestamp-v3-3-7a64838b0b02@chromium.org>
+Message-Id: <20260513-uvc-hwtimestamp-v3-4-7a64838b0b02@chromium.org>
 References: <20260513-uvc-hwtimestamp-v3-0-7a64838b0b02@chromium.org>
 In-Reply-To: <20260513-uvc-hwtimestamp-v3-0-7a64838b0b02@chromium.org>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
@@ -82,57 +81,61 @@ Cc: Yunke Cao <yunkec@google.com>, linux-media@vger.kernel.org,
  stable@vger.kernel.org, Hans de Goede <johannes.goede@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
 
-In the initial version we set the min value to 250msec. Looks like
-100msec can also provide a good value.
+Some UVC 1.1 cameras running in fast isochronous mode tend to spam the
+USB host with a lot of empty packets. These packets contain clock
+information and are added to the clock buffer but do not add any
+accuracy to the calculation. In fact, it is quite the opposite, in our
+calculations, only the first and the last timestamp is used, and we only
+have 32 slots.
 
-Now that we are at it, add a macro to make it cleaner.
+Ignore the samples that will produce less than MIN_HW_TIMESTAMP_DIFF
+data.
 
-Fixes: 6243c83be6ee8 ("media: uvcvideo: Allow hw clock updates with buffers not full")
+Fixes: 141270bd95d4 ("media: uvcvideo: Refactor clock circular buffer")
 Cc: stable@vger.kernel.org
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 Tested-by: Yunke Cao <yunkec@google.com>
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/usb/uvc/uvc_video.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ drivers/media/usb/uvc/uvc_video.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index 01dcb81d96fd..355b9bfb799e 100644
+index 355b9bfb799e..63850b779e24 100644
 --- a/drivers/media/usb/uvc/uvc_video.c
 +++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -494,6 +494,13 @@ static int uvc_commit_video(struct uvc_streaming *stream,
-  * Clocks and timestamps
-  */
+@@ -544,6 +544,15 @@ static void uvc_video_clock_add_sample(struct uvc_clock *clock,
+ 	spin_unlock_irqrestore(&clock->lock, flags);
+ }
  
-+/*
-+ * The accuracy of the hardware timestamping depends on having enough data to
-+ * interpolate between the different clock domains. This value is sof cycles,
-+ * this is, milliseconds.
-+ */
-+#define UVC_MIN_HW_TIMESTAMP_DIFF 100
++static inline u16 sof_diff(u16 a, u16 b)
++{
++	/*
++	 * Because the result is modulo 2048 (via & 2047), we do not need a
++	 * special case for a < b.
++	 */
++	return (a - b) & 2047;
++}
 +
- static inline ktime_t uvc_video_get_time(void)
- {
- 	if (uvc_clock_param == CLOCK_MONOTONIC)
-@@ -843,13 +850,13 @@ void uvc_video_clock_update(struct uvc_streaming *stream,
- 	 * buffer, but RAM is expensive these days, specially the infinitely
- 	 * big.
- 	 *
--	 * The value of 1/4th of a second was determined by running Android's
--	 * CTS on different devices.
-+	 * The value of UVC_MIN_HW_TIMESTAMP_DIFF was determined by running
-+	 * Android's CTS on different devices.
- 	 *
--	 * dev_sof runs at 1KHz, and we have a fixed point precision of
--	 * 16 bits.
-+	 * y1 and y2 are dev_sof with a fixed point precision of 16 bits.
- 	 */
--	if (clock->size != clock->count && (y2 - y1) < ((1000 / 4) << 16))
-+	if (clock->size != clock->count &&
-+	    (y2 - y1) < (UVC_MIN_HW_TIMESTAMP_DIFF << 16))
- 		goto done;
+ static void
+ uvc_video_clock_decode(struct uvc_streaming *stream, struct uvc_buffer *buf,
+ 		       const u8 *data, int len)
+@@ -664,12 +673,13 @@ uvc_video_clock_decode(struct uvc_streaming *stream, struct uvc_buffer *buf,
+ 	sample.dev_sof = (sample.dev_sof + stream->clock.sof_offset) & 2047;
  
- 	y = (u64)(y2 - y1) * (1ULL << 31) + (u64)y1 * (u64)x2
+ 	/*
+-	 * To limit the amount of data, drop SCRs with an SOF identical to the
++	 * To limit the amount of data, drop SCRs with an SOF similar to the
+ 	 * previous one. This filtering is also needed to support UVC 1.5, where
+ 	 * all the data packets of the same frame contains the same SOF. In that
+ 	 * case only the first one will match the host_sof.
+ 	 */
+-	if (sample.dev_sof == stream->clock.last_sof)
++	if (sof_diff(sample.dev_sof, stream->clock.last_sof) <=
++	    (UVC_MIN_HW_TIMESTAMP_DIFF / stream->clock.size))
+ 		return;
+ 
+ 	uvc_video_clock_add_sample(&stream->clock, &sample);
 
 -- 
 2.54.0.563.g4f69b47b94-goog
