@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090BE3FB040
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E15563FB7EB
 	for <linux-media@vger.kernel.org>; Wed, 13 May 2026 10:44:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778669051; cv=none; b=egqJEREV11SAvjLlyZgw08my6HJzg2E8sczHuztOc3/KIpzfilUwti2dlifRhi2HO/2Tg5d3ocJyK0u2hdJpG/D1LssDaXxBQ46reIcihGmEsyKsvY89LZWZepuGKfJO3YIMkC/1n52kFJ/ABYdKsynPhsCYTWV95be/QjcsM4A=
+	t=1778669052; cv=none; b=h1cHg4Rk9E/YokFoaXgJukgdCHtAjRPZzsyqus8iFZsll7DCF9enGdLXGmodGiSk37ZAJKIQ9O8xTvwwVP0qeFh67IFlikFyNo38bBtIEF3wak8Hi5bvBSUUrEIZDwIfc5Y/kt1VJedO4YgEAT4Klqrp5rtrgLI6JDLmsWMms78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778669051; c=relaxed/simple;
-	bh=uOPQQ2e0B1gCTFdac1MOtSeOsuDZ99Y3XzIL1EFrVLc=;
+	s=arc-20240116; t=1778669052; c=relaxed/simple;
+	bh=KTm7DNjOFInO38Sd5cWy+Bn+BajxHELnnE0BvVLrIjY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WG28ALY/gr+qdeNzRyU7Lp+EWDg1vIRJh1/+Cu/63lc8j1gpcXYbLPJy8zrnsXXS7biXH3sp79c7YqsqcgzNBq9nygf2czilOdv6Nc/n+oYe0EfY/LnRiUgrMsXQMAsd3NxZTA0VwTyPTOFbRZC+s0O0ogz0bKGdj7lPaPwVmcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cdLxUVpt; arc=none smtp.client-ip=198.175.65.14
+	 MIME-Version; b=iw4uqncxYXUFvA+Dhedhhll9QHl2s3ZjqlXEtOcUXVi2MX/PbWcQ5hOcxDrY4o+m6rXw548iofRJLbxM4ANkJ4h2c4yIsW8lllV18CwyRLvV1Gd0xGQ6bEiXfyhK+Xmp/E3x8iP8fGsQOiqpl7XLlcNIHv0v21fJMScsGWKZgMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XCKiyVYL; arc=none smtp.client-ip=198.175.65.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cdLxUVpt"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XCKiyVYL"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778669050; x=1810205050;
+  t=1778669051; x=1810205051;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=uOPQQ2e0B1gCTFdac1MOtSeOsuDZ99Y3XzIL1EFrVLc=;
-  b=cdLxUVptMaTN+x8VKb2jy5wqDAVSL77GPdOPAFx4TxNnhC9vqR4TQ46n
-   xSB8rTNtWDYmdB99HShxVo4+u46HTME5Wd10Hd1X1Vf1NOxlNUa6x1LX2
-   KwdOem7++4Ab1bGzFq0bQpRZZ/cXDqO1d3T7gl4h8SjXbhJ4eJhIFPEEw
-   xoGpO/kEw6ZNmpYQ7LcoTmnBM/n+EN+9AppR8pkSpeddEiWSGicnPVV6x
-   Xi35/jQaKM3BHHK4X8LQyVC48vATU+UrkaX7yvbh6BJ5f+UTk79XMzv7j
-   V/3vhrcCaXxwhEkEDvTkyPTyIUf501lO8kZFfnv/uUBsQSISdDPB+BaGQ
+  bh=KTm7DNjOFInO38Sd5cWy+Bn+BajxHELnnE0BvVLrIjY=;
+  b=XCKiyVYLTiNuH1aObKOr5GU8c1IQm+V3oN0YneHbU8snqqHACOMFOfUO
+   EYOE8y40MbAss7RGXyLNZjGqfz8xxXVg2ArLSTDaFCWvPzbX8velykeGd
+   acepafzhjEtCo6nMhPBJ8yvcEanjmULXOvYvEgFocg0JJQoKQQpeuyj3n
+   6YaphHXU29V79Msuy63Aywwmo7i3ooTOu+i4oI+9ByzRGLefUjBoUg86C
+   q+Zej/Zcug7jpE56YyoZ2hctMYW9t4xODIr8FHkZRiMuMxy2oCQMUfS/p
+   eBR+OETNKcjwsyAUc2MA8/PLskx179/8A8HKLNR9Ypp94M+G/f2apfe/V
    g==;
-X-CSE-ConnectionGUID: zzKGzc0WR5Gi7chO6LRgWA==
-X-CSE-MsgGUID: 1Px0OGPdRhmFvhOwqBvj4g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="83464468"
+X-CSE-ConnectionGUID: FE3IYHdiQN6h7BG8nzdBxQ==
+X-CSE-MsgGUID: w7L8snKRRNyo7U2Qn0U6pA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="83464472"
 X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; 
-   d="scan'208";a="83464468"
+   d="scan'208";a="83464472"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 03:44:07 -0700
-X-CSE-ConnectionGUID: 5N/247O9Q2WWdJuU+Mk8pg==
-X-CSE-MsgGUID: T8L0BYFrRAyvQo6xV9XTAg==
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 03:44:08 -0700
+X-CSE-ConnectionGUID: xf6rhQ4UTMeCZcT+ofESuQ==
+X-CSE-MsgGUID: rqB/slQER6e6270jlMfT5w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; 
-   d="scan'208";a="233599257"
+   d="scan'208";a="233599265"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.111])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 03:44:05 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id C6DD6121CE4;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id DA044121DA8;
 	Wed, 13 May 2026 13:43:59 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wN74I-00000009S1O-38fV;
+	id 1wN74I-00000009S1u-3Vny;
 	Wed, 13 May 2026 13:43:58 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -59,9 +59,9 @@ Cc: laurent.pinchart@ideasonboard.com,
 	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Mehdi Djait <mehdi.djait@linux.intel.com>
-Subject: [PATCH 05/17] media: v4l2-subdev: Provide a cleanup-friendly get_frame_desc
-Date: Wed, 13 May 2026 13:43:46 +0300
-Message-ID: <20260513104358.2252605-6-sakari.ailus@linux.intel.com>
+Subject: [PATCH 11/17] media: raspberrypi: cfe: Use v4l2_subdev_get_frame_desc()
+Date: Wed, 13 May 2026 13:43:52 +0300
+Message-ID: <20260513104358.2252605-12-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260513104358.2252605-1-sakari.ailus@linux.intel.com>
 References: <20260513104358.2252605-1-sakari.ailus@linux.intel.com>
@@ -73,134 +73,81 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Provide a cleanup-friendly get_frame_desc() API function that returns a
-frame descriptor that can be automatically released using __free().
+Call v4l2_subdev_get_frame_desc() to obtain the frame descriptor. This is
+preferred over calling the get_frame_desc() pad operation directly.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/v4l2-core/v4l2-subdev.c | 36 ++++++++++++++++++++++++---
- include/media/v4l2-subdev.h           | 22 +++++++++++-----
- 2 files changed, 49 insertions(+), 9 deletions(-)
+ .../media/platform/raspberrypi/rp1-cfe/cfe.c  | 29 +++++++++----------
+ 1 file changed, 13 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-index 012ff6fb2988..a49aaad595af 100644
---- a/drivers/media/v4l2-core/v4l2-subdev.c
-+++ b/drivers/media/v4l2-core/v4l2-subdev.c
-@@ -2691,8 +2691,8 @@ int v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
- }
- EXPORT_SYMBOL_GPL(v4l2_subdev_get_frame_desc_passthrough);
+diff --git a/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c b/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
+index 8375ed3e97b9..111597c5b031 100644
+--- a/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
++++ b/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
+@@ -6,6 +6,7 @@
+  * Copyright (c) 2023-2024 Ideas on Board Oy
+  */
  
--int v4l2_subdev_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
--			       struct v4l2_mbus_frame_desc *desc)
-+static int __v4l2_subdev_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
-+					struct v4l2_mbus_frame_desc *desc)
++#include <linux/cleanup.h>
+ #include <linux/clk.h>
+ #include <linux/debugfs.h>
+ #include <linux/delay.h>
+@@ -803,7 +804,8 @@ static int cfe_get_vc_dt_fallback(struct cfe_device *cfe, u8 *vc, u8 *dt)
+ static int cfe_get_vc_dt(struct cfe_device *cfe, unsigned int channel, u8 *vc,
+ 			 u8 *dt)
  {
- 	struct v4l2_subdev_format subdev_fmt = {
- 		.which = V4L2_SUBDEV_FORMAT_ACTIVE,
-@@ -2747,9 +2747,33 @@ int v4l2_subdev_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+-	struct v4l2_mbus_frame_desc remote_desc;
++	struct v4l2_mbus_frame_desc *fd __free(v4l2_subdev_free_frame_desc) =
++		NULL;
+ 	struct v4l2_subdev_state *state;
+ 	u32 sink_stream;
+ 	unsigned int i;
+@@ -816,34 +818,29 @@ static int cfe_get_vc_dt(struct cfe_device *cfe, unsigned int channel, u8 *vc,
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = v4l2_subdev_call(cfe->source_sd, pad, get_frame_desc,
+-			       cfe->source_pad, &remote_desc);
+-	if (ret == -ENOIOCTLCMD) {
++	fd = v4l2_subdev_get_frame_desc(cfe->source_sd, cfe->source_pad,
++					V4L2_MBUS_FRAME_DESC_TYPE_CSI2);
++	if (PTR_ERR(fd) == -ENOIOCTLCMD) {
+ 		cfe_dbg(cfe, "source does not support get_frame_desc, use fallback\n");
+ 		return cfe_get_vc_dt_fallback(cfe, vc, dt);
+-	} else if (ret) {
++	} else if (IS_ERR(fd)) {
+ 		cfe_err(cfe, "Failed to get frame descriptor\n");
+-		return ret;
+-	}
+-
+-	if (remote_desc.type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
+-		cfe_err(cfe, "Frame descriptor does not describe CSI-2 link");
+-		return -EINVAL;
++		return PTR_ERR(fd);
+ 	}
+ 
+-	for (i = 0; i < remote_desc.num_entries; i++) {
+-		if (remote_desc.entry[i].stream == sink_stream)
++	for (i = 0; i < fd->num_entries; i++) {
++		if (fd->entry[i].stream == sink_stream)
+ 			break;
+ 	}
+ 
+-	if (i == remote_desc.num_entries) {
++	if (i == fd->num_entries) {
+ 		cfe_err(cfe, "Stream %u not found in remote frame desc\n",
+ 			sink_stream);
+ 		return -EINVAL;
+ 	}
+ 
+-	*vc = remote_desc.entry[i].bus.csi2.vc;
+-	*dt = remote_desc.entry[i].bus.csi2.dt;
++	*vc = fd->entry[i].bus.csi2.vc;
++	*dt = fd->entry[i].bus.csi2.dt;
  
  	return 0;
  }
-+
-+struct v4l2_mbus_frame_desc *
-+v4l2_subdev_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
-+			   enum v4l2_mbus_frame_desc_type type)
-+{
-+	struct v4l2_mbus_frame_desc *desc;
-+	int ret;
-+
-+	desc = kzalloc_obj(*desc, GFP_KERNEL);
-+	if (!desc)
-+		return ERR_PTR(-ENOMEM);
-+
-+	desc->type = type;
-+	desc->entry = desc->entry_mem;
-+	desc->len_entries = ARRAY_SIZE(desc->entry_mem);
-+
-+	ret = __v4l2_subdev_get_frame_desc(sd, pad, desc);
-+	if (ret) {
-+		kfree(desc);
-+		return ERR_PTR(ret);
-+	}
-+
-+	return desc;
-+}
- EXPORT_SYMBOL_GPL(v4l2_subdev_get_frame_desc);
- 
--void v4l2_subdev_free_frame_desc(struct v4l2_mbus_frame_desc *desc)
-+static void __v4l2_subdev_free_frame_desc(struct v4l2_mbus_frame_desc *desc)
- {
- 	if (desc->entry != desc->entry_mem)
- 		kfree(desc->entry);
-@@ -2757,6 +2781,12 @@ void v4l2_subdev_free_frame_desc(struct v4l2_mbus_frame_desc *desc)
- 	desc->entry = NULL;
- 	desc->len_entries = desc->num_entries = 0;
- }
-+
-+void v4l2_subdev_free_frame_desc(struct v4l2_mbus_frame_desc *desc)
-+{
-+	__v4l2_subdev_free_frame_desc(desc);
-+	kfree(desc);
-+}
- EXPORT_SYMBOL_GPL(v4l2_subdev_free_frame_desc);
- 
- #endif /* CONFIG_VIDEO_V4L2_SUBDEV_API */
-diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
-index bd97510c7024..6e40420c2fcc 100644
---- a/include/media/v4l2-subdev.h
-+++ b/include/media/v4l2-subdev.h
-@@ -8,6 +8,7 @@
- #ifndef _V4L2_SUBDEV_H
- #define _V4L2_SUBDEV_H
- 
-+#include <linux/cleanup.h>
- #include <linux/types.h>
- #include <linux/v4l2-subdev.h>
- #include <media/media-entity.h>
-@@ -1794,7 +1795,7 @@ int v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
-  * v4l2_subdev_get_frame_desc() - Get a frame descriptor for a pad
-  * @sd: The sub-device
-  * @pad: The number of the pad in @sd from which to obtain the frame descriptor
-- * @desc: A pointer to a frame descriptor, with its type field set
-+ * @type: The type of the frame descriptor
-  *
-  * Obtain a frame descriptor from a sub-device. If the sub-device supports the
-  * get_frame_desc pad operation, its result is returned, just like calling it
-@@ -1810,20 +1811,29 @@ int v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
-  * each frame descriptor obtained by calling this function using
-  * v4l2_subdev_free_frame_desc().
-  *
-- * Return: %0 on success or negative error code on failure.
-+ * Use __free() to release the frame descriptor automatically:
-+ *
-+ * struct v4l2_mbus_frame_desc *desc __free(v4l2_subdev_free_frame_desc) =
-+ *	v4l2_subdev_get_frame_desc(sd, pad, desc);
-+ *
-+ * Return: The frame descriptor on success or a negative error code on failure.
-  */
--int v4l2_subdev_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
--			       struct v4l2_mbus_frame_desc *desc);
-+struct v4l2_mbus_frame_desc *
-+v4l2_subdev_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
-+			   enum v4l2_mbus_frame_desc_type type);
- 
- /**
-  * v4l2_subdev_free_frame_desc() - Release the memory of a frame descriptor
-  * @desc: A pointer to a frame descriptor
-  *
-- * Release the frame descriptor entries in a frame descriptor. The number of
-- * entries in the descriptor are set to 0 again.
-+ * Release the frame descriptor entries and the frame descriptor itself.
-  */
- void v4l2_subdev_free_frame_desc(struct v4l2_mbus_frame_desc *desc);
- 
-+DEFINE_FREE(v4l2_subdev_free_frame_desc, struct v4l2_mbus_frame_desc *, \
-+	    if (!IS_ERR_OR_NULL(_T))					\
-+		    v4l2_subdev_free_frame_desc(_T))
-+
- #endif /* CONFIG_VIDEO_V4L2_SUBDEV_API */
- 
- #endif /* CONFIG_MEDIA_CONTROLLER */
 -- 
 2.47.3
 
