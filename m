@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E15563FB7EB
-	for <linux-media@vger.kernel.org>; Wed, 13 May 2026 10:44:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE9C3FA5F0
+	for <linux-media@vger.kernel.org>; Wed, 13 May 2026 10:44:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778669052; cv=none; b=h1cHg4Rk9E/YokFoaXgJukgdCHtAjRPZzsyqus8iFZsll7DCF9enGdLXGmodGiSk37ZAJKIQ9O8xTvwwVP0qeFh67IFlikFyNo38bBtIEF3wak8Hi5bvBSUUrEIZDwIfc5Y/kt1VJedO4YgEAT4Klqrp5rtrgLI6JDLmsWMms78=
+	t=1778669053; cv=none; b=M6kqmCIf6sBzJ41QSTFKmzzUCtOnakbTy+zU4rbCF3WZXNGo8siJiyHyoiJyzP8+Q9dFeRSnaZgjpN7sG8dPry5b9qPlytjXN9PgRtrZBQs9kObFqJAwCXcwB04RVF9KrwPPYUTSEwXqG68PKQWL4klb0fUTdcF+Yf8xoPc8Y/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778669052; c=relaxed/simple;
-	bh=KTm7DNjOFInO38Sd5cWy+Bn+BajxHELnnE0BvVLrIjY=;
+	s=arc-20240116; t=1778669053; c=relaxed/simple;
+	bh=/fhUhQlM0ynhdcFNyuKb2iszhaY6FxlCe3gU6nuciSA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iw4uqncxYXUFvA+Dhedhhll9QHl2s3ZjqlXEtOcUXVi2MX/PbWcQ5hOcxDrY4o+m6rXw548iofRJLbxM4ANkJ4h2c4yIsW8lllV18CwyRLvV1Gd0xGQ6bEiXfyhK+Xmp/E3x8iP8fGsQOiqpl7XLlcNIHv0v21fJMScsGWKZgMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XCKiyVYL; arc=none smtp.client-ip=198.175.65.14
+	 MIME-Version; b=HFHrvoj+UTnc7zISQv8+r2Kleem1NQ7ir0ifd9FS99Q67U7SUplsJrRna4+o3leFv6tvPH4NFqD5ZlRu7qfxpDSb1OC+qaAwxhbBbQusyO8Ia3Lit/1QvOTW510TE/2i6pUV/pxLRPVtFh48l/io65eI2MlJkxqTVyxt/v060ys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jgfjIN/r; arc=none smtp.client-ip=198.175.65.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XCKiyVYL"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jgfjIN/r"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778669051; x=1810205051;
+  t=1778669052; x=1810205052;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=KTm7DNjOFInO38Sd5cWy+Bn+BajxHELnnE0BvVLrIjY=;
-  b=XCKiyVYLTiNuH1aObKOr5GU8c1IQm+V3oN0YneHbU8snqqHACOMFOfUO
-   EYOE8y40MbAss7RGXyLNZjGqfz8xxXVg2ArLSTDaFCWvPzbX8velykeGd
-   acepafzhjEtCo6nMhPBJ8yvcEanjmULXOvYvEgFocg0JJQoKQQpeuyj3n
-   6YaphHXU29V79Msuy63Aywwmo7i3ooTOu+i4oI+9ByzRGLefUjBoUg86C
-   q+Zej/Zcug7jpE56YyoZ2hctMYW9t4xODIr8FHkZRiMuMxy2oCQMUfS/p
-   eBR+OETNKcjwsyAUc2MA8/PLskx179/8A8HKLNR9Ypp94M+G/f2apfe/V
-   g==;
-X-CSE-ConnectionGUID: FE3IYHdiQN6h7BG8nzdBxQ==
-X-CSE-MsgGUID: w7L8snKRRNyo7U2Qn0U6pA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="83464472"
+  bh=/fhUhQlM0ynhdcFNyuKb2iszhaY6FxlCe3gU6nuciSA=;
+  b=jgfjIN/rAMHX9wl9UQ1L9xJHUqU3iSPoSwrCx2ngzieP3xFcALJ52tGP
+   TiJtY3dUiWsP0Fm/nKdOFf+dcfAGQIoSgDpYspINGkYwZ2gQYGLnw7nZq
+   U0ap5W0kA7T7H6QFcMcrD4AHqlhoElhBnxznwSW39MVIdhuf6RniRdt62
+   sRj6e5wZXSz18YIWKK3qi4jshuEgB6X7c9Gkg2Pofd/aqyXhigAbVDHMB
+   /UaJ14glQJmthNu+W8nfAtfyXXLSriSrgC4ARdGdAx2PXOJO181X2XYZ5
+   IE8FdSqc3P/zf6g1cSs0bnCOZG5uHtI+FNczGyFEEQV879No5LIcAG9yO
+   w==;
+X-CSE-ConnectionGUID: nhLgi0WFRq6yev9g2Akaaw==
+X-CSE-MsgGUID: ZMgUvjeSQEKio6dziMEP/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="83464477"
 X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; 
-   d="scan'208";a="83464472"
+   d="scan'208";a="83464477"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 03:44:08 -0700
-X-CSE-ConnectionGUID: xf6rhQ4UTMeCZcT+ofESuQ==
-X-CSE-MsgGUID: rqB/slQER6e6270jlMfT5w==
+X-CSE-ConnectionGUID: FjCX/B3TRgulvkGk3I6GAg==
+X-CSE-MsgGUID: 50uL7gkZQESyiVLN8784Mw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; 
-   d="scan'208";a="233599265"
+   d="scan'208";a="233599266"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.111])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 03:44:05 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id DA044121DA8;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id E0BFB121DB6;
 	Wed, 13 May 2026 13:43:59 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wN74I-00000009S1u-3Vny;
+	id 1wN74I-00000009S23-3cHS;
 	Wed, 13 May 2026 13:43:58 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -59,9 +59,9 @@ Cc: laurent.pinchart@ideasonboard.com,
 	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Mehdi Djait <mehdi.djait@linux.intel.com>
-Subject: [PATCH 11/17] media: raspberrypi: cfe: Use v4l2_subdev_get_frame_desc()
-Date: Wed, 13 May 2026 13:43:52 +0300
-Message-ID: <20260513104358.2252605-12-sakari.ailus@linux.intel.com>
+Subject: [PATCH 13/17] media: rkisp1: Use v4l2_subdev_get_frame_desc()
+Date: Wed, 13 May 2026 13:43:54 +0300
+Message-ID: <20260513104358.2252605-14-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260513104358.2252605-1-sakari.ailus@linux.intel.com>
 References: <20260513104358.2252605-1-sakari.ailus@linux.intel.com>
@@ -78,76 +78,58 @@ preferred over calling the get_frame_desc() pad operation directly.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- .../media/platform/raspberrypi/rp1-cfe/cfe.c  | 29 +++++++++----------
- 1 file changed, 13 insertions(+), 16 deletions(-)
+ drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c b/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
-index 8375ed3e97b9..111597c5b031 100644
---- a/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
-+++ b/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
-@@ -6,6 +6,7 @@
-  * Copyright (c) 2023-2024 Ideas on Board Oy
+diff --git a/drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c b/drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c
+index 2311672cedb1..7e94ff2037a6 100644
+--- a/drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c
++++ b/drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c
+@@ -8,6 +8,7 @@
+  * Copyright (C) 2017 Rockchip Electronics Co., Ltd.
   */
  
 +#include <linux/cleanup.h>
- #include <linux/clk.h>
- #include <linux/debugfs.h>
- #include <linux/delay.h>
-@@ -803,7 +804,8 @@ static int cfe_get_vc_dt_fallback(struct cfe_device *cfe, u8 *vc, u8 *dt)
- static int cfe_get_vc_dt(struct cfe_device *cfe, unsigned int channel, u8 *vc,
- 			 u8 *dt)
+ #include <linux/iopoll.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+@@ -87,7 +88,8 @@ static int rkisp1_gasket_enable(struct rkisp1_device *rkisp1,
+ 				struct media_pad *source)
  {
--	struct v4l2_mbus_frame_desc remote_desc;
-+	struct v4l2_mbus_frame_desc *fd __free(v4l2_subdev_free_frame_desc) =
+ 	struct v4l2_subdev *source_sd;
+-	struct v4l2_mbus_frame_desc fd;
++	struct v4l2_mbus_frame_desc *fd = __free(v4l2_subdev_free_frame_desc) =
 +		NULL;
- 	struct v4l2_subdev_state *state;
- 	u32 sink_stream;
- 	unsigned int i;
-@@ -816,34 +818,29 @@ static int cfe_get_vc_dt(struct cfe_device *cfe, unsigned int channel, u8 *vc,
- 	if (ret)
- 		return ret;
+ 	unsigned int dt;
+ 	u32 mask;
+ 	u32 val;
+@@ -101,8 +103,8 @@ static int rkisp1_gasket_enable(struct rkisp1_device *rkisp1,
+ 	 */
  
--	ret = v4l2_subdev_call(cfe->source_sd, pad, get_frame_desc,
--			       cfe->source_pad, &remote_desc);
--	if (ret == -ENOIOCTLCMD) {
-+	fd = v4l2_subdev_get_frame_desc(cfe->source_sd, cfe->source_pad,
+ 	source_sd = media_entity_to_v4l2_subdev(source->entity);
+-	ret = v4l2_subdev_call(source_sd, pad, get_frame_desc,
+-			       source->index, &fd);
++	fd = v4l2_subdev_get_frame_desc(source_sd, source->index,
 +					V4L2_MBUS_FRAME_DESC_TYPE_CSI2);
-+	if (PTR_ERR(fd) == -ENOIOCTLCMD) {
- 		cfe_dbg(cfe, "source does not support get_frame_desc, use fallback\n");
- 		return cfe_get_vc_dt_fallback(cfe, vc, dt);
--	} else if (ret) {
-+	} else if (IS_ERR(fd)) {
- 		cfe_err(cfe, "Failed to get frame descriptor\n");
--		return ret;
--	}
--
--	if (remote_desc.type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
--		cfe_err(cfe, "Frame descriptor does not describe CSI-2 link");
--		return -EINVAL;
-+		return PTR_ERR(fd);
+ 	if (ret) {
+ 		dev_err(rkisp1->dev,
+ 			"failed to get frame descriptor from '%s':%u: %d\n",
+@@ -110,13 +112,13 @@ static int rkisp1_gasket_enable(struct rkisp1_device *rkisp1,
+ 		return ret;
  	}
  
--	for (i = 0; i < remote_desc.num_entries; i++) {
--		if (remote_desc.entry[i].stream == sink_stream)
-+	for (i = 0; i < fd->num_entries; i++) {
-+		if (fd->entry[i].stream == sink_stream)
- 			break;
- 	}
- 
--	if (i == remote_desc.num_entries) {
-+	if (i == fd->num_entries) {
- 		cfe_err(cfe, "Stream %u not found in remote frame desc\n",
- 			sink_stream);
+-	if (fd.num_entries != 1) {
++	if (fd->num_entries != 1) {
+ 		dev_err(rkisp1->dev, "invalid frame descriptor for '%s':%u\n",
+ 			source_sd->name, 0);
  		return -EINVAL;
  	}
  
--	*vc = remote_desc.entry[i].bus.csi2.vc;
--	*dt = remote_desc.entry[i].bus.csi2.dt;
-+	*vc = fd->entry[i].bus.csi2.vc;
-+	*dt = fd->entry[i].bus.csi2.dt;
+-	dt = fd.entry[0].bus.csi2.dt;
++	dt = fd->entry[0].bus.csi2.dt;
  
- 	return 0;
- }
+ 	if (rkisp1->gasket_id == 0) {
+ 		mask = ISP_DEWARP_CONTROL_MIPI_CSI1_HS_POLARITY
 -- 
 2.47.3
 
