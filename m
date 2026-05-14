@@ -1,42 +1,41 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D15083ACA45;
-	Thu, 14 May 2026 08:08:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8908B18872A;
+	Thu, 14 May 2026 08:10:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778746089; cv=none; b=R2IObLbIzvDMwoH3IKn5oO7zrkInP2CWHux5I6uDaez8W5uLtRzPk7RAvZk4HMeEGFs9MBT1r4b/SCYq0d+wFiFykP2zr9GXf9ORaW9Z95bXSZt7BjXFq3DAm7h+pp6Nv326lDb+kTm7kdM9R9UuWQD1w8qLsNODDDQgSUZGNCk=
+	t=1778746254; cv=none; b=RNtQdFcq+Qs5i7M2BWNPnA769CrV8U5bv7W4M+3AGRRkkhDsbeil3W3eB2Qop2XYieo5TAL3t1vyby78wv+PA4uRQXdBWJaghsU4cdk3VHFKKj00l09xXeruR9xt0Q+KC7CLWqnp6G3iPJRdXUkMLz7yaxls9xI5SsQ8v/iQWIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778746089; c=relaxed/simple;
-	bh=zJNsMkJ2ty0GYDUrfIoi5RJxH0EnwZSB2q4rfVWFeV4=;
+	s=arc-20240116; t=1778746254; c=relaxed/simple;
+	bh=excU94TPAflMzDlEA+ZzmjzNe8/hTfQW8RfitdCkX9c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qlORtS6csonHzj1W7JjeFHDrIcq3/b+9OhBXUoeecN9dWXC3FuRIEsxglpvzoo0wO8XfSEg1aFiggQ4o+oPelMyh4mDJ4fAp8ReXjeb9955z8VBbBN7A5QicnWdhI9FclgImTv1BQI3xoNEXcihZNTWJur4QzPXw/LPWIzKAgzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=q5rnDq8B; arc=none smtp.client-ip=213.167.242.64
+	 Content-Type:Content-Disposition:In-Reply-To; b=d6opWDSY24Y3fLPdElJPbm3da50TMeIwohIqHPxp7LTmCDTX5AsvkeIIslBjValH7vZIDCqnasCJSTSsdZ0vsQFO5ziQW5QggxoedUP1rcd3jnoJnoiZ3q9kP7OLPo8NdUCvGUqECond62A14B+B8nab8JkOY65raE8iHy6nNdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=cFwnWLGM; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="q5rnDq8B"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="cFwnWLGM"
 Received: from ideasonboard.com (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2710B8E0;
-	Thu, 14 May 2026 10:07:57 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D9A688E0;
+	Thu, 14 May 2026 10:10:42 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1778746077;
-	bh=zJNsMkJ2ty0GYDUrfIoi5RJxH0EnwZSB2q4rfVWFeV4=;
+	s=mail; t=1778746243;
+	bh=excU94TPAflMzDlEA+ZzmjzNe8/hTfQW8RfitdCkX9c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=q5rnDq8BWKXcgioIGMsjpRfhJxjdP/S38Cn0O2I25VPx3r3POlIc7a9kL6v4kjnAo
-	 UlomWpAPCrF2edeB2m9hsiVvb1+RNIC7OrJnvzsKricVZPXi5IfUOgRlGZzL/M0kZk
-	 JLbvE21kQMa+a8jLGD8KYvRc5Yg2Ngq7u16Shr6M=
-Date: Thu, 14 May 2026 10:08:03 +0200
+	b=cFwnWLGMiuPPY/FvhNYZXM+E5qRtpAm3w0f7lbUSSQQVqhSWVH9CEwephqeRQsTJA
+	 flP6o2kgYVU4v0hBoQCOLmgmd/CSQUXFd9qddHriIKvqUty7X6uKbkuuEhE+pDEG+g
+	 rmvzoe3059NI5HkDqRv5TkCK4ChRfiXiMD5ZOoc8=
+Date: Thu, 14 May 2026 10:10:48 +0200
 From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 To: Kieran Bingham <kieran.bingham@ideasonboard.com>
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
 	Steve Longerbeam <slongerbeam@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
 	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 04/11] media: i2c: ov5640: fix error path in
- ov5640_set_mode
-Message-ID: <agWCq1r5WFW06FMK@zed>
+Subject: Re: [PATCH 05/11] media: i2c: ov5640: Remove unsupported bayer orders
+Message-ID: <agWDRd0oOBsNfyy_@zed>
 References: <20260501-ov5640_cleanup-v1-0-0869a7802a33@ideasonboard.com>
- <20260501-ov5640_cleanup-v1-4-0869a7802a33@ideasonboard.com>
+ <20260501-ov5640_cleanup-v1-5-0869a7802a33@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -45,35 +44,59 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260501-ov5640_cleanup-v1-4-0869a7802a33@ideasonboard.com>
+In-Reply-To: <20260501-ov5640_cleanup-v1-5-0869a7802a33@ideasonboard.com>
 
-On Fri, May 01, 2026 at 04:39:06PM +0100, Kieran Bingham wrote:
-> During ov5640_set_mode if the call to set the pclk fails, we should
-> correctly restore the state of the auto exposure
-> and auto gain if they were modified on entry into the function.
+Hi Kieran
+
+On Fri, May 01, 2026 at 04:39:07PM +0100, Kieran Bingham wrote:
+> The OV5640 only outputs SBGGR8. Remove the incorrectly advertised
+> alternatives which allow a misconfigured pipeline to be established.
+
+Do you have any idea why the datasheet mentions all the RGGB
+permutations as valid outputs ?
+
 >
 > Signed-off-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
-
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-
-
 > ---
->  drivers/media/i2c/ov5640.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/media/i2c/ov5640.c | 21 ---------------------
+>  1 file changed, 21 deletions(-)
 >
 > diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-> index 0dc4f4272d05..244c341d0e77 100644
+> index 244c341d0e77..e1e253730206 100644
 > --- a/drivers/media/i2c/ov5640.c
 > +++ b/drivers/media/i2c/ov5640.c
-> @@ -2349,7 +2349,7 @@ static int ov5640_set_mode(struct ov5640_dev *sensor)
->  	else
->  		ret = ov5640_set_dvp_pclk(sensor);
->  	if (ret < 0)
-> -		return 0;
-> +		goto restore_auto_exp_gain;
->
->  	if ((dn_mode == SUBSAMPLING && orig_dn_mode == SCALING) ||
->  	    (dn_mode == SCALING && orig_dn_mode == SUBSAMPLING)) {
+> @@ -309,27 +309,6 @@ static const struct ov5640_pixfmt ov5640_csi2_formats[] = {
+>  		.bpp		= 8,
+>  		.ctrl00		= 0x00,
+>  		.mux		= OV5640_FMT_MUX_RAW_DPC,
+> -	}, {
+> -		/* Raw bayer, GBGB... / RGRG... */
+> -		.code		= MEDIA_BUS_FMT_SGBRG8_1X8,
+> -		.colorspace	= V4L2_COLORSPACE_SRGB,
+> -		.bpp		= 8,
+> -		.ctrl00		= 0x01,
+> -		.mux		= OV5640_FMT_MUX_RAW_DPC,
+> -	}, {
+> -		/* Raw bayer, GRGR... / BGBG... */
+> -		.code		= MEDIA_BUS_FMT_SGRBG8_1X8,
+> -		.colorspace	= V4L2_COLORSPACE_SRGB,
+> -		.bpp		= 8,
+> -		.ctrl00		= 0x02,
+> -		.mux		= OV5640_FMT_MUX_RAW_DPC,
+> -	}, {
+> -		/* Raw bayer, RGRG... / GBGB... */
+> -		.code		= MEDIA_BUS_FMT_SRGGB8_1X8,
+> -		.colorspace	= V4L2_COLORSPACE_SRGB,
+> -		.bpp		= 8,
+> -		.ctrl00		= 0x03,
+> -		.mux		= OV5640_FMT_MUX_RAW_DPC,
+>  	},
+
+Seems like you've missed the same entries in the ov5640_dvp_formats[]
+table.
+
+>  	{ /* sentinel */ }
+>  };
 >
 > --
 > 2.52.0
