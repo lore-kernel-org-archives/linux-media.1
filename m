@@ -1,26 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D7F3B4EBB
-	for <linux-media@vger.kernel.org>; Fri, 15 May 2026 15:32:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E44154B8DCF
+	for <linux-media@vger.kernel.org>; Fri, 15 May 2026 15:32:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778859173; cv=none; b=X/uUx2Kiu9CM/2x+dr1671OeKaK+feym+IvIgMK768Ayp1O3vQFK7GDkoYvR5bqbzmpWZxqp70FajYC1FfzHG3hr6iKI1nIB9PDhdTmSkTs9PBjmYfN3rJIGxGnuCE0Nsan1asmx+/IgFEbIZ6+JzXJi3GIVZOmddcAvoSoDwCg=
+	t=1778859172; cv=none; b=Ecs0/0W9fXoMni327jHb01JFaQJcz7XxXAiF/enElLfIzcoC7UqqC5azzpWHTAoSpWR2SQdZLWDpOyXxY5n/TxTaKca12LtOWDVHwSM3uw/7dICXx1EjLBW/w+QwHqEdTDpxwtcCka6CpjMlNVBVSECfbFuAwvBcaqHuzaZX6LI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778859173; c=relaxed/simple;
-	bh=0QTRGTAleaIYM+L2IF0gJiuGr/B2srVcDGVkPHs0akg=;
+	s=arc-20240116; t=1778859172; c=relaxed/simple;
+	bh=ljhyyAVAsaT41Rpt30YyAO53+U3vqFIqV/OgI67rHP8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IM7zQU9vSUupWhUdhc0oiv6QUu/Za0YGkIqkDMyLfpgnjjqRTKQD6wLvLeKskwet/TyOErG5KOdJ1CQl4MXqiF+v6m0a5y2mfIVqyFa/F9SkrB3+oCsbloVA3SxJpOF0Cg5m/Ajsp88pS/HkEXbG10Mg0ipou7zl7/zA48bmyX8=
+	 In-Reply-To:To:Cc; b=TP7V2ndVYBZNH3gL4oQJboZwVdd+O/dyD33i5Mhubl/Ja79LH601pwQyNs2xED4paP1QaZRSGWPu2eIZr2drYjnht/Ar8DUyKHcX8dqkAaRv6bRGbVTOmpeFEfSd0ZkzU7COShsAUpz0VE7TJu6MY70yCKDAde7ulGpaVKQ+bQA=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wNuWt-0005OF-9T; Fri, 15 May 2026 17:32:47 +0200
+	id 1wNuWm-0005OF-0T; Fri, 15 May 2026 17:32:40 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Fri, 15 May 2026 17:32:32 +0200
-Subject: [PATCH v6 06/28] media: rockchip: rga: fix too small buffer size
+Date: Fri, 15 May 2026 17:32:27 +0200
+Subject: [PATCH v6 01/28] media: dt-bindings: media: rockchip-rga: add
+ rockchip,rk3588-rga3
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -29,7 +30,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260515-spu-rga3-v6-6-e547152eb9c9@pengutronix.de>
+Message-Id: <20260515-spu-rga3-v6-1-e547152eb9c9@pengutronix.de>
 References: <20260515-spu-rga3-v6-0-e547152eb9c9@pengutronix.de>
 In-Reply-To: <20260515-spu-rga3-v6-0-e547152eb9c9@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -43,63 +44,76 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  devicetree@vger.kernel.org, kernel@pengutronix.de, nicolas@ndufresne.ca, 
  sebastian.reichel@collabora.com, m.tretter@pengutronix.de, 
  p.zabel@pengutronix.de, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
 X-Mailer: b4 0.15.2
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Fix the command buffer size being only a quarter of the actual size.
-The RGA_CMDBUF_SIZE macro was potentially intended to specify the length
-of the cmdbuf u32 array pointer. But as it's used to specify the size of
-the allocation, which is counted in bytes. Therefore adjust the macro
-size to bytes as it better matches the variable name and adjust it's
-users accordingly.
+Add a new compatible for the RGA3 (Raster Graphic Acceleration 3)
+peripheral found on the RK3588 SoC. Also specify an iommu property,
+as the RGA3 contains the generic rockchip iommu. While other versions
+also have an iommu, it's usually specific to them.
 
-As the command buffer is relatively small, it probably didn't caused
-an issue due to being smaller than a single page.
+The RK3588 contains one RGA2-Enhance core (also contained on the RK3399)
+and two RGA3 cores. Both feature a similar functionality of scaling,
+cropping and rotating of up to two input images into one output image.
+Key differences of the RGA3 are:
 
-Fixes: f7e7b48e6d79 ("[media] rockchip/rga: v4l2 m2m support")
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+- supports 10bit YUV output formats
+- supports 8x8 tiles and FBCD as inputs and outputs
+- supports BT2020 color space conversion
+- max output resolution of (8192-64)x(8192-64)
+- MMU can map up to 32G DDR RAM
+- fully planar formats (3 planes) are not supported
+- max scale up/down factor of 8 (RGA2 allows up to 16)
+
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
-
 ---
-
-Flagged by Sashiko:
-https://sashiko.dev/#/patchset/20260325-spu-rga3-v4-0-e90ec1c61354%40pengutronix.de?part=10
+Changed in v3/v4:
+- Dropped Acked-by: Krzysztof Kozlowski due to the added iommus property
+  and description adjustments.
 ---
- drivers/media/platform/rockchip/rga/rga-hw.c | 2 +-
- drivers/media/platform/rockchip/rga/rga-hw.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ Documentation/devicetree/bindings/media/rockchip-rga.yaml | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
-index 43ed742a16492..d1618bb247501 100644
---- a/drivers/media/platform/rockchip/rga/rga-hw.c
-+++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-@@ -414,7 +414,7 @@ static void rga_cmd_set(struct rga_ctx *ctx,
- {
- 	struct rockchip_rga *rga = ctx->rga;
+diff --git a/Documentation/devicetree/bindings/media/rockchip-rga.yaml b/Documentation/devicetree/bindings/media/rockchip-rga.yaml
+index ac17cda65191b..7bd92f7336664 100644
+--- a/Documentation/devicetree/bindings/media/rockchip-rga.yaml
++++ b/Documentation/devicetree/bindings/media/rockchip-rga.yaml
+@@ -9,7 +9,11 @@ title: Rockchip 2D raster graphic acceleration controller (RGA)
+ description:
+   RGA is a standalone 2D raster graphic acceleration unit. It accelerates 2D
+   graphics operations, such as point/line drawing, image scaling, rotation,
+-  BitBLT, alpha blending and image blur/sharpness.
++  BitBLT, alpha blending and image blur/sharpness. There exist many versions
++  of this unit that differ in the supported inputs/output formats,
++  the attached IOMMU and the supported operations on the input. As some SoCs
++  include multiple RGA units with different versions, a more specific
++  compatible name to differentiate the concrete unit is used for them.
  
--	memset(rga->cmdbuf_virt, 0, RGA_CMDBUF_SIZE * 4);
-+	memset(rga->cmdbuf_virt, 0, RGA_CMDBUF_SIZE);
+ maintainers:
+   - Jacob Chen <jacob-chen@iotwrt.com>
+@@ -20,6 +24,7 @@ properties:
+     oneOf:
+       - const: rockchip,rk3288-rga
+       - const: rockchip,rk3399-rga
++      - const: rockchip,rk3588-rga3
+       - items:
+           - enum:
+               - rockchip,rk3228-rga
+@@ -45,6 +50,9 @@ properties:
+   power-domains:
+     maxItems: 1
  
- 	rga_cmd_set_src_addr(ctx, src->dma_desc_pa);
- 	/*
-diff --git a/drivers/media/platform/rockchip/rga/rga-hw.h b/drivers/media/platform/rockchip/rga/rga-hw.h
-index cc6bd7f5b0300..2b8537a5fd0d7 100644
---- a/drivers/media/platform/rockchip/rga/rga-hw.h
-+++ b/drivers/media/platform/rockchip/rga/rga-hw.h
-@@ -6,7 +6,7 @@
- #ifndef __RGA_HW_H__
- #define __RGA_HW_H__
++  iommus:
++    maxItems: 1
++
+   resets:
+     maxItems: 3
  
--#define RGA_CMDBUF_SIZE 0x20
-+#define RGA_CMDBUF_SIZE 0x80
- 
- /* Hardware limits */
- #define MAX_WIDTH 8192
 
 -- 
 2.54.0
