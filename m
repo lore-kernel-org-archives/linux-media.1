@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F0030C147;
-	Sat, 16 May 2026 19:30:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94C82FC893;
+	Sat, 16 May 2026 20:16:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778959803; cv=none; b=Muv5sXaamvse73gj2z/RhpNFILW6kwZBAyfjxfbL9RkFBnUT8utwuag9hUKhSz5qqFo8C6HAZ8haJOwoiM8OZS50eoir4xa8G1sA21yCZzWV1hDPFlYmECXAws63+YFH8cqItITM56kKTzB+sxN+LIn3yXm7zoPsajfhdL049e0=
+	t=1778962606; cv=none; b=SgD9fCb5ItbOStlVh5s9el1WC4H096K+oykbERtW/nirYNK+p3sv76xfOdTqwXupkGJtf95wWdAh2w044RQKIZJ+B+2TYS208yhnyxD0WEe7AOLgik7P6+WyG2UF7GQR44hTYQNNNKbgMVV1RmiDTq3b79pj8MNkxoFRG2uAiAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778959803; c=relaxed/simple;
-	bh=F0y6q/kIV/fs7BftxZXGEj/+vlZVJ89co0j+weNTgjo=;
+	s=arc-20240116; t=1778962606; c=relaxed/simple;
+	bh=hlpl3QFFVUCLJyEXWFF8BrifXVl5rOg5Wmrm0J0mVy8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AOA8miGPnjbYZ5tHsXxRmfW40FjlAOqcaha9Gdtd4H+8Su8DFwIzcuOU/dpAvTQd4f6mZHcPBxmdbZRy2aFdrmSdSuCCSMgDZ03zDC/qihfB/A9Amw7t1Pur7K/irRNwJezPyRHKid/+7UENWr6pSBDPqpF9GpU/CvsAU7qGnKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cIaOGY7h; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=Y4IURHk7sWKhDLzWkA8wW8r0BU8QPEJ/jYv+2mk16C24KHF6QBqgDf8q8B8BZUvEZ26VUgSRHd6uARy3hnXpfR14Srxn+Pa2g6cM68XjOXukGofgg+LMzv71+XiUzMJe0WUMcYIrJ/NLLDiNOSnKi3Syr2YlpVf4mlwVUOvbQQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bn0HCOSU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cIaOGY7h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C739C19425;
-	Sat, 16 May 2026 19:30:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bn0HCOSU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E240BC2BCB8;
+	Sat, 16 May 2026 20:16:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778959803;
-	bh=F0y6q/kIV/fs7BftxZXGEj/+vlZVJ89co0j+weNTgjo=;
+	s=k20201202; t=1778962606;
+	bh=hlpl3QFFVUCLJyEXWFF8BrifXVl5rOg5Wmrm0J0mVy8=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=cIaOGY7hZc1cFSxtyZfN1KrWt7aLRYBLwB6pfvFHXzGJM7D4MWPZmL9CfQ95en4se
-	 iSzLAStWtAXcpeHbV1s7UmIJy0lxil6SshwBj5eroSvh60EZpRaQblO7uUykwh/zC0
-	 8ugcU5NVA6hiugmZ0fSV5eURuwmbRAQPPVb8toZQ4qWBJ3taYsn+1rxCFFhZ6q8gig
-	 F5A3po19RjIZt/3nCvv+8AocffsTmhvv4E6z5YvLoj9pujqqLCvY0ah7iLQj4JL/6G
-	 FiqPb+7kdjhBDRKRy4n/+l2YCXhaonXqyiP1k6dov+7D6JBFzum59ZCXpL0igSlJir
-	 AkBaCTbXgoS5A==
-Message-ID: <744df7d7-db3c-4d16-bb9c-8aab56d5eba7@kernel.org>
-Date: Sat, 16 May 2026 21:29:58 +0200
+	b=bn0HCOSUrdWayaJqYUwJTUqY46B+d9yahziK9MQiz9jcQsmxGqnH/Emu+mcD3ZBk0
+	 ceKY3mRH5B3sAz7BDGV+6mTDnu7bZLG/lDtpWuDY+UujDSXXVeQNzcbHwXtIdm8uD9
+	 T0uRAPKMrIf/5tJE+6AIra2fdnM+1WrH3o88Yqfh/LUuLUGEXNCzsp9NTho/9Hdska
+	 vBzikTnRJ+2RqSexB1Z1mVxAhcxwDR3VnRMdlNtn0DSJlfdLKQCP2lv3Prne0z/Xqf
+	 YA1Ws5aPv1Wlcm2mZP306S4tMyy95IVxjz6XqiLH0mlDnn6WBSZpqirqrjk7vwxO4J
+	 fPSjVhd6MaU7Q==
+Message-ID: <a39b5e37-72b8-465a-b6c3-65415eb577aa@kernel.org>
+Date: Sat, 16 May 2026 22:16:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,17 +35,22 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: media: i2c: Add Sony IMX678
-To: Jai Luthra <jai.luthra@ideasonboard.com>,
+Subject: Re: [PATCH 1/3] media: dt-bindings: qcom: add JPEG encoder binding
+To: Bryan O'Donoghue <bod@kernel.org>,
+ Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260516-imx678-v2-0-4854ac61d6fb@ideasonboard.com>
- <20260516-imx678-v2-1-4854ac61d6fb@ideasonboard.com>
+ <conor+dt@kernel.org>, Kapatrala Syed <akapatra@quicinc.com>,
+ Hariram Purushothaman <hariramp@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Gjorgji Rosikopulos <grosikop@quicinc.com>, afilipov@quicinc.com
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260515-qcom-jpeg-v4l2-v1-0-f38c2e1b3555@oss.qualcomm.com>
+ <b7u5v5a7DiYm-NowQSavDCjDEb1bGE_S2Z5LPZmIlMx5ve25F7067cdVqRJEeuUoTl7pHVr98FuOry9-VR5cNA==@protonmail.internalid>
+ <20260515-qcom-jpeg-v4l2-v1-1-f38c2e1b3555@oss.qualcomm.com>
+ <f4159f41-8a06-40a6-919c-5e16314b1732@kernel.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -91,25 +96,37 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260516-imx678-v2-1-4854ac61d6fb@ideasonboard.com>
+In-Reply-To: <f4159f41-8a06-40a6-919c-5e16314b1732@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16/05/2026 16:19, Jai Luthra wrote:
-> Sony IMX678 is an 8.4 Megapixel (3856x2180) CMOS sensor, that can output
-> pixels over MIPI CSI-2 bus. Add bindings for it.
+On 16/05/2026 17:51, Bryan O'Donoghue wrote:
+> On 15/05/2026 12:46, Atanas Filipov wrote:
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - enum:
+>> +        - qcom,sc7180-jenc
+>> +        - qcom,sm8250-jenc
+>> +        - qcom,sm7325-jenc
+>> +        - qcom,sc7280-jenc
+>> +        - qcom,qcm6490-jenc
+>> +        - qcom,sm8550-jenc
 > 
-> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
-> ---
-> Changes in v2:
-> - Add per-variant compatibles for mono and colour, alongside the
->   generic fallback, so the variant can be declared without powering
->   the sensor at probe.
-> - Rename reset GPIO to xclr as that's what it's called in the
->   datasheet, and how it behaves
+> Per my previous feedback.
+> 
+> Please only list the items you are also providing in the DTS to be verified.
+> 
+> For example if this driver works on sm8250 there should be an enabling 
+> patch for the DTS to that effect so that it can be verified.
+> 
+> Right now I believe all you are asserting in this way is qcm6490, so I 
+> advise very strongly to either add the missing elements or just drop 
+> what's not shown to be supported in your submission.
 
-Who asked for that? This is against any practice we have... See
-gpio-consumer-common.yaml.
+
+Bryan, before you waste more time here - you missed announcement that
+this should have never been posted.
 
 Best regards,
 Krzysztof
