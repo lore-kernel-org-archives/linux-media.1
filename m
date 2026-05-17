@@ -1,61 +1,61 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C165835A933
-	for <linux-media@vger.kernel.org>; Sun, 17 May 2026 11:20:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D9C33FE36
+	for <linux-media@vger.kernel.org>; Sun, 17 May 2026 11:28:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779016859; cv=none; b=jcHrhSoUUROm5QSBR4H2AneQKQlvnNykder6+mRBrNpkBjEL99DInln1X7OlfMHY++JNFb/4mVPoghkwnBbmC7+NKsLLdt+Fa8PccXWCy/TzX4LeXhfjq6BKzc9+7SN7OcWuOdUDEhMtKTom1/mVaz4CwzwCASfGKndMswWe0rE=
+	t=1779017316; cv=none; b=XVrdOGe+LVaJbe+fUHgmAb4FqEPRSXlKOI2krorwRKKYn5QRBqPOLPT0HNpuXbP52QF9JKKdhjaeT+z8sl8xt/QnQGVc12fMdFxzJ+XR4CLg5OMHU8kOGkbkG3exQS8/8AKmsWgvkQ+XON7cMk8BbmiNTx3zEVQnMz5W/QuQLpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779016859; c=relaxed/simple;
-	bh=0FEaLogsDoMA10mynhfXjWCCmhduignknw3VZEplDtw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M85gBQkRBr4qYbN0yYkXOHck6WBP6M5k+fiGN1NwMbn+sWvBYfcVUy7cNcYVzPr/Vb9/qW/xaR9a3IUBvL2110DQoRtiN/GM7J19rna6Wckka6dmlXMvkoQsD7ggJ26OpbH7cmg+tTZQVGXrsyONKyWZSamZ4NSxWsJ8EChIU8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KD9hztnJ; arc=none smtp.client-ip=209.85.216.53
+	s=arc-20240116; t=1779017316; c=relaxed/simple;
+	bh=nTtDAhHlxRu8GFL/czu4etZg9Ouuv3xLOIpHKixnKzI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X98SlZsEXrKlklqR9OAoDBpW5wqMjA9GOMTmBgAfAp9DIfohXAHzXYWzLcqwJmebIGcjEhnoR/F+aLErL6NIOXJDstWeu/d958h7X/bVxfOvCGI/SaGYXfBxWdE7KrqQhfQvYsCA5e2sCDshSKorJQvVAaBgVHSlia+d90we7qI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ph92M+Xm; arc=none smtp.client-ip=209.85.210.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KD9hztnJ"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-36643b96b99so1253581a91.0
-        for <linux-media@vger.kernel.org>; Sun, 17 May 2026 04:20:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ph92M+Xm"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-83d31ac4017so475547b3a.3
+        for <linux-media@vger.kernel.org>; Sun, 17 May 2026 04:28:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779016858; x=1779621658; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779017314; x=1779622114; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q/ortlMh8x+p+Fhr+BMJcjANUffMVhXyAdYtT0wR3sU=;
-        b=KD9hztnJIimyNEY4KBlZxQwoXyuzqSmx0XoxRkT65bcTcsSe8f7tPGoDfL3YDDEgaN
-         74wqF5YsvpU+miuIUBCKX8BNO9QOHanBykK2hstWi11aD79WlCuFi3tMk+WQCKoYY/NI
-         TTSkrYDaXhiuu8JXzTkyCEMxYYfX8tTddoUktFxXGnB3qPJvpFRjqoeU+eRTNyFCmXSq
-         7kFgvT/h52f5mxRYqX/Xk6SnQEjGpdlNGyIvo0ZINiWNNtw85VZpOj+4tJUcg0cUFnlD
-         rFntKFpJYs77U87nX8U6ekTyDlKvERrVs/7txqWFVnQfPrYHAzVNzdLC6qNXRLQbmMNV
-         nGZg==
+        bh=Q2HNvBLsSkl5+JzqDGgnt/yv9ml8/MlQvATo1olceFk=;
+        b=Ph92M+XmtCDf3laZ9++xr07PqHhc987UahoXHgJ6GQlHtTwuqyZZxnWVzADfSlpw5u
+         Eb7VuczMC8TBxY71ff24OVrVjtuRuSDtkZProTaNTBDAUMF5Em0+FbcHMs98EXPm+5R7
+         ig739PhVJwRwx4ZF4rkXey6v3Q5fZXdJ20pvTvAyEXeai1xuArhi8zNDGJNmzGCYnnDM
+         zgAqyR+KLS6Kxv6pEDzosOUUPE3/WiWuMkW7fvpM0EINaUx2+AuwYr+xmVyyhJGRLUzW
+         yWv/GKDIIrXFXjQoV4Gd4mYmcCui5LNWI9O0ltJFlDWP+HybGPe0JNI0P5DZgSMB+xUs
+         JhUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779016858; x=1779621658;
+        d=1e100.net; s=20251104; t=1779017314; x=1779622114;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Q/ortlMh8x+p+Fhr+BMJcjANUffMVhXyAdYtT0wR3sU=;
-        b=N8JfKlB8yBOB2a+2ml8ldcyfKzydwD10xxzGc42F6/4txhpCFt2BWk8Dd0oXGFUvxP
-         +f6wziQREevhzxiekDxTnkQT7rrxKgi6IKEfPLmArtElHGkWGrNk5Yw5VNDwOzk6Tiu0
-         FzxKAHW7vmB51QfDZdUbEKzCsK18JvY73mZyvQ1sPJvfl08REd42f3xVigEFwf26C5MB
-         bpM0WE1kSbNYeE6s6YwYjEHGqq5bCF2tZqmAEgsEqLT7KB8yE+SgArWDjuDReSP/iRoR
-         1Y6TUzKK2WCIHRZwIAPJTpn29lNrGkv8bDplVz5FSl71prc0uTBzBXxEtMBwsn3qjZHQ
-         BupQ==
-X-Forwarded-Encrypted: i=1; AFNElJ84rvBEpKAU2c5E31eWxKY0IHoZ+BscZyPPPRGLDnj5fnbTYH84X3xeZ7CWivbqNuva4eQo10I8gHXVcw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyVe2rbMZyQfaiWMTyaVmBW4OddM7qCzolCi0VAZVvrCbp79pw0
-	jkP07c/mVXFk8ee1eiEdAwmlBjZ1kDzpu45OhlxrBxv3tUPFcX4Luvcd
-X-Gm-Gg: Acq92OHXFg/cf5oceV4JLbJpncpzepkabRo7YFGQ4iHwsxPEX/ncRZRts1pJ1PEDCV1
-	GNOBIrQVwmd0zyM+d4JR1tn6tJLUTUtqF8tYz4KSVl4yFpFcgj5nGZik+fsVrKQyWvp0I5wyJii
-	1MQcmJqLDefvxL9EWYo/+3W8Evewaxvwmep3eOsfvemKad+pwyTGInBlYF+ojIy0rBGrhsxe7v4
-	HKsCUGCrIUK7XICRqQYqqiuxQ0cpoYYzki6jj6An7Un2RXjdmKNkdzB2xfCAIKQlYh/pDfaiIOf
-	Hlne1QRyxNZY8rTP7pT5MjkTPhRI/yVMNYn4RyMW/JSJyXWifPoddqfRgNGGz6+Xq53a8JlSlC+
-	SLFlVy8hn3AatepphlcFGDRFRGDEuHlDtpGTxBHaHCXqUz9ipByA34dYpQ03JrXmAUz9H1aL6gC
-	5NAnDL7w==
-X-Received: by 2002:a17:90b:5706:b0:369:a9e8:dbf6 with SMTP id 98e67ed59e1d1-369a9e8dc5cmr2010367a91.12.1779016858087;
-        Sun, 17 May 2026 04:20:58 -0700 (PDT)
+        bh=Q2HNvBLsSkl5+JzqDGgnt/yv9ml8/MlQvATo1olceFk=;
+        b=Ef6hPMG64oLFTplac3qA5gyiFOaLb7GOqYUhm82VGbt2kyeKQurZS/9kZ8//pBYzSg
+         NF4SwmkxL3XxDkE6Voe+n1d3U/rIKWzI72xKuyjkP5ZuUzlOp7iV3EkB1KAmY6FaNe7P
+         4iD6aaWZAXVxFldefG5WYHSuR+XVeeqv7RFyYNIoYrpaKnoH6SbLpmy7Z8MDk/kzRsTh
+         pCV6Hhg1rARFP5x1EDGtMVt6K2LONo3tTM2onDBi/MUi1OvCox1W5i8ZuORloYwAoxJM
+         1CY3IPxDrYgJh5+grXe8WdFh7R6sxWSYBOVENi2tsaS6g5Rr+cxJVU3M2oyynKqD4KZn
+         ZmFg==
+X-Forwarded-Encrypted: i=1; AFNElJ/cypYu17w4rw0kexn1XFNoowDd94fZtmwkTmI+W0OfO6T4/7iIE2x3vQupSvOjMFCyFAoi4Rm9v2DWvA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxzFBQhKtt3701idKmdJjqjIh/u9YEIcvnKHXf3SIvvaPWLWPCg
+	v1nRIEmH/RLwIA3xajJy+ZDep6qYDzP5CcM9ftYNFBP+K9NV5KGT/JxN
+X-Gm-Gg: Acq92OHQvoaf9eVq7bhi4DFgu6Cv6/M9FnlpJ97S/mSLnQ5vezrwjFHO/+C+aVolmwG
+	JeQAkODtoutP4Bb28ZKtr6ueQRW3SB66lfSP97d2bgseYPKt3b8osVjTCFpPwzsAUcxkVP1YIdm
+	O/SHiGKDUOrn97Ss9FvFM0UULH3WbzcuHmfjn7idRHAPghVFDNrrH3pbsjVD0wFbyBP8V+ONf1R
+	iggW9fvDi78aKlLw0gWn79z13+a+RaRIVSE5kM4MP29krNW0lrZSmbBQu1gd/i5trbnkiTdi3VC
+	GG+WnzzSPTEDF04WdC4yENPtGhK36GkhnqqH5uVb9XDy4BP6+o9GmLwmSTlbpdorcowHsPhW8qF
+	xgVh5V4jqpXp6lJ4ptD1Sfpud9ahCAtPc9qeuWGJyoRRhTXJCNI0fhMLGOozWLd4jvDYwFMbJdT
+	NprUgLoQ==
+X-Received: by 2002:a05:6a00:39a8:b0:82f:7252:38cf with SMTP id d2e1a72fcca58-83f33cc34bcmr10847620b3a.16.1779017314366;
+        Sun, 17 May 2026 04:28:34 -0700 (PDT)
 Received: from lgs.. ([2001:250:5800:1000::f280])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36959fa9d84sm2883385a91.8.2026.05.17.04.20.54
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19c5ce1fsm11392149b3a.35.2026.05.17.04.28.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 17 May 2026 04:20:57 -0700 (PDT)
+        Sun, 17 May 2026 04:28:33 -0700 (PDT)
 From: Guangshuo Li <lgs201920130244@gmail.com>
 To: Bluecherry Maintainers <maintainers@bluecherrydvr.com>,
 	Andrey Utkin <andrey_utkin@fastmail.com>,
@@ -65,9 +65,9 @@ To: Bluecherry Maintainers <maintainers@bluecherrydvr.com>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Guangshuo Li <lgs201920130244@gmail.com>
-Subject: [PATCH] media: solo6x10: avoid double free on encoder register failure
-Date: Sun, 17 May 2026 19:17:54 +0800
-Message-ID: <20260517111754.946843-1-lgs201920130244@gmail.com>
+Subject: [PATCH] media: solo6x10: avoid double free on display register failure
+Date: Sun, 17 May 2026 19:26:03 +0800
+Message-ID: <20260517112603.947790-1-lgs201920130244@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -77,9 +77,8 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-solo_enc_alloc() allocates a video_device with video_device_alloc() and
-releases it from the vdev_release error path if video_register_device()
-fails.
+solo_v4l2_init() allocates a video_device with video_device_alloc() and
+releases it from the fail error path if video_register_device() fails.
 
 This can double free the video_device when __video_register_device()
 reaches device_register() and that call fails:
@@ -92,45 +91,45 @@ reaches device_register() and that call fails:
                 -> vdev->release(vdev)
                    -> video_device_release(vdev)
 
-  solo_enc_alloc()
-    -> vdev_release
-       -> video_device_release(solo_enc->vfd)
+  solo_v4l2_init()
+    -> fail
+       -> video_device_release(solo_dev->vfd)
 
 Use video_device_release_empty() while registering the device so that
-registration failure paths do not free solo_enc->vfd through
-vdev->release(). solo_enc_alloc() then releases solo_enc->vfd exactly
-once from vdev_release. Restore video_device_release() after successful
+registration failure paths do not free solo_dev->vfd through
+vdev->release(). solo_v4l2_init() then releases solo_dev->vfd exactly
+once from fail. Restore video_device_release() after successful
 registration so the registered device keeps its normal lifetime handling.
 
 This issue was found by a static analysis tool I am developing.
 
-Fixes: a7eb931d635c ("[media] solo6x10: move global fields in solo_enc_fh to solo_enc_dev")
+Fixes: a4056c2fb4c4 ("[media] solo6x10: convert the display node to vb2")
 Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/media/pci/solo6x10/solo6x10-v4l2-enc.c | 3 +++
+ drivers/media/pci/solo6x10/solo6x10-v4l2.c | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/drivers/media/pci/solo6x10/solo6x10-v4l2-enc.c b/drivers/media/pci/solo6x10/solo6x10-v4l2-enc.c
-index 91b5c4161930..ab85d86b68fc 100644
---- a/drivers/media/pci/solo6x10/solo6x10-v4l2-enc.c
-+++ b/drivers/media/pci/solo6x10/solo6x10-v4l2-enc.c
-@@ -1295,6 +1295,7 @@ static struct solo_enc_dev *solo_enc_alloc(struct solo_dev *solo_dev,
- 		goto pci_free;
+diff --git a/drivers/media/pci/solo6x10/solo6x10-v4l2.c b/drivers/media/pci/solo6x10/solo6x10-v4l2.c
+index 35715b21dbdf..6ce489919ecf 100644
+--- a/drivers/media/pci/solo6x10/solo6x10-v4l2.c
++++ b/drivers/media/pci/solo6x10/solo6x10-v4l2.c
+@@ -647,6 +647,7 @@ int solo_v4l2_init(struct solo_dev *solo_dev, unsigned nr)
+ 		return -ENOMEM;
  
- 	*solo_enc->vfd = solo_enc_template;
-+	solo_enc->vfd->release = video_device_release_empty;
- 	solo_enc->vfd->v4l2_dev = &solo_dev->v4l2_dev;
- 	solo_enc->vfd->ctrl_handler = hdl;
- 	solo_enc->vfd->queue = &solo_enc->vidq;
-@@ -1304,6 +1305,8 @@ static struct solo_enc_dev *solo_enc_alloc(struct solo_dev *solo_dev,
+ 	*solo_dev->vfd = solo_v4l2_template;
++	solo_dev->vfd->release = video_device_release_empty;
+ 	solo_dev->vfd->v4l2_dev = &solo_dev->v4l2_dev;
+ 	solo_dev->vfd->queue = &solo_dev->vidq;
+ 	solo_dev->vfd->lock = &solo_dev->lock;
+@@ -690,6 +691,8 @@ int solo_v4l2_init(struct solo_dev *solo_dev, unsigned nr)
  	if (ret < 0)
- 		goto vdev_release;
+ 		goto fail;
  
-+	solo_enc->vfd->release = video_device_release;
++	solo_dev->vfd->release = video_device_release;
 +
- 	snprintf(solo_enc->vfd->name, sizeof(solo_enc->vfd->name),
- 		 "%s-enc (%i/%i)", SOLO6X10_NAME, solo_dev->vfd->num,
- 		 solo_enc->vfd->num);
+ 	snprintf(solo_dev->vfd->name, sizeof(solo_dev->vfd->name), "%s (%i)",
+ 		 SOLO6X10_NAME, solo_dev->vfd->num);
+ 
 -- 
 2.43.0
 
