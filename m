@@ -1,319 +1,337 @@
-Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197B930FF1D;
-	Mon, 18 May 2026 10:26:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE883E6385
+	for <linux-media@vger.kernel.org>; Mon, 18 May 2026 10:27:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779100023; cv=none; b=k28gO3py2/GMJSbBiqXH9VR492XDqtAZAQfBpycZ881AtKjoKhh4GJm98htexf9CYZErHM7x/n17kWW1JSi/xkXK4l3j/94D2uXcns2aGpgDpZ85XYa4so8zGN957/5orWhfuOA7j89afLBHqCYbP/xoLdxbSpDrh0zi2OdDmrg=
+	t=1779100026; cv=none; b=Kmiwizw1rSskd1vFz71jB2yiF1NUMoWBcnnZ7fa7BTE4QS2oSHMfD5tBOlgaSpSCKi81N6Sv375EoOUs8VMiYkQONga13yVrGfyXv6+gwXBUgQNTO7SDIZE9dncAoMMQ5p1DjcQPaKV/hMLVFYerXp3kk4LObrqmompCZQtOjWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779100023; c=relaxed/simple;
-	bh=Tbz0Fq2B2eUEXo8eCeEVL3h9wLwJpFw6jFs2iijEFBw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m1a7fTF2Dl3uQzPBsDO5AZKqPZG7AVL1HiwOu0uGFWtzBka531L8hzaZ5R9d1i52prxAoReFtnLt+prCZu58cakclD7Z4eo3pwW/HrElGBoXuFjp+GI8MMdPFP3a0JfsHF99Qwjb3PIksSdRaUTI6Dbz1pydjj5/zyQrrLu74iE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
-Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
-	by leonov.paulk.fr (Postfix) with ESMTPS id 577211F80044;
-	Mon, 18 May 2026 10:26:53 +0000 (UTC)
-Received: by laika.paulk.fr (Postfix, from userid 65534)
-	id D9834B407EF; Mon, 18 May 2026 10:26:52 +0000 (UTC)
-X-Spam-Level: *
-Received: from collins (unknown [192.168.1.64])
-	by laika.paulk.fr (Postfix) with ESMTP id 18CA6B407EF;
-	Mon, 18 May 2026 10:24:54 +0000 (UTC)
-From: Paul Kocialkowski <paulk@sys-base.io>
-To: linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev
-Cc: Paul Kocialkowski <paulk@sys-base.io>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arash Golgol <arash.golgol@gmail.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Subject: [PATCH 03/16] media: sun6i-mipi-csi2: Use V4L2 subdev active state
-Date: Mon, 18 May 2026 12:24:38 +0200
-Message-ID: <20260518102451.417971-4-paulk@sys-base.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260518102451.417971-1-paulk@sys-base.io>
-References: <20260518102451.417971-1-paulk@sys-base.io>
+	s=arc-20240116; t=1779100026; c=relaxed/simple;
+	bh=2x1r8Ou32SxCRtkUWQ2WZl5kfss0gDeux2mObRQgD8c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=A/sFJrJTeYbPSRVJgV66yg2Zy8OwMe+YpA+bxQebRvB+XSNWsyz85XwPM4JWSuwEZsuzFCvALUvpGG1edZmgVgP3qVHvJ5ELVBiBFNrMZlVf89wRMRuGWUljwwyaNY5wjDbRYjzY/tlaQl5I7TMiVg7sHs5Av8hZtON6GvmF200=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=M7Kg9NpC; arc=none smtp.client-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="M7Kg9NpC"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260518101848epoutp04e3e2a8c5b8763c8ff15cf9ca8c68dcab~woZhg6Ds12957029570epoutp04P
+	for <linux-media@vger.kernel.org>; Mon, 18 May 2026 10:18:48 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260518101848epoutp04e3e2a8c5b8763c8ff15cf9ca8c68dcab~woZhg6Ds12957029570epoutp04P
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1779099528;
+	bh=AC3DsS6WkhVfH7c3CTSyK//O8EcqzwniBI6lGRkZZsU=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=M7Kg9NpCTyjhzTAkh1MwSRgs5/P7S501/GIoFtAn6lEi40YFO6YeTmJvjiBJsYfuT
+	 cyGRuQdbiPFba9oGrBcUKjerwuYQBcoLaAKH26vVLRH2+t5m+eIiZ77C2OnKt0eZbY
+	 Zgrmscd2h/eSY58icf0lFirCCxs7zerVsiW7C4F0=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+	20260518101847epcas5p20c363dbebbd73fd72a0354d8a15e55fd~woZg4Vhra2884028840epcas5p2m;
+	Mon, 18 May 2026 10:18:47 +0000 (GMT)
+Received: from epcas5p3.samsung.com (unknown [182.195.38.89]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4gJv0Q6lJTz6B9m5; Mon, 18 May
+	2026 10:18:46 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
+	20260518101846epcas5p3ae97aef88bd9239a92120368958a4a6e~woZfgA5GW2694926949epcas5p3z;
+	Mon, 18 May 2026 10:18:46 +0000 (GMT)
+Received: from [107.122.10.194] (unknown [107.122.10.194]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260518101843epsmtip16d0504c0f9985d04573419140d5cc9af~woZcw0Yjg1875218752epsmtip1S;
+	Mon, 18 May 2026 10:18:43 +0000 (GMT)
+Message-ID: <f9e04625-50c6-4fa9-8b12-76496e29f10c@samsung.com>
+Date: Mon, 18 May 2026 15:48:37 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 07/10] nvme-pci: implement dma_token backed requests
+To: Pavel Begunkov <asml.silence@gmail.com>, Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>, Sagi
+	Grimberg <sagi@grimberg.me>, Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>, Andrew Morton
+	<akpm@linux-foundation.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+	io-uring@vger.kernel.org, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, Nitesh
+	Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>, Jason
+	Gunthorpe <jgg@nvidia.com>
+Content-Language: en-US
+From: Anuj Gupta/Anuj Gupta <anuj20.g@samsung.com>
+In-Reply-To: <50ed7240-d8d3-4816-bcc9-ce8adbbbf841@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260518101846epcas5p3ae97aef88bd9239a92120368958a4a6e
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260518092930epcas5p30d3b49f26efa5969ddcdb15351a886f3
+References: <cover.1777475843.git.asml.silence@gmail.com>
+	<5cecb1157ab784f9f303a91449fdf11b03aa6002.1777475843.git.asml.silence@gmail.com>
+	<20260513083817.GC6461@lst.de>
+	<CGME20260518092930epcas5p30d3b49f26efa5969ddcdb15351a886f3@epcas5p3.samsung.com>
+	<50ed7240-d8d3-4816-bcc9-ce8adbbbf841@gmail.com>
 
-From: Arash Golgol <arash.golgol@gmail.com>
+On 5/18/2026 2:59 PM, Pavel Begunkov wrote:
+>> FYI, I really want SGL support before this get merged, but ignoring that
+>> for now:
+> 
+> I was hoping to let Samsung guys to send a follow up they already have,
+> but I'll ask them to have about taking it into this patch set.
 
-Use the V4L2 subdev active state API to store the active format.
-This simplifies the driver not only by dropping the bridge mbus_format
-field, but it also allows dropping the bridge lock, replaced with
-the state lock.
+I had done patches on top of v3 adding SGL support and PRP list reuse
+optimization for the dmabuf path.
+Branch: https://github.com/SamsungDS/linux/commits/rw-dmabuf-v3-nvme-opt/
 
-The sun6i-mipi-csi2 hardware does not perform any format conversion.
-Enforce identical formats on the sink and source pads in the set_fmt()
-and init_state() callbacks.
+Also pasting the SGL patch here for quick reference:
 
-Signed-off-by: Arash Golgol <arash.golgol@gmail.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Subject: [PATCH 1/2] nvme-pci: add sgl support for dmabuf path
+
+Handle dmabuf-backed requests through the SGL setup path too.
+Use the cached dmabuf sg_table and keep PRP fallback where allowed.
+
+Signed-off-by: Anuj Gupta <anuj20.g@samsung.com>
 ---
- .../sunxi/sun6i-mipi-csi2/sun6i_mipi_csi2.c   | 107 +++++++++---------
- .../sunxi/sun6i-mipi-csi2/sun6i_mipi_csi2.h   |   2 -
- 2 files changed, 53 insertions(+), 56 deletions(-)
+  drivers/nvme/host/pci.c | 194 +++++++++++++++++++++++++++++++++++++++-
+  1 file changed, 193 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/sunxi/sun6i-mipi-csi2/sun6i_mipi_csi2.c b/drivers/media/platform/sunxi/sun6i-mipi-csi2/sun6i_mipi_csi2.c
-index b06cb73015cd..682bdd82098c 100644
---- a/drivers/media/platform/sunxi/sun6i-mipi-csi2/sun6i_mipi_csi2.c
-+++ b/drivers/media/platform/sunxi/sun6i-mipi-csi2/sun6i_mipi_csi2.c
-@@ -95,12 +95,12 @@ static void sun6i_mipi_csi2_disable(struct sun6i_mipi_csi2_device *csi2_dev)
- 			   SUN6I_MIPI_CSI2_CTL_EN, 0);
- }
- 
--static void sun6i_mipi_csi2_configure(struct sun6i_mipi_csi2_device *csi2_dev)
-+static void sun6i_mipi_csi2_configure(struct sun6i_mipi_csi2_device *csi2_dev,
-+				       const struct v4l2_mbus_framefmt *mbus_format)
- {
- 	struct regmap *regmap = csi2_dev->regmap;
- 	unsigned int lanes_count =
- 		csi2_dev->bridge.endpoint.bus.mipi_csi2.num_data_lanes;
--	struct v4l2_mbus_framefmt *mbus_format = &csi2_dev->bridge.mbus_format;
- 	const struct sun6i_mipi_csi2_format *format;
- 	struct device *dev = csi2_dev->dev;
- 	u32 version = 0;
-@@ -173,7 +173,8 @@ static int sun6i_mipi_csi2_s_stream(struct v4l2_subdev *subdev, int on)
- 	struct v4l2_subdev *source_subdev = csi2_dev->bridge.source_subdev;
- 	union phy_configure_opts dphy_opts = { 0 };
- 	struct phy_configure_opts_mipi_dphy *dphy_cfg = &dphy_opts.mipi_dphy;
--	struct v4l2_mbus_framefmt *mbus_format = &csi2_dev->bridge.mbus_format;
-+	struct v4l2_subdev_state *state;
-+	const struct v4l2_mbus_framefmt *mbus_format;
- 	const struct sun6i_mipi_csi2_format *format;
- 	struct phy *dphy = csi2_dev->dphy;
- 	struct device *dev = csi2_dev->dev;
-@@ -183,8 +184,12 @@ static int sun6i_mipi_csi2_s_stream(struct v4l2_subdev *subdev, int on)
- 	unsigned long pixel_rate;
- 	int ret;
- 
--	if (!source_subdev)
--		return -ENODEV;
-+	state = v4l2_subdev_lock_and_get_active_state(subdev);
+diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
+index 0a49c94dd675..31e37ab8769b 100644
+--- a/drivers/nvme/host/pci.c
++++ b/drivers/nvme/host/pci.c
+@@ -1270,6 +1270,14 @@ static void nvme_pci_sgl_set_data(struct 
+nvme_sgl_desc *sge,
+         sge->type = NVME_SGL_FMT_DATA_DESC << 4;
+  }
+
++static void nvme_pci_sgl_set_data_addr(struct nvme_sgl_desc *sge,
++               dma_addr_t addr, u32 len)
++{
++       sge->addr = cpu_to_le64(addr);
++       sge->length = cpu_to_le32(len);
++       sge->type = NVME_SGL_FMT_DATA_DESC << 4;
++}
 +
-+	if (!source_subdev) {
-+		ret = -ENODEV;
-+		goto unlock;
-+	}
- 
- 	if (!on) {
- 		v4l2_subdev_call(source_subdev, video, s_stream, 0);
-@@ -196,7 +201,7 @@ static int sun6i_mipi_csi2_s_stream(struct v4l2_subdev *subdev, int on)
- 
- 	ret = pm_runtime_resume_and_get(dev);
- 	if (ret < 0)
--		return ret;
-+		goto unlock;
- 
- 	/* Sensor Pixel Rate */
- 
-@@ -222,6 +227,8 @@ static int sun6i_mipi_csi2_s_stream(struct v4l2_subdev *subdev, int on)
- 		goto error_pm;
- 	}
- 
-+	mbus_format = v4l2_subdev_state_get_format(state,
-+						   SUN6I_MIPI_CSI2_PAD_SINK);
- 	format = sun6i_mipi_csi2_format_find(mbus_format->code);
- 	if (WARN_ON(!format)) {
- 		ret = -ENODEV;
-@@ -260,7 +267,7 @@ static int sun6i_mipi_csi2_s_stream(struct v4l2_subdev *subdev, int on)
- 
- 	/* Controller */
- 
--	sun6i_mipi_csi2_configure(csi2_dev);
-+	sun6i_mipi_csi2_configure(csi2_dev, mbus_format);
- 	sun6i_mipi_csi2_enable(csi2_dev);
- 
- 	/* D-PHY */
-@@ -277,7 +284,8 @@ static int sun6i_mipi_csi2_s_stream(struct v4l2_subdev *subdev, int on)
- 	if (ret && ret != -ENOIOCTLCMD)
- 		goto disable;
- 
--	return 0;
-+	ret = 0;
-+	goto unlock;
- 
- disable:
- 	phy_power_off(dphy);
-@@ -286,6 +294,8 @@ static int sun6i_mipi_csi2_s_stream(struct v4l2_subdev *subdev, int on)
- error_pm:
- 	pm_runtime_put(dev);
- 
-+unlock:
-+	v4l2_subdev_unlock_state(state);
- 	return ret;
- }
- 
-@@ -308,21 +318,23 @@ sun6i_mipi_csi2_mbus_format_prepare(struct v4l2_mbus_framefmt *mbus_format)
- static int sun6i_mipi_csi2_init_state(struct v4l2_subdev *subdev,
- 				      struct v4l2_subdev_state *state)
- {
--	struct sun6i_mipi_csi2_device *csi2_dev = v4l2_get_subdevdata(subdev);
--	unsigned int pad = SUN6I_MIPI_CSI2_PAD_SINK;
--	struct v4l2_mbus_framefmt *mbus_format =
--		v4l2_subdev_state_get_format(state, pad);
--	struct mutex *lock = &csi2_dev->bridge.lock;
-+	unsigned int pad;
- 
--	mutex_lock(lock);
-+	/*
-+	 * This subdev does not perform format conversion,
-+	 * initialize both pads identically.
-+	 */
-+	for (pad = 0; pad < subdev->entity.num_pads; pad++) {
-+		struct v4l2_mbus_framefmt *mbus_format;
- 
--	mbus_format->code = sun6i_mipi_csi2_formats[0].mbus_code;
--	mbus_format->width = 640;
--	mbus_format->height = 480;
-+		mbus_format = v4l2_subdev_state_get_format(state, pad);
- 
--	sun6i_mipi_csi2_mbus_format_prepare(mbus_format);
-+		mbus_format->code = sun6i_mipi_csi2_formats[0].mbus_code;
-+		mbus_format->width = 640;
-+		mbus_format->height = 480;
- 
--	mutex_unlock(lock);
-+		sun6i_mipi_csi2_mbus_format_prepare(mbus_format);
-+	}
- 
- 	return 0;
- }
-@@ -340,53 +352,32 @@ sun6i_mipi_csi2_enum_mbus_code(struct v4l2_subdev *subdev,
- 	return 0;
- }
- 
--static int sun6i_mipi_csi2_get_fmt(struct v4l2_subdev *subdev,
--				   struct v4l2_subdev_state *state,
--				   struct v4l2_subdev_format *format)
--{
--	struct sun6i_mipi_csi2_device *csi2_dev = v4l2_get_subdevdata(subdev);
--	struct v4l2_mbus_framefmt *mbus_format = &format->format;
--	struct mutex *lock = &csi2_dev->bridge.lock;
--
--	mutex_lock(lock);
--
--	if (format->which == V4L2_SUBDEV_FORMAT_TRY)
--		*mbus_format = *v4l2_subdev_state_get_format(state,
--							     format->pad);
--	else
--		*mbus_format = csi2_dev->bridge.mbus_format;
--
--	mutex_unlock(lock);
--
--	return 0;
--}
--
- static int sun6i_mipi_csi2_set_fmt(struct v4l2_subdev *subdev,
- 				   struct v4l2_subdev_state *state,
- 				   struct v4l2_subdev_format *format)
- {
--	struct sun6i_mipi_csi2_device *csi2_dev = v4l2_get_subdevdata(subdev);
--	struct v4l2_mbus_framefmt *mbus_format = &format->format;
--	struct mutex *lock = &csi2_dev->bridge.lock;
-+	struct v4l2_mbus_framefmt *fmt;
- 
--	mutex_lock(lock);
-+	/* The format on the source pad always matches the sink pad. */
-+	if (format->pad != SUN6I_MIPI_CSI2_PAD_SINK)
-+		return v4l2_subdev_get_fmt(subdev, state, format);
- 
--	sun6i_mipi_csi2_mbus_format_prepare(mbus_format);
-+	sun6i_mipi_csi2_mbus_format_prepare(&format->format);
- 
--	if (format->which == V4L2_SUBDEV_FORMAT_TRY)
--		*v4l2_subdev_state_get_format(state, format->pad) =
--			*mbus_format;
--	else
--		csi2_dev->bridge.mbus_format = *mbus_format;
-+	/* Set the format on the sink pad. */
-+	fmt = v4l2_subdev_state_get_format(state, format->pad);
-+	*fmt = format->format;
- 
--	mutex_unlock(lock);
-+	/* Propagate the format to the source pad. */
-+	fmt = v4l2_subdev_state_get_format(state, SUN6I_MIPI_CSI2_PAD_SOURCE);
-+	*fmt = format->format;
- 
- 	return 0;
- }
- 
- static const struct v4l2_subdev_pad_ops sun6i_mipi_csi2_pad_ops = {
- 	.enum_mbus_code	= sun6i_mipi_csi2_enum_mbus_code,
--	.get_fmt	= sun6i_mipi_csi2_get_fmt,
-+	.get_fmt	= v4l2_subdev_get_fmt,
- 	.set_fmt	= sun6i_mipi_csi2_set_fmt,
- };
- 
-@@ -502,8 +493,6 @@ static int sun6i_mipi_csi2_bridge_setup(struct sun6i_mipi_csi2_device *csi2_dev)
- 	bool notifier_registered = false;
- 	int ret;
- 
--	mutex_init(&bridge->lock);
--
- 	/* V4L2 Subdev */
- 
- 	v4l2_subdev_init(subdev, &sun6i_mipi_csi2_subdev_ops);
-@@ -532,6 +521,12 @@ static int sun6i_mipi_csi2_bridge_setup(struct sun6i_mipi_csi2_device *csi2_dev)
- 	if (ret)
- 		return ret;
- 
-+	/* V4L2 Subdev finalize */
+  static void nvme_pci_sgl_set_seg(struct nvme_sgl_desc *sge,
+                 dma_addr_t dma_addr, int entries)
+  {
+@@ -1321,6 +1329,176 @@ static blk_status_t 
+nvme_pci_setup_data_sgl(struct request *req,
+         return iter->status;
+  }
+
++static unsigned int nvme_pci_dmabuf_sgl_nents(struct request *req,
++               dma_addr_t *first_dma, u32 *first_len)
++{
++       struct bio *bio = req->bio;
++       struct nvme_dmabuf_map *map;
++       struct scatterlist *sg;
++       unsigned long tmp;
++       size_t offset = bio->bi_iter.bi_bvec_done;
++       size_t remaining = blk_rq_payload_bytes(req);
++       dma_addr_t last_end = 0;
++       unsigned int nents = 0;
++       dma_addr_t dma = 0;
++       u32 len = 0;
++       bool have = false;
 +
-+	ret = v4l2_subdev_init_finalize(subdev);
-+	if (ret < 0)
-+		goto error_media_entity_cleanup;
++       map = container_of(bio->dmabuf_map, struct nvme_dmabuf_map, base);
 +
- 	/* V4L2 Async */
- 
- 	v4l2_async_subdev_nf_init(notifier, subdev);
-@@ -565,6 +560,9 @@ static int sun6i_mipi_csi2_bridge_setup(struct sun6i_mipi_csi2_device *csi2_dev)
- error_v4l2_notifier_cleanup:
- 	v4l2_async_nf_cleanup(notifier);
- 
-+	v4l2_subdev_cleanup(subdev);
++       for_each_sgtable_dma_sg(map->sgt, sg, tmp) {
++               size_t sg_len = sg_dma_len(sg);
++               dma_addr_t addr = sg_dma_address(sg);
 +
-+error_media_entity_cleanup:
- 	media_entity_cleanup(&subdev->entity);
- 
- 	return ret;
-@@ -579,6 +577,7 @@ sun6i_mipi_csi2_bridge_cleanup(struct sun6i_mipi_csi2_device *csi2_dev)
- 	v4l2_async_unregister_subdev(subdev);
- 	v4l2_async_nf_unregister(notifier);
- 	v4l2_async_nf_cleanup(notifier);
-+	v4l2_subdev_cleanup(subdev);
- 	media_entity_cleanup(&subdev->entity);
- }
- 
-diff --git a/drivers/media/platform/sunxi/sun6i-mipi-csi2/sun6i_mipi_csi2.h b/drivers/media/platform/sunxi/sun6i-mipi-csi2/sun6i_mipi_csi2.h
-index 24b15e34b5e8..d72dfbd6a993 100644
---- a/drivers/media/platform/sunxi/sun6i-mipi-csi2/sun6i_mipi_csi2.h
-+++ b/drivers/media/platform/sunxi/sun6i-mipi-csi2/sun6i_mipi_csi2.h
-@@ -32,8 +32,6 @@ struct sun6i_mipi_csi2_bridge {
- 	struct media_pad		pads[SUN6I_MIPI_CSI2_PAD_COUNT];
- 	struct v4l2_fwnode_endpoint	endpoint;
- 	struct v4l2_async_notifier	notifier;
--	struct v4l2_mbus_framefmt	mbus_format;
--	struct mutex			lock; /* Mbus format lock. */
- 
- 	struct v4l2_subdev		*source_subdev;
- };
--- 
-2.54.0
++               if (!remaining)
++                       break;
++               if (offset >= sg_len) {
++                       offset -= sg_len;
++                       continue;
++               }
++
++               addr += offset;
++               sg_len -= offset;
++               offset = 0;
++
++               while (sg_len && remaining) {
++                       u32 chunk = min_t(size_t, remaining, sg_len);
++
++                       if (!have || last_end != addr) {
++                               nents++;
++                               if (nents == 1) {
++                                       dma = addr;
++                                       len = chunk;
++                               }
++                       } else if (nents == 1) {
++                               len += chunk;
++                       }
++
++                       have = true;
++                       last_end = addr + chunk;
++                       addr += chunk;
++                       sg_len -= chunk;
++                       remaining -= chunk;
++               }
++       }
++
++       if (unlikely(remaining))
++               return 0;
++
++       *first_dma = dma;
++       *first_len = len;
++       return nents;
++}
++
++static unsigned int nvme_pci_dmabuf_avg_seg_size(struct request *req)
++{
++       dma_addr_t first_dma;
++       u32 first_len;
++       unsigned int nseg;
++
++       nseg = nvme_pci_dmabuf_sgl_nents(req, &first_dma, &first_len);
++       if (!nseg)
++               return 0;
++       return DIV_ROUND_UP(blk_rq_payload_bytes(req), nseg);
++}
++
++static blk_status_t nvme_rq_setup_dmabuf_sgl(struct request *req,
++                                            struct nvme_queue *nvmeq)
++{
++       struct nvme_iod *iod = blk_mq_rq_to_pdu(req);
++       struct bio *bio = req->bio;
++       struct nvme_dmabuf_map *map;
++       size_t length = blk_rq_payload_bytes(req);
++       struct nvme_sgl_desc *sg_list = NULL;
++       dma_addr_t sgl_dma = 0, first_dma, last_end = 0;
++       unsigned int entries, mapped = 0;
++       unsigned long tmp;
++       struct scatterlist *sg;
++       size_t offset, remaining;
++       u32 first_len;
++       bool have = false;
++
++       map = container_of(bio->dmabuf_map, struct nvme_dmabuf_map, base);
++
++       entries = nvme_pci_dmabuf_sgl_nents(req, &first_dma, &first_len);
++       if (!entries)
++               return BLK_STS_IOERR;
++       if (entries > NVME_MAX_SEGS)
++               return BLK_STS_AGAIN;
++
++       iod->cmd.common.flags = NVME_CMD_SGL_METABUF;
++       iod->total_len = length;
++
++       nvme_sync_dma(nvmeq->dev, req, false);
++
++       if (entries == 1) {
++               nvme_pci_sgl_set_data_addr(&iod->cmd.common.dptr.sgl, 
+first_dma,
++                                          first_len);
++               return BLK_STS_OK;
++       }
++
++       if (entries <= NVME_SMALL_POOL_SIZE / sizeof(*sg_list))
++               iod->flags |= IOD_SMALL_DESCRIPTOR;
++
++       sg_list = dma_pool_alloc(nvme_dma_pool(nvmeq, iod), GFP_ATOMIC,
++                                &sgl_dma);
++       if (!sg_list)
++               return BLK_STS_RESOURCE;
++       iod->descriptors[iod->nr_descriptors++] = sg_list;
++
++       offset = bio->bi_iter.bi_bvec_done;
++       remaining = length;
++
++       for_each_sgtable_dma_sg(map->sgt, sg, tmp) {
++               size_t sg_len = sg_dma_len(sg);
++               dma_addr_t addr = sg_dma_address(sg);
++
++               if (!remaining)
++                       break;
++               if (offset >= sg_len) {
++                       offset -= sg_len;
++                       continue;
++               }
++
++               addr += offset;
++               sg_len -= offset;
++               offset = 0;
++
++               while (sg_len && remaining) {
++                       u32 chunk = min_t(size_t, remaining, sg_len);
++
++                       if (have && last_end == addr) {
++                               u32 old = le32_to_cpu(sg_list[mapped - 
+1].length);
++
++                               sg_list[mapped - 1].length =
++                                       cpu_to_le32(old + chunk);
++                       } else {
++                               if (WARN_ON_ONCE(mapped == entries))
++                                       goto err_free;
++ 
+nvme_pci_sgl_set_data_addr(&sg_list[mapped++],
++                                                          addr, chunk);
++                       }
++
++                       have = true;
++                       last_end = addr + chunk;
++                       addr += chunk;
++                       sg_len -= chunk;
++                       remaining -= chunk;
++               }
++       }
++
++       if (unlikely(remaining))
++               goto err_free;
++
++       nvme_pci_sgl_set_seg(&iod->cmd.common.dptr.sgl, sgl_dma, mapped);
++       return BLK_STS_OK;
++
++err_free:
++       iod->nr_descriptors--;
++       dma_pool_free(nvme_dma_pool(nvmeq, iod), sg_list, sgl_dma);
++       return BLK_STS_IOERR;
++}
++
+  static blk_status_t nvme_pci_setup_data_simple(struct request *req,
+                 enum nvme_use_sgl use_sgl)
+  {
+@@ -1369,8 +1547,22 @@ static blk_status_t nvme_map_data(struct request 
+*req)
+         struct blk_dma_iter iter;
+         blk_status_t ret;
+
+-       if (nvme_rq_is_dmabuf_attached(req))
++       if (nvme_rq_is_dmabuf_attached(req)) {
++               if (use_sgl == SGL_FORCED) {
++                       ret = nvme_rq_setup_dmabuf_sgl(req, nvmeq);
++                       /* Regular path doesn't fall back if SGLs are 
+forced. */
++                       return ret == BLK_STS_AGAIN ? BLK_STS_IOERR : ret;
++               }
++
++               if (use_sgl == SGL_SUPPORTED && sgl_threshold &&
++                   nvme_pci_dmabuf_avg_seg_size(req) >= sgl_threshold) {
++                       ret = nvme_rq_setup_dmabuf_sgl(req, nvmeq);
++                       if (ret != BLK_STS_AGAIN)
++                               return ret;
++               }
++
+                 return nvme_rq_setup_dmabuf_map(req, nvmeq);
++       }
+
+         /*
+          * Try to skip the DMA iterator for single segment requests, as 
+that
+--
+2.43.0
 
