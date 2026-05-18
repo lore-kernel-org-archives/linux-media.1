@@ -1,49 +1,70 @@
-Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D143EEAFB;
-	Mon, 18 May 2026 10:33:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6163ED5BD
+	for <linux-media@vger.kernel.org>; Mon, 18 May 2026 10:33:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779100410; cv=none; b=A0wB66ShHo4nb8gmDaIM5ioIvVG48JDKzbq4Tlq5oMPGSIYmtdmHQfaLPgO4HxeQsIDDzU9iPNEyAuKwY85ez60CqByrZWc2+o1Q3EjVuhAmG5iOh0t/pJ64wwYzWNFGrnpSxEr2fBewVQMYb3zEsq+QBnlZiAPHrkvTepLCF58=
+	t=1779100447; cv=none; b=Vt9afzesp7Q2Kw7AlqgkmMgzgzVV7YVRayi4x92478t05HedqcUPZVWnvAUJXv9oK+7EbpoTP/KiPtqi8y7AxaA7b9IHygYa25VblEMXWKzReUXK0EVbM/2H+Id/R62Vg5Cve2hHrDBfZm//nPXfqTSrKwz6L1yjpsUK/Ii/9o0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779100410; c=relaxed/simple;
-	bh=SgJOt2lJqQBSvcUOjOlop7PuiMEzx9YAgYU411aMNBA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QmisROGWJkEAuPvOUfe7+nftDYlTEwpNTnjLqPAG7U9MTqaAUjZsP8DhpxDfAPyy7NC0Xq2Nvvwr//K4t6WqxX9RW0N0i5gdHo9xSmVUsIGR/rlB0HnIuoJATGU4uzo6NI3STObzxTj+0pcSNBD2XcFioob7wCKEBRopUwsZesc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
-Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
-	by leonov.paulk.fr (Postfix) with ESMTPS id 228DF1F80044;
-	Mon, 18 May 2026 10:33:19 +0000 (UTC)
-Received: by laika.paulk.fr (Postfix, from userid 65534)
-	id A4CBAB407FF; Mon, 18 May 2026 10:33:17 +0000 (UTC)
-X-Spam-Level: *
-Received: from collins (unknown [192.168.1.64])
-	by laika.paulk.fr (Postfix) with ESMTP id 52A59B407FF;
-	Mon, 18 May 2026 10:25:02 +0000 (UTC)
-From: Paul Kocialkowski <paulk@sys-base.io>
-To: linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev
-Cc: Paul Kocialkowski <paulk@sys-base.io>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arash Golgol <arash.golgol@gmail.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Subject: [PATCH 16/16] media: sun6i-isp: Add support for frame size enumeration
-Date: Mon, 18 May 2026 12:24:51 +0200
-Message-ID: <20260518102451.417971-17-paulk@sys-base.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260518102451.417971-1-paulk@sys-base.io>
-References: <20260518102451.417971-1-paulk@sys-base.io>
+	s=arc-20240116; t=1779100447; c=relaxed/simple;
+	bh=2LL/FLItPCn44dnp2ycwM3wTq608SyGansKwrSme9pI=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=Vg+vXrxNDnzXYH9OsZcBa1xn2ZEi+d4XJifB/7mu3I33+r+SpCvaz4HcoaFIDCR2GavzJ0q7kyL3DcKxTSOe3i7WH0kJOcqnW9mh+ksPd21Bm/PLmxsDc96lm0+3ldfBOj/YA5A8SlDDoY5RPyrS01LZM4dZHER6yMrOEj48FZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a8Rozc+f; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a8Rozc+f"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-836ed29d1e5so791699b3a.2
+        for <linux-media@vger.kernel.org>; Mon, 18 May 2026 03:33:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779100431; x=1779705231; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=WS9Y2/caebVCglEjYJZNbQVr+9NHlmJ0JSaocEMxTMA=;
+        b=a8Rozc+fTjMrcXNNoeQlYGGh9Fag76PCKrr38yQklb4DMEaaS6DxkIC0cwkhN5Kxfz
+         7AC68YMTu9d8Do1qBlddtIJRGDgEJ6BSNnKhmUIF6aZs7n9C5jhywnhuwfUAGQrOD6LH
+         qVMSSMy1J2ZWIdYuZpuhzDZgPPex0ksrBmZ+dZKW1UIPiQ25WeAJSyhYcTdFhjBkUpYA
+         aGU2HEudl04pnlKzmmLLBVoiR6sxBIJGvos+16lPHm21mZ6K2ejueokzFLyep+VBvrgU
+         zoCrXL9s5YPXcSATxPHt69iyv8PgEC8BY1EKMOZoyLczM1ol2yf7/InuoDG0RZ2NAE/G
+         5JqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779100431; x=1779705231;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=WS9Y2/caebVCglEjYJZNbQVr+9NHlmJ0JSaocEMxTMA=;
+        b=Y4PLRnMBVuf2nQccpNAj9MUzyplhXyN26AiOUeFVWsU43WODf5dMagk/clvckr/jND
+         GIPjjUTCSpx1r6QgwF7a1rUwaVwiMYXu2t0edhRMxr5dw12bQorEKm7/CE3SyL9AH/4v
+         c7cTlKyyuRp2vwKEkr7cgj45AAsOzEJQ8ukSMTV4zdXbXECm66DjjfqZC19vzauROBIL
+         q+ysLtPSWwGHGN+tm4aO6T6P87IeMEex4ud4IrXXceB9j4OHFcXVLqf3fpMkr7KM4gkC
+         9w80aIMNCNVDAynAz39fDnuhW4zJnaY18qbML5564pg+l154FIdCQAObgU4i/b7oD31o
+         UiXQ==
+X-Forwarded-Encrypted: i=1; AFNElJ814Ph/lqjWzVI2mWBeVqhRwQ+e9CouOFMJ3Fjrb4mB9b7ISU9C4hrMdeaFpmkK6jqelLOsOF2KyzeUFA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzOnBL5co3tuK6y1C693Qv0hXNWGpYL7lQGEGiPgvyPTPUTnZPY
+	ZmeDPJjVbHRZWgAWQ9y/zxosdgneFu42MphzXuGkiNfcH1p4xoxje/cfXOLQ6acCOsg=
+X-Gm-Gg: Acq92OGz11S3k7BiwZmS1I+SzdRpYMp7p15qTqxZU0mgIMYwFUdhR5106mz1khzMJ7r
+	7AcL2wFN0wZa85gyp/8Ks7HenNhGfD3zNIPpJX3mvZVChMyEtvO+ha82mJxEUeExEcHKL5KJiNZ
+	il6b7Zl5hV0kyvYlyPXtUzdCuu+cBweSJLtPDp6ADvZFbTvFU6nVibews0k9dDT+HGmuv0aJGvK
+	Jl7oBmyb9hqtMWCJBNW416JHhQePTRSbUtTTx3yQBsVktVpoFsXGnpk8NfR7SSuY3x97SeAbapP
+	DID4sE1CAdPwbERxLtWNJyF/Zu786Culv/+qx2RDT3bYmJGZvxIeylw4apyFXWgfNUE2dKRTMfJ
+	PjjFdItg3bUhBFEVM6JyZnCHDPzRVap3E2oTPJzvv7gLr7m0Kjc7+gHTAAesn09hgcqKCLIdkBP
+	/Rvrao+1zyIKPUqA==
+X-Received: by 2002:a05:6a00:4484:b0:829:8cfb:df45 with SMTP id d2e1a72fcca58-83f33c99b07mr14532309b3a.15.1779100431117;
+        Mon, 18 May 2026 03:33:51 -0700 (PDT)
+Received: from lgs.. ([101.36.109.157])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19794e6esm13161323b3a.25.2026.05.18.03.33.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 May 2026 03:33:50 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: saa7134: avoid double free on empress register failure
+Date: Mon, 18 May 2026 18:33:24 +0800
+Message-ID: <20260518103324.985796-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -52,54 +73,59 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This implements the enum_framesizes operation, which reports support for
-even sizes.
+empress_init() allocates a video_device with video_device_alloc() and
+releases it if video_register_device() fails.
 
-Signed-off-by: Paul Kocialkowski <paulk@sys-base.io>
+This can double free the video_device when __video_register_device()
+reaches device_register() and that call fails:
+
+  video_register_device()
+    -> __video_register_device()
+       -> device_register() fails
+          -> put_device(&vdev->dev)
+             -> v4l2_device_release()
+                -> vdev->release(vdev)
+                   -> video_device_release(vdev)
+
+  empress_init()
+    -> video_device_release(dev->empress_dev)
+
+Use video_device_release_empty() while registering the device so that
+registration failure paths do not free dev->empress_dev through
+vdev->release(). empress_init() then releases dev->empress_dev exactly
+once on failure. Restore video_device_release() after successful
+registration so the registered device keeps its normal lifetime handling.
+
+This issue was found by a static analysis tool I am developing.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- .../media/sunxi/sun6i-isp/sun6i_isp_capture.c | 22 +++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/media/pci/saa7134/saa7134-empress.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/staging/media/sunxi/sun6i-isp/sun6i_isp_capture.c b/drivers/staging/media/sunxi/sun6i-isp/sun6i_isp_capture.c
-index 372b9331bd6d..e638ec32c7cd 100644
---- a/drivers/staging/media/sunxi/sun6i-isp/sun6i_isp_capture.c
-+++ b/drivers/staging/media/sunxi/sun6i-isp/sun6i_isp_capture.c
-@@ -452,6 +452,26 @@ static int sun6i_isp_capture_enum_fmt(struct file *file, void *priv,
- 	return 0;
- }
+diff --git a/drivers/media/pci/saa7134/saa7134-empress.c b/drivers/media/pci/saa7134/saa7134-empress.c
+index 8c4f70e4177d..884c6418401a 100644
+--- a/drivers/media/pci/saa7134/saa7134-empress.c
++++ b/drivers/media/pci/saa7134/saa7134-empress.c
+@@ -250,7 +250,7 @@ static int empress_init(struct saa7134_dev *dev)
+ 		return -ENOMEM;
+ 	*(dev->empress_dev) = saa7134_empress_template;
+ 	dev->empress_dev->v4l2_dev  = &dev->v4l2_dev;
+-	dev->empress_dev->release = video_device_release;
++	dev->empress_dev->release = video_device_release_empty;
+ 	dev->empress_dev->lock = &dev->lock;
+ 	snprintf(dev->empress_dev->name, sizeof(dev->empress_dev->name),
+ 		 "%s empress (%s)", dev->name,
+@@ -305,6 +305,8 @@ static int empress_init(struct saa7134_dev *dev)
+ 		dev->empress_dev = NULL;
+ 		return err;
+ 	}
++
++	dev->empress_dev->release = video_device_release;
+ 	pr_info("%s: registered device %s [mpeg]\n",
+ 	       dev->name, video_device_node_name(dev->empress_dev));
  
-+static int sun6i_isp_capture_enum_framesizes(struct file *file, void *fh,
-+					     struct v4l2_frmsizeenum *frmsize)
-+{
-+	if (frmsize->index)
-+		return -EINVAL;
-+
-+	if (!sun6i_isp_capture_format_find(frmsize->pixel_format))
-+		return -EINVAL;
-+
-+	frmsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
-+	frmsize->stepwise.min_width = SUN6I_ISP_CAPTURE_WIDTH_MIN;
-+	frmsize->stepwise.max_width = SUN6I_ISP_CAPTURE_WIDTH_MAX;
-+	frmsize->stepwise.min_height = SUN6I_ISP_CAPTURE_HEIGHT_MIN;
-+	frmsize->stepwise.max_height = SUN6I_ISP_CAPTURE_HEIGHT_MAX;
-+	frmsize->stepwise.step_width = 2;
-+	frmsize->stepwise.step_height = 2;
-+
-+	return 0;
-+}
-+
- static int sun6i_isp_capture_g_fmt(struct file *file, void *priv,
- 				   struct v4l2_format *format)
- {
-@@ -522,6 +542,8 @@ static const struct v4l2_ioctl_ops sun6i_isp_capture_ioctl_ops = {
- 	.vidioc_s_fmt_vid_cap		= sun6i_isp_capture_s_fmt,
- 	.vidioc_try_fmt_vid_cap		= sun6i_isp_capture_try_fmt,
- 
-+	.vidioc_enum_framesizes		= sun6i_isp_capture_enum_framesizes,
-+
- 	.vidioc_enum_input		= sun6i_isp_capture_enum_input,
- 	.vidioc_g_input			= sun6i_isp_capture_g_input,
- 	.vidioc_s_input			= sun6i_isp_capture_s_input,
 -- 
-2.54.0
+2.43.0
 
