@@ -1,119 +1,153 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78BA23F6C56;
-	Mon, 18 May 2026 11:30:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E303D3D16
+	for <linux-media@vger.kernel.org>; Mon, 18 May 2026 11:52:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779103864; cv=none; b=rYr7hpnfDYmb0tn8Kxfwe5cv+X5xcwr7D/U5znI5nu0K4gqbJR/QCX4SBcJ/Rfz8lA1iEenVniOpRG0A5TU30w7Ee0wpNEBafP/wbpBx6w8crvJYzhtHOdmjIW5jVxKkeCl6yZU5JZHyY2VDKZHNJ19xS4uVY9+j1cksJaPsRcU=
+	t=1779105154; cv=none; b=UAumZ/aN6oI0Qp4V4KEUEL0YrXpIXIzod1JDf7sJIl8pDQrFwSBQum9yllOdgY3nOeexFGhYmQIW64y8Yn7cr5CfFTLkMlB8LF3A+JfpexNlt0TfTTcU+gfNr/F8bzcSpVaUVjoKkTtN+I29YIQ41+61CYx4LipDOicsJEzFmxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779103864; c=relaxed/simple;
-	bh=bZM/OFGDNN2SUaUl5en2h45OH2l7nKM1piuvVDpGE30=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=RWLajyPqlBu6o3BpWTTMd1E6w51OzQlcdudzaYr0S4h8bHg+BVPkn/ajhQXagU2iMGwWzsCElK+/niq90oZw/+6GBnpRz1kSDXLItfApVOI4FlE408yDoqfdMWplthdWGCdX7p0eT4oQ6ntNffH7LMt09eMQorbErTA6O2F9vnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=YRPiTR7E; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1779105154; c=relaxed/simple;
+	bh=H+Tyls76daA3eGlvfJPN03V8C3U5uw1XgqZPCavatgY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dtgZXBElJnrv7D/PpfVWukb4NUUuLJAr+gnNbcs75kAV61MiIMy3Ve16bKABkieBtGc+1vt0ccZCtZqfemoEbXsuSogIaL31eACqwbsvfI9pHLogfXcUwmwK0yvWEFHWBFkp8dN1Y6cv86s9KUAsdVXgy+VNYPiQ+nh6XTE/+EU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uh9rDT5W; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="YRPiTR7E"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1779103859; x=1810639859;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=bZM/OFGDNN2SUaUl5en2h45OH2l7nKM1piuvVDpGE30=;
-  b=YRPiTR7E85fkkqXCWRkVDYjunxb/gVQwWUk3+dYcMuphM21pIPNPAvxp
-   xxb9F6d9vtXIZKrosUUmIK+tKRF6+WajOAROp9ri6Io0U4Ienu+YL7c8G
-   RFwh5t/r/+1J4DJrreRYnI3Up/NLoWFzWH2DrY+STmh2tClr1P+HswaxM
-   no9BjhubOALUb/mqJSaQMU5umGMm55K+GhhRzk5J6chyXkwkfxAzft5+3
-   gHmvgqKw/61XNejSc/gxOe4WBoYZOL32smUqlMSfmgm/fPbw2urQYufud
-   Unhxwwb16+JWrQgeJw6RNr4uQBwC6ta7427Qy0xSMFx5i/FX6+B3va+YW
-   A==;
-X-CSE-ConnectionGUID: IWB/NJnVT2+pFiIV+OvEBQ==
-X-CSE-MsgGUID: 5/kHSOkmTiGx2gMkCUPVig==
-X-IronPort-AV: E=Sophos;i="6.23,241,1770620400"; 
-   d="scan'208";a="66410469"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 May 2026 04:30:55 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.37; Mon, 18 May 2026 04:30:54 -0700
-Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Mon, 18 May 2026 04:30:51 -0700
-From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Date: Mon, 18 May 2026 16:59:50 +0530
-Subject: [PATCH v4 12/12] media: microchip-isc: scale DPC black level to
- sensor bit depth
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uh9rDT5W"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-36974220e45so746895a91.0
+        for <linux-media@vger.kernel.org>; Mon, 18 May 2026 04:52:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779105152; x=1779709952; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=lcjglP+1RAddnRhcnzDODhk3aYczqj8l0Dmk1F3SgoM=;
+        b=Uh9rDT5WfWYlR8MjKmn2CfnFREyhQugP5OwqkhYNctGuCdaQhH2cKPaHWYGgaHRhue
+         pCD6BQko3kVFOR7CGPjVuZpC7iVrYeC0iOqlxeTEx1bi+nee+EYEWD6tcuFuhzBUckQu
+         Xpe5frNjMsvkXzwMPlMWAb8b5ONqGbtmnmW5lN6YpqBDU41cK5ZtBYPb9hobgr7mhaOx
+         dfpGUthvyi2TMYHLuPOHxvhbMLUFws30Z7J+CzaFq1XvB1LL4WnspC446zm5WNEH9HfB
+         Bh3N7NLTLYT3XolHBqIkHBpoEIqXrzoQ+K/MJRBXhp13Y8YPl+38lSZh2SfJTqxDzgUE
+         cssQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779105152; x=1779709952;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lcjglP+1RAddnRhcnzDODhk3aYczqj8l0Dmk1F3SgoM=;
+        b=kUbH2j85e9EalgtDSDWTX3rxxNbs8ycu66H9KjoLXMRmTwv2qnKP6C5HQh7AuzVxBf
+         D04ZQjJdIeFiGSOVhRVMPg3SzN01+dKE9mdE18pqq/gmt7D+G37JUHGD1d0kyk1nBg3+
+         HIHFOC5n/b6umSgXIPCY5JhBEkdNibwVVVNnVYojryjNXKFFK/5zZqOe+kpVu9WmwQ0r
+         V9uWnHBy0W7opwOOwSmiu/5ZQ8znJHDYA7xCoerktlRHT07WJxTLGBK8WwHJm6x/Mkxv
+         MvSp65AdDTnBi5grLUxKkhgkRB+jgTSagdwUOCdZxgDbz021MW8ODSNZg23y+UKCSDSO
+         1HMw==
+X-Forwarded-Encrypted: i=1; AFNElJ9BQKu2TioV3MKH9PT3n5A/d5mFkuq7Puw3Z0Yb5lIIGJY1hg2slX/qxg+eHikpAptG8PMG9FnR05mg5w==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyj2rZstiZyyMShDf/UISJdJigrrGprcN6Sf9CVehEr1vIqKXFa
+	oCbVo1AR7d5quAEA/ovtrVc8w7VOLEwhRQqp7Ro9E1RhuSJQpL65fqD/
+X-Gm-Gg: Acq92OE0oBQIc6XDEfR/B/gukD7oX2h5M78WAiMjl6UDs2tYl5wRCVEVxSeuvXw1710
+	MaubJCbsilB1dPC/fk55YKJBs01U/Hws9E/NeNudBdx02WuWzR60jWgV4JkCz1No3ADweNyPgP6
+	DSM2IrC6HFG5wCXEi95HgOlIYkSXtT9HfPLGAP8PSQy73iSDsBVTWhXYR5HraB1ZBmY7PudHCGs
+	lV2l+9ZEX7774zwqiJ4GHAxRTmg58MF0uzKVNeHxz3eVhN2XQhKyjGE/SJqgtY6wDghvZt4G9o0
+	TUSFRKJINtXzFXaKjdal+dvmbvzFCdbi1B98pxUj1mTZeRmliaEddTomQtpm8fTfCu4Y99jTfPd
+	VFUXBSJ+ZWOFYQzJrW7Jim6Q+pBSLhUev3KcmBT+0dhAjwI/c7XqfNKiL0hkiCGkF4NYDhSRb8D
+	3u94d/R68lX+Fsuur4fbfb
+X-Received: by 2002:a17:90b:5708:b0:365:8fd4:925c with SMTP id 98e67ed59e1d1-3695149986amr10611417a91.8.1779105152199;
+        Mon, 18 May 2026 04:52:32 -0700 (PDT)
+Received: from lgs.. ([101.76.249.46])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3695157c3cfsm11047195a91.5.2026.05.18.04.52.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 May 2026 04:52:31 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
+	Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>
+Subject: [PATCH] media: s5p-jpeg: avoid double free on video register failure
+Date: Mon, 18 May 2026 19:52:19 +0800
+Message-ID: <20260518115219.990820-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260518-balki-isc-series1-v4-v4-12-97f189185b7e@microchip.com>
-References: <20260518-balki-isc-series1-v4-v4-0-97f189185b7e@microchip.com>
-In-Reply-To: <20260518-balki-isc-series1-v4-v4-0-97f189185b7e@microchip.com>
-To: Eugen Hristev <eugen.hristev@linaro.org>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
-CC: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Laurent
- Pinchart" <laurent.pinchart@ideasonboard.com>, Kieran Bingham
-	<kieran.bingham@ideasonboard.com>, Balakrishnan Sambath
-	<balakrishnan.s@microchip.com>, Sakari Ailus <sakari.ailus@linux.intel.com>
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
 
-Scale the nominal 10-bit black level (64 counts) to match 8/10/12-bit
-sensor bus width.
+s5p_jpeg_probe() allocates encoder and decoder video_devices with
+video_device_alloc() and releases them if video_register_device() fails.
 
-Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+This can double free the video_device when __video_register_device()
+reaches device_register() and that call fails:
+
+  video_register_device()
+    -> __video_register_device()
+       -> device_register() fails
+          -> put_device(&vdev->dev)
+             -> v4l2_device_release()
+                -> vdev->release(vdev)
+                   -> video_device_release(vdev)
+
+  s5p_jpeg_probe()
+    -> video_device_release(jpeg->vfd_encoder)
+
+The same issue exists for jpeg->vfd_decoder.
+
+Use video_device_release_empty() while registering the devices so that
+registration failure paths do not free them through vdev->release().
+s5p_jpeg_probe() then releases the failed video_device exactly once.
+Restore video_device_release() after successful registration so the
+registered devices keep their normal lifetime handling.
+
+This issue was found by a static analysis tool I am developing.
+
+Fixes: 7a1d4e7c064c ("[media] s5p-jpeg: Eliminate double kfree()")
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- .../media/platform/microchip/microchip-sama7g5-isc.c  | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ drivers/media/platform/samsung/s5p-jpeg/jpeg-core.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-index 6705011edc2a..d978466aa489 100644
---- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-@@ -26,6 +26,7 @@
-  * HIS: Histogram module performs statistic counters on the frames
-  */
+diff --git a/drivers/media/platform/samsung/s5p-jpeg/jpeg-core.c b/drivers/media/platform/samsung/s5p-jpeg/jpeg-core.c
+index fdc9d7e0be66..046ad555c5fc 100644
+--- a/drivers/media/platform/samsung/s5p-jpeg/jpeg-core.c
++++ b/drivers/media/platform/samsung/s5p-jpeg/jpeg-core.c
+@@ -2915,7 +2915,7 @@ static int s5p_jpeg_probe(struct platform_device *pdev)
+ 	jpeg->vfd_encoder->fops		= &s5p_jpeg_fops;
+ 	jpeg->vfd_encoder->ioctl_ops	= &s5p_jpeg_ioctl_ops;
+ 	jpeg->vfd_encoder->minor	= -1;
+-	jpeg->vfd_encoder->release	= video_device_release;
++	jpeg->vfd_encoder->release	= video_device_release_empty;
+ 	jpeg->vfd_encoder->lock		= &jpeg->lock;
+ 	jpeg->vfd_encoder->v4l2_dev	= &jpeg->v4l2_dev;
+ 	jpeg->vfd_encoder->vfl_dir	= VFL_DIR_M2M;
+@@ -2927,6 +2927,7 @@ static int s5p_jpeg_probe(struct platform_device *pdev)
+ 		video_device_release(jpeg->vfd_encoder);
+ 		goto m2m_init_rollback;
+ 	}
++	jpeg->vfd_encoder->release = video_device_release;
  
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/clkdev.h>
- #include <linux/clk-provider.h>
-@@ -289,9 +290,25 @@ static void isc_sama7g5_config_dpc(struct isc_device *isc)
- {
- 	u32 bay_cfg = isc->config.sd_format->cfa_baycfg;
- 	struct regmap *regmap = isc->regmap;
-+	u32 bps, bloff;
-+
-+	/*
-+	 * Scale the nominal 10-bit black level offset (64 counts) to the
-+	 * actual sensor bus width.
-+	 * ISC_PFE_CFG0_BPS encodes (12 - bit_depth) / 2 in bits[30:28]:
-+	 *   BPS_EIGHT  = 4  ->  8-bit  -> bloff = 64 >> 2 = 16
-+	 *   BPS_TEN    = 2  -> 10-bit  -> bloff = 64
-+	 *   BPS_TWELVE = 0  -> 12-bit  -> bloff = min(64 << 2, 255) = 255
-+	 * The BLOFF hardware field is 8-bit so values are clamped to 255.
-+	 */
-+	bps = FIELD_GET(ISC_PFE_CFG0_BPS_MASK, isc->config.sd_format->pfe_cfg0_bps);
-+	if (bps >= 2)
-+		bloff = 64u >> (bps - 2);
-+	else
-+		bloff = min(64u << (2 - bps), 255u);
+ 	video_set_drvdata(jpeg->vfd_encoder, jpeg);
+ 	v4l2_info(&jpeg->v4l2_dev,
+@@ -2945,7 +2946,7 @@ static int s5p_jpeg_probe(struct platform_device *pdev)
+ 	jpeg->vfd_decoder->fops		= &s5p_jpeg_fops;
+ 	jpeg->vfd_decoder->ioctl_ops	= &s5p_jpeg_ioctl_ops;
+ 	jpeg->vfd_decoder->minor	= -1;
+-	jpeg->vfd_decoder->release	= video_device_release;
++	jpeg->vfd_decoder->release	= video_device_release_empty;
+ 	jpeg->vfd_decoder->lock		= &jpeg->lock;
+ 	jpeg->vfd_decoder->v4l2_dev	= &jpeg->v4l2_dev;
+ 	jpeg->vfd_decoder->vfl_dir	= VFL_DIR_M2M;
+@@ -2957,6 +2958,7 @@ static int s5p_jpeg_probe(struct platform_device *pdev)
+ 		video_device_release(jpeg->vfd_decoder);
+ 		goto enc_vdev_register_rollback;
+ 	}
++	jpeg->vfd_decoder->release = video_device_release;
  
- 	regmap_update_bits(regmap, ISC_DPC_CFG, ISC_DPC_CFG_BLOFF_MASK,
--			   (64 << ISC_DPC_CFG_BLOFF_SHIFT));
-+			   (bloff << ISC_DPC_CFG_BLOFF_SHIFT));
- 	regmap_update_bits(regmap, ISC_DPC_CFG, ISC_DPC_CFG_BAYCFG_MASK,
- 			   (bay_cfg << ISC_DPC_CFG_BAYCFG_SHIFT));
- }
-
+ 	video_set_drvdata(jpeg->vfd_decoder, jpeg);
+ 	v4l2_info(&jpeg->v4l2_dev,
 -- 
-2.34.1
+2.43.0
 
