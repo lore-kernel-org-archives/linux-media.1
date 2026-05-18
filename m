@@ -1,205 +1,114 @@
-Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D123F6613;
-	Mon, 18 May 2026 15:38:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3D93E1D0B
+	for <linux-media@vger.kernel.org>; Mon, 18 May 2026 16:43:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779118742; cv=none; b=riVZJAH0nrXudkcA9fT2Pt9vEFhUeImecW6pPna6lVHDnkrSJZHLdc1WU3e1ngh9vVTkUywwCF5d0il5f8IPsrwqTMJ+cssEc0tPxTXcAEBCAQBivXgO+6dlXRNE8goTVYTaANpKMSwq4CUox2WyQU77uli6ECL7PLq5zlJURyw=
+	t=1779122601; cv=none; b=Mqj/75uWJBauPAwan/6cK9I6cB5YSqdy74nPmuea0lVSXBHtnhC1sxcWD0jlNLNSFOoSR6mPH3UWbhgQhoVWj/O2ahkxy5+CsqFABxuRLxOW7HeFR60ESGC5si86Cp2AkExbNzXUJsCf2/OKDSxrnCAHErsmitvk1aKOOgtQUJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779118742; c=relaxed/simple;
-	bh=7Wf6EUbkKr17gYerU37skbZ9k7kw50qJEXicgncFmhU=;
+	s=arc-20240116; t=1779122601; c=relaxed/simple;
+	bh=RNmY1aDFRPojv5boQNhCgkgGzwJtCgJdvgaBWaKjuOk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Cx7BgZrBEuWlTmNranwkvhc630wTkO1fgmZZUJ/JAAGKjSnf2UhK1YeJwDHAvlfVyfR1vINux4A50WsHQT10N2NDDTEmaPD9xK0064nbTEGJqeHXfjEuLJf0kD30xd2/BirOhwlcedSNSDjDSXJR94RFivttYkGEMANstx+XT6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
-Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
-	by leonov.paulk.fr (Postfix) with ESMTPS id 83B401F8004F;
-	Mon, 18 May 2026 15:38:57 +0000 (UTC)
-Received: by laika.paulk.fr (Postfix, from userid 65534)
-	id 10537B40824; Mon, 18 May 2026 15:38:56 +0000 (UTC)
-X-Spam-Level: *
-Received: from collins (unknown [192.168.1.64])
-	by laika.paulk.fr (Postfix) with ESMTP id CEAC6B40805;
-	Mon, 18 May 2026 15:33:48 +0000 (UTC)
-From: Paul Kocialkowski <paulk@sys-base.io>
-To: linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: Yong Deng <yong.deng@magewell.com>,
-	Paul Kocialkowski <paulk@sys-base.io>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Paul Kocialkowski <paul.kocialkowski@bootlin.com>
-Subject: [PATCH v9 9/9] ARM: dts: sun8i-a83t: Add BananaPi M3 OV8865 camera overlay
-Date: Mon, 18 May 2026 17:33:38 +0200
-Message-ID: <20260518153339.619947-10-paulk@sys-base.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260518153339.619947-1-paulk@sys-base.io>
-References: <20260518153339.619947-1-paulk@sys-base.io>
+	 MIME-Version; b=dzdpbf9gjM/IpEWgJLSYPEs23auSyusZLQBVLt0HRKaIhIQE3bghVxhtZdlgLfK976IB+Arz1Ma9O1F0vdZMAE9lTP/tx0D5LJS5hXYkWvPGRrorFx7SIfPiE2QjELQE4uEU0a6Fi15FypYQxY0pdDdk6VafMnOexoehToT/hSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lpT/068g; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lpT/068g"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1779122600; x=1810658600;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=RNmY1aDFRPojv5boQNhCgkgGzwJtCgJdvgaBWaKjuOk=;
+  b=lpT/068gtaLWcPjXn37hq2x4UU5vfpMOBIKqvmlKkjhePRE9dC6cS/bl
+   fXI9kahGVI1rxV0UVrbinjoAsbg/iYRJ4EZTNW8PhMPIWiPuESUujviMb
+   gq91QzjgGL4gDEpW97/jS/tJD1ujM5R81+vizjiqmMh05X92LYRLwIHel
+   q277cTABQclSqUwu5J5uXavMeBycaWopk2LalgW/9lgrrVt6cCqpxi4XF
+   rYNAHtY1xLNWkh163P0mYCmZ5Hrw9dCjmkiFZXn8qJurqYpc143YJpbnr
+   W8p7+NnX2NQY8+jsa6gJN3LpUtLqoCMDC/zlmZM8XxFICJCs2+Hf6sEgc
+   A==;
+X-CSE-ConnectionGUID: N2sJ8uRqS+OXpISXR2c/+A==
+X-CSE-MsgGUID: baSQ22/AQ5iBfvOPtk1pRw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11790"; a="97413815"
+X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; 
+   d="scan'208";a="97413815"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 May 2026 09:43:20 -0700
+X-CSE-ConnectionGUID: mt+4hcnkQmmHpH5wvMqhmw==
+X-CSE-MsgGUID: Yb0VXC4lTOqxpzGeQg39xg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; 
+   d="scan'208";a="235019135"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.125])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 May 2026 09:43:17 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 2C836121CD8;
+	Mon, 18 May 2026 19:43:19 +0300 (EEST)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1wP13m-0000000E89l-0TgJ;
+	Mon, 18 May 2026 19:43:18 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-media@vger.kernel.org
+Cc: laurent.pinchart@ideasonboard.com,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Frank Li <Frank.li@nxp.com>
+Subject: [PATCH v2 04/17] media: v4l2-subdev: Allow releasing frame descriptors on return
+Date: Mon, 18 May 2026 19:43:04 +0300
+Message-ID: <20260518164318.3367888-5-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260518164318.3367888-1-sakari.ailus@linux.intel.com>
+References: <20260518164318.3367888-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
+Use DEFINE_FREE() to allow using __free() to release frame descriptors
+using v4l2_subdev_free_frame_desc().
 
-Add an overlay supporting the OV8865 from the BananaPi Camera v3
-peripheral board. The board has two sensors (OV5640 and OV8865)
-which cannot be supported in parallel as they share the same reset
-pin and the kernel currently has no support for this case.
-
-Signed-off-by: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- arch/arm/boot/dts/allwinner/Makefile          |   3 +
- .../sun8i-a83t-bananapi-m3-camera-ov8865.dtso | 101 ++++++++++++++++++
- 2 files changed, 104 insertions(+)
- create mode 100644 arch/arm/boot/dts/allwinner/sun8i-a83t-bananapi-m3-camera-ov8865.dtso
+ include/media/v4l2-subdev.h | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/arch/arm/boot/dts/allwinner/Makefile b/arch/arm/boot/dts/allwinner/Makefile
-index 6975df9d7b46..4a0d4edd8b2d 100644
---- a/arch/arm/boot/dts/allwinner/Makefile
-+++ b/arch/arm/boot/dts/allwinner/Makefile
-@@ -222,6 +222,7 @@ dtb-$(CONFIG_MACH_SUN8I) += \
- 	sun8i-a83t-allwinner-h8homlet-v2.dtb \
- 	sun8i-a83t-bananapi-m3.dtb \
- 	sun8i-a83t-bananapi-m3-camera-ov5640.dtb \
-+	sun8i-a83t-bananapi-m3-camera-ov8865.dtb \
- 	sun8i-a83t-cubietruck-plus.dtb \
- 	sun8i-a83t-tbs-a711.dtb \
- 	sun8i-h2-plus-bananapi-m2-zero.dtb \
-@@ -273,6 +274,8 @@ dtb-$(CONFIG_MACH_SUN8I) += \
- 	sun8i-v40-bananapi-m2-berry.dtb
- sun8i-a83t-bananapi-m3-camera-ov5640-dtbs += \
- 	sun8i-a83t-bananapi-m3.dtb sun8i-a83t-bananapi-m3-camera-ov5640.dtbo
-+sun8i-a83t-bananapi-m3-camera-ov8865-dtbs += \
-+	sun8i-a83t-bananapi-m3.dtb sun8i-a83t-bananapi-m3-camera-ov8865.dtbo
- sun8i-h2-plus-orangepi-zero-interface-board-dtbs += \
- 	sun8i-h2-plus-orangepi-zero.dtb sun8i-orangepi-zero-interface-board.dtbo
- sun8i-h3-orangepi-zero-plus2-interface-board-dtbs += \
-diff --git a/arch/arm/boot/dts/allwinner/sun8i-a83t-bananapi-m3-camera-ov8865.dtso b/arch/arm/boot/dts/allwinner/sun8i-a83t-bananapi-m3-camera-ov8865.dtso
-new file mode 100644
-index 000000000000..4340ca73bfaa
---- /dev/null
-+++ b/arch/arm/boot/dts/allwinner/sun8i-a83t-bananapi-m3-camera-ov8865.dtso
-@@ -0,0 +1,101 @@
-+// SPDX-License-Identifier: GPL-2.0 OR X11
-+/*
-+ * Copyright 2022 Bootlin
-+ * Author: Kévin L'hôpital <kevin.lhopital@bootlin.com>
-+ * Author: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
-+ */
+diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
+index e7127953ac22..c10ca3f5d979 100644
+--- a/include/media/v4l2-subdev.h
++++ b/include/media/v4l2-subdev.h
+@@ -1798,6 +1798,11 @@ int v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
+  * for each frame descriptor obtained by calling this function using
+  * v4l2_subdev_free_frame_desc().
+  *
++ * Use __free() to release the frame descriptor automatically::
++ *
++ *    struct v4l2_mbus_frame_desc *desc __free(v4l2_subdev_free_frame_desc) =
++ *            v4l2_subdev_get_frame_desc(sd, pad, desc);
++ *
+  * Return: The frame descriptor on success or a negative error code on failure.
+  */
+ struct v4l2_mbus_frame_desc *
+@@ -1812,6 +1817,10 @@ v4l2_subdev_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+  */
+ void v4l2_subdev_free_frame_desc(struct v4l2_mbus_frame_desc *desc);
+ 
++DEFINE_FREE(v4l2_subdev_free_frame_desc, struct v4l2_mbus_frame_desc *, \
++	    if (!IS_ERR_OR_NULL(_T))					\
++		    v4l2_subdev_free_frame_desc(_T))
 +
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/clock/sun8i-a83t-ccu.h>
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&{/} {
-+	/*
-+	 * These regulators actually have DLDO4 tied to their EN pin, which is
-+	 * described as input supply here for lack of a better representation.
-+	 * Their actual supply is PS, which is always-on.
-+	 */
-+
-+	ov8865_avdd: ov8865-avdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "ov8865-avdd";
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+		vin-supply = <&reg_dldo4>;
-+	};
-+
-+	ov8865_dovdd: ov8865-dovdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "ov8865-dovdd";
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+		vin-supply = <&reg_dldo4>;
-+	};
-+
-+	ov8865_dvdd: ov8865-dvdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "ov8865-dvdd";
-+		regulator-min-microvolt = <1200000>;
-+		regulator-max-microvolt = <1200000>;
-+		vin-supply = <&reg_dldo4>;
-+	};
-+};
-+
-+&csi {
-+	status = "okay";
-+};
-+
-+&i2c2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c2_pe_pins>;
-+	status = "okay";
-+
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	ov8865: camera@36 {
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&csi_mclk_pin>;
-+
-+		compatible = "ovti,ov8865";
-+		reg = <0x36>;
-+
-+		clocks = <&ccu CLK_CSI_MCLK>;
-+		assigned-clocks = <&ccu CLK_CSI_MCLK>;
-+		assigned-clock-parents = <&osc24M>;
-+		assigned-clock-rates = <24000000>;
-+
-+		avdd-supply = <&ov8865_avdd>;
-+		dovdd-supply = <&ov8865_dovdd>;
-+		dvdd-supply = <&ov8865_dvdd>;
-+
-+		powerdown-gpios = <&pio 4 17 GPIO_ACTIVE_LOW>; /* PE17 */
-+		reset-gpios = <&pio 4 16 GPIO_ACTIVE_LOW>; /* PE16 */
-+
-+		port {
-+			ov8865_out_mipi_csi2: endpoint {
-+				remote-endpoint = <&mipi_csi2_in_ov8865>;
-+				link-frequencies = /bits/ 64 <360000000>;
-+				data-lanes = <1 2 3 4>;
-+			};
-+		};
-+	};
-+};
-+
-+&mipi_csi2 {
-+	status = "okay";
-+};
-+
-+&mipi_csi2_in {
-+	mipi_csi2_in_ov8865: endpoint {
-+		remote-endpoint = <&ov8865_out_mipi_csi2>;
-+		data-lanes = <1 2 3 4>;
-+	};
-+};
-+
-+&reg_dldo4 {
-+	regulator-min-microvolt = <2800000>;
-+	regulator-max-microvolt = <2800000>;
-+};
+ #endif /* CONFIG_VIDEO_V4L2_SUBDEV_API */
+ 
+ #endif /* CONFIG_MEDIA_CONTROLLER */
 -- 
-2.54.0
+2.47.3
 
