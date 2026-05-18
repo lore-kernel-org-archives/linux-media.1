@@ -1,27 +1,27 @@
 Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0D82D0C98;
-	Mon, 18 May 2026 15:34:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C29413E1CF6;
+	Mon, 18 May 2026 15:35:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779118484; cv=none; b=t66z0SwuKXdZTyzeUw0wi3EcSlPBQPJXP9At0Nst6ZEqHNb3kor/omdLuEpbwEDVxg2vE02TYMvietavLzv4+skMKT7l+NleCTfWJvyL49znZKVP0yMm1BWi2G9jNqRWsUbswY4RziCab8TC9jJA9RdrBKokxhwSYC0dOjMlJWg=
+	t=1779118522; cv=none; b=U9vYBNPQtQkRCmKY7xrrlTp+ggXd357QSC+Hw6SWrzJXYTAsa57XsYu3HYSJREEYQwczIM0akACM94p1SedssY/zAW9ZY0ss+ogj5LOLjT5UMd2ZHx5X5K2sUj4FuHXrij3ckeq8DZgNYiAtcs31nagDRUtg4aYjMTTqm6D23Ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779118484; c=relaxed/simple;
-	bh=UnprGw1QSyD6H/nTxjzCzCRRqSruFbZ3p+JP+L1Grao=;
+	s=arc-20240116; t=1779118522; c=relaxed/simple;
+	bh=faNltFbMTrvZXOiKz351TQfXRCuhFm//Z41S3VC91Rg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qxJeQb5YlGt4yjFoVjpAvCxzuMjlhCVnwDtG5qD+W1jEc0J+UZhxtdsUYa2J3ATeGtEqOjGynmTD9WXxRoU9Wu+05O3Sa3xJrJlrYmtS0Y5a/qOZUtNgyzbWkRKghVAGXHiIRc9Ea4RMi42kcDaZpbmpV2PKJ5RCzb0T70H/Udc=
+	 MIME-Version; b=KPFxU3q/4H01zc7mj+i8os6wA6IWHIoCkIvFYvqLmn9Tx4L6Gt1CTmiW51Gfsd5Wpo+UeWd2nplOfV8YRRTZphtKd38nn4NmaRafUHiwD8rabFddwoskfmVPRc3L6/D8LPaNDaeL7WTuc1lIIkrOazvSPxGWq8GX34oFnw+6d+Y=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
 Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
-	by leonov.paulk.fr (Postfix) with ESMTPS id 85A2D1F8004F;
-	Mon, 18 May 2026 15:34:41 +0000 (UTC)
+	by leonov.paulk.fr (Postfix) with ESMTPS id A81131F8004F;
+	Mon, 18 May 2026 15:35:15 +0000 (UTC)
 Received: by laika.paulk.fr (Postfix, from userid 65534)
-	id EEC80B4080A; Mon, 18 May 2026 15:34:40 +0000 (UTC)
+	id 1C882B40810; Mon, 18 May 2026 15:35:15 +0000 (UTC)
 X-Spam-Level: *
 Received: from collins (unknown [192.168.1.64])
-	by laika.paulk.fr (Postfix) with ESMTP id 43B41B407FC;
+	by laika.paulk.fr (Postfix) with ESMTP id B706CB407FD;
 	Mon, 18 May 2026 15:33:41 +0000 (UTC)
 From: Paul Kocialkowski <paulk@sys-base.io>
 To: linux-media@vger.kernel.org,
@@ -42,9 +42,9 @@ Cc: Yong Deng <yong.deng@magewell.com>,
 	Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney@redhat.com>,
 	Maxime Ripard <mripard@kernel.org>
-Subject: [PATCH v9 1/9] dt-bindings: media: sun6i-a31-csi: Add optional interconnect properties
-Date: Mon, 18 May 2026 17:33:30 +0200
-Message-ID: <20260518153339.619947-2-paulk@sys-base.io>
+Subject: [PATCH v9 2/9] dt-bindings: media: sun6i-a31-isp: Add optional interconnect properties
+Date: Mon, 18 May 2026 17:33:31 +0200
+Message-ID: <20260518153339.619947-3-paulk@sys-base.io>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260518153339.619947-1-paulk@sys-base.io>
 References: <20260518153339.619947-1-paulk@sys-base.io>
@@ -62,14 +62,14 @@ useful to attach the dma memory offset. Add related properties.
 Signed-off-by: Paul Kocialkowski <paulk@sys-base.io>
 Acked-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- .../devicetree/bindings/media/allwinner,sun6i-a31-csi.yaml  | 6 ++++++
+ .../devicetree/bindings/media/allwinner,sun6i-a31-isp.yaml  | 6 ++++++
  1 file changed, 6 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/allwinner,sun6i-a31-csi.yaml b/Documentation/devicetree/bindings/media/allwinner,sun6i-a31-csi.yaml
-index 1aa5775ba2bc..978ef2dc0ae7 100644
---- a/Documentation/devicetree/bindings/media/allwinner,sun6i-a31-csi.yaml
-+++ b/Documentation/devicetree/bindings/media/allwinner,sun6i-a31-csi.yaml
-@@ -40,6 +40,12 @@ properties:
+diff --git a/Documentation/devicetree/bindings/media/allwinner,sun6i-a31-isp.yaml b/Documentation/devicetree/bindings/media/allwinner,sun6i-a31-isp.yaml
+index 3ea4a4290f23..c0d7accc7bbe 100644
+--- a/Documentation/devicetree/bindings/media/allwinner,sun6i-a31-isp.yaml
++++ b/Documentation/devicetree/bindings/media/allwinner,sun6i-a31-isp.yaml
+@@ -36,6 +36,12 @@ properties:
    resets:
      maxItems: 1
  
@@ -79,9 +79,9 @@ index 1aa5775ba2bc..978ef2dc0ae7 100644
 +  interconnect-names:
 +    const: dma-mem
 +
-   port:
-     $ref: /schemas/graph.yaml#/$defs/port-base
-     description: Parallel input port, connect to a parallel sensor
+   ports:
+     $ref: /schemas/graph.yaml#/properties/ports
+ 
 -- 
 2.54.0
 
