@@ -1,279 +1,158 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A34D30567A
-	for <linux-media@vger.kernel.org>; Mon, 18 May 2026 07:32:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C423E1681;
+	Mon, 18 May 2026 07:32:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779089568; cv=none; b=Vheo2TqMLr5DtmN8EGooaG9/zfCwOWd2Sg/rlLtHj0GPaIDP72zmUgaVsOaFe6TkgK40LbuavhZ1hkngwzK0QLmvMGOOa475UMfzhrDwaBKsVftKuJsOtNRMWsg6HQOuAv2PYYqPN7cs5aFbufKpqOOsDWbAhtBGoD5bTzL2ILA=
+	t=1779089570; cv=none; b=P7/nZpDi60UmebQiudPcfz3Ljeac4gxkt0Caw1WIOnr5QV7NP6KWl9a1Vq98mWMbqs3sSMLtpMzPxperCvGe9QORybkTsq3Qzlr96Y9h5wGdRKSNTt9TOESgJOxjA8JWC3pN4nOY4MoON1Fa++ZMFb8oAQM/SulYALUc2KHPmVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779089568; c=relaxed/simple;
-	bh=brPhBHjUGlrj7AmaXGarcu0KE6dZaP/hUM1DwMbI+0g=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=NRDY2/Y7t7HORdSGWoBnuM7/nqsZRC8rp4gkRJH0iIWFJ3/00eeYTMZoot2JcnKtyp6IvY2E5N0THPyr4n7mH5zyOLzPog+dUts91t34UwDlN95YVeHMgTC1vGTWSfh/s90eRjTHUt2jANEsaOfBEjs65LPPI2k5PRLGi1aWusg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ljosRuNv; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1779089570; c=relaxed/simple;
+	bh=ckQppBRagJEUq09DA8fX8G/qUq46qgkJHeGZVjP6ERg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WdzrMSEqcPpcvEEAr8+PX0tUdFDSAUBDIxvQGV9Ylki1cluvQnxptuJJXp7r3gxv0QK13A0GKUEKT/g+LhcRUITbrdp31WoxQCzLq3wurEYpONI3B8cteC1HM62uJurUmUSRwoXbis8xTSlJOKX/x/o2XkfInJABB4xdBtoFXMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bMPSMiB5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ljosRuNv"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-43fe608cb92so1030018f8f.2
-        for <linux-media@vger.kernel.org>; Mon, 18 May 2026 00:32:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779089565; x=1779694365; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PIb43F/FW9nE7kYTGRQdEB8eXYN5MdHZmB7Fyms3I/w=;
-        b=ljosRuNvfpJTLuQvkY6gYiTMWodsY0Fcjji3CDBhwETqgPZDPrbRuTMyycE4vNqJKI
-         ig9SQqvYvrLYb83PXtZoWHT6gVBB995bYFcx8irLyrFGnyEX5Xk3cBNkNezxoh1NsRHI
-         /JNU9OheJm/zvl4rMGJGNo4ddeCbwybwiVjnVpOrg5SsA7YTrk77VzRfoUCfssdAIvRA
-         MMT2nOERfb1GSS4fKkVQBIOapj+aZzSvlsDSyVV2Y49B1Ba0mpqEid05QyEBtxoM64gX
-         ai1ATnTM3R+P1vv4hsA4lmENVzcXxSmHmj9OJgPfMSzKGMZCiPZg7dNi67Knp/4CY7me
-         JaZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779089565; x=1779694365;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=PIb43F/FW9nE7kYTGRQdEB8eXYN5MdHZmB7Fyms3I/w=;
-        b=NiZmDksrsHC2TAnypBCpm8rGFJFQUyeq3tfPezDxiJ0kLU0eRHMPow0y1rwh6KSTcY
-         gyEZ/IUQzRs0Ry54q9jZo/kl1xXLAVqYTIvEd/V1fmpGbe0FW8sRS2wRGAqVYJXF0PEH
-         N89gVEagWybOastBVnG78ARCyoBXHoSYd/LzCD4aJJILwtWnx9kjOwKECzaCJ2iK0vUv
-         hNqqFvMdjz8N5M/ImDaLRant13egPHgD3GPo0rwwLCc5FMWdSJvRMRfa3Kxy9Gkih3Pd
-         AvmQ78KC7+6neyHISdhMBKR+ZqYQGWekFcKVMV/OkbIvM4P1BqvsqDlMbdtV+Hw3uWbK
-         O3WQ==
-X-Gm-Message-State: AOJu0YyT4VrIxhhWMYrQbdZsTwspIXuydkJqWUWhROt0wkTdUG1LsDV5
-	NmnPoygayMaFWgbvJfr5cjYuJyH/0iYaSSHSsqVmzdcK8JPFz29LhQEr9VMo7n7iQj8=
-X-Gm-Gg: Acq92OGWFjNC9jXBaMQme3axkAdwKZ2+sRndensAOjnLTc0tmN5dtq6+47qytBsLHYi
-	m9DUOJyBtJVgRup70cPD2GAn/f+cpdELmqr9WU9UNTLdzNXe2W1v6m+r1qNU+S3/26LKnt63Ehd
-	3GSDW8SKFUgocvi/qxz0qfJWHmjW1kc0v8kTcMidiAQe5Ig0VblQ2Nmmr7ZChdQOQ3qEwZOZM4U
-	NnwHj7TeiEqSF8OFdEECpLV0odn0SFjwUiHYtsJTgNqtXuGNSgCKCamOK23YyN7ckDj6PrjUClQ
-	KFGxr/gDsr6mBY01bpI2b+YwEJuB0zRcZdGHGPsv151bDU7ABFao0VQYCpNb4T0Cc+R7a0Q5BX4
-	paQR/qPLUyiki78DMSLUhO7mRr+G3wyYFDjUxhXa9ZG3c53LHAYP71sihr2dC0cVZf8eLgH18I2
-	jAfz7S4ft1ar7or8kC8dxqEm9WWPDyTyuuDVkQcyvBSBnUQf2/GfIZa1ypsZAH+Gn9h/Xw+jcBq
-	xHl
-X-Received: by 2002:a05:6000:4007:b0:43d:1cec:4766 with SMTP id ffacd0b85a97d-45e5c5bf971mr21754479f8f.23.1779089564624;
-        Mon, 18 May 2026 00:32:44 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:64e2:72b:b9ed:6dcf? ([2a01:e0a:106d:1080:64e2:72b:b9ed:6dcf])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45da15a562dsm35230470f8f.33.2026.05.18.00.32.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 18 May 2026 00:32:43 -0700 (PDT)
-Message-ID: <febaa0cf-eecf-40ea-b243-4f03646af918@linaro.org>
-Date: Mon, 18 May 2026 09:32:42 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bMPSMiB5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2F2DC2BCB7;
+	Mon, 18 May 2026 07:32:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779089569;
+	bh=ckQppBRagJEUq09DA8fX8G/qUq46qgkJHeGZVjP6ERg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=bMPSMiB5Nx8gFkeA9jC+2QNMo+dbrtaLTBc+gmoL+1KEPQqe1pEe+F4CQdJPM4QcN
+	 9jUAG8J/erhE/b8eSEFlclC13SDHCt/H81PjoSNscEKgbn2QDxKFDtnQwZVwJR7HE4
+	 4z8w/zEh40cycmfFb2sQJiFuhUPDxCuhrd3ekV9BmgUhJ2uyGUqPtE9djKFx1ORzLK
+	 QFfIUrmHrtVTBnoFhbkEbLl7tnqid2o2NSB/roXuSDGxUyzONSd5jucJOL3URea+6o
+	 b3DNUIaja8c8lHzpfxAv1iAePzpQYVW4j3H3tM4VBtLI40SuUVPj9OIudpWnG5XyD0
+	 iWQJFlRhd3KhA==
+From: Sumit Garg <sumit.garg@kernel.org>
+To: andersson@kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
+	linux-remoteproc@vger.kernel.org,
+	konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	robin.clark@oss.qualcomm.com,
+	sean@poorly.run,
+	akhilpo@oss.qualcomm.com,
+	lumag@kernel.org,
+	abhinav.kumar@linux.dev,
+	jesszhan0024@gmail.com,
+	marijn.suijten@somainline.org,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	vikash.garodia@oss.qualcomm.com,
+	dikshita.agarwal@oss.qualcomm.com,
+	bod@kernel.org,
+	mchehab@kernel.org,
+	elder@kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	jjohnson@kernel.org,
+	mathieu.poirier@linaro.org,
+	trilokkumar.soni@oss.qualcomm.com,
+	mukesh.ojha@oss.qualcomm.com,
+	pavan.kondeti@oss.qualcomm.com,
+	jorge.ramirez@oss.qualcomm.com,
+	tonyh@qti.qualcomm.com,
+	vignesh.viswanathan@oss.qualcomm.com,
+	srinivas.kandagatla@oss.qualcomm.com,
+	amirreza.zarrabi@oss.qualcomm.com,
+	jens.wiklander@linaro.org,
+	op-tee@lists.trustedfirmware.org,
+	apurupa@qti.qualcomm.com,
+	skare@qti.qualcomm.com,
+	linux-kernel@vger.kernel.org,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: [PATCH v6 14/16] wifi: ath12k: Switch to generic PAS TZ APIs
+Date: Mon, 18 May 2026 12:58:54 +0530
+Message-ID: <20260518072856.22790-15-sumit.garg@kernel.org>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260518072856.22790-1-sumit.garg@kernel.org>
+References: <20260518072856.22790-1-sumit.garg@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 3/6] media: qcom: iris: gen2: add support for 10bit
- decoding
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260511-topic-sm8x50-iris-10bit-decoding-v3-0-7fc049b93042@linaro.org>
- <20260511-topic-sm8x50-iris-10bit-decoding-v3-3-7fc049b93042@linaro.org>
- <b6ab2112-c89a-4ac4-8525-e913ed0b5313@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <b6ab2112-c89a-4ac4-8525-e913ed0b5313@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 5/13/26 20:50, Vikash Garodia wrote:
-> 
-> On 5/11/2026 2:50 PM, Neil Armstrong wrote:
->> Add the necessary plumbing into the HFi Gen2 to signal the decoder
->> the right 10bit pixel format and stride when in compressed mode.
->>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
->>   .../platform/qcom/iris/iris_hfi_gen2_command.c     | 75 +++++++++++++++++++++-
->>   .../platform/qcom/iris/iris_hfi_gen2_defines.h     |  1 +
->>   drivers/media/platform/qcom/iris/iris_utils.c      |  4 +-
->>   3 files changed, 76 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
->> index 30bfd90d423b..89de8c366836 100644
->> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
->> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
->> @@ -481,8 +481,20 @@ static int iris_hfi_gen2_set_colorformat(struct iris_inst *inst, u32 plane)
->>       if (inst->domain == DECODER) {
->>           pixelformat = inst->fmt_dst->fmt.pix_mp.pixelformat;
->> -        hfi_colorformat = pixelformat == V4L2_PIX_FMT_NV12 ?
->> -            HFI_COLOR_FMT_NV12 : HFI_COLOR_FMT_NV12_UBWC;
->> +        switch (pixelformat) {
->> +        case V4L2_PIX_FMT_NV12:
->> +            hfi_colorformat = HFI_COLOR_FMT_NV12;
->> +            break;
->> +        case V4L2_PIX_FMT_QC08C:
->> +            hfi_colorformat = HFI_COLOR_FMT_NV12_UBWC;
->> +            break;
->> +        case V4L2_PIX_FMT_P010:
->> +            hfi_colorformat = HFI_COLOR_FMT_P010;
->> +            break;
->> +        case V4L2_PIX_FMT_QC10C:
->> +            hfi_colorformat = HFI_COLOR_FMT_TP10_UBWC;
->> +            break;
->> +        };
-> 
-> semicolon ?
+From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-Ack
+Switch ath12k client driver over to generic PAS TZ APIs. Generic PAS TZ
+service allows to support multiple TZ implementation backends like QTEE
+based SCM PAS service, OP-TEE based PAS service and any further future TZ
+backend service.
 
-> 
->>       } else {
->>           pixelformat = inst->fmt_src->fmt.pix_mp.pixelformat;
->>           hfi_colorformat = pixelformat == V4L2_PIX_FMT_NV12 ?
->> @@ -517,7 +529,8 @@ static int iris_hfi_gen2_set_linear_stride_scanline(struct iris_inst *inst, u32
->>       stride_uv = stride_y;
->>       scanline_uv = scanline_y / 2;
->> -    if (pixelformat != V4L2_PIX_FMT_NV12)
->> +    if (pixelformat != V4L2_PIX_FMT_NV12 &&
->> +        pixelformat != V4L2_PIX_FMT_P010)
->>           return 0;
->>       payload[0] = stride_y << 16 | scanline_y;
->> @@ -532,6 +545,61 @@ static int iris_hfi_gen2_set_linear_stride_scanline(struct iris_inst *inst, u32
->>                             sizeof(u64));
->>   }
->> +static int iris_hfi_gen2_set_ubwc_stride_scanline(struct iris_inst *inst, u32 plane)
->> +{
->> +    u32 meta_stride_y, meta_scanline_y, meta_stride_uv, meta_scanline_uv;
->> +    u32 stride_y, scanline_y, stride_uv, scanline_uv;
->> +    u32 port = iris_hfi_gen2_get_port(inst, plane);
->> +    u32 pixelformat, width, height;
->> +    u32 payload[4];
->> +
->> +    if (inst->domain != DECODER ||
->> +        inst->fmt_src->fmt.pix_mp.pixelformat != V4L2_PIX_FMT_AV1)
-> 
-> whats the restriction with AV1 here ?
+Acked-by: Jeff Johnson <jjohnson@kernel.org>
+Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+---
+ drivers/net/wireless/ath/ath12k/Kconfig |  2 +-
+ drivers/net/wireless/ath/ath12k/ahb.c   | 10 +++++-----
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
-This restriction is used in downstream driver and Dikshita reported we shouldn't
-call HFI_PROP_UBWC_STRIDE_SCANLINE except for AV1.
+diff --git a/drivers/net/wireless/ath/ath12k/Kconfig b/drivers/net/wireless/ath/ath12k/Kconfig
+index d39c075758bd..2b8b87931330 100644
+--- a/drivers/net/wireless/ath/ath12k/Kconfig
++++ b/drivers/net/wireless/ath/ath12k/Kconfig
+@@ -18,7 +18,7 @@ config ATH12K_AHB
+ 	bool "QTI ath12k AHB support"
+ 	depends on ATH12K && REMOTEPROC
+ 	select QCOM_MDT_LOADER
+-	select QCOM_SCM
++	select QCOM_PAS
+ 	help
+ 	  Enable support for Ath12k AHB bus chipsets, example IPQ5332.
+ 
+diff --git a/drivers/net/wireless/ath/ath12k/ahb.c b/drivers/net/wireless/ath/ath12k/ahb.c
+index 2dcf0a52e4c1..dff7fa7027c5 100644
+--- a/drivers/net/wireless/ath/ath12k/ahb.c
++++ b/drivers/net/wireless/ath/ath12k/ahb.c
+@@ -5,7 +5,7 @@
+  */
+ 
+ #include <linux/dma-mapping.h>
+-#include <linux/firmware/qcom/qcom_scm.h>
++#include <linux/firmware/qcom/qcom_pas.h>
+ #include <linux/of.h>
+ #include <linux/of_device.h>
+ #include <linux/platform_device.h>
+@@ -420,7 +420,7 @@ static int ath12k_ahb_power_up(struct ath12k_base *ab)
+ 
+ 	if (ab_ahb->scm_auth_enabled) {
+ 		/* Authenticate FW image using peripheral ID */
+-		ret = qcom_scm_pas_auth_and_reset(pasid);
++		ret = qcom_pas_auth_and_reset(pasid);
+ 		if (ret) {
+ 			ath12k_err(ab, "failed to boot the remote processor %d\n", ret);
+ 			goto err_fw2;
+@@ -485,10 +485,10 @@ static void ath12k_ahb_power_down(struct ath12k_base *ab, bool is_suspend)
+ 		pasid = (u32_encode_bits(ab_ahb->userpd_id, ATH12K_USERPD_ID_MASK)) |
+ 			 ATH12K_AHB_UPD_SWID;
+ 		/* Release the firmware */
+-		ret = qcom_scm_pas_shutdown(pasid);
++		ret = qcom_pas_shutdown(pasid);
+ 		if (ret)
+-			ath12k_err(ab, "scm pas shutdown failed for userPD%d\n",
+-				   ab_ahb->userpd_id);
++			ath12k_err(ab, "pas shutdown failed for userPD%d: %d\n",
++				   ab_ahb->userpd_id, ret);
+ 	}
+ }
+ 
+-- 
+2.51.0
 
-Could you please check if it's necessary ?
-
-> 
->> +        return 0;
->> +
->> +    pixelformat = inst->fmt_dst->fmt.pix_mp.pixelformat;
->> +    width = inst->fmt_dst->fmt.pix_mp.width;
->> +    height = inst->fmt_dst->fmt.pix_mp.height;
->> +
->> +    switch (pixelformat) {
->> +    case V4L2_PIX_FMT_QC08C:
->> +        stride_y = ALIGN(width, 128);
->> +        scanline_y = ALIGN(height, 32);
->> +        stride_uv = ALIGN(width, 128);
->> +        scanline_uv = ALIGN((height + 1) >> 1, 32);
->> +        meta_stride_y = ALIGN(DIV_ROUND_UP(width, 32), 64);
->> +        meta_scanline_y = ALIGN(DIV_ROUND_UP(height, 8), 16);
->> +        meta_stride_uv = ALIGN(DIV_ROUND_UP((width + 1) >> 1, 16), 64);
->> +        meta_scanline_uv = ALIGN(DIV_ROUND_UP((height + 1) >> 1, 8), 16);
->> +        break;
->> +    case V4L2_PIX_FMT_QC10C:
->> +        stride_y = ALIGN(width * 4 / 3, 256);
->> +        scanline_y = ALIGN(height, 16);
->> +        stride_uv = ALIGN(width * 4 / 3, 256);
->> +        scanline_uv = ALIGN((height + 1) >> 1, 16);
->> +        meta_stride_y = ALIGN(DIV_ROUND_UP(width, 48), 64);
->> +        meta_scanline_y = ALIGN(DIV_ROUND_UP(height, 4), 16);
->> +        meta_stride_uv = ALIGN(DIV_ROUND_UP((width + 1) >> 1, 24), 64);
->> +        meta_scanline_uv = ALIGN(DIV_ROUND_UP((height + 1) >> 1, 4), 16);
->> +        break;
->> +    default:
->> +        return 0;
->> +    }
->> +
->> +    payload[0] = stride_y << 16 | scanline_y;
->> +    payload[1] = stride_uv << 16 | scanline_uv;
->> +    payload[2] = meta_stride_y << 16 | meta_scanline_y;
->> +    payload[3] = meta_stride_uv << 16 | meta_scanline_uv;
->> +
->> +    return iris_hfi_gen2_session_set_property(inst,
->> +                          HFI_PROP_UBWC_STRIDE_SCANLINE,
->> +                          HFI_HOST_FLAGS_NONE,
->> +                          port,
->> +                          HFI_PAYLOAD_U32_ARRAY,
->> +                          &payload[0],
->> +                          sizeof(u32) * 4);
->> +}
->> +
->>   static int iris_hfi_gen2_set_tier(struct iris_inst *inst, u32 plane)
->>   {
->>       u32 port = iris_hfi_gen2_get_port(inst, V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
->> @@ -620,6 +688,7 @@ static int iris_hfi_gen2_session_set_config_params(struct iris_inst *inst, u32 p
->>           {HFI_PROP_OPB_ENABLE,                 iris_hfi_gen2_set_opb_enable             },
->>           {HFI_PROP_COLOR_FORMAT,               iris_hfi_gen2_set_colorformat            },
->>           {HFI_PROP_LINEAR_STRIDE_SCANLINE,     iris_hfi_gen2_set_linear_stride_scanline },
->> +        {HFI_PROP_UBWC_STRIDE_SCANLINE,       iris_hfi_gen2_set_ubwc_stride_scanline },
-> 
-> alignment
-> 
->>           {HFI_PROP_TIER,                       iris_hfi_gen2_set_tier                   },
->>           {HFI_PROP_FRAME_RATE,                 iris_hfi_gen2_set_frame_rate             },
->>           {HFI_PROP_AV1_FILM_GRAIN_PRESENT,     iris_hfi_gen2_set_film_grain             },
->> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h b/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
->> index cecf771c55dd..68f849232906 100644
->> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
->> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_defines.h
->> @@ -118,6 +118,7 @@ enum hfi_flip {
->>   #define HFI_PROP_OPB_ENABLE            0x03000184
->>   #define HFI_PROP_AV1_TILE_ROWS_COLUMNS        0x03000187
->>   #define HFI_PROP_AV1_DRAP_CONFIG        0x03000189
->> +#define HFI_PROP_UBWC_STRIDE_SCANLINE        0x03000190
->>   #define HFI_PROP_COMV_BUFFER_COUNT        0x03000193
->>   #define HFI_PROP_AV1_UNIFORM_TILE_SPACING    0x03000197
->>   #define HFI_PROP_END                0x03FFFFFF
->> diff --git a/drivers/media/platform/qcom/iris/iris_utils.c b/drivers/media/platform/qcom/iris/iris_utils.c
->> index bdedd6bfa87a..c75dcb8e671e 100644
->> --- a/drivers/media/platform/qcom/iris/iris_utils.c
->> +++ b/drivers/media/platform/qcom/iris/iris_utils.c
->> @@ -35,7 +35,9 @@ int iris_get_mbpf(struct iris_inst *inst)
->>   bool iris_split_mode_enabled(struct iris_inst *inst)
->>   {
->>       return inst->fmt_dst->fmt.pix_mp.pixelformat == V4L2_PIX_FMT_NV12 ||
->> -        inst->fmt_dst->fmt.pix_mp.pixelformat == V4L2_PIX_FMT_QC08C;
->> +        inst->fmt_dst->fmt.pix_mp.pixelformat == V4L2_PIX_FMT_QC08C ||
->> +        inst->fmt_dst->fmt.pix_mp.pixelformat == V4L2_PIX_FMT_P010 ||
->> +        inst->fmt_dst->fmt.pix_mp.pixelformat == V4L2_PIX_FMT_QC10C;
->>   }
->>   bool iris_fmt_is_8bit(__u32 pixelformat)
->>
-> 
-
-Thanks,
-Neil
