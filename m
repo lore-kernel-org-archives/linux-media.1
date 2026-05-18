@@ -1,257 +1,117 @@
-Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E42EF3ED5B6;
-	Mon, 18 May 2026 10:30:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64A03EB7FF
+	for <linux-media@vger.kernel.org>; Mon, 18 May 2026 10:31:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779100270; cv=none; b=hNPb3g+2BF4r1Hb01zzmSNk1FiyzAgNpommSuEz9KIoX+4IX2PFlTxBv/pZDDi9C5LHIjt0q1qoDo+I2337OohFnFIzrTjcQKHAsdaa7OAXdTUZTyJ5O7tpw8N8/VbnK2S8lfWs48tx/YsNKnS7minRNCdzWak/+OCo5dFztU2k=
+	t=1779100273; cv=none; b=NqpOWWFHRxLJuKgrS7d9FXgfPvfaIHfaWyZDFJkCiTSInZMhgfbxMbtNGsdMEDWRu0SJcVQamnG4b4hHel7U1UEGkJA2UWvviRzdUDqq3DqJHbi9ALfjHQuKcvHTm052Od7/fSQYH8ID2X6QGhgWBFc3/yrvtq8SlBAddLmdzgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779100270; c=relaxed/simple;
-	bh=pGb0topKOndkQgyiZuK5FBJvTqlPd3JBn9MwPx7o0Wc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Zu/15aTAo+HwiokJ76lA3UM0eQ34jRH3Y9TG6/XK75K5qJzjVRyv1qbtn19sO/KqapG2QSNSJJWclvWpdwrS0jVViPOjVvx3VkxWyCXxY4DnPez+XnTP2LSIyyymLP5thUHTga18wWP7L7v6lZ+ePKy69tTBy5ZLh3FxgpaYVkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
-Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
-	by leonov.paulk.fr (Postfix) with ESMTPS id 63B3A1F8004A;
-	Mon, 18 May 2026 10:30:54 +0000 (UTC)
-Received: by laika.paulk.fr (Postfix, from userid 65534)
-	id A99F1B40821; Mon, 18 May 2026 10:30:53 +0000 (UTC)
-X-Spam-Level: *
-Received: from collins (unknown [192.168.1.64])
-	by laika.paulk.fr (Postfix) with ESMTP id A5E0BB407F8;
-	Mon, 18 May 2026 10:25:00 +0000 (UTC)
-From: Paul Kocialkowski <paulk@sys-base.io>
-To: linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev
-Cc: Paul Kocialkowski <paulk@sys-base.io>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arash Golgol <arash.golgol@gmail.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Subject: [PATCH 11/16] media: sun6i-csi: Tidy up and unify coding style
-Date: Mon, 18 May 2026 12:24:46 +0200
-Message-ID: <20260518102451.417971-12-paulk@sys-base.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260518102451.417971-1-paulk@sys-base.io>
-References: <20260518102451.417971-1-paulk@sys-base.io>
+	s=arc-20240116; t=1779100273; c=relaxed/simple;
+	bh=uNvks5nLVhab845gPs8D4jnOry1W6hE6xPWWd9nU+CA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=S96uZtyONy61S+kXVxoVp79lcmjMHERVXx1mumSUw5MA7B0mjqLOQoUj2qEXGrUIzG/QAjdImlsEszstX0En9fmXxJf0sFzUHOGhdQtrBcBhwEUKShmTnJDQLc5MvMatdBu3vHUcHoHgtyHUHaJVAhl5U1kCMnCZZbTu6bRBn90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SFtHjJDu; arc=none smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SFtHjJDu"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6802f9c5debso5161839a12.3
+        for <linux-media@vger.kernel.org>; Mon, 18 May 2026 03:31:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779100257; x=1779705057; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=hx27Zr2PfQkgYP6DocpvbcVC/5/Kjswu2b3jiJPzVQY=;
+        b=SFtHjJDu5+thx67ZQgSBSlnzrWP8St/IsgqvFJBv+8gm1ZrL2dyXiR9tOuiCjTHlxK
+         leC3X5LwO9ivz6GpTCXdCkORR5nUXpH3H7zydiX32uINNdws6VGv3HNPz767MpzZyFLv
+         CwtfM3jnULTNL8ABAm8hoRo8Gid93oQikbr8Xq08xamILO2ehZBd0oG56QxnAvJixFAt
+         w6azypF0dMLXHB6c7c0334C/m+OJ2yS/GGsT+E/iEqTBoTUUM1K96VkKyWLbFWOKggQK
+         i0EgO1KZSz8N0Ht7I8I199PJpHmud6anBnAwiAxTKU6aQqsnKb7fdI6vF+DEf3UPLiaQ
+         +FvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779100257; x=1779705057;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=hx27Zr2PfQkgYP6DocpvbcVC/5/Kjswu2b3jiJPzVQY=;
+        b=lNH50OjUUszqrYoaar1U9CIzRpiWmUgs170NWhwoChuJbVOChQoCReHyn3YC6hi8GP
+         y4fLXM+7wgPxcSZeXtoSHJU7WlLaKOFdIqeM7q2grTMcU5L+U2EHkN3MglYVdQEarcOQ
+         J5mOiSeZ1GUEeYCAtUIPGNG7dPxdpQG+3YSTuNxkKyUaSXPOMMrZdiaYlimIyA3OjP3A
+         qy4k0FnynQ7DG07EXeofdBqAn7+gvjBn9l2F7MgnUmPnJdYf+yEoCLuEIRszR8cIjlv1
+         QFCfwFkFTEm7yte+OjxFHy4mFkF+HOwz+WYgQwsoGTWPrWXf7VEZeWVWO8XX/5UzQbFw
+         bcig==
+X-Forwarded-Encrypted: i=1; AFNElJ+uH6qLq9/vSFnB6KjDx+ewx3570Sfsh1QZ/pn+z5iIf6K3zLmzuvWbqVkRNXT682FfV7cGC4xu2d+Lmg==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz6nu0gZxah2NWPw3HEocI1wOdKCcMDk65fxgwTdMhneS4Vlxl8
+	o6ITz4giUbbnn9T9YE8E5gLhq01Q3+Rima5ossZsxR8Qgbj2Zs9lChEt
+X-Gm-Gg: Acq92OGKp6QmT7XdujR60UTJS5s5In2F2hhKdMe3T3Eo6bHqgd1xD4JMRIcbfQtiwus
+	eQLDfodRNl5mUA/9wRiL27xPnutmDlx+tNYZxtRXeVYnm5jOr9rhMK2v13NJqSn9Piflgs3oE/r
+	gd6TjjhpzaryKHPL7ySozsp7epJDoyTrTv1loj45XOGnqqfpQLdRSNKQcy5lhbOGfZoCy3ihgi8
+	7Auik4UULIbnkzBFjVeFlq/AQ4C0AtObDQHzcCRzqMs4TcuOl2l72iXMhEn/BzsnEDBk0L4xJhl
+	pWZOX6fyjBO4K7N9HugWov6eA7qd84EjY1Ec13UYtsdplageaezAlyY2U5cElb1AdwC9Dt0CMOh
+	ApuA12UeXOwu/abcQfZqTBwmX2AZ4n0vcHoIzNoSm4sq/2dEsUWDgmKWAKG50vSMekK/Ndz0dGO
+	cUBYlZhiAmpZBUFMK1VN57Zm5lI2pvOqWLgrWCAPJ6XiQdrDchH/Atlzh2FrfDPjbJS7r3LBHFl
+	cn2axhAfOhvFr44ZS/mVW4cjOlK3Pi+/wRRgSbkwNRWXbpiaAA+te3xUdU=
+X-Received: by 2002:a17:907:1c0d:b0:bd2:bd3:1ef8 with SMTP id a640c23a62f3a-bd517a99797mr714341866b.35.1779100257041;
+        Mon, 18 May 2026 03:30:57 -0700 (PDT)
+Received: from ?IPV6:2620:10d:c096:325:77fd:1068:74c8:af87? ([2620:10d:c092:600::1:ec20])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bd4f4e4d54dsm542055466b.47.2026.05.18.03.30.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 18 May 2026 03:30:56 -0700 (PDT)
+Message-ID: <574f42cf-0d72-437a-8eba-fd970011e206@gmail.com>
+Date: Mon, 18 May 2026 11:30:54 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 07/10] nvme-pci: implement dma_token backed requests
+To: Anuj Gupta/Anuj Gupta <anuj20.g@samsung.com>,
+ Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+ Sagi Grimberg <sagi@grimberg.me>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ io-uring@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Jason Gunthorpe <jgg@nvidia.com>
+References: <cover.1777475843.git.asml.silence@gmail.com>
+ <5cecb1157ab784f9f303a91449fdf11b03aa6002.1777475843.git.asml.silence@gmail.com>
+ <20260513083817.GC6461@lst.de>
+ <CGME20260518092930epcas5p30d3b49f26efa5969ddcdb15351a886f3@epcas5p3.samsung.com>
+ <50ed7240-d8d3-4816-bcc9-ce8adbbbf841@gmail.com>
+ <f9e04625-50c6-4fa9-8b12-76496e29f10c@samsung.com>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <f9e04625-50c6-4fa9-8b12-76496e29f10c@samsung.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Bring recent changes to the same coding style as the rest of the driver.
-This is purely cosmetic and no functional change is intended.
+On 5/18/26 11:18, Anuj Gupta/Anuj Gupta wrote:
+> On 5/18/2026 2:59 PM, Pavel Begunkov wrote:
+>>> FYI, I really want SGL support before this get merged, but ignoring that
+>>> for now:
+>>
+>> I was hoping to let Samsung guys to send a follow up they already have,
+>> but I'll ask them to have about taking it into this patch set.
+> 
+> I had done patches on top of v3 adding SGL support and PRP list reuse
+> optimization for the dmabuf path.
+> Branch: https://github.com/SamsungDS/linux/commits/rw-dmabuf-v3-nvme-opt/
+> 
+> Also pasting the SGL patch here for quick reference:
 
-Signed-off-by: Paul Kocialkowski <paulk@sys-base.io>
----
- .../sunxi/sun6i-csi/sun6i_csi_bridge.c        | 16 ++---
- .../sunxi/sun6i-csi/sun6i_csi_capture.c       | 72 ++++++++++---------
- 2 files changed, 46 insertions(+), 42 deletions(-)
+Thanks Anuj!
 
-diff --git a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_bridge.c b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_bridge.c
-index 43a85bcc2ba2..18f79075d3ad 100644
---- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_bridge.c
-+++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_bridge.c
-@@ -473,6 +473,7 @@ static int sun6i_csi_bridge_s_stream(struct v4l2_subdev *subdev, int on)
- 
- unlock:
- 	v4l2_subdev_unlock_state(state);
-+
- 	return ret;
- }
- 
-@@ -533,7 +534,7 @@ static int sun6i_csi_bridge_set_fmt(struct v4l2_subdev *subdev,
- 				    struct v4l2_subdev_state *state,
- 				    struct v4l2_subdev_format *format)
- {
--	struct v4l2_mbus_framefmt *fmt;
-+	struct v4l2_mbus_framefmt *mbus_format;
- 
- 	/* The format on the source pad always matches the sink pad. */
- 	if (format->pad != SUN6I_CSI_BRIDGE_PAD_SINK)
-@@ -542,12 +543,12 @@ static int sun6i_csi_bridge_set_fmt(struct v4l2_subdev *subdev,
- 	sun6i_csi_bridge_mbus_format_prepare(&format->format);
- 
- 	/* Set the format on the sink pad. */
--	fmt = v4l2_subdev_state_get_format(state, format->pad);
--	*fmt = format->format;
-+	mbus_format = v4l2_subdev_state_get_format(state, format->pad);
-+	*mbus_format = format->format;
- 
- 	/* Propagate the format to the source pad. */
--	fmt = v4l2_subdev_state_get_format(state, SUN6I_CSI_BRIDGE_PAD_SOURCE);
--	*fmt = format->format;
-+	mbus_format = v4l2_subdev_state_get_format(state, SUN6I_CSI_BRIDGE_PAD_SOURCE);
-+	*mbus_format = format->format;
- 
- 	return 0;
- }
-@@ -779,14 +780,12 @@ int sun6i_csi_bridge_setup(struct sun6i_csi_device *csi_dev)
- 	if (ret < 0)
- 		return ret;
- 
--	/* V4L2 Subdev finalize */
-+	/* V4L2 Subdev */
- 
- 	ret = v4l2_subdev_init_finalize(subdev);
- 	if (ret < 0)
- 		goto error_media_entity;
- 
--	/* V4L2 Subdev */
--
- 	if (csi_dev->isp_available)
- 		ret = v4l2_async_register_subdev(subdev);
- 	else
-@@ -846,7 +845,6 @@ void sun6i_csi_bridge_cleanup(struct sun6i_csi_device *csi_dev)
- 	v4l2_async_nf_cleanup(notifier);
- 
- 	v4l2_device_unregister_subdev(subdev);
--
- 	v4l2_subdev_cleanup(subdev);
- 
- 	media_entity_cleanup(&subdev->entity);
-diff --git a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_capture.c b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_capture.c
-index 409c28621093..eea682f47eea 100644
---- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_capture.c
-+++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_capture.c
-@@ -812,27 +812,6 @@ static int sun6i_csi_capture_enum_fmt(struct file *file, void *priv,
- 	return -EINVAL;
- }
- 
--static int sun6i_csi_capture_enum_framesize(struct file *file, void *fh,
--					    struct v4l2_frmsizeenum *fsize)
--{
--	if (fsize->index)
--		return -EINVAL;
--
--	/* Only accept format in map table. */
--	if (!sun6i_csi_capture_format_find(fsize->pixel_format))
--		return -EINVAL;
--
--	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
--	fsize->stepwise.min_width = SUN6I_CSI_CAPTURE_WIDTH_MIN;
--	fsize->stepwise.max_width = SUN6I_CSI_CAPTURE_WIDTH_MAX;
--	fsize->stepwise.min_height = SUN6I_CSI_CAPTURE_HEIGHT_MIN;
--	fsize->stepwise.max_height = SUN6I_CSI_CAPTURE_HEIGHT_MAX;
--	fsize->stepwise.step_width = 2;
--	fsize->stepwise.step_height = 2;
--
--	return 0;
--}
--
- static int sun6i_csi_capture_g_fmt(struct file *file, void *priv,
- 				   struct v4l2_format *format)
- {
-@@ -867,6 +846,27 @@ static int sun6i_csi_capture_try_fmt(struct file *file, void *priv,
- 	return 0;
- }
- 
-+static int sun6i_csi_capture_enum_framesizes(struct file *file, void *fh,
-+					     struct v4l2_frmsizeenum *frmsize)
-+{
-+	if (frmsize->index)
-+		return -EINVAL;
-+
-+	/* Only accept format in map table. */
-+	if (!sun6i_csi_capture_format_find(frmsize->pixel_format))
-+		return -EINVAL;
-+
-+	frmsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
-+	frmsize->stepwise.min_width = SUN6I_CSI_CAPTURE_WIDTH_MIN;
-+	frmsize->stepwise.max_width = SUN6I_CSI_CAPTURE_WIDTH_MAX;
-+	frmsize->stepwise.min_height = SUN6I_CSI_CAPTURE_HEIGHT_MIN;
-+	frmsize->stepwise.max_height = SUN6I_CSI_CAPTURE_HEIGHT_MAX;
-+	frmsize->stepwise.step_width = 2;
-+	frmsize->stepwise.step_height = 2;
-+
-+	return 0;
-+}
-+
- static int sun6i_csi_capture_enum_input(struct file *file, void *priv,
- 					struct v4l2_input *input)
- {
-@@ -900,11 +900,12 @@ static const struct v4l2_ioctl_ops sun6i_csi_capture_ioctl_ops = {
- 	.vidioc_querycap		= sun6i_csi_capture_querycap,
- 
- 	.vidioc_enum_fmt_vid_cap	= sun6i_csi_capture_enum_fmt,
--	.vidioc_enum_framesizes		= sun6i_csi_capture_enum_framesize,
- 	.vidioc_g_fmt_vid_cap		= sun6i_csi_capture_g_fmt,
- 	.vidioc_s_fmt_vid_cap		= sun6i_csi_capture_s_fmt,
- 	.vidioc_try_fmt_vid_cap		= sun6i_csi_capture_try_fmt,
- 
-+	.vidioc_enum_framesizes		= sun6i_csi_capture_enum_framesizes,
-+
- 	.vidioc_enum_input		= sun6i_csi_capture_enum_input,
- 	.vidioc_g_input			= sun6i_csi_capture_g_input,
- 	.vidioc_s_input			= sun6i_csi_capture_s_input,
-@@ -984,16 +985,17 @@ static int sun6i_csi_capture_link_validate(struct media_link *link)
- 		media_entity_to_video_device(link->sink->entity);
- 	struct sun6i_csi_device *csi_dev = video_get_drvdata(video_dev);
- 	struct v4l2_device *v4l2_dev = csi_dev->v4l2_dev;
--	struct v4l2_subdev *src_subdev =
-+	struct v4l2_subdev *bridge_subdev =
- 		media_entity_to_v4l2_subdev(link->source->entity);
- 	const struct sun6i_csi_capture_format *capture_format;
- 	const struct sun6i_csi_bridge_format *bridge_format;
- 	unsigned int capture_width, capture_height;
--	struct v4l2_subdev_format src_fmt = {
--		.which = V4L2_SUBDEV_FORMAT_ACTIVE,
--		.pad = link->source->index
-+	unsigned int bridge_width, bridge_height;
-+	struct v4l2_subdev_format bridge_subdev_format = {
-+		.which	= V4L2_SUBDEV_FORMAT_ACTIVE,
-+		.pad	= link->source->index,
- 	};
--	u32 pixelformat, capture_field;
-+	u32 pixelformat, capture_field, mbus_code;
- 	int ret;
- 
- 	sun6i_csi_capture_dimensions(csi_dev, &capture_width, &capture_height);
-@@ -1004,21 +1006,25 @@ static int sun6i_csi_capture_link_validate(struct media_link *link)
- 		return -EINVAL;
- 
- 	/* Resolve csi bridge format. */
--	ret = v4l2_subdev_call(src_subdev, pad, get_fmt, NULL, &src_fmt);
-+	ret = v4l2_subdev_call(bridge_subdev, pad, get_fmt, NULL,
-+			       &bridge_subdev_format);
- 	if (ret)
- 		return ret;
- 
--	bridge_format = sun6i_csi_bridge_format_find(src_fmt.format.code);
-+	bridge_width = bridge_subdev_format.format.width;
-+	bridge_height = bridge_subdev_format.format.height;
-+	mbus_code = bridge_subdev_format.format.code;
-+
-+	bridge_format = sun6i_csi_bridge_format_find(mbus_code);
- 	if (WARN_ON(!bridge_format))
- 		return -EINVAL;
- 
- 	/* No cropping/scaling is supported. */
--	if (capture_width != src_fmt.format.width ||
--	    capture_height != src_fmt.format.height) {
-+	if (capture_width != bridge_width || capture_height != bridge_height) {
- 		v4l2_err(v4l2_dev,
- 			 "invalid input/output dimensions: %ux%u/%ux%u\n",
--			 src_fmt.format.width, src_fmt.format.height,
--			 capture_width, capture_height);
-+			 bridge_width, bridge_height, capture_width,
-+			 capture_height);
- 		return -EINVAL;
- 	}
- 
 -- 
-2.54.0
+Pavel Begunkov
 
