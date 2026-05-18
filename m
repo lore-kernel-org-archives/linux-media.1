@@ -1,53 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF6848AE12
-	for <linux-media@vger.kernel.org>; Mon, 18 May 2026 16:43:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D27D3C9EFE
+	for <linux-media@vger.kernel.org>; Mon, 18 May 2026 16:43:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779122603; cv=none; b=U+sxp3ktZ4B9j8pzqmR2YYIWoDSziQqLxDdO3xeNb7KgF70wQEbvAswai/suVnSNwBaqseZL1NRj3Ovd6es+HrM8hNZYjM7aM1WVFVKt8GVqUIGKqQG95W6Euf+/0e9elMWj1FxuqE4DB1DSitFnevCB5pTiJzHYM/+DixrVcAc=
+	t=1779122604; cv=none; b=HY9kLEfETGISzryjbmoXel75KxyvzuN+iFSd6aafflVXqncqBJTxHPzCw4csQHn8bTiw+Mpi2vQBTgzbhqNhcWwUqIWjsywPR3BlFUKq44S6h6MgKQi1isAIqxYlzcAK60u9ZBBKsV6v5UAVfEr88LkTSX1LstyytS66+Z4DS8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779122603; c=relaxed/simple;
-	bh=iDZ8Etq2SSkdJpKeeN1TnS9LyWhSDTGPHB6NiEYeHjk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SsRF7oHpasQm4hAxlmJbfMsh6s/JV0MFUMCOsSogzJJeghxNUQgD9AHelPQFr6gPSW2jkQtzfo/PQXs5IVT0WYd89S9rK3rzKtvDI91358peFYslqr0oDbk5zbeuMUgva0nIKTh7myJQAD2ExxS92czsd3XGo6qqsD7iejwpoGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cyKhwnfH; arc=none smtp.client-ip=198.175.65.10
+	s=arc-20240116; t=1779122604; c=relaxed/simple;
+	bh=1f0w7iwFPDaE5evIEoAzup4/vniUJPl96CTddoW4bHY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=riq7dlyXJXEoou72cmsVlnbe7viwE4ZabovkLnbWfQZB2ofBb1nwLUlKMqFIhJoEd0/BhzMT/EGwauj+fflkwYZoR/5MxQoN8RJvO0AazrhV6ClWzyCf3St8mdkUOJJ0zWyU5Pwno4zKQQI/J7PNldI9CYB3iO72RLu28MUKuwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZrKTudP8; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cyKhwnfH"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZrKTudP8"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1779122602; x=1810658602;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=iDZ8Etq2SSkdJpKeeN1TnS9LyWhSDTGPHB6NiEYeHjk=;
-  b=cyKhwnfHgcFvOyi7KXcXsdURFAbmVc5P0356jcjsDjO8U/6DSifjGIqC
-   vO8HC4jwhsSmYNpggxDvOid0z8kEWgo7BoliaJlPcHZDJ9kcIWSKinwAE
-   5V69EP344TZ0uKnBfPCVHoIodg0riqX+9MeVvNypfbqIt4qZz4THvVpx+
-   sZltbE/QE0flRbW81DduYa3E2AMf8dOw+gf8SoY2czgri5qzFEsuC/pN7
-   GhAjqZ3oNcnnpxil8ZrMt1a/J6GHs9B/O9Dy/tGPDPxHkm/ULKy/afqhX
-   /sFvYmynFiYcdDnLeGCcq7d+N8C5APCrRijfZy/8R6dg7A5B2vboXLVPd
-   Q==;
-X-CSE-ConnectionGUID: pEjizKUKSb+Y1eEw7bwmcw==
-X-CSE-MsgGUID: lV19+jDIT3abVm0PWquhyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11790"; a="97413820"
+  t=1779122603; x=1810658603;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=1f0w7iwFPDaE5evIEoAzup4/vniUJPl96CTddoW4bHY=;
+  b=ZrKTudP8w47l6MGhIRNeJDUWosEsc586u0tS9vYaNNOMoMoVpo3rYAUL
+   HZUZNjNXGhudE0CBLPWzhlojVqd1wfiop0u5NnyjBARqyrH0TO5tEiKrs
+   xxHKOk75XaRPPPW5yvBc2anlIs6xZSC87mlWlmAGigiOEjD+w3f1hdrTx
+   LWLB/xR+TPi3OED8AOpX8AyDkaAVFZVjSWpdXQBdK7Ce6DKGe0jJ4/2qG
+   DKHKoVC/TSRRMX7LiueiY9OMi+VnkKz+RfW4gdF66U/qIn5oTlAKrudEH
+   ADXgX5cyH+pg9AmpscYCOWxoey2i7LJbTYgabQvYNM9VtPf8/UF6aseju
+   g==;
+X-CSE-ConnectionGUID: ddspYjdLSeGXVLx/+ItlZg==
+X-CSE-MsgGUID: mfySuT55TmuwKIxKh5szvg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11790"; a="97413823"
 X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; 
-   d="scan'208";a="97413820"
+   d="scan'208";a="97413823"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 May 2026 09:43:20 -0700
-X-CSE-ConnectionGUID: BFBzuKPETKi6IEefAlM7zg==
-X-CSE-MsgGUID: KjVBqvE1RlyU+XhRfN9BiQ==
+X-CSE-ConnectionGUID: rliA7+UoQA67MIHPMtjQng==
+X-CSE-MsgGUID: /tn5Kmy+QcCP4rW0EHabaA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; 
-   d="scan'208";a="235019137"
+   d="scan'208";a="235019134"
 Received: from mkosciow-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.125])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 May 2026 09:43:17 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 27992121CA8;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 2908E121CD5;
 	Mon, 18 May 2026 19:43:19 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wP13m-0000000E89W-0Bnd;
+	id 1wP13m-0000000E89h-0PZX;
 	Mon, 18 May 2026 19:43:18 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -59,10 +60,12 @@ Cc: laurent.pinchart@ideasonboard.com,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Frank Li <Frank.li@nxp.com>
-Subject: [PATCH v2 00/17] Rework frame descriptors
-Date: Mon, 18 May 2026 19:43:00 +0300
-Message-ID: <20260518164318.3367888-1-sakari.ailus@linux.intel.com>
+Subject: [PATCH v2 03/17] media: v4l2-subdev: Prepare for changes in getting frame descriptors
+Date: Mon, 18 May 2026 19:43:03 +0300
+Message-ID: <20260518164318.3367888-4-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260518164318.3367888-1-sakari.ailus@linux.intel.com>
+References: <20260518164318.3367888-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -71,109 +74,167 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi folks,
+Introduce v4l2_subdev_alloc_frame_desc() and v4l2_subdev_free_frame_desc()
+to both facilitate implementing drivers that need frame descriptors as
+well as prepare for having a larger number of frame descriptors.
+If the remote sub-device does not support frame descriptors,
+v4l2_subdev_get_frame_desc() creates one (with a single entry)
+opportunistically, thus avoiding the need to add frame descriptor support
+to sensor drivers the device for which only generates a single stream, or
+managing the situation on the caller side.
 
-This smallish set makes frame descriptors dynamically allocated and
-implements a single-entry frame descriptor based on the device's format,
-using a new helper called v4l2_subdev_get_frame_desc(). All drivers that
-do not obtain their frame descriptor from upstream are converted. The
-helper also obtains a frame descriptor for the desired type (parallel or
-CSI-2) and checks there's at least one entry there. These checks are
-removed from drivers that currently perform them. (Some drivers also check
-there's exactly a single frame descriptor entry but I think in most cases
-this check could be loosened. That could be done after this set.)
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+---
+ drivers/media/v4l2-core/v4l2-subdev.c | 75 +++++++++++++++++++++++++++
+ include/media/v4l2-subdev.h           | 34 ++++++++++++
+ 2 files changed, 109 insertions(+)
 
-On callee side these patches introduce no changes as the number of
-pre-allocated memory for 8 frame descriptors remains as-is. The
-get_frame_desc() pad op can return more than 8 frame descriptors by
-setting the num_entries to the desired number and returning -ENOSPC.
-
-If people prefer using cleanup.h / __free() to release the dynamically
-allocated array (I think I'd almost require that), I'll merge the
-now-separate __v4l2_subdev_get_frame_desc() into
-v4l2_subdev_get_frame_desc().
-
-More formats can be added to df-to-mbus conversion as needed. These are
-meant to be initial formats that are enough for typical raw sensors (and
-one RGB format, too).
-
-since v1:
-
-- Take Frank's patch adding media bus format to dt / bpp conversion.
-  Always return -EINVAL on error.
-
-- Rework sub-device framework patch split to make the patches more
-  reviewable.
-
-- In call_get_frame_desc(), always set fd->entry to fd->entry_mem and
-  fd->len_entries. Also use memset_after().
-
-- Check for num_entries in call_get_frame_desc() first and thus remove the
-  redundant else case.
-
-- Check for validity of the returned frame descriptor type in
-  call_get_frame_desc().
-
-- Merge the patches adding v4l2_subdev_get_frame_desc() and changing the
-  interface to return the frame descriptor.
-
-- Check for descriptor type early in v4l2_subdev_get_frame_desc().
-
-- Return 0 instead of ret in v4l2_subdev_get_frame_desc() when ret is 0.
-
-- Check the number of returned entries in v4l2_subdev_get_frame_desc().
-
-- Fill in the first frame descriptor entry in v4l2_subdev_get_frame_desc()
-  instead of allocating one in the stack.
-
-- Move the definition of frame descriptors to the
-  v4l2_subdev_get_frame_desc() call site.
-
-- Rework the code dealing with frame descriptor allocation.
-
-- Move frame descriptor declaration to the location of first use in driver
-  patches.
-
-- Fix numerous bugs in driver patches.
-
-Frank Li (1):
-  media: v4l2-common: Add helper function
-    media_bus_fmt_to_csi2_(bpp|dt)()
-
-Sakari Ailus (16):
-  media: v4l2-subdev: Align frame descriptor error codes with routing
-  media: v4l2-subdev: Prepare for changes in getting frame descriptors
-  media: v4l2-subdev: Allow releasing frame descriptors on return
-  media: v4l2-subdev: Allocate frame descriptors based on the need
-  media: v4l2-subdev: Change the maximum number of routes
-  media: v4l2-subdev: Return dynamically allocated pass-through routes
-  media: v4l2-subdev: Always return at least one frame descriptor
-  media: bcm2835-unicam: Use v4l2_subdev_get_frame_desc()
-  media: nxp: imx8-isi: Use v4l2_subdev_get_frame_desc()
-  media: raspberrypi: cfe: Use v4l2_subdev_get_frame_desc()
-  media: rzg2l-cru: Use v4l2_subdev_get_frame_desc()
-  media: rkisp1: Use v4l2_subdev_get_frame_desc()
-  media: exynos4-is: Use v4l2_subdev_get_frame_desc()
-  media: ti: cal: Use v4l2_subdev_get_frame_desc()
-  media: ipu6: Use v4l2_subdev_get_frame_desc()
-  staging: media: ipu7: Use v4l2_subdev_get_frame_desc()
-
- drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c |  22 +--
- .../media/platform/broadcom/bcm2835-unicam.c  |  22 +--
- .../platform/nxp/imx8-isi/imx8-isi-crossbar.c |  19 +-
- .../media/platform/raspberrypi/rp1-cfe/cfe.c  |  28 ++-
- .../platform/renesas/rzg2l-cru/rzg2l-video.c  |  27 +--
- .../platform/rockchip/rkisp1/rkisp1-isp.c     |  21 +-
- .../samsung/exynos4-is/fimc-capture.c         |  18 +-
- drivers/media/platform/ti/cal/cal-camerarx.c  |  26 ++-
- drivers/media/v4l2-core/v4l2-common.c         | 183 ++++++++++++++++++
- drivers/media/v4l2-core/v4l2-subdev.c         | 152 +++++++++++++--
- .../staging/media/ipu7/ipu7-isys-csi-phy.c    |  19 +-
- drivers/staging/media/ipu7/ipu7-isys-csi2.c   |  26 ++-
- include/media/mipi-csi2.h                     |  24 +++
- include/media/v4l2-subdev.h                   |  78 +++++++-
- 14 files changed, 512 insertions(+), 153 deletions(-)
-
+diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+index d93ed50255ed..489c2ba0956f 100644
+--- a/drivers/media/v4l2-core/v4l2-subdev.c
++++ b/drivers/media/v4l2-core/v4l2-subdev.c
+@@ -20,6 +20,7 @@
+ #include <linux/version.h>
+ #include <linux/videodev2.h>
+ 
++#include <media/mipi-csi2.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-event.h>
+@@ -2671,6 +2672,80 @@ int v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
+ }
+ EXPORT_SYMBOL_GPL(v4l2_subdev_get_frame_desc_passthrough);
+ 
++struct v4l2_mbus_frame_desc *
++v4l2_subdev_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
++			   enum v4l2_mbus_frame_desc_type type)
++{
++	struct v4l2_subdev_format subdev_fmt = {
++		.which = V4L2_SUBDEV_FORMAT_ACTIVE,
++		.pad = pad,
++	};
++	int ret;
++
++	if (type != V4L2_MBUS_FRAME_DESC_TYPE_PARALLEL &&
++	    type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2)
++		return ERR_PTR(-EINVAL);
++
++	struct v4l2_mbus_frame_desc *desc = kzalloc_obj(*desc, GFP_KERNEL);
++	if (!desc)
++		return ERR_PTR(-ENOMEM);
++
++	desc->type = type;
++
++	if (v4l2_subdev_has_op(sd, pad, get_frame_desc)) {
++		unsigned int type = desc->type;
++
++		ret = v4l2_subdev_call(sd, pad, get_frame_desc, pad, desc);
++		if (ret < 0)
++			goto err_free;
++
++		if (desc->type != type) {
++			dev_dbg(sd->dev,
++				"wrong type of frame descriptor for pad %d (got %u, expected %u)\n",
++				pad, desc->type, type);
++			ret = -EINVAL;
++			goto err_free;
++		}
++
++		return desc;
++	}
++
++	struct v4l2_subdev_state *state =
++		v4l2_subdev_lock_and_get_active_state(sd);
++	ret = v4l2_subdev_call(sd, pad, get_fmt, state, &subdev_fmt);
++	v4l2_subdev_unlock_state(state);
++	if (ret < 0)
++		goto err_free;
++
++	struct v4l2_mbus_frame_desc_entry *entry = &desc->entry[0];
++
++	entry->pixelcode = subdev_fmt.format.code;
++
++	if (desc->type == V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
++		ret = media_bus_fmt_to_csi2_dt(subdev_fmt.format.code);
++		if (ret < 0)
++			goto err_free;
++
++		entry->bus.csi2.dt = ret;
++	}
++
++	desc->num_entries = 1;
++
++	return desc;
++
++err_free:
++	v4l2_subdev_free_frame_desc(desc);
++
++	return ERR_PTR(ret);
++}
++EXPORT_SYMBOL_GPL(v4l2_subdev_get_frame_desc);
++
++void v4l2_subdev_free_frame_desc(struct v4l2_mbus_frame_desc *desc)
++{
++	kfree(desc);
++}
++EXPORT_SYMBOL_GPL(v4l2_subdev_free_frame_desc);
++
+ #endif /* CONFIG_VIDEO_V4L2_SUBDEV_API */
+ 
+ #endif /* CONFIG_MEDIA_CONTROLLER */
+diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
+index d256b7ec8f84..e7127953ac22 100644
+--- a/include/media/v4l2-subdev.h
++++ b/include/media/v4l2-subdev.h
+@@ -8,6 +8,7 @@
+ #ifndef _V4L2_SUBDEV_H
+ #define _V4L2_SUBDEV_H
+ 
++#include <linux/cleanup.h>
+ #include <linux/types.h>
+ #include <linux/v4l2-subdev.h>
+ #include <media/media-entity.h>
+@@ -1778,6 +1779,39 @@ int v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
+ 					   unsigned int pad,
+ 					   struct v4l2_mbus_frame_desc *fd);
+ 
++/**
++ * v4l2_subdev_get_frame_desc() - Get a frame descriptor for a pad
++ * @sd: The sub-device
++ * @pad: The number of the pad in @sd from which to obtain the frame descriptor
++ * @type: The type of the frame descriptor
++ *
++ * Obtain a frame descriptor from a sub-device. If the sub-device supports the
++ * get_frame_desc pad operation, its result is returned, just like calling it
++ * directly using v4l2_subdev_call(). If the sub-device driver does not support
++ * it, then a frame descriptor containing a single entry is created using the
++ * information from the sub-device format for types
++ * V4L2_MBUS_FRAME_DESC_TYPE_CSI2 and V4L2_MBUS_FRAME_DESC_TYPE_PARALLEL.
++ *
++ * The caller is required to set @desc->type to the expected bus type.
++ *
++ * The caller is required to release the memory of the frame descriptor entries
++ * for each frame descriptor obtained by calling this function using
++ * v4l2_subdev_free_frame_desc().
++ *
++ * Return: The frame descriptor on success or a negative error code on failure.
++ */
++struct v4l2_mbus_frame_desc *
++v4l2_subdev_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
++			   enum v4l2_mbus_frame_desc_type type);
++
++/**
++ * v4l2_subdev_free_frame_desc() - Release the memory of a frame descriptor
++ * @desc: A pointer to a frame descriptor
++ *
++ * Release the frame descriptor.
++ */
++void v4l2_subdev_free_frame_desc(struct v4l2_mbus_frame_desc *desc);
++
+ #endif /* CONFIG_VIDEO_V4L2_SUBDEV_API */
+ 
+ #endif /* CONFIG_MEDIA_CONTROLLER */
 -- 
 2.47.3
 
