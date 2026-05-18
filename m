@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D3E3E1D0B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08FDE3FDBE7
 	for <linux-media@vger.kernel.org>; Mon, 18 May 2026 16:43:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779122609; cv=none; b=AxseGVIoENc/LU4o3vRUhg+bChs8tf8sDVzfSTpgVHtTjuLz8pbPM3cpKhT6VzlNRWTuBDzP8GKKDlWlHJ7JQV68ywB0QfSGXusAmuNhved2RJLWn/kDv/GvEFBLBldYZc67ZnZexQreC6/UqQNxnE0azxwGWbD0hH8RhVNtajE=
+	t=1779122610; cv=none; b=rx6aBXsnHt2hMM8FtYVKeZk/yv/HmzfGUEbl7WEgGn3MPTCqoLaImyAhxAlEL2Iym6K8U1YfFBvaPX2cWvO1U3Ea1HcRHZi5xR2nQxaTw81ZaNaaxStBMIahev0yoCsLeeP0Fp13ytEC/GuoaF2qfPMHSfMHrvEY3rQZhvbuHsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779122609; c=relaxed/simple;
-	bh=oXXftzEIKxy3cy06CI/CLN4/UbkMRJoZQ3yhE60SWBs=;
+	s=arc-20240116; t=1779122610; c=relaxed/simple;
+	bh=lltK9Z4ge1iOuwvSdNs5Jjwzf8lLEfZvr8Po3kFnwOU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LotqbJbsiFxKEaZRyUkNkIAFBRGLJgAZzAzWoekPuJXj8ULrLV4PxEw6Pjk/Dn+WN1s3uH8xdolXYoFRt8AAQdu+BTcfRUieQHevfJl6bexWRtnuCiuFSADb+zF1Ml4truGDSKIXmrYP0u3qYkqmXqgoDSfY0tJsagsdYZ4f/YE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k6AusYc5; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=CrYpDEggKCGZ/c7FDJIuF473P5O9EjJYNN5YDEKCUE1KaarfG6vy3lC1C+HQyfwyMrzeL+yVn8xTzybLiZ3PZ7c/UT0zeJ55QQcOHrYTWVPPxSq5FWna1nC0B6QtIQ+s9ssRC6n+K2/IqTIPbEwE476S+Rvln44Q8+26X/YFFuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nNzICS0C; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k6AusYc5"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nNzICS0C"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1779122609; x=1810658609;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=oXXftzEIKxy3cy06CI/CLN4/UbkMRJoZQ3yhE60SWBs=;
-  b=k6AusYc5YDYwYvdud2QBxd3ozxczahnZDR4ohYkiqpWhN4EyQbLetiYm
-   ew1RGcNMsTlmdzJL7ozQwffKO8tAAMLnWUgSHZi1JjixOl77RY0h1m+TH
-   hNqYzprsztL6o/7tAReocxyUGCuVZ620D4CaSXejJVTeCdr4sny7XfvK0
-   2feeXWxJ07pusQW8c02kNO68mBxnJRMFJxo6urCTS17CRwUKv1whH4zgN
-   DLYbWWJXvNu214Z/frDgF+uAEvzrTPNYl8taoagyPztca4NAgOxYfM0PV
-   gu4E1Wwv+Gc/Z831a4TwTOpzZ+o4iPF6eEta+P8/MNGxMmdcw2sw4eznP
-   g==;
-X-CSE-ConnectionGUID: 17HNygFbS0GCzp9CBfup5w==
-X-CSE-MsgGUID: UbcBtHsZTn2sJ+wXG0F/Og==
-X-IronPort-AV: E=McAfee;i="6800,10657,11790"; a="97413838"
+  bh=lltK9Z4ge1iOuwvSdNs5Jjwzf8lLEfZvr8Po3kFnwOU=;
+  b=nNzICS0CodDUodYLJQ3WmRdQYs13k407UP3aw1d7zwYzLfQJveX7qbst
+   odm1gAMyhB0Kf8EpACJ2hQ+K+XHKyqX6lCrs4Y4w8y5LVVMP8BkumQnrQ
+   +B72U7tyt5PIrctBKcVBBn2qPhBBQcWLG+bRTRbIUmBmGLbaVEIc5jX86
+   IpdrrwlsH3ix5oA75RkNrtK2y48qcPBhikA75h222T6WqecydB/ij8MMt
+   UNOWJcbWV83ZWfVRS/gOrzxTQYLyIAB7jmcydcUYAZTME6flDNv6fbP50
+   qJ49VGREUaCjxEfNISi4weAcb1JNsdB9j+Fp0bExzBsGhXg6Da1VPqRxH
+   w==;
+X-CSE-ConnectionGUID: Q3VzQ28xSG+MhsVzBTNdvA==
+X-CSE-MsgGUID: QiWvce19RBKfiy8mtfM0Pw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11790"; a="97413840"
 X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; 
-   d="scan'208";a="97413838"
+   d="scan'208";a="97413840"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 May 2026 09:43:29 -0700
-X-CSE-ConnectionGUID: gJUAz0YxRAaJuwoGp4eDpQ==
-X-CSE-MsgGUID: VZv4/ibGQh+4BQ2/dNZcWQ==
+X-CSE-ConnectionGUID: 2d2ddJl8Rf+A3UMpn4ZewA==
+X-CSE-MsgGUID: SMQOtm2rQiOCwrWc/0WCwA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,242,1770624000"; 
-   d="scan'208";a="235019211"
+   d="scan'208";a="235019222"
 Received: from mkosciow-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.125])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 May 2026 09:43:23 -0700
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 May 2026 09:43:24 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 32021121CEB;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 40136121D04;
 	Mon, 18 May 2026 19:43:19 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wP13m-0000000E89t-0bEA;
+	id 1wP13m-0000000E8AG-0rYh;
 	Mon, 18 May 2026 19:43:18 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -60,9 +60,9 @@ Cc: laurent.pinchart@ideasonboard.com,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Frank Li <Frank.li@nxp.com>
-Subject: [PATCH v2 06/17] media: v4l2-subdev: Change the maximum number of routes
-Date: Mon, 18 May 2026 19:43:06 +0300
-Message-ID: <20260518164318.3367888-7-sakari.ailus@linux.intel.com>
+Subject: [PATCH v2 10/17] media: nxp: imx8-isi: Use v4l2_subdev_get_frame_desc()
+Date: Mon, 18 May 2026 19:43:10 +0300
+Message-ID: <20260518164318.3367888-11-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260518164318.3367888-1-sakari.ailus@linux.intel.com>
 References: <20260518164318.3367888-1-sakari.ailus@linux.intel.com>
@@ -74,34 +74,68 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-As the frame descriptors are now allocated dynamically, allow as many
-routes that there can be dynamically allocated frame descriptors.
+Call v4l2_subdev_get_frame_desc() to obtain the frame descriptor. This is
+preferred over calling the get_frame_desc() pad operation directly.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/v4l2-core/v4l2-subdev.c | 9 +--------
- 1 file changed, 1 insertion(+), 8 deletions(-)
+ .../platform/nxp/imx8-isi/imx8-isi-crossbar.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-index da8464dfb265..ebcc0b40fac1 100644
---- a/drivers/media/v4l2-core/v4l2-subdev.c
-+++ b/drivers/media/v4l2-core/v4l2-subdev.c
-@@ -1103,14 +1103,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
- 				num_active_routes++;
- 		}
+diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
+index 605a45124103..545b2addc9ea 100644
+--- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
++++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
+@@ -5,6 +5,7 @@
+  * Copyright (c) 2022 Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+  */
  
--		/*
--		 * Drivers that implement routing need to report a frame
--		 * descriptor accordingly, with up to one entry per route. Until
--		 * the frame descriptors entries get allocated dynamically,
--		 * limit the number of active routes to
--		 * V4L2_FRAME_DESC_ENTRY_PREALLOC.
--		 */
--		if (num_active_routes > V4L2_FRAME_DESC_ENTRY_PREALLOC)
-+		if (num_active_routes > V4L2_FRAME_DESC_ENTRY_MAX)
- 			return -E2BIG;
++#include <linux/cleanup.h>
+ #include <linux/device.h>
+ #include <linux/errno.h>
+ #include <linux/kernel.h>
+@@ -32,8 +33,6 @@ static int mxc_isi_crossbar_gasket_enable(struct mxc_isi_crossbar *xbar,
+ 	struct mxc_isi_dev *isi = xbar->isi;
+ 	const struct mxc_gasket_ops *gasket_ops = isi->pdata->gasket_ops;
+ 	const struct v4l2_mbus_framefmt *fmt;
+-	struct v4l2_mbus_frame_desc fd;
+-	int ret;
  
- 		/*
+ 	if (!gasket_ops)
+ 		return 0;
+@@ -44,15 +43,17 @@ static int mxc_isi_crossbar_gasket_enable(struct mxc_isi_crossbar *xbar,
+ 	 * to match the configuration of the CSIS.
+ 	 */
+ 
+-	ret = v4l2_subdev_call(remote_sd, pad, get_frame_desc, remote_pad, &fd);
+-	if (ret) {
++	struct v4l2_mbus_frame_desc *fd __free(v4l2_subdev_free_frame_desc) =
++		v4l2_subdev_get_frame_desc(remote_sd, remote_pad,
++					   V4L2_MBUS_FRAME_DESC_TYPE_PARALLEL);
++	if (IS_ERR(fd)) {
+ 		dev_err(isi->dev,
+-			"failed to get frame descriptor from '%s':%u: %d\n",
+-			remote_sd->name, remote_pad, ret);
+-		return ret;
++			"failed to get frame descriptor from '%s':%u: %ld\n",
++			remote_sd->name, remote_pad, PTR_ERR(fd));
++		return PTR_ERR(fd);
+ 	}
+ 
+-	if (fd.num_entries != 1) {
++	if (fd->num_entries != 1) {
+ 		dev_err(isi->dev, "invalid frame descriptor for '%s':%u\n",
+ 			remote_sd->name, remote_pad);
+ 		return -EINVAL;
+@@ -62,7 +63,7 @@ static int mxc_isi_crossbar_gasket_enable(struct mxc_isi_crossbar *xbar,
+ 	if (!fmt)
+ 		return -EINVAL;
+ 
+-	gasket_ops->enable(isi, &fd, fmt, port);
++	gasket_ops->enable(isi, fd, fmt, port);
+ 	return 0;
+ }
+ 
 -- 
 2.47.3
 
