@@ -1,131 +1,335 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6163ED5BD
-	for <linux-media@vger.kernel.org>; Mon, 18 May 2026 10:33:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 713523E8C4C
+	for <linux-media@vger.kernel.org>; Mon, 18 May 2026 10:39:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779100447; cv=none; b=Vt9afzesp7Q2Kw7AlqgkmMgzgzVV7YVRayi4x92478t05HedqcUPZVWnvAUJXv9oK+7EbpoTP/KiPtqi8y7AxaA7b9IHygYa25VblEMXWKzReUXK0EVbM/2H+Id/R62Vg5Cve2hHrDBfZm//nPXfqTSrKwz6L1yjpsUK/Ii/9o0=
+	t=1779100782; cv=none; b=uVPY4Vr/0lMnR0/AVCw1rwxEMF99zKt4SmA6VHb56t/HU+Du1NVJxZFWCjPt57S47L2zuhdcyNS3ibI62Z0q3hFiD+v22Yw3xEXv/Ov52IOu70B1/QOtxDrG0zp3pMSCzgLRxM8kODTXYpormggyaLKd/tVxQaxtcyFzUIPZv3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779100447; c=relaxed/simple;
-	bh=2LL/FLItPCn44dnp2ycwM3wTq608SyGansKwrSme9pI=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=Vg+vXrxNDnzXYH9OsZcBa1xn2ZEi+d4XJifB/7mu3I33+r+SpCvaz4HcoaFIDCR2GavzJ0q7kyL3DcKxTSOe3i7WH0kJOcqnW9mh+ksPd21Bm/PLmxsDc96lm0+3ldfBOj/YA5A8SlDDoY5RPyrS01LZM4dZHER6yMrOEj48FZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a8Rozc+f; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779100782; c=relaxed/simple;
+	bh=kZFp0cK8NW8hOi+WLJq8KzHg/eYq12UfAEKfNMhi9Ak=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EnWp/ktdOV7ZzbOOrMbKoB3umGlap4PhGbHT10F74qSD+KY2oQhvC/sixfyYccvykdCdRVgMA6ik5wTCqcXDVHMytGvEI766aQy2LkpBWn4XQlst2ZtYx4jAqPO5uA63PHgeruqBzxPZWDLnPf5lYxNDTFnIj64CTOeD+AxwN4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y34g9TUu; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a8Rozc+f"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-836ed29d1e5so791699b3a.2
-        for <linux-media@vger.kernel.org>; Mon, 18 May 2026 03:33:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779100431; x=1779705231; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=WS9Y2/caebVCglEjYJZNbQVr+9NHlmJ0JSaocEMxTMA=;
-        b=a8Rozc+fTjMrcXNNoeQlYGGh9Fag76PCKrr38yQklb4DMEaaS6DxkIC0cwkhN5Kxfz
-         7AC68YMTu9d8Do1qBlddtIJRGDgEJ6BSNnKhmUIF6aZs7n9C5jhywnhuwfUAGQrOD6LH
-         qVMSSMy1J2ZWIdYuZpuhzDZgPPex0ksrBmZ+dZKW1UIPiQ25WeAJSyhYcTdFhjBkUpYA
-         aGU2HEudl04pnlKzmmLLBVoiR6sxBIJGvos+16lPHm21mZ6K2ejueokzFLyep+VBvrgU
-         zoCrXL9s5YPXcSATxPHt69iyv8PgEC8BY1EKMOZoyLczM1ol2yf7/InuoDG0RZ2NAE/G
-         5JqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779100431; x=1779705231;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WS9Y2/caebVCglEjYJZNbQVr+9NHlmJ0JSaocEMxTMA=;
-        b=Y4PLRnMBVuf2nQccpNAj9MUzyplhXyN26AiOUeFVWsU43WODf5dMagk/clvckr/jND
-         GIPjjUTCSpx1r6QgwF7a1rUwaVwiMYXu2t0edhRMxr5dw12bQorEKm7/CE3SyL9AH/4v
-         c7cTlKyyuRp2vwKEkr7cgj45AAsOzEJQ8ukSMTV4zdXbXECm66DjjfqZC19vzauROBIL
-         q+ysLtPSWwGHGN+tm4aO6T6P87IeMEex4ud4IrXXceB9j4OHFcXVLqf3fpMkr7KM4gkC
-         9w80aIMNCNVDAynAz39fDnuhW4zJnaY18qbML5564pg+l154FIdCQAObgU4i/b7oD31o
-         UiXQ==
-X-Forwarded-Encrypted: i=1; AFNElJ814Ph/lqjWzVI2mWBeVqhRwQ+e9CouOFMJ3Fjrb4mB9b7ISU9C4hrMdeaFpmkK6jqelLOsOF2KyzeUFA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzOnBL5co3tuK6y1C693Qv0hXNWGpYL7lQGEGiPgvyPTPUTnZPY
-	ZmeDPJjVbHRZWgAWQ9y/zxosdgneFu42MphzXuGkiNfcH1p4xoxje/cfXOLQ6acCOsg=
-X-Gm-Gg: Acq92OGz11S3k7BiwZmS1I+SzdRpYMp7p15qTqxZU0mgIMYwFUdhR5106mz1khzMJ7r
-	7AcL2wFN0wZa85gyp/8Ks7HenNhGfD3zNIPpJX3mvZVChMyEtvO+ha82mJxEUeExEcHKL5KJiNZ
-	il6b7Zl5hV0kyvYlyPXtUzdCuu+cBweSJLtPDp6ADvZFbTvFU6nVibews0k9dDT+HGmuv0aJGvK
-	Jl7oBmyb9hqtMWCJBNW416JHhQePTRSbUtTTx3yQBsVktVpoFsXGnpk8NfR7SSuY3x97SeAbapP
-	DID4sE1CAdPwbERxLtWNJyF/Zu786Culv/+qx2RDT3bYmJGZvxIeylw4apyFXWgfNUE2dKRTMfJ
-	PjjFdItg3bUhBFEVM6JyZnCHDPzRVap3E2oTPJzvv7gLr7m0Kjc7+gHTAAesn09hgcqKCLIdkBP
-	/Rvrao+1zyIKPUqA==
-X-Received: by 2002:a05:6a00:4484:b0:829:8cfb:df45 with SMTP id d2e1a72fcca58-83f33c99b07mr14532309b3a.15.1779100431117;
-        Mon, 18 May 2026 03:33:51 -0700 (PDT)
-Received: from lgs.. ([101.36.109.157])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19794e6esm13161323b3a.25.2026.05.18.03.33.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 03:33:50 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: saa7134: avoid double free on empress register failure
-Date: Mon, 18 May 2026 18:33:24 +0800
-Message-ID: <20260518103324.985796-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y34g9TUu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1779100771; x=1810636771;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kZFp0cK8NW8hOi+WLJq8KzHg/eYq12UfAEKfNMhi9Ak=;
+  b=Y34g9TUuR1Ze0iQkKdvb7PLbkQ/0WaWjZiRTe/EKmCGA8perk9EZU2jr
+   SiRtHS4dcEjah9bhMrYkyxnpkO4vnjxwO9dFhuyQNB1XY1P9rAczy2T72
+   IFkQJXuMfT9T+LqR2l/7/Z9LWNXaYIQiNjgvZNbrMGKCPvp71aFNfLcxP
+   /0GkX2xbRi/wlPSGND6sd3ukN7KJ2byOCT7oDyvprJWE1oCXwJ6zrMNom
+   J7FHKLTJ+lXEXmMacAYAzMGIxr6t6b6GVaunDIw7xWJdZiYa5EiaAZRpm
+   FbF539E3fyDUtquKR6XcF5fadUljvq9sAHVqZ6aJ/1QsnvpnqMrIj1vLC
+   w==;
+X-CSE-ConnectionGUID: QZwJnBCLR+21Mi9yj1J8fQ==
+X-CSE-MsgGUID: ZDZJoEc2QUGidhzZcUQJfQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11789"; a="79088485"
+X-IronPort-AV: E=Sophos;i="6.23,241,1770624000"; 
+   d="scan'208";a="79088485"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 May 2026 03:39:27 -0700
+X-CSE-ConnectionGUID: b+nj5lDkRMadtUIeMxUbVg==
+X-CSE-MsgGUID: OW0bzJrgSjKyxhCG7OzVtg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,241,1770624000"; 
+   d="scan'208";a="269731506"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.26])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 May 2026 03:39:25 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id E0AA711F70F;
+	Mon, 18 May 2026 13:39:26 +0300 (EEST)
+Date: Mon, 18 May 2026 13:39:26 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>
+Subject: Re: [PATCH 04/17] media: v4l2-subdev: Allocate frame descriptors
+ based on the need
+Message-ID: <agrsXksuU47xXV20@kekkonen.localdomain>
+References: <20260513104358.2252605-1-sakari.ailus@linux.intel.com>
+ <20260513104358.2252605-5-sakari.ailus@linux.intel.com>
+ <agWmERwjH1fm15T-@zed>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <agWmERwjH1fm15T-@zed>
 
-empress_init() allocates a video_device with video_device_alloc() and
-releases it if video_register_device() fails.
+Hi Jacopo,
 
-This can double free the video_device when __video_register_device()
-reaches device_register() and that call fails:
+On Thu, May 14, 2026 at 12:42:34PM +0200, Jacopo Mondi wrote:
+> Hi Sakari,
+> 
+>    one more comment
+> 
+> On Wed, May 13, 2026 at 01:43:45PM +0300, Sakari Ailus wrote:
+> > Frame descriptors entries require a small amount of memory per entry (20
+> > bytes), but if the number of entries in a frame descriptor is large, an
+> > unreasonably large amount of memory would need to be allocated in the
+> > stack. Therefore the number of entries has been limited to 8.
+> >
+> > Support larger frame descriptors by allocating as much memory as required.
+> > The get_frame_desc() op can now set the num_entries to a number larger
+> > than V4L2_FRAME_BUS_ENTRY_MAX and return -ENOSPC. The caller,
+> > v4l2_subdev_get_frame_desc(), will then allocate memory for that amount of
+> > memory and call the get_frame_desc() op again.
+> >
+> > The caller is also responsible for releasing the allocated memory by
+> > calling v4l2_subdev_free_frame_desc().
+> >
+> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> > ---
+> >  drivers/media/v4l2-core/v4l2-subdev.c | 49 +++++++++++++++++++++------
+> >  include/media/v4l2-subdev.h           | 44 +++++++++++++++++++-----
+> >  2 files changed, 74 insertions(+), 19 deletions(-)
+> >
+> > diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+> > index b8acce8f9c33..012ff6fb2988 100644
+> > --- a/drivers/media/v4l2-core/v4l2-subdev.c
+> > +++ b/drivers/media/v4l2-core/v4l2-subdev.c
+> > @@ -63,10 +63,6 @@ static bool v4l2_subdev_enable_streams_api;
+> >  /*
+> >   * Maximum stream ID is 63 for now, as we use u64 bitmask to represent a set
+> >   * of streams.
+> > - *
+> > - * Note that V4L2_FRAME_DESC_ENTRY_MAX is related: V4L2_FRAME_DESC_ENTRY_MAX
+> > - * restricts the total number of streams in a pad, although the stream ID is
+> > - * not restricted.
+> >   */
+> >  #define V4L2_SUBDEV_MAX_STREAM_ID 63
+> >
+> > @@ -354,6 +350,7 @@ static int call_set_frame_interval(struct v4l2_subdev *sd,
+> >  static int call_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+> >  			       struct v4l2_mbus_frame_desc *fd)
+> >  {
+> > +	unsigned int type;
+> >  	unsigned int i;
+> >  	int ret;
+> >
+> > @@ -362,16 +359,38 @@ static int call_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+> >  		return -EOPNOTSUPP;
+> >  #endif
+> >
+> > +	type = fd->type;
+> >  	memset(fd, 0, sizeof(*fd));
+> > +	if (!fd->entry) {
+> > +		fd->entry = fd->entry_mem;
+> > +		fd->len_entries = ARRAY_SIZE(fd->entry_mem);
+> > +	}
+> >
+> >  	ret = sd->ops->pad->get_frame_desc(sd, pad, fd);
+> > +	if (ret == -ENOSPC) {
+> > +		if (fd->num_entries > V4L2_FRAME_DESC_ENTRY_PREALLOC &&
+> > +		    fd->num_entries < V4L2_FRAME_DESC_ENTRY_MAX) {
+> > +			fd->entry = kzalloc_objs(*fd->entry, fd->num_entries,
+> > +						 GFP_KERNEL);
+> > +			if (!fd->entry)
+> > +				return -ENOMEM;
+> > +
+> > +			fd->len_entries = fd->num_entries;
+> > +			fd->num_entries = 0;
+> > +
+> > +			ret = sd->ops->pad->get_frame_desc(sd, pad, fd);
+> > +		} else {
+> > +			return -E2BIG;
+> > +		}
+> > +	}
+> >  	if (ret)
+> >  		return ret;
+> >
+> >  	dev_dbg(sd->dev, "Frame descriptor on pad %u, type %s\n", pad,
+> > -		fd->type == V4L2_MBUS_FRAME_DESC_TYPE_PARALLEL ? "parallel" :
+> > -		fd->type == V4L2_MBUS_FRAME_DESC_TYPE_CSI2 ? "CSI-2" :
+> > -		"unknown");
+> > +		type == V4L2_MBUS_FRAME_DESC_TYPE_PARALLEL ? "parallel" :
+> > +		type == V4L2_MBUS_FRAME_DESC_TYPE_CSI2 ? "CSI-2" : "unknown");
+> > +
+> > +	fd->type = type;
+> >
+> >  	for (i = 0; i < fd->num_entries; i++) {
+> >  		struct v4l2_mbus_frame_desc_entry *entry = &fd->entry[i];
+> > @@ -1086,9 +1105,9 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+> >  		 * descriptor accordingly, with up to one entry per route. Until
+> >  		 * the frame descriptors entries get allocated dynamically,
+> >  		 * limit the number of active routes to
+> > -		 * V4L2_FRAME_DESC_ENTRY_MAX.
+> > +		 * V4L2_FRAME_DESC_ENTRY_PREALLOC.
+> >  		 */
+> > -		if (num_active_routes > V4L2_FRAME_DESC_ENTRY_MAX)
+> > +		if (num_active_routes > V4L2_FRAME_DESC_ENTRY_PREALLOC)
+> >  			return -E2BIG;
+> >
+> >  		/*
+> > @@ -2638,7 +2657,7 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
+> >  				return -EPIPE;
+> >  			}
+> >
+> > -			if (fd->num_entries >= V4L2_FRAME_DESC_ENTRY_MAX) {
+> > +			if (fd->num_entries >= V4L2_FRAME_DESC_ENTRY_PREALLOC) {
+> >  				dev_dbg(dev, "Frame desc entry limit reached\n");
+> >  				return -E2BIG;
+> >  			}
+> > @@ -2730,6 +2749,16 @@ int v4l2_subdev_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+> >  }
+> >  EXPORT_SYMBOL_GPL(v4l2_subdev_get_frame_desc);
+> >
+> > +void v4l2_subdev_free_frame_desc(struct v4l2_mbus_frame_desc *desc)
+> > +{
+> > +	if (desc->entry != desc->entry_mem)
+> > +		kfree(desc->entry);
+> > +
+> > +	desc->entry = NULL;
+> > +	desc->len_entries = desc->num_entries = 0;
+> > +}
+> > +EXPORT_SYMBOL_GPL(v4l2_subdev_free_frame_desc);
+> > +
+> >  #endif /* CONFIG_VIDEO_V4L2_SUBDEV_API */
+> >
+> >  #endif /* CONFIG_MEDIA_CONTROLLER */
+> > diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
+> > index c9e74566c85a..bd97510c7024 100644
+> > --- a/include/media/v4l2-subdev.h
+> > +++ b/include/media/v4l2-subdev.h
+> > @@ -365,11 +365,13 @@ struct v4l2_mbus_frame_desc_entry {
+> >  	} bus;
+> >  };
+> >
+> > - /*
+> > -  * If this number is too small, it should be dropped altogether and the
+> > -  * API switched to a dynamic number of frame descriptor entries.
+> > -  */
+> > -#define V4L2_FRAME_DESC_ENTRY_MAX	8
+> > +/* Size of the statically allocated frame descriptor array. */
+> > +#define V4L2_FRAME_DESC_ENTRY_PREALLOC	8
+> > +/*
+> > + * Maximum number of dynamically allocated frame descriptors. Note that
+> > + * V4L2_SUBDEV_MAX_STREAM_ID is related to this limit as well.
+> > + */
+> > +#define V4L2_FRAME_DESC_ENTRY_MAX	64
+> >
+> >  /**
+> >   * enum v4l2_mbus_frame_desc_type - media bus frame description type
+> > @@ -392,13 +394,17 @@ enum v4l2_mbus_frame_desc_type {
+> >  /**
+> >   * struct v4l2_mbus_frame_desc - media bus data frame description
+> >   * @type: type of the bus (enum v4l2_mbus_frame_desc_type)
+> > - * @entry: frame descriptors array
+> > - * @num_entries: number of entries in @entry array
+> > + * @entry_mem: memory for the frame descriptors (@entry)
+> > + * @entry: pointer to the frame descriptors
+> > + * @num_entries: number of entries in @entry
+> > + * @len_entries: number of entries allocated for @entry
+> >   */
+> >  struct v4l2_mbus_frame_desc {
+> >  	enum v4l2_mbus_frame_desc_type type;
+> > -	struct v4l2_mbus_frame_desc_entry entry[V4L2_FRAME_DESC_ENTRY_MAX];
+> > +	struct v4l2_mbus_frame_desc_entry entry_mem[V4L2_FRAME_DESC_ENTRY_PREALLOC];
+> > +	struct v4l2_mbus_frame_desc_entry *entry;
+> >  	unsigned short num_entries;
+> > +	unsigned short len_entries;
+> 
+> What are the implications of this change on this part of
+> v4l2_subdev_get_frame_desc() ?
+> 
+> 	struct v4l2_subdev_state *state =
+> 		v4l2_subdev_lock_and_get_active_state(sd);
+> 	ret = v4l2_subdev_call(sd, pad, get_fmt, state, &subdev_fmt);
+> 	v4l2_subdev_unlock_state(state);
+> 	if (ret)
+> 		return ret;
+> 
+> 	struct v4l2_mbus_frame_desc_entry entry = {
+> 		.pixelcode = subdev_fmt.format.code,
+> 	};
+> 
+> 	if (desc->type == V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
+> 		int dt;
+> 
+> 		dt = mipi_csi2_dt_for_mbus(subdev_fmt.format.code);
+> 		if (dt < 0)
+> 			return dt;
+> 
+> 		entry.bus.csi2.dt = dt;
+> 	}
+> 
+> 	desc->entry[0] = entry;
+> 
+>         ^
+>         |---- here ?
+> 
+> Is there any risk this now access invalid memory ?
+> Should we do the same thing that you're doing call_get_frame_desc() ?
+> 
+> 	fd->entry = fd->entry_mem;
+> 
+> before assigning its first member ?
 
-  video_register_device()
-    -> __video_register_device()
-       -> device_register() fails
-          -> put_device(&vdev->dev)
-             -> v4l2_device_release()
-                -> vdev->release(vdev)
-                   -> video_device_release(vdev)
+This is in fact done by the caller in the next patch. I think I'll squash
+it here.
 
-  empress_init()
-    -> video_device_release(dev->empress_dev)
+> 
+> >  };
+> >
+> >  /**
+> > @@ -780,7 +786,13 @@ struct v4l2_subdev_state {
+> >   * @link_validate: used by the media controller code to check if the links
+> >   *		   that belongs to a pipeline can be used for stream.
+> >   *
+> > - * @get_frame_desc: get the current low level media bus frame parameters.
+> > + * @get_frame_desc: get the current low level media bus frame parameters. The
+> > + *		    callback is required to update the num_entries field to the
+> > + *		    total number of entries in the frame descriptor. The
+> > + *		    callback shall fill the first entries array up to
+> > + *		    len_entries, which signifies the number of entries
+> > + *		    allocated. If num_entries exceeds len_entries, the callback
+> > + *		    shall return -ENOSPC.
+> >   *
+> >   * @set_frame_desc: set the low level media bus frame parameters, @fd array
+> >   *                  may be adjusted by the subdev driver to device capabilities.
+> > @@ -1793,11 +1805,25 @@ int v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
+> >   *
+> >   * The caller is required to set @desc->type to the expected bus type.
+> >   *
+> > + * The entries in the frame descriptor are allocated based on the need. The
+> > + * caller is required to release the memory of the frame descriptor entries for
+> > + * each frame descriptor obtained by calling this function using
+> > + * v4l2_subdev_free_frame_desc().
+> > + *
+> >   * Return: %0 on success or negative error code on failure.
+> >   */
+> >  int v4l2_subdev_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+> >  			       struct v4l2_mbus_frame_desc *desc);
+> >
+> > +/**
+> > + * v4l2_subdev_free_frame_desc() - Release the memory of a frame descriptor
+> > + * @desc: A pointer to a frame descriptor
+> > + *
+> > + * Release the frame descriptor entries in a frame descriptor. The number of
+> > + * entries in the descriptor are set to 0 again.
+> > + */
+> > +void v4l2_subdev_free_frame_desc(struct v4l2_mbus_frame_desc *desc);
+> > +
+> >  #endif /* CONFIG_VIDEO_V4L2_SUBDEV_API */
+> >
+> >  #endif /* CONFIG_MEDIA_CONTROLLER */
 
-Use video_device_release_empty() while registering the device so that
-registration failure paths do not free dev->empress_dev through
-vdev->release(). empress_init() then releases dev->empress_dev exactly
-once on failure. Restore video_device_release() after successful
-registration so the registered device keeps its normal lifetime handling.
-
-This issue was found by a static analysis tool I am developing.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/media/pci/saa7134/saa7134-empress.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/pci/saa7134/saa7134-empress.c b/drivers/media/pci/saa7134/saa7134-empress.c
-index 8c4f70e4177d..884c6418401a 100644
---- a/drivers/media/pci/saa7134/saa7134-empress.c
-+++ b/drivers/media/pci/saa7134/saa7134-empress.c
-@@ -250,7 +250,7 @@ static int empress_init(struct saa7134_dev *dev)
- 		return -ENOMEM;
- 	*(dev->empress_dev) = saa7134_empress_template;
- 	dev->empress_dev->v4l2_dev  = &dev->v4l2_dev;
--	dev->empress_dev->release = video_device_release;
-+	dev->empress_dev->release = video_device_release_empty;
- 	dev->empress_dev->lock = &dev->lock;
- 	snprintf(dev->empress_dev->name, sizeof(dev->empress_dev->name),
- 		 "%s empress (%s)", dev->name,
-@@ -305,6 +305,8 @@ static int empress_init(struct saa7134_dev *dev)
- 		dev->empress_dev = NULL;
- 		return err;
- 	}
-+
-+	dev->empress_dev->release = video_device_release;
- 	pr_info("%s: registered device %s [mpeg]\n",
- 	       dev->name, video_device_node_name(dev->empress_dev));
- 
 -- 
-2.43.0
+Kind regards,
 
+Sakari Ailus
