@@ -1,86 +1,249 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633923B584A;
-	Mon, 18 May 2026 09:25:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F235B3E2AD5
+	for <linux-media@vger.kernel.org>; Mon, 18 May 2026 09:29:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779096319; cv=none; b=YqmYiwCyP/N9VdVilh2bNAlDGRxYhzutE+aqfyOizO0ZDI6wgJGjO1N5CLrj8b2CViKMRk55rO2t3Wanien9wbLGNOXvZCDh5fRl+y0c36+vy8qz1swR0M60ZbHRfAxQqDBMNnpVHC52ZvTCv3PyO68M6E5gqdsWDeWf+09yGS8=
+	t=1779096566; cv=none; b=bUyaHoCZAmhBK7jN11o3EN8k32pG0XK2GOtABPWkbaJ69bZUu3lm1Z1PLrakJk8/OB2DTEvj0Zo6T03rF3BxVoXcFwBX6cROzgrdUKIdQL/g9mio4nPgAk4ypeelS8AH09xs7qrJioYGruh8pK9J3PBI81AUqez204wWOyt3PK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779096319; c=relaxed/simple;
-	bh=wynAuqrakYL+/x14eZJMcrGSf/NygpxlDix0/zRbqPQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zo4E0r0BPvrepszafnFlXqxkTlYyJMd5YwVuVwlkcRJCLVFbJNzaItfx1HJNlJ1jhO5nNSO0Cwm2rYzgHLujZkOj8bTecryTrbgLiBKeMDZjwEQ1bUTPPj1MtPIryb8kgVoAmYiVkMf2rRIvwm25ny8lqvvcfr/6Cs6t89V+ogg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=sk20GFlc; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	s=arc-20240116; t=1779096566; c=relaxed/simple;
+	bh=r0/J3kQR5yeiimzsreh80xsM6C9KNUlXaQl9kU29TUs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nJuiQhBUYktIesJLl9/GDmx3+s9caz2vLoT6aXvHDrq+A3VI6NV/c6b+0CdE32qP72tCr1r/UUMj0Hwpi5Vkb88ayNxNMpMc5KHKq6ogb1S1zToLupQGG1lfe3o4UzgwImXCbynlZLzoUrNl2YxqtH5wB7XbhJs2d9UTeSabw2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B6sihm9e; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="sk20GFlc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1779095792; bh=wynAuqrakYL+/x14eZJMcrGSf/NygpxlDix0/zRbqPQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sk20GFlcJjHaYzyZ5ZzSJnvCE4g3kwUeyo47/um/pFFjFtQeaxpyuXobq4ocneVE6
-	 xEi7RbjocGxkX34kzFhFQyzfj1R9XnwSGKfYF4DyD4qgtVbAKd6PexFD6LOpfZDg4E
-	 DvvqfiV0ETNoH8+zmLbjy2tkRB6AHud3rGXZBi8uPmHK1gdLw+mRmkaSk7RdCEZKkS
-	 NEYBga29jI/ap1hEbd9P+OC2sPrCFkKwdPTNsav0OpSqx2F0IMg+V+bEa6W8k2co7o
-	 U84eTkuFdiwP6grC17ueI2DgJVb0wbau9yvHDPHBPik7nrXPWi1DWm6kMkfnstV7nQ
-	 jXjVYBofcI2hA==
-Received: by extorris.mess.org (Postfix, from userid 1001)
-	id 51AC840ADA; Mon, 18 May 2026 10:16:32 +0100 (BST)
-Date: Mon, 18 May 2026 10:16:32 +0100
-From: Sean Young <sean@mess.org>
-To: Alessandro Baldi <baldovic@virgilio.it>
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: imon: Add iMON VFD HID OEM v1.2 key mappings
-Message-ID: <agrY8P7oYjUg7dZu@extorris.mess.org>
-References: <20260517091415.3080-1-baldovic@virgilio.it>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B6sihm9e"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4891e86fabeso27585005e9.1
+        for <linux-media@vger.kernel.org>; Mon, 18 May 2026 02:29:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779096563; x=1779701363; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=CDwQwZfzQ+v4zAM7BuOooX+kRgbnUOKOzvArP/cGiqU=;
+        b=B6sihm9e1ft7GQekyoXBNogAiSuG3QW34W93kkgKsnnNNCDv5J6PKfz6fFTivh/Gss
+         0aeFH+dUmUOPPFDfzXy+bVNg8/JbM8bVScJP8cGlfl6x6NdamFBBcJNpcrzmbTnSBFQP
+         xLI9pHzOFEB+/TAjplJRJusm7Il+vpUm9nUJLFPj2xfh1LlIzWrqsltuOIr2zo56HwCq
+         t9Gr2zAI2FqfHBmRgBbouS+cBThIAKbF3/6s37Ifde0OdwJ76X2qqp/elc7yo+1FUyO/
+         5lCFkIBDoLApQ4ZPiUA5LuXTZHogsG91YKqTcgJs8DHnSw/kXU9BQMdHeSsyU+OQoV7g
+         6vEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779096563; x=1779701363;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=CDwQwZfzQ+v4zAM7BuOooX+kRgbnUOKOzvArP/cGiqU=;
+        b=lVHIZlyItAW6raWi4mc9ZeSBGXxd0UeuLTIy2ee5XA8M5986fpO9B2jV8h8LG13vNB
+         g3pbNUMAST04UFUFuZCekdRnx1uDsUXFAGq/+y4InbJyeotdcRVdE9It8NP6oI4Lni+8
+         x597Q7TXfO3+ElDW1Tw5vquI0w4S2Fj9d+KFkaL5U7Z6H/gVnX7wQBvYUR1tiZmEruQN
+         r+D3J97GpS3xwHqrxwMO+M8lUs+Kme4DjVqNRwigUBwcfb3qZYREkvK3stMIXv48X/Sw
+         61vD5qrA+TK3odpSVYrZBQumMxb68Zo2hnCamJTI/nfpaZz9udxVPqyT9tGkTMlmD2Dw
+         cA4A==
+X-Forwarded-Encrypted: i=1; AFNElJ8jZ530gAS0eDwQwGEn641NIO+ABgFCG7FxuDBe33CUP5Hh/6vLPitizF5OmCaJJY3f8ILLUzonWiEJlQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyYjFiGJ4C87NMilpMwMexMeLZ0JLCJ1Hzapv0ExmnHK2ysUV4X
+	l/vsAc7K+v7Y7EgbiZw+hOAxR1y9XoQJDJUfVOdZ9Hsh7ZUtQDxTyS27
+X-Gm-Gg: Acq92OHoV0HWLAXpgBC74DxTXwbAbZhRqCm9GcIoPcE4PreGoVTdtc17Ha0USZf89M3
+	lqbK84CTGOcWnvWomOJ9i5Bx7DeNZUfTbGagil1KBhXQaormB2CrK1YIuCjjz6DMkOB2ok5yee1
+	hV5CCBWZkWresyvFdVR12iLy0D2ZFDcgrc6UaGAcvgaWzZpQ01dc5aZtLOqWmpZ+dvzSArUrURI
+	r6CXQBowzWbgLPlQgKfIu/mSKWGS/KsCTO4UYQgx0ttoI0zgzTrvKJ9v0AREG6YXsAsdoGEtz84
+	uVuu//eSgSNU2x1rE2XgHO/UGaPxOOf2UMuDpMhYft+7arm2XzSOn94tNCrTbqDWVbMsyZxA15Z
+	52xpYEGK0VT/i3Fzh90k7RVNpZUKMPNdjFk6bhbSa24ap+tcmKmamyP804635+PFmAAQ27ir/W9
+	bFUOgEOiKywLO0ENbPwo+jZIYYGum6JbTRpBhWUOB95wgya8s78ig15YtqkH4NTfmwNRgibkap0
+	SECNm24+JwEESZhKyej+CR43ww7GwIxI2zPDvxEold1q6ftVGbaU89t/O+wZWayrEH05w==
+X-Received: by 2002:a05:600c:34cc:b0:48e:635a:18d7 with SMTP id 5b1f17b1804b1-48fe59b047bmr240818345e9.0.1779096563202;
+        Mon, 18 May 2026 02:29:23 -0700 (PDT)
+Received: from ?IPV6:2620:10d:c096:325:77fd:1068:74c8:af87? ([2620:10d:c092:600::1:6e9b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48febe582e3sm88451385e9.15.2026.05.18.02.29.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 18 May 2026 02:29:22 -0700 (PDT)
+Message-ID: <50ed7240-d8d3-4816-bcc9-ce8adbbbf841@gmail.com>
+Date: Mon, 18 May 2026 10:29:18 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260517091415.3080-1-baldovic@virgilio.it>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 07/10] nvme-pci: implement dma_token backed requests
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+ Sagi Grimberg <sagi@grimberg.me>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ io-uring@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
+References: <cover.1777475843.git.asml.silence@gmail.com>
+ <5cecb1157ab784f9f303a91449fdf11b03aa6002.1777475843.git.asml.silence@gmail.com>
+ <20260513083817.GC6461@lst.de>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <20260513083817.GC6461@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, May 17, 2026 at 11:14:15AM +0200, Alessandro Baldi wrote:
-> Add Vol+/Vol-/Mute panel button mappings for iMON VFD HID OEM v1.2.
-> This version differs in the codes that generate the
-> KEY_VOLUMEUP, KEY_VOLUMEDOWN and KEY_MUTE events.
-> 
-> Signed-off-by: Alessandro Baldi <baldovic@virgilio.it>
+On 5/13/26 09:38, Christoph Hellwig wrote:
+> FYI, I really want SGL support before this get merged, but ignoring that
+> for now:
 
-Thank you, patch applied.
+I was hoping to let Samsung guys to send a follow up they already have,
+but I'll ask them to have about taking it into this patch set.
 
-Sean
+>> +struct nvme_dmabuf_map {
+>> +	struct io_dmabuf_map base;
+>> +	dma_addr_t *dma_list;
+>> +	struct sg_table *sgt;
+>> +	unsigned nr_entries;
+> 
+> I'd make dma_list a variable-sized array at the end of the struture to avoid
+> an extra allocation and pointer derefernece.
 
-> ---
+Ok
+
+>> +static void nvme_dmabuf_map_sync(struct nvme_dev *nvme_dev, struct request *req,
+>> +				 bool for_cpu)
+>> +{
+>> +	int length = blk_rq_payload_bytes(req);
+>> +	struct device *dev = nvme_dev->dev;
+>> +	enum dma_data_direction dma_dir;
+>> +	struct bio *bio = req->bio;
+>> +	struct nvme_dmabuf_map *map;
+>> +	dma_addr_t *dma_list;
+>> +	int offset, map_idx;
+>> +
+>> +	dma_dir = rq_data_dir(req) == READ ? DMA_FROM_DEVICE : DMA_TO_DEVICE;
+>> +	map = container_of(bio->dmabuf_map, struct nvme_dmabuf_map, base);
+>> +	dma_list = map->dma_list;
+>> +
+>> +	offset = bio->bi_iter.bi_bvec_done;
+>> +	map_idx = offset / NVME_CTRL_PAGE_SIZE;
+>> +	length += offset & (NVME_CTRL_PAGE_SIZE - 1);
 > 
-> Note: this is my first kernel contribution.
-> Keycodes discovered by parsing USB packets with usbmon:
-> - modprobe usbmon
-> - cat /sys/kernel/debug/usb/usbmon/1u | grep Ii
-> Tested on Thermaltake Mozart Sx case with LibreELEC media center.
+> Please initialize the variable at declaration time and use or add proper
+> helpers to simplify this:
+
+> static inline struct nvme_dmabuf_map *
+> to_nvme_dmabuf_map(struct io_dmabuf_map *map)
+> {
+> 	return container_of(map, struct nvme_dmabuf_map, base);
+> }
 > 
->  drivers/media/rc/imon.c | 4 ++++
->  1 file changed, 4 insertions(+)
+> ....
 > 
-> diff --git a/drivers/media/rc/imon.c b/drivers/media/rc/imon.c
-> index 9bb27ba82..049a73b5f 100644
-> --- a/drivers/media/rc/imon.c
-> +++ b/drivers/media/rc/imon.c
-> @@ -290,6 +290,10 @@ static const struct imon_usb_dev_descr imon_OEM_VFD = {
->  		{ 0x000100000000ffeell, KEY_VOLUMEUP },
->  		{ 0x010000000000ffeell, KEY_VOLUMEDOWN },
->  		{ 0x000000000100ffeell, KEY_MUTE },
-> +		/* iMON VFD HID OEM v1.2 */
-> +		{ 0x000000000a00ffeell, KEY_VOLUMEUP },
-> +		{ 0x000000000b00ffeell, KEY_VOLUMEDOWN },
-> +		{ 0x000000000c00ffeell, KEY_MUTE },
->  		/* 0xffdc iMON MCE VFD */
->  		{ 0x00010000ffffffeell, KEY_VOLUMEUP },
->  		{ 0x01000000ffffffeell, KEY_VOLUMEDOWN },
-> -- 
-> 2.34.1
+> 	enum dma_data_direction dma_dir = rq_dma_dir(req);
+> 	struct device *dev = nvme_dev->dev;
+> 	struct bio *bio = req->bio;
+> 	struct nvme_dmabuf_map *map = to_nvme_dmabuf_map(bio->bi_dmabuf_map);
+> 	dma_addr_t *dma_list = map->dma_list;
+> 	int offset = bio->bi_iter.bi_bvec_done;
+> 	int mmap_idx = offset / NVME_CTRL_PAGE_SIZE;
+> 	int length = blk_rq_payload_bytes(req) +
+> 		offset & (NVME_CTRL_PAGE_SIZE - 1);
+> 
+> Also a lot of these ints sound like they should be unsigned.
+
+Ok
+
+>> +
+>> +	while (length > 0) {
+>> +		u64 dma_addr = dma_list[map_idx++];
+>> +
+>> +		if (for_cpu)
+>> +			__dma_sync_single_for_cpu(dev, dma_addr,
+>> +						  NVME_CTRL_PAGE_SIZE, dma_dir);
+>> +		else
+>> +			__dma_sync_single_for_device(dev, dma_addr,
+>> +						     NVME_CTRL_PAGE_SIZE,
+>> +						     dma_dir);
+>> +		length -= NVME_CTRL_PAGE_SIZE;
+>> +	}
+>> +}
+> 
+> Nothing should be using these __dma_sync helpers that are internal
+> details. Using them means you call into sync code that should be skipped
+> on most common server class systems.
+
+Yeah, the kernel test robot already flagged it as well
+
+> Also the for_cpu argument is a bit ugly.  I'd rather have separate
+> routines as in the core dma-mapping code, even if that means a little bit
+> of code duplication.
+> 
+>> +static blk_status_t nvme_rq_setup_dmabuf_map(struct request *req,
+>> +					     struct nvme_queue *nvmeq)
+>> +{
+>> +	struct nvme_iod *iod = blk_mq_rq_to_pdu(req);
+>> +	int length = blk_rq_payload_bytes(req);
+>> +	u64 dma_addr, prp1_dma, prp2_dma;
+>> +	struct bio *bio = req->bio;
+>> +	struct nvme_dmabuf_map *map;
+>> +	dma_addr_t *dma_list;
+>> +	dma_addr_t prp_dma;
+>> +	__le64 *prp_list;
+>> +	int i, map_idx;
+>> +	int offset;
+>> +
+>> +	nvme_dmabuf_map_sync(nvmeq->dev, req, false);
+>> +
+>> +	map = container_of(bio->dmabuf_map, struct nvme_dmabuf_map, base);
+>> +	dma_list = map->dma_list;
+>> +
+>> +	offset = bio->bi_iter.bi_bvec_done;
+>> +	map_idx = offset / NVME_CTRL_PAGE_SIZE;
+>> +	offset &= (NVME_CTRL_PAGE_SIZE - 1);
+>> +	prp1_dma = dma_list[map_idx++] + offset;
+> 
+> Same comments as for the sync helper above.
+> 
+>> +	length -= (NVME_CTRL_PAGE_SIZE - offset);
+>> +	if (length <= 0) {
+>> +		prp2_dma = 0;
+>> +		goto done;
+>> +	}
+>> +
+>> +	if (length <= NVME_CTRL_PAGE_SIZE) {
+>> +		prp2_dma = dma_list[map_idx];
+>> +		goto done;
+>> +	}
+>> +
+>> +	if (DIV_ROUND_UP(length, NVME_CTRL_PAGE_SIZE) <=
+>> +	    NVME_SMALL_POOL_SIZE / sizeof(__le64))
+>> +		iod->flags |= IOD_SMALL_DESCRIPTOR;
+>> +
+>> +	prp_list = dma_pool_alloc(nvme_dma_pool(nvmeq, iod), GFP_ATOMIC,
+>> +			&prp_dma);
+>> +	if (!prp_list)
+>> +		return BLK_STS_RESOURCE;
+>> +
+>> +	iod->descriptors[iod->nr_descriptors++] = prp_list;
+>> +	prp2_dma = prp_dma;
+> 
+> And I really hate how this duplicates all the nasty PRP building logic,
+> although right now I don't have a good answer to that.
+> 
+>> +static inline bool nvme_rq_is_dmabuf_attached(struct request *req)
+>> +{
+>> +	if (!IS_ENABLED(CONFIG_DMABUF_TOKEN))
+>> +		return false;
+>> +	return req->bio && bio_flagged(req->bio, BIO_DMABUF_MAP);
+>> +}
+> 
+> This is something that should go into the block layer.
+
+I'll move it
+
+-- 
+Pavel Begunkov
+
