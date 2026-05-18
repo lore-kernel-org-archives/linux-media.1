@@ -1,52 +1,52 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B133F7860;
-	Mon, 18 May 2026 11:30:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60EDA3F5BD6;
+	Mon, 18 May 2026 11:30:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779103815; cv=none; b=PCE7ymw3FmNUkDaDj9C8NTvCjKyXQ8F8p4b7b0PxjbbhI7EvwZM99TEMiXf2k6TYY6gAYBYsZxVfaol5Sx4nA7y8+pbwdfX2YAb1vq8r/7IWXtWXGgeKwoj5A4dvyKp7bw+FX5oXWnFRZU6AQKt/QAfintnVhKILByGDX+pQ6FY=
+	t=1779103819; cv=none; b=NBHOEb/BYh/k+sIsuRnBZxrf0VxYFaYF73xL7/XHgMtCR7ItCe0lI3EcgF2/o869JpOzrjzSd1f2ag68A075/cjNqV/SYF0UEEIhTOZkODygOMO7ZF8B+gfIoZMtAp1iX9U7gLmTsbyxCRxRXfB5Eu2dve+iIJKysGfAQt+AbkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779103815; c=relaxed/simple;
-	bh=Twnhndhk/I+hM9JdMgDlMxxxoumz64llnmr2+0oOHdI=;
+	s=arc-20240116; t=1779103819; c=relaxed/simple;
+	bh=T+zVygOBokk79HhCYGyT4FwHbQ8HXxSoWftezh8efK0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=At/t9AAcHl4H7dAfVbbMrzFghwW6yRThtADQKo30iL+8oSgyhWLu20m2HesaaKAKmYk2kBdc5g6Pijd6mEQDWzcBtvrnFAdeYwHr2ptIpgyDfBaVMtbQnQamMN0Wq0rh6UfJKCP5VY5Ki3jXyZlBe0/BvvRZPi2DXBBpnZGSi1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=BW7abmFO; arc=none smtp.client-ip=68.232.154.123
+	 In-Reply-To:To:CC; b=epg8E3/sGBO+xm4dNvBtVfwHnJ6uoCOGoLoB8OLMbDF6UNDS86+TKnhvfEosJJDPCsNhIfI7DIWZGKWdvNf8p7N6lwcBkZf/BJxrVVBzIXU2pS3Q1nYhO0PwL6SUziwJgLsyfLsz+4oztWZ6ZPNtTD2v/MFbMINB9NJWFlvfj0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=OOVBiJYA; arc=none smtp.client-ip=68.232.153.233
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="BW7abmFO"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="OOVBiJYA"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1779103812; x=1810639812;
+  t=1779103817; x=1810639817;
   h=from:date:subject:mime-version:content-transfer-encoding:
    message-id:references:in-reply-to:to:cc;
-  bh=Twnhndhk/I+hM9JdMgDlMxxxoumz64llnmr2+0oOHdI=;
-  b=BW7abmFOWjVfWhJAvxjrFNwKYB2SnQ9e5imW8VEf4URfHWRLgHFWL2oH
-   afhbqobHDov62tfc4zkCZZpqR03jW3Ec0QhyvUCH6eVX9scwFtQisxPYa
-   QoIwcdZV+QWkiEdpVF3dSwg/teHnNK5irO84Wz3F6skao7ahNx34Y1ryw
-   w7QhHt3Px7+4j/1PbG4EIk26WRDEPXo3yGsgTIqilau6vT5szK19n8JcX
-   dY/no4NJEwrhfPhmaFuQ6dlTfHjX5CnYoMBpz/VgLK8PIN0+EuoLcjhSv
-   5fL5ggtrXEoqS3TJRieIfJ3yKkfTVRkqp7Ef0UhGyoLF7DfDzDObiPbRB
-   g==;
-X-CSE-ConnectionGUID: U29+au9+SJSGO6+GxSoUFg==
-X-CSE-MsgGUID: dNBEj8r7QHisal6EarrYng==
+  bh=T+zVygOBokk79HhCYGyT4FwHbQ8HXxSoWftezh8efK0=;
+  b=OOVBiJYAIfmWwNS4FEBO0VNHZ8OWqb9u7y1fKzl3gcY8dMJm5F/fH1h+
+   kft0WR8HF7V++Uvi8heHDuZWf69/PKbNQ2eJOs2htYWVCxYXrShia/voQ
+   9qB1eXdCtwBEmUH/wL3TgPZU357nAYu1pXWNim3IiuRkMei91oegckm+4
+   wFUrpAXDTHtEcEFAQc8VwGJTBV6Hf9cvCD4myjHgr79DaDpdfg/I/HxK7
+   snPw8FzM0dbN2v6fS1K6qtTyR8STCwfKpjaCXl9dB1iL+uVHGO3BXc5VE
+   H6XhR4L8AoDEwLP1VY2hBKkEm10KGx33Q8EpqrwmnSPFbxgX0siwku2hF
+   Q==;
+X-CSE-ConnectionGUID: aiq2nMXITC6adAccUQ95+A==
+X-CSE-MsgGUID: ov5q6pYsReybU4CnFUAtVw==
 X-IronPort-AV: E=Sophos;i="6.23,241,1770620400"; 
-   d="scan'208";a="58070978"
+   d="scan'208";a="57659251"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 May 2026 04:30:04 -0700
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 May 2026 04:30:12 -0700
 Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
- chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.37; Mon, 18 May 2026 04:30:03 -0700
+ 15.2.2562.37; Mon, 18 May 2026 04:30:11 -0700
 Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex03.mchp-main.com
  (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Mon, 18 May 2026 04:29:59 -0700
+ Transport; Mon, 18 May 2026 04:30:07 -0700
 From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Date: Mon, 18 May 2026 16:59:42 +0530
-Subject: [PATCH v4 04/12] media: microchip-isc: fix PM runtime leak in AWB
- work handler
+Date: Mon, 18 May 2026 16:59:44 +0530
+Subject: [PATCH v4 06/12] media: microchip-isc: set SAM9X7 maximum
+ resolution to 2560x1920
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -55,7 +55,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260518-balki-isc-series1-v4-v4-4-97f189185b7e@microchip.com>
+Message-ID: <20260518-balki-isc-series1-v4-v4-6-97f189185b7e@microchip.com>
 References: <20260518-balki-isc-series1-v4-v4-0-97f189185b7e@microchip.com>
 In-Reply-To: <20260518-balki-isc-series1-v4-v4-0-97f189185b7e@microchip.com>
 To: Eugen Hristev <eugen.hristev@linaro.org>, Mauro Carvalho Chehab
@@ -64,40 +64,51 @@ CC: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Laurent
  Pinchart" <laurent.pinchart@ideasonboard.com>, Kieran Bingham
 	<kieran.bingham@ideasonboard.com>, Balakrishnan Sambath
 	<balakrishnan.s@microchip.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
-	<stable@vger.kernel.org>
+	Balamanikandan Gunasundar <balamanikandan.gunasundar@microchip.com>
 X-Mailer: b4 0.14.3
 
-Early return when streaming stops skips pm_runtime_put_sync(),
-leaking the reference and preventing runtime suspend.
+SAM9X7 XISC uses the same image processing pipeline as SAMA7G5 but has
+a smaller internal line buffer. The reduced RAM constrains the maximum
+horizontal resolution to 2560 pixels (compared to 3264 on SAMA7G5),
+resulting in a maximum capture resolution of 2560x1920.
 
-Fixes: 91b4e487b0c6 ("media: microchip: add ISC driver as Microchip ISC")
-Cc: stable@vger.kernel.org
+Co-developed-by: Balamanikandan Gunasundar <balamanikandan.gunasundar@microchip.com>
+Signed-off-by: Balamanikandan Gunasundar <balamanikandan.gunasundar@microchip.com>
 Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 ---
- drivers/media/platform/microchip/microchip-isc-base.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/media/platform/microchip/microchip-sama7g5-isc.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-index b19c5a63b4bd..f61a5d5a3e04 100644
---- a/drivers/media/platform/microchip/microchip-isc-base.c
-+++ b/drivers/media/platform/microchip/microchip-isc-base.c
-@@ -1429,7 +1429,7 @@ static void isc_awb_work(struct work_struct *w)
- 	/* streaming is not active anymore */
- 	if (isc->stop) {
- 		mutex_unlock(&isc->awb_mutex);
--		return;
-+		goto out_pm_put;
- 	}
+diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+index ca23e8adecbd..4119cfe12cdf 100644
+--- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
++++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+@@ -55,6 +55,9 @@
+ #define ISC_SAMA7G5_MAX_SUPPORT_WIDTH   3264
+ #define ISC_SAMA7G5_MAX_SUPPORT_HEIGHT  2464
  
- 	isc_update_profile(isc);
-@@ -1440,6 +1440,7 @@ static void isc_awb_work(struct work_struct *w)
- 	if (ctrls->awb)
- 		regmap_write(regmap, ISC_CTRLEN, ISC_CTRL_HISREQ);
++#define ISC_SAM9X7_MAX_SUPPORT_WIDTH    2560
++#define ISC_SAM9X7_MAX_SUPPORT_HEIGHT   1920
++
+ #define ISC_SAMA7G5_PIPELINE \
+ 	(WB_ENABLE | CFA_ENABLE | CC_ENABLE | GAM_ENABLES | CSC_ENABLE | \
+ 	CBC_ENABLE | SUB422_ENABLE | SUB420_ENABLE)
+@@ -432,8 +435,13 @@ static int microchip_xisc_probe(struct platform_device *pdev)
+ 	isc->gamma_table = isc_sama7g5_gamma_table;
+ 	isc->gamma_max = 0;
  
-+out_pm_put:
- 	pm_runtime_put_sync(isc->dev);
- }
+-	isc->max_width = ISC_SAMA7G5_MAX_SUPPORT_WIDTH;
+-	isc->max_height = ISC_SAMA7G5_MAX_SUPPORT_HEIGHT;
++	if (of_machine_is_compatible("microchip,sam9x7")) {
++		isc->max_width = ISC_SAM9X7_MAX_SUPPORT_WIDTH;
++		isc->max_height = ISC_SAM9X7_MAX_SUPPORT_HEIGHT;
++	} else {
++		isc->max_width = ISC_SAMA7G5_MAX_SUPPORT_WIDTH;
++		isc->max_height = ISC_SAMA7G5_MAX_SUPPORT_HEIGHT;
++	}
  
+ 	isc->config_dpc = isc_sama7g5_config_dpc;
+ 	isc->config_csc = isc_sama7g5_config_csc;
 
 -- 
 2.34.1
