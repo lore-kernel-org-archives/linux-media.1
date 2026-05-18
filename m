@@ -1,153 +1,224 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010019.outbound.protection.outlook.com [40.93.198.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E303D3D16
-	for <linux-media@vger.kernel.org>; Mon, 18 May 2026 11:52:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779105154; cv=none; b=UAumZ/aN6oI0Qp4V4KEUEL0YrXpIXIzod1JDf7sJIl8pDQrFwSBQum9yllOdgY3nOeexFGhYmQIW64y8Yn7cr5CfFTLkMlB8LF3A+JfpexNlt0TfTTcU+gfNr/F8bzcSpVaUVjoKkTtN+I29YIQ41+61CYx4LipDOicsJEzFmxY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779105154; c=relaxed/simple;
-	bh=H+Tyls76daA3eGlvfJPN03V8C3U5uw1XgqZPCavatgY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dtgZXBElJnrv7D/PpfVWukb4NUUuLJAr+gnNbcs75kAV61MiIMy3Ve16bKABkieBtGc+1vt0ccZCtZqfemoEbXsuSogIaL31eACqwbsvfI9pHLogfXcUwmwK0yvWEFHWBFkp8dN1Y6cv86s9KUAsdVXgy+VNYPiQ+nh6XTE/+EU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uh9rDT5W; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 955013F99EB;
+	Mon, 18 May 2026 11:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779105544; cv=fail; b=TpLDH9LuF1GCDRNmrBZP+wkzvMycRfHt5qt1WFczjQ7Zi63xTw/+nhSkv+jSl5Aq9KIQWACWAohZxIFd03pyMSLYBwXVo1ST1ceoN0lkulpWcfU0ufg0eIHkt+5i4Q8JC/UiE/Y8HCSr5iKhj0ggCqIEPldVbjZvo4OPg8ZnZns=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779105544; c=relaxed/simple;
+	bh=J2AacgFG6iNy0mjHDA5yPjLJoiacKyHrklzpyOIdyBk=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=HCrTDQtD3nrJQ7BhfJaoLaQBgXvQMeEhO7fWc419RE5iUlw//f7Ng4MLTCsascM/HjGobr6pURQMj9MgSN2VPjuaazjTp4LH7eEHC25YvaoyGpTyJl/hMVW2TiasX8k27KzYhpmREqNqB0eAzcI4nUYd6f4RYUvbn+JgQLT8yu8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4e+ldNJN; arc=fail smtp.client-ip=40.93.198.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uh9rDT5W"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-36974220e45so746895a91.0
-        for <linux-media@vger.kernel.org>; Mon, 18 May 2026 04:52:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779105152; x=1779709952; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=lcjglP+1RAddnRhcnzDODhk3aYczqj8l0Dmk1F3SgoM=;
-        b=Uh9rDT5WfWYlR8MjKmn2CfnFREyhQugP5OwqkhYNctGuCdaQhH2cKPaHWYGgaHRhue
-         pCD6BQko3kVFOR7CGPjVuZpC7iVrYeC0iOqlxeTEx1bi+nee+EYEWD6tcuFuhzBUckQu
-         Xpe5frNjMsvkXzwMPlMWAb8b5ONqGbtmnmW5lN6YpqBDU41cK5ZtBYPb9hobgr7mhaOx
-         dfpGUthvyi2TMYHLuPOHxvhbMLUFws30Z7J+CzaFq1XvB1LL4WnspC446zm5WNEH9HfB
-         Bh3N7NLTLYT3XolHBqIkHBpoEIqXrzoQ+K/MJRBXhp13Y8YPl+38lSZh2SfJTqxDzgUE
-         cssQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779105152; x=1779709952;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lcjglP+1RAddnRhcnzDODhk3aYczqj8l0Dmk1F3SgoM=;
-        b=kUbH2j85e9EalgtDSDWTX3rxxNbs8ycu66H9KjoLXMRmTwv2qnKP6C5HQh7AuzVxBf
-         D04ZQjJdIeFiGSOVhRVMPg3SzN01+dKE9mdE18pqq/gmt7D+G37JUHGD1d0kyk1nBg3+
-         HIHFOC5n/b6umSgXIPCY5JhBEkdNibwVVVNnVYojryjNXKFFK/5zZqOe+kpVu9WmwQ0r
-         V9uWnHBy0W7opwOOwSmiu/5ZQ8znJHDYA7xCoerktlRHT07WJxTLGBK8WwHJm6x/Mkxv
-         MvSp65AdDTnBi5grLUxKkhgkRB+jgTSagdwUOCdZxgDbz021MW8ODSNZg23y+UKCSDSO
-         1HMw==
-X-Forwarded-Encrypted: i=1; AFNElJ9BQKu2TioV3MKH9PT3n5A/d5mFkuq7Puw3Z0Yb5lIIGJY1hg2slX/qxg+eHikpAptG8PMG9FnR05mg5w==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyj2rZstiZyyMShDf/UISJdJigrrGprcN6Sf9CVehEr1vIqKXFa
-	oCbVo1AR7d5quAEA/ovtrVc8w7VOLEwhRQqp7Ro9E1RhuSJQpL65fqD/
-X-Gm-Gg: Acq92OE0oBQIc6XDEfR/B/gukD7oX2h5M78WAiMjl6UDs2tYl5wRCVEVxSeuvXw1710
-	MaubJCbsilB1dPC/fk55YKJBs01U/Hws9E/NeNudBdx02WuWzR60jWgV4JkCz1No3ADweNyPgP6
-	DSM2IrC6HFG5wCXEi95HgOlIYkSXtT9HfPLGAP8PSQy73iSDsBVTWhXYR5HraB1ZBmY7PudHCGs
-	lV2l+9ZEX7774zwqiJ4GHAxRTmg58MF0uzKVNeHxz3eVhN2XQhKyjGE/SJqgtY6wDghvZt4G9o0
-	TUSFRKJINtXzFXaKjdal+dvmbvzFCdbi1B98pxUj1mTZeRmliaEddTomQtpm8fTfCu4Y99jTfPd
-	VFUXBSJ+ZWOFYQzJrW7Jim6Q+pBSLhUev3KcmBT+0dhAjwI/c7XqfNKiL0hkiCGkF4NYDhSRb8D
-	3u94d/R68lX+Fsuur4fbfb
-X-Received: by 2002:a17:90b:5708:b0:365:8fd4:925c with SMTP id 98e67ed59e1d1-3695149986amr10611417a91.8.1779105152199;
-        Mon, 18 May 2026 04:52:32 -0700 (PDT)
-Received: from lgs.. ([101.76.249.46])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3695157c3cfsm11047195a91.5.2026.05.18.04.52.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2026 04:52:31 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
-	Jacek Anaszewski <jacek.anaszewski@gmail.com>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>
-Subject: [PATCH] media: s5p-jpeg: avoid double free on video register failure
-Date: Mon, 18 May 2026 19:52:19 +0800
-Message-ID: <20260518115219.990820-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4e+ldNJN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d0Jx5wzDq3Lyr7jmOEWWMNisk48o1AvVdNKGOdyuCEz0Q/zP2K7b4Ly1Kf1uB26mE949g3zcdVL190qu2ffmg2rEOPhW6QlP6hYGx1NYJXp9YFALQHzs4NMy6xqU6VYsGkkPOfN+DiGOlQsqhwwQKWzKE/xlYvsOhDPlnSAANbTJQ6yaM/z+CYK9n/loF7gAWkHA2Db08jgSwwEBEYE/5K/cE3G6rDs9OuhiJcGwSZnCLgwnV/KLtYX7zUqCT7hkjHnbmINDmDYuFm9W4PPOQuniz4SNnzxm2/JJjFWyz2kowMP/3R2D2D60lZwhuY04OWPFurItFU2shppDBEJBzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=o/wxmq+4Qvp7ufsZ9FjX+jEXRqx7RKPZMk16j/OF3nA=;
+ b=BEYVA3JpDfZUn3XXIr+hD2vGiZc83DL7tIfg3Vm7agxs+ukEziFy0DHyVWJATB8E7BxzJVmC7OOZwwIsoO3j2L2K5LTXTDokSXB77AVaF4MFSy40d3d9IRTaPADTKFGc8ob7WeeLHfG1pu+xpbyvaofKhq7TXbU95UAkDtplj9irKljm1sVFHyKw37sp5QB+7qwX+CSVTk8+0EMH4ZrVNopb3PuOZVrlRT9KTHktqnKzVJiqiAhUVsBsOeTiDqT/gMcP2h54/oJ1WMoO17vpj0FfvOuLQmWtxAl+PL77Zm1FVeFkbBfjaDmOHqldbAgDeD9eUyu4dA7zT1xtNlGFbA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o/wxmq+4Qvp7ufsZ9FjX+jEXRqx7RKPZMk16j/OF3nA=;
+ b=4e+ldNJNIM/70iaS5dqkhWAXrAtm7ynh7qKWc6+suudExwPfotwlX296qOtPh3JNFW9w2WCMFdcCvhHVSk6dSX6X3PeAP0CgBVHb7VTjNOofKzwwqO+kTJ1D+DiYunl1C5vkjPzTqII5GgATymJPS4L+YEUJyveiv/BN+qk3JSg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by LVUPR12MB999160.namprd12.prod.outlook.com (2603:10b6:408:3a4::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Mon, 18 May
+ 2026 11:58:44 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Mon, 18 May 2026
+ 11:58:43 +0000
+Message-ID: <c6c91de9-a34b-4b50-a3c1-d42bf7631f8e@amd.com>
+Date: Mon, 18 May 2026 13:58:37 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/12] misc/syncobj: add /dev/syncobj device
+To: Julian Orth <ju.orth@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org
+References: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260516-jorth-syncobj-v1-0-88ede9d98a81@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0068.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9a::12) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LVUPR12MB999160:EE_
+X-MS-Office365-Filtering-Correlation-Id: cdae05e7-a15a-424d-e73a-08deb4d4cf41
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|3023799003|11063799003|56012099003|18002099003|22082099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	20fTFCzOVW1xoiFKGKsPTRF2OzUf6aMwahZJ1CQKOIS3P2yJLbpIJNhYBB9ZdvhSe5qmD2najRGMgaVmynjZAnyJd8Dg+mAydf3w21bNri92rmXgMvX1YGlP58Ysnw+X4OcuAC26ahZQRHMwIlTvU3IWreWAxUgncUM31Q1DvrT/Md73QMm4qzkPTydaxhPQpNiCXiGp4LUx8IN01an3GT+URoku58R79gQJ1IUUjs+neUx+zvvDxunLSZtRYVXKu+bQIL/G1zIJNr0M2GNB8nkt+XF2QHRDyMVr629nqqZx3qSLL6Ts50+mCHCp7VfUxYcy95I9SyQPnG9n1g+FVEPJ8y/65LwYv+g9apUbckHZUttx1QpQeUruaC/bNhxrFKTtVVVkyIv/UN9iFPJO3OyzTvmcxoHgVnMxUV6C8bjTa9uVym1ajduxNf6uFZx/qkk6MGi6GXHn9egDMWLMLt0f8fLEuDDnm2KtRUHrdOeul984+/sCRAz5eKGH0XKR0DNRlAQwK/e9pSA1rrPcT4u9PYhPtvqLM45v1MWv3cIsS9ZrZIVf83/ABmiKYuvsqGhKx/lH4BqWO17fpbqbPl8baSQWS1cMRF/XwnJKhgE76sPZom1tnEND5J6rS5CrQh/Y6CuWlB9r/unEExQk6WWxfiYX6kivhBpdI9GP5N1JYqvRdGkka0wivN+0IKJYPCKN6FRUEEoQjtL/cj2/C46hkjrkixKRgqMgtStN4/DPX9eAYSkOZkfjVNPCRr7m
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(3023799003)(11063799003)(56012099003)(18002099003)(22082099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aStzSUlYMU5XVmpKR1o5Y3FzRjdiNFhLME5ka1FCNHBZcmZaOWRua3hJcVlP?=
+ =?utf-8?B?MmtuWkZOYnFydXNOcDFqK1YyRW94VEgwSU1IemFvVmViL01sbnF4S0M2Mmx4?=
+ =?utf-8?B?U09zQVc0a09hd1l0QnZ1Yisrenh6ckRtOTQzSG05RS9ua3NUTjZMVVU5UTly?=
+ =?utf-8?B?bm5UM1g0YVp3U0NrZEtaS3k2V3B2Zk5OdHlrbHpiYjl4WlY1ZDFMdjVKQTJJ?=
+ =?utf-8?B?Q2psN3hTYVFadzVhS1c0bUt1ZTlyd2xKWnoxQ0ZUMXl2MWlwUktkMjVJbUtW?=
+ =?utf-8?B?TUJPcnFqK09LM001Yk5weGRMMVU5ZCt3a3RuTmpJRkdGaUxNRThTMDFqV2hO?=
+ =?utf-8?B?MnJBTkNKYXJDQ1FDY2VhM0kwTzFwczVFYjlPcFlLRkZxSnlyaFErNEdDMzlQ?=
+ =?utf-8?B?Y2VOd2NHcW1Ea0JzbXZkcHIyU2thRzdCQTBsb0FkYUk4OWY3Ry9LOS9zenlN?=
+ =?utf-8?B?dzQyMkJQV1B3b3RLVHBJY3ZkVmFpZFE1MksxaTNxMWVVRFVlcFc5WmtpaGV6?=
+ =?utf-8?B?RXFnM25aNXlKcGFxQmZVQkFoN1BxZkZ6b2p5Uk9vMktRUjA3ODlMK2VTYnUv?=
+ =?utf-8?B?S281eE5pUkVVWEpkUlZva2hwS3ltWDdSckpvZXNUdEFRVno4SzNOSUg4Tkdw?=
+ =?utf-8?B?aThaZmFRY09mVHJ2aGpCamZGeW1BL1o2cUpBNy9xUW80Z2JvSktxdFE2Zmpy?=
+ =?utf-8?B?Q1Q3QnJvRzdYcFFPTW5tR1hjbzdWUk5QQmpXZ01TeUYvV2lxZmc0blg5NFNt?=
+ =?utf-8?B?VEc4RFM1VURxN1U5MHNJRkRNUUVRdG5KYkxuZ3hBT29aMmJWTGxCUktGR2lT?=
+ =?utf-8?B?bEdmS2xCc21pRlNBRTJHRWo1OGtsVGo0U0F3SnFrWmloR1lTZC9tTXRvbjUy?=
+ =?utf-8?B?cTFHOWpQaVhrTE03djZXbUFIU0wxZ1Nya2lscWdXQkhVZW9SamJCNUVrcFU1?=
+ =?utf-8?B?YzhmS2t1RE43akEzS0NXWXRmSmlEam50cWtkcnhXamlmRHFBRnY3RS9pYTh5?=
+ =?utf-8?B?djZGY2Y0YU9oV2tSb0EvSnlZSUJqL2JwNWJUZW5FYTZxUWxaV0lqOElrNXNZ?=
+ =?utf-8?B?QTVXYnk5dVRPN0tncEl3VmdEbjBrd3QxT2JLMVE4blA1MTVqdFAreldRQThv?=
+ =?utf-8?B?QWIwdWx2L2M1SU5oQm9EZzN4empBM0Jzbnh2N00yeW9CQmVBMUpUZnA4bEEv?=
+ =?utf-8?B?NWVOTUJnMGtVMXhtd2pnVlBBd0xyQmxMb29ocytVUGw5aENTN2RnMHZjVldy?=
+ =?utf-8?B?bERFU0tVQVh3UFNmVDAxMkdVNm5JSHI1L0huY2JKZjE2MG9VMi9QUHdJaG05?=
+ =?utf-8?B?NHhvK0lKME0xbHVjN3VLVFRrMzd0QUY2eFZNbkhUd1I0V0lvNENPaXRqeUxB?=
+ =?utf-8?B?cEMzZXB6SHVaTjRSTHRIVVlOU2JZU2dtNWgvT3FPeUdZS3NBaUJlSEV4eGpQ?=
+ =?utf-8?B?N2dKL1J1WlgrVU81cmhNMEpDaGpoVDBIMDI5aVhYMHdkMlVLT09RL29LWmE1?=
+ =?utf-8?B?NmlwWG05WUhjMVBsNXF6ZlMxUldRZXorcjd1WG5JaVg3d1lCTnJEN1ArQmdm?=
+ =?utf-8?B?U3hjYzRKNXZ0dzl0Zmo5YzYyZk11ejkzVDVtTmxiaEhOUkFYM1F0OHc5WHQv?=
+ =?utf-8?B?UmtTOWwrb0VGUis3V25TNHlIdk1ZTy9RQ05DS2N2aGhISUdNRHlkWjRTTllU?=
+ =?utf-8?B?eitkZXkzOXVxZVhvUnZNN0lPWVRHUWNudi9nTExhVTIyaUZGbGN2NFF2Y2pC?=
+ =?utf-8?B?aEpqdXprSVJHMTFUZ09MeWx0NWRYRFZmTHNYUHUwRWNKMnNRb2t4OVhOZGxM?=
+ =?utf-8?B?L3lOUnhhQ2U3RUNnUEtjZHE3VnREZ0VWVkNkU2RYTGxXbGtidVBCd2xmdEdT?=
+ =?utf-8?B?aXl4bFRuMmdVRnRzMmRpTGhTWEk3bVZSU2xIOTFjak5jN05VWEtEK0FWQTRE?=
+ =?utf-8?B?WTFVOVdvMVBHVGhpUERCSUp2Wi9QL25ZeVVIOHdPei9IQnE4RGloTStIYUhx?=
+ =?utf-8?B?N1JjMk5HeFRNblBLZ0I4d05MU3lUR3NOQXF3MmNJTHZveGN2d0piTWZlejlu?=
+ =?utf-8?B?Y2krYk5lSDgrV3ltZDU3dW5EcEMrb09tK2djd0VwNlVNV0N0MHRnVGQ1SkZV?=
+ =?utf-8?B?Y3lMb0Vuc2NvTDlRc0c5RzEzMzl3SkdvOHZSVGg1aUpodlhRbGhYNjJBZFd1?=
+ =?utf-8?B?eHpaa05oS2J2dFZwYWpPem9RakowRlN5dHFLSjhzeFVaWml5RUY1SmVNVGRn?=
+ =?utf-8?B?WEZTMk1NWDd0OFR2amJFMXdOUFozbVppNWErck1nQWg3T0F0TCtLUmNEa0g0?=
+ =?utf-8?Q?o1z+p8c0BsiS7DCnRv?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cdae05e7-a15a-424d-e73a-08deb4d4cf41
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 11:58:43.7473
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: w6iXGI6582ldThXYz2ub6jKt+47WO/6aBi0YhHFo/scZRHuRC4/cATUvQMeRwGxo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LVUPR12MB999160
 
-s5p_jpeg_probe() allocates encoder and decoder video_devices with
-video_device_alloc() and releases them if video_register_device() fails.
+On 5/16/26 13:06, Julian Orth wrote:
+> This series adds a new device /dev/syncobj that can be used to create
+> and manipulate DRM syncobjs. Previously, these operations required the
+> use of a DRM device and the device needed to support the DRIVER_SYNCOBJ
+> and DRIVER_SYNCOBJ_TIMELINE features.
+> 
+> There are several issues with the existing API:
+> 
+> - Syncobjs are the only explicit sync mechanism available on wayland.
+>   Most compositors do not use GPU waits. Instead, they use the
+>   DRM_IOCTL_SYNCOBJ_EVENTFD ioctl to perform a CPU wait. Being tied to
+>   DRM devices means that compositors cannot consistently offer this
+>   feature even though no device-specific logic is involved.
 
-This can double free the video_device when __video_register_device()
-reaches device_register() and that call fails:
+Well the drm_syncobj is a container for device specific dma fences.
 
-  video_register_device()
-    -> __video_register_device()
-       -> device_register() fails
-          -> put_device(&vdev->dev)
-             -> v4l2_device_release()
-                -> vdev->release(vdev)
-                   -> video_device_release(vdev)
+What could be possible instead is to pass an eventfd into Wayland, but that is something userspace needs to decide.
 
-  s5p_jpeg_probe()
-    -> video_device_release(jpeg->vfd_encoder)
+> - llvmpipe currently cannot offer syncobj interop because it does not
+>   have access to a DRM device. This means that applications using
+>   llvmpipe cannot present images before they have finished rendering,
+>   despite llvmpipe using threaded rendering.
 
-The same issue exists for jpeg->vfd_decoder.
+Yeah, but that is completely intentional. You *CAN'T* use a dma_fence as completion event for llvmpipe rendering. See the kernel documentation on that.
 
-Use video_device_release_empty() while registering the devices so that
-registration failure paths do not free them through vdev->release().
-s5p_jpeg_probe() then releases the failed video_device exactly once.
-Restore video_device_release() after successful registration so the
-registered devices keep their normal lifetime handling.
+What could be possible is to use the drm_syncobjs functionality to wait before signal, but that has different semantics.
 
-This issue was found by a static analysis tool I am developing.
+Regards,
+Christian.
 
-Fixes: 7a1d4e7c064c ("[media] s5p-jpeg: Eliminate double kfree()")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/media/platform/samsung/s5p-jpeg/jpeg-core.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/platform/samsung/s5p-jpeg/jpeg-core.c b/drivers/media/platform/samsung/s5p-jpeg/jpeg-core.c
-index fdc9d7e0be66..046ad555c5fc 100644
---- a/drivers/media/platform/samsung/s5p-jpeg/jpeg-core.c
-+++ b/drivers/media/platform/samsung/s5p-jpeg/jpeg-core.c
-@@ -2915,7 +2915,7 @@ static int s5p_jpeg_probe(struct platform_device *pdev)
- 	jpeg->vfd_encoder->fops		= &s5p_jpeg_fops;
- 	jpeg->vfd_encoder->ioctl_ops	= &s5p_jpeg_ioctl_ops;
- 	jpeg->vfd_encoder->minor	= -1;
--	jpeg->vfd_encoder->release	= video_device_release;
-+	jpeg->vfd_encoder->release	= video_device_release_empty;
- 	jpeg->vfd_encoder->lock		= &jpeg->lock;
- 	jpeg->vfd_encoder->v4l2_dev	= &jpeg->v4l2_dev;
- 	jpeg->vfd_encoder->vfl_dir	= VFL_DIR_M2M;
-@@ -2927,6 +2927,7 @@ static int s5p_jpeg_probe(struct platform_device *pdev)
- 		video_device_release(jpeg->vfd_encoder);
- 		goto m2m_init_rollback;
- 	}
-+	jpeg->vfd_encoder->release = video_device_release;
- 
- 	video_set_drvdata(jpeg->vfd_encoder, jpeg);
- 	v4l2_info(&jpeg->v4l2_dev,
-@@ -2945,7 +2946,7 @@ static int s5p_jpeg_probe(struct platform_device *pdev)
- 	jpeg->vfd_decoder->fops		= &s5p_jpeg_fops;
- 	jpeg->vfd_decoder->ioctl_ops	= &s5p_jpeg_ioctl_ops;
- 	jpeg->vfd_decoder->minor	= -1;
--	jpeg->vfd_decoder->release	= video_device_release;
-+	jpeg->vfd_decoder->release	= video_device_release_empty;
- 	jpeg->vfd_decoder->lock		= &jpeg->lock;
- 	jpeg->vfd_decoder->v4l2_dev	= &jpeg->v4l2_dev;
- 	jpeg->vfd_decoder->vfl_dir	= VFL_DIR_M2M;
-@@ -2957,6 +2958,7 @@ static int s5p_jpeg_probe(struct platform_device *pdev)
- 		video_device_release(jpeg->vfd_decoder);
- 		goto enc_vdev_register_rollback;
- 	}
-+	jpeg->vfd_decoder->release = video_device_release;
- 
- 	video_set_drvdata(jpeg->vfd_decoder, jpeg);
- 	v4l2_info(&jpeg->v4l2_dev,
--- 
-2.43.0
+> - Clients that do not use the Vulkan WSI need to manually probe /dev/dri
+>   for devices that support the syncobj ioctls in order to use the
+>   wayland syncobj protocol.
+> - Similarly, clients that want to use screen capture have no equivalent
+>   to the WSI and are therefore forced into that path.
+> - Having to keep a DRM device open has potentially negative interactions
+>   with GPU hotplug.
+> - Having to translate between syncobj FDs and handles is troublesome in
+>   the compositor usecase since syncobjs come and go frequently and need
+>   to be cleaned up when clients disconnect.
+> 
+> /dev/syncobj solves these issues by providing all syncobj ioctls under a
+> consistent path that is not tied to any DRM device. It also operates
+> directly on file descriptors instead of syncobj handles.
+> 
+> The series starts with a number of small refactorings in drm_syncobj.c
+> to make its functionality available outside of the file and without the
+> need for drm_file/handle pairs.
+> 
+> The last commit adds the /dev/syncobj module. I've added it as a misc
+> device but maybe this should instead live somewhere under gpu/drm.
+> 
+> An application using the new interface can be found at [1].
+> 
+> [1]: https://github.com/mahkoh/jay/pull/947
+> 
+> ---
+> Julian Orth (12):
+>       drm/syncobj: add drm_syncobj_from_fd
+>       drm/syncobj: add drm_syncobj_fence_lookup
+>       drm/syncobj: make drm_syncobj_array_wait_timeout public
+>       drm/syncobj: add drm_syncobj_register_eventfd
+>       drm/syncobj: have transfer functions accept drm_syncobj directly
+>       drm/syncobj: add drm_syncobj_transfer
+>       drm/syncobj: add drm_syncobj_timeline_signal
+>       drm/syncobj: add drm_syncobj_query
+>       drm/syncobj: fix resource leak in drm_syncobj_import_sync_file_fence
+>       drm/syncobj: add drm_syncobj_import_sync_file
+>       drm/syncobj: add drm_syncobj_export_sync_file
+>       misc/syncobj: add new device
+> 
+>  Documentation/userspace-api/ioctl/ioctl-number.rst |   1 +
+>  drivers/gpu/drm/drm_syncobj.c                      | 374 ++++++++++++++-----
+>  drivers/misc/Kconfig                               |  10 +
+>  drivers/misc/Makefile                              |   1 +
+>  drivers/misc/syncobj.c                             | 404 +++++++++++++++++++++
+>  include/drm/drm_syncobj.h                          |  21 ++
+>  include/uapi/linux/syncobj.h                       |  75 ++++
+>  7 files changed, 795 insertions(+), 91 deletions(-)
+> ---
+> base-commit: 6916d5703ddf9a38f1f6c2cc793381a24ee914c6
+> change-id: 20260516-jorth-syncobj-d4d374c8c61b
+> 
+> Best regards,
+> --  
+> Julian Orth <ju.orth@gmail.com>
+> 
 
