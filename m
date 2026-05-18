@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACBAE3EC2E0
-	for <linux-media@vger.kernel.org>; Mon, 18 May 2026 14:42:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A52C36F429
+	for <linux-media@vger.kernel.org>; Mon, 18 May 2026 14:42:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779115327; cv=none; b=oLyRw19q7S9aGgQihuK2SZURKKgHjSXE3zcYFt4fxGe7xaUaKe4PqscnR7hfQPN0MiTZ/53/2tqtgwpnRa/teVgM1+m3BCzWrHVq4p74kVpn8tColeb9NUGwRChn6a/tf90J420QN0pu+07yPF6MROwJXEepXkFkNCYKT4MwcD8=
+	t=1779115329; cv=none; b=RNdSIPhMnJ5NGrRAO6cCGrrAjf6Bjwf2OqLP+nl2lB9zEdb77YaVg/cehzFqy0PBYuKPF0SCdUg8dTXykWd3PChjMh3xtJRU5UM1rSnm7fgAZJzkaZxB1D/rNIbofAtzApMDtmzlB8rrSGUmVOX13Ko23rgN2L4+AqoCJd0LPC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779115327; c=relaxed/simple;
-	bh=H32avlhmR9Yl5KIOFY/XV3xDiraKDpKkMLgOFhtDeyU=;
+	s=arc-20240116; t=1779115329; c=relaxed/simple;
+	bh=TcHsG3NC8mOTWxO5bwu3ay0ag01DsMTRP2FrnpJ7nsU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GOENK08tpO7JCow5dHYwQfUfXd8zXIQ8GgvUghvRbsYgRlShTtyBDq3Wc7dE9U+FTYckBwRiAc7YwH/So/ClOZfz/N9YPwe5yR53J3OMDskUUwvU/6IZJIA59Vv+eGftiqC57rs6+x7FHA6V5m+faMgopXJ34vYAYqNrXYJL1sA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LqlpsSK8; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version; b=Sa22E9JHpW25jWnu4GCWm73M5TCh56VohHZrqwDFsWh9IYHOsnVcIaOmLUtumIap3Wm8nNybxr9gC1J1J+D3JI7e5HKmxTgZVs/K7KSxyRGZJcVMDvk1WzegE+N7Eae3kVSGfekzxZM1HzzXoxWTHtT5M3fxFfaE2HeoS0kl6AA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hdHvaZz7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LqlpsSK8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1F96C2BCB8;
-	Mon, 18 May 2026 14:42:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hdHvaZz7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC72DC2BCB8;
+	Mon, 18 May 2026 14:42:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779115327;
-	bh=H32avlhmR9Yl5KIOFY/XV3xDiraKDpKkMLgOFhtDeyU=;
+	s=k20201202; t=1779115328;
+	bh=TcHsG3NC8mOTWxO5bwu3ay0ag01DsMTRP2FrnpJ7nsU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=LqlpsSK8AtIQPHRtYqboW6w1l+qacyyWDJCWR25J+0TMbEUJhrM0HtdYUTzlDKxkR
-	 iJWupRF0aq6nXTm1Upmln9JGdUousAhquG9vI/65RNOEhVAIKoZ9VkgSxx3Mdgl0jK
-	 Wa/I2BT4LCGV36+azNgVzKsLyvVxiVo71t/f30CBV52JVyj9D8E/X5/mrj/ruGNrQj
-	 Qf7RpcW3FJs82NL7mt0y3RlmDDgn0Op7OgYfbB1eAkBO6dB6RKctkyRPpRebSO6zpJ
-	 PE3qKfBzIVjQKntl3z6a7X65kps4GjfyHf4J0SbdyRY4gBmHJe6kHyD1ElyQdDt5ZH
-	 T4aiDmmR6qtVw==
+	b=hdHvaZz77nlFtJ4GK00IJ69aJdNa7hCxe8HPwZfBxqhaLpE/xgCsof049ZogpGz4J
+	 0EHfvI7x/qZIfc7JWS+0pUYdLAa/ZvDbiq8TndP4UuQpxzI03ubQ2xi/4IldSmiSoh
+	 WvPUTbdT7Jg3xSpVrx9AHsaOwL5GSu80X31s1JJaZjsPOOXvaR9LrUsXtZxn+g/23s
+	 6D27KxPpWTUOdAzIYaB7TglGReo6/PNUfud8w0iNPUjqqcb/WZtvuHKt4xdN0bnEA8
+	 hhkKAs2Jhr4Xti/HibPprmHJA8UbCxkP0b+BcOWAwJOPZtst6wGlIPBV/mLcRJ4S/a
+	 DNIxjJ4kiJRpQ==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCHv2 1/4] media: include/uapi/linux/cec*.h: add CEC LIP support
-Date: Mon, 18 May 2026 16:40:32 +0200
-Message-ID: <8dac7c99b7eab4fcc11d76d50dd08fb4448672f4.1779115235.git.hverkuil+cisco@kernel.org>
+Subject: [PATCHv2 2/4] Documentation: media: add CEC opcodes
+Date: Mon, 18 May 2026 16:40:33 +0200
+Message-ID: <afe5d8f6cdf2dc030011eaf9acd8f68847d1b8cf.1779115235.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1779115235.git.hverkuil+cisco@kernel.org>
 References: <cover.1779115235.git.hverkuil+cisco@kernel.org>
@@ -43,244 +43,48 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the new Latency Indication Protocol feature.
-
-This adds the opcodes and the wrapper functions.
+Add the new opcodes to cec.h.rst.exceptions to avoid
+documentation build failures.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- include/uapi/linux/cec-funcs.h | 182 +++++++++++++++++++++++++++++++++
- include/uapi/linux/cec.h       |  24 +++++
- 2 files changed, 206 insertions(+)
+ .../media/cec/cec.h.rst.exceptions            | 23 +++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-diff --git a/include/uapi/linux/cec-funcs.h b/include/uapi/linux/cec-funcs.h
-index 189ecf0e13cd..ba4b47de9bf0 100644
---- a/include/uapi/linux/cec-funcs.h
-+++ b/include/uapi/linux/cec-funcs.h
-@@ -1701,6 +1701,188 @@ static inline void cec_ops_request_current_latency(const struct cec_msg *msg,
- }
+diff --git a/Documentation/userspace-api/media/cec/cec.h.rst.exceptions b/Documentation/userspace-api/media/cec/cec.h.rst.exceptions
+index 65e8be062bdb..5d6f7747c023 100644
+--- a/Documentation/userspace-api/media/cec/cec.h.rst.exceptions
++++ b/Documentation/userspace-api/media/cec/cec.h.rst.exceptions
+@@ -524,6 +524,29 @@ ignore define CEC_OP_AUD_OUT_COMPENSATED_DELAY
+ ignore define CEC_OP_AUD_OUT_COMPENSATED_NO_DELAY
+ ignore define CEC_OP_AUD_OUT_COMPENSATED_PARTIAL_DELAY
  
++ignore define CEC_MSG_REQUEST_LIP_SUPPORT
++ignore define CEC_MSG_REPORT_LIP_SUPPORT
++ignore define CEC_MSG_REQUEST_AUDIO_AND_VIDEO_LATENCY
++
++ignore define CEC_OP_HDR_FORMAT_GAMMA_SDR
++ignore define CEC_OP_HDR_FORMAT_GAMMA_HDR
++ignore define CEC_OP_HDR_FORMAT_PQ
++ignore define CEC_OP_HDR_FORMAT_HLG
++ignore define CEC_OP_HDR_FORMAT_DYNAMIC_HDR_TYPE_1
++ignore define CEC_OP_HDR_FORMAT_DYNAMIC_HDR_TYPE_2
++ignore define CEC_OP_HDR_FORMAT_DYNAMIC_HDR_TYPE_4
++ignore define CEC_OP_HDR_FORMAT_DV_SINK_LED
++ignore define CEC_OP_HDR_FORMAT_DV_SOURCE_LED
++ignore define CEC_OP_HDR_FORMAT_HDR10PLUS
++ignore define CEC_OP_HDR_FORMAT_ETSI_TS_103_433
++
++ignore define CEC_MSG_REPORT_AUDIO_AND_VIDEO_LATENCY
++ignore define CEC_MSG_REQUEST_AUDIO_LATENCY
++ignore define CEC_MSG_REPORT_AUDIO_LATENCY
++ignore define CEC_MSG_REQUEST_VIDEO_LATENCY
++ignore define CEC_MSG_REPORT_VIDEO_LATENCY
++ignore define CEC_MSG_UPDATE_SQID
++
+ ignore define CEC_MSG_CDC_MESSAGE
  
-+/* Latency Indication Protocol Feature */
-+/* Only for CEC 2.0 and up */
-+static inline void cec_msg_request_lip_support(struct cec_msg *msg,
-+					       int reply, __u16 phys_addr)
-+{
-+	msg->len = 4;
-+	msg->msg[1] = CEC_MSG_REQUEST_LIP_SUPPORT;
-+	msg->msg[2] = phys_addr >> 8;
-+	msg->msg[3] = phys_addr & 0xff;
-+	msg->reply = reply ? CEC_MSG_REPORT_LIP_SUPPORT : 0;
-+}
-+
-+static inline void cec_ops_request_lip_support(const struct cec_msg *msg,
-+					       __u16 *phys_addr)
-+{
-+	*phys_addr = (msg->msg[2] << 8) | msg->msg[3];
-+}
-+
-+static inline void cec_msg_report_lip_support(struct cec_msg *msg, __u32 sqid)
-+{
-+	msg->len = 6;
-+	msg->msg[1] = CEC_MSG_REPORT_LIP_SUPPORT;
-+	msg->msg[2] = sqid >> 24;
-+	msg->msg[3] = (sqid >> 16) & 0xff;
-+	msg->msg[4] = (sqid >> 8) & 0xff;
-+	msg->msg[5] = sqid & 0xff;
-+}
-+
-+static inline void cec_ops_report_lip_support(const struct cec_msg *msg,
-+					      __u32 *sqid)
-+{
-+	*sqid = (msg->msg[2] << 24) | (msg->msg[3] << 16) |
-+		(msg->msg[4] << 8) | msg->msg[5];
-+}
-+
-+static inline void cec_msg_request_audio_and_video_latency(struct cec_msg *msg,
-+					       int reply, __u8 video_format,
-+					       __u8 hdr_format, __u8 vrr_format,
-+					       __u8 audio_format,
-+					       __u8 audio_format_extension)
-+{
-+	msg->len = 6;
-+	msg->msg[1] = CEC_MSG_REQUEST_AUDIO_AND_VIDEO_LATENCY;
-+	msg->msg[2] = video_format;
-+	msg->msg[3] = hdr_format;
-+	msg->msg[4] = vrr_format;
-+	msg->msg[5] = audio_format;
-+	if (audio_format >= 1 && audio_format <= 31) {
-+		msg->msg[6] = audio_format_extension;
-+		msg->len++;
-+	}
-+	msg->reply = reply ? CEC_MSG_REPORT_AUDIO_AND_VIDEO_LATENCY : 0;
-+}
-+
-+static inline void cec_ops_request_audio_and_video_latency(const struct cec_msg *msg,
-+					       __u8 *video_format,
-+					       __u8 *hdr_format,
-+					       __u8 *vrr_format,
-+					       __u8 *audio_format,
-+					       __u8 *audio_format_extension)
-+{
-+	*video_format = msg->msg[2];
-+	*hdr_format = msg->msg[3];
-+	*vrr_format = msg->msg[4];
-+	*audio_format = msg->msg[5];
-+	*audio_format_extension = msg->len > 6 ? msg->msg[6] : 0;
-+}
-+
-+static inline void cec_msg_report_audio_and_video_latency(struct cec_msg *msg,
-+							  __u16 video_latency,
-+							  __u16 audio_latency)
-+{
-+	msg->len = 6;
-+	msg->msg[1] = CEC_MSG_REPORT_AUDIO_AND_VIDEO_LATENCY;
-+	msg->msg[2] = video_latency >> 8;
-+	msg->msg[3] = video_latency & 0xff;
-+	msg->msg[4] = audio_latency >> 8;
-+	msg->msg[5] = audio_latency & 0xff;
-+}
-+
-+static inline void cec_ops_report_audio_and_video_latency(const struct cec_msg *msg,
-+					      __u16 *video_latency,
-+					      __u16 *audio_latency)
-+{
-+	*video_latency = (msg->msg[2] << 8) | msg->msg[3];
-+	*audio_latency = (msg->msg[4] << 8) | msg->msg[5];
-+}
-+
-+static inline void cec_msg_request_audio_latency(struct cec_msg *msg,
-+						 int reply,
-+						 __u8 audio_format,
-+						 __u8 audio_format_extension)
-+{
-+	msg->len = 3;
-+	msg->msg[1] = CEC_MSG_REQUEST_AUDIO_LATENCY;
-+	msg->msg[2] = audio_format;
-+	if (audio_format >= 1 && audio_format <= 31) {
-+		msg->msg[3] = audio_format_extension;
-+		msg->len++;
-+	}
-+	msg->reply = reply ? CEC_MSG_REPORT_AUDIO_LATENCY : 0;
-+}
-+
-+static inline void cec_ops_request_audio_latency(const struct cec_msg *msg,
-+						 __u8 *audio_format,
-+						 __u8 *audio_format_extension)
-+{
-+	*audio_format = msg->msg[2];
-+	*audio_format_extension = msg->len > 3 ? msg->msg[3] : 0;
-+}
-+
-+static inline void cec_msg_report_audio_latency(struct cec_msg *msg,
-+						__u16 audio_latency)
-+{
-+	msg->len = 4;
-+	msg->msg[1] = CEC_MSG_REPORT_AUDIO_LATENCY;
-+	msg->msg[2] = audio_latency >> 8;
-+	msg->msg[3] = audio_latency & 0xff;
-+}
-+
-+static inline void cec_ops_report_audio_latency(const struct cec_msg *msg,
-+						__u16 *audio_latency)
-+{
-+	*audio_latency = (msg->msg[2] << 8) | msg->msg[3];
-+}
-+
-+static inline void cec_msg_request_video_latency(struct cec_msg *msg,
-+						 int reply, __u8 video_format,
-+						 __u8 hdr_format,
-+						 __u8 vrr_format)
-+{
-+	msg->len = 5;
-+	msg->msg[1] = CEC_MSG_REQUEST_VIDEO_LATENCY;
-+	msg->msg[2] = video_format;
-+	msg->msg[3] = hdr_format;
-+	msg->msg[4] = vrr_format;
-+	msg->reply = reply ? CEC_MSG_REPORT_VIDEO_LATENCY : 0;
-+}
-+
-+static inline void cec_ops_request_video_latency(const struct cec_msg *msg,
-+						 __u8 *video_format,
-+						 __u8 *hdr_format,
-+						 __u8 *vrr_format)
-+{
-+	*video_format = msg->msg[2];
-+	*hdr_format = msg->msg[3];
-+	*vrr_format = msg->msg[4];
-+}
-+
-+static inline void cec_msg_report_video_latency(struct cec_msg *msg,
-+						__u16 video_latency)
-+{
-+	msg->len = 4;
-+	msg->msg[1] = CEC_MSG_REPORT_VIDEO_LATENCY;
-+	msg->msg[2] = video_latency >> 8;
-+	msg->msg[3] = video_latency & 0xff;
-+}
-+
-+static inline void cec_ops_report_video_latency(const struct cec_msg *msg,
-+						__u16 *video_latency)
-+{
-+	*video_latency = (msg->msg[2] << 8) | msg->msg[3];
-+}
-+
-+static inline void cec_msg_update_sqid(struct cec_msg *msg, __u32 sqid)
-+{
-+	msg->len = 6;
-+	msg->msg[1] = CEC_MSG_UPDATE_SQID;
-+	msg->msg[2] = sqid >> 24;
-+	msg->msg[3] = (sqid >> 16) & 0xff;
-+	msg->msg[4] = (sqid >> 8) & 0xff;
-+	msg->msg[5] = sqid & 0xff;
-+}
-+
-+static inline void cec_ops_update_sqid(const struct cec_msg *msg,
-+				       __u32 *sqid)
-+{
-+	*sqid = (msg->msg[2] << 24) | (msg->msg[3] << 16) |
-+		(msg->msg[4] << 8) | msg->msg[5];
-+}
-+
-+
- /* Capability Discovery and Control Feature */
- static inline void cec_msg_cdc_hec_inquire_state(struct cec_msg *msg,
- 						 __u16 phys_addr1,
-diff --git a/include/uapi/linux/cec.h b/include/uapi/linux/cec.h
-index b2af1dddd4d7..75bc9e4e0350 100644
---- a/include/uapi/linux/cec.h
-+++ b/include/uapi/linux/cec.h
-@@ -1104,6 +1104,30 @@ struct cec_event {
- #define CEC_OP_AUD_OUT_COMPENSATED_PARTIAL_DELAY	3
- 
- 
-+/* Latency Indication Protocol Feature */
-+#define CEC_MSG_REQUEST_LIP_SUPPORT			0x50
-+#define CEC_MSG_REPORT_LIP_SUPPORT			0x51
-+#define CEC_MSG_REQUEST_AUDIO_AND_VIDEO_LATENCY		0x52
-+/* HDR Format Operand (hdr_format) */
-+#define CEC_OP_HDR_FORMAT_GAMMA_SDR			0
-+#define CEC_OP_HDR_FORMAT_GAMMA_HDR			1
-+#define CEC_OP_HDR_FORMAT_PQ				2
-+#define CEC_OP_HDR_FORMAT_HLG				3
-+#define CEC_OP_HDR_FORMAT_DYNAMIC_HDR_TYPE_1		8
-+#define CEC_OP_HDR_FORMAT_DYNAMIC_HDR_TYPE_2		9
-+#define CEC_OP_HDR_FORMAT_DYNAMIC_HDR_TYPE_4		11
-+#define CEC_OP_HDR_FORMAT_DV_SINK_LED			16
-+#define CEC_OP_HDR_FORMAT_DV_SOURCE_LED			17
-+#define CEC_OP_HDR_FORMAT_HDR10PLUS			24
-+#define CEC_OP_HDR_FORMAT_ETSI_TS_103_433		32
-+#define CEC_MSG_REPORT_AUDIO_AND_VIDEO_LATENCY		0x53
-+#define CEC_MSG_REQUEST_AUDIO_LATENCY			0x54
-+#define CEC_MSG_REPORT_AUDIO_LATENCY			0x55
-+#define CEC_MSG_REQUEST_VIDEO_LATENCY			0x56
-+#define CEC_MSG_REPORT_VIDEO_LATENCY			0x57
-+#define CEC_MSG_UPDATE_SQID				0x58
-+
-+
- /* Capability Discovery and Control Feature */
- #define CEC_MSG_CDC_MESSAGE				0xf8
- /* Ethernet-over-HDMI: nobody ever does this... */
+ ignore define CEC_MSG_CDC_HEC_INQUIRE_STATE
 -- 
 2.53.0
 
