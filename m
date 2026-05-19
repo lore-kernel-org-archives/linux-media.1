@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B5439656E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F09839099C;
 	Tue, 19 May 2026 06:15:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779171356; cv=none; b=tlQgYZ8pScixfPMlhYaRHa2qKOUOZio/MR8cS8kgAJk3vGBef0aJeA974twXrTqdcMXKl9h1I6bOxjUTgGzluA5qkp2cO865b2JlxAA+7Hp8ezHI+5ROc04msj+RmWGvXN66hHiQ1r9sOgHz6Kx5Dtsmi1V7TES0L6L4t2c+hQY=
+	t=1779171356; cv=none; b=LYSpcOg7C9u06Dfnq3RiwJc1i55b9rxg1wZQyHHnSSqbPH7eBvkbUUlxcIP1AffqyWLCPetqjawd14PB2PGvFR++iBOoAodaaUBv2Cs66jKUC9qPl67qu5AZALCzNu9pRFOjyZuJ0zA2wPmqiUBz2zHQYyt15Yd+q/6BpxpLV1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1779171356; c=relaxed/simple;
-	bh=2x0ezV+sn7dzDHiVkyxYzn8bOlucXgMKLmSOh1D1K40=;
+	bh=IoPb4PelOfj2dYDOPt7nuGzwMUbtBYQM597igk1ioFQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Qlo3IH+gurYCMZk1217b1dBh4P1XaqiyfV9VbEcCWR2kGdGcE/9v0Afi+SXDnA7rg8ISV5zyYjCr1lRhg7aWntLMo+qRXxuiQuF6JjGN4ZkmUV1RkHUAoBBZyEckyPDOi+GJQCT2+YsrygtxgR5290vshcPPCGrvrCxOYB/DIxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rtH7gXJR; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=WvcGhpqQaknnfv2J5GKGQlAyBMRK5DgTGu1U6Qd/8RqhObJ/erBal2Ov1kQfUxT7BJI2FOwN//Wn2ppawVEpfJZ1MClZK7YYXX/9vv6hGW0PslfzTM87cpL+q4nWYmt0/++bo9J5fpoWjyiIpg7jCC2V+bUbay9pmM/CZjNda7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JvL2nwsC; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rtH7gXJR"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 24DDEC32781;
-	Tue, 19 May 2026 06:15:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JvL2nwsC"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CE34EC2BCC9;
+	Tue, 19 May 2026 06:15:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779171356;
-	bh=2x0ezV+sn7dzDHiVkyxYzn8bOlucXgMKLmSOh1D1K40=;
+	s=k20201202; t=1779171355;
+	bh=IoPb4PelOfj2dYDOPt7nuGzwMUbtBYQM597igk1ioFQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=rtH7gXJRMV2lQVK8jg3IeHApNSHwT6HXZFPAHKEccroHrQEeoAjfZ/eiRqUjZR3E+
-	 S21BZpUl2nLqDBVqijpexl3y5F+bEc20mcu3nbgWWAVcc7ocooj3S1/aCCUyYsXqXS
-	 +Ee4pggATFovE9Nr0MVncsE8BTYZbqMLt8hQ49f8MDCHT4q4pOhdm6ZTZ2TrRWc3Wk
-	 F1t6CaX9rbog6upU8fRT5pMKRbsDd2c+RrPuWloWIBs64LL3TYt7okClEZqRk2ROuF
-	 CbWhBylhOMGnKFcyIIh8x+X4KZ2Yztq6GY1j/oohd2rgXXUksrwZqhaZyJTv3pN8RJ
-	 SNCBBq3OClpIw==
+	b=JvL2nwsCegCOMdeFE4r0EebXnjT/eIN8NR+wNWpCeYouHHtvrx5MC2RUkqcUWWtoc
+	 Z85KyzGEuucGLNz/9Flp6Zt134pheNT2fORen3ramYdLKspr4/RZh6d/miuP4quE4e
+	 GD0osijZPrLWcSgYbYzOISnzG+1uAuvRUb92vYVOX14OsL/aCXzoqIsazNlfRIunkw
+	 3R8bRaskSYd1DiYC2gak8dJUPJ+mjpDkC77qH4SfAf4i64afMyDuQQNjCIt5TFM22f
+	 3+P1uCem43XxUU1XO290CQYc+VkES7iuWf2NOVXxr4k/YDYMwAv67IicfrYEZIK8TV
+	 hDCSpToWwODrg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D2F9CD4F54;
-	Tue, 19 May 2026 06:15:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C61ABCD4851;
+	Tue, 19 May 2026 06:15:55 +0000 (UTC)
 From: Ekansh Gupta via B4 Relay <devnull+ekansh.gupta.oss.qualcomm.com@kernel.org>
-Date: Tue, 19 May 2026 11:46:03 +0530
-Subject: [PATCH 13/15] accel/qda: Add DSP process creation and release
+Date: Tue, 19 May 2026 11:45:59 +0530
+Subject: [PATCH 09/15] accel/qda: Add DMA-backed GEM objects and memory
+ manager integration
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -39,8 +40,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260519-qda-series-v1-13-b2d984c297f8@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260519-qda-series-v1-9-b2d984c297f8@oss.qualcomm.com>
 References: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
 In-Reply-To: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
 To: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
@@ -61,11 +62,11 @@ Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
  linaro-mm-sig@lists.linaro.org, 
  Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779171352; l=17202;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779171352; l=25749;
  i=ekansh.gupta@oss.qualcomm.com; s=20260223; h=from:subject:message-id;
- bh=6sIWlJTbKDkpmsM/KuGNbGF7X0bHhf13ZgQKEfZrOjk=;
- b=u9wyNS+28yILoi49rqUKoR6MP0Gx0FxBOOZWDaW2tP0s/nNkaiIlyvpqbxkRyJz+6sEA/yT+x
- BqclLupr7fbD+ox5SpAfuLJMNixCPa7P9fWNzK3x+rqEjADHkRKo0te
+ bh=LBE7eCULa6dTVwkwg/IKkml6yJ1kLUKoxNx2KK10cYo=;
+ b=PB4kwzpsnNuchlvUQaV51ceB7u5X0tGHeWaRP3RUv+MLkFbszH/7ZUdwcEjAm5705n7dVVZgI
+ OmiXoA84fmyAfmPxasTEz2gwRZmgmI6dVUs+t/fBBHfOOW93JKMoOzn
 X-Developer-Key: i=ekansh.gupta@oss.qualcomm.com; a=ed25519;
  pk=n0SepARizye+pYjhjg1RA5J+Nq4+IJbyRcBybU+/ERQ=
 X-Endpoint-Received: by B4 Relay for ekansh.gupta@oss.qualcomm.com/20260223
@@ -75,483 +76,804 @@ Reply-To: ekansh.gupta@oss.qualcomm.com
 
 From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
-Implement the REMOTE_SESSION_CREATE and INIT_RELEASE FastRPC
-operations, which establish and tear down a user process on the
-DSP.
+Introduce DMA-coherent buffer management for the QDA driver, wiring
+together the GEM subsystem, the IOMMU memory manager, and a DMA
+allocation backend.
 
-DRM_IOCTL_QDA_REMOTE_SESSION_CREATE (drm_qda_init_create)
-  Creates a new process on the DSP by sending an INIT_CREATE message
-  via the FastRPC INIT_HANDLE. The caller provides an ELF file (via
-  DMA-BUF fd or direct pointer) and optional process attributes. A
-  4 MB GEM buffer is allocated per session to hold the DSP process
-  image; this buffer is stored in qda_file_priv and reused for the
-  lifetime of the session.
+qda_gem.c / qda_gem.h
+  Implements the GEM object lifecycle for QDA buffers. Each buffer is
+  represented by a qda_gem_obj which embeds a drm_gem_object and
+  carries the kernel virtual address, DMA address, and a pointer to
+  the IOMMU device that performed the allocation. The .free callback
+  delegates to the memory manager, and the .mmap callback uses
+  dma_mmap_coherent() via the DMA backend.
 
-  If attrs is non-zero, INIT_CREATE_ATTR is used instead of
-  INIT_CREATE to pass the extended attribute and signature fields.
+qda_memory_dma.c / qda_memory_dma.h
+  DMA coherent allocation backend. qda_dma_alloc() calls
+  dma_alloc_coherent() on the CB device and encodes the stream ID
+  (SID) in the upper 32 bits of the returned DMA address, following
+  the Qualcomm FastRPC convention for IOMMU address space tagging.
+  qda_dma_free() strips the SID prefix before calling
+  dma_free_coherent().
 
-INIT_RELEASE
-  Sends a release message to the DSP when the DRM file is closed
-  (qda_postclose via qda_release_dsp_process), freeing the remote
-  process and its resources. The release is skipped if the device
-  has already been unplugged.
+qda_memory_manager.c
+  Adds process-to-device assignment: each DRM file (process) is
+  assigned one IOMMU context bank device for the lifetime of the
+  session. qda_memory_manager_assign_device() first checks whether
+  the process already has a device (reusing it with a refcount
+  increment), then falls back to claiming an unassigned device.
+  qda_memory_manager_alloc() and qda_memory_manager_free() delegate
+  to the DMA backend after resolving the correct CB device for the
+  calling process.
 
-qda_fastrpc.c
-  fastrpc_prepare_args_init_create() marshals the six-argument
-  create-process payload: the inbuf descriptor, process name,
-  ELF file, physical pages, attrs, and siglen.
-  fastrpc_prepare_args_release_process() marshals the single-
-  argument release payload (remote_session_id).
-
-qda_drv.c
-  qda_postclose() is extended to call qda_release_dsp_process()
-  under drm_dev_enter() so the release message is only sent while
-  the device is still accessible.
+qda_drv.c / qda_drv.h
+  qda_file_priv gains an assigned_iommu_dev pointer and a pid field.
+  The .postclose callback decrements the IOMMU device refcount and
+  clears the process assignment when the last reference is dropped.
 
 Assisted-by: Claude:claude-4-6-sonnet
 Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 ---
- drivers/accel/qda/qda_drv.c     |   8 +++
- drivers/accel/qda/qda_drv.h     |   5 ++
- drivers/accel/qda/qda_fastrpc.c | 140 ++++++++++++++++++++++++++++++++++++++++
- drivers/accel/qda/qda_fastrpc.h |  39 +++++++++--
- drivers/accel/qda/qda_ioctl.c   |  52 +++++++++++++++
- drivers/accel/qda/qda_ioctl.h   |   1 +
- include/uapi/drm/qda_accel.h    |  32 ++++++++-
- 7 files changed, 270 insertions(+), 7 deletions(-)
+ drivers/accel/qda/Makefile             |   2 +
+ drivers/accel/qda/qda_drv.c            |  13 ++
+ drivers/accel/qda/qda_drv.h            |   4 +
+ drivers/accel/qda/qda_gem.c            | 156 +++++++++++++++++++++++
+ drivers/accel/qda/qda_gem.h            |  54 ++++++++
+ drivers/accel/qda/qda_memory_dma.c     | 110 ++++++++++++++++
+ drivers/accel/qda/qda_memory_dma.h     |  17 +++
+ drivers/accel/qda/qda_memory_manager.c | 224 +++++++++++++++++++++++++++++++++
+ drivers/accel/qda/qda_memory_manager.h |  28 ++++-
+ 9 files changed, 607 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/accel/qda/Makefile b/drivers/accel/qda/Makefile
+index b658dad35fee..a46ddceecfc5 100644
+--- a/drivers/accel/qda/Makefile
++++ b/drivers/accel/qda/Makefile
+@@ -8,7 +8,9 @@ obj-$(CONFIG_DRM_ACCEL_QDA)	:= qda.o
+ qda-y := \
+ 	qda_cb.o \
+ 	qda_drv.o \
++	qda_gem.o \
+ 	qda_ioctl.o \
++	qda_memory_dma.o \
+ 	qda_memory_manager.o \
+ 	qda_rpmsg.o
+ 
 diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
-index 704c7d3127d2..4eaba9b050c0 100644
+index becd831d10be..1b534fea50c8 100644
 --- a/drivers/accel/qda/qda_drv.c
 +++ b/drivers/accel/qda/qda_drv.c
-@@ -36,6 +36,13 @@ static int qda_open(struct drm_device *dev, struct drm_file *file)
- static void qda_postclose(struct drm_device *dev, struct drm_file *file)
+@@ -22,6 +22,7 @@ static int qda_open(struct drm_device *dev, struct drm_file *file)
+ 	if (!qda_file_priv)
+ 		return -ENOMEM;
+ 
++	qda_file_priv->pid = current->pid;
+ 	qda_file_priv->qda_dev = qda_dev_from_drm(dev);
+ 	file->driver_priv = qda_file_priv;
+ 
+@@ -32,6 +33,18 @@ static void qda_postclose(struct drm_device *dev, struct drm_file *file)
  {
  	struct qda_file_priv *qda_file_priv = file->driver_priv;
-+	int idx;
+ 
++	if (qda_file_priv->assigned_iommu_dev) {
++		struct qda_iommu_device *iommu_dev = qda_file_priv->assigned_iommu_dev;
++		unsigned long flags;
 +
-+	/* Only send the DSP release message while the device is accessible */
-+	if (drm_dev_enter(dev, &idx)) {
-+		qda_release_dsp_process(qda_file_priv->qda_dev, file);
-+		drm_dev_exit(idx);
++		if (refcount_dec_and_test(&iommu_dev->refcount)) {
++			spin_lock_irqsave(&iommu_dev->lock, flags);
++			iommu_dev->assigned_pid = 0;
++			iommu_dev->assigned_file_priv = NULL;
++			spin_unlock_irqrestore(&iommu_dev->lock, flags);
++		}
 +	}
- 
- 	if (qda_file_priv->assigned_iommu_dev) {
- 		struct qda_iommu_device *iommu_dev = qda_file_priv->assigned_iommu_dev;
-@@ -59,6 +66,7 @@ static const struct drm_ioctl_desc qda_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(QDA_QUERY, qda_ioctl_query, 0),
- 	DRM_IOCTL_DEF_DRV(QDA_GEM_CREATE, qda_ioctl_gem_create, 0),
- 	DRM_IOCTL_DEF_DRV(QDA_GEM_MMAP_OFFSET, qda_ioctl_gem_mmap_offset, 0),
-+	DRM_IOCTL_DEF_DRV(QDA_REMOTE_SESSION_CREATE, qda_ioctl_init_create, 0),
- 	DRM_IOCTL_DEF_DRV(QDA_REMOTE_INVOKE, qda_ioctl_invoke, 0),
- };
- 
++
+ 	kfree(qda_file_priv);
+ 	file->driver_priv = NULL;
+ }
 diff --git a/drivers/accel/qda/qda_drv.h b/drivers/accel/qda/qda_drv.h
-index 420cccff42bf..4b4639961d95 100644
+index eb089e586b17..8a7d647ac8fc 100644
 --- a/drivers/accel/qda/qda_drv.h
 +++ b/drivers/accel/qda/qda_drv.h
-@@ -28,6 +28,8 @@ struct qda_file_priv {
+@@ -24,6 +24,10 @@
+ struct qda_file_priv {
+ 	/** @qda_dev: Back-pointer to device structure */
  	struct qda_dev *qda_dev;
- 	/** @assigned_iommu_dev: IOMMU device assigned to this process */
- 	struct qda_iommu_device *assigned_iommu_dev;
-+	/** @init_mem_gem_obj: GEM object for PD initialization memory */
-+	struct qda_gem_obj *init_mem_gem_obj;
- 	/** @pid: Process ID for tracking */
- 	pid_t pid;
- 	/** @remote_session_id: Unique session identifier */
-@@ -83,4 +85,7 @@ void qda_deinit_device(struct qda_dev *qdev);
- int qda_register_device(struct qda_dev *qdev);
- void qda_unregister_device(struct qda_dev *qdev);
- 
-+/* DSP process / protection domain management */
-+int qda_release_dsp_process(struct qda_dev *qdev, struct drm_file *file_priv);
-+
- #endif /* __QDA_DRV_H__ */
-diff --git a/drivers/accel/qda/qda_fastrpc.c b/drivers/accel/qda/qda_fastrpc.c
-index 0ec37175a098..305915022b91 100644
---- a/drivers/accel/qda/qda_fastrpc.c
-+++ b/drivers/accel/qda/qda_fastrpc.c
-@@ -524,6 +524,138 @@ int qda_fastrpc_invoke_unpack(struct fastrpc_invoke_context *ctx,
- 	return err;
- }
- 
-+static void setup_create_process_args(struct drm_qda_fastrpc_invoke_args *args,
-+				      struct fastrpc_create_process_inbuf *inbuf,
-+				      struct drm_qda_init_create *init,
-+				      struct fastrpc_phy_page *pages)
-+{
-+	args[0].ptr = (u64)(uintptr_t)inbuf;
-+	args[0].length = sizeof(*inbuf);
-+	args[0].fd = -1;
-+
-+	args[1].ptr = (u64)(uintptr_t)current->comm;
-+	args[1].length = inbuf->namelen;
-+	args[1].fd = -1;
-+
-+	args[2].ptr = (u64)init->file;
-+	args[2].length = inbuf->filelen;
-+	args[2].fd = init->filefd;	/* DMA-BUF fd forwarded to DSP */
-+
-+	args[3].ptr = (u64)(uintptr_t)pages;
-+	args[3].length = 1 * sizeof(*pages);
-+	args[3].fd = -1;
-+
-+	args[4].ptr = (u64)(uintptr_t)&inbuf->attrs;
-+	args[4].length = sizeof(inbuf->attrs);
-+	args[4].fd = -1;
-+
-+	args[5].ptr = (u64)(uintptr_t)&inbuf->siglen;
-+	args[5].length = sizeof(inbuf->siglen);
-+	args[5].fd = -1;
-+}
-+
-+static void setup_single_arg(struct drm_qda_fastrpc_invoke_args *args, const void *ptr, size_t size)
-+{
-+	args[0].ptr = (u64)(uintptr_t)ptr;
-+	args[0].length = size;
-+	args[0].fd = -1;
-+}
-+
-+static int fastrpc_prepare_args_release_process(struct fastrpc_invoke_context *ctx)
-+{
-+	struct drm_qda_fastrpc_invoke_args *args;
-+
-+	args = kzalloc_obj(*args);
-+	if (!args)
-+		return -ENOMEM;
-+
-+	setup_single_arg(args, &ctx->remote_session_id, sizeof(ctx->remote_session_id));
-+	ctx->sc = FASTRPC_SCALARS(FASTRPC_RMID_INIT_RELEASE, 1, 0);
-+	ctx->args = args;
-+	ctx->handle = FASTRPC_INIT_HANDLE;
-+
-+	return 0;
-+}
-+
-+static int fastrpc_prepare_args_init_create(struct fastrpc_invoke_context *ctx,
-+					    char __user *argp)
-+{
-+	struct drm_qda_init_create init;
-+	struct drm_qda_fastrpc_invoke_args *args;
-+	struct fastrpc_create_process_inbuf *inbuf;
-+	int err;
-+	u32 sc;
-+
-+	args = kcalloc(FASTRPC_CREATE_PROCESS_NARGS, sizeof(*args), GFP_KERNEL);
-+	if (!args)
-+		return -ENOMEM;
-+
-+	ctx->input_pages = kcalloc(1, sizeof(*ctx->input_pages), GFP_KERNEL);
-+	if (!ctx->input_pages) {
-+		err = -ENOMEM;
-+		goto err_free_args;
-+	}
-+
-+	ctx->inbuf = kcalloc(1, sizeof(*inbuf), GFP_KERNEL);
-+	if (!ctx->inbuf) {
-+		err = -ENOMEM;
-+		goto err_free_input_pages;
-+	}
-+	inbuf = ctx->inbuf;
-+
-+	memcpy(&init, argp, sizeof(init));
-+
-+	if (init.filelen > FASTRPC_INIT_FILELEN_MAX) {
-+		err = -EINVAL;
-+		goto err_free_inbuf;
-+	}
-+
-+	/*
-+	 * Validate that the DMA-BUF fd is importable.  The fd itself is kept
-+	 * in init.filefd and forwarded to the DSP via setup_create_process_args().
-+	 */
-+	if (init.filelen && init.filefd > 0) {
-+		struct drm_gem_object *file_gem_obj;
-+
-+		err = get_gem_obj_from_dmabuf_fd(ctx, init.filefd, &file_gem_obj);
-+		if (err) {
-+			err = -EINVAL;
-+			goto err_free_inbuf;
-+		}
-+		drm_gem_object_put(file_gem_obj);
-+	}
-+
-+	inbuf->remote_session_id = ctx->remote_session_id;
-+	inbuf->namelen = strlen(current->comm) + 1;
-+	inbuf->filelen = init.filelen;
-+	inbuf->pageslen = 1;
-+	inbuf->attrs = init.attrs;
-+	inbuf->siglen = init.siglen;
-+
-+	setup_pages_from_gem_obj(ctx->init_mem_gem_obj, &ctx->input_pages[0]);
-+
-+	setup_create_process_args(args, inbuf, &init, ctx->input_pages);
-+
-+	sc = FASTRPC_SCALARS(FASTRPC_RMID_INIT_CREATE, 4, 0);
-+	if (init.attrs)
-+		sc = FASTRPC_SCALARS(FASTRPC_RMID_INIT_CREATE_ATTR, 4, 0);
-+	ctx->sc = sc;
-+	ctx->args = args;
-+	ctx->handle = FASTRPC_INIT_HANDLE;
-+
-+	return 0;
-+
-+err_free_inbuf:
-+	kfree(ctx->inbuf);
-+	ctx->inbuf = NULL;
-+err_free_input_pages:
-+	kfree(ctx->input_pages);
-+	ctx->input_pages = NULL;
-+err_free_args:
-+	kfree(args);
-+	return err;
-+}
-+
- static int fastrpc_prepare_args_invoke(struct fastrpc_invoke_context *ctx, char __user *argp)
- {
- 	struct drm_qda_invoke_args invoke_args;
-@@ -568,6 +700,14 @@ int qda_fastrpc_prepare_args(struct fastrpc_invoke_context *ctx, char __user *ar
- 	int err;
- 
- 	switch (ctx->type) {
-+	case FASTRPC_RMID_INIT_RELEASE:
-+		err = fastrpc_prepare_args_release_process(ctx);
-+		break;
-+	case FASTRPC_RMID_INIT_CREATE:
-+	case FASTRPC_RMID_INIT_CREATE_ATTR:
-+		ctx->pd = QDA_USER_PD;
-+		err = fastrpc_prepare_args_init_create(ctx, argp);
-+		break;
- 	case FASTRPC_RMID_INVOKE_DYNAMIC:
- 		err = fastrpc_prepare_args_invoke(ctx, argp);
- 		break;
-diff --git a/drivers/accel/qda/qda_fastrpc.h b/drivers/accel/qda/qda_fastrpc.h
-index ce77baeccfba..1c1236f9525e 100644
---- a/drivers/accel/qda/qda_fastrpc.h
-+++ b/drivers/accel/qda/qda_fastrpc.h
-@@ -127,6 +127,27 @@ struct fastrpc_invoke_buf {
- 	u32 pgidx;
++	/** @assigned_iommu_dev: IOMMU device assigned to this process */
++	struct qda_iommu_device *assigned_iommu_dev;
++	/** @pid: Process ID for tracking */
++	pid_t pid;
  };
  
+ /**
+diff --git a/drivers/accel/qda/qda_gem.c b/drivers/accel/qda/qda_gem.c
+new file mode 100644
+index 000000000000..568b3c2e64b7
+--- /dev/null
++++ b/drivers/accel/qda/qda_gem.c
+@@ -0,0 +1,156 @@
++// SPDX-License-Identifier: GPL-2.0-only
++// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++#include <drm/drm_gem.h>
++#include <drm/drm_prime.h>
++#include <drm/drm_print.h>
++#include <linux/slab.h>
++#include <linux/dma-mapping.h>
++#include "qda_drv.h"
++#include "qda_gem.h"
++#include "qda_memory_manager.h"
++#include "qda_memory_dma.h"
++
++static void setup_vma_flags(struct vm_area_struct *vma)
++{
++	vm_flags_set(vma, VM_DONTEXPAND);
++	vm_flags_set(vma, VM_DONTDUMP);
++}
++
 +/**
-+ * struct fastrpc_create_process_inbuf - Input buffer for process creation
-+ *
-+ * This structure defines the input buffer format for creating a new
-+ * process on the remote DSP.
++ * qda_gem_free_object() - Free a GEM object and its associated resources
++ * @gem_obj: DRM GEM object to free
 + */
-+struct fastrpc_create_process_inbuf {
-+	/** @remote_session_id: Client identifier for the session */
-+	int remote_session_id;
-+	/** @namelen: Length of the process name string including NUL terminator */
-+	u32 namelen;
-+	/** @filelen: Length of the ELF shell file in bytes */
-+	u32 filelen;
-+	/** @pageslen: Number of physical page descriptors */
-+	u32 pageslen;
-+	/** @attrs: Process attribute flags */
-+	u32 attrs;
-+	/** @siglen: Length of the signature data in bytes */
-+	u32 siglen;
++void qda_gem_free_object(struct drm_gem_object *gem_obj)
++{
++	struct qda_gem_obj *qda_gem_obj = to_qda_gem_obj(gem_obj);
++	struct qda_dev *qdev = qda_dev_from_drm(gem_obj->dev);
++
++	if (qda_gem_obj->virt && qdev->iommu_mgr)
++		qda_memory_manager_free(qdev->iommu_mgr, qda_gem_obj);
++
++	drm_gem_object_release(gem_obj);
++	kfree(qda_gem_obj);
++}
++
++/**
++ * qda_gem_mmap_obj() - Map a GEM object into userspace
++ * @drm_obj: DRM GEM object to map
++ * @vma: Virtual memory area to map into
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++int qda_gem_mmap_obj(struct drm_gem_object *drm_obj, struct vm_area_struct *vma)
++{
++	struct qda_gem_obj *qda_gem_obj = to_qda_gem_obj(drm_obj);
++	int ret;
++
++	/* Reset vm_pgoff for DMA mmap */
++	vma->vm_pgoff = 0;
++
++	ret = qda_dma_mmap(qda_gem_obj, vma);
++	if (ret == 0)
++		setup_vma_flags(vma);
++
++	return ret;
++}
++
++static const struct drm_gem_object_funcs qda_gem_object_funcs = {
++	.free = qda_gem_free_object,
++	.mmap = qda_gem_mmap_obj,
 +};
 +
- /**
-  * struct fastrpc_msg - FastRPC wire message for remote invocations
-  *
-@@ -153,10 +174,6 @@ struct fastrpc_msg {
- 
- /**
-  * struct qda_msg - FastRPC message with kernel-internal bookkeeping
-- *
-- * The wire-format portion is kept in the embedded @fastrpc member (must
-- * be first) so that &qda_msg->fastrpc can be passed directly to
-- * rpmsg_send() without a copy.
-  */
- struct qda_msg {
- 	/**
-@@ -245,7 +262,7 @@ struct fastrpc_invoke_context {
- 	struct qda_gem_obj *msg_gem_obj;
- 	/** @file_priv: DRM file private data */
- 	struct drm_file *file_priv;
--	/** @init_mem_gem_obj: GEM object for protection domain init memory */
-+	/** @init_mem_gem_obj: GEM object for PD initialization memory */
- 	struct qda_gem_obj *init_mem_gem_obj;
- 	/** @req: Pointer to kernel-internal request buffer */
- 	void *req;
-@@ -256,11 +273,23 @@ struct fastrpc_invoke_context {
- };
- 
- /* Remote Method ID table - identifies initialization and control operations */
-+#define FASTRPC_RMID_INIT_RELEASE	1	/* Release DSP process */
-+#define FASTRPC_RMID_INIT_CREATE	6	/* Create DSP process */
-+#define FASTRPC_RMID_INIT_CREATE_ATTR	7	/* Create DSP process with attributes */
- #define FASTRPC_RMID_INVOKE_DYNAMIC	0xFFFFFFFF	/* Dynamic method invocation */
- 
- /* Common handle for initialization operations */
- #define FASTRPC_INIT_HANDLE		0x1
- 
-+/* Protection Domain (PD) identifiers */
-+#define QDA_ROOT_PD		(0)
-+#define QDA_USER_PD		(1)
-+
-+/* Number of arguments for process creation */
-+#define FASTRPC_CREATE_PROCESS_NARGS	6
-+/* Maximum initialization file size (4 MB) */
-+#define FASTRPC_INIT_FILELEN_MAX	(4 * 1024 * 1024)
-+
- void qda_fastrpc_context_free(struct kref *ref);
- struct fastrpc_invoke_context *qda_fastrpc_context_alloc(void);
- int qda_fastrpc_prepare_args(struct fastrpc_invoke_context *ctx, char __user *argp);
-diff --git a/drivers/accel/qda/qda_ioctl.c b/drivers/accel/qda/qda_ioctl.c
-index c81268c20b04..33f0a798ad13 100644
---- a/drivers/accel/qda/qda_ioctl.c
-+++ b/drivers/accel/qda/qda_ioctl.c
-@@ -109,6 +109,7 @@ static int fastrpc_invoke(int type, struct drm_device *dev, void *data,
- 	struct drm_gem_object *gem_obj;
- 	int err;
- 	size_t hdr_size;
-+	size_t initmem_size = FASTRPC_INIT_FILELEN_MAX;
- 
- 	ctx = qda_fastrpc_context_alloc();
- 	if (IS_ERR(ctx))
-@@ -124,6 +125,27 @@ static int fastrpc_invoke(int type, struct drm_device *dev, void *data,
- 	ctx->file_priv = file_priv;
- 	ctx->remote_session_id = qda_file_priv->remote_session_id;
- 
-+	if (type == FASTRPC_RMID_INIT_CREATE) {
-+		struct drm_gem_object *initmem_gem_obj;
-+
-+		if (qda_file_priv->init_mem_gem_obj) {
-+			drm_gem_object_put(&qda_file_priv->init_mem_gem_obj->base);
-+			qda_file_priv->init_mem_gem_obj = NULL;
-+		}
-+
-+		initmem_gem_obj = qda_gem_create_object(dev, qdev->iommu_mgr,
-+							initmem_size, file_priv);
-+		if (IS_ERR(initmem_gem_obj)) {
-+			err = PTR_ERR(initmem_gem_obj);
-+			goto err_context_free;
-+		}
-+
-+		ctx->init_mem_gem_obj = to_qda_gem_obj(initmem_gem_obj);
-+		qda_file_priv->init_mem_gem_obj = ctx->init_mem_gem_obj;
-+	} else if (type == FASTRPC_RMID_INIT_RELEASE) {
-+		ctx->init_mem_gem_obj = qda_file_priv->init_mem_gem_obj;
-+	}
-+
- 	err = qda_fastrpc_prepare_args(ctx, (char __user *)data);
- 	if (err)
- 		goto err_context_free;
-@@ -161,11 +183,41 @@ static int fastrpc_invoke(int type, struct drm_device *dev, void *data,
- 	return 0;
- 
- err_context_free:
-+	if (type == FASTRPC_RMID_INIT_RELEASE && !err && qda_file_priv->init_mem_gem_obj) {
-+		drm_gem_object_put(&qda_file_priv->init_mem_gem_obj->base);
-+		qda_file_priv->init_mem_gem_obj = NULL;
-+	}
-+
- 	fastrpc_context_put_id(ctx, qdev);
- 	kref_put(&ctx->refcount, qda_fastrpc_context_free);
- 	return err;
- }
- 
 +/**
-+ * qda_ioctl_init_create() - Create a DSP process
-+ * @dev: DRM device structure
-+ * @data: User-space data (struct drm_qda_init_create)
-+ * @file_priv: DRM file private data
++ * qda_gem_alloc_object() - Allocate a new QDA GEM object
++ * @drm_dev: DRM device
++ * @aligned_size: Size of the object in bytes (must be page-aligned)
 + *
-+ * Return: 0 on success, negative error code on failure
++ * Return: Pointer to the new GEM object, or ERR_PTR on failure
 + */
-+int qda_ioctl_init_create(struct drm_device *dev, void *data, struct drm_file *file_priv)
++struct qda_gem_obj *qda_gem_alloc_object(struct drm_device *drm_dev, size_t aligned_size)
 +{
-+	return fastrpc_invoke(FASTRPC_RMID_INIT_CREATE, dev, data, file_priv);
++	struct qda_gem_obj *qda_gem_obj;
++	int ret;
++
++	qda_gem_obj = kzalloc_obj(*qda_gem_obj);
++	if (!qda_gem_obj)
++		return ERR_PTR(-ENOMEM);
++
++	ret = drm_gem_object_init(drm_dev, &qda_gem_obj->base, aligned_size);
++	if (ret) {
++		drm_err(drm_dev, "Failed to initialize GEM object: %d\n", ret);
++		kfree(qda_gem_obj);
++		return ERR_PTR(ret);
++	}
++
++	qda_gem_obj->base.funcs = &qda_gem_object_funcs;
++	qda_gem_obj->size = aligned_size;
++
++	drm_dbg_driver(drm_dev, "Allocated GEM object size=%zu\n", aligned_size);
++	return qda_gem_obj;
++}
++
++void qda_gem_cleanup_object(struct qda_gem_obj *qda_gem_obj)
++{
++	drm_gem_object_release(&qda_gem_obj->base);
++	kfree(qda_gem_obj);
++}
++
++struct drm_gem_object *qda_gem_lookup_object(struct drm_file *file_priv, u32 handle)
++{
++	struct drm_gem_object *gem_obj;
++
++	gem_obj = drm_gem_object_lookup(file_priv, handle);
++	if (!gem_obj)
++		return ERR_PTR(-ENOENT);
++
++	return gem_obj;
++}
++
++int qda_gem_create_handle(struct drm_file *file_priv, struct drm_gem_object *gem_obj, u32 *handle)
++{
++	int ret;
++
++	ret = drm_gem_handle_create(file_priv, gem_obj, handle);
++	drm_gem_object_put(gem_obj);
++
++	return ret;
 +}
 +
 +/**
-+ * qda_release_dsp_process() - Release DSP process resources for a file
-+ * @qdev: QDA device structure
-+ * @file_priv: DRM file private data
++ * qda_gem_create_object() - Allocate and initialize a GEM object with DMA backing
++ * @drm_dev: DRM device
++ * @iommu_mgr: Memory manager to use for DMA allocation
++ * @size: Requested size in bytes
++ * @file_priv: DRM file private data for process association
++ *
++ * Return: Pointer to the base DRM GEM object on success, ERR_PTR on failure
++ */
++struct drm_gem_object *qda_gem_create_object(struct drm_device *drm_dev,
++					     struct qda_memory_manager *iommu_mgr, size_t size,
++					     struct drm_file *file_priv)
++{
++	struct qda_gem_obj *qda_gem_obj;
++	size_t aligned_size;
++	int ret;
++
++	if (size == 0) {
++		drm_err(drm_dev, "Invalid size for GEM object creation\n");
++		return ERR_PTR(-EINVAL);
++	}
++
++	aligned_size = PAGE_ALIGN(size);
++
++	qda_gem_obj = qda_gem_alloc_object(drm_dev, aligned_size);
++	if (IS_ERR(qda_gem_obj))
++		return ERR_CAST(qda_gem_obj);
++
++	ret = qda_memory_manager_alloc(iommu_mgr, qda_gem_obj, file_priv);
++	if (ret) {
++		drm_err(drm_dev, "Memory manager allocation failed: %d\n", ret);
++		qda_gem_cleanup_object(qda_gem_obj);
++		return ERR_PTR(ret);
++	}
++
++	drm_dbg_driver(drm_dev, "GEM object created successfully size=%zu\n", aligned_size);
++	return &qda_gem_obj->base;
++}
+diff --git a/drivers/accel/qda/qda_gem.h b/drivers/accel/qda/qda_gem.h
+new file mode 100644
+index 000000000000..bb18f8155aa4
+--- /dev/null
++++ b/drivers/accel/qda/qda_gem.h
+@@ -0,0 +1,54 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++#ifndef __QDA_GEM_H__
++#define __QDA_GEM_H__
++
++#include <linux/dma-mapping.h>
++#include <linux/xarray.h>
++#include <drm/drm_device.h>
++#include <drm/drm_gem.h>
++#include "qda_memory_manager.h"
++
++/**
++ * struct qda_gem_obj - QDA GEM buffer object
++ *
++ * Represents a GEM buffer object that can be allocated by the driver
++ * or imported from another driver via DMA-BUF.
++ */
++struct qda_gem_obj {
++	/** @base: DRM GEM object base — must be first member */
++	struct drm_gem_object base;
++	/** @iommu_dev: IOMMU context bank device that performed the allocation */
++	struct qda_iommu_device *iommu_dev;
++	/** @virt: Kernel virtual address of the allocated DMA memory */
++	void *virt;
++	/** @dma_addr: DMA address (with SID encoded in upper 32 bits) */
++	dma_addr_t dma_addr;
++	/** @size: Size of the buffer in bytes */
++	size_t size;
++};
++
++/**
++ * to_qda_gem_obj - Cast a drm_gem_object pointer to qda_gem_obj
++ * @gem_obj: Pointer to the embedded drm_gem_object
++ */
++#define to_qda_gem_obj(gem_obj) container_of(gem_obj, struct qda_gem_obj, base)
++
++/* GEM object lifecycle */
++struct drm_gem_object *qda_gem_create_object(struct drm_device *drm_dev,
++					     struct qda_memory_manager *iommu_mgr,
++					     size_t size, struct drm_file *file_priv);
++void qda_gem_free_object(struct drm_gem_object *gem_obj);
++int qda_gem_mmap_obj(struct drm_gem_object *gem_obj, struct vm_area_struct *vma);
++
++/* Internal helpers (also used by PRIME import) */
++struct qda_gem_obj *qda_gem_alloc_object(struct drm_device *drm_dev, size_t aligned_size);
++void qda_gem_cleanup_object(struct qda_gem_obj *qda_gem_obj);
++
++/* Utility functions */
++struct drm_gem_object *qda_gem_lookup_object(struct drm_file *file_priv, u32 handle);
++int qda_gem_create_handle(struct drm_file *file_priv, struct drm_gem_object *gem_obj, u32 *handle);
++
++#endif /* __QDA_GEM_H__ */
+diff --git a/drivers/accel/qda/qda_memory_dma.c b/drivers/accel/qda/qda_memory_dma.c
+new file mode 100644
+index 000000000000..97488c755d2d
+--- /dev/null
++++ b/drivers/accel/qda/qda_memory_dma.c
+@@ -0,0 +1,110 @@
++// SPDX-License-Identifier: GPL-2.0-only
++// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++#include <linux/slab.h>
++#include <linux/dma-mapping.h>
++#include "qda_drv.h"
++#include "qda_gem.h"
++#include "qda_memory_dma.h"
++
++static dma_addr_t get_actual_dma_addr(struct qda_gem_obj *gem_obj)
++{
++	return gem_obj->dma_addr - ((u64)gem_obj->iommu_dev->sid << 32);
++}
++
++static void setup_gem_object(struct qda_gem_obj *gem_obj, void *virt,
++			     dma_addr_t dma_addr, struct qda_iommu_device *iommu_dev)
++{
++	gem_obj->virt = virt;
++	gem_obj->dma_addr = dma_addr;
++	gem_obj->iommu_dev = iommu_dev;
++}
++
++static void cleanup_gem_object_fields(struct qda_gem_obj *gem_obj)
++{
++	gem_obj->virt = NULL;
++	gem_obj->dma_addr = 0;
++	gem_obj->iommu_dev = NULL;
++}
++
++/**
++ * qda_dma_alloc() - Allocate DMA coherent memory for a GEM object
++ * @iommu_dev: Pointer to the QDA IOMMU device structure
++ * @gem_obj: Pointer to GEM object to allocate memory for
++ * @size: Size of memory to allocate in bytes
 + *
 + * Return: 0 on success, negative error code on failure
 + */
-+int qda_release_dsp_process(struct qda_dev *qdev, struct drm_file *file_priv)
++int qda_dma_alloc(struct qda_iommu_device *iommu_dev,
++		  struct qda_gem_obj *gem_obj, size_t size)
 +{
-+	return fastrpc_invoke(FASTRPC_RMID_INIT_RELEASE, &qdev->drm_dev, NULL, file_priv);
++	void *virt;
++	dma_addr_t dma_addr;
++
++	if (!iommu_dev || !iommu_dev->dev) {
++		pr_err("qda: Invalid iommu_dev or device for DMA allocation\n");
++		return -EINVAL;
++	}
++
++	virt = dma_alloc_coherent(iommu_dev->dev, size, &dma_addr, GFP_KERNEL);
++	if (!virt)
++		return -ENOMEM;
++
++	dma_addr += ((u64)iommu_dev->sid << 32);
++
++	dev_dbg(iommu_dev->dev, "DMA address with SID prefix: 0x%llx (sid=%u)\n",
++		(u64)dma_addr, iommu_dev->sid);
++
++	setup_gem_object(gem_obj, virt, dma_addr, iommu_dev);
++
++	return 0;
 +}
 +
- /**
-  * qda_ioctl_invoke() - Perform a dynamic FastRPC method invocation
-  * @dev: DRM device structure
-diff --git a/drivers/accel/qda/qda_ioctl.h b/drivers/accel/qda/qda_ioctl.h
-index 3bb9cfd98370..192565434363 100644
---- a/drivers/accel/qda/qda_ioctl.h
-+++ b/drivers/accel/qda/qda_ioctl.h
-@@ -9,6 +9,7 @@
++/**
++ * qda_dma_free() - Free DMA coherent memory for a GEM object
++ * @gem_obj: Pointer to GEM object to free memory for
++ */
++void qda_dma_free(struct qda_gem_obj *gem_obj)
++{
++	if (!gem_obj || !gem_obj->iommu_dev) {
++		pr_debug("qda: Invalid gem_obj or iommu_dev for DMA free\n");
++		return;
++	}
++
++	dev_dbg(gem_obj->iommu_dev->dev, "DMA freeing: size=%zu, device_id=%u, dma_addr=0x%llx\n",
++		gem_obj->size, gem_obj->iommu_dev->id, gem_obj->dma_addr);
++
++	dma_free_coherent(gem_obj->iommu_dev->dev, gem_obj->size,
++			  gem_obj->virt, get_actual_dma_addr(gem_obj));
++
++	cleanup_gem_object_fields(gem_obj);
++}
++
++/**
++ * qda_dma_mmap() - Map DMA memory into userspace
++ * @gem_obj: Pointer to GEM object containing DMA memory
++ * @vma: Virtual memory area to map into
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++int qda_dma_mmap(struct qda_gem_obj *gem_obj, struct vm_area_struct *vma)
++{
++	struct qda_iommu_device *iommu_dev;
++	int ret;
++
++	if (!gem_obj || !gem_obj->virt || !gem_obj->iommu_dev || !gem_obj->iommu_dev->dev) {
++		pr_err("qda: Invalid parameters for DMA mmap\n");
++		return -EINVAL;
++	}
++
++	iommu_dev = gem_obj->iommu_dev;
++
++	ret = dma_mmap_coherent(iommu_dev->dev, vma, gem_obj->virt,
++				get_actual_dma_addr(gem_obj), gem_obj->size);
++	if (ret) {
++		dev_err(iommu_dev->dev, "DMA mmap failed: size=%zu, device_id=%u, ret=%d\n",
++			gem_obj->size, iommu_dev->id, ret);
++		return ret;
++	}
++
++	return 0;
++}
+diff --git a/drivers/accel/qda/qda_memory_dma.h b/drivers/accel/qda/qda_memory_dma.h
+new file mode 100644
+index 000000000000..99352a99dc33
+--- /dev/null
++++ b/drivers/accel/qda/qda_memory_dma.h
+@@ -0,0 +1,17 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#ifndef __QDA_MEMORY_DMA_H__
++#define __QDA_MEMORY_DMA_H__
++
++#include <linux/dma-mapping.h>
++#include "qda_memory_manager.h"
++
++int qda_dma_alloc(struct qda_iommu_device *iommu_dev,
++		  struct qda_gem_obj *gem_obj, size_t size);
++void qda_dma_free(struct qda_gem_obj *gem_obj);
++int qda_dma_mmap(struct qda_gem_obj *gem_obj, struct vm_area_struct *vma);
++
++#endif /* __QDA_MEMORY_DMA_H__ */
+diff --git a/drivers/accel/qda/qda_memory_manager.c b/drivers/accel/qda/qda_memory_manager.c
+index 00a9c0ae4224..82111275f420 100644
+--- a/drivers/accel/qda/qda_memory_manager.c
++++ b/drivers/accel/qda/qda_memory_manager.c
+@@ -6,8 +6,11 @@
+ #include <linux/spinlock.h>
+ #include <linux/xarray.h>
+ #include <drm/drm_file.h>
++#include <drm/drm_print.h>
  #include "qda_drv.h"
++#include "qda_gem.h"
+ #include "qda_memory_manager.h"
++#include "qda_memory_dma.h"
  
- int qda_ioctl_query(struct drm_device *dev, void *data, struct drm_file *file_priv);
-+int qda_ioctl_init_create(struct drm_device *dev, void *data, struct drm_file *file_priv);
- int qda_ioctl_gem_create(struct drm_device *dev, void *data, struct drm_file *file_priv);
- int qda_ioctl_gem_mmap_offset(struct drm_device *dev, void *data, struct drm_file *file_priv);
- int qda_ioctl_invoke(struct drm_device *dev, void *data, struct drm_file *file_priv);
-diff --git a/include/uapi/drm/qda_accel.h b/include/uapi/drm/qda_accel.h
-index 72512213741f..711e2523a570 100644
---- a/include/uapi/drm/qda_accel.h
-+++ b/include/uapi/drm/qda_accel.h
-@@ -21,8 +21,9 @@ extern "C" {
- #define DRM_QDA_QUERY		0x00
- #define DRM_QDA_GEM_CREATE		0x01
- #define DRM_QDA_GEM_MMAP_OFFSET	0x02
--/* Command numbers 0x03-0x06 reserved for INIT_ATTACH, INIT_CREATE, MAP, MUNMAP */
--#define DRM_QDA_REMOTE_INVOKE		0x07
-+/* Command number 0x03 reserved for INIT_ATTACH; 0x05-0x06 reserved for MAP, MUNMAP */
-+#define DRM_QDA_REMOTE_SESSION_CREATE		0x04
-+#define DRM_QDA_REMOTE_INVOKE			0x07
+ static void cleanup_all_memory_devices(struct qda_memory_manager *mem_mgr)
+ {
+@@ -28,6 +31,14 @@ static void cleanup_all_memory_devices(struct qda_memory_manager *mem_mgr)
+ 	pr_debug("qda: Completed cleanup of all memory devices\n");
+ }
  
- /*
-  * QDA IOCTL definitions
-@@ -37,6 +38,9 @@ extern "C" {
- 					  struct drm_qda_gem_create)
- #define DRM_IOCTL_QDA_GEM_MMAP_OFFSET	DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_GEM_MMAP_OFFSET, \
- 					  struct drm_qda_gem_mmap_offset)
-+#define DRM_IOCTL_QDA_REMOTE_SESSION_CREATE					\
-+	DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_REMOTE_SESSION_CREATE,		\
-+		 struct drm_qda_init_create)
- #define DRM_IOCTL_QDA_REMOTE_INVOKE	DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_REMOTE_INVOKE, \
- 					  struct drm_qda_invoke_args)
++static void init_iommu_device_fields(struct qda_iommu_device *iommu_dev)
++{
++	spin_lock_init(&iommu_dev->lock);
++	refcount_set(&iommu_dev->refcount, 0);
++	iommu_dev->assigned_pid = 0;
++	iommu_dev->assigned_file_priv = NULL;
++}
++
+ static int allocate_device_id(struct qda_memory_manager *mem_mgr,
+ 			      struct qda_iommu_device *iommu_dev, u32 *id)
+ {
+@@ -44,6 +55,216 @@ static int allocate_device_id(struct qda_memory_manager *mem_mgr,
+ 	return 0;
+ }
  
-@@ -99,6 +103,30 @@ struct drm_qda_fastrpc_invoke_args {
- 	__u32 attr;
- };
- 
++static struct qda_iommu_device *find_device_for_pid(struct qda_memory_manager *mem_mgr,
++						    pid_t pid)
++{
++	unsigned long index;
++	void *entry;
++	struct qda_iommu_device *found_dev = NULL;
++	unsigned long flags;
++
++	xa_lock_irqsave(&mem_mgr->device_xa, flags);
++	xa_for_each(&mem_mgr->device_xa, index, entry) {
++		struct qda_iommu_device *iommu_dev = entry;
++
++		spin_lock(&iommu_dev->lock);
++		if (iommu_dev->assigned_pid == pid) {
++			found_dev = iommu_dev;
++			refcount_inc(&found_dev->refcount);
++			dev_dbg(found_dev->dev, "Reusing device id=%u for PID=%d (refcount=%u)\n",
++				found_dev->id, pid, refcount_read(&found_dev->refcount));
++			spin_unlock(&iommu_dev->lock);
++			break;
++		}
++		spin_unlock(&iommu_dev->lock);
++	}
++	xa_unlock_irqrestore(&mem_mgr->device_xa, flags);
++
++	return found_dev;
++}
++
++static struct qda_iommu_device *assign_available_device_to_pid(struct qda_memory_manager *mem_mgr,
++							       pid_t pid,
++							       struct drm_file *file_priv)
++{
++	unsigned long index;
++	void *entry;
++	struct qda_iommu_device *selected_dev = NULL;
++	unsigned long flags;
++
++	xa_lock_irqsave(&mem_mgr->device_xa, flags);
++	xa_for_each(&mem_mgr->device_xa, index, entry) {
++		struct qda_iommu_device *iommu_dev = entry;
++
++		spin_lock(&iommu_dev->lock);
++		if (iommu_dev->assigned_pid == 0) {
++			iommu_dev->assigned_pid = pid;
++			iommu_dev->assigned_file_priv = file_priv;
++			selected_dev = iommu_dev;
++			refcount_set(&selected_dev->refcount, 1);
++			dev_dbg(selected_dev->dev, "Assigned device id=%u to PID=%d\n",
++				selected_dev->id, pid);
++			spin_unlock(&iommu_dev->lock);
++			break;
++		}
++		spin_unlock(&iommu_dev->lock);
++	}
++	xa_unlock_irqrestore(&mem_mgr->device_xa, flags);
++
++	return selected_dev;
++}
++
++static struct qda_iommu_device *get_process_iommu_device(struct qda_memory_manager *mem_mgr,
++							 struct drm_file *file_priv)
++{
++	struct qda_file_priv *qda_priv;
++
++	if (!file_priv || !file_priv->driver_priv)
++		return NULL;
++
++	qda_priv = (struct qda_file_priv *)file_priv->driver_priv;
++	return qda_priv->assigned_iommu_dev;
++}
++
 +/**
-+ * struct drm_qda_init_create - Accelerator process initialization parameters
-+ * @filelen: Length of the ELF file in bytes
-+ * @filefd: DMA-BUF file descriptor containing the ELF file
-+ * @attrs: Process attributes flags
-+ * @siglen: Length of signature data in bytes
-+ * @file: Pointer to ELF file data if not using filefd
++ * qda_memory_manager_assign_device() - Assign an IOMMU device to a process
++ * @mem_mgr: Pointer to memory manager
++ * @file_priv: DRM file private data for process association
 + *
-+ * This structure is used with DRM_IOCTL_QDA_INIT_CREATE to initialize
-+ * a new process on the accelerator. The process code is provided either
-+ * via a file descriptor (filefd, typically a GEM object) or a direct
-+ * pointer (file). Set file to 0 if using filefd.
-+ *
-+ * The attrs field contains bit flags for debug mode, privileged execution,
-+ * and other process attributes.
++ * Return: 0 on success, negative error code on failure
 + */
-+struct drm_qda_init_create {
-+	__u32 filelen;
-+	__s32 filefd;
-+	__u32 attrs;
-+	__u32 siglen;
-+	__u64 file;
-+};
++int qda_memory_manager_assign_device(struct qda_memory_manager *mem_mgr,
++				     struct drm_file *file_priv)
++{
++	struct qda_file_priv *qda_priv;
++	struct qda_iommu_device *selected_dev = NULL;
++	int ret = 0;
++	pid_t current_pid;
++
++	if (!file_priv || !file_priv->driver_priv) {
++		pr_err("qda: Invalid file_priv or driver_priv\n");
++		return -EINVAL;
++	}
++
++	qda_priv = (struct qda_file_priv *)file_priv->driver_priv;
++	current_pid = qda_priv->pid;
++
++	mutex_lock(&mem_mgr->process_assignment_lock);
++
++	if (qda_priv->assigned_iommu_dev) {
++		dev_dbg(qda_priv->assigned_iommu_dev->dev,
++			"PID=%d already has device id=%u assigned\n",
++			current_pid, qda_priv->assigned_iommu_dev->id);
++		ret = 0;
++		goto unlock_and_return;
++	}
++
++	selected_dev = find_device_for_pid(mem_mgr, current_pid);
++
++	if (selected_dev) {
++		qda_priv->assigned_iommu_dev = selected_dev;
++		goto unlock_and_return;
++	}
++
++	selected_dev = assign_available_device_to_pid(mem_mgr, current_pid, file_priv);
++
++	if (!selected_dev) {
++		pr_err("qda: No available device for PID=%d\n", current_pid);
++		ret = -ENOMEM;
++		goto unlock_and_return;
++	}
++
++	qda_priv->assigned_iommu_dev = selected_dev;
++
++unlock_and_return:
++	mutex_unlock(&mem_mgr->process_assignment_lock);
++	return ret;
++}
++
++static struct qda_iommu_device *get_or_assign_iommu_device(struct qda_memory_manager *mem_mgr,
++							   struct drm_file *file_priv)
++{
++	struct qda_iommu_device *iommu_dev;
++	int ret;
++
++	iommu_dev = get_process_iommu_device(mem_mgr, file_priv);
++	if (iommu_dev)
++		return iommu_dev;
++
++	ret = qda_memory_manager_assign_device(mem_mgr, file_priv);
++	if (ret)
++		return NULL;
++
++	iommu_dev = get_process_iommu_device(mem_mgr, file_priv);
++	if (iommu_dev)
++		return iommu_dev;
++
++	return NULL;
++}
++
++/**
++ * qda_memory_manager_alloc() - Allocate memory for a GEM object
++ * @mem_mgr: Pointer to memory manager
++ * @gem_obj: Pointer to GEM object to allocate memory for
++ * @file_priv: DRM file private data for process association
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++int qda_memory_manager_alloc(struct qda_memory_manager *mem_mgr, struct qda_gem_obj *gem_obj,
++			     struct drm_file *file_priv)
++{
++	struct qda_iommu_device *selected_dev;
++	size_t size;
++	int ret;
++
++	if (!mem_mgr || !gem_obj || !file_priv) {
++		pr_err("qda: Invalid parameters for memory allocation\n");
++		return -EINVAL;
++	}
++
++	size = gem_obj->size;
++	if (size == 0) {
++		drm_err(gem_obj->base.dev, "Invalid allocation size: 0\n");
++		return -EINVAL;
++	}
++
++	selected_dev = get_or_assign_iommu_device(mem_mgr, file_priv);
++
++	if (!selected_dev) {
++		drm_err(gem_obj->base.dev,
++			"Failed to get/assign device for allocation (size=%zu)\n",
++			size);
++		return -ENOMEM;
++	}
++
++	ret = qda_dma_alloc(selected_dev, gem_obj, size);
++	if (ret) {
++		drm_err(gem_obj->base.dev, "Allocation failed: size=%zu, device_id=%u, ret=%d\n",
++			size, selected_dev->id, ret);
++		return ret;
++	}
++
++	drm_dbg_driver(gem_obj->base.dev,
++		       "Successfully allocated: size=%zu, device_id=%u, dma_addr=0x%llx\n",
++		       size, selected_dev->id, gem_obj->dma_addr);
++	return 0;
++}
++
++/**
++ * qda_memory_manager_free() - Free memory for a GEM object
++ * @mem_mgr: Pointer to memory manager
++ * @gem_obj: Pointer to GEM object to free memory for
++ */
++void qda_memory_manager_free(struct qda_memory_manager *mem_mgr, struct qda_gem_obj *gem_obj)
++{
++	if (!gem_obj || !gem_obj->iommu_dev) {
++		pr_debug("qda: Invalid gem_obj or iommu_dev for free\n");
++		return;
++	}
++
++	qda_dma_free(gem_obj);
++}
 +
  /**
-  * struct drm_qda_invoke_args - Dynamic FastRPC invocation parameters
-  * @handle: Remote handle to invoke on the DSP
+  * qda_memory_manager_register_device() - Register an IOMMU device
+  * @mem_mgr: Pointer to memory manager
+@@ -57,6 +278,8 @@ int qda_memory_manager_register_device(struct qda_memory_manager *mem_mgr,
+ 	int ret;
+ 	u32 id;
+ 
++	init_iommu_device_fields(iommu_dev);
++
+ 	ret = allocate_device_id(mem_mgr, iommu_dev, &id);
+ 	if (ret) {
+ 		dev_err(iommu_dev->dev,
+@@ -95,6 +318,7 @@ int qda_memory_manager_init(struct qda_memory_manager *mem_mgr)
+ 	pr_debug("qda: Initializing memory manager\n");
+ 
+ 	xa_init_flags(&mem_mgr->device_xa, XA_FLAGS_ALLOC);
++	mutex_init(&mem_mgr->process_assignment_lock);
+ 
+ 	pr_debug("qda: Memory manager initialized successfully\n");
+ 	return 0;
+diff --git a/drivers/accel/qda/qda_memory_manager.h b/drivers/accel/qda/qda_memory_manager.h
+index 0243f9c0c5aa..252459bc10d0 100644
+--- a/drivers/accel/qda/qda_memory_manager.h
++++ b/drivers/accel/qda/qda_memory_manager.h
+@@ -7,8 +7,15 @@
+ #define __QDA_MEMORY_MANAGER_H__
+ 
+ #include <linux/device.h>
++#include <linux/mutex.h>
++#include <linux/refcount.h>
++#include <linux/spinlock.h>
+ #include <linux/xarray.h>
+-#include "qda_drv.h"
++#include <drm/drm_file.h>
++
++/* Forward declarations */
++struct qda_dev;
++struct qda_gem_obj;
+ 
+ /**
+  * struct qda_iommu_device - IOMMU device instance for memory management
+@@ -21,10 +28,18 @@ struct qda_iommu_device {
+ 	struct device *dev;
+ 	/** @qdev: Back-pointer to the parent QDA device */
+ 	struct qda_dev *qdev;
++	/** @assigned_file_priv: DRM file private data for the assigned process */
++	struct drm_file *assigned_file_priv;
+ 	/** @id: Unique identifier assigned by the memory manager XArray */
+ 	u32 id;
+ 	/** @sid: Stream ID for IOMMU transactions */
+ 	u32 sid;
++	/** @assigned_pid: Process ID of the process assigned to this device */
++	pid_t assigned_pid;
++	/** @refcount: Reference counter for device */
++	refcount_t refcount;
++	/** @lock: Spinlock protecting concurrent access to device */
++	spinlock_t lock;
+ };
+ 
+ /**
+@@ -36,6 +51,8 @@ struct qda_iommu_device {
+ struct qda_memory_manager {
+ 	/** @device_xa: XArray storing all registered IOMMU devices */
+ 	struct xarray device_xa;
++	/** @process_assignment_lock: Mutex protecting process-to-device assignments */
++	struct mutex process_assignment_lock;
+ };
+ 
+ int qda_memory_manager_init(struct qda_memory_manager *mem_mgr);
+@@ -46,4 +63,13 @@ int qda_memory_manager_register_device(struct qda_memory_manager *mem_mgr,
+ void qda_memory_manager_unregister_device(struct qda_memory_manager *mem_mgr,
+ 					  struct qda_iommu_device *iommu_dev);
+ 
++int qda_memory_manager_assign_device(struct qda_memory_manager *mem_mgr,
++				     struct drm_file *file_priv);
++
++int qda_memory_manager_alloc(struct qda_memory_manager *mem_mgr,
++			     struct qda_gem_obj *gem_obj,
++			     struct drm_file *file_priv);
++void qda_memory_manager_free(struct qda_memory_manager *mem_mgr,
++			     struct qda_gem_obj *gem_obj);
++
+ #endif /* __QDA_MEMORY_MANAGER_H__ */
 
 -- 
 2.34.1
