@@ -1,196 +1,232 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D8F31E85C
-	for <linux-media@vger.kernel.org>; Mon, 18 May 2026 23:50:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20E724468C
+	for <linux-media@vger.kernel.org>; Tue, 19 May 2026 00:36:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.178
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779148261; cv=pass; b=K8Tk+Xf+WEkRlIHF6r2+RT/8xqZxf2LUzQAB/SK+SNjRb/c26S3nsnprm3y7j3j+AK0h43jn3OG0uqzWM1gJafqV+urJk1E/iSXN++sNTenfxk2AZ9PWYsaJ5YarucI+uZGKK7xN5KxCBZ+V4KNu30DgTyPPBtyjKkTV4K8GlfY=
+	t=1779151014; cv=pass; b=bbQXjBgFG5THDooCM1cuK1+QUPASGLGBwuAd75LhPTyhksCDuA3PDKHyYnd9ie/3Jv+BSL3Ohrold+KiuWGsK6+IJ2PLcUFSDsVAZm7UnxRYBuSGIlWqhtg58Zml9xXeNH3s4AvuOADyrtEfFIm2HRQmahKz0mLl0kNObLeOSSw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779148261; c=relaxed/simple;
-	bh=AvdG+i+gFy3l+HsU7nMuJE76u5FmSMHTxUGFJaHz9fE=;
+	s=arc-20240116; t=1779151014; c=relaxed/simple;
+	bh=is7j9dVhsZcyR/N2wfaZNxzetAOIpBVHYKZcZ7kuiDQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AzzCw67kBR0kKPniXgwmHs5qMSeEkiyzlAGEBgGI7dIGYuaV3lmiViYPqLL6u00QnSoZCi1VlVk3r6XRmZmZuQA8WK7jEZIefJrKqpoxy7uO/DVsvWo3Bi/XM+nxD7DcyvwkAoBzXeBvHEwsRYiRYXAGl5JgEFnq6hf7zkMFBfI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PQGks2Bj; arc=pass smtp.client-ip=209.85.128.181
+	 To:Cc:Content-Type; b=mq0tc9H2SS9U7g9p/TutA3Qvlb1UZk4WCGw/Y1ugz2zKCMmOGXgsUzXJhqfr4Akqe3/m+5D4w+SgFeSEm6dgd2UGyWpUIBv2AqpcpfnDQwlQAziAwB9Uv1AA1Chvi4V5jFLFMnmWC9GC2ICcrVrE58yOHCcujA/sUhRC0BS7DPc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jGckjcFU; arc=pass smtp.client-ip=209.85.128.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PQGks2Bj"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-7bdc947aaa3so21863447b3.0
-        for <linux-media@vger.kernel.org>; Mon, 18 May 2026 16:50:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779148259; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jGckjcFU"
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-79a535e7c00so22910777b3.3
+        for <linux-media@vger.kernel.org>; Mon, 18 May 2026 17:36:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779151011; cv=none;
         d=google.com; s=arc-20240605;
-        b=cFcfETiQ9PawqEqTUU6k2eLoc8DPa1x2BmcA4BQbUNmMX2nTc5YpCVaU8rPVU0TBSH
-         fqTlWl0QD8f70RdJlyYwnmvJQAocn7iDknaRmyvrbYjgouf855RE30dNSpSaQbw2CI36
-         cYZ2kWpPhMRao2l3doRb/ZvSiWD14Xm8U9H4/6upLsRAWfB7AH65sdmg6NAd3RHebV5K
-         wewrBxwyRfgllx2dLTZgMzLTJ32fWJi1c+lQsOGHPyU/JPE8fRisFX81DC31qGDlPhgW
-         b+y7a0fRMSzvitQt+eXgus9nXLNwUG5d5D5ukllBZlO84IgARV6z07gLEhYyJcOvqjbF
-         7/1w==
+        b=i33pDiz8z1GYziXM3SsbYwve1qjCqgSQ+CaBH7pz4YVEHv2eL7C/aksGs9lVpUXs2A
+         VCpxQXjOT9ashJb/ZB+Y//1gLJ+RVjmO6+Kip8IFqGPbHZgv38CPu1WgzxP2hkqV+YLV
+         2P8IskagzgF2CLT8kjwEgZ7F0YdBG/7nw58WiiM1X+OHj0FvjkQ3UFDOGx9j5UWzVnC0
+         2+BBSWeuid0pAvj/8XHvmV5uG8qcGcZF/eNSuz/D6E2LVPzdjkU6ATdc3oGH71nqYlcq
+         Q1i3NCW6xniQQ3v1TPI1hkwWE/XgYiBrY5aUNFQSKWhotJidp7C5RKqNPHj+GAw4GJtd
+         qFbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=IeeTUYaRZ5BMifrp/CORM7G6Oak23mAzpXgU06USVUU=;
-        fh=By8Z7emJwpkv512hXKtppgmvpvJM8MZqdSLSLno9thg=;
-        b=ABXJINvcTNlzyf78QhQ+UiESlZ1kM5Px08P4ucGKhNFu5ysmC3GzgNOZGAPhbeqehS
-         PLA14a7cTxGKJK7qRfrFS4FGP1cBlHcNrwNJWxDz5HmnWfXmLFWD1e/uxtw5QPky4J2M
-         r8UER3fjgwXWlvrwqJDJuB7O7icDjYJ4IRh4R/R8I8W7VTq6VNWqhBQHvVCpB8MInYQk
-         FyXH2s0OXaPHJBkff3QFBqzUBfc8o1qAvFqkGXGdUpdjzNeKtorpoET84oQuWlZJG0Xd
-         LRRVjMuJAuF+C2TCqZTgXGEsAOQz6ctBU+bSiviwXHXPmC+o4eJiDfrerCwHUi5wLPad
-         7hUQ==;
+        bh=e+1ZOpCnfvlGWakwJXz2+pZiiMxmIhCH5N4QtF0t85s=;
+        fh=1xwg2TlRYC0kATRHp0eYbTWUWezOYQJL3/tfhgKI/ms=;
+        b=AXzbm/3a8iAKrc2UbbVAX086jVtCb+/2rrgRMCIgB5L03HEHhwlWrAFFqQA9TFc8ml
+         4l+HDlWT4HjlAhPGl3kDZX3JfyZYHpmM4zsTQSVkzY+YpzdPDjiQuE86RTPUYwv2OqWZ
+         /LH93F3swR++DWNpm3hKO/V9kx3R67BTnMGo3RqLj1P3UmxnH1qrTI2Uy9ob7h+6a5bt
+         Xf+yFR7729BRAIYWZblKbYQhVmE3KmoxvE2TxysISUspF5JBk84Dsqrudf/D+an65AoE
+         phoYROiIdd8KjuKl9JPITgbU/0Z3A7sjs5GmH9CQyoDZa0LAlC+/uLLSsiGg0ZT3Ic6y
+         UQcw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779148259; x=1779753059; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779151011; x=1779755811; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IeeTUYaRZ5BMifrp/CORM7G6Oak23mAzpXgU06USVUU=;
-        b=PQGks2BjMJ75Jdi9JhYKRz8Ave4KFA+XY47tOYyhr4fNmFNwgMCVlYDBus2Ajkec97
-         5vmxFGJcON9f0N2LujMTzRbNlNA/l4NEQrC0aooQheq1MDjpKBuUcjKDS4K82X5dOkW9
-         XSkTgwy+Cxh2FNfriLGZjPmNpgboRU1i24PJTOI2qzZLcuZOwv7LGyCbCv45vJ3775sm
-         Gr++APfz538Tdu2e57kbkH+PxsgvYmqOhh4nf4MLUg+lCdivJEwqKZHOwLxNfGJUtX5z
-         VgxgT8XPwGgU264XrS+O1ET6bckAC6RON301jx/4C/ExSDijKBAI2fgrSZuuIjVZkjb7
-         nYjg==
+        bh=e+1ZOpCnfvlGWakwJXz2+pZiiMxmIhCH5N4QtF0t85s=;
+        b=jGckjcFUDmuvg3/zpS4Zh10+M/gqT6NeUW2vPZ9C1QdbL7vssWjGGwIf38oo0syXXO
+         a+zQ4TVNWidWTV4WnuDz0Xm5Kew0eaSqIdyZYgCaY7z/9LJ3c5HfWPneNs+cZPCuDeLz
+         NbPD6qbEuw6jLqXYRY5GFatzg+VinnvHUoxky80sQf1ng5KbaikyLEtB5/JnL0f8MunC
+         5SqNyPKFBtWOmZsT0+LyyH4ADT6YGo2AYPD7CKzhg1Z2YC8oCwdzOaC89D5v1rfBTRFv
+         j2Ji7HWOKG1yj7O0WfyGl5hN6IuuQ/3UeMMryoAXJNMbSPYhIx9IObgeviK9mzZhz5n8
+         vnzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779148259; x=1779753059;
+        d=1e100.net; s=20251104; t=1779151011; x=1779755811;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=IeeTUYaRZ5BMifrp/CORM7G6Oak23mAzpXgU06USVUU=;
-        b=JEy+1cyFJER40Nb1yH13VO8O+2ZBui2ic9ph7/suQ4y83RGyFZrrkRF3I9ZltkCnby
-         JvkDOk5Xc1HCTTZLbtf5nUPvOEMt0nVwJ9TbUJC2do8xsGBWc3wxaNmIObtgLB2cv2S1
-         3dOJ9XQc61fxMXGBn14X67zK0GM1VSrzraeJnXZH5SHADAwcN7v/Ad8uq5vLSkUbBoiL
-         tpT1tbuboxKla+NBAHlpXdmQzzWgXoYSCsg7CK6wT4MWTQkEoLsEWqZDuPIo/tt3VjbJ
-         fT1oD/m8JCkI+EFQkFFth1NAC66chuhsQ4gybIcP+GNgfJM5MxGHn+BZJvyBwdFXOmAh
-         BrOg==
-X-Forwarded-Encrypted: i=1; AFNElJ8pGRVain9WPCuAYgRzmJYed/07YyYaYZ3MK5OfSm+8N8xIz0liXBLi0sT1qabD3CoIGCuWNH0WCTfKYw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxFLK+ihWj+hI+icVFt3dfud0wpcUrz53ae2bUN4+f0uSmivZ0D
-	xxX6CmKO8pZeNPWmrhB/PKxZBRFw6OH5U7I6eM+uBd6xpvVjAcv0iC7qiAuoEHJ4x6OGABrzgq+
-	Cafgo1Ix6/DutNfu7HyNC/j8f4M+1Eec=
-X-Gm-Gg: Acq92OEfR0v0G9cV0LMwLW+/DD5RI2sVwqqMBgyHzKPYT5QnbORS5TyjAhmIjNRNbAC
-	8jCit26xk5CexVmMC9dGoiImCmpwzvltHQr6fjSkBE6FlAygUFFPFH3t5KSgdwFWnsmnz5x2Bfg
-	IiThDYTRLOLK/dkyAv58WBiqOhl6qSh3laexFGmwq4fYJ57NJpPl5RZ9R49e3ok7zGgZPiv6JNJ
-	dRoOBcdYHIYL9QtNYIKc1k9rg/WcHj79snlQ6ff4caSfYU7pPGqbcW8SSHF7+AN5UqB7CV67hle
-	qKUcce+2JFjRR0Kofxarr6fhUsOiIE95OAyIgIwLRP/pjF3DLPW3DfriVpcqROylhayASSGq
-X-Received: by 2002:a05:690c:c244:b0:7b4:657d:bd5d with SMTP id
- 00721157ae682-7c95bf10a2cmr197794877b3.30.1779148259100; Mon, 18 May 2026
- 16:50:59 -0700 (PDT)
+        bh=e+1ZOpCnfvlGWakwJXz2+pZiiMxmIhCH5N4QtF0t85s=;
+        b=CwtRO2UvP8AJJnwGQuqvEO2lYvSIbap+IS/De4CU7ObYQbJRpuSjcvbqA/VV8cocqr
+         GBkkFlEUrLTTFZ8L/b99XavtODpmosRufivIDPfjHiAwxbaLM971eXeqVpvuknVjwvqh
+         wSqs0KVNTzS+eOneWbRYYsZZC7Y44FsyxkOTUhUGuXzVfcSEQ8OBBgUs4Xu6vXks3s2D
+         2ZHe8PSBuIl8tI8CQN9pS4PDyQVOj7Cnk++yHz8Bgbojq6z3wW2uRriIXlVMJIGri0sR
+         QboCIkOPhP421NQf078F9dAblNn2d4Ab9N+5LJujcP6OWBtLlvaZvGkd/dc3zPKvKD9t
+         zk/g==
+X-Forwarded-Encrypted: i=1; AFNElJ8nVNKGnGnI6c16apgjE+TzcwbCg0AjMryELjvaJSDiIB1u9Fwc7z/qwmSaYO/c8O/e34Q1MTzk/89dbw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzGoqPiznsnAdcDg+ssjTb5TcZjsxjqy47Z4BVnQilO2BCE3QOr
+	mqp0u9SZdTJnHOCt7FD0Vn3lqNCTHtXPYgy4h49yMtbPDXS6Og3joRQZBe1Wvqs32Hwe+7c0zLE
+	iZM1HBhJjtpfFhj2fsKnNCvmTWV7lIfw=
+X-Gm-Gg: Acq92OGYGSWLEfCFqJNmRQko7/QXfWkVbuTBGL4mQepQe5aXEMCB+SnMyKR44jMJi8u
+	TcvNPLjksiO/b7+bm8b7JCJOHDKJ8YmrBjEf3fVV70SF9NYuEmgxUTS1iKGVKO9JbCMDTuQ9p0M
+	b0uwlHQ5MokcnKCNJsmx0tO81bwf/dVQ3Eg79qrte6mArU7lwKSVQw9tHh4/qOuK/kZ7MDfYIqP
+	Zq2ld6CF6mMNmCRK3V0oD27oUjHR711ny/q/WurY0k3bfkJH35eiPXEBheWOqLfI5EIzLpoejNK
+	6NsStCS0u5elqJ+0/GMQ4tnWY0LlMaT+RcozRHGpYCHC6MGrK2fF/Kx8JRHX4IFrVXb88xYT
+X-Received: by 2002:a05:690c:19:b0:7bd:5cc4:3e49 with SMTP id
+ 00721157ae682-7c9597a969fmr213746077b3.12.1779151010945; Mon, 18 May 2026
+ 17:36:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260513-panthor-guard-refactor-v1-0-f2d8c15a97ce@collabora.com>
- <20260513-panthor-guard-refactor-v1-1-f2d8c15a97ce@collabora.com>
- <5ab2d07c-74a4-4a2c-b145-6ed7b0060944@arm.com> <20260518105721.42ffa64c@fedora>
-In-Reply-To: <20260518105721.42ffa64c@fedora>
+References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
+ <20260505140516.1372388-5-ketil.johnsen@arm.com> <20260505181523.49a3d85c@fedora>
+ <afxVIuVVPisBQ9p_@e129842.arm.com> <20260507135356.5428d50d@fedora>
+ <agMvb_jeRsO7tSS-@e142607> <20260512161111.0cb7000e@fedora>
+ <agNJasayW8VCHTiU@e142607> <CAPaKu7QC7FdjL6m_OSb+E5aYKs6bmT-9DAHc5PC=XctCmRph2Q@mail.gmail.com>
+ <20260518091650.5a7a4f4a@fedora>
+In-Reply-To: <20260518091650.5a7a4f4a@fedora>
 From: Chia-I Wu <olvaffe@gmail.com>
-Date: Mon, 18 May 2026 16:50:48 -0700
-X-Gm-Features: AVHnY4Kh2f1AVPZetJ2ndlIB4ihBeeqmA3WYM7Ew2lGnTHy97cgp6M33GrZdWXw
-Message-ID: <CAPaKu7RRcGQSivs8n6RhOO5XeBSoLG6YF1GRR6Cysv_yDpd2=w@mail.gmail.com>
-Subject: Re: [Linaro-mm-sig] Re: [PATCH 1/6] drm/panthor: Driver-wide
- xxx_[un]lock -> [scoped_]guard replacement
+Date: Mon, 18 May 2026 17:36:40 -0700
+X-Gm-Features: AVHnY4L_pqXJyhSchHbjEJHIXbJa2yYodKfZcbmSmhWAfddYBdzbaPZTcjMiQrU
+Message-ID: <CAPaKu7R9ET767qc3eppBUfG2RAeyrg7E-gE0turgp-u_FU4+Vg@mail.gmail.com>
+Subject: Re: [PATCH 4/8] drm/panthor: Add support for protected memory
+ allocation in panthor
 To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+Cc: Liviu Dudau <liviu.dudau@arm.com>, =?UTF-8?Q?Marcin_=C5=9Alusarz?= <marcin.slusarz@arm.com>, 
+	Ketil Johnsen <ketil.johnsen@arm.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
+	John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Steven Price <steven.price@arm.com>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Alice Ryhl <aliceryhl@google.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, dri-devel@lists.freedesktop.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	Florent Tomasin <florent.tomasin@arm.com>, nd@arm.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 18, 2026 at 1:57=E2=80=AFAM Boris Brezillon
+On Mon, May 18, 2026 at 12:16=E2=80=AFAM Boris Brezillon
 <boris.brezillon@collabora.com> wrote:
 >
-> On Thu, 14 May 2026 14:16:37 +0100
-> Steven Price <steven.price@arm.com> wrote:
+> On Wed, 13 May 2026 12:31:32 -0700
+> Chia-I Wu <olvaffe@gmail.com> wrote:
 >
-> > On 13/05/2026 17:58, Boris Brezillon wrote:
-> > > Right now panthor is mixed bag of manual locks and guards. Let's
-> > > make that more consitent and thus encourage new submissions to go
-> > > for guards.
+> > On Tue, May 12, 2026 at 8:39=E2=80=AFAM Liviu Dudau <liviu.dudau@arm.co=
+m> wrote:
+> > >
+> > > On Tue, May 12, 2026 at 04:11:11PM +0200, Boris Brezillon wrote:
+> > > > On Tue, 12 May 2026 14:47:27 +0100
+> > > > Liviu Dudau <liviu.dudau@arm.com> wrote:
+> > > >
+> > > > > On Thu, May 07, 2026 at 01:53:56PM +0200, Boris Brezillon wrote:
+> > > > > > On Thu, 7 May 2026 11:02:26 +0200
+> > > > > > Marcin =C5=9Alusarz <marcin.slusarz@arm.com> wrote:
+> > > > > >
+> > > > > > > On Tue, May 05, 2026 at 06:15:23PM +0200, Boris Brezillon wro=
+te:
+> > > > > > > > > @@ -277,9 +286,21 @@ int panthor_device_init(struct panth=
+or_device *ptdev)
+> > > > > > > > >                     return ret;
+> > > > > > > > >     }
+> > > > > > > > >
+> > > > > > > > > +   /* If a protected heap name is specified but not foun=
+d, defer the probe until created */
+> > > > > > > > > +   if (protected_heap_name && strlen(protected_heap_name=
+)) {
+> > > > > > > >
+> > > > > > > > Do we really need this strlen() > 0? Won't dma_heap_find() =
+fail is the
+> > > > > > > > name is "" already?
+> > > > > > >
+> > > > > > > If dma_heap_find() will fail, then the whole probe with fail =
+too.
+> > > > > > > This check prevents that.
+> > > > > >
+> > > > > > Yeah, that's also a questionable design choice. I mean, we can
+> > > > > > currently probe and boot the FW even though we never setup the
+> > > > > > protected FW sections, so why should we defer the probe here? C=
+an't we
+> > > > > > just retry the next time a group with the protected bit is crea=
+ted and
+> > > > > > fail if we can find a protected heap?
+> > > > >
+> > > > > The problem we have with the current firmware is that it does a n=
+umber of setup steps at "boot"
+> > > > > time only. One of the steps is preparing its internal structures =
+for when it enters protected
+> > > > > mode and it stores them in the buffer passed in at firmware loadi=
+ng. We cannot later run the
+> > > > > process when we have a group with protected mode set.
+> > > >
+> > > > No, but we can force a full/slow reset and have that thing
+> > > > re-initialized, can't we? I mean, that's basically what we do when =
+a
+> > > > fast reset fails: we re-initialize all the sections and reset again=
+, at
+> > > > which point the FW should start from a fresh state, and be able to
+> > > > properly initialize the protected-related stuff if protected sectio=
+ns
+> > > > are populated. Am I missing something?
+> > >
+> > > Right, we can do that. For some reason I keep associating the reset w=
+ith the
+> > > error handling and not with "normal" operations.
+> > I kind of hope we end up with either
 > >
-> > I'm fine with encouraging guards for future code - but I'm a little war=
-y
-> > of a big change like this - it's hard to review it and check that
-> > everything works the same.
+> >  - panthor knows the exact heap to use and fails with EPROBE_DEFER if
+> > the heap is missing, or
+> >  - panthor gets a dma-buf from userspace and does the full reset
+> >    - userspace also needs to provide a dma-buf for each protected
+> > group for the suspend buffer
+> >
+> > than something in-between. The latter is more ad-hoc and basically
+> > kicks the issue to the userspace.
 >
-> I can try to split that up, but even after the split, it will still be
-> a pain to review.
-Splitting up a bit can be helpful. If we did introduce errors
-unintentionally, at least we could bisect and there would be less code
-to look through.
+> Indeed, the second option is more ad-hoc, but when you think about it,
+> userspace has to have this knowledge, because it needs to know the
+> dma-heap to use for buffer allocation that cross a device boundary
+> anyway. Think about frames produced by a video decoder, and composited
+> by the GPU into a protected scanout buffer that's passed to the KMS
+> device. Why would the GPU driver be source of truth when it comes to
+> choosing the heap to use to allocate protected buffers for the video
+> decoder or those used for the display?
+I don't think the GPU driver is ever the source of truth. If the
+system integrator wants to specify the source of truth (SoT) from
+kernel space, they should use the device tree (or module params /
+config options). If they want to specify the SoT in userspace, then we
+don't really care how it is done other than providing an ioctl.
+Panthor is always on the receiving end.
 
-That said, for changes like these, AI should be very effective at
-catching errors.
+If we don't want to delay this functionality, but it takes time to
+converge on SoT, maybe a solution that is not a long-term promise can
+work? Of the options on the table (dt, module params, kconfig options,
+ioctls), a kconfig option, potentially marked as experimental, seems
+like a good candidate.
 
 >
-> > And it's a little dubious that the mechanical
-> > refactoring produces more readable code in some cases.
+> >
+> > For the former, expressing the relation in DT seems to be the best,
+> > but only if possible :-). Otherwise, a kconfig option (instead of
+> > module param) should be easier to work with.
+> >
+> > Looking at the userspace implementation, can we also have an panthor
+> > ioctl to return the heap to userspace?
 >
-> I agree, though the mix of guard()s and manual locks makes things even
-> harder to reason about, especially when they appear in the same
-> function/block. The very reason I ended up sending this series is
-> because, as part of the IRQ refactor, I decided to be a good citizen
-> and use guards when I could, and I realized how bad the partial
-> transition was in term of ergonomics: not only you have to think about
-> whether the function/block scope is what you want (that's basically
-> what guard provides, unless you used explicit scoped_guard()), but you
-> also have to think about the interactions with your other manual locks.
->
-> TLDR; I'd rather switch over to guards entirely, or go back to manual
-> locks, but the mix we have right now is far from ideal.
->
-> >
-> > That said I asked my friendly AI bot...
-> >
-> > [...]
-> >
-> > > @@ -3142,48 +3126,44 @@ panthor_mmu_reclaim_priv_bos(struct panthor_d=
-evice *ptdev,
-> > >     LIST_HEAD(remaining_vms);
-> > >     LIST_HEAD(vms);
-> > >
-> > > -   mutex_lock(&ptdev->reclaim.lock);
-> > > -   list_splice_init(&ptdev->reclaim.vms, &vms);
-> > > +   scoped_guard(mutex, &ptdev->reclaim.lock)
-> > > +           list_splice_init(&ptdev->reclaim.vms, &vms);
-> > >
-> > >     while (freed < nr_to_scan) {
-> > >             struct panthor_vm *vm;
-> > >
-> > > -           vm =3D list_first_entry_or_null(&vms, typeof(*vm),
-> > > -                                         reclaim.lru_node);
-> > > -           if (!vm)
-> > > -                   break;
-> > > -
-> > > -           if (!kref_get_unless_zero(&vm->base.kref)) {
-> > > -                   list_del_init(&vm->reclaim.lru_node);
-> > > -                   continue;
-> > > +           scoped_guard(mutex, &ptdev->reclaim.lock) {
-> > > +                   vm =3D list_first_entry_or_null(&vms, typeof(*vm)=
-,
-> > > +                                                 reclaim.lru_node);
-> > > +                   if (vm && !kref_get_unless_zero(&vm->base.kref)) =
-{
-> > > +                           list_del_init(&vm->reclaim.lru_node);
-> > > +                           vm =3D NULL;
-> > > +                   }
-> > >             }
-> > >
-> > > -           mutex_unlock(&ptdev->reclaim.lock);
-> > > +           if (!vm)
-> > > +                   break;
-> >
-> > ... and it said the above has changed behaviour.
-> >
-> > In the !kref_get_unless_zero() case you now assign vm =3D NULL which th=
-en
-> > leads to the 'break' case above. Previously we 'continue'd.
->
-> Oops, that one wasn't intended, indeed.
-> _______________________________________________
-> Linaro-mm-sig mailing list -- linaro-mm-sig@lists.linaro.org
-> To unsubscribe send an email to linaro-mm-sig-leave@lists.linaro.org
+> Yes, it's something we can add, but again, I'm questioning the
+> usefulness of this: how can we ensure the heap used by panthor to
+> allocate its protected FW buffers is suitable for scanout buffers
+> (buffers that can be used by display drivers). There needs to be a glue
+> leaving in usersland and taking the decision, and I'm not too sure
+> trusting any of the component in the chain (vdec, gpu, display) is the
+> right thing to do.
+The heap returned by panthor is only for panfrost/panvk. It says
+nothing about compatibility with other components on the system.
