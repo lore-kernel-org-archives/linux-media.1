@@ -1,107 +1,158 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F4B48033C;
-	Tue, 19 May 2026 11:38:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E92E494A0C;
+	Tue, 19 May 2026 11:56:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779190711; cv=none; b=pCq0k24wFptOqEPNJDvEgfYrOtZYAeKrUBITeOxmPwVQ3djppLgXj/pf7R/0dUSeYOH8np4zVDaQ/Ug9Zo34APnFSyOWDr/Rxub9rbCIvyrsKD5WTvprmu4NZi159eFMB/NHP9s+nAldJSNJ88rehbG6OommdznGBvYlTH3S42w=
+	t=1779191817; cv=none; b=pMkfL6ZTUH0Pucl5YDlmPCWqF5gCK13Lnvs3bgtKfa9HpRFgTdkbKVpNvRz7A/x8gk4UIJ/napZl6B84aowA639lAayc3eJ+Pgxb5naS8cOOCA9avvUhyfD2ZgW0C70pRmd+tHJ5UUzh7reYIxqBqw2LUS10lhutUJrVEH43XSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779190711; c=relaxed/simple;
-	bh=Ldqt2evZpICTczUXVRvtMMUJkyF1TiVte9LKC1slNqY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r0FxsRaPBYPQG+XahoayAtoJvPHV8ylMHXtMN1I3SoitVN2sOL+KMXJ0MjCUfW/Dmd6Lkmha488qQFtscdKUtLo5NS2hUAImhSX83yiFBW+VpOxg0rX9MgfFKn6+fh9lAfhafyOn7MPaQICVlsQkfrJtNi+NMIRsDVyImGWJagk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tm3aHWiH; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1779191817; c=relaxed/simple;
+	bh=eFmnDnZ+o7N1IdLChhAjVRR3p7Ozk+MZkQ/y18THHeU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OFHokwf8S98F92rTYUdfyrSsddDpvAx4xNFDfKXJy6PXGfDPilK28iYq5o3ibAbmTgiJ2246HyNXe2dIbRq24nO5dtMPh1xZhZCZQfz88N1CjURKSxk7KaycqbNGQlHLTJH1u7RTrNZwlrJ3Ytvo0iDFbLNcdtGJB5F0r3uqnAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YYjSoViU; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tm3aHWiH"
-Received: from killaraus.ideasonboard.com (unknown [IPv6:2a01:cb1d:8f2:800:42d6:38fa:3bdf:70df])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0E28F558;
-	Tue, 19 May 2026 13:38:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1779190693;
-	bh=Ldqt2evZpICTczUXVRvtMMUJkyF1TiVte9LKC1slNqY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=tm3aHWiHl4Z6Jlmnae4PnkraK95fhgvaH9ewKvsmBEKk2sUPn6jQqMFiR+wCBN7k9
-	 764ChDBpFkzZRSWxIoVTdVpp9F3vBvyOX5PtYqkLw4kSg73vZ39xIWTst1WFTxGq5a
-	 5L271GTl1md7OuMN4fP+gXlpyeH4H6bUehAu7RrY=
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Robby Cai <robby.cai@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Martin Kepplinger-Novakovic <martink@posteo.de>,
-	Martin Kepplinger <martin.kepplinger@puri.sm>,
-	Rui Miguel Silva <rmfrfs@gmail.com>,
-	Purism Kernel Team <kernel@puri.sm>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: imx@lists.linux.dev,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] media: dt-bindings: nxp,imx8mq-mipi-csi2: Fix example endpoint label typo
-Date: Tue, 19 May 2026 13:38:23 +0200
-Message-ID: <20260519113824.91533-1-laurent.pinchart@ideasonboard.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YYjSoViU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1779191815; x=1810727815;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=eFmnDnZ+o7N1IdLChhAjVRR3p7Ozk+MZkQ/y18THHeU=;
+  b=YYjSoViUnkON6neB30WisuakVkxJgSkQwaVDP1By5BewU4l/zPZnphIl
+   hdmqFB/2r8dtvy/T4969uhv9udBNIfRDBq2mNIlrJT5Fv7TsO59VrC7Vf
+   yidlAzxSF8wjajDCZRtL+NcgFFwLojaXaZdjBBVLGTbqXrBjnoiDyCjBl
+   umGvqBKEgetp2nIH1yu0o/Wn3gs53wL8vjnb0J+t/YnsLgSRlZ0iTa6k8
+   5ppSOgSJ87e9OnzKAfzx6ZUOnm33BOewlsEGsZOsupLcHCkmoHJalCkaD
+   oYHOuH+lYBtxQnmKtHnG3NpBqQCWr6MeKSO4ou/BovmVGlYH6wiGrlA4F
+   g==;
+X-CSE-ConnectionGUID: b7jq4+20QaGJfcrLXGornA==
+X-CSE-MsgGUID: ndJx/Z5hQL6qFR1gbXhbBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11790"; a="80097336"
+X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; 
+   d="scan'208";a="80097336"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 May 2026 04:56:54 -0700
+X-CSE-ConnectionGUID: CC0e2UrKQWGgQ/Fv98iV8Q==
+X-CSE-MsgGUID: 3jsF1dIpS9izlH0pDEiWDQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; 
+   d="scan'208";a="241587512"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.204])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 May 2026 04:56:49 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 0E8A4120E58;
+	Tue, 19 May 2026 14:56:46 +0300 (EEST)
+Date: Tue, 19 May 2026 14:56:45 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Rishikesh Donadkar <r-donadkar@ti.com>
+Cc: jai.luthra@linux.dev, laurent.pinchart@ideasonboard.com,
+	mripard@kernel.org, y-abhilashchandra@ti.com, devarsht@ti.com,
+	s-jain1@ti.com, vigneshr@ti.com, mchehab@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, p.zabel@pengutronix.de,
+	conor+dt@kernel.org, hverkuil-cisco@xs4all.nl,
+	tomi.valkeinen@ideasonboard.com, jai.luthra@ideasonboard.com,
+	changhuang.liang@starfivetech.com, sjoerd@collabora.com,
+	dan.carpenter@linaro.org, hverkuil+cisco@kernel.org,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v12 09/17] media: cadence: csi2rx: add get_frame_desc
+ wrapper
+Message-ID: <agxP_eCovgSpdYnZ@kekkonen.localdomain>
+References: <20260313090701.646534-1-r-donadkar@ti.com>
+ <20260313090701.646534-10-r-donadkar@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260313090701.646534-10-r-donadkar@ti.com>
 
-From: Robby Cai <robby.cai@nxp.com>
+Hi Rishikesh,
 
-The example in imx8mq-mipi-csi2.yaml uses imx8mm_mipi_csi_{in,out}
-endpoint labels, which is confusing for an i.MX8MQ binding. The labels
-could be removed as they are not functionally required in the example,
-but they have a documentation purpose that brings value to the reader.
-Rename them mipi_csi_{in,out} to avoid the confusion.
+On Fri, Mar 13, 2026 at 02:36:53PM +0530, Rishikesh Donadkar wrote:
+> From: Pratyush Yadav <p.yadav@ti.com>
+> 
+> J721E wrapper CSI2RX driver needs to get the frame descriptor from the
+> source to find out info about virtual channel. This driver itself does
+> not touch the routing or virtual channels in any way. So simply pass the
+> descriptor through from the source.
+> 
+> Signed-off-by: Pratyush Yadav <p.yadav@ti.com>
+> Signed-off-by: Jai Luthra <j-luthra@ti.com>
+> Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> Reviewed-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Reviewed-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+> Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
+> ---
+>  drivers/media/platform/cadence/cdns-csi2rx.c | 24 ++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+> 
+> diff --git a/drivers/media/platform/cadence/cdns-csi2rx.c b/drivers/media/platform/cadence/cdns-csi2rx.c
+> index 2b25314ba6ab0..52ca940acd7d0 100644
+> --- a/drivers/media/platform/cadence/cdns-csi2rx.c
+> +++ b/drivers/media/platform/cadence/cdns-csi2rx.c
+> @@ -229,6 +229,21 @@ static const struct csi2rx_fmt *csi2rx_get_fmt_by_code(u32 code)
+>  	return NULL;
+>  }
+>  
+> +static int csi2rx_get_frame_desc_from_source(struct csi2rx_priv *csi2rx,
+> +					     struct v4l2_mbus_frame_desc *fd)
+> +{
+> +	struct media_pad *remote_pad;
+> +
+> +	remote_pad = media_entity_remote_source_pad_unique(&csi2rx->subdev.entity);
+> +	if (!remote_pad) {
 
-Signed-off-by: Robby Cai <robby.cai@nxp.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
----
-Changes since v1:
+media_entity_remote_source_pad_unique() returns an error code on error,
+never NULL.
 
-- Drop imx8mpq_ prefix from label name
-- Update commit message
-- Drop Fixes: tag
----
- .../devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml       | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Could you use you use v4l2_subdev_get_frame_desc_passthrough()?
 
-diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
-index 4fcfc4fd3565..9eee67ed2685 100644
---- a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
-+++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
-@@ -220,7 +220,7 @@ examples:
-             port@0 {
-                 reg = <0>;
- 
--                imx8mm_mipi_csi_in: endpoint {
-+                mipi_csi_in: endpoint {
-                     remote-endpoint = <&imx477_out>;
-                     data-lanes = <1 2 3 4>;
-                 };
-@@ -229,7 +229,7 @@ examples:
-             port@1 {
-                 reg = <1>;
- 
--                imx8mm_mipi_csi_out: endpoint {
-+                mipi_csi_out: endpoint {
-                     remote-endpoint = <&csi_in>;
-                 };
-             };
+> +		dev_err(csi2rx->dev, "No remote pad found for sink\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	return v4l2_subdev_call(csi2rx->source_subdev, pad, get_frame_desc,
+> +				remote_pad->index, fd);
+> +}
+> +
+>  static inline
+>  struct csi2rx_priv *v4l2_subdev_to_csi2rx(struct v4l2_subdev *subdev)
+>  {
+> @@ -611,12 +626,21 @@ int cdns_csi2rx_negotiate_ppc(struct v4l2_subdev *subdev, unsigned int pad,
+>  }
+>  EXPORT_SYMBOL_FOR_MODULES(cdns_csi2rx_negotiate_ppc, "j721e-csi2rx");
+>  
+> +static int csi2rx_get_frame_desc(struct v4l2_subdev *subdev, unsigned int pad,
+> +				 struct v4l2_mbus_frame_desc *fd)
+> +{
+> +	struct csi2rx_priv *csi2rx = v4l2_subdev_to_csi2rx(subdev);
+> +
+> +	return csi2rx_get_frame_desc_from_source(csi2rx, fd);
+> +}
+> +
+>  static const struct v4l2_subdev_pad_ops csi2rx_pad_ops = {
+>  	.enum_mbus_code	= csi2rx_enum_mbus_code,
+>  	.get_fmt	= v4l2_subdev_get_fmt,
+>  	.set_fmt	= csi2rx_set_fmt,
+>  	.enable_streams         = csi2rx_enable_streams,
+>  	.disable_streams        = csi2rx_disable_streams,
+> +	.get_frame_desc	= csi2rx_get_frame_desc,
+>  };
+>  
+>  static const struct v4l2_subdev_core_ops csi2rx_core_ops = {
 
-base-commit: d97d13c24d7893abcfb80d38630ce74daaa1434c
 -- 
 Regards,
 
-Laurent Pinchart
-
+Sakari Ailus
