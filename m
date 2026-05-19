@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D216377577;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25F337FF40;
 	Tue, 19 May 2026 06:15:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779171355; cv=none; b=ifOjjfqHwvCeYerqJnWSioipEQNDYL+NzISzFOkh5nu0uyGg+8lDYd8+jxxNMDV9BZtSWTOo0ppFLP7HwzZLgsuMxov+K8sQ9DENj8hhWS0OQH5rZJBubEz0WSB6Ca++F8ZU8ZATUKkXBERtJtetcBSMMPqHZYkKYufO/YpsWvA=
+	t=1779171355; cv=none; b=HdgwltWq5Dxg7+lhkOKqNnC0DmLJusARQxKAX2GLI9Mmy6Dd8FHoApNe1oQ8WB2o2bGWdPnD0m8H8ZVUUWz81YhXcCcgxNtHuvQYW5n1sSkewRhLT5/ytLKX6q1//5vsWeyxUE23MGnMj9Rw3Xra4VPv7fA6tKM5stA03iS2n/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1779171355; c=relaxed/simple;
-	bh=UDxgamBdkS8D9+3ejkhADAphYNb/he3n+UCgekKDnJ0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Wbk0MFKfMrWmds3Rgd6K8E7rmhz5rXi/H7Efs1obq3td69npaU80dwpYrXtBP880n7rnVzq8t44vqafQ2lnh4FP/ZH+eX5AX4ndHblCVO7BudGPePTI6qjFT5+/hPE9RLz1Z1SLPJY7uweuyRSV9JkvPHwSGUXcxS5G90DaoA8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KuWRet4b; arc=none smtp.client-ip=10.30.226.201
+	bh=TS9Zx94HUE7toyHkXp6okRZvrYsKEOqiWiOe5T4qfiA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=gbUDVP/fnYtZbwR9wbPjLysCU3iXFOJGhmOZvVHYHwg8O7x7+XbG+BJJ7GpdjYyV6BGrtLi9xlf86BeK5mK/AIJLrG3aQixjQ+ND5fy2C9YPx8n4tg5Fz1mjoUzX79oGW+506kCditF3F8XccvESffYmhNacVU+M1Im8p+X2WDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mNSYL8iS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KuWRet4b"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3655AC2BCB3;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mNSYL8iS"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 655DAC2BCFB;
 	Tue, 19 May 2026 06:15:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1779171355;
-	bh=UDxgamBdkS8D9+3ejkhADAphYNb/he3n+UCgekKDnJ0=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=KuWRet4b3hhoYF1btN/G4t14XG8r8tqXTJvJGdXHb8GDK7Yd082ayuJJLpVlD4w1N
-	 exCWXFVxr0vKlBbfcY8JjYhK0LJ4apFxydDduYIo4AjqYCxuUE9oYH7466az+ANgqx
-	 Pf/fzz7AnmQlzuLFWNuzJtBQh9dX8Cc+uMQ52NqmdPavVklK2IVfBA+6c37impWHYT
-	 QVEX3L81/YI1qP+rCiQhfnDzzpMyiExnJbFcA3rxpq0BFO5LYQswjw8KtwLran8arN
-	 /uIMIeCXL+iQ8FZHf9oWUVGIK8tHwk5lBC4SOZXw1MRmo1ftQtVP/G3t0yHv2uQZiv
-	 wjBbT7EQrQPwQ==
+	bh=TS9Zx94HUE7toyHkXp6okRZvrYsKEOqiWiOe5T4qfiA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=mNSYL8iSHlJfLzTGP14TTq+1een9RAwtVG6sjjxCg9ol4Q4vb/w6Sfc5jV3OEIQ9j
+	 tD6ZTs6z95IFT7SwxY6blqslo9HZuV1DYQZtg9kt55AIeP5bi5fBze/teUS/ChTDdS
+	 96FX9LQtDRjNPpaT+H6ful9FGFJoVr8a7RRE8hCC7ClEYpsI+DNtgShUaoUH+gEXV+
+	 uH/PlGgbMBxRm5orOpVuycPbAufMfWGEb2rUZouTtQZLppljiikrEKZCO+EDIdtWLS
+	 FV+KLwKJq4UUboNzfe5IxafXpr15WcmaQVKiO9+0kWJyImH2oDUFf7nAno4FE4TOu5
+	 O8ZblAHXd+Xzw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 259D9CD4851;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C282CD4F54;
 	Tue, 19 May 2026 06:15:55 +0000 (UTC)
 From: Ekansh Gupta via B4 Relay <devnull+ekansh.gupta.oss.qualcomm.com@kernel.org>
-Subject: [PATCH 00/15] accel/qda: Qualcomm DSP Accelerator driver
-Date: Tue, 19 May 2026 11:45:50 +0530
-Message-Id: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
+Date: Tue, 19 May 2026 11:45:53 +0530
+Subject: [PATCH 03/15] accel/qda: Add initial QDA DRM accelerator driver
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -39,11 +39,10 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIABYADGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDU0NL3cKURF2IHl1zi2SjpDSD1BRziyQloIaCotS0zAqwYdGxtbUAp3z
- yMlwAAAA=
-X-Change-ID: 20260519-qda-series-78c2bf0ed78b
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260519-qda-series-v1-3-b2d984c297f8@oss.qualcomm.com>
+References: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
+In-Reply-To: <20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com>
 To: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
  Shuah Khan <skhan@linuxfoundation.org>, Joerg Roedel <joro@8bytes.org>, 
  Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
@@ -62,11 +61,11 @@ Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
  linaro-mm-sig@lists.linaro.org, 
  Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779171352; l=13104;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779171352; l=11746;
  i=ekansh.gupta@oss.qualcomm.com; s=20260223; h=from:subject:message-id;
- bh=UDxgamBdkS8D9+3ejkhADAphYNb/he3n+UCgekKDnJ0=;
- b=ztP0MLj2dHmOjRC1MPHn1kXflb1f9iVHHFYXT8zFO4Auiu0tB88klttxJpLVEm9IuYFf+geze
- 8MSJb//mspDBxDytTQ2+pA/BLKC4oL+3aA8B8iFnGHMaOyjE/81w5bv
+ bh=Xz5iWY7BeXgDD47yqqDoSnINiMtsSocL1wFqa3U3gXo=;
+ b=evSgHotAPQ+Tnx97m7CWpFAnRyCTDDEkJq/R711YGhmkvQTb2zNhmSoeBqy0t7x2GKJVHQccr
+ LtTu4OZ8S7uBGJyT309lqz7+7mwwq2mDpiPndEyGCUjAmE6phKzM0+6
 X-Developer-Key: i=ekansh.gupta@oss.qualcomm.com; a=ed25519;
  pk=n0SepARizye+pYjhjg1RA5J+Nq4+IJbyRcBybU+/ERQ=
 X-Endpoint-Received: by B4 Relay for ekansh.gupta@oss.qualcomm.com/20260223
@@ -74,292 +73,411 @@ X-Endpoint-Received: by B4 Relay for ekansh.gupta@oss.qualcomm.com/20260223
 X-Original-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 Reply-To: ekansh.gupta@oss.qualcomm.com
 
-This patch series introduces the Qualcomm DSP Accelerator (QDA) driver,
-a DRM-based accelerator driver for Qualcomm DSPs. The driver provides a
-standardized interface for offloading computational tasks to DSPs found
-on Qualcomm SoCs, supporting all DSP domains.
- 
-The QDA driver implements the FastRPC protocol over the DRM accel
-subsystem. It uses the same device-tree node structure as the existing
-fastrpc driver in drivers/misc/. The approach for binding the QDA driver
-to device-tree nodes while coexisting with the fastrpc driver is an open
-item described below.
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
-RFC thread: https://lore.kernel.org/dri-devel/20260224-qda-firstpost-v1-0-fe46a9c1a046@oss.qualcomm.com/T/
- 
-User-space staging branch
-=========================
-https://github.com/qualcomm/fastrpc/tree/accel/staging
- 
-Key Features
-============
- 
-* Standard DRM accelerator interface via /dev/accel/accelN
-* GEM-based buffer management with DMA-BUF import/export (PRIME)
-* IOMMU-based memory isolation using per-process context banks
-* FastRPC protocol implementation for DSP communication
-* RPMsg transport layer for reliable message passing
-* Support for all DSP domains (ADSP, CDSP, SDSP, GDSP)
-* DRM IOCTL interface for DSP session management, buffer allocation,
-  and remote procedure invocation
- 
-Architecture
-============
- 
-1. DRM Accelerator Framework Integration
-   The driver registers as a DRM accel device, exposing a standard
-   /dev/accel/accelN character device node. This provides established
-   DRM infrastructure for device management, file operations, and
-   IOCTL dispatch.
- 
-2. Memory Management
-   Buffers are managed as GEM objects with full PRIME support for
-   DMA-BUF import/export. This enables seamless buffer sharing with
-   other DRM drivers (GPU, camera, video) using standard kernel
-   mechanisms.
- 
-3. IOMMU Context Bank Management
-   IOMMU context banks (CBs) are represented as proper struct device
-   instances on a custom virtual bus (qda-compute-cb). Each CB device
-   is registered with the IOMMU subsystem and receives its own IOMMU
-   domain, enabling per-session address space isolation. The custom
-   bus was introduced because IOMMU context banks are synthetic
-   constructs — not real platform devices — and to ensure CB device
-   lifetime is strictly subordinate to the parent QDA device.
-   See also: https://lore.kernel.org/all/245d602f-3037-4ae3-9af9-d98f37258aae@oss.qualcomm.com/
- 
-4. Memory Manager Architecture
-   A pluggable memory manager coordinates IOMMU device assignment and
-   buffer allocation. The current implementation uses a DMA-coherent
-   backend with SID-prefixed DMA addresses for DSP firmware
-   compatibility.
- 
-5. Transport Layer
-   RPMsg communication is handled in a dedicated transport layer
-   (qda_rpmsg.c), separate from the core DRM driver logic.
- 
-6. Code Organization
-   The driver is organized across multiple files (~4600 lines total):
-   * qda_drv.c:            Core driver and DRM integration
-   * qda_rpmsg.c:          RPMsg transport layer
-   * qda_cb.c:             Context bank device management
-   * qda_compute_bus.c:    Custom virtual bus for CB devices
-   * qda_gem.c:            GEM object management
-   * qda_prime.c:          DMA-BUF import (PRIME)
-   * qda_memory_manager.c: IOMMU device registry and allocation
-   * qda_memory_dma.c:     DMA-coherent allocation backend
-   * qda_fastrpc.c:        FastRPC protocol implementation
-   * qda_ioctl.c:          IOCTL dispatch
- 
-7. UAPI Design
-   The driver exposes DRM-style IOCTLs defined in
-   include/uapi/drm/qda_accel.h, following DRM UAPI conventions
-   (__u32/__u64 types, C++ guard, GPL-2.0-only WITH Linux-syscall-note).
- 
-Patch Series Organization
-==========================
- 
-Patch 01:      MAINTAINERS entry
-Patch 02:      Driver documentation (Documentation/accel/qda/)
-Patches 03-04: Core driver skeleton and compute bus
-Patch 05:      iommu: Register qda-compute-cb bus with IOMMU subsystem
-Patches 06-07: CB device enumeration and memory manager
-Patch 08:      QUERY IOCTL and UAPI header
-Patches 09-11: GEM buffer management and PRIME import
-Patches 12-15: FastRPC protocol (invoke, session create/release,
-               map/unmap)
- 
-Open Items
-===========
- 
-1. Device-Tree Compatible String
-   The QDA driver uses the same device-tree node structure and
-   properties as the existing fastrpc driver in drivers/misc/. A
-   mechanism is needed to allow the QDA driver to bind to its device
-   node independently of the fastrpc driver.
- 
-   The intended coexistence model is: platforms that require the
-   complete fastrpc feature set continue to use "qcom,fastrpc"; new
-   platforms where a feature available only in QDA takes priority, or
-   where QDA's current feature set is sufficient, use a QDA-specific
-   compatible string. New feature development is directed toward QDA
-   rather than the existing fastrpc driver. As QDA matures toward
-   feature parity with fastrpc, platforms can adopt the QDA-specific
-   compatible string exclusively.
- 
-   The options under consideration are:
- 
-   a) Add a new "qcom,qda" compatible string to the existing
-      qcom,fastrpc.yaml binding, since the DT node structure and
-      properties are identical. This avoids a separate binding file
-      but adds a QDA-specific string to a fastrpc binding.
- 
-   b) Introduce a separate qcom,qda.yaml binding that references or
-      inherits the fastrpc binding properties.
- 
-   Seeking guidance from DT binding maintainers on the preferred
-   approach.
- 
-2. Privilege Level Management
-   Currently, daemon processes and user processes have the same access
-   level as both use the same accel device node. This needs to be
-   addressed as daemons attach to privileged DSP protection domains
-   and require higher privilege levels for system-level operations.
-   Seeking guidance on the best approach: separate device nodes,
-   capability-based checks, or DRM master/authentication mechanisms.
- 
-3. UAPI Compatibility Layer
-   A compatibility layer is needed to facilitate migration of client
-   applications from the existing FastRPC UAPI to the new QDA UAPI,
-   ensuring a smooth transition for existing userspace code. Seeking
-   guidance on the preferred implementation approach: in-kernel
-   translation layer, userspace wrapper library, or hybrid solution.
- 
-   An initial evaluation of an in-kernel translation shim was
-   performed, where legacy FastRPC device nodes (/dev/fastrpc-*) are
-   exposed and requests are internally routed to the QDA accel driver.
-   The goal was to keep the compatibility layer minimal, reuse existing
-   QDA helper paths (attach, buffer allocation, mapping, etc.), and
-   avoid duplication of GEM and buffer management logic.
- 
-   However, the following challenges were identified:
- 
-   a) Dependency on drm_file for QDA helpers
-      QDA relies on GEM-backed allocations and per-client handle
-      namespaces, which require a valid struct drm_file. Since GEM
-      handles are scoped per drm_file, the compatibility layer cannot
-      directly reuse QDA helper paths without establishing a proper
-      drm_file context for each client.
- 
-   b) Lack of public API for drm_file creation
-      Creating a drm_file directly (similar to mock_drm_getfile()-style
-      approaches) is not feasible, as the required helpers
-      (drm_file_alloc(), drm_file_free(), etc.) are internal to the DRM
-      core and not exported. This prevents external drivers from safely
-      constructing and managing drm_file instances.
- 
-   c) VFS-based open is not a viable solution
-      Opening the underlying accel device (/dev/accel/accelN) from the
-      compatibility driver via filp_open() does provide a valid
-      drm_file, but introduces reliance on userspace-visible device
-      paths, lack of stability in containerized or chroot environments,
-      and no clean mapping between legacy device nodes and accel
-      devices.
- 
-   d) Userspace proxy limitations (CUSE)
-      A CUSE-based userspace proxy was evaluated. However, DMA-buf file
-      descriptors passed by legacy applications cannot be directly
-      reused in the CUSE daemon (file descriptors are process-specific),
-      which breaks buffer sharing semantics.
- 
-   e) drm_client-based approaches do not match requirements
-      drm_client APIs (used for fbdev emulation) rely on a shared
-      drm_file and do not provide the per-client isolation required by
-      FastRPC semantics.
- 
-   Due to the above constraints, it is currently unclear how to
-   implement an in-kernel compatibility layer that correctly handles
-   per-client drm_file contexts without relying on VFS paths or
-   non-exported DRM internals.
- 
-4. Documentation Improvements
-   Add detailed IOCTL usage examples, document DSP firmware interface
-   requirements, and create a migration guide from the existing FastRPC
-   driver.
- 
-5. Per-Session Memory Allocation
-   Develop a userspace API to support memory allocation on a per-session
-   basis, enabling session-specific memory management.
- 
-6. Audio and Sensors PD Support
-   The current series does not handle Audio PD and Sensors PD
-   functionalities. These specialized protection domains require
-   additional support for real-time constraints and power management.
- 
-Interface Compatibility
-========================
- 
-The QDA driver uses the same device-tree node structure and child node
-layout (including "qcom,fastrpc-compute-cb" child nodes) as the
-existing fastrpc driver. The underlying FastRPC protocol and DSP
-firmware interface are compatible with the existing fastrpc driver,
-ensuring that DSP firmware and libraries continue to work without
-modification.
- 
-References
-==========
- 
-Previous discussions on this migration:
-- https://lkml.org/lkml/2024/6/24/479
-- https://lkml.org/lkml/2024/6/21/1252
- 
-Testing
-=======
- 
-The driver has been tested on Qualcomm platforms with:
-- Basic FastRPC attach/release operations
-- DSP process creation and initialization
-- Memory mapping/unmapping operations
-- Dynamic invocation with various buffer types
-- GEM buffer allocation and mmap
-- PRIME buffer import from other subsystems
+Add the foundational driver files for the Qualcomm DSP Accelerator
+(QDA), a DRM accel driver for Qualcomm DSPs. The driver integrates
+with the DRM accel subsystem (drivers/accel/) and provides:
 
+  - A standard /dev/accel/accel* character device node via DRM.
+  - GEM-based buffer management with DMA-BUF import/export (PRIME).
+  - IOMMU context bank management for per-session memory isolation.
+  - Standard DRM IOCTLs for device management and job submission.
+
+qda_drv.c / qda_drv.h: Core DRM driver registration. Defines the
+drm_driver ops table, per-file private state (qda_file_priv), and the
+main device structure (qda_dev) which embeds drm_device.
+
+qda_rpmsg.c / qda_rpmsg.h: RPMsg transport layer. Registers an
+rpmsg_driver matching the "qcom,fastrpc" compatible string. On probe
+it allocates a qda_dev, reads the DSP domain name from the "label" DT
+property, and registers the DRM device.
+
+Assisted-by: Claude:claude-4-6-sonnet
 Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 ---
-Ekansh Gupta (15):
-      MAINTAINERS: Add entry for Qualcomm DSP Accelerator (QDA) driver
-      accel/qda: Add QDA driver documentation
-      accel/qda: Add initial QDA DRM accelerator driver
-      accel/qda: Add compute bus for QDA context banks
-      iommu: Add QDA compute context bank bus to iommu_buses
-      accel/qda: Create compute context bank devices on QDA compute bus
-      accel/qda: Add memory manager for CB devices
-      accel/qda: Add QUERY IOCTL and QDA UAPI header
-      accel/qda: Add DMA-backed GEM objects and memory manager integration
-      accel/qda: Add GEM_CREATE and GEM_MMAP_OFFSET IOCTLs
-      accel/qda: Add PRIME DMA-BUF import support
-      accel/qda: Add FastRPC invocation support
-      accel/qda: Add DSP process creation and release
-      accel/qda: Add remote memory mapping to DSP address space
-      accel/qda: Add remote memory unmap from DSP address space
+ drivers/accel/Kconfig         |  1 +
+ drivers/accel/Makefile        |  1 +
+ drivers/accel/qda/Kconfig     | 30 +++++++++++++
+ drivers/accel/qda/Makefile    | 10 +++++
+ drivers/accel/qda/qda_drv.c   | 97 ++++++++++++++++++++++++++++++++++++++++++
+ drivers/accel/qda/qda_drv.h   | 62 +++++++++++++++++++++++++++
+ drivers/accel/qda/qda_rpmsg.c | 99 +++++++++++++++++++++++++++++++++++++++++++
+ drivers/accel/qda/qda_rpmsg.h | 13 ++++++
+ 8 files changed, 313 insertions(+)
 
- Documentation/accel/index.rst          |    1 +
- Documentation/accel/qda/index.rst      |   13 +
- Documentation/accel/qda/qda.rst        |  146 +++++
- MAINTAINERS                            |    9 +
- drivers/accel/Kconfig                  |    1 +
- drivers/accel/Makefile                 |    2 +
- drivers/accel/qda/Kconfig              |   34 +
- drivers/accel/qda/Makefile             |   19 +
- drivers/accel/qda/qda_cb.c             |  146 +++++
- drivers/accel/qda/qda_cb.h             |   32 +
- drivers/accel/qda/qda_compute_bus.c    |   68 ++
- drivers/accel/qda/qda_drv.c            |  192 ++++++
- drivers/accel/qda/qda_drv.h            |   91 +++
- drivers/accel/qda/qda_fastrpc.c        | 1058 ++++++++++++++++++++++++++++++++
- drivers/accel/qda/qda_fastrpc.h        |  390 ++++++++++++
- drivers/accel/qda/qda_gem.c            |  177 ++++++
- drivers/accel/qda/qda_gem.h            |   62 ++
- drivers/accel/qda/qda_ioctl.c          |  296 +++++++++
- drivers/accel/qda/qda_ioctl.h          |   19 +
- drivers/accel/qda/qda_memory_dma.c     |  110 ++++
- drivers/accel/qda/qda_memory_dma.h     |   17 +
- drivers/accel/qda/qda_memory_manager.c |  380 ++++++++++++
- drivers/accel/qda/qda_memory_manager.h |   75 +++
- drivers/accel/qda/qda_prime.c          |  184 ++++++
- drivers/accel/qda/qda_prime.h          |   18 +
- drivers/accel/qda/qda_rpmsg.c          |  248 ++++++++
- drivers/accel/qda/qda_rpmsg.h          |   30 +
- drivers/iommu/iommu.c                  |    4 +
- include/linux/qda_compute_bus.h        |   32 +
- include/uapi/drm/qda_accel.h           |  229 +++++++
- 30 files changed, 4083 insertions(+)
----
-base-commit: 80dd246accce631c328ea43294e53b2b2dd2aa32
-change-id: 20260519-qda-series-78c2bf0ed78b
+diff --git a/drivers/accel/Kconfig b/drivers/accel/Kconfig
+index bdf48ccafcf2..74ac0f71bc9d 100644
+--- a/drivers/accel/Kconfig
++++ b/drivers/accel/Kconfig
+@@ -29,6 +29,7 @@ source "drivers/accel/ethosu/Kconfig"
+ source "drivers/accel/habanalabs/Kconfig"
+ source "drivers/accel/ivpu/Kconfig"
+ source "drivers/accel/qaic/Kconfig"
++source "drivers/accel/qda/Kconfig"
+ source "drivers/accel/rocket/Kconfig"
+ 
+ endif
+diff --git a/drivers/accel/Makefile b/drivers/accel/Makefile
+index 1d3a7251b950..58c08dd5f389 100644
+--- a/drivers/accel/Makefile
++++ b/drivers/accel/Makefile
+@@ -5,4 +5,5 @@ obj-$(CONFIG_DRM_ACCEL_ARM_ETHOSU)	+= ethosu/
+ obj-$(CONFIG_DRM_ACCEL_HABANALABS)	+= habanalabs/
+ obj-$(CONFIG_DRM_ACCEL_IVPU)		+= ivpu/
+ obj-$(CONFIG_DRM_ACCEL_QAIC)		+= qaic/
++obj-$(CONFIG_DRM_ACCEL_QDA)		+= qda/
+ obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
+\ No newline at end of file
+diff --git a/drivers/accel/qda/Kconfig b/drivers/accel/qda/Kconfig
+new file mode 100644
+index 000000000000..484d21ff1b55
+--- /dev/null
++++ b/drivers/accel/qda/Kconfig
+@@ -0,0 +1,30 @@
++# SPDX-License-Identifier: GPL-2.0-only
++#
++# Qualcomm DSP accelerator driver
++#
++
++config DRM_ACCEL_QDA
++	tristate "Qualcomm DSP accelerator"
++	depends on DRM_ACCEL
++	depends on ARCH_QCOM || COMPILE_TEST
++	depends on RPMSG
++	help
++	  Enables the DRM-based accelerator driver for Qualcomm's Hexagon DSPs.
++	  This driver provides a standardized interface for offloading computational
++	  tasks to the DSP, including audio processing, sensor offload, computer
++	  vision, and AI inference workloads.
++
++	  The driver supports all DSP domains (ADSP, CDSP, SDSP, GDSP) and
++	  implements the FastRPC protocol for communication between the application
++	  processor and DSP. It integrates with the Linux kernel's Compute
++	  Accelerators subsystem (drivers/accel/) and provides a modern alternative
++	  to the legacy FastRPC driver found in drivers/misc/.
++
++	  Key features include DMA-BUF interoperability for seamless buffer sharing
++	  with other multimedia subsystems, IOMMU-based memory isolation, and
++	  standard DRM IOCTLs for device management and job submission.
++
++	  If unsure, say N.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called qda.
+diff --git a/drivers/accel/qda/Makefile b/drivers/accel/qda/Makefile
+new file mode 100644
+index 000000000000..dbe809067a8b
+--- /dev/null
++++ b/drivers/accel/qda/Makefile
+@@ -0,0 +1,10 @@
++# SPDX-License-Identifier: GPL-2.0-only
++#
++# Makefile for Qualcomm DSP accelerator driver
++#
++
++obj-$(CONFIG_DRM_ACCEL_QDA)	:= qda.o
++
++qda-y := \
++	qda_drv.o \
++	qda_rpmsg.o
+diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
+new file mode 100644
+index 000000000000..1c1bab68d445
+--- /dev/null
++++ b/drivers/accel/qda/qda_drv.c
+@@ -0,0 +1,97 @@
++// SPDX-License-Identifier: GPL-2.0-only
++// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++#include <linux/module.h>
++#include <linux/slab.h>
++#include <drm/drm_accel.h>
++#include <drm/drm_drv.h>
++#include <drm/drm_file.h>
++#include <drm/drm_gem.h>
++#include <drm/drm_ioctl.h>
++#include <drm/drm_print.h>
++
++#include "qda_drv.h"
++#include "qda_rpmsg.h"
++
++static int qda_open(struct drm_device *dev, struct drm_file *file)
++{
++	struct qda_file_priv *qda_file_priv;
++
++	qda_file_priv = kzalloc_obj(*qda_file_priv);
++	if (!qda_file_priv)
++		return -ENOMEM;
++
++	qda_file_priv->qda_dev = qda_dev_from_drm(dev);
++	file->driver_priv = qda_file_priv;
++
++	return 0;
++}
++
++static void qda_postclose(struct drm_device *dev, struct drm_file *file)
++{
++	struct qda_file_priv *qda_file_priv = file->driver_priv;
++
++	kfree(qda_file_priv);
++	file->driver_priv = NULL;
++}
++
++DEFINE_DRM_ACCEL_FOPS(qda_accel_fops);
++
++static const struct drm_driver qda_drm_driver = {
++	.driver_features = DRIVER_COMPUTE_ACCEL,
++	.fops = &qda_accel_fops,
++	.open = qda_open,
++	.postclose = qda_postclose,
++	.name = QDA_DRIVER_NAME,
++	.desc = "Qualcomm DSP Accelerator Driver",
++};
++
++struct qda_dev *qda_alloc_device(struct device *dev)
++{
++	struct qda_dev *qdev;
++
++	qdev = devm_drm_dev_alloc(dev, &qda_drm_driver, struct qda_dev, drm_dev);
++	if (IS_ERR(qdev))
++		return ERR_CAST(qdev);
++
++	return qdev;
++}
++
++void qda_unregister_device(struct qda_dev *qdev)
++{
++	drm_dev_unregister(&qdev->drm_dev);
++}
++
++int qda_register_device(struct qda_dev *qdev)
++{
++	int ret;
++
++	ret = drm_dev_register(&qdev->drm_dev, 0);
++	if (ret)
++		drm_err(&qdev->drm_dev, "Failed to register DRM device: %d\n", ret);
++
++	return ret;
++}
++
++static int __init qda_core_init(void)
++{
++	int ret;
++
++	ret = qda_rpmsg_register();
++	if (ret)
++		return ret;
++
++	pr_info("qda: QDA driver initialization complete\n");
++	return 0;
++}
++
++static void __exit qda_core_exit(void)
++{
++	qda_rpmsg_unregister();
++}
++
++module_init(qda_core_init);
++module_exit(qda_core_exit);
++
++MODULE_AUTHOR("Qualcomm AI Infra Team");
++MODULE_DESCRIPTION("Qualcomm DSP Accelerator Driver");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/accel/qda/qda_drv.h b/drivers/accel/qda/qda_drv.h
+new file mode 100644
+index 000000000000..7ba2ef19a411
+--- /dev/null
++++ b/drivers/accel/qda/qda_drv.h
+@@ -0,0 +1,62 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#ifndef __QDA_DRV_H__
++#define __QDA_DRV_H__
++
++#include <linux/device.h>
++#include <linux/rpmsg.h>
++#include <linux/types.h>
++#include <drm/drm_device.h>
++#include <drm/drm_drv.h>
++#include <drm/drm_file.h>
++
++/* Driver identification */
++#define QDA_DRIVER_NAME "qda"
++
++/**
++ * struct qda_file_priv - Per-process private data for DRM file
++ */
++struct qda_file_priv {
++	/** @qda_dev: Back-pointer to device structure */
++	struct qda_dev *qda_dev;
++};
++
++/**
++ * struct qda_dev - Main device structure for QDA driver
++ *
++ * The DRM device is embedded as the first member so that container_of()
++ * can recover the qda_dev from any drm_device pointer.
++ */
++struct qda_dev {
++	/** @drm_dev: Embedded DRM device; recover via qda_dev_from_drm() */
++	struct drm_device drm_dev;
++	/** @rpdev: RPMsg device for communication with the remote processor */
++	struct rpmsg_device *rpdev;
++	/** @dev: Underlying Linux device */
++	struct device *dev;
++	/** @dsp_name: Name of the DSP domain (e.g. "cdsp", "adsp") */
++	const char *dsp_name;
++};
++
++/**
++ * qda_dev_from_drm - Recover qda_dev from an embedded drm_device pointer
++ * @dev: Pointer to the embedded drm_device
++ *
++ * Return: Pointer to the enclosing qda_dev.
++ */
++static inline struct qda_dev *qda_dev_from_drm(struct drm_device *dev)
++{
++	return container_of(dev, struct qda_dev, drm_dev);
++}
++
++/* Device allocation (uses devm_drm_dev_alloc internally) */
++struct qda_dev *qda_alloc_device(struct device *dev);
++
++/* Core device lifecycle */
++int qda_register_device(struct qda_dev *qdev);
++void qda_unregister_device(struct qda_dev *qdev);
++
++#endif /* __QDA_DRV_H__ */
+diff --git a/drivers/accel/qda/qda_rpmsg.c b/drivers/accel/qda/qda_rpmsg.c
+new file mode 100644
+index 000000000000..6eaf1b145f8a
+--- /dev/null
++++ b/drivers/accel/qda/qda_rpmsg.c
+@@ -0,0 +1,99 @@
++// SPDX-License-Identifier: GPL-2.0-only
++// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/rpmsg.h>
++#include <drm/drm_print.h>
++
++#include "qda_drv.h"
++#include "qda_rpmsg.h"
++
++static struct qda_dev *alloc_and_init_qdev(struct rpmsg_device *rpdev)
++{
++	struct qda_dev *qdev;
++
++	qdev = qda_alloc_device(&rpdev->dev);
++	if (IS_ERR(qdev))
++		return qdev;
++
++	qdev->dev = &rpdev->dev;
++	qdev->rpdev = rpdev;
++	dev_set_drvdata(&rpdev->dev, qdev);
++
++	return qdev;
++}
++
++static int qda_rpmsg_cb(struct rpmsg_device *rpdev, void *data, int len,
++			void *priv, u32 src)
++{
++	/* Placeholder: responses will be dispatched here */
++	return 0;
++}
++
++static void qda_rpmsg_remove(struct rpmsg_device *rpdev)
++{
++	struct qda_dev *qdev = dev_get_drvdata(&rpdev->dev);
++
++	drm_dev_unplug(&qdev->drm_dev);
++	qdev->rpdev = NULL;
++	qda_unregister_device(qdev);
++	dev_info(qdev->dev, "RPMsg device removed\n");
++}
++
++static int qda_rpmsg_probe(struct rpmsg_device *rpdev)
++{
++	struct qda_dev *qdev;
++	const char *label;
++	int ret;
++
++	dev_dbg(&rpdev->dev, "QDA RPMsg probe starting\n");
++
++	qdev = alloc_and_init_qdev(rpdev);
++	if (IS_ERR(qdev))
++		return PTR_ERR(qdev);
++
++	ret = of_property_read_string(rpdev->dev.of_node, "label", &label);
++	if (ret) {
++		dev_err(qdev->dev, "Missing 'label' property in DT node: %d\n", ret);
++		return ret;
++	}
++	qdev->dsp_name = label;
++
++	ret = qda_register_device(qdev);
++	if (ret)
++		return ret;
++
++	drm_info(&qdev->drm_dev, "QDA RPMsg probe complete for %s\n", qdev->dsp_name);
++	return 0;
++}
++
++static const struct of_device_id qda_rpmsg_id_table[] = {
++	{ .compatible = "qcom,fastrpc" },
++	{},
++};
++MODULE_DEVICE_TABLE(of, qda_rpmsg_id_table);
++
++static struct rpmsg_driver qda_rpmsg_driver = {
++	.probe = qda_rpmsg_probe,
++	.remove = qda_rpmsg_remove,
++	.callback = qda_rpmsg_cb,
++	.drv = {
++		.name = "qcom,fastrpc",
++		.of_match_table = qda_rpmsg_id_table,
++	},
++};
++
++int qda_rpmsg_register(void)
++{
++	int ret = register_rpmsg_driver(&qda_rpmsg_driver);
++
++	if (ret)
++		pr_err("qda: Failed to register RPMsg driver: %d\n", ret);
++
++	return ret;
++}
++
++void qda_rpmsg_unregister(void)
++{
++	unregister_rpmsg_driver(&qda_rpmsg_driver);
++}
+diff --git a/drivers/accel/qda/qda_rpmsg.h b/drivers/accel/qda/qda_rpmsg.h
+new file mode 100644
+index 000000000000..5229d834b34b
+--- /dev/null
++++ b/drivers/accel/qda/qda_rpmsg.h
+@@ -0,0 +1,13 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#ifndef __QDA_RPMSG_H__
++#define __QDA_RPMSG_H__
++
++/* RPMsg transport layer registration */
++int qda_rpmsg_register(void);
++void qda_rpmsg_unregister(void);
++
++#endif /* __QDA_RPMSG_H__ */
 
-Best regards,
 -- 
-Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+2.34.1
 
 
