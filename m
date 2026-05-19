@@ -1,41 +1,41 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 017193F1AAA;
-	Tue, 19 May 2026 15:18:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823D63EA957;
+	Tue, 19 May 2026 15:23:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779203917; cv=none; b=Usx0FCm8mdXbEwHVGGxCiZ/aR5f2BBbrH7Te1d/dMWv125rlEqf/JlwCvUxLxs6hGkdlubnUi2XnxjvaUSZkEhlerUiPtGDkfie5fzkbUGEPNpcAT8gmJl6hVYIBYB9nZEx7tcf7jzGy95ScNxCegmyAFihOYhcpWDQ/Is7Jsws=
+	t=1779204183; cv=none; b=PjCHmol2PaeNL16pFdld8nhAm0dz03KUVvZEEFCeLzCfGOdujG5427wuJWmLcaUXjYMynoDjTQJ1ZOPNncJXTStqY3TA4qK4mb/uCNUXbbnziCCr75P4NrVESDGcCtmfvQCMG3kcFVPTIep/CQy05QRVp3Nu2L6N/VqarH+f/so=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779203917; c=relaxed/simple;
-	bh=dlTcJ0ukscF7NUiOKGS0cBKBGDiqOOgRWDmZi2AcUkI=;
+	s=arc-20240116; t=1779204183; c=relaxed/simple;
+	bh=BwzlO1jv0/xoa5/nDtcFzfIYRReMTjtaUSLG2NPq+pA=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=q7XLVz5RPjIlsJXOLHf+UwKFluEmzCj/27tg3vLtb9JZT/jWvySbmKoIe+ZsCYLFtw8FzdosZknQN0JtfKhrDCjibIQheUE67dqU3xifGiCdUQ8M5v0xvq/hftDipLpdhKjbXv5KFasvRvi5VedFFI9L+Lga2zCXGRI20qAb7Po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=q0dcKdCX; arc=none smtp.client-ip=148.251.105.195
+	 Content-Type:MIME-Version; b=svQSR2hD+9y7zUcb2ssYY/rDxdEQAcN5VPoP7G7be/aXVzZXhhOR49zAkU5swYpW8qldfXKN+EK21rj5Ex+cYL+wbpv7Bb1YlzsyQrultxmMCCjrbVNMwV0DELzw+nApGU3PeiCFwIk6QuEkheQ+Hcj3o1drxHZlXUfop3jr5L8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=jxIzF2JA; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="q0dcKdCX"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="jxIzF2JA"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1779203911;
-	bh=dlTcJ0ukscF7NUiOKGS0cBKBGDiqOOgRWDmZi2AcUkI=;
+	s=mail; t=1779204180;
+	bh=BwzlO1jv0/xoa5/nDtcFzfIYRReMTjtaUSLG2NPq+pA=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=q0dcKdCXZ5HVJhDJieIazk7XPmFm2ygrXpB/nqWG8oC4Y/XCtrpSABBPKUHrdDhNE
-	 ATk9OBxefXWaD8Ixx3dHvbXN9yB9c5sRnUof2ugdVXQ03/dVc2E1ZgTaFbXiUXkCJv
-	 q6QjgMMq1NAkVxnwMeEt+gwN/oLnxcYVGmhMa8SQViQIPdBF5d4ROAGdNwIMtkUP1y
-	 09AcMowXJ9uKXJn6NgSykPiaNev9K5+QEAo1W8VzKqILYSFJtb6MCP8tFyVvkbEQn2
-	 7h3WQgGPXSsz52JGu4aiGZ62jzSbCLWE2azgWaAv5EKJLKsC397yALIpPqTxElHjCB
-	 ntseTUe7mRRSw==
+	b=jxIzF2JARvKB9MMdsdYEdIFzITAzDfQ0zAb2TYEm3noqEGS+q8FnO3Rb2W3N0ZGoe
+	 A5cqNO9r5DQw7zM1B6//sf0AY9KrTqjDYR7mMNZORrWa08DZZ9FvDzBsLfhpc7yzeX
+	 sSxsCozglLsnvuZ4lrNOZZel0IrAMZgc415wQ2qm1ClX8Dl/2TzyMXFGXENq+/u4xN
+	 ub95GPHlGtk85j7HrKQmr4VOm5xeEDAeW7lr3AK2guhyAGd4GQkg1fiOYaVGaxFphx
+	 3cu9RN2tQI1EF96G8oFFxLgF6CZSh9dlwXlH71qxaHARdtEqyCK6WMAIvhs6mUIg5d
+	 l/tE8yJII349A==
 Received: from [100.64.0.214] (unknown [100.64.0.214])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits))
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id AA6DF17E0234;
-	Tue, 19 May 2026 17:18:29 +0200 (CEST)
-Message-ID: <689495bda73de063506d0a63de79b9e099747aa8.camel@collabora.com>
-Subject: Re: [PATCH 06/16] media: v4l2-common: Add missing tiled format info
- block sizes
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3579317E0234;
+	Tue, 19 May 2026 17:22:59 +0200 (CEST)
+Message-ID: <77a0553dc48c270768525a53854b3d32abcbf642.camel@collabora.com>
+Subject: Re: [PATCH 07/16] media: v4l2-common: Add NV12_16L16 pixel format
+ to v4l2 format info
 From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 To: Paul Kocialkowski <paulk@sys-base.io>, linux-media@vger.kernel.org, 
 	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
@@ -45,10 +45,10 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Chen-Yu Tsai
  Holland <samuel@sholland.org>, Greg Kroah-Hartman	
  <gregkh@linuxfoundation.org>, Arash Golgol <arash.golgol@gmail.com>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Date: Tue, 19 May 2026 11:18:28 -0400
-In-Reply-To: <20260518102451.417971-7-paulk@sys-base.io>
+Date: Tue, 19 May 2026 11:22:58 -0400
+In-Reply-To: <20260518102451.417971-8-paulk@sys-base.io>
 References: <20260518102451.417971-1-paulk@sys-base.io>
-	 <20260518102451.417971-7-paulk@sys-base.io>
+	 <20260518102451.417971-8-paulk@sys-base.io>
 Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -64,7 +64,7 @@ Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Organization: Collabora Canada
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-TG6IA7MczaywLWJwvwWo"
+	protocol="application/pgp-signature"; boundary="=-3jaEoSmnM5AxWGabWN4z"
 User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -74,65 +74,56 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
 
---=-TG6IA7MczaywLWJwvwWo
+--=-3jaEoSmnM5AxWGabWN4z
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Le lundi 18 mai 2026 =C3=A0 12:24 +0200, Paul Kocialkowski a =C3=A9crit=C2=
 =A0:
-> Some YUV420 tiled format info definitions are missing block sizes.
-> Add the missing block sizes (they are all 4x4).
+> Represent the NV12_16L16 pixel format in the v4l2 format info table.
+> This is a 16x16 tiled version of NV12.
 >=20
 > Signed-off-by: Paul Kocialkowski <paulk@sys-base.io>
 > ---
-> =C2=A0drivers/media/v4l2-core/v4l2-common.c | 6 ++++--
-> =C2=A01 file changed, 4 insertions(+), 2 deletions(-)
+> =C2=A0drivers/media/v4l2-core/v4l2-common.c | 2 ++
+> =C2=A01 file changed, 2 insertions(+)
 >=20
 > diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-c=
 ore/v4l2-common.c
-> index 77a0daa92c2b..e142d40c71b9 100644
+> index e142d40c71b9..6194d6eb9c56 100644
 > --- a/drivers/media/v4l2-core/v4l2-common.c
 > +++ b/drivers/media/v4l2-core/v4l2-common.c
-> @@ -307,10 +307,12 @@ const struct v4l2_format_info *v4l2_format_info(u32=
- format)
-> =C2=A0		{ .format =3D V4L2_PIX_FMT_GREY,=C2=A0=C2=A0=C2=A0 .pixel_enc =3D=
- V4L2_PIXEL_ENC_YUV, .mem_planes =3D 1, .comp_planes =3D 1, .bpp =3D { 1, 0=
-, 0, 0 }, .bpp_div =3D { 1, 1, 1, 1 }, .hdiv =3D 1, .vdiv =3D 1 },
-> =C2=A0
-> =C2=A0		/* Tiled YUV formats */
-> -		{ .format =3D V4L2_PIX_FMT_NV12_4L4, .pixel_enc =3D V4L2_PIXEL_ENC_YUV=
-, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 1, 2, 0, 0 }, .bpp_div =
-=3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
-> +		{ .format =3D V4L2_PIX_FMT_NV12_4L4, .pixel_enc =3D V4L2_PIXEL_ENC_YUV=
-, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 1, 2, 0, 0 }, .bpp_div =
-=3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2,
-> +		=C2=A0 .block_w =3D { 4, 4, 0, 0 }, .block_h =3D { 4, 4, 0, 0 }},
-
-.block_w =3D { 4, 2, 0, 0 }, .block_h =3D { 4, 4, 0, 0 }},
-
-> =C2=A0		{ .format =3D V4L2_PIX_FMT_NV15_4L4, .pixel_enc =3D V4L2_PIXEL_EN=
-C_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 5, 10, 0, 0 }, .bp=
-p_div =3D { 4, 4, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2,
+> @@ -313,6 +313,8 @@ const struct v4l2_format_info *v4l2_format_info(u32 f=
+ormat)
 > =C2=A0		=C2=A0 .block_w =3D { 4, 4, 0, 0 }, .block_h =3D { 4, 4, 0, 0 }},
-> -		{ .format =3D V4L2_PIX_FMT_P010_4L4, .pixel_enc =3D V4L2_PIXEL_ENC_YUV=
-, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 2, 4, 0, 0 }, .bpp_div =
-=3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
-> +		{ .format =3D V4L2_PIX_FMT_P010_4L4, .pixel_enc =3D V4L2_PIXEL_ENC_YUV=
-, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 2, 4, 0, 0 }, .bpp_div =
-=3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2,
-> +		=C2=A0 .block_w =3D { 4, 4, 0, 0 }, .block_h =3D { 4, 4, 0, 0 }},
+> =C2=A0		{ .format =3D V4L2_PIX_FMT_P010_4L4, .pixel_enc =3D V4L2_PIXEL_EN=
+C_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 2, 4, 0, 0 }, .bpp=
+_div =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2,
+> =C2=A0		=C2=A0 .block_w =3D { 4, 4, 0, 0 }, .block_h =3D { 4, 4, 0, 0 }},
+> +		{ .format =3D V4L2_PIX_FMT_NV12_16L16,	.pixel_enc =3D V4L2_PIXEL_ENC_Y=
+UV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 1, 2, 0, 0 }, .bpp_di=
+v =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2,
+> +		=C2=A0 .block_w =3D { 16, 16, 0, 0 }, .block_h =3D { 16, 16, 0, 0 }},
 
-.block_w =3D { 4, 2, 0, 0 }, .block_h =3D { 4, 4, 0, 0 }},
+I suspect this is:
 
-This one is speecial, this format does not exists. I believe Jernej made th=
-at
-one based on assumptions, the actual HW should produce NV15 4L4, but I don'=
-t own
-that hardware, and so I never managed remove that last "user" of it, which =
-is I
-believe H6 VP9 decoder.
++		{ .format =3D V4L2_PIX_FMT_NV12_16L16,	.pixel_enc =3D
+V4L2_PIXEL_ENC_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 1, 2,=
+ 0, 0 },
+.bpp_div =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2,
++		  .block_w =3D { 16, 8, 0, 0 }, .block_h =3D { 16, 16, 0, 0 }},
+
+
+This was introduced for the Samsung MFC decoders on Exynos 5, has been matc=
+hed
+to V4L2_PIX_FMT_HM12, but I don't how it was tested though. But in this err=
+a,
+all the tiling was fixes dimensions in bytes, where your definition would m=
+ake
+the UV tiles twice the size of Y tiles.
 
 Nicolas
+
 
 > =C2=A0
 > =C2=A0		/* YUV planar formats, non contiguous variant */
@@ -140,17 +131,17 @@ Nicolas
 _YUV, .mem_planes =3D 3, .comp_planes =3D 3, .bpp =3D { 1, 1, 1, 0 }, .bpp_=
 div =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
 
---=-TG6IA7MczaywLWJwvwWo
+--=-3jaEoSmnM5AxWGabWN4z
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCagx/RAAKCRDZQZRRKWBy
-9FG0AQCmk+1TScHghmIvvWe/dPiMpOsOio1Y+H/dE2nbMFgLAwD/eHkfQJdQ+yQJ
-J+iyq2+WOkh1bcV9Wd6fSThZhpuCtAc=
-=B75G
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCagyAUgAKCRDZQZRRKWBy
+9IajAP9qTPEgo5Hv9psPbr8R5uHkMx1r0b+TgKSHeDmgfQrILwEAuZsp1gb44Xug
+Jx13TfSlNfWxumQomxxNJE9qwF6d2gI=
+=3jLk
 -----END PGP SIGNATURE-----
 
---=-TG6IA7MczaywLWJwvwWo--
+--=-3jaEoSmnM5AxWGabWN4z--
