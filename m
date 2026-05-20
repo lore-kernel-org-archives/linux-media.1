@@ -1,52 +1,52 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2618E3D6CDE;
-	Wed, 20 May 2026 12:25:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157D93D4137;
+	Wed, 20 May 2026 12:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779279940; cv=none; b=imFsDC4XXOoIEj8PQSzC+rGS4nNqo+St8WePdCkcoszn6eX1NAbQsdsDjajCbvZgEj0GJ1XB8lD9OG4ftJuqlELaUQ/NH33nHCbrSg3eM70wbtKLZGfaYqQHaXm3PMotC/2WQftws9HuePu0dp9SfF0DLSMJqWVh9PeTrHc8e00=
+	t=1779280119; cv=none; b=slQno4e8qzgSQ2UuA+UPRFb7yeCXMHRMNqHkly1jsdfEVva0DN7CmZtjr6JAwd//kQlCg6ZueFH9CrR0jW4M9XeSjsclJQ+uRcN0vJ8ObXsL0e0grK4+VymR7N0P/RfToYkjPU56/jd5JdxUGw8qXmJSBdaS7nijD2tInVKfK3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779279940; c=relaxed/simple;
-	bh=48W8SByuCDLPcD8HHlXJaZ/ROSBZ4U6LQUjg5diX9wE=;
+	s=arc-20240116; t=1779280119; c=relaxed/simple;
+	bh=ZMIgseo9xUmLgOULtnzwyJP4V5EhQ5LcKhQlZKXDCGY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fy/Ssb2stS83KZYWOgdGPqPCZy7cRdB/qpZP3OXhI65HPeNkps1s/y//8EfJJYVtu+tqPFk8nQsRe3eSjNO2PFcGhNm+jv73+/R1HdsbtIt+b7KxTigHokjqDCU/2UXZLZ3kNqESgsen+sC37vGEX4NfRMsF3LmZlTfjMnx1Vfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=J/MmzAb5; arc=none smtp.client-ip=198.175.65.9
+	 Content-Type:Content-Disposition:In-Reply-To; b=T6zpBUCly3Vhfj4nRLubssT4Ox2MZ3VjhRKpQrwZwjwqgzBByPZcjmwJTULJY7Tross8pr5VXq1/St156Vn9srMZgS+GqIoicqTAEknf2It3AHzT/rL/FvghObhUPW40I7s9P/XbYzz7aOGeYJkKPgb7hl+rcu2hFx1HUfTQR2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XE9FAzUS; arc=none smtp.client-ip=198.175.65.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="J/MmzAb5"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XE9FAzUS"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1779279938; x=1810815938;
+  t=1779280118; x=1810816118;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=48W8SByuCDLPcD8HHlXJaZ/ROSBZ4U6LQUjg5diX9wE=;
-  b=J/MmzAb5CxZ2jZTbu3neC5vHJTHHdl5F7FKOTWf29L9DHuQeROs8xTwX
-   bcf32DyOhnrk2z2304jrepZdHJNgHLSPeE8kVFsCMzG49YDZXlteJKgR7
-   6HC0zi5oMd2g0sQKhnHgMvW0zEcZsvqymaUPKE2ISilY2Xklzj35BmXFU
-   UcybisGhMrVxygaFMUB+q+YC0kmKe8DQBmfP11zl64ZilZiBq9c+mOx5G
-   ieCvjfLBmFar5GfDK+wJp3FZyE3awuS8mQynUrc5fN4B1v833SxR4hX39
-   +3/Ihz54CPD8W+TU4/Wbh3fW1RyrkwT4hg9d0klZUIiiCrai0cw48Nk/r
+  bh=ZMIgseo9xUmLgOULtnzwyJP4V5EhQ5LcKhQlZKXDCGY=;
+  b=XE9FAzUSJtc0w0inqrgWT9s9s5Irz1pCW8c1Z5aHVnAeNzbGj0VOEiG0
+   VyUva7kzIrM4i9VkiexkOlZ15PHSaI/lNh2Q1zDTlXGG9RSSniL7OJhc6
+   4yLHPpRvykIXibxPiGc38D+Vih2lTLr5N4dTce432mUCpzgkXOnQ/SGBY
+   kDmAV9AE4nUxDI3q9uMpJ4jFT7Z6q6tod7PwkM+Iw1lSutgwfypehZ2JZ
+   BiYaunSDnKJaTD3gg24OS/NE1IQMPiGy+wuLwmy9VPOpR72p0fFREEAYl
+   wJP9iP0gFcvewwXbjjtfSEiSUtDR50Hu/VHjJjRvxbZ29W+r5qlksizL0
    g==;
-X-CSE-ConnectionGUID: gp1GwBmESVGpUrelBxwcog==
-X-CSE-MsgGUID: o+JNs10MS8Ob+kuq0y7vwg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="102853943"
+X-CSE-ConnectionGUID: eV8QhIdhSui5FQXKAIkq8g==
+X-CSE-MsgGUID: Uq13KINeR0KVpaMy4yIiXw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="97604813"
 X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; 
-   d="scan'208";a="102853943"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 May 2026 05:25:37 -0700
-X-CSE-ConnectionGUID: Tl6iGy1aT0KExVNjEXbRLQ==
-X-CSE-MsgGUID: Shm2BKOuQGmwiUC8Ld9CQg==
+   d="scan'208";a="97604813"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 May 2026 05:28:25 -0700
+X-CSE-ConnectionGUID: md0cLJo2R1ydSkafxo6geA==
+X-CSE-MsgGUID: tIz25TIYTWa6j9U0JSZ8Ow==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; 
-   d="scan'208";a="244154387"
+   d="scan'208";a="270513233"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.115])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 May 2026 05:25:32 -0700
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 May 2026 05:28:20 -0700
 Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id A035B11F851;
-	Wed, 20 May 2026 15:25:28 +0300 (EEST)
-Date: Wed, 20 May 2026 15:25:28 +0300
+	by kekkonen.fi.intel.com (Postfix) with SMTP id E87B911F851;
+	Wed, 20 May 2026 15:28:16 +0300 (EEST)
+Date: Wed, 20 May 2026 15:28:16 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: Rishikesh Donadkar <r-donadkar@ti.com>
@@ -60,11 +60,11 @@ Cc: jai.luthra@linux.dev, laurent.pinchart@ideasonboard.com,
 	sjoerd@collabora.com, dan.carpenter@linaro.org,
 	hverkuil+cisco@kernel.org, linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v13 17/17] media: ti: j721e-csi2rx: Support system
- suspend using pm_notifier
-Message-ID: <ag2oOEr0m-wIfABL@kekkonen.localdomain>
+Subject: Re: [PATCH v13 06/17] media: ti: j721e-csi2rx: add a subdev for the
+ core device
+Message-ID: <ag2o4AaXKNTN7twV@kekkonen.localdomain>
 References: <20260520120022.539913-1-r-donadkar@ti.com>
- <20260520120022.539913-18-r-donadkar@ti.com>
+ <20260520120022.539913-7-r-donadkar@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -73,220 +73,24 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260520120022.539913-18-r-donadkar@ti.com>
+In-Reply-To: <20260520120022.539913-7-r-donadkar@ti.com>
 
 Hi Rishikesh,
 
-On Wed, May 20, 2026 at 05:30:22PM +0530, Rishikesh Donadkar wrote:
-> From: Jai Luthra <jai.luthra@ideasonboard.com>
-> 
-> As this device is the "orchestrator" for the rest of the media
-> pipeline, we need to stop all on-going streams before system suspend and
-> enable them back when the system wakes up from sleep.
-> 
-> Using .suspend/.resume callbacks does not work, as the order of those
-> callbacks amongst various devices in the camera pipeline like the sensor,
-> FPD serdes, CSI bridge etc. is impossible to enforce, even with
-> device links. For example, the Cadence CSI bridge is a child device of
-> this device, thus we cannot create a device link with the CSI bridge as
-> a provider and this device as consumer. This can lead to situations
-> where all the dependencies for the bridge have not yet resumed when we
-> request the subdev to start streaming again through the .resume callback
-> defined in this device.
-> 
-> Instead here we register a notifier callback with the PM framework
-> which is triggered when the system is fully functional. At this point we
-> can cleanly stop or start the streams, because we know all other devices
-> and their dependencies are functional. A downside of this approach is
-> that the userspace is also alive (not frozen yet, or just thawed), so
-> the suspend notifier might complete before the userspace has completed
-> all ioctls, like QBUF/DQBUF/STREAMON/STREAMOFF.
-> 
-> Tested-by: Rishikesh Donadkar <r-donadkar@ti.com>
-> Reviewed-by: Rishikesh Donadkar <r-donadkar@ti.com>
-> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
-> Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
-> Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> ---
->  .../platform/ti/j721e-csi2rx/j721e-csi2rx.c   | 135 ++++++++++++++++++
->  1 file changed, 135 insertions(+)
-> 
-> diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-> index d68b8d6ffeb1..21388284cbaa 100644
-> --- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-> +++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-> @@ -131,6 +131,7 @@ struct ti_csi2rx_dev {
->  	struct v4l2_subdev		*source;
->  	struct v4l2_subdev		subdev;
->  	struct ti_csi2rx_ctx		ctx[TI_CSI2RX_MAX_CTX];
-> +	struct notifier_block		pm_notifier;
->  	u8				pix_per_clk;
->  	/* Buffer to drain stale data from PSI-L endpoint */
->  	struct {
-> @@ -1544,6 +1545,124 @@ static int ti_csi2rx_runtime_resume(struct device *dev)
->  	return 0;
->  }
+On Wed, May 20, 2026 at 05:30:11PM +0530, Rishikesh Donadkar wrote:
+> @@ -447,8 +485,10 @@ static int csi_async_notifier_complete(struct v4l2_async_notifier *notifier)
 >  
-> +static int ti_csi2rx_suspend(struct device *dev)
-> +{
-> +	struct ti_csi2rx_dev *csi = dev_get_drvdata(dev);
-> +	enum ti_csi2rx_dma_state state;
-> +	struct ti_csi2rx_ctx *ctx;
-> +	struct ti_csi2rx_dma *dma;
-> +	unsigned long flags = 0;
-> +	int i, ret = 0;
+>  unregister_dev:
+>  	i--;
+> -	for (; i >= 0; i--)
+> +	for (; i >= 0; i--) {
 
-i should be unsigned.
+You could replace this with
 
-> +
-> +	/* If device was not in use we can simply suspend */
-> +	if (pm_runtime_status_suspended(dev))
-> +		return 0;
-> +
-> +	/*
-> +	 * If device is running, assert the pixel reset to cleanly stop any
-> +	 * on-going streams before we suspend.
-> +	 */
-> +	writel(0, csi->shim + SHIM_CNTL);
-> +
-> +	for (i = 0; i < csi->num_ctx; i++) {
-> +		ctx = &csi->ctx[i];
-> +		dma = &ctx->dma;
-> +
-> +		spin_lock_irqsave(&dma->lock, flags);
-> +		state = dma->state;
-> +		spin_unlock_irqrestore(&dma->lock, flags);
-> +
-> +		if (state != TI_CSI2RX_DMA_STOPPED) {
-> +			/* Disable source */
-> +			ret = v4l2_subdev_disable_streams(&csi->subdev,
-> +							  TI_CSI2RX_PAD_FIRST_SOURCE + ctx->idx,
-> +							  BIT(0));
-> +			if (ret)
-> +				dev_err(csi->dev, "Failed to stop subdev stream\n");
-> +		}
-> +
-> +		/* Stop any on-going streams */
-> +		writel(0, csi->shim + SHIM_DMACNTX(ctx->idx));
-> +
-> +		/* Drain DMA */
-> +		ti_csi2rx_drain_dma(ctx);
-> +
-> +		/* Terminate DMA */
-> +		ret = dmaengine_terminate_sync(ctx->dma.chan);
-> +		if (ret)
-> +			dev_err(csi->dev, "Failed to stop DMA\n");
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static int ti_csi2rx_resume(struct device *dev)
-> +{
-> +	struct ti_csi2rx_dev *csi = dev_get_drvdata(dev);
-> +	struct ti_csi2rx_ctx *ctx;
-> +	struct ti_csi2rx_dma *dma;
-> +	struct ti_csi2rx_buffer *buf;
-> +	unsigned long flags = 0;
-> +	unsigned int reg;
-> +	int i, ret = 0;
+	while (i--)
 
-Ditto.
-
-> +
-> +	/* If device was not in use, we can simply wakeup */
-> +	if (pm_runtime_status_suspended(dev))
-> +		return 0;
-> +
-> +	/* If device was in use before, restore all the running streams */
-> +	reg = SHIM_CNTL_PIX_RST;
-> +	writel(reg, csi->shim + SHIM_CNTL);
-> +
-> +	for (i = 0; i < csi->num_ctx; i++) {
-> +		ctx = &csi->ctx[i];
-> +		dma = &ctx->dma;
-> +		spin_lock_irqsave(&dma->lock, flags);
-> +		if (dma->state != TI_CSI2RX_DMA_STOPPED) {
-> +			/* Re-submit all previously submitted buffers to DMA */
-> +			list_for_each_entry(buf, &ctx->dma.submitted, list) {
-> +				ti_csi2rx_start_dma(ctx, buf);
-> +			}
-> +			spin_unlock_irqrestore(&dma->lock, flags);
-> +
-> +			/* Restore stream config */
-> +			ti_csi2rx_setup_shim(ctx);
-> +
-> +			ret = v4l2_subdev_enable_streams(&csi->subdev,
-> +							 TI_CSI2RX_PAD_FIRST_SOURCE + ctx->idx,
-> +							 BIT(0));
-> +			if (ret)
-> +				dev_err(ctx->csi->dev, "Failed to start subdev\n");
-> +		} else {
-> +			spin_unlock_irqrestore(&dma->lock, flags);
-> +		}
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static int ti_csi2rx_pm_notifier(struct notifier_block *nb,
-> +				 unsigned long action, void *data)
-> +{
-> +	struct ti_csi2rx_dev *csi =
-> +		container_of(nb, struct ti_csi2rx_dev, pm_notifier);
-> +
-> +	switch (action) {
-> +	case PM_HIBERNATION_PREPARE:
-> +	case PM_SUSPEND_PREPARE:
-> +	case PM_RESTORE_PREPARE:
-> +		ti_csi2rx_suspend(csi->dev);
-> +		break;
-> +	case PM_POST_SUSPEND:
-> +	case PM_POST_HIBERNATION:
-> +	case PM_POST_RESTORE:
-> +		ti_csi2rx_resume(csi->dev);
-> +		break;
-> +	}
-> +
-> +	return NOTIFY_DONE;
-> +}
-> +
->  static const struct dev_pm_ops ti_csi2rx_pm_ops = {
->  	RUNTIME_PM_OPS(ti_csi2rx_runtime_suspend, ti_csi2rx_runtime_resume,
->  		       NULL)
-> @@ -1617,6 +1736,20 @@ static int ti_csi2rx_probe(struct platform_device *pdev)
->  		goto err_notifier;
->  	}
->  
-> +	/*
-> +	 * Use PM notifier instead of .suspend/.resume callbacks because the
-> +	 * ordering of callbacks among camera pipeline devices (sensor, serdes,
-> +	 * CSI bridge) cannot be enforced even with device links. The notifier
-> +	 * is called when the system is fully functional, ensuring all
-> +	 * dependencies are available when stopping/starting streams.
-> +	 */
-> +	csi->pm_notifier.notifier_call = ti_csi2rx_pm_notifier;
-> +	ret = register_pm_notifier(&csi->pm_notifier);
-> +	if (ret) {
-> +		dev_err(csi->dev, "Failed to create PM notifier: %d\n", ret);
-> +		goto err_notifier;
-> +	}
-> +
->  	return 0;
->  
->  err_notifier:
-> @@ -1644,6 +1777,8 @@ static void ti_csi2rx_remove(struct platform_device *pdev)
->  		ti_csi2rx_cleanup_ctx(&csi->ctx[i]);
->  
->  	ti_csi2rx_cleanup_notifier(csi);
-> +	unregister_pm_notifier(&csi->pm_notifier);
-> +
->  	ti_csi2rx_cleanup_v4l2(csi);
->  	dma_free_coherent(csi->dev, csi->drain.len, csi->drain.vaddr,
->  			  csi->drain.paddr);
-> -- 
-> 2.34.1
-> 
+as well. Feel free to post a patch on top instead of the entire set (see
+the other comments, too).
 
 -- 
 Sakari Ailus
