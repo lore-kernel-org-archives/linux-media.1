@@ -1,72 +1,73 @@
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4846C3A8FE8
-	for <linux-media@vger.kernel.org>; Wed, 20 May 2026 13:54:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBBC63D8128
+	for <linux-media@vger.kernel.org>; Wed, 20 May 2026 13:56:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779285264; cv=none; b=q+dDvhzJpG2euzJUz0tMbvyUpRHi4vUNaob5g3SBo4vtCIfwUiqdM8EjmlQt8WQAY2TcQ6Xk9fbbe2Y+gM/waPXfr2DQl/n4sDD+Kc9xlQ5ZpRsSvJZOlmQdVezlxFmqcX0mpjzO/AsJTUUiKkQKINuTK1fq+ww2IVhcHFJtQSg=
+	t=1779285407; cv=none; b=B4gZ5j+Ealmm6VZwtovnrgwsJlwvkREmr1nDn3Yj0EtmyhHZ3uBfBKZncYS06J5Na4Bozko/OCZ5i1WAuHtWJ39+15JFzx3rfSgJCCLfWZFTbKWVuzC9yFWp0YgZ6hFTGOcDo6YWOPtnmhR4sOvl3ljOE/BoWbKos49rR1c7yuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779285264; c=relaxed/simple;
-	bh=ZGHvqE8L/Q1fMf/MBC3tcVavJJOuOsPEetD3I3j6tyY=;
+	s=arc-20240116; t=1779285407; c=relaxed/simple;
+	bh=ts3U0DRr6d9NnETLjnGWPaUJgDNKvjqhIRhVTqEgvZw=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QgsTgMFnXMoC8WZBdJ+czcjZIyy900Ru1uAtZi/5lXuUTaOE426WDP1yU/0QHtIVASqtAPKkW+gMH4w8KFN1jH0CVhELjEW8EoSbiVy40p5E9tmY3BA11aex8+ZqvpGTVdGB8QTbNqrnZcO8aPxg4+Sy3c13WdD322Cb4tJ2qR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=ciBt23um; arc=none smtp.client-ip=209.85.219.47
+	 Content-Type:MIME-Version; b=oGTPobKFbypgx5sc4Z1QYbRsdcVIxYDhPO1WA+qCeppeFRLD05pGTYC2tLB7jCvzWRCJWif/Kv+iT5lQDI6xdQHBc4+jhDB+F3U+HhrUnr9MOZSbAwz8YBHbEv0O/sRtggLu0WxX3uOLemZNC27HrEzjgZNFT+N9CSSWts5AILo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=enZIu5UC; arc=none smtp.client-ip=209.85.222.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="ciBt23um"
-Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-8b7dccd6fe4so46956366d6.1
-        for <linux-media@vger.kernel.org>; Wed, 20 May 2026 06:54:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="enZIu5UC"
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-90fc979d84cso321574485a.1
+        for <linux-media@vger.kernel.org>; Wed, 20 May 2026 06:56:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1779285262; x=1779890062; darn=vger.kernel.org;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1779285405; x=1779890205; darn=vger.kernel.org;
         h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
          :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hq5fEQOH+rWn5qAZ1QCeqnZS/zieBLWV7YFbGZF1rVs=;
-        b=ciBt23umUcRgY9fIvPqb5z5RklszoTnKHYmnJz+/tmnUjWvFI7U3QjZQUNbeIOnvcp
-         2iyQ5aLL21sNKD8zwB7Vq+R93d8SRZclHKk53QqIsRDwr0r0bnAH0wQRONSzLwQqGFg2
-         EuRK16ayEMypxn0oMcEhzQi0i4eN1w/vM+engVi8h64gz+4IDn2pWMDChfTOdz+gm2WY
-         42tzwP0emUU13d8vrLFSpUjTZEFW6srcn8+Wxt9iYUhz7bVbc90PkG8bpc/4UiLfafvV
-         kcgjGP5p0HmxE/z0I4KO5M85wKoG2rGr7YUyNsEenz222Cn2/AAqTL49AfsDh2S9a5ge
-         S43Q==
+        bh=6AoVqM70l4U+qYVnKG6rb2UkmbXX7bAvSah0+zZjZcs=;
+        b=enZIu5UCXb4MDCvEGooihHC8H3sSl2LVwCsfsOj4WbN8ZHyXiV5z2TBecc9nwqNvyl
+         uJFYjTBjjL8Kx+LCF30SxZHTCi0huMPbzDHKl6NYYwE7Kb+iS/xID0Yt8LsWr5RfQqoD
+         T5sEZc2HW2hAVf3UPhuTVp5++VrDMM88SjlGtG9WuMVxRH+eY+tH9pGqSafDZQzjW2bn
+         CLTYCvq9IWl9z6Z9+nw0yID1B/xOnTPz5ehI3qMic4ppVTNZAEx64DoVdj+SNYRGZLct
+         QPHWEqSKp1ammXkHBE5HUdk0G5IvvwtPOxiY3w6fTFVIfHSzROpK0MGykHfv6ovhWXc8
+         rSEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779285262; x=1779890062;
+        d=1e100.net; s=20251104; t=1779285405; x=1779890205;
         h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
          :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=hq5fEQOH+rWn5qAZ1QCeqnZS/zieBLWV7YFbGZF1rVs=;
-        b=XUdlqMWJOEauc5LNPKFbplFrpgrMveF0C9Bd4X95oi6meGZICIsilT2B7MtTh78KTO
-         CS1bWGsPDybqRA70G5UIBIDhMOr+/hFsd7HEN1Qxr3aKqj23oIxGJ+nNdGI7CVjlO9U8
-         BXnqKk0F3JC/iifo1wcyThX/zDelgXZFgmjGfkLF085hjIHfJIgxEaJRp2Qg1GkYwpPK
-         piBBJGRlXZXX3J8vZ2yW8X+OuGRLIqRyfudzOBs59d0BRVl+HhctySe/v/0EqPT+oTZV
-         yEEWxGw9Tb82gaqjSV5c01TZN3whpVPaoj4wDengmI21M+xUsdP5Hm1zkz51K8wInuiO
-         Ksvg==
-X-Forwarded-Encrypted: i=1; AFNElJ/Z/1qsPw/jLysNR+jU7SxXeiTcyJINW5PyyuUtqhRgX0612eL9eFztHwvwawPTOeRQs/ewCOfDDDXK5A==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwUouSe5rKO/NHg1SORZGXuX+KSHEpBac3wb8X/NZzUEbG6EvJ4
-	pwYI6guM+v6kx3V/S4YOmw3oDS4eTzwhn5ByA0jgwwxV7fAc5S1WkEla9YiObUMPI2Adf1HPjwQ
-	rlkot0Qg=
-X-Gm-Gg: Acq92OHoZZHsMvmqBUppxFuWIg2XLNIONraShvhZ3OjXJrEZiPDi+FAUtRGaE69N0LW
-	AVJX572cNKUPtLXJE3x/UkOcGcGpZMIYeWIVJuKak8UMtmp+JEWoqtmZt3kpQElfKLc5/u+HR4D
-	dMKksSJ+0Dwja9rnNL8ap0ooECvcpq6X7FK9QzsCl2Z0W3TWAxvVsNSU214gJ/bsyf7aqJdNe2A
-	bHwx+Dzl1SBoPuXceKe790YZIRbYsQCYNxk7D9hOAPrCZ9RESruW2jHGoO8545ptD/ChXTaW2Hc
-	ietiMEzt1b5uRiQsqdybYqNCJcBKA8v6q7B0rv5bDb/m9CFJqQeCr3PnhKXXwfGv3efUjQx6y3i
-	mPGOVxBCzHrYvoLbLM1OnRvHXx+/7MmmPPVRmzaVX57TJBJ8s45YA9wgHrynTn0zVu1Yd2vg7n5
-	s9yy1e1xc1J5d59ilyhkZzimjn81+ZJDCKlIiheHZ14o4P9npOMR3pO1ZsNec8fFUnczzD
-X-Received: by 2002:a0c:f08f:0:b0:8ac:a5bc:a6b4 with SMTP id 6a1803df08f44-8ca0f6f9a59mr308717706d6.36.1779285262109;
-        Wed, 20 May 2026 06:54:22 -0700 (PDT)
+        bh=6AoVqM70l4U+qYVnKG6rb2UkmbXX7bAvSah0+zZjZcs=;
+        b=oIMzn4tZ4EXwLO2MmgYv9PuIJBbjPWG1UNZVftsNSG8JTY1+zKUI3l4sS00g7lLcVC
+         AJmCe/rYT+p7XiRct45lN+TnxkYWS8M/kPNSPK2Pfp0d0OOff2bU6wO9FBjqGAiu1tv3
+         vkyP9u2okvm5ZCSkM8x3K1BjZHHM+3S9WwsDYzJraWyQpHa2flcRNK41CsAvEZ6LrHIl
+         fua4H5q5qeBBiGBS9DqfsqNVoJxTVk5YDy64h6p6CS+hIlKsa7EcuUhKna4Ksn6riRHG
+         l/TjaBK9SCK/yrj5YrkgorOW5/yI2fqbKJzgFTRZIE9vNold8S69/7Eoylhd5bEfGQFD
+         hetQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8tGGSlmVAJmTmWW76/rfSgMsEo/jAJS5kK8XeefY6eQAXiD4QO0yBjMuIuCuDXnQT18h8fv/TjqAd/aw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxeFP/hZBKR67yMXXTH32kfb3biLkJFq9/ri2j1AFi73JgIEbTK
+	AmE+jJ8D+2knE1I/ghEJJO+mJNvlR9bNJ9EWk/tMl6W+8GEWQ4xk8ztQZoo4y/WFqCc=
+X-Gm-Gg: Acq92OEYzl9KVlLPg0PTQMOzmdEAjnYwFMtc/2ktQqZ7/R3RhLP+lNz4PQWuDdFuuZX
+	mJh2ZlomGiv3A5E74N9tibDlY4pKmVzYpoJcah8oeoYOycg1I+BLhGnhdm1EnWRst9ik7BM5Fm/
+	9GC0RDf/hUcEvPLaFtBm2JgC2uNJBrXipteMzP61nrMPHOJcnN13fRz6qoon2U0YQ66ARBgwZiK
+	jzSWdGzBoKMpSuVWk4PmHiWUIGiQNYJB8Ilka1WJxQ8D6FxCRcvHb7QVgjPzw2We1VKAL8y4EV8
+	Dl26Pc3/vOWQuuP/L9HSvVOxEOW6XOMEPFZlzsu+s4Ixe4Y/lx8ocv6d61J0i0tFej4f8lpset6
+	cx1S3eVGHxmUuqw1hts/m69TP/0/HXjk6836N/doevTUNQ7hj+rA9+GrZLeuFOkFip1RBM/647k
+	XPQyeqhiLapYM5e4c2FoTq35Bn3NLjr2pxw9qIeSBrT9fgxHMnD3TdQtsEtSsVcCxFRZ2o
+X-Received: by 2002:a05:620a:4611:b0:912:c0b3:7d9b with SMTP id af79cd13be357-912c0b37ec9mr3183101085a.24.1779285404810;
+        Wed, 20 May 2026 06:56:44 -0700 (PDT)
 Received: from ?IPv6:2606:6d00:15:e06b:3a7c:76ff:fea1:2ac0? ([2606:6d00:15:e06b:3a7c:76ff:fea1:2ac0])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8cbf144a6a1sm24074376d6.49.2026.05.20.06.54.21
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-910ba182535sm2144742585a.8.2026.05.20.06.56.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 06:54:21 -0700 (PDT)
-Message-ID: <77a8740793ef72b672142000d2be8f6cc87b66f4.camel@ndufresne.ca>
-Subject: Re: [PATCHv2 1/2] media: vivid: add vivid_update_reduced_fps()
+        Wed, 20 May 2026 06:56:43 -0700 (PDT)
+Message-ID: <cae1117b91eb2df890c79b8f914628a38df0e2ce.camel@ndufresne.ca>
+Subject: Re: [PATCHv2 2/2] media: vivid: check for vb2_is_busy() when
+ toggling caps
 From: Nicolas Dufresne <nicolas@ndufresne.ca>
 To: Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org
-Cc: stable@vger.kernel.org
-Date: Wed, 20 May 2026 09:54:20 -0400
-In-Reply-To: <f641f5393c2d9bc7893dd224a646d34c4e042660.1779266182.git.hverkuil+cisco@kernel.org>
+Cc: stable@vger.kernel.org, 
+	syzbot+dac8f5eaa46837e97b89@syzkaller.appspotmail.com
+Date: Wed, 20 May 2026 09:56:43 -0400
+In-Reply-To: <ba02852937616394e2f5de34ee2effa0944d7c88.1779266182.git.hverkuil+cisco@kernel.org>
 References: <cover.1779266182.git.hverkuil+cisco@kernel.org>
-	 <f641f5393c2d9bc7893dd224a646d34c4e042660.1779266182.git.hverkuil+cisco@kernel.org>
+	 <ba02852937616394e2f5de34ee2effa0944d7c88.1779266182.git.hverkuil+cisco@kernel.org>
 Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -81,7 +82,7 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-MFHXNgnVoBlBK5lLkYu9"
+	protocol="application/pgp-signature"; boundary="=-BnYdjJtgzWi/l7jlWyDC"
 User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -91,138 +92,146 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
 
---=-MFHXNgnVoBlBK5lLkYu9
+--=-BnYdjJtgzWi/l7jlWyDC
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Le mercredi 20 mai 2026 =C3=A0 10:36 +0200, Hans Verkuil a =C3=A9crit=C2=A0=
 :
-> Don't call vivid_update_format_cap() when switching to/from reduced fps
-> for HDMI inputs: that will also reset the format, which is overkill for
-> this.
+> The vivid_update_format_cap/out() functions must only be called if the
+> capture/output queue are not busy. But for the controls that select
+> the CROP/COMPOSE/SCALE capability that is not checked.
 >=20
-> Make a new vivid_update_reduced_fps() function that just updates the
-> dev->timeperframe_vid_cap.
+> Only when streaming starts will they be set to 'grabbed' and it is
+> impossible to change the control, but between REQBUFS and STREAMON you
+> are still allowed to set these controls. Since vivid_update_format_cap/ou=
+t
+> will change the format, this can cause unexpected results.
 >=20
-> Fixes: c79aa6aeadb0 ("[media] vivid-capture: add control for reduced fram=
-e rate")
+> Besides adding these checks, also add a WARN_ON in
+> vivid_update_format_cap/out() if the queue is busy.
+>=20
+> I'm 90% certain that this is the cause of this syzbot bug:
+>=20
+> https://syzkaller.appspot.com/bug?extid=3Ddac8f5eaa46837e97b89
+>=20
+> But since we never have reproducers, it is hard to be certain. In any cas=
+e,
+> these checks are needed regardless.
+>=20
+> Fixes: 73c3f48230cd ("[media] vivid: add the control handling code")
 > Cc: stable@vger.kernel.org
+> Reported-by: syzbot+dac8f5eaa46837e97b89@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3Ddac8f5eaa46837e97b89
 > Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
 > ---
-> =C2=A0.../media/test-drivers/vivid/vivid-ctrls.c=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 3 +-
-> =C2=A0.../media/test-drivers/vivid/vivid-vid-cap.c=C2=A0 | 32 +++++++++++=
---------
-> =C2=A0.../media/test-drivers/vivid/vivid-vid-cap.h=C2=A0 |=C2=A0 1 +
-> =C2=A03 files changed, 22 insertions(+), 14 deletions(-)
+> =C2=A0drivers/media/test-drivers/vivid/vivid-ctrls.c=C2=A0=C2=A0 | 12 +++=
++++++++++
+> =C2=A0drivers/media/test-drivers/vivid/vivid-vid-cap.c |=C2=A0 6 ++++++
+> =C2=A0drivers/media/test-drivers/vivid/vivid-vid-out.c |=C2=A0 6 ++++++
+> =C2=A03 files changed, 24 insertions(+)
 >=20
 > diff --git a/drivers/media/test-drivers/vivid/vivid-ctrls.c b/drivers/med=
 ia/test-drivers/vivid/vivid-ctrls.c
-> index f94c15ff84f7..1077445f5772 100644
+> index 1077445f5772..a8a134b36720 100644
 > --- a/drivers/media/test-drivers/vivid/vivid-ctrls.c
 > +++ b/drivers/media/test-drivers/vivid/vivid-ctrls.c
-> @@ -609,7 +609,8 @@ static int vivid_vid_cap_s_ctrl(struct v4l2_ctrl *ctr=
-l)
-> =C2=A0		break;
-> =C2=A0	case VIVID_CID_REDUCED_FPS:
-> =C2=A0		dev->reduced_fps =3D ctrl->val;
-> -		vivid_update_format_cap(dev, true);
-> +		if (dev->input_type[dev->input] =3D=3D HDMI)
-> +			vivid_update_reduced_fps(dev);
+> @@ -613,14 +613,20 @@ static int vivid_vid_cap_s_ctrl(struct v4l2_ctrl *c=
+trl)
+> =C2=A0			vivid_update_reduced_fps(dev);
 > =C2=A0		break;
 > =C2=A0	case VIVID_CID_HAS_CROP_CAP:
+> +		if (vb2_is_busy(&dev->vb_vid_cap_q))
+> +			return -EBUSY;
 > =C2=A0		dev->has_crop_cap =3D ctrl->val;
+> =C2=A0		vivid_update_format_cap(dev, true);
+> =C2=A0		break;
+> =C2=A0	case VIVID_CID_HAS_COMPOSE_CAP:
+> +		if (vb2_is_busy(&dev->vb_vid_cap_q))
+> +			return -EBUSY;
+> =C2=A0		dev->has_compose_cap =3D ctrl->val;
+> =C2=A0		vivid_update_format_cap(dev, true);
+> =C2=A0		break;
+> =C2=A0	case VIVID_CID_HAS_SCALER_CAP:
+> +		if (vb2_is_busy(&dev->vb_vid_cap_q))
+> +			return -EBUSY;
+> =C2=A0		dev->has_scaler_cap =3D ctrl->val;
+> =C2=A0		vivid_update_format_cap(dev, true);
+> =C2=A0		break;
+> @@ -1117,14 +1123,20 @@ static int vivid_vid_out_s_ctrl(struct v4l2_ctrl =
+*ctrl)
+> =C2=A0
+> =C2=A0	switch (ctrl->id) {
+> =C2=A0	case VIVID_CID_HAS_CROP_OUT:
+> +		if (vb2_is_busy(&dev->vb_vid_out_q))
+> +			return -EBUSY;
+> =C2=A0		dev->has_crop_out =3D ctrl->val;
+> =C2=A0		vivid_update_format_out(dev);
+> =C2=A0		break;
+> =C2=A0	case VIVID_CID_HAS_COMPOSE_OUT:
+> +		if (vb2_is_busy(&dev->vb_vid_out_q))
+> +			return -EBUSY;
+> =C2=A0		dev->has_compose_out =3D ctrl->val;
+> =C2=A0		vivid_update_format_out(dev);
+> =C2=A0		break;
+> =C2=A0	case VIVID_CID_HAS_SCALER_OUT:
+> +		if (vb2_is_busy(&dev->vb_vid_out_q))
+> +			return -EBUSY;
+> =C2=A0		dev->has_scaler_out =3D ctrl->val;
+> =C2=A0		vivid_update_format_out(dev);
+> =C2=A0		break;
 > diff --git a/drivers/media/test-drivers/vivid/vivid-vid-cap.c b/drivers/m=
 edia/test-drivers/vivid/vivid-vid-cap.c
-> index b95f06a9b5ae..76e0b161c049 100644
+> index 76e0b161c049..e20449084709 100644
 > --- a/drivers/media/test-drivers/vivid/vivid-vid-cap.c
 > +++ b/drivers/media/test-drivers/vivid/vivid-vid-cap.c
-> @@ -364,6 +364,24 @@ static enum tpg_pixel_aspect vivid_get_pixel_aspect(=
-const struct vivid_dev *dev)
-> =C2=A0	return TPG_PIXEL_ASPECT_SQUARE;
-> =C2=A0}
-> =C2=A0
-> +void vivid_update_reduced_fps(struct vivid_dev *dev)
-> +{
-> +	struct v4l2_bt_timings *bt =3D &dev->dv_timings_cap[dev->input].bt;
-> +	unsigned int size =3D V4L2_DV_BT_FRAME_WIDTH(bt) * V4L2_DV_BT_FRAME_HEI=
-GHT(bt);
-> +	u64 pixelclock;
-> +
-> +	if (dev->reduced_fps && can_reduce_fps(bt)) {
-> +		pixelclock =3D div_u64(bt->pixelclock * 1000, 1001);
-> +		bt->flags |=3D V4L2_DV_FL_REDUCED_FPS;
-> +	} else {
-> +		pixelclock =3D bt->pixelclock;
-> +		bt->flags &=3D ~V4L2_DV_FL_REDUCED_FPS;
-> +	}
-> +	dev->timeperframe_vid_cap =3D (struct v4l2_fract) {
-> +		size / 100, (u32)pixelclock / 100
-> +	};
-> +}
-> +
-> =C2=A0/*
-> =C2=A0 * Called whenever the format has to be reset which can occur when
-> =C2=A0 * changing inputs, standard, timings, etc.
-> @@ -372,8 +390,6 @@ void vivid_update_format_cap(struct vivid_dev *dev, b=
-ool keep_controls)
-> =C2=A0{
+> @@ -391,6 +391,12 @@ void vivid_update_format_cap(struct vivid_dev *dev, =
+bool keep_controls)
 > =C2=A0	struct v4l2_bt_timings *bt =3D &dev->dv_timings_cap[dev->input].bt=
 ;
 > =C2=A0	u32 dims[V4L2_CTRL_MAX_DIMS] =3D {};
-> -	unsigned size;
-> -	u64 pixelclock;
 > =C2=A0
+> +	/*
+> +	 * This resets the format, so must never be called while vb2_is_busy().
+> +	 */
+> +	if (WARN_ON(vb2_is_busy(&dev->vb_vid_cap_q)))
+> +		return;
+> +
 > =C2=A0	switch (dev->input_type[dev->input]) {
 > =C2=A0	case WEBCAM:
-> @@ -402,17 +418,7 @@ void vivid_update_format_cap(struct vivid_dev *dev, =
-bool keep_controls)
-> =C2=A0	case HDMI:
-> =C2=A0		dev->src_rect.width =3D bt->width;
-> =C2=A0		dev->src_rect.height =3D bt->height;
-> -		size =3D V4L2_DV_BT_FRAME_WIDTH(bt) * V4L2_DV_BT_FRAME_HEIGHT(bt);
-> -		if (dev->reduced_fps && can_reduce_fps(bt)) {
-> -			pixelclock =3D div_u64(bt->pixelclock * 1000, 1001);
-> -			bt->flags |=3D V4L2_DV_FL_REDUCED_FPS;
-> -		} else {
-> -			pixelclock =3D bt->pixelclock;
-> -			bt->flags &=3D ~V4L2_DV_FL_REDUCED_FPS;
-> -		}
-> -		dev->timeperframe_vid_cap =3D (struct v4l2_fract) {
-> -			size / 100, (u32)pixelclock / 100
-> -		};
-> +		vivid_update_reduced_fps(dev);
-> =C2=A0		if (bt->interlaced)
-> =C2=A0			dev->field_cap =3D V4L2_FIELD_ALTERNATE;
-> =C2=A0		else
-> diff --git a/drivers/media/test-drivers/vivid/vivid-vid-cap.h b/drivers/m=
-edia/test-drivers/vivid/vivid-vid-cap.h
-> index 38a99f7e038e..d08a85927510 100644
-> --- a/drivers/media/test-drivers/vivid/vivid-vid-cap.h
-> +++ b/drivers/media/test-drivers/vivid/vivid-vid-cap.h
-> @@ -9,6 +9,7 @@
-> =C2=A0#define _VIVID_VID_CAP_H_
+> =C2=A0	default:
+> diff --git a/drivers/media/test-drivers/vivid/vivid-vid-out.c b/drivers/m=
+edia/test-drivers/vivid/vivid-vid-out.c
+> index 8c037b90833e..23e1d5a189ee 100644
+> --- a/drivers/media/test-drivers/vivid/vivid-vid-out.c
+> +++ b/drivers/media/test-drivers/vivid/vivid-vid-out.c
+> @@ -214,6 +214,12 @@ void vivid_update_format_out(struct vivid_dev *dev)
+> =C2=A0	unsigned size, p;
+> =C2=A0	u64 pixelclock;
 > =C2=A0
-> =C2=A0void vivid_update_quality(struct vivid_dev *dev);
-> +void vivid_update_reduced_fps(struct vivid_dev *dev);
-> =C2=A0void vivid_update_format_cap(struct vivid_dev *dev, bool keep_contr=
-ols);
-> =C2=A0void vivid_update_outputs(struct vivid_dev *dev);
-> =C2=A0void vivid_update_connected_outputs(struct vivid_dev *dev);
+> +	/*
+> +	 * This resets the format, so must never be called while vb2_is_busy().
+> +	 */
+> +	if (WARN_ON(vb2_is_busy(&dev->vb_vid_out_q)))
+> +		return;
+> +
+> =C2=A0	switch (dev->output_type[dev->output]) {
+> =C2=A0	case SVID:
+> =C2=A0	default:
 
---=-MFHXNgnVoBlBK5lLkYu9
+--=-BnYdjJtgzWi/l7jlWyDC
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCag29DAAKCRDZQZRRKWBy
-9KUlAP4xQh9YF4/ZLi6iBB7tnLlpMphrE75nnFTFprTGzCtnUAD/biRzXxKeLixV
-vza8zuP129i9xJJp8Yliz2kXqFGkrAc=
-=++18
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCag29mwAKCRDZQZRRKWBy
+9BrOAQDKrHnTjk3eMBXGWR0ThQbDvPgqB619//sIz2aIseBNVQD/cKgdId+LpSva
+HIpSWby4TPk3Oi1KCvkA3DjiUCuFsQM=
+=w5Kf
 -----END PGP SIGNATURE-----
 
---=-MFHXNgnVoBlBK5lLkYu9--
+--=-BnYdjJtgzWi/l7jlWyDC--
