@@ -1,258 +1,294 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010030.outbound.protection.outlook.com [52.101.56.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 196AF3DD51F;
-	Wed, 20 May 2026 12:02:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779278547; cv=none; b=dkb6V+ioY8r9KOMFsz2OYr7wg13BrEgTSEnhdc3ZnlSpnqKyeupgHfkiMjyvJ3Oaw39BjdL83Ha9GMfKvvKiZP/CT0vMGsH/6OlROKt7+T/9RIUP1gi95ZYTah/cGTZ3aL8TX/SQojWPp8D84elObMZftR16VGllmY0MSgkyeQ8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779278547; c=relaxed/simple;
-	bh=cQmfLJSc40bDBXP/fgWlHQ8o57Tl2yyI+creHsRHiRA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KU3raI3nFZ9+UQKrRQJuYqEzDUAuKMIH6R4UXp2UgYXNrGIaw3fk/QWmHH4z1Xs3bU0ydTiWQdmST2Qef4cjaNg5hhex8ZUL3OBdV6AY5LjpIdd+jj8y7GNeHj494s4ysyHLmT5VwILtXm7wgBqoaR8r0/XaFEqWvE4FL+Z9/Vo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dqoZ4dmu; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6254A3DD85B;
+	Wed, 20 May 2026 12:02:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779278550; cv=fail; b=MbcAOGjJcazP16ZRWcroafTrqI2UTcs8chLsKBxpJ6GD7eVkYUBxE1KP8QHNchmSNY8Q2ZBnX+NzEN0BGvs9NFZdscDJm/NKIQdTo5MXEfOALbYxtcYjYndFhsO4sqUNcs3pMPo4zN2kDoDETLJSKH9Kgz7dul7r++cCuahDZyU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779278550; c=relaxed/simple;
+	bh=Pwk6+IQnNNkUnR4yIZtbc/OKwIWCsS6/nFQV5W2oKmM=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CZQHQXLlLYxHFByY5yt0ikXNo6AJw2J6pDKv8okwlHUYcBGPQ2meFEJSBgEgQc/cUvdApju4ePJMbt8Uy2vjzt2x240IRexXyvapUjq5Ck7i/jD4nC98tWp4EBubVJq2O1X/GBlCI+BwFuj4dQZuPkaILbUt7eptPqN3VXJVwts=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=XOMOJtww; arc=fail smtp.client-ip=52.101.56.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dqoZ4dmu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1779278547; x=1810814547;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=cQmfLJSc40bDBXP/fgWlHQ8o57Tl2yyI+creHsRHiRA=;
-  b=dqoZ4dmuL+64A8jD40u5U0WEo3VMtuZKCwAZWm48HYLu2Qbo8C4K0jDm
-   zRhoi52gE6+k1sr2+6Sj/kiotf28sN85zzAP1WewWbhh2dexXkVTo+ew6
-   WqKdn8UVKQpYkI2/COMOt6afI/y5a1ew/ilbXVFlyR4A5ms8H/5xCmr1S
-   Dx3j6kt+wwxC42g+88RME19VWrhh/Mh2kkBseFnRyFZFXw0gIqkP31NVj
-   tjlhaUFOR/I+EE931rw0I6Resn+UMMt5sARplZq4ix/x0NlCFDxuGDRSI
-   2WfE8TTn9Y8fGmGezesZfBSiC10F4QpMYNryOu5fWt/+EcMc68YbeRnQU
-   w==;
-X-CSE-ConnectionGUID: zh4D4fOSQyCaAqbe4vgtqQ==
-X-CSE-MsgGUID: v3Yn7gJWRKerWSuqxgruBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="90470726"
-X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; 
-   d="scan'208";a="90470726"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 May 2026 05:02:26 -0700
-X-CSE-ConnectionGUID: QAQqgWdBRT+zMt5bNQa1bA==
-X-CSE-MsgGUID: +A8kp5Z5Tryqt3+zsLsuTw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; 
-   d="scan'208";a="245137103"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.115])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 May 2026 05:02:24 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id EE9A711F851;
-	Wed, 20 May 2026 15:02:19 +0300 (EEST)
-Date: Wed, 20 May 2026 15:02:19 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Kees Cook <kees@kernel.org>, Ma Ke <make24@iscas.ac.cn>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: v4l2-dev: do not fire driver's release on
- __video_register_device() failure
-Message-ID: <ag2iy5fRlZJLYijT@kekkonen.localdomain>
-References: <20260520090624.1071139-1-lgs201920130244@gmail.com>
- <20260520093421.GA215344@killaraus.ideasonboard.com>
- <14ab929b-f236-48cf-a022-f424fa1e0c1e@kernel.org>
- <20260520104816.GB215344@killaraus.ideasonboard.com>
- <00110771-c722-4208-a0e8-48819952e992@kernel.org>
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="XOMOJtww"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wSJdv+li90NJ2ijoZUtC9R8AWY4OfDOoW1hRIdvvgESCVcFRzjt4YubN4ijrIgFrYgrqCv/E/IDgPh5Cv/QINtfs2H5FZHeNt/pEUKyl569O7WCIjS4fl+kIuE1gA99mxHq2lKVYq4jzTXZdAa8G1GDSOmfwPJ9KCOz2L+e6G2H2ivwWULzemgW26nifSQtfW37uCwZMAA3IbQCw45TMei53h6NqgfDol/T8BjuM/5A3jQ/fU1VV/HXvX5R8PVDt1JtcuyesHjW/FpFiaPykeYzQY01I+wzilR4X/QAi/BC8tHROWzjVfqdwqjYZc9KMGJXLHTiMCFGueaNwrRtOhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ByP2A0F/sya06wk8rUkmx0OLc1aj0aJck1EsWdBkqrU=;
+ b=obuBdlWRKy9p80Ew96jYaG6LY8wmENnn3j13HpuNazwYkTRabEqwT/TCVfM0nB8m7oHs/9ygkbr0JoCrBOJOi2t+6H5OKJeH/qEnyh8LjsAyZg8li0xYFihHYKlFPSon1EmBLAdhw4RCPSO8p2AMCHxcy0/kGq8rflYvKfUm6qak3/lqvP5WQFfYSybUcBtfZNNTLxXS0LVQRJE4tImwOljPN4JUEhnDclkj6Xa2hyI8A2CKDajkGaIT0GCJ18wS1q7ZskEKoB4yrX77y37/f5NtnpOQ98qCpSRJO/slOB+r7vRJzDztameG67ng039IhXjYbaDEvElApom4AsMJiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ByP2A0F/sya06wk8rUkmx0OLc1aj0aJck1EsWdBkqrU=;
+ b=XOMOJtwwGuWkZu/c5YRjw3bg4BelGCoGT5XyFfwXzGSoNirWzhgjVDSvD2lPWvSx+LFXHlq3W1euQUpBaWM9/GH3ErloKGkkcfIU0P3dBGSqw7sZnscjbv2YSFbA0pZIlhYo3G7Qew85AoRO8Eb4Fxw3+sAWYBDV0FDpXcOTgHU=
+Received: from MN2PR14CA0012.namprd14.prod.outlook.com (2603:10b6:208:23e::17)
+ by CY5PR10MB6012.namprd10.prod.outlook.com (2603:10b6:930:27::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Wed, 20 May
+ 2026 12:02:25 +0000
+Received: from BL02EPF0001A100.namprd03.prod.outlook.com
+ (2603:10b6:208:23e:cafe::51) by MN2PR14CA0012.outlook.office365.com
+ (2603:10b6:208:23e::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.16 via Frontend Transport; Wed, 20
+ May 2026 12:02:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ BL02EPF0001A100.mail.protection.outlook.com (10.167.242.107) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.48.11 via Frontend Transport; Wed, 20 May 2026 12:02:24 +0000
+Received: from DLEE215.ent.ti.com (157.170.170.118) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 20 May
+ 2026 07:02:24 -0500
+Received: from DLEE204.ent.ti.com (157.170.170.84) by DLEE215.ent.ti.com
+ (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 20 May
+ 2026 07:02:24 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE204.ent.ti.com
+ (157.170.170.84) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Wed, 20 May 2026 07:02:24 -0500
+Received: from ws.dhcp.ti.com (ws.dhcp.ti.com [172.24.233.149])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64KC0N3f1914726;
+	Wed, 20 May 2026 07:02:17 -0500
+From: Rishikesh Donadkar <r-donadkar@ti.com>
+To: <jai.luthra@linux.dev>, <laurent.pinchart@ideasonboard.com>,
+	<mripard@kernel.org>
+CC: <r-donadkar@ti.com>, <y-abhilashchandra@ti.com>, <devarsht@ti.com>,
+	<s-jain1@ti.com>, <vigneshr@ti.com>, <mchehab@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <p.zabel@pengutronix.de>, <conor+dt@kernel.org>,
+	<sakari.ailus@linux.intel.com>, <hverkuil-cisco@xs4all.nl>,
+	<tomi.valkeinen@ideasonboard.com>, <jai.luthra@ideasonboard.com>,
+	<changhuang.liang@starfivetech.com>, <jack.zhu@starfivetech.com>,
+	<sjoerd@collabora.com>, <dan.carpenter@linaro.org>,
+	<hverkuil+cisco@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: [PATCH v13 16/17] media: ti: j721e-csi2rx: Support runtime suspend
+Date: Wed, 20 May 2026 17:30:21 +0530
+Message-ID: <20260520120022.539913-17-r-donadkar@ti.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260520120022.539913-1-r-donadkar@ti.com>
+References: <20260520120022.539913-1-r-donadkar@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <00110771-c722-4208-a0e8-48819952e992@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A100:EE_|CY5PR10MB6012:EE_
+X-MS-Office365-Filtering-Correlation-Id: c4dbbed4-d599-4b9a-5c0a-08deb667a80a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|36860700016|82310400026|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	9I/v/eTdNkl7Cdx+AzTS+WOS0z6roBFsDD0y6/aVEKSBg3pmxkWmHH8IxqXIFkjQp0ioBVCbKlxQjJY3eTVMEUippd+LEUcnI0IHkO7UbhpB0aH93ujJ0BPId5IibZ4W3ZP5aBE6+iesIOXByH75ddEPIyt7mla3jooTAQTR3mB4OyrJR1TCU0vRHCfU9aAfTrHN1oUEOJ1J+GWF+ssfYNSeRfArYaRFz3fJj/uT/WZpQjGiMHOFUvajqlpOQpl2Aolc5EYu2ggkfII190mNS8cruKdcwqAiEBFcWz+xMh0dzB+Y+kMu5srBElYxoaIJ8XBCcoEHan+Nr0G2N345mbTUZE7KE7sY/D9ROEOQ3E0InVB5OX/DuxVdFmGniOUezAuu1PnjjJ0zO2FblEW8qd7eyDuNMJeD114TIGXOjmAmzB2uXTg/m/sw7Si2UadTRd3T3Xly6MSwAxZAVuyFJHGkOUK2sFl7zulw7NAUA9q4NSoeNQ5jpS9WR+LYdoZqlYskxA9D6nv73a+ff4OmetBvJh8U4YEwGUg8GEWNyDj8PP/nVrvCm76xfNa3g2he7XPPRgfy1PojTXQzxK1g2iz4VLMdmSddrD1dClCa4yq5gjJg1RWI5JBSgFdTW7i0Rh8558VdJ+Bq9EYfbqeKyX5t89TF0tI0STNLd4YP65fPNozaa+soUc2RJfxbsbx5a0y3NRPzG5ltdvPIbDIudTmqDHtc3ic9XMt+X6GTGF4=
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(36860700016)(82310400026)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Nql/DlW658EOtVwgKKMA5cl5iymqf2PSAjuB+bj/Eod8APHj6jTf4keep2xYH+f2XOyWUrs7YF1nn7I6C8NS9sKYK3jrSN/hl01lcDD6UDvLgPFjRYCXJiD8N/NiCJsK6joNM6KgXkOkiVuA2+X+GhfiVROVHw7ZuzZXyFFDeu45VXTh1jtlQjsVsTMIyXfXsdl1HVFpUmfVl327i1PPIsNMhkFXO9qaQ8Gkafs5OopCFi6kD5m8j0plWUzt5RUYx3fqgbFBM7Mz4j4Q6fmcZlN86y2GlrQaVfrzL9PdxmQPvrlgK6AXnOTGg+R7l4YJI6nLnEw4E14jXMXHaxOXizWmP0UCuloHIWalj1HY08FJnrsFerz6bU2Cr5UpEcSYimj1fuEDU8Z5tYYr6XtulPcG64Y7Fx8LMqiQvWDHq5QX0yaRJ255vMxUIep9PZnK
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 12:02:24.9139
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c4dbbed4-d599-4b9a-5c0a-08deb667a80a
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0001A100.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR10MB6012
 
-Hi Hans,
+From: Jai Luthra <jai.luthra@ideasonboard.com>
 
-On Wed, May 20, 2026 at 01:26:30PM +0200, Hans Verkuil wrote:
-> On 20/05/2026 12:48, Laurent Pinchart wrote:
-> > Hi Hans,
-> > 
-> > On Wed, May 20, 2026 at 12:01:46PM +0200, Hans Verkuil wrote:
-> >> On 20/05/2026 11:34, Laurent Pinchart wrote:
-> >>> On Wed, May 20, 2026 at 05:06:24PM +0800, Guangshuo Li wrote:
-> >>>> video_register_device() / __video_register_device() registers vdev->dev
-> >>>> with device_register(). Before the call the video core sets
-> >>>>
-> >>>> 	vdev->dev.release = v4l2_device_release;
-> >>>>
-> >>>> v4l2_device_release() invokes vdev->release(vdev) as its last step, and
-> >>>> the driver's vdev->release hook is commonly video_device_release(), which
-> >>>> kfree()s the vdev that the driver allocated with video_device_alloc().
-> >>>>
-> >>>> When device_register() fails inside __video_register_device() the core
-> >>>> does
-> >>>>
-> >>>> 	put_device(&vdev->dev);
-> >>>> 	return ret;
-> >>>>
-> >>>> which drops the only reference and fires the v4l2_device_release()
-> >>>> chain:
-> >>>>
-> >>>>   __video_register_device()
-> >>>>     device_register() -> -E*
-> >>>>     put_device(&vdev->dev)
-> >>>>       -> v4l2_device_release()
-> >>>>          -> vdev->release(vdev)
-> >>>>             -> video_device_release(vdev)   /* kfree(vdev), free #1 */
-> >>>>
-> >>>> video_register_device() returns the error to the driver. Drivers that
-> >>>> follow the documented ownership contract release vdev on their own error
-> >>>> path, e.g.
-> >>>>
-> >>>>   driver_probe()
-> >>>>     if (video_register_device(vdev, ...))
-> >>>>       goto err_release_vdev;
-> >>>>     ...
-> >>>>   err_release_vdev:
-> >>>>     video_device_release(vdev);   /* free #2 -- DOUBLE FREE */
-> >>>>
-> >>>> This is the contract documented in
-> >>>> Documentation/driver-api/media/v4l2-dev.rst: the driver owns vdev and
-> >>>> is responsible for releasing it if video_register_device() fails. As
-> >>>> Hans Verkuil pointed out, the right place to fix this is the v4l2 core
-> >>>> rather than every individual driver, because drivers are expected to
-> >>>> follow the documented ownership contract.
-> >>>>
-> >>>> Neutralise vdev->release around put_device() in the device_register()
-> >>>> failure path so the device core cleanup does not run the driver's
-> >>>> release hook. The driver-supplied release is restored before returning
-> >>>> so the caller can release vdev according to the documented contract.
-> >>>> Successful registration is unchanged, so the normal teardown sequence
-> >>>> continues to call the driver's release hook and free vdev exactly once on
-> >>>> unregister.
-> >>>>
-> >>>> Fixes: 2a934fdb01db ("media: v4l2-dev: fix error handling in __video_register_device()")
-> >>>> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> >>>> ---
-> >>>>  drivers/media/v4l2-core/v4l2-dev.c | 5 +++++
-> >>>>  1 file changed, 5 insertions(+)
-> >>>>
-> >>>> diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l2-core/v4l2-dev.c
-> >>>> index 6ce623a1245a..73648549eb2a 100644
-> >>>> --- a/drivers/media/v4l2-core/v4l2-dev.c
-> >>>> +++ b/drivers/media/v4l2-core/v4l2-dev.c
-> >>>> @@ -1075,9 +1075,14 @@ int __video_register_device(struct video_device *vdev,
-> >>>>  	mutex_lock(&videodev_lock);
-> >>>>  	ret = device_register(&vdev->dev);
-> >>>>  	if (ret < 0) {
-> >>>> +		void (*release)(struct video_device *) = vdev->release;
-> >>>> +
-> >>>>  		mutex_unlock(&videodev_lock);
-> >>>>  		pr_err("%s: device_register failed\n", __func__);
-> >>>> +
-> >>>> +		vdev->release = video_device_release_empty;
-> >>>>  		put_device(&vdev->dev);
-> >>>> +		vdev->release = release;
-> >>>
-> >>> That looks like a big hack. There must be something wrong somewhere else
-> >>> in the design.
-> >>
-> >> There is, unfortunately the design was wrong since the beginning of V4L2.
-> >>
-> >> Documentation/driver-api/media/v4l2-dev.rst explicitly says that you should use:
-> >>
-> >>         err = video_register_device(vdev, VFL_TYPE_VIDEO, -1);
-> >>         if (err) {
-> >>                 video_device_release(vdev); /* or kfree(my_vdev); */
-> >>                 return err;
-> >>         }
-> >>
-> >> So everyone does that. Luckily device_register never fails in practice (you probably have
-> >> bigger problems if it fails then just a double-free).
-> >>
-> >> The reality is that we don't handle this failure well at all, and this change wouldn't
-> >> help in all cases either. E.g. drivers/media/platform/renesas/renesas-ceu.c actually relies
-> >> on the release() callback in that it doesn't call video_device_release().
-> >>
-> >> But then it would fail on the v4l2_err(vdev->v4l2_dev, ...) call since vdev would be freed
-> >> already.
-> >>
-> >> There are probably more drivers like that. (drivers/media/i2c/video-i2c.c)
-> >>
-> >> I'm not sure what is wisdom here.
-> >>
-> >> See also commit 2a934fdb01db ("media: v4l2-dev: fix error handling in __video_register_device()"),
-> >> which is where the put_device was introduced in the first place.
-> >>
-> >> Perhaps that should be reverted instead?
-> > 
-> > If we want a short term fix I think that would be better.
-> > 
-> > Have you seen
-> > https://lore.kernel.org/all/aeCOdWLaVpH-5w8s@hovoldconsulting.com/ ?
-> 
-> I hadn't seen it. Interesting.
-> 
-> > 
-> > Having an API contract different from device_register() will likely
-> > cause issues one way or another.
-> 
-> Looking closely how the driver core works and what commit 2a934fdb01db changed,
-> I think this might fix it:
-> 
-> diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l2-core/v4l2-dev.c
-> index 5516b2bbb08f..6ffd385e880f 100644
-> --- a/drivers/media/v4l2-core/v4l2-dev.c
-> +++ b/drivers/media/v4l2-core/v4l2-dev.c
-> @@ -1071,25 +1071,27 @@ int __video_register_device(struct video_device *vdev,
->  	vdev->dev.class = &video_class;
->  	vdev->dev.devt = MKDEV(VIDEO_MAJOR, vdev->minor);
->  	vdev->dev.parent = vdev->dev_parent;
-> -	vdev->dev.release = v4l2_device_release;
->  	dev_set_name(&vdev->dev, "%s%d", name_base, vdev->num);
-> 
-> -	/* Increase v4l2_device refcount */
-> -	v4l2_device_get(vdev->v4l2_dev);
-> -
->  	mutex_lock(&videodev_lock);
->  	ret = device_register(&vdev->dev);
->  	if (ret < 0) {
->  		mutex_unlock(&videodev_lock);
->  		pr_err("%s: device_register failed\n", __func__);
->  		put_device(&vdev->dev);
-> -		return ret;
-> +		goto cleanup;
->  	}
-> +	/* Register the release callback that will be called when the last
-> +	   reference to the device goes away. */
-> +	vdev->dev.release = v4l2_device_release;
-> 
->  	if (nr != -1 && nr != vdev->num && warn_if_nr_in_use)
->  		pr_warn("%s: requested %s%d, got %s\n", __func__,
->  			name_base, nr, video_device_node_name(vdev));
-> 
-> +	/* Increase v4l2_device refcount */
-> +	v4l2_device_get(vdev->v4l2_dev);
-> +
->  	/* Part 5: Register the entity. */
->  	ret = video_register_media_controller(vdev);
-> 
-> This mostly reverts 2a934fdb01db, except that we keep the put_device.
-> But when this is called, vdev->dev.release isn't set yet, so it only
-> frees the device-related data (device_release in drivers/base/core.c).
-> 
-> Am I missing something?
+Add support for runtime power-management to enable powering off the
+shared power domain between Cadence CSI2RX and TI CSI2RX wrapper when
+the device(s) are not in use.
 
-I guess this could be workable. This way the caller knows the release
-callback won't be called.
+When powering off the IP, the PSI-L endpoint loses the paired DMA
+channels. Thus we have to release the DMA channels at runtime suspend
+and request them again at resume.
 
-Regarding error handling, the return value from
-video_register_media_controller() is ignored. It'd probably be good to fix
-that in a separate patch though. I could submit one as well.
+Tested-by: Rishikesh Donadkar <r-donadkar@ti.com>
+Reviewed-by: Rishikesh Donadkar <r-donadkar@ti.com>
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+Co-developed-by: Rishikesh Donadkar <r-donadkar@ti.com>
+Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
+---
+ drivers/media/platform/ti/Kconfig             |  1 +
+ .../platform/ti/j721e-csi2rx/j721e-csi2rx.c   | 56 ++++++++++++++++++-
+ 2 files changed, 54 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/media/platform/ti/Kconfig b/drivers/media/platform/ti/Kconfig
+index da33facf4467..d0cb05481bd8 100644
+--- a/drivers/media/platform/ti/Kconfig
++++ b/drivers/media/platform/ti/Kconfig
+@@ -83,6 +83,7 @@ config VIDEO_TI_J721E_CSI2RX
+ 	depends on VIDEO_CADENCE_CSI2RX
+ 	depends on PHY_CADENCE_DPHY_RX || COMPILE_TEST
+ 	depends on ARCH_K3 || COMPILE_TEST
++	depends on PM
+ 	select VIDEOBUF2_DMA_CONTIG
+ 	select V4L2_FWNODE
+ 	help
+diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+index 3142849f9bb9..d68b8d6ffeb1 100644
+--- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
++++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+@@ -13,6 +13,7 @@
+ #include <linux/module.h>
+ #include <linux/of_platform.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/property.h>
+ 
+ #include <media/cadence/cdns-csi2rx.h>
+@@ -964,14 +965,18 @@ static int ti_csi2rx_start_streaming(struct vb2_queue *vq, unsigned int count)
+ 	struct ti_csi2rx_dev *csi = ctx->csi;
+ 	struct ti_csi2rx_dma *dma = &ctx->dma;
+ 	unsigned long flags;
+-	int ret = 0;
++	int ret;
++
++	ret = pm_runtime_resume_and_get(csi->dev);
++	if (ret)
++		return ret;
+ 
+ 	spin_lock_irqsave(&dma->lock, flags);
+ 	if (list_empty(&dma->queue))
+ 		ret = -EIO;
+ 	spin_unlock_irqrestore(&dma->lock, flags);
+ 	if (ret)
+-		return ret;
++		goto err;
+ 
+ 	ret = video_device_pipeline_start(&ctx->vdev, &csi->pipe);
+ 	if (ret)
+@@ -993,6 +998,8 @@ static int ti_csi2rx_start_streaming(struct vb2_queue *vq, unsigned int count)
+ 	writel(0, csi->shim + SHIM_DMACNTX(ctx->idx));
+ err:
+ 	ti_csi2rx_cleanup_buffers(ctx, VB2_BUF_STATE_QUEUED);
++	pm_runtime_put(csi->dev);
++
+ 	return ret;
+ }
+ 
+@@ -1012,6 +1019,7 @@ static void ti_csi2rx_stop_streaming(struct vb2_queue *vq)
+ 
+ 	ti_csi2rx_stop_dma(ctx);
+ 	ti_csi2rx_cleanup_buffers(ctx, VB2_BUF_STATE_ERROR);
++	pm_runtime_put(csi->dev);
+ }
+ 
+ static const struct vb2_ops csi_vb2_qops = {
+@@ -1257,7 +1265,9 @@ static void ti_csi2rx_cleanup_notifier(struct ti_csi2rx_dev *csi)
+ 
+ static void ti_csi2rx_cleanup_ctx(struct ti_csi2rx_ctx *ctx)
+ {
+-	dma_release_channel(ctx->dma.chan);
++	if (!pm_runtime_status_suspended(ctx->csi->dev))
++		dma_release_channel(ctx->dma.chan);
++
+ 	vb2_queue_release(&ctx->vidq);
+ 
+ 	video_unregister_device(&ctx->vdev);
+@@ -1507,6 +1517,38 @@ static int ti_csi2rx_init_ctx(struct ti_csi2rx_ctx *ctx)
+ 	return ret;
+ }
+ 
++static int ti_csi2rx_runtime_suspend(struct device *dev)
++{
++	struct ti_csi2rx_dev *csi = dev_get_drvdata(dev);
++
++	if (csi->enable_count != 0)
++		return -EBUSY;
++
++	for (unsigned int i = 0; i < csi->num_ctx; i++)
++		dma_release_channel(csi->ctx[i].dma.chan);
++
++	return 0;
++}
++
++static int ti_csi2rx_runtime_resume(struct device *dev)
++{
++	struct ti_csi2rx_dev *csi = dev_get_drvdata(dev);
++	int ret;
++
++	for (unsigned int i = 0; i < csi->num_ctx; i++) {
++		ret = ti_csi2rx_init_dma(&csi->ctx[i]);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
++static const struct dev_pm_ops ti_csi2rx_pm_ops = {
++	RUNTIME_PM_OPS(ti_csi2rx_runtime_suspend, ti_csi2rx_runtime_resume,
++		       NULL)
++};
++
+ static int ti_csi2rx_probe(struct platform_device *pdev)
+ {
+ 	struct device_node *np = pdev->dev.of_node;
+@@ -1562,6 +1604,9 @@ static int ti_csi2rx_probe(struct platform_device *pdev)
+ 			goto err_ctx;
+ 	}
+ 
++	pm_runtime_set_active(csi->dev);
++	pm_runtime_enable(csi->dev);
++
+ 	ret = ti_csi2rx_notifier_register(csi);
+ 	if (ret)
+ 		goto err_ctx;
+@@ -1592,6 +1637,9 @@ static void ti_csi2rx_remove(struct platform_device *pdev)
+ 	struct ti_csi2rx_dev *csi = platform_get_drvdata(pdev);
+ 	unsigned int i;
+ 
++	if (!pm_runtime_status_suspended(&pdev->dev))
++		pm_runtime_set_suspended(&pdev->dev);
++
+ 	for (i = 0; i < csi->num_ctx; i++)
+ 		ti_csi2rx_cleanup_ctx(&csi->ctx[i]);
+ 
+@@ -1599,6 +1647,7 @@ static void ti_csi2rx_remove(struct platform_device *pdev)
+ 	ti_csi2rx_cleanup_v4l2(csi);
+ 	dma_free_coherent(csi->dev, csi->drain.len, csi->drain.vaddr,
+ 			  csi->drain.paddr);
++	pm_runtime_disable(&pdev->dev);
+ }
+ 
+ static const struct of_device_id ti_csi2rx_of_match[] = {
+@@ -1613,6 +1662,7 @@ static struct platform_driver ti_csi2rx_pdrv = {
+ 	.driver = {
+ 		.name = TI_CSI2RX_MODULE_NAME,
+ 		.of_match_table = ti_csi2rx_of_match,
++		.pm		= &ti_csi2rx_pm_ops,
+ 	},
+ };
+ 
 -- 
-Regards,
+2.34.1
 
-Sakari Ailus
