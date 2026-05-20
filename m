@@ -1,237 +1,199 @@
-Received: from MA0PR01CU009.outbound.protection.outlook.com (mail-southindiaazon11020135.outbound.protection.outlook.com [52.101.227.135])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012030.outbound.protection.outlook.com [52.101.43.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA4F3DA7D3;
-	Wed, 20 May 2026 11:57:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.227.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9083769FA;
+	Wed, 20 May 2026 12:00:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.30
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779278253; cv=fail; b=gI76niXO0JgyCPjiCGPprZjhzSy69hKIjaEf0mJnudH1kMgteUW+FpQJRTU3YJvevA0LidHMRT0Sb4bwsbepEwzjhpzB/NeggN7/Af6J4njnPmCcQRnlkvn0fvIwHxZEzsHGp349zhGKst27E/lwfmJ1Vep/pq0L3H2+QxeY6+o=
+	t=1779278443; cv=fail; b=iBVZQEfdfUE77PHeLxZ8ZhRnZgfY5HSG15RKK1LbAv0yTsmri77Mpv9BNNe/C9kF+YapxQkorS2PQ0d90y2QSFCi02zRyc4JzBJNv89/qY7Ag3Dq+sGtQC0LiFiR713T7gyocE1y/gsrcMvr+Kxy+K/vB5aaZugVAwsWi8vFMY4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779278253; c=relaxed/simple;
-	bh=cSqCMwqNV2PRsAVjYJqoTXK5IcP3OcRhaLhVQFMP7Fg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=T9UsVhCT1k/JvLF6AUa2rujC47OFX85jAUO3KF5vVpkZ+keh533cmQA6BNx/qFnCB8gGXzaIcCoSkax75xgc5XqaB6NbEk6AQ/KxuJWkwBwA2BAYaxhJwTrVxf1LwJAYvcppD5y5EayMkUfQJkHyZ4deShv74XBdtS1qNDjIWbs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=pass (2048-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=QL/A6syN; arc=fail smtp.client-ip=52.101.227.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
+	s=arc-20240116; t=1779278443; c=relaxed/simple;
+	bh=9zuYfKMKUQAIkUHiKnAuGuwInEmmoLGAkSg2XuxWCPE=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AxB1Ncfw2dOq/c2Ufj6VCeT9/l6H5B/v6TGVy4/usAYST5wtF6xn4hewiptZA9/Qealyp3aSUieBEDWBJmRTrCdDT3edFMJwgBwsB99FKXJyD2Y00UUrpCRe9kRyLgyYLY2sqcaX27zv2YNhWdvPYA4W8TcZosJW7tzQtcNd5c4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=WqxG7ko+; arc=fail smtp.client-ip=52.101.43.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="QL/A6syN"
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="WqxG7ko+"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nkUmMNHcTnW3SPEzb+rUMDMsHylG0O0K3JpnPdGonM+Ir4OgbEfBvB0MIev1N2ghlNN62i8BdvZa71Sb/UZBRZ66qMTuOyJJMkryj/AauelRRxxBowiSSVxhOjBDzmAIXxbWiVqtMaT9YiQkbFgRcDrhOX9PxGs0N3cg+vaHWkCahnVqvdQJtsC2jP+5ZxQnyQLwqLeARrGMvJcj4j108pGDn+UtX4NRxy1YIzZZlQzbQCHXx61b7yGSjqO1+LcWZ782GJDsU4KzAsnxAZSalvPB+D9t1MuozUvuAv+9aQibf83Iv5vqY+rJm9RoGPvx1XZL0nOZrSwvXfKiTAGYVg==
+ b=Ouss4RFKw71mdwVI9SxKsCB1/2QYZ4Rg9ACXD3auHp9Pqubm/EO5vpbiU9YG5P4JXqN7M6lNlJEZEs8gXnp13XfYJuo2/2VS4qLYMZnjd0SYzIAC7QZQof1F3fywMbKT+lTS6xCXR852Y7rZMPB6iTA21+dH+BYUOclEU657PcZ5+jZNg6FaWk0R6AZPuGk7Ob/nGXb8Yct/Mq0ytKyy0omySI3ssdmlCPImhV3h5Z1L7222yKFd0es1zKpQb9kVEItuqasjsiuImGOVSg/Xt3XykKjrKphp/6vOQhmUtFtL83asujLwbYQfj/4oYVe9t65XMQJvw4nybOMcWSIQLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2GH79O5Rsb/KP0DHRRROTVQx0/ccWGT5MO09XY1z1SE=;
- b=nKIRzNStJ0rK4b7AUTNf6p01oi1KZkTQU1OASZxDM97ZHkjyO2xqEGyrCs/lGtVZgM2cpIXOju+o/uSa48U73GbgxDB0nHlG+YepoOJnuIzFFVoOWj6ScNRTb5VsYfHETZO8rghkuuRJjn3p+i0cTNV3E9LTZg+e09R0VHDAzWvp7g5PUQ0OJ59sfelYev8ysZRvsFLDQHrntceykGV6VjfqFMs6+9GO7STJ8zSiJpVwJ4W3YVIcqiczYSj/mj/HslLlIqEvo/HtfDWcfRGSXFCeiqkqZhJv89XiXWbp2i58wda9baHilXCBMXW5Oed/TabFGCxnbhBbo8DshmIO0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
- header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
- s=selector1;
+ bh=IjqfsTEOMWJK2SrGFK9x3R5baiXW1jnhYLvz9RtBO88=;
+ b=eN3Rn0y/8qoxBDxy3L4haAEcHTeoSUU3SiKeXJN83mkKIWzKKfZsLrFlQj0jT/6JF3KsI2W5gmPuYUSgErNl5zTdlliz47PRlimxLJpm+dyF1Njj5cvct5rfO3oEim+b20pRq4a1tMUNrYrrf8D1Ldoj3O5cFe0+tHfaq70zzFlFv+IOKFnoUi2BLZ5QntxMWrZwVgRnh6P/r8CNCYXiUKAgy5ToXxIs1El9Ax9GoU86m4UdWdzbRO4/6M9+z42ZEJcQpbALpC+HPWyq9BojkozP49qsgP0ESXHS8Z3P0GTNljYQcyimw5aFfvqIQlHX+3CaZrMwCXoBpchoOGpY7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2GH79O5Rsb/KP0DHRRROTVQx0/ccWGT5MO09XY1z1SE=;
- b=QL/A6syNanv3VP1XTqZFYBvtcyiNdiBvvs5/BT2OhYbw/rN38H1sjy5HfRycbiIpnFBi6oRc6mXvTT6949F4lXzzdyCKuI4wPjla70glaHYAdmUXnN+mx0K420eQ1uIiS9oRx/U6Queo+LLaThvxejNxxgYyyJ/eKHd/C+WuKK6s31fekMt4Bp3xnR7+zTUWIgpRMF9dhgb7ChV0mjAVgxRj80m+7YrD+BJIIxGCHf9luNwyrzezR1NRCv7wRX6MV0auCor18GAE78eCrbQsWr1d+9Fc3X1GyHM5MFxndWZoCcwtcWU0Akop5QG4FUNhqBgCO/beX+ptENcyv0sxmg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siliconsignals.io;
-Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1b8::9)
- by MAUP287MB5499.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:218::7) with
+ bh=IjqfsTEOMWJK2SrGFK9x3R5baiXW1jnhYLvz9RtBO88=;
+ b=WqxG7ko+m7fYiVUA5AsJEwfo8bks7yy/2uusR/DUn2JuuHbOYSuySBdIz5/BuSxMhA0NVbEoN3EmjqIU76QA1/goYNthxzC64SAyshyKeUBmCNJOgWmssqBm/z36LhvM4DrNpovCgjKjVQunUvJmUrjsx9miyQC6HXPqKLqZAxs=
+Received: from CY8P222CA0013.NAMP222.PROD.OUTLOOK.COM (2603:10b6:930:6b::6) by
+ CH4PR10MB8028.namprd10.prod.outlook.com (2603:10b6:610:23d::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
- 2026 11:57:28 +0000
-Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
- ([fe80::ebd8:538d:c705:8432]) by PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
- ([fe80::ebd8:538d:c705:8432%6]) with mapi id 15.21.0048.013; Wed, 20 May 2026
- 11:57:28 +0000
-From: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
-To: sakari.ailus@linux.intel.com
-Cc: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
-	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Walter Werner Schneider <contact@schnwalter.eu>,
-	Kate Hsuan <hpa@redhat.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Subject: [PATCH 3/3] arm64: dts: qcom: sm7225-fairphone-fp4: Add Sony IMX576 front camera support
-Date: Wed, 20 May 2026 17:26:35 +0530
-Message-Id: <20260520115641.11729-4-himanshu.bhavani@siliconsignals.io>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Wed, 20 May
+ 2026 12:00:38 +0000
+Received: from CH3PEPF0000000A.namprd04.prod.outlook.com
+ (2603:10b6:930:6b:cafe::70) by CY8P222CA0013.outlook.office365.com
+ (2603:10b6:930:6b::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.16 via Frontend Transport; Wed, 20
+ May 2026 12:00:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ CH3PEPF0000000A.mail.protection.outlook.com (10.167.244.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.48.11 via Frontend Transport; Wed, 20 May 2026 12:00:38 +0000
+Received: from DLEE203.ent.ti.com (157.170.170.78) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 20 May
+ 2026 07:00:37 -0500
+Received: from DLEE213.ent.ti.com (157.170.170.116) by DLEE203.ent.ti.com
+ (157.170.170.78) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 20 May
+ 2026 07:00:37 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE213.ent.ti.com
+ (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Wed, 20 May 2026 07:00:37 -0500
+Received: from ws.dhcp.ti.com (ws.dhcp.ti.com [172.24.233.149])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64KC0N3Q1914726;
+	Wed, 20 May 2026 07:00:30 -0500
+From: Rishikesh Donadkar <r-donadkar@ti.com>
+To: <jai.luthra@linux.dev>, <laurent.pinchart@ideasonboard.com>,
+	<mripard@kernel.org>
+CC: <r-donadkar@ti.com>, <y-abhilashchandra@ti.com>, <devarsht@ti.com>,
+	<s-jain1@ti.com>, <vigneshr@ti.com>, <mchehab@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <p.zabel@pengutronix.de>, <conor+dt@kernel.org>,
+	<sakari.ailus@linux.intel.com>, <hverkuil-cisco@xs4all.nl>,
+	<tomi.valkeinen@ideasonboard.com>, <jai.luthra@ideasonboard.com>,
+	<changhuang.liang@starfivetech.com>, <jack.zhu@starfivetech.com>,
+	<sjoerd@collabora.com>, <dan.carpenter@linaro.org>,
+	<hverkuil+cisco@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: [PATCH v13 01/17] media: ti: j721e-csi2rx: Remove word size alignment on frame width
+Date: Wed, 20 May 2026 17:30:06 +0530
+Message-ID: <20260520120022.539913-2-r-donadkar@ti.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260520115641.11729-1-himanshu.bhavani@siliconsignals.io>
-References: <20260520115641.11729-1-himanshu.bhavani@siliconsignals.io>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PN5P287CA0046.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:25f::12) To PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:1b8::9)
+In-Reply-To: <20260520120022.539913-1-r-donadkar@ti.com>
+References: <20260520120022.539913-1-r-donadkar@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN0P287MB2019:EE_|MAUP287MB5499:EE_
-X-MS-Office365-Filtering-Correlation-Id: efb8d593-5a21-48a3-e993-08deb666f72f
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000A:EE_|CH4PR10MB8028:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69ee9fc9-4e21-49c3-aa03-08deb667686e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|52116014|7416014|1800799024|366016|38350700014|56012099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|82310400026|1800799024|7416014|376014|36860700016|18002099003|22082099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	EVGbCiax6I0MxFxCzxgmiRU5Ha8oHfwbbJbQ3/y5ktxK8wsqCLk+k5/EG3mOt6otlEGudppR59Kn5Lx50RVG7Wz5Z2k3eBta1x1p8Xj04Jl9KLhFdWrYuPk8K7HJ3/oYZH1pn4sYr79HxxMNUR86+NYfwlnIwn2rWVT65KTO/wjyze7h/LqJ1xDjOY7GbHxradwrIPkvleu96K66udK4atyKMJ30qCZea/psGu7tUSYrzlSVy0pEpFE8hhM2KJxeSiol4brxWl1GCQKz0Ox8WkfY7d7CIrg7k3Gv/nC15a+hYr+1+5AOwT2GjmRil1QIxY0WhOJPcKGfDH0Q3yr5gLRpZzRkFjkuCgg6EXXHket20hq/gO7HqvohAtnkZB3bx/+D4FWSKBS3Wy/JlKc7/SUNcUN3AUv/z0QTqC/f+QAzfgNOtSMfVPK4BjCtZliOtKjo+E0oQLFFMTSa9mVnWlOZBIG5g0b3byaDXGeJ7qtlwTt8tE/jomU8DHCfCVmw6NLPAAkxtjqt38Cn3dE96C8Su1lK05AMIv51230ctk/QyHQVhZsZclHZGuNCREp5tPSzvyEDUFU+201Nn0Ydfu6WqZ6B3oMYG8DTf/ugQnUkm+7lmlxNx6FfCOvQ6FXfXZN0P3MBGXa1IRKoJrXF6hZR00KxnFQvPZPh9i3AS8/wdsnh+B/Ont+vS+C+nHT81WPA/qfyfMGBVyfpsAZA0yBMYH5UVkSEm1yl/86Um0+rIdYrGF70ZgIfJWQrT2iT
+	oC+9LFZQlO/yDa9wZGSNISZbdTqaf+V8vxq+PAXSQc6WXmer24Y8kFwVAjsD6Y2azQ83V2e/MpLd6ZomIw6QRBxU96QOhPlylN8TAHe1qVyWaGD8B7rxDxXDAVDbYoXmvQDkoCIgYv8G5YBr7RMrBmmTc3TkjSVtTjxNiihelfSoM5sNRafXDvcBFEe/Ltas8QqTBm79zJfCROv6756jRDL9EN58o692kY3LSWHxyyagmlFnlI7scbNj1aWUdOHPSLEmmcEYDASrk5EI6I3yKbOaoriYR1MEeg/jo6tx7di4ljZWjclxOE7SbGgTqKtufJ5xYNj0b77VlXsDG/UCMlG2bK5tAVO9SSsLlM03xg1YP8OvIVUnGhM8Qnz7TJ84fzQtAnHSPntC16MNb7WNtKuBzOfSqKyhfwFYv2cAcfid230VRRRqth3aToTS/yC/cwrqpgoALLFmO83aA8Mtfne3ltmRcxgdZ1te/pdUNNolei9SWv13Hbhh0YLeHE6HDUTUnjDIsuwG+sRitalv8V3aXMbaYKd104JiJfbt9YrcZfAHmjoTSf+BMI3sRJJateQ914zhEWWCAtfpAmBPCvgoEldAeg9m6830IB815TQDrxLam0awqGsko0MkNQcVXnwcHxEwK+N/JamupCNlrGKbNWbjt0yuBlWoMnGkMPzRlXgf481ID9Y+QbZQjGiVuooNE4McG7rUVMVaGOSKc8lbIP/yDJ/RBaag7K2Nw58=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN0P287MB2019.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(7416014)(1800799024)(366016)(38350700014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(7416014)(376014)(36860700016)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Dx7AZRlM3B4OtWw0ou+ndf5AdKeMKVmdToGa876XtfwdJKGWnuGkIMfo9/iu?=
- =?us-ascii?Q?QrReCHdMtYaTUsg9ljyZlrCDWX5R8F8vYt1F8FbdEhFlSC+fQG1Ftraw5VW6?=
- =?us-ascii?Q?uUMwaRUFnA+xVPbS+jN7cAcIpI1rfcVKCtQ8yhLC+aQCtXpfZGfjCqHvlFjL?=
- =?us-ascii?Q?XxdtkN8s7pTe4/pNnJoubGdU/fDchGcejKP7OK79kDJDxRKjT3KMcyA6Eu+7?=
- =?us-ascii?Q?gzD10Z8cvJ6DfXp1PF24OQ5E57cjXXy5w1IlfJ6V28Ka8ioufAOrxHASljhv?=
- =?us-ascii?Q?0LdNnFD20fbkkqwhG63+Rj7Kd7L/bTgxaq9/7kmTUZheAxnTutJnNVwKfoWr?=
- =?us-ascii?Q?SFzKz5OaIPrBETHtN7hdYwGPRRsc8nPRSm2d7KFCLD6xZggY/7HzF7yS61ko?=
- =?us-ascii?Q?fRuxJaFVNKGj9Q46QlHqFqTy+ml9a1TgeTLQBHj2lUrfMcRRlb7AaB6F5iaJ?=
- =?us-ascii?Q?kUu3bOs9jACctxVnJUw/nckTW20SZ4147Q/cq9UqBrT2GIyZ75MmgUMPrbNj?=
- =?us-ascii?Q?y3a+LNmz+761+nfz7MgfgY507mrOWxMTtTmbD/cpJ1J6fDYg7EaIBtpueaPZ?=
- =?us-ascii?Q?iBeq2hvmt1Z9MkotbSkke4cr53K3JR6BcvMGmDJccwNESFNPvoviUDteQnkl?=
- =?us-ascii?Q?J5gnmgYi8zvYW1keHpcGhTnPua1PcdafD0CJOwcQYnRjWbrbbr7w9vAEwNBU?=
- =?us-ascii?Q?t6SGXSDtMO2RouziqcJTMZSPvxD0bK0/bxjGmuhBnxqcHwds3IiFIo9q2Jgo?=
- =?us-ascii?Q?yKwVT+a4y53Wr0A/IiTI3hJvvcZX7ASVexIRlK1MZRRnD9UGk4aq4ty4X8Dz?=
- =?us-ascii?Q?U3dTK9XB8RvVjFtgtJQfGRuiJYHPbB/I8uVjKjfg2xyoT34p49xhwyefO6Zy?=
- =?us-ascii?Q?ua8su0VcOhKoIvPsGEcRIPuGSH3f/Ai058Hd2ecMPf9z4N5DGX21pZpRG4x1?=
- =?us-ascii?Q?O5wjieS2yFb/YIF4IDXyaF2M+CKZGKd8XExm+PKoG2KJJAQRKwGWDK9s4aVe?=
- =?us-ascii?Q?5Pi3FDnqHqgAAADqHA/ndvGUJn8HaIo4PdT1CfgBTtL99cTlNWiWCmTnkJIs?=
- =?us-ascii?Q?VCoi8z3NWvzHEFz9GM9xFscpAjeYDu+4qrqwPm6vkiJJrYZPkZDLbAhH8cG0?=
- =?us-ascii?Q?PshXpwdwDA5pA6E8PD1Nkwk9cPPbozUkzHl+dlqB6050/Nnzqqlt834xEraG?=
- =?us-ascii?Q?ZTZqGcVWY6QYOJ0SSGweN09k0Kxft2kIP9Aqx4hNKQnnS6MsYvToYbg435th?=
- =?us-ascii?Q?PElctpkguNxFg7VDTsLiYmMGdFwNP1N93shLrm3cdhUeagvfWeoHiGqx06l6?=
- =?us-ascii?Q?0aujpU0I6XloQQjObfWQwKOem4uJBocuwn3JAnfClr/aOM2UkylvgPE1GLfQ?=
- =?us-ascii?Q?7efQ0isB7/IYfOOrVrrlAL5+5+/C1AF/My1V64Bz2NWZM23AkZxpcXyPKW4q?=
- =?us-ascii?Q?stUmobEqQrKpJxmOZImWlNxEAhI9H+Fxksnk2IiGs/1J90vA7io/nU9EtVS9?=
- =?us-ascii?Q?VYVCVYxwB7xz4MgcBE59WvZa8Lubf4cyobsduw/iSu08NVRL9tXapByQxQAN?=
- =?us-ascii?Q?761GPXsqKWWXnhL0Llr+2UXG1Zoq2Zzn3YbDhwApGb00T/5TFFlsGM77vEtD?=
- =?us-ascii?Q?rCFV4My0exjYGoZqPTqiq6VPWdxHtf70zXnMINkqWZ1MdRwTxtXyw3qxj7zr?=
- =?us-ascii?Q?ySJNWHtWSHQATq+33vYkGle5G/kplmfNm5ghwJifbhUeEgG7F+IeckiNHyhK?=
- =?us-ascii?Q?jtI+CkgylN31fDh9vVMIhI6onGmUAHFpCTAke2XkRyzEn0k/I+2v?=
-X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-Network-Message-Id: efb8d593-5a21-48a3-e993-08deb666f72f
-X-MS-Exchange-CrossTenant-AuthSource: PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 11:57:28.3902
+	KalXBeDkpb+Su6HxSKEu7o3AIiaEE0BsS2x4Q3NwHXyVvr51uNJnCYvSY4i835YlhTYlEnrUf0MgHVa4CewMgZ8rJNX2XmTkawAmPmHF/Z1pyconEx+zIlebRN2GEicF40LuQl91hxmjiBHgTK3U5hepQnc4LIt+s1dU4PprEBU2QcKsLtSv4o0LOhRpg2I8xutySJIoFyyxPQg8h0ErnDRKVUadv5vb2ZHfhcqULXmefZdQVK/AUD3zdos0SdbNI0IG4Mckh428WcwqTsocf5hlx3Iskc6Z21P6ApTfRm8okO7DbSz8onLM/JSwIJ2k4m/ieF8SwABvlolYbzgk9RiPoM3jsjn7k4X6Rk9XMV72N/qu5Dbf7m/aJUKAej7fVUTAtmld1Tx7ixpCKkyqjtwSaWcJrllaAuGKhpj1/6KJ9G/5ReOCvZTz8YQuoaGP
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 12:00:38.2240
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UO6Y1evuP6RHiodt0FB1T/joBTcg3gLJ/D40Xy48MjGHQGKzU7jCstHODDXyYz6b4rM96DZCGcOcUGXCQ+6zBcAFPJG6+s/6v6GQ7Y34HagfL5NZk880vdQxGa9WfSqx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAUP287MB5499
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69ee9fc9-4e21-49c3-aa03-08deb667686e
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF0000000A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR10MB8028
 
-From: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>
+j721e-csi2rx driver has a limitation of frame width being a multiple
+word size. However, there is no such limitation imposed by the
+hardware [1].
 
-Add device tree support for the Sony IMX576 front camera
-sensor and connect it to CAMSS via CSIPHY3.
+Remove this limitation from the driver.
 
-Signed-off-by: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>
+Link: https://www.ti.com/lit/pdf/spruj16
+Reviewed-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
 ---
- .../boot/dts/qcom/sm7225-fairphone-fp4.dts    | 54 +++++++++++++++++++
- 1 file changed, 54 insertions(+)
+ .../platform/ti/j721e-csi2rx/j721e-csi2rx.c   | 24 ++++---------------
+ 1 file changed, 4 insertions(+), 20 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-index 3964aae47fd4..5fb0f3eddf66 100644
---- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-+++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-@@ -17,6 +17,7 @@
- #include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
- #include <dt-bindings/input/input.h>
- #include <dt-bindings/leds/common.h>
-+#include <dt-bindings/media/video-interfaces.h>
- #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- #include <dt-bindings/sound/qcom,q6asm.h>
-@@ -547,6 +548,24 @@ vreg_bob: bob {
- 	};
- };
-
-+&camss {
-+
-+	vdd-csiphy3-0p9-supply = <&vreg_l18a>;
-+	vdd-csiphy3-1p25-supply = <&vreg_l22a>;
-+
-+	status = "okay";
-+
-+	ports {
-+		port@3 {
-+			csiphy3_ep: endpoint {
-+				data-lanes = <0 1 2 3>;
-+				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+				remote-endpoint = <&camera_imx576_ep>;
-+			};
-+		};
-+	};
-+};
-+
- &cci0 {
- 	status = "okay";
- };
-@@ -582,6 +601,34 @@ &cci1 {
-
- &cci1_i2c0 {
- 	/* Front cam (Sony IMX576) @ 0x10 */
-+	camera@10 {
-+		compatible = "sony,imx576";
-+		reg = <0x10>;
-+
-+		avdd-supply = <&vreg_l3p>;
-+		dovdd-supply = <&vreg_32m_cam_dvdd_1p05>;
-+		dvdd-supply = <&vreg_l6p>;
-+
-+		clocks = <&camcc CAMCC_MCLK1_CLK>;
-+		assigned-clocks = <&camcc CAMCC_MCLK1_CLK>;
-+		assigned-clock-rates = <24000000>;
-+
-+		reset-gpios = <&tlmm 35 GPIO_ACTIVE_LOW>;
-+		pinctrl-0 = <&cam_mclk1_default>;
-+		pinctrl-names = "default";
-+
-+		orientation = <0>;
-+		rotation = <90>;
-+
-+		port {
-+			camera_imx576_ep: endpoint {
-+				data-lanes = <1 2 3 4>;
-+				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+				link-frequencies = /bits/ 64 <600000000>;
-+				remote-endpoint = <&csiphy3_ep>;
-+			};
-+		};
-+	};
-
- 	eeprom@50 {
- 		compatible = "giantec,gt24p64a", "atmel,24c64";
-@@ -1115,6 +1162,13 @@ platform {
- &tlmm {
- 	gpio-reserved-ranges = <13 4>, <56 2>;
-
-+	cam_mclk1_default: cam-mclk1-default-state {
-+		pins = "gpio30";
-+		function = "cam_mclk1";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
- 	qup_uart1_sleep_cts: qup-uart1-sleep-cts-state {
- 		pins = "gpio61";
- 		function = "gpio";
---
+diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+index b75aa363d1bf..710d05a05353 100644
+--- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
++++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+@@ -43,7 +43,6 @@
+ #define SHIM_PSI_CFG0_DST_TAG		GENMASK(31, 16)
+ 
+ #define TI_CSI2RX_MAX_PIX_PER_CLK	4
+-#define PSIL_WORD_SIZE_BYTES		16
+ /*
+  * There are no hard limits on the width or height. The DMA engine can handle
+  * all sizes. The max width and height are arbitrary numbers for this driver.
+@@ -250,19 +249,12 @@ static void ti_csi2rx_fill_fmt(const struct ti_csi2rx_fmt *csi_fmt,
+ 			       struct v4l2_format *v4l2_fmt)
+ {
+ 	struct v4l2_pix_format *pix = &v4l2_fmt->fmt.pix;
+-	unsigned int pixels_in_word;
+-
+-	pixels_in_word = PSIL_WORD_SIZE_BYTES * 8 / csi_fmt->bpp;
+ 
+ 	/* Clamp width and height to sensible maximums (16K x 16K) */
+ 	pix->width = clamp_t(unsigned int, pix->width,
+-			     pixels_in_word,
+-			     MAX_WIDTH_BYTES * 8 / csi_fmt->bpp);
++			     1, MAX_WIDTH_BYTES * 8 / csi_fmt->bpp);
+ 	pix->height = clamp_t(unsigned int, pix->height, 1, MAX_HEIGHT_LINES);
+ 
+-	/* Width should be a multiple of transfer word-size */
+-	pix->width = rounddown(pix->width, pixels_in_word);
+-
+ 	v4l2_fmt->type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+ 	pix->pixelformat = csi_fmt->fourcc;
+ 	pix->bytesperline = pix->width * (csi_fmt->bpp / 8);
+@@ -360,23 +352,15 @@ static int ti_csi2rx_enum_framesizes(struct file *file, void *fh,
+ 				     struct v4l2_frmsizeenum *fsize)
+ {
+ 	const struct ti_csi2rx_fmt *fmt;
+-	unsigned int pixels_in_word;
+ 
+ 	fmt = find_format_by_fourcc(fsize->pixel_format);
+ 	if (!fmt || fsize->index != 0)
+ 		return -EINVAL;
+ 
+-	/*
+-	 * Number of pixels in one PSI-L word. The transfer happens in multiples
+-	 * of PSI-L word sizes.
+-	 */
+-	pixels_in_word = PSIL_WORD_SIZE_BYTES * 8 / fmt->bpp;
+-
+ 	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
+-	fsize->stepwise.min_width = pixels_in_word;
+-	fsize->stepwise.max_width = rounddown(MAX_WIDTH_BYTES * 8 / fmt->bpp,
+-					      pixels_in_word);
+-	fsize->stepwise.step_width = pixels_in_word;
++	fsize->stepwise.min_width = 1;
++	fsize->stepwise.max_width = MAX_WIDTH_BYTES * 8 / fmt->bpp;
++	fsize->stepwise.step_width = 1;
+ 	fsize->stepwise.min_height = 1;
+ 	fsize->stepwise.max_height = MAX_HEIGHT_LINES;
+ 	fsize->stepwise.step_height = 1;
+-- 
 2.34.1
 
