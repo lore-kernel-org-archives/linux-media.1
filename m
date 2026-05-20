@@ -1,26 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D1B3FD122
-	for <linux-media@vger.kernel.org>; Wed, 20 May 2026 22:45:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98212401486
+	for <linux-media@vger.kernel.org>; Wed, 20 May 2026 22:45:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779317109; cv=none; b=tzCXQkqwriEu4RVszj/A6dij3SEOVmCmuwcspwxm4lo7aEwOsHlaBUxVynA6vj27Kpn7jnDYMgBnhWhdYQlLSYgAwz2DBkLJBWayyrBFZcZu2BCKrMpCH70IeLpQimh4hwqiFCOSt5w4u3Fd9+EulIzVTj8UruSbUV50Wap8Bsg=
+	t=1779317111; cv=none; b=O8KVifF3WjvTpGXMRVkNsVqOWWLqBxL75DSyVCaSRf5Wj9oCV7WS4pKUMF/W/Na03azAGjCY/d2KQ1QohsNmuPjODdrxPKaqanGKpeqg6QaacziBDZpamII7PMpyPFaWPiXG+8JxG90S3naWCUnKaGXrhTOvzFqwo7yMthu0x30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779317109; c=relaxed/simple;
-	bh=7E5iF4VOVFurtU5B5fBqYOhPZxLkB2Dt1zlH0Eo71S8=;
+	s=arc-20240116; t=1779317111; c=relaxed/simple;
+	bh=pV+Bo9I8GxlZAXmxHG8hJmaZHN7UrppPqv4HZyV/rGY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Gx8SZSJr8HX1ptoL9nd/svxUaG/uyXvjFwjReQosVv9BMtK+0guuZMZ1dQTCAEEo0s0dikEXw2TdEfrFosiMEsHCA7/Ol1OvDZaMjQ8T+3EtOs8XGOXKBG3JD0NSwg3Z6n2/igybGhdWUoBs0KlXwoZDtWUkGmk55txc/K6/IXs=
+	 In-Reply-To:To:Cc; b=AJRV31rHO0wdTqDbJkrOm0GDtPvd7n7/odWog4RO36szO0myAI2hJmLyQUablaEDV+MZ/D7qwWRVPSGsE9vsdgEomwYUR1whM53dG098oeav/kPQ6gDEObDRcZiVk+aNR+Ceuk4NtxIwo6dvqwHmZVfJRCTS4eR4kOVjbIXPt5k=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wPpej-0005vy-GN; Thu, 21 May 2026 00:44:49 +0200
+	id 1wPpem-0005vy-QS; Thu, 21 May 2026 00:44:52 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Thu, 21 May 2026 00:44:21 +0200
-Subject: [PATCH v7 16/28] media: rockchip: rga: reuse cmdbuf contents
+Date: Thu, 21 May 2026 00:44:23 +0200
+Subject: [PATCH v7 18/28] media: rockchip: rga: use card type to specify
+ rga type
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -29,7 +30,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260521-spu-rga3-v7-16-3f33e8c7145f@pengutronix.de>
+Message-Id: <20260521-spu-rga3-v7-18-3f33e8c7145f@pengutronix.de>
 References: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
 In-Reply-To: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -43,167 +44,66 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  devicetree@vger.kernel.org, kernel@pengutronix.de, nicolas@ndufresne.ca, 
  sebastian.reichel@collabora.com, m.tretter@pengutronix.de, 
  p.zabel@pengutronix.de, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>
 X-Mailer: b4 0.15.2
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Reuse the command buffer contents instead of completely writing it
-for every frame. Therefore we only need to replace the source and
-destination addresses for each frame. This reduces the amount of CPU
-and memory operations done in each frame. A new cmdbuf_dirty flag notes
-if the cmdbuf has to be rewritten on the next frame.
+In preparation of the RGA3 support add a filed to the rga_hw struct
+to specify the desired card type value. This allows the user to
+differentiate the RGA2 and RGA3 video device nodes.
 
-The initial idea of initializing the cmdbuf on streamon broke the
-ability to update controls while streaming (e.g. mirroring).
-
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
-
 ---
-Changes in v6:
-- Reworked the commit to not setup the cmdbuf on streamon but rather
-  re-initialize it on the next frame when something changed.
-- Sasahiko flagged the cmdbuf setup at streamon:
-  https://sashiko.dev/#/patchset/20260428-spu-rga3-v5-0-eb7f5d019d86%40pengutronix.de?part=17
-- Dropped Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-  due to the reworked patch and commit message contents
-
-Changes in v5:
-- Don't set the flipping and rotation values at streamon and preventing
-  the userspace from chainging them at runtime
----
- drivers/media/platform/rockchip/rga/rga-hw.c | 13 +++++++++----
- drivers/media/platform/rockchip/rga/rga.c    | 11 +++++++++--
- drivers/media/platform/rockchip/rga/rga.h    |  2 ++
- 3 files changed, 20 insertions(+), 6 deletions(-)
+ drivers/media/platform/rockchip/rga/rga-hw.c | 1 +
+ drivers/media/platform/rockchip/rga/rga.c    | 4 +++-
+ drivers/media/platform/rockchip/rga/rga.h    | 1 +
+ 3 files changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
-index dac3cb6aa17d3..567d39e58d33f 100644
+index f2900812ba76f..43fd023b7571c 100644
 --- a/drivers/media/platform/rockchip/rga/rga-hw.c
 +++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-@@ -417,8 +417,6 @@ static void rga_cmd_set(struct rga_ctx *ctx,
- {
- 	struct rockchip_rga *rga = ctx->rga;
+@@ -577,6 +577,7 @@ static struct rga_fmt formats[] = {
+ };
  
--	memset(ctx->cmdbuf_virt, 0, RGA_CMDBUF_SIZE);
--
- 	rga_cmd_set_src_addr(ctx, src->dma_desc_pa);
- 	/*
- 	 * Due to hardware bug,
-@@ -427,11 +425,9 @@ static void rga_cmd_set(struct rga_ctx *ctx,
- 	rga_cmd_set_src1_addr(ctx, dst->dma_desc_pa);
- 
- 	rga_cmd_set_dst_addr(ctx, dst->dma_desc_pa);
--	rga_cmd_set_mode(ctx);
- 
- 	rga_cmd_set_src_info(ctx, &src->offset);
- 	rga_cmd_set_dst_info(ctx, &dst->offset);
--	rga_cmd_set_trans_info(ctx);
- 
- 	rga_write(rga, RGA_CMD_BASE, ctx->cmdbuf_phy);
- 
-@@ -440,6 +436,14 @@ static void rga_cmd_set(struct rga_ctx *ctx,
- 				   PAGE_SIZE, DMA_BIDIRECTIONAL);
- }
- 
-+static void rga_hw_setup_cmdbuf(struct rga_ctx *ctx)
-+{
-+	memset(ctx->cmdbuf_virt, 0, RGA_CMDBUF_SIZE);
-+
-+	rga_cmd_set_mode(ctx);
-+	rga_cmd_set_trans_info(ctx);
-+}
-+
- static void rga_hw_start(struct rockchip_rga *rga,
- 			 struct rga_vb_buffer *src,  struct rga_vb_buffer *dst)
- {
-@@ -582,6 +586,7 @@ const struct rga_hw rga2_hw = {
- 	.max_height = MAX_HEIGHT,
- 	.stride_alignment = 4,
- 
-+	.setup_cmdbuf = rga_hw_setup_cmdbuf,
- 	.start = rga_hw_start,
- 	.handle_irq = rga_handle_irq,
- 	.get_version = rga_get_version,
+ const struct rga_hw rga2_hw = {
++	.card_type = "rga2",
+ 	.formats = formats,
+ 	.num_formats = ARRAY_SIZE(formats),
+ 	.cmdbuf_size = RGA_CMDBUF_SIZE,
 diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index d080cb672740b..394b14b9469df 100644
+index 22954bbae55fc..91775b43ff617 100644
 --- a/drivers/media/platform/rockchip/rga/rga.c
 +++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -38,6 +38,11 @@ static void device_run(void *prv)
- 	unsigned long flags;
+@@ -354,8 +354,10 @@ static const struct v4l2_file_operations rga_fops = {
+ static int
+ vidioc_querycap(struct file *file, void *priv, struct v4l2_capability *cap)
+ {
++	struct rockchip_rga *rga = video_drvdata(file);
++
+ 	strscpy(cap->driver, RGA_NAME, sizeof(cap->driver));
+-	strscpy(cap->card, "rockchip-rga", sizeof(cap->card));
++	strscpy(cap->card, rga->hw->card_type, sizeof(cap->card));
+ 	strscpy(cap->bus_info, "platform:rga", sizeof(cap->bus_info));
  
- 	spin_lock_irqsave(&rga->ctrl_lock, flags);
-+	if (ctx->cmdbuf_dirty) {
-+		ctx->cmdbuf_dirty = false;
-+		rga->hw->setup_cmdbuf(ctx);
-+	}
-+	spin_unlock_irqrestore(&rga->ctrl_lock, flags);
- 
- 	rga->curr = ctx;
- 
-@@ -47,8 +52,6 @@ static void device_run(void *prv)
- 	dst = v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
- 
- 	rga->hw->start(rga, vb_to_rga(src), vb_to_rga(dst));
--
--	spin_unlock_irqrestore(&rga->ctrl_lock, flags);
- }
- 
- static irqreturn_t rga_isr(int irq, void *prv)
-@@ -141,6 +144,7 @@ static int rga_s_ctrl(struct v4l2_ctrl *ctrl)
- 		ctx->fill_color = ctrl->val;
- 		break;
- 	}
-+	ctx->cmdbuf_dirty = true;
- 	spin_unlock_irqrestore(&ctx->rga->ctrl_lock, flags);
  	return 0;
- }
-@@ -228,6 +232,7 @@ static int rga_open(struct file *file)
- 		ret = -ENOMEM;
- 		goto rel_ctx;
- 	}
-+	ctx->cmdbuf_dirty = true;
- 
- 	ctx->rga = rga;
- 	/* Set default formats */
-@@ -448,6 +453,7 @@ static int vidioc_s_fmt(struct file *file, void *priv, struct v4l2_format *f)
- 	frm->crop.height = pix_fmt->height;
- 
- 	frm->pix = *pix_fmt;
-+	ctx->cmdbuf_dirty = true;
- 
- 	v4l2_dbg(debug, 1, &rga->v4l2_dev,
- 		 "[%s] fmt - %p4cc %dx%d (stride %d, sizeimage %d)\n",
-@@ -564,6 +570,7 @@ static int vidioc_s_selection(struct file *file, void *priv,
- 	}
- 
- 	f->crop = s->r;
-+	ctx->cmdbuf_dirty = true;
- 
- 	return ret;
- }
 diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index 38518146910a6..5360f092fecf0 100644
+index df525c6aea8b6..cee2e75ea89f1 100644
 --- a/drivers/media/platform/rockchip/rga/rga.h
 +++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -55,6 +55,7 @@ struct rga_ctx {
+@@ -149,6 +149,7 @@ static inline void rga_mod(struct rockchip_rga *rga, u32 reg, u32 val, u32 mask)
+ };
  
- 	void *cmdbuf_virt;
- 	dma_addr_t cmdbuf_phy;
-+	bool cmdbuf_dirty;
- 
- 	int osequence;
- 	int csequence;
-@@ -152,6 +153,7 @@ struct rga_hw {
- 	u32 max_width, max_height;
- 	u8 stride_alignment;
- 
-+	void (*setup_cmdbuf)(struct rga_ctx *ctx);
- 	void (*start)(struct rockchip_rga *rga,
- 		      struct rga_vb_buffer *src, struct rga_vb_buffer *dst);
- 	bool (*handle_irq)(struct rockchip_rga *rga);
+ struct rga_hw {
++	const char *card_type;
+ 	struct rga_fmt *formats;
+ 	u32 num_formats;
+ 	size_t cmdbuf_size;
 
 -- 
 2.54.0
