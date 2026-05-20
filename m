@@ -1,71 +1,71 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013021.outbound.protection.outlook.com [40.93.196.21])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010030.outbound.protection.outlook.com [52.101.61.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2E43DC4C1;
-	Wed, 20 May 2026 12:01:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8F424293C;
+	Wed, 20 May 2026 12:01:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.30
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779278472; cv=fail; b=m1H8mkgdHNUnX7bmMrPZHJC3L6ZggOLgGWvV9ou9zsuZVQxyX9oEl5Xv1mP01QTM309XGGf7KAcOUQd+R/CQtlnkey0ttmm7nl3uL5zErbV0P91Jsxo0P7H3y9dKjsgOfAAzW0m6ms7GF2qe60bS0mcqlPSKjn+G5OhM3czuSTM=
+	t=1779278475; cv=fail; b=Zm90V8odAQeibzC3uIqjgBmGJ5h1m6DywaVWitw6CfkjOCV78DrC3mxy854A3mfBH73SjsVbq2qkAAlum4SVHwAm2XVh2AwRr7G9Z0qmA5vUUX+BQVVOpoExanJxCSBpVmMCIT9+27xwxMxXq+zwRDWis8SFylbfOMzfe24WyFA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779278472; c=relaxed/simple;
-	bh=hw5JhZlHziEirkNgBdc/dDgS0rf9IZ1mR8gJmD5u3OQ=;
+	s=arc-20240116; t=1779278475; c=relaxed/simple;
+	bh=IFYF9RIT73FLeFUegxVg+86DeUuSSQ5b97Whd6RNQpE=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NII/atnRgzf0zl8R5hjmo47AIJyyDj/3farFJsCmbxpAJTVjYi/PSQJ/rPwcdiqxEK5Gmht9EpDdvpPyetlqM9gdwzSRju1W0iHjoGYB2SS2L47pwwVb9GIorE2nuRQEshB44I7wh1M0E8AaANJYoxKhV/8+lYnH+5+EOJxQG2M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=S46t6rM+; arc=fail smtp.client-ip=40.93.196.21
+	 MIME-Version:Content-Type; b=r0Jxj+FMn3XUZyrYhvXqV/wEgAUksLO1PEid0Lmbsd/n9GIfRbOA3qaCzANiZDxPrp+z1in4Pte9Mzwv7OY9t23Ubx+mgvBuWc+LYKX+qdmZoTn/zETVNflN/lfdNXAfKr++IdHjQsvfiMSfzDsCYbjSY4xAsLOAHUkPpdI7KOo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=kkrO1ZfG; arc=fail smtp.client-ip=52.101.61.30
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="S46t6rM+"
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="kkrO1ZfG"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HQxMkstEVtMeXNNaV1PdBHfxKNwezT5ykmdBo7FrWKb4ezi58UnSFqxQRNxAqM6HSuqIqhVsgb1zNLg9nLcQQlyA58V9qTWddlemBQNPnii1Q6ctM/uEIVXeGs5Znr6Fa88tMq9SQKzUyZPQEO0D6C5reeUQZ1+9Bc56aBDJkcVW750DcMDfc7Or3jCbkfZgLsqBDw+r9qrB9bA1yTPuUlwul+k3zFbk50nupZG41zx4ujQk8qnENk5Cm4Wi0PfUSFLqJhHZ6xJGj9qEZwHsGc2fcXzVlMwMtu0QBt5NnStHeYpBYgehfTHbtouj+GisJUcVL/GhFMTBwO1jXIWmBw==
+ b=FBOQCHjYzbf7NxGdEhRdOWasa0xkIkQaLITmjf3OZGOoaJDGEnagY3EBUPdwzKGmVsVkVfSi0qWkdiiIZZ73othGEvpp9354f7pUEVlKu+vXrw6JVfcnFYaKjc0/w85IOLaSlCagT3t3atF5tbB/yN6FU3tAjfYFmjJrb0S8pO082T5Wl4rfEQl8lD+uGVPoR65tNuxrLPd/STbdxTPfC83OAaCWc+oFrYwMSwJMm8fNdAshpAPIY525gGloGCrbV5wUpJriNN+D5d5hjn0fyplPuwLUYbQI1vRqVHDn+gzEvy6kUCHqbUvOd/IoSfeH4dGCeBH6LlThRJ3e7J4Lhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mIf80yuDWfQ7C4GZXtuIRf3WRmrukP38CO88BRbEC08=;
- b=gSX1p27eLQ1o00Uy2NY/QKr84exJfi3u8QECvgUB2IwQZf2mH9mORst8YQ83/q+1lT0JHloMkUzv0hk5uBIr8DeGqIlgSWXbqgSzdC8sBqNm3OFcuPosyyseWsFV1ti+1R8hkAcQpZRID3iWzgdcX96awp47KaHajI1T5OErikuBQ1YqQoJb2nIC1/AUQvKRvgDRHLy/SErSQM5h7xJfsHD4p/9aHynHcLIugfDqbNiHGntjLscGH79W1mhFBacYcxzZLSnRzuap6TXKOBCG1GMOabyX1wHhQVIBMVWdXvgUqFy9keis6ULmvp63MX1FsHaTLc+CmaHffxF3ltDYjw==
+ bh=Lt6X5vJMypPF2ntqXJz2jWfNePmR/AQc1XaefjsIRj0=;
+ b=D6WZuCZFqWSAb8YdnB/iYheLPm0UEXQizV96gPkOAsOHXEQ1VusHztTnxy7/carZI528hjXi9+wTD5hwUUUy3dBNMPH3aL2s7oLhlQjcORu3eAunBpAUu/mozFR489jmpg8pH9RT9LW63x89VRCamAO+hcK7g5mC9DYq2MQ3qVRvCIbj0gFmfxkRR93K24HydVSDfHU2f+9hbvWGCMddVuHr7dZ6sPdqTvgpulPom7YWV1U8pEArLXabT+XGhwe3BXXwc7La8iMq8bUAEeuBv+SZfu46TVoA16nwA1T/iXSvWmj3mLoBujkjd2kd2HMJYB8Gc2b4Njud/GZ7YdHGsQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mIf80yuDWfQ7C4GZXtuIRf3WRmrukP38CO88BRbEC08=;
- b=S46t6rM+CpTgC05GVNK8qox1Q89wnpnfgpmQ8vSBTlOHjxyorprH50Dn94/kwjaOq//5MSOOiea5fVgRQ8W/+/yAEz6PmHV+OeMhQtsL41dAVKvcio3JVPtYzqp86pzec38tJbGKTVNxAZLZR9PzSTjNK3DE/s2qKOV0nEvBVJM=
-Received: from BL1P221CA0040.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:5b5::15)
- by DS7PR10MB4909.namprd10.prod.outlook.com (2603:10b6:5:3b0::11) with
+ bh=Lt6X5vJMypPF2ntqXJz2jWfNePmR/AQc1XaefjsIRj0=;
+ b=kkrO1ZfGRn9nZ/9Ndf8LjKKJzK7XxCwjTYh7ORm997mUVb+nF8rtAWN8k/mPyQCmZDpPeQz4+48Dm8UmPhSqsaaNzYU3XbNT9kJ4AUYIYe+VhAoivNw8eGe2r6/iqc9bktXj9e9yD555tSSeiKYXWfsrWacqPy3R4VRzndf5PME=
+Received: from MN2PR20CA0049.namprd20.prod.outlook.com (2603:10b6:208:235::18)
+ by BY5PR10MB4147.namprd10.prod.outlook.com (2603:10b6:a03:20e::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.16; Wed, 20 May
- 2026 12:01:07 +0000
-Received: from BL02EPF0001A0FE.namprd03.prod.outlook.com
- (2603:10b6:208:5b5:cafe::6e) by BL1P221CA0040.outlook.office365.com
- (2603:10b6:208:5b5::15) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 12:01:10 +0000
+Received: from BN3PEPF0000B06E.namprd21.prod.outlook.com
+ (2603:10b6:208:235:cafe::1b) by MN2PR20CA0049.outlook.office365.com
+ (2603:10b6:208:235::18) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.16 via Frontend Transport; Wed, 20
- May 2026 12:01:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ May 2026 12:01:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
  smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
  action=none header.from=ti.com;
 Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- BL02EPF0001A0FE.mail.protection.outlook.com (10.167.242.105) with Microsoft
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ BN3PEPF0000B06E.mail.protection.outlook.com (10.167.243.73) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.11 via Frontend Transport; Wed, 20 May 2026 12:01:06 +0000
-Received: from DLEE215.ent.ti.com (157.170.170.118) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.71.0 via Frontend Transport; Wed, 20 May 2026 12:01:08 +0000
+Received: from DFLE202.ent.ti.com (10.64.6.60) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 20 May
- 2026 07:01:06 -0500
-Received: from DLEE206.ent.ti.com (157.170.170.90) by DLEE215.ent.ti.com
- (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 07:00:44 -0500
+Received: from DFLE211.ent.ti.com (10.64.6.69) by DFLE202.ent.ti.com
+ (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 20 May
- 2026 07:01:05 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE206.ent.ti.com
- (157.170.170.90) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 07:00:44 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE211.ent.ti.com
+ (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Wed, 20 May 2026 07:01:05 -0500
+ Transport; Wed, 20 May 2026 07:00:44 -0500
 Received: from ws.dhcp.ti.com (ws.dhcp.ti.com [172.24.233.149])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64KC0N3U1914726;
-	Wed, 20 May 2026 07:00:59 -0500
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64KC0N3R1914726;
+	Wed, 20 May 2026 07:00:37 -0500
 From: Rishikesh Donadkar <r-donadkar@ti.com>
 To: <jai.luthra@linux.dev>, <laurent.pinchart@ideasonboard.com>,
 	<mripard@kernel.org>
@@ -78,9 +78,9 @@ CC: <r-donadkar@ti.com>, <y-abhilashchandra@ti.com>, <devarsht@ti.com>,
 	<sjoerd@collabora.com>, <dan.carpenter@linaro.org>,
 	<hverkuil+cisco@kernel.org>, <linux-kernel@vger.kernel.org>,
 	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>
-Subject: [PATCH v13 05/17] media: ti: j721e-csi2rx: allocate DMA channel based on context index
-Date: Wed, 20 May 2026 17:30:10 +0530
-Message-ID: <20260520120022.539913-6-r-donadkar@ti.com>
+Subject: [PATCH v13 02/17] dt-bindings: media: ti,j721e-csi2rx-shim: Support 32 dma chans
+Date: Wed, 20 May 2026 17:30:07 +0530
+Message-ID: <20260520120022.539913-3-r-donadkar@ti.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260520120022.539913-1-r-donadkar@ti.com>
 References: <20260520120022.539913-1-r-donadkar@ti.com>
@@ -95,66 +95,114 @@ Content-Type: text/plain
 X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FE:EE_|DS7PR10MB4909:EE_
-X-MS-Office365-Filtering-Correlation-Id: feecb2e4-0f29-44ad-78a5-08deb667796a
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06E:EE_|BY5PR10MB4147:EE_
+X-MS-Office365-Filtering-Correlation-Id: d727475b-b38c-401c-5af9-08deb6677acb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|36860700016|82310400026|1800799024|22082099003|18002099003|56012099003;
+	BCL:0;ARA:13230040|7416014|36860700016|82310400026|376014|1800799024|56012099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	LyeEvpDUtSTZXroR2tPVGHfPC8vRo21k5p/FYqV6R+r6sK1cnOFk1fI/2lhaa8FBbBimAANASC2K7t2KV8VnyHxM5o/0sq7bQFoFMDmwWnMahLCFdE1DIleVhxYiQLVzjjH9tke8lGkZ0VOoWoTwz3He3yh83puPYpCood/c6FQaZYSDN30s6GA9SVoF2YAldO+AAdoM/BwnCihf03k40WJjQ3juIADNQHef5LoRWDvdNTY38cC8CXvyNfx50bRYbTB5JD5zglpoAM+e9L+IKgQ/ahGMIXeOWUd5hULZvHQtuIrJxF3ladDumLp8v+4aH045kYxQ6rvyJGXlMSFC59ob8+O9vS2p1bVvOTeL+fi/4gS+vRBLdRIp0WRSmqWzuh4PdtBIMPy7JRDGUNRsoB8OlO6i+7KQ3wbDOpnZJywFzBBmogDepmpEZo6qinLK9Rgr6Hppyf0zgQo7YUQX95cvvlYfLWJ1HjICQILjxE+EXSlZHCbp1QO1zJmJ+NJjNP/+o6DSvBnk5M8ChRN/Ma9+cu9/z6h5WKzZiUC0MtWS36IEk34Xcc3Rw0k7T2XrikM8VgWbULGaKMu2k+ytaFRPyJCCV+gYAo5VDaqcaFjQHW+hFME6dXGyMgg9u19daP0CPzrD78CxrZLvHiCnHFghPdjIyG/qDnXVJIBnn6aycBgj09DLirRtqFpvHAhM35rTGgq2bFjPUr28Yb8pnX6DLpcaLF849aDL09wvCx8=
+	tOD+CC97F778XUqVVWiDVl/xqbSY3igW/6Bca9f/THQu32SMNbMM1E73/iGD72taL5Axo3Xsf8Z6DEPkXm3DdrMq/FEcYEfEI45cHS9ujGnGWzWp1Z/ofTUj2CJ8h+IdZAoW26TosNj7jVV7iIiIppyhg3Kg/yTrWU/dX5K12FELJT0VBSUmVq2O2/EGmz0bBtSW9tzdNW6ILdXKefD85CPagXNU7rBgvW43GA0gqo42QkrEtAALjVzlrJpZa8vmMPd+JpIzwm9R1dvg/XriBotwTQoCmNbTH8bRj50coZkSk4Yz1mqCwUM4Yl4RqUteQml6L/L+AFnTQL1j8VLY9snxE4lB/ufS6ZXNY0gqdU/f+SHmDr0OcjLcua1PUDoJa9cILQMbemaSSaJTasSj6dHLcqVcihuXoongaWRRcdBOjYWyM6ET6BT4SqiP4xoxuHyoyKiHE3foh+kfx9U1VbPVW3d/fjPEeAzfXxZ40cjmRqBtyCFbAuXQbDpqeXYa/4B3R6eZxP6/YXsPiSGU4B4SkpT5wlZhzvrohwafrxz/mdp9oOW8HIqRsWBK93jkFjDhPxh5alnVD/g5B3Y2eHbuk6tFvPRdrJy4Q0xQQVDmocfCA3TiLjWi5/Lv+VReOPBo58fJT7dEmbIA7VwbOJRZm5ZdgU8RTQDOaCwbBgZggo3OXeeufME9xtYjGSrVWdRosuoXW5ACSvTqxelIMxrY4ueS/TV+mnOoZ3LFXAo=
 X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(82310400026)(1800799024)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(7416014)(36860700016)(82310400026)(376014)(1800799024)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	ANp04fVAfSjbLM+sNnxakT2JpVE77wyYbtqsdOmIcycrEDI6LI+ehe2Iboyw1HA0wnq01FV3lCwJVKS6jhCaRrWGFdDqqrdy82prq2hxdQ/pL/bnepAaBbyTcsmAlEuII6Enb1+0dmwix7SDZqIWbrDa47pzv8tDinsBRjim5RIKsv2NAHzJ6zMChWRbSbOdHlvga+XQ8e8ZDLt3VVCDgHtsn6P3/CLNb0KPmPyQaaF1i5/iN+DKuXgZPRcC5NQUBqQE6N65tDygPUDJXV9khZhVJykp8UUhhnRFIj9kxesFboPy71oSSeTW9Zhv0yWIXP77B7swGH8G2hipCm7lG/THv2M63aihRZG4t0GdFOlH+qBj4ou+Ce4vd06quYtSBN3J538FvhLYrbA6+1Cs51SlYBPv8ie8j5E4dvFYXeyWqAS4cbcXkNrVBwV/5rx7
+	t9MJBSSobSxRkI8MBC/5MBWm/fhZjktu5XuYnHXJRN9YbztOIEWCOgrTGmxqi0RNYIs5wel8XJD/cJaxsdi41x6X8J1GZR6CBHT0e9dwHZNTaHR/AYWdE4W1P3RZFXs6cpZuY3M66V7p5Y/LTIDbxxFmtERazymGEEI8UMma65TC3Kae3HvmabmScIfLuUk8hybdYAeT0vtdNBgHVmbJsW2Zb1jFz2rRuycATtB7JpZefiHlafUD5tBLqXHdt0CBBaO0KbjmcZJt7aHtWHOTYhOSwBoWR8duXBvnF8CjeLXT4vj39FmrbWgebPuTiD/dMrVTwGUVG4c6RlejYXJFeXhZFtLWhSxCn1nDrBzYrjpkI9VZ46RLfsIfPbnWRmjJ8AZkphP2fZZC+7wi07n2lBVi60SfeP33CjuOX0uh9/7+vESA2AsIlUNEcuR5ltH6
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 12:01:06.6809
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 12:01:08.9917
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: feecb2e4-0f29-44ad-78a5-08deb667796a
+X-MS-Exchange-CrossTenant-Network-Message-Id: d727475b-b38c-401c-5af9-08deb6677acb
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A0FE.namprd03.prod.outlook.com
+	BN3PEPF0000B06E.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB4909
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR10MB4147
 
-From: Pratyush Yadav <p.yadav@ti.com>
+From: Jai Luthra <j-luthra@ti.com>
 
-With multiple contexts, there needs to be a different DMA channel for
-each context. Earlier, the DMA channel name was hard coded to "rx0" for
-the sake of simplicity. Generate the DMA channel name based on its index
-and get the channel corresponding to the context.
+The CSI2RX SHIM IP can support 32x DMA channels. These can be used to
+split incoming "streams" of data on the CSI-RX port, distinguished by
+MIPI Virtual Channel (or Data Type), into different locations in memory.
 
-Signed-off-by: Pratyush Yadav <p.yadav@ti.com>
+Actual number of DMA channels allocated to CSI-RX is dependent on the
+usecase, and can be modified using the K3 Resource Partitioning tool [1].
+So set the minimum channels as 1 and maximum as 32.
+
+Link: https://software-dl.ti.com/processor-sdk-linux/esd/AM62X/10_00_07_04/exports/docs/linux/How_to_Guides/Host/K3_Resource_Partitioning_Tool.html [1]
+Link: https://www.ti.com/lit/pdf/spruiv7
 Signed-off-by: Jai Luthra <j-luthra@ti.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Reviewed-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
 Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
 Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
 ---
- drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ .../bindings/media/ti,j721e-csi2rx-shim.yaml  | 39 +++++++++++++++++--
+ 1 file changed, 36 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-index 4adfae425f19..c781b312cea8 100644
---- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-+++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-@@ -1036,9 +1036,11 @@ static int ti_csi2rx_init_dma(struct ti_csi2rx_ctx *ctx)
- 	struct dma_slave_config cfg = {
- 		.src_addr_width = DMA_SLAVE_BUSWIDTH_16_BYTES,
- 	};
-+	char name[5];
- 	int ret;
+diff --git a/Documentation/devicetree/bindings/media/ti,j721e-csi2rx-shim.yaml b/Documentation/devicetree/bindings/media/ti,j721e-csi2rx-shim.yaml
+index b9f033f2f3ce..bf62998b0445 100644
+--- a/Documentation/devicetree/bindings/media/ti,j721e-csi2rx-shim.yaml
++++ b/Documentation/devicetree/bindings/media/ti,j721e-csi2rx-shim.yaml
+@@ -20,11 +20,44 @@ properties:
+     const: ti,j721e-csi2rx-shim
  
--	ctx->dma.chan = dma_request_chan(ctx->csi->dev, "rx0");
-+	snprintf(name, sizeof(name), "rx%u", ctx->idx);
-+	ctx->dma.chan = dma_request_chan(ctx->csi->dev, name);
- 	if (IS_ERR(ctx->dma.chan))
- 		return PTR_ERR(ctx->dma.chan);
+   dmas:
+-    maxItems: 1
++    minItems: 1
++    maxItems: 32
  
+   dma-names:
++    minItems: 1
+     items:
+       - const: rx0
++      - const: rx1
++      - const: rx2
++      - const: rx3
++      - const: rx4
++      - const: rx5
++      - const: rx6
++      - const: rx7
++      - const: rx8
++      - const: rx9
++      - const: rx10
++      - const: rx11
++      - const: rx12
++      - const: rx13
++      - const: rx14
++      - const: rx15
++      - const: rx16
++      - const: rx17
++      - const: rx18
++      - const: rx19
++      - const: rx20
++      - const: rx21
++      - const: rx22
++      - const: rx23
++      - const: rx24
++      - const: rx25
++      - const: rx26
++      - const: rx27
++      - const: rx28
++      - const: rx29
++      - const: rx30
++      - const: rx31
+ 
+   reg:
+     maxItems: 1
+@@ -62,8 +95,8 @@ examples:
+ 
+     ti_csi2rx0: ticsi2rx@4500000 {
+         compatible = "ti,j721e-csi2rx-shim";
+-        dmas = <&main_udmap 0x4940>;
+-        dma-names = "rx0";
++        dmas = <&main_udmap 0x4940>, <&main_udmap 0x4941>;
++        dma-names = "rx0", "rx1";
+         reg = <0x4500000 0x1000>;
+         power-domains = <&k3_pds 26 TI_SCI_PD_EXCLUSIVE>;
+         #address-cells = <1>;
 -- 
 2.34.1
 
