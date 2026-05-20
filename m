@@ -1,34 +1,34 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D363F6C3D;
-	Wed, 20 May 2026 15:18:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A463F4DC2;
+	Wed, 20 May 2026 15:18:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779290298; cv=none; b=OjeUxglVNQvacoYp7XzwzmFPvd/9PWU4I5rzCnY9vHM9K8f1wPLg7OfPEsRWkf8s567lazmEkmkpURWU4EyZ5HpydOszbFEy4qPrunmDcsFVRn9xdUqb4WduEgJTMJcpOtHacj3ci6V2Y4fV8Nm2lXdrSXU7Te5iG/HkhPXt9xk=
+	t=1779290301; cv=none; b=XX2fjo4sjE2PbdTYgCeun2xgBQtgQWB82cLucJyTXmJ1IaWX8GjHf4Wd58hpLk+BV2av9MgckCS97DMm3lXWQEhmOGM/N5P5FosEkcl3zNRIzl55mFMFNZsZXe2e8DwFKp6QTBdXWrhW4PZ5j0gyGbKBbqqWZxbJxjpdW3R1NpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779290298; c=relaxed/simple;
-	bh=EY0BvrTfxRU9NobHmDD0g/YssHb3Dywa8XdSb4/xI9U=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=r8GkpJdBp1qqdxVcJDM0mVTZDVA9kiahKdCvk+CAK+aUFshdoiHj9iFSbXwNQmIbNSgaVqF+5kplfaxixzNnS+rks1qaINTeC2cljOGbAfLJV8+56ODb0r7/dYvVaq99Y5N6/7QcFxkHkhtjTrAXYZbf3iRYsbphjPZAm1eaTF8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ou5uPaKM; arc=none smtp.client-ip=213.167.242.64
+	s=arc-20240116; t=1779290301; c=relaxed/simple;
+	bh=guUWYLFN67B9mhuvYOcx9LkAqALRrgfRZbMTdDdzeuA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=s7WIfB0yI6VHQqBIgJr7Enq4Y0kJ9e6L6OnQaO4K3S7WQnvZNcR4292tFJgAiXbmfttEWV/gdNSL10NSg2BiL+EQz12rDDMBmATsY1w4EzUa7toQzgM26oQvK8j7RGjaXX9hvKZ50B84WhXBuXrJ0MeMlpOw9jXKVJfU0r2JMkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=XcYpuKFa; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ou5uPaKM"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="XcYpuKFa"
 Received: from mail.ideasonboard.com (unknown [IPv6:2a01:cb1d:8f2:800:ad48:920a:da6f:a034])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 25D05E9C;
-	Wed, 20 May 2026 17:18:01 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 76C99104A;
+	Wed, 20 May 2026 17:18:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1779290281;
-	bh=EY0BvrTfxRU9NobHmDD0g/YssHb3Dywa8XdSb4/xI9U=;
-	h=From:Subject:Date:To:Cc:From;
-	b=ou5uPaKMr0jVBZ/TatiTQsMQXWlQrTUWBfmMdcneO/3e/RH+kmTqCv4gEKBnADocE
-	 2YLhy2TAI1Uekhu9KL6+/02QcE089A6tM/H0PbCHuxCCb5gLg7joNHezigpli4nKWL
-	 TRXOVnbLvuXZTTODuVoHp1wZ74bZl4plwoGlY3t8=
+	s=mail; t=1779290284;
+	bh=guUWYLFN67B9mhuvYOcx9LkAqALRrgfRZbMTdDdzeuA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=XcYpuKFaEOl3x2JZXqcPgtQwBujG3+12mQftY9FL6Sx2wWcUSFxSebDEhl0qJF0FD
+	 Y6le3V6NkxzXGoPhZKvp6ItlHTwEP/RLtgGSmny1FxnXUwnQrRe9bmWt8keqClsS3K
+	 Pql4Za8UvO3vAJJjxKk7EpS85/Pfh1HJF+F6AO24=
 From: Jai Luthra <jai.luthra@ideasonboard.com>
-Subject: [PATCH v3 0/2] media: Add bindings and driver for Sony IMX678
-Date: Wed, 20 May 2026 17:17:24 +0200
-Message-Id: <20260520-imx678-v3-0-8b5f9676486e@ideasonboard.com>
+Date: Wed, 20 May 2026 17:17:25 +0200
+Subject: [PATCH v3 1/2] dt-bindings: media: i2c: Add Sony IMX678
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -37,12 +37,9 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Py04DMQxFf2WUNUFxXjPTFf+BWDiJQ7OYSUmGU
- VHVf8dtJYQEy3vtc2RfRKdWqIvDcBGN9tJLXTmYp0HEI67vJEviLLTSXjkwsixnP07SRUCiOUK
- KWfDyqVEu57vo9Y3zsfSttq+7d4db+0exg1TSqBzdbChNGV9KIux1DRVbeo51ETfTrn/T/ofWT
- NvJWYweks/hH/r6OKzRxyc/tj2uEwE7SZ4vZTsM2tlsZ28sEXgcDcBok0YyNkSnQnLZOuKaZdd
- vrGC78y0BAAA=
-X-Change-ID: 20260513-imx678-5c1aee9c1dcf
+Message-Id: <20260520-imx678-v3-1-8b5f9676486e@ideasonboard.com>
+References: <20260520-imx678-v3-0-8b5f9676486e@ideasonboard.com>
+In-Reply-To: <20260520-imx678-v3-0-8b5f9676486e@ideasonboard.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
@@ -55,92 +52,199 @@ Cc: Lachlan Michael <Lachlan.Michael@sony.com>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Jai Luthra <jai.luthra@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3127;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5080;
  i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
- bh=EY0BvrTfxRU9NobHmDD0g/YssHb3Dywa8XdSb4/xI9U=;
- b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqDdCnucBzfzlJUeBqWOyA3Jc3ATOXm/I9Gt6SZ
- eNllYUe7OaJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCag3QpwAKCRBD3pH5JJpx
- RamUD/9zr9+iL6juuUhBvab8yQsAJOu+JppIMW6Breo+RrHwukp96OUqXfdL358R2e1yM5/i8Nq
- QhHzRcUwz8MOmpms7UvOeDyEpFAvk89DSWwF+wJzpdTWSiCq8DMMntqgUg4YmLCxOBmqpXWMSpM
- 8buVEI4h8R6GhOPpY5vsxakt39jvgcIEMvPGdfJRkX40LQp6HE2bmJK2m/CY7IJUC4SeJ4XsuKh
- 4EzLrUG0dkrcDmfGTLQmN04tu/TCDa1ZN4uAQouWNfSX9YKWbc/9lmE5D3vP7ZwY9uysFeHWnuZ
- kBCM6G1k1mcOPt0LLEsGCK3VfQbCtHQ92nx0uxzzkmHRqSbZ4Nlvx5L86Nw3PbvKmViC542eckP
- D2GhZpODRtvRRvSG9CfBlnpzqKdr7qSUCYD11Fv1E/hlmu8i22RiyzClEWjK47f3WiG9Hcv6uiN
- R8Ri3lI2aBFq+8Ta7lGpTfXSOocC81L5kW1q6YnExX1R1I05inPzoFJtwchq7OVe2X30M9wv2Zi
- JP+5PmVV+6fQ8InB76eXlVvti7QzjgTFDVo9b0Lz1qXP7dd2swmIv7hJAb3+TT7UaIHrG0HfMvX
- Ie30lMeSxgbFK11DO8dUAd/si+sCxSYOtmBGi+TtpC423pel3k98m4AdXVcz9BSSgHROkNsAq01
- WpeuUoZ82UUz2/A==
+ bh=guUWYLFN67B9mhuvYOcx9LkAqALRrgfRZbMTdDdzeuA=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqDdCxOqkMQciIjjKSvqDlJrE9lDtdYhfc0eZgW
+ rjaEJ4WXTeJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCag3QsQAKCRBD3pH5JJpx
+ RY4zD/9QAtBamKaa3gM7O9iN0Zb+mSwqTk9GF4VrqupuRXr85zSrOFTHwRyqF+DJp7FsRfd4Fws
+ H5qxGeRv440BdJrYcfIi0C2iQ/clJdB3sF+RE8FFzztWCuEkL5Q1QCS28GvGfDNDCDyvvpdPWYX
+ /FDbFcp6FTCnJUHjgytizMQjQ/hmMR8EhRh1u5TafmIXMtNv1tspsVcfQLfi4nQ/EKMprXB9lAU
+ JijXZ3K3ZsT3VJsLVAWjSFJq6QtXlQb/bovkhYsEQcThmzEkoTvKQ/7S5WMDP3IXQggAQ/qbi0j
+ 2BYqrfqZWiPQ3w+Ccd6tCZxh2poq0FMgjrD+2GWv12N+XuTJl7vXMnXdGmUE3pRL0f1BwEi7GU/
+ hFwQsqO2P6tgxl8LQvUI/mFnh5825Bgm044LlefN+h+qjfdW02akYb7e7WMKOCE2KCDQhwdghOv
+ 8kLdCKSD6Xhoflu0qXCtrPBzHC+gk8raUzts8bC8UHPm+7r+1LSg8mTDq/nIU0XBUr93GK7tiUp
+ nVJV0Q4nrEWoNBUN5zIlSSOnnU2HFlKn1CZKVMMxtPCVt9JUuoVV0MPwwjZLF+RSU5GgPqH3Gar
+ Qt31FFYDKOGPy0ETa3BHBXMBqihEmZGRHQGrwGUjd4ECfqD0R3fLekAMzJ0Cj/7/Io6blY75ixk
+ hnBacl4gV0eSqSA==
 X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
  fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-Hi,
-
-This series adds dt-bindings and a V4L2 driver for Sony IMX678 camera
-sensor.
-
-More details about the sensor and features supported in the driver are
-in the relevant patches.
+Sony IMX678 is an 8.4 Megapixel (3856x2180) CMOS sensor, that can output
+pixels over MIPI CSI-2 bus. Add bindings for it.
 
 Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
 Changes in v3:
 - Use `reset-gpios`, mentioning the sensor XCLR acts like RESETN, instead of `xclr-gpios`
-- Update minimum crop width and height according to the PIX_[HV]WIDTH
-  register limits
-- Expect the user to first select a crop rectangle using S_SELECTION,
-  and then choose one of two sizes (non-binned or binned) in S_FMT. This
-  matches what IMX296 already does, simplifying the selection logic
-  quite a bit.
-- Enumerate only the frame sizes possible for the current crop rectangle
-  in ENUM_FRAMESIZES
-- Link to v2: https://lore.kernel.org/r/20260516-imx678-v2-0-4854ac61d6fb@ideasonboard.com
-
 Changes in v2:
-PATCH 1:
-    - Add per-variant compatibles for mono and colour, alongside the
-      generic fallback, so the variant can be declared without powering
-      the sensor at probe.
-    - Rename reset GPIO to xclr as that's what it's called in the
-      datasheet, and how it behaves.
-    - Reference the generic video interface devices schema and switch to
-      unevaluatedProperties.
-    - Drop "link-frequencies: true"
-    - Drop the T: entry for media.git from MAINTAINERS.
-PATCH 2:
-    - Treat the pixel rate as a fixed sensor property rather than deriving
-      it from link frequency and bit depth. Removes the iclk<->pixel
-      conversion helpers, instead using a fixed 8x ratio.
-    - Express HBLANK in pixels with a step of 8.
-    - Make VBLANK step = 2 and rewrite the exposure register when VBLANK
-      changes, so the effective exposure does not silently shift.
-    - Fix power sequencing: hold the sensor in reset until power_on, add the
-      missing post-reset delay, and disable the clock before the regulators
-      on power_off.
-    - Drop the "common regs written" flag, program them in power_on.
-    - Add variant match data and cross-check the register-reported type
-      against DT; rename detect() to identify_model().
-    - Use v4l2_link_freq_to_bitmap() and expose the full link frequency menu
-      with the configured one as the selected RO option.
-    - Drop unused includes and defines, misc cleanups
-    - Kconfig: depend on OF_GPIO
-- Link to v1: https://lore.kernel.org/r/20260513-imx678-v1-0-30fc593ed8fa@ideasonboard.com
-
+- Add per-variant compatibles for mono and colour, alongside the
+  generic fallback, so the variant can be declared without powering
+  the sensor at probe.
+- Rename reset GPIO to xclr as that's what it's called in the
+  datasheet, and how it behaves
+- Reference the generic video interface devices schema and switch to
+  unevaluatedProperties.
+- Drop "link-frequencies: true"
+- Drop the T: entry for media.git from MAINTAINERS.
 ---
-Jai Luthra (2):
-      dt-bindings: media: i2c: Add Sony IMX678
-      media: i2c: imx678: Add driver for Sony IMX678
+ .../devicetree/bindings/media/i2c/sony,imx678.yaml | 129 +++++++++++++++++++++
+ MAINTAINERS                                        |   6 +
+ 2 files changed, 135 insertions(+)
 
- .../devicetree/bindings/media/i2c/sony,imx678.yaml |  129 ++
- MAINTAINERS                                        |    7 +
- drivers/media/i2c/Kconfig                          |   11 +
- drivers/media/i2c/Makefile                         |    1 +
- drivers/media/i2c/imx678.c                         | 1599 ++++++++++++++++++++
- 5 files changed, 1747 insertions(+)
----
-base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
-change-id: 20260513-imx678-5c1aee9c1dcf
+diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+new file mode 100644
+index 000000000000..d85745ddbefd
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+@@ -0,0 +1,129 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright (C) 2026 Ideas on Board Oy
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Sony IMX678 Sensor
++
++maintainers:
++  - Jai Luthra <jai.luthra@ideasonboard.com>
++
++description:
++  Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid-state
++  image sensor with a square pixel array and 8.40M (3856x2180) effective pixels.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    enum:
++      - sony,imx678
++      - sony,imx678-aamr
++      - sony,imx678-aaqr
++    description:
++      The IMX678 sensor exists in a colour variant (IMX678-AAQR) and a mono
++      variant (IMX678-AAMR). An internal register can also help detect this at
++      runtime.
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: |
++      Input clock (INCK). Only the rates listed in the datasheet are supported:
++      13.5, 18, 24, 27, 36, 37.125, 72, and 74.25 MHz.
++    maxItems: 1
++
++  avdd-supply:
++    description: Analog power supply (3.3V)
++
++  ovdd-supply:
++    description: Interface power supply (1.8V)
++
++  dvdd-supply:
++    description: Digital power supply (1.2V)
++
++  reset-gpios:
++    description: Sensor RESETN (XCLR) GPIO
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            oneOf:
++              - items:
++                  - const: 1
++                  - const: 2
++              - items:
++                  - const: 1
++                  - const: 2
++                  - const: 3
++                  - const: 4
++              - items:
++                  - const: 1
++                  - const: 2
++                  - const: 3
++                  - const: 4
++                  - const: 5
++                  - const: 6
++                  - const: 7
++                  - const: 8
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++    required:
++      - endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - avdd-supply
++  - ovdd-supply
++  - dvdd-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camera@1a {
++            compatible = "sony,imx678";
++            reg = <0x1a>;
++            clocks = <&imx678_clk>;
++
++            avdd-supply = <&camera_avdd_3v3>;
++            ovdd-supply = <&camera_ovdd_1v8>;
++            dvdd-supply = <&camera_dvdd_1v2>;
++
++            reset-gpios = <&gpio 0 GPIO_ACTIVE_LOW>;
++
++            port {
++                imx678: endpoint {
++                    remote-endpoint = <&cam>;
++                    data-lanes = <1 2 3 4>;
++                    link-frequencies = /bits/ 64 <720000000>;
++                };
++            };
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 2fb1c75afd16..6b368345a771 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24911,6 +24911,12 @@ T:	git git://linuxtv.org/media.git
+ F:	Documentation/devicetree/bindings/media/i2c/sony,imx415.yaml
+ F:	drivers/media/i2c/imx415.c
+ 
++SONY IMX678 SENSOR DRIVER
++M:	Jai Luthra <jai.luthra@ideasonboard.com>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
++
+ SONY MEMORYSTICK SUBSYSTEM
+ M:	Maxim Levitsky <maximlevitsky@gmail.com>
+ M:	Alex Dubov <oakad@yahoo.com>
 
-Best regards,
 -- 
-Jai Luthra <jai.luthra@ideasonboard.com>
+2.54.0
 
