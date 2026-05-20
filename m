@@ -1,27 +1,26 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 081D43D9024
-	for <linux-media@vger.kernel.org>; Wed, 20 May 2026 22:45:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57FEF402BB5
+	for <linux-media@vger.kernel.org>; Wed, 20 May 2026 22:45:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779317121; cv=none; b=OdxlkKDekcdtT8V3h4MFQAfzxbN8BWGDDCA80VuzhZvtg+f5vlboXuom1Akw03Vz4QlfXia/jmBv4Tu2ev1UGfLDmRf8tnlZF1nDvBx8HzPtSuSjP9sOusfW8pMQ8UmsVfh88yMlOA8fNqH1++vqBK7tfZa7CIlBOd3BzLqd3C4=
+	t=1779317123; cv=none; b=TJBiXZevvbPUZKZX7ta0g+JGE8s/22p5j8iZiav7i7De1bzX2tCBdDL6U8KX5LRazBIOeEFj/l07EXlyt6gctkHNZmWtXV6sgayWaUIpFqKEX7LkOYR+DYlkV7BzGWWBWnyLWnfwVKW2eApnCQfJH0t5WRZqQb6g5Ny1hKNxp2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779317121; c=relaxed/simple;
-	bh=eO7+aNjmkKQ3/PB3NA+gWDAvZ7Wz4ECU6FZ6HGGgFaU=;
+	s=arc-20240116; t=1779317123; c=relaxed/simple;
+	bh=DDA58GZlnGFgFbP2Qrg1HaaE/8SHkMHpZ0JRikDK6Tw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BdPTRKHSpcxyaIUSvGhrWP8aZsDF5G936+27hRrg0iP4h9o8v2Mxuadx1/wfjStRDyN9U4u5r2wMlpxNsa/VGl7AL+jsNo3uK0diaEPKq/Vpq30SGLPzi08eoXgRQeNl4tEv1rT4AlcYPF45u3Xmwcgg1nLsIMkzU0+agbr615A=
+	 In-Reply-To:To:Cc; b=fCWYR++VcKcv1Mrw2l/qGAoJCMRFLkUAG5hS/0cK5v834O3m9vxy0p34n6LwDy5C4sAJmwBsdNcHpjde4DmhcrvM1G3DuE9l4eNkAeEISxSW+QS1xTlfh6svy2GRrhXnE5U1v5uUWckqkTJz3eTr6StGhut9Aatq3EXW4pJMNRA=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wPpev-0005vy-5D; Thu, 21 May 2026 00:45:01 +0200
+	id 1wPpeq-0005vy-0e; Thu, 21 May 2026 00:44:56 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Thu, 21 May 2026 00:44:28 +0200
-Subject: [PATCH v7 23/28] media: rockchip: rga: remove stride from
- rga_frame
+Date: Thu, 21 May 2026 00:44:25 +0200
+Subject: [PATCH v7 20/28] media: rockchip: rga: support external iommus
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -30,7 +29,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260521-spu-rga3-v7-23-3f33e8c7145f@pengutronix.de>
+Message-Id: <20260521-spu-rga3-v7-20-3f33e8c7145f@pengutronix.de>
 References: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
 In-Reply-To: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -52,236 +51,177 @@ X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Remove the stride variable from rga_frame. Despite the comment it
-didn't involve any calculation and is just a copy of the
-plane_fmt[0].bytesperline value. Therefore avoid this struct member
-and use the bytesperline value directly in the places where it is
-required.
+In preparation for the RGA3 add support for external iommus. This is a
+transition step to just disable the RGA2 specific mmu table setup code.
 
-Also drop the dependency on the depth format member, which was only
-used to calculate the stride of the default format. This is already done
-by the v4l2_fill_pixfmt_mp_aligned helper and used as stride in try_fmt.
-Therefore using it's value also for the default format stride is just
-more consistent.
+Currently a simple rga_hw struct field is used to set the internal iommu.
+But to handle the case of more sophisticated detection mechanisms
+(e.g. check for an iommu property in the device tree), it is abstracted
+by an inline function.
 
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
----
- drivers/media/platform/rockchip/rga/rga-hw.c | 36 ++++++++++------------------
- drivers/media/platform/rockchip/rga/rga.c    |  5 +---
- drivers/media/platform/rockchip/rga/rga.h    |  4 ----
- 3 files changed, 13 insertions(+), 32 deletions(-)
 
+---
+Changes in v6:
+- Also select VIDEOBUF2_DMA_CONTIG in Kconfig, Flagged by sashiko:
+  https://sashiko.dev/#/patchset/20260325-spu-rga3-v4-0-e90ec1c61354%40pengutronix.de?part=10
+---
+ drivers/media/platform/rockchip/rga/Kconfig   |  1 +
+ drivers/media/platform/rockchip/rga/rga-buf.c | 31 ++++++++++++++++++---------
+ drivers/media/platform/rockchip/rga/rga-hw.c  |  1 +
+ drivers/media/platform/rockchip/rga/rga.c     | 11 ++++++++--
+ drivers/media/platform/rockchip/rga/rga.h     |  6 ++++++
+ 5 files changed, 38 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/media/platform/rockchip/rga/Kconfig b/drivers/media/platform/rockchip/rga/Kconfig
+index 727a0f6ea4664..846e555829f38 100644
+--- a/drivers/media/platform/rockchip/rga/Kconfig
++++ b/drivers/media/platform/rockchip/rga/Kconfig
+@@ -3,6 +3,7 @@ config VIDEO_ROCKCHIP_RGA
+ 	depends on V4L_MEM2MEM_DRIVERS
+ 	depends on VIDEO_DEV
+ 	depends on ARCH_ROCKCHIP || COMPILE_TEST
++	select VIDEOBUF2_DMA_CONTIG
+ 	select VIDEOBUF2_DMA_SG
+ 	select V4L2_MEM2MEM_DEV
+ 	help
+diff --git a/drivers/media/platform/rockchip/rga/rga-buf.c b/drivers/media/platform/rockchip/rga/rga-buf.c
+index ab9554c1c4cd9..cd6904d5fe5a6 100644
+--- a/drivers/media/platform/rockchip/rga/rga-buf.c
++++ b/drivers/media/platform/rockchip/rga/rga-buf.c
+@@ -12,6 +12,7 @@
+ #include <media/v4l2-ioctl.h>
+ #include <media/v4l2-mem2mem.h>
+ #include <media/videobuf2-dma-sg.h>
++#include <media/videobuf2-dma-contig.h>
+ #include <media/videobuf2-v4l2.h>
+ 
+ #include "rga.h"
+@@ -82,6 +83,9 @@ static int rga_buf_init(struct vb2_buffer *vb)
+ 	if (IS_ERR(f))
+ 		return PTR_ERR(f);
+ 
++	if (!rga_has_internal_iommu(rga))
++		return 0;
++
+ 	n_desc = DIV_ROUND_UP(f->size, PAGE_SIZE);
+ 
+ 	rbuf->n_desc = n_desc;
+@@ -136,17 +140,21 @@ static int rga_buf_prepare(struct vb2_buffer *vb)
+ 	for (i = 0; i < vb->num_planes; i++) {
+ 		vb2_set_plane_payload(vb, i, f->pix.plane_fmt[i].sizeimage);
+ 
+-		/* Create local MMU table for RGA */
+-		n_desc = fill_descriptors(&rbuf->dma_desc[curr_desc],
+-					  rbuf->n_desc - curr_desc,
+-					  vb2_dma_sg_plane_desc(vb, i));
+-		if (n_desc < 0) {
+-			v4l2_err(&ctx->rga->v4l2_dev,
+-				 "Failed to map video buffer to RGA\n");
+-			return n_desc;
++		if (rga_has_internal_iommu(ctx->rga)) {
++			/* Create local MMU table for RGA */
++			n_desc = fill_descriptors(&rbuf->dma_desc[curr_desc],
++						  rbuf->n_desc - curr_desc,
++						  vb2_dma_sg_plane_desc(vb, i));
++			if (n_desc < 0) {
++				v4l2_err(&ctx->rga->v4l2_dev,
++					 "Failed to map video buffer to RGA\n");
++				return n_desc;
++			}
++			dma_addrs[i] = curr_desc << PAGE_SHIFT;
++			curr_desc += n_desc;
++		} else {
++			dma_addrs[i] = vb2_dma_contig_plane_dma_addr(vb, i);
+ 		}
+-		dma_addrs[i] = curr_desc << PAGE_SHIFT;
+-		curr_desc += n_desc;
+ 	}
+ 
+ 	/* Fill the remaining planes */
+@@ -176,6 +184,9 @@ static void rga_buf_cleanup(struct vb2_buffer *vb)
+ 	struct rga_ctx *ctx = vb2_get_drv_priv(vb->vb2_queue);
+ 	struct rockchip_rga *rga = ctx->rga;
+ 
++	if (!rga_has_internal_iommu(rga))
++		return;
++
+ 	dma_free_coherent(rga->dev, rbuf->n_desc * sizeof(*rbuf->dma_desc),
+ 			  rbuf->dma_desc, rbuf->dma_desc_pa);
+ }
 diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
-index 73584706a47e2..fac3975e2d0cd 100644
+index 99cf57d5ba89d..73584706a47e2 100644
 --- a/drivers/media/platform/rockchip/rga/rga-hw.c
 +++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-@@ -44,7 +44,7 @@ rga_get_corner_addrs(struct rga_frame *frm, struct rga_addrs *addrs,
- 	struct rga_addrs *lt, *lb, *rt, *rb;
- 	const struct v4l2_format_info *format_info;
- 	unsigned int x_div = 0,
--		     y_div = 0, uv_stride = 0, pixel_width = 0;
-+		     y_div = 0, y_stride = 0, uv_stride = 0, pixel_width = 0;
+@@ -577,6 +577,7 @@ static struct rga_fmt formats[] = {
  
- 	lt = &corner_addrs.left_top;
- 	lb = &corner_addrs.left_bottom;
-@@ -61,14 +61,15 @@ rga_get_corner_addrs(struct rga_frame *frm, struct rga_addrs *addrs,
- 	else
- 		x_div = 1;
- 	y_div = format_info->vdiv;
--	uv_stride = frm->stride / x_div;
--	pixel_width = frm->stride / frm->pix.width;
-+	y_stride = frm->pix.plane_fmt[0].bytesperline;
-+	uv_stride = y_stride / x_div;
-+	pixel_width = y_stride / frm->pix.width;
- 
--	lt->y_addr = addrs->y_addr + y * frm->stride + x * pixel_width;
-+	lt->y_addr = addrs->y_addr + y * y_stride + x * pixel_width;
- 	lt->u_addr = addrs->u_addr + (y / y_div) * uv_stride + x / x_div;
- 	lt->v_addr = addrs->v_addr + (y / y_div) * uv_stride + x / x_div;
- 
--	lb->y_addr = lt->y_addr + (h - 1) * frm->stride;
-+	lb->y_addr = lt->y_addr + (h - 1) * y_stride;
- 	lb->u_addr = lt->u_addr + (h / y_div - 1) * uv_stride;
- 	lb->v_addr = lt->v_addr + (h / y_div - 1) * uv_stride;
- 
-@@ -169,6 +170,7 @@ static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
- 	union rga_src_act_info src_act_info;
- 	union rga_dst_vir_info dst_vir_info;
- 	union rga_dst_act_info dst_act_info;
-+	u32 in_stride, out_stride;
- 
- 	src_h = ctx->in.crop.height;
- 	src_w = ctx->in.crop.width;
-@@ -291,13 +293,15 @@ static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
- 	 * Calculate the framebuffer virtual strides and active size,
- 	 * note that the step of vir_stride / vir_width is 4 byte words
- 	 */
--	src_vir_info.data.vir_stride = ctx->in.stride >> 2;
--	src_vir_info.data.vir_width = ctx->in.stride >> 2;
-+	in_stride = ctx->in.pix.plane_fmt[0].bytesperline;
-+	src_vir_info.data.vir_stride = in_stride >> 2;
-+	src_vir_info.data.vir_width = in_stride >> 2;
- 
- 	src_act_info.data.act_height = src_h - 1;
- 	src_act_info.data.act_width = src_w - 1;
- 
--	dst_vir_info.data.vir_stride = ctx->out.stride >> 2;
-+	out_stride = ctx->out.pix.plane_fmt[0].bytesperline;
-+	dst_vir_info.data.vir_stride = out_stride >> 2;
- 	dst_act_info.data.act_height = dst_h - 1;
- 	dst_act_info.data.act_width = dst_w - 1;
- 
-@@ -481,97 +485,81 @@ static struct rga_fmt formats[] = {
- 		.fourcc = V4L2_PIX_FMT_ARGB32,
- 		.color_swap = RGA_COLOR_ALPHA_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR8888,
--		.depth = 32,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_ABGR32,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR8888,
--		.depth = 32,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_XBGR32,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_XBGR8888,
--		.depth = 32,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_RGB24,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_RGB888,
--		.depth = 24,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_BGR24,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_RGB888,
--		.depth = 24,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_ARGB444,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR4444,
--		.depth = 16,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_ARGB555,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR1555,
--		.depth = 16,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_RGB565,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_BGR565,
--		.depth = 16,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_NV21,
- 		.color_swap = RGA_COLOR_UV_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420SP,
--		.depth = 12,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_NV61,
- 		.color_swap = RGA_COLOR_UV_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV422SP,
--		.depth = 16,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_NV12,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420SP,
--		.depth = 12,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_NV12M,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420SP,
--		.depth = 12,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_NV16,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV422SP,
--		.depth = 16,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_YUV420,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420P,
--		.depth = 12,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_YUV422P,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV422P,
--		.depth = 16,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_YVU420,
- 		.color_swap = RGA_COLOR_UV_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420P,
--		.depth = 12,
- 	},
- };
- 
+ const struct rga_hw rga2_hw = {
+ 	.card_type = "rga2",
++	.has_internal_iommu = true,
+ 	.formats = formats,
+ 	.num_formats = ARRAY_SIZE(formats),
+ 	.cmdbuf_size = RGA_CMDBUF_SIZE,
 diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index e44e81814b7cb..e52d0577b236c 100644
+index 91775b43ff617..e3c99c3f7c5be 100644
 --- a/drivers/media/platform/rockchip/rga/rga.c
 +++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -267,8 +267,6 @@ static int rga_open(struct file *file)
- 		.fmt = &rga->hw->formats[0],
- 	};
+@@ -23,6 +23,7 @@
+ #include <media/v4l2-ioctl.h>
+ #include <media/v4l2-mem2mem.h>
+ #include <media/videobuf2-dma-sg.h>
++#include <media/videobuf2-dma-contig.h>
+ #include <media/videobuf2-v4l2.h>
  
--	def_frame.stride = (def_width * def_frame.fmt->depth) >> 3;
--
- 	ctx = kzalloc_obj(*ctx);
- 	if (!ctx)
- 		return -ENOMEM;
-@@ -481,7 +479,6 @@ static int vidioc_s_fmt(struct file *file, void *priv, struct v4l2_format *f)
- 	if (IS_ERR(frm))
- 		return PTR_ERR(frm);
- 	frm->fmt = rga_fmt_find(rga, pix_fmt->pixelformat);
--	frm->stride = pix_fmt->plane_fmt[0].bytesperline;
- 
- 	/*
- 	 * Copy colorimetry from output to capture as required by the
-@@ -507,7 +504,7 @@ static int vidioc_s_fmt(struct file *file, void *priv, struct v4l2_format *f)
- 		 "[%s] fmt - %p4cc %dx%d (stride %d)\n",
- 		  V4L2_TYPE_IS_OUTPUT(f->type) ? "OUTPUT" : "CAPTURE",
- 		  &frm->fmt->fourcc, pix_fmt->width, pix_fmt->height,
--		  frm->stride);
-+		  pix_fmt->plane_fmt[0].bytesperline);
- 
- 	for (i = 0; i < pix_fmt->num_planes; i++) {
- 		v4l2_dbg(debug, 1, &rga->v4l2_dev,
+ #include "rga.h"
+@@ -98,7 +99,10 @@ queue_init(void *priv, struct vb2_queue *src_vq, struct vb2_queue *dst_vq)
+ 	src_vq->io_modes = VB2_MMAP | VB2_DMABUF;
+ 	src_vq->drv_priv = ctx;
+ 	src_vq->ops = &rga_qops;
+-	src_vq->mem_ops = &vb2_dma_sg_memops;
++	if (rga_has_internal_iommu(ctx->rga))
++		src_vq->mem_ops = &vb2_dma_sg_memops;
++	else
++		src_vq->mem_ops = &vb2_dma_contig_memops;
+ 	src_vq->gfp_flags = __GFP_DMA32;
+ 	src_vq->buf_struct_size = sizeof(struct rga_vb_buffer);
+ 	src_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
+@@ -113,7 +117,10 @@ queue_init(void *priv, struct vb2_queue *src_vq, struct vb2_queue *dst_vq)
+ 	dst_vq->io_modes = VB2_MMAP | VB2_DMABUF;
+ 	dst_vq->drv_priv = ctx;
+ 	dst_vq->ops = &rga_qops;
+-	dst_vq->mem_ops = &vb2_dma_sg_memops;
++	if (rga_has_internal_iommu(ctx->rga))
++		dst_vq->mem_ops = &vb2_dma_sg_memops;
++	else
++		dst_vq->mem_ops = &vb2_dma_contig_memops;
+ 	dst_vq->gfp_flags = __GFP_DMA32;
+ 	dst_vq->buf_struct_size = sizeof(struct rga_vb_buffer);
+ 	dst_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
 diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index d47c6821ce2c9..227ab6c0532c2 100644
+index bf21a57555a59..b180df5c48370 100644
 --- a/drivers/media/platform/rockchip/rga/rga.h
 +++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -19,7 +19,6 @@
+@@ -150,6 +150,7 @@ static inline void rga_mod(struct rockchip_rga *rga, u32 reg, u32 val, u32 mask)
  
- struct rga_fmt {
- 	u32 fourcc;
--	int depth;
- 	u8 color_swap;
- 	u8 hw_format;
- };
-@@ -31,9 +30,6 @@ struct rga_frame {
- 	/* Image format */
- 	struct rga_fmt *fmt;
- 	struct v4l2_pix_format_mplane pix;
--
--	/* Variables that can calculated once and reused */
--	u32 stride;
+ struct rga_hw {
+ 	const char *card_type;
++	bool has_internal_iommu;
+ 	struct rga_fmt *formats;
+ 	u32 num_formats;
+ 	size_t cmdbuf_size;
+@@ -165,6 +166,11 @@ struct rga_hw {
+ 	void (*get_version)(struct rockchip_rga *rga);
  };
  
- struct rga_dma_desc {
++static inline bool rga_has_internal_iommu(const struct rockchip_rga *rga)
++{
++	return rga->hw->has_internal_iommu;
++}
++
+ extern const struct rga_hw rga2_hw;
+ 
+ #endif
 
 -- 
 2.54.0
