@@ -1,332 +1,146 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9733F0ABF
-	for <linux-media@vger.kernel.org>; Wed, 20 May 2026 15:17:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D363F6C3D;
+	Wed, 20 May 2026 15:18:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779290276; cv=none; b=Mn/hnIDZPXg/HJatYx/bCH52htQJoOoaxvAi42eVGP7DsVnbdgJKKOzMrOeglvo939xfWRpTO9A14tPegID9MPZQpwszRZmvT27USiE+84aSAjylrQdXMs9gUixBcRVQYOtqCePsj5StvmcAb43e3oaQEUH/PptIOf1JvCnCfz8=
+	t=1779290298; cv=none; b=OjeUxglVNQvacoYp7XzwzmFPvd/9PWU4I5rzCnY9vHM9K8f1wPLg7OfPEsRWkf8s567lazmEkmkpURWU4EyZ5HpydOszbFEy4qPrunmDcsFVRn9xdUqb4WduEgJTMJcpOtHacj3ci6V2Y4fV8Nm2lXdrSXU7Te5iG/HkhPXt9xk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779290276; c=relaxed/simple;
-	bh=yyYIDlBPbEckI967SkQQlcDoVK3OrtWSzDlW5Mp01jA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ED4gtjUfuPfzHYwmELBDZzgY8prSsDr8pW5IYhjakygRlTeywY1q3XvjC8SZ/zMvMeeYrobQTvCqpb1FWiCo/Jt5svJwb3jFBg5kO+KRYkalllPF5Vm8lATktvXGgkfWWJ2g5fNnCNd+tpzQ8ZgGBrwACDUwAfnmb7L3wqrfW2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UpPgVhH1; arc=none smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779290298; c=relaxed/simple;
+	bh=EY0BvrTfxRU9NobHmDD0g/YssHb3Dywa8XdSb4/xI9U=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=r8GkpJdBp1qqdxVcJDM0mVTZDVA9kiahKdCvk+CAK+aUFshdoiHj9iFSbXwNQmIbNSgaVqF+5kplfaxixzNnS+rks1qaINTeC2cljOGbAfLJV8+56ODb0r7/dYvVaq99Y5N6/7QcFxkHkhtjTrAXYZbf3iRYsbphjPZAm1eaTF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ou5uPaKM; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UpPgVhH1"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5a8e33556c0so6588980e87.0
-        for <linux-media@vger.kernel.org>; Wed, 20 May 2026 08:17:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779290272; x=1779895072; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=K81Nh8nBOwZaTCEqstpBUGuFaakdxNh2S8dsFKzzkkM=;
-        b=UpPgVhH1JBNzF9GzP9W1t9qj2UfXMr9mzuzHMW6NM3rnm4PwBKKqA4WAhWknSNVaER
-         jdp+baQQnhkKA0OQCAr37qcT0DbB2aOLqYkD9VOqiTlylVLqia9KMCxuQ8g9I+fbmnT/
-         Ex/IjVj/mp45YYWAVKdNP6LIedottKbe+ChEBIeRN/6sbqeL93KY9ElX1Py4JOHZAXHB
-         LnUbHfzSgWd2KXKAgGs1PuNvt0a+ioBH1wnh88FSEVA79L/9HscjItx5eiEQKnYd8VsM
-         Ez6F2pUj7Z+gXx1Y33OAhtijZ+R/If0FUtbneLdTlBifQELVP8PJ+kGmxLXYmKCqCJTz
-         qdIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779290272; x=1779895072;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=K81Nh8nBOwZaTCEqstpBUGuFaakdxNh2S8dsFKzzkkM=;
-        b=mzOyaA87LJMgsx9Iwj2yKXRi67zkG1RfHyBBsWr5haXhtG69eEi/N3SU6wSppCFVxT
-         RJIWAuikYnlGeJRE9j9xIp090o7UOWt0ii1u8hHNhcdOTgaPj8clY6PHRXQX40X7SXki
-         DqM8IwyqGa37uraTRQ3iKgdGIrUyeoEHLCEO0w2I/VDP7OavML2WbDbh7L01HIFuH8jb
-         Uogs02bISdbk6k3ZOReTc8C/rskFgm4MXRntU0XcUoZYahLIJcGOfS87mvmGgAkvCR+W
-         /VDv6b9Ik4S9d5e451qLt/5BdUq/iibK54IXMMtgHWbm8kcN6eM1E1nDUIu1uxypjmRa
-         1cDQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8uzN2Po/HwpdKfbItf3ka0X8D0ZPHuWP6ExUrbPQf/H0kv8jYd5i8Q25ljnh2RaKdBDk8GC7kHXczcZw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzUKCHD7BaPR4VsJmw2FAXOgvTpvsbIz3ZcInkOr66J0imx1Soi
-	eFtqGxp+oNaW4aPIa9QaVA4OhChQ/qdzDV8B7Mz7hwOjl/qXLLZjz+Ql
-X-Gm-Gg: Acq92OEyZtiSWHQK0uKCy8Qmh+N/G1/VRyEetqA0SJekUgjAFwX/qesTb6U5/7c8IUg
-	7LhfRaRRtauEFisA6x2gtSMbqa3EMg8esydzR2rOgRJVv9rSjPCCW5qEmBG+rCyjIhqJM+xIf+A
-	BNenPc7IfSMTqCeKde1S+h31WUnKPUcG1LGrvyl03vwzV2+aQjEDTKI6N/4fS42v2dGYyFPeIwW
-	mSSUhdjlrEGcz1OaUafMs/kj8XTtlpPZJvvEKobOREQ39hYuRwiEcEY+fasazguFiZYnt1ZRQO6
-	2VGhXNhC3DUcBDGUzTr4bSO2IZoI7hGigybz6SDK3e7SJe+x34mdHLFK9LPspLgqZsZvFKXFQ1y
-	SPyseahXAwYaC57IP6R91ol6uC+/4aXABOPS24tpT++vkxrMonvxyJLbiiYWyfMLT23Q4nTI/hU
-	VvPFTFCaYb3t3fjI4RYQFgBeVAdQze0fYgXNx2PdEAj5o=
-X-Received: by 2002:ac2:4e01:0:b0:5a4:b02:66b1 with SMTP id 2adb3069b0e04-5aa0de8aa10mr6131035e87.9.1779290271462;
-        Wed, 20 May 2026 08:17:51 -0700 (PDT)
-Received: from localhost ([188.234.148.119])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a90f10c8b2sm5022470e87.17.2026.05.20.08.17.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 May 2026 08:17:50 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH v3 2/2] drm/amdgpu: fix recursive ww_mutex acquire in amdgpu_devcoredump_format
-Date: Wed, 20 May 2026 20:17:40 +0500
-Message-ID: <20260520151741.50575-3-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260520151741.50575-1-mikhail.v.gavrilov@gmail.com>
-References: <20260429143743.50743-1-mikhail.v.gavrilov@gmail.com>
- <20260520151741.50575-1-mikhail.v.gavrilov@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ou5uPaKM"
+Received: from mail.ideasonboard.com (unknown [IPv6:2a01:cb1d:8f2:800:ad48:920a:da6f:a034])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 25D05E9C;
+	Wed, 20 May 2026 17:18:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1779290281;
+	bh=EY0BvrTfxRU9NobHmDD0g/YssHb3Dywa8XdSb4/xI9U=;
+	h=From:Subject:Date:To:Cc:From;
+	b=ou5uPaKMr0jVBZ/TatiTQsMQXWlQrTUWBfmMdcneO/3e/RH+kmTqCv4gEKBnADocE
+	 2YLhy2TAI1Uekhu9KL6+/02QcE089A6tM/H0PbCHuxCCb5gLg7joNHezigpli4nKWL
+	 TRXOVnbLvuXZTTODuVoHp1wZ74bZl4plwoGlY3t8=
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Subject: [PATCH v3 0/2] media: Add bindings and driver for Sony IMX678
+Date: Wed, 20 May 2026 17:17:24 +0200
+Message-Id: <20260520-imx678-v3-0-8b5f9676486e@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Py04DMQxFf2WUNUFxXjPTFf+BWDiJQ7OYSUmGU
+ VHVf8dtJYQEy3vtc2RfRKdWqIvDcBGN9tJLXTmYp0HEI67vJEviLLTSXjkwsixnP07SRUCiOUK
+ KWfDyqVEu57vo9Y3zsfSttq+7d4db+0exg1TSqBzdbChNGV9KIux1DRVbeo51ETfTrn/T/ofWT
+ NvJWYweks/hH/r6OKzRxyc/tj2uEwE7SZ4vZTsM2tlsZ28sEXgcDcBok0YyNkSnQnLZOuKaZdd
+ vrGC78y0BAAA=
+X-Change-ID: 20260513-imx678-5c1aee9c1dcf
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: Lachlan Michael <Lachlan.Michael@sony.com>, 
+ Ryuichi Tadano <Ryuichi.Tadano@sony.com>, 
+ Kengo Hayasaka <Kengo.Hayasaka@sony.com>, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jai Luthra <jai.luthra@ideasonboard.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3127;
+ i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
+ bh=EY0BvrTfxRU9NobHmDD0g/YssHb3Dywa8XdSb4/xI9U=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqDdCnucBzfzlJUeBqWOyA3Jc3ATOXm/I9Gt6SZ
+ eNllYUe7OaJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCag3QpwAKCRBD3pH5JJpx
+ RamUD/9zr9+iL6juuUhBvab8yQsAJOu+JppIMW6Breo+RrHwukp96OUqXfdL358R2e1yM5/i8Nq
+ QhHzRcUwz8MOmpms7UvOeDyEpFAvk89DSWwF+wJzpdTWSiCq8DMMntqgUg4YmLCxOBmqpXWMSpM
+ 8buVEI4h8R6GhOPpY5vsxakt39jvgcIEMvPGdfJRkX40LQp6HE2bmJK2m/CY7IJUC4SeJ4XsuKh
+ 4EzLrUG0dkrcDmfGTLQmN04tu/TCDa1ZN4uAQouWNfSX9YKWbc/9lmE5D3vP7ZwY9uysFeHWnuZ
+ kBCM6G1k1mcOPt0LLEsGCK3VfQbCtHQ92nx0uxzzkmHRqSbZ4Nlvx5L86Nw3PbvKmViC542eckP
+ D2GhZpODRtvRRvSG9CfBlnpzqKdr7qSUCYD11Fv1E/hlmu8i22RiyzClEWjK47f3WiG9Hcv6uiN
+ R8Ri3lI2aBFq+8Ta7lGpTfXSOocC81L5kW1q6YnExX1R1I05inPzoFJtwchq7OVe2X30M9wv2Zi
+ JP+5PmVV+6fQ8InB76eXlVvti7QzjgTFDVo9b0Lz1qXP7dd2swmIv7hJAb3+TT7UaIHrG0HfMvX
+ Ie30lMeSxgbFK11DO8dUAd/si+sCxSYOtmBGi+TtpC423pel3k98m4AdXVcz9BSSgHROkNsAq01
+ WpeuUoZ82UUz2/A==
+X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
+ fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-When dumping IB contents from a hung job, amdgpu_devcoredump_format()
-acquired the VM root PD's reservation via amdgpu_vm_lock_by_pasid() and
-then, for each IB, called amdgpu_bo_reserve() on the BO backing the IB.
-Both reservations are reservation_ww_class_mutex objects and neither
-used a ww_acquire_ctx, which trips lockdep:
+Hi,
 
-  WARNING: possible recursive locking detected
-  --------------------------------------------
-  kworker/u128:0 is trying to acquire lock:
-  ffff88838b16e1f0 (reservation_ww_class_mutex){+.+.}-{4:4},
-    at: amdgpu_devcoredump_format+0x1594/0x23f0 [amdgpu]
+This series adds dt-bindings and a V4L2 driver for Sony IMX678 camera
+sensor.
 
-  but task is already holding lock:
-  ffff8882f82681f0 (reservation_ww_class_mutex){+.+.}-{4:4},
-    at: amdgpu_devcoredump_format+0x1594/0x23f0 [amdgpu]
+More details about the sensor and features supported in the driver are
+in the relevant patches.
 
-   Possible unsafe locking scenario:
-         CPU0
-         ----
-    lock(reservation_ww_class_mutex);
-    lock(reservation_ww_class_mutex);
-
-   *** DEADLOCK ***
-   May be due to missing lock nesting notation
-
-  Workqueue: events_unbound amdgpu_devcoredump_deferred_work [amdgpu]
-  Call Trace:
-   __ww_mutex_lock.constprop.0
-   ww_mutex_lock
-   amdgpu_bo_reserve
-   amdgpu_devcoredump_format+0x1594 [amdgpu]
-   amdgpu_devcoredump_deferred_work+0xea [amdgpu]
-
-The two reservations are on different BOs in the captured trace, so the
-splat is a lockdep-correctness warning, not an observed deadlock. It
-becomes a real self-deadlock whenever the IB BO shares its dma_resv with
-the root PD (the always-valid case, see amdgpu_vm_is_bo_always_valid()):
-amdgpu_bo_reserve(abo) re-acquires the same ww_mutex without a ticket
-and blocks forever.
-
-With amdgpu.gpu_recovery=0 the timeout handler refires every ~2 s and
-each invocation produces this splat, drowning the kernel ring buffer.
-
-Now that amdgpu_vm_lock_by_pasid() takes a drm_exec context, lock the
-root PD and every IB BO together in a single drm_exec ticket.
-DRM_EXEC_IGNORE_DUPLICATES handles IB BOs that share a dma_resv (e.g.
-always-valid BOs, or two IBs backed by the same BO). Every lock is now
-a top-level acquire under one ww_acquire_ctx, so the recursive ww_mutex
-condition is gone, and the per-IB amdgpu_bo_reserve()/amdgpu_bo_unref()
-dance -- including a BO refcount leak on the amdgpu_bo_reserve() failure
-path -- is removed.
-
-Reproducer (~150 LoC libdrm_amdgpu): submit a single GFX IB containing
-PACKET3_INDIRECT_BUFFER chained at GPU VA 0 and wait for the fence. The
-TDR fires within ~10 s and the deferred coredump worker produces the
-splat above on every invocation; with this change applied the splat is
-gone.
-
-Fixes: 7b15fc2d1f1a ("drm/amdgpu: dump job ibs in the devcoredump")
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 103 ++++++++++++------
- 1 file changed, 71 insertions(+), 32 deletions(-)
+Changes in v3:
+- Use `reset-gpios`, mentioning the sensor XCLR acts like RESETN, instead of `xclr-gpios`
+- Update minimum crop width and height according to the PIX_[HV]WIDTH
+  register limits
+- Expect the user to first select a crop rectangle using S_SELECTION,
+  and then choose one of two sizes (non-binned or binned) in S_FMT. This
+  matches what IMX296 already does, simplifying the selection logic
+  quite a bit.
+- Enumerate only the frame sizes possible for the current crop rectangle
+  in ENUM_FRAMESIZES
+- Link to v2: https://lore.kernel.org/r/20260516-imx678-v2-0-4854ac61d6fb@ideasonboard.com
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-index d386bc775d03..a9d8e03fad83 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-@@ -24,6 +24,7 @@
- 
- #include <generated/utsrelease.h>
- #include <linux/devcoredump.h>
-+#include <drm/drm_exec.h>
- #include "amdgpu_dev_coredump.h"
- #include "atom.h"
- 
-@@ -214,13 +215,9 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 	struct drm_printer p;
- 	struct drm_print_iterator iter;
- 	struct amdgpu_vm_fault_info *fault_info;
--	struct amdgpu_bo_va_mapping *mapping;
- 	struct amdgpu_ip_block *ip_block;
- 	struct amdgpu_res_cursor cursor;
--	struct amdgpu_bo *abo, *root;
--	uint64_t va_start, offset;
- 	struct amdgpu_ring *ring;
--	struct amdgpu_vm *vm;
- 	u32 *ib_content;
- 	uint8_t *kptr;
- 	int ver, i, j, r;
-@@ -343,43 +340,84 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 		drm_printf(&p, "VRAM is lost due to GPU reset!\n");
- 
- 	if (coredump->num_ibs) {
--		/* Don't try to lookup the VM or map the BOs when calculating the
--		 * size required to store the devcoredump.
-+		struct amdgpu_bo_va_mapping *mapping;
-+		struct amdgpu_bo *root, *abo;
-+		struct drm_exec exec;
-+		struct amdgpu_vm *vm;
-+		u64 va_start, offset;
-+		bool locked = false;
-+
-+		/*
-+		 * Lock the VM root PD and every IB BO together in a single
-+		 * drm_exec ticket. Reserving the IB BOs one by one while the
-+		 * root PD is held would be a recursive reservation_ww_class_mutex
-+		 * acquire without a ww_acquire_ctx, which trips lockdep and
-+		 * self-deadlocks for IB BOs that share their dma_resv with the
-+		 * root PD (always-valid BOs).
-+		 *
-+		 * Skip locking entirely on the sizing pass: it does not write
-+		 * IB content, so the size estimate doesn't depend on whether
-+		 * the BOs are reachable.
- 		 */
--		if (sizing_pass)
--			vm = NULL;
--		else
--			vm = amdgpu_vm_lock_by_pasid(adev, &root, coredump->pasid);
-+		if (!sizing_pass) {
-+			drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES,
-+				      1 + coredump->num_ibs);
-+			drm_exec_until_all_locked(&exec) {
-+				vm = amdgpu_vm_lock_by_pasid(adev, &root,
-+							     coredump->pasid, &exec);
-+				drm_exec_retry_on_contention(&exec);
-+				if (!vm)
-+					break;
-+
-+				for (int i = 0; i < coredump->num_ibs; i++) {
-+					u64 pfn;
-+
-+					va_start = coredump->ibs[i].gpu_addr &
-+						   AMDGPU_GMC_HOLE_MASK;
-+					pfn = va_start / AMDGPU_GPU_PAGE_SIZE;
-+					mapping = amdgpu_vm_bo_lookup_mapping(vm, pfn);
-+					if (!mapping)
-+						continue;
-+
-+					abo = mapping->bo_va->base.bo;
-+					r = drm_exec_lock_obj(&exec, &abo->tbo.base);
-+					drm_exec_retry_on_contention(&exec);
-+					if (r)
-+						break;
-+				}
-+				if (r)
-+					break;
-+			}
-+			if (vm && !r)
-+				locked = true;
-+			else
-+				drm_exec_fini(&exec);
-+		}
-+
-+		for (int i = 0; i < coredump->num_ibs; i++) {
-+			bool emit_content = sizing_pass;
- 
--		for (int i = 0; i < coredump->num_ibs && (sizing_pass || vm); i++) {
- 			ib_content = kvmalloc_array(coredump->ibs[i].ib_size_dw, 4,
- 						    GFP_KERNEL);
- 			if (!ib_content)
- 				continue;
- 
--			/* vm=NULL can only happen when 'sizing_pass' is true. Skip to the
--			 * drm_printf() calls (ib_content doesn't need to be initialized
--			 * as its content won't be written anywhere).
--			 */
--			if (!vm)
-+			if (!locked)
- 				goto output_ib_content;
- 
- 			va_start = coredump->ibs[i].gpu_addr & AMDGPU_GMC_HOLE_MASK;
- 			mapping = amdgpu_vm_bo_lookup_mapping(vm, va_start / AMDGPU_GPU_PAGE_SIZE);
- 			if (!mapping)
--				goto free_ib_content;
-+				goto output_ib_content;
- 
--			offset = va_start - (mapping->start * AMDGPU_GPU_PAGE_SIZE);
--			abo = amdgpu_bo_ref(mapping->bo_va->base.bo);
--			r = amdgpu_bo_reserve(abo, false);
--			if (r)
--				goto free_ib_content;
-+			abo = mapping->bo_va->base.bo;
-+			offset = va_start - mapping->start * AMDGPU_GPU_PAGE_SIZE;
- 
- 			if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS) {
- 				off = 0;
- 
- 				if (abo->tbo.resource->mem_type != TTM_PL_VRAM)
--					goto unreserve_abo;
-+					goto output_ib_content;
- 
- 				amdgpu_res_first(abo->tbo.resource, offset,
- 						 coredump->ibs[i].ib_size_dw * 4,
-@@ -391,12 +429,13 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 					off += cursor.size;
- 					amdgpu_res_next(&cursor, cursor.size);
- 				}
-+				emit_content = true;
- 			} else {
- 				r = ttm_bo_kmap(&abo->tbo, 0,
- 						PFN_UP(abo->tbo.base.size),
- 						&abo->kmap);
- 				if (r)
--					goto unreserve_abo;
-+					goto output_ib_content;
- 
- 				kptr = amdgpu_bo_kptr(abo);
- 				kptr += offset;
-@@ -404,21 +443,21 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 				       coredump->ibs[i].ib_size_dw * 4);
- 
- 				amdgpu_bo_kunmap(abo);
-+				emit_content = true;
- 			}
- 
- output_ib_content:
- 			drm_printf(&p, "\nIB #%d 0x%llx %d dw\n",
- 				   i, coredump->ibs[i].gpu_addr, coredump->ibs[i].ib_size_dw);
--			for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
--				drm_printf(&p, "0x%08x\n", ib_content[j]);
--unreserve_abo:
--			if (vm)
--				amdgpu_bo_unreserve(abo);
--free_ib_content:
-+			if (emit_content) {
-+				for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
-+					drm_printf(&p, "0x%08x\n", ib_content[j]);
-+			}
- 			kvfree(ib_content);
- 		}
--		if (vm) {
--			amdgpu_bo_unreserve(root);
-+
-+		if (locked) {
-+			drm_exec_fini(&exec);
- 			amdgpu_bo_unref(&root);
- 		}
- 	}
+Changes in v2:
+PATCH 1:
+    - Add per-variant compatibles for mono and colour, alongside the
+      generic fallback, so the variant can be declared without powering
+      the sensor at probe.
+    - Rename reset GPIO to xclr as that's what it's called in the
+      datasheet, and how it behaves.
+    - Reference the generic video interface devices schema and switch to
+      unevaluatedProperties.
+    - Drop "link-frequencies: true"
+    - Drop the T: entry for media.git from MAINTAINERS.
+PATCH 2:
+    - Treat the pixel rate as a fixed sensor property rather than deriving
+      it from link frequency and bit depth. Removes the iclk<->pixel
+      conversion helpers, instead using a fixed 8x ratio.
+    - Express HBLANK in pixels with a step of 8.
+    - Make VBLANK step = 2 and rewrite the exposure register when VBLANK
+      changes, so the effective exposure does not silently shift.
+    - Fix power sequencing: hold the sensor in reset until power_on, add the
+      missing post-reset delay, and disable the clock before the regulators
+      on power_off.
+    - Drop the "common regs written" flag, program them in power_on.
+    - Add variant match data and cross-check the register-reported type
+      against DT; rename detect() to identify_model().
+    - Use v4l2_link_freq_to_bitmap() and expose the full link frequency menu
+      with the configured one as the selected RO option.
+    - Drop unused includes and defines, misc cleanups
+    - Kconfig: depend on OF_GPIO
+- Link to v1: https://lore.kernel.org/r/20260513-imx678-v1-0-30fc593ed8fa@ideasonboard.com
+
+---
+Jai Luthra (2):
+      dt-bindings: media: i2c: Add Sony IMX678
+      media: i2c: imx678: Add driver for Sony IMX678
+
+ .../devicetree/bindings/media/i2c/sony,imx678.yaml |  129 ++
+ MAINTAINERS                                        |    7 +
+ drivers/media/i2c/Kconfig                          |   11 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/imx678.c                         | 1599 ++++++++++++++++++++
+ 5 files changed, 1747 insertions(+)
+---
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+change-id: 20260513-imx678-5c1aee9c1dcf
+
+Best regards,
 -- 
-2.54.0
+Jai Luthra <jai.luthra@ideasonboard.com>
 
