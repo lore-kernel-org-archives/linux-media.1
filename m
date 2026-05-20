@@ -1,27 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30AA13C4545
-	for <linux-media@vger.kernel.org>; Wed, 20 May 2026 22:44:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB563FB7E7
+	for <linux-media@vger.kernel.org>; Wed, 20 May 2026 22:44:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779317097; cv=none; b=K658fM+zN92k6j+CLDZiHDUaTL2/y6b0og8T+zdVtAO3g+3njHP9xyxEFhsP3TheX5YB7uiT0vfTBQbMRvGxOLDU7b0XDg6RnTvoRKv4HeOyhtpUtSkH7Vj76JZLOfcZ+Uje2s+wQoHvjcSj9gDoI030KlJdFQk+T1PZpT0WS7M=
+	t=1779317101; cv=none; b=Ay9e1/kQR5HuezfUMekn49lexYEJkSuVDdxOmDVjIEbuh5uUXIW0SOpTPyrMgcGRC6v5VpK349VccfIMSp7bn4vEAKk7VcscZ5vqPNBT7e1Yzthf+UVC2ezdvDJr8aYObm3YfL56V2lAUWHssRF0raCNd49xeFZigr5Mo1S347A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779317097; c=relaxed/simple;
-	bh=4UALNyh3zvQReRdoyc6YBeCLRcgHWvzWyrXqKVXno8k=;
+	s=arc-20240116; t=1779317101; c=relaxed/simple;
+	bh=Uqg6wmWG6y9fNdlQFRUJKJQX+Ue5TJkuYK51zqkA9SI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jz4nQLmxV+zSOZN8ozs2so9vpJNdErtDJc7+1O5bLB4o0iTX/a+KGdegynZ+B2kWcSgNqSjqjAzXH8FPOwT6CPNx9uhjbWrf/cRQ9dPUpJPxC622RQhN6OVi5pJp+V3LEG6ovTeNZT6E1J2wtg5XKot2boNOO7KXV5RhC5AmvZ0=
+	 In-Reply-To:To:Cc; b=FYzSvf4P+NNEOgjPxIexB4zVjamXOxRKXn3dL9M+NCaQFLcOTGwupkXfWw6sUWcp2KmLz9xbmPnZl0NRoXqustk8lXctMe3rwxAkJubbuapZbUXIAT4y6xMBXb5an/cr3fcUI9x9KqZ/SYlCEAMY1dNq1WbNm9rQ/2xC7pSEIzA=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wPpeW-0005vy-M2; Thu, 21 May 2026 00:44:36 +0200
+	id 1wPpeZ-0005vy-TJ; Thu, 21 May 2026 00:44:39 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Thu, 21 May 2026 00:44:13 +0200
-Subject: [PATCH v7 08/28] media: rockchip: rga: use stride for offset
- calculation
+Date: Thu, 21 May 2026 00:44:15 +0200
+Subject: [PATCH v7 10/28] media: rockchip: rga: announce and sync
+ colorimetry
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -30,7 +30,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260521-spu-rga3-v7-8-3f33e8c7145f@pengutronix.de>
+Message-Id: <20260521-spu-rga3-v7-10-3f33e8c7145f@pengutronix.de>
 References: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
 In-Reply-To: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -52,210 +52,82 @@ X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Use the stride instead of the width for the offset calculation. This
-ensures that the bytesperline value doesn't need to match the width
-value of the image.
-
-Furthermore this patch removes the dependency on the uv_factor property
-and instead reuses the v4l2_format_info to determine the correct
-division factor.
+Announce the capability to adjust the quantization and ycbcr_enc on the
+capture side and check if the SET_CSC flag is set when the colorimetry
+is changed. Furthermore copy the colorimetry from the output to the
+capture side to fix the currently failing v4l2-compliance tests, which
+expect exactly this behavior.
 
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga-buf.c | 14 +++++++++-----
- drivers/media/platform/rockchip/rga/rga.c     | 16 ----------------
- drivers/media/platform/rockchip/rga/rga.h     |  1 -
- 3 files changed, 9 insertions(+), 22 deletions(-)
+ drivers/media/platform/rockchip/rga/rga.c | 37 +++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga-buf.c b/drivers/media/platform/rockchip/rga/rga-buf.c
-index bb575873f2b24..65fc0d5b4aa10 100644
---- a/drivers/media/platform/rockchip/rga/rga-buf.c
-+++ b/drivers/media/platform/rockchip/rga/rga-buf.c
-@@ -14,7 +14,6 @@
- #include <media/videobuf2-dma-sg.h>
- #include <media/videobuf2-v4l2.h>
+diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+index ca8d8a53dc251..8c34f73d69764 100644
+--- a/drivers/media/platform/rockchip/rga/rga.c
++++ b/drivers/media/platform/rockchip/rga/rga.c
+@@ -437,6 +437,15 @@ static int vidioc_enum_fmt(struct file *file, void *priv, struct v4l2_fmtdesc *f
+ 	fmt = &formats[f->index];
+ 	f->pixelformat = fmt->fourcc;
  
--#include "rga-hw.h"
- #include "rga.h"
- 
- static ssize_t fill_descriptors(struct rga_dma_desc *desc, size_t max_desc,
-@@ -95,14 +94,19 @@ static int rga_buf_init(struct vb2_buffer *vb)
++	if (f->type != V4L2_BUF_TYPE_VIDEO_CAPTURE &&
++	    f->type != V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE)
++		return 0;
++
++	/* allow changing the quantization and xfer func for YUV formats */
++	if (v4l2_is_format_yuv(v4l2_format_info(f->pixelformat)))
++		f->flags |= V4L2_FMT_FLAG_CSC_QUANTIZATION |
++			    V4L2_FMT_FLAG_CSC_YCBCR_ENC;
++
  	return 0;
  }
  
--static int get_plane_offset(struct rga_frame *f, int plane)
-+static int get_plane_offset(struct rga_frame *f,
-+			    const struct v4l2_format_info *info,
-+			    int plane)
+@@ -459,8 +468,25 @@ static int vidioc_g_fmt(struct file *file, void *priv, struct v4l2_format *f)
+ static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
  {
-+	u32 stride = f->pix.plane_fmt[0].bytesperline;
+ 	struct v4l2_pix_format_mplane *pix_fmt = &f->fmt.pix_mp;
++	struct rga_ctx *ctx = file_to_rga_ctx(file);
+ 	struct rga_fmt *fmt;
+ 
++	if (V4L2_TYPE_IS_CAPTURE(f->type)) {
++		const struct rga_frame *frm;
 +
- 	if (plane == 0)
- 		return 0;
- 	if (plane == 1)
--		return f->width * f->height;
-+		return stride * f->height;
- 	if (plane == 2)
--		return f->width * f->height + (f->width * f->height / f->fmt->uv_factor);
-+		return stride * f->height +
-+		       (stride * f->height / info->hdiv / info->vdiv);
++		frm = rga_get_frame(ctx, f->type);
++		if (IS_ERR(frm))
++			return PTR_ERR(frm);
++
++		if (!(pix_fmt->flags & V4L2_PIX_FMT_FLAG_SET_CSC)) {
++			pix_fmt->quantization = frm->pix.quantization;
++			pix_fmt->ycbcr_enc = frm->pix.ycbcr_enc;
++		}
++		/* disallow values not announced in vidioc_enum_fmt */
++		pix_fmt->colorspace = frm->pix.colorspace;
++		pix_fmt->xfer_func = frm->pix.xfer_func;
++	}
++
+ 	fmt = rga_fmt_find(pix_fmt->pixelformat);
+ 	if (!fmt)
+ 		fmt = &formats[0];
+@@ -506,6 +532,17 @@ static int vidioc_s_fmt(struct file *file, void *priv, struct v4l2_format *f)
+ 	frm->fmt = rga_fmt_find(pix_fmt->pixelformat);
+ 	frm->stride = pix_fmt->plane_fmt[0].bytesperline;
  
- 	return -EINVAL;
- }
-@@ -148,7 +152,7 @@ static int rga_buf_prepare(struct vb2_buffer *vb)
- 	/* Fill the remaining planes */
- 	info = v4l2_format_info(f->fmt->fourcc);
- 	for (i = info->mem_planes; i < info->comp_planes; i++)
--		offsets[i] = get_plane_offset(f, i);
-+		offsets[i] = get_plane_offset(f, info, i);
- 
- 	rbuf->offset.y_off = offsets[0];
- 	rbuf->offset.u_off = offsets[1];
-diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index 4e710a050cb7c..c07207edffdb6 100644
---- a/drivers/media/platform/rockchip/rga/rga.c
-+++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -190,7 +190,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_ALPHA_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR8888,
- 		.depth = 32,
--		.uv_factor = 1,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -199,7 +198,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR8888,
- 		.depth = 32,
--		.uv_factor = 1,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -208,7 +206,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_XBGR8888,
- 		.depth = 32,
--		.uv_factor = 1,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -217,7 +214,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_RGB888,
- 		.depth = 24,
--		.uv_factor = 1,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -226,7 +222,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_RGB888,
- 		.depth = 24,
--		.uv_factor = 1,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -235,7 +230,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR4444,
- 		.depth = 16,
--		.uv_factor = 1,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -244,7 +238,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR1555,
- 		.depth = 16,
--		.uv_factor = 1,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -253,7 +246,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_BGR565,
- 		.depth = 16,
--		.uv_factor = 1,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -262,7 +254,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_UV_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420SP,
- 		.depth = 12,
--		.uv_factor = 4,
- 		.y_div = 2,
- 		.x_div = 1,
- 	},
-@@ -271,7 +262,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_UV_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV422SP,
- 		.depth = 16,
--		.uv_factor = 2,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -280,7 +270,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420SP,
- 		.depth = 12,
--		.uv_factor = 4,
- 		.y_div = 2,
- 		.x_div = 1,
- 	},
-@@ -289,7 +278,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420SP,
- 		.depth = 12,
--		.uv_factor = 4,
- 		.y_div = 2,
- 		.x_div = 1,
- 	},
-@@ -298,7 +286,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV422SP,
- 		.depth = 16,
--		.uv_factor = 2,
- 		.y_div = 1,
- 		.x_div = 1,
- 	},
-@@ -307,7 +294,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420P,
- 		.depth = 12,
--		.uv_factor = 4,
- 		.y_div = 2,
- 		.x_div = 2,
- 	},
-@@ -316,7 +302,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV422P,
- 		.depth = 16,
--		.uv_factor = 2,
- 		.y_div = 1,
- 		.x_div = 2,
- 	},
-@@ -325,7 +310,6 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_UV_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420P,
- 		.depth = 12,
--		.uv_factor = 4,
- 		.y_div = 2,
- 		.x_div = 2,
- 	},
-diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index 2db10acecb405..477cf5b62bbb2 100644
---- a/drivers/media/platform/rockchip/rga/rga.h
-+++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -17,7 +17,6 @@
- struct rga_fmt {
- 	u32 fourcc;
- 	int depth;
--	u8 uv_factor;
- 	u8 y_div;
- 	u8 x_div;
- 	u8 color_swap;
++	/*
++	 * Copy colorimetry from output to capture as required by the
++	 * v4l2-compliance tests
++	 */
++	if (V4L2_TYPE_IS_OUTPUT(f->type)) {
++		ctx->out.pix.colorspace = pix_fmt->colorspace;
++		ctx->out.pix.ycbcr_enc = pix_fmt->ycbcr_enc;
++		ctx->out.pix.quantization = pix_fmt->quantization;
++		ctx->out.pix.xfer_func = pix_fmt->xfer_func;
++	}
++
+ 	/* Reset crop settings */
+ 	frm->crop.left = 0;
+ 	frm->crop.top = 0;
 
 -- 
 2.54.0
