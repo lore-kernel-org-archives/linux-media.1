@@ -1,27 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1573C198A
-	for <linux-media@vger.kernel.org>; Wed, 20 May 2026 22:44:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCB43D647E
+	for <linux-media@vger.kernel.org>; Wed, 20 May 2026 22:44:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779317085; cv=none; b=tZdNHZv0sbPjAF6A2twP25/s6L/4+fn71eJXuoAHy+ejinuGJYckNojKOpc4YLaZApUd2ZE+NlMVWuv21qNnSvpWE0QYB/LaXQn3PhuWi9NhbtHReeRlUBLWt0h3Q4WvCvd6iOl2phiDk5RLvM7DSwJjBLttGoLqn7fk7Xm6PXY=
+	t=1779317088; cv=none; b=ikOeMB+H+OabJxwoXlWvH9f2OQpiAPEsWHKkMUOlja3wqET300gzdV+vCk/jmEdFg6Bp5RaZ1FzFbm1hgzFA041eNvlGUZy8tp5Z45J+612v29qMho7QVBaf7+z7hYc5H4qkf3sNeJChfyad0KdG4Buh9vrXYW3jPnzfJq7TyZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779317085; c=relaxed/simple;
-	bh=XV5na/CwNMPkBnMXm8sFNOG/A4H4V4uk/vrAeRCZ0tQ=;
+	s=arc-20240116; t=1779317088; c=relaxed/simple;
+	bh=0IhRByV21Q0AjS6ZSY9pdWPWVLGIv7YOL2lNhomYG5g=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eePPHYL+Q243XT47vNKDpx2d0Z7gZbBMuukdGqP7rKA+dm/BgnJwhpXK9L/59lhpdUG1or3qxrN9Z0CbtOeScm7rBZbTmU0dbLE3w/8/9RC+gyL3leur4nEnYczTw1V1y8fSWH2V04ZbO6RB6mSWTbCJYlIZe81K+iSfNMHB/ac=
+	 In-Reply-To:To:Cc; b=Pmi/wC3acsiqtz6DOrcArr96VzgQ1skXuymwnenAZZnvmJ7p9QsLqFXmnyHGEa9onBcDF8BIX0zo0JgPStYZ1zeKY+AUQ7tuLJr/5M++aI9o2YY09NpE1EM+0L+DU2+l9dyodCHbUEjF/3lxQE61U92rUqnFit5RyOXlGQ3P9Bc=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wPpeM-0005vy-Vc; Thu, 21 May 2026 00:44:27 +0200
+	id 1wPpeR-0005vy-Qm; Thu, 21 May 2026 00:44:31 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Thu, 21 May 2026 00:44:07 +0200
-Subject: [PATCH v7 02/28] media: v4l2-common: sort RGB formats in
- v4l2_format_info
+Date: Thu, 21 May 2026 00:44:10 +0200
+Subject: [PATCH v7 05/28] media: v4l2-common: add
+ v4l2_fill_pixfmt_mp_aligned helper
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -30,7 +30,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260521-spu-rga3-v7-2-3f33e8c7145f@pengutronix.de>
+Message-Id: <20260521-spu-rga3-v7-5-3f33e8c7145f@pengutronix.de>
 References: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
 In-Reply-To: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -52,88 +52,175 @@ X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Sort the RGB formats in v4l2_format_info to match the format definitions
-in include/uapi/linux/videodev2.h . Also introduce the same sections to
-partition the list of formats and align the format info in each section.
+Add a v4l2_fill_pixfmt_mp_aligned helper which allows the user to
+specify a custom stride alignment in bytes. This is necessary for
+hardware like the Rockchip RGA3, which requires the stride value to be
+aligned to a 16 bytes boundary.
 
-The alignment of the 1 or 2 bytes RGB formats contains an additional
-space in preparation of adding the missing formats to the list, as for
-V4L2_PIX_FMT_ARGB555X an additional space is necessary.
+The code makes some assumptions about the v4l2 format to simplify the
+calculation. They currently hold for all known v4l2 formats.
+
+v4l2_format_plane_stride uses an unsigned int as argument type to avoid
+the later multiplication from overflowing the u8 value. All other places
+use u8, as no practical use cases for a larger alignment are known at
+the moment.
 
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+
 ---
- drivers/media/v4l2-core/v4l2-common.c | 54 +++++++++++++++++++----------------
- 1 file changed, 30 insertions(+), 24 deletions(-)
+Changes in v7:
+- Also adjust alignment when C plane is larger than the Y plane
+  Flagged by Sashiko:
+  https://sashiko.dev/#/patchset/20260515-spu-rga3-v6-0-e547152eb9c9%40pengutronix.de?part=5
+
+Changes in v6:
+- Fixed alignment multiplication of 0 for NV24 - flagged by Sashiko:
+  https://sashiko.dev/#/patchset/20260428-spu-rga3-v5-0-eb7f5d019d86%40pengutronix.de?part=5
+- Changed v4l2_format_plane_stride alignment parameter type to
+  avoid overflow for 64/128 byte alignment by multiplication.
+  Flagged by Sashiko URL above.
+---
+ drivers/media/v4l2-core/v4l2-common.c | 58 +++++++++++++++++++++++++++--------
+ include/media/v4l2-common.h           |  4 +++
+ 2 files changed, 50 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
-index bceafc4e92c81..f6cb7e14f2236 100644
+index 3cc8b04e1ea63..b771ed9b659b0 100644
 --- a/drivers/media/v4l2-core/v4l2-common.c
 +++ b/drivers/media/v4l2-core/v4l2-common.c
-@@ -245,33 +245,39 @@ EXPORT_SYMBOL_GPL(v4l2_s_parm_cap);
- const struct v4l2_format_info *v4l2_format_info(u32 format)
- {
- 	static const struct v4l2_format_info formats[] = {
--		/* RGB formats */
--		{ .format = V4L2_PIX_FMT_BGR24,   .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 3, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_RGB24,   .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 3, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_HSV24,   .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 3, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_BGR32,   .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_XBGR32,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_BGRX32,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_RGB32,   .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_XRGB32,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_RGBX32,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_HSV32,   .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_ARGB32,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_RGBA32,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_ABGR32,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_BGRA32,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_RGB565,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_RGB565X, .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_RGB555,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_BGR666,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_BGR48_12, .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 6, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_BGR48, .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 6, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_RGB48, .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 6, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_ABGR64_12, .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 8, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
--		{ .format = V4L2_PIX_FMT_RGBA1010102, .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		/* RGB formats (1 or 2 bytes per pixel) */
-+		{ .format = V4L2_PIX_FMT_RGB555,   .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_RGB565,   .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_RGB565X,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+
-+		/* RGB formats (3 or 4 bytes per pixel) */
-+		{ .format = V4L2_PIX_FMT_BGR666,      .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_BGR24,       .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 3, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_RGB24,       .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 3, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_BGR32,       .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_ABGR32,      .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_XBGR32,      .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_BGRA32,      .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_BGRX32,      .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_RGB32,       .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_RGBA32,      .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_RGBX32,      .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_ARGB32,      .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_XRGB32,      .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
- 		{ .format = V4L2_PIX_FMT_RGBX1010102, .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_RGBA1010102, .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
- 		{ .format = V4L2_PIX_FMT_ARGB2101010, .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
+@@ -432,14 +432,35 @@ static inline unsigned int v4l2_format_block_height(const struct v4l2_format_inf
+ }
  
-+		/* RGB formats (6 or 8 bytes per pixel) */
-+		{ .format = V4L2_PIX_FMT_BGR48_12,  .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 6, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_BGR48,     .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 6, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_RGB48,     .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 6, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_ABGR64_12, .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 8, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
+ static inline unsigned int v4l2_format_plane_stride(const struct v4l2_format_info *info, int plane,
+-						    unsigned int width)
++						    unsigned int width, unsigned int byte_alignment)
+ {
+ 	unsigned int hdiv = plane ? info->hdiv : 1;
+ 	unsigned int aligned_width =
+ 		ALIGN(width, v4l2_format_block_width(info, plane));
+ 
+-	return DIV_ROUND_UP(aligned_width, hdiv) *
+-	       info->bpp[plane] / info->bpp_div[plane];
++	/*
++	 * Formats with a single memory plane derive the stride of the
++	 * other planes from the y stride. To avoid hardware or software
++	 * deriving a different stride for the composite plane,
++	 * multiply the alignment accordingly.
++	 *
++	 * It assumes the following format properties:
++	 * - bpp_div[0] == bpp_div[1]
++	 * - The multiplication factor doesn't differ between the non y planes
++	 * - The multiplication factor is a power of 2
++	 */
++	if (info->mem_planes == 1 && info->comp_planes > 1) {
++		if (plane == 0)
++			byte_alignment *= DIV_ROUND_UP(
++				info->hdiv * info->bpp[0], info->bpp[1]);
++		else
++			byte_alignment *= DIV_ROUND_UP(
++				info->bpp[1], info->hdiv * info->bpp[0]);
++	}
 +
-+		/* HSV formats */
-+		{ .format = V4L2_PIX_FMT_HSV24, .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 3, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_HSV32, .pixel_enc = V4L2_PIXEL_ENC_RGB, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
++	return ALIGN(DIV_ROUND_UP(aligned_width, hdiv) * info->bpp[plane] /
++			     info->bpp_div[plane],
++		     byte_alignment);
+ }
+ 
+ static inline unsigned int v4l2_format_plane_height(const struct v4l2_format_info *info, int plane,
+@@ -453,9 +474,10 @@ static inline unsigned int v4l2_format_plane_height(const struct v4l2_format_inf
+ }
+ 
+ static inline unsigned int v4l2_format_plane_size(const struct v4l2_format_info *info, int plane,
+-						  unsigned int width, unsigned int height)
++						  unsigned int width, unsigned int height,
++						  u8 stride_alignment)
+ {
+-	return v4l2_format_plane_stride(info, plane, width) *
++	return v4l2_format_plane_stride(info, plane, width, stride_alignment) *
+ 	       v4l2_format_plane_height(info, plane, height);
+ }
+ 
+@@ -476,8 +498,9 @@ void v4l2_apply_frmsize_constraints(u32 *width, u32 *height,
+ }
+ EXPORT_SYMBOL_GPL(v4l2_apply_frmsize_constraints);
+ 
+-int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt,
+-			u32 pixelformat, u32 width, u32 height)
++int v4l2_fill_pixfmt_mp_aligned(struct v4l2_pix_format_mplane *pixfmt,
++				u32 pixelformat, u32 width, u32 height,
++				u8 stride_alignment)
+ {
+ 	const struct v4l2_format_info *info;
+ 	struct v4l2_plane_pix_format *plane;
+@@ -494,23 +517,34 @@ int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt,
+ 
+ 	if (info->mem_planes == 1) {
+ 		plane = &pixfmt->plane_fmt[0];
+-		plane->bytesperline = v4l2_format_plane_stride(info, 0, width);
++		plane->bytesperline = v4l2_format_plane_stride(info, 0, width,
++							       stride_alignment);
+ 		plane->sizeimage = 0;
+ 
+ 		for (i = 0; i < info->comp_planes; i++)
+ 			plane->sizeimage +=
+-				v4l2_format_plane_size(info, i, width, height);
++				v4l2_format_plane_size(info, i, width, height,
++						       stride_alignment);
+ 	} else {
+ 		for (i = 0; i < info->comp_planes; i++) {
+ 			plane = &pixfmt->plane_fmt[i];
+ 			plane->bytesperline =
+-				v4l2_format_plane_stride(info, i, width);
++				v4l2_format_plane_stride(info, i, width,
++							 stride_alignment);
+ 			plane->sizeimage = plane->bytesperline *
+ 				v4l2_format_plane_height(info, i, height);
+ 		}
+ 	}
+ 	return 0;
+ }
++EXPORT_SYMBOL_GPL(v4l2_fill_pixfmt_mp_aligned);
 +
- 		/* YUV packed formats */
- 		{ .format = V4L2_PIX_FMT_YUYV,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 1 },
- 		{ .format = V4L2_PIX_FMT_YVYU,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 1 },
++int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt,
++			u32 pixelformat, u32 width, u32 height)
++{
++	return v4l2_fill_pixfmt_mp_aligned(pixfmt, pixelformat,
++					   width, height, 1);
++}
+ EXPORT_SYMBOL_GPL(v4l2_fill_pixfmt_mp);
+ 
+ int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt, u32 pixelformat,
+@@ -530,12 +564,12 @@ int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt, u32 pixelformat,
+ 	pixfmt->width = width;
+ 	pixfmt->height = height;
+ 	pixfmt->pixelformat = pixelformat;
+-	pixfmt->bytesperline = v4l2_format_plane_stride(info, 0, width);
++	pixfmt->bytesperline = v4l2_format_plane_stride(info, 0, width, 1);
+ 	pixfmt->sizeimage = 0;
+ 
+ 	for (i = 0; i < info->comp_planes; i++)
+ 		pixfmt->sizeimage +=
+-			v4l2_format_plane_size(info, i, width, height);
++			v4l2_format_plane_size(info, i, width, height, 1);
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(v4l2_fill_pixfmt);
+diff --git a/include/media/v4l2-common.h b/include/media/v4l2-common.h
+index 401d8506c24b5..edd416178c333 100644
+--- a/include/media/v4l2-common.h
++++ b/include/media/v4l2-common.h
+@@ -558,6 +558,10 @@ int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt, u32 pixelformat,
+ 		     u32 width, u32 height);
+ int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt, u32 pixelformat,
+ 			u32 width, u32 height);
++/* @stride_alignment is a power of 2 value in bytes */
++int v4l2_fill_pixfmt_mp_aligned(struct v4l2_pix_format_mplane *pixfmt,
++				u32 pixelformat, u32 width, u32 height,
++				u8 stride_alignment);
+ 
+ /**
+  * v4l2_get_link_freq - Get link rate from transmitter
 
 -- 
 2.54.0
