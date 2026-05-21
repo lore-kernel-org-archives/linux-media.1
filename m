@@ -1,166 +1,216 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629E9242D7F
-	for <linux-media@vger.kernel.org>; Thu, 21 May 2026 13:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3773D7D80;
+	Thu, 21 May 2026 13:33:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779369779; cv=none; b=qreCv+Mh6CEFK3DAG9K1OyPSvIXWWY1a6yeZqzbBsD3NipcKR+25Lq859YOU2fmlsU60+ClAnJC9utNr230Wc52hRLOIyJQKvdLipYFKx1zniXZqiUEj2qWzSd85anwMQFjFlgEquL4hwKCrS8obF3n+3XIp+E2SS1p9ycxiU9Y=
+	t=1779370408; cv=none; b=hKW9kln1PLK9mSTd0Ce7XrTssVlcSMyJCXs6/9mt9jzIiFvGUCdN49g9onMb9QgkjHqLgWd4AUcqIIjNQdb5fO1mJWX6ZPf9VkJiaQFkNsx+TZ8/QPqUcGZ0txesFbL+TqH3POBRYF+dEoOzvQeytL6IWm/rKyF4MetdB1W1ii0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779369779; c=relaxed/simple;
-	bh=3kCSpWp7FEEe9qEqd4X+TLbKQl0Y5QozlIhOMd/nusA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fDCHwIfSY+WVot5idGfjncHfCQmuM+514D5xpyJrGacX7siA1h6QOJ3vcaV/+C1l19pyjUxmwMitm9tjXW7x025+OarGq+opXJhmek9pOihE/8pH9eMWZ2rXs7xe4tr80nrC18Dt8pcJ3XcwYaLIrxxND1ykT//x2Te6uyCqksw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Japs4Eg2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VtkDUmID; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779370408; c=relaxed/simple;
+	bh=5uv+CTbn8AcIcVue/GiaGr9BSc0U2Of/hQLri15LfLg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=j0thK6dLeDJ7ZgeB1y2FqTzEs33VjwJL8PzvLZBZQjdECQNPRI5QxRhmQn6yzv7Jk6LuoYKoPPiaTTiJvlpGprjysEn7NmDNZATRN19IbexzGsrVvaIv9J81CfQkvvm/5wcX9MDldl5wKCgscIIW9hkAyvmvP+M/jEqCKJfKJJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j4CDviTd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Japs4Eg2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VtkDUmID"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64L9A8A32633750
-	for <linux-media@vger.kernel.org>; Thu, 21 May 2026 13:22:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	zaKcAvTC/3uFVMXucpCSenq3MlPmMHSE/2mwevUrtlc=; b=Japs4Eg2xjxzbrVO
-	3xw2jfDUFYsCwMs//V9CP4nJqTekalHmUcQX/GOyoDo4NLOPkTe0Hw/s/CnZt1ya
-	J9yH2slPZP7r3ji7HkGp/cC9fxZrNgJfYmODcxZ6R/WKE6jIat1OZAtIifFwYd4B
-	i/Y0xuy7QtafwCiYDWwOxYhZgYpUhOCZnbpO1pbtu+oSp9Ifx+em5Ir22mcEWxo+
-	HFS1yBxz+Hd1TtR/678TuML+4Q1eTNYD85HiPAO8+vQqFv49GbTMtQdNRBwoLKa3
-	vxtmSlVgt32/nkGNFzyqzJPlNRRj0EyrCUcTdr4PBcGGF5ped1wvKNa1wSBRm5PT
-	oNmX8g==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e9ee8d5v1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 21 May 2026 13:22:57 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-841127f960fso1210105b3a.1
-        for <linux-media@vger.kernel.org>; Thu, 21 May 2026 06:22:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779369777; x=1779974577; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=zaKcAvTC/3uFVMXucpCSenq3MlPmMHSE/2mwevUrtlc=;
-        b=VtkDUmIDaT7IoCNhlNkCbbu19ezVCP2U74VOm4hGNw5FYjdTY1KsWglp+925cRzLAt
-         iiD8ybf7CIpB3CSh/FcRFWGfrTB0VLs78IO48JKaUtEbTZE94BhpOjpkOw8v5SozvpeB
-         TB6DrJmA4fT0Ur+HKXWTE3HNW1/6BWmW2b3GbYATcpWHIywWwqOIsX0vulji2G8Ha9Bz
-         7CQtJgITKCnG/ZfbJQP6UuAmJgLYJmVw16hX4BROmPqANMD9UBZCzfrHI1Pk8lU4/7X6
-         TCPnrG6gGPaHtXFAy9wPfHu0tCWglSWBf1DM9I4LuBjUWb9ci/tEYQ90jwFxXFAc1XGZ
-         4X9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779369777; x=1779974577;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=zaKcAvTC/3uFVMXucpCSenq3MlPmMHSE/2mwevUrtlc=;
-        b=B9KAtdp2sQHE7RGLae8DH++KBUBOxa/djjBTCFoSAYaJWX8MFGW+lVdZg+hK9IrhsW
-         3CmC99P9MaN0MWy3/jk1Vd/XaeLptoa+tl3O/B3V6XMsV1Cl9qG8KxBzjD1GA7oHlrBq
-         6ABaBohAAaOUk0h0iRvrr1J1FdtS8VXkE2joCTpfW/E+RUirKrSOz0vy9rt9CHqgXwNw
-         N2gmju/19Pqp8+SqK11caa4ubXZiMG3WOVK9gUBjPWg0b8XNRG7kAmLdW7TBxaoxljpF
-         OiZZUAu0fJ5YWRJrWq3/2yZdGLHsZsgO3ZfmP6EuNDk0/OfWpyFiqcCPVBbea2hfR6LX
-         bWPA==
-X-Gm-Message-State: AOJu0Yx+9M7B4w4U6JS8H10mB9/r6Uc26iGdIJrKhyPuxjwvaK1fArr6
-	iBJxY2hVg//76OI3yYwORamb+DGpAVOpltmnBQBWtt7qM+Wq8yco5+Af1ykwtbkZnatCACdxhNh
-	qm7aAXjUu3pcYZ7SYGP7Ruo0PWpaGYqBzp9S6IPgsOB432I7eQdHiNRVbtpsGWf27xg==
-X-Gm-Gg: Acq92OG1xMMvfb+ASNans4HVEec+3A0vO7fq+0vaAV5XIoxNbwHdcAE0Dd8r4mqp9jC
-	ZkVj4f0hBCE3tScvsOz/oag0FzxH66oQyJCaNFAYutVS2vdHFW6VKSMItDkqCsDmXKllF2yX2Ch
-	XHkP98joqsWPjLKwl5fAiNfvgm57HnpuLNMCJhVitptVOoFxJZSmO57e9hjRnRq+0XAwmqpOqwf
-	LTPA4/3sjgxukphp91FSnyIloyTKrI2ROf0Sazsoeiu/HwVDUnbteLdyMYr3kDLWTw/C6Fr9JKA
-	Nwk4X/nKWcxUmcd/JIVKnPq3SxuISep2ar9EWauIfR0jdCLuDDGwBLJEFr/WkC9lDAsqn5L15AW
-	+Ar4fFulkzzsazytHQB7SAp2fLauIdvLY/uOf+EkRFGEn7kUk3UlO
-X-Received: by 2002:a05:6a00:4219:b0:824:9bc5:e946 with SMTP id d2e1a72fcca58-8414ae61577mr3046701b3a.46.1779369776909;
-        Thu, 21 May 2026 06:22:56 -0700 (PDT)
-X-Received: by 2002:a05:6a00:4219:b0:824:9bc5:e946 with SMTP id d2e1a72fcca58-8414ae61577mr3046665b3a.46.1779369776419;
-        Thu, 21 May 2026 06:22:56 -0700 (PDT)
-Received: from [10.206.98.135] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84154e02781sm1578340b3a.32.2026.05.21.06.22.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 21 May 2026 06:22:55 -0700 (PDT)
-Message-ID: <74304e0d-de98-4a31-828f-d8280e7a728e@oss.qualcomm.com>
-Date: Thu, 21 May 2026 18:52:49 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j4CDviTd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 664AA1F00A3C;
+	Thu, 21 May 2026 13:33:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779370406;
+	bh=ezV5ICAM2va0jVjd8iAniGdLxBSb69xxnF1gv2JwpSY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=j4CDviTd6M6LDTj5r6sQRqgJ6ESa9aWMu37zRV8mtOcXrJiE1zLL6x/OVHUw7taNB
+	 jl6ETIYiu8JAkRBqc4Wuv2aB534ln8Hu69MX1fb2GFClu2Mmurr/zb532bCHmICyRT
+	 bW4gGDuRH21kbO4Mt3QzAC1BgrPy+si2Rjb35ZfN4nboZAY9y9toARiousj3e/bp3M
+	 OhVS9wgD8OvUpe6jIOQ+pq818okRHEEM5Lah2/H+GkNEe7+pCkBUV/HEs3jXEYS4f4
+	 MtCRjjIGdmkPubfqUsmmCsve0nsahQ5jfKPmPGh0P3LHoWU280OP0E1I4NEEZgAN1h
+	 MDV3MyE2qhaxQ==
+From: Kees Cook <kees@kernel.org>
+To: Luis Chamberlain <mcgrof@kernel.org>
+Cc: Kees Cook <kees@kernel.org>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	stable@vger.kernel.org,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Richard Weinberger <richard@nod.at>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Corey Minyard <corey@minyard.net>,
+	Gabriel Somlo <somlo@cmu.edu>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Hannes Reinecke <hare@suse.de>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Jason Wang <jasowang@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Jason Baron <jbaron@akamai.com>,
+	Jim Cromie <jim.cromie@gmail.com>,
+	Tiwei Bie <tiwei.btw@antgroup.com>,
+	Benjamin Berg <benjamin.berg@intel.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"David E. Box" <david.e.box@linux.intel.com>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	John Johansen <john.johansen@canonical.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Georgia Garcia <georgia.garcia@canonical.com>,
+	kvm@vger.kernel.org,
+	dmaengine@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	kasan-dev@googlegroups.com,
+	linux-mm@kvack.org,
+	apparmor@lists.ubuntu.com,
+	linux-security-module@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-acpi@vger.kernel.org,
+	openipmi-developer@lists.sourceforge.net,
+	qemu-devel@nongnu.org,
+	intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-rdma@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-serial@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [PATCH 01/11] params: bound array element output to the caller's page buffer
+Date: Thu, 21 May 2026 06:33:14 -0700
+Message-Id: <20260521133326.2465264-1-kees@kernel.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260521133315.work.845-kees@kernel.org>
+References: <20260521133315.work.845-kees@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: purwa: Add camss node
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
-        Robert Foss
- <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260511-purwa_camss-v2-0-22608ab9126c@oss.qualcomm.com>
- <20260511-purwa_camss-v2-3-22608ab9126c@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-In-Reply-To: <20260511-purwa_camss-v2-3-22608ab9126c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: _T02Aj5_Hq_n5-4iBwotFxfVpE-Bted1
-X-Authority-Analysis: v=2.4 cv=e5k2j6p/ c=1 sm=1 tr=0 ts=6a0f0731 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=CUJKaX_r6RFX-KylJRQA:9 a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIxMDEzNCBTYWx0ZWRfX0/KEU95AlDes
- 1+ao0SB41LZ2rWSDaJMZBelNYOeKLjaZrHT4fwmbVMOVGqJpNIk+DlpLyW9+fvIDZkrYH8E9WfL
- zd51o9T4GBQkIfTekFqMf0mfmqz8fSy63ZCPVKk+dBG9s/QO6u77eWnB65ZrNgS74aHgacuecPB
- F8B3IR/heeSpMHf/W+3WNz3rRcrcDrEPdAurKxb/bS5yJGmS1rJGUjAL8R9Si5e79hHKtCRIoGD
- muGGBuv8fhDykAXPF+OqlW/Rkhynkyq2JRlxsSIYaw3/3EPcOfCD5sThiPc8RgwlQSK0r2vauue
- rdPNxbRh3lg5L5+eXslMe3AAyh7hSleqoC0igStqmubHX0D75+pGYQy1xzWkzprSUzuapnsncvp
- nfLyE25B3kDNnhwLoWjnyTXsIvrbQzrO8zDeLU5y/qlF2SChg0YerbSJbLYpTfgzEv3bR0yLqJl
- eayrvdt/7+IBYX+VQNw==
-X-Proofpoint-GUID: _T02Aj5_Hq_n5-4iBwotFxfVpE-Bted1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-21_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
- adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605210134
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2143; i=kees@kernel.org; h=from:subject; bh=3eO38ZdE0rbljlF5l/QfEOapKDQ3GxlJmKbxHXugskI=; b=owGbwMvMwCVmps19z/KJym7G02pJDFn8nAtqmS7cf3B//69jZ5rrq6va9p3fNOGM7h2Jd74Pn JTCV6u3dZSyMIhxMciKKbIE2bnHuXi8bQ93n6sIM4eVCWQIAxenAEzEYiojw//ne8uu9YZ9+sWp mJ7czDyrP2Afv+2f21+/99yL9Jp+OI2RYVNeQ9witS6BzPe55aerW/eveRmS81ixc8XMVftPpj7 OZQAA
+X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
+Content-Transfer-Encoding: 8bit
 
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-On 5/11/2026 2:29 PM, Wenmeng Liu wrote:
-> +&camss {
-> +	compatible = "qcom,x1p42100-camss";
-> +
-> +	reg = <0 0x0acb7000 0 0x2000>,
-> +	      <0 0x0acb9000 0 0x2000>,
-> +	      <0 0x0acbb000 0 0x2000>,
-> +	      <0 0x0acc6000 0 0x1000>,
-> +	      <0 0x0acca000 0 0x1000>,
-> +	      <0 0x0acb6000 0 0x1000>,
-> +	      <0 0x0ace4000 0 0x2000>,
-> +	      <0 0x0acec000 0 0x4000>,
+param_array_get() appends each element's string representation into the
+shared sysfs page buffer by passing buffer + off to the element getter.
 
+That works for getters that only write a small bounded string, but
+param_get_charp() and similar helpers format against PAGE_SIZE from the
+pointer they receive. Once off is non-zero, an element getter can
+therefore write past the end of the original sysfs page buffer.
 
-Size not matching with bindings, Please cross check with SWI.
+Collect each element into a temporary PAGE_SIZE buffer first and then
+copy only the remaining space into the caller's page buffer.
 
+Cc: stable@vger.kernel.org
+Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Signed-off-by: Kees Cook <kees@kernel.org>
+---
+ kernel/params.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
-> +	      <0 0x0acf6000 0 0x1000>,
-> +	      <0 0x0acf7000 0 0x1000>,
-> +	      <0 0x0acf8000 0 0x1000>,
-> +	      <0 0x0ac62000 0 0xf000>,
-> +	      <0 0x0acc7000 0 0x2000>,
-> +	      <0 0x0accb000 0 0x2000>;
-> +
-
-
-Regards,
-
-Vikram
+diff --git a/kernel/params.c b/kernel/params.c
+index 74d620bc2521..752721922a15 100644
+--- a/kernel/params.c
++++ b/kernel/params.c
+@@ -475,22 +475,36 @@ static int param_array_set(const char *val, const struct kernel_param *kp)
+ static int param_array_get(char *buffer, const struct kernel_param *kp)
+ {
+ 	int i, off, ret;
++	char *elem_buf;
+ 	const struct kparam_array *arr = kp->arr;
+ 	struct kernel_param p = *kp;
+ 
++	elem_buf = kmalloc(PAGE_SIZE, GFP_KERNEL);
++	if (!elem_buf)
++		return -ENOMEM;
++
+ 	for (i = off = 0; i < (arr->num ? *arr->num : arr->max); i++) {
+-		/* Replace \n with comma */
+-		if (i)
+-			buffer[off - 1] = ',';
+ 		p.arg = arr->elem + arr->elemsize * i;
+ 		check_kparam_locked(p.mod);
+-		ret = arr->ops->get(buffer + off, &p);
++		ret = arr->ops->get(elem_buf, &p);
+ 		if (ret < 0)
+-			return ret;
++			goto out;
++		ret = min(ret, (int)(PAGE_SIZE - 1 - off));
++		if (!ret)
++			break;
++		/* Replace the previous element's trailing newline with a comma. */
++		if (i)
++			buffer[off - 1] = ',';
++		memcpy(buffer + off, elem_buf, ret);
+ 		off += ret;
++		if (off == PAGE_SIZE - 1)
++			break;
+ 	}
+ 	buffer[off] = '\0';
+-	return off;
++	ret = off;
++out:
++	kfree(elem_buf);
++	return ret;
+ }
+ 
+ static void param_array_free(void *arg)
+-- 
+2.34.1
 
