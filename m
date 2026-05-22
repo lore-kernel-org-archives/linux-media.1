@@ -1,218 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E566B38A717;
-	Fri, 22 May 2026 21:23:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC29025A359;
+	Fri, 22 May 2026 21:37:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779484998; cv=none; b=lrxF1IkbhMLCBSYrGgvt+hCjyGH4im8l3w8/8sLKyKKmZDy2eDRrT1Ko/TrgbjuBSnUIDL5ZVoKPAt2JwrGYlXpCCW803+Jc6ENcNKX1P1QW6M2fIylswanItDPfyFQoFqylh/z0ZfxsnGWfkkgt8z627fbA+I0tAPjSz2FK8f8=
+	t=1779485869; cv=none; b=YEvNYGAW0HmLdcHPQxIKQgVHjztrDxOcZUdmWFgvt3ZGttbPQvb3zRg13SnLaFZi3CWsr5YrhAPJHgsJsQ8aHEXoYc1OYSWbIx+G8D1bOadPLi/pLm+4F4bbIgqg9DHtv4Gvws1JvyTkY5nningKiV5M7nqqgRtkvGJXJTSCStk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779484998; c=relaxed/simple;
-	bh=vlimb4g70WCpbjanpRWP2hCiunyysBySiRhnjr6tsuM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Vcv9LQHnCkzED5ywFvyq698uqNOWABpxIJeHqe0zCIz3mE/SbrvkpYgMzvDH8pE+8FJs47/vHsbfIZt0HvF1SxdmnSHLk6MZEQ3b3yJOi0Y8jmXDAbbO56CxfdCPNFXt0MFNH6L7XPpdyUN5QjGuGI3eBZyEoR8WjXE27Uy3c/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H2+SUwFF; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779485869; c=relaxed/simple;
+	bh=Irdpboga0e94lwhHZfmTpX7EMC+HzUaMewhmh6K9zP8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZAjghX2zOec8cm7H9C+YXKVfFHEB1Ms535YJuKrI1Ju/FJ9+hgA70wqRBvyB2tf2gn/sRYi8hnl2HsxnSsyANGfRPJ5biVNlsKDEIpj1mFNRYJrY95aeHdbZUQdUhNvtNZeKET61AshRQ5TL4IWO3CsaJeOjrr2FcnBocp0LGTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bfU8jLI2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H2+SUwFF"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 30B06C2BCC4;
-	Fri, 22 May 2026 21:23:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779484997;
-	bh=vlimb4g70WCpbjanpRWP2hCiunyysBySiRhnjr6tsuM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=H2+SUwFFsmFDY+QTyZ4a97vfJ4UYjrtDVmStF5Oq0UwHVU8rBqOzD77LcI6lDby+z
-	 0XqEC64+HefKdfaXGvFkcrtWYW2SC9n/oOm6SgKx9K2EEZGkX1RN+bGfw6ecXSteVi
-	 0gN6t+DRAcGzJthgSUEJHtqSx1JrjBGRm0HVSAFeY/IdSmQIOUL6Tbapv+AI2OWxcQ
-	 AXQHgiUm3DZnNmin/hJiAUqUsP41JhEyxWIlpwoIK993oLisQOduK7zUf78DaDjj8M
-	 nP+B1EzwETw8KU9yKa6kXh8qlSJFXD1tPq7Ujfkxmg2SjgsKllk4ecceHLevVTJDzn
-	 8dWozrD52Fzyw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2648CCD5BB0;
-	Fri, 22 May 2026 21:23:17 +0000 (UTC)
-From: Michael Riesch via B4 Relay <devnull+michael.riesch.collabora.com@kernel.org>
-Date: Fri, 22 May 2026 23:23:13 +0200
-Subject: [PATCH v5 7/8] arm64: dts: rockchip: add radxa camera 4k on rock
- 5b+ cam1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bfU8jLI2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8D4D1F000E9;
+	Fri, 22 May 2026 21:37:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779485868;
+	bh=rKySuRH7zxmKCkRj+vsH6WLK86VeQbARbGCmHU+Y/HI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bfU8jLI2yGgJ3S8yrF4rdgC5styfISFtbqUQutRoKEdI6SnhOTpvbwhLfdrndcTsa
+	 +bfIF8AAU0aOQ4Pk7SAfasWZTu0J//QGjMm+0Mw0YB8p+UO2PdO/mFGahGimEqKJx7
+	 Z19tzRTKvAefScpofcsg1goggwxVwonn1DOpcfBm403OGjEXxzigt7hy09yItg4y48
+	 5grJVQcaY3fJpC6I4rsmmJvQbAlGt1Uklz7Fetg1MQaBskuPcKc8A7PcW7oPRBM1me
+	 bGrkadhxfZ3g74ZO1eRP4pDSPL0UVo+Kxr6iwZlwoHdZU8lWjEELBA1iIEi+M+to9C
+	 jiIjbyCsEraBw==
+Message-ID: <b5dc7f51-b71c-46b1-823b-76f02d325acb@kernel.org>
+Date: Fri, 22 May 2026 22:37:44 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: "Rob Herring (Arm)" <robh@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: linux-kernel@vger.kernel.org, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+References: <20260522-x1e-csi2-phy-v7-0-79cb1280fad6@linaro.org>
+ <20260522-x1e-csi2-phy-v7-1-79cb1280fad6@linaro.org>
+ <svzHygggdG4PSd3qFMz0chRKqXNkhZwTvHoC3_oynq8e5HYOEn-_EHLnXm1w959nIDz9GaLZG9MgXqAJPNhWSA==@protonmail.internalid>
+ <177946855028.3571140.11988520251406266072.robh@kernel.org>
+Content-Language: en-US
+From: Bryan O'Donoghue <bod@kernel.org>
+In-Reply-To: <177946855028.3571140.11988520251406266072.robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260522-rk3588-vicap-v5-7-d1d1f5265c56@collabora.com>
-References: <20260522-rk3588-vicap-v5-0-d1d1f5265c56@collabora.com>
-In-Reply-To: <20260522-rk3588-vicap-v5-0-d1d1f5265c56@collabora.com>
-To: Mehdi Djait <mehdi.djait@linux.intel.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Kever Yang <kever.yang@rock-chips.com>, 
- Jagan Teki <jagan@amarulasolutions.com>, 
- =?utf-8?q?=D0=9A=D1=83=D0=B7=D0=BD=D0=B5=D1=86=D0=BE=D0=B2_=D0=9C=D0=B8=D1=85=D0=B0=D0=B8=D0=BB?= <mai.kuznetsov.misha@gmail.com>, 
- Charalampos Mitrodimas <charmitro@posteo.net>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Collabora Kernel Team <kernel@collabora.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Michael Riesch <michael.riesch@collabora.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779484994; l=4389;
- i=michael.riesch@collabora.com; s=20260428; h=from:subject:message-id;
- bh=8GAq5xF2a9zwM/Nc+joNIeEA9N/887jxc8QNxty3Km0=;
- b=LLIeL+0it+uLfSwIx0TGBlVfXYPouf/FTxonhsGHnCJ2C05JWwB53nZtOBtzsodQYKixcIknO
- EcscyfGQ9ScC5bffX1vw/NYTsB6FSz/cXWmV7RuYxbBPLTdKiu8me90
-X-Developer-Key: i=michael.riesch@collabora.com; a=ed25519;
- pk=tAbmpPTE1MELYweXqqDU40fa18uCO6s32GJL/RzyW2Y=
-X-Endpoint-Received: by B4 Relay for michael.riesch@collabora.com/20260428
- with auth_id=759
-X-Original-From: Michael Riesch <michael.riesch@collabora.com>
-Reply-To: michael.riesch@collabora.com
 
-From: Michael Riesch <michael.riesch@collabora.com>
+On 22/05/2026 17:49, Rob Herring (Arm) wrote:
+> 
+> On Fri, 22 May 2026 15:45:09 +0100, Bryan O'Donoghue wrote:
+>> Add a base schema initially compatible with x1e80100 to describe MIPI CSI2
+>> PHY devices.
+>>
+>> The hardware can support both CPHY, DPHY and a special split-mode DPHY.
+>>
+>> The schema here defines three ports:
+>>
+>> port@0:
+>>      The first input port where a sensor is always required.
+>>
+>> port@1:
+>>      A second optional input port which if present implies DPHY split-mode.
+>>
+>> port@2:
+>>      A third always required output port which connects to the controller.
+>>
+>> The CSIPHY devices have their own pinouts on the SoC as well as their own
+>> individual voltage rails.
+>>
+>> The need to model voltage rails on a per-PHY basis leads us to define
+>> CSIPHY devices as individual nodes.
+>>
+>> Two nice outcomes in terms of schema and DT arise from this change.
+>>
+>> 1. The ability to define on a per-PHY basis voltage rails.
+>> 2. The ability to require those voltage.
+>>
+>> We have had a complete bodge upstream for this where a single set of
+>> voltage rail for all CSIPHYs has been buried inside of CAMSS.
+>>
+>> Much like the I2C bus which is dedicated to Camera sensors - the CCI bus in
+>> CAMSS parlance, the CSIPHY devices should be individually modelled.
+>>
+>> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>> ---
+>>   .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 208 +++++++++++++++++++++
+>>   1 file changed, 208 insertions(+)
+>>
+> 
+> My bot found errors running 'make dt_binding_check' on your patch:
+> 
+> yamllint warnings/errors:
+> 
+> dtschema/dtc warnings/errors:
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml: port@0: Missing additionalProperties/unevaluatedProperties constraint
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml: port@1: Missing additionalProperties/unevaluatedProperties constraint
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml: port@2: Missing additionalProperties/unevaluatedProperties constraint
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.example.dtb: csiphy@ace4000 (qcom,x1e80100-csi2-phy): ports:port@2:endpoint: Unevaluated properties are not allowed ('clock-lanes', 'data-lanes' were unexpected)
+> 	from schema $id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml
+Frustratingly
 
-Add device tree overlay for the Radxa Camera 4K (featuring the Sony IMX415
-image sensor) to applied on the Radxa ROCK 5B+ CAM1 port.
+dtbs_do_check2 phy/qcom,x1e80100-mipi-csi2-combo-phy.yaml 
+qcom/x1e80100-crd.dtb
 
-Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
+dtbs_do_check2 () {
+
+echo "checking " $1 " and " $2
+make dtbs_check ARCH=$ARCH CROSS_COMPILE=$CROSS_COMPILE O=$BUILDDIR 
+DT_DOC_CHECKER=$DT_DOC_CHECKER DT_EXTRACT_EX=$DT_EXTRACT_EX 
+DT_MK_SCHEMA=$DT_MK_SCHEMA DT_SCHEMA_FILES=$1 CHECK_DTBS=y $2
+make dt_binding_check O=$BUILDDIR DT_CHECKER_FLAGS=-m 
+DT_DOC_CHECKER=$DT_DOC_CHECKER DT_EXTRACT_EX=$DT_EXTRACT_EX 
+DT_MK_SCHEMA=$DT_MK_SCHEMA DT_SCHEMA_FILES=$1 CHECK_DTBS=y $2
+
+}
+
+Neither my script nor the Makefile throw an error when the yaml name 
+doesn't exist i.e. when it changes.
+
+I really did run the checker - just for a file that doesn't exist.
+
+Feels like a bug I should blame on AI enslopification but, it was me..
+
+meh
+
 ---
- arch/arm64/boot/dts/rockchip/Makefile              |  4 +-
- .../rk3588-rock-5b-plus-radxa-cam4k-cam1.dtso      | 99 ++++++++++++++++++++++
- 2 files changed, 102 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
-index d4ff476fb9814b18c74c6d59d73cf5d8e6ee9ca7..761d82b4f4f2ac7f0f4ba5e1f94f495b2160a059 100644
---- a/arch/arm64/boot/dts/rockchip/Makefile
-+++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -207,6 +207,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-pcie-ep.dtbo
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-pcie-srns.dtbo
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-plus.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-plus-radxa-cam4k-cam0.dtbo
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-plus-radxa-cam4k-cam1.dtbo
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5t.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-haikou.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-haikou-video-demo.dtbo
-@@ -324,7 +325,8 @@ rk3588-rock-5b-pcie-srns-dtbs := rk3588-rock-5b.dtb \
- 
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-plus-radxa-4k-cam.dtb
- rk3588-rock-5b-plus-radxa-4k-cam-dtbs := rk3588-rock-5b-plus.dtb \
--	rk3588-rock-5b-plus-radxa-cam4k-cam0.dtbo
-+	rk3588-rock-5b-plus-radxa-cam4k-cam0.dtbo \
-+	rk3588-rock-5b-plus-radxa-cam4k-cam1.dtbo
- 
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-haikou-haikou-video-demo.dtb
- rk3588-tiger-haikou-haikou-video-demo-dtbs := rk3588-tiger-haikou.dtb \
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam1.dtso b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam1.dtso
-new file mode 100644
-index 0000000000000000000000000000000000000000..8a4cf3fdbf8ebde8b2939c6126d169074431588a
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam1.dtso
-@@ -0,0 +1,99 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Device tree overlay for the Radxa Camera 4K attached to the CAM1 port of
-+ * the Radxa ROCK 5B+.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/clock/rockchip,rk3588-cru.h>
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/pinctrl/rockchip.h>
-+
-+&{/} {
-+	savdd_cam1: regulator-savdd-cam1 {
-+		compatible = "regulator-fixed";
-+		regulator-min-microvolt = <2900000>;
-+		regulator-max-microvolt = <2900000>;
-+		regulator-name = "savdd_cam1";
-+		vin-supply = <&vcc_3v3_s3>;
-+	};
-+
-+	sdvdd_cam1: regulator-sdvdd-cam1 {
-+		compatible = "regulator-fixed";
-+		regulator-min-microvolt = <1100000>;
-+		regulator-max-microvolt = <1100000>;
-+		regulator-name = "sdvdd_cam1";
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	siovdd_cam1: regulator-siovdd-cam1 {
-+		compatible = "regulator-fixed";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-name = "siovdd_cam1";
-+		vin-supply = <&vcc_3v3_s3>;
-+	};
-+};
-+
-+&i2c4 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	status = "okay";
-+
-+	cam1_imx415: camera-sensor@1a {
-+		compatible = "sony,imx415";
-+		reg = <0x1a>;
-+		assigned-clocks = <&cru CLK_MIPI_CAMARAOUT_M4>;
-+		assigned-clock-rates = <37125000>;
-+		avdd-supply = <&savdd_cam1>;
-+		clocks = <&cru CLK_MIPI_CAMARAOUT_M4>;
-+		dvdd-supply = <&sdvdd_cam1>;
-+		orientation = <2>; /* External */
-+		ovdd-supply = <&siovdd_cam1>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&cam1_rstn &mipim0_camera4_clk>;
-+		reset-gpios = <&gpio2 RK_PB0 GPIO_ACTIVE_LOW>;
-+
-+		port {
-+			cam1_imx415_output: endpoint {
-+				data-lanes = <1 2 3 4>;
-+				link-frequencies = /bits/ 64 <445500000>;
-+				remote-endpoint = <&csi4_input>;
-+			};
-+		};
-+	};
-+};
-+
-+&pinctrl {
-+	cam1 {
-+		cam1_rstn: cam1-rstn-pinctrl {
-+			rockchip,pins = <2 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+&csi4 {
-+	status = "okay";
-+};
-+
-+&csi4_in {
-+	csi4_input: endpoint {
-+		data-lanes = <1 2 3 4>;
-+		link-frequencies = /bits/ 64 <445500000>;
-+		remote-endpoint = <&cam1_imx415_output>;
-+	};
-+};
-+
-+&csi_dphy1 {
-+	status = "okay";
-+};
-+
-+&vicap {
-+	status = "okay";
-+};
-+
-+&vicap_mmu {
-+	status = "okay";
-+};
-
--- 
-2.47.3
-
-
+bod
+phy/qcom,x1e80100-mipi-csi2-combo-phy.yaml
