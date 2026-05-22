@@ -1,93 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 801E93CE489;
-	Fri, 22 May 2026 10:21:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A63FF3C4B86;
+	Fri, 22 May 2026 10:28:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779445312; cv=none; b=IPkvjlKjhPI5gpmUGbgePXzlOPTOtPKDi6QlJXGSYVM+69BjQBpaMhvGNP2+0/r5OjQPwCwL8hZBrWFYu/1pvqqKbPZ7bXO8WwCG+WyCrHtbXGZTaf4K6Rk7jlsA6pUJ4h+tiq2xLEUjgGXzvTDuJiTS7fe1+r7N5OPCmW5tJ6Q=
+	t=1779445737; cv=none; b=R+H19o998RB9jTK7lwwLrutKHcufM/bVIV2/bXQ9Dpu8Hkjne4bbYJomFaVkusO7kzpwcwZUYmjxyVvOCUKjMu+tucRgT/mdVUnee6Ay7oI6sj0YszIgli46qydGF/Wq6SveVOhguUZMCp7cwYZqrJgzLgsAwvSguvN9IpNqjLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779445312; c=relaxed/simple;
-	bh=XGvRWFnHxBl/4vDYNIzRFjTrHmqdZDLJkRM7tpyOMxc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ItpGd6MTaRpLTSZpOGiYcmtmFWudcKp9chThaMSbd/Jtp0mRRMf/LB6rP75Qk95YeRJqSfk+K/Lpgr3jBMLdJWMfDu60EqU5eEhL8xJu58Xzz0TeaU+TFLbFArj9R9roStTVb1araCRbqY5ty/3as5zN1j+5Y3hP0r7RIwLcz4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YeG7QDaE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779445737; c=relaxed/simple;
+	bh=o80USRSoOccAjZ0/+LbXX+qxTLzgZyZiobgDeEHQ1+U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lYz/JKR79teEJbNWLMdzWCrBtphjIx9iksQp3uYk9q2JrOZqaeQX1vmTRrre8jCW8FRNUHWgmoLr/9OsqBCVoa3ApuU593PW9mzhlUUJ9yTqFVsw3KewScSOt4qCI1SzD2JOgMzDKsBipPVwE08FFcQJae74kEotulJ6e1Htm9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VgGyU12e; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YeG7QDaE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DCFB1F00A3D;
-	Fri, 22 May 2026 10:21:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779445308;
-	bh=alAHQ6fqvt3+i41azObwMF7fJWB0ovwWc5B+rB7ORY8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=YeG7QDaEac6cNXHgTtk0EFoBIpVWWa/nX/LkZ/HmW0VgQy//YejsCGHkoheWsIDl3
-	 qXgZsSJvHvIV44fgpxEeebH+AtxmNkcupj6nHG7Hf/ndi7ifEm92dBmZ2zWY9kEYU2
-	 P3vog+eOv95h6m22hdfWVsOt2I7QnUxLNfRLoBiXSu8RYWKObqCd3JNFiCk6pXJXnk
-	 6lj5bYJ8mlUxa+QRwfh1x2cE2kF7AKEN6HptNylz/j/0w++iVieO24PJqgcf2kWQpZ
-	 ioBY0GCATSkySNVm6A7GxzchcGv50UeePCANvhp3Uku0feefCy9lA73SIgJL+wBTad
-	 nmyY4S5WBzskQ==
-From: Mark Brown <broonie@kernel.org>
-To: Johan Hovold <johan@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Vladimir Oltean <olteanv@gmail.com>, Viresh Kumar <vireshk@kernel.org>, 
- Rui Miguel Silva <rmfrfs@gmail.com>, Alex Elder <elder@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Lukas Wunner <lukas@wunner.de>, linux-media@vger.kernel.org, 
- linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260521073816.766596-1-johan@kernel.org>
-References: <20260521073816.766596-1-johan@kernel.org>
-Subject: Re: [PATCH v2] spi: fix controller registration API inconsistency
-Message-Id: <177936276667.58022.4468059770892456065.b4-ty@b4>
-Date: Thu, 21 May 2026 12:26:06 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VgGyU12e"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1779445736; x=1810981736;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=o80USRSoOccAjZ0/+LbXX+qxTLzgZyZiobgDeEHQ1+U=;
+  b=VgGyU12eDAO/sTp0dqlCdcR1Ibul0/K1Zii1sJi/VMGxHJAcjsSM8f5E
+   TqmVIVNPl7xVWr91uf2gFLr5g1nGhqeJE64u2PBJI97wGTmZvWOvlFGOP
+   +VCC2Ve4fcAV0VY0kHDE2voJiVXN0l55I5Arzuvkqbg282vAXwcJFK4h0
+   Cl3yrSAn66rsrjgjGtJ6Ub8PulFgvnjbQovCkkECgBlhZS+r20SrZCeom
+   O8DtOgRtHrNIhWW23vvlgeZGDpFm6DgQH3ui5H6gJP+1d0mNsGPUYOI2G
+   GOAHXDX24mZAFTWSNP0kO4Px0ru21VCPMMUQUihATgMHfCCJD4nMviv+M
+   w==;
+X-CSE-ConnectionGUID: nlU/wtjlQlOInBCB9OiKNQ==
+X-CSE-MsgGUID: +8ZcvxkDRkyxaDKSLZzDaQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11793"; a="103052273"
+X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; 
+   d="scan'208";a="103052273"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 May 2026 03:28:55 -0700
+X-CSE-ConnectionGUID: L4nas1MgQJyvuR4w2vBveQ==
+X-CSE-MsgGUID: CGSZjljdTVKDuo6whHqd1g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; 
+   d="scan'208";a="245860596"
+Received: from vpanait-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.224])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 May 2026 03:28:51 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 99493121C7F;
+	Fri, 22 May 2026 13:28:47 +0300 (EEST)
+Date: Fri, 22 May 2026 13:28:47 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>
+Cc: Eugen Hristev <ehristev@kernel.org>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Naushir Patuck <naush@raspberrypi.com>, linux-media@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: bcm2835-unicam: Fix log status runtime access
+Message-ID: <ahAv3430zwqeDXnQ@kekkonen.localdomain>
+References: <20260521-bcmpipm-v1-1-3eba88d88045@kernel.org>
+ <4d7deb19-d384-497e-8139-c977a9f3679d@yoseli.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1114; i=broonie@kernel.org;
- h=from:subject:message-id; bh=XGvRWFnHxBl/4vDYNIzRFjTrHmqdZDLJkRM7tpyOMxc=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqEC453nfah20aKIr5D3H75HTWHifNTf2Tr+jzS
- qbSFZqv1xqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCahAuOQAKCRAk1otyXVSH
- 0NboB/4wZyHo+B5rVtB6lPbLxX5AbHLgukxAXUiROlmcBBd9TYbJ68oTs7B5mJC6eaKfHgLi+7Q
- ZHuTCy7h2VrFfJ3bkXcVXN9DJqlghExwemDsHhKkC+/sgbp1/rZR2tqqeRodkwFF5Pp8FBHeF6P
- cJWXoAMSmKtfyFPQjro0Uldg87bRHZrDoPFZCV8NUYtIjDGa2vKiitfPhB3QWvbrdz3nG74ay3G
- RYuwaNHWDcpZzH5O/fW75hKtLkAx/jHvsl3W+KOsU4T6jJ9qJIaA1KVEHCHKmOUhQoqeYaZwWgX
- 3Gpb0P2+c8X2cQTuTT/65tVeb6jD6XN0w5SJDme1Y9Jq1lta
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4d7deb19-d384-497e-8139-c977a9f3679d@yoseli.org>
 
-On Thu, 21 May 2026 09:38:16 +0200, Johan Hovold wrote:
-> spi: fix controller registration API inconsistency
+Hi Eugen, Jean-Michel,
 
-Applied to
+On Fri, May 22, 2026 at 10:31:51AM +0200, Jean-Michel Hautbois wrote:
+> Hi Eugen,
+> 
+> Thanks for the fix, the issue is real, but I think the patch leaks a runtime
+> PM reference.
+> 
+> Le 21/05/2026 à 20:09, Eugen Hristev a écrit :
+> > When requesting log status, the block might be powered
+> > off, but registers are being read.
+> > Avoid reading the registers if the device is not
+> > resumed, thus also avoid powering up the device just
+> > for log status.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.2
+Please rewrap this, most editors can do that automatically.
 
-Thanks!
+> > 
+> > Fixes: 392cd78d495f ("media: bcm2835-unicam: Add support for CCP2/CSI2 camera interface")
+> > Signed-off-by: Eugen Hristev <ehristev@kernel.org>
+> > ---
+> >   drivers/media/platform/broadcom/bcm2835-unicam.c | 4 ++++
+> >   1 file changed, 4 insertions(+)
+> > 
+> > diff --git a/drivers/media/platform/broadcom/bcm2835-unicam.c b/drivers/media/platform/broadcom/bcm2835-unicam.c
+> > index 8d28ba0b59a3..818694f007e2 100644
+> > --- a/drivers/media/platform/broadcom/bcm2835-unicam.c
+> > +++ b/drivers/media/platform/broadcom/bcm2835-unicam.c
+> > @@ -2052,6 +2052,10 @@ static int unicam_log_status(struct file *file, void *fh)
+> >   		 node->fmt.fmt.pix.width, node->fmt.fmt.pix.height);
+> >   	dev_info(unicam->dev, "V4L2 format:         %08x\n",
+> >   		 node->fmt.fmt.pix.pixelformat);
+> > +
+> > +	if (!pm_runtime_get_if_in_use(unicam->dev))
+> > +		return 0;
+> > +
+> 
+> pm_runtime_get_if_in_use() returns 1 and increments the usage counter is
+> active and in use.
 
-[1/1] spi: fix controller registration API inconsistency
-      https://git.kernel.org/broonie/spi/c/16ba3b0c66ef
+Also, should this be pm_runtime_get_if_active() instead?
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> 
+> I think we need to add:
+> pm_runtime_put(unicam->dev);
+> 
+> Just before the return 0;
+> 
+> BTW, we may miss a dev_info explaining why the live data is skipped when the
+> device is suspended ?
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+-- 
+Regards,
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Sakari Ailus
