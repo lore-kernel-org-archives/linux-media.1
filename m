@@ -1,140 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFEA830EF90;
-	Fri, 22 May 2026 22:36:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3609C366DCF
+	for <linux-media@vger.kernel.org>; Fri, 22 May 2026 22:55:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779489395; cv=none; b=fOBU5w5LplZPEJpldpY3VryF2hPa/aBZvyoFM63eq3LOTRt7uSyprWLdKNvJG+KrkFeY+2nUhBzLjXPeqv7gKGsRCth5qjw4Af+/WafylIdFR5MQozULjJIQcMujlpwcMUD9iTMYouABl9eRoYD7elJSvxqM0BSmJmFLjoeZ90s=
+	t=1779490528; cv=none; b=EmCUTBy4NRbNEGi3mm3rWARB640K+DdFv3i1pH2sgfnYqKTiXM4hqtpGAf4Tu8fwdBc6aCo84iQB4mtQC828l0K2zYmMpJXsctuT5P6+AdAx2JIRrev82L1XNWMyYKG6xTstVWLRJEuNP7dGfW3GwxQI9kptcnNYIb9o3u24UCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779489395; c=relaxed/simple;
-	bh=DsFrLy1QnmfWFDbon41lWyQaVdRD1IbMP6ozeZW94Ms=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bFwEg/M6bdIo797RwJaLKxBqrnra72M832fR8TkK7daf+RZj1S2La21uXYgDMY6WOXACxkJiS1I0yIKUZVq98AiIb1TAi9pFhaEU4CLjFi7oBppfwAQkm0yZv/LW3urN+Ir71JsTOxQF5kFPr2B/qFkNvEYsEmA1r7RKzw8GRUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gJM13lUm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779490528; c=relaxed/simple;
+	bh=ZOOG5MvS2i7JuN7tG3EEI/hqJG4eq8Z9AdCejHFON80=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Gb+Q/c78ao2BLQyo8wFby5zG2kkUF+8j2TTx/RL1FhAbzQQVK7T/uH9gkn/WZmU77K0hY+cLO+ZfmobNqJafPm/y43KgqjdBkALj43RbSOL8l5y6QO0EOfukcjn+Jz1wwZm2CbBMjyjMGIqkAE7R6tiqSxZAuk1IdxQm28Tb+wo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=F5YZopwW; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gJM13lUm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B643F1F000E9;
-	Fri, 22 May 2026 22:36:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779489394;
-	bh=6njRsw02iSRnqRZYZKADbmfJ16iyqvzEz/yxpdPwiws=;
-	h=From:Date:Subject:To:Cc;
-	b=gJM13lUmR9iFlNe65UcQTtky7kQ/5n05Waz3y72Kk3S1Jsb+tQ23erOPvN2HFZMft
-	 b2gssuvysm+IN9dzoIeX2lWjpTIri5QjW4rQnY5slehKEoEJLdP29rYnHcY8/RqqVk
-	 EKb1HG6yip5h4evB/A7Zax9WeElIFHCIB4sSm25J/EN9J8FisMjBBVauQx6o6UyvXM
-	 YuzOiLH+gdvteVaDG/VlxBTqUGLrFWTNt4mlqPETFscLkA/OhSbgg8b/bDzgM400U9
-	 XQwwF+9GL984VQfTLo6BARwfJGExfbGGyi00mLefYyFr8TgNn+bqbpWV/qsPrtyUtD
-	 9J/uLjP9FHNvw==
-From: Linus Walleij <linusw@kernel.org>
-Date: Sat, 23 May 2026 00:36:30 +0200
-Subject: [PATCH] media: camif-core: Drop GPIO handling
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="F5YZopwW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1779490526; x=1811026526;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ZOOG5MvS2i7JuN7tG3EEI/hqJG4eq8Z9AdCejHFON80=;
+  b=F5YZopwW7bckCcMkFWaFwA2gaeDxcXqjqkwEkdlmkkkyZ2DzyZJABoxW
+   TQGSJy9DW+d9yB0lh60rsH9jR4kxXzWpZ4FRqreLeN3euLXSJk8bQZucM
+   NXEj6yRGIIWqbCR/4u3ymPaX29BJfNd3c6z5pw2hEsmLYB9YYcjMBOPX/
+   V1TF1erQkv1FNrKYPzVxC+Pddw5X7H02TQfzEgaTFnehFPsag8ayu92VF
+   l/SbhVsbl/rPUpMtxfGHI8xar24qIdYy+m3Te1Nl/tDLmoC2iXvMlo97z
+   7x8apZLOZfgZWKaV9ZUCi93N+w5SpsXnJ5GJL/kR1BZfL/RpGdjNUurI0
+   A==;
+X-CSE-ConnectionGUID: jujQ3WosTaOTcfpMMvOZOQ==
+X-CSE-MsgGUID: j5BSrwPWQMOzm9rvTwFKTQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11794"; a="80457952"
+X-IronPort-AV: E=Sophos;i="6.24,163,1774335600"; 
+   d="scan'208";a="80457952"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 May 2026 15:55:26 -0700
+X-CSE-ConnectionGUID: G6b+pnp7R2qpsm6oWoLo+Q==
+X-CSE-MsgGUID: +q6gFB67Tnm1TItTw/9tmA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,163,1774335600"; 
+   d="scan'208";a="240198776"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.81])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 May 2026 15:55:25 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id BBB3B121D50;
+	Sat, 23 May 2026 01:54:02 +0300 (EEST)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1wQYkk-000000012HM-1aVU;
+	Sat, 23 May 2026 01:54:02 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-media@vger.kernel.org
+Cc: Ricardo Ribalda <ribalda@chromium.org>
+Subject: [PATCH 1/1] staging: media: ipu3-imgu: Ensure correct binary selection
+Date: Sat, 23 May 2026 01:54:02 +0300
+Message-ID: <20260522225402.247080-1-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260523-s3c-camif-descriptors-v1-1-797052aab553@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDQAxA0atI1g2MM2ppr1JcjJloU6hKolIQ7
- 96xXb7F/zsYq7DBvdhBeROTacwoLwXQM44Do6Rs8M43rvYBLRBSfEuPiY1U5mVSw2vZ+KojF+I
- tQW5n5V4+v++j/dvW7sW0nDM4ji+0Cit9eQAAAA==
-X-Change-ID: 20260523-s3c-camif-descriptors-71624bc03a9d
-To: Sylwester Nawrocki <sylvester.nawrocki@gmail.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
- linux-gpio@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-The driver and platform data refers to the legacy GPIO API,
-doesn't really use it, and also calls some GPIO-related functions
-passed as platform data.
+The ImgU has two sets of binaries, those that support striping (fixed at
+2) and those that don't. There's overlap between the stripes and so that
+implies a minimum width for the images themselves, or the Bayer downscale
+rectangle in particular.
 
-This platform data is not used anywhere in the kernel.
+Take this account in binary selection.
 
-I'm not outright deleting the driver, just deleting the bogus
-GPIO handling. If outoftree developers want to fix up the
-driver the GPIOs should be defined in some kind of firmware
-node and be obtained using the gpiod_get*() APIs directly
-in the driver, but I don't even know what these GPIOs are
-since they are hidden in platform data that is not in the
-mainline kernel, so what can I do.
-
-Signed-off-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/platform/samsung/s3c-camif/camif-core.c | 9 ++-------
- include/media/drv-intf/s3c_camif.h                    | 2 --
- 2 files changed, 2 insertions(+), 9 deletions(-)
+Hi Ricardo,
 
-diff --git a/drivers/media/platform/samsung/s3c-camif/camif-core.c b/drivers/media/platform/samsung/s3c-camif/camif-core.c
-index 221e3c447f36..1304d4191dd6 100644
---- a/drivers/media/platform/samsung/s3c-camif/camif-core.c
-+++ b/drivers/media/platform/samsung/s3c-camif/camif-core.c
-@@ -12,7 +12,6 @@
- #include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/errno.h>
--#include <linux/gpio.h>
- #include <linux/i2c.h>
- #include <linux/interrupt.h>
- #include <linux/io.h>
-@@ -412,7 +411,7 @@ static int s3c_camif_probe(struct platform_device *pdev)
- 
- 	camif->dev = dev;
- 
--	if (!pdata || !pdata->gpio_get || !pdata->gpio_put) {
-+	if (!pdata) {
- 		dev_err(dev, "wrong platform data\n");
- 		return -EINVAL;
- 	}
-@@ -429,9 +428,7 @@ static int s3c_camif_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		return ret;
- 
--	ret = pdata->gpio_get();
--	if (ret < 0)
--		return ret;
-+	/* FIXME: get GPIOs here */
- 
- 	ret = s3c_camif_create_subdev(camif);
- 	if (ret < 0)
-@@ -504,7 +501,6 @@ static int s3c_camif_probe(struct platform_device *pdev)
- err_clk:
- 	s3c_camif_unregister_subdev(camif);
- err_sd:
--	pdata->gpio_put();
- 	return ret;
- }
- 
-@@ -521,7 +517,6 @@ static void s3c_camif_remove(struct platform_device *pdev)
- 	pm_runtime_disable(&pdev->dev);
- 	camif_clk_put(camif);
- 	s3c_camif_unregister_subdev(camif);
--	pdata->gpio_put();
- }
- 
- static int s3c_camif_runtime_resume(struct device *dev)
-diff --git a/include/media/drv-intf/s3c_camif.h b/include/media/drv-intf/s3c_camif.h
-index f746851a5ce6..00d83620ea5f 100644
---- a/include/media/drv-intf/s3c_camif.h
-+++ b/include/media/drv-intf/s3c_camif.h
-@@ -31,8 +31,6 @@ struct s3c_camif_sensor_info {
- 
- struct s3c_camif_plat_data {
- 	struct s3c_camif_sensor_info sensor;
--	int (*gpio_get)(void);
--	int (*gpio_put)(void);
- };
- 
- #endif /* MEDIA_S3C_CAMIF_ */
+I'm not sure if this makes smatch happy but it somehow addresses the issue
+it found. In the end it's up to the userspace to configure this
+correctly...
 
----
-base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
-change-id: 20260523-s3c-camif-descriptors-71624bc03a9d
+Compile tested only.
 
-Best regards,
---  
-Linus Walleij <linusw@kernel.org>
+- Sakari
+
+ drivers/staging/media/ipu3/ipu3-css.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/staging/media/ipu3/ipu3-css.c b/drivers/staging/media/ipu3/ipu3-css.c
+index 8063401246fb..3e4e03a8fa3a 100644
+--- a/drivers/staging/media/ipu3/ipu3-css.c
++++ b/drivers/staging/media/ipu3/ipu3-css.c
+@@ -1613,6 +1613,12 @@ static int imgu_css_find_binary(struct imgu_css *css,
+ 		    in->height > bi->info.isp.sp.input.max_height)
+ 			continue;
+ 
++		/* Check the striping overlap isn't wider than the stripe. */
++		if (bi->info.isp.sp.iterator.num_stripes > 1 &&
++		    rects[IPU3_CSS_RECT_BDS].width <
++		    4 * IPU3_UAPI_ISP_VEC_ELEMS * 2)
++			continue;
++
+ 		if (imgu_css_queue_enabled(&queue[IPU3_CSS_QUEUE_OUT])) {
+ 			if (bi->info.isp.num_output_pins <= 0)
+ 				continue;
+-- 
+2.47.3
 
