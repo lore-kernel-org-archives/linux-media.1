@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DDEF389107;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3643B388E48;
 	Fri, 22 May 2026 21:23:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779484997; cv=none; b=lvJx3/oC5yc1L2t1JFvQnGydfJ8GZEPo5bE78i8mrJAsBXIzK61gKuaxAJqU/jh816uziw4CLw9/BDTk7Kx4kpvV3Wp/uk0hNAOGvaQpc8/kO2/41Nl5F/LH80e7lb5KfbIOGwKf+eZHlDJi6Oo5N4JzCedJ62irv5jEgAnzgMs=
+	t=1779484997; cv=none; b=koxBJUBQTwISiIB2zFymrB8X4/dZfbAV17hTNOCzWRQFTyBVY9EtPcWJtkr+fwzP1ts2yluSmbM6Hhmk7LvoMtjbz3LFyTh1TCbPWBy69NLbf7Fglr03bDJGa71OScglhSgPm2dD7y6s4ErfOObPWBJ6GQV9Jf/C0gNOiavNLuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1779484997; c=relaxed/simple;
-	bh=NVSWHAFR1LsCrLz77aschyKwNIXtNKkr5g0+WCuZBCU=;
+	bh=vBOdldmiISrDth84K4tomVLNfpZm1Axek6gl8sV6YCE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=o2hiv17Os+tXiMJ02eTbUmewybdXrZ5w/fmNRtp0bsyYxikXXNBs5K/vNYjMo2AEMZvcUdQ1WmMZdHbULuIjvss9Ee7h6cQnBfvehhgMftPUmwFOijU/c6fgW7TxaE/sI2JJI+qEDvAip5IA1eCWLMWo9lRypFOzsNm5J+2C7Ek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nXfMFFxN; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=UIK5k8o0qrBqS67R/RQYPa3I9abn2r8zdmobBw06VtLstlGD6i5eT6Eo+74vW0IZgFIxg5jswrSOpCtsmFT0xJF59SPmZH5apNzzYjf+Z1QkV9ygHx30wi1pngv9WBr6jGcRN86iOFPc03jSBCsSL0IuPmRX25HwHxJSvCa8/is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F0h3HDCP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nXfMFFxN"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B819DC2BCC7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F0h3HDCP"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E1703C2BCFA;
 	Fri, 22 May 2026 21:23:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1779484996;
-	bh=NVSWHAFR1LsCrLz77aschyKwNIXtNKkr5g0+WCuZBCU=;
+	bh=vBOdldmiISrDth84K4tomVLNfpZm1Axek6gl8sV6YCE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=nXfMFFxN6vCjqLQaJm86dEdDlga29hcHc6tS1APgc6BWhfG+S7P0VAogiZB3BO2Gz
-	 buBo3+U8nedC2kENfMJb253Hg1n1x51t4qywIirMyiFR0BZTCBxuTcB9loIH/w20d4
-	 bXLs/NVgJGGJYOA8byPTyiNJhAbjYavrHHWFAvWtj4Sq0UgIHXvOSXS0vV4x2KgO77
-	 6kExmI49nzSgOnIMOx0CHSR2haIl+oJWpi6QMDcCR+c+aHB+fn3Q2NH/8Y0j2a9dMT
-	 QS20wpjjzVwDt1+j7zgcN2x2qOBr5vr33TNcNQNXOVc/s4Ne4XdFelqzC6SWkklKq+
-	 DSpTFlGwbkaZQ==
+	b=F0h3HDCPBeRS5QJxFEvpss5X3Hkela6G7yog7xrMiX++Hjx3hcYbr9vSD5iqwn/4D
+	 7EFHsFDeuvnvnB/Ba8ay+p0+KePzwMrpPcb2adTBp3ZOYfKq6EXXddwVHozYWFjAGw
+	 OTeR8PKl5WZsHBDbzCk8FAZmvR/6MtJTvmPrluHBRqDg0FgBKJHZwImEnKmdQwXJuB
+	 z3HeOFuD0JTGfMD6wsxxsNE4WAUkkHBjxpl889owfkwYI5JqfxYuIqOy4OC9hOw7c8
+	 USc7BRB/qTslVS7D4Ntog5Vz9zlMzfhNpsh6Oyh6Lqe3Gd73xyMgGJq7SDHJSH7RYF
+	 QVbs5QKOfWeNQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A83D8CD5BB7;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D6379CD5BB7;
 	Fri, 22 May 2026 21:23:16 +0000 (UTC)
 From: Michael Riesch via B4 Relay <devnull+michael.riesch.collabora.com@kernel.org>
-Date: Fri, 22 May 2026 23:23:08 +0200
-Subject: [PATCH v5 2/8] media: dt-bindings: add rockchip rk3588 vicap
+Date: Fri, 22 May 2026 23:23:10 +0200
+Subject: [PATCH DONOTMERGE v5 4/8] arm64: dts: rockchip: add mipi csi-2
+ receiver nodes to rk3588
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260522-rk3588-vicap-v5-2-d1d1f5265c56@collabora.com>
+Message-Id: <20260522-rk3588-vicap-v5-4-d1d1f5265c56@collabora.com>
 References: <20260522-rk3588-vicap-v5-0-d1d1f5265c56@collabora.com>
 In-Reply-To: <20260522-rk3588-vicap-v5-0-d1d1f5265c56@collabora.com>
 To: Mehdi Djait <mehdi.djait@linux.intel.com>, 
@@ -58,14 +59,13 @@ To: Mehdi Djait <mehdi.djait@linux.intel.com>,
  Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Michael Riesch <michael.riesch@collabora.com>, 
- Conor Dooley <conor.dooley@microchip.com>
+ linux-kernel@vger.kernel.org, Michael Riesch <michael.riesch@collabora.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779484994; l=6436;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779484994; l=2720;
  i=michael.riesch@collabora.com; s=20260428; h=from:subject:message-id;
- bh=im+o/JIpnBODW83u7tZJGsEttv7DKCVZnFjWMn7O7Ds=;
- b=/9Z4cuEnd7E2AIBT2dyZPM9JBgN6OunMh7RhUwHCZ/PZLElRjwjqMv8Rei8T6aofmB//fOg0r
- TuvyywQ8ME3AQR6gN+dTh21InrQQ0GhQcVSzs+vDFX6Bfz7HO+bl0WS
+ bh=dZdZT5orbsEANcy4d6TWcsk4E00WD7gaPMXPl877FMo=;
+ b=p78o0A7laj4AhONI1X5AWIm/FJ1HmquBlGR4+lVeDa6dpsjk+Oi9DvBRvMHMIpeh7AFYMNPG4
+ 0wNd/NI7rKzAomwbIe/c0w6lyBySkLvAoup3ZJ/pecafjh5+JZuwcmv
 X-Developer-Key: i=michael.riesch@collabora.com; a=ed25519;
  pk=tAbmpPTE1MELYweXqqDU40fa18uCO6s32GJL/RzyW2Y=
 X-Endpoint-Received: by B4 Relay for michael.riesch@collabora.com/20260428
@@ -75,252 +75,89 @@ Reply-To: michael.riesch@collabora.com
 
 From: Michael Riesch <michael.riesch@collabora.com>
 
-Add documentation for the Rockchip RK3588 Video Capture (VICAP) unit. To
-that end, make the existing rockchip,rk3568-vicap documentation more
-general and introduce variant specific constraints.
+This patch is discussed over at
+https://lore.kernel.org/all/20260305-rk3588-csi2rx-v2-0-79d01b615486@collabora.com
+included here for testing purposes only.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+The Rockchip RK3588 features six MIPI CSI-2 receiver units:
+ - MIPI0: connected to MIPI DCPHY0 (not supported)
+ - MIPI1: connected to MIPI DCPHY1 (not supported)
+ - MIPI2: connected to MIPI DPHY0
+ - MIPI3: connected to MIPI DPHY0-1 (not supported)
+ - MIPI4: connected to MIPI DPHY1
+ - MIPI5: connected to MIPI DPHY1-1 (not supported)
+As the MIPI DCPHYs as well as the split DPHY mode of the DPHYs
+are not yet supported, add only the device tree nodes for the
+MIPI2 and MIPI4 units.
+
 Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
 ---
- .../bindings/media/rockchip,rk3568-vicap.yaml      | 173 ++++++++++++++++++---
- 1 file changed, 154 insertions(+), 19 deletions(-)
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 52 +++++++++++++++++++++++++++
+ 1 file changed, 52 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-vicap.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-vicap.yaml
-index 18cd0a5a5318174910e04f6ef7558c92cbfec899..080b64503b1bc44d0cfa796db8ec0eb369ed4c52 100644
---- a/Documentation/devicetree/bindings/media/rockchip,rk3568-vicap.yaml
-+++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-vicap.yaml
-@@ -15,9 +15,15 @@ description:
-   the data from camera sensors, video decoders, or other companion ICs and
-   transfers it into system main memory by AXI bus.
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index 4fb8888c281c8c7ce31e90e91abe1fd703804dd2..4d80e5e1f0339b6e91adf40da6cc8389ffd4ddc9 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1430,6 +1430,58 @@ av1d: video-codec@fdc70000 {
+ 		resets = <&cru SRST_A_AV1>, <&cru SRST_P_AV1>, <&cru SRST_A_AV1_BIU>, <&cru SRST_P_AV1_BIU>;
+ 	};
  
-+  The Rockchip RK3588 Video Capture (VICAP) is similar to its RK3568
-+  counterpart, but features six MIPI CSI-2 ports and additional connections
-+  to the image signal processor (ISP) blocks.
++	csi2: csi@fdd30000 {
++		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
++		reg = <0x0 0xfdd30000 0x0 0x10000>;
++		interrupts = <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH 0>,
++			     <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH 0>;
++		interrupt-names = "err1", "err2";
++		clocks = <&cru PCLK_CSI_HOST_2>;
++		phys = <&csi_dphy0>;
++		power-domains = <&power RK3588_PD_VI>;
++		resets = <&cru SRST_P_CSI_HOST_2>;
++		status = "disabled";
 +
- properties:
-   compatible:
--    const: rockchip,rk3568-vicap
-+    enum:
-+      - rockchip,rk3568-vicap
-+      - rockchip,rk3588-vicap
- 
-   reg:
-     maxItems: 1
-@@ -26,11 +32,8 @@ properties:
-     maxItems: 1
- 
-   clocks:
--    items:
--      - description: ACLK
--      - description: HCLK
--      - description: DCLK
--      - description: ICLK
-+    minItems: 4
-+    maxItems: 5
- 
-   clock-names:
-     items:
-@@ -38,25 +41,19 @@ properties:
-       - const: hclk
-       - const: dclk
-       - const: iclk
-+      - const: iclk1
-+    minItems: 4
- 
-   iommus:
-     maxItems: 1
- 
-   resets:
--    items:
--      - description: ARST
--      - description: HRST
--      - description: DRST
--      - description: PRST
--      - description: IRST
-+    minItems: 5
-+    maxItems: 9
- 
-   reset-names:
--    items:
--      - const: arst
--      - const: hrst
--      - const: drst
--      - const: prst
--      - const: irst
-+    minItems: 5
-+    maxItems: 9
- 
-   rockchip,grf:
-     $ref: /schemas/types.yaml#/definitions/phandle
-@@ -67,8 +64,15 @@ properties:
- 
-   ports:
-     $ref: /schemas/graph.yaml#/properties/ports
-+    additionalProperties: false
- 
-     properties:
-+      "#address-cells":
-+        const: 1
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
 +
-+      "#size-cells":
-+        const: 0
++			csi2_in: port@0 {
++				reg = <0>;
++			};
 +
-       port@0:
-         $ref: /schemas/graph.yaml#/$defs/port-base
-         unevaluatedProperties: false
-@@ -100,13 +104,75 @@ properties:
- 
-       port@1:
-         $ref: /schemas/graph.yaml#/properties/port
--        description: Port connected to the MIPI CSI-2 receiver output.
-+        description: Port connected to the MIPI CSI-2 receiver 0 output.
++			csi2_out: port@1 {
++				reg = <1>;
++			};
++		};
++	};
 +
-+        properties:
-+          endpoint:
-+            $ref: video-interfaces.yaml#
-+            unevaluatedProperties: false
++	csi4: csi@fdd50000 {
++		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
++		reg = <0x0 0xfdd50000 0x0 0x10000>;
++		interrupts = <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH 0>,
++			     <GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH 0>;
++		interrupt-names = "err1", "err2";
++		clocks = <&cru PCLK_CSI_HOST_4>;
++		phys = <&csi_dphy1>;
++		power-domains = <&power RK3588_PD_VI>;
++		resets = <&cru SRST_P_CSI_HOST_4>;
++		status = "disabled";
 +
-+      port@2:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Port connected to the MIPI CSI-2 receiver 1 output.
- 
-         properties:
-           endpoint:
-             $ref: video-interfaces.yaml#
-             unevaluatedProperties: false
- 
-+      port@3:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Port connected to the MIPI CSI-2 receiver 2 output.
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
 +
-+        properties:
-+          endpoint:
-+            $ref: video-interfaces.yaml#
-+            unevaluatedProperties: false
++			csi4_in: port@0 {
++				reg = <0>;
++			};
 +
-+      port@4:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Port connected to the MIPI CSI-2 receiver 3 output.
++			csi4_out: port@1 {
++				reg = <1>;
++			};
++		};
++	};
 +
-+        properties:
-+          endpoint:
-+            $ref: video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+      port@5:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Port connected to the MIPI CSI-2 receiver 4 output.
-+
-+        properties:
-+          endpoint:
-+            $ref: video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+      port@6:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Port connected to the MIPI CSI-2 receiver 5 output.
-+
-+        properties:
-+          endpoint:
-+            $ref: video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+      port@10:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Port connected to the ISP0 input.
-+
-+        properties:
-+          endpoint:
-+            $ref: video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+      port@11:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Port connected to the ISP1 input.
-+
-+        properties:
-+          endpoint:
-+            $ref: video-interfaces.yaml#
-+            unevaluatedProperties: false
- required:
-   - compatible
-   - reg
-@@ -114,6 +180,75 @@ required:
-   - clocks
-   - ports
- 
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: rockchip,rk3568-vicap
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 4
-+
-+        clock-names:
-+          maxItems: 4
-+
-+        resets:
-+          maxItems: 5
-+
-+        reset-names:
-+          items:
-+            - const: arst
-+            - const: hrst
-+            - const: drst
-+            - const: prst
-+            - const: irst
-+
-+        ports:
-+          properties:
-+            port@2: false
-+
-+            port@3: false
-+
-+            port@4: false
-+
-+            port@5: false
-+
-+            port@6: false
-+
-+            port@10: false
-+
-+            port@11: false
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: rockchip,rk3588-vicap
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 5
-+
-+        clock-names:
-+          minItems: 5
-+
-+        resets:
-+          minItems: 9
-+
-+        reset-names:
-+          items:
-+            - const: arst
-+            - const: hrst
-+            - const: drst
-+            - const: irst0
-+            - const: irst1
-+            - const: irst2
-+            - const: irst3
-+            - const: irst4
-+            - const: irst5
-+
- additionalProperties: false
- 
- examples:
+ 	vop: vop@fdd90000 {
+ 		compatible = "rockchip,rk3588-vop";
+ 		reg = <0x0 0xfdd90000 0x0 0x4200>, <0x0 0xfdd95000 0x0 0x1000>;
 
 -- 
 2.47.3
