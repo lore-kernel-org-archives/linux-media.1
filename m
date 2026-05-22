@@ -1,101 +1,122 @@
-Received: from sender-pp-o92.zoho.in (sender-pp-o92.zoho.in [103.117.158.92])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756259460;
-	Fri, 22 May 2026 15:47:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=103.117.158.92
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779464829; cv=pass; b=SiNAgccaONWT8FF7uJlZ2pmKKoL+0MF9xI4Iys2mQOVUamvAc3QsIW25lzYnC1WPKehYXxAc6s3vz537rFV2RScNDATd4wi+0b5NqyGlQ0xKhDqM2dTNLhqdoyq0Lgqw5EP7+7DS7JVL0vyv5qM7mxMrUrEuz/+v+4d5FLQv0v8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779464829; c=relaxed/simple;
-	bh=vdpJlqFgMsflCvGvYA8/wYqNVcciDb/odNbR7o5HHxA=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:Subject:MIME-Version:
-	 Content-Type; b=i2hOPJWB+tKSJcWdfv3G++uEjioDp+PKGUF7g3qaW4OUHM0Je+onRJY9TmF2Z9ttDB8e9Pbhc6K2RI0wHHf4jDisTyJ8u8+VS/MSeA45RIU91wLw+CLStoVWK7XOpodghOXF/njK0zdysHTSNpXjPwabgKVBENbfGmi6yn/DiRs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.in; spf=pass smtp.mailfrom=zohomail.in; dkim=pass (1024-bit key) header.d=zohomail.in header.i=linuxuser509@zohomail.in header.b=eSCnPdoo; arc=pass smtp.client-ip=103.117.158.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5495B3AEB35;
+	Fri, 22 May 2026 16:49:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779468552; cv=none; b=kW5apDMluuL0OUXOFN6UaU4kyZnVNrIxH9oJ8Xnd4UJouuYXrtVaCvVXBDZr1ifWUI2bEQgbV7ZX5HDLpSEQDqc7DxfkeL4+gGIdRKMCzH786GgKbTU8S8z4jrjV50EpfLk+NJ9Vor0aiG3dTnZ2Kz8SDlz4DIoj7F0xKLr5beY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779468552; c=relaxed/simple;
+	bh=FfKTb9Hu7Ghj2YKZ+FDCk+lV/jMscXRaMlPUwPh7liA=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=c1KolRDRDVuaopbFysTQGcZaq4t/IhiFhcjNEi7DaqJndB1f4Yoktzm4KMIFmmjDIWdTZdWuaCGOWHpDds1Q71MS1/POj99o5slFvwAvjKLLuxJPtOxIUQ+JT+OeDcW6m36rW6JdFz8f55NvoV8L4vGtcGspbIMX4tBwH2Om0Lg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MbZy6fAy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.in header.i=linuxuser509@zohomail.in header.b="eSCnPdoo"
-ARC-Seal: i=1; a=rsa-sha256; t=1779464815; cv=none; 
-	d=zohomail.in; s=zohoarc; 
-	b=KbARBxV+piBkgtY4bVfvy2fWPSYM2dHSVUnTMcFGDA5dtYN8LnO8U0Lr/D1VmJqfVIf/0trpJ8Ws3lgs77S8FBzNbLhRe+sZG4MwtkF+HOCtwL62lbc4SBRJbsXWjoSC5L0CPBdRY949j6TmEdWPepgh+zYeXDf9IgbQeHWpfq0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in; s=zohoarc; 
-	t=1779464815; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Zp1Zb2zqOPl0PmJt8aoEAPWtLpQpQt0Kf45e0l5Dlv0=; 
-	b=a5Ecf+g6VMfhT+/6YH3p1t9PsYqjx6zEQQwzaPkWCfy/Jop2jOZUdmdC5ZjNfzvewp/AR8L8yjUKliefQZwp1IYuOsHFJTQa30BSi6GGiOcwKTJ7MtYyfP0aX95Gi4hcf8GCG2sGt7vvZttfdRiMbJVORd61N8hu49ZrnjnQkJ0=
-ARC-Authentication-Results: i=1; mx.zohomail.in;
-	dkim=pass  header.i=zohomail.in;
-	spf=pass  smtp.mailfrom=linuxuser509@zohomail.in;
-	dmarc=pass header.from=<linuxuser509@zohomail.in>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779464815;
-	s=zoho; d=zohomail.in; i=linuxuser509@zohomail.in;
-	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=Zp1Zb2zqOPl0PmJt8aoEAPWtLpQpQt0Kf45e0l5Dlv0=;
-	b=eSCnPdoo4O2wUBdXA7DMuSB3DrmNY/MceqjoSSZClj3PVYEin24XH1uBzFHu9Stl
-	fGxgB6GTmuy7f/2Z8fzCrlo8dpaOsVe5va+M1hPGAg+ZhzyVCqV+pDVrDoHR+WxjYUk
-	14x9xLjT5Bvaaryj4h0F2Ew1cOSyzoFfBuhxybwc=
-Received: from mail.zoho.in by mx.zoho.in
-	with SMTP id 1779464812321819.7705393349108; Fri, 22 May 2026 21:16:52 +0530 (IST)
-Received: from  [157.35.75.45] by mail.zoho.in
-	with HTTP;Fri, 22 May 2026 21:16:52 +0530 (IST)
-Date: Fri, 22 May 2026 21:16:52 +0530
-From: Ashwin Gundarapu <linuxuser509@zohomail.in>
-To: "mchehab" <mchehab@kernel.org>
-Cc: "linux-media" <linux-media@vger.kernel.org>,
-	"linux-kernel" <linux-kernel@vger.kernel.org>
-Message-ID: <19e505e371a.32d925ff39250.8863979213415950412@zohomail.in>
-In-Reply-To: 
-Subject: [PATCH] media: cx231xx: fix null pointer deref in
- snd_cx231xx_pcm_close
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MbZy6fAy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE4BB1F000E9;
+	Fri, 22 May 2026 16:49:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779468551;
+	bh=ug9eZQIFNypiqZgKpBIekjie2y0vmg+wE3aUAtX412Y=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=MbZy6fAy++HVsaBlZHx0t1kgW6LLk6tuuFn08+R2GoPkUYN16f5gsaWORYACAXjaP
+	 Wk9ypySt/3+LkNZ3EJjM0ikhyLL01jJuGTggrBlQm8qSDs4HPdEzhJAVp6OKFRnrXC
+	 aZZkqmPfnx7jBEu0VOkLP/Aibe+2/I7JBJIsLRWhc0EhQd2nI0hzgeBpDElgx+lukJ
+	 wDyhptwqtDAqUlpKYJ6vVszAw7ixUtWL3fbF3w8x0O+Jwm0UI4HDHfM+Pw2ODDjr5W
+	 rl6+iCt0gOy283aT6a4z+eSXJpL0raUXO1wE37IeEP0uFAYWWQFsJuyAOY+D5Tv0iX
+	 R2htSe+Vxw0ww==
+Date: Fri, 22 May 2026 11:49:10 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, linux-phy@lists.infradead.org, 
+ linux-media@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <20260522-x1e-csi2-phy-v7-1-79cb1280fad6@linaro.org>
+References: <20260522-x1e-csi2-phy-v7-0-79cb1280fad6@linaro.org>
+ <20260522-x1e-csi2-phy-v7-1-79cb1280fad6@linaro.org>
+Message-Id: <177946855028.3571140.11988520251406266072.robh@kernel.org>
+Subject: Re: [PATCH v7 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
+ schema
 
-Add a null check for the dev pointer after retrieving it from
-the substream. Without this, a use-after-free or null pointer
-dereference can occur when closing the audio device, causing
-a kernel page fault.
 
-Link: https://bugzilla.redhat.com/show_bug.cgi?id=2365068
-Signed-off-by: Ashwin Gundarapu <linuxuser509@zohomail.in>
----
- drivers/media/usb/cx231xx/cx231xx-audio.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+On Fri, 22 May 2026 15:45:09 +0100, Bryan O'Donoghue wrote:
+> Add a base schema initially compatible with x1e80100 to describe MIPI CSI2
+> PHY devices.
+> 
+> The hardware can support both CPHY, DPHY and a special split-mode DPHY.
+> 
+> The schema here defines three ports:
+> 
+> port@0:
+>     The first input port where a sensor is always required.
+> 
+> port@1:
+>     A second optional input port which if present implies DPHY split-mode.
+> 
+> port@2:
+>     A third always required output port which connects to the controller.
+> 
+> The CSIPHY devices have their own pinouts on the SoC as well as their own
+> individual voltage rails.
+> 
+> The need to model voltage rails on a per-PHY basis leads us to define
+> CSIPHY devices as individual nodes.
+> 
+> Two nice outcomes in terms of schema and DT arise from this change.
+> 
+> 1. The ability to define on a per-PHY basis voltage rails.
+> 2. The ability to require those voltage.
+> 
+> We have had a complete bodge upstream for this where a single set of
+> voltage rail for all CSIPHYs has been buried inside of CAMSS.
+> 
+> Much like the I2C bus which is dedicated to Camera sensors - the CCI bus in
+> CAMSS parlance, the CSIPHY devices should be individually modelled.
+> 
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>  .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 208 +++++++++++++++++++++
+>  1 file changed, 208 insertions(+)
+> 
 
-diff --git a/drivers/media/usb/cx231xx/cx231xx-audio.c b/drivers/media/usb/cx231xx/cx231xx-audio.c
-index 9c71b32552df..a13aef17ff4d 100644
---- a/drivers/media/usb/cx231xx/cx231xx-audio.c
-+++ b/drivers/media/usb/cx231xx/cx231xx-audio.c
-@@ -441,12 +441,17 @@ static int snd_cx231xx_capture_open(struct snd_pcm_substream *substream)
- static int snd_cx231xx_pcm_close(struct snd_pcm_substream *substream)
- {
- 	int ret;
--	struct cx231xx *dev = snd_pcm_substream_chip(substream);
-+        struct cx231xx *dev = snd_pcm_substream_chip(substream);
+My bot found errors running 'make dt_binding_check' on your patch:
 
--	dev_dbg(dev->dev, "closing device\n");
-+        if (!dev) {
-+                pr_err("cx231xx: called with null device\n");
-+                return -ENODEV;
-+        }
+yamllint warnings/errors:
 
--	/* inform hardware to stop streaming */
--	mutex_lock(&dev->lock);
-+        dev_dbg(dev->dev, "closing device\n");
-+
-+        /* inform hardware to stop streaming */
-+        mutex_lock(&dev->lock);
- 	ret = cx231xx_capture_start(dev, 0, Audio);
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml: port@0: Missing additionalProperties/unevaluatedProperties constraint
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml: port@1: Missing additionalProperties/unevaluatedProperties constraint
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml: port@2: Missing additionalProperties/unevaluatedProperties constraint
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.example.dtb: csiphy@ace4000 (qcom,x1e80100-csi2-phy): ports:port@2:endpoint: Unevaluated properties are not allowed ('clock-lanes', 'data-lanes' were unexpected)
+	from schema $id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml
 
- 	/* set alternate setting for audio interface */
--- 
-2.43.0
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260522-x1e-csi2-phy-v7-1-79cb1280fad6@linaro.org
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
