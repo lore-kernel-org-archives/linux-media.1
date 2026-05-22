@@ -1,28 +1,28 @@
 Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C269B3CCFC4;
-	Fri, 22 May 2026 10:18:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F083D5666;
+	Fri, 22 May 2026 10:18:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779445108; cv=none; b=INS9h0iXUIZurrxBQAtRxHcfJzC3RjiEQ4VRdA8/zlIS1GD1fMVwfweZUbEqamAP1GIcg09d2D+anWrSfaegmT7fc0p4EmX9MUd3xlfDn+semhCg/lVRZHXLOfFT/7Xli9tZt0TICOQC4EYoq+28QaIzr7Efy/d5vR9TQ6d+8lc=
+	t=1779445123; cv=none; b=mLX4MFQfeSBkASM4nB98w6onZlgWtVVLPbxTBPxyJyVo9R02ZVLCUKosizRhtSPanqpF3psuPIuUVMefQGSTU9vc/0yut9vLOcCt/suMFiP0mzLenImBjo1TYbcSXs1euonw+Xvx+n5AfBzThmf1NNmQr6rkjvYYKyR9GBCVKCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779445108; c=relaxed/simple;
-	bh=/H+YdQPRpsQyPrI8fW3b3boTUumKzDAP8KcGI/DlArA=;
+	s=arc-20240116; t=1779445123; c=relaxed/simple;
+	bh=rXg8LTkAKTJ8UbCnuC7jLvsrhh3AX1TUruXRYOQqzbQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tocWtk1ieFr3JGH2b9+OzSGUJELgamkNBlWA3gemOza7VCdzq9FutzMWQ3moD1KGqTB/zIvIRJwJV6X8Pnrh/7uFby5+7w6LOcsYc+z9WsA20cV5ImcpsqgIyXxU9cdESvYEM6XyVUTBNzKfMIx2oM+fY173Xn+9SqhF4nk3MDE=
+	 MIME-Version; b=ENijkUnbpxCBhZbPFxgni+dG+xei3hOkJVPl+EPo9BzR+zNwT209wm7FmwPKCf+2sa+tW/Dkat//fGcOgTmhqlgM80bMQT1PNwZpxXGfUOescfUZhiat2SmO9+zP0HUU4S4VBpPEvqW/0397l4agSqnQZ3evBLg/MITojCBOa9c=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
 Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
-	by leonov.paulk.fr (Postfix) with ESMTPS id 3D8A13700297;
-	Fri, 22 May 2026 10:18:06 +0000 (UTC)
+	by leonov.paulk.fr (Postfix) with ESMTPS id 1AB163700291;
+	Fri, 22 May 2026 10:18:21 +0000 (UTC)
 Received: by laika.paulk.fr (Postfix, from userid 65534)
-	id C140FB408C9; Fri, 22 May 2026 10:18:05 +0000 (UTC)
+	id 860B7B408D2; Fri, 22 May 2026 10:18:20 +0000 (UTC)
 X-Spam-Level: **
 Received: from shepard (unknown [192.168.1.65])
-	by laika.paulk.fr (Postfix) with ESMTP id A7598B408D4;
-	Fri, 22 May 2026 10:17:13 +0000 (UTC)
+	by laika.paulk.fr (Postfix) with ESMTP id BBEE9B408D6;
+	Fri, 22 May 2026 10:17:18 +0000 (UTC)
 From: Paul Kocialkowski <paulk@sys-base.io>
 To: devicetree@vger.kernel.org,
 	imx@lists.linux.dev,
@@ -43,9 +43,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	Marco Felsch <m.felsch@pengutronix.de>,
 	Michael Tretter <m.tretter@pengutronix.de>,
 	Paul Kocialkowski <paulk@sys-base.io>
-Subject: [PATCH 11/14] media: verisilicon: Add common encoder parm and frameintervals ioctls
-Date: Fri, 22 May 2026 12:16:50 +0200
-Message-ID: <20260522101653.2565125-12-paulk@sys-base.io>
+Subject: [PATCH 13/14] media: verilisicon: imx8m: Add support for the VC8000E on i.MX8MP
+Date: Fri, 22 May 2026 12:16:52 +0200
+Message-ID: <20260522101653.2565125-14-paulk@sys-base.io>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260522101653.2565125-1-paulk@sys-base.io>
 References: <20260522101653.2565125-1-paulk@sys-base.io>
@@ -57,189 +57,184 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This introduces the required encoder ioctls for configuring the
-frame rate (via the parm timeperframe field) and enumerating available
-frame rates (via enum_frameintervals) for the encoder.
+Add the required platform-specific bits for driving the VC8000E found
+on the NXP i.MX8MP SoC.
 
 Signed-off-by: Paul Kocialkowski <paulk@sys-base.io>
+Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
+Co-authored-by: Marco Felsch <m.felsch@pengutronix.de>
 ---
- drivers/media/platform/verisilicon/hantro.h   |  3 +
- .../media/platform/verisilicon/hantro_drv.c   |  3 +
- .../media/platform/verisilicon/hantro_v4l2.c  | 99 +++++++++++++++++++
- 3 files changed, 105 insertions(+)
+ .../media/platform/verisilicon/hantro_drv.c   |   1 +
+ .../media/platform/verisilicon/hantro_hw.h    |   1 +
+ .../media/platform/verisilicon/imx8m_vpu_hw.c | 113 ++++++++++++++++++
+ 3 files changed, 115 insertions(+)
 
-diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/platform/verisilicon/hantro.h
-index e0fdc4535b2d..badd0b13988c 100644
---- a/drivers/media/platform/verisilicon/hantro.h
-+++ b/drivers/media/platform/verisilicon/hantro.h
-@@ -258,6 +258,9 @@ struct hantro_ctx {
- 	struct v4l2_pix_format_mplane dst_fmt;
- 	struct v4l2_pix_format_mplane ref_fmt;
- 
-+	struct v4l2_fract src_timeperframe;
-+	struct v4l2_fract dst_timeperframe;
-+
- 	struct v4l2_ctrl_handler ctrl_handler;
- 	int jpeg_quality;
- 	int bit_depth;
 diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index 6f72e25fa88c..d798ba361b25 100644
+index 2de27f0a2be0..540e3b647fe4 100644
 --- a/drivers/media/platform/verisilicon/hantro_drv.c
 +++ b/drivers/media/platform/verisilicon/hantro_drv.c
-@@ -923,8 +923,11 @@ static int hantro_add_func(struct hantro_dev *vpu, unsigned int funcid)
- 		vpu->decoder = func;
- 		v4l2_disable_ioctl(vfd, VIDIOC_TRY_ENCODER_CMD);
- 		v4l2_disable_ioctl(vfd, VIDIOC_ENCODER_CMD);
-+		v4l2_disable_ioctl(vfd, VIDIOC_ENUM_FRAMEINTERVALS);
- 		v4l2_disable_ioctl(vfd, VIDIOC_G_SELECTION);
- 		v4l2_disable_ioctl(vfd, VIDIOC_S_SELECTION);
-+		v4l2_disable_ioctl(vfd, VIDIOC_G_PARM);
-+		v4l2_disable_ioctl(vfd, VIDIOC_S_PARM);
- 	}
- 
- 	video_set_drvdata(vfd, vpu);
-diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
-index 1001feee5c07..2125f2913d9a 100644
---- a/drivers/media/platform/verisilicon/hantro_v4l2.c
-+++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
-@@ -213,6 +213,41 @@ static int vidioc_enum_framesizes(struct file *file, void *priv,
- 	return 0;
- }
- 
-+static int vidioc_enum_frameintervals(struct file *file, void *priv,
-+				      struct v4l2_frmivalenum *fival)
-+{
-+	struct v4l2_frmsizeenum fsize = { 0 };
-+	unsigned int width = fival->width;
-+	unsigned int height = fival->height;
-+	int ret;
-+
-+	if (fival->index > 0)
-+		return -EINVAL;
-+
-+	/* First check that the provided format and dimensions are valid. */
-+	fsize.pixel_format = fival->pixel_format;
-+	ret = vidioc_enum_framesizes(file, priv, &fsize);
-+	if (ret)
-+		return ret;
-+
-+	if (width < fsize.stepwise.min_width ||
-+	    width > fsize.stepwise.max_width ||
-+	    height < fsize.stepwise.min_height ||
-+	    height > fsize.stepwise.max_height)
-+		return -EINVAL;
-+
-+	/* Any possible frame interval is acceptable. */
-+	fival->type = V4L2_FRMIVAL_TYPE_CONTINUOUS;
-+	fival->stepwise.min.numerator = 1;
-+	fival->stepwise.min.denominator = USHRT_MAX;
-+	fival->stepwise.max.numerator = USHRT_MAX;
-+	fival->stepwise.max.denominator = 1;
-+	fival->stepwise.step.numerator = 1;
-+	fival->stepwise.step.denominator = 1;
-+
-+	return 0;
-+}
-+
- static int vidioc_enum_fmt(struct file *file, void *priv,
- 			   struct v4l2_fmtdesc *f, bool capture)
- 
-@@ -484,10 +519,23 @@ hantro_reset_raw_fmt(struct hantro_ctx *ctx, int bit_depth, bool need_postproc)
- 	return ret;
- }
- 
-+static void
-+hantro_reset_timeperframe(struct hantro_ctx *ctx)
-+{
-+	struct v4l2_fract *timeperframe = &ctx->src_timeperframe;
-+	struct v4l2_fract *timeperframe_propagate = &ctx->dst_timeperframe;
-+
-+	timeperframe->numerator = 1;
-+	timeperframe->denominator = 25;
-+
-+	*timeperframe_propagate = *timeperframe;
-+}
-+
- void hantro_reset_fmts(struct hantro_ctx *ctx)
- {
- 	hantro_reset_encoded_fmt(ctx);
- 	hantro_reset_raw_fmt(ctx, HANTRO_DEFAULT_BIT_DEPTH, HANTRO_AUTO_POSTPROC);
-+	hantro_reset_timeperframe(ctx);
- }
- 
- static void
-@@ -739,6 +787,54 @@ static int vidioc_s_selection(struct file *file, void *priv,
- 	return 0;
- }
- 
-+static int vidioc_g_parm(struct file *file, void *priv,
-+			 struct v4l2_streamparm *parm)
-+{
-+	struct hantro_ctx *ctx = file_to_ctx(file);
-+	struct v4l2_fract *timeperframe;
-+
-+	if (V4L2_TYPE_IS_OUTPUT(parm->type)) {
-+		timeperframe = &ctx->src_timeperframe;
-+		parm->parm.output.capability = V4L2_CAP_TIMEPERFRAME;
-+		parm->parm.output.timeperframe = *timeperframe;
-+	} else {
-+		timeperframe = &ctx->dst_timeperframe;
-+		parm->parm.capture.capability = V4L2_CAP_TIMEPERFRAME;
-+		parm->parm.capture.timeperframe = *timeperframe;
-+	}
-+
-+	return 0;
-+}
-+
-+static int vidioc_s_parm(struct file *file, void *priv,
-+			 struct v4l2_streamparm *parm)
-+{
-+	struct hantro_ctx *ctx = file_to_ctx(file);
-+	struct v4l2_fract *timeperframe_propagate;
-+	struct v4l2_fract *timeperframe_ctx;
-+	struct v4l2_fract *timeperframe;
-+
-+	if (V4L2_TYPE_IS_OUTPUT(parm->type)) {
-+		parm->parm.output.capability = V4L2_CAP_TIMEPERFRAME;
-+		timeperframe = &parm->parm.output.timeperframe;
-+		timeperframe_ctx = &ctx->src_timeperframe;
-+		timeperframe_propagate = &ctx->dst_timeperframe;
-+	} else {
-+		parm->parm.capture.capability = V4L2_CAP_TIMEPERFRAME;
-+		timeperframe = &parm->parm.capture.timeperframe;
-+		timeperframe_ctx = &ctx->dst_timeperframe;
-+		timeperframe_propagate = NULL;
-+	}
-+
-+	*timeperframe_ctx = *timeperframe;
-+
-+	/* Propagate from source to destination. */
-+	if (timeperframe_propagate)
-+		*timeperframe_propagate = *timeperframe;
-+
-+	return 0;
-+}
-+
- static const struct v4l2_event hantro_eos_event = {
- 	.type = V4L2_EVENT_EOS
+@@ -874,6 +874,7 @@ static const struct of_device_id of_hantro_match[] = {
+ #endif
+ #ifdef CONFIG_VIDEO_HANTRO_IMX8M
+ 	{ .compatible = "nxp,imx8mm-vpu-g1", .data = &imx8mm_vpu_g1_variant, },
++	{ .compatible = "nxp,imx8mp-vpu-vc8000e", .data = &imx8mp_vpu_vc8000e_variant, },
+ 	{ .compatible = "nxp,imx8mq-vpu", .data = &imx8mq_vpu_variant, },
+ 	{ .compatible = "nxp,imx8mq-vpu-g1", .data = &imx8mq_vpu_g1_variant },
+ 	{ .compatible = "nxp,imx8mq-vpu-g2", .data = &imx8mq_vpu_g2_variant },
+diff --git a/drivers/media/platform/verisilicon/hantro_hw.h b/drivers/media/platform/verisilicon/hantro_hw.h
+index a0c752ef44dd..5f79fb401da5 100644
+--- a/drivers/media/platform/verisilicon/hantro_hw.h
++++ b/drivers/media/platform/verisilicon/hantro_hw.h
+@@ -420,6 +420,7 @@ enum hantro_enc_fmt {
+ 	ROCKCHIP_VPU_ENC_FMT_UYVY422 = 3,
  };
-@@ -774,6 +870,7 @@ static int vidioc_encoder_cmd(struct file *file, void *priv,
- const struct v4l2_ioctl_ops hantro_ioctl_ops = {
- 	.vidioc_querycap = vidioc_querycap,
- 	.vidioc_enum_framesizes = vidioc_enum_framesizes,
-+	.vidioc_enum_frameintervals = vidioc_enum_frameintervals,
  
- 	.vidioc_try_fmt_vid_cap_mplane = vidioc_try_fmt_cap_mplane,
- 	.vidioc_try_fmt_vid_out_mplane = vidioc_try_fmt_out_mplane,
-@@ -801,6 +898,8 @@ const struct v4l2_ioctl_ops hantro_ioctl_ops = {
++extern const struct hantro_variant imx8mp_vpu_vc8000e_variant;
+ extern const struct hantro_variant imx8mm_vpu_g1_variant;
+ extern const struct hantro_variant imx8mq_vpu_g1_variant;
+ extern const struct hantro_variant imx8mq_vpu_g2_variant;
+diff --git a/drivers/media/platform/verisilicon/imx8m_vpu_hw.c b/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
+index f9f276385c11..50ce4a5f979d 100644
+--- a/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
++++ b/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
+@@ -234,6 +234,96 @@ static const struct hantro_fmt imx8m_vpu_g2_dec_fmts[] = {
+ 	},
+ };
  
- 	.vidioc_g_selection = vidioc_g_selection,
- 	.vidioc_s_selection = vidioc_s_selection,
-+	.vidioc_g_parm = vidioc_g_parm,
-+	.vidioc_s_parm = vidioc_s_parm,
++static const struct hantro_fmt imx8mp_vc8000e_fmts[] = {
++	{
++		.fourcc = V4L2_PIX_FMT_YUV420M,
++		.codec_mode = HANTRO_MODE_NONE,
++		.enc_fmt = ROCKCHIP_VPU_ENC_FMT_YUV420P,
++		.frmsize = {
++			.min_width = FMT_MIN_WIDTH,
++			.max_width = FMT_FHD_WIDTH,
++			.step_width = MB_DIM,
++			.min_height = FMT_MIN_HEIGHT,
++			.max_height = FMT_FHD_HEIGHT,
++			/* TODO: implement dummy reads to relax size restrictions */
++			.step_height = 64,
++		},
++	}, {
++		.fourcc = V4L2_PIX_FMT_YUV420,
++		.codec_mode = HANTRO_MODE_NONE,
++		.enc_fmt = ROCKCHIP_VPU_ENC_FMT_YUV420P,
++		.frmsize = {
++			.min_width = FMT_MIN_WIDTH,
++			.max_width = FMT_FHD_WIDTH,
++			.step_width = MB_DIM,
++			.min_height = FMT_MIN_HEIGHT,
++			.max_height = FMT_FHD_HEIGHT,
++			/* TODO: implement dummy reads to relax size restrictions */
++			.step_height = 64,
++		},
++	}, {
++		.fourcc = V4L2_PIX_FMT_NV12M,
++		.codec_mode = HANTRO_MODE_NONE,
++		.enc_fmt = ROCKCHIP_VPU_ENC_FMT_YUV420SP,
++		.frmsize = {
++			.min_width = FMT_MIN_WIDTH,
++			.max_width = FMT_FHD_WIDTH,
++			.step_width = MB_DIM,
++			.min_height = FMT_MIN_HEIGHT,
++			.max_height = FMT_FHD_HEIGHT,
++			.step_height = MB_DIM,
++		},
++	}, {
++		.fourcc = V4L2_PIX_FMT_NV12,
++		.codec_mode = HANTRO_MODE_NONE,
++		.enc_fmt = ROCKCHIP_VPU_ENC_FMT_YUV420SP,
++		.frmsize = {
++			.min_width = FMT_MIN_WIDTH,
++			.max_width = FMT_FHD_WIDTH,
++			.step_width = MB_DIM,
++			.min_height = FMT_MIN_HEIGHT,
++			.max_height = FMT_FHD_HEIGHT,
++			.step_height = MB_DIM,
++		},
++	}, {
++		.fourcc = V4L2_PIX_FMT_YUYV,
++		.codec_mode = HANTRO_MODE_NONE,
++		.enc_fmt = ROCKCHIP_VPU_ENC_FMT_YUYV422,
++		.frmsize = {
++			.min_width = FMT_MIN_WIDTH,
++			.max_width = FMT_FHD_WIDTH,
++			.step_width = MB_DIM,
++			.min_height = FMT_MIN_HEIGHT,
++			.max_height = FMT_FHD_HEIGHT,
++			.step_height = MB_DIM,
++		},
++	}, {
++		.fourcc = V4L2_PIX_FMT_UYVY,
++		.codec_mode = HANTRO_MODE_NONE,
++		.enc_fmt = ROCKCHIP_VPU_ENC_FMT_UYVY422,
++		.frmsize = {
++			.min_width = FMT_MIN_WIDTH,
++			.max_width = FMT_FHD_WIDTH,
++			.step_width = MB_DIM,
++			.min_height = FMT_MIN_HEIGHT,
++			.max_height = FMT_FHD_HEIGHT,
++			.step_height = MB_DIM,
++		},
++	}, {
++		.fourcc = V4L2_PIX_FMT_H264_SLICE,
++		.codec_mode = HANTRO_MODE_H264_ENC,
++		.max_depth = 2,
++		.frmsize = {
++			.min_width = FMT_MIN_WIDTH,
++			.max_width = FMT_FHD_WIDTH,
++			.step_width = MB_DIM,
++			.min_height = FMT_MIN_HEIGHT,
++			.max_height = FMT_FHD_HEIGHT,
++			.step_height = MB_DIM,
++		},
++	},
++};
++
+ static int imx8mq_vpu_hw_init(struct hantro_dev *vpu)
+ {
+ 	vpu->ctrl_base = vpu->reg_bases[vpu->variant->num_regs - 1];
+@@ -305,6 +395,15 @@ static const struct hantro_codec_ops imx8mq_vpu_g2_codec_ops[] = {
+ 	},
+ };
  
- 	.vidioc_decoder_cmd = v4l2_m2m_ioctl_stateless_decoder_cmd,
- 	.vidioc_try_decoder_cmd = v4l2_m2m_ioctl_stateless_try_decoder_cmd,
++static const struct hantro_codec_ops imx8mp_vpu_vc8000e_codec_ops[] = {
++	[HANTRO_MODE_H264_ENC] = {
++		.run = hantro_vc8000e_h264_enc_run,
++		.done = hantro_vc8000e_h264_enc_done,
++		.init = hantro_vc8000e_h264_enc_init,
++		.exit = hantro_vc8000e_h264_enc_exit,
++	},
++};
++
+ /*
+  * VPU variants.
+  */
+@@ -317,6 +416,10 @@ static const struct hantro_irq imx8mq_g2_irqs[] = {
+ 	{ "g2", hantro_g2_irq },
+ };
+ 
++static const struct hantro_irq imx8mp_vc8000e_irqs[] = {
++	{ "vc8000e", hantro_vc8000e_irq },
++};
++
+ static const char * const imx8mq_clk_names[] = { "g1", "g2", "bus" };
+ static const char * const imx8mq_reg_names[] = { "g1", "g2", "ctrl" };
+ static const char * const imx8mq_g1_clk_names[] = { "g1" };
+@@ -382,3 +485,13 @@ const struct hantro_variant imx8mm_vpu_g1_variant = {
+ 	.clk_names = imx8mq_g1_clk_names,
+ 	.num_clocks = ARRAY_SIZE(imx8mq_g1_clk_names),
+ };
++
++const struct hantro_variant imx8mp_vpu_vc8000e_variant = {
++	.enc_fmts = imx8mp_vc8000e_fmts,
++	.num_enc_fmts = ARRAY_SIZE(imx8mp_vc8000e_fmts),
++	.codec = HANTRO_H264_ENCODER,
++	.codec_ops = imx8mp_vpu_vc8000e_codec_ops,
++	.irqs = imx8mp_vc8000e_irqs,
++	.num_irqs = ARRAY_SIZE(imx8mp_vc8000e_irqs),
++	.num_clocks = 1,
++};
 -- 
 2.53.0
 
