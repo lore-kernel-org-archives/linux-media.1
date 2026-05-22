@@ -1,125 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7993A37BE64;
-	Fri, 22 May 2026 12:04:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327632FE057;
+	Fri, 22 May 2026 12:10:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779451445; cv=none; b=aFhBwpjaLW6BGnHk2P5Ym0Bbq/SvPOWc+c6UL3Nze8cvS72xMnlhImopKC7JOWZf0jyvXioXePUlpaXTTLrjkn4IMcSNQ4c3JmSElY4cG8e4bLQYXSQ9kYRWeN2hkkekBd2g+ATnRHGKqGRm4nN4JQJmM1mzHCc0NL/I4ESW3dc=
+	t=1779451805; cv=none; b=ut4qniWRoBufrG6/2jtDz/rAEWbXrku5EPmxrqiKNiM9GB9FREnnbJBjPoCXZYTM0oQSWDoB7OFzkkwqYg/bPg2GCnKGvEMXcHFoYC7sTrivUEn9WwsBd4eZMSR55rssw3ejkvXtCauZipoYHL1LTFWWVTbP4UoxmQ+RQreDywg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779451445; c=relaxed/simple;
-	bh=yEIG92a1FH3cEp3tne1pDeDmYK3WLKv3UmItU7XJzvM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IBNwMMPHxzmk8JJfPBpKrc8Ya+/YGF0fRsZQ6Oh1UPXGoX089H3TkRvij6XuA/RcieV50qWLX08cE1zsDuYNqlnQQB4/ffeljCS84v7IMP/IS7dF9OCF+Gn32HhJwSt6U44fzvm7Gs6+6ZN1sqwAok+gkXX8DvAruIOuxThtPjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y7m5ymt7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779451805; c=relaxed/simple;
+	bh=3Rmn/kzBs9r48TbqNB3vKX5ssEhg8rzMgCYbvtVU/hA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u+pntEDsj1XvFjoq9BeWkIoZPxEN0uF6xTn/0Su//ou/akNd3XMe1COHAP7aw+KrLBdNjZCWIwG9O0EpA/FYPn7kTOubBA7KnWotlTgtwOvH8x1BI++0xIh/mO9XBG+m1WwIch48XyOH22dPM/s9bxTdc0EMCmOm+Uby7Mp4pBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YLvoq88t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y7m5ymt7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6202D1F000E9;
-	Fri, 22 May 2026 12:03:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YLvoq88t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E0401F000E9;
+	Fri, 22 May 2026 12:10:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779451443;
-	bh=WvxxqGuP8bQ7/a21X6z/2vTzkxYwHNKvCYoV2WNH1nw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y7m5ymt70pu9vNboppFTfjqhMoHN/WGtjS+ISoh9vdAT37fjHByARwrZv6tg7nuTH
-	 YT+bX6BjM5q+p3euvoF5q3tkEYihgyHLQShHogbrqtAhy7JYceiY7Ivsn4CYbS+TJB
-	 H0rKTz0nhNge21mLBla/q2MGXGMJMM/zKzCpyUYm1q8dS8UvHbl2VFZXmmgrZkWbV1
-	 uknWfu6bqMoLkY/jFWuTzLGpkWl7DZ86TuLDK2RzaRuX7K1sVDLYe3qKUGipvqNODj
-	 WlAeCRrBL+EOHW0cUi2CWIjWG+KmMsakmBktWzVj7vTVZ5uJMiZCV1BEl+7v09Zh39
-	 mmjkFX8wVNfFA==
-From: Sumit Garg <sumit.garg@kernel.org>
-To: andersson@kernel.org
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-media@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	ath12k@lists.infradead.org,
-	linux-remoteproc@vger.kernel.org,
-	konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	robin.clark@oss.qualcomm.com,
-	sean@poorly.run,
-	akhilpo@oss.qualcomm.com,
-	lumag@kernel.org,
-	abhinav.kumar@linux.dev,
-	jesszhan0024@gmail.com,
-	marijn.suijten@somainline.org,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	vikash.garodia@oss.qualcomm.com,
-	dikshita.agarwal@oss.qualcomm.com,
-	bod@kernel.org,
-	mchehab@kernel.org,
-	elder@kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	jjohnson@kernel.org,
-	mathieu.poirier@linaro.org,
-	trilokkumar.soni@oss.qualcomm.com,
-	mukesh.ojha@oss.qualcomm.com,
-	pavan.kondeti@oss.qualcomm.com,
-	jorge.ramirez@oss.qualcomm.com,
-	tonyh@qti.qualcomm.com,
-	vignesh.viswanathan@oss.qualcomm.com,
-	srinivas.kandagatla@oss.qualcomm.com,
-	amirreza.zarrabi@oss.qualcomm.com,
-	jens.wiklander@linaro.org,
-	op-tee@lists.trustedfirmware.org,
-	apurupa@qti.qualcomm.com,
-	skare@qti.qualcomm.com,
-	linux-kernel@vger.kernel.org,
-	Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: [PATCH v7 15/15] MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
-Date: Fri, 22 May 2026 17:29:36 +0530
-Message-ID: <20260522115936.201208-16-sumit.garg@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260522115936.201208-1-sumit.garg@kernel.org>
-References: <20260522115936.201208-1-sumit.garg@kernel.org>
+	s=k20260515; t=1779451803;
+	bh=3Rmn/kzBs9r48TbqNB3vKX5ssEhg8rzMgCYbvtVU/hA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YLvoq88t6VB69PloPhfyZliK0nxYZQ8P14870FxG22NzsHhdoxvf1COISYePIDWfv
+	 su8m4IepueRymWfWZeDPlLrHhHSrJu7N/TTfLq5VGAgQS9qW8xXik+NjOW6YiYaHWl
+	 /VjAjeJQVVtqZJJ+GzbhoHVs9/ukaCtqu8muWZ5zp26TjpAQcbQVJaJierMNbvAA67
+	 wYz7Ma3XYyloWdkMiuaqfy0SmUZtwBtWL6CCMF9dP5xBKDPok3ObvSYZpm0T9VYC2D
+	 gilfi2aIdkFjrJgnmwoaI1SlKVy+UCKzNwDsNdr+VeRA3VJT6QgPrkJT6C21m9llr6
+	 RxmDwVl99EjsQ==
+Date: Fri, 22 May 2026 13:10:00 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, hansg@kernel.org,
+	linux-media@vger.kernel.org, mchehab@kernel.org,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: AtomISP tree for Linux Next
+Message-ID: <62b17869-008e-431b-a450-1b2e95111734@sirena.org.uk>
+References: <aeop-rkoHOgF2OgQ@ashevche-desk.local>
+ <132d71a4-25d7-48b5-9705-0e7d7dfeef20@sirena.org.uk>
+ <aeskxK7GODqMUNsH@ashevche-desk.local>
+ <ag_-6fqLzpvqNKw7@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cAWGZQbomoLVB9wr"
+Content-Disposition: inline
+In-Reply-To: <ag_-6fqLzpvqNKw7@kekkonen.localdomain>
+X-Cookie: Celebrity voices impersonated.
 
-From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-Add Sumit Garg as the maintainer for the Qualcomm generic Peripheral
-Authentication Service (PAS) as well as the PAS TEE backend driver.
+--cAWGZQbomoLVB9wr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
----
- MAINTAINERS | 9 +++++++++
- 1 file changed, 9 insertions(+)
+On Fri, May 22, 2026 at 09:59:53AM +0300, Sakari Ailus wrote:
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 2fb1c75afd16..6d3fc5145f0a 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -22007,6 +22007,15 @@ F:	Documentation/devicetree/bindings/media/*qcom*
- F:	drivers/media/platform/qcom
- F:	include/dt-bindings/media/*qcom*
- 
-+QUALCOMM PAS TZ SERVICE
-+M:	Sumit Garg <sumit.garg@oss.qualcomm.com>
-+L:	linux-arm-msm@vger.kernel.org
-+S:	Maintained
-+F:	drivers/firmware/qcom/qcom_pas.c
-+F:	drivers/firmware/qcom/qcom_pas.h
-+F:	drivers/firmware/qcom/qcom_pas_tee.c
-+F:	include/linux/firmware/qcom/qcom_pas.h
-+
- QUALCOMM SMB CHARGER DRIVER
- M:	Casey Connolly <casey.connolly@linaro.org>
- L:	linux-arm-msm@vger.kernel.org
--- 
-2.51.0
+> I guess I could push patches to the atomisp branch after running them
+> through Media CI. But I'm not sure it's really worth it: the long backlog
+> of patches is now largely gone and the same fixes or cleanups can be only
+> merged once anyway. So would you expect the flow to still continue at a
+> similar level? There's a limit to which degree this driver can be improved
+> with such cleanups.
 
+FWIW so long as they don't cause conflicts all the time the marginal
+cost of including a tree is effectively nothing.
+
+--cAWGZQbomoLVB9wr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoQR5cACgkQJNaLcl1U
+h9DvEgf+K3D509s9GnyhgwKNzFOLaN0VIRDMxx3nILrR1cvvafnTqBOzvCFnzBxg
+kS6Nmm9m2IbQeUaPydPo5sAPRxnaBoU7YbBTarT4HP/vmU6MoX+uYiOl+kRbcx4K
+e9cGmysFUzPoGBwDxq4W8MMfFMspzd8ihdWh6thcP7Sh5vMvZ1v70Ng9g9P8tLzM
+mzMl0IgIltoiB95pDA2n0m77if619NOoIrNsVsdWbnpkz15C2/X7MsJUEQcR5AAz
+hhF+YF1QtsukMHcXM3MVhRBA3nHEBToQahqS9YyHY04aCMoFpyl925V7QY7rKiUB
+nvb+VqkIhXilHyjcAFI8v16saXLh/w==
+=O2lQ
+-----END PGP SIGNATURE-----
+
+--cAWGZQbomoLVB9wr--
