@@ -1,79 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC10C3939B4
-	for <linux-media@vger.kernel.org>; Tue, 26 May 2026 08:39:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3879B2C181;
+	Tue, 26 May 2026 08:40:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779784764; cv=none; b=GaW2Sz/RJXXkwfPfixm7TAC0pF5BuaRGzroQThrqpkk+5Jm4U7MsU7/dKFKmLLQ9220qOjxaB7iRdpPe76GKQYW07IMIRohaE9/hWpWz3rUvNSLU23RK9ua8S7Ev/UkU1nuobZRyhkekSPrrV3oP+qEK/8bd8Kk2wpN8WbwcEJc=
+	t=1779784832; cv=none; b=uZ8CtwK5lfW2ADsq4x8AtUZr15D0M4xcSWyt4how4rXhVK7Tg4Cfoq3CHI/VLeuzN+ZOKFNZWgyS8C1JAd24ssCMnThnemJgOWGdGdHgI6qmtdXwFVxJSA2hWSwaaiMmV17gk+GU1IFfJcbb50hAp6YElOsG9N3eYzHlKsx6gqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779784764; c=relaxed/simple;
-	bh=exUQGs186Aq+Vzbz4if6JSgxOypH0DW9dazCN5aVGK4=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hk378n4Pa+R3BBw2fsyK6H0nO8srqYOzu+R1jy/7Ar54vj0DVrlZ7/Gh8k4J2+UkP2rtm8y1JQGCFW4PgzradrSmQmjpR9PqC5nEJil/dHxY/d+h4tZ9+I1EkDRb6MY6gOEdJtmO38bqjkoAyN72v1jUhihQyZJANgR5s4FEPGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kr0UtFXX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779784832; c=relaxed/simple;
+	bh=dK6d6cYoqFc3ZfUKf9JNJjrgbE7x6z5aNRmfsd9a828=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=dMVk7PpTdo9mzMMI82zJ3R3kG3FHY0mYxZl4vBU3Ocgxzhv0O4HakVMWEF5Pv7B2vR7xGl7Zscc3qgEg6LTUlk2Fr8wVVViI4ejHWDcUwIw45lKHGBoGGRn548pkDqEsZpWN8br3QhWa7MC8ctiqfd1lGyfsUFSzSF8FWqPfmGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NkB8Nsjc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kr0UtFXX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C0BC1F00A3A
-	for <linux-media@vger.kernel.org>; Tue, 26 May 2026 08:39:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779784763;
-	bh=exUQGs186Aq+Vzbz4if6JSgxOypH0DW9dazCN5aVGK4=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=kr0UtFXXJPEtIyeAWU2iQjM7xblfpXmolip0IC6jg2bGMHE7ihBWJtNH49ZFf8fIL
-	 FXxBICA4Y5gGdyl0jTfBt+p1GleLU8NlOI3fiMO5cUGFXUwkERW9qcEVQHk6iH1hwA
-	 XXCPlk+qsflOAcxTXcv/KOgB9yyRUfrF0H+gjoVRmixzOJLjIgRGsPmYper3XfxNUO
-	 FaB+jDZfaLtB8HFV3WENG7Cxdugp2Rxp7Z4GAzDk/CJA0wxMSjMfQ6I/wlSPCm0OW8
-	 syyo9oSEEknju8cflqizHRFUXAphhNnE0p1YBQWsIJ/qFUFqHAsvrsuaeBuBC4Q8mX
-	 fUhXhHBaQxTxg==
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-39378db197aso106342401fa.3
-        for <linux-media@vger.kernel.org>; Tue, 26 May 2026 01:39:23 -0700 (PDT)
-X-Gm-Message-State: AOJu0YwQd+EQwMdMg3gUig5O/clctPmnLPa3yPW4nF6DxclbK8ptuguY
-	1GOS8PuItU6R7kKM4mYnEt9lW9HibwM9q5jX+8KvR/FuiyDQ8jn/v/eS7/UvDzcfmNL09mtbR4M
-	ruPXSJBhwV3ar3Uco8I029EVqG4RnPY0cKGQncC/NyA==
-X-Received: by 2002:a2e:b8cd:0:b0:393:a5ed:7dca with SMTP id
- 38308e7fff4ca-395d8c08274mr63525631fa.10.1779784762028; Tue, 26 May 2026
- 01:39:22 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 26 May 2026 04:39:20 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 26 May 2026 04:39:20 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260525-s3c-camif-descriptors-v2-1-d703e47c4f96@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NkB8Nsjc"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EBB34C2BCC9;
+	Tue, 26 May 2026 08:40:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779784832;
+	bh=dK6d6cYoqFc3ZfUKf9JNJjrgbE7x6z5aNRmfsd9a828=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=NkB8NsjcnV73TcMgKtM5K7PZYJCymRuRmuMxVskgVAZM8r0WiOfQqWbVGazBgjmtX
+	 twsGmuXMD3jkvQBiNptHEzJlBYVYVWsDOg0w8v8T1YJn+4hyKaTZalkk3ZM4pLjPIw
+	 epk8NdfTE7MLaeoGh2DZJoZ79q4PthIT3geepOHMaB/k7keg7ubhazX4jg55iFKtt8
+	 yiEwPbEePlXAtBgBmITm6IXW/ooP5rqo1W026GeD6dk85OZImTlI2mscayw/iNsSWn
+	 ywLydZl9LW0aVYQzKa/3eWfa6pEw5NieEGFr6abJXJsYSAX+j+voOw5QSqWDpLwaxn
+	 HwP+5gHUMmVGw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3134CD5BDD;
+	Tue, 26 May 2026 08:40:31 +0000 (UTC)
+From: Zhentao Guo via B4 Relay <devnull+zhentao.guo.amlogic.com@kernel.org>
+Date: Tue, 26 May 2026 16:40:18 +0800
+Subject: [PATCH RFC RESEND v5 2/6] firmware: meson: sm: video firmware
+ loading via secure monitor
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260525-s3c-camif-descriptors-v2-1-d703e47c4f96@kernel.org>
-Date: Tue, 26 May 2026 04:39:20 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MdnmwvZkgW9yiMJDMKRXAmirQS_XQa8TnJsQOEGo8OQig@mail.gmail.com>
-X-Gm-Features: AVHnY4Jsw9CI6wuy_ristr08_BrJrSKHzuLkXDIWO8DXMOBNmupoP0enp6DIEeQ
-Message-ID: <CAMRc=MdnmwvZkgW9yiMJDMKRXAmirQS_XQa8TnJsQOEGo8OQig@mail.gmail.com>
-Subject: Re: [PATCH v2] media: camif-core: Drop GPIO handling
-To: Linus Walleij <linusw@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, Sylwester Nawrocki <sylvester.nawrocki@gmail.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260526-b4-s4-vdec-upstream-v5-2-33bc817f93f4@amlogic.com>
+References: <20260526-b4-s4-vdec-upstream-v5-0-33bc817f93f4@amlogic.com>
+In-Reply-To: <20260526-b4-s4-vdec-upstream-v5-0-33bc817f93f4@amlogic.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, Zhentao Guo <zhentao.guo@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779784828; l=663;
+ i=zhentao.guo@amlogic.com; s=20251024; h=from:subject:message-id;
+ bh=2+l4DUwLwWn2GDHI6LoxkCkn7TDYkl4Sv8Q4p9SlS/E=;
+ b=K7DQ71fqbh3rYm2IuWeVYzvl26czXaJUk8ABXFSly1FA93FtCy5MvdN+V97ol5CT3L/Ne6gVs
+ uiXU0OZRZ+nAqzEtvPQxyrRgdqJ+VgAZoNl41CZfQc9FQaxaTCVp9fZ
+X-Developer-Key: i=zhentao.guo@amlogic.com; a=ed25519;
+ pk=5yfDKrjreXwcAoEUsdtWafy6YN500upXp/CgtnXjLVU=
+X-Endpoint-Received: by B4 Relay for zhentao.guo@amlogic.com/20251024 with
+ auth_id=555
+X-Original-From: Zhentao Guo <zhentao.guo@amlogic.com>
+Reply-To: zhentao.guo@amlogic.com
 
-On Mon, 25 May 2026 09:55:42 +0200, Linus Walleij <linusw@kernel.org> said:
-> The driver and platform data refers to the legacy GPIO API,
-> doesn't really use it, and also calls some GPIO-related functions
-> passed as platform data.
->
-> This platform data is not used anywhere in the kernel.
->
-> I'm not outright deleting the driver, just deleting the bogus
-> GPIO handling. If outoftree developers want to fix up the
-> driver the GPIOs should be defined in some kind of firmware
-> node and be obtained using the gpiod_get*() APIs directly
-> in the driver, but I don't even know what these GPIOs are
-> since they are hidden in platform data that is not in the
-> mainline kernel, so what can I do.
->
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
+From: Zhentao Guo <zhentao.guo@amlogic.com>
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Add SM_LOAD_VIDEO_FW to the secure monitor command enum
+to allow decoder drivers to load firmware through the meson_sm
+interface.
+
+Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
+---
+ include/linux/firmware/meson/meson_sm.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/include/linux/firmware/meson/meson_sm.h b/include/linux/firmware/meson/meson_sm.h
+index 8eaf8922ab02..f40867a000f1 100644
+--- a/include/linux/firmware/meson/meson_sm.h
++++ b/include/linux/firmware/meson/meson_sm.h
+@@ -14,6 +14,7 @@ enum {
+ 	SM_GET_CHIP_ID,
+ 	SM_A1_PWRC_SET,
+ 	SM_A1_PWRC_GET,
++	SM_LOAD_VIDEO_FW,
+ };
+ 
+ struct meson_sm_firmware;
+
+-- 
+2.42.0
+
+
