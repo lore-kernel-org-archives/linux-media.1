@@ -1,73 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4241EEA3C;
-	Wed, 27 May 2026 08:36:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB082F6560
+	for <linux-media@vger.kernel.org>; Wed, 27 May 2026 08:48:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779870991; cv=none; b=tLxuJYDa3V/8YZizPuf1PG8d1tKmy8R9glaeLsNm9jV71EBwBB9h3XHNqXvVbnVOVAteYBXJmOkKDdA6VbgUM6EUcFw/dvyv3YXxrxcPGvSEskvGDATDtpN1E1R1/mkGjmW/xI/V3tpISWee0JIKVlUbNMp5L9QUicm1eHhfc9U=
+	t=1779871739; cv=none; b=EdIcdQsqyANSrEOLqXkFPgk59Xu3dXabDMwA3b1M3VKk9ZwDvY9eoTjSahJ1G7FwoqdsASxjxJvVq7JTyG+4VA6sjN5YP5Q2I7iSMF8CnLAoL4QERVMj02akVjdd/aBtcI0RqaS0uj1nAfmXH9B4XZTkQMn7oJnBz/EPNkNn1uQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779870991; c=relaxed/simple;
-	bh=5Z6/f1KXDDMffTQYOYjEqa4SegMwUt7JfYz8IYOpQik=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h9epIEG5cgy95CVXuUvyMI7BhhuUNGTgM33XmK+XJsuk4mHLxBTKXQIDVZgUiveEBkXkNf2ryeba7MQE+TbqFfmyeh1Ws8zc7EUdb9nPn7Xnx8o5+G6BXVNuw14TIjRJx+wXNqnHTIbzMztewVRldQkPT4Zcf+XYnz8QWkKKbpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YE1Ll8ai; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779871739; c=relaxed/simple;
+	bh=5OhL50CeDKwAOgw6QFwB07STie6tG3r6cAsfzcMd+ko=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ayI2aBYr58MAovNzRj8gvqTFgXR0916JDhTlNpa6/PCzm/60vpenUpVNtmdf4qPc1LdqjaTRgdhG+D7sJj1t0jIwTyFCIlCBXJZd92TTPfR/sy8O6xM2gs872mLUYI0WRucuaB0P/g0m/EZvHO0LOsowvOfvNCjdsYn9cG9a1cM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ivMOmd3E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YE1Ll8ai"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE3DF1F000E9;
-	Wed, 27 May 2026 08:36:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ivMOmd3E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CE4A1F000E9;
+	Wed, 27 May 2026 08:48:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779870989;
-	bh=DQICb37b6tJT8rYSfInWzIjWd8QW9Ba0rxbOLrI9sgo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YE1Ll8aizXG+NDFKOUhO70NmB09uLw22F/DTRGfs1YBqLtO3htyRGs4huui151bIv
-	 onOTDIrY9EroYIJwik7pYf7ug4r0m3NOd3hxjSINAKASrSLn9uv482tM3YdwPuiNho
-	 AdqUU+mQtZ/GbYpbCf5sh9i6jm3FVUaPPuMeyuqy53XMwAIqL8xd5kOmAf8YN89l4O
-	 KcU0tYcFLFZ7KuG3Bo69XA+RzdG2KpFNdJuIMkaft2Mfwfl/csPMTCQCKAEDl8qmFf
-	 PVuHSVR1ralI0ovVAIvtOK80ALsZzDqQMAvggc2nlHqG4KmxcEQcn2jzdJmwQ9wVpe
-	 9TQUhJIEaJkDw==
-Date: Wed, 27 May 2026 10:36:26 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Frank Li <frank.li@nxp.com>, Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, imx@lists.linux.dev, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, Guoniu Zhou <guoniu.zhou@nxp.com>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v9 2/3] media: dt-bindings: Add CSI Pixel Formatter DT
- bindings
-Message-ID: <20260527-cheerful-academic-oyster-cebb2d@quoll>
-References: <20260526-csi_formatter-v9-0-ca3d8c334c39@oss.nxp.com>
- <20260526-csi_formatter-v9-2-ca3d8c334c39@oss.nxp.com>
+	s=k20260515; t=1779871738;
+	bh=ZXBJtfpmRPrhXDlu9beayf8zmLy9OEzybmKE1uhw5tA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ivMOmd3Ee7775kl08bNiZ6KkeNR/+qKMCsYKKdZyRdqyPog9s4lE6U8rSBYOksfQi
+	 DgBZl/lXlWaLEAKxXnDDAAGdKIOZPND+1/oPRzKFwRFi5aroa5nYOYe+fpa5ITqqmb
+	 zSzwI3v6ycn0Cl5IWJQj2umsfCKkFkxAklI999yCQNOfP5euV8OK3wwU65TbGaxT3k
+	 TTz9mFxisOXs4hCSQ+Hw0Eqre/woqrg3l+ZK/Fb09EOMgQeFK7xeTxWrUzcS5HZf32
+	 8KtqpJR9bmxcNueobj5+Q4avy0y/FTSd8pPRKPgaxTQU1VD1OSxTvK1yqLVYUvIQ/6
+	 iSqLvOOSNTjUg==
+Date: Wed, 27 May 2026 10:48:47 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Linux Media Mailing List <linux-media@vger.kernel.org>, Mauro Carvalho
+ Chehab <mchehab@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Ricardo Ribalda <ribalda@chromium.org>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, Jacopo Mondi
+ <jacopo.mondi@ideasonboard.com>, Tomi Valkeinen
+ <tomi.valkeinen@ideasonboard.com>, Bryan O'Donoghue
+ <bryan.odonoghue@linaro.org>, Dave Stevenson
+ <dave.stevenson@raspberrypi.com>, Michael Tretter
+ <m.tretter@pengutronix.de>, Kieran Bingham
+ <kieran.bingham@ideasonboard.com>, Paul Kocialkowski <paulk@sys-base.io>,
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Brandon Brnich
+ <b-brnich@ti.com>, Marco Felsch <m.felsch@pengutronix.de>, Loic Poulain
+ <loic.poulain@oss.qualcomm.com>, Sven =?UTF-8?B?UMO8c2NoZWw=?=
+ <s.pueschel@pengutronix.de>, Michael Riesch <michael.riesch@collabora.com>,
+ Devarsh Thakkar <devarsht@ti.com>, Yemike Abhilash Chandra
+ <y-abhilashchandra@ti.com>, Jackson Lee <jackson.lee@chipsnmedia.com>, Jai
+ Luthra <jai.luthra@ideasonboard.com>, Mehdi Djait
+ <mehdi.djait@linux.intel.com>, "Padhi, Beleswar" <b-padhi@ti.com>,
+ "Donadkar, Rishikesh" <r-donadkar@ti.com>, Rouven Czerwinski
+ <rouven.czerwinski@linaro.org>, "Jose A. Perez de Azpillaga"
+ <azpijr@gmail.com>, Daniel Stone <daniel@fooishbar.org>, Robert Mader
+ <robert.mader@collabora.com>, Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Satish Babu Patakokila
+ <spatakok@qti.qualcomm.com>, Antti Laakso <antti.laakso@linux.intel.com>,
+ =?UTF-8?B?VsOtY3RvciBKw6FxdWV6?= <vjaquez@igalia.com>, Frank Li
+ <Frank.li@nxp.com>, Arthur Vinchon <arthur.vinchon@allegrodvt.com>, Mirela
+ Rabulea <mirela.rabulea@nxp.com>, Martin Hecht <mhecht73@gmail.com>, Dmitry
+ Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [ANNv7, final] Media Summit on May 26th in Nice, France
+Message-ID: <20260527104847.0f2aa5fc@foz.lan>
+In-Reply-To: <e6c07c24-da54-4269-b42f-b9af544da2d8@kernel.org>
+References: <e6c07c24-da54-4269-b42f-b9af544da2d8@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260526-csi_formatter-v9-2-ca3d8c334c39@oss.nxp.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, May 26, 2026 at 04:57:21PM +0800, Guoniu Zhou wrote:
-> From: Guoniu Zhou <guoniu.zhou@nxp.com>
+
+
+On Thu, 21 May 2026 21:22:51 +0200
+Hans Verkuil <hverkuil+cisco@kernel.org> wrote:
+
+> 17:00-17:45: Discussion of the media subsystem development process
+> 	Presenter: Hans Verkuil
+> 	Description: Review of the multi-committer model: current status and next steps.
+> 	Are there any bottlenecks, any ideas for improvements, w.r.t. the development process?
 > 
-> The i.MX95 CSI pixel formatting module uses packet info, pixel and
-> non-pixel data from the CSI-2 host controller and reformat them to
-> match Pixel Link(PL) definition.
-> 
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-NAK
+Based at Media Summit discussions about patchwork, I opted to pick this PR 
+from upstream to create a per patch series view:
+	https://github.com/getpatchwork/patchwork/pull/575
 
-Implement previous feedback.
+With that, we now have a patch series view at:
+	https://patchwork.linuxtv.org/project/linux-media/series-list/
 
-Best regards,
-Krzysztof
+and there are icons on the top to switch between Patches and Series
+lists.
 
+I hope it can be helpful.
+
+Thanks,
+Mauro
