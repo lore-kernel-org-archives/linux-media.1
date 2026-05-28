@@ -1,193 +1,428 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D849A367F23;
-	Thu, 28 May 2026 22:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E19A30F924;
+	Thu, 28 May 2026 23:15:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780007450; cv=none; b=NTR7JM8LaLFuPNvqOrXSgfOadsp2DpP+xM6C/+blHWKwID1pwO+TAGed6EksCkQN7bPYmen2yTtItGiFTVfsjN12zq09ymgMS7CA/yCHddLzAOX9iG9BKv+P4dlD0xt7JngzBSNTubX0y0k3LzqoBLScrFP3JT3ZAlpWG9NmzNI=
+	t=1780010159; cv=none; b=iZmQWLzyrjiYPEIUcgOCogcy8NR5Hcw0rQrlgvdAy0dIDa2SJB6PgE6ev8Jn3wTfwkjI58AgDihSFfZjX0N4pMz5eSHODN8ApgHKPijSx1CaU+v2U8qkjTCS4T4lZuHYYd7/Wk3nGvQqEJ3fLUwFfuEBsrqMFy7sUR0h8tFJWxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780007450; c=relaxed/simple;
-	bh=6gM00ZsipIMswoFFkvvLiDGFT+x/pe9LSDNPgHmgU2c=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=bZeRtmmC7hcH1OvHk45VUwRkHs1pZXRgJgi0hF0WbZcyWw2Woh+RsN2xMiBDSx4pxPqpOpEct/IIt85s8PGH2meAknGuuRDhw2NcjbHquTjK4o29I6+VsudRANBtxRkePuaYBUgyDyLL8JCnS421GcQYgKOpEfkwmgeNh267S8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dtDxQHxo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780010159; c=relaxed/simple;
+	bh=fipbHEG23gB3z/Y9GcZ5ZOAWv1owL60PM8s4BS2Qohc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SMTHMBjggCZ5BzGaQnvlw+ayAe4IZoqyWs2zm+WQRBfvtcA4OrZA7MmGna1nMVgssDjhgKS+6V0Da2BJkr6zpKlRsuqfqNKaEukW33JPTtixDM9mr0tCLazt0II/bvAIIa3nSSstLeKDmK4HRYkAXWHqk7V1h/DAuqOFiu++/TQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=CD9S5p6R; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=BVDUI4wN; arc=none smtp.client-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dtDxQHxo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7BF01F00A3A;
-	Thu, 28 May 2026 22:30:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780007449;
-	bh=JTC78I7HyeSyWieBpRlXgLzYRKV0E9nhA+7nPJZHDPI=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=dtDxQHxo989x4MuYetEl28FjQ+wkepDGzLoqkJwRAQzuZQh2FxcsXRnfmzt8rD8tn
-	 XXIia42Bj97lDQJuC9NjQuOdqrRNVNOrxzTexKFb7QpUjPakgO+jqn6sxmszM/CL1b
-	 Q1XNmjnOpWC6xYrdvXn6/1GUWQPZLnh024tARvmHoEb8yqeiwepMqfjPkqv+h1dm7s
-	 GoRdMWEaPaaCIAsaXExuYaQNCfoGJRyCnzr0Oy7HU6511k4SETnuMcSRFz/oBCWY2X
-	 eN4E8GE3qBOOLLd7vEv8Am5A+hxpKoIIGyVh3ekRN4dXt/6mDC13sLpFGS1biyGtcG
-	 8ZqlO6zILGQiQ==
+	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="CD9S5p6R";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="BVDUI4wN"
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfout.stl.internal (Postfix) with ESMTP id 8F0221D00116;
+	Thu, 28 May 2026 19:15:54 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-10.internal (MEProxy); Thu, 28 May 2026 19:15:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1780010154;
+	 x=1780096554; bh=RBuQ+Y/Vd1jIVotoLPK7ZFW6yqihen5cll4yqbILIR0=; b=
+	CD9S5p6RW24fiDddpeOUn52XwFe/fL/AKs0RU2jU1QPxL7zsePs8W7LDHg1++i1e
+	HmmZAnY0+qE0uPvyFQhJ1WmqBdmFNs4MdlrcLyMfMTmnysI/BoMQjv+2Pgd0VRkB
+	vYFOeEOqTDnCLQOfeEQCVDLzWUv2ixs4lzpZ/RmfnWKrb/i1P2WVBGI6vweeFSgr
+	gPue2QYF33P1cfRbZ4rS3LjMbuBIQWQSsRSvqYIZstxPoIKNTmgDQYRxfyHYYmTU
+	RgFmy3KuEgFlDOvzJz4kpB14FFkhKEEcrA+IOo1DC6x7krXmuNyW2BCtpZ5lrAR7
+	gXUSLV38n+CdFZtqoCUPtQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1780010154; x=
+	1780096554; bh=RBuQ+Y/Vd1jIVotoLPK7ZFW6yqihen5cll4yqbILIR0=; b=B
+	VDUI4wNZMupjrSXlEY6kHYUQasMYFnelYurkDaNY7HjZNIIRr1lIi9n8c6eVOsRU
+	tOtHgpgOOkDUa5iQooS0ONa0ryysLyXr/faUPI3ihXWRixcJp42GLnojEt3UecIQ
+	899zVr4Krv/XQ7piqZHEq1bpHQOmKEgZXdI/qA9bYiPP3IRG+JxBQi5FdprDafFZ
+	KNhACi37eFOtZp7MzURHTL+YCz07aTqvJ5h+APO+8SOTJ3tQsZYT75OdMDeGl/uF
+	b7+uYKXu7eRPLltBlskuL1e+afovAYPXya4KHL6qpDQRiJvuhUCrSWPa9IQZlc8g
+	C4Sb1NNSAb4dwkeWL6G9g==
+X-ME-Sender: <xms:qcwYauPi5nPNiYT9dDY2WVXfEIWQ4rIIL5p8NEEakM9lPzgNfucNzQ>
+    <xme:qcwYaopcDdko-H-rwFWO_42jb0Zu-7K6-e0jzVsT463SpnjOaZZEcC1geF94xCU1Z
+    Yl6Bbuh1tRCrIqlvCJU1wJFKR7GJcRbiGFlhgzX_qrQ8vYwpZlhLAg>
+X-ME-Received: <xmr:qcwYav-7VAOcnqV0Ng76sTFPNqe6g5EFKNTJRJFt3I1QdHPdp0MCeKwOFQI>
+X-ME-Proxy-Cause: dmFkZTGz+mBxqcdcSaiyBeR8rvmck9bXPGtwV5plDToDIpYQf9qQyGC2YiXS4ygunX+Nmn
+    FHaUbaUe6oG6Xhvtslza91zdB0vTV9sYjwwG7ioFYWSqdRy5UFCOtOnKGCpAf8Xiq+C8jl
+    MCfAUKm4YFJheQ6KX/FU7wcXo8/7WG+eGoNGYM3lxed1EA9MZLGde5nABFZKc8PpnDuCjK
+    8yRUcyr9f5WETtyMmyLHKi9h3s72aD9DKLi8sd9HlkiXHGl5zZDwko6aPUCz5E9SWNPjqM
+    9uV7U86V8/u+dy/2CwCe9rkuZW8diOnv7DZhXA6UtTZNR/xZ6iXLlvo9tamquTmQd1rXek
+    gMnIUXMr3XfCrG/pnwAoeAFcCMIiKASTJJtXaHBChLhXCRvESi39oMJo085QEzsZ3XDiAg
+    EtizKUoYqwyrygY31XrE9gp8M/sdKSmiwF0XXe46D0kIDxFKC4Gf9NcsfdKPNaJWdA7WmV
+    YFwWgk205ftiKu0rMHbTDjxEoQJ6zXrE0H4qqM9o5NAKh113L3/WcLHcyO9SzZFMo2Bqpf
+    zt+fFAKb76ntNEc74GRQVHLo1GtLDbcfMQKZZotv2BPW3kNS5na+rSSDbSXmPgbelCZOVB
+    RaYt7PqsoFW8vJ1KxejR2la3sqOCy4+YFE2nHBMJ6Kphea8+U1GuM6OjYeDA
+X-ME-Proxy: <xmx:qcwYavpsOctdS0sPX6TiE-awxYjasDb86M7czOVathUw7uR-Auek4Q>
+    <xmx:qcwYalhCkaoiiNu1nQROGrN6rehv0FuiJgOFfWq7quSr7XWhSYwzaQ>
+    <xmx:qcwYalBgcAzEDQbGvEc9KSvTBbJjRX9fyQVf5cpt7wxVkSwHIyIWDg>
+    <xmx:qcwYars06TrO_2c8z3YKP6cuIOcOLN-xfPURQWPo-wROJozChybm4Q>
+    <xmx:qswYavRXkSlviFgMuq9U1tev_zOuuSyab6y-6bR0bOYHeF17Lc_0ZPyX>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 28 May 2026 19:15:52 -0400 (EDT)
+Date: Thu, 28 May 2026 17:15:33 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Matt Evans <mattev@meta.com>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>, Logan
+ Gunthorpe <logang@deltatee.com>, Mahmoud Adam <mngyadam@amazon.de>, David
+ Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian
+ <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, Pranjal
+ Shrivastava <praan@google.com>, Alistair Popple <apopple@nvidia.com>, Vivek
+ Kasireddy <vivek.kasireddy@intel.com>, <linux-kernel@vger.kernel.org>,
+ <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linaro-mm-sig@lists.linaro.org>, <kvm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, alex@shazbot.org
+Subject: Re: [PATCH v2 6/9] vfio/pci: Clean up BAR zap and revocation
+Message-ID: <20260528171533.38f02054@shazbot.org>
+In-Reply-To: <20260527102319.100128-7-mattev@meta.com>
+References: <20260527102319.100128-1-mattev@meta.com>
+	<20260527102319.100128-7-mattev@meta.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 8/8] arm64: dts: qcom: shikra-iqs-evk-imx577-camera:
- Add DT overlay
-From: bod@kernel.org
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, 
- Andi Shyti <andi.shyti@kernel.org>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org, 
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- Suresh Vankadara <quic_svankada@quicinc.com>, 
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-In-Reply-To: <20260526-shikra-camss-review-v1-8-645d2c8c75a7@qti.qualcomm.com>
-References: <20260526-shikra-camss-review-v1-0-645d2c8c75a7@qti.qualcomm.com>
- <20260526-shikra-camss-review-v1-8-645d2c8c75a7@qti.qualcomm.com>
-Date: Thu, 28 May 2026 23:30:41 +0100
-Message-Id: <178000744162.4557.14613962845288279527.b4-reply@b4>
-X-Mailer: b4 0.16-dev-d5d98
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3500; i=bod@kernel.org;
- h=from:subject:message-id; bh=6gM00ZsipIMswoFFkvvLiDGFT+x/pe9LSDNPgHmgU2c=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqGMITaf4YGJtKzrCQ5wNkqoquixtxXfW2tchE6
- X4fB6QIxOKJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCahjCEwAKCRAicTuzoY3I
- OkS1EACm6OJhIyJkwiAawBePKRoqc8eWD/J4E3aODc4QgOgbkar0E21yOB9gGj7xJTwOwW+lNCQ
- xAL5+Q8UtIHM826BJMKEsHA72AIy4R5irN6DVtdsnngIRO39KVU/vIb+lLMNDdGnKu3qHK/809x
- dQ+N4+ATOnjKDWQiIBHo59Edx0iADyX56xMAMcBrQ37FrKVm8we00ASoLPXyOLFv+IO3rtP2WA4
- Xfsd/JcrAJ/PCi0rsyaBA+Uiypmqzgmt33F+o2CLCgn6QG6TLjTfrdiq0C19yl7eXiS0dw4HEwq
- 4sU6DzdABm98IILZgm9IijQ76uvjVC4Yz5AKSgaPES4/jdKolWNAt7eT3qKQPMY/N1NnycwF9+v
- nW95dgttRlGzIVlZVFxoIQk1TNPeI+7DhEpJW/Q0zX1Y3elcx/0BuchWvss4zI+1KiPWWguGm+N
- bPFJB0K/HQdVem3TjvG5CcnnATFiYmUDDb5fV/v9IxE75Nj6i6griTeuTz7P8aU2sgKyw+rFC4q
- AiPzlPETx0XY8S2QWxkYal9L4TrAr11o4V/oFAf8XMs1IEY/KDYU8TZB5S2GhVEUc8xOi+MaWIL
- X6aCK/nFKdzce6vB9qW4EdlDUKJIJeKBGkhuU/ojUlxp98vupO/B2G8uJ9VtnF/eJ4VSNy4gj5r
- GLHQDN+91MUGNdQ==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On 2026-05-26 22:42 +0530, Nihal Kumar Gupta wrote:
-> Shikra IQS is an industrial-grade variant using PM8150 PMIC, requiring
-> different CSIPHY and sensor supply rails compared to the retail boards
-> (CQM and CQS) which use PM4125.
+On Wed, 27 May 2026 03:23:09 -0700
+Matt Evans <mattev@meta.com> wrote:
+
+> Previously, vfio_pci_zap_bars() (and the wrapper
+> vfio_pci_zap_and_down_write_memory_lock()) calls were paired with
+> calls of vfio_pci_dma_buf_move().
 > 
-> Add a dedicated overlay for optional IMX577 integration via CSIPHY1.
+> This commit replaces them a unified new function,
+> vfio_pci_zap_revoke_bars() containing both the vfio_pci_dma_buf_move()
+> and the unmap_mapping_range(), making it harder for callers to omit
+> one.  It adds a wrapper, vfio_pci_lock_zap_revoke_bars(), which takes
+> the write memory_lock before zapping, and adds a new
+> vfio_pci_unrevoke_bars() for the re-enable path.
 > 
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> However, as of "vfio/pci: Convert BAR mmap() to use a DMABUF" the
+> unmap_mapping_range() to zap is entirely redundant for plain vfio-pci,
+> since the DMABUFs used for BAR mappings already zap PTEs when the
+> vfio_pci_dma_buf_move() occurs.
+> 
+> One exception remains as a FIXME: in nvgrace-gpu, some BAR VMAs
+> conditionally use custom vm_ops, which have not moved to be backed by
+> DMABUFs.  If these BARs are mmap()ed, the vdev enables the existing
+> behaviour of unmap_mapping_range() for the device fd address space.
+> 
+> Signed-off-by: Matt Evans <mattev@meta.com>
 > ---
->  arch/arm64/boot/dts/qcom/Makefile                  |  2 +
->  .../dts/qcom/shikra-iqs-evk-imx577-camera.dtso     | 63 ++++++++++++++++++++++
->  2 files changed, 65 insertions(+)
+>  drivers/vfio/pci/nvgrace-gpu/main.c |  5 +++
+>  drivers/vfio/pci/vfio_pci_config.c  | 30 ++++++-------
+>  drivers/vfio/pci/vfio_pci_core.c    | 66 ++++++++++++++++++++---------
+>  drivers/vfio/pci/vfio_pci_priv.h    |  3 +-
+>  include/linux/vfio_pci_core.h       |  1 +
+>  5 files changed, 66 insertions(+), 39 deletions(-)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> index df41830e18edff82893ca24ca84d7e03065d0ef7..2a728c975a38f700360e317307036efb0968a00f 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -340,9 +340,11 @@ dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk.dtb
+> diff --git a/drivers/vfio/pci/nvgrace-gpu/main.c b/drivers/vfio/pci/nvgrace-gpu/main.c
+> index 15e2f03c6cd4..cfa649200a7f 100644
+> --- a/drivers/vfio/pci/nvgrace-gpu/main.c
+> +++ b/drivers/vfio/pci/nvgrace-gpu/main.c
+> @@ -364,6 +364,8 @@ static int nvgrace_gpu_mmap(struct vfio_device *core_vdev,
+>  	struct nvgrace_gpu_pci_core_device *nvdev =
+>  		container_of(core_vdev, struct nvgrace_gpu_pci_core_device,
+>  			     core_device.vdev);
+> +	struct vfio_pci_core_device *vdev =
+> +		container_of(core_vdev, struct vfio_pci_core_device, vdev);
+>  	struct mem_region *memregion;
+>  	u64 req_len, pgoff, end;
+>  	unsigned int index;
+> @@ -374,6 +376,9 @@ static int nvgrace_gpu_mmap(struct vfio_device *core_vdev,
+>  	if (!memregion)
+>  		return vfio_pci_core_mmap(core_vdev, vma);
 >  
->  shikra-cqm-evk-imx577-camera-dtbs	:= shikra-cqm-evk.dtb shikra-cqm-evk-imx577-camera.dtbo
->  shikra-cqs-evk-imx577-camera-dtbs	:= shikra-cqs-evk.dtb shikra-cqm-evk-imx577-camera.dtbo
-> +shikra-iqs-evk-imx577-camera-dtbs	:= shikra-iqs-evk.dtb shikra-iqs-evk-imx577-camera.dtbo
+> +	/* Non-DMABUF BAR mappings need an extra zap */
+> +	vdev->bar_needs_zap = true;
+> +
+
+This works, but it's subtle, and failing to opt-in is dangerous.  The
+name, to me, also suggests some transient state of the device rather
+than an ongoing property.  What if we used "zap_bars_on_revoke" and
+made vfio_pci_core_register_device() set this to true when:
+
+	if (vdev->vdev.ops->mmap != vfio_pci_core_mmap)
+		vdev->zap_bars_on_revoke = true;
+
+That gives us automatic opt-in to the safe default.  The hisi_acc
+driver .mmap is just a wrapper to vfio_pci_core_mmap(), so it could
+manually opt-out:
+
+	ret = vfio_pci_core_register_device(&hisi_acc_vdev->core_device);
+	if (ret)
+		return ret;
+
+	/* mmaps are to the dmabuf, not the region */
+	hisi_acc_vdev->core_device.zap_bars_on_revoke = false;
+
+We can't have the opt-out in vfio_pci_core_mmap() as drivers like
+nvgrace-gpu can use the core function for some BARs and their own
+handling for others.  Thanks,
+
+Alex
+
+>  	/*
+>  	 * Request to mmap the BAR. Map to the CPU accessible memory on the
+>  	 * GPU using the memory information gathered from the system ACPI
+> diff --git a/drivers/vfio/pci/vfio_pci_config.c b/drivers/vfio/pci/vfio_pci_config.c
+> index a10ed733f0e3..8bfab0da481c 100644
+> --- a/drivers/vfio/pci/vfio_pci_config.c
+> +++ b/drivers/vfio/pci/vfio_pci_config.c
+> @@ -590,12 +590,10 @@ static int vfio_basic_config_write(struct vfio_pci_core_device *vdev, int pos,
+>  		virt_mem = !!(le16_to_cpu(*virt_cmd) & PCI_COMMAND_MEMORY);
+>  		new_mem = !!(new_cmd & PCI_COMMAND_MEMORY);
 >  
->  dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk-imx577-camera.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk-imx577-camera.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk-imx577-camera.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk-imx577-camera.dtso b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-imx577-camera.dtso
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..f0423f1ab4e93abdcc7cad8977b39e31b2437e8e
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-imx577-camera.dtso
-> @@ -0,0 +1,63 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
+> -		if (!new_mem) {
+> -			vfio_pci_zap_and_down_write_memory_lock(vdev);
+> -			vfio_pci_dma_buf_move(vdev, true);
+> -		} else {
+> +		if (!new_mem)
+> +			vfio_pci_lock_zap_revoke_bars(vdev);
+> +		else
+>  			down_write(&vdev->memory_lock);
+> -		}
+>  
+>  		/*
+>  		 * If the user is writing mem/io enable (new_mem/io) and we
+> @@ -631,7 +629,7 @@ static int vfio_basic_config_write(struct vfio_pci_core_device *vdev, int pos,
+>  		*virt_cmd |= cpu_to_le16(new_cmd & mask);
+>  
+>  		if (__vfio_pci_memory_enabled(vdev))
+> -			vfio_pci_dma_buf_move(vdev, false);
+> +			vfio_pci_unrevoke_bars(vdev);
+>  		up_write(&vdev->memory_lock);
+>  	}
+>  
+> @@ -712,16 +710,14 @@ static int __init init_pci_cap_basic_perm(struct perm_bits *perm)
+>  static void vfio_lock_and_set_power_state(struct vfio_pci_core_device *vdev,
+>  					  pci_power_t state)
+>  {
+> -	if (state >= PCI_D3hot) {
+> -		vfio_pci_zap_and_down_write_memory_lock(vdev);
+> -		vfio_pci_dma_buf_move(vdev, true);
+> -	} else {
+> +	if (state >= PCI_D3hot)
+> +		vfio_pci_lock_zap_revoke_bars(vdev);
+> +	else
+>  		down_write(&vdev->memory_lock);
+> -	}
+>  
+>  	vfio_pci_set_power_state(vdev, state);
+>  	if (__vfio_pci_memory_enabled(vdev))
+> -		vfio_pci_dma_buf_move(vdev, false);
+> +		vfio_pci_unrevoke_bars(vdev);
+>  	up_write(&vdev->memory_lock);
+>  }
+>  
+> @@ -908,11 +904,10 @@ static int vfio_exp_config_write(struct vfio_pci_core_device *vdev, int pos,
+>  						 &cap);
+>  
+>  		if (!ret && (cap & PCI_EXP_DEVCAP_FLR)) {
+> -			vfio_pci_zap_and_down_write_memory_lock(vdev);
+> -			vfio_pci_dma_buf_move(vdev, true);
+> +			vfio_pci_lock_zap_revoke_bars(vdev);
+>  			pci_try_reset_function(vdev->pdev);
+>  			if (__vfio_pci_memory_enabled(vdev))
+> -				vfio_pci_dma_buf_move(vdev, false);
+> +				vfio_pci_unrevoke_bars(vdev);
+>  			up_write(&vdev->memory_lock);
+>  		}
+>  	}
+> @@ -993,11 +988,10 @@ static int vfio_af_config_write(struct vfio_pci_core_device *vdev, int pos,
+>  						&cap);
+>  
+>  		if (!ret && (cap & PCI_AF_CAP_FLR) && (cap & PCI_AF_CAP_TP)) {
+> -			vfio_pci_zap_and_down_write_memory_lock(vdev);
+> -			vfio_pci_dma_buf_move(vdev, true);
+> +			vfio_pci_lock_zap_revoke_bars(vdev);
+>  			pci_try_reset_function(vdev->pdev);
+>  			if (__vfio_pci_memory_enabled(vdev))
+> -				vfio_pci_dma_buf_move(vdev, false);
+> +				vfio_pci_unrevoke_bars(vdev);
+>  			up_write(&vdev->memory_lock);
+>  		}
+>  	}
+> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+> index c5f934905ce0..cfea59806a4f 100644
+> --- a/drivers/vfio/pci/vfio_pci_core.c
+> +++ b/drivers/vfio/pci/vfio_pci_core.c
+> @@ -319,8 +319,7 @@ static int vfio_pci_runtime_pm_entry(struct vfio_pci_core_device *vdev,
+>  	 * The vdev power related flags are protected with 'memory_lock'
+>  	 * semaphore.
+>  	 */
+> -	vfio_pci_zap_and_down_write_memory_lock(vdev);
+> -	vfio_pci_dma_buf_move(vdev, true);
+> +	vfio_pci_lock_zap_revoke_bars(vdev);
+>  
+>  	if (vdev->pm_runtime_engaged) {
+>  		up_write(&vdev->memory_lock);
+> @@ -406,7 +405,7 @@ static void vfio_pci_runtime_pm_exit(struct vfio_pci_core_device *vdev)
+>  	down_write(&vdev->memory_lock);
+>  	__vfio_pci_runtime_pm_exit(vdev);
+>  	if (__vfio_pci_memory_enabled(vdev))
+> -		vfio_pci_dma_buf_move(vdev, false);
+> +		vfio_pci_unrevoke_bars(vdev);
+>  	up_write(&vdev->memory_lock);
+>  }
+>  
+> @@ -1256,6 +1255,8 @@ static int vfio_pci_ioctl_set_irqs(struct vfio_pci_core_device *vdev,
+>  	return ret;
+>  }
+>  
+> +static void vfio_pci_zap_revoke_bars(struct vfio_pci_core_device *vdev);
 > +
-> +/dts-v1/;
-> +/plugin/;
+>  static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
+>  				void __user *arg)
+>  {
+> @@ -1264,7 +1265,7 @@ static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
+>  	if (!vdev->reset_works)
+>  		return -EINVAL;
+>  
+> -	vfio_pci_zap_and_down_write_memory_lock(vdev);
+> +	down_write(&vdev->memory_lock);
+>  
+>  	/*
+>  	 * This function can be invoked while the power state is non-D0. If
+> @@ -1277,10 +1278,11 @@ static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
+>  	 */
+>  	vfio_pci_set_power_state(vdev, PCI_D0);
+>  
+> -	vfio_pci_dma_buf_move(vdev, true);
+> +	vfio_pci_zap_revoke_bars(vdev);
 > +
-> +#include <dt-bindings/clock/qcom,shikra-gcc.h>
-> +#include <dt-bindings/gpio/gpio.h>
+>  	ret = pci_try_reset_function(vdev->pdev);
+>  	if (__vfio_pci_memory_enabled(vdev))
+> -		vfio_pci_dma_buf_move(vdev, false);
+> +		vfio_pci_unrevoke_bars(vdev);
+>  	up_write(&vdev->memory_lock);
+>  
+>  	return ret;
+> @@ -1648,20 +1650,44 @@ ssize_t vfio_pci_core_write(struct vfio_device *core_vdev, const char __user *bu
+>  }
+>  EXPORT_SYMBOL_GPL(vfio_pci_core_write);
+>  
+> -static void vfio_pci_zap_bars(struct vfio_pci_core_device *vdev)
+> +static void vfio_pci_zap_revoke_bars(struct vfio_pci_core_device *vdev)
+>  {
+> -	struct vfio_device *core_vdev = &vdev->vdev;
+> -	loff_t start = VFIO_PCI_INDEX_TO_OFFSET(VFIO_PCI_BAR0_REGION_INDEX);
+> -	loff_t end = VFIO_PCI_INDEX_TO_OFFSET(VFIO_PCI_ROM_REGION_INDEX);
+> -	loff_t len = end - start;
+> +	lockdep_assert_held_write(&vdev->memory_lock);
+> +	vfio_pci_dma_buf_move(vdev, true);
+>  
+> -	unmap_mapping_range(core_vdev->inode->i_mapping, start, len, true);
+> +	/*
+> +	 * All VFIO PCI BARs are backed by DMABUFs, with the current
+> +	 * exception of the nvgrace-gpu device which uses its own
+> +	 * vm_ops for a subset of BARs.  For this, BAR mappings are
+> +	 * still made in the vdev's address_space, and a zap is
+> +	 * required.  The tracking is crude, and will (harmlessly)
+> +	 * continue to zap if the special BAR is unmapped, but that
+> +	 * behaviour isn't the common case.
+> +	 *
+> +	 * FIXME: This can go away if the special nvgrace-gpu mapping
+> +	 * is converted to use DMABUF.
+> +	 */
+> +	if (vdev->bar_needs_zap) {
+> +		struct vfio_device *core_vdev = &vdev->vdev;
+> +		loff_t start = VFIO_PCI_INDEX_TO_OFFSET(VFIO_PCI_BAR0_REGION_INDEX);
+> +		loff_t end = VFIO_PCI_INDEX_TO_OFFSET(VFIO_PCI_ROM_REGION_INDEX);
+> +		loff_t len = end - start;
 > +
-> +&camss {
-> +	vdd-csiphy-1p2-supply = <&pm8150_l11>;
-> +	vdd-csiphy-1p8-supply = <&pm8150_l12>;
+> +		unmap_mapping_range(core_vdev->inode->i_mapping,
+> +				    start, len, true);
+> +	}
+>  }
+>  
+> -void vfio_pci_zap_and_down_write_memory_lock(struct vfio_pci_core_device *vdev)
+> +void vfio_pci_lock_zap_revoke_bars(struct vfio_pci_core_device *vdev)
+>  {
+>  	down_write(&vdev->memory_lock);
+> -	vfio_pci_zap_bars(vdev);
+> +	vfio_pci_zap_revoke_bars(vdev);
+> +}
 > +
-> +	status = "okay";
-> +
-> +	ports {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		port@1 {
-> +			reg = <1>;
-> +
-> +			csiphy1_ep: endpoint {
-> +				data-lanes = <0 1 2 3>;
-> +				remote-endpoint = <&imx577_ep1>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&cci {
-> +	status = "okay";
-> +};
-> +
-> +&cci_i2c1 {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +
-> +	camera@1a {
-> +		compatible = "sony,imx577";
-> +		reg = <0x1a>;
-> +
-> +		reset-gpios = <&tlmm 33 GPIO_ACTIVE_LOW>;
-> +		pinctrl-0 = <&mclk1_default>;
-> +		pinctrl-names = "default";
-> +
-> +		clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
-> +		assigned-clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
-> +		assigned-clock-rates = <24000000>;
-> +
-> +		dovdd-supply = <&pm8150_l15>;
-
-I don't have your schematic BUT where are the rest of the regulators.
-
-If they are absent or powered by the daughter board, a comment in the patch
-would be warranted.
-
-Same comment for previous patch.
-
-> +		port {
-> +			imx577_ep1: endpoint {
-> +				link-frequencies = /bits/ 64 <600000000>;
-> +				data-lanes = <0 1 2 3>;
-> +				remote-endpoint = <&csiphy1_ep>;
-> +			};
-> +		};
-> +	};
-> +};
-> 
-> -- 
-> 2.34.1
-> 
-> 
-
+> +void vfio_pci_unrevoke_bars(struct vfio_pci_core_device *vdev)
+> +{
+> +	lockdep_assert_held_write(&vdev->memory_lock);
+> +	vfio_pci_dma_buf_move(vdev, false);
+>  }
+>  
+>  u16 vfio_pci_memory_lock_and_enable(struct vfio_pci_core_device *vdev)
+> @@ -2517,9 +2543,10 @@ static int vfio_pci_dev_set_hot_reset(struct vfio_device_set *dev_set,
+>  		}
+>  
+>  		/*
+> -		 * Take the memory write lock for each device and zap BAR
+> -		 * mappings to prevent the user accessing the device while in
+> -		 * reset.  Locking multiple devices is prone to deadlock,
+> +		 * Take the memory write lock for each device and
+> +		 * zap/revoke BAR mappings to prevent the user (or
+> +		 * peers) accessing the device while in reset.
+> +		 * Locking multiple devices is prone to deadlock,
+>  		 * runaway and unwind if we hit contention.
+>  		 */
+>  		if (!down_write_trylock(&vdev->memory_lock)) {
+> @@ -2527,8 +2554,7 @@ static int vfio_pci_dev_set_hot_reset(struct vfio_device_set *dev_set,
+>  			break;
+>  		}
+>  
+> -		vfio_pci_dma_buf_move(vdev, true);
+> -		vfio_pci_zap_bars(vdev);
+> +		vfio_pci_zap_revoke_bars(vdev);
+>  	}
+>  
+>  	if (!list_entry_is_head(vdev,
+> @@ -2558,7 +2584,7 @@ static int vfio_pci_dev_set_hot_reset(struct vfio_device_set *dev_set,
+>  	list_for_each_entry_from_reverse(vdev, &dev_set->device_list,
+>  					 vdev.dev_set_list) {
+>  		if (vdev->vdev.open_count && __vfio_pci_memory_enabled(vdev))
+> -			vfio_pci_dma_buf_move(vdev, false);
+> +			vfio_pci_unrevoke_bars(vdev);
+>  		up_write(&vdev->memory_lock);
+>  	}
+>  
+> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+> index d38e1b98b2e9..10833aabd7fb 100644
+> --- a/drivers/vfio/pci/vfio_pci_priv.h
+> +++ b/drivers/vfio/pci/vfio_pci_priv.h
+> @@ -83,7 +83,8 @@ void vfio_config_free(struct vfio_pci_core_device *vdev);
+>  int vfio_pci_set_power_state(struct vfio_pci_core_device *vdev,
+>  			     pci_power_t state);
+>  
+> -void vfio_pci_zap_and_down_write_memory_lock(struct vfio_pci_core_device *vdev);
+> +void vfio_pci_lock_zap_revoke_bars(struct vfio_pci_core_device *vdev);
+> +void vfio_pci_unrevoke_bars(struct vfio_pci_core_device *vdev);
+>  u16 vfio_pci_memory_lock_and_enable(struct vfio_pci_core_device *vdev);
+>  void vfio_pci_memory_unlock_and_restore(struct vfio_pci_core_device *vdev,
+>  					u16 cmd);
+> diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
+> index 7accd0eac457..e35e82c24c8c 100644
+> --- a/include/linux/vfio_pci_core.h
+> +++ b/include/linux/vfio_pci_core.h
+> @@ -127,6 +127,7 @@ struct vfio_pci_core_device {
+>  	bool			needs_pm_restore:1;
+>  	bool			pm_intx_masked:1;
+>  	bool			pm_runtime_engaged:1;
+> +	bool			bar_needs_zap:1;
+>  	struct pci_saved_state	*pci_saved_state;
+>  	struct pci_saved_state	*pm_save;
+>  	int			ioeventfds_nr;
 
