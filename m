@@ -1,65 +1,33 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62220376475
-	for <linux-media@vger.kernel.org>; Fri, 29 May 2026 22:33:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFCD1AC45D;
+	Fri, 29 May 2026 22:57:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780094033; cv=none; b=WyhvDL4peZXDPNdI9uHBKvY/1tbwKZTRMbiItH7OPRK4cZEoQghMdfH5Yc11YVJoDZQIMyqGDqKQuD78SseJh6rqhGkuWWmx0hkeCCARQGAQcyu5paDE8YtjTP6pliBx6fBnBK/ZR6W/49DgX0TeYjPtZmXS2Jv7XZZq9RjKibk=
+	t=1780095465; cv=none; b=ARQ7OYqR7DHTTlcRB3vSPO9NthqnahNQcIqt/lZt9//BDcKybtksOOex/J7SCu1ld2YlMpN7/HvgIlKTJ3l1Z3R/d/YaykVzqX3wYKFJ0BRYC2xm4+fwFyWxMaETHr7PmgqyLH1rwYIbzVL9sW9gpI4NXBZwGvsOgnq0pIYxtLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780094033; c=relaxed/simple;
-	bh=r01UNiJ5t+QQ9v0MNroLwd2ymcO66a+NVdwEtdbq5hw=;
+	s=arc-20240116; t=1780095465; c=relaxed/simple;
+	bh=qHtiwpZ+hr3LQA/M8vOQeknAplJllI+oQpfScdkdaC0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XOiCbF4c/JGMZ6u5wOt5MdRbIL4OxCUaKkbvUAYE4ccbmYmEy4Hg56Mqn7CxoFUDH6hGGcX7i7NfLsd3zxp/QYFL3cc6nyieDrbjZ3I53ViT/ykkuNhZeTvG0QzDVtMgRK7/jSB2PDcWGacTgvyDASMQKmk0nf5y9bKoLEUfvho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oZ63UmkR; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=l8A8Tim482YGAtWEuDqP3tNw786O6rqsfema22ylEX6P2WPF7LMnOqldnuBX67ujcLAINtVzZGqFIvUoH5CMPeu/FVo14S/4YrFu4PehQlUY0I27moJUZwKhZnBpgR5drDCwOiZBciTe9GUpBT0A7NTo3V21Ul6dB21t129Sh+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MTfZDkmd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oZ63UmkR"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4903d730b1fso75178315e9.2
-        for <linux-media@vger.kernel.org>; Fri, 29 May 2026 15:33:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780094031; x=1780698831; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Ymjm8eNHpxcDzNBbywPMho5NaL6tCXYzCbWJlV5z4Gg=;
-        b=oZ63UmkRRUV1DNuCUs5V/nJ3clNAs88gUrGkZV5uFnOFtZCpuY6tLSyUKOQahvgotn
-         Z0iqxMkjoL0J/51E/QzYH8lTyhB4QmwP2rJeGee7xlM3eUroWS/wtkUzniohlSxLNX/H
-         I2Hf1dpAY7VAb9NghulNZvls2P/ZPBb4BvbnsYQcCIqMeQdpRzE4sGIPXHiJCIkcQotB
-         Ulu2uck9kpr/MJ5LjkfzKgEDbkpRIGVk7CKPyRHplUyVC7kjlFOO87Ww+bdqXTiajlvJ
-         rSjtWFbIIoM4uTtBlBcrJUEbF5845ODVFHakAak/2pn8TLZRLfYXeQ4XSWNncvpH/K7t
-         +jvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780094031; x=1780698831;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Ymjm8eNHpxcDzNBbywPMho5NaL6tCXYzCbWJlV5z4Gg=;
-        b=cDcj4lET4r3YtjmIvu7P4H0SBHZF8mWyvsI+1Ket/xe+CRFqSLgRUXBTwnU/SO3NI/
-         wI2kJNkMlKH1Ivz1GPGxp00wjg313RFtv35+4mP9uhAR/B9AF4Kz2hHbPrDc4ziXN1aO
-         3nCwyQzcUnOt6T7Rwui6Fb2yKAggCxJzo5YNRyEG3tJ5omjqCLFqYG4+q+lrxXX/+9kH
-         Cx4jVQ1GdXqiC5Yq9TlV+Hd5VUnq0WKdi3kWckugnFykdVrX/DusULh0hTxKmgsapAVx
-         b547TP0EpR8jFuLozAlDF/azVQoWtB8LMJU/pG/HymYpBXgJa89C6g6q1ifkx2JGiZzY
-         fhWg==
-X-Gm-Message-State: AOJu0YxA3+7DhmN53lidyKd1FGNDOUpjpR4sAoi8mtiemPrjJMveuQfT
-	ZiI+TuutB3+wy5Hx7UBaYOviMl2g2V49jHFuuQeFN41KnSL/8LGnVCPIHmvJTw6bKoI=
-X-Gm-Gg: Acq92OHH6IDMvFb68L4Y32j+JFdtlFj2EEdO+RWTE5W7dhHx9l9r2WqigTgDvoCSEF9
-	wXUNcFlMHP+Q8qj47rYtugvCNmHzzUSVa5W48M/BOtQiYXyl9W38S8lBkudD9N45mt2StlIf88U
-	wA71gcfu90YfKLiLe3esGrb1cm750WELQWhfUMwKNEWEEkyedMiVxHOwhel/RrWQAqy/dj87YOU
-	XK0y5QkPUdh4FVEPlthLUzxUQ/VVflVMoU4GDHf8BaNZL8IR7Q+Lq8KMcSgMgD2oh44G/VTCnNB
-	a5W5qtVNzvVux6nyYeV/JKzw+E4Pam0/WWSSHaknWDCjRDpLuWDDndO2HLFUUQdODP8MLdyAf+I
-	/Akcn1DOuI6MwvxiPoFO4W+rmzPcNPZi9NeCVtl1UscDoBHMqON7m/OxZDZL5CRcA9gHnkK/khI
-	QFEk6Yn2BqGPmYnq0rbxYum6npxozFzZSVUdU=
-X-Received: by 2002:a05:600c:8508:b0:490:52fb:12dd with SMTP id 5b1f17b1804b1-490a2915bc8mr25060585e9.10.1780094030708;
-        Fri, 29 May 2026 15:33:50 -0700 (PDT)
-Received: from [192.168.17.180] ([89.205.36.60])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909c09ab75sm22726955e9.6.2026.05.29.15.33.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 29 May 2026 15:33:50 -0700 (PDT)
-Message-ID: <9727b97f-7838-4d5f-bd8a-e26dabf1d38f@gmail.com>
-Date: Sat, 30 May 2026 00:33:48 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MTfZDkmd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 774D91F00893;
+	Fri, 29 May 2026 22:57:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780095464;
+	bh=qHtiwpZ+hr3LQA/M8vOQeknAplJllI+oQpfScdkdaC0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MTfZDkmdKifsvJxS5issxaPsSpVdp3atWttJuQnh042nP/CAAxDPs3AXYF5CXQZM7
+	 GXnWIfnLV4oloyJK2Y+f86OdMUOackqzoQL5ogAGfanY2/It1c65Bm7mqS3b6/uwjx
+	 kRA3bFPJ7vHRBg+VvL05VeR/pYNky/n4evRZFGH89b1yBFVvn7BFw71fJrSOyHzkPX
+	 sCaTe+eE6brH4k40UNjqzwCenhZyrO5McjZRh64s9WejW63BejWSjGvMy6TC6xTptb
+	 X6Q1LValvWGpKM5GI5N+lS+QR2MoSLeb6pn4UPvoyLelgFeYWKyEoC6eJX+icoQJat
+	 Mr6g6cZx3vWPQ==
+Message-ID: <73364628-5345-4c6d-ab18-7aee6c5b579d@kernel.org>
+Date: Fri, 29 May 2026 23:57:35 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -67,59 +35,42 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] media: ipu-bridge: Add DMI information of Lenovo
- X9 to the image upside-down list
-To: Kate Hsuan <hpa@redhat.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans de Goede <johannes.goede@oss.qualcomm.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Serin Yeh <serin.yeh@intel.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260522031121.11968-1-hpa@redhat.com>
- <20260522031121.11968-2-hpa@redhat.com>
+Subject: Re: [PATCH 7/8] arm64: dts: qcom: shikra-cqm-evk-imx577-camera: Add
+ DT overlay
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ Suresh Vankadara <quic_svankada@quicinc.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20260526-shikra-camss-review-v1-0-645d2c8c75a7@qti.qualcomm.com>
+ <20260526-shikra-camss-review-v1-7-645d2c8c75a7@qti.qualcomm.com>
+ <178000731452.4557.8537369407478321842.b4-reply@b4>
+ <oiPZ6ZMRghpGaIEC7KqUDt7QZQT8w5gq0OMZzopCPkcqKOBXXVrP7-t6ZL4LY4ErAN_z1Z4tCdqn7xbxE5EE7w==@protonmail.internalid>
+ <bc2aecf3-fedd-4b15-8e69-33ca928831d6@oss.qualcomm.com>
 Content-Language: en-US
-From: Damjan Georgievski <gdamjan@gmail.com>
-In-Reply-To: <20260522031121.11968-2-hpa@redhat.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+In-Reply-To: <bc2aecf3-fedd-4b15-8e69-33ca928831d6@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 5/22/26 05:11, Kate Hsuan wrote:
-> The Lenovo X9 has an upside-down-mounted Sony IMX471 sensor so the image
-> was displayed upside-down. Add the DMI information of Lenovo X9 to
-> resolve the issue.
->
-> Signed-off-by: Kate Hsuan <hpa@redhat.com>
-> ---
->   drivers/media/pci/intel/ipu-bridge.c | 14 ++++++++++++++
->   1 file changed, 14 insertions(+)
->
-> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-> index 32cc95a766b7..1c3364451fa3 100644
-> --- a/drivers/media/pci/intel/ipu-bridge.c
-> +++ b/drivers/media/pci/intel/ipu-bridge.c
-> @@ -118,6 +118,20 @@ static const struct dmi_system_id upside_down_sensor_dmi_ids[] = {
->   		},
->   		.driver_data = "OVTI02C1",
->   	},
-> +	{
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-> +			DMI_MATCH(DMI_PRODUCT_VERSION, "ThinkPad X9-14"),
+On 29/05/2026 18:30, Nihal Kumar Gupta wrote:
+> Happy to rename to shikra-cqm-cqs-evk-imx577-camera if that makes the
+> shared scope clearer - open to suggestions.
 
-Isn't this going to be an issue in the future if/when a "Gen 2" appears?
+That would sufficiently pick the nit for me.
 
-Just extrapolation from my older laptop, it shows "ThinkPad X1 Carbon 
-5th" for "/sys/class/dmi/id/product_version"
-
-> +		},
-> +		.driver_data = "SONY471A",
-> +	},
-> +	{
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-> +			DMI_MATCH(DMI_PRODUCT_VERSION, "ThinkPad X9-15"),
-> +		},
-> +		.driver_data = "SONY471A",
-> +	},
->   	{} /* Terminating entry */
->   };
->   
+---
+bod
