@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D865028030E;
-	Sat, 30 May 2026 00:46:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E6FE2DB7BB;
+	Sat, 30 May 2026 00:46:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780102001; cv=none; b=Gea0BFG2YEnYOHU8cpP2Zyp2Uie/NnHMDyljkOV5zuwVV1pX5PLlfHf2IJ0VT3GqUcPL7SYFUTehXCM6oC5OA4TVVeMqPagRsQ8cMBqsKskqkrfdG0ZAPgyQqPxzlGJoNmB5bO9vuyWPvcQCj74xCL2Y1T8GMoDpbe0oMiYZWKY=
+	t=1780102003; cv=none; b=bGxeRmH3+mzScRc14RwyKavCOwNAgVRIr8xeE1A+7URmx+5hweqB3+lbm48/Nb50f303ki5MJLoyjPIB0c2tjH1VCFM82Gyz3KlAnh3wgbWDyfQIkg6BC2J/u3RaNP0Vr+HNUPB3Lgqi5p5I2yjDvV3zm6hsvD/LfAMV0kG7z0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780102001; c=relaxed/simple;
-	bh=a7K3m4u5t/d2JaFUJqClXibVhKIGjCQFN05qFvNZg0o=;
+	s=arc-20240116; t=1780102003; c=relaxed/simple;
+	bh=Gj7Ho0fpm89YpVQqdP011+hYYm1f/ozWnlkoOZjGM1E=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ihq6urPL6XA5mbKBfxMAtTwh29MFophbUNIjiY6qCbbzfabRUGdTzQRmlG37FAdn/Gy0r10fAJblVXnx1iGfl8RIayS1VGUXyDt+BYiGDpSf4ppymj+shxd4K98yGzsTev5x+c6RA9EsHDu+PL5rRXhjSc0fWyNbAzvylRF1lYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c3XUPkF+; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=EAcPF2f2dDkjYrKjlVPYJmgyVZIQk80mqkRMcLOc8IsHzEyerF1kaiQyrltQRqT71X1aJAj2xl/luG903cBlNWH7v32esIxiubZwMzoobq7GNXWa9o/RKwRouQRqtA+dAOwndF06gmHoav9HJSmOwH+ZJHaBBizlRI+/CVBVzeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gZ5bBIYb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c3XUPkF+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AA181F00899;
-	Sat, 30 May 2026 00:46:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gZ5bBIYb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D438D1F00893;
+	Sat, 30 May 2026 00:46:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780102000;
-	bh=gfG5bKFYCClAy8inB7Dbn7ap9CA5R9+PderCKI59Qew=;
+	s=k20260515; t=1780102002;
+	bh=NJcxkZ5CVcWbKhMMFpsQuqUBFLHlS9Piddgvot8kfgA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=c3XUPkF+DaAplNbxPLudoGyPoncKjcV1QKzUXNQzb98A/lI8qfJaoNnNpRTqfGqj6
-	 uZGKmYPqf5I7YJjhwQcPzQRkMy69wEqkib69wdVvS78UZN9stJLFB0wcfhE0ZlJEuF
-	 xnryYQBNM17MFD16FAh79uuVEKvgsnb1r7jeUmJoCrkJzpWfckxkQFnvRHkkvemeV8
-	 1JE2ltjin9TzPqBEtqQem2bMA4S84So1uzmkeffTAWUBJZq07KFUSh75SG2sPV+Vxk
-	 EW3JfYssUxrL4ql6DpiSTtDtVzPhQTPs4zLk3SSMpl7JgzIAA+BaKasae2C+beeTvG
-	 jYisLe4X9rshg==
+	b=gZ5bBIYb7S1znQu53i0Q9NjwvqLAokIn769EDupEVZjiODNEc2PUnjHAoPWyA+ZGp
+	 iZhlhcwS6li4vSf8JS35/y4igrYQ9f1cgUPWH5kxnmEMIvfCXMh2+NqUsYRW3xHhxH
+	 ndSUS1PER0GGpzcZ9qaSOrw3oP7/i354SVYUtzr0IPRpIDrtgWPf682ziw3nJAtEbW
+	 uCnxjtuKexvaHny7uC1OYwP7lvcO1WWC/BXgreAGRgre7DcVdjlbjTI8AqqFYQOaqa
+	 yqUYTYq1IItfXjDhmMYW/3Mutq61ig4Y9Vb3lR+Do83f5Wdfe4CNys2gz0qBp4gdk/
+	 TU/Ti2tfahuCQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 01/15] arm64: dts: qcom: kodiak: Add EL2 overlay
+Subject: Re: [PATCH v7 11/15] media: qcom: Pass proper PAS ID to
+ set_remote_state API
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sumit Garg" <sumit.garg@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-media@vger.kernel.org
-In-Reply-To: <20260522115936.201208-2-sumit.garg@kernel.org>
-References: <20260522115936.201208-2-sumit.garg@kernel.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-media@vger.kernel.org
+In-Reply-To: <20260522115936.201208-12-sumit.garg@kernel.org>
+References: <20260522115936.201208-12-sumit.garg@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 30 May 2026 00:46:40 +0000
-Message-Id: <20260530004640.8AA181F00899@smtp.kernel.org>
+Date: Sat, 30 May 2026 00:46:41 +0000
+Message-Id: <20260530004641.D438D1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -45,69 +46,64 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The commit message claims to "apply it to Kodiak IOT variant dev=
-ices to create -el2.dtb for each of them alongside 'normal' dtb." However, =
-only `qcs6490-rb3gen2-el2.dtb` is actually added to the Makefile. Other Kod=
-iak IOT variants (e.g., `qcs6490-radxa-dragon-q6a`) are completely omitted.
+
+Pre-existing issues:
+- [High] Lockless access and TOCTOU (Time-Of-Check to Time-Of-Use) race on =
+the global `ops_ptr` variable leading to a NULL pointer dereference.
 --
 
-commit dae207f029919c9e5d599bad87797d9c3c3d8c49
-Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+commit cea57543db0155e85cd736ed70440a251d359393
+Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-arm64: dts: qcom: kodiak: Add EL2 overlay
+media: qcom: Pass proper PAS ID to set_remote_state API
+   =20
+This commit updates the SCM backend calls in the iris and venus drivers
+to pass the correct PAS ID to qcom_pas_set_remote_state() instead of 0,
+which is used by OP-TEE for bookkeeping purposes.
 
-This commit introduces a new EL2-specific DeviceTree overlay for Kodiak
-boards to allow booting Linux in EL2 without the Gunyah hypervisor. It
-configures remote processor firmware IOMMU streams and the hardware
-watchdog while disabling unsupported subsystems like the modem and venus.
+> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/m=
+edia/platform/qcom/iris/iris_firmware.c
+> index b3c5281aea919..856fa6a79064c 100644
+> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
+> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
+> @@ -109,5 +109,5 @@ int iris_fw_unload(struct iris_core *core)
+> =20
+>  int iris_set_hw_state(struct iris_core *core, bool resume)
+>  {
+> -	return qcom_pas_set_remote_state(resume, 0);
+> +	return qcom_pas_set_remote_state(resume, core->iris_platform_data->pas_=
+id);
 
-Link: https://docs.qualcomm.com/bundle/publicresource/topics/80-70020-4/boo=
-t-developer-touchpoints.html#uefi
+[Severity: High]
+This isn't a bug introduced by this patch, but since this code relies on the
+underlying qcom_pas_set_remote_state() function, is there a race condition
+in how ops_ptr is accessed?
 
-> Add a EL2-specific DT overlay and apply it to Kodiak IOT variant
-> devices to create -el2.dtb for each of them alongside "normal" dtb.
+Looking at qcom_pas_set_remote_state() in drivers/firmware/qcom/qcom_pas.c:
 
-[Severity: Medium]
-Is this description accurate? The commit message states the overlay is
-applied to all Kodiak IOT variant devices, but only the qcs6490-rb3gen2
-device has the -el2.dtb target added below.
+int qcom_pas_set_remote_state(u32 state, u32 pas_id)
+{
+	if (!ops_ptr)
+		return -ENODEV;
 
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom=
-/Makefile
-> index 4ba8e73064194..28123cdc9de26 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
+	return ops_ptr->set_remote_state(ops_ptr->dev, state, pas_id);
+}
+
+If the provider driver is concurrently unbound (e.g., via qcom_pas_tee_remo=
+ve)
+or shut down, and qcom_pas_ops_unregister() sets ops_ptr =3D NULL, could op=
+s_ptr
+become NULL between the check and the dereference?
+
+Since there appears to be no locking, RCU, or module reference counting
+protecting ops_ptr, could this lead to a NULL pointer dereference, or an
+invalid memory access if the provider module is unloaded and the memory
+containing the callbacks is freed?
+
+>  }
+
 [ ... ]
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D qcs615-ride-el2.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D qcs6490-radxa-dragon-q6a.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D qcs6490-rb3gen2.dtb
-> +qcs6490-rb3gen2-el2-dtbs :=3D qcs6490-rb3gen2.dtb kodiak-el2.dtbo
-> +dtb-$(CONFIG_ARCH_QCOM)	+=3D qcs6490-rb3gen2-el2.dtb
-
-If the intent was to also apply this overlay to other variants like
-qcs6490-radxa-dragon-q6a, would the fdtoverlay step fail?=20
-
-Other Kodiak boards use /delete-node/ for remoteproc_mpss and
-remoteproc_wpss because they lack the hardware. It looks like applying
-kodiak-el2.dtso to those boards would result in an error when the overlay
-attempts to modify these non-existent nodes:
-
-> diff --git a/arch/arm64/boot/dts/qcom/kodiak-el2.dtso b/arch/arm64/boot/d=
-ts/qcom/kodiak-el2.dtso
-> new file mode 100644
-> index 0000000000000..520ed582370da
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/kodiak-el2.dtso
-[ ... ]
-> +&remoteproc_mpss {
-> +	status =3D "disabled";
-> +};
-> +
-> +&remoteproc_wpss {
-> +	iommus =3D <&apps_smmu 0x1c03 0x1>,
-> +		 <&apps_smmu 0x1c83 0x1>;
-> +};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522115936.2012=
-08-1-sumit.garg@kernel.org?part=3D1
+08-1-sumit.garg@kernel.org?part=3D11
