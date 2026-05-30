@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E1B02DCF61;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D865028030E;
 	Sat, 30 May 2026 00:46:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780102001; cv=none; b=HB4vjJ5ssltt7R6JpQdNOKUJsY35uHWOLcIpjYtx/tOft6le0J80sMfcOeT/x8xb3+wc9w0HUBqqvQQgIoXL+9qXn9iVNM0K4fo/PJQ4+Pq4HWiHwJJJpfEhx4hCsC0Lw0UYgjEk2yPPGuRvslusHh9rS/lYtbEaFH//OcQhqKU=
+	t=1780102001; cv=none; b=Gea0BFG2YEnYOHU8cpP2Zyp2Uie/NnHMDyljkOV5zuwVV1pX5PLlfHf2IJ0VT3GqUcPL7SYFUTehXCM6oC5OA4TVVeMqPagRsQ8cMBqsKskqkrfdG0ZAPgyQqPxzlGJoNmB5bO9vuyWPvcQCj74xCL2Y1T8GMoDpbe0oMiYZWKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780102001; c=relaxed/simple;
-	bh=hfpTaZvn33+yOPmtHvggD0+5z1rfJM8hHDMan5Q0vEg=;
+	bh=a7K3m4u5t/d2JaFUJqClXibVhKIGjCQFN05qFvNZg0o=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AEN02yK6wRy9On8c1s9IJHHqAa9HAvlX2E4THJp6I4xpeOu6d1hdeTto6UvYfcnREB8AsR7uH425bJ2KC8OjqNTGyCKuM+ALzkrGnuchg27c4n2S/iKbOaToEpZ0rUeM4xUM4JNpnYsl7yyFfQC06sG1HoHJbBuTc6w91pIp+Uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HrZSw9un; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Ihq6urPL6XA5mbKBfxMAtTwh29MFophbUNIjiY6qCbbzfabRUGdTzQRmlG37FAdn/Gy0r10fAJblVXnx1iGfl8RIayS1VGUXyDt+BYiGDpSf4ppymj+shxd4K98yGzsTev5x+c6RA9EsHDu+PL5rRXhjSc0fWyNbAzvylRF1lYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c3XUPkF+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HrZSw9un"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E46731F00893;
-	Sat, 30 May 2026 00:46:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c3XUPkF+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AA181F00899;
+	Sat, 30 May 2026 00:46:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1780102000;
-	bh=BbnvkCCISx3ipoou36RCqkeykQw6BK37gvZE7eE5aus=;
+	bh=gfG5bKFYCClAy8inB7Dbn7ap9CA5R9+PderCKI59Qew=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HrZSw9unuhrvtE4sE9mNsJWzpl3csxd7uC+KKtIR7pQJNTw2UNg/k06H40/15p4o1
-	 rwUuHhEDgezY7NnMPNZjOX4sg9w/jFpUSX+5D0oOsxdM1UHC6zcdJYhSwhpukUNjEC
-	 hvuXUKVynOn+Xvrbfeq1a5hCJPoKxNuztCYqPmZLF8aibF2cNMuEss1fskMOGHvsQz
-	 8KlpGO2o6n4x0JFY5SRMNzMvpEP22K0Oo/ctXNuMaMGEmfYWPiO32LSOokg485Z2QN
-	 MvaMfwRSNdEBeJqIZUGkmQYr+Rk/yy/vO68t+rTyh/KI7mRLZPrFw2ZFaYNeK4mjW9
-	 PpCbifpR1W0xQ==
+	b=c3XUPkF+DaAplNbxPLudoGyPoncKjcV1QKzUXNQzb98A/lI8qfJaoNnNpRTqfGqj6
+	 uZGKmYPqf5I7YJjhwQcPzQRkMy69wEqkib69wdVvS78UZN9stJLFB0wcfhE0ZlJEuF
+	 xnryYQBNM17MFD16FAh79uuVEKvgsnb1r7jeUmJoCrkJzpWfckxkQFnvRHkkvemeV8
+	 1JE2ltjin9TzPqBEtqQem2bMA4S84So1uzmkeffTAWUBJZq07KFUSh75SG2sPV+Vxk
+	 EW3JfYssUxrL4ql6DpiSTtDtVzPhQTPs4zLk3SSMpl7JgzIAA+BaKasae2C+beeTvG
+	 jYisLe4X9rshg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 10/15] media: qcom: Switch to generic PAS TZ APIs
+Subject: Re: [PATCH v7 01/15] arm64: dts: qcom: kodiak: Add EL2 overlay
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sumit Garg" <sumit.garg@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, linux-media@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260522115936.201208-11-sumit.garg@kernel.org>
-References: <20260522115936.201208-11-sumit.garg@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-media@vger.kernel.org
+In-Reply-To: <20260522115936.201208-2-sumit.garg@kernel.org>
+References: <20260522115936.201208-2-sumit.garg@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 30 May 2026 00:46:39 +0000
-Message-Id: <20260530004639.E46731F00893@smtp.kernel.org>
+Date: Sat, 30 May 2026 00:46:40 +0000
+Message-Id: <20260530004640.8AA181F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -45,72 +45,69 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Unconditional call to `qcom_scm_mem_protect_video_var()` after rel=
-axing probe deferral checks to `qcom_pas_is_available()` leads to a NULL po=
-inter dereference on systems using non-SCM PAS backends.
+- [Medium] The commit message claims to "apply it to Kodiak IOT variant dev=
+ices to create -el2.dtb for each of them alongside 'normal' dtb." However, =
+only `qcs6490-rb3gen2-el2.dtb` is actually added to the Makefile. Other Kod=
+iak IOT variants (e.g., `qcs6490-radxa-dragon-q6a`) are completely omitted.
 --
 
-commit c279727d5017499db9e28d15aedc68710604c9b9
-Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
+commit dae207f029919c9e5d599bad87797d9c3c3d8c49
+Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-media: qcom: Switch to generic PAS TZ APIs
+arm64: dts: qcom: kodiak: Add EL2 overlay
 
-This commit updates the Qualcomm media client drivers to use the generic
-PAS TZ APIs instead of the SCM-specific ones. This allows supporting
-multiple TrustZone implementation backends like OP-TEE in addition to the
-QTEE-based SCM PAS service.
+This commit introduces a new EL2-specific DeviceTree overlay for Kodiak
+boards to allow booting Linux in EL2 without the Gunyah hypervisor. It
+configures remote processor firmware IOMMU streams and the hardware
+watchdog while disabling unsupported subsystems like the modem and venus.
 
-> diff --git a/drivers/media/platform/qcom/venus/firmware.c b/drivers/media=
-/platform/qcom/venus/firmware.c
-> index 1de7436713ed9..3a38ff985822f 100644
-> --- a/drivers/media/platform/qcom/venus/firmware.c
-> +++ b/drivers/media/platform/qcom/venus/firmware.c
+Link: https://docs.qualcomm.com/bundle/publicresource/topics/80-70020-4/boo=
+t-developer-touchpoints.html#uefi
 
+> Add a EL2-specific DT overlay and apply it to Kodiak IOT variant
+> devices to create -el2.dtb for each of them alongside "normal" dtb.
+
+[Severity: Medium]
+Is this description accurate? The commit message states the overlay is
+applied to all Kodiak IOT variant devices, but only the qcs6490-rb3gen2
+device has the -el2.dtb target added below.
+
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom=
+/Makefile
+> index 4ba8e73064194..28123cdc9de26 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
 [ ... ]
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D qcs615-ride-el2.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D qcs6490-radxa-dragon-q6a.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D qcs6490-rb3gen2.dtb
+> +qcs6490-rb3gen2-el2-dtbs :=3D qcs6490-rb3gen2.dtb kodiak-el2.dtbo
+> +dtb-$(CONFIG_ARCH_QCOM)	+=3D qcs6490-rb3gen2-el2.dtb
 
-> @@ -218,7 +219,7 @@ int venus_boot(struct venus_core *core)
->  	int ret;
-> =20
->  	if (!IS_ENABLED(CONFIG_QCOM_MDT_LOADER) ||
-> -	    (core->use_tz && !qcom_scm_is_available()))
-> +	    (core->use_tz && !qcom_pas_is_available()))
->  		return -EPROBE_DEFER;
+If the intent was to also apply this overlay to other variants like
+qcs6490-radxa-dragon-q6a, would the fdtoverlay step fail?=20
 
-[Severity: High]
-Can this lead to a NULL pointer dereference if SCM is not available?
+Other Kodiak boards use /delete-node/ for remoteproc_mpss and
+remoteproc_wpss because they lack the hardware. It looks like applying
+kodiak-el2.dtso to those boards would result in an error when the overlay
+attempts to modify these non-existent nodes:
 
-By switching the availability check from qcom_scm_is_available() to
-qcom_pas_is_available(), the driver can now proceed if an alternative PAS
-backend (like OP-TEE) is used.
-
-However, if content protection is configured, venus_boot() still calls
-qcom_scm_mem_protect_video_var() further down in the function:
-
-venus_boot() {
-    ...
-    ret =3D qcom_scm_mem_protect_video_var(res->cp_start,
-                                         res->cp_size,
-                                         res->cp_nonpixel_start,
-                                         res->cp_nonpixel_size);
-    ...
-}
-
-Looking at qcom_scm_mem_protect_video_var() in qcom_scm.c, it
-unconditionally accesses the global __scm pointer:
-
-qcom_scm_mem_protect_video_var() {
-    ...
-    ret =3D qcom_scm_call(__scm->dev, &desc, &res);
-    ...
-}
-
-If SCM has not probed or is absent on the system, wouldn't __scm be NULL,
-causing a crash when qcom_scm_mem_protect_video_var() is called? A similar
-pattern also appears to exist in iris_fw_load().
-
-> =20
->  	ret =3D of_property_read_string_index(dev->of_node, "firmware-name", 0,
+> diff --git a/arch/arm64/boot/dts/qcom/kodiak-el2.dtso b/arch/arm64/boot/d=
+ts/qcom/kodiak-el2.dtso
+> new file mode 100644
+> index 0000000000000..520ed582370da
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/kodiak-el2.dtso
+[ ... ]
+> +&remoteproc_mpss {
+> +	status =3D "disabled";
+> +};
+> +
+> +&remoteproc_wpss {
+> +	iommus =3D <&apps_smmu 0x1c03 0x1>,
+> +		 <&apps_smmu 0x1c83 0x1>;
+> +};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522115936.2012=
-08-1-sumit.garg@kernel.org?part=3D10
+08-1-sumit.garg@kernel.org?part=3D1
