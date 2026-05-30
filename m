@@ -1,175 +1,191 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594F818C2C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FDA1D54FA;
 	Sat, 30 May 2026 00:46:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780101998; cv=none; b=uxpE9IjlY4IsmP0KuFjpsKajn0CLGHnObCKUJfzX2Z13JMfDAmbYLdKtdq2IrBi9BeVQ84IrLCAvG6XR3Ih886WAg6McsS7/eJVcgO3HvKiqb/rN2mY0H0or9D6dLarNnXwngPOMEDs0zvS+kZ3T7n50YWXPK+JdLbV5KSSkisg=
+	t=1780101999; cv=none; b=YQhq8+LSSH+Eb7/fm8Vjkks84pbEgDKSspv+p4jpa6M5nG85s/mg+vtEFNBAtEnDyZbapG3fcwfh8QJ2m4KOvcCu3kpJPJHSfXMglVd6ATspmIi+XL6lg+EbkC5Pc43a19JcWRbJen0kkfZH4GCWmN0CmVgBvC0nIprL7VXc0qA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780101998; c=relaxed/simple;
-	bh=uXpSYkywdYt++Gl/5tHHIfj+WBj6l9EVRSXaIF/9DHs=;
+	s=arc-20240116; t=1780101999; c=relaxed/simple;
+	bh=7lqFnFjQvdDTgpyUY1NolFpvZQRHLDdHcmsgMfBwFas=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hvKPT7XH4eIaMy5yLsM08+VSmHX3kPYaCIii4nH5EMha3+DZG0i3EhSQfWWGSztyJrcxkSgpt6aDMk0WV/YRn3ozvkpapHyVaiYWDlVGlY2pD7j6cz3zOEvuUper8xWLpynm2Lpssutobrsa0+5awSamuXE+xzNX0cOKTBRdfi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fyi+WdkW; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=OQzgvkXEeTZAYHo2TLmVgLSW4vFSK4m1dVw/Bj9WJn6QO8L0DrSpDgIs5Jn5hyM9WdAKG90h9NUTWEnnhY3VPdqf/5C1+Wv9O6DM2AVsLhJSCnZeT3tnlDTbC+MA1lztgryHyDL2HNEg9dNbnthHPnoZF5NhFZyaFV0hX6qeOwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R0pc5/Xg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fyi+WdkW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED4D81F00898;
-	Sat, 30 May 2026 00:46:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R0pc5/Xg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C56D1F00899;
+	Sat, 30 May 2026 00:46:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1780101997;
-	bh=ePui/27xlli0UoqkxwZUMytsrQ76wYX1ZBCfqyKWkk4=;
+	bh=XkjEolf/FRhOYNgQhhq72CoQUrPQbazZ8GHz962AcT8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Fyi+WdkWudZON04/MAmIPc0l0axNBkkHLfD9xB2fh021On+pl/ayYn8iEEo42fi8l
-	 a+phJa95CL2xt+8ZMVbOFvh6+3vnBamvJwSb8cMtN0cK/7nVAjyrcEZ6xdnKIkcL1y
-	 4DsoWJZpPwnWBnufkmNbMZ5kOcp3ca+xuclACC5nEfj/kJAI6Z2oE8m1N5tT6NNtkG
-	 RcS0imGlzxFFOaN08UdlPwilirQKoAlzvkaKAWoE7Q26BmWwKb4Glq45RyLFW7NCfM
-	 tZRjEETmueiDsnd6yON5AHrdZb7j8ZIfqJbgqVQK88YnzoxX8hJAqEOG8DnTmbiFZo
-	 9l+/BuCK81o+Q==
+	b=R0pc5/XgSdybDTzg2CZ7KJNzgmtvILXKrfXofVa2dtMi/wmSmovKgRjsOh35FJjcL
+	 c+yLHo4dHILXzdZaAHoF9M3MvcB4Uog9afR1wdOBChjoKxLfkerHkmbIbZ8lXjxfkv
+	 I05oxI+Zhq8M5Azcq2hwFjYVvNe8Vi+wfgEgBm6Z8FyIt3fF+xnLqO0raY5KYUQrVX
+	 PsiNw63b8a4fFFWt/lajulX8Si7pG3wmJpgFpd2uKsOt4PL018ZeGeXrgNd8+cUIQ3
+	 MrfHtIAyvtZIw4nJFGdu4NanKq/hsHb5ehI/8O/sOxanlFd0asrEIzB1jsqQX7A6gq
+	 oU2A/hXSGL+qQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 02/15] firmware: qcom: Add a generic PAS service
+Subject: Re: [PATCH v7 03/15] firmware: qcom_scm: Migrate to generic PAS
+ service
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sumit Garg" <sumit.garg@kernel.org>
-Cc: linux-media@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260522115936.201208-3-sumit.garg@kernel.org>
-References: <20260522115936.201208-3-sumit.garg@kernel.org>
+Cc: robh@kernel.org, linux-media@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260522115936.201208-4-sumit.garg@kernel.org>
+References: <20260522115936.201208-4-sumit.garg@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 30 May 2026 00:46:36 +0000
-Message-Id: <20260530004636.ED4D81F00898@smtp.kernel.org>
+Date: Sat, 30 May 2026 00:46:37 +0000
+Message-Id: <20260530004637.8C56D1F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] API wrapper functions access the global `ops_ptr` without `READ_ON=
-CE()` or memory barriers, leading to potential double-fetch NULL pointer de=
-references.
-- [High] Racy check-then-set registration of `ops_ptr` allows concurrent re=
-gistrations to overwrite each other and introduces a TOCTOU panic in the er=
-ror path.
-- [High] Missing module reference counting for the backend PAS provider all=
-ows it to be unloaded while actively executing callbacks, leading to Use-Af=
-ter-Free crashes.
-- [Medium] API wrappers unconditionally invoke backend callbacks without ve=
-rifying they are implemented.
-- [Medium] Unbinding the PAS backend while client drivers hold active conte=
-xts causes silent metadata resource leaks.
-- [Medium] `qcom_pas_ops_register` returns `void`, failing to communicate r=
-egistration failures to the caller.
+
+New issues:
+- [High] The metadata release function removes the safety check for `ctx->p=
+tr`, leading to a regression (NULL pointer dereference or kernel WARN) in e=
+rror paths of legacy clients.
+- [High] The global `ops_ptr` in the generic PAS service is accessed withou=
+t locking or RCU, causing a race condition and TOCTOU vulnerability.
+
+Pre-existing issues:
+- [High] The resource table size returned by TrustZone is trusted without v=
+alidating it against the allocated buffer size, leading to an out-of-bounds=
+ read of kernel memory.
 --
 
-commit fbd66283be80c4a4f3882b0762f8f95d31e370dd
+commit f83d1b236620417cf15f3c965e134b36b0bf8395
 Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-firmware: qcom: Add a generic PAS service
+firmware: qcom_scm: Migrate to generic PAS service
+   =20
+This patch adds SCM calls as a backend for the generic PAS service to keep
+supporting legacy QTEE interfaces. The exported qcom_scm wrappers are retai=
+ned
+but will get dropped once all the client drivers get migrated as part of fu=
+ture
+patches.
 
-This commit adds a generic Peripheral Authentication Service (PAS) interfac=
-e.
-It acts as a common layer for TZ backends, supporting both legacy SCM calls
-and newer TEE bus based PAS implementations.
-
-> diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qco=
-m_pas.c
-> new file mode 100644
-> index 0000000000000..bc6c42f2b3c61
-> --- /dev/null
-> +++ b/drivers/firmware/qcom/qcom_pas.c
+> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qco=
+m_scm.c
+> index 9b06a69d3a6d7..d87a962e93da1 100644
+> --- a/drivers/firmware/qcom/qcom_scm.c
+> +++ b/drivers/firmware/qcom/qcom_scm.c
 [ ... ]
-> +int qcom_pas_init_image(u32 pas_id, const void *metadata, size_t size,
-> +			struct qcom_pas_context *ctx)
+> @@ -671,36 +671,35 @@ int qcom_scm_pas_init_image(u32 pas_id, const void =
+*metadata, size_t size,
+> =20
+>  	return ret ? : res.result[0];
+>  }
+> -EXPORT_SYMBOL_GPL(qcom_scm_pas_init_image);
+> =20
+> -/**
+> - * qcom_scm_pas_metadata_release() - release metadata context
+> - * @ctx:	pas context
+> - */
+> -void qcom_scm_pas_metadata_release(struct qcom_scm_pas_context *ctx)
+> +int qcom_scm_pas_init_image(u32 pas_id, const void *metadata, size_t siz=
+e,
+> +			    struct qcom_scm_pas_context *ctx)
+>  {
+> -	if (!ctx->ptr)
+> -		return;
+> +	return __qcom_scm_pas_init_image2(__scm->dev, pas_id, metadata, size,
+> +					  (struct qcom_pas_context *)ctx);
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_scm_pas_init_image);
+> =20
+> +static void __qcom_scm_pas_metadata_release(struct device *dev,
+> +					    struct qcom_pas_context *ctx)
 > +{
-> +	if (!ops_ptr)
-> +		return -ENODEV;
+
+[Severity: High]
+Does this removal of the !ctx->ptr safety check cause a regression? In
+legacy clients like qcom_q6v5_pas, this function might be unconditionally
+called during unprepare or error paths where init_image failed and ctx->ptr
+is NULL. This can result in qcom_tzmem_free() warning on a NULL pointer or
+dma_free_coherent() crashing. Note that this appears to be fixed later in t=
+he
+series when clients migrate to the new qcom_pas_metadata_release which
+restores the check, but it poses an issue for this intermediate commit.
+
+>  	if (ctx->use_tzmem)
+>  		qcom_tzmem_free(ctx->ptr);
+>  	else
+> -		dma_free_coherent(__scm->dev, ctx->size, ctx->ptr, ctx->phys);
+> +		dma_free_coherent(dev, ctx->size, ctx->ptr, ctx->phys);
+> =20
+>  	ctx->ptr =3D NULL;
+>  }
+[ ... ]
+> @@ -909,11 +828,12 @@ struct resource_table *qcom_scm_pas_get_rsc_table(s=
+truct qcom_scm_pas_context *c
+> =20
+>  	memcpy(input_rt_tzm, input_rt, input_rt_size);
+> =20
+> -	output_rt_tzm =3D __qcom_scm_pas_get_rsc_table(ctx->pas_id, input_rt_tz=
+m,
+> +	output_rt_tzm =3D __qcom_scm_pas_get_rsc_table(dev, ctx->pas_id,
+>  						     input_rt_tzm,
+>  						     input_rt_size, &size);
+
+[Severity: High]
+This is a pre-existing issue, but does this function trust the resource tab=
+le
+size returned by TrustZone without validating it against the allocated buff=
+er
+size?
+
+If TrustZone returns success and specifies a size larger than the initial
+16KB allocation (but smaller than 1GB), the size variable is updated to this
+larger size. Later in this function, kmemdup() is called with this updated
+size, which would read past the end of the 16KB buffer allocated by
+qcom_tzmem_alloc(). Can this leak adjacent kernel heap data into the return=
+ed
+resource table?
+
+>  	if (PTR_ERR(output_rt_tzm) =3D=3D -EOVERFLOW)
+>  		/* Try again with the size requested by the TZ */
+> -		output_rt_tzm =3D __qcom_scm_pas_get_rsc_table(ctx->pas_id,
+> +		output_rt_tzm =3D __qcom_scm_pas_get_rsc_table(dev, ctx->pas_id,
+>  							     input_rt_tzm,
+>  							     input_rt_size,
+>  							     &size);
+[ ... ]
+> @@ -2836,6 +2803,11 @@ static int qcom_scm_probe(struct platform_device *=
+pdev)
+> =20
+>  	__get_convention();
+> =20
+> +	if (qcom_scm_is_pas_available()) {
+> +		qcom_pas_ops_scm.dev =3D scm->dev;
+> +		qcom_pas_ops_register(&qcom_pas_ops_scm);
+> +	}
 > +
-> +	return ops_ptr->init_image(ops_ptr->dev, pas_id, metadata, size, ctx);
-> +}
 
 [Severity: High]
-Since ops_ptr is a global variable modified locklessly, can the compiler em=
-it
-multiple loads here?
+Is there a race condition when accessing the global ops_ptr in the generic
+PAS service?
 
-If ops_ptr is unregistered concurrently between the !ops_ptr check and the
-dereference in the return statement, the second load could yield NULL, caus=
-ing
-a kernel panic. Should this load ops_ptr exactly once into a local variable
-using smp_load_acquire() before checking and using it?
+Functions like qcom_pas_shutdown() check if (!ops_ptr) and then dereference
+ops_ptr->shutdown. Since ops_ptr can be modified concurrently (for instance,
+if the PAS TEE service is unbound via sysfs calling
+qcom_pas_ops_unregister()), could a compiler reload or concurrent execution
+lead to a NULL pointer dereference or use-after-free of the backend provider
+data? There appears to be no module referencing or locking to prevent the P=
+AS
+provider from unbinding while in use.
 
-[Severity: Medium]
-Also, does this function (and the other API wrappers) need to verify that
-ops_ptr->init_image is actually implemented before calling it?
-
-If a backend fails to provide an implementation, this would cause a NULL
-pointer dereference.
-
-[ ... ]
-> +void qcom_pas_metadata_release(struct qcom_pas_context *ctx)
-> +{
-> +	if (!ops_ptr || !ctx || !ctx->ptr)
-> +		return;
-> +
-> +	ops_ptr->metadata_release(ops_ptr->dev, ctx);
-> +}
-
-[Severity: Medium]
-If the PAS backend unregisters and sets ops_ptr to NULL while client drivers
-still hold active contexts, will this early return permanently leak the
-metadata resources (like DMA mappings) since the backend's metadata_release
-callback is never executed?
-
-[ ... ]
-> +void qcom_pas_ops_register(struct qcom_pas_ops *ops)
-> +{
-> +	if (!qcom_pas_is_available())
-> +		/* Paired with smp_load_acquire() in qcom_pas_is_available() */
-> +		smp_store_release(&ops_ptr, ops);
-> +	else
-> +		pr_err("qcom_pas: ops already registered by %s\n",
-> +		       ops_ptr->drv_name);
-> +}
-
-[Severity: Medium]
-Is there a way for the caller to detect if registration failed since this
-function returns void? A backend driver might incorrectly assume it has
-successfully initialized if another driver is already registered.
-
-[Severity: High]
-Without a lock, could multiple drivers register concurrently, all observe
-a NULL ops_ptr, and overwrite each other?
-
-Additionally, in the else branch, if ops_ptr is cleared by a concurrent
-unregistration immediately before the read of ops_ptr->drv_name, could
-this cause a NULL pointer dereference?
-
-> diff --git a/drivers/firmware/qcom/qcom_pas.h b/drivers/firmware/qcom/qco=
-m_pas.h
-> new file mode 100644
-> index 0000000000000..8643e2760602e
-> --- /dev/null
-> +++ b/drivers/firmware/qcom/qcom_pas.h
-[ ... ]
-> +struct qcom_pas_ops {
-> +	const char *drv_name;
-> +	struct device *dev;
-
-[Severity: High]
-Does this structure need a struct module *owner field?
-
-Without module reference counting (using try_module_get() in the wrapper
-functions), could the backend module be unloaded while a client thread is
-actively executing inside one of these callbacks, leading to a use-after-fr=
-ee
-crash?
-
-> +	bool (*supported)(struct device *dev, u32 pas_id);
-> +	int (*init_image)(struct device *dev, u32 pas_id, const void *metadata,
-> +			  size_t size, struct qcom_pas_context *ctx);
-[ ... ]
+>  	/*
+>  	 * If "download mode" is requested, from this point on warmboot
+>  	 * will cause the boot stages to enter download mode, unless
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260522115936.2012=
-08-1-sumit.garg@kernel.org?part=3D2
+08-1-sumit.garg@kernel.org?part=3D3
