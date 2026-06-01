@@ -1,108 +1,125 @@
-Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE114287263;
-	Mon,  1 Jun 2026 16:06:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AD72D2483
+	for <linux-media@vger.kernel.org>; Mon,  1 Jun 2026 16:15:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780329971; cv=none; b=CdbMZdm6hNf0qnPi/MoE3On5mS9qEZ89fi/WAn+lSO5E1ggfLTSd+YpTkA/DuiNLVGX9KD5ZEm+AZjIPFRbc03Y3wMHjsd9bXOtcz/cPTTPupjTU7tL+jfiufoZ6M9VRcSDSjKEylTyojEPmLTIMmlqZ/Pt5llIcVvERSYW4PUM=
+	t=1780330521; cv=none; b=kAw4EkBHCCPJiVhAV4FXOB++yn0gm4CXI5bh6DBuoYON9wP16zbkwQibDI6bbmVA6Qb5rX/FhSFLUwdkM6yLCTte+T7ruW8JX2Pj+3iupDsA9nWho73+QPPc2ZvUN9IaBAAQwtY+O5CNmwjpMMn9W6tGUzdpRg4426/m8rPQwhw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780329971; c=relaxed/simple;
-	bh=/3rNSSceNL2wCo52RJwTdih5C1kJmAMlheUO18wFuW8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hP2/voBY6JhMeLcOtSyqJYTmnPZPgbfD4TeY+mwNpI5pZOvQKOEXylxsiPTX4mLbNE0NvUKszDKfKxfekSR7CRII9nbh9lfwZyd49AK8hZQCNXQu4hdEULVeVyS/zGWZyHKq/93ZTqFpROiacfhlemGJO69KFHH5D9VFhbQ56bg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nxsw.ie; spf=pass smtp.mailfrom=nxsw.ie; dkim=pass (2048-bit key) header.d=nxsw.ie header.i=@nxsw.ie header.b=eKENZMs8; arc=none smtp.client-ip=185.70.43.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nxsw.ie
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxsw.ie
+	s=arc-20240116; t=1780330521; c=relaxed/simple;
+	bh=ibRG7ErJW3w3VLwGJDm5HbwzRsJ888I5QeYjWSJo+GA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pVCcyeo0IYg7zaQ1rjcCYBx+nfDDcRlU25qvQUXJ3dwd+jXhnPIGqBymy195+rHzhjM0HiAHVUKmZUGHbfyNYzqXe1qLdgq5/linx/XnWk0cG/Vd9hKbXX7Bk56EPlTrDlxzno4t/Q8VXFdhzThoaBwJPAgSXaXrN+vYewk9d/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LdoTLG4O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxsw.ie header.i=@nxsw.ie header.b="eKENZMs8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxsw.ie;
-	s=protonmail; t=1780329967; x=1780589167;
-	bh=UzDD1WGN+WmDKcizcrpIA/6lsYmnSFIs7OphgE5XXDM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=eKENZMs8I7AYcRgphto1zv6Z5jzepcsGmZMhMhPDocsJbs3d8NtOWq4YnXAuDQK7X
-	 fr5bYlf3XcKD/EAqo3kq4bCAuH+GDpnRoD6vWxNVk7r+CF5+ijZMlQRAyxwABg6aZ7
-	 s2J6xMDDdd7D1W7ff+Yuww9zwZfEzosTr9hOGBKFIJSF+GW/hCIcu+9cqaXh9qNESv
-	 u5RsKMsku+9eAX+AiQIrJ8TiGv3bquqs94dumcllhNH8OswNezNJ2KS6i5SU7OpSNI
-	 1665fOMbZkLBBT9wlYQ8ly6pZFkY+BMn5fOC44nXW17W40JWITrrCKTOJ0uVZYqL1a
-	 fZ8RiI5rsJ8lw==
-Date: Mon, 01 Jun 2026 16:06:02 +0000
-To: david@ixit.cz, Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, Petr Hodina <phodina@protonmail.com>, Casey Connolly <casey.connolly@linaro.org>, "Dr. Git" <drgitx@gmail.com>, Cory Keitz <ckeitz@amazon.com>, Loic Poulain <loic.poulain@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod.linux@nxsw.ie>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Joel Selvaraj <foss@joelselvaraj.com>, Kieran Bingham <kbingham@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH WIP v5 9/9] media: qcom: camss: Enable C-PHY where available
-Message-ID: <c79292f0-4ce1-432d-bbf0-803780d74002@nxsw.ie>
-In-Reply-To: <20260531-qcom-cphy-v5-9-6be0f62b4d65@ixit.cz>
-References: <20260531-qcom-cphy-v5-0-6be0f62b4d65@ixit.cz> <20260531-qcom-cphy-v5-9-6be0f62b4d65@ixit.cz>
-Feedback-ID: 136405006:user:proton
-X-Pm-Message-ID: 60138d82d18641374c3fcd9c4641261d92de9260
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LdoTLG4O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B67951F00893;
+	Mon,  1 Jun 2026 16:15:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780330519;
+	bh=6K+TF6ivC4+fCo8Z6349jlcxrJ0pQ+f334GqZSPx+ns=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LdoTLG4OG2K9WSYUPTLRJLdQBroIAEPVjUMBWzg83yYoqRr14b3OvdbJrcxUE4MF+
+	 hwpDif3VNUyCSaCgAsHPQiUcft5QQ7VmMPajQt93spjY8edVp4doMZ1aFOFE6QNn4K
+	 2yWcFs/R9oNAU5322XSXsrkLUblfgECLmOK394O+6lRbwUSZdGRtT3XO3b0EO/qblZ
+	 zNR+xLMUEepdd0eY3l1jHBSokcnJrgMMh1bhTOuYV7pmvihhMFnlbFw0wC+7QGRGdP
+	 CEZ0yaqwgEE92vSQJCmhBtZXRD5Al1DzujenZzcTXCAqgxQIYgOwB5k3RyzIRHCafg
+	 5eQgoivG6UskQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5] media: siano: fix URB work teardown
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rohith Matam" <rohithmatham@gmail.com>
+Cc: linux-media@vger.kernel.org
+In-Reply-To: <20260601160447.59917-1-rohithmatham@gmail.com>
+References: <20260601160447.59917-1-rohithmatham@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 01 Jun 2026 16:15:19 +0000
+Message-Id: <20260601161519.B67951F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-On 31/05/2026 14:08, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
->=20
-> After all the changes done we can now safely enable C-PHY for a SoC
-> where it's available.
->=20
-> Acked-by: Cory Keitz <ckeitz@amazon.com>
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->   drivers/media/platform/qcom/camss/camss.c | 10 +++++-----
->   1 file changed, 5 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
-atform/qcom/camss/camss.c
-> index db4e14a84a95f..555c53343a1e9 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -4761,21 +4761,21 @@ static int camss_parse_endpoint_node(struct devic=
-e *dev,
->   =09struct v4l2_fwnode_endpoint vep =3D { { 0 } };
->   =09unsigned int i;
->   =09int ret;
->=20
->   =09ret =3D v4l2_fwnode_endpoint_parse(ep, &vep);
->   =09if (ret)
->   =09=09return ret;
->=20
-> -=09/*
-> -=09 * Most SoCs support both D-PHY and C-PHY standards, but currently on=
-ly
-> -=09 * D-PHY is supported in the driver.
-> -=09 */
-> -=09if (vep.bus_type !=3D V4L2_MBUS_CSI2_DPHY) {
-> +=09switch (vep.bus_type) {
-> +=09case V4L2_MBUS_CSI2_CPHY:
-> +=09case V4L2_MBUS_CSI2_DPHY:
-> +=09=09break;
-> +=09default:
->   =09=09dev_err(dev, "Unsupported bus type %d\n", vep.bus_type);
->   =09=09return -EINVAL;
->   =09}
->=20
->   =09csd->interface.csiphy_id =3D vep.base.port;
->=20
->   =09mipi_csi2 =3D &vep.bus.mipi_csi2;
->   =09lncfg->num_data =3D mipi_csi2->num_data_lanes;
->=20
-> --
-> 2.53.0
->=20
->=20
->=20
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Unconditional dereference of `dev->coredev` in `smsusb_stop_stream=
+ing()` during early initialization failure paths causes a kernel panic.
+--
 
+commit d1f743fe5305e88770fc795f5d8412345cb04702
+Author: Rohith Matam <rohithmatham@gmail.com>
 
-Reviewed-by: Bryan O'Donoghue <bod@kernel.org>
+media: siano: fix URB work teardown
 
----
-bod
+This commit reinitializes URB work items before scheduling to avoid
+workqueue warnings on teardown. It also fixes related lifetime bugs by
+adding an abortable buffer wait and ensuring any URB submitted by an
+already-running worker is completed before freeing resources.
 
+> diff --git a/drivers/media/usb/siano/smsusb.c b/drivers/media/usb/siano/s=
+msusb.c
+> index 0fdc2e0950b77..565543dbd4cb1 100644
+> --- a/drivers/media/usb/siano/smsusb.c
+> +++ b/drivers/media/usb/siano/smsusb.c
+
+[ ... ]
+
+> @@ -168,20 +179,33 @@ static int smsusb_submit_urb(struct smsusb_device_t=
+ *dev,
+>  		smsusb_onresponse,
+>  		surb
+>  	);
+> -	surb->urb->transfer_flags |=3D URB_FREE_BUFFER;
+> +	rc =3D usb_submit_urb(surb->urb, GFP_ATOMIC);
+> +	if (rc) {
+> +		smscore_putbuffer(dev->coredev, surb->cb);
+> +		surb->cb =3D NULL;
+> +	}
+> =20
+> -	return usb_submit_urb(surb->urb, GFP_ATOMIC);
+> +	return rc;
+>  }
+> =20
+>  static void smsusb_stop_streaming(struct smsusb_device_t *dev)
+>  {
+>  	int i;
+> =20
+> -	for (i =3D 0; i < MAX_URBS; i++) {
+> +	WRITE_ONCE(dev->streaming, false);
+> +	WRITE_ONCE(dev->stopping, true);
+> +	wake_up(&dev->coredev->buffer_mng_waitq);
+
+[Severity: High]
+Can this unconditionally dereference dev->coredev when it is NULL?
+
+If smsusb_init_device() fails its early endpoint checks, it bails out by
+calling smsusb_term_device():
+
+drivers/media/usb/siano/smsusb.c:smsusb_init_device() {
+...
+	if (!dev->in_ep || !dev->out_ep || align < 0) {  /* Missing endpoints? */
+		smsusb_term_device(intf);
+		return -ENODEV;
+	}
+...
+}
+
+Because smsusb_term_device() unconditionally calls smsusb_stop_streaming(),
+and dev->coredev hasn't been initialized yet during this early error path,
+could this new wake_up() call trigger a NULL pointer dereference?
+
+> +
+> +	for (i =3D 0; i < MAX_URBS; i++)
+>  		usb_kill_urb(dev->surbs[i].urb);
+> -		if (dev->surbs[i].wq.func)
+> -			cancel_work_sync(&dev->surbs[i].wq);
+> =20
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601160447.5991=
+7-1-rohithmatham@gmail.com?part=3D1
