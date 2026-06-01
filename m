@@ -1,205 +1,429 @@
-Received: from SY5PR01CU010.outbound.protection.outlook.com (mail-australiaeastazolkn19012065.outbound.protection.outlook.com [52.103.72.65])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF833BF676;
-	Mon,  1 Jun 2026 15:00:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780326004; cv=fail; b=iFoZn0A5vFLsoP7UiIfu6ACsDz3WGjlRlChgt1/9NbdPm4PkyhzsXU4WnL9VQwBtTriOtYXbyYOBd7sr+z14Bd+THwcvLiiBiWht4TYQAl+Il7AIDqlzKsKuKuyqPnB085Zk98PJ2KImL5f2rVDIywssL15rXpOOKTuyDi4n0Xk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780326004; c=relaxed/simple;
-	bh=lscNdUHlvWxe9PiUaivLcAYaaN0ecTCGXnukd5FrxT0=;
-	h=From:Date:Subject:Content-Type:Message-ID:To:Cc:MIME-Version; b=SP/N6uaTDnqun/pmRW/8u6rUQI23CO7HHOq0r02UI+/LjZsXyql9vheqzuQyFZL8ngjZg423F2aliLvaKyPl+jLYH/QY9C8JqudypGI8ZIrAQm9708Ibs8BQ6HEkFqtdXwN2ZCAGELZ2t+1xuJqSSBS0Mu61kN+d1bwkukJSbes=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=O4nLLmW2; arc=fail smtp.client-ip=52.103.72.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 723D93BED5C;
+	Mon,  1 Jun 2026 15:03:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780326213; cv=none; b=INgCe82L7iURKbD3bzVJL4nKXpni4UDlPBZGLv21c/MsKj5Eyz6bLvT7IcyoHxSQ2qNntiOVOR73vmlsR6jMM2jvz0AF+CHriBLKnFhw53bVLX0yKvcQAL14YMyeB+kQi/XQPukHWtFiLM07uZHYY1MEclmeNx+4CqhMQuqjgEE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780326213; c=relaxed/simple;
+	bh=nJO4vOcXb1PMyMD3uuvwW7Eu4iwEqxP2+Czmf4VdgcA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sJvOkFunP6j+/wo1IHbjRLh2i8ubZhzb6/DNvzQxhiSQoMhAbkF88xp0jU+5DjL9mXcMILmR1TYv5TC9W/yEJi9nKtBWL2MK82VDIDayMZJaSZoDk2l/8OQYuP3jlH12sFT+hMBMCqWUOZn2Vf6OO6GM7PWXFpL+J03MYIIYOJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BOarpfYt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="O4nLLmW2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ojYtuXFhM3iboCnPahp3i1Z/toUZWzckGjxoRn9LZHFOBtFb6SbdD1ht+Z81lc4iMYqoePvwZlVqVpqxSPmg/McJSBrYh9fKOQoPMD1PofS59OC5W75WOi1f4YWYvFnS9C/QqK0jbYlmWG3wSSPjXYwulPqRNMA2xFrdix5Pa00lUtZbJ3efmN1MopH0z45Opuu2ylQ/1qebqBtLJkMDKvOJ7KMUEnLSCXo5tpTsHntvZIK613Yu8jpu/SX0tbEHHFk0JDRJEGas1rXTDpBoMXw9ydantH/zF+D9GBodFuVq+RWHuwBZtu09jKOOo4VmK5Siie9/6f6UHexefzxjzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AQyR2t3vwiJ1G9Mk2Sxa6dt1MO6vuoyDzW5JyifEGFE=;
- b=WgS1XT+rUteg/IIiUsRIGNbLARNOa4It/uDqB3zHZpWEHQkipoTAUWRPu/HAdsKwk9quG0tKlmkOq147qDMqcBQjnouxSlaPrHCwCncIvg3vrOpeP/P5oI2gys+ccPyIATUDYUz3Dzi4LEcGWlhvmj0gw7o3Uq1SMCzR6uPlSeS8vEab08aG++lRWFgSe/0WR+ne8yMLdRSoJdAB4/gCqmkTlhE+0PaetmQld5UUAMP3B/7z1Qod7o5c55Wca+w5A1Zu0w1ZcK8s0NEoYBgmC9/hO9Tu2S/sMgveOPhGY4p4LG9LeXfPD6kJwH+rOb5tLPtG9KHHd9YzcBySEhxxIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AQyR2t3vwiJ1G9Mk2Sxa6dt1MO6vuoyDzW5JyifEGFE=;
- b=O4nLLmW2a1I5LY3yiX/+eCNpCOqgzj+H9lRZfz/8QngwyZEfF7Kppye4mR4CdAUx3h16t+Kc9ggcefbf14hnHomjp2p75EiKR4WETEzKN3jRJB1otAm2cfGPK9K9AHfZXfc+bXBPGnFOhCkoHNrDZAjq4YEmPzr4RYUSpbBl/O8FYp0gxS4v1LJM4K1vchLIEaPVKGTjo8+EouNJYNAj0/UZ94kYXPiLas8bcOuOTlaDSdm+7ImrGqXaO5EQ4X38KW9po+HGgPzWRn98OufK0HXJcLGDRee83oanxI2Unjr49o7z3RG4beUsGJ/ekjGc3he3UlXvtGMGl8/iExm8mg==
-Received: from SYBPR01MB7881.ausprd01.prod.outlook.com (2603:10c6:10:1b0::5)
- by SY4PR01MB7875.ausprd01.prod.outlook.com (2603:10c6:10:1b6::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Mon, 1 Jun 2026
- 14:59:57 +0000
-Received: from SYBPR01MB7881.ausprd01.prod.outlook.com
- ([fe80::7cd2:d6e8:3fa0:5f0c]) by SYBPR01MB7881.ausprd01.prod.outlook.com
- ([fe80::7cd2:d6e8:3fa0:5f0c%3]) with mapi id 15.21.0071.015; Mon, 1 Jun 2026
- 14:59:56 +0000
-From: Junrui Luo <moonafterrain@outlook.com>
-Date: Mon, 01 Jun 2026 22:57:18 +0800
-Subject: [PATCH] media: vicodec: fix out-of-bounds write in FWHT encoder
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID:
- <SYBPR01MB7881C44480F77338B6A93C61AF152@SYBPR01MB7881.ausprd01.prod.outlook.com>
-X-B4-Tracking: v=1; b=H4sIAM2dHWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDMwND3bTMitRiXXMTQ7OUlERD4+S0FCWg2oKiVLAEUGl0bG0tAIYvJCh
- XAAAA
-X-Change-ID: 20260601-fixes-7416dda13cfd
-To: Hans Verkuil <hverkuil@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org, 
- Junrui Luo <moonafterrain@outlook.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1934;
- i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=lscNdUHlvWxe9PiUaivLcAYaaN0ecTCGXnukd5FrxT0=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGLNm5ZxM4LthzBl7YfO2G65tqJWZ+rtt/lzmef3ui9
- fr6yXYbUu93lLIwiHExyIopshwvuPTNwneL7hafLckwc1iZQIYwcHEKwEQUVjMyNC6V2ZL90VJc
- aaO2UgvPxtbjOt4RFWH1Tz7xLVwtF7jpJcMf/gipgpoZH52Xltc/z/dlzEiT3H5JM0SuYQV/1q2
- 8nXkMAM6+SZM=
-X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
- fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
-X-ClientProxiedBy: TPYP295CA0060.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:8::19) To SYBPR01MB7881.ausprd01.prod.outlook.com
- (2603:10c6:10:1b0::5)
-X-Microsoft-Original-Message-ID:
- <20260601-fixes-v1-1-20d4506d12d3@outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BOarpfYt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 358FC1F00898;
+	Mon,  1 Jun 2026 15:03:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780326212;
+	bh=+GdZNh9nypazEACywDjergp6kU0pITs/92TrBD2Yydw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BOarpfYt3NLRErRwvrz+DT6cEkQiE4gLhK5NtdACkatGrc9SMYyAFDoKVqEG7jLTM
+	 AKqmPeWXeArjxnf8ACMoOR/J3sOJMPHrQ8mQaRjRQLdRE3tXrAEHNvKPh+aAiQuawA
+	 3Y5GHTNIS5DW6qqcPhyQplOuJwSHzTru1oaymyN85KQnB0lOYpFKp2Ax3jvQurVPQ/
+	 qLvwYTM9L+3RP3sQvwr/y5QuqTdTddFQ8LUHdE1XZOhZocM6pSYktQNMhKhIWdGNz5
+	 Gwxd9ws81cMkZ8DNn7ZIJQH53HjHa2PU9KL3j+Y6jH3RjM31pzhgKzGgUQdaWNRuNj
+	 tAzYel7/U+y5Q==
+Message-ID: <2b61a13d-a117-4357-896b-1231990ef5ba@kernel.org>
+Date: Mon, 1 Jun 2026 16:03:28 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SYBPR01MB7881:EE_|SY4PR01MB7875:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9cdea260-270a-4fe3-4404-08debfee71c2
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|55001999006|13031999006|8060799015|19110799012|24021099003|22091999003|24121999003|51005399006|5072599009|6090799003|23021999003|5062599005|15080799012|40105399003|440099028|3412199025|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?VVVQVXpYTDE4KzNtRE5HbFR2ZlFlY3VjNUxGMFdRQzZVdjgrVCtmODFvNWE4?=
- =?utf-8?B?emJweXNrY3MwTjlKNFhTcVpMeXFBbVo3TFFheFoxYU5sYlY0alJYV2pnV2th?=
- =?utf-8?B?UEk1VEdYUkVyYVBpYkFTNmFLZkwyY081NEEyL01FQTFMNmlocmRkamFEVENi?=
- =?utf-8?B?TzFpcmpKKzN1aDVNdXU3dkxveHBxOUVZMUJRTkdBNjJpWFRjWlZVSHo4ZEl0?=
- =?utf-8?B?Vk1iN245cW1NK0drSlprNnFkc3lDdmdHYmZWd2hwenZnblFUR0tQRHlxc2Ir?=
- =?utf-8?B?Tm1Ua2tGa0JoQSsrNVpQRlV2U3JDM0tuQUJGb0dJcE10UkF6M29QbG5YSERW?=
- =?utf-8?B?b1JsWEhuRC8xdG1Fc2crOWhDWTh0MTIzb0JpN2N6N2R1VzFOcEUxeGZoTGlR?=
- =?utf-8?B?NmdjWjVOYk0xd1RiTUpUL1NMTWQza20rL05nNzgwTFF6SWpJYUtKeTRwY2xU?=
- =?utf-8?B?eDE3a2NKbDRIR1kvSFJLa0gxamVvN2drNCt6WFhaaHFzTTJrRkliclFPa2Fn?=
- =?utf-8?B?OEdZaEV4Q3FuZGxSMmxsdURGelM3NEl5L3QzOUhYQld2NG11RU0wOTBLMFpT?=
- =?utf-8?B?eElZdGJXMW1LMWdKckNlMEVXWDRyNzNobTBTRHRaNDhlRWV5Yy94VGlxZThR?=
- =?utf-8?B?SlFSVmlwS1dod1EySWxYb1FkTE5wb29vcERNbU0vc1U1c2pubzU3YXpkcy9r?=
- =?utf-8?B?eDZOMXVJZzBjZjhGN1c4cmtMZ2t4Z1ZOQWRwN0t4NldqbmpmN1psVTFpVE9I?=
- =?utf-8?B?VWNKb3VNWm9mZGQ1OWh4bzcxci80N3IveVRnbTFBRWEySk13MUNoRnZiV2h2?=
- =?utf-8?B?VFMyeWxxQ0ZSc2tySVl3T3dXMmRLOEd3MWZuV0NwVlUyWkJjelFXcHYyK0l3?=
- =?utf-8?B?ZzBzL2pmT0x3QWtyeDNydXpJcjhhU2VDQjhNWjNLcDh4WDl2aG9Kck1iZ3d1?=
- =?utf-8?B?NEpqQk95SVgzYlBSKytpMGltcytObnAzSmRranJNbUUzaFkxNFB0Zm5ZZUsv?=
- =?utf-8?B?TVk0K2pwYjhGT1pqWDBmMFN1ejVtK3d0NEpHeUpFdXh1T00yeW1Da2dlRXBw?=
- =?utf-8?B?UU1PcDR0MU8wa1J0aWg2S3dqdjVlY3NtTHhvd0pFM1dlR1pqYVRKbWJKYXdL?=
- =?utf-8?B?T2RmSnZ0WXZWVlBSMkNubllKWkhlcGNjNm4zZEljZHpFSXphVWxiS2FPKzd5?=
- =?utf-8?B?ZUNKZDNQRUNzdEt6YzVFS1h3L3Rxb09GNzhwbWlBQndaRThuREp0K0h2cEtT?=
- =?utf-8?B?RTMwRnhJMU1UNG9TbDB4UWluUTlEZUxvallaQlFUQTJOVjBlZVJ4L0JLbGdX?=
- =?utf-8?B?NmdScjdOcXVCWFFzQmowdnlvUHU3aVlEOTRKOW1iQ1NaK2daRmpMcFJyNTd2?=
- =?utf-8?B?ZmQvV0wxUlhWNENOZ0RwTzNjVHhrakE5SnBXTU0vRElqL0FEMTRncGNmU1cv?=
- =?utf-8?B?eitaQktBSGR5YTZyT2ZkcUNKOXlZeHl5aEY2a3VTNS9raWhKejMxd0xwVE5B?=
- =?utf-8?B?VlVLZTVCRFZhRlAvUDZxUTcvc1d4QWFWMmdKMEZPdzJiVDZvczhyWHdINER1?=
- =?utf-8?B?Um0vdz09?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SExPKzhqNHFtS1QwN0c5VmluTURSY0RPbUNpV3NVZks5OHdoZ3JXcXJGN1hL?=
- =?utf-8?B?QURFUXliQ0FVVlZhaGxUVXl3ZWFlenl5WkxCRlpjN01rRG1WTC9pRDdlbnV2?=
- =?utf-8?B?SDdNam9WaWRsMUlXUFZKaEdxRW9mTStiUkoyeDRkdmlrQjNtNXo0bExoc3JI?=
- =?utf-8?B?cmlYR0trMUFJbWdSYmZ0ckJ5eFFybFA0RmdzMHR6STZIc3NQcFMyZ1JkQXor?=
- =?utf-8?B?S0ZmbXVya1U3QnpDT0pnZHN1ZC9EbXI3VlRyOHN1dGhiT3o4Y0t3MzY1Ulpl?=
- =?utf-8?B?Sk85NXZNOHlBMm5VVkY4VkZhdUlYZlJlNURVQzEvSVI4WUIwWjk5bnpwdnRv?=
- =?utf-8?B?djF1aDFhbmhDUmFRRDkzZDhVZEV4Ym5IQjZ2OFhzWmRVRkRZNjdpaEFHK1pR?=
- =?utf-8?B?elN2NVRYM0hlTzk0bEU0VXRlNzZWTW55QlAyd2p5SWhQRGFMTWhvbWV0Ry9v?=
- =?utf-8?B?MWlkM1BibEhlcEdvTHRGS2FwREdqb3doNVZ1WUFQRHE5d1B5aGpML2V3WHF4?=
- =?utf-8?B?K3B0ajZQSVlJVGhTOHd1RzhZNEN3TldScVUyUHBDZXc2alJoTkV4ZlhrbHVW?=
- =?utf-8?B?ejZFNms1eFMzRzlQdm94b3hpa0N6MnlNZC9Td01scEhoN0xWUE5oNmJYR1My?=
- =?utf-8?B?TlZ0R2NISDN6MW9heGJUZm1VN256YUhaOVZNSjFsS3RPWW5Qd1lKdEZCRDRt?=
- =?utf-8?B?VnpkSFg4Wi9EcmVmZkxON2NHTWczZ2tqMDhMNFp3cThSRzM3cWVRdXNiUE5C?=
- =?utf-8?B?NklpazdWUzNBazRTSExkU3ZnQndUeWVBYm14a2NsUXE4cXdZeTlrNGVqcG9o?=
- =?utf-8?B?Z3ZlM3JRczFlbFlYUnUwTWJ6V09Pd2dZWDhYMXQyanREWTd5Q2RIeHhWaGYr?=
- =?utf-8?B?REhmRTdBNmlIV0tSMENMRFFQZVAzQ2hjRFpFekpGSmxyVUFKYXFRRVFmYXJu?=
- =?utf-8?B?UnVidkxHaU5RNUtOMFdBSUVhNkswaE5raGJEMGlQbDNqeTV2ZmxUNmMzcFdl?=
- =?utf-8?B?eldRT1VsRjQrSmFHSWw0TDYyU1RmTkZRUUpablhLQjdCekVlME9XNmt2TWY0?=
- =?utf-8?B?emVJSjdjVVFyK0FZcHVOWVhOU2orcjFVU0ZrbDh1OGFIcDhsZTdLYWFMK1lZ?=
- =?utf-8?B?ajAxdFE0KzRFNXBNSGg2TkF0WG04VTFkbTVvWXdYeWFURTYxUVJXbjkreDd3?=
- =?utf-8?B?Qm43Z0xwZ1o5dHkyZDE4aGt5OHdzQUFQUGFnSGlQdUJ2d3FRUFA5T1o5d1p0?=
- =?utf-8?B?SnhaeHhaZzVPUjFFazB0V0NjSkFWZVJ5OE5FY2QwTU1QcElTaE1hSm9jcFBs?=
- =?utf-8?B?clR2V0JOdldVUWd1Z1FRUURWNzVGRHo2eTYxVGJaR2I0eXlpdllwRFZZMnlj?=
- =?utf-8?B?QXhvaEtiNGt5TVZza1dYY1VhVnVicjBFdXp1cllYUWZXdDBOQmNkdmZGTHdy?=
- =?utf-8?B?cHVWTGN5eUcwaURKWkJRR3RvSkNkakJhNkl4SStqTnc4QzJrUG9nVDlqSncr?=
- =?utf-8?B?QW92dS9HOEthZWtwNVVuUDcyTHF1N2Q0Q24weXIrNEFudlZoM0JpZmNiQlB1?=
- =?utf-8?B?aWJBaUpPZVdQYUE1Ty9CalpHMmsrVW9oeG5RaWpwQUdPamJJSVlWMjJQU2dq?=
- =?utf-8?B?a2lUT2FlQWxCTWNkbVh5TXFjS0xkNHlob0UrSkMyNGFXaVJaTklFMThsRWF4?=
- =?utf-8?B?WXlGbWlkdUcvc0c4YmptZnRERzl0YjdwUklML1BVR0Q2QWhONVV2cmxYQzg0?=
- =?utf-8?B?enUwSmlZMmhPTTZ5RkhDWUVJUUhJR2VMVUtQRjlpd2dVYlhKVlhNUlhvNkpV?=
- =?utf-8?B?d21sOVNubUF3c2pnNnlGU0M2N2xFVm90aFU5UkhTcjFpclMvbWZueWdNU01a?=
- =?utf-8?B?OHRONkQ2UUVIUUcyd0ZKczJxS3kzR3RhbEgyeVNtU2hTdFE9PQ==?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9cdea260-270a-4fe3-4404-08debfee71c2
-X-MS-Exchange-CrossTenant-AuthSource: SYBPR01MB7881.ausprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 14:59:56.8428
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY4PR01MB7875
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/6] media: qcom: iris: add support for decoding 10bit
+ formats
+To: Wangao Wang <wangao.wang@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+References: <20260521-topic-sm8x50-iris-10bit-decoding-v4-0-8ff8fce3f904@linaro.org>
+ <VPcNqxZEz2n3TKSiFdgaAEw4dFMQ2ES9_aCYCrKg97eRr6zflHIpe2JTGQ3S-sBGtyzOnDIODCcvKQMfYQ0GHQ==@protonmail.internalid>
+ <ff2e9b4f-57c2-4fcb-b5f5-66f8f07b7b02@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <ff2e9b4f-57c2-4fcb-b5f5-66f8f07b7b02@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-vidioc_s_fmt_vid_out() sizes the encoder CAPTURE buffer from the
-compressed descriptor pixfmt_fwht, whose sizeimage_mult is 3:
-coded_w * coded_h * 3 + sizeof(struct fwht_cframe_hdr). fwht_encode_frame()
-encodes one plane per component, and an incompressible plane takes the
-FWHT_FRAME_UNENCODED path in encode_plane(), copying the plane verbatim.
+On 01/06/2026 10:01, Wangao Wang wrote:
+> 
+> 
+> On 2026/5/21 17:24, Neil Armstrong wrote:
+>> This adds the plumbing to support decoding HEVC, VP9 and AV1
+>> streams into 10bit pixel formats, linear and compressed.
+>>
+>> This has only been tested on SM8550 & SM8650 with HEVC, and was
+>> inspired by Venus, DRM MSM and the downstream vidc driver for the
+>> buffer calculations and HFI messages.
+>>
+>> Gstreamer support for QC08 and QC10 need the MR at [1] to be applied,
+>> but NV12 and P010 works out of the box with mainline Gstreamer.
+>>
+>> Fluster HEVC results on SM8650 using Gstreamer:
+>>
+>> ./fluster.py run -ts JCT-VC-HEVC_V1 -d GStreamer-H.265-V4L2-Gst1.0 - 141/147
+>> The failing test case:
+>> - Pixel Format mismatch
+>>    - TSUNEQBD_A_MAIN10_Technicolor_2 - Gstreamer waits NV12 but decoder returns P010
+>> - Unsupported resolution
+>>    - PICSIZE_A_Bossen_1 - resolution is higher than max supported
+>>    - PICSIZE_B_Bossen_1 - resolution is higher than max supported
+>>    - WPP_D_ericsson_MAIN_2 - resolution is lower than min supported
+>>    - WPP_D_ericsson_MAIN10_2 - resolution is lower than min supported
+>> - CRC mismatch
+>>    - RAP_A_docomo_6
+>>
+>> v4l2-compliance results on SM8550 & SM8650:
+>>
+>> $ v4l2-compliance -d /dev/video1 -s
+>> v4l2-compliance 1.33.0-5456, 64 bits, 64-bit time_t
+>> v4l2-compliance SHA: 8aa593bda182 2026-04-11 10:54:25
+>>
+>> Compliance test for iris_driver device /dev/video1:
+>>
+>> Driver Info:
+>> 	Driver name      : iris_driver
+>> 	Card type        : Iris Encoder
+>> 	Bus info         : platform:aa00000.video-codec
+>> 	Driver version   : 7.0.0
+>> 	Capabilities     : 0x84204000
+>> 		Video Memory-to-Memory Multiplanar
+>> 		Streaming
+>> 		Extended Pix Format
+>> 		Device Capabilities
+>> 	Device Caps      : 0x04204000
+>> 		Video Memory-to-Memory Multiplanar
+>> 		Streaming
+>> 		Extended Pix Format
+>> 	Detected Stateful Encoder
+>>
+>> Required ioctls:
+>> 	test VIDIOC_QUERYCAP: OK
+>> 	test invalid ioctls: OK
+>>
+>> Allow for multiple opens:
+>> 	test second /dev/video1 open: OK
+>> 	test VIDIOC_QUERYCAP: OK
+>> 	test VIDIOC_G/S_PRIORITY: OK
+>> 	test for unlimited opens: OK
+>>
+>> Debug ioctls:
+>> 	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+>> 	test VIDIOC_LOG_STATUS: OK (Not Supported)
+>>
+>> Input ioctls:
+>> 	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+>> 	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+>> 	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+>> 	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+>> 	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+>> 	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+>> 	Inputs: 0 Audio Inputs: 0 Tuners: 0
+>>
+>> Output ioctls:
+>> 	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+>> 	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+>> 	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+>> 	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+>> 	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+>> 	Outputs: 0 Audio Outputs: 0 Modulators: 0
+>>
+>> Input/Output configuration ioctls:
+>> 	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+>> 	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+>> 	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+>> 	test VIDIOC_G/S_EDID: OK (Not Supported)
+>>
+>> Control ioctls:
+>> 	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+>> 	test VIDIOC_QUERYCTRL: OK
+>> 	test VIDIOC_G/S_CTRL: OK
+>> 	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+>> 	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+>> 	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+>> 	Standard Controls: 43 Private Controls: 0
+>>
+>> Format ioctls:
+>> 	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+>> 	test VIDIOC_G/S_PARM: OK
+>> 	test VIDIOC_G_FBUF: OK (Not Supported)
+>> 	test VIDIOC_G_FMT: OK
+>> 	test VIDIOC_TRY_FMT: OK
+>> 	test VIDIOC_S_FMT: OK
+>> 	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+>> 	test Cropping: OK
+>> 	test Composing: OK (Not Supported)
+>> 	test Scaling: OK (Not Supported)
+>>
+>> Codec ioctls:
+>> 	test VIDIOC_(TRY_)ENCODER_CMD: OK
+>> 	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+>> 	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+>>
+>> Buffer ioctls:
+>> 	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+>> 	test CREATE_BUFS maximum buffers: OK
+>> 	test VIDIOC_REMOVE_BUFS: OK
+>> 	test VIDIOC_EXPBUF: OK
+>> 	test Requests: OK (Not Supported)
+>> 	test blocking wait: OK
+>>
+>> Test input 0:
+>>
+>> Streaming ioctls:
+>> 	test read/write: OK (Not Supported)
+>> 	Video Capture Multiplanar: Captured 61 buffers
+>> 	test MMAP (select, REQBUFS): OK
+>> 	Video Capture Multiplanar: Captured 61 buffers
+>> 	test MMAP (epoll, REQBUFS): OK
+>> 	Video Capture Multiplanar: Captured 61 buffers
+>> 	test MMAP (select, CREATE_BUFS): OK
+>> 	Video Capture Multiplanar: Captured 61 buffers
+>> 	test MMAP (epoll, CREATE_BUFS): OK
+>> 	test USERPTR (select): OK (Not Supported)
+>> 	test DMABUF: Cannot test, specify --expbuf-device
+>>
+>> Total for iris_driver device /dev/video1: 54, Succeeded: 54, Failed: 0, Warnings: 0
+>>
+>> $ v4l2-compliance -d /dev/video0 -s5 --stream-from=test_video_10s.h264
+>> v4l2-compliance 1.33.0-5456, 64 bits, 64-bit time_t
+>> v4l2-compliance SHA: 8aa593bda182 2026-04-11 10:54:25
+>>
+>> Compliance test for iris_driver device /dev/video0:
+>>
+>> Driver Info:
+>> 	Driver name      : iris_driver
+>> 	Card type        : Iris Decoder
+>> 	Bus info         : platform:aa00000.video-codec
+>> 	Driver version   : 7.0.0
+>> 	Capabilities     : 0x84204000
+>> 		Video Memory-to-Memory Multiplanar
+>> 		Streaming
+>> 		Extended Pix Format
+>> 		Device Capabilities
+>> 	Device Caps      : 0x04204000
+>> 		Video Memory-to-Memory Multiplanar
+>> 		Streaming
+>> 		Extended Pix Format
+>> 	Detected Stateful Decoder
+>>
+>> Required ioctls:
+>> 	test VIDIOC_QUERYCAP: OK
+>> 	test invalid ioctls: OK
+>>
+>> Allow for multiple opens:
+>> 	test second /dev/video0 open: OK
+>> 	test VIDIOC_QUERYCAP: OK
+>> 	test VIDIOC_G/S_PRIORITY: OK
+>> 	test for unlimited opens: OK
+>>
+>> Debug ioctls:
+>> 	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+>> 	test VIDIOC_LOG_STATUS: OK (Not Supported)
+>>
+>> Input ioctls:
+>> 	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+>> 	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+>> 	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+>> 	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+>> 	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+>> 	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+>> 	Inputs: 0 Audio Inputs: 0 Tuners: 0
+>>
+>> Output ioctls:
+>> 	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+>> 	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+>> 	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+>> 	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+>> 	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+>> 	Outputs: 0 Audio Outputs: 0 Modulators: 0
+>>
+>> Input/Output configuration ioctls:
+>> 	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+>> 	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+>> 	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+>> 	test VIDIOC_G/S_EDID: OK (Not Supported)
+>>
+>> Control ioctls:
+>> 	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+>> 	test VIDIOC_QUERYCTRL: OK
+>> 	test VIDIOC_G/S_CTRL: OK
+>> 	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+>> 	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+>> 	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+>> 	Standard Controls: 12 Private Controls: 0
+>>
+>> Format ioctls:
+>> 	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+>> 	test VIDIOC_G/S_PARM: OK (Not Supported)
+>> 	test VIDIOC_G_FBUF: OK (Not Supported)
+>> 	test VIDIOC_G_FMT: OK
+>> 	test VIDIOC_TRY_FMT: OK
+>> 	test VIDIOC_S_FMT: OK
+>> 	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+>> 	test Cropping: OK
+>> 	test Composing: OK
+>> 	test Scaling: OK (Not Supported)
+>>
+>> Codec ioctls:
+>> 	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+>> 	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+>> 	test VIDIOC_(TRY_)DECODER_CMD: OK
+>>
+>> Buffer ioctls:
+>> 	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+>> 	test CREATE_BUFS maximum buffers: OK
+>> 	test VIDIOC_REMOVE_BUFS: OK
+>> 	test VIDIOC_EXPBUF: OK
+>> 	test Requests: OK (Not Supported)
+>> 	test blocking wait: OK
+>>
+>> Test input 0:
+>>
+>> Streaming ioctls:
+>> 	test read/write: OK (Not Supported)
+>> the input file is smaller than 7077888 bytes
+>> 	Video Capture Multiplanar: Captured 601 buffers
+>> 	test MMAP (select, REQBUFS): OK
+>> the input file is smaller than 7077888 bytes
+>> 	Video Capture Multiplanar: Captured 601 buffers
+>> 	test MMAP (epoll, REQBUFS): OK
+>> the input file is smaller than 7077888 bytes
+>> 	Video Capture Multiplanar: Captured 601 buffers
+>> 	test MMAP (select, CREATE_BUFS): OK
+>> the input file is smaller than 7077888 bytes
+>> 	Video Capture Multiplanar: Captured 601 buffers
+>> 	test MMAP (epoll, CREATE_BUFS): OK
+>> 	test USERPTR (select): OK (Not Supported)
+>> 	test DMABUF: Cannot test, specify --expbuf-device
+>>
+>> Total for iris_driver device /dev/video0: 54, Succeeded: 54, Failed: 0, Warnings: 0
+>>
+>> [1] https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/8195
+>>
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> ---
+>> Changes in v4:
+>> - Picked review tags
+>> - Use u32 instead of __u32
+>> - Explicit DPB
+>> - Drop NULL and use >>1 in q10c buffer calc
+>> - Drop selicolon after switch statementr
+>> - Correctly align HFI_PROP_UBWC_STRIDE_SCANLINE entry
+>> - Rebase on media next tree after the file split
+>> - Link to v3: https://patch.msgid.link/20260511-topic-sm8x50-iris-10bit-decoding-v3-0-7fc049b93042@linaro.org
+>>
+>> Changes in v3:
+>> - Added review tag on patch 1
+>> - Limited stride command to AV1 decoding only
+>> - Link to v2: https://patch.msgid.link/20260417-topic-sm8x50-iris-10bit-decoding-v2-0-c987b65a31d5@linaro.org
+>>
+>> Changes in v2:
+>> - Fixed bug breaking 8bit decoding
+>> - Dropped filtering on G_FMT while waiting for soure change
+>> - Dropped format filtering on ENUMFMT
+>> - Switched ALIGN(x, 192) to roundup(x, 192) because ALIGN works only with Power Of Two numbers
+>> - Cleaned and refactors the width/height/stride calculations
+>> - Cleaned and redesigned the buffer calculations functions with proper comments and var names
+>> - Passed fluster and v4l2-compliance to check for non regression
+>> - Tested on SM8550
+>> - Added missing V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_10 with made gstreamer fail decoding
+>> - Link to v1: https://patch.msgid.link/20260408-topic-sm8x50-iris-10bit-decoding-v1-0-428c1ec2e3f3@linaro.org
+>>
+>> ---
+>> Neil Armstrong (6):
+>>         media: qcom: iris: add helpers for 8bit and 10bit formats
+>>         media: qcom: iris: add QC10C & P010 buffer size calculations
+>>         media: qcom: iris: gen2: add support for 10bit decoding
+>>         media: qcom: iris: vdec: update size and stride calculations for 10bit formats
+>>         media: qcom: iris: vdec: update find_format to handle 8bit and 10bit formats
+>>         media: qcom: iris: vdec: allow GEN2 decoding into 10bit format
+>>
+>>    drivers/media/platform/qcom/iris/iris_buffer.c     | 195 ++++++++++++++++++++-
+>>    drivers/media/platform/qcom/iris/iris_hfi_gen2.c   |   8 +-
+>>    .../platform/qcom/iris/iris_hfi_gen2_command.c     |  75 +++++++-
+>>    .../platform/qcom/iris/iris_hfi_gen2_defines.h     |   1 +
+>>    .../platform/qcom/iris/iris_hfi_gen2_response.c    |  37 +++-
+>>    drivers/media/platform/qcom/iris/iris_instance.h   |   2 +
+>>    .../platform/qcom/iris/iris_platform_common.h      |   1 +
+>>    drivers/media/platform/qcom/iris/iris_utils.c      |  16 +-
+>>    drivers/media/platform/qcom/iris/iris_utils.h      |   2 +
+>>    drivers/media/platform/qcom/iris/iris_vdec.c       |  42 ++++-
+>>    10 files changed, 364 insertions(+), 15 deletions(-)
+>> ---
+>> base-commit: 86693e86019a7466be961fd4f45d407cc0b0ba0a
+>> change-id: 20260408-topic-sm8x50-iris-10bit-decoding-074c3ac7975c
+>>
+>> Best regards,
+>> --
+>> Neil Armstrong <neil.armstrong@linaro.org>
+>>
+>>
+> 
+> Tested-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
+> 
+> --
+> Best Regards,
+> Wangao
+> 
 
-For a 4-component pixel format all four planes are full resolution
-(width_div == height_div == 1), so a frame that forces every plane
-through the unencoded fallback writes
-sizeof(struct fwht_cframe_hdr) + 4 * coded_w * coded_h bytes, overrunning
-the plane by coded_w * coded_h, which can result in corruption
-of adjacent kernel heap memory.
+Neil can you rebase this - I can pick it up once you are happy.
 
-Bump pixfmt_fwht.sizeimage_mult from 3 to 4, matching the largest
-components_num among the supported raw formats, so the capture buffer is
-always large enough for the unencoded fallback.
+https://gitlab.freedesktop.org/linux-media/users/bodonoghue/-/tree/next-smoketest?ref_type=heads
 
-Fixes: 29a7a5e99080 ("media: vicodec: add support for more pixel formats")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
- drivers/media/test-drivers/vicodec/vicodec-core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/test-drivers/vicodec/vicodec-core.c b/drivers/media/test-drivers/vicodec/vicodec-core.c
-index 318e8330f16a..3ff2d06742c2 100644
---- a/drivers/media/test-drivers/vicodec/vicodec-core.c
-+++ b/drivers/media/test-drivers/vicodec/vicodec-core.c
-@@ -63,7 +63,7 @@ struct pixfmt_info {
- };
- 
- static const struct v4l2_fwht_pixfmt_info pixfmt_fwht = {
--	V4L2_PIX_FMT_FWHT, 0, 3, 1, 1, 1, 1, 1, 0, 1
-+	V4L2_PIX_FMT_FWHT, 0, 4, 1, 1, 1, 1, 1, 0, 1
- };
- 
- static const struct v4l2_fwht_pixfmt_info pixfmt_stateless_fwht = {
-
----
-base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
-change-id: 20260601-fixes-7416dda13cfd
-
-Best regards,
--- 
-Junrui Luo <moonafterrain@outlook.com>
-
+bod
