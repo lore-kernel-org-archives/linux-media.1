@@ -1,244 +1,211 @@
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FFDA3DB324
-	for <linux-media@vger.kernel.org>; Mon,  1 Jun 2026 15:26:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4556A3DC86E
+	for <linux-media@vger.kernel.org>; Mon,  1 Jun 2026 15:31:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780327619; cv=none; b=Miq1MaoxmL3c9WQlN5yvdi8/UXAM+ayFupNgiOgyO2c1gskMdeFH20MY8eBA+uYMAi2QvkXamByRGJVeSllJEpWqGoQnbTHe8Hiut5TuvqQXovVGVXwwYQS6wZCgDsHnwgsewENwPbHiJMZIp1csUlk4IU2q7r4m9BnMkOY3q60=
+	t=1780327886; cv=none; b=SW/UtkRIpFICRgoPi1Dd5z9wN1p1sZMKwn2cPwV8yfoLxy658uelI+TWtIsU0kOtVWJp9zojCUYakdC0Q2DI0Ro4hElRhbqMFW9O0KoxkafTBW4mPgc+n2rlcGS0vtrm2Qxo0nYQ3geVg5VPwFygOwQ5aSlDs3vtZFhx80VDYJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780327619; c=relaxed/simple;
-	bh=Dom/OBqAZGodnCE/T9Y1Sbt2RRI/kwyL909HVty7DJc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m8EJrkh70wqQQ9BMuFeE6zcaCkef1XpgUGyFkjFYSIb+unxzca1cBuKGCjgv/Ndadt0c84nmPUspg2c7HtO8TIX1uT1oMMP6zau+FiupipCeEjdQpo5TeTwBWe45QYXLzuQ+WNhlurK6VLuzP2M6G3TZiMZzDPiHT7T6Mq7x66A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GVxcXrPx; arc=none smtp.client-ip=209.85.219.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780327886; c=relaxed/simple;
+	bh=adx1msWxA++Fh1PpPgwxpWK7N0yQf0Y0EEQ0cVJu9KI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=h+44nbU2+1Wtz4/b/dG2e5gOB5ocOAoSOrmBvRcs8yzgISjxd+dp3E05FDGrdkvKiD++p6puEWmEO7xZz4eISnnvDpHaBHAT1euqIOcthCA5qLwBlfSG4808S+M9DyPc17U7VOzcszcepo33yhfHiJaaZ9CPPm4IX8dHifEObd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aRMXpgxv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dqbFk/2o; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GVxcXrPx"
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-8ccd1f57b32so56191426d6.2
-        for <linux-media@vger.kernel.org>; Mon, 01 Jun 2026 08:26:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aRMXpgxv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dqbFk/2o"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 651EgZ5A3563524
+	for <linux-media@vger.kernel.org>; Mon, 1 Jun 2026 15:31:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	7Ii7fyGQTy/LBy1oCRVi7nI5P43TAFRbH9oiPCikSss=; b=aRMXpgxvpNJwTDYI
+	m5lPVLJrCLXdgf+5EIIMoHglObjoXe0pFzMEB5T8BjGNksSN+ZqqbYHGngCOp45O
+	NlOsvWQRVKrKjgw9PLHIaIf0A0WIbs4OHqXyiOiYbRnZtw//41wPgBCy6ewYG1kx
+	U8je/XJBXJMnzImvLs+i01PND2aX3CyrM9H8BGX+qBXMG097zbd1j5Vyl5lqmycC
+	1lDumkaYHA+jzktCX7J8A0rUwL1tkfHo6ILeX+Y49dOTe5isqW4jxzEuHYj1dJn5
+	EhV28trRwnAwrpn7JdtdvkD7heZ3/n+nwWdN+LrKvI2LK56FlTsleKF2QzS+ot76
+	b/GBnA==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eh6rxsrv7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 01 Jun 2026 15:31:18 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-304d0d0b28eso2338419eec.0
+        for <linux-media@vger.kernel.org>; Mon, 01 Jun 2026 08:31:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780327610; x=1780932410; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dgcr4kRnavya7iTNuTNnh5xrfyv778Tvy0/PoadSxg8=;
-        b=GVxcXrPxUatmaH9ZLy8z6LUN6dxosdjsYz6kN+6lhOID+bfgRlN8SvZz35pypHfB15
-         nJtXpL6RfYzV0Bm4+r/eEIjoKkZ3HX9DfWYQeOQfA3qG0Wh//4BwHttQfPj+gTjpOQsT
-         HyFv/iy0uf2uqslFp3ZB1qL7dBgwbB4I+PVhLebbCFuO2FYBj28Bw9RgIfQ7DmJHjCsR
-         veFwIiDVyNRvnBX0ozMf4unXxNHsFdeH47Cv90W+ZzdWdVftCVQJi062YUH/hUpkbzkd
-         GRzwS/npqdiqqgGefMLHzdcKZjRbzfhjG45gTEes2s2SZf5x7mf7bUW/AhxCxzSswGDc
-         wwzg==
+        d=oss.qualcomm.com; s=google; t=1780327877; x=1780932677; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=7Ii7fyGQTy/LBy1oCRVi7nI5P43TAFRbH9oiPCikSss=;
+        b=dqbFk/2oae5fxumTQq43nKIX1dF5bX4Gv+aRl8HYrePEBUSaeElDkaxmBK7aGowUyk
+         k4kJaqRpAL7uug7ybrF+VHkTZQKHj634tmiJC207Kq0o0+Cm/PlaMH/ycu70Df/1jnrf
+         hJX7A99YrPgp7y1dhlwKnASBOIVQOB4YT90DtNy5kqTOJhfdG4KFA73QqDZ0rhajtnb9
+         6IeZAbhO06qay5iqrmO4PmXdBKAOTDZ9eXgLPfhJ5C080ySQMyXhJFhh4L6dwifKg3/a
+         KlHULxZMsSZd2hY4EQfrL/3RrxMACxcnuZLOcUkCvJw0Yb21J18qMb3UoMl9OO5zYVgn
+         pzsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780327610; x=1780932410;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=dgcr4kRnavya7iTNuTNnh5xrfyv778Tvy0/PoadSxg8=;
-        b=FOqOR/+61TNs47zWR0SYxI4sZBnafpEZpVq0TAs5g6vxROxt4VzhO+lLIowtn7I2u6
-         V3ORMyKvV3j+po0IwVDuOm3ZddIo0YnsEj4iNWBdKP/oxOlQLXDZbfvBfK+ZJlKWNP6S
-         w0t+tlqPDUxLsM984YEyLvUaFeyl2tI58e9ozLW1/dIjHljiBo9tkMrcaIxvikep3CwA
-         GPpAyiRci/nGQ3JrzEIwDy3jfIS4quxei/sr8GfsW/XJVgV6UEB26/6o7slq6nMPpWZX
-         Zai0RHShXw5FQWPHN1DZwEQD6DRr5XE5L7p5P5HZpgPLV7fCXWD1CwkZg3EOP6+NKMWz
-         /5IQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+FcS7Sa7KWCuOj7CSbEt5pCSFQ9bAKx5WOrebCeTf2BTu2skPalB873TRCc5z8RXQC6Vrb5wlHqGdU+w==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxjeEM9tHPY09HnT6dxzNYfjRJR0apeXd4VmYzkcy09spe3+WdK
-	t/Oa18o4ZKzuRpRHhBLYsqYhksQT27DbO3ayUFA4qweMYGErYG7RYchd
-X-Gm-Gg: Acq92OHCe7wI+RzOKzGxn8SLVySv0H5TjWh0BLdlx1XqH4wbysJj0NHxROGrfgKuJgN
-	n6r0/rh5OosSMXeb7+SlaqNUEsLu1vronCZpkFNKkKVCrbiStxNo5zI/duFsjxqRRiR91Rsc4KC
-	KTmkX7rMgnrWjA1f92Pjn/YDUJpM3gLi+q8oS0TAfpksqLEQX11Ax/BFs2oH1wocCmPP9YzxLvu
-	TnKHELgHkFfJejbwkuRhcT/rN/eYHhGFTvoMzLIBefL5Fi5aYbVAQO1qyeqkyHvg7t3oVWpwRKG
-	fVFFvPrGuqMkALtxQdpIditivWiO16hNHroa+5kspiM4UmPTLrbiRwRBkFYmKriNbwisB7eX0gr
-	7cEG0IWFtsBbzEInBG/gnwzZwCJSa3XmB14mm4YoZ/5+ABz6hGuyUOQtpJuCuIUPjbteOa64929
-	8D+YC3X5E728nIQ+07bGMXIW+3htJUinftIRaySMWYn6u1/eB396twQq0Y8s6yLwKZ4E/CVkMMr
-	zkE
-X-Received: by 2002:a05:6214:da4:b0:8ac:9fc3:b9fb with SMTP id 6a1803df08f44-8ccefe0cb21mr201075176d6.45.1780327610157;
-        Mon, 01 Jun 2026 08:26:50 -0700 (PDT)
-Received: from localhost.localdomain ([2600:4041:42f2:d000:5598:1322:a565:857b])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ccea2164cfsm95097686d6.37.2026.06.01.08.26.49
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 01 Jun 2026 08:26:49 -0700 (PDT)
-From: Rohith Matam <rohithmatham@gmail.com>
-To: mchehab@kernel.org
-Cc: duoming@zju.edu.cn,
-	hverkuil@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rohith Matam <rohithmatham@gmail.com>,
-	syzbot+0d6ef2b7ceb6014d756c@syzkaller.appspotmail.com
-Subject: [PATCH v3] media: siano: fix URB work teardown
-Date: Mon,  1 Jun 2026 11:26:42 -0400
-Message-ID: <20260601152642.55313-1-rohithmatham@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260601150922.52822-1-rohithmatham@gmail.com>
-References: <20260601150922.52822-1-rohithmatham@gmail.com>
+        d=1e100.net; s=20251104; t=1780327877; x=1780932677;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=7Ii7fyGQTy/LBy1oCRVi7nI5P43TAFRbH9oiPCikSss=;
+        b=Mty1taoAZ2PBtPO7/+zftK5h3E8yWDIpx/P5z9bFqAtxCMA2n5fHpC5k8c1muyanZj
+         5UHXJrDj2BVsddsP439QJG/hbv+XzrfTP1aWsWTBAxPTyo0A5F4eXjlVaSrSI66MYdyF
+         VlrlaobwFMN93sqSeP8ACv+8MUCpy3BeszqSoUMFGiifqmJurFnOqGWoZlyDXk3dfTBf
+         jAUbx7+lWip7ANHEHlFw4emIWGknu+P1AG2pHJ2TQuHgQx2IfML4Ni4sJMqaYtpULsQl
+         ufH79aCP7n5aKc2+RR+l3oxqoGLjq3aI+VyaYHWx7jPvWWlYciwxdqpz2x9iKN+erAxV
+         mt3g==
+X-Forwarded-Encrypted: i=1; AFNElJ90aE15BGsFa3+sjdmEtuWiko1RJN1rjcC4vIzQW6yh6eBIBLEOmz984x22CYieJ5aD7oHsOcBcgioq6A==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwDSWIVEtqJ2/x33wNUjfNtZrjpY61vAXbFe/o25+N4UvGWO7OG
+	0xAxWPszeK23fLxzHTTLtmRPTUXNaQcji6x1hUT6ziVPWNz/qnkF5h7a1KNSKQToyW3bxruS3wa
+	aKuV67fW1oFtVjbillT6husdlSDuSKA5aODJOxTkvVw8eFP4n+vMS86EHYmoh85DJxg==
+X-Gm-Gg: Acq92OFoWws6GK0DJLP37KAgEPkTK5BfBSxdihjobcWeRAvLz5yOs7k72+dwv9WJ/fE
+	loJZtdu/tVJXiSA8L8FsikZB4jYBjR0XjQH59/O1GWxCQy7716DnT+NcfXujkAztsrgIwrB4OzU
+	XYCUO/7pgPajRW8QnoFtwafZ/84kZ/5FwzlP/TX9fG0PFBiTxpkRypgsZLeJzO2J62aO3iUjHXC
+	LxTdVbhzSKBc2nO5xMw30bHmgxb5BnDys2fsQ36M/cCMkgItTIz0A0lru2yf0VePS675qxK1oxe
+	dscE8qKDRihohj6eMAjbqitvPY7OKUYhyc8FaRC4fnAXPyLwDoOMgqHns7/XVXV5ga8kraVeijk
+	N571rNHXOh190Ze6LPWRMNJHCH01jjmSWpiZpgciSmp3Q5kprgOhDDvjYXdgNihaTl3tN1ki6KU
+	v1bOx7og+STWI=
+X-Received: by 2002:a05:7301:1e92:b0:304:8364:e95f with SMTP id 5a478bee46e88-304fa64b8efmr4571152eec.27.1780327876935;
+        Mon, 01 Jun 2026 08:31:16 -0700 (PDT)
+X-Received: by 2002:a05:7301:1e92:b0:304:8364:e95f with SMTP id 5a478bee46e88-304fa64b8efmr4571122eec.27.1780327876327;
+        Mon, 01 Jun 2026 08:31:16 -0700 (PDT)
+Received: from hu-hangxian-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-304ed2efb4esm9207707eec.8.2026.06.01.08.31.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 01 Jun 2026 08:31:16 -0700 (PDT)
+From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Date: Mon, 01 Jun 2026 08:31:09 -0700
+Subject: [PATCH v14 2/5] media: qcom: camss: Add Kaanapali compatible camss
+ driver
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260601-kaanapali-camss-v14-2-e76f26aa6691@oss.qualcomm.com>
+References: <20260601-kaanapali-camss-v14-0-e76f26aa6691@oss.qualcomm.com>
+In-Reply-To: <20260601-kaanapali-camss-v14-0-e76f26aa6691@oss.qualcomm.com>
+To: Bryan O'Donoghue <bod@kernel.org>, Robert Foss <rfoss@kernel.org>,
+        Todor Tomov <todor.too@gmail.com>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        jeyaprakash.soundrapandian@oss.qualcomm.com,
+        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
+        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Proofpoint-GUID: p0nYSHqWU7oAfeTPs-7bfYu9vmdjISYb
+X-Authority-Analysis: v=2.4 cv=dsfrzVg4 c=1 sm=1 tr=0 ts=6a1da5c6 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=Eph36bqoL6-XvbZcx_wA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAxMDE1NCBTYWx0ZWRfX6wdFZAHrYpsY
+ +n3EC0j7yE584/pOSDrPgfeluLP6mAWXOOKXi3wcTyUzmWggror05MWtKQ8ysvfXCqf62vH5XUo
+ ajY9YTeW6+um8Q9EB7i8WuelZqjZ35X2JSpgd9U3JoE/kxMGKuXhd1iqCPHhL+A3IVjZukrnMiZ
+ W0Uy2gFU7BZ7VmAuw1tV0dtxUfuUQ4Bqj0RNnE1BUR1sqlKIJewsVpD/YIX7Q81ctp4NcK10+Yh
+ biYCiQYFvaDLsC4sCDmE9oYBMqnFxxMbnhoQIdF12NdLjHtTrqWpmFL9g9IfbNk4KKw7hOEfCyn
+ FZMc4f/u0VFGDqMeOtxRs9tjqXRsjqjbQ8zPpKxjqDv0zDv7dDkrzdhl2di5ayaarR9pAxQn6uu
+ mGtEk09eSFbDNTd4mqaKZzJ8YT/62Vdz6qwX3oiLDBFYIKpNnKgoRiSKEnnwm4z4oh8FxIZkVBu
+ NyfdRkTkGUbvtbKFjgQ==
+X-Proofpoint-ORIG-GUID: p0nYSHqWU7oAfeTPs-7bfYu9vmdjISYb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-01_04,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ clxscore=1015 adultscore=0 impostorscore=0 malwarescore=0 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606010154
 
-smsusb_onresponse() reinitializes the URB work item immediately before
-scheduling it. If teardown races with a queued work item,
-cancel_work_sync() can observe workqueue state with WORK_STRUCT_PWQ
-still set and trip the workqueue warning reported by syzbot.
+Add support for Kaanapali in the camss driver. Add high level resource
+information along with the bus bandwidth votes. Module level detailed
+resource information will be enumerated in the following patches of the
+series.
 
-The teardown path also has related lifetime bugs. URB_FREE_BUFFER makes
-USB core free a smscore-owned buffer, and a work item can submit an URB
-after usb_kill_urb() has already returned. If that submission fails, the
-worker keeps ownership of the smscore buffer and the streaming pipeline
-loses an URB.
-
-Initialize each work item before any error path can tear down the device,
-remove URB_FREE_BUFFER, stop resubmission before killing URBs, and kill
-URBs again after canceling work so any URB submitted by an already-running
-worker is completed before buffers and the device are freed. Return the
-smscore buffer if URB submission fails.
-
-smscore_getbuffer() waits in TASK_UNINTERRUPTIBLE, so return buffers to
-the pool before waking waiters and use wake_up() instead of
-wake_up_interruptible().
-
-Fixes: ebad8e731c1c ("media: usb: siano: Fix use after free bugs caused by do_submit_urb")
-Reported-by: syzbot+0d6ef2b7ceb6014d756c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=0d6ef2b7ceb6014d756c
-Signed-off-by: Rohith Matam <rohithmatham@gmail.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 ---
-Changes in v3:
-- Initialize work items before early probe error paths can call teardown.
-- Return the smscore buffer when URB submission fails.
-- Wake buffer waiters after returning the buffer, and use wake_up().
+ drivers/media/platform/qcom/camss/camss.c | 22 ++++++++++++++++++++++
+ drivers/media/platform/qcom/camss/camss.h |  1 +
+ 2 files changed, 23 insertions(+)
 
-Changes in v2:
-- Initialize all work items before allocating URBs.
-- Remove URB_FREE_BUFFER from smscore-owned buffers.
-- Stop resubmission before teardown and kill URBs again after canceling work.
-
- drivers/media/common/siano/smscoreapi.c |  2 +-
- drivers/media/usb/siano/smsusb.c        | 37 +++++++++++++++++++------
- 2 files changed, 30 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/media/common/siano/smscoreapi.c b/drivers/media/common/siano/smscoreapi.c
-index 017629e3c..e256344eb 100644
---- a/drivers/media/common/siano/smscoreapi.c
-+++ b/drivers/media/common/siano/smscoreapi.c
-@@ -1654,8 +1654,8 @@ EXPORT_SYMBOL_GPL(smscore_getbuffer);
-  */
- void smscore_putbuffer(struct smscore_device_t *coredev,
- 		struct smscore_buffer_t *cb) {
--	wake_up_interruptible(&coredev->buffer_mng_waitq);
- 	list_add_locked(&cb->entry, &coredev->buffers, &coredev->bufferslock);
-+	wake_up(&coredev->buffer_mng_waitq);
- }
- EXPORT_SYMBOL_GPL(smscore_putbuffer);
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index 2123f6388e3d..40d74966ef9b 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -34,6 +34,20 @@
  
-diff --git a/drivers/media/usb/siano/smsusb.c b/drivers/media/usb/siano/smsusb.c
-index 0fdc2e095..fab64e5fa 100644
---- a/drivers/media/usb/siano/smsusb.c
-+++ b/drivers/media/usb/siano/smsusb.c
-@@ -58,6 +58,7 @@ struct smsusb_device_t {
- 	unsigned char in_ep;
- 	unsigned char out_ep;
- 	enum smsusb_state state;
-+	bool streaming;
+ static const struct parent_dev_ops vfe_parent_dev_ops;
+ 
++static const struct resources_icc icc_res_kaanapali[] = {
++	{
++		.name = "ahb",
++		.icc_bw_tbl.avg = 150000,
++		.icc_bw_tbl.peak = 300000,
++	},
++	/* Based on 4096 x 3072 30 FPS 2496 Mbps mode */
++	{
++		.name = "hf_mnoc",
++		.icc_bw_tbl.avg = 471860,
++		.icc_bw_tbl.peak = 925857,
++	},
++};
++
+ static const struct camss_subdev_resources csiphy_res_8x16[] = {
+ 	/* CSIPHY0 */
+ 	{
+@@ -5507,6 +5521,13 @@ static void camss_remove(struct platform_device *pdev)
+ 	camss_genpd_cleanup(camss);
+ }
+ 
++static const struct camss_resources kaanapali_resources = {
++	.version = CAMSS_KAANAPALI,
++	.pd_name = "top",
++	.icc_res = icc_res_kaanapali,
++	.icc_path_num = ARRAY_SIZE(icc_res_kaanapali),
++};
++
+ static const struct camss_resources msm8916_resources = {
+ 	.version = CAMSS_8x16,
+ 	.csiphy_res = csiphy_res_8x16,
+@@ -5740,6 +5761,7 @@ static const struct camss_resources x1e80100_resources = {
  };
  
- static int smsusb_submit_urb(struct smsusb_device_t *dev,
-@@ -71,8 +72,14 @@ static void do_submit_urb(struct work_struct *work)
- {
- 	struct smsusb_urb_t *surb = container_of(work, struct smsusb_urb_t, wq);
- 	struct smsusb_device_t *dev = surb->dev;
-+	int rc;
+ static const struct of_device_id camss_dt_match[] = {
++	{ .compatible = "qcom,kaanapali-camss", .data = &kaanapali_resources },
+ 	{ .compatible = "qcom,msm8916-camss", .data = &msm8916_resources },
+ 	{ .compatible = "qcom,msm8939-camss", .data = &msm8939_resources },
+ 	{ .compatible = "qcom,msm8953-camss", .data = &msm8953_resources },
+diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
+index 93d691c8ac63..2c7a0218a82b 100644
+--- a/drivers/media/platform/qcom/camss/camss.h
++++ b/drivers/media/platform/qcom/camss/camss.h
+@@ -96,6 +96,7 @@ enum camss_version {
+ 	CAMSS_8550,
+ 	CAMSS_8650,
+ 	CAMSS_8775P,
++	CAMSS_KAANAPALI,
+ 	CAMSS_X1E80100,
+ };
  
--	smsusb_submit_urb(dev, surb);
-+	if (!READ_ONCE(dev->streaming))
-+		return;
-+
-+	rc = smsusb_submit_urb(dev, surb);
-+	if (rc < 0 && READ_ONCE(dev->streaming))
-+		pr_err("smsusb_submit_urb(...) failed\n");
- }
- 
- /*
-@@ -143,13 +150,15 @@ static void smsusb_onresponse(struct urb *urb)
- 
- 
- exit_and_resubmit:
--	INIT_WORK(&surb->wq, do_submit_urb);
--	schedule_work(&surb->wq);
-+	if (READ_ONCE(dev->streaming))
-+		schedule_work(&surb->wq);
- }
- 
- static int smsusb_submit_urb(struct smsusb_device_t *dev,
- 			     struct smsusb_urb_t *surb)
- {
-+	int rc;
-+
- 	if (!surb->cb) {
- 		/* This function can sleep */
- 		surb->cb = smscore_getbuffer(dev->coredev);
-@@ -168,19 +177,25 @@ static int smsusb_submit_urb(struct smsusb_device_t *dev,
- 		smsusb_onresponse,
- 		surb
- 	);
--	surb->urb->transfer_flags |= URB_FREE_BUFFER;
-+	rc = usb_submit_urb(surb->urb, GFP_ATOMIC);
-+	if (rc) {
-+		smscore_putbuffer(dev->coredev, surb->cb);
-+		surb->cb = NULL;
-+	}
- 
--	return usb_submit_urb(surb->urb, GFP_ATOMIC);
-+	return rc;
- }
- 
- static void smsusb_stop_streaming(struct smsusb_device_t *dev)
- {
- 	int i;
- 
-+	WRITE_ONCE(dev->streaming, false);
-+
- 	for (i = 0; i < MAX_URBS; i++) {
- 		usb_kill_urb(dev->surbs[i].urb);
--		if (dev->surbs[i].wq.func)
--			cancel_work_sync(&dev->surbs[i].wq);
-+		cancel_work_sync(&dev->surbs[i].wq);
-+		usb_kill_urb(dev->surbs[i].urb);
- 
- 		if (dev->surbs[i].cb) {
- 			smscore_putbuffer(dev->coredev, dev->surbs[i].cb);
-@@ -193,6 +208,8 @@ static int smsusb_start_streaming(struct smsusb_device_t *dev)
- {
- 	int i, rc;
- 
-+	WRITE_ONCE(dev->streaming, true);
-+
- 	for (i = 0; i < MAX_URBS; i++) {
- 		rc = smsusb_submit_urb(dev, &dev->surbs[i]);
- 		if (rc < 0) {
-@@ -401,6 +418,11 @@ static int smsusb_init_device(struct usb_interface *intf, int board_id)
- 	if (!dev)
- 		return -ENOMEM;
- 
-+	for (i = 0; i < MAX_URBS; i++) {
-+		dev->surbs[i].dev = dev;
-+		INIT_WORK(&dev->surbs[i].wq, do_submit_urb);
-+	}
-+
- 	memset(&params, 0, sizeof(params));
- 	usb_set_intfdata(intf, dev);
- 	dev->udev = interface_to_usbdev(intf);
-@@ -467,7 +489,6 @@ static int smsusb_init_device(struct usb_interface *intf, int board_id)
- 
- 	/* initialize urbs */
- 	for (i = 0; i < MAX_URBS; i++) {
--		dev->surbs[i].dev = dev;
- 		dev->surbs[i].urb = usb_alloc_urb(0, GFP_KERNEL);
- 		if (!dev->surbs[i].urb)
- 			goto err_unregister_device;
+
 -- 
-2.54.0
+2.34.1
+
