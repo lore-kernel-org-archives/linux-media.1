@@ -1,394 +1,392 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D309384CD6
-	for <linux-media@vger.kernel.org>; Tue,  2 Jun 2026 17:28:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17F43EAC8D
+	for <linux-media@vger.kernel.org>; Tue,  2 Jun 2026 17:35:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.153.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780421330; cv=none; b=lJBIQB8yr26kZEPLOKYmFF9pV5/pFgCNnLhC1ZqUllj66gKJRayF7anXAhGs3kQPeAYF4PVvzYKBkDx7KXC0KmdbkDUt3QsozKRlumGjvtvjRkFqLONSvNPtw+mGEnspYoBCf5A8oVH5oEVpwdPi0fpE2W9an2fgq1I5FcPNqmE=
+	t=1780421736; cv=none; b=eLQBVUb9JZ/2TL3wWmLx5+p5vzbQRKwjQCbw369dNm4A7GfcmbzYk7Ug9PrjUwVKqmWyXBvy7J6f7oSIAjsZt+7hk6eZjPx6S3eA78gmUvnF1yp2Xc7A9H4cqBWFvfr1tWRl5Mz/2lcs78z60QWoNnFrGlGBjpIcrnPpLNnT4fE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780421330; c=relaxed/simple;
-	bh=NmUCp7qslc8XFJkupP69Bn/Zo4ys6RAPgaQ3b6oWJSI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VVyJfuAU82tF+N57r9GzjMwrftDae19G0XF1WBp8hYASjjZFq1+FW4ym1xigli71mmMp7tlfWB48NZhNAhZjiyjJCiNM37Ggx8OjvXGmlzBdoEJk+CMILupLa3Ji7E/luZMYmnJRay2/QeMz+PPkYCxnqhKb81wo0cyKg4SBAt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=L5rCwkdg; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1780421736; c=relaxed/simple;
+	bh=Wg1cGEvf4eUUparaBKFdmSoP05uvZScjagMBX6sVw6c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PTVzd4Z3FKUO6h1N1Ax4cE1roiv2bhAc6zOPQZDvPEdN6Yb6Mi6ZOXMLz309kFV9rtnlGQGefRp4fxEkf2pOBLsStdJO67hNocRgQe9oYOfCwXTY281fX1zI2p8sPNvwGYHdAKVJ4e5KD+hGK4FEsGqfzHp2LNDd/N0IiAJTXpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b=bzK53O8X; arc=none smtp.client-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="L5rCwkdg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1780421327;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Py8QBULlm1mORqcX9znWUmwgCz4TaZiMBkjWHVTZwr8=;
-	b=L5rCwkdgBM5bExohshZIUjHcwzVvIpPrQk0okk9JUUsne6NK5/d6DZGhwV2RKmB0CP7EKj
-	cTS0kK2SgH/DpHn80twkegukIEF/Oto467yg6NloBrk8t0J/EnaY32p1/aHPDLuU/1sxRu
-	WbTKpKhPCWzvei8Md/RY7GZknOqGhLU=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-622-kbSOoP56M6-VzNXl9JcMTQ-1; Tue,
- 02 Jun 2026 13:28:42 -0400
-X-MC-Unique: kbSOoP56M6-VzNXl9JcMTQ-1
-X-Mimecast-MFC-AGG-ID: kbSOoP56M6-VzNXl9JcMTQ_1780421318
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A9F701800451;
-	Tue,  2 Jun 2026 17:28:38 +0000 (UTC)
-Received: from GoldenWind.lan (unknown [10.22.81.216])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2185619560B4;
-	Tue,  2 Jun 2026 17:28:35 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org,
-	rust-for-linux@vger.kernel.org,
-	nouveau@lists.freedesktop.org
-Cc: Alexandre Courbot <acourbot@nvidia.com>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	driver-core@lists.linux.dev,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-kernel@vger.kernel.org,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	linux-media@vger.kernel.org,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Maxime Ripard <mripard@kernel.org>,
-	David Airlie <airlied@gmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	linaro-mm-sig@lists.linaro.org,
-	Danilo Krummrich <dakr@kernel.org>,
-	Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
-	Asahi Lina <lina+kernel@asahilina.net>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Lyude Paul <lyude@redhat.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH v16 6/6] rust: drm: gem: Introduce shmem::Object::sg_table()
-Date: Tue,  2 Jun 2026 13:25:05 -0400
-Message-ID: <20260602172807.1051806-7-lyude@redhat.com>
-In-Reply-To: <20260602172807.1051806-1-lyude@redhat.com>
-References: <20260602172807.1051806-1-lyude@redhat.com>
+	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b="bzK53O8X"
+Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 652Ee6bf2198873
+	for <linux-media@vger.kernel.org>; Tue, 2 Jun 2026 10:35:33 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+	 bh=VfBI5NycCM1cqMEOobD2RppGZmJi32soF0kYJH2gcuU=; b=bzK53O8XujCu
+	MBFdW29mz/kF0qikNM+USVwmd8ECo/ryDkIWpwB5MA41Qdkg5AxczQfUI/eKqhDS
+	iM+8YTVrGnM/C5ql3dTU9NmKo13jiYM2b0odvntyyQ2a0NGJlukR595Q8/wPsbe1
+	Th3DHAph810B/WXMYZfk+pBO3kTfJUA/7BcahWhiKtFh1nnG7f3kyyEmJDYKEFHG
+	iufu6oOYnitpV/tI3/xYW/yGc/E7J5P0tvE8WkvDVYo4cCPHoR64RSzGEh/7eIKv
+	aSG89ftmXERN5KAq0Irj0fX64YAk+9Fi8DHxol+HdmfUYUSI68fU1dQibfWDytp9
+	Y8ZyiDrw9Q==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4ej14msa6y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 02 Jun 2026 10:35:33 -0700 (PDT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-135fe34cb98so1561875c88.0
+        for <linux-media@vger.kernel.org>; Tue, 02 Jun 2026 10:35:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780421732; x=1781026532;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=VfBI5NycCM1cqMEOobD2RppGZmJi32soF0kYJH2gcuU=;
+        b=D+2B4v0IvheQksrYdeS9ueCwrXYsS87UOuYXhdiasjnP4XT2W5EHR6gKtsgKNXd73c
+         b2O4tQzeBcZ/tpXNunskO3rZU6Z9ptEGabPxsYNEAvIM7vWkOfIzqMiXAtIwx01R1/Xo
+         C7+0LKhpEy84SSeeziIMWrHrRueYhhboxGgqqLpkgOuKFP/2s6MQ9tmBWp8Cgog4fCZA
+         aM8FA+Ht7wv2rJTE+gIDFDxVqpiU86kW6QowT4V1ml/17T4DwKn5j/5xNtua3El93QA6
+         GAtmEt0p1WY0wfiNN5dshXWAjwQczAjinDJNFI2s9S8x6JFuE30KFfpJ7O07u9Vd3UiE
+         ASbg==
+X-Forwarded-Encrypted: i=1; AFNElJ/fhk5pQaVjJMnTwc4uL4WdMhKUDI0aKAyxSIpVDr2wogtOkCas+4epkwEwOXHYVUbTP0J/8bP1mGzdeQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwEZ+VuEAuJqHWDY/hYIeTmwDyHAmZnH41l4chjaYOxRRjHzs/9
+	PmOKXnIBd8v1wxW9YGiK76x9k2zAzy++EOBDCNlRII7MwsQiclJaNs0YDyVmDRMdl/0CFTsuAmd
+	Y/YlC9B70hVZrOwrm0pS+ACwgbHtz9I/neIJ3eYnRw4oCMjztuzA8tFkC3c/fcHw=
+X-Gm-Gg: Acq92OF66Sej3tdLuLsP0/VkmuPorNEUauItJ+N6f/zQErI8z/DwpmA94mq+66D6wLg
+	AEICZqJcMODetHX6OWVGmSzixBSDiPC8kY6Z6EpwaHiE1oAwNq2hb4CtOINzR5tXk5WvGfzECqt
+	E74PRtbZdANcAdvB6yFi/NGkQEHKKIQhPIdX23CvlDYDKM/CklBXEwrh7zoxMQFfwO6LXyByydC
+	APmclKCxOxfZU6Slu3ZZn2ubHiS7BDCqb0LizEOmNOxrnVA+7qLWFyQ0eqLUh4uV9OnpTpjqrSH
+	Mznx7GARvRylSMwjMb2YRZG+OJXH4bfhu3Vm5zW9AoVMKqZ2SLUF6XAkaWDXIlbH428CCylnR8A
+	xY8VynC+AZGcEiVxRWWvVFvme3gNoiT9o96ge44Fy
+X-Received: by 2002:a05:7022:ea32:b0:135:578a:cde2 with SMTP id a92af1059eb24-137d425908fmr7340349c88.34.1780421732208;
+        Tue, 02 Jun 2026 10:35:32 -0700 (PDT)
+X-Received: by 2002:a05:7022:ea32:b0:135:578a:cde2 with SMTP id a92af1059eb24-137d425908fmr7340319c88.34.1780421731546;
+        Tue, 02 Jun 2026 10:35:31 -0700 (PDT)
+Received: from [10.0.40.30] ([51.52.155.79])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-137f54db05csm298934c88.8.2026.06.02.10.35.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 02 Jun 2026 10:35:31 -0700 (PDT)
+Message-ID: <49c3554f-8ba7-4a00-aa20-a311b173fc0f@meta.com>
+Date: Tue, 2 Jun 2026 18:35:25 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/9] vfio/pci: Support mmap() of a VFIO DMABUF
+Content-Language: en-GB
+To: Alex Williamson <alex@shazbot.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+        Alex Mastro <amastro@fb.com>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Logan Gunthorpe <logang@deltatee.com>,
+        Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+        =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
+        Pranjal Shrivastava <praan@google.com>,
+        Alistair Popple
+ <apopple@nvidia.com>,
+        Vivek Kasireddy <vivek.kasireddy@intel.com>,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+        kvm@vger.kernel.org, linux-pci@vger.kernel.org
+References: <20260527102319.100128-1-mattev@meta.com>
+ <20260527102319.100128-8-mattev@meta.com>
+ <20260528171527.46d0c21a@shazbot.org>
+From: Matt Evans <mattev@meta.com>
+In-Reply-To: <20260528171527.46d0c21a@shazbot.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: C3q_lfgafrP8eazPR5JyE21Q4GGvyxEq
+X-Proofpoint-ORIG-GUID: C3q_lfgafrP8eazPR5JyE21Q4GGvyxEq
+X-Authority-Analysis: v=2.4 cv=d9XFDxjE c=1 sm=1 tr=0 ts=6a1f1465 cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=2UbFsIa4v//lIgRL4kGwwA==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=wpfVPzegXHpEFt3DAXn9:22 a=VabnemYjAAAA:8
+ a=oquhCkXgnwb2tx7nsGQA:9 a=QEXdDO2ut3YA:10 a=vBUdepa8ALXHeOFLBtFW:22
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDE3MCBTYWx0ZWRfX6O4OZy+Sdkub
+ G9ukmTVin5Gm4y3vUxajb2UCYF2LjfWTfsE++oA3QT4Q/5nEBQo42iE/y3/EzwstrQ/sZ5TvQhZ
+ 3v5rLYLqAR6faDKfl2qZwopSXCZgrph5tZp8qtXBqEZ1vMehgOeq2ZSGg9n1wcNRdXxBamvy9UG
+ Cz40fHiBebbsqmFz/LNzijI7LKsEtsYCbkrN+cCXsjwNqnpxy7REpTqBQMypJUO38b9SMkasHp2
+ ts5NIjR+G3SjLZTetthbngMY9o5dSsN0+E/PkyH+gVYD1M4iF8Wpxl3I5ZCzQ1kWQ7xHoM6ZwrS
+ XR5WX0Q56AUSjnysl38a1VcBN+CI3GbAKw2XI/SYc3hmVQrCTG6wZnZigYBreWjsUuIWgRyQEBk
+ rBysfGtTGnaVDX/JKjXkaaHrdkFJoiww713/nNGnJFAXO9Te18LtBJwfxx1Z7KMwyql1KHRk+pK
+ TeJohE2qloNtnPT0Bxg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-02_03,2026-05-28_03,2025-10-01_01
 
-In order to do this, we need to be careful to ensure that any interface we
-expose for scatterlists ensures that any mappings created from one are
-destroyed on driver-unbind. To do this, we introduce a Devres resource into
-shmem::Object that we use in order to ensure that we release any SGTable
-mappings on driver-unbind.
+Hi Alex,
 
-There's some other slightly unfortunate caveats of this:
+On 29/05/2026 00:15, Alex Williamson wrote:
+> 
+> On Wed, 27 May 2026 03:23:10 -0700
+> Matt Evans <mattev@meta.com> wrote:
+> 
+>> A VFIO DMABUF can export a subset of a BAR to userspace by fd; add
+>> support for mmap() of this fd.  This provides another route for a
+>> process to map BARs, except one where the process can only map a specific
+>> subset of a BAR represented by the exported DMABUF.
+>>
+>> mmap() support enables userspace driver designs that safely delegate
+>> access to BAR sub-ranges to other client processes by sharing a DMABUF
+>> fd, without having to share the (omnipotent) VFIO device fd with them.
+>>
+>> Since the main VFIO BAR mmap() is now DMABUF-aware, this path reuses
+>> the existing vm_ops.  But, since the lifecycle of an exported DMABUF
+>> is still decoupled from that of the device fd it came from, the device
+>> fd might now be closed concurrent with a VMA fault.
+>>
+>> Extra synchronisation is added to deal with the possibility of a fault
+>> racing with the DMABUF cleanup path.  (Note that this differs to a
+>> DMABUF implicitly created on the mmap() path, which holds ownership of
+>> the device fd and so prevents close-during-fault scenarios in order to
+>> maintain the same user-facing behaviour on close.)  It does this by
+>> temporarily taking a VFIO device registration to ensure vdev remains
+>> valid, then vdev->memory_lock can be taken.
+> 
+> Suggest some general rewording of the commit log here, quite confusing.
 
-* Drivers don't have explicit control at the moment over when unmapping
-  happens (which is exactly the same as the C side atm, so it might not be
-  a problem).
-* We can't just return `SGTableMap` to the user through an Arc to attempt
-  to fix the last caveat - because that implies the gem object would need
-  to hold a reference count to the scatterlist mapping, which just leaves
-  us with the same problem.
+OK!
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
+>> Signed-off-by: Matt Evans <mattev@meta.com>
+>> ---
+>>   drivers/vfio/pci/vfio_pci_core.c   | 79 ++++++++++++++++++++++++++----
+>>   drivers/vfio/pci/vfio_pci_dmabuf.c | 27 ++++++++++
+>>   drivers/vfio/pci/vfio_pci_priv.h   |  2 +
+>>   3 files changed, 99 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+>> index cfea59806a4f..41e049fa9a8a 100644
+>> --- a/drivers/vfio/pci/vfio_pci_core.c
+>> +++ b/drivers/vfio/pci/vfio_pci_core.c
+>> @@ -12,6 +12,8 @@
+>>   
+>>   #include <linux/aperture.h>
+>>   #include <linux/device.h>
+>> +#include <linux/dma-buf.h>
+>> +#include <linux/dma-resv.h>
+>>   #include <linux/eventfd.h>
+>>   #include <linux/file.h>
+>>   #include <linux/interrupt.h>
+>> @@ -1742,19 +1744,77 @@ static vm_fault_t vfio_pci_mmap_huge_fault(struct vm_fault *vmf,
+>>   	vm_fault_t ret = VM_FAULT_SIGBUS;
+>>   
+>>   	/*
+>> -	 * We can rely on the existence of both a DMABUF (priv) and
+>> -	 * the VFIO device it was exported from (vdev).  This fault's
+>> -	 * VMA was established using vfio_pci_core_mmap_prep_dmabuf()
+>> -	 * which transfers ownership of the VFIO device fd to the
+>> -	 * DMABUF, and so the VFIO device is held open because the
+>> -	 * VMA's vm_file (DMABUF) is open.
+>> +	 * The only thing this can rely on is that the DMABUF relating
+>> +	 * to the VMA's vm_file exists (priv).
+>>   	 *
+>> -	 * Since vfio_pci_dma_buf_cleanup() cannot have happened,
+>> -	 * vdev must be valid; we can take memory_lock.
+>> +	 * A DMABUF for a VFIO device fd mmap() holds a reference to
+>> +	 * the original VFIO device fd, but an explicitly-exported
+>> +	 * DMABUF does not.  The original fd might have closed,
+>> +	 * meaning this fault can race with
+>> +	 * vfio_pci_dma_buf_cleanup(), meaning priv->vdev might be
+>> +	 * NULL, and the VFIO device registration might have been
+>> +	 * dropped.
+>> +	 *
+>> +	 * With the goal of taking vdev->memory_lock in a world where
+>> +	 * vdev might not still exist:
+>> +	 *
+>> +	 * 1. Take the resv lock on the DMABUF:
+>> +	 *  - If racing cleanup got in first, the buffer is revoked;
+>> +	 *    stop/exit if so.
+>> +	 *  - If we got in first, the buffer is not revoked so vdev is
+>> +	 *    non-NULL, accessible, and cleanup _has not yet put the
+>> +	 *    VFIO device registration_.  So, the device refcount must
+>> +	 *    be >0.
+>> +	 *
+>> +	 * 2. Take vfio_device registration (refcount guaranteed >0
+>> +	 *    hereafter).
+>> +	 *
+>> +	 * 3. Unlock the DMABUF's resv lock:
+>> +	 *  - A racing cleanup can now complete.
+>> +	 *  - But, the device refcount >0, meaning the vfio_device
+>> +	 *    (and vfio_pcie_core device vdev) have not yet been
+>> +	 *    freed.  vdev is accessible, even if the DMABUF has been
+>> +	 *    revoked or cleanup has happened, because
+>> +	 *    vfio_unregister_group_dev() can't complete.
+>> +	 *
+>> +	 * 4. Take the vdev->memory_lock
+>> +	 *  - Either the DMABUF is usable, or has been cleaned up.
+>> +	 *    Whichever, it can no longer change under us.
+>> +	 *  - Test the DMABUF revocation status again: if it was
+>> +	 *    revoked between 1 and 4 return a SIGBUS. Otherwise,
+>> +	 *    return a PFN.
+>> +	 *  - It's not necessary to also take the resv lock, because
+>> +	 *    the status/vdev can't change while memory_lock is held.
+>> +	 *
+>> +	 * 5. Unlock, done.
+>>   	 */
+>> +
+>> +	dma_resv_lock(priv->dmabuf->resv, NULL);
+>>   	vdev = READ_ONCE(priv->vdev);
+> 
+> I think you've again avoided the need for the READ_ONCE() by getting it
+> under dma_resv_lock(), so it's still unnecessary.
 
----
-V3:
-* Rename OwnedSGTable to shmem::SGTable. Since the current version of the
-  SGTable abstractions now has a `Owned` and `Borrowed` variant, I think
-  renaming this to shmem::SGTable makes things less confusing.
-  We do however, keep the name of owned_sg_table() as-is.
-V4:
-* Clarify safety comments for SGTable to explain why the object is
-  thread-safe.
-* Rename from SGTableRef to SGTable
-V10:
-* Use Devres in order to ensure that SGTables are revocable, and are
-  unmapped on driver-unbind.
-V11:
-* s/create_sg_table()/get_sg_table()
-* Get rid of extraneous `ret = ` in shmem::Object::get_sg_table()
-V12:
-* Actually move sgt_res in this patch and not the next one
-V13:
-* Use DmaResvGuard suggestion from Alexander
-* Use Alexander's (much better) solution for get_sg_table()
-* Use SetOnce instead of UnsafeCell
-* s/SGTableRef/SGTableMap
-* Fix typo in SGTableMap documentation
-* Create fallible constructor for SGTableMap
-* Don't reuse dma_resv lock for protecting Object contents, just use Mutex
-  + SetOnce
-* Drop use of drm_gem_shmem_get_pages_sgt_locked(), since we don't need to
-  hold the dma_resv lock ourselves for anything but this function.
-* Check that the device we receive in the bounds for sg_table() and
-  owned_sg_table() that said Device is in fact, the correct device.
-* Remove redundant docs in owned_sg_table(), just point it back to
-  sg_table().
-* Implement Deborah's suggestion to fix double-free in
-  free_callback()
-* Restore original order of Object<T>
-* Fix doc typo for SGTableMap
-V14:
-* Use new InitOnce container over the Mutex/SetOnce horror show we had
-  before.
-* Start using LazyInit container for storing Devres for sgt unmap
-* Add some kunit tests for sg_table (not sure why I didn't do this before)
-  using some of the boilerplate code leftover from the vmap bindings
-* Get rid of the owned SGTable variant for now, we'll add it back in a
-  future patch if people actually need it.
-* Use new LazyInit container from me to get rid of the horrid
-  Mutex<SetOnce<>> mess.
-* Add the best we can do for unit tests w/r/t SGTable at the moment
-V16:
-* Get rid of LazyInit, go back to SetOnce, use trick that Alice recommended
-  that is a lot cleaner.
-* Fix horrid rebasing mistake
+Reviewed, you're right ofc.  This originally went in when I was using a 
+different approach to resolve the race.  I've tweaked the comment and 
+actually it can be further simplified as this !vdev test can be removed:
 
- rust/kernel/drm/gem/shmem.rs | 164 +++++++++++++++++++++++++++++++++--
- 1 file changed, 155 insertions(+), 9 deletions(-)
+>> +	if (priv->revoked || !vdev) {
+>> +		pr_debug_ratelimited("%s VA 0x%lx, pgoff 0x%lx: DMABUF revoked/cleaned up\n",
+>> +				     __func__, vmf->address, vma->vm_pgoff);
+>> +		dma_resv_unlock(priv->dmabuf->resv);
+>> +		return VM_FAULT_SIGBUS;
+>> +	}
+>> +	/* vdev is usable */
 
-diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-index d8bda8c8e2fb2..5f27e8d59e765 100644
---- a/rust/kernel/drm/gem/shmem.rs
-+++ b/rust/kernel/drm/gem/shmem.rs
-@@ -11,20 +11,34 @@
- 
- use crate::{
-     container_of,
-+    device::{
-+        self,
-+        Bound, //
-+    },
-+    devres::*,
-     drm::{
-         driver,
-         gem,
-         private::Sealed,
-         Device, //
-     },
--    error::to_result,
-+    error::{
-+        from_err_ptr,
-+        to_result, //
-+    },
-     io::{
-         Io,
-         IoCapable,
-         IoKnownSize, //
-     },
-     prelude::*,
--    sync::aref::ARef,
-+    scatterlist,
-+    sync::{
-+        aref::ARef,
-+        new_mutex,
-+        Mutex,
-+        SetOnce, //
-+    },
-     types::Opaque, //
- };
- use core::{
-@@ -83,6 +97,11 @@ pub struct Object<T: DriverObject> {
-     obj: Opaque<bindings::drm_gem_shmem_object>,
-     /// Parent object that owns this object's DMA reservation object.
-     parent_resv_obj: Option<ARef<Object<T>>>,
-+    /// Devres object for unmapping any SGTable on driver-unbind.
-+    sgt_res: SetOnce<Devres<SGTableMap<T>>>,
-+    #[pin]
-+    /// Lock for protecting initialization of `sgt_res`.
-+    sgt_lock: Mutex<()>,
-     #[pin]
-     inner: T,
- }
-@@ -135,6 +154,8 @@ pub fn new(
-             try_pin_init!(Self {
-                 obj <- Opaque::init_zeroed(),
-                 parent_resv_obj: config.parent_resv_obj.map(|p| p.into()),
-+                sgt_res: SetOnce::new(),
-+                sgt_lock <- new_mutex!(()),
-                 inner <- T::new(dev, size, args),
-             }),
-             GFP_KERNEL,
-@@ -178,18 +199,23 @@ extern "C" fn free_callback(obj: *mut bindings::drm_gem_object) {
-         // - DRM always passes a valid gem object here
-         // - We used drm_gem_shmem_create() in our create_gem_object callback, so we know that
-         //   `obj` is contained within a drm_gem_shmem_object
--        let this = unsafe { container_of!(obj, bindings::drm_gem_shmem_object, base) };
--
--        // SAFETY:
--        // - We're in free_callback - so this function is safe to call.
--        // - We won't be using the gem resources on `this` after this call.
--        unsafe { bindings::drm_gem_shmem_release(this) };
-+        let base = unsafe { container_of!(obj, bindings::drm_gem_shmem_object, base) };
- 
-         // SAFETY:
-         // - We verified above that `obj` is valid, which makes `this` valid
-         // - This function is set in AllocOps, so we know that `this` is contained within a
-         //   `Object<T>`
--        let this = unsafe { container_of!(Opaque::cast_from(this), Self, obj) }.cast_mut();
-+        let this = unsafe { container_of!(Opaque::cast_from(base), Self, obj) }.cast_mut();
-+
-+        // We need to drop `sgt_res` first, since doing so requires that the GEM object is still
-+        // alive.
-+        // SAFETY: We verified above that `this` is valid.
-+        unsafe { &mut (*this).sgt_res }.reset();
-+
-+        // SAFETY:
-+        // - We're in free_callback - so this function is safe to call.
-+        // - We won't be using the gem resources on `this` after this call.
-+        unsafe { bindings::drm_gem_shmem_release(base) };
- 
-         // SAFETY: We're recovering the Kbox<> we created in gem_create_object()
-         let _ = unsafe { KBox::from_raw(this) };
-@@ -268,6 +294,45 @@ pub fn vmap<const SIZE: usize>(&self) -> Result<VMapRef<'_, T, SIZE>> {
-     pub fn owned_vmap<const SIZE: usize>(&self) -> Result<VMapOwned<T, SIZE>> {
-         self.make_vmap()
-     }
-+
-+    /// Creates (if necessary) and returns an immutable reference to a scatter-gather table of DMA
-+    /// pages for this object.
-+    ///
-+    /// This will pin the object in memory. It is expected that `dev` should be a pointer to the
-+    /// same [`device::Device`] which `self` belongs to, otherwise this function will return
-+    /// `Err(EINVAL)`.
-+    pub fn sg_table<'a>(
-+        &'a self,
-+        dev: &'a device::Device<Bound>,
-+    ) -> Result<&'a scatterlist::SGTable> {
-+        if dev.as_raw() != self.dev().as_ref().as_raw() {
-+            return Err(EINVAL);
-+        }
-+
-+        let sgt_res = 'out: {
-+            // Fast path: sgt_res is already initialized
-+            if let Some(sgt_res) = self.sgt_res.as_ref() {
-+                break 'out sgt_res;
-+            }
-+
-+            // Slow path: Grab the lock and see if we need to initialize sgt_res.
-+            let _guard = self.sgt_lock.lock();
-+
-+            // If someone initialized it while we were waiting, we can exit early.
-+            if let Some(sgt_res) = self.sgt_res.as_ref() {
-+                break 'out sgt_res;
-+            }
-+
-+            // If not, finish initializing and return.
-+            self.sgt_res
-+                .populate(Devres::new(dev, SGTableMap::new(self))?);
-+
-+            // SAFETY: We just populated sgt_res above.
-+            unsafe { self.sgt_res.as_ref().unwrap_unchecked() }
-+        };
-+
-+        Ok(sgt_res.access(dev)?)
-+    }
- }
- 
- impl<T: DriverObject> Deref for Object<T> {
-@@ -457,6 +522,63 @@ impl<D, R, const SIZE: usize> IoKnownSize for VMap<D, R, SIZE>
- #[cfg(CONFIG_64BIT)]
- impl_vmap_io_capable!(VMap, u64);
- 
-+/// A reference to a GEM object that is known to have a mapped [`SGTable`].
-+///
-+/// This is used by the Rust bindings with [`Devres`] in order to ensure that mappings for SGTables
-+/// on GEM shmem objects are revoked on driver-unbind.
-+///
-+/// # Invariants
-+///
-+/// - `self.obj` always points to a valid GEM object.
-+/// - This object is proof that `self.obj.owner.sgt` has an initialized and valid
-+///   [`scatterlist::SGTable`].
-+pub struct SGTableMap<T: DriverObject> {
-+    obj: NonNull<Object<T>>,
-+}
-+
-+impl<T: DriverObject> Deref for SGTableMap<T> {
-+    type Target = scatterlist::SGTable;
-+
-+    fn deref(&self) -> &Self::Target {
-+        // SAFETY:
-+        // - The NonNull is guaranteed to be valid via our type invariants.
-+        // - The sgt field is guaranteed to be initialized and valid via our type invariants.
-+        unsafe { scatterlist::SGTable::from_raw((*self.obj.as_ref().as_raw_shmem()).sgt) }
-+    }
-+}
-+
-+impl<T: DriverObject> Drop for SGTableMap<T> {
-+    fn drop(&mut self) {
-+        // SAFETY: `obj` is always valid via our type invariants
-+        let obj = unsafe { self.obj.as_ref() };
-+        let _lock = DmaResvGuard::new(obj);
-+
-+        // SAFETY: We acquired the lock needed for calling this function above
-+        unsafe { bindings::__drm_gem_shmem_free_sgt_locked(obj.as_raw_shmem()) };
-+    }
-+}
-+
-+impl<T: DriverObject> SGTableMap<T> {
-+    fn new(obj: &Object<T>) -> impl Init<Self, Error> {
-+        // INVARIANT:
-+        // - We call drm_gem_shmem_get_pages_sgt_locked below and check whether or not it
-+        //   succeeds, fulfilling the invariant of SGTableMap that the object's `sgt` field is
-+        //   initialized.
-+        // SAFETY:
-+        // - `obj` is fully initialized, making this function safe to call.
-+        from_err_ptr(unsafe { bindings::drm_gem_shmem_get_pages_sgt(obj.as_raw_shmem()) })?;
-+
-+        Ok(Self { obj: obj.into() })
-+    }
-+}
-+
-+// SAFETY: The NonNull in SGTableMap is guaranteed valid by our type invariants, and the GEM object
-+// it points to is guaranteed to be thread-safe.
-+unsafe impl<T: DriverObject> Send for SGTableMap<T> {}
-+// SAFETY: The NonNull in SGTableMap is guaranteed valid by our type invariants, and the GEM object
-+// it points to is guaranteed to be thread-safe.
-+unsafe impl<T: DriverObject> Sync for SGTableMap<T> {}
-+
- #[kunit_tests(rust_drm_gem_shmem)]
- mod tests {
-     use super::*;
-@@ -562,4 +684,28 @@ fn vmap_io() -> Result {
- 
-         Ok(())
-     }
-+
-+    // TODO: I would love to actually test the success paths of sg_table(), but that would require
-+    // also implementing dummy dma_ops so that trying to create a mapping doesn't explode. So, leave
-+    // that for someone else.
-+
-+    // Ensures that passing the wrong device to sg_table() fails as we expect, and also ensure it
-+    // skips initializing `sgt_res` since we could otherwise create `sgt_res` with the wrong device
-+    // bound to it.
-+    #[test]
-+    fn fail_sg_table_on_wrong_dev() -> Result {
-+        let (_dev, drm) = create_drm_dev()?;
-+        let wrong_dev = faux::Registration::new(c"EvilKunit", None)?;
-+
-+        let obj = Object::<KunitObject>::new(&drm, PAGE_SIZE, ObjectConfig::default(), ())?;
-+
-+        assert_eq!(obj.sg_table(wrong_dev.as_ref()).err().unwrap(), EINVAL);
-+
-+        // If sgt_res was not initialized mistakenly with the wrong device, this should still fail.
-+        assert_eq!(obj.sg_table(wrong_dev.as_ref()).err().unwrap(), EINVAL);
-+
-+        // TODO: Someday, we should test that creating an sg_table here still succeeds.
-+
-+        Ok(())
-+    }
- }
--- 
-2.54.0
+...and (plain) vdev read moved here.  If (holding the dma_resv_lock()) 
+it's not revoked then vdev is usable/valid.
+
+>> +
+>> +	if (!vfio_device_try_get_registration(&vdev->vdev)) {
+>> +		/*
+>> +		 * If vdev != NULL (above), the registration should
+>> +		 * already be >0 and so this try_get should never
+>> +		 * fail.
+>> +		 */
+>> +		dev_warn(&vdev->pdev->dev, "%s: Unexpected registration failure\n",
+>> +			 __func__);
+>> +		dma_resv_unlock(priv->dmabuf->resv);
+>> +		return VM_FAULT_SIGBUS;
+>> +	}
+>> +	dma_resv_unlock(priv->dmabuf->resv);
+>> +
+>>   	scoped_guard(rwsem_read, &vdev->memory_lock) {
+>> +		/* Revocation status must be re-read, under memory_lock */
+>>   		if (!priv->revoked) {
+>>   			int pres = vfio_pci_dma_buf_find_pfn(priv, vma,
+>>   							     vmf->address,
+>> @@ -1773,6 +1833,7 @@ static vm_fault_t vfio_pci_mmap_huge_fault(struct vm_fault *vmf,
+>>   				    vma->vm_pgoff, (unsigned int)ret);
+>>   	}
+>>   
+>> +	vfio_device_put_registration(&vdev->vdev);
+>>   	return ret;
+>>   }
+>>   
+>> @@ -1781,7 +1842,7 @@ static vm_fault_t vfio_pci_mmap_page_fault(struct vm_fault *vmf)
+>>   	return vfio_pci_mmap_huge_fault(vmf, 0);
+>>   }
+>>   
+>> -static const struct vm_operations_struct vfio_pci_mmap_ops = {
+>> +const struct vm_operations_struct vfio_pci_mmap_ops = {
+>>   	.fault = vfio_pci_mmap_page_fault,
+>>   #ifdef CONFIG_ARCH_SUPPORTS_HUGE_PFNMAP
+>>   	.huge_fault = vfio_pci_mmap_huge_fault,
+>> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> index 733607371082..4b3b15655f1d 100644
+>> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> @@ -27,6 +27,32 @@ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+>>   
+>>   	return 0;
+>>   }
+>> +
+>> +static int vfio_pci_dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma)
+>> +{
+>> +	struct vfio_pci_dma_buf *priv = dmabuf->priv;
+>> +
+>> +	if (priv->revoked)
+>> +		return -ENODEV;
+> 
+> Questionable validity to testing revoked without a lock, but doesn't
+> this also fail to follow the "map regardless, sort it out on fault"
+> paradigm used elsewhere in vfio-pci?  Thanks,
+
+Kind of, though this was intentional.  (I had removed a crappy comment 
+here from the RFC, but should re-add something better...)
+
+You're right that, if we don't test this here, the fault handler ensures 
+safety.
+
+In the revoke ioctl^Wfeature header UAPI comment I'd suggested a 
+revocation prevents a new map (in addition to prevents access to an 
+existing map) with the intention of making userspace easier to debug:
+
+  - I'd rather trace an mmap() failure than a SIGBUS (eg. if another
+    process has revoked my DMABUF and I didn't get the memo).  For a
+    prior revoke this is a reliable & useful test.
+
+  - Even if there's an active race such as userspace doing an
+    ioctl(RESET) at the same time as an mmap() (!) then obviously this
+    check won't always catch it, but when it does then that's useful.
+
+I'd prefer to keep this belt-and-braces check to early-fail (with 
+comment), if you don't mind much.  It _is_ testing revoked outside of 
+any synchronisation as anything we can lock against here doesn't have a 
+useful effect AFAICT.  (Taking the example of a concurrent ioctl(RESET), 
+a revoke still manifests "before" (caught here) or "after" (caught in 
+fault handler).)  Maybe READ_ONCE() wouldn't hurt, if only to indicate this.
+
+
+With thanks,
+
+
+Matt
+
+
+> 
+> Alex
+> 
+>> +	if ((vma->vm_flags & VM_SHARED) == 0)
+>> +		return -EINVAL;
+>> +
+>> +	/*
+>> +	 * dma_buf_mmap_internal() has asserted that the VMA is
+>> +	 * contained within the DMABUF size before calling this.
+>> +	 */
+>> +
+>> +	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+>> +	vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
+>> +
+>> +	/* See comments in vfio_pci_core_mmap() re VM_ALLOW_ANY_UNCACHED. */
+>> +	vm_flags_set(vma, VM_ALLOW_ANY_UNCACHED | VM_IO | VM_PFNMAP |
+>> +		     VM_DONTEXPAND | VM_DONTDUMP);
+>> +	vma->vm_private_data = priv;
+>> +	vma->vm_ops = &vfio_pci_mmap_ops;
+>> +
+>> +	return 0;
+>> +}
+>>   #endif /* CONFIG_VFIO_PCI_DMABUF */
+>>   
+>>   static void vfio_pci_dma_buf_done(struct kref *kref)
+>> @@ -94,6 +120,7 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
+>>   static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+>>   #ifdef CONFIG_VFIO_PCI_DMABUF
+>>   	.attach = vfio_pci_dma_buf_attach,
+>> +	.mmap = vfio_pci_dma_buf_mmap,
+>>   #endif
+>>   	.map_dma_buf = vfio_pci_dma_buf_map,
+>>   	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
+>> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+>> index 10833aabd7fb..db2e2aeae88f 100644
+>> --- a/drivers/vfio/pci/vfio_pci_priv.h
+>> +++ b/drivers/vfio/pci/vfio_pci_priv.h
+>> @@ -38,6 +38,8 @@ struct vfio_pci_dma_buf {
+>>   	u8 revoked : 1;
+>>   };
+>>   
+>> +extern const struct vm_operations_struct vfio_pci_mmap_ops;
+>> +
+>>   bool vfio_pci_intx_mask(struct vfio_pci_core_device *vdev);
+>>   void vfio_pci_intx_unmask(struct vfio_pci_core_device *vdev);
+>>   
+> 
 
