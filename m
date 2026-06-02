@@ -1,209 +1,153 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013028.outbound.protection.outlook.com [40.107.162.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245E13E274D
-	for <linux-media@vger.kernel.org>; Tue,  2 Jun 2026 13:04:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780405498; cv=none; b=Cy0OD6rdm9ZMx+m0bHaYw6WQkmkF0HicxvVpgUaK8M9zzt3hhf0LV274RtU5SI3C/zj29JFcjPktBz4r3yOm4h5KxaebF1QZjbcIAVQsyPIxBulGczAvQFc9MDEYOGShVG5UQtVfEeIoXcP/KPyC6S26yG1skx3c5bft9SxQmbY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780405498; c=relaxed/simple;
-	bh=Lv88enNvVjptEHx4RPDpSYkoiYl4NHCAht/k1YwYRy4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CgzmWeCfhvXcKbw7ARnTK2va1j2OgZTrmafnhH1G99D3ErgQkFNVsmA4jCfMF3G31wSknCDGk8x7I+Peg+QIlGJUqxxSUHQVXInLH758wMSQdUFu6rW6updCXnR9ngkwb6dMXOlL0eWS1gC6qudZXD4zco9CPSG2w/H5BZxH6cc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oYCy8oWL; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C773E3167;
+	Tue,  2 Jun 2026 13:14:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780406084; cv=fail; b=NLiqXB0+kI4GOarehhTSxkRhfAvU0Xpm8jx27XZjxr7wdPgC/sKnbmprf534QDBkCy65jhVZ3SJBxQhhTQlq3ijWf/Ysb7RX+Bq0Y8kI9QbLMYkDMI+jxsENAUh0pLpV1Txl8sFqXSCtl5xy8RrIJCx5RTpjzP834bWiJUfNjak=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780406084; c=relaxed/simple;
+	bh=2+o9JvxK67RAcdeg/4zWJbVk/GFMLvdl06/95f8mU6A=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=FpSUWE71POxPMfEfqSoS5PJ1lXUpOz2foF797xT+jxHVGa+zxyB5NF7zjKtZXUrPotVnXDeVhEMUmDiTCIuXZatkCQev0mgvZDJpeP9mk6xjxVkvV7TGGzh1I+hzdehditvXxFKxUyHhVPimy6kubPnWWoO4HLUtZe5lPiTUcQ0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=cXI76lp7; arc=fail smtp.client-ip=40.107.162.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oYCy8oWL"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-45ebafde87cso7612264f8f.3
-        for <linux-media@vger.kernel.org>; Tue, 02 Jun 2026 06:04:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780405496; x=1781010296; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=H/8nMdqnIqVIuE86ZCCEmz0EQ1iXOszPXfKX9VZoGH4=;
-        b=oYCy8oWLEOXs3ZZpnQ8VOQHoNFjKZT62/QUyW3df6kxvDecqCOK07UnU98cT9bih7d
-         QifFlcWIr+EJiA3Y4YekpYVbMWMA0XqQZb9m0aNzEy+n6CZ9KNJxUBct5gbgm0d6jBJX
-         4RYm7cSM4Fa+MgP775wpjzUTJB2NacljxFREy0lFq+bJunDJIYp2ZV4sTIDkO+Vc1xr7
-         FpcRQcE1R3qM6zq5aytz97WBpu5zXpd39pgEA0GnDnl2ujkjmEdAdRZhqHjKWr+k4Lc4
-         ry5o67NwkoWSsT9Lap7TwhGHQwNn20aUpkBNKTwaaKQ1kQ2Jb1T0oTaxOfTVux7BZHHQ
-         5nZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780405496; x=1781010296;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=H/8nMdqnIqVIuE86ZCCEmz0EQ1iXOszPXfKX9VZoGH4=;
-        b=D/kyKLNtxvyLfQqTykiezA6b1uEHHocKlh3R/QtybjEOD9a8iYXFC5BTI2DRN4ojsh
-         GvrywUL0bbSmQ2bfwXTHtty8kO6IFp9DDFUvp1R9ZLyn1vXTKkPDB71XCz1fNGgudSOu
-         rWJuJKLLusEF6Np0XY7Q+IviKwadBS8M+6RFe1vPc/aDfJgBCgNbHIQUBJm1wGGWdz7V
-         /K/iafeFJ2VyEUI++MqtAruoW6hucDSAXXsdhsxiKu8kt5lFlcO0NA7AFfOqStOcbv38
-         o8SS4Wq6hqnPda4S8S08jFEVp4d07qjZBFtLeHnkQjkC+lFYOfrhO5uoXZyDdOpBGZLT
-         +oRg==
-X-Forwarded-Encrypted: i=1; AFNElJ/Njm/oBrJ88oC2rGr5bY5t1NLNxhXIG1fh7GHTQAJ+exkLaGmNWb+fQpOS1hmt89cQDYL+H+YHliaRtg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwXeakJ5b4lCQTm92smbRsphp9UX9HQ0bbDv34e6KPluy1bgYfD
-	GDmWCGVgfIID50ewmm1fJ5y4RrY5wnEIH4gXSsrovWnBujxlt2sTb34+
-X-Gm-Gg: Acq92OFU1LshJrxmOsU5nWvMnpS6Tqkp/ruMKlyAQ9PHdvgR2ufK12vybqFh1mN98g3
-	LX1zUs1mL+33Wl+vHi0uFsbKWdatZxDnQ/4kqM3yvNAu5j+isL1X0Ggp+lGfyx+MffWK+NTZkP1
-	kA+bHD7zsQjHYWxpMQ7HbnUfOEGnyFn/3jJ6sNJOcmS2Yw207jtr48dU1sz33CXQCeWq6EgtIcb
-	A+jboB97JC6KX+DevMm6omLwuMe1rng7Pp/kzToGCFsgmEwAT04CNIPIctpsU4hzb8T8y76hvZX
-	4nJyeGxQuKOugMEmnzvq0SLkoTxs+q+3fZlLiyTPpTCDc07Z6fx0x8lf93sV7K53g5fLgUTlFac
-	b0q5gwNMxYnoJ83hFO3/DTyYf/jKat0H0k8iMRbMZOnNRnkP9UQx16UMcvn+N8DrNtX6FY472cm
-	q63Qywybteq/UtUvXDVg/iK10F9JE6+5DhlLBxRDVL/PzvJABYA8lDK/zro48mmTc0QbXME9xm3
-	BBPKVq9UA==
-X-Received: by 2002:a05:600c:8105:b0:490:b072:1be6 with SMTP id 5b1f17b1804b1-490b0721e0amr76565325e9.25.1780405495119;
-        Tue, 02 Jun 2026 06:04:55 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef34b834esm33184301f8f.11.2026.06.02.06.04.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 06:04:54 -0700 (PDT)
-Date: Tue, 2 Jun 2026 14:04:51 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Kees Cook <kees@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
- Pengpeng Hou <pengpeng@iscas.ac.cn>, stable@vger.kernel.org, Petr Pavlu
- <petr.pavlu@suse.com>, Richard Weinberger <richard@nod.at>, Anton Ivanov
- <anton.ivanov@cambridgegreys.com>, Johannes Berg
- <johannes@sipsolutions.net>, "Rafael J. Wysocki" <rafael@kernel.org>, Len
- Brown <lenb@kernel.org>, Corey Minyard <corey@minyard.net>, Gabriel Somlo
- <somlo@cmu.edu>, "Michael S. Tsirkin" <mst@redhat.com>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Bart Van Assche <bvanassche@acm.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Laurent
- Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede
- <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Bjorn
- Helgaas <bhelgaas@google.com>, Hannes Reinecke <hare@suse.de>, "James E.J.
- Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen"
- <martin.petersen@oracle.com>, Daniel Lezcano <daniel.lezcano@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jirislaby@kernel.org>, Alan Stern <stern@rowland.harvard.edu>, Jason Wang
- <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eugenio
- =?UTF-8?B?UMOpcmV6?= <eperezma@redhat.com>, Jason Baron
- <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>, Tiwei Bie
- <tiwei.btw@antgroup.com>, Benjamin Berg <benjamin.berg@intel.com>, Ilpo
- =?UTF-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, "David E. Box"
- <david.e.box@linux.intel.com>, "Maciej W. Rozycki" <macro@orcam.me.uk>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, Peter Zijlstra
- <peterz@infradead.org>, Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik
- <gor@linux.ibm.com>, Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
- <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, Vinod Koul <vkoul@kernel.org>, Frank Li
- <Frank.Li@kernel.org>, Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen
- <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, Alexander
- Potapenko <glider@google.com>, Marco Elver <elver@google.com>, Dmitry
- Vyukov <dvyukov@google.com>, Andrew Morton <akpm@linux-foundation.org>,
- John Johansen <john.johansen@canonical.com>, Paul Moore
- <paul@paul-moore.com>, James Morris <jmorris@namei.org>, "Serge E. Hallyn"
- <serge@hallyn.com>, Georgia Garcia <georgia.garcia@canonical.com>,
- kvm@vger.kernel.org, dmaengine@vger.kernel.org,
- linux-modules@vger.kernel.org, kasan-dev@googlegroups.com,
- linux-mm@kvack.org, apparmor@lists.ubuntu.com,
- linux-security-module@vger.kernel.org, linux-um@lists.infradead.org,
- linux-acpi@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
- qemu-devel@nongnu.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-pm@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-serial@vger.kernel.org,
- linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-arch@vger.kernel.org, netdev@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 01/11] params: bound array element output to the
- caller's page buffer
-Message-ID: <20260602140451.2e3e6622@pumpkin>
-In-Reply-To: <ah699hwLxIIOZ0-7@ashevche-desk.local>
-References: <20260521133315.work.845-kees@kernel.org>
-	<20260521133326.2465264-1-kees@kernel.org>
-	<ah699hwLxIIOZ0-7@ashevche-desk.local>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="cXI76lp7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H/0rhaLJ0+vj9Ph1tAFkQjO6xnvolsGgTLS/NGZvjuhBazc/z49j3e5TKXGRlelS+fbznS0xGZGp9fORhByhe3pMNvz5oS+044qLkMvIGm0i9EyOAh2WOWgVoW5TMP+ExDBY/lshS3pold4ActgqzIg14FJ6tlwNG9eA4r3psZUYCz45mO/Lq6NkDVEjaAL+HKd8PPp1oZOXcohjdajHH8R3t9cnuTFX8leT2piRLUtU2Ph1u3mUhGEyupBkpQqSD5aoVCDwUcy8zjlVyZroX9BR1e/WcMbsepv0SYRE/oXFPoj84173WbF5cXyC94mpdVgGsjD1IpcrgWX9nrRAIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5hdltZz20niqAEWoexAYER4FAMnWDSX/Zz+jrN3x+yE=;
+ b=YcpZH2SderBsjYZlQnz1JHLtRIbgRWyJNsrgTRoCjpas46sWkR9OUNI1mDavtRFTu05NMsdN4QGU5SzaFBKrqgYyoLEDN6JvvEVSPTTbeV7pnkxQFNbIeMRrnDNd7O9mMui46ptlSiLel167DSl6gtGqM5vWWBVl3bd99CR5I7inRaF0BDFQIKIwqVwAs1Tc8yum15OaDz0578G4tto0tK5kopmN8tGK5neRbjmsbj27kiTZC9jMbbRfs1FrppkZnmS0gSpo6mHDvuvj6HZbi95SCFxMLR7jQwFzxXc541YOrs/ap/p0mSKdyBuSVE1y0c/4bw5VroEmEUsQp4AaJg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5hdltZz20niqAEWoexAYER4FAMnWDSX/Zz+jrN3x+yE=;
+ b=cXI76lp7qfDfMcwG0O5f4TFTNtKB5AWWackTq3YvtC/RYHjWeMoYGhTMsoYUczxo9F2KMi2l1xZwzT43PqQjl/D7QSu9DXO5t/PLhG4Z1QoOZJ03/4zP4brWR2i68/4Co4ZnLoac9T1pb/VoBn+MbGMc148PVKi4wYmV+6puI9FjccV34pA8KhKD/k7JFJnA7MrvpEtbMAh5UxP/J/ttxWYmkinAyarDSlCNUKNmGH7OfWpcAc3vUtIWev+J9KLtHdamwIULFGQvcf1w6qysBhGUO3JWoqmybdH7zSRC8f3P98Cyd2CnKome1DvePN32Ph5iQrN9PmFRQCSEndqDKQ==
+Received: from CWLP123CA0101.GBRP123.PROD.OUTLOOK.COM (2603:10a6:401:5f::17)
+ by FRWPR10MB9256.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:d10:183::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Tue, 2 Jun 2026
+ 13:14:39 +0000
+Received: from AMS0EPF00000191.eurprd05.prod.outlook.com
+ (2603:10a6:401:5f:cafe::a3) by CWLP123CA0101.outlook.office365.com
+ (2603:10a6:401:5f::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.17 via Frontend Transport; Tue, 2
+ Jun 2026 13:14:39 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AMS0EPF00000191.mail.protection.outlook.com (10.167.16.216) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Tue, 2 Jun 2026 13:14:39 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 2 Jun
+ 2026 15:18:23 +0200
+Received: from localhost (10.130.77.119) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 2 Jun
+ 2026 15:14:38 +0200
+From: Alain Volmat <alain.volmat@foss.st.com>
+Date: Tue, 2 Jun 2026 15:14:00 +0200
+Subject: [PATCH v2 03/13] media: stm32: dcmipp: bytecap: protect CMIER
+ register access
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-ID: <20260602-stm32-dcmipp-pixel-pipes-support-v2-3-3c76b5f93157@foss.st.com>
+References: <20260602-stm32-dcmipp-pixel-pipes-support-v2-0-3c76b5f93157@foss.st.com>
+In-Reply-To: <20260602-stm32-dcmipp-pixel-pipes-support-v2-0-3c76b5f93157@foss.st.com>
+To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Alain Volmat
+	<alain.volmat@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+	<alexandre.torgue@foss.st.com>
+CC: <linux-media@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<sakari.ailus@linux.intel.com>
+X-Mailer: b4 0.13.0
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS0EPF00000191:EE_|FRWPR10MB9256:EE_
+X-MS-Office365-Filtering-Correlation-Id: c3c96fb4-f674-408e-81a7-08dec0a8e70f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700016|22082099003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	jRyjx7dbOs2zQEpF9KaVkc7yIbAp7xXC2b+BKbmMS4waAN1Ug8XLbF3pI52auMFBuZCnGCJ5z3Jpwx5oNn4VYW9WSGUQbWeT+HNBptPAHst6JaYhsn8/wgGBcj8TtVxJXB789H/ZzVpsn3ShDXNIGazk2APbiEDbqZCXpgWJUBBni0JsndLbbqoBHu+5rocmwcvZhbxp2QQ9wojsmX99LLRb089z7UqZA0FAIWIf2SJtFP7WvsMVg5c6DA23YrHptJFgLK1iXhMRlD+tEigSe+v7iHIdUQJb7zwnqOT+mC+UhzEQZ6tdfJYB0ELQ9Tb23qPOn4WwAjFto1hMd7gxToI3RPSmT4bLJUBTLs7jm3sMq8mPg+AU6z9OUknKc2w1XPkc1RQu93tWU4pSbT6G8mX0jyUM8rJ+AqMlDOqKEwKqIvz5uhOtxnmKZq/wM528wQxE/9QtX1Ncluq9CJz2LwnMc1oAREf9YEl0DN5ZiidAcFDdO2PQW0A2ZCckW7KZnlieF0dGQxClLW4o/bIhRyfx5yNzwo9Sg0cAS/4BoWnAsGqS2Yp7D9DENNPM4n2sNho4mxxhUOI1I9E8E26SBqWqCEJLz4M3IWhKXI+bJ+4W8szTYpLsnmV0HcNvR3hwchkTNkyjgt23z7Ng4B4s54WNaWTPC1KH3nAt7JmGdJhZ3EIBJCj6l+n6DsZV4dLQfyCOhdJKsa77au07YubTOcPTkxiC4QqL8JItJaIK0RI=
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	R48+SpDs6qFfwcUYY/ULZvq6YP1MwtzxfHDEPGON86ISAIxow36kjZDiGbQDEH3qsTuvMm8s6yh9QrsvVsFPI7H31lU22Ml/+eFEOrbUvvXQP+6tXl/HiF5CBuvOM1SrXnkAuGnWOMCskJUONFPUI2DNk9ZqlgMk92rfeAvfhgqZUYAmbtZotv+sGpv6G+CJmfGPeuXyMgEx9q2BydVGCQ6JgMZ5NBe+PZKbtjQawkpJpTWC6ZG4zTiPKczS1sRMahN+t+usDlMqwrQ9IQdRVNR9DhlkPPrwsSuCX1YoHsdpY/WKppw4CM/DqcDibild3cQplSOjc5wcrdcwbe7+4y+9h9AQeXXKOTrXy1GR4axAfBcdqB1nWT365b3h7yLl9eNGs9+KCuZQMz+ach8LZsRJZ/oN2GoBinVjkSJZtkbPc5k0isLRGZpcOPzIXzOB
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 13:14:39.5999
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3c96fb4-f674-408e-81a7-08dec0a8e70f
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS0EPF00000191.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR10MB9256
 
-On Tue, 2 Jun 2026 14:26:46 +0300
-Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
+CMIER register is common between all pipes and thus needs to be
+protected from concurrent access.  The struct v4l2_device structure,
+unique to the whole driver embeds a spin_lock which can also be used
+by the driver itself as explained in its description.  Rely on this
+spin_lock to protect from concurrent access to the CMIER register.
 
-> On Thu, May 21, 2026 at 06:33:14AM -0700, Kees Cook wrote:
-> > 
-> > param_array_get() appends each element's string representation into the
-> > shared sysfs page buffer by passing buffer + off to the element getter.
-> > 
-> > That works for getters that only write a small bounded string, but
-> > param_get_charp() and similar helpers format against PAGE_SIZE from the
-> > pointer they receive. Once off is non-zero, an element getter can
-> > therefore write past the end of the original sysfs page buffer.
-> > 
-> > Collect each element into a temporary PAGE_SIZE buffer first and then
-> > copy only the remaining space into the caller's page buffer.  
-> 
-> ...
-> 
-> > +	elem_buf = kmalloc(PAGE_SIZE, GFP_KERNEL);  
-> 
-> get_free_page() (or how it is called)?
+Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+---
+ drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-The kmalloc() should be faster and I think has to be aligned.
-There is another patch set to replace get_free_pages() with kmalloc().
+diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c
+index 990bbaaf4bda..dac7338dd981 100644
+--- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c
++++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c
+@@ -436,7 +436,9 @@ static int dcmipp_bytecap_start_streaming(struct vb2_queue *vq,
+ 	dcmipp_start_capture(vcap, vcap->next);
+ 
+ 	/* Enable interruptions */
++	spin_lock(&vcap->vdev.v4l2_dev->lock);
+ 	reg_set(vcap, DCMIPP_CMIER, DCMIPP_CMIER_P0ALL);
++	spin_unlock(&vcap->vdev.v4l2_dev->lock);
+ 
+ 	vcap->state = DCMIPP_RUNNING;
+ 
+@@ -492,7 +494,9 @@ static void dcmipp_bytecap_stop_streaming(struct vb2_queue *vq)
+ 	media_pipeline_stop(vcap->vdev.entity.pads);
+ 
+ 	/* Disable interruptions */
++	spin_lock(&vcap->vdev.v4l2_dev->lock);
+ 	reg_clear(vcap, DCMIPP_CMIER, DCMIPP_CMIER_P0ALL);
++	spin_unlock(&vcap->vdev.v4l2_dev->lock);
+ 
+ 	/* Stop capture */
+ 	reg_clear(vcap, DCMIPP_P0FCTCR, DCMIPP_P0FCTCR_CPTREQ);
 
-Although all these 'show' functions should really head to using a safer
-interface.
-Although, at the moment, it is really difficult to find the ones that
-are guaranteed to be passed a page aligned buffer.
-
--- David
-
-> 
-> > +	if (!elem_buf)
-> > +		return -ENOMEM;
-> > +
-> >  	for (i = off = 0; i < (arr->num ? *arr->num : arr->max); i++) {
-> > -		/* Replace \n with comma */
-> > -		if (i)
-> > -			buffer[off - 1] = ',';
-> >  		p.arg = arr->elem + arr->elemsize * i;
-> >  		check_kparam_locked(p.mod);
-> > -		ret = arr->ops->get(buffer + off, &p);
-> > +		ret = arr->ops->get(elem_buf, &p);
-> >  		if (ret < 0)
-> > -			return ret;
-> > +			goto out;
-> > +		ret = min(ret, (int)(PAGE_SIZE - 1 - off));  
-> 
-> It's usually discouraged to use castings in min/max/clamp. Can we make ret long
-> or do something different here?
-> 
-> > +		if (!ret)
-> > +			break;  
-> 
-> > +		/* Replace the previous element's trailing newline with a comma. */
-> > +		if (i)
-> > +			buffer[off - 1] = ',';  
-> 
-> Can't we do this after with help of strreplace()?
-> 
-> > +		memcpy(buffer + off, elem_buf, ret);
-> >  		off += ret;
-> > +		if (off == PAGE_SIZE - 1)
-> > +			break;
-> >  	}
-> >  	buffer[off] = '\0';
-> > -	return off;
-> > +	ret = off;
-> > +out:
-> > +	kfree(elem_buf);
-> > +	return ret;  
-> 
+-- 
+2.43.0
 
