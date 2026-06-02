@@ -1,246 +1,178 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E057B3DC857
-	for <linux-media@vger.kernel.org>; Tue,  2 Jun 2026 12:14:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07EAB318ECD
+	for <linux-media@vger.kernel.org>; Tue,  2 Jun 2026 12:33:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780402490; cv=none; b=aSLF9Jxu+jngMu8cPobJT58dhqAb/QxCHuEFFgls1NhDq90bHOQ0rnC9Tw2jGU5sXoU/TuqiUehB7tbjLWGhNkEzcnZI15F7o9t0ors86CpydWEYg3iBKmm1v6izzEG+PtKjANtu+HeGh2KghsEoKLmkMvXWY/y29WvPLenfCjc=
+	t=1780403629; cv=none; b=u4NIVIOcdcWgZuPVzXiWtHHIM4b0PztpuZQ8rsyucJodU8ORXni2M7Z8r6y8OFtnRdY6Eg1yDKu3G4MykHAhSpLBMO13ABYE+rsuFOM5NBzr6gU0k8tKLlxILrqQFMj16UBKrVrFWw64L7h0dLbh6UlP+Bz1pZoF+mbcXwQos5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780402490; c=relaxed/simple;
-	bh=sNCjBWDNan1FJgCoxcb/iHPwiqPvsLiiHiw/iQ2FqiY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=B4X2z9mLCFh7Mol4zHM/bSjNy/aGQZVM4QklUsDGSuVzrwfv6j0HB2mzHpButUq0X4B3kbtiXBstbxXKiQd+MhygTd0oFRTqB7qi2Gr2IJ9j9VIZ+GSwLbGy/6Ysm5Wk156N773HGtolaSzvqDZzMLu9RAmXWOqmoXjbN2sXL1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=sQ8Jo/8H; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1780403629; c=relaxed/simple;
+	bh=Dt7ynl7RjMDm10IwkFbV7yaqQ3XCHkv1Jhl7dMLZbl4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WH4MJl8VhXz7pY4lZZVcsfzjkEetCUmdElbsBDhgLjvoV15Xk7aEQ3OxUwlEzSqDc5PGDNpfSm+1xrnyKCHmDDgdJVraCaPosWgB2a30XfPpIlPrZQSi7MJRHvHCsLcHypyIbzTWAll1bikWOdX74qmgsF8wNii0uZmZDCljzfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=Mjg0KMTz; arc=none smtp.client-ip=209.85.160.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="sQ8Jo/8H"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gV8h63Nfcz9t2R;
-	Tue,  2 Jun 2026 14:06:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1780402006; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=v0TvCuZ8ET2HwW7HOhyfPPGZt6fmcpbq6yTEF8pUxTE=;
-	b=sQ8Jo/8HL5dA69lQvsmFAp2DqVnu0b4pZlaCFEIhyG0cPsJPkcCkyoY+YOTLKI2FwBtsn4
-	doP37R5cM/Erryd8+aLI8n/t5bsw8Y7JeOvBjjKFXafY66PcBzpf7wz8Un/yoFpUqs6/Zc
-	8mRhtAH8A+e/ODLv2F8rdgDluGNPwEejATC4i7A9ejlxPlYMMCSh5NSqdjYuZH7Tc6TadB
-	BWbqhdhm8m087QaWYhXBHjZUMtsjHVKcdnxJoZPMwr66X3SQEy0eKlDKCTg75h6hXnrPvg
-	LPGYkbHDtEUa+hvF1idvQ5f42iyukuPzVUZb6XKrEZIss5FntJs2BCuh2TdWBw==
-Message-ID: <4bf6e916efe54bab66defda6fffea8c41358b3cc.camel@mailbox.org>
-Subject: Re: [PATCH 3/4] rust: Add dma_fence abstractions
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Alice Ryhl <aliceryhl@google.com>, phasta@kernel.org
-Cc: sashiko-reviews@lists.linux.dev, linux-media@vger.kernel.org, 
-	ojeda@kernel.org, Boris Brezillon <boris.brezillon@collabora.com>
-Date: Tue, 02 Jun 2026 14:06:43 +0200
-In-Reply-To: <ah7FjDdU6zt65qId@google.com>
-References: <20260530143541.229628-5-phasta@kernel.org>
-	 <20260530150622.393FC1F00893@smtp.kernel.org> <ah1c3NSU-4UkdUhb@google.com>
-	 <a3d09b270e6effb6f2bfb5d7ba8de48e3c2c4081.camel@mailbox.org>
-	 <CAH5fLggvxGwJkAp+VqG7pA-e2zM-T8_DR0DeCiZiJyM+o51DuQ@mail.gmail.com>
-	 <24ef07ed85d9e7aa7f9d3a96301c4c15bc0f2315.camel@mailbox.org>
-	 <ah2M2a_4PneZpjTS@google.com>
-	 <16dff07d28fca94749f14e9c91e6f812f605d6e5.camel@mailbox.org>
-	 <ah7CGySkyE7mSM8a@google.com>
-	 <7a978596279eca99cd41ca46606c7e5a6a38e801.camel@mailbox.org>
-	 <ah7FjDdU6zt65qId@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="Mjg0KMTz"
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-5174a34800fso26645811cf.3
+        for <linux-media@vger.kernel.org>; Tue, 02 Jun 2026 05:33:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1780403626; x=1781008426; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=3fuMy8ZTlB4sZmM4SRNfS45Rtpr0e2y/Uhs3uZMD108=;
+        b=Mjg0KMTzNzeCi7FV4Cglipctnd4qTRNJBs44FcFTysdYrVy+WlGmP/0GDFu0J+wJ7m
+         R/AuPEohevy1QNUE+WUDGubmJcDZZnffsV7i/Zze94JkqRPhbPdy15Qk6yh0s9q2hu1/
+         bI7dm1G26H7om23e5xJModDeVrIOi0meO3NUWse+J5lk5WegiPpkj76Qz79IXx4wghAH
+         J1I3OvFvwHvZLYWvaUMDTJFwu8CeiZpFpTAa6VbXuL1p2SxsoyL2H/fX/865+UB4pvvq
+         PhJR1KIiS2V1O2Xw5dcvwmRIXL5LbfWF9nRanp+5gjV4eMn6+GEiDs6cHaCPjs+09FpH
+         tsZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780403626; x=1781008426;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=3fuMy8ZTlB4sZmM4SRNfS45Rtpr0e2y/Uhs3uZMD108=;
+        b=lAYlXxZSdYjmVGqoZB141KEHq8bssgCCWi7ww9rtXTH9K7KxTzQ1YMVs9SzTfbFfrJ
+         KPZhNPqQf42cZNnrOypbzUFv41viwMURt0leuVVLrgzGWndLVadU8tPI1wQq1UxNJ0EI
+         ajMI6yReo2Il7mhVM/Q3U+34MzLscRPXl7q/IswTQ9fUJkTurivAWMKEynnrMxmCO4W6
+         YO72ysl0uh/ZxdGtlF+kK1SPOtrq5MkHMedLBVjX3ZvFiy9hMNg0dZNPMyi9SKI4UjDv
+         Zzy399ZzwjKWR1Z1W1SwutQUeaicZBlrHcmp8x9C+SKgOpVRozf37Pi8jH97f5ZAJ1cs
+         KSFg==
+X-Forwarded-Encrypted: i=1; AFNElJ/Bo/vdo5mkJwy2kEpTIPARj7EemLKusjakLRWnueanIyBKL2GlbFnLxGDzpZ8RvgDqwAaz1F2dthn7YA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwaYt6NkDR5yW8faFmPw51hCs7RoQIv4l4Wa+y+0yXUgQL0Lx9+
+	MyA21fuFv49G7E9cKJNfO9XEA+uF1K5vYXbNb2o+5Swu/ilB/2iAAhqknRnSiKPXf+A=
+X-Gm-Gg: Acq92OHfqQ0n/AGKHqnsjF54EDEZ8RGw2Xsdfa92e/FDebS2XqcpzlWub5g/nvIYM6r
+	P39v8kY6RJA5s+dTSPI0lvFZeW8fGPKGq60EcGJScJF7KT/GvwL4Z7fBuQQxMQXltw7X5wl/zgs
+	sqjdz8QMGOpi404Cxp+WZuKOvesEkqAVUW/zo2/cCIlvW9aMpcPs8TjGxuE992gv7L/O9z6Kyi5
+	+ASIT5YRoUFLn1By15Pk9BrHBIiqTEpWgjurTp0d6RsZeK596QY8OApDpkhH2aNi3S4XzXbGeAQ
+	VCXwYLcCffJdtzMXJEuDFzkgY47+0i07Rhf7dLLAzQfHyexUJHJ5Pg7DzHoE+tN2lZNjXwslQvj
+	kpPjjIj0hQI4G/TFPxxwhVtth0lofWN5/JQ8RLpkhBMvSLyipkQtdZlGrvTOP50ahW+8xt2k5nX
+	Z+Ej10KKOlW6zZjgwtm8LBX/hYRNEgSLstt+Cm/riW3ehTAtZ4GtuBgLmZzwMw/KK1IetOlc/uf
+	R4CIe71tdTWqg0G
+X-Received: by 2002:a05:622a:190a:b0:509:2527:d789 with SMTP id d75a77b69052e-5173a5c05ecmr228232631cf.6.1780403625864;
+        Tue, 02 Jun 2026 05:33:45 -0700 (PDT)
+Received: from ziepe.ca (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net. [47.54.130.67])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51741d6a240sm78686221cf.18.2026.06.02.05.33.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Jun 2026 05:33:45 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1wUOJU-00000003m5x-3DKO;
+	Tue, 02 Jun 2026 09:33:44 -0300
+Date: Tue, 2 Jun 2026 09:33:44 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Kees Cook <kees@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>, stable@vger.kernel.org,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Richard Weinberger <richard@nod.at>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Corey Minyard <corey@minyard.net>,
+	Gabriel Somlo <somlo@cmu.edu>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Leon Romanovsky <leon@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, Hannes Reinecke <hare@suse.de>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Jason Wang <jasowang@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
+	Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>,
+	Tiwei Bie <tiwei.btw@antgroup.com>,
+	Benjamin Berg <benjamin.berg@intel.com>,
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+	"David E. Box" <david.e.box@linux.intel.com>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	John Johansen <john.johansen@canonical.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Georgia Garcia <georgia.garcia@canonical.com>, kvm@vger.kernel.org,
+	dmaengine@vger.kernel.org, linux-modules@vger.kernel.org,
+	kasan-dev@googlegroups.com, linux-mm@kvack.org,
+	apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
+	linux-um@lists.infradead.org, linux-acpi@vger.kernel.org,
+	openipmi-developer@lists.sourceforge.net, qemu-devel@nongnu.org,
+	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	linux-rdma@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-serial@vger.kernel.org, linux-usb@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net,
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org, netdev@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH 01/11] params: bound array element output to the caller's
+ page buffer
+Message-ID: <20260602123344.GG2487554@ziepe.ca>
+References: <20260521133315.work.845-kees@kernel.org>
+ <20260521133326.2465264-1-kees@kernel.org>
+ <ah699hwLxIIOZ0-7@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: 52e53dd3c7b68597cf2
-X-MBO-RS-META: rx6eka3p495tyg3ufqr7nrpzwutccmgs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ah699hwLxIIOZ0-7@ashevche-desk.local>
 
-On Tue, 2026-06-02 at 11:59 +0000, Alice Ryhl wrote:
-> On=20
+On Tue, Jun 02, 2026 at 02:26:46PM +0300, Andy Shevchenko wrote:
+> On Thu, May 21, 2026 at 06:33:14AM -0700, Kees Cook wrote:
+> > 
+> > param_array_get() appends each element's string representation into the
+> > shared sysfs page buffer by passing buffer + off to the element getter.
+> > 
+> > That works for getters that only write a small bounded string, but
+> > param_get_charp() and similar helpers format against PAGE_SIZE from the
+> > pointer they receive. Once off is non-zero, an element getter can
+> > therefore write past the end of the original sysfs page buffer.
+> > 
+> > Collect each element into a temporary PAGE_SIZE buffer first and then
+> > copy only the remaining space into the caller's page buffer.
+> 
+> ...
+> 
+> > +	elem_buf = kmalloc(PAGE_SIZE, GFP_KERNEL);
+> 
+> get_free_page() (or how it is called)?
 
-[=E2=80=A6]
+I thought modern mm guidance was to use kmalloc whenever possible and
+not use get_free_page() unless you intend to use the struct page bits?
 
-> > >=20
-> > > If you don't implement Sync, then DriverFence cannot be stored in an
-> > > Arc. I wouldn't take away that ability unless you have to, and I don'=
-t
-> > > see anything in the DriverFence API that would mean you can't do that=
-.
-> >=20
-> > Nope. We explicitly agreed on this design.
-> >=20
-> > Just 1 DriverFence. Just 1 party that can signal it.
-> > Note that we also agreed upon the Driverfence disappearing with
-> > .signal(), which certainly prevents several from existing, unless you
-> > do an Option.take()
->=20
-> I would like to clarify that I'm not suggesting any changes to the
-> design. Implementing Sync is not the same as having multiple driver
-> fences.
-
-I mean, I guess one can do that. But it's up to the driver then to see how =
-it can signal its fence.
-
->=20
-> > > > > > > =C2=A0so even though
-> > > > > > > the fence context may be valid for another grace period, the =
-*pointer*
-> > > > > > > to the fence context is not. The pointer could have been zero=
-ed by the
-> > > > > > > destructor.
-> > > > > >=20
-> > > > > > That particular pointer to the DriverFenceData could have been =
-zeroed.
-> > > > > > But potential other accessors have already crafted themselves a=
- new
-> > > > > > pointer to the, by the power of RCU, still valid data. That new=
- pointer
-> > > > > > is container-of-ed from struct dma_fence *f.
-> > > > >=20
-> > > > > I'm not talking about the pointer to DriverFenceData, I'm talking=
- about
-> > > > > the pointer to the FenceCtx, or the pointer to the data (if F is
-> > > > > RcuBox).
-> > > >=20
-> > > > Yeah, but the backing memory is still alive. And new pointers to th=
-at
-> > > > memory get crafted by the accessors. If a callback accesses the dat=
-a
-> > > > through `container_of(Fence)`, it gets a new pointer.
-> > > >=20
-> > > > So what's the problem?
-> > > >=20
-> > > > Where is the invalid pointer that someone is accessing?
-> > > >=20
-> > > > >=20
-> > > > > The Arc type is not a type that opts-out of &mut =3D=3D exclusive=
-, so the
-> > > > > second drop_in_place() above is assumed exclusive access to the
-> > > > > Arc<FenceCtx<F,C>> field.
-> > > >=20
-> > > > OK, so I think I see the problem. So the invalid pointer is
-> > > > Arc<FenceCtx=E2=80=A6>? And potentially the <F> pointer (although w=
-e don't have
-> > > > a picture yet as to how that would be accessed through other callba=
-cks.
-> > > >=20
-> > > > > =C2=A0If another thread obtains a pointer to the
-> > > > > FenceCtx via reading the fctx field of the DriverFence in paralle=
-l with
-> > > > > this, then that's not allowed because the drop_in_place() call ha=
-s
-> > > > > exclusive access to that field.
-> > > >=20
-> > > > I think I have been asking in several of our meetings in the past
-> > > > whether it is actually a problem to access data that has been dropp=
-ed()
-> > > > IF we know that drop does not cause UAF and the answer was kind of =
-like
-> > > > a "well if it does not actually get freed=E2=80=A6"
-> > >=20
-> > > Ok, well, IMO the simplest approach is to say you can't. There may be
-> > > roundabout ways to do it, but I would suggest that we just ... don't.
-> >=20
-> > Ack.
-> >=20
-> > >=20
-> > > > Anyways.
-> > > >=20
-> > > > It would seem the way to get this right is then
-> > > >=20
-> > > > synchronize_rcu();
-> > > > drop_in_palace(data);
-> > > >=20
-> > > >=20
-> > > > Agreed?
-> > > >=20
-> > > > This would then mean, however, that every time a fence drops, you h=
-ave
-> > > > to wait a grace period.
-> > > >=20
-> > > > Or maybe stuff DriverFenceData into an RcuBox, too, and defer its
-> > > > dropping.
-> > >=20
-> > > That would work, but I think we can do better and avoid the
-> > > synchronize_rcu() along these lines:
-> > >=20
-> > > unsafe trait RcuRevocable {
-> > > =C2=A0=C2=A0=C2=A0 unsafe fn rcu_revoke_in_place(ptr: *mut Self);
-> > > }
-> > >=20
-> > > This trait provides a method that's like drop_in_place(), except that
-> > > when you use this destructor, the value remains usable for one grace
-> > > period. You could implement it for RcuBox, and for any Copy type, and
-> > > for ARef<T> when T is cleaned up with rcu, and probably also other
-> > > stuff.
-> >=20
-> > I mean, this cannot be magic. It also boils down to executing one RCU
-> > callback per DriverFence dropping.
-> >=20
-> > Is there a significant difference to stuffing DriverFenceData into an
-> > RcuBox?
->=20
-> Do you mean hard-coding that the user-data of a driver fence is always
-> stored in an RcuBox?
-
-
-I'm talking about this:
-
-
-
-impl<F: Send + Sync + DriverFenceAllowedData, C: Send + Sync> DriverFenceAl=
-location<F, C> {
-    /// Create a new allocation slot that can later be used to create a ful=
-ly
-    /// initialized [`DriverFence`] without the need to allocate.
-    pub fn new(fctx: Arc<FenceCtx<F, C>>, data: F) -> Result<Self> {
-        let fence_data =3D DriverFenceData {
-            // `inner` remains uninitialized until a [`DriverFence`] takes =
-over.
-            inner: Fence {
-                inner: Opaque::uninit(),
-            },
-            fctx,
-            data,
-        };
-
-        // In order to support the C dma_fence callbacks, it is necessary f=
-or
-        // a `Fence` and a `DriverFence` to live in the same allocation,
-        // because the C backend passes a dma_fence, from which the driver =
-most
-        // likely wants to be able to access its `data` in `DriverFence`.
-        //
-        // Hence, we need the manage the memory manually. It will be freed =
-by the
-        // C backend automatically once the refcount within `Fence` drops t=
-o 0.
-        let data =3D RcuBox::new(fence_data, GFP_KERNEL | __GFP_ZERO)?;
-
-        Ok(Self { data })
-    }
-
-
-This way, the entire DriverFenceData will remain valid for an
-additional grace period. I suppose this would solve your pointer-
-invalid concern.
-
-However, it appears like overkill to me because the refcounting + C
-backend already ensure that nothing drops too soon, and the backend
-frees with kfree_rcu(), so=E2=80=A6
-
-
-P.
-
-
->=20
-> Alice
+Jason
