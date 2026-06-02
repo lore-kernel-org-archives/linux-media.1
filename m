@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5EE3D16F5;
-	Tue,  2 Jun 2026 23:15:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5043D34B2;
+	Tue,  2 Jun 2026 23:15:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780442147; cv=none; b=o2oms8L6RMebD9MoHglczrwwSzluzV+VqWhIEo9oSGqyHdjEqOWhek1p0rijAfjFy2nidzyhwGH/x7e34Qb3uME7Qv0TuK+6APhG0CnSsbo03f2tqsChSVTbD/pYPcnUsNGMYVT1b4UQ27aOL/AyEsq1q9PhfhKZaP8MUqU9RGw=
+	t=1780442149; cv=none; b=JMWjCVkQVkjiA3MEPmgE4ANNoDeSgSwBJmEN66QzwuhLmPJK9PioB1Xc5r9GtPPGmhJBWccDwYXDGaJbhWmYoDb1uHzgQwIQk477aoMyv7IdEVtizzDv10KXzpLuqspcwWofSRNKvaNxH34YNUQJ6SXWH9mCbL/Xfc9vj3fJJ00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780442147; c=relaxed/simple;
-	bh=wjegPUbJizYHzlt7m7SurwYFezlj/v1w7gh8+nfoLss=;
+	s=arc-20240116; t=1780442149; c=relaxed/simple;
+	bh=CpP3MYL/xZuRc94/LoWCpiHox/E3LaJFlCf6IHNIbRg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To; b=R30IwSaTqdyqtAbAi0wc3jbGIs3B2XLmneYeW2HkCJorpD88ms1d28gB8NQVaKkrEk1nvKdQfmqSfUy05HaOj6l3dGwzgNdZ8423XfXODEXT66brS75pWzwhCFI6pDqPdiOZtPYcI/tg4Qf6rsF8lTqRG4HOQZk2+4/Djn/08Xo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N2mPJg3k; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To; b=WFQOPcelLOsfllGo+rcHlMdsGBheZTMIE4z8+7CrxFfQLff2HAv4Nari/ogtQfGaopjJznSrQk/KD7A46BNRg916w90RYpx9/8jTAXxTt82fRWbQjB99xQoFPkh3hJOiFpQy3Kx9xplNQmIMlLtqNPf7vmOT7owS+auEaerJ5I0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CrLtsJ+t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N2mPJg3k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3DE1F00899;
-	Tue,  2 Jun 2026 23:15:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CrLtsJ+t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6C651F00893;
+	Tue,  2 Jun 2026 23:15:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780442146;
-	bh=m1CzT/FegTVhiz2V/jIdgcuKX7uJJJRBorHZPlYKY2o=;
+	s=k20260515; t=1780442148;
+	bh=1C0bl9AgD0fcY+yZTAXnC99W2qoG0oz9eOdEYIvhZ4k=;
 	h=From:Date:Subject:References:In-Reply-To:To;
-	b=N2mPJg3kZyWLmhsnrEjf07ebPGAYhX7UGDiTNy/w32GHULQdRS47NNrd/Ma64P/4F
-	 GdArmxlAtEAJxfqVHU3B/aVzDmSAGX71oAnYkqMJsXpqElgD5vaKJxtT7X7ZH0On3s
-	 9OJulxoi8MdV1iI/cRraWf9bqaq4D6bkHavrL28IcUishg4bFz3K+NTyhswXFlgLU5
-	 E7xCJ6zL4RHwlm5ycq4QcAxq2EwDY+WybmAShvMN5D5rWDDC0ZBE005CofgPz3Mlfk
-	 CzyjkN02ISKHZN957qFTzQwfrYNnekniUYnlEX0+5rZlKshxZ8iTrQo98OM+fVsbaU
-	 vKYU9Mlsn70Yg==
+	b=CrLtsJ+tl9jz9wZ3yjvcE1f7AVILegSbfc06j7Gv7jtM/z31KGxQLQIAhiIYuMxgh
+	 nYEDkPtMPRAH6EIcdLoapmk3AkKqKjYh7zAyv/D8SHnAug0HSKujFhMV1H1efgATyi
+	 RnUhwDerEWk5wrMMlVIYPWNxWIbhLxuPQfBkuC4v77G7Lpx7FsNFpyt3WUwiLYMWvU
+	 U/ZUMtJZKpBJs24dqClt+qPwrjm2sOZmo2fo2tfpgwVb3DZ/Et00Y5pCMxeCpsVtdr
+	 D7JgOkQ//MFn3jJRe0bWpU+GEtPLtHKAtrA+YgOMgpWGv3+xa02N23tqLx9o1ncdAI
+	 rGtjBE0jxf0Sw==
 From: Bryan O'Donoghue <bod@kernel.org>
-Date: Wed, 03 Jun 2026 00:15:40 +0100
-Subject: [PATCH 1/2] media: imx: imx8mq-mipi-csi2: Add myself as reviewer
- to imx8mq-mipi-csi2
+Date: Wed, 03 Jun 2026 00:15:41 +0100
+Subject: [PATCH 2/2] media: rockchip: dw-mipi-csi2rx: Add myself to the
+ reviewers list
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -38,35 +38,34 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260603-dphy-params-extension-v1-1-22e0e1ed8bf2@kernel.org>
+Message-Id: <20260603-dphy-params-extension-v1-2-22e0e1ed8bf2@kernel.org>
 References: <20260603-dphy-params-extension-v1-0-22e0e1ed8bf2@kernel.org>
 In-Reply-To: <20260603-dphy-params-extension-v1-0-22e0e1ed8bf2@kernel.org>
 To: linux-kernel@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
  hverkuil+cisco@kernel.org, Frank.Li@nxp.com, michael.riesch@collabora.com, 
  linux-media@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=792; i=bod@kernel.org;
- h=from:subject:message-id; bh=wjegPUbJizYHzlt7m7SurwYFezlj/v1w7gh8+nfoLss=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqH2Qe7dkgkpjE+aEokAc3IRLf81kj3e4pZMA9m
- n2GJreazS2JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCah9kHgAKCRAicTuzoY3I
- OuF1EACgrDv+Xf0U9AIvCopcauAiIC/N09Tg9uq9JO8Vw3l4G8Qh5iYhf9EPW1UU0AI80p57k8x
- xGe/VwVSnCWKrDopCLdkRc5M/GsCdB1B7xKa6arKxfudeKEfvi13GEsvQh1Iv8Kei8OdMwPibtZ
- HptcgL9S08/GgGCjdrTrHJI26pp/UWy3YlUQDdVAFGSH586YSviZnyBI+1510bVbqTIv7ZJmvj+
- momW81jYu5rRsAiIc54w5zTTscdVVI3tsQAHId4fVZHuLb++EEb3g9L9NG2t0VNcPAWR+0O67A1
- gpguD974eVtqyZ8K4WrQW9nb7BU7IQZTDEHLZsqNtt2zVH3tEo3frULVaew3/i0vz1h+t3aQ4j7
- zvCqYDnR706JtzBj39TAc0l/jOns7yK3RyZgsApn49HqYGv3y12blJuSmbv9fr1Wt/9JK0riDXw
- H2bm1ZN+dl2qrpsuWid4VkKZaTCJxbUijId3o59X33M67cXF4j80GlDdXq8lgwaK1Y8xUo716Lu
- sMQ43Hl4JWkOUSMzMO9C3PAMBow58VeF84vxbxpzezXQbMEoFqpEvI3o+/QfTW/T4vnQdFmS/w6
- yNixIpgPqiwecgJrqgsqmyxjIiC8SM0j5lnVugRveirbgSP/XbYGtF9FUKt0LIQW8GBW+IJh6+q
- +CP5Sp9n5i2wb+A==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=806; i=bod@kernel.org;
+ h=from:subject:message-id; bh=CpP3MYL/xZuRc94/LoWCpiHox/E3LaJFlCf6IHNIbRg=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqH2QeqgSAtFuVG+fig5zZjimdEAx7dmEUiKd8s
+ VISxedYwRuJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCah9kHgAKCRAicTuzoY3I
+ Oh7zD/wNmCf196CXbdjd1OR5m0RADHbQ8mD5Y9v9bqlwYudqAyWh3pYN0HYlOmkOS9uv8ksw4aL
+ 23CgcVrbhs5DN8mtpoA/i8/K0LOKssAHIiZoJOTdkN/F9Ss1G/7Cl0a6q26RF0Vi+5mECLedobw
+ M7M92uu9WXJOxeXCxTY7h4UbZgrkGJxJVq7fjlXaUc6x8S9TqAqrmp0DR9i3/Q6ukoizAQ7yrev
+ IONEUoawupp2NjeDvmpoIzWrntEqhr7dgmT72SrtzEaHy8Rrvzac/69JNmWW1o958hiCWIutDiz
+ WACoEsLoVbH1fzVM4On2N3HRABwbXBvtinX2hkD2AUcU8p+vkI8HtDfzujuroLwJ9Jy1vdJuqMN
+ cwtwss/jJ+MQwR4TP8iKhYXelnbtmnwnoe9dgPLey9TuVJDhLPcvCIafVVunCO9guyL8EDxyGsR
+ C6rzqwme6+gY0C/b/+NMlzOxA3hcB767I1B8lSaI+jHUkmagQtgSzX4FZgangn9hE+kYGSTIqVy
+ GFr61SXLndN0Lh2D6mHVUXY4zriqHrjb2rvJ28c+1/yH/CtMUBXu053dMEJusb/VPaHpG4Grz/m
+ 98HA6xAdW85Va2wLyiXZzVWdsaY1u5vLcdyvxqB+JvAww8nsOC2e+Id4Y4a/rwCLywvJ7HlLTyW
+ QOJ/Xfc1N8JKqAw==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-At the media summit in Nice this year we discussed that cross reviewing
-from different people on LKML was lacking and desirable. Laurent suggested
-NXP/Qcom do some cross pollination.
-
-Happy to read and review NXP stuff in that spirit.
+As a cross pollination activity between Qcom and others add myself to the
+Rockchip list. We discussed @ Nice making reviews more formal because
+frankly we can get gummed up in not reviewing. Add myself +R here in that
+light.
 
 Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
@@ -74,17 +73,17 @@ Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index efbf808063e50..8436428865aac 100644
+index 8436428865aac..25e3f2cfcbf2b 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -16094,6 +16094,7 @@ M:	Frank Li <Frank.Li@nxp.com>
- M:	Martin Kepplinger-Novakovic <martink@posteo.de>
- R:	Rui Miguel Silva <rmfrfs@gmail.com>
- R:	Purism Kernel Team <kernel@puri.sm>
+@@ -25934,6 +25934,7 @@ F:	include/linux/soc/amd/isp4_misc.h
+ 
+ SYNOPSYS DESIGNWARE MIPI CSI-2 RECEIVER DRIVER
+ M:	Michael Riesch <michael.riesch@collabora.com>
 +R:	Bryan O'Donoghue <bod@kernel.org>
- L:	imx@lists.linux.dev
  L:	linux-media@vger.kernel.org
  S:	Maintained
+ F:	Documentation/devicetree/bindings/media/rockchip,rk3568-mipi-csi2.yaml
 
 -- 
 2.54.0
