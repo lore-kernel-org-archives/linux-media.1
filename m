@@ -1,69 +1,69 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011015.outbound.protection.outlook.com [40.107.130.15])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013063.outbound.protection.outlook.com [40.107.162.63])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D63E03E835B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA4033E51EB;
 	Tue,  2 Jun 2026 13:14:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.15
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.63
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780406091; cv=fail; b=h8vAQ6aEPCnO9eZIaVinnIjy9uUXGjTstWvOQX+DPqaZmftxZfGqEJ/5ttM5bTCD8ieg/m7HmlbIKZuKxV6vAmpyxjXQ3jnwZh0Z76YCCKotQrSxyFlig77n4iK6utDls/h/fh3K7LFFJO0sphR7STdoTcROzrrudg1005zi2XU=
+	t=1780406092; cv=fail; b=cavEUXoxNaTxzieEM+QbWnYU6dOZvNbh/BnCZKczyAF0qrwuVzdwl725gOcUuv7eKQxD8uLjzFjPM2LzIeBVH5jbhIYdK0mKC0QPp/GDUHB9IMnUSkBzysZQtUvJ28gMLN6r1d47E6JNggjbD1BhPGrrLQuxb/ZMMrZmrYv5kpo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780406091; c=relaxed/simple;
-	bh=wmX8yj3zXR0SQU2BxVMjq3f9HKP00QdSBcX6lbIJiP8=;
+	s=arc-20240116; t=1780406092; c=relaxed/simple;
+	bh=KzzSxMPp426bH5e7tls5X5ScFt7CRjngfallpfWVJ+8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=sCvtydFrFaLtgsDR78j2q7dt85Hei6cxpRDOAuhVT5x+BbDypey33kSWND+uWdBYo2xnTJyiIg/UMY66/MUMG/TZww51KSMSZLRzV5dx9c/JX1NW49KaaG1xRvbqdzCjH3nwjJDe7Zny8lOoVJzrZVCqvLR0JBWNv11XMth8/Uk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=UiuBpdPv; arc=fail smtp.client-ip=40.107.130.15
+	 In-Reply-To:To:CC; b=U7hgtR6MKdeKs7emHoUSc8skPRPMYwjhLrDay+hyNoadsOVP3IEF2x8w7DUeFSvWM0dWwbIaS9ECmokvgdVyZPyrGIYRje+m18bOUwlJvlZpJo8xQRh7SdJ/sFO+Lm5YYJ7epPx6O6DwajX0u6uvzRrfoukUz3CHBiqj2nwH214=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=e6vAiYnW; arc=fail smtp.client-ip=40.107.162.63
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="UiuBpdPv"
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="e6vAiYnW"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XRlGSN/5vJzM2DRZxtKgl2jnZKZIIgTtbRC/lPyC+XeE5pi//joCuYm4PLvrX2J+rCkMGCCrWJFbSsP6ppr9gxfUIsr3kftqCc6wbeU9BsVZYClwZBo31keUd2FaOXsaB/DdBGvxnBRXa995I0TIsoXgTiO31yWcaCvS1YT231qi4vJX1a08K0lDZ5tbo5EGNtAJKamiox85tTljeUDywxAziIKGZxfA67Km6e8dI7fcDSz0Dwv6bygvSiWpSS6aHpYvyIYzjEvs2oBSlJyuGybUnopgu87WVsqfXKxP4MBWHNvhPEcpPUAyHrEAxkkAMj43TZuvByi94Ra0tKvsmQ==
+ b=xaYEC3uDdIQGKqOk5twxk76MHij1Av3/wiVnySkBJHbMposHvpTtuONAbRaD+jibjK65EIs96NYsi31foxWxlpELA7Ly7XW3KeBrNopblN8JpIU1SbsBmV6sHtaN8APm5pj+uaMBnuFUMfgl25LiT8hixoTHCsBeeoFcE8HFYiyUwIQ5JX/H0L+Fp+QpxKRao0bQ2LqcvcWTvMCfAbN2HTFva5WqT3VRuqOXqEboaehm4DSd97wu5xt4Q7K5HQd9N/j7K0YCtgsVecKtjd8sAuaUxgS5BbHw52hXxSkRshuhJ7LiLPsKg2MWDm8tw8aRPNPS3774ZYMbB8tTlb3Bzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9U9fAafd+i+cYvRGur2GDvAzfW7Bee4/R77/1AC/KB4=;
- b=iTTM1h0mcfGhPrE3QbtixMi8FoyfF4jQ3iHsCzyFznc9UUdV7MGQUZhvo/du5ZI5vp0rMvpkcS2U0UaEEunJ9Mbmoj5N3NnIMOVEjJX4LMTPZ54rHLGTIBpXjVNinLjzk6h40vov9jcC8aaKO96gvrmHAAZz7QWlFituWN3pIKuGF2iGYyRBJ3C0pv3Fvh3KF1TCcOd/1zPhBSOMxcMqR3Vlao6o7AXSWP16KZyB2LQV9eSRl4h0Ul0HFVQuwgrwdd85uAmAuuklfYG4Il+ukjmbx5rR6aVoDfZlQjzcIE8DK0aYl1Vqyevmdm3i2RHzkESAinWJB60IB/N1x0CVXg==
+ bh=/3hPYCi5GhSF/VMpCP3aWC9ufDW6VFxMQD/0kHDRv9k=;
+ b=tCMJJuUyrYKopL93gARNn4G635/wg6b0s+52HVWVPAeOnR37PV1Wx+xPE9QMKoGHAKRWA4yTCDo862TLO0ZzL3IODP0ucbvdT1yhvR/gW+3xNFutBoTYYXcFZX5PojFt8fSyGkRAS32sLFccyDQp8RY9LVf5cnxRcjx1glxkh5fmWT5aX7MO1vEMIWNhbDMBGGii5y51oqEUqsqL3AdYi3f/WC8fujJvyDdIlVNdTCjt+iUyO62WwfMDW9aDEQXQSd80yOUaSdizPvjFwdjlQ6GHeIEdKkkBzEjSsVgNpE3JldemsGDxyqNSoJ5M+fu43jCRYoxtWVLXzCsiTAKKhA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
+ 164.130.1.59) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9U9fAafd+i+cYvRGur2GDvAzfW7Bee4/R77/1AC/KB4=;
- b=UiuBpdPvibVpnxpy8VsUSASoZHBrcyJMHVLQzD7nVSrsIW/Pu8fDgsnLwYAOVPtXmONCmc/WFSctHWwav/LkPvw56QKET5N/F+qzA7I3+X9t2kq5GZSflrZN3fYpUB2AKCH8owNHcmWgeAz0PsyzwJGWZhTQM6h+BzKjZGW2OzADh/MgkRT6xGemDmJVE8ernydvrQRhVPGdBQ4CGi4h0GbWliwdErpOigK6qv/7AX4Su7Lv4YlQjrwVrFBNXuAFRwP9cFe85uPhwXEK1H8h8vp+1WmhDwBXo4v2drJN9GK66Q+Bqzqu5IW3qRYb6DnsQhIXCj+qKmlFj/unrvS95g==
-Received: from CWLP265CA0458.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1d4::18)
- by GV1PR10MB6244.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:90::15) with
+ bh=/3hPYCi5GhSF/VMpCP3aWC9ufDW6VFxMQD/0kHDRv9k=;
+ b=e6vAiYnWvEfAtW57l/lGODy5xYKc6hc8BldlSwqLNARjorJayGOnx466TtSfZjAVyymPjwgMt4SL8ria/V4iWpxsqkRImwPTKenR39ZszRzh26nE0vuGpP0OEDhDaYaZBaldV7s5Iq/q/xNIt/sh0/dviDxZvtZ1F51zayKX3+Mn50JNQandrM4zKZXMbWlYIkw5QRAOjThp1kpOT4JzkdSRtu3MG7bNXcmso9yvaLYp4HTTR2ZV1h/XHVEMmDIbUTm1Ae+yQ0nVjTppO/7C4CdA1x8J/bYW7RmjnKxAOAnbySuImhDtwttd+S4far+5jIvcQNI/3LrnNRtpv9r+Bg==
+Received: from DB9PR05CA0018.eurprd05.prod.outlook.com (2603:10a6:10:1da::23)
+ by VI0PR10MB8834.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:232::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Tue, 2 Jun 2026
- 13:14:41 +0000
-Received: from AMS0EPF00000195.eurprd05.prod.outlook.com
- (2603:10a6:400:1d4:cafe::54) by CWLP265CA0458.outlook.office365.com
- (2603:10a6:400:1d4::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Tue, 2 Jun 2026
+ 13:14:43 +0000
+Received: from DU6PEPF00009527.eurprd02.prod.outlook.com
+ (2603:10a6:10:1da:cafe::72) by DB9PR05CA0018.outlook.office365.com
+ (2603:10a6:10:1da::23) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Tue, 2
- Jun 2026 13:14:40 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ Jun 2026 13:14:42 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
  smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
 Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- AMS0EPF00000195.mail.protection.outlook.com (10.167.16.215) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Tue, 2 Jun 2026 13:14:40 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DU6PEPF00009527.mail.protection.outlook.com (10.167.8.8) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Tue, 2 Jun 2026 13:14:42 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 2 Jun
- 2026 15:18:24 +0200
+ 2026 15:18:51 +0200
 Received: from localhost (10.130.77.119) by STKDAG1NODE2.st.com
  (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 2 Jun
- 2026 15:14:40 +0200
+ 2026 15:14:41 +0200
 From: Alain Volmat <alain.volmat@foss.st.com>
-Date: Tue, 2 Jun 2026 15:14:02 +0200
-Subject: [PATCH v2 05/13] media: stm32: dcmipp: correct swap in YUYV data
- with parallel input
+Date: Tue, 2 Jun 2026 15:14:05 +0200
+Subject: [PATCH v2 08/13] media: stm32: dcmipp: add pixel pipes helper
+ functions
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260602-stm32-dcmipp-pixel-pipes-support-v2-5-3c76b5f93157@foss.st.com>
+Message-ID: <20260602-stm32-dcmipp-pixel-pipes-support-v2-8-3c76b5f93157@foss.st.com>
 References: <20260602-stm32-dcmipp-pixel-pipes-support-v2-0-3c76b5f93157@foss.st.com>
 In-Reply-To: <20260602-stm32-dcmipp-pixel-pipes-support-v2-0-3c76b5f93157@foss.st.com>
 To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Alain Volmat
@@ -87,175 +87,287 @@ X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF00000195:EE_|GV1PR10MB6244:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1dc16599-d082-430f-1bf5-08dec0a8e7bb
+X-MS-TrafficTypeDiagnostic: DU6PEPF00009527:EE_|VI0PR10MB8834:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef45e967-1f19-4ea9-2782-08dec0a8e8d0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|376014|82310400026|22082099003|18002099003|56012099006|11063799006|6133799003;
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|1800799024|56012099006|11063799006|6133799003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	UAPhQMbepX6H7KIvaTEyNyPVn+G1OGCvSAunBeI6ewgq/WdOafSd0XddpM9/lpP5FPm2dyYUxJMvlX+aoSNEc8iyvGEFlhq2lpGtFXBg64f8jQovNPUuEB5U0hyGsSv9hAt49QYHpa7023hgJt2EJ1amr3HPXDylz1fyrKI68vzjAUYjNALZkQ6lAqrf0fwIrjRAsrmBKbLFgRTqZiR51quGUC92LXuu1zJib7jcZqYPQU6x8468CCfjktVwuSrRjy3mYoLYdsngEZaFCLUJlYZakMp1tLMdVmaTO/b34UE/qFdsWYDsNq+67ET9box3oHez6t8rUBCZgeIo84lxoswTn2qi+DvCRSTnpEW8juFgxHbNmpjWqmtVugVAEEClrb/tZPXrN70Coq6J78AhWf6ha6ud5Tx0X+S6suPFZmdSGGylTgLmEf99qukrQ/VOrA8OuBK4e8u0axYn2Y/n+IWwtfLYyBDgOtTJwmGM18fNtN0Pe6DL2OSjmQmJXWBr7wvnn2esq8NLA3Z+hcX7JQiCzIz994gV07/VAxKLrBT1GudxnaVlNGaJIFaI44k3nuVcVWY8Z2YK72ZGP+ykgcf52g3qPoFSw4+bF8uBhwYLZzVl+XAIMSCJquDKURPrQav4ZpRLVLXKhddtFwAy3r0xn8aEzHY6hbYH16kVsFAhQVZ+BrDyn6lomN/t9WtVSHRStx2hr2tEXPyPUxJpTES6326TPEFC5/meXFO14SI=
+	bxxHiikQP9vcoER8301cFl+KtXS0mNx+oCRke8hHPO616M81Apgg9d/Bos/InEBV51ELWhAOKlZct3yi7G9suDeP0PfdM8PMHJCK66Z+SKyonh2PvRBhRlGsSoXvwMxACy3RYyoAc5cwSnYkLCXZSDDgJP69E4xkZtF+TiyuLPLmIUYsVTQgJ4yzLXxpsFD2nMkW0GuHqVkdrD1T08DtVHT7pxreiqg9cNJd6zWDJkYJJrkAlY6G7mtno8u/8B9NUVaGMNeDH1dEXhA+OK93+aw+zcMRL2KvJgJUgoYFJL22YYu8Jo8R+h68S3D600rc7RIJyMiS+cz3KJW2Iz9FMgVDiZ+STBmJVKdlmWL7g7wfA6yoTzSrO+PSHp2ka7ShcBfHH0wVpQWFZEWDabECDDMDUI8OfKCsbt8r2XWX4qOTNZSXDI3fcQwov5unxyNNFhkNf7O+VmIx4mpWQGUa6PFxWXZHYhXClHjUFM6ihloD3Il6kTj5Vv0dyQeOuWifAylsEp8XXT3AQT7eNuKsXLnjrsv48E0wnsL2jJ6+/Bg5YhDN1hJDXUz7sPtXouvl8hFt7bu/W3VUyGW8vHc0m9X/Bdx2IwmJ5An98uJocUVj1v5CTae3sxKRDn0LzBMSVqNGsurLWIo3xjeqa/va9XPRUiZXNRuTqjqAQIlD5XorKdci2YffAU5v5qv3xXAaiO3PUSgtKdJ8ywHt+HNWVAsDEG3w/hPUotNhUZI9AmI=
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(22082099003)(18002099003)(56012099006)(11063799006)(6133799003);DIR:OUT;SFP:1101;
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(56012099006)(11063799006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	9MWW2gdTPJrkRF8SKelKN6VIySXjurehMUuFDGSpER5+6QXu+S0YlX4fBoGe+kpCJclYZKSqmGns4b1T0736LGW4+KIs61Wu47XDQU9yJG+QRUnK773XOh/GiJ49MypL77pcoBvDxE4PwVuBw6d0YexFaL6ALxBZNFJkbnkwxUcfWF510BoNl+9CNKlW6ArtP5586w9ZoRY22SaaOE37ZWZ7K4hxTMBj/12ccukMPqT9TvCZQjpB70dFOY1Hp1AI/y+6aD1MlinQP3A8zU38eJOnjuf4KBccaLGerywB0CKoYxs/ORUmev+DgkqCoeo08qQfGV1/1FbE+SpoCtDILWyda9WICJXj9FJK5rYZ2mH8ZALcHk+gcwGLJbCwmKTn0MYxAFdBeorCiNUlZ3JiEWKGCIZZAERTm+qWvjDQbVNBuCHxgxyoKnf2Ofc6mMl9
+	xf5giYxdn5rD7Z09IieAY+Sp58noJzvlbcEjIPWmje8Bnf5SQmDj4RBuoyV3weou6vEyGsB+U+TmErAxEFPI54ZC87pa/NuAfLuKRxM+l+2xPWayATgPTBZbAGMdNX5jKANvf/jgXsHeq52HTzyMWQR/4EVZ1DpLVAJ1KzARSM9A42D4LE8Myo5zB8S+axEKThS8gcw9yngxiUSeYWEiRK7zWOsSgM7I3x4Kh7bL4MTsjBntfU+ifcc052Sa+N4/BqWhMK47iOEVgdIQCmLNeqv1e5mOImBHoIWvWBBniChoM9GY85SQync3N0KkElb3Gd+fu1g/NXgMHQ62yVtPDXsIbqhOzQprInMs1lHPxhXggV+nIarZgXmvn14O9YtdF2JKn9XMNYDOOFl4ztKZgcvfCCrvXBnBr2qLLzllJ/7rdIDrkdL1wwbbaEIq84d1
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 13:14:40.7163
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 13:14:42.5031
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1dc16599-d082-430f-1bf5-08dec0a8e7bb
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef45e967-1f19-4ea9-2782-08dec0a8e8d0
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: AMS0EPF00000195.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU6PEPF00009527.eurprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR10MB6244
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR10MB8834
 
-When used with parallel input, the DCMIPP is expecting data to come
-in YUYV order (for all DUMP/MAIN and AUX pipes).  Not doing so will
-lead to bad color generated by the pipes when processing is done.
-The DUMP pipe is also doing by default a swap since, while it accepts
-YUYV data, it will by default generate UYVY data.
-
-Current implementation is not correct for parallel input since it is
-performing a cycle swap on the input side and since the dump pipe is
-also internally doing a swap, the data captured from the dump pipe are
-correct, while the data captured from the main / aux pipes are not.
-
-To correct this, only perform cycle swap when it is necessary, hence
-changing from YUYV to UYVY for example, and for all parallel YUV MBUS,
-add the P0PPCR based SWAPYUV to put back the data into the ordering of
-the input.
-
-Keep previous behavior when the SWAPYUV is not available (such as
-stm32mp13).
+Pixel pipes are made of an isp subdev (only main pipe) and a
+postproc subdev. This commit add a helper functions common to
+those 2 subdevs such as for handling format enumeration,
+set_selection handling, so that they do not have to be
+duplicated in the two subdeves.
 
 Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 ---
- .../st/stm32/stm32-dcmipp/dcmipp-byteproc.c        | 16 ++++++++++++-
- .../platform/st/stm32/stm32-dcmipp/dcmipp-common.h |  1 +
- .../platform/st/stm32/stm32-dcmipp/dcmipp-core.c   |  3 ++-
- .../platform/st/stm32/stm32-dcmipp/dcmipp-input.c  | 28 +++++++++++++++-------
- 4 files changed, 38 insertions(+), 10 deletions(-)
+ .../media/platform/st/stm32/stm32-dcmipp/Makefile  |   1 +
+ .../st/stm32/stm32-dcmipp/dcmipp-pixelcommon.c     | 180 +++++++++++++++++++++
+ .../st/stm32/stm32-dcmipp/dcmipp-pixelcommon.h     |  41 +++++
+ 3 files changed, 222 insertions(+)
 
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c
-index 5fcd5123136f..f61618e12322 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c
-+++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c
-@@ -25,6 +25,7 @@
- #define DCMIPP_P0SCSZR_HSIZE_SHIFT	0
- #define DCMIPP_P0SCSZR_VSIZE_SHIFT	16
- #define DCMIPP_P0PPCR	0x5c0
-+#define DCMIPP_P0PPCR_SWAPYUV		BIT(0)
- #define DCMIPP_P0PPCR_BSM_1_2		0x1
- #define DCMIPP_P0PPCR_BSM_1_4		0x2
- #define DCMIPP_P0PPCR_BSM_2_4		0x3
-@@ -428,9 +429,11 @@ static int dcmipp_byteproc_configure_scale_crop
- 	if (!vpix)
- 		return -EINVAL;
+diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/Makefile b/drivers/media/platform/st/stm32/stm32-dcmipp/Makefile
+index 159105fb40b8..54231569ed6f 100644
+--- a/drivers/media/platform/st/stm32/stm32-dcmipp/Makefile
++++ b/drivers/media/platform/st/stm32/stm32-dcmipp/Makefile
+@@ -1,4 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0
+ stm32-dcmipp-y := dcmipp-core.o dcmipp-common.o dcmipp-input.o dcmipp-byteproc.o dcmipp-bytecap.o
++stm32-dcmipp-y += dcmipp-pixelcommon.o
  
--	/* clear decimation/crop */
-+	/* clear decimation/crop/swap yuv */
- 	reg_clear(byteproc, DCMIPP_P0PPCR, DCMIPP_P0PPCR_BSM_MASK);
- 	reg_clear(byteproc, DCMIPP_P0PPCR, DCMIPP_P0PPCR_LSM);
-+	if (byteproc->ved.dcmipp->pipe_cfg->has_swapyuv)
-+		reg_clear(byteproc, DCMIPP_P0PPCR, DCMIPP_P0PPCR_SWAPYUV);
- 	reg_write(byteproc, DCMIPP_P0SCSTR, 0);
- 	reg_write(byteproc, DCMIPP_P0SCSZR, 0);
- 
-@@ -451,6 +454,17 @@ static int dcmipp_byteproc_configure_scale_crop
- 	if (vprediv == 2)
- 		val |= DCMIPP_P0PPCR_LSM | DCMIPP_P0PPCR_OELS;
- 
-+	/*
-+	 * Perform a SWAP YUV if input is parallel since in this mode
-+	 * the DCMIPP will swap YUV by default
-+	 */
-+	if (byteproc->ved.dcmipp->pipe_cfg->has_swapyuv &&
-+	    (sink_fmt->code == MEDIA_BUS_FMT_YUYV8_2X8 ||
-+	     sink_fmt->code == MEDIA_BUS_FMT_YVYU8_2X8 ||
-+	     sink_fmt->code == MEDIA_BUS_FMT_UYVY8_2X8 ||
-+	     sink_fmt->code == MEDIA_BUS_FMT_VYUY8_2X8))
-+		val |= DCMIPP_P0PPCR_SWAPYUV;
+ obj-$(CONFIG_VIDEO_STM32_DCMIPP) += stm32-dcmipp.o
+diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-pixelcommon.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-pixelcommon.c
+new file mode 100644
+index 000000000000..8b0699e870ef
+--- /dev/null
++++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-pixelcommon.c
+@@ -0,0 +1,180 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Driver for STM32 Digital Camera Memory Interface Pixel Processor
++ *
++ * Copyright (C) STMicroelectronics SA 2026
++ * Authors: Hugues Fruchet <hugues.fruchet@foss.st.com>
++ *          Alain Volmat <alain.volmat@foss.st.com>
++ *          for STMicroelectronics.
++ */
 +
- 	/* decimate using bytes and lines skipping */
- 	if (val) {
- 		reg_set(byteproc, DCMIPP_P0PPCR, val);
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
-index 9e7b2434200a..2d26425b0b0f 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
-+++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
-@@ -118,6 +118,7 @@ struct dcmipp_pipeline_config {
- 	u32 hw_revision;
- 	bool has_csi2;
- 	bool needs_mclk;
-+	bool has_swapyuv;
- };
- 
- /**
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-index 3a0a4df410d8..9aba16096d28 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-+++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-@@ -108,7 +108,8 @@ static const struct dcmipp_pipeline_config stm32mp25_pipe_cfg = {
- 	.num_links	= ARRAY_SIZE(stm32mp25_ent_links),
- 	.hw_revision    = DCMIPP_STM32MP25_VERR,
- 	.has_csi2	= true,
--	.needs_mclk	= true
-+	.needs_mclk	= true,
-+	.has_swapyuv	= true
- };
- 
- #define LINK_FLAG_TO_STR(f) ((f) == 0 ? "" :\
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-input.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-input.c
-index 564f37e2e1dd..75421035cfad 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-input.c
-+++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-input.c
-@@ -80,15 +80,15 @@ static const struct dcmipp_inp_pix_map dcmipp_inp_pix_map_list[] = {
- 	PIXMAP_SINK_SRC_PRCR_SWAP(RGB888_3X8, RGB888_3X8, RGB888, 0, MIPI_CSI2_DT_RGB888),
- 	PIXMAP_SINK_SRC_PRCR_SWAP(RGB888_1X24, RGB888_1X24, RGB888, 0, MIPI_CSI2_DT_RGB888),
- 	/* YUV422 */
--	PIXMAP_SINK_SRC_PRCR_SWAP(YUYV8_2X8, YUYV8_2X8, YUV422, 1, MIPI_CSI2_DT_YUV422_8B),
-+	PIXMAP_SINK_SRC_PRCR_SWAP(YUYV8_2X8, YUYV8_2X8, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
- 	PIXMAP_SINK_SRC_PRCR_SWAP(YUYV8_1X16, YUYV8_1X16, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
--	PIXMAP_SINK_SRC_PRCR_SWAP(YUYV8_2X8, UYVY8_2X8, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
--	PIXMAP_SINK_SRC_PRCR_SWAP(UYVY8_2X8, UYVY8_2X8, YUV422, 1, MIPI_CSI2_DT_YUV422_8B),
-+	PIXMAP_SINK_SRC_PRCR_SWAP(YUYV8_2X8, UYVY8_2X8, YUV422, 1, MIPI_CSI2_DT_YUV422_8B),
-+	PIXMAP_SINK_SRC_PRCR_SWAP(UYVY8_2X8, UYVY8_2X8, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
- 	PIXMAP_SINK_SRC_PRCR_SWAP(UYVY8_1X16, UYVY8_1X16, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
--	PIXMAP_SINK_SRC_PRCR_SWAP(UYVY8_2X8, YUYV8_2X8, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
--	PIXMAP_SINK_SRC_PRCR_SWAP(YVYU8_2X8, YVYU8_2X8, YUV422, 1, MIPI_CSI2_DT_YUV422_8B),
-+	PIXMAP_SINK_SRC_PRCR_SWAP(UYVY8_2X8, YUYV8_2X8, YUV422, 1, MIPI_CSI2_DT_YUV422_8B),
-+	PIXMAP_SINK_SRC_PRCR_SWAP(YVYU8_2X8, YVYU8_2X8, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
- 	PIXMAP_SINK_SRC_PRCR_SWAP(YVYU8_1X16, YVYU8_1X16, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
--	PIXMAP_SINK_SRC_PRCR_SWAP(VYUY8_2X8, VYUY8_2X8, YUV422, 1, MIPI_CSI2_DT_YUV422_8B),
-+	PIXMAP_SINK_SRC_PRCR_SWAP(VYUY8_2X8, VYUY8_2X8, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
- 	PIXMAP_SINK_SRC_PRCR_SWAP(VYUY8_1X16, VYUY8_1X16, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
- 	/* GREY */
- 	PIXMAP_SINK_SRC_PRCR_SWAP(Y8_1X8, Y8_1X8, G8, 0, MIPI_CSI2_DT_RAW8),
-@@ -356,8 +356,20 @@ static int dcmipp_inp_configure_parallel(struct dcmipp_inp_device *inp,
- 	val |= vpix->prcr_format << DCMIPP_PRCR_FORMAT_SHIFT;
- 
- 	/* swap cycles */
--	if (vpix->prcr_swapcycles)
--		val |= DCMIPP_PRCR_SWAPCYCLES;
-+	/*
-+	 * Table dcmipp_inp_pix_map_list take into consideration that SWAPYUV
-+	 * bit is available when dealing with 16bit YUV formats. If it is not
-+	 * available (such as on stm32mp13), swapcycle setting should be
-+	 * reversed
-+	 */
-+	if (!inp->ved.dcmipp->pipe_cfg->has_swapyuv &&
-+	    (src_fmt->code == MEDIA_BUS_FMT_YUYV8_2X8 ||
-+	     src_fmt->code == MEDIA_BUS_FMT_YVYU8_2X8 ||
-+	     src_fmt->code == MEDIA_BUS_FMT_UYVY8_2X8 ||
-+	     src_fmt->code == MEDIA_BUS_FMT_VYUY8_2X8))
-+		val |= (!vpix->prcr_swapcycles ? DCMIPP_PRCR_SWAPCYCLES : 0);
-+	else
-+		val |= (vpix->prcr_swapcycles ? DCMIPP_PRCR_SWAPCYCLES : 0);
- 
- 	reg_write(inp, DCMIPP_PRCR, val);
- 
++#include <linux/v4l2-mediabus.h>
++#include <media/v4l2-rect.h>
++#include <media/v4l2-subdev.h>
++
++#include "dcmipp-common.h"
++#include "dcmipp-pixelcommon.h"
++
++#define DCMIPP_ENT(id, pad) (1 << (2 * (id) + (pad)))
++#define DCMIPP_ISP_SINK			(DCMIPP_ENT(DCMIPP_ISP, 0))
++#define DCMIPP_ISP_SRC			(DCMIPP_ENT(DCMIPP_ISP, 1))
++#define DCMIPP_ISP_INOUT		(DCMIPP_ISP_SINK | DCMIPP_ISP_SRC)
++#define DCMIPP_MAIN_POSTPROC_SINK	(DCMIPP_ENT(DCMIPP_MAIN, 0))
++#define DCMIPP_MAIN_POSTPROC_SRC	(DCMIPP_ENT(DCMIPP_MAIN, 1))
++#define DCMIPP_MAIN_POSTPROC_INOUT					\
++	(DCMIPP_MAIN_POSTPROC_SINK | DCMIPP_MAIN_POSTPROC_SRC)
++#define DCMIPP_AUX_POSTPROC_SINK	(DCMIPP_ENT(DCMIPP_AUX, 0))
++#define DCMIPP_AUX_POSTPROC_SRC	(DCMIPP_ENT(DCMIPP_AUX, 1))
++#define DCMIPP_AUX_POSTPROC_INOUT					\
++	(DCMIPP_AUX_POSTPROC_SINK | DCMIPP_AUX_POSTPROC_SRC)
++#define DCMIPP_ALL_POSTPROC_SINK					\
++	(DCMIPP_MAIN_POSTPROC_SINK | DCMIPP_AUX_POSTPROC_SINK)
++#define DCMIPP_ALL_POSTPROC_INOUT					\
++	(DCMIPP_MAIN_POSTPROC_INOUT | DCMIPP_AUX_POSTPROC_INOUT)
++
++#define PIXMAP_MBUS(mbus, applicable_pipes)		\
++	{						\
++		.code = MEDIA_BUS_FMT_##mbus,		\
++		.pipes = applicable_pipes,		\
++	}
++static const struct dcmipp_pixelpipe_pix_map
++dcmipp_pixel_formats_list[] = {
++	/* RGB formats */
++	/* RGB565 / RGB888 */
++	PIXMAP_MBUS(RGB565_2X8_LE, DCMIPP_AUX_POSTPROC_SINK | DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(RGB565_1X16, DCMIPP_AUX_POSTPROC_SINK | DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(RGB888_3X8, DCMIPP_AUX_POSTPROC_SINK | DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(RGB888_1X24, DCMIPP_ALL_POSTPROC_INOUT | DCMIPP_ISP_INOUT),
++	/* YUV formats */
++	PIXMAP_MBUS(YUYV8_2X8, DCMIPP_AUX_POSTPROC_SINK | DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(UYVY8_1X16, DCMIPP_AUX_POSTPROC_SINK | DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(YUV8_1X24, DCMIPP_ALL_POSTPROC_INOUT | DCMIPP_ISP_SRC),
++	/* GREY */
++	PIXMAP_MBUS(Y8_1X8, DCMIPP_AUX_POSTPROC_SINK | DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(Y10_1X10, DCMIPP_AUX_POSTPROC_SINK | DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(Y12_1X12, DCMIPP_AUX_POSTPROC_SINK | DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(Y14_1X14, DCMIPP_AUX_POSTPROC_SINK | DCMIPP_ISP_SINK),
++	/* Raw Bayer */
++	/* Raw 8 */
++	PIXMAP_MBUS(SBGGR8_1X8, DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(SGBRG8_1X8, DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(SGRBG8_1X8, DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(SRGGB8_1X8, DCMIPP_ISP_SINK),
++	/* Raw 10 */
++	PIXMAP_MBUS(SBGGR10_1X10, DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(SGBRG10_1X10, DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(SGRBG10_1X10, DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(SRGGB10_1X10, DCMIPP_ISP_SINK),
++	/* Raw 12 */
++	PIXMAP_MBUS(SBGGR12_1X12, DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(SGBRG12_1X12, DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(SGRBG12_1X12, DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(SRGGB12_1X12, DCMIPP_ISP_SINK),
++	/* Raw 14 */
++	PIXMAP_MBUS(SBGGR14_1X14, DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(SGBRG14_1X14, DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(SGRBG14_1X14, DCMIPP_ISP_SINK),
++	PIXMAP_MBUS(SRGGB14_1X14, DCMIPP_ISP_SINK),
++};
++
++const struct dcmipp_pixelpipe_pix_map *
++dcmipp_pixelpipe_pix_map_by_code(__u32 code, unsigned int id, unsigned int pad)
++{
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(dcmipp_pixel_formats_list); i++) {
++		if (dcmipp_pixel_formats_list[i].code == code &&
++		    dcmipp_pixel_formats_list[i].pipes & DCMIPP_ENT(id, pad))
++			return &dcmipp_pixel_formats_list[i];
++	}
++
++	return NULL;
++}
++
++int dcmipp_pixelpipe_enum_mbus_code(unsigned int id,
++				    struct v4l2_subdev_mbus_code_enum *code)
++{
++	unsigned int index = code->index;
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(dcmipp_pixel_formats_list); i++) {
++		if (!(dcmipp_pixel_formats_list[i].pipes &
++		      DCMIPP_ENT(id, code->pad)))
++			continue;
++
++		if (index == 0)
++			break;
++
++		index--;
++	}
++
++	if (i == ARRAY_SIZE(dcmipp_pixel_formats_list))
++		return -EINVAL;
++
++	code->code = dcmipp_pixel_formats_list[i].code;
++
++	return 0;
++}
++
++int dcmipp_pixelpipe_enum_frame_size(unsigned int id,
++				     struct v4l2_subdev_frame_size_enum *fse)
++{
++	const struct dcmipp_pixelpipe_pix_map *vpix;
++
++	if (fse->index)
++		return -EINVAL;
++
++	/* Only accept code in the pix map table */
++	vpix = dcmipp_pixelpipe_pix_map_by_code(fse->code, id, fse->pad);
++	if (!vpix)
++		return -EINVAL;
++
++	fse->min_width = DCMIPP_FRAME_MIN_WIDTH;
++	fse->max_width = DCMIPP_FRAME_MAX_WIDTH;
++	fse->min_height = DCMIPP_FRAME_MIN_HEIGHT;
++	fse->max_height = DCMIPP_FRAME_MAX_HEIGHT;
++
++	return 0;
++}
++
++int dcmipp_pixelpipe_get_selection(struct v4l2_subdev *sd,
++				   struct v4l2_subdev_state *state,
++				   struct v4l2_subdev_selection *s)
++{
++	struct v4l2_mbus_framefmt *sink_fmt;
++
++	if (IS_SRC(s->pad))
++		return -EINVAL;
++
++	switch (s->target) {
++	case V4L2_SEL_TGT_CROP:
++	case V4L2_SEL_TGT_COMPOSE_BOUNDS:
++	case V4L2_SEL_TGT_COMPOSE_DEFAULT:
++		s->r = *v4l2_subdev_state_get_crop(state, s->pad);
++		break;
++	case V4L2_SEL_TGT_CROP_BOUNDS:
++	case V4L2_SEL_TGT_CROP_DEFAULT:
++		sink_fmt = v4l2_subdev_state_get_format(state, s->pad);
++		s->r.top = 0;
++		s->r.left = 0;
++		s->r.width = sink_fmt->width;
++		s->r.height = sink_fmt->height;
++		break;
++	case V4L2_SEL_TGT_COMPOSE:
++		s->r = *v4l2_subdev_state_get_compose(state, s->pad);
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++__u32 dcmipp_pixelpipe_src_format(__u32 input_format)
++{
++	if (input_format >= MEDIA_BUS_FMT_Y8_1X8 &&
++	    input_format < MEDIA_BUS_FMT_SBGGR8_1X8)
++		return MEDIA_BUS_FMT_YUV8_1X24;
++
++	return MEDIA_BUS_FMT_RGB888_1X24;
++}
+diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-pixelcommon.h b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-pixelcommon.h
+new file mode 100644
+index 000000000000..db29e1fe939e
+--- /dev/null
++++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-pixelcommon.h
+@@ -0,0 +1,41 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Driver for STM32 Digital Camera Memory Interface Pixel Processor
++ *
++ * Copyright (C) STMicroelectronics SA 2026
++ * Authors: Hugues Fruchet <hugues.fruchet@foss.st.com>
++ *          Alain Volmat <alain.volmat@foss.st.com>
++ *          for STMicroelectronics.
++ */
++
++#ifndef _DCMIPP_PIXELCOMMON_H
++#define _DCMIPP_PIXELCOMMON_H
++
++#define IS_SINK(pad) (!(pad))
++#define IS_SRC(pad)  ((pad))
++
++#define DCMIPP_ISP		0
++#define DCMIPP_MAIN		1
++#define DCMIPP_AUX		2
++
++struct dcmipp_pixelpipe_pix_map {
++	__u32 code;
++	__u32 pipes;
++};
++
++const struct dcmipp_pixelpipe_pix_map *
++dcmipp_pixelpipe_pix_map_by_code(__u32 code, unsigned int id, unsigned int pad);
++
++int dcmipp_pixelpipe_enum_mbus_code(unsigned int id,
++				    struct v4l2_subdev_mbus_code_enum *code);
++
++int dcmipp_pixelpipe_enum_frame_size(unsigned int id,
++				     struct v4l2_subdev_frame_size_enum *fse);
++
++int dcmipp_pixelpipe_get_selection(struct v4l2_subdev *sd,
++				   struct v4l2_subdev_state *state,
++				   struct v4l2_subdev_selection *s);
++
++__u32 dcmipp_pixelpipe_src_format(__u32 input_format);
++
++#endif
 
 -- 
 2.43.0
