@@ -1,33 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35DFD2236E0;
-	Tue,  2 Jun 2026 21:22:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A6D383338
+	for <linux-media@vger.kernel.org>; Tue,  2 Jun 2026 21:59:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780435358; cv=none; b=sxdSBv1THt7VGwxHuIPhy99+p0v5DrZdMySgEqQRkT3uUMszU7yuCTq7l13NfQUuA26HWN2PU21x2WmJP2B+iGnLZBliYhDTg+zvU6ZWlnHCZlPqptMBOjtFzSwIUZ7+OM4C9POggTKedx3BdXu7qlMm67MW/20lIo0+bjJQftI=
+	t=1780437591; cv=none; b=pqRXzxZjaHyAVSi1hlR9fFx7PECox3k9fKPsTP6MS9rXH2XelTeaoZzb8zLs3NBrZj30cXSYCrWeaALGfL6auUD/z4G9CC6Rbwefkl0ZlHwkqEgOMDyrGV5V5VWiBvzftAHPHebke/vf3DEgiWI9bsoNNv765a8cByb0sbjUZlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780435358; c=relaxed/simple;
-	bh=dLQofESjHvi63IUYtOVmcINuJCrrc7RS72cm6ZzARWM=;
+	s=arc-20240116; t=1780437591; c=relaxed/simple;
+	bh=B5wOD4aE4a17EXFpKcNzecgy6k/iGpJ3WdyEjdtjTrE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jT0X1WKDwn7OFlom2hVHVmXdVvt6BC8o0SZt0Ssu7iTChOkk+04xW0THYsUkdUsBjnx0YJyPyzh3uhqUkjlzdGiok1ydH9pRowSK9Rjxj/gXKObxxcPO9qgEuOIBSOZi8ovxDKDcpMdAaWUE7oX8jQ786Ld4JqAm7UMpTojWMFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N1Jopuuh; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=lwv0h6dxDqc7x03s5+pAuS0UaM+JDcMKZNbTHOfwgEmI/Pfe/WGDsnSINde89bhvVtV9ylV6BKhWpGtI4vsWpcVOg6lUNepvDVN9cCkoKWWx2REOCi5m0rhnfRirQjA+BptU+81EeFU5Xrhxu48XGIc7R3ckJXgY0Y330qtuI2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=e26UbWN/; arc=none smtp.client-ip=209.85.208.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N1Jopuuh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5404D1F00893;
-	Tue,  2 Jun 2026 21:22:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780435356;
-	bh=S+cFiRqq9o+qpbMGUFYlom4l2OVWuiw1Uju2cmfRXVE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=N1JopuuhgJOsa1eI49fw7C2AlZZ9SVetPD2vuHDGy4QD/LcLy5dc2C4rkFDGUstR/
-	 YtXfHCAhhDW8LuXQBv/rCL0JeU25Bqcx/zHMplJg+7S08WLLmGctyr2OMcKXeKpmt5
-	 DyGKuaw7MRJ4ZD8zmgOpPaAp/K8f0IByRHIlvLA2puxpET0LVnN9KCtNir34L8UNzj
-	 c4AEA2KIOMnaAIAFcaMvaL/kfZDX5ydaE4vTQfVSj6zFh5PewfHptQF47ftZgrO+7a
-	 c/2wmaiJ2sQ6VmsXPI21qn0zE/eukgU22TJmIo+G1GtdR5vgotiW6kLDeuOIo3lDHF
-	 0LpName6WMCBw==
-Message-ID: <21ee337e-e9f6-4d8e-840d-35c2bd12d208@kernel.org>
-Date: Tue, 2 Jun 2026 22:22:34 +0100
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="e26UbWN/"
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3966e5e7cebso4953591fa.2
+        for <linux-media@vger.kernel.org>; Tue, 02 Jun 2026 14:59:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1780437587; x=1781042387; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/rYnZ3lqT7DmKRSTxtVSgTNnxHdLejTszMrt6K93BCk=;
+        b=e26UbWN/7eZLaMpiJIw3nw5ADo2j0I/ERoKbCdORwsrvLSDdw+iIGoWk+j+HYfp3zE
+         FIw24wHtYm2SCP+d6DTmH3V0bIiRPrgoQgIkYEr31P+kNUb5OXcvOj9pTU1m1iKHjisw
+         VDZhkXeyULah1M5ttYEpElI5qi5mWwN3wffQozAkBug+BffRK5nknStpts+uLxUHRUaS
+         EQy1RI0+SPsIHvcqgBoDmd4ooekzev26DiXSFE8XfLURzsbKzURLSjUHoRox5Dg56ART
+         PWissr7BWWbP6+7bWW8bLDxuUnt6X//Y3Wfl+fDtuVfLLwPhtUplIencnRLLS3yeF8S2
+         SopQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780437587; x=1781042387;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/rYnZ3lqT7DmKRSTxtVSgTNnxHdLejTszMrt6K93BCk=;
+        b=TanDhnv03xkihQzy3N4Wy5ob4t6UWs4rQDR+D7bUob4ylMwfxl7LXuEZW0FtzfnR48
+         LTgQzkITZ3yYdKj4iCn7M0b2hbqiHhV6PjPt0GhLSpJKG9inAN2GIbF7ndoej+jqkwky
+         KVyBcm9mhFMHe8BhYbQ0h4R/Mx7rqaM1U+miXNEqRbLwrb+AdO7q3Ph60tQ3ea3aCs4/
+         dNlOLSbI13vyyzfqd0ozTXhPiKdP+3Mx66qKbpGXvuREPcfgQ+4DSgeCr9ta9GlZFRFs
+         QkRubTGATmjg5B6Bu5VjsX0uDyPIqxdsfdam3PdILud/lXupWJat27ZOTQQ0EVtOKqkV
+         LcUw==
+X-Forwarded-Encrypted: i=1; AFNElJ+lE19Snj78LeTOAxT0dOTLFCFT8GVhIHGZNgD8lIxRFvPvB4TbjYmSK5uoIM59rD37sR6XJHtrH4ScyA==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzi6Y+f+8zk8Y8F3WDTCSmSYFr98g7bu5i6ao2l/P8EyFlZujtd
+	6x7dbmS/1DMwyX+kBHej7YGx3rK70G0HeM9/egl9QxBKcPaY2G/b0QgNjGC2JuWAPSI=
+X-Gm-Gg: Acq92OHzvloInQuzdddEcfRh5Ia3aPj57ea7wnEngBPkYPsgwMyn3Xgu0hxPvovGIIN
+	jip3f/qiyEwkEx2Ncr7vpB4KFsMaSLsZhLj+gDMv/AuJcay7Um56lsQYfLWZ9LWxZEq15e9RiQi
+	9/alqFjeGrO30InjqnwfQlbV7Jpv+JZIkCZ/8e0WTZ9JSD1GC/OYB+yXQCtasTx0bhk8S3xUJ3x
+	n7dQKr7l+wguRCojK1Z+mEko/vFijed/Of3IvFf4rYLaOljG34g4FHwBCUcJ+xGvHj8Kz06TMh8
+	tR1cpkn9VVzMzI+GDIPOV8FquPfSTaiy0vc7N8PPr7U4FAjVgctZzC7Qe+DuxZcrvNFAjUzkzgr
+	hcUjHlACkjnDcSmrrQvQEhx56Skl2a4cH+HpMDzTXLH5HxeV4togDtx3Cs3TeIVw4t0lQIHxX93
+	VVzcLB/jpwNpcjoUt42i0PCOHDLJlNyOJgac9g+sAbD2R2WLvOfQAvKm7fHGsho554NlZPtX1i/
+	HkrY6FudWNWanDS
+X-Received: by 2002:a2e:bc2a:0:b0:396:975f:c384 with SMTP id 38308e7fff4ca-396ac314d06mr1880491fa.6.1780437587064;
+        Tue, 02 Jun 2026 14:59:47 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396abd6cbe6sm3606351fa.0.2026.06.02.14.59.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 02 Jun 2026 14:59:46 -0700 (PDT)
+Message-ID: <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
+Date: Wed, 3 Jun 2026 00:59:40 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,139 +68,300 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: iris: Fix FPS calculation and VPP FW overhead
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-media@vger.kernel.org
-References: <20260602-fixbranch-v1-1-b8eccaad6d17@kernel.org>
- <NawUTvMD-_ja7n6Bm5IaMQMPaMefhnfspwkNHtGtZJSbv1hqzuHPsMCa7E439vd9jYNAs5LcIrmcd3HEA6J8CQ==@protonmail.internalid>
- <20260602211551.61F1A1F00893@smtp.kernel.org>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260602211551.61F1A1F00893@smtp.kernel.org>
+Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
+ <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 02/06/2026 22:15, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+On 5/23/26 05:48, Bryan O'Donoghue wrote:
+> Add a base schema initially compatible with x1e80100 to describe MIPI CSI2
+> PHY devices.
 > 
-> Pre-existing issues:
-> - [High] 32-bit integer overflow in `mult_frac` frequency calculation affects both 32-bit and 64-bit platforms.
-> - [High] Critical 32-bit integer overflow when calculating `vsp_cycles` leads to severe VPU under-clocking on 32-bit platforms.
-> --
+> The hardware can support both CPHY, DPHY and a special split-mode DPHY.
 > 
-> commit 77f6f57aadf558885bf4697f0e3df01315999c7b
-> Author: Bryan O'Donoghue <bod@kernel.org>
+> The schema here defines three ports:
 > 
-> media: iris: Fix FPS calculation and VPP FW overhead
+> port@0:
+>      The first input port where a sensor is always required.
 > 
-> This commit replaces the mult_frac() macro with div_u64() for calculating
-> vpp_cycles. This fixes a compilation issue on 32-bit systems lacking libgcc,
-> where 64-bit operator division would otherwise fail.
+> port@1:
+>      A second optional input port which if present implies DPHY split-mode.
 > 
-> Fixes: 5c66647a5c3e ("media: iris: add FPS calculation and VPP FW overhead in frequency formula")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202606030132.qnBXVDkM-lkp@intel.com/
+> port@2:
+>      A third always required output port which connects to the controller.
 > 
->> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers/media/platform/qcom/iris/iris_vpu_common.c
->> index 5a85568c5ee1c..37dbfe433a085 100644
->> --- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
->> +++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
->> @@ -444,7 +444,7 @@ u64 iris_vpu3x_vpu4x_calculate_frequency(struct iris_inst *inst, size_t data_siz
-> 
-> [Severity: High]
-> This is a pre-existing issue, but can the call to mult_frac() for vpp_cycles
-> earlier in this function overflow on both 32-bit and 64-bit platforms?
-> 
-> In iris_vpu3x_vpu4x_calculate_frequency():
->      vpp_cycles = mult_frac(mbs_per_second, caps->mb_cycles_vpp, ...);
-> 
-> Because mbs_per_second is a u32, the mult_frac() macro performs the internal
-> multiplication in 32-bit arithmetic.
-> 
-> For high resolutions and framerates natively supported by the driver,
-> mbs_per_second exceeds 21.4M. Multiplying this by caps->mb_cycles_vpp
-> (e.g., 200) produces a value greater than 4.29 billion, wrapping around the
-> maximum 32-bit unsigned limit.
-> 
-> Could this regression result in severely under-provisioning the hardware VPU
-> clock and causing encoding or decoding failures?
-> 
->>
->>   	/* 1.05 is VPP FW overhead */
->>   	if (inst->fw_caps[STAGE].value == STAGE_2)
->> -		vpp_cycles += mult_frac(vpp_cycles, 5, 100);
->> +		vpp_cycles += div_u64(vpp_cycles * 5, 100);
->>
->>   	vsp_cycles = fps * data_size * 8;
-> 
-> [Severity: High]
-> This is a pre-existing issue, but does this calculation overflow on 32-bit
-> platforms?
-> 
-> The variable fps is a u32, data_size is a size_t, and 8 is an int. On 32-bit
-> architectures, this multiplication evaluates entirely in 32-bit arithmetic
-> before being zero-extended and assigned to the 64-bit vsp_cycles variable.
-> 
-> For standard 4K 60fps encoding, an uncompressed data_size of around 12.4MB
-> yields 60 * 12441600 * 8 = 5,971,968,000, which wraps around the maximum
-> 32-bit limit.
-> 
-> Since this patch explicitly addresses 32-bit systems, will this regression
-> cause the VSP to be severely under-clocked during common use cases on those
-> platforms?
-> 
->>   	vsp_cycles = div_u64(vsp_cycles, 2);
-> 
-> --
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260602-fixbranch-v1-1-b8eccaad6d17@kernel.org?part=1
 
-Yeah but no but yeah.
+This port numeration is imperfect, because port@0 and port@2 are required,
+while middle port@1 is optional.
 
-This driver only really runs on 64 bit systems so making it resilient 
-for 32 bit is another day's pile of proverbial to shovel.
+Like it was stated before a number of times, it seems natural to operate
+with two ports, where input port may have two endpoints rather than 3 ports,
+also that approach solves the problem of a hole in the port numeration.
 
----
-bod
+> The CSIPHY devices have their own pinouts on the SoC as well as their own
+> individual voltage rails.
+> 
+> The need to model voltage rails on a per-PHY basis leads us to define
+> CSIPHY devices as individual nodes.
+> 
+> Two nice outcomes in terms of schema and DT arise from this change.
+> 
+> 1. The ability to define on a per-PHY basis voltage rails.
+> 2. The ability to require those voltage.
+> 
+> We have had a complete bodge upstream for this where a single set of
+> voltage rail for all CSIPHYs has been buried inside of CAMSS.
+> 
+> Much like the I2C bus which is dedicated to Camera sensors - the CCI bus in
+> CAMSS parlance, the CSIPHY devices should be individually modelled.
+> 
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>   .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 209 +++++++++++++++++++++
+>   1 file changed, 209 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> new file mode 100644
+> index 0000000000000..270375f949880
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> @@ -0,0 +1,209 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm CSI2 PHY
+> +
+> +maintainers:
+> +  - Bryan O'Donoghue <bod@kernel.org>
+> +
+> +description:
+> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI CSI2 sensors
+> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and D-PHY
+> +  modes.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,x1e80100-csi2-phy
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  "#phy-cells":
+> +    const: 1
+> +    description:
+> +      The single cell specifies the PHY operating mode.
+
+#phy-cells should be 0, because the PHY operating mode is well defined
+by 'bus-type' property of an endpoint on the sensor side, the opposite
+side of CAMSS/CSID as a CSIPHY "consumer" should not dictate the PHY type.
+
+> +
+> +  clocks:
+> +    maxItems: 2
+> +
+> +  clock-names:
+> +    items:
+> +      - const: core
+> +      - const: timer
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  operating-points-v2:
+> +    maxItems: 1
+> +
+> +  power-domains:
+> +    items:
+> +      - description: MMCX voltage rail
+> +      - description: MXC or MXA voltage rail
+
+Only "qcom,x1e80100-csi2-phy" device is supported so far, unlikely it's
+the case that "MXC or MXA voltage rail" should be specified, it'd be
+just one of two or both.
+
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: mmcx
+> +      - const: mx
+> +
+> +  vdda-0p9-supply:
+> +    description: Phandle to a 0.9V regulator supply to a PHY.
+> +
+> +  vdda-1p2-supply:
+> +    description: Phandle to 1.2V regulator supply to a PHY.
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        description: Sensor input. Always present.
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +            properties:
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +              clock-lanes:
+> +                maxItems: 1
+> +              remote-endpoint: true
+> +            required:
+> +              - data-lanes
+> +              - remote-endpoint
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        description:
+> +          Second sensor input. When present, indicates DPHY split mode.
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +            properties:
+> +              data-lanes:
+> +                maxItems: 1
+> +              clock-lanes:
+> +                maxItems: 1
+> +              remote-endpoint: true
+> +            required:
+> +              - data-lanes
+> +              - clock-lanes
+> +              - remote-endpoint
+
+As it's stated above, it should be converted to a single port with two
+endpoints, it'd be done in accordance to video-interfaces.yaml.
+
+> +
+> +      port@2:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        description: Output to CAMSS controller.
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: /schemas/graph.yaml#/$defs/endpoint-base
+> +            unevaluatedProperties: false
+> +            properties:
+> +              remote-endpoint: true
+> +            required:
+> +              - remote-endpoint
+> +
+> +    required:
+> +      - port@0
+> +      - port@2
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - "#phy-cells"
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - operating-points-v2
+> +  - power-domains
+> +  - power-domain-names
+> +  - vdda-0p9-supply
+> +  - vdda-1p2-supply
+> +  - ports
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
+> +    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
+> +    #include <dt-bindings/power/qcom,rpmhpd.h>
+> +
+> +    csiphy4: csiphy@ace4000 {
+> +        compatible = "qcom,x1e80100-csi2-phy";
+> +        reg = <0x0ace4000 0x2000>;
+> +        #phy-cells = <1>;
+> +
+> +        clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
+> +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>;
+> +        clock-names = "core",
+> +                      "timer";
+> +
+> +        operating-points-v2 = <&csiphy_opp_table>;
+> +
+> +        interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
+> +
+> +        power-domains = <&rpmhpd RPMHPD_MMCX>,
+> +                        <&rpmhpd RPMHPD_MX>;
+> +        power-domain-names = "mmcx",
+> +                             "mx";
+> +
+> +        vdda-0p9-supply = <&vreg_l2c_0p8>;
+> +        vdda-1p2-supply = <&vreg_l1c_1p2>;
+> +
+> +        ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            port@0 {
+> +                reg = <0>;
+> +                csiphy0_in_ep: endpoint {
+> +                    data-lanes = <0 1>;
+> +                    clock-lanes = <2>;
+> +                    remote-endpoint = <&sensor_out>;
+> +                };
+> +            };
+> +
+> +            port@2 {
+> +                reg = <2>;
+> +                csiphy0_out_ep: endpoint {
+> +                    remote-endpoint = <&controller_in>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +
+> +    csiphy_opp_table: opp-table {
+> +        compatible = "operating-points-v2";
+> +
+> +        opp-300000000 {
+> +            opp-hz = /bits/ 64 <300000000>;
+> +            required-opps = <&rpmhpd_opp_low_svs_d1>,
+> +                            <&rpmhpd_opp_low_svs_d1>;
+> +        };
+> +
+> +        opp-400000000 {
+> +            opp-hz = /bits/ 64 <400000000>;
+> +            required-opps = <&rpmhpd_opp_low_svs>,
+> +                            <&rpmhpd_opp_low_svs_d1>;
+> +        };
+> +
+> +        opp-480000000 {
+> +            opp-hz = /bits/ 64 <480000000>;
+> +            required-opps = <&rpmhpd_opp_low_svs>,
+> +                            <&rpmhpd_opp_low_svs_d1>;
+> +        };
+> +    };
+> 
+
+-- 
+Best wishes,
+Vladimir
