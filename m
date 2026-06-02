@@ -1,117 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-186.mta1.migadu.com (out-186.mta1.migadu.com [95.215.58.186])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0186126FA7A;
-	Tue,  2 Jun 2026 14:57:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB573C456A
+	for <linux-media@vger.kernel.org>; Tue,  2 Jun 2026 15:04:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.186
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780412244; cv=none; b=CMduJIKLslQmFvHSd38yTDJj22yLbMNw6Fpeo0OU5fmm8ZylH3K9Ma4FJNO9zXMgnd4HPeEFk8VUN6sB5c7X85d74IVm/nPhZ7qRwvny4EyJBf4pu/LtWnGupe7jYR5KZr4QOwpWD+9BjH4seaX8LzlQwJLvlqfpc5o1mauP/t0=
+	t=1780412659; cv=none; b=MDeyoy1Jm+if2DYs1+Hz4Q/9DibaejdLEPQfMKw+bx+RqdwX9cMwsn+F4H+UuiQhL/nueS2bCKUQLlB4L4Pv4Im5NhspaiDZ+od4hm9hSQAJraoQv9QY2Lo0/w1fYXicWhgZhgYhp4kZfrjSJNOxB9LdzRH9tV1bIQCGALdvCqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780412244; c=relaxed/simple;
-	bh=3a8roC2lWx6gxRjemzRLNrw72DeHdU5h79igg6qWtGU=;
+	s=arc-20240116; t=1780412659; c=relaxed/simple;
+	bh=hhLyU1suKqRemMZ3uMjdPzeVwrqN8+HIhvS6Kah3daM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IpGp2BXXG0Xv6rhY6RQVIL2fHgN0zAbRLrGC7TA8YSrio0C+NIha0XTLHQ52QE0AfJ/Wj/RWzx0z4zgFyJAVplcScanZ5AGnGETWzKp9DdyjIWBXenWDh0vY9c2144EZ9RyBsXacNKGZO2lXBnDTCGkGlbkmgYPsnIluydTCAWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HFR9Dsfo; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=tzPMypDJ+G//yHm8OjL+qfPG5E8vIC+8mY0zYfbh/9Lg0E/v6e+HWH6mqgiy+OYDRcuvTI1WTdGhgmFmQfE4g1q+oyxiK6M+eQ97KT6kh6RgFCyJghk1Hnbc0FL6S+UX/lnShaDFyR78R7KYfmJiyJtShhKmbdq2B9OL2TgjUUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=BFgAAH/x; arc=none smtp.client-ip=95.215.58.186
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HFR9Dsfo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22AD01F00893;
-	Tue,  2 Jun 2026 14:57:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780412242;
-	bh=9jp3g2EDN/gKi0hpggFOmttoIVZamgMz0NUya4wI9Ck=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HFR9DsfoKsCRdGlh6HKxIUg4mH8Ut7l+zGezqSrQkqTn09UCOHVlvjGloR7Mzj28i
-	 /8Gnp0KyS8gjHaSRmsOwYxBCSA5HlLDmYCnf2neNQLafC1Fx/Te+8VjaBuHzjthtnd
-	 isyJ63dzImnV38vF+pBbZSSiOq6rcLMS7fq/hRL7lpapTAK7cE9PhETg4kKZsFE27k
-	 zNjq7bMiLiRhdZfDf0fx3gb5u7P1xHpCgVBxtYITAftspshL4tfRHGbH4MQT/sYGDy
-	 xgy/VdF+2uojyz+wHmBK2Hw5gNfg2nDerJlTkMJspZI+ujQfCxYsV9fkJBwrRA1Lr1
-	 Iu31VM4490F8Q==
-Message-ID: <ea9f45f8-4389-4c78-a4ea-dc08d3e461c2@kernel.org>
-Date: Tue, 2 Jun 2026 15:57:19 +0100
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="BFgAAH/x"
+Message-ID: <809635d9-6e66-4ace-8f47-4a5a268f4f18@packett.cool>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
+	s=key1; t=1780412652;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qHszsEN8PB3ekey0lEf70Vm5pm7eZsuxWjxfuJZ2+RI=;
+	b=BFgAAH/xcynmV8UeSdeG6LKfgfP4MDNJFZp6R2gs0qShyj4nudTtq4HPYoLRzSCxM9Q07h
+	S1Bs1hlDJFHvewK5FG2GtTvPu6On7jrT47U9dCsObZJ4qcmTaYpELOFFDop47C1nUjkdKp
+	4p7LeOgwfHBZmMNNdAtTmnCfVnAO1hS2FmTw9rsw9MUR/HRiPwHhL4aZinED5PCg04yoiX
+	8il1U+Dw6dtacMog5D3eXtfu0UsCocDvUxBGFAFRLycFYJaPCl0kQt/ARiekfRIXJy36bl
+	lF0nMon19m8s8y3wQlA7IqUh9deLu1ALcxMtcXUaDeH3BVHO7Xbjo4pfwMyoKA==
+Date: Tue, 2 Jun 2026 12:03:53 -0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] MAINTAINERS: Add myself to dw100 as reviewer
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: p.zabel@pengutronix.de, xavier.roumegue@oss.nxp.com, hverkuil@xs4all.nl,
- mchehab@kernel.org, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, Stefan Klug <stefan.klug@ideasonboard.com>
-References: <20260601155059.1332290-1-bod@kernel.org>
- <20260601155059.1332290-2-bod@kernel.org>
- <gDn4RCB4gOUFyNFwqb1Z_PKSw6MZAJBkl09jatpSLYWEfXlHnTAeiOZuR08ssuKr3yWKuP-Bb21qRDbqy-8ceA==@protonmail.internalid>
- <20260602085551.GA850227@killaraus.ideasonboard.com>
- <b19493de-5d39-49d8-a5f1-acfc613cfacf@kernel.org>
- <xo9COx4XIu103yiTmWeu4_OnKc-bHmgB-IaOv37jRRZYhPAYKgro5SL2R3N6JmwGuH0Df3EAjkjkSPuOkXGyzQ==@protonmail.internalid>
- <20260602142603.GB850227@killaraus.ideasonboard.com>
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for
+ Iris
+To: Bryan O'Donoghue <bod@kernel.org>, Daniel J Blueman <daniel@quora.org>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260601041336.9497-1-daniel@quora.org>
+ <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
+ <20260601041336.9497-2-daniel@quora.org>
+ <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
 Content-Language: en-US
-From: Bryan O'Donoghue <bod@kernel.org>
-In-Reply-To: <20260602142603.GB850227@killaraus.ideasonboard.com>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Val Packett <val@packett.cool>
+In-Reply-To: <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-On 02/06/2026 15:26, Laurent Pinchart wrote:
-> On Tue, Jun 02, 2026 at 11:10:24AM +0100, Bryan O'Donoghue wrote:
->> On 02/06/2026 09:55, Laurent Pinchart wrote:
->>> Thanks for volunteering 🙂
->>>
->>> This may however not be the best candidate. The dw100 driver is well
->>> maintained today, by Xavier as well as Stefan, as Ideas on Board makes
->>> active use of it (Stefan, you could also volunteer as a reviewer).
->>>
->>> Drivers that I think would most benefit from your reviews would be
->>> imx8mq-mipi-csi2, dw-mipi-csi2rx (technically a Synopsys driver, but
->>> used in NXP SoCs), and the new imx95-csi-formatter driver ([1]).
->>>
->>> Other candidates could be imx7-media-csi and imx-mipi-csis, but those
->>> see little activity as they support older hardware. The imx media
->>> staging drivers could also do with some love, but that would be active
->>> development and not just review.
->>>
->>> [1]https://lore.kernel.org/20260525-csi_formatter-v8-0-6b646231224b@oss.nxp.com
->>>
->>>> Signed-off-by: Bryan O'Donoghue<bod@kernel.org>
->>>> ---
->>>>    MAINTAINERS | 1 +
->>>>    1 file changed, 1 insertion(+)
->>>>
->>>> diff --git a/MAINTAINERS b/MAINTAINERS
->>>> index ec0743b41a463..35368c2ff0ca6 100644
->>>> --- a/MAINTAINERS
->>>> +++ b/MAINTAINERS
->>>> @@ -19243,6 +19243,7 @@ F:	drivers/media/platform/nxp/imx8-isi/
->>>>
->>>>    NXP i.MX 8MP DW100 V4L2 DRIVER
->>>>    M:	Xavier Roumegue<xavier.roumegue@oss.nxp.com>
->>>> +R:	Bryan O'Donoghue<bod@kernel.org>
->>>>    L:	linux-media@vger.kernel.org
->>>>    S:	Maintained
->>>>    F:	Documentation/devicetree/bindings/media/nxp,dw100.yaml
->>> --
->>> Regards,
->>>
->>> Laurent Pinchart
->>
->> Ah, wrong set.
->>
->> No problem, I'll v2 for the above instead.
-> 
-> Thank you. Don't get me wrong, your reviews for the dw100 driver would
-> also be appreciated, but if you have limited time (and I assume we all
-> do), the above drivers would benefit more from your comments.
-> 
-> --
-> Regards,
-> 
-> Laurent Pinchart
 
-Eh, not a bit of it.
+On 6/2/26 7:26 AM, Bryan O'Donoghue wrote:
+> On 01/06/2026 05:13, Daniel J Blueman wrote:
+>> On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
+>> triggers unhandled SMMU page faults
+>
+> How do we know that is a correct address - does it come from qcom 
+> documentation or trial and error ? 
 
-You flagged we should do some cross review. I'm happy to be shown to 
-whichever drivers/files it is you mean.
 
----
-bod
+If you follow the Link:, you can see that it does come from qcom..
+
+https://github.com/qualcomm-linux/kernel-topics/issues/1157#issuecomment-4458933574
+
+This series is basically a "hotfix" version of a more complicated series:
+
+https://lore.kernel.org/linux-media/20250627-video_cb-v3-0-51e18c0ffbce@quicinc.com/
+
+that introduced an extra subnode that let the driver only use that 
+restricted IOVA range for non-pixel buffers (only those actually need 
+the restriction) but that resulted in a very long discussion and was 
+kinda shelved because of that.. x_x
+
+
+~val
+
