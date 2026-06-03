@@ -1,262 +1,233 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B20423A7B;
-	Wed,  3 Jun 2026 08:41:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D50B3FF1C1;
+	Wed,  3 Jun 2026 08:41:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780476075; cv=none; b=nKTzbEY7gsKMwDUEMunGLgJQYckpUrEmOoWAGipwuyfWnYURNVHC1sjRwyj0oVUp4JIJrwyXVbUGhSREz00sBm2pTd+prLRptmI8ZrxytPU8oVTDpDEm+a+/LVhC35cyArcI1Mgd6uqSZqHjdcbtzaIjBQXHd1TqCH7p0WB5csw=
+	t=1780476077; cv=none; b=DKJDupcUU68BYC2QxLk70JT+rBU+wyrecykPGPrdrrEeqC63N0t5v++QguxtaHLeuMtEGD+aY2SXBdpSOt9oNpgzLV8YjgL/U4GypyaAjyMEflNhiOVHHVP/bknHXd0Hqg3kbjujdg3o+blRHZNrgK95eWF9OE/7u/+lXxEMFaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780476075; c=relaxed/simple;
-	bh=JcgYf+0nygDDzidgXPXgJhJ0PTxudT0VLpajQREVpu8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BEHZ7WheIyN3Up0f+opZiTWJs1t9nu8veSnorF7Q5lDio7XmWWFr03RsxyUbDoy79eLaPZhAb3DlR0kRkvaahewietjE6ReQlxbakOFFNu4/Wonf9Feq+mL+J4fnGsWpQpcTh31AcXya45YCKZhjghonx6HcUt7NHiTtxWtfa1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NjBtXjpv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780476077; c=relaxed/simple;
+	bh=iBkMDbp9x5MlJF6tJuIvcQaSuB3W9WMm2VxYGUAhnRw=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SYxlDVTR+faHYhNu7yasvWdYU5PJHVIIPwqfFMnSBuOk5/RI42TQj8Cz9ZyijhIQP6SoUeOThBoj9Dy+aLaC/ao+SHnvgo28fUAs1iCiZaWBGaeMBQcr11pI5YTWTBCzDhmzJmwHgp1fvl8xjPJC8jckpnJymaa9P8mBi+/3XrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=MId+0SqE; arc=none smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NjBtXjpv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 399611F00898;
-	Wed,  3 Jun 2026 08:41:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780476073;
-	bh=eR4qgS/eNWHvR6tcyGm368VSq7ZunMgx/UeEh0z8Zww=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NjBtXjpvTQjhwwQ/0CD061wkF/W5/9JhTuvqxIAiiUohDGNWaC9wCgcSoLRDunTkK
-	 qUt0SuPtkCSgyWoMK3rnVRDPLH8B6VclM5W6Bg7eZrhEts3jIC1ezqBWMbUjON8aS3
-	 maUXXGDYNY9jSKxY0WIekciNAE2uaX98J0QdGq4LyI+vcRtTf6IayY2dPM8DxloLdw
-	 ICfTirzBtlXRpuZOSMczXQMmZVgFE6y4XPv3pzaEXXzmnVmXX2Oo58woeVvcpVEZeR
-	 2iVqOBcAZXDPezj6mqRu6keMi9eO27HszQeqkMmdDpcZYKfowSxt1ojOVQivVUfDNN
-	 XA0zG6Zz+8USQ==
-Message-ID: <5778ba10-22a8-42fd-b2a8-6b69c78e6d52@kernel.org>
-Date: Wed, 3 Jun 2026 10:41:09 +0200
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="MId+0SqE"
+X-UUID: f89062ae5f2711f18dc8c9802ae25ab1-20260603
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=mYWp/taIIWLlTLiDi0UdP1i4nJMhM660bDQtgNioPAQ=;
+	b=MId+0SqERWsGgTWBoJlrQQPEjrzx4of5rCOm2+5vF78b87BIgvH3C7+nqT8oLqZwZkqVgGEQyQBYdZJzOCSQz/BRIhJtI3iSrPrkZe7XlnkeKj6yZnb643RYDcIWVj5e9qcg2O1pTWwN8Vk9ZZF/serc5kr5L6pr2yhWtmRA1Kc=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.15,REQID:e277ae1e-5905-4d62-96c1-0c77e69276cb,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:e276073,CLOUDID:12b62e8f-2d9b-4560-8147-1122f58e041c,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|136|836|865|888|898,TC:-5,
+	Content:0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,C
+	OL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: f89062ae5f2711f18dc8c9802ae25ab1-20260603
+Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw02.mediatek.com
+	(envelope-from <kyrie.wu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 943897548; Wed, 03 Jun 2026 16:41:10 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 3 Jun 2026 16:41:09 +0800
+Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
+ mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Wed, 3 Jun 2026 16:41:07 +0800
+From: Kyrie Wu <kyrie.wu@mediatek.com>
+To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
+	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Nicolas Dufresne
+	<nicolas.dufresne@collabora.com>, Ricardo Ribalda <ribalda@chromium.org>,
+	Kees Cook <kees@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Haoxiang Li <haoxiang_li2024@163.com>, Fei Shao <fshao@chromium.org>, Chen-Yu
+ Tsai <wenst@chromium.org>, Laurent Pinchart
+	<laurent.pinchart+renesas@ideasonboard.com>, Sebastian Fricke
+	<sebastian.fricke@collabora.com>, Benjamin Gaignard
+	<benjamin.gaignard@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+	Qianfeng Rong <rongqianfeng@vivo.com>, Jacopo Mondi
+	<jacopo.mondi@ideasonboard.com>, Irui Wang <irui.wang@mediatek.com>, Fan Wu
+	<fanwu01@zju.edu.cn>, <linux-media@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>,
+	Kyrie Wu <kyrie.wu@mediatek.com>
+CC: Sakari Ailus <sakari.ailus@linux.intel.com>, Tzung-Bi Shih
+	<tzungbi@kernel.org>, Tomasz Figa <tfiga@chromium.org>
+Subject: [PATCH v5 03/14] media: mediatek: vcodec: add driver to support vcp encoder
+Date: Wed, 3 Jun 2026 16:40:33 +0800
+Message-ID: <20260603084045.17488-4-kyrie.wu@mediatek.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20260603084045.17488-1-kyrie.wu@mediatek.com>
+References: <20260603084045.17488-1-kyrie.wu@mediatek.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] media: v4l2-isp: Add support for extensible
- statistics
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Antoine Bouyer <antoine.bouyer@nxp.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Keke Li <keke.li@amlogic.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>,
- Jai Luthra <jai.luthra@ideasonboard.com>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- Ricardo Ribalda <ribalda@chromium.org>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260505-extensible-stats-v1-0-e16f326b8dad@ideasonboard.com>
- <777ea8b5-b00a-40e0-b649-59324ff0188a@nxp.com>
- <e1bb04b0-025a-44a6-91ab-edfa6edc1f64@nxp.com>
- <b97f4da9-7df7-4bfd-990e-28a23ec7a236@amlogic.com> <agcaSwdqauzuQSl5@zed>
- <ahbeR6-noMhnU_l5@zed> <9557605d-ac07-404f-b53f-63357898f2e2@nxp.com>
- <ah_iVT1d5U4-9g-0@zed>
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Content-Language: en-US
-In-Reply-To: <ah_iVT1d5U4-9g-0@zed>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-On 6/3/26 10:17, Jacopo Mondi wrote:
-> Hi Antoine
-> 
-> On Mon, Jun 01, 2026 at 03:29:54PM +0200, Antoine Bouyer wrote:
->> On 5/27/26 2:09 PM, Jacopo Mondi wrote:
->>>
->>>
->>> Hi Sakari,
->>>
->>> On Fri, May 15, 2026 at 03:11:18PM +0200, Jacopo Mondi wrote:
->>>> Hi Antoine, Keke
->>>>
->>>> On Wed, May 13, 2026 at 09:04:27AM +0800, Keke Li wrote:
->>>>>
->>>>> On 5/12/26 17:26, Antoine Bouyer wrote:
->>>>>> [ EXTERNAL EMAIL ]
->>>>>>
->>>>>> Le 05/05/2026 à 18:49, Antoine Bouyer a écrit :
->>>>>>> On 5/5/26 4:12 PM, Jacopo Mondi wrote:
->>>>>>>>
->>>>>>>>
->>>>>>>> This series breaks out from Antonie's
->>>>>>>> https://eur01.safelinks.protection.outlook.com/?
->>>>>>>> url=https%3A%2F%2Fpatchwork.linuxtv.org%2Fproject%2Flinux-
->>>>>>>> media%2Flist%2F%3Fseries%3D24043&data=05%7C02%7Cantoine.bouyer%40nxp.com%7Cd0e9f403856c4146996308deaab05cd1%7C686ea1d3bc2b4c6fa92cd99c5c301635%7C0%7C0%7C639135871605732002%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=FXaz7QYQvS3s%2B4l9AFMrGgE7kmXlEil%2FKD6DibB0%2FJY%3D&reserved=0
->>>>>>>>
->>>>>>>> the extensible stats support and adds a few more patches on top to:
->>>>>>>>
->>>>>>>> - add support for per-block validation as suggested during the
->>>>>>>> review of
->>>>>>>>     Ricardo's
->>>>>>>>     https://eur01.safelinks.protection.outlook.com/?
->>>>>>>> url=https%3A%2F%2Fpatchwork.linuxtv.org%2Fproject%2Flinux-
->>>>>>>> media%2Fpatch%2F20260504-smatch-7-1-v3-6-
->>>>>>>> fda125c30058%40chromium.org%2F&data=05%7C02%7Cantoine.bouyer%40nxp.com%7Cd0e9f403856c4146996308deaab05cd1%7C686ea1d3bc2b4c6fa92cd99c5c301635%7C0%7C0%7C639135871605751612%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=AiRH8MhIbXt3dr%2B2r3I6STE6TJAChylnH%2Fz3tLdS36k%3D&reserved=0
->>>>>>>>
->>>>>>>>
->>>>>>>> - add two helper functions to v4l2-isp to ease handling of extensible
->>>>>>>>     statistics for drivers. An early user, based on a preliminary
->>>>>>>> version
->>>>>>>>     of the patches is available here as a reference:
->>>>>>>>     https://eur01.safelinks.protection.outlook.com/?
->>>>>>>> url=https%3A%2F%2Fpatchwork.linuxtv.org%2Fproject%2Flinux-
->>>>>>>> media%2Flist%2F%3Fseries%3D24703&data=05%7C02%7Cantoine.bouyer%40nxp.com%7Cd0e9f403856c4146996308deaab05cd1%7C686ea1d3bc2b4c6fa92cd99c5c301635%7C0%7C0%7C639135871605763086%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=%2Fpsb7Z3lb8ingDILxc3LoEWKTojl5BGMbk6FiR%2FcO9I%3D&reserved=0
->>>>>>>>
->>>>>>>>
->>>>>>>> Antonie: I took the liberty to fold in your patches changes to address
->>>>>>>> my comments on your v1. I pushed an un-squased version of the patches
->>>>>>>> here:
->>>>>>>> https://eur01.safelinks.protection.outlook.com/?
->>>>>>>> url=https%3A%2F%2Fgitlab.freedesktop.org%2Flinux-
->>>>>>>> media%2Fusers%2Fjmondi%2F-%2Ftree%2Fb4%2Fextensible-stats-
->>>>>>>> unsquashed&data=05%7C02%7Cantoine.bouyer%40nxp.com%7Cd0e9f403856c4146996308deaab05cd1%7C686ea1d3bc2b4c6fa92cd99c5c301635%7C0%7C0%7C639135871605775020%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=iF2BE0GZ8HcVPmOJDhbmLsXQDOXV9JvqfMK6DRPPvrg%3D&reserved=0
->>>>>>>>
->>>>>>>> so you can easily get the diff from this and your version. Please feel
->>>>>>>> free to comment on these as you're the original author.
->>>>>>>
->>>>>>> Hi Jacopo
->>>>>>>
->>>>>>> Thanks for the rework and the links. I'm fine with your [SQUASH]
->>>>>>> commits.
->>>>>>>
->>>>>>> If there are no other comments, I assume I can reuse the common patches
->>>>>>> in my v2 then, and also apply the new helpers to neoisp driver changes.
->>>>>>> They look very useful (especially to prevent out-of-bounds crashes I
->>>>>>> observed when data_size was not set before filling stats :( ). I'll
->>>>>>> check in your user example.
->>>>>>>
->>>>>>> BR
->>>>>>> Antoine
->>>>>>
->>>>>> Hi Jacopo
->>>>>>
->>>>>> Do you think it would make sense to create a new generic V4L2_META_FMT
->>>>>> too ? which can be used by all user of v4l2-isp extensible params a/o
->>>>>> stats. To avoid each driver creating its own meta fmt with same purpose.
->>>>>>
->>>>>> Or do you think it could have side effects ?
->>>>>>
->>>>>> BR
->>>>>> Antoine
->>>>>>
->>>>>>>
->>>>> I think this proposal is excellent.
->>>>> 🙂
->>>>
->>>> To me, platform-specific formats mostly serve for documenting the ISP blocks.
->>>> In example
->>>> https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/metafmt-rkisp1.html
->>>>
->>>> There might be ways to handle it without defining a dedicated format
->>>> indeed.
->>>>
->>>> Sakari Laurent and Hans are in cc, what do they think ?
->>>>
->>>
->>> We briefly discussed it on irc and a few days ago again.
->>>
->>> Am I correct you think this is a good idea ?
->>>
->>> Antonie, do you plan to include the two new generic formts in your new
->>> version ? Should we have a single format for STATS and PARAMS too ? I
->>> see merit in both ways, to be hones two formats sound better to me as
->>> they apply to two different queue types (output for params and capture
->>> for stats)
->>
->> Hi Jacopo
->>
->> I would personally prefer using a single format for both params and stats.
->>
->> In my view, the format describes how the meta buffer is structured (header,
->> size, version, flags, etc.), and it should not depend on the queue type.
->> Since both stats and params will use the exact same structure, then it makes
->> sense to me to share a single format. Similar to how a pixel format applies
->> to both source and sink queues.
-> 
-> You certainly have a point here!
+From: Yunfei Dong <yunfei.dong@mediatek.com>
 
-Even though how the content is structured in the buffer is the same for both
-parameters and statistics, the actual content is quite different. So the format
-description in v4l2_fmtdesc is also different. When you list available formats
-for a video device it is nice if you can see what the format actually contains.
+Encoder also need to call vcp interface to communicate with vcp,
+add driver to support encoder.
 
-A V4L2 format has always specified both the structure of the data and what the
-content is (with the odd exception like V4L2_META_FMT_GENERIC_8), and I think
-that should be done here as well.
+Signed-off-by: Yunfei Dong <yunfei.dong@mediatek.com>
+---
+ .../vcodec/common/mtk_vcodec_fw_vcp.c         | 50 +++++++++++++++----
+ .../vcodec/common/mtk_vcodec_fw_vcp.h         |  1 +
+ .../mediatek/vcodec/encoder/mtk_vcodec_enc.c  |  1 -
+ .../mediatek/vcodec/encoder/mtk_vcodec_enc.h  |  2 +
+ 4 files changed, 44 insertions(+), 10 deletions(-)
 
-Interpreting the content of the buffers is quite different for parameters and
-statistics, so just because the high-level structure is the same does IMHO not
-make this a good enough reason to use a single pixelformat. So I recommend
-sticking with two formats.
-
-Unless I'm missing something?
-
-Regards,
-
-	Hans
-
-> 
->>
->> That said, if there is a consensus in favor of defining 2 separate formats,
->> I am fine with following that direction.
-> 
-> Let's see if we can get feedback from Sakari/Hans/Laurent.
-> I'll re-ping them!
-> 
->>
->> For now, I don't plan to integrate the new generic format in my patch
->> series. I would prefer to wait for converging on a solution (1 or 2 formats)
->> first. Then, depending on timeline, yes I can integrate it.
-> 
-> If you want to re-send a new version out quickly feel free to use any
-> format. I hope we can sort this out quickly so you can rebase on
-> easily.
-> 
-> Thanks
->   j
-> 
->>
->> BR
->> Antoine
->>
->>>
->>>>
->>>>
->>>>>>>>
->>>>>>>> Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
->>>>>>>> ---
->>>>>>>> Antoine Bouyer (2):
->>>>>>>>         media: uapi: v4l2-isp: Add extensible statistics
->>>>>>>>         media: Documentation: uapi: Update V4L2 ISP for extensible stats
->>>>>>>>
->>>>>>>> Jacopo Mondi (4):
->>>>>>>>         media: v4l2-isp: Rename v4l2_isp_params_buffer_size
->>>>>>>>         media: v4l2-isp: Add per-block validation callback
->>>>>>>>         media: amlogic-c3: Implement per-block validation
->>>>>>>>         media: v4l2-isp: Add helpers for stats buffer
->>>>>>>>
->>>>>>>>    Documentation/userspace-api/media/v4l/v4l2-isp.rst |  45 ++++++--
->>>>>>>>    .../media/platform/amlogic/c3/isp/c3-isp-params.c  |  42 ++++++-
->>>>>>>>    .../media/platform/arm/mali-c55/mali-c55-params.c  |  12 +-
->>>>>>>>    drivers/media/v4l2-core/v4l2-isp.c                 |  56 +++++++++
->>>>>>>>    include/media/v4l2-isp.h                           |  94 +++++++++++
->>>>>>>> ++---
->>>>>>>>    include/uapi/linux/media/v4l2-isp.h                | 125 +++++++++++
->>>>>>>> ++--------
->>>>>>>>    6 files changed, 294 insertions(+), 80 deletions(-)
->>>>>>>> ---
->>>>>>>> base-commit: d9c8c4adf23d17549c0ec9c85b99d85a0ee6cf18
->>>>>>>> change-id: 20260504-extensible-stats-f2d6befcc1ce
->>>>>>>>
->>>>>>>> Best regards,
->>>>>>>> --
->>>>>>>> Jacopo Mondi <jacopo.mondi@ideasonboard.com>
->>>>>>>>
->>>>>>>
->>>>>>
->>>>>
->>
-> 
+diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
+index 2f3bfcd97958..ee3838daf5a7 100644
+--- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
++++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
+@@ -13,6 +13,8 @@
+ 
+ #include "../decoder/mtk_vcodec_dec_drv.h"
+ #include "../decoder/vdec_ipi_msg.h"
++#include "../encoder/mtk_vcodec_enc.h"
++#include "../encoder/mtk_vcodec_enc_drv.h"
+ #include "mtk_vcodec_fw_priv.h"
+ 
+ #define IPI_SEND_TIMEOUT_MS  100U
+@@ -226,8 +228,13 @@ static int mtk_vcodec_vcp_msg_ipi_send(struct mtk_vcodec_fw *fw, int id, void *b
+ 	}
+ 
+ 	mutex_lock(&vcp->ipi_mutex);
+-	feature_id = VDEC_FEATURE_ID;
+-	mailbox_id = IPI_OUT_VDEC_1;
++	if (fw->fw_use == ENCODER) {
++		feature_id = VENC_FEATURE_ID;
++		mailbox_id = IPI_OUT_VENC_0;
++	} else {
++		feature_id = VDEC_FEATURE_ID;
++		mailbox_id = IPI_OUT_VDEC_1;
++	}
+ 
+ 	timeout_jiffies = jiffies + msecs_to_jiffies(VCP_SYNC_TIMEOUT_MS);
+ 	while (!vcp_device->ops->vcp_is_ready(feature_id)) {
+@@ -351,10 +358,17 @@ static int mtk_vcodec_vcp_load_firmware(struct mtk_vcodec_fw *fw)
+ 
+ 	vcp_device = fw->vcp->vcp_device;
+ 
+-	feature_id = VDEC_FEATURE_ID;
+-	mem_id = VDEC_MEM_ID;
+-	mailbox_id = IPI_IN_VDEC_1;
+-	ipi_id = VCP_IPI_LAT_DECODER;
++	if (fw->fw_use == ENCODER) {
++		feature_id = VENC_FEATURE_ID;
++		mem_id = VENC_MEM_ID;
++		mailbox_id = IPI_IN_VENC_0;
++		ipi_id = VCP_IPI_ENCODER;
++	} else {
++		feature_id = VDEC_FEATURE_ID;
++		mem_id = VDEC_MEM_ID;
++		mailbox_id = IPI_IN_VDEC_1;
++		ipi_id = VCP_IPI_LAT_DECODER;
++	}
+ 
+ 	ret = mtk_vcp_mbox_ipc_register(vcp_get_ipidev(vcp_device), mailbox_id,
+ 					mtk_vcodec_vcp_msg_ack_isr, fw, &fw->vcp->share_data);
+@@ -383,6 +397,20 @@ static int mtk_vcodec_vcp_load_firmware(struct mtk_vcodec_fw *fw)
+ 	mutex_init(&fw->vcp->ipi_desc[ipi_id].lock);
+ 	mutex_init(&fw->vcp->ipi_mutex);
+ 
++	if (fw->fw_use == ENCODER) {
++		kthread_run(mtk_vcodec_vcp_msg_process_thread, fw, "vcp_enc_msq_thread");
++
++		fw->vcp->vsi_addr = vcp_device->ops->vcp_get_mem_virt(mem_id);
++		fw->vcp->vsi_size = vcp_device->ops->vcp_get_mem_size(mem_id);
++		fw->vcp->iova_addr = vcp_device->ops->vcp_get_mem_iova(mem_id);
++
++		dev_dbg(&fw->pdev->dev, "enc vcp init done => va: %p size:0x%x iova:%pad.\n",
++			fw->vcp->vsi_addr, fw->vcp->vsi_size, &fw->vcp->iova_addr);
++
++		init_waitqueue_head(&fw->vcp->msg_wq[VCP_IPI_ENCODER]);
++		return 0;
++	}
++
+ 	kthread_run(mtk_vcodec_vcp_msg_process_thread, fw, "vcp_vdec_msq_thread");
+ 
+ 	fw->vcp->vsi_addr = vcp_device->ops->vcp_get_mem_virt(mem_id);
+@@ -438,8 +466,8 @@ static void mtk_vcodec_vcp_release(struct mtk_vcodec_fw *fw)
+ 	if (!fw->vcp->is_register_done)
+ 		return;
+ 
+-	feature_id = VDEC_FEATURE_ID;
+-	ret = vcp_device->ops->vcp_deregister_feature(vcp_device, VDEC_FEATURE_ID);
++	feature_id = fw->fw_use == ENCODER ? VENC_FEATURE_ID : VDEC_FEATURE_ID;
++	ret = vcp_device->ops->vcp_deregister_feature(vcp_device, feature_id);
+ 	if (ret < 0) {
+ 		dev_err(dev, "deregister feature_id(%d) fail(%d)\n", feature_id, ret);
+ 		return;
+@@ -464,7 +492,11 @@ struct mtk_vcodec_fw *mtk_vcodec_fw_vcp_init(void *priv, enum mtk_vcodec_fw_use
+ 	struct mtk_vcodec_fw *fw;
+ 	int i;
+ 
+-	if (fw_use == DECODER) {
++	if (fw_use == ENCODER) {
++		struct mtk_vcodec_enc_dev *enc_dev = priv;
++
++		plat_dev = enc_dev->plat_dev;
++	} else if (fw_use == DECODER) {
+ 		struct mtk_vcodec_dec_dev *dec_dev = priv;
+ 
+ 		plat_dev = dec_dev->plat_dev;
+diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.h b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.h
+index 1072c37078f4..acf8f3e87bd0 100644
+--- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.h
++++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.h
+@@ -16,6 +16,7 @@ typedef void (*vcp_ipi_handler_t) (void *data, unsigned int len, void *priv);
+ 
+ /* enum mtk_vcp_ipi_index - index used to separate different hardware */
+ enum mtk_vcp_ipi_index {
++	VCP_IPI_ENCODER,
+ 	VCP_IPI_LAT_DECODER,
+ 	VCP_IPI_CORE_DECODER,
+ 	VCP_IPI_MAX,
+diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.c
+index 0d4e94463685..48cb5dded70a 100644
+--- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.c
++++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.c
+@@ -26,7 +26,6 @@
+ 
+ #define MTK_DEFAULT_FRAMERATE_NUM 1001
+ #define MTK_DEFAULT_FRAMERATE_DENOM 30000
+-#define MTK_VENC_4K_CAPABILITY_ENABLE BIT(0)
+ 
+ static void mtk_venc_worker(struct work_struct *work);
+ 
+diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.h b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.h
+index 908d8179b2d2..84156c102d8d 100644
+--- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.h
++++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.h
+@@ -23,6 +23,8 @@
+ #define MTK_VENC_IRQ_STATUS_OFFSET	0x05C
+ #define MTK_VENC_IRQ_ACK_OFFSET	0x060
+ 
++#define MTK_VENC_4K_CAPABILITY_ENABLE BIT(0)
++
+ /**
+  * struct mtk_video_enc_buf - Private data related to each VB2 buffer.
+  * @m2m_buf:	M2M buffer
+-- 
+2.45.2
 
