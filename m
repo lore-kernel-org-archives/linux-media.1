@@ -1,834 +1,170 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E2314A33E1
-	for <linux-media@vger.kernel.org>; Wed,  3 Jun 2026 21:42:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844CD37F755
+	for <linux-media@vger.kernel.org>; Wed,  3 Jun 2026 21:46:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780522978; cv=none; b=pf6D2G1ZduG4xpOuH4ulnUvsG77TZee0ZKTr9fbbHprG4r+D9SNmDWuImuURY70li3vZMXNNMQp2xOyWzBXkdaw6P0b1hel3UPU9/ntGXmN7oEfha/shUzmmQvWT4y2c9JwP3ynuToOUvOPGSNlE0wqS/lqCT/mKyezS4j4ui5U=
+	t=1780523218; cv=none; b=E5PM++xkuK8WG5p/t2J1czQh/5xN5orTOM6nkJYaKY5Tn7K8EF5a2ZQVQX3WsA5CdMUwaw6i6gjBuceV46UTOV212QFLa8J06l6o0XS8RjL3Vu1KNZz00NjvQebWPs3VA7TFf/9O7r0KqyPkMZoNlLeyi809Td2iLHsrcde+wMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780522978; c=relaxed/simple;
-	bh=xiFpAo3GKuuJqhPSgs2wt1YO3zyFZdSmdaufPoNe5bA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ksya22zGO5BwHlJyS+r3JSA5Ed2bU26Pjzb8yXTIh2rN9L2Z4Ba5XVgksRMAoWutd5/RLSQN0R940ukNIxPNAmZhRQ0P8JqhHCA71cqNIPWZBFJ7YAON6feyRqUm44eOzye+uMhaLMH0PqOKmaTWZQpCjwfYYyZ0rqjj9rvrlQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=odot.cl; spf=pass smtp.mailfrom=odot.cl; dkim=pass (2048-bit key) header.d=odot.cl header.i=@odot.cl header.b=nm1MHF8B; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=XeXrZF35; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=odot.cl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=odot.cl
+	s=arc-20240116; t=1780523218; c=relaxed/simple;
+	bh=oeYALUtDYRkyR7oPwz2HFEy/K998aAgoV+N/hPqd17k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=j8ffjTgMmrfZAISFeTKLkd095wmazOuZ/Vd41rPoKY1XUkIKdbRyOKhmR6SYP+5nS58Kar5R9LR0K1dhj242vqoo2wAdQf0fv/XjbCc6Tg/eV7uSPSWCzfdjrO/n6NmMYzgkhFdD3uiML4VSeTvGlKFmyIwT4eFA5wCGMYB+keg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dtOMp8RS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ONrGrEAb; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=odot.cl header.i=@odot.cl header.b="nm1MHF8B";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="XeXrZF35"
-DKIM-Signature: a=rsa-sha256; b=nm1MHF8B+aDd6s41hOtboI8hDYoKbm68EYHTyGC8Dm4hBhauuS1kVnpCl9Eop9lUNH0vQbU8jTACKC8iGeREI9XMUdSH2UHz4597I/ziyRS9BXbP4mcnohJKirW8YUWKpMuj0OFtIt530NBcYyiLng6n/KdDQ65Q5zGg+qLG/jaM8O8/2yeZYme7YvseWAqx3W6RCCvqvvPW+ycMYV2l06LZcjbAZQShNtV582AGF/OTHnEv20vEWn/sP0/T/ZnRx7Wlr5n5fNfxAl/zbkuQ3qhy/nlLYhoEgbTSqurNc9/S402zxS1eGtipEusZ+bKXYCIZTat+fwflOu4P02OHRQ==; s=purelymail2; d=odot.cl; v=1; bh=xiFpAo3GKuuJqhPSgs2wt1YO3zyFZdSmdaufPoNe5bA=; h=Received:From:To:Subject:Date;
-DKIM-Signature: a=rsa-sha256; b=XeXrZF35I0PT/qC2gw6OMGwgxIRVMXTCzGeEKJ0rkLsHTbWclTAPOQ8Ggccdvbr7oV7CWp79vCUy26kJOacXbNN0ja6nCXP1An/rRE4N/5iVqtSMpMw7D/HRTPOdkm67lA9xjM2/qSW7t18xUl5j/E9W1oLIRXwxSVTvgzN0a4nGBIGm55wMq2baV4p/fUGdX9RiENC5fEXwGJhGVV2rWjKXmCW/PIw7wY4pzNw8272KKXiEFQR7RnkyLVRoOM1yntnJ1W08l3bIJHVv2C+FkqBGLch6wN34jZWFburPouucC1bTzAFIs14Z5McZS332bN52hRvrnMEQYv5pOGMKFA==; s=purelymail2; d=purelymail.com; v=1; bh=xiFpAo3GKuuJqhPSgs2wt1YO3zyFZdSmdaufPoNe5bA=; h=Feedback-ID:Received:From:To:Subject:Date;
-Feedback-ID: 809996:39420:null:purelymail
-X-Pm-Original-To: linux-media@vger.kernel.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1163224703;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Wed, 03 Jun 2026 21:42:53 +0000 (UTC)
-From: "Reynaldo H. Verdejo Pinochet" <reynaldo@odot.cl>
-To: linux-media@vger.kernel.org
-Cc: mchehab@kernel.org,
-	"Reynaldo H. Verdejo Pinochet" <rverdejo@arrl.net>
-Subject: [dtv-scan-tables][PATCH 2/2] atsc: new US/Canada frequencies without decommissioned spectrum
-Date: Wed,  3 Jun 2026 14:42:17 -0700
-Message-ID: <20260603214217.303951-2-reynaldo@odot.cl>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260603214217.303951-1-reynaldo@odot.cl>
-References: <20260603214217.303951-1-reynaldo@odot.cl>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dtOMp8RS";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ONrGrEAb"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 653KC9xI1740590
+	for <linux-media@vger.kernel.org>; Wed, 3 Jun 2026 21:46:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	YI4SVhkK6E0eWN6DtYQRlG4n4FVt4g9e2Fn1B2lcMFM=; b=dtOMp8RSacUZoCYe
+	efjvGKC+HAT7c4p7w5nn4raTde7oWIY5XZlQgiRfGawn8NrHS9oFSxPGWbOR1n45
+	MIZnFNNphA3PwHJNnaqkyKQSIK6zxhABvK9/wHqTMtJrHLONWZHrEWFLYYefwj09
+	reHvVmClMJxAzr1vpptI5H4u22+dosRl3wOs1LuywneUwJcp8lTBZ0/P8WgWcC6I
+	KP1E8waRuSlG2krZMV8ig9P5eGZ5C7AtevDb0q4h4v6C9zj66jQfX8+DWkkmNgpD
+	Yjzss6O8AOrKmUya8ylbqjE63vsZC6XfcZKGKh+EYD8hxIEnX2jFes5RTuD4BNiX
+	u5a3Lg==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ejdq7v5hs-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 03 Jun 2026 21:46:56 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-304d8613efbso7444600eec.1
+        for <linux-media@vger.kernel.org>; Wed, 03 Jun 2026 14:46:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780523216; x=1781128016; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=YI4SVhkK6E0eWN6DtYQRlG4n4FVt4g9e2Fn1B2lcMFM=;
+        b=ONrGrEAbG47obKukUm9JCF4K0xSgJ7sAEhco7EMWcG08HHUV6bx1/jJXYgPreQo8xM
+         B4u1O1htL2fecOFJoah6jRi1Tgu0+nQtZYDpQBmwwkhSNDi2yUWpAYWJR3Cr3q7nzYVN
+         V+5YoWty4mASFuQAa8JGI3uz1+EDxBzVlFNll3iCAisIkg14r/dQ0FzFlh3PVyC1LjGI
+         yN4hAfjjehl1IKVsuYl9LKo2tObYidSLU18O9n3QsrB+eoBSinymMaCpVdgr3E2rcC4T
+         7NqlmP0sNoXpH0oDG/AzM8pjsFt0EC3TUT7Cdg2nvZwNvwnURSvfAbPJ6qsUz2v/8pjW
+         cQOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780523216; x=1781128016;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YI4SVhkK6E0eWN6DtYQRlG4n4FVt4g9e2Fn1B2lcMFM=;
+        b=OKGCdv0++/P87eF58m9hq4docJAAnphd8C+aGbAHqe3zKnZKZu5cNvhGjk6dCtImBv
+         UC+e0uteI51eHja0HL4DrLxsNJucY7fZ71tpFHA854S+HIuVwVoHerWM9qSR+J/Ksydj
+         QrtneLUIjBj6gB2Z7BukccLU4bJ+/Aw86cWb+w3ty6ObC1Y/B/K1jsJx7SwQj4D92SDe
+         YkO3VV641v+Dsd8sfF6CMSiQ9j4WgOfF0vWzG3IcuKWXWclw0fQM7TofHYEX+u7ILc0I
+         GE6e/c45L1yvPKjNFgv45LUqwNArBZtzrqrTABNV7+LLSP9hWdBULOLKfVpdYqjvneJN
+         rEaQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9IFq6K9rs8Otz5vptVJrzdmeHooYuzgLkfkSSteHvB+28ENDiS04s95KFUm6Zgwnm0ygbvRe70MZOL6Q==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yynm9X7oPkSWSdAQh4HNXvQTTxi5lLZbmSn3Wcikk8hTA1U2NBH
+	VzAkjLF4c+EnVWNuFETFzRzL0nYnoT3rakxu5y/GxiEjFax++9jSsdbOudL0cg+6e0t9rRcjhhe
+	bAQz5EhwXXEGgQIY2onlpsMzeTI4EAFed4oFb/oQlmDv6dfGiF8OSWfmoRJmUK3ipZQ==
+X-Gm-Gg: Acq92OGu4p47LokgkuRHkhJpNYo3Lx7Wr7IyeQ8juxid6BUxukrHl+2/szLdJzCQU4U
+	PdV7u8sseNuOfIoCGJroSuO+8WivnGSQzjCFfAT6rCzTOcayJzV0p2HBftKqTrVhOamH93av1b/
+	uckYHgXmMtq4bBcQT1Xarm51ShRtVfMuUT/ke/ik72CIZA0Y/Nm7nduzLnvZrzSE+UvQ+tInIhR
+	r+xUXyOBDb5XQvXkJ0CZ5bmvsl8H3GtxYbW4bg/T7Lgz50MJMTEie7rbax1EVUNZXgkO9t4XyeP
+	25vqxxkljKuPA0oF7QvMVEm0cde7oQg9HK+REyPM+Sj//gUWsIcTK8k//w2G8Lsah4gLGoH6LQF
+	AjAZx9+MhP0zVohZmsFirEBBdp74FLog6KFFTugmi3ePOAq3cLDyeNhS9u5lHfudaKitzb4xBzc
+	KQEGuIFPbGuVA=
+X-Received: by 2002:a05:7300:7250:b0:304:997c:d4b6 with SMTP id 5a478bee46e88-3074fb4847bmr3287896eec.17.1780523216047;
+        Wed, 03 Jun 2026 14:46:56 -0700 (PDT)
+X-Received: by 2002:a05:7300:7250:b0:304:997c:d4b6 with SMTP id 5a478bee46e88-3074fb4847bmr3287882eec.17.1780523215500;
+        Wed, 03 Jun 2026 14:46:55 -0700 (PDT)
+Received: from [10.62.37.26] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3074db85e10sm3362286eec.7.2026.06.03.14.46.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 03 Jun 2026 14:46:55 -0700 (PDT)
+Message-ID: <21facbaa-c001-4e82-954d-f2f6838d41b3@oss.qualcomm.com>
+Date: Wed, 3 Jun 2026 14:46:54 -0700
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: Bryan O'Donoghue <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vinod Koul
+ <vkoul@kernel.org>,
+        Kishon Vijay Abraham I <kishon@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
+ <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
+ <rpnNMsR9GY8gbynzeBO8Zm61JAOq3ubt6sp0x3WDPPwkMAJzlcofECD1kabN-IUoK6sSwP5P6l28UIZLFCOpjQ==@protonmail.internalid>
+ <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
+ <478df3ed-d4ef-43aa-bb84-e2075798542b@kernel.org>
+ <ec98ef2f-02b4-4086-8b4b-07b6953dbd20@oss.qualcomm.com>
+ <514cf213-5778-45e1-8d70-d3fe27991fcc@oss.qualcomm.com>
+ <7JNJ4dUNz4ennJ5dkzhfLSuVo72JpfZAbprICPRqlRYnSzVDJw6x3h-1nESd_PK-3us9f1V3qOiLiywsTqP8vQ==@protonmail.internalid>
+ <f01c0e22-4e5c-44e7-9ea4-4bc8d53aea2e@linaro.org>
+ <29e8491f-20e8-4082-8943-66bee7e3af1d@kernel.org>
+Content-Language: en-US
+From: Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
+In-Reply-To: <29e8491f-20e8-4082-8943-66bee7e3af1d@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAzMDIxMSBTYWx0ZWRfX8itP+Jg06p1D
+ kqxp4WAO3qMeVddzai1xZNrmW3KrPhYOOV29JKAWirCwKUAb2s8xqI7NPjtYtSALs4ZemBP4Tte
+ N9LVRX3E8uODQmd9D7mN4SKawPFf9PVQfhhctXHqloVcW8YXMoqtZxHS1bfREjMhSiU4r3vm+0E
+ ovKFKeGH2U2itGLPJ0l95JWKTojrQ7em9Yc2qApV68HWQnN1ZfVMqfoMp9436c8kNbpaYhgiZng
+ CcKg4RQlZ+ke/H2qt45kOA2rPbSfJcKzPb4QIKhZ2nzVFnxZ2BDGRQldoejTibarNXe3mJ2wdTS
+ jE7dVuex0of9iWrzTB0lCumQjUVuyiIDr3RLAq3FNpoy6dmPS0osPG1ET+9qqMA9Z2vq3ZAgE19
+ IOx4rJ7bZ2DcESzN1oL7uMr9npAF/szVoLjjkXMy2lAQJpEiMy/m7ndihs0LeVod460s8S9BTPX
+ kjlSGypZeJVOKT587jA==
+X-Proofpoint-ORIG-GUID: BxPB698jq1A3xrLUXMtdSuZC7uQvsSML
+X-Proofpoint-GUID: BxPB698jq1A3xrLUXMtdSuZC7uQvsSML
+X-Authority-Analysis: v=2.4 cv=ccniaHDM c=1 sm=1 tr=0 ts=6a20a0d0 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=R4he3g2KxIACXk2nk8MA:9 a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-03_06,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 adultscore=0 phishscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606030211
 
-From: "Reynaldo H. Verdejo Pinochet" <rverdejo@arrl.net>
 
-This change:
 
-Makes the 8VSB file without a -date suffix the one that contains
-the up-to-date frequency table.
-
-Uses channel "canonical" center frequencies (Lower edge + 3Mhz)
-for the main (up-to-date) table instead of adding the +28615kHz
-offset used in USA and Canada till July 13, 2021.
----
- atsc/us-ATSC-center-frequencies-8VSB        | 273 +++---------------
- atsc/us-ATSC-center-frequencies-8VSB-072020 | 302 ++++++++++++++++++++
- 2 files changed, 345 insertions(+), 230 deletions(-)
- create mode 100644 atsc/us-ATSC-center-frequencies-8VSB-072020
-
-diff --git a/atsc/us-ATSC-center-frequencies-8VSB b/atsc/us-ATSC-center-fre=
-quencies-8VSB
-index e7448782..ed7885ea 100644
---- a/atsc/us-ATSC-center-frequencies-8VSB
-+++ b/atsc/us-ATSC-center-frequencies-8VSB
-@@ -1,410 +1,223 @@
--# US ATSC center frequencies, use if in doubt
-+# Use this table if you want to avoid scanning channels that are no longer
-+# in use for ATSC in USA and Canada.
-+#
-+# ch 38 thru 51 were decommissioned for ATSC in the USA in July 2020
-+# in Canada in January 2022.
-+# ch 52 thru 69 were decommissioned for ATSC in the USA in June 2009
-+# in Canada in September 2011.
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 57028615
-+=09FREQUENCY =3D 57000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 63028615
-+=09FREQUENCY =3D 63000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 69028615
-+=09FREQUENCY =3D 69000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 79028615
-+=09FREQUENCY =3D 79000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 85028615
-+=09FREQUENCY =3D 85000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 177028615
-+=09FREQUENCY =3D 177000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 183028615
-+=09FREQUENCY =3D 183000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 189028615
-+=09FREQUENCY =3D 189000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 195028615
-+=09FREQUENCY =3D 195000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 201028615
-+=09FREQUENCY =3D 201000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 207028615
-+=09FREQUENCY =3D 207000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 213028615
-+=09FREQUENCY =3D 213000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 473028615
-+=09FREQUENCY =3D 473000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 479028615
-+=09FREQUENCY =3D 479000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 485028615
-+=09FREQUENCY =3D 485000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 491028615
-+=09FREQUENCY =3D 491000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 497028615
-+=09FREQUENCY =3D 497000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 503028615
-+=09FREQUENCY =3D 503000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 509028615
-+=09FREQUENCY =3D 509000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 515028615
-+=09FREQUENCY =3D 515000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 521028615
-+=09FREQUENCY =3D 521000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 527028615
-+=09FREQUENCY =3D 527000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 533028615
-+=09FREQUENCY =3D 533000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 539028615
-+=09FREQUENCY =3D 539000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 545028615
-+=09FREQUENCY =3D 545000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 551028615
-+=09FREQUENCY =3D 551000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 557028615
-+=09FREQUENCY =3D 557000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 563028615
-+=09FREQUENCY =3D 563000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 569028615
-+=09FREQUENCY =3D 569000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 575028615
-+=09FREQUENCY =3D 575000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 581028615
-+=09FREQUENCY =3D 581000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 587028615
-+=09FREQUENCY =3D 587000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 593028615
-+=09FREQUENCY =3D 593000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 599028615
-+=09FREQUENCY =3D 599000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 605028615
-+=09FREQUENCY =3D 605000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
-=20
- [CHANNEL]
- =09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 611028615
-+=09FREQUENCY =3D 611000000
- =09MODULATION =3D VSB/8
- =09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 617028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 623028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 629028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 635028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 641028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 647028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 653028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 659028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 665028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 671028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 677028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 683028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 689028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 695028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 701028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 707028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 713028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 719028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 725028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 731028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 737028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 743028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 749028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 755028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 761028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 767028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 773028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 779028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 785028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 791028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 797028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
--[CHANNEL]
--=09DELIVERY_SYSTEM =3D ATSC
--=09FREQUENCY =3D 803028615
--=09MODULATION =3D VSB/8
--=09INVERSION =3D AUTO
--
-diff --git a/atsc/us-ATSC-center-frequencies-8VSB-072020 b/atsc/us-ATSC-cen=
-ter-frequencies-8VSB-072020
-new file mode 100644
-index 00000000..9a0dc6c0
---- /dev/null
-+++ b/atsc/us-ATSC-center-frequencies-8VSB-072020
-@@ -0,0 +1,302 @@
-+# US ATSC center frequencies as they were before channels 38-51 were decom=
-missioned
-+# in July 13th, 2020.
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 57028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 63028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 69028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 79028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 85028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 177028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 183028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 189028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 195028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 201028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 207028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 213028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 473028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 479028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 485028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 491028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 497028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 503028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 509028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 515028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 521028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 527028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 533028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 539028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 545028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 551028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 557028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 563028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 569028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 575028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 581028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 587028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 593028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 599028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 605028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 611028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 617028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 623028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 629028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 635028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 641028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 647028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 653028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 659028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 665028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 671028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 677028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 683028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 689028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
-+
-+[CHANNEL]
-+=09DELIVERY_SYSTEM =3D ATSC
-+=09FREQUENCY =3D 695028615
-+=09MODULATION =3D VSB/8
-+=09INVERSION =3D AUTO
---=20
-2.47.3
-
+On 6/3/2026 2:18 PM, Bryan O'Donoghue wrote:
+> On 03/06/2026 21:51, Vladimir Zapolskiy wrote:
+>>> Actually, one more thing, Why isn't TITAN TOP GDSC here?>>>> +
+>> If CSIPHYs are true subdevices under the umbrella CAMSS device and well
+>> described as subnodes, then likely none of power domains are needed to be
+>> repeatedly described in the children device nodes, since this information
+>> can be obtained from the parent device by the driver.
+>>
+>> Technically 'power-domains' property can be safely removed, I believe.
+> 
+> The policy is to describe the power-domain dependency fully since DT 
+> describes hardware not software architecture.
+> 
+> Also for a very practical reason a sub-devices can probe/run 
+> asynchronously of the parent device being active so in fact we do need 
+> to describe the PDs fully.
+This makes me think. When the PHY devices are made the sub nodes of the 
+top camss node eventually, we can discuss for somethings to be avoided 
+in each child, which we can come to later but for now, you need to add 
+the top AHB clock as well in the PHY node, Bryan.>
+> ---
+> bod
+Thanks,
+Vijay.
