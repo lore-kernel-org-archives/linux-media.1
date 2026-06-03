@@ -1,168 +1,150 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38AA12652AF
-	for <linux-media@vger.kernel.org>; Wed,  3 Jun 2026 07:18:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3B139A4BA
+	for <linux-media@vger.kernel.org>; Wed,  3 Jun 2026 07:21:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780471136; cv=none; b=Y+ztW7Sl/NhG0YDMfSioew/01ncPtyciQFDRggmQNAdY7o5ZvTnTAvxMatP8r9DJ1WtlZU809KbB5jtPSs6rqN8x5f1sVj1G4DbxAClXe9he3pzrDZ1J779WJ2jpaGQ+k1qf/x+6ADbwRyRxWhyjwwVhg5SgjeH3kRB7xCw+F8M=
+	t=1780471304; cv=none; b=CO/QNliriPtKVrZtKuxZHPu2VjUXecnDuLUHt5vbaRo8KIZjrwcus+okBfmTQxS+kBFtMlKfo6XWBquw3k8sduxDWbDx44QfYUnGluszMlFoj2gD75MxKtrpH/G2p5vXMra/Q/l2IfGOMpN6zuSb9BzfVdpu/ObYB+yKukTo/x4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780471136; c=relaxed/simple;
-	bh=WvUqlsI0TntVJbYDnACbFjyiS1JVIAWaIFV578TdJsA=;
+	s=arc-20240116; t=1780471304; c=relaxed/simple;
+	bh=PrGx4t/E41kDfu3vPBNpehOhFGzvqIXc0TEH8Cv0Tpc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uKZSJ3qMiPoWQWMvO1mHPW9NgXA+VUCoOXTCEaH6UBvL9Qm7U8lXE3/MPfipHELaAF3WY1HHz1CKxubtFOj8I15Nq8ZO3ciMRL9H6ermIwSouDUT5eBJ2MHGSHz4UREuRWeIOg7v8noSde1OGLeZB77GsAMVc+mwQgpjRUGs5iU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D6P41ZMu; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=iEE/8/gjkOB5pLnAulm+RFq/IW3ovXSyMZv3tA4A4GiFEfbUqfv0kyAkmmrGCgtagf+QjLWYTrvsLgvYje2wk2FDlt9ZXpanY81XOFQf+uzVEF7sjyx6Qzu/tDPcQrW0TsjL+li7udS3TcGTHYi3YoWTg2vuMlvH1dzhhQLH8ic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aVTDkKDI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D6P41ZMu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 024971F00898;
-	Wed,  3 Jun 2026 07:18:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aVTDkKDI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A0A01F00893;
+	Wed,  3 Jun 2026 07:21:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780471135;
-	bh=2jCgiK+zC6hUdwZmbeVQl4r2cNMFCyzFpzUHyFDMCCM=;
+	s=k20260515; t=1780471303;
+	bh=NGBlwv64KwuYjGCNA5BUAKrtlFqS4gGVicrJCr/nzUI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=D6P41ZMuMjPBeIfxPR8ydb39ZtmoKN2VaajX28kvxkn4k9LlYtEhXch6QhVDE/DGX
-	 0yjV20gqhoPDzscJsdw7eCLZYjLo7t6pI0PqJbAkedxO59PT8+EHvbAJwuHaeP3eVA
-	 adMXoLILiHGQBfY94oEXT6RznOIAQDGmXOLFYTqCHqjA6Jf8yfLA9XhRITWQSlAeMC
-	 Cp99ajZTxY/ilwbobyQYgW0RW8f1cmGTU2AwazYcSQyoGCNg6gA6RgigAwCLGCDwf7
-	 /ob4COlqmMP6JrCKxSsHARHXCcfbchEmkArL1yGskwd3p6CQEmNrVlE/GvDAHeLz6z
-	 sA40aA9fDKfBA==
+	b=aVTDkKDIn3E7VhFFOgeq3prOiEjxv2AM3XsnmCHaaQlNw4ink6vjIjdR9b3oMzJ3l
+	 Pq5Cpq3nuDJSruvkZ8xzCOLfK+D/46EVSO2aUEDJ3L4HA7deoGyoTPWjSohCjVXMA1
+	 bO7Ijst9tx86mXa519MvW04mrWQQNS+uMiIlynZTZnJeZKLThcdpQBSBcuxB10/jkE
+	 igQ7sy5ZGgf9BkJXrCdLMX1zQJKi/bQX2Ij1zKStdZ5ZRiHWGP7WpdoW+EtwFfz6mS
+	 RCGT87F8SXmupU+ljh66KI70knbNd4Cv/PIr18ogkrHK5fguFKiI6dqJBOFmKNFPSH
+	 kH0mwAVAz+YjQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 11/12] media: microchip-isc: smooth AWB gains with
- EMA filter
+Subject: Re: [PATCH v6 09/12] media: microchip-isc: add SAMA7G5 hue and
+ saturation controls
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Balakrishnan Sambath" <balakrishnan.s@microchip.com>
 Cc: linux-media@vger.kernel.org
-In-Reply-To: <20260603-microchip-isc-fixes-v6-11-8c3d7474a768@microchip.com>
-References: <20260603-microchip-isc-fixes-v6-11-8c3d7474a768@microchip.com>
+In-Reply-To: <20260603-microchip-isc-fixes-v6-9-8c3d7474a768@microchip.com>
+References: <20260603-microchip-isc-fixes-v6-9-8c3d7474a768@microchip.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 07:18:54 +0000
-Message-Id: <20260603071855.024971F00898@smtp.kernel.org>
+Date: Wed, 03 Jun 2026 07:21:42 +0000
+Message-Id: <20260603072143.0A0A01F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The raw calculated `gain` is not clamped before being fed into the=
- exponential moving average (EMA) filter, causing severe and prolonged over=
-exposure artifacts under degenerate conditions.
-- [High] The unconditionally applied EMA filter breaks the 'Do White Balanc=
-e' (ISC_WB_ONETIME) feature, requiring users to trigger it multiple times t=
-o reach the correct balance.
-- [Medium] The exponential moving average (EMA) filter introduces a truncat=
-ion bias because integer division truncates towards zero.
+
+New issues:
+- [Medium] V4L2 controls are improperly gated due to deferred pipeline conf=
+iguration, causing incorrect active states and state desynchronization when=
+ inactive controls are modified.
+
+Pre-existing issues:
+- [High] `mutex_destroy(&isc->awb_mutex)` is called on an uninitialized or =
+already destroyed mutex during async error and unbind paths.
 --
 
-commit 8392fdc05942f24c94ecfeddbdfc0822a7cde3b3
+commit a918c53cb3531019eb23300da7b6bcbdebef4df4
 Author: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Date:   Wed Jun 3 06:58:54 2026 +0000
 
-media: microchip-isc: smooth AWB gains with EMA filter
+media: microchip-isc: add SAMA7G5 hue and saturation controls
 
-This patch applies an exponential moving average (alpha=3D0.25) to the auto=
-matic
-white balance (AWB) gains in the microchip-isc driver. This aims to reduce
-per-frame flicker caused by sensor noise.
+This commit exposes hue and saturation as V4L2 controls for the SAMA7G5
+CBHS block. The controls are gated based on the has_cbhs flag and are
+initialized to neutral values at probe.
 
 > diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/driv=
 ers/media/platform/microchip/microchip-isc-base.c
-> index 6ebbb8adea452..621d90afe730c 100644
 > --- a/drivers/media/platform/microchip/microchip-isc-base.c
 > +++ b/drivers/media/platform/microchip/microchip-isc-base.c
-> @@ -1467,11 +1467,20 @@ static void isc_wb_update(struct isc_ctrls *ctrls)
->  		/* Combine stretch and grey-world gains; result stays in Q9. */
->  		gain =3D (s_gain * gw_gain) >> 9;
-> =20
-> -		ctrls->gain[c] =3D clamp_val(gain, 0, GENMASK(12, 0));
-> +		/*
-> +		 * Smooth gain updates with an exponential weighted average
-> +		 * to suppress per-frame flicker:
-> +		 *   gain =3D (3 * gain_old + gain_new) / 4   (alpha =3D 0.25)
-> +		 * Clamp to the hardware register width to prevent unbounded
-> +		 * accumulation under degenerate (near-empty histogram) inputs.
-> +		 */
-> +		ctrls->gain[c] =3D (3 * ctrls->gain[c] + gain) / 4;
+> @@ -859,6 +859,46 @@ static int isc_try_configure_pipeline(struct isc_dev=
+ice *isc)
 
-[Severity: High]
-Does feeding the unbounded raw gain into the EMA filter before clamping cau=
-se
-prolonged overexposure artifacts under degenerate conditions?
+[ ... ]
 
-Under degenerate inputs (like a near-empty histogram where hist_max =3D=3D
-hist_min), the raw calculated gain can reach up to 524,288. Because this
-unbounded value is fed into the EMA filter before clamping, (3 * gain_old +
-524288) / 4 evaluates to over 131,000, which is then clamped to the maximum
-value 8,191.
+> +static void isc_update_cbhs_ctrls(struct isc_device *isc)
+> +{
+> +	bool cbhs_active =3D isc->config.bits_pipeline & CBHS_ENABLE;
+> +	bool chroma_active =3D cbhs_active && isc_format_is_yuv(isc->config.fou=
+rcc);
+> +
+> +	if (isc->brightness_ctrl)
+> +		v4l2_ctrl_activate(isc->brightness_ctrl, cbhs_active);
+> +	if (isc->contrast_ctrl)
+> +		v4l2_ctrl_activate(isc->contrast_ctrl, cbhs_active);
+> +	if (isc->hue_ctrl)
+> +		v4l2_ctrl_activate(isc->hue_ctrl, chroma_active);
+> +	if (isc->saturation_ctrl)
+> +		v4l2_ctrl_activate(isc->saturation_ctrl, chroma_active);
+> +}
 
-When normal frames resume, the state is pinned at 8,191 and the EMA makes it
-decay slowly, taking around 15 to 20 frames to return to normal values. Bef=
-ore
-this patch, the unbounded gain was directly clamped, causing only a 1-frame
-flash.
+[ ... ]
 
-[Severity: High]
-Could unconditionally applying the EMA filter here break the 'Do White Bala=
-nce'
-(ISC_WB_ONETIME) feature?
+> @@ -902,6 +942,7 @@ static int isc_set_fmt(struct isc_device *isc, struct=
+ v4l2_format *f)
+>  	/* make the try configuration active */
+>  	isc->config =3D isc->try_config;
+>  	isc->fmt =3D isc->try_fmt;
+> +	isc_update_cbhs_ctrls(isc);
 
-The ISC_WB_ONETIME feature performs exactly one 4-channel Bayer histogram c=
-ycle
-to compute and apply white balance gains, then sets ctrls->awb =3D ISC_WB_N=
-ONE
-and stops requesting histograms:
+[Severity: Medium]
+Does this leave the CBHS controls incorrectly deactivated before streaming
+starts?
 
-drivers/media/platform/microchip/microchip-isc-base.c:isc_awb_work() {
+Because isc->config.bits_pipeline is only updated during link validation
+(VIDIOC_STREAMON), it appears bits_pipeline will be zero or stale here
+in isc_set_fmt().
+
+If the controls remain incorrectly inactive, and userspace tries to set
+them, isc_s_ctrl() might quietly reject the change:
+
+drivers/media/platform/microchip/microchip-isc-base.c:isc_s_ctrl() {
     ...
-    if (ctrls->awb =3D=3D ISC_WB_ONETIME) {
-        dev_info(isc->dev,
-                 "Completed one time white-balance adjustment.\n");
-        /* update the v4l2 controls values */
-        isc_update_v4l2_ctrls(isc);
-        ctrls->awb =3D ISC_WB_NONE;
-    }
+    if (ctrl->flags & V4L2_CTRL_FLAG_INACTIVE)
+        return 0;
     ...
 }
 
-By unconditionally applying the EMA filter here, this single adjustment cyc=
-le
-only updates the gains by 25% of the required delta towards the target.
+Will this silently ignore the update while the V4L2 core caches the new
+value, causing the driver's internal hardware state to permanently diverge
+from the V4L2 framework's cached state?
 
-The one-time AWB fails to converge to the correct values, requiring users to
-trigger the V4L2_CID_DO_WHITE_BALANCE ioctl multiple times to asymptotically
-approach the correct balance.
 
-[Severity: Medium]
-Will this integer division introduce a truncation bias?
+[Severity: High]
+This is a pre-existing issue, but can the async error handling path cause
+a double-destroy or uninitialized-destroy panic?
 
-Because integer division truncates towards zero, when the target gain is
-slightly above the current value (by 1 to 3 units), the fractional addition=
- is
-truncated and the value never increases. For example, if the current gain is
-512 and the target is 515, (1536 + 515) / 4 =3D 512, so it never moves.
+If an early operation such as v4l2_device_register_subdev_nodes() fails
+in isc_async_complete(), it returns an error before initializing
+isc->awb_mutex. The V4L2 async core handles this failure by unbinding the
+subdevices, which triggers isc_async_unbind().
 
-Conversely, downward trends track effortlessly. This creates a permanent
-asymmetrical bias where the smoothed gain settles below the true mathematic=
-al
-average. Symmetric rounding (3 * ctrls->gain[c] + gain + 2) / 4 might resol=
-ve
-this.
+isc_async_unbind() unconditionally calls:
 
-> +		ctrls->gain[c] =3D min_t(u32, ctrls->gain[c], GENMASK(12, 0));
-> =20
->  		dev_dbg(isc->dev,
-> -			"isc wb: c=3D%u black=3D%u avg=3D%u s_gain=3D%u gw_gain=3D%u gain=3D%=
-u",
-> -			c, hist_min, channel_avg, s_gain, gw_gain, gain);
-> +			"isc wb: c=3D%u black=3D%u avg=3D%u s_gain=3D%u gw_gain=3D%u gain=3D%=
-u\n",
-> +			c, hist_min, channel_avg, s_gain, gw_gain,
-> +			ctrls->gain[c]);
->  	}
->  }
+drivers/media/platform/microchip/microchip-isc-base.c:isc_async_unbind() {
+    ...
+    mutex_destroy(&isc->awb_mutex);
+    ...
+}
+
+Could this lead to a kernel oops on an uninitialized mutex if
+CONFIG_DEBUG_MUTEXES is enabled? Additionally, if isc_async_complete()
+fails after initialization, it explicitly destroys the mutex in its error
+block, causing isc_async_unbind() to destroy it a second time.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603-microchip-=
-isc-fixes-v6-0-8c3d7474a768@microchip.com?part=3D11
+isc-fixes-v6-0-8c3d7474a768@microchip.com?part=3D9
