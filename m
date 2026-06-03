@@ -1,30 +1,30 @@
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436E6438FEF;
-	Wed,  3 Jun 2026 08:41:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9558C44CAC6;
+	Wed,  3 Jun 2026 08:41:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780476092; cv=none; b=RHpDZByg3jjAFZ0gS1bY+61O87M3JtzHEyiwt+NRt8KRpMSzPHKkQ6qTGn+8pshn5gHqI9Szxnlkv7UwAyIdydBvU16RiD3uJSLESQlfkGQzZyp48Uu7pnGp0yiz9JdRmm0MGqwDUDU1jmQHod20HrtwTZFvZdAbhXwxMnQvZy4=
+	t=1780476094; cv=none; b=KuhJH0SuOz8vVrnhe7QHE+qLILOGxGw9NzNEiwboxU3Lw27s3vq2dPb18OyfgYZ+7SDNEEbvlO+9jKYoMNMdsxhlu9w7kmvb5bgJ8Bw0FMl8Cus/GNU7UGwRay56usy5SusOSNEvY3z7bDGm5qWcFAPvEepJBw+Gd8eozPgxXWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780476092; c=relaxed/simple;
-	bh=ZcIWzt8LqGRAA9jvpqfvER8OYpI/qsCCTsqYL0L979k=;
+	s=arc-20240116; t=1780476094; c=relaxed/simple;
+	bh=MrDnGf4uiukg2DltXaWuKzf0bc5AXAFQOmsRm38LpY4=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IvXESM5Kx79DNI9cfeW3Xr9jKLxrldFLlSBzEmk3DgMPuwVtBlnyd8mpe+S2C1JRBRuxjgi4Ix3FnXU6PYMsmA+F5GZrmEVc69+8oWAKDxWCZ+qsNERva4hW7KMVL2bwCaxPQ+ngjdZzEpgNanKKuakWhQzxnuCkYx6GDsz+Vgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=H3U5hZ3n; arc=none smtp.client-ip=210.61.82.184
+	 MIME-Version:Content-Type; b=kwt40I4QFr56pVOicwn6dGiGlZT0FVtC2QVivyD1Zz2AeREAZCR0IgKHbByhU93Jii6Ql8xanHpPXm6XYLc/8/ArCau/vCDQj/BAWJ5039iPu/rqw8hD8bt7jeLq+ZIv85lUjmErP/WlppHsdShy9Jz9jPi1NMeKUpG62qVT3l4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=i6z8Wls9; arc=none smtp.client-ip=210.61.82.184
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="H3U5hZ3n"
-X-UUID: 02382ecc5f2811f18dc8c9802ae25ab1-20260603
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="i6z8Wls9"
+X-UUID: 042c855c5f2811f18dc8c9802ae25ab1-20260603
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=+dqfuCJbs+O/ElOdUAzqup4cvk+s5X6t24No/bT+PNI=;
-	b=H3U5hZ3nmXT9vxRPC/XM3oHNBx24y9+aiewZ6F363vH3OwTzbfSaizDeBqJq8IbhYYUMnUFzUB/isrxxnUCgTEavuWhq20VTvqYMwDHU4QcfmlVI/tmzEJlYXHj5yXIcH6EhdnxCWOk2Q1hcSmhcMAl9Vx3BiNQ27h3/h2uMG+k=;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=Pame0Wvxb+8KgxdVr8JXyDYWN37nDFeElaUgBwhHNFc=;
+	b=i6z8Wls9PVj91bT5Y0P8kuoQPMaJSpGUWr+8e59/qjnn4U9ETNALkd6PDPan94QTfQ+MxAtl8KaMurDHtTN5ozYcnPN862jQ5rufJQVBX+UOcIhSYK3wC4Rx1kjeLQjrY7xwNYrhkCO74h8sM/PBl8ORwcrqGWwP0iwqaYdJvmM=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.15,REQID:cd833c48-e24b-4060-b364-b4bd7949a797,IP:0,U
+X-CID-O-INFO: VERSION:1.3.15,REQID:10dfec22-7762-4e54-b13f-7a651b4bc012,IP:0,U
 	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
 	release,TS:0
-X-CID-META: VersionHash:e276073,CLOUDID:fa180a50-23b6-41e0-a310-51c498ab6908,B
+X-CID-META: VersionHash:e276073,CLOUDID:2fb46dff-ece9-4b61-b051-0e792034d0bc,B
 	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|136|836|865|888|898,TC:-5,
 	Content:0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,C
 	OL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
@@ -32,18 +32,18 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 02382ecc5f2811f18dc8c9802ae25ab1-20260603
-Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by mailgw02.mediatek.com
+X-UUID: 042c855c5f2811f18dc8c9802ae25ab1-20260603
+Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw02.mediatek.com
 	(envelope-from <kyrie.wu@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1926935807; Wed, 03 Jun 2026 16:41:26 +0800
+	with ESMTP id 1565717292; Wed, 03 Jun 2026 16:41:29 +0800
 Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 3 Jun 2026 16:41:25 +0800
+ 15.2.2562.29; Wed, 3 Jun 2026 16:41:28 +0800
 Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
  mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Wed, 3 Jun 2026 16:41:23 +0800
+ 15.2.2562.29 via Frontend Transport; Wed, 3 Jun 2026 16:41:27 +0800
 From: Kyrie Wu <kyrie.wu@mediatek.com>
 To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
 	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
@@ -66,9 +66,9 @@ To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
 	Kyrie Wu <kyrie.wu@mediatek.com>
 CC: Sakari Ailus <sakari.ailus@linux.intel.com>, Tzung-Bi Shih
 	<tzungbi@kernel.org>, Tomasz Figa <tfiga@chromium.org>
-Subject: [PATCH v5 12/14] media: mediatek: vcodec: add decoder compatible to support mt8196
-Date: Wed, 3 Jun 2026 16:40:42 +0800
-Message-ID: <20260603084045.17488-13-kyrie.wu@mediatek.com>
+Subject: [PATCH v5 14/14] media: mediatek: decoder: support av1 extend vsi
+Date: Wed, 3 Jun 2026 16:40:44 +0800
+Message-ID: <20260603084045.17488-15-kyrie.wu@mediatek.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20260603084045.17488-1-kyrie.wu@mediatek.com>
 References: <20260603084045.17488-1-kyrie.wu@mediatek.com>
@@ -84,51 +84,162 @@ X-MTK: N
 
 From: Yunfei Dong <yunfei.dong@mediatek.com>
 
-MT8196 is lat single core architecture. Support its compatible and
-use `mtk_lat_sig_core_pdata` to initialize platform data.
+The driver can't access tile buffer address for extend architecture,
+set tile group information in vcp and share it with kernel.
 
 Signed-off-by: Yunfei Dong <yunfei.dong@mediatek.com>
 ---
- .../platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c   | 6 ++++++
- .../platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h   | 1 +
- 2 files changed, 7 insertions(+)
+ .../vcodec/decoder/vdec/vdec_av1_req_lat_if.c | 59 ++++++++++++++++---
+ 1 file changed, 52 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-index 68759db6f8d1..bee6e057b0a7 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-@@ -347,6 +347,8 @@ static void mtk_vcodec_dec_get_chip_name(struct mtk_vcodec_dec_dev *vdec_dev)
- 		vdec_dev->chip_name = MTK_VDEC_MT8186;
- 	else if (of_device_is_compatible(dev->of_node, "mediatek,mt8188-vcodec-dec"))
- 		vdec_dev->chip_name = MTK_VDEC_MT8188;
-+	else if (of_device_is_compatible(dev->of_node, "mediatek,mt8196-vcodec-dec"))
-+		vdec_dev->chip_name = MTK_VDEC_MT8196;
- 	else
- 		vdec_dev->chip_name = MTK_VDEC_INVAL;
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c
+index a0c7e89b8ae4..e9265b112bfb 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c
++++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c
+@@ -25,6 +25,9 @@
+ 
+ #define AV1_INVALID_IDX			-1
+ 
++#define AV1_NON_EXT_VSI_SIZE		0xD50
++#define AV1_TILE_SIZE			64
++
+ #define AV1_DIV_ROUND_UP_POW2(value, n)			\
+ ({							\
+ 	typeof(n) _n  = n;				\
+@@ -641,6 +644,8 @@ struct vdec_av1_slice_fb {
+  * @frame:		current frame info
+  * @state:		status after decode done
+  * @cur_lst_tile_id:	tile id for large scale
++ * @tile_group:	tile group info
++ * @reserved:		reserved
+  */
+ struct vdec_av1_slice_vsi {
+ 	/* lat */
+@@ -665,6 +670,8 @@ struct vdec_av1_slice_vsi {
+ 	struct vdec_av1_slice_frame frame;
+ 	struct vdec_av1_slice_state state;
+ 	u32 cur_lst_tile_id;
++	struct vdec_av1_slice_tile_group tile_group;
++	unsigned int reserved[4];
+ };
+ 
+ /**
+@@ -1402,17 +1409,29 @@ static void vdec_av1_slice_setup_uh(struct vdec_av1_slice_instance *instance,
+ 	vdec_av1_slice_setup_tile(frame, &ctrl_fh->tile_info);
  }
-@@ -573,6 +575,10 @@ static const struct of_device_id mtk_vcodec_match[] = {
- 		.compatible = "mediatek,mt8188-vcodec-dec",
- 		.data = &mtk_lat_sig_core_pdata,
- 	},
-+	{
-+		.compatible = "mediatek,mt8196-vcodec-dec",
-+		.data = &mtk_lat_sig_core_pdata,
-+	},
- 	{},
- };
  
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
-index 15e437323af5..53d1708b012b 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
-@@ -29,6 +29,7 @@ enum mtk_vcodec_dec_chip_name {
- 	MTK_VDEC_MT8188 = 8188,
- 	MTK_VDEC_MT8192 = 8192,
- 	MTK_VDEC_MT8195 = 8195,
-+	MTK_VDEC_MT8196 = 8196,
- };
++static
++struct vdec_av1_slice_tile_group *vdec_av1_get_tile_group(struct vdec_av1_slice_instance *instance,
++							  struct vdec_av1_slice_vsi *vsi)
++{
++	if (IS_VDEC_SUPPORT_EXT(instance->ctx->dev->dec_capability))
++		return &vsi->tile_group;
++	else
++		return &instance->tile_group;
++}
++
+ static int vdec_av1_slice_setup_tile_group(struct vdec_av1_slice_instance *instance,
+ 					   struct vdec_av1_slice_vsi *vsi)
+ {
+ 	struct v4l2_ctrl_av1_tile_group_entry *ctrl_tge;
+-	struct vdec_av1_slice_tile_group *tile_group = &instance->tile_group;
++	struct vdec_av1_slice_tile_group *tile_group;
+ 	struct vdec_av1_slice_uncompressed_header *uh = &vsi->frame.uh;
+ 	struct vdec_av1_slice_tile *tile = &uh->tile;
+ 	struct v4l2_ctrl *ctrl;
+ 	u32 tge_size;
+ 	int i;
  
- /*
++	tile_group = vdec_av1_get_tile_group(instance, vsi);
++
+ 	ctrl = v4l2_ctrl_find(&instance->ctx->ctrl_hdl, V4L2_CID_STATELESS_AV1_TILE_GROUP_ENTRY);
+ 	if (!ctrl)
+ 		return -EINVAL;
+@@ -1607,6 +1626,15 @@ static int vdec_av1_slice_setup_pfc(struct vdec_av1_slice_instance *instance,
+ 	return ret;
+ }
+ 
++static u32 vdec_av1_get_tiles_num(struct vdec_av1_slice_instance *instance,
++				  struct vdec_av1_slice_vsi *vsi)
++{
++	if (IS_VDEC_SUPPORT_EXT(instance->ctx->dev->dec_capability))
++		return vsi->tile_group.num_tiles;
++	else
++		return instance->tile_group.num_tiles;
++}
++
+ static void vdec_av1_slice_setup_lat_buffer(struct vdec_av1_slice_instance *instance,
+ 					    struct vdec_av1_slice_vsi *vsi,
+ 					    struct mtk_vcodec_mem *bs,
+@@ -1647,12 +1675,18 @@ static void vdec_av1_slice_setup_lat_buffer(struct vdec_av1_slice_instance *inst
+ 
+ 	vsi->tile.buf = instance->tile.dma_addr;
+ 	vsi->tile.size = instance->tile.size;
+-	memcpy(lat_buf->tile_addr.va, instance->tile.va, 64 * instance->tile_group.num_tiles);
+ 
+ 	vsi->cdf_table.buf = instance->cdf_table.dma_addr;
+ 	vsi->cdf_table.size = instance->cdf_table.size;
+ 	vsi->iq_table.buf = instance->iq_table.dma_addr;
+ 	vsi->iq_table.size = instance->iq_table.size;
++
++	/* lat_buf is used to share hardware decoder syntax between lat and core,
++	 * there isn't only one. But there is only one tile.va for each instance.
++	 * Need to copy tile information to lat_buf every time.
++	 */
++	memcpy(lat_buf->tile_addr.va, instance->tile.va,
++	       AV1_TILE_SIZE * vdec_av1_get_tiles_num(instance, vsi));
+ }
+ 
+ static void vdec_av1_slice_setup_seg_buffer(struct vdec_av1_slice_instance *instance,
+@@ -1675,7 +1709,7 @@ static void vdec_av1_slice_setup_tile_buffer(struct vdec_av1_slice_instance *ins
+ 					     struct vdec_av1_slice_vsi *vsi,
+ 					     struct mtk_vcodec_mem *bs)
+ {
+-	struct vdec_av1_slice_tile_group *tile_group = &instance->tile_group;
++	struct vdec_av1_slice_tile_group *tile_group;
+ 	struct vdec_av1_slice_uncompressed_header *uh = &vsi->frame.uh;
+ 	struct vdec_av1_slice_tile *tile = &uh->tile;
+ 	u32 tile_num, tile_row, tile_col;
+@@ -1686,6 +1720,8 @@ static void vdec_av1_slice_setup_tile_buffer(struct vdec_av1_slice_instance *ins
+ 	u32 *tile_info_buf = instance->tile.va;
+ 	u64 pa = (u64)bs->dma_addr;
+ 
++	tile_group = vdec_av1_get_tile_group(instance, vsi);
++
+ 	if (uh->disable_cdf_update == 0)
+ 		allow_update_cdf = 1;
+ 
+@@ -1907,7 +1943,7 @@ static int vdec_av1_slice_init(struct mtk_vcodec_dec_ctx *ctx)
+ 	struct vdec_av1_slice_instance *instance;
+ 	struct vdec_av1_slice_init_vsi *vsi;
+ 	enum mtk_vcodec_fw_type fw_type = ctx->dev->fw_handler->type;
+-	int ret;
++	int ret, vsi_size = AV1_NON_EXT_VSI_SIZE;
+ 
+ 	instance = kzalloc_obj(*instance);
+ 	if (!instance)
+@@ -1941,9 +1977,18 @@ static int vdec_av1_slice_init(struct mtk_vcodec_dec_ctx *ctx)
+ 		goto error_vsi;
+ 	}
+ 
+-	if (vsi->vsi_size != sizeof(struct vdec_av1_slice_vsi))
+-		mtk_vdec_err(ctx, "remote vsi size 0x%x mismatch! expected: 0x%zx\n",
+-			     vsi->vsi_size, sizeof(struct vdec_av1_slice_vsi));
++	if (IS_VDEC_SUPPORT_EXT(ctx->dev->dec_capability)) {
++		vsi_size = sizeof(struct vdec_av1_slice_vsi);
++		vsi->iq_table_size = AV1_IQ_TABLE_SIZE;
++		vsi->cdf_table_size = AV1_CDF_SIZE;
++	}
++
++	if (vsi->vsi_size != vsi_size) {
++		mtk_vdec_err(ctx, "remote vsi size 0x%x mismatch! expected: 0x%x\n",
++			     vsi->vsi_size, vsi_size);
++		ret = -EINVAL;
++		goto error_vsi;
++	}
+ 
+ 	instance->irq_enabled = 1;
+ 	instance->inneracing_mode = IS_VDEC_INNER_RACING(instance->ctx->dev->dec_capability);
 -- 
 2.45.2
 
