@@ -1,89 +1,158 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14C4737DEAB
-	for <linux-media@vger.kernel.org>; Wed,  3 Jun 2026 04:32:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEC01A8F84;
+	Wed,  3 Jun 2026 05:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780461145; cv=none; b=phBbzajX0OBTcRQJpJ+MW7gCk3uFVll5NwvXjLUjadhjmJBNTE7GlZtu7maMkXjVKNbr0VHxzCyquoLB4sUGCdYnOI8ag0QzPglUDJWIADkLtpL4S68DnJI+yM2YaLrkxdFFNlLTEHxmf9Kj3Bw8YYeijDN3XjGCoGvysCvhY2c=
+	t=1780463011; cv=none; b=Lik6e5qcYf9QnRLn1O43GdP1wDYh6fQtmvp8y/8i5HWVcfk1Ni85Xq5uG3v/Gvy/92W0xSdgNpxekZi2WfaNT0yxXemAZqc7UGf3hz02GGDseLUV/o1I4Fbp4tjXRSfB5cgj2RIfJ0gelzAPPoGmD3EdNo+Me2HqsY5nh0fiQnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780461145; c=relaxed/simple;
-	bh=YFcUaUj6kxkv9rqhNTP8GplMzelCIexEexCMwAhcknM=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=QXjvxJ9y/ggOasdEtc+b61HfybBq6YNmM1ma4RRpernlTxZVMoSwiw2jsqaJKQ3qK9liDW3BH7Vgxyxx+RaqLikx9zXVDF7D/67jv/k5vZ50E/fxCHL58EmWGYwhwQhQ9rWxNH8A5W+Fulm2mtcnkFr3Kpew/1J5iLbnrYiOnqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7e6eeff3b75so67597a34.0
-        for <linux-media@vger.kernel.org>; Tue, 02 Jun 2026 21:32:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780461143; x=1781065943;
-        h=to:from:subject:message-id:date:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=L6I2nLDGac1Lc5F9iWGirVMZobXIs5WUzJ/DO9M8Iqs=;
-        b=rpLcsumd2jHDmeT60BIOYZ1RWkjEwuP7JuYYUsqZxI28K9LrfOzaVE6pkppI2mMJc8
-         PxyxXzD2Ead2bPfbz+YA53m7Tz7JHKuy6EX2UgQrgBco3Uw3bV6ffbXvrfHjlVTVNPG2
-         c2NHxHj+K2J5cOnFtP9LiXCVlP4qKu3jPdk9x0Nj6TKysvadNPppLIeBzgWTC+REeJM0
-         oWV+6w12tMmEsFNIyti9VAU3HKjRNNdG8CwxIs2FD7ZYJqUz0tt5JgjBwTtRE7+Jdii6
-         wQnHBwIJIwAY3wpJNEa9xuJkMttBz88SEh31XloV9hYkuY9DE070hej1Onrm1M4ITiOK
-         l41Q==
-X-Forwarded-Encrypted: i=1; AFNElJ9C4DEHpGhCdDY99hLVMHUVXZ/3mdDuRA85z34RVgtzH+gklHKDzRZrw9BcDi3QYsc4ybHIqvh7rfLrNQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyPfxPl9nUcR+7T/z4eo0cINAxfNrKoOqqilua4DC4RfS1eAal5
-	yjvXnVutyIKIn53qn0ScLonJ8KpeIXqhjCpxdS55LGJ14ZUPbg9NLAR9yxbHIhLEvTrVldqtARQ
-	xb0Xe+/C8hYz0jk8DpAzSUU5wW2MQ8D85C7cbqEHZUeprIEv/h1klMgk/bN4=
+	s=arc-20240116; t=1780463011; c=relaxed/simple;
+	bh=AnWx2sc2ikIB9Kzg2RpGXndBMtRPgDAKEYfA0zD22aA=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=rFGrqQ8jInvTvXd/Cvdw5bDuiM3cpjlGcysD4W/u2hG8CfsiaBiQ+tJVfPmgrVsVIhteJmhk/ss7bYsVSgvq8N/kbagodDvtxPBc1wDjbQMw+ScatV1xHoYAfVzNUiYVtHbs9J0uNoRSkF6Wg3QdaYYxRgHD+EZE3uL2LhjA21g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=19vLfeu6; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=QdOGvx/G; arc=none smtp.client-ip=103.168.172.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="19vLfeu6";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="QdOGvx/G"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.phl.internal (Postfix) with ESMTP id 6AD5BEC008A;
+	Wed,  3 Jun 2026 01:03:28 -0400 (EDT)
+Received: from phl-imap-08 ([10.202.2.84])
+  by phl-compute-02.internal (MEProxy); Wed, 03 Jun 2026 01:03:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1780463008;
+	 x=1780549408; bh=ws8WYd0GmictUe6BKqpSaYsPsRCChPwQW2zOOHmZTtI=; b=
+	19vLfeu6xgCnIxtihp2Ong7VfvlQeUc2UTBOsbjSVrEZHFjqNZXvwXQ2XacPM/o1
+	p/EJzMqwxVzpz9zq+QED6XpaGiLMbf0hSdO0YDBT7Gk42rnH9gIeoNOsaQcDvnk8
+	7W3oB1qg7PgzdcG66csk0WNPXTGUlzEvLK+oXa2n2aFecbUthJR/eAkowhOyxwdz
+	LbdW+YWM7d5B6Sa4QqFGdSoq/gG+hDgU5J3OyDQnK2mpvSQ+MSKnmHsVrMQxlQTV
+	syUokA4qXdNDFXfJQDxD7EbFWyspidOUuVegqe4/WNNqlOCtZXtkBKn5AtPsuH/3
+	XEUQAc4DfVTSTI4hSggxsA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1780463008; x=
+	1780549408; bh=ws8WYd0GmictUe6BKqpSaYsPsRCChPwQW2zOOHmZTtI=; b=Q
+	dOGvx/G50SmERWUhnOoqF2ksaK6kgCS5emFLHyRlgpx2okwWIL+C3ks/Eh69CQEZ
+	C9kN2FDvYNWZN7Q+3zyq970K2PIsBQtHtEDUYL2JekFyYIRhz/7zIqofu9VShDFi
+	cT6MMZk3EGYMhkvjA18Y8wpsDcNDZ41C8v990KywC2gC4mVPiOH22X0dTENlDQyH
+	oZVXTymoR4trgGXMj9xRA4ZIg75O+XSOU/RL8dIJf3qTi0M1yt+ffqmunovLnijd
+	57wNBrtpM2igRgTa5GXcrqnkt/SQRduAl/Hk6xl4QyEJJ9B86ocGeDJjx38yInuV
+	txTLEkVfg67cDm8I42Uiw==
+X-ME-Sender: <xms:n7Ufamn4wGCFkOLYur36qfJv7gMFG4XDaNGmjXa8GCNGPCAM_YSF7g>
+    <xme:n7Ufaorusnsn54exwvl_wZkiEfYXqB9gY3agwHIMLMKq9t0Wjz21E_RG6kR4_zYJn
+    1VoEMmBTQy-mZ1lWOgpRVzFOvKyeOaShj1L9LYYA94fg6Jn-QkjpeQ>
+X-ME-Proxy-Cause: dmFkZTG0t97FO8yBGoorBAhMOqRBb3alUoZWCa+3FbQIOQ1ecDaQZknDEG8wPLN47of6Qc
+    qv8GNBlEa7129jM/G5h/ymEOKN/qWhvSBPr809D3bXUnBhUVSIetxDw5gI9L+ggji/9d4x
+    XO23msHo4xmh48D3m+hoLJm1ifsUWRS+YwvZsrSuink1mOJ648crkP6DappbFiyLAnHoL7
+    u2LT8AhRmJjtX5yfdItOxZdShubzgGfyA5vlOIFPvF8CGylFyVfd8rpHNHNR/SIbWGbiij
+    o87E8okkNz/sbi5Exfz+qHHOOzOSon8OWrXE0gr1oLTim1VqMnYxDscYj3AAPpMhvBS7DC
+    eKaEGSn4i/GW3m+Ob/H2s9jM6lJK/IV0cIWdkATFCwd3RdF7ObjdwZJzyzuUF5V0QD/OaQ
+    N1FdjHVpUl4sTIkax0JMHmlamYgV+bSJfITncGh6qYiHWIj3pg8sB76OC2HWuqDvF08Trh
+    o5+dvAZPaR5vxRNTPOF3c1HG5SbNq0LCco214Hdz/Q4aR89jn4om4UyKMbrSWo6189OLqr
+    K3g4pLlRqbddbqEtrP9tKYR2gi5vsv7UKss0fZlbCsfm2TaifDdU+Sr/07OlVyerck3UqV
+    P69iNt/00kAssNHubaJ/OGGovt0iyOQynklTwUOpKkSBvMADNRwab8cBHUuA
+X-ME-Proxy: <xmx:n7UfanQ0vt2oWI7qTTrHgfqwFi4hGup8-tjPLQN_-druOHYh5BN0XQ>
+    <xmx:n7UfanAThaLdfgg6XGWMCj8V9TqPsSXZisYBSS82ZdxlHyZHRcO4xA>
+    <xmx:n7UfamIqrsQ-V7zF-l-f3-gboQjgfTt0auUy-q6iwOEZM7kpDQDloQ>
+    <xmx:n7UfaqDqeD0Pn5xS3MVCPr9Gvv9bz3lWbG_66xEjpXslmFBy4S5ijw>
+    <xmx:oLUfapqEvA8Ohh1bza4XJuwhIpgLAFPm6HQt92a_LGLL1AYcAc8kZcrf>
+Feedback-ID: ic2b14614:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 9C6812CE1D5B; Wed,  3 Jun 2026 01:03:27 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4b87:b0:69e:42fd:4070 with SMTP id
- 006d021491bc7-69e47def91bmr1050511eaf.8.1780461143170; Tue, 02 Jun 2026
- 21:32:23 -0700 (PDT)
-Date: Tue, 02 Jun 2026 21:32:23 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a1fae57.3b158e77.2846f8.084d.GAE@google.com>
-Subject: [syzbot] Monthly media report (Jun 2026)
-From: syzbot <syzbot+liste916efb0292109d94721@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-ThreadId: Ap04_Nb3JT2V
+Date: Tue, 02 Jun 2026 22:03:07 -0700
+From: "Mark Pearson" <mpearson@squebb.ca>
+To: "Kate Hsuan" <hpa@redhat.com>, "Damjan Georgievski" <gdamjan@gmail.com>
+Cc: "Mauro Carvalho Chehab" <mchehab@kernel.org>,
+ "Hans de Goede" <johannes.goede@oss.qualcomm.com>,
+ "Hans Verkuil" <hverkuil+cisco@kernel.org>,
+ "Sakari Ailus" <sakari.ailus@linux.intel.com>,
+ "Serin Yeh" <serin.yeh@intel.com>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, "Chi-Wei Chen50" <cchen50@lenovo.com>
+Message-Id: <38ba48b4-35ec-4514-b805-74ebfc17b328@app.fastmail.com>
+In-Reply-To: 
+ <CAEth8oGOEdN9wf15FZ_z73pDj9Hw0+zj_8fd_ZMbMwMkBHrUPA@mail.gmail.com>
+References: <20260522031121.11968-1-hpa@redhat.com>
+ <20260522031121.11968-2-hpa@redhat.com>
+ <9727b97f-7838-4d5f-bd8a-e26dabf1d38f@gmail.com>
+ <CAEth8oGOEdN9wf15FZ_z73pDj9Hw0+zj_8fd_ZMbMwMkBHrUPA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] media: ipu-bridge: Add DMI information of Lenovo X9 to the
+ image upside-down list
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hello media maintainers/developers,
+Note - switched to my open-source friendly email account.
 
-This is a 31-day syzbot report for the media subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/media
+Hi Kate,
 
-During the period, 3 new issues were detected and 2 were fixed.
-In total, 29 issues are still open and 112 have already been fixed.
-There are also 8 low-priority issues.
+On Tue, Jun 2, 2026, at 2:35 AM, Kate Hsuan wrote:
+> Hi Damjan,
+>
+> Thank you for your review.
+>
+> On Sat, May 30, 2026 at 6:33=E2=80=AFAM Damjan Georgievski <gdamjan@gm=
+ail.com> wrote:
+>>
+>> On 5/22/26 05:11, Kate Hsuan wrote:
+>> > The Lenovo X9 has an upside-down-mounted Sony IMX471 sensor so the =
+image
+>> > was displayed upside-down. Add the DMI information of Lenovo X9 to
+>> > resolve the issue.
+>> >
+>> > Signed-off-by: Kate Hsuan <hpa@redhat.com>
+>> > ---
+>> >   drivers/media/pci/intel/ipu-bridge.c | 14 ++++++++++++++
+>> >   1 file changed, 14 insertions(+)
+>> >
+>> > diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/p=
+ci/intel/ipu-bridge.c
+>> > index 32cc95a766b7..1c3364451fa3 100644
+>> > --- a/drivers/media/pci/intel/ipu-bridge.c
+>> > +++ b/drivers/media/pci/intel/ipu-bridge.c
+>> > @@ -118,6 +118,20 @@ static const struct dmi_system_id upside_down_=
+sensor_dmi_ids[] =3D {
+>> >               },
+>> >               .driver_data =3D "OVTI02C1",
+>> >       },
+>> > +     {
+>> > +             .matches =3D {
+>> > +                     DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
+>> > +                     DMI_MATCH(DMI_PRODUCT_VERSION, "ThinkPad X9-1=
+4"),
+>>
+>> Isn't this going to be an issue in the future if/when a "Gen 2" appea=
+rs?
+>
+> You can look into the v1 [1]. The DMI_BOARD_NAME is used to
+> distinguish the types of X1.
+> v3 covers wider ranges of X9-14 and 15. If we agree with v1, I can
+> revert this patch to v1.
+>
+> [1] https://lore.kernel.org/linux-media/20260417083214.222189-2-hpa@re=
+dhat.com/
+>
+I happily defer to Hans on things like this as he has way more experienc=
+e than me, but we usually use the BOARD_NAME for identifying platforms e=
+verywhere else in the kernel so that feels to me 'safer'.
 
-Some of the still happening issues:
+If we do go ahead with PRODUCT_VERSION it should probably be DMI_MATCH_E=
+XACT instead. I think that will work fine, but it is not commonly used a=
+nd I would worry about the FW team doing weird versions for different ma=
+rkets (the two board names are very standard for Thinkpads)
 
-Ref Crashes Repro Title
-<1> 1583    Yes   KMSAN: uninit-value in dvbdmx_release_ts_feed
-                  https://syzkaller.appspot.com/bug?extid=01d4620886bee3db0e74
-<2> 460     Yes   KASAN: slab-use-after-free Read in em28xx_release_resources
-                  https://syzkaller.appspot.com/bug?extid=16062f26c6480975e5ed
-<3> 134     Yes   KASAN: slab-use-after-free Read in dvb_frontend_release (3)
-                  https://syzkaller.appspot.com/bug?extid=ae466a728017ec940b41
-<4> 8       Yes   memory leak in v4l2_ctrl_handler_init_class (3)
-                  https://syzkaller.appspot.com/bug?extid=b1de0d5fd8a15fac11aa
-<5> 9160    Yes   KASAN: slab-use-after-free Read in dvb_device_open
-                  https://syzkaller.appspot.com/bug?extid=1eb177ecc3943b883f0a
-<6> 5       Yes   KASAN: slab-use-after-free Read in load_firmware_cb (2)
-                  https://syzkaller.appspot.com/bug?extid=db4326df1b9af04f68fc
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
-
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
+Mark (currently on vacation - so replies may be delayed)
