@@ -1,189 +1,229 @@
-Received: from SLXP216CU001.outbound.protection.outlook.com (mail-koreacentralazon11021077.outbound.protection.outlook.com [40.107.42.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 484672EC0A4;
-	Thu,  4 Jun 2026 02:02:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.42.77
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780538539; cv=fail; b=r/YgihER0yOtO6Y7Tl3e6fjy/LfnvPo1Gtmya2Kt+PA6aaXtnEvIJEMNkSUfoMDz3Mzn6TqqIBFLz85zCs2jM26PSYrlsH5kfTl+LNAzkMiE6D66EpmcC7G46y/yfeVO0ul07sHA9OXi8QsgNrY5SMG+3s87p+iFC4z6yOJJcio=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780538539; c=relaxed/simple;
-	bh=m32EHftW5D9Nj37kbAF7GpsDLXeHTpsV8LSkdFQHdjM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=FEsTSN8fJJaMwQW8PmIm1IsbCG4e1xH+oZA9QgpcivRuxPBXmteVWH33aMbrJNeSQxCtTCdO/sOkrSFfE4vcwFlOtlkaaGhmSnlDjgMfFNAyk+nFXZisGSqsOeyZ0sB+ol2hno+38PDLTa12eY6nSHHpZtskuSWyXKXY/4UaxxI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chipsnmedia.com; spf=fail smtp.mailfrom=chipsnmedia.com; dkim=pass (1024-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b=PHr64MAX; arc=fail smtp.client-ip=40.107.42.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chipsnmedia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9CF30AAB8
+	for <linux-media@vger.kernel.org>; Thu,  4 Jun 2026 02:18:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780539521; cv=none; b=NPaV2H+IDsSmJYmavwt/1ZG7phB1hFVEg0/yZ44oh83ltU2VSiHAoq6oQHVga8RgFRuCJhbR4B5bsko1f+OXexALFFZTcyi+eJ5EKzSFeaLKBojgh1x3wsSYOGuF582KYAR3dp7q+NF0e9FjSiDtPT9pkSdbmSM1YBfqirKdC1U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780539521; c=relaxed/simple;
+	bh=e7M/frQYux/BYxM0KFi14NRZpCflxZdX8yShMistfAI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=OgcICvtMmVwqVjW5SIunh/cUPaTi90ohXDHglZ+R454hQR1WidGqdNA0HVEiTgHvGLaJN+TjZaUwxDqmhTU7VJNoSby34uE+Qe5PbvAHqob771/GdZGAAdOVcc+opKfQkrsd1WDOlkCOZv46J8EeTrk0fO2nHusgyqmCu9XjbTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h05Av7be; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b="PHr64MAX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C/AcQw2zj2+E46xvPM4/mS7I/zmT3kasopjrn2H6KgfREjVnixlqIqrqy1YKVzQFwHWVziPAVYG/Dl6fkWwA9QhNA/TLJyIhd4+ieuwtV3XQIWhtitTa2qwv02BN/jA7la8AdwqheMWBl9txj/Jc8CUsVYE0B/afRBzLpW/pbvRVwJCSmR7aPqhSHoimP0aA73Oh8nlMqv1cJ6jM5/bcBRqzPjyI28Q93jHKM6f5z2huQPKDQO3kmHf3Er1HOG9TM5oMi+3kn1jzHfHCqjPlEKGJGA7iytzCZNaJb+PI2SUh2RtptYqeYNbMKEdsl56x1VC9yO1AiU56lhz7Yy2f/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0Hzd7yz77ca24/wR0auQx2gI4O205MuAlPRgseqmlpY=;
- b=hm5e7+xHd5vompfAki9LKfUmTWvgdTzKC85LzOqbFHfxFBksagNM32o5tAwI33KX9d6KTVsF8xjktx97NZjWIZvKihUYsFI9L9fsGWcye0O8kJhFz8iOCVZr69KoLAxJe/Ep+tc2ge/k8Nxm/rIBekEm8jh4Y9d9LZfaCzpAPG+rutbK7/LG9Z+hbdOOGzDiC9GnI/Is/SaVpu4e51/GCyCXQ1NzofJZN0zUL7HvaZLQFNKlNg0cCUPVOgnRsDMhQinwHNX0IaNx3lj9f/Hn1bmG7E2r8U1sdiAx8CtVkuW29YsWhhNmNboCiOI+qqOjdoIwM1wyo270UbJDbBY20g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
- header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0Hzd7yz77ca24/wR0auQx2gI4O205MuAlPRgseqmlpY=;
- b=PHr64MAX+tfhxSfimSQGwA9S1K7bKQLY8w6jxV+IahWfIfQOO8p8hR0Sh9UMU0jmk15o/V6I8Olja+BJxMNX0RJwdnmxTnv5gKMK64zFHHQAohueJ8JqF1NuzowC8smSPobFa7BZ67sy4l8z6a44+dCLe7d3D2W9rxMTRK20D74=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
-Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM (2603:1096:101:f::14) by
- SE5P216MB3229.KORP216.PROD.OUTLOOK.COM (2603:1096:101:2fe::23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.7; Thu, 4 Jun 2026 02:02:06 +0000
-Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
- ([fe80::8f6c:834c:6cef:7be]) by SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
- ([fe80::8f6c:834c:6cef:7be%4]) with mapi id 15.21.0092.006; Thu, 4 Jun 2026
- 02:02:06 +0000
-From: "Jackson.lee" <jackson.lee@chipsnmedia.com>
-To: mchehab@kernel.org,
-	hverkuil-cisco@xs4all.nl,
-	nicolas.dufresne@collabora.com,
-	bob.beckett@collabora.com
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jackson.lee@chipsnmedia.com,
-	lafley.kim@chipsnmedia.com,
-	b-brnich@ti.com,
-	hverkuil@xs4all.nl,
-	nas.chung@chipsnmedia.com,
-	stable@vger.kernel.org
-Subject: [PATCH v0 1/4] media: chips-media: wave5: Guard bit depth check with initial_info_obtained
-Date: Thu,  4 Jun 2026 11:01:52 +0900
-Message-Id: <20260604020155.77-2-jackson.lee@chipsnmedia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260604020155.77-1-jackson.lee@chipsnmedia.com>
-References: <20260604020155.77-1-jackson.lee@chipsnmedia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SEWP216CA0024.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2b6::6) To SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:f::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h05Av7be"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC92D1F00893;
+	Thu,  4 Jun 2026 02:18:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780539517;
+	bh=CYoIDOeW7ZZFxk5tAYS+IzTXNeu7BI4h6U1hk7jpG2U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=h05Av7beB5eEFLZFg3aYwlM0nTQb3cmuxPzNWEP5pOzHIVoPSh4Q1B4se/BAUnn9D
+	 aySZWjiTMc3r4LGJRIZ1jp8/BS4iaCclLdzcpDIUlVO2lZg1Y5jAaB2RQbmBchHwoj
+	 RioT2obRStPAWkACZcGxCeibKUiUAEUXBhurG+BtwV0sD6dL0qEJahtwyfCL06Bl0N
+	 hmgB0HBID/iQf7lis9yY8XoEkwctOvfgabUjp68/g6cR0ByvxsbPDzxjeKTctkl5rv
+	 f18jWkJsGQQLmNM8ezTAH82XkhZVkjkypEXOWp6VZWujOQDV3XsDo+d7hS71FFFWfT
+	 DxUGBGx1pimlA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v0 2/4] media: chips-media: wave5: Set inst->std during
+ default format initialization
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Jackson.lee <jackson.lee@chipsnmedia.com>
+Cc: linux-media@vger.kernel.org
+In-Reply-To: <20260604020155.77-3-jackson.lee@chipsnmedia.com>
+References: <20260604020155.77-3-jackson.lee@chipsnmedia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 04 Jun 2026 02:18:36 +0000
+Message-Id: <20260604021836.BC92D1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SLXP216MB1148:EE_|SE5P216MB3229:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a746d89-1d95-4432-8715-08dec1dd4761
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|376014|366016|1800799024|38350700014|6133799003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	PkeRbDe/h8cnLsu29rZLPzfUpVzDpIsc9ydppvVKAR7/UdJBLKjteAgEPVvqcf0gB5mXZa4crI/HDD+ITMB/Hy7Ycws6yqz7SRnDkJZa1oFNCXoTr5zPoAxKPHZatgWTzEJohxbHOIy1MyrxNjP2RPBEqz2tNTXk9zUKkLHCR/5VczmSNs2ZNzGB0lWiHrQlqrJE9mjbhW3s8Boi4UaDCQwJ6OAc2kh6Vo55z1sLNH46jqSagFj7HmM7aO0KBsmrXK25MQf3xstqAxpNFiuzcOr0P5lTOs2H9CYRnH8YoSd+8eBBmoyI8qsCvHNFzOsS29rRMPX4EJUvqFVLIEX33kqX/M6d659du2zIp2vh5ehCb9pyJJpy717pMHm6ccaLxtEbQwhTBmfqfPVCbInZ0Wa3I1CXUeBAezivg8rKy4GaGEg43FYHZCiJ9t+qFZw6Ujhzjgau7IIjk2B964NALh1QdVbI44OptAz+AOV+Zbjf7G2KSR3kLHXP9422ll3kLvX8CYkJ5kHMWyqBC/PEQDb+4t2xwJl+FFjPA+T3GP6EPiUEyJc6zX4TwHhMUSMTwCZfmuTbIETLPuvR4sND1CvDCex5An44+gSfZ753pJtqQK6wJZh2ZxlG1wmzdcYnOxZiEqHadbcKYIKFmw6oaPvm+kNq353EYGmvD8hnwPfJp8T/x+Y1QYOzA10Ms5jANV5gD2c/G2zmDs6+dyIiRw1nDP0ut7UvvvrHXj67jlQinWMYlSbarNPLSgx05VKi
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SLXP216MB1148.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(366016)(1800799024)(38350700014)(6133799003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?WdguLEwh7USCt7plaFXR7Vo1POCFnYzmobw4TebVanzzB/83LASmdlsXFKwp?=
- =?us-ascii?Q?YyOaCvKVTQwY+QT/j1NsYhumYQZ0nTikKnIGXDZV0xIbl1MM4RoWyckWav/J?=
- =?us-ascii?Q?b3KJXZFb2w0deBdnmZDoFe/I/HbOC2YU4AKbi6iWRuRXgkZPPEhFh5S8MT47?=
- =?us-ascii?Q?18DlTnbSY2pGh9pEOVnbbFagidLdXcfSpEyUTx8X7ipkTEs6pXhT8bkkqNsY?=
- =?us-ascii?Q?16CEvA+TNMEANNzgyi4Q5KWQlRrPvg8zQNiuXvd42SHpGwTpTnZJT3g9TRPv?=
- =?us-ascii?Q?11CYXhuT8CvtvifVkH5FdTknGJxlApFJRBmyTcfFATAx8+5KNv1NhgepCChD?=
- =?us-ascii?Q?RT/1/y2qhT9/p27qo7uiu43JHnEhPMIXIdvBGXGlz0MfzmipBC296sato6Pr?=
- =?us-ascii?Q?bx1MtoBw/thWRRPMljfinRM/vRmWrx6uc+vzu7JovN7twYPwTWCHab0R6aHQ?=
- =?us-ascii?Q?z6obqss6sd6NL9HsHHDDPGIbGhAfTXCuDd1wxj1Ko/UDOVGQYhu8NTIxNLF7?=
- =?us-ascii?Q?tUEMy45nj2tMUUqAQUiY8tHWQ3DFY0kdMe0u4mfzo553qJ2CfLoh7rI6QJyH?=
- =?us-ascii?Q?4CfL57OseKt/kHzNqLJDwTgZVmV+0mqt7/ad8rnoXNNFahxjBIdbb2eB5jO9?=
- =?us-ascii?Q?qJnmHzoGYbAVQjfLjRxBrKR9H9ZSoWJRsnGdGAmElvhD5+ZUME9leM95atV2?=
- =?us-ascii?Q?BfzXCrwpi+Ooog0Pdk5KDgALXPk6Fz+bi3rQDLh5NtNjyRPi7xFRyyBIG0Gv?=
- =?us-ascii?Q?9PWih3RO3s+On2z13+ytNn7fPrcsFr49jGpcqygwbvYCR8vZp180IKkKWVfA?=
- =?us-ascii?Q?fxHOyNPBjfRG1fjsVSAqZ5e5VF3LZHR38JVn6H+2eRv/A8c9n8Ui76ajbWXG?=
- =?us-ascii?Q?n6ckaA3Sfs5k1PmK3wQbYGWi/AC1VTr0V9TzpU98cahGJsxUzFmHe9vF01WO?=
- =?us-ascii?Q?YOIetfPKHonHnvEJdMQmh4WqiRqSAcr5E58lAzus48GxM1s/HMBDOrYQE/g3?=
- =?us-ascii?Q?JrL6mwSXknO3WuTOxj2Ue8ejNJmClsA/Gya6zXlHDCFEh18L5jv4dSz84G2o?=
- =?us-ascii?Q?CgMiTogwBOMcZ3qXkKIl2UASA0kGhJGYI54fDx1KbLTH7iprgtzKDjvWLB8C?=
- =?us-ascii?Q?NdFQqpK4FOZ18WoCZS1thncurCrn/ZKrDiC4Iwfjr1mypxtB06JX6n1bRCYH?=
- =?us-ascii?Q?ZVrWaml+uhFo83v/eVSa/NKOcZtK9GuFnTJLDlddn9VKiRTmgUHRGHP7UIgo?=
- =?us-ascii?Q?3mnnQN/vzGQfFC+QCStatbbpmzMmJyBaJpLF7o5aQguZtF41GrwK0VW2C2Rk?=
- =?us-ascii?Q?uhNOf53fXCKEvvAfmpwtxmiFKiHKu3uJwA/TqWoaOjidAQ8gGMPKLNGVsS6l?=
- =?us-ascii?Q?11gGxqPBQdDseYg0S/0TE+Nin7of/MHM8BKnM99O0LSGdbjbRbaeAXzMCcRm?=
- =?us-ascii?Q?9iE/vS+X1M8c4BZWtrKazoF+VVKZGmmtYuRtKlb3oHj6ndRYH3ID9Bfce+DU?=
- =?us-ascii?Q?stDfwrVgP2EX6Of5echuNTSl7H1sQxtFUGcSDhYTRjdnClxVMIQg6ZNGCCNe?=
- =?us-ascii?Q?pr+8U2zZnJRZSQELVpc9DvnR4dld/GYjwCm4toNdMlLe/U03SGxDX7mq0R7e?=
- =?us-ascii?Q?c/XWTrC465IR5+XUhHCp9KfjfCsWvO3tvX2luKC/1mVHGAxJmK7Q9kPbJN3v?=
- =?us-ascii?Q?+4GLKwu1lxVilcuWRGGPpjYXLO88mUFk+WdAyE5McOpYteDQHWJSw7sPop6N?=
- =?us-ascii?Q?sK/ABHhX+GN+C/Ey902BzcVjmqlE9ic=3D?=
-X-OriginatorOrg: chipsnmedia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a746d89-1d95-4432-8715-08dec1dd4761
-X-MS-Exchange-CrossTenant-AuthSource: SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 02:02:06.5051
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZsjWjTLnFkazRkmra/s5Fcv5HKsfB5QzEQV2bM9lZdUA8gRW83AAjUUsg6KSYVciK8umxDXEBPhDlAY/2Po0eFAZEngWgi1kydoCMRaVw4Y=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE5P216MB3229
 
-From: Jackson Lee <jackson.lee@chipsnmedia.com>
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
 
-When CAPTURE STREAMON is called before the VPU has completed sequence
-initialization (initial_info_obtained == false), the initial_info fields
-contain uninitialized data. The driver checks
-luma_bitdepth and rejects anything other than 8-bit, so garbage values
-(e.g. 15) cause STREAMON to fail spuriously.
+Pre-existing issues:
+- [High] Error paths in the open handlers improperly call `ida_free()` with=
+ unallocated or negative IDs, corrupting the IDA state and risking instance=
+ ID aliasing.
+- [High] The V4L2 M2M context is leaked on error paths during instance open=
+ because `v4l2_m2m_ctx_release` is never called.
+- [High] The file release handler `wave5_vpu_release_device` can abort earl=
+y on pending signals, permanently leaking the instance and leaving a dangli=
+ng pointer.
+- [High] The condition to free the device SRAM buffer is logically impossib=
+le to satisfy, permanently leaking the `gen_pool` allocation for non-WAVE51=
+5 chips.
+- [High] `inst->state` is read and modified concurrently without any locks =
+in the encoder, leading to race conditions and invalid state transitions.
+- [High] Concurrent file opens race to allocate the shared device SRAM buff=
+er, causing memory leaks and pointer corruption.
+--
 
-This is reproducible with the following multi-threaded test scenario:
-  1. Allocate 2 CAPTURE buffers.
-  2. Call STREAMON on the CAPTURE queue.
-  3. Call DQBUF, which blocks waiting for a decoded frame.
-  4. A second thread calls STREAMOFF on the CAPTURE queue.
-  5. The blocked DQBUF should be released, allowing graceful termination.
+commit 4066d4d2cd1d6dd5099164b5a1d648c7737c2049
+Author: Jackson Lee <jackson.lee@chipsnmedia.com>
 
-At step 2, STREAMON reads uninitialized luma_bitdepth and rejects the
-stream, causing the test to fail.
+media: chips-media: wave5: Set inst->std during default format initializati=
+on
 
-Fix this by checking initial_info_obtained before accessing the bit
-depth fields, so the validation is only performed when the sequence
-info has actually been parsed by the VPU.
+This commit fixes an issue where inst->std remains uninitialized during the
+default capture format setup, causing STREAMON to fail if S_FMT hasn't been
+called. It resolves this by setting inst->std via wave5_to_vpu_std() in
+wave5_set_default_format() to keep the codec type consistent.
 
-Fixes: 035371c9e509 ("media: chips-media: wave5: Fix timeout while testing 10bit hevc fluster")
+Fixes: 9707a6254a8a ("media: chips-media: wave5: Add the v4l2 layer")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
 Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
----
- drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-index bb2ba9204a83..01d1368b2965 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
-@@ -1403,6 +1403,7 @@ static int wave5_vpu_dec_start_streaming(struct vb2_queue *q, unsigned int count
- 	} else if (q->type == V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE) {
- 		struct dec_initial_info *initial_info =
- 			&inst->codec_info->dec_info.initial_info;
-+		struct dec_info *p_dec_info = &inst->codec_info->dec_info;
- 
- 		if (inst->state == VPU_INST_STATE_STOP)
- 			ret = switch_state(inst, VPU_INST_STATE_INIT_SEQ);
-@@ -1410,6 +1411,7 @@ static int wave5_vpu_dec_start_streaming(struct vb2_queue *q, unsigned int count
- 			goto return_buffers;
- 
- 		if (inst->state == VPU_INST_STATE_INIT_SEQ &&
-+		    p_dec_info->initial_info_obtained &&
- 		    inst->dev->product_code == WAVE521C_CODE) {
- 			if (initial_info->luma_bitdepth != 8) {
- 				dev_info(inst->dev->dev, "%s: no support for %d bit depth",
-@@ -1418,7 +1420,6 @@ static int wave5_vpu_dec_start_streaming(struct vb2_queue *q, unsigned int count
- 				goto return_buffers;
- 			}
- 		}
--
- 	}
- 	pm_runtime_put_autosuspend(inst->dev->dev);
- 	return ret;
--- 
-2.43.0
+> diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c b/d=
+rivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
+> index e6c94b6f26711..f9fcdf4c224b3 100644
+> --- a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
+> +++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
+[ ... ]
+> @@ -1770,7 +1772,7 @@ static int wave5_vpu_open_enc(struct file *filp)
+>  	inst->v4l2_fh.ctrl_handler =3D v4l2_ctrl_hdl;
+>  	v4l2_ctrl_handler_setup(v4l2_ctrl_hdl);
+> =20
+> -	wave5_set_default_format(&inst->src_fmt, &inst->dst_fmt);
+> +	wave5_set_default_format(inst, &inst->src_fmt, &inst->dst_fmt);
+>  	inst->conf_win.width =3D inst->dst_fmt.width;
+>  	inst->conf_win.height =3D inst->dst_fmt.height;
+>  	inst->colorspace =3D V4L2_COLORSPACE_REC709;
 
+[Severity: High]
+This isn't a bug introduced by this patch, but there are multiple issues on
+the error paths in wave5_vpu_open_enc() jumping to cleanup_inst.
+
+If an initialization step fails before ida_alloc() is called:
+
+wave5-vpu-enc.c:wave5_vpu_open_enc() {
+    ...
+	ret =3D wave5_kfifo_alloc(inst);
+	if (ret) {
+		dev_err(inst->dev->dev, "failed to allocate fifo\n");
+		goto cleanup_inst;
+	}
+    ...
+cleanup_inst:
+	wave5_cleanup_instance(inst, filp);
+    ...
+}
+
+Does this call ida_free() with an unallocated or negative ID?
+
+wave5-helper.c:wave5_cleanup_instance() {
+    ...
+	ida_free(&inst->dev->inst_ida, inst->id);
+    ...
+}
+
+Since inst->id is 0-initialized, if it fails before ida_alloc(), this frees
+ID 0. If another instance is using ID 0, the next open will reuse it,
+causing aliasing. If ida_alloc() fails and returns a negative error code,
+does this cause an out-of-bounds access?
+
+Also, wave5_cleanup_instance() does not call v4l2_m2m_ctx_release(). Does
+this permanently leak the m2m_ctx allocated earlier in wave5_vpu_open_enc()
+and leave a dangling pointer?
+
+[Severity: High]
+This is a pre-existing issue, but do concurrent file opens race to allocate
+the shared device SRAM buffer?
+
+In wave5_vpu_open_enc(), wave5_vdi_allocate_sram() is called without holding
+dev->dev_lock:
+
+wave5-vpu-enc.c:wave5_vpu_open_enc() {
+    ...
+	wave5_vdi_allocate_sram(inst->dev);
+
+	ret =3D mutex_lock_interruptible(&dev->dev_lock);
+    ...
+}
+
+Inside wave5_vdi_allocate_sram():
+
+wave5-vdi.c:wave5_vdi_allocate_sram() {
+    ...
+	if (!vpu_dev->sram_pool || vb->vaddr)
+		return;
+
+	size =3D min_t(size_t, vpu_dev->sram_size,
+	             gen_pool_avail(vpu_dev->sram_pool));
+	vaddr =3D gen_pool_dma_alloc(vpu_dev->sram_pool, size, &daddr);
+    ...
+}
+
+If multiple processes open the device simultaneously, can they race past the
+vb->vaddr check, leak the gen_pool allocation, and corrupt the shared
+pointers?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can wave5_vpu_release_device=
+()
+abort early and leak the instance?
+
+wave5-helper.c:wave5_vpu_release_device() {
+    ...
+	ret =3D mutex_lock_interruptible(&inst->dev->irq_lock);
+	if (ret)
+		return ret;
+    ...
+}
+
+If a process is exiting due to a fatal signal, this lock acquisition will
+fail and return -ERESTARTSYS. Because this is the file release handler, the
+kernel will destroy the file descriptor anyway. Does this permanently leak
+the instance resources and leave a dangling pointer in dev->instances?
+Should this use mutex_lock() instead?
+
+[Severity: High]
+This is a pre-existing issue, but is the condition to free the device SRAM
+buffer logically impossible to satisfy?
+
+wave5-helper.c:wave5_vpu_release_device() {
+    ...
+	list_del_init(&inst->list);
+	wave5_cleanup_instance(inst, filp);
+    ...
+}
+
+wave5-helper.c:wave5_cleanup_instance() {
+    ...
+	if (list_is_singular(&inst->list) &&
+	    inst->dev->product_code !=3D WAVE515_CODE)
+		wave5_vdi_free_sram(inst->dev);
+    ...
+}
+
+Because list_del_init() reinitializes inst->list as empty,
+list_is_singular() will always return false. Does this permanently leak the
+gen_pool allocation for non-WAVE515 chips? Should this check if
+inst->dev->instances is empty instead?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is there a data race on
+inst->state in the encoder?
+
+wave5-vpu-enc.c:switch_state() {
+    ...
+	inst->state =3D state;
+	return 0;
+}
+
+In the encoder, switch_state() directly modifies inst->state without any
+locks. Ioctl threads and the V4L2 M2M worker thread can concurrently mutate
+this state. Can this cause the worker thread to observe intermediate states,
+leading to invalid state transitions? The decoder module seems to protect
+state mutations using inst->state_spinlock.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604020155.77-1=
+-jackson.lee@chipsnmedia.com?part=3D2
