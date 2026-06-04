@@ -1,103 +1,152 @@
-Received: from mail-dl1-f68.google.com (mail-dl1-f68.google.com [74.125.82.68])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC2D1F16B
-	for <linux-media@vger.kernel.org>; Thu,  4 Jun 2026 00:19:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9B718BC3D
+	for <linux-media@vger.kernel.org>; Thu,  4 Jun 2026 00:30:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780532361; cv=none; b=geyeTPG2x1Q06Ws/T8oUtkKHrV62LidJ+e5OWICc+AHpXT4IzuVpRrLTZyTmkqQ5UQohtApzOSDDaTd/aFD5HumsX6F+ZdZafX9ZRgWsxDwJl+qOsANvaB8CHlaYMwbS8cq1trgFX6IQ+umPRZqvnaK7ylGfN/0ZZETmLFAPsV8=
+	t=1780533040; cv=none; b=pgfzsjFkOE2qqe5ftgRfg96DX2PJr5Upsp4dIHMKaeB7IigBHNLR9treFiigKa5Z43SVnrW9AnCXVUI1vOJWzAPDsbhM1OXN9+GFLBwAC3q9t29MjDMZVi2in5J1DzlUKBoBgwjEpnihtMARIJoKBIoeAyUFPhYNWw7pxJTXRcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780532361; c=relaxed/simple;
-	bh=RoZxAhgVGfG73eFwtofeyMeDcsLxCMW2oDD0x5o15LU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=f8B5NcOeKSvafgBtHhlZx5tTf6ETbenSRVT0IqZVVBQDa89Tx2Ycr6TocVel/dOdOh3fOo5S3EHqcQAb9X97UWLkZr7iDrlJaWzwYh4Nzg94ZQsYJj8p5vLJZmzhv/wowjqzVm9O4GtRQ0u9HcVZCFbbWQqSBf3XBhy9dHVEbuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UP6HcLXA; arc=none smtp.client-ip=74.125.82.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780533040; c=relaxed/simple;
+	bh=JhiDwTV+ijp+Yldkrq2VgUruPnSxOK6hNGgkqkxKz+E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HKixaMwPYjOdrt9BVrK3CphE6MFqYXpY8Q60/ayYwWJEZNTl3FN/4CVV5XFs0yHQv6ilTVQIPopLG22ZOsRFRXiAzXKrVKXIyOWY+ff9VL0riPx22nnwvLltiHkfdBTMfnmXXVZw8y4FxWuE1Dy2qEfpUYMA+dJHbNkGL0vVk/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=pacFqSn1; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UP6HcLXA"
-Received: by mail-dl1-f68.google.com with SMTP id a92af1059eb24-137eb0d76beso724806c88.0
-        for <linux-media@vger.kernel.org>; Wed, 03 Jun 2026 17:19:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="pacFqSn1"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-490b3e03939so610665e9.1
+        for <linux-media@vger.kernel.org>; Wed, 03 Jun 2026 17:30:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780532359; x=1781137159; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=z17zQzK8RwGzcJwJjulDGUCdQtyWeu3u7YyL1udHTck=;
-        b=UP6HcLXAq4mh6lp1fg3zqqe5QoqNB8Hrl7accTh8oNGNOxVb8C3h/sinKXPzFQPmt4
-         PhDplfE+61F0EB7wCAZRlWiFZLo/gc+uE0mbNqwbx+KMULggoOuutj8yjGaNT8FseF84
-         LFWZ6WZw9OKC0E2E0U2JgIp8Hn4mhlyebynIaVKUUTlq9SOkFbxstC8kQXOFVhRgKVfD
-         zqpflfgafkNccOD4oaesRVcPm+mUhQhQgMw8yKx3JgBJ+3jKATFjo5CCFZSH5P6s33ZZ
-         Bt3jr09aKvaazJZKDBA488mfUO0vIQHIXV2XAWTV4A96VKf1wR6gBVtaBODdkPmKng/D
-         yQUw==
+        d=linaro.org; s=google; t=1780533038; x=1781137838; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=vjGmXAmM+3Nn1KtSjLMnBrRs8nWD00igFoG8wE5QxV0=;
+        b=pacFqSn1c+5Kr0h+C2jMEkWno4MZEYn54CByYGggmS1GQfeh5amjJ8b1qsG83hwgQG
+         N74cUkqYYL2mjwaQSIlBVn/c+xZXEtgL+60f2qDzge/dfpOLoUhCmsZHeAj+7bJasNTV
+         EWxbVvzoriI2f/BAR0hAx34UQA8SUjDgxioQZXSNYXelr3+6TrVcLLp0lDkviJVjKvtF
+         hZkhStg7BHXorglVyQt9uWmkmUF47r2ZkeJofMSQ9H1RuWRNCGvnnETLRdBV6nB6xXpu
+         sKWV9kuEwqhRcEeW+bNdKW3OP/odonkdupdQE0G35/p3gArutgAsIhZ3LiRwc19O1ybj
+         ZW7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780532359; x=1781137159;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=z17zQzK8RwGzcJwJjulDGUCdQtyWeu3u7YyL1udHTck=;
-        b=Pyw0xP32T2gPG/YRHBNnoiRjv2qwk7S8afWTxwam5ollrtae2cnmrn5zowlrlO9cLY
-         mLcrKdF/G1s+tOBzpx+vvIBZ/6tHu6xsbklZuwUSDPlGARhAgk2D9Hh1Cf3mN9ER+L5G
-         ET+fg9u/HNFiUl7HkPyV/G/1VxNi3SpstcksqNQNezVJldRRTFxbNht0CKTAl5dRPO+9
-         CzAFvxEyQVP0kXJAbuJJlAqfob2zj++kou/B44kUcqajfQjfh2bbbQYI0MGA/tVZB5Se
-         m6cXQxSLJ0LqbUap/GhkItLlW1JRq8iS9FcqfdTLhPMvFwiAPK6V+l3CRTWUymt5bxIV
-         vjcQ==
-X-Gm-Message-State: AOJu0YzmBZQ8Rn2Ffa9uho1R1KRrCHumRAaRCV7jDXF9dYYK8iXDWrXX
-	R+dZjni8AlJFmOCnTWWzoK1/KTX1YoaxnawGjwE0IN6udVm8SS5CjZXZg8bCrF1Z
-X-Gm-Gg: Acq92OGFs2EYtUq42QOTUPM6LG6Copr+MwIrFlXGdiMAwagdAO4XShmPXGOnqZ+RB1D
-	IziqAWKtdH0riRh/If+2zZPvSqD/uSuBN0d0batUArEE8JUXId/ij9BGXCoRTaNLXF2L09zojzO
-	CLloLRK6CATdZgtmP5JG+LL5Q8Zma0X5YpxMTmEJRnBu4UFFpuYCBmm9lZ+O94P7SG8aDV08+49
-	+1oaHOZ7vhv257LR8eIdCsYc3dAXoC2gXt9FkOP7HNma3SwFbJ2o0miU1mYROmDsNJtFB9Glzoq
-	gG0ivp9jiT3FKQYXQ2eqMSwotOEASPgwTf11Q8uT7230NOu9PPxwgA/ycZHSqDTp6N1C6ROQ82C
-	4W4NY7kYnmHGB2mmPKxoWmRrZubaEFFKznngCMW0qTSASUE0fkFqfGezZzZD5T++kUsGE1Q+10S
-	esaSRInCU3gyOqEuGvIRlMvFzHzcpr2YyGTqfWivToSfUQkJZBD2t8nB6wRqbHMU3pUQ==
-X-Received: by 2002:a05:7022:ff42:b0:136:4bbe:9523 with SMTP id a92af1059eb24-137fdef3661mr707766c88.8.1780532358571;
-        Wed, 03 Jun 2026 17:19:18 -0700 (PDT)
-Received: from localhost.localdomain ([76.32.119.210])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-137f5550bcdsm3064540c88.14.2026.06.03.17.19.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 17:19:18 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: vikash.garodia@oss.qualcomm.com,
-	bod@kernel.org,
-	mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] media: qcom: venus: add callback parameter names
-Date: Thu,  4 Jun 2026 00:18:59 +0000
-Message-Id: <20260604001859.33353-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20251104; t=1780533038; x=1781137838;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vjGmXAmM+3Nn1KtSjLMnBrRs8nWD00igFoG8wE5QxV0=;
+        b=C5MOdRX9E7/Ovbeh7Z8cfhY0ICeZ0raa/RD94/02DeNRopSvP2KI6zDFhjj2Et8tMK
+         bRe7mEJSBkZy1m6iUQINesOOQBjTyL1ycOvno3D9FbNrR7P+mUFnbr5FsIasG/RuIkDB
+         xShuSoO4lmE3tMus1ogdaX+ic6l+qu4tsmiEbbMqdHBcbMXnUf38eLENGnzAMxr0gfqD
+         wq/xuFDhZGeph5APSziGY6fOjtakkg4yBWcMJVQvyUxPEjY3GMcWv8ejeRaUoHwrmR5V
+         z9j2xdDprl6wW+PSMi7BnKSZhEQTwUTPM8IxtyO54pZXvnoC4BZbHJCwAR6eY50bQHoK
+         MquQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9+fORz5P3uN4DgTj9IAzr5zQUXZ4jCoLm3TfpG++Xf9Xcq2D8ASvXi4qUoETa1/qeuwwF7DqUj1J2x2Q==@vger.kernel.org
+X-Gm-Message-State: AOJu0YygkWIYskxGsN6oaC9YyvrF8sfCyxZBVCHN1b3fkqrbF0mRhJMf
+	BC2TASFcR/8KvSpVe6jo6RGnmcti/TF3OMb6riQq8NuCyu/kzZzqPzmjjvyNqBMS9Rg=
+X-Gm-Gg: Acq92OHhEvm9hnoQH5KnwoXrSpTqIFnM8BzwBfw479GiZgP6bLJOyCkHXRkBKKFil24
+	m5l46KMIT/gATjGOhnyHMRMTS2cvohVVXxP3L9tfm9vudlCA3JEo2YPWxl2LVoysSed7N41yTuq
+	v75Gl+TPlN6gbejhA/PN4kMapEltWAi8zEL0u0YKgrIsU5U+W6oKoSTDuzh/tG9rbw/BHD3Ygh3
+	3H0nKYemRkDt6vyqomFyvbt/9vL1Onnjj/Ht0mh0cEBupV7eIx3bvkscib6AypiFHzJhA+BbQAp
+	RpJRq8hgmclUhUkz1FoFwVmpbOoEjVYGTYgdgMVMHIot2GgpVXrusoo4nl6r1PuOIEZa/7VuC5v
+	WAvoAFJR5lohX2VUMhNbw5DFj0M+rPTIQT2zEKmBvi3GlBUwUAMHrFaI4bxlSYxQt/o/euoqKBC
+	kFC0pKjyMNXcBj6a10tqcu65Y4ykU3KmPWjgBXC3ek3sDMyw==
+X-Received: by 2002:a05:600c:4c19:b0:48a:5236:7f38 with SMTP id 5b1f17b1804b1-490bc5166a0mr12416105e9.14.1780533037608;
+        Wed, 03 Jun 2026 17:30:37 -0700 (PDT)
+Received: from [192.168.0.101] ([109.77.42.178])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2dc412sm11926549f8f.4.2026.06.03.17.30.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 03 Jun 2026 17:30:37 -0700 (PDT)
+Message-ID: <83c12dc5-fcb4-4089-9917-9f0fcc4f940d@linaro.org>
+Date: Thu, 4 Jun 2026 01:30:34 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
+ <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
+ <rpnNMsR9GY8gbynzeBO8Zm61JAOq3ubt6sp0x3WDPPwkMAJzlcofECD1kabN-IUoK6sSwP5P6l28UIZLFCOpjQ==@protonmail.internalid>
+ <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
+ <478df3ed-d4ef-43aa-bb84-e2075798542b@kernel.org>
+ <ec98ef2f-02b4-4086-8b4b-07b6953dbd20@oss.qualcomm.com>
+ <514cf213-5778-45e1-8d70-d3fe27991fcc@oss.qualcomm.com>
+ <7JNJ4dUNz4ennJ5dkzhfLSuVo72JpfZAbprICPRqlRYnSzVDJw6x3h-1nESd_PK-3us9f1V3qOiLiywsTqP8vQ==@protonmail.internalid>
+ <f01c0e22-4e5c-44e7-9ea4-4bc8d53aea2e@linaro.org>
+ <29e8491f-20e8-4082-8943-66bee7e3af1d@kernel.org>
+ <5ca611b1-0663-4975-bd56-b1343851e5fd@linaro.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+In-Reply-To: <5ca611b1-0663-4975-bd56-b1343851e5fd@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Naming the callback parameters improves readability and resolves
-checkpatch warnings about unnamed function pointer arguments.
+On 04/06/2026 01:07, Vladimir Zapolskiy wrote:
+> On 6/4/26 00:18, Bryan O'Donoghue wrote:
+>> On 03/06/2026 21:51, Vladimir Zapolskiy wrote:
+>>>> Actually, one more thing, Why isn't TITAN TOP GDSC here?>>>> +
+>>> If CSIPHYs are true subdevices under the umbrella CAMSS device and well
+>>> described as subnodes, then likely none of power domains are needed 
+>>> to be
+>>> repeatedly described in the children device nodes, since this 
+>>> information
+>>> can be obtained from the parent device by the driver.
+>>>
+>>> Technically 'power-domains' property can be safely removed, I believe.
+>>
+>> The policy is to describe the power-domain dependency fully since DT
+>> describes hardware not software architecture.
+> 
+> It brings no contardiction to the statement I've given above, the needed
+> power domans will be properly described in the parent device, and there 
+> is no
+> sense to repeat the properties it again and again in every child subdevice.
+> 
+>> Also for a very practical reason a sub-devices can probe/run
+>> asynchronously of the parent device being active so in fact we do need
+>> to describe the PDs fully.
+> 
+> In opposite to the above this one is precisely a software centric argument,
+> which should be excluded from the consideration, as well it's not a big
+> deal to make a proper async initialization, removing excessive dt 
+> properties
+> is worth it.
+> 
 
-No functional change intended.
+Right look forget about that.
 
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+- DT requires you to describe your hardware. You're not entitled to have
+   some other device vote for a clock or a PD you rely on.
+
+   That's exactly the type of downstream short cut we are trying to zap.
+
+- In our case we also need to vote on PDs individually when the PHY
+   is active.
+
+In extremis say we are only running the TPG then we have no reason to 
+vote for CSIPHY specific rails or operating points in the parent device.
+
+We could make the parent power-domain argument for CAMSS and CCI but we 
+have TITAN_TOP_GDSC in CCI specifically because we have to model the 
+hardware - including the PDs for that device.
+
+If tomorrow we put CCI as a sub-device of top-level CAMSS, that won't 
+negate the need to include that GDSC.
+
 ---
- drivers/media/platform/qcom/venus/hfi_msgs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/platform/qcom/venus/hfi_msgs.c b/drivers/media/platform/qcom/venus/hfi_msgs.c
-index 47b99d5b5af7..5c2025c5acc7 100644
---- a/drivers/media/platform/qcom/venus/hfi_msgs.c
-+++ b/drivers/media/platform/qcom/venus/hfi_msgs.c
-@@ -690,7 +690,7 @@ struct hfi_done_handler {
- 	u32 pkt;
- 	u32 pkt_sz;
- 	u32 pkt_sz2;
--	void (*done)(struct venus_core *, struct venus_inst *, void *);
-+	void (*done)(struct venus_core *core, struct venus_inst *inst, void *packet);
- 	bool is_sys_pkt;
- };
- 
--- 
-2.34.1
-
+bod
