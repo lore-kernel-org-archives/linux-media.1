@@ -1,74 +1,70 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013067.outbound.protection.outlook.com [52.101.83.67])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010047.outbound.protection.outlook.com [52.101.84.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3893F29D264;
-	Thu,  4 Jun 2026 19:07:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D608351C34;
+	Thu,  4 Jun 2026 19:15:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780600068; cv=fail; b=dE5lKajF13LNmV5HQJDTaHE5dvzJvv9V03M+C7zy5zwdsFw7vK7UhK2A3LXukdES5l89scBKPTy5Ms10Zlo7Tm0oMrL3XcQZrYpAvoqj3kzYYaA8c8oPyMb5XNYROOrngiYPQ6s396pB0Uwd4KQ1t9HJxV1e9JUYoYGsSRkTdm0=
+	t=1780600550; cv=fail; b=cleX4lXH3vgxI/ev8ubjT7O30iNw9FlnFxdYI7UfE/AimYhpKgm29g8bZ3/qrjLmRRP6qExqjPM48ShDRsDGPoc4ZboTfR0gl22hih3BVsFdO1ncsy3ZM1ARJaf+GOPQgxxCleebsXmDKGRZRQOYo1oY2m7Z0gyEngaQqBW8zGk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780600068; c=relaxed/simple;
-	bh=o5zHf8EF8etvuQwix3yohX1vzn6sQxS0O2qOc+Pj8iY=;
+	s=arc-20240116; t=1780600550; c=relaxed/simple;
+	bh=UvdrL/1V8I3pX0waX/br1lYgukScTR6oVfb7eScZo4M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Bt2RcfY59/RtpxiCRGRZeG2tdg7NmlGsauUp6P8uU0YATU65kTLp3oFgxvAEJU3QoANlVIj23PgTjRnGqlSmu5pn+Ufc4ora40ys88ph0eFoFxt1utm9wWcM+1uTN6vjg4Vb6PoxsTET0inRQKIWeIQXXALQlzU79FMhpsjloxU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=mSYA+b0o; arc=fail smtp.client-ip=52.101.83.67
+	 Content-Disposition:In-Reply-To:MIME-Version; b=TkkZXolgH4LUOUogxPPNGFgtVCn6Y+idQm0zGD7xvitv+/YlnKhSeLndmKZBjbPsdfTRy1xT007OnAsTzDBaLy36b4CKM7KCBHYyZbdtP5Tni8QeL1vmLyzjgFzxKGTBt9B9K7/qK+6mY4YsCDgofxEWUroGc4mD/os0tm63ajc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=IdgBlu8u; arc=fail smtp.client-ip=52.101.84.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="mSYA+b0o"
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="IdgBlu8u"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h8ch58i1+jvBS6e5yrtWZDb9rMFROCU5icEJ4CkX4NIbJ+eybBc/p0wPZGpHl0C4YsZ8ZpV0z12vnAnwkM/iXLBCurta9X9i7v2BrcfSsNwGECs5ceMmvOJ9I2BA67Ol70Lb66O9Sr31sbiftCeIEr6NsNWjlJR7afgrt9pIJl7b6Hkg9DF0jB0EbDJsChW1svLC4mfxFc3GQ3uQr4zZOX2L17HPWqac45Iaajb9hw2UO6uFswJmAhmfxB0i7wsHPR0J0ULT3iOVUX4jdITKWAfIaYjBlefzrAJKpEhpRDM+F9TJXfTczIc+I4CpaseMSWHZsTfi9lDJcDe8gSISGg==
+ b=M6EDwvHNx/GtApqKb7bjnZUtKNVtxg15i7K0Ne3LqlIb8TPSFeUf2qa09kYm+U8+5RdXBI9TuG+Gl9LnaXe/CzwoYb9fr0Hsml555DB4+mmdngKKLXX1ufvrq0p2kFusJzMLFd66x2XdVSZ6ZDMF+sNit8GYfAV0jZAoZRzx4RZRwMPDGS+7pdqbDLd+P2U9LWoxwVsxmUjw/gELU/sa5N+92nEDFXHYkS9s03e+i0XKn6U9t8QWZLWKzYWe6zj/MdQYdlSzjAP92G/h1uKcLW1DusLO2H6C77Hjaku7onkQFMMJoOV8WOSDwQZ9ndbPRuMSbiOLvFxOE6/CBhOEiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kCfb50eB/oY0rUN3oLM8PsXismVGH8gNzLOGDc+uKNo=;
- b=IoHo2NHiMzumz55OkQgRwMvjP/BdJ2TixoRnqzfoIkb4y9oW7NZ+2QDs/jTzsSiLiZDWJHpWrt7S2hg/Qb1L/+bDkOL99dgV2LculsjA40601dzQcGPgHO90uCur0Xld6+OPtkPqQicmqjqOuaTVbesaMtSUyTFvSNt2VksgyZn+Fni4NJswpTYmFNrequX3+zrl4vJ62AF9s0N6aQkLMf2GUz9ZEeDVgzUbod218o4AIkNdZuIdHazPuPU0t2GOHGx1gJrpbd+04+mY4NYPrwdRfLyYLte8nc7Ya6tEgou2LLe7QUgbvpKq94MeigxTql1kZgZYGNgvbm4MBWC3wg==
+ bh=W6EGrg5UwnV5IvidGXvqgZQhsMkGhuFYeQPlqZ4EPK8=;
+ b=wC7diGh7/yYiTsdNuFga67YMSTZjmS8ggod3J1J2kTeiZMzDojoDT3PtLGla2txbLoA7O4RAwkRdnZ5fAx7Pkp06MQFg7neElbeW4bO8lNsCiwwXbDGTQjjiMXeBY9fJ5A2Mw8WityEzQAE/HzdNMuMJCjzPTxysLSG95vQDtkBRZxjxZUgYnygceOiMsf5tIPT+RnBciM9mu16FdLcMTAmovqj8vTqGbXAPpc+51AzD5otN8JTfIw8rhai4f+M19qxak/CtBIQmDgCpw0q1rnBr+tQu/qocC9YSSZeU1vxDKWuGlXLO+b4TLDiEnraF2t//wZfQC8LmCpK4SQAhyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kCfb50eB/oY0rUN3oLM8PsXismVGH8gNzLOGDc+uKNo=;
- b=mSYA+b0o2Lbo+w1vEBL3pkNZRZFZAaL2BBaLxmjK5IxwFZlg5rbp2U2XgZdTmqMe5B7963KxO6jyYpVXth4gsK0U5i7csXiG3S46abMROWIEhJMSeTGLmCkEArocunAVm8DGDVgaixxy7BeJxTupJnrzWnm0IUphQlqL9bqvDeskuuXtWUCEwEz4FeewXSDLRCLA/9VynmDKFVqHAqC7SRuc4CtUlW66/Ha+9rpkGgWBrocD0enlNjjtichZ8fKv511OyDSiiHnFV5cPBOZcpW4Epx8uJvckUA/gzlfU4W0VsZe0Iw4cc52BWGjnKORoOnlLr9qzB98ZK5y9aj9Y4w==
+ bh=W6EGrg5UwnV5IvidGXvqgZQhsMkGhuFYeQPlqZ4EPK8=;
+ b=IdgBlu8uz5zhrU/B2fwQiGIoVgGkqLV4OAn6tqykknKx4c2uQbZ9s3RiHjEpUSF0L1lvRBXilGEfVJUAxWqjQxxy752DYvWnJ3GbA3MzGcZs7J1Lh+rwmmFmETQpf0kV1pXTN8MuEVgy8fdaexY+EGyoJr/xzhsTDE+yRoeArFRIOVRXwCAAUYtRgCYmnD/pi2hmegDl9TPw5xd79WMTs5L1eDOkQ/dvJEyiojuMLMfIxsmeunmBr90kZPHg/ROVneBI+q4HrXQbiN06C61SvhAwj4iwz4lw7RyUSi+KjNFMsGou+ZTUvdJVFQ/MbjgTbDSS2XTOpzu4g9g1u4QptQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nxp.com;
 Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by DB9PR04MB9961.eurprd04.prod.outlook.com (2603:10a6:10:4ee::9) with
+ by AS8PR04MB9176.eurprd04.prod.outlook.com (2603:10a6:20b:44b::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Thu, 4 Jun 2026
- 19:07:42 +0000
+ 19:15:45 +0000
 Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
  ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
  ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.21.0092.006; Thu, 4 Jun 2026
- 19:07:42 +0000
-Date: Thu, 4 Jun 2026 15:07:35 -0400
+ 19:15:45 +0000
+Date: Thu, 4 Jun 2026 15:15:38 -0400
 From: Frank Li <Frank.li@nxp.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: Bryan O'Donoghue <bod@kernel.org>, Robert Foss <rfoss@kernel.org>,
-	Todor Tomov <todor.too@gmail.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+To: Daniel J Blueman <daniel@quora.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Petr Hodina <phodina@protonmail.com>, "Dr. Git" <drgitx@gmail.com>,
-	Cory Keitz <ckeitz@amazon.com>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Kieran Bingham <kbingham@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v6 3/8] media: qcom: camss: Prepare CSID for C-PHY support
-Message-ID: <aiHM94-IDjiJWeqe@lizhi-Precision-Tower-5810>
-References: <20260603-qcom-cphy-v6-0-e50de0b557a8@ixit.cz>
- <20260603-qcom-cphy-v6-3-e50de0b557a8@ixit.cz>
- <aiChDyKleAYuzjMg@lizhi-Precision-Tower-5810>
- <43b7da84-3390-4094-a61f-9e887660eb10@ixit.cz>
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,sm8550-iris: Allow IOVA
+ reservation memory-region
+Message-ID: <aiHO2sjVL96zEVJi@lizhi-Precision-Tower-5810>
+References: <20260601041336.9497-1-daniel@quora.org>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <43b7da84-3390-4094-a61f-9e887660eb10@ixit.cz>
-X-ClientProxiedBy: SA1P222CA0163.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:3c3::22) To PA4PR04MB9366.eurprd04.prod.outlook.com
+In-Reply-To: <20260601041336.9497-1-daniel@quora.org>
+X-ClientProxiedBy: SA0PR11CA0192.namprd11.prod.outlook.com
+ (2603:10b6:806:1bc::17) To PA4PR04MB9366.eurprd04.prod.outlook.com
  (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -77,183 +73,102 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|DB9PR04MB9961:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4702584a-fb1b-4535-786e-08dec26c8de4
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AS8PR04MB9176:EE_
+X-MS-Office365-Filtering-Correlation-Id: 44866be3-2bfe-4b30-2b8d-08dec26dad4c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|7416014|376014|52116014|366016|18002099003|22082099003|38350700014|4143699003|56012099006|11063799006;
+	BCL:0;ARA:13230040|19092799006|366016|376014|7416014|52116014|1800799024|38350700014|18002099003|22082099003|11063799006|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	TkIyKW+o1/ffXmFRNL5zvteBqsT1v59Edh3hN0eIhOmY3IcCKImuZhQonYP6kI4r4VqD2KZ+C7j+3ig7cZqq9/g8Se94andKpbUVYQLex6S8kFfK3LGXKgvBw2W8ylwaAUWU+ytzgft/X5TM1ldwSowjYz3l5JiVUJc9C43XSdWnn0hR6T+1wCExhZNv/jmKfolrYf5PY6vOmHtJzfoHDHvKmr2AHr5S9Xhm4n7q36eFAbG7mV9M4JSuJKafwMUF3vJsHNtcdrk8kcYkFjrc+JxQ2Ab1FdrYAWt3GjNiJO4RjE02SmdT741HtiViT/7usEDDbW9gk6lFWV0I6/N0bYGy5HoPWZfICaMQ3x4RSi6mPwc4V0xqyEXFd82+MQAiJQ/VBELye8ptR7OOht68h96C9/D5iLhBT+wrCxgYnVRG/EtoU8nXuj8c+c06n6ZY73Ljuwd9yqx9QyhXtY9om7Xz2eVLkSGDc8n9ebhHJh1mZ8Qqlrql7q5PvIk433TRZLW4VspfKOS0hsLem7YchBwKmaWEPGP32HiEuSIOxNnMOh1fdBQ/WnAeFJUhJl55x6dnUuN5+XGkL9Z08GKhQh+LNyLIRK/EcPr0ZDxNxxIbBbzbQpm7LXn85Plt7g8qeyMSpcZ0tX/FiBelQnMMFMLqKHC9WWF5+edCDKRPO2CW6iw+D0mmFnSFeE+v6o5ISYg+ZCV7c/zAM6Pcsc6izF43rGWG9K3ESyBBd5zFkmQlf1y1+4hSoIfQInwY8c4q
+	b7sQ8u027c5HABFHZBeAQQ8xLouXUkQF3nIWgXdY+GKOfEm8WaI8U0dcGAL5COgjECRZeKqr1cNazwl8nEfzQTwaOyyxI2x2nQk0tPJUbc+mpOnnu9OiGhFppPkFhey9aLZ+pEEW5BEDW73jPeQKJ1zTiBvEwJ+SRl+9xfXtyRSd64suMvkuF5VnDOFgTq06HU62vGG0Is6ZHZj4eaXKsC62EZMYyWzYdsuWXUYZuypciIiAPMiJJqQ3SKUKcfMJyL+bLDq5Z7k6fJD9Law2KdkLtCrt1WRfLb7S7wmPCSTpGNCCpjGtUPZELZwrrf6b5vMMUBUUjrcTPXqiKiVlOpQVYJv0Ui3rl/rpTmiF4aWQVn2xAK/tOeOp76j0wd/M++IQAtKa3YJG/ifBMZiyXAaz9UsXuBiUHI9LS2UoVG6CQdtDw3SxA5JHDtuYTtV8SjE+UfX0kmIyj+ZExHAF+NZBwhiGiJpLUkCxnDbUA+5dCyei0to86jGJ+m2DfhQdydT9rVcZ1jpI7Vzu1iKGW7pOohld+4AEnN9gjbuqI1963RgtX5ejKrWzXvC7GqUmKs+q4qyFcYl843cqNZLOna3SpRPR2FSk3VLyxOeum/ru0SzB5x0WLO5nJKafKGfW3TLLq2RxvdCsKhY0QsoDPwn1qKWc5WI8aot0M9ZoJ0gRrmfxamRWsw/eVY76segKt7QmS/J2akjden2i4UMqeAnjPo+pUfO6CyaCfLEa07oblPwc9pIDQIxpRB8prsUs
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(7416014)(376014)(52116014)(366016)(18002099003)(22082099003)(38350700014)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(7416014)(52116014)(1800799024)(38350700014)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?X9ip8i7+/8HX8pQrKDS0szx8rTrASHtjUeWm3ukmh9Qr6dyZtWUXfxm3Bjny?=
- =?us-ascii?Q?VgbsngkRpWjFxwexVryBFFzf/RsmU6DXo1exyVRU4kCYG+0s3tOY0eBlWgIi?=
- =?us-ascii?Q?lKbQ8Trua4gIvAeEQM7iirmufWvLFUzEXAWPHu+fr11/KfhyVJLIaRHlylVF?=
- =?us-ascii?Q?6+GO8P10Q1rziuYju8Td3ywNMtKKNRlIGYmzwXm9hyIroZcaFnZeXj2hQAkT?=
- =?us-ascii?Q?nIXKiadmuHVYJ6QC/JeVUFN2wzRkxAmfs9cWOWUfvDITNzl0HzXgEbT8K6hE?=
- =?us-ascii?Q?6LWpYtgoTrnt9Ribvf4XDE+ripsabF/Raw0Pn9Ue0pe+/TZy4zSQNHbbhfD8?=
- =?us-ascii?Q?KuHRENsl08j6FAWU4VZWHAFObICBJDUsWHGLtG3OzA9YA61Enu9hXPBwMnuC?=
- =?us-ascii?Q?o+FQ7XuCn40bgLLQ2uYZ010YlC8MSsGHTt1dt+sw6aRV1oZYGaAebsC/50jW?=
- =?us-ascii?Q?9wnKyq++4R2lN6MZN66GKYukNS5l4rmDLdFMg/3UiG43czjlI17PQ9SHB6Hf?=
- =?us-ascii?Q?1ibcT0MiRkg/M9MN0mblSa5OtbD8utNvjVzufP8Gln9QCVj5M6AmuuygYgE+?=
- =?us-ascii?Q?lr44uhWC168Rm8+v9mC0RS1LJVpJpokxgIh4zOoenOgMCCT239rEeVICO6w/?=
- =?us-ascii?Q?0J8Gbr/JMk+cO6KCkJlUI43q10l2HYaJvYZXhpoBn0VnMzMQ1d9TuHD9LUuO?=
- =?us-ascii?Q?UWToTl3uFTGkHODpwCUfGsUzuNferqiytrMP5sqeDa0RcEY6hL2VJdf4KUzg?=
- =?us-ascii?Q?6fZdVPchslRaOT0UtF9EA8rRHf7f34TWO6D4W5VtIl/dgyF+3AwkFYvguRUE?=
- =?us-ascii?Q?EjUspiSkC2MH/ckwEL+2+7an23tqBN0iuD1KB/VKq//A2P50s18RGpg60fk2?=
- =?us-ascii?Q?vimHvIfE/gFJXCxkyPeZt9tqD9RMnBb0rrAoH920i/PeBABn3wEMPa8y4zPX?=
- =?us-ascii?Q?wXVpEFl50l4OQj+FNVK0VF911VDRAjxlW8ruzBi4JfIfWE0NkCc9kcz/N4Wi?=
- =?us-ascii?Q?jU1nYogzo4qgbataEamjT9VU7hVShWO2Arv7R06rAkMDlNx8QOlBRHPpvVXS?=
- =?us-ascii?Q?lHyf5UPaS9jw71z0IpbTSQAnVaSLRSczC7jN7IQKU4Rm+ySt8k0i3mjn7RLJ?=
- =?us-ascii?Q?+0wtvYnXLcB0h36yHEONY21QaPIk+94sRCJAZMcBJMquM2X1lCTkAOnXbSrh?=
- =?us-ascii?Q?KZx64uBdtCSiDn+IbTman7iJz7lDSgYaHyyUcSDFFRRcGsV3TUovnP80/Mqu?=
- =?us-ascii?Q?3sgkxZAYy4BL4lreVJMesIQfu+cs16/Zp8+kIwAi8xZkFy8jSq983Mnn/79l?=
- =?us-ascii?Q?OHfMoxwGVgQZHhULgvINKz1FciiFYY6FkkC7HMEGfXNcAzsWZwzYuwGdwt+s?=
- =?us-ascii?Q?BXbeYwcnBXDnyqVHe99L8VUMp9t5x2GLkK8awyGj7AHt15EjuKeZuqm8zOLZ?=
- =?us-ascii?Q?/JcW2lBRnf8kBX9f3125SUOwA5oRZ4dXOsBdqDsd0DTVsu+onQE47Q4GKWhl?=
- =?us-ascii?Q?Yg9JdDAxMKy8zc2bVjZiW1KLP1PW6406FYkYB2/M2fh74TU+QTLuFI+yzdLg?=
- =?us-ascii?Q?8gdJLE4y1WT2vSLHHXG4uuQaTm20FR97erignFCRIwkMkHVrX4TTm+GaRNZW?=
- =?us-ascii?Q?mvsnAomjxZJ9ZJDMXvaXElqtEreDEhUerrV+SPC7i/yOVZlqgxqX2HAPOXY2?=
- =?us-ascii?Q?eR9sjnh7IW/WGOLuu7S7TSCcVkfCK+Y8m4Ai7pPsgFlO56YyuhiF0FC284Lf?=
- =?us-ascii?Q?mn9yWxCsjg=3D=3D?=
+	=?us-ascii?Q?YzmeA79QBHkFeDSxBA9kNbRVYCDmKZwvsxxi9J7lQlkkj6RdeVZ5yPP7142G?=
+ =?us-ascii?Q?VvwY4i9byOQyZ/0hYYofJ947HOJHyZGa6NQ0mF9KvkWZ6IvipMTXgaB3xK3/?=
+ =?us-ascii?Q?bB2yHvhbCZ+XxKQNSMJQdZ+qJ+bfM63kVCJfeNJteqVrFxAqo4x91XAzZZox?=
+ =?us-ascii?Q?I/YT38j9LtEcXrM0hfxIkqP8UNdGqjzz2mYIcZ0i3Ms1cIV4ZEWti/34X/9X?=
+ =?us-ascii?Q?9bf2eH2COun9GpqvJJ4SIf3OiIz7OeU4d9xTGeTgpa7FfRM14ur9giXvyjzF?=
+ =?us-ascii?Q?DzZCvw+Js07UYUCLyz7uLys+GvMCzm74pnFvFIj+JnQ+yM9dw//TviVxDAna?=
+ =?us-ascii?Q?8EZ2Rd/R02QbnXm8jcxaNkUjfZk4zU/zke+L5FhF5XdF7p/SdKW+Df1PN54K?=
+ =?us-ascii?Q?mCDpLfVkHqro1B245L/0jg3B5AE2vso+gAWi3yUtGpzpjqspV+XF9CEcdH7w?=
+ =?us-ascii?Q?lRG7LEVhgyn2KTI9vmM5HPKtuBvAgv47BA4OhrPtDembnnqJk13WluCJ/YF0?=
+ =?us-ascii?Q?2uzkNJsncimI18hc4DYG9c3kKFt0Vu9chT3gkkZ7wCZ9OODY7qBtIpEci7zM?=
+ =?us-ascii?Q?wiFo1dkrXePZTUAcR5sMSY5RjXvea6+m8CiNbt4NizoHPntMKM+FfeBMcZ8M?=
+ =?us-ascii?Q?siITaEW4ae5D1HIJtaA0ZkgzHQPMJIgk520AW0RtgZgofIfXqw9lymtaFE1T?=
+ =?us-ascii?Q?vVSOr2Z5BJ30I25HwXAv497qDqvJTWDmUqNkMR/8+/saTCPNBTVVoFMlz7zd?=
+ =?us-ascii?Q?h2GpruAn0sLqqRjn1CYHnccmGJccNKQb2tBBu1hBJ4DUai9uV7BpjGjrot55?=
+ =?us-ascii?Q?FFymUP4+4nU+ZgLwQqtPp9VuM6a/Q0k6RFQSujojbnDoXlZzyGUvF/KYrHbT?=
+ =?us-ascii?Q?opWBpnQTtcmr+m1x2ShveWNRx5h6ucJ1+6ij31eFZWzlXmPrvGkz3h6YGWEJ?=
+ =?us-ascii?Q?YkCssAA7ZX4GnHZOYIG6KPUfXcHdC8ZzFwPgK41V851uDjNU64drf0X8LYp4?=
+ =?us-ascii?Q?OgmkP2J+oqWl5GBUx7bI8ZX46Sdsnx5QR1GOxVEqPwklqLFerZaixPmXMLhC?=
+ =?us-ascii?Q?vqTinGLx/HhrM/3rcUOdP+sgF4botUJNsyU5BOf2QNj6yqwBU0u1m7iCU6z9?=
+ =?us-ascii?Q?P2oSg7ivi1ZHliFYd/RixRwWiCEidc2HEMjDozGgoO1HnATN2sCBM2MG+O2M?=
+ =?us-ascii?Q?g9h1K4pwiv663BwQJgi44AwcqkLvb9v9HemuLFuwz46ptIvEUaORI7S8iadl?=
+ =?us-ascii?Q?TkR/zSf130qT28fLAox81SWuCVLiGl2zrYc4BezAhecVEc8eEhveh+fDYz9L?=
+ =?us-ascii?Q?w5uBsr6Gw2GVnFipVK/AIasogEz1cwH02PlymZbk6QJUimAQQNT4O0lSBI/d?=
+ =?us-ascii?Q?dN7bOVp/o+eJGvHIKwEsr+Uq77jAaIh/rR6O2XIcJbhYExdZWeT/ihN7OCms?=
+ =?us-ascii?Q?3PBfYgQyWocuMFyqdy4Fz8WrAGOOVzipJXbmxL3Yg8vwM8z5WlJTkJaf6hMS?=
+ =?us-ascii?Q?Hy+AEsEF/R9iLZoQDgb0TCsGJY9/TE7BCLkwowwxG21BUCVjn3v59wmiweET?=
+ =?us-ascii?Q?mmfeUhD1erP55OyCZgOULJhuOTR9MFbYbWJFA3W196cA6Okv4+rCMJkigYDR?=
+ =?us-ascii?Q?WuDxyaaNf0k+sEaZz+5ZXGvyFzSgKm69W/2GqbnvSNdmwdtrEx/o/KKhKm3K?=
+ =?us-ascii?Q?OMqo/Ds4hv/drowArMzaHHE7O4DBhIe/KOmJbwNGb2amzprMX34A82JRN19e?=
+ =?us-ascii?Q?Jriy6faHqg=3D=3D?=
 X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4702584a-fb1b-4535-786e-08dec26c8de4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44866be3-2bfe-4b30-2b8d-08dec26dad4c
 X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 19:07:42.7512
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 19:15:44.9573
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DbTCpPBfDesVpvUfSqRAgCbQF0S8cqXkFXIeGXUP0O9qO9Q0geFT2d3z2TY6x39CTChzuWVii7JZXd7vavBpyQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9961
+X-MS-Exchange-CrossTenant-UserPrincipalName: aIHQL3X5ZD0KGPrz2FsHXli857HCXPpOGQmAxRbsVhN2H73Ek1Ls97UouN0+//AeatAkrmu2i9Sql3cjTyyHLw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9176
 
-On Thu, Jun 04, 2026 at 02:34:49PM +0200, David Heidelberg wrote:
-> On 03/06/2026 23:47, Frank Li wrote:
-> > On Wed, Jun 03, 2026 at 01:30:41AM +0200, David Heidelberg wrote:
-> > > Inherit C-PHY information from CSIPHY, so we can configure CSID
-> > > properly.
-> > >
-> > > CSI2_RX_CFG0_PHY_TYPE_SEL must be set to 1, when C-PHY mode is used.
-> > >
-> > > Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> > > Acked-by: Cory Keitz <ckeitz@amazon.com>
-> > > Signed-off-by: David Heidelberg <david@ixit.cz>
-> > > ---
-> > >   drivers/media/platform/qcom/camss/camss-csid-gen2.c | 1 +
-> > >   drivers/media/platform/qcom/camss/camss-csid.c      | 1 +
-> > >   drivers/media/platform/qcom/camss/camss-csid.h      | 1 +
-> > >   3 files changed, 3 insertions(+)
-> > >
-> > > diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen2.c b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
-> > > index eadcb2f7e3aaa..52ef730b10553 100644
-> > > --- a/drivers/media/platform/qcom/camss/camss-csid-gen2.c
-> > > +++ b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
-> > > @@ -178,16 +178,17 @@ static void __csid_configure_rx(struct csid_device *csid,
-> > >   	int val;
-> > >
-> > >   	if (!lane_cnt)
-> > >   		lane_cnt = 4;
-> > >
-> > >   	val = (lane_cnt - 1) << CSI2_RX_CFG0_NUM_ACTIVE_LANES;
-> > >   	val |= phy->lane_assign << CSI2_RX_CFG0_DL0_INPUT_SEL;
-> > >   	val |= phy->csiphy_id << CSI2_RX_CFG0_PHY_NUM_SEL;
-> > > +	val |= csid->phy.cphy << CSI2_RX_CFG0_PHY_TYPE_SEL;
-> >
-> > shift a bool type is not good habbit. some compiler may treat as undefine
-> > beheavor.
-> >
-> > Frank
+On Mon, Jun 01, 2026 at 12:13:33PM +0800, Daniel J Blueman wrote:
+> In addition to the firmware-loaded codec carveout, some Iris platforms
+> need to declare an IOMMU IOVA reservation (a reserved-memory node with
+> iommu-addresses) to keep DMA away from IOVA ranges that earlier
+> firmware stages have already mapped through the SMMU.
 >
-> Oh I found out Bryan commented on the older revisions about the boolean usage.
+> Permit a second memory-region phandle for this purpose, and describe
+> the meaning of each entry so the ordering is unambiguous.
 >
-> So idea is convert this to:
+> Signed-off-by: Daniel J Blueman <daniel@quora.org>
+> ---
+>  Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 >
-> +enum csid_phy_sel {
-> +       CSID_PHY_SEL_DPHY = 0,
-> +       CSID_PHY_SEL_CPHY = 1
-> +};
-> +
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> index 9c4b760508b5..6359e4953d42 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> @@ -80,7 +80,11 @@ properties:
+>    dma-coherent: true
 >
-> [...]
->
->  struct csid_phy_config {
->         u8 csiphy_id;
->         u8 lane_cnt;
->         u32 lane_assign;
->         u32 en_vc;
->         u8 need_vc_update;
-> -       bool cphy;
-> +       enum csid_phy_sel phy_sel;
->  };
->
-> Frank, Bryan, snds good?
+>    memory-region:
+> -    maxItems: 1
+> +    minItems: 1
+> +    maxItems: 2
+> +    items:
+> +      - description: Firmware-loaded codec carveout
+> +      - description: IOMMU IOVA reservation region
 
-good for me
+Suppose you want to special iova space. does dma-ranges work for it?
+
+bus {
+     dma-ranges = <start size>;
+     iris {
+	...
+     }
+}
 
 Frank
 >
-> >
-> > >   	writel_relaxed(val, csid->base + CSID_CSI2_RX_CFG0);
-> > >
-> > >   	val = 1 << CSI2_RX_CFG1_PACKET_ECC_CORRECTION_EN;
-> > >   	if (vc > 3)
-> > >   		val |= 1 << CSI2_RX_CFG1_VC_MODE;
-> > >   	val |= 1 << CSI2_RX_CFG1_MISR_EN;
-> > >   	writel_relaxed(val, csid->base + CSID_CSI2_RX_CFG1);
-> > >   }
-> > > diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-> > > index 48459b46a981b..8d5c872f84ed5 100644
-> > > --- a/drivers/media/platform/qcom/camss/camss-csid.c
-> > > +++ b/drivers/media/platform/qcom/camss/camss-csid.c
-> > > @@ -1286,16 +1286,17 @@ static int csid_link_setup(struct media_entity *entity,
-> > >   			/* do no allow a link from CSIPHY to CSID */
-> > >   			if (!csiphy->cfg.csi2)
-> > >   				return -EPERM;
-> > >
-> > >   			csid->phy.csiphy_id = csiphy->id;
-> > >
-> > >   			lane_cfg = &csiphy->cfg.csi2->lane_cfg;
-> > >   			csid->phy.lane_cnt = lane_cfg->num_data;
-> > > +			csid->phy.cphy = (lane_cfg->phy_cfg == V4L2_MBUS_CSI2_CPHY);
-> > >   			csid->phy.lane_assign = csid_get_lane_assign(lane_cfg, lane_cfg->num_data);
-> > >   			csid->tpg_linked = false;
-> > >   		}
-> > >   	}
-> > >   	/* Decide which virtual channels to enable based on which source pads are enabled */
-> > >   	if (local->flags & MEDIA_PAD_FL_SOURCE) {
-> > >   		struct v4l2_subdev *sd = media_entity_to_v4l2_subdev(entity);
-> > >   		struct csid_device *csid = v4l2_get_subdevdata(sd);
-> > > diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
-> > > index 5296b10f6bac8..00e2669db64c9 100644
-> > > --- a/drivers/media/platform/qcom/camss/camss-csid.h
-> > > +++ b/drivers/media/platform/qcom/camss/camss-csid.h
-> > > @@ -65,16 +65,17 @@ struct csid_testgen_config {
-> > >   };
-> > >
-> > >   struct csid_phy_config {
-> > >   	u8 csiphy_id;
-> > >   	u8 lane_cnt;
-> > >   	u32 lane_assign;
-> > >   	u32 en_vc;
-> > >   	u8 need_vc_update;
-> > > +	bool cphy;
-> > >   };
-> > >
-> > >   struct csid_device;
-> > >
-> > >   struct csid_hw_ops {
-> > >   	/*
-> > >   	 * configure_stream - Configures and starts CSID input stream
-> > >   	 * @csid: CSID device
-> > >
-> > > --
-> > > 2.53.0
-> > >
+>    operating-points-v2: true
 >
 > --
-> David Heidelberg
+> 2.53.0
 >
