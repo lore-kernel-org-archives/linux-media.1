@@ -1,192 +1,221 @@
-Received: from mail.mifritscher.de (mifritscher.de [188.40.170.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 179BD3A59BA
-	for <linux-media@vger.kernel.org>; Thu,  4 Jun 2026 19:40:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.170.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7697639936D
+	for <linux-media@vger.kernel.org>; Thu,  4 Jun 2026 19:41:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780602007; cv=none; b=dzI7lrOXArnvbC7PJaV6jnL2yMDE9XK1hfEOanRdYamkDRsFqg60xYso6uTqx+4rYbcET8otaPhubCkSmJjbeURbPXysfD7fDbk2lpqjnqKvkJZQimi/oRS88c//IL5RYmMAKyGZbCMDbcWSGckxjtaJzTFfrNh0WVPWaGB64CM=
+	t=1780602084; cv=none; b=mfpGVNKxUAiRtzJ/ZLkcFtyiE2909y5JJaI4wRJjOfFIYQeIxEOnde09IlEOCc6DNbgJIXs2+VK30WKnnqWhvp/iXF/gSDGBxOwCN4XSTBsXHY5Q/Ee5XEuUyb5VCNSarZlHAsqSvYNuV0FoUqqh95jHYY6jBzIdGKgL9xiDXsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780602007; c=relaxed/simple;
-	bh=LyxqpST9gv60aCAyA1jt2IJSwfZE97FwhS8HZmZNU0M=;
-	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=ivfls8EeI8OtRFS2hYfnbdJtM8cNY9vTSqjv51/mYE0PH+DA2/nAiKp7emzJzPeLqsmLTstsToh8rgQJqXQ2vql78cdhRM1y8M9ttLwmfKetB8fZaimMS8UaGbdYy8XAh3JOxcke2SUF3B6W+dHuP1CK7hs3vgyBZJ/Pt2Z1d7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fritscher.net; spf=pass smtp.mailfrom=fritscher.net; arc=none smtp.client-ip=188.40.170.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fritscher.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritscher.net
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.mifritscher.de (Postfix) with ESMTP id D27163B2957
-	for <linux-media@vger.kernel.org>; Thu,  4 Jun 2026 21:34:55 +0200 (CEST)
-X-Virus-Scanned: Debian amavis at mifritscher.vserverkompetenz.de
-Received: from mail.mifritscher.de ([127.0.0.1])
- by localhost (mail.mifritscher.vserverkompetenz.de [127.0.0.1]) (amavis, port 10024)
- with ESMTP id Yig989S0nfTv for <linux-media@vger.kernel.org>;
- Thu,  4 Jun 2026 21:34:55 +0200 (CEST)
-Received: from [IPV6:2001:4091:a245:8498:3dfe:d70:e3e3:8c25] (unknown [IPv6:2001:4091:a245:8498:3dfe:d70:e3e3:8c25])
-	by mail.mifritscher.de (Postfix) with ESMTPSA id 1D9EA3B22F8
-	for <linux-media@vger.kernel.org>; Thu,  4 Jun 2026 21:34:55 +0200 (CEST)
-Message-ID: <865cf4b5-940f-4fef-8ddc-e872b4ae6f02@fritscher.net>
-Date: Thu, 4 Jun 2026 21:34:49 +0200
+	s=arc-20240116; t=1780602084; c=relaxed/simple;
+	bh=9mntJ7PVtRYL/4BYfUtMIoR8+UUrhdLcVbB159Hmmb0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PObPc6nONGzQGvv+fyDSSSOBYHfzRGhhOIKXyf8LBJn3pFGlbie6I8ffOQGSVK/SXiN/DbqZYXtgP9o4BqldnXQgovrz8SJpvh4IE0RA4ltzuT1iNtWlF2q/ioGpIHsxspVKRbCPmYDMNvLqQ5KaYrlqajoioMJ7+F50Nlg8neE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ah7oufMl; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ah7oufMl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 155B11F00893;
+	Thu,  4 Jun 2026 19:41:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780602083;
+	bh=ShuVlLWC5FgBtDaDVnuK31drZ5jQl97zhyIfpyaIgJ4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ah7oufMlAxcMhs/B68reBXMm0ou7AOmSOo3Q6clR34dNTXfdFsuN9xUEKa8axgXli
+	 XAqKcU1PKU3ggJG+QOdFVwC3Z7S+g4F4UHRwIFS8ZAkPqDvN2FfBnKyd66cUmgfZrw
+	 /6PNMWPH1YJlwGBnasYvrDkHx5txsNbtwLDcaXblEUieBi2E67cNZp2MgrZH69Ipe3
+	 ZIvmlXF3uadTSQbfXNbFnD2WY6ExhUkAYLS8yQdjLPldOnVLepZv6lBgaCVliwNeaF
+	 IqTMazO/XUtJdJEqFc9k4RLEKNt6w0xrij0dK+bpm6XO980qwHGLVH/CJ210A51N+v
+	 MfZ7ks0Mlb0VQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v18 2/4] rust: drm: gem: shmem: Add vmap functions
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lyude Paul" <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, ojeda@kernel.org
+In-Reply-To: <20260604192740.659240-3-lyude@redhat.com>
+References: <20260604192740.659240-3-lyude@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 04 Jun 2026 19:41:22 +0000
+Message-Id: <20260604194123.155B11F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: linux-media@vger.kernel.org
-From: Michael Fritscher <michael@fritscher.net>
-Content-Language: de-DE
-Subject: USB 2013:0462 PCTV Systems PCTV 461
-Autocrypt: addr=michael@fritscher.net; keydata=
- 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
- J8ECEUyP
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Good day,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The `IoCapable` implementation for `VMap` uses non-volatile `ptr::=
+read` and `ptr::write`, allowing the compiler to optimize away or reorder m=
+emory accesses to shared device memory.
+- [Medium] `VMap` and `VMapOwned` are implicitly `!Send` and `!Sync` due to=
+ the `*mut c_void` field, artificially restricting the mapping to the threa=
+d that created it.
+- [Low] Missing `// INVARIANT:` comment explaining `VMap` memory validity a=
+t its construction site, violating subsystem guidelines.
+--
 
-the linux log say that I should write an E-Mail, so there is ;-)
+commit b418d73acbe560c4eda85331900333d19c6ae108
+Author: Lyude Paul <lyude@redhat.com>
 
-I'm using Debian trixie - kernel version : 6.12.90
+rust: drm: gem: shmem: Add vmap functions
 
-lsusb:
-2013:0462 PCTV Systems PCTV 461
+One of the more obvious use cases for gem shmem objects is the ability to
+create mappings into their contents. So, let's hook this up in our rust
+bindings.
 
-                  Board eeprom hash is 0x00000000
-                  Board i2c devicelist hash is 0x7d2e7f80
+> diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+> index 4cf038f7afb71..a20b0c0dac6bd 100644
+> --- a/rust/kernel/drm/gem/shmem.rs
+> +++ b/rust/kernel/drm/gem/shmem.rs
 
+[ ... ]
 
-dmesg:
+> @@ -188,6 +196,80 @@ extern "C" fn free_callback(obj: *mut bindings::drm_=
+gem_object) {
+>          // SAFETY: We're recovering the Kbox<> we created in gem_create_=
+object()
+>          let _ =3D unsafe { KBox::from_raw(this) };
+>      }
+> +
+> +    /// Attempt to create a vmap from the gem object, and confirm the si=
+ze of said vmap.
+> +    fn make_vmap<'a, R, const SIZE: usize>(&'a self) -> Result<VMap<T, R=
+, C, SIZE>>
+> +    where
+> +        R: Deref<Target =3D Self> + From<&'a Self>,
+> +    {
 
-[1289673.030208] em28xx 3-6.1:1.0: New device PCTV PCTV 461 @ 480 Mbps 
-(2013:0462, interface 0, class 0)
-[1289673.030220] em28xx 3-6.1:1.0: DVB interface 0 found: bulk
-[1289673.091698] em28xx 3-6.1:1.0: chip ID is em28178
-[1289673.219593] em28xx 3-6.1:1.0: failed to read eeprom (err=-110)
-[1289673.219604] em28xx 3-6.1:1.0: em28xx_i2c_register: em28xx_i2_eeprom 
-failed! retval [-110]
-[1289673.255687] em28xx 3-6.1:1.0: found i2c device @ 0x0 on bus 0 [???]
-[1289673.291676] em28xx 3-6.1:1.0: found i2c device @ 0x2 on bus 0 [???]
-[1289673.327686] em28xx 3-6.1:1.0: found i2c device @ 0x4 on bus 0 [???]
-[1289673.368832] em28xx 3-6.1:1.0: found i2c device @ 0x6 on bus 0 [???]
-[1289673.407684] em28xx 3-6.1:1.0: found i2c device @ 0x8 on bus 0 [???]
-[1289673.443675] em28xx 3-6.1:1.0: found i2c device @ 0xa on bus 0 [???]
-[1289673.479679] em28xx 3-6.1:1.0: found i2c device @ 0xc on bus 0 [???]
-[1289673.515670] em28xx 3-6.1:1.0: found i2c device @ 0xe on bus 0 [???]
-[1289673.551677] em28xx 3-6.1:1.0: found i2c device @ 0x10 on bus 0 [???]
-[1289673.587676] em28xx 3-6.1:1.0: found i2c device @ 0x12 on bus 0
-...
-[1289673.731619] em28xx 3-6.1:1.0: found i2c device @ 0x1a on bus 0 [???]
-[1289673.767693] em28xx 3-6.1:1.0: found i2c device @ 0x1c on bus 0 
-[lgdt330x]
-[1289673.803653] em28xx 3-6.1:1.0: found i2c device @ 0x1e on bus 0 [???]
-...
-[1289674.343675] em28xx 3-6.1:1.0: found i2c device @ 0x3c on bus 0 [???]
-[1289674.379684] em28xx 3-6.1:1.0: found i2c device @ 0x3e on bus 0 
-[remote IR sensor]
-[1289674.415694] em28xx 3-6.1:1.0: found i2c device @ 0x40 on bus 0 [???]
-...
-[1289674.559677] em28xx 3-6.1:1.0: found i2c device @ 0x48 on bus 0 [???]
-[1289674.595700] em28xx 3-6.1:1.0: found i2c device @ 0x4a on bus 0 
-[saa7113h]
-[1289674.631664] em28xx 3-6.1:1.0: found i2c device @ 0x4c on bus 0 [???]
-[1289674.667686] em28xx 3-6.1:1.0: found i2c device @ 0x4e on bus 0 [???]
-[1289674.703679] em28xx 3-6.1:1.0: found i2c device @ 0x50 on bus 0 [???]
-[1289674.739682] em28xx 3-6.1:1.0: found i2c device @ 0x52 on bus 0 [drxk]
-[1289674.775677] em28xx 3-6.1:1.0: found i2c device @ 0x54 on bus 0 [???]
-...
-[1289674.959691] em28xx 3-6.1:1.0: found i2c device @ 0x5e on bus 0 [???]
-[1289674.996673] em28xx 3-6.1:1.0: found i2c device @ 0x60 on bus 0 
-[remote IR sensor]
-[1289675.033557] em28xx 3-6.1:1.0: found i2c device @ 0x62 on bus 0 [???]
-...
-[1289675.657060] em28xx 3-6.1:1.0: found i2c device @ 0x84 on bus 0 [???]
-[1289675.693792] em28xx 3-6.1:1.0: found i2c device @ 0x86 on bus 0 
-[tda9887]
-[1289675.729604] em28xx 3-6.1:1.0: found i2c device @ 0x88 on bus 0 
-[msp34xx]
-[1289675.765806] em28xx 3-6.1:1.0: found i2c device @ 0x8a on bus 0 [???]
-[1289675.801840] em28xx 3-6.1:1.0: found i2c device @ 0x8c on bus 0 [???]
-[1289675.837403] em28xx 3-6.1:1.0: found i2c device @ 0x8e on bus 0 
-[remote IR sensor]
-[1289675.876565] em28xx 3-6.1:1.0: found i2c device @ 0x90 on bus 0 [???]
-...
-[1289676.132445] em28xx 3-6.1:1.0: found i2c device @ 0x9e on bus 0 [???]
-[1289676.172344] em28xx 3-6.1:1.0: found i2c device @ 0xa0 on bus 0 [eeprom]
-[1289676.213537] em28xx 3-6.1:1.0: found i2c device @ 0xa2 on bus 0 [???]
-...
-[1289676.583679] em28xx 3-6.1:1.0: found i2c device @ 0xb6 on bus 0 [???]
-[1289676.619965] em28xx 3-6.1:1.0: found i2c device @ 0xb8 on bus 0 
-[tvp5150a]
-[1289676.660327] em28xx 3-6.1:1.0: found i2c device @ 0xba on bus 0 
-[webcam sensor or tvp5150a]
-[1289676.695689] em28xx 3-6.1:1.0: found i2c device @ 0xbc on bus 0 [???]
-[1289676.731703] em28xx 3-6.1:1.0: found i2c device @ 0xbe on bus 0 [???]
-[1289676.771679] em28xx 3-6.1:1.0: found i2c device @ 0xc0 on bus 0 
-[tuner (analog)]
-[1289676.811775] em28xx 3-6.1:1.0: found i2c device @ 0xc2 on bus 0 
-[tuner (analog)]
-[1289676.847689] em28xx 3-6.1:1.0: found i2c device @ 0xc4 on bus 0 
-[tuner (analog)]
-[1289676.883683] em28xx 3-6.1:1.0: found i2c device @ 0xc6 on bus 0 
-[tuner (analog)]
-[1289676.919678] em28xx 3-6.1:1.0: found i2c device @ 0xc8 on bus 0 [???]
-...
-[1289677.923688] em28xx 3-6.1:1.0: found i2c device @ 0xfe on bus 0 [???]
+[ ... ]
 
-This stick seems to be a newer version of a
-2013:0258 PCTV Systems DVB-S2 Stick 461e,
-which is working fine.
+> +        // XXX: We don't currently support iomem allocations
+> +        if map.is_iomem {
+> +            // SAFETY:
+> +            // - The vmap operation above succeeded, guaranteeing that `=
+map` points to a valid
+> +            //   memory mapping.
+> +            // - We checked that this is an iomem allocation, making it =
+safe to read vaddr_iomem
+> +            unsafe { self.raw_vunmap(map) };
+> +
+> +            Err(ENOTSUPP)
+> +        } else {
+> +            Ok(VMap {
+> +                // SAFETY: We checked that this is not an iomem allocati=
+on, making it safe to read
+> +                // vaddr
+> +                addr: unsafe { map.__bindgen_anon_1.vaddr },
+> +                owner: self.into(),
+> +            })
 
-There seems to be some info on
-https://github.com/b-rad-NDi/Ubuntu-media-tree-kernel-builder/issues/176 
-, with a patch
-  0003-em28xx-Add-Hauppauge-461e-v3.patch mentioned on 
-https://launchpad.net/~b-rad/+archive/ubuntu/test-test-hw-staging/+sourcepub/16955432/+listing-archive-extra.
+[Severity: Low]
+This isn't a bug, but there's a missing invariant comment here.
 
-Let me know if you need any more info.
+The Rust subsystem guidelines mention that when a struct with an
+# Invariants documentation section is constructed, the code should have an
+// INVARIANT: comment explaining why the invariants are satisfied.
 
-Best regards
-Michael Fritscher
+Would it make sense to add a comment here explaining why the memory remains
+valid until dropped?
 
+> +        }
+> +    }
+
+[ ... ]
+
+> @@ -264,3 +345,232 @@ fn drop(&mut self) {
+>          unsafe { bindings::dma_resv_unlock(self.0.raw_dma_resv()) };
+>      }
+>  }
+> +
+> +macro_rules! impl_vmap_io_capable {
+> +    ($impl:ident, $ty:ty) =3D> {
+> +        impl<D, R, C, const SIZE: usize> IoCapable<$ty> for $impl<D, R, =
+C, SIZE>
+> +        where
+> +            D: DriverObject,
+> +            C: DeviceContext,
+> +            R: Deref<Target =3D Object<D, C>>,
+> +        {
+> +            #[inline(always)]
+> +            unsafe fn io_read(&self, address: usize) -> $ty {
+> +                let ptr =3D address as *mut $ty;
+> +
+> +                // SAFETY: The safety contract of `io_read` guarantees t=
+hat address is a valid
+> +                // address within the bounds of `Self` of at least the s=
+ize of $ty, and is properly
+> +                // aligned.
+> +                unsafe { ptr::read(ptr) }
+> +            }
+
+[Severity: High]
+Can this allow the compiler to improperly optimize these memory accesses?
+
+Since VMap represents GEM shmem objects mapped into the kernel virtual
+address space, this memory might be concurrently accessed by hardware or
+userspace.
+
+Using standard non-volatile ptr::read and ptr::write allows the compiler
+to cache values in registers, coalesce writes, or elide them entirely. The C
+equivalent (iosys_map_rd and iosys_map_wr) uses READ_ONCE() and
+WRITE_ONCE() for this reason.
+
+Should this use ptr::read_volatile() to safely access the shared memory?
+
+> +
+> +            #[inline(always)]
+> +            unsafe fn io_write(&self, value: $ty, address: usize) {
+> +                let ptr =3D address as *mut $ty;
+> +
+> +                // SAFETY: The safety contract of `io_write` guarantees =
+that address is a valid
+> +                // address within the bounds of `Self` of at least the s=
+ize of $ty, and is properly
+> +                // aligned.
+> +                unsafe { ptr::write(ptr, value) }
+> +            }
+
+[Severity: High]
+Similar to the io_read() implementation above, does this write need to use
+ptr::write_volatile() to prevent the compiler from caching or coalescing
+these shared memory writes?
+
+> +        }
+> +    };
+> +}
+> +
+> +/// A reference to a virtual mapping for an shmem-based GEM object in ke=
+rnel address space.
+> +///
+> +/// # Invariants
+> +///
+> +/// - The size of `owner` is >=3D SIZE.
+> +/// - The memory pointed to by addr remains valid at least until this ob=
+ject is dropped.
+> +pub struct VMap<D, R, C =3D Registered, const SIZE: usize =3D 0>
+> +where
+> +    D: DriverObject,
+> +    C: DeviceContext,
+> +    R: Deref<Target =3D Object<D, C>>,
+> +{
+> +    addr: *mut c_void,
+> +    owner: R,
+> +}
+
+[Severity: Medium]
+Does this unintentionally restrict the mapping to the thread that created i=
+t?
+
+Because VMap stores its mapping address as a raw pointer
+addr: *mut c_void, it implicitly lacks the Send and Sync traits in Rust.
+This means VMap and VMapOwned cannot be safely transferred or shared
+across concurrency boundaries.
+
+Since the kernel's virtual mapping should be globally valid as long as the
+underlying owner object provides safe concurrent access, should explicit
+unsafe impl Send and unsafe impl Sync be provided for this struct?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604192740.6592=
+40-1-lyude@redhat.com?part=3D2
