@@ -1,308 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E2FA40E8F9;
-	Fri,  5 Jun 2026 14:04:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F7A36CDF3
+	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 14:18:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780668272; cv=none; b=uD1VypcrGwRRcp19jN5qOLxbf51RkCwpf6ofYtXvIo0wybMxggbc3F7rxkPKOHDoMvzkmsB1aT5qxjc+nF97GReSGx0V13hAOR0IZVDHrhFFQxY1EarMx5rJWdiinQV5ViSqAJwXGARXma2YZie7vsWUneRjIYj1gmqsxOM87qI=
+	t=1780669135; cv=none; b=vEOu3WL+GOwAyyUl9PLXyFZ0MlCUvpTXOiJECN2mEvGL1KUCvOIBMiH7xmUpZwSnPvOijy2JUtxOMzpPVVEBMbgtrcmW4qpZuZ2rnPPjrTdou/hfPwOvRaKr05dUgyQQA290fppp/T2KcLSSRY/OV307Mimr3/bxaawiS7gxiJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780668272; c=relaxed/simple;
-	bh=FmOiaWHYYNRw1PqlXtpBZh6nUY7y4GCwrtLkmUAlu3s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i/SXFRcRJT4K4KYfW+Au/rsB9BxDBcsEF67jEzLC2VP7awRtSo0lnBSqiwyHgg81OoC+ZiMZ2ujLm0zrsVcUd/jSSwyVd/IGRE49ErnW6VGwhEh97xRg6NxdvcrY+bI743z9rH5c35HIVHX21yISSeFFkQihlJafd6rwendF3YM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RApMYwO7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780669135; c=relaxed/simple;
+	bh=6j6Kbr3PTBz4Ce08nM4gCYJRDe0clylusP7FpmuwSPQ=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=XvOV7Ae0Wgv58SVIYeCjMDQM/CjmnrPyZK6JJuO8GUEeSNfz2NJQfOAs7ZnHCGEu1iPd/byRPLl1du+ZiE0BtbX+3nEdlWuaTszEjk349xj9XPrJQ2azlRRZ8AUAds25SEDn1r6Kj0qX80sWpd95cHus1Xg7ga0KikYKGPGI930=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=j6XOuu/G; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RApMYwO7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA1AB1F00899;
-	Fri,  5 Jun 2026 14:04:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780668269;
-	bh=n9phLvi9RaSkTbiV76v3B+9PIG1KyHFVOKkyTySAtm8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RApMYwO7er3nWL423qBa8U7GezuFG85ZFI5QxfxdBRA7oxZOqr3+dUKOvKsQD42dk
-	 MBm8gyp4fD+eznKQX2NuNl3PnC9qt/wtqr5m86YXCEdGRJMAhV26S4jY7Kh24jYkAq
-	 GbrrIb2q4riaQyR41vegJ4WkCjoH4Em7/d4vKPqhCsKUoNi6h+Hyry4kG2iyFA90Sz
-	 5aUMgBIh8jiCcjHLrtWhYi+Cg2DmYH55hjF80jg5xWdqKNdobAdnhkM5bg8xfUaHx1
-	 KfNXPeeTrR8LvzTbFRWiEekhhKHP90RPEUV8lI5QIW3OQA8Ix9YzL1OHon50JAkz+m
-	 /aMXpi8IlhVTA==
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 04B5BF4006B;
-	Fri,  5 Jun 2026 10:04:27 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Fri, 05 Jun 2026 10:04:28 -0400
-X-ME-Sender: <xms:a9ciaqlosAOgMQ-H7Bs3JEtceK8yxjIZyvfv12DxMpT8noa2LvH6UA>
-    <xme:a9ciauTmf_0ZDts2yRwzgpvSn-ozgSSUasZ63qxsOL7UFns9IZhhWS3I7kz2NyySD
-    srfWhMNvIgstAqsVM9nJB3Ob7qEmVRhMOVTtffqHmvrB1W3bPwETw>
-X-ME-Received: <xmr:a9ciav5x9HVbnmYbLxkD4mit0JBd3O-U72si7DYB5phFmSYDmDoybYuX78o>
-X-ME-Proxy-Cause: dmFkZTE0LZy4M50cfSktgTQFQkT6rI8G/Y5ximbMU42xvQT/+Sed7xjM9kNTsktTuSYDm1
-    BIjZO7IzdASMlhBtV1S7AFMQApb37A8fKR9/AHBLIr/n9d/wlMaBz+PRGef2ki8mMhu9tX
-    4JvIRsbSlNYDdkdzSA6KfbTuLTkSgs9bVuP2uAzw08Hls1twdxyz7y7v9YaBKujNxVJEjL
-    G0EeIDtlTu2RAmmMKOAuCcjCCAFGKqDKV8vFzoNSBFeiSMcfD6JZu6gP3ORcpCyzteW65r
-    25GOeoMN2WTRB5S4afaK+GExykd4IQTngu5itniecfIpXUhstt8v8txm3kk/kZVZbv1bqO
-    ino+D2vIRbGMN+F1hRXDOCzUUZ2iJH07hy1zl3BcOJNvFSHyIe1wkLhZ97kGI/eS+3q0so
-    mx/DzXcsnBDcWHgz6WWNinkDN6IiI48Vi289YaFfyxv8KArnYJOTUiWIfZ4GiV7IRl+0sO
-    be02Isnlw5gQ6PVC39s4/Er7YAf9Cb0CT1xqHgh2ckzV1mpGiJHVHN4FZrGBoUVBJOBAcL
-    t+ZwTOzejpgfVg0iqdMKpWeCjLU3a5n44cIPoA/RfgiZ4LMkRNHl2sJkaEZRhYj7pHjiJo
-    ZVydVPBt8Dd6psI3xOgvfEiZQ/1XhhJ7y+n8Pv6AmgF9oUJpk/pxlIOaoAdg
-X-ME-Proxy: <xmx:a9cialHZ--5RMQutJGNI-mXfgpahld13JBnKh_cXRhsUWb5rNGxwgA>
-    <xmx:a9ciapGyCe-Jsr-DKFpFLGNwICjSfAj78LXIpdeH4ICgyDz8UpyQig>
-    <xmx:a9ciartEuy8QyrrZg5xel2j7fyTUsmEiLyAvUGLc9pqqbxBhx36GZg>
-    <xmx:a9cianI6wu3QjraoT0xkcrI8owwNVsdSwqYU2kw7PK0Smvh6B6QI7Q>
-    <xmx:a9ciaizRFxuinjXkGL5XxgnHr3z8LABkzVb52CrBYIK0js_GkvR6y0HT>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 5 Jun 2026 10:04:27 -0400 (EDT)
-Date: Fri, 5 Jun 2026 07:04:26 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	rcu@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Andrew Ballance <andrewjballance@gmail.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,	Zqiang <qiang.zhang@linux.dev>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	maple-tree@lists.infradead.org, linux-mm@kvack.org,
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	Philipp Stanner <phasta@kernel.org>, Lyude Paul <lyude@redhat.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>
-Subject: Re: [RFC PATCH 3/3] rust: rcu: Introduce RcuFreeBox
-Message-ID: <aiLXaoGZVkiNEAgC@tardis-2.local>
-References: <20260605133541.22569-1-boqun@kernel.org>
- <20260605133541.22569-6-boqun@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="j6XOuu/G"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780669128; x=1812205128;
+  h=date:from:to:cc:subject:message-id;
+  bh=6j6Kbr3PTBz4Ce08nM4gCYJRDe0clylusP7FpmuwSPQ=;
+  b=j6XOuu/GWlc8KgxWujNIcYWgRGSmUe8q1AWkGBUbzYYKxbYKeAWArepQ
+   N2NjHFenEQd9s7hjJohtG1jmzefFvHPNX/bmBU0eL5eiKYY9DCPHOaD5W
+   UBidY2mUtsgNY14kqCpLE80D2FdktwOToyiHb1X7LCnFzwdVezqXUcq/s
+   90SERWkd9maNFF1+g+Rv/z13ZShAGhtvNdjRj2H2b/G4SrJRu8CP54Gst
+   OwcLa+Bs4luTe4kU0pKd5UZ19ahHNTVggqhoq3FkNmPyVSBMmOfGXIP7A
+   TkH5zgqN4fgtFNEiJ+Zsu6+v6ZFEKySHKAoylN7Cpz8vic5b5TKR9G8tB
+   Q==;
+X-CSE-ConnectionGUID: 80JmApH7QkKBfd3mhxddcQ==
+X-CSE-MsgGUID: GEd9D104Rz6CcDQTi2FBeQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="81411663"
+X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
+   d="scan'208";a="81411663"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 07:18:48 -0700
+X-CSE-ConnectionGUID: GPiRgkVvRLqU/obW3K9mGw==
+X-CSE-MsgGUID: /3+SwIOpTQCe212hiyW2LQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
+   d="scan'208";a="249960226"
+Received: from lkp-server01.sh.intel.com (HELO f0d55cb201f0) ([10.239.97.150])
+  by fmviesa005.fm.intel.com with ESMTP; 05 Jun 2026 07:18:46 -0700
+Received: from kbuild by f0d55cb201f0 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wVVNj-00000000G78-3I2t;
+	Fri, 05 Jun 2026 14:18:43 +0000
+Date: Fri, 05 Jun 2026 22:18:13 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-media@vger.kernel.org
+Subject: [sailus-media-tree:partial-reg 5/9]
+ drivers/media/v4l2-core/v4l2-event.c:81:41: warning: variable 'evspec' is
+ uninitialized when used within its own initialization
+Message-ID: <202606052235.rM24ifzS-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260605133541.22569-6-boqun@kernel.org>
 
-On Fri, Jun 05, 2026 at 06:35:41AM -0700, Boqun Feng wrote:
-> The current RcuBox will call the `drop()` function after a grace period
-> inside an RCU callback. This suffices for maintaining a RCU-protected
-> object:
-> 
->   RcuBox::drop():
->     call_rcu(
->       |..| { // <- call back after one grace period.
->         T::drop(); // <- call the destructor of the inner object.
->       }
->     )
-> 
-> However, to support a different RCU usage pattern as below we need to
-> extend RcuBox:
-> 
-> 1. clean up the object, and unshare it from future RCU readers.
-> 2. wait for an RCU grace period.
-> 3. no other RCU readers, we can free the memory.
-> 
-> An `RcuFreeBox<T: RcuFreeSafe>` is introduced to provide support for
-> this:
-> 
->   RcuFreeBox::drop():
->     T::drop_before_gp(); // clean up and ushare.
->     kfree_call_rcu(..);  // free it after one grace period.
-> 
-> Signed-off-by: Boqun Feng <boqun@kernel.org>
-> ---
->  rust/kernel/sync/rcu.rs         | 31 +++++++++++++++
->  rust/kernel/sync/rcu/rcu_box.rs | 68 +++++++++++++++++++++++++++++++--
->  2 files changed, 95 insertions(+), 4 deletions(-)
-> 
-> diff --git a/rust/kernel/sync/rcu.rs b/rust/kernel/sync/rcu.rs
-> index 7da6b8d22277..7c26591bb318 100644
-> --- a/rust/kernel/sync/rcu.rs
-> +++ b/rust/kernel/sync/rcu.rs
-> @@ -4,6 +4,8 @@
->  //!
->  //! C header: [`include/linux/rcupdate.h`](srctree/include/linux/rcupdate.h)
->  
-> +use core::pin::Pin;
-> +
->  use crate::{
->      bindings,
->      types::{
-> @@ -82,3 +84,32 @@ pub trait ForeignOwnableRcu: ForeignOwnable {
->      /// [`from_foreign`]: ForeignOwnable::from_foreign
->      unsafe fn rcu_borrow<'a>(ptr: *mut ffi::c_void) -> Self::RcuBorrowed<'a>;
->  }
-> +
-> +/// Declares a struct is safe to free after a grace period if all readers are guarded by RCU.
-> +///
-> +/// # Safety
-> +///
-> +/// Implementation must guarantee `drop_before_gp()` makes sure no future RCU reader will access
-> +/// any part of [`Self`], as a result, after `drop_before_gp()` return + one grace period, no RCU
-> +/// reader will be on the object, and it's safe to free it.
-> +///
-> +/// Notes for implementators: implementing this trait in general requires `Self` being a
-> +/// [`UnsafePinned`], i.e. a `&mut Self` is not a noalias reference if `Self` has non-trivial
-> +/// `drop()` function.
-> +pub unsafe trait RcuFreeSafe {
-> +    fn drop_before_gp(self: Pin<&mut Self>);
-> +}
-> +
-> +macro_rules! impl_not_drop {
-> +    ($($t:ty, )*) => {
-> +        // SAFETY: Dropping `T` has no side effect means `T` is always ready to be freed. And an
-> +        // empty `drop_before_gp()` suffices.
-> +        $(unsafe impl RcuFreeSafe for $t {
-> +            fn drop_before_gp(self: Pin<&mut Self>) {
-> +                $crate::const_assert!(!core::mem::needs_drop::<$t>());
-> +            }
-> +        })*
-> +    }
-> +}
-> +
-> +impl_not_drop! {i8,u8,i16,u16,i32,u32,isize,usize,i64,u64,}
-> diff --git a/rust/kernel/sync/rcu/rcu_box.rs b/rust/kernel/sync/rcu/rcu_box.rs
-> index 943fe3e8974e..8f52bb472daf 100644
-> --- a/rust/kernel/sync/rcu/rcu_box.rs
-> +++ b/rust/kernel/sync/rcu/rcu_box.rs
-> @@ -6,6 +6,7 @@
->  
->  use core::{
->      marker::PhantomData,
-> +    mem::ManuallyDrop,
->      ops::Deref,
->      ptr::NonNull, //
->  };
-> @@ -29,17 +30,18 @@
->  
->  use super::{
->      ForeignOwnableRcu,
-> -    Guard, //
-> +    Guard,
-> +    RcuFreeSafe, //
->  };
->  
-> -/// A box that is freed with rcu.
-> +/// A box that is drop with RCU.
->  ///
-> -/// The value must be `Send`, as rcu may drop it on another thread.
-> +/// The value must be `Send`, as RCU may drop it on another thread.
->  ///
->  /// # Invariants
->  ///
->  /// * The pointer is valid and references a pinned `RcuBoxInner<T>` allocated with `A`.
-> -/// * This `RcuBox` holds exclusive permissions to rcu free the allocation.
-> +/// * This `RcuBox` holds exclusive permissions to RCU-free the allocation.
->  pub struct RcuBox<T: Send, A: Allocator>(NonNull<RcuBoxInner<T>>, PhantomData<A>);
->  
->  /// Type alias for [`RcuBox`] with a [`Kmalloc`] allocator.
-> @@ -205,6 +207,50 @@ fn drop(&mut self) {
->      drop(unsafe { Box::<_, A>::from_raw(box_inner) });
->  }
->  
-> +/// A box that is freed with RCU.
-> +///
-> +/// Currently we require `T` being `Send` because of an implementation limitation. In theory we can
-> +/// support `T` being `!Send`, since the RCU callback is only used to free the memory, not dropping
-> +/// `T`.
-> +pub struct RcuFreeBox<T: Send + RcuFreeSafe, A: Allocator>(RcuBox<ManuallyDrop<T>, A>);
-> +
-> +impl<T: Send + RcuFreeSafe, A: Allocator> RcuFreeBox<T, A> {
-> +    /// Create a new `RcuFreeBox`.
-> +    pub fn new(x: T, flags: alloc::Flags) -> Result<Self, AllocError> {
-> +        Ok(Self(RcuBox::new(ManuallyDrop::new(x), flags)?))
-> +    }
-> +
-> +    /// Access the value for a grace period.
-> +    pub fn with_rcu<'rcu>(&self, read_guard: &'rcu Guard) -> &'rcu T {
-> +        self.0.with_rcu(read_guard)
-> +    }
-> +}
-> +
-> +impl<T: Send + RcuFreeSafe, A: Allocator> Deref for RcuFreeBox<T, A> {
-> +    type Target = T;
-> +
-> +    fn deref(&self) -> &T {
-> +        self.0.deref()
-> +    }
-> +}
-> +
-> +impl<T: Send + RcuFreeSafe, A: Allocator> Drop for RcuFreeBox<T, A> {
-> +    fn drop(&mut self) {
-> +        // CAST: `ManuallyDrop<T>` is transparet to `T`, adn `RcuBox` owns the object per type
-> +        // invariants.
-> +        let ptr = self.0 .0.as_ptr().cast::<T>();
-> +
-> +        // SAFETY: Per the invariants of `RcuBox`, `ptr` owns the pointed object. And we are not
-> +        // going to move it.
-> +        let pin = unsafe { Pin::new_unchecked(&mut *ptr) };
-> +
+tree:   git://linuxtv.org/sailus/media_tree.git partial-reg
+head:   b7d01dab7d47849d483b459ff2abf50497b52149
+commit: 0258a2c8b5c7b9a6a0adce2059f2ecd12046776d [5/9] v4l: event: Split the event framework into generic and V4L2 bits
+config: arm64-randconfig-004-20260605 (https://download.01.org/0day-ci/archive/20260605/202606052235.rM24ifzS-lkp@intel.com/config)
+compiler: clang version 23.0.0git (https://github.com/llvm/llvm-project 7917772d7d61384696c61102c08c2ea158e610fa)
+rustc: rustc 1.88.0 (6b00bc388 2025-06-23)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260605/202606052235.rM24ifzS-lkp@intel.com/reproduce)
 
-This part needs to be:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202606052235.rM24ifzS-lkp@intel.com/
 
-        // CAST: `ManuallyDrop<RcuBoxInner<T>>` is transparent to `RcuBoxInner<T>`, and `RcuBox`
-        // owns the object per type invariants.
-        let inner: *mut RcuBoxInner<T> = self.0 .0.as_ptr().cast();
+All warnings (new ones prefixed by >>):
 
-        // SAFETY: Per the invariants of `RcuBox`, `inner` owns the pointed object. And we are not
-        // going to move it.
-        let pin = unsafe { Pin::new_unchecked(&mut (*inner).value) };
+>> drivers/media/v4l2-core/v4l2-event.c:81:41: warning: variable 'evspec' is uninitialized when used within its own initialization [-Wuninitialized]
+      81 |         const struct v4l2_event_spec *evspec = evspec;
+         |                                       ~~~~~~   ^~~~~~
+   1 warning generated.
 
-Fixed locally.
 
-Regards,
-Boqun
+vim +/evspec +81 drivers/media/v4l2-core/v4l2-event.c
 
-> +        pin.drop_before_gp();
-> +
-> +        // `needs_drop::<ManuallyDrop>()` returns `false`, hence `kvfree_call_rcu()` will be called
-> +        // and free the underlying data after a gracer period.
-> +    }
-> +}
-> +
->  #[kunit_tests(rust_rcu_box)]
->  mod tests {
->      use super::*;
-> @@ -218,6 +264,13 @@ fn rcu_box_basic() -> Result {
->  
->          drop(rb);
->  
-> +        let rb = RcuFreeBox::<_, alloc::allocator::Kmalloc>::new(42i32, alloc::flags::GFP_KERNEL)?;
-> +
-> +        assert_eq!(*rb, 42);
-> +        assert_eq!(*rb.with_rcu(&Guard::new()), 42);
-> +
-> +        drop(rb);
-> +
->          let rb = RcuBox::<_, alloc::allocator::Vmalloc>::new(42i32, alloc::flags::GFP_KERNEL)?;
->  
->          assert_eq!(*rb, 42);
-> @@ -225,6 +278,13 @@ fn rcu_box_basic() -> Result {
->  
->          drop(rb);
->  
-> +        let rb = RcuFreeBox::<_, alloc::allocator::Vmalloc>::new(42i32, alloc::flags::GFP_KERNEL)?;
-> +
-> +        assert_eq!(*rb, 42);
-> +        assert_eq!(*rb.with_rcu(&Guard::new()), 42);
-> +
-> +        drop(rb);
-> +
->          Ok(())
->      }
->  }
-> -- 
-> 2.51.0
-> 
+    77	
+    78	static bool v4l2_evop_is_subscribed(struct media_subscribed_evbase *mse,
+    79					    const void *__evspec)
+    80	{
+  > 81		const struct v4l2_event_spec *evspec = evspec;
+    82		struct v4l2_subscribed_event *sev = to_v4l2_subscribed_event(mse);
+    83	
+    84		return sev->evspec.type == evspec->type &&
+    85			sev->evspec.id == evspec->id;
+    86	}
+    87	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
