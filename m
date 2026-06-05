@@ -1,27 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25124192EA
-	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 22:08:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B9B466B4A
+	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 22:08:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780697317; cv=none; b=OpInirbIO4OpsaGV6KTyApJLilstosndY1ZI03FSn44ymnBLpy33urVqDTo8FoPBmgVIFBW0z6RKw0RHXeh5u5mQGFQQCMXW5pwYgBK4mqtb14gxkqaF8eM9oNBAv8QYzHs1vQYCBCzc6xtfda0mvTHzLMAqHzpffp7a2/ripUc=
+	t=1780697320; cv=none; b=kVIfOuI7+Wr4orU9igxG7nzcn5nEIe7yalk4Fl1XxvDiy6jjl2PIn3ME3iI2uF/wJphaez3DVkepXnWNV3Zc+71CwZ9hGLvgnO3LMOvEvLrnDK2Rtqw8vWL2ho0LQP85arEWfz1xy81+D7M8vJl4mGoyNHBEfEJVVySysfjzcDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780697317; c=relaxed/simple;
-	bh=k+VeuzoqUVqVnWHcMCJVI9Mw8uHdDe+vIOQrWpAAza8=;
+	s=arc-20240116; t=1780697320; c=relaxed/simple;
+	bh=916SlS7hxt/WUsc+c1C0gXblrc3pxUP/yNEdXxo1EC4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dUu8FFSusKLDNJ4Q1mDldPbETZNoyTCcmjK18nYCKrRzuo6IBbyskZAJQLZ0pmQSFuJ8jc0uPiQsFrAklNstwZVFpT2RRxixc70BWkQSLPPHK1vZ5402Z4nZD3ULYKaAFnslKDEUoL+4r+X1j1eFm6lLJPnxZ9gB0Mz+Qj1IZX8=
+	 In-Reply-To:To:Cc; b=ZM2b4plEvUPc6eodbmytNjA9BYrP5tymcU8hQsXETtS9MWBY3wWMA8pKVu/wAA8XXgmzf2nsXGvERWibj8Vznplrq4rO4p0vSj4P37C8T/0basDPJBSCMFL4cYV+O1kX+YImufs5spuxEKmJa8pP573Ru9vLtuO9SSsP4RorCus=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wVci4-0000LW-3e; Sat, 06 Jun 2026 00:08:12 +0200
+	id 1wVci9-0000LW-EE; Sat, 06 Jun 2026 00:08:17 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Sat, 06 Jun 2026 00:06:51 +0200
-Subject: [PATCH 05/17] media: v4l2-mem2mem: support running multiple jobs
- in parallel
+Date: Sat, 06 Jun 2026 00:06:56 +0200
+Subject: [PATCH 10/17] media: rockchip: rga: move rockchip_rga allocation
+ to master probe
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -30,7 +30,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260606-spu-rga3multicore-v1-5-3ec2b15675f7@pengutronix.de>
+Message-Id: <20260606-spu-rga3multicore-v1-10-3ec2b15675f7@pengutronix.de>
 References: <20260606-spu-rga3multicore-v1-0-3ec2b15675f7@pengutronix.de>
 In-Reply-To: <20260606-spu-rga3multicore-v1-0-3ec2b15675f7@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -48,245 +48,96 @@ X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Add support for running multiple jobs in parallel for SoCs containing
-multiple identical devices. An example is the Rockchip RK3588 SoC,
-which contains two identical RGA3 devices. Therefore it is desirable to
-have the kernel schedule the work across all available devices and only
-expose one video device to the userspace.
-
-Previously the curr_ctx member of a v4l2_m2m_dev was used to track the
-currently running context. But the currently running context will always
-be at the top of the job_queue. As the TRANS_RUNNING flag can be used to
-check if the queue head is already running, the curr_ctx member can be
-completely dropped
-
-To avoid queueing too many parallel jobs, the
-v4l2_m2m_set_max_parallel_jobs method is added. It allows a driver
-to set the number of parallel jobs and avoids calling device_run when
-the given number of jobs is already running. This is set to 1 by default
-to prevent parallel job runs. Drivers with the need and support for
-scheduling jobs can adjust this value accordingly.
-
-Note that this change doesn't allow a context to be used multiple times
-in parallel. So a single stream won't be able to utilize multiple devices
-at once, but N streams can utilize up to N devices. This is caused by the
-fact that a context is not added multiple times to the job_list and also
-holds the job_flags to distinguish if it's currently running.
+Move the rockchip_rga struct allocation to the master component probe
+function in preparation of enabling all cores. This also adjusts the
+allocation to use the actual number of cores found in the of tree
+instead of being fixed to one core.
 
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/v4l2-core/v4l2-mem2mem.c | 89 ++++++++++++++++++++++------------
- include/media/v4l2-mem2mem.h           |  3 ++
- 2 files changed, 62 insertions(+), 30 deletions(-)
+ drivers/media/platform/rockchip/rga/rga.c | 32 ++++++++++++++++++-------------
+ 1 file changed, 19 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
-index a65cbb124cfe0..14ac9c85803d1 100644
---- a/drivers/media/v4l2-core/v4l2-mem2mem.c
-+++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
-@@ -84,16 +84,15 @@ static const char * const m2m_entity_name[] = {
-  *			v4l2_m2m_unregister_media_controller().
-  * @intf_devnode:	&struct media_intf devnode pointer with the interface
-  *			with controls the M2M device.
-- * @curr_ctx:		currently running instance
-  * @job_queue:		instances queued to run
-  * @job_spinlock:	protects job_queue
-  * @job_work:		worker to run queued jobs.
-  * @job_queue_flags:	flags of the queue status, %QUEUE_PAUSED.
-+ * @max_parallel_jobs:	max job_queue instances number marked as running
-  * @m2m_ops:		driver callbacks
-  * @kref:		device reference count
-  */
- struct v4l2_m2m_dev {
--	struct v4l2_m2m_ctx	*curr_ctx;
- #ifdef CONFIG_MEDIA_CONTROLLER
- 	struct media_entity	*source;
- 	struct media_pad	source_pad;
-@@ -108,6 +107,7 @@ struct v4l2_m2m_dev {
- 	spinlock_t		job_spinlock;
- 	struct work_struct	job_work;
- 	unsigned long		job_queue_flags;
-+	u32			max_parallel_jobs;
- 
- 	const struct v4l2_m2m_ops *m2m_ops;
- 
-@@ -123,6 +123,12 @@ static struct v4l2_m2m_queue_ctx *get_queue_ctx(struct v4l2_m2m_ctx *m2m_ctx,
- 		return &m2m_ctx->cap_q_ctx;
- }
- 
-+void v4l2_m2m_set_max_parallel_jobs(struct v4l2_m2m_dev *m2m_dev,
-+				    u32 max_parallel_jobs)
-+{
-+	m2m_dev->max_parallel_jobs = max_parallel_jobs;
-+}
-+
- struct vb2_queue *v4l2_m2m_get_vq(struct v4l2_m2m_ctx *m2m_ctx,
- 				       enum v4l2_buf_type type)
+diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+index 178f45b8da940..11912bf5b6906 100644
+--- a/drivers/media/platform/rockchip/rga/rga.c
++++ b/drivers/media/platform/rockchip/rga/rga.c
+@@ -741,7 +741,7 @@ static int rga_parse_dt(struct rga_core *core)
+ static int rga_core_bind(struct device *dev, struct device *master, void *data)
  {
-@@ -229,14 +235,22 @@ EXPORT_SYMBOL_GPL(v4l2_m2m_buf_remove_by_idx);
- void *v4l2_m2m_get_curr_priv(struct v4l2_m2m_dev *m2m_dev)
+ 	struct platform_device *pdev = to_platform_device(dev);
+-	struct rockchip_rga *rga;
++	struct rockchip_rga *rga = data;
+ 	struct rga_core *core;
+ 	struct video_device *vfd;
+ 	int ret = 0;
+@@ -750,17 +750,6 @@ static int rga_core_bind(struct device *dev, struct device *master, void *data)
+ 	if (!pdev->dev.of_node)
+ 		return -ENODEV;
+ 
+-	rga = devm_kzalloc(&pdev->dev, sizeof(*rga) + 1 * sizeof(*rga->cores), GFP_KERNEL);
+-	if (!rga)
+-		return -ENOMEM;
+-
+-	rga->hw = of_device_get_match_data(&pdev->dev);
+-	if (!rga->hw)
+-		return dev_err_probe(&pdev->dev, -ENODEV, "failed to get match data\n");
+-
+-	spin_lock_init(&rga->ctrl_lock);
+-	mutex_init(&rga->mutex);
+-
+ 	core = devm_kzalloc(&pdev->dev, sizeof(*core), GFP_KERNEL);
+ 	core->rga = rga;
+ 	core->dev = &pdev->dev;
+@@ -947,9 +936,10 @@ static struct platform_driver rga_core_pdrv = {
+ 
+ static int rga_bind(struct device *dev)
  {
- 	unsigned long flags;
--	void *ret = NULL;
-+	struct v4l2_m2m_ctx *first_ctx;
++	struct rockchip_rga *rga = dev_get_drvdata(dev);
+ 	int ret;
  
- 	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
--	if (m2m_dev->curr_ctx)
--		ret = m2m_dev->curr_ctx->priv;
-+	if (list_empty(&m2m_dev->job_queue)) {
-+		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
-+		return NULL;
-+	}
+-	ret = component_bind_all(dev, NULL);
++	ret = component_bind_all(dev, rga);
+ 	if (ret) {
+ 		dev_err(dev, "component bind failed\n");
+ 		return ret;
+@@ -974,6 +964,8 @@ static int rga_probe(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	struct component_match *match = NULL;
+ 	struct device_node *core_node;
++	struct rockchip_rga *rga;
++	u8 num_cores = 0;
+ 
+ 	if (!match_desc)
+ 		return dev_err_probe(dev, -ENODEV, "missing platform data\n");
+@@ -985,6 +977,7 @@ static int rga_probe(struct platform_device *pdev)
+ 		of_node_get(core_node);
+ 		component_match_add_release(dev, &match, component_release_of,
+ 					    component_compare_of, core_node);
++		num_cores++;
+ 
+ 		/*
+ 		 * As multi core is not implemented yet,
+@@ -1000,6 +993,19 @@ static int rga_probe(struct platform_device *pdev)
+ 			dev, -ENODEV,
+ 			"no matching available component devices found\n");
+ 
++	rga = devm_kzalloc(dev, sizeof(*rga) + num_cores * sizeof(*rga->cores), GFP_KERNEL);
++	if (!rga)
++		return -ENOMEM;
 +
-+	first_ctx = list_first_entry(&m2m_dev->job_queue,
-+				     struct v4l2_m2m_ctx, queue);
- 	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
- 
--	return ret;
-+	if (first_ctx->job_flags & TRANS_RUNNING)
-+		return first_ctx->priv;
-+	else
-+		return NULL;
- }
- EXPORT_SYMBOL(v4l2_m2m_get_curr_priv);
- 
-@@ -252,13 +266,11 @@ EXPORT_SYMBOL(v4l2_m2m_get_curr_priv);
- static void v4l2_m2m_try_run(struct v4l2_m2m_dev *m2m_dev)
- {
- 	unsigned long flags;
-+	struct v4l2_m2m_ctx *ctx;
-+	struct v4l2_m2m_ctx *chosen_ctx = NULL;
-+	u32 running_jobs = 0;
- 
- 	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
--	if (NULL != m2m_dev->curr_ctx) {
--		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
--		dprintk("Another instance is running, won't run now\n");
--		return;
--	}
- 
- 	if (list_empty(&m2m_dev->job_queue)) {
- 		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
-@@ -272,13 +284,30 @@ static void v4l2_m2m_try_run(struct v4l2_m2m_dev *m2m_dev)
- 		return;
- 	}
- 
--	m2m_dev->curr_ctx = list_first_entry(&m2m_dev->job_queue,
--				   struct v4l2_m2m_ctx, queue);
--	m2m_dev->curr_ctx->job_flags |= TRANS_RUNNING;
-+	list_for_each_entry(ctx, &m2m_dev->job_queue, queue) {
-+		if (!(ctx->job_flags & TRANS_RUNNING)) {
-+			chosen_ctx = ctx;
-+			break;
-+		}
++	rga->hw = match_desc->data;
++	if (!rga->hw)
++		return dev_err_probe(dev, -ENODEV, "failed to get match data\n");
 +
-+		running_jobs++;
-+	}
-+	if (running_jobs >= m2m_dev->max_parallel_jobs) {
-+		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
-+		dprintk("Maximum number of parallel jobs reached\n");
-+		return;
-+	}
-+	if (!chosen_ctx) {
-+		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
-+		dprintk("All jobs already running\n");
-+		return;
-+	}
++	spin_lock_init(&rga->ctrl_lock);
++	mutex_init(&rga->mutex);
 +
-+	chosen_ctx->job_flags |= TRANS_RUNNING;
- 	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
- 
--	dprintk("Running job on m2m_ctx: %p\n", m2m_dev->curr_ctx);
--	m2m_dev->m2m_ops->device_run(m2m_dev->curr_ctx->priv);
-+	dprintk("Running job on m2m_ctx: %p\n", chosen_ctx);
-+	m2m_dev->m2m_ops->device_run(chosen_ctx->priv);
- }
- 
- /*
-@@ -469,15 +498,14 @@ static void v4l2_m2m_schedule_next_job(struct v4l2_m2m_dev *m2m_dev,
- static bool _v4l2_m2m_job_finish(struct v4l2_m2m_dev *m2m_dev,
- 				 struct v4l2_m2m_ctx *m2m_ctx)
- {
--	if (!m2m_dev->curr_ctx || m2m_dev->curr_ctx != m2m_ctx) {
-+	if (!m2m_ctx || !(m2m_ctx->job_flags & TRANS_RUNNING)) {
- 		dprintk("Called by an instance not currently running\n");
- 		return false;
- 	}
- 
--	list_del(&m2m_dev->curr_ctx->queue);
--	m2m_dev->curr_ctx->job_flags &= ~(TRANS_QUEUED | TRANS_RUNNING);
--	wake_up(&m2m_dev->curr_ctx->finished);
--	m2m_dev->curr_ctx = NULL;
-+	list_del(&m2m_ctx->queue);
-+	m2m_ctx->job_flags &= ~(TRANS_QUEUED | TRANS_RUNNING);
-+	wake_up(&m2m_ctx->finished);
- 	return true;
- }
- 
-@@ -544,16 +572,19 @@ EXPORT_SYMBOL(v4l2_m2m_buf_done_and_job_finish);
- void v4l2_m2m_suspend(struct v4l2_m2m_dev *m2m_dev)
- {
- 	unsigned long flags;
--	struct v4l2_m2m_ctx *curr_ctx;
-+	struct v4l2_m2m_ctx *ctx;
-+	struct v4l2_m2m_ctx *ctx_safe;
- 
- 	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
- 	m2m_dev->job_queue_flags |= QUEUE_PAUSED;
--	curr_ctx = m2m_dev->curr_ctx;
- 	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
- 
--	if (curr_ctx)
--		wait_event(curr_ctx->finished,
--			   !(curr_ctx->job_flags & TRANS_RUNNING));
-+	list_for_each_entry_safe(ctx, ctx_safe, &m2m_dev->job_queue, queue) {
-+		if (!(ctx->job_flags & TRANS_RUNNING))
-+			break;
++	dev_set_drvdata(dev, rga);
 +
-+		wait_event(ctx->finished, !(ctx->job_flags & TRANS_RUNNING));
-+	}
- }
- EXPORT_SYMBOL(v4l2_m2m_suspend);
- 
-@@ -896,10 +927,8 @@ int v4l2_m2m_streamoff(struct file *file, struct v4l2_m2m_ctx *m2m_ctx,
- 	q_ctx->num_rdy = 0;
- 	spin_unlock_irqrestore(&q_ctx->rdy_spinlock, flags);
- 
--	if (m2m_dev->curr_ctx == m2m_ctx) {
--		m2m_dev->curr_ctx = NULL;
-+	if (m2m_ctx->job_flags & TRANS_RUNNING)
- 		wake_up(&m2m_ctx->finished);
--	}
- 	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags_job);
- 
- 	return 0;
-@@ -1194,12 +1223,12 @@ struct v4l2_m2m_dev *v4l2_m2m_init(const struct v4l2_m2m_ops *m2m_ops)
- 	if (!m2m_dev)
- 		return ERR_PTR(-ENOMEM);
- 
--	m2m_dev->curr_ctx = NULL;
- 	m2m_dev->m2m_ops = m2m_ops;
- 	INIT_LIST_HEAD(&m2m_dev->job_queue);
- 	spin_lock_init(&m2m_dev->job_spinlock);
- 	INIT_WORK(&m2m_dev->job_work, v4l2_m2m_device_run_work);
- 	kref_init(&m2m_dev->kref);
-+	m2m_dev->max_parallel_jobs = 1;
- 
- 	return m2m_dev;
- }
-diff --git a/include/media/v4l2-mem2mem.h b/include/media/v4l2-mem2mem.h
-index 31de25d792b98..e6177d0eaf637 100644
---- a/include/media/v4l2-mem2mem.h
-+++ b/include/media/v4l2-mem2mem.h
-@@ -594,6 +594,9 @@ static inline void v4l2_m2m_set_dst_buffered(struct v4l2_m2m_ctx *m2m_ctx,
- 	m2m_ctx->cap_q_ctx.buffered = buffered;
+ 	return component_master_add_with_match(dev, &rga_master_ops, match);
  }
  
-+void v4l2_m2m_set_max_parallel_jobs(struct v4l2_m2m_dev *m2m_dev,
-+				    u32 max_parallel_jobs);
-+
- /**
-  * v4l2_m2m_ctx_release() - release m2m context
-  *
 
 -- 
 2.54.0
