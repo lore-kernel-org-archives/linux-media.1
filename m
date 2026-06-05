@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF7140E8EC
-	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 13:30:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD7602EEE64
+	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 13:35:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780666236; cv=none; b=qkeB+DtM2ctYE6StFniMMHkeD7jE33j2ZFNFJxtedwffx0+rhGkPEfoMIXPk9MLjUXRBtj65y0QBsfDB6tPs/A7Zu7uf3n6EQam6GcRwOvFa/hL1f204VZ4vVabW0l6Phj2ESsUTGXa/FNAyl/jXLtOEIOwtaelvZLh2q9ixjTw=
+	t=1780666548; cv=none; b=JHTeakOK1yJwlTx2M/EpStWhIIg3z3TW8CIlDQEedm14OsnkcgEQBhIFS3xc3YpOldXz6JlhGONuk0FrVbgf1vgaAB+mCrTfuR4g9RLyAjKZfZQ3pungWn9lMvJ4qltaMkKG2gMgwR72fLpxBLbt8O+NilQuC3SbdK8ipI0slIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780666236; c=relaxed/simple;
-	bh=ujGokoz1aOpKIyYOCgRd4NH4I1kHRbo92XVd2t6X0Fw=;
+	s=arc-20240116; t=1780666548; c=relaxed/simple;
+	bh=gGMX7twh4/6y1pty/fF/d2gPFX4C1Acg6wC4JWKS8lE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aUytBbbJf+5yZ6buZBW1iXGINsArXF+ODMlVPo2JlelkRF2q6BpQcSatAsilTZ+tAvn4OBD8Er6KiwbVLBPeY0zTYMZjzZEw31QtANRDcudcpDENOBFl38v1lzpgu5xV2Qr5PEkcFUTYzAgZcw9C5dYFEmk2c9swu8+rm+iAYAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZHKcXO3G; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=oV4sG68kGLTXH5Ums5xALQaE06FkGXc846iU4mVOmMNzHLeNQOQrt6sKsgWuuQjMXl29CloGArPX97Pi3gCLoSeYtL7PPzUWxK9ykRUND/lhIEzuYMZp9nDa6wQ9iXunc8XF1P0C66yLFDu1/58fxOFlMVtqTjFE5eUWUyoeWM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QDdY87OR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZHKcXO3G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1273F1F00893;
-	Fri,  5 Jun 2026 13:30:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QDdY87OR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D70B11F00893;
+	Fri,  5 Jun 2026 13:35:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780666235;
-	bh=Lue4TA2r/hBzzyGhrJWVUxEsy0tYtPVoVgjK8cBr0Cc=;
+	s=k20260515; t=1780666546;
+	bh=7fKlyGdPJZbLDfVKmj1z9h/1ks7B14PHOKPU/+NewVA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZHKcXO3GrjvSsFuEjw4/LKTjaDd/hYBJhXG+eHJDL6YyQkSubPL9xDgKspFnxvsN7
-	 Q+MNPzK3v39ErX+NKMoTbnf2tbwRq53NV6Z80E85tA6RShRD1elxQ7cX0F8ItsN1tM
-	 p55AMsKHfYKoO3zM+XntmMCzws47dTtU9D0JGqzZON2EV2NF/96fYvjtsZrmjnnPxf
-	 lzycM11xVCb5PYrEbZrkTHHGgQhkPRNEmvdBr/Wcplw87alfbSxPK91UFtI0dtwXIj
-	 ul5uLFqMh2jqDGUHTSrDXg1RyBdMeVXMRTwuWKTfQk+tDIzPRy3doCm/ciMDy/k2lN
-	 268kBN1+rwjRw==
+	b=QDdY87ORyv6+BNZXu6pRCTvurLG6abJSttDu7c5/il0mBogFaQzLtgw2dXjJMgqvj
+	 0cQVWNKzvL2Wd+iVS/oC+9NLC0g//J6vwkslBCLKtYzBhI+mz/ULxbQGy+1TgLjeWE
+	 myiMPpN2NnjoRmY2y2ngDCCZTVrEElaBobXbWyN7mysS6dk4Q89d+jK4M/r7iSiA7h
+	 KH1QrcrNgVlfaRf2v+5LAYeGjaozawk/wye591AwP5AMCLHeXf1mOi19vDwlZHvMS3
+	 NI5rEz0G0N6cHxS9vFZ6zuc6Uj5s3yY5ulimORap2rgal1y0rpVGPU+hODa3VKy1eD
+	 VJU+B3YrbXMGA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/8] media: qcom: camss: csiphy-3ph: Use odd bits for
- configuring C-PHY lanes
+Subject: Re: [PATCH v7 3/8] media: qcom: camss: Prepare CSID for C-PHY
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "David Heidelberg via B4 Relay" <devnull+david.ixit.cz@kernel.org>
 Cc: linux-media@vger.kernel.org
-In-Reply-To: <20260605-qcom-cphy-v7-2-426c37e9008f@ixit.cz>
-References: <20260605-qcom-cphy-v7-2-426c37e9008f@ixit.cz>
+In-Reply-To: <20260605-qcom-cphy-v7-3-426c37e9008f@ixit.cz>
+References: <20260605-qcom-cphy-v7-3-426c37e9008f@ixit.cz>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 13:30:34 +0000
-Message-Id: <20260605133035.1273F1F00893@smtp.kernel.org>
+Date: Fri, 05 Jun 2026 13:35:45 +0000
+Message-Id: <20260605133545.D70B11F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -46,92 +46,73 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Commit message claims to return failure but code does not implem=
-ent error propagation.
+- [Medium] CSID PHY selection state (`phy_sel`) is not reset when switching=
+ the link to the Test Pattern Generator (TPG), potentially leaving the hard=
+ware in C-PHY mode for TPG data.
 --
 
-commit da5484f83dd0e6203bd1f47a4299fe8d0bb8c433
+commit 79ab3be6b44125cac8b0fb89e7dbad51a804a8bf
 Author: David Heidelberg <david@ixit.cz>
 
-media: qcom: camss: csiphy-3ph: Use odd bits for configuring C-PHY lanes
+media: qcom: camss: Prepare CSID for C-PHY support
 
-This commit adds support for C-PHY lane configuration by utilizing odd
-bits instead of the even bits used for D-PHY mode. It updates the lane
-mask calculation and enablement routines for C-PHY hardware requirements.
+This commit updates the CSID configuration to inherit C-PHY information
+from CSIPHY, ensuring the CSI2_RX_CFG0_PHY_TYPE_SEL register is properly
+set when C-PHY mode is used.
 
-> Since there can be unrecognized configuration allow returning failure.
-
-[Severity: Medium]
-The commit message explicitly states "allow returning failure" for
-unrecognized configurations, but does the code actually implement this?
-
-Looking at csiphy_get_lane_mask() and csiphy_lanes_enable(), the code does
-not appear to propagate any errors. Could the commit message be updated
-to reflect the use of warnings, or should the functions be changed to return
-an error code?
-
-> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/d=
-rivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-> index dac8d2ecf7995..fa24fc9706748 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/med=
+ia/platform/qcom/camss/camss-csid.c
+> index 48459b46a981b..bcc34ac9dd212 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csid.c
+> +++ b/drivers/media/platform/qcom/camss/camss-csid.c
 [ ... ]
-> @@ -1113,13 +1114,22 @@ static void csiphy_gen2_config_lanes(struct csiph=
-y_device *csiphy,
+> @@ -1291,6 +1291,11 @@ static int csid_link_setup(struct media_entity *en=
+tity,
 > =20
->  static u8 csiphy_get_lane_mask(struct csiphy_lanes_cfg *lane_cfg)
->  {
-> -	u8 lane_mask;
-> -	int i;
-> +	u8 lane_mask =3D 0;
-> +	u8 offset =3D 0;
-> =20
-> -	lane_mask =3D CSIPHY_3PH_CMN_CSI_COMMON_CTRL5_CLK_ENABLE;
-> +	switch (lane_cfg->phy_cfg) {
-> +	case V4L2_MBUS_CSI2_CPHY:
-> +		offset =3D 1;
-> +		break;
-> +	case V4L2_MBUS_CSI2_DPHY:
-> +		lane_mask =3D CSIPHY_3PH_CMN_CSI_COMMON_CTRL5_CLK_ENABLE;
-> +		break;
-> +	default:
-> +		break;
-> +	}
+>  			lane_cfg =3D &csiphy->cfg.csi2->lane_cfg;
+>  			csid->phy.lane_cnt =3D lane_cfg->num_data;
+> +			if (lane_cfg->phy_cfg =3D=3D V4L2_MBUS_CSI2_CPHY)
+> +				csid->phy.phy_sel =3D CSID_PHY_SEL_CPHY;
+> +			else
+> +				csid->phy.phy_sel =3D CSID_PHY_SEL_DPHY;
+> +
 
 [Severity: Medium]
-In csiphy_get_lane_mask(), the default case silently falls through and
-returns 0. Is this intended to be treated as a failure condition?
+Does this leave the phy_sel state uninitialized when the link is switched
+to the Test Pattern Generator (TPG)?
 
-[ ... ]
-> @@ -1160,9 +1170,22 @@ static void csiphy_lanes_enable(struct csiphy_devi=
-ce *csiphy,
-[ ... ]
-> -	val =3D CSIPHY_3PH_CMN_CSI_COMMON_CTRL5_CLK_ENABLE;
-> -	for (i =3D 0; i < c->num_data; i++)
-> -		val |=3D BIT(c->data[i].pos * 2);
-> +	val =3D 0;
-> +
-> +	switch (c->phy_cfg) {
-> +	case V4L2_MBUS_CSI2_CPHY:
-> +		for (i =3D 0; i < c->num_data; i++)
-> +			val |=3D BIT((c->data[i].pos * 2) + 1);
-> +		break;
-> +	case V4L2_MBUS_CSI2_DPHY:
-> +		val =3D CSIPHY_3PH_CMN_CSI_COMMON_CTRL5_CLK_ENABLE;
-> +
-> +		for (i =3D 0; i < c->num_data; i++)
-> +			val |=3D BIT(c->data[i].pos * 2);
-> +		break;
-> +	default:
-> +		WARN_ONCE(1, "Unsupported bus type %d!\n", c->phy_cfg);
-> +	}
+In csid_link_setup(), when switching the link to the internal TPG, the newly
+added phy_sel field is not updated:
 
-[Severity: Medium]
-Similarly, since csiphy_lanes_enable() has a void return type, the caller
-has no way to detect this failure. While misconfiguration might be
-prevented earlier during device tree parsing, does this function need to be
-updated to actually return the failure mentioned in the commit message?
+csid_link_setup() {
+    ...
+    if (sd->grp_id =3D=3D TPG_GRP_ID) {
+        tpg =3D v4l2_get_subdevdata(sd);
+
+        csid->phy.lane_cnt =3D tpg->res->lane_cnt;
+        csid->phy.csiphy_id =3D tpg->id;
+        csid->phy.lane_assign =3D csid_get_lane_assign(NULL, csid->phy.lane=
+_cnt);
+        csid->tpg_linked =3D true;
+        /* csid->phy.phy_sel is not reset here */
+    } else {
+    ...
+
+If a C-PHY sensor was previously linked, phy_sel will retain the stale value
+CSID_PHY_SEL_CPHY.
+
+When streaming starts, __csid_configure_rx() writes this stale phy_sel value
+into the CSI2_RX_CFG0_PHY_TYPE_SEL register, even for TPG streams.
+
+Because the TPG bypasses the C-PHY 3-phase encoding, applying C-PHY decoding
+rules to TPG data might cause the hardware to misinterpret the stream and
+break the test pattern generator.
+
+>  			csid->phy.lane_assign =3D csid_get_lane_assign(lane_cfg, lane_cfg->nu=
+m_data);
+>  			csid->tpg_linked =3D false;
+>  		}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605-qcom-cphy-=
-v7-0-426c37e9008f@ixit.cz?part=3D2
+v7-0-426c37e9008f@ixit.cz?part=3D3
