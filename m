@@ -1,179 +1,215 @@
-Received: from mail-qv1-f66.google.com (mail-qv1-f66.google.com [209.85.219.66])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB3A5464D
-	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 18:23:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2AFC3E6390
+	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 18:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780683841; cv=none; b=gw2/yANwhPfgz+510dxxDJ/r4yeaOry/10DHszAJD9tMFcigjJkuXFSpo39SZvYqemMXZ5z62n9gPAQqhCWR8NhxO9Qj9BNOsOayVfTDdOQMzKmsd8qy4Spnni4kczNHKO/MWitrVvKz4Fl8ZGfIauCvJS5hO3f1JyhUwPD7gVI=
+	t=1780685045; cv=none; b=IsbuEddsd32/pN7dHMsiIFRbe4tHgLzeMgRTx2ftjD9PzUlx6fFVCL20N84HqUakf2lT8sofBFHnkf0+AURY+mR7Zo8meOiMCWCOhVywqfx7PWNuHMd8grtZTiYnSjbq40C/ffhF/Rf6ZvD0w/HzdaoYG52yJrS2t9cSOX36GWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780683841; c=relaxed/simple;
-	bh=6aWC21MrRhayhLZemUWVOJfghyTMNkuubJKJms/n5QQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gpPJ2dhwNS4/JbCjAEHRQRc+NKwr2YCmgCxJz7yIAao7f57Djp7L3cGmiBGHGKwWQoRiirnc96ZvCCAc6P2N88sIExq+Av0hDz6FHaWKoUza0zhtIZdkwVq/NRmOe34Ig4sMwn1rPX1Z00izhJyCaAEaKNBXglfvIohMt2rxnPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=tGSSh1ob; arc=none smtp.client-ip=209.85.219.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1780685045; c=relaxed/simple;
+	bh=jptZDNz6y+ZlDE7Z2+X6vsmedleZEP/GgTVJ8MIVCV8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MzR7rt8mHdFT5GDl7GfHYpHgshdRZ/ySFNJNbHfq58yGEqcXJcsDnEiQ9WO4cSqWSnRn9xNjNdqR1OGYDOtarVczy5JHx8OAcY00qI1heN482002xucawl0ouxQkLSW9HVbq4slX2FwXy1WDtujMaUOEjy70Dr3O9umpw96J6Ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qUh+nclv; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="tGSSh1ob"
-Received: by mail-qv1-f66.google.com with SMTP id 6a1803df08f44-8ccedaf0b54so13923496d6.0
-        for <linux-media@vger.kernel.org>; Fri, 05 Jun 2026 11:23:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qUh+nclv"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2bf18c30bb2so16170955ad.0
+        for <linux-media@vger.kernel.org>; Fri, 05 Jun 2026 11:44:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1780683839; x=1781288639; darn=vger.kernel.org;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6aWC21MrRhayhLZemUWVOJfghyTMNkuubJKJms/n5QQ=;
-        b=tGSSh1obJuNYFvVRy5bY0GZPGoHCgorBcPkINLbLHDqTxYefchOho4kPOZPni1NhKQ
-         aEHa0ct6PjgpI3/qnVBrtUhyJBIvFpX7KOwq1a10WC/is7I9YZiK+zpAvVhT3+d4xDoc
-         icFwiHq+ZEazJ3vNDOoio89xB7Is9bI5JN/k6GXGyk+zUlqklch/7QuwW6SF2wCrNuAU
-         1+PB1P9OGDnfCsVlE/1MxpqdLONFJywUTSZ5YdWXOlX6XeQdmF91nVKDWdHHp09fXJYA
-         7E+IHWze8O8g7CdY9D71N7BwFhlDXzZ+x5u3TrG5Qa2iU+pASEnHxQobehxTygwzEXC7
-         jILw==
+        d=gmail.com; s=20251104; t=1780685043; x=1781289843; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=VmToUT+A6qp8UgJ/VhXar74M6fIQJS1C/pR1f1V3ExQ=;
+        b=qUh+nclvgiHYKzX3b/kDCvzXL/O6elBYjQ0Y2BtzxFxe6Q7xZG239BaIL2RKL8XZzL
+         vpWhSBYMKiVYN/Z77EnauJ1L/pZIRV9cnLxjZav6YlpKNmSLAoqsL5a63WDyRdf2HZ5Z
+         SDorrWNZX/kTLWwY5g0zdRVpmLfo2EH/+B6Qvag5sHDi/7gmLd6ARvd71WRiRVjPhgYJ
+         f6yxBKbfC+XzSkRLourk6ogx2MDz8T70pAWO1IIrzJNsSbbQ7w+oN5p8MK0feSaZP7JQ
+         WcNCA+aT8d9qbLYSx20PhXjlpUFL0y2DJrBbI0O1sy4YfyojDK0hkrTvmVaCaOrqVUgH
+         ZWIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780683839; x=1781288639;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=6aWC21MrRhayhLZemUWVOJfghyTMNkuubJKJms/n5QQ=;
-        b=JBAwrbbterXNwYygujzf6koyDNiaz8pPiKa2dKBFwkL+gJMxDS1xBx/2wFnJ5Kinqi
-         KJxkjjSumwlwdJqk+PWyBzjYpFaBjFcRm2/oqNwPWid2f1GruxUOzP8NBmyfi3bfdxuk
-         WNepPL5NLrZk2Jg5saynGblGDcGU7bJEsa9JQsXccT1BXNhMEdCqoAZ8A6RwffH/ljMW
-         Wa+zGfU1ffkh5rtJcrVILw6uqM+SphI79qPFi6n9I1N9z2KcDfA6Tw8AXMXNQRj98VmD
-         fJsYqfZYhyVR7Yze7JHHRdlDySLicQsknWyjgJyQ6oBxn5B4Otz7pgwmoLKLFs0WkX4o
-         58Rw==
-X-Gm-Message-State: AOJu0Yz5vKUhshLYY3574ifrelVIAEK4ZEXB4Usg8nf8Nfa5ZI4CeF00
-	NGOrtrTcbWgxjXGBFU75JFI6M26WIW71UFu2kPJAE06fzzO9q/TKW2GU7QxiimOs71X6/iA+kGd
-	0krYfYCCfa+ra
-X-Gm-Gg: Acq92OE7PkNmMrUyVPIqQWiBTBvTtfEDHJkzkYpl7Aps6MgW65gst61F3SJC9eVqMna
-	j9Giz5g1M/mrGfNBbMk4EfqDgGX68p4cSzwnxAU+OSE98/mEYkndPXM6P1LTjfZRonTAnt7Mfu7
-	kVSANrm69RO1fWjunQeacQml+vCiWSo8YJPqrYSzRgl6jg0Apcr3jEXJj0TD6923wOUfQMYCE5U
-	rgeSXJBwu5IGhXMMYpvRTl9x/j/B6yv+wuJGahe/QQSDEX4kt7fhSLCig76EZQ9nv6l7uiUiagq
-	pyfwfmyQf9ZmweBtJGD3gpdk7eL8utqH5tFe93toQTNZXDUsO/TepkBYDvHAYHXnkTdzUR6q6+c
-	A9udeDbOzDpJSa7QmWbHWr0iWI3PgMAnCQ0Ojg+cmXtCDAqVP1Fc6uzCzXngZpvgD/hosLM914Q
-	qfHOkp13jw4/MQ8uKosW8Y0B/XIlIvb3bNScYjgq6i75ioKZuSrca4KfuMOneGR6uBXYM8jezxB
-	smHQKg=
-X-Received: by 2002:a05:622a:99b:b0:50f:c2f8:4081 with SMTP id d75a77b69052e-51795c5b470mr68801321cf.53.1780683838981;
-        Fri, 05 Jun 2026 11:23:58 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e06b:3a7c:76ff:fea1:2ac0? ([2606:6d00:15:e06b:3a7c:76ff:fea1:2ac0])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51775c297a8sm84407721cf.8.2026.06.05.11.23.58
+        d=1e100.net; s=20251104; t=1780685043; x=1781289843;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=VmToUT+A6qp8UgJ/VhXar74M6fIQJS1C/pR1f1V3ExQ=;
+        b=I129jVDN5v3+rNeS42ZmYzXk6Hkvld9Vx0zBKIFCGUh9srSwcKE/ge6Tb9plUm0fWb
+         PQwcLcyuZX8P7GjoYoEZqFTdaOQvzID0XRQht6waodCfCEQZW9DoBN0Yw7wjh0muvvUh
+         zPYS1yfsp/658U05kMk62A4H7R4OJA8XyCcIqiC7ZO0uzQq7vZs4MNcv2E9oJSafLTF2
+         WSiVHkJw0o0Z070E8ippwfDDGk0hk+IjfBIf+k8hA99FfKUtW945hJHflSCRQGa1mYq7
+         NAWtkyXLTevBrRNXbZJFQHayGEiaeqgxjwd3c0EAT0rKMFhUEFUICxtRxLEJBftdBIUa
+         r3ew==
+X-Forwarded-Encrypted: i=1; AFNElJ+BMwJaG7beHMQzi1vzYeTDghSxDajgFM0XGLLbQdwz4B/AmZFCDU2KRwHCJ/2vCRldaOBvTZCgJ3q1RQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzXYzkZUnsy1i9OxP/VybTUqbs2oTFjsoJnjtox0MRTfwdRBeVt
+	7LiEI5z0Rdb4vu1x/QMKqiTAKxHVA4NOO8i/qj5tHM168I+mTo/Ggwjk
+X-Gm-Gg: Acq92OEsNBWiUgqGKCgwnS0RmrA3F7YVn3bK+9y574dyoPb9VN/kndScIx+DqBckTBz
+	FDXDsPopE21AM9cjglvJkI83fiBwR74zXe3SnXQLXVMBdLZaTo9V4jgA+/7HWyzYC2GCbEpfeZM
+	R8xr+L5SlooXs5D0YeUwSwJrnXkTaJYcFaQu2RQKyuCkjCUgTjk+BOtf0tJphPilbVrFKN9PipH
+	OlLJnmuYYaRb4Ob+Yd/zBeAYx/H8zOBBaVgMRp52zQ/uRR3P1pgZRlSxELGQvAviTtkAo0jieB/
+	VzX2Fb5mHPILxn5JyHOOqQRPlB0aRPuy+Sk5grCThZhJ1AumpCx/rGCJW1WtILvc+Nfs0IfTYfq
+	02cnlb45Gz+QEFVxPFUD+WBejtB4WiozESv5dCYmdZSnBCR/h0DzVRO00Ym8BO6kVQBhfhDoLqY
+	TbctrYi1UGZzPzkv10vin5OBQQwJdBj/Xz4O6/CpTAY6AiFVO2iLQdx2c=
+X-Received: by 2002:a17:903:18c:b0:2c0:e5ee:f56c with SMTP id d9443c01a7336-2c1e881fefemr54368775ad.20.1780685042865;
+        Fri, 05 Jun 2026 11:44:02 -0700 (PDT)
+Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:58::])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c1663981basm96908105ad.67.2026.06.05.11.44.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jun 2026 11:23:58 -0700 (PDT)
-Message-ID: <21425d0e18fd0afdfccef2a83cc5efaa153d5dbb.camel@ndufresne.ca>
-Subject: Re: Adding Linux-media to Sashiko
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Ricardo Ribalda <ribalda@chromium.org>, Jai Luthra
-	 <jai.luthra@ideasonboard.com>
-Cc: Linux Media Mailing List <linux-media@vger.kernel.org>
-Date: Fri, 05 Jun 2026 14:23:57 -0400
-In-Reply-To: <CANiDSCuMUdh6MWw5O+nhFJzexMcGJRTZ38Fq1anihe7=zu5K2w@mail.gmail.com>
-References: 
-	<CANiDSCunFkyGqz5n15ezW0LHCHqU92g6xeVK43zRcqohS-QsdQ@mail.gmail.com>
-	 <177998407808.933414.10133969094530331086@freya>
-	 <CANiDSCuMUdh6MWw5O+nhFJzexMcGJRTZ38Fq1anihe7=zu5K2w@mail.gmail.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-1GTSXS0XgS6T9mY61v+f"
-User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
+        Fri, 05 Jun 2026 11:44:02 -0700 (PDT)
+Date: Fri, 5 Jun 2026 11:44:00 -0700
+From: Bobby Eshleman <bobbyeshleman@gmail.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Donald Hunter <donald.hunter@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+	linux-kselftest@vger.kernel.org, sdf@fomichev.me,
+	razor@blackwall.org, daniel@iogearbox.net, almasrymina@google.com,
+	matttbe@kernel.org, skhawaja@google.com, dw@davidwei.uk,
+	Bobby Eshleman <bobbyeshleman@meta.com>
+Subject: Re: [PATCH net-next 2/4] udmabuf: emit one sg entry per pinned folio
+Message-ID: <aiMY8CpckM8Jav0g@devvm29614.prn0.facebook.com>
+References: <20260603-tcpdm-large-niovs-v1-0-f37a4ac6726c@meta.com>
+ <20260603-tcpdm-large-niovs-v1-2-f37a4ac6726c@meta.com>
+ <bdce2488-fe77-4f36-9ed6-dd2c785fa7c1@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <bdce2488-fe77-4f36-9ed6-dd2c785fa7c1@amd.com>
 
+On Fri, Jun 05, 2026 at 11:30:07AM +0200, Christian König wrote:
+> On 6/4/26 02:42, Bobby Eshleman wrote:
+> > From: Bobby Eshleman <bobbyeshleman@meta.com>
+> > 
+> > get_sg_table() emitted one PAGE_SIZE sg entry per page even when the
+> > underlying folio was larger.
+> > 
+> > Instead, walk folios[] and emit one sg entry per folio. When folios
+> > represent large pages (as is for MFD_HUGETLB), each sg entry is a large
+> > page. Normal PAGE_SIZE sg tables are unchanged.
+> > 
+> > Required by net/core/devmem to support rx-buf-size > PAGE_SIZE with
+> > udmabuf.
+> 
+> That doesn't explain why this is required.
 
---=-1GTSXS0XgS6T9mY61v+f
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Sure, can definitely add. Devmem currently requires dmabuf sg entries to
+be length and size aligned when it allocates niovs for NIC page pools.
+Though udmabuf is not violating any dmabuf contract by emitting
+PAGE_SIZE entries and the above restriction is probably more a
+shortfalling of devmem, by emitting a single entry per folio this patch
+allows udmabuf to be used by devmem for large pages.
 
-Hi,
+> 
+> Please note that accessing the pages/folio of an sg-table returned by DMA-buf is illegal and strictly forbidden!
+> 
+> Regards,
+> Christian.
 
-Le jeudi 28 mai 2026 =C3=A0 23:44 +0200, Ricardo Ribalda a =C3=A9crit=C2=A0=
-:
-> Hi Jai
->=20
-> I thought that we agreed to experiment with cc to the list to evaluate
-> the quality of the review and then decide how to configure it.
->=20
-> But I might also be miss-remembering it.
->=20
->=20
-> The current PR in sashiko has landed, but it is very easy (and fast)
-> to upload a change.
+It seems both devmem and io_uring zcrx at least introspect through to
+the sg-table to build NIC page pools (not accessing the memory itself,
+however). Is there a better way?
 
-I was pushing against having the emails during the summit, so I am equally
-surprised. We can of course let it run and see how it goes, first thing I n=
-otice
-is the amount of "existing issue" reports it adds is quite big. My a worry =
-is
-that people with low knowledge might try and fix them all, which just make =
-the
-process stalled until sashiko gets quite about a specific code base.
+Best,
+Bobby
 
-Nicolas
-
->=20
->=20
-> Regards!!!
->=20
-> On Thu, 28 May 2026 at 18:01, Jai Luthra <jai.luthra@ideasonboard.com> wr=
-ote:
-> >=20
-> > Hi Ricardo,
-> >=20
-> > Quoting Ricardo Ribalda (2026-05-28 20:41:56)
-> > > Hi
-> > >=20
-> > > As we discussed in the media summit, I just created the Pull request
-> > > to add linux-media to Sashiko.
-> > >=20
-> > > https://github.com/sashiko-dev/sashiko/pull/224
-> >=20
-> > Thank you. Does the cc option mean the list will get emails from Sashik=
-o as
-> > well?
-> >=20
-> > I thought the consensus during the summit was to keep the replies only =
-to
-> > the author (and maintainers can check sashiko manually) but maybe I'm
-> > misremembering it.
-> >=20
-> > >=20
-> > > Please let me know if something does not work as expected
-> > >=20
-> > > Regards!!!
-> > >=20
-> > > --
-> > > Ricardo Ribalda
-> > >=20
-> >=20
-> > Thanks,
-> > Jai
->=20
->=20
-
---=-1GTSXS0XgS6T9mY61v+f
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaiMUPQAKCRDZQZRRKWBy
-9D2RAP0drGaQSyYTJBNJoTq1WbQjIuz8Lx6UyR8/l46dMsOWLgD+LQllFtInIAcF
-XQa5bn8u1iM4g3ET+1TX5qZ8Nwf8lAg=
-=3t+L
------END PGP SIGNATURE-----
-
---=-1GTSXS0XgS6T9mY61v+f--
+> 
+> > Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
+> > ---
+> >  drivers/dma-buf/udmabuf.c | 47 ++++++++++++++++++++++++++++++++++++++++++-----
+> >  1 file changed, 42 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+> > index 94b8ecb892bb..f28dd3788ada 100644
+> > --- a/drivers/dma-buf/udmabuf.c
+> > +++ b/drivers/dma-buf/udmabuf.c
+> > @@ -141,26 +141,63 @@ static void vunmap_udmabuf(struct dma_buf *buf, struct iosys_map *map)
+> >         vm_unmap_ram(map->vaddr, ubuf->pagecount);
+> >  }
+> > 
+> > +/* Return the number of contiguous pages backed by the folio at @i.
+> > + * A udmabuf may map only part of a folio, or reference the same folio
+> > + * in multiple non-contiguous runs, so folio_nr_pages() can't be used.
+> > + */
+> > +static pgoff_t udmabuf_folio_nr_pages(struct udmabuf *ubuf, pgoff_t i)
+> > +{
+> > +       struct folio *f = ubuf->folios[i];
+> > +       pgoff_t j;
+> > +
+> > +       for (j = 1; i + j < ubuf->pagecount; j++) {
+> > +               if (ubuf->folios[i + j] != f)
+> > +                       break;
+> > +               /* Same folio, but not a sequential offset within it. */
+> > +               if (ubuf->offsets[i + j] != ubuf->offsets[i] + j * PAGE_SIZE)
+> > +                       break;
+> > +       }
+> > +       return j;
+> > +}
+> > +
+> > +/* Count the contiguous folio runs in @ubuf, one sg entry per run. */
+> > +static unsigned int udmabuf_sg_nents(struct udmabuf *ubuf)
+> > +{
+> > +       unsigned int nents = 0;
+> > +       pgoff_t i;
+> > +
+> > +       for (i = 0; i < ubuf->pagecount; i += udmabuf_folio_nr_pages(ubuf, i))
+> > +               nents++;
+> > +       return nents;
+> > +}
+> > +
+> >  static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
+> >                                      enum dma_data_direction direction)
+> >  {
+> >         struct udmabuf *ubuf = buf->priv;
+> > -       struct sg_table *sg;
+> >         struct scatterlist *sgl;
+> > -       unsigned int i = 0;
+> > +       struct sg_table *sg;
+> > +       pgoff_t i, run;
+> > +       unsigned int nents;
+> >         int ret;
+> > 
+> > +       nents = udmabuf_sg_nents(ubuf);
+> > +
+> >         sg = kzalloc_obj(*sg);
+> >         if (!sg)
+> >                 return ERR_PTR(-ENOMEM);
+> > 
+> > -       ret = sg_alloc_table(sg, ubuf->pagecount, GFP_KERNEL);
+> > +       ret = sg_alloc_table(sg, nents, GFP_KERNEL);
+> >         if (ret < 0)
+> >                 goto err_alloc;
+> > 
+> > -       for_each_sg(sg->sgl, sgl, ubuf->pagecount, i)
+> > -               sg_set_folio(sgl, ubuf->folios[i], PAGE_SIZE,
+> > +       sgl = sg->sgl;
+> > +       for (i = 0; i < ubuf->pagecount; i += run) {
+> > +               run = udmabuf_folio_nr_pages(ubuf, i);
+> > +               sg_set_folio(sgl, ubuf->folios[i], run << PAGE_SHIFT,
+> >                              ubuf->offsets[i]);
+> > +               sgl = sg_next(sgl);
+> > +       }
+> > 
+> >         ret = dma_map_sgtable(dev, sg, direction, 0);
+> >         if (ret < 0)
+> > 
+> > --
+> > 2.53.0-Meta
+> > 
+> 
