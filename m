@@ -1,70 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374EC28DB54;
-	Thu,  4 Jun 2026 23:39:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9398339099E;
+	Fri,  5 Jun 2026 01:30:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780616380; cv=none; b=rCewKRXHe5PEAeKVm42hRbbvxZtf+QDXIliBt1++GrnFVzm/PvvngYSL6DvfyYzDJR+UEId54dq1oyjTZ1K01N+I/bzEEn+HbdIDPp8jJkfGQ88JYFG8DlEbbcHprkrRuiUQfSHtV+bLhDcVbQtZXuD6Ar45fi+4IBJhgin5ZBs=
+	t=1780623016; cv=none; b=iUhf6qSmimVD0jgqFsSXCqYwN6hX5r5fAJYqDO903FhjwFN7PioK6hEYuy/HgFVBLi453bNkjCXH3DN5L3sGa302DLNpKmQfExi8V0I6281jpl+IXSM8qLc/RoCQdkoxSzSZPYoazXTusp5peL5+oxQr98xkwiP9vvF9zBdiQ+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780616380; c=relaxed/simple;
-	bh=YCqsF/al6+5Ci+dfHVoXboKVX0K6TkEaBEdZCJ/62So=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HKSwXBfIn8ecl71G8GggquBlFNfqKOrfYerDdZHIrNSMvGeYbH7PiLgyqQBk/bG1DhatXdgJndV4s/4QrjtvcrVkhtlO/F981iNGS61ttjOtmiaLEy+sasVd/wUKuAtSPvxrhWI+Q/tzK7WIZIAa+9gSyJaIpNuuepfjRhb2Ir4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=THm9wCWq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780623016; c=relaxed/simple;
+	bh=KXlwYjqKVSUou60rpLkA1iL5cirORHeMbS0KbckVvy8=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=nLFBIZXWVkcgLShWDnU/Y3jxBGfciZ5hrwPHys/EIi9UlGA0/gb3Kga8Qaf7q+7p0RHZOORmgII+zWeCVByHdNQcd7yo5LgUiA8KxlQ8g7ahvaMMAivjAlS2x3JiORVxSP0u6hUPPOAfZJUH4cia5y/p/ZVCBtOl0WQM0sBSsEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c2XccfvB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="THm9wCWq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E82C1F00893;
-	Thu,  4 Jun 2026 23:39:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c2XccfvB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED8AB1F00893;
+	Fri,  5 Jun 2026 01:30:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780616378;
-	bh=WAuad6/MhQeUeophKKyTVk7SPCKkPoGUex3aya7+4zU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=THm9wCWq55chLTiGhQ/4UHKF1OzrvksZl1fpixgDRMMY090CkkRLiM6Y+cU6T+rFd
-	 6ldFSXLG+BfqNFk+J1V6iS0BZRBQoj2ZAR8olq69eUIqFbVwADdZd7Hc7+5yojRPI9
-	 4pNyFrw9sYoxBEqvdGf/KjVSfjoecwX5Viqj0He/95JdqV2zRtlYnY1W2rDoagVoIy
-	 /0OdA+ZlLGy3Fknf0MUITwFpMdPo9qwHLLU+C/3PhUZ7Z0IgnbesnLfH/M1R6Z6pkd
-	 OI85AjGdvhiK8ezgRA8C+eWkz35ULmRZUgCLfsC+P+lvM6GopvWaQ+VJDlUZG9SCPo
-	 eI+FGPFo2vVBg==
-Date: Fri, 5 Jun 2026 01:39:35 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: Vikram Sharma <vikram.sharma@oss.qualcomm.com>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
-	Loic Poulain <loic.poulain@oss.qualcomm.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>, 
-	Robert Foss <rfoss@kernel.org>, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	Suresh Vankadara <svankada@qti.qualcomm.com>, Prashant Shrotriya <pshrotri@qti.qualcomm.com>
-Subject: Re: [PATCH 2/6] dt-bindings: i2c: qcom-cci: Document Glymur
- compatible
-Message-ID: <aiIMg7MuoM_vg6Da@zenone.zhora.eu>
-References: <20260529-glymur_camss-v1-0-bee535396d22@oss.qualcomm.com>
- <20260529-glymur_camss-v1-2-bee535396d22@oss.qualcomm.com>
- <ahrvlYI-WfHwUPMC@shikoro>
+	s=k20260515; t=1780623011;
+	bh=ehZCtSynk3bTn44G6PMr36RiMYbFetcFDvaiFCTYQUo=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=c2XccfvBptzHz55v6NBJeU76o0cvge5jJdtMPa9/lePBC2+4eSf9Ck+7nHbj1/idL
+	 SkZB4ajriFpKhqucuZJZsrTGzz/W8T4GAmJ3g809fg+SwkDHRT0ERPQ71H3DyhivHK
+	 ahBzevah02Devlifsi/Ixo1HOPZ4n6DsKSAmebn9EbA6JbjCY01uDFOSQ/Em2n7ei3
+	 oTtu+6r2F1VcwiHfitR147yOw+9dtBPA8uCZ8SAzCVUWi2Lmq+vWZwtzYU5CWPmVSb
+	 FPivH01aaoMCVgbpjeyqvWa4EEFgac6RiFaG4WZw/hqaiZDgDdzVf/tY48Ulc3z82f
+	 6pwMmyTrmmzMQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0B243930A8A;
+	Fri,  5 Jun 2026 01:30:12 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ahrvlYI-WfHwUPMC@shikoro>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 0/4] dt-bindings: remove redundant .txt redirect stubs
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178062301139.3093327.8247260042998931357.git-patchwork-notify@kernel.org>
+Date: Fri, 05 Jun 2026 01:30:11 +0000
+References: <20260603-b4-remove-redirect-stubs-v2-0-c8c19876ab64@gmail.com>
+In-Reply-To: <20260603-b4-remove-redirect-stubs-v2-0-c8c19876ab64@gmail.com>
+To: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, mchehab@kernel.org,
+ olteanv@gmail.com, horms@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org, dmitry.torokhov@gmail.com,
+ thierry.reding@kernel.org, jonathanh@nvidia.com, lee@kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-tegra@vger.kernel.org
 
-On Sat, May 30, 2026 at 04:09:25PM +0200, Wolfram Sang wrote:
-> On Fri, May 29, 2026 at 08:07:22PM +0530, Vikram Sharma wrote:
-> > From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> > 
-> > Add Glymur compatible consistent with CAMSS CCI interfaces.
-> > 
-> > Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> > Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Hello:
+
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Wed, 03 Jun 2026 15:42:17 -0500 you wrote:
+> Several .txt files under Documentation/devicetree/bindings/ contain
+> only a redirect notice pointing to a .yaml schema with the same base
+> filename in the same directory. These stubs were useful during the
+> .txt to .yaml transition but are now redundant, since the .yaml is
+> discoverable by name. Meanwhile, other documentation still references
+> some of these stubs, forcing readers through an unnecessary extra hop
+> to reach the actual schema.
 > 
-> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> [...]
 
-I will wait for the other patches from the series to be in a
-better shape before taking this one.
+Here is the summary with links:
+  - [v2,1/4] dt-bindings: net: remove obsolete mdio.txt
+    https://git.kernel.org/netdev/net-next/c/ed2b921b542b
+  - [v2,2/4] dt-bindings: media: remove obsolete rc.txt
+    (no matching commit)
+  - [v2,3/4] dt-bindings: net: dsa: remove obsolete dsa.txt
+    https://git.kernel.org/netdev/net-next/c/0fbbc19482bd
+  - [v2,4/4] dt-bindings: input: remove obsolete matrix-keymap.txt
+    (no matching commit)
 
-Andi
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
