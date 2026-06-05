@@ -1,27 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212EF3D2FFC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57DC43D3CFD
 	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 22:08:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780697308; cv=none; b=urJTb1BGx26I+lSpBEnQUqYtbeN7d27ay87de3BvDH/grlrWXUiOp9H8MqsC4MeW9P+5n+6sxHDyafgqCr7CcWhJXLDpcWSL3BjMUv+ctVVlf4GMWYsKurT0kv9xSiZqaPUEm/A78wW1r0i6P0EtoFZ6fmMPRBDu2REdKFciTTQ=
+	t=1780697308; cv=none; b=mVp38r/CiPcyXPHQFFMSvvCEgdp22LuU18qcXO7AbAhLZOJLXPEA+RTCYlDT9SLKaesXmfL1t1hCBxrFJKlvejdGvuKGDbrfsD1Yl2QawiQFGqnGtofZkJdeVduuMMYNWzG7/XK8rtI3wv0fa+ZBV0OUjZNK3ZMi7tikR0q/FG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780697308; c=relaxed/simple;
-	bh=eU0m7fiQeNWxnmH4Hq8GssGuaAxqRHYPTDmZYHnQ4SU=;
+	bh=bXQht49bvYf9xLyh22jOVZ8etw4Eivx0tPanO1hKY24=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=U4rftz5h5EE5rta5cYO/iIZMJvgO9+xQ2jnzTjwLj0sy8QCZZ4dMhj7bM1hBehjvAUNcmu35UEjRuQxoGYQLqkJesMoztg5vAQCFivjwo3sYDpfS/LcDDJ889Ov9JDWGI6LkO5s8/jB1MAvHgFPWAd46jFlNspA0FqF+1YyeVnY=
+	 In-Reply-To:To:Cc; b=bB3oEYFbT3+6ZhoqgnfcUrCdyth8WDo8ptTNouaWQxP/Gf2Fs4vMX+lCaS+z/KFXuSr/G8v4We7Cu4Ok+AusUsK7ck7lwCpe5ZUYYmN5g8+K41ePJg4iSPExhA31CxBuJpwpisU6E0ByVNhDGZ2PUVyWFABZ82LvRJb+pi4FWIg=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wVciB-0000LW-DK; Sat, 06 Jun 2026 00:08:19 +0200
+	id 1wVci0-0000LW-Uk; Sat, 06 Jun 2026 00:08:09 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Sat, 06 Jun 2026 00:06:58 +0200
-Subject: [PATCH 12/17] media: rockchip: rga: move core initialization from
- bind to probe
+Date: Sat, 06 Jun 2026 00:06:48 +0200
+Subject: [PATCH 02/17] media: rockchip: rga: add comment about pixel
+ alignment for YUV formats
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -30,7 +30,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260606-spu-rga3multicore-v1-12-3ec2b15675f7@pengutronix.de>
+Message-Id: <20260606-spu-rga3multicore-v1-2-3ec2b15675f7@pengutronix.de>
 References: <20260606-spu-rga3multicore-v1-0-3ec2b15675f7@pengutronix.de>
 In-Reply-To: <20260606-spu-rga3multicore-v1-0-3ec2b15675f7@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -48,147 +48,37 @@ X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Move the core initialization from the core binding function to the core
-probing function. This better matches the actual sequence, where the
-core probe initializes most things and the bind function just binds the
-core to the actual rga struct from the master device.
+Add a comment to clarify the use of fixed step_height values for all YUV
+formats. While the commit introducing the change already explains the
+reasoning, add an explicit comment to improve the visibility of the
+reasoning.
 
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga.c | 83 ++++++++++++++++---------------
- 1 file changed, 42 insertions(+), 41 deletions(-)
+ drivers/media/platform/rockchip/rga/rga.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
 diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index 952377ae467f5..0413b8518dfc8 100644
+index bd0afd33affe4..efe5541078214 100644
 --- a/drivers/media/platform/rockchip/rga/rga.c
 +++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -740,21 +740,49 @@ static int rga_parse_dt(struct rga_core *core)
+@@ -414,6 +414,16 @@ static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
+ 		.step_height = 1,
+ 	};
  
- static int rga_core_bind(struct device *dev, struct device *master, void *data)
- {
--	struct platform_device *pdev = to_platform_device(dev);
- 	struct rockchip_rga *rga = data;
-+	struct rga_core *core = dev_get_drvdata(dev);
-+	int ret = 0;
-+
-+	core->rga = rga;
-+
-+	ret = pm_runtime_resume_and_get(core->dev);
-+	if (ret < 0)
-+		return ret;
-+
-+	rga->version = rga->hw->get_version(core);
-+
-+	v4l2_info(&rga->v4l2_dev, "HW Version: 0x%02x.%02x\n",
-+		  rga->version.major, rga->version.minor);
-+
-+	pm_runtime_put(core->dev);
-+
-+	rga->cores[0] = core;
-+
-+	return 0;
-+}
-+
-+static const struct component_ops rga_core_ops = {
-+	.bind = rga_core_bind,
-+};
-+
-+static int rga_core_probe(struct platform_device *pdev)
-+{
- 	struct rga_core *core;
-+	const struct rga_hw *hw;
- 	int ret = 0;
- 	int irq;
- 
- 	if (!pdev->dev.of_node)
- 		return -ENODEV;
- 
-+	hw = of_device_get_match_data(&pdev->dev);
-+	if (!hw)
-+		return dev_err_probe(&pdev->dev, -ENODEV, "failed to get match data\n");
-+
- 	core = devm_kzalloc(&pdev->dev, sizeof(*core), GFP_KERNEL);
--	core->rga = rga;
- 	core->dev = &pdev->dev;
- 
--	rga->cores[0] = core;
--
- 	ret = rga_parse_dt(core);
- 	if (ret)
- 		return dev_err_probe(&pdev->dev, ret, "Unable to parse OF data\n");
-@@ -775,7 +803,7 @@ static int rga_core_bind(struct device *dev, struct device *master, void *data)
- 	}
- 
- 	ret = devm_request_irq(core->dev, irq, rga_isr,
--			       rga_has_internal_iommu(rga) ? 0 : IRQF_SHARED,
-+			       hw->has_internal_iommu ? 0 : IRQF_SHARED,
- 			       dev_name(core->dev), core);
- 	if (ret < 0) {
- 		dev_err(core->dev, "failed to request irq\n");
-@@ -790,42 +818,6 @@ static int rga_core_bind(struct device *dev, struct device *master, void *data)
- 
- 	platform_set_drvdata(pdev, core);
- 
--	ret = pm_runtime_resume_and_get(core->dev);
--	if (ret < 0)
--		goto err_put_clk;
--
--	rga->version = rga->hw->get_version(core);
--
--	v4l2_info(&rga->v4l2_dev, "HW Version: 0x%02x.%02x\n",
--		  rga->version.major, rga->version.minor);
--
--	pm_runtime_put(core->dev);
--
--	return 0;
--
--err_put_clk:
--	pm_runtime_disable(core->dev);
--
--	return ret;
--}
--
--static void rga_core_unbind(struct device *dev, struct device *master,
--			    void *data)
--{
--	struct rga_core *core = dev_get_drvdata(dev);
--
--	pm_runtime_disable(core->dev);
--}
--
--static const struct component_ops rga_core_ops = {
--	.bind = rga_core_bind,
--	.unbind = rga_core_unbind,
--};
--
--static int rga_core_probe(struct platform_device *pdev)
--{
--	int ret = 0;
--
- 	ret = component_add(&pdev->dev, &rga_core_ops);
- 	if (ret < 0) {
- 		dev_err(&pdev->dev, "failed to register component: %d", ret);
-@@ -833,11 +825,20 @@ static int rga_core_probe(struct platform_device *pdev)
- 	}
- 
- 	return 0;
-+
-+err_put_clk:
-+	pm_runtime_disable(core->dev);
-+
-+	return ret;
- }
- 
- static void rga_core_remove(struct platform_device *pdev)
- {
-+	struct rga_core *core = platform_get_drvdata(pdev);
-+
- 	component_del(&pdev->dev, &rga_core_ops);
-+
-+	pm_runtime_disable(core->dev);
- }
- 
- static int __maybe_unused rga_runtime_suspend(struct device *dev)
++	/*
++	 * Technically 4:2:2 YUV formats don't need a step_height of 2.
++	 * But for the RGA3 this is explicitly documented in  section 5.6.3
++	 * of the RK3588 TRM Part 2.
++	 * And the RGA2 vendor driver also checks that the height (and width)
++	 * is aligned to 2 when a YUV format is used.
++	 *
++	 * Therefore be safe and always align width and height to 2
++	 * when a YUV format is used.
++	 */
+ 	if (v4l2_is_format_yuv(v4l2_format_info(pix_fmt->pixelformat))) {
+ 		frmsize.step_width = 2;
+ 		frmsize.step_height = 2;
 
 -- 
 2.54.0
