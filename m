@@ -1,348 +1,187 @@
-Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com [209.85.215.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45FCC309EE7
-	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 15:35:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F652FF17A;
+	Fri,  5 Jun 2026 15:37:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780673740; cv=none; b=gFqWRBzfLdawCcHEweaRw9j5mKlJ9ZT8npxdP9/O3VHupNC4YDeJSHiLNdDHdX9Qum5MylelQ0sn2sC7y4P+9bIY27GyohDHbqnlVUQQJxxy3+uIUs74AeQCfcaVmw/vh33tKmVyFe/nt0i6pRsrxEF7sd+fW2oL+vo1e56ZlYc=
+	t=1780673849; cv=none; b=BdL+uwNxr2m4zfbCLX+AoFDAs9bPh5fCum3e8XzOGohycS6yER4oRF4aJinl4xAgUNT49g9wgiD629bV4bnjncstCIxseb7iaOR69WoS9UGLfsU7Ez5eV63MFq+9ieiIQEwP/YxR0f7OrMt5VRF+df7wHgX5qwDjQ2n7Xh09GnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780673740; c=relaxed/simple;
-	bh=IzQ6VY1/pCSCuW589uWkrY4rVnE4dY+yC+x9fXtuNY8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VKxFFooipXPtqIsRp4oWnRtiNqMaBBqZa4eMaet7y0quh1xMMCMW+0Ry1pfpDZGGn3T+cEtCJNU+YgxuC6J/F/b0TYVCYu3+Mzm1n0mUniViKGpuv2GTOiwxDHY4cC/PfqZ3IKg3sQcgCYIOYmwE4Dfsmtr/ARxnUwRXkt1qcB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BbttMqiV; arc=none smtp.client-ip=209.85.215.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780673849; c=relaxed/simple;
+	bh=Ia3OmfQkRg229yhgyXh0R1VI2VXlBYz1hzswS/rxZHE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=sN5joUKAcren7lx5rOfjhTQ1jBTgGl1TQH5LsweCBDpJG4p7tM3eN7Ye4Los5WuN2Z7COhikGx2N8n9BZJFABSIJAgM8xKRHpkQnDdqx+g259P54DVPu6y3nam9SyY2JoVcYhoHm4nAmIKiI/VeG41/G6iXp8yEZR/SWOn3nGU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fiJts0aO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BbttMqiV"
-Received: by mail-pg1-f195.google.com with SMTP id 41be03b00d2f7-c85a2c012e5so809639a12.1
-        for <linux-media@vger.kernel.org>; Fri, 05 Jun 2026 08:35:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780673734; x=1781278534; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=XoDRJzQHz7VdEkd5BqZ67I7g6IeSlqxM9mM4zX/QtD0=;
-        b=BbttMqiViaNA1nIeY58aGXn3fbQ+t4FYPmlDbFGL/urEb4gDpJPX/rioScSxtKDJ4l
-         2eA+wZaLzUYa8Bje1j3h75g1MDS87chBAUkj0FJVUybNFIsEYK83hRWBKaAha5HezH5d
-         a7AZWpSHkmLJEggzOkdlPJnM6e3XZBNqzHEhKTnje5U1nf5OrVvMj3IyTkfhGLfstP8w
-         K9u3LtBBGVhbvJCRaTrFbBLSV3/bpQ+xR4FObmwizJUWQg2ltk5fsp/NhS1SO4xFMggN
-         P6teWll26tAFJY+kixRUGxlrhh4JVcQ+jiS9St+ftlrG/uDBG8ZyccoCh4hp2QnFCOoI
-         gQiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780673734; x=1781278534;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=XoDRJzQHz7VdEkd5BqZ67I7g6IeSlqxM9mM4zX/QtD0=;
-        b=MKXuWkSP2i2wUyeYkNnubM3PACNYDYblT7wBVOqzcH+52MPM5Oq5fExxb5czVzH9aK
-         SY3Z/Zu9Fh1Yy2wZWsuLj9SCoAdpOGyWhwdeGmOtLambhaRq80W1C4WqhrfJDy1dy2Bb
-         vSQLcML2Kxhy2MuVXkCBb53dfSzsMVXAZhN653o4g6/mK+vjc8HsqgVHGYz9Wo1S6XGr
-         0h4Xsi8mgqm6djYyHgjYXdNZ6smN+m6ayQCLn3uu28n4HenA1i6K1e+Sxb4KCR5nSJ1B
-         h1U9H3CHsT3QjrkitdrXPmonnP1ItTHMaS7uLnoUWHn8QlFqpLDhL5fHGBJ+doVPVI5K
-         oO3A==
-X-Forwarded-Encrypted: i=1; AFNElJ/bD5aaGKx5itUDXymmyu+8hmdcjr91cLmnEUsFTJMQjme0PMyqpekOU5VFBV7SLU9h8DKrVw/+GZsbiQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwfkUjzlh0umQ1G35e5bEa+yui1v+24WAEjPirjU0hceyYba9t+
-	nQkRlqhSlS6Hdl6aIDMKSfTY77GZ/3QUGgDTkBD9aUIg6SidxWSirOvp
-X-Gm-Gg: Acq92OE1XAP2nfTTcytvs1kDAvSqmU3O47owpsy1RZ7+tqYtlHnIq15dDUznU5DzLWN
-	oS6qrVaIyOL9b2xsAQzsh9b1gLKfHryeJUgPnPNKui6e8X5FWY42aViorwxoCi2p45KaV5GYX3p
-	GEKjqhXzx/jBE/xYQQMXOn46JLP3TYYV3+7TZndzYU+GH14HnixUGulAs/XeJidyNXiYeRW+WS+
-	qbtbwActa+44Bb+3+aW88G/TYj9keEz+RBElLOjy8VpM1vHVOmwnPlDFASmDWURsq0iK9wwtpdl
-	h3SanQDhSI1x1cEHADnggs0ZLwyKALHI7ygBXpbyikC8HrhZOC1MkTzDs+rChNpLQv6p2BCIrt7
-	5E4zAepwhrCoS2sFb0n5nbXL1E6IqwWmyALK3JBLu/pp1K32Fk6dqx07XSPG4W5suM3EdmlHYDf
-	nH3kq/Z7DoQQHUWmvalmXasa13+Ek=
-X-Received: by 2002:a05:6a20:9383:b0:3a0:b781:4c80 with SMTP id adf61e73a8af0-3b4cccff825mr4945669637.4.1780673734235;
-        Fri, 05 Jun 2026 08:35:34 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:57::])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c85df0a4afdsm10022248a12.19.2026.06.05.08.35.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jun 2026 08:35:33 -0700 (PDT)
-Date: Fri, 5 Jun 2026 08:33:04 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Bobby Eshleman <bobbyeshleman@gmail.com>
-Cc: Donald Hunter <donald.hunter@gmail.com>, 
-	Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, Gerd Hoffmann <kraxel@redhat.com>, 
-	Vivek Kasireddy <vivek.kasireddy@intel.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
-	linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org, sdf@fomichev.me, 
-	razor@blackwall.org, daniel@iogearbox.net, almasrymina@google.com, matttbe@kernel.org, 
-	skhawaja@google.com, dw@davidwei.uk, Bobby Eshleman <bobbyeshleman@meta.com>
-Subject: Re: [PATCH net-next 1/4] net: devmem: allow rx-buf-size > PAGE_SIZE
- per dmabuf binding
-Message-ID: <aiLrsLM8N0VzrNMe@devvm7509.cco0.facebook.com>
-References: <20260603-tcpdm-large-niovs-v1-0-f37a4ac6726c@meta.com>
- <20260603-tcpdm-large-niovs-v1-1-f37a4ac6726c@meta.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fiJts0aO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BD4B1F00893;
+	Fri,  5 Jun 2026 15:37:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780673848;
+	bh=4Cbi9og2jszaDLJIh83+7TVoXinJPiUS+nFYSzC5rQg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fiJts0aOPpH/z5HAxuoSfX/vAQBa8GTDYPovAIJJUH3YACsmDJhiJv5uu/wOJrYvW
+	 vLfWUbwS62M//PugDzQFxXFwSQ9J+pILz45fEhm5/wfcqFT+NBWLpXoDkEyxFCIRJx
+	 PfSygkQd3cENdC9DXD0szO2UdnKGTAL2dZcCUTH7E6v6LlMSi2AHnIDYpvaPE4abim
+	 Hc3rrwSvax16+Kymr1TWR4FWc8MMIq1Idb0Bq+WowXkNXHNDu8WNl2/PPwLGrOaewS
+	 YY4GfGw8BF2H/jsfsqBVnDmARTcR9wd1a7MlliOkvWuLupQLdksCJVUSSzWcCwA3yj
+	 T21RBOKzdyw3A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] media: i2c: imx678: Add driver for Sony IMX678
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jai Luthra" <jai.luthra@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260605-imx678-v4-2-58e57c67143d@ideasonboard.com>
+References: <20260605-imx678-v4-2-58e57c67143d@ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 05 Jun 2026 15:37:27 +0000
+Message-Id: <20260605153728.3BD4B1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260603-tcpdm-large-niovs-v1-1-f37a4ac6726c@meta.com>
 
-On 06/03, Bobby Eshleman wrote:
-> From: Bobby Eshleman <bobbyeshleman@meta.com>
-> 
-> Every devmem dmabuf binding today hands the page_pool PAGE_SIZE niovs.
-> This caps a single RX descriptor at PAGE_SIZE, burning CPU on buffer
-> churn for large flows.
-> 
-> Add a bind-time netlink attribute, NETDEV_A_DMABUF_RX_BUF_SIZE, that
-> lets userspace request a larger niov size. The value must be a power of
-> two >= PAGE_SIZE.
-> 
-> Measurements
-> ------------
-> Setup: kperf in devmem RX/TX cuda mode, 4 flows, 64 MB messages, 60s,
-> dctcp, num-rx-queues=4, dmabuf-rx/tx-size-mb=2048, 10 runs per niov
-> size, mlx5.
-> 
-> CPU Util:
-> 
->    niov        net sirq %        net idle %         app sys %        app idle %
->   -----  ----------------  ----------------  ----------------  ----------------
->      4K   62.38 +/-  8.27   33.40 +/-  7.51   54.15 +/- 10.23   43.67 +/- 10.53
->     16K   58.91 +/-  5.35   35.23 +/-  5.88   41.05 +/-  8.87   56.42 +/-  9.24
->     32K   64.12 +/-  0.68   31.09 +/-  1.48   44.54 +/-  3.51   52.63 +/-  3.65
->     64K   54.69 +/-  5.54   39.67 +/-  5.81   35.47 +/-  3.11   61.97 +/-  3.27
-> 
-> RX app sys % drops ~19% from 4K to 64K.
-> 
-> Throughput:
-> 
->    niov       RX dev Gbps   RX flow avg Gbps
->   -----  ----------------  -----------------
->      4K  300.63 +/- 53.21    75.16 +/- 13.30
->     16K  321.35 +/- 28.20    80.34 +/-  7.05
->     32K  347.63 +/-  2.20    86.91 +/-  0.55
->     64K  332.11 +/- 14.26    83.03 +/-  3.56
-> 
-> Throughput seems to increase, but the stdev is pretty wide so could just
-> be noise.
-> 
-> kperf support (not yet merged):
-> https://github.com/facebookexperimental/kperf/commit/8837577f920876bce6986ec18869ac04439ebcd2
-> 
-> Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
-> ---
->  Documentation/netlink/specs/netdev.yaml |  8 +++++
->  include/uapi/linux/netdev.h             |  1 +
->  net/core/devmem.c                       | 52 +++++++++++++++++++--------------
->  net/core/devmem.h                       | 13 ++++++---
->  net/core/netdev-genl-gen.c              |  5 ++--
->  net/core/netdev-genl.c                  | 18 ++++++++++--
->  tools/include/uapi/linux/netdev.h       |  1 +
->  7 files changed, 68 insertions(+), 30 deletions(-)
-> 
-> diff --git a/Documentation/netlink/specs/netdev.yaml b/Documentation/netlink/specs/netdev.yaml
-> index a1f4c5a561e9..063119907983 100644
-> --- a/Documentation/netlink/specs/netdev.yaml
-> +++ b/Documentation/netlink/specs/netdev.yaml
-> @@ -591,6 +591,13 @@ attribute-sets:
->          type: u32
->          checks:
->            min: 1
-> +      -
-> +        name: rx-buf-size
-> +        doc: |
-> +          Size in bytes of each RX buffer the NIC writes into from the bound
-> +          dmabuf. Must be a power of two and >= PAGE_SIZE; defaults to
-> +          PAGE_SIZE.
-> +        type: u32
->  
->  operations:
->    list:
-> @@ -805,6 +812,7 @@ operations:
->              - ifindex
->              - fd
->              - queues
-> +            - rx-buf-size
->          reply:
->            attributes:
->              - id
-> diff --git a/include/uapi/linux/netdev.h b/include/uapi/linux/netdev.h
-> index 7df1056a35fd..180a4ffffd60 100644
-> --- a/include/uapi/linux/netdev.h
-> +++ b/include/uapi/linux/netdev.h
-> @@ -217,6 +217,7 @@ enum {
->  	NETDEV_A_DMABUF_QUEUES,
->  	NETDEV_A_DMABUF_FD,
->  	NETDEV_A_DMABUF_ID,
-> +	NETDEV_A_DMABUF_RX_BUF_SIZE,
->  
->  	__NETDEV_A_DMABUF_MAX,
->  	NETDEV_A_DMABUF_MAX = (__NETDEV_A_DMABUF_MAX - 1)
-> diff --git a/net/core/devmem.c b/net/core/devmem.c
-> index 957d6b96216b..5a1c0d7984a8 100644
-> --- a/net/core/devmem.c
-> +++ b/net/core/devmem.c
-> @@ -46,7 +46,7 @@ static dma_addr_t net_devmem_get_dma_addr(const struct net_iov *niov)
->  
->  	owner = net_devmem_iov_to_chunk_owner(niov);
->  	return owner->base_dma_addr +
-> -	       ((dma_addr_t)net_iov_idx(niov) << PAGE_SHIFT);
-> +	       ((dma_addr_t)net_iov_idx(niov) << owner->binding->niov_shift);
->  }
->  
->  static void net_devmem_dmabuf_binding_release(struct percpu_ref *ref)
-> @@ -93,13 +93,14 @@ net_devmem_alloc_dmabuf(struct net_devmem_dmabuf_binding *binding)
->  	ssize_t offset;
->  	ssize_t index;
->  
-> -	dma_addr = gen_pool_alloc_owner(binding->chunk_pool, PAGE_SIZE,
-> +	dma_addr = gen_pool_alloc_owner(binding->chunk_pool,
-> +					1UL << binding->niov_shift,
->  					(void **)&owner);
->  	if (!dma_addr)
->  		return NULL;
->  
->  	offset = dma_addr - owner->base_dma_addr;
-> -	index = offset / PAGE_SIZE;
-> +	index = offset >> binding->niov_shift;
->  	niov = &owner->area.niovs[index];
->  
->  	niov->desc.pp_magic = 0;
-> @@ -113,12 +114,13 @@ void net_devmem_free_dmabuf(struct net_iov *niov)
->  {
->  	struct net_devmem_dmabuf_binding *binding = net_devmem_iov_binding(niov);
->  	unsigned long dma_addr = net_devmem_get_dma_addr(niov);
-> +	size_t niov_size = 1UL << binding->niov_shift;
->  
->  	if (WARN_ON(!gen_pool_has_addr(binding->chunk_pool, dma_addr,
-> -				       PAGE_SIZE)))
-> +				       niov_size)))
->  		return;
->  
-> -	gen_pool_free(binding->chunk_pool, dma_addr, PAGE_SIZE);
-> +	gen_pool_free(binding->chunk_pool, dma_addr, niov_size);
->  }
->  
->  void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
-> @@ -163,6 +165,9 @@ int net_devmem_bind_dmabuf_to_queue(struct net_device *dev, u32 rxq_idx,
->  	u32 xa_idx;
->  	int err;
->  
-> +	if (binding->niov_shift != PAGE_SHIFT)
-> +		mp_params.rx_page_size = 1U << binding->niov_shift;
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The sensor is inadvertently left in STREAMING mode after reading t=
+he module ID during driver probe.
+- [High] Bitwise OR is incorrectly used to accumulate negative error codes,=
+ corrupting the returned errno.
+- [High] Use-After-Free or NULL pointer dereference of `sd->active_state` d=
+ue to incorrect cleanup ordering in `imx678_remove()`.
+- [Medium] Possible incorrect power-on sequence: clock is enabled after rel=
+easing reset.
+--
+
+commit 1ad323ded3946b2792a6c7a76f8ee5e9e8fb96df
+Author: Jai Luthra <jai.luthra@ideasonboard.com>
+
+media: i2c: imx678: Add driver for Sony IMX678
+
+This commit adds a V4L2 subdev driver for the Sony IMX678 image sensor. It
+provides support for MIPI RAW12 output, framerate control, flip, analog
+gain, exposure control, and test patterns.
+
+> diff --git a/drivers/media/i2c/imx678.c b/drivers/media/i2c/imx678.c
+> new file mode 100644
+> index 0000000000000..a5bdf15c503ef
+> --- /dev/null
+> +++ b/drivers/media/i2c/imx678.c
+[ ... ]
+> +static int imx678_set_framing_limits(struct imx678 *imx678,
+> +				     const struct v4l2_mbus_framefmt *format)
+> +{
+[ ... ]
+> +	ret =3D __v4l2_ctrl_modify_range(imx678->hblank, hblank, max_hblank,
+> +				       IMX678_PIX_PER_CLK, hblank);
+> +	ret |=3D __v4l2_ctrl_s_ctrl(imx678->hblank, hblank);
 > +
->  	err = netif_mp_open_rxq(dev, rxq_idx, &mp_params, extack);
->  	if (err)
->  		return err;
-> @@ -184,14 +189,16 @@ struct net_devmem_dmabuf_binding *
->  net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
->  		       struct device *dma_dev,
->  		       enum dma_data_direction direction,
-> -		       unsigned int dmabuf_fd, struct netdev_nl_sock *priv,
-> +		       unsigned int dmabuf_fd, unsigned int niov_shift,
-> +		       struct netdev_nl_sock *priv,
->  		       struct netlink_ext_ack *extack)
->  {
->  	struct net_devmem_dmabuf_binding *binding;
-> +	size_t niov_size = 1UL << niov_shift;
->  	static u32 id_alloc_next;
-> +	unsigned int sg_idx, i;
->  	struct scatterlist *sg;
->  	struct dma_buf *dmabuf;
-> -	unsigned int sg_idx, i;
->  	unsigned long virtual;
->  	int err;
->  
-> @@ -213,6 +220,7 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
->  
->  	binding->dev = dev;
->  	binding->vdev = vdev;
-> +	binding->niov_shift = niov_shift;
->  	xa_init_flags(&binding->bound_rxqs, XA_FLAGS_ALLOC);
->  
->  	err = percpu_ref_init(&binding->ref,
-> @@ -248,18 +256,14 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
->  			goto err_unmap;
->  		}
->  		binding->tx_vec = kvmalloc_objs(struct net_iov *,
-> -						dmabuf->size / PAGE_SIZE);
-> +						dmabuf->size >> niov_shift);
->  		if (!binding->tx_vec) {
->  			err = -ENOMEM;
->  			goto err_unmap;
->  		}
->  	}
->  
-> -	/* For simplicity we expect to make PAGE_SIZE allocations, but the
-> -	 * binding can be much more flexible than that. We may be able to
-> -	 * allocate MTU sized chunks here. Leave that for future work...
-> -	 */
-> -	binding->chunk_pool = gen_pool_create(PAGE_SHIFT,
-> +	binding->chunk_pool = gen_pool_create(niov_shift,
->  					      dev_to_node(&dev->dev));
->  	if (!binding->chunk_pool) {
->  		err = -ENOMEM;
-> @@ -273,9 +277,11 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
->  		size_t len = sg_dma_len(sg);
->  		struct net_iov *niov;
->  
-> -		if (!IS_ALIGNED(len, PAGE_SIZE)) {
-> +		if (!IS_ALIGNED(dma_addr, niov_size) ||
-> +		    !IS_ALIGNED(len, niov_size)) {
->  			err = -EINVAL;
-> -			NL_SET_ERR_MSG(extack, "dma-buf SG length must be PAGE_SIZE aligned");
-> +			NL_SET_ERR_MSG(extack,
-> +				       "dmabuf sg entry not aligned to niov size");
-
-nit: should we NL_SET_ERR_MSG_FMT here and export chunk len and expected
-alignment?
-
->  			goto err_free_chunks;
->  		}
->  
-> @@ -288,7 +294,7 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
->  
->  		owner->area.base_virtual = virtual;
->  		owner->base_dma_addr = dma_addr;
-> -		owner->area.num_niovs = len / PAGE_SIZE;
-> +		owner->area.num_niovs = len >> niov_shift;
->  		owner->binding = binding;
->  
->  		err = gen_pool_add_owner(binding->chunk_pool, dma_addr,
-> @@ -313,7 +319,7 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
->  			page_pool_set_dma_addr_netmem(net_iov_to_netmem(niov),
->  						      net_devmem_get_dma_addr(niov));
->  			if (direction == DMA_TO_DEVICE)
-> -				binding->tx_vec[owner->area.base_virtual / PAGE_SIZE + i] = niov;
-> +				binding->tx_vec[(owner->area.base_virtual >> niov_shift) + i] = niov;
->  		}
->  
->  		virtual += len;
-> @@ -430,13 +436,15 @@ struct net_iov *
->  net_devmem_get_niov_at(struct net_devmem_dmabuf_binding *binding,
->  		       size_t virt_addr, size_t *off, size_t *size)
->  {
-> +	size_t niov_size = 1UL << binding->niov_shift;
+> +	vblank =3D imx678->vmax - format->height;
+> +	ret |=3D __v4l2_ctrl_modify_range(imx678->vblank, vblank,
+> +					IMX678_VMAX_MAX - format->height, 2,
+> +					vblank);
+> +	ret |=3D __v4l2_ctrl_s_ctrl(imx678->vblank,
+> +				  IMX678_VMAX_DEFAULT - format->height);
 > +
->  	if (virt_addr >= binding->dmabuf->size)
->  		return NULL;
->  
-> -	*off = virt_addr % PAGE_SIZE;
-> -	*size = PAGE_SIZE - *off;
-> +	*off = virt_addr & (niov_size - 1);
-> +	*size = niov_size - *off;
->  
-> -	return binding->tx_vec[virt_addr / PAGE_SIZE];
-> +	return binding->tx_vec[virt_addr >> binding->niov_shift];
->  }
->  
->  /*** "Dmabuf devmem memory provider" ***/
-> @@ -454,8 +462,8 @@ int mp_dmabuf_devmem_init(struct page_pool *pool)
->  	pool->dma_sync = false;
->  	pool->dma_sync_for_cpu = false;
->  
-> -	if (pool->p.order != 0)
-> -		return -E2BIG;
-> +	if (pool->p.order != binding->niov_shift - PAGE_SHIFT)
-> +		return -EINVAL;
+> +	ret |=3D __v4l2_ctrl_modify_range(imx678->exposure, IMX678_EXPOSURE_MIN,
+> +					imx678->vmax - IMX678_SHR_MIN, 1,
+> +					IMX678_EXPOSURE_DEFAULT);
 
-Any specific reason you change E2BIG to EINVAL?
+[Severity: High]
+Does this code incorrectly accumulate negative error codes using a bitwise =
+OR?
+
+Since V4L2 control functions return standard errnos like -EINVAL, using
+bitwise OR corrupts the returned errno. This could cause VIDIOC_S_FMT to
+return nonsensical error codes to userspace instead of the intended errno.
+
+[ ... ]
+> +static int imx678_power_on(struct device *dev)
+> +{
+> +	struct i2c_client *client =3D to_i2c_client(dev);
+> +	struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
+> +	struct imx678 *imx678 =3D to_imx678(sd);
+> +	int ret;
+> +
+> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(imx678_supply_name),
+> +				    imx678->supplies);
+> +	if (ret) {
+> +		dev_err(&client->dev, "%s: failed to enable regulators\n",
+> +			__func__);
+> +		return ret;
+> +	}
+> +
+> +	fsleep(1); /* Tlow > 500ns */
+> +
+> +	gpiod_set_value_cansleep(imx678->reset_gpio, 0);
+> +
+> +	fsleep(1); /* T3 > 1us */
+> +
+> +	ret =3D clk_prepare_enable(imx678->xclk);
+
+[Severity: Medium]
+Is this power-on sequence enabling the clock after releasing the reset?
+
+Standard initialization for IMX sensors generally requires the external clo=
+ck
+to be stable before de-asserting the reset line. Could releasing reset
+without an active clock place the sensor into an undefined state?
+
+[ ... ]
+> +static int imx678_identify_model(struct imx678 *imx678)
+> +{
+> +	struct i2c_client *client =3D v4l2_get_subdevdata(&imx678->sd);
+> +	const struct imx678_model_info *info;
+> +	enum imx678_type detected;
+> +	int ret =3D 0;
+> +	u64 val =3D 0;
+> +
+> +	info =3D device_get_match_data(&client->dev);
+> +
+> +	/*
+> +	 * This sensor's ID registers become accessible 80ms after coming out
+> +	 * of STANDBY mode.
+> +	 */
+> +	cci_write(imx678->cci, IMX678_REG_MODE_SELECT, 0, &ret);
+> +	fsleep(IMX678_MODULE_ID_DELAY);
+> +
+> +	cci_read(imx678->cci, IMX678_REG_MODULE_ID, &val, &ret);
+
+[Severity: High]
+Does this leave the sensor inadvertently in STREAMING mode after reading
+the module ID?
+
+The code writes 0 (IMX678_MODE_STREAMING) to wake the sensor, but does
+not restore IMX678_MODE_STANDBY before returning. If PM runtime is
+disabled, the sensor might stream unconditionally over the MIPI bus after
+probe.
+
+[ ... ]
+> +static void imx678_remove(struct i2c_client *client)
+> +{
+> +	struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
+> +	struct imx678 *imx678 =3D to_imx678(sd);
+> +
+> +	v4l2_async_unregister_subdev(sd);
+> +	v4l2_subdev_cleanup(sd);
+> +	media_entity_cleanup(&sd->entity);
+> +	v4l2_ctrl_handler_free(imx678->sd.ctrl_handler);
+
+[Severity: High]
+Could this cleanup ordering lead to a use-after-free or NULL pointer
+dereference?
+
+Calling v4l2_subdev_cleanup() destroys sd->active_state without acquiring
+the control handler lock. Since v4l2_ctrl_handler_free() is called after,
+V4L2 controls remain accessible.=20
+
+If a concurrent VIDIOC_S_CTRL ioctl invokes imx678_set_ctrl(), it might fet=
+ch
+the freed or NULL active_state and dereference it in
+v4l2_subdev_state_get_format().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605-imx678-v4-=
+0-58e57c67143d@ideasonboard.com?part=3D2
