@@ -1,281 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C23A3EBF0C;
-	Fri,  5 Jun 2026 13:14:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF7140E8EC
+	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 13:30:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780665285; cv=none; b=FW74ClCvS3pu2DdPodm1sjIYCeFnofmRfLR8E9YiFErXKVtHHbyou2GqR9hYmVnvc3NU5ZMfVufm8Ty5X+KlaFAW1ToLXKl5svFUSYa0319dw9M/r+3q7LeAIZwiZshCzmDOHMa+Ijx4NE1IU/miulXYYs+tBASDbuEdDcrSxZc=
+	t=1780666236; cv=none; b=qkeB+DtM2ctYE6StFniMMHkeD7jE33j2ZFNFJxtedwffx0+rhGkPEfoMIXPk9MLjUXRBtj65y0QBsfDB6tPs/A7Zu7uf3n6EQam6GcRwOvFa/hL1f204VZ4vVabW0l6Phj2ESsUTGXa/FNAyl/jXLtOEIOwtaelvZLh2q9ixjTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780665285; c=relaxed/simple;
-	bh=mIBpzoLsYYpzL9RT4TD3QA5kH0+SeiIoOs0i0v91v6k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hAZhGIAWWVCIyGnaapYtJwfn0OWSiyBWQrt+ZbokBZCh+RAjK2hwqrePOtmv783hpUBNcPWZjwGPDVltuo3gUlo4/G5gfq4Z1krsL85VlTOySTMtjArxa4qYO7ZllVg4MXXV5USdN/Ar7Or5wC7jfmWdbfcYx5/ZvyKguiCxY7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=htrVUw75; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1780666236; c=relaxed/simple;
+	bh=ujGokoz1aOpKIyYOCgRd4NH4I1kHRbo92XVd2t6X0Fw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=aUytBbbJf+5yZ6buZBW1iXGINsArXF+ODMlVPo2JlelkRF2q6BpQcSatAsilTZ+tAvn4OBD8Er6KiwbVLBPeY0zTYMZjzZEw31QtANRDcudcpDENOBFl38v1lzpgu5xV2Qr5PEkcFUTYzAgZcw9C5dYFEmk2c9swu8+rm+iAYAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZHKcXO3G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="htrVUw75"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4F910C2BCF5;
-	Fri,  5 Jun 2026 13:14:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1780665285;
-	bh=mIBpzoLsYYpzL9RT4TD3QA5kH0+SeiIoOs0i0v91v6k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=htrVUw75GL9u7Wv7F4ALh/1pw+TO8IY8ioUeyyuZwaX/AQ4LIFkJzjAaud1SxvcJ9
-	 46/1CplsUMMpNPCL3phvrd7XPRUOtGkndzWjzdCDqdPmxqvKAGpcWvvuQqo87dex/4
-	 TjOiHXa/t2Xq+erxWDQhH1i3ObJS1+FA8BVRabY6wggEUx/xd+UVDPtWnyG+gEsi1D
-	 tlMoTP70I7yrWg/9xndvKDm3ibOaZiZJI3L5vpwczohp7ttsfF1adJKHIgzmw92pcG
-	 wzbpcfZFpZOgTkRS2Q5oqVmMF6vqQbPK/UVKI077fj6Lfev59F4I5aRQhB9cAdMZCN
-	 WN3R1D2rGX3vw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 48050CD8C81;
-	Fri,  5 Jun 2026 13:14:45 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Fri, 05 Jun 2026 15:14:45 +0200
-Subject: [PATCH v7 7/8] media: qcom: camss: Account for C-PHY when
- calculating link frequency
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZHKcXO3G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1273F1F00893;
+	Fri,  5 Jun 2026 13:30:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780666235;
+	bh=Lue4TA2r/hBzzyGhrJWVUxEsy0tYtPVoVgjK8cBr0Cc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZHKcXO3GrjvSsFuEjw4/LKTjaDd/hYBJhXG+eHJDL6YyQkSubPL9xDgKspFnxvsN7
+	 Q+MNPzK3v39ErX+NKMoTbnf2tbwRq53NV6Z80E85tA6RShRD1elxQ7cX0F8ItsN1tM
+	 p55AMsKHfYKoO3zM+XntmMCzws47dTtU9D0JGqzZON2EV2NF/96fYvjtsZrmjnnPxf
+	 lzycM11xVCb5PYrEbZrkTHHGgQhkPRNEmvdBr/Wcplw87alfbSxPK91UFtI0dtwXIj
+	 ul5uLFqMh2jqDGUHTSrDXg1RyBdMeVXMRTwuWKTfQk+tDIzPRy3doCm/ciMDy/k2lN
+	 268kBN1+rwjRw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/8] media: qcom: camss: csiphy-3ph: Use odd bits for
+ configuring C-PHY lanes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Heidelberg via B4 Relay" <devnull+david.ixit.cz@kernel.org>
+Cc: linux-media@vger.kernel.org
+In-Reply-To: <20260605-qcom-cphy-v7-2-426c37e9008f@ixit.cz>
+References: <20260605-qcom-cphy-v7-2-426c37e9008f@ixit.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 05 Jun 2026 13:30:34 +0000
+Message-Id: <20260605133035.1273F1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260605-qcom-cphy-v7-7-426c37e9008f@ixit.cz>
-References: <20260605-qcom-cphy-v7-0-426c37e9008f@ixit.cz>
-In-Reply-To: <20260605-qcom-cphy-v7-0-426c37e9008f@ixit.cz>
-To: Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Luca Weiss <luca.weiss@fairphone.com>, Petr Hodina <phodina@protonmail.com>, 
- "Dr. Git" <drgitx@gmail.com>, Cory Keitz <ckeitz@amazon.com>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Frank Li <Frank.Li@nxp.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Kieran Bingham <kbingham@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7531; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=dMZP7gPqJE1k13DCIY0n4Cw62GBidlljoZhlTRnWYUw=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqIsvCe9fI2Z2m7WNMuoJBBkcFloUwf1AEaJzYq
- ZEr2aImPSiJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaiLLwgAKCRBgAj/E00kg
- cjCwD/4j7P/BftQ0KhLdHfbG8D4aUp1Ssy0zS97Gscsel36ST3lcMNCnqfowCLuvgb2M1alciin
- RKWFc231DNE6YGPB5o1AKk1xtsW0pF1l0oi0gYa6NzQafojcgFJH1SOKRYkPExiIVHLFuNSgeZi
- iDRMes08mX9TruP36DjqJZRafjhFDCKa4H9HVXn/GSwq+cJAXJGEKoo0/Z3g3E/Qk65Z2FKlA0L
- GefQVgc0JLJM4EXoIrZyJGk0EfMNNmfUjSpxorgfI245h6IyEt32ULiYExfzHcG1lgn1dcCufVm
- 9gBOI86aOT59Dk20XBkXAzGiBcrFX6iSZLngGvI8t5C4+2rgznbR4Us4FjZJITnlz5di7V8jNnf
- eQ6FHlX1SV62d5U2Fq7h+0Pxkf4365dDDZxkoBWE36YfCl/JMZoy6AEmo/qhZv3m9UEsQZW1gxC
- B0dqazBJs3MVLowDqiUBXX3yXw2Po8wbsUt344hJin8KwA4BwGUtrxTkAAFuh7LRQRSRTB/uE6c
- gHJZbFgDLDKO6nXwwZlPBojI1/FBZTDHrR0I4WbTDJYhlqk9pG2Ee7oLZMqB9iqEeXJE7SJU8sH
- 8CbC7fYfzBUCZodbdmKZLsre9+0p0Kx0EqjrUCTE+oWg9BpGeOw6WTOH5+HXcpu6pAB7g+gBP7T
- xQhxaKBpRnGtzsg==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
 
-From: David Heidelberg <david@ixit.cz>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Commit message claims to return failure but code does not implem=
+ent error propagation.
+--
 
-Ensure that the link frequency divider correctly accounts for C-PHY
-operation. The divider differs between D-PHY and C-PHY, as described
-in the MIPI CSI-2 specification.
+commit da5484f83dd0e6203bd1f47a4299fe8d0bb8c433
+Author: David Heidelberg <david@ixit.cz>
 
-For more details, see:
-https://docs.kernel.org/driver-api/media/tx-rx.html#pixel-rate
+media: qcom: camss: csiphy-3ph: Use odd bits for configuring C-PHY lanes
 
-Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Acked-by: Cory Keitz <ckeitz@amazon.com>
-Tested-by: Cory Keitz <ckeitz@amazon.com>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Link: https://docs.kernel.org/driver-api/media/tx-rx.html#pixel-rate
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- drivers/media/platform/qcom/camss/camss-csid.c   |  7 +++++--
- drivers/media/platform/qcom/camss/camss-csiphy.c |  6 ++----
- drivers/media/platform/qcom/camss/camss.c        | 18 +++++++++++++++---
- drivers/media/platform/qcom/camss/camss.h        |  2 +-
- 4 files changed, 23 insertions(+), 10 deletions(-)
+This commit adds support for C-PHY lane configuration by utilizing odd
+bits instead of the even bits used for D-PHY mode. It updates the lane
+mask calculation and enablement routines for C-PHY hardware requirements.
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-index bcc34ac9dd212..7415e811082da 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid.c
-@@ -534,25 +534,28 @@ const struct csid_format_info *csid_get_fmt_entry(const struct csid_format_info
- 
- /*
-  * csid_set_clock_rates - Calculate and set clock rates on CSID module
-  * @csiphy: CSID device
-  */
- static int csid_set_clock_rates(struct csid_device *csid)
- {
- 	struct device *dev = csid->camss->dev;
-+	struct csiphy_device *csiphy = &csid->camss->csiphy[csid->phy.csiphy_id];
-+	struct csiphy_lanes_cfg *lane_cfg = &csiphy->cfg.csi2->lane_cfg;
- 	const struct csid_format_info *fmt;
-+
- 	s64 link_freq;
- 	int i, j;
- 	int ret;
- 
- 	fmt = csid_get_fmt_entry(csid->res->formats->formats, csid->res->formats->nformats,
- 				 csid->fmt[MSM_CSIPHY_PAD_SINK].code);
--	link_freq = camss_get_link_freq(&csid->subdev.entity, fmt->bpp,
--					csid->phy.lane_cnt);
-+
-+	link_freq = camss_get_link_freq(&csid->subdev.entity, fmt->bpp, lane_cfg);
- 	if (link_freq < 0)
- 		link_freq = 0;
- 
- 	for (i = 0; i < csid->nclocks; i++) {
- 		struct camss_clock *clock = &csid->clock[i];
- 
- 		if (!strcmp(clock->name, "csi0") ||
- 		    !strcmp(clock->name, "csi1") ||
-diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
-index 539ac4888b608..f9b1ed79e15de 100644
---- a/drivers/media/platform/qcom/camss/camss-csiphy.c
-+++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
-@@ -138,19 +138,18 @@ static int csiphy_set_clock_rates(struct csiphy_device *csiphy)
- {
- 	struct device *dev = csiphy->camss->dev;
- 	s64 link_freq;
- 	int i, j;
- 	int ret;
- 
- 	u8 bpp = csiphy_get_bpp(csiphy->res->formats->formats, csiphy->res->formats->nformats,
- 				csiphy->fmt[MSM_CSIPHY_PAD_SINK].code);
--	u8 num_lanes = csiphy->cfg.csi2->lane_cfg.num_data;
- 
--	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes);
-+	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, &csiphy->cfg.csi2->lane_cfg);
- 	if (link_freq < 0)
- 		link_freq  = 0;
- 
- 	for (i = 0; i < csiphy->nclocks; i++) {
- 		struct camss_clock *clock = &csiphy->clock[i];
- 
- 		if (csiphy->rate_set[i]) {
- 			u64 min_rate = link_freq / 4;
-@@ -264,20 +263,19 @@ static int csiphy_set_power(struct v4l2_subdev *sd, int on)
-  */
- static int csiphy_stream_on(struct csiphy_device *csiphy)
- {
- 	struct csiphy_config *cfg = &csiphy->cfg;
- 	s64 link_freq;
- 	u8 lane_mask = csiphy->res->hw_ops->get_lane_mask(&cfg->csi2->lane_cfg);
- 	u8 bpp = csiphy_get_bpp(csiphy->res->formats->formats, csiphy->res->formats->nformats,
- 				csiphy->fmt[MSM_CSIPHY_PAD_SINK].code);
--	u8 num_lanes = csiphy->cfg.csi2->lane_cfg.num_data;
- 	u8 val;
- 
--	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes);
-+	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, &csiphy->cfg.csi2->lane_cfg);
- 
- 	if (link_freq < 0) {
- 		dev_err(csiphy->camss->dev,
- 			"Cannot get CSI2 transmitter's link frequency\n");
- 		return -EINVAL;
- 	}
- 
- 	if (csiphy->base_clk_mux) {
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 072c428e25166..db4e14a84a95f 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -27,16 +27,24 @@
- #include <media/v4l2-mc.h>
- #include <media/v4l2-fwnode.h>
- 
- #include "camss.h"
- 
- #define CAMSS_CLOCK_MARGIN_NUMERATOR 105
- #define CAMSS_CLOCK_MARGIN_DENOMINATOR 100
- 
-+/*
-+ * C-PHY encodes data by 16/7 ~ 2.28 bits/symbol
-+ * D-PHY doesn't encode data, thus 16/16 = 1 b/s
-+ */
-+#define CAMSS_COMMON_PHY_DIVIDENT 16
-+#define CAMSS_CPHY_DIVISOR 7
-+#define CAMSS_DPHY_DIVISOR 16
-+
- static const struct parent_dev_ops vfe_parent_dev_ops;
- 
- static const struct camss_subdev_resources csiphy_res_8x16[] = {
- 	/* CSIPHY0 */
- 	{
- 		.regulators = {},
- 		.clock = { "top_ahb", "ispif_ahb", "ahb", "csiphy0_timer" },
- 		.clock_rate = { { 0 },
-@@ -4618,30 +4626,34 @@ struct media_pad *camss_find_sensor_pad(struct media_entity *entity)
- 			return pad;
- 	}
- }
- 
- /**
-  * camss_get_link_freq - Get link frequency from sensor
-  * @entity: Media entity in the current pipeline
-  * @bpp: Number of bits per pixel for the current format
-- * @lanes: Number of lanes in the link to the sensor
-+ * @lane_cfg: CSI2 lane configuration
-  *
-  * Return link frequency on success or a negative error code otherwise
-  */
- s64 camss_get_link_freq(struct media_entity *entity, unsigned int bpp,
--			unsigned int lanes)
-+			struct csiphy_lanes_cfg *lane_cfg)
- {
- 	struct media_pad *sensor_pad;
-+	u8 num_lanes = lane_cfg->num_data;
-+	bool cphy = lane_cfg->phy_cfg == V4L2_MBUS_CSI2_CPHY;
-+	unsigned int div = num_lanes * 2 * (cphy ? CAMSS_CPHY_DIVISOR :
-+						     CAMSS_DPHY_DIVISOR);
- 
- 	sensor_pad = camss_find_sensor_pad(entity);
- 	if (!sensor_pad)
- 		return -ENODEV;
- 
--	return v4l2_get_link_freq(sensor_pad, bpp, 2 * lanes);
-+	return v4l2_get_link_freq(sensor_pad, CAMSS_COMMON_PHY_DIVIDENT * bpp, div);
- }
- 
- /*
-  * camss_get_pixel_clock - Get pixel clock rate from sensor
-  * @entity: Media entity in the current pipeline
-  * @pixel_clock: Received pixel clock value
-  *
-  * Return 0 on success or a negative error code otherwise
-diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-index 93d691c8ac63b..d65a9b62f7e66 100644
---- a/drivers/media/platform/qcom/camss/camss.h
-+++ b/drivers/media/platform/qcom/camss/camss.h
-@@ -164,17 +164,17 @@ struct parent_dev_ops {
- };
- 
- void camss_add_clock_margin(u64 *rate);
- int camss_enable_clocks(int nclocks, struct camss_clock *clock,
- 			struct device *dev);
- void camss_disable_clocks(int nclocks, struct camss_clock *clock);
- struct media_pad *camss_find_sensor_pad(struct media_entity *entity);
- s64 camss_get_link_freq(struct media_entity *entity, unsigned int bpp,
--			unsigned int lanes);
-+			struct csiphy_lanes_cfg *lane_cfg);
- int camss_get_pixel_clock(struct media_entity *entity, u64 *pixel_clock);
- int camss_pm_domain_on(struct camss *camss, int id);
- void camss_pm_domain_off(struct camss *camss, int id);
- int camss_vfe_get(struct camss *camss, int id);
- void camss_vfe_put(struct camss *camss, int id);
- void camss_delete(struct camss *camss);
- void camss_buf_done(struct camss *camss, int hw_id, int port_id);
- void camss_reg_update(struct camss *camss, int hw_id,
+> Since there can be unrecognized configuration allow returning failure.
 
--- 
-2.53.0
+[Severity: Medium]
+The commit message explicitly states "allow returning failure" for
+unrecognized configurations, but does the code actually implement this?
 
+Looking at csiphy_get_lane_mask() and csiphy_lanes_enable(), the code does
+not appear to propagate any errors. Could the commit message be updated
+to reflect the use of warnings, or should the functions be changed to return
+an error code?
 
+> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/d=
+rivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+> index dac8d2ecf7995..fa24fc9706748 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+> +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+[ ... ]
+> @@ -1113,13 +1114,22 @@ static void csiphy_gen2_config_lanes(struct csiph=
+y_device *csiphy,
+> =20
+>  static u8 csiphy_get_lane_mask(struct csiphy_lanes_cfg *lane_cfg)
+>  {
+> -	u8 lane_mask;
+> -	int i;
+> +	u8 lane_mask =3D 0;
+> +	u8 offset =3D 0;
+> =20
+> -	lane_mask =3D CSIPHY_3PH_CMN_CSI_COMMON_CTRL5_CLK_ENABLE;
+> +	switch (lane_cfg->phy_cfg) {
+> +	case V4L2_MBUS_CSI2_CPHY:
+> +		offset =3D 1;
+> +		break;
+> +	case V4L2_MBUS_CSI2_DPHY:
+> +		lane_mask =3D CSIPHY_3PH_CMN_CSI_COMMON_CTRL5_CLK_ENABLE;
+> +		break;
+> +	default:
+> +		break;
+> +	}
+
+[Severity: Medium]
+In csiphy_get_lane_mask(), the default case silently falls through and
+returns 0. Is this intended to be treated as a failure condition?
+
+[ ... ]
+> @@ -1160,9 +1170,22 @@ static void csiphy_lanes_enable(struct csiphy_devi=
+ce *csiphy,
+[ ... ]
+> -	val =3D CSIPHY_3PH_CMN_CSI_COMMON_CTRL5_CLK_ENABLE;
+> -	for (i =3D 0; i < c->num_data; i++)
+> -		val |=3D BIT(c->data[i].pos * 2);
+> +	val =3D 0;
+> +
+> +	switch (c->phy_cfg) {
+> +	case V4L2_MBUS_CSI2_CPHY:
+> +		for (i =3D 0; i < c->num_data; i++)
+> +			val |=3D BIT((c->data[i].pos * 2) + 1);
+> +		break;
+> +	case V4L2_MBUS_CSI2_DPHY:
+> +		val =3D CSIPHY_3PH_CMN_CSI_COMMON_CTRL5_CLK_ENABLE;
+> +
+> +		for (i =3D 0; i < c->num_data; i++)
+> +			val |=3D BIT(c->data[i].pos * 2);
+> +		break;
+> +	default:
+> +		WARN_ONCE(1, "Unsupported bus type %d!\n", c->phy_cfg);
+> +	}
+
+[Severity: Medium]
+Similarly, since csiphy_lanes_enable() has a void return type, the caller
+has no way to detect this failure. While misconfiguration might be
+prevented earlier during device tree parsing, does this function need to be
+updated to actually return the failure mentioned in the commit message?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605-qcom-cphy-=
+v7-0-426c37e9008f@ixit.cz?part=3D2
