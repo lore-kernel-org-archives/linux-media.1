@@ -1,139 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72BD4387362
-	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 22:23:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74FDF282F1A
+	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 22:23:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780698188; cv=none; b=Qiszia7sjLuyN4R5sPcZPr0I3eNdjPn+syIBEug9pNWb/aH+TsS2yJte9a3xdFKRNNtQPaFy1AjmOr5xDmQtuO299nszUMfqdnlawJiltMKlCSwr32xR4SzPD0VK7NmJ+3D1BXa3LrSymt/tTVBlcQZ+VV/KxD6fb99GgZmdYDM=
+	t=1780698219; cv=none; b=CwM6pDeyvFZoHfBstVOyzjgYvgMr0Hs0iiBv03JB7ZalK3+AKek8ZW/UXH+knMccGQ+Mn8a1+sJ1pFg02FZUCfuRaDTfTBmcuYEOJcBLLSg6H3YKWspeA6Cgo1o2LlnfS78arrqVcXkzdEqeSWCeyxov5v/5C+xiI9MTFKZZI4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780698188; c=relaxed/simple;
-	bh=sADIGGskiWNM2YJinxADh2XlqsfbJfZsGYMX2gemD6I=;
+	s=arc-20240116; t=1780698219; c=relaxed/simple;
+	bh=wusjwhqtQVmUxTyzVY85g51wWpN46LHRK4OHqwRQNv8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aP7uTAzt+Wrr1pL33tS2Ik2bXbbvmCZjygfwZmIywrV4/4rV9064Rnq/V8pCGywoNH0oEvjQV5RYAGHH9NWbEVZJqRReKeLnnOpE8wfdhkFechlCPuk6wNVrAO9EPjAKbJnPYMaXNkEdkQla53LehsJnVsJTTtKO3rhKfOXEeFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CpQ9cogg; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=JIGhX9nXMpDON3GTRNuej6ZpRbErWQbfoWKwHw5DX9yBVVXDh6xzu77AQktyoZhMsTMO9DZIfi1S046/nyTce8l45HBwk3ZkNYa5OoqmlwQqo+8RCPS0WhU5OL7oCIa2Er6UBuKRGrG0nvGcdVbOxldnCi1H9iESzTCFl5NY9LA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iqgYn6YJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CpQ9cogg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B3BC1F00893;
-	Fri,  5 Jun 2026 22:23:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iqgYn6YJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37E041F00893;
+	Fri,  5 Jun 2026 22:23:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780698187;
-	bh=VbFP2d7IDTyYaEOO8llQmxpRxMIapEucA4H8bzrYDJo=;
+	s=k20260515; t=1780698218;
+	bh=tG/EFw7SZEO3pLqm4ppnFtGDSirtpfZWbTgWMPeKtaY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CpQ9coggBdghQxo+f8nlX1BNpQTGK/ILRkXQ9RFqNVgmHXyizZS1bUM7GY1cX0fDC
-	 v/SwO9UPQ/xWTU7vWpnbf5R7UDCJnUDwQpeUfAdvwSxOy1N4vU4/TjdSEdNrrmTshv
-	 JtKj1eYQTia/kHKCMN+8ERXIjDImMShk9LfEpL4dMtfJ/qmuEs/+OcfooBXbXVYBIm
-	 hXyZuUPJgx2unAY5At0t8b5AnFNLvC1fxYj1GPVF7USXC1VIBJSsmlRMyB8sVTaiod
-	 K+u0Kw6btYd6RDOj67S4sZyDko8wknBCHQVLGJ3RW6hgAZ3o4VEezVYqQARqN2BuUr
-	 AvVjOMfORv2Aw==
+	b=iqgYn6YJYbl7C6+8EOyjILn9q/aK+MkJHUTnZnk3w/VPS5RMCWY0yrvKLoDUpeNTe
+	 6Be35NfxHFD/XOPaqgOXSQlnQVt1saWi4ISxIfQnso/Mm9kc1315PBt6COBB8YxDlq
+	 O7sveG6bVNux/6avIp/eyn1yrkDM1lg9jhHQ0Olw7+ZDHSbuo8b1XZsM8zeSwP1l8U
+	 1yHwWF0HozOSQu+Zu4HAbt12TSJewuchCy3OFKkGLPC2JNkqf8eJcZcDZbaDoyHxG/
+	 vF5yNW7aoB4/ommgi7eHou2CCAnBdZ7CPEiTVNzLzh4VTrkdsMCdHWaYPXyvGvcPFt
+	 BTnzJRTAYzLGQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 14/17] media: rockchip: rga: put all cores into first
- core iommu domain
+Subject: Re: [PATCH 10/17] media: rockchip: rga: move rockchip_rga
+ allocation to master probe
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?U3ZlbiBQw7xzY2hlbA==?= <s.pueschel@pengutronix.de>
 Cc: linux-media@vger.kernel.org
-In-Reply-To: <20260606-spu-rga3multicore-v1-14-3ec2b15675f7@pengutronix.de>
-References: <20260606-spu-rga3multicore-v1-14-3ec2b15675f7@pengutronix.de>
+In-Reply-To: <20260606-spu-rga3multicore-v1-10-3ec2b15675f7@pengutronix.de>
+References: <20260606-spu-rga3multicore-v1-10-3ec2b15675f7@pengutronix.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 22:23:06 +0000
-Message-Id: <20260605222307.3B3BC1F00893@smtp.kernel.org>
+Date: Fri, 05 Jun 2026 22:23:37 +0000
+Message-Id: <20260605222338.37E041F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Critical] Sharing the primary core's default IOMMU domain with secondary=
- cores creates a severe lifetime mismatch leading to a Use-After-Free if th=
-e primary core is removed.
-- [High] Incorrect error checking of `iommu_get_domain_for_dev()` using `IS=
-_ERR()` causes a NULL pointer dereference and masks errors.
-- [High] The new error paths for IOMMU attachment fail to release the PM ru=
-ntime reference.
-- [High] Missing `.unbind` callback leads to IOMMU domain reference leaks, =
-teardown asymmetry, and array out-of-bounds writes upon driver rebind.
+- [High] Missing IS_ERR() check on the `match` pointer after `component_mat=
+ch_add_release()` can lead to a kernel panic.
 --
 
-commit 3fbaee68845794dcb5e7c93168eef670817da976
+commit 7be0968d7d9ce3f1b58fa4c450d0c7a606ff6014
 Author: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
 
-media: rockchip: rga: put all cores into first core iommu domain
+media: rockchip: rga: move rockchip_rga allocation to master probe
 
-Put all cores into the iommu domain of the first core to allow them to
-be used by any core.
+Move the rockchip_rga struct allocation to the master component probe
+function in preparation of enabling all cores. This also adjusts the
+allocation to use the actual number of cores found in the of tree
+instead of being fixed to one core.
 
 > diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
 atform/rockchip/rga/rga.c
+> index 178f45b8da940..11912bf5b6906 100644
 > --- a/drivers/media/platform/rockchip/rga/rga.c
 > +++ b/drivers/media/platform/rockchip/rga/rga.c
-> @@ -757,6 +758,19 @@ static int rga_core_bind(struct device *dev, struct =
-device *master, void *data)
->  		  version.major, version.minor);
+
+[ ... ]
+
+> @@ -985,6 +977,7 @@ static int rga_probe(struct platform_device *pdev)
+>  		of_node_get(core_node);
+>  		component_match_add_release(dev, &match, component_release_of,
+>  					    component_compare_of, core_node);
+> +		num_cores++;
 > =20
->  	if (rga->num_cores) {
-> +		/* Attach to the first cores iommu */
-> +		struct iommu_domain *domain =3D iommu_get_domain_for_dev(rga->cores[0]=
-->dev);
-> +
-> +		if (IS_ERR(domain)) {
+>  		/*
+>  		 * As multi core is not implemented yet,
+> @@ -1000,6 +993,19 @@ static int rga_probe(struct platform_device *pdev)
+>  			dev, -ENODEV,
+>  			"no matching available component devices found\n");
 
 [Severity: High]
-Since iommu_get_domain_for_dev() returns NULL on failure (not an ERR_PTR),
-won't this IS_ERR() check fail to catch a NULL domain?
+If component_match_add_release() fails to allocate memory internally, it can
+update the match pointer to ERR_PTR(-ENOMEM).
 
-If domain is NULL, it will be passed to iommu_attach_device(), which could
-lead to a NULL pointer dereference when accessing domain->owner in
-domain_iommu_ops_compatible().
+Since this code only checks if (!match), the error pointer bypasses the che=
+ck
+and is passed into component_master_add_with_match() at the end of rga_prob=
+e().
 
-> +			dev_err(core->dev, "Couldn't get domain of the first core\n");
-> +			return PTR_ERR(domain);
+Could this lead to an invalid page fault when component_master_add_with_mat=
+ch()
+unconditionally dereferences the match pointer?
 
-[Severity: High]
-Does this early return leak the PM runtime reference?
+> +	rga =3D devm_kzalloc(dev, sizeof(*rga) + num_cores * sizeof(*rga->cores=
+), GFP_KERNEL);
+> +	if (!rga)
+> +		return -ENOMEM;
 
-pm_runtime_resume_and_get(core->dev) is called earlier in this function, but
-this return path doesn't call pm_runtime_put(core->dev).
-
-> +		}
-> +		ret =3D iommu_attach_device(domain, core->dev);
-
-[Severity: Critical]
-Does sharing the primary core's default IOMMU domain with secondary cores
-create a lifetime mismatch?
-
-The IOMMU subsystem couples the lifetime of a default domain strictly to its
-original device group. If the platform device for the first core is removed,
-the IOMMU core frees the default domain in iommu_deinit_device().
-
-Secondary cores would still retain pointers to this freed domain, leading t=
-o a
-use-after-free during DMA operations or unbinding.
-
-[Severity: High]
-Since we are attaching the device to the IOMMU domain here, how is it
-detached when the driver is unbound?
-
-There does not appear to be a corresponding .unbind callback in
-rga_core_ops to call iommu_detach_device(). This would leave the IOMMU
-group permanently attached, causing subsequent rebinds to fail with -EBUSY
-or leak references.
-
-Additionally, without an unbind callback to reset rga->num_cores, won't
-re-binding the components cause rga->cores[rga->num_cores++] to continue
-incrementing and overflow the array?
-
-> +		if (ret) {
-> +			dev_err(core->dev, "Couldn't attach to the domain of the first core\n=
-");
-> +			return ret;
-
-[Severity: High]
-Could this return path also leak the PM runtime reference acquired by
-pm_runtime_resume_and_get(core->dev)?
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606-spu-rga3mu=
-lticore-v1-0-3ec2b15675f7@pengutronix.de?part=3D14
+lticore-v1-0-3ec2b15675f7@pengutronix.de?part=3D10
