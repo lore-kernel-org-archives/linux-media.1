@@ -1,27 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B9B466B4A
-	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 22:08:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14AB544E043
+	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 22:08:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780697320; cv=none; b=kVIfOuI7+Wr4orU9igxG7nzcn5nEIe7yalk4Fl1XxvDiy6jjl2PIn3ME3iI2uF/wJphaez3DVkepXnWNV3Zc+71CwZ9hGLvgnO3LMOvEvLrnDK2Rtqw8vWL2ho0LQP85arEWfz1xy81+D7M8vJl4mGoyNHBEfEJVVySysfjzcDg=
+	t=1780697321; cv=none; b=EisjyOSyEIopaso5kK46pczOYZUF5wthkHlaSsL/keUuiDDixP1+XAb9ZxxRpUbhNDlGyY9EEDaSLbSbFI8PZ7wB51BgEsX6MQNoewafhWbl+9AlPrLbJBBu/7VxD095CiVNFh8CgSRlFMqr6BA5ptwH+czJqpHVVwt6xQ9KLwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780697320; c=relaxed/simple;
-	bh=916SlS7hxt/WUsc+c1C0gXblrc3pxUP/yNEdXxo1EC4=;
+	s=arc-20240116; t=1780697321; c=relaxed/simple;
+	bh=aYVEjN1rEfisX14ck7CgX63sQqs4Zlqr8t4WnrE6Qps=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZM2b4plEvUPc6eodbmytNjA9BYrP5tymcU8hQsXETtS9MWBY3wWMA8pKVu/wAA8XXgmzf2nsXGvERWibj8Vznplrq4rO4p0vSj4P37C8T/0basDPJBSCMFL4cYV+O1kX+YImufs5spuxEKmJa8pP573Ru9vLtuO9SSsP4RorCus=
+	 In-Reply-To:To:Cc; b=Q1DDj5zP3A8PmIP2Yo9fEhpBND1yTli7xdbjIRkxF3rrLkZIYM0LrgNEWa7Jn4s42SorE00OnBZzEcZiEVNzxqQJWwibYFIAEb2vjn+qFFSH/7NgI4J1j5kT9RMm7BlYSBj4rMn9xhvg4bfUFKwwmZ6B4qR/K1YVFMAbRvRDNeU=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wVci9-0000LW-EE; Sat, 06 Jun 2026 00:08:17 +0200
+	id 1wVciE-0000LW-Ht; Sat, 06 Jun 2026 00:08:22 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Sat, 06 Jun 2026 00:06:56 +0200
-Subject: [PATCH 10/17] media: rockchip: rga: move rockchip_rga allocation
- to master probe
+Date: Sat, 06 Jun 2026 00:07:01 +0200
+Subject: [PATCH 15/17] media: rockchip: rga: schedule jobs to multiple
+ cores
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -30,7 +30,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260606-spu-rga3multicore-v1-10-3ec2b15675f7@pengutronix.de>
+Message-Id: <20260606-spu-rga3multicore-v1-15-3ec2b15675f7@pengutronix.de>
 References: <20260606-spu-rga3multicore-v1-0-3ec2b15675f7@pengutronix.de>
 In-Reply-To: <20260606-spu-rga3multicore-v1-0-3ec2b15675f7@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -48,95 +48,92 @@ X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Move the rockchip_rga struct allocation to the master component probe
-function in preparation of enabling all cores. This also adjusts the
-allocation to use the actual number of cores found in the of tree
-instead of being fixed to one core.
+Schedule jobs to multiple cores to utilize all RGA cores. To avoid race
+conditions when selecting the next free core a dedicated spinlock is added.
+
+Note that this doesn't increase the max frame rate of a single
+stream, as a context will wait for the job to finish before starting
+the next device_run call.
 
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga.c | 32 ++++++++++++++++++-------------
- 1 file changed, 19 insertions(+), 13 deletions(-)
+ drivers/media/platform/rockchip/rga/rga.c | 22 +++++++++++++++++++---
+ drivers/media/platform/rockchip/rga/rga.h |  1 +
+ 2 files changed, 20 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index 178f45b8da940..11912bf5b6906 100644
+index 9cebb461b3fd2..f00b7f99f2521 100644
 --- a/drivers/media/platform/rockchip/rga/rga.c
 +++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -741,7 +741,7 @@ static int rga_parse_dt(struct rga_core *core)
- static int rga_core_bind(struct device *dev, struct device *master, void *data)
+@@ -38,15 +38,31 @@ static void device_run(void *prv)
  {
- 	struct platform_device *pdev = to_platform_device(dev);
--	struct rockchip_rga *rga;
-+	struct rockchip_rga *rga = data;
- 	struct rga_core *core;
- 	struct video_device *vfd;
- 	int ret = 0;
-@@ -750,17 +750,6 @@ static int rga_core_bind(struct device *dev, struct device *master, void *data)
- 	if (!pdev->dev.of_node)
- 		return -ENODEV;
- 
--	rga = devm_kzalloc(&pdev->dev, sizeof(*rga) + 1 * sizeof(*rga->cores), GFP_KERNEL);
--	if (!rga)
--		return -ENOMEM;
--
--	rga->hw = of_device_get_match_data(&pdev->dev);
--	if (!rga->hw)
--		return dev_err_probe(&pdev->dev, -ENODEV, "failed to get match data\n");
--
--	spin_lock_init(&rga->ctrl_lock);
--	mutex_init(&rga->mutex);
--
- 	core = devm_kzalloc(&pdev->dev, sizeof(*core), GFP_KERNEL);
- 	core->rga = rga;
- 	core->dev = &pdev->dev;
-@@ -947,9 +936,10 @@ static struct platform_driver rga_core_pdrv = {
- 
- static int rga_bind(struct device *dev)
- {
-+	struct rockchip_rga *rga = dev_get_drvdata(dev);
+ 	struct rga_ctx *ctx = prv;
+ 	struct rockchip_rga *rga = ctx->rga;
+-	struct rga_core *core = rga->cores[0];
++	struct rga_core *core = NULL;
+ 	struct vb2_v4l2_buffer *src, *dst;
+ 	unsigned long flags;
  	int ret;
++	unsigned int i;
++
++	spin_lock_irqsave(&rga->cores_lock, flags);
++	for (i = 0; i < rga->num_cores; i++) {
++		if (!rga->cores[i]->curr) {
++			core = rga->cores[i];
++			core->curr = ctx;
++			break;
++		}
++	}
++	spin_unlock_irqrestore(&rga->cores_lock, flags);
++
++	WARN_ONCE(!core, "No free core although max parallel jobs matches the core count!\n");
++	if (!core)
++		return;
  
--	ret = component_bind_all(dev, NULL);
-+	ret = component_bind_all(dev, rga);
+ 	ret = pm_runtime_resume_and_get(core->dev);
+ 	if (ret < 0) {
+ 		v4l2_m2m_buf_done_and_job_finish(rga->m2m_dev, ctx->fh.m2m_ctx,
+ 						 VB2_BUF_STATE_ERROR);
++		core->curr = NULL;
+ 		return;
+ 	}
+ 
+@@ -58,8 +74,6 @@ static void device_run(void *prv)
+ 	}
+ 	spin_unlock_irqrestore(&rga->ctrl_lock, flags);
+ 
+-	core->curr = ctx;
+-
+ 	src = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
+ 	src->sequence = ctx->osequence++;
+ 
+@@ -946,6 +960,7 @@ static int rga_bind(struct device *dev)
+ 		ret = PTR_ERR(rga->m2m_dev);
+ 		goto rel_vdev;
+ 	}
++	v4l2_m2m_set_max_parallel_jobs(rga->m2m_dev, rga->num_cores);
+ 
+ 	ret = video_register_device(vfd, VFL_TYPE_VIDEO, -1);
  	if (ret) {
- 		dev_err(dev, "component bind failed\n");
- 		return ret;
-@@ -974,6 +964,8 @@ static int rga_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct component_match *match = NULL;
- 	struct device_node *core_node;
-+	struct rockchip_rga *rga;
-+	u8 num_cores = 0;
+@@ -1021,6 +1036,7 @@ static int rga_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, -ENODEV, "failed to get match data\n");
  
- 	if (!match_desc)
- 		return dev_err_probe(dev, -ENODEV, "missing platform data\n");
-@@ -985,6 +977,7 @@ static int rga_probe(struct platform_device *pdev)
- 		of_node_get(core_node);
- 		component_match_add_release(dev, &match, component_release_of,
- 					    component_compare_of, core_node);
-+		num_cores++;
+ 	spin_lock_init(&rga->ctrl_lock);
++	spin_lock_init(&rga->cores_lock);
+ 	mutex_init(&rga->mutex);
  
- 		/*
- 		 * As multi core is not implemented yet,
-@@ -1000,6 +993,19 @@ static int rga_probe(struct platform_device *pdev)
- 			dev, -ENODEV,
- 			"no matching available component devices found\n");
+ 	dev_set_drvdata(dev, rga);
+diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
+index 6237436b984eb..c0dfacdb6f212 100644
+--- a/drivers/media/platform/rockchip/rga/rga.h
++++ b/drivers/media/platform/rockchip/rga/rga.h
+@@ -85,6 +85,7 @@ struct rockchip_rga {
+ 	struct mutex mutex;
+ 	/* ctrl parm lock */
+ 	spinlock_t ctrl_lock;
++	spinlock_t cores_lock;
  
-+	rga = devm_kzalloc(dev, sizeof(*rga) + num_cores * sizeof(*rga->cores), GFP_KERNEL);
-+	if (!rga)
-+		return -ENOMEM;
-+
-+	rga->hw = match_desc->data;
-+	if (!rga->hw)
-+		return dev_err_probe(dev, -ENODEV, "failed to get match data\n");
-+
-+	spin_lock_init(&rga->ctrl_lock);
-+	mutex_init(&rga->mutex);
-+
-+	dev_set_drvdata(dev, rga);
-+
- 	return component_master_add_with_match(dev, &rga_master_ops, match);
- }
+ 	const struct rga_hw *hw;
  
 
 -- 
