@@ -1,103 +1,197 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C19D3090D4
-	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 13:40:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1EF2EEE9E
+	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 13:46:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780666848; cv=none; b=rtdXyqvW47DK/H5QQGHUCLtAw7YpnF5T3qMh9BjIF1RQXEwjJ7PSsDj5DhYkILgi7ykNK7E0Nvga/4cmH9U7W9GOOfBjgNAHv2pip+ta1/qWvvyhIKzb9j1V6WSdFmSXcW/nuOL7+KhGvHN9cfIDa+476p5/tVhdgYFFJcDw3v4=
+	t=1780667197; cv=none; b=HyTtOBOvr86+KHio2V75QtbO0POx4NfPNI+KvcCw8zg/taMa2vVz4SZ40jMAseH6goKxwLzP7yJADKEoXNyJE0k+L8Xd/6T9AZd8kSDe0lQE+kZkDxopujK2MNOXzdPz0KhI6wtj7t9PdA//cjZspxbg0tcWZzffWQOsZ5QdYIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780666848; c=relaxed/simple;
-	bh=LvgrAs/kLFXxLVDe+Ce4+0Cy2SO+AelWL0VKUCa0fuY=;
+	s=arc-20240116; t=1780667197; c=relaxed/simple;
+	bh=hazMjH21gzXsxR5LG/OTrpQAOiBsDu1Fdl437I7YAdI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=P27l8+7vLHzlviV7XwjTDNDiUB8E9Au+djPNpzCXx3OyuK9vNwvgCwqZDLTJwUaVWtMa9Vo+k1fIQnBASUH1O+CJF/j4ovuXppu6XodxERUFzX5ktUT/TaGCUkqOfJOZx8pFOZ2S3StGEysfljkwsCGKUZ4zxbtenxzICP0XkHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yhan3UcA; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Y6ICcQvxWavOfZ0ca03uy8x9YaxVlJfbBsiyZjn0b+GYgu4Fp6t7o3ga2V+9mfLVt+xlAx8gKonyjFruTpG0ARwUDa5+fEmIHTwUGuJPcSO7IAJD619rfffdmgFnVmbogncQmRiGq8PO2js+k2HO820GnzxxNeq3MfQS5FmaTZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dsGoe/F9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yhan3UcA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 597EC1F00893;
-	Fri,  5 Jun 2026 13:40:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dsGoe/F9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5A8A1F00893;
+	Fri,  5 Jun 2026 13:46:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780666847;
-	bh=yqOmVFLZasGg85Lw9BF0RvKbNjJNh6H7peZVbX8wJrg=;
+	s=k20260515; t=1780667194;
+	bh=fDg43M2B9PlNWHiDy1AMMtGyAjwDnQ27B4JUT5jEEZY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Yhan3UcAjTONdr250Zf4Vljbo+RIrXawwJqcw6rMHPy8ZsuaWaBCB4Pv2uusdxnrc
-	 +fN17f2ZtDr+02kzWWzl7KjiVb+aCekK6nlJM+ngYzw1slkw2kGowP8ezsYQOhag8y
-	 44UCzD+aulrXWEu+K80qRYcC/QkT7qcBvfrA0d0HJWCaqIh1o/7xc7gLyuI9ikVkGl
-	 FySTrNdDmDx0VKq7n+vMSKz+kor6PQIUoeTfcri751Lo5h9yOWgQBYf5QwJkv1KGnL
-	 g8ZwdClJKmRqwCNMNmSxh4PxO/NyC/7uovdugwIMaSg7m3uZ8xG7c41dqJU+XbdUi9
-	 SgI9vBiONWwUg==
+	b=dsGoe/F9w9ptQ3CBgBk5aWhc6h4s3+Efel29SxbZNJ0/YLXAbkJ5seI4oKo3xxFiI
+	 pp5wRSpjhbHe7OwY+YUjs19bTbd7zsM9XIezIgihDOPb2dHYKBxrSS9ZmMLNN04LiG
+	 C1wSLLu6y5tXCJmg1aFOU7gNnYs/r4tAl0q3ctJ3xVVLfabIwKqQf3/ZyLQtqyytXb
+	 LBAwSwQ8aE/Xt6NreB+6dMKrHqHzP/qEgaWZJQhmFjw0yoY7fVxqP7FJoWFsWTNhVo
+	 WyeK9RujJycOvM5sK0hpIpMSBJzr/kuwUADvNx0HqAYfno9ETk6WrE4WJk5X2fvnIS
+	 WNUulBYdxdmlA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 4/8] media: qcom: camss: Initialize lanes after lane
- configuration is available
+Subject: Re: [RFC PATCH 3/3] rust: rcu: Introduce RcuFreeBox
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Heidelberg via B4 Relay" <devnull+david.ixit.cz@kernel.org>
-Cc: linux-media@vger.kernel.org
-In-Reply-To: <20260605-qcom-cphy-v7-4-426c37e9008f@ixit.cz>
-References: <20260605-qcom-cphy-v7-4-426c37e9008f@ixit.cz>
+To: "Boqun Feng" <boqun@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, ojeda@kernel.org
+In-Reply-To: <20260605133541.22569-6-boqun@kernel.org>
+References: <20260605133541.22569-6-boqun@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 13:40:46 +0000
-Message-Id: <20260605134047.597EC1F00893@smtp.kernel.org>
+Date: Fri, 05 Jun 2026 13:46:33 +0000
+Message-Id: <20260605134633.D5A8A1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Medium] Uninitialized memory read in csiphy_lanes_enable() for Gen 1 SoCs
+- [Critical] Pointer cast bypasses struct field offset, causing `drop_befor=
+e_gp` to operate on `rcu_head` instead of `value`.
+- [High] `RcuFreeBox::drop` creates a mutable reference (`&mut T`) before t=
+he RCU grace period elapses, violating Rust's strict aliasing rules.
+- [High] `RcuFreeBox` wraps `T` in `ManuallyDrop<T>`, bypassing its destruc=
+tor and creating an unresolvable leak or Use-After-Free dilemma.
+- [Low] Missing `#[inline]` annotations on small/forwarding functions in th=
+e new abstraction.
+- [Low] Multiple spelling errors in the code comments.
 --
 
-commit 29ea95d7cd0cd620b740a193084b2b2f90d4327e
-Author: David Heidelberg <david@ixit.cz>
+commit 78e35ac6ad00fb0c6ab7802573453596f9ee6134
+Author: Boqun Feng <boqun@kernel.org>
 
-media: qcom: camss: Initialize lanes after lane configuration is available
+rust: rcu: Introduce RcuFreeBox
 
-The lanes must not be initialized before the driver has access to
-the lane configuration, as it depends on whether D-PHY or C-PHY mode
-is in use. Move the lane initialization to csiphy_lanes_enable which is
-called when the configuration structures are available.
+The current RcuBox calls the drop function after a grace period inside an R=
+CU
+callback. To support a pattern where an object is cleaned up, unshared, and
+freed after a grace period without readers, RcuFreeBox is introduced.
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/d=
-rivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-> index fa24fc9706748..c76b9c352ea02 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-> @@ -1168,6 +1168,98 @@ static void csiphy_lanes_enable(struct csiphy_devi=
-ce *csiphy,
->  	u8 val;
->  	int i;
-> =20
-> +	switch (csiphy->camss->res->version) {
+> diff --git a/rust/kernel/sync/rcu/rcu_box.rs b/rust/kernel/sync/rcu/rcu_b=
+ox.rs
+> index 943fe3e8974e0..8f52bb472daf9 100644
+> --- a/rust/kernel/sync/rcu/rcu_box.rs
+> +++ b/rust/kernel/sync/rcu/rcu_box.rs
+
 [ ... ]
-> +	case CAMSS_8300:
-> +	case CAMSS_8775P:
-> +		if (c->phy_cfg =3D=3D V4L2_MBUS_CSI2_CPHY) {
-> +			regs->lane_regs =3D NULL;
-> +			regs->lane_array_size =3D 0;
-> +		} else {
-> +			regs->lane_regs =3D &lane_regs_sa8775p[0];
-> +			regs->lane_array_size =3D ARRAY_SIZE(lane_regs_sa8775p);
-> +		}
-> +		break;
-> +	default:
-> +		break;
-> +	}
+
+> @@ -205,6 +207,50 @@ fn drop(&mut self) {
+>      drop(unsafe { Box::<_, A>::from_raw(box_inner) });
+>  }
+> =20
+> +/// A box that is freed with RCU.
+> +///
+> +/// Currently we require T being Send because of an implementation limit=
+ation. In theory we can
+> +/// support T being !Send, since the RCU callback is only used to free t=
+he memory, not dropping
+> +/// T.
+> +pub struct RcuFreeBox<T: Send + RcuFreeSafe, A: Allocator>(RcuBox<Manual=
+lyDrop<T>, A>);
 > +
-> +	if (!regs->lane_regs && c->phy_cfg =3D=3D V4L2_MBUS_CSI2_CPHY)
+> +impl<T: Send + RcuFreeSafe, A: Allocator> RcuFreeBox<T, A> {
+> +    /// Create a new RcuFreeBox.
+> +    pub fn new(x: T, flags: alloc::Flags) -> Result<Self, AllocError> {
 
-[Severity: Medium]
-Since regs is allocated with devm_kmalloc() in csiphy_init() and is not
-zero-initialized, could regs->lane_regs contain garbage for Gen 1 platforms
-that fall through to the default case above?
+[Severity: Low]
+Does this function need an inline annotation? The Rust subsystem guidelines
+mention that small or forwarding functions in abstractions should be
+annotated with #[inline].
 
-Because && evaluates left-to-right, this condition evaluates !regs->lane_re=
-gs
-first, resulting in a read of uninitialized heap memory.
+> +        Ok(Self(RcuBox::new(ManuallyDrop::new(x), flags)?))
+> +    }
+> +
+> +    /// Access the value for a grace period.
+> +    pub fn with_rcu<'rcu>(&self, read_guard: &'rcu Guard) -> &'rcu T {
 
-> +		WARN_ONCE(1, "Missing lane_regs definition for C-PHY!\n");
+[Severity: Low]
+Should this small forwarding function also have an #[inline] annotation?
+
+> +        self.0.with_rcu(read_guard)
+> +    }
+> +}
+> +
+> +impl<T: Send + RcuFreeSafe, A: Allocator> Deref for RcuFreeBox<T, A> {
+> +    type Target =3D T;
+> +
+> +    fn deref(&self) -> &T {
+
+[Severity: Low]
+Would an #[inline] annotation be appropriate for this Deref implementation
+as well, since it is a simple forwarding call?
+
+> +        self.0.deref()
+> +    }
+> +}
+> +
+> +impl<T: Send + RcuFreeSafe, A: Allocator> Drop for RcuFreeBox<T, A> {
+> +    fn drop(&mut self) {
+> +        // CAST: ManuallyDrop<T> is transparet to T, adn RcuBox owns the=
+ object per type
+
+[Severity: Low]
+There are a couple of typos here: transparet instead of transparent, and adn
+instead of and.
+
+> +        // invariants.
+> +        let ptr =3D self.0 .0.as_ptr().cast::<T>();
+
+[Severity: Critical]
+Is this pointer cast skipping the struct field offset?
+
+self.0.0.as_ptr() returns a pointer to RcuBoxInner<ManuallyDrop<T>>. The
+RcuBoxInner struct starts with an rcu_head field, meaning the actual value
+field is located at a non-zero offset.
+
+Casting this pointer directly to *mut T will point to the rcu_head memory
+instead of the value.
+
+Could calling drop_before_gp() on this pointer corrupt memory by treating
+the internal rcu_head structure bytes as if they were of type T?
+
+> +
+> +        // SAFETY: Per the invariants of RcuBox, ptr owns the pointed ob=
+ject. And we are not
+> +        // going to move it.
+> +        let pin =3D unsafe { Pin::new_unchecked(&mut *ptr) };
+
+[Severity: High]
+Does creating a mutable reference here violate Rust's strict aliasing rules?
+
+When an RcuFreeBox is dropped, it is typically removed from the shared data
+structure, but the RCU grace period has not yet elapsed. Concurrent readers
+might still hold shared references (&T) obtained via with_rcu.
+
+Creating an exclusive mutable reference (&mut T) using Pin::new_unchecked
+while shared references may still exist is immediate undefined behavior in
+Rust.
+
+> +
+> +        pin.drop_before_gp();
+> +
+> +        // needs_drop::<ManuallyDrop>() returns false, hence kvfree_call=
+_rcu() will be called
+
+[Severity: High]
+Could bypassing the destructor using ManuallyDrop<T> create an unresolvable
+leak or use-after-free regression?
+
+Since needs_drop::<ManuallyDrop<T>>() evaluates to false, it skips dropping
+the internals of T. If T holds owned resources like a Box or Vec, they are
+never freed after the grace period, which leaks memory.
+
+Conversely, if a user tries to work around this by manually freeing
+resources inside drop_before_gp(), could that trigger a use-after-free
+since drop_before_gp() runs before the RCU grace period ends while
+concurrent readers might still be accessing those resources?
+
+> +        // and free the underlying data after a gracer period.
+
+[Severity: Low]
+There is a typo here: gracer instead of grace.
+
+> +    }
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605-qcom-cphy-=
-v7-0-426c37e9008f@ixit.cz?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605133541.2256=
+9-1-boqun@kernel.org?part=3D3
