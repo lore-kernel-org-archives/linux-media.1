@@ -1,27 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14AB544E043
-	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 22:08:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B80478E5A
+	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 22:08:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780697321; cv=none; b=EisjyOSyEIopaso5kK46pczOYZUF5wthkHlaSsL/keUuiDDixP1+XAb9ZxxRpUbhNDlGyY9EEDaSLbSbFI8PZ7wB51BgEsX6MQNoewafhWbl+9AlPrLbJBBu/7VxD095CiVNFh8CgSRlFMqr6BA5ptwH+czJqpHVVwt6xQ9KLwE=
+	t=1780697322; cv=none; b=LpEUErcrfakA4OxGygl06+qIyoI+5gUM7j/uw2rQPb/7etQSTtGMIVevqWIBNJWP5erPD+2UAhpUoofJjTtTjPXthUdrNggd8pY1aS6hIVmljsugAYy1LBKl2LSZVeUcyxIzSakN9YZSVvyJA9a5gRvTUdKE93Dm3LQH9he9yeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780697321; c=relaxed/simple;
-	bh=aYVEjN1rEfisX14ck7CgX63sQqs4Zlqr8t4WnrE6Qps=;
+	s=arc-20240116; t=1780697322; c=relaxed/simple;
+	bh=nXnXuEGMvyXGosVUqwEHGnlF3tbPuC8XpDqtbSxS2Is=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Q1DDj5zP3A8PmIP2Yo9fEhpBND1yTli7xdbjIRkxF3rrLkZIYM0LrgNEWa7Jn4s42SorE00OnBZzEcZiEVNzxqQJWwibYFIAEb2vjn+qFFSH/7NgI4J1j5kT9RMm7BlYSBj4rMn9xhvg4bfUFKwwmZ6B4qR/K1YVFMAbRvRDNeU=
+	 In-Reply-To:To:Cc; b=W4JM7p+VgULWpk9wtbAQQgRr9H1nui6+i+0ZdFUO1mX+V2aaNaPAjaIv/QouAdIgR2RBxYr+WMvSzmOYAPFhkozxz9fkiopgiL6SYk+d0l1CRFyxAtYA28MDYwfB/C0Je6BGpFrpns4AXbXEbYZ4qGUbqPhI4WBo+O8aErUsP3U=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wVciE-0000LW-Ht; Sat, 06 Jun 2026 00:08:22 +0200
+	id 1wVci6-0000LW-2z; Sat, 06 Jun 2026 00:08:14 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Sat, 06 Jun 2026 00:07:01 +0200
-Subject: [PATCH 15/17] media: rockchip: rga: schedule jobs to multiple
- cores
+Date: Sat, 06 Jun 2026 00:06:53 +0200
+Subject: [PATCH 07/17] media: rockchip: rga: adjust get_version to return
+ the version
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -30,7 +30,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260606-spu-rga3multicore-v1-15-3ec2b15675f7@pengutronix.de>
+Message-Id: <20260606-spu-rga3multicore-v1-7-3ec2b15675f7@pengutronix.de>
 References: <20260606-spu-rga3multicore-v1-0-3ec2b15675f7@pengutronix.de>
 In-Reply-To: <20260606-spu-rga3multicore-v1-0-3ec2b15675f7@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -48,93 +48,89 @@ X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Schedule jobs to multiple cores to utilize all RGA cores. To avoid race
-conditions when selecting the next free core a dedicated spinlock is added.
-
-Note that this doesn't increase the max frame rate of a single
-stream, as a context will wait for the job to finish before starting
-the next device_run call.
+Adjust get_version to return the version instead of directly updating it
+in the rockchip_rga structure. This is done in preparation for a
+multi-core support to check that cores with the same compatible share the
+same version.
 
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga.c | 22 +++++++++++++++++++---
- drivers/media/platform/rockchip/rga/rga.h |  1 +
- 2 files changed, 20 insertions(+), 3 deletions(-)
+ drivers/media/platform/rockchip/rga/rga-hw.c  | 10 +++++++---
+ drivers/media/platform/rockchip/rga/rga.c     |  2 +-
+ drivers/media/platform/rockchip/rga/rga.h     |  2 +-
+ drivers/media/platform/rockchip/rga/rga3-hw.c |  8 +++++---
+ 4 files changed, 14 insertions(+), 8 deletions(-)
 
+diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
+index 4d7b0a03820a1..190104f3b2954 100644
+--- a/drivers/media/platform/rockchip/rga/rga-hw.c
++++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+@@ -474,10 +474,14 @@ static bool rga_handle_irq(struct rockchip_rga *rga)
+ 	return intr & RGA_INT_COMMAND_FINISHED;
+ }
+ 
+-static void rga_get_version(struct rockchip_rga *rga)
++static struct rockchip_rga_version rga_get_version(struct rockchip_rga *rga)
+ {
+-	rga->version.major = (rga_read(rga, RGA_VERSION_INFO) >> 24) & 0xFF;
+-	rga->version.minor = (rga_read(rga, RGA_VERSION_INFO) >> 20) & 0x0F;
++	u32 version = rga_read(rga, RGA_VERSION_INFO);
++
++	return (struct rockchip_rga_version) {
++		.major = (version >> 24) & 0xFF,
++		.minor = (version >> 20) & 0x0F,
++	};
+ }
+ 
+ static struct rga_fmt formats[] = {
 diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index 9cebb461b3fd2..f00b7f99f2521 100644
+index 0eff558d7f133..b8edd3596c919 100644
 --- a/drivers/media/platform/rockchip/rga/rga.c
 +++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -38,15 +38,31 @@ static void device_run(void *prv)
- {
- 	struct rga_ctx *ctx = prv;
- 	struct rockchip_rga *rga = ctx->rga;
--	struct rga_core *core = rga->cores[0];
-+	struct rga_core *core = NULL;
- 	struct vb2_v4l2_buffer *src, *dst;
- 	unsigned long flags;
- 	int ret;
-+	unsigned int i;
-+
-+	spin_lock_irqsave(&rga->cores_lock, flags);
-+	for (i = 0; i < rga->num_cores; i++) {
-+		if (!rga->cores[i]->curr) {
-+			core = rga->cores[i];
-+			core->curr = ctx;
-+			break;
-+		}
-+	}
-+	spin_unlock_irqrestore(&rga->cores_lock, flags);
-+
-+	WARN_ONCE(!core, "No free core although max parallel jobs matches the core count!\n");
-+	if (!core)
-+		return;
+@@ -864,7 +864,7 @@ static int rga_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		goto rel_m2m;
  
- 	ret = pm_runtime_resume_and_get(core->dev);
- 	if (ret < 0) {
- 		v4l2_m2m_buf_done_and_job_finish(rga->m2m_dev, ctx->fh.m2m_ctx,
- 						 VB2_BUF_STATE_ERROR);
-+		core->curr = NULL;
- 		return;
- 	}
+-	rga->hw->get_version(rga);
++	rga->version = rga->hw->get_version(rga);
  
-@@ -58,8 +74,6 @@ static void device_run(void *prv)
- 	}
- 	spin_unlock_irqrestore(&rga->ctrl_lock, flags);
- 
--	core->curr = ctx;
--
- 	src = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
- 	src->sequence = ctx->osequence++;
- 
-@@ -946,6 +960,7 @@ static int rga_bind(struct device *dev)
- 		ret = PTR_ERR(rga->m2m_dev);
- 		goto rel_vdev;
- 	}
-+	v4l2_m2m_set_max_parallel_jobs(rga->m2m_dev, rga->num_cores);
- 
- 	ret = video_register_device(vfd, VFL_TYPE_VIDEO, -1);
- 	if (ret) {
-@@ -1021,6 +1036,7 @@ static int rga_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, -ENODEV, "failed to get match data\n");
- 
- 	spin_lock_init(&rga->ctrl_lock);
-+	spin_lock_init(&rga->cores_lock);
- 	mutex_init(&rga->mutex);
- 
- 	dev_set_drvdata(dev, rga);
+ 	v4l2_info(&rga->v4l2_dev, "HW Version: 0x%02x.%02x\n",
+ 		  rga->version.major, rga->version.minor);
 diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index 6237436b984eb..c0dfacdb6f212 100644
+index 0e62337f8dd38..0e854cdf739f4 100644
 --- a/drivers/media/platform/rockchip/rga/rga.h
 +++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -85,6 +85,7 @@ struct rockchip_rga {
- 	struct mutex mutex;
- 	/* ctrl parm lock */
- 	spinlock_t ctrl_lock;
-+	spinlock_t cores_lock;
+@@ -158,7 +158,7 @@ struct rga_hw {
+ 	void (*start)(struct rockchip_rga *rga,
+ 		      struct rga_vb_buffer *src, struct rga_vb_buffer *dst);
+ 	bool (*handle_irq)(struct rockchip_rga *rga);
+-	void (*get_version)(struct rockchip_rga *rga);
++	struct rockchip_rga_version (*get_version)(struct rockchip_rga *rga);
+ 	void *(*adjust_and_map_format)(struct rga_ctx *ctx,
+ 				       struct v4l2_pix_format_mplane *format,
+ 				       bool is_output);
+diff --git a/drivers/media/platform/rockchip/rga/rga3-hw.c b/drivers/media/platform/rockchip/rga/rga3-hw.c
+index 72741e1faccff..3469523a5ecad 100644
+--- a/drivers/media/platform/rockchip/rga/rga3-hw.c
++++ b/drivers/media/platform/rockchip/rga/rga3-hw.c
+@@ -299,12 +299,14 @@ static bool rga3_handle_irq(struct rockchip_rga *rga)
+ 	return FIELD_GET(RGA3_INT_FRM_DONE, intr);
+ }
  
- 	const struct rga_hw *hw;
+-static void rga3_get_version(struct rockchip_rga *rga)
++static struct rockchip_rga_version rga3_get_version(struct rockchip_rga *rga)
+ {
+ 	u32 version = rga_read(rga, RGA3_VERSION_NUM);
  
+-	rga->version.major = FIELD_GET(RGA3_VERSION_NUM_MAJOR, version);
+-	rga->version.minor = FIELD_GET(RGA3_VERSION_NUM_MINOR, version);
++	return (struct rockchip_rga_version) {
++		.major = FIELD_GET(RGA3_VERSION_NUM_MAJOR, version),
++		.minor = FIELD_GET(RGA3_VERSION_NUM_MINOR, version),
++	};
+ }
+ 
+ static struct rga3_fmt rga3_formats[] = {
 
 -- 
 2.54.0
