@@ -1,197 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1EF2EEE9E
-	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 13:46:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2624318A93F
+	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 13:48:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780667197; cv=none; b=HyTtOBOvr86+KHio2V75QtbO0POx4NfPNI+KvcCw8zg/taMa2vVz4SZ40jMAseH6goKxwLzP7yJADKEoXNyJE0k+L8Xd/6T9AZd8kSDe0lQE+kZkDxopujK2MNOXzdPz0KhI6wtj7t9PdA//cjZspxbg0tcWZzffWQOsZ5QdYIU=
+	t=1780667285; cv=none; b=XJ6Syvx4nSLoWaEKLNXSMYwq0z8XThK4VoZOH1loiTn3ZR7b+TRAWzTv3NwZAkkWiZ4MMKTqAq1HPlM/VOcza1qG8lKSfdaTuwpTkGAvZd/g8K8rFwqtUj942qSM82RaXlinW2VmAbmmvfI8GjWVGAwYyvAxbvV+bLJu8aKkVTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780667197; c=relaxed/simple;
-	bh=hazMjH21gzXsxR5LG/OTrpQAOiBsDu1Fdl437I7YAdI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Y6ICcQvxWavOfZ0ca03uy8x9YaxVlJfbBsiyZjn0b+GYgu4Fp6t7o3ga2V+9mfLVt+xlAx8gKonyjFruTpG0ARwUDa5+fEmIHTwUGuJPcSO7IAJD619rfffdmgFnVmbogncQmRiGq8PO2js+k2HO820GnzxxNeq3MfQS5FmaTZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dsGoe/F9; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dsGoe/F9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5A8A1F00893;
-	Fri,  5 Jun 2026 13:46:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780667194;
-	bh=fDg43M2B9PlNWHiDy1AMMtGyAjwDnQ27B4JUT5jEEZY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dsGoe/F9w9ptQ3CBgBk5aWhc6h4s3+Efel29SxbZNJ0/YLXAbkJ5seI4oKo3xxFiI
-	 pp5wRSpjhbHe7OwY+YUjs19bTbd7zsM9XIezIgihDOPb2dHYKBxrSS9ZmMLNN04LiG
-	 C1wSLLu6y5tXCJmg1aFOU7gNnYs/r4tAl0q3ctJ3xVVLfabIwKqQf3/ZyLQtqyytXb
-	 LBAwSwQ8aE/Xt6NreB+6dMKrHqHzP/qEgaWZJQhmFjw0yoY7fVxqP7FJoWFsWTNhVo
-	 WyeK9RujJycOvM5sK0hpIpMSBJzr/kuwUADvNx0HqAYfno9ETk6WrE4WJk5X2fvnIS
-	 WNUulBYdxdmlA==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 3/3] rust: rcu: Introduce RcuFreeBox
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Boqun Feng" <boqun@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, ojeda@kernel.org
-In-Reply-To: <20260605133541.22569-6-boqun@kernel.org>
-References: <20260605133541.22569-6-boqun@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 13:46:33 +0000
-Message-Id: <20260605134633.D5A8A1F00893@smtp.kernel.org>
+	s=arc-20240116; t=1780667285; c=relaxed/simple;
+	bh=jsU58i1TQ8GxtNs26qfV00swSBhq7f6YlSLTjWfxI1o=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HRLRSCC6+/B0oazY67A3T03Or7lagFQTImgLU5z5lxsXRZNi5Uod43eFPOVaIQV1lSjlwWFYo2kpuBfMeHNgeghHQZm8sHNvQTBOENFr6rbC9ILAQbJNaDSrFJoAI+ZcVs4CHXpIHlh8SyYpHMRRDSlrVa7fVhZ/UC9nV01HIzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <s.pueschel@pengutronix.de>)
+	id 1wVUee-0000cf-1N; Fri, 05 Jun 2026 15:32:08 +0200
+From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+Date: Fri, 05 Jun 2026 15:32:01 +0200
+Subject: [PATCH] media: rockchip: rga: don't change RGB quantization
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260605-spu-fixrga3quantization-v1-1-1059d984dc6e@pengutronix.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ6CMBAAv0L2bJMtxmr8ivGwlAXWQ8VuS4iEv
+ 7vqcZKZ2UA5Cytcmw0yL6LyTAb+0ECcKI3spDeGFtuAAU9O5+oGWfNIx1elVORNxRqHwcdz8OT
+ 7C4LVc2bTfufb/c9auwfH8t3Bvn8AsZjEBHsAAAA=
+X-Change-ID: 20260605-spu-fixrga3quantization-061c761a1d80
+To: Jacob Chen <jacob-chen@iotwrt.com>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Heiko Stuebner <heiko@sntech.de>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kernel@pengutronix.de, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Michael Tretter <m.tretter@pengutronix.de>, 
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+X-Mailer: b4 0.15.2
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [Critical] Pointer cast bypasses struct field offset, causing `drop_befor=
-e_gp` to operate on `rcu_head` instead of `value`.
-- [High] `RcuFreeBox::drop` creates a mutable reference (`&mut T`) before t=
-he RCU grace period elapses, violating Rust's strict aliasing rules.
-- [High] `RcuFreeBox` wraps `T` in `ManuallyDrop<T>`, bypassing its destruc=
-tor and creating an unresolvable leak or Use-After-Free dilemma.
-- [Low] Missing `#[inline]` annotations on small/forwarding functions in th=
-e new abstraction.
-- [Low] Multiple spelling errors in the code comments.
---
+Don't change the quantization of an RGB format when converting between
+RGB and YUV with the RGA3. As the RGA3 only supports doing conversions
+to full range YUV with BT601, it wants to announce it through
+try_fmt/s_fmt.
 
-commit 78e35ac6ad00fb0c6ab7802573453596f9ee6134
-Author: Boqun Feng <boqun@kernel.org>
+As it is only relevant, when converting between RGB and YUV, it's
+guarded by a given condition. But the condition also causes the
+RGB format quantization to be adjusted to limited range, which
+is incorrect.
 
-rust: rcu: Introduce RcuFreeBox
+Therefore simplify the condition to only apply when the current format
+is a YUV format. Also document the reason for checking if the other
+format is an RGB format.
 
-The current RcuBox calls the drop function after a grace period inside an R=
-CU
-callback. To support a pattern where an object is cleaned up, unshared, and
-freed after a grace period without readers, RcuFreeBox is introduced.
+Fixes: 24a63d4c9d3c ("media: rockchip: rga: add rga3 support")
+Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+---
+This patch is a fix to the upcoming RGA3 support. By mistake it'll also
+adjust the RGB quantization instead of only adjusting the quantization
+of the YUV formats. Therefore remove the incorrect conditions and
+document why we also check the format of the other side.
 
-> diff --git a/rust/kernel/sync/rcu/rcu_box.rs b/rust/kernel/sync/rcu/rcu_b=
-ox.rs
-> index 943fe3e8974e0..8f52bb472daf9 100644
-> --- a/rust/kernel/sync/rcu/rcu_box.rs
-> +++ b/rust/kernel/sync/rcu/rcu_box.rs
+I've just noticed this flawed condition and didn't check/reproduce it in
+a practical scenario.
 
-[ ... ]
+    v4l2-compliance 1.32.0, 64 bits, 64-bit time_t
+    ....
+    	Card type        : rga3
+    ...
+    Total for rockchip-rga device /dev/video0: 48, Succeeded: 48, Failed: 0, Warnings: 0
 
-> @@ -205,6 +207,50 @@ fn drop(&mut self) {
->      drop(unsafe { Box::<_, A>::from_raw(box_inner) });
->  }
-> =20
-> +/// A box that is freed with RCU.
-> +///
-> +/// Currently we require T being Send because of an implementation limit=
-ation. In theory we can
-> +/// support T being !Send, since the RCU callback is only used to free t=
-he memory, not dropping
-> +/// T.
-> +pub struct RcuFreeBox<T: Send + RcuFreeSafe, A: Allocator>(RcuBox<Manual=
-lyDrop<T>, A>);
-> +
-> +impl<T: Send + RcuFreeSafe, A: Allocator> RcuFreeBox<T, A> {
-> +    /// Create a new RcuFreeBox.
-> +    pub fn new(x: T, flags: alloc::Flags) -> Result<Self, AllocError> {
+    v4l2-compliance 1.32.0, 64 bits, 64-bit time_t
+    ...
+    	Card type        : rga2
+    ...
+    Total for rockchip-rga device /dev/video1: 48, Succeeded: 48, Failed: 0, Warnings: 0
+---
+ drivers/media/platform/rockchip/rga/rga3-hw.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-[Severity: Low]
-Does this function need an inline annotation? The Rust subsystem guidelines
-mention that small or forwarding functions in abstractions should be
-annotated with #[inline].
+diff --git a/drivers/media/platform/rockchip/rga/rga3-hw.c b/drivers/media/platform/rockchip/rga/rga3-hw.c
+index ca1c268303dd4..c4a71306278ba 100644
+--- a/drivers/media/platform/rockchip/rga/rga3-hw.c
++++ b/drivers/media/platform/rockchip/rga/rga3-hw.c
+@@ -450,10 +450,14 @@ static void *rga3_adjust_and_map_format(struct rga_ctx *ctx,
+ 	other_format = is_output ? &ctx->out.pix : &ctx->in.pix;
+ 	other_format_info = v4l2_format_info(other_format->pixelformat);
+ 
+-	if ((v4l2_is_format_rgb(format_info) &&
+-	     v4l2_is_format_yuv(other_format_info)) ||
+-	    (v4l2_is_format_yuv(format_info) &&
+-	     v4l2_is_format_rgb(other_format_info))) {
++	/*
++	 * Only apply the quantization restrictions when we need to
++	 * convert between RGB and YUV. Otherwise there is no point
++	 * to limit the quantization for operations like scaling or
++	 * rotations.
++	 */
++	if (v4l2_is_format_yuv(format_info) &&
++	    v4l2_is_format_rgb(other_format_info)) {
+ 		/*
+ 		 * The RGA3 only supports BT601, BT709 and BT2020 RGB<->YUV conversions
+ 		 * Additionally BT709 and BT2020 only support limited range YUV.
 
-> +        Ok(Self(RcuBox::new(ManuallyDrop::new(x), flags)?))
-> +    }
-> +
-> +    /// Access the value for a grace period.
-> +    pub fn with_rcu<'rcu>(&self, read_guard: &'rcu Guard) -> &'rcu T {
+---
+base-commit: 6a75e3d4f6428b90f398354212e3a2e0172851d6
+change-id: 20260605-spu-fixrga3quantization-061c761a1d80
 
-[Severity: Low]
-Should this small forwarding function also have an #[inline] annotation?
+Best regards,
+--  
+Sven Püschel <s.pueschel@pengutronix.de>
 
-> +        self.0.with_rcu(read_guard)
-> +    }
-> +}
-> +
-> +impl<T: Send + RcuFreeSafe, A: Allocator> Deref for RcuFreeBox<T, A> {
-> +    type Target =3D T;
-> +
-> +    fn deref(&self) -> &T {
-
-[Severity: Low]
-Would an #[inline] annotation be appropriate for this Deref implementation
-as well, since it is a simple forwarding call?
-
-> +        self.0.deref()
-> +    }
-> +}
-> +
-> +impl<T: Send + RcuFreeSafe, A: Allocator> Drop for RcuFreeBox<T, A> {
-> +    fn drop(&mut self) {
-> +        // CAST: ManuallyDrop<T> is transparet to T, adn RcuBox owns the=
- object per type
-
-[Severity: Low]
-There are a couple of typos here: transparet instead of transparent, and adn
-instead of and.
-
-> +        // invariants.
-> +        let ptr =3D self.0 .0.as_ptr().cast::<T>();
-
-[Severity: Critical]
-Is this pointer cast skipping the struct field offset?
-
-self.0.0.as_ptr() returns a pointer to RcuBoxInner<ManuallyDrop<T>>. The
-RcuBoxInner struct starts with an rcu_head field, meaning the actual value
-field is located at a non-zero offset.
-
-Casting this pointer directly to *mut T will point to the rcu_head memory
-instead of the value.
-
-Could calling drop_before_gp() on this pointer corrupt memory by treating
-the internal rcu_head structure bytes as if they were of type T?
-
-> +
-> +        // SAFETY: Per the invariants of RcuBox, ptr owns the pointed ob=
-ject. And we are not
-> +        // going to move it.
-> +        let pin =3D unsafe { Pin::new_unchecked(&mut *ptr) };
-
-[Severity: High]
-Does creating a mutable reference here violate Rust's strict aliasing rules?
-
-When an RcuFreeBox is dropped, it is typically removed from the shared data
-structure, but the RCU grace period has not yet elapsed. Concurrent readers
-might still hold shared references (&T) obtained via with_rcu.
-
-Creating an exclusive mutable reference (&mut T) using Pin::new_unchecked
-while shared references may still exist is immediate undefined behavior in
-Rust.
-
-> +
-> +        pin.drop_before_gp();
-> +
-> +        // needs_drop::<ManuallyDrop>() returns false, hence kvfree_call=
-_rcu() will be called
-
-[Severity: High]
-Could bypassing the destructor using ManuallyDrop<T> create an unresolvable
-leak or use-after-free regression?
-
-Since needs_drop::<ManuallyDrop<T>>() evaluates to false, it skips dropping
-the internals of T. If T holds owned resources like a Box or Vec, they are
-never freed after the grace period, which leaks memory.
-
-Conversely, if a user tries to work around this by manually freeing
-resources inside drop_before_gp(), could that trigger a use-after-free
-since drop_before_gp() runs before the RCU grace period ends while
-concurrent readers might still be accessing those resources?
-
-> +        // and free the underlying data after a gracer period.
-
-[Severity: Low]
-There is a typo here: gracer instead of grace.
-
-> +    }
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605133541.2256=
-9-1-boqun@kernel.org?part=3D3
