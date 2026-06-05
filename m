@@ -1,27 +1,26 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B80478E5A
-	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 22:08:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E70B3D3309
+	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 22:08:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780697322; cv=none; b=LpEUErcrfakA4OxGygl06+qIyoI+5gUM7j/uw2rQPb/7etQSTtGMIVevqWIBNJWP5erPD+2UAhpUoofJjTtTjPXthUdrNggd8pY1aS6hIVmljsugAYy1LBKl2LSZVeUcyxIzSakN9YZSVvyJA9a5gRvTUdKE93Dm3LQH9he9yeY=
+	t=1780697326; cv=none; b=pakmgL3gMdHgIUouJZGX3FJu5JKvbwCR5goxSk4HEd8nFFkF9T2UuzeqMCsBrxSKuB/f8xv+lyCWehKzAHvGKbaYbQpF+lFyYCz2w+nNSG7w4PwbBqXm4oTgxU9V5vDxvcLxros0SI7l6m8tNcdGBGezo5xVsuMuwLaeKEaAwVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780697322; c=relaxed/simple;
-	bh=nXnXuEGMvyXGosVUqwEHGnlF3tbPuC8XpDqtbSxS2Is=;
+	s=arc-20240116; t=1780697326; c=relaxed/simple;
+	bh=jokZ9HIT0lQTeiUZfc/dC/sOfCnzr6DFkhp0cado/e4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=W4JM7p+VgULWpk9wtbAQQgRr9H1nui6+i+0ZdFUO1mX+V2aaNaPAjaIv/QouAdIgR2RBxYr+WMvSzmOYAPFhkozxz9fkiopgiL6SYk+d0l1CRFyxAtYA28MDYwfB/C0Je6BGpFrpns4AXbXEbYZ4qGUbqPhI4WBo+O8aErUsP3U=
+	 In-Reply-To:To:Cc; b=PDBgjwz7ez+0iAlrzi4KevanPfYIv3mVzXWjjYInvpT++1XBa6eShsnOSlmbT6DfGn9lbkmAEpuLCPg5bB9s7MNfIkDtXOTnlQn2gRfLv3ApykPCu6NkGOdfC2A13HBmopeifXaSGvpM0qGss8n5PGzBuGXl0ZhNjjOZXh5dLXg=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wVci6-0000LW-2z; Sat, 06 Jun 2026 00:08:14 +0200
+	id 1wVciG-0000LW-Mz; Sat, 06 Jun 2026 00:08:24 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Sat, 06 Jun 2026 00:06:53 +0200
-Subject: [PATCH 07/17] media: rockchip: rga: adjust get_version to return
- the version
+Date: Sat, 06 Jun 2026 00:07:03 +0200
+Subject: [PATCH 17/17] iommu/rockchip: disable fetch dte time limit
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -30,7 +29,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260606-spu-rga3multicore-v1-7-3ec2b15675f7@pengutronix.de>
+Message-Id: <20260606-spu-rga3multicore-v1-17-3ec2b15675f7@pengutronix.de>
 References: <20260606-spu-rga3multicore-v1-0-3ec2b15675f7@pengutronix.de>
 In-Reply-To: <20260606-spu-rga3multicore-v1-0-3ec2b15675f7@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -41,96 +40,101 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  kernel@pengutronix.de, Detlev Casanova <detlev.casanova@collabora.com>, 
  Michael Tretter <m.tretter@pengutronix.de>, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
+ Simon Xue <xxm@rock-chips.com>, Joerg Roedel <joerg.roedel@amd.com>
 X-Mailer: b4 0.15.2
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Adjust get_version to return the version instead of directly updating it
-in the rockchip_rga structure. This is done in preparation for a
-multi-core support to check that cores with the same compatible share the
-same version.
+From: Simon Xue <xxm@rock-chips.com>
 
+Disable the Bit 31 of the AUTO_GATING iommu register, as it causes
+hangups with the RGA3 (Raster Graphics Acceleration 3) peripheral.
+The RGA3 register description of the TRM already states that the bit
+must be set to 1. The vendor kernel sets the bit unconditionally to
+1 to fix VOP (Video Output Processor) screen black issues. This patch
+squashes the 2 vendor kernel commits with the following commit messages:
+
+Master fetch data and cpu update page table may work in parallel, may
+have the following procedure:
+
+	master                  cpu
+	fetch dte               update page tabl
+	        |                       |
+	(make dte invalid)  <-  zap iotlb entry
+	        |                       |
+	fetch dte again
+	(make dte invalid)  <-  zap iotlb entry
+	        |                       |
+	fetch dte again
+	(make dte invalid)  <-  zap iotlb entry
+	        |                       |
+	fetch dte again
+	(make iommu block)  <-  zap iotlb entry
+
+New iommu version has the above bug, if fetch dte consecutively four
+times, then it will be blocked. Fortunately, we can set bit 31 of
+register MMU_AUTO_GATING to 1 to make it work as old version which does
+not have this issue.
+
+This issue only appears on RV1126 so far, so make a workaround dedicated
+to "rockchip,rv1126" machine type.
+
+iommu/rockchip: fix vop blocked and screen black on RK356X and RK3588
+
+RK3568 and RK3588 has the same issue as RV1126/RV1109 that caused by
+dte fetch time limit, So we can set BIT(31) of register 0x24 default
+to 1 as a workaround.
+
+Signed-off-by: Simon Xue <xxm@rock-chips.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+Acked-by: Heiko Stuebner <heiko@sntech.de>
+Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
 ---
- drivers/media/platform/rockchip/rga/rga-hw.c  | 10 +++++++---
- drivers/media/platform/rockchip/rga/rga.c     |  2 +-
- drivers/media/platform/rockchip/rga/rga.h     |  2 +-
- drivers/media/platform/rockchip/rga/rga3-hw.c |  8 +++++---
- 4 files changed, 14 insertions(+), 8 deletions(-)
+(cherry picked from commit 8d4346ecd4950ae08cc76a6de327c264e846758c)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
-index 4d7b0a03820a1..190104f3b2954 100644
---- a/drivers/media/platform/rockchip/rga/rga-hw.c
-+++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-@@ -474,10 +474,14 @@ static bool rga_handle_irq(struct rockchip_rga *rga)
- 	return intr & RGA_INT_COMMAND_FINISHED;
- }
+picked from the next branch of
+https://git.kernel.org/pub/scm/linux/kernel/git/iommu/linux.git
+for a convenient usage of the patches.
+---
+ drivers/iommu/rockchip-iommu.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iommu.c
+index 0013cf196c573..87ae036d64145 100644
+--- a/drivers/iommu/rockchip-iommu.c
++++ b/drivers/iommu/rockchip-iommu.c
+@@ -76,6 +76,8 @@
+ #define SPAGE_ORDER 12
+ #define SPAGE_SIZE (1 << SPAGE_ORDER)
  
--static void rga_get_version(struct rockchip_rga *rga)
-+static struct rockchip_rga_version rga_get_version(struct rockchip_rga *rga)
- {
--	rga->version.major = (rga_read(rga, RGA_VERSION_INFO) >> 24) & 0xFF;
--	rga->version.minor = (rga_read(rga, RGA_VERSION_INFO) >> 20) & 0x0F;
-+	u32 version = rga_read(rga, RGA_VERSION_INFO);
++#define DISABLE_FETCH_DTE_TIME_LIMIT BIT(31)
 +
-+	return (struct rockchip_rga_version) {
-+		.major = (version >> 24) & 0xFF,
-+		.minor = (version >> 20) & 0x0F,
-+	};
- }
+  /*
+   * Support mapping any size that fits in one page table:
+   *   4 KiB to 4 MiB
+@@ -930,6 +932,7 @@ static int rk_iommu_enable(struct rk_iommu *iommu)
+ 	struct iommu_domain *domain = iommu->domain;
+ 	struct rk_iommu_domain *rk_domain = to_rk_domain(domain);
+ 	int ret, i;
++	u32 auto_gate;
  
- static struct rga_fmt formats[] = {
-diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index 0eff558d7f133..b8edd3596c919 100644
---- a/drivers/media/platform/rockchip/rga/rga.c
-+++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -864,7 +864,7 @@ static int rga_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		goto rel_m2m;
+ 	ret = clk_bulk_enable(iommu->num_clocks, iommu->clocks);
+ 	if (ret)
+@@ -948,6 +951,11 @@ static int rk_iommu_enable(struct rk_iommu *iommu)
+ 			       rk_ops->mk_dtentries(rk_domain->dt_dma));
+ 		rk_iommu_base_command(iommu->bases[i], RK_MMU_CMD_ZAP_CACHE);
+ 		rk_iommu_write(iommu->bases[i], RK_MMU_INT_MASK, RK_MMU_IRQ_MASK);
++
++		/* Workaround for iommu blocked, BIT(31) default to 1 */
++		auto_gate = rk_iommu_read(iommu->bases[i], RK_MMU_AUTO_GATING);
++		auto_gate |= DISABLE_FETCH_DTE_TIME_LIMIT;
++		rk_iommu_write(iommu->bases[i], RK_MMU_AUTO_GATING, auto_gate);
+ 	}
  
--	rga->hw->get_version(rga);
-+	rga->version = rga->hw->get_version(rga);
- 
- 	v4l2_info(&rga->v4l2_dev, "HW Version: 0x%02x.%02x\n",
- 		  rga->version.major, rga->version.minor);
-diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index 0e62337f8dd38..0e854cdf739f4 100644
---- a/drivers/media/platform/rockchip/rga/rga.h
-+++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -158,7 +158,7 @@ struct rga_hw {
- 	void (*start)(struct rockchip_rga *rga,
- 		      struct rga_vb_buffer *src, struct rga_vb_buffer *dst);
- 	bool (*handle_irq)(struct rockchip_rga *rga);
--	void (*get_version)(struct rockchip_rga *rga);
-+	struct rockchip_rga_version (*get_version)(struct rockchip_rga *rga);
- 	void *(*adjust_and_map_format)(struct rga_ctx *ctx,
- 				       struct v4l2_pix_format_mplane *format,
- 				       bool is_output);
-diff --git a/drivers/media/platform/rockchip/rga/rga3-hw.c b/drivers/media/platform/rockchip/rga/rga3-hw.c
-index 72741e1faccff..3469523a5ecad 100644
---- a/drivers/media/platform/rockchip/rga/rga3-hw.c
-+++ b/drivers/media/platform/rockchip/rga/rga3-hw.c
-@@ -299,12 +299,14 @@ static bool rga3_handle_irq(struct rockchip_rga *rga)
- 	return FIELD_GET(RGA3_INT_FRM_DONE, intr);
- }
- 
--static void rga3_get_version(struct rockchip_rga *rga)
-+static struct rockchip_rga_version rga3_get_version(struct rockchip_rga *rga)
- {
- 	u32 version = rga_read(rga, RGA3_VERSION_NUM);
- 
--	rga->version.major = FIELD_GET(RGA3_VERSION_NUM_MAJOR, version);
--	rga->version.minor = FIELD_GET(RGA3_VERSION_NUM_MINOR, version);
-+	return (struct rockchip_rga_version) {
-+		.major = FIELD_GET(RGA3_VERSION_NUM_MAJOR, version),
-+		.minor = FIELD_GET(RGA3_VERSION_NUM_MINOR, version),
-+	};
- }
- 
- static struct rga3_fmt rga3_formats[] = {
+ 	ret = rk_iommu_enable_paging(iommu);
 
 -- 
 2.54.0
