@@ -1,135 +1,196 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D35332B99E
-	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 22:20:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F76935E1B8
+	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 22:20:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780698013; cv=none; b=cdlKCccA/rEkoENSUcs71k322RPUnDR1GWHhTmKujSWXZIKu14lh6QFMZWRTKi1NvnswJfy7Y3LMH6nWGKdc5S5byk4uqwW+9b0YnLjlW59U/yd9/19dm8JUFbA9I2Et3ADaGvUpbDX06h0iXpbL96ycrBnRo0aJIgOdkhInfto=
+	t=1780698018; cv=none; b=sNu7jKLlnlYUa83VJcIcX2UtZmzfCcQT6dcS3hP80V3Dm/KHDVeynKH9WsxKT/cX4I3wZBJgz27Fi8tCjMHEogtl3BeuCvgbDETnxN7pzWrsmIs8XnaPaCqr31ZJOSlJZj8IqF6+SlB1wSi39ryTpxW0mo9yThgJ9GB15Zu8zvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780698013; c=relaxed/simple;
-	bh=/fJR9ObIjB90E/QkVHybSi2y1A5XCak5hCNjolyBIsI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JDDmren0mqJX9wkQeUNH+O9Vb7oraJE7a2PPF+4hfRI3ZIJOK2FIfiE3Tl555cQeXtWL9D4nwFIxZE05sneelw2DH4FSBLVGZ2VI3TsO1ZJytD9ip06kIxTHMrhDQjGCRU5jVNM2ck2HlRVokbOctcynPLub8w8aU4NdD+wVi40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=v9qFIcGf; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1780698018; c=relaxed/simple;
+	bh=sDWtZ/NnsTwLfnf8R5SJiBl7HxoCwLbTgjyrKEqm5EU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LdDxgS4k5g+8zgWK1iXaK9WB2weZw/Gg/JqiqUAfvE5u92b8ss+EIr40nd2XhackrSqH+acQG3vaDy1dCS2n0KvAouDJ07giuEzbjvMT4XOSpA3BJAULFB8BUd+r7SgbEufDqLmCNnVoshV3Dlzz3jlZOSALNeXul4z8XUnzHiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xgdo5/O8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="v9qFIcGf"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4602e2a0372so1509714f8f.3
-        for <linux-media@vger.kernel.org>; Fri, 05 Jun 2026 15:20:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780698011; x=1781302811; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=p/HB8G1yTQPOAvgzKZeKYVge98Lt9ZnLKHPu1l7zZb4=;
-        b=v9qFIcGf3AzlWTMlJODbm2DBzIdu3pdSB9KlLvoOgaTA8nN64Jb61RDdKdVCLNgnlM
-         aCDmRUI/U0Ee5CwyRPjMDWUvAliXoPY3dLNnLzswOQGKmxsaS9bWrwleM9TzZt5WfgV3
-         cmJc5xsjyi4QT9RQC03L2Boxtr1yu/xacJ36vkGXcKV30BA4oRpCHJojx/pNdDyrP7Nq
-         NTKAv9ZXSJB4H5gPlX0xc4QfP5CTwI83/Fy0A+5V9skGxkDCHOjRjPOm9gmxz5LRWKUw
-         OoAqeGVMiO7VRAt3p+7mhdL4VMqOps2D+kBzKZQH/ijRjkXOSV28ciC4NvxcZlkfK9Jy
-         lc2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780698011; x=1781302811;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=p/HB8G1yTQPOAvgzKZeKYVge98Lt9ZnLKHPu1l7zZb4=;
-        b=JIKLGgtlrZEXztduXu6p6SV+vLlashkdGaWdt5na1+9hNpzPJaWIcBr5DFMqlywwGR
-         Z3MVRV4/SvUch+XuLmSLW2tKeBPNs9tEvuua0wddv6yLt+8DJaGor+iGNCjL6SI9y0ym
-         zCfRpM1TKIOZ0fzFFJSyXqpPOQqGXHCz/m/k0akunnO+mArUZYsb3ipcDEeiYHq7Jcy5
-         ZDtBP8N+QgOR3FIPGCPivSYMYB1OqxiBhvQxoUn66iJlaEhzMn4+YoztsYdTAuBQtBx0
-         iL1svr+91DIl8VDK+xtdorO762O18OzRY1q2D8DiQlNUJPnj9B2AgRAixdj9iL6LBTbo
-         Jrpg==
-X-Forwarded-Encrypted: i=1; AFNElJ8bjmos3EmWRUgXAw4HZ3WbZr7/SSdzW2P7D+RevmIog8CuxHMG8lFGGznH1wc1UUCCyDkOBWDIbjH+vA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxDeNy3P4US30qcXxKnSz7zTsZEDvr9lAzRSjFLt8i4dYlPDbJ0
-	dbjvanuTXLW7/uuSg02IpI5popnTMM7G4Spml5LHa9HYdUw6oVhdUqEdnLjTOqo02Jc=
-X-Gm-Gg: Acq92OG4p3ltJHPYXL43fSZl/jlp0V8bQCJdTKSnSlhyZcNHivNQBNHZ0dNNo3/Dm1P
-	zX4U31oVuorRAk7aejwb5LstWrwpZINL4pYHJSC1pSGN2uMCm9V5qb4JuueJ76ZsgN8nqsk6lAB
-	4b9VCJl+Y4RqxtviCxNBe0HQEuFwCOYEvfOfiwM+htLek3lKhKSjtVLGBd2SD/35hzQ6mUT3z8o
-	7TECxywCeXUoebkqAspUw/KUv2ar95/cZyFyTayWSmblYlqBDmaBAHDlqQamQcrSc7+0HJtm0bY
-	gwMFvAsOFzUhjMUAW0CW5C06GgXJIdSckdyleYpzTpTxlBrDjWu2ngb3+q3mDU4CjcH34VMsA1z
-	0dqDUahL8h40Yv+aMj4SEIRvYkL4/rBsflCecP2smo4uCsYkNms8gEYnJDkgXTa5xL+b15XoJPG
-	DJW9GraF6OqW8hLNPbJJYO5RQPPCh9oHDLOHnjN3Tygml/
-X-Received: by 2002:adf:e743:0:b0:45e:f1c5:709 with SMTP id ffacd0b85a97d-4603076cb46mr6547079f8f.37.1780698010560;
-        Fri, 05 Jun 2026 15:20:10 -0700 (PDT)
-Received: from [192.168.0.101] ([109.77.32.74])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f351d40sm28849253f8f.26.2026.06.05.15.20.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 05 Jun 2026 15:20:09 -0700 (PDT)
-Message-ID: <87ed4bcc-aa66-4a1f-becc-7fce1fe795c1@linaro.org>
-Date: Fri, 5 Jun 2026 23:20:06 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xgdo5/O8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84C581F00893;
+	Fri,  5 Jun 2026 22:20:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780698016;
+	bh=sl08Apc0ZHFfu7c1F4x437umL1bF/bV9KRv8iqVxsEM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Xgdo5/O8Al4xv5cp5Ayn7fSfEwi6AZsB0YIbLZ5oH/i8TlhRAsWrCfOgG6S+ha6kj
+	 l+rW9/P+HLTMas/DRepuBJ8kBqyA4JqxVrO99TCKVUJo0tvlAqi7U/Q008zt05N3gs
+	 NYl/Ug1M2TiQAW9eg61ojoNlJ+YhOSQH6YDSxmPAZzsGyufKDobFAMsZBCAaFE6emf
+	 18dsBO+X1brk91NqlcKYyU6eE6jpuI5Uc8XuHEtkKC6R98IFs354Js73J7/ezl/EQg
+	 FkvtqMyMGY+j366uS40SByoBG2cWxehsAejiXvqsg9KETxDfZ7NJYdAXRpN2iiOBEC
+	 ZTYm/Qbkyjn2w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 12/17] media: rockchip: rga: move core initialization
+ from bind to probe
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?U3ZlbiBQw7xzY2hlbA==?= <s.pueschel@pengutronix.de>
+Cc: linux-media@vger.kernel.org
+In-Reply-To: <20260606-spu-rga3multicore-v1-12-3ec2b15675f7@pengutronix.de>
+References: <20260606-spu-rga3multicore-v1-12-3ec2b15675f7@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 05 Jun 2026 22:20:16 +0000
+Message-Id: <20260605222016.84C581F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 5/8] media: qcom: camss: csiphy-3ph: Add Gen2 v1.1 MIPI
- CSI-2 C-PHY init
-To: Michael Srba <Michael.Srba@seznam.cz>, Bryan O'Donoghue <bod@kernel.org>,
- Frank Li <Frank.li@nxp.com>, David Heidelberg <david@ixit.cz>
-Cc: Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Luca Weiss <luca.weiss@fairphone.com>, Petr Hodina <phodina@protonmail.com>,
- "Dr. Git" <drgitx@gmail.com>, Cory Keitz <ckeitz@amazon.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Kieran Bingham <kbingham@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260603-qcom-cphy-v6-0-e50de0b557a8@ixit.cz>
- <20260603-qcom-cphy-v6-5-e50de0b557a8@ixit.cz>
- <8azU3NvUdGCvWCxLb0gz7FWkTGFL4k_xiBUPp170jiYIQjwHyRqynP_oLG4pjFkIRSY_bo91FQh9ECYlXdXrsw==@protonmail.internalid>
- <aiCiVe_LRA4DXTCL@lizhi-Precision-Tower-5810>
- <8b9f8754-48da-4b61-84b8-3688520c7f63@kernel.org>
- <c7f35621-2bdb-4e66-ac8a-6c7fc6f80f1c@seznam.cz>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <c7f35621-2bdb-4e66-ac8a-6c7fc6f80f1c@seznam.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 05/06/2026 15:47, Michael Srba wrote:
->> So, hex values from downstream in this case are acceptable.
->>
->> OTOH vendors can and should enumerate their registers in an upstream 
->> submission.
-> I thought this was the policy indeed, but this made me wonder if ALL the 
-> magic numbers
-> in that file were added by volunteers. And weirdly I found this:
-> https://github.com/torvalds/linux/ 
-> commit/7803b63a1640a0a39e3ebad487b33cb2d26e778b
-> and possibly some other commits look like they were made by people on 
-> Qualcomm's
-> payroll. This specifically is QUIC, and idk how much documentation 
-> access they have,
-> but at minimum I assume they had access to the CTRLn register names? 
-> (fwiw it's entirely
-> plausible that the registers don't actually *have* better names).
-> 
-> I didn't follow the relevant ML discussions, but it seems to me like 
-> they should've
-> been told to document the registers?
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
 
-"That money was just resting in my account"
+New issues:
+- [High] NULL pointer dereference in `rga_isr()` due to early shared IRQ re=
+gistration.
+- [Medium] Missing `pm_runtime_disable()` on `component_add()` error path.
 
-There's alot of technical debt to digest, which I think should be solved 
-in the new PHY API driver.
+Pre-existing issues:
+- [High] Unprotected hardware access in shared interrupt handler.
+- [High] Missing `synchronize_irq()` in runtime suspend for shared IRQs.
+- [High] Use-After-Free when the master device is unbound.
+- [High] Missing NULL check for `devm_kzalloc` allocation.
+--
 
-- Move to new driver
-- Start enumerating registers correctly
-- Transition to QMP PHY levels of lane config instead of long lists
-   of "mission mode" writes.
+commit 8a3476b206ac8426da5cf08410222d4a74238c92
+Author: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
 
-If you ever rent a car in Ireland and get lost, you might ask a local 
-"how do I get to Tip from here" and we'd scratch our heads under a flat 
-cap and say something like "ah well shure, I wouldn't start from here" ;)
+media: rockchip: rga: move core initialization from bind to probe
 
----
-bod
+This commit moves the core initialization from the core binding function to
+the core probing function to better match the actual initialization sequenc=
+e.
+
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
+atform/rockchip/rga/rga.c
+> index 952377ae467f5..0413b8518dfc8 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+
+[ ... ]
+
+> @@ -740,21 +740,49 @@ static int rga_parse_dt(struct rga_core *core)
+> =20
+>  static int rga_core_probe(struct platform_device *pdev)
+>  {
+>  	struct rga_core *core;
+>  	const struct rga_hw *hw;
+>  	int ret =3D 0;
+>  	int irq;
+> =20
+>  	if (!pdev->dev.of_node)
+>  		return -ENODEV;
+> =20
+> +	hw =3D of_device_get_match_data(&pdev->dev);
+> +	if (!hw)
+> +		return dev_err_probe(&pdev->dev, -ENODEV, "failed to get match data\n"=
+);
+> +
+>  	core =3D devm_kzalloc(&pdev->dev, sizeof(*core), GFP_KERNEL);
+> -	core->rga =3D rga;
+>  	core->dev =3D &pdev->dev;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this devm_kzalloc()
+allocation need a null pointer check?
+
+If the allocation fails under memory pressure, the immediate assignment to
+core->dev =3D &pdev->dev will cause a null pointer dereference.
+
+[ ... ]
+
+> @@ -775,7 +803,7 @@ static int rga_core_bind(struct device *dev, struct d=
+evice *master, void *data)
+>  	}
+> =20
+>  	ret =3D devm_request_irq(core->dev, irq, rga_isr,
+> -			       rga_has_internal_iommu(rga) ? 0 : IRQF_SHARED,
+> +			       hw->has_internal_iommu ? 0 : IRQF_SHARED,
+>  			       dev_name(core->dev), core);
+
+[Severity: High]
+Since devm_request_irq() is now called here in rga_core_probe(), could this
+trigger an early null pointer dereference in rga_isr()?
+
+When hw->has_internal_iommu is false, the interrupt is registered as
+IRQF_SHARED. For shared interrupts, the handler can be invoked immediately =
+by
+another device sharing the line. However, core->rga is not initialized until
+rga_core_bind() runs later.
+
+If the interrupt service routine fires early, it will evaluate
+rga->hw->handle_irq(core) and unconditionally dereference the null core->rga
+pointer.
+
+[Severity: High]
+This is a pre-existing issue, but does the shared interrupt handler safely
+access hardware registers?
+
+Because rga_isr() is registered as IRQF_SHARED, it can be invoked by another
+device while this device is runtime-suspended and unclocked. The handler
+unconditionally calls rga->hw->handle_irq(core), which accesses registers.
+Reading powered-off registers typically causes a synchronous external abort.
+
+Should the interrupt service routine use pm_runtime_get_if_active() before
+accessing registers?
+
+[Severity: High]
+This is another pre-existing issue related to the shared interrupt, but is
+there a missing synchronize_irq() in the runtime suspend path?
+
+In rga_runtime_suspend(), clocks are disabled without synchronizing the
+interrupt. If an interrupt fires on another CPU just before clocks are
+disabled, the handler could actively read registers exactly when the hardwa=
+re
+is powered down.
+
+[Severity: High]
+This is a pre-existing issue, but could tying the shared interrupt to the
+core device lifetime cause a use-after-free when the master device is
+unbound?
+
+The shared interrupt is requested via devm_request_irq(core->dev, ...). When
+the master device is unbound, its rga structure is freed. Since the core
+device is not removed during unbind, the devm-managed interrupt is not free=
+d,
+leaving the shared handler active.
+
+A subsequent interrupt will execute rga_isr(), which dereferences the
+freed core->rga pointer.
+
+[ ... ]
+
+> @@ -833,11 +825,20 @@ static int rga_core_probe(struct platform_device *p=
+dev)
+> =20
+>  	ret =3D component_add(&pdev->dev, &rga_core_ops);
+>  	if (ret < 0) {
+>  		dev_err(&pdev->dev, "failed to register component: %d", ret);
+>  		return ret;
+>  	}
+
+[Severity: Medium]
+If component_add() fails, does this bypass the pm_runtime_disable() cleanup
+at the err_put_clk label?
+
+Returning directly instead of using a goto would leak the device's Runtime
+PM usage counter.
+
+>  	return 0;
+> +
+> +err_put_clk:
+> +	pm_runtime_disable(core->dev);
+> +
+> +	return ret;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606-spu-rga3mu=
+lticore-v1-0-3ec2b15675f7@pengutronix.de?part=3D12
