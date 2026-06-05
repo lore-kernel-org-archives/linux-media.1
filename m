@@ -1,124 +1,139 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2624318A93F
-	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 13:48:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5097440E8DB
+	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 13:49:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780667285; cv=none; b=XJ6Syvx4nSLoWaEKLNXSMYwq0z8XThK4VoZOH1loiTn3ZR7b+TRAWzTv3NwZAkkWiZ4MMKTqAq1HPlM/VOcza1qG8lKSfdaTuwpTkGAvZd/g8K8rFwqtUj942qSM82RaXlinW2VmAbmmvfI8GjWVGAwYyvAxbvV+bLJu8aKkVTs=
+	t=1780667377; cv=none; b=sX1d8aRLsNFuJv0e5sL8LYlzkV73ppPTCPw2j0FPf4ScZrerGKxEbiL9u1jEv8hAd2T0lklqULktqCwTXV7Iachby/NOlCXi9oW9LyNv43pEb/WFJ4olL1BbtfjC4v5JC455h0pDlabtkmIDEYU+BBVXejNQYjQfKH+Pdwqqhnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780667285; c=relaxed/simple;
-	bh=jsU58i1TQ8GxtNs26qfV00swSBhq7f6YlSLTjWfxI1o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HRLRSCC6+/B0oazY67A3T03Or7lagFQTImgLU5z5lxsXRZNi5Uod43eFPOVaIQV1lSjlwWFYo2kpuBfMeHNgeghHQZm8sHNvQTBOENFr6rbC9ILAQbJNaDSrFJoAI+ZcVs4CHXpIHlh8SyYpHMRRDSlrVa7fVhZ/UC9nV01HIzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wVUee-0000cf-1N; Fri, 05 Jun 2026 15:32:08 +0200
-From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Fri, 05 Jun 2026 15:32:01 +0200
-Subject: [PATCH] media: rockchip: rga: don't change RGB quantization
+	s=arc-20240116; t=1780667377; c=relaxed/simple;
+	bh=KTXS4bSniXv1T9Lpl7LThf2fu0ztGfgBSEx3Oe+rZRk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NaWlmh2fKWLjaplrqejUQ2lf1tnad+t0u+6p4Tg4+6qLE1PlXlbU1s+gsHclg+vqxDggRNClk+xdcuDrHehHgivOa/bk6L7EuJZafF3rLnkUkSf2eiYkyu1cvxBWHe0lLiY9Wffg6ZbCZFvIDQGJyEsYhekAwnpu0OHCObs6eAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RfJBG7+A; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RfJBG7+A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6C0E1F00893;
+	Fri,  5 Jun 2026 13:49:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780667375;
+	bh=NOPCHrzvq5CVQ0Mcn5Bk28yhps2kKyAdDW4GC+Kd1wE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RfJBG7+AKc4vFm0yolWSn6ut3MzqJ/i+zK+QagG1WD0OEeDNux64PFP5Fjr352I/9
+	 UehLP4Ft8uwgK9MlwAJ9OgwBflybZZb0Ze/yVgJ+7pL6wyGPWQhDjmF6DCcvFAB9i6
+	 9Ckn00rSWP8DeR+gT43utpRsc15S1bzR3mKGH/PgqThZtME/ifD0O3/1PvFkP5Jwg4
+	 GwZxrIyac14aj8wmhjJ5TRPK8/8BVhOGYtfCLYOqAbi9hp7iDsW7Tqf8dcQ3NxI10a
+	 5+P3w/0fQzjbBslaXhd6dpXvI4ZpebxeplcOrOjQuKihM27qkIjP87/yZDukz46deT
+	 X7KIXbdh15W+g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] rust: rcu: add RcuBox type
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Boqun Feng" <boqun@kernel.org>
+Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org
+In-Reply-To: <20260605133541.22569-2-boqun@kernel.org>
+References: <20260605133541.22569-2-boqun@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 05 Jun 2026 13:49:35 +0000
+Message-Id: <20260605134935.B6C0E1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260605-spu-fixrga3quantization-v1-1-1059d984dc6e@pengutronix.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ6CMBAAv0L2bJMtxmr8ivGwlAXWQ8VuS4iEv
- 7vqcZKZ2UA5Cytcmw0yL6LyTAb+0ECcKI3spDeGFtuAAU9O5+oGWfNIx1elVORNxRqHwcdz8OT
- 7C4LVc2bTfufb/c9auwfH8t3Bvn8AsZjEBHsAAAA=
-X-Change-ID: 20260605-spu-fixrga3quantization-061c761a1d80
-To: Jacob Chen <jacob-chen@iotwrt.com>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- kernel@pengutronix.de, Philipp Zabel <p.zabel@pengutronix.de>, 
- Michael Tretter <m.tretter@pengutronix.de>, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-X-Mailer: b4 0.15.2
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Don't change the quantization of an RGB format when converting between
-RGB and YUV with the RGA3. As the RGA3 only supports doing conversions
-to full range YUV with BT601, it wants to announce it through
-try_fmt/s_fmt.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Critical] RcuBox::into_foreign drops `self` instead of forgetting it, ca=
+using a guaranteed Use-After-Free.
+- [High] RcuBox::drop bypasses the custom Allocator A and hardcodes kvfree_=
+call_rcu() for types that do not require dropping, causing undefined behavi=
+or for non-kvfree compatible allocators.
+--
 
-As it is only relevant, when converting between RGB and YUV, it's
-guarded by a given condition. But the condition also causes the
-RGB format quantization to be adjusted to limited range, which
-is incorrect.
+commit f69c06884595bb68a76f4f1dd4014ee9e2c9e31c
+Author: Alice Ryhl <aliceryhl@google.com>
 
-Therefore simplify the condition to only apply when the current format
-is a YUV format. Also document the reason for checking if the other
-format is an RGB format.
+rust: rcu: add RcuBox type
+   =20
+This adds an RcuBox container, which is like Box except that the value
+is freed after waiting for one grace period (via {kvfree_,}call_rcu()).
+To allow containers to rely on the RCU properties of RcuBox, an
+extension of ForeignOwnable is added.
 
-Fixes: 24a63d4c9d3c ("media: rockchip: rga: add rga3 support")
-Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
----
-This patch is a fix to the upcoming RGA3 support. By mistake it'll also
-adjust the RGB quantization instead of only adjusting the quantization
-of the YUV formats. Therefore remove the incorrect conditions and
-document why we also check the format of the other side.
+> diff --git a/rust/kernel/sync/rcu/rcu_box.rs b/rust/kernel/sync/rcu/rcu_b=
+ox.rs
+> new file mode 100644
+> index 0000000000000..943fe3e8974e0
+> --- /dev/null
+> +++ b/rust/kernel/sync/rcu/rcu_box.rs
 
-I've just noticed this flawed condition and didn't check/reproduce it in
-a practical scenario.
+[ ... ]
 
-    v4l2-compliance 1.32.0, 64 bits, 64-bit time_t
-    ....
-    	Card type        : rga3
-    ...
-    Total for rockchip-rga device /dev/video0: 48, Succeeded: 48, Failed: 0, Warnings: 0
+> +// SAFETY:
+> +// * The `RcuBoxInner<T>` was allocated with `A`.
+> +// * `NonNull::as_ptr` returns a non-null pointer.
+> +unsafe impl<T: Send + 'static, A: Allocator> ForeignOwnable for RcuBox<T=
+, A> {
+> +    const FOREIGN_ALIGN: usize =3D <Box<RcuBoxInner<T>, A> as ForeignOwn=
+able>::FOREIGN_ALIGN;
+> +
+> +    type Borrowed<'a> =3D &'a T;
+> +    type BorrowedMut<'a> =3D &'a T;
+> +
+> +    fn into_foreign(self) -> *mut c_void {
+> +        self.0.as_ptr().cast()
+> +    }
 
-    v4l2-compliance 1.32.0, 64 bits, 64-bit time_t
-    ...
-    	Card type        : rga2
-    ...
-    Total for rockchip-rga device /dev/video1: 48, Succeeded: 48, Failed: 0, Warnings: 0
----
- drivers/media/platform/rockchip/rga/rga3-hw.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+[Severity: Critical]
+Since `self` is consumed by value here without being wrapped in `ManuallyDr=
+op`
+or passed to `core::mem::forget()`, won't it be dropped at the end of this
+method?
 
-diff --git a/drivers/media/platform/rockchip/rga/rga3-hw.c b/drivers/media/platform/rockchip/rga/rga3-hw.c
-index ca1c268303dd4..c4a71306278ba 100644
---- a/drivers/media/platform/rockchip/rga/rga3-hw.c
-+++ b/drivers/media/platform/rockchip/rga/rga3-hw.c
-@@ -450,10 +450,14 @@ static void *rga3_adjust_and_map_format(struct rga_ctx *ctx,
- 	other_format = is_output ? &ctx->out.pix : &ctx->in.pix;
- 	other_format_info = v4l2_format_info(other_format->pixelformat);
- 
--	if ((v4l2_is_format_rgb(format_info) &&
--	     v4l2_is_format_yuv(other_format_info)) ||
--	    (v4l2_is_format_yuv(format_info) &&
--	     v4l2_is_format_rgb(other_format_info))) {
-+	/*
-+	 * Only apply the quantization restrictions when we need to
-+	 * convert between RGB and YUV. Otherwise there is no point
-+	 * to limit the quantization for operations like scaling or
-+	 * rotations.
-+	 */
-+	if (v4l2_is_format_yuv(format_info) &&
-+	    v4l2_is_format_rgb(other_format_info)) {
- 		/*
- 		 * The RGA3 only supports BT601, BT709 and BT2020 RGB<->YUV conversions
- 		 * Additionally BT709 and BT2020 only support limited range YUV.
+This seems like it would immediately schedule the memory for RCU free, caus=
+ing
+a use-after-free for the foreign code when it later accesses the pointer.
 
----
-base-commit: 6a75e3d4f6428b90f398354212e3a2e0172851d6
-change-id: 20260605-spu-fixrga3quantization-061c761a1d80
+> +
+> +    unsafe fn from_foreign(ptr: *mut c_void) -> Self {
 
-Best regards,
---  
-Sven Püschel <s.pueschel@pengutronix.de>
+[ ... ]
 
+> +impl<T: Send, A: Allocator> Drop for RcuBox<T, A> {
+> +    fn drop(&mut self) {
+> +        // SAFETY: The `rcu_head` field is in-bounds of a valid allocati=
+on.
+> +        let rcu_head =3D unsafe { &raw mut (*self.0.as_ptr()).rcu_head };
+> +        if core::mem::needs_drop::<T>() {
+> +            // SAFETY: `rcu_head` is the `rcu_head` field of `RcuBoxInne=
+r<T>`. All users will be
+> +            // gone in an rcu grace period. This is the destructor, so w=
+e may pass ownership of the
+> +            // allocation.
+> +            unsafe { bindings::call_rcu(rcu_head, Some(drop_rcu_box::<T,=
+ A>)) };
+> +        } else {
+> +            // SAFETY: All users will be gone in an rcu grace period.
+> +            // TODO: We are luckily since `kvfree_call_rcu()` works on b=
+oth kmalloc and vmalloc,
+> +            // maybe a new `Allocator` method is needed.
+> +            unsafe { bindings::kvfree_call_rcu(rcu_head, self.0.as_ptr()=
+.cast()) };
+
+[Severity: High]
+Since `RcuBox` is generic over any custom `A: Allocator`, wouldn't calling
+`kvfree_call_rcu()` here break for allocators other than kmalloc or vmalloc?
+
+Does this need to always route through `A::free()` via `drop_rcu_box`, or
+should `A` be explicitly bounded to an allocator trait that supports
+`kvfree_rcu`?
+
+> +        }
+> +    }
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605133541.2256=
+9-1-boqun@kernel.org?part=3D1
