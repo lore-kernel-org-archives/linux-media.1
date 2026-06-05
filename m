@@ -1,99 +1,95 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8EB47AF6D
-	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 07:39:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F7BE47DFA3;
+	Fri,  5 Jun 2026 07:44:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780645151; cv=none; b=kgxKlZ9RZotb8OHW8o2EueIb6po+u8zvsy3qhVGPWWUb8QUTD7ofTYDSw8Ry02ZQcUvxuF8+QZ3jV2Njbnd4Z9SNOStozBV+du+5DNLd+/Xv5qCyleVyLp43Fsz+5wPBHG5227CfxsOrbqbgUvQYsTtXfAl08Z8KwKZ3aBtUv3U=
+	t=1780645495; cv=none; b=CmMHxNn0M0xnvpvj8FyAdpADsGDG/UN7Qy1pYLRHPWjKrZlGAMiqfuLDk6kcO2Icrj/0kplMliTyrQgz1hGxRep61N2PloS+3M0bghbyAqrdRsyo2tp1miFJXzedcALUYf0SvO/ZUk9/IKqd3QFDCfezkII0AP9gdkPj89FxxFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780645151; c=relaxed/simple;
-	bh=rNMB8kxn0OUrsy60C3NPa30RzdU1wBclSSfW0FUzHQc=;
+	s=arc-20240116; t=1780645495; c=relaxed/simple;
+	bh=LZAWbIwQBwcwHTwBHwzYT3w1immcTj1YOZWFgudxjwM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JcuZaO7kE/FISL+pei5LerVjnjHmAKs0Q20bLi4hUPiEOATLVuC8QgsMJ7MHXJqTDMQ8u6A7e2sS2Z2r7GymaRMvXQa9rbXqWrSuyVM4F2R0RouOa7NEXm/WAe+35DUVsnqB9029B8YRe45yWzj9d/RLX9k1RiPqScv7zhn1ovU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=f+EI+0yq; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=rF69GWsGuppiTThkWlV0Y+1XwSQtPVcvCDkupGENsOFkWRDY/+/ekho5DCSPuiuQr2RA3QgkjBAtNTY3iZhHR8K014Yi3/oc9Q/Ov2Dn2I/gQGHPBrEGVu3l2U7fiyY+rwa6cMzjvOKK7L6J3fJgw5fd/g0obDn2cZ8U1l39YE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=oqHeSE8R; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="f+EI+0yq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780645150; x=1812181150;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=rNMB8kxn0OUrsy60C3NPa30RzdU1wBclSSfW0FUzHQc=;
-  b=f+EI+0yq3dpkDPlxWS3pZ+qe6gvSMyezD37aenU8POHoOflVcn0DpuyM
-   fbw0OUs3eCea3sNaSfDPRXF6KmhPPLZwgFsmSgQ6AlrpXTbtz/Cw5tbRf
-   2pM+6sRy6ok09P7S7jjaN5Kbd44jxvcGgKZ33J/f8L0gKyyctj95L2K7O
-   K/+DQyndir26Uor3ZBTNGw0VEWdbNOlSFVPTvkyMB7PxzBg9iSKcpzBxl
-   LVYlFmN12ZL2JutXfA2z8nTXxYcShWE+AADon5E9aataUIAZq3yBfOfmV
-   bCZt36vi+0Xi0xY0dyIqvk+cmTJgL/9fjErhJJl6Mx7H1C7FktxNP1GOJ
-   Q==;
-X-CSE-ConnectionGUID: ze1v5TUdR6mBbyEDmBr3Hg==
-X-CSE-MsgGUID: bByJYu2KTk6HqnW92VTHdA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="81509627"
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
-   d="scan'208";a="81509627"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 00:39:04 -0700
-X-CSE-ConnectionGUID: ahE34fx3QTayJmI+YYX9rA==
-X-CSE-MsgGUID: QpzCmYu/Q0Cku6+Zhp6WFw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; 
-   d="scan'208";a="275020930"
-Received: from abityuts-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.207])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 00:39:02 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 1333B1206D5;
-	Fri, 05 Jun 2026 10:39:01 +0300 (EEST)
-Date: Fri, 5 Jun 2026 10:39:00 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: "Cao, Bingbu" <Bingbu.Cao@amd.com>
-Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>,
-	"mchehab@kernel.org" <mchehab@kernel.org>,
-	"tfiga@google.com" <tfiga@google.com>,
-	"ribalda@chromium.org" <ribalda@chromium.org>
-Subject: Re: [PATCH v2] media: update contact email of Bingbu Cao
-Message-ID: <aiJ9FE1mhTlPRXI3@kekkonen.localdomain>
-References: <20260601065555.150536-1-bingbu.cao@amd.com>
- <ah1B9h8baqGqZ8Zj@kekkonen.localdomain>
- <BN3PR12MB95698640E1B433B04559BD438B152@BN3PR12MB9569.namprd12.prod.outlook.com>
- <ah1WLSwptKxFrHkN@kekkonen.localdomain>
- <BN3PR12MB956901A268C35C90BD53E2208B152@BN3PR12MB9569.namprd12.prod.outlook.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="oqHeSE8R"
+Received: from ideasonboard.com (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6BA138E0;
+	Fri,  5 Jun 2026 09:44:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1780645467;
+	bh=LZAWbIwQBwcwHTwBHwzYT3w1immcTj1YOZWFgudxjwM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=oqHeSE8RKerDEHRAM/4FlPVypt7XVLuuD+fvAF25XCfS1xQK2GYP+8SAZBt0nYPq/
+	 JLIoD8fF6goCE5qwDG4jZ78O4J7fM/Czrv2yMkFkdkIOXo1KifwODuPTQEmhnBdK76
+	 B3pPB29kA3jShvVU+oqzxksZ9S1bnmN0VfC7xsdA=
+Date: Fri, 5 Jun 2026 09:44:49 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Ethan Tidmore <ethantidmore06@gmail.com>
+Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
+	Daniel Scally <dan.scally+renesas@ideasonboard.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: rzg2l-cru: Fix error pointer dereference
+Message-ID: <aiJ-K9B9Eifcfg57@zed>
+References: <20260217041055.88912-1-ethantidmore06@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <BN3PR12MB956901A268C35C90BD53E2208B152@BN3PR12MB9569.namprd12.prod.outlook.com>
+In-Reply-To: <20260217041055.88912-1-ethantidmore06@gmail.com>
 
-Hi Bingbu,
+Hi Ethan
 
-On Mon, Jun 01, 2026 at 10:00:15AM +0000, Cao, Bingbu wrote:
-> > > > It looks like the ov9734 driver will be left without a maintainer,
-> > > > would
-> > > > you be interested in maintaining it? I'd also add myself as
-> > maintainer
-> > > > for
-> > > > the imx319 and the ov01a10 drivers.
-> > >
-> > > I would like to be reviewer for ov9734, could you take the
-> > maintainer?
-> >
-> > I don't have access to the sensor nor I know where it can be found. :-
-> > ( Any
-> > idea?
-> 
-> I think the Intel camera team on Chrome(in India now) could help you.
+On Mon, Feb 16, 2026 at 10:10:55PM -0600, Ethan Tidmore wrote:
+> The function media_pad_remote_pad_unique() can return an error pointer
+> and is not checked. Add check for error pointer.
+>
+> Detected by Smatch:
+> drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c:414 rzg2l_cru_get_virtual_channel() error:
+> 'remote_pad' dereferencing possible ERR_PTR()
+>
+> Fixes: d7d72dae81d5d ("media: rzg2l-cru: Retrieve virtual channel information")
+> Signed-off-by: Ethan Tidmore <ethantidmore06@gmail.com>
 
-Thanks. I'll put M: there for now at least.
+This really fell into the cracks and you've not been given any
+feedback. Sorry about this.
 
--- 
-Regards,
+> ---
+>  drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> index 162e2ace6931..bf7d96841c78 100644
+> --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> @@ -411,6 +411,9 @@ static int rzg2l_cru_get_virtual_channel(struct rzg2l_cru_dev *cru)
+>  	int ret;
+>
+>  	remote_pad = media_pad_remote_pad_unique(&cru->ip.pads[RZG2L_CRU_IP_SINK]);
+> +	if (IS_ERR(remote_pad))
+> +		return PTR_ERR(remote_pad);
+> +
 
-Sakari Ailus
+As far as I can tell the link on the cru->ip sink pad is created with
+IMMUTABLE flag, so we're sure it always is there.
+
+I don't think the check is required.
+
+Thanks
+  j
+>  	ret = v4l2_subdev_call(cru->ip.remote, pad, get_frame_desc, remote_pad->index, &fd);
+>  	if (ret < 0 && ret != -ENOIOCTLCMD) {
+>  		dev_err(cru->dev, "get_frame_desc failed on IP remote subdev\n");
+> --
+> 2.53.0
+>
+>
