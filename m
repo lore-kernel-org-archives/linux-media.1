@@ -1,186 +1,252 @@
-Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657EB33BBC0
-	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 16:02:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA1C3D0C03;
+	Fri,  5 Jun 2026 16:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780675380; cv=none; b=ixH+GuHtduNv30fs+cTPwaOQ73qr3A+RWFIsttBuHbSJOS/DZcYYSiKo+Xd9iApETJIDM7R8Nv5CGBIAtxp4hr77+iaO0gUi6dQsO/H1hN7k5tR9xaJckHslk34/GEqHzoI5XkWbyNL76f5O/25W3XkQ9BLWkXuckqAuPHjo+SA=
+	t=1780676370; cv=none; b=kFh+hCAu0qaioNn2L4UP2wnBmmFcnMhw5ixGtjDaDbCdb/ZseVAnw0Ck7x4itFu3YwkJXYUgyoOCGiyGIpLvLbGuMBIp5mpKw/xI7FjvSQNuC/opj3xAa7ltCjEK4xHfLreV1oO+VsnwWO6YaBHxir7s0/xBF7hYrMSBniRjN88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780675380; c=relaxed/simple;
-	bh=GMM8rItwjOBKBZTiVFQDKLbinjfJL7SeunmDuhS3L9o=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=iRCWlSK2lueRQD71SjecV3wdZj8yMl8V6q2cGMJXLDQHIpOdF8n6Sl5X7kl9kBJ91E1HQMzEYSed8v1UH0o72C3uQ/WoGdWSbIm8Ef/jMnoDOlQRNyuvEg7eEt/KZVcvTJzFX6bKUsEvYJc4vOTF4ZBMOhnwHWUhZY/N56k7oOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=phnS7lpi; arc=none smtp.client-ip=209.85.222.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780676370; c=relaxed/simple;
+	bh=quUvbrbQS6eQO0S4eiPyUkmNpOyPkr78jFdRIWWJaYw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ksaTJRlPjTlT9wNQxX3ZwQeT0EfRG/blT7Yt3bdsk99cOoofooZbcX9v686Lqj93y8ODoJOl0DFJX0bm/rlGokPEDGHRTme1Y+6MX7Vix2h4P4/7jK2V0kex5lw7zIopEaMgwhSb5zpu+J2a9fBjhQ/seucvPYXeG+rrV27Tomo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kG6cau87; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="phnS7lpi"
-Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-963ebce7076so455383241.3
-        for <linux-media@vger.kernel.org>; Fri, 05 Jun 2026 09:02:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780675378; x=1781280178; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GMM8rItwjOBKBZTiVFQDKLbinjfJL7SeunmDuhS3L9o=;
-        b=phnS7lpiu0AgZ4noQy/KYuqfmUif+4T8mkMql9h22PnhP7PSenOVFLBpfAb0c6zmy5
-         kzBeHOWO7dT3G2kkKqBFdaENtYgiYQe6LlSM/GKVkYYjjGsIsBgX9ZXYwHFq1lIrukBH
-         WGtGQkdzGaTDR+8jAUg1u8zKH2OnpP7O6VwtF54MjibpPByFvjwBNjQk7PYP1z0Hyh1b
-         bjzJ/HBveB0DxeGSFmi6aR21VcPBldru/kyKFfgQyGXepHsAV0EjrT45SJOVrhgXL+m0
-         hoYvlYGVRBTLb4iETPbcuE1M7RQYgjdrwiUUyrVDlHbHcpwqQxJakhtQt79+DzZFG41j
-         i/nA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780675378; x=1781280178;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=GMM8rItwjOBKBZTiVFQDKLbinjfJL7SeunmDuhS3L9o=;
-        b=WMEzFju+QrToyUybNjPCm0OZ0yQA1bp6k6O1rUve/FibcZfJrrRcq1ODJivQc+afkS
-         8hEznsETQmFjtkX/lHzVC7nZdvT3rYgSmr9JgHzVhAHDWFChGI1oDM6lHYw4N0LRD7XR
-         W7GHn/wEBeK7t1KAEY2a8ssatIWn7HlyzoIe7hxcWoodbAaWLIXlDWsD01DkSNUhbhLV
-         q/uFTk5hM6Ezmf8ReQ406GjvZ0TOtv0PfSDFYF5RqWvIzc+5fJWcRHj9hnTU4tHHbtpl
-         qGWKwA7tHwE1lP4MyAQTcrxLEh3j+uS51Gl/4af+8nAqLoZsoejaLm/zBt0IDxTLbgTy
-         2Deg==
-X-Forwarded-Encrypted: i=1; AFNElJ+afvt4nkWwvAqq2nqTwjIEnHqn/SYp+7c1m1Le0b84HQkTqQ9+oiVwBhC8vByBHpQDwgRb0OXKgjqmwg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwEYCJWr2gS9G5q7QmCKSOTiMVQMh4nlGD06HP1tA6Z29B7CkYC
-	B2z2vCGtoIEL9zjLZPdtaZklo91S+6+SGWb7ZKXipygB8Q4j6fC4MF5K
-X-Gm-Gg: Acq92OFEp4+hGKgkRhdrVHOQE/08eu0Ifcs2AQox8csiGKV0zpK+hl7GEciejMWvhbs
-	XTdM5KBYaeBYqyQDMy7PZ+Bkxt9jwyR/rC/pw8HeXjjIDALEP/xMCQGb7P13v5iOl2bGuxkw3GS
-	53zfP9PjCCBgFJH1Kv1NiZsl8XueHQO8Im47nSImjEkNUKlTAlS+95GWSwkfq9iMp7YQPyvRXk+
-	kJwAjwddXQ6e5t5TvhjmomCFzV4lFKMmj0Kt6H3eBj3g5s4jdOe7Wlpz0UIJeDD+NRD3HN3rj1L
-	ySZ6qmBIS/CoSjBH/fjpina8rpT5bJp1fm//SBeVaCAGxwFIPhu0M+wrD2THTKxFFy4C3U7v/2N
-	UFANjmQsB7IInkUjQrb1eE1t+2QaZIoSh/+ThNIgNKvPvX6LpcgNrCxIA7Mb5CmU8EW1vVXIsmp
-	fcqvdgRMDcnrx+ppbpLZQiI50j/8VrFyM7FOxWfj9W1Z1IOjY37XbVsQ8WxSN7Z04Q+qVri6Bl
-X-Received: by 2002:a05:6122:3d45:b0:573:a779:62cf with SMTP id 71dfb90a1353d-5ac4f952082mr2315135e0c.7.1780675378285;
-        Fri, 05 Jun 2026 09:02:58 -0700 (PDT)
-Received: from smtpclient.apple ([2804:7f1:c241:abe4:8c1d:3d1b:d7cb:e7e9])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96413f9afe7sm6908115241.6.2026.06.05.09.02.48
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 05 Jun 2026 09:02:57 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kG6cau87"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12F741F00893;
+	Fri,  5 Jun 2026 16:19:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780676369;
+	bh=6XPdyKlrYLRF2LuR4cgLG7ew10Pc1XXxtdKbYANh+8c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kG6cau87cGrPuJrY9MBw4/CBgkK3+TLK7blYTt3Oje9b3woxotsMTDYKcg0UkYaik
+	 PlQ9tcoJzpMBXjLWF7fZTVcBRY19+f21wiC61mGkTCS/ODxTzxmkILyeC6ma+LH/YE
+	 khMDFDLB2WD34WkNNNkOsuQCAVhVFIpQnUvnZ2pz+lALGDLaqKhHfH6ENzK+KujjJe
+	 Tt75tSRIy9T50EoSFebyaEkS2GyyybKJL9CTJW9CYLfdRj6UgecpRTzo0S7VE/8MKu
+	 3uIwhDnt2G8oBt5JUJ5SUlGA/u5cIBRUBW1ZYLY+Aon1oso+vrlNR/0nnXdP9kYNEg
+	 /ivi+adxrkZwQ==
+Date: Fri, 5 Jun 2026 17:19:25 +0100
+From: Conor Dooley <conor@kernel.org>
+To: github.com@herrie.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: media: i2c: add aptina,mt9m113
+Message-ID: <20260605-idly-geek-23c0459b2445@spud>
+References: <20260605-submit-media-mt9m113-v2-0-de1cc807f4cf@herrie.org>
+ <20260605-submit-media-mt9m113-v2-1-de1cc807f4cf@herrie.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH 3/4] rust: Add dma_fence abstractions
-From: Daniel Almeida <dwlsalmeida@gmail.com>
-In-Reply-To: <FEFE0522-FD7A-40DE-8B2A-09FE2F33F327@gmail.com>
-Date: Fri, 5 Jun 2026 13:02:36 -0300
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Paul E. McKenney" <paulmck@kernel.org>,
- Frederic Weisbecker <frederic@kernel.org>,
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Josh Triplett <josh@joshtriplett.org>,
- Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Lai Jiangshan <jiangshanlai@gmail.com>,
- Zqiang <qiang.zhang@linux.dev>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Igor Korotin <igor.korotin@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Krishna Ketan Rai <prafulrai522@gmail.com>,
- Shankari Anand <shankari.ak0208@gmail.com>,
- manos@pitsidianak.is,
- linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org,
- linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org,
- rcu@vger.kernel.org
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Ja9qjb5S9bUXbDpX"
+Content-Disposition: inline
+In-Reply-To: <20260605-submit-media-mt9m113-v2-1-de1cc807f4cf@herrie.org>
+
+
+--Ja9qjb5S9bUXbDpX
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <48CE71C8-7A67-4D09-84C2-A0B83C32B169@gmail.com>
-References: <20260530143541.229628-2-phasta@kernel.org>
- <20260530143541.229628-5-phasta@kernel.org>
- <4F8E8E04-5AB5-4E6B-9194-5FC467E2313F@collabora.com>
- <20260603191405.4c75badb@fedora-2.home>
- <09096455-BA79-4E61-AD88-44DA57C5BEA8@gmail.com>
- <20260604101552.4232733b@fedora-2.home>
- <8ff2de94a50ed077a4cfe520a081f2b8b438a375.camel@mailbox.org>
- <FEFE0522-FD7A-40DE-8B2A-09FE2F33F327@gmail.com>
-To: phasta@kernel.org
-X-Mailer: Apple Mail (2.3826.700.81)
 
+On Fri, Jun 05, 2026 at 05:38:55AM +0200, Herman van Hazendonk via B4 Relay=
+ wrote:
+> From: Herman van Hazendonk <github.com@herrie.org>
+>=20
+> Add the binding for the Aptina (now ON Semiconductor) MT9M113 1.3
+> megapixel SoC image sensor with on-die ISP. The chip is used as the
+> front (user-facing) camera on the HP TouchPad tablet and connects
+> to the host SoC over MIPI CSI-2.
+>=20
+> The binding describes the chip's i2c address, optional reset and
+> standby GPIOs, the per-supply regulators (VDD, VDD_IO, VDDA), the
+> external clock input, and the CSI-2 endpoint pads exposed via the
+> "port" subnode.
+>=20
+> Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
+> ---
+>  .../bindings/media/i2c/aptina,mt9m113.yaml         | 127 +++++++++++++++=
+++++++
+>  1 file changed, 127 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/media/i2c/aptina,mt9m113.y=
+aml b/Documentation/devicetree/bindings/media/i2c/aptina,mt9m113.yaml
+> new file mode 100644
+> index 000000000000..7fa7cb2fedf9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/aptina,mt9m113.yaml
+> @@ -0,0 +1,127 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/i2c/aptina,mt9m113.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Aptina MT9M113 1.3 Megapixel CMOS Digital Image Sensor
+> +
+> +maintainers:
+> +  - Herman van Hazendonk <github.com@herrie.org>
+> +
+> +description: |-
+> +  The Aptina MT9M113 is a 1.3 Megapixel CMOS digital image sensor with
+> +  1280x1024 active pixels. It supports dual context operation:
+> +  Context A (640x480 preview mode with binning) and Context B (1280x1024
+> +  capture mode). It is programmable through an I2C interface and outputs
+> +  image data over a 1-lane MIPI CSI-2 connection.
+> +
+> +properties:
+> +  compatible:
+> +    const: aptina,mt9m113
+> +
+> +  reg:
+> +    description: I2C device address
+> +    enum:
+> +      - 0x3c
+> +      - 0x48
+> +      - 0x5d
+> +
+> +  clocks:
+> +    description: EXTCLK clock signal (24 MHz typical)
+> +    maxItems: 1
+> +
+> +  vdd-supply:
+> +    description:
+> +      Core digital voltage supply, 1.8V
+> +
+> +  vddio-supply:
+> +    description:
+> +      I/O digital voltage supply, 1.8V or 2.8V
+> +
+> +  vaa-supply:
+> +    description:
+> +      Analog voltage supply, 2.8V
+> +
+> +  reset-gpios:
+> +    description: |-
 
->>=20
->>>=20
->>> So, by passing self by value to the ::callback(), you're basically
->>> telling users "hey, BTW, don't forget to defer the drop to some
->>> workqueue if you think it's not atomic-safe". And how can users know
->>> that the thing they're about to drop can be dropped in atomic =
-context?
->>> They basically have to audit the ::drop() of all the resources they
->>> embed in their type implementing FenceCb. Not only that, but they =
-also
->>> have to design the thing so the deferral of this ::drop() doesn't
->>> allocate, because, obviously, allocating in atomic context is
->>> tricky/fallible. AFAIK, none of this can be spot at compile-time (I
->>> remember Gary/Danilo mentioning that we could teach the klint about
->>> some of these rules). This would leave us with runtime checks like
->>> might_sleep(), but most of the C putters (xxx_put(object)) don't =
-have
->>> might_sleep() in the path where the decref doesn't lead to a =
-refcnt=3D0
->>> situation.
->>>=20
->>> TLDR; Call this PTSD if you want, but this is the sort of bugs I
->>> struggled with on the C side, and I can predict that the exact same
->>> will happen in rust drivers if we expose the FenceCb as it is =
-designed
->>> here and we don't have a way to check the soundness of the FenceCb
->>> implementations at compile time.
->>=20
->> My guess would be that the existence of unsafe-traits is the =
-admission
->> of Rust that this just cannot be guaranteed by design.
->>=20
->> If a driver cannot know whether this or that is safe to drop, then it
->> would have to defer it's dropping. Or would there be cases where this
->> also doesn't work?
+Neither this or powerdown should need the |-, there's no formatting here
+that needs preservation.
+
+> +      Reference to the GPIO connected to the RESET_BAR pin, if any (acti=
+ve
+> +      low).
+> +
+> +  powerdown-gpios:
+> +    description: |-
+> +      Reference to the GPIO connected to the STANDBY/PWDN pin, if any (a=
+ctive
+> +      high). When asserted, the sensor enters low-power standby mode.
+> +
+> +  port:
+> +    $ref: /schemas/graph.yaml#/$defs/port-base
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      endpoint:
+> +        $ref: /schemas/media/video-interfaces.yaml#
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          bus-type:
+> +            const: 4
+> +            description: MIPI CSI-2 D-PHY
+> +
+> +          link-frequencies: true
+> +          remote-endpoint: true
+> +          data-lanes:
+> +            minItems: 1
+
+This minItems shouldn't be needed, the maxItems should suffice.
+
+> +            maxItems: 1
+> +
+> +        required:
+> +          - bus-type
+> +          - link-frequencies
+> +          - data-lanes
+> +
+> +    required:
+> +      - endpoint
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - vdd-supply
+> +  - vddio-supply
+> +  - vaa-supply
+> +  - port
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/media/video-interfaces.h>
+> +
+> +    i2c0 {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        camera@3c {
+> +            compatible =3D "aptina,mt9m113";
+> +            reg =3D <0x3c>;
+> +
+> +            clocks =3D <&mmcc 48>;
+> +
+> +            reset-gpios =3D <&pm8058_gpio 29 GPIO_ACTIVE_LOW>;
+> +            powerdown-gpios =3D <&pm8058_gpio 30 GPIO_ACTIVE_HIGH>;
+> +
+> +            vddio-supply =3D <&pm8058_l15>;
+> +            vdd-supply =3D <&pm8058_l15>;
+> +            vaa-supply =3D <&pm8058_l14>;
+> +
+> +            port {
+> +                mt9m113_ep: endpoint {
+
+This label here should be dropped, cos it has nothing referencing it.
+
+Otherwise, this looks good to me.
+pw-bot: changes-requested
+
+Cheers,
+Conor.
+
+> +                    bus-type =3D <MEDIA_BUS_TYPE_CSI2_DPHY>;
+> +                    link-frequencies =3D /bits/ 64 <384000000>;
+> +                    data-lanes =3D <1>;
+> +                    remote-endpoint =3D <&csiphy1_ep>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +...
+>=20
+> --=20
+> 2.43.0
 >=20
 >=20
-> Although I totally understand where Boris is coming from here, and I =
-agree with
-> him, the reality is that the current &mut self design doesn=E2=80=99t =
-solve this. An
-> unsafe trait could work as a pinky-promise by drivers, which is =
-half-way there.
->=20
-> What we ideally would like to have is a bound though, something like:
->=20
-> T: !Drop
->=20
-> If I recall correctly there were people working to get support for =
-that on
-> Rust? I think there are two things here: !Trait, which is not =
-supported except
-> for !Sized IIRC, and having an auto trait that represents types that =
-implement
-> Drop, similar to Send and Sync.
->=20
 
+--Ja9qjb5S9bUXbDpX
+Content-Type: application/pgp-signature; name="signature.asc"
 
-In fact, ping the pin-init people here, i.e.: Benno, Gary, etc.=20
+-----BEGIN PGP SIGNATURE-----
 
-What is the magic behind =E2=80=9CMustNotImplDrop=E2=80=9D? Perhaps we =
-could apply that here?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiL3DAAKCRB4tDGHoIJi
+0vWsAP440L+Na/zMGpzrygNLT5yUo7eG6BQJaXb1Oyjv8J6NqgD/bR9dJZy3kbXt
+Otf1cVDeum6Hxyqc+OVM4/B7mJ0oxQI=
+=vpwu
+-----END PGP SIGNATURE-----
 
-=E2=80=94 Daniel=
+--Ja9qjb5S9bUXbDpX--
