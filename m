@@ -1,118 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD7602EEE64
-	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 13:35:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A988730569E;
+	Fri,  5 Jun 2026 13:35:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780666548; cv=none; b=JHTeakOK1yJwlTx2M/EpStWhIIg3z3TW8CIlDQEedm14OsnkcgEQBhIFS3xc3YpOldXz6JlhGONuk0FrVbgf1vgaAB+mCrTfuR4g9RLyAjKZfZQ3pungWn9lMvJ4qltaMkKG2gMgwR72fLpxBLbt8O+NilQuC3SbdK8ipI0slIQ=
+	t=1780666552; cv=none; b=SHu03CuyXDJWSN0mKyZYLPp4Rewe0pSZ7x1z9Px9BNE9m25aE9O2j31rOH/TMwD3FzNq/9ptMKOLCpYVpNe7T6zcJIbRtmpeWkP8thE4NUxlySUmBLF5T4l0zNiLOiD80ldPp7oMyNfUk5pCe2OeT0tiKQmMdGM5BJQvnt5KQJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780666548; c=relaxed/simple;
-	bh=gGMX7twh4/6y1pty/fF/d2gPFX4C1Acg6wC4JWKS8lE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oV4sG68kGLTXH5Ums5xALQaE06FkGXc846iU4mVOmMNzHLeNQOQrt6sKsgWuuQjMXl29CloGArPX97Pi3gCLoSeYtL7PPzUWxK9ykRUND/lhIEzuYMZp9nDa6wQ9iXunc8XF1P0C66yLFDu1/58fxOFlMVtqTjFE5eUWUyoeWM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QDdY87OR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780666552; c=relaxed/simple;
+	bh=UUhxtcNBQidBPnhJq9akfhz+nsSIhTWipy6zveKmyyc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iBycQv82y34/ORcBOLwZq9hBt4L/39XyJG6grxjas+Zx47yw1MoxOHQKby0rNO1WwtuFpZB+bn0/kilX+Ju2nmE1URnVS0SRm6I+0PDRC52/AEdbWezD8C7VJat0rFAWgvoUXPa9P1mMBV/oWzv/164uR3AeIHG4QAb9d7LswYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ix0DkSQm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QDdY87OR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D70B11F00893;
-	Fri,  5 Jun 2026 13:35:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ix0DkSQm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30D4E1F00899;
+	Fri,  5 Jun 2026 13:35:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780666546;
-	bh=7fKlyGdPJZbLDfVKmj1z9h/1ks7B14PHOKPU/+NewVA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QDdY87ORyv6+BNZXu6pRCTvurLG6abJSttDu7c5/il0mBogFaQzLtgw2dXjJMgqvj
-	 0cQVWNKzvL2Wd+iVS/oC+9NLC0g//J6vwkslBCLKtYzBhI+mz/ULxbQGy+1TgLjeWE
-	 myiMPpN2NnjoRmY2y2ngDCCZTVrEElaBobXbWyN7mysS6dk4Q89d+jK4M/r7iSiA7h
-	 KH1QrcrNgVlfaRf2v+5LAYeGjaozawk/wye591AwP5AMCLHeXf1mOi19vDwlZHvMS3
-	 NI5rEz0G0N6cHxS9vFZ6zuc6Uj5s3yY5ulimORap2rgal1y0rpVGPU+hODa3VKy1eD
-	 VJU+B3YrbXMGA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/8] media: qcom: camss: Prepare CSID for C-PHY
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Heidelberg via B4 Relay" <devnull+david.ixit.cz@kernel.org>
-Cc: linux-media@vger.kernel.org
-In-Reply-To: <20260605-qcom-cphy-v7-3-426c37e9008f@ixit.cz>
-References: <20260605-qcom-cphy-v7-3-426c37e9008f@ixit.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 13:35:45 +0000
-Message-Id: <20260605133545.D70B11F00893@smtp.kernel.org>
+	s=k20260515; t=1780666549;
+	bh=V+3GJsZxiITcRMlzwywosE1kBJjYYPTTK69C+X92Rrw=;
+	h=From:To:Cc:Subject:Date;
+	b=ix0DkSQmUGurOTrxvkWU7LOARXXBDSkm795E34/rofpJEaIVLHvoilfrBKuy8IG/y
+	 tVWylKmQxvjuDwM5oab0kE+V+t3esDnq9QJlPNhHH5HWipiFXxBPTa8a4hfr2KzMDd
+	 RAnh2YkQ/2uI13MwrEgi11yDrZiI/Xq+CB5eKL0xPYpcnB968/m+8lv4f/XBFyoKaw
+	 J4br78NOtXfKDQYWJRTZ6EtuZMglshD1aA1MqfH1rbnRycup5iAOBHXh2VAAKtG3SJ
+	 FCsmX4njD1QrkIvji3K1JGDV5nsonJy7CN4klFGZj2BrmfEJLj+IkDSoYuy6cKy//E
+	 ZtwyGIypkoEig==
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 5B751F4006F;
+	Fri,  5 Jun 2026 09:35:47 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Fri, 05 Jun 2026 09:35:47 -0400
+X-ME-Sender: <xms:s9AiaradpzQawOzKlJVdLrR4MQLkpLTE_FbiMrwK4PtwHVH_Qy5Vrw>
+    <xme:s9Aiam0rZx6Vqij-n0XJQMXbyll_Wv18_UYjL5Pc6oD_1DKFgEun5JsmkyKRsLgDF
+    ba5z_9a237nYuDO5K7KEU1zrsxyLGKSA93STKOyVKhnUnNCZXk-JtQ>
+X-ME-Received: <xmr:s9AialO2SzzCUNoUPS8MA78Q6f4GJkThBBPf1nyzR7DSTjOoRX4s-kHFkvM>
+X-ME-Proxy-Cause: dmFkZTFKENnCiyPS37jOfUW/oSt3ApI4Om6wyeJiiPYsBRF27Y77NEp2GRWEH/Wu22F/nN
+    jSLPXUo+vpn9G/MZoMnCSmi/RsIDJMGfJOTTMeMH880odghXtGPynqv6EEGLiWUW12Ktmf
+    F+PPRU0YRdVUAi+LO4dYxUc0b6J0tg7+Juur2hWdNU+gehj5U/NdtzZkPNhXPF4Ah90viD
+    aqhiOSGPff6V/LBAdW9kqJklU4xsIoTyQSGu0+i9A580vKQSwad1R6zoD1RnChJ5FNQ0dU
+    bczE0+CcxhZJZhPPbEA3Zn2zVHH/I+liU4sR06uQjZ7j0Fz1fxA7p/zOJ9UaIcNU9giYU4
+    XnFhxWfhVpmI0x48ilXTpAWnWZJOWYHCRkUPVu8DzmXQd2Evddhunr9+jUv3n1xsRGUJ1h
+    KQmDvz7AHx4jreqF+CU8EJa22nDQZyEc9Isrzx55OoJPiCds42Ma8cXKeCFslYjHG0g2UR
+    m6MN2ENP/0QYdd3tNgHfqUXI8s9lbQEVkiZm7rEvQKJcZd9JW2V8zNmSlmmZOl++/Hc5au
+    +QVxNWcUjE7N0iLrQMQT9DTEs0O5zHvXQelb/HgeoOaRMTqiwWdtOm48B35HA/2VcP5yvX
+    S1vKc1wSal6Sc4eAgayfqjlzetTHUH/A4qSt4sbZEumI7lZ7JRGIbnYqaGjA
+X-ME-Proxy: <xmx:s9AiaoJP5H1mQq9mKqc22IPHCNQuAKSzFAZYMeMiGwLs8-ig5fL5Hg>
+    <xmx:s9Aiam4LYBXuxb1CczLm-kQ0FUaaSPEcwlsLr9L1gFUdmjctsaDyDg>
+    <xmx:s9AiatSoEaiQxwJIDLjzp4xVMegWPQ5UQXM7aeL9Vst0yqyTkKrP3A>
+    <xmx:s9AiahdPhb1tKWWG_57IHXbjRJhH6bbERiKFH42OtQjaSz7OoEZYxQ>
+    <xmx:s9Aiam3Zz_OY6OnrU-z3FXeMx44yzRAihPGnvnLADD9yX_TAyGAs9s8j>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 5 Jun 2026 09:35:46 -0400 (EDT)
+From: Boqun Feng <boqun@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	rcu@vger.kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>,	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Andrew Ballance <andrewjballance@gmail.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,	Zqiang <qiang.zhang@linux.dev>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	maple-tree@lists.infradead.org,	linux-mm@kvack.org,
+	linux-media@vger.kernel.org,	dri-devel@lists.freedesktop.org,
+	Philipp Stanner <phasta@kernel.org>,	Lyude Paul <lyude@redhat.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Subject: [PATCH 0/3] rust: sync: Introduce Rcu*Box
+Date: Fri,  5 Jun 2026 06:35:36 -0700
+Message-ID: <20260605133541.22569-1-boqun@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] CSID PHY selection state (`phy_sel`) is not reset when switching=
- the link to the Test Pattern Generator (TPG), potentially leaving the hard=
-ware in C-PHY mode for TPG data.
---
+(this series is based on Alice's RFC [1] and discussion around Philipp's
+patches [2], [3])
 
-commit 79ab3be6b44125cac8b0fb89e7dbad51a804a8bf
-Author: David Heidelberg <david@ixit.cz>
+As an easy way to provide RCU-protected allocation, two major types are
+provided:
 
-media: qcom: camss: Prepare CSID for C-PHY support
+- `RcuBox<T, A>`, inner T will be dropped and after a grace period.
+  Users: binder with maple_tree and dma_fence.
+- `RcuFreeBox<T, A>`, inner T will be cleaned up immmediately and freed
+  after a grace period. (Name suggestion is welcome). This is an attempt
+  to consolidate Alice's `PollCondVarBox` [4] into a generic
+  implementation, InPlaceInit support is still missing, but I want to
+  get some feedback on the trait `RcuFreeSafe`.
 
-This commit updates the CSID configuration to inherit C-PHY information
-from CSIPHY, ensuring the CSI2_RX_CFG0_PHY_TYPE_SEL register is properly
-set when C-PHY mode is used.
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/med=
-ia/platform/qcom/camss/camss-csid.c
-> index 48459b46a981b..bcc34ac9dd212 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csid.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csid.c
-[ ... ]
-> @@ -1291,6 +1291,11 @@ static int csid_link_setup(struct media_entity *en=
-tity,
-> =20
->  			lane_cfg =3D &csiphy->cfg.csi2->lane_cfg;
->  			csid->phy.lane_cnt =3D lane_cfg->num_data;
-> +			if (lane_cfg->phy_cfg =3D=3D V4L2_MBUS_CSI2_CPHY)
-> +				csid->phy.phy_sel =3D CSID_PHY_SEL_CPHY;
-> +			else
-> +				csid->phy.phy_sel =3D CSID_PHY_SEL_DPHY;
-> +
+[1]: https://lore.kernel.org/rust-for-linux/20260116-rcu-box-v1-0-38ebfbcd53f0@google.com/
+[2]: https://lore.kernel.org/rust-for-linux/20260530143541.229628-2-phasta@kernel.org/
+[3]: https://lore.kernel.org/rust-for-linux/20260520131725.266014-2-phasta@kernel.org/
+[4]: https://lore.kernel.org/rust-for-linux/20260523-upgrade-poll-v4-0-f5b4c747eac2@google.com/
 
-[Severity: Medium]
-Does this leave the phy_sel state uninitialized when the link is switched
-to the Test Pattern Generator (TPG)?
+Regards,
+Boqun
 
-In csid_link_setup(), when switching the link to the internal TPG, the newly
-added phy_sel field is not updated:
+Alice Ryhl (2):
+  rust: rcu: Add RcuBox type
+  rust: maple_tree: Add load_rcu()
 
-csid_link_setup() {
-    ...
-    if (sd->grp_id =3D=3D TPG_GRP_ID) {
-        tpg =3D v4l2_get_subdevdata(sd);
+Boqun Feng (1):
+  rust: rcu: Introduce RcuFreeBox
 
-        csid->phy.lane_cnt =3D tpg->res->lane_cnt;
-        csid->phy.csiphy_id =3D tpg->id;
-        csid->phy.lane_assign =3D csid_get_lane_assign(NULL, csid->phy.lane=
-_cnt);
-        csid->tpg_linked =3D true;
-        /* csid->phy.phy_sel is not reset here */
-    } else {
-    ...
+ rust/bindings/bindings_helper.h |   1 +
+ rust/kernel/maple_tree.rs       |  52 ++++++
+ rust/kernel/sync/rcu.rs         |  65 ++++++-
+ rust/kernel/sync/rcu/rcu_box.rs | 290 ++++++++++++++++++++++++++++++++
+ 4 files changed, 407 insertions(+), 1 deletion(-)
+ create mode 100644 rust/kernel/sync/rcu/rcu_box.rs
 
-If a C-PHY sensor was previously linked, phy_sel will retain the stale value
-CSID_PHY_SEL_CPHY.
+-- 
+2.51.0
 
-When streaming starts, __csid_configure_rx() writes this stale phy_sel value
-into the CSI2_RX_CFG0_PHY_TYPE_SEL register, even for TPG streams.
-
-Because the TPG bypasses the C-PHY 3-phase encoding, applying C-PHY decoding
-rules to TPG data might cause the hardware to misinterpret the stream and
-break the test pattern generator.
-
->  			csid->phy.lane_assign =3D csid_get_lane_assign(lane_cfg, lane_cfg->nu=
-m_data);
->  			csid->tpg_linked =3D false;
->  		}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605-qcom-cphy-=
-v7-0-426c37e9008f@ixit.cz?part=3D3
