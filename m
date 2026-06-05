@@ -1,189 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD16E38B131
-	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 16:02:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657EB33BBC0
+	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 16:02:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780675375; cv=none; b=lczARxplxAmy2eFbjkXrAuXraBrYJupFj4qVSKVz6XDs/6I41CPRmM+LoYJAmbasRkBI7O5dZCQ+R4l8/Rani1BEiYnUqSBU3KhNQZWpgsuTIvwgmUEjOJbRDpQrskMTgv/MQJ32NCjwv2yvWs1H/DqmsH9Hop9wHF2SHpkZmHw=
+	t=1780675380; cv=none; b=ixH+GuHtduNv30fs+cTPwaOQ73qr3A+RWFIsttBuHbSJOS/DZcYYSiKo+Xd9iApETJIDM7R8Nv5CGBIAtxp4hr77+iaO0gUi6dQsO/H1hN7k5tR9xaJckHslk34/GEqHzoI5XkWbyNL76f5O/25W3XkQ9BLWkXuckqAuPHjo+SA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780675375; c=relaxed/simple;
-	bh=6ogKfpAl98z/txSR7zK8YLVGy0Is8GYTW05mmmtNphs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Z2JnQMlsWSwvkr8v43JthJvDvbKBp5JnI7AtlG5msIH/87qID3B2WdNlu8+YkTxaio0M9OBnspDOjyarCgNOubHFnzflFvS8t2bv3K1o277xBVy90G7+MFCIfpThDfOrSI884JUALy5Zkp69ftlkbRGfek9jpBhHyKyImXQd5U4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESKRDJAS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780675380; c=relaxed/simple;
+	bh=GMM8rItwjOBKBZTiVFQDKLbinjfJL7SeunmDuhS3L9o=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=iRCWlSK2lueRQD71SjecV3wdZj8yMl8V6q2cGMJXLDQHIpOdF8n6Sl5X7kl9kBJ91E1HQMzEYSed8v1UH0o72C3uQ/WoGdWSbIm8Ef/jMnoDOlQRNyuvEg7eEt/KZVcvTJzFX6bKUsEvYJc4vOTF4ZBMOhnwHWUhZY/N56k7oOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=phnS7lpi; arc=none smtp.client-ip=209.85.222.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESKRDJAS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 637381F00893;
-	Fri,  5 Jun 2026 16:02:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780675373;
-	bh=zs3gRL2Jxmh2XLWYcX4fEfvoibonHfyoW/I2JwX2inc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ESKRDJAS32F/VW/1vi7P99mCUToSDleWUi+39NWijUbMzNFVA8B7I4glmGzBBm1Ip
-	 GhUA0NmlVHSkEpshb4VeRbqHXdgSAzk8W27bEfSTcCM//tV3y/+vNTtPnvjz4ya0ao
-	 s1pjpk1rNm+N8xXE12gfymNk5oydx9VaKGwnPm1m/WLWLuAE3E+xQkeu/xbUvGC7Pb
-	 JoBf8587LJGB61midPHyIZFyPxL+McA8ALMR9ftuSRlQuLWYYFPTpHoVL40XD0iQYC
-	 b17olyomuCL5Z6ghxYCEKVEploiMihsEaB80yR5y4GXL8HoBr+T81tJ/VGu826+Kzs
-	 UTETLSAAygYoQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dma-buf: udmabuf: validate create-list count before
- copying
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Samuel Moelius" <sam.moelius@trailofbits.com>
-Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org
-In-Reply-To: <20260605154252.2125942-1-sam.moelius@trailofbits.com>
-References: <20260605154252.2125942-1-sam.moelius@trailofbits.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 05 Jun 2026 16:02:53 +0000
-Message-Id: <20260605160253.637381F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="phnS7lpi"
+Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-963ebce7076so455383241.3
+        for <linux-media@vger.kernel.org>; Fri, 05 Jun 2026 09:02:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780675378; x=1781280178; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GMM8rItwjOBKBZTiVFQDKLbinjfJL7SeunmDuhS3L9o=;
+        b=phnS7lpiu0AgZ4noQy/KYuqfmUif+4T8mkMql9h22PnhP7PSenOVFLBpfAb0c6zmy5
+         kzBeHOWO7dT3G2kkKqBFdaENtYgiYQe6LlSM/GKVkYYjjGsIsBgX9ZXYwHFq1lIrukBH
+         WGtGQkdzGaTDR+8jAUg1u8zKH2OnpP7O6VwtF54MjibpPByFvjwBNjQk7PYP1z0Hyh1b
+         bjzJ/HBveB0DxeGSFmi6aR21VcPBldru/kyKFfgQyGXepHsAV0EjrT45SJOVrhgXL+m0
+         hoYvlYGVRBTLb4iETPbcuE1M7RQYgjdrwiUUyrVDlHbHcpwqQxJakhtQt79+DzZFG41j
+         i/nA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780675378; x=1781280178;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=GMM8rItwjOBKBZTiVFQDKLbinjfJL7SeunmDuhS3L9o=;
+        b=WMEzFju+QrToyUybNjPCm0OZ0yQA1bp6k6O1rUve/FibcZfJrrRcq1ODJivQc+afkS
+         8hEznsETQmFjtkX/lHzVC7nZdvT3rYgSmr9JgHzVhAHDWFChGI1oDM6lHYw4N0LRD7XR
+         W7GHn/wEBeK7t1KAEY2a8ssatIWn7HlyzoIe7hxcWoodbAaWLIXlDWsD01DkSNUhbhLV
+         q/uFTk5hM6Ezmf8ReQ406GjvZ0TOtv0PfSDFYF5RqWvIzc+5fJWcRHj9hnTU4tHHbtpl
+         qGWKwA7tHwE1lP4MyAQTcrxLEh3j+uS51Gl/4af+8nAqLoZsoejaLm/zBt0IDxTLbgTy
+         2Deg==
+X-Forwarded-Encrypted: i=1; AFNElJ+afvt4nkWwvAqq2nqTwjIEnHqn/SYp+7c1m1Le0b84HQkTqQ9+oiVwBhC8vByBHpQDwgRb0OXKgjqmwg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwEYCJWr2gS9G5q7QmCKSOTiMVQMh4nlGD06HP1tA6Z29B7CkYC
+	B2z2vCGtoIEL9zjLZPdtaZklo91S+6+SGWb7ZKXipygB8Q4j6fC4MF5K
+X-Gm-Gg: Acq92OFEp4+hGKgkRhdrVHOQE/08eu0Ifcs2AQox8csiGKV0zpK+hl7GEciejMWvhbs
+	XTdM5KBYaeBYqyQDMy7PZ+Bkxt9jwyR/rC/pw8HeXjjIDALEP/xMCQGb7P13v5iOl2bGuxkw3GS
+	53zfP9PjCCBgFJH1Kv1NiZsl8XueHQO8Im47nSImjEkNUKlTAlS+95GWSwkfq9iMp7YQPyvRXk+
+	kJwAjwddXQ6e5t5TvhjmomCFzV4lFKMmj0Kt6H3eBj3g5s4jdOe7Wlpz0UIJeDD+NRD3HN3rj1L
+	ySZ6qmBIS/CoSjBH/fjpina8rpT5bJp1fm//SBeVaCAGxwFIPhu0M+wrD2THTKxFFy4C3U7v/2N
+	UFANjmQsB7IInkUjQrb1eE1t+2QaZIoSh/+ThNIgNKvPvX6LpcgNrCxIA7Mb5CmU8EW1vVXIsmp
+	fcqvdgRMDcnrx+ppbpLZQiI50j/8VrFyM7FOxWfj9W1Z1IOjY37XbVsQ8WxSN7Z04Q+qVri6Bl
+X-Received: by 2002:a05:6122:3d45:b0:573:a779:62cf with SMTP id 71dfb90a1353d-5ac4f952082mr2315135e0c.7.1780675378285;
+        Fri, 05 Jun 2026 09:02:58 -0700 (PDT)
+Received: from smtpclient.apple ([2804:7f1:c241:abe4:8c1d:3d1b:d7cb:e7e9])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96413f9afe7sm6908115241.6.2026.06.05.09.02.48
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 05 Jun 2026 09:02:57 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH 3/4] rust: Add dma_fence abstractions
+From: Daniel Almeida <dwlsalmeida@gmail.com>
+In-Reply-To: <FEFE0522-FD7A-40DE-8B2A-09FE2F33F327@gmail.com>
+Date: Fri, 5 Jun 2026 13:02:36 -0300
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Paul E. McKenney" <paulmck@kernel.org>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+ Joel Fernandes <joelagnelf@nvidia.com>,
+ Josh Triplett <josh@joshtriplett.org>,
+ Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Lai Jiangshan <jiangshanlai@gmail.com>,
+ Zqiang <qiang.zhang@linux.dev>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Igor Korotin <igor.korotin@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Krishna Ketan Rai <prafulrai522@gmail.com>,
+ Shankari Anand <shankari.ak0208@gmail.com>,
+ manos@pitsidianak.is,
+ linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org,
+ linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org,
+ rcu@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <48CE71C8-7A67-4D09-84C2-A0B83C32B169@gmail.com>
+References: <20260530143541.229628-2-phasta@kernel.org>
+ <20260530143541.229628-5-phasta@kernel.org>
+ <4F8E8E04-5AB5-4E6B-9194-5FC467E2313F@collabora.com>
+ <20260603191405.4c75badb@fedora-2.home>
+ <09096455-BA79-4E61-AD88-44DA57C5BEA8@gmail.com>
+ <20260604101552.4232733b@fedora-2.home>
+ <8ff2de94a50ed077a4cfe520a081f2b8b438a375.camel@mailbox.org>
+ <FEFE0522-FD7A-40DE-8B2A-09FE2F33F327@gmail.com>
+To: phasta@kernel.org
+X-Mailer: Apple Mail (2.3826.700.81)
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [Critical] Integer overflow in `udmabuf_create()` leads to undersized arr=
-ay allocation and a subsequent heap buffer overflow when pinning folios on =
-32-bit systems.
-- [High] Unprotected initialization of `ubuf->sg` in `begin_cpu_udmabuf` le=
-ads to memory leaks and data races.
---
+>>=20
+>>>=20
+>>> So, by passing self by value to the ::callback(), you're basically
+>>> telling users "hey, BTW, don't forget to defer the drop to some
+>>> workqueue if you think it's not atomic-safe". And how can users know
+>>> that the thing they're about to drop can be dropped in atomic =
+context?
+>>> They basically have to audit the ::drop() of all the resources they
+>>> embed in their type implementing FenceCb. Not only that, but they =
+also
+>>> have to design the thing so the deferral of this ::drop() doesn't
+>>> allocate, because, obviously, allocating in atomic context is
+>>> tricky/fallible. AFAIK, none of this can be spot at compile-time (I
+>>> remember Gary/Danilo mentioning that we could teach the klint about
+>>> some of these rules). This would leave us with runtime checks like
+>>> might_sleep(), but most of the C putters (xxx_put(object)) don't =
+have
+>>> might_sleep() in the path where the decref doesn't lead to a =
+refcnt=3D0
+>>> situation.
+>>>=20
+>>> TLDR; Call this PTSD if you want, but this is the sort of bugs I
+>>> struggled with on the C side, and I can predict that the exact same
+>>> will happen in rust drivers if we expose the FenceCb as it is =
+designed
+>>> here and we don't have a way to check the soundness of the FenceCb
+>>> implementations at compile time.
+>>=20
+>> My guess would be that the existence of unsafe-traits is the =
+admission
+>> of Rust that this just cannot be guaranteed by design.
+>>=20
+>> If a driver cannot know whether this or that is safe to drop, then it
+>> would have to defer it's dropping. Or would there be cases where this
+>> also doesn't work?
+>=20
+>=20
+> Although I totally understand where Boris is coming from here, and I =
+agree with
+> him, the reality is that the current &mut self design doesn=E2=80=99t =
+solve this. An
+> unsafe trait could work as a pinky-promise by drivers, which is =
+half-way there.
+>=20
+> What we ideally would like to have is a bound though, something like:
+>=20
+> T: !Drop
+>=20
+> If I recall correctly there were people working to get support for =
+that on
+> Rust? I think there are two things here: !Trait, which is not =
+supported except
+> for !Sized IIRC, and having an auto trait that represents types that =
+implement
+> Drop, similar to Send and Sync.
+>=20
 
-commit a036fc929a16b1c94a5ac12cbef23efece456576
-Author: Samuel Moelius <sam.moelius@trailofbits.com>
 
-dma-buf: udmabuf: validate create-list count before copying
-   =20
-UDMABUF_CREATE_LIST copies a variable-length list using a byte count
-derived from head.count. The list_limit module parameter is signed and
-writable, so setting it negative lets a large unsigned count bypass the
-limit check. The u32 byte-count calculation can then wrap, causing only
-a small list to be copied while udmabuf_create() still iterates over the
-large count.
+In fact, ping the pin-init people here, i.e.: Benno, Gary, etc.=20
 
-Reject negative list_limit values and use checked size_t multiplication
-before copying the list.
+What is the magic behind =E2=80=9CMustNotImplDrop=E2=80=9D? Perhaps we =
+could apply that here?
 
-> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-> index bced421c0d658..264718676d485 100644
-> --- a/drivers/dma-buf/udmabuf.c
-> +++ b/drivers/dma-buf/udmabuf.c
-
-[ ... ]
-
-> @@ -469,13 +470,14 @@ static long udmabuf_ioctl_create_list(struct file *=
-filp, unsigned long arg)
->  	struct udmabuf_create_list head;
->  	struct udmabuf_create_item *list;
->  	int ret =3D -EINVAL;
-> -	u32 lsize;
-> +	size_t lsize;
-> =20
->  	if (copy_from_user(&head, (void __user *)arg, sizeof(head)))
->  		return -EFAULT;
-> -	if (head.count > list_limit)
-> +	if (list_limit < 0 || head.count > list_limit)
-> +		return -EINVAL;
-> +	if (check_mul_overflow(sizeof(struct udmabuf_create_item), head.count, =
-&lsize))
->  		return -EINVAL;
-> -	lsize =3D sizeof(struct udmabuf_create_item) * head.count;
->  	list =3D memdup_user((void __user *)(arg + sizeof(head)), lsize);
->  	if (IS_ERR(list))
->  		return PTR_ERR(list);
-
-[Severity: Critical]
-This is a pre-existing issue, but can the 32-bit addition of subpgcnt wrap
-pgcnt?
-
-In udmabuf_create(), list[i].size is a user-controlled __u64 value.
-On 32-bit architectures, pgoff_t is a 32-bit unsigned integer:
-
-drivers/dma-buf/udmabuf.c:udmabuf_create() {
-    ...
-		subpgcnt =3D list[i].size >> PAGE_SHIFT;
-		pgcnt +=3D subpgcnt;
-		if (pgcnt > pglimit)
-			goto err_noinit;
-    ...
-}
-
-If user space provides two items=E2=80=94one small (e.g., 2 pages) and one =
-huge
-(e.g., size =3D 0xffffffff000ULL)=E2=80=94subpgcnt truncates to 32 bits and=
- pgcnt can
-wrap around to a small positive value. This bypasses the pgcnt > pglimit
-check.
-
-init_udmabuf() then allocates arrays sized by the wrapped pgcnt:
-
-drivers/dma-buf/udmabuf.c:init_udmabuf() {
-    ...
-	ubuf->pages =3D kvmalloc_objs(*ubuf->pages, pgcnt);
-    ...
-}
-
-Later, udmabuf_pin_folios() calculates a local 32-bit pgcnt =3D 0xffffffff =
-and
-asks memfd_pin_folios() to pin up to that many folios. If memfd_pin_folios()
-returns a large number of folios, udmabuf_pin_folios() unconditionally writ=
-es
-these kernel pointers into the undersized arrays, resulting in an out-of-bo=
-unds
-write:
-
-drivers/dma-buf/udmabuf.c:udmabuf_pin_folios() {
-    ...
-		ubuf->pinned_folios[nr_pinned++] =3D folios[cur_folio];
-    ...
-			ubuf->pages[upgcnt] =3D folio_page(folios[cur_folio],
-						subpgoff >> PAGE_SHIFT);
-    ...
-}
-
-Could we check for overflow when accumulating pgcnt?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does begin_cpu_udmabuf() hav=
-e a
-race condition when allocating ubuf->sg?
-
-drivers/dma-buf/udmabuf.c:begin_cpu_udmabuf() {
-	if (!ubuf->sg) {
-		ubuf->sg =3D get_sg_table(dev, buf, direction);
-		if (IS_ERR(ubuf->sg)) {
-			ret =3D PTR_ERR(ubuf->sg);
-			ubuf->sg =3D NULL;
-		} else {
-			ubuf->sg_dir =3D direction;
-		}
-	} else {
-    ...
-}
-
-The DMA_BUF_IOCTL_SYNC ioctl triggers dma_buf_begin_cpu_access(), which cal=
-ls
-the exporter's .begin_cpu_access hook (begin_cpu_udmabuf()) with the dma-buf
-reservation lock intentionally unlocked (as documented in dma-buf.h).
-
-If two user-space threads invoke DMA_BUF_IOCTL_SYNC concurrently on the same
-file descriptor, both can observe !ubuf->sg, allocate separate SG tables, a=
-nd
-establish duplicate DMA mappings.
-
-The second thread will overwrite the ubuf->sg pointer, leaking the first
-allocated SG table and its DMA resources. Concurrent readers could also ope=
-rate
-on partially written pointers.
-
-Is there a lock we can hold while checking and assigning ubuf->sg?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260605154252.2125=
-942-1-sam.moelius@trailofbits.com?part=3D1
+=E2=80=94 Daniel=
