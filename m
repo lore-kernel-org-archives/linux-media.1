@@ -1,100 +1,104 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDEE7358379
-	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 15:32:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38FB3364052
+	for <linux-media@vger.kernel.org>; Fri,  5 Jun 2026 15:33:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780673572; cv=none; b=iy94UP7iV7k6ar5l+N/pRP4mDyQZ7XrJjP42QBXT13oZPBwPtw9ARigLI1vuNfZIx3E0zGTRW/2ivGfGWQukhuaHCovwwRW0MPqdABJERLg3CUNSbfE1Qdp/53h/9+HJyKmsb6EPVHnmwtZ6GHnrFGFed8ov5bOq9t8hazpTpOA=
+	t=1780673611; cv=none; b=KDBwp97cabWFpX9Nh9A6hJhjzKBay9fdzffNBZl8x3mJq6EmR2Z+YQqPXRq4coeT2WSDVmRrIn6Cilr0uOLIC2uKOqWLndB/xObTCfNjgHIKnvgkb7TZKneEN0V68GP9iE/JmNbV92UxWn1PizW+yE4SAni7zxoJ1Us93osS9FY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780673572; c=relaxed/simple;
-	bh=W4RLOFk/TGhtttGUfrWkm6V8KHWc1BAYySAVpaloJYg=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=nXsDVw5uyhps/Z1ehWm3BWJf9NXZoXeHWF+DiDgm+4zqACN8Y7acx9n2AJ9CdP6xYOUTJ1eaB3AQ6CNNTK6OAhmtWT/BtMXiSy764fIyI+r1JUAFk2HNsacweWoO4BcXrWJD2TGpipsGTBlQ33EI7OUuQcE4uQpBhMRDsFepNpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Pcv5wqaG; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1780673611; c=relaxed/simple;
+	bh=pe0rmx+cxv9y62/iOkR1NUb7COuXxk0zlNl1qRN4sF4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tkWcFINM5aLpvggJ66W8dNZj5p/s3+68Hl4X9BO2b+gXKyPqBDERkqP1I8n5XlEatP/VQwBILzjSwEDFjDugcPFAyh4CmomLiNuiqecu6xEWGetyyc5mc/2x/uVCytysJCfvV7hZ7JVMgicaQ5wUOK4Q1OCeGHmbYtLftgDocxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sarze8Ca; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Pcv5wqaG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780673571; x=1812209571;
-  h=date:from:to:cc:subject:message-id;
-  bh=W4RLOFk/TGhtttGUfrWkm6V8KHWc1BAYySAVpaloJYg=;
-  b=Pcv5wqaGlvhLecbuE8BjyAMMAdrFC59szDkMhFTV0hILrUHIU1Z7SpZW
-   SLJjl7XeKQYKUDYehtbLo9ylousNGiv5tDHzWIlf6+7f6rj8DUiFIxLOW
-   zxslj/nrDDPynknrREzwqdLY/sGM2DHC/031fO8AHVuwKyC9HK+DmxYEl
-   06VwG2y8k+ELFbePsWz8+Kv7RrJhPvXj7RgEL1PTTFlxsZ8fwk/WE2tID
-   aHkg7L1Mj1BM1e1Ds1LE+3R+XkxJIEAwLpQkPylgLl217lVVYLq5nJNLO
-   DHXFabWLDQLgo453sABLEaYDxlO7F9pT6xqG4O2R3wvXQZkQDYGFAdPpP
-   w==;
-X-CSE-ConnectionGUID: La/U4M+YSWm7Q4kLAq41HQ==
-X-CSE-MsgGUID: 5nKcg21wRRyq6QAAvw29qw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11808"; a="92995756"
-X-IronPort-AV: E=Sophos;i="6.24,189,1774335600"; 
-   d="scan'208";a="92995756"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jun 2026 08:32:50 -0700
-X-CSE-ConnectionGUID: kfhIEy5KTKOei+uF+IYvmg==
-X-CSE-MsgGUID: 9Nl5ZRXZSu2+po6zlr9ZnA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,189,1774335600"; 
-   d="scan'208";a="242399376"
-Received: from lkp-server01.sh.intel.com (HELO f0d55cb201f0) ([10.239.97.150])
-  by fmviesa008.fm.intel.com with ESMTP; 05 Jun 2026 08:32:48 -0700
-Received: from kbuild by f0d55cb201f0 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wVWXO-00000000GAo-27vO;
-	Fri, 05 Jun 2026 15:32:46 +0000
-Date: Fri, 05 Jun 2026 23:32:25 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-media@vger.kernel.org
-Subject: [sailus-media-tree:partial-reg 7/9]
- drivers/media/mc/mc-event.c:17:10: fatal error: 'media/media-event.h' file
- not found
-Message-ID: <202606052349.bOSyAnNd-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sarze8Ca"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 652C71F00898;
+	Fri,  5 Jun 2026 15:33:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780673608;
+	bh=Mbdmq4Leb+ZwNWt2t0EiTXdInl4X5ELk6gS+BDi40i8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Sarze8CaQXIeUh0LxG+LNjaZOAkFNtKMtCGAUXKYWRLQog2MHPBW3mcMuD6wzHjAx
+	 GKBmtxTTlomZ8JP74z6t+PolFKlpVyxSz2w6ELKxn98iYspxRD409Q55yJGD+hQdqM
+	 SL38P2cYSM4uaidBYzOoWY5kwpCEmMTpI0etpt+4gCIB+huwE6aWdBkOwYpYDJ61AS
+	 km+JqK0FApRGa56+1n9iAlrNmWw4FUk/FA/4T4wW8lf545QIz1Z2wlbAXLVNWSeDHO
+	 6V2qpjEnM1bIO0BGu7lFUPiYOruwGuTEvyNVOkiPI+sRYfsU7g2U82Uugc3kMFJT4z
+	 Heik13egUPbew==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 9922DF4006F;
+	Fri,  5 Jun 2026 11:33:27 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Fri, 05 Jun 2026 11:33:27 -0400
+X-ME-Sender: <xms:R-wiag_yggALpQ_A3CEUcnpnnZIdWF84d_9K86fZpaYuXJ5uKCZbPQ>
+    <xme:R-wiajqpPpSJ5tlj8qN9Ml9aiKLQ3vvbaolr3hjPTSsBEolHogb4WF1El6g0ZQPZG
+    qhihsY6MxHIqJZmML48ZX0VGL_-trCIH-w16xo740KHBXlylgoiNRs>
+X-ME-Received: <xmr:R-wialCgOMZeCMpQfi7Y3flj7cDHYl3v3ISRNyNmGGpyiUwVQK8G1Gwyy7s>
+X-ME-Proxy-Cause: dmFkZTE5q7wspRguf/xfzLeVi3MIs2Gj4EfIHTkUc1lLAmhybEywZyWFPuPAchSTPk302j
+    5qa7Ta75/FfpsA9ph/y6zR8dOlipoy2NsJryeCv/cMr+KRmiWbN5BTDzMY09PKgPw6Q8/S
+    JOrNBMYEwaRZaQQpqEbygfvD4EKweAd1f/LEWcRkUNU2kx6mYNxsjy1On2KzKqsLciVQGU
+    BpN5qsnQnZ09Sg8h+Ite1nVQy3obAfWhBuTG1G+oW38s2TVFq31W9GKGBj7Wah+ndwXE7Q
+    QqsDM+FN9gCvCmAM8OijbjxYVINJ7C121xS0f50lXW82d75diCF5OdbN1WyWapAyFjgblL
+    brlJoA0MM1gvpmGP3KPxPVpJRj6PLnoZyPyzS09TqOKWpLmgYjhUJfLcKomC+L3pAq+RV1
+    gs2zfu2UwvnVrLTwJxCGGo0/z/Bp68InsXjq7MXUx9UdhxdvB6vWOXdAiezHG2Qr2HbUmk
+    EWQyAwszmoBUUTayyLTi12jUIVK3wd5uasMtHv2bYL+7+No3nez6Gn6Wiy4NjrwxNQChvE
+    2MkrosLDTsbe1qHXAb/YZN53ElTwbVaczqkhjEV/l1ZgJlS5J2e2D8qfRiAZplZ5FuS6oN
+    XhzegrTUvLMLshR5WLVYINVI1VkPLf6EQzzQntPp4f4CfO1YtSoloe32I+9w
+X-ME-Proxy: <xmx:R-wialwmsm7WJhW1PeysoUg4RdFP0hVThJgIJt_tawH-TdrEF48Igw>
+    <xmx:R-wiai3ZZECYe4b5noWuc65Ow--1iNyXAM2bR6lVH0Oz6CyrG18qFw>
+    <xmx:R-wialxUOtBmFVJwt6aLXC_hJ1Koj5VmMDdhfxVoGm0wX-zUpwPP1Q>
+    <xmx:R-wiapFnJeVXfqsTY6IYikssaDySFaVP3k4arC0WUPNnMCTy635shQ>
+    <xmx:R-wiaoa-8rVNKpz61--7XNOBC41A8UQwkolhdzlcePhlwhgALiG6a1U_>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 5 Jun 2026 11:33:27 -0400 (EDT)
+Date: Fri, 5 Jun 2026 08:33:26 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: sashiko-reviews@lists.linux.dev, ojeda@kernel.org,
+	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH 1/3] rust: rcu: add RcuBox type
+Message-ID: <aiLsRpKWnRk5DQBd@tardis-2.local>
+References: <20260605133541.22569-2-boqun@kernel.org>
+ <20260605134935.B6C0E1F00893@smtp.kernel.org>
+ <aiLgJkKzwEDGWNtY@tardis-2.local>
+ <CAH5fLgimUgbK_dVwq7RQimOugqJka2bM_u2r5S=3aze_8uCnbA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAH5fLgimUgbK_dVwq7RQimOugqJka2bM_u2r5S=3aze_8uCnbA@mail.gmail.com>
 
-tree:   git://linuxtv.org/sailus/media_tree.git partial-reg
-head:   b7d01dab7d47849d483b459ff2abf50497b52149
-commit: 4d67653aa3bd15cbaf60bbe6f4d0dce10d0dccbc [7/9] media: mc: Add MEDIA_IOC_DQEVENT
-config: arm64-randconfig-004-20260605 (https://download.01.org/0day-ci/archive/20260605/202606052349.bOSyAnNd-lkp@intel.com/config)
-compiler: clang version 23.0.0git (https://github.com/llvm/llvm-project 7917772d7d61384696c61102c08c2ea158e610fa)
-rustc: rustc 1.88.0 (6b00bc388 2025-06-23)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260605/202606052349.bOSyAnNd-lkp@intel.com/reproduce)
+On Fri, Jun 05, 2026 at 04:54:55PM +0200, Alice Ryhl wrote:
+[..]
+> >
+> > [Cc Alice]
+> >
+> > I fixed this locally by:
+> >
+> >     fn into_foreign(self) -> *mut c_void {
+> >         let ptr = self.0.as_ptr().cast();
+> >
+> >         // FORGET: Leaking it as a pointer, the caller is responsible to free it or unleak it by
+> >         // from_foreign().
+> >         core::mem::forget(self);
+> >
+> >         ptr
+> >     }
+> 
+> I prefer to avoid use core::mem::forget.
+> 
+>     ManuallyDrop(self).0.as_ptr().cast()
+> 
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202606052349.bOSyAnNd-lkp@intel.com/
+Sounds good ;-)
 
-All errors (new ones prefixed by >>):
+Regards,
+Boqun
 
->> drivers/media/mc/mc-event.c:17:10: fatal error: 'media/media-event.h' file not found
-      17 | #include <media/media-event.h>
-         |          ^~~~~~~~~~~~~~~~~~~~~
-   1 error generated.
---
->> drivers/media/mc/mc-device.c:26:10: fatal error: 'media/media-event.h' file not found
-      26 | #include <media/media-event.h>
-         |          ^~~~~~~~~~~~~~~~~~~~~
-   1 error generated.
-
-
-vim +17 drivers/media/mc/mc-event.c
-
-    15	
-    16	#include <media/media-device.h>
-  > 17	#include <media/media-event.h>
-    18	#include <media/media-fh.h>
-    19	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> Alice
