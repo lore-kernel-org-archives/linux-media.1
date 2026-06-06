@@ -1,85 +1,102 @@
-Received: from outbound.st.icloud.com (p-east2-cluster1-host11-snip4-4.eps.apple.com [57.103.76.47])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D81592ECE91
-	for <linux-media@vger.kernel.org>; Sat,  6 Jun 2026 23:44:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.76.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 254CD45BE3
+	for <linux-media@vger.kernel.org>; Sat,  6 Jun 2026 23:57:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780789501; cv=none; b=dcVGdvnGTQBE1J84aHF39ZlRM3gWc6OS9pqth725BiufVBvO+UJfO0Tm1Re/OAe+980IU8ib6ncdA1ZCu8G7miCthBTeqTO+OyBcTPT8WTobrE9kjoURwe9T42WtLcmFDZbWMP2wRZ3Tw82oDanF66VOdH0eBC8NxPeCNdLzK94=
+	t=1780790243; cv=none; b=SN2BhgcGj/Zfn6rPfKKmcAn+KKsuVuYWZRn4DPqjaNgCdLSYOpfUNWCbWqG+oWX3XW6/Oie3H35CqjeMuWa3fIvtWMNaEHjmmme0itUQ71pm4GsooI2Bnsg93WcYP6mhJn0hFDBu4xQCFrgm1CECL3EdIzSysZOOMiQvkNWYU3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780789501; c=relaxed/simple;
-	bh=f25YXMh3jw6eY1n4wR9IpEbBJgwzmFwEbXaDXDu5f/0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fDgQ1wFnyQpRpqHEz9J+7D5+F81occLkA0+2Dg9xWtDB8khy9wfTN2fSeL2vtGuB04zmo6InNqdEhwfjlYNrQCZzcu4jZ8rbbKdTWQ507eAowxNIpBt9jLVau2ZHwllDV0YOMiNyrhlInAQoUqnI576xTWwqeL1v+aRwuTZPBuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=notrealandy.dev; spf=pass smtp.mailfrom=notrealandy.dev; dkim=pass (2048-bit key) header.d=notrealandy.dev header.i=@notrealandy.dev header.b=EQTE/ibJ; arc=none smtp.client-ip=57.103.76.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=notrealandy.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=notrealandy.dev
+	s=arc-20240116; t=1780790243; c=relaxed/simple;
+	bh=g3sfZ4T+xpsIM9MckdXu0wnPt19hTQuJ3grm4GwXbS4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=i/VIJ8JHPTNMAdx/xr0cp9bqLUwKF6rUnnze0UYEjAQDbFS5Du3bxpqGUvK16BVskVwQsyFBkj9Yd2oHRDE/IPt+vxKfweQs0rW/4jlmhruNyXBtpYu5Uu/kftCAQgtukXrnFoD2AiA02jwKUd14AjJ3Nl7/E8vCCNRITUA9qCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VLMn1wIE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=notrealandy.dev header.i=@notrealandy.dev header.b="EQTE/ibJ"
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-0 (Postfix) with ESMTPS id 3D7CD1800883;
-	Sat, 06 Jun 2026 23:44:55 +0000 (UTC)
-X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQFNHVwOWBxAF0kGTVIPDxxQFkYVdwVdBEsdUgFWBVYJFxxWGxcNVk1XF0cfUgpeEVccSkNTDkRQSxsOVBcDVxxWRVwYQwldBVccHR5DRVsTVRdGCRkIXR0ZCEcfCjADQg5WA0MHRQAtGRxXUFkERgJcGV8MWQ9LXl0dRU1aAlZNBUoDXwFbBEAPSgBZA1kFXgBBA18aWh8cUBZGFXcFXQRLHVIBVgVWCRccVhsJS0YJSR0ODkIYRh9UJ1cCWgpbHg==
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=notrealandy.dev; s=sig1; t=1780789497; x=1783381497; bh=D1StYL6U9gU2+jj+JbZhPSY5gf8iUhPFr30wac770RQ=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=EQTE/ibJYw/oyasmViiRoGKEnzn7KZ578dnmal8QX5tyO8UGnx1PI6VWalqyp05A8FL86uTZBkZVmGPumnGBqW8GO9u84i7nDYh3f+DyYs+PtVOHc295PaVcmDFWfM3fviY1Bkkf51ffUu3kqBvsMomIUldkB9OLDXphvXj+Wm7v3dHhqmRNwuXNVYPv9XE93YTk64FJ6uJpqrqF1zJhmysEL84SQP+v3XgxsE/sBJHy7IBhFVGRxOzHL6ZxIpM6D2vt89Gyn0p+ugpm8N2ywnWUXwvljJWVym+liX8jwpHGUmf6AANvZpBm4zF20xCa2CQa+cBLtMR+coY//Cy5Ig==
-mail-alias-created-date: 1780788294906
-Received: from 68c3084b1005 (unknown [17.42.251.67])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-0 (Postfix) with ESMTPSA id 3F5F1180088D;
-	Sat, 06 Jun 2026 23:44:53 +0000 (UTC)
-From: Andrew Soto <linux@notrealandy.dev>
-To: hansg@kernel.org,
-	mchehab@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: andy@kernel.org,
-	sakari.ailus@linux.intel.com,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Andrew Soto <linux@notrealandy.dev>
-Subject: [PATCH] staging: media: atomisp: prefer kcalloc over kzalloc with multiply
-Date: Sat,  6 Jun 2026 23:44:27 +0000
-Message-ID: <20260606234427.9902-1-linux@notrealandy.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VLMn1wIE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87D501F00893;
+	Sat,  6 Jun 2026 23:57:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780790241;
+	bh=GtAIZmEba0/bua25ucvtbIoh8d+XrvRoan3kk8cpnBo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VLMn1wIEwFH19kX32Y7cFjR7MSzOFDWe7GbwdpgL0HTrpNazId1h/KyLRTDSB/w48
+	 1ZvIxOgSrB32aKIHwolkSNXP6F05VwqQ8nYsxpuEUOmI8gW1zwR3+nlZv5b3S8KG9O
+	 Be8pzl+btMSJfzboXsBxcxhgMnYDTLXZGZqvziUvWvHpxeyGfBW2rnkA4VHYtZhL1w
+	 zKdJkeXXsSVCBwsH2sex+eyYSEps5Dg9XTvdDw9Xr9+GvxPsscHfTNriZlih8u6QxS
+	 +Di+XUJaYUkfLh8ex+Nccln3fa/WufdZn1qGwRx2dcggH2Qejch99puO27IYmsSOfa
+	 uX+OJwpmuvg4Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] staging: media: atomisp: prefer kcalloc over kzalloc
+ with multiply
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Andrew Soto" <linux@notrealandy.dev>
+Cc: linux-media@vger.kernel.org
+In-Reply-To: <20260606234427.9902-1-linux@notrealandy.dev>
+References: <20260606234427.9902-1-linux@notrealandy.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 06 Jun 2026 23:57:21 +0000
+Message-Id: <20260606235721.87D501F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Info-Out: v=2.4 cv=PJ0COPqC c=1 sm=1 tr=0 ts=6a24b0f7
- cx=c_apl:c_pps:t_out a=YrL12D//S6tul8v/L+6tKg==:117
- a=YrL12D//S6tul8v/L+6tKg==:17 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=pDUkijPYcnCcty---KEA:9
-X-Proofpoint-GUID: oE_mK9xeJBWVOZBbE9luOc4P5Dxo5xvS
-X-Proofpoint-ORIG-GUID: oE_mK9xeJBWVOZBbE9luOc4P5Dxo5xvS
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA2MDI0NCBTYWx0ZWRfX99RJ7y57oxFR
- W6H8oEEslXafKXJXFqf1g6SBkf0UTdWJuWkCOudJBmkvszAVPZowSxfR29RBWMdNV9ECn255Vas
- bnInCWGHvPnqVdmFzyQ4nwMUgcHSda3P6T0CEB93vPtftFABJcmcd76FJHH2W9Cne3A9MXkwdvX
- 4sbyBw1H+ASMpUq67g2jEMC001SLHFavgAMStRiwwRmIk3ys+IkLGEZi24LFvDaNy/5k9SybxC9
- tWOpfrDR2VqZMX/RdkhY9ff5qSPXpb9lsBcO8pIUx2493V1i6DRcn/hpjqXj/UtgBJ7eRfEPUoH
- SImPqw/gf6XQnOVm5von56z+JfW8N7aj/THkWCyWECj3ozvs63LYOiNehuiqwY=
 
-Optimize memory allocation layout in sh_css_params.c by replacing the raw multiplication inside kzalloc() with a type-safe kcalloc() array allocation wrapper.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-This prevents potential integer overflow vulnerabilities by validating the array size calculations before interacting with the kernel heap allocator, aligning the driver with modern kernel memory allocation standards.
+Pre-existing issues:
+- [High] Ignored memory allocation failure leads to null-equivalent pointer=
+ passed to SP firmware.
+--
 
-Signed-off-by: Andrew Soto <linux@notrealandy.dev>
----
- drivers/staging/media/atomisp/pci/sh_css_params.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+commit 967be0a2dfa51f2c0edc88c4aa3976bc41aab85d
+Author: Andrew Soto <linux@notrealandy.dev>
 
-diff --git a/drivers/staging/media/atomisp/pci/sh_css_params.c b/drivers/staging/media/atomisp/pci/sh_css_params.c
-index fcebace11..9147ca047 100644
---- a/drivers/staging/media/atomisp/pci/sh_css_params.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css_params.c
-@@ -3716,7 +3716,7 @@ ia_css_ptr sh_css_store_sp_group_to_ddr(void)
- 
- 	IA_CSS_ENTER_LEAVE_PRIVATE("void");
- 
--	write_buf = kzalloc(sizeof(u8) * 8192, GFP_KERNEL);
-+	write_buf = kcalloc(8192, sizeof(u8), GFP_KERNEL);
- 	if (!write_buf)
- 		return 0;
- 
--- 
-2.53.0
+staging: media: atomisp: prefer kcalloc over kzalloc with multiply
 
+This commit replaces a raw multiplication inside kzalloc() with a kcalloc()
+array allocation in sh_css_params.c. This validates the array size
+calculations to prevent potential integer overflow vulnerabilities before
+interacting with the kernel heap allocator.
+
+> diff --git a/drivers/staging/media/atomisp/pci/sh_css_params.c b/drivers/=
+staging/media/atomisp/pci/sh_css_params.c
+> index fcebace11daf6..9147ca0474ad2 100644
+> --- a/drivers/staging/media/atomisp/pci/sh_css_params.c
+> +++ b/drivers/staging/media/atomisp/pci/sh_css_params.c
+> @@ -3716,7 +3716,7 @@ ia_css_ptr sh_css_store_sp_group_to_ddr(void)
+> =20
+>  	IA_CSS_ENTER_LEAVE_PRIVATE("void");
+> =20
+> -	write_buf =3D kzalloc(sizeof(u8) * 8192, GFP_KERNEL);
+> +	write_buf =3D kcalloc(8192, sizeof(u8), GFP_KERNEL);
+>  	if (!write_buf)
+>  		return 0;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is it possible that this ear=
+ly
+return causes the firmware to crash under memory pressure?
+
+If kcalloc() fails, sh_css_store_sp_group_to_ddr() returns 0, which acts as
+a null-equivalent for an ia_css_ptr.
+
+Looking at the caller in drivers/staging/media/atomisp/pci/sh_css_sp.c:
+
+store_sp_group_data() {
+    ...
+    per_frame_data.sp_group_addr =3D sh_css_store_sp_group_to_ddr();
+    ...
+}
+
+The return value is unconditionally assigned to per_frame_data.sp_group_addr
+without any validation. When this 0 is sent directly to the per-frame
+hardware configuration, will the SP firmware crash or lock up the hardware
+when attempting to access address 0 for its group configuration?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260606234427.9902=
+-1-linux@notrealandy.dev?part=3D1
