@@ -1,134 +1,85 @@
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.st.icloud.com (p-east2-cluster1-host11-snip4-4.eps.apple.com [57.103.76.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932D82F7F18
-	for <linux-media@vger.kernel.org>; Sat,  6 Jun 2026 21:03:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D81592ECE91
+	for <linux-media@vger.kernel.org>; Sat,  6 Jun 2026 23:44:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.76.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780779831; cv=none; b=E3sa+32mhigBkFj9RLLEje7weJF6b1bOchzXwRXFCDn7cuidZxMgirADL/ypdcwsnxp0Qi7vlsuJx+8xEYEbgtWP7JP7mC+9XXSPdqXnw1pdY+tai+A8pBu8HcuEqJn+1flrgt4+6TV3DWRB5Lc8T1As8AYyHZ6i0kuT9oMBMCI=
+	t=1780789501; cv=none; b=dcVGdvnGTQBE1J84aHF39ZlRM3gWc6OS9pqth725BiufVBvO+UJfO0Tm1Re/OAe+980IU8ib6ncdA1ZCu8G7miCthBTeqTO+OyBcTPT8WTobrE9kjoURwe9T42WtLcmFDZbWMP2wRZ3Tw82oDanF66VOdH0eBC8NxPeCNdLzK94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780779831; c=relaxed/simple;
-	bh=8aQsvQV92fCNEJtI42BLGSyXug3KVyb8/WsuBLmztq0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LrbpGd9oHg5cvqaxwvUxejlR8sE1JWMZ2qmpjCVjaSFc5HC/UgyPkNqHmGxCqUbC/wRNsw01ivD1zIkrDAK2w3BnkOo8HLyDKSNXWtfXdB3jyZe51wqd+UEJQ9/Tgh8TH8cVopbxdY/7CYHPV9JNv18RyvZS1WQ+DrKPoomJyNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gyC2BOm7; arc=none smtp.client-ip=74.125.82.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780789501; c=relaxed/simple;
+	bh=f25YXMh3jw6eY1n4wR9IpEbBJgwzmFwEbXaDXDu5f/0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fDgQ1wFnyQpRpqHEz9J+7D5+F81occLkA0+2Dg9xWtDB8khy9wfTN2fSeL2vtGuB04zmo6InNqdEhwfjlYNrQCZzcu4jZ8rbbKdTWQ507eAowxNIpBt9jLVau2ZHwllDV0YOMiNyrhlInAQoUqnI576xTWwqeL1v+aRwuTZPBuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=notrealandy.dev; spf=pass smtp.mailfrom=notrealandy.dev; dkim=pass (2048-bit key) header.d=notrealandy.dev header.i=@notrealandy.dev header.b=EQTE/ibJ; arc=none smtp.client-ip=57.103.76.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=notrealandy.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=notrealandy.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gyC2BOm7"
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-138188a7dccso961656c88.1
-        for <linux-media@vger.kernel.org>; Sat, 06 Jun 2026 14:03:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780779828; x=1781384628; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=IpsbdQ4HEXAu1DofK9GVpNtvbeL5V7mTYGQq3LB/EZo=;
-        b=gyC2BOm7S5VP72mgnsTuhnN9AFqyGpSdrXsm683Sebk4NIWJ7aOvSj1RrBs8RPIALg
-         ZlNdaZ6jaPPQp6+QNBHKWny3CXkarbqoUaGSz5nZFfgV0ETia4Zz6BiXd1JOg4UmlgeH
-         IuJxGxAfRFywUbRFS1iclf3mrzxm5/YMbwIWZh/Zvc2KUwvcPfGzQ1jPQS3SxbG4rzpd
-         I1JOn7YF+iLVtAt46bifoeGncS+O5KRdu/D51wKDROjvP6s93+ODmZRsr7ztmDXC/aAq
-         6gEML85fg84YhetACuEBdxXki7T3+TQ9/FzXnXlw0NSKYOaRFV/LYo5zSa/cyeDPxFUS
-         HWZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780779828; x=1781384628;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=IpsbdQ4HEXAu1DofK9GVpNtvbeL5V7mTYGQq3LB/EZo=;
-        b=Lbr3Urk4JC4rD/EbzhSTLKjiFq1GEHcGVxAE0wM0Gw5RnawxZ3wOiGABa+O6Cnj0dO
-         OlUsbk1729iDrSU4AKdN/22ZU1+3HSCH3lyOJ/6A+u82NWjANYmMjWMGi3AuXiUBOQoX
-         AgRk805ZK4mxJrwcyxn8xx5p0uJ93FLy0b0yPFMUCi6aQHRYskVu8BtkJnOFUeykwqLv
-         cI6bAlLU9ACGnK8mqaE8RADpBQKoeotyPbsWCl4sdNZ9uTRZGoylxPu0FAHuqDeJ9ZiL
-         BwSrUbzXlBzEyNSAQ6cqlHb8eTxFzGLAyjHXX+9xBdq/ColsBUu77z0NhXmRZRUBFgip
-         rY4g==
-X-Forwarded-Encrypted: i=1; AFNElJ+X69zB23WOA0eFQvBiMySLdNamKuQcQd7CcyQa6g7toduQPzHo/qDauT+WFA8p5/YzWCgwt6J5mxNjXA==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz1Hk/h0z4ZWZ/183AFOpCMH2GCdlLN3TBprH+1dfiEXpb3EBgg
-	w5IM4thWApUf2TXJa1VcC/2fHmaqM4FBfdtF7uHIfsmEl4GFOz8ezSiB
-X-Gm-Gg: Acq92OGZzXkKPWFN2mjh2FpHSlq02yBShsMjEuEZ4yxY8rYvjEeJuml/L37Y+aa/mtR
-	9D/4OqyqJyT+CT5ml3BklrBOdSH5rU/7K7SfmLhgNMJp7NizQjzy9UpPpyPhUx7ooDEPtqTSw3f
-	63+JddHkHDNJg4eFGzrzVkH3DtG2zuAW9EsprtFklQ92z40zpAJVBNMg2CiQ48qU5zs7knRxwA9
-	IJSGwHNx2LuBxUTyUAJpkVSUc582Q0ho3LGhY1+d4HEp35RpUkWmHAw+NlAAqzYGvUkrHO+oY0z
-	FXYj3A9doVadOiozsiX5jRt21nOeVqJchv9K44eS7QFWQ12uKH8AdLyP3jrOIaqOyE1FN/eBBRv
-	cdJAMdJwdytWXzs9ZtthiUoNN0GoKdi7dTwRcef7K9P3Mers1KoTYEpAtRfWDtQHheR+plK0oAG
-	CYFDL1SRAq7hgEsP5hAl5H85jOfNnqUKj25XKVUbQSIHRUi5AvM6IfX1G7Mg39+L4JAUQGcWmfo
-	7YaFtAU4ADFWg==
-X-Received: by 2002:a05:7301:5f0f:b0:2e6:e504:5431 with SMTP id 5a478bee46e88-3077b1de34bmr4945899eec.22.1780779827609;
-        Sat, 06 Jun 2026 14:03:47 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:bb2f:1c0b:386d:8909])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3074dea9226sm11772015eec.19.2026.06.06.14.03.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 06 Jun 2026 14:03:46 -0700 (PDT)
-Date: Sat, 6 Jun 2026 14:03:43 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>, Lee Jones <lee@kernel.org>
-Cc: Akash Sukhavasi <akash.sukhavasi@gmail.com>, 
-	Conor Dooley <conor+dt@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
-	Andrew Lunn <andrew@lunn.ch>, linux-tegra@vger.kernel.org, linux-input@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Thierry Reding <thierry.reding@kernel.org>, linux-media@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Vladimir Oltean <olteanv@gmail.com>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Eric Dumazet <edumazet@google.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Simon Horman <horms@kernel.org>, devicetree@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
-	netdev@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>, 
-	Russell King <linux@armlinux.org.uk>, Jonathan Corbet <corbet@lwn.net>
-Subject: Re: [PATCH v2 4/4] dt-bindings: input: remove obsolete
- matrix-keymap.txt
-Message-ID: <aiSK6_n4ZnB_KRd8@google.com>
-References: <20260603-b4-remove-redirect-stubs-v2-0-c8c19876ab64@gmail.com>
- <20260603-b4-remove-redirect-stubs-v2-4-c8c19876ab64@gmail.com>
- <178052559618.2296868.8781332297681333925.robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=notrealandy.dev header.i=@notrealandy.dev header.b="EQTE/ibJ"
+Received: from outbound.st.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-0 (Postfix) with ESMTPS id 3D7CD1800883;
+	Sat, 06 Jun 2026 23:44:55 +0000 (UTC)
+X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQFNHVwOWBxAF0kGTVIPDxxQFkYVdwVdBEsdUgFWBVYJFxxWGxcNVk1XF0cfUgpeEVccSkNTDkRQSxsOVBcDVxxWRVwYQwldBVccHR5DRVsTVRdGCRkIXR0ZCEcfCjADQg5WA0MHRQAtGRxXUFkERgJcGV8MWQ9LXl0dRU1aAlZNBUoDXwFbBEAPSgBZA1kFXgBBA18aWh8cUBZGFXcFXQRLHVIBVgVWCRccVhsJS0YJSR0ODkIYRh9UJ1cCWgpbHg==
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=notrealandy.dev; s=sig1; t=1780789497; x=1783381497; bh=D1StYL6U9gU2+jj+JbZhPSY5gf8iUhPFr30wac770RQ=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=EQTE/ibJYw/oyasmViiRoGKEnzn7KZ578dnmal8QX5tyO8UGnx1PI6VWalqyp05A8FL86uTZBkZVmGPumnGBqW8GO9u84i7nDYh3f+DyYs+PtVOHc295PaVcmDFWfM3fviY1Bkkf51ffUu3kqBvsMomIUldkB9OLDXphvXj+Wm7v3dHhqmRNwuXNVYPv9XE93YTk64FJ6uJpqrqF1zJhmysEL84SQP+v3XgxsE/sBJHy7IBhFVGRxOzHL6ZxIpM6D2vt89Gyn0p+ugpm8N2ywnWUXwvljJWVym+liX8jwpHGUmf6AANvZpBm4zF20xCa2CQa+cBLtMR+coY//Cy5Ig==
+mail-alias-created-date: 1780788294906
+Received: from 68c3084b1005 (unknown [17.42.251.67])
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-0 (Postfix) with ESMTPSA id 3F5F1180088D;
+	Sat, 06 Jun 2026 23:44:53 +0000 (UTC)
+From: Andrew Soto <linux@notrealandy.dev>
+To: hansg@kernel.org,
+	mchehab@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: andy@kernel.org,
+	sakari.ailus@linux.intel.com,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Andrew Soto <linux@notrealandy.dev>
+Subject: [PATCH] staging: media: atomisp: prefer kcalloc over kzalloc with multiply
+Date: Sat,  6 Jun 2026 23:44:27 +0000
+Message-ID: <20260606234427.9902-1-linux@notrealandy.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178052559618.2296868.8781332297681333925.robh@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-Authority-Info-Out: v=2.4 cv=PJ0COPqC c=1 sm=1 tr=0 ts=6a24b0f7
+ cx=c_apl:c_pps:t_out a=YrL12D//S6tul8v/L+6tKg==:117
+ a=YrL12D//S6tul8v/L+6tKg==:17 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=pDUkijPYcnCcty---KEA:9
+X-Proofpoint-GUID: oE_mK9xeJBWVOZBbE9luOc4P5Dxo5xvS
+X-Proofpoint-ORIG-GUID: oE_mK9xeJBWVOZBbE9luOc4P5Dxo5xvS
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA2MDI0NCBTYWx0ZWRfX99RJ7y57oxFR
+ W6H8oEEslXafKXJXFqf1g6SBkf0UTdWJuWkCOudJBmkvszAVPZowSxfR29RBWMdNV9ECn255Vas
+ bnInCWGHvPnqVdmFzyQ4nwMUgcHSda3P6T0CEB93vPtftFABJcmcd76FJHH2W9Cne3A9MXkwdvX
+ 4sbyBw1H+ASMpUq67g2jEMC001SLHFavgAMStRiwwRmIk3ys+IkLGEZi24LFvDaNy/5k9SybxC9
+ tWOpfrDR2VqZMX/RdkhY9ff5qSPXpb9lsBcO8pIUx2493V1i6DRcn/hpjqXj/UtgBJ7eRfEPUoH
+ SImPqw/gf6XQnOVm5von56z+JfW8N7aj/THkWCyWECj3ozvs63LYOiNehuiqwY=
 
-On Wed, Jun 03, 2026 at 05:26:38PM -0500, Rob Herring (Arm) wrote:
-> 
-> On Wed, 03 Jun 2026 15:42:21 -0500, Akash Sukhavasi wrote:
-> > matrix-keymap.txt has been a single-line redirect to
-> > matrix-keymap.yaml since commit 639d6eda3b80 ("dt-bindings: input:
-> > Convert matrix-keymap to json-schema"), which introduced the .yaml
-> > schema and reduced the .txt to a stub in the same change. The .yaml
-> > has the same filename in the same directory, making this redirect
-> > unnecessary for discoverability.
-> > 
-> > Eight instances across six files still reference matrix-keymap.txt,
-> > forcing readers through an extra hop to reach the .yaml. The stub has
-> > not been touched since June 2020. Update all references across input
-> > and mfd binding documentation to point directly to matrix-keymap.yaml
-> > and remove the stub.
-> > 
-> > Signed-off-by: Akash Sukhavasi <akash.sukhavasi@gmail.com>
-> > ---
-> > v2:
-> > - Patch 4/4: corrected commit message (eight references in six files,
-> >   not eight files), Sashiko review.
-> >   https://sashiko.dev/#/patchset/20260529052246.4934-1-akash.sukhavasi@gmail.com?part=4
-> > 
-> > v1: https://lore.kernel.org/all/20260529052246.4934-5-akash.sukhavasi@gmail.com/
-> > ---
-> >  Documentation/devicetree/bindings/input/brcm,bcm-keypad.txt    | 2 +-
-> >  Documentation/devicetree/bindings/input/clps711x-keypad.txt    | 2 +-
-> >  Documentation/devicetree/bindings/input/matrix-keymap.txt      | 1 -
-> >  Documentation/devicetree/bindings/input/nvidia,tegra20-kbc.txt | 2 +-
-> >  Documentation/devicetree/bindings/input/pxa27x-keypad.txt      | 2 +-
-> >  Documentation/devicetree/bindings/input/st-keyscan.txt         | 2 +-
-> >  Documentation/devicetree/bindings/mfd/tc3589x.txt              | 6 +++---
-> >  7 files changed, 8 insertions(+), 9 deletions(-)
-> > 
-> 
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> 
+Optimize memory allocation layout in sh_css_params.c by replacing the raw multiplication inside kzalloc() with a type-safe kcalloc() array allocation wrapper.
 
-Lee, could you please ack for MFD piece and I can take it through input?
+This prevents potential integer overflow vulnerabilities by validating the array size calculations before interacting with the kernel heap allocator, aligning the driver with modern kernel memory allocation standards.
 
-Thanks.
+Signed-off-by: Andrew Soto <linux@notrealandy.dev>
+---
+ drivers/staging/media/atomisp/pci/sh_css_params.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/staging/media/atomisp/pci/sh_css_params.c b/drivers/staging/media/atomisp/pci/sh_css_params.c
+index fcebace11..9147ca047 100644
+--- a/drivers/staging/media/atomisp/pci/sh_css_params.c
++++ b/drivers/staging/media/atomisp/pci/sh_css_params.c
+@@ -3716,7 +3716,7 @@ ia_css_ptr sh_css_store_sp_group_to_ddr(void)
+ 
+ 	IA_CSS_ENTER_LEAVE_PRIVATE("void");
+ 
+-	write_buf = kzalloc(sizeof(u8) * 8192, GFP_KERNEL);
++	write_buf = kcalloc(8192, sizeof(u8), GFP_KERNEL);
+ 	if (!write_buf)
+ 		return 0;
+ 
 -- 
-Dmitry
+2.53.0
+
