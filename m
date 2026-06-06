@@ -1,149 +1,215 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B70221723
-	for <linux-media@vger.kernel.org>; Sat,  6 Jun 2026 11:56:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC39302146;
+	Sat,  6 Jun 2026 12:35:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780746966; cv=none; b=AN2xj9HRVgcCayGDToyrNKVg/JdTAZY8yFG1C7BoWi97ca6EqnO4ZFmzErTCFRjMboYuyTTZvlgyv8iLW0GV3ZT2cK5GwccZg6L6R5TjO5iylUJ8yJlNo8qTYRztF+Gb5UYGl7xSSQozZHq/uZjY4D6l6I22gDPOS+XMQ1t0aKs=
+	t=1780749328; cv=none; b=ILlYeK0no47RXX5e8to3aSldZwHhSpkfC6E5F6NDes+JSRgr1VSZFRXIq1cmBPKtic3vqPYZpLrA0yfjJBK8JRD27Gn54ZoGTYdul/09tMYu7w6W9HA1cReMyAkoT7D8YWpFlAx1xJ8LblWyC+butv9zsC4F93n7mzuiQwdIGkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780746966; c=relaxed/simple;
-	bh=PMfov7kqtEiw+uNQCzzp7j5Ye0VhYnFA5C6bFMo86zM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d/QW1vW6BXPxTcgYeWppbZqSFgU1LT/bNBqiVtqW8IilIr6vzR+Vy5F6tDlFX3KRH9+0oRdwm3WJfC3QrSj8ifMeNVjCN4GntQizxMT9Jma/ca16bhh9AP+s9YS5U/lzCKmR1HEZpg+GqCn0g/2fmcRSAa4eqdJ+nIgEQK0kpgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ji4Ebhor; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JyrZxoCS; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780749328; c=relaxed/simple;
+	bh=HiMPHrnLbVXFI/YtBsG2eDmStX1Q4eN6kCqyvhMDQFQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=hAPilBEQ2dI0XuY3wNTDzTj8KREQY7vDPuRJKZ0u+FEmyNd9hLGbyuNNsKFK1OVOthiFKGuGjG2AzxCtyVb8oj3g2y/Ifsdb2aXQjIPSy7jSBBK1jiAzVxzlRmACqKdMCOa4PQlWKQLSNtDbfMLS2ENLP6g07bvrpjMBQZNAlEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C09AmWf6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ji4Ebhor";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JyrZxoCS"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 656BGQH11321805
-	for <linux-media@vger.kernel.org>; Sat, 6 Jun 2026 11:56:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=RIXHlEmiOyjtStjr6kT5IXgl
-	6G96mdH3jpsHFQODkAE=; b=ji4EbhoroekwSqzmXA9EgBjdEzBGncm5MkpH68lD
-	GJQeMTGcPEcp1JbbtwGUYYr93TQjCs97LCPh26LuC9fPpXwsoFfuP5vq+ciAbliU
-	gvMNl/VnJGwSWEhxJUB/gLQyNLpmAaPgtx0IpZ7oeghQgAYK5JUdgNI3vqBDStgZ
-	GAZcskU4EruAVFiV3Tp1cdRqnUNpkn8AxYjmQeipCiDzdrtBNoOq81SvPZIEt7hx
-	S8h3YJ27Hhpww86wnj5y9r+5ljTw8FVm8IUC1y8gHbNER8bazJDELHNIx0U9DIFP
-	JhEqOLm0nz9GdzDADv67J+whP87dey1eOKV9Ju6ami5Jfg==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4emaj4s82e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Sat, 06 Jun 2026 11:56:04 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-6c6dc39a6afso1729273137.3
-        for <linux-media@vger.kernel.org>; Sat, 06 Jun 2026 04:56:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780746964; x=1781351764; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=RIXHlEmiOyjtStjr6kT5IXgl6G96mdH3jpsHFQODkAE=;
-        b=JyrZxoCSNB+xGoCCrUFrN02Lqh7+dFBgsnDrlrlviaroMJ+0US56GwyIHIlUTnqQUy
-         p6q35Gh1X35YvRCtymwNo2U6OdQEUS01GRSMsMdOyWsyvSC+BCtvKQfoP+4kzVREhs65
-         3nvRgjItl5nOVHvF3BOtgkjYxg5fklkZiYECaWVwIZX2gXLdXor8xLEvLuGTfckzkrAo
-         KHnuIJTtsyIs3CL+BFQRwzhiXPCCZalKmGaqZiGzJT37wqibfSDWhmniomzaoRVmCLLG
-         ONf3T9L0whAUzxUkGGice6Y/Y7YGJpURyWyXFj3l4yUM4kcIoXwCgFSwnLRLs90UWokI
-         ug+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780746964; x=1781351764;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=RIXHlEmiOyjtStjr6kT5IXgl6G96mdH3jpsHFQODkAE=;
-        b=LADd3eTymUhe3JQweOphqCG47Cp1f98xztcaqAWYhN0rItV2bHnmVIyjkHTUHIpphn
-         xjmVm+E0zmx/H/oX43cmeGiF2zjwCDIlTVJAYpdHJNYXMZqdxkdzgBc0mk60HkBk1OG5
-         rWsEDcezcvarP9nxGNQehpYDjGmtsMIl9QdVAs3ydsg2Gdb1fAa44Gmt/RS6WJpV6vTB
-         Nwqtl/sJifPkxJer38wCO5v+i1FoiPYEoub3/SasfYmd4MBNBjwOa0tFskTup2LFYmZX
-         Pj4Eca5irb8zMoRb3p8A1aSuNRM6DvYXGcwU4JWyBgkeOjqEhTY1GBw6c44R092/0il+
-         vyeg==
-X-Forwarded-Encrypted: i=1; AFNElJ8SWMCw418pFOITk21HXvTu8F+ifc/FS2EOLO7AjNbiWuXtWUL8oocNot4CkKpOkJwYkOselUXYJc8e4g==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxp3ekChHBLUQOYZZ0OHHxSGywLJRI0j+BMaVtGrPG6npMhYbTw
-	2mV1eo2iW/VJlXF9n5Slx8rxLYaE2Q5rd0wGGeLiRBpwt9H2IoRTtDfe1GA3ZRpGXROQ3HaMnoL
-	Nz4e4e+1liW0MQt5t1nhcOJ8JSqkxwH+PAeD87ABA//FmEmLax4AjY2qryCJroV+RTw==
-X-Gm-Gg: Acq92OE06gnTAKt0+PmbiF0Nl0yAe7XQAJWZeo2BUv9LqNPgop6L33sueUaORUNfTFE
-	IYPoZGgRpKcNE4QEMxQWoCg1rUu8OGtvdcuN4kKotdG9Fu9T095zKHOJyWRnEe4lzNFJTGrQMJp
-	5Hsefg3z44tYRXjuaQJxxTD35vI2hFtYiYTQRT1DVlWXIPN6Ha+Xkwq+hG7g9H/YLRcCaGR0KMH
-	l/1gwSt+Og0Ulbg9Ilm3lTkxkHWQ2SBXURt8+Ai7etIMSEvmfysJEH+LvaXuyq8OOEuoz9lVnKP
-	k1pZ+25EMA9Yi3yuaEmX1ZiEcyYJrPGezxwi0LAcWnhprZY4sVxdyUcfBccQ56pBerF3opTeuDe
-	yw5161YtC+fxylel7BSUR9K/5VjIHA8kDx5cbFWzNgSnRjOvR93Ok0xdq6rWlRagZGO7qZu3J7x
-	Wv3QraQ7U9n1ugjtaNCUFb50FGrb31Dir+EPZ+fMD2fUTw/A==
-X-Received: by 2002:a05:6102:548c:b0:612:7ddc:52ee with SMTP id ada2fe7eead31-6ff02387138mr3889283137.15.1780746963962;
-        Sat, 06 Jun 2026 04:56:03 -0700 (PDT)
-X-Received: by 2002:a05:6102:548c:b0:612:7ddc:52ee with SMTP id ada2fe7eead31-6ff02387138mr3889275137.15.1780746963545;
-        Sat, 06 Jun 2026 04:56:03 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396ac2d5a98sm31019061fa.35.2026.06.06.04.56.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 06 Jun 2026 04:56:02 -0700 (PDT)
-Date: Sat, 6 Jun 2026 14:56:00 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Ruoyu Wang <ruoyuw560@gmail.com>
-Cc: Vikash Garodia <quic_vgarodia@quicinc.com>,
-        Dikshita Agarwal <quic_dikshita@quicinc.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] media: iris: store formats in the instance
-Message-ID: <w5ocjxxetkov653yj7prtsfc6dwrcuglbkyspo7adhkxv7xyuh@jf4hg4zsb6r7>
-References: <20260606114703.5-1-ruoyuw560@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C09AmWf6"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 79158C2BCB9;
+	Sat,  6 Jun 2026 12:35:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1780749328;
+	bh=HiMPHrnLbVXFI/YtBsG2eDmStX1Q4eN6kCqyvhMDQFQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=C09AmWf65WQm4Yp4VRf1kBmafDHw6ad609SSK5V1GzEyUk2TtjSbtM/d6Zf95+ME9
+	 RxxSHYXF8Y4zl1vJHNOybN9WNHIe6bWuZu0X08HtjQz9IVaFNzt9vakEYRFOnWo/hE
+	 JoQH3LNeFHFfKxW+krEixmg8bq5rQ8HzPk1rX1HnOLN0MPv6enq44VUBdzzmntWe+i
+	 OStXEwXM7cHUWgU0xTwgzAi7YwacYDh6POE7wue2NkEnIzbyPb+twbgVdupbL7iRDz
+	 ntPUB38gyPGYIqRyy0OdiXSn6b3GbQvu9Cv9X65anYSrCnqkgGvtVsk4NbUqThNj6+
+	 GOaRcKCcrZMog==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 62437CD8C8C;
+	Sat,  6 Jun 2026 12:35:28 +0000 (UTC)
+From: Herman van Hazendonk via B4 Relay <devnull+github.com.herrie.org@kernel.org>
+Date: Sat, 06 Jun 2026 14:35:27 +0200
+Subject: [PATCH v5 1/2] dt-bindings: media: i2c: add aptina,mt9m113
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260606114703.5-1-ruoyuw560@gmail.com>
-X-Proofpoint-ORIG-GUID: 3eNoGjqqWmgPs40sPDh0FqdDXEwwSeIg
-X-Proofpoint-GUID: 3eNoGjqqWmgPs40sPDh0FqdDXEwwSeIg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA2MDExOCBTYWx0ZWRfXxwqvj9HJ4dDB
- WQbpmilgesgnFfweBavhhtGnpAig//VOL/cbS4FXPxIzQh4wEhRB1remg+/m6AiL67PGte1FXZc
- IORsHw11D1dSFPYHHsP+0pdQKTJ7RTj7z8bjQFhwsRlG4U8QURaGtvo7AD7SUTu2jzRZdEIAZNZ
- meFqt2jUUH2REL5pW+s3B07qnhJIMfB891id/P4CpTaUPX/TwypoxTLiyYJvQi1xgk80pIG9dN0
- tx81qeQCMJU3le0YHxSty4iqpoMe7aCIjvjXgV75b00WubsmHFAyv2MS7SP3UOLqowp8NkXfJ3W
- 1ma1DwqRwKrZ1QMU1NlBr/x4uRGfd/kHJG/PnIPuoUwMKe5d4rxEsvpkVfx8sG0vBdVRtH3dE8P
- 85BiMWsjDLnDXcytYi0JKUGdsKuUkkul2yvuHnewTjQN525Mrn9Qitdlh6LtPJIeZmAXS1UHVPh
- kzThDi3p461ZE8z+jeQ==
-X-Authority-Analysis: v=2.4 cv=TLh1jVla c=1 sm=1 tr=0 ts=6a240ad4 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=pGLkceISAAAA:8 a=OJ9zoyAEhnhrvmOkX0UA:9 a=CjuIK1q_8ugA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-06_03,2026-06-05_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 spamscore=0 adultscore=0 clxscore=1015
- phishscore=0 malwarescore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606060118
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260606-submit-media-mt9m113-v5-1-2088c7358e11@herrie.org>
+References: <20260606-submit-media-mt9m113-v5-0-2088c7358e11@herrie.org>
+In-Reply-To: <20260606-submit-media-mt9m113-v5-0-2088c7358e11@herrie.org>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Herman van Hazendonk <github.com@herrie.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780749326; l=4154;
+ i=github.com@herrie.org; s=20240417; h=from:subject:message-id;
+ bh=4A9cg1j0DPHiAbho6PLcd9YrxAZyAPEE5WDFEqhZNps=;
+ b=6tu+WX851QdGgxoZO4jCta+asSuAc6weT02haWp6c7VRJnYDnN7W4KlB3fgZ5roldrHohdCMR
+ QGfI/HoGcWJAEsFsLp9+Qm+DaL5OriJUbmGGkYKuNi02c+yy1p/V3JN
+X-Developer-Key: i=github.com@herrie.org; a=ed25519;
+ pk=YYxdq8fb5O9vhkW3n2dCH044FPZZO5718v/du7fRhFw=
+X-Endpoint-Received: by B4 Relay for github.com@herrie.org/20240417 with
+ auth_id=809
+X-Original-From: Herman van Hazendonk <github.com@herrie.org>
+Reply-To: github.com@herrie.org
 
-On Sat, Jun 06, 2026 at 07:47:03PM +0800, Ruoyu Wang wrote:
-> The source and destination v4l2_format objects are per-instance state
-> with the same lifetime as struct iris_inst, but iris allocates them
-> separately during decoder and encoder instance initialization.
-> 
-> Keeping the formats as separate allocations adds failure paths before
-> all users can safely dereference them. It also requires every later
-> initialization failure to remember to free both objects before the
-> instance is released.
-> 
-> Store the formats directly in struct iris_inst and update users to take
-> the address of the embedded objects where a pointer is needed. This
-> removes the allocation failure path and the matching close-time frees.
-> 
-> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+From: Herman van Hazendonk <github.com@herrie.org>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Add the binding for the Aptina (now ON Semiconductor) MT9M113 1.3
+megapixel SoC image sensor with on-die ISP. The chip is used as the
+front (user-facing) camera on the HP TouchPad tablet and connects
+to the host SoC over MIPI CSI-2.
 
+The binding describes the chip's i2c address, optional reset and
+standby GPIOs, the per-supply regulators (VDD, VDD_IO, VDDA), the
+external clock input, and the CSI-2 endpoint pads exposed via the
+"port" subnode.
+
+Assisted-by: Claude:claude-opus-4-7 Sashiko:claude-haiku-4-5
+Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
+---
+ .../bindings/media/i2c/aptina,mt9m113.yaml         | 122 +++++++++++++++++++++
+ 1 file changed, 122 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/media/i2c/aptina,mt9m113.yaml b/Documentation/devicetree/bindings/media/i2c/aptina,mt9m113.yaml
+new file mode 100644
+index 000000000000..72b827c47b1d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/aptina,mt9m113.yaml
+@@ -0,0 +1,122 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/aptina,mt9m113.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Aptina MT9M113 1.3 Megapixel CMOS Digital Image Sensor
++
++maintainers:
++  - Herman van Hazendonk <github.com@herrie.org>
++
++description:
++  The Aptina MT9M113 is a 1.3 Megapixel CMOS digital image sensor with
++  1280x1024 active pixels. It supports dual context operation
++  Context A (640x480 preview mode with binning) and Context B (1280x1024
++  capture mode). It is programmable through an I2C interface and outputs
++  image data over a 1-lane MIPI CSI-2 connection.
++
++properties:
++  compatible:
++    const: aptina,mt9m113
++
++  reg:
++    description: I2C device address
++    enum:
++      - 0x3c
++      - 0x48
++      - 0x5d
++
++  clocks:
++    description: EXTCLK clock signal (24 MHz typical)
++    maxItems: 1
++
++  vdd-supply:
++    description:
++      Core digital voltage supply, 1.8V
++
++  vddio-supply:
++    description:
++      I/O digital voltage supply, 1.8V or 2.8V
++
++  vaa-supply:
++    description:
++      Analog voltage supply, 2.8V
++
++  reset-gpios:
++    maxItems: 1
++    description:
++      GPIO connected to the RESET_BAR pin, if any (active low). The MT9M113
++      has a single RESET_BAR pin.
++
++  powerdown-gpios:
++    maxItems: 1
++    description:
++      GPIO connected to the STANDBY/PWDN pin, if any (active high). When
++      asserted, the sensor enters low-power standby mode. The MT9M113 has
++      a single STANDBY/PWDN pin.
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          bus-type:
++            const: 4
++            description: MIPI CSI-2 D-PHY
++
++        required:
++          - bus-type
++          - link-frequencies
++
++    required:
++      - endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - vdd-supply
++  - vddio-supply
++  - vaa-supply
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/media/video-interfaces.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camera@3c {
++            compatible = "aptina,mt9m113";
++            reg = <0x3c>;
++
++            clocks = <&mmcc 48>;
++
++            reset-gpios = <&pm8058_gpio 29 GPIO_ACTIVE_LOW>;
++            powerdown-gpios = <&pm8058_gpio 30 GPIO_ACTIVE_HIGH>;
++
++            vddio-supply = <&pm8058_l15>;
++            vdd-supply = <&pm8058_l15>;
++            vaa-supply = <&pm8058_l14>;
++
++            port {
++                mt9m113_ep: endpoint {
++                    bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
++                    link-frequencies = /bits/ 64 <384000000>;
++                    remote-endpoint = <&csiphy1_ep>;
++                };
++            };
++        };
++    };
++...
 
 -- 
-With best wishes
-Dmitry
+2.43.0
+
+
