@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7732E33A9C1
-	for <linux-media@vger.kernel.org>; Sun,  7 Jun 2026 21:54:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C45032BF44
+	for <linux-media@vger.kernel.org>; Sun,  7 Jun 2026 21:54:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780869262; cv=none; b=dWh9XEayFwlFg1Qk6lEndhGg/Z1WETetlc6dnBo2D0w9/YQLuN9wESfc3o5RdhEDGdqAiZVGSUaQBI8V3gZw+jxZp+MK406PzvBG+O5A1awuRxwvT2rL/vLkA5z+R7pD+JyFimygyVGy8xOS3Qjx+d4TotoA3MrPE2QdPqS1838=
+	t=1780869265; cv=none; b=Z7jkE0t/Yruu85QtFUD8olPrOORpWF0DP6JRd4bzmgUXbuz6yHE1KU2EB7RgA1nXcSjcPYHRwHNLVT2QcCYO5XHsXUf5GMlWD2NXgf9YQLTqh/xtQE9tchm1mXYlGlKRlhWMmckhEHQijMXTj7Tnlpbf+VXaoUXjD5SWZprWxns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780869262; c=relaxed/simple;
-	bh=f8HqFiBVVZldBsgS3Dak0PrR/3yhxi3hYf6kqY81j3k=;
+	s=arc-20240116; t=1780869265; c=relaxed/simple;
+	bh=l35rgWTVH/O2LRAKOPCqweqX6lSuPsv2soE2YCZc6D0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KxrRVvMaSANqLyxD270W5X74u2TTMd0ORFg2yaJcWw31pangDZClRu8GkDE4vxQxhIKP5XOUA1ES8OMEw/rWPaIgEXQjubBV2Ca8N9cyHTnrnc8JiTl5mS9y3fhywAOZEqu9CX7wTN6HgAvLhaNPnFyLPaoKF+Arnz4pte2T5JY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=T3Lx+JFg; arc=none smtp.client-ip=192.198.163.7
+	 MIME-Version; b=krn2BVLaN9ra9o0FV8t90vAL5jVFLfrICS3usF++zR4Ktvkw6PJxTphxVwYisqTJvwyGIobb03y9aZWj4rmRKYuhNPjk3qipMeSSajWQt5W5CMM8qLFaURsgCd9yVybVgf4Vsz9823m7OixaHJ6Ty1yVTNgRjMNH3Kq9DPBFV9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CLGB58K2; arc=none smtp.client-ip=192.198.163.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="T3Lx+JFg"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CLGB58K2"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780869261; x=1812405261;
+  t=1780869264; x=1812405264;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=f8HqFiBVVZldBsgS3Dak0PrR/3yhxi3hYf6kqY81j3k=;
-  b=T3Lx+JFgmCRT3Ap3n9ALzCXLbNbUATpl0l0bhivfMUjDHSh3jZTZnXOU
-   YmjvMSls59eoryeWnqGYaeGlkkyEfT/whZVS3rPsXLOp5geQeQ2Ui8NJT
-   G35CU7BhwXDmluepF1RD5PcfmBw8OIDP2MB8ohm1qyLF7ipCFkZdBSmJm
-   iOKM73Ju4mtkj7QjAoy5MlLPuwAvUVhr0WmTQQiuwrj4LvTSVa9qyk8cv
-   rTURFeROqGfYV5cPBWumxg2p60ae5pqLlhR+mRLpsPwILDuuiOfy0fA67
-   2OB1bHK2VN3Kt8jzXKmKbOKiAvRQs0V455tY1mg4KHyUwaKCw4LSuHA3b
-   Q==;
-X-CSE-ConnectionGUID: K22+OdimTZOQPqZdw6EmtA==
-X-CSE-MsgGUID: ZmZFRjW1SPmwG+H+qr5ucQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11810"; a="107048289"
+  bh=l35rgWTVH/O2LRAKOPCqweqX6lSuPsv2soE2YCZc6D0=;
+  b=CLGB58K2RcVqrSp8viGhmC05GcNsX/PCpg6F5gYpsMSXDZF/MfWrO4pu
+   qTVrG1u3SlkthwpwRtpvsu0XMY5vezshrsELtTbe4wjwyN0Xtl9h03MGq
+   LK+k1heiK5k6lgmieJLKYmXEIzESUx1AWWmn8yp9xKSuWLKl+/HEEh7ZL
+   JAzjUmWTODtRRA7XM6MVcYZSAGkKqS9zi07YOVVovKk26QqrTCkqK71NA
+   wuFwFgxNAFK1O/S6Rv6bOcRyI4WJKSDMiQBxZfepxaLWQPgUjVJXJ+ffA
+   21HTw1fTOEcLMCf8pWaVIsC1lAg2AkddghRaHGmcVfxXeDgqqXkjSrA74
+   w==;
+X-CSE-ConnectionGUID: OnAwI9CaT/yejESKU1ZMGA==
+X-CSE-MsgGUID: aeps0vklQfSxgpaXqjs7Sw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11810"; a="107048308"
 X-IronPort-AV: E=Sophos;i="6.24,193,1774335600"; 
-   d="scan'208";a="107048289"
+   d="scan'208";a="107048308"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jun 2026 14:54:16 -0700
-X-CSE-ConnectionGUID: f4br+wkGRWygKSde6/CLww==
-X-CSE-MsgGUID: H/oFeQsHSS6LwTGpAf0B5w==
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jun 2026 14:54:24 -0700
+X-CSE-ConnectionGUID: L1NKXExBQ4yJQmUSgIyZOg==
+X-CSE-MsgGUID: W4CeXKQ/SLGulO3nOTmh/g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.24,193,1774335600"; 
-   d="scan'208";a="245490488"
+   d="scan'208";a="245490503"
 Received: from amilburn-desk.amilburn-desk (HELO kekkonen.fi.intel.com) ([10.245.244.101])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jun 2026 14:54:09 -0700
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jun 2026 14:54:18 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id A75FB12120E;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id C1B5F121CDC;
 	Mon, 08 Jun 2026 00:54:07 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wWLRM-00000003XIJ-0evi;
+	id 1wWLRM-00000003XIl-1A9w;
 	Mon, 08 Jun 2026 00:53:56 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -80,9 +80,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v5 02/10] media: imx219: Scale the vblank limits according to rate_factor
-Date: Mon,  8 Jun 2026 00:53:48 +0300
-Message-ID: <20260607215356.842932-3-sakari.ailus@linux.intel.com>
+Subject: [PATCH v5 09/10] media: v4l2-subdev: Add v4l2_subdev_get_fmt_ci()
+Date: Mon,  8 Jun 2026 00:53:55 +0300
+Message-ID: <20260607215356.842932-10-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
 References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
@@ -94,52 +94,68 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The limits for vertical blanking (and frame length in pixels) is related
-to the properties of the hardware, it's not in half-line units the driver
-uses. Multiply the vertical blanking limits by the rate_factor to satisty
-hardware requirements.
+v4l2_subdev_get_fmt_ci() is just as v4l2_subdev_get_fmt(), but it also
+takes const struct v4l2_subdev_client_info * as its second argument. It
+can be used as set_fmt() pad op callback that simply returns the format
+from sub-device state.
 
-Fixes: f513997119f4 ("media: i2c: imx219: Scale the pixel rate for analog binning")
-Cc: stable@vger.kernel.org
+To be squashed to the previous patch.
+
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/i2c/imx219.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/media/v4l2-core/v4l2-subdev.c |  9 +++++++++
+ include/media/v4l2-subdev.h           | 18 ++++++++++++++++++
+ 2 files changed, 27 insertions(+)
 
-diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-index 223d3753cc93..d8fe7db18b6c 100644
---- a/drivers/media/i2c/imx219.c
-+++ b/drivers/media/i2c/imx219.c
-@@ -878,14 +878,17 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
- 	crop->top = (IMX219_NATIVE_HEIGHT - crop->height) / 2;
+diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+index e4ac6981e950..c1e1fb9d6773 100644
+--- a/drivers/media/v4l2-core/v4l2-subdev.c
++++ b/drivers/media/v4l2-core/v4l2-subdev.c
+@@ -1953,6 +1953,15 @@ int v4l2_subdev_get_fmt(struct v4l2_subdev *sd, struct v4l2_subdev_state *state,
+ }
+ EXPORT_SYMBOL_GPL(v4l2_subdev_get_fmt);
  
- 	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
-+		unsigned int rate_factor = imx219_get_rate_factor(state);
- 		int exposure_max;
- 		int exposure_def;
- 		int llp_min;
- 		int pixel_rate;
++int v4l2_subdev_get_fmt_ci(struct v4l2_subdev *sd,
++			   const struct v4l2_subdev_client_info *ci,
++			   struct v4l2_subdev_state *state,
++			   struct v4l2_subdev_format *format)
++{
++	return v4l2_subdev_call(sd, pad, get_fmt, state, format);
++}
++EXPORT_SYMBOL_GPL(v4l2_subdev_get_fmt_ci);
++
+ int v4l2_subdev_get_frame_interval(struct v4l2_subdev *sd,
+ 				   struct v4l2_subdev_state *state,
+ 				   struct v4l2_subdev_frame_interval *fi)
+diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
+index e83ef88fe12c..e29defed6409 100644
+--- a/include/media/v4l2-subdev.h
++++ b/include/media/v4l2-subdev.h
+@@ -1488,6 +1488,24 @@ __v4l2_subdev_state_get_interval(struct v4l2_subdev_state *state,
+ int v4l2_subdev_get_fmt(struct v4l2_subdev *sd, struct v4l2_subdev_state *state,
+ 			struct v4l2_subdev_format *format);
  
- 		/* Update limits and set FPS to default */
--		ret = __v4l2_ctrl_modify_range(imx219->vblank, IMX219_VBLANK_MIN,
--					       IMX219_FLL_MAX - mode->height, 1,
-+		ret = __v4l2_ctrl_modify_range(imx219->vblank,
-+					       IMX219_VBLANK_MIN * rate_factor,
-+					       (IMX219_FLL_MAX - mode->height) *
-+					       rate_factor, rate_factor,
- 					       mode->fll_def - mode->height);
- 		if (ret)
- 			return ret;
-@@ -928,8 +931,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
- 			return ret;
- 
- 		/* Scale the pixel rate based on the mode specific factor */
--		pixel_rate = imx219_get_pixel_rate(imx219) *
--			     imx219_get_rate_factor(state);
-+		pixel_rate = imx219_get_pixel_rate(imx219) * rate_factor;
- 		ret = __v4l2_ctrl_modify_range(imx219->pixel_rate, pixel_rate,
- 					       pixel_rate, 1, pixel_rate);
- 		if (ret)
++/**
++ * v4l2_subdev_get_fmt_ci() - Get pad format using get_fmt pad op
++ * @sd: subdevice
++ * @ci: client info
++ * @state: subdevice state
++ * @format: pointer to &struct v4l2_subdev_format
++ *
++ * Obtain the sub-device format by calling the sub-device get_fmt pad op. This
++ * is intended to be used as the set_fmt callback when the callback just needs
++ * to return the format.
++ *
++ * Returns 0 on success, error value otherwise.
++ */
++int v4l2_subdev_get_fmt_ci(struct v4l2_subdev *sd,
++			   const struct v4l2_subdev_client_info *ci,
++			   struct v4l2_subdev_state *state,
++			   struct v4l2_subdev_format *format);
++
+ /**
+  * v4l2_subdev_get_frame_interval() - Fill frame interval based on state
+  * @sd: subdevice
 -- 
 2.47.3
 
