@@ -1,132 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f67.google.com (mail-dl1-f67.google.com [74.125.82.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ECD76FC5
-	for <linux-media@vger.kernel.org>; Sun,  7 Jun 2026 22:07:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF8533064D
+	for <linux-media@vger.kernel.org>; Sun,  7 Jun 2026 23:29:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.67
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780870027; cv=none; b=VnJ0ML/OSEHbTCACcDWCBTr9Zyxg4MWtIPFZqc2yko4DUS5ByBKmgovsK6QDswg9tDQ61AB9EuuioSFKoUkccs8XgKczYXj0q3CoyB11e0WYzlyh49CMlvDF7TdT0+STauunwEnMrGwCQqa8jO+4u+mNZo68zn19mK5TtI4OWas=
+	t=1780874945; cv=none; b=XNbwz65rSkwZ/MIo/xJ/WsiSehkaGA9MN1c+x770wpNE8FrCjAwgt6iOHFeU+TFTUiyWIfpvPYtVzSQP+A9LchXrmjeIp4hrZRKsPoy/VTYN1kSSSGdL4knzXMPEMzF7ee2e581SS28+DyckjDNFjOW2djxqPFKIVI385NN3yVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780870027; c=relaxed/simple;
-	bh=AJPf56RXk8I/8fuvddf8HakxidGpxsvpD79uVlrklQM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VmnP+HCE+0YSUAstSHxgAhN4+YS/WJR/6b7VZg1OK6qaJzpACkmhe1LEFhO35fTVM/Pn9rkkiq0ALB/RWMr96sTQiXlUDeFdj0ZWN8vFITcOz/Aj4FroudhtDmS2HlV2PzB8X3YR6VjJx7fXICh2sFDTxX1OgpH0RgpL96WOkv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WSCgnIar; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780874945; c=relaxed/simple;
+	bh=bcLbpvh35Ug9cLoP9FNoisK3956FK0lPUQR16fEM3dg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CX7f7MnsD/lOFuqSzDrY/sN6xjhxscxDkX0EgE0lFn6LWiHkD7CidOMQkmJ+qC9F/Rkau93Kw5gUDDMQ0yc1zwaC8qVROjkR2ptnXo48trX8HU6091zSsGfkRDUbxVZuKY0qOg8thl8URLVhW26u1+sQ/TpM3a3+0jeXL3DNZJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rk9GHdUU; arc=none smtp.client-ip=74.125.82.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WSCgnIar"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AA751F00893;
-	Sun,  7 Jun 2026 22:07:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780870025;
-	bh=mPZqdNKS2UpywiGGJBE766IPUrevveDbf5M17VKm/bU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WSCgnIar83bNEchdXMyUPvIhP8mit/FdzothzuipDd7D9aFyULABHGh6GjX05CY7Z
-	 ELoZ77ZC6cxcyqT0EoKy6+JGpJuxDPsJeo0v0ffZQPO+4CDbkgwQuRlPpldNsR+8Pb
-	 QumjPvrKWYsEerM5djQEv5QREYC5VgpN7iVaPAYMO83dkhEjoeBoyu/QVOib+w7lD0
-	 Dhovp/oYxZY6B+REEba+gxJj9juGd6WGZiCD616PPthvbPkxDKCVFO/sNpWjrYEn3L
-	 pTgyp1rWCdZc2dxN33mUxhUws6REWGogF4yF6m+kTmgnxsKJSFhodqc0NtULPFZJ+0
-	 t9Amw7OYKrv7Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 06/10] media: imx219: Fix vertical blanking and
- exposure for analogue binning
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sakari Ailus" <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org
-In-Reply-To: <20260607215356.842932-7-sakari.ailus@linux.intel.com>
-References: <20260607215356.842932-7-sakari.ailus@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 07 Jun 2026 22:07:05 +0000
-Message-Id: <20260607220705.8AA751F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rk9GHdUU"
+Received: by mail-dl1-f67.google.com with SMTP id a92af1059eb24-13827115452so484448c88.0
+        for <linux-media@vger.kernel.org>; Sun, 07 Jun 2026 16:29:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780874943; x=1781479743; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=nGu68kDoYED8aVSZ8nZzLLS+mDycRoLfcSk1lpl/0Kw=;
+        b=Rk9GHdUUOSUW5dpe5KZe/6gXTB7dKUEQsj46D9K77Tds+PF1ZeG7YVk17B3XSyK73a
+         KbkKvTySh3/Q/t7GNTCZA/POSbHudvGONobn8ot6TP7qgJqxgiylcuXvzNaeUrN0yKrH
+         VfNffsYzrsyo/v6xDxXVmv61FWfJtia32wTgK+7TmhDFRXn/kKaRl968voDpSdXvKnVK
+         F+tbO6/CGdj/cFtjF1WBLtk1kQnEI6TA/67OMvQvPySd3P5F5Qit7sv2PlrZmHA1H2vu
+         PrasWGTRw3aklXg6ovsCbBgAH08yoVjEYCIlM072UpYrxlicyGLak5sUrFJGck66y2PM
+         GG5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780874943; x=1781479743;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nGu68kDoYED8aVSZ8nZzLLS+mDycRoLfcSk1lpl/0Kw=;
+        b=hTfQDtv9ykJHNLBQu80MYiftglHV1R63N8MU0O0Ukfptl7CbRWSKcRshMi/uL6l7U1
+         mmwCJHVGpyD4w9q7NcMOqmuyeKv0jAOftbCrC4pnMfOnHsyXMRvGFzjT7UFUBEjfcA8Q
+         Jbjc9Ichft36B1ewMtPSsQNqr3z+n+7M0QnWYDoNRtX+cR/AGv+6jFZDkkIbhiKWq7sU
+         7IByXiTXDmf8/3ZOvlVhVCR8XDeXHu1C+HvAw/PGIviOM66RR5tea3dIjjoGRhy/YxGc
+         DWPIv7xlSbmJkZjNygwkp+e8mEEF2N5LmwtnBUTinj5PCJudj0c8U4mhUFw83Zupgel9
+         1GHg==
+X-Gm-Message-State: AOJu0YxJLnY61bQqPTwLOPHURKme92SElp2JhZo8t0kNtKprZ0kr+mN0
+	/ikEP6IceFCgqQxAXJjTmhXIx0oHpdB6s3a8ice5tbzsaM3e090hR8PSwUPT5i9y
+X-Gm-Gg: Acq92OEPJHZpVV0Wik4lQ8xDBWr3VApCwQnKSKZcxzQ5MguDQGxLTg63lskVEVUasii
+	Siut87eI9xJiK+mxnhBdXjhzbuQ1UcQ3eMUzlZJ/mDNxC+aayoXpjU2JkJohJP25FByLBmMxZIg
+	YRXaTaG1L1HRm+U+j6t/hfCRAC6gaHOQMbM+tl3TlFERxNY6WdT3YOEcHWMuw2hm9extFPyAoio
+	K5nT5TpCFtJQH8K4VTOrSQnJ7BtXzinMoWt6r/Bsfn+4ZZgQ7ZgIWBm/y7Id1JEIoT1+dHZNrN9
+	YOs9XN+TwoxGycsTIwn/w5aCONCtfBSi9696s5BfoF2fP+hPcBoum1Cw9/9/HBmKHQucH//Fwda
+	wvjSOiJASgcXIPoazzOk0vvA1Bn9llI1Qnvql4i3jQkz5VNBVtoFTeOd6hHI+jNuKhltMKXrUXn
+	HZRczhEBTmvXVm+kg4hV3WMjrrqS/FLv+Ns8ZLDopAYFeMLAMyJrJAupHlPkN+BAs8lQ==
+X-Received: by 2002:a05:7022:671e:b0:12d:de3f:d843 with SMTP id a92af1059eb24-1380674bb87mr6197575c88.38.1780874942978;
+        Sun, 07 Jun 2026 16:29:02 -0700 (PDT)
+Received: from localhost.localdomain ([76.32.119.210])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-137f5539035sm11324554c88.11.2026.06.07.16.29.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 07 Jun 2026 16:29:02 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	vikash.garodia@oss.qualcomm.com,
+	abhinav.kumar@linux.dev,
+	bod@kernel.org,
+	mchehab@kernel.org,
+	hverkuil@kernel.org,
+	stefan.schmidt@linaro.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH v4 0/2] media: qcom: iris: fix runtime PM reference handling
+Date: Sun,  7 Jun 2026 23:28:39 +0000
+Message-Id: <20260607232841.79275-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Unscaled `exposure_max` allows userspace to request exposure times=
- that exceed the physical frame length during analog binning.
---
+This series fixes runtime PM reference handling issues in the Qualcomm
+Iris driver.
 
-commit 5bb0595912a9dcd70c3d849b873e9a213a70ec05
-Author: Sakari Ailus <sakari.ailus@linux.intel.com>
+Changes since v3:
+- Patch 1:
+  - Added Dmitry Baryshkov's Reviewed-by tag.
+- Patch 2:
+  - Reworked the OPP vote rollback path to use a standard goto-based
+    error handling flow as suggested during review.
 
-media: imx219: Fix vertical blanking and exposure for analogue binning
+Patch 1 replaces pm_runtime_get_sync() with
+pm_runtime_resume_and_get() and ensures runtime PM references remain
+balanced during power domain enable and disable sequences.
 
-This commit removes a workaround that doubled the pixel rate, frame length
-in lines, and exposure time for analog binning. It updates the minimum, max=
-imum,
-and step values for the control.
+Patch 2 rolls back the maximum OPP vote when
+pm_runtime_resume_and_get() fails, preventing stale performance state
+votes from remaining active on error paths.
 
-> diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-> index 3aebcbaa3fcd6..3cee31758b7e9 100644
-> --- a/drivers/media/i2c/imx219.c
-> +++ b/drivers/media/i2c/imx219.c
-[ ... ]
-> @@ -879,23 +868,25 @@ static int imx219_set_pad_format(struct v4l2_subdev=
- *sd,
->  	crop->top =3D (IMX219_NATIVE_HEIGHT - crop->height) / 2;
-> =20
->  	if (fmt->which =3D=3D V4L2_SUBDEV_FORMAT_ACTIVE) {
-[ ... ]
->  		/* Update limits and set FPS to default */
-> +		int vblank_min =3D ((int)mode->height * (1 - bin_hv) / bin_hv) +
-> +			IMX219_VBLANK_MIN;
->  		ret =3D __v4l2_ctrl_modify_range(imx219->vblank,
-> -					       IMX219_VBLANK_MIN * rate_factor,
-> -					       (IMX219_FLL_MAX - mode->height) *
-> -					       rate_factor, rate_factor,
-> -					       mode->fll_def - mode->height);
-> +					       vblank_min,
-> +					       IMX219_FLL_MAX - mode->height, 1,
-> +					       (int)(mode->fll_def / bin_hv) -
-> +					       (int)mode->height);
->  		if (ret)
->  			return ret;
-> =20
->  		ret =3D __v4l2_ctrl_s_ctrl(imx219->vblank,
-> -					 mode->fll_def - mode->height);
-> +					 (int)(mode->fll_def / bin_hv) -
-> +					 (int)mode->height);
->  		if (ret)
->  			return ret;
+Hungyu Lin (2):
+  media: qcom: iris: fix runtime PM reference leaks
+  media: qcom: iris: rollback OPP vote on PM resume failure
 
-[Severity: High]
-Does this code allow userspace to request an exposure time that exceeds the
-physical frame length?
+ drivers/media/platform/qcom/iris/iris_resources.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-When vblank is initialized via __v4l2_ctrl_s_ctrl() above, it dynamically
-computes and sets the correct upper limit for the exposure control under
-the hood.
+-- 
+2.34.1
 
-However, immediately following this in imx219_set_pad_format(), the code us=
-es
-the unscaled mode->fll_def to modify the exposure limits:
-
-		/* Update max exposure while meeting expected vblanking */
-		exposure_max =3D mode->fll_def - IMX219_EXPOSURE_OFFSET;
-		exposure_def =3D (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
-				exposure_max : IMX219_EXPOSURE_DEFAULT;
-		ret =3D __v4l2_ctrl_modify_range(imx219->exposure,
-					       imx219->exposure->minimum,
-					       exposure_max,
-					       imx219->exposure->step,
-					       exposure_def);
-
-Since this patch removes the rate_factor division when writing V4L2_CID_EXP=
-OSURE
-to the sensor hardware in imx219_set_ctrl(), and exposure_max is not scaled
-by bin_hv here, could this overwrite the safely computed hardware bound wit=
-h an
-unscaled maximum?
-
-If so, userspace could successfully request an exposure value (e.g., 1703) =
-while
-the physical frame length is only 853, which might violate the fundamental
-sensor constraint that exposure time must be less than the frame length.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260607215356.8429=
-32-1-sakari.ailus@linux.intel.com?part=3D6
