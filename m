@@ -1,146 +1,170 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9593D6690
-	for <linux-media@vger.kernel.org>; Mon,  8 Jun 2026 18:55:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780944916; cv=pass; b=OmO1l5MGRHrAhdfHb18j6coQVNzfNQ7oNH6jOdpnvtd/RH69Opfh1dHVlsYLuwuxnHB6NWvMqnXmGcjBiSQNQ7KkAmd+kLruwNlGwq8DAT9I8oDuflDNfyUXjd5aMbCja9Kw2lIhpxpVGHg5NR19LbXhVX6kOKHOYdi7oO0KYow=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780944916; c=relaxed/simple;
-	bh=zKNEWyIdx6AUnE+D5RSyECXmUt7mDFTSd+8dDxmh9dw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kPDWzpAClYk5xd/SsUpJMdvatyT1YAaQUuaLl3iIdQbQV8/1Nhwk0CezRB9UtohWcU4cZUBo7BNI70fuP38OcYkYKHbd6QN3+A6lbrA8ug/FjuGBvnaBJvDNwDJHq7zDqw/Gksgz0EBLxiM0RaUhVDuyk8l+9Mkzkg/5ZlBV2ms=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rqKSegmZ; arc=pass smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C3138CFE8;
+	Mon,  8 Jun 2026 19:25:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780946713; cv=none; b=PiHBoiLSJmCwizSihouBCqE+kkencQ5j9HJrsNz4anEbOAw2bTv7GlbzvC/gc/iGbXEpVyDm3SPtRnnSlSoi5VZ/7O60bI8SH1Rdv89qqOUy5JpWwYyGnLOYZMgH2EkarHWrp7t6o9qqW9rfeBwBCej0Fwr/t4SbyDQ1Jni+FsA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780946713; c=relaxed/simple;
+	bh=auX2HM5NtgXhputsYT5ZWLFsqVm2QhV7YdbEijkwlEc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=j+RiyjHFr0cgnr3bAJCHCA9gwsSzksuvr1VHBrrnJEO7Y5INwxkP/0xHaF0EFkhPjAfIw4Mqj6VPrciUoxKbhvFCr1+F/544HTQU9yMOK1G7xDqVCmYdhbWpv8nnhxcBMMbbsghdvxKSPRCdeGEX845wyBPhdiQCmm6Efevnfjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ivb9agvl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rqKSegmZ"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5aa64afcfdfso20258e87.1
-        for <linux-media@vger.kernel.org>; Mon, 08 Jun 2026 11:55:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780944913; cv=none;
-        d=google.com; s=arc-20240605;
-        b=U4umWX4g2p2doEwzvoHgxoTKTa4Qngv++M8rEB2NJQYON6MPzGlhPrgHcvKXwjz5hj
-         w/zXOHmy6dtSb+3fGR+NsTE4xlhZgop/x2Lv07UYJA5HuXC33XEg/Tv3A41LIbRwvyXs
-         GRKPyzhUBW6z25g5On4J+LLGThJ5GIeB131m/1tIXwrFO3r/q0TAik2/lXivpccwhZTK
-         qsVaJTZfUr1E06iaNsyUGPQ7MCp/EYFoCmqur0XL/3C4sf0SOWWgQiRG9GxTdLcMEWpW
-         1oOa623D1S1L9J/2xQZrpk5zrSc0ku8f+/57nyG1wf87u/5b1JCsxOxPjiE18NOthwjU
-         1MLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Dw+WR3kgPsmomU5BDy/wi1DbnucrDq50YuLE+lo/Shg=;
-        fh=gpExdFEKZZCK7G0djdY9WzWqIQdFx28aW1M8QvZjzWE=;
-        b=K48dht98W1YX20aVwjWAHPlgE20lLVpD2Fu6UyZou6Bbcf6Pkxay7ZJW7y9BVy8c2s
-         3mlWoGekHGLP8gQsjeV9QGktFUNVG02SfvGbvOUTl52SVyK/LaA3mXN+YpKnz+TY2cZj
-         RsUcrugSfVkOixomRCEwAjqhDOO9qrouvJVyKIqmCXDL1ugqhSfGNDWGNMCBAGchUJFz
-         76OcxJTuQyH7wx2f9P8oaSJJJWvr7dTwmNlbtMZsOXh/jNVUVlIn0jJEBDdS4uiWaCSD
-         /RoPeEf7S+bKw9gK//fXRGTzK1TbLy03I5wxno6iS82fRZ60xxp7eZ2rWL2QcYH5Z9Ae
-         8RFw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1780944913; x=1781549713; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Dw+WR3kgPsmomU5BDy/wi1DbnucrDq50YuLE+lo/Shg=;
-        b=rqKSegmZLQBKD5b5RRvE1G8hxE8ZwYnoCRtkoB2UGzazOQAkOQnkcMjyOlFqK9ufj/
-         B00giIS7FS2ZbyfkjmmrUow+Ie+rsHr7+FcL9gRpOYrzNnPQgOswrvhwLIKEg9Himntb
-         isOwldfThEYz2/B2x0EiOVAlkHNSc3ntvhg9xXGX5Z6vTOceSXGGMS9l2Nq++mBmHtj1
-         fBWlTGcFu98noiP/SApLU+XBWslhTs9XyXj9IadpnETbuw3hvCd8dUNoF1CMkxYpHQfD
-         sxODVy09d7xYRl/0pk6P2yGs86EJ/DV2uNScbbp4AyIAUnp8fHQBJfFg1EANFzDTu/K/
-         TK8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780944913; x=1781549713;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Dw+WR3kgPsmomU5BDy/wi1DbnucrDq50YuLE+lo/Shg=;
-        b=b+aJzzm9Db7SSIpQ7rq6i0Oi7sNmA+6PbFx1w+h8fmdmvu6cpCGJ7hqydS5twhUF0y
-         b8sp1d4BqM4MvbILcEohF3eqhNQN+bRhkBPZTLEj7lrOjnZo5OwEqjYEFWCTBBL5/zH2
-         uv8HUy38bfP/qtxUpmjtdxuxgSn3emdEr5Ser0i7wz9658vK+VMrimA7XxhxwvdrVFAn
-         D+woeQAF32u2Oc2zHtIGV3g7oeftmbDCS3F4ZJ4ssrtfDpKd8jK0BsyIgFK0GvCTclrd
-         xtynH7KtEpEHuEHzKSWsLOaxXFXUvGVMjixY7rc9pfeu1L8/h6u2W5elp26V6JuvmVK1
-         oUWA==
-X-Forwarded-Encrypted: i=1; AFNElJ/Mc4w/aZqBwZHI1HALtVLMVk3UX6r44zGfE6Aoaz2+s3zZ7fgzS7cHLynJqO/tnSiO0grwQUKHV1JOcA==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz1hZj6dcLZi+CNP2np1zwAedppbmu3+tZwUHlOyQlcKFO5S56T
-	KtGtgIFBHFFJiVi9qARlskGdEwRs4WlFUC6ICuFilE3JoOH+Ckx7XBlvqWzxtL92UtRwMGkqtYb
-	gQoHjGofrgXVKFb4iVQuNctMDd5nPCWhRG3kHvQs=
-X-Gm-Gg: Acq92OEc/+Rc2gWUIMDrZjH/Cwpj42SeUkB8QqSEVKZ9gWb8ajNPRpS2TZgEnY0+sFU
-	Yuu/DnXuq/urEGDLyzfyAA1rP0PkmwsJ43JmBJSTcM3xy/B8YvV8OR7A5iOAK+TBSyt6g+8a8tg
-	+Rmoqbk+o8ZJCJYzS8IRm7gVDSfiBpBasv77/tR+6BXXOhEkGZ3AHbi0sLWQUZBNpjQkMKDKqG6
-	IjJjFwEUYkP1A0LKeXtFGnuW8RU+Ge2vxcHbUZK5WGO1Du2QrnVD3sCVHBfUFEOsvSN40DqtApN
-	dFSV0WFYKl8ElrC5yJ5fHJTXT5Pui2kp1JymJ2aey3uQdFLJYXX4NYw=
-X-Received: by 2002:a05:6512:3341:b0:5a1:274b:de2b with SMTP id
- 2adb3069b0e04-5aa88640402mr537440e87.9.1780944912435; Mon, 08 Jun 2026
- 11:55:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ivb9agvl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6956A1F00893;
+	Mon,  8 Jun 2026 19:25:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780946712;
+	bh=WJz3MJPOE1lOzWxCcqng0uNSK7MugGP6R4j3ZEdICks=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=Ivb9agvlec8d9jxRo8VNahEC44WFPL9pcV8rn6L1jq9FcZGXFENHvDRTxFwA+yiSR
+	 V2S6MXY86sYOC19/RWtm6syAfMbAIXlI4TXW28mBqEQV+jaCUNcVdXpUj8jD33y0lL
+	 DoAoQb9lxhjRuex3+wvjMTtCAaQyuvzPcORLpY/BZqtjgCAaNrLGfTYOLxLF88Ya8G
+	 UGa7YmoBZ+53x4GzFu76skUNjua5W9XRF2PmWqoMtivHl7dqrduSQaBxtki7IcT7HF
+	 ejcKuwC4DUfoL5ZDNyQuYTk8kLXevFdZH/j07gX+xbr+yuX4NHzhMSmCu/djjdnmZ/
+	 OaP1awiRj9RHA==
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260601200012.3872274-1-xuehaohu@google.com> <20260604094344.GB245424@unreal>
- <CAPd9Lg_JkRdtNa=n+HE9SP+NFCSB+X_97eiPBqiONVLwV0pHwQ@mail.gmail.com> <20260607080244.GA327369@unreal>
-In-Reply-To: <20260607080244.GA327369@unreal>
-From: David Hu <xuehaohu@google.com>
-Date: Mon, 8 Jun 2026 14:54:59 -0400
-X-Gm-Features: AVVi8CcrgIqNX---JRMNN-9SsXpCXMWpb_Y08c-v1_nrKhDd232Ciz6Ae661o0I
-Message-ID: <CAPd9Lg94nGnn7HQPNiSS7w2QQjVAuJ_FkMggR=JfSGVJyAsgeg@mail.gmail.com>
-Subject: Re: [PATCH v5] dma-buf: Fix silent overflow for phys vec to sgt
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
-	linux-kernel@vger.kernel.org, iommu@lists.linux.dev, jmoroni@google.com, 
-	praan@google.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 08 Jun 2026 21:25:08 +0200
+Message-Id: <DJ3WX3B6MYBN.2L8NIJ1ELIYJ8@kernel.org>
+Subject: Re: [RFC PATCH] dma-fence: Fix races of fence callbacks versus
+ destructors by locking
+Cc: <phasta@kernel.org>, "Sumit Semwal" <sumit.semwal@linaro.org>, "Boris
+ Brezillon" <boris.brezillon@collabora.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <dwlsalmeida@gmail.com>, "Gary
+ Guo" <gary@garyguo.net>, "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>,
+ <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260608142436.265820-2-phasta@kernel.org>
+ <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
+ <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
+ <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
+ <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
+ <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
+ <DJ3VYD71HDQ2.3C8GG983Z2YCM@kernel.org>
+ <c8564ea0-8ff4-4049-996d-bd978c478372@amd.com>
+In-Reply-To: <c8564ea0-8ff4-4049-996d-bd978c478372@amd.com>
 
-On Sun, Jun 7, 2026 at 4:02=E2=80=AFAM Leon Romanovsky <leon@kernel.org> wr=
-ote:
+On Mon Jun 8, 2026 at 8:47 PM CEST, Christian K=C3=B6nig wrote:
+> On 6/8/26 20:39, Danilo Krummrich wrote:
+>> On Mon Jun 8, 2026 at 8:32 PM CEST, Christian K=C3=B6nig wrote:
+>>> On 6/8/26 19:59, Danilo Krummrich wrote:
+>>>> On Mon Jun 8, 2026 at 7:34 PM CEST, Christian K=C3=B6nig wrote:
+>>>>> That's why we need the RCU grace period to make sure that nobody is
+>>>>> referencing the driver stuff any more.
+>>>>
+>>>> Right, and that's what Philipp tries to address, the requirement to wa=
+it for an
+>>>> RCU grace period is perfectly fine if it is only about freeing memory,=
+ but it
+>>>> can become painful if the fence private data contains data also needs =
+to be
+>>>> destructed in some way.
+>>>
+>>> Yeah that makes sense.
+>>>
+>>>> IOW, if a driver signals a fence, it is lifecycle-wise reasonable to d=
+estruct
+>>>> the private data that is no longer needed (remaining users only deal w=
+ith struct
+>>>> dma_fence) and having to wait for a full grace period adds sublety and
+>>>> complication that can be avoided with the proposed approach.
+>>>
+>>> Yeah, I've run into that when I tried to make the amdgpu fences indepen=
+dent as well.
+>>>> That said, I'd like to ask the opposite question: What are the concern=
+s with the
+>>>> proposed approach over (pure) RCU?
+>>>
+>>> Well a) locking inversions and b) performance.
+>>>
+>>> For example the reason why we have the dma_fence_is_signaled() and
+>>> dma_fence_is_signaled_locked() variants is because there is a measurabl=
+e
+>>> difference in some specific use cases for not grabbing the locks.
+>>=20
+>> I checked for this as well, but couldn't find a case where
+>> dma_fence_is_signaled() is used in a way where it would be performance c=
+ritical
+>> to avoid the lock in any way.
+>>=20
+>> Note that the lock is only bypassed when the fence is signaled already (=
+this
+>> would be preserved) and if signaled() returns false, i.e. dma_fence_sign=
+al()
+>> will take the lock anyways.
+>>=20
+>>> I personally find those micro-optimizations rather questionable, but th=
+e
+>>> community agreement is that we should have them.
+>>=20
+>> I agree, it is rather questionable. So, I wouldn't make this the decidin=
+g factor
+>> unless someone can present a valid case where it actually matters.
+>>=20
+>>> So my take would rather be that the dma_fence_is_signaled_locked() vari=
+ant
+>>> goes away and we consistently call the ops pointers without holding the
+>>> dma_fence lock and the driver implementations can then optionally take =
+it if
+>>> necessary.
+>>=20
+>> How did you get to this conclusion considering that you run into what I
+>> mentioned above as well and the fact that we seem to agree that the perf=
+ormance
+>> concern is rather questionable?
 >
-> On Thu, Jun 04, 2026 at 03:36:48PM -0400, David Hu wrote:
-> > On Thu, Jun 4, 2026 at 5:43=E2=80=AFAM Leon Romanovsky <leon@kernel.org=
-> wrote:
-> > >
-> > > On Mon, Jun 01, 2026 at 08:00:12PM +0000, David Hu wrote:
-> > > > @@ -133,6 +137,11 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struc=
-t dma_buf_attachment *attach,
-> > > >       }
-> > > >
-> > > >       nents =3D calc_sg_nents(dma->state, phys_vec, nr_ranges, size=
-);
-> > > > +     if (!nents) {
-> > > > +             ret =3D -EINVAL;
-> > > > +             goto err_free_state;
-> > > > +     }
-> > >
-> > > Technically, this hunk is not necessary, since sg_alloc_table() will
-> > > return -EINVAL when nents =3D=3D 0. At least, that is the behavior I =
-relied on.
-> >
-> > I originally added this explicit check in v5 to address Jason's
-> > feedback, and to make the
-> > failure explicit rather than relying on `sg_alloc_table()` failing
-> > silently on `nents=3D0`.
->
-> I prefer explicit checks, but I am not in favor of duplicating them.
-> Since sg_alloc_table() already validates this condition, we do not need
-> to repeat the same check in dma-buf. A comment should be sufficient to
-> inform future reviewers that nents =3D=3D 0 is already handled.
->
-> Thanks
+> Quite simple, it's the cleaner approach.
 
-Hi Leon,
+I would maybe agree iff the RCU read side critical section wouldn't be need=
+ed
+and we wouldn't need to deal with the consequences of having to defer
+everything.
 
-Thank you for clarifying this further. Removing the duplication here
-sounds good to
-me. I'll drop the hunk, add a comment for posterity noting that `nents
-=3D 0` is
-handled by `sg_alloc_table()`, and send out a v6 shortly.
+And so far it seems to me that there isn't really any other reason that the
+performance concern we both don't buy into.
 
-Thanks a bunch,
-David
+> Calling callbacks with locks held is rather questionable even putting the
+> performance issue aside.
+
+In general, I don't think that more flexibility for drivers is automaticall=
+y
+always superior.
+
+Also, before we keep calling it a performance issue, I'd really love to kno=
+w
+where dma_fence_is_signaled() is called in a case where it returns false an=
+d the
+spinlock causes such an overhead that it actually matters.
+
+(As mentioned above, none of the cases where it returns true would change.)
+
+> In detail calling the callbacks without holding locks allows all
+> implementations who need it to explicitly take locks in the order they wa=
+nt.
+
+I don't think this is true in this case.
+
+  1) The existence of dma_fence_is_signaled_locked() already mandates that =
+all
+     such callbacks must work properly if called with the fence lock held.
+
+  2) The RCU read side critical section already mandates that driver must n=
+ot
+     sleep within the callback.
+
+> If you call it with the lock held you enforce the fence lock the be the
+> outermost lock.
+
+That's practically already the case, due to dma_fence_is_signaled_locked().
