@@ -1,127 +1,110 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F7DC3955D0
-	for <linux-media@vger.kernel.org>; Mon,  8 Jun 2026 08:24:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D9A3947AE
+	for <linux-media@vger.kernel.org>; Mon,  8 Jun 2026 08:28:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780907071; cv=none; b=FsgRhLTxZgk55ttUl3HFauO+QFRxWTKMzCtP8ep+3B2rbDz3XN1zmFcaRQUhFJrOdy2F502MnQXPq44hMZOK1gDHNhPHbGv0wzIPEDaIrKhIV/RZTRe40xijFsV3RcFLhT6cEPN1eRanbaklG82ODIZWSTdGj7N6hCACWYcVhfw=
+	t=1780907296; cv=none; b=USk23tLY/A6iBNcir2AxUHgtoNjyVGzbf6Itdh3Z9MHXL7HVYFuTQUNLnb1rXCeTY0t42cucbjJHcs4KA4mtGh/5XetWjuJmk9UcLi0rZMmhxuHdoUrXyq8YckKKN7W64uK/FOX+eBrWvEcT3Wsj0y4D8gJbp+JbfEMZmna2ZPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780907071; c=relaxed/simple;
-	bh=Fru/wbvUCaO7RJRuiupaEpUIU4u/ZkewzVQ2BVpufeo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r7gqyJubd5bzXicc9tE4ObVabWC9t7J0p1HeBC00R2HbZn9NAKhSgop8LrTD5FVcj5aQwsazNtWxXDWYUxhSARAsW8kSDBk7dFBPkVLebNz3yeUiyK8AUOaqDsZhTShIYNgU50Iy8gS8NDzAPXC10U53cAUJIrRdDyNGJ5BtebM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vx9lb2D1; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1780907296; c=relaxed/simple;
+	bh=FDjSmOq2fFI131aYmLiYmRSg3rFaBE8/C9KclaLDDPk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KZT7TzQgM+9FWXofdZMmsYL0UPGMeBTjxrH+inENwP8UqyjJur9DqB51SS35HkxK6RKolkaC0r7E/2ll8Cr5g0u4fMd65TyuUc4ZQ231NxWqLxaxnB4VXZFOjFTQUBalpw2dZwTsJKo/PFSnaKti/f5C69R8k2O2JJwACWsfY/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wfph9DHB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vx9lb2D1"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DEF5A289;
-	Mon,  8 Jun 2026 10:23:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1780907040;
-	bh=Fru/wbvUCaO7RJRuiupaEpUIU4u/ZkewzVQ2BVpufeo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vx9lb2D16C25sPpfQE9GhLlJxLSRJj4dtgPyi5Dm1XV50pDFXJsnrJ8DLGOItbset
-	 wwBUm/B1yiMp2c6xTHP7ot54HBOgEi7M83elPH8JrX6f3cC9XHSDTXo+AWnpU7Itz/
-	 2nSfyhiRIDqIjxUCYGj9j+8OjKFKnFDZA4EYMNEo=
-Date: Mon, 8 Jun 2026 11:24:26 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	linux-media@vger.kernel.org, hans@jjverkuil.nl,
-	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Tommaso Merciai <tomm.merciai@gmail.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Julien Massot <julien.massot@collabora.com>,
-	Naushir Patuck <naush@raspberrypi.com>,
-	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	Stefan Klug <stefan.klug@ideasonboard.com>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	=?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>,
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Ricardo Ribalda Delgado <ribalda@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	David Plowman <david.plowman@raspberrypi.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v5 04/10] media: imx219: Make control handler ops for
- PIXEL_RATE NULL
-Message-ID: <20260608082426.GA380394@killaraus.ideasonboard.com>
-References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
- <20260607215356.842932-5-sakari.ailus@linux.intel.com>
- <20260608073653.GD370380@killaraus.ideasonboard.com>
- <aiZ0a3nGqp6N7GD3@zed>
- <20260608080338.GF370380@killaraus.ideasonboard.com>
- <aiZ56IgNJ2FeXN0o@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wfph9DHB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED1481F00893;
+	Mon,  8 Jun 2026 08:28:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780907292;
+	bh=7AYepqIyFkF8j2htW+f7Omw4SIS8d4WQIVkFQpG3S/I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Wfph9DHB0LfOGfbTj6X8rMFPeycN/mr9oBeDA27o2jmHSPec/pgka/rQBAsDr56el
+	 J6QxBT/ySBCBGUq391RsHtR+d4oaC78rxqmeMwuGA4KHks2QAXEmtZZoMNVbPVxQDt
+	 1Nn1atthVPCsFmaWoSataryxwG9FspD7Eq3Eu5Z6HOkha7lA4kvsCLmCbzzoRZd1LQ
+	 FfNbMZIQYDqtOzFzVp2OM9YJZmTR1DfMbp6l90BG+jMjrh4OLyZh6Jm1ZWweJ2tmkz
+	 reu7U0woM9KX6NY5x4nj7Mjn99K9/biMah8WDB543cK3S9+v+vit9N6pfMnNdHutTI
+	 gBd5MRwoTbNJQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/2] media: qcom: iris: fix runtime PM reference
+ leaks
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hungyu Lin" <dennylin0707@gmail.com>
+Cc: linux-media@vger.kernel.org
+In-Reply-To: <20260608081721.82846-2-dennylin0707@gmail.com>
+References: <20260608081721.82846-2-dennylin0707@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 08 Jun 2026 08:28:11 +0000
+Message-Id: <20260608082811.ED1481F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aiZ56IgNJ2FeXN0o@kekkonen.localdomain>
 
-On Mon, Jun 08, 2026 at 11:14:32AM +0300, Sakari Ailus wrote:
-> On Mon, Jun 08, 2026 at 11:03:38AM +0300, Laurent Pinchart wrote:
-> > On Mon, Jun 08, 2026 at 09:53:17AM +0200, Jacopo Mondi wrote:
-> > > Hi Laurent
-> > >   sorry if I reply in place of Sakari but I got this fresh
-> > 
-> > Thanks :-)
-> > 
-> > > On Mon, Jun 08, 2026 at 10:36:53AM +0300, Laurent Pinchart wrote:
-> > > > On Mon, Jun 08, 2026 at 12:53:50AM +0300, Sakari Ailus wrote:
-> > > > > The PIXEL_RATE control exists to convey the value to the userspace and has
-> > > > > no configuration that would need to be programmed to the sensor. Make the
-> > > > > control handler ops for the PIXEL_RATE control NULL and avoid a warning
-> > > > > (as well as returning an error) from the driver.
-> > > >
-> > > > I thought the standard way to handle pixel rate being read only was to
-> > > > set the V4L2_CTRL_FLAG_READ_ONLY flag, like we do for e.g.
-> > > > V4L2_CID_LINK_FREQ. Is that not correct ?
-> > > 
-> > > PIXEL_RATE is RO by default
-> > > 
-> > > drivers/media/v4l2-core/v4l2-ctrls-defs.c:      case V4L2_CID_PIXEL_RATE:
-> > > drivers/media/v4l2-core/v4l2-ctrls-defs.c-              *type = V4L2_CTRL_TYPE_INTEGER64;
-> > > drivers/media/v4l2-core/v4l2-ctrls-defs.c-              *flags |= V4L2_CTRL_FLAG_READ_ONLY;
-> > > drivers/media/v4l2-core/v4l2-ctrls-defs.c-              break;
-> > > 
-> > > The purpose of setting the ctrl_ops member to NULL is to avoid having
-> > > to handle RO controls in the driver implementation of .s_ctrl().
-> > 
-> > Shouldn't the V4L2 control framework avoid .s_ctrl() calls for read-only
-> > controls ? I thought it did already.
-> 
-> The control may be read-only on the UAPI but the driver could still do
-> something about it in its s_ctrl() callback. I don't know if any driver
-> depends on this though.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] `iris_disable_power_domains()` incorrectly propagates `1` on succes=
+s when the device is already suspended.
+--
 
-It seems to be one of the many areas where control handling should be
-simplified for drivers.
+commit 7b8fb44887231870efc4a92ebbb558afa99135b1
+Author: Hungyu Lin <dennylin0707@gmail.com>
 
-In any case, the imx219 driver creates the V4L2_CID_LINK_FREQ control
-with a non-NULL ops pointer, sets the V4L2_CTRL_FLAG_READ_ONLY flag, and
-does not handle V4L2_CID_LINK_FREQ in imx219_set_ctrl(). If there's an
-issue for V4L2_CID_PIXEL_RATE there is also an issue for
-V4L2_CID_LINK_FREQ.
+media: qcom: iris: fix runtime PM reference leaks
 
-Maybe the best short term fix would be to drop the dev_info() in the
-default case of the ctrl->id switch in imx219_set_ctrl() ?
+This commit uses pm_runtime_resume_and_get() in iris_enable_power_domains()
+to prevent reference leaks on failure. It also updates
+iris_disable_power_domains() to always call pm_runtime_put_sync() and captu=
+re
+its result.
 
--- 
-Regards,
+> diff --git a/drivers/media/platform/qcom/iris/iris_resources.c b/drivers/=
+media/platform/qcom/iris/iris_resources.c
+> --- a/drivers/media/platform/qcom/iris/iris_resources.c
+> +++ b/drivers/media/platform/qcom/iris/iris_resources.c
 
-Laurent Pinchart
+[ ... ]
+
+>  int iris_disable_power_domains(struct iris_core *core, struct device *pd=
+_dev)
+>  {
+>  	int ret;
+> +	int pm_ret;
+> =20
+>  	ret =3D iris_opp_set_rate(core->dev, 0);
+> -	if (ret)
+> -		return ret;
+> =20
+> -	pm_runtime_put_sync(pd_dev);
+> +	pm_ret =3D pm_runtime_put_sync(pd_dev);
+> +	if (!ret)
+> +		ret =3D pm_ret;
+> =20
+> -	return 0;
+> +	return ret;
+>  }
+
+[Severity: Low]
+Is it intentional to propagate a positive return value here?
+
+According to the runtime PM API, pm_runtime_put_sync() returns 1 as a succe=
+ss
+case when the device usage count drops to zero but it is already in the
+RPM_SUSPENDED state.
+
+By capturing and returning this value directly from
+iris_disable_power_domains(), the function will return 1 instead of 0 on a
+successful suspend. While current callers may ignore the return value, futu=
+re
+callers checking if (ret) could incorrectly treat this normal success case =
+as
+a failure.
+
+Would it be safer to normalize positive return values to 0?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260608081721.8284=
+6-1-dennylin0707@gmail.com?part=3D1
