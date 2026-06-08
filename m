@@ -1,35 +1,36 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B27399D0D
-	for <linux-media@vger.kernel.org>; Mon,  8 Jun 2026 09:06:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB023B27E2
+	for <linux-media@vger.kernel.org>; Mon,  8 Jun 2026 09:10:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780909592; cv=none; b=boWeP2WQ/uf2MuxAT0ms9TdsTv9EONvSazPVIUQxd61ipam7Pl8/PgSUEj1lIzufqvy1To+2/Tc1ZpPuDnot1+D8O4+MCHjDbt3vYLr+gHQIp0kF4JiNXfxSVSxwpXiOmnLdJKkBswwqG2ceDfu9fDdMg7nOhtXE+1hy22u9cBY=
+	t=1780909834; cv=none; b=SLdvlu/pmRtXiSI7i2frslCgNn/lur4ZdqIsFUsO7PyjkKv23nbR/tih2fM/mhWrynSBgLUOECIkrTMIxdtqArDSF6aKOweUjWHuV9F2U3c6blSUxNpyXfeHKi0BOno9Fy3zG4H3pg6O15PuKmavNbLnmM5yXZwvCHPUKm9Vxmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780909592; c=relaxed/simple;
-	bh=1aOT+JOyZOzGTsPoRYCisF/ck9WVMU9hMcKpX9D55kU=;
+	s=arc-20240116; t=1780909834; c=relaxed/simple;
+	bh=EanL5wE66/jQPKgOlqc/XO6Wlxw+Rxn7VQUXKGn0h8c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WSe6vLEuzqtW2+I2zJTYpYCdh8N8ogfcLQ9cMG4yg3kMXp5c1IyGI7iyuXVzGfM5gktSx0rJQjiSnlDhi8+1Vpug3U+EQ81QhfyQgeoOQxAEYA0VFQRmWLW0jCdyltWc4F8Qf+v/PCjmQVLuGDbdiYk2fHbxzdaTnEmSlxp6Ijg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vQ02ty1X; arc=none smtp.client-ip=213.167.242.64
+	 Content-Type:Content-Disposition:In-Reply-To; b=i5/E0N8qRyuVYfYAuv8ab0iys/HtCm6D4YcI2FwgxalMLcqbar3lOB7FVselIGBSnZhE/gWZFBUrr/gNXeaDIo8+Y3XIpBYug0eUskZJXN5jyr+SUcGxRRE1mYjHWXp5c4zrx0S2sxJRHuBNI4be2Hus2ZJa9RXRstRflhDDPUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ECefPa7/; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vQ02ty1X"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ECefPa7/"
 Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 858028F;
-	Mon,  8 Jun 2026 11:05:59 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 753268F;
+	Mon,  8 Jun 2026 11:10:00 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1780909559;
-	bh=1aOT+JOyZOzGTsPoRYCisF/ck9WVMU9hMcKpX9D55kU=;
+	s=mail; t=1780909800;
+	bh=EanL5wE66/jQPKgOlqc/XO6Wlxw+Rxn7VQUXKGn0h8c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vQ02ty1XrTCjI4aWpr4ao20oglS1HwOVqbnMqqADLcX5effiLnEUa2x9kq/OlZjjk
-	 RKeOPzjCFMd1pDSNNY1bt38vNTMetpnkYZQrElzU7+B07S/AAa6sSV7UJwLHUJqD00
-	 /aJ5yIcZVUpsjvsvtrkSjYsD0rfXYlMzI9WS4Ezw=
-Date: Mon, 8 Jun 2026 12:06:25 +0300
+	b=ECefPa7/cMfYIxxX0JCTI1bguriHJIU8cQrYOpFqGW0cunTAgxEmMdZvK4/8AJhwy
+	 m6Jg/McjS6GUdVC3dHT2Q6hQrQCSq7KVLW0JksFNmVFQ4QrWyrWwoKxqrjmqqTyZp7
+	 fYDfEXnkhDZx3ukln6flhF/+iwFWPfHFJhzS6i5g=
+Date: Mon, 8 Jun 2026 12:10:26 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, hans@jjverkuil.nl,
 	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
 	Dave Stevenson <dave.stevenson@raspberrypi.com>,
 	Tommaso Merciai <tomm.merciai@gmail.com>,
@@ -47,18 +48,18 @@ Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
 	Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Ricardo Ribalda Delgado <ribalda@kernel.org>,
 	Hans de Goede <hansg@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
 	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
 	David Plowman <david.plowman@raspberrypi.com>,
 	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v5 03/10] media: imx219: Account rate_factor in setting
- upper exposure limit
-Message-ID: <20260608090625.GA772117@killaraus.ideasonboard.com>
+Subject: Re: [PATCH v5 06/10] media: imx219: Fix vertical blanking and
+ exposure for analogue binning
+Message-ID: <20260608091026.GB772117@killaraus.ideasonboard.com>
 References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
- <20260607215356.842932-4-sakari.ailus@linux.intel.com>
+ <20260607215356.842932-7-sakari.ailus@linux.intel.com>
+ <aiZnQgyEBkZH7er0@zed>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -67,44 +68,151 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260607215356.842932-4-sakari.ailus@linux.intel.com>
+In-Reply-To: <aiZnQgyEBkZH7er0@zed>
 
-Hi Sakari,
-
-Thank you for the patch.
-
-On Mon, Jun 08, 2026 at 12:53:49AM +0300, Sakari Ailus wrote:
-> The rate_factor multiplier is used to multiply a few values in the
-> sensor's timing configuration and the exposure time is one of them. This
-> also needs to be taken into account in exposure time margin: multiply it
-> by rate_factor so that sensor's exposure time margin is respected.
+On Mon, Jun 08, 2026 at 08:58:46AM +0200, Jacopo Mondi wrote:
+> Hi Sakari
 > 
-> Fixes: f513997119f4 ("media: i2c: imx219: Scale the pixel rate for analog binning")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> ---
->  drivers/media/i2c/imx219.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+> On Mon, Jun 08, 2026 at 12:53:52AM +0300, Sakari Ailus wrote:
+> > When vertical analogue binning is in use, the minimum frame length in
+> > lines decreases to around half of the normal. In relation to the sensor's
+> > output size this means vertical blanking can be negative but that's not an
+> > issue as control values are signed. Remove the workaround for this
 > 
-> diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-> index d8fe7db18b6c..e681f80f9e3e 100644
-> --- a/drivers/media/i2c/imx219.c
-> +++ b/drivers/media/i2c/imx219.c
-> @@ -451,7 +451,8 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
->  		int exposure_max, exposure_def;
->  
->  		/* Update max exposure while meeting expected vblanking */
-> -		exposure_max = format->height + ctrl->val - IMX219_EXPOSURE_OFFSET;
-> +		exposure_max = format->height + ctrl->val -
-> +			IMX219_EXPOSURE_OFFSET * rate_factor;
+> Didn't we just discussed two weeks ago in media summit how negative
+> blankings are a bad idea, and of all drivers one could decide to play
+> with imx219 is probably the worse due it's large use base and the fact
+> libcamera doesn't support negative blankings ?
 
-I'm not sure if this is quite right, I need some more time to research.
-Regardless of that, isn't the same change also needed in
-imx219_set_pad_format() ?
+I also think that negative blanking values are a bad idea, for this
+driver or any other driver. I still haven't seen any compelling
+argument.
 
->  		exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
->  				exposure_max : IMX219_EXPOSURE_DEFAULT;
->  		ret = __v4l2_ctrl_modify_range(imx219->exposure,
+> Have I missed something ?
+> 
+> > non-issue that doubled the pixel rate, frame length in lines and exposure
+> > time.
+> >
+> > The resulting change also fixes the minimum, the maximum and the step
+> > values for the control.
+> >
+> > Fixes: f513997119f4 ("media: i2c: imx219: Scale the pixel rate for analog binning")
+> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> > ---
+> >  drivers/media/i2c/imx219.c | 37 ++++++++++++++-----------------------
+> >  1 file changed, 14 insertions(+), 23 deletions(-)
+> >
+> > diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+> > index 3aebcbaa3fcd..3cee31758b7e 100644
+> > --- a/drivers/media/i2c/imx219.c
+> > +++ b/drivers/media/i2c/imx219.c
+> > @@ -420,15 +420,6 @@ static void imx219_get_binning(struct v4l2_subdev_state *state, u8 *bin_h,
+> >
+> >  }
+> >
+> > -static inline u32 imx219_get_rate_factor(struct v4l2_subdev_state *state)
+> > -{
+> > -	u8 bin_h, bin_v;
+> > -
+> > -	imx219_get_binning(state, &bin_h, &bin_v);
+> > -
+> > -	return (bin_h & bin_v) == IMX219_BINNING_X2_ANALOG ? 2 : 1;
+> > -}
+> > -
+> >  /* -----------------------------------------------------------------------------
+> >   * Controls
+> >   */
+> > @@ -440,19 +431,17 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
+> >  	struct i2c_client *client = v4l2_get_subdevdata(&imx219->sd);
+> >  	const struct v4l2_mbus_framefmt *format;
+> >  	struct v4l2_subdev_state *state;
+> > -	u32 rate_factor;
+> >  	int ret = 0;
+> >
+> >  	state = v4l2_subdev_get_locked_active_state(&imx219->sd);
+> >  	format = v4l2_subdev_state_get_format(state, 0);
+> > -	rate_factor = imx219_get_rate_factor(state);
+> >
+> >  	if (ctrl->id == V4L2_CID_VBLANK) {
+> >  		int exposure_max, exposure_def;
+> >
+> >  		/* Update max exposure while meeting expected vblanking */
+> >  		exposure_max = format->height + ctrl->val -
+> > -			IMX219_EXPOSURE_OFFSET * rate_factor;
+> > +			IMX219_EXPOSURE_OFFSET;
+> >  		exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
+> >  				exposure_max : IMX219_EXPOSURE_DEFAULT;
+> >  		ret = __v4l2_ctrl_modify_range(imx219->exposure,
+> > @@ -479,7 +468,7 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
+> >  		break;
+> >  	case V4L2_CID_EXPOSURE:
+> >  		cci_write(imx219->regmap, IMX219_REG_EXPOSURE,
+> > -			  ctrl->val / rate_factor, &ret);
+> > +			  ctrl->val, &ret);
+> >  		break;
+> >  	case V4L2_CID_DIGITAL_GAIN:
+> >  		cci_write(imx219->regmap, IMX219_REG_DIGITAL_GAIN,
+> > @@ -496,7 +485,7 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
+> >  		break;
+> >  	case V4L2_CID_VBLANK:
+> >  		cci_write(imx219->regmap, IMX219_REG_FRM_LENGTH_A,
+> > -			  (format->height + ctrl->val) / rate_factor, &ret);
+> > +			  format->height + ctrl->val, &ret);
+> >  		break;
+> >  	case V4L2_CID_HBLANK:
+> >  		cci_write(imx219->regmap, IMX219_REG_LINE_LENGTH_A,
+> > @@ -837,8 +826,8 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+> >  	const struct imx219_mode *mode;
+> >  	struct v4l2_mbus_framefmt *format;
+> >  	struct v4l2_rect *crop;
+> > -	u8 bin_h, bin_v, bin_hv;
+> > -	int ret;
+> > +	u8 bin_h, bin_v;
+> > +	int ret, bin_hv;
+> >
+> >  	format = v4l2_subdev_state_get_format(state, 0);
+> >
+> > @@ -879,23 +868,25 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+> >  	crop->top = (IMX219_NATIVE_HEIGHT - crop->height) / 2;
+> >
+> >  	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
+> > -		unsigned int rate_factor = imx219_get_rate_factor(state);
+> >  		int exposure_max;
+> >  		int exposure_def;
+> >  		int llp_min;
+> >  		int pixel_rate;
+> >
+> >  		/* Update limits and set FPS to default */
+> > +		int vblank_min = ((int)mode->height * (1 - bin_hv) / bin_hv) +
+> > +			IMX219_VBLANK_MIN;
+> >  		ret = __v4l2_ctrl_modify_range(imx219->vblank,
+> > -					       IMX219_VBLANK_MIN * rate_factor,
+> > -					       (IMX219_FLL_MAX - mode->height) *
+> > -					       rate_factor, rate_factor,
+> > -					       mode->fll_def - mode->height);
+> > +					       vblank_min,
+> > +					       IMX219_FLL_MAX - mode->height, 1,
+> > +					       (int)(mode->fll_def / bin_hv) -
+> > +					       (int)mode->height);
+> >  		if (ret)
+> >  			return ret;
+> >
+> >  		ret = __v4l2_ctrl_s_ctrl(imx219->vblank,
+> > -					 mode->fll_def - mode->height);
+> > +					 (int)(mode->fll_def / bin_hv) -
+> > +					 (int)mode->height);
+> >  		if (ret)
+> >  			return ret;
+> >
+> > @@ -932,7 +923,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+> >  			return ret;
+> >
+> >  		/* Scale the pixel rate based on the mode specific factor */
+> > -		pixel_rate = imx219_get_pixel_rate(imx219) * rate_factor;
+> > +		pixel_rate = imx219_get_pixel_rate(imx219);
+> >  		ret = __v4l2_ctrl_modify_range(imx219->pixel_rate, pixel_rate,
+> >  					       pixel_rate, 1, pixel_rate);
+> >  		if (ret)
 
 -- 
 Regards,
