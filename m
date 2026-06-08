@@ -1,169 +1,240 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012055.outbound.protection.outlook.com [40.93.195.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1F037DEAA
-	for <linux-media@vger.kernel.org>; Mon,  8 Jun 2026 14:28:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780928929; cv=none; b=taYePZ20CaFncvvLNSsoiWe1W6qNu/qcXSw7A0TghLntoGnC4W9maXV9utjlF5/CudGhqKLaJEFOEkejuv2eaGmyutjRrtJtFvpKm+hvWn49mFfpyWlDCNLy+Eeve9I6QTeTMwaxbNPu6SXddFhM+wpqJ5zlFGQrBYUe6cTzzMA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780928929; c=relaxed/simple;
-	bh=isdBuVGUzycA2a+WkH7EfnC7E35xb302PEHo/nMT/Dw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XkDcn9HlYd4hkRwXHZt7rRLf3JOmR1ahvdQHtDtUIomH8Tcga4nUxRWkAFMnGIDF4qZmZzEd5EKNJ+roOoRdjIM0/WuaoDWr4gWjXrxsXD1nWMKEa94tpTWzudIVR3cDmfj3OxnkS/pjaLSrr8obbGqB+xWxEwcZDuzdkzr+w2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EcOcqkP3; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 361893CDBAA;
+	Mon,  8 Jun 2026 14:29:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780928953; cv=fail; b=k9m0r9gDULX31D17aFRAi3VB3EhAFd43LP9aUoWH6ndY3pVhFqWyXlLWRfEMIUg1KYgEfekzU5pl72BnU3hHwrbjISUCPH9c6Bp1oP4y/vRUFI0KX/UoVGWsBxjeYhM2nVB0MfZyDtt98gAqcl1OJChJvExM6rcxI0gskpm08TA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780928953; c=relaxed/simple;
+	bh=ihIjYekTERBLXDwYon1aMsAPVM1SpXG3A+jrxK+6bnc=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=P45oS2//A11lAnM4/jruBZrndbAn3KK2L/pRevQ9FeDCyDQq4QlM+rZ1it7zBm8hVsIo59pnIVzSNvepNh7iRqxCCkBjWGrbKjOrd/tZXhDia50uYqh/kZsH1RTHwY5Q8Ow+uzT86eu8QOLwD076Mx0Nqgs0LntnEqtWhorKPDg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=LG6/RmwI; arc=fail smtp.client-ip=40.93.195.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EcOcqkP3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780928928; x=1812464928;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=isdBuVGUzycA2a+WkH7EfnC7E35xb302PEHo/nMT/Dw=;
-  b=EcOcqkP3aIvEXfug7FJhZz+/H+Aw40UeGl+NE7eDWvI02KmwOikq8Xnp
-   KVawmdRG0dL/LI1a2731jyx2cAy23hFZahsPnYVGALP/XdmlGNBs0tdxw
-   Tzf+EYS+kFRMzYTig4Zmu94GRgZhH/gRL0aVMEoWzlc4XXYACQURd5u19
-   No/sxJk6p+ZRi4NEw7u2/57eyTutPYpT7+gsCMwB2dEAI7VidbL3efJX4
-   KgjEMVyCMoaHA3JafAEV/uhIXdNi6yp31iiaUX3ZSGtbe1jbQBZfU9fdS
-   z4NEN9MtbhJ5e+26lCwIYuVgHeKsYYL+VhW+jB8d/xidCTKZiF5zKayss
-   Q==;
-X-CSE-ConnectionGUID: IToOexb+S8eADAIZAwRLeQ==
-X-CSE-MsgGUID: b3DIsvZ1RrGs/q8MsSBJvw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="69197622"
-X-IronPort-AV: E=Sophos;i="6.24,194,1774335600"; 
-   d="scan'208";a="69197622"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jun 2026 07:28:47 -0700
-X-CSE-ConnectionGUID: IBXBxtt/Scy4TwyBLy3JiQ==
-X-CSE-MsgGUID: 8VTpLQgZSUOV/jY6DxyfJg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,194,1774335600"; 
-   d="scan'208";a="245426090"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.127])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jun 2026 07:28:40 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 47D78121C67;
-	Mon, 08 Jun 2026 17:28:37 +0300 (EEST)
-Date: Mon, 8 Jun 2026 17:28:37 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
-	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Tommaso Merciai <tomm.merciai@gmail.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Julien Massot <julien.massot@collabora.com>,
-	Naushir Patuck <naush@raspberrypi.com>,
-	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	Stefan Klug <stefan.klug@ideasonboard.com>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	=?iso-8859-1?Q?Andr=E9?= Apitzsch <git@apitzsch.eu>,
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Ricardo Ribalda Delgado <ribalda@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	David Plowman <david.plowman@raspberrypi.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v5 07/10] media: Improve enable_streams and
- disable_streams documentation
-Message-ID: <aibRlZ1uK5-SsO__@kekkonen.localdomain>
-References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
- <20260607215356.842932-8-sakari.ailus@linux.intel.com>
- <20260608092916.GC772117@killaraus.ideasonboard.com>
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="LG6/RmwI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=khcfsyuBMDTptQzsZ2bHcF//16hVbwZdoV/Ydz+MlJBcwWY0e4T9o9ld+4SOUTBK781/g9c/cv0uoGx2x5WK12uJ5dM9MuMdnIBZ4WHG8NogU0J3djwdRlUGqhDQWdOFxQCRitXZAU1yA4TZGXlY6jOGfsJlZpvT6OuCWTz1ioy0UtOHWtxd01yBLx36WZj3vl7jWfrFoD/gV6V7N8bZmtJk3kDujRvUzMR3i1uwpwiyI/UU41zfbRf3qc2LO64H5L+CXwLht+22JYLbOiV40/W7aVYSJqOTwu3vUoDfw3GAaiEelDnTbC5PBa/PR1QXqvB9Vb3Enm6W8jPNSJldxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5nsypIxkl3wh1TwYFLY4riDZ82BhRN8v+O6aZOPmQkE=;
+ b=A3bhHb5MLyatbV3VdMI1DkQRw2+Juq+GwUNolaQQSQ7Z49Mumj5MesXl4LYzRDboLDOOGWtSUiZ6XUDK4PU/0A4O2gVrz/ZZwTvG0p6k5Jum+fV5warI9zeSgs94vGYNXZxbPfDn8h5c6EC5aiYIJ/IYfLQWi8Oim9x9Zi3DWCkCW7FvLKd1XDZECiOlKSrnjtlOHugbENNrlVEQBKpiEN3D/plWyI8P/iqs3E/RE/HYRFot797C6KvpfurqhDoZRlW/kG3IFyHVAXSI75e9IJwF5jHJmMSzPBq1m7qO0X5FSbe/aRNsfhuyViVrsjfJ1Ta3hLso+hxGqNEvAg8+Lw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5nsypIxkl3wh1TwYFLY4riDZ82BhRN8v+O6aZOPmQkE=;
+ b=LG6/RmwI8BqEn/Kan1nL6tNZXBKsOtwLHPGSewA5MPXkmedTsQiSoQuKnxkO9QpQoOHgExUbmlznCStmZPWc8TpePOSdEeExh/rAosZwk/V1tgfihmo0mWMq+Oaf/EYC1X2v4hBweY0cqJUMHIM2elkOuFuKOZxuCPkuTj1ZdP8=
+Received: from SA9PR03CA0002.namprd03.prod.outlook.com (2603:10b6:806:20::7)
+ by SA2PR10MB4521.namprd10.prod.outlook.com (2603:10b6:806:117::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Mon, 8 Jun 2026
+ 14:29:10 +0000
+Received: from SN1PEPF0002BA4C.namprd03.prod.outlook.com
+ (2603:10b6:806:20:cafe::72) by SA9PR03CA0002.outlook.office365.com
+ (2603:10b6:806:20::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.13 via Frontend Transport; Mon, 8
+ Jun 2026 14:29:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ SN1PEPF0002BA4C.mail.protection.outlook.com (10.167.242.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.113.7 via Frontend Transport; Mon, 8 Jun 2026 14:29:09 +0000
+Received: from DLEE212.ent.ti.com (157.170.170.114) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 8 Jun
+ 2026 09:29:09 -0500
+Received: from DLEE200.ent.ti.com (157.170.170.75) by DLEE212.ent.ti.com
+ (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 8 Jun
+ 2026 09:29:09 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE200.ent.ti.com
+ (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Mon, 8 Jun 2026 09:29:09 -0500
+Received: from ws.dhcp.ti.com (ws.dhcp.ti.com [172.24.233.149])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 658ET2bD3251356;
+	Mon, 8 Jun 2026 09:29:06 -0500
+From: Rishikesh Donadkar <r-donadkar@ti.com>
+To: <jai.luthra@linux.dev>
+CC: <r-donadkar@ti.com>, <y-abhilashchandra@ti.com>, <devarsht@ti.com>,
+	<vigneshr@ti.com>, <mchehab@kernel.org>, <tomi.valkeinen@ideasonboard.com>,
+	<jai.luthra@ideasonboard.com>, <linux-kernel@vger.kernel.org>,
+	<linux-media@vger.kernel.org>
+Subject: [PATCH 1/4] media: i2c: ds90ub960: Enable CSI TX1 port
+Date: Mon, 8 Jun 2026 19:58:58 +0530
+Message-ID: <20260608142901.3971821-2-r-donadkar@ti.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260608142901.3971821-1-r-donadkar@ti.com>
+References: <20260608142901.3971821-1-r-donadkar@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260608092916.GC772117@killaraus.ideasonboard.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4C:EE_|SA2PR10MB4521:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a6f9849-1b00-4ac5-e4f7-08dec56a4de9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|376014|3023799007|56012099006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	hkAk14MdyhpEUbM0Tw6kXcxS1xlDNN/GlAWOuQW4QIa62ajy1XlRJakaS+868xynaCay3HG9a+1NowxWlgNrFwQycWpfy17aEi40fVuyKBmstvh9vUGC2+ZcV+pAn/uT70YV0j3+tpKqoJcLE0YHTLTMDgRpl0u2n3jFqY4Veh6yqJkJl8HJ2tA8K6kIJ0A+3wj+bEgtSkjo/d+koHf+iNBVbSIi5mXjhLwCbqNT3dzcjjHqYfYyZFObD2ePDfw+yf8IAbKu0fRe/+JipQ6dKM3n5Uxg8mILqNmFFzgf5nFLPKZW8PP2w9VXg4yJkHiTFoE2QQ8P/sLXOXJhSMx+62RArwgLhcdigGlk+iV25YpaFbFV18jtXEHiB0oUrNVlJZrP07xGtPhUaF2D58ZS34DE2ZB9x3sI6f1jhg0Vg8P38GJnHKcQlGKaZRRoXDHA6S+VsII01nEEkDDzx5vl9hOVq/lSFADs7w9fKaZGBbg7GQoEOkI1BpQGpSR6Vgymo82FSKRLme4R3yJ6xXdSiUYcpqGD0ks59UZHE1CxrB6wRZ1HxLgrFvEhjEGYFz8cBWSYXn9Gz7wce+z4TEZ9GF/smwvtsheNIme983KeRfTAly5DDEzFsWA9kY0k3+Rw88aTU8IEFSgour2NzdBKzJJB3lMdVVfuV/Or1dAJOCBOOmK4rj0t4T/HtmT8J9kCyjs8zYugyvtjvVq8v0kKM7nhY2i1bgtRmJLJb9GPPNs=
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(3023799007)(56012099006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	enGb601N5W/sV6ZHazaLoyNY1IIqwpBDupEL1lQQfDpc9rxYOo7+ldO0bbxHWRlwNrCQSir5ZBF7aYa5sCJIprrb/Kt0uuAhLUENPDE4oOMK6l1btzjX3AfmmNcOzz9eiQeGQCE/W6La3/ZX0prgw1F6u92ZTXtGqLf0NKb6GCYIQbI34c8UdMj2oGKi4TpixNU0gJWfv8L1pQ33WtazVg7UiDybdMyYCfdZF14bUC12/fi4qraZauwKbD9i/cI+l/UhaVF9+iDrguI8rXLfZfwBriPK+UemZKjFUKcizY8fmrmavVi6ZnqhFWQ9E8LhOr64AqFCmlIgyDYzua4tmllezAxnloGAeGzztyy6iS63DVJHoCUeZIxNSrKqNg+uGUUvDZBD0kpGpPs4QyOB3oOuME46Kh9zxbsYbUxTr/H6bKYHjuGvpb/lCKy/imPk
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 14:29:09.6891
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a6f9849-1b00-4ac5-e4f7-08dec56a4de9
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF0002BA4C.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR10MB4521
 
-Hi Laurent,
+From: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
 
-On Mon, Jun 08, 2026 at 12:29:16PM +0300, Laurent Pinchart wrote:
-> Hi Sakari,
-> 
-> Thank you for the patch.
-> 
-> On Mon, Jun 08, 2026 at 12:53:53AM +0300, Sakari Ailus wrote:
-> > Document that enable_streams may start additional streams and
-> > disable_streams may not disable requested streams if other related streams
-> > are still enabled.
-> > 
-> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> > Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
-> > ---
-> >  include/media/v4l2-subdev.h | 8 ++++++++
-> >  1 file changed, 8 insertions(+)
-> > 
-> > diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
-> > index 0361c8bbee38..a25234befbe9 100644
-> > --- a/include/media/v4l2-subdev.h
-> > +++ b/include/media/v4l2-subdev.h
-> > @@ -828,6 +828,10 @@ struct v4l2_subdev_state {
-> >   *	V4L2_SUBDEV_CAP_STREAMS sub-device capability flag can ignore the mask
-> >   *	argument.
-> >   *
-> > + *	Starting the requested streams may require starting additional
-> > + *	streams. Streams that are started and stopped together due to hardware
-> > + *	are called a stream group.
-> 
-> This is too vague. "may require starting additional streams" can be
-> understood as the driver starting more streams than the requested ones,
-> or as the caller having to start more streams before the requests
-> streams are effectively started.
-> 
-> Here's a proposal to clarify the documentation:
-> 
->  * Due to device constraints, starting the requested streams may result in
->  * additional streams also being started by the driver. Streams that are started
->  * and stopped together due to the nature of the hardware are called a stream
->  * group.
-> 
-> "hardware" may be a bit restrictive, I wonder if those constraints could
-> also sometimes come from the software implementation instead of being
-> pure hardware constraints. I think it's fine for now though, we can
-> clarify this later if needed.
-> 
-> > + *
-> >   * @disable_streams: Disable the streams defined in streams_mask on the given
-> >   *	source pad. Subdevs that implement this operation must use the active
-> >   *	state management provided by the subdev core (enabled through a call to
-> > @@ -837,6 +841,10 @@ struct v4l2_subdev_state {
-> >   *	Drivers that support only a single stream without setting the
-> >   *	V4L2_SUBDEV_CAP_STREAMS sub-device capability flag can ignore the mask
-> >   *	argument.
-> > + *
-> > + *	Stopping the requested streams may be delayed due to other enabled
-> > + *	streams in the stream group, where all streams are started and stopped
-> > + *	together.
-> 
-> This is better. I would have written
-> 
->  * When the requested stream are part of a stream group, they will be stopped
->  * once all streams in the group are stopped.
-> 
-> to make it clearer that the streams won't be stopped immediately ("may"
-> in the original text implies they may or may not be stopped
-> immediately), but I'm also OK with your text.
+The DS90UB960 chip has two CSI-2 transmit ports (TX0 and TX1), but the
+current driver implementation only utilizes TX0. To enable TX1 as the
+active output port, the I2C Bidirectional Control Channel (BCC) mapping in
+the RX_PORT_CTL register must be configured to use I2C Slave Port 1.
 
-I'll use your text in v6. I presume Jacopo and Mirela agree. :-)
+This patch adds a new function, ub960_parse_active_ports(), which is
+called during driver initialization to scan the device tree and identify
+which RX and TX ports are enabled. The function creates bitmasks
+representing the active ports and uses these masks to correctly configure
+the RX_PORT_CTL register, ensuring proper port routing for whichever TX
+port is in use.
 
+DS90UB960 data sheet: https://www.ti.com/lit/ds/symlink/ds90ub960-q1.pdf
+Signed-off-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+Co-developed-by: Rishikesh Donadkar <r-donadkar@ti.com>
+Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
+---
+ drivers/media/i2c/ds90ub960.c | 46 ++++++++++++++++++++++++++++++++++-
+ 1 file changed, 45 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/i2c/ds90ub960.c b/drivers/media/i2c/ds90ub960.c
+index 15a9797b47ac..653dc7a4eee5 100644
+--- a/drivers/media/i2c/ds90ub960.c
++++ b/drivers/media/i2c/ds90ub960.c
+@@ -26,6 +26,7 @@
+  * - i2c-atr could be made embeddable instead of allocatable.
+  */
+ 
++#include <linux/bitfield.h>
+ #include <linux/bitops.h>
+ #include <linux/cleanup.h>
+ #include <linux/clk.h>
+@@ -76,6 +77,8 @@
+ 
+ #define UB960_NUM_BC_GPIOS		4
+ 
++#define UB960_CSI_TX0			BIT(4)
++
+ /*
+  * Register map
+  *
+@@ -114,6 +117,7 @@
+ #define UB960_SR_SCL_HIGH_TIME			0x0a
+ #define UB960_SR_SCL_LOW_TIME			0x0b
+ #define UB960_SR_RX_PORT_CTL			0x0c
++#define UB960_SR_RX_PORT_CTL_BCC_MAP		GENMASK(7, 4)
+ #define UB960_SR_IO_CTL				0x0d
+ #define UB960_SR_GPIO_PIN_STS			0x0e
+ #define UB960_SR_GPIO_INPUT_CTL			0x0f
+@@ -589,6 +593,9 @@ struct ub960_data {
+ 	u32 tx_data_rate;		/* Nominal data rate (Gb/s) */
+ 	s64 tx_link_freq[1];
+ 
++	u8 rx_mask;
++	u8 tx_mask;
++
+ 	struct i2c_atr *atr;
+ 
+ 	struct {
+@@ -2538,7 +2545,18 @@ static int ub960_init_rx_ports_ub960(struct ub960_data *priv)
+ 	struct device *dev = &priv->client->dev;
+ 	unsigned int port_lock_mask;
+ 	unsigned int port_mask;
+-	int ret;
++	u8 enabled_rxports_mask;
++	u8 enabled_rxports;
++	int ret = 0;
++
++	/* Configure I2C interface for RX ports */
++	enabled_rxports_mask = FIELD_PREP(UB960_SR_RX_PORT_CTL_BCC_MAP, priv->rx_mask);
++	enabled_rxports = (priv->tx_mask & UB960_CSI_TX0)  ? 0x00 : enabled_rxports_mask;
++
++	ret = ub960_update_bits(priv, UB960_SR_RX_PORT_CTL, enabled_rxports_mask,
++				enabled_rxports, &ret);
++	if (ret)
++		return ret;
+ 
+ 	for_each_active_rxport(priv, it) {
+ 		ret = ub960_init_rx_port_ub960(priv, it.rxport);
+@@ -4789,6 +4807,30 @@ static int ub960_parse_dt_txports(struct ub960_data *priv)
+ 	return 0;
+ }
+ 
++static void ub960_parse_active_ports(struct ub960_data *priv)
++{
++	struct device *dev = &priv->client->dev;
++	int nport;
++
++	priv->rx_mask = 0;
++	priv->tx_mask = 0;
++
++	for (nport = 0; nport < priv->hw_data->num_rxports + priv->hw_data->num_txports; nport++) {
++		struct fwnode_handle *ep_fwnode;
++
++		ep_fwnode = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), nport, 0, 0);
++		if (!ep_fwnode)
++			continue;
++
++		if (nport < priv->hw_data->num_rxports)
++			priv->rx_mask |= BIT(nport);
++		else
++			priv->tx_mask |= BIT(nport);
++
++		fwnode_handle_put(ep_fwnode);
++	}
++}
++
+ static int ub960_parse_dt(struct ub960_data *priv)
+ {
+ 	int ret;
+@@ -5162,6 +5204,8 @@ static int ub960_probe(struct i2c_client *client)
+ 	if (ret)
+ 		goto err_mutex_destroy;
+ 
++	ub960_parse_active_ports(priv);
++
+ 	ret = ub960_parse_dt(priv);
+ 	if (ret)
+ 		goto err_disable_core_hw;
 -- 
-Regards,
+2.34.1
 
-Sakari Ailus
