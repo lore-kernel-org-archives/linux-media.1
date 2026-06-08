@@ -1,250 +1,165 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012044.outbound.protection.outlook.com [52.101.66.44])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0C6307AC7;
-	Mon,  8 Jun 2026 18:18:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780942701; cv=fail; b=FxJjUR6OItvKKdhJiaf+oFW2iIXMXBd29KUnPdGwbtUSWvj0P0J8wF3pTMd78eWH4hQpJzDaGyyq/qOzmOIXxw28PYSUTxHBL+1qsso3Z6lUngggJeQgHlYG8QAWVxZSZ+G/mKvJ/GowXfAzDV7iLU75NDoaAJdnMHQAxBotixk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780942701; c=relaxed/simple;
-	bh=9TgYqH4zEmGEaVpSXuemQWi9ntQn5rWlCKaHcUtsyAA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=gxrL9dnakzV8BtU1d0Y9OVoA0z62ttaMWvu2Qz6rBxyelOUc4AkoeiG4b8/BoM6sslg2LR3QmSD5w7J8JTC7P1a0+PjWvBruvGYivylHGz/jtJ08O5vXLXAHGprY317GSMSAd66GziRq6n33r98DXT+E3y1Jp8L8yeGEVnO+uEY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=VX9PFIsR; arc=fail smtp.client-ip=52.101.66.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA84B3E0096
+	for <linux-media@vger.kernel.org>; Mon,  8 Jun 2026 18:31:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780943478; cv=none; b=VNz4GCCnwg3bsSss2DD1PtQP7luOMkBVplw1AVfVdOZ94W7BuDd2JRkkkkU5kawlIgy8u4Ltx9s43elwNnIQmaaJyWIolBZyWA+Xawlw8Vq5Bn9fS9gi61inPqBxp+A6uvSRDE6yBxF7yMUkZDCCNugPayY40LHbzmSje9XDqiY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780943478; c=relaxed/simple;
+	bh=8IRyv7LCSRO8a+LMUWXdARmSzx637HJkV6N13gEEkU0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZUVRPuWZmDNIDHj7B8LvWthbMmzULgqm0PwkfQ4kPUkQttXiHoy4ZkzJcdHb0n8jt56Iw3nXNZ5mdBda21b09Jx/M44H8t9bc+Ti4HmeQGn1+CDNNKL/LpwSqmY/HODYdwyZs6HAULmqfb47ENX7DdgooKc19DUdlC0Wmquqgrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=B/Rfj9iE; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="VX9PFIsR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=efwadxVEhzG1LhjjldyqLIfTOKC3jF4MOLPft73ZcisG32dW5lYwQ8u5emQBoPdkganm4/Zi0PlEHxGeWXK+bezuItG7EpxDPzFAyrOp424KHAOOFtz3gw67LnG8EbaauXTLxl941XW8htud7yM4KegqDVPRpW+TdjqnhKNu6BmaaJIGlNJcA68J7HWIt6f21NEHiEuaeCB/OoAb8HGMHPYbrghTgPhnQ/DxU6OuMM0XbJeiiar5CmSqOBn1CAdKgYPB184hFXWxcXzhGcfvDxYU7FiIBAiRo9Qzt7O3taD0CETqPMr8mouqo92/p6eAsNPJSBnbGPp2m2kzSeBRVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+rP6vcHgk9V+zxpf/gfcerGGcXyPB/VNSS0kCaZaLs0=;
- b=VlHD7zG8gDQBcRTJQj7606ND2L3faof7ihaZbwzHasb1k+NaanXc4TRiIRUuk6mrGO5mB3D6FpNLxJ06sXp1bZeZNfoapVyixi2KPm/Okr43r0VPkyOMVhR1+i3WY6aYzU0sVfAR1yUIGuY903+OVx1E4Eb0BCPttiRjEypb6fKyA2HPsdXdXAg3YkJjlOzERGvhrt6dLxXVdKIqgqvx4vqbivGucXDI6T9yKso7XkpQVELVCP35nXzxrDgKEeePIN2aDf0PdKAAZmN+1xRRCO0kPXuVMuEW8cvLKTqgamxwBgUZTcBOQWyzLcH30R5Mam9XXEAnmlaorORZg9D+3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+rP6vcHgk9V+zxpf/gfcerGGcXyPB/VNSS0kCaZaLs0=;
- b=VX9PFIsR0b9lq4lW8tUkeC8X/8iJN9muJfX+QW07I4AVzAxGXFXIkqfBieY8cL4t4tnozVIn1wWuVsViZqco5pQd1WgW8lcil1fublOgw3jc6Dj7Vhr/Ljqedaz/f4VPS52CbrhQhxKB6DrYOv0JUL1m+/6JuigfaZqTd8XZ6cHxcxnV4oJNtCdBEo4JKWlkyaTvhoka9DSHRosDgzD7Olb2LFaaM3MaMefAYvFGoWJrVhmEZrEVDNgLQltDM/ovgq+DVbRFBDNw5lN2lsxhJQjpktHA9xKEaI6UGWqlPn2hyZ8vDz3GHdgqTj0kPCU0dwh8PetHAuHBA3J1W4tuYg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PAXPR04MB8671.eurprd04.prod.outlook.com (2603:10a6:102:21e::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Mon, 8 Jun 2026
- 18:18:16 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0092.011; Mon, 8 Jun 2026
- 18:18:16 +0000
-Date: Mon, 8 Jun 2026 14:18:11 -0400
-From: Frank Li <Frank.Li@oss.nxp.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Petr Hodina <phodina@protonmail.com>, "Dr. Git" <drgitx@gmail.com>,
-	Cory Keitz <ckeitz@amazon.com>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Kieran Bingham <kbingham@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v7 3/8] media: qcom: camss: Prepare CSID for C-PHY support
-Message-ID: <aicHY0RRxsvsIRzQ@lizhi-Precision-Tower-5810>
-References: <20260605-qcom-cphy-v7-0-426c37e9008f@ixit.cz>
- <20260605-qcom-cphy-v7-3-426c37e9008f@ixit.cz>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260605-qcom-cphy-v7-3-426c37e9008f@ixit.cz>
-X-ClientProxiedBy: PH8PR02CA0010.namprd02.prod.outlook.com
- (2603:10b6:510:2d0::21) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="B/Rfj9iE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1780943475;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VvkqqMaR/p4iNrcFd0EO2fuLaTlmARCcel/DKCsLETI=;
+	b=B/Rfj9iE7+T8O5Hgw1kxcUQrFxn4YAWzNPIclKl/2g0UTttQ5TDfsdDTnqksH1kJnvEIKN
+	XmKi+bAwLpvj44ooIcGjG28QTSFreBJglznf1VLxkMwosQfaI//WrB4KRvAszM5t13hJJe
+	pJ7trtcK9+LaWcsXEU7rm3NyifVJ+r8=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-398-btYvUMdhNxmvG4gFfxuJCg-1; Mon,
+ 08 Jun 2026 14:31:12 -0400
+X-MC-Unique: btYvUMdhNxmvG4gFfxuJCg-1
+X-Mimecast-MFC-AGG-ID: btYvUMdhNxmvG4gFfxuJCg_1780943469
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A77BD18307E5;
+	Mon,  8 Jun 2026 18:31:08 +0000 (UTC)
+Received: from GoldenWind.redhat.com (unknown [10.22.89.147])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 23F951800594;
+	Mon,  8 Jun 2026 18:31:04 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org,
+	rust-for-linux@vger.kernel.org,
+	nouveau@lists.freedesktop.org
+Cc: Alexandre Courbot <acourbot@nvidia.com>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	driver-core@lists.linux.dev,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	linux-kernel@vger.kernel.org,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	linux-media@vger.kernel.org,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Maxime Ripard <mripard@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	linaro-mm-sig@lists.linaro.org,
+	Danilo Krummrich <dakr@kernel.org>,
+	Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
+	Asahi Lina <lina+kernel@asahilina.net>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Lyude Paul <lyude@redhat.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH v19 1/4] rust: drm: gem: shmem: Add DmaResvGuard helper
+Date: Mon,  8 Jun 2026 14:29:01 -0400
+Message-ID: <20260608183057.2001376-2-lyude@redhat.com>
+In-Reply-To: <20260608183057.2001376-1-lyude@redhat.com>
+References: <20260608183057.2001376-1-lyude@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR04MB8671:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4deda186-b1d4-4af4-ccb8-08dec58a4f54
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|1800799024|7416014|376014|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	E5OOYt7JjYcT7kWFpJdwerQYFyGKuT1gTMrHW9QEnU8zfkAqnH2AMPdoxVyoi19OTcwbv+7aPSX9u0Z4r09Zr96LLjyiFQX3wemY9i5HYCpNjfGhQhPKg3lxSguoYpmsV+WCxRLlcvAgANvvfw/KNoMOU3H9yj8IuYFUxXSppl4hKW7BIur/hKEjZkSIwibXAEYnTikikLas/4KCqcBsSb2J2y4fMpQtx5m0bAjMDbDqxKSsRDKsN439z4YQQJOveERat5nYrt8PP4+WBEz/VeyBJ4J0M8r5vLXiBgwYh86/Q5BKH5Ng3GsBKpPvWZlNGFoQ8IZtq3P/PKoCLsk/lZ8EzxBHoI5+31A5Re6utFc9niwxMpB284ffrS1bxw3UMznYfn2Q//wo9IBm4UKxZs0GCFnlirFm2fBHDVx9m4tovhr9aqniaWXWuwZSofFrCQXvadLJrfmq4t8gkHp/ZXzT1nONUii6vj846g8sFvoUfD94vrWTkciHsMIFz2Lr66eIb8jQc5C4qkxYg5IrLVe30F4C/iWIqeCEQRt8ezlA0935CcIbx8nkjaJLPIgAQGHBBR7yD2/8EXM66i0Ry3TpVrHvp78snbyFtne8eoXgwGL3LN/6/Of2OODUG0pBFE3iqR386kFoIPnkODPwLLbNY5BDOALeWYUkOBe56SgwNQ6jLWJ0mXZKQi9aO/wx
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(7416014)(376014)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?J35yZeOUtVfwbJ/a1CHx1XI6eRgIQ/+bI8I28jkTPoiR+NPWsS9f/NjZjeVn?=
- =?us-ascii?Q?uJbf2RJs5G7uk3gJKYrbPCkBMzdnu4AuBXCjewUJ+j6fNaOiVud1l4kcV/IW?=
- =?us-ascii?Q?6c/NEFRwwL0tb2HIHn0qUg9Am2NFkfij4do3mqTZwRVOhd0GucdMz3eNsAW5?=
- =?us-ascii?Q?JmH/dR1tox4hN4wiClYlArHyF7QczrAedu6OXoXjvykMrxEvqX4YXrPJrvmh?=
- =?us-ascii?Q?xqhTjNP2yPpKXLeL4gJvfH4T4Jx2mh7GbDWAG3iIsjaOm4CRcZ+r9yiMFncx?=
- =?us-ascii?Q?BfhzaPSplbB9QLJFXLhON01i9xX4SU823H+nPHi26sB+Bsyieomee4NV2hjg?=
- =?us-ascii?Q?LTTrQwVoJqjGSt/BzbryZ3DvbnMPqf279o7MmHvw0yxZd25kjNZSfvjE9uyS?=
- =?us-ascii?Q?FI+qwdcQ1p1Tmrjek6yXxza9Ojv83pEMLNeJAHCKqu09jQ7Cfjfj42ANAFM7?=
- =?us-ascii?Q?psOYxfPCUGb4ODVaGVMvtfN3vhYiWW0JQ170u2BcEdmyH5zyG9oFWacrz37V?=
- =?us-ascii?Q?qGhwEt9L367JGsiMEeZLMgnaqZQuZEkW+QLX2XiawCzu1Bic6KZLjhksBDTo?=
- =?us-ascii?Q?bBmv3z5rhAyPe5yJ5CHn8xIxDB51EkJY3lfdjsX1NrJ3WjwzNHZAmLSegCgO?=
- =?us-ascii?Q?QYxdnh671Y60q4iIgDp2DDLhk24KtrK+85U6eobbyQ+61rLmdAolJ4p3uj0m?=
- =?us-ascii?Q?4q2d8oDuPF7TAVzT+mpEW2YON7DHV+X10Yk7NvIPOJr/ltlnJWYwZ/+f9yt7?=
- =?us-ascii?Q?a7rTu3adQYO6iZMV9YhnFoamTKdKk1bqHReZ5TSAE3dgFuHvvjkNIe2h/+bt?=
- =?us-ascii?Q?TXN2eFZiFk0uuQ3nv4CmyhaI00l3s6WIy8dVYIRVCPdf1xDh5kZLEvx67JAn?=
- =?us-ascii?Q?DquqH1adA4UBVrMf+cSRhIzyCpm3783QWiGDonG0m64XMGgKwuSuLGlMNI0D?=
- =?us-ascii?Q?3ROTSkgDrww7x6OSgTgPxtywNuR0ZKTGf94/+ElpcV/KnxpM6fWkZPIn58cO?=
- =?us-ascii?Q?7fmTNSS71cUPP0pxs7ozoiDyCRt/XS2S9KZLhac5czOTpLKphWzZ+TSLCEYG?=
- =?us-ascii?Q?TV3beIVqGTdZST55UloBWC+sw1aLIL+GVR8oA90SY82smFgG6+xW8RGs4FxZ?=
- =?us-ascii?Q?mnD9udJTiQcOC4+LOcq0/BlGaGZRYdzNmspBAgEhVp7z9aKfSj3950f8hU40?=
- =?us-ascii?Q?l/uA3ebhVi9wTye9+XQ+R3ZGPpwYolNl3MWT7pwOqXqF3QqrHBbfGQP9aE18?=
- =?us-ascii?Q?smJXo4ptN+3bTEcI09nhJl0QX7nuQTPYMnAvORPKKgxcmckXFrPKoBqlaL/+?=
- =?us-ascii?Q?ay04Hg680dW+GfNggIBYS0S55XQD+Ua9jqXiTyRFcdKkD8Rd3n4hx50+EC+x?=
- =?us-ascii?Q?Vli0Z4J/oXAVdHnqOvWXbRUDFKwXVFCJwbL9WnxP6x2ijyC21lcnv1bTgGno?=
- =?us-ascii?Q?Ua52nSaT4+HQNP4LxBF4qWL0BMabCgD2gQQbakDvoc5QsoXlyQJ5VoblIqpt?=
- =?us-ascii?Q?NMfw4hjfipExFxscaAk35cvijrHln3kTDA1GBWx9lbJ/E4FG7TJ27vz5Ra43?=
- =?us-ascii?Q?tVTHXf5MICggRPlknuDSrpYSZkLWURTWGBNTv2dSNW9fHhDUhYv8kCXZJPpq?=
- =?us-ascii?Q?9mxI3zWLvq4Wokklh8mabquFfNIWs3swCFfi7jVmlTM37Ma8OgfGlTLthVSd?=
- =?us-ascii?Q?BMLVt65dthQDa/iptQOqi6j87OZ/5tttSN1N4mmIL/y0wO+SG/oWYu9qVfFW?=
- =?us-ascii?Q?KdowT1FIjiE/3kjEnXlgMYneUnzZv9/TzimAladuVkDBjC4ncgUo?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4deda186-b1d4-4af4-ccb8-08dec58a4f54
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 18:18:16.2051
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VjN04E31hxeZeftNPejTFeoDmdSX6FsHunsZvm60hK3AO2wVCHIu8mnURMdn71yVPVejGaw6w6OLj+X662XWW5BuaMe72ZL/0th2nu+Mr5kEJHxNuYGy1D7TQGdwLV9R
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8671
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Fri, Jun 05, 2026 at 03:14:41PM +0200, David Heidelberg wrote:
-> Inherit C-PHY information from CSIPHY, so we can configure CSID
-> properly.
->
-> CSI2_RX_CFG0_PHY_TYPE_SEL must be set to 1, when C-PHY mode is used.
->
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> Acked-by: Cory Keitz <ckeitz@amazon.com>
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  drivers/media/platform/qcom/camss/camss-csid-gen2.c | 1 +
->  drivers/media/platform/qcom/camss/camss-csid.c      | 5 +++++
->  drivers/media/platform/qcom/camss/camss-csid.h      | 6 ++++++
->  3 files changed, 12 insertions(+)
->
-> diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen2.c b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
-> index eadcb2f7e3aaa..a5b406cc8ead3 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csid-gen2.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
-> @@ -178,16 +178,17 @@ static void __csid_configure_rx(struct csid_device *csid,
->  	int val;
->
->  	if (!lane_cnt)
->  		lane_cnt = 4;
->
->  	val = (lane_cnt - 1) << CSI2_RX_CFG0_NUM_ACTIVE_LANES;
->  	val |= phy->lane_assign << CSI2_RX_CFG0_DL0_INPUT_SEL;
->  	val |= phy->csiphy_id << CSI2_RX_CFG0_PHY_NUM_SEL;
-> +	val |= csid->phy.phy_sel << CSI2_RX_CFG0_PHY_TYPE_SEL;
+Just a temporary holdover to make locking/unlocking the dma_resv lock much
+easier.
 
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Co-authored-by: Alexandre Courbot <acourbot@nvidia.com>
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 
-It is fine for now. Suggest change to FIELD_PREP() in future.
+---
+V17:
+* Fix format of commit message title
+V19:
+* Add NotThreadSafe to DmaResvGuard
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+ rust/kernel/drm/gem/shmem.rs | 39 ++++++++++++++++++++++++++++++++++--
+ 1 file changed, 37 insertions(+), 2 deletions(-)
 
->  	writel_relaxed(val, csid->base + CSID_CSI2_RX_CFG0);
->
->  	val = 1 << CSI2_RX_CFG1_PACKET_ECC_CORRECTION_EN;
->  	if (vc > 3)
->  		val |= 1 << CSI2_RX_CFG1_VC_MODE;
->  	val |= 1 << CSI2_RX_CFG1_MISR_EN;
->  	writel_relaxed(val, csid->base + CSID_CSI2_RX_CFG1);
->  }
-> diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-> index 48459b46a981b..bcc34ac9dd212 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csid.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csid.c
-> @@ -1286,16 +1286,21 @@ static int csid_link_setup(struct media_entity *entity,
->  			/* do no allow a link from CSIPHY to CSID */
->  			if (!csiphy->cfg.csi2)
->  				return -EPERM;
->
->  			csid->phy.csiphy_id = csiphy->id;
->
->  			lane_cfg = &csiphy->cfg.csi2->lane_cfg;
->  			csid->phy.lane_cnt = lane_cfg->num_data;
-> +			if (lane_cfg->phy_cfg == V4L2_MBUS_CSI2_CPHY)
-> +				csid->phy.phy_sel = CSID_PHY_SEL_CPHY;
-> +			else
-> +				csid->phy.phy_sel = CSID_PHY_SEL_DPHY;
-> +
->  			csid->phy.lane_assign = csid_get_lane_assign(lane_cfg, lane_cfg->num_data);
->  			csid->tpg_linked = false;
->  		}
->  	}
->  	/* Decide which virtual channels to enable based on which source pads are enabled */
->  	if (local->flags & MEDIA_PAD_FL_SOURCE) {
->  		struct v4l2_subdev *sd = media_entity_to_v4l2_subdev(entity);
->  		struct csid_device *csid = v4l2_get_subdevdata(sd);
-> diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
-> index 5296b10f6bac8..e65590b0df69f 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csid.h
-> +++ b/drivers/media/platform/qcom/camss/camss-csid.h
-> @@ -39,16 +39,21 @@ enum csid_testgen_mode {
->  	CSID_PAYLOAD_MODE_USER_SPECIFIED = 6,
->  	CSID_PAYLOAD_MODE_NUM_SUPPORTED_GEN1 = 6, /* excluding disabled */
->  	CSID_PAYLOAD_MODE_COMPLEX_PATTERN = 7,
->  	CSID_PAYLOAD_MODE_COLOR_BOX = 8,
->  	CSID_PAYLOAD_MODE_COLOR_BARS = 9,
->  	CSID_PAYLOAD_MODE_NUM_SUPPORTED_GEN2 = 9, /* excluding disabled */
->  };
->
-> +enum csid_phy_sel {
-> +	CSID_PHY_SEL_DPHY = 0,
-> +	CSID_PHY_SEL_CPHY = 1
-> +};
-> +
->  struct csid_format_info {
->  	u32 code;
->  	u8 data_type;
->  	u8 decode_format;
->  	u8 bpp;
->  	u8 spp; /* bus samples per pixel */
->  };
->
-> @@ -65,16 +70,17 @@ struct csid_testgen_config {
->  };
->
->  struct csid_phy_config {
->  	u8 csiphy_id;
->  	u8 lane_cnt;
->  	u32 lane_assign;
->  	u32 en_vc;
->  	u8 need_vc_update;
-> +	enum csid_phy_sel phy_sel;
->  };
->
->  struct csid_device;
->
->  struct csid_hw_ops {
->  	/*
->  	 * configure_stream - Configures and starts CSID input stream
->  	 * @csid: CSID device
->
-> --
-> 2.53.0
->
+diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+index 084b798ce795b..da1acc223bad4 100644
+--- a/rust/kernel/drm/gem/shmem.rs
++++ b/rust/kernel/drm/gem/shmem.rs
+@@ -22,7 +22,10 @@
+     error::to_result,
+     prelude::*,
+     sync::aref::ARef,
+-    types::Opaque, //
++    types::{
++        NotThreadSafe,
++        Opaque, //
++    },
+ };
+ use core::{
+     marker::PhantomData,
+@@ -30,7 +33,10 @@
+         Deref,
+         DerefMut, //
+     },
+-    ptr::NonNull, //
++    ptr::{
++        self,
++        NonNull, //
++    },
+ };
+ use gem::{
+     BaseObjectPrivate,
+@@ -244,3 +250,32 @@ impl<T: DriverObject, C: DeviceContext> driver::AllocImpl for Object<T, C> {
+         dumb_map_offset: None,
+     };
+ }
++
++/// Private helper-type for holding the `dma_resv` object for a GEM shmem object.
++///
++/// When this is dropped, the `dma_resv` lock is dropped as well.
++///
++// TODO: This should be replace with a WwMutex equivalent once we have such bindings in the kernel.
++struct DmaResvGuard<'a, T: DriverObject, C: DeviceContext = Registered>(
++    &'a Object<T, C>,
++    NotThreadSafe,
++);
++
++impl<'a, T: DriverObject, C: DeviceContext> DmaResvGuard<'a, T, C> {
++    #[inline(always)]
++    #[expect(unused)]
++    fn new(obj: &'a Object<T, C>) -> Self {
++        // SAFETY: This lock is initialized throughout the lifetime of `object`.
++        unsafe { bindings::dma_resv_lock(obj.raw_dma_resv(), ptr::null_mut()) };
++
++        Self(obj, NotThreadSafe)
++    }
++}
++
++impl<'a, T: DriverObject, C: DeviceContext> Drop for DmaResvGuard<'a, T, C> {
++    #[inline(always)]
++    fn drop(&mut self) {
++        // SAFETY: We are releasing the lock grabbed during the creation of this object.
++        unsafe { bindings::dma_resv_unlock(self.0.raw_dma_resv()) };
++    }
++}
+-- 
+2.54.0
+
