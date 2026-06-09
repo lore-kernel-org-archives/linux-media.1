@@ -1,161 +1,106 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DDE73B14D2
-	for <linux-media@vger.kernel.org>; Mon,  8 Jun 2026 21:52:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFCC94F5E0
+	for <linux-media@vger.kernel.org>; Tue,  9 Jun 2026 00:18:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780955538; cv=none; b=kDQZduXMEPIFyZBDBMsdxEsvnNsCAEsd3Oo4n5mFx/dqvz7Y2DZ2eUH+7aolQnO7K73TlfSFTsFl+RHj1tPMLwqAfqQ9H+Kvx59M7XbpMBlVojExEmYfv2PNtWlp/UzS6AvpeFW2SbcI0rwdZGvrvgL47OSRQWrhgVp2xLAVrPU=
+	t=1780964284; cv=none; b=ko6IJzLS5yQRvVHay1mvgPVgdwI7ATHFh5uKJexvfNw8xTeVVdNg15JVj/Zuo+rtDDn1kZ7ZIBtNdmelKCdNHs5DkaauUu/AiWWQDACdOPlwTwmUanCMT5Orxs0feyvfHac2TMuC1Y9P2/fbgjdnQ8DRYc+KB8plXZQN8uVcRT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780955538; c=relaxed/simple;
-	bh=t67853bHKpWnNvFI0e7UBcuVI3UfKCQN5149lfMds54=;
+	s=arc-20240116; t=1780964284; c=relaxed/simple;
+	bh=/BzsQnwRFrK/hqvtOlttIJXnp8XCgsxJk1C9zu5/bt0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZpulJM6ekN4dhw8Zykefge1teklVxrKb2PIvQt9MXKYUYoNKg7BMFYgActxP3z+/s1Vgf6+f1f7t15lqFcc1NBsz9fvgL2QTdyEYiObQF3AKx4e8xx+F7PprcArKRbrILdrABzbwQsHQd24c7iIQYFvoU4XVzS4SMaZUTFVuh0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=KVEW05PH; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Cpd2lmMQ4qp3hEclZXPuK8X7hzSlgFu2iKq4nE2V4Gfh/LlhQoaKtQdyxOcbGn8Q3MaVLn/WLQw5FuLLT4SdsZ15yLF9fuuwoVPWzFeLeuGa1nXJ9stvFTeS4wNRluKAhSEH3DsxRsnrFOfRbtrax7JyDe8tWEfwP3tSfvlAFvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=WmmoMbXB; arc=none smtp.client-ip=209.85.160.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="KVEW05PH"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BE1688F;
-	Mon,  8 Jun 2026 23:51:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1780955506;
-	bh=t67853bHKpWnNvFI0e7UBcuVI3UfKCQN5149lfMds54=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KVEW05PHgpIxVcu+hpG1F+5AOfQra4t6S/Z6tZxEi7LVIp0zXKy8cxrvkQPb87eQS
-	 zdh5dV7E7phyVBrq6iW6i6CHSI8ZgAGWUuGpqIa4ZKY3MAgng3on9Yq84C+sQqilSH
-	 dahJ4B8nwtI5fh65ClnRYW/j9DanjyJvLCYTyjQ4=
-Date: Tue, 9 Jun 2026 00:52:13 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	linux-media@vger.kernel.org, hans@jjverkuil.nl,
-	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Tommaso Merciai <tomm.merciai@gmail.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Julien Massot <julien.massot@collabora.com>,
-	Naushir Patuck <naush@raspberrypi.com>,
-	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	Stefan Klug <stefan.klug@ideasonboard.com>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	=?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>,
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Ricardo Ribalda Delgado <ribalda@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	David Plowman <david.plowman@raspberrypi.com>,
-	"Yu , Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v5 06/10] media: imx219: Fix vertical blanking and
- exposure for analogue binning
-Message-ID: <20260608215213.GC944266@killaraus.ideasonboard.com>
-References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
- <20260607215356.842932-7-sakari.ailus@linux.intel.com>
- <aiZnQgyEBkZH7er0@zed>
- <20260608091026.GB772117@killaraus.ideasonboard.com>
- <aibMpvdVNraURHIE@kekkonen.localdomain>
- <178093582619.19620.15016359616261234139@freya>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="WmmoMbXB"
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-5176b9c476aso36933291cf.3
+        for <linux-media@vger.kernel.org>; Mon, 08 Jun 2026 17:18:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1780964281; x=1781569081; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=MJrcrd97RrpK34MMckrW+u7pfPo1y7Snw62FaBcwTvE=;
+        b=WmmoMbXBvNvVPgbb71bETL3s/1UKzklb9atQ7RRspFzvrzVQBRXbGcyZov3LFZOTQH
+         bYvFUpR/jxHCQ+HNX/mk+5UL06R9iDwNyiggJkZ/MkEqyE9FiKp7C9tpLgzpQRBaHETd
+         ntSPDBeT/l315+mhftpcN7Igk+i2Snr837FZVL/O0VWH6RqVSaiGe46D8DbLjPbLCOjh
+         oOQj0C3HcfqT1rHvZlkCQtB2KOCLXc//DYGshbBo1JUYQwD9YDTHuKMMHRGAdZiIIMdD
+         DGDYKkXe/MHhKQyenuEXRYsmzsEHKbbXjICic1s6i+BiTT0X7p/V9MrNtNrCdViwIu/w
+         c/hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780964281; x=1781569081;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=MJrcrd97RrpK34MMckrW+u7pfPo1y7Snw62FaBcwTvE=;
+        b=NE6UORyfFYNqJNyZu8JRsR16vze1AraedwEGYUDW9WLP/wJ6TIPaajJv9TlBgIEUOC
+         2YHl75+frWM0Fx1EBgvxT3RSz4fdRz0CR47mic2db1PMS4+NWX8sWny4N7EV/FdOF1d2
+         vgq1kqsPIXD+Tn5MNVERVuC699f5MGoKxT3GpkDe+DzuVpXyggYIadrO90hiWpFGwM8t
+         6zLMyvnbdcpVGYS9ss4O52IhOFcB39O998qagIiDZ/0G8Td+ow70k34owN7963+Ht/Vp
+         86eGjA5oLcZr8Fhf1HJeCabEqDuAn7KxOII8Cy1EhgidJgyjSqTIc4KYn5CtdBIxq9YZ
+         5VxQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8rufubfryt9GxS8lmL6Aiuc2DuKS70jzxxzl8il/Xka9E/R7P6/5keat9VL1hzfl4xLKaTe4FQgrKxwA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwxNvT2qyA3AWsfy2QN6yTa/tMLZnaCt7/IgL/NHteZrhgh6XNl
+	tvHLWLQpg6pDkab1EEaR7PPBS3MiaQKqHc9dk4YcjYZF+kX4Q5vHnMed5W4kC7Y0B4s=
+X-Gm-Gg: Acq92OE6JVM/F19JphxgqZcfqPGHGKAq+MkdWLkJuZFhxII5YpOiLPj7iY6peuhRJ2f
+	o1YWrqkhaZk48cl6rh0zPPIGzOMFBZI0vSvhBfYW9SUsrKDtp15RQx+M3hy89YxYgA1vvuS6eUj
+	41mNpvjI3kVnktsvsWv5Y/Cvu8zPguX9kcu8cci/yZ2zEJs90VRZWWLmPN1o3CVm2zu3bWV4NjL
+	GRe7z2k0W6HcAc2jRJuljl8jyB5PJ6Mxn+ku0DP9jbqXpJiaztyIOaIVE5M9A61tQ+ciIIQaMm5
+	zujj9zGZjG52SdYbfWzIgnpTatWXpKz0wRDbdtNsX4eEtZUaSFBQCakE8hkm2tniZPdpOc+ExnI
+	vaEu/bq5tovr8b9qpPdnZsWqkGzZL8I91YUFV1wF5WY3t2cdpUj8nhUrkzMcEPqSsBpj/iyCaDV
+	zfdO7I4O87As+Y301fJgBHgsYOYdOuJDSztuRzwa9mmTDa9AsDMC/ZAtn+QdJKAH7tDhfCDaAcZ
+	wAsO7jr+fHkgeVn22L3fwHQPVg=
+X-Received: by 2002:a05:622a:1b15:b0:517:8f31:df0a with SMTP id d75a77b69052e-51795a08705mr257391641cf.8.1780964280672;
+        Mon, 08 Jun 2026 17:18:00 -0700 (PDT)
+Received: from ziepe.ca (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net. [47.54.130.67])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51775c4d7absm165652141cf.11.2026.06.08.17.17.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 08 Jun 2026 17:17:59 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1wWkAI-00000000rFN-46mU;
+	Mon, 08 Jun 2026 21:17:58 -0300
+Date: Mon, 8 Jun 2026 21:17:58 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Ankit Soni <Ankit.Soni@amd.com>
+Cc: Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Vasant Hegde <vasant.hegde@amd.com>, iommu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iommufd: take dma_resv lock before dma_buf_unpin() in
+ release path
+Message-ID: <20260609001758.GG2764304@ziepe.ca>
+References: <20260526111034.4079-1-Ankit.Soni@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <178093582619.19620.15016359616261234139@freya>
+In-Reply-To: <20260526111034.4079-1-Ankit.Soni@amd.com>
 
-On Mon, Jun 08, 2026 at 09:53:46PM +0530, Jai Luthra wrote:
-> Quoting Sakari Ailus (2026-06-08 19:37:34)
-> > On Mon, Jun 08, 2026 at 12:10:26PM +0300, Laurent Pinchart wrote:
-> > > On Mon, Jun 08, 2026 at 08:58:46AM +0200, Jacopo Mondi wrote:
-> > > > Hi Sakari
-> > > > 
-> > > > On Mon, Jun 08, 2026 at 12:53:52AM +0300, Sakari Ailus wrote:
-> > > > > When vertical analogue binning is in use, the minimum frame length in
-> > > > > lines decreases to around half of the normal. In relation to the sensor's
-> > > > > output size this means vertical blanking can be negative but that's not an
-> > > > > issue as control values are signed. Remove the workaround for this
-> > > > 
-> > > > Didn't we just discussed two weeks ago in media summit how negative
-> > > > blankings are a bad idea, and of all drivers one could decide to play
-> > > > with imx219 is probably the worse due it's large use base and the fact
-> > > > libcamera doesn't support negative blankings ?
-> > > 
-> > > I also think that negative blanking values are a bad idea, for this
-> > > driver or any other driver. I still haven't seen any compelling
-> > > argument.
-> > 
-> > Note that the blanking controls haven't expressed blanking in other
-> > configurations than those that do not use binning, either analogue or
-> > digital, or cropping. The fact that negative values would result due to
-> > sensor configuration does not mean the values would be somehow incorrect,
-> > they simply do not reflect actual blanking configuration on the sensor.
+On Tue, May 26, 2026 at 11:10:34AM +0000, Ankit Soni wrote:
+
+> Take the dma_resv lock around dma_buf_unpin() in iopt_release_pages(),
+> matching the iopt_map_dmabuf() convention. dma_buf_detach() acquires the
+> reservation lock internally, so it must remain outside the locked region.
 > 
-> I agree.. although what is the actual blanking configuration on the sensor
-> in this case?
-> 
-> I've been banging my head for a while to figure it out (my best guess in
-> the sibling thread)
-> 
-> > In retrospect, we should have always had frame length in lines and line
-> > length in pixels controls instead, or possibly besides the blanking
-> > controls. But as the two blanking controls have been in use for conveying
-> > frame length in lines and line length in pixels, relative to a reference
-> > size,
+> Fixes: 8c5f9645c389 ("iommufd: Add dma_buf_pin()")
+> Reported-by: Ankit Soni <Ankit.Soni@amd.com>
+> Signed-off-by: Ankit Soni <Ankit.Soni@amd.com>
+> ---
+>  drivers/iommu/iommufd/pages.c | 2 ++
+>  1 file changed, 2 insertions(+)
 
-What's the reference size ? The controls are documented as
+Applied to for-next
 
-``V4L2_CID_VBLANK (integer)``
-    Vertical blanking. The idle period after every frame during which no
-    image data is produced. The unit of vertical blanking is a line.
-    Every line has length of the image width plus horizontal blanking at
-    the pixel rate defined by ``V4L2_CID_PIXEL_RATE`` control in the
-    same sub-device.
-
-``V4L2_CID_HBLANK (integer)``
-    Horizontal blanking. The idle period after every line of image data
-    during which no image data is produced. The unit of horizontal
-    blanking is pixels.
-
-This is compatible with usage of the output size as a reference. And
-doing so wouldn't require negative blanking, would it ?
-
-> > we can't re-purpose them for something else anymore without breaking
-> > pretty much all userspace.
-> > 
-> > Multiplying the pixel rate and either frame length in lines or line length
-> > in pixels by a constant does not make the blanking controls magically
-> > correct.
-
-The multiplication of the pixel rate may be the core of the issue. It's
-getting late, I'll try to look at that tomorrow.
-
-> Sure.. but the sensor must be reading out pixels along with non-negative
-> blanking internally. If that happens to not match the register values, do
-> you object to multiplying LLP or FLL with a constant?
-> 
-> Also what do you think of sensors like IMX678/IMX283 where the HTOT (LLP)
-> register is not in units of pixels at all?
-> 
-> > I hope the above summarises my position in an understandable way.
-> > 
-> > I believe removing the rate_factor is necesary if we want to add support
-> > for the Common Raw Sensor Model to the imx219 driver. Otherwise, we'll be
-> > left with a single example driver only, the ov2740, which is an entirely
-> > register list based driver.
-> 
-> Agreed.
-
--- 
-Regards,
-
-Laurent Pinchart
+Thanks,
+Jason
