@@ -1,76 +1,76 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F9E3D8138
-	for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 10:22:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10562F5337
+	for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 10:22:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781086962; cv=none; b=t4qnUy2S8ZddN86YL4Xr1Du1l/gsD6oatnM2SosSSWm+rIgpNdricvI1YN7wXjbeDhqgv+G/i7Jdsb+jAbtGcLtnS66jm8Sg7/s+z7ptvHnmoVvPakflxPAjAyoGc9D0JlduKZkUhEZmuug84ebmV93/AXFkaMPm6fGdbOJQ4YA=
+	t=1781086963; cv=none; b=evGFqQRVVkDV1yQYKka3004TnRLj+qKAPvkJyb5Ohn5oKmT1Y248qVKLa7UTNZVVxVOPAui5J8JVLgBac5cK7T0t67+rx4mgFOtMlKHO2C+lOehGoaLP3yYNwMyrsG8XcjCSP7eI7QziSY2jDm1zQ4Cw5m4lwST4BQ+M+PZ4U3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781086962; c=relaxed/simple;
-	bh=f1iPtx0tm9wNKMKTdwutboVp/GgC+sJ9bk9bkhQd2bo=;
+	s=arc-20240116; t=1781086963; c=relaxed/simple;
+	bh=jtxCmEnyVZ7I4mybG5ysoMHIaJeBLKP0rlxXW5TM770=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l3oya1jGEWXPrFX9AfXSBnIFQBTGJ3CYL4SL4OhiQPPc11X064kZFpTr07gwCnKPIN5dUR+7FGZ1oTJK73ohZr8pbdnxuyoXtSB7iE7KnMrP+2K679/Aj8AXp7ph0PVRuS5lZkm8b+RYNXazOpx35i+M5Xp7ia22Vn9XtbQQ4kQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VBjWp3pC; arc=none smtp.client-ip=209.85.221.46
+	 MIME-Version; b=pqlSTwibMKRFRunjRlbCwoTrgnyfjdwcT24qKs/RDG65E9dop9KFbYYDhdQUy63MTxD+feXuVCxiCv25ukdZR6t4YLrAqcPZzuseda8CmDwfdcOY6ApzzS0LYLTie2De+dpu6yH81Oh/7ySoNwVPSOFP3Ew6UUxD92hu4jSNX5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gMZGnf14; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VBjWp3pC"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-45efa80e0afso5131578f8f.2
-        for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 03:22:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gMZGnf14"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490b8a97b11so73101705e9.0
+        for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 03:22:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781086959; x=1781691759; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781086960; x=1781691760; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BrxwLZxXKzJ/XclSGRqz6B9dkZuqXjbESIZFpynAdWU=;
-        b=VBjWp3pC6TvO/ktYDNsrKb8YF72WHj+f6RnUOlUvQML4mU4LCqtHL7Q8BAaKP6t7CD
-         3YBvTcg5r1sNEnyva4tHHYbas0ib1cX9eC7ofZ4bQ6t4QaKOHIVU16ly0fQNpdMn0p4I
-         QGBmHt/okuV7oMYIwSagywYNpOFI5/w/t9noAwoj6ZlTes7ogBBpPGMMVesOmYrNS8ve
-         IcKcXJ1A1tnncUh/7/VU2log+87CV4zFn+c5w6qTVGTqU8DBKHr17X+Vmuzzoa1JRZLW
-         df08vH5HDADaKaTwKim+KXK5hSqpaSiL9mgg8Dg/kQtD7xD7tKCiM5mtL3JykhgCSE0n
-         mUww==
+        bh=0SLaP4natyxsSyEsa4HE0hskJcWWNISJpoxCsB6+PCc=;
+        b=gMZGnf14s4fMiHSMMZXuPMp32e689/7e9jF7UNv94bYZnu1xwaUKaN61Jgplyb6JJv
+         ulF95zN7CcMW1V4o/QgdXZY4wExIGDUpzbC+8rbvdnGfXljRs9PdUwNB5nfUWPdzyZ9F
+         BKftKWJCOpy93wajRJrMzKeMJ3DjsUY+lLAEAXACXGjHfSi9pDgt/vLf4iPd3DJsS3Ja
+         C92O0S0lxcWnvA/Mh5n7CwocUX5+qF9PEBtFlMaQCoKMx5uYXH2khOlDHTyeTIpMfBgV
+         BO51NlvxZp7x1TEYl1e9lapntkVOxTbhyNHT8bwgPXC/yv3Zv/AtYceM7ZEKgU/RKOvn
+         5hlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781086959; x=1781691759;
+        d=1e100.net; s=20251104; t=1781086960; x=1781691760;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=BrxwLZxXKzJ/XclSGRqz6B9dkZuqXjbESIZFpynAdWU=;
-        b=CJkbxRhTsQpX+XbU9RFgy3b+nRtqhiw7x+LNVE8GiC66W22FYEOSOAzrYlQc1UiVP1
-         TJ4+GNSx+4bPVoUCJl7lmSbIX6N0fzfzX4lOLYn0Am4vEccmxR92XWSD+KH4wVzztgYj
-         rHmzwd8jXNJYQp0VgqRkVqcWAOqPSa+K5hs3H7U7aNuISww59lCOxstX1W8gH1wgyy8f
-         SvaDTjTjLzmtKmACYy/dVTibBdgNLjraWHAxPN1j5T1nXo7DzMf6wGhTwENMODb8/irr
-         kAL+bn+EW5/8UC7bCggH/C9yW+2xK2ySyt7preV/bHzVJbrMSUVVfnncnnwo5RFlpWtc
-         amjw==
-X-Forwarded-Encrypted: i=1; AFNElJ9Qo6ir+L5SJ/xeo6su2pKAKwQlJjVBbBxHCpAnR17ftUaB95kufpBirxoW9aqNDXI6VOHNw4kTLbSe1g==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxsBUbBGa/SuYNeKTcgFTJxqArLE33p85B8YfNGYcpeK5d+jUgK
-	8D65oXIBuGGwuux0TETQnEWkEpLlg2sgaqSU7LNX+IZW8w9vk/eUPn62PH7wvm2V
-X-Gm-Gg: Acq92OHza4dfsN0ZF5xNWcsKxAwtqm4s5Aq4mTunY2bfqdoLZ+niiKD7iqzRQw/eRRt
-	H7bZY83sCm0ZadK7bg5JJT+KHiO78LpHQCQrgL1JXtroTYmUQi9wdrz+2i1Z0E7iuSN59Z94Pd1
-	qAerldY4BcmzXAk07PyDiKpn8dFaWKto1wiSkQ7pzzPvr5dkGFUTxBTGQWFaIs1fyKhdy0lF9nF
-	vwzFQRIlaMkruEDE0BgH/yBhFQNWmi12DRELvQIbMDUpdsybomzQKkywQxxrogL15oyWMnIyD0M
-	sy52IMJxysvwudisoxDHFXdKU+X/LOaXav6vODtAKJUyYKAka0gD0QtH4RD4pTh2BMS/MQPI5+C
-	ofzfwdsFZeD45OZizo1FAijPAppxDVfM/7mtlzt8z/H7pNrK8VeeXm3m6pc66I1KSssNbrGBi07
-	Rc9cIlu8eYFbwk3p8gVxkvxGNzLkGQMdIlLi1Sk/TaPBLdvD/JGIAmTaZbTD4u85TbqQ4vCch0G
-	Htb6LFnUoWYB00=
-X-Received: by 2002:a5d:4dcb:0:b0:43d:71b:204b with SMTP id ffacd0b85a97d-460307788d0mr28370907f8f.39.1781086959086;
-        Wed, 10 Jun 2026 03:22:39 -0700 (PDT)
+        bh=0SLaP4natyxsSyEsa4HE0hskJcWWNISJpoxCsB6+PCc=;
+        b=RFdwz5oTTVOUolsQV0SaxaBr1DFfH7t4pSBBdDhCTaRzp6n9tz6vnf/9lrWSRDtGjr
+         RLLK2bF0h8OWuFM6L+nJF3A4S3X8oKSqidsCDN0YgD53U/4243vTZ5zkxYWC7jfMXOLv
+         ip6OPYaOhNW56b1zwyGDyUfOB+BY0enk81bLZICuqktB3k1snW1rituM4VHC6bHNfBN2
+         ULK08LlTmmNhCqeDA54u4Pg9OMuJL5ZRg4jfbYQbZTgZX2HVUqfFMHWdvJZVIqWL5agJ
+         oBI735pySJA2seKywJhwiNfh8nwlaMf0mpnKAoAk6l5YK9kQOmtKmwmf14FxFNPVjlxB
+         w7hw==
+X-Forwarded-Encrypted: i=1; AFNElJ9lRGejLfj1JJ7gvbo8lKzthgkf47rkBgp+ef0Mv7WozSGxh0PtVUN5FFmNh3VaOHw+kbzkzzjc+3NNmA==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+QEtlfgJ1W6h2gyeTK7XLI07aZ7pnoyemwlhIjRpNIIqeSsDO
+	C7Jfg6ztiQByLtlLmlbWgBVsomMjzfFbz62YkvuWM6hapG30YVkbX1J9
+X-Gm-Gg: Acq92OGYLglxwkl+VuNHsK0yTaG4f38Rfjt+Z7FmjvABMVhNT+GU2ITaxj1+5K9Y4SO
+	Yx+HhOSzUUL1jxdntO8eCxGNY8qySmGANR01neJIws9pD3Qo/Gi0fvQTCm9Jb1q4amP4B552+Sw
+	nuIHvz/qIk127wNkMslGR+ES0obr8qlY/HPgPWNcRYSp6hsNbybW3KWExXi08u6uM2PwP7Alf+8
+	V3cefRZRYhjjFbBhwoZykTZPNY2eSuifvYTLPlpN/gZm9PFndtue3c1cXi+lOrRyhjqgV1m32Fw
+	z1FXs12Tk13qyX+nkCVvB+6RajTgN9HZuifLU00Pi+CeNrF2X2DDEqMnvTc1/pMZteQKAd3/3go
+	XmPT2CDddbGnzJlNhv2lkwAc/WLhNwyg/ceT+8qfAF6N6tKAHvjqQh587Jr5tBFXkJVByUXI3De
+	QqAUHqbSXl9q8p+T17hbpQID5TeYieYuCKCgt4tDkjcbV9OLcSbjmFenU35Cq6ZjitixJ2HW/PO
+	9U5GczA/4kT9LU=
+X-Received: by 2002:a05:600c:e548:10b0:490:d2a4:1b59 with SMTP id 5b1f17b1804b1-490d2a41c3bmr112751805e9.31.1781086960084;
+        Wed, 10 Jun 2026 03:22:40 -0700 (PDT)
 Received: from garuda ([79.106.123.139])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f35eae5sm71360831f8f.33.2026.06.10.03.22.38
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f35eae5sm71360831f8f.33.2026.06.10.03.22.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 03:22:38 -0700 (PDT)
+        Wed, 10 Jun 2026 03:22:39 -0700 (PDT)
 From: Jurison Murati <eng.juri@gmail.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: Daniel Scally <dan.scally@ideasonboard.com>,
 	Hans de Goede <hansg@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org
-Subject: [PATCH v2 1/2] media: i2c: ov8865: Drop the runtime PM usage count on stream failure
-Date: Wed, 10 Jun 2026 12:22:36 +0200
-Message-ID: <6b764b77a7d78b8ae2cfb8a213a1e844a329db26.1781085860.git.eng.juri@gmail.com>
+Subject: [PATCH v2 2/2] media: i2c: ov8865: Program the sensor on stream start
+Date: Wed, 10 Jun 2026 12:22:37 +0200
+Message-ID: <fa341298dfd2ba9ce431e21c2cf45002efacf2cf.1781085860.git.eng.juri@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260609232255.13559-1-eng.juri@gmail.com>
-References: <20260609232255.13559-1-eng.juri@gmail.com>
+In-Reply-To: <6b764b77a7d78b8ae2cfb8a213a1e844a329db26.1781085860.git.eng.juri@gmail.com>
+References: <6b764b77a7d78b8ae2cfb8a213a1e844a329db26.1781085860.git.eng.juri@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -79,54 +79,108 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ov8865_s_stream() takes a runtime PM reference when enabling the
-stream, but returns without releasing it if ov8865_sw_standby()
-fails, leaving the reference unbalanced and the sensor powered
-indefinitely. The same applies to a failure while disabling the
-stream, in which case the reference acquired at stream start is
-never dropped.
+The sensor registers are only written in the runtime PM resume
+handler; ov8865_set_fmt() merely stores the requested mode, relying on
+the sensor being runtime suspended between uses so that the next
+resume applies it.
 
-Drop the reference in a single place, both when disabling the
-stream and on failure, and only update the streaming state on
-success.
+That assumption breaks when something keeps the sensor powered. On
+IPU3 platforms, ipu_bridge instantiates the VCM device with a
+DL_FLAG_PM_RUNTIME device link to the sensor, so a userspace process
+holding the VCM subdev open (e.g. wireplumber's camera monitor) pins
+the sensor runtime-active. A subsequent set_fmt() then never reaches
+the hardware: the sensor keeps streaming the mode programmed on the
+last resume while the CSI-2 receiver expects the newly negotiated
+format.
+
+On a Surface Book 2 (IPU3, ov8865 + dw9719 VCM), requesting the
+3264x2448 mode while the hardware was left programmed for the
+1632x1224 binned mode makes ipu3-cio2 report "frame sync error" and
+"payload length is 10340352, received 2585088" (exactly one binned
+frame) for every frame, and the inverse case stalls the stream after
+a single frame. Camera applications end up displaying one bogus frame
+forever.
+
+Program the sensor configuration and apply the control values on
+stream start instead, where the negotiated mode is always current,
+and only write the configuration in the runtime PM resume handler
+when resuming with the stream already started.
 
 Signed-off-by: Jurison Murati <eng.juri@gmail.com>
 ---
 Changes in v2:
-- Drop the runtime PM usage count in a single place as suggested by
-  Sakari, which now also covers a failure while disabling the stream.
-- Not carrying Dan's Reviewed-by from v1 over since the logic changed.
-- Reordered to 1/2 so the next patch can rely on the unified error
-  handling. This was 2/2 in v1.
+- Drop the hw_mode/hw_mbus_code state tracking. Instead, program the
+  sensor unconditionally on stream start and move the configuration
+  writes in the runtime PM resume handler behind the streaming check,
+  as suggested by Dan, keeping mid-stream suspend working while not
+  adding state outside the sub-device state, as requested by Sakari.
+- Rebased on top of the runtime PM usage count fix (now 1/2), reusing
+  its unified error path. This was 1/2 in v1.
 
- drivers/media/i2c/ov8865.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ drivers/media/i2c/ov8865.c | 34 +++++++++++++++++++++++++---------
+ 1 file changed, 25 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/media/i2c/ov8865.c b/drivers/media/i2c/ov8865.c
-index a8586df..5b909a8 100644
+index 5b909a8..c6d53c3 100644
 --- a/drivers/media/i2c/ov8865.c
 +++ b/drivers/media/i2c/ov8865.c
-@@ -2621,15 +2621,13 @@ static int ov8865_s_stream(struct v4l2_subdev *subdev, int enable)
- 	ret = ov8865_sw_standby(sensor, !enable);
+@@ -2609,7 +2609,7 @@ static int ov8865_s_stream(struct v4l2_subdev *subdev, int enable)
+ {
+ 	struct ov8865_sensor *sensor = ov8865_subdev_sensor(subdev);
+ 	struct ov8865_state *state = &sensor->state;
+-	int ret;
++	int ret = 0;
+ 
+ 	if (enable) {
+ 		ret = pm_runtime_resume_and_get(sensor->dev);
+@@ -2618,7 +2618,23 @@ static int ov8865_s_stream(struct v4l2_subdev *subdev, int enable)
+ 	}
+ 
+ 	mutex_lock(&sensor->mutex);
+-	ret = ov8865_sw_standby(sensor, !enable);
++
++	/*
++	 * The sensor may have been kept powered by something else (e.g. the
++	 * VCM's runtime PM device link on IPU3 platforms), in which case
++	 * runtime resume did not run and the hardware may still be
++	 * configured for a previous mode. Always program the negotiated
++	 * configuration on stream start.
++	 */
++	if (enable) {
++		ret = ov8865_sensor_init(sensor);
++		if (!ret)
++			ret = __v4l2_ctrl_handler_setup(&sensor->ctrls.handler);
++	}
++
++	if (!ret)
++		ret = ov8865_sw_standby(sensor, !enable);
++
  	mutex_unlock(&sensor->mutex);
  
+ 	if (ret || !enable)
+@@ -2914,15 +2930,15 @@ static int ov8865_resume(struct device *dev)
+ 	if (ret)
+ 		goto complete;
+ 
+-	ret = ov8865_sensor_init(sensor);
 -	if (ret)
--		return ret;
--
--	state->streaming = !!enable;
--
--	if (!enable)
-+	if (ret || !enable)
- 		pm_runtime_put(sensor->dev);
+-		goto error_power;
++	if (state->streaming) {
++		ret = ov8865_sensor_init(sensor);
++		if (ret)
++			goto error_power;
  
--	return 0;
-+	if (!ret)
-+		state->streaming = enable;
-+
-+	return ret;
- }
+-	ret = __v4l2_ctrl_handler_setup(&sensor->ctrls.handler);
+-	if (ret)
+-		goto error_power;
++		ret = __v4l2_ctrl_handler_setup(&sensor->ctrls.handler);
++		if (ret)
++			goto error_power;
  
- static const struct v4l2_subdev_video_ops ov8865_subdev_video_ops = {
+-	if (state->streaming) {
+ 		ret = ov8865_sw_standby(sensor, false);
+ 		if (ret)
+ 			goto error_power;
 -- 
 2.54.0
 
