@@ -1,120 +1,98 @@
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E3032D7F8
-	for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 16:20:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EE242FE066;
+	Wed, 10 Jun 2026 16:22:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781108422; cv=none; b=Gpg4VdGKlOg5DdIcZcJpqda/Mjv4W5blWQIJfWyR7rtKgszLbUU6yZ7KjjfFAFyUAlYFJbgZGza/boOYLbx13PnRsNi0jo/MWOXiYBYbFLSiFZZEbPtXLAe0KQRk0QQYTDq+/S6Co2s+9aibZyQDlJbn+OzyMrDTE21sPFsA9J4=
+	t=1781108564; cv=none; b=HhopZ2+/xPeEM9TX7RBKWZ93ldeMmp3xV/cX1vFbflGiPWtzHzOwHqzWNzEkiRdbAnwrzHJEtU4etMl3yYRP96PLoWHEtCxRSQ85vpgVP/w/wfAQzlZ+YjUuSY2KiKpLKHyAjuWs3ENQB0sPpSk2GvqgkkFzxlqvia3IKP1anZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781108422; c=relaxed/simple;
-	bh=vhvliuSK1Y4bcVaFJfaU5ZlL8b16yAONPz3jtr28TlY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HSYzefqHa4xs5AborL4XwOxdDOJzmkf5xFV2kqBY24oWhs3x3iY68ZzCzMxQTEH27fBYj1rkG8/W7+JgXTDCCwrTZizfws5mP2LbWxqAmCSc2lCtWe0ywm75GvH2S35sVbil8PayeMLnqGihQ1T1kCI9pybce2GA5mE1JSjdJWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=OBZlAUYL; arc=none smtp.client-ip=209.85.167.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1781108564; c=relaxed/simple;
+	bh=Dn8ba+w9aY0Bt9pG+INLtIHvs6rE2GTTrGIs52UdO2U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PfH1GLH8IcNPEqu/yYy3+YD9lyRRsDgLPwMXE6GkkCaPhWqoFSjpW3eIE3BFkFCxQvwHBIuLcjIJB2SybpVCBabZ3LAVXp8hB4ec+DiT3HP40ISsqdLq0hVAnvqks/Lz2NSC4LaAsCZcKE6tBtG5r8l7lPg6ZZZF1VHPSie/IcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=kjIZ/8jY; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="OBZlAUYL"
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5aa7a70c0aaso7077257e87.0
-        for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 09:20:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1781108418; x=1781713218; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PIpz8busIlOEDCfvwpo8ALDZD6urDsuiDCPXRpA/AkA=;
-        b=OBZlAUYL/bjPamKi6VyLKSJgzLsMmiPirjMCOh99vAhqcigu3cNgv84ogPwPHQlWuX
-         Fa+hFgp10d9q+6ZXtd2NdEi+7Kuz13R9pg+k5qqFwKWPh0bC53VY3ey+JVVoBNTHP0ww
-         iTk1MjbzsbnAsYCg1d60dzIAn0fObp7swnfO0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781108418; x=1781713218;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=PIpz8busIlOEDCfvwpo8ALDZD6urDsuiDCPXRpA/AkA=;
-        b=UiTs1VrqEGCmSW1/vm+R6dUTTN1U0VBWMzTeyv5XTPeAsegolO3uT9c5foniuCdznP
-         sMk1pdNUob4rCsPEoBUwhBoK76hU7afxSstjsNAp7GDtnc7zNJ3hYwr31Hz5s4Nw5dIV
-         2HleIvEQaM2+KyVhQEql8I9FTs4Oh0csU5BgCw/yJrV4PssYeFQRTdltGoJsR2Lpxamk
-         mpjWFWeYUgdbFrYrePo83G1/lK3u0loL73v4zCRC3XIE/K8jRyTKKT5PlIu+f7JAPzxD
-         SAqSTeJMmp2zzc+WIqzr3HcuRQTvkudPKm2cs0g1xuFBBFVKGpY+VueKtB5jfDBI0blM
-         44yw==
-X-Forwarded-Encrypted: i=1; AFNElJ9YOQIoMY7Y1lgJ+lThYPqhHMN7BQ3j72gO6kLbxHbUKlR2ElqAGkAkQ6yUFIHKGwwLkqOXzUt2DsqJ2Q==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwgvBsv751qXCS0vD086MrhL+8PBWv4Zbf00BkrTAIq8Y9cvfq6
-	Ukg86N/VTCSudYWzKHSdyvrOOrpHyxQ6SenejNYYtbGgc2T0mTePmC3YPfPcOQPdjdyOiWg5ESv
-	X0tM=
-X-Gm-Gg: Acq92OGKaXx1aQ60QgBMegJhn3oWarp67SxsoIlWli50tyhZT8x+qSxb0mqkayjmHBd
-	5OUwi/fZvq9OrEc4CDrxTWOpxaezsugDgF6yOLnZGtgwBsMSW158a5VDQB81G9d2tz1HmEFRlog
-	RT/rswC2g0vikQcK6xZAy7eg1FLxZXGrABFTIhHZxSNI4/U93nQMNKBVeovnItLZ/FKj99LpEyY
-	QN4ChcqqpwGfgKxkbis2ZE2/A0FoX+2yL87Ve7PnShd2lfNMIDrCKvQzAF1isiXMln6rRTqzkMp
-	dseBJY1zRTrOITKq6x3EI4IjVrAWrYnhxVh529hj7+Ra2M00KEDw1uuchlddCO3GqQ9YR1fKFyy
-	JpBsw7XRJk5HPfIHesbBML355O6j5pH+3YE3FQyVDI1caz/AMtykmVX7KlVXHctn10Xf5qkxBX0
-	H9x/395tSrowTsTYAl+te9aCSvIw/NJOURCaoWyM/fidT2+rTlEhsWrG4ISpkKpdtqJwjF7VZZj
-	DWO7McH/ZssYqg48Yi+CfJTq0Uj
-X-Received: by 2002:a05:6512:4045:10b0:5aa:780b:f341 with SMTP id 2adb3069b0e04-5aa87c0bacemr5058825e87.35.1781108417762;
-        Wed, 10 Jun 2026 09:20:17 -0700 (PDT)
-Received: from ribalda.c.googlers.com (216.148.88.34.bc.googleusercontent.com. [34.88.148.216])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b8ee219sm5608915e87.15.2026.06.10.09.20.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 09:20:16 -0700 (PDT)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Wed, 10 Jun 2026 16:20:08 +0000
-Subject: [PATCH 3/3] media: mc-entity: Add missing kerneldoc
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="kjIZ/8jY"
+Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5D8CD524;
+	Wed, 10 Jun 2026 18:22:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1781108531;
+	bh=Dn8ba+w9aY0Bt9pG+INLtIHvs6rE2GTTrGIs52UdO2U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=kjIZ/8jYp67bIsVo5CFlM2y8ExhLyQhE4siplaAXtQgDBBrfqOYynGmc9qx3hfLAM
+	 yBUithz5RKLXZon3B8q5Muhn4v6RkTURSUJsKJgXiQ8hrF+KCpEDWT+Nm92zbU9F4e
+	 FiKjk2/BLwIhbUS5cAtzbahKwRGbazlUd4q3JYtk=
+Message-ID: <8aba88da-d5b5-4252-9a15-91baad81f1ab@ideasonboard.com>
+Date: Wed, 10 Jun 2026 17:22:36 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260610-media-ci-7-2-v1-3-3c61a482a44e@chromium.org>
-References: <20260610-media-ci-7-2-v1-0-3c61a482a44e@chromium.org>
-In-Reply-To: <20260610-media-ci-7-2-v1-0-3c61a482a44e@chromium.org>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Xiaolei Wang <xiaolei.wang@windriver.com>, 
- Tarang Raval <tarang.raval@siliconsignals.io>, 
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] media: rzg2l-cru: Remove unused kerneldoc description
+To: Ricardo Ribalda <ribalda@chromium.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Xiaolei Wang <xiaolei.wang@windriver.com>,
+ Tarang Raval <tarang.raval@siliconsignals.io>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>, 
- linux-renesas-soc@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>, 
- stable@kernel.org
-X-Mailer: b4 0.14.3
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+ linux-renesas-soc@vger.kernel.org
+References: <20260610-media-ci-7-2-v1-0-3c61a482a44e@chromium.org>
+ <20260610-media-ci-7-2-v1-2-3c61a482a44e@chromium.org>
+Content-Language: en-US
+From: Dan Scally <dan.scally@ideasonboard.com>
+In-Reply-To: <20260610-media-ci-7-2-v1-2-3c61a482a44e@chromium.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The argument args is not documented, and the latest kernel version
-complains about that.
+Hi Ricardo - thanks for the patch
 
-This fixes the following warning:
-Warning: include/media/media-entity.h:1394 function parameter 'args'
-not described in 'media_entity_call'
+On 10/06/2026 17:20, Ricardo Ribalda wrote:
+> The variable has been previously removed but not its kerneldoc.
+> 
+> Also remove the leftover reference to state in the description of qlock.
+> 
+> This patch fixes the following warning:
+> 
+> Warning: drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h:164
+> Excess struct member 'state' description in 'rzg2l_cru_dev'
+> 
+> Fixes: 85d8820d4869 ("media: rzg2l-cru: Remove the 'state' variable")
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> ---
 
-Cc: stable@kernel.org
-Fixes: 48a7c4bac94d ("[media] docs-rst: improve the kAPI documentation for the mediactl")
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
----
- include/media/media-entity.h | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/include/media/media-entity.h b/include/media/media-entity.h
-index d9b72cd87d52..fa393e840669 100644
---- a/include/media/media-entity.h
-+++ b/include/media/media-entity.h
-@@ -1387,6 +1387,7 @@ void media_remove_intf_links(struct media_interface *intf);
-  * @entity: entity where the @operation will be called
-  * @operation: type of the operation. Should be the name of a member of
-  *	struct &media_entity_operations.
-+ * @args: arguments for the operation.
-  *
-  * This helper function will check if @operation is not %NULL. On such case,
-  * it will issue a call to @operation\(@entity, @args\).
-
--- 
-2.54.0.1099.g489fc7bff1-goog
+Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
+>   drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h | 2 --
+>   1 file changed, 2 deletions(-)
+> 
+> diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
+> index 5bf334e173d2..b426bc7898bf 100644
+> --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
+> +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
+> @@ -116,11 +116,9 @@ struct rzg2l_cru_info {
+>    * @scratch_phys:	physical address of the scratch buffer
+>    *
+>    * @qlock:		protects @queue_buf, @buf_list, @sequence
+> - *			@state
+>    * @queue_buf:		Keeps track of buffers given to HW slot
+>    * @buf_list:		list of queued buffers
+>    * @sequence:		V4L2 buffers sequence number
+> - * @state:		keeps track of operation state
+>    *
+>    * @format:		active V4L2 pixel format
+>    */
+> 
 
