@@ -1,140 +1,174 @@
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F368383334;
-	Wed, 10 Jun 2026 07:12:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D5A331EDF
+	for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 07:42:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781075550; cv=none; b=AAtI4/yaClbDF2vpGpkk/1FuJ+7LQf80+7T4dZAAiD7JjoOSrxWOC/vb/XyW3T70wLCCXHECgdSP5BaP6UUMDL3tjqMc7hd6ClwdrKRj23lN2GmgzCMI/DR2lAMhnzP49ivsBcPNKEaMewlx4dcSrxUuLALkxlHxcXviIK4QqQs=
+	t=1781077374; cv=none; b=Iao4ORgLdK6lDtEhWL7vIL9G21bMN+X7CMIsdmjGcUpeI6eM1w2syNrsO5FhUU9l68IWcw7ByYlUQTDgHgJNCDU7YTH9jzVtElBVVl8uaIo0ze1BAkK8xcfuWClO8jxIJadalgCWXsl1P3/qQDlUC4hQZ5NXObHWX0Vl1/TEGdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781075550; c=relaxed/simple;
-	bh=OJgck8vcQ4MGVpurBxcbyHOd3yjxdbhWfjRQGMPyK5A=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=UUODFo3kye+g/ljkMC5JakoP+HiIlgN0EdNMwmkGhlAu9Xl1iPL4qT9vcqvzDopOqGzUuU77bK/BsMShwXLhq1Up2fIw6Qqwok63WXsM0fhjbiTfMGYS8c5CRu4YuQ4c5zrCB1N8LVKPZknDrZpOjpPtyqsAvgICcVdtsK/GCh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=cm+3lfIO; arc=none smtp.client-ip=54.207.22.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1781077374; c=relaxed/simple;
+	bh=U/Of1n+uhq6/5QV3nX+KcQG7+Y52KmwUJE41/smBUE4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nFghPFjC797FKOFVltqYdv/0kl3qTtDS3eSaqw7a+cB2dL6fsnmqiZtyomE3wsB0+8z0Cr5hwV0It+eGrRuDwWic0/7o8dd2WBberkoRQSQOPsO5NZHHZdZPFFdcBfeHF/m7u0O21+dxU8XXMn80yQoGfjUOvPM7VwooO3uus44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ig9ZHfGl; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="cm+3lfIO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1781075476;
-	bh=FjDzXjUTCA7PwSwSBXMojIa1RoXXpb1tpWd5EIt2Ab4=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=cm+3lfIOqU7zG8hTZLroEdDH/jU9TjGQJFfqssEBBqwKVliJvdKrBpj5QelQT8iun
-	 8opzyMZpnaDknmqucip2xriPMdp3gK5RcCJvNxH5PEkOfWrGTUfcqfVIQO9mJTrtfC
-	 J0VofpfJsbtxsar4yQVHBDmEFqU9WcdBYr6yB0Hk=
-X-QQ-mid: esmtpsz20t1781075457tb0623c5e
-X-QQ-Originating-IP: 9w9119h/pi2NtSaFq8NvVC5uvLHbf8Bnd7PYZkuQcAQ=
-Received: from localhost.localdomain ( [1.202.39.170])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 10 Jun 2026 15:10:49 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 16958495345642707546
-EX-QQ-RecipientCnt: 11
-From: ZhaoJinming <zhaojinming@uniontech.com>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Oded Gabbay <ogabbay@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	ZhaoJinming <zhaojinming@uniontech.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v6 1/2] accel/rocket: Fix error path handling in rocket_job_run()
-Date: Wed, 10 Jun 2026 15:10:44 +0800
-Message-Id: <20260610071045.3414828-1-zhaojinming@uniontech.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260610061915.1CA281F00893@smtp.kernel.org>
-References: <20260610061915.1CA281F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ig9ZHfGl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781077373; x=1812613373;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=U/Of1n+uhq6/5QV3nX+KcQG7+Y52KmwUJE41/smBUE4=;
+  b=ig9ZHfGlNI8JKeN5+zA88bWMFB8bQMg3v8xwiZgSsiHCIHQ00z+sFxtv
+   NLXW5bUoGqmY4/yZbDLH6KhZx9+MfS6FONds22U/bXcF0u6hnw8LS2fTJ
+   2KCujN1IAkpLYsoCGG+K2IV3omuUbl8+VKO2JnVmA9Ee92fNuUGLdp/YJ
+   zMXZKeEFlBbZwUjwdVfpEWOY2JrgJqxlmt0PECwAir2NN55c1+DKQGPxA
+   z11FhDAkCVUhG9jk4x7ZpC3WF19vDuaoP6Sv4EFTU8QDyNsPSh/rjrb5s
+   NNkozui+sUJeD/nD22BIlpf2l0mQXNTdx0PKiPKo310e8N0J12JGErHZz
+   g==;
+X-CSE-ConnectionGUID: VdwNX/YVQ12yE+e1fj0R3A==
+X-CSE-MsgGUID: 8a+GdNuCSyazPGN2P0MG2w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="80880076"
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
+   d="scan'208";a="80880076"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 00:42:52 -0700
+X-CSE-ConnectionGUID: ohw6bWEmTX2ZXdk8ZS6ldw==
+X-CSE-MsgGUID: g1sISfTPRauvHiHpqz1e6A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; 
+   d="scan'208";a="276284611"
+Received: from vpanait-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.253])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jun 2026 00:42:50 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 06581121C50;
+	Wed, 10 Jun 2026 10:42:47 +0300 (EEST)
+Date: Wed, 10 Jun 2026 10:42:46 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jurison Murati <eng.juri@gmail.com>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH 1/2] media: i2c: ov8865: Program the mode on stream start
+ if needed
+Message-ID: <aikVdle5ZEqT2Cqz@kekkonen.localdomain>
+References: <20260609232255.13559-1-eng.juri@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: MhWaMTxgikzcEseUwhScMwKj1uvHXyIQadEREZTD4v/yhebL0peP8Dlz
-	vRQeEJdIATTrfX1CFaoq+tajdOMDoYC+kj+Xs3eghl7htp4cdQci4PwUtW1OjuWGLDDI245
-	7tImIbYK/W5w70agxHYBVNTNxX4sdbskc/cEYY1ZOMgJripyNr9xhPCZ2kH8fVm/Qh2Mw5z
-	7If1J0zSU2Iom+56uU+078RTvR22RUdeTQ0Lud1ILPon9QaijFOTw4d5dBTM6IdOmMrxFtK
-	1M6krdfcXiKIPV8vdU2pNe0v/dSBLBJTqde/7kmcUvwxn52fADJL3DHQW+4FCTFntZfTa+f
-	flD2Nc1jqpZlU8dJ2IT+fNsDGFXp34Ul37e0wHlqH/gv1qgS+xHYX79UWtxKVSqpAdBcOdG
-	gvttsuaKltpieYYu03mr8eL3KR62j/R6gEu9whE4q/QClMwp40VTsuO/77gBuCVJ62FC4KO
-	UhMYDoGB1+nFYdH5O/lf40GlFJrxb6SYHLiJNqWPhFgwqeVLptZc6UAKMu9OCJJpmphSxIy
-	jXML3DWTfgvCmbzvRhed28ggUz5dAxflqE93aqm+3fFj36R3iyHwmZ2SSq8ejY8BNGTjtbL
-	T9ALXe+QqgDS+dzHPwZvSzAdpR3BaoIaTeqIWv/3JeXFJklGFA5VO2pW4TTUu4SPgk+Sknp
-	HGvTuXjyMdNfQ2qpV38/CCuFllSHBIdRjyHBRN+MYmzz+TTfkxxpJPTvVmMbMt5Iu7yp4p2
-	aJ9eUhb0Pmr42jT3uiOLXLcR7fhgeGYzOpmf//rcgB1w81Q3Gozztpx6Yg0SpqTpI85YeW0
-	k8QmolWUYxpczXBI24bpgtGCDjM3kjL+7HEarmGUFbTftRrEz3gSDC0Sf/YToPULLxEHwoJ
-	f51vADU2u7xr/xyZAi318Sjt+HzTr9WGc0YZyV5HHR+ur7Ezl4K9sg95P0eAmkhTk1f3Yfi
-	8+j6NqC1QBlQ1WWm8vrM4BsStTr/GpxKPSSN2MmBKFlZbB04iZ+S2dLwieDFD6vcOzljNiE
-	0w/q/ugDMk3GoMaYXJ8Gw5Kgxu9TeLCUZre0Dli1pVIxjo0KAw9sTgAcxyppck0CoYTbmPM
-	w==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260609232255.13559-1-eng.juri@gmail.com>
 
-In rocket_job_run(), after taking an extra fence reference for
-job->done_fence via dma_fence_get(), the error paths have three bugs:
+Hi Jurison,
 
-- The dma_fence reference held by job->done_fence is never released,
-  causing a reference leak.
-- pm_runtime_get_sync() increments the usage counter even on failure,
-  but the error path does not decrement it, leaking the runtime PM
-  reference and preventing the NPU from suspending.
-- A valid but unsignaled fence is returned to the DRM scheduler,
-  which triggers WARN("Fence ... released with pending signals!")
-  when the scheduler drops its reference.
+On Wed, Jun 10, 2026 at 01:22:54AM +0200, Jurison Murati wrote:
+> The sensor registers are only written in the runtime PM resume
+> handler; ov8865_set_fmt() merely stores the requested mode, relying on
+> the sensor being runtime suspended between uses so that the next
+> resume applies it.
+> 
+> That assumption breaks when something keeps the sensor powered. On
+> IPU3 platforms, ipu_bridge instantiates the VCM device with a
+> DL_FLAG_PM_RUNTIME device link to the sensor, so a userspace process
+> holding the VCM subdev open (e.g. wireplumber's camera monitor) pins
+> the sensor runtime-active. A subsequent set_fmt() then never reaches
+> the hardware: the sensor keeps streaming the mode programmed on the
+> last resume while the CSI-2 receiver expects the newly negotiated
+> format.
+> 
+> On a Surface Book 2 (IPU3, ov8865 + dw9719 VCM), requesting the
+> 3264x2448 mode while the hardware was left programmed for the
+> 1632x1224 binned mode makes ipu3-cio2 report "frame sync error" and
+> "payload length is 10340352, received 2585088" (exactly one binned
+> frame) for every frame, and the inverse case stalls the stream after
+> a single frame. Camera applications end up displaying one bogus frame
+> forever.
+> 
+> Track the mode actually programmed into the hardware, invalidate it
+> when the sensor is powered off, and reprogram the sensor on stream
+> start whenever it does not match the negotiated mode, re-applying the
+> control values afterwards.
+> 
+> Signed-off-by: Jurison Murati <eng.juri@gmail.com>
+> ---
+> --- a/drivers/media/i2c/ov8865.c
+> +++ b/drivers/media/i2c/ov8865.c
+> @@ -670,6 +670,10 @@
+>  	const struct ov8865_mode *mode;
+>  	u32 mbus_code;
+>  
+> +	/* Mode currently programmed into the hardware, NULL when unpowered. */
+> +	const struct ov8865_mode *hw_mode;
 
-Fix by replacing pm_runtime_get_sync() with pm_runtime_resume_and_get()
-which auto-balances the usage counter on failure, releasing both fence
-references on error, and returning ERR_PTR(ret) instead of the
-unsignaled fence.
+We'd rather like to get rid of state outside sub-device state, not add more
+of it.
 
-Cc: stable@vger.kernel.org
-Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
-Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
----
- drivers/accel/rocket/rocket_job.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+> +	u32 hw_mbus_code;
 
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index ac51bff39833..e8a073e22ac2 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -310,13 +310,22 @@ static struct dma_fence *rocket_job_run(struct drm_sched_job *sched_job)
- 		dma_fence_put(job->done_fence);
- 	job->done_fence = dma_fence_get(fence);
- 
--	ret = pm_runtime_get_sync(core->dev);
--	if (ret < 0)
--		return fence;
-+	ret = pm_runtime_resume_and_get(core->dev);
-+	if (ret < 0) {
-+		dma_fence_put(job->done_fence);
-+		job->done_fence = NULL;
-+		dma_fence_put(fence);
-+		return ERR_PTR(ret);
-+	}
- 
- 	ret = iommu_attach_group(job->domain->domain, core->iommu_group);
--	if (ret < 0)
--		return fence;
-+	if (ret < 0) {
-+		pm_runtime_put(core->dev);
-+		dma_fence_put(job->done_fence);
-+		job->done_fence = NULL;
-+		dma_fence_put(fence);
-+		return ERR_PTR(ret);
-+	}
- 
- 	scoped_guard(mutex, &core->job_lock) {
- 		core->in_flight_job = job;
+Same for this one.
+
+Could you simply write the configuration to the sensor when it changes?
+
+> +
+>  	bool streaming;
+>  };
+>  
+> @@ -2383,6 +2387,9 @@
+>  		return ret;
+>  	}
+>  
+> +	sensor->state.hw_mode = sensor->state.mode;
+> +	sensor->state.hw_mbus_code = sensor->state.mbus_code;
+> +
+>  	return 0;
+>  }
+>  
+> @@ -2618,6 +2625,25 @@
+>  	}
+>  
+>  	mutex_lock(&sensor->mutex);
+> +
+> +	/*
+> +	 * If something else kept the sensor powered (e.g. the VCM's PM
+> +	 * device link holding it active), runtime resume did not run when
+> +	 * streaming was requested and the hardware may still be programmed
+> +	 * for a previous mode. Reprogram it to match the current state.
+> +	 */
+> +	if (enable && (state->hw_mode != state->mode ||
+> +		       state->hw_mbus_code != state->mbus_code)) {
+> +		ret = ov8865_sensor_init(sensor);
+> +		if (!ret)
+> +			ret = __v4l2_ctrl_handler_setup(&sensor->ctrls.handler);
+> +		if (ret) {
+> +			mutex_unlock(&sensor->mutex);
+> +			pm_runtime_put(sensor->dev);
+> +			return ret;
+> +		}
+> +	}
+> +
+>  	ret = ov8865_sw_standby(sensor, !enable);
+>  	mutex_unlock(&sensor->mutex);
+>  
+> @@ -2895,6 +2921,8 @@
+>  	ret = ov8865_sensor_power(sensor, false);
+>  	if (ret)
+>  		ov8865_sw_standby(sensor, false);
+> +	else
+> +		state->hw_mode = NULL;
+>  
+>  complete:
+>  	mutex_unlock(&sensor->mutex);
+
 -- 
-2.20.1
+Regards,
 
+Sakari Ailus
