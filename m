@@ -1,45 +1,47 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8139B2C031E
-	for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 16:24:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF9E31E82B
+	for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 16:24:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781108691; cv=none; b=UdGGFGr2fNqPjFzRw52jH9jVY6FrCGj2czrG7yqOiir+KUOBVJeoVYLh5Gwy3xKgxpo2rIDPLsIYAhhuWCrZA2cz81h80zTyPbBDNBrmTtvWvP4yPdFovInBVVPLuItCydbwDsKAw78kyWozF7oYAMI6iPhSM9XCy4ZvuO5MpMI=
+	t=1781108692; cv=none; b=cJjwPIHgen/eNjN4gao/UyQJBhef/fCfxKkZ0Ns1Vrpg9d+GvPVcHO/We6zCXB4/AyisPrDTW+8MM2FNqnOT3eg0I1f+fNI5ctkcu6mqHDCYn8GqvnkPlb+NyWL84FGlBGjtir67nLBAsFrC8kFZ+DZ8HOvn7ymEuikqaABildI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781108691; c=relaxed/simple;
-	bh=zYx08x2eZiw8ZZqqoTKT0emY7CYhmD+1FzA1TC1CyHg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e4Ai00OlEdfhUc9BmsH5vZrJVD9Fghcjuuobq9AGgJpqY3a9Qe5jamk/biSoAcpBQeQvQIbq4Fgx5VvGSZXV1caqdL3XcByP7MaOycJTEo1v8r1+Q7HZktdzNd+R/7ShUkDpYhP99iQhrcWmXe6f2K3DXXyVupnBsJ/u5amBlAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CVTi9Csc; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1781108692; c=relaxed/simple;
+	bh=udivEau2/DYigmoVfHaAw+9BEmUNA7+Q8h0WaDTdw6k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dqyGrWQgD6CHW+yFns1GLT+cs4lcnYYjb7/TYMeke7+HX6TUwsmb2g0Z5hPMAkOBPU+hKaPOgX3yYGW1iIA+0/ow/N0lIPCnaAkQcC+2vOetmwR4ArhCvBvpqrRXCSe6+LyIIGgplCJTMbJJHm8SWRpv2Iu1734JHNocZzG0/CM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hads3tZh; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CVTi9Csc"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hads3tZh"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781108689;
+	s=mimecast20190719; t=1781108690;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=aJZSLKFmwdVxL+9TcEJu6Qfawm5t/bukKEPwYVEKRRQ=;
-	b=CVTi9Csc/wodHd3lDsDTDCAgNCC/2JHGtYJ+gebPzm2+K+JrxRQXSPgsN56j0TYO7L9f+7
-	8DZnwN4IEVNLAesiChBJcOp0xV8HVlEHepmRFMxtmwH2DqazlWQqTfmeGcvUuZ3v2XNae/
-	vTyaUv0lerTZ8Mm+1v/d88e5lSb34BE=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ss8+n7x0+ZSLiJ8nMc5gb+RPqnpO3LydESdDqOcBZc8=;
+	b=hads3tZhKFgiDVOq5LoY6zhxAIsROQfi3midRp8StmJoHRIM1tFgEunJznBfZ6AiQwxw8j
+	1ntGQ/szKC78sIkkgi4PQgVfZRfxMD34xyCYspqWY/0622LzouR76so0AB4KyZ61FO0Cyv
+	FvD4/5Pndgx/aVDPLGtxcAV745j34lY=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-586-g2kUAiG7PSW8nIaPg6uKmg-1; Wed,
- 10 Jun 2026 12:24:45 -0400
-X-MC-Unique: g2kUAiG7PSW8nIaPg6uKmg-1
-X-Mimecast-MFC-AGG-ID: g2kUAiG7PSW8nIaPg6uKmg_1781108682
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-215-fbwLwyGIP62zjyG1djb5oQ-1; Wed,
+ 10 Jun 2026 12:24:48 -0400
+X-MC-Unique: fbwLwyGIP62zjyG1djb5oQ-1
+X-Mimecast-MFC-AGG-ID: fbwLwyGIP62zjyG1djb5oQ_1781108685
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2C937195FE08;
-	Wed, 10 Jun 2026 16:24:41 +0000 (UTC)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A0CED18DB42B;
+	Wed, 10 Jun 2026 16:24:44 +0000 (UTC)
 Received: from GoldenWind.redhat.com (unknown [10.22.89.69])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5696F3008DC3;
-	Wed, 10 Jun 2026 16:24:37 +0000 (UTC)
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 414023008DCB;
+	Wed, 10 Jun 2026 16:24:41 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org,
 	rust-for-linux@vger.kernel.org,
@@ -67,9 +69,11 @@ Cc: Alexandre Courbot <acourbot@nvidia.com>,
 	Daniel Almeida <daniel.almeida@collabora.com>,
 	Lyude Paul <lyude@redhat.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH v20 0/4] Rust bindings for gem shmem
-Date: Wed, 10 Jun 2026 12:21:27 -0400
-Message-ID: <20260610162433.923550-1-lyude@redhat.com>
+Subject: [PATCH v20 1/4] rust: drm: gem: shmem: Add DmaResvGuard helper
+Date: Wed, 10 Jun 2026 12:21:28 -0400
+Message-ID: <20260610162433.923550-2-lyude@redhat.com>
+In-Reply-To: <20260610162433.923550-1-lyude@redhat.com>
+References: <20260610162433.923550-1-lyude@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -79,49 +83,85 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Most of this patch series has already been pushed upstream, this is just
-the second half of the patch series that has not been pushed yet + some
-additional changes which were required to implement changes requested by
-the mailing list. This patch series is originally from Asahi, previously
-posted by Daniel Almeida.
+Just a temporary holdover to make locking/unlocking the dma_resv lock much
+easier.
 
-The previous version of the patch series can be found here:
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Co-authored-by: Alexandre Courbot <acourbot@nvidia.com>
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 
-	https://patchwork.freedesktop.org/series/164580/
+---
+V17:
+* Fix format of commit message title
+V19:
+* Add NotThreadSafe to DmaResvGuard
+V20:
+* s/inline(always)/inline/
 
-Branch with patches applied available here:
+ rust/kernel/drm/gem/shmem.rs | 39 ++++++++++++++++++++++++++++++++++--
+ 1 file changed, 37 insertions(+), 2 deletions(-)
 
-	https://gitlab.freedesktop.org/lyudess/linux/-/commits/rust/gem-shmem
-
-This patch series applies on top of drm-rust-next
-
-Patch-series wide changes since V15:
-* Fix some major rebasing errors I somehow didn't notice :(
-* Drop the dependency on LazyInit, use the trick that Alice suggested
-  instead.
-* Fix dependency ordering so that Tyr can get the vmap stuff first
-  without the other bits.
-Patch-series wide changes since V16:
-* Fix ordering one more time (SetOnce::reset() doesn't need to come
-  before adding vmap functions)
-* Rebase against the latest DeviceContext changes from me that got
-  pushed.
-Patch-series wide changes since V20:
-* Lots of Sashiko fixes, excluding the comments that I couldn't prove
-  weren't just bogus.
-
-Lyude Paul (4):
-  rust: drm: gem: shmem: Add DmaResvGuard helper
-  rust: drm: gem: shmem: Add vmap functions
-  rust: faux: Allow retrieving a bound Device
-  rust: drm: gem: Introduce shmem::Object::sg_table()
-
- rust/kernel/drm/gem/shmem.rs | 546 ++++++++++++++++++++++++++++++++++-
- rust/kernel/faux.rs          |  16 +-
- 2 files changed, 546 insertions(+), 16 deletions(-)
-
-
-base-commit: 848bf57e98e1678ce7a49eb4e0bf0502da95dc07
+diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+index 084b798ce795b..090c5d869fdb7 100644
+--- a/rust/kernel/drm/gem/shmem.rs
++++ b/rust/kernel/drm/gem/shmem.rs
+@@ -22,7 +22,10 @@
+     error::to_result,
+     prelude::*,
+     sync::aref::ARef,
+-    types::Opaque, //
++    types::{
++        NotThreadSafe,
++        Opaque, //
++    },
+ };
+ use core::{
+     marker::PhantomData,
+@@ -30,7 +33,10 @@
+         Deref,
+         DerefMut, //
+     },
+-    ptr::NonNull, //
++    ptr::{
++        self,
++        NonNull, //
++    },
+ };
+ use gem::{
+     BaseObjectPrivate,
+@@ -244,3 +250,32 @@ impl<T: DriverObject, C: DeviceContext> driver::AllocImpl for Object<T, C> {
+         dumb_map_offset: None,
+     };
+ }
++
++/// Private helper-type for holding the `dma_resv` object for a GEM shmem object.
++///
++/// When this is dropped, the `dma_resv` lock is dropped as well.
++///
++// TODO: This should be replace with a WwMutex equivalent once we have such bindings in the kernel.
++struct DmaResvGuard<'a, T: DriverObject, C: DeviceContext = Registered>(
++    &'a Object<T, C>,
++    NotThreadSafe,
++);
++
++impl<'a, T: DriverObject, C: DeviceContext> DmaResvGuard<'a, T, C> {
++    #[inline]
++    #[expect(unused)]
++    fn new(obj: &'a Object<T, C>) -> Self {
++        // SAFETY: This lock is initialized throughout the lifetime of `object`.
++        unsafe { bindings::dma_resv_lock(obj.raw_dma_resv(), ptr::null_mut()) };
++
++        Self(obj, NotThreadSafe)
++    }
++}
++
++impl<'a, T: DriverObject, C: DeviceContext> Drop for DmaResvGuard<'a, T, C> {
++    #[inline]
++    fn drop(&mut self) {
++        // SAFETY: We are releasing the lock grabbed during the creation of this object.
++        unsafe { bindings::dma_resv_unlock(self.0.raw_dma_resv()) };
++    }
++}
 -- 
 2.54.0
 
