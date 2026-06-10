@@ -1,127 +1,186 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9BBA349CDB
-	for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 18:23:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6574D29C328;
+	Wed, 10 Jun 2026 18:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781115840; cv=none; b=C9aJNQA+8Kz9YQ/Dh3fAM4iCV8s1pv/jrZ9XJ0Cp0VJC/d6Mm7X818zELpVNpvFbDsmwwd8ooyEWQhEdjuCHsrczA1vzLJ6bkA1SKF1sqJbbMDVgQIO0urupQHS2pnHVKJHmGPSBsue68vqLuVfRQgotzUijdTAUWKWFvQRWZo4=
+	t=1781116106; cv=none; b=m+BrpyZBNzKrmxSWjjhMJKKLs0aZ0c5VuNLBBICbgYRR0K1cE2Uf4AXzI9B+zzDg5s5QwfQNxHewP5XVXBEj/rkXWzkzJECuff2qWUVedL45XB+jfjojKuCl63UcLlJVAxaCEBdQGnT8PovP4pFqT6PVJf9KY3kqV9xlMnmluCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781115840; c=relaxed/simple;
-	bh=2uQYG0+UxIGPrJJoDURKujx8iY/HU5qavKxT/c6bm2g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jkiuuXp/gkQkXc+nC++PoYiQ1sTLOx+kBSvnGeR7wuHhbMe2Il1VpgiE3SBES6WqQ8aJjZ6PnHorjaNHZrLOTZxbKN6CQ3fwT9J/JKAFkvlKjDl4bAh4tAnkSTihRWCaYKPCcs3ZRJsD2RZ04aJGsOr5Q0LbY4uCntNfRK2pmkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=acI6uFje; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781116106; c=relaxed/simple;
+	bh=H1VFUp3PjkKWJdD41MKRZH7D7dfv43n0A4wgkEm6UuY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=QspCyad/oXRnh8eY73YRxy/hEr+WsKSDZtziZXq0Z5GpOZbE0y6AmpMZt+756HCTO9Gol+GfsBH3XRR42hra8HTSJr9FOBbld2qD9RaqR1LqXz3aI+y2ZR39RsizlxdUqh6ix9VmGDi16vJrfGw2lJkJmfR7DM7DndTTyE4DiNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MwuXagvy; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="acI6uFje"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-45ef4223be7so3943852f8f.2
-        for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 11:23:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781115837; x=1781720637; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Dwl2CxOhRSpVYfaOipOYrbFt3AnGc5jte9ni5QIriGM=;
-        b=acI6uFjeIW/byJ7a2kKsnRVR6yyEsu/K/HfBX9Q3ZdvYvZ53jkeZ7k+eiVXoAB+cYM
-         8D6chtvslv23HwcACllG9fKgjGPYPEMQlzWpuPrkisPF6MGvnQ0DZrH4bq9obseH3HZZ
-         9NiVIGZCv6mxolfoyKrSbVEMpWPReN/jsZgYY9W6b4boGikEHvrmYdLBkCbQTFyQWORw
-         06Gr/deM4F6Muwwrcr0ioLH4NDuzErWvgo53TMamN0YKQf8LQrBSee7zJrPayC2bCFcG
-         hbIVz3K9b+IlxKwnlKrDNdmMBw+fZHeCg5ivZG4CBRok2AojHWS5+vZKWtgYhYqZX8H8
-         EHUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781115837; x=1781720637;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Dwl2CxOhRSpVYfaOipOYrbFt3AnGc5jte9ni5QIriGM=;
-        b=IJDMslwIp0cRJ8Ud4bN6G/y6LUltjruKBeZH5W/sVvVn1C7dEoFuXOmNmZaYt0MUxb
-         LhYLxM+wYtlswakDwzAorUFN7xPE+1LpG8EzYH5DPajIGn1QU9Iu45oHTGNfwF15s0zY
-         dwwxLKHxmKatNebPK5zpOlb0OIkU0/oP9/gFIzJ5ijSL8gY9GWtujN92LsR9XkKYShED
-         ylMRwELZQEmroAatcjmL6C/XNzRDmJdU4dG06Eat2ifNyN5Th8WL8EbAlGkS/suH0zlI
-         D6RTfDSDpqm8hZankQ6utmeBEW9XgN6uycFuBR/WE5xXEf2aQ1lr/t23QvjrCC98pvrX
-         2kTg==
-X-Forwarded-Encrypted: i=1; AFNElJ/YKamFnGKGVDqj543T4dQUDjYs5J/Q8vD6GWywwS7j9I2VC9zzfmpji5zph/rvWtrnss0s8bKQD/YL/Q==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzHre7qJp+YbUrUOceM0cbKsiiKue7Toh5m+/Ikevv0dJvqfpgB
-	iP62PBAgvfsMM5I89T3wmjx2WbMX/2Nj/fNEFNjKZYFgqj9RtgIbbmL8
-X-Gm-Gg: Acq92OEUGi2AIaXa2AIS0/w/BehjRJ4nToDJLd5GX/C+2ymjGSAitlEySvV6UQOyGi3
-	b/KnCZmIWKWn810ELu7Q7KUfETqkR8iGPx22/oDaXsNrjCjzcM3CAgzP0VmD6LzqM1A18Lp6E6R
-	SQj6AC68Ivf7pjKwXaLVPTpVokTK571Zuj2ncWcpiiiUqPz8CEA9hK4MOKXK+CAqp31qrZ7K2hq
-	8i3JBUNwQw4bE42E9LiOtl2MJiNJbOrPHLV565CNLFf8/gJW0RMpDw/G8TZ7tHDhewH6ul0/YLy
-	APuAUfC5k753hqtbz4ygvsR2wwfH1gt8gbN6XMqzbpXrYrki5UBDd33+YTr3T39EfKSh9jZqhOL
-	xeTbJ0zb+VTxI42cZGpy0QCI4fRtwRo5jvycpR1jykXv7l1Rw/c1HKuEiOMs1xgEVMD/B56O4za
-	cN/jYXrDz8DoB4amrkrxKZyzm0RS4su2Qz3FVMZld7mA3VmPlCtALmHZ4YNia4TtTvPAjsjctyN
-	xY/ftVNS6l1HV+4pVhhdDmZz0r4R+fmUnV2mw==
-X-Received: by 2002:a5d:5f91:0:b0:45e:edc8:d440 with SMTP id ffacd0b85a97d-46056680e18mr12031063f8f.1.1781115837178;
-        Wed, 10 Jun 2026 11:23:57 -0700 (PDT)
-Received: from workstation.speedport.ip (p200300d50732f0d071ef8c240021969f.dip0.t-ipconnect.de. [2003:d5:732:f0d0:71ef:8c24:21:969f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f0a43e9sm73075615f8f.0.2026.06.10.11.23.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 11:23:56 -0700 (PDT)
-From: Mert Seftali <mertsftl@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kees Cook <kees@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Mert Seftali <mertsftl@gmail.com>
-Subject: [PATCH] media: atomisp: gmin: Use str_on_off() helper
-Date: Wed, 10 Jun 2026 20:23:48 +0200
-Message-ID: <20260610182348.217892-1-mertsftl@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MwuXagvy"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 33DE1C4AF14;
+	Wed, 10 Jun 2026 18:28:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1781116106;
+	bh=H1VFUp3PjkKWJdD41MKRZH7D7dfv43n0A4wgkEm6UuY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=MwuXagvyfCAaKiyA+gNGbYnvJyI8wKX5GJktLB3QlDl+lyvjIVggr3VitYODzzT92
+	 zwez1o7m86yUWy/K0ESzA6nKnEyFWfrFPNVqthV8RpKyQKaHju0pX2XkIUyHV3La0Y
+	 Y+9HTEfqlc2mrTvDfU81pN3rSbkUBzaG9ttOybD2PcCXAeOl6PyAL1R1elcfW63c8I
+	 277EKMeue5qD3dHOBphakJ1r+oxekQskRT7KD3owvIwRxVsIlxprfxbX9LteqelwmO
+	 w2fvsaDtax8yMf0MS4qZVWIBNj6j9NO9Vu/FIJmhhaYdP7zBfXee1GnV9Mc1KoRTNd
+	 NhYTVkDP9JSOg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B34FCD98C7;
+	Wed, 10 Jun 2026 18:28:26 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Wed, 10 Jun 2026 20:28:23 +0200
+Subject: [PATCH v8 3/9] media: qcom: camss: csiphy-3ph: Use odd bits for
+ configuring C-PHY lanes
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260610-qcom-cphy-v8-3-cd4387785179@ixit.cz>
+References: <20260610-qcom-cphy-v8-0-cd4387785179@ixit.cz>
+In-Reply-To: <20260610-qcom-cphy-v8-0-cd4387785179@ixit.cz>
+To: Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Luca Weiss <luca.weiss@fairphone.com>, Petr Hodina <phodina@protonmail.com>, 
+ "Dr. Git" <drgitx@gmail.com>, Cory Keitz <ckeitz@amazon.com>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Frank Li <Frank.Li@nxp.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Kieran Bingham <kbingham@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3113; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=TVUoRIJn5ULvYNpapsB4ZItCc34ZCZTZby6Hd3C8I2o=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqKazHq88a544lmWGFAghH+C0vt7VXhKfnt2e9A
+ 1TmU6njwsuJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaimsxwAKCRBgAj/E00kg
+ co9jEADH1IKGSsgWZ3amcuuM4I389OIuoXYOCheH/7IRPVmwg6zd6Rnd4YPkQ5DpYLr6uSBcg5f
+ gNINwEmj+Vsu4bbel09NThpVotELMHwBTQwQjZaIugQ5s07Rsuap6tXm8OUqbG0gzuAL5EyU5yI
+ Ybks+ND1iq1zu/qcdaaybCnKHKTqQd5iIkytn4gigEfEsgAZlFT1ZjL6+41BebEuDIBAay3YT+c
+ qTzb8zL+n1MPaY+iu1RCQhzTIadZ3AdXUAAfUEJJlRbF/kgmyYUO0G1cy8ApsHaGg5d0+cnR3/c
+ 2JTbUp6UgnM+caWS+JbhbXODltXepef7kwDhm47kgkrZGR+HffV+ta7rfri7SwywIg4hKqFfd6f
+ shesCqbhQsF3KqZxrmXMGST6yZ5c+VJ+qMfrKhnKGHQ/Uo3JzQnwjhfpoyHMqsyXnnXvfj2CHQ2
+ HPF1XFnY+ceKVDUEGgNvIZCa1bIR4X8sq7Y6Q86kqD72V6eyFfdsBJWtNe6wzBgpNoW3rXD1wg1
+ hosDAS3vGzxiMFEZVn3ZF/8TIp+Od+OE0huIicF1rG798Fh2+yUH9WEj1IC9ek3wdciTfGl9zfe
+ AUKZ6LlMvaaUOQsuTyu4HF82RQQvZav/HpSTRr9cS7xftCnlL5adHpO2WyUWVd7XiaiU0j0YsqJ
+ UiW7YA5DHZN2VgQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-Replace the open-coded "on" : "off" ternary with the standard
-str_on_off() helper from <linux/string_choices.h>. This improves
-readability and reuses the kernel's existing string helper instead of
-duplicating the literals.
+From: David Heidelberg <david@ixit.cz>
 
-No functional change intended.
+So far, only D-PHY mode was supported, which uses even bits when enabling
+or masking lanes. For C-PHY configuration, the hardware instead requires
+using the odd bits.
 
-Signed-off-by: Mert Seftali <mertsftl@gmail.com>
+Since there can be unrecognized configuration allow returning failure.
+
+Acked-by: Cory Keitz <ckeitz@amazon.com>
+Reviewed-by: Bryan O'Donoghue <bod@kernel.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/staging/media/atomisp/pci/atomisp_gmin_platform.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     | 25 ++++++++++++++--------
+ 1 file changed, 16 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_gmin_platform.c b/drivers/staging/media/atomisp/pci/atomisp_gmin_platform.c
-index 4026e98c5845..322eca4a3755 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_gmin_platform.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_gmin_platform.c
-@@ -13,6 +13,7 @@
- #include <linux/gpio/consumer.h>
- #include <linux/gpio.h>
- #include <linux/platform_device.h>
-+#include <linux/string_choices.h>
- #include "../../include/linux/atomisp_platform.h"
- #include "../../include/linux/atomisp_gmin_platform.h"
+diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+index 7c8c0e41bc62f..dfcd9ed2eb7a3 100644
+--- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
++++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+@@ -9,16 +9,17 @@
+  */
  
-@@ -917,7 +918,7 @@ static int gmin_acpi_pm_ctrl(struct v4l2_subdev *subdev, int on)
- 		return 0;
+ #include "camss.h"
+ #include "camss-csiphy.h"
  
- 	dev_dbg(subdev->dev, "Setting power state to %s\n",
--		on ? "on" : "off");
-+		str_on_off(on));
+ #include <linux/delay.h>
+ #include <linux/interrupt.h>
+ #include <linux/io.h>
++#include <linux/media-bus-format.h>
  
- 	if (on)
- 		ret = acpi_device_set_power(adev,
-@@ -930,7 +931,7 @@ static int gmin_acpi_pm_ctrl(struct v4l2_subdev *subdev, int on)
- 		gs->clock_on = on;
- 	else
- 		dev_err(subdev->dev, "Couldn't set power state to %s\n",
--			on ? "on" : "off");
-+			str_on_off(on));
- 
- 	return ret;
+ #define CSIPHY_3PH_LNn_CFG1(n)			(0x000 + 0x100 * (n))
+ #define CSIPHY_3PH_LNn_CFG1_SWI_REC_DLY_PRG	(BIT(7) | BIT(6))
+ #define CSIPHY_3PH_LNn_CFG2(n)			(0x004 + 0x100 * (n))
+ #define CSIPHY_3PH_LNn_CFG2_LP_REC_EN_INT	BIT(3)
+ #define CSIPHY_3PH_LNn_CFG3(n)			(0x008 + 0x100 * (n))
+ #define CSIPHY_3PH_LNn_CFG4(n)			(0x00c + 0x100 * (n))
+ #define CSIPHY_3PH_LNn_CFG4_T_HS_CLK_MISS	0xa4
+@@ -1108,23 +1109,32 @@ static void csiphy_gen2_config_lanes(struct csiphy_device *csiphy,
+ 		writel_relaxed(val, csiphy->base + r->reg_addr);
+ 		if (r->delay_us)
+ 			udelay(r->delay_us);
+ 	}
  }
+ 
+ static u8 csiphy_get_lane_mask(struct csiphy_lanes_cfg *lane_cfg)
+ {
+-	u8 lane_mask;
+-	int i;
++	u8 lane_mask = 0;
++	u8 offset = 0;
+ 
+-	lane_mask = CSIPHY_3PH_CMN_CSI_COMMON_CTRL5_CLK_ENABLE;
++	switch (lane_cfg->phy_cfg) {
++	case V4L2_MBUS_CSI2_CPHY:
++		offset = 1;
++		break;
++	case V4L2_MBUS_CSI2_DPHY:
++		lane_mask = CSIPHY_3PH_CMN_CSI_COMMON_CTRL5_CLK_ENABLE;
++		break;
++	default:
++		break;
++	}
+ 
+-	for (i = 0; i < lane_cfg->num_data; i++)
+-		lane_mask |= BIT(lane_cfg->data[i].pos * 2);
++	for (int i = 0; i < lane_cfg->num_data; i++)
++		lane_mask |= BIT((lane_cfg->data[i].pos * 2) + offset);
+ 
+ 	return lane_mask;
+ }
+ 
+ static bool csiphy_is_gen2(u32 version)
+ {
+ 	bool ret = false;
+ 
+@@ -1155,20 +1165,17 @@ static void csiphy_lanes_enable(struct csiphy_device *csiphy,
+ 	struct csiphy_lanes_cfg *c = &cfg->csi2->lane_cfg;
+ 	struct csiphy_device_regs *regs = csiphy->regs;
+ 	u8 settle_cnt;
+ 	u8 val;
+ 	int i;
+ 
+ 	settle_cnt = csiphy_settle_cnt_calc(link_freq, csiphy->timer_clk_rate);
+ 
+-	val = CSIPHY_3PH_CMN_CSI_COMMON_CTRL5_CLK_ENABLE;
+-	for (i = 0; i < c->num_data; i++)
+-		val |= BIT(c->data[i].pos * 2);
+-
++	val = csiphy_get_lane_mask(c);
+ 	writel_relaxed(val, csiphy->base +
+ 		       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->offset, 5));
+ 
+ 	val = CSIPHY_3PH_CMN_CSI_COMMON_CTRL6_COMMON_PWRDN_B;
+ 	writel_relaxed(val, csiphy->base +
+ 		       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->offset, 6));
+ 
+ 	val = 0x02;
+
 -- 
-2.54.0
+2.53.0
+
 
