@@ -1,98 +1,127 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EE242FE066;
-	Wed, 10 Jun 2026 16:22:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8139B2C031E
+	for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 16:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781108564; cv=none; b=HhopZ2+/xPeEM9TX7RBKWZ93ldeMmp3xV/cX1vFbflGiPWtzHzOwHqzWNzEkiRdbAnwrzHJEtU4etMl3yYRP96PLoWHEtCxRSQ85vpgVP/w/wfAQzlZ+YjUuSY2KiKpLKHyAjuWs3ENQB0sPpSk2GvqgkkFzxlqvia3IKP1anZk=
+	t=1781108691; cv=none; b=UdGGFGr2fNqPjFzRw52jH9jVY6FrCGj2czrG7yqOiir+KUOBVJeoVYLh5Gwy3xKgxpo2rIDPLsIYAhhuWCrZA2cz81h80zTyPbBDNBrmTtvWvP4yPdFovInBVVPLuItCydbwDsKAw78kyWozF7oYAMI6iPhSM9XCy4ZvuO5MpMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781108564; c=relaxed/simple;
-	bh=Dn8ba+w9aY0Bt9pG+INLtIHvs6rE2GTTrGIs52UdO2U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PfH1GLH8IcNPEqu/yYy3+YD9lyRRsDgLPwMXE6GkkCaPhWqoFSjpW3eIE3BFkFCxQvwHBIuLcjIJB2SybpVCBabZ3LAVXp8hB4ec+DiT3HP40ISsqdLq0hVAnvqks/Lz2NSC4LaAsCZcKE6tBtG5r8l7lPg6ZZZF1VHPSie/IcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=kjIZ/8jY; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1781108691; c=relaxed/simple;
+	bh=zYx08x2eZiw8ZZqqoTKT0emY7CYhmD+1FzA1TC1CyHg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e4Ai00OlEdfhUc9BmsH5vZrJVD9Fghcjuuobq9AGgJpqY3a9Qe5jamk/biSoAcpBQeQvQIbq4Fgx5VvGSZXV1caqdL3XcByP7MaOycJTEo1v8r1+Q7HZktdzNd+R/7ShUkDpYhP99iQhrcWmXe6f2K3DXXyVupnBsJ/u5amBlAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CVTi9Csc; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="kjIZ/8jY"
-Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5D8CD524;
-	Wed, 10 Jun 2026 18:22:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1781108531;
-	bh=Dn8ba+w9aY0Bt9pG+INLtIHvs6rE2GTTrGIs52UdO2U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=kjIZ/8jYp67bIsVo5CFlM2y8ExhLyQhE4siplaAXtQgDBBrfqOYynGmc9qx3hfLAM
-	 yBUithz5RKLXZon3B8q5Muhn4v6RkTURSUJsKJgXiQ8hrF+KCpEDWT+Nm92zbU9F4e
-	 FiKjk2/BLwIhbUS5cAtzbahKwRGbazlUd4q3JYtk=
-Message-ID: <8aba88da-d5b5-4252-9a15-91baad81f1ab@ideasonboard.com>
-Date: Wed, 10 Jun 2026 17:22:36 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CVTi9Csc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1781108689;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=aJZSLKFmwdVxL+9TcEJu6Qfawm5t/bukKEPwYVEKRRQ=;
+	b=CVTi9Csc/wodHd3lDsDTDCAgNCC/2JHGtYJ+gebPzm2+K+JrxRQXSPgsN56j0TYO7L9f+7
+	8DZnwN4IEVNLAesiChBJcOp0xV8HVlEHepmRFMxtmwH2DqazlWQqTfmeGcvUuZ3v2XNae/
+	vTyaUv0lerTZ8Mm+1v/d88e5lSb34BE=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-586-g2kUAiG7PSW8nIaPg6uKmg-1; Wed,
+ 10 Jun 2026 12:24:45 -0400
+X-MC-Unique: g2kUAiG7PSW8nIaPg6uKmg-1
+X-Mimecast-MFC-AGG-ID: g2kUAiG7PSW8nIaPg6uKmg_1781108682
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2C937195FE08;
+	Wed, 10 Jun 2026 16:24:41 +0000 (UTC)
+Received: from GoldenWind.redhat.com (unknown [10.22.89.69])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5696F3008DC3;
+	Wed, 10 Jun 2026 16:24:37 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org,
+	rust-for-linux@vger.kernel.org,
+	nouveau@lists.freedesktop.org
+Cc: Alexandre Courbot <acourbot@nvidia.com>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	driver-core@lists.linux.dev,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	linux-kernel@vger.kernel.org,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	linux-media@vger.kernel.org,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Maxime Ripard <mripard@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	linaro-mm-sig@lists.linaro.org,
+	Danilo Krummrich <dakr@kernel.org>,
+	Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
+	Asahi Lina <lina+kernel@asahilina.net>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Lyude Paul <lyude@redhat.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH v20 0/4] Rust bindings for gem shmem
+Date: Wed, 10 Jun 2026 12:21:27 -0400
+Message-ID: <20260610162433.923550-1-lyude@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] media: rzg2l-cru: Remove unused kerneldoc description
-To: Ricardo Ribalda <ribalda@chromium.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Xiaolei Wang <xiaolei.wang@windriver.com>,
- Tarang Raval <tarang.raval@siliconsignals.io>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
- linux-renesas-soc@vger.kernel.org
-References: <20260610-media-ci-7-2-v1-0-3c61a482a44e@chromium.org>
- <20260610-media-ci-7-2-v1-2-3c61a482a44e@chromium.org>
-Content-Language: en-US
-From: Dan Scally <dan.scally@ideasonboard.com>
-In-Reply-To: <20260610-media-ci-7-2-v1-2-3c61a482a44e@chromium.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Hi Ricardo - thanks for the patch
+Most of this patch series has already been pushed upstream, this is just
+the second half of the patch series that has not been pushed yet + some
+additional changes which were required to implement changes requested by
+the mailing list. This patch series is originally from Asahi, previously
+posted by Daniel Almeida.
 
-On 10/06/2026 17:20, Ricardo Ribalda wrote:
-> The variable has been previously removed but not its kerneldoc.
-> 
-> Also remove the leftover reference to state in the description of qlock.
-> 
-> This patch fixes the following warning:
-> 
-> Warning: drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h:164
-> Excess struct member 'state' description in 'rzg2l_cru_dev'
-> 
-> Fixes: 85d8820d4869 ("media: rzg2l-cru: Remove the 'state' variable")
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> ---
+The previous version of the patch series can be found here:
 
-Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
->   drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h | 2 --
->   1 file changed, 2 deletions(-)
-> 
-> diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
-> index 5bf334e173d2..b426bc7898bf 100644
-> --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
-> +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
-> @@ -116,11 +116,9 @@ struct rzg2l_cru_info {
->    * @scratch_phys:	physical address of the scratch buffer
->    *
->    * @qlock:		protects @queue_buf, @buf_list, @sequence
-> - *			@state
->    * @queue_buf:		Keeps track of buffers given to HW slot
->    * @buf_list:		list of queued buffers
->    * @sequence:		V4L2 buffers sequence number
-> - * @state:		keeps track of operation state
->    *
->    * @format:		active V4L2 pixel format
->    */
-> 
+	https://patchwork.freedesktop.org/series/164580/
+
+Branch with patches applied available here:
+
+	https://gitlab.freedesktop.org/lyudess/linux/-/commits/rust/gem-shmem
+
+This patch series applies on top of drm-rust-next
+
+Patch-series wide changes since V15:
+* Fix some major rebasing errors I somehow didn't notice :(
+* Drop the dependency on LazyInit, use the trick that Alice suggested
+  instead.
+* Fix dependency ordering so that Tyr can get the vmap stuff first
+  without the other bits.
+Patch-series wide changes since V16:
+* Fix ordering one more time (SetOnce::reset() doesn't need to come
+  before adding vmap functions)
+* Rebase against the latest DeviceContext changes from me that got
+  pushed.
+Patch-series wide changes since V20:
+* Lots of Sashiko fixes, excluding the comments that I couldn't prove
+  weren't just bogus.
+
+Lyude Paul (4):
+  rust: drm: gem: shmem: Add DmaResvGuard helper
+  rust: drm: gem: shmem: Add vmap functions
+  rust: faux: Allow retrieving a bound Device
+  rust: drm: gem: Introduce shmem::Object::sg_table()
+
+ rust/kernel/drm/gem/shmem.rs | 546 ++++++++++++++++++++++++++++++++++-
+ rust/kernel/faux.rs          |  16 +-
+ 2 files changed, 546 insertions(+), 16 deletions(-)
+
+
+base-commit: 848bf57e98e1678ce7a49eb4e0bf0502da95dc07
+-- 
+2.54.0
 
