@@ -1,64 +1,64 @@
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F1503176FD
-	for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 16:20:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C6330ACEE
+	for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 16:20:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781108419; cv=none; b=Fp6GpEgiul4bEcYWoJjqShLyKjX/iIzvPvwob6OQ6ss5obaYuvYetmI+meoOjWU5SJJAuLD7KaERw02yRRo0iUortJVltuwZ1GfrMK9vXW1jU4RsTEHfzjq/7SE9gYGgXTV+XN9caFfK4zfbqMkDTtjx2aaUPfil0zpr+00dBFI=
+	t=1781108419; cv=none; b=q2FTW+4WtLHSeSZqGAhqcp9w3UXnmZkFkq8Kipil+HzZ+Jfuqrf2iOi2sTEvdai9B08Vk+QzxAwbG6AedvF5YRefeoE2/qTLjZQ2S8zA1OFKf5hqcPPIVdxUR0vtaRs2IEimVOhA3E21B6DT6436KqfAJvko9nMsXhb7eE/lusU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781108419; c=relaxed/simple;
-	bh=3GHWLgVi4O6MHuVeCDFDILAsiSrstOJOGFbUkyNdosY=;
+	bh=4de+KiDoZxeYsyv6d0hNJLLBvag4Qjm6eaS5OtVl4NQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Zt8g88jErOXRLKwI9ghu0MkePuyz4S8miTFC9nj7tSeA1hfNccwd2Z9cK2KVsxFfWP6L+QYkr9J1gJOSbnF1mqPwS/RdUuBSW/Ru9IlQjTht3iJjO7SItGwjPSt0TNO1YII2ZoxeHEkBMRMWiTRFdhkiwyMbpzGZKuUchuW2+yE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=i0BqOKlH; arc=none smtp.client-ip=209.85.167.48
+	 In-Reply-To:To:Cc; b=LjOsLw8qhbx0iCRi8VMSaZUQaT6kbSSv0CJ5V3tV8mAe4W8XZJQ16dwRl0IQaqIMs+gjvIIXCWdulRkJXZrXXOzA0N0vHootAJT0TZrhR+sBNfY3LrRPJiAvTwHHw/q2CLBNnCxLBP/vDhv4Q5yEaIyZudvL1yMQ/Uda32+fBYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Rk30WqNW; arc=none smtp.client-ip=209.85.167.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="i0BqOKlH"
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5aa61503fdaso36116e87.0
-        for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 09:20:18 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Rk30WqNW"
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5aa7a7ad475so7330041e87.1
+        for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 09:20:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1781108417; x=1781713217; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1781108416; x=1781713216; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=WcKwx3Y0vpiKLPOc/ceAdo24aVg4L3qrYl1AkV20myY=;
-        b=i0BqOKlHrcmmbaQTPXMaZTZ42Wi6Jg7eupokLg80ue3J/DOTX8nmqaJ2C+mtgQ2DjJ
-         ttS55y2my7vl/GGnkw4B7+WkNRgItlngF22/K2nolsCaieZdmMluiOYctqniRuq62blr
-         rDY15xrf/8r0miHuYs9VGq5nB8r075UDiUsAg=
+        bh=JViN1TdFkoFUPkrP+DDyY0wa+ZxeG+1QqVsHzZDiXe0=;
+        b=Rk30WqNWQ7AqR+AVDkEIFU3bRutvMeMfcEBMkaBZFBjWdKDmGEd/1EbabgxYppbHnP
+         gB68pZQxSm5W2P8zI4Oj4fWo14aYEdZ8H3kAWFHunzFyHZcKfTOAbVz5CN3K9WEx6P6K
+         ZAIQMq4j9rj5+9oWqFUr8J5NZGb2kG69Zv7xw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781108417; x=1781713217;
+        d=1e100.net; s=20251104; t=1781108416; x=1781713216;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=WcKwx3Y0vpiKLPOc/ceAdo24aVg4L3qrYl1AkV20myY=;
-        b=ARyCnrSv/ZtyLGeAPmsFjZH21tOHZWwvx0LJmqSftQjiY8ADDTDLu8i5PZxm3QzQS5
-         G13NOiTNnxybZA4+IdYikcXMdhwdZMytmOyumZlOJh6hBJeQMfv6GNnr7X3L9FBY8EHl
-         UBFTbebJOkWGz8HQwSZGaSY2vPIUiRpRRNRypfDYEssYKFDJozNrLh9oIaMbgHn6U5h4
-         Iaj4lCXmjtSWIoarH1DL5qP+ssTmM3zQjql21IbWm6g2iB3hTin+bPaV1Fk8ES9yogUy
-         +UI4vUZPiZZs9alB9tyUt9Suob0oWeZXn6dbCdL4lduDXRMgh++ZmFvCAH8Y4rDwoq+W
-         i15w==
-X-Forwarded-Encrypted: i=1; AFNElJ+DvvJ4D4muKQOu7PCN8B5pawNUP1SdgAbX33Gdh2mbQyPp6F29gwgX0nH7zIUgsuBb0QR+LI39hxBM6A==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxVDvylBJkG3WRmQwndRNWkiTYdTTEsW4wcxoniBHtquWJIjIDm
-	WtVfASjCH9IJq0KsJ6Rz8VDnxgz2HaSQRxWUKWud9wbhLCnAfy39WMhFS5VfObXFxw==
-X-Gm-Gg: Acq92OHZQgryKglk3g0edAu7aQuNKluf+m2x6yci/Qk82+H15DJuZz5bNgYeLmNZTcm
-	qfmc868/byhFMJCK5DejfwLZWkw3jGjXUAKrSMR4o4jibV8v0zjBf9kwlZzgsXx6nB0paASQ/3Y
-	I6BwTL8HHwTkyXQtrNIGIdapMPd3I9miK/F+lU/CcS9PvSFPSWFYA+u0deL7kMmM1N7/8FUVWD9
-	ShvDY6Ydi22HwhFG/VN3pvuFXKKGRVDPPzqSGnp2kCo758PhmnZUU5eOuMQtr8stltj1S5gv34Q
-	Ol6U6oGkKQnR6twf3duV3Qw3SYoEdT7pbgOSkfR45O1jU/yNpst9oYVu4NsreEjJGIyPrJtv5UN
-	NwVDIMKCiWVbj7WLokAjLFxJ97AIQcWdFP0IlqMa3o/iDrcaqcTQEfk2abnPghFyozqiIQHIKoH
-	+MMAPk7MtR7sstY0oIi+4GDnhULoyB2rt/9OUwnrjck00O9k/Dm2B3wnNbk32kQHHtDBTx3rz1W
-	b9AjajcnG6M3i++pg==
-X-Received: by 2002:a05:6512:6093:b0:5aa:7005:125c with SMTP id 2adb3069b0e04-5aa8866c7c5mr6164799e87.8.1781108416632;
-        Wed, 10 Jun 2026 09:20:16 -0700 (PDT)
+        bh=JViN1TdFkoFUPkrP+DDyY0wa+ZxeG+1QqVsHzZDiXe0=;
+        b=MvM/r48oBQ7JGRJdKkMTOgic4o3I8BX1/LLTgtl+w8qrojKqMxy6dRlOau3g7KCPAP
+         SB2FTqb43io1ttGY7B3NVgGBOi20XUVLkYgZR8AKSZTPBpBBw7JYXwh54BZZvxNvr+Ug
+         6GmA6LoedXfiNxg4Ggf+5icXLD0zr9ROiIqlcIHpi5WBOUcQO4ZMULS5rSG3Z2+x/ljW
+         FZ4H6yI0xr19Oil8WieVDaPMnIGmgsMlM4n/JnbhbnlmzeEIwWc51pxo0NjJJwylh6S1
+         FeJxTgJIbhnLj4j++6ghSdSiLhMpXvWd/QS8MrU53lokIUtr4pJ9eUbyqzbTmyi8SQ3L
+         tNqQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+1BLKlJqjD4dljfBplmNa9bdrFeYceAfgTbLCzL/EbL8XK4FnIps9kGY1SKxCvfpnxVa70tWjO5Dd+BQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwF/gbsHMtulRPc5Zdr0E66g+7Jb16YWgrjxt0jgxClJnppoRgD
+	6ENCRV67qr8HK5aPeDW2yBsgzWebaniM6hXmM3G7EU91MAJ892RlBQARnaFcigNELA==
+X-Gm-Gg: Acq92OEtL3XtCcNugk0e6MINYEe33j7BkiSl9qKrtItkQLfsV9R7Repu0EKZDMR9vX1
+	Gv94h/kQrCq+E5WUGKlCiYWvJ75MWINWJLTAi6TP2Ra7axPPoyaGHsnVBtv0fnj5Db6ka2K7vph
+	mM7cxN5lG6jWPcz64ZhBICM5kC/J1PddyXzVr2RTSuBDm5JUNHOg6Lltbv59eeb2NLTyErXbpFG
+	CCB8tGiqF9xy56NqZXPMpdSVVBQwJ61h0M52GXfuLWiKX3jFAEWFa8iwMB2XSDIShVdLTF2iSSA
+	jXaO2NMKbawLOA59IUR9DB9k27rUT9CTUN3pFthowNvH1SYANsEQjQ8UX4VJ86hzCpdCqDhtm/0
+	sQIZslSU8HuQbuzQZK4clC6UHr2Fxi1jMxGDtDLEyqdFURJEu+vaxLhUy+rzbFYeqe3N8OxHjqq
+	bzdJ2dKGdTuipcQbxOWvLSRsePzqnzi0k93B2ANHtnXUEzDuUL1V4YcWyzof8QmZTGcpRxNQQJI
+	ArAhNxIQBOIwORCszenMyGJHFsK
+X-Received: by 2002:a05:6512:3990:b0:5aa:6b56:77ea with SMTP id 2adb3069b0e04-5aa87b78a9bmr7547722e87.14.1781108415657;
+        Wed, 10 Jun 2026 09:20:15 -0700 (PDT)
 Received: from ribalda.c.googlers.com (216.148.88.34.bc.googleusercontent.com. [34.88.148.216])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b8ee219sm5608915e87.15.2026.06.10.09.20.15
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b8ee219sm5608915e87.15.2026.06.10.09.20.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 10 Jun 2026 09:20:15 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Wed, 10 Jun 2026 16:20:07 +0000
-Subject: [PATCH 2/3] media: rzg2l-cru: Remove unused kerneldoc description
+Date: Wed, 10 Jun 2026 16:20:06 +0000
+Subject: [PATCH 1/3] media: ov9282: Remove unused kerneldoc description
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -67,7 +67,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260610-media-ci-7-2-v1-2-3c61a482a44e@chromium.org>
+Message-Id: <20260610-media-ci-7-2-v1-1-3c61a482a44e@chromium.org>
 References: <20260610-media-ci-7-2-v1-0-3c61a482a44e@chromium.org>
 In-Reply-To: <20260610-media-ci-7-2-v1-0-3c61a482a44e@chromium.org>
 To: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
@@ -83,40 +83,36 @@ To: Dave Stevenson <dave.stevenson@raspberrypi.com>,
 Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
  linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>, 
- linux-renesas-soc@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>
+ linux-renesas-soc@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>, 
+ stable@kernel.org
 X-Mailer: b4 0.14.3
 
-The variable has been previously removed but not its kerneldoc.
-
-Also remove the leftover reference to state in the description of qlock.
+The field has been removed, but the kerneldoc not. Let's take care of
+this.
 
 This patch fixes the following warning:
+Warning: drivers/media/i2c/ov9282.c:223 Excess struct member 'mutex'
+description in 'ov9282'
 
-Warning: drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h:164
-Excess struct member 'state' description in 'rzg2l_cru_dev'
-
-Fixes: 85d8820d4869 ("media: rzg2l-cru: Remove the 'state' variable")
+Cc: stable@kernel.org
+Fixes: 0c69a963a300 ("media: i2c: ov9282: Switch to using the sub-device state lock")
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/media/i2c/ov9282.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
-index 5bf334e173d2..b426bc7898bf 100644
---- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
-+++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
-@@ -116,11 +116,9 @@ struct rzg2l_cru_info {
-  * @scratch_phys:	physical address of the scratch buffer
-  *
-  * @qlock:		protects @queue_buf, @buf_list, @sequence
-- *			@state
-  * @queue_buf:		Keeps track of buffers given to HW slot
-  * @buf_list:		list of queued buffers
-  * @sequence:		V4L2 buffers sequence number
-- * @state:		keeps track of operation state
-  *
-  * @format:		active V4L2 pixel format
+diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+index 5b6f897a74fc..3ba630ec4f2a 100644
+--- a/drivers/media/i2c/ov9282.c
++++ b/drivers/media/i2c/ov9282.c
+@@ -197,7 +197,6 @@ struct ov9282_mode {
+  * @noncontinuous_clock: Selection of CSI2 noncontinuous clock mode
+  * @cur_mode: Pointer to current selected sensor mode
+  * @code: Mbus code currently selected
+- * @mutex: Mutex for serializing sensor controls
   */
+ struct ov9282 {
+ 	struct device *dev;
 
 -- 
 2.54.0.1099.g489fc7bff1-goog
