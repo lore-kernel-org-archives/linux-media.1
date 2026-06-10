@@ -1,234 +1,638 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011018.outbound.protection.outlook.com [52.101.62.18])
+Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021143.outbound.protection.outlook.com [40.107.51.143])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F583839AF;
-	Wed, 10 Jun 2026 07:05:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6C1382370;
+	Wed, 10 Jun 2026 07:11:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.143
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781075127; cv=fail; b=jKa/KhVcOfJ9DRlOrfamYM5Gogo7IDBP+r5IiAK53KIgOEgnPn/jAplDwSaL8ZvdALeKEA2cO0l+P56tM+1otg4R4poy31G0Q9mN98FNPhBlH6PJWD/rY6Bc/jWdXYLqMcuHYbkSEN0IKJuz+j+0sgPuyOsadzAWMeRDDYB4lDo=
+	t=1781075509; cv=fail; b=BZDFFwOpmBTVhcFFJkDs/xgkdboi55wjrkICn2IjpFSSYm38UC6QCPnrR30i+SdSqjsp89Z2Edc4SW2ou/e9XiNP+UMk5QyR3wRtK+EDZomVjA/iJPx4vAFsfXPb3v3fYOOgf994Kpqc3wnHlYLldl4P+npuB75fEDEI5BctKHI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781075127; c=relaxed/simple;
-	bh=G+EbitmvzWg5enhw6EjkHan96FhORwusgA6ldVWwCgU=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=S8SPPmUcq/rO6hHvskk3CSf3gNirHAAY6o91YTfeWMMA4D3bNEpGpJFcSC2CyXLlsI9KY4k5Azntcl7D5h/Z1R/3c01APwnABVj69Fe9b41CiFN5WgJKJAIWT964lgO+NI7CJg3NwxUEBXxktMzjzfB45rt0F+CrDg8rVzYfPrA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=xpRXs8Zt; arc=fail smtp.client-ip=52.101.62.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1781075509; c=relaxed/simple;
+	bh=YTT7MqBnnQh9by/yxWEpL7kOw1rYm6zaif8virZ0bnA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=i2RUJLqOw4ybq+U0UH9a2Wloo30ymFibU29dOC/jP2F3wiw+LILPCf92T7vbMrfg8t/tadAOGPWX46+N4Cjt7YE4CysCpT94fA3YM16TYyAVD0qL2hLbzXGfHXWC7EbSe7Voif49WPu09enqJwUgCM0HW/IPuNmuCCnJMHlv6Sk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=pass (2048-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=cYGj+MuW; arc=fail smtp.client-ip=40.107.51.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="xpRXs8Zt"
+	dkim=pass (2048-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="cYGj+MuW"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wC5gaRwugFgobAoTCWdjnvaFw5ZahNuTM/nnOT6KX/MSD1G0vYricNY7y1vS99ava03T01XuqX6A454WYigeSyjhL38goLJhSBlQwlHK+KSN8GpU6BKrt2XTSy4WWOrCIPvN3u+9JHLfg1pwqMmpM0uA15RyJbeCVDhln5D1B45iYhlFiqxss8Iuzm0bGEO3jTCeUruww2TwIv1e7kk2Ukul5h2KypYga5Ioix5QwGGuMOZCajOM/xgafD51FpVDGWeKDAf6V4+g/4Q2yA/iJJr558wvmVLyJzrUo1w52HGC9q++7zMzcNT13w895i0VOlySJfu+RPVY4jwAAbVMpA==
+ b=nxQ09f/C2lwALp9WFW/5ePvOTDgI7Eb/Rs26oKC+sd5wOYWy6QItLsX70NpC0jVdkBMzuvoS0D3CTjy3uqGOtJgQv0LhH5Ohbn3/gt6UtaSuP9iiboxj8cqxc0yizQBNwM3CJbM7NXAoZCvpbKyxZwNGXhZtztq7xg7UFeYDAqDb9Vp5d9aVXk3n6Pef3dfjny5IRfR0+AewXnH9SCC+ovjLjh1kE9WzpNkoQGDXBBLAQKM1vy7D/2b/eRBAmFm2CDXaEj3rTTMhr/2Y7bZCpXIS/p98C/v5qpf/XxZglU9bghvHo5Ae99OQGJsf12rqsrAZwYkifooAhu0t29i81Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3UI3tncPTi8BPTuOtb0LYX0hQd3bu6+ZfrwFLx8wrcU=;
- b=Dcf5wKXS9ot4tdy1yWhVeG8o4RS1ehsNjfusLSobe2+hCiCKlfng4P/sfdAp5lEW7HZV7kNpJmzWn21EvkOjm8T7aj7moePGCetehqiIDDwOIAsPkGb6Qnye6O6TaYQwhq3yNL/0vtvBls6e+MfUjlZTZTy3KRuJF92cgCP+3cFl++lAsULIkOlUV+Swt+01iLnVh5RpBpwrb7oA6DDu9HUW2M5HOo0t75UsCZXm+m2z+lLC5v68nkAMCFHBmfSRHpkAPjzzHImP9KcKCE7jnpdj03FcYxPf9B4Cy5dNg6IfQL0Sm8ylOXEhi+VOjsOh+DhDLxoeCZ3E/h9NW/Lldg==
+ bh=tElXIuoyVSxVR/5nl14yAqLhDy2dfng6P9z038DJ1Dg=;
+ b=RCYXRR2Xm5FbBxDC8MvtkjWqTAqOijzQNtF0L7BCfGSc95gptD3+ljQEmgA1mEYJ6R7tlsCyfXM85E+ddrmfd1sCZSNmNsx07BQ2DVYANHupQIajJgbEPLx8vifJVtrCrRIDBUXwb331bX/2eFRc2gnihBsnJitsMsJSeYXr2U5G8nZJ1gOukFsUNtWdbSb7K5c5Klpf6EeOFFFJmzs+8YTGPQ22+4B99VXRJ8s3K+FZ0Pc+lrZiWOmmsjv/rSLaD04G3v3fbGp9Kt+yAFyodCXYSgTnLpn3KniDBrAi97Il0onsUrf/G7W84mHZjnBkKJyWhZfFIMvVgt7qPHCv+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3UI3tncPTi8BPTuOtb0LYX0hQd3bu6+ZfrwFLx8wrcU=;
- b=xpRXs8ZtYT0DzY/FDERfvzMxQqgVOIXkAqu265cTbwjGbI6QPgb9RXnbue2uOTYiuaEZlA92tuVRMi3WQGAVVQelWxAVrhCCIP0pJHdMj/L2ueTapH/dL1APNXK/gITWYe8gTQJq4hDzomPaAXghwFNu30+J0ew2aiOCrePUL80=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB8598.namprd12.prod.outlook.com (2603:10b6:806:253::21) with
+ bh=tElXIuoyVSxVR/5nl14yAqLhDy2dfng6P9z038DJ1Dg=;
+ b=cYGj+MuWwWdy6SORx4NEGXu1oBbhT9M+McHFaElyF6gpYkT+sbeL/exEhkTAOKvY3KGpC+B4vqHSBFpOWM8OYG2z+Uub6MZOY3otLeTDbQ0ovqVU6xpuhEy47sfzQ4Aljsm9i0Ri77RRRdTge9Cx6srNqLSVKdBDP9XlWDW5830piOqcJWwJwXdN0bCmu8wygupibQ3/Rm8yqXTld4sXgTpM2YRyqSelHxFQXryv2Xz9Ytp6c9IuXg2dVdD9qy4BmnjkqIox7hxHNCoNKMerAx8jfRhg7OiwiJkWdfRGhlznomAy2oBQEFQTiLH2dx8gEmgqWFSkdoUswXZuV+8lKA==
+Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
+ by PNXP287MB4084.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:290::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Wed, 10 Jun
- 2026 07:05:22 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Wed, 10 Jun 2026
- 07:05:22 +0000
-Message-ID: <c78eec30-159f-41f6-b725-8402752f90dd@amd.com>
-Date: Wed, 10 Jun 2026 09:04:06 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 2/4] udmabuf: emit one sg entry per pinned folio
-To: Bobby Eshleman <bobbyeshleman@gmail.com>
-Cc: Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski
- <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Shuah Khan <shuah@kernel.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
- sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net,
- almasrymina@google.com, matttbe@kernel.org, skhawaja@google.com,
- dw@davidwei.uk, Bobby Eshleman <bobbyeshleman@meta.com>
-References: <20260603-tcpdm-large-niovs-v1-0-f37a4ac6726c@meta.com>
- <20260603-tcpdm-large-niovs-v1-2-f37a4ac6726c@meta.com>
- <bdce2488-fe77-4f36-9ed6-dd2c785fa7c1@amd.com>
- <aiMY8CpckM8Jav0g@devvm29614.prn0.facebook.com>
- <0c86f5d3-b5e9-4cac-aa9d-30c5c8ecca66@amd.com>
- <CAKB00G3opAoAYswsq2uz0Q6jgku8u4NthKOzCbSumZ0qK7QxcQ@mail.gmail.com>
- <a51e97bd-39dc-492f-bd7d-f137423277df@amd.com>
- <aigqFQWzPkiSh3ie@devvm29614.prn0.facebook.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Wed, 10 Jun
+ 2026 07:11:39 +0000
+Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ce63:5749:b390:508b%6]) with mapi id 15.21.0113.011; Wed, 10 Jun 2026
+ 07:11:39 +0000
+From: Tarang Raval <tarang.raval@siliconsignals.io>
+To: Kate Hsuan <hpa@redhat.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>, Hans Verkuil
+	<hverkuil+cisco@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Serin Yeh <serin.yeh@intel.com>, Damjan Georgievski <gdamjan@gmail.com>
+CC: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 3/3] media: i2c: imx471: Add Sony IMX471 image sensor
+ driver
+Thread-Topic: [PATCH v4 3/3] media: i2c: imx471: Add Sony IMX471 image sensor
+ driver
+Thread-Index: AQHc+A6In5hIz4KXM0+mNILJA2o3XbY3Pnvd
+Date: Wed, 10 Jun 2026 07:11:39 +0000
+Message-ID:
+ <PN3P287MB1829693B81531B6333461AAE8B1A2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+References: <20260609124926.1038981-1-hpa@redhat.com>
+ <20260609124926.1038981-4-hpa@redhat.com>
+In-Reply-To: <20260609124926.1038981-4-hpa@redhat.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <aigqFQWzPkiSh3ie@devvm29614.prn0.facebook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0357.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f4::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PN3P287MB1829:EE_|PNXP287MB4084:EE_
+x-ms-office365-filtering-correlation-id: d82e1bdb-37e4-43ce-8b14-08dec6bf8429
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|38070700021|6133799003|18002099003|18092099006|22082099003|4143699003|56012099006;
+x-microsoft-antispam-message-info:
+ ZFhhcEk2vBDu8dJQAFUeCfyy0tzTKza8eyUWAf7gPqCxGYLEN28tn3iI+axCHP3Wwzs8IOUrXGSXU+el6scFJ2jlRNuc0S0/RpyYSAa5kDzx+9lyKHEDdgg+YXQiPZtzDqgFMVONMYcyOUpmX4Nh4W46VyVfV0EyyRLWfXCo9qbQ4pbz6f1PC+sdIwLGBjMveQrVMP+/Lw0Gill95mfeSlqFkT9Oe1flmYGEfYBrY0UmGPwC9v4a3l97G/AiiaMtzl/fbmkc5B9A79CrY3r49P0PwxrEgQhcMT0mR/y3mFSJcZWjuL59T9DxYwWKhpogh+faUNTW0WIsTNFxPYb/0feVg6bew3fcgXGw19qxYWNYy08JsYyXEe+jrPhKTDGkXGSWLn4Ix01RufrYjle3dKQoN6eJsQadKPImyCMdiRIFQ8D2sYLiY9uzbpEs+djYKe1fVJOve2nNmxDfTok78xO53Ux8TwPC/ZDw3V2CRvSIOYEwnSGCRCP2EXJQilSoxK950Vi5hmmWIidC265RCPzE17g1EAUx4qZorvuwj+UwfLSJGcNmWJIIArvPUIhTqIaUSyzIxjebzt1eA03Z4k59deewGGSGH7M3KCct/780ZYqA/PYnFQZJGXLLzcXW52C5dgkt2ln9iJS/6BKpllx6pge6BTXeDrMJACyqtCLZKLUjTO0N3j4L7i0+qQiA9nZwnrm7+T3YraDgt4buXslfYXNBE9ecGI4uYweRP3gSz3t/Sz0syI3QDskTyYRh
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(38070700021)(6133799003)(18002099003)(18092099006)(22082099003)(4143699003)(56012099006);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?0I+TE1CR7kbMbP8Udx5TGi8pubAMxfAfhJMO/mziRZSMZ76ryh4lmjFwIF?=
+ =?iso-8859-1?Q?+XRa7isllN3Opqedq1yJwRcu/T2pSnuqEyv8QGAH9kdExsNC/zIyWQET1n?=
+ =?iso-8859-1?Q?ikMzEH0eSXrUz8V5JFX7unMkzHeqTUdYC0H4SwiTuK6iLVVgeDo2vn2BR1?=
+ =?iso-8859-1?Q?WfztpWVNe7xLonjJZDF6vLvONFQ4wF6n7hThFe6yI7JzImbv6GYUZNoce8?=
+ =?iso-8859-1?Q?0eckHmtNwjtQY8SGGHKSd79MNwiFScs6pUQOzRuTJe3VimuakMVHoxOBdZ?=
+ =?iso-8859-1?Q?dTmdEddnH12ynE7001JS8iPeeeQlnIUK6p46x+d1CvTSoVVuYUfoYyIjNs?=
+ =?iso-8859-1?Q?8ceEZ+GWHu+7XpE0x8ZPN3lRlQjhrPyyKRa6LMZc5sSSwptWL0dKTiRu6e?=
+ =?iso-8859-1?Q?/b2u0fhBGuSgi0HD4uC+4Y6GDea0VzplW6b5PNYBEfRMgxW91LsWal+Ufp?=
+ =?iso-8859-1?Q?kzDGkTbh/i3CKE3yM6bPiYCOSvFICRx3fM59gkduvM3ghksi7HHW+UBTVA?=
+ =?iso-8859-1?Q?40CrBhY1MwiP+8RtW+IidBGqHwhRoOfQa8OaWpQfjwRzeT2cJ3wYuUJs7Z?=
+ =?iso-8859-1?Q?sJYBJGfs8mnlPqigULGDtNUz6B1Ezq7USUJSoGvgmnORvi7D/0dseZaBsE?=
+ =?iso-8859-1?Q?iXieQFUY0LKG3jzXnN6G8Bw1YG4MifbtWdrHMb/MyvyMYHcMVOjFIgVa5V?=
+ =?iso-8859-1?Q?0EpA8AUp1njkllr5SxceYYs6IXKr84Qv9qAbdY9ctqjEnswXALAGr1MWS2?=
+ =?iso-8859-1?Q?R+xgQ4cUWWvht3qMkX+GGmFE4fv12R8mcxiPW95tDGUC6/r7ssv/edi/SK?=
+ =?iso-8859-1?Q?KV3svgtC1c6agGUBV/fMIvT4J/QfDXVIS2diHB8UN+yjEmz0xfF+RZm6KW?=
+ =?iso-8859-1?Q?d0sXoeEY/rWnurK9CxKTvcHQJ8XW6R5IdMn14Boij5dS0w77oQ2Eva1BBU?=
+ =?iso-8859-1?Q?L9V3RrJbsAK+ONZHug5BEUw9EWm6tkGesP9Vtk33Iw2ppBochlXhW/8RgX?=
+ =?iso-8859-1?Q?Dn1AWdDCzEYIIxiMPrIp9lVfk0ecVYNCyvm2oE9dH0MXY+B5LmP/WwPHfp?=
+ =?iso-8859-1?Q?5Bpz7jFsR9Mxq7dhOpFdFVx8Ysztetu3rIPCr2fg3sI5dRQA7HnzaWozNl?=
+ =?iso-8859-1?Q?BI3Aj/fnLSgaFg3URHCaQZEpWyPsVMv1yIoJU++yHn4QwphdwY9zD/Vbuf?=
+ =?iso-8859-1?Q?/s5at1p1aGMNCjFR5DNXf8hcPx3Uxhd69OYbefwgHis0cTFN7owccvKCY4?=
+ =?iso-8859-1?Q?Cw/NwG/KNxsWWAyBDTB7EzxRQVGgYfFpJJvT3sSdb0FRe2vjTyEESPqbKi?=
+ =?iso-8859-1?Q?T5NLCFy4Lb8f1yjbqtAF+dYz7J3oFDnqqy1lDB4WdnCfCx/YTygSLdwu3y?=
+ =?iso-8859-1?Q?ZkIwySoUYEEUw04KLrz0wxXUGY/kPUSb57j5pxi82IvHaITFCg0aJXFJc9?=
+ =?iso-8859-1?Q?cs56u7Z3cnOHNkasE64SVs8/OxzsbrlgAv5ooWkAXYIaZLfXX/YR4Dd1e6?=
+ =?iso-8859-1?Q?HFVpLh6umE5Md2isPAXBKi6SUkk1ORaqWMUe5T9AwdqwdYLT41/j1g3AxD?=
+ =?iso-8859-1?Q?ZUZOgxIZBS6TSEaBBcEmSRFad9xIvY+XIBmDBc0rwsX9yJb33Ynt1gPibS?=
+ =?iso-8859-1?Q?SOZh/mDk4VexvAyzbAl+q0XRb18RowivNw1PJH+rI+l0nKo3q3Q9ba35Cy?=
+ =?iso-8859-1?Q?cwQbHZFSNbVhuM2fLVRNgJ1762lTUNhHfxyGTla5q6YC+TOaHcqcjG7689?=
+ =?iso-8859-1?Q?ZDaWir9F/gz0QAP9IEtHekn22BYxaUho0O9rKMTfDy4nauBa4QqX40DpMH?=
+ =?iso-8859-1?Q?3WFhpF6viA=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB8598:EE_
-X-MS-Office365-Filtering-Correlation-Id: c9f7bbaa-e450-4695-b251-08dec6bea395
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|10063799003|11063799006|56012099006|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	U9FM1uTIw9GGijuROFDG0oSAWEZO4ts2TW7shhHgPp0oo2WTeuuMJd4Pt6QU2y/O9zoJ5F4iGh+f+OMPTQT3HvOY5blUChNkKKQeWbUAflUfR0CBNWQ/nbsDZLVfGXEGoYkHP8aw+O9ysZPu9pz/d7dJhT04UBpwcta3cnwdtZrQLkFsTVIzjOxZMjhpzw5V4eyU2FC9qO07dsaLZWygI5EwEuNApX7XRF8/e0yrfJz2cTuyCikLEl1iH6ekoaXEBH+RhxEccmFVFPRTBagEdmHk20Y//2KBhnr8ZvzGsQwM+IqcMSwpqAmwceeNJaAjR1lBhiX2y8RLVk0mBrpvtSZzJJU0X6Eax3nUadZsSiR9aM3zZ2rsvYDLBBR/uO3bh4Yc0vqDklJy7eReNB81yttkmJEEDJ4okS9akL8prPKKTcLboAjtJruBA5/K+ayOp89VgEl3luPyLn66K+s8lXpoBPZG3LcEWxZuImKa024p9qZ3MgwiDw4hAQ+JICEmAT6A93r93zSCavUGpo89BHpYopGXV4iiv20P1Y79ERdbpz//jqdo4xE4sN+0xKzeyYpuBdYGGyDzVvj8dXHCH070z9KbqY2xnOv7f0Xke4Zf5FV5b1ImEITWbeuX5iyXzUSA8Ld5U+K0UYTsISc/gmY5IJ1OCZUTq0EmtAvB/aEJxt4twN9IKrvVNE3tJJw7
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(10063799003)(11063799006)(56012099006)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WEJDNStCY3ZCZ2Q1b2k0cWxhVVdSMHBPcVBCODYxRlNBa2lDUCtadm1iRFNT?=
- =?utf-8?B?Z2hMSUk2RTRTZ3hZUDdPc2xIcGQxTnZWbTRqblNVenZISER0dkpKSU83V2Uy?=
- =?utf-8?B?cktIcGZDWVkrcHVpUi9abk5jajJEbGtWZWlHWG5NVnZFMjYxUTRoMjFOOW9T?=
- =?utf-8?B?M25xdXFqMm0wY3QydUgxakw1UEdrUWN1WFR3emtMQXM0NnZGeEkwdXhlaVYv?=
- =?utf-8?B?bnA1OHpHenRUWXpVYXpkcDJCOTdVMm0zQTdESGFDK3JHTUt6ZjlVaFVNRS96?=
- =?utf-8?B?eUZNTXZoRHgwNk1Fc0ZwVTgyVmF1R0tKa29aaWd3RnZ3OUZMekJkTXY5NEJh?=
- =?utf-8?B?enAydXZGZW5hUWtUbElSSnRGd2cybzBYUVBiZ3B3MEw1ZDRGdzNQV2tPbmdT?=
- =?utf-8?B?U1U4cVc5dEZvaEVPYUtRL05haU5RL1dPRlVZK0pyMEtReUtnZTQvVFQ2MVBI?=
- =?utf-8?B?NmZLYnlNZ01RQkFSY1JaWEN5RjJkc0pkWkxKZmJ1b2lXaitNMTNSOEtIaDUr?=
- =?utf-8?B?blVpbzk5VnVOQWxHREhib2tvQ1pZZWJrOVh4RndqQjBoK0I0eVpGOXVBWGo1?=
- =?utf-8?B?VCt6UDBZdGZRVWlWY3IrUHFHOUJqU3kwRVV1dzJTSTN5ZHB2b3VFbVlTRDZh?=
- =?utf-8?B?cnNQWk1hMnhySmpWUURzOUU1ODNDdTlkVjZDZUJ4THZvN0tHUDhNVzRiZDhW?=
- =?utf-8?B?UlM3S2gySGl4WE43STBWL3UrRXNFckZuLzlEVEFCbkg2YWw0QWdYdVF3RmVR?=
- =?utf-8?B?TGNVV1M3MTVhREQrNDc0RVY4eXlIdTBYTnFLZE9Ybk5ndWptUEZiNldKaXor?=
- =?utf-8?B?Q05hVS9tWVlhZEVaVGJhdzMwVHh1aHJtQWpWT0dHOEdzS0RySnNpVmxzMXB6?=
- =?utf-8?B?UCtzeUJUbkozN2diNTVTemhFUEk4NExrWGY2Q3hJdXhjeTZ0UEQxUXB3M1oz?=
- =?utf-8?B?M3Y4WEEraC9KMDYvOTUxdHRHMXltOCt1SmZ3Q0FRNTUyemlKY3loOUVkcnpR?=
- =?utf-8?B?ZFNQQUgwMkptazIveU8xdTFqUWlxZXNVRU4yQmFSMDkvTXE5d2o1M0o1MTNM?=
- =?utf-8?B?cWFYdEdPL2htbGlaUXQ3VUFtRkZjMFBueVJVakZ1azhSWENwTUVnK1h1OWw1?=
- =?utf-8?B?OERTTmoydFgrbjZkUmNSdi9RRWZob2VCUU1ubEdoUU0reTJia3FHVm9RWGUv?=
- =?utf-8?B?U2lZV3BVQU1lWXRwdjVIMzhBWnNyMloxTjZVMmJkUHFmcDVHOEZlL1Rnd2ls?=
- =?utf-8?B?SzNUNUZZbHdyRjRxcEJydnA4MHF6Sk01VFhmcTdUR2pWeVA1eEV6ZmkveXVB?=
- =?utf-8?B?ZUpKVjYxeUFBTzN1ZHFMcVpYQ3loeGNndDRleERrSWNJVTJHUnFIWkpSaEVj?=
- =?utf-8?B?SW9ZYmk5dXdWcDQrMUVFZS9rRncyY1JLWjVYUjdtOUU3ZC9HYUNLK21PVHZr?=
- =?utf-8?B?LzRWejVXV3E1NkNYYkpoWnBjZ2lMb0xudzZGTWI2SUZTQjVXWFYrY1dqUWZH?=
- =?utf-8?B?NWZiTTc4QTV1UWFaR0MyTGM1NCs5b2dnejZsMlFkVDFycTMwdmNRdmNJcnp6?=
- =?utf-8?B?VHdJSWdsU0I0SDlkZ3BqZFh1b2Q1djVSdTNobDMydXBkVWo1aGdneTZFcmxC?=
- =?utf-8?B?SXVjT21BZjBWTFRkUlZaaDBiMHZiQ1lraHdaZEwyRnFZVnZnQ0xJUGl2ZVN6?=
- =?utf-8?B?NDlxSDlrRmd1UWFjOW03RXl2NEJ5UEV5TmRkNk1BWTdMV0tCOUxodVdSQ0lT?=
- =?utf-8?B?MUN0UHRMdE1WSDNyTHZsdDNYRytlUTFqWC9VOVUwci9xRHgxQ1BnanVXdkJ4?=
- =?utf-8?B?RlYwSmlNclBGdzdTOHk1b2trOEZtcUxEakJweGhQVUVxdnhiWU02a3BPcDJy?=
- =?utf-8?B?Y1RpQ2JJTFI0eERkaUQzVEp5c20wUFNDa09KcSt6R2dPVXB5a2xhWEE2WjI5?=
- =?utf-8?B?Z09aTExnbUgrWVVoalp2YXBRbVJmODNuZEhWbzRnUkdBSkRaRlU4NVNUWTF3?=
- =?utf-8?B?eUpydTkxY2xEdVNvK25SaUhyc3djNm9HV2p5TEV5ZXdjeUJnODFtOWhqbi9W?=
- =?utf-8?B?NlV6N1RSSklzYzFsRkJkSk9mcEhadW5TWFRCR0dFb2JkaFdVZ3p3NFV3c2Ri?=
- =?utf-8?B?MDZDZDBLTXBGT1BUYVRHM2NnY1BRQVRoMy9ldWlSZGVJdkNDNEdQWWRoTzlV?=
- =?utf-8?B?K2ZwVEI3bjgzd1l0QmhLRzVRZ29QdHdNZTRyM0ZBUEFBeUZHV3g2dVZUYnB1?=
- =?utf-8?B?NzRTV0JkT2ZZaE95QkxkN1Ewb1poa1dHaEJvclBHSUdnRXBONDA4SlpVQ29v?=
- =?utf-8?Q?QC24X2X0/kQBnG5rJN?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9f7bbaa-e450-4695-b251-08dec6bea395
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-OriginatorOrg: siliconsignals.io
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 07:05:22.5788
+X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: d82e1bdb-37e4-43ce-8b14-08dec6bf8429
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jun 2026 07:11:39.1515
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +jcpW5n71EkJnjSrLpPbEVLknf/3YNE0O8pZQe0UKv4Ww45oXdr9BpIzkalxRg/j
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8598
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Y8lvJgCsMHIppLx2csa7ZWb07f75/5Ydt/A8rPl7DwtRyVRY8Guf+ryG4njmfj32fpkSz0xs37ADyPdJRVs5j9r4oylEA/A0/TW2TkatodE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PNXP287MB4084
 
-On 6/9/26 16:58, Bobby Eshleman wrote:
-> On Mon, Jun 08, 2026 at 03:59:04PM +0200, Christian König wrote:
->> On 6/8/26 15:55, Bobby Eshleman wrote:
->>>
->>> On Sun, Jun 7, 2026 at 11:42 PM Christian König <christian.koenig@amd.com <mailto:christian.koenig@amd.com>> wrote:
->>>
->>>     On 6/5/26 20:44, Bobby Eshleman wrote:
->>>     > On Fri, Jun 05, 2026 at 11:30:07AM +0200, Christian König wrote:
->>>     >> On 6/4/26 02:42, Bobby Eshleman wrote:
->>>     >>> From: Bobby Eshleman <bobbyeshleman@meta.com <mailto:bobbyeshleman@meta.com>>
->>>     >>>
->>>     >>> get_sg_table() emitted one PAGE_SIZE sg entry per page even when the
->>>     >>> underlying folio was larger.
->>>     >>>
->>>     >>> Instead, walk folios[] and emit one sg entry per folio. When folios
->>>     >>> represent large pages (as is for MFD_HUGETLB), each sg entry is a large
->>>     >>> page. Normal PAGE_SIZE sg tables are unchanged.
->>>     >>>
->>>     >>> Required by net/core/devmem to support rx-buf-size > PAGE_SIZE with
->>>     >>> udmabuf.
->>>     >>
->>>     >> That doesn't explain why this is required.
->>>     >
->>>     > Sure, can definitely add. Devmem currently requires dmabuf sg entries to
->>>     > be length and size aligned when it allocates niovs for NIC page pools.
->>>     > Though udmabuf is not violating any dmabuf contract by emitting
->>>     > PAGE_SIZE entries and the above restriction is probably more a
->>>     > shortfalling of devmem, by emitting a single entry per folio this patch
->>>     > allows udmabuf to be used by devmem for large pages.
->>>     >
->>>     >>
->>>     >> Please note that accessing the pages/folio of an sg-table returned by DMA-buf is illegal and strictly forbidden!
->>>     >>
->>>     >> Regards,
->>>     >> Christian.
->>>     >
->>>     > It seems both devmem and io_uring zcrx at least introspect through to
->>>     > the sg-table to build NIC page pools (not accessing the memory itself,
->>>     > however). Is there a better way?
->>>
->>>     That's an absolute NO-GO! We need to stop that immediately.
->>>
->>>     Touching the underlying struct page of an DMA-buf exported sg-table is strictly forbidden.
->>>
->>>     We even have code to wrap the sg_table and hide the struct pages on debug builds to catch those issues, see function dma_buf_wrap_sg_table().
->>>
->>>     My last status is that the NIC page pools are build directly from the DMA addresses exposed by the sg_table.
->>>
->>>     Was there any change I'm not aware of?
->>>
->>>     Regards,
->>>     Christian.
->>>
->>>
->>> Oh no change, your mental model is still current.
->>> They just go through each sg and use sg_dma_address() on each.
->>
->> Ah, thanks! That was a near heart attack :D
->>
->> Yeah that is perfectly correct, question is do you then still really need this udmabuf change? I mean the DMA API usually merges together contiguous DMA addresses.
->>
->> Regards,
->> Christian.
->>
-> 
-> Hey Christian, sorry for the delay I justed want to double check what
-> I'm seeing...
-> 
-> I reverted the udmabuf patch and confirmed devmem still runs into 4K
-> pages even for hugepage udmabuf. I see that the dma_map_direct() path is
-> being taken, which if I am reading the code correctly results in the
-> sg_dma_len(sg) inheriting sg->length directly (set by udmabuf's
-> sg_set_folio(..., PAGE_SIZE) call), compared to the iommu_dma_map_phys()
-> path which looks like it does merge when possible.
-
-
-Ok that makes more sense. Yeah something which could potentially be improved elsewhere.
-
-Feel free to go ahead with this patch as a workaround, just adjust the commit message and maybe add a code comment why it is necessary and helpful.
-
-Thanks,
-Christian.
-
-> 
-> Best,
-> Bobby
-
+Hi Kate,=0A=
+=0A=
+I noticed a few more issues. Could you please check the comments below?=0A=
+=0A=
+Sorry, I missed these in my first review.=0A=
+=0A=
+> Add a new driver for Sony imx471 camera sensor. It is based on=0A=
+> Jimmy Su <jimmy.su@intel.com> implementation and the driver can be found=
+=0A=
+> in the following URL.=0A=
+> https://github.com/intel/ipu6-drivers/commits/master/drivers/media/i2c/im=
+x471.c=0A=
+>=0A=
+> This sensor can be found on Lenovo X1 Carbon G14, X9-14 and X9-15 laptops=
+=0A=
+> and it is a part of IPU7 solution. The driver was tested on Lenovo X1=0A=
+> Carbon G14, X9-14 and X9-15 laptops.=0A=
+>=0A=
+> Signed-off-by: Kate Hsuan <hpa@redhat.com>=0A=
+=0A=
+...=0A=
+=0A=
+> +#define IMX471_REG_CSI_DATA_FORMAT             CCI_REG16(0x0112)=0A=
+> +#define IMX471_CSI_DATA_FORMAT_RAW10           0x0a0a=0A=
+> +=0A=
+> +#define IMX471_REG_CSI_LANE_MODE               CCI_REG8(0x0114)=0A=
+> +#define IMX471_CSI_2_LANE_MODE                 1=0A=
+> +#define IMX471_CSI_4_LANE_MODE                 3=0A=
+=0A=
+The CSI data format (0x0112) and lane mode (0x0114) registers are defined b=
+ut=0A=
+never programmed.=0A=
+=0A=
+The out-of-tree driver mentioned in the cover letter configures these regis=
+ters=0A=
+during initialization. Shouldn't the same settings be applied here as part =
+of=0A=
+the global register configuration?=0A=
+=0A=
+...=0A=
+=0A=
+> +static const char * const imx471_supply_name[] =3D {=0A=
+> +       "avdd",=0A=
+> +};=0A=
+=0A=
+Only avdd is defined as a regulator supply.=0A=
+=0A=
+According to the datasheet, are there any additional power rails=0A=
+(e.g. dvdd or iovdd) required by the sensor?=0A=
+=0A=
+=0A=
+...=0A=
+=0A=
+> +       { CCI_REG8(0x0307), 0x79 },=0A=
+> +       { CCI_REG8(0x030b), 0x01 },=0A=
+> +       { CCI_REG8(0x030d), 0x02 },=0A=
+> +       { CCI_REG8(0x030e), 0x00 },=0A=
+> +       { CCI_REG8(0x030f), 0x53 },=0A=
+> +       { CCI_REG8(0x0310), 0x01 },=0A=
+> +       { IMX471_REG_EXPOSURE, IMX471_EXPOSURE_DEFAULT },=0A=
+=0A=
+drop this setting above.=0A=
+=0A=
+> +       { CCI_REG8(0x3f4c), 0x81 },=0A=
+> +       { CCI_REG8(0x3f4d), 0x81 },=0A=
+> +       { CCI_REG8(0x3f78), 0x01 },=0A=
+> +       { CCI_REG8(0x3f79), 0x31 },=0A=
+> +       { CCI_REG8(0x3ffe), 0x00 },=0A=
+> +       { CCI_REG8(0x3fff), 0x8a },=0A=
+> +       { CCI_REG8(0x5f0a), 0xb6 },=0A=
+> +};=0A=
+=0A=
+...=0A=
+=0A=
+> +static int imx471_set_ctrl(struct v4l2_ctrl *ctrl)=0A=
+> +{=0A=
+> +       struct imx471 *sensor =3D container_of_const(ctrl->handler,=0A=
+> +                                                  struct imx471,=0A=
+> +                                                  ctrl_handler);=0A=
+> +       struct v4l2_subdev_state *state =3D=0A=
+> +                       v4l2_subdev_get_locked_active_state(&sensor->sd);=
+=0A=
+> +       const struct v4l2_mbus_framefmt *format =3D=0A=
+> +                       v4l2_subdev_state_get_format(state, 0);=0A=
+> +       s64 exposure_max;=0A=
+> +       int ret;=0A=
+> +=0A=
+> +       if (ctrl->id =3D=3D V4L2_CID_VBLANK) {=0A=
+> +               exposure_max =3D=0A=
+> +                       format->height + ctrl->val - IMX471_EXPOSURE_MARG=
+IN;=0A=
+> +               ret =3D __v4l2_ctrl_modify_range(sensor->exposure,=0A=
+> +                                              sensor->exposure->minimum,=
+=0A=
+> +                                              exposure_max,=0A=
+> +                                              sensor->exposure->step,=0A=
+> +                                              exposure_max);=0A=
+> +               if (ret)=0A=
+> +                       return ret;=0A=
+> +       }=0A=
+> +=0A=
+> +       /* V4L2 controls values will be applied only when power is alread=
+y up */=0A=
+> +       if (!pm_runtime_get_if_in_use(sensor->dev))=0A=
+=0A=
+Use pm_runtime_get_if_active() or update the comment. With pm_runtime_get_i=
+f_in_use(),=0A=
+the comment should say "applied only when the device is in use".=0A=
+=0A=
+> +               return 0;=0A=
+> +=0A=
+> +       switch (ctrl->id) {=0A=
+> +       case V4L2_CID_ANALOGUE_GAIN:=0A=
+> +               ret =3D cci_write(sensor->regmap, IMX471_REG_ANALOG_GAIN,=
+=0A=
+> +                               ctrl->val, NULL);=0A=
+> +               break;=0A=
+> +       case V4L2_CID_DIGITAL_GAIN:=0A=
+> +               ret =3D cci_write(sensor->regmap, IMX471_REG_DIG_GAIN_GLO=
+BAL,=0A=
+> +                               ctrl->val, NULL);=0A=
+> +               break;=0A=
+> +       case V4L2_CID_EXPOSURE:=0A=
+> +               ret =3D cci_write(sensor->regmap, IMX471_REG_EXPOSURE,=0A=
+> +                               ctrl->val, &ret);=0A=
+> +               break;=0A=
+> +       case V4L2_CID_VBLANK:=0A=
+> +               /* Update FLL that meets expected vertical blanking */=0A=
+> +               ret =3D cci_write(sensor->regmap, IMX471_REG_FLL,=0A=
+> +                               format->height + ctrl->val, &ret);=0A=
+> +               break;=0A=
+> +       case V4L2_CID_TEST_PATTERN:=0A=
+> +               ret =3D cci_write(sensor->regmap, IMX471_REG_TEST_PATTERN=
+,=0A=
+> +                               ctrl->val, NULL);=0A=
+> +               break;=0A=
+> +       case V4L2_CID_HFLIP:=0A=
+> +       case V4L2_CID_VFLIP:=0A=
+> +               ret =3D cci_write(sensor->regmap, IMX471_REG_ORIENTATION,=
+=0A=
+> +                               sensor->hflip->val | sensor->vflip->val <=
+< 1, NULL);=0A=
+> +               break;=0A=
+> +       default:=0A=
+> +               ret =3D -EINVAL;=0A=
+> +               dev_info(sensor->dev, "ctrl(id:0x%x,val:0x%x) is not hand=
+led",=0A=
+=0A=
+Use dev_err.=0A=
+=0A=
+> +                        ctrl->id, ctrl->val);=0A=
+> +               break;=0A=
+> +       }=0A=
+> +=0A=
+> +       pm_runtime_put(sensor->dev);=0A=
+> +=0A=
+> +       return ret;=0A=
+> +}=0A=
+=0A=
+...=0A=
+=0A=
+> +static int imx471_set_pad_format(struct v4l2_subdev *sd,=0A=
+> +                                struct v4l2_subdev_state *sd_state,=0A=
+> +                                struct v4l2_subdev_format *fmt)=0A=
+> +{=0A=
+> +       struct imx471 *sensor =3D to_imx471(sd);=0A=
+> +       const struct imx471_mode *mode;=0A=
+> +       u64 pixel_rate;=0A=
+> +       int h_blank;=0A=
+> +       int ret;=0A=
+=0A=
+int h_blank, ret;=0A=
+=0A=
+> +=0A=
+> +       mode =3D v4l2_find_nearest_size(imx471_modes,=0A=
+> +                                     ARRAY_SIZE(imx471_modes),=0A=
+> +                                     width, height,=0A=
+> +                                     fmt->format.width, fmt->format.heig=
+ht);=0A=
+> +=0A=
+> +       imx471_update_pad_format(sensor, mode, fmt);=0A=
+> +=0A=
+> +       *v4l2_subdev_state_get_format(sd_state, fmt->pad) =3D fmt->format=
+;=0A=
+> +=0A=
+> +       if (fmt->which =3D=3D V4L2_SUBDEV_FORMAT_TRY)=0A=
+> +               return 0;=0A=
+> +=0A=
+> +       if (media_entity_is_streaming(&sensor->sd.entity))=0A=
+> +               return -EBUSY;=0A=
+> +=0A=
+> +       pixel_rate =3D div_u64(IMX471_LINK_FREQ_DEFAULT * 2 * 4, 10);=0A=
+> +       ret =3D __v4l2_ctrl_modify_range(sensor->pixel_rate,=0A=
+> +                                      V4L2_CID_PIXEL_RATE,=0A=
+> +                                      pixel_rate, 1, pixel_rate);=0A=
+> +       if (ret)=0A=
+> +               return ret;=0A=
+=0A=
+Why do we need this? You have a fixed pixel_rate. Drop the settings above.=
+=0A=
+=0A=
+> +=0A=
+> +       ret =3D __v4l2_ctrl_modify_range(sensor->vblank,=0A=
+> +                                      mode->fll_min - mode->height,=0A=
+> +                                      IMX471_FLL_MAX - mode->height,=0A=
+> +                                      1,=0A=
+> +                                      mode->fll_def - mode->height);=0A=
+> +       if (ret)=0A=
+> +               return ret;=0A=
+> +=0A=
+> +       h_blank =3D mode->llp - mode->width;=0A=
+> +       /*=0A=
+> +        * Currently hblank is not changeable.=0A=
+> +        * So FPS control is done only by vblank.=0A=
+> +        */=0A=
+> +       return __v4l2_ctrl_modify_range(sensor->hblank, h_blank,=0A=
+> +                                       h_blank, 1, h_blank);=0A=
+> +}=0A=
+=0A=
+...=0A=
+=0A=
+> +static int imx471_enable_stream(struct v4l2_subdev *sd,=0A=
+> +                               struct v4l2_subdev_state *state,=0A=
+> +                               u32 pad, u64 streams_mask)=0A=
+> +{=0A=
+> +       struct imx471 *sensor =3D to_imx471(sd);=0A=
+> +       const struct imx471_mode *mode;=0A=
+> +       struct v4l2_mbus_framefmt *fmt;=0A=
+> +       int ret;=0A=
+> +=0A=
+> +       ret =3D pm_runtime_resume_and_get(sensor->dev);=0A=
+> +       if (ret)=0A=
+> +               return ret;=0A=
+> +=0A=
+> +       ret =3D imx471_identify_module(sensor);=0A=
+> +       if (ret)=0A=
+> +               return ret;=0A=
+=0A=
+Runtime PM leak. Please call error_powerdown at return path.=0A=
+=0A=
+> +=0A=
+> +       ret =3D cci_multi_reg_write(sensor->regmap, imx471_global_regs,=
+=0A=
+> +                                 ARRAY_SIZE(imx471_global_regs), NULL);=
+=0A=
+> +       if (ret) {=0A=
+> +               dev_err(sensor->dev, "failed to set global settings: %d",=
+ ret);=0A=
+> +               goto error_powerdown;=0A=
+> +       }=0A=
+> +=0A=
+> +       state =3D v4l2_subdev_get_locked_active_state(&sensor->sd);=0A=
+=0A=
+Why is the active state retrieved again here? state is already passed to en=
+able_stream()=0A=
+=0A=
+Drop this line.=0A=
+=0A=
+> +       fmt =3D v4l2_subdev_state_get_format(state, 0);=0A=
+> +       mode =3D v4l2_find_nearest_size(imx471_modes, ARRAY_SIZE(imx471_m=
+odes),=0A=
+> +                                     width, height, fmt->width, fmt->hei=
+ght);=0A=
+> +=0A=
+> +       ret =3D cci_multi_reg_write(sensor->regmap, mode->default_mode_re=
+gs,=0A=
+> +                                 mode->default_mode_regs_length, NULL);=
+=0A=
+> +       if (ret) {=0A=
+> +               dev_err(sensor->dev, "failed to set mode: %d", ret);=0A=
+> +               goto error_powerdown;=0A=
+> +       }=0A=
+> +=0A=
+> +       ret =3D cci_write(sensor->regmap, IMX471_REG_DPGA_USE_GLOBAL_GAIN=
+, 1, NULL);=0A=
+> +       if (ret)=0A=
+> +               goto error_powerdown;=0A=
+> +=0A=
+> +       ret =3D __v4l2_ctrl_handler_setup(&sensor->ctrl_handler);=0A=
+> +       if (ret)=0A=
+> +               goto error_powerdown;=0A=
+> +=0A=
+> +       ret =3D cci_write(sensor->regmap, IMX471_REG_MODE_SELECT,=0A=
+> +                       IMX471_MODE_STREAMING, NULL);=0A=
+> +       if (ret)=0A=
+> +               goto error_powerdown;=0A=
+> +=0A=
+> +       __v4l2_ctrl_grab(sensor->vflip, true);=0A=
+> +       __v4l2_ctrl_grab(sensor->hflip, true);=0A=
+> +=0A=
+> +       return ret;=0A=
+> +=0A=
+> +error_powerdown:=0A=
+> +       pm_runtime_put(sensor->dev);=0A=
+> +=0A=
+> +       return ret;=0A=
+=0A=
+...=0A=
+=0A=
+> +static int imx471_init_controls(struct imx471 *sensor)=0A=
+> +{=0A=
+> +       const struct imx471_mode *mode =3D &imx471_modes[0];=0A=
+> +       struct v4l2_fwnode_device_properties props;=0A=
+> +       struct v4l2_ctrl_handler *ctrl_hdlr;=0A=
+> +       struct v4l2_ctrl *link_freq;=0A=
+> +       s64 exposure_max, hblank;=0A=
+> +       u64 pixel_rate;=0A=
+> +       int ret;=0A=
+> +=0A=
+> +       ctrl_hdlr =3D &sensor->ctrl_handler;=0A=
+> +       v4l2_ctrl_handler_init(ctrl_hdlr, 12);=0A=
+> +=0A=
+> +       ret =3D v4l2_fwnode_device_parse(sensor->dev, &props);=0A=
+> +       if (ret) {=0A=
+> +               dev_err(sensor->dev, "failed to parse fwnode: %d", ret);=
+=0A=
+> +               return ret;=0A=
+=0A=
+Memory leak, Use goto error here.=0A=
+=0A=
+> +       }=0A=
+> +=0A=
+> +       v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &imx471_ctrl_ops, &pro=
+ps);=0A=
+> +=0A=
+> +       link_freq =3D v4l2_ctrl_new_int_menu(ctrl_hdlr,=0A=
+> +                                          &imx471_ctrl_ops,=0A=
+> +                                          V4L2_CID_LINK_FREQ,=0A=
+> +                                          ARRAY_SIZE(link_freq_menu_item=
+s) - 1,=0A=
+> +                                          0,=0A=
+> +                                          link_freq_menu_items);=0A=
+> +=0A=
+> +       /* pixel_rate =3D link_freq * 2 * nr_of_lanes / bits_per_sample *=
+/=0A=
+> +       pixel_rate =3D div_u64(IMX471_LINK_FREQ_DEFAULT * 2 * 4, 10);=0A=
+> +=0A=
+> +       sensor->pixel_rate =3D v4l2_ctrl_new_std(ctrl_hdlr, &imx471_ctrl_=
+ops,=0A=
+> +                                              V4L2_CID_PIXEL_RATE, pixel=
+_rate,=0A=
+> +                                              pixel_rate, 1, pixel_rate)=
+;=0A=
+=0A=
+You can drop pixel_rate from struct sensor. it is not used anywhere in the =
+driver.=0A=
+=0A=
+> +=0A=
+> +       sensor->vblank =3D v4l2_ctrl_new_std(ctrl_hdlr,=0A=
+> +                                          &imx471_ctrl_ops,=0A=
+> +                                          V4L2_CID_VBLANK,=0A=
+> +                                          mode->fll_min - mode->height,=
+=0A=
+> +                                          IMX471_FLL_MAX - mode->height,=
+=0A=
+> +                                          1,=0A=
+> +                                          mode->fll_def - mode->height);=
+=0A=
+> +=0A=
+> +       hblank =3D mode->llp - mode->width;=0A=
+> +       sensor->hblank =3D v4l2_ctrl_new_std(ctrl_hdlr, &imx471_ctrl_ops,=
+=0A=
+> +                                          V4L2_CID_HBLANK, hblank, hblan=
+k,=0A=
+> +                                          1, hblank);=0A=
+> +=0A=
+> +       /* fll >=3D exposure time + adjust parameter (default value is 18=
+) */=0A=
+> +       exposure_max =3D mode->fll_def - IMX471_EXPOSURE_MARGIN;=0A=
+> +       sensor->exposure =3D v4l2_ctrl_new_std(ctrl_hdlr, &imx471_ctrl_op=
+s,=0A=
+> +                                            V4L2_CID_EXPOSURE,=0A=
+> +                                            IMX471_EXPOSURE_MIN, exposur=
+e_max,=0A=
+> +                                            IMX471_EXPOSURE_STEP,=0A=
+> +                                            IMX471_EXPOSURE_DEFAULT);=0A=
+> +=0A=
+> +       v4l2_ctrl_new_std(ctrl_hdlr, &imx471_ctrl_ops, V4L2_CID_ANALOGUE_=
+GAIN,=0A=
+> +                         IMX471_ANA_GAIN_MIN, IMX471_ANA_GAIN_MAX,=0A=
+> +                         IMX471_ANA_GAIN_STEP, IMX471_ANA_GAIN_DEFAULT);=
+=0A=
+> +=0A=
+> +       v4l2_ctrl_new_std(ctrl_hdlr, &imx471_ctrl_ops, V4L2_CID_DIGITAL_G=
+AIN,=0A=
+> +                         IMX471_DGTL_GAIN_MIN, IMX471_DGTL_GAIN_MAX,=0A=
+> +                         IMX471_DGTL_GAIN_STEP, IMX471_DGTL_GAIN_DEFAULT=
+);=0A=
+> +=0A=
+> +       v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &imx471_ctrl_ops,=0A=
+> +                                    V4L2_CID_TEST_PATTERN,=0A=
+> +                                    ARRAY_SIZE(imx471_test_pattern_menu)=
+ - 1,=0A=
+> +                                    0, 0, imx471_test_pattern_menu);=0A=
+> +=0A=
+> +       sensor->hflip =3D v4l2_ctrl_new_std(ctrl_hdlr, &imx471_ctrl_ops,=
+=0A=
+> +                                         V4L2_CID_HFLIP, 0, 1, 1, 0);=0A=
+> +=0A=
+> +       sensor->vflip =3D v4l2_ctrl_new_std(ctrl_hdlr, &imx471_ctrl_ops,=
+=0A=
+> +                                         V4L2_CID_VFLIP, 0, 1, 1, 0);=0A=
+> +=0A=
+> +       if (ctrl_hdlr->error) {=0A=
+> +               dev_err(sensor->dev, "%s control init failed: %d",=0A=
+> +                       __func__, ctrl_hdlr->error);=0A=
+> +               goto error;=0A=
+> +       }=0A=
+> +=0A=
+> +       link_freq->flags |=3D V4L2_CTRL_FLAG_READ_ONLY;=0A=
+> +       sensor->hblank->flags |=3D V4L2_CTRL_FLAG_READ_ONLY;=0A=
+> +       sensor->hflip->flags |=3D V4L2_CTRL_FLAG_MODIFY_LAYOUT;=0A=
+> +       sensor->vflip->flags |=3D V4L2_CTRL_FLAG_MODIFY_LAYOUT;=0A=
+> +=0A=
+> +       sensor->sd.ctrl_handler =3D ctrl_hdlr;=0A=
+> +=0A=
+> +       return 0;=0A=
+> +=0A=
+> +error:=0A=
+> +       v4l2_ctrl_handler_free(ctrl_hdlr);=0A=
+> +=0A=
+> +       return ctrl_hdlr->error;=0A=
+> +}=0A=
+> +=0A=
+> +static int imx471_check_hwcfg(struct imx471 *sensor)=0A=
+> +{=0A=
+> +       struct v4l2_fwnode_endpoint bus_cfg =3D {=0A=
+> +               .bus_type =3D V4L2_MBUS_CSI2_DPHY,=0A=
+> +       };=0A=
+> +       struct fwnode_handle *ep, *fwnode =3D dev_fwnode(sensor->dev);=0A=
+> +       unsigned long link_freq_bitmap;=0A=
+> +       struct clk *clk;=0A=
+> +       int ret;=0A=
+> +=0A=
+> +       clk =3D devm_v4l2_sensor_clk_get(sensor->dev, NULL);=0A=
+> +       if (IS_ERR(clk))=0A=
+> +               return dev_err_probe(sensor->dev, PTR_ERR(clk),=0A=
+> +                                    "can't get clock frequency\n");=0A=
+> +=0A=
+> +       if (clk_get_rate(clk) !=3D IMX471_EXT_CLK)=0A=
+> +               return dev_err_probe(sensor->dev, -EINVAL,=0A=
+> +                                    "external clock %lu is not supported=
+\n",=0A=
+> +                                    clk_get_rate(clk));=0A=
+> +=0A=
+> +       ep =3D fwnode_graph_get_endpoint_by_id(fwnode, 0, 0, 0);=0A=
+> +       ret =3D v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);=0A=
+> +       fwnode_handle_put(ep);=0A=
+> +       if (ret)=0A=
+> +               return dev_err_probe(sensor->dev, ret,=0A=
+> +                                    "parsing endpoint failed");=0A=
+> +=0A=
+> +       ret =3D v4l2_link_freq_to_bitmap(sensor->dev, bus_cfg.link_freque=
+ncies,=0A=
+> +                                      bus_cfg.nr_of_link_frequencies,=0A=
+> +                                      link_freq_menu_items,=0A=
+> +                                      ARRAY_SIZE(link_freq_menu_items),=
+=0A=
+> +                                      &link_freq_bitmap);=0A=
+> +=0A=
+> +       v4l2_fwnode_endpoint_free(&bus_cfg);=0A=
+=0A=
+The sensor supports both 2 and 4 CSI-2 data lanes, but this driver only=0A=
+implements the 4-lane configuration. Please validate the data-lanes propert=
+y=0A=
+and reject anything other than 4 lanes.=0A=
+=0A=
+> +=0A=
+> +       return ret;=0A=
+> +}=0A=
+=0A=
+...=0A=
+=0A=
+> +static const struct acpi_device_id imx471_acpi_ids[] __maybe_unused =3D =
+{=0A=
+> +       { "SONY471A" },=0A=
+> +       { "TBE20A0" },=0A=
+> +       { /* sentinel */ }=0A=
+> +};=0A=
+> +MODULE_DEVICE_TABLE(acpi, imx471_acpi_ids);=0A=
+> +=0A=
+> +static struct i2c_driver imx471_i2c_driver =3D {=0A=
+> +       .driver =3D {=0A=
+> +               .name =3D "imx471",=0A=
+> +               .acpi_match_table =3D ACPI_PTR(imx471_acpi_ids),=0A=
+=0A=
+Could you please add .of_match_table as well? The driver can also be used=
+=0A=
+on DT-based systems.=0A=
+=0A=
+> +               .pm =3D pm_sleep_ptr(&imx471_pm_ops),=0A=
+> +       },=0A=
+> +       .probe =3D imx471_probe,=0A=
+> +       .remove =3D imx471_remove,=0A=
+> +};=0A=
+> +module_i2c_driver(imx471_i2c_driver);=0A=
+> +=0A=
+> +MODULE_AUTHOR("Jimmy Su <jimmy.su@intel.com>");=0A=
+> +MODULE_AUTHOR("Serin Yeh <serin.yeh@intel.com>");=0A=
+> +MODULE_AUTHOR("Kate Hsuan <hpa@redhat.com>");=0A=
+> +MODULE_DESCRIPTION("Sony imx471 sensor driver");=0A=
+> +MODULE_LICENSE("GPL");=0A=
+> --=0A=
+> 2.54.0=0A=
+=0A=
+Best Regards,=0A=
+Tarang=
