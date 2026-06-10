@@ -1,117 +1,142 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A033F888F
-	for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 11:51:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C702403AF7
+	for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 11:59:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781092269; cv=none; b=Ai3ybw9pXzgnL2HAx71WM87pWFw0SX286oem6XJ8VjKj0vuf/4B86zECrbVC2eZP8xSb+mqT84wAUtieGmfgA9JsIFnvSuEbe5oB5Y6+Jmfy5UnBpsIJ4m3ot3DrCBzw7KSFl97l0BTpoYzty+2uVqnudo7q/AZd9IhSPziowVY=
+	t=1781092794; cv=none; b=qP6hriH1+FwCV+wezflGtby+9sORH1xnDeX71pMOyQ/4h4rteOPpPG6DA44k5T4WPTPSfzhBsx3cK2oZ8O8vIBnm4Gjq3F2qkEUNR0ra6Ws1ExWfvQrJCGhjykoYGeTMcpG893mjzUHrkkk5zzxryRIVV6ZghRh6wP3YyUTn7gI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781092269; c=relaxed/simple;
-	bh=pYgGppqJBjl7O9f0ZsR/3P9jK61RcTsDbxK59IzpasE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JY/XqdPKhNfSecYUfqJ45JQPjGYmzSswcfwTYfZQ+dOsehK7T0cNr0SXT0pr4zI22dl97XX5Z6ospI6qYRTTZ0kS6YjRM/lN4nV74nabEgNsehLDcNb6IY8QIyQosdVq7Dw+sdHQE7zemxHrzjSgUjnVwMXkkCJIsuwAVsHb3Y0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr; spf=pass smtp.mailfrom=snu.ac.kr; dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b=y1ZudF5Q; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
+	s=arc-20240116; t=1781092794; c=relaxed/simple;
+	bh=qXxoU9aDRB/ooJ6quyba9eDrPY0QOPYpnOK3JIfo8d8=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=X27D5+qHUJukJGrA5Fd3/FsPQ3108oiTXAkXi4KWawNNv/YM9I5FO3Jn6S/bPZiBaoLjDv3Rm6uSACfLuYEEXAUtSRTH+qXke11wLAfAZDyZOeJjIzK0vYQwEd3eTKi3MSJw9bEx/dxolHJRAR2Cw62l9EMAS2XUlY30bqhYeN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=fail (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Uq+yW7pQ reason="signature verification failed"; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="y1ZudF5Q"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-36d5fd50d20so4337877a91.1
-        for <linux-media@vger.kernel.org>; Wed, 10 Jun 2026 04:51:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=snu.ac.kr; s=google; t=1781092267; x=1781697067; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=+blTcUrJKIlXgCL/CdRUN4lD5XyjCjVsFhKX65o82QM=;
-        b=y1ZudF5QVJZLExllWCUJOj85VilYTVglyuSlSteDugSJkwTxVU7XqlEjkEWz7zAYTy
-         nE/fCLUZXPj/WOXzJbo6Vyu0Ad+ZWZGrcjVMGfOSipIZBYmtS3VmNfJjl8SvhF21IQ3F
-         nfhIvLLV0y4f772USwdIM7k5uSIrhqrV4EY2U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781092267; x=1781697067;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+blTcUrJKIlXgCL/CdRUN4lD5XyjCjVsFhKX65o82QM=;
-        b=rT5+1yiws+gNRUPpgSXz7V3MmQ3tuNWj9K6q7slkw8wQbboIfSuVzpdOgAjnCLi8iG
-         MBSxmEKDd9ijeZuipe8gTI3ifUuMt4UQlbd7jqhR818Zy3qUXFFFuR2qQ/LIloL6T5sY
-         i3HJgBdcGmUApUQLfuF/i6LEGN2WmaTaQOj2m/GP3ajLEG0UiNidbiZHZ09dAyYBinzV
-         UruQfPDRwI3yEDqF71B1jskmZzbYPynSt5o1hn6Fasxq8aWqeLdlll+Zxu4FgBwVQyLr
-         wUZFC3HuCIwWN73yd1VGjPN1bQsuAh37GKVC2zxlpxfoPBSvMxCJZTXECGxDyk6GvNgq
-         5JqA==
-X-Forwarded-Encrypted: i=1; AFNElJ+iDKgrSM0fkK51rhxskcuwaWs5F0om1csxptP4IGPhdvZLpBdPYl1J3dIK4TsOWezVs54HzfwHsr/ZFg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzSIslB7UhHDEUD+ONlzU9FUzkesXCcjJnaGxBruVG8yEaIAj6w
-	BEy72bsC3qh/yJ3pHUcWKOUIArU0vQWqIOY8kFNASKEaR+l2pbj2f69Z4uHhOrsYQ48=
-X-Gm-Gg: Acq92OE9g55occZfEF+zdS6g1oI5SniIzOj3vU1g0DnN/Mkz20riV6tvvbiwySyQjlw
-	fuK34DM7mll1PCuEiQ4sdUzSqXl5S9EX1k7R8kogzrelNvIry2gUTqj/Tkz+KVeW6Hd6NYs5fn8
-	h/Rz5O0GpnAVRlfgp2XKQso8x9OGfz3p3Pu9M2NMmJdWQww+HM3iIBywaEBcMu3Sc8e1Yr6QcPR
-	zWme3Qk9HzZzvUp339FQoFuN/2I+1VjOwyk8q1BwN2Nq3KQQ40nbpBTOY/jRX4I2pSPBun+Jydj
-	QliLQwSZBrM8fqe7uE7MNAYV3ZfyP34M15jNAtB48rficuIIySTTyOdY2OuVnNIyRe8jKZ2Tbdf
-	Q2xS54V0vWw/Q4C9SCEI1kyNp+ByYIeXAPW/mAwTZPeztZw+BWvMgQalW7LzM2hUUGWNwaPm+Rw
-	VRs3fPf4L5P08/Cy2DhL8hPPkwqOmN3GZBGkufawLN7OLcht3HfBTD7pYT+4KAdJTAAGE=
-X-Received: by 2002:a17:90b:38c8:b0:36d:b12f:613c with SMTP id 98e67ed59e1d1-370ef2f0208mr26384305a91.10.1781092267019;
-        Wed, 10 Jun 2026 04:51:07 -0700 (PDT)
-Received: from nunu.. (nunu.snu.ac.kr. [147.46.112.82])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f70a28c0esm23024847a91.12.2026.06.10.04.51.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 04:51:05 -0700 (PDT)
-From: Jaeyoung Chung <jjy600901@snu.ac.kr>
-To: Bluecherry Maintainers <maintainers@bluecherrydvr.com>,
-	Ismael Luceno <ismael@iodev.co.uk>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Jaeyoung Chung <jjy600901@snu.ac.kr>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sangyun Kim <sangyun.kim@snu.ac.kr>,
-	Kyungwook Boo <bookyungwook@gmail.com>
-Subject: media: solo6x10: KASAN wild-memory-access in complete() on early IRQ
-Date: Wed, 10 Jun 2026 20:51:00 +0900
-Message-Id: <20260610115100.758131-1-jjy600901@snu.ac.kr>
-X-Mailer: git-send-email 2.34.1
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Uq+yW7pQ"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:bcf2:9325:a9bd:32b:e71])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 69F93517;
+	Wed, 10 Jun 2026 13:59:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1781092761;
+	bh=qXxoU9aDRB/ooJ6quyba9eDrPY0QOPYpnOK3JIfo8d8=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=Uq+yW7pQCyGuTtK7ANBDz0XWVpd0mFJ7cDes3zRxZAiDnEEhdZ19ityUMJYHfOjfZ
+	 +SW90XmAg7/Gg7l7LJJbbEJv5LZWlENg8piqd9tFQAcDaoMNeduffLCXWMBpN76vQy
+	 0s74Hx3Ng4l06n4yBYcTTZNRrg6gUClU6NiHBCjI=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <aik8uVK0Gn-csptp@kekkonen.localdomain>
+References: <20260607215356.842932-1-sakari.ailus@linux.intel.com> <20260607215356.842932-7-sakari.ailus@linux.intel.com> <aiZnQgyEBkZH7er0@zed> <178091466607.16054.13972332068848565738@freya> <CAPY8ntBshAPkN_7Swz4qpbOjhpu5Gfnd5VkZPrgUgUoNrM0pEg@mail.gmail.com> <178102372666.1799417.2096397903236324900@freya> <aik8uVK0Gn-csptp@kekkonen.localdomain>
+Subject: Re: [PATCH v5 06/10] media: imx219: Fix vertical blanking and exposure for analogue binning
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Hans Verkuil <hans@jjverkuil.nl>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, linux-media@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>, Tommaso Merciai <tomm.merciai@gmail.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Julien Massot <julien.massot@collabora.com>, Naushir Patuck <naush@raspberrypi.com>, "Yan, Dongcheng" <dongcheng.yan@intel.com>, Stefan Klug <stefan.klug@ideasonboard.com>, Mirela Rabulea <mirela.rabulea@nxp.com>, =?utf-8?q?Andr=C3=A9?= Apitzsch <git@apitzsch.eu>, Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Mehdi Djait <mehdi.djait@linux.intel.com>, Ricardo Ribalda Delgado <ribalda@kernel.org>, Hans de Goede <hansg@kernel.org>, Tomi Valkeinen <tomi.valkeinen@
+ ideasonboard.com>, David Plowman <david.plowman@raspberrypi.com>, "Yu, Ong Hock" <ong.hock.yu@intel.com>, "Ng, Khai Wen" <khai.wen.ng@intel.com>, Rishikesh Donadkar <r-donadkar@ti.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Date: Wed, 10 Jun 2026 17:29:44 +0530
+Message-ID: <178109278474.1799417.18287287051075453620@freya>
+User-Agent: alot/0.13.dev35+g4a69c46ca
 
-Hi,
+Hi Sakari,
 
-solo_pci_probe() in drivers/media/pci/solo6x10/solo6x10-core.c registers
-the interrupt handler solo_isr() with devm_request_irq() before it
-initializes each p2m_dev->completion with init_completion() in
-solo_p2m_init(). If an interrupt arrives after devm_request_irq() and
-before solo_p2m_init(), the handler calls complete() on an
-uninitialized completion, causing a kernel panic.
+Quoting Sakari Ailus (2026-06-10 16:00:17)
+> Hi Jai,
+>=20
+> On Tue, Jun 09, 2026 at 10:18:46PM +0530, Jai Luthra wrote:
+> > > > OPTION 2 (something that struck me today morning discussing with Ja=
+copo):
+> > > >
+> > > >     Fix PIXEL_RATE to 182400000 but **adjust the HBLANK values** to=
+ go
+> > > >     lower to compensate, which will diverge from the sensor registe=
+rs which
+> > > >     keep MIN_LINE_LENGTH fixed across both binning modes.
+> > > >
+> > > >     This will make the driver quite more complicated, but userspace
+> > > >     expectations of non-negative blankings will be met. And it's li=
+kely
+> > > >     that the sensor is internally doing pre-ADC averaging horizonta=
+lly as
+> > > >     well, or so my best guess is.
+> > >=20
+> > > It is true that the line length configured is sufficient that it could
+> > > be halved in order to keep the pixel rate the same. That would seem
+> > > feasible.
+> > >=20
+> >=20
+> > It is indeed feasible, and imho most likely what the sensor is internal=
+ly
+> > doing (I'd be happy to be proven wrong). I've posted a patch separately
+> > implementing that.
+>=20
+> I can't prove you wrong (nor right) but in general the line length in
+> pixels and frame length in lines registers on the sensor's register
+> interface really control the sensor's internal operation. These values
+> aren't divided or multiplied based on other configurations. In this case,
+> as the sensor appears to be reading out twice as many lines from its pixel
+> array as you'd expect suggests that on each step two (2x analogue binned)
+> lines are being read instead of just one, and thus four lines in the pixel
+> array get read in the same amount of time that normally would be spent
+> reading just a single line. How it does that, I don't know. Analogue
+> operation would need more hardware than there apparently is whereas digit=
+al
+> operation would require storing each even (binned) line of image data in
+> internal SRAM until the previous odd line has been sent out, while some
+> extra hardware would probably still be needed besides the SRAM. The latter
+> is my wild guess.
+>=20
+> You could ascertain the independence of horizontal and vertical binning by
+> configuring the sensor to do just horizontal or vertical binning and then
+> see how it affects the line length in pixels and frame length in lines
+> limits experimentally. My guess is that it doesn't. This may also not work
+> at all, the sensor datasheet isn't very clear about this.
+>=20
 
+Ah I remember I already tested something like that back in 2024 when I was
+trying to fix the blocky artefacts seen with x2-special-binning and
+LLP=3D3448. IIRC H-binning only did not affect the framerate.
 
-The probe path, in solo_pci_probe():
+The FLL always controls the frame rate, so I think same is true for the
+binning dimensions. What I still don't know for sure is how exposure timing
+would change given we program it in units of 2xLines while LLP is the same
+value as before, maybe that's another thing to experiment with.
 
-    solo_dev = kzalloc_obj(*solo_dev);                /* completions zeroed */
-    ...
-    ret = devm_request_irq(&pdev->dev, pdev->irq, solo_isr, /* register handler */
-                           IRQF_SHARED, SOLO6X10_NAME, solo_dev);
-    ...
-    ret = solo_p2m_init(solo_dev);                    /* init_completion() */
+I think what you are saying about "twice as many (2x analogue binned) lines
+from its pixel array" makes some sense. My updated mental model is this:
 
-The interrupt handler path solo_isr() -> solo_p2m_error_isr() calls
-complete() on the uninitialized completion:
+1. In normal x2-binning the sensor sums up charges of 2 rows of pixels at
+   the analogue level, but then reads out the whole line (3280) into SRAM
+   or similar and does the horizontal averaging in digital domain before
+   sending the data out on CSI-2 bus. It then skips reading the 2nd row.
+   So FLL size is half, but LLP stays the same.
 
-    for (i = 0; i < SOLO_NR_P2M; i++) {
-        ...
-        complete(&p2m_dev->completion);
-    }
+2. In x2-special-binning the sensor still sums up charges of 2 rows of
+   pixels at the analogue level, but it also does voltage averaging in the
+   analogue domain (some other mechanism than a shared floating diode used
+   for the vertical one I guess) but it still uses a digital buffer of
+   LLP=3D3280 where it stores two lines worth of digitized values (1640x2).
+   So 1st and 3rd row end up in the buffer, row 2nd and 4th are skipped.
+   LLP still stays the same.
 
-If the device raises an interrupt before solo_p2m_init() runs,
-complete() acquires the uninitialized wait.lock and walks the zeroed
-task_list in swake_up_locked(). The zeroed task_list makes list_empty()
-return false, so swake_up_locked() dereferences a NULL list entry,
-triggering a KASAN wild-memory-access.
+Sorry if this just sounds like a rephrase of what you said.. I'm just
+trying to wrap my head around it so I can better comment on if the new API
+should expose FLL/LLP registers directly or scale them.
 
-Suggested fix: move devm_request_irq() below solo_p2m_init(), so the
-completions are valid before the handler can run.
+I'll need to sleep on this for a few days to come up with a strong argument
+;)
 
-Reported-by: Sangyun Kim <sangyun.kim@snu.ac.kr>
-Reported-by: Kyungwook Boo <bookyungwook@gmail.com>
+Cheers,
+    Jai
 
-Thanks,
-Jaeyoung Chung
+> --=20
+> Kind regards,
+>=20
+> Sakari Ailus
