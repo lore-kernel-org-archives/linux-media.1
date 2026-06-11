@@ -1,141 +1,89 @@
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36FF12DC79A
-	for <linux-media@vger.kernel.org>; Thu, 11 Jun 2026 09:12:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781169180; cv=pass; b=jUrhTXZyNYsaOpQ3poRn4HiMylrQJ5RD/WPz7E/Y2khTFBA/Q54hP0lKy7dfuzYwI2rw9tWZeEdtj7HxGz/uULoCnC27ll2iEPUUQPvAN3/cJnGpEcsCAXgpPtCxyqZU3INwcXQVcw3HViDiOLI9/GQ6qy5DepVjyTk121maC3E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781169180; c=relaxed/simple;
-	bh=hoj0ig+CoCGbFQUO4jVjy2N6O6hJkky1VIHSBDR3r70=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=k015UmwzOh9dd39iazrcH2n1tJqye8RvSMznRiDACzlFKZ9riR52v19F9agXQtj8/cVca9QbnLUZLGJWUkIJBo+i1uQTLLiliNvu6TohRvglXO9xYHZBtACBzyv7rCOmfY1+7ZCAGbTSKB/lzqODEH/EzuiQlJZ2jWn+anawcm4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=ekIXc12a; arc=pass smtp.client-ip=209.85.128.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468F93A257C;
+	Thu, 11 Jun 2026 09:13:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781169212; cv=none; b=VSg9jqbA8GrcekPHcz1hC9I6oibVUZmxNrc+BnGNGY7Q0ItC95Boa2qA8c9CxtSha6mqibcbtoMVvSZ53MpJxYn3evn53hVhR8cJksOYbTnAry/jgrGGXaj43yD+rc6yKkG8jL6OQh5lOtfpIcGtzBsaejKrhW6Bm+WOKSN5+tE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781169212; c=relaxed/simple;
+	bh=gKOCqxKCuRbslboKZqBeDKoCrIbSkktbxTTZx61IGbk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ATpdWZhMX6JGrNrRg9rzu7gIn8u6v0IKy5WHO/mtSmhxsnFZFXW+3ODNtOUvcObiklrbea9v8dua0kEt+PZuEgeOPIWzayon6Kb1177HJFLlDgapk4/qEgBH6qxfs+byJRZHnrWJEgtwRw4ZMidU/TLdq0gR2yHvYI/FQ7tdp8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P5BO8pcr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="ekIXc12a"
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-7f5eb760240so12439827b3.0
-        for <linux-media@vger.kernel.org>; Thu, 11 Jun 2026 02:12:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781169178; cv=none;
-        d=google.com; s=arc-20240605;
-        b=PF9qLjLQmAxDcKYQs936iO2ViZqtJxtGyTDwMKk6rjBWMxAIE4/3tFOk58C7w7kY1+
-         gkX4f+1NTm/W1JqqSvJgyCzaDNrvCZzGdkdlO/FAJDsAP8kjF8f+G4Z9mstdi19dnRgz
-         S9iviZNg/qTBpM5fx7d1JQ1I1qLemYK9kqgTfkb5ZYSW4He90QXhVU17dH3Q1sScAy0o
-         SpNHcKRpAf9xKcNw5/5hLXjF6Men4NL5NtjAWRQ9ml5/VGvn7Y589j046xfa/DXDXZcN
-         df3x+KSmFcRmPRTzTY+6R0QzIKPBEOPVxPPUsBN//4kn+/yrbLxilhgECfpTOmQ4cVYJ
-         nwOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=MYKB6iu0PDtjrE3F0ztsAOmxTHIzR1YcZn5jcZ5lz6I=;
-        fh=PF6aLbX0+uqhEnXasRknA/dvpw/i7FuXoP303Ev2FBY=;
-        b=UWfiB+mbv66vd+lTSiJEi8xj6AA+VOKfYs66THoU7tKPKWFwkOH9CHPoAhQh1P0VOH
-         LXP+DADRhMvrewDlIu38SrQXNliXTrTVY81NaaeSGcV1Wu4oKtdf9TCwxAR2ELkLzIN3
-         1J6jDRWAcqkDLM8ijPPDCg1T+7PfvtyObQNZeHamqSUQWctuzAGKr0XsU9+A1yjDZgr9
-         WZSY5NE6rnv3eDQkkUxS18pynDZwMk/sBiuvbcAyEJpOXeysVgi8UQ+n3AhEvDM+JH8X
-         OZpYOsmTDeMS3ZrgJ8IoVIbkOmneLsNL9ROIqMooydGpgE5rquFYXTTEuh4MbAMSnYTN
-         0h4w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1781169178; x=1781773978; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=MYKB6iu0PDtjrE3F0ztsAOmxTHIzR1YcZn5jcZ5lz6I=;
-        b=ekIXc12afGVdUxXaQYa5y2/VWZnuBX4t1DzfChztT7VR/BCX01A18IiP3aLdD7wUXO
-         6Moo1qZIvSjzWVu93WSvxTxPh5LhTLIfaO6cJds4bK1SSV0cv80TOQcqtfBR3a/cyCvq
-         07KkEGWcWzuHV2Kn/ccQV8AIYv7dY/QAAlQANNqjeloZr9VS6p63Hma6cRvZV1JBGjMS
-         wNX/0euW/dyuwUw62NQVafyPz3dcllMSe3pYXMXSFh/dCZyDscbwhc+b40yPdEdf4iel
-         4GvwLMSHtm3hN0SYYTsiRR31vOy39aNfn4iDEMYWFfdA1uVYW7sRRU+0IWtdMjYXE1eR
-         DqRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781169178; x=1781773978;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MYKB6iu0PDtjrE3F0ztsAOmxTHIzR1YcZn5jcZ5lz6I=;
-        b=INNGqvhyiJYokCjrqT4zO6Cakz6widPsdRa2/ja6tRTTA+BywPO7vbHHDgvcwFchOT
-         09VlWpVBbY/vCdkRy35xyc1hQn/mzHFSgOF3Bo2mgnVr5TcaxtbP9YsJNhSJbbBNMxUk
-         nkW+Uw4Blqs8Vw9FArJr0T4o4rZ/unX6hHGi2M5FJzVkBb47uIahRmOXZfkN8uIV3r3b
-         LJb0fGRAtTECoRhDt4wBhqRObc6RKJ4o1MP5UaSXmKgaLi+AVR5/xQg28psA93k/mWsc
-         hyAgBSSHKjMerdG653L9LM6/EYy4ihtUUU547sN4w0zbMBkJ7VZ9K7nIWeSWH6aHzDP8
-         xWZg==
-X-Forwarded-Encrypted: i=1; AFNElJ/5E8dTd4e5T/bGR35xXEvawqHak0GOkK0vksJl/gMxSWX3Cvl8S96nYPvswpV4zNgXAAsuFTN7I9efhw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwotlObUAdWIcbuHX5t/UkutK6HNjrgL/sU+mbRNzjhny1auGUB
-	tkOhut6llWqN4VzPfct6OWfJrPGHijeGfirajnbMzVeJ0q9yBJSmWRnH1Dli9BUme/4zCiODTVH
-	fgJ8Fct/w/EFL5LK68VY3CwmNHEfNtfBq5bCpShjHy/BplEstNYH1
-X-Gm-Gg: Acq92OFuz/ueosdT5TskCRTcfB2qDJ7+a0e26KZf9AGYIN4Eg3uyDoPT56N21BfdR7B
-	1yVY0Wo9Je7L0R+cCMTJKcOnexGBe3y4Qcg7pEJZvya7c2eLESJrn3GEQ9cwEN4TKYSOGcXKNlG
-	bM+sozbdserAwtzewGDrDmiwu4EpsVybjTdDZTAJH7PC328ZCJV68SGc9+pZvpwOJ5L2fmbuuMA
-	+ESLL/oTcVbzpMsrsHAewSZ0HhgAFEpCHgPBMaRBGFveQvgBM2p500IyqbYYAun/mAMqhY5Vrsj
-	p3GK3x1RZScK49FEWFexVX3vVuaVQZqLsWvQEZOe2rGilUJ55/Ufak/wI461pi1JRGvAfgSHDJB
-	W0aEqRqFss5Rakpvz1Wzi4M9cha1fbEnBQPY=
-X-Received: by 2002:a05:690c:490c:b0:7dc:605d:7a9a with SMTP id
- 00721157ae682-7f655ee0d17mr21296917b3.12.1781169178177; Thu, 11 Jun 2026
- 02:12:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P5BO8pcr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E3A51F0089C;
+	Thu, 11 Jun 2026 09:13:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781169210;
+	bh=BxXOFmqgKP//yNlaJchWiTOa6h3bEte8EY9Rwi4U/mE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P5BO8pcrwDPMEAjCp8GZuk8zUXnYlfcEZrOUg1x7lzyuj1V0m2o6uiNnh0bGMTGlY
+	 ci0eDgeIPen4OiD7Ttm2DAW/Zn7E0E3F1wHEP1up/v+MH7m0TsifLukne+1QnWJkuC
+	 qG54ld7AXhJvtoWR1Yxmzp0SQ1vzJ9LIvBnKB6dHGtvjX53DU6D8Fbn3YylUS15J57
+	 GkAB4JKboMbSx/Y0a+xe9eoo+sirescKZLM4xeQ04zZHfamsEI/tFFoQi1gyFhTUVd
+	 wCwOXKb7YDPJrVI3CmisAKluhmyZ4sNiB8M1OJHihaF7Hs39fL3j8+BTH3rh/Fr50s
+	 0DjVZ4N5RSdQw==
+Date: Thu, 11 Jun 2026 11:13:28 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ramshouriesh <rshouriesh@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Aleksandrs Vinarskis <alex@vinarskis.com>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH 3/9] media: i2c: hm1092: add Himax HM1092 mono NIR sensor
+ driver
+Message-ID: <20260611-sloppy-happy-pony-1efc8d@quoll>
+References: <20260610-a14-himax-hm1092-v1-0-0c9907da47ed@gmail.com>
+ <20260610-a14-himax-hm1092-v1-3-0c9907da47ed@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260610-media-ci-7-2-v1-0-3c61a482a44e@chromium.org> <20260610-media-ci-7-2-v1-1-3c61a482a44e@chromium.org>
-In-Reply-To: <20260610-media-ci-7-2-v1-1-3c61a482a44e@chromium.org>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 11 Jun 2026 10:12:42 +0100
-X-Gm-Features: AVVi8CfaG3sU9PQt2tyzbFw_FkBWxmHg2PzweaVreKbZNnE6xiybcEosb6zW1uw
-Message-ID: <CAPY8ntD=f_S8fjOG4=3viScGMVEsHWivs7qn=X_-UqvqB791wg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] media: ov9282: Remove unused kerneldoc description
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Xiaolei Wang <xiaolei.wang@windriver.com>, 
-	Tarang Raval <tarang.raval@siliconsignals.io>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
-	stable@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260610-a14-himax-hm1092-v1-3-0c9907da47ed@gmail.com>
 
-On Wed, 10 Jun 2026 at 17:20, Ricardo Ribalda <ribalda@chromium.org> wrote:
->
-> The field has been removed, but the kerneldoc not. Let's take care of
-> this.
->
-> This patch fixes the following warning:
-> Warning: drivers/media/i2c/ov9282.c:223 Excess struct member 'mutex'
-> description in 'ov9282'
->
-> Cc: stable@kernel.org
-> Fixes: 0c69a963a300 ("media: i2c: ov9282: Switch to using the sub-device state lock")
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+On Wed, Jun 10, 2026 at 04:39:28PM +0530, Ramshouriesh wrote:
+> +module_i2c_driver(hm1092_i2c_driver);
+> +
+> +MODULE_DESCRIPTION("Himax HM1092 sensor driver draft");
+> +MODULE_LICENSE("GPL");
+> diff --git a/drivers/media/i2c/hm1092_regs.h b/drivers/media/i2c/hm1092_r=
+egs.h
+> new file mode 100644
+> index 000000000000..4df2d5b49d81
+> --- /dev/null
+> +++ b/drivers/media/i2c/hm1092_regs.h
+> @@ -0,0 +1,223 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/* HM1092 register tables extracted from Qualcomm Chromatix sensor modul=
+e.
+> + * Source: com.qti.sensormodule.hm1092.bin
+> + * Generator: hm1092-re/gen_hm1092_regs.py
+> + * DO NOT HAND EDIT =E2=80=94 regenerate from the bin.
+> + */
+> +
+> +struct hm1092_reg {
+> +	u16 address;
+> +	u8 val;
+> +};
+> +
+> +static const struct hm1092_reg hm1092_init_regs[] =3D {
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+You must NOT define data in headers. This is not how C is written - you
+invite data duplication without any gains/benefits.
 
-Thanks!
+Best regards,
+Krzysztof
 
-> ---
->  drivers/media/i2c/ov9282.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> index 5b6f897a74fc..3ba630ec4f2a 100644
-> --- a/drivers/media/i2c/ov9282.c
-> +++ b/drivers/media/i2c/ov9282.c
-> @@ -197,7 +197,6 @@ struct ov9282_mode {
->   * @noncontinuous_clock: Selection of CSI2 noncontinuous clock mode
->   * @cur_mode: Pointer to current selected sensor mode
->   * @code: Mbus code currently selected
-> - * @mutex: Mutex for serializing sensor controls
->   */
->  struct ov9282 {
->         struct device *dev;
->
-> --
-> 2.54.0.1099.g489fc7bff1-goog
->
