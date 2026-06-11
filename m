@@ -1,215 +1,141 @@
-Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A8F2512C8;
-	Thu, 11 Jun 2026 14:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B49F3FFAD1;
+	Thu, 11 Jun 2026 16:07:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781189709; cv=none; b=cHnzZJQyzLhVvUgLMdWjAUNrN/SH06rucpl+2ZMmHD4v0wHS7ajxtzCdqBCCaj97dlLz77YQ0ZEQXfN9iNK6CUgWPjBSp974MuJwel6YZ/Gbx2PM4lzIXOQksh7pkB9u4IqbHvugox/r/kAmfmgHHz5dVxjKq4aKnfnfxn75vY8=
+	t=1781194072; cv=none; b=UScqE6+Gn3ZK6RJUPL+/lLpnx6ceFsWJsARfDXDuM6M1P173F2UuiieFMopLgFKr0tIrMaMxKcd0lzW+/RgCj60i6sPzttnLlGjTE6JJ9GyEHFeuCw+eHKSFmDqpgaqQFjGpbkOBcdT/ANuDPg5KLzXBRBi7zAMj1ckK+3OF8KA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781189709; c=relaxed/simple;
-	bh=9Ui7e1NgBW2YiULZBEEQHthbWzhB25tOGCTLU/4lANs=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=uAsH/AHEbqJMx5MTx+RLsYrz58oycBPXwOamDTtKEuhj9kkGLLTJ/LE3AgPLbMxzZPDGxIPu/VKSA54PyMDBo9SWDYD5ymJ3JWcKotvFCKQvv0C/D47rSbagnGzXrsMppruCgxAjI7EuTZh8jZfvyoUh+HxEyOkRGbhwTamd460=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=tCLu88HZ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=cSIhjFe2; arc=none smtp.client-ip=202.12.124.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+	s=arc-20240116; t=1781194072; c=relaxed/simple;
+	bh=U3xZxLpD8RZWX+DyVx8SGieHG8U7O26uoqmoOK0GYgY=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=ck1QM/PQiLBB9pLfEHJe06URq7T7TLFfoFCaa9vJQlEm7JUOTj+Ns9HmN4mYnGhcB1FVwNY/xUMLThJrD9/GgO1vmLb7OvgfvxHo+Yn7iIFGYsQjCcSqEXNWcUghfjSGyyMIp+Hxr3lqZCb01I/xhUAWxnCJ3WWJgiy/P6+j5iM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L1Zrk0QZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="tCLu88HZ";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="cSIhjFe2"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.stl.internal (Postfix) with ESMTP id 454221D00145;
-	Thu, 11 Jun 2026 10:55:06 -0400 (EDT)
-Received: from phl-imap-08 ([10.202.2.84])
-  by phl-compute-02.internal (MEProxy); Thu, 11 Jun 2026 10:55:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1781189706;
-	 x=1781276106; bh=/TWS880laEsBPQKBKGFU1aU36vor0Le3vM1o2aIZEYc=; b=
-	tCLu88HZHO+12RcVYyrqbFtDJmP8km8k8GCd2vygO+46kvNuMD2y8+V2rCVTNKjh
-	ywupRMSs/VlLJqdUZV79JkDN7JsG9g+mvGJL9mmizp8Z2GFJtBJA6cypTuqtcrbT
-	JbjSc91pxfhvz79ggcKiR5uJby9xcQsz41UeMgJW1aq9BOW1w4zcxepQ/kDyFGp/
-	8pEMuNkdkK2zzgq+O4BBVWIoRoWgxxh9+x4B/O98cyZaDEiUReRhPAchinOLHFa5
-	CiYEL2NR38GxYgdfcMBeFszApXNh7szE42m3q8PbnYKt1mlYhJYyT0hes2KX1sOy
-	HWh5XE+RhRbxwykShRgUxw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781189706; x=
-	1781276106; bh=/TWS880laEsBPQKBKGFU1aU36vor0Le3vM1o2aIZEYc=; b=c
-	SIhjFe2dOZNRBdptcl0Meh1XGT3qfFhi54sEhvNhoWKiMm/PaRJB148Vc8k3ZQzX
-	FYvv9a6fjJvyIblQarlBJVdJXlq+F+t2UM+tMFfjBC7pImpiTp5E/ewSxlY4MXiB
-	bAYh4bHNU6nKCvZsB5buzOlB+RuEfzPEK+RxLeBkLOVM8T0wRQSbcQCCXVPF4hX+
-	JXpIIbkrueUEufrXFTG0IXXG7U4JNOoSZX4PKRZ3eVgliazH5C9esRvhxyWUeWAH
-	qwoYFnOwT4hiBbROTRv3wEeEMsD15uC3vDH6JywB8KQDqtZLvs30UfK0QlAbxKzE
-	0jTXefW5CRRpdZRmD5vDw==
-X-ME-Sender: <xms:ScwqavpCH6t5SweXHrN_T_W6TiLY-crlWL5NXEeJgnT4iw0-VFoyaA>
-    <xme:Scwqakf0gliA0552P3xu2_wg87bYSgZDpAR38vyviLahHX5fnjNhzzUoKEHeqBS12
-    KCzYI5NIezVnx8y7yqRAgfjS4IBFVI17t6OA59NXlrnwIT-AmBAWw>
-X-ME-Proxy-Cause: dmFkZTGHcxuunHC8y8kKAzFk4XfHhauqj3lNGMlZet80DOkhBtr7gQHokJKYHDmAvWO4/S
-    VH8QmJvNcyZhBbsJ59f6FXSrTVfkKfG/UiJ0jOZUU8JHwU6tQltxiDYh0sbuipQDBso3ZW
-    /VVfBi0fypP2hywsTV4XxTAeQFBOIJQtFy1FNijcFRiNUnFhP4cxOucQHotG0HdN/HwYMM
-    4r32r/E37BU4MrEkfcXNrGfp2qK5pb04nfaF34PeTRUBr6sCPD5hNnP+e3vp2G1N2NQtFs
-    RIRuXl4P2EGMLAdPvqGzwX69XmEfr02ess8VOhB0EJb9/6wgx5jclfuqCekVER0o4nYpqZ
-    2brwru+l1dFJzZFep4LHQ2jbubTeOGAAG2Z61Hyd9EfwKPugLSqCBv8noz9vhGZUZE4Bzb
-    fiadw+u9pBocz2T1WiH5ikKqhrqeiuVHtPtTIllr+LbVJf54c1OfBh0o5O3jIzjdSEGSDR
-    9vPe5G0x9wHw/be/N1Us/Ovb55VgFyfDLTS4BLlLJlCIRg5ts+ZNYxUO9bOCxPYHjbau5a
-    YPOBa+HWPfxaOpiCDn/DWUtWnofpWp8W6dBD0bA0d3+A82LV8P27BhurERDD5GBiXu6T7o
-    QTWugG3uvuAS52BbqTEoyV4xgGx2WG58ClA9qZFKoaD+UU9lNhsa9Y/RJnMw
-X-ME-Proxy: <xmx:Scwqan0DMrW3-kIzzc_ZvhZtlx1zvkuD-tNYVkYLB7eXMOYWzz3vwQ>
-    <xmx:ScwqakVQIhW8PQcSlPDKCa6-j6K4b4sximG-CQAWXE4STaQVigX9KA>
-    <xmx:ScwqahNvpKDNCTPOkYuBL8g8GAl16BfmCcY1iSrYEa-YD6MHDwaU7w>
-    <xmx:Scwqav0vN_im-VCPPTI-4ARUOaZRmpKArFg0C1_YJvbSTD_aXrMO4A>
-    <xmx:SswqameFeD8z37WYryFLS-28aIQ_SfYcxFSYM_LDx98fqZN1IQW06Nwk>
-Feedback-ID: ic2b14614:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 467F02CE2B40; Thu, 11 Jun 2026 10:55:05 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L1Zrk0QZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CF171F00893;
+	Thu, 11 Jun 2026 16:07:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781194070;
+	bh=FODH1d2l25lpiGGcZpHtnCfAB0Q222ShRwNYwgMpF+k=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=L1Zrk0QZ1qX3eyuxtjnJdk+dWBBpC6QlshmDTeGDOZMyFLXoqJUbE2RSKRBDRYkbY
+	 /qUnN60oDtV/Ce52c7YIEPF30crxHl42JGpvfyBXXuHT4s73n4ZWNWH9mE/Z8TRjLr
+	 jqGXi5/G14a1yz6EkkXphC9k27eSfDUWt8DbpMsoLil03Pi93j6u6+nXmVO3ENLfnW
+	 DrpMfPn2Yb/ONriLS4mG3Tt3vy8eYx6l6NzfDudag11h5zPdYcx7L894Fj3nUH1C+f
+	 6B8TX9W/Z7KCsSsF0K7Vfu72e73b3UL7odrbFuf9CUZ5nOU4uy7w3splGfECMWL7ha
+	 UVtWB4nj5j2wQ==
+Date: Thu, 11 Jun 2026 11:07:49 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Matt Evans <matt@ozlabs.org>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Mahmoud Adam <mngyadam@amazon.de>,
+	David Matlack <dmatlack@google.com>,
+	=?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	kvm@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v3 1/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
+Message-ID: <20260611160749.GA469670@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: ALjDCc3MNTuk
-Date: Thu, 11 Jun 2026 10:54:45 -0400
-From: "Mark Pearson" <mpearson@squebb.ca>
-To: "Sakari Ailus" <sakari.ailus@linux.intel.com>,
- "Damjan Georgievski" <gdamjan@gmail.com>
-Cc: "Kate Hsuan" <hpa@redhat.com>,
- "Mauro Carvalho Chehab" <mchehab@kernel.org>,
- "Hans de Goede" <johannes.goede@oss.qualcomm.com>,
- "Hans Verkuil" <hverkuil+cisco@kernel.org>,
- "Serin Yeh" <serin.yeh@intel.com>,
- "Tarang Raval" <tarang.raval@siliconsignals.io>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <9aaa21ad-6332-4dd4-9b78-6520af6a8619@app.fastmail.com>
-In-Reply-To: <aiqtsFbFR9SZSDeL@kekkonen.localdomain>
-References: <20260609124926.1038981-1-hpa@redhat.com>
- <20260609124926.1038981-2-hpa@redhat.com>
- <aineK26VD67Fmibd@kekkonen.localdomain>
- <CAEth8oEv3iAQ1P9=rYddeBRX2qrjZiysUA_JfFp8pUAoJXbGLQ@mail.gmail.com>
- <aipwpTo5JCiAACVp@kekkonen.localdomain>
- <CAEk1YH41bJSoJdjYMj2ZJp5+WF6DpZhBrwkNKaC1HbPvwDV3GA@mail.gmail.com>
- <aiqtsFbFR9SZSDeL@kekkonen.localdomain>
-Subject: Re: [PATCH v4 1/3] media: ipu-bridge: Add DMI information of Lenovo X9 to the
- image upside-down list
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260610154327.37758-2-matt@ozlabs.org>
 
+On Wed, Jun 10, 2026 at 04:43:15PM +0100, Matt Evans wrote:
+> The P2PDMA code currently provides two features under the same
+> CONFIG_PCI_P2PDMA option:
+> 
+>  1.  Locate providers via pcim_p2pdma_provider()
+>  2.  Manage actual P2P DMA
+> 
+> Some drivers (such as vfio-pci) depend on 1, without having a hard
+> dependency on 2.
+> 
+> A future commit expands the use of DMABUF in vfio-pci for non-P2P
+> scenarios, relying on pcim_p2pdma_provider() always being present.  If
+> that depended on CONFIG_PCI_P2PDMA, it would make vfio-pci only
+> available if CONFIG_ZONE_DEVICE is present (e.g. 64-bit systems), even
+> when P2P is not needed.
+> 
+> To resolve this, introduce CONFIG_PCI_P2PDMA_CORE and refactor the
+> basic provider functionality into a new p2pdma_core.c file.  This is
+> available even if the CONFIG_PCI_P2PDMA feature is disabled (or
+> unavailable due to !CONFIG_ZONE_DEVICE).  Then, drivers can enable any
+> additional P2P features with the original CONFIG_PCI_P2PDMA (available
+> when CONFIG_ZONE_DEVICE is set).
+> 
+> Signed-off-by: Matt Evans <matt@ozlabs.org>
 
-On Thu, Jun 11, 2026, at 8:44 AM, Sakari Ailus wrote:
-> Hi Damjan,
->
-> On Thu, Jun 11, 2026 at 11:41:19AM +0200, Damjan Georgievski wrote:
->> On Thu, 11 Jun 2026 at 10:24, Sakari Ailus <sakari.ailus@linux.intel.=
-com> wrote:
->> >
->> > Hi Kate,
->> >
->> > On Thu, Jun 11, 2026 at 03:25:46PM +0800, Kate Hsuan wrote:
->> > > Hi Sakari and Mark,
->> > >
->> > > On Thu, Jun 11, 2026 at 5:59=E2=80=AFAM Sakari Ailus
->> > > <sakari.ailus@linux.intel.com> wrote:
->> > > >
->> > > > Hi Kate,
->> > > >
->> > > > I know several people have given you different advices but...
->> > > >
->> > > > On Tue, Jun 09, 2026 at 08:49:24PM +0800, Kate Hsuan wrote:
->> > > > > The Lenovo X9 has an upside-down-mounted Sony IMX471 sensor s=
-o the image
->> > > > > was displayed upside-down. Add the DMI information of Lenovo =
-X9 to
->> > > > > resolve the issue.
->> > > > >
->> > > > > Signed-off-by: Kate Hsuan <hpa@redhat.com>
->> > > > > ---
->> > > > >  drivers/media/pci/intel/ipu-bridge.c | 32 ++++++++++++++++++=
-++++++++++
->> > > > >  1 file changed, 32 insertions(+)
->> > > > >
->> > > > > diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/m=
-edia/pci/intel/ipu-bridge.c
->> > > > > index fc6608e33de4..9e24aaceecdf 100644
->> > > > > --- a/drivers/media/pci/intel/ipu-bridge.c
->> > > > > +++ b/drivers/media/pci/intel/ipu-bridge.c
->> > > > > @@ -134,6 +134,38 @@ static const struct dmi_system_id upside=
-_down_sensor_dmi_ids[] =3D {
->> > > > >               },
->> > > > >               .driver_data =3D "OVTI02C1",
->> > > > >       },
->> > > > > +     {
->> > > > > +             /* Lenovo X9-14 */
->> > > > > +             .matches =3D {
->> > > > > +                     DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
->> > > > > +                     DMI_MATCH(DMI_BOARD_NAME, "21QA"),
->> > > > > +             },
->> > > > > +             .driver_data =3D "SONY471A",
->> > > > > +     },
->> > > > > +     {
->> > > > > +             /* Lenovo X9-14 */
->> > > >
->> > > > How are the two X9-14's different? It'd be good to have some co=
-mment here
->> > > > which model this actually is: the board name is only available =
-(typically
->> > > > at least) in DMI.
->> > >
->> > > According to the datasheet of X9-14 and 15. Lenovo offers 2 screen
->> > > sizes (14-inch and 15-inch) and 2 CPU types (Core Ultra 5 and 7).
->> >
->> > Is the CPU SKU the difference here? If so, can you add that to the =
-comment?
->> >
->> > > They may ship customised firmware for a specific purpose with a r=
-andom
->> > > DMI_PRODUCT_VERSION.
->> > > So, using the DMI_BOARD_NAME prefix to identify the laptop SKU is
->> > > safer and easier.
->> > >
->> > > I think DMI_MATCH(DMI_BOARD_NAME, "21Q") covers all X9 but I don't
->> > > know the side effect :(
->> > > They may propose a new model with a different MIPI camera or HID.
->> >
->> > Indeed. Is the BOARD_NAME guaranteed to be unique by Lenovo? I thin=
-k I'd
->> > use DMI_EXACT_MATCH(), too.
->>=20
->> The full board_name is 21QA0048RM (on mine), so 21QA is just the pref=
-ix.
->> The lenovo support site only requires this prefix to get you to the
->> support page for the laptops and they refer to it as "Type 21QA".
->>=20
->> Is there DMI_MATCH_PREFIX, for these (if not all) Thinkpads it might
->> make the most sense ?
->
-> DMI_MATCH() only matches for prefix whereas DMI_EXACT_MATCH() requires=
- an
-> exact match.
->
-There are two BOARD_NAME's for every Thinkpad (which one your system has=
- depends on the channel thru which the platform is sold).
+I thought this was going to be just a code move and new Kconfig
+option, but it involves a little more than that, e.g., adding
+pci_p2pdma_release_pool() and tweaking the RCU synchronization.
 
-The first 4 chars are the important bit - they are defined and won't cha=
-nge (they are used internally here). The rest of the BOARD_NAME is based=
- on the config and can vary.
-I'm not so sure on the PRODUCT_VERSION I'm afraid which is why I'm hesit=
-ant to use it, even though doing the match on two IDs is annoying. I'm t=
-rying to confirm if it's a good idea or not.
+If possible, it would be nice to do that refactoring in a smaller
+preliminary patch so it's easier to review/bisect/etc and make this
+one a pure code move.
 
-A useful trick, for released platforms, is to go to https://psref.lenovo=
-.com and type your platform in the search bar and it will come up with t=
-he match and also list the two board codes.
-So if you put in X9-14 you should see 21QA and 21QB - these are the two =
-DMI matches you would need to do (X9-15 uses 21Q6 & 21Q7)
+I guess CONFIG_PCI_P2PDMA_CORE selects just part 1 ("Locate providers
+via pcim_p2pdma_provider()"), right?
 
-Don't do a match on 21Q - that will definitely match up with other platf=
-orms that won't want this change.
+> +++ b/drivers/pci/p2pdma.h
+> @@ -0,0 +1,29 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * PCI Peer 2 Peer DMA support.
+> + */
+> +
+> +#ifndef _PCI_P2PDMA_H
+> +#define _PCI_P2PDMA_H
+> +
+> +#include <linux/genalloc.h>
+> +#include <linux/pci-p2pdma.h>
+> +#include <linux/xarray.h>
+> +
+> +struct pci_p2pdma {
+> +	struct gen_pool *pool;
+> +	bool p2pmem_published;
+> +	struct xarray map_types;
+> +	struct p2pdma_provider mem[PCI_STD_NUM_BARS];
+> +};
+> +
+> +#ifdef CONFIG_PCI_P2PDMA
+> +void pci_p2pdma_release_pool(struct pci_dev *pdev, struct pci_p2pdma *p2pdma);
+> +#else
+> +static inline void pci_p2pdma_release_pool(struct pci_dev *pdev, struct pci_p2pdma *p2pdma)
 
-Hope that helps
-Mark
+Wrap to fit in 80 columns like the rest of drivers/pci/
+
+> +{
+> +}
+> +#endif
+> +
+> +#endif
+> +
+
+Spurious blank line at end.
+
+> +++ b/drivers/pci/p2pdma_core.c
+> @@ -0,0 +1,118 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * PCI Peer 2 Peer DMA support core, providing a bare-bones
+
+In this English text, I think I would spell out "Peer to Peer" instead
+of relying on the "2" homophone.  Same in p2pdma.h.
