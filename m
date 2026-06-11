@@ -1,162 +1,128 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE731A3172
-	for <linux-media@vger.kernel.org>; Thu, 11 Jun 2026 05:37:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9146E1A0BD0;
+	Thu, 11 Jun 2026 06:10:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781156247; cv=none; b=srV7P8GLQNFg0aBRvWs4rOn2IZPcVM1nueGgyeUH3DEjtTtR2WwlH9/lQcWin+x2X+kLnYU9j5O0dsljlmtyGgfQWM5CClRN6LIpQUoSi4vOL7uxWOZ0HoaftfWEWy+qMmZun/rrudBMTH91lDGQ1p+hOw+VBbICFQRbbS6mTxA=
+	t=1781158206; cv=none; b=dfbcflk7YKjp2SZyRPVMPubIhsWDilMc9u5XY8Il2QXuf8x8narmbUeqepfIBQJ6HKLwKHluUPjlatYawZ47Ihnsi227oXJvcl83OqfkdL9ZtYf77PN2w+eMQxPx5faqNu2IbzlTF7SWoZSTqIq1m2JYr5C0b1M8XZ4yFN4jRX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781156247; c=relaxed/simple;
-	bh=Z0h3EmCf1+rEFr1KbjsG8LVQPkuTCzcHhND6OHFzKB4=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=j4cnILsOZGVnI30rax/ZCG2FnQDJAbjHDdxkVOkEPz+cN5SBMqM4GwU2rtoDeFk5tfq5xS1b797oZbwsbhnzR3mvylN6qA54Zb/+UqM0RdpTTmaX+W/GTt8LpxjEfg3RKqw16468vRwgmsxtMkVpCNggQNf5THi72qUvIofbRAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=fail (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=BXF84Nbr reason="signature verification failed"; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1781158206; c=relaxed/simple;
+	bh=ElaN3MA+r7gbV2oGehvuhfujvcI0kDw9G1DVXIYDWoM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Y9H+04ORzNuVRg6NpINjFq6hfHkNTUmOGcs18gVINymtY6BWe6F5ioyLfxBGKxuZwhS8mCRApccdREBBDgsDHNJgrpq7epo/6A98w4MhtOHuy3bWGLM5YI6r2lu+YPiV/hldFyJ85/JNNSDajRM4fE+++7h8Kz+7zv209nG27lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cq4TRXsJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="BXF84Nbr"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:bcf2:9325:a9bd:32b:e71])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D2864497;
-	Thu, 11 Jun 2026 07:36:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1781156212;
-	bh=Z0h3EmCf1+rEFr1KbjsG8LVQPkuTCzcHhND6OHFzKB4=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=BXF84Nbr5nALG7H7wKC6iLfk2BRtXW+6bfLzpNOJswGwtkZC7ztTypwBRfZkSfLd9
-	 8q6o/n/Jv21QHZVlKLO6q4CdENnX08Noy24S+8nHx90/0TzjpEZvC/E25bAHib80v5
-	 89odM1UgZ0sEzFkiCbSi0/Fdlx12j7fpPxgMgHi0=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cq4TRXsJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29B3D1F00893;
+	Thu, 11 Jun 2026 06:09:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781158205;
+	bh=QMwju+bF00fDRWgD6aFjamUkfyRvkUx8XZMI5aZiZ14=;
+	h=From:Date:Subject:To:Cc;
+	b=Cq4TRXsJNrWHvMYJo5W7d1NrCYcnm28ETJ1Z1i6euJUPMcVxTTi469wALxVqBI+JQ
+	 Xa9jp8kC6PtfqIcIKs0hGGn5HauYqi+2aDTaA0cpLzs79siGdr3MmBERskBCw0zOQ1
+	 CBGqcnyuHTkutUaM35s/O9jNyrYpLCkMtGmGRGqLTXfVLezrOBEOyWWhRVbBfBILi2
+	 7Sl8h9ynBKCXylM3JE2GRRUR6ON8PeHJ/fBAjn73nu+lt83pZGa4cxHp/4WvOpRe2M
+	 vYBU1Vefa/CFXXtHq8QhRrIThH638nSfQtZpafJmoVlGbSRiMSNAmmE0d6VbLseaFJ
+	 yiev1y0YEVTZg==
+From: Eugen Hristev <ehristev@kernel.org>
+Date: Thu, 11 Jun 2026 09:09:51 +0300
+Subject: [PATCH] media: bcm2835-unicam: Fix querycap multiple caps
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260409201501.975242-34-sakari.ailus@linux.intel.com>
-References: <20260409201501.975242-1-sakari.ailus@linux.intel.com> <20260409201501.975242-34-sakari.ailus@linux.intel.com>
-Subject: Re: [PATCH v12 33/86] media: uapi: Add new controls for camera sensor FLL and LLP
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: hans@jjverkuil.nl, laurent.pinchart@ideasonboard.com, Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Tommaso Merciai <tomm.merciai@gmail.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Julien Massot <julien.massot@collabora.com>, Naushir Patuck <naush@raspberrypi.com>, Stefan Klug <stefan.klug@ideasonboard.com>, Mirela Rabulea <mirela.rabulea@nxp.com>, =?utf-8?q?Andr=C3=A9?= Apitzsch <git@apitzsch.eu>, Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Mehdi Djait <mehdi.djait@linux.intel.com>, Ricardo Ribalda Delgado <ribalda@kernel.org>, Hans de Goede <hansg@kernel.org>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, David Plowman <david.plowman@raspberrypi.com>, "Yu, Ong Hock" <ong.hock.yu@intel.com>, "
- Ng, Khai Wen" <khai.wen.ng@intel.com>, Rishikesh Donadkar <r-donadkar@ti.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org
-Date: Thu, 11 Jun 2026 11:07:16 +0530
-Message-ID: <178115623672.1799417.2005627235315487289@freya>
-User-Agent: alot/0.13.dev35+g4a69c46ca
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260611-bcmpiqcap-v1-1-10cf7fb438df@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAC5RKmoC/yXM0QpAMBSA4VfRubayKZlXkYuzOTgKsyEl7264/
+ OrvvyCQZwpQJRd4OjjwMkfINAE74NyT4DYaVKaKrJBSGDs5Xi060ZU6R02oWtQQe+ep4/N71c3
+ vsJuR7PYO4L4fqiXti20AAAA=
+X-Change-ID: 20260611-bcmpiqcap-f893a9ea2da9
+To: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>, 
+ Naushir Patuck <naush@raspberrypi.com>
+Cc: Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org, 
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Eugen Hristev <ehristev@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1843; i=ehristev@kernel.org;
+ h=from:subject:message-id; bh=ElaN3MA+r7gbV2oGehvuhfujvcI0kDw9G1DVXIYDWoM=;
+ b=owGbwMvMwCXWkjcnuXne3fmMp9WSGLK0As2FhAxepPjJRsg4WGn1X9vGH7rok6+nTc3+2paE9
+ fv//H7VUcrCIMbFICumyFJt8q9WuH+H+0lXSxWYOaxMIEMYuDgFYCILZjL84dNWXXt8ywfNiQk/
+ wqfpCNfss+LtKnt1+2CdocGO/zslfjEyrFco5av/VRmnuORq+a0ZLb8F3Tc+6+hSPMDEy7RIlle
+ ZDQA=
+X-Developer-Key: i=ehristev@kernel.org; a=openpgp;
+ fpr=AB184498D27A77B65D7852C81EB31E020EAC2FC8
 
-Hi Sakari,
+The unicam exposes two video nodes, one for image, another for metadata.
+Querycap should return the right caps for the respective node, not both.
 
-Quoting Sakari Ailus (2026-04-10 01:44:08)
-> Add new controls for camera sensors, V4L2_CID_LINE_LENGTH_PIXELS and
-> V4L2_CID_FRAME_LENGTH_LINES, to convey the combined size of the analogue
-> crop rectangle and horizontal and vertical blanking.
->=20
-> The reason for adding the new controls is that they're much easier to use
-> as the user doesn't have to be concerned of the analogue crop in the same
-> context. Secondarily, the newly added common raw sensor model uses
-> different values for the same.
->=20
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> ---
->  .../userspace-api/media/v4l/ext-ctrls-image-source.rst | 10 ++++++++++
->  drivers/media/v4l2-core/v4l2-ctrls-defs.c              |  2 ++
->  include/uapi/linux/v4l2-controls.h                     |  3 +++
->  3 files changed, 15 insertions(+)
->=20
-> diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source=
-.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
-> index 63e53c883db6..fb4dee1b4f94 100644
-> --- a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
-> +++ b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
-> @@ -201,3 +201,13 @@ For instance, a value of ``0x0001000300020003`` indi=
-cates binning by 3
->      Sub-sampling is used to downscale an image, horizontally and vertica=
-lly, by
->      discarding a part of the image data. Typically sub-sampling produces=
- lower
->      quality images than binning.
-> +
-> +.. _image_source_control_frame_length:
-> +
-> +``V4L2_CID_FRAME_LENGTH_LINES (integer)``
-> +    Frame length in lines. The value of the control is the number of lin=
-es
-> +    captured in the sensor's pixel array added to the vertical blanking.
-> +
-> +``V4L2_CID_LINE_LENGTH_PIXELS (integer)``
-> +    Line length in pixels. The value of the control is the number of pix=
-els per
-> +    line captured in the sensor's pixel array added to the horizontal bl=
-anking.
+video0:
 
-In IMX219 driver in this series, we are exposing frame length in two-lines
-and two-line's length in pixels, which doesn't make sense with respect to
-these control definitions.
+Capabilities     : 0xa4200001
+        Video Capture
+        I/O MC
+        Streaming
+        Extended Pix Format
+        Device Capabilities
+Device Caps      : 0x24200001
+        Video Capture
+        I/O MC
+        Streaming
+        Extended Pix Format
 
-Similarly, for sensors like IMX283, IMX678 and others, the register is line
-length in internal clock units, while the control is line length in pixels.
+video1:
 
-So I think we should add a small note to prevent these awkward units from
-propping up in the userspace:
+Capabilities     : 0xa4a00000
+        Metadata Capture
+        I/O MC
+        Streaming
+        Extended Pix Format
+        Device Capabilities
+Device Caps      : 0x24a00000
+        Metadata Capture
+        I/O MC
+        Streaming
+        Extended Pix Format
 
-``V4L2_CID_FRAME_LENGTH_LINES (integer)``
-    Frame length in lines. The value of the control is the number of lines
-    captured in the sensor's pixel array added to the vertical blanking.
-    Some sensors may have an internal register for the total vertical size
-    that is in units of 2 lines or some other unit. But the control value
-    should always reflect the number of lines in a frame.
+Fixes: 392cd78d495f ("media: bcm2835-unicam: Add support for CCP2/CSI2 camera interface")
+Signed-off-by: Eugen Hristev <ehristev@kernel.org>
+---
+ drivers/media/platform/broadcom/bcm2835-unicam.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-``V4L2_CID_LINE_LENGTH_PIXELS (integer)``
-    Line length in pixels. The value of the control is the number of pixels
-    per line captured in the sensor's pixel array added to the horizontal
-    blanking. Some sensors may have an internal register for the total
-    horizontal size in units of some internal clock instead of pixels, or
-    the total pixel count for multiple lines. But the control value should
-    always reflect the number of pixels in a line.
+diff --git a/drivers/media/platform/broadcom/bcm2835-unicam.c b/drivers/media/platform/broadcom/bcm2835-unicam.c
+index 8d28ba0b59a3..4bf36ce80047 100644
+--- a/drivers/media/platform/broadcom/bcm2835-unicam.c
++++ b/drivers/media/platform/broadcom/bcm2835-unicam.c
+@@ -1833,7 +1833,10 @@ static int unicam_querycap(struct file *file, void *priv,
+ 	strscpy(cap->driver, UNICAM_MODULE_NAME, sizeof(cap->driver));
+ 	strscpy(cap->card, UNICAM_MODULE_NAME, sizeof(cap->card));
+ 
+-	cap->capabilities |= V4L2_CAP_VIDEO_CAPTURE | V4L2_CAP_META_CAPTURE;
++	if (is_image_node(node))
++		cap->capabilities |= V4L2_CAP_VIDEO_CAPTURE;
++	else
++		cap->capabilities |= V4L2_CAP_META_CAPTURE;
+ 
+ 	return 0;
+ }
 
-Thanks,
-    Jai
+---
+base-commit: a87737435cfa134f9cdcc696ba3080759d04cf72
+change-id: 20260611-bcmpiqcap-f893a9ea2da9
 
-> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4=
-l2-core/v4l2-ctrls-defs.c
-> index 227bcb5a549d..bd23c5640722 100644
-> --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-> +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-> @@ -1163,6 +1163,8 @@ const char *v4l2_ctrl_get_name(u32 id)
->         case V4L2_CID_BINNING_FACTORS:          return "Binning Factors";
->         case V4L2_CID_SUBSAMPLING_HORIZONTAL:   return "Sub-Sampling Fact=
-or, Horizontal";
->         case V4L2_CID_SUBSAMPLING_VERTICAL:     return "Sub-Sampling Fact=
-or, Vertical";
-> +       case V4L2_CID_FRAME_LENGTH_LINES:       return "Frame Length in L=
-ines";
-> +       case V4L2_CID_LINE_LENGTH_PIXELS:       return "Line Length in Pi=
-xels";
-> =20
->         /* Image processing controls */
->         /* Keep the order of the 'case's the same as in v4l2-controls.h! =
-*/
-> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2=
--controls.h
-> index acb6f9ad4d1b..60f0fb599926 100644
-> --- a/include/uapi/linux/v4l2-controls.h
-> +++ b/include/uapi/linux/v4l2-controls.h
-> @@ -1253,6 +1253,9 @@ enum v4l2_jpeg_chroma_subsampling {
->  #define V4L2_CID_SUBSAMPLING_HORIZONTAL                (V4L2_CID_IMAGE_S=
-OURCE_CLASS_BASE + 14)
->  #define V4L2_CID_SUBSAMPLING_VERTICAL          (V4L2_CID_IMAGE_SOURCE_CL=
-ASS_BASE + 15)
-> =20
-> +#define V4L2_CID_FRAME_LENGTH_LINES            (V4L2_CID_IMAGE_SOURCE_CL=
-ASS_BASE + 16)
-> +#define V4L2_CID_LINE_LENGTH_PIXELS            (V4L2_CID_IMAGE_SOURCE_CL=
-ASS_BASE + 17)
-> +
->  /* Image processing controls */
-> =20
->  #define V4L2_CID_IMAGE_PROC_CLASS_BASE         (V4L2_CTRL_CLASS_IMAGE_PR=
-OC | 0x900)
-> --=20
-> 2.47.3
->
+Best regards,
+--  
+Eugen Hristev <ehristev@kernel.org>
+
