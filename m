@@ -1,54 +1,56 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA0F3C0A17
-	for <linux-media@vger.kernel.org>; Thu, 11 Jun 2026 09:44:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBB640D591
+	for <linux-media@vger.kernel.org>; Thu, 11 Jun 2026 09:45:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781171103; cv=none; b=ZNvcRnDg5YIC1QvDUeTS/mZ/8YubMK6i9SkUGBx9ziIK2PbgD2jw8jUcRsS0lmNExYSckyuXSleHN9Ruzbbhhe4fIEgLraPvOpqSVtsA05D8Reug4RghXwyaduutinFxqh45DZf7Lo0KN7lktcomqxIRkf0bmOJ4TZukxlWqA04=
+	t=1781171104; cv=none; b=hZ/hHq1flRvFE57Qchqv+ReCVFcl7zJJB2wpwbTS1TlkdZZtl/AMLMD7gojZ9UahMQ7JgPowX1ToDgPnjNf4tn1mcXpuNeLmHBAxlJO0NU1NP2LDPIIrq0fvgetNkHU3m6jGipSiisWp/KUlaeQPpmR9Ho+0+W8/fSAUyhwxCWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781171103; c=relaxed/simple;
-	bh=zLF5hVUC1QsMPm3m0dqLh5cbzsnFAMJ8VPqoMTVgIlM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=SGJHhlgDMsi4dTSmVKHRphOrfQIyWtJdJFNJ4r/KWToSADRLiGhGAdhVO8OaI9mYAwosbOifDWg3DWly+CA0Od2rJ4+0/PPwBAHEJb/O73r1BWeWvA0rlERGKKoAGdGsluw25LA012LaTzwx7mEGX4pjminxNmqywt5pTJffpMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EEmC1a5a; arc=none smtp.client-ip=198.175.65.18
+	s=arc-20240116; t=1781171104; c=relaxed/simple;
+	bh=IKWNsBM0ZFMTSL/bm+FTabC2lBUeBAgGHcQGv9SdaeE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ocyTdInZ9sT5mvqV9QLxlEXe8+q1HEAmdlsa8erBMJwSvcs1MMLm3Vw4Gkosi4MRDbNR6Y0AQGKHJt7baZh0T5+TzHgsPQl2JR3Eohh7hmoh6R7VMc3/nrQHWITcKnyMwm0RJK8l4Q/70zbzKt2lE6R8UEZvi6/jeElYEYViHyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MOLvOK2c; arc=none smtp.client-ip=198.175.65.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EEmC1a5a"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MOLvOK2c"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781171087; x=1812707087;
+  t=1781171102; x=1812707102;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=zLF5hVUC1QsMPm3m0dqLh5cbzsnFAMJ8VPqoMTVgIlM=;
-  b=EEmC1a5am0ANzxF8UOAUX5ymxwW1aTqRuhHCWnZMTTyi9eSjcktKz3/z
-   LSSRcACQYZydag0oDz+bvL4YWdhZpfm1+n0LSRMjUwOtOy7SxBmZP459H
-   AF1lGflGv/8JVrjnLLJdIMLacc9x7xKd2PVxtFIEDCXk7JsGHCbYxQNSl
-   xBLHRa3zO70zcymtsBnZF8Yz3fxDOi18GvPQaUiNenRoBFju2i8I8oqTa
-   EaK3ay76GkxrtiEQ1KP7SJUMF9QC9WzoxuHTYYiKPxItc8qXv7AtK6DMu
-   DneX/y39eEC4lHk4aKnPo7M61lMuhJQ6HXLNaxMcLMoGgv263i+Sy5Y0N
+  bh=IKWNsBM0ZFMTSL/bm+FTabC2lBUeBAgGHcQGv9SdaeE=;
+  b=MOLvOK2cDMcxXyIuB1XsZCci/eTKTEiq6eR41U5Lh01cdJpPds3TG25B
+   sJxvBJyQR3Y5TOrgihV3AjxouLJBC2zBNe+N6jx/1/6YHx0Mukd1eNOpH
+   cGLHpaQ7C9dozhNRzsvsP9dZeoRSjW5se4VSTqDCiUsNGHxad0oZV/+9m
+   +WTRsLvk9f5ddd0ajv6LyPMSQxbXOwpKvyufNfKi4CiiId2spn3Yo35Bc
+   2q2KCoxSMparfRt2X5/cr5Ut8QeWlEpKhXbTGNxQdU56253ktGPNclCYI
+   IMFhUPUAtHQs6f0YAhyD7hyaZFOK1W71NAwh4edVjpqB++2UodGZ7+xer
    w==;
-X-CSE-ConnectionGUID: IhygxBv/TSuqS3cJC7g/Jg==
-X-CSE-MsgGUID: er8KhVFKTyekN/7SMz6+Pw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="82041167"
+X-CSE-ConnectionGUID: L7aZlp/8QC6lmF4kJKs/2A==
+X-CSE-MsgGUID: +nctU67vSiC3vOeJeszfXw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81984627"
 X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; 
-   d="scan'208";a="82041167"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 02:44:46 -0700
-X-CSE-ConnectionGUID: OBzU1nrUT+WtZ1bcSmhyHA==
-X-CSE-MsgGUID: U+nbq0krTPyLS80/8QoloQ==
+   d="scan'208";a="81984627"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2026 02:45:02 -0700
+X-CSE-ConnectionGUID: SRsK7a4LQW2zb6FKl2YjaA==
+X-CSE-MsgGUID: gIx+AV0WS4y7NxKdGTDVLw==
 X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; 
+   d="scan'208";a="242292055"
 Received: from serinyeh-ms-7d25.itwn.intel.com ([10.225.65.16])
-  by fmviesa003.fm.intel.com with ESMTP; 11 Jun 2026 02:44:44 -0700
+  by fmviesa010.fm.intel.com with ESMTP; 11 Jun 2026 02:45:00 -0700
 From: Serin Yeh <serin.yeh@intel.com>
 To: linux-media@vger.kernel.org
 Cc: serin.yeh@intel.com,
 	sakari.ailus@linux.intel.com,
 	jimmy.su@intel.com,
 	sarang.sapre@intel.com
-Subject: [PATCH v1 1/2] media: i2c: ov8856 : remove ACPI node bypass mechanism
-Date: Thu, 11 Jun 2026 17:50:31 +0800
-Message-Id: <20260611095031.2664939-1-serin.yeh@intel.com>
+Subject: [PATCH v1 2/2] media: i2c: ov8856: fix debug message to report actual CSI-2 lane count
+Date: Thu, 11 Jun 2026 17:50:46 +0800
+Message-Id: <20260611095046.2665272-1-serin.yeh@intel.com>
 X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -58,79 +60,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The driver currently skips power-on and power-off sequences when
-running with ACPI devices by checking is_acpi_node(). This results in
-all power configuration steps (GPIO, and regulators) being bypassed.
+The driver currently prints the number of data lanes using
+ov8856->cur_mode->data_lanes in ov8856_get_hwcfg(). However,
+the ov8856->cur_mode structure is not assigned to a clearly
+supported mode at that point. Due to the missing pointer,
+enabling dynamic debug may lead to a kernel panic.
 
-Remove the is_acpi_node() checks to ensure that the full power
-sequence is always executed regardless of the firmware interface.
-Also fix a debug message to report the actual number of CSI data lanes
-from the parsed bus configuration instead of cur_mode.
-
-With these changes, the driver behaves consistently across DT and ACPI
-platforms and ensures correct hardware initialization.
+Instead, the correct number of CSI-2 data lanes should be taken
+from bus_cfg.bus.mipi_csi2.num_data_lanes, which represents the
+real hardware configuration determined at runtime.
 
 Signed-off-by: Serin Yeh <serin.yeh@intel.com>
 ---
- drivers/media/i2c/ov8856.c | 29 ++++++++++-------------------
- 1 file changed, 10 insertions(+), 19 deletions(-)
+ drivers/media/i2c/ov8856.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/media/i2c/ov8856.c b/drivers/media/i2c/ov8856.c
-index 8bedb47cd7cf..9d2b0469a576 100644
+index 9d2b0469a576..6011233a218d 100644
 --- a/drivers/media/i2c/ov8856.c
 +++ b/drivers/media/i2c/ov8856.c
-@@ -2082,9 +2082,6 @@ static int ov8856_power_on(struct device *dev)
- 	struct ov8856 *ov8856 = to_ov8856(sd);
- 	int ret;
+@@ -2318,7 +2318,8 @@ static int ov8856_get_hwcfg(struct ov8856 *ov8856)
+ 		goto check_hwcfg_error;
+ 	}
  
--	if (is_acpi_node(dev_fwnode(dev)))
--		return 0;
--
- 	ret = clk_prepare_enable(ov8856->xvclk);
- 	if (ret < 0) {
- 		dev_err(dev, "failed to enable xvclk\n");
-@@ -2120,9 +2117,6 @@ static int ov8856_power_off(struct device *dev)
- 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
- 	struct ov8856 *ov8856 = to_ov8856(sd);
+-	dev_dbg(dev, "Using %u data lanes\n", ov8856->cur_mode->data_lanes);
++	dev_dbg(dev, "Using %u data lanes\n",
++		bus_cfg.bus.mipi_csi2.num_data_lanes);
  
--	if (is_acpi_node(dev_fwnode(dev)))
--		return 0;
--
- 	gpiod_set_value_cansleep(ov8856->reset_gpio, 1);
- 	regulator_bulk_disable(ARRAY_SIZE(ov8856_supply_names),
- 			       ov8856->supplies);
-@@ -2293,21 +2287,18 @@ static int ov8856_get_hwcfg(struct ov8856 *ov8856)
- 		dev_warn(dev, "external clock rate %u is unsupported",
- 			 xvclk_rate);
- 
--	if (!is_acpi_node(fwnode)) {
--		ov8856->reset_gpio = devm_gpiod_get_optional(dev, "reset",
--							     GPIOD_OUT_LOW);
--		if (IS_ERR(ov8856->reset_gpio))
--			return PTR_ERR(ov8856->reset_gpio);
-+	ov8856->reset_gpio = devm_gpiod_get_optional(dev, "reset",
-+						     GPIOD_OUT_LOW);
-+	if (IS_ERR(ov8856->reset_gpio))
-+		return PTR_ERR(ov8856->reset_gpio);
- 
--		for (i = 0; i < ARRAY_SIZE(ov8856_supply_names); i++)
--			ov8856->supplies[i].supply = ov8856_supply_names[i];
-+	for (i = 0; i < ARRAY_SIZE(ov8856_supply_names); i++)
-+		ov8856->supplies[i].supply = ov8856_supply_names[i];
- 
--		ret = devm_regulator_bulk_get(dev,
--					      ARRAY_SIZE(ov8856_supply_names),
--					      ov8856->supplies);
--		if (ret)
--			return ret;
--	}
-+	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ov8856_supply_names),
-+				      ov8856->supplies);
-+	if (ret)
-+		return ret;
- 
- 	ep = fwnode_graph_get_next_endpoint(fwnode, NULL);
- 	if (!ep)
+ 	if (bus_cfg.bus.mipi_csi2.num_data_lanes == 2)
+ 		ov8856->priv_lane = &lane_cfg_2;
 -- 
 2.25.1
 
