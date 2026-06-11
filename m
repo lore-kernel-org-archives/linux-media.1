@@ -1,148 +1,153 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1651D331EA9
-	for <linux-media@vger.kernel.org>; Thu, 11 Jun 2026 14:36:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781188584; cv=none; b=FUcp3XSpMLh2N4B0SXnDoIEnoWffYDQuCuflDHn5homrHpgWG8FqEofTJqqydMpsfajyOZ2qenLgFGjSprUJARTMq1BXl7qK3ASU2K3tiSLu4i+RnvbHVOjqqcj8M68md3eDUGPnPWg+lawnoKlFjcUoSfTeNNtes4XyKa5ew1c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781188584; c=relaxed/simple;
-	bh=qnv1fAGXCtLVIjll5OZjfkQjjlkL/oatmHWaQJUPthU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qSpXWBlQzU0+a3g2ugJEQUeqk3/MbGa8LtxURzw1FJPEHxLhC8FHUXGpMxK9f1dNu1LwuyxF2y9nVMoPQcqT3ZhZTb1KMEGFZS2xL4Crh96npQeR8qOJO0cJLd1BleCIQNCYwgazu3zBN3btQr3yXGdI76cBNMcJPN8uHrOBOdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xYQzB2DW; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ADF52AD37
+	for <linux-media@vger.kernel.org>; Thu, 11 Jun 2026 14:45:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781189147; cv=pass; b=oLPAlOWg0/iCmc9RMe8tXiwtbwtk+uAOBSu09tCa36X01emQXeRDG3iMiBr7cWpKd8XSPD5UQTG3WFDjtjAo/8b3f4Chl4RSNAACxp6GXq3MTsO281gjWOCMgR55hzGVYFy1QCGSQleJnIOoRia1IPc4kemD+iibzKyO8RSHTqE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781189147; c=relaxed/simple;
+	bh=ZwBSIB66d1tL230+mKEjlH+JNTqmf3KSiuoOfRL20sg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DEOehORnhbjFeb65AtBtKULI6hi07E02OAVb91j9hgcJz+xa5zKfcJqfpHHxxaO8kjWSIdSJ8xz6Dgkg2aOigPEL7A9Z1F33zyac6/M/g59HpsMI02lW9/OQtyXAcpxNN33I5trzh2MBnOI9fD1VDd3qZxI8QHsNDgtgSc/foDc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=oKTF1xRk; arc=pass smtp.client-ip=209.85.218.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xYQzB2DW"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-bec449cf976so1103652566b.2
-        for <linux-media@vger.kernel.org>; Thu, 11 Jun 2026 07:36:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="oKTF1xRk"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-befd83e0521so217767166b.1
+        for <linux-media@vger.kernel.org>; Thu, 11 Jun 2026 07:45:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781189144; cv=none;
+        d=google.com; s=arc-20240605;
+        b=GD7UjORXeNU5LOogF58+Lh9lyIUQ511HKyNpeJt+iGhEkpbg71NYFe8swyqegZQBYK
+         4tnMtXnzo7cq9gbrtRi7CfNeyA2K05TvyNbuyZfqZmabZV7Wx8qkFlplkzvrL5oC6xO/
+         tmHSq3aDRXLs9JzX2w5jkxOSvW4yJCXQ71uxg7EVFWs/FHba9T53SdsYE5QvOP7G2ig+
+         7635PgpJ28fZu/zjDoaKy8DqipxyygvniAjO4ICXwIxgKqxKZ2KJUYaIrGrOYzXnpYhi
+         vSotWNMBsxgJomAfmIyAKTGwaaCGmSJEC6b1zKlgaeDtN8NpAsC6m6CX0x0zrKUdHLzQ
+         tKAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=d1Q6VrmJUx+o7NgXdFZxExU41NgoiFIjQElz0CF6684=;
+        fh=DhDZAftil3e2Zn0rWeyki9e3oWq5gAhx2aZfoHH3uy4=;
+        b=EtHEH2zj/+fu+rInIWHIHffn9s7llfbfjyg9Uj7WfHAvH4DGYFbNkLLcRdZzQ5Ci8i
+         c6XEAmd/WVm6CTAR47D2kK0mzT/iy3+4bA9+M+VsGZAfb8tQsjjE9xhMFKz92KMD2zVT
+         SUaigB5lj2hqM3Uc/9LMrz4gFtkv1jE3o2uGsqSpHLoljM/z47a1Jejxph5gGE6lt+QY
+         CeSqDi4swL3/9ErBqMH0KsR1TuUjFVL93bZcsc0oyXVKkVHxvBnWTLW1DnWIKkYFUndk
+         7xuO41vHPQHuW+d1T5rwkye6msdXgpVohig66eZ0DT2nBWckP+KEv12ugaFD9NBLOOlb
+         PkUw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781188579; x=1781793379; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=sr3m8r/i7ovHfjfbNC82N3Y0eijmiJMV+xkhP6DvT20=;
-        b=xYQzB2DWHdtUO2kVszPWBJnsDsb83mivWggIjMOTuCYejfnCtOM0ysSmqmjgJUsfve
-         mUOnxWryQCZEfGjcF16Hk+UKfDYR8UeTW9HUlHSn691NDGwUlJR+cp/Wl8ut+jurud9z
-         CjzhL41ePAlgMNeGOhTDLHcbPYhGqr8c0SxiuqFl5sDJDWxeMRcLRoE1Qduic85+MfXU
-         19jCHwkHzTxt4HzZuI6bnIyWq5VXcUIc5p6X4I2bfyZ5unS6L0LwCoTJuQKb/tYhPyeo
-         9tqNxrCUhjKacMZrS46E/+jncAvZrx1GO1tXdgFgb9d1eKLX7E5hxysklo14JLLJXqY8
-         IrfA==
+        d=linaro.org; s=google; t=1781189144; x=1781793944; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=d1Q6VrmJUx+o7NgXdFZxExU41NgoiFIjQElz0CF6684=;
+        b=oKTF1xRkGsnpLk64bMT7Of1ScwuLfP2HoSZUImbFDHaOIM7jrZ3vAxGbuIORM6uAQe
+         kE5Swb551sovL0ik3GX5PbqyoHeNc//xeY5idvrcdwvf6gSeYeUiqgCNT6yemDqW0qBE
+         tjI+kIWj+xE4NWVxrFmqjpINnAtTsgnD5odgG38Z5WFtpmwv9fkrgdp2Xr+gyIMUAQnk
+         EOceaM8DLDcCj3u9saT4LWxrhPNU/NA5c1NIT9TIOIh4STIR1yC54AwV00ugBcrhnpHk
+         XIg3NBWZhE8ZxGgLQ3p0BGadefN2Mc3HaP3k1ZDGFeoDbI6UfwGqLlI5KWHK5gleEI5i
+         X9Bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781188579; x=1781793379;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=sr3m8r/i7ovHfjfbNC82N3Y0eijmiJMV+xkhP6DvT20=;
-        b=M0obcmvxyXkQRZIUDez2soE452F1jKZFVkzUb6FASTG43QDUse1GU7PJb1kqNfFgYw
-         4k3cFCCGOEs+Fu0gQTIs2BZlEQ3CO0wzR76XqIU0fvNB81K+wUNqcKBR9mGcfJOVU0bh
-         ciXXy5MtpNzr4lkzonbWBcpMpqP/RNEfh4SBc8zaw5m+f8ThMGLRZMc1jRrKspMsVdma
-         lcU8Wa93+vsrBIit4VQ3lu8K9FrqrWd6GrVsH7Zwk8rIPf0c3jeLdifsJeU1wG+/W/+b
-         bhbAIiyhq8G70cKvtOEpLMgK1zY7BRVCafxXSOEetlPKYaz5/oEv2vq98wffh4uvclYX
-         BqCg==
-X-Forwarded-Encrypted: i=1; AFNElJ8iodon3ZtLoKU77d61Ep/vj6+HFn4s2/Np1fmwRnYIUnUbOWnK0bMM4psvmPXwtbneX2ux3S5IqtrimA==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzm+L+Zky2MRHnBJV2gNy7Ej4OQ9uCwS2JE0m5X/vpAHaa8f+bd
-	neiGDMFpEDlAKIF21hi2zq2hOLZSmSfZ+FpOKJLFsnZ13UYKD7nrf68K4npKFf2W2dc=
-X-Gm-Gg: Acq92OGa44gj1mlkX/AhxABS2ZtncH70iyhf2c9mJFwt+gxSDB82msL1IZp0sFrggEv
-	KwLYeq9mWpoa1WlnJ8wXRdRL5ScvcsGCAKtwnndRGMDGa1PMUmwdyUPfMZomdk/S7Lo261JKx2L
-	4C8nxzRxJwlh90GvpGn+lT7qUXkZHEhUBjpQXfAwBLn5ovwpc1+yBid83z0aG2U+PjTPaBn758D
-	ARpWd/NNU53cWhc4XL4YtsgTlt7bgdN8R0k9EXvYNBzW6XYJl0NfHfUqrhWN5irx05Bw1+mmQ7Q
-	EFPXGdzlE37mXcyQbufOZyhRXw7G0mnOMd/aW/xBO1b3DM2oPS5TwFE/FilgPoHG5osASccGYGU
-	gOey9ww8425hzpaJCNeju+zx+6RAo5l6pPoeoYXncOrAaJlwohVZyBBdmyM2SfS4prlg/YAj5tv
-	5wIJfbKfHtL3pgR4/PQk9rRKF1rYA95Mss1DtpGbNX9KOfzg==
-X-Received: by 2002:a17:906:6a05:b0:bda:8e57:5639 with SMTP id a640c23a62f3a-bfc85e9049dmr144570566b.20.1781188578927;
-        Thu, 11 Jun 2026 07:36:18 -0700 (PDT)
-Received: from [192.168.0.101] ([109.77.45.245])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6914f3b583bsm7011436a12.29.2026.06.11.07.36.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 11 Jun 2026 07:36:18 -0700 (PDT)
-Message-ID: <ab1055a2-6916-4083-a360-62eb15171fe3@linaro.org>
-Date: Thu, 11 Jun 2026 15:36:16 +0100
+        d=1e100.net; s=20251104; t=1781189144; x=1781793944;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=d1Q6VrmJUx+o7NgXdFZxExU41NgoiFIjQElz0CF6684=;
+        b=M7QDMV6EzFYm00Juea7efvAjHQgALt5JGzppLcJFjWvF/neCIBFwinAbUyZCIJh8Sz
+         13H3Z88JUg9oMV5L47vYyCpH57idvmWBoEo7doLbKJMDeWUGLYjHHuVyIWU1g4luDr/u
+         Taf6BN9OV0qxYllmSCZKeRN4ku47ubCs8qxOV5h+hkOUndiHsopqY0hlK1qXgpT0xoG9
+         zS1/fFDYYYVouLY+87e3aG06dMbbO8DUqQTNtPCWee3HImLPL0Neb8g2naVseDH+BvyR
+         JNp3tTJJhZ1vfxuM6JY22sIsGyM8dUZIOwi8vTXjZvX/2niEdhb3LBbnRnuBBaENUuEZ
+         tF1A==
+X-Forwarded-Encrypted: i=1; AFNElJ9b4kGwINn92qE1WYo5jFufv9zf8tEENuiXmQ9x2FZ+yhERcLghshhJZDbrRtj+bwrdS3o3X6B9H4JnwA==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yynq4SPVFa22keJJNtHiC0/s6se+s+nyqIQYdYpdfcK5KBcYWYD
+	vn5quEltt30OswsoFur1xccTZNZz8tWYssJUDTEFL6e3H8o9wU9hEB+D8AoqJAW9XrLExJEAQyU
+	/6EsP2kJVNx3NkjhOZ/l4nMPbXRBjV2+RGr4U911frg==
+X-Gm-Gg: Acq92OEnsUXlVmdFPL7hvCgsolo66v/l2guuE3M7i2XLf4I9267OAFUT6LmdohDH5Ci
+	A7/GFiUmpLSwXrwApJnjnI8c7pwCmgPtZ8aM46H7edykFHMQoghYI42VI31/2D0d6smR3Ak6dZs
+	mMWOXxrRi+FxnXEuT8TBSLyrmycp+xy966/QP/iHvGfV73IKgM4tXOethwRQtLWt7vIHSX8nZFI
+	lxY9aM+P/TPbgwn2KkDlNxdptPhjc8tTV9NhKeb7SVj1L8GJi2B+6fLG4tm9KVwQHzFIQW1TFQj
+	DJMGN/KvCB3ni5vsTk+b210zRWZm1ytBPhzR3Z6/NFgM7NVyD+snCdum8g==
+X-Received: by 2002:a17:906:4fd1:b0:bee:a39b:ab7b with SMTP id
+ a640c23a62f3a-bfc78ed6c4fmr158181366b.31.1781189144237; Thu, 11 Jun 2026
+ 07:45:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] dt-bindings: media: qcom: Add Shikra CAMSS
- compatible
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- Suresh Vankadara <quic_svankada@quicinc.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260608-shikra-camss-review-v2-0-ca1936bf1219@oss.qualcomm.com>
- <20260608-shikra-camss-review-v2-1-ca1936bf1219@oss.qualcomm.com>
- <20260608-reliable-vivid-stork-f4ea6c@quoll>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <20260608-reliable-vivid-stork-f4ea6c@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260610142329.3836808-1-sumit.semwal@linaro.org> <aiqLJUrJ1dnKhsJn@FV6GYCPJ69>
+In-Reply-To: <aiqLJUrJ1dnKhsJn@FV6GYCPJ69>
+From: Sumit Semwal <sumit.semwal@linaro.org>
+Date: Thu, 11 Jun 2026 20:15:32 +0530
+X-Gm-Features: AVVi8CeA1CWJ3Tf7y-K-ZwxKVWTsZOKhQeXrR2LoMbjQ-zl-nOkzKd4bOJvB8OA
+Message-ID: <CAO_48GHEfq7wpvM_4OXcMhgdASgH9J96nhEd0QFh2Rg8aPxpfw@mail.gmail.com>
+Subject: Re: [PATCH] dma-buf: move system_cc_shared heap under separate Kconfig
+To: Jiri Pirko <jiri@resnulli.us>
+Cc: christian.koenig@amd.com, jgg@ziepe.ca, hch@infradead.org, 
+	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
+	chleroy@kernel.org, linuxppc-dev@lists.ozlabs.org, lkp@intel.com, 
+	agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com, 
+	linux-s390@vger.kernel.org, djbw@kernel.org, thomas.lendacky@amd.com, 
+	x86@kernel.org, arnd@linaro.org, benjamin.gaignard@collabora.com, 
+	Brian.Starkey@arm.com, jstultz@google.com, tjmercier@google.com, 
+	mripard@kernel.org, afd@ti.com, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+	linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>
+Content-Type: text/plain; charset="UTF-8"
 
-On 08/06/2026 21:46, Krzysztof Kozlowski wrote:
-> On Mon, Jun 08, 2026 at 07:36:38PM +0530, Nihal Kumar Gupta wrote:
->> Shikra contains the same Camera Subsystem IP as QCM2290. Document the
->> platform-specific compatible string, using qcom,qcm2290-camss as
->> fallback.
->>
->> Unlike QCM2290, Shikra omits the CDM and OPE blocks, requiring only a
->> single IOMMU context bank instead of four.
->>
->> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
->> ---
->>   .../devicetree/bindings/media/qcom,qcm2290-camss.yaml    | 16 +++++++++++++---
->>   1 file changed, 13 insertions(+), 3 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml b/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml
->> index 391d0f6f67ef5fdfea31dd3683477561516b1556..4f39eefb4898ebc22117407f26cfb4f41deb111b 100644
->> --- a/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml
->> +++ b/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml
->> @@ -14,8 +14,11 @@ description:
->>   
->>   properties:
->>     compatible:
->> -    const: qcom,qcm2290-camss
->> -
-> 
-> Do not remove blank lines.
-> 
->> +    oneOf:
->> +      - items:
->> +          - const: qcom,shikra-camss
->> +          - const: qcom,qcm2290-camss
->> +      - const: qcom,qcm2290-camss
->>     reg:
-> 
-> With this fixed:
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
-> Best regards,
-> Krzysztof
-> 
+Hi Jiri,
 
-@Nihal.
+On Thu, 11 Jun 2026 at 15:51, Jiri Pirko <jiri@resnulli.us> wrote:
+>
+> Wed, Jun 10, 2026 at 04:23:29PM +0200, sumit.semwal@linaro.org wrote:
+> >From: Arnd Bergmann <arnd@arndb.de>
+> >
+> >While system heap and system_cc_shared heap share a lot of code
+> >and hence the same source file, their users have different needs.
+> >
+> >system heap users need it to be a loadable module, while
+> >system_cc_shared heap users don't.
+> >
+> >Building as a loadable module breaks system_cc_shared heap on
+> >powerpc and s390 due to un-exported set_memory_encrypted /
+> >set_memory_decrypted functions.
+> >
+> >Fix these by reorganising code to put the system_cc_shared heap
+> >under a new Kconfig symbol, which allows either building both
+> >into the kernel, or leave encryption up to the consumers of the
+> >system heap.
+> >
+> >Fixes: fd55edff8a0a ("dma-buf: heaps: system: Turn the heap into a module")
+> >Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> >Signed-off-by: Sumit Semwal <sumit.semwal@linaro.org>
+> >---
+> > drivers/dma-buf/heaps/Kconfig       |  8 ++++++++
+> > drivers/dma-buf/heaps/system_heap.c | 16 ++++++++++------
+> > 2 files changed, 18 insertions(+), 6 deletions(-)
+> >
+> >diff --git a/drivers/dma-buf/heaps/Kconfig b/drivers/dma-buf/heaps/Kconfig
+> >index e273fb18feca..a39decdcf067 100644
+> >--- a/drivers/dma-buf/heaps/Kconfig
+> >+++ b/drivers/dma-buf/heaps/Kconfig
+> >@@ -5,6 +5,14 @@ config DMABUF_HEAPS_SYSTEM
+> >         Choose this option to enable the system dmabuf heap. The system heap
+> >         is backed by pages from the buddy allocator. If in doubt, say Y.
+> >
+> >+config DMABUF_HEAPS_CC_SYSTEM
+>
+> Nit: "DMABUF_HEAPS_SYSTEM_CC_SHARED" to be consistent with the heap
+> name?
+>
+> With or without it:
+> Reviewed-by: Jiri Pirko <jiri@nvidia.com>
+>
+Thanks for catching this; I'll fix this while pushing to
+drm-misc-next-fixes in a few minutes.
 
-If this is the only change you get asked to make, I will just fix this 
-up on application for you. There's no need to v3 the series for this.
-
----
-bod
+Best,
+Sumit.
