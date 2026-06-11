@@ -1,156 +1,175 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CCBF3E63B7;
-	Thu, 11 Jun 2026 17:34:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D975D33D6FC;
+	Thu, 11 Jun 2026 17:44:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781199257; cv=none; b=DD8/vuy9uEQkLN2p69H6itbxCcqmTIMl96S0rJ/ZfJxnRIdmugZRrBtC28JuxN97SIRE/o3KglIkF+BlHUGryXMRO5LVcQ3LwUPkis6g2QN+8u1ldD5Q/lzj9ZlD/CZsCb8ZrV9WGHUJqrA946LLFbTCBDdcjIErPHOLebuT+1c=
+	t=1781199900; cv=none; b=hd4gsqYRqme6NhDCORrfUXOLDJaxOL4kA6Z09ELdQF5qC/N52LAHs8MqlXqzQ2skaQvA4bpQDswyJeHgccwOPDEKBXIDnz50asW1oeAWGSloWGMnBDRw7RxZkHAgDUShpK0Kq8Fh0PbbyVk8QMGj6PXK+9MGy4x8OrXfDp6REPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781199257; c=relaxed/simple;
-	bh=PUdP8+dV2ponyYfNZPXosiifb82vhoKU5HMO0eoPZIM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DBojAa3IGOmul6aub+Z80ydVrouTQ9QAu2A+wJRYutciUhAfxmdOKvq61LXZtM3ne0NpaysL42Zsi5KkxaFBbiaYHFKj+FTQURF3I/4UGalTCFOtUv/ksFf9g9kTl9Dl11kzizUYAG364e0LYOVbPhhvV7rrUzzT5UAjFoJC8J4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Cq+Zsmyv; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1781199900; c=relaxed/simple;
+	bh=a4zP1H08HlKwxMbq5tqKW/OsMFBlssC+9ij1PX3xlh4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aMrvx2fitUgJoGXZDWn6uybODdXifRKKvdmL/bCGJfiLKvz0W88RWtzgpDmZW+3Cvkctn7twseLNd2xaaYkV1KP4K593GoWUz33bAYmsPwhvZahpI2Wh4pKRhFhAEosvfh0jKhdCJV8f7ILEiFq5tH9bAo9brjnKG/h6NktsqKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=Os9kV2Gx; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Cq+Zsmyv"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 53E8E497;
-	Thu, 11 Jun 2026 19:33:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1781199219;
-	bh=PUdP8+dV2ponyYfNZPXosiifb82vhoKU5HMO0eoPZIM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Cq+ZsmyvgN8N+mcOrcuTo2MSn6umEMkc/ctQYdSqE5BeH6MFisezVk9WyefBAGlJJ
-	 isIFZcUzftU8awr9owIJrBT4fcx8S5CbxgDRgvva6/hNO68Ygym6oVtyWjfbmR+nO7
-	 WC2HBkarqTgjcZvoWR7Pp1FwzKdpQZWpTpPM6BqE=
-Date: Thu, 11 Jun 2026 20:34:07 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Eugen Hristev <ehristev@kernel.org>
-Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>,
-	Naushir Patuck <naush@raspberrypi.com>, linux-media@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] media: bcm2835-unicam: Fix log status runtime access
-Message-ID: <20260611173407.GA1910728@killaraus.ideasonboard.com>
-References: <20260611-bcmpipm-v3-1-c609dacb029f@kernel.org>
- <20260611080348.GC1758601@killaraus.ideasonboard.com>
- <3b142d52-53d1-4942-bb45-1cb9645c164b@kernel.org>
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="Os9kV2Gx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1781199888;
+	bh=bgyx4tuoR1VujLGJebtgmRpeK21Ky1z7/2zTZbfFLxY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Os9kV2GxCX6cgBB+jfIbx4Jk5aYyWKQ5X/ZXH+VDun8JRkKYtFv/ieIvA9GjW9BEP
+	 oCbiUOIm0Juecvy1as3nTJYV673czVuKakUU/AnOzg1YsHLcYDcCT6wfnXjOb4o5EF
+	 gGsD9u+TtAD6sXt5Fps0rxVzebnry3bpHhfB/x6aKrUvYTzMNZCxodqLKN4BSGZnoy
+	 7qlwpEUgQ//8IfsVc+0INo/af9xSHJs4pcUtFr/egZjryoz4iw5WPTWSpoUclLkJ9x
+	 MLyh0LmyKHrhyNGTv+5AcdgmuuA1QN8TdwwUbruNIB224zwt1Y0N8Pmt5FJFGTti/K
+	 pXV0X5964ySzw==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4gbqlp6VBVz4wJk;
+	Fri, 12 Jun 2026 03:44:38 +1000 (AEST)
+Message-ID: <d38fc0ed-4e89-4eeb-b32d-06afba3157f6@ozlabs.org>
+Date: Thu, 11 Jun 2026 18:44:35 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <3b142d52-53d1-4942-bb45-1cb9645c164b@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
+Content-Language: en-GB
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
+ Ankit Agrawal <ankita@nvidia.com>, Pranjal Shrivastava <praan@google.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260611160749.GA469670@bhelgaas>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <20260611160749.GA469670@bhelgaas>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 11, 2026 at 08:18:10PM +0300, Eugen Hristev wrote:
-> On 6/11/26 11:03, Laurent Pinchart wrote:
-> > On Thu, Jun 11, 2026 at 08:29:55AM +0300, Eugen Hristev wrote:
-> >> When requesting log status, the block might be powered off, but registers
-> >> are being read.
-> >> Avoid reading the registers if the device is not resumed, thus also avoid
-> >> powering up the device just for log status.
-> >>
-> >> Fixes: 392cd78d495f ("media: bcm2835-unicam: Add support for CCP2/CSI2 camera interface")
-> >> Signed-off-by: Eugen Hristev <ehristev@kernel.org>
-> >> ---
-> >> Changes in v3:
-> >> - Changed to check return value of pm_runtime_get_if_active() and only call
-> >>   pm_runtime_put() if the device is active.
-> >> - Link to v2: https://patch.msgid.link/20260522-bcmpipm-v2-1-a3da66cbc9f0@kernel.org
-> >>
-> >> Changes in v2:
-> >> - changed to use pm_runtime_get_if_active()
-> >> - add corresponding put()
-> >> - Link to v1: https://patch.msgid.link/20260521-bcmpipm-v1-1-3eba88d88045@kernel.org
-> >>
-> >> To: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-> >> To: Mauro Carvalho Chehab <mchehab@kernel.org>
-> >> To: Florian Fainelli <florian.fainelli@broadcom.com>
-> >> To: Ray Jui <rjui@broadcom.com>
-> >> To: Scott Branden <sbranden@broadcom.com>
-> >> To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-> >> To: Sakari Ailus <sakari.ailus@linux.intel.com>
-> >> To: Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>
-> >> To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> >> To: Hans Verkuil <hverkuil@kernel.org>
-> >> To: Naushir Patuck <naush@raspberrypi.com>
-> >> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> >> Cc: linux-media@vger.kernel.org
-> >> Cc: linux-rpi-kernel@lists.infradead.org
-> >> Cc: linux-arm-kernel@lists.infradead.org
-> >> Cc: linux-kernel@vger.kernel.org
-> >> ---
-> >>  drivers/media/platform/broadcom/bcm2835-unicam.c | 12 ++++++++++++
-> >>  1 file changed, 12 insertions(+)
-> >>
-> >> diff --git a/drivers/media/platform/broadcom/bcm2835-unicam.c b/drivers/media/platform/broadcom/bcm2835-unicam.c
-> >> index 8d28ba0b59a3..96b51e29bba4 100644
-> >> --- a/drivers/media/platform/broadcom/bcm2835-unicam.c
-> >> +++ b/drivers/media/platform/broadcom/bcm2835-unicam.c
-> >> @@ -2043,6 +2043,7 @@ static int unicam_log_status(struct file *file, void *fh)
-> >>  	struct unicam_node *node = video_drvdata(file);
-> >>  	struct unicam_device *unicam = node->dev;
-> >>  	u32 reg;
-> >> +	int pm_active;
-> >>  
-> >>  	/* status for sub devices */
-> >>  	v4l2_device_call_all(&unicam->v4l2_dev, 0, core, log_status);
-> >> @@ -2052,6 +2053,14 @@ static int unicam_log_status(struct file *file, void *fh)
-> >>  		 node->fmt.fmt.pix.width, node->fmt.fmt.pix.height);
-> >>  	dev_info(unicam->dev, "V4L2 format:         %08x\n",
-> >>  		 node->fmt.fmt.pix.pixelformat);
-> >> +
-> >> +	pm_active = pm_runtime_get_if_active(unicam->dev);
-> >> +	if (!pm_active) {
-> >> +		dev_info(unicam->dev,
-> >> +			 "Live data N/A due to device inactive\n");
-> >> +		return 0;
-> >> +	}
-> >> +
-> >>  	reg = unicam_reg_read(unicam, UNICAM_IPIPE);
-> >>  	dev_info(unicam->dev, "Unpacking/packing:   %u / %u\n",
-> >>  		 unicam_get_field(reg, UNICAM_PUM_MASK),
-> >> @@ -2065,6 +2074,9 @@ static int unicam_log_status(struct file *file, void *fh)
-> >>  	dev_info(unicam->dev, "Write pointer:       %08x\n",
-> >>  		 unicam_reg_read(unicam, UNICAM_IBWP));
-> >>  
-> >> +	if (pm_active == 1)
-> >> +		pm_runtime_put(unicam->dev);
-> > 
-> > As far as I understand, the discussion on v2 concluded there was no need
-> > to test pm_active here. Did I miss anything ?
+Hi Bjorn,
+
+On 11/06/2026 17:07, Bjorn Helgaas wrote:
+> On Wed, Jun 10, 2026 at 04:43:15PM +0100, Matt Evans wrote:
+>> The P2PDMA code currently provides two features under the same
+>> CONFIG_PCI_P2PDMA option:
+>>
+>>  1.  Locate providers via pcim_p2pdma_provider()
+>>  2.  Manage actual P2P DMA
+>>
+>> Some drivers (such as vfio-pci) depend on 1, without having a hard
+>> dependency on 2.
+>>
+>> A future commit expands the use of DMABUF in vfio-pci for non-P2P
+>> scenarios, relying on pcim_p2pdma_provider() always being present.  If
+>> that depended on CONFIG_PCI_P2PDMA, it would make vfio-pci only
+>> available if CONFIG_ZONE_DEVICE is present (e.g. 64-bit systems), even
+>> when P2P is not needed.
+>>
+>> To resolve this, introduce CONFIG_PCI_P2PDMA_CORE and refactor the
+>> basic provider functionality into a new p2pdma_core.c file.  This is
+>> available even if the CONFIG_PCI_P2PDMA feature is disabled (or
+>> unavailable due to !CONFIG_ZONE_DEVICE).  Then, drivers can enable any
+>> additional P2P features with the original CONFIG_PCI_P2PDMA (available
+>> when CONFIG_ZONE_DEVICE is set).
+>>
+>> Signed-off-by: Matt Evans <matt@ozlabs.org>
 > 
-> Sorry, I saw the message from Sakari and he was pretty confident on the
-> right way, he even mentioned that all sensors should be fixed, and has
-> not come up with a follow up since.
-> If v2 is the right way, please disregard this v3
+> I thought this was going to be just a code move and new Kconfig
+> option, but it involves a little more than that, e.g., adding
+> pci_p2pdma_release_pool() and tweaking the RCU synchronization.
+> 
+> If possible, it would be nice to do that refactoring in a smaller
+> preliminary patch so it's easier to review/bisect/etc and make this
+> one a pure code move.
 
-Let's see what Sakari has to say :-)
+pci_p2pdma_release_pool() is really part of the split, not a functional
+change, i.e. factoring the (P2P-only) pool handling out from the rest of
+the pci_p2pdma_release() actions still needed for the _CORE case.
 
-> >> +
-> >>  	return 0;
-> >>  }
-> >>  
-> >>
-> >> ---
-> >> base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
-> >> change-id: 20260521-bcmpipm-6c578e73239c
+I guess .._release() could be split in place in a small patch, and then
+moved alongside the rest in a second.
 
--- 
-Regards,
+> I guess CONFIG_PCI_P2PDMA_CORE selects just part 1 ("Locate providers
+> via pcim_p2pdma_provider()"), right?
 
-Laurent Pinchart
+Yes, I can reword that last paragraph of the commit message to make this
+clearer.
+
+>> +++ b/drivers/pci/p2pdma.h
+>> @@ -0,0 +1,29 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 */
+>> +/*
+>> + * PCI Peer 2 Peer DMA support.
+>> + */
+>> +
+>> +#ifndef _PCI_P2PDMA_H
+>> +#define _PCI_P2PDMA_H
+>> +
+>> +#include <linux/genalloc.h>
+>> +#include <linux/pci-p2pdma.h>
+>> +#include <linux/xarray.h>
+>> +
+>> +struct pci_p2pdma {
+>> +	struct gen_pool *pool;
+>> +	bool p2pmem_published;
+>> +	struct xarray map_types;
+>> +	struct p2pdma_provider mem[PCI_STD_NUM_BARS];
+>> +};
+>> +
+>> +#ifdef CONFIG_PCI_P2PDMA
+>> +void pci_p2pdma_release_pool(struct pci_dev *pdev, struct pci_p2pdma *p2pdma);
+>> +#else
+>> +static inline void pci_p2pdma_release_pool(struct pci_dev *pdev, struct pci_p2pdma *p2pdma)
+> 
+> Wrap to fit in 80 columns like the rest of drivers/pci/
+
+Fixed.
+
+>> +{
+>> +}
+>> +#endif
+>> +
+>> +#endif
+>> +
+> 
+> Spurious blank line at end.
+
+Doh, fixed.
+
+>> +++ b/drivers/pci/p2pdma_core.c
+>> @@ -0,0 +1,118 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +/*
+>> + * PCI Peer 2 Peer DMA support core, providing a bare-bones
+> 
+> In this English text, I think I would spell out "Peer to Peer" instead
+> of relying on the "2" homophone.  Same in p2pdma.h.
+
+I would've preferred that too, it isn't correct; I was seeking to keep
+the blurb here (and in p2pdma.h) as close to the original p2pdma.c as
+possible.  I'll correct it in the new files (hyphenated "peer-to-peer"
+in PCI-SIG language).
+
+
+Thanks,
+
+
+Matt
+
