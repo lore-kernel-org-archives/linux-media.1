@@ -1,64 +1,64 @@
 Received: from mail-wm1-f74.google.com (mail-wm1-f74.google.com [209.85.128.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DDAF3DB334
-	for <linux-media@vger.kernel.org>; Thu, 11 Jun 2026 11:10:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6455F3CC310
+	for <linux-media@vger.kernel.org>; Thu, 11 Jun 2026 11:10:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781176209; cv=none; b=F4OYu4AH9pn6aIRXRSqTgL/cYkyKNocfvQClJ9mdTmaxuYucOTs2L8vx4TtGUS7O4he4E6fBD8YGQAXipOgTSrjhLtkoAmbIwKGSs9cad1SVOz+0C7woj3aNVAg3/YvJT5Uhxa4BW/HBGvBp6PWwySSi/oCb4m1dzb/GGHmlmi0=
+	t=1781176239; cv=none; b=NIaxFVwN2Li94pmE9O4vL4tiV2QqutW9ZWFAVfB+TWirhXdai72V+ScntQQe8qO7W4pifdHmz7Qj9iqlS5g919h7Yx05egcUGMM9WYANH9uOkLfQWqqmyo2OlKqUVW4a91Q+fKOOJXAVhIiZf6yOHmk77Or/zq/DwzRc2J1y0JE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781176209; c=relaxed/simple;
-	bh=TEOPeQRDcTO8ZT8oB50G4bbjCXtdEl0gblwbnGjfT1A=;
+	s=arc-20240116; t=1781176239; c=relaxed/simple;
+	bh=X2feRBYV3vZ/tuaORdzmJKxvCC61hcSBv0J0dSxbdw4=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=hMWcr/Tjfbl2Ut3oPI17CMeE66WUtIAKoSYrvEAWTIvAPcjZAt/Fm7RVnco3QN2hQX5uutXGRuHa+6VFz9Dlm3WHbpyuc3WlV3OqUvEkg1yHV5PjgA6GpDLXpT99vOF+ggULnUK1iY5nt+por1aDt36FSEBN8e/4Z7m5Pq1gbko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AMtgwrNv; arc=none smtp.client-ip=209.85.128.74
+	 To:Cc:Content-Type; b=IUD/Z25x6ptTAIB9dDqC3glD4AVoqfaeg1QycqtjbOBTYR9Ivkjnu1bbhg85hQrruU8mmdRub9v2x/TO59N3KaVxatqHkIngTseKc9xbOB/99Us0qQBIOb4TzQGlzDmdUesRdNisXvvbOsairY3nRDOEIP9aXI4pKRzi9hzPBb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=v5cMco1L; arc=none smtp.client-ip=209.85.128.74
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AMtgwrNv"
-Received: by mail-wm1-f74.google.com with SMTP id 5b1f17b1804b1-490e547f3cfso5217335e9.3
-        for <linux-media@vger.kernel.org>; Thu, 11 Jun 2026 04:10:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="v5cMco1L"
+Received: by mail-wm1-f74.google.com with SMTP id 5b1f17b1804b1-490aadb1386so4087485e9.0
+        for <linux-media@vger.kernel.org>; Thu, 11 Jun 2026 04:10:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1781176206; x=1781781006; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1781176237; x=1781781037; darn=vger.kernel.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=YpGjHsDNrecPmydKZbz+npt4P/d2PQgzeW5pneBmX4A=;
-        b=AMtgwrNvOy8NQbNMuY4JuWKsOzKBrE0K2E47go40gdE4ci3xMnu7z0AnKLVHnpV8RI
-         /UDizTt/ni/+fPk3B+eQiCixKyVZYw8Y+/762G74AvPCDotyPS8sBkz2MUZTzXO6NBts
-         q6541BAmHawAyGFLsjf/vpNZK9PddPhuN9r9fDOs7VHZjACq8m/p7HgacXDkPQ3o7v6W
-         LpNnEd95uE4BZoDF/mp5M+yZLq7rfTeE4XOeifpAtzgaqlQVrBxg0X8Q5IZPNbCM7YHw
-         W7EQPl02j4LYgannHqXkxgeFePoTQQzzeKsCkxahN6usxGTGoWcuQRrka8LArhaCbu4/
-         9WIw==
+        bh=B2hPEJWO7zc+9d/tXPog7CgsAXE7dhbuzsNKzaOmhd4=;
+        b=v5cMco1LYWOva2TH7ruceIjflfuYwkHBgBE+oImss44NaIWi6quhYNTwQxCm08F/G4
+         otc7qYNfcPzFUb75iXCFT5eXgSQStSR6n1tzjZeuOzPGoYU+wpHKBKvYP07SycHjxjPq
+         Ia+HLbArUaDsNEU10KRtyu6bF0oaz2fDku/Q/1BasElaoB5IUlvomDuldM1jKpStSLen
+         E7fXj++1NnRUG3aNcOYSyqPX/G2bk1AFoJSDP4wPL2fyhd8bdAPiwKPEPMK+Xs0O0yA7
+         8pvaUgcb+8bFbO/QcFcknumHY1JLVzB9FRBLt9ospd7b2SlXeU33lkvqeZyJsTKvjDrN
+         YFAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781176206; x=1781781006;
+        d=1e100.net; s=20251104; t=1781176237; x=1781781037;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YpGjHsDNrecPmydKZbz+npt4P/d2PQgzeW5pneBmX4A=;
-        b=EBD2wfyPdie13nPwdbDfXngHRMV4I7Gsf38SfdA9EYnA6mf+H96IWlZpWaWKDCezQq
-         YuL0zuE1kr49hqsDHulF6ugI/y1dlBNADRPlARXD2XiTOFjOH/SNx5rgaPwtFuaite+P
-         wu/FYuUVBuk3OX3B8UisrKDm2IgCEMIRv9vATti7BiQ3bDwXHr7y+UPxLs/sv1Xon5kB
-         hc0PpN8Fk8EkSepKVd5MtSjXaqsXqGRuO+HL+wm4N8qBADFO5+aBget5lDCUM8wYuXOU
-         7yrlOufTAuht7JQQ0U2qlCTN1j48zFm08tnS65zjM4yIG2tQcpwEh75MUk9X9FRejHlB
-         E/3Q==
-X-Forwarded-Encrypted: i=1; AFNElJ/daJvIv6BF3JOduxpl3nAks7WdT7SEnKbCPx9VCB3wIAdeuUahch9/9PvDhMufIf6Wic2Vfb+86SmQVA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzC51h7edjjPAmdENGEabo2S3YzZWEpfRMr/OZrE0S4Tu4qUguL
-	DFbtsu44X+fUoYSAYzpIbHOBdAp52mgGCbeUWv6wDKqUwrUD5j5olDf6p2gLosBy9AQ93vtwbik
-	0cuXzU2gCATHQKDPzow==
-X-Received: from wmqe21.prod.google.com ([2002:a05:600c:4e55:b0:490:b058:c623])
+        bh=B2hPEJWO7zc+9d/tXPog7CgsAXE7dhbuzsNKzaOmhd4=;
+        b=NCso+Ep0HszriknniYg/ElwjjT5SnJJW/dWdH/0+hc6qMaBdPBUeFhEpAalIhHIdac
+         VywQcH3GbNUQQaOzW/ef/Edth/WWnSgt77oQmVNYhQjHVJXJTy2S/pNfBOO68LT5GodU
+         6qQlKALa3K0HavW5JWV1YMbFq+VKsm/gK5m0jjCZznWplBSPNjdUmsMULro8ZPSiySz4
+         4rjqU7Pt1REeIiD82hfb+pbUtmvEIGRFcUeoKE49pcetm0KBZ9IQo47peksPhKTZ0Ks9
+         0vEIkRqBDE0/bU8Bgv7XPS3Ou+0o0MoI3TsrnkotTGJTnf6g0EVyPuZXDPtKvUkv2m9D
+         P66Q==
+X-Forwarded-Encrypted: i=1; AFNElJ//JnYyNI5LYjG1G+LzooHKUKpQRk4uMQKONdvk35ZIi+83rLv27aSzN8j/No9fAs2JXyTinCApFvKTNQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzlfy16Iq29+L/WWWb0JbxnBQKGgfxdI648j9pgDtuRpRWtAyEX
+	DSgX0WMW4aI+UKXJDmEAe9IPH5uuhUrtQIw8KCfoy4s0toM83nHz11qLyR7fzNJD3ySLfFQskgE
+	X5qAdVfEtgEIDq39Cag==
+X-Received: from wmbgx15.prod.google.com ([2002:a05:600c:858f:b0:490:b1cf:4fed])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a7b:ca59:0:b0:490:9782:3eb8 with SMTP id 5b1f17b1804b1-490e561ee97mr20621955e9.25.1781176205567;
- Thu, 11 Jun 2026 04:10:05 -0700 (PDT)
-Date: Thu, 11 Jun 2026 11:10:04 +0000
-In-Reply-To: <20260610162433.923550-3-lyude@redhat.com>
+ 2002:a05:600c:4fc8:b0:490:af63:2cb1 with SMTP id 5b1f17b1804b1-490e52df887mr25369835e9.7.1781176236585;
+ Thu, 11 Jun 2026 04:10:36 -0700 (PDT)
+Date: Thu, 11 Jun 2026 11:10:35 +0000
+In-Reply-To: <20260610162433.923550-4-lyude@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260610162433.923550-1-lyude@redhat.com> <20260610162433.923550-3-lyude@redhat.com>
-Message-ID: <aiqXjAPQCQ7POxWS@google.com>
-Subject: Re: [PATCH v20 2/4] rust: drm: gem: shmem: Add vmap functions
+References: <20260610162433.923550-1-lyude@redhat.com> <20260610162433.923550-4-lyude@redhat.com>
+Message-ID: <aiqXq_ufWWztHPQ6@google.com>
+Subject: Re: [PATCH v20 3/4] rust: faux: Allow retrieving a bound Device
 From: Alice Ryhl <aliceryhl@google.com>
 To: Lyude Paul <lyude@redhat.com>
 Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
@@ -76,10 +76,12 @@ Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Content-Type: text/plain; charset="utf-8"
 
-On Wed, Jun 10, 2026 at 12:21:29PM -0400, Lyude Paul wrote:
-> One of the more obvious use cases for gem shmem objects is the ability to
-> create mappings into their contents. So, let's hook this up in our rust
-> bindings.
+On Wed, Jun 10, 2026 at 12:21:30PM -0400, Lyude Paul wrote:
+> When writing up some rust code that used faux devices for unit testing, I
+> noticed that we never actually added the Bound device context to
+> faux::Registration's AsRef<device::Device> implementation. This being said:
+> the Registration object itself is proof that a driver is bound to the
+> device - so this should be safe.
 > 
 > Signed-off-by: Lyude Paul <lyude@redhat.com>
 > Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
