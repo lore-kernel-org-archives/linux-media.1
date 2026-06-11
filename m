@@ -1,89 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468F93A257C;
-	Thu, 11 Jun 2026 09:13:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EAC93BE15F;
+	Thu, 11 Jun 2026 09:13:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781169212; cv=none; b=VSg9jqbA8GrcekPHcz1hC9I6oibVUZmxNrc+BnGNGY7Q0ItC95Boa2qA8c9CxtSha6mqibcbtoMVvSZ53MpJxYn3evn53hVhR8cJksOYbTnAry/jgrGGXaj43yD+rc6yKkG8jL6OQh5lOtfpIcGtzBsaejKrhW6Bm+WOKSN5+tE=
+	t=1781169219; cv=none; b=oyDnHKpDRJwIg9NZzrPTE+Jmlcc9FgSgLyulefU1O9jDry6ziVH9JcojiRpcPbrUIrfz31upaeCB97pd04Ees/0vvc1zBkCIvXkfssUwCj1J2MbHs/yKXqEp7urtHSzeKetnpJHxRTe8NoPXK+S0QjhZPxpIi/lcYWQ9nnlvRxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781169212; c=relaxed/simple;
-	bh=gKOCqxKCuRbslboKZqBeDKoCrIbSkktbxTTZx61IGbk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ATpdWZhMX6JGrNrRg9rzu7gIn8u6v0IKy5WHO/mtSmhxsnFZFXW+3ODNtOUvcObiklrbea9v8dua0kEt+PZuEgeOPIWzayon6Kb1177HJFLlDgapk4/qEgBH6qxfs+byJRZHnrWJEgtwRw4ZMidU/TLdq0gR2yHvYI/FQ7tdp8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P5BO8pcr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781169219; c=relaxed/simple;
+	bh=z+zrxu3X3RJuR5mwJ/VmetqFmxDQTmedxJxh/Qzh9a0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=CPMvEWbJF/YWBog0/WicMn4d7pCY6lfoCQWOaPSHIDdgnLoKyNaZLya4VKV4NLurjEO9b0sjyk8DgtLW/P20/wrzX6tvbZTYL36mxPKslZ1MRoWExNvDEOy8JyhbvIvycTF/wQDMkBjTMUluzAMhPNL7Etg34TLnr6Ne2K0Ichs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=kwbQx1kx; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P5BO8pcr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E3A51F0089C;
-	Thu, 11 Jun 2026 09:13:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781169210;
-	bh=BxXOFmqgKP//yNlaJchWiTOa6h3bEte8EY9Rwi4U/mE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=P5BO8pcrwDPMEAjCp8GZuk8zUXnYlfcEZrOUg1x7lzyuj1V0m2o6uiNnh0bGMTGlY
-	 ci0eDgeIPen4OiD7Ttm2DAW/Zn7E0E3F1wHEP1up/v+MH7m0TsifLukne+1QnWJkuC
-	 qG54ld7AXhJvtoWR1Yxmzp0SQ1vzJ9LIvBnKB6dHGtvjX53DU6D8Fbn3YylUS15J57
-	 GkAB4JKboMbSx/Y0a+xe9eoo+sirescKZLM4xeQ04zZHfamsEI/tFFoQi1gyFhTUVd
-	 wCwOXKb7YDPJrVI3CmisAKluhmyZ4sNiB8M1OJHihaF7Hs39fL3j8+BTH3rh/Fr50s
-	 0DjVZ4N5RSdQw==
-Date: Thu, 11 Jun 2026 11:13:28 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ramshouriesh <rshouriesh@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Aleksandrs Vinarskis <alex@vinarskis.com>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-phy@lists.infradead.org
-Subject: Re: [PATCH 3/9] media: i2c: hm1092: add Himax HM1092 mono NIR sensor
- driver
-Message-ID: <20260611-sloppy-happy-pony-1efc8d@quoll>
-References: <20260610-a14-himax-hm1092-v1-0-0c9907da47ed@gmail.com>
- <20260610-a14-himax-hm1092-v1-3-0c9907da47ed@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="kwbQx1kx"
+Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 41F30673;
+	Thu, 11 Jun 2026 11:13:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1781169185;
+	bh=z+zrxu3X3RJuR5mwJ/VmetqFmxDQTmedxJxh/Qzh9a0=;
+	h=From:Date:Subject:To:Cc:From;
+	b=kwbQx1kx2fIPg+5/j0wrkNKRnRtmhaS3HrMhJzsm/6oKFnReVAb/cQmx90uVV+sO5
+	 hRgR80gEYZ1zmXfTlqQbV6Sa4PTRkUUUS9tX5OVYzyS/WU19L4hFOlgYB9ZJXchftn
+	 3RKOhpcoqrb2Ibb7sSwPbptG7otdtaESJ6iyPpk4=
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Date: Thu, 11 Jun 2026 12:13:02 +0300
+Subject: [PATCH] media: imx219: Report streams using frame descriptors
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260610-a14-himax-hm1092-v1-3-0c9907da47ed@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260611-imx219-frame-desc-v1-1-fe7e975bca6e@ideasonboard.com>
+X-B4-Tracking: v=1; b=H4sIAB18KmoC/yXMQQqDQAxA0atI1g2YFAW9SunCyWQ0grZM2iKId
+ +/YLt/i/x1cs6lDX+2Q9WNuj7WALhXINKyjosVi4JrbuiVCWzamDlMeFsWoLtiJMF8DpRAbKN0
+ za7Lt97zd//Z3mFVe5wiO4wt4HEE7dQAAAA==
+X-Change-ID: 20260611-imx219-frame-desc-9cc223b1fbd5
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3481;
+ i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
+ bh=bqjbSI0SS/VcBriYHrlJETmUzhUGTnT4PivJUU3117U=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqKnw7cGI790FN+RV3nA2fexDCXUHyrbOkRYBfV
+ T9sGVUs/cyJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaip8OwAKCRD6PaqMvJYe
+ 9V8pD/wNh/SoKwLrixomhWFnTlk0zXMpmDqVLUMyYx1slgaFREQRcnrakFIhxue+Ja+uUahYDpg
+ YwKlTYKAlpP3BUiwBocs3mUsgAg1ZBX7pC/WqZ7ezKEj/SSAxx9/MY3aTEpul5m4HIcJFFllJYr
+ 4QcM3Q1FPX7k7eJHCvz/7Wnne+V0x8Jg2IJeuADN58y+5/ZY5AZKkmcdzfx+biMENubo60oOc0O
+ gjTz9eRJP+w4/5d3/FCyGYLUSb8BEdbdZnDZM1rFl4tZAb6LwB6eTqNlf3WRGf6nNMplCj2Bvgi
+ oyNpeQfTsUl7XJN4+jmguNMmFeNJhFZOcDx+7TIBd7Qa7KvchwI7nxAAGEfhZl4M1hcFNiPBEvK
+ s8L+E/2OMEgoLfD1ROmZ+hd9XHexVLI1pAX7hO8vsFKCOEMdxnUaADkVWkWg7U+uFNfunagF8X5
+ f+N9sln4yvGPRu0V88nZ4nuHzC+zvhdJTastsW2m9T8MhhCB6ft+nBqj/Ja8dI+e2MHXeRHwzWX
+ FhB27M3H/M7Mgq0QhabI96MVd1IDvYds6s6Ryh7Z/8uwqFy9JpJuu6L/Q0EqdVYlKuFybjdfQIP
+ pMZ4iaNVgUp6zXis36OITHHAfwW8PdU++YaO0kDbfiFeU04FC2PrTTQfO99fvDTZgOjxPm4DYG8
+ M/UkGclPt8VsfWA==
+X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
+ fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-On Wed, Jun 10, 2026 at 04:39:28PM +0530, Ramshouriesh wrote:
-> +module_i2c_driver(hm1092_i2c_driver);
-> +
-> +MODULE_DESCRIPTION("Himax HM1092 sensor driver draft");
-> +MODULE_LICENSE("GPL");
-> diff --git a/drivers/media/i2c/hm1092_regs.h b/drivers/media/i2c/hm1092_r=
-egs.h
-> new file mode 100644
-> index 000000000000..4df2d5b49d81
-> --- /dev/null
-> +++ b/drivers/media/i2c/hm1092_regs.h
-> @@ -0,0 +1,223 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/* HM1092 register tables extracted from Qualcomm Chromatix sensor modul=
-e.
-> + * Source: com.qti.sensormodule.hm1092.bin
-> + * Generator: hm1092-re/gen_hm1092_regs.py
-> + * DO NOT HAND EDIT =E2=80=94 regenerate from the bin.
-> + */
-> +
-> +struct hm1092_reg {
-> +	u16 address;
-> +	u8 val;
-> +};
-> +
-> +static const struct hm1092_reg hm1092_init_regs[] =3D {
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
-You must NOT define data in headers. This is not how C is written - you
-invite data duplication without any gains/benefits.
+Implement the .get_frame_desc() subdev operation to report information
+about streams to the connected CSI-2 receiver. This is required to let
+the CSI-2 receiver driver know about virtual channels and data types for
+each stream.
+
+Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+[tomi.valkeinen: picked from "Generic line based metadata support, internal pads" series]
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+---
+This patch that adds .get_frame_desc() support to imx219 driver has been
+circulating for a few years, and is currently posted in "[PATCH v12
+00/86] Generic line based metadata support, internal pads" series.
+
+However, as some bridge drivers require modern drivers that support
+.get_frame_desc, specifically ds90ub960.c, let's pick the patch and
+queue it separately from the huge metadata series.
+---
+ drivers/media/i2c/imx219.c | 44 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
+
+diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+index 223d3753cc93..7829ddc115a0 100644
+--- a/drivers/media/i2c/imx219.c
++++ b/drivers/media/i2c/imx219.c
+@@ -23,6 +23,7 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
+ 
++#include <media/mipi-csi2.h>
+ #include <media/v4l2-cci.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+@@ -661,6 +662,24 @@ static void imx219_free_controls(struct imx219 *imx219)
+  * Subdev operations
+  */
+ 
++static unsigned int imx219_format_bpp(u32 code)
++{
++	switch (code) {
++	case MEDIA_BUS_FMT_SRGGB8_1X8:
++	case MEDIA_BUS_FMT_SGRBG8_1X8:
++	case MEDIA_BUS_FMT_SGBRG8_1X8:
++	case MEDIA_BUS_FMT_SBGGR8_1X8:
++		return 8;
++
++	case MEDIA_BUS_FMT_SRGGB10_1X10:
++	case MEDIA_BUS_FMT_SGRBG10_1X10:
++	case MEDIA_BUS_FMT_SGBRG10_1X10:
++	case MEDIA_BUS_FMT_SBGGR10_1X10:
++	default:
++		return 10;
++	}
++}
++
+ static int imx219_set_framefmt(struct imx219 *imx219,
+ 			       struct v4l2_subdev_state *state)
+ {
+@@ -969,6 +988,30 @@ static int imx219_get_selection(struct v4l2_subdev *sd,
+ 	return -EINVAL;
+ }
+ 
++static int imx219_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
++				 struct v4l2_mbus_frame_desc *fd)
++{
++	const struct v4l2_mbus_framefmt *fmt;
++	struct v4l2_subdev_state *state;
++	u32 code;
++
++	state = v4l2_subdev_lock_and_get_active_state(sd);
++	fmt = v4l2_subdev_state_get_format(state, 0);
++	code = fmt->code;
++	v4l2_subdev_unlock_state(state);
++
++	fd->type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
++	fd->num_entries = 1;
++
++	fd->entry[0].pixelcode = code;
++	fd->entry[0].stream = 0;
++	fd->entry[0].bus.csi2.vc = 0;
++	fd->entry[0].bus.csi2.dt = imx219_format_bpp(code) == 8 ?
++		MIPI_CSI2_DT_RAW8 : MIPI_CSI2_DT_RAW10;
++
++	return 0;
++}
++
+ static int imx219_init_state(struct v4l2_subdev *sd,
+ 			     struct v4l2_subdev_state *state)
+ {
+@@ -995,6 +1038,7 @@ static const struct v4l2_subdev_pad_ops imx219_pad_ops = {
+ 	.set_fmt = imx219_set_pad_format,
+ 	.get_selection = imx219_get_selection,
+ 	.enum_frame_size = imx219_enum_frame_size,
++	.get_frame_desc = imx219_get_frame_desc,
+ 	.enable_streams = imx219_enable_streams,
+ 	.disable_streams = imx219_disable_streams,
+ };
+
+---
+base-commit: 06cb687a5132fcffe624c0070576ab852ac6b568
+change-id: 20260611-imx219-frame-desc-9cc223b1fbd5
 
 Best regards,
-Krzysztof
+--  
+Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
