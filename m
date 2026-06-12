@@ -1,170 +1,291 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4564F33D4F8
-	for <linux-media@vger.kernel.org>; Fri, 12 Jun 2026 19:43:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FDB390992
+	for <linux-media@vger.kernel.org>; Fri, 12 Jun 2026 19:44:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781293427; cv=none; b=mdRWkaxORNdUjvG2Eu2V6YOr+Ffau05xiYiKesl6aA//6iZ/f6xjQQx8gTgPJ3N10wwQpR308rhn5bo27ADggFmNuJkEdXg5LsD1E49eLnFHiThvMZNIHrGfJja0bfgOlfxP2ncmpkD/YMEF/vaIDOJt0j1bOKOVsSZArIyA8Js=
+	t=1781293464; cv=none; b=EKcu/Jc/DVEB/h+fPb8gbujLaVy0ScDvyPX2XzvRhiLoB9XdA+6mTInOyeERYdCYZYZckS4fjwCVEmOvaqCG/W7E89d7svpaFggDDd+2bE+jzJ4hHWv9/qeQlTo9pFlgQ3lOQjNiBGXhArXm4IpaYvrlVSp0qUtM4Gj82uDhwDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781293427; c=relaxed/simple;
-	bh=ctVsIEK619yB+e8eeMBvrKbCjaLRX//402crCsbTUkU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pWeTKczjdCZj3d3DVaZ1QmkRxeLl9mKt+dbHp3GeXW7+adVUZmjPM2pZpJJcqWNuEu8PkvtJkY0/82W1hjv989nS4O3J+LMee2JK2TeDdf+mjd8fqOfHpKj9Bll1ctbg5W5UhRkihabikKNebPx5DW7su7F8f/x+NAVBrT7seDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fsGUDtTO; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1781293464; c=relaxed/simple;
+	bh=J9o6uiC3hi8q182stCHjWKLIz7MjXttP7UeclIVpQzk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=C5Ga3SzR9pLeqTu3BLVUvQ0Snz8PnAYiZKMqW+JQtR09exyzNWETwPMj0jVKirp9/PLfqq4TvoP+6vimbKZlBtEOT628S9Fg8uBv7B/71IWadyjzRJU8ISKmM6twHbwGR9xHzVUrIa5aMrQYwkEhx4acGWdR8+X/XoDF8VCszNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MaHvfdw+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jvyX7jS5; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fsGUDtTO"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2bf2d865383so195ad.1
-        for <linux-media@vger.kernel.org>; Fri, 12 Jun 2026 12:43:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MaHvfdw+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jvyX7jS5"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65CGVvvT019744
+	for <linux-media@vger.kernel.org>; Fri, 12 Jun 2026 19:44:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=JQY8vaHCT+s
+	6pSmQcKdPxEExsD1nYmMloB07u5w9rOA=; b=MaHvfdw+R4kWe2I2ygXJBk4KCr9
+	jmv4LGOcAz0Mv+G9qGMxhpHhjQe+8Goc8zzg4db9SjCrCjsg7AhwHuOuNPf5Z1Ni
+	T5p1Ua/OhfJoMw6e4+nXKqA3GA9auL+W+1AOiGzq8Gx7QQZGCa5zo+lxno7QIDlI
+	7R+S+Gecmm1RqEIVN76tzNe0apH/KTaYCtihDRxDLoBaWAei0eRMqVJn57RDYZYd
+	DOkfFVQ6LiYTM6R25Qc3yuFMR4xw5cDendEPbtM9U0VTXHY6zwu53I515+bqrsKi
+	pUOtsCbP6zkFZXiEAWNCF8/gcM1vg2ztfBKmk1LUn8XeHEvvRN21qu4BJ2g==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er1cbmrgc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Fri, 12 Jun 2026 19:44:22 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-914c8954923so234901085a.1
+        for <linux-media@vger.kernel.org>; Fri, 12 Jun 2026 12:44:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1781293426; x=1781898226; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=kmA9t8+wOUfRjPLThtQlARMdWkr4H2MHT+OyHJTFhU8=;
-        b=fsGUDtTO45P+NRjG+CcHjCXH494gMK5P3HDul++b9R6g0lMudtbV2WoMrIuAjuDfdi
-         6/3JDanfyCpyNkslzcpF8oJJLmFQ8ohKczDn2aPVvQE7ZOqq7KwcpXaaAAsNNyd9iSGs
-         5eX7ynw4GWPbHuSnPO/pkL1ZYGm3izhx6gVNK/hMWDed7/etAFnXcqnS4RhD6xhU6YHH
-         +OL9LcgPJSAD+Zedfaq38HAsVcWXIQgLsz1GDSqQr26sjNS40hWxLZos18lcZaLfG2Nx
-         fM0dluFpJSFUm74FUomaojJu0mZ+G5X0QLWhHQi6mrcgCDCWdG5P3NqqA/BZ26WTVuxi
-         UQkg==
+        d=oss.qualcomm.com; s=google; t=1781293462; x=1781898262; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JQY8vaHCT+s6pSmQcKdPxEExsD1nYmMloB07u5w9rOA=;
+        b=jvyX7jS5VIqz3CTpBGqm7xmrwoq4TEh4/Epk1U696tX027zGcWz78Vk+WXJB3GS7hc
+         M5XeuTCI/zTEJuUmuV2Zpp2SDEfNoPmwEV4ONg9Doq3p/YgWKpJMqFgUrOAXcbUaCEhl
+         wofmPnMdU6JuHVaDqpueYQpmjLr0v62IKdTI2GcymPrOoHBc1oCQhMs5bKCA/Tl+SoLD
+         5kUnM5Jbog78JVuup+vIeKfoWlrRyOOyK6L1axHA7EWWZyw9V4w+hRFNWOfZR9+7IYlA
+         kWjIe1nSDYq3z8xCcp0JMEhEbIp2SfAY6rR/mAdQkN1HYDtgdsSGMJ3t5wzplBeQo6+P
+         wJmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781293426; x=1781898226;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=kmA9t8+wOUfRjPLThtQlARMdWkr4H2MHT+OyHJTFhU8=;
-        b=aUrLYF/xJtGc1MH2tepODV4gxnlBA4WovEN9fg6E9ZJsxfu1A2q5E2C5ZgxDah/5/j
-         RVhzyONAcNOl+VRtS45DHWjZ98KIkUITMmEEcnooN0skH+OtuOaKXBEYpS/O9gvgNcyW
-         FVUjVQGl7YAuIJs8zFOn9W+iykXynOFzOfbCYjIRB6YGt65Y5cKY7JWPtgS7TKyX0uDN
-         Qikhcs+lLxk9dy8W+Hzc0bmGaHsdv3EDyksHmi0gsg4FYymTFVLxItke8l3+WYKcGjtu
-         5MCXFn6D4lDXVRrutrbeGm+ym1wCqp2T2Jbrk5xgw9y1tNV/vctxMjLfH/ZPSmmFROIR
-         sOkA==
-X-Forwarded-Encrypted: i=1; AFNElJ818yx5Lzba3m3ewvJrHqRGqFfKkuzYhvBsx1GkZbIT5Jkcd69TrllGKR+d2w77hZPx9iLhLBkSViB8Rw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy3ISDIpoMCnXfOBu3OiP5h3Wrq50nLcq7a1jTiuGlv9zooCnT8
-	i4d4kFd8+y+X1+qkzdXa+eMcehMsYKiQP1d2crP8wSxVkM+uJUzS6XKu4gaSefmrTw==
-X-Gm-Gg: Acq92OFhHbjyDOY7vQIv4zWH+Fw0p82fgGICX8TC+syecCH66zefULvQqKlFth3tNpk
-	IlY02CUr4uyVk5gzHwKv589ZY8qTvi5S8zi92ynxH6NClzSFijF531gr8QVbLgaGMPmXx8bH6Wy
-	yfat7j9YDhamR/YN+LkvyZJgrskTfA82J8lxBC0sJfBRQoZphcVKv3lS0At2QC6NuNMw5ClykK6
-	DTUa3v9UZPonsHM0rpvXel8o0k/hVoNdVNsx9MQbNie7nG69G7vUmrFHaenADajpJLNvwdB1aT8
-	+bx6T19rn0nWGgj2LbDNgr6LCZrcb9Iat/RC+evwBWSusLkQMZfiHuMOfNxLeSEh9i9AgncbE+G
-	TxmTWvrVho9Z5teXrf6geUKUpVtmFa6SNqLiJLvJoDBoapfntbDTAulBK6+EYvD9j5sUoLTxCxV
-	QeOMXEBd+3ciXeBFIY2aqNQ6Wk6pYlt8tUrTtIiXNnH6pym6Dc8F3iF9cooZ2M
-X-Received: by 2002:a17:903:37c8:b0:2b7:b03d:9dce with SMTP id d9443c01a7336-2c6650d52a7mr471235ad.18.1781293425288;
-        Fri, 12 Jun 2026 12:43:45 -0700 (PDT)
-Received: from google.com (199.255.142.34.bc.googleusercontent.com. [34.142.255.199])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c86651aef27sm2802598a12.30.2026.06.12.12.43.40
+        d=1e100.net; s=20251104; t=1781293462; x=1781898262;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=JQY8vaHCT+s6pSmQcKdPxEExsD1nYmMloB07u5w9rOA=;
+        b=BrW9ZEOo0eW8/KZ+51i9a5QwWgQsVKjx03HuMp5hHlS0HnDcIQrfEoxY+/B0FEa9n7
+         E/2i+tgtMNxlzHsN1ZFj1rKjY/eQenOWWYHM2HuFptzOw8OEbG/Yc+g6xHaHesRifXDj
+         6R2e4JmcsjHiC+++dGCveGkd9n8CpEYNvQdK+uvHKmHibcyyHefwm4MFXfu6kQncHgJe
+         FjgW++0D4t7KBH1mNHg+yc6nO/t+ANJ3iZuRuOLDFlesc8AX6r/grvOxOx78tsh8mE8Z
+         bwvb1Yrvt8NfY4IkmGpsTndTsVaAQqVz1oaQFlx0IaPWnUs/k8YF85Not9Yo82/nIklH
+         knYw==
+X-Gm-Message-State: AOJu0YxavJAmjSXsXacogSBiB9xJWfyB8nQPATfyTwE8WFOMZkoFiFK7
+	aG89klKjyMNM8n6eAnLZQOD6krhEjW3z4mZtbQxM1rpHuEsl5SkW3PgVeUK7faE52rpnalKqcfI
+	nloTRGX4bq+Z/PD5wd6/Fb7cY+GbatoE6k9tAIPsLLC6B+/jyqGnl6LEGl8EZVh2uCoj1MXsKcU
+	DL
+X-Gm-Gg: Acq92OF6ie1rm4fVqftdwEYOu94VWDE/ur/+yaI+0Pq2fx0C1yCpvDAtD/ZXcfszIF+
+	ryI/trAEEhoUh5FoEE8K1ZoALDXjE6YwKK5dItKa2Do+0vS+HmLuu4eH8U5ENV8R/Kn5fGXaac4
+	mjpWjk/8F/ma+Fq7m2GUK6qAvwv2DyZDTcMES1ziiD27n05I+Qhzg/O5YX8s2afw4VrSWAKkFUp
+	/iAty9DuNvB6Vbtz8zCKDQpEKMZ6KvcVs1XF1rwCzci1lbQ0S3d7vcYHjDP5ySJbGQff6Ppy29Q
+	gM9jStrMpLUzu/2ekPzQLaQj/LbPNnBNlAlTnNlWzbYkrHWctxpYajS2fZsdmkLBbaplx6nSW3P
+	E/rRSn76+oVlVga68KLsBNkS3RyC3dzq+1pF2XaxeAxMFlQ==
+X-Received: by 2002:a05:620a:4152:b0:915:70b5:b204 with SMTP id af79cd13be357-9161bf58dc3mr589396085a.54.1781293461693;
+        Fri, 12 Jun 2026 12:44:21 -0700 (PDT)
+X-Received: by 2002:a05:620a:4152:b0:915:70b5:b204 with SMTP id af79cd13be357-9161bf58dc3mr589390485a.54.1781293461248;
+        Fri, 12 Jun 2026 12:44:21 -0700 (PDT)
+Received: from lin-0772.qualcomm.com ([212.136.9.4])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb4420570sm138396466b.11.2026.06.12.12.44.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Jun 2026 12:43:44 -0700 (PDT)
-Date: Fri, 12 Jun 2026 19:43:36 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Matt Evans <matt@ozlabs.org>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Mahmoud Adam <mngyadam@amazon.de>,
-	David Matlack <dmatlack@google.com>,
-	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	kvm@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v3 4/9] vfio/pci: Convert BAR mmap() to use a DMABUF
-Message-ID: <aixhaJoPQrNjhLwD@google.com>
-References: <20260610154327.37758-1-matt@ozlabs.org>
- <20260610154327.37758-5-matt@ozlabs.org>
- <aiviYEi17tewEQg0@google.com>
- <42cf4ad9-f094-4f94-88e6-6d2cb6eb6437@ozlabs.org>
+        Fri, 12 Jun 2026 12:44:20 -0700 (PDT)
+From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+To: linux-media@vger.kernel.org
+Cc: mchehab@kernel.org, bod@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, atanas.filipov@oss.qualcomm.com
+Subject: [PATCH v1 1/4] dt-bindings: media: qcom: Add JPEG encoder binding
+Date: Fri, 12 Jun 2026 22:44:14 +0300
+Message-Id: <20260612194417.1737009-2-atanas.filipov@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260612194417.1737009-1-atanas.filipov@oss.qualcomm.com>
+References: <20260612194417.1737009-1-atanas.filipov@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <42cf4ad9-f094-4f94-88e6-6d2cb6eb6437@ozlabs.org>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: ChGQynWu4v97F6rW35O8bB6XHivDjyWx
+X-Proofpoint-ORIG-GUID: ChGQynWu4v97F6rW35O8bB6XHivDjyWx
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDE4NiBTYWx0ZWRfX5kqY4pv1vgs2
+ pSCW/ytEmseyy0DimmIoHOdnyWn7xXZHqKDCU6NpS1YZmin8EyT2So1vNZU4EaPiW7ZUdbJac46
+ cPTCq9iB1uliQlcQCH5PsFpAcEs15Qw=
+X-Authority-Analysis: v=2.4 cv=S57pBosP c=1 sm=1 tr=0 ts=6a2c6196 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=gEfo2CItAAAA:8
+ a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=8hwD-i0G8y5I-v6eKTYA:9
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=sptkURWiP4Gy88Gu7hUp:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDE4NiBTYWx0ZWRfX2AlplmXTkJ2P
+ TzFjXZZhdgX9sMeuS5o4TgdxckFreiMrLFBCdLEsawjeKCcaf8NIFk10j/o6z7CBo8BqDAv40G/
+ Q81TOeOW4RNEvFgubXboczEiizlOkkFqeaFqDaQrnpXnNB+IZ2qsEnq08CXqHBA9R9dCv8GAzEE
+ gIxqupX7o8wYmNopgrgEUaJ28bNMBKO3CKYvW8yyfzV9vR8kgV7Hm1vMB8sUmOfjnLV/DTXQOsS
+ lMG79K5iUmv68Oo60JSGbwjPSXX/aTqiGujiEbx7t5nQwgf0x7V7HKRCw7PR4BmpZDYRU8QFiYz
+ YqdnOWAXDY2/WdvOaRa3kZwzfWDLs3pibUyf1yalgnHyQdbJB2j8icxi92FRTqBVOZS/nY/6IHq
+ gjlgR9IyEb5bgxH1XZANB4yfpZQO/eMaWxygzjtxY7xp5x1fZyJpGiBEQaAAPr5rEapfsNdvdLR
+ HTSxvoDMx+625yhA0NA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-12_02,2026-06-12_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 adultscore=0 phishscore=0 bulkscore=0
+ lowpriorityscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
+ definitions=main-2606120186
 
-On Fri, Jun 12, 2026 at 04:22:12PM +0100, Matt Evans wrote:
-> Hi Pranjal,
-> 
-> On 12/06/2026 11:41, Pranjal Shrivastava wrote:
-> > On Wed, Jun 10, 2026 at 04:43:18PM +0100, Matt Evans wrote:
-> >> Convert the VFIO device fd fops->mmap to create a DMABUF representing
-> >> the BAR mapping, and make the VMA fault handler look up PFNs from the
-> >> corresponding DMABUF.  This supports future code mmap()ing BAR
-> >> DMABUFs, and iommufd work to support Type1 P2P.
-> >>
-> >> First, vfio_pci_core_mmap() uses the new
-> >> vfio_pci_core_mmap_prep_dmabuf() helper to export a DMABUF
-> >> representing a single BAR range.  Then, the vfio_pci_mmap_huge_fault()
-> >> callback is updated to understand revoked buffers, and uses the new
-> >> vfio_pci_dma_buf_find_pfn() helper to determine the PFN for a given
-> >> fault address.
-> >>
-> >> Now that the VFIO DMABUFs can be mmap()ed, vfio_pci_dma_buf_move()
-> >> zaps PTEs (used on the revocation and cleanup paths).
-> >>
-> >> CONFIG_VFIO_PCI_CORE now unconditionally depends on
-> >> CONFIG_DMA_SHARED_BUFFER and CONFIG_PCI_P2PDMA_CORE.  The
-> >> CONFIG_VFIO_PCI_DMABUF feature conditionally includes support for
-> >> VFIO_DEVICE_FEATURE_DMA_BUF, depending on the availability of
-> >> CONFIG_PCI_P2PDMA.
-> >>
-> >> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> >> ---
-> >>  drivers/vfio/pci/Kconfig           |  5 +-
-> >>  drivers/vfio/pci/Makefile          |  3 +-
-> >>  drivers/vfio/pci/vfio_pci_core.c   | 75 +++++++++++++++++++-----------
-> >>  drivers/vfio/pci/vfio_pci_dmabuf.c | 12 +++++
-> >>  drivers/vfio/pci/vfio_pci_priv.h   | 11 +----
-> >>  5 files changed, 67 insertions(+), 39 deletions(-)
+Add device-tree binding for the standalone Qualcomm JPEG encoder
+hardware block (separate from CAMSS media pipelines).
 
-Hi Matt,
+Document required resources briefly and scope initial support to
+currently used compatibles in this series, including SM8250,
+QCM6490, and SM8550 class platforms.
 
-[...]  
-> >>  int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
-> >>  				   struct vm_area_struct *vma,
-> >> @@ -532,6 +538,10 @@ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
-> >>  	struct vfio_pci_dma_buf *tmp;
-> >>  
-> >>  	lockdep_assert_held_write(&vdev->memory_lock);
-> >> +	/*
-> >> +	 * Holding memory_lock ensures a racing VMA fault observes
-> >> +	 * priv->revoked properly.
-> >> +	 */
-> > 
-> > Nit: This comment should appear before the lockdep_assert_held_write()
-> > Also, it is slightly verbose.. (not against it though).
-> 
-> Right, I'll move it.  Agree it's wordy but if anyone changes that I want
-> them to "think faulthandler".
-> 
+Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+---
+ .../bindings/media/qcom,jpeg-encoder.yaml     | 142 ++++++++++++++++++
+ 1 file changed, 142 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
 
-That's fair I guess.
+diff --git a/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml b/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
+new file mode 100644
+index 000000000000..83f19719a869
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
+@@ -0,0 +1,142 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/qcom,jpeg-encoder.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm JPEG Encoder
++
++maintainers:
++  - Azam Sadiq Pasha Kapatrala Syed <akapatra@quicinc.com>
++  - Hariram Purushothaman <hariramp@quicinc.com>
++
++description: |
++  Qualcomm JPEG Encoder is the JPEG encode hardware present in Qualcomm SoCs.
++
++  The JPEG hardware IP version 4.2.0 is shared across SM8250, QCM6490, SM8550
++  and related derivatives.  Platforms based on the SM8550 register layout and
++  interrupt wiring can reuse the qcom,sm8550-jenc fallback compatible, provided
++  the correct register base address and IOMMU stream IDs are supplied in the
++  DTS node.
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - const: qcom,sm8250-jenc
++      - items:
++          - enum:
++              - qcom,qcm6490-jenc
++          - const: qcom,sm8550-jenc
++      - items:
++          - const: qcom,sm8550-jenc
++
++  cell-index:
++    description: Legacy JPEG HW instance index.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  reg:
++    maxItems: 1
++
++  reg-names:
++    oneOf:
++      - items:
++          - const: jpeg
++      - items:
++          - const: jpeg-regs
++      - items:
++          - const: jpeg_regs
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    minItems: 6
++    maxItems: 6
++
++  clock-names:
++    oneOf:
++      - items:
++          - const: gcc_hf_axi
++          - const: gcc_sf_axi
++          - const: core_ahb
++          - const: cpas_ahb
++          - const: camnoc_axi
++          - const: jpeg
++      - items:
++          - const: gcc_hf_axi_clk
++          - const: gcc_sf_axi_clk
++          - const: core_ahb_clk
++          - const: cpas_ahb_clk
++          - const: camnoc_axi_clk
++          - const: jpeg_clk
++
++  power-domains:
++    maxItems: 1
++
++  iommus:
++    maxItems: 2
++
++  interconnects:
++    maxItems: 4
++
++  interconnect-names:
++    items:
++      - const: cam_ahb
++      - const: cam_hf_0_mnoc
++      - const: cam_sf_0_mnoc
++      - const: cam_sf_icp_mnoc
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - interrupts
++  - power-domains
++  - iommus
++  - interconnects
++  - interconnect-names
++
++additionalProperties: false
++
++examples:
++  - |
++    jpeg-encoder@ac53000 {
++        compatible = "qcom,sm8250-jenc";
++        reg = <0xac53000 0x1000>;
++        reg-names = "jpeg";
++
++        interrupts = <0 474 4>;
++        power-domains = <&camcc 0>;
++
++        clock-names =
++            "gcc_hf_axi",
++            "gcc_sf_axi",
++            "core_ahb",
++            "cpas_ahb",
++            "camnoc_axi",
++            "jpeg";
++
++        clocks =
++            <&gcc 0>,
++            <&gcc 1>,
++            <&camcc 0>,
++            <&camcc 1>,
++            <&camcc 2>,
++            <&camcc 3>;
++
++        iommus = <&apps_smmu 0x2040 0x400>,
++                 <&apps_smmu 0x2440 0x400>;
++
++        interconnects =
++            <&gem_noc 0 0 &config_noc 8 0>,
++            <&mmss_noc 0 0 &mc_virt 0 0>,
++            <&mmss_noc 1 0 &mc_virt 0 0>,
++            <&mmss_noc 2 0 &mc_virt 0 0>;
++
++        interconnect-names =
++            "cam_ahb",
++            "cam_hf_0_mnoc",
++            "cam_sf_0_mnoc",
++            "cam_sf_icp_mnoc";
++    };
+-- 
+2.34.1
 
-> >>  	list_for_each_entry_safe(priv, tmp, &vdev->dmabufs, dmabufs_elm) {
-> >>  		if (!get_file_active(&priv->dmabuf->file))
-> >> @@ -549,6 +559,8 @@ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
-> >>  			if (revoked) {
-> >>  				kref_put(&priv->kref, vfio_pci_dma_buf_done);
-> >>  				wait_for_completion(&priv->comp);
-> >> +				unmap_mapping_range(priv->dmabuf->file->f_mapping,
-> >> +						    0, priv->size, 1);
-> > 
-> > Have we run this series with lockdep enabled?
-> > I guess it'd be nice to check with lockdep once..
-> 
-> I've (generally) always run testing of this series with lockdep.  (No
-> issues (anymore).)
-
-That sounds good! Thanks for confirming! :)
-
-Praan
