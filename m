@@ -1,171 +1,126 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31255388891;
-	Fri, 12 Jun 2026 14:26:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A863033F8;
+	Fri, 12 Jun 2026 14:32:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781274418; cv=none; b=nbJPb0RVX6Cz8kiG2gbh31MkBCJRZFQfJRYkQ/llqob0qKyVJn2Li8IP9svkZ9h527hOHBLLyVz1VRZlAeqY/6jc1n9LLKxLpXOibXG/u/+9KOcUWw/D0dAv4uwjK0nuEXOSBWjQg7rBxr87rDBb0ujj9aqKBu9PLKFIRYc62ww=
+	t=1781274726; cv=none; b=Noh1fY5zdaJQh1QmCVCuZA8qcldqYIM254/lGiOyJv7THlayd1EtGTo4ygjmHwqj16EOxDH/v4MR1z1cEF9B+NyA8YpqlzLsQks0P7mQS5YNn0AsZEf6NxogKFLkSR26L4zjtGcFQU4ks9wniQ7PJdCcahlaOgnL125txzCa3uY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781274418; c=relaxed/simple;
-	bh=3/+l66Jby3Ob6b8WDbOFfWQZ2E/2AdQmfG5w8ZRKFUE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OlQF+lYHKhbswgom4CyJ7IBmxUwbcshIrkgrupViaWs5jye0IwHwPAUyEfuz0vTilp9eYlrXDX7W+OGIOfMjm8zNhCX7MTDmRyfyg6Xz+IdjcMDje5miyFFAu488jYz84ufDOBWifPNuKMabVkhtyw2fO2bI6od/E/BeUYUXbz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=epkv2RA9; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1781274726; c=relaxed/simple;
+	bh=VTV3R4NURHl1vPtjlguQqo2RQcpCgSd+hr7dEhm4lWE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gezKxbtfuhdt0JTiJdj+rIYDeFxhp9EKvhw3Hh+9kDkoVvN4dFlrFGx0uxOQQERyB+6Im/0rzSbPdt+FNRcEGQG0biEJinOYy84J46ipHrz5sMSZk04hRKq1yr9KHLBxXaMNGY2O/R8de48x1cKfyV8l1M5Y2E5X17nhpF/M0gU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=EOwLg45D; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="epkv2RA9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1781274403;
-	bh=3/+l66Jby3Ob6b8WDbOFfWQZ2E/2AdQmfG5w8ZRKFUE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=epkv2RA94Ej8gwlUwI31mpuULnmWD/inam2UUvAtrbqrFI/o4wHM6egg489YpKhnN
-	 3EYJvPU/Q9HCg4PqLH9vOvWLQPdB+71rZmNsPOhh/T+OjYbtO/bwC5KVL2DA0D6lUq
-	 wyuW0/XJEmS8qsGTwmaUZNppK28p5CWf8O7OOZD6aj+UUwrX3n9JnIzkRk/C4hMUpJ
-	 NAVeJ8tR/xfjD5/HZVMMeiVHMbazG3iXX3iEgu8hN/7lJW3vb6AlOcHHussMhWgR/E
-	 5O48WQGuKoKBTaPw5UwlCf6559H4fsBRBaIaNL0oC+fJNaPYXIxmyc62ffzepb4vVx
-	 lZ+FcmjB1xesQ==
-Received: from [192.168.0.15] (unknown [100.64.0.170])
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="EOwLg45D"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1781274721;
+	bh=oYg/1sibtgFfC9/h6xF284nz/nnSd5DreUIEPAixkoI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=EOwLg45DKjx6iDaghDYk9kK4wwjCVOjCkcg4exJJahYAnqK8izc/mcAILa15V1Lw+
+	 WZvY5lJJPBAuzY0sfq6YxCSuit092SWgMIATHqOj8MQvDZYd9grb5T+2Y4kgT27Xqq
+	 4WTUNvtPu/f8LO0RtR4DSWesenP11MoRP5ideV8DmBKUmPJid3QS6nttKavPg4/3jW
+	 nhJ0zA+9NVczIGTE9zDZ0/wp+ntipstalerasNPLL8tfLvg2Rx46Oad+JjtpviFiif
+	 6JmXWN7efNklF145UDNG7QB9DrJCcpGL+9n6y1jSIMMz9cgSmLZF0Sgm4vVDj8p+QG
+	 CSy5Imknap0HA==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: detlev)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id EEE2517E0CD4;
-	Fri, 12 Jun 2026 16:26:41 +0200 (CEST)
-From: Detlev Casanova <detlev.casanova@collabora.com>
-Date: Fri, 12 Jun 2026 10:26:24 -0400
-Subject: [PATCH 3/3] media: hantro: add per-context fdinfo usage stats
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4gcMQx0gWPz58ld;
+	Sat, 13 Jun 2026 00:31:52 +1000 (AEST)
+Message-ID: <0dfadf98-a904-4e6a-b078-5caf27bc7922@ozlabs.org>
+Date: Fri, 12 Jun 2026 15:31:49 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
+Content-Language: en-GB
+To: "Tian, Kevin" <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>, Robin Murphy <robin.murphy@arm.com>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
+References: <20260610154327.37758-1-matt@ozlabs.org>
+ <20260610154327.37758-2-matt@ozlabs.org> <aisAc1HRn2Wa4F9p@google.com>
+ <DM6PR11MB36904ED2E1D2C646644F67668C182@DM6PR11MB3690.namprd11.prod.outlook.com>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <DM6PR11MB36904ED2E1D2C646644F67668C182@DM6PR11MB3690.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260612-v4l2-add-fdinfo-v1-3-723211abc861@collabora.com>
-References: <20260612-v4l2-add-fdinfo-v1-0-723211abc861@collabora.com>
-In-Reply-To: <20260612-v4l2-add-fdinfo-v1-0-723211abc861@collabora.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, kernel@collabora.com, 
- Detlev Casanova <detlev.casanova@collabora.com>, 
- Christopher Healy <healych@amazon.com>
-X-Mailer: b4 0.15.2
 
-From: Christopher Healy <healych@amazon.com>
+Hi Kevin, Pranjal, (+Robin, hi!)
 
-Add per-file-descriptor hardware utilization tracking to the Hantro
-VPU stateless codec driver, exposed via /proc/<pid>/fdinfo/<fd>.
+On 12/06/2026 04:39, Tian, Kevin wrote:
+>> From: Pranjal Shrivastava <praan@google.com>
+>> Sent: Friday, June 12, 2026 2:38 AM
+>>
+>> On Wed, Jun 10, 2026 at 04:43:15PM +0100, Matt Evans wrote:
+>>> --- a/drivers/pci/Kconfig
+>>> +++ b/drivers/pci/Kconfig
+>>> @@ -206,11 +206,7 @@ config PCIE_TPH
+>>>  config PCI_P2PDMA
+>>>  	bool "PCI peer-to-peer transfer support"
+>>>  	depends on ZONE_DEVICE
+>>> -	#
+>>> -	# The need for the scatterlist DMA bus address flag means PCI
+>> P2PDMA
+>>> -	# requires 64bit
+>>> -	#
+>>> -	depends on 64BIT
+>>> +	select PCI_P2PDMA_CORE
+>>>  	select GENERIC_ALLOCATOR
+>>>  	select NEED_SG_DMA_FLAGS
+>>>  	help
+>>
+>> Nit: Did we drop depends on 64BIT intentionally here? I guess the full
+>> PCI_P2PDMA stack still selects NEED_SG_DMA_FLAGS? IIRC,
+>> NEED_SG_DMA_FLAGS doesn't select 64BIT?
+> 
+> seems that comment is stale. According to the commit msg:
+> 
+> " it would make vfio-pci only available if CONFIG_ZONE_DEVICE is
+> present (e.g. 64-bit systems), "
+> 
+> so it sounds a redundant dependency hence is removed.
 
-Record a ktime timestamp when each job is submitted to hardware in
-device_run(), and accumulate the elapsed nanoseconds when the job
-completes in hantro_job_finish(). Report the accumulated time along
-with the current clock frequency through the new V4L2 show_fdinfo
-callback.
+This was intentional.  In practice there is still a dependency on 64BIT
+for PCI_P2PDMA, but it is because of ZONE_DEVICE (and mem hotplug).  The
+key need is PCI_P2PDMA_CORE is available on !64BIT for VFIO, but I
+didn't see a requirement from PCI_P2PDMA itself (as opposed to its
+dependencies).  If I've missed one, I can put it back...
 
-The output uses a media- key prefix with the following keys:
-  media-driver:           driver name
-  media-engine-<eng>:     accumulated busy time in nanoseconds
-  media-maxfreq-<eng>:    maximum engine frequency in Hz
-  media-curfreq-<eng>:    current engine frequency in Hz
+But NEED_SG_DMA_FLAGS doesn't smell quite right; I see from comments in
 
-Where <eng> is "decoder" or "encoder" depending on the context.
+  af2880ec44021 ("scatterlist: add dedicated config for DMA flags")
 
-This enables userspace monitoring tools to compute per-process decoder
-and encoder utilization. The current and max frequency keys report the
-same value today since the driver lacks devfreq support, but will
-diverge once DVFS is added, allowing userspace to approximate true
-capacity utilization without any fdinfo code changes. A future series
-can add hardware cycle counter support (via media-cycles-<eng>) for
-exact utilization under DVFS, with no changes to the existing uAPI.
+that it assumes 64BIT, but it seems to be missing a "depends on 64BIT".
 
-Signed-off-by: Christopher Healy <healych@amazon.com>
-Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
----
- drivers/media/platform/verisilicon/hantro.h     |  5 +++++
- drivers/media/platform/verisilicon/hantro_drv.c | 22 ++++++++++++++++++++++
- 2 files changed, 27 insertions(+)
+Robin -- should that depend on 64BIT?
 
-diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/platform/verisilicon/hantro.h
-index 0353de154a1e..10287e5cebac 100644
---- a/drivers/media/platform/verisilicon/hantro.h
-+++ b/drivers/media/platform/verisilicon/hantro.h
-@@ -16,6 +16,7 @@
- #include <linux/videodev2.h>
- #include <linux/wait.h>
- #include <linux/clk.h>
-+#include <linux/ktime.h>
- #include <linux/reset.h>
- 
- #include <media/v4l2-ctrls.h>
-@@ -268,6 +269,10 @@ struct hantro_ctx {
- 	struct hantro_postproc_ctx postproc;
- 	bool need_postproc;
- 
-+	/* Statistics for debugging and performance measurements. */
-+	ktime_t start_time;
-+	u64 total_ns;
-+
- 	/* Specific for particular codec modes. */
- 	union {
- 		struct hantro_h264_dec_hw_ctx h264_dec;
-diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index 2e81877f640f..139c2e6a83aa 100644
---- a/drivers/media/platform/verisilicon/hantro_drv.c
-+++ b/drivers/media/platform/verisilicon/hantro_drv.c
-@@ -90,6 +90,8 @@ static void hantro_job_finish(struct hantro_dev *vpu,
- 			      struct hantro_ctx *ctx,
- 			      enum vb2_buffer_state result)
- {
-+	ctx->total_ns += ktime_to_ns(ktime_sub(ktime_get(), ctx->start_time));
-+
- 	pm_runtime_put_autosuspend(vpu->dev);
- 
- 	clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
-@@ -186,6 +188,8 @@ static void device_run(void *priv)
- 
- 	v4l2_m2m_buf_copy_metadata(src, dst);
- 
-+	ctx->start_time = ktime_get();
-+
- 	if (ctx->codec_ops->run(ctx))
- 		goto err_cancel_job;
- 
-@@ -701,10 +705,28 @@ static int hantro_release(struct file *filp)
- 	return 0;
- }
- 
-+static void hantro_show_fdinfo(struct seq_file *m, struct file *f)
-+{
-+	struct hantro_ctx *ctx = file_to_ctx(f);
-+	struct hantro_dev *vpu = ctx->dev;
-+
-+	seq_printf(m, "media-driver:\t%s\n", DRIVER_NAME);
-+	seq_printf(m, "media-engine-%s:\t%llu ns\n",
-+		   ctx->is_encoder ? "encoder" : "decoder",
-+		   ctx->total_ns);
-+	seq_printf(m, "media-maxfreq-%s:\t%lu Hz\n",
-+		   ctx->is_encoder ? "encoder" : "decoder",
-+		   clk_get_rate(vpu->clocks[0].clk));
-+	seq_printf(m, "media-curfreq-%s:\t%lu Hz\n",
-+		   ctx->is_encoder ? "encoder" : "decoder",
-+		   clk_get_rate(vpu->clocks[0].clk));
-+}
-+
- static const struct v4l2_file_operations hantro_fops = {
- 	.owner = THIS_MODULE,
- 	.open = hantro_open,
- 	.release = hantro_release,
-+	.show_fdinfo = hantro_show_fdinfo,
- 	.poll = v4l2_m2m_fop_poll,
- 	.unlocked_ioctl = video_ioctl2,
- 	.mmap = v4l2_m2m_fop_mmap,
 
--- 
-2.54.0
+Cheers,
+
+
+Matt
+
 
