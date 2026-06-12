@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3C433F5BF;
-	Fri, 12 Jun 2026 23:17:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C5436495F;
+	Fri, 12 Jun 2026 23:38:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781306257; cv=none; b=azarlf8t6as2ikKF0kAyEQhts6mRuPnks6RfPm7zYTaQ0yrkHuVsXB6hRpdIQd3TfFBOfO4dxMLyZU001vZWF0xWiyMM8CSI9Xfo0E1W2IG06l9rj2XimkMtczmVN9YrdGaefVVWBLV1VGErOxIgu/yJTb2rXBrqkA9kIkwcsT0=
+	t=1781307531; cv=none; b=PTL50k6rgilD0bWyRzO6tNPAxkK3wYkmEaWHNjGL3Qlpwp12s29Ad4ls7Jnkt/NDtTjnyDPa7/Yi/2/DzM241yoke4h57kBBwNzkDy2s0B/YfGIyGWO5iUz4KLEsRPQVn2jelClnJ/FZNmgRhdnMGr3+eKqkXXS5SRFbWlZAtdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781306257; c=relaxed/simple;
-	bh=vGeiTGEC/qALLCkbHkooL9QbAfH0tD6h4UknwCXX9uw=;
+	s=arc-20240116; t=1781307531; c=relaxed/simple;
+	bh=OkuRf/bRAiKogAQuuTfeBVzwZ6IvJfvOo2tGKHiklFQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QBfRgXY4SYqtrip84+5j+ydcZr0qeO3RS6Llw+Z1VBpQKRCpeL5KAAjqhqwEhEhN2TBxf9N4LM/AxjH+d8k3mnS2v/68Ka2mj3gY0uWLNX7/19VGNvE0tUzy0sV+hsbvaiNJpXxw1hrC3LvUOhr3gHXkFWMTkaFQ7ZwyTtRfcoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lMhOgE4u; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=ErNqgBtPf7v+9JqtHu7+DaPbX2wbTHtR5r0WvWLMDpUakIZZQFJKJUUjnt/pugsl2qesuScuK8/SkpACTzeSS+HdModsylEF/JiIZtbV5Zw/sMr/SnvHOEmRn6JEVT5UFsKGy5ZDZuw/sOP98AHXsQ+Sh0aTE7p4VoZGOThZY3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V7nH6SCR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lMhOgE4u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EB961F000E9;
-	Fri, 12 Jun 2026 23:17:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V7nH6SCR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C69AE1F000E9;
+	Fri, 12 Jun 2026 23:38:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781306256;
-	bh=QNM2lz8PaP6SIHINRRu8bUeaASragWJD2wK0nVAfy+Q=;
+	s=k20260515; t=1781307530;
+	bh=8Z7mMgZddwXtcgjr3JS6+y3IO48OGVMzdpCvRhO1ZyQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lMhOgE4un5PEEeYSsEkAksrc+AKmmAbeDMYy5XBeKJoD0UTopPwlrYlIG93SAqw0Z
-	 Sw8fBrMbMMnFHAoH82OxahmX7UyVEWm+BKvSSJEeAmr38Dn252VACCHPitJsB2Boaq
-	 ld0mWORwMaizA92tCGJBO1sdAEqznQE9mJ5liVugHqJQLBOEujlWdX9E7q/nyM/JWV
-	 P15OEsuI+teiFd/q+46U1p/U97Pkn3ZMmgPavV4/ObT4yd7UIMUqjaIrO5bJEHc8Mj
-	 dRwepsHhnuHZaD7G/OaIywYlA/IjhUayNjg5TbmRr5u/gOAvG8R1VVulI+scxM1t08
-	 R52qfDOPpDU3w==
-Message-ID: <560fc643-a200-4faf-94a2-41661f81c8ac@kernel.org>
-Date: Sat, 13 Jun 2026 00:17:32 +0100
+	b=V7nH6SCRl82bDZEcsRRSWImhoudGpTPdEw/wl7hkF6R93JcSyR6OKR/bChARiZbyt
+	 ykyVwmK+sg5ueyA4to+NnNats0uCUyvmiT+tmeTUpAfAJrdGfy43wsXHow7Ty4Exuc
+	 JdP//PHVvIvVVulX4jqNaXMdI02m6bpP4mPZh199gHRK3K6MU5WLhFOBCcsaJhZt2i
+	 XGejXwVQvzvMU5rbFsS+XF3buQrUNecpI0yUvR3kP1sdL4P8T1DrCbmzZizgldPqJJ
+	 37+6zGmUkKILhSXnUnvb/7kiZ6RiIIOJpp23MeunhecqrWGrLpmYpywKAKKijh98vz
+	 MdhwN1kIPgwAA==
+Message-ID: <2e39b83d-dab6-4113-8702-b7f97b46bfeb@kernel.org>
+Date: Sat, 13 Jun 2026 00:38:46 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -95,17 +95,28 @@ Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 12/06/2026 20:44, Atanas Filipov wrote:
-> +  iommus:
-> +    maxItems: 2
+> +maintainers:
+> +  - Azam Sadiq Pasha Kapatrala Syed<akapatra@quicinc.com>
+> +  - Hariram Purushothaman<hariramp@quicinc.com>
 > +
 
-I'm really going to start putting my foot down about nebulous iommus.
+I said in the accidental leaked version that the maintainers listed 
+here, are not in the SOB chain, while the submitter is not in the 
+maintainer list.
 
-These need to be at a very minimum called out in the git log, if not 
-commented in the description itself and IMO we should _really_ be 
-defining them in a header.
+https://lore.kernel.org/linux-media/6378b14e-24d4-4a19-a3a5-3f87245d5b9b@kernel.org/
 
-Why are there two entries here and what do they do.
+It appears none ? of the review feedback from that accidental publish 
+has been taken on board ?
+
+Please READ the review feedback and take action based on that feedback 
+either implementing what the reviewer said or not implementing it but, 
+in either case documenting what was and was not done and why !
+
+This is a large body of work demanding significant effort from those 
+reviewing it so please respect our time and effort in this - go through 
+the previous comments and at the very least address them in your 
+submission or explain their omission in your cover letter log.
 
 ---
 bod
