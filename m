@@ -1,64 +1,64 @@
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B010E3A6B6F
-	for <linux-media@vger.kernel.org>; Sun, 14 Jun 2026 13:10:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F09031A681C
+	for <linux-media@vger.kernel.org>; Sun, 14 Jun 2026 13:10:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781442617; cv=none; b=FMHwNoLRXRerbsWbOmn5UDts58UglYxw+J0F5qQHgQ9epVHhkuxoEmWAOJAKiJL364IZ4eNzTretvk4pbNJojDAfSWKIJDlIVrwbaostZN/Sf8z0RcmukpAbJD2b0ItltJhYp/HuVvFJimk+p6gJyI7JrdgJiovgiCNbkK6qFnk=
+	t=1781442623; cv=none; b=BavYPkW0ATVpG0W6PtURSalP+nSpBE1NqdOZHYwuUYGD2pL7FvSTc7RTjYgxkzNh9as4p21dd9JYmn8/OaNfzwqbdyXomWxow1Gfl7XAMBRn4oNNA51jIwswL92GSqx4RwB8kxiJ/QZszeIK2SJ8lcd/SACHAsFsW8eSY+Z8PX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781442617; c=relaxed/simple;
-	bh=/gK0otEQRDDJgFO4CGbacMlp+ViltBls5m/MIu+Y7hs=;
+	s=arc-20240116; t=1781442623; c=relaxed/simple;
+	bh=4de0iH1hxmw0RrIZy9MhVw+IN2gYqEuXESsum1x+fww=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=I7pOdY36X2TcRZ6BK3HIkPjGpRxsz5y2LXCnH2kKssX0Onv4Bue3UzTZbdojM3fSgY9ZnS934Rv7ISzdKi42QM+p+PzHS77r7SAjZrXmhHw+AgZB3hSg/QDvlNfRHx6VC9Mhi/7iPpVmVLOxZt0SYs5BMLYdgC8vvRA1KsmoLRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bL+UN2JW; arc=none smtp.client-ip=209.85.222.178
+	 MIME-Version; b=Cd0C+/FiwNiazzW3uME73nswJkkYCx2Vg+Wf0DK36Srhv+rqQiSHvpXn0C/88mBbvQQvIdD/pWEVMAQHQhxPnrJgXOjwKGbVQEI7S8tOc0gT5n+G1RZqagb4UaYcw0nPM5kfbTyR7Rls8kUpANYbBwWwgozhbvkfLbDTLUul2zc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FrWWixoD; arc=none smtp.client-ip=209.85.222.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bL+UN2JW"
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-91588056619so176173585a.2
-        for <linux-media@vger.kernel.org>; Sun, 14 Jun 2026 06:10:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FrWWixoD"
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-9157b895c57so231963385a.3
+        for <linux-media@vger.kernel.org>; Sun, 14 Jun 2026 06:10:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781442614; x=1782047414; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781442617; x=1782047417; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lVl0d1DZ0/rxF5BIn+S5uaENMoHy7Qrp86HW8O6zq18=;
-        b=bL+UN2JWB8IMskHpfTRDJw+aovpyEOXc9Sgje45LUAv6fgtkhKUkBNPs525EYcn9CM
-         seMTZa48UOoOKaUtQd+vKDl5SuBh210z8/aCn+Bd2QZa3JvVPjy1yG58V7JOIG83J58b
-         kJj/lCXSRXrYLzJEXFFgYMaEFp1SISSUa2b7SXU5gEgjUpUZLUqkO4aKPlkeQtFAha/s
-         si+9oTVDICzvnsQ4cM7AeJL1KAHs8/BK57mZaRpeBX4I8nrcCNfqGJBxBVCO8vOciEsk
-         JHf0mLUYrs7HtPkjbAnyQbeRcrI8mTov7ExUNxtL30ptwhOiqbphCOPlB+rrLYUtepfo
-         Iy9g==
+        bh=eJpu5i70KzzzFRdB2RQuMRBjZ2Ekssr7dUppZeDYSDo=;
+        b=FrWWixoDPPxVlIZwS3Gz3Oy48H4VaMXClvFFLyiTMIcAXg/oBCg8U9q2ljpZH+wj+D
+         MI5R3DnWdpih6Sc0G01EWMK9l1MwCTLZzrQs8DLaFHmqdh/+9iMWF76l0X2sMkZPtApF
+         70e7Et/K8b96TQxB4j1YkGAP+pYAQkHKl3vo8qp7vXdAEHi94Bb9hluVecxpK0wS5J3T
+         UM33Vp/W9dT6GKiD5ABwQDqY7uFPdngF4StoYlltGXRZb3kYzBFWH5Xyt6nDRmdBKyIQ
+         8dwdr9wk/vI4ZnaQV3+xLyTzViKARHUVmUxb5wz6utSMj4B13+0pn4yMbEKKUXGKmEnD
+         t3fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781442614; x=1782047414;
+        d=1e100.net; s=20251104; t=1781442617; x=1782047417;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=lVl0d1DZ0/rxF5BIn+S5uaENMoHy7Qrp86HW8O6zq18=;
-        b=agemfWEbYLrJOSPL7r1ziLulOJOeI65O5nveWfYEkqLRuUK+/kd87oGT4SY1zdEA30
-         LqUwi0q5DCBVsM9Y/Z5s8YgtxwwNaSyHT6Ny3MIEiq/fiTFgr+sV1oYvyg7Udp7RbqcY
-         DnOyS7pTZDlu0o07dtDJtNCMSBW5ZwIVCiSI+509oUPaTE+z8KF7EA3cjuja8npKL4dX
-         YuU6hrXG3p7b64GBE+PXI0+EJyCsqkqHPP4SonV83g6sL3x6J/w1pQ1edHP2DASAXi+h
-         bi1Dy5ugh+MDkFHJh1AK8w0juImeh904vXvw4V4DqFO00o3YNdFd48BOK/XwMV+wf2Y+
-         UyeQ==
-X-Forwarded-Encrypted: i=1; AFNElJ85BB7EV3nUcGd/tWUTQt7+c7zM8y3HpuYhRyV03OjUICUCzbfKXmwk44Y5VbJ3vwoh0Y/z0bExvX7Kpw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/2IaU0vw4O1bc+7rmCwEhhVu+GQVU4IeNiCDrtK/YttI9z8IX
-	84xHIkPhoV1gFWl0xlwGLfRCf0I33kIQNkseJCBOJk1xmeGvsWiFXg+B
-X-Gm-Gg: Acq92OH3uYnKc6RxClVlm5qXVJ0TlxgIfgawnrN/gaeMiQFNUxO7zH5R/WDytCAiO3n
-	auGJBIdVwFSz66bzeyl4ozFVeSdCzkSTS89W4F2xh/C/A5logJLmqKHt/KIakCoCOLNnN8i1YJm
-	fBSVneQbVgp0O+P3dcVL5emNgoocwHTItuFTwXuhsnILK2XM2X68wn8/BIdkyInijt+n8yGQCyd
-	86/LXTTRX7VBdMk1m4twOxX8eZgTfSsIGdWTn10VEF5TbcyFBTktluUj/MFuLph3jc5WI8X8wax
-	k3ST0KK6iLl2DDlQt3LwMy9M/a+dzZNifrKrAmu7J3XotDqmfjelKV6BSGrXZ6DnR7CfKzrGEB/
-	+frYH9FBILe6YPCB9p/ESwXridDMudTi2kWbkN3ZdYhUK+FiO65xoOHCANJlmHj2NlHr/23zdsI
-	RXaSLy6X4YVSGd5BCDe3U83/dpsBs36DEK0d77aVo1zX3MxCuvFz/itTBCw17WLLijh/y6k/wcD
-	bOXyHUeKvhd0LOcl6pyjvFmD1U8jkoVKFUZkOgsTrU=
-X-Received: by 2002:a05:620a:26a1:b0:915:83fa:b3e0 with SMTP id af79cd13be357-9161bac7727mr1528176685a.5.1781442613683;
-        Sun, 14 Jun 2026 06:10:13 -0700 (PDT)
+        bh=eJpu5i70KzzzFRdB2RQuMRBjZ2Ekssr7dUppZeDYSDo=;
+        b=ZcQnnSdPZqqyEgTXSRTuDUASIkskq4B5Fr2v3ccL4qIh/AGp8G+YduxtbJzZzebNSD
+         8dI9syuTR7PmLJ+oRe3JemonuIsv3AEN2sbUmNLI3j1Jk5dAQAarP5VuckUW6+Xbd3aA
+         Tu0PfbyWDPZdSKcKsLuwYFrkgGYydbBUqGSDcPN342h8ZETmO7AvIlpaZM7cqwlO+2nN
+         8R/2YuTOrY6kqKcq4qRAxgHbBPz59o3DooxKegoVTRzM3AEM9vclTYQJCsSWQgr/whsV
+         uPRX94ZBSM0C+T0FvBwDU+nMQCvIA4dIgKHw858L8rxkT24gFg5yH/e0QRCfFUyxwLLd
+         B02g==
+X-Forwarded-Encrypted: i=1; AFNElJ+x15htT3B+KLWvglbqQePfJN8ENrHFVMZQ36kb9qjtiQxP0iuNKZV2sVy4O3xVWEu6C7DEGLburGj3kw==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy0zm6EFDP5K0DIpM4M/C7tNMHbL5rQwl9MT0kUBq6pePbxWf46
+	87DA/EKTBGZV9XjC/Rt75cdMGuD9Kxh9NdeNVD3bZ8H4m6DUTgBKSBhzLTJ9Uc7ZcWE=
+X-Gm-Gg: Acq92OE/hsiqguRIh65jwq0v4IqOoz+HMS3qNaF5741bfHOyzc0nI83/l6eCabfCGeW
+	9JtgftXRoE/Y/bHMR/b+sxtpcTmKMcPD9jfYoUSD2wqbN775QL8G171DGNgdJXa25n2mvn9Q3Mb
+	2Uj4gGc9ohJUB0mAB4C6/s/WbXKL1l2Q8AWFzmKvnRy5qeyf6xxeobVVnSUd5Va6zi5jAUGpwBr
+	4jcYVB7MBJCYgfRD9uRoZ104Eb3Z04eFXPScpokzEamQWg3h0DfatnTFBh1eW4teLrvgRihtj8D
+	7p1mA5AkBL2OcEx2unubq4qJmnHe0UQjpsDqHMNcCslFb5g2oIalFxNNdGTOK0HEY754V1vQA8g
+	5omdzfXBA3lWshQwEnL6Xz4v7k8kDSJroyzBDDKftGw/ptI7xEIUG341LftVwNl5Dx9F1b8r6+N
+	4H/G/HQKnI5DM1Ep6/aaZNOfpme8ClWBArEuj4XRC2dYUTFenFYlga+0rOdzCWPHP0SHG8EEH4c
+	Gbkp0PGKSO7O9qEHmxC3NzxMrb6U9xk1zywlp6pj98=
+X-Received: by 2002:a05:620a:414a:b0:915:6e30:5bd8 with SMTP id af79cd13be357-917ee4d8cf8mr1102847085a.11.1781442616705;
+        Sun, 14 Jun 2026 06:10:16 -0700 (PDT)
 Received: from server0.tail6e7dd.ts.net (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-91619f1b400sm752878985a.15.2026.06.14.06.10.12
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-91619f1b400sm752878985a.15.2026.06.14.06.10.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 14 Jun 2026 06:10:12 -0700 (PDT)
+        Sun, 14 Jun 2026 06:10:16 -0700 (PDT)
 From: Michael Bommarito <michael.bommarito@gmail.com>
 To: Hans Verkuil <hverkuil@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -77,9 +77,9 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	linux-rockchip@lists.infradead.org,
 	linux-mediatek@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 4/6] media: verisilicon: rockchip: bound VPU981 AV1 tile loop and guard divisor
-Date: Sun, 14 Jun 2026 09:10:01 -0400
-Message-ID: <20260614131003.2524025-5-michael.bommarito@gmail.com>
+Subject: [PATCH 6/6] media: v4l2-ctrls: add KUnit tests for compound control tile validation
+Date: Sun, 14 Jun 2026 09:10:03 -0400
+Message-ID: <20260614131003.2524025-7-michael.bommarito@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260614131003.2524025-1-michael.bommarito@gmail.com>
 References: <20260614131003.2524025-1-michael.bommarito@gmail.com>
@@ -91,68 +91,185 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-rockchip_vpu981_av1_dec_set_tile_info() divides context_update_tile_id by
-tile_info->tile_cols and writes one descriptor per tile into the tile_info
-DMA buffer, sized for AV1_MAX_TILES. tile_cols / tile_rows come straight
-from the bitstream; reject a zero column or row count and bound the grid to
-AV1_MAX_TILES so the division is safe and the writes stay in the buffer.
+Drive std_validate_compound() with crafted HEVC PPS and AV1 frame controls
+and assert that out-of-range tile counts and a zero AV1 tile_cols are
+rejected with -EINVAL while in-range values pass. The tests are #included
+at the end of v4l2-ctrls-core.c to reach the static helper, gated by
+CONFIG_V4L2_CTRLS_KUNIT_TEST.
 
-Fixes: 727a400686a2 ("media: verisilicon: Add Rockchip AV1 decoder")
 Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
 Assisted-by: Claude:claude-opus-4-8
 ---
-This is a Rockchip RK35xx SoC block not reachable on the x86 KUnit host,
-so the driver-side out-of-bounds write is not reproduced here.
+The tests are #included at the end of v4l2-ctrls-core.c so they can reach
+the static helper, gated by CONFIG_V4L2_CTRLS_KUNIT_TEST. Run under KASAN
+on x86_64 they fail on the stock validator and pass after patch 1.
 
- .../verisilicon/rockchip_vpu981_hw_av1_dec.c  | 29 +++++++++++++------
- 1 file changed, 20 insertions(+), 9 deletions(-)
+ drivers/media/v4l2-core/Kconfig               |  12 ++
+ .../media/v4l2-core/v4l2-ctrls-core-test.c    | 119 ++++++++++++++++++
+ drivers/media/v4l2-core/v4l2-ctrls-core.c     |   4 +
+ 3 files changed, 135 insertions(+)
+ create mode 100644 drivers/media/v4l2-core/v4l2-ctrls-core-test.c
 
-diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-index e4e21ad..71d2ef7 100644
---- a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-+++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-@@ -578,21 +578,32 @@ static void rockchip_vpu981_av1_dec_set_tile_info(struct hantro_ctx *ctx)
- 	const struct v4l2_av1_tile_info *tile_info = &ctrls->frame->tile_info;
- 	const struct v4l2_ctrl_av1_tile_group_entry *group_entry =
- 	    ctrls->tile_group_entry;
--	int context_update_y =
--	    tile_info->context_update_tile_id / tile_info->tile_cols;
--	int context_update_x =
--	    tile_info->context_update_tile_id % tile_info->tile_cols;
--	int context_update_tile_id =
--	    context_update_x * tile_info->tile_rows + context_update_y;
-+	unsigned int tile_cols, tile_rows;
-+	int context_update_y, context_update_x, context_update_tile_id;
- 	u8 *dst = av1_dec->tile_info.cpu;
- 	struct hantro_dev *vpu = ctx->dev;
- 	int tile0, tile1;
+diff --git a/drivers/media/v4l2-core/Kconfig b/drivers/media/v4l2-core/Kconfig
+index d50ccac..04b15d8 100644
+--- a/drivers/media/v4l2-core/Kconfig
++++ b/drivers/media/v4l2-core/Kconfig
+@@ -3,6 +3,18 @@
+ # Generic video config states
+ #
  
-+	/* Guard the divisor and bound the grid to the tile_info buffer. */
-+	tile_cols = tile_info->tile_cols;
-+	tile_rows = tile_info->tile_rows;
-+	if (!tile_cols || !tile_rows)
-+		return;
-+	if (tile_cols * tile_rows > AV1_MAX_TILES) {
-+		tile_cols = min_t(unsigned int, tile_cols, AV1_MAX_TILES);
-+		tile_rows = min_t(unsigned int, tile_rows,
-+				  AV1_MAX_TILES / tile_cols);
-+	}
++config V4L2_CTRLS_KUNIT_TEST
++	bool "KUnit tests for V4L2 compound control validation" if !KUNIT_ALL_TESTS
++	depends on VIDEO_DEV && KUNIT=y
++	default KUNIT_ALL_TESTS
++	help
++	  This builds KUnit tests for the stateless-codec compound control
++	  validation in std_validate_compound(). They check that out-of-range
++	  HEVC/AV1 tile counts and parameter-set / tile indices are rejected
++	  before driver code consumes them as array indices or loop bounds.
 +
-+	context_update_y = tile_info->context_update_tile_id / tile_cols;
-+	context_update_x = tile_info->context_update_tile_id % tile_cols;
-+	context_update_tile_id = context_update_x * tile_rows + context_update_y;
++	  If unsure, say N.
 +
- 	memset(dst, 0, av1_dec->tile_info.size);
- 
--	for (tile0 = 0; tile0 < tile_info->tile_cols; tile0++) {
--		for (tile1 = 0; tile1 < tile_info->tile_rows; tile1++) {
--			int tile_id = tile1 * tile_info->tile_cols + tile0;
-+	for (tile0 = 0; tile0 < tile_cols; tile0++) {
-+		for (tile1 = 0; tile1 < tile_rows; tile1++) {
-+			int tile_id = tile1 * tile_cols + tile0;
- 			u32 start, end;
- 			u32 y0 =
- 			    tile_info->height_in_sbs_minus_1[tile1] + 1;
+ config VIDEO_V4L2_I2C
+ 	bool
+ 	depends on I2C && VIDEO_DEV
+diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core-test.c b/drivers/media/v4l2-core/v4l2-ctrls-core-test.c
+new file mode 100644
+index 0000000..6ec48fc
+--- /dev/null
++++ b/drivers/media/v4l2-core/v4l2-ctrls-core-test.c
+@@ -0,0 +1,119 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * KUnit tests for HEVC/AV1 tile-count validation in std_validate_compound().
++ * #included at the end of v4l2-ctrls-core.c to reach the static helper.
++ */
++
++#include <kunit/test.h>
++
++static int call_validate_compound(enum v4l2_ctrl_type type, void *payload,
++				  u32 elem_size)
++{
++	struct v4l2_ctrl ctrl = {
++		.type = type,
++		.elem_size = elem_size,
++	};
++	union v4l2_ctrl_ptr ptr = { .p = payload };
++
++	return std_validate_compound(&ctrl, 0, ptr);
++}
++
++/* HEVC PPS: num_tile_columns_minus1 / num_tile_rows_minus1 bounds. */
++static void v4l2_ctrls_hevc_pps_tile_cols(struct kunit *test)
++{
++	struct v4l2_ctrl_hevc_pps *pps;
++
++	pps = kunit_kzalloc(test, sizeof(*pps), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, pps);
++
++	pps->flags = V4L2_HEVC_PPS_FLAG_TILES_ENABLED;
++
++	/* In range: count == array capacity (minus1 == capacity - 1). */
++	pps->num_tile_columns_minus1 = ARRAY_SIZE(pps->column_width_minus1) - 1;
++	pps->num_tile_rows_minus1 = ARRAY_SIZE(pps->row_height_minus1) - 1;
++	KUNIT_EXPECT_EQ(test,
++			call_validate_compound(V4L2_CTRL_TYPE_HEVC_PPS, pps,
++					       sizeof(*pps)),
++			0);
++
++	/* Out of range: one past the column array. */
++	pps->num_tile_columns_minus1 = ARRAY_SIZE(pps->column_width_minus1);
++	pps->num_tile_rows_minus1 = 0;
++	KUNIT_EXPECT_EQ(test,
++			call_validate_compound(V4L2_CTRL_TYPE_HEVC_PPS, pps,
++					       sizeof(*pps)),
++			-EINVAL);
++
++	/* Out of range: maximal attacker value. */
++	pps->num_tile_columns_minus1 = 0xff;
++	pps->num_tile_rows_minus1 = 0xff;
++	KUNIT_EXPECT_EQ(test,
++			call_validate_compound(V4L2_CTRL_TYPE_HEVC_PPS, pps,
++					       sizeof(*pps)),
++			-EINVAL);
++}
++
++/* AV1 frame: tile_cols / tile_rows bounds and non-zero requirement. */
++static void v4l2_ctrls_av1_frame_tile(struct kunit *test)
++{
++	struct v4l2_ctrl_av1_frame *f;
++
++	f = kunit_kzalloc(test, sizeof(*f), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, f);
++
++	/* In range: a 1x1 tiling (a zeroed frame is otherwise valid). */
++	f->tile_info.tile_cols = 1;
++	f->tile_info.tile_rows = 1;
++	KUNIT_EXPECT_EQ(test,
++			call_validate_compound(V4L2_CTRL_TYPE_AV1_FRAME, f,
++					       sizeof(*f)),
++			0);
++
++	/* In range: maximal legal tile_cols / tile_rows. */
++	f->tile_info.tile_cols = V4L2_AV1_MAX_TILE_COLS;
++	f->tile_info.tile_rows = V4L2_AV1_MAX_TILE_ROWS;
++	KUNIT_EXPECT_EQ(test,
++			call_validate_compound(V4L2_CTRL_TYPE_AV1_FRAME, f,
++					       sizeof(*f)),
++			0);
++
++	/* Out of range: tile_cols past the array. */
++	f->tile_info.tile_cols = V4L2_AV1_MAX_TILE_COLS + 1;
++	f->tile_info.tile_rows = 1;
++	KUNIT_EXPECT_EQ(test,
++			call_validate_compound(V4L2_CTRL_TYPE_AV1_FRAME, f,
++					       sizeof(*f)),
++			-EINVAL);
++
++	/* Out of range: maximal attacker value. */
++	f->tile_info.tile_cols = 0xff;
++	f->tile_info.tile_rows = 0xff;
++	KUNIT_EXPECT_EQ(test,
++			call_validate_compound(V4L2_CTRL_TYPE_AV1_FRAME, f,
++					       sizeof(*f)),
++			-EINVAL);
++
++	/* Divide-by-zero guard: tile_cols == 0 must be rejected. */
++	f->tile_info.tile_cols = 0;
++	f->tile_info.tile_rows = 1;
++	KUNIT_EXPECT_EQ(test,
++			call_validate_compound(V4L2_CTRL_TYPE_AV1_FRAME, f,
++					       sizeof(*f)),
++			-EINVAL);
++}
++
++static struct kunit_case v4l2_ctrls_test_cases[] = {
++	KUNIT_CASE(v4l2_ctrls_hevc_pps_tile_cols),
++	KUNIT_CASE(v4l2_ctrls_av1_frame_tile),
++	{}
++};
++
++static struct kunit_suite v4l2_ctrls_test_suite = {
++	.name = "v4l2-ctrls-compound",
++	.test_cases = v4l2_ctrls_test_cases,
++};
++
++kunit_test_suite(v4l2_ctrls_test_suite);
++
++MODULE_DESCRIPTION("KUnit tests for V4L2 stateless-codec compound control validation");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+index 25227d9..8debd0e 100644
+--- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
++++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+@@ -2851,3 +2851,7 @@ int v4l2_ctrl_new_fwnode_properties(struct v4l2_ctrl_handler *hdl,
+ 	return hdl->error;
+ }
+ EXPORT_SYMBOL(v4l2_ctrl_new_fwnode_properties);
++
++#if IS_ENABLED(CONFIG_V4L2_CTRLS_KUNIT_TEST)
++#include "v4l2-ctrls-core-test.c"
++#endif
 -- 
 2.53.0
 
