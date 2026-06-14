@@ -1,112 +1,226 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E5C627A10F
-	for <linux-media@vger.kernel.org>; Sun, 14 Jun 2026 20:31:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565493264FC
+	for <linux-media@vger.kernel.org>; Sun, 14 Jun 2026 21:29:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781469089; cv=none; b=aiS9f9mQI+C7GiYgHXxniMXkdfcwDjfCpSltCHgf1SQXQG1MBhOrO2/PFBRIXf/Fd3UMQ9dfL+Z8uAiHoGVkmlQvn6WtArworzEftmPOl/mfZdpH5iLajJpWJXjBrR1wlrbNJ98aZ5oG6x2lRgbXzMltJSqgWDAoqLuynCCyt7g=
+	t=1781472550; cv=none; b=P1sDOSuBJHSTx/j7MdPKb8GsjxJTFnyTkeJOPgCvLwm8Sr8GD/iUGWmDONP5g4k75nC/CFA9hZK7/s0HhrTypnDjbjFGqMlcfmyYmIcVGMfZRBahevPJ/Sda4gA+33+eze8WTxFoGF4r1HWHsthIT8AfVXr2N2XivzzAvv2nwgQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781469089; c=relaxed/simple;
-	bh=pS9dj5hZWj+sq0xOxJ1yFaqbU1BUk5WejyxEfxd5tEQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GNe2wHJBFP2GoB7otPFAqNALzDzab9Tv4GFoHQA9bEhzb0LGg7/8PWNsvzEo8RsRGGQ0FoA+uVrdS1XnU1lPpjfwVONQAYXIQLSM+UXgs8oyYpue5VJ+pchEWN+y3XgYQEv2ZI3Arlh9zsahvjNQax7wWz9vM78itpQ/ve1uuoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vh4fqunU; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781472550; c=relaxed/simple;
+	bh=rkwnz+igJhLSHd1/g1zNsfmNlAjsiP1DTMIeA2PxKKI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Epz5iN4tEgzXsJQNnNunpvRYltmiTMA3qh17JJJ9+dWJAQGECn//dyoyLNA3av8Kd6iP4iz5MUlYinMVtxE6RwyvKvnpJ34T5U21bFg+t017pA3vXghkexkztjKsTTt5Zh2wqHBZe7jzk59UN/nWUENqkfY9CBfwc4cLX7aaCSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X7xhvreo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jV13P/CP; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vh4fqunU"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-36b900f350fso2338722a91.0
-        for <linux-media@vger.kernel.org>; Sun, 14 Jun 2026 13:31:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X7xhvreo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jV13P/CP"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65ELFhep2187630
+	for <linux-media@vger.kernel.org>; Sun, 14 Jun 2026 21:29:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=+UIZX+yrm8NpkbBZgExiV/8q
+	eCkMTLOf0NOLfbd2dfw=; b=X7xhvreooleITjkkm9bYeNm+7FTuGg1nMlulEQDb
+	u3sU1IQcssaqwvDdRO11Jpr/+QsbMvXwUeeNvtabtk19sxVwxxj6lVHZV0EskUIk
+	tVnWGzKQroM65MZi2RgVy0gQhlGbdiK3cxJ8y177lADm1YlBQV/hsiiLt/SzewbH
+	klWziuyh9Qj6fYTnhxPQ9xKefZL0w2oPl9CK5+BjA7J0fGP4d4m0sidaqbbqxGEb
+	BUGwP+lF4upVIeoRsIKkyTjhfZpJkgJDkOEFTp9ZmQGtX4fvtKwLb8sm4EXTuCjI
+	5JSAjzB/Kp0G5xxWKK7J4Mo1fWZKS6HRgxn8Qpe9BgJ80A==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4erye14kj1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Sun, 14 Jun 2026 21:29:08 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-915b9dd020cso754035585a.3
+        for <linux-media@vger.kernel.org>; Sun, 14 Jun 2026 14:29:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781469088; x=1782073888; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YjNYRCBlo4UVyQJ3qh9HAQ451p2iR7Z90Yo8VcpsvLc=;
-        b=Vh4fqunUBi8CrFR0KeYL3ZDHQ0eDPRVpYoqw7GYOlQYLzVCj+3g7loX25fKOGnwLzl
-         qjcGxH3Z0z5a/wVMkpnvBsZWUBApeNYzx+fJKGnXOq+6kgInhHFmHLjorLNByE4YrH4t
-         bXXe4H3wvDNiF8HLlHgIFtC7GY06hJMLndNl1p0ncxfS9GjZcna3LeYEehlQjIvlyMM5
-         hjA3cQCcCJNB/rAZSYGgg6Tdxvsjg5ZDa33Sb9o4luqLLPENfNsskHaZHw0poVzWXSYY
-         1uI5wu5X6ON57sZHBHi+WUFwv2HdvtaRxQnq1HObba+kTWpNuJtpiIDD/QjIw8i9GQOJ
-         vHuQ==
+        d=oss.qualcomm.com; s=google; t=1781472547; x=1782077347; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=+UIZX+yrm8NpkbBZgExiV/8qeCkMTLOf0NOLfbd2dfw=;
+        b=jV13P/CPn/ri2FIwsB3vWi3GGvWDnB9KdGRCrL0V3B1RYJClWAENqyjNd/UQp3IwAk
+         zEZdbCk5+a6bqmN3P9wEqaVy6ylit0zWRhx6lfiC3jSGBYG+OBK81z8WiIofv7KYG4F2
+         3hpP+2C2fHMcyyS8aLt5RF0AsrQwYYV4U6ibDVoBt61xQnyRcgByYltOzp45ztZZJ6S6
+         eZ7MWij6ArfstJFsYAV8lxqxgsdGeF6Iw14E0VcKvc1q5aHjEAnqdWikO1Jzq/UAssH/
+         x3wpI0cXRCen8cheqr2Q1OFGZNeywxHGjDl+dHxDGN4CL/dUrhHY9xktjkvk2gJ5I2Cz
+         BmSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781469088; x=1782073888;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=YjNYRCBlo4UVyQJ3qh9HAQ451p2iR7Z90Yo8VcpsvLc=;
-        b=PiIO1KZK7WQlQNu64McSSNSPPilYE6Qne1hXuLQHV9pYVv7cgoPPeVUgQ6lnsJOz7J
-         V9LgbNNWHzncs/X3YWcz8dlzYNm8KZWrjhNaicKHY8BOLq2dlvE/FOfWRpS2n+Oa11aE
-         UJ1vjresr/VXXne3duOeglaPkqcRx0Qj/xx0XzEUgcdAXC5rcMCR2qWSIw4iU+q5uQ6z
-         3nufXQY5s+VRiAfcEMfEMsNF/C+3tl98vDxxvixUKLRXRrsNo5tVAoF3tT3kASrZzsLc
-         5HBGOKdm8vn9sJ9ihcmPEr5Lzg8XUBYzdBShG5TStOSaRhJU73lO+an0nB2LBjJ3R8db
-         f4zw==
-X-Gm-Message-State: AOJu0Yyl0d3tDPoUCzQmH4Rz/qKE8uzvSD5qHfrLucHK1YfZTty3OuEC
-	vawM0TPqwDOBaDhUrGPLFJfd5FlaZmZ78t3FWoYBcePQVfPZkUdyX1eLL1kJW6Md
-X-Gm-Gg: Acq92OFKYU0CcWTpAAOrr+SBVZugNZ2afttsLt1Hu8kjtD4pYKbYhZhr3wROCBy+FX6
-	K1ffGdhEqErUioxsNdz/5Cl/ym3lgsGc3noCEw2IohxqL4yFG4zOib0mx8QDJTUa6Vt273UyYE/
-	xD1wtnTDtXN99VuJske43eBB5+WanuyUwyyxKiz7rWj6HyMgOzoFGuRsOz3dHcUWyThA723okfn
-	Xq1HPjotJFb/OSosx5bXTP+JkFp/fKSrt3tPFF+cINuXQr+IVRPtv6ySy7MUgyFGvnmQkA7NS8m
-	HVC+FMwIGgipKmT7wfH8dRT4+vQJpShOWd49MjXRoJv81KtcedwalRc+u9OJWtggfGGnqM/Jw1t
-	L3X8WuC6ztDrtRQvQiRM923PrRw3a+xsSDPzC9jZur4QNp4HPYGOxH6UTir00YQj6hVp4inYHk6
-	E310uwbfapT+JrWdVO/JQXaoA52elfMH8lrBmA4LYQQgD8SpXxWeiB
-X-Received: by 2002:a17:90b:1ccc:b0:36a:f612:e6a3 with SMTP id 98e67ed59e1d1-37c2bd493femr7933097a91.17.1781469087944;
-        Sun, 14 Jun 2026 13:31:27 -0700 (PDT)
-Received: from localhost.localdomain ([49.207.217.37])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-379e8cc467csm5439828a91.2.2026.06.14.13.31.25
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 14 Jun 2026 13:31:27 -0700 (PDT)
-From: Biren Pandya <birenpandya@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: Biren Pandya <birenpandya@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Bradford Love <brad@nextdimension.cc>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCH v3 22/22] media: dvb-frontends: au8522_decoder: Add missing media_entity_cleanup()
-Date: Mon, 15 Jun 2026 01:58:22 +0530
-Message-ID: <20260614202835.11977-23-birenpandya@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260614202835.11977-1-birenpandya@gmail.com>
-References: <20260614202835.11977-1-birenpandya@gmail.com>
+        d=1e100.net; s=20251104; t=1781472547; x=1782077347;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=+UIZX+yrm8NpkbBZgExiV/8qeCkMTLOf0NOLfbd2dfw=;
+        b=ib3nC7syLmwyccpUeX2woVvkHhu71P3k+NyxY9NB01iXxYwtTZunDxITTgIUUc2mVp
+         mghtQbPmx/CRmjyKxRAduU/VTY19GCcy/CKhn44juPyUFCyFvKru2uDa+dFYvvHMMtqc
+         YOD5SsQDM/dtIsMUKXl4VJDonfGPny24ZvLAfRBADQvHgN9bueLhZ/z8jNNv3k/qeauQ
+         9bU5Ng97ugMDKqjzvDmNsqKc0hG327HhkwB9Z/24X/+eXXf31XrTmRP2uPL1UJa5EkhX
+         bwCaSS6iqCGyfbrkyvJPER+Mnc8jjfHgcBNyHZTLPg/w0WJjuG5jv2RRpG4hINr7yyKV
+         0YyQ==
+X-Gm-Message-State: AOJu0YxNScL+++nqWbTKzVX56fxXY2wqOr2vbfiGcb36JAtSAiHVVilu
+	hMoZiuHhEv02deuxAWaIcNxaf2ARaaoWUOQukn/0sZDJXQRQ/+EIVbvaKPmMWWP9DAWzRB9kh4C
+	rdpnO4XbRs6zgVcA9KhlRojF2I0aGX8Fkt4tQFJ6yU+yUigDrcT+efSCc8FQeYvChdw==
+X-Gm-Gg: Acq92OFyZD/E2X6/woxBfSrsKYglWoIDUU0d2e0rGx6hSW3Tl/e4RXFcNHsP7wUotU5
+	W4doZuvvQ3t+JhPhkBW3nk/l1Ab6+KEYEGoMMlcMqkJwD2aCq0dOZ3VUhBVyfQj1L9Ni5n7s65o
+	LXWHon02glX0/ocK0k/WhMY+hlcK5Koq9xgLNbRqNRIkAW4G+RHYaeOxr53dJMBwW/5jyElm7sR
+	Xm5uU7mL7sMq49xwv4+3wXlrgU0BrxVz3e5aumvuVFdSdX0R/HefJwVcW5+X6dnWWa/Gjx4kDoL
+	ck6/4AfjnEDLM3ALnSiesoxg8C8zPj7LKvhu9ms3z20xMJLDifRBCtLqc/plxNfLB91PdynV4tY
+	fPI7TJp/vYPDc3ZF0ceKowToyDsAX2sRlw4/QOf0g3Xbk6Zk4S1EGM7lvgONrn75mh695XQJcIn
+	g8vTkFNQdO+amG6U3L4wMN7b8f3UDmVdX8t5k=
+X-Received: by 2002:a05:620a:25c7:b0:915:9fba:878b with SMTP id af79cd13be357-917eefc30ebmr1399469985a.9.1781472547489;
+        Sun, 14 Jun 2026 14:29:07 -0700 (PDT)
+X-Received: by 2002:a05:620a:25c7:b0:915:9fba:878b with SMTP id af79cd13be357-917eefc30ebmr1399466385a.9.1781472547075;
+        Sun, 14 Jun 2026 14:29:07 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e16a0fasm2219335e87.20.2026.06.14.14.29.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 14 Jun 2026 14:29:03 -0700 (PDT)
+Date: Mon, 15 Jun 2026 00:28:59 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, mchehab@kernel.org, bod@kernel.org,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        andersson@kernel.org, konradybcio@kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 2/4] arm64: dts: qcom: sm8550: Add JPEG encoder node
+Message-ID: <t73gjl3mqcp64rddf7yaosmscdpaj5opiiatztd42fmjrxdpta@2fp5mpgn4icb>
+References: <20260612194417.1737009-1-atanas.filipov@oss.qualcomm.com>
+ <20260612194417.1737009-3-atanas.filipov@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260612194417.1737009-3-atanas.filipov@oss.qualcomm.com>
+X-Proofpoint-GUID: cDJhx66niiFdl3614tsIDVOWsnaRx3SW
+X-Authority-Analysis: v=2.4 cv=MNlQXsZl c=1 sm=1 tr=0 ts=6a2f1d24 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=57GF0HRpIeqOalGSDUwA:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE0MDIyOCBTYWx0ZWRfXzEZ6IeU2QcO3
+ RsHz4hea1BhUMj7xeYCLsec8UESwC4FgVwp+b8RD8Sqs8SmkqsexyQh1oiihr8eMqF1GKZSiEp4
+ 0FsVCRNj2khYltI7DRPB58atBRHgASA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE0MDIyOCBTYWx0ZWRfX/WA/eBWmJJmV
+ WxUUwJxRVqb9LI1J/FfAYZvpY74g33KA4MDBJrDXoMw5fzskXN5GeTTYlpqkYYgXPwkHRfV1lsT
+ 6I0AhHrxE9yN1hc+xhPxjO9voeELFFF+qLfM/jmLTN/sSwD76x7A5G1X72TSem/1G/stjeiqJ9U
+ HU2PxWAe1GTilyhZDB0qwZGS092MbqOsNQ2eiOnO+m7b3oLE9ccP2wjJ9id3fucAIZj+CiXSQXl
+ dXU5f4gV+l4B+hbaaHAAt+1mx8n/XFLY0RAYfIRblvyiTiWgi3boNbKJYgvNmbIX8/4ShAGK/bU
+ ESbgTW+DeoRfJDqoe8oM8Q2fA6mG/FU7gtHAHSP8joShp4XCvwAKz/1uHOTUcPQzzkQDUS0ks89
+ fWNBaLsfAdy3FrWiD9iGZTZk7mfzTup3dQmtQft0OQYtSbdYT7gkbw5u55x6XuMCILGx97gykZO
+ NkfCqJBLZzQ/FM5cIRg==
+X-Proofpoint-ORIG-GUID: cDJhx66niiFdl3614tsIDVOWsnaRx3SW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-14_05,2026-06-12_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 spamscore=0 priorityscore=1501 phishscore=0
+ adultscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606140228
 
-The media_entity_pads_init() (or media_entity_init()) function initializes
-the media entity, but the driver forgets to call media_entity_cleanup()
-in the error paths and remove function. Add the missing calls to fix the
-API violation and prevent potential future memory leaks.
+On Fri, Jun 12, 2026 at 10:44:15PM +0300, Atanas Filipov wrote:
+> Add the missing JPEG encoder hardware node in SM8550 DTS so the
+> new qcom-jpeg V4L2 encoder driver can bind and operate on this
+> platform.
+> 
+> The node wires the resources expected by the binding and driver,
+> including clocks, power domain, IOMMUs and interconnect paths.
+> 
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/sm8550.dtsi | 42 ++++++++++++++++++++++++++++
+>  1 file changed, 42 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+> index 912525e9bca6..8090b8b1d7bd 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+> @@ -3677,6 +3677,48 @@ port@7 {
+>  			};
+>  		};
+>  
+> +		qcom_jpeg_enc: jpeg-encoder@ac4e000 {
 
-Signed-off-by: Biren Pandya <birenpandya@gmail.com>
----
- drivers/media/dvb-frontends/au8522_decoder.c | 2 ++
- 1 file changed, 2 insertions(+)
+To reiterate and reinforce what others wrote: this should be a subdevice
+under the isp@ or camss@ node.
 
-diff --git a/drivers/media/dvb-frontends/au8522_decoder.c b/drivers/media/dvb-frontends/au8522_decoder.c
-index 58b959b272c6..9df590603152 100644
---- a/drivers/media/dvb-frontends/au8522_decoder.c
-+++ b/drivers/media/dvb-frontends/au8522_decoder.c
-@@ -741,6 +741,7 @@ static int au8522_probe(struct i2c_client *client)
- 	if (hdl->error) {
- 		int err = hdl->error;
- 
-+		media_entity_cleanup(&sd->entity);
- 		v4l2_ctrl_handler_free(hdl);
- 		au8522_release_state(state);
- 		return err;
-@@ -764,6 +765,7 @@ static void au8522_remove(struct i2c_client *client)
- 	struct v4l2_subdev *sd = i2c_get_clientdata(client);
- 	v4l2_device_unregister_subdev(sd);
- 	v4l2_ctrl_handler_free(sd->ctrl_handler);
-+	media_entity_cleanup(&sd->entity);
- 	au8522_release_state(to_state(sd));
- }
- 
+Then, drop the label, please.
+
+
+> +			cell-index = <0>;
+
+No cell-index.
+
+> +			compatible = "qcom,sm8550-jenc";
+> +
+> +			reg = <0 0xac4e000 0 0x4000>;
+
+0x0 instead of 0, pad address to 8 digits (0x0ac4e000).
+
+> +			reg-names = "jpeg";
+
+No need to name the only region.
+
+> +
+> +			interrupts = <GIC_SPI 474 IRQ_TYPE_EDGE_RISING 0>;
+> +			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
+> +
+> +			clocks = <&gcc GCC_CAMERA_HF_AXI_CLK>,
+> +				 <&gcc GCC_CAMERA_SF_AXI_CLK>,
+> +				 <&camcc CAM_CC_CORE_AHB_CLK>,
+> +				 <&camcc CAM_CC_CPAS_AHB_CLK>,
+> +				 <&camcc CAM_CC_CAMNOC_AXI_CLK>,
+> +				 <&camcc CAM_CC_JPEG_CLK>;
+> +
+> +			clock-names = "gcc_hf_axi",
+> +				      "gcc_sf_axi",
+> +				      "core_ahb",
+> +				      "cpas_ahb",
+> +				      "camnoc_axi",
+> +				      "jpeg";
+> +
+> +			iommus = <&apps_smmu 0x20C0 0x20>,
+> +				 <&apps_smmu 0x20E0 0x20>;
+
+lowercase the hex.
+
+> +
+> +			interconnects = <&gem_noc MASTER_APPSS_PROC 0
+> +					 &config_noc SLAVE_CAMERA_CFG 0>,
+
+Use tags instead of 0.
+
+> +					<&mmss_noc MASTER_CAMNOC_HF 0
+> +					 &mc_virt SLAVE_EBI1 0>,
+> +					<&mmss_noc MASTER_CAMNOC_SF 0
+> +					 &mc_virt SLAVE_EBI1 0>,
+> +					<&mmss_noc MASTER_CAMNOC_ICP 0
+> +					 &mc_virt SLAVE_EBI1 0>;
+> +
+> +			interconnect-names = "cam_ahb",
+> +					     "cam_hf_0_mnoc",
+> +					     "cam_sf_0_mnoc",
+> +					     "cam_sf_icp_mnoc";
+
+I know that camera settled on these names. Please use a better approach:
+describe the source and the destination of the interconnect (see how
+other devices name them).
+
+> +		};
+> +
+>  		camcc: clock-controller@ade0000 {
+>  			compatible = "qcom,sm8550-camcc";
+>  			reg = <0 0x0ade0000 0 0x20000>;
+> -- 
+> 2.34.1
+> 
+
 -- 
-2.50.1 (Apple Git-155)
-
+With best wishes
+Dmitry
