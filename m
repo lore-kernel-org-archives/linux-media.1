@@ -1,151 +1,78 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34BE3F660E
-	for <linux-media@vger.kernel.org>; Mon, 15 Jun 2026 14:05:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E432E3F4840
+	for <linux-media@vger.kernel.org>; Mon, 15 Jun 2026 14:09:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781532335; cv=none; b=pNUJ8xYegXEITjKme9kxea1y6BtcANN6izmVOGT7YaMnKMHi2+sbuaol8UPjyE+m7/5G55ZhuAZe4sXaAwOc+8+IYe9hxZ9Km2QZkoGJlel5scS7hs0IFBtzg6GxaW7XZwXpJ/utYKFbKYpWnbiCqUSv5qgVJvS4Brc9fD9ZMNI=
+	t=1781532560; cv=none; b=sV6ntw0TVgOdDLNnuaZXHR+1rbfLt3HJ3t34vPwk8Sp5uwB49zEBCq+GoOR8J5TPEYpU18vvi7z6eKoJSzvS3iE6nPzYEiscxUnDXa/xeoXaOupKzw+hr72YMVikKgP8PMxMcujZknzn+c+V2oPi9C9woYpUQYm/fbpLKr0wiu8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781532335; c=relaxed/simple;
-	bh=wNlRLgc+VfgMCDRAIjUgYi0AoA49S8oofmEjD+i/wcM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BU3xjU8YHmcHn7BnvMiVXqvZTgXenJrXFcNE/kKFsIPvWHy4XgKpayeX1/bpvR3zmAzvwf8rppm154Efjz9ueO3TqW25QlcRNb+/444qbrE+6TDVu/VcsFEYGdjB+8o/0o3r8jnymyQTuAlsW4eGV83rKeE12RIqkT46SvTdcl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=ZWOerHzS; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
+	s=arc-20240116; t=1781532560; c=relaxed/simple;
+	bh=ty7y+PmmpPMcSZT3QxdciDZM4mxShqfTp18fzBz+R40=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XXbBi95GLPEt6pR/51PgZE0AZLLeac5uzAgud8ZRX66D48ksuHEnFQao5/mwJZXQj9SPmyl8egJp+02AmwlrNjido1SRNBMbB0fCs4AjyTY7U+YZ46K8OZhDZ3eewSjoL/yaUbTHnvfBbJL5yLGB2BNh18AAtU8HHI5G6Z5cHGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EkyQlu85; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="ZWOerHzS"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-45fd461e4a5so2735412f8f.0
-        for <linux-media@vger.kernel.org>; Mon, 15 Jun 2026 07:05:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1781532332; x=1782137132; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=6MN3j+7e1dFG2jfIP/6dw1N/4Etu3I0/uUny4h6HJVI=;
-        b=ZWOerHzSZ938gXKvVOH4NC1cgH1XBk5z17+ek9oivHagntLg0w7XazcPwzCv+B25D8
-         rlI4yzMl+u2NLsEikki7kUhMGLCLyeoODNyOHoFr5c6tufbF1QpW0t+kOGefTK70Wcow
-         AG04xN8tTYWURz4pZk1c59Y+8P7sUuKEEb0wPthZIXTHBl8aJk4oI9WStlyziqTeaPmq
-         wxwLcOdHtEg8gKBOSI8S93m1VjrDxRWG7AxMt6QNvTit5FmkbqttONtfLubxOHT7RUJ3
-         e/Yp3k1eT+Fr21yUjFWXNs9SZwYEKl6tnS3n6+lqMxSzmwnoaqWZEcqZc5mhkcEyduaD
-         6H3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781532332; x=1782137132;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6MN3j+7e1dFG2jfIP/6dw1N/4Etu3I0/uUny4h6HJVI=;
-        b=cUR1eu9PJ239phoTnyRDTF8ahhgNv+ykbtpFFQs0PpasgJIlt+AfKect1bLUlIkVEl
-         0ooRbxPwp7lh2mH7nsWjw6/ystDq0Q3C5qkmV5Xngc4afb1g2BTF6ZV2SlELiuIa8Lma
-         ZX07cuY0vUonM5ZOsLQm7Fy66+1vwbTVzbfx2v6teDmeFpYw/ADc4+qlMXiPB+KkWsPC
-         bhfmL5XViPWYi9tpHhvd+vxfvbvd/3gAe7awXhQe4K//NL/agJrblr7nm1SIxEHSGHr7
-         /yN48ZpvMS7XVWpDhsKqNA0SzqFMN3Ek0aLIjxcEvtdlkyC2i54pVoQXjb69gl65w3Gg
-         80Yw==
-X-Forwarded-Encrypted: i=1; AFNElJ9RNTYoz0+meHxmgX+f9UBxlJ51eTYLo3dxeRyKQ2s9QHWDEIdBhE5I1KhP3j87Ow12jmafeYnpQdAvAw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwKhPRjSYqHvaABcGOQW9SoGb6UviIn8wgr7OxsMcpNmuR1BPv7
-	/mHwQN92nHcMoYkFAtN/wqsJidEdYKc0BabspbxQ04Bo6sJQY+JC6OyMJENJgjYgVzTY
-X-Gm-Gg: Acq92OGPDa5JyE4BYjB+zTftCJkVdD4jqLzJI3wIvCuhooPS85rWpa1Okb2VboXCG8H
-	lYwaAZG3gWCWc1hGhPV4D3QrlZWjqispJkHveFvC0sPh4RWAU4ZN1h8V51ORCIpAclDrJVIz84U
-	3QeGP7GzsrKCq/GlKLjnULBcKl09RIFwMiRyMKuZyHElmG6fW3DvKA6yjSJ4nOC6sgcwEKB2SeQ
-	mURoXoa8UluX9aE/FTs0YzWLGJie/+QMeSyoy7GYE+J1xK8A5k3Lw9OWNg3oxflYwzAOewsxPwt
-	Lh001G6fkx/+A+L71XmvL1p269MRdpbAWzRPgfVqez/qtyyH+a4fU3XOYTrLhjRjkQwoNDe6CrR
-	DAMsZBJTBJ2iRKxeES/esL+mXmbKNefPz02c3MmZsOoAO0V4Yd3DuxO0xhU51nNGB/y0SU6I9Fj
-	5nZ4PlMR86qFBMuWCUU+SHsZS5OfTFy8Nz7SbZMWULJLH1uWQZzHx2MlT9WLryxYr5dkSMHo4/D
-	HCQIyv61syufKzwf+eEeHgSVXNoE4mD/uwpw5iMw58Daw==
-X-Received: by 2002:a05:6000:1844:b0:439:c18f:5aaf with SMTP id ffacd0b85a97d-4606dbf15f5mr21550537f8f.34.1781532332022;
-        Mon, 15 Jun 2026 07:05:32 -0700 (PDT)
-Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.209])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26f3basm33177359f8f.12.2026.06.15.07.05.30
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 15 Jun 2026 07:05:31 -0700 (PDT)
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: neil.armstrong@linaro.org,
-	mchehab@kernel.org,
-	gregkh@linuxfoundation.org,
-	khilman@baylibre.com
-Cc: jbrunet@baylibre.com,
-	martin.blumenstingl@googlemail.com,
-	mjourdan@baylibre.com,
-	hverkuil@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-amlogic@lists.infradead.org,
-	linux-staging@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Doruk Tan Ozturk <doruk@0sec.ai>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: meson: vdec: fix use-after-free of decode work in stop/close path
-Date: Mon, 15 Jun 2026 16:05:29 +0200
-Message-ID: <20260615140529.52653-1-doruk@0sec.ai>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EkyQlu85"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781532558; x=1813068558;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ty7y+PmmpPMcSZT3QxdciDZM4mxShqfTp18fzBz+R40=;
+  b=EkyQlu85IFI4V7FkeCY+AfM5gVtITJcEC70AZXWEIYc0qGSsPbcDfNNR
+   GNGkkGF+sPG+moxyg52mZb2TMJ9InCLfG6UzXW73UP73iWu/CttDtvxVh
+   iEqmsHGi6texgqXZZ/djBV5ai88pGUnNs/ss6a1RMnEpcqsT8WhxCMa3g
+   bmA58kQ4kokkK0nbIgHh1sU3jFVKpmm5kasM/Lc3gsBwu/5cdixPoVMku
+   zawqKFCQoakPkDyqWPksZ94tEMUwWl5QeGcioKrcpvbwXV0IOyyC53hqH
+   BNDp6lXVbsCphjSR+w19YkeWk1LuBWD9cB9gKzcdsalWaDbuVWzywLZCw
+   A==;
+X-CSE-ConnectionGUID: w2SxsSQPSWyr3hE0//eOjQ==
+X-CSE-MsgGUID: nzPSKEZ5QjuqhKgJzYAeVA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="104943463"
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
+   d="scan'208";a="104943463"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 07:09:18 -0700
+X-CSE-ConnectionGUID: B91fJA2qRLStv/s4C6nG9A==
+X-CSE-MsgGUID: XpaavBfkRRK1Hp5t+sA3PA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
+   d="scan'208";a="243115678"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.235])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 07:09:16 -0700
+Date: Mon, 15 Jun 2026 17:09:14 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Andrei Khomenkov <khomenkov@mailbox.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andy Shevchenko <andy@kernel.org>, Kees Cook <kees@kernel.org>,
+	linux-staging@lists.linux.dev, linux-media@vger.kernel.org
+Subject: Re: [PATCH v2] media: atomisp: replace kmalloc() with
+ kmalloc_array() in sh_css.c
+Message-ID: <ajAHitx6a0Sk5pLZ@ashevche-desk.local>
+References: <20260613110712.71436-1-khomenkov@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260613110712.71436-1-khomenkov@mailbox.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-vdec_close() calls v4l2_m2m_ctx_release() and then kfree(sess) without
-ever cancelling sess->esparser_queue_work. The worker
-esparser_queue_all_src() takes sess->lock and walks the source buffers
-of sess->m2m_ctx, so if it is still pending or running when the session
-is torn down it dereferences freed memory.
+On Sat, Jun 13, 2026 at 02:07:12PM +0300, Andrei Khomenkov wrote:
+> Replace arithmetic in the kmalloc() function with the kmalloc_array()
+> function, as this calculation method is unsafe.
 
-The work is (re-)armed from several places, including amvdec_buf_done(),
-which runs from the decode-completion/IRQ path. That makes the obvious
-fixes insufficient:
+Why not kmalloc_objs()?
 
-  - v4l2_m2m_ctx_release() frees m2m_ctx (and runs stop_streaming via
-    vb2_queue_release()), but never cancels the work. Cancelling in
-    vdec_close() after v4l2_m2m_ctx_release() would wait on a worker that
-    may already be dereferencing the now-freed m2m_ctx.
-
-  - Cancelling in vdec_close() before v4l2_m2m_ctx_release() keeps
-    m2m_ctx valid, but the hardware is still live, so amvdec_buf_done()
-    can re-arm the work right after the cancel, reintroducing the UAF.
-
-Cancel the work in vdec_stop_streaming() instead, right after
-vdec_poweroff() has quiesced the hardware (so its IRQ can no longer
-re-arm the work) and while sess->m2m_ctx is still valid. Because
-v4l2_m2m_ctx_release() always tears the queues down through
-vb2_queue_release() -> __vb2_queue_cancel() -> stop_streaming, this
-single cancel covers both the STREAMOFF and the close paths.
-
-This does not deadlock: the queue lock (sess->lock, shared by both vb2
-queues) is taken by the worker, but neither the STREAMOFF path
-(video_ioctl2 serialises on vdev->lock == core->lock, and
-v4l2_m2m_streamoff() calls the lockless vb2_streamoff()) nor the close
-path (vb2_queue_release()) holds sess->lock when stop_streaming runs, so
-cancel_work_sync() can safely wait for the worker.
-
-Fixes: 3e7f51bd9607 ("media: meson: add v4l2 m2m video decoder driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
----
- drivers/staging/media/meson/vdec/vdec.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/staging/media/meson/vdec/vdec.c b/drivers/staging/media/meson/vdec/vdec.c
-index 4b77ec1af5a7..42822064cf8d 100644
---- a/drivers/staging/media/meson/vdec/vdec.c
-+++ b/drivers/staging/media/meson/vdec/vdec.c
-@@ -419,6 +419,16 @@ static void vdec_stop_streaming(struct vb2_queue *q)
- 		sess->status = STATUS_STOPPED;
- 	}
- 
-+	/*
-+	 * The esparser_queue_work worker dereferences sess->m2m_ctx and
-+	 * sess->lock. The hardware (and its IRQ, which re-arms the work via
-+	 * amvdec_buf_done()) has been quiesced by vdec_poweroff() above, so
-+	 * no new work can be scheduled past this point. m2m_ctx is still
-+	 * valid here. Wait for any in-flight worker to finish before the
-+	 * buffers and (on the close path) m2m_ctx are torn down.
-+	 */
-+	cancel_work_sync(&sess->esparser_queue_work);
-+
- 	if (q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE) {
- 		while ((buf = v4l2_m2m_src_buf_remove(sess->m2m_ctx)))
- 			v4l2_m2m_buf_done(buf, VB2_BUF_STATE_ERROR);
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
