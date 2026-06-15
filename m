@@ -1,167 +1,231 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5323BCD3A
-	for <linux-media@vger.kernel.org>; Mon, 15 Jun 2026 07:27:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41773BBFDE;
+	Mon, 15 Jun 2026 07:28:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781508435; cv=none; b=Gbnjcb6o2t1jv98UYkWQxvWE8mnfa3w/QGIvYD4eQUHMM6x/Ch9Xj4ueSfgWOYbDlEll4YLcPOES8y6Q9JOjsmCxNtCgkHZ+oHpiizufYZfqokZL3jPt896TgFrt/cWjgFixMYyKo5RELLJ4coJYxN+EqabHX7x4cOnVj+cl5zM=
+	t=1781508538; cv=none; b=eTPrSu2vf0Yi6cGxGfOMxF+Wu4QyuHbKno2F57miPoIuJ8VU/IEvCkMaGXfUZ7beRU4jsWQzCpnTr7NrfQ1AQjncsm00aTI+kxXSVcIG3IwqwjWQmZp7lReiyHSu+3Xmd9Dn+KVZbYewyPdTO3u4EZppCuNo5+ZfrfpFob+S6xE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781508435; c=relaxed/simple;
-	bh=pu5aKp2dBY9Z7bUFYMTRFGkF7Auzc9XTr1kXTHyu/yw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tGRilqFIR8I2yH9yZaoVrUhg3DapGgknSlHFfNl7YZ29R2Nj9xcbcLJDoq12KJc7KVfRqs1X9AqLTpO+v2eVePtUKqRsnnaZsC0Ah/nSiCNFZ3GpCTzXsrp7duq7OS0oNMGxNZzSls4CNgFlSLkYge8oNdQDxlnGc6P/BKlW40Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eElLavAq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c9/ptSjL; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781508538; c=relaxed/simple;
+	bh=AvOb/AJgMnCt8iojg/YZ9DqYn4SDUTeW1hngjw7C/U4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Y6rDuSPqTkOBZs0NsH9U6W0BU7DAxv0BaxSb1JPNSaABgqJfFs9KKI4WX0rv2nHbRqdu2b7eLGb+htwk5d91MOnFzMfUKVvYTP3Pcx/eP9OnGouqTdGwwxoWkBM/u+XUOelZuIxbXBlmDrPhyH8Ah/eT7UdtnnJIrcBvNO76eaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=TX4Xz4RU; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eElLavAq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c9/ptSjL"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65F6KbMQ3910861
-	for <linux-media@vger.kernel.org>; Mon, 15 Jun 2026 07:27:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	lV3PsszzF0e8PSHEQWQ0iIE6jGmvm4gXnL8CM8FMIps=; b=eElLavAqty18WPNi
-	akQ78LNkjS1KxXRN/LcVTT5t5wPm/l36I16VVcthNtebm+bPUaEK9t15p8plA2bD
-	R+HvKJNLEAE1pNlOCGEjdMT98sV8Q1COUBZHwz6rz65MwV1NInGBJIlfs8aF5gbr
-	zfd/b/hWYOjSSTNJDoGJHZ/pHHnfwCZ/KeHT6l81oMWbC4jhmW7E/+gzRRLer3UE
-	592gLtW6W2UgRqgBcnie2KBts4aiVgZX7NE+BtbLh/f3AvfsEkYyu5OHwnl6HQXH
-	m13TusyKegmMK+/Hj1xXXPguNjjSIUvLEp2jgScNmkSJp74M3Zb8NWGmG3TskK8M
-	kJPhTg==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eryc6x7r3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 15 Jun 2026 07:27:13 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c8611b27631so2242388a12.0
-        for <linux-media@vger.kernel.org>; Mon, 15 Jun 2026 00:27:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781508432; x=1782113232; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lV3PsszzF0e8PSHEQWQ0iIE6jGmvm4gXnL8CM8FMIps=;
-        b=c9/ptSjLtrxW5vWNwPIY1Tyxtz6xepfCnrib2SLzZsh79qxh7wga3I/LVKlH6tb162
-         GVem8OgCDQBhqLJbNWWZPPPaxuvrb8tgOuTqiI3PwHIhLfWAvOo73G9AzqglcbjUx/fQ
-         2O/6zXkd2zyD7kdN8aBnV/MDtJklJTxjbV0fF+j0MUkVrN2mJ9LhmFbiXgSU3LntMpyF
-         EEKhSZ9QcBi/wLmaOvOv4vgMXhj2Xjqi3apwbygNRA4MhNrqc07sisAKMg63YHojIPeX
-         oZAZzM8zJ8qjl/KYOyL8DX+CzUWfTDIy5gcb5dBB9qO8LK3hONA/vCYvusMZRCsvoYST
-         VBgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781508432; x=1782113232;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=lV3PsszzF0e8PSHEQWQ0iIE6jGmvm4gXnL8CM8FMIps=;
-        b=mWRa3W2q+XtS9YkBhdxVCJqNfacUFHeI59+yI+l5SNTZRC8DMKKb/dEOnV+iq/zztu
-         uGIAbvEq4U1MVEZMSNmBIYwVcyrcM5VsKYGERHNEJYgT35YLEOVilAWHVviTk+t5Lw3y
-         14jkq4yYWwITaNR3twJ02wszKvu8ya0Jug/0/vZbkrI2jn75zJ3sOlTkCjppJzymUwUd
-         uztLAGvnr8zmcEEHJqUOD+TW+Dnv75og19FPSJpLMs/Nre1ARpRpb0/Qp/2L/B1XAtJD
-         LpDNCxv1Eeu2MvDhwAEIvZ4UQetN8CeKsGyIcDT8GZG4O5KPV1U5hLMjHLeNPDWQXIHm
-         tZEA==
-X-Forwarded-Encrypted: i=1; AFNElJ/1KlyYl7LgU3uMoal3RisuKexK54SMH+DbGjYaRp4Qka0p6C6bd8gFCyoYgNx+v8iDywfoUgCH9Iku1Q==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy0Oilrq1tK5/N+jh9xRuUtkrEOXJATRSgnPR+bVuiB0dLkb46K
-	S4GsyNcPUN0GUoL1HcPLkV1vNySUkCHl43zG+toPjpb4m7md3MdYKrKCtqx+K6btLdvCw3q80/G
-	IsnwgDXYpkpw0n+uyFFAcQwS8HE9Ftx+siSwEc+4Jj3HXf338BTjHWQu9WHy+AP2ZyA==
-X-Gm-Gg: Acq92OFfQJgW6J4ySCukKOP9rRIU7E0oxRtOInrO1EsX2U0dWQOcDlm+0rH8Vkg31Co
-	5S/ncAEJ63lkWnbQru8pJmykTRi0x7TEp315J4X1EtyRzOimkk0hC4Df3fSj8bUF9GAhPYQlQBR
-	Voc15mwmymc/4WLUKlruRSJm039lcoPoCHQCNRsWqVETE1qh8CMMy26aZzsCEgzUX3iEwFHdQq3
-	enpbB3PXplARmz4TcsBxqQKwMWj4XjkMruaU9IICDbX0sxz59VvraYfr5caGXpAwNXVlSBjTj6v
-	BhER2f4XeA7Q3sh6m9mPrCKmIoeu+UfO3CxAsNneJpTGJg93SQNyqDILD4P7uJnljrh0HL1hGvB
-	cUWcqePJOLy7IaYpVnsVmMlQ5gWNaDOn8z2/KsExYDkpyXGAvGg==
-X-Received: by 2002:a05:6a20:e290:b0:3b3:bf9c:7c3b with SMTP id adf61e73a8af0-3b780ec2f0dmr12418319637.8.1781508432275;
-        Mon, 15 Jun 2026 00:27:12 -0700 (PDT)
-X-Received: by 2002:a05:6a20:e290:b0:3b3:bf9c:7c3b with SMTP id adf61e73a8af0-3b780ec2f0dmr12418274637.8.1781508431779;
-        Mon, 15 Jun 2026 00:27:11 -0700 (PDT)
-Received: from [192.168.1.11] ([103.211.19.27])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c86651af0edsm7787406a12.32.2026.06.15.00.27.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 15 Jun 2026 00:27:11 -0700 (PDT)
-Message-ID: <b11a9de2-6bc6-4345-8d81-5befb2182a7d@oss.qualcomm.com>
-Date: Mon, 15 Jun 2026 12:57:02 +0530
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="TX4Xz4RU"
+Received: from DESKTOP-SUEFNF9.taila7e912.ts.net (unknown [221.228.238.82])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 426442c8e;
+	Mon, 15 Jun 2026 15:28:45 +0800 (GMT+08:00)
+From: Dawei Feng <dawei.feng@seu.edu.cn>
+To: andy@kernel.org
+Cc: error27@gmail.com,
+	hansg@kernel.org,
+	mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	gregkh@linuxfoundation.org,
+	abdelrahmanfekry375@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	jianhao.xu@seu.edu.cn,
+	Dawei Feng <dawei.feng@seu.edu.cn>,
+	Zilin Guan <zilin@seu.edu.cn>
+Subject: [PATCH v2 1/2] media: atomisp: fix memory leak in atomisp_pci_probe()
+Date: Mon, 15 Jun 2026 15:28:40 +0800
+Message-Id: <20260615072841.3113700-2-dawei.feng@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260615072841.3113700-1-dawei.feng@seu.edu.cn>
+References: <20260615072841.3113700-1-dawei.feng@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/6] Add CAMSS and IMX577 sensor support for Shikra EVK
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-        Andi Shyti <andi.shyti@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-i2c@vger.kernel.org, imx@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org,
-        Suresh Vankadara <quic_svankada@quicinc.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260615-shikra-camss-review-v3-0-8183481f48d0@oss.qualcomm.com>
-Content-Language: en-US
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-In-Reply-To: <20260615-shikra-camss-review-v3-0-8183481f48d0@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDA3NSBTYWx0ZWRfX6VXWSPQqv95B
- SKEVYtNkFXHbIYO2Vi/4h3ElUAG86MXh8Sew/pmJXITon1uLkC4MLoAgA1f40fU+Iq8xyeL8ilW
- V1JO1t/J4+KKzrPucHDF8v9bAN7Zx48=
-X-Authority-Analysis: v=2.4 cv=Oop/DS/t c=1 sm=1 tr=0 ts=6a2fa951 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=6rJd4luAlhGbPPINhpk/8Q==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=EF_2yGccovn9CQtFCckA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: uwS3WD0uRWnJEuuiw7oz1aoDmtASApZ3
-X-Proofpoint-ORIG-GUID: uwS3WD0uRWnJEuuiw7oz1aoDmtASApZ3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDA3NSBTYWx0ZWRfX0sgs465cuPol
- YWmKcD2nU5VVItiSmdhUPHQB4nyiVpjt4myZFb5sV2NGtPv5bDpy7VG06g1LRqAA/QVoQmdKsIh
- wNBJ8jQBQS/apjvnHx4UWBOVJSe8D7l0s6CdfnaFqfUhU8E4ddRNerdwbiURQCtcTuRLoEmXq6g
- SMH54LbnV5WbC8UPjNcKycBIFBf0B74DVBkms8qiQY78VFsouvsEtNdSg4b6v5dLNN/MTj3QvMv
- TjFrxI3mObs4QO4INouN9MbAzLnjv2tCamOoN2v6wM3pxi/DpnBqHelzPjuL+S4GZV5L8A/ADeJ
- Mnajgvk9vg3sDi79PuwUI4wRRq4xnZcxd4R9tToTBvQpploCxCupqx5NMTYQ5DMsw1Zoq4Gu6Pd
- b48IVAvgyEDnIgWLHgaksADdhFlfAlNscRx/CKxu5iqbo7otmXOFDd3MhindzD0XFGocYu8aqVB
- V9DBfkRpQfyocVzPKDA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-15_02,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 impostorscore=0 lowpriorityscore=0
- clxscore=1015 bulkscore=0 spamscore=0 malwarescore=0 suspectscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
- definitions=main-2606150075
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9eca2ecd1a03a2kunme2f225d529d483
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSk8fVhhLH0gZTxpMQk5LTFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktISk
+	9ITFVKS0tVSkJLS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=TX4Xz4RUx8SboJLeCtQ8O9Mp3TYwvlM0hifeZe4wd/p4Rvqz0icSoxcJSYsk7eKifT7n/oNEJMfAvPLVJqny39R95frthZN5CWaDwB9jORWl+fHzCLNvh8R43k01CCJYlTulaiIIlIfM81n+sNxofhiQnKPjU0a9DSANUsakuf0=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=UkYC9aT9mj4vlSxTmhJCyUBtwEIY/u8jtjAv/YLeOy4=;
+	h=date:mime-version:subject:message-id:from;
 
+atomisp_initialize_modules() creates CSI2 and ISP subdev media entities
+before atomisp_pci_probe() registers them. Its counterpart,
+atomisp_uninitialize_modules(), only releases part of that module-owned
+state and leaves some media entity cleanup to the entity unregister path.
 
+That ownership split is incomplete for probe error paths. If
+atomisp_pci_probe() fails after module initialization but before all
+entities are registered, the unwind path cannot rely on unregister
+helpers to release media entity state whose lifetime started in module
+initialization. The CSI2 and ISP subdev media entities can therefore be
+left allocated.
 
-On 15-06-2026 12:42, Nihal Kumar Gupta wrote:
-> - Add blank line between iommus and power-domains in CAMSS node (Vladimir)
-> - Fix data-lanes numbering to start from 1 in all endpoints (Vladimir)
-> - Move cam1_reset_default pinctrl state from board .dts files into the
->   mezzanine .dtso overlay files (Vladimir)
-> - Collect Reviewed-by tags
-> - Link to v2: https://lore.kernel.org/r/20260608-shikra-camss-review-v2-0-ca1936bf1219@oss.qualcomm.com
+Refactor the cleanup boundary so module cleanup releases media entities
+created by module initialization, while unregister helpers only undo
+registered V4L2 and media device state. Move CSI2 and ISP subdev media
+entity cleanup into atomisp_mipi_csi2_cleanup() and the new
+atomisp_subdev_cleanup(), and run media_device_cleanup() after module
+cleanup in the probe unwind and remove paths.
 
-Hi Vladimir,
+If atomisp_mipi_csi2_init() itself fails, it has already unwound its
+partial setup, so return the error directly. Only the later
+atomisp_subdev_init() failure path needs to clean up CSI2 from the
+caller.
 
-Apologies, I had tested the changes with data-lanes = <1 2 3 4> 
-but mistakenly removed them before sending. Will fix and send v4.
+The bug was first flagged by an experimental analysis tool we are
+developing for kernel memory-management bugs while analyzing
+v6.13-rc1. The tool is still under development and is not yet publicly
+available. Manual inspection confirms that the bug is still present in
+v7.1-rc7.
 
-I've incorporated other comments.
---
-Regards,
-Nihal Kumar Gupta
+An x86_64 allyesconfig build showed no new warnings. As we do not have
+an Intel Atom ISP platform with the required camera sensor hardware to
+test with, no runtime testing was able to be performed.
+
+Fixes: 9d4fa1a16b28 ("media: atomisp: cleanup directory hierarchy")
+Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
+Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
+---
+ drivers/staging/media/atomisp/pci/atomisp_csi2.c   |  5 ++++-
+ drivers/staging/media/atomisp/pci/atomisp_subdev.c |  9 +++++++--
+ drivers/staging/media/atomisp/pci/atomisp_v4l2.c   | 12 +++++-------
+ 3 files changed, 16 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_csi2.c b/drivers/staging/media/atomisp/pci/atomisp_csi2.c
+index 95b9113d75e9..2a85d04ade81 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_csi2.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_csi2.c
+@@ -185,7 +185,6 @@ static int mipi_csi2_init_entities(struct atomisp_mipi_csi2_device *csi2,
+ void
+ atomisp_mipi_csi2_unregister_entities(struct atomisp_mipi_csi2_device *csi2)
+ {
+-	media_entity_cleanup(&csi2->subdev.entity);
+ 	v4l2_device_unregister_subdev(&csi2->subdev);
+ }
+ 
+@@ -331,6 +330,10 @@ void atomisp_csi2_configure(struct atomisp_sub_device *asd)
+  */
+ void atomisp_mipi_csi2_cleanup(struct atomisp_device *isp)
+ {
++	unsigned int i;
++
++	for (i = 0; i < ATOMISP_CAMERA_NR_PORTS; i++)
++		media_entity_cleanup(&isp->csi2_port[i].subdev.entity);
+ }
+ 
+ int atomisp_mipi_csi2_init(struct atomisp_device *isp)
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_subdev.c b/drivers/staging/media/atomisp/pci/atomisp_subdev.c
+index 3d56ca83ecb7..11d7e04d3ec5 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_subdev.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_subdev.c
+@@ -886,11 +886,16 @@ void atomisp_subdev_cleanup_pending_events(struct atomisp_sub_device *asd)
+ 
+ void atomisp_subdev_unregister_entities(struct atomisp_sub_device *asd)
+ {
+-	atomisp_subdev_cleanup_entities(asd);
+ 	v4l2_device_unregister_subdev(&asd->subdev);
+ 	atomisp_video_unregister(&asd->video_out);
+ }
+ 
++void atomisp_subdev_cleanup(struct atomisp_device *isp)
++{
++	atomisp_subdev_cleanup_entities(&isp->asd);
++	media_entity_cleanup(&isp->asd.video_out.vdev.entity);
++}
++
+ int atomisp_subdev_register_subdev(struct atomisp_sub_device *asd,
+ 				   struct v4l2_device *vdev)
+ {
+@@ -913,7 +918,7 @@ int atomisp_subdev_init(struct atomisp_device *isp)
+ 	isp_subdev_init_params(&isp->asd);
+ 	ret = isp_subdev_init_entities(&isp->asd);
+ 	if (ret < 0)
+-		atomisp_subdev_cleanup_entities(&isp->asd);
++		atomisp_subdev_cleanup(isp);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+index 900a67552d6a..5ba9584b81d7 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+@@ -334,10 +334,8 @@ int atomisp_video_init(struct atomisp_video_pipe *video)
+ 
+ void atomisp_video_unregister(struct atomisp_video_pipe *video)
+ {
+-	if (video_is_registered(&video->vdev)) {
+-		media_entity_cleanup(&video->vdev.entity);
++	if (video_is_registered(&video->vdev))
+ 		video_unregister_device(&video->vdev);
+-	}
+ }
+ 
+ static int atomisp_save_iunit_reg(struct atomisp_device *isp)
+@@ -814,7 +812,6 @@ static void atomisp_unregister_entities(struct atomisp_device *isp)
+ 
+ 	v4l2_device_unregister(&isp->v4l2_dev);
+ 	media_device_unregister(&isp->media_dev);
+-	media_device_cleanup(&isp->media_dev);
+ 
+ 	for (i = 0; i < isp->input_cnt; i++)
+ 		__v4l2_subdev_state_free(isp->inputs[i].try_sd_state);
+@@ -875,7 +872,6 @@ static int atomisp_register_entities(struct atomisp_device *isp)
+ 	v4l2_device_unregister(&isp->v4l2_dev);
+ v4l2_device_failed:
+ 	media_device_unregister(&isp->media_dev);
+-	media_device_cleanup(&isp->media_dev);
+ 	return ret;
+ }
+ 
+@@ -1086,7 +1082,7 @@ static int atomisp_initialize_modules(struct atomisp_device *isp)
+ 	ret = atomisp_mipi_csi2_init(isp);
+ 	if (ret < 0) {
+ 		dev_err(isp->dev, "mipi csi2 initialization failed\n");
+-		goto error_mipi_csi2;
++		return ret;
+ 	}
+ 
+ 	ret = atomisp_subdev_init(isp);
+@@ -1098,13 +1094,13 @@ static int atomisp_initialize_modules(struct atomisp_device *isp)
+ 	return 0;
+ 
+ error_isp_subdev:
+-error_mipi_csi2:
+ 	atomisp_mipi_csi2_cleanup(isp);
+ 	return ret;
+ }
+ 
+ static void atomisp_uninitialize_modules(struct atomisp_device *isp)
+ {
++	atomisp_subdev_cleanup(isp);
+ 	atomisp_mipi_csi2_cleanup(isp);
+ }
+ 
+@@ -1451,6 +1447,7 @@ static int atomisp_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
+ 	atomisp_unregister_entities(isp);
+ error_uninitialize_modules:
+ 	atomisp_uninitialize_modules(isp);
++	media_device_cleanup(&isp->media_dev);
+ error_irq_uninit:
+ 	atomisp_msi_irq_uninit(isp);
+ 	pci_free_irq_vectors(pdev);
+@@ -1476,6 +1473,7 @@ static void atomisp_pci_remove(struct pci_dev *pdev)
+ 
+ 	atomisp_unregister_entities(isp);
+ 	atomisp_uninitialize_modules(isp);
++	media_device_cleanup(&isp->media_dev);
+ 	atomisp_msi_irq_uninit(isp);
+ 	pci_free_irq_vectors(pdev);
+ }
+-- 
+2.34.1
+
