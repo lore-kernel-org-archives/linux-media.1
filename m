@@ -1,70 +1,41 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206662868B5
-	for <linux-media@vger.kernel.org>; Tue, 16 Jun 2026 13:46:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 275722C3248;
+	Tue, 16 Jun 2026 13:48:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781617580; cv=none; b=VPORLRr4VGkpLWSMpMJ4Atp7oAhukDTB6d8qzjx21+plrdVbQ6Evg5DtbKs+xl2Dw4MdwiOrnV9xdt/9Ddk+P2vLcB4QVyt1q6yOpWahB0Bxdv8feSsHBM7J+j7hFyJxefRFLHmCNTtL3i5f2CIKfNcWZB6yWavsVZhbWuz/hRk=
+	t=1781617722; cv=none; b=m57zzzoK3FbQZhaYIUS7dYGAurl9di54vkkueYd8oTpLbLMVaYTejAssKRqdRPunMD0CGsuspoA9+NpqB42TA/LOYKAD9zsDEIaHuH/UoBJBCNL3XCUfLdO/nyWx7jgKdN7e6A6KMC0tb6E+Y8QEYGafhiFGmMY/f5jgJ2DjQhw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781617580; c=relaxed/simple;
-	bh=BlveFnvCyuuxxrlhkvdOrm76dEkEjcUXw/fMbQgsxYk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WYBBQzBCHeGa8DenMRw60IpZ7Jl3QaxdhbgOtczKFvIuozjkJ77UcXhPpSSEBTHjrVqv3sPGs74aRrNGmMjeOB0AvLSWeDNFRLDi79inz9TDrsd+0mHI0hPm/NIYrQX/VRfNb72rkYSn5Q2GS9mu6jKhHCCJudDg5M1Q5bkVA6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hyEUi1Bj; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781617722; c=relaxed/simple;
+	bh=ZLf3JWyRJ4ZMlPlaKgsDjHJZ1+zely5V+Cx9SYvUC6E=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BN3cRbfxjhuI6YjOIu8C0vBY4WA+hO7N57gEGpttVmIGOo0mBJaTp8w+GYVImcafZ58OUXniOarmWTE7zuFVJOqp3cks4EoWEOa0TIrbTERe9dVrA+ND+3nJcZ7d5F9g81vf3bSA2vuWf6tUQBiisEQO5/62JyAo+NazD+dfvlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=UyixYJAT; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hyEUi1Bj"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-36dac5d5da0so2211075a91.2
-        for <linux-media@vger.kernel.org>; Tue, 16 Jun 2026 06:46:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781617577; x=1782222377; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=llhKls+j1Ixs2wr3qNDyvz9TD5apL48O8f6aX/4laYU=;
-        b=hyEUi1Bj6+HKDFAT0/POEZqZY/IwN8cwtsUvrGPcaURX5FWY6UXttKcrnmmB+8M8hg
-         yLJD5/is0rlBuQ13Feq1qW9o++Dk5CLj40T5DA4TGPz2YxfdKpoLK18ghLw8KIdzxiO7
-         m4FQ/F4X3JNHOOy7ipOtq+m9kv8DawhNG2BYWo71LWfhLE5UppvhR6W2b5tKIpOO8YRj
-         U6luDXCRwUXE3jxdy4tYHYZ2QFEZY1rn0KtkAausnf6tScSgtFNiMaCWw+onMw1Is0XW
-         H+8Rbuhcb1d72opEHfS8ViN8sWtrvI923NEj3TA6posMNJhEdi6LhL4q3ZCdoNucwKak
-         0rqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781617577; x=1782222377;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=llhKls+j1Ixs2wr3qNDyvz9TD5apL48O8f6aX/4laYU=;
-        b=HpHHXg3Rltw5ItHAzWHhMuP2e8urH7w/L2uwiz4kLAAiV+RyoT1uk1xST965iubNtt
-         2l7gV+awFh/uGrC3DYTO9cll6Rhy9G7ATnBe8R00Wy1+AR/CazDDlJ2KvaIGVHeTbVqM
-         /dNlQZlwHG71MxUuKoUg5DmrUyqHrdhRf6lDgiTUbn8z+mpJkw+UfsAkk7nHwHoq2XYL
-         sODn0z6RxpJtBnuIebRog7Ae4Pw/xSovmPCBtinTURY52krL3f9k9pWjtvfPmF+wG+ai
-         tcjbGCpiD23iIHIqd2pwBU2r2RfSXRfPLLpRHrOdW5wNIZig0QAtDYeKf5dLe9g9fG6r
-         8Ggw==
-X-Gm-Message-State: AOJu0YxUfzJc26qrH/Rh3ZXJUAEP29NfwCL6urkBtyK0jWlxc+KjCFUA
-	9++CziL8i3bMnjnjDD96EO7kwm7uN+FizKjZjRWfP2v73LCaa6o2sCia
-X-Gm-Gg: Acq92OFz/KwsC9+3Cw111/AUcSb9bMYi9Rvx8K2jIY5yeXS5DzuC03AgEyrI/aQNJE8
-	brArXMdmbJPrhDAjaqihWFH0ycwFXNQeem07nGztZLk4hNQfmqM3NxHAxT/pi3GBR5S0Dc8/U27
-	B6G4DaMp8ePkKbIJkHimCc4bPS3ggPUyQz7d6udanvmR+nyOAWHzIctfl+BCaVNyCi4J4om+Z4i
-	KrO+4FiNSbfQe8FVND/BX8aMgd8ro5snVUpBSU9+AkWNK/2+1bfgaeXP4hGPB8ty9/5g9LfLEgy
-	cmkneBInVFeQXwmdojaxShT8N09wCWDa+4vkNu0kIQZmxbV5qSUOQA3EDGb0AZUbLQDAXCPFKK/
-	esOCpvZM5tXrrLQWdeyqdQTls7zV76IMskM3syrHdZzVuVed/sbbSMTJiANIzKkwTTlo/NRSwLz
-	3rQOj4RH9w+bnnlROPP6pRhp+9hg5Awesti6SXl5cOdr8iKtigOQ4C
-X-Received: by 2002:a17:903:1448:b0:2c6:a99a:52b5 with SMTP id d9443c01a7336-2c6a99a54b8mr12860755ad.12.1781617577344;
-        Tue, 16 Jun 2026 06:46:17 -0700 (PDT)
-Received: from localhost.localdomain ([49.207.217.37])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c433079999sm132366055ad.66.2026.06.16.06.46.14
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 16 Jun 2026 06:46:16 -0700 (PDT)
-From: Biren Pandya <birenpandya@gmail.com>
-To: sakari.ailus@linux.intel.com,
-	mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="UyixYJAT"
+Received: from DESKTOP-SUEFNF9.taila7e912.ts.net (unknown [221.228.238.82])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 429ab32a7;
+	Tue, 16 Jun 2026 21:43:21 +0800 (GMT+08:00)
+From: Dawei Feng <dawei.feng@seu.edu.cn>
+To: andriy.shevchenko@intel.com
+Cc: andy@kernel.org,
+	error27@gmail.com,
+	hansg@kernel.org,
+	mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	gregkh@linuxfoundation.org,
+	abdelrahmanfekry375@gmail.com,
 	linux-kernel@vger.kernel.org,
-	Biren Pandya <birenpandya@gmail.com>
-Subject: [PATCH] media: v4l2-core: Fix memory leak in v4l2_fwnode_parse_link
-Date: Tue, 16 Jun 2026 19:16:11 +0530
-Message-ID: <20260616134611.52984-1-birenpandya@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	jianhao.xu@seu.edu.cn,
+	Dawei Feng <dawei.feng@seu.edu.cn>
+Subject: [PATCH v3 0/2] media: atomisp: fix probe memory leaks
+Date: Tue, 16 Jun 2026 21:43:17 +0800
+Message-Id: <20260616134319.3969928-1-dawei.feng@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -72,32 +43,55 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9ed0ac1f2603a2kunmea38caa144bbe
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDH0tMVhlKSBpPSUpKGhgeT1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktISk
+	9ITFVKS0tVSkJLS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=UyixYJATlchTC72LjI68aMEjO/yUWElXsPUiHFginsLZq5pmpfC5SptEtlg4OUKR8KtSbgCYjeWLKJd1AbRPStaBB4Rs9LXJkE7P4XaAxJWz7XDk4/3gKRf+exsPFj7z1BmxxCrPUAnQoaD4JX5xxEZ0143AiHbz1sCautLIjy0=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=ffCh9oL1e0EAcHuPsDW71SlmsWGjbc+hxVo6fDlA5d8=;
+	h=date:mime-version:subject:message-id:from;
 
-In v4l2_fwnode_parse_link(), the remote endpoint fwnode reference is
-acquired using fwnode_graph_get_remote_endpoint(). This reference is
-properly released in the error paths, but it is leaked on the success
-path.
+This series fixes two memory leaks in the atomisp PCI probe and adjusts
+cleanup paths.
 
-Add the missing fwnode_handle_put() before returning 0 to prevent the
-reference leak.
+Patch 1 fixes the cleanup boundary for media entities created during
+module initialization. atomisp_uninitialize_modules() did not release all
+module-owned state and instead left some media entity cleanup to unregister
+helpers. That split is incomplete for probe failures that happen after
+module initialization but before all entities are registered, so the
+module cleanup path now owns the corresponding media entity cleanup.
 
-Signed-off-by: Biren Pandya <birenpandya@gmail.com>
----
- drivers/media/v4l2-core/v4l2-fwnode.c | 1 +
- 1 file changed, 1 insertion(+)
+Patch 2 adds cleanup for the V4L2 async notifier state initialized by
+atomisp_csi2_bridge_parse_firmware(), including notifier connection
+cleanup on probe failures and notifier unregister on remove.
 
-diff --git a/drivers/media/v4l2-core/v4l2-fwnode.c b/drivers/media/v4l2-core/v4l2-fwnode.c
-index 77f3298821b5..93ef83c591ef 100644
---- a/drivers/media/v4l2-core/v4l2-fwnode.c
-+++ b/drivers/media/v4l2-core/v4l2-fwnode.c
-@@ -633,6 +633,7 @@ int v4l2_fwnode_parse_link(struct fwnode_handle *fwnode,
- 	if (!link->remote_node)
- 		goto err_put_remote_endpoint;
- 
-+	fwnode_handle_put(fwnode);
- 	return 0;
- 
- err_put_remote_endpoint:
+The bug was first flagged by an experimental analysis tool we are
+developing for kernel memory-management bugs while analyzing
+v6.13-rc1. The tool is still under development and is not yet publicly
+available. Manual inspection confirms that the bug is still present in
+v7.1-rc7.
+
+An x86_64 allyesconfig build showed no new warnings. As we do not have
+an Intel Atom ISP platform with the required camera sensor hardware to
+test with, no runtime testing was able to be performed.
+
+Changes in v3:
+- Moved the research background and static analysis explanation to the
+  cover letter.
+- Changed Zilin's Signed-off-by to Reported-by.
+
+Dawei Feng (2):
+  media: atomisp: fix memory leak in atomisp_pci_probe()
+  media: atomisp: fix memory leak in
+    atomisp_csi2_bridge_parse_firmware()
+
+ .../staging/media/atomisp/pci/atomisp_csi2.c  |  5 +++-
+ .../media/atomisp/pci/atomisp_subdev.c        |  9 +++++--
+ .../staging/media/atomisp/pci/atomisp_v4l2.c  | 26 ++++++++++++++-----
+ 3 files changed, 30 insertions(+), 10 deletions(-)
+
 -- 
-2.50.1 (Apple Git-155)
-
+2.34.1
