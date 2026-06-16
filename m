@@ -1,130 +1,108 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C88BC34889F;
-	Tue, 16 Jun 2026 13:48:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E472E7376;
+	Tue, 16 Jun 2026 13:50:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781617731; cv=none; b=JgmMW2v9v+VY/3PEwcwrLe1VKIj9pAUfEwZNFrnrQPv+XjpsfIjSxM9ylVkaCf0Hdk2Rih+ymfRmpfxWSXmtPI9H2FuSvgL/L6sq2HsqJ9Egf2oIlJS4AmjW6VEPtQ2YqOxAxLRCxHM3v/wxx1jmBtlkOhDr0yqzDBQieLEPez4=
+	t=1781617848; cv=none; b=Io1nnCQMQbjTVxvqAQ9m2N+BL9zpCKf9P9cKj7Pg+ZRFfVHdKjuc8KmKGN8hYxnjAY/IUk4taoMlk+6Y3XW6WMuvOvUiq6f6wOc/QmgUXsOe9wjXW09CnLzQY41vQjL3i9UJvwUCzzk7RShvOn52IPymcJNxhVmqIvFSv88vweA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781617731; c=relaxed/simple;
-	bh=6vKKZfWhkpOcahNkN6fPgTtNvN16Fz+lZVSa/A/XPZI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hbQDIYUXgzDi2Hu4DgEMnayYtKX+bE54IqwOfq6oyy9aE/d98adBAMyXcUaxysmsPwaOZr1Wpf0/vaY9sAjvELia4Nt+DsnoecvDrH7GM10fbazdb+wQm82qTS5qWye8+pNi9uROK7azYTUKLdcqOQUaHRfJuOcON6jBMLTTRGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=mkK1FQZ+; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1781617848; c=relaxed/simple;
+	bh=AQKow0+x6QHmPVa5Tlph5jPa0ECUpffmLvCQXMJS8bk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Utz6st5dot6ClKrsfZlrBCx8TO3xTkgnZHK5Khd1WFNlyvsCNS2q09ipX+CY7vZqhXs0UWMH9mlgkdGSWzkYbebPDyA3w69keihrA87nJKfsn1DHBl7PmURjgcRKDjREFLzFpJlylTrFQXB9PmMM8o8Ap9BdKXXBDyLsvn4a/QU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=RiITLjdJ; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="mkK1FQZ+"
-Received: from DESKTOP-SUEFNF9.taila7e912.ts.net (unknown [221.228.238.82])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 429ab32aa;
-	Tue, 16 Jun 2026 21:43:25 +0800 (GMT+08:00)
-From: Dawei Feng <dawei.feng@seu.edu.cn>
-To: andriy.shevchenko@intel.com
-Cc: andy@kernel.org,
-	error27@gmail.com,
-	hansg@kernel.org,
-	mchehab@kernel.org,
-	sakari.ailus@linux.intel.com,
-	gregkh@linuxfoundation.org,
-	abdelrahmanfekry375@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	jianhao.xu@seu.edu.cn,
-	Dawei Feng <dawei.feng@seu.edu.cn>,
-	Zilin Guan <zilin@seu.edu.cn>
-Subject: [PATCH v3 2/2] media: atomisp: fix memory leak in atomisp_csi2_bridge_parse_firmware()
-Date: Tue, 16 Jun 2026 21:43:19 +0800
-Message-Id: <20260616134319.3969928-3-dawei.feng@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260616134319.3969928-1-dawei.feng@seu.edu.cn>
-References: <20260616134319.3969928-1-dawei.feng@seu.edu.cn>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="RiITLjdJ"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 92CCD8FA;
+	Tue, 16 Jun 2026 15:50:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1781617812;
+	bh=AQKow0+x6QHmPVa5Tlph5jPa0ECUpffmLvCQXMJS8bk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=RiITLjdJF6TrhpgO3wxb0FcLZcoSW5KtD0sthY52xtI98yFitkWq3m3pzZC+TF7Do
+	 Qat5XZ9qTD/9h6OD9ymXUpw4xNasACkPY1ehbfqlopn7KXltGQAb9pAWQw3Y/fFYCS
+	 D1tllUla/jXnCoieV8Ah+Gmf802YLmQ3jYMAyh0g=
+Date: Tue, 16 Jun 2026 16:50:44 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Biren Pandya <birenpandya@gmail.com>
+Cc: sakari.ailus@linux.intel.com, hverkuil+cisco@kernel.org,
+	mchehab@kernel.org, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: v4l2-core: Fix Use-After-Free in
+ v4l2_subdev_get_fwnode_pad_1_to_1
+Message-ID: <20260616135044.GJ2984510@killaraus.ideasonboard.com>
+References: <20260616092516.46339-1-birenpandya@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9ed0ac2fb603a2kunmea38caa144bd4
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSE9PVhlDGh5OTB1LTx9JH1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktISk
-	9ITFVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=mkK1FQZ+aRZhAGzDTk9EfY7y1U0S3bTSppOOcrcP7RRW6DuN1YnmL+1PUsTS/EShtIFyGx41ODIxUbz5xXp7aPEKGKjVjjVxXjk3ufdjeW4MPuEQzZ1MotC5WukZoUIFus6Z4V4SGxZr5W//L9c76SlKtt5Wvsu+sM3fF5wuBpM=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=fUnovNl8RSsNGJ1VN9ZTCzfu9exJp/BqQnWeD7RuiJg=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260616092516.46339-1-birenpandya@gmail.com>
 
-atomisp_csi2_bridge_parse_firmware() initializes isp->notifier and may
-allocate async notifier connections via v4l2_async_nf_add_fwnode_remote().
-However, these resources are currently leaked if a subsequent entity
-registration or probe step fails, or when the driver is removed.
+On Tue, Jun 16, 2026 at 02:55:16PM +0530, Biren Pandya wrote:
+> v4l2_subdev_get_fwnode_pad_1_to_1() drops the fwnode reference via
+> fwnode_handle_put() before passing it to device_match_fwnode(). This
+> creates a Use-After-Free vulnerability. If the freed memory is instantly
+> reallocated by SLUB, the pointer comparison could accidentally match
+> the wrong pad or trigger a KASAN panic.
 
-Fix this by introducing dedicated helpers to clean up and unregister the
-async notifier state. Call atomisp_notifier_cleanup() to release the
-allocated connections in both the entity registration failure path and the
-overall probe unwind path.
+There's no vulnerability in practice. The code change is still worth it
+in my opinion, but the commit message needs an update.
 
-Additionally, invoke atomisp_notifier_unregister() during the device
-remove path to ensure the notifier is properly unregistered from the V4L2
-core before its underlying resources are freed.
+> Fix this by using the __free(fwnode_handle) scoped guard. This safely
+> binds the fwnode lifecycle to the function scope, holding the reference
+> during the match and releasing it automatically upon return.
+> 
+> Signed-off-by: Biren Pandya <birenpandya@gmail.com>
+> ---
+>  drivers/media/v4l2-core/v4l2-subdev.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+> index 831c69c958b8..e6b133ef7850 100644
+> --- a/drivers/media/v4l2-core/v4l2-subdev.c
+> +++ b/drivers/media/v4l2-core/v4l2-subdev.c
+> @@ -7,7 +7,7 @@
+>   * Contact: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+>   *	    Sakari Ailus <sakari.ailus@iki.fi>
+>   */
+> -
+> +#include <linux/cleanup.h>
+>  #include <linux/export.h>
+>  #include <linux/ioctl.h>
+>  #include <linux/leds.h>
+> @@ -1243,7 +1243,7 @@ const struct v4l2_file_operations v4l2_subdev_fops = {
+>  int v4l2_subdev_get_fwnode_pad_1_to_1(struct media_entity *entity,
+>  				      struct fwnode_endpoint *endpoint)
+>  {
+> -	struct fwnode_handle *fwnode;
+> +	struct fwnode_handle *fwnode __free(fwnode_handle) = NULL;
+>  	struct v4l2_subdev *sd;
+>  
+>  	if (!is_media_entity_v4l2_subdev(entity))
+> @@ -1252,7 +1252,6 @@ int v4l2_subdev_get_fwnode_pad_1_to_1(struct media_entity *entity,
+>  	sd = media_entity_to_v4l2_subdev(entity);
+>  
+>  	fwnode = fwnode_graph_get_port_parent(endpoint->local_fwnode);
 
-Fixes: 8d28ec7e9145 ("media: atomisp: Add support for v4l2-async sensor registration")
-Reported-by: Zilin Guan <zilin@seu.edu.cn>
-Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
----
- drivers/staging/media/atomisp/pci/atomisp_v4l2.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+The recommended usage is to declare the variable where initialized:
 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-index 5ba9584b81d7..1073d9e5eafb 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-@@ -798,6 +798,17 @@ static int atomisp_subdev_probe(struct atomisp_device *isp)
- 	return atomisp_csi_lane_config(isp);
- }
- 
-+static void atomisp_notifier_cleanup(struct atomisp_device *isp)
-+{
-+	v4l2_async_nf_cleanup(&isp->notifier);
-+}
-+
-+static void atomisp_notifier_unregister(struct atomisp_device *isp)
-+{
-+	v4l2_async_nf_unregister(&isp->notifier);
-+	atomisp_notifier_cleanup(isp);
-+}
-+
- static void atomisp_unregister_entities(struct atomisp_device *isp)
- {
- 	unsigned int i;
-@@ -869,6 +880,7 @@ static int atomisp_register_entities(struct atomisp_device *isp)
- 	for (i = 0; i < ATOMISP_CAMERA_NR_PORTS; i++)
- 		atomisp_mipi_csi2_unregister_entities(&isp->csi2_port[i]);
- csi_and_subdev_probe_failed:
-+	atomisp_notifier_cleanup(isp);
- 	v4l2_device_unregister(&isp->v4l2_dev);
- v4l2_device_failed:
- 	media_device_unregister(&isp->media_dev);
-@@ -1444,6 +1456,7 @@ static int atomisp_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
- 	devm_free_irq(&pdev->dev, pdev->irq, isp);
- error_unregister_entities:
- 	hmm_cleanup();
-+	atomisp_notifier_cleanup(isp);
- 	atomisp_unregister_entities(isp);
- error_uninitialize_modules:
- 	atomisp_uninitialize_modules(isp);
-@@ -1471,6 +1484,7 @@ static void atomisp_pci_remove(struct pci_dev *pdev)
- 	devm_free_irq(&pdev->dev, pdev->irq, isp);
- 	hmm_cleanup();
- 
-+	atomisp_notifier_unregister(isp);
- 	atomisp_unregister_entities(isp);
- 	atomisp_uninitialize_modules(isp);
- 	media_device_cleanup(&isp->media_dev);
+	struct fwnode_handle *fwnode __free(fwnode_handle) =
+		fwnode_graph_get_port_parent(endpoint->local_fwnode);
+
+> -	fwnode_handle_put(fwnode);
+>  
+>  	if (device_match_fwnode(sd->dev, fwnode))
+>  		return endpoint->port;
+
 -- 
-2.34.1
+Regards,
 
+Laurent Pinchart
