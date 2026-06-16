@@ -1,109 +1,205 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78D543C074;
-	Tue, 16 Jun 2026 11:51:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F7F436379
+	for <linux-media@vger.kernel.org>; Tue, 16 Jun 2026 11:52:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781610702; cv=none; b=KDKPhrQCvbr2oTmPhinMX3k6Y+9aGbPXgxc20Zs8khn+J9LEC1FZ0bHuWLLo30Xe+acen2CdTNX49sUKy7WZSo11JBAMBTCwRu7fKphL8orwJS+CjKB5deymeiunGFbua1bTKQamU7f252hb9D7MNzgYppVqombpQxjmfnR1oo0=
+	t=1781610756; cv=none; b=qqv3jthzEioFrhIDWOlio/VphSPt1TM6vjWqlav3xHrWdZPa2nwmCVJ4Y2vb8g1cbjSmN+jZ8+n/bWH2LZw5P/HngcESI49Qv5o7jLzom7DjsdkEqIn8jTmQbdF3BTA1UJM3QBaInOG90lg7qN8utFfGFRflgY64zw+e2C8yg3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781610702; c=relaxed/simple;
-	bh=m6J6/NzkNyJDz37Ps+ORik98nptnpSCPcY+7qiRjZlU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=DPddN1B1Lu5mu4S7iJTkNh5K5WchjPHYTpbvEPdrDnHZnIZBg6CPNigzKSQuV4P7pqSXRDwMO06RAkJKbOckhMmo1iwsyJjBwuM1FUaCBjOYrBYy11TK/4JPZysGh8LnqWYp6LAFVInMFOQuCGjGUgjgnV56IEZOsN7AsEC7dlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=m/zjlEDt; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1781610756; c=relaxed/simple;
+	bh=IQKIBUWJRljbzFuRZD5swT7UNFw7zs05w6Zor98regM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=r27f2Cyz8sWASzpwVc9Lk1IYxO+SOobdCMNTcNK5TrnE+rkaKMLOtLbcdlAFdfO9HWtDLsHKsWDRPGpKkN8UYsMNHuY1pwFG8F1OUjYyY3nAFeQdi/2XR0QVhYOl2QCkaBPnrrCVxCOJw6jg9hUp1NhKToPMSV5ytT9OclDCwkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Sbwks8Lx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V+zCz2nU; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="m/zjlEDt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1781610694; x=1813146694;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=m6J6/NzkNyJDz37Ps+ORik98nptnpSCPcY+7qiRjZlU=;
-  b=m/zjlEDt3U9pO3bD6IRLQXxjeUwuZKmc1SaVDsLYHOyXL2Hbm85IaIBJ
-   bMV2XPxSXJUM9srvdu3SJL4uUX3IjSQSeswbjjUJwaCN4IsUUV3Rl+OVW
-   d8w38duogvbQ7kdYwXrGDxSDARuL7SJ0/4WkwniXdiyeHQG/Z+1WlJi9e
-   MmIGZxREPOwmm72WUMQ0cduD8oRLg3gLFHp5fac0orfRV75U+8opvXxkS
-   aJE/e7QjhuCnj1q5r6pg7z9qzBwKD4/QDPfT/xSxWO8xWg68KjU535B/P
-   48gtlDpFg1xf1D/IyUX+wiHoJZvE/0pVjT6GCVrazyJ07U4ZC3d8VLUFQ
-   g==;
-X-CSE-ConnectionGUID: uMihHcjKTp2VB2Y1xinPzQ==
-X-CSE-MsgGUID: J4XLBGDWRxS4C9nXagaNmw==
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
-   d="scan'208";a="59581936"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 04:51:33 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
- chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Tue, 16 Jun 2026 04:51:33 -0700
-Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex02.mchp-main.com
- (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Tue, 16 Jun 2026 04:51:30 -0700
-From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Date: Tue, 16 Jun 2026 17:21:04 +0530
-Subject: [PATCH 09/10] media: microchip-isc: fix SBGGR10 Bayer pattern
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Sbwks8Lx";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V+zCz2nU"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65GACI153411127
+	for <linux-media@vger.kernel.org>; Tue, 16 Jun 2026 11:52:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	9ZQPWjj7slAqgoZN9nlRgXxKY7urHNPS7OlUM/w31FM=; b=Sbwks8LxAPsLwcU/
+	ur697lpgyRLak84Bd9T3zTc2Qj/W1qcUyEU0M3WqP2SvcjQcvUyiq29571Tn9kwe
+	cuWUKg7hAby5j3Ms3IJgu3ZCXJ3zu+EW6RxKIMtVdpqvHsieQzS6sehjYgq56N0h
+	rwQB4fTgaxcqn9R4lysGh42Ll5CPscbr7pvLZbFbojjH2SIXNGLIai9KJyu3pnL9
+	n+ROH3FB5PooXV0SS1Hp1x8f9O78EOn3nmmfVazJyBZ2LkydY8phmuQtFMwZJjTt
+	Ff+uyHcMMtT9gR5OXGdb853PY5AZLlj2JXx1sfYyLjBxHxFzVGoNxmOiDtQF6TV8
+	YujduA==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eu09g9kn6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 16 Jun 2026 11:52:34 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-8ccdd99d20dso13344796d6.2
+        for <linux-media@vger.kernel.org>; Tue, 16 Jun 2026 04:52:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781610754; x=1782215554; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=9ZQPWjj7slAqgoZN9nlRgXxKY7urHNPS7OlUM/w31FM=;
+        b=V+zCz2nUlnq6poAKio+MLQTt5zHsvkbH3teR+p50DXCbT6uwCOkvLTqfBUX/1P2Td5
+         faf1s2f7lBq7IL9EGTi6OC7Gw+MJKv5BZUYT/dTUKmqWGvkHtz4p7osYmEXoGQxhq3VA
+         MOwpKO/1SdEzhyY+LRcqgWkXuNo29rnRS3+1MdVTnfJQnniqv7/QY+XunvWz75+1cLO8
+         /iWiTUf56n01ax8/PdnKQnjGujEgmwIP0Ssu4debEYgQ97/nQ8ym/YQLVrMB5dE+hFwC
+         9gEGZrpOnjKEcEph1Z8RfHCL3EaV/YEddHsPwT8BRH6rSykKZQvbRvAgW7n6SemZZSoy
+         Hz4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781610754; x=1782215554;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9ZQPWjj7slAqgoZN9nlRgXxKY7urHNPS7OlUM/w31FM=;
+        b=IMHCfTlAlymMb3CIgThShE75fcRw8I/6FxiOl5qsA6/Cz6oRm2nFJ1Jp4LiOyHCtKY
+         8D+GtJ42Z4OKS50fSoaFFV9QhW5xWIfE4fNDjyN2OPOnfnxV7/rbq9VsK+T9/2tAfSj8
+         4GrZ+Tw960sYHDuSlI0Ffearc/eenDJtBjYSZ2AJaQciKgLqqc/UB/DTijSOxvWqfky0
+         GXwfbB9Fz2j/wrPAzVu8S9mSWQ7ilGfnoPAuRJHqKTrcnnqQX4LNIiSN5NG/jYcqv47e
+         V9TZjEEGUBaubfa7ckvy8PLFGs7ic6/6gXWjJ/eB5R1q7BybIBQ3Tenbpw8ROxtKytcQ
+         WBrw==
+X-Forwarded-Encrypted: i=1; AFNElJ+uzBIP6ubP1T2Qj+vmaJmleu5W4PSoa6On9/ZU5NBzNelvQRkgvt10RsKMFHRWxBnwsLhGdyN3CsIRZQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyaEU+r7JxXVezcEDsoSjVgP/xAVXWku+/dgoGDm2oll+W2LwRI
+	aWGFEG/zGMXD09Ohml7s5n6jAawu22edOzb1WdhD3oTHs/rUMLV/hLA/4CAlUiT8Km/gOF6T4Y8
+	U2jwrXCXNuiIb623URbsTNOp1dHD+JgLX4+Rljyw/pf65G0mdi2CF43Xv2g0diFjGnQ==
+X-Gm-Gg: Acq92OEe+zfk+DjC2jyWvF1qPhJihanxNjuYMuI93pMvlFwk3G7hFB0aOgr8FfafUr8
+	5h8/h/apaVrTfYM196LBGoFl9Qeo+ENX7CN1Dh9pK6yAHgNSwkOi/tSzLfy6rsnfZ3+hXnQnoX0
+	VxhZ7FHvWoUQOJRSpS3+uIFK+ifkptvLlxpAmTuawm6RyIUjEBA/6tz/ACiXKwQ+E+W/yF3oyMb
+	TGazowTlIMxlNDWPs6g8SgvCtS+WBXRBMJ3A2yrkwy+eq5g3qZoLC5jM6o95niWc+e8Kbngb7PI
+	qv2WzecXBdZ+zq04uivRrlWFYwyNN5QaiK1tfy3Cd8HlxxEISzBqIcOzSvszd4/ovP6+SJA3MQp
+	eQDX9jCX5gKUEj4e/b45qYC+AlLUZgaO9MvfnR7NZXnwrxA==
+X-Received: by 2002:a05:620a:2a07:b0:902:daaf:22cd with SMTP id af79cd13be357-9161b9598e7mr1644853585a.0.1781610753629;
+        Tue, 16 Jun 2026 04:52:33 -0700 (PDT)
+X-Received: by 2002:a05:620a:2a07:b0:902:daaf:22cd with SMTP id af79cd13be357-9161b9598e7mr1644851085a.0.1781610753209;
+        Tue, 16 Jun 2026 04:52:33 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb531896dsm627583166b.27.2026.06.16.04.52.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 16 Jun 2026 04:52:32 -0700 (PDT)
+Message-ID: <1e6eac45-bf28-4ffd-81ec-b3a2a24ecaf0@oss.qualcomm.com>
+Date: Tue, 16 Jun 2026 13:52:26 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/2] arm64: dts: qcom: sm8250: sort out Iris power
+ domains
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Taniya Das <quic_tdas@quicinc.com>, Jonathan Marek <jonathan@marek.ca>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Dikshita Agarwal <dikshita@qti.qualcomm.com>,
+        Ulf Hansson <ulfh@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-media@vger.kernel.org,
+        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+References: <20260604-iris-venus-fix-sm8250-v7-0-7bd2f0e5bae8@oss.qualcomm.com>
+ <20260604-iris-venus-fix-sm8250-v7-1-7bd2f0e5bae8@oss.qualcomm.com>
+ <5eaea87f-5fed-4869-93e5-55c9da5ced84@oss.qualcomm.com>
+ <cacfl4livqlkuk2c223hgapl45ojd6hsqg5sqqd7g5g2q57kk6@codcnqhfz3e6>
+ <73a30753-527b-4662-ba99-2ebc3878861b@oss.qualcomm.com>
+ <ijevonu6ib5daesvvzis53qh5ztufrdlqdsfmx33kiajplqwhm@muhxbznlx5k4>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <ijevonu6ib5daesvvzis53qh5ztufrdlqdsfmx33kiajplqwhm@muhxbznlx5k4>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260616-balki-isc-prefix-fixes-v1-v1-9-b23677fc5ab6@microchip.com>
-References: <20260616-balki-isc-prefix-fixes-v1-v1-0-b23677fc5ab6@microchip.com>
-In-Reply-To: <20260616-balki-isc-prefix-fixes-v1-v1-0-b23677fc5ab6@microchip.com>
-To: Eugen Hristev <ehristev@kernel.org>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>
-CC: Hans Verkuil <hverkuil@kernel.org>, Sakari Ailus
-	<sakari.ailus@linux.intel.com>, <linux-media@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Balakrishnan Sambath
-	<balakrishnan.s@microchip.com>, <stable@vger.kernel.org>
-X-Mailer: b4 0.14.3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDEyMCBTYWx0ZWRfXzAW6MXFsCty+
+ z3BzMaQzHTuj59mo+ks3x3iHHiuFA6WP+30HbRfb2dwnI1Bs2QKisSYuY7HWC64Emwt9g360ALH
+ b3BFN+l+tZEEnRxbSGP+ArFhcE/NuYz0ulhUD8+JPUG4YgXTepJ9CHMKcb05zxyKshgg/3nslqE
+ 9FNI/pj1Rpcyhyr+I/rFqFnaJtABsTWswOG6Xm5wUQET6YdX8j/dpx0E7tPs3I4pTfK3uyCEgNg
+ qiugvMx3oBHXZFqmRPNVTwOLn3mP/ReP/byJozf13j6jeqIugLjd586DUChJTWZ6jfnDgL/AiL1
+ kECFku7ZVqfi79YQWtMAEr2ZEbgZiTiQFVXdaVsIXzKNQvP4WlAUwKO/RC2CKT0z1Z9Eq5DPlSv
+ Vitraz2LDl8wMh3EX+gNIh/cpXJ/b0oFwU+wZxCzYKWcmNE2RbsnmfINgJ103ecNBnpv7nWC8NW
+ mCo4uer/Rh8oaUeGmEA==
+X-Proofpoint-ORIG-GUID: G0zaC_FAO12fp9nKm54dO7uAVcAmacSx
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDEyMCBTYWx0ZWRfXyKiRu14kMgft
+ t9xRq+hKKVI6UDA9+xU9QiGZlXjy44FeaRV6C46k9uQPWZZWK2ZlfvApFyv1mnvssDFhvZaw7iJ
+ SQu8i91atVoc0nZQjKC7IMXoJMpHvZU=
+X-Authority-Analysis: v=2.4 cv=DLa/JSNb c=1 sm=1 tr=0 ts=6a313902 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=-aIog7HT_t0rU9SwYjUA:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-GUID: G0zaC_FAO12fp9nKm54dO7uAVcAmacSx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-16_03,2026-06-15_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 malwarescore=0
+ priorityscore=1501 phishscore=0 suspectscore=0 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606160120
 
-SBGGR10 was mapped to ISC_BAY_CFG_RGRG instead of ISC_BAY_CFG_BGBG,
-causing red/blue channel swap.
+On 6/12/26 9:55 AM, Dmitry Baryshkov wrote:
+> On Wed, Jun 10, 2026 at 03:52:09PM +0200, Konrad Dybcio wrote:
+>> On 6/10/26 3:34 PM, Dmitry Baryshkov wrote:
+>>> On Wed, Jun 10, 2026 at 02:24:24PM +0200, Konrad Dybcio wrote:
+>>>> On 6/4/26 6:22 PM, Dmitry Baryshkov wrote:
+>>>>> On SM8250 Iris core requires two power rails to function, MX (for PLLs)
+>>>>> and MMCX (for everything else). The commit fa245b3f06cd ("arm64: dts:
+>>>>> qcom: sm8250: Add venus DT node") added only MX power rail, but omitted
+>>>>> MMCX voltage levels.
+>>>>>
+>>>>> Add MMCX domain to the Iris device node.
+>>>>>
+>>>>> Fixes: fa245b3f06cd ("arm64: dts: qcom: sm8250: Add venus DT node")
+>>>>> Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>>>> ---
+>>>>
+>>>> [...]
+>>>>
+>>>>>  				opp-720000000 {
+>>>>>  					opp-hz = /bits/ 64 <720000000>;
+>>>>> -					required-opps = <&rpmhpd_opp_low_svs>;
+>>>>> +					required-opps = <&rpmhpd_opp_svs>,
+>>>>> +							<&rpmhpd_opp_low_svs>;
+>>>>
+>>>> So the computer tells me low_svs would be enough for PLL0 to generate 720MHz
+>>>>
+>>>> Is there some transient dependency that bumps this to svs?
+>>>>
+>>>> Your changelog mentions you altered this in v6, but I don't see any related
+>>>> discussion
+>>>
+>>> There are two sources of information. The "clocks plan" and the "pll
+>>> info". For some reason, the clock plan doesn't reflect actual PLL
+>>> requirements. See the info on the corresponding PLL type.
+>>
+>> OK thanks, now I think I asked this already in the past..
+>>
+>> still, both point to LOWSVS @ 720 for sm8250
+> 
+> Not really, PLL type points to 615. I've posted you the screenshots
+> privately (sorry).
 
-Fixes: 91b4e487b0c6 ("media: microchip: add ISC driver as Microchip ISC")
-Cc: stable@vger.kernel.org
-Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
----
- drivers/media/platform/microchip/microchip-sama5d2-isc.c | 2 +-
- drivers/media/platform/microchip/microchip-sama7g5-isc.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Alright then
 
-diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-index 5d49b9d48f57..f0954a1f6376 100644
---- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-@@ -147,7 +147,7 @@ static struct isc_format sama5d2_formats_list[] = {
- 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
- 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
- 		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
--		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
-+		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
-diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-index 4f9e9a5ed4d1..59532fdecca3 100644
---- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-@@ -156,7 +156,7 @@ static struct isc_format sama7g5_formats_list[] = {
- 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
- 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
- 		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
--		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
-+		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
--- 
-2.34.1
-
+Konrad
