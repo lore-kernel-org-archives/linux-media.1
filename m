@@ -1,190 +1,98 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B0493546CC;
-	Wed, 17 Jun 2026 10:16:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FEDB3F0777;
+	Wed, 17 Jun 2026 11:56:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781691393; cv=none; b=p/YV5poaTny6qs1Z8ho8KYKOiy4aV6nHdZWIqsITRk3VTrVLsdWEKq1VA7TjWjv6sF0J3U4J0JuaYfddG/z7XKNBazbLsiVs1XIGgRlQ54Dv6hvT6Vala9w1xc1xYIrtfdaULBRBGfzdO4+cJ5PreiNGggBEsKPFwXg/+WGD98o=
+	t=1781697365; cv=none; b=X09ulTd66tXZetCnZbc8emm3jihkIidcb6s3HA48pDHHsZ6gx2v0F2soyWjiRXfaCX8zgRoVWafO9D6gFH8FJ9qN4CLNMMPd7ImWj99SJxLJP4O7KGdBNCg187OlFujRzjYjLPLRPqCQpAwqNOVO9skz/xxJMo9RtcQO71I0GyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781691393; c=relaxed/simple;
-	bh=fDPkcbI+0EFZxysD0GtaYXuRVf4DaqDdyw25QZDgFfs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=a/mmI6ZbYNqXc3+tIL7g1JvbqVFvBTto2lCKdlrJjmK+arPdrXl78QLMiEsjyXbxBG/+hXC3lZ1LpoXZ4Ee+xgggBWjNMwaod5HQzXVpkuWh3P8QDMgMBmbLCqgfvQKWdtRfOZoAt1XvGw/lYHQ3HVvtyu53CGvWFRrN8P+EU68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=BkW2iC+s; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1781697365; c=relaxed/simple;
+	bh=TQpu4ZDSe8o6iU2aimqX4sqTDMPQM2QGuVyZ2YPewCk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=dnpQgWQQt4W44sogsKv6S3WAnj5p9JrjQ3lrzjKYH20qrAY791CsD9xyPOzmT0rNitjNdhpRZVM8IbS5YrLPqausMQjTZ6CQ8cS3J+3eafDM4MuHFefIkI5HFQYePMAdyxFE5mnL2KbLwg96k/O938udPwjTw7xVQvzROj/diBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=stAN+czd; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="BkW2iC+s"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4ggKWt3Lp3z9tPX;
-	Wed, 17 Jun 2026 12:16:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1781691386; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fDPkcbI+0EFZxysD0GtaYXuRVf4DaqDdyw25QZDgFfs=;
-	b=BkW2iC+syb34VHAAFQhXqRa3M8xuFWb4t6hfs5lHcQEU+ZHYo1+y5xenX/ScF/P0dJIb4w
-	hKjuJiIJAP21ayrjvo+Rt0kkr4wzG64JZia5qXeVS1+wsIc9HIurmh6Q3qMOypcFwO/ubq
-	toizZDaexV6sA3ZGhnSmm87KjJROvJtOzVK9jA0tlCoW+6OgKZlPaCoNRrDUBmZqMQu68j
-	ir5JySokMGJ4ptt8WydSQ1ASM+UvOpXj4lIWZo11SCmlsAP7eia5YIqUv89KXf3VFBG1Iw
-	8Qhhpglt6s5mrdjgUoAA82z97QmABA/z+izX9yilE60NJjnKKz1hS68duJaj4Q==
-Message-ID: <80734f05e684ed6b8c82abd9f96c93968537d0de.camel@mailbox.org>
-Subject: Re: Properly synchronize dma_fence->signaled bit (Was: Re: [RFC
- PATCH] dma-fence: Fix races of fence callbacks versus destructors by
- locking)
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
-	phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Boris Brezillon	
- <boris.brezillon@collabora.com>, Alice Ryhl <aliceryhl@google.com>, Daniel
- Almeida <dwlsalmeida@gmail.com>, Gary Guo <gary@garyguo.net>, Tvrtko
- Ursulin	 <tvrtko.ursulin@igalia.com>, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Wed, 17 Jun 2026 12:16:20 +0200
-In-Reply-To: <7ff7dc15-4df5-443c-8d7c-c8e9b2672f2c@amd.com>
-References: <20260608142436.265820-2-phasta@kernel.org>
-	 <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
-	 <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
-	 <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
-	 <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
-	 <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
-	 <fa0dc9757bf8343516c4b156a2b70ec91b64ef8f.camel@mailbox.org>
-	 <6ea6c373-c6cb-4221-ad9d-e60b04d1368f@amd.com>
-	 <630a8a84ee8fdaa634c7b104742e7a28fcfe507c.camel@mailbox.org>
-	 <7ff7dc15-4df5-443c-8d7c-c8e9b2672f2c@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="stAN+czd"
+Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 60D9A664;
+	Wed, 17 Jun 2026 13:55:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1781697318;
+	bh=TQpu4ZDSe8o6iU2aimqX4sqTDMPQM2QGuVyZ2YPewCk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=stAN+czdJofimo4QLtFOFcc10yCEfdEJCzgH/1Q1aiKlcG7qttKUGOQIkk9deaNJP
+	 0EGcWOYcvT/LAA0PopbEdGQVnjICEdTyCZGYeFPCR55tjr2u030hDAivrQf1g73fgY
+	 3/2ZkzTyGjpBBP7G0McK5GlvJ8SoBaMw2zPmWvtw=
+From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Date: Wed, 17 Jun 2026 14:54:54 +0300
+Subject: [PATCH v6 01/11] media: rcar-vin: Fix comment related to stride
+ handling
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: 4601702ea4fe0ffa470
-X-MBO-RS-META: jtuwuqyyi7tzm94cpfm88dc8zfef3q86
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260617-rcar-streams-v6-1-1260eb72dff7@ideasonboard.com>
+References: <20260617-rcar-streams-v6-0-1260eb72dff7@ideasonboard.com>
+In-Reply-To: <20260617-rcar-streams-v6-0-1260eb72dff7@ideasonboard.com>
+To: =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1033;
+ i=tomi.valkeinen+renesas@ideasonboard.com; h=from:subject:message-id;
+ bh=TQpu4ZDSe8o6iU2aimqX4sqTDMPQM2QGuVyZ2YPewCk=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqMotDIdYZJdjnamP4uo8u0YiJvpkcCKjPlJcna
+ lmnzZDCP0WJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCajKLQwAKCRD6PaqMvJYe
+ 9b8ND/9BrO/14zJcxA0f4UyvxTrTZVYQI1f4rIYelwaTKOY63M4ZiptFiTLvEKunUPQdkh6wIOP
+ JEd/oayedBpC/rtDimdCNFaOy8WEW6KKBHKV54KvxLx2arV51ExGopLX+BdO7/cJppyftwJndEk
+ q0OjRBBkJnk2Ps/SEDTyhpjSXHHfMawu+dX/dT7yF2GFZwYckN6NMSIj8TMH51cjQJtUPekDcey
+ w8e4YOokzgXoqeXDQPt2qr4N4IkyxakDHbc0v7Y708FHzkdpQFBKW9iLRC0/nEXh+l+ZqdQUuX0
+ ySVryDFWaC7FQwe+3C9LsLXiwd1soU6BoCYVTqMHaKYWaOcL3+AI+ty2fiEARHP+43zYreWEays
+ tjXl+ZFXQROeRB9musYzllgGz1cdHdQ44hIeCRf7GzkiQ7TvdQ6oPL896hYFn+i6Fnf7/pDClMP
+ U5zcxwJ+KW+y+RpP8Iu5XkMhZSQiBHyZGS2LuLkDKJ7pRRi1LBbh8K6Xq9xlknsCo+SoFJnovK+
+ vBq6KmTiM5xN+RvSg4ZCzWQjynNSPFGDpyN8XuALLWdPlDdve2Fo7YfpouTriHbBIE0qtN+ydHm
+ OpKkMkKhsq/3uDUwwzQM40dXT8/gOpUu7r/0E0ugjOiVfKD2PLdtSwyYEmjVrZbCXuWiXuL9zhc
+ JMdEL0cQrJ9DRuQ==
+X-Developer-Key: i=tomi.valkeinen+renesas@ideasonboard.com; a=openpgp;
+ fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-On Wed, 2026-06-17 at 11:46 +0200, Christian K=C3=B6nig wrote:
-> On 6/16/26 13:25, Philipp Stanner wrote:
-> >=20
-> > So it was there from the very beginning and was not added because there
-> > was a performance bottleneck later. It is conceivable that a
-> > performance issue was present from the get go, of course.
->=20
-> Not saying that it wasn't there from the beginning, but multiple
-> people (including me) have tried to improve the situation and that
-> was either immediately reverted or directly rejected.
->=20
-> > >=20
-> > > And I can clearly say even if I don't like them that those
-> > > optimizations are a must have.
-> > >=20
-> > > > In any case, that needs to be repaired.
-> > >=20
-> > > No, see my discussion with Simona on the mailing list. I need to dig
-> > > that up as well, but it was around the time I added the same
-> > > workaround to amdgpu.
-> > >=20
-> > > You are basically trying what I have been suggesting as well, but
-> > > there is a very wide agreement that the current design is a must
-> > > have.
-> >=20
-> >=20
-> > =C2=A0* We need to document lockless magic *drastically* better in DRM.=
- I
-> > =C2=A0=C2=A0 see code left and right where there is some barrier with t=
-he comment
-> > =C2=A0=C2=A0 simply being "so list_empty() works without a lock".
-> > =C2=A0* The commit message needs to justify why a lock is missing, why =
-this
-> > =C2=A0=C2=A0 is the preferred solution, why it is correct. The latter a=
-lso needs
-> > =C2=A0=C2=A0 to be in a code comment.
-> > =C2=A0* Note that WRITE_ONCE() is not only about volatile, but also abo=
-ut
-> > =C2=A0=C2=A0 "watch out, here is a lockless access!", as Linus pointed =
-out
-> > =C2=A0=C2=A0 repeatedly.
->=20
-> Completely agree. Question is who has time for that?
+The comment says the stride has to be aligned to 16 bytes, but it should
+be 16 pixels, as VNIS_REG register is in pixels.
 
-We / the maintainers of the respective systems need to heavily
-encourage that :)
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Fixes: 40c6da8a9c0f ("media: renesas: vin: Fix RAW8 (again)")
+---
+ drivers/media/platform/renesas/rcar-vin/rcar-dma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The good news btw is that many things are moving towards a good
-direction in recent past, as far as I have seen
+diff --git a/drivers/media/platform/renesas/rcar-vin/rcar-dma.c b/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
+index f9af9177e02f..d6c69c674d57 100644
+--- a/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
++++ b/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
+@@ -678,7 +678,7 @@ void rvin_crop_scale_comp(struct rvin_dev *vin)
+ 
+ 	/*
+ 	 * VNIS_REG has four lowest bits always 0, i.e. the stride has to be
+-	 * aligned to 16 bytes. This is done in rvin_format_bytesperline().
++	 * aligned to 16 pixels. This is done in rvin_format_bytesperline().
+ 	 */
+ 
+ 	fmt = rvin_format_from_pixel(vin, vin->format.pixelformat);
 
->=20
-> > B.
-> >=20
-> > I think rejecting ideas with "we tried this, it >>didn't work<<" is not
-> > a valid reason for refusing an idea. Point A above helps with that. If
-> > your commit message contains measurements or links to tickets with
-> > *real life* performance regressions (microbenchmarks are invalid), that
-> > helps reducing discussion overhead drastically.
-> >=20
-> > Now, in this particular case, I fail to see how taking the spinlock to
-> > check that bit is evil. If it regresses someone's speed that much, it
-> > would mean that someone is heavily punching that lock, like polling
-> > 24/7 with dma_fence_is_signaled().
->=20
-> I think (but I'm not 100% sure) the the problem is that taking the
-> spinlock introduces a write to the cache line it is in.
->=20
-> At the moment when a fence is signaled a read is enough to check that
-> state, so what happens is that the cache line for the signaled bit
-> sooner or later end up in all CPU caches.
->=20
-> When you start to use the spinlock the cache line backing that plays
-> ping/pong between all the CPU cores and that is something which
-> always stalls each CPU when it needs to acquire the cache line. Keep
-> in mind that on a modern box you can calculate like a 4x4 matrix in
-> the same time you solve a cache miss.
->=20
-> This is especially important for the stub fence which is used by
-> basically all cores at the same time whenever you need a signaled
-> dummy.
+-- 
+2.43.0
 
-Alright, that sort of sounds logical, I guess. So the argument
-basically is that if we'd try to lock that, someone would immediately
-report real and massive performance regressions leading to a revert.
-
-I think last time you mentioned that memory footprint is less of a
-concern for dma_fence than cache lines. Out of interest: has anyone
-ever experimented with more padding to prevent spinners from shooting
-down other CPUs cache lines?
-
-Since you're the maintainer of dma-buf, what would you wish we do?
-
-Would you be at least OK with the memory barrier approach to make the
-API a bit more robust? AFAIU the barriers will not cause a cache line
-invalidation.
-
-
->=20
-> > Again, having that use case documented somewhere could save us all time
-> > =E2=80=93 especially for you, Christian, since you wouldn't be forced t=
-o have
-> > the same discussion over and over again over the years ;-)
->=20
-> Well I could also send out all the DMA-buf resilient patches/ideas I came=
- up with over the years once more.
-
-Maybe we could have sort of a wiki in Documentation/ with links to
-relevant mail threads and some explanations of why things are the way
-they are?
-
-btw, is there a dma-buf TODO list like for DRM in general?
-
-There are many passionate hackers who love challenges. We could
-certainly add a few "Difficulty: hard" entries for a few controversial
-potential reworks.
-
-
-P.
