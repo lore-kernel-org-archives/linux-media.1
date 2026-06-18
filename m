@@ -1,156 +1,100 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from lx20.hoststar.hosting (lx20.hoststar.hosting [168.119.41.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8A03DC4D9;
-	Thu, 18 Jun 2026 09:40:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE6DF255F2D;
+	Thu, 18 Jun 2026 10:02:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.41.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781775637; cv=none; b=eH3CQMPUZpADdRlssM0LB0YsuoVc/jGorhywbByBn8v0pbbvrG80Mq2RILed+bxsFbXqoK7we7AaPHRBvq5cf/nJR2lMUMvOKPDZxtISp5EEvoGKujGz6rAA31CAVorBr/GeQl4C5kuy23NjDe7rMkxdBBFLhOLMtYR3YRvB2SE=
+	t=1781776938; cv=none; b=p+u1h50Qe6c66vibWVh2NvrjjRhr74kJACmlbjhvMMKy8v6TIPyzk3cnUT4EX3KmdsaZYgqNEJWNA2sUMY5kqV7V6BgQCoOpikRlE4wmg5bMlRwocit+8uVcgC4Cb/cfcu7X0oDQHe922mf8F4wk6cL4VAmLYbKUjy6/e1x9zds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781775637; c=relaxed/simple;
-	bh=JG8R3S5e1QwIudxrT6fGQGg3ItczRuN1weOLoZlDnis=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gR/Iii9HBJWgDgEp2St8F24126Rx5/QVx7DZTyP+p5N/9hVHt4xCEe66OsoSiJfgcVNb3gPX5pX4/oyxnA8s2CpI1wwxWuCjEqslOC44ozPIfeOd9PGMN7/E1H87Z2hBSQ8sEXiMB9TGeNSAgrl0N8n/dRPQP+MzrE/ojX4xFh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ahBwpylr; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1781776938; c=relaxed/simple;
+	bh=3GtLqe/Cans46beNoADqMPdA18JikGHUwksJ05JDm5E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=itdlccz81HUvM740vHGNjhbpzkcGWPWkLYPIy1CSKr+N/AIoOzdKZdVPGLL7jlxPZnFXn+jzx+1BgIwAnMsEpvGIXDagkZLNdpDfGJ0UqFgdDkNSOUqw9/fjKrdOyPAkbHZoFORwo6URUXIjaims062P0HYMGlYro/IFtLfJESs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at; spf=pass smtp.mailfrom=emfend.at; dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b=VqBXJFXn; arc=none smtp.client-ip=168.119.41.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=emfend.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ahBwpylr"
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 93E73DF3;
-	Thu, 18 Jun 2026 11:39:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1781775596;
-	bh=JG8R3S5e1QwIudxrT6fGQGg3ItczRuN1weOLoZlDnis=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ahBwpylrq43dMlpGrGFcBy46fIoU9jCt4vug1S2akpVxH49CyxPdUOKxcmfPdUuQl
-	 1E0gOjDGOT7neA+ZCatYgasUwXWwATxVfGDUCI2tEco/Y1HpSujdLK+vFENM7oxdov
-	 RGDyUWv8uWZ6m7tkQlAVR1QWVycborrlKQ4qIvyc=
-Message-ID: <9c09b125-1d7f-459c-9896-72f16759684a@ideasonboard.com>
-Date: Thu, 18 Jun 2026 12:40:27 +0300
+	dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b="VqBXJFXn"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=emfend.at;
+	 s=mail; h=Cc:To:In-Reply-To:References:Message-Id:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=vCSSAHRRbHA/ci1///e6eo7jXI1yinDWudxB+/+x50o=; b=VqBXJFXnUwd1WtOnS2iGmdW5x9
+	juxDNLtu7KiNeJUvfAzOccQhWkmWn4ftgbk9Oamj7m5eFZSQ59yry5y6vkcwSVFfpvaC3xkSnNv5z
+	tdq2pB7pEsYx7ofG5s+IChFwJ+c++ZVHdxmScxkoQIFn4ymskhVMEP64rSB5VlH7Yyyc=;
+Received: from 194-208-226-106.tele.net ([194.208.226.106]:62135 helo=[127.0.1.1])
+	by lx20.hoststar.hosting with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <matthias.fend@emfend.at>)
+	id 1wa95g-008h1k-Ss; Thu, 18 Jun 2026 11:31:17 +0200
+From: Matthias Fend <matthias.fend@emfend.at>
+Date: Thu, 18 Jun 2026 11:31:13 +0200
+Subject: [PATCH 2/2] media: i2c: ov08d10: respect 80 char line limit
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: ti: j721e-csi2rx: Minor cleanup of loop variables
-To: Rishikesh Donadkar <r-donadkar@ti.com>
-Cc: y-abhilashchandra@ti.com, devarsht@ti.com, s-jain1@ti.com,
- vigneshr@ti.com, mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- p.zabel@pengutronix.de, conor+dt@kernel.org, sakari.ailus@linux.intel.com,
- hverkuil-cisco@xs4all.nl, jai.luthra@ideasonboard.com,
- changhuang.liang@starfivetech.com, jack.zhu@starfivetech.com,
- sjoerd@collabora.com, dan.carpenter@linaro.org, hverkuil+cisco@kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, jai.luthra@linux.dev,
- laurent.pinchart@ideasonboard.com, mripard@kernel.org
-References: <20260520135705.661455-1-r-donadkar@ti.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20260520135705.661455-1-r-donadkar@ti.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260618-ov08d10-fixes-v1-2-d090ce2abe8c@emfend.at>
+References: <20260618-ov08d10-fixes-v1-0-d090ce2abe8c@emfend.at>
+In-Reply-To: <20260618-ov08d10-fixes-v1-0-d090ce2abe8c@emfend.at>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Jimmy Su <jimmy.su@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Matthias Fend <matthias.fend@emfend.at>
+X-Mailer: b4 0.14.2
+X-Spam-Score: -1.0
+X-Spam-Bar: -
+X-Spam-Report: Spam detection software, running on the system "lx20.hoststar.hosting",
+ has NOT identified this incoming email as spam.  The original
+ message has been attached to this so you can view it or label
+ similar future email.  If you have any questions, see
+ the administrator of that system for details.
+ 
+ Content preview:  Even though the datasheet does not describe the timings for
+    operation without a dedicated hardware reset, it seems sensible to wait for
+    the "XSHUTDN pull up to SCCB start" time even if no reset line i [...] 
+ 
+ Content analysis details:   (-1.0 points, 5.0 required)
+ 
+  pts rule name              description
+ ---- ---------------------- --------------------------------------------------
+ -1.0 ALL_TRUSTED            Passed through trusted hosts only via SMTP
+  0.0 TVD_RCVD_IP            Message was received from an IP address
+  0.0 KAM_DMARC_STATUS       Test Rule for DKIM or SPF Failure with Strict
+                             Alignment (older systems)
+  0.0 Local_hs_NotFromHoststar Sender is NOT hoststar.(ch|at|com)
+  0.0 Local_hs_NotToHoststar Recipient is NOT hoststar.(ch|at|com)
 
-Hi,
+Fix a violation of the preferred line limit of 80 characters.
 
-On 20/05/2026 16:57, Rishikesh Donadkar wrote:
-> Replace open-coded `i--; for (; i >= 0; i--)` patterns with the
-> idiomatic `while (i--)` in the error unwind paths of
-> csi_async_notifier_complete() and ti_csi2rx_probe().
-> 
-> Also scope loop variables directly in the for statement instead of
-> declaring them at the top of the function in ti_csi2rx_suspend(),
-> ti_csi2rx_resume() and ti_csi2rx_remove(). Change the type to
-> unsigned int in the first two to match csi->num_ctx.
-> 
-> Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
+Signed-off-by: Matthias Fend <matthias.fend@emfend.at>
+---
+ drivers/media/i2c/ov08d10.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+diff --git a/drivers/media/i2c/ov08d10.c b/drivers/media/i2c/ov08d10.c
+index cb7e55b168781dfeaae553734d24208a374fce9c..da517eb2181b83ed2ad786bd5e197fe755a47ada 100644
+--- a/drivers/media/i2c/ov08d10.c
++++ b/drivers/media/i2c/ov08d10.c
+@@ -1515,7 +1515,8 @@ static int ov08d10_probe(struct i2c_client *client)
+ 		return ret;
+ 	}
+ 
+-	ov08d10->reset = devm_reset_control_get_optional_exclusive(ov08d10->dev, NULL);
++	ov08d10->reset = devm_reset_control_get_optional_exclusive(ov08d10->dev,
++								   NULL);
+ 	if (IS_ERR(ov08d10->reset))
+ 		return dev_err_probe(ov08d10->dev, PTR_ERR(ov08d10->reset),
+ 				     "failed to get reset\n");
 
-  Tomi
-
-> ---
-> This patch depends on [1]
-> 
-> [1]: https://lore.kernel.org/all/20260520120022.539913-1-r-donadkar@ti.com/
-> 
->   .../platform/ti/j721e-csi2rx/j721e-csi2rx.c     | 17 +++++++----------
->   1 file changed, 7 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-> index 21388284cbaa..ef74e2da19b6 100644
-> --- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-> +++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-> @@ -485,8 +485,7 @@ static int csi_async_notifier_complete(struct v4l2_async_notifier *notifier)
->   	return 0;
->   
->   unregister_dev:
-> -	i--;
-> -	for (; i >= 0; i--) {
-> +	while (i--) {
->   		media_entity_remove_links(&csi->ctx[i].vdev.entity);
->   		video_unregister_device(&csi->ctx[i].vdev);
->   	}
-> @@ -1552,7 +1551,7 @@ static int ti_csi2rx_suspend(struct device *dev)
->   	struct ti_csi2rx_ctx *ctx;
->   	struct ti_csi2rx_dma *dma;
->   	unsigned long flags = 0;
-> -	int i, ret = 0;
-> +	int ret = 0;
->   
->   	/* If device was not in use we can simply suspend */
->   	if (pm_runtime_status_suspended(dev))
-> @@ -1564,7 +1563,7 @@ static int ti_csi2rx_suspend(struct device *dev)
->   	 */
->   	writel(0, csi->shim + SHIM_CNTL);
->   
-> -	for (i = 0; i < csi->num_ctx; i++) {
-> +	for (unsigned int i = 0; i < csi->num_ctx; i++) {
->   		ctx = &csi->ctx[i];
->   		dma = &ctx->dma;
->   
-> @@ -1604,7 +1603,7 @@ static int ti_csi2rx_resume(struct device *dev)
->   	struct ti_csi2rx_buffer *buf;
->   	unsigned long flags = 0;
->   	unsigned int reg;
-> -	int i, ret = 0;
-> +	int ret = 0;
->   
->   	/* If device was not in use, we can simply wakeup */
->   	if (pm_runtime_status_suspended(dev))
-> @@ -1614,7 +1613,7 @@ static int ti_csi2rx_resume(struct device *dev)
->   	reg = SHIM_CNTL_PIX_RST;
->   	writel(reg, csi->shim + SHIM_CNTL);
->   
-> -	for (i = 0; i < csi->num_ctx; i++) {
-> +	for (unsigned int i = 0; i < csi->num_ctx; i++) {
->   		ctx = &csi->ctx[i];
->   		dma = &ctx->dma;
->   		spin_lock_irqsave(&dma->lock, flags);
-> @@ -1755,8 +1754,7 @@ static int ti_csi2rx_probe(struct platform_device *pdev)
->   err_notifier:
->   	ti_csi2rx_cleanup_notifier(csi);
->   err_ctx:
-> -	i--;
-> -	for (; i >= 0; i--)
-> +	while (i--)
->   		ti_csi2rx_cleanup_ctx(&csi->ctx[i]);
->   	ti_csi2rx_cleanup_v4l2(csi);
->   err_dma_chan:
-> @@ -1768,12 +1766,11 @@ static int ti_csi2rx_probe(struct platform_device *pdev)
->   static void ti_csi2rx_remove(struct platform_device *pdev)
->   {
->   	struct ti_csi2rx_dev *csi = platform_get_drvdata(pdev);
-> -	unsigned int i;
->   
->   	if (!pm_runtime_status_suspended(&pdev->dev))
->   		pm_runtime_set_suspended(&pdev->dev);
->   
-> -	for (i = 0; i < csi->num_ctx; i++)
-> +	for (unsigned int i = 0; i < csi->num_ctx; i++)
->   		ti_csi2rx_cleanup_ctx(&csi->ctx[i]);
->   
->   	ti_csi2rx_cleanup_notifier(csi);
+-- 
+2.34.1
 
