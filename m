@@ -1,38 +1,39 @@
 Received: from lx20.hoststar.hosting (lx20.hoststar.hosting [168.119.41.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE6DF255F2D;
-	Thu, 18 Jun 2026 10:02:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F37319851;
+	Thu, 18 Jun 2026 10:02:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.41.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781776938; cv=none; b=p+u1h50Qe6c66vibWVh2NvrjjRhr74kJACmlbjhvMMKy8v6TIPyzk3cnUT4EX3KmdsaZYgqNEJWNA2sUMY5kqV7V6BgQCoOpikRlE4wmg5bMlRwocit+8uVcgC4Cb/cfcu7X0oDQHe922mf8F4wk6cL4VAmLYbKUjy6/e1x9zds=
+	t=1781776942; cv=none; b=P4tIbUULtWi7CEGcMz56MHmj8AeyOlkg7X9fxoQqq1xuxbUGB7CLvLAQt27Og1U4TLb7MeXpb6jI6sQ4AMglNvE5n+uY8GuKz4wilOCg0/SoeZS608/5vC4gQsYcE8HCbd2BdmcgTtX2rq9A1QV1iO/JXv/ru4BDS/ee0bA+km8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781776938; c=relaxed/simple;
-	bh=3GtLqe/Cans46beNoADqMPdA18JikGHUwksJ05JDm5E=;
+	s=arc-20240116; t=1781776942; c=relaxed/simple;
+	bh=UUFeBc3nTf+mdSy+OgBRiBxJDKpSmicNyl2s+7GXC/A=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=itdlccz81HUvM740vHGNjhbpzkcGWPWkLYPIy1CSKr+N/AIoOzdKZdVPGLL7jlxPZnFXn+jzx+1BgIwAnMsEpvGIXDagkZLNdpDfGJ0UqFgdDkNSOUqw9/fjKrdOyPAkbHZoFORwo6URUXIjaims062P0HYMGlYro/IFtLfJESs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at; spf=pass smtp.mailfrom=emfend.at; dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b=VqBXJFXn; arc=none smtp.client-ip=168.119.41.54
+	 In-Reply-To:To:Cc; b=hw50AC8xxxTZ5wzYJMRaqbag11VNAb7JFip8gwKzW4hN/3xRQoEaVKNHu1PKn3mqpAN71VMCzSDg60BXOyjeLX/URHVWvB+hX8E58DOucpP1zT/t7OX8CRoWo+NnwE9X/N+Z645jO2VO8qhQgxfov4YbCZYdC6I5ePBXhPd8j6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at; spf=pass smtp.mailfrom=emfend.at; dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b=dtqHWUk8; arc=none smtp.client-ip=168.119.41.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=emfend.at
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=emfend.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b="VqBXJFXn"
+	dkim=pass (1024-bit key) header.d=emfend.at header.i=@emfend.at header.b="dtqHWUk8"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=emfend.at;
 	 s=mail; h=Cc:To:In-Reply-To:References:Message-Id:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
 	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
 	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
 	List-Post:List-Owner:List-Archive;
-	bh=vCSSAHRRbHA/ci1///e6eo7jXI1yinDWudxB+/+x50o=; b=VqBXJFXnUwd1WtOnS2iGmdW5x9
-	juxDNLtu7KiNeJUvfAzOccQhWkmWn4ftgbk9Oamj7m5eFZSQ59yry5y6vkcwSVFfpvaC3xkSnNv5z
-	tdq2pB7pEsYx7ofG5s+IChFwJ+c++ZVHdxmScxkoQIFn4ymskhVMEP64rSB5VlH7Yyyc=;
+	bh=RVWHmE9BWFatzWTQbfgEUVqYFsnBQZb1o5VC+9q99b0=; b=dtqHWUk8dYlr+IBiM+ZlE+T9mh
+	W48JPyYdAsF7DWf9owhDUFCTlb0Y77veUN+2clwIsStsoM/lOrX27yN5OhQ3Iu59AlvnGuT1Y6mNl
+	QuhFQEwdb3q0Y9qqjvaxJyky6dei5/0fpedUEg5ivCRqQrTAmpZn5hBxtOPk2SfD5NBU=;
 Received: from 194-208-226-106.tele.net ([194.208.226.106]:62135 helo=[127.0.1.1])
 	by lx20.hoststar.hosting with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.93)
 	(envelope-from <matthias.fend@emfend.at>)
-	id 1wa95g-008h1k-Ss; Thu, 18 Jun 2026 11:31:17 +0200
+	id 1wa95e-008h1k-7m; Thu, 18 Jun 2026 11:31:16 +0200
 From: Matthias Fend <matthias.fend@emfend.at>
-Date: Thu, 18 Jun 2026 11:31:13 +0200
-Subject: [PATCH 2/2] media: i2c: ov08d10: respect 80 char line limit
+Date: Thu, 18 Jun 2026 11:31:12 +0200
+Subject: [PATCH 1/2] media: i2c: ov08d10: unconditionally use the startup
+ delay
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,7 +42,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260618-ov08d10-fixes-v1-2-d090ce2abe8c@emfend.at>
+Message-Id: <20260618-ov08d10-fixes-v1-1-d090ce2abe8c@emfend.at>
 References: <20260618-ov08d10-fixes-v1-0-d090ce2abe8c@emfend.at>
 In-Reply-To: <20260618-ov08d10-fixes-v1-0-d090ce2abe8c@emfend.at>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -58,9 +59,11 @@ X-Spam-Report: Spam detection software, running on the system "lx20.hoststar.hos
  similar future email.  If you have any questions, see
  the administrator of that system for details.
  
- Content preview:  Even though the datasheet does not describe the timings for
-    operation without a dedicated hardware reset, it seems sensible to wait for
-    the "XSHUTDN pull up to SCCB start" time even if no reset line i [...] 
+ Content preview:  Two minor improvements for OV08D10 image sensor driver that
+    have already been discussed, but which don't address any known functional
+    issues. These changes were already submitted as a fixup commit for the original
+    patch, but this wasn't applied before the merge. Therefore, here they are
+    again as separate commits. 
  
  Content analysis details:   (-1.0 points, 5.0 required)
  
@@ -73,27 +76,34 @@ X-Spam-Report: Spam detection software, running on the system "lx20.hoststar.hos
   0.0 Local_hs_NotFromHoststar Sender is NOT hoststar.(ch|at|com)
   0.0 Local_hs_NotToHoststar Recipient is NOT hoststar.(ch|at|com)
 
-Fix a violation of the preferred line limit of 80 characters.
+Even though the datasheet does not describe the timings for operation
+without a dedicated hardware reset, it seems sensible to wait for the
+"XSHUTDN pull up to SCCB start" time even if no reset line is available.
 
 Signed-off-by: Matthias Fend <matthias.fend@emfend.at>
 ---
- drivers/media/i2c/ov08d10.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/media/i2c/ov08d10.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/media/i2c/ov08d10.c b/drivers/media/i2c/ov08d10.c
-index cb7e55b168781dfeaae553734d24208a374fce9c..da517eb2181b83ed2ad786bd5e197fe755a47ada 100644
+index 9adef5446a61f3204fb809ca3f077c1afb5f7a47..cb7e55b168781dfeaae553734d24208a374fce9c 100644
 --- a/drivers/media/i2c/ov08d10.c
 +++ b/drivers/media/i2c/ov08d10.c
-@@ -1515,7 +1515,8 @@ static int ov08d10_probe(struct i2c_client *client)
- 		return ret;
+@@ -1358,11 +1358,11 @@ static int ov08d10_power_on(struct device *dev)
+ 		fsleep(5 * USEC_PER_MSEC);
+ 
+ 		reset_control_deassert(ov08d10->reset);
+-
+-		/* Delay from XSHUTDN pull up to SCCB start: 8ms */
+-		fsleep(8 * USEC_PER_MSEC);
  	}
  
--	ov08d10->reset = devm_reset_control_get_optional_exclusive(ov08d10->dev, NULL);
-+	ov08d10->reset = devm_reset_control_get_optional_exclusive(ov08d10->dev,
-+								   NULL);
- 	if (IS_ERR(ov08d10->reset))
- 		return dev_err_probe(ov08d10->dev, PTR_ERR(ov08d10->reset),
- 				     "failed to get reset\n");
++	/* Delay from XSHUTDN pull up to SCCB start: 8ms */
++	fsleep(8 * USEC_PER_MSEC);
++
+ 	return 0;
+ }
+ 
 
 -- 
 2.34.1
