@@ -1,105 +1,152 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A187E3CA48C;
-	Thu, 18 Jun 2026 11:47:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E1FB3909BF;
+	Thu, 18 Jun 2026 11:53:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781783251; cv=none; b=lRh2kZikm7uE7cpq89jJQuMDesZZg5de/J3nFm58Tjsrz6ViOwgDVepjq0bH+OaxBCgLO5WJX1bm1i5i+JxRQSuUqXwSHCIqWZp1KeWKExcQvaHc2F3urtDlaZMV/5bYmdz7CvsoTLuJh9Bh6crYD8q3JyD/BF2z6mNXueRrIJo=
+	t=1781783598; cv=none; b=P6JoXcHJyRYLKJLbhe0QG6lbd/xILnrwjVX9q14MoxHFT+EM8jTp+8BavDn712V84+08Z7rrzhWmkte+AI1V56/x2itYUldPQ1fYPd5DJ7wJ+VNSGSr1N6cqI3Scjm+sSAdn6aCuHVRVtDdbckUKHf6avHwRSSjkiluw6UoPIqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781783251; c=relaxed/simple;
-	bh=2AyTVEOcfIplggsOzRpCQy1y0t5E3yfRbiMIkx3K1Wc=;
+	s=arc-20240116; t=1781783598; c=relaxed/simple;
+	bh=TTGKxlEH4k6Iz/XH79izOYS2k7Sh5F8kwl4iFg7yhxw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qJNyKBdyCN3oL/w2n7Qd3esFEjgWVYvvHHIOniZqQL6YoPbgkD2i6R3swQZU4ACHZehJojtxEXHfth7n1gN/yvXBJhtenwFJilk/GsjgGDXddSF96Ip6mj9Wu5SsdjDmm6tx41cC9ijAvjf96qC09YcLXjAfo8EhSmz6CZh/UXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=d62vWRH0; arc=none smtp.client-ip=198.175.65.15
+	 Content-Type:Content-Disposition:In-Reply-To; b=j/uDbLW+IA2DaQK0me1I0HbpDJA4T6MUAKKUYOue/28KOajcaIa2IVySyPsU/GKLPlkCbr/3iiuRwfgNYHnVh9w5q1z32Cl16PbruKkgVQ8YVGteq0XVQLNIsPEi0jvTkRyJREhmcAttq156aqeOCAXu5mOyW2twu9t4faZC08g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JJ4wqDW9; arc=none smtp.client-ip=192.198.163.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="d62vWRH0"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JJ4wqDW9"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781783250; x=1813319250;
+  t=1781783597; x=1813319597;
   h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2AyTVEOcfIplggsOzRpCQy1y0t5E3yfRbiMIkx3K1Wc=;
-  b=d62vWRH0jcvVKRGRR5ZW3TaoKhLBQRTVL5RciQKiLE26evg7nkbAFQkO
-   tNb5jF91xTuu+p/JT+l6tatL4hZZenpPhNCbfJaZj6GPi4cUpMMP9ZYGj
-   rnRhp+31f4muY8+t8PueTkaiKm7uq1Yne/wBD342acNRB+KxdO94CP/Sk
-   5Sqh+vF/ei6Nz/B3Fn8y1XY+v7wYJd+BKcYki5RyZJzNKYLLKEQZiCefp
-   +w5Sska19uEXyA/dZPWwur/EauL3SWkPEA+kKIeRm+7PGaM358CAsz3Wk
-   OkrB5hEhiffuI1pDc71t0h5mtOQ6v+z6C9cDEwu62mguSvpPue7f8gYYA
-   A==;
-X-CSE-ConnectionGUID: hgpTPQB2QIyR+E6OSwK0HQ==
-X-CSE-MsgGUID: w1CEQthBTBSQy4DToQg4tA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11820"; a="86293066"
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=TTGKxlEH4k6Iz/XH79izOYS2k7Sh5F8kwl4iFg7yhxw=;
+  b=JJ4wqDW9UkkdPsJVOz4Qpbb6YucF0RpBV4H+bdmK72rjLOWo+6Ky2UK6
+   7pteH7urny3v9DyNS43BzhEMjGBLFniqKkMLmj80A1LrUtDukKYxtJqe7
+   82ZybQ1u5H76DRXQxVigfxr+OGgDYbGaevGDZUA5iHa9rds2pY0rnJJuf
+   DY4jEvYRv6ztVXaoPxadGdAjlkQdzZSiZr5CQZJHe0PrmfT1RBykeV31e
+   hKKLZTB9ZZ2gaPIOmp9cea8N2z3xjZhYc6V4+qQ1IwEtzwU6VdBtAtJnf
+   WmiSkgk+MrvDP4H/wVBD+WsVjREfSwVGaz9kNBHGXpXBO40CcEFVuF8BR
+   w==;
+X-CSE-ConnectionGUID: tiFRLf2lRc6dlFj6us3mlg==
+X-CSE-MsgGUID: GtGyZiIIRaaFi27Eq9wl8Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11820"; a="81724115"
 X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
-   d="scan'208";a="86293066"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 04:47:29 -0700
-X-CSE-ConnectionGUID: vs5gv65vQ6CdD8E8RulLiw==
-X-CSE-MsgGUID: xiqVDC6hS/qlo/AeqHwgEA==
+   d="scan'208";a="81724115"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 04:53:16 -0700
+X-CSE-ConnectionGUID: weUvlHunQDeCMKvggxUFdA==
+X-CSE-MsgGUID: gW53k6qSRL+HSccgwwubQA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
-   d="scan'208";a="252245369"
+   d="scan'208";a="241971105"
 Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.24])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 04:47:25 -0700
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 04:53:15 -0700
 Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id EF1CB121C36;
-	Thu, 18 Jun 2026 14:47:23 +0300 (EEST)
-Date: Thu, 18 Jun 2026 14:47:23 +0300
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id E2E36121C36;
+	Thu, 18 Jun 2026 14:53:13 +0300 (EEST)
+Date: Thu, 18 Jun 2026 14:53:13 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
-Cc: laurent.pinchart@ideasonboard.com,
-	Tarang Raval <tarang.raval@siliconsignals.io>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+Cc: Myeonghun Pak <mhun512@gmail.com>,
 	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
-	Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] media: i2c: os02g10: implement crop handling with
- set_selection
-Message-ID: <ajPay8NJ233yuCLJ@kekkonen.localdomain>
-References: <20260424092554.26130-1-elgin.perumbilly@siliconsignals.io>
- <20260424092554.26130-4-elgin.perumbilly@siliconsignals.io>
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] media: i2c: vd56g3: clean up subdev state on probe
+ failure
+Message-ID: <ajPcKcJfbIdPKI8-@kekkonen.localdomain>
+References: <20260424165238.31333-1-mhun512@gmail.com>
+ <c9c20bce-a1bb-4932-bfa0-c87f7156ff82@foss.st.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260424092554.26130-4-elgin.perumbilly@siliconsignals.io>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c9c20bce-a1bb-4932-bfa0-c87f7156ff82@foss.st.com>
 
-Hi Elgin,
+Hi Benjamin,
 
-On Fri, Apr 24, 2026 at 02:55:47PM +0530, Elgin Perumbilly wrote:
-> From: Tarang Raval <tarang.raval@siliconsignals.io>
+On Tue, Jun 16, 2026 at 02:49:54PM +0200, Benjamin Mugnier wrote:
+> Hi,
 > 
-> Add crop support to os02g10 by implementing .set_selection() and
-> storing the crop rectangle in subdev state.
+> Thank you for your patch, and apologies for the delay.
 > 
-> Initialize the default crop to the active area, make set_fmt() use the
-> current crop, and update the output format when the crop size changes.
-> Also program the sensor window from the active crop/format state instead
-> of using the fixed supported_modes entry.
+> Le 24/04/2026 à 18:52, Myeonghun Pak a écrit :
+> > vd56g3_subdev_init() calls v4l2_subdev_init_finalize(), which allocates
+> > the subdev active state and requires v4l2_subdev_cleanup() to release it.
+> > 
+> > If vd56g3_update_controls() fails after finalize succeeds, the probe error
+> > path currently skips v4l2_subdev_cleanup() and returns an error. The driver
+> > .remove() callback is not called after a failed probe, so the active state
+> > is leaked.
+> > 
+> > Route this error through a subdev cleanup label before freeing the control
+> > handler and media entity.
+> > 
+> > Fixes: 87aa97fc3157 ("media: i2c: Add driver for ST VD56G3 camera sensor")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> > ---
+> > Changes in v2:
+> > - Use a lowercase subject summary.
 > 
-> This allows userspace to configure the sensor crop window explicitly.
+> Please keep the first character uppercase, just like other commits on
+> this module.
+> 
+> > 
+> >  drivers/media/i2c/vd56g3.c | 5 ++++-
+> >  1 file changed, 4 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/media/i2c/vd56g3.c b/drivers/media/i2c/vd56g3.c
+> > index 157acea9e2..43f792288a 100644
+> > --- a/drivers/media/i2c/vd56g3.c
+> > +++ b/drivers/media/i2c/vd56g3.c
+> > @@ -1427,11 +1427,14 @@ static int vd56g3_subdev_init(struct vd56g3 *sensor)
+> >  	v4l2_subdev_unlock_state(state);
+> >  	if (ret) {
+> >  		dev_err(sensor->dev, "Controls update failed: %d\n", ret);
+> > -		goto err_ctrls;
+> > +		goto err_subdev;
+> >  	}
+> >  
+> >  	return 0;
+> >  
+> > +err_subdev:
+> > +	v4l2_subdev_cleanup(&sensor->sd);
+> 
+> v4l2_subdev_cleanup() is already performed in the caller (i.e.
+> vd56g3_probe()), but as you noticed it is not called from this path. I'd
+> rather have the return value route correctly through
+> v4l2_subdev_cleanup() in  vd56g3_probe(), allowing to keep a unique call
+> to v4l2_subdev_cleanup() instead.
 
-Please wait for the Common Raw Sensor Model patches to be merged before
-adding this -- we don't have an established way to configure cropping
-before that. Some drivers might do something but it's all a bit haphazard.
+Is it?
+
+If vd56g3_update_controls() in vd56g3_subdev_init() fails, it'll jump to
+err_power_off in vd56g3_probe() which does PM related cleanup only.
+
+> 
+> This patch looks like is LLM generated and sparks my curiosity. If so
+> you must disclaim it using an Assisted-by tag [1]. Sorry if I’m mistaken.
+> 
+> [1] https://docs.kernel.org/process/coding-assistants.html
+> 
+> > +
+> >  err_ctrls:
+> >  	v4l2_ctrl_handler_free(sensor->sd.ctrl_handler);
+> >  
+> 
+> -- 
+> Regards,
+> Benjamin
+> 
 
 -- 
 Kind regards,
