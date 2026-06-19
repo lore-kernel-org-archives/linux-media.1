@@ -1,62 +1,62 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D70383C66
-	for <linux-media@vger.kernel.org>; Fri, 19 Jun 2026 12:17:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE533839B4
+	for <linux-media@vger.kernel.org>; Fri, 19 Jun 2026 12:17:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781871465; cv=none; b=n4w5kz581aCjqhi3wV0t0ItgOK71fM7DVXawhRvvpX7Ul+tzdnm1U3NtZWnZI7xPUWH3u5G+0UFbdKT+3uj4eODTq9whFJ+zis32aidc0Nt3sxEDonJud4x7ao2df2Etj5VzuYTODZ9MLjO+QA8ulhKrbMlstbfYf+DA+ZKI+08=
+	t=1781871470; cv=none; b=g8fKYk0wSFSlsz1CUTbVvWcsq+JI4HuIaZCzVn2Uj0gLWhwETUD8qbZLkRXeTEozNs3htb3TlTnHvmX+H9iMedFNkD7Momqh02atq7FQk0QMKoN7rBRJ9o8+l3txkmAGxjUOllxpAycLLGDV4A3ptcyV66/Bj8Co74hZ6yIw+9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781871465; c=relaxed/simple;
-	bh=8rpifABVURtbDeYxAVcIyOeVXIwMqnxKdvLdu97ouvc=;
+	s=arc-20240116; t=1781871470; c=relaxed/simple;
+	bh=8kgNGg2BjVre8/bahBgbgCYsOBrRSClntsD3Q+v6kCc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FFUta11k7Mt/1mbzcCBgm4Zzfuq9APbpbYjBQU1KoTz27tTrrwyxiq3rcDnkOB7XgxQsgijacMmHmZjtPACeqNxS6OkEAIDPwzjSkek2SPx7nkYruIEDxAEnEGc7tVmtXjn87x1/pQWmBnqcdqWuTepojtVaHSpThDnwJjioB7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RBscWQTc; arc=none smtp.client-ip=209.85.215.173
+	 MIME-Version; b=r1WjXc1lQxeDBDyvH8JFJ1S+C40jNP2gx6ZNoCrLRdgZ7wDWSFrGdBxPNAqcfRCN4/w7bZEvtUR1oQ5qBoEgpYWZdSyFAla9Ws0Z2Y/cQXsBb6pw6ht+rGXtapGKaUxGMcxSvGDCHrbcijQlbcPnSYYoDaja+G+T0FtHgcGeKaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WqRTT37S; arc=none smtp.client-ip=209.85.210.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RBscWQTc"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-c88b7c92577so988919a12.3
-        for <linux-media@vger.kernel.org>; Fri, 19 Jun 2026 05:17:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WqRTT37S"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8452a597afcso1208937b3a.1
+        for <linux-media@vger.kernel.org>; Fri, 19 Jun 2026 05:17:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781871460; x=1782476260; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781871466; x=1782476266; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2rcV0W3r/htGKSijwn2A596Ma4M4nwm5Ks92ktFEtLE=;
-        b=RBscWQTcOuxMpNwGZ4lffG1qbXwIjcFA3VzX5XklTbwgUhhesTAgXvOU+jxxYfBfYW
-         Y9Tcj1cEN9KKGSSpsqqKv+0peU8NZI8KST7eJaZyKSDt/zlYrVfyUgFcHx6jphhh19yL
-         y0mZx3+FMd7+8kLW4GTIEaHT3UHfOaCYKtKLhMrGx0ovQOGv0XIb/sSZ/2/q7J93qxSs
-         AJzwc0sgofrEWnfGV4rA1jCtWYpYYTIuUGMqJqR8wtPVN5Kd6RH3bHaNax4/pe+vMgCs
-         823Cpux9OUZS0Jd1N+66CxltapEB6cy3wPEZfbxn2IeckZ1Oux0aTLKKRaMHC3z9lY0K
-         IJ+g==
+        bh=oOK/pDK0ppzf76+A3kfllKRbu7IV027uhUgyzteLmmA=;
+        b=WqRTT37SpO62gZyHdhC1NmvZW6qdl+9FPa7yd38JhKg+X28F7f09Q3ojNIM7KA1TPR
+         eNvG7WB45RvSA5mWHQu3ppCQiIiY2lVi6ZhmA9ayeO6gmHC6WhHxjVlVrzBo9wqxAX10
+         +yyVZEOoULW4n7Q3UHqW4w8WXB38Mm1w7ClFAxcvjRQbA+KFcAWk5SZ7MKRu3cj37Vc+
+         wIPS+o5fdBTzxU5mWxWVb6ziV+d4NyIbR/o33Yabd85zzIV+rdv4nja4K2obUQfY4hKS
+         E5HO3U+/gAWsszPJSM33NFcqdUQrIU4dxqe5T09vcMDOapXAJmTBYb/E26UBb2qMDjIW
+         IxAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781871460; x=1782476260;
+        d=1e100.net; s=20251104; t=1781871466; x=1782476266;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=2rcV0W3r/htGKSijwn2A596Ma4M4nwm5Ks92ktFEtLE=;
-        b=HclKQ2ZptmTVsn6sVLigWX1U5rCUcZoO6sDe7T3BHAGb9M2+p0IVyFDh1fo9NbeLbk
-         4ETz5OKD4zT1hBKeLRuNjhrA+davhpAB1/adMyGRn5WonQO/VC942V7qywseZdgMlJKd
-         t0xt+FXvMMTSL6o8F2vao9AVc/fszw7bBKvkPX8eOBzzDnKspCtEBXvuUSwBdnSQ1quK
-         vovRMU4lP1vq9UOZ6+mr15Nx6l2LuG7Y8Hg/TDbqaa6Gz+y/WNTnqTXYvCkV1rMUZRbU
-         8tltJjGTPU26kxiejLjjkFSLdhzq0yxbew9kf+aEKRg7EziEuudIJwfCxrKx8xe6R6tD
-         dBQQ==
-X-Gm-Message-State: AOJu0Yw/HrvELkpubaf2klmd63/gzLzFxjVsaTnfQk8tpBBfeajgFvHc
-	6rg3ZHHv54U3Bmp/0CbbBVnkITj69PXCtQsXcwamhvkqCnrlD0AhTFO7qdxyWvZm
-X-Gm-Gg: AfdE7cncZH6S/FYABNFw9Xg5K7Ct0dSb9HTEOHzO95gAGks14FWl6tOXFY4xG4YQ6KC
-	WCfQLgFUd0/cC9mj0BfNrh7Gbawi26KNULTSauKUjyIVpg8Tw/K8HcmLTSXYGoqiR5W8wVxl2/A
-	rTyvmjKM8YQYPP6nvLNpTT/rUrNnCRwaj/cyHROxS7JiDgocVrJRi85YvXa1EE4WAf9XAznioLd
-	7XUHxOwhEzC5ZBkxAKE2MLfIFHYT3ZEYLnpDSv7BQoEKvGcSQ5sFUTYZFrkexyVbVGYgDfT2Tel
-	fr2R102h9smi2Ybtp54/qwgAZd4+XVMRGdpyl13b0HjjjcdyRtkUb675r1iPBWwtkQ5ZEug++s9
-	VfqGaHuHu9nKk+uHwI0+JJ8WmSXesyotipnFyblS1Tk9FJtrW+IJJegZtIu0fS5iSYHLggICVYb
-	wPcD1fmig+9sJ39sKGcIeWgBvm/R9Py1ApEBXD0vsSUA==
-X-Received: by 2002:a05:6a21:393:b0:3b4:b24e:27a2 with SMTP id adf61e73a8af0-3bb34049301mr4211686637.31.1781871460015;
-        Fri, 19 Jun 2026 05:17:40 -0700 (PDT)
+        bh=oOK/pDK0ppzf76+A3kfllKRbu7IV027uhUgyzteLmmA=;
+        b=bRjIJPNTs2D4N+5vPJwElrRNAXYBgFQNOFa2LLeCn3sfdMlUb28l3Y/BVg+DI7GkXj
+         YxxZUdpgTX86+jStUv7UjKCAIe09WrZeMh3CdpHFmg92pS0UbiBmoVmvEQLHaN8nfyDA
+         GEaG993ExdLt8H5/LeE1D9C1SfWRcZWxpS3YKXOzvCR+0CEjHLWfPCbXeQpFIwACSgLA
+         nFbHME6hC+X02fHwPO/HY4hPOVVG5QtVda7TD2aWQlE08LdfskJxUO2cf2xlg1cqZaSp
+         DD6qL/BwTRQebrQAZj5IonOx71d9+o612ZuHgZz14Qstd/MqlO3iEtV93bUN9FFKN9/t
+         EQew==
+X-Gm-Message-State: AOJu0Yy89+N3pd6FUU8JiFCs777jut6PEI2ZkYGjqpAFccfnB3u/vYvy
+	Kv61QqMoq474RPHJgPxPEibAoM+nZUC0d43pmB+qkRUcLLjcLBcV1xtRMx114YlI
+X-Gm-Gg: AfdE7ckGZEtd6+yAh1lEt3n2VQBBOS//UNJeUK2x+r+naGqse9W181M4q94nicBqp+R
+	3aaX4uTFQIqYfz57dvdbd7nvRx0w4G+ruqcuegbltgekZ2cXh7HUi62zRjN87opQmgaXJ2/jcAK
+	wid/n171C+L4376irdB1+o3Gy+NsZ/cYW5O5GYeYa+d2HVAa1sAEj5igMiKAFSUHn3DlYqn1r4d
+	Z+TZ4HKucPYivNtJa6fxKmIK9/jvNagRpbPBK/ZFiAFqEAHnzXyEqzDCgwbz+1HzE5GF+5D62tm
+	fos/FqMnAs2LajU3mUCM6RYIrwxSYSjsRl+AJpDFmcW2PkBGFtuAg8vQJNndi3Q05+hH3q968fZ
+	bl1KS/jgYnU5/LrBTQT3eRETm2u76TxwszJDMX54EiuOIS/zV+qkV7CKZaufr6s+6BWVobiM5ak
+	0wUdf0P3rE5em3AtOkqtBmwePij/jlviGdwKudkjZv/g==
+X-Received: by 2002:a05:6a00:1ad2:b0:842:614e:cc97 with SMTP id d2e1a72fcca58-8455087753bmr3697074b3a.23.1781871465949;
+        Fri, 19 Jun 2026 05:17:45 -0700 (PDT)
 Received: from localhost.localdomain ([49.207.217.37])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8455382586fsm2296986b3a.43.2026.06.19.05.17.37
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8455382586fsm2296986b3a.43.2026.06.19.05.17.43
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 19 Jun 2026 05:17:39 -0700 (PDT)
+        Fri, 19 Jun 2026 05:17:45 -0700 (PDT)
 From: Biren Pandya <birenpandya@gmail.com>
 To: linux-media@vger.kernel.org,
 	linux-renesas-soc@vger.kernel.org
@@ -64,9 +64,9 @@ Cc: laurent.pinchart@ideasonboard.com,
 	sakari.ailus@linux.intel.com,
 	mchehab@kernel.org,
 	Biren Pandya <birenpandya@gmail.com>
-Subject: [PATCH v2 2/4] media: renesas: csisp: Add missing media_entity_cleanup()
-Date: Fri, 19 Jun 2026 17:47:31 +0530
-Message-ID: <20260619121729.24899-6-birenpandya@gmail.com>
+Subject: [PATCH v2 4/4] media: renesas: rzg2l-core: Add missing media_entity_cleanup()
+Date: Fri, 19 Jun 2026 17:47:33 +0530
+Message-ID: <20260619121729.24899-8-birenpandya@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260619121729.24899-5-birenpandya@gmail.com>
 References: <20260619102241.22887-6-birenpandya@gmail.com>
@@ -79,45 +79,26 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The probe error paths and remove function are missing calls to
-media_entity_cleanup(). Add them and introduce an error_entity label
-to ensure teardown logic properly inverses initialization.
+The remove function is missing a call to media_entity_cleanup().
+Add it to prevent memory leaks if pads are dynamically allocated.
 
 Signed-off-by: Biren Pandya <birenpandya@gmail.com>
 ---
- drivers/media/platform/renesas/rcar-isp/csisp.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/platform/renesas/rcar-isp/csisp.c b/drivers/media/platform/renesas/rcar-isp/csisp.c
-index 8fb2cc3b5650..61558a71ee35 100644
---- a/drivers/media/platform/renesas/rcar-isp/csisp.c
-+++ b/drivers/media/platform/renesas/rcar-isp/csisp.c
-@@ -539,7 +539,7 @@ static int risp_probe(struct platform_device *pdev)
+diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c
+index 3c5fbd857371..84d4883e2fe7 100644
+--- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c
++++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c
+@@ -312,6 +312,7 @@ static void rzg2l_cru_remove(struct platform_device *pdev)
+ 	v4l2_async_nf_cleanup(&cru->notifier);
  
- 	ret = v4l2_subdev_init_finalize(&isp->subdev);
- 	if (ret)
--		goto error_notifier;
-+		goto error_entity;
+ 	rzg2l_cru_video_unregister(cru);
++	media_entity_cleanup(&cru->vdev.entity);
+ 	media_device_cleanup(&cru->mdev);
+ 	mutex_destroy(&cru->mdev_lock);
  
- 	ret = v4l2_async_register_subdev(&isp->subdev);
- 	if (ret < 0)
-@@ -551,6 +551,8 @@ static int risp_probe(struct platform_device *pdev)
- 
- error_subdev:
- 	v4l2_subdev_cleanup(&isp->subdev);
-+error_entity:
-+	media_entity_cleanup(&isp->subdev.entity);
- error_notifier:
- 	v4l2_async_nf_unregister(&isp->notifier);
- 	v4l2_async_nf_cleanup(&isp->notifier);
-@@ -569,6 +571,7 @@ static void risp_remove(struct platform_device *pdev)
- 
- 	v4l2_async_unregister_subdev(&isp->subdev);
- 	v4l2_subdev_cleanup(&isp->subdev);
-+	media_entity_cleanup(&isp->subdev.entity);
- 
- 	pm_runtime_disable(&pdev->dev);
- }
 -- 
 2.50.1 (Apple Git-155)
 
