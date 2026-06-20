@@ -1,73 +1,53 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp153-163.sina.com.cn (smtp153-163.sina.com.cn [61.135.153.163])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7126244665
-	for <linux-media@vger.kernel.org>; Sat, 20 Jun 2026 19:15:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EADD23BCED
+	for <linux-media@vger.kernel.org>; Sat, 20 Jun 2026 23:37:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781982929; cv=none; b=rqYAdCPra2fwsgQTis2nlQRmNmzkwpExMg8UG6Dl6gC58RnmHJ74fZ5h9pCweFMp1dtTZIu/sKqG6PL41nPO1+K0Id8rLtaAL/t7CL+m6u0jF5M2U1ukhxI6Vp+etfbEAEfwaeTNqe+a0Hm2BHpr4mm6z2ZEQAvZJpUWbj4xpJw=
+	t=1781998664; cv=none; b=XCMKYzrtOHfrtlrDA5PoxBURQCJKgqONw567u5RAbsYugupXD33oI2Y/+Jg/sQf5dlTZgLIR53vlvsrMqaNWAlI8Aza4Pj3k14VjyGSpX9UtsIzpeVcvYpDqJPjaldb9H4umuohc96KdHtCJwCUb3gFZCGJNC7+LXRWgoznxO0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781982929; c=relaxed/simple;
-	bh=VFBwOlnqefXRtkqyWJWmvbxNXf55m3uapOuWCpXfuwU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J/TfkoBMZ0lGCYw6wIuVgjteyEb/DJP86PdMlhSWwHTppk5fFg+gGinHMSdkRLlyRvVY7GHnFt2/S/Obx+5LWNbHyV70KPjUhhvMQyGGstxSOqPD+yv5Bf2xG1OJD3tu7+oFpupEVIsB8MwhJxFcHvx9zQy8AT8Jdw/4FK5hig4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bGC0wRQz; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781998664; c=relaxed/simple;
+	bh=kKV8fkzZ4NKoeJeZz9dLwYSPWbjxm2yHtlqJf2/k/WY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DHYKiqqk2NvL0VRrFzGUMUZz1hJW8nj/YGn6Batkxb+u7EmFw8LJ4TDRIJpwKrHpW1NeLEwPTZ6MmqNRKKP5/MxYhFVV3TCZHVphX5Uz8pXStXSNMOz8XQGzFIS3ZUv7FVB8Co4p6WxGIhQJgMxrgqjLIi4oBk0kyYIIYTNexCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=z/0cjkN+; arc=none smtp.client-ip=61.135.153.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bGC0wRQz"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2c0c3546924so23576235ad.3
-        for <linux-media@vger.kernel.org>; Sat, 20 Jun 2026 12:15:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781982927; x=1782587727; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=q2LUf4/h3bsaXpFBm9VmVxZv5sbzexG6A7SGGqxs2XA=;
-        b=bGC0wRQzYXFfNx6iiEG7621vyjvBaD9+/0f2RWOJpYeJFs/OPkBdWahPYc9KZB2Z+S
-         PdxWkeMXq+RqwO4Xa9aGKMoEReP7dvALo9mqtas+Q9hIDSZ+2/RQdKaJNDM4c68eARxG
-         A4GtvSUAN9gYuxWVG8ZXJ5djuhG+XtuQa3GBidxdOliWKFnE1bto8YLMumva2Yxpoxv+
-         Vx4mn7+4tGEyp58BWS/mRee0kyZ2O0zJ8UOcrjGU4G5ubdiCM9Bsnz41zyRG3DGPg+m0
-         XedcyA23PKdFOPAbR4B6nucCIOgmkZeGlL0jbY7cAso2ymUjLaaTeJzJkVoq2IL/hH/O
-         h9kA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781982927; x=1782587727;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=q2LUf4/h3bsaXpFBm9VmVxZv5sbzexG6A7SGGqxs2XA=;
-        b=Dbv3LCks2MyixQ4oUcyRXsrwzwJAjqg84tC3eVPourcrcldtv9AovZdgvZUFlty+on
-         sQGS1zjqbf3VvUppFfKF6xkm/m7lwZJtYLCoIXJNJmrF/h4nmVk/qwLtS+DmHc5iUPz8
-         f5r1tj6U2brq8kBUE8ixRgXbdR9Ejj09wphIaDfib8ENpODfmio/iJvpdWAtIZdGUldu
-         tcN5RAvFNpqkIu2lRXVRhM6RX2/bfOdSUxMfZrh+MqR6Li/D+mYQyUvR0MzNAh1d9D6Y
-         QSi5AwKJaltCVaPLMTWZ9z5uJkVunEaP4Q/1Ql10Tj+A9zq6A/WDxfYEBej0oaVZ/XaG
-         1UCg==
-X-Forwarded-Encrypted: i=1; AHgh+RrPE9K3D5I4a18oE4sd4tur4kNyJalmMASTiPXS3Ql8WWZuGR/8I+i0RouXzcjDrSZL7YIwPwmaYdk8ag==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxnmLzrTAzeX+w5LQ2W81cOvSRS2fVLprwvvyekpx/EIlbIfqOe
-	kawVFknKyeTutLF6lPVPHaNznGXjHdsGVXZzgCJrTGUljyXO0XShVSSH
-X-Gm-Gg: AfdE7cnAK6rYlNxZKYKOohmcG3HGwQ2fIShZiJfR3+UlhgaFCdIGpUttADKJa0kG8DI
-	44NL6w9UVpBGcS+L3eSVYZ1LksXRJqwaULFZAxG7+lw9SVMAxPseM36xvl4tJugAF5G1faLARW3
-	5piF2LvGyQSab2gCvPhXKoCtlVE2LJUlz7DTK1uM38TQmji2voYg3Kje+Qo6y4qETCynsbFrHhF
-	E5t31Qzf1EinQ9tyHd854BSvy294vFOfApEpyq79/KhTO2+ctvCE7kx3bDJfa7WbWZuZ7SpZ2rV
-	JNBJm/f4G9nVeeSS4iA7eH9lCPy9AWgVvu3IEUkIQhiHWh/vPe0xhYS89W2yNJTDk5VCFIOBmhF
-	RLCyK73Ipch++40ACBsd6tSgBpU48/PzNhstlmf8O6vEdO1KnJ9eGTKCIE/mJvIViLESoLpH6yc
-	93uYa5A/4KPBVWcrMJZ/qtVTUPqUyiZJydk5jkWWqPsw==
-X-Received: by 2002:a17:903:2b0c:b0:2c0:cb0e:ac42 with SMTP id d9443c01a7336-2c718f201dfmr89775985ad.3.1781982926862;
-        Sat, 20 Jun 2026 12:15:26 -0700 (PDT)
-Received: from localhost.localdomain ([49.207.234.96])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c7439f8cfbsm29450665ad.45.2026.06.20.12.15.23
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 20 Jun 2026 12:15:26 -0700 (PDT)
-From: Biren Pandya <birenpandya@gmail.com>
-To: Hans Verkuil <hverkuil@kernel.org>,
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="z/0cjkN+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1781998657;
+	bh=O9E+7l5IFXu4RTVOsMeyI74AIwZ45KAzj5owUSypf/o=;
+	h=From:Subject:Date:Message-ID;
+	b=z/0cjkN+Nge/vm5o+11XvD8MGa0FdzgkmTQw8cZmV/yzndRStOwFGjB9al0AaOTvI
+	 2ufmY0AbzneVaGpQl3qINTeFm/ipMpPdWA43qL6bNllGynZid8PEFk+eMFmzgURABb
+	 A14pX6I6Ox/WekPfK8CMeUQm5MOb5WQCVzOH+cYk=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([114.249.62.144])
+	by sina.com (10.54.253.32) with ESMTP
+	id 6A3723AA00006036; Sat, 21 Jun 2026 07:35:08 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 4452744456675
+X-SMAIL-UIID: 8E960A235EA2424591A5F97B15C162BD-20260621-073508-1
+From: Hillf Danton <hdanton@sina.com>
+To: Biren Pandya <birenpandya@gmail.com>
+Cc: Hans Verkuil <hverkuil@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Kees Cook <kees@kernel.org>,
-	linux-media@vger.kernel.org (open list:CEC FRAMEWORK),
-	linux-kernel@vger.kernel.org (open list)
-Cc: Biren Pandya <birenpandya@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
 	syzbot+051024d603432b4ab395@syzkaller.appspotmail.com
-Subject: [PATCH] media: cec: cancel delayed work before freeing an interrupted transmit
-Date: Sun, 21 Jun 2026 00:45:13 +0530
-Message-ID: <20260620191515.50238-2-birenpandya@gmail.com>
-X-Mailer: git-send-email 2.50.1
+Subject: Re: [PATCH] media: cec: cancel delayed work before freeing an interrupted transmit
+Date: Sun, 21 Jun 2026 07:34:54 +0800
+Message-ID: <20260620233457.1923-1-hdanton@sina.com>
+In-Reply-To: <20260620191515.50238-2-birenpandya@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -76,49 +56,53 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If wait_for_completion_killable() is interrupted in cec_transmit_msg_fh(),
-the previous cancel_delayed_work_sync() could race with the CEC kthread,
-which might re-arm the timeout *after* the cancel completes. This leads
-to freeing active delayed_work and an ODEBUG warning.
+On Sun, 21 Jun 2026 00:45:13 +0530 Biren Pandya wrote:
+> If wait_for_completion_killable() is interrupted in cec_transmit_msg_fh(),
+> the previous cancel_delayed_work_sync() could race with the CEC kthread,
+> which might re-arm the timeout *after* the cancel completes. This leads
+> to freeing active delayed_work and an ODEBUG warning.
+> 
+Given no specifying how it is armed again after cancel, re-arm in general is
+handled by disabling the work item before cancel.
 
-Fix this by cancelling the delayed work only after removing the data from
-the transmit and wait queues, ensuring the kthread cannot re-arm it. Drop
-adap->lock around the synchronous cancel to avoid deadlocking with
-cec_wait_timeout().
-
-Fixes: 490d84f6d73c ("media: cec: forgot to cancel delayed work")
-Reported-by: syzbot+051024d603432b4ab395@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=051024d603432b4ab395
-Signed-off-by: Biren Pandya <birenpandya@gmail.com>
----
- drivers/media/cec/core/cec-adap.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/cec/core/cec-adap.c b/drivers/media/cec/core/cec-adap.c
-index 8f7244ac1d43..50bd8bbeb5a5 100644
---- a/drivers/media/cec/core/cec-adap.c
-+++ b/drivers/media/cec/core/cec-adap.c
-@@ -965,7 +965,6 @@ int cec_transmit_msg_fh(struct cec_adapter *adap, struct cec_msg *msg,
- 	 */
- 	mutex_unlock(&adap->lock);
- 	err = wait_for_completion_killable(&data->c);
--	cancel_delayed_work_sync(&data->work);
- 	mutex_lock(&adap->lock);
- 
- 	if (err)
-@@ -985,6 +984,13 @@ int cec_transmit_msg_fh(struct cec_adapter *adap, struct cec_msg *msg,
- 		list_del(&data->list);
- 	if (WARN_ON(!list_empty(&data->xfer_list)))
- 		list_del(&data->xfer_list);
-+
-+	if (!cancel_delayed_work(&data->work)) {
-+		mutex_unlock(&adap->lock);
-+		cancel_delayed_work_sync(&data->work);
-+		mutex_lock(&adap->lock);
-+	}
-+
- 	kfree(data);
- 	return 0;
- }
--- 
-2.50.1
+> Fix this by cancelling the delayed work only after removing the data from
+> the transmit and wait queues, ensuring the kthread cannot re-arm it. Drop
+> adap->lock around the synchronous cancel to avoid deadlocking with
+> cec_wait_timeout().
+> 
+> Fixes: 490d84f6d73c ("media: cec: forgot to cancel delayed work")
+> Reported-by: syzbot+051024d603432b4ab395@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=051024d603432b4ab395
+> Signed-off-by: Biren Pandya <birenpandya@gmail.com>
+> ---
+>  drivers/media/cec/core/cec-adap.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/cec/core/cec-adap.c b/drivers/media/cec/core/cec-adap.c
+> index 8f7244ac1d43..50bd8bbeb5a5 100644
+> --- a/drivers/media/cec/core/cec-adap.c
+> +++ b/drivers/media/cec/core/cec-adap.c
+> @@ -965,7 +965,6 @@ int cec_transmit_msg_fh(struct cec_adapter *adap, struct cec_msg *msg,
+>  	 */
+>  	mutex_unlock(&adap->lock);
+>  	err = wait_for_completion_killable(&data->c);
+> -	cancel_delayed_work_sync(&data->work);
+>  	mutex_lock(&adap->lock);
+>  
+>  	if (err)
+> @@ -985,6 +984,13 @@ int cec_transmit_msg_fh(struct cec_adapter *adap, struct cec_msg *msg,
+>  		list_del(&data->list);
+>  	if (WARN_ON(!list_empty(&data->xfer_list)))
+>  		list_del(&data->xfer_list);
+> +
+> +	if (!cancel_delayed_work(&data->work)) {
+> +		mutex_unlock(&adap->lock);
+> +		cancel_delayed_work_sync(&data->work);
+> +		mutex_lock(&adap->lock);
+> +	}
+> +
+>  	kfree(data);
+>  	return 0;
+>  }
+> -- 
+> 2.50.1
