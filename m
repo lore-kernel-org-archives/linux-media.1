@@ -1,101 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E598B19E97B;
-	Sun, 21 Jun 2026 06:27:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1710640D565
+	for <linux-media@vger.kernel.org>; Sun, 21 Jun 2026 14:58:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782023270; cv=none; b=f+Bi9ZxohSH4lBZJqhtewaAe4qfkAtgsp85+Tw+fXZmdXUNa4h4Otz2yeaUSDt6FeHO1YnhZpdcLW+fdWVQKczDudhbfRtyNRvPO6v1ApvnOp1q+BXworEreJv7+K8WMRWtVQF9sqQTKKnA+8yNY9yNL1b4NyFVtMSnwyRBwmyA=
+	t=1782053908; cv=none; b=TyZBXLlhz5pl8sf52L9rf3W1y6w5bWKX1aWBkjPu7NrHd4+eC/C6BdTMzLzt8+w/exatdGDOQd2Oa9fbCSEOT+qgF6d2CDFNVN1UAXTAHc6+zjQy97y3xaB1tuxyg1AC8vnsXcx+xHbGy+yBbFe6Zb1NTJXcTsAG6O0lIIwK1v4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782023270; c=relaxed/simple;
-	bh=d4XRNhHJtx5vaNKiSKmVbw0J+gzb1Lz50Se24lVYn+o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VoURnc2w9U0ZLb1ItTZsWIE0iTS7G5cx6YUOjtsnY5jcEQAuN7Bwv5e8F6TY3u3nGJNogZ+Yu7RixJndtdPgA6y2UgrwaFwPCHjxq+Ljwmvzgktp8KNM6Fb1eGY14xRfWMFIIqwbXHnsf+0FygEP9f0tt0OiWybu7/E2zzINE7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d7XbsYzZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782053908; c=relaxed/simple;
+	bh=GzAYA8+XMUxbqFVL+j4JsNsObKZ7WwluCiQx+OwPQHc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DxlJXgJJf+0YF8jlszGq+UFq3lh0NUfrC9L9Hbrn+Esonl1PXc7KdEMFhn1c+dwMfkfaEgSoXxNpWSqVZxnBbXuVS605SizdakQHYSoCI7yxBunHVSCeoJToB6HzsOIZS8sxtD2NuSjgaMBQDbBrFX5srhOlQ131tty97Gh3WxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5HDLTp1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d7XbsYzZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 263BC1F000E9;
-	Sun, 21 Jun 2026 06:27:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5HDLTp1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21A511F000E9;
+	Sun, 21 Jun 2026 14:58:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782023269;
-	bh=dPMJsl3/PMQAvB1kuVlDZn4ufRU2xy2klAZD/cRiatI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=d7XbsYzZbMypvSqDkbRh3QOwHRkbCRrmOXm5Si4Z6OYLSETMqD6xkDSsZ3wCyo8mD
-	 hYD+5In6BbOLaAsAtcRkojB6oBPAstgj0ABC9ice0+ego3t7T9Xk8PG+mjZCOkdjem
-	 Ioe8z2zhgZMUTDzKtT4rvhL7AicR2s88SatZOoXXEc9o8OovFRVlc9AFc9x6donZ4M
-	 a0uvguqM3wzoCXoNabx8pN0zrGBTfE9wkgx+SA2+X/xH5ZQF4RnSf7l7sIytUyat1C
-	 BzI3G2JW2jEouqWs6nSHZ5/08eZh6mwtmMdiduZbh+T8vWRMOhYE2CNSZJdx95gFOD
-	 juNg7JeaSj2Mw==
-Message-ID: <6ffd489e-8f24-47b2-bbfb-ac464798883f@kernel.org>
-Date: Sun, 21 Jun 2026 09:27:46 +0300
+	s=k20260515; t=1782053906;
+	bh=29LkTg5/vjknUTvKCcOO6frCgTLokc+XMDNxhhKcirQ=;
+	h=From:To:Cc:Subject:Date;
+	b=K5HDLTp1JFkaEDRgf4ycqTVNDYBbPFH1SNR9rI2RloQQvWHQFwdQIoxrx10Q/8RRv
+	 oBizmdOGTUDs4Veq5zc0BZMWnF3rN5mZ4wLAcHPU3ZSk0fEgyblNxSyYU9b/HHmZb8
+	 hxlNMNZG1+9uV3D+EaA04GxTwRFxB/mDp2Dxiphh2+JqUlJr0ojlbpekhY6XejBJb4
+	 qJ7QNkAo4SiTnzU+UzkyddzldyLF79Z8e3mhSbP3TPKuq9+e0UB8+KDq7MqV8YQmMp
+	 XKdG9gVG7k6c31flB44BEh/Gappx2QHjLuE0lJo7EtKQ9B9J3iW4aN4TLqi214YTS0
+	 thR6NUcCH1Afw==
+From: Vladimir Zapolskiy <vz@kernel.org>
+To: Hans de Goede <hansg@kernel.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org
+Subject: [PATCH] media: i2c: ov02c10: Narrow chip id check down to match ov02c chips only
+Date: Sun, 21 Jun 2026 17:58:08 +0300
+Message-ID: <20260621145808.2660219-1-vz@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/10] media: microchip-isc: fix pfe_cfg0_bps comment
-To: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
- Eugen Hristev <ehristev@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260616-balki-isc-prefix-fixes-v1-v1-0-b23677fc5ab6@microchip.com>
- <20260616-balki-isc-prefix-fixes-v1-v1-7-b23677fc5ab6@microchip.com>
-Content-Language: en-US
-From: Eugen Hristev <ehristev@kernel.org>
-In-Reply-To: <20260616-balki-isc-prefix-fixes-v1-v1-7-b23677fc5ab6@microchip.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 6/16/26 14:51, Balakrishnan Sambath wrote:
-> The @pfe_cfg0_bps comment claimed the field holds the "number of
-> hardware data lines connected to the ISC". It does not. The field
-> stores the pre-shifted PFE_CFG0 BPS value (e.g. ISC_PFE_CFG0_BPS_EIGHT,
-> which is 0x4 << 28) and is ORed straight into the PFE_CFG0 register
-> word in microchip-isc-base.c.
-> 
-> The old wording invites a reader to treat it as a small bit-depth
-> integer (8, 10, 12) and compare or do arithmetic on it directly, which
-> silently breaks since the value is shifted into bits 30:28. Document
-> what the field really holds and how to read the bit-depth back out with
-> FIELD_GET(ISC_PFE_CFG0_BPS_MASK, ...).
+Originally a chip id check in the driver's probe function is done for
+any OmniVision "ov02" sensors, but is too wide, since there are at least
+"ov02a", "ov02b", "ov02c", "ov02e", "ov02g", "ov02k" and likely even
+more families of sensors with similar names, thus the check for id shall
+be more specific and match "ov02c" exclusively and expectedly.
 
-In this commit message I would focus on the correct meaning of
-pfe_cfg0_bps and stop inferring what a reader *might* have understood.
-Let's just fix it to be right, explain the right way, and forget the
-wrong way.
+Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+---
+ drivers/media/i2c/ov02c10.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-But it looks like we could improve this to hold an actual meaningful
-data here, instead of a preshifted value, and rather shift it to the
-register when the hardware needs it.
-
-Eugen
-
-> 
-> Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-> ---
->  drivers/media/platform/microchip/microchip-isc.h | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/platform/microchip/microchip-isc.h b/drivers/media/platform/microchip/microchip-isc.h
-> index f5e322c2e36b..b084459f4583 100644
-> --- a/drivers/media/platform/microchip/microchip-isc.h
-> +++ b/drivers/media/platform/microchip/microchip-isc.h
-> @@ -62,7 +62,11 @@ struct isc_subdev_entity {
->   * @mbus_code:		V4L2 media bus format code.
->   * @cfa_baycfg:		If this format is RAW BAYER, indicate the type of bayer.
->  			this is either BGBG, RGRG, etc.
-> - * @pfe_cfg0_bps:	Number of hardware data lines connected to the ISC
-> + * @pfe_cfg0_bps:	Pre-shifted ISC_PFE_CFG0 BPS field value (e.g.
-> +			ISC_PFE_CFG0_BPS_EIGHT), not a plain bit-depth integer.
-> +			OR it directly into the PFE_CFG0 register word, or use
-> +			FIELD_GET(ISC_PFE_CFG0_BPS_MASK, ...) to obtain the
-> +			3-bit BPS field value.
->   * @raw:		If the format is raw bayer.
->   */
->  
-> 
+diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
+index cf93d36032e1..b36da75d7dfa 100644
+--- a/drivers/media/i2c/ov02c10.c
++++ b/drivers/media/i2c/ov02c10.c
+@@ -18,8 +18,8 @@
+ #define OV02C10_MCLK			19200000
+ #define OV02C10_RGB_DEPTH		10
+ 
+-#define OV02C10_REG_CHIP_ID		CCI_REG16(0x300a)
+-#define OV02C10_CHIP_ID			0x5602
++#define OV02C10_REG_CHIP_ID		CCI_REG24(0x300a)
++#define OV02C10_CHIP_ID			0x560243
+ 
+ #define OV02C10_REG_STREAM_CONTROL	CCI_REG8(0x0100)
+ 
+-- 
+2.51.0
 
