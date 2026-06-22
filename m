@@ -1,185 +1,177 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010062.outbound.protection.outlook.com [52.101.46.62])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0D929D27A;
-	Mon, 22 Jun 2026 11:32:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.62
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782127951; cv=fail; b=FsSApBV25YchnDW4MrbLkycLQu/2iN1Vwb3T0aBddTWmiVVHPazVXrdZEkjDJZwlUN1Byw4sJ6qlN2AGtnMTL6kfoxb8P///LsiFG01ht0su8N2Temeu6iRqiHGzjPC73+CFTeV+20ycrqvoDQUNhIOf35tDHjYkrKZ8IrnzSdw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782127951; c=relaxed/simple;
-	bh=0g4GImH3Uuxx8bjJ8PRyA0oBVyecxem4Hphbha7qyFs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=rZwPyhk2o/i38pcjkrQA5ds81AICaPp/O86+yV38Ay9rr55ZvV96c/sl3+P5YnQ036eLWDGU9LVXsKHdyh2hiX0tKwsfqz5NuFl4nzDiL3aWLzIvtYZfsstBVFSARkSj7yzJ4eAqQCdDLHGHzQbEKGm3kPBwAid9Jfto5ZBXj7E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=4lQJ1LiY; arc=fail smtp.client-ip=52.101.46.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B78124886A;
+	Mon, 22 Jun 2026 11:55:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782129350; cv=none; b=ScPE40RWX65jl3lMwdjW3tVIIq08mSlwGULUFKsYfH/6hNoZXnFO/bEXbvC4w/2Q7ipdMHXJyZWw7Ioft494MwBN/nDDwsqKpybBWLgytjypavXaYeEkq6SBtzfT/rIXWGqDLk3c9QXiMBpKGji48SfFT3VC3WHFnASjBluurvg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782129350; c=relaxed/simple;
+	bh=TDWFD3aVcqsYOWPdtLK1KFJLiTGZTVKDYeLf7bJYrTI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dE3bMDLInphmx8ZOGARJlcTjzchFZjMLKgwHmRvCXZ589yREMVTJXt3i4PJuW6E2MTJV5UbTseyXFeMy/Z9ciM+WDCOgxLX7HjP1roQgWocHi/4alVo5tji/MCeGAUQs5DC4xV4MKcezODR7DtH9NIa6gyB9LaEJAthxQSABITM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=gXqVCwUZ; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="4lQJ1LiY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lsueroMup+9G6/p0hcvimwRNjMwHnZa0BfbVwG5SITs0vGnR+HWFKZpu8ZOQEyUKAwqoiidCu0A0iAVqHlOlDPpACyOBgNfA5mBjIReI7u1fRfVEsWevAFMJ3x1BJv8WZyX6Im21R1NC7DUvYCg5OS/onwkeww5/PevNZE6/lEqPL+7u3XFdLm+50akN3ZaPKBfwZUHjt2eBxNjzueTAfWExKX7SAMEwSAtmmKqfGxo9KzJnPdzZEnfSlbJxIEMs0ahQQk4pK6Pu8oQlmPmllG4/wZhhai5ifCA9XvIywIW+GDf9wuP14n6925hBeIwKXuNDr3pi8K+ng5dBDLlRFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0g4GImH3Uuxx8bjJ8PRyA0oBVyecxem4Hphbha7qyFs=;
- b=kaLRN6agtSVkY07+RHuUjlQo6Jb7mf1IU1YL3nR5AT5A5u4O8XX5PCJgfriRjCx7qAbLeNIwfFn5pFPtpIEgLAGRTrLZuk49OPIGdMteLWYmf0seVryI/Dkw5difcEHqHzSSTudhKtWCLb4If4CPBN3OD4sVbZk8rXb5WKbulfWHpCD29vMreA3tmNxux8BlLhKYwRyYNONlsiZKP7NXhbiJUjGzHpmlwJVG37OZHeFWPl+bPg0qbRhO8lF/1VMKJJ2i+ejnYbCeuvZkmCl+8xM70ePa1cx5doWzsgtQrFUKJpultOTdpxqJOn2HdjQHFxpyizU+11iCYuzQUEe2ZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microchip.com; dmarc=pass action=none
- header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0g4GImH3Uuxx8bjJ8PRyA0oBVyecxem4Hphbha7qyFs=;
- b=4lQJ1LiY7gwZfyajnbjArfoveIQ0xKYA+0RR7VVT5NRBSLW239oV85518iG8lQJmn/EHCg/CQF9k1TpgIemvTSWxscEt5aHiRrtp/RDzDc3YbFsychfF0lweKVcyQIfkPKTUvfMf+H4kXn+JQYGimJblMjRQ0YIOSNJPSsbg/Gj1XtqakIjefomeSCi6tBEhJ3gkUfYRu98eBn6G+0to19mFcRMHZZJlkRHXH0m35Ml5aN0gJDSmZtmdcn7Drdze0Ms4SKmWiw3Pb6glOS7U4oYoxwzz3F+aUXnF40Qj11T7WehSMcDn2PhS4hX3AdJE1yFm20cWXKZOaw3mrgESjg==
-Received: from SJ0PR11MB4910.namprd11.prod.outlook.com (2603:10b6:a03:2d7::7)
- by DS0PR11MB7652.namprd11.prod.outlook.com (2603:10b6:8:14e::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Mon, 22 Jun
- 2026 11:32:27 +0000
-Received: from SJ0PR11MB4910.namprd11.prod.outlook.com
- ([fe80::7af:4219:9135:f1a5]) by SJ0PR11MB4910.namprd11.prod.outlook.com
- ([fe80::7af:4219:9135:f1a5%5]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
- 11:32:26 +0000
-From: <Balakrishnan.S@microchip.com>
-To: <ehristev@kernel.org>, <mchehab@kernel.org>
-CC: <hverkuil@kernel.org>, <sakari.ailus@linux.intel.com>,
-	<linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 07/10] media: microchip-isc: fix pfe_cfg0_bps comment
-Thread-Topic: [PATCH 07/10] media: microchip-isc: fix pfe_cfg0_bps comment
-Thread-Index: AQHc/YZ+AHwHFR4u1E2m0TgZgk3tO7ZIkxgAgAHndAA=
-Date: Mon, 22 Jun 2026 11:32:26 +0000
-Message-ID: <ab562e26-2cb7-45ee-96fd-53103ed9001f@microchip.com>
-References:
- <20260616-balki-isc-prefix-fixes-v1-v1-0-b23677fc5ab6@microchip.com>
- <20260616-balki-isc-prefix-fixes-v1-v1-7-b23677fc5ab6@microchip.com>
- <6ffd489e-8f24-47b2-bbfb-ac464798883f@kernel.org>
-In-Reply-To: <6ffd489e-8f24-47b2-bbfb-ac464798883f@kernel.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microchip.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR11MB4910:EE_|DS0PR11MB7652:EE_
-x-ms-office365-filtering-correlation-id: ebfc719e-5622-4c01-9291-08ded051efec
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|56012099006|11063799006|4143699003|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info:
- Sw1X0XEinSLkDpt0jGQsV6iX0GL0PYXjMfILFikgMAvmzDvmZXL7lzV1csjnPoSXSkv+aXoUMtAQuN7HsAN9mdpoefz1KqFY/6ypDeiMQF+JmrzpX3JvLbfTYC1sykjSrSd0e3xMQ64sidijAwMNyWJFtNSDfzfFmLTrDUMnYy/iW3kJxRVCf5IecwPEnFLjky8htq8GFFDW4O5HEQvjEyb5q2CWpOYoD630fKdXVjGG5hEMRcteKkFzilDHVAa5xVvvSND6BclqpslYY+PttBTUEjvJaY6nDgKmJL8fS+0gySK2yg7b7OBa1LGUHg8F0e0vaHEb6NP+vD2vEnYDCMbf0yZGV3qGQ/k0iSEn9W/mKbEp36Yh7S4JtQItSjm01PawDP/4PXXmqPSRwn3wJV3EVwbobEuOoZF5dHKkHrlXTF+9y7N9n86d4SZR98ExNr9YXLcNd5H1ygmFMiYjbcXrxKaVAZu5gbrKh6dTaQr3dFafp9a9y/Jrb/Gm7to+4hjR6eskpma1cpLIaYxBK/AAaf8sMnhPU0nFEbiZfGA6fvNpIRmqAjA1zGImHf2me0PcysT/7mXIhVxf3POuY6mDzAeL1gXmhGyeqxULFk6fTkSmszplR0dNNw8+S63kdj9mzxews8BomI0nXmzZAZwCwqV40/wAfgvLw+SuR9p08ycnZkJ/XUeOZ8ySvu62mXNqCOHAHRXtb3MJcnLq8kpmfbSPGmD+p04nGDQOUVo=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR11MB4910.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?VHgySXo3bS9kN3JxbEFvMEVKOWY0aGdCZGcreGZuOVkrWHVYVlBVL1NUbHZ2?=
- =?utf-8?B?enhFU2U2VmRLR3NvcEhCN1NFNU8xaVhnQkFMZ3M3b2pxVTY5d21mcUZyQ0xL?=
- =?utf-8?B?L3JxZ0RMbVdqZ1FlYllhbHdXaHJ0MHdCZGFtUTZmRGUyQ0dwYkpvaU1yN2Vx?=
- =?utf-8?B?bUZCRHZGYitwTWMvREFBYTBSV0VpZFJGNzh5YnpaYXNNcDZTdTkrVmZBNDF0?=
- =?utf-8?B?RXlMRm16ZzlCdmxRTXdCblVYZVplMFhJWC9pK3BrblZPZ3JUMiswNklqQmRu?=
- =?utf-8?B?SHNka010MjBzTHVMejdzd0lLMThoYnMreEZBd0ZqTFVKZ2VOcVdXRjFJQjhk?=
- =?utf-8?B?bnVVWWRQTmYvT0VnZDFUSVE4QWdHYmJKQWQ1dHdXcWp5eWJKTlZZVzNOWW45?=
- =?utf-8?B?ejZEb2pzeVVOMDYxMVJjMjIwNVczODhHcFdIZEFXSEVzZTc3Uk9iTVlNNnJ4?=
- =?utf-8?B?azZEU3ZpZnlmM2U1T0pzOStsQjVSd3VtV3ZJMUlMS2NoeGRPVmhpaU9OTmV5?=
- =?utf-8?B?bTh0c2UxQjNkdjVxdmo4SGJwSzJoV0tQUnZJVktKMW9wa1lNb2Y1NzZDUFBV?=
- =?utf-8?B?MVhjaWFxYTY5bDVDcEdiNUdxbHlLYWUvUTRKam1YcEpXN1BKNWpIL3lNN0Ew?=
- =?utf-8?B?dktubmhCeDJvS1NaNzl4Z0Y3UHltQS8xQ3BDL21hNTY3SkpibUVDbVM3UkND?=
- =?utf-8?B?TmVXT09ObGtMaC9aem5qRjVmOFVxalBWSTRkK1F4ellJWCtjT3hzM3BCOXF6?=
- =?utf-8?B?aldkOHFrQ0d2aFlML1psMnZRcWRCMTBXZ20vb3VYN0pkSi93Wjc3V2REU2dO?=
- =?utf-8?B?N0UzY0I2eXY4R3lEb2JrSzZOd0NqTC9HTm85ak9lNVAybGJlcmNYQm9xNjFZ?=
- =?utf-8?B?REppRlExWlRZMkllRk1VQ3dlMDZ5T2FTc0JMa0M1RGU0TjNOSnZDYUVtWERi?=
- =?utf-8?B?Qms2WUhESkN2VnJ3SWtBMml6cSsxa2ZVdjNjcWdic3VZSW1RMTgyM2kreUFQ?=
- =?utf-8?B?aklZaytEK0RCMXhTNWFDNUZ3SXpDZTlJMnp4OHcrVFo0NyttMWRTeVdoYzFv?=
- =?utf-8?B?d24zR1p0bVU5VVNYbG5RODdCbHBUUE42NnlybTJPQzBsZWhjdGpqM0dxenhp?=
- =?utf-8?B?WEk1NUR1bjhDdi9rbHliMjN0TW5sOGhhOTBTcEFQc3QvZ0JGb3l1WWNPRlJ3?=
- =?utf-8?B?TEVVZXNxanVyL0lRcWhNVXJpbGxDR3Y0SHBsY3NSNG1JMzdJYmtGK1RjNFZu?=
- =?utf-8?B?dzViYmR1d2dtSk5CY054eW9QRnNoenJ2cVRCUFdqMFFDNnptbkZFbHdHUUJQ?=
- =?utf-8?B?UEY3TFFZUndKRHViL0o0R0VqSGd2TWpNZE1lSGZHSTdqcURWOUp3eU5pL3A1?=
- =?utf-8?B?TlJRcUJEQ0d5Y2VDbEQzQ0oxYUw3WWs4amNOTGRvanlnTmFwOUVIaW8zUmtS?=
- =?utf-8?B?UGtPN1VLQllMdUNCWWtJcVRONVR3bU9UYzZ2YWJZZ0FRVEtUcjdNZVN2ejkz?=
- =?utf-8?B?MjZsa1E5R3ROYnphREtabktqb1ZGTU05VTd0S2JRNFZNMkZqMm10QTdCbUF5?=
- =?utf-8?B?dEQwR290TEhFd0crbFo0QkNDQlJCZ2FBd29VTVJPcG1OK2oydEJFbVR1bnJM?=
- =?utf-8?B?anpBM3A1QmtWd0c4dEJGQkhCOGg4QVJhUno0ZWYwVW9CTFRsN0pCRWVjeXpx?=
- =?utf-8?B?ZXlVamF2aHZWVUFUc2lNU0FVZ21yYit6U05FMXRaSHprcEhxdFZPWUhuWGwr?=
- =?utf-8?B?K2EyTm1ncmkwTG9FaWxoQkRFYUI3SW1BQkhrQ0lqcU5zaEFCc2lyR3ZSckcv?=
- =?utf-8?B?MXdYeVhKd1lCSldJWnIyQjh2SWtxZGVSTmlvVWU0OUVlZ2pkTmdmaTFxaCsv?=
- =?utf-8?B?cW8ybVA2TVVCL2p6bkhDSXgwOGN4S2VZT2prVE1ZbDRpS3laWXRzdzZlTk1E?=
- =?utf-8?B?S0x2MVdCY3Vrd2FTNEtxR1ZNcDBGSnBNcHpxVkNuUExvUEV5SWgwRmkzckpk?=
- =?utf-8?B?SVNwb0VLOWRseDQzanVPY3k2Z0EzeGJkOE9DaUNRaW8zelRSYjFVZTEzcCtT?=
- =?utf-8?B?UTlSc1Jvc2M5K25IaDB3YlN1ZVVSc0lEeU5uMGhveVplNzFKWjZZNG43MWRh?=
- =?utf-8?B?NFpjK3ZmMlRWZFFTR3hoUEo3WE9rRm1hcTVYbmpjRll5cVc5UzBrVzNuUyti?=
- =?utf-8?B?SVQ4eHVSK0JKaHM4eVU3b3U5ZXYyNmowZ3JJdWpGb1BDem9ibVpUK0pUaFdI?=
- =?utf-8?B?TzdQZVlqZExkbkZUWFBScEtDSkZYelFNQm5zaE1NakZKZkhhcTQ1SWtpclB0?=
- =?utf-8?B?M0FsaTR1VHZWbUhZNWZuYVBsUldqK3MxZ2lQcHB6cGgyQjUreFR4dz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <38A3E585F52D10479D530660609DD828@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="gXqVCwUZ"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3A7F29CE;
+	Mon, 22 Jun 2026 13:55:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1782129308;
+	bh=TDWFD3aVcqsYOWPdtLK1KFJLiTGZTVKDYeLf7bJYrTI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gXqVCwUZLPEnE7+3WkZgPXN8wj92R1iMQN4M2WulFhoKn0NvAfnk3KZEWuZgsup5D
+	 8RoaWA0hX6YTShku4A/WXvC7oWXoVYz8aYCGcrzpDgRyQdiF9DSQq8L4frK/138L3R
+	 7KtnEvqzi26otYw6b7lxtx7g1yobSEfXkbX8oo5A=
+Date: Mon, 22 Jun 2026 14:55:44 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Biren Pandya <birenpandya@gmail.com>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+	sumit.semwal@linaro.org, christian.koenig@amd.com,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Subject: Re: [PATCH] drm/gem: modernize locks to use scoped_guard()
+Message-ID: <20260622115544.GA3899302@killaraus.ideasonboard.com>
+References: <20260616181956.61476-2-birenpandya@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: microchip.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB4910.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ebfc719e-5622-4c01-9291-08ded051efec
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jun 2026 11:32:26.9350
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: iB4lRtAX+LqPLlnVXzoCYjb1ri5tBdsvIf5MdHblHZ+4WYc26MGBhz8dRgcaT8kfE7gNug8EOYuaOf7weIE5z1+S3tM4P+7MoBY1e3e8EdM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7652
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260616181956.61476-2-birenpandya@gmail.com>
 
-SGkgRXVnZW4sDQoNCk9uIDIxLzA2LzI2IDExOjU3IGFtLCBFdWdlbiBIcmlzdGV2IHdyb3RlOg0K
-PiBFWFRFUk5BTCBFTUFJTDogRG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMg
-dW5sZXNzIHlvdSBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUNCj4gDQo+IE9uIDYvMTYvMjYgMTQ6
-NTEsIEJhbGFrcmlzaG5hbiBTYW1iYXRoIHdyb3RlOg0KPj4gVGhlIEBwZmVfY2ZnMF9icHMgY29t
-bWVudCBjbGFpbWVkIHRoZSBmaWVsZCBob2xkcyB0aGUgIm51bWJlciBvZg0KPj4gaGFyZHdhcmUg
-ZGF0YSBsaW5lcyBjb25uZWN0ZWQgdG8gdGhlIElTQyIuIEl0IGRvZXMgbm90LiBUaGUgZmllbGQN
-Cj4+IHN0b3JlcyB0aGUgcHJlLXNoaWZ0ZWQgUEZFX0NGRzAgQlBTIHZhbHVlIChlLmcuIElTQ19Q
-RkVfQ0ZHMF9CUFNfRUlHSFQsDQo+PiB3aGljaCBpcyAweDQgPDwgMjgpIGFuZCBpcyBPUmVkIHN0
-cmFpZ2h0IGludG8gdGhlIFBGRV9DRkcwIHJlZ2lzdGVyDQo+PiB3b3JkIGluIG1pY3JvY2hpcC1p
-c2MtYmFzZS5jLg0KPj4NCj4+IFRoZSBvbGQgd29yZGluZyBpbnZpdGVzIGEgcmVhZGVyIHRvIHRy
-ZWF0IGl0IGFzIGEgc21hbGwgYml0LWRlcHRoDQo+PiBpbnRlZ2VyICg4LCAxMCwgMTIpIGFuZCBj
-b21wYXJlIG9yIGRvIGFyaXRobWV0aWMgb24gaXQgZGlyZWN0bHksIHdoaWNoDQo+PiBzaWxlbnRs
-eSBicmVha3Mgc2luY2UgdGhlIHZhbHVlIGlzIHNoaWZ0ZWQgaW50byBiaXRzIDMwOjI4LiBEb2N1
-bWVudA0KPj4gd2hhdCB0aGUgZmllbGQgcmVhbGx5IGhvbGRzIGFuZCBob3cgdG8gcmVhZCB0aGUg
-Yml0LWRlcHRoIGJhY2sgb3V0IHdpdGgNCj4+IEZJRUxEX0dFVChJU0NfUEZFX0NGRzBfQlBTX01B
-U0ssIC4uLikuDQo+IA0KPiBJbiB0aGlzIGNvbW1pdCBtZXNzYWdlIEkgd291bGQgZm9jdXMgb24g
-dGhlIGNvcnJlY3QgbWVhbmluZyBvZg0KPiBwZmVfY2ZnMF9icHMgYW5kIHN0b3AgaW5mZXJyaW5n
-IHdoYXQgYSByZWFkZXIgKm1pZ2h0KiBoYXZlIHVuZGVyc3Rvb2QuDQo+IExldCdzIGp1c3QgZml4
-IGl0IHRvIGJlIHJpZ2h0LCBleHBsYWluIHRoZSByaWdodCB3YXksIGFuZCBmb3JnZXQgdGhlDQo+
-IHdyb25nIHdheS4NCg0KU3VyZS4gV2lsbCBmaXggdGhlIGNvbW1lbnQgdG8ganVzdCBzYXkgd2hh
-dCB0aGUgZmllbGQgaG9sZHMuDQoNCj4gDQo+IEJ1dCBpdCBsb29rcyBsaWtlIHdlIGNvdWxkIGlt
-cHJvdmUgdGhpcyB0byBob2xkIGFuIGFjdHVhbCBtZWFuaW5nZnVsDQo+IGRhdGEgaGVyZSwgaW5z
-dGVhZCBvZiBhIHByZXNoaWZ0ZWQgdmFsdWUsIGFuZCByYXRoZXIgc2hpZnQgaXQgdG8gdGhlDQo+
-IHJlZ2lzdGVyIHdoZW4gdGhlIGhhcmR3YXJlIG5lZWRzIGl0Lg0KDQpZZXMgdGhhdCBzZWVtcyBi
-ZXR0ZXIuIFdpbGwgc3RvcmUgdGhlIGFjdHVhbCBicHMgdmFsdWUgYW5kIHNoaWZ0IGl0IGF0IA0K
-dGhlIFBGRV9DRkcwIHdyaXRlIHdoZXJlIGl0cyBuZWVkZWQsIHdpbGwgdGhhdCB3b3JrID8NCg0K
-SWYgc28gd2lsbCBmaXggYm90aCBpbiBuZXh0IHZlcnNpb24uDQoNClRoYW5rcywNCkJhbGFrcmlz
-aG5hbg0KDQo+IA0KPiBFdWdlbg0KPiANCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBCYWxha3Jpc2hu
-YW4gU2FtYmF0aCA8YmFsYWtyaXNobmFuLnNAbWljcm9jaGlwLmNvbT4NCj4+IC0tLQ0KPj4gICBk
-cml2ZXJzL21lZGlhL3BsYXRmb3JtL21pY3JvY2hpcC9taWNyb2NoaXAtaXNjLmggfCA2ICsrKysr
-LQ0KPj4gICAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQo+
-Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vbWljcm9jaGlwL21pY3Jv
-Y2hpcC1pc2MuaCBiL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vbWljcm9jaGlwL21pY3JvY2hpcC1p
-c2MuaA0KPj4gaW5kZXggZjVlMzIyYzJlMzZiLi5iMDg0NDU5ZjQ1ODMgMTAwNjQ0DQo+PiAtLS0g
-YS9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL21pY3JvY2hpcC9taWNyb2NoaXAtaXNjLmgNCj4+ICsr
-KyBiL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vbWljcm9jaGlwL21pY3JvY2hpcC1pc2MuaA0KPj4g
-QEAgLTYyLDcgKzYyLDExIEBAIHN0cnVjdCBpc2Nfc3ViZGV2X2VudGl0eSB7DQo+PiAgICAqIEBt
-YnVzX2NvZGU6ICAgICAgICAgICAgICAgVjRMMiBtZWRpYSBidXMgZm9ybWF0IGNvZGUuDQo+PiAg
-ICAqIEBjZmFfYmF5Y2ZnOiAgICAgICAgICAgICAgSWYgdGhpcyBmb3JtYXQgaXMgUkFXIEJBWUVS
-LCBpbmRpY2F0ZSB0aGUgdHlwZSBvZiBiYXllci4NCj4+ICAgICAgICAgICAgICAgICAgICAgICAg
-dGhpcyBpcyBlaXRoZXIgQkdCRywgUkdSRywgZXRjLg0KPj4gLSAqIEBwZmVfY2ZnMF9icHM6ICAg
-IE51bWJlciBvZiBoYXJkd2FyZSBkYXRhIGxpbmVzIGNvbm5lY3RlZCB0byB0aGUgSVNDDQo+PiAr
-ICogQHBmZV9jZmcwX2JwczogICAgUHJlLXNoaWZ0ZWQgSVNDX1BGRV9DRkcwIEJQUyBmaWVsZCB2
-YWx1ZSAoZS5nLg0KPj4gKyAgICAgICAgICAgICAgICAgICAgIElTQ19QRkVfQ0ZHMF9CUFNfRUlH
-SFQpLCBub3QgYSBwbGFpbiBiaXQtZGVwdGggaW50ZWdlci4NCj4+ICsgICAgICAgICAgICAgICAg
-ICAgICBPUiBpdCBkaXJlY3RseSBpbnRvIHRoZSBQRkVfQ0ZHMCByZWdpc3RlciB3b3JkLCBvciB1
-c2UNCj4+ICsgICAgICAgICAgICAgICAgICAgICBGSUVMRF9HRVQoSVNDX1BGRV9DRkcwX0JQU19N
-QVNLLCAuLi4pIHRvIG9idGFpbiB0aGUNCj4+ICsgICAgICAgICAgICAgICAgICAgICAzLWJpdCBC
-UFMgZmllbGQgdmFsdWUuDQo+PiAgICAqIEByYXc6ICAgICAgICAgICAgIElmIHRoZSBmb3JtYXQg
-aXMgcmF3IGJheWVyLg0KPj4gICAgKi8NCj4+DQo+Pg0KPiANCg0K
+On Tue, Jun 16, 2026 at 11:49:57PM +0530, Biren Pandya wrote:
+> Several GEM core functions manually managed mutex_lock() and
+> mutex_unlock() over single scopes or error paths. This adds boilerplate
+> and carries the risk of lock leaks if error paths are refactored.
+> 
+> Modernize these locks by deploying the <linux/cleanup.h> scoped_guard()
+> macro. This ensures that the locks are reliably dropped when the block
+> exits, cleanly removing goto out_unlock paths and tightening the
+> lifecycle.
+
+What's the reason for doing so in in drm_gem and not other areas in DRM
+?
+
+> Signed-off-by: Biren Pandya <birenpandya@gmail.com>
+> 
+> Compiled locally, but requires IGT validation by the DRM CI.
+> ---
+>  drivers/gpu/drm/drm_gem.c | 66 ++++++++++++++++++---------------------
+>  1 file changed, 30 insertions(+), 36 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index 891c3bff5ae0..d3a061d42ba7 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -346,13 +346,13 @@ void drm_gem_object_handle_put_unlocked(struct drm_gem_object *obj)
+>  	 * we checked for a name.
+>  	 */
+>  
+> -	mutex_lock(&dev->object_name_lock);
+> -	if (--obj->handle_count == 0) {
+> -		drm_gem_object_handle_free(obj);
+> -		drm_gem_object_exported_dma_buf_free(obj);
+> -		final = true;
+> +	scoped_guard(mutex, &dev->object_name_lock) {
+> +		if (--obj->handle_count == 0) {
+> +			drm_gem_object_handle_free(obj);
+> +			drm_gem_object_exported_dma_buf_free(obj);
+> +			final = true;
+> +		}
+>  	}
+> -	mutex_unlock(&dev->object_name_lock);
+>  
+>  	if (final)
+>  		drm_gem_object_put(obj);
+> @@ -374,11 +374,8 @@ drm_gem_object_release_handle(int id, void *ptr, void *data)
+>  	if (obj->funcs->close)
+>  		obj->funcs->close(obj, file_priv);
+>  
+> -	mutex_lock(&file_priv->prime.lock);
+> -
+> -	drm_prime_remove_buf_handle(&file_priv->prime, id);
+> -
+> -	mutex_unlock(&file_priv->prime.lock);
+> +	scoped_guard(mutex, &file_priv->prime.lock)
+> +		drm_prime_remove_buf_handle(&file_priv->prime, id);
+>  
+>  	drm_vma_node_revoke(&obj->vma_node, file_priv);
+>  
+> @@ -1021,37 +1018,34 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+>  		goto out;
+>  	}
+>  
+> -	mutex_lock(&file_priv->prime.lock);
+> +	scoped_guard(mutex, &file_priv->prime.lock) {
+> +		spin_lock(&file_priv->table_lock);
+> +		ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1,
+> +				GFP_NOWAIT);
+> +		spin_unlock(&file_priv->table_lock);
+
+And why don't you use guards for the spinlock as well ?
+
+>  
+> -	spin_lock(&file_priv->table_lock);
+> -	ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1,
+> -			GFP_NOWAIT);
+> -	spin_unlock(&file_priv->table_lock);
+> +		if (ret < 0)
+> +			break;
+>  
+> -	if (ret < 0)
+> -		goto out_unlock;
+> +		if (obj->dma_buf) {
+> +			ret = drm_prime_add_buf_handle(&file_priv->prime, obj->dma_buf,
+> +						       handle);
+> +			if (ret < 0) {
+> +				spin_lock(&file_priv->table_lock);
+> +				idr_remove(&file_priv->object_idr, handle);
+> +				spin_unlock(&file_priv->table_lock);
+> +				break;
+> +			}
+>  
+> -	if (obj->dma_buf) {
+> -		ret = drm_prime_add_buf_handle(&file_priv->prime, obj->dma_buf,
+> -					       handle);
+> -		if (ret < 0) {
+> -			spin_lock(&file_priv->table_lock);
+> -			idr_remove(&file_priv->object_idr, handle);
+> -			spin_unlock(&file_priv->table_lock);
+> -			goto out_unlock;
+> +			drm_prime_remove_buf_handle(&file_priv->prime, args->handle);
+>  		}
+>  
+> -		drm_prime_remove_buf_handle(&file_priv->prime, args->handle);
+> -	}
+> -
+> -	ret = 0;
+> -
+> -	spin_lock(&file_priv->table_lock);
+> -	idr_remove(&file_priv->object_idr, args->handle);
+> -	spin_unlock(&file_priv->table_lock);
+> +		ret = 0;
+>  
+> -out_unlock:
+> -	mutex_unlock(&file_priv->prime.lock);
+> +		spin_lock(&file_priv->table_lock);
+> +		idr_remove(&file_priv->object_idr, args->handle);
+> +		spin_unlock(&file_priv->table_lock);
+> +	}
+>  out:
+>  	drm_gem_object_put(obj);
+>  
+> 
+> base-commit: 72c25183cac9bc584c9de21797a5883af44bcc7a
+
+-- 
+Regards,
+
+Laurent Pinchart
