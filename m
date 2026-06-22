@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF14E395D8B;
-	Mon, 22 Jun 2026 11:21:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9C5378D71;
+	Mon, 22 Jun 2026 11:23:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782127261; cv=none; b=jQjvDupIXKa/l9AE3mLZdqY6oC+JSWNjhdvBhM/eaGScl90wXVgXw5fmLnUvbyXJdWmkVR4mGoG98YHDaEVeopZf6wFuZ2nYzUmyHmrtTMpVh3EKYtsJA81bBGp7MzyAkPR8Rn6eyMIEzCsts8T3ljzWgORhYdxUiy/rkQ+njg4=
+	t=1782127391; cv=none; b=iMjLfIPWCuZXXVvnxS2fX3wE0nIR70iDALvYZTfHH7/loi0tdNHJkTiN8k8FiOw6DXarQswtNfYSG14+gyAIwjH8tuV/pZ5n481B4hB+Hg0K/xtvIzI39La4e0WBkRZgimL0uQ9RJ47PgO4Lu1O+yATlCpV1dtqJkPU1GiI9DEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782127261; c=relaxed/simple;
-	bh=us4DifZnbuJZkTuU/TiWtFP+SKlxI1HBHl7tVxQinso=;
+	s=arc-20240116; t=1782127391; c=relaxed/simple;
+	bh=faLKe2wzVebnYEbctb3M7q+6YkLfJqrl76iQuLrQIs4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MrJy5OcXsvfdzqwYfyDhbRI2AMy1Tl82XoxFt4XSBBJmOpcyyE+IbW9+AzYlhfJYixXWUfhsHEU8ekuYl9AGXSLBCOTNfhk/bink2BuyqITAWMW2zjwzY/KrvOmT/2pp1i1LoN7Kv2vl4HlzSgMir/uvIxETs76jNzCKemtTt+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H452mRol; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=q7V9glHFjAXc5SXcL9O7pI+2SNDo0CyslEYJHCy6FnMld4NxBTR/Mrx+wa2a9nP3d3irvTesUQzSWnF54CjDCH4MttL0F9On0oEF5S91N1UH3JSNUGIVnWWh3Lu6TDoRgYAalvDwxU7asoGPcnC7crw3awICizQKwtI4hnEFSbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TWYsIpCT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H452mRol"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AADFF1F000E9;
-	Mon, 22 Jun 2026 11:20:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TWYsIpCT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 127DF1F000E9;
+	Mon, 22 Jun 2026 11:23:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782127260;
-	bh=eTPixQNy/rp+h0JSWmYbCEJ+lckTvhh5FiwDT6dX1TI=;
+	s=k20260515; t=1782127390;
+	bh=mL4YO4DdDuOyQuWh1CRe45HHmtVcwA50V5Vo9cO1ahw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=H452mRolc8NRYpAX7uK/w6wlHJ3U4ALqLoomK/PTctRt/18F54Z9ir85yym2qe+gw
-	 +u6OpZDy+dDckKsA8a/ximmKv4oBmJCGXJoKcDuHFxlqcZwUf03CDu79rn0VJiouRm
-	 SQNelKgtu0z5G5j5wLYxTuEkLKPKHlzL5mJPJvvUYic5KSTxKEyWGy0MWA6D86vbHc
-	 pN8lnS5gndVfgsdPgcie9PgqXwvPi0YaSvsSqJOXNGH5GLhS1R0+dVihrjndAUGHve
-	 mu2BRCHVTZRv8SOJe73jyJLmMGiLdsPIg4i08SxPDOkw5sitbltU6ZqnJFEJWxS+WR
-	 1pQzbtBefqH3A==
-Message-ID: <63dfb417-323d-4397-b95b-8c655be38129@kernel.org>
-Date: Mon, 22 Jun 2026 12:20:54 +0100
+	b=TWYsIpCTz/KOjuaItqtXqvLqsDzR9qtQVhJKB2L6pNgWL8Hw20c0v1slOAuq5XLqE
+	 iavZs09W/zwttS6IP3u63kema+Z3pYx9dZ/aH2wK7ln/5uAoGoWEB57ZD2a6Ok4tJO
+	 j2Z75hvfqjetrqryWbEHMlk4BksUExVwzQHf20LqN7FiNfSmeX817rR/inrb8gDDzR
+	 v/umd0NDzx5GLnF5ARSJmPEFHUzKby75mZwg5jgPD/7vovCe01rPWa+5zxkC5y50on
+	 78zhx290M+PseumCjOp1G3s3kg0K1jj1i7tNpYj52y5WYFkh3IkIkDyfSdoahLlDtQ
+	 R8azbcrCNV45w==
+Message-ID: <d1960130-8540-4408-8057-944fd3d3d2e7@kernel.org>
+Date: Mon, 22 Jun 2026 12:23:05 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] arm64: dts: qcom: shikra: Add Iris video codec
- node
+Subject: Re: [PATCH v3 1/3] dt-bindings: media: qcom,qcm2290-venus: document
+ shikra Iris compatible
 To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
  Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -45,12 +45,10 @@ To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20260618-shikra_vpu-v3-0-1a32e26a35a1@oss.qualcomm.com>
- <xBaKmLahr4Qmdd3Gc8kyOLkJXcOlDnLPQJJt5mc-j9sVfNF6IN1QTHnupSPs3lSAMWW9Jfl5dPlDFDzly4HmVw==@protonmail.internalid>
- <20260618-shikra_vpu-v3-2-1a32e26a35a1@oss.qualcomm.com>
+ <Xb8X6uhHh7IbKk_4O5gNgmhpKbC4kOTkNfpfgyshW_m2sTaj7QBPVmSHvhwcdBwUMe53Dv5_ca2DiMRwzNAcag==@protonmail.internalid>
+ <20260618-shikra_vpu-v3-1-1a32e26a35a1@oss.qualcomm.com>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=bod@kernel.org; keydata=
@@ -96,21 +94,95 @@ Autocrypt: addr=bod@kernel.org; keydata=
  LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
  3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
  Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <20260618-shikra_vpu-v3-2-1a32e26a35a1@oss.qualcomm.com>
+In-Reply-To: <20260618-shikra_vpu-v3-1-1a32e26a35a1@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 18/06/2026 11:39, Vikash Garodia wrote:
-> +			memory-region = <&video_mem>;
+> Document the iris video accelerator used on shikra platforms by adding
+> the qcom,shikra-iris compatible.
+> 
+> Although QCM2290 and shikra share the same video hardware and overall
+> integration, their SMMU programming differs. QCM2290 exposes separate
+> stream IDs for the video hardware and the Xtensa path, requiring two
+> explicit IOMMU entries, whereas shikra uses a masked SMR to collapse
+> equivalent stream IDs into a single mapping. Due to QCM2290’s SID layout
+> and Xtensa isolation requirements, such SMR masking is not applicable on
+> QCM2290 platforms.
+> Since shikra uses the same video hardware as QCM2290 and shares the same
+> programming model and capabilities, it is added as a fallback compatible
+> to qcom,qcm2290-venus, with conditional handling to allow either one or
+> two IOMMU entries.
+> 
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> ---
+>   .../bindings/media/qcom,qcm2290-venus.yaml         | 26 ++++++++++++++++------
+>   1 file changed, 19 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml b/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml
+> index 5977e7d0a71b4fb5681f1c2094439c251366f01f..b27899ebf164229ceff1ca5cda50ee30d875e953 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml
+> @@ -13,14 +13,13 @@ description:
+>     The Venus AR50_LITE IP is a video encode and decode accelerator present
+>     on Qualcomm platforms.
+> 
+> -allOf:
+> -  - $ref: qcom,venus-common.yaml#
+> -
+>   properties:
+>     compatible:
+>       oneOf:
+>         - items:
+> -          - const: qcom,sm6115-venus
+> +          - enum:
+> +              - qcom,shikra-venus
+> +              - qcom,sm6115-venus
+>             - const: qcom,qcm2290-venus
+>         - const: qcom,qcm2290-venus
+> 
+> @@ -45,9 +44,6 @@ properties:
+>         - const: vcodec0_core
+>         - const: vcodec0_bus
+> 
+> -  iommus:
+> -    maxItems: 2
+> -
+>     interconnects:
+>       maxItems: 2
+> 
+> @@ -65,6 +61,22 @@ required:
+>     - power-domain-names
+>     - iommus
+> 
+> +allOf:
+> +  - $ref: qcom,venus-common.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,shikra-venus
+> +    then:
+> +      properties:
+> +        iommus:
+> +          maxItems: 1
+> +    else:
+> +      properties:
+> +        iommus:
+> +          maxItems: 2
+> +
+>   unevaluatedProperties: false
+> 
+>   examples:
+> 
+> --
+> 2.34.1
+> 
 
-I'll reiterate, again...
+NAK.
 
-Since we know there is a problem with non-pixel allocations < 600 MB, 
-submission _must_ address that.
-
-Its irrelevant that something upstream already does the wrong thing.
-
-Please fix this.
+Fix the 600MB limit in the submission. Its already been flagged more 
+than once.
 
 ---
 bod
