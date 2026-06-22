@@ -1,48 +1,43 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0B019E97B;
-	Mon, 22 Jun 2026 06:50:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DEA23815DD;
+	Mon, 22 Jun 2026 07:59:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782111016; cv=none; b=ofsLFa3DjAEN3jzYah04yYIrhG4uynCb4zrVjek0j6GMU5mz+1hx3/p9YgN4m/u8ql735wrhNn4ySOryaUzIpY7PXYzxl7bI8DDsmgbABV/kjf9QdY1x0OG+hugHs4mHo3HBGVNx6CePh76JH7mpS6Llrjh1ZZi7PqY4LVWjME8=
+	t=1782115144; cv=none; b=GfKNmERtsZoQQRZrB9qLc/RidmmR/rtjYlVS9WdbUCsuyymdD5qy4+NGwBJpi6MdnNSdkwWlur6yf9qaUOT/5Hbvali3NwjNg9lbld+R2FkD+lVW0d1wVOvv7zsrQidlhMb6ZQMhQMGS8ARJ8moSQNgn0AnZIKDch4FeMmt07Lk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782111016; c=relaxed/simple;
-	bh=5H6XifqywxaAVV0/hryS5+1Nj+z6wQMhvhSJ1VE9Pns=;
+	s=arc-20240116; t=1782115144; c=relaxed/simple;
+	bh=91QdCSk232KiUANG4CEhHOZADC/4ruPF70HDR+2rVoo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MvYkX05CgdWxMIndfc7AHDntPNU1Rj5s//7TbcEnLZKaQ99tcN6qThqS8SzhZGIJHulljrI8UOPOqefxzWNoyYeiUEcx7dSTMHDYnfK8UmmBBDkrBQK2cxcZ6Shoh3XVY7lCSwWkG2hdreSxCuMskoEahBgF4NJw3/Gcto87YCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cUcvahCn; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ganaDeuY4ggby3jngSnHoI1zVgjDxpz+sbzx1rWTum5oB7KGuP73Zzy620WtLU3rcepC1GL+OJZ6m7ENbqrLw5INE4jIYU2MJY0FuSm2a9Xct/xXNnBchRn/tpLi9G3T8E+pnhnbIoZvj2h/1oaEMEP5FvmiTgPOdsoLcBo3o0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=UeHDRADs; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cUcvahCn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 785621F000E9;
-	Mon, 22 Jun 2026 06:50:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782111015;
-	bh=AE2b1Rn9vfLTVVEPttskMNsAr+Hsn4NycpgaiI4qn4s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cUcvahCnIwwrZZImhiv+n854ZNgVM3ko57w5UawDsEJw9uDSwM9HmPAATwWErihCq
-	 jUjjCdGQm1PXwPIb4qnXJtwCx2oqAq87rDONcpjikE+lySWRd+B04d7QG16qigsmwP
-	 Iue0i8UvcYNi5oL7NaiuN+ss/HrxE4u3kMREz+cStYhgGR22bac4G6Sok7ZF1LIABS
-	 K+oCXUq2eBFyxCw8RlqiBiq+/u8KKWn+kI4UAWiE7k+dk+UC01hS0K0hG0RqIFTL9T
-	 EU9w3TV365xKIdkBTvMps6J3KLXI029V6czi311N2pscDdQ6vDvHz09zyUWU3GUvYk
-	 gSezYnub6rKtA==
-Date: Mon, 22 Jun 2026 08:50:11 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: guoniu.zhou@oss.nxp.com
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Frank Li <frank.li@nxp.com>, Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, imx@lists.linux.dev, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, Guoniu Zhou <guoniu.zhou@nxp.com>
-Subject: Re: [PATCH v10 3/4] dt-bindings: clock: imx95-blk-ctl: Define
- formatter child node schema
-Message-ID: <20260622-independent-meticulous-skunk-4fb221@quoll>
-References: <20260618-csi_formatter-v10-0-f23830312ba5@oss.nxp.com>
- <20260618-csi_formatter-v10-3-f23830312ba5@oss.nxp.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="UeHDRADs"
+Received: from ideasonboard.com (mob-109-113-9-173.net.vodafone.it [109.113.9.173])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 40EFF1E6;
+	Mon, 22 Jun 2026 09:58:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1782115103;
+	bh=91QdCSk232KiUANG4CEhHOZADC/4ruPF70HDR+2rVoo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UeHDRADsEzARdpfx9wqYb97j7Ckk9PpBDNWUtrP/rJNzZ5rReLLLghp3vJqv7JvA5
+	 F1xIQk8Mcpw+JMW8+Gjn/5M0wxM0za/0iqkqVp+QhVPRs/vn1Kf392bqZ+vvlidDkY
+	 FOMFY5Hy0qelSOc2KzDosYyZ7jvh8S8iOxOVhf84=
+Date: Mon, 22 Jun 2026 09:58:57 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Biren Pandya <birenpandya@gmail.com>
+Cc: Jacopo Mondi <jacopo+renesas@jmondi.org>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, "open list:RDACM21 Camera Sensor" <linux-media@vger.kernel.org>, 
+	open list <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2] media: i2c: rdacm21: Fix missing
+ media_entity_cleanup()
+Message-ID: <ajjp7QW_F2Hryuw9@zed>
+References: <20260621060709.54396-2-birenpandya@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -51,81 +46,62 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260618-csi_formatter-v10-3-f23830312ba5@oss.nxp.com>
+In-Reply-To: <20260621060709.54396-2-birenpandya@gmail.com>
 
-On Thu, Jun 18, 2026 at 05:41:37PM +0800, guoniu.zhou@oss.nxp.com wrote:
-> From: Guoniu Zhou <guoniu.zhou@nxp.com>
-> 
-> The Camera CSR contains control registers for multiple CSI formatter IPs
-> at different register offsets. Each formatter is an independent hardware
-> block with its own clock input and media pipeline connection.
-> 
-> Define schema to allow formatter child nodes under nxp,imx95-camera-csr,
-> with 'reg' property specifying the formatter's register offset within the
-> CSR address space.
-> 
-> Signed-off-by: Guoniu Zhou <guoniu.zhou@nxp.com>
+Hi Biren
+
+On Sun, Jun 21, 2026 at 11:37:06AM +0530, Biren Pandya wrote:
+> If an error occurs after media_entity_pads_init() is called, the media
+> entity is left uncleaned, potentially leaking resources or leaving it
+> in an invalid state. Similarly, the remove path misses the cleanup.
+>
+> Add media_entity_cleanup() to both the error path in rdacm21_probe()
+> and the rdacm21_remove() function to ensure proper resource release.
+>
+> Fixes: a59f853b3b4b ("media: i2c: Add driver for RDACM21 camera module")
+> Cc: stable@vger.kernel.org
+
+I wouldn't backport this. media_entity_cleanup() does nothing at the
+moment and will do nothing on stable kernels as well.
+
+It is anyway worth adding it to the driver in case in future it will
+do something.
+
+> Signed-off-by: Biren Pandya <birenpandya@gmail.com>
 > ---
-> Changes in v10:
-> - Use single quotes for regex pattern to be consistent (Krzysztof Kozlowski)
-> - Add formatter subnode binding and camera-csr syscon example
-> - Update commit title and message
-> 
-> Changes in v9:
-> - New patch to address the issue of formatter acting as a child node of syscon
-> ---
->  .../bindings/clock/nxp,imx95-blk-ctl.yaml          | 64 +++++++++++++++++++++-
->  1 file changed, 63 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
-> index 534fa219d9f9..b4d0a7670fac 100644
-> --- a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
-> +++ b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
-> @@ -46,7 +46,27 @@ required:
->    - power-domains
->    - clocks
->  
-> -additionalProperties: false
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: nxp,imx95-camera-csr
-> +    then:
-> +      properties:
-> +        '#address-cells':
-> +          const: 1
-> +        '#size-cells':
-> +          const: 1
+>  drivers/media/i2c/rdacm21.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/media/i2c/rdacm21.c b/drivers/media/i2c/rdacm21.c
+> index bcab462708c7..41d4242a9b58 100644
+> --- a/drivers/media/i2c/rdacm21.c
+> +++ b/drivers/media/i2c/rdacm21.c
+> @@ -594,6 +594,7 @@ static int rdacm21_probe(struct i2c_client *client)
+>
+>  error_free_ctrls:
+>  	v4l2_ctrl_handler_free(&dev->ctrls);
+> +	media_entity_cleanup(&dev->sd.entity);
 
-These should go to top-level. In if:then:else: you only narrow them,
-e.g. you disallow for other variants (": false").
+Don't you think a new label befoer error_free_ctrls: (possibile named
+error_entity_cleanup) would be better ?
 
-if:
-then:
-....
-  required:
-   ....
-else:
-  properties:
-    '#address-cells': false
+The code jumps to error_free_ctrls: even before calling
+media_entity_pads_init().
 
-> +      required:
-> +        - '#address-cells'
-> +        - '#size-cells'
-> +      patternProperties:
-> +        '^formatter@[0-9a-f]+$':
-> +          type: object
-> +          $ref: /schemas/media/fsl,imx95-csi-formatter.yaml#
+Thanks
+   j
 
-This as well should be in top-level and here you only disallow it for
-other variants.
-
-You can avoid cross-tree dependencies by using compatible style:
-https://elixir.bootlin.com/linux/v7.1-rc6/source/Documentation/devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml#L41
-
-
-Best regards,
-Krzysztof
-
+>  error:
+>  	i2c_unregister_device(dev->isp);
+>
+> @@ -606,6 +607,7 @@ static void rdacm21_remove(struct i2c_client *client)
+>
+>  	v4l2_async_unregister_subdev(&dev->sd);
+>  	v4l2_ctrl_handler_free(&dev->ctrls);
+> +	media_entity_cleanup(&dev->sd.entity);
+>  	i2c_unregister_device(dev->isp);
+>  }
+>
+> --
+> 2.50.1 (Apple Git-155)
+>
