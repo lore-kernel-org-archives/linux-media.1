@@ -1,156 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3042C21C7;
-	Mon, 22 Jun 2026 16:50:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6788279DAF
+	for <linux-media@vger.kernel.org>; Mon, 22 Jun 2026 17:33:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782147041; cv=none; b=eqIBiaG/mG2MTj1hGJ5SZP4DdwYkcuiglX+WXSrQr0tqkSw1dKALFMpxQPoQ5CC+zYsy1D9txG5dQB2gcVkLmMN0jrQtZ4gFfeULofcYq87ZAFe8i/w+sTqhSuHSHzbkbPpprDNqOPgoCUP2UKAp3psGlJLQ/D5CxeRXN4yn4YI=
+	t=1782149631; cv=none; b=NJEAr8geL8cQzBEQnDq2KXweW6ay/N84iX5ZQYOH1pW1OHhLW7wEjdrF/M63+GAYviG4ikByixIYcUx7cyUqhE+kH1GU1NTh/LelO9k1UMw5B+M6w8dggVpTD55cMfmsLXM6jaryQl9NFBiE+I4sizC/6rA4BKhX44+4Ni4SM0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782147041; c=relaxed/simple;
-	bh=JCsAnCKSCGIzOul+9K7QDhmU/8+tMp4yJTDsnabDyPE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jJizMnPe9e3vaK9+r/JgvwU0+sIiZSkwKc1L2V1zptolKZ0JfSMmlrVqFyEIuN9hXfFz01WvBwCghrkfmUblgG4t4C+CeNLS/p7fRQJVnlQ9zZEcKsLFfXMbZxPmUwogDFMWtqbU4SdrMm9ll6Yh9gmzRy1ztHJxlz/jTLSgyDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TdiEOuR3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782149631; c=relaxed/simple;
+	bh=vIqwXAqU1HsYBJlcwii1d7KCHucu+av7KUnX+u4usSw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R0JuokB9HPzMdATDYe3JEcGCqvc9xyZF1BhoPpOrVVVNbMd1n3vwvaLiX4jlG+O155IC+lXOi5cQ6pitzoF8PqKBdT5ZeGelzfomaNmpkcpY7p3eCQmVLFyeWpQYcq2woIryMBn+Pwk6ixeDWMRVIkP6Dy5OZ20sXT4kutRifGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YcYgbN3D; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TdiEOuR3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A898E1F000E9;
-	Mon, 22 Jun 2026 16:50:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782147039;
-	bh=JCsAnCKSCGIzOul+9K7QDhmU/8+tMp4yJTDsnabDyPE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TdiEOuR38PfO/JHs84E85gCdwBYKdEwvGwn64x1QP3HF3u3b4f9/yczqdqAUPRAKj
-	 0N54McxrC1CqIkz+RB/iKUMdq4r+3nagg7bu5NO0mrFF8QCB85dhID2TvQmeOhAgzD
-	 feLz+1l7UD8MQHh4Pgnqo2bob7WoBedV8/HuVNjHzrAYvlizZpsYI4GLCaVX58LDu5
-	 61fqs0E/c1KgBRA1Y6OBgPHrFeNGZ4VJ/YuEnxsbWhNbFPvWiz9A9MckTXn+xz0QEs
-	 lfquX/fHU9mENWGrPxgWasMlwzELb5AqiWdewxzyfFJ65y6N4dcnWJPBQ7J9MnU+HL
-	 +NMAXZJ7MqSXg==
-Date: Mon, 22 Jun 2026 17:50:21 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>,
-	Sam Protsenko <semen.protsenko@linaro.org>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Inki Dae <inki.dae@samsung.com>,
-	Seung-Woo Kim <sw0312.kim@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Georgi Djakov <djakov@kernel.org>, Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>, Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>, Peter Rosin <peda@lysator.liu.se>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Sebastian Reichel <sre@kernel.org>,
-	Javier Martinez Canillas <javier@dowhile0.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Jonathan Marek <jonathan@marek.ca>,
-	Taniya Das <quic_tdas@quicinc.com>,
-	Robert Marko <robimarko@gmail.com>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Stephan Gerhold <stephan@gerhold.net>,
-	Adam Skladowski <a_skl39@protonmail.com>,
-	Sireesh Kodali <sireeshkodali@protonmail.com>,
-	Barnabas Czeman <barnabas.czeman@mainlining.org>,
-	Imran Shaik <quic_imrashai@quicinc.com>,
-	Sricharan Ramabadhran <quic_srichara@quicinc.com>,
-	Anusha Rao <quic_anusha@quicinc.com>,
-	Luo Jie <quic_luoj@quicinc.com>,
-	Tomasz Figa <tomasz.figa@gmail.com>,
-	Chanho Park <chanho61.park@samsung.com>,
-	Sunyeal Hong <sunyeal.hong@samsung.com>,
-	Shin Son <shin.son@samsung.com>,
-	Krishna Manikandan <quic_mkrishn@quicinc.com>,
-	Jacek Anaszewski <jacek.anaszewski@gmail.com>,
-	Jaehoon Chung <jh80.chung@samsung.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Alina Yu <alina_yu@richtek.com>, Andy Gross <agross@kernel.org>,
-	Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>,
-	Wesley Cheng <quic_wcheng@quicinc.com>,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-	linux-i2c@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-mmc@vger.kernel.org, linux-phy@lists.infradead.org,
-	linux-gpio@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-sound@vger.kernel.org,
-	linux-usb@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: clock: Drop incorrect usage of double
- '::'
-Message-ID: <20260622-awkward-superman-77c1820980fd@spud>
-References: <20260622101606.485961-3-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YcYgbN3D"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84232e83ca9so1958937b3a.2
+        for <linux-media@vger.kernel.org>; Mon, 22 Jun 2026 10:33:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782149629; x=1782754429; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ba6sP+0COuG6/GPgP0Uhk+kq1740BlSFeDZq6i6dVkc=;
+        b=YcYgbN3DO6iZZTYAghyNPlWtMs4tqx/iuDCEEkKQ0JvdxVtOI1NYR1cAR3WTOUI5aZ
+         eDAoeyPlzH/tJv3cjySPQOgHa4c0YjslFZ8wQHi6wMtkYOQTIodL4BXYHp4ofnEfniLS
+         MsvmUbkYaj3xrYqMsg+spBDv+WbW7sqnJZmb5cwZ+WvxMMIr3PwBAPu1QwEfHuuX8B7j
+         qSH18qQtJXx66oO4EUGZDD9m9wd8MHIkMq7wBEdokjPkWQsA0yZ0Qz41AEqLrZFnCdgX
+         9s8lmeEXYbU1FBnID8qtcd/8TL41EHPbMGZxPl1dPq2j2Rr5p1l2iyfs9MoEJ6gFzP7U
+         xnDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782149629; x=1782754429;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ba6sP+0COuG6/GPgP0Uhk+kq1740BlSFeDZq6i6dVkc=;
+        b=XJmZtQQ1Ya4AWRGVjR4A+vikr3JrVN+eiYC/hk0XqIeu2CefTELkft5JspwYkLwwVY
+         LS/OPfvpVCM0+Pmh3wcjbxVFAtO1MwWdP1zcJiIjwRjhpKDY8sV6e5hBV8kEsmvzm85q
+         JvzynJlMcoGu8v9CyjHkAHlkUfJXhehZ9uzEmiDZIFQ/Qbz9ZzB9FceG+NjlNrPWrcJV
+         uuM957lqhmIAYs+jAEQPBjf6v0+ZnGS9lbmJOtD3H8+uSsQzUY0+c/AbAFiweTT8u//o
+         /p1jy/qkxom26YY7CMoyInrbGAxRlHyIkrO4Rge9aqtXZxv7rSdiPSdIPjWV9ZgQoJiV
+         E5Nw==
+X-Gm-Message-State: AOJu0Yye6dRahrtb/xH+m3NasaTM5aJGv42RhFVLXDsqA/pm7rf68nJs
+	+EabP8GbiLB66DVrlU7s/IlZv6NAftbB4tIe3WTNhkQvFeqWyeFbCDYR3elU+Rkq
+X-Gm-Gg: AfdE7cmxirtw42cLhvafj3v7qmrb1Bs4CY6aH3fSb8U9Y1AkAH+vueeh/jhvEgiz9kJ
+	ei/6AtoFILmm/E1trQb6skVBBN4mxfagAIJrJctChQDQ4aZdHdOfmL4J0Jvq2foudbmeea2T4vN
+	dXrNm0hxIjWmcmSeG426/hYwGT3t4KMnCjStB6WsI/+v7rglqY9aA21Gs/V7CtQ/Ebcn9yWtpeX
+	DbDUjTygmh5f5qfiN0nllqvUVo9kD8jGEyf6eMiOw+nEeCCwel5iSB8jC7s+bynjpdpgaZlBhMR
+	zQ1d/0XVIGpIcQiMNyj88PqYvDPzy9/ikG5xsn+o2YyzuWSA0sFTB9NcqKoBn4QrYgJtJjqXRbz
+	FjmgyVDSjcKkkQLXohuVWtZq0Syab6yiiMOiqzBSTsignyBL1OwiYT3SQfZJCmTjOrZK6JGipfK
+	UIxOLUVJM7uQ4WBX0zPoEeL34p98yaPLX9wjmAxAiALw==
+X-Received: by 2002:a05:6a00:3499:b0:845:32c8:e77d with SMTP id d2e1a72fcca58-8455615862cmr15752950b3a.34.1782149629087;
+        Mon, 22 Jun 2026 10:33:49 -0700 (PDT)
+Received: from localhost.localdomain ([49.207.234.96])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84564ebd123sm7670753b3a.47.2026.06.22.10.33.46
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 22 Jun 2026 10:33:48 -0700 (PDT)
+From: Biren Pandya <birenpandya@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: jacopo.mondi@ideasonboard.com,
+	laurent.pinchart@ideasonboard.com,
+	kieran.bingham+renesas@ideasonboard.com,
+	mchehab@kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Biren Pandya <birenpandya@gmail.com>
+Subject: [PATCH v3 0/4] media: renesas: Fix missing media_entity_cleanup()
+Date: Mon, 22 Jun 2026 23:03:35 +0530
+Message-ID: <20260622173334.60491-6-birenpandya@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ekjFkzmEIYkrCPca"
-Content-Disposition: inline
-In-Reply-To: <20260622101606.485961-3-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
+*** BLURB HERE ***
 
---ekjFkzmEIYkrCPca
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Biren Pandya (4):
+  media: renesas: rcar-csi2: Add missing media_entity_cleanup()
+  media: renesas: csisp: Add missing media_entity_cleanup()
+  media: renesas: rcar-core: Add missing media_entity_cleanup()
+  media: renesas: rzg2l-core: Add missing media_entity_cleanup()
 
-On Mon, Jun 22, 2026 at 12:16:07PM +0200, Krzysztof Kozlowski wrote:
-> There is no use of double colon '::' in YAML. OTOH, the literal style
-> block, e.g. using '|' treats all characters as content [1] therefore
-> single use of ':' in descriptions is perfectly fine, whenever '|' is
-> used.
->=20
-> Cleanup existing code, so the confusing style won't be re-used in new
-> contributions.
->=20
-> Link: https://yaml.org/spec/1.2.2/#literal-style [1]
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ drivers/media/platform/renesas/rcar-csi2.c            | 2 ++
+ drivers/media/platform/renesas/rcar-isp/csisp.c       | 5 ++++-
+ drivers/media/platform/renesas/rcar-vin/rcar-core.c   | 5 ++++-
+ drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c | 1 +
+ 4 files changed, 11 insertions(+), 2 deletions(-)
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+-- 
+2.50.1 (Apple Git-155)
 
---ekjFkzmEIYkrCPca
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajlnzQAKCRB4tDGHoIJi
-0pm4AQDVA6W42Jd2yOWiv511GaumWdq9efHBBIFcwF+PLR8AcQD/U21p7Opovpsk
-KXGBfmks88NdCaBeEYOnPhOQGN7PYwA=
-=rDEr
------END PGP SIGNATURE-----
-
---ekjFkzmEIYkrCPca--
