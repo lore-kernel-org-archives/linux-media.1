@@ -1,54 +1,54 @@
-Received: from mail-qt1-f202.google.com (mail-qt1-f202.google.com [209.85.160.202])
+Received: from mail-qt1-f201.google.com (mail-qt1-f201.google.com [209.85.160.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E1E363C6A
-	for <linux-media@vger.kernel.org>; Mon, 22 Jun 2026 20:44:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6341E3655E9
+	for <linux-media@vger.kernel.org>; Mon, 22 Jun 2026 20:44:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782161054; cv=none; b=EeVvjoUmWVngA9EEOA/cVqP6x+lhP1lhOKgF97rzdn+M0jLSUNf02Za/FnxQNFSK9RRW/dXHo0Yz/jqoEM29IgMYGbTJeFDzT91YGCGWTKTOp7OS1lDv8yFaIuNE//3/uoysSXkRPklSl79jMgk4/+9qEU4Mt82aw7HIpr4V/qk=
+	t=1782161056; cv=none; b=iTbnNN/kfud/kn+xkTQcmUdviscereK3dWycCIbp7uNDrfnoVUIubU24/pz59q22IMMmp9Vtg7ymaW2v+2/erLBw6+2AtdQWRh7/mQ8WYgf26qP/TgoIvZyyUnM6jzRE7Ui/OcBUbjY+lHSoeA600dvSZTlN1OyFXVSpYS6P1fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782161054; c=relaxed/simple;
-	bh=rZdLN5tzkGsE01tHBYLqly9HFJvaHp5kpnYWUOkPpCc=;
+	s=arc-20240116; t=1782161056; c=relaxed/simple;
+	bh=wjti8bknEcTX8FcniewZeDWvKL403gQyFz+BxaWi4QE=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=anMjE7aUioJ5dVwUc4LP1OSwU/kPdpLPGluV/BXEaJXNdQIIfUo96koOyIl2Br46OuvDUYv1P5rdBZhbRBx+fP/11FvqzD5NSdmCuQilVNAP5vOyfXX1s9/plsuAayRr05D/qnEYcc7AaGpJaEJb1ROqbyk/6VViEtoEky46bPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rHHkvQ3Z; arc=none smtp.client-ip=209.85.160.202
+	 To:Cc:Content-Type; b=tVvUx35pGRiw0xzH1Kipv5rTRsQc02f9DpcZjxkvqTJF+UcEoHMZR6Pt3cyfvbyutib2/jGpEjaPwHBM4+NIE9riufpDj59gEGWN3s4CqbnHae+BarAvwzUdyXn7jhFBPyKb6s7tYMR8PjJMEq3OBdqe4uAcwULwVeiD9c01lgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LoFqWw0Z; arc=none smtp.client-ip=209.85.160.201
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rHHkvQ3Z"
-Received: by mail-qt1-f202.google.com with SMTP id d75a77b69052e-51a08feb103so51321511cf.2
-        for <linux-media@vger.kernel.org>; Mon, 22 Jun 2026 13:44:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LoFqWw0Z"
+Received: by mail-qt1-f201.google.com with SMTP id d75a77b69052e-519e4aaec80so68629771cf.0
+        for <linux-media@vger.kernel.org>; Mon, 22 Jun 2026 13:44:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1782161052; x=1782765852; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1782161054; x=1782765854; darn=vger.kernel.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=56mHhpj/siMw9Lq+ab4+IGXdy9XN2OLNariufEr+eMk=;
-        b=rHHkvQ3ZNFDpbXFsx4uMYxyoXXSZlVRe36TLw0vpkGuEkypVpC5xpF7fQNlJtBN61f
-         P1oE0A6p97JqZe323cVbo/37xsG6tdrAYN1vCTMEVD2ySv7BEysGuDN33ZLCQI9y88bW
-         uYQknw7nkW/k97PlzakaaJVgNtH1BQburANUn6OFC+M0Jle1Bjhn/igbncrUME01cZUZ
-         Du7xQGEOojJErs+fLg768zRo9JDWQj7xBCRqacwSQDqULTws4BljjAhf5Xbztmw9cbZs
-         /ysU3fJtiSNrjpwBhpD3609b75noDqJsMxd/7TlR/ePU960uKB5f91BthSK3Ez0AMsDI
-         WnFw==
+        bh=oeY7Afs0lbHnR0QncCnTUELZnAVrZhoU3GxTUGfziYk=;
+        b=LoFqWw0ZN1FYWJvTKvmGPVkb8kIydNQyl280exrbFFFuAfN1bQjfLcFUawwkBKh2fm
+         hcEvoOjyAPaQVyB+2Y71gSZAkjqgNS0M+SKJDiT3JN/SI8paauOOJtnpA5MyF5ecMtiN
+         y0tdKi/KuB4Wql678NWVLVPtQwgzI+dsgn51eQZxYwIZZnHaXhoJah1+/RXtPQu/qcnk
+         wsQ9LfH0dJuasK6imYcM1xe9QK7egLNql/tYxbOLeZV9ahv28vOv2i3f+8N+7i3GtJ1D
+         lkbvDGLG0VtlUX3MLQhXaQCziADE2ICvZRkFofnQ0jt+kq0vNYGIDi+IbeihHhUD7s97
+         vXIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782161052; x=1782765852;
+        d=1e100.net; s=20251104; t=1782161054; x=1782765854;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=56mHhpj/siMw9Lq+ab4+IGXdy9XN2OLNariufEr+eMk=;
-        b=FCi7rnPuWzlXlaiiEito3ZY8Q+/7ixZjuWUzNCED2Yig6alvn1YnH4HByZ3ObZPkl0
-         f7QGkSJiNlWKbq1efvoTea3clBNU9VBWh2hkG6gy5e5a6vMX/8xjmhI2tcnpD/pVF41G
-         Rc5KaJ1fOfm9HBXTwaJd6h6HXfr7edapfoIcKogg48rAi1ezKa3mMzi2eCDnuzHpJt4y
-         iaBWRMuX3Oj2HBl7TnqNOXPcGSpsgeG73TYcq3BIaNoSYsleetAb+I3SWgCeKa0KnQAG
-         rRDjW644eywXgS8W8zqrmoTgFpRexLShk7uEDnpJa74LKMBj0spvVuj+ur/Pv4XV+4BC
-         swRA==
-X-Forwarded-Encrypted: i=1; AFNElJ9QBqoFqQwQikX/53KnJWj8+uUzNaEru//TgxZTKLTvZUuT771SDIKAOdiLGWo4/bzEiktB6qNbwSG8Kg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwoXxpqFlovoX8BIntTd3xq+Xr0bjb2mp++ny3i2y8wKjbKXRZv
-	cCJbWciLidDj2cXEQLNnZRIDG6rSJ3hOPU86eNEjG4vd0FkwU2M1Xg2+ht2xpMmxESYOkEQDxK3
-	j9ce342JV6VwEC5K1PyN2uD/YrJLE
-X-Received: from qtam14-n2.prod.google.com ([2002:a05:622a:e10e:20b0:516:d746:4e0f])
+        bh=oeY7Afs0lbHnR0QncCnTUELZnAVrZhoU3GxTUGfziYk=;
+        b=O/WOPeLJk0abskxPYeZqJhZvytLIgDjhXeyFPHCDxw7dwxcQ5kvXgTAQt91RIFoqFb
+         QHvaia05gAPCfiLEyP1DeARCNthRa61VMto9FBCgSkHOMD3oUmsyeKCFbZzKpJXGrZy2
+         fEsjfu9R603IM/0w22go4QkHRzqb9jWTnD+e/VEwSnD6xzwceDi886uCZMg0dBEtn32E
+         pQYx0/+CcSewvbF2FYRdQh8a1buoGNjiE6J+o3hoaVTPeG8EyTHZdUgOwPZUu6wDvE6N
+         evGUkOSAXSI7piqgNPLZopIsb0LfmkHMoOIlYlI7/1c7dwG3d8MxakDNCg1DmxQSkTvq
+         Nz4A==
+X-Forwarded-Encrypted: i=1; AFNElJ875DY/CMGsiL3+ZCB07e3qbnEovWtearcvz1LvmSch2KxLZCJTv01wFDddS60Y9iqoA//y+Bugu+0azw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzlSonoHhFKOkBiyuHMufdtCVLtuu6RqnCTi1dEZIZCNruJHR94
+	F9HR1XbLutJMsd4yRqjVzJuiiQ+psgLb0Q5QQVwDu1ZfU550tuGa0zPZrG9h2BhU4ct1B4B5zfB
+	BNP5gIN40a30wny19Zck4HIgBJlAz
+X-Received: from qtwu5.prod.google.com ([2002:a05:622a:105:b0:514:c2a9:36f2])
  (user=briandaniels job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:622a:2d0d:b0:519:f8e2:dae4 with SMTP id d75a77b69052e-519ff3f4bb9mr159603471cf.39.1782161051759;
- Mon, 22 Jun 2026 13:44:11 -0700 (PDT)
-Date: Mon, 22 Jun 2026 16:43:42 -0400
+ 2002:a05:622a:1923:b0:517:260f:8e95 with SMTP id d75a77b69052e-519e49155f4mr254690411cf.8.1782161054020;
+ Mon, 22 Jun 2026 13:44:14 -0700 (PDT)
+Date: Mon, 22 Jun 2026 16:43:43 -0400
 In-Reply-To: <20260622204343.1994418-1-briandaniels@google.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -58,8 +58,8 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260622204343.1994418-1-briandaniels@google.com>
 X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
-Message-ID: <20260622204343.1994418-8-briandaniels@google.com>
-Subject: [PATCH v4 7/8] media: virtio: Add virtio-media to the build system
+Message-ID: <20260622204343.1994418-9-briandaniels@google.com>
+Subject: [PATCH v4 8/8] media: virtio: Add MAINTAINERS entry
 From: Brian Daniels <briandaniels@google.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: acourbot@google.com, adelva@google.com, aesteve@redhat.com, 
@@ -73,69 +73,32 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Alexandre Courbot <gnurou@gmail.com>
 
-Add Kconfig and Makefile entries for the new virtio-media driver.
+Add an entry for the new virtio-media driver.
 
 Signed-off-by: Alexandre Courbot <gnurou@gmail.com>
 Co-developed-by: Brian Daniels <briandaniels@google.com>
 Signed-off-by: Brian Daniels <briandaniels@google.com>
 ---
- drivers/media/Kconfig         | 13 +++++++++++++
- drivers/media/Makefile        |  2 ++
- drivers/media/virtio/Makefile |  8 ++++++++
- 3 files changed, 23 insertions(+)
- create mode 100644 drivers/media/virtio/Makefile
+ MAINTAINERS | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/media/Kconfig b/drivers/media/Kconfig
-index 6abc9302c..7bc7306fa 100644
---- a/drivers/media/Kconfig
-+++ b/drivers/media/Kconfig
-@@ -136,6 +136,19 @@ config MEDIA_PLATFORM_SUPPORT
+diff --git a/MAINTAINERS b/MAINTAINERS
+index efbf80806..af370b787 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -28327,6 +28327,12 @@ S:	Maintained
+ F:	drivers/iommu/virtio-iommu.c
+ F:	include/uapi/linux/virtio_iommu.h
  
- 	  Say Y when you want to be able to see such devices.
- 
-+config MEDIA_VIRTIO
-+	tristate "Virtio-media Driver"
-+	depends on VIRTIO && VIDEO_DEV && 64BIT && (X86 || (ARM && CPU_LITTLE_ENDIAN))
-+	select VIDEOBUF2_CORE
-+	select VIDEOBUF2_MEMOPS
-+	help
-+	  Enables the virtio-media driver.
++VIRTIO MEDIA DRIVER
++M:	Brian Daniels <briandaniels@google.com>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++F:	drivers/media/virtio/
 +
-+	  This driver is used to virtualize media devices such as cameras or
-+	  decoders from a host into a guest using the V4L2 protocol.
-+
-+	  If unsure, say N.
-+
- config MEDIA_TEST_SUPPORT
- 	bool
- 	prompt "Test drivers" if MEDIA_SUPPORT_FILTER
-diff --git a/drivers/media/Makefile b/drivers/media/Makefile
-index 20fac24e4..357e786cc 100644
---- a/drivers/media/Makefile
-+++ b/drivers/media/Makefile
-@@ -23,6 +23,8 @@ obj-$(CONFIG_DVB_CORE) += dvb-core/
- # There are both core and drivers at RC subtree - merge before drivers
- obj-y += rc/
- 
-+obj-$(CONFIG_MEDIA_VIRTIO) += virtio/
-+
- obj-$(CONFIG_CEC_CORE) += cec/
- 
- #
-diff --git a/drivers/media/virtio/Makefile b/drivers/media/virtio/Makefile
-new file mode 100644
-index 000000000..1d69d5fd4
---- /dev/null
-+++ b/drivers/media/virtio/Makefile
-@@ -0,0 +1,8 @@
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Makefile for the virtio-media device driver.
-+
-+virtio-media-objs := scatterlist_builder.o virtio_media_ioctls.o \
-+			virtio_media_driver.o
-+
-+obj-$(CONFIG_MEDIA_VIRTIO) += virtio-media.o
+ VIRTIO MEM DRIVER
+ M:	David Hildenbrand <david@kernel.org>
+ L:	virtualization@lists.linux.dev
 -- 
 2.55.0.rc0.799.gd6f94ed593-goog
 
