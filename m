@@ -1,184 +1,169 @@
-Received: from mail-qt1-f201.google.com (mail-qt1-f201.google.com [209.85.160.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B83385D8C
-	for <linux-media@vger.kernel.org>; Tue, 23 Jun 2026 01:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD6938D3E6;
+	Tue, 23 Jun 2026 03:13:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782179705; cv=none; b=O0iIOWzfweLlwaouuNemOEujOlI0X8Rbzu37JI37tpUiEXMxN3zVHwehbNEeLsXNSMluqvI5G3VVmj7FGIfj1WqTmD5aF9xm7WdpRtfH7NmY31WS8RznN/N0Xczn9smrwvd1ZrP4BZHpFZ4FRoQfa7D9kRDQ47YYMDgmD/0Z26Y=
+	t=1782184395; cv=none; b=ppPjLOsdfmP+Vk8us8Ganw6O0FuP1awjXyoMFfCwul+HGdcLFqHZAI7dQLCG3yTmMGA8dOLnNOOiHbGN4QRT8lq2OD9mBqLRSjhXQ4O5mZ8+ApuhjiC/h15eLG9mWa6BfFCubIpc2lzXnTpMJCae8Qk+HO6lGdEFR/M0OzBwXuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782179705; c=relaxed/simple;
-	bh=bBWRORv7RUc8uRHv6zCGgvNd/JG4DiLB/oASlXLOQPs=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=L7DK3rX4sWWu+nKEBqVOjo55feVDlQjvjRZweleQgCoIf6VrtKxHssSLAR1/cl5l50x7Xtwxvj4SoK1lFqbiM8WSfD9ysE5OgVSjC4knuIhDLzU/DtpHVrlJzAaXpW1lARCp/8+JNvRWcZ4TrCOuRyJUaZqrB8MgB1gE2J4LEYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--xuehaohu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TVgsc0sT; arc=none smtp.client-ip=209.85.160.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--xuehaohu.bounces.google.com
+	s=arc-20240116; t=1782184395; c=relaxed/simple;
+	bh=tatdd/Q7QE0upqPJVjWgLFwHUzQQq+izQdPrwXLkDtk=;
+	h=From:To:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:References; b=Z9oS3eMmT4mzR5aLybFEz4wVeD2LPT9udgVHrMxRAp1o0WywAZezKeIe44q45ucCrX8Ta3KZpUTKpcM02trQmcTCKdhEeKdqYEdEZK84gvaIP6xD8CKl494dUQmTaMpREfnXgPF1oodc+IT7In9YbohfvNrwz+evUEe6Mu0/sUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=dNfxF4M3; arc=none smtp.client-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TVgsc0sT"
-Received: by mail-qt1-f201.google.com with SMTP id d75a77b69052e-519899abab8so100954991cf.2
-        for <linux-media@vger.kernel.org>; Mon, 22 Jun 2026 18:55:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1782179702; x=1782784502; darn=vger.kernel.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=lkITz2dGNs54nij5ccY4KCvNRYJG4BpFQmrxgUXzmOc=;
-        b=TVgsc0sTIDf3LSHX/MsKLkwwjnd2LZOOlBd0U8+/Z52q1GSIBRwWzmJiQFJA+HC+DP
-         NwpBus+1F/xW819J8IgPepSE2YQUUSNM1wxtmbCFCVLrRU7Ei6aaQl9HlqDAN+Cpro4f
-         Bx1/SNsm/nIYpqkGwgTH7lRZKXh55ilepG3RDnRXBP6DgpaS6YCd5+r68rp6qxC5j+4d
-         4GaiC8f7Inyssj3LZTsgVaN6CnZ9VLfuM5dt4DaojjIbQ7E6rdivfH5FVVKFjGTM2LeX
-         5ZVB0Yxf4c3tyqZ+glK+SJI4VLo2CUJZdW6PbJYscq2lYkKFR7VAqxE5pdOiHYNg7G29
-         uEdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782179702; x=1782784502;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lkITz2dGNs54nij5ccY4KCvNRYJG4BpFQmrxgUXzmOc=;
-        b=S3dHhn0aTgTzZdqvvD3Rh5q0MnvrVwE8x0+YROCrhb+TGzVeDdy2OKG6cs1O9Qs6wO
-         bmjuaaTcBpJGfk1F1MLGz8wEsY3QABthHxwBV1/7aa/hXoOqy9mgRfxrb3JXEt5/wNKy
-         BbRJxK2/6FiVoxSsreQCWUEPAOa2D2JhxBozoLQspDoYLN++iaHHiPaAWULbtp37gwZX
-         cisNfdmERWJabPDChhcLWY9yAUAEVRC6jBmstCZFviVeh227qzJMwlZFPIHKsurgHug7
-         co9753Uvb2GwvnbE1P0+BTRpVm9Il0fsxTUC3gHLU8c3QLuEbAnnun3KAiW2aAGmXTLU
-         KI0w==
-X-Forwarded-Encrypted: i=1; AFNElJ/p2LbAcdKO/+wIZnF8mUVuSEe59cqUAx2cqSsBaaGrJu6S+5PUgTUzRa8vn6hBEEAxJPGpbZhm9OLTBQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw5gU3pUAOyc/dh+1602fSiP0CmPKkJC0Otg660HOSfwJmpahbP
-	RB8hUO8U+wqJV2VDOrEY1hhOsMxmqLHHHaDG97UC8r0qOFyyakjJmX/Q/228yLrIjT8XcJ7XvyQ
-	kVTDlk1CTx7Tb
-X-Received: from qtxx9-n2.prod.google.com ([2002:a05:622a:aac9:20b0:517:96a4:99ea])
- (user=xuehaohu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:622a:2609:b0:519:89f6:6ed4 with SMTP id d75a77b69052e-51a548b6418mr13414611cf.47.1782179701475;
- Mon, 22 Jun 2026 18:55:01 -0700 (PDT)
-Date: Tue, 23 Jun 2026 01:54:59 +0000
-In-Reply-To: <20260621222130.1667453-1-xuehaohu@google.com>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="dNfxF4M3"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260623031304epoutp04b58205b658a8fc7f7458a882a18eaba2~7l0FFYfm41880418804epoutp04a;
+	Tue, 23 Jun 2026 03:13:04 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260623031304epoutp04b58205b658a8fc7f7458a882a18eaba2~7l0FFYfm41880418804epoutp04a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1782184384;
+	bh=tatdd/Q7QE0upqPJVjWgLFwHUzQQq+izQdPrwXLkDtk=;
+	h=From:To:In-Reply-To:Subject:Date:References:From;
+	b=dNfxF4M3fyZDfW3CRh3lyZWqMNYsOP4XtAdUT1p5ZJqUeSRRx63y6bFC8gBFnYGJ/
+	 2PA9S3WitCXE5BiEd84kDRmhjRFpItBmgmC2TWVubBHDJLlGmnyl63bz1zTjkIX2Mn
+	 UkknWAWYwpil1XaCsoKvzcmVN65+WOpAu9nWyWc0=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20260623031303epcas5p378f6b175e3e88956e96fb88e6537bcf9~7l0EthhRN0685906859epcas5p39;
+	Tue, 23 Jun 2026 03:13:03 +0000 (GMT)
+Received: from epcpadp2new (unknown [182.195.40.142]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4gkqrb4vT0z2SSKX; Tue, 23 Jun
+	2026 03:13:03 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260622114525epcas5p2654a56b123110dea3b2fb97739d9a92b~7ZKI1GCT00255802558epcas5p2L;
+	Mon, 22 Jun 2026 11:45:25 +0000 (GMT)
+Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip2.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20260622114503epsmtip205edc6f0281b21bca275e7401267a8a1~7ZJ05N0KR2405124051epsmtip2Y;
+	Mon, 22 Jun 2026 11:45:03 +0000 (GMT)
+From: "Alim Akhtar" <alim.akhtar@samsung.com>
+To: "'Krzysztof Kozlowski'" <krzysztof.kozlowski@oss.qualcomm.com>, "'Bjorn
+ Andersson'" <andersson@kernel.org>, "'Konrad Dybcio'"
+	<konradybcio@kernel.org>, "'Rob Herring'" <robh@kernel.org>, "'Krzysztof
+ Kozlowski'" <krzk+dt@kernel.org>, "'Conor Dooley'" <conor+dt@kernel.org>,
+	"'Peter Griffin'" <peter.griffin@linaro.org>, "'Michael	Turquette'"
+	<mturquette@baylibre.com>, "'Stephen Boyd'" <sboyd@kernel.org>, "'Brian
+ Masney'" <bmasney@redhat.com>, "'Sylwester Nawrocki'"
+	<s.nawrocki@samsung.com>, "'Chanwoo Choi'" <cw00.choi@samsung.com>, "'Sam
+ Protsenko'" <semen.protsenko@linaro.org>, "'Rob Clark'"
+	<robin.clark@oss.qualcomm.com>, "'Dmitry Baryshkov'" <lumag@kernel.org>,
+	"'Abhinav Kumar'" <abhinav.kumar@linux.dev>, "'Jessica Zhang'"
+	<jesszhan0024@gmail.com>, "'Sean Paul'" <sean@poorly.run>, "'Marijn
+	Suijten'" <marijn.suijten@somainline.org>, "'David	Airlie'"
+ <airlied@gmail.com>, "'Simona Vetter'" <simona@ffwll.ch>, "'Maarten
+	Lankhorst'" <maarten.lankhorst@linux.intel.com>, "'Maxime Ripard'"
+ <mripard@kernel.org>, "'Thomas Zimmermann'" <tzimmermann@suse.de>, "'Inki
+	Dae'" <inki.dae@samsung.com>, "'Seung-Woo Kim'" <sw0312.kim@samsung.com>,
+	"'Kyungmin	Park'" <kyungmin.park@samsung.com>, "'Andi Shyti'"
+	<andi.shyti@kernel.org>, "'Georgi	Djakov'" <djakov@kernel.org>, "'Lee
+	Jones'" <lee@kernel.org>, "'Pavel Machek'" <pavel@kernel.org>, "'Hans
+	Verkuil'" <hverkuil@kernel.org>, "'Mauro Carvalho	Chehab'"
+ <mchehab@kernel.org>, "'Ulf Hansson'" <ulfh@kernel.org>, "'Peter Rosin'"
+ <peda@lysator.liu.se>, "'Vinod Koul'" <vkoul@kernel.org>, "'Neil Armstrong'"
+ <neil.armstrong@linaro.org>, "'Linus Walleij'" <linusw@kernel.org>, "'Geert
+	Uytterhoeven'" <geert+renesas@glider.be>, "'Magnus Damm'"
+ <magnus.damm@gmail.com>, "'Sebastian Reichel'" <sre@kernel.org>, "'Javier
+	Martinez Canillas'" <javier@dowhile0.org>, "'Liam Girdwood'"
+ <lgirdwood@gmail.com>, "'Mark Brown'" <broonie@kernel.org>, "'Greg
+	Kroah-Hartman'" <gregkh@linuxfoundation.org>, "'Jiri	Slaby'"
+ <jirislaby@kernel.org>, "'Srinivas Kandagatla'" <srini@kernel.org>,
+	"'Bartlomiej Zolnierkiewicz'" <bzolnier@gmail.com>, "'Rafael J. Wysocki'"
+	<rafael@kernel.org>, "'Daniel Lezcano'" <daniel.lezcano@kernel.org>, "'Zhang
+ Rui'" <rui.zhang@intel.com>, "'Lukasz Luba'" <lukasz.luba@arm.com>,
+	"'Jonathan Marek'" <jonathan@marek.ca>, "'Taniya Das'"
+	<quic_tdas@quicinc.com>, "'Robert Marko'" <robimarko@gmail.com>, "'Christian
+ Marangi'" <ansuelsmth@gmail.com>, "'Stephan	Gerhold'" <stephan@gerhold.net>,
+	"'Adam Skladowski'" <a_skl39@protonmail.com>, "'Sireesh Kodali'"
+	<sireeshkodali@protonmail.com>, "'Barnabas Czeman'"
+	<barnabas.czeman@mainlining.org>, "'Imran Shaik'"
+	<quic_imrashai@quicinc.com>, "'Sricharan Ramabadhran'"
+	<quic_srichara@quicinc.com>, "'Anusha Rao'" <quic_anusha@quicinc.com>, "'Luo
+ Jie'" <quic_luoj@quicinc.com>, "'Tomasz Figa'" <tomasz.figa@gmail.com>,
+	"'Chanho Park'" <chanho61.park@samsung.com>, "'Sunyeal	Hong'"
+	<sunyeal.hong@samsung.com>, "'Shin Son'" <shin.son@samsung.com>, "'Krishna
+ Manikandan'" <quic_mkrishn@quicinc.com>, "'Jacek Anaszewski'"
+	<jacek.anaszewski@gmail.com>, "'Jaehoon Chung'" <jh80.chung@samsung.com>,
+	"'Marek	Szyprowski'" <m.szyprowski@samsung.com>, "'Alina Yu'"
+	<alina_yu@richtek.com>, "'Andy	Gross'" <agross@kernel.org>,
+	=?UTF-8?Q?'Niklas_S=C3=B6derlund'?= <niklas.soderlund@ragnatech.se>,
+	"'Wesley Cheng'" <quic_wcheng@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-samsung-soc@vger.kernel.org>,
+	<linux-clk@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+	<freedreno@lists.freedesktop.org>, <linux-i2c@vger.kernel.org>,
+	<linux-pm@vger.kernel.org>, <linux-leds@vger.kernel.org>,
+	<linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
+	<linux-phy@lists.infradead.org>, <linux-gpio@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>, <linux-serial@vger.kernel.org>,
+	<linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+	<cpgs@samsung.com>
+In-Reply-To: <20260622101606.485961-4-krzysztof.kozlowski@oss.qualcomm.com>
+Subject: RE: [PATCH 2/2] dt-bindings: Drop incorrect usage of double '::'
+Date: Mon, 22 Jun 2026 17:15:00 +0530
+Message-ID: <373928166.21782184383679.JavaMail.epsvc@epcpadp2new>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260621222130.1667453-1-xuehaohu@google.com>
-X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
-Message-ID: <20260623015459.1153884-1-xuehaohu@google.com>
-Subject: [PATCH v2] dma-buf: Split sgl into page-aligned 2G chunks
-From: David Hu <xuehaohu@google.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>, 
-	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>
-Cc: David Laight <david.laight.linux@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Nicolin Chen <nicolinc@nvidia.com>, Leon Romanovsky <leon@kernel.org>, Kevin Tian <kevin.tian@intel.com>, 
-	Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
-	linux-kernel@vger.kernel.org, iommu@lists.linux.dev, jmoroni@google.com, 
-	praan@google.com, kpberry@google.com, chriscli@google.com, 
-	sashiko-bot@kernel.org, stable@vger.kernel.org, 
-	David Hu <xuehaohu@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQI6ZcaYiR7zkv7wowZwd71jplyCqgLGmQzlAevIaT+1ahn2EA==
+Content-Language: en-us
+X-CMS-MailID: 20260622114525epcas5p2654a56b123110dea3b2fb97739d9a92b
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+X-CPGSPASS: Y
+X-Hop-Count: 3
+X-CMS-RootMailID: 20260622101634epcas5p1137f33cd1e53341e3d7600eb105cd859
+References: <20260622101606.485961-3-krzysztof.kozlowski@oss.qualcomm.com>
+	<CGME20260622101634epcas5p1137f33cd1e53341e3d7600eb105cd859@epcas5p1.samsung.com>
+	<20260622101606.485961-4-krzysztof.kozlowski@oss.qualcomm.com>
 
-Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
-This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
-first entry, resulting in non-page-aligned DMA addresses for all
-subsequent entries.
 
-While the underlying IOMMU mapping may be contiguous, hardware
-DMA engines often require explicit address alignment (e.g., page,
-cacheline, or storage sector boundaries). Passing unaligned
-addresses and lengths can cause explicit failures in DMA descriptor
-creation or silent data corruption if lower unaligned bits are
-truncated.
 
-Fix this by splitting the scatterlist into 2G chunks. An alternative
-previously considered was to use the largest page aligned chunk within
-`UINT_MAX` (`ALIGN_DOWN(UINT_MAX, PAGE_SIZE)`) to satisfy page
-alignment. A 2G chunk is better as it naturally aligns with most known
-hardware boundaries, while also allowing compiler optimizations with
-simple bit shifts. This ensures all scatterlist DMA addresses and
-lengths remain page aligned and satisfy hardware constraints.
+> -----Original Message-----
+> From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Sent: Monday, June 22, 2026 3:46 PM
+> To: Bjorn Andersson <andersson@kernel.org>; Konrad Dybcio
+> <konradybcio@kernel.org>; Rob Herring <robh@kernel.org>; Krzysztof
+> Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>;
+> Peter Griffin <peter.griffin@linaro.org>; Alim Akhtar
+> <alim.akhtar@samsung.com>; Michael Turquette
+> <mturquette@baylibre.com>; Stephen Boyd <sboyd@kernel.org>; Brian
+> Masney <bmasney@redhat.com>; Sylwester Nawrocki
+[Snip]
+> soc@vger.kernel.org; linux-serial@vger.kernel.org; linux-
+> sound@vger.kernel.org; linux-usb@vger.kernel.org
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Subject: [PATCH 2/2] dt-bindings: Drop incorrect usage of double '::'
+>=20
+> There is no use of double colon '::' in YAML. OTOH, the literal style blo=
+ck, e.g.
+> using '|' treats all characters as content [1] therefore single use of ':=
+' in
+> descriptions is perfectly fine, whenever '|' is used.
+>=20
+> Cleanup existing code, so the confusing style won't be re-used in new
+> contributions.
+>=20
+> Link: https://protect2.fireeye.com/v1/url?k=3D20b000b4-490b6806-20b18bfb-
+> 905a08a8515a-b42887ea7482314e&q=3D1&e=3D9fffcc8f-6266-432d-a638-
+> 208efe86c9d7&u=3Dhttps%3A%2F%2Fyaml.org%2Fspec%2F1.2.2%2F%23literal-
+> style [1]
+> Signed-off-by: Krzysztof Kozlowski
+> <krzysztof.kozlowski@oss.qualcomm.com>
+>=20
+For Samsung IPs related
+Reviewed-by: Alim Akhtar <alim.akhtar@samsung.com>
 
-Page-aligned entries allow the system to cleanly chunk payloads into
-PCIe MaxPayloadSize (MPS) (e.g., 128 bytes, 256 bytes, 512 bytes).
-As a result, this may help reduce TLP fragmentation in P2P transfers
-and alleviate potential congestion within a logical PCIe switch
-partition, especially when Relaxed Ordering is not possible due to
-hardware constraints.
 
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260609165431.778061F00893@smtp.kernel.org/
-Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Hu <xuehaohu@google.com>
----
- Changes in v2:
- - Updated commit title and message to reflect the switch to 2G chunks
- - Switch to using 2G as the max sg entry size as it naturally aligns
-   with most hardware boundaries, while allowing compiler optimizations
-   with bit shifts (David Laight)
- - Optimized away division calculation for `nent`, and multiplication
-   calculation for sgl address, by dropping the `for` loop in favor of a
-   `while (length)` loop (David Laight)
- - Dropped `min_t` in favor of `min()` to maintain a strict type
-   checking safety net (David Laight)
-
- drivers/dma-buf/dma-buf-mapping.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-index 794acff2546a..2d88e08c5ebf 100644
---- a/drivers/dma-buf/dma-buf-mapping.c
-+++ b/drivers/dma-buf/dma-buf-mapping.c
-@@ -5,16 +5,17 @@
-  */
- #include <linux/dma-buf-mapping.h>
- #include <linux/dma-resv.h>
-+#include <linux/sizes.h>
-+
-+#define MAX_SG_ENT_SZ ((size_t)SZ_2G)
- 
- static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
- 					 dma_addr_t addr)
- {
--	unsigned int len, nents;
--	int i;
-+	size_t len;
- 
--	nents = DIV_ROUND_UP(length, UINT_MAX);
--	for (i = 0; i < nents; i++) {
--		len = min_t(size_t, length, UINT_MAX);
-+	while (length) {
-+		len = min(length, MAX_SG_ENT_SZ);
- 		length -= len;
- 		/*
- 		 * DMABUF abuses scatterlist to create a scatterlist
-@@ -24,11 +25,12 @@ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
- 		 * does not require the CPU list for mapping or unmapping.
- 		 */
- 		sg_set_page(sgl, NULL, 0, 0);
--		sg_dma_address(sgl) = addr + (dma_addr_t)i * UINT_MAX;
-+		sg_dma_address(sgl) = addr;
- 		sg_dma_len(sgl) = len;
-+		addr += len;
-+		/* Unconditionally advance. On last segment, this becomes NULL */
- 		sgl = sg_next(sgl);
- 	}
--
- 	return sgl;
- }
- 
-@@ -41,14 +43,14 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
- 
- 	if (!state || !dma_use_iova(state)) {
- 		for (i = 0; i < nr_ranges; i++)
--			nents += DIV_ROUND_UP(phys_vec[i].len, UINT_MAX);
-+			nents += DIV_ROUND_UP(phys_vec[i].len, MAX_SG_ENT_SZ);
- 	} else {
- 		/*
- 		 * In IOVA case, there is only one SG entry which spans
- 		 * for whole IOVA address space, but we need to make sure
- 		 * that it fits sg->length, maybe we need more.
- 		 */
--		nents = DIV_ROUND_UP(size, UINT_MAX);
-+		nents = DIV_ROUND_UP(size, MAX_SG_ENT_SZ);
- 	}
- 
- 	return nents;
--- 
-2.55.0.rc0.799.gd6f94ed593-goog
 
