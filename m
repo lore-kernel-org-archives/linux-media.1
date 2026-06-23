@@ -1,139 +1,105 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58667309DDF;
-	Tue, 23 Jun 2026 16:00:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A8C283FDD
+	for <linux-media@vger.kernel.org>; Tue, 23 Jun 2026 16:24:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782230410; cv=none; b=FSKKRsSYTYY6gi3xPKM5UH1y3kCxsMv4CSKDw4/dsWAZZREh3cq71LqiJ9PCxmTtCOqlNxGW70lvjwMfvSfeRaeHjCZxaiH1vMI1QdupdGxXvHKqKI55QE/55ZmBUPzooD5LeBymr3I82dCh+PbLtO+Al7ro5/tbQrAeGB63MZA=
+	t=1782231851; cv=none; b=BiPJuZlVkzuoYNOw3Sdx7F1aV2NrCQrdOZHuBZmgoAK/dE7E3wSe+Kbdl4E5Xqz58XsAE2nr1AgJFKF5T3+zqKA0zs5P4ttx+qIa8CJINCS9X7B+BkLTqAo+rOIjWzrERO4fj24Z7dAOzv5ehEGou9ddBY0fIj4FLlnL/ELOb/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782230410; c=relaxed/simple;
-	bh=mnYZEO5Qc1HJCQHnvfowar1j3IGqJNjvOTc6qMOyxvg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JL74Ak6Kb4SkvBUv++CN9Gyb33yghtiLmr2QbnnEHmdoxd55cwNmOwbS3ykAc/SZg2jVZTN2vkY541+HcuSEL9ncgqlA9Uf3JiuKpsdkgJqHmsHt9KQ6uKBB8eHOjVJZSsbUVGaxq1sdcB7STFcaVFze3vhWElyiVvn61HjgqYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=oBIn3DCB; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	s=arc-20240116; t=1782231851; c=relaxed/simple;
+	bh=/Tdk1jbBipddBJq0dmcz1nrqTIcVuxdkKR3kb4oIrlI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fjoehEMmIUdQ0qcC+VM1gykTr/jVaWzLFFfKkm8F+N0ZsevZw9e76jH1HJqoDx7MBWYtKOScDvBQ+qcXJAry71ONhqbaTMtBZxdLwwP9MszBNuCqtXDdMqZZ0Q++ynMENEMHqyVpwBB2SXuQCc53NnkAlT1ajdP5/9JBnzWPvN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cuoMDwgo; arc=none smtp.client-ip=209.85.128.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="oBIn3DCB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1782230405;
-	bh=QyccYdnY6i0pwVZFs1mkkJ0flxezhHTsxJPLPJYO6+8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=oBIn3DCBBcIDcErjiM5VxTBeWJBne9g+g02xQbbcOvnY9/Pmc/SSDrA+20e0JnrZy
-	 JnfweqAHrHWnF5NBgFSeBOkWhcPEmn+mY1T3GOsr4oybIX5o+KUviHpT0GW+EX64Ru
-	 Miq0JU//KwSCapVJBEuKHXF42Rgnd3LVavXGM8GdliaAuRzT3jbj2yhbg1nzbws9Ko
-	 ZLLjaRc0XoO5mrmkWX+mpmVVtHBThU89oMkBitI8LVirojvXwjTR6PnahriGUg/RE3
-	 Eu29Jm8ARiO2If5qWwb+7TrRa6ohd5HE3HVWq1IAWNDGAlVkvSeeawx53bEINKS1Ca
-	 ydEYIlMZPO2Qg==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4gl8sR5r0Wz4w9R;
-	Wed, 24 Jun 2026 01:59:55 +1000 (AEST)
-Message-ID: <88a9ebaa-8637-4290-b299-acae0e3065f8@ozlabs.org>
-Date: Tue, 23 Jun 2026 16:59:49 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cuoMDwgo"
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-7fdb04d774aso1527257b3.2
+        for <linux-media@vger.kernel.org>; Tue, 23 Jun 2026 09:24:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782231850; x=1782836650; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=uDWVK0ltljA+nA6FKZl+j5AYOtbg0eIqj37dbUHyX5s=;
+        b=cuoMDwgoLE3SuOtvB7C63FzTlYWMUw8SBaJ88DQx0eUqn5ulaJwZXfQ2p43hmJ/FlF
+         OIGaPoRexoDCggNj5SM1t25H/TyK7pMLa5rDLUvInFQp/UtcYTT9pXCLdrVqzN1nJDef
+         bwS1e2CK537HaO8R+YkGTk3v2g5qFg541BSfWCWy8cpZWI3FyThFbZZviZpmc5xh3M/u
+         ne/X+okan/oPUau30ETngsg46eNXnuVwc2XeH1z0ELabt5jVZXu75i7BWqH/AIGhQoUX
+         Vooy/AYzhJLjXi7OZcMnj3YExMrHGMxzS3usflZqSKxXm+na1e/LwOiDWekaILNY3iB6
+         unSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782231850; x=1782836650;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uDWVK0ltljA+nA6FKZl+j5AYOtbg0eIqj37dbUHyX5s=;
+        b=VgJvGJaK/nsH4cNuZPw0MH8C4AOb3i5Y27wkbiZ/nB895LKkTXAkrOZOaU3nTVg7RS
+         hoqONUP0racSF7rkup2y17ncl4oYNvrWvsMHlDRd53SA7rf1Va9TGIbkXvoqtQujamof
+         p4R5LtZzyq7UixPRySWjKA9PAS9QxzUWLyRtcJXQAgrP5QTCG7FUlpwXx24HI/k5fxg/
+         GXWn3h1g8FlcBlH+K9FGkDvI+v0Qd/YWC34cKQ/1XJ/NIlovW+G4guDNVsnZA6X4wlRK
+         Apz4uVu/0wNB9rYIN1K3pQErylHcewQTuatAEFJJIM56lpLO9TZasv9R0mNxpwrIIJUJ
+         yUTw==
+X-Gm-Message-State: AOJu0YzYRP/gov7x8n7W+u68PFK8G7lx86TPsdE6XxK17sz71HAoSBRu
+	MBnZVGdVtLmdqzaSep/H7a+RPeaR9LyvWyWT5URCfWaLYLmcXR0uL+/Kn6dq53KBOxM=
+X-Gm-Gg: AfdE7cng1FhJPb0AkVWIetCHsrciQKjqL3nj3bSbNgma6jIZOpJ95xquLYn4/T2sZYU
+	7PTtctS9UwYeJToqsltZKdZksjRGAJaU44zrXuCwxvkltUU1hvn5UImqpBJIIO0zBblgaXXKCon
+	eAApjej6MQQ0hxfiPhrq3XhD0zWdwWI1gnTD9sGgQ5PKotyv66uH69xZUYp71mY1/KyDuklx3kO
+	8i1P9983ciRTlwT3BxWuiDT39WWDDz83vSrBcO8i8Zn6vvrjh5wtpw8xCPxiHrGayJ3YZdVSKrz
+	I4tSOE8ztp7bCnfd5lERoVMAby3Vgbu52rkNLNhU4yAs3RbzPnzbBktFptPVEpa/o6LHc1rvzAq
+	+g0bAzfa1d9pOl/XQodjTunB89I7+JoPSeRuTr8c7Q0NzJoXSeZZs0ztDDnlt5PHaJXRjXm2CBO
+	pRz2E2CirNRfLyUvDDZ3mZ
+X-Received: by 2002:a05:690c:4907:b0:7d0:79f:339f with SMTP id 00721157ae682-80266163efdmr178245337b3.34.1782231849415;
+        Tue, 23 Jun 2026 09:24:09 -0700 (PDT)
+Received: from cachyostemp ([2409:40f2:1188:3b98:dbb2:9405:9ae2:4b4f])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8025f9d7df6sm47722617b3.32.2026.06.23.09.24.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 23 Jun 2026 09:24:08 -0700 (PDT)
+From: saivishnu725 <saivishnu725@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: saivishnu725 <saivishnu725@gmail.com>
+Subject: [PATCH] v4l2-sysfs-path: Add missing help text
+Date: Tue, 23 Jun 2026 21:54:03 +0530
+Message-ID: <20260623162403.21641-1-saivishnu725@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
-Content-Language: en-GB
-To: Robin Murphy <robin.murphy@arm.com>, "Tian, Kevin"
- <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
-References: <20260610154327.37758-1-matt@ozlabs.org>
- <20260610154327.37758-2-matt@ozlabs.org> <aisAc1HRn2Wa4F9p@google.com>
- <DM6PR11MB36904ED2E1D2C646644F67668C182@DM6PR11MB3690.namprd11.prod.outlook.com>
- <0dfadf98-a904-4e6a-b078-5caf27bc7922@ozlabs.org>
- <81a9d212-996e-42e1-aabf-b120a13e94c3@arm.com>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <81a9d212-996e-42e1-aabf-b120a13e94c3@arm.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Heya Robin,
+Add a program description to the help output.
+The description matches the existing README documentation
+to keep the documentation consistent.
 
-On 23/06/2026 16:48, Robin Murphy wrote:
-> On 12/06/2026 3:31 pm, Matt Evans wrote:
->> Hi Kevin, Pranjal, (+Robin, hi!)
-> 
-> Oh hey there! :)
-> 
->> On 12/06/2026 04:39, Tian, Kevin wrote:
->>>> From: Pranjal Shrivastava <praan@google.com>
->>>> Sent: Friday, June 12, 2026 2:38 AM
->>>>
->>>> On Wed, Jun 10, 2026 at 04:43:15PM +0100, Matt Evans wrote:
->>>>> --- a/drivers/pci/Kconfig
->>>>> +++ b/drivers/pci/Kconfig
->>>>> @@ -206,11 +206,7 @@ config PCIE_TPH
->>>>>   config PCI_P2PDMA
->>>>>       bool "PCI peer-to-peer transfer support"
->>>>>       depends on ZONE_DEVICE
->>>>> -    #
->>>>> -    # The need for the scatterlist DMA bus address flag means PCI
->>>> P2PDMA
->>>>> -    # requires 64bit
->>>>> -    #
->>>>> -    depends on 64BIT
->>>>> +    select PCI_P2PDMA_CORE
->>>>>       select GENERIC_ALLOCATOR
->>>>>       select NEED_SG_DMA_FLAGS
->>>>>       help
->>>>
->>>> Nit: Did we drop depends on 64BIT intentionally here? I guess the full
->>>> PCI_P2PDMA stack still selects NEED_SG_DMA_FLAGS? IIRC,
->>>> NEED_SG_DMA_FLAGS doesn't select 64BIT?
->>>
->>> seems that comment is stale. According to the commit msg:
->>>
->>> " it would make vfio-pci only available if CONFIG_ZONE_DEVICE is
->>> present (e.g. 64-bit systems), "
->>>
->>> so it sounds a redundant dependency hence is removed.
->>
->> This was intentional.  In practice there is still a dependency on 64BIT
->> for PCI_P2PDMA, but it is because of ZONE_DEVICE (and mem hotplug).  The
->> key need is PCI_P2PDMA_CORE is available on !64BIT for VFIO, but I
->> didn't see a requirement from PCI_P2PDMA itself (as opposed to its
->> dependencies).  If I've missed one, I can put it back...
->>
->> But NEED_SG_DMA_FLAGS doesn't smell quite right; I see from comments in
->>
->>    af2880ec44021 ("scatterlist: add dedicated config for DMA flags")
->>
->> that it assumes 64BIT, but it seems to be missing a "depends on 64BIT".
->>
->> Robin -- should that depend on 64BIT?
-> 
-> Indeed, looking at the history it seems like that was overlooked, but it
-> worked out at the time since the only selector of NEED_SG_DMA_FLAGS was
-> PCI_P2PDMA as you say. If we're now generalising then moving the
-> explicit 64BIT dependency to NEED_SG_DMA_FLAGS itself sounds like the
-> right thing to do.
+Signed-off-by: Sai Vishnu M <saivishnu725@gmail.com>
+---
+ utils/v4l2-sysfs-path/v4l2-sysfs-path.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Cheers for confirming.  I'll send a patch separate to this series (since
-the deps work out OK for PCI_P2PDMA for the reasons mentioned).
+diff --git a/utils/v4l2-sysfs-path/v4l2-sysfs-path.c b/utils/v4l2-sysfs-path/v4l2-sysfs-path.c
+index d1ad7edb..70da5353 100644
+--- a/utils/v4l2-sysfs-path/v4l2-sysfs-path.c
++++ b/utils/v4l2-sysfs-path/v4l2-sysfs-path.c
+@@ -30,6 +30,8 @@
+ 
+ const char *argp_program_version = "v4l2-sysfs-path version " V4L_UTILS_VERSION;
+ const char *argp_program_bug_address = "Mauro Carvalho Chehab <mchehab@kernel.org>";
++static const char doc[] = "Tool to show relationships between V4L2 video devices \
++and other related devices belonging to the same physical device by parsing the sysfs tree.";
+ 
+ static const struct argp_option options[] = {
+ 	{"device", 'd', 0, 0, "use alternative device show mode", 0},
+@@ -53,6 +55,7 @@ static error_t parse_opt(int k, char *arg, struct argp_state *state)
+ static struct argp argp = {
+ 	.options = options,
+ 	.parser = parse_opt,
++	.doc = doc
+ };
+ 
+ static void print_all_associated_devices(void *md, const char *vid,
+-- 
+2.54.0
 
-Ta,
-
-Matt
