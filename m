@@ -1,118 +1,125 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2159237B41A;
-	Tue, 23 Jun 2026 06:28:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC0582E2286;
+	Tue, 23 Jun 2026 06:30:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782196101; cv=none; b=TUDNush9RymSxqExScNjWhc0HwYlZcX4BjrYg0fVJULUEWQVX3MYzhkeESb+BYYak/K+YMjIEt8RLRogfQRBKc25QnJcQ0VXW+5XFfxilhqSk/+scSEQIHHEmu68tN3FEnFeLmlTicIf4eY8+NvpmiYC+RBHqiGRLRUfNQ9HuDc=
+	t=1782196202; cv=none; b=grTuC+coY7eQAKVqPDrgxbT2qp0qLfrcbOcZ0XvvQ3DUxqMgiRq5FVhjOiyyLOyi7Hegoy+xElt85t284CijXV4RcQDvrf2+V60nZ1g8oIAjKNdKxNu4IXFMyd6BCJZKSHzYWp5QcaTHdpF9Mhz+Rzk13fSj3+0Glz2txAPq2Us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782196101; c=relaxed/simple;
-	bh=tHZdgiIhlgLGSSkHI5yhtwMlRrk3+z6I4UQuW3cYQUU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X7L1opZbYpBas5JC8u0OXZVdYledDn4Bqeg9KIRV8vbK8uc/NY3V6iUT+5uSg0le5ZuaDQJSBEM+JjUHzLL65OYMvDDskPoIkvskKL9YDEivxpVe/ItAE6yJNOpHYaFc/4Elw8f+XRaBe5DGKnb7T7TBEtAuMnJxDlDD0u3eHB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=ptKlU8cI; arc=none smtp.client-ip=54.204.34.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1782196202; c=relaxed/simple;
+	bh=Qdx5a9iUQGebN3w+Fdbxk3jxOx4w6gNk08MSL47w9VU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Zj4ZB1iJpbVIfXDduFmFIeqADhjSyY5s+mRqfvYWuh/riBHGRI8+61BhUZQHAEsWpCCEh2yzpsihCVH3PTfPGGuy/G8tpKau4X34hMKVcgFHBDnzstBYZajtoSnOFBhiiRKNqEXG4vxB80zvcl6HJmQonWX1IeiJJ4K448h8AxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nW7GIiVh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="ptKlU8cI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1782196070;
-	bh=toK+6HMzAvsLOmltgNBaBZ3nHsaFlX2dkAh+RYCROSg=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=ptKlU8cIMZbFwes+72wqhuPVq63nb4tPzwJ12V1F5h8MjcLwNeybZVBkH/pAWhl+h
-	 w5fZt2/OwAa0dyFHq2DZMdfPgTWYpRpRahvuJJxMUi7PVJFzNs0zxv0vsgEUwSA2yd
-	 Y+CREzB0MeQwT+Pf0A86O8Ai1LU1KELYf0MFshGk=
-X-QQ-mid: esmtpsz11t1782196065t498522e4
-X-QQ-Originating-IP: EIiP5TxVAc38BMU9adMLmnvfcYk9k6eHPmV7q1lQtxE=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 23 Jun 2026 14:27:43 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 610307066352730692
-EX-QQ-RecipientCnt: 9
-From: raoxu <raoxu@uniontech.com>
-To: mchehab@kernel.org
-Cc: raoxu@uniontech.com,
-	hverkuil+cisco@kernel.org,
-	johan@kernel.org,
-	broonie@kernel.org,
-	kees@kernel.org,
-	vebohr@gmail.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: msi2500: free isochronous URBs on disconnect
-Date: Tue, 23 Jun 2026 14:27:42 +0800
-Message-ID: <BAB39342E5F96FBD+20260623062742.2157304-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nW7GIiVh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E19A11F000E9;
+	Tue, 23 Jun 2026 06:29:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782196201;
+	bh=3MiT/+6WIMBoDrjB7yxEcuzXbVSSLgfxY0V8WdRjNPU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nW7GIiVh06KBGnfpCQFiJ1b4voiSB5lYKFzhFwz83m1qokLLcDx8rElhuI4VBvnjH
+	 g+/mAs+YSgXe892UQlfMbnbzfRiM7eKDzi7aNnzUSdX4PgGEyZ0G6F4uagxct1NiHh
+	 Ont5Spf65R/sCjPi6ZZoconydm3GkKI0V0EmP9Q8Y9qs8qZYUfwwJYqtB3fwgmrxiS
+	 0/d3ScEnD3irUqBqNtB+bXFhTFYRKLkccCbkfLelRewUUN0lXkjbjYSblVsFhMLtxL
+	 5vACdLPBNLDCv0Tg2/oJowe++mul33FcKU8YzQ1RzOgPlmjtsR15ODhf0x9QbRBljE
+	 dyyKMDu1Nf55Q==
+Message-ID: <83333146-f53c-4673-bab8-01edf97a819e@kernel.org>
+Date: Tue, 23 Jun 2026 09:29:57 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MAN6sKHDZ5xSCAHEiP1D+f+Io+CQo9hJyLw1c4lxHgem/fAyRdDG6634
-	tlq7yPCJr6lrR/mYSQYyCEMqMzPFYrvPQLRtnmOXVVf2/png+DN8i/tQKGwhmfuxIrj73tj
-	FqKHXLTeitF3NXDCGWWAY7Mcph/S+qN5A3ERk0jyr6XdblYUPrL2yPH4m0zC2leRDcLj3QA
-	tMCcPBoJrmB2OPsyWVWYs0RdOcj982WISycCpfBI4KkGhAHIo6WW8cMn0YBSS2Xk+40rKU4
-	XRwxnRwt7asU1miojZ0xN2bmrRQgo91MuuAccJcZvqA0qzwjI6lTZmJ3tm3OOJcEoOJDHkL
-	RtoR4rIp8vxtufZFn9MIlOS2gnV94f7FOfu2XyXfFW5m6RFf8B89gxLWA52M0Ov8XodtJ0O
-	/lQ/1wGaFjdFExXJ29vezgwRt6l17DqzTZq7HK2PXBGcNbu5CTUTWJWDI90/AWI4DIxqkhw
-	GQmZQeh3lCUaFW/qmtlDYkTH3RjUC3ttwUNp/3tjWx6tgroX0+305MMMvzroPGu6IOTwAWG
-	y3yxbAPezRdQ/J/Hr77mi5ANaUKS1+9P6KSdQFelAAv/o2ayy08i82oSHvNeSzgswrqRmas
-	DYO7vG8YrDX5haBF7c6zTBC7SNs1kvWE4qPN0hXEIw8T3Lhfkc+jZOMH1i9AT1CHaLutgwl
-	7qOf6SZgYBgjeTekkPC50dDJ5uG91kI3T+DRP00wIlKy4xotI09rNeE4lYtiSUDTsDkQEeD
-	4cCwngIZQv7DECYpmGPxBowfdfscnAcyF1InHuwoEE5bZB2eGMWwNH/lj2iDvd6POsc4acX
-	QMPicOLJLQlb2N42nSnrm9tZHy96UAtXiwqWVGZ8cfoGy7cuoN0jj4HRShOv0uim8DKjwV8
-	3PF4KUksqZ9zrU0xq11kvNC8HBma+lTFJA0JQeSLxE8VuPnLP4JtvoOzO+0RwV0n26JkjlG
-	g5iKx4VmcCNaoLLNuAEJTKxuukFkRQ1BiJXxhF7R4qst33iv9rkTjDquEKk6qtDB+f/vG7k
-	mNmuLiYFOT24eIFtIKmK2DW8rcOOtZP+zitHQXDXbwgxsJlmAdqHd8Jy9Y9ZY=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/10] media: microchip-isc: fix pfe_cfg0_bps comment
+To: Balakrishnan.S@microchip.com, mchehab@kernel.org
+Cc: hverkuil@kernel.org, sakari.ailus@linux.intel.com,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260616-balki-isc-prefix-fixes-v1-v1-0-b23677fc5ab6@microchip.com>
+ <20260616-balki-isc-prefix-fixes-v1-v1-7-b23677fc5ab6@microchip.com>
+ <6ffd489e-8f24-47b2-bbfb-ac464798883f@kernel.org>
+ <ab562e26-2cb7-45ee-96fd-53103ed9001f@microchip.com>
+From: Eugen Hristev <ehristev@kernel.org>
+Content-Language: en-US
+In-Reply-To: <ab562e26-2cb7-45ee-96fd-53103ed9001f@microchip.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Xu Rao <raoxu@uniontech.com>
+On 6/22/26 14:32, Balakrishnan.S@microchip.com wrote:
+> Hi Eugen,
+> 
+> On 21/06/26 11:57 am, Eugen Hristev wrote:
+>> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
+>>
+>> On 6/16/26 14:51, Balakrishnan Sambath wrote:
+>>> The @pfe_cfg0_bps comment claimed the field holds the "number of
+>>> hardware data lines connected to the ISC". It does not. The field
+>>> stores the pre-shifted PFE_CFG0 BPS value (e.g. ISC_PFE_CFG0_BPS_EIGHT,
+>>> which is 0x4 << 28) and is ORed straight into the PFE_CFG0 register
+>>> word in microchip-isc-base.c.
+>>>
+>>> The old wording invites a reader to treat it as a small bit-depth
+>>> integer (8, 10, 12) and compare or do arithmetic on it directly, which
+>>> silently breaks since the value is shifted into bits 30:28. Document
+>>> what the field really holds and how to read the bit-depth back out with
+>>> FIELD_GET(ISC_PFE_CFG0_BPS_MASK, ...).
+>>
+>> In this commit message I would focus on the correct meaning of
+>> pfe_cfg0_bps and stop inferring what a reader *might* have understood.
+>> Let's just fix it to be right, explain the right way, and forget the
+>> wrong way.
+> 
+> Sure. Will fix the comment to just say what the field holds.
+> 
+>>
+>> But it looks like we could improve this to hold an actual meaningful
+>> data here, instead of a preshifted value, and rather shift it to the
+>> register when the hardware needs it.
+> 
+> Yes that seems better. Will store the actual bps value and shift it at 
+> the PFE_CFG0 write where its needed, will that work ?
 
-The problem occurs when an MSi2500 device is unplugged while an
-isochronous stream is active. The streaming setup allocates eight URBs
-and a 24 KiB coherent transfer buffer for each URB.
+Try it out, and if it's better, yes, send it in the next version. If
+it's not looking good, reply with a snippet/reason why
 
-On disconnect, msi2500_disconnect() clears dev->udev without releasing
-those resources. When vb2 later calls msi2500_stop_streaming(), the
-dev->udev check prevents msi2500_isoc_cleanup() from running.
-
-This matters because msi2500_isoc_cleanup() calls msi2500_iso_free(),
-which releases each transfer buffer with
-usb_free_coherent(dev->udev, ...). Once dev->udev has been cleared, the
-normal stop-streaming path can no longer perform that cleanup.
-
-As a result, each unplug while streaming leaks all eight URBs and eight
-24 KiB coherent buffers, for a total of 192 KiB of coherent DMA memory.
-
-Run msi2500_isoc_cleanup() from the disconnect callback before clearing
-dev->udev. The disconnect path already holds the two locks required by
-the cleanup helper, and msi2500_iso_free() clears each URB pointer after
-freeing it, so a later cleanup attempt cannot free the resources twice.
-
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- drivers/media/usb/msi2500/msi2500.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/media/usb/msi2500/msi2500.c b/drivers/media/usb/msi2500/msi2500.c
-index 282256ab812a..88c188d3b001 100644
---- a/drivers/media/usb/msi2500/msi2500.c
-+++ b/drivers/media/usb/msi2500/msi2500.c
-@@ -572,6 +572,7 @@ static void msi2500_disconnect(struct usb_interface *intf)
- 	mutex_lock(&dev->vb_queue_lock);
- 	mutex_lock(&dev->v4l2_lock);
- 	/* No need to keep the urbs around after disconnection */
-+	msi2500_isoc_cleanup(dev);
- 	dev->udev = NULL;
- 	v4l2_device_disconnect(&dev->v4l2_dev);
- 	video_unregister_device(&dev->vdev);
---
-2.50.1
+Eugen
+> 
+> If so will fix both in next version.
+> 
+> Thanks,
+> Balakrishnan
+> 
+>>
+>> Eugen
+>>
+>>>
+>>> Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+>>> ---
+>>>   drivers/media/platform/microchip/microchip-isc.h | 6 +++++-
+>>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/media/platform/microchip/microchip-isc.h b/drivers/media/platform/microchip/microchip-isc.h
+>>> index f5e322c2e36b..b084459f4583 100644
+>>> --- a/drivers/media/platform/microchip/microchip-isc.h
+>>> +++ b/drivers/media/platform/microchip/microchip-isc.h
+>>> @@ -62,7 +62,11 @@ struct isc_subdev_entity {
+>>>    * @mbus_code:               V4L2 media bus format code.
+>>>    * @cfa_baycfg:              If this format is RAW BAYER, indicate the type of bayer.
+>>>                        this is either BGBG, RGRG, etc.
+>>> - * @pfe_cfg0_bps:    Number of hardware data lines connected to the ISC
+>>> + * @pfe_cfg0_bps:    Pre-shifted ISC_PFE_CFG0 BPS field value (e.g.
+>>> +                     ISC_PFE_CFG0_BPS_EIGHT), not a plain bit-depth integer.
+>>> +                     OR it directly into the PFE_CFG0 register word, or use
+>>> +                     FIELD_GET(ISC_PFE_CFG0_BPS_MASK, ...) to obtain the
+>>> +                     3-bit BPS field value.
+>>>    * @raw:             If the format is raw bayer.
+>>>    */
+>>>
+>>>
+>>
+> 
 
