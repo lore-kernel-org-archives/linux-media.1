@@ -1,77 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25FAA3998A4;
-	Tue, 23 Jun 2026 20:26:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 292923ACA7C
+	for <linux-media@vger.kernel.org>; Tue, 23 Jun 2026 20:56:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782246415; cv=none; b=fDCunhbSCUj1NpmFagp6EFmjOAVRnscpMgAMVyanPRI7oHUzp8Y5qZSS18R93kZkToV3g/76sQYvQSNLhGMl+/f4sWyPqqWjXUnnS5Jyx5OqJaS1KVE9DCaGVGKMv7SacEA0WglTDQRIMHgAfsVqnaQUEV+zvS9USoPWyK00b8E=
+	t=1782248180; cv=none; b=FFC140VPHnGbVKilBe1x7OAaEH6+jK5y7ICBzbuJ7Oi7MnTjKTffnPdkvKFGjIerZKEYXUPq9wGEnBgPH+TPuo5jPsn65Inl38MYYQGZ31tbzfBY/Cci+b+jhYqk/+xFtN4JWuVcdZjLG71XkGdVNAf7fF5RbxWW1jq26cjOlVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782246415; c=relaxed/simple;
-	bh=/SK4QNgdunGn1N8wdLrCElrEdfOZM2pD0csWQG2dai4=;
+	s=arc-20240116; t=1782248180; c=relaxed/simple;
+	bh=G82PIGobVIM5hrjzCuF1CpVGWo8L2z/ATglE9QG7wqI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H3C+fEzMjsQRCM/styMg0LGPr/aoC9P5PcVSj4m0MiTekMWfTFaXXs6McCMGBl7t/DCtFS8yIvhy5AMZsfcXJQn44RezZCaTOkBXTN1AoxJP4CWAr3ad6pOKEoBONAdNaB14k6kMSw4AQvKjjRPTzpJ1XLkhIjY1PPNmRHpgdZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SdV3vIl1; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=HeBUzwx7efoTvWfFzl3+G88cu7yGeAkp5ulKeYmY6RaxFEdyyElwBi9F29yagyHQ/AJxyYfr1MJ8GedpxRo0CCNFsbH2ILwYsdKpaVLmESVSXRaLJdAW21Va3culr9brewfT+SzDyqY95XsMgH0iYBmjjcrYsIv4ojYYJMx1aQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aevEcnDj; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SdV3vIl1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FEB11F000E9;
-	Tue, 23 Jun 2026 20:26:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782246413;
-	bh=ie03j2TujfKNZ9SmiUM47+g20ngBeN5app0Z2aJgO5o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SdV3vIl1abrSY17gzTT9hztTEbhwquYA6Vs7OUZpc94JI6ISBgsnmR1vFRzYAbNF7
-	 9Tr2FIHpVBlYa6NElHKrnxsvp4Pi62ZRiu6ZcNK/Ddnb9d+0N55yg70A7Sc3OAmmuo
-	 gGH+W4Rk+ut9YdHxepJ2JBs3Fgot++hdLbyAB+Ue1wEYl/JBrUyiS4KBsgbj99LLj1
-	 JuKTNkbso/iyDMuwzRNmR+ilwZL9W66z6iWVP0IYIXe4oSGIeh+mhOSbn0eoQ0BsNF
-	 pWx8lZpIIBAwvItYGkl8IE2xb8GXHH9TV3F1Zon8KTDKEA9NP2ugzAVfCv6XE10pKo
-	 tuRPBdR9JzcXw==
-Date: Tue, 23 Jun 2026 22:26:50 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	freedreno@lists.freedesktop.org, linux-i2c@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-leds@vger.kernel.org, linux-media@vger.kernel.org, linux-mmc@vger.kernel.org, 
-	linux-phy@lists.infradead.org, linux-gpio@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-sound@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] dt-bindings: Drop incorrect usage of double '::'
-Message-ID: <ajrr5pWNSmx4K-Dc@zenone.zhora.eu>
-References: <20260623054842.21831-3-krzysztof.kozlowski@oss.qualcomm.com>
- <20260623054842.21831-4-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aevEcnDj"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2c6a4eccab1so4375ad.1
+        for <linux-media@vger.kernel.org>; Tue, 23 Jun 2026 13:56:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1782248178; x=1782852978; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tDNBIwJuw+D53Ki5EAv9tDfTFhNZX4Fj7K/EJveLoSA=;
+        b=aevEcnDj+VPnCXO7OljGqZk5BSTW2avFZcTowE6W1IesU2oWvm1pTRXLnzYcynL/zA
+         JvzJbw+JVxM59qkI8gjqC3dRjw3O8dfobmdlsUHkO6jpQC5z4ch79VC9HQy/8rvmstNP
+         NHkZDbi78vxs/dnEY0cdTM5SuXELMHZRWz7WMi6ALFFN/aD2/Xt4e7GU+M11U//tJSyJ
+         8G2e8S48i++j96FaRFLMjnKsm0DD2dJ4OvlTKwRUZSnrSs7YuLeb3gU3QpWv0JjSF83s
+         5XKGp+jxpJH0afh4Szkakt/Ak3p6ST5wKAx8nwkqIyOYAcklLo8b3HMp+U6bAZ+jOZZx
+         UbYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782248178; x=1782852978;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tDNBIwJuw+D53Ki5EAv9tDfTFhNZX4Fj7K/EJveLoSA=;
+        b=iATIt8gVREAj7JjWMx6VITbYhna532E5A9AP5q7i7JpeV4qPC0sbbEX7+tFr+N22h6
+         Qfh6A+I1JtWim1yK2wwWS5YdU9qGehR7M2/SdzSWe7m1kzA9oC9I+l9p2zPLaD51kKq7
+         u4/rpASVTEcD3B/UCSZf0uEWDQrrneDmuZmW0qJwfxh0c3C+DSA28UHJ5mcusa4wckGv
+         8r0kNcwxQJJ35Vk9mglGOvdCbchffXNkEgWurKBLgJlNvnNvcVZ0SjpQRloJpwNT4Dpj
+         3s+z72t34j1TxiSv+c3kqDI8fjFpHutl6wmIrDB0IZBVSZtnYiKCy49WqBaocQ+gohgo
+         0OjA==
+X-Forwarded-Encrypted: i=1; AHgh+RoZhb7xAYxCEUas/rknM0Jf1qw43opunUVTWqGqCJNa0gUi49du0uAB0a/aZKrJzgOlRvTaSfZCDxIAfA==@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywj0nWosiJ/by6rC5N6ipL4pAn5Qiouq/DjV2PcOz5KUi1GmhPQ
+	21cLuACoYY1+LxGjjimlVp49af4D8OA/ZWhTZlcqgeiBhwRCQDjhHmKQfvcclX48zg==
+X-Gm-Gg: AfdE7clLXzY5FL2eDKFsXWa6RSAhm+nI/SUjtp5gzbLO70aGY5NvY3u1WfyJ2S9e0Wh
+	Gmk/RZaZslHIVx+IH3pqN/3vc5uQAcLE+1vTZ3QulTjBBIxIbscRQnMMc8r6DOeXAIRaYSyOtRk
+	2EkjnQx1AHOom8fIGQfSrfxXe826awDvqSncBu4UNAGHdU7D47vTIEzZ758YGOFcSTagSjAV8jO
+	JNnzvm7LpzItwzhcv+NkfqpoLDGijTe6BWjefTbPzxR5UOO+PPM2IZv/au0AsPaZEujutVzZRxi
+	6Aq/7TVMz3+z0bV4Axj72aj1UPjIqdX1zPYKE9XFTmgJgwKNFUt1DUfyvTrv2xbLMpstMUmumdy
+	GiSnM/8WNH2shwalZrsc2lxbGex9QfCbO8CKogt/6AcSP8KAQq4rKtp0YahIohLAH3H7zS6InTF
+	JPe//bhDMWbbKXDKKcRqOTOzSA4h4Lq3stJr2HFCEb3jChvaOzfw==
+X-Received: by 2002:a17:902:f689:b0:2bf:3741:5b76 with SMTP id d9443c01a7336-2c7e26b7724mr203255ad.3.1782248140960;
+        Tue, 23 Jun 2026 13:55:40 -0700 (PDT)
+Received: from google.com (199.255.142.34.bc.googleusercontent.com. [34.142.255.199])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-845a40d1b0fsm54433b3a.28.2026.06.23.13.55.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 23 Jun 2026 13:55:40 -0700 (PDT)
+Date: Tue, 23 Jun 2026 20:55:32 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: David Hu <xuehaohu@google.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	jmoroni@google.com, kpberry@google.com, chriscli@google.com,
+	sashiko-bot@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] dma-buf: Split sgl into page-aligned 2G chunks
+Message-ID: <ajryxMaT5evDUxaq@google.com>
+References: <20260621222130.1667453-1-xuehaohu@google.com>
+ <20260623015459.1153884-1-xuehaohu@google.com>
+ <20260623094446.4a8fc2ed@pumpkin>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-15
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260623054842.21831-4-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260623094446.4a8fc2ed@pumpkin>
 
-Hi Krzysztof,
+On Tue, Jun 23, 2026 at 09:44:46AM +0100, David Laight wrote:
 
-On Tue, Jun 23, 2026 at 07:48:44AM +0200, Krzysztof Kozlowski wrote:
-> There is no use of double colon '::' in YAML. OTOH, the literal style
-> block, e.g. using '|' treats all characters as content [1] therefore
-> single use of ':' in descriptions is perfectly fine, whenever '|' is
-> used.
+Hi David,
+
+> On Tue, 23 Jun 2026 01:54:59 +0000
+> David Hu <xuehaohu@google.com> wrote:
 > 
-> Cleanup existing code, so the confusing style won't be re-used in new
-> contributions.
+> > Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
+> > This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
+> > first entry, resulting in non-page-aligned DMA addresses for all
+> > subsequent entries.
 > 
-> Link: https://yaml.org/spec/1.2.2/#literal-style [1]
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Acked-by: Alim Akhtar <alim.akhtar@samsung.com>
-> Acked-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> Acked-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> Acked-by: Mark Brown <broonie@kernel.org>
-> Acked-by: Geert Uytterhoeven <geert+renesas@glider.be> # renesas
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> There is a separate issue of whether this code is even needed at all.
+> Where can transfers over 2G (never mind 4G) actually come from.
+> 
+> The read, write and similar system calls limit transfers to INT_MAX
+> (even on 64bit) and a lot of driver code will need fixing it longer
+> lengths are allowed though.
+> io_uring better enforce the same limits.
+> So the transfers can come directly from userspace.
+> 
+> Not only that but you also need a single physically contiguous buffer.
+> Good luck allocating that!
+> 
+> Now maybe there are some peer-to-peer places where the large buffer
+> is device memory, but they will be unusual and probably need
+> special treatment anyway.
+> 
 
-Acked-by: Andi Shyti <andi.shyti@kernel.org>
+I agree that traditional VFS read/write face the MAX_RW_COUNT limit 
+(~2GB), and io_uring has its limits, but I'm a little confused by the
+push to enforce these limits here in the SGL code?
+
+File I/O seems to be only one side of the picture. In my view, this fix
+is necessary and certainly has a use-case:
+
+For example, the RDMA subsystem has the capability to import dmabufs [1],
+which gives rise to use cases for dmabuf beyond standard file ops 
+(via VFS/io_uring). 
+
+In these scenarios, GPU HBM can be exported as dmabufs. With recent GPUs,
+HBM capacity can be in the order of hundreds of GBs [2]. RDMA can employ
+infrastructure like the vfio-dmabuf-exporter [3] or similar dmabuf 
+exporters to frequently move huge blocks of data via P2PDMA.
+
+If we restrict incoming dmabuf transfers to fit within VFS-centric 
+limits (2GB), we impose unnecessary overhead on the RDMA stack, forcing
+it to manage a significantly higher number of memory registrations. By 
+cleanly splitting these massive contiguous device buffers into 
+page-aligned SGL entries, we directly improve the efficiency of P2P 
+transfers and memory registration.
+
+Since this change doesn't seem to have a negative impact on standard file
+I/O or break existing VFS constraints, I'm curious why we shouldn't 
+support splitting these >4GB P2P transfers? Am I missing something?
 
 Thanks,
-Andi
+Praan
+
+[1] https://elixir.bootlin.com/linux/v7.1.1/source/drivers/infiniband/core/umem_dmabuf.c#L174 
+[2] https://nvdam.widen.net/s/fdvdqvfvj2/hopper-h200-nvl-product-brief (Table 2-2)
+[3] https://elixir.bootlin.com/linux/v7.1.1/source/drivers/vfio/pci/vfio_pci_dmabuf.c#L297
