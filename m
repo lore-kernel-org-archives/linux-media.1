@@ -1,33 +1,39 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A202272E6D;
-	Tue, 23 Jun 2026 15:48:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58667309DDF;
+	Tue, 23 Jun 2026 16:00:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782229695; cv=none; b=Ku5vNpvmHLKdsPcIfr7c2dB4Eb9zc59LexKMoqwiE5bPm5/cdZflUyLSoE1Sl33U2DAa98Wb72fN8UZ96vRd06uTee0YX1CISWMB44O4phc6+9p+7SIklvN23rPPukRghvfeKCMfYy+gNq5mQM73xprzQjtMUOdW6E7JWRiTdOw=
+	t=1782230410; cv=none; b=FSKKRsSYTYY6gi3xPKM5UH1y3kCxsMv4CSKDw4/dsWAZZREh3cq71LqiJ9PCxmTtCOqlNxGW70lvjwMfvSfeRaeHjCZxaiH1vMI1QdupdGxXvHKqKI55QE/55ZmBUPzooD5LeBymr3I82dCh+PbLtO+Al7ro5/tbQrAeGB63MZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782229695; c=relaxed/simple;
-	bh=NJqkEZcWa1A5YciYaSbIuAPL/MnbLkuiSpwUoNgaw8A=;
+	s=arc-20240116; t=1782230410; c=relaxed/simple;
+	bh=mnYZEO5Qc1HJCQHnvfowar1j3IGqJNjvOTc6qMOyxvg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qHpF0Wau0DWJRIPkmEVXKvxwlQUkkLKh7xMcV8GNb5Y+801wJN/TrsCVW+n+HfJYssiKaElOR4fLCvy9AS0TM+hg4u69deVOfuBOnMn8RvHHyrmM2dyBn6k3J8vat/RI9S9pRb9oeiYC3ff5oXlYvbp+tTwJGOf6OaXNLKqOBHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Bo+JWdlj; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=JL74Ak6Kb4SkvBUv++CN9Gyb33yghtiLmr2QbnnEHmdoxd55cwNmOwbS3ykAc/SZg2jVZTN2vkY541+HcuSEL9ncgqlA9Uf3JiuKpsdkgJqHmsHt9KQ6uKBB8eHOjVJZSsbUVGaxq1sdcB7STFcaVFze3vhWElyiVvn61HjgqYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=oBIn3DCB; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Bo+JWdlj"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D130016F8;
-	Tue, 23 Jun 2026 08:48:08 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CDC803F62B;
-	Tue, 23 Jun 2026 08:48:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1782229693; bh=NJqkEZcWa1A5YciYaSbIuAPL/MnbLkuiSpwUoNgaw8A=;
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="oBIn3DCB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1782230405;
+	bh=QyccYdnY6i0pwVZFs1mkkJ0flxezhHTsxJPLPJYO6+8=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Bo+JWdlj2ADWTVgzFv+6PqCl48iOPpg92u2k+0c2TeJ3N/RurCTpn86f1qiS/jSsR
-	 63I52Za56NNbj3HMlm9X7FzRlLcP42vWhhLC7JrK3xQqxot8x772iEorlLECXDJgNp
-	 W2rPKXAW7W9lWYjrw/Dk3RKu7VEAkBmxVWDXoxGg=
-Message-ID: <81a9d212-996e-42e1-aabf-b120a13e94c3@arm.com>
-Date: Tue, 23 Jun 2026 16:48:06 +0100
+	b=oBIn3DCBBcIDcErjiM5VxTBeWJBne9g+g02xQbbcOvnY9/Pmc/SSDrA+20e0JnrZy
+	 JnfweqAHrHWnF5NBgFSeBOkWhcPEmn+mY1T3GOsr4oybIX5o+KUviHpT0GW+EX64Ru
+	 Miq0JU//KwSCapVJBEuKHXF42Rgnd3LVavXGM8GdliaAuRzT3jbj2yhbg1nzbws9Ko
+	 ZLLjaRc0XoO5mrmkWX+mpmVVtHBThU89oMkBitI8LVirojvXwjTR6PnahriGUg/RE3
+	 Eu29Jm8ARiO2If5qWwb+7TrRa6ohd5HE3HVWq1IAWNDGAlVkvSeeawx53bEINKS1Ca
+	 ydEYIlMZPO2Qg==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4gl8sR5r0Wz4w9R;
+	Wed, 24 Jun 2026 01:59:55 +1000 (AEST)
+Message-ID: <88a9ebaa-8637-4290-b299-acae0e3065f8@ozlabs.org>
+Date: Tue, 23 Jun 2026 16:59:49 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -36,8 +42,9 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 1/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
-To: Matt Evans <matt@ozlabs.org>, "Tian, Kevin" <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>
+Content-Language: en-GB
+To: Robin Murphy <robin.murphy@arm.com>, "Tian, Kevin"
+ <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>
 Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
  Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -57,69 +64,76 @@ References: <20260610154327.37758-1-matt@ozlabs.org>
  <20260610154327.37758-2-matt@ozlabs.org> <aisAc1HRn2Wa4F9p@google.com>
  <DM6PR11MB36904ED2E1D2C646644F67668C182@DM6PR11MB3690.namprd11.prod.outlook.com>
  <0dfadf98-a904-4e6a-b078-5caf27bc7922@ozlabs.org>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <0dfadf98-a904-4e6a-b078-5caf27bc7922@ozlabs.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <81a9d212-996e-42e1-aabf-b120a13e94c3@arm.com>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <81a9d212-996e-42e1-aabf-b120a13e94c3@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 12/06/2026 3:31 pm, Matt Evans wrote:
-> Hi Kevin, Pranjal, (+Robin, hi!)
+Heya Robin,
 
-Oh hey there! :)
-
-> On 12/06/2026 04:39, Tian, Kevin wrote:
->>> From: Pranjal Shrivastava <praan@google.com>
->>> Sent: Friday, June 12, 2026 2:38 AM
+On 23/06/2026 16:48, Robin Murphy wrote:
+> On 12/06/2026 3:31 pm, Matt Evans wrote:
+>> Hi Kevin, Pranjal, (+Robin, hi!)
+> 
+> Oh hey there! :)
+> 
+>> On 12/06/2026 04:39, Tian, Kevin wrote:
+>>>> From: Pranjal Shrivastava <praan@google.com>
+>>>> Sent: Friday, June 12, 2026 2:38 AM
+>>>>
+>>>> On Wed, Jun 10, 2026 at 04:43:15PM +0100, Matt Evans wrote:
+>>>>> --- a/drivers/pci/Kconfig
+>>>>> +++ b/drivers/pci/Kconfig
+>>>>> @@ -206,11 +206,7 @@ config PCIE_TPH
+>>>>>   config PCI_P2PDMA
+>>>>>       bool "PCI peer-to-peer transfer support"
+>>>>>       depends on ZONE_DEVICE
+>>>>> -    #
+>>>>> -    # The need for the scatterlist DMA bus address flag means PCI
+>>>> P2PDMA
+>>>>> -    # requires 64bit
+>>>>> -    #
+>>>>> -    depends on 64BIT
+>>>>> +    select PCI_P2PDMA_CORE
+>>>>>       select GENERIC_ALLOCATOR
+>>>>>       select NEED_SG_DMA_FLAGS
+>>>>>       help
+>>>>
+>>>> Nit: Did we drop depends on 64BIT intentionally here? I guess the full
+>>>> PCI_P2PDMA stack still selects NEED_SG_DMA_FLAGS? IIRC,
+>>>> NEED_SG_DMA_FLAGS doesn't select 64BIT?
 >>>
->>> On Wed, Jun 10, 2026 at 04:43:15PM +0100, Matt Evans wrote:
->>>> --- a/drivers/pci/Kconfig
->>>> +++ b/drivers/pci/Kconfig
->>>> @@ -206,11 +206,7 @@ config PCIE_TPH
->>>>   config PCI_P2PDMA
->>>>   	bool "PCI peer-to-peer transfer support"
->>>>   	depends on ZONE_DEVICE
->>>> -	#
->>>> -	# The need for the scatterlist DMA bus address flag means PCI
->>> P2PDMA
->>>> -	# requires 64bit
->>>> -	#
->>>> -	depends on 64BIT
->>>> +	select PCI_P2PDMA_CORE
->>>>   	select GENERIC_ALLOCATOR
->>>>   	select NEED_SG_DMA_FLAGS
->>>>   	help
+>>> seems that comment is stale. According to the commit msg:
 >>>
->>> Nit: Did we drop depends on 64BIT intentionally here? I guess the full
->>> PCI_P2PDMA stack still selects NEED_SG_DMA_FLAGS? IIRC,
->>> NEED_SG_DMA_FLAGS doesn't select 64BIT?
+>>> " it would make vfio-pci only available if CONFIG_ZONE_DEVICE is
+>>> present (e.g. 64-bit systems), "
+>>>
+>>> so it sounds a redundant dependency hence is removed.
 >>
->> seems that comment is stale. According to the commit msg:
+>> This was intentional.  In practice there is still a dependency on 64BIT
+>> for PCI_P2PDMA, but it is because of ZONE_DEVICE (and mem hotplug).  The
+>> key need is PCI_P2PDMA_CORE is available on !64BIT for VFIO, but I
+>> didn't see a requirement from PCI_P2PDMA itself (as opposed to its
+>> dependencies).  If I've missed one, I can put it back...
 >>
->> " it would make vfio-pci only available if CONFIG_ZONE_DEVICE is
->> present (e.g. 64-bit systems), "
+>> But NEED_SG_DMA_FLAGS doesn't smell quite right; I see from comments in
 >>
->> so it sounds a redundant dependency hence is removed.
+>>    af2880ec44021 ("scatterlist: add dedicated config for DMA flags")
+>>
+>> that it assumes 64BIT, but it seems to be missing a "depends on 64BIT".
+>>
+>> Robin -- should that depend on 64BIT?
 > 
-> This was intentional.  In practice there is still a dependency on 64BIT
-> for PCI_P2PDMA, but it is because of ZONE_DEVICE (and mem hotplug).  The
-> key need is PCI_P2PDMA_CORE is available on !64BIT for VFIO, but I
-> didn't see a requirement from PCI_P2PDMA itself (as opposed to its
-> dependencies).  If I've missed one, I can put it back...
-> 
-> But NEED_SG_DMA_FLAGS doesn't smell quite right; I see from comments in
-> 
->    af2880ec44021 ("scatterlist: add dedicated config for DMA flags")
-> 
-> that it assumes 64BIT, but it seems to be missing a "depends on 64BIT".
-> 
-> Robin -- should that depend on 64BIT?
+> Indeed, looking at the history it seems like that was overlooked, but it
+> worked out at the time since the only selector of NEED_SG_DMA_FLAGS was
+> PCI_P2PDMA as you say. If we're now generalising then moving the
+> explicit 64BIT dependency to NEED_SG_DMA_FLAGS itself sounds like the
+> right thing to do.
 
-Indeed, looking at the history it seems like that was overlooked, but it 
-worked out at the time since the only selector of NEED_SG_DMA_FLAGS was 
-PCI_P2PDMA as you say. If we're now generalising then moving the 
-explicit 64BIT dependency to NEED_SG_DMA_FLAGS itself sounds like the 
-right thing to do.
+Cheers for confirming.  I'll send a patch separate to this series (since
+the deps work out OK for PCI_P2PDMA for the reasons mentioned).
 
-Cheers,
-Robin.
+Ta,
+
+Matt
