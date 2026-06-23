@@ -1,82 +1,138 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83EF2E5B2A;
-	Tue, 23 Jun 2026 10:58:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8CE26AE5;
+	Tue, 23 Jun 2026 11:08:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782212318; cv=none; b=GPHn04aPtmo940xdEEtjqzqggRNJCMCiF6UvlpuxbW9nmyT8TYgOZebB5D0N1it6WwzSgBXrs2VqGYNB8GWVHbF1kHyd1ttR/KZ8+bbGZ4cUVgbCmznrUcgLutw4iAB7TmVJdyha8Kccotj9x9y7MExyOss4lxssyT66fw479CQ=
+	t=1782212936; cv=none; b=gB57dAoZ0kJfpJMSPY2Gtfyb0NRYx5nSbsRNXTZwfqtPXxaz0VgzybMHxZ0nAFJMVjBVIyUwJEHWo3U78FZm1pp+3v5fhyYj080GkIPc9RljqtYl+vD0zk/d9U2f0pBTFHs5ovLo6N+4IVEkfaB1e3e3etZRGqbiJmLQhOEEhb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782212318; c=relaxed/simple;
-	bh=n/5t19g0g60eehGqfVR0OCwmQhk2y+XHzB08Wx8J4fA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tPzf5RcD6FMPZjATPNSNlzTCWqygf3tFyp5epKGaMzDxzY6pF3mKN33RpFKWiCUMaBZDEp9VKFzCv/Z8EWR/ge3aAtbRvBXI6tKqGhixVvR3jErkZBjw7h7usg8ovbtrqXUsreEGdaofnjNpGV/G1rHkDdrS9KLlJNWNkgV4lGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=O75t0OCy; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782212936; c=relaxed/simple;
+	bh=q+Epg0ImzR9Bi5UQ+cuzeaeWabiHBPkRgrmaxy17Wug=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LqzQmnvYTS9STO9sX7PLOEDPnk9aH5SG2EffC9GWbp2h4OymxJCMCDJMj830blwc3yGaKoFtvGPiqYqfMIGE4Cnyx0QbfYsdnqj7hKzyN8wbMsLWhL0Sxpmc/S9cKbFaNfJHrQ6y3+wJjFMYeGRGlHaVBInKJRKpvpCHbv61N8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=cMqCQd61; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="O75t0OCy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782212316; x=1813748316;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=n/5t19g0g60eehGqfVR0OCwmQhk2y+XHzB08Wx8J4fA=;
-  b=O75t0OCybMywgPu7enYQSb7p8lVYtEhN+SGFAOnMft/0jQJfzqR9LWWd
-   xlmfWjKaLIG7oneP8+z9n0cSCjcQGEVBZphCKIL3dPEPeUq7pNYG7sjr9
-   c16ZPPXglwJDDRjbNNnBYTW9Ezj0mMPVtzexq5M3y8GqBnOobZ2K6qLHn
-   g9sAKrKxDeYEKHDtWa2cIKq1j8a+CHfnKGRKmaCkkgRp7d8h6QBbWhVyU
-   np6raQrRWD5NwlJxjkB09fZSYllTBvfEsd1m269EnVRUnGUoCfaaOHAXV
-   r4BQ8IlVabgzhw9A3VE7oOeTdthVwLi9z3qZM2J709GXKUUomzrAg85zo
-   g==;
-X-CSE-ConnectionGUID: j7VUWsd9Q8GbxjyaXH1uQQ==
-X-CSE-MsgGUID: n8lQBci1T1+dMEsrH5UzGA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11825"; a="82838595"
-X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; 
-   d="scan'208";a="82838595"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jun 2026 03:58:36 -0700
-X-CSE-ConnectionGUID: Kh3soITZTlG4OMMVBsSHUQ==
-X-CSE-MsgGUID: rLVE95zOR7+YUwKiLO5PQg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; 
-   d="scan'208";a="253367199"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.7])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jun 2026 03:58:33 -0700
-Date: Tue, 23 Jun 2026 13:58:30 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Mohammad Abbasi <mail@mohammad-abbasi.me>
-Cc: hansg@kernel.org, mchehab@kernel.org, andy@kernel.org,
-	gregkh@linuxfoundation.org, sakari.ailus@linux.intel.com,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	Mohammad Abbasi <mohammad.v184@gmail.com>
-Subject: Re: [PATCH] staging: media: atomisp: constify pmic_name array
-Message-ID: <ajpm1mtTGtTeR1jx@ashevche-desk.local>
-References: <20260619111907.242382-1-mail@mohammad-abbasi.me>
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="cMqCQd61"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1782212926;
+	bh=oRLUVj38EuP2J4LoI+n0itLP4n8PZdzZFqOvvhcE7RM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=cMqCQd61to2RMTd50gLHX4EQRg3EY1Ev62PA5OfCA0InlQQm+x4R3uC7ywQPH7iUv
+	 803WdO3/IU3lp8pwyDKc+okPSmbv0MCJLy7CVJqjujc/JG4fdo09YAH9D8KFz30RdZ
+	 flm1600i9mpfJRzgHwtZ9RI3mQTVnq/jH/dhsUIaVpH9ywYwCjchyZCeVu+o5zgf8i
+	 do24J3BlR6G4shCvdxS0WOcZH4ac3Ww9YZpZ97O66TTqfP+KYBfgExQzAstlDwsbYy
+	 eihexuWI6xPt68gtW3rUA1ucdenrQ95aDce/5r0blkPKmwFVzJlx3zKj/KZ6S0mILM
+	 r/DO6cqLEjvqg==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4gl2PJ2QFPz4wCJ;
+	Tue, 23 Jun 2026 21:08:35 +1000 (AEST)
+Message-ID: <fbb2b1a6-594f-48eb-887f-7cf0cdd4c336@ozlabs.org>
+Date: Tue, 23 Jun 2026 12:08:30 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260619111907.242382-1-mail@mohammad-abbasi.me>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 6/9] vfio/pci: Clean up BAR zap and revocation
+Content-Language: en-GB
+To: Alex Williamson <alex@shazbot.org>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, "Tian, Kevin" <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>, Leon Romanovsky <leon@kernel.org>,
+ Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
+References: <20260610154327.37758-1-matt@ozlabs.org>
+ <20260610154327.37758-7-matt@ozlabs.org> <aixgZQiBQKgS7yIM@google.com>
+ <DM6PR11MB3690489DB5FA611413BF60558CE52@DM6PR11MB3690.namprd11.prod.outlook.com>
+ <ajGbRE3WWJxNxcrg@google.com>
+ <BYAPR11MB3687AE280241C9E00B46FCF98CE42@BYAPR11MB3687.namprd11.prod.outlook.com>
+ <24f34e59-7c3b-4b56-83bf-cb07e3f369a6@ozlabs.org>
+ <20260619133116.GB278945@nvidia.com>
+ <55ea7422-08d8-4c92-aa59-8ff6f9e9d781@ozlabs.org>
+ <20260622171336.7d13f548@shazbot.org>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <20260622171336.7d13f548@shazbot.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jun 19, 2026 at 02:49:07PM +0330, Mohammad Abbasi wrote:
-> Fix the following checkpatch warning:
+Hi Alex,
+
+On 23/06/2026 00:13, Alex Williamson wrote:
+> On Fri, 19 Jun 2026 16:13:17 +0100
+> Matt Evans <matt@ozlabs.org> wrote:
 > 
-> WARNING: static const char * array should probably be static const char * const
+>> Hi Jason,
+>>
+>> On 19/06/2026 14:31, Jason Gunthorpe wrote:
+>>> On Thu, Jun 18, 2026 at 05:02:58PM +0100, Matt Evans wrote:
+>>>   
+>>>> My understanding is that the sequences above wake a device that happens
+>>>> to have previously been put into D3, and AFAICT it could only have got
+>>>> there because of a previous vfio_pci_set_power_state().  Seems its only
+>>>> caller is from the emulation of PCI_PM_CTRL using
+>>>> vfio_lock_and_set_power_state(), and this zaps/revokes BAR access before
+>>>> a transition to D3.  Similarly, an attempt to access a BAR via an
+>>>> ioctl/through vfio_pci_core_do_io_rw() fails the D3 check in
+>>>> __vfio_pci_memory_enabled(), and besides will try to take the memory_lock.  
+>>>
+>>> I thought the general design was the bars were made inaccessible
+>>> before going to a low power state, and remain inaccessible while it is
+>>> in low power?
+>>>
+>>> So the order of D0 doesn't matter. If it is not in D0 then there is no
+>>> mappings and zap/revoke is a NOP.
+>>>
+>>> If is it in D0 then it doesn't matter because D0 is a nop.  
+>> Yes, that's what I'm getting at. :)  If it's in D3 then BARs are
+>> inaccessible, so as long as we go into D0 before the DMABUF move, the
+>> order of the zap relative to the "go to D0" doesn't matter.
+> 
+> I believe this is correct as well, but importantly we cannot assume
+> that a stray read or write just returns -1 or gets dropped.  This is
+> exactly why we have such hard protections against the user accessing
+> the device while it's disabled.  Not all platforms, even within
+> architectures that might otherwise be considered lenient of such
+> accesses, consider this benign and might escalate to system level
+> faults.
 
-Missing blank line here.
+We are in enthusiastic agreement here.
 
-> Signed-off-by: Mohammad Abbasi <mohammad.v184@gmail.com>
+> Let's be careful not to frame this as "the access doesn't matter
+> anyway", the answer is instead that non-D0 devices already lack any
+> mappings to access the device.  Thanks,
 
--- 
-With Best Regards,
-Andy Shevchenko
+I agree that is not the right thing to say, for exactly that reason.
+(For avoidance of any doubt, I didn't say that :) )
 
+Thanks for confirming the behaviour.  I hope Praan and Kevin are
+satisfied that this patch doesn't cause the issues they first worried
+about (the changed order of the zap relative to the D0 transition
+doesn't have a detrimental effect because of the existing inaccessibility).
+
+Alex, I'll post v4 soon, but if you have any comments in the pipeline
+please shout and I'll hold off awhile.
+
+
+Thanks,
+
+
+Matt
 
