@@ -1,85 +1,126 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E6C279917;
-	Wed, 24 Jun 2026 12:06:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D513B1F94F
+	for <linux-media@vger.kernel.org>; Wed, 24 Jun 2026 12:29:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782302801; cv=none; b=Y6WLAf8IF31cgB3MnVXF2EmX7ymT1sP2unduSY3BUQaLAG9GPTYJosEMu8ej4JgRh2J9PqeWpS1SamvxFkuikeR5t7GNbmQRf2+MFc8jRZ3NfAZSimJX7LDXnos0fo1vTYtiNWicRvkrOhT0MJMkDv5t1ce6DVle9GyQpxBpM5s=
+	t=1782304163; cv=none; b=Caqcp4ztVqMVjkYnaItbDYJJpX6d8oh1RpxvXnv1Nhu4/rBktac3KxsdMp6DKGLuAIDko1JVSqpIp6oVV0DCD7Q545xAPgUd+MGe2qCYzx7ZpA+X19RYyK7GANEBZbLp/6wUUfdW8OGBqgTNtAQlwyUvtbD4AdN3ijZnpHt66mQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782302801; c=relaxed/simple;
-	bh=rCt9n22ce6w937Nlwxj2mRTyBoW3uwZl2eYmkKm4aqc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QNSICkTEHAhncvZZxBsH7eNEcbZb2OIWylLBcX1fpzF9QjyXRK1b/fJ0XaQ5Y1T8QLeSswTdtcUhYVgSbOapM7AN/cR9Tsog/7HdEAvzt5b4HaP8vAF3JU9bTJeNRkLgq3b6f8iDs4eTza0eBDxbx0DQTH19tGfYRAF9MUCtO2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=L4Q6lZc9; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782304163; c=relaxed/simple;
+	bh=pFbStoNOnxZ8EusijrnYkbV2hWnyICFUOIVa9+YJMwM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hVan42736unC5kaPI1cCmp13QHDs5wO+D6htUzdfZnUN3k0HZIlVXZm4thITSev5c3ZF5BbKx5jMN49QPc7ZIeJQ0MbxEFRBQ5ofLnNG8+grzYy6afRHwxjLs5xn2aoq0CJD56pw2jFmy+QYpLnePuJlztAIjm0mjKGO1nPyZCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U7wh+rbJ; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="L4Q6lZc9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782302800; x=1813838800;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=rCt9n22ce6w937Nlwxj2mRTyBoW3uwZl2eYmkKm4aqc=;
-  b=L4Q6lZc9C3jKZ0SonE6shxs4YGE97GsyhGCnxuiD/NEXQW5rnBLU5fLk
-   +tNuFp7datPxciprv+TIY9HVm4jPBhzqYGrDdd9GGfaCg2hLnfqy0K/6v
-   eAUc+1fyc50cu6S08atrlgaWMUVv4GsBMqVQpZU0hU6DeUrMhYCEPm6QR
-   X92KAC1qSZT+2FcYIxQVd9Ycjyt7bzIJB3L52n8jQ00IwgMNET+tDhMsI
-   ifF9C0Vqln4a31Hg3j3/vvO5QG/PZ3xa5p810+1/6t+BbwYScsavFRCUG
-   Ei0WlLXcD8CGI64v55qS5AnTDc943HgGA30MxqXhkNx32IKDLuNF2+TZD
-   g==;
-X-CSE-ConnectionGUID: PJCXjMleSj2H80oC8+h8fQ==
-X-CSE-MsgGUID: KiC7y6Q3Ssua2/veNc3HXA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="100609911"
-X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; 
-   d="scan'208";a="100609911"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jun 2026 05:06:40 -0700
-X-CSE-ConnectionGUID: wNAm3FOORqa/+VdXSnvtAg==
-X-CSE-MsgGUID: VyqlAjbGR4S1xVFo9Wz/Mw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; 
-   d="scan'208";a="254797297"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.156])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jun 2026 05:06:37 -0700
-Date: Wed, 24 Jun 2026 15:06:35 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Igor Putko <igorpetindev@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] staging: media: atomisp: remove dead
- platform_support.h header
-Message-ID: <ajvIS13S9rJgsORe@ashevche-desk.local>
-References: <20260618120951.42956-1-igorpetindev@gmail.com>
- <20260618151246.6678-1-igorpetindev@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U7wh+rbJ"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-45ef41adbc1so817980f8f.0
+        for <linux-media@vger.kernel.org>; Wed, 24 Jun 2026 05:29:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782304160; x=1782908960; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=pFbStoNOnxZ8EusijrnYkbV2hWnyICFUOIVa9+YJMwM=;
+        b=U7wh+rbJLxJyVGe/+S78TPGMEoJst9R0pBWk4xfFuhzsp4rpbOE+ivVjc8bwT8rfDZ
+         VZ402DfrOxADHq1Y4elxvGHXfbKlSxWR9dYb6b+qoGaNNzHG1uQLqUWf0VlZ/Do8InAB
+         4B5CDI6pPPiquhNT6xaasQwU9ctB3iF50vk4t2A+mNizCIw5iayVA6wVuHV4fInsIXD7
+         w7KXE698ab0ma6ENnwt6spfTSBB7kZHBH/jozDjJO1VhML5JPuHeKezg1BW3g8g/m2BF
+         EUHKqHFhwQVSIytClQL6Ad5d4pUa2mUXqScn6MpnEY5ljMYOHNJfbnPKih4b+2kvpCbC
+         2C7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782304160; x=1782908960;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=pFbStoNOnxZ8EusijrnYkbV2hWnyICFUOIVa9+YJMwM=;
+        b=IOns/lIUD3hMjCxrM5GTxYb3TnBZAnJ3N5CoMbZX1Ix9Yfug6laVT4VUYEvrod0Mit
+         jhVTFl6Uam5Ap+871Zb2Isc9m/nca7+2Rl7K+KACgX7eFn+AmfBeGWByUbQC7YrvISuu
+         +AR1tWr3L+wznyh5Fm/ZlFO7cdOODYBanhFhSx/7IDe3RArIvbWkSu0J3LQxpDe4T435
+         PHuoaCVlfLpV33azG9pwC1FREYj0km/UPS/0GOSd16urfBrnvu4g5d8dl/rO9vcK80lG
+         TCiWuvE9BVTIQ/xyngTTbq36a5ixZ8pJzDzZFqjpnC/cG01guY22FddPsx8J/1yfCRny
+         vCRg==
+X-Forwarded-Encrypted: i=1; AHgh+RpsFPuufZvgiiLa5OzsQRSQ26lO4OTJwWP612dLly04SlfGQpOhDyMiS3oV6C+fn4s7zz88vghVPtCtCw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwqG2AGYhR1/fMFsUqffUdJsECgGNkFZ4LKnNH+PQx+nvmGrxSZ
+	KGNv7zKzeoCVOyE+XEm7yyuvgsj+oEK9qiOGS/RTh2ZZNB5wOa4dVopT
+X-Gm-Gg: AfdE7cnoEVoa1ihuqJ+a+N6wR6v931cXxWJ8/OLK630pQ5H3ebhafXNm8/06X73WZVW
+	1hIiswxzYdbyDyyPdftPAT0SIsN6VuWoGmSxZ/7B7LsXIwc5nPlC7jgBzj4UjDa80QOhi7yx8aV
+	2tzRulIThU/Nn+x6ipTQzw1a14ScRgnq3QwT7eBOXVwTkhisaGw4wpQSt/DiYSabJa90lHYAcos
+	9Or3UHtDkNLp+Wh1P74YOb7yg3MovxxG4mJZlN5aBwJI5fcstJKobyEXf9aBFIpIfM3+0Z4N+zb
+	1weX9TbM5rRqgG0DbHDnoamL6vUp4N9YrSujWAuYZmNSFqZ6ekjY2BWJQutRed7c9NTLkp3zaxJ
+	j/Mt2A/Q8qwrx6ERpZgJDx9Idxxk/5OLWF2ZPfKtV3i6xzrxabh7w2Ai4Q5WioM7DfNCO2x3Rib
+	FMVh/7M3nGYrqiPN0+KJUJVPaHWg==
+X-Received: by 2002:a05:6000:26d0:b0:45e:e44b:312b with SMTP id ffacd0b85a97d-46c09427c74mr5404079f8f.18.1782304159998;
+        Wed, 24 Jun 2026 05:29:19 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:157e:3500:2be7:1a89:41c5:9239])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46c9787dddbsm3896530f8f.3.2026.06.24.05.29.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 24 Jun 2026 05:29:19 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+To: phasta@kernel.org,
+	simona@ffwll.ch,
+	sumit.semwal@linaro.org,
+	tvrtko.ursulin@igalia.com,
+	dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org
+Subject: dma_fence cleanup/rework
+Date: Wed, 24 Jun 2026 13:13:24 +0200
+Message-ID: <20260624122917.2483-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260618151246.6678-1-igorpetindev@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 18, 2026 at 06:12:43PM +0300, Igor Putko wrote:
-> 
-> Following your feedback, this series replaces the custom CSS_ALIGN() macro
-> with the standard __aligned attribute and completely removes the dead
-> platform_support.h header file from the driver.
+In a recent discussion with Philip and Danilo the question came up what
+was already tried and never finished to cleanup the dma_fence framework.
 
-Thank you much for doing this! I have given a few comments, I think the v3 will
-be final if you address them. Expecting a v3 with 4 patches.
+So here are the different ideas I came with but never fully finished,
+with the patches itself modernized and rebased on top of drm-misc-next.
 
--- 
-With Best Regards,
-Andy Shevchenko
+The main goal of those changes is to make it easier to implement dma_fence
+backends and don't enforce unnecessary constrains on implementations.
 
+As first step the locking around the dma_fence_ops.signaled callback is
+made consistent by removing the dma_fence_is_signaled_locked() function.
+
+This was mostly used by backends itself, but if polling the HW is desired
+the backends can call their own functions for this directly without going
+through the dma-fence layer.
+
+XE actually seems to be the only driver which make use of that for a bit
+more handling. For all other cases testing the signaled flag should be enough.
+
+Then forcefully calling dma_fence_signaled() is removed from the dma-fence
+layer and moved into the backend implementations.
+
+This allows the backend implementations to cleanup after they have
+signaled the fence. Such cleanup can include removing now signaled fences
+from lists, dropping references, starting work etc....
+
+Especially nouveau seems to have some really messy workaround because of
+that involving the DMA_FENCE_FLAG_USER_BITS and installing callbacks
+because the reference to the context couldn't be dropped directly after
+signaling. This can now be cleaned up as far as I can see.
+
+In the long term this should also allow reworking the error handling, e.g.
+removing dma_fence_set_error() and instead giving the error as mandatory
+parameter to dma_fence_signal().
+
+Then the last piece is dropping calling enable_signaling callback with the
+dma_fence lock held. This makes it possible for backends to acquire locks
+which are semantically ordered outside of the dma_fence lock.
+
+This is necessary to allows using the dma_fence inline lock in more cases,
+previously backends used some common external lock for their dma_fences to
+for example make it possible remove fences from linked lists.
+
+Please comment and review,
+Christian.
 
