@@ -1,110 +1,176 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2624D3A6F19;
-	Wed, 24 Jun 2026 11:39:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4E538364953;
+	Wed, 24 Jun 2026 11:42:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782301194; cv=none; b=ZYgq0RULKubmWNL3/acqnxPimL9v1lUYIeNJdIFY4dittG4KIb7wuOqpTc7GDmtpnugwthTaLztLBh/wXlaZRz8zI7w0OmPYS6xg/n+Dqo28z5BMe/KbwyEbi6pkKj1Lzu5kG0t09KQZ/HuKiP0b7skrv3YzWgYzb7wrd5xKyUc=
+	t=1782301345; cv=none; b=fmZ/HDHkZaooaK51DKDVwTmzjOnr566iygv9anZCo3GHdLcw3IlyM5WVHgNICdnQp6vcI5VLvtQzxAfRrTA6iN+QcF6nniCPsOc6JHVotB407r99X+CT1WqrcbOoSMmaf8bN3XsXufWcD5iWZzFk1sQhUJsbVFxu7LZwJMyUXC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782301194; c=relaxed/simple;
-	bh=g2CR3r4NXr+AjKM25exRdY5Qi6Hi8V8HBc5jxDlx1BA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lnzOTmiTBpndNxKfG0m+lz6pr3YNpVpLJl0I9xfeJ6B5yhcBo854ry1izFG72Tdh/2wZ03HWwQbwY72095AgxFBX4kRWpiLmu7B3Sv4Wnr/r+RgY9OxjjjqwAoGS0DxMxrEBnskoaEendurLDOFn+qMLu7SVdaxCgCrDgsufzRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=I6hW5hkF; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=dAfzTAhr; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	s=arc-20240116; t=1782301345; c=relaxed/simple;
+	bh=riMPr912UFIPMnkd77dj4O/2qenW/y+bhggkPiDqP2Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uFu3olmiXFaChTHCJr3xmY5hgt1RyqrC0uyN8+Sq4XhHKKl3Ee4ya4hIdSMwPSmtHgl11e3ACAjVpYsjNND2lF2PwRo4yNfC+pRPAuobLnBZa9gT6/ZCqtG35fMJl6SpMCdZbfyCSH1FxuiWVwkn3w1hCsRw/cgNYBFUkp1mg+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Vfw1P4/4; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="I6hW5hkF";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="dAfzTAhr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1782301182; bh=g2CR3r4NXr+AjKM25exRdY5Qi6Hi8V8HBc5jxDlx1BA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=I6hW5hkFpeyGUZQrNiiZh1VMq7tni8K8HNxK8xQqWgOaXtX4GyONLI28kCXDj8+bN
-	 SqS6SDC3KKJ95C5ncy+HFYIrYSuHWYesh98NTVEOkYXA89CJxNqnLYxmAlrdKREvW9
-	 3knJjE77fZCeGDkdOzewaLYvPtyPoBQdoOXrtppyf6nf8cX+l9/p1cd0unRq5EVce/
-	 G3UCS2ccUlrEuvvFYJno0L0GZKvPUku21xBenPGGxutza3sxM7pnrOTHeWdi8y1VxM
-	 NXe5L5Ijn0FzBldc5G7YWDB/rA7Pirz3ULHs2onD0LC/thfV5lyNM2bNIsSbEzAAUU
-	 akVWEdeQrK+IQ==
-Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 4E02942528; Wed, 24 Jun 2026 12:39:42 +0100 (BST)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1782301181; bh=g2CR3r4NXr+AjKM25exRdY5Qi6Hi8V8HBc5jxDlx1BA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=dAfzTAhr0p3OQNBBxuvOgjRu+Sj8iPsbrPhvxwPJD65HjOHTNoZG36Oc9QGHkjkzy
-	 VBK48MNJ6Rba3U4IM8N6JTFe0ZDLIQa9+RTg4H1PEVy2PB/4orVChBJVOxkG2DTexh
-	 4ppUZj//cNeeGVZZ+dQTpakmeuMZpXV76uHNcYm/6gmsfU8Rq27PFwM59H9a8L5I39
-	 S4LCPoHQCmiV3TcUIAPFaYuvHV34TV50LeebkIraPo3XbMSnuNLMioTsWO/7T7uDCR
-	 i9xuh0rco0zgT9qa8kEWENQYHK/pIgD+26r7G5ihzHaOnPrtIkgZDqfet2cfClooaD
-	 x5gewge42em0w==
-Received: from maru.local (unknown [62.232.99.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 2D20142530;
-	Wed, 24 Jun 2026 12:39:41 +0100 (BST)
-From: Sean Young <sean@mess.org>
-To: linux-media@vger.kernel.org,
-	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 3/4] media: keymaps: Ensure module name matches RC_MAP_VIDEOMATE_K100
-Date: Wed, 24 Jun 2026 12:39:20 +0100
-Message-ID: <0a532ba0bdbe73275937fe4b118ae5d937c588d5.1782300922.git.sean@mess.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1782300922.git.sean@mess.org>
-References: <cover.1782300922.git.sean@mess.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Vfw1P4/4"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9855215A1;
+	Wed, 24 Jun 2026 04:42:17 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 263A93F632;
+	Wed, 24 Jun 2026 04:42:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1782301342; bh=riMPr912UFIPMnkd77dj4O/2qenW/y+bhggkPiDqP2Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Vfw1P4/4IoI5cqXw4yBJZNOTaVkYRmMS6+C6sbeyrmmGnGWWzzWff8oMzVCkvRHpG
+	 /WfA6cZgcjrIZBg4la2twn3GyGmuyUH3yH5HcauiNCm7UhB5ttO+fuGOsQ/50nUI2x
+	 XbN64JsbCSXXQ+WSm4c6Fyy4/VKP2cHszV2Zyuew=
+Message-ID: <b49a3107-68be-4f7f-8c66-0f78206c7359@arm.com>
+Date: Wed, 24 Jun 2026 12:42:17 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
+To: Matt Evans <matt@ozlabs.org>, "Tian, Kevin" <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
+References: <20260610154327.37758-1-matt@ozlabs.org>
+ <20260610154327.37758-2-matt@ozlabs.org> <aisAc1HRn2Wa4F9p@google.com>
+ <DM6PR11MB36904ED2E1D2C646644F67668C182@DM6PR11MB3690.namprd11.prod.outlook.com>
+ <0dfadf98-a904-4e6a-b078-5caf27bc7922@ozlabs.org>
+ <81a9d212-996e-42e1-aabf-b120a13e94c3@arm.com>
+ <88a9ebaa-8637-4290-b299-acae0e3065f8@ozlabs.org>
+ <feaefa41-9f67-4d4f-a3e0-282dca41f3eb@ozlabs.org>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <feaefa41-9f67-4d4f-a3e0-282dca41f3eb@ozlabs.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-When loading a rc keymap, rc_map_get() attempts to load the kernel module
-using the keymap name.
+On 23/06/2026 6:47 pm, Matt Evans wrote:
+> Hi Robin, me,
+> 
+> On 23/06/2026 16:59, Matt Evans wrote:
+>> Heya Robin,
+>>
+>> On 23/06/2026 16:48, Robin Murphy wrote:
+>>> On 12/06/2026 3:31 pm, Matt Evans wrote:
+>>>> Hi Kevin, Pranjal, (+Robin, hi!)
+>>>
+>>> Oh hey there! :)
+>>>
+>>>> On 12/06/2026 04:39, Tian, Kevin wrote:
+>>>>>> From: Pranjal Shrivastava <praan@google.com>
+>>>>>> Sent: Friday, June 12, 2026 2:38 AM
+>>>>>>
+>>>>>> On Wed, Jun 10, 2026 at 04:43:15PM +0100, Matt Evans wrote:
+>>>>>>> --- a/drivers/pci/Kconfig
+>>>>>>> +++ b/drivers/pci/Kconfig
+>>>>>>> @@ -206,11 +206,7 @@ config PCIE_TPH
+>>>>>>>    config PCI_P2PDMA
+>>>>>>>        bool "PCI peer-to-peer transfer support"
+>>>>>>>        depends on ZONE_DEVICE
+>>>>>>> -    #
+>>>>>>> -    # The need for the scatterlist DMA bus address flag means PCI
+>>>>>> P2PDMA
+>>>>>>> -    # requires 64bit
+>>>>>>> -    #
+>>>>>>> -    depends on 64BIT
+>>>>>>> +    select PCI_P2PDMA_CORE
+>>>>>>>        select GENERIC_ALLOCATOR
+>>>>>>>        select NEED_SG_DMA_FLAGS
+>>>>>>>        help
+>>>>>>
+>>>>>> Nit: Did we drop depends on 64BIT intentionally here? I guess the full
+>>>>>> PCI_P2PDMA stack still selects NEED_SG_DMA_FLAGS? IIRC,
+>>>>>> NEED_SG_DMA_FLAGS doesn't select 64BIT?
+>>>>>
+>>>>> seems that comment is stale. According to the commit msg:
+>>>>>
+>>>>> " it would make vfio-pci only available if CONFIG_ZONE_DEVICE is
+>>>>> present (e.g. 64-bit systems), "
+>>>>>
+>>>>> so it sounds a redundant dependency hence is removed.
+>>>>
+>>>> This was intentional.  In practice there is still a dependency on 64BIT
+>>>> for PCI_P2PDMA, but it is because of ZONE_DEVICE (and mem hotplug).  The
+>>>> key need is PCI_P2PDMA_CORE is available on !64BIT for VFIO, but I
+>>>> didn't see a requirement from PCI_P2PDMA itself (as opposed to its
+>>>> dependencies).  If I've missed one, I can put it back...
+>>>>
+>>>> But NEED_SG_DMA_FLAGS doesn't smell quite right; I see from comments in
+>>>>
+>>>>     af2880ec44021 ("scatterlist: add dedicated config for DMA flags")
+>>>>
+>>>> that it assumes 64BIT, but it seems to be missing a "depends on 64BIT".
+>>>>
+>>>> Robin -- should that depend on 64BIT?
+>>>
+>>> Indeed, looking at the history it seems like that was overlooked, but it
+>>> worked out at the time since the only selector of NEED_SG_DMA_FLAGS was
+>>> PCI_P2PDMA as you say. If we're now generalising then moving the
+>>> explicit 64BIT dependency to NEED_SG_DMA_FLAGS itself sounds like the
+>>> right thing to do.
+>>
+>> Cheers for confirming.  I'll send a patch separate to this series (since
+>> the deps work out OK for PCI_P2PDMA for the reasons mentioned).
+> 
+> I think we were wrong, NEED_SG_DMA_FLAGS doesn't _need_ 64BIT.
+> 
+> Other than P2PDMA, the other consumer of NEED_SG_DMA_FLAGS is IOMMU_DMA,
+> and turns out if one builds an i386 kernel with INTEL_IOMMU (or some
+> other configs, like Xen) then NEED_SG_DMA_FLAGS is enabled on 32-bit
+> builds too.
+> 
+> The scatterlist.h comments af2880ec44021 touched are just saying that
+> _since_ P2PDMA depends on 64BIT, there _is_ circumstantial padding so
+> let's use it for flags.  It doesn't require 64BIT.
+> 
+> For example struct scatterlist isn't pushed over some special (e.g.
+> power-of-two) size when NEED_SG_DMA_FLAGS is enabled on 32-bit; I can't
+> find a reason it should be prevented on 32-bit builds (and found cases
+> above in which it is already enabled in them).
+> 
+> So I won't change the NEED_SG_DMA_FLAGS dependencies after all.  Sorry
+> for the noise -- as ever if I've missed something do please explain.
 
-The rc_map RC_MAP_VIDEOMATE_K100 is defined to "rc-videomate-k100"
-but the module is called rc-videomate-m1f.ko, so therefore automagic
-loading the keymap will fail.
+Ah, I was also taking the comments at face value, plus conflating the 
+memory of the original series which did stash the P2P flag in bit 2 of 
+the page_link pointer - in my defence, it's far too hot for my brain to 
+work properly :)
 
-Rename the module to match.
+Doing a bit more archaeology, the separate dma_flags field was a late 
+suggestion just before the series was merged, so I guess it's actually 
+just that the comments never got updated accordingly. Sorry for 
+perpetuating the confusion!
 
-Signed-off-by: Sean Young <sean@mess.org>
----
- drivers/media/rc/keymaps/Makefile                               | 2 +-
- .../rc/keymaps/{rc-videomate-m1f.c => rc-videomate-k100.c}      | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
- rename drivers/media/rc/keymaps/{rc-videomate-m1f.c => rc-videomate-k100.c} (97%)
+Cheers,
+Robin.
 
-diff --git a/drivers/media/rc/keymaps/Makefile b/drivers/media/rc/keymaps/Makefile
-index d04572627cdd..38b84e34b225 100644
---- a/drivers/media/rc/keymaps/Makefile
-+++ b/drivers/media/rc/keymaps/Makefile
-@@ -129,7 +129,7 @@ obj-$(CONFIG_RC_MAP) += \
- 			rc-twinhan1027.o \
- 			rc-twinhan-dtv-cab-ci.o \
- 			rc-vega-s9x.o \
--			rc-videomate-m1f.o \
-+			rc-videomate-k100.o \
- 			rc-videomate-s350.o \
- 			rc-videomate-tv-pvr.o \
- 			rc-videostrong-kii-pro.o \
-diff --git a/drivers/media/rc/keymaps/rc-videomate-m1f.c b/drivers/media/rc/keymaps/rc-videomate-k100.c
-similarity index 97%
-rename from drivers/media/rc/keymaps/rc-videomate-m1f.c
-rename to drivers/media/rc/keymaps/rc-videomate-k100.c
-index 1f9be84ff27b..6664cfd0b7f3 100644
---- a/drivers/media/rc/keymaps/rc-videomate-m1f.c
-+++ b/drivers/media/rc/keymaps/rc-videomate-k100.c
-@@ -87,4 +87,4 @@ module_exit(exit_rc_map_videomate_k100)
- 
- MODULE_LICENSE("GPL");
- MODULE_AUTHOR("Pavel Osnova <pvosnova@gmail.com>");
--MODULE_DESCRIPTION("videomate-m1f remote controller keytable");
-+MODULE_DESCRIPTION("videomate-k100 remote controller keytable");
--- 
-2.54.0
+> (I'll continue with removing the P2PDMA dependency on 64BIT because it
+> seems P2PDMA's dependencies rely on 64BIT, though P2PDMA itself doesn't.)
+> 
+> Thanks,
+> 
+> 
+> Matt
 
