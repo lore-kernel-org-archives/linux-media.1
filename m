@@ -1,63 +1,63 @@
 Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2F9399CFC
-	for <linux-media@vger.kernel.org>; Wed, 24 Jun 2026 12:29:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20F73672AC
+	for <linux-media@vger.kernel.org>; Wed, 24 Jun 2026 12:29:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782304168; cv=none; b=ttXDk3s7naY3fyRu6bzNi/Or2ymyqo8MUkAt/lWkusrhT5U4fZdCtUJhtjdFGiYpJFrRnrmX9BD7HLcqrW4vJjAbS/FdYjRpXQd2erZ1L22s18J7Q/9cY+Xt5rsSmsT+Y8kcBtxCwi7NlWs+YjE47zd8lpLysyl4LKFogQ9llxY=
+	t=1782304169; cv=none; b=asrKdE3mbVrxD3Wc2QDRhDwf9h9kXcAgajnT9OEFZbrB6TllXHMtYmHi17W+0mvCMYZyA4lDPMqP3Iy4tDPoE8zVQLWv5A2iegCadJiZ+Biv6g6Mt9FrnZovTtPprS4H1+EnSdZTyUet2uYZkzSAOR+0mEUjHa0zXhm5x6tJWY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782304168; c=relaxed/simple;
-	bh=RmNaptBwvXyeljMZs5ivEdAueXLm2rzJgQFHE2lrnBU=;
+	s=arc-20240116; t=1782304169; c=relaxed/simple;
+	bh=Fr8pFlDPb+EL5z5OWtwOxvgtipp4gg1YXRaW6QmaqW4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KLTC1QBvixs/lU8/j/4vvkHoK+g1roKFFK1R4iSnVXZ2+VYsG0f762ybOvnlFEscuKh/MYdl0hOqBedEpGhhH65H4/IJMT/+q/VaVZ8NgINCFe+irGX7U3YgjtzU/MX8JljOby+Hx1/ZfR+pF5YXORoOmxplk+kRbBQ0WNigyp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Um8D1CFP; arc=none smtp.client-ip=209.85.128.48
+	 MIME-Version:Content-Type; b=JC4OqQNWNMcXmL8zFGKSfU48dw9sckW0CG8iTeSCZL0OGFzjoo3rYu+D4CthaMuciIZOFqo/QYyxyDUD+VAiFHIi1xLX0g9scQvLnZftgn6v/Im7Ia9EpCvkQZm7ClegIx0rZmwZ77GK1a0nw0LLGnsGWcpchuYc5l5LJdpA8EM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ITYwrN7y; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Um8D1CFP"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so7290445e9.0
-        for <linux-media@vger.kernel.org>; Wed, 24 Jun 2026 05:29:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ITYwrN7y"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490b64c8311so12335705e9.3
+        for <linux-media@vger.kernel.org>; Wed, 24 Jun 2026 05:29:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782304165; x=1782908965; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782304166; x=1782908966; darn=vger.kernel.org;
         h=content-transfer-encoding:reply-to:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=gDF3E/f0HpcAxk6Syf/Djo3DsKUW9SV64tqXNSKhSz8=;
-        b=Um8D1CFPqBm0QO+3h0wAk8XPWeGGi0PPfIXZjvUhugyFa2r6mZfvz8WampN7coSJSn
-         YoG2/k6ywBZKbSNwK+DXs0H8JcqadLABUi2RfR22eK6wkD37G1QHBHU3Fi+WgbIVRIrk
-         42GypX5VI14dTdFAsQZg+r4zoDOBa4hycABj2AmqeYrv/W8FWuEQ9N+wvPfDAT2R0c43
-         O94Xrkcw2uUsrnC6ge94ciLwcq3xNXAGNPtpgCGQ4P5Hfv5bzI0SpjPhythMzVZWzJ+C
-         Sh/0o9ufO9YAVEHqyVv0hysF2XFK3nGHJowfVdZ6uxJBS8YD4b69ccdvLgIUVM9Kd6WT
-         /Yrw==
+        bh=CTDR2FGDDMlL0SKna41UWrjV6rjHoFlolha4zevYi4s=;
+        b=ITYwrN7yY9s4zV+jgUuR3Cf6L1eOq+b1KRtKZj+LWuQkg/Z/7TD2R5cdzxGvs1yszr
+         Uu2xqZWGqL2S0MFOpFOglQKzdyDIHseW0lmhslfpahYji/D7kT2qZbBfyurfsDycBeRY
+         EQ6VyEBNUTRlFCaaTG7vGHX8JdS3osvA4Z+Tns83IQkZdPn3RdaziQ+h4gOWf2C1ae1S
+         4Jc10lJlM/BeNXmr8pjfn44BmBVLAi0kXgxymHLIRDqXympQFkoUVmvcv2FXeKMqLorw
+         hTpcp+IFry8So5bXdmLraDXxzXgWz+zxqSZSXn0v8gahjPV9Fmp/Gp4FhuCIMVYy04Kp
+         aCZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782304165; x=1782908965;
+        d=1e100.net; s=20251104; t=1782304166; x=1782908966;
         h=content-transfer-encoding:reply-to:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gDF3E/f0HpcAxk6Syf/Djo3DsKUW9SV64tqXNSKhSz8=;
-        b=sP+JZzYqIU3bPoPB2KVXwWOPRyAAKD1xT2gQl0k7a2ao9aDNFkXzTS7/6zfW3yLKo6
-         maMemlE4/H6vUsntCJkbV18YOVubeGTuGcdXrX3PHL2xXlb3DrEOcnz21ptI5W4Q4khv
-         E6a+tvF/S69XLQRRnHLqHLk7Ac3hqPSSIrICH4ORUdPWrRIoyznkkxSb0J/Q+RiPkpNH
-         s5vrpnCIvbPlVlK3BdOR+bJw1Y24WfBSSDsjt/yBrF+5tYYfZQuUj81EhbvAQ6BEKYry
-         i7EvuOeJ+PU5+vP87UAlcn7x3aA812Ben4fiCjxQtdWBhJ1yyyshvBVcCAEFXEql/cPF
-         hIKg==
-X-Forwarded-Encrypted: i=1; AFNElJ81me0nq3wCzwftiKSaV3t5UuwoQYDxXOow6jpgyJqN+Fs9kuIr7kcL8Db4RhdxZcHvidpZXfc1iD3znQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyRk2Tc5GhkoxhZ24/Kit869iwuRU5sl423Y1okkSLUH6klOD+t
-	ETVvcJArE1V915wAy6eRMFi+O+3gOH9iql6vmhc4vVFVoIHWPVzWZNhQ
-X-Gm-Gg: AfdE7ck9BdKer6Eh1fxOKVV+lagTg0so0WAcU0SB3IMKcqZyRbP/onVPLuo4DdS9zXI
-	AkQHSPB57dK76xtxz7Smj+Had/bybVYWKfRawjd/CZY7eBNzPQ+6FZD/LOSE/x6Nryir6a0XKzU
-	yNELEBfbzi5stqwRngzU/5sVnLbMN7PmgIzx/n3y/GGHVOIpoLO5KbLl0iFQrf6pIHu9dNoQJs9
-	nqvYco/T1++jY2K8z4QfTfZ04WXqWAEnrW6f7PCeB2vfX0EThUiY1PF4B0V+KQ34gTiFCTdZQA4
-	aJF1Ha5l3LxPOUdZztL2UnJO8WpOdCPQb9FKy4rMMqd62rX2zIkgI5FN0pupLCrv/bt9OV6Fv3M
-	oyEjgWV5HnyEt9krUObl7h/dCoIh/PRIhE6o9wEC3s2qYpKj2gGVLkry/MCU90tvPi4MVBoOPU3
-	hgsDYh3m5mbTLqjtndJfjm9spQ9g==
-X-Received: by 2002:a05:600c:5252:b0:492:4a50:8445 with SMTP id 5b1f17b1804b1-4925b387f72mr116817505e9.31.1782304164616;
-        Wed, 24 Jun 2026 05:29:24 -0700 (PDT)
+        bh=CTDR2FGDDMlL0SKna41UWrjV6rjHoFlolha4zevYi4s=;
+        b=smug+cJveiPvVsiyQDMxf/ZQQW2En5/F6JebccvyKIDDa9oM5Ago2Sj1u+YrU1OSmA
+         Nq6NAC1h6NLt5Fau++UqD9Dwjxbl0Laycj0v7G8JILK06FWbyvKd1+AixygdoO2eCQDr
+         XEn4ZPrDeFv5HuTw7RgfS5SDpFZ6w81ZOUij9/1U1hmp3aCh+RgpsH/zZuAxsEbFLT0B
+         jfP1OyYLUJ+kN7NkUq+Z942JtC5iUo7EL7d9SXVNgAzu4mHbJybEqkNTyZDI6B7hBze4
+         GR9Y9SWxXjbkGbe+n0QeOkGDmT2OiFbu+0SwTNAkx29UKFJp4UXtBRfl6InbPzXWUDes
+         R2Rw==
+X-Forwarded-Encrypted: i=1; AFNElJ9Ejl0QIt+e7uBY5WTZWkwf/XwRpv6uthEi/YAQwpBh0tvPLg1f6th72rzFhZfZp2TNuj78bj5xSirZUw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwIOZ/QHK0fIcNS3OdU/JxObd8UHY9juCtUBfcdKROwkRd9lwek
+	ndA23E8P1VS9gB1uea80GYS9sjttiQMw1+P4RdzD0pZ+fdu1cOg4+t0I
+X-Gm-Gg: AfdE7cn5EgNEcI0tEDCkHXJTKwBbFNHaCLUgFTzCL5f6/+/sb0G/1BMYpri93ZWrETg
+	xe3dosn3VFPQPY0b0cPImmdlsvUGzRkuP4hje3bFUKWiJwiK9JxH8kSt+xYYp4mWm5q2ZI7GhT2
+	UIUSUDttvkY3jXaeyz76THmn3mw7S1bwl2dnv+s8eLgYAi02Ut5PrFB0fuWdw49vLk8XTZw/jtk
+	t7u74JZESHXC7mvk48v+weGEq+4pQ5252zGiPOYOduiKBy86j5F9GxN4bLIWmNaix55zG7zuwkv
+	y7Sdzj9BE/U4BI59NHeo7VEb/tu7ycm67EwQTtOx6DkMawESAHsz8ketWHUx9tveLyMCV4Rc8bh
+	BnH/eXhbitcXDtV6fZUu7hlUq6X7lz5Ycep30qG4AC+v7mSZkG/JvoumO4fVLnjCKNhroYnCI04
+	aPUNnI1+j4TgFbm5kcQC+l+fFwTeOPmP/N0v2N
+X-Received: by 2002:a05:600c:ac8:b0:490:b7e6:bd1d with SMTP id 5b1f17b1804b1-4926084d209mr36077205e9.16.1782304166289;
+        Wed, 24 Jun 2026 05:29:26 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:157e:3500:2be7:1a89:41c5:9239])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46c9787dddbsm3896530f8f.3.2026.06.24.05.29.23
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46c9787dddbsm3896530f8f.3.2026.06.24.05.29.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Jun 2026 05:29:24 -0700 (PDT)
+        Wed, 24 Jun 2026 05:29:25 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 To: phasta@kernel.org,
@@ -68,9 +68,9 @@ To: phasta@kernel.org,
 Cc: dri-devel@lists.freedesktop.org,
 	linux-media@vger.kernel.org,
 	linaro-mm-sig@lists.linaro.org
-Subject: [PATCH 05/10] drm/sched: use dma_fence_test_signaled_flag()
-Date: Wed, 24 Jun 2026 13:13:29 +0200
-Message-ID: <20260624122917.2483-6-christian.koenig@amd.com>
+Subject: [PATCH 07/10] dma-buf: remove dma_fence_is_signaled_locked()
+Date: Wed, 24 Jun 2026 13:13:31 +0200
+Message-ID: <20260624122917.2483-8-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260624122917.2483-1-christian.koenig@amd.com>
 References: <20260624122917.2483-1-christian.koenig@amd.com>
@@ -84,39 +84,71 @@ Content-Type: text/plain; charset=UTF-8
 Reply-To: christian.koenig@amd.com
 Content-Transfer-Encoding: 8bit
 
-Instead of dma_fence_is_signaled_locked() use
-dma_fence_test_signaled_flag().
+Finally remove one of the biggest trouble makers in the dma_fence
+handling.
 
-No functional difference the mock HW fence has no signaled callback
-anyway.
+The signaled callback is now consistently called without holding the
+dma_fence lock.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/scheduler/tests/mock_scheduler.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ include/linux/dma-fence.h | 36 ------------------------------------
+ 1 file changed, 36 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-index 14403a762335..82dce344bfa1 100644
---- a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-+++ b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-@@ -224,7 +224,7 @@ mock_sched_timedout_job(struct drm_sched_job *sched_job)
- 	}
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index 803e10ca76e3..ad69acbea218 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -493,40 +493,6 @@ dma_fence_test_signaled_flag(struct dma_fence *fence)
+ 	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+ }
  
- 	spin_lock_irqsave(&sched->lock, flags);
--	if (!dma_fence_is_signaled_locked(&job->hw_fence)) {
-+	if (!dma_fence_test_signaled_flag(&job->hw_fence)) {
- 		list_del(&job->link);
- 		job->flags |= DRM_MOCK_SCHED_JOB_TIMEDOUT;
- 		dma_fence_set_error(&job->hw_fence, -ETIMEDOUT);
-@@ -258,7 +258,7 @@ static void mock_sched_cancel_job(struct drm_sched_job *sched_job)
- 	hrtimer_cancel(&job->timer);
- 
- 	spin_lock_irqsave(&sched->lock, flags);
--	if (!dma_fence_is_signaled_locked(&job->hw_fence)) {
-+	if (!dma_fence_test_signaled_flag(&job->hw_fence)) {
- 		list_del(&job->link);
- 		dma_fence_set_error(&job->hw_fence, -ECANCELED);
- 		dma_fence_signal_locked(&job->hw_fence);
+-/**
+- * dma_fence_is_signaled_locked - Return an indication if the fence
+- *                                is signaled yet.
+- * @fence: the fence to check
+- *
+- * Returns true if the fence was already signaled, false if not. Since this
+- * function doesn't enable signaling, it is not guaranteed to ever return
+- * true if dma_fence_add_callback(), dma_fence_wait() or
+- * dma_fence_enable_sw_signaling() haven't been called before.
+- *
+- * This function requires &dma_fence.lock to be held.
+- *
+- * See also dma_fence_is_signaled().
+- */
+-static inline bool
+-dma_fence_is_signaled_locked(struct dma_fence *fence)
+-{
+-	const struct dma_fence_ops *ops;
+-
+-	if (dma_fence_test_signaled_flag(fence))
+-		return true;
+-
+-	rcu_read_lock();
+-	ops = rcu_dereference(fence->ops);
+-	if (ops && ops->signaled && ops->signaled(fence)) {
+-		rcu_read_unlock();
+-		dma_fence_signal_locked(fence);
+-		return true;
+-	}
+-	rcu_read_unlock();
+-
+-	return false;
+-}
+-
+ /**
+  * dma_fence_is_signaled - Return an indication if the fence is signaled yet.
+  * @fence: the fence to check
+@@ -540,8 +506,6 @@ dma_fence_is_signaled_locked(struct dma_fence *fence)
+  * operation is complete, it makes it possible to prevent issues from
+  * wraparound between time of issue and time of use by checking the return
+  * value of this function before calling hardware-specific wait instructions.
+- *
+- * See also dma_fence_is_signaled_locked().
+  */
+ static inline bool
+ dma_fence_is_signaled(struct dma_fence *fence)
 -- 
 2.43.0
 
