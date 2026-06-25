@@ -1,126 +1,90 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67853305968;
-	Wed, 24 Jun 2026 22:20:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42FB6405F7;
+	Thu, 25 Jun 2026 00:31:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782339648; cv=none; b=iEKaprpbOZrO/ueE+dZhio/dUxK3IGU+KpzElPXobENK/PVKkHIkshS1qo0xzVtoAWvR02n/L4PCz0+QPOrvyBZXpeRgsyEZJn1YDHfifpXPM7u2nf3lfFO4roGoqVAb2bmMj+ZbCDHnQEjkswpNUU1EYH5zgq6FKrUSS4SG+d0=
+	t=1782347516; cv=none; b=XWO/x5wy0i9x5yxRhZzrQvCZhzMB0M0H3WuCCGi50ZP+n/ZrcdwZUY2leoZ2PGhbPsBqPWrEfdo76DF5CBw5zVCRDDRFvfBPNIkf4togAgRv37Hee32QPEqiVS6c0a1r9IEL21Lx4z1jfIvJGvDUvtQ95x6fgfttrcVqxNsZVk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782339648; c=relaxed/simple;
-	bh=Az4Lcorrg+CspHNvux8x53XK9+wEtcYFhVqLEqIlU30=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s2mzwRq2AlFA5dLicdEJeIjlsThRStd/ByIu5P+z/njlloa+Pv0Ilq/q3ueCe4DhP7PV0Q0x2XmtApvhFjlTEK4it6T+LschzbefOeVf3grwUsDMY4OeGWJs2mq5nvjCNkFiicWziPriZuxhnw7/A6oVyKspdpQcwIAr7LgsuHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=T8b381il; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="T8b381il"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 37C98929;
-	Thu, 25 Jun 2026 00:20:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1782339604;
-	bh=Az4Lcorrg+CspHNvux8x53XK9+wEtcYFhVqLEqIlU30=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=T8b381ilsHNYyXouPKGPHHzHsCDZu2Po+cihewknDkwsEQDiFs36AfYuduBir21be
-	 rWdwZWM+NsJYQceT16fR3HSVuwBHQZ0qV+gpOKW0mKaQz+svrV5X/SfGyB84VweAjm
-	 GWeO90XdtDiCFhCFibcaMU2yPhBP3KoaIer5aOyM=
-Date: Thu, 25 Jun 2026 01:20:42 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
+	s=arc-20240116; t=1782347516; c=relaxed/simple;
+	bh=N2M1g2vNY3/jb+YR1Dv5YUHD8HeW9Rvi52ndd2L7v5o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ERVnse7ap907gcg8cIco/TUf2RWkYBNly7eCidemhmGwEfKNgbf6DPoVQjI9tQ6w6gSWUlOxG2YE1uyCsAmbAy14WuJdj68hLs9AzXY1arF8vnIwG6zDSFhcUEsK/OC/n+EOOp8/SanWkVH08imLfFXNEBAHk1SEO07ZesFtod4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.245.140])
+	by APP-03 (Coremail) with SMTP id rQCowAD3FNzwdjxq38vCFQ--.4340S2;
+	Thu, 25 Jun 2026 08:31:44 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Bin Liu <bin.liu@mediatek.com>
+Cc: pengpeng@iscas.ac.cn,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dafna Hirschfeld <dafna@fastmail.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	driver-core@lists.linux.dev, linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	imx@lists.linux.dev, Guoniu Zhou <guoniu.zhou@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>, Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Subject: Re: [PATCH v2 0/4] media: add and use
- fwnode_graph_for_each_endpoint_scoped()
-Message-ID: <20260624222042.GN851255@killaraus.ideasonboard.com>
-References: <20260624-fw_scoped-v2-0-0a8db472af4a@nxp.com>
- <20260624191935.GG851255@killaraus.ideasonboard.com>
- <ajwxcn2LXS8InAjZ@SMW015318>
- <20260624200237.GJ851255@killaraus.ideasonboard.com>
- <ajxCOE3avXXLlrfT@SMW015318>
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH] media: mediatek: jpeg: retry HW selection after successful wait
+Date: Thu, 25 Jun 2026 08:31:42 +0800
+Message-ID: <20260625003142.99598-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ajxCOE3avXXLlrfT@SMW015318>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAD3FNzwdjxq38vCFQ--.4340S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw45KF43tr48tFykGrWxWFg_yoW8XrW8pr
+	ZxK3sFyrW8Krs0gr48A3W7ZFy5Aw1rCF4xWr13uw10yw1aqF47GryYka4SvFWxAr42ka43
+	JF4Fv3yxArWjyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j
+	6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUbGQ6J
+	UUUUU==
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-On Wed, Jun 24, 2026 at 03:46:48PM -0500, Frank Li wrote:
-> On Wed, Jun 24, 2026 at 11:02:37PM +0300, Laurent Pinchart wrote:
-> > On Wed, Jun 24, 2026 at 02:35:14PM -0500, Frank Li wrote:
-> > > On Wed, Jun 24, 2026 at 10:19:35PM +0300, Laurent Pinchart wrote:
-> > > > On Wed, Jun 24, 2026 at 01:00:08PM -0400, Frank.Li@oss.nxp.com wrote:
-> > > > > Add new helper macro fwnode_graph_for_each_endpoint_scoped() and use it
-> > > > > simplify media code.
-> > > > >
-> > > > > Typical example should qualcomm's driver (camss.c), the v4l2_mc.c and
-> > > > > rkisp1-dev.c only silience improvement.
-> > > > >
-> > > > > Anyways, *_for_each_*_scoped() already use widely and make code clean.
-> > > > >
-> > > > > Build test only.
-> > > > >
-> > > > > Sakari Ailus:
-> > > > > 	when I try to improve the patch
-> > > > > "Add common helper library for 1-to-1 subdev registration", I found need
-> > > > > camss.c pattern, so I create this small improvement firstly.
-> > > >
-> > > > Those are nice cleanups, thank you.
-> > > >
-> > > > After applying this series, the only left users of the
-> > > > fwnode_graph_for_each_endpoint() macro are in drivers/base/property.c.
-> > >
-> > > I already checked previously, two place use it.
-> > >
-> > > fwnode_graph_get_endpoint_count(), it will go though all endpoints, last
-> > > ep is NULL, which totally equial to scoped() version.
-> > >
-> > > another one fwnode_graph_get_endpoint_by_id(), which return ep, expect
-> > > caller to call put().
-> > >
-> > > if use scoped() version, need use no_free_ptr() at return, which make think
-> > > a little bit complex.
-> >
-> > It would introduce a tiny bit of extra complexity there, but the
-> > advantage (in my opinion) is that we'll be able to remove the less safe
-> > fwnode_graph_for_each_endpoint() macro.
-> >
-> > Now one may argue that the risk of
-> > fwnode_graph_for_each_endpoint_scoped() is returning the iterator
-> > without using no_free_ptr(). I wonder if that would be easier to catch
-> > in static analysis tools than the current pattern that leaks a reference
-> > when exiting the loop early.
-> 
-> It's not big deal, if everyone prefer drop fwnode_graph_for_each_endpoint(),
-> I can do it.
+wait_event_interruptible_timeout() returns a positive value when the
+condition becomes true before the timeout expires.
 
-Let's see what others think. If people prefer keeping both versions,
-I'll be OK with that.
+mtk_jpegdec_worker() treats every non-zero return value as a failure and
+finishes the mem2mem job with an error.  A normal wakeup that indicates
+that a decode engine is ready can therefore be handled as if all hardware
+remained busy.
 
-> > > It'd better leave these as it.
+Only fail immediately on interrupted waits.  Keep the existing retry limit
+for real timeouts, and retry hardware selection after a successful wait.
 
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+index d147ec483..391db77a6 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -1697,7 +1697,7 @@ static void mtk_jpegdec_worker(struct work_struct *work)
+ 		ret = wait_event_interruptible_timeout(jpeg->hw_wq,
+ 						       atomic_read(&jpeg->hw_rdy) > 0,
+ 						       MTK_JPEG_HW_TIMEOUT_MSEC);
+-		if (ret != 0 || (i++ > MTK_JPEG_MAX_RETRY_TIME)) {
++		if (ret < 0 || (!ret && i++ > MTK_JPEG_MAX_RETRY_TIME)) {
+ 			dev_err(jpeg->dev, "%s : %d, all HW are busy\n",
+ 				__func__, __LINE__);
+ 			v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
 -- 
-Regards,
+2.50.1 (Apple Git-155)
 
-Laurent Pinchart
