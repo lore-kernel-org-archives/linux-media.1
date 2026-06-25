@@ -1,67 +1,67 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013016.outbound.protection.outlook.com [40.107.159.16])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011033.outbound.protection.outlook.com [52.101.70.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38EE92FA0DF;
-	Thu, 25 Jun 2026 11:41:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF3E63DCD94;
+	Thu, 25 Jun 2026 11:41:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.33
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782387718; cv=fail; b=ruYwdqHM4GdPMzWJT2eEbCP6fLHd03FOu5Z1UzamcZvC4y0EDeSOorrjs2Mce8kij2Xvnvjd/zjIIjorXSwzOz8TavxXBdfVpaYmxEqw5ImsEE8abfHlzk5gsufJPjdF5u78NOjxEnTAA+DW7cLom/sV1ZcAWs44Ulfk3ypgcmw=
+	t=1782387721; cv=fail; b=eOEfuqa9qIOoi/hhvCc/BGjeBnrVou8cCTxIlM43eik7Wms5GdotNrY18DdDL+hq21Ev2wtclkWx4ZvBnY/sPRNlKBT1OqyBQWk2x234rL18pwIjcbVv2MrSjlFOtv2LsnlLWIp0IvEWRHkRw90dDgSj6XzKVTK+m9AB8LF/bzk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782387718; c=relaxed/simple;
-	bh=RVz3C8e8VReoQzwgzUlBnRsmQZICvpH47y/iAO/aFwQ=;
+	s=arc-20240116; t=1782387721; c=relaxed/simple;
+	bh=2o0ogw+nZrtLEQ2oOrSgEcOxjIrNj1+hDWcpZ57QUhE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=ia/uNsQ7DrxEAYHUYjU+bPQfBXHpeM5dvMQSeNVCVZ+1ZL+H/qTz1nW6yQb9Kz57Xvc9sq42AAFHPdlTuNMpTDS3AsSDZ/ki3CDnwffr4OaPv+za6hJtR7q6e0QExHC2J8x5fmn+mzxDKOrRQIEYjV7wB3pP6l9F+uscInIMSXI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=hDWdmlld; arc=fail smtp.client-ip=40.107.159.16
+	 In-Reply-To:Content-Type; b=BfDpHQxmKzmJ1o1c6y6P1cJ4zPa39+HF0n7ITNTXGwm5b7cysFNE0jdO9YR0Ma+hIhD2lyp/pB6whg6ulzsQ1DhwynksvgLz8vQNAg01qQfebIXcLK0n8Of7qB+Icy9FYrOiMDDI+jDi6QwqVe9NqI0GI/Cut7aaoK0elle3CZM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=RetEWo6l; arc=fail smtp.client-ip=52.101.70.33
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="hDWdmlld"
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="RetEWo6l"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TA34OiKjGHKpZ6kKV/uew9+B5zg/swK/ytGCeq+SMwv84fj4DCw6OdwUFOyPMTcl0Mw1Mr8SJDThtkq367vCXQuGzwLZNuNsN4vfsChBgZV8yD8acqSb/LVwp7J6gyjk882p1gpYdnCnWTwDdlJvT/unoq5imim9ZpvHC0Mol5FUlt6YzWZuKhtvMuzejjy1bxCn0kUeLN4Qy0HmH3q4OUW5h+b3IrhqfgltppQYCVNv72hYxjDDNkmbjlSD5gXFYSZuThGuKfhE/djPST+c3dvHHW8nf9cgsGdPO9TIAHRjqZdWXPg5H20ajyOgtEWQcEqqvPoTY6u5/u22UQelgw==
+ b=YJxe8ZCXn9iG/DAGGG2a1HVLczeMe5bbTIFe2KJrp0I9rWuM9+UXQZkNx+iyIG/lyYSRDHHqABXkJJuTkqgREdFLtcxqdX+VqroefXCA1Npa0Y9oQCfp0ZMoBe2qZA9VNTFdpYT0YN3Lr1TFJ2SkyZIrgMt7Tn2ylhr1CYzBrgj6wgOTsQzt27OI6JvdcJvbb7RbsO8MHZLBU43BJq4Lqj8ol1gB/tJmF1nqjIc16tmcKrZx6wz2iptUy29zwu6max6KLUNR0fm9dJDiK8/lmx8kbBt7YBaNjquD8dU3JcviVp1QNorSkiGKdi3VYUILqtU0pAR3225yffdvASfEIA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eTsWmzBeDG4lSr6tE85cXEc2udThmcWRStw2seQj9bY=;
- b=HmIPYAFhAzur5ZlGQSPJdQinZHaVyMym2XwOwFmWKBFTu7MKkWOTTxklKWtP6oDNke51nGPrCs71GWLZ8AcDR91iKftiSci42o4wnFsPkBGnUvyX8KS3EwvNGiWuTj5ddXd+5dqxlOjr5GMTSnFbA/QuBzLiiiO1sv521vQRJjBvE6Ojn1tp0yDhIksz75uGkmV9+xjZX6qDQaMn7Nbh8a/QD/utIOwSDuvrPGxwmR6VG1LMi/jts+sryE6DfBVSVySaM4ORRLaWaTt73TsyjujFxDj1MQyXEuqZQ+nAAzBi1EbEP1aC4/ozu32Z0mv9RGHHUaDUc/lTMkb0F32y9g==
+ bh=1ee8LylDR5clcxTSkxhWV1yKQIMRkliircbhPLv5q8I=;
+ b=i5H9TyxJkD36+gkahXyIMgdogoBOSkiWR3VFvopJKa2XQobZqO3viFH6kpx+e9XJb6vXBLSy18amaOMgQEHumNCrWlp8P9U18GWyC1uFEei+aTF+7gENe+Vx3qrLapRpjnDwU4s37cEgrX2gtXnlJ3k2RQpUKp56VkHcyf7MQ0DU5nftfpvoPJIXXdd90qhaL4pT7lV8t2XsnCPnzZOKrea328zpaxLEIDe9fThOTnn4DLH0yn3XSwylP/iGxgRw08350icZXrGK50jJIVUGyqFv6vqFK4Nr79UFp8Igjjj1iP33ZDO87jKXr0HgupVR6Q2ntGADCH0wWGyPxzuJ2Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=foss.st.com;
+ 164.130.1.59) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=foss.st.com;
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eTsWmzBeDG4lSr6tE85cXEc2udThmcWRStw2seQj9bY=;
- b=hDWdmlld4uTGr485JxhsizZrZZak8Twx/4bNrfoScyK6VZVjPvxwcRoQrk9QtRM4LvycZLHoIJAByMcp92gcLt51XXS5OV0DEq7SS34KhlFvYiBXCbdgouTX7KiDsHTBltDqesnpIC1ZCXyLXyegwvFeZl1bnoqgdh9JBfpcGiMCSdnIZwHmhNeASwoyFZs4nWOr0ugU/6tWGtSXBGvsWQA8vTECSPwt+SS45wQUM9IcKKG2Yel80Q+R20Yfv8+vi7mraq5uRte/LVuvLRlP5VxsB2wkuXLwDJ5p1BEgBhNg1A0h+zEREaeG0V/5899utzKeTlZFEjp6jyxNT4/T6g==
-Received: from DU7P191CA0019.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:54e::33)
- by VI0PR10MB9720.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:33c::20) with
+ bh=1ee8LylDR5clcxTSkxhWV1yKQIMRkliircbhPLv5q8I=;
+ b=RetEWo6lItrB/cvCKLz3Ow3y+1VjPwYA90ataawPr5jDKznw0N5ifngIv1Kx8vpM16rt+HxqE95nC5aEn3sA07tYZK5X8wrBinn2dArVuBf/ZRt84NEtK7QgE21EQR7ReA34ldkPxjqb8Q7Y7I8dkMAV6LQyccztebFIa6jweK/Y0R9pNj0mHZ4b89FWx2xAbusnbLlDc8XhbDuJksbbMc/ym4MNh44y2ZN0LzclojmLKf4H3FW2nB49HoNt7SUhQVwD7kJCjttiY5Xcej8aJAujk1TOd+Ambkn5IHoGzY9jiHNbgk1ZaBOqoRm+3JR91B0rO64Sa0IxXMTI/yGz0g==
+Received: from DU7P189CA0011.EURP189.PROD.OUTLOOK.COM (2603:10a6:10:552::25)
+ by DU4PR10MB9808.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:632::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.18; Thu, 25 Jun
- 2026 11:41:49 +0000
-Received: from DB5PEPF00014B9F.eurprd02.prod.outlook.com
- (2603:10a6:10:54e:cafe::18) by DU7P191CA0019.outlook.office365.com
- (2603:10a6:10:54e::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
+ 2026 11:41:55 +0000
+Received: from DB5PEPF00014B9D.eurprd02.prod.outlook.com
+ (2603:10a6:10:552:cafe::99) by DU7P189CA0011.outlook.office365.com
+ (2603:10a6:10:552::25) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.16 via Frontend Transport; Thu,
- 25 Jun 2026 11:41:47 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ 25 Jun 2026 11:41:55 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
  smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
 Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DB5PEPF00014B9F.mail.protection.outlook.com (10.167.8.169) with Microsoft
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DB5PEPF00014B9D.mail.protection.outlook.com (10.167.8.164) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Thu, 25 Jun 2026 11:41:46 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.181.6 via Frontend Transport; Thu, 25 Jun 2026 11:41:54 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Thu, 25 Jun
- 2026 13:45:59 +0200
+ 2026 13:46:35 +0200
 Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
  (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Thu, 25 Jun
- 2026 13:41:45 +0200
-Message-ID: <f51d5d21-54fb-444a-9ae9-9b60e7a500f1@foss.st.com>
-Date: Thu, 25 Jun 2026 13:41:48 +0200
+ 2026 13:41:53 +0200
+Message-ID: <68d276f9-e688-4736-a296-f56c5aaa4b77@foss.st.com>
+Date: Thu, 25 Jun 2026 13:41:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,7 +69,7 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] media: i2c: vd55g1: Fix media bus code initialization
+Subject: Re: [PATCH 4/5] media: i2c: vd55g1: Add support for vd55g4
 To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 CC: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus
 	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -78,191 +78,284 @@ CC: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus
 	<linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
 	<devicetree@vger.kernel.org>
 References: <20260428-vd55g4_and_fixes-v1-0-4f745a83b87e@foss.st.com>
- <20260428-vd55g4_and_fixes-v1-1-4f745a83b87e@foss.st.com>
- <ajj90hhNwx7bLkOZ@zed>
+ <20260428-vd55g4_and_fixes-v1-4-4f745a83b87e@foss.st.com>
+ <ajkKkSeDNoijIsub@zed>
 Content-Language: en-GB
 From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-In-Reply-To: <ajj90hhNwx7bLkOZ@zed>
+In-Reply-To: <ajkKkSeDNoijIsub@zed>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB5PEPF00014B9F:EE_|VI0PR10MB9720:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0a48303d-14ca-4516-c358-08ded2aebd07
+X-MS-TrafficTypeDiagnostic: DB5PEPF00014B9D:EE_|DU4PR10MB9808:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad973326-af1b-4d0d-f96b-08ded2aec1c4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|376014|7416014|1800799024|36860700016|13003099007|6133799003|4143699003|11063799006|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|7416014|1800799024|23010399003|18002099003|22082099003|11063799006|4143699003|5023799004|56012099006|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	TN9LZnsCgw7s+BenRMfx/yavf2XI/HZga0B1csr9dHJ404ySbc1OsAxVYKsSe+DMN5nlXZ4d/T7bwkrRxy0kFnQPpGPDKqoNsMu2HniZTj6yNysSOuhwsl10wR8SwdD1Rj7Fntpxur2iZpaQrSTcL7IR0dTY3o8BGdlqvbs1FKCsOTMYOsAWM3IbTe2WD+k7bklJxb2rkw/WJs8dlJZlgF8R5JxBwID9QlZyfGmDH6SGOP8vcZtwjUezpwYAsg50dmiBFsXSyc34BFm+lsiABScmx7u0fCWTiGEW3VV7GkQroAfGEUByA7kIpCcxx2xyczv86JXkdIFGKJpG1FmyM8BAvIqMnpi/nHVzsGXpDIi1w2UNyvcuBU7q2PbOJQ+/iRmmY7+RlDt4wAmqnN5ME+7mCoTI9tnX9ySAATO0zxD0sk+CkZzyyKZD7UTIDJnlmsev9YgZ65yWN5bKW/ePUwB6+rTxCamE9Og0L8syoqmp7diAlAiFfThZlL/GEvLzVo/B6nIbVlFfS2/eosEnfJ/PZawDT9V6YWGfiPD1EnscKYUslTzaPepK/0x3fr0Wx9EBb9tMFnBebVn2vmmnbSDU0ZTzS8cYuGm6KglU9CyI3BKvHnuVrb5a7q7HXes30QlJKCGMzY9Pc9nt0VVccQ==
+	ogFm7IOsl0y9zdZYJQZ1Lu0MsLQgLy8QFEi3M8AgczEW699wpf9/sWvimV2YtX3b+jjK8nYrHZrqbhI9q3thd7GFXiL/4Ohq7Ujz2vnZ4ghB4lMGZS5hatHks3NYvJEf5sqR2L+aixQjowo9wyUms2Px295xy34JKfiHysajHrK+tat5IH0cv1cFGQ7g8P3zcqftUKK2XA1TX+HXyIq4CFrNEA0AFQFCsdaLj1NexyaI2jzTlQ9MCyMxklRK+DtNFBSp/zq7fpYu6efijIWrybD15U3vLSKsbqDt4cpMXyiKY1j3420e1ErG2Ichgbf9nmulsW4MkZvlYq36OX+YDtp1AAdJXUvFM1qLEt0FAWiWjWWSXMwkuHXlN/lFrKmAhW2F0RLblEuoimu5VeeKljtQ6gJmMmGefdm9QmH6GoTT8X+OmCo4/GV+OzIKfoFR0m0pPpDRBwOObrlJ/VHiEN3qIXHzd2yPUeka/xPE5ICWRZQV8CVaHRw86tGuL9+VpsNHiJ3U/8cqrpi0DfL5Li/QzHjVEZXdxLQ/yDMnDsJwlOcrAHdj6C5loC+7HTIPYkQ0j5hh5Asi0q6sCC03ilr7IPp55Ks70s9Q/rSNImpknn5qGTPbuch66bLpvOY5wB/IrgQwpcwH1kb98loYdlC+b4bzJS34NxjuSo+8p7JF7kg4Isg15NArx9FtN+P/esPLCoPKbRje/7qzRDs4OQ==
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(376014)(7416014)(1800799024)(36860700016)(13003099007)(6133799003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(7416014)(1800799024)(23010399003)(18002099003)(22082099003)(11063799006)(4143699003)(5023799004)(56012099006)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	LuiS++/fMN/vksSl290b716i+Z9SRVfY/nkD6NENZLEfzNECpbruS5mFr78PvfmZJP7uAOfxQh5Tz3smOVZxdmBF5ASQpmhDpAc9RbysiyoI1wkHsbtvy+226iUQkSd/wd4ocSg1phVKuCbiM8hXP7zIu17AnWLcg+5ng9lSnHxVkaHZT6vKhNnbt+9p4FBfr8t4G4Oskfldv5I1kFy8gaXY852pP4OHCehqt7QAjigta0hHIYb7aQ6UfzJNuKW9AJeK011UIRycq4o4vDUmQyRdAOCNPtbczGC69CU5RvRJOInE5Vd/+Ny24u9qRXxun6sccenFOAK8QkCpGtfy4QYiArtYBIk+AcSJUIYN1crZI64JfickfZjSLolsorAk7GLz5Q28t5x6ttk6lXy/qbKYyE+jpvOCR/fYtUZwkfPG5RHwc2XGKtDbzI1CKwnQ
+	UN4Lr/2rS4GgUvtuiwpBe4NG+Q6CsZU9jaRQB96GcAv8KsY6ylcmOx/fItO6zSWC3WodMzgEQ+34OcU+HXBkEJXCuWPH2XaKZS9O+MhZzt95duTX0etxYwYppXZkHgDVQSMWNwbSSMF3ptX7ORFQPSb+auz5rvby74PJjxxIU8deCdMv1cwuSos53CFefewK3Ma2trZFsWrqAxK5GCClMecOqrBQB+tyv+gGyzc/9V5lsxOqojV8cE3fpBS4OPr6iKmugLFRQorcbHO9OwNm43SlAP3YE093XEhDpsFbZziL4Cv0+QRUtBAgmWIqWsCenrK2UWRamKC2JRQTgGu60bDdQY/l7jJ4mwJBCMXISgyjYXMPFwZTYPq0dXVJ/TJuQYIv9ORyOr3l8NQNTR+0O4P9uTBUx+5nRtB1vLoT4NuBOku0CLRc8fTOF4K3ZmaG
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 11:41:46.9524
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 11:41:54.9085
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a48303d-14ca-4516-c358-08ded2aebd07
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad973326-af1b-4d0d-f96b-08ded2aec1c4
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DB5PEPF00014B9F.eurprd02.prod.outlook.com
+	DB5PEPF00014B9D.eurprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR10MB9720
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR10MB9808
 
 Hi Jacopo,
 
-Thank you for your review.
-
-Le 22/06/2026 à 11:28, Jacopo Mondi a écrit :
+Le 22/06/2026 à 12:16, Jacopo Mondi a écrit :
 > Hi Benjamin
 > 
-> On Tue, Apr 28, 2026 at 10:40:55AM +0200, Benjamin Mugnier wrote:
->> In the driver initialization, the index of the default media bus code
->> from the supported media bus code array is passed directly to the
->> vd55g1_get_fmt_code() function instead of the proper media bus code.
+> On Tue, Apr 28, 2026 at 10:40:58AM +0200, Benjamin Mugnier wrote:
+>> vd55g4 is the same device as vd65g4 but outputs in monochrome instead of
+>> RGB. Adapt the driver structure according to this new variant, and add
+>> its support.
 >>
->> This works correctly as a proper media bus code is set after
->> initialization but could not have been the case. This also resulted in
->> mutliple "Unsupported mbus format" error messages.
->>
->> Retrieve the media bus code from the media bus code array, and pass this
->> media bus code to vd55g1_get_fmt_code() instead of the code index.
->>
->> Rename VD55G1_MBUS_CODE_DEF to VD55G1_MBUS_CODE_IDX_DEF and
->> VD55G1_MODE_DEF to VD55G1_MODE_IDX_DEF while at it to avoid future
->> confusions. Display the guilty error code in warning message.
->>
->> Fixes: e138e7f00042 ("media: i2c: vd55g1: Add support for vd65g4 RGB variant")
->>
-> You should cc stable for fixes
-> 
-> Cc: stable@vger.kernel.org
-> 
-
-We talked about this very recently and somehow I still forgot.
-
-> 
-> The CI should have flagged that, but for some reason it didn't run
-> properly on your series
-> https://gitlab.freedesktop.org/linux-media/users/patchwork/-/pipelines/1655147
-> 
 >> Signed-off-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
 >> ---
->>  drivers/media/i2c/vd55g1.c | 17 +++++++++++------
->>  1 file changed, 11 insertions(+), 6 deletions(-)
+>>  drivers/media/i2c/vd55g1.c | 110 ++++++++++++++++++++++++++++++---------------
+>>  1 file changed, 74 insertions(+), 36 deletions(-)
 >>
 >> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
->> index 78d18c028154..1e9db21322e3 100644
+>> index 2c962fcb41d2..9f62fc0428a1 100644
 >> --- a/drivers/media/i2c/vd55g1.c
 >> +++ b/drivers/media/i2c/vd55g1.c
->> @@ -114,9 +114,9 @@
+>> @@ -29,11 +29,7 @@
 >>
->>  #define VD55G1_WIDTH					804
->>  #define VD55G1_HEIGHT					704
->> -#define VD55G1_MODE_DEF					0
->> +#define VD55G1_MODE_IDX_DEF				0
->>  #define VD55G1_NB_GPIOS					4
->> -#define VD55G1_MBUS_CODE_DEF				0
->> +#define VD55G1_MBUS_CODE_IDX_DEF			0
->>  #define VD55G1_DGAIN_DEF				256
->>  #define VD55G1_AGAIN_DEF				19
->>  #define VD55G1_EXPO_MAX_TERM				64
->> @@ -634,7 +634,7 @@ static u32 vd55g1_get_fmt_code(struct vd55g1 *sensor, u32 code)
-> 
-> Unrelated, but it seems you now have 2 codes for MONO. Does
-> 
-> 	if (sensor->id == VD55G1_MODEL_ID_VD55G1)
-> 		return code;
-> 
-> need an update ?>
-
-Not in this patch because it does not add the new MONO sensor, but in
-4/5 I separated the model ID from the color code. Example for the vd55g4 :
-
-  .name  = "vd55g4",
-  .id    = VD55G1_MODEL_ID_3,
-  .color = VD55G1_COLOR_VERSION_MONO,
-
-So the patch 4/5 updates the previous 'if' you mentioned to check the
-color member instead of the model :
-
-  if (sensor->version->color != VD55G1_COLOR_VERSION_BAYER)
-
-Which IMO is a good way to handle this problematic. Tell me if you're
-thinking about something else.
-
->>  				goto adapt_bayer_pattern;
->>  		}
->>  	}
->> -	dev_warn(sensor->dev, "Unsupported mbus format\n");
->> +	dev_warn(sensor->dev, "Unsupported mbus format: 0x%x\n", code);
+>>  /* Register Map */
+>>  #define VD55G1_REG_MODEL_ID				CCI_REG32_LE(0x0000)
+>> -#define VD55G1_MODEL_ID_VD55G1				0x53354731 /* Mono */
+>> -#define VD55G1_MODEL_ID_VD65G4				0x53354733 /* RGB */
+>> -#define VD55G1_REG_REVISION				CCI_REG16_LE(0x0004)
+>> -#define VD55G1_REVISION_CCB				0x2020
+>> -#define VD55G1_REVISION_BAYER				0x3030
+>> +#define VD55G1_REG_COLOR_VERSION			CCI_REG32_LE(0x0670)
+>>  #define VD55G1_REG_FWPATCH_REVISION			CCI_REG16_LE(0x0012)
+>>  #define VD55G1_REG_FWPATCH_START_ADDR			CCI_REG8(0x2000)
+>>  #define VD55G1_REG_SYSTEM_FSM				CCI_REG8(0x001c)
+>> @@ -138,8 +134,39 @@
+>>  #define VD55G1_MIPI_RATE_MIN				(250 * MEGA)
+>>  #define VD55G1_MIPI_RATE_MAX				(1200 * MEGA)
 >>
->>  	return code;
+>> -#define VD55G1_MODEL_ID_NAME(id) \
+>> -	((id) == VD55G1_MODEL_ID_VD55G1 ? "vd55g1" : "vd65g4")
+>> +enum vd55g1_model_id {
+>> +	VD55G1_MODEL_ID_2 = 0x53354731,
+>> +	VD55G1_MODEL_ID_3 = 0x53354733,
+>> +};
+>> +
+>> +enum vd55g1_color_version {
+>> +	VD55G1_COLOR_VERSION_MONO = 0x0,
+>> +	VD55G1_COLOR_VERSION_BAYER = 0x1,
+> 
+> nit: you don't need to initialize the enum members here
+
+Thank you, will do.
+
+> 
+>> +};
+>> +
+>> +struct vd55g1_version {
+>> +	char *name;
+>> +	enum vd55g1_model_id id;
+>> +	enum vd55g1_color_version color;
+>> +};
+>> +
+>> +static const struct vd55g1_version vd55g1_versions[] = {
+>> +	{
+>> +		.name  = "vd55g1",
+>> +		.id    = VD55G1_MODEL_ID_2,
+>> +		.color = VD55G1_COLOR_VERSION_MONO,
+>> +	},
+>> +	{
+>> +		.name  = "vd55g4",
+>> +		.id    = VD55G1_MODEL_ID_3,
+>> +		.color = VD55G1_COLOR_VERSION_MONO,
+>> +	},
+>> +	{
+>> +		.name  = "vd65g4",
+>> +		.id    = VD55G1_MODEL_ID_3,
+>> +		.color = VD55G1_COLOR_VERSION_BAYER,
+>> +	},
+>> +};
 >>
->> @@ -1347,6 +1347,7 @@ static int vd55g1_init_state(struct v4l2_subdev *sd,
+>>  static const u8 vd55g1_patch_array[] = {
+>>  	0x44, 0x03, 0x09, 0x02, 0xe6, 0x01, 0x42, 0x00, 0xea, 0x01, 0x42, 0x00,
+>> @@ -535,7 +562,7 @@ struct vd55g1_vblank_limits {
+>>
+>>  struct vd55g1 {
+>>  	struct device *dev;
+>> -	unsigned int id;
+>> +	const struct vd55g1_version *version;
+>>  	struct v4l2_subdev sd;
+>>  	struct media_pad pad;
+>>  	struct regulator_bulk_data supplies[ARRAY_SIZE(vd55g1_supply_name)];
+>> @@ -628,7 +655,7 @@ static u32 vd55g1_get_fmt_code(struct vd55g1 *sensor, u32 code)
 >>  {
+>>  	unsigned int i, j;
+>>
+>> -	if (sensor->id == VD55G1_MODEL_ID_VD55G1)
+>> +	if (sensor->version->color != VD55G1_COLOR_VERSION_BAYER)
+>>  		return code;
+> 
+> As pointed out in the previous patch, you seem to have 2 mono formats.
+> Is this still ok ?
+> 
+>>
+>>  	for (i = 0; i < ARRAY_SIZE(vd55g1_mbus_formats_bayer); i++) {
+>> @@ -1183,8 +1210,8 @@ static int vd55g1_patch(struct vd55g1 *sensor)
+>>  	u64 patch;
+>>  	int ret = 0;
+>>
+>> -	/* vd55g1 needs a patch while vd65g4 does not */
+>> -	if (sensor->id == VD55G1_MODEL_ID_VD55G1) {
+>> +	/* Version 2 needs a patch while version 3 does not */
+>> +	if (sensor->version->id == VD55G1_MODEL_ID_2) {
+>>  		vd55g1_write_array(sensor, VD55G1_REG_FWPATCH_START_ADDR,
+>>  				   sizeof(vd55g1_patch_array),
+>>  				   vd55g1_patch_array, &ret);
+> 
+> You might want to consider renaming vd55g1_patch_array ?
+
+It doesn't really patch an array, it writes an array of values into
+continuous i2c registers. Just like before converting to cci_write() I
+used to have a vd55g1_write() function to write a register, I derived a
+vd55g1_write_array() function. Here it happens to be a firmware patch,
+but it could be anything you want ;)
+
+> 
+>> @@ -1256,7 +1283,7 @@ static int vd55g1_enum_mbus_code(struct v4l2_subdev *sd,
 >>  	struct vd55g1 *sensor = to_vd55g1(sd);
->>  	struct v4l2_subdev_format fmt = { 0 };
->> +	int code;
->>  	struct v4l2_subdev_route routes[] = {
->>  		{ .flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE }
->>  	};
->> @@ -1361,9 +1362,13 @@ static int vd55g1_init_state(struct v4l2_subdev *sd,
+>>  	u32 base_code;
+>>
+>> -	if (sensor->id == VD55G1_MODEL_ID_VD55G1) {
+>> +	if (sensor->version->color != VD55G1_COLOR_VERSION_BAYER) {
+>>  		if (code->index >= ARRAY_SIZE(vd55g1_mbus_formats_mono))
+>>  			return -EINVAL;
+>>  		base_code = vd55g1_mbus_formats_mono[code->index];
+>> @@ -1372,7 +1399,7 @@ static int vd55g1_init_state(struct v4l2_subdev *sd,
 >>  	if (ret)
 >>  		return ret;
 >>
->> -	vd55g1_update_pad_fmt(sensor, &vd55g1_supported_modes[VD55G1_MODE_DEF],
->> -			      vd55g1_get_fmt_code(sensor, VD55G1_MBUS_CODE_DEF),
->> -			      &fmt.format);
->> +	if (sensor->id == VD55G1_MODEL_ID_VD55G1)
->> +		code = vd55g1_mbus_formats_mono[VD55G1_MBUS_CODE_IDX_DEF];
->> +	else
->> +		code = vd55g1_mbus_formats_bayer[VD55G1_MBUS_CODE_IDX_DEF][0];
-> 
-> Being this a multi-dimensional array, I don't seem much value in
-> defining VD55G1_MBUS_CODE_IDX_DEF if this is the only place where it
-> is used. What's the meaning of VD55G1_MBUS_CODE_IDX_DEF for
-> vd55g1_mbus_formats_bayer ? Does it represent the bitwidth or does it
-> represent the bayer pattern ?
-
-For vd55g1_mbus_formats_bayer, the first dimension of the array is the
-bitwidth, and the second one is the bayer pattern.
-
-> 
-> I would rather define a
-> VD55G1_DEF_MBUS_CODE_MONO       MEDIA_BUS_FMT_Y8_1X8
-> VD55G1_DEF_MBUS_CODE_BAYER      MEDIA_BUS_FMT_SRGGB8_1X8
-> 
-> Or maybe do
-> 
-> 		code = vd55g1_mbus_formats_bayer[VD55G1_MBUS_CODE_IDX_DEF]
->                                                 [VD55G1_MBUS_CODE_IDX_DEF];
-> 
-> if easier.
-> 
-> I understand it's a minor, so up to you.
-
-As you mentioned it's only used here. I won't mind removing
-VD55G1_MBUS_CODE_IDX_DEF entirely and do :
-
-  code = vd55g1_mbus_formats_bayer[0][0];
-
-Does that sound okay ?
-
-> 
-> 
-> 
->> +	vd55g1_update_pad_fmt(sensor,
->> +			      &vd55g1_supported_modes[VD55G1_MODE_IDX_DEF],
->> +			      vd55g1_get_fmt_code(sensor, code), &fmt.format);
->>
->>  	return vd55g1_set_pad_fmt(sd, sd_state, &fmt);
+>> -	if (sensor->id == VD55G1_MODEL_ID_VD55G1)
+>> +	if (sensor->version->color != VD55G1_COLOR_VERSION_BAYER)
+>>  		code = vd55g1_mbus_formats_mono[VD55G1_MBUS_CODE_IDX_DEF];
+>>  	else
+>>  		code = vd55g1_mbus_formats_bayer[VD55G1_MBUS_CODE_IDX_DEF][0];
+>> @@ -1659,38 +1686,48 @@ static int vd55g1_init_ctrls(struct vd55g1 *sensor)
+>>  	return ret;
 >>  }
+>>
+>> +static const struct vd55g1_version *
+>> +	vd55g1_get_version(enum vd55g1_model_id id,
+>> +			   enum vd55g1_color_version color)
+> 
+> Should you indent one tab left ?
+> 
+
+checkpatch.pl is fine with both. I can indent left, it looks cleaner.
+
+>> +{
+>> +	unsigned int i;
+>> +
+>> +	for (i = 0; i < ARRAY_SIZE(vd55g1_versions); i++) {
+> 
+> You can declare i inside the for loop
+> 
+
+Yes, thank you.
+
+>> +		if (vd55g1_versions[i].id == id &&
+>> +		    vd55g1_versions[i].color == color)
+>> +			return &vd55g1_versions[i];
+>> +	}
+>> +
+>> +	return NULL;
+>> +}
+>> +
+>>  static int vd55g1_detect(struct vd55g1 *sensor)
+>>  {
+>> -	unsigned int dt_id = (uintptr_t)device_get_match_data(sensor->dev);
+>> -	u64 rev, id;
+>> -	int ret;
+>> +	const struct vd55g1_version *dt_version =
+>> +		device_get_match_data(sensor->dev);
+>> +	const struct vd55g1_version *version;
+>> +	u64 color, id;
+>> +	int ret = 0;
+>>
+>> -	ret = vd55g1_read(sensor, VD55G1_REG_MODEL_ID, &id, NULL);
+>> +	vd55g1_read(sensor, VD55G1_REG_MODEL_ID, &id, &ret);
+>> +	vd55g1_read(sensor, VD55G1_REG_COLOR_VERSION, &color, &ret);
+>>  	if (ret)
+>>  		return ret;
+>>
+>> -	if (id != VD55G1_MODEL_ID_VD55G1 && id != VD55G1_MODEL_ID_VD65G4) {
+>> -		dev_warn(sensor->dev, "Unsupported sensor id 0x%x\n",
+>> -			 (u32)id);
+>> +	version = vd55g1_get_version(id, color);
+>> +	if (!version) {
+>> +		dev_warn(sensor->dev, "Unsupported sensor version, expected %s\n",
+>> +			 dt_version->name);
+>>  		return -ENODEV;
+>>  	}
+>> -	if (id != dt_id) {
+>> -		dev_err(sensor->dev, "Probed sensor %s and device tree definition (%s) mismatch",
+>> -			VD55G1_MODEL_ID_NAME(id), VD55G1_MODEL_ID_NAME(dt_id));
+>> +	if (version->id != dt_version->id ||
+>> +	    version->color != dt_version->color) {
+>> +		dev_err(sensor->dev, "Probed sensor version %s and device tree definition %s mismatch",
+>> +			version->name, dt_version->name);
+>>  		return -ENODEV;
+>>  	}
+>> -	sensor->id = id;
+>>
+>> -	ret = vd55g1_read(sensor, VD55G1_REG_REVISION, &rev, NULL);
+>> -	if (ret)
+>> -		return ret;
+>> -
+>> -	if ((id == VD55G1_MODEL_ID_VD55G1 && rev != VD55G1_REVISION_CCB) &&
+>> -	    (id == VD55G1_MODEL_ID_VD65G4 && rev != VD55G1_REVISION_BAYER)) {
+>> -		dev_err(sensor->dev, "Unsupported sensor revision 0x%x for sensor %s\n",
+>> -			(u16)rev, VD55G1_MODEL_ID_NAME(id));
+>> -		return -ENODEV;
+>> -	}
+>> +	sensor->version = version;
+>>
+>>  	return 0;
+>>  }
+>> @@ -2048,8 +2085,9 @@ static void vd55g1_remove(struct i2c_client *client)
+>>  }
+>>
+>>  static const struct of_device_id vd55g1_dt_ids[] = {
+>> -	{ .compatible = "st,vd55g1", .data = (void *)VD55G1_MODEL_ID_VD55G1 },
+>> -	{ .compatible = "st,vd65g4", .data = (void *)VD55G1_MODEL_ID_VD65G4 },
+>> +	{ .compatible = "st,vd55g1", .data = (void *)&vd55g1_versions[0] },
+>> +	{ .compatible = "st,vd55g4", .data = (void *)&vd55g1_versions[1] },
+>> +	{ .compatible = "st,vd65g4", .data = (void *)&vd55g1_versions[2] },
+>>  	{ /* sentinel */ }
+>>  };
+> 
+> All minors
+> Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> 
+> Thanks
+>   j
+> 
+>>  MODULE_DEVICE_TABLE(of, vd55g1_dt_ids);
 >>
 >> --
 >> 2.43.0
