@@ -1,30 +1,30 @@
-Received: from outbound.ci.icloud.com (ci-2003i-snip4-11.eps.apple.com [57.103.91.221])
+Received: from outbound.ci.icloud.com (ci-2003e-snip4-4.eps.apple.com [57.103.91.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B1A171B1
-	for <linux-media@vger.kernel.org>; Fri, 26 Jun 2026 00:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.91.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 135604CB5B
+	for <linux-media@vger.kernel.org>; Fri, 26 Jun 2026 00:09:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.91.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782432540; cv=none; b=p+cp2IUqPY5Scsw7Wo7OYDNaR4UzE5AkVv6vZvk0qv1wE81wyAAxjUovXIyr4YekqKgDq7gdyAJoiogGRrdp7eBZfav8cd6lI7qXWTEgvd9N1jEhNwGQu9K4XWgNg7zRpSOMsm8Xx2Xb1aw5kWc6zgWwsPo/si0WgQPcqNIok54=
+	t=1782432551; cv=none; b=PUGTWh8oh/opjiB6YsR6uF/IdkNoOySxMBhp1PWuNMGp5pdsrPcB/Oa5KF/Pju07eh2ALK5muF5ymz+2JXkI2L5Po2uNcBYT0i4XRooMJ/7L2vjgicJkQ7CXofg7l/MgEtrXnRhciCGKDWTkcAVadYePQGZYABfZTRU82ALSZwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782432540; c=relaxed/simple;
-	bh=9vVl/jIBUNxUVlMfSPMhFeVNHE8C1soyxuND0Ev4jgA=;
+	s=arc-20240116; t=1782432551; c=relaxed/simple;
+	bh=m50LFqe18OzZqqxCSAC25jQwqMSflKivfbdKZ33Ijus=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WyZ/2ipGRYBZA5uXIj945NDhO0wCPqJfQQ4LS9DJLe5XpZE+fTM4YBmeMss4TjhoGSLH92AbbWu+KVXAr6P9zHJxYY3+oF6JNlHcogYCRN6dtrknngutzxzKBlG4Iskyc7HcOCUryEaO3dXum0VgMmh7edk/cew5jCXB4I6LXJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=A+Qmsujq; arc=none smtp.client-ip=57.103.91.221
+	 MIME-Version; b=EAhZe3Onbt5jVHLCTv/iv3DN+yiACuMAi8+eitXwfrJBj62+gdwZ9oikN6N5xni1+VW3sMh/E07NYSTZeUaiI87V6IYsyCekG3GIZq+O0TO0Cv2McBa7QPy/6iN8wRcA7CwfLEzRJ42tIV6tqKk3IPzEnPavVhNnK4kCSssfoe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=F/eoIxCM; arc=none smtp.client-ip=57.103.91.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="A+Qmsujq"
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="F/eoIxCM"
 Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-central-1k-10-percent-2 (Postfix) with ESMTPS id D41541800284;
-	Fri, 26 Jun 2026 00:08:54 +0000 (UTC)
-X-ICL-RepId: 019f0142-10e8-74ad-a658-05469e604257
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhPAEMGXAVeC1YBXwFLVxQEDloDVA5cBBcbXwJCH1sVSzhaDlsERxQXG1wAFw1WTVAbXwJCDxwTVhUTH1RWA0cZEFYBWFZdBU0aXBhZDxwTUFZaDlsERxQXG1wAFxtGAgQjAl8ARQJeCVYBMBcPVk1QG18CQg8cE1YVEwBeDw9MC0gBWwddAEYJSANaBl4cQQhJAlUHWB9CFA5aA1QOXAQXG18CQh9bFUs4Wg5bBEcUFxtcAAlLRglJHQ4EVAddBV0=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1782432538; x=1785024538; bh=nZ7wgtXyvk/3FeFYVtkDe9ED7DEv3WBSl1ucjzdxUyY=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=A+QmsujqOS4jOUxaNydR3ytr/pC7Irog7UXG0XvYfLEZYvT7haKlmiAQpuTt731eoCdN5Xe2G8eUrZD1LkRlqVuskrGLrBKVgHYInLLgmr03ynor5QERotET11Lq2+uO6YIe+Le9cfpf+kPfoenJIdUHwWyPnIn3Pe8yWpxc2bjwEx591y8uPlPyGi2wbHJIdDpDQ5LAX/yRXDCn3uqap0+eu0bNE2BuAHYVfZkCm+78cho3VKt6yM0KFX9lHxDm+sQKpT878x1/JwD6rwBWIr/cFkijHDRWqOnRW7YvHtDBJL7PgCCEu/deIvkdaqVJzUZ7DpYN57cODnO5FDdQPw==
+	by p00-icloudmta-asmtp-us-central-1k-10-percent-2 (Postfix) with ESMTPS id 9112F180015D;
+	Fri, 26 Jun 2026 00:09:06 +0000 (UTC)
+X-ICL-RepId: 019f0142-3eba-7500-a9a8-e505d18a0724
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhPAEMGXAVeC1YBXwFLVxQEDloDVA5cBBcbXwJCH1sVSzhaDlsERxQXG1wAFw1WTVAbXwJCDxwTVhUTH1RWA0EZEFYBWFZdBU0aXBhZDxwTUFZaDlsERxQXG1wAFxtGAgQjAl8ARQJeCVYBMBcPVk1QG18CQg8cE1YVEwBeDw9MC0gBWwddAEYJSANaBl4cQQhJAlUHWB9DFA5aA1QOXAQXG18CQh9bFUs4Wg5bBEcUFxtcAAlLRglJHQ4EVAddBV0=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1782432549; x=1785024549; bh=B4AcYH5B6O8+NoA+MxsNR6sfejyxMi7Vty97TtI0/iM=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=F/eoIxCMjmSTYURKg65/qvYh+WssH1vGGU4I1nyfSssU7amh8m6viTK9VAq80BFonKF0UjX/VqSHM1ot3cQjgoZ1t9T/PfMRREoNernnlzlqBNZJqT0wiITwulDzrmLlkKWd6/4Gf7hZaWxCTr1UMUR+mkbnqgXzjFXeGK5X3xXhMZ9p8wejzJzUPbw6b66ihWL70BQ/WuPgBGK6fMlsoaZ7RFH9YmDZUCyaYYi7W7pKegoEqfyVZtH+XIzwyhzvSUTraQrI5YI3HVJC6BjTo7l7kAGUgVNRhWyxllbfJ5s6ZpTJx2w5EgT/QIp85eVgYf8PZV1kkHQQW6cFvIEBcA==
 Received: from bigre.localdomain (unknown [17.57.156.36])
-	by p00-icloudmta-asmtp-us-central-1k-10-percent-2 (Postfix) with ESMTPSA id 45965180017C;
-	Fri, 26 Jun 2026 00:08:53 +0000 (UTC)
+	by p00-icloudmta-asmtp-us-central-1k-10-percent-2 (Postfix) with ESMTPSA id 4AF09180029C;
+	Fri, 26 Jun 2026 00:09:05 +0000 (UTC)
 From: Vincent Cloutier <vincent.cloutier@icloud.com>
 To: linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org,
@@ -33,19 +33,13 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-imx@nxp.com,
 	kernel@puri.sm,
 	Vincent Cloutier <vincent@cloutier.co>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Martin Kepplinger-Novakovic <martink@posteo.de>,
-	Rui Miguel Silva <rmfrfs@gmail.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	imx@lists.linux.dev
-Subject: [PATCH RFC 1/4] media: imx8mq-mipi-csi2: Make reset release SoC-specific
-Date: Thu, 25 Jun 2026 20:06:57 -0400
-Message-ID: <20260626000715.1111803-2-vincent.cloutier@icloud.com>
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: [PATCH RFC 2/4] dt-bindings: media: i2c: Add Samsung S5K3L6 image sensor
+Date: Thu, 25 Jun 2026 20:06:58 -0400
+Message-ID: <20260626000715.1111803-3-vincent.cloutier@icloud.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260626000715.1111803-1-vincent.cloutier@icloud.com>
 References: <20260626000715.1111803-1-vincent.cloutier@icloud.com>
@@ -56,77 +50,151 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDIwOSBTYWx0ZWRfXzl2hTTyf+UFU
- OufgbIX8ySBfbVloFrhMkgVmNYuVoNY7R+T8/0taSiKkviavsuFD07nBqIXUyJunGfwEXqhO3Bb
- iBW94lsTc+GZInNgDnTE5By1CT8cJehpcqWb0vjUtMjKVvbsK3B0P09SYOeKWgCqSubrXSbBfHC
- ZVsH+9iXR9G5aok0bwP2fMy9FiCzCoBM94YRRpJTEhqmpaeSZtITcESOsyT1AsjvCtfK9i1qnNd
- YDyiol9JzZkIVkqpjK3dhP52ntBiNDywTwFUrp+WKxPqReMSGk9Irxz0Sw9t0y8Cd1wK2GSNunN
- zprrJc4Dp//grnW0RB8
-X-Proofpoint-ORIG-GUID: rMND97hAp3EnijlxfVwQdwYJpHhh4OWz
-X-Proofpoint-GUID: rMND97hAp3EnijlxfVwQdwYJpHhh4OWz
+X-Proofpoint-ORIG-GUID: R7Ncu8igebgugneeo8tkXJgKQ3BmbpgM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDIwOSBTYWx0ZWRfX26mtGJMjG9Wd
+ UWbHY0Lh3A1RdrqdYLMPcqeplFPW36AIWjs57J4ilUXcoUIqj5OEDc6/HLUx4ewbj1gZQdIRD0I
+ H+399ZtYiO5SKzK6n5+eyqcME0Knd4B11zqfLgKUsmJJS1mFmpPpxnSS600ggCyhu3KaqHK/UTW
+ nwUGKn3Y80Rd3KMIPP1Tb5JoCS5k6eaooNeiqnl+R2VfgMpurzmFueFwMZbpO8oqJ8AjUuhA8+G
+ t6JuTOwRHh8PninUf/BIlbo/XnJb+sNcW4YWnfv9h8UmozveuGqHP6LNflmKW04u1PtGt6Zkjdz
+ qGElCTFIKtI5kF8ESS4
+X-Proofpoint-GUID: R7Ncu8igebgugneeo8tkXJgKQ3BmbpgM
 
 From: Vincent Cloutier <vincent@cloutier.co>
 
-The CSI-2 software reset helper currently asserts the reset control and
-then releases it again unconditionally.
+Add a devicetree binding for the Samsung S5K3L6 13MP raw Bayer image
+sensor.
 
-That release step is required by the i.MX8QXP path, but it changes the
-reset sequence used by i.MX8MQ. On Librem 5r4, which is i.MX8MQ-based,
-the unconditional release step prevents the camera pipeline from producing
-frames after reset; captures time out waiting for EOF from the CSI bridge.
-
-This series enables the Librem 5 rear camera on the second i.MX8MQ CSI-2
-receiver. Keep the i.MX8MQ path on the known-working assert-only software
-reset sequence while preserving the explicit release step for i.MX8QXP.
-
-Make reset release opt-in through platform data.
-
-Tested on Librem 5r4 with the existing HI846 front camera and the S5K3L6
-rear camera added by this series.
+This starts the upstreaming work for the Librem 5 rear camera path. The
+binding describes the validated two-lane MIPI CSI-2 configuration.
 
 Signed-off-by: Vincent Cloutier <vincent@cloutier.co>
 Assisted-by: OpenCode:gpt-5.5
 ---
- drivers/media/platform/nxp/imx8mq-mipi-csi2.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ .../bindings/media/i2c/samsung,s5k3l6.yaml         | 117 +++++++++++++++++++++
+ 1 file changed, 117 insertions(+)
 
-diff --git a/drivers/media/platform/nxp/imx8mq-mipi-csi2.c b/drivers/media/platform/nxp/imx8mq-mipi-csi2.c
-index 950793297496..xxxxxxxxxxxx 100644
---- a/drivers/media/platform/nxp/imx8mq-mipi-csi2.c
-+++ b/drivers/media/platform/nxp/imx8mq-mipi-csi2.c
-@@ -76,6 +76,7 @@ struct imx8mq_plat_data {
- 	int (*enable)(struct csi_state *state, u32 hs_settle);
- 	void (*disable)(struct csi_state *state);
- 	bool use_reg_csr;
-+	bool needs_reset_deassert;
- };
- 
- /*
-@@ -244,6 +245,7 @@ static const struct imx8mq_plat_data imx8qxp_data = {
- 	.enable = imx8qxp_gpr_enable,
- 	.disable = imx8qxp_gpr_disable,
- 	.use_reg_csr = true,
-+	.needs_reset_deassert = true,
- };
- 
- static const struct csi2_pix_format imx8mq_mipi_csi_formats[] = {
-@@ -363,8 +365,12 @@ static int imx8mq_mipi_csi_sw_reset(struct csi_state *state)
- 		return ret;
- 	}
- 
--	/* Explicitly release reset to make sure reset bits are cleared. */
--	return reset_control_deassert(state->rst);
-+	/*
-+	 * Some SoC integrations require an explicit release after reset
-+	 * assertion. Keep this SoC-specific so i.MX8MQ retains its
-+	 * known-working assert-only sequence.
-+	 */
-+	if (!state->pdata->needs_reset_deassert)
-+		return 0;
+diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
+new file mode 100644
+index 000000000000..96150764b341
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
+@@ -0,0 +1,117 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/samsung,s5k3l6.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	return reset_control_deassert(state->rst);
- }
- 
- static void imx8mq_mipi_csi_set_params(struct csi_state *state)
++title: Samsung S5K3L6 13MP MIPI CSI-2 image sensor
++
++maintainers:
++  - Vincent Cloutier <vincent@cloutier.co>
++  - Purism Kernel Team <kernel@puri.sm>
++
++description: |-
++  The Samsung S5K3L6 is a raw Bayer image sensor with a MIPI CSI-2 image
++  data interface and an I2C-compatible control bus.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: samsung,s5k3l6
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: Reference to the sensor input clock.
++    maxItems: 1
++
++  reset-gpios:
++    description: Active-low reset GPIO.
++    maxItems: 1
++
++  vdda-supply:
++    description: Analog power supply.
++
++  vddd-supply:
++    description: Digital core power supply.
++
++  vddio-supply:
++    description: Digital I/O power supply.
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++
++          link-frequencies:
++            minItems: 3
++            maxItems: 3
++            items:
++              - const: 537500000
++              - const: 600000000
++              - const: 625000000
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - vdda-supply
++  - vddd-supply
++  - vddio-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/imx8mq-clock.h>
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camera@2d {
++            compatible = "samsung,s5k3l6";
++            reg = <0x2d>;
++
++            clocks = <&clk IMX8MQ_CLK_CLKO2>;
++            assigned-clocks = <&clk IMX8MQ_CLK_CLKO2>;
++            assigned-clock-rates = <25000000>;
++
++            reset-gpios = <&gpio1 26 GPIO_ACTIVE_LOW>;
++            vdda-supply = <&reg_camera_vdda>;
++            vddd-supply = <&reg_camera_vddd>;
++            vddio-supply = <&reg_camera_vddio>;
++
++            orientation = <1>;
++            rotation = <270>;
++
++            port {
++                camera_out: endpoint {
++                    data-lanes = <1 2>;
++                    link-frequencies = /bits/ 64
++                        <537500000 600000000 625000000>;
++                    remote-endpoint = <&mipi_csi2_in>;
++                };
++            };
++        };
++    };
++...
 -- 
 2.53.0
