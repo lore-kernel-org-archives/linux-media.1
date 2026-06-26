@@ -1,90 +1,228 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88ECC3D567A;
-	Fri, 26 Jun 2026 06:47:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34CD3D4137;
+	Fri, 26 Jun 2026 07:55:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782456478; cv=none; b=WbDaLc8fVSR/v8ubG97LR2KxmvTSWu+cJq0CmAWBhz6iLyqmhAiX7woMM1BQw8HHD3zjGdM7DQ2bTktANjcIE7QlSqAaQ/IRSVtPeet6s9x0zprEtdZPASbPLQh28/L161c/oSCBcz7049xZsfqI1aIw0VUraX5gqW2P45c1q2A=
+	t=1782460553; cv=none; b=EnXQprHCv/e/fWkfSGGhUsoeY+kXQaYTqArw0al8puzenWKxZw8OVmjfeQWmZn8IUMFZHTtVvIA5TenD0ZCguZW5LzeHEQSUqGCfeuXSgygUjhyu6CAh+a5MaTyyv/cB/gnBMgx3+iQqSiF/oV3FPG/hIpToRhrGnM1aRJPasE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782456478; c=relaxed/simple;
-	bh=RjgNTxh5IYbPYM4mWHY0E5Hm6TL004NYqZSRIb8UqI8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=q/GiZEY3JcT1D+dA5nTy497ujrAgKfysfTAJ927JVfq9DFoFakStWb7T5h60D90r91OiK9o97qONP2YeKKrRD323g2nSNwIyXKJ9SN0iLluIelUxeV2LRLOaFpBeIokbwvF6Vw/BkvBJyh6C3wNM0/nf+EfUB7pwU8oRSAec/K4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 3663920017B;
-	Fri, 26 Jun 2026 08:47:53 +0200 (CEST)
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wd0Lx-004iBP-0D;
-	Fri, 26 Jun 2026 08:47:53 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wd0Lw-000000003K1-45ok;
-	Fri, 26 Jun 2026 08:47:52 +0200
-Message-ID: <d80cecc3f317e4493207ea3c347dd144390d299f.camel@pengutronix.de>
-Subject: Re: [PATCH RFC 1/4] media: imx8mq-mipi-csi2: Make reset release
- SoC-specific
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Vincent Cloutier <vincent.cloutier@icloud.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org, linux-imx@nxp.com, kernel@puri.sm, Vincent
- Cloutier <vincent@cloutier.co>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, Frank Li	 <Frank.Li@nxp.com>, Martin
- Kepplinger-Novakovic <martink@posteo.de>, Rui Miguel Silva
- <rmfrfs@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Sascha
- Hauer	 <s.hauer@pengutronix.de>, Pengutronix Kernel Team
- <kernel@pengutronix.de>,  Fabio Estevam <festevam@gmail.com>,
- imx@lists.linux.dev
-Date: Fri, 26 Jun 2026 08:47:52 +0200
-In-Reply-To: <20260626000715.1111803-2-vincent.cloutier@icloud.com>
-References: <20260626000715.1111803-1-vincent.cloutier@icloud.com>
-	 <20260626000715.1111803-2-vincent.cloutier@icloud.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1782460553; c=relaxed/simple;
+	bh=k7nPlzqmD9L1ggtu4r73B/3FtxWoY3tnU1WA0RZF12I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fESDvrNhNwpj1/JJsSsUVMleOh5wz2P+ade7xzcQjHVfDOytw2ADPYkCA/yAFpuvydfuFzmEhwYD81I04mLt4OuKqmWsz2FyNRuCBvVhXP/VOzInZF9J9nLsWPYop2MzU7vLs2Wl0jfAttBW194qbMxukkhQ+c3SWvooBEypS9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=MAJ9dRMZ; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="MAJ9dRMZ"
+Received: from ideasonboard.com (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1999F9C;
+	Fri, 26 Jun 2026 09:55:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1782460508;
+	bh=k7nPlzqmD9L1ggtu4r73B/3FtxWoY3tnU1WA0RZF12I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MAJ9dRMZKT0XzHZxuytmEKX7EXzIIYko4bzosB3DnhxiAeprXaVcI/6yegdqU05sK
+	 ro2LM+0xiqPHuRBlabrS6L55tfYXcoemQhqML80YjXwPpcSxaQgiUyhfNs1j9mZzpc
+	 7lI56bcwYsf68to6wQPHhY49vUIkzU+2MlsLpHig=
+Date: Fri, 26 Jun 2026 09:55:45 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/5] media: i2c: vd55g1: Fix media bus code initialization
+Message-ID: <aj4u42ppuHSRqLIn@zed>
+References: <20260428-vd55g4_and_fixes-v1-0-4f745a83b87e@foss.st.com>
+ <20260428-vd55g4_and_fixes-v1-1-4f745a83b87e@foss.st.com>
+ <ajj90hhNwx7bLkOZ@zed>
+ <f51d5d21-54fb-444a-9ae9-9b60e7a500f1@foss.st.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f51d5d21-54fb-444a-9ae9-9b60e7a500f1@foss.st.com>
 
-On Do, 2026-06-25 at 20:06 -0400, Vincent Cloutier wrote:
-> From: Vincent Cloutier <vincent@cloutier.co>
->=20
-> The CSI-2 software reset helper currently asserts the reset control and
-> then releases it again unconditionally.
->=20
-> That release step is required by the i.MX8QXP path, but it changes the
-> reset sequence used by i.MX8MQ. On Librem 5r4, which is i.MX8MQ-based,
-> the unconditional release step prevents the camera pipeline from producin=
-g
-> frames after reset; captures time out waiting for EOF from the CSI bridge=
-.
->=20
-> This series enables the Librem 5 rear camera on the second i.MX8MQ CSI-2
-> receiver. Keep the i.MX8MQ path on the known-working assert-only software
-> reset sequence while preserving the explicit release step for i.MX8QXP.
->=20
-> Make reset release opt-in through platform data.
->=20
-> Tested on Librem 5r4 with the existing HI846 front camera and the S5K3L6
-> rear camera added by this series.
+Hi Benjamin
 
-I think you are missing [1] ("reset: imx7: Correct polarity of MIPI CSI
-resets on i.MX8MQ") instead.
+On Thu, Jun 25, 2026 at 01:41:48PM +0200, Benjamin Mugnier wrote:
+> Hi Jacopo,
+>
+> Thank you for your review.
+>
+> Le 22/06/2026 à 11:28, Jacopo Mondi a écrit :
+> > Hi Benjamin
+> >
+> > On Tue, Apr 28, 2026 at 10:40:55AM +0200, Benjamin Mugnier wrote:
+> >> In the driver initialization, the index of the default media bus code
+> >> from the supported media bus code array is passed directly to the
+> >> vd55g1_get_fmt_code() function instead of the proper media bus code.
+> >>
+> >> This works correctly as a proper media bus code is set after
+> >> initialization but could not have been the case. This also resulted in
+> >> mutliple "Unsupported mbus format" error messages.
+> >>
+> >> Retrieve the media bus code from the media bus code array, and pass this
+> >> media bus code to vd55g1_get_fmt_code() instead of the code index.
+> >>
+> >> Rename VD55G1_MBUS_CODE_DEF to VD55G1_MBUS_CODE_IDX_DEF and
+> >> VD55G1_MODE_DEF to VD55G1_MODE_IDX_DEF while at it to avoid future
+> >> confusions. Display the guilty error code in warning message.
+> >>
+> >> Fixes: e138e7f00042 ("media: i2c: vd55g1: Add support for vd65g4 RGB variant")
+> >>
+> > You should cc stable for fixes
+> >
+> > Cc: stable@vger.kernel.org
+> >
+>
+> We talked about this very recently and somehow I still forgot.
+>
+> >
+> > The CI should have flagged that, but for some reason it didn't run
+> > properly on your series
+> > https://gitlab.freedesktop.org/linux-media/users/patchwork/-/pipelines/1655147
+> >
+> >> Signed-off-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+> >> ---
+> >>  drivers/media/i2c/vd55g1.c | 17 +++++++++++------
+> >>  1 file changed, 11 insertions(+), 6 deletions(-)
+> >>
+> >> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+> >> index 78d18c028154..1e9db21322e3 100644
+> >> --- a/drivers/media/i2c/vd55g1.c
+> >> +++ b/drivers/media/i2c/vd55g1.c
+> >> @@ -114,9 +114,9 @@
+> >>
+> >>  #define VD55G1_WIDTH					804
+> >>  #define VD55G1_HEIGHT					704
+> >> -#define VD55G1_MODE_DEF					0
+> >> +#define VD55G1_MODE_IDX_DEF				0
+> >>  #define VD55G1_NB_GPIOS					4
+> >> -#define VD55G1_MBUS_CODE_DEF				0
+> >> +#define VD55G1_MBUS_CODE_IDX_DEF			0
+> >>  #define VD55G1_DGAIN_DEF				256
+> >>  #define VD55G1_AGAIN_DEF				19
+> >>  #define VD55G1_EXPO_MAX_TERM				64
+> >> @@ -634,7 +634,7 @@ static u32 vd55g1_get_fmt_code(struct vd55g1 *sensor, u32 code)
+> >
+> > Unrelated, but it seems you now have 2 codes for MONO. Does
+> >
+> > 	if (sensor->id == VD55G1_MODEL_ID_VD55G1)
+> > 		return code;
+> >
+> > need an update ?>
+>
+> Not in this patch because it does not add the new MONO sensor, but in
 
-[1] https://lore.kernel.org/all/20260619073115.3778313-1-robby.cai@oss.nxp.=
-com/
+Not in this patch ofc
 
+> 4/5 I separated the model ID from the color code. Example for the vd55g4 :
+>
+>   .name  = "vd55g4",
+>   .id    = VD55G1_MODEL_ID_3,
+>   .color = VD55G1_COLOR_VERSION_MONO,
+>
+> So the patch 4/5 updates the previous 'if' you mentioned to check the
+> color member instead of the model :
+>
+>   if (sensor->version->color != VD55G1_COLOR_VERSION_BAYER)
+>
+> Which IMO is a good way to handle this problematic. Tell me if you're
+> thinking about something else.
+>
 
-regards
-Philipp
+Yes, I was thinking about the unconditional return of 'code'.
+
+You know have two mono codes, shouldn't you do the same as you do with
+the bayer ones ?
+
+> >>  				goto adapt_bayer_pattern;
+> >>  		}
+> >>  	}
+> >> -	dev_warn(sensor->dev, "Unsupported mbus format\n");
+> >> +	dev_warn(sensor->dev, "Unsupported mbus format: 0x%x\n", code);
+> >>
+> >>  	return code;
+> >>
+> >> @@ -1347,6 +1347,7 @@ static int vd55g1_init_state(struct v4l2_subdev *sd,
+> >>  {
+> >>  	struct vd55g1 *sensor = to_vd55g1(sd);
+> >>  	struct v4l2_subdev_format fmt = { 0 };
+> >> +	int code;
+> >>  	struct v4l2_subdev_route routes[] = {
+> >>  		{ .flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE }
+> >>  	};
+> >> @@ -1361,9 +1362,13 @@ static int vd55g1_init_state(struct v4l2_subdev *sd,
+> >>  	if (ret)
+> >>  		return ret;
+> >>
+> >> -	vd55g1_update_pad_fmt(sensor, &vd55g1_supported_modes[VD55G1_MODE_DEF],
+> >> -			      vd55g1_get_fmt_code(sensor, VD55G1_MBUS_CODE_DEF),
+> >> -			      &fmt.format);
+> >> +	if (sensor->id == VD55G1_MODEL_ID_VD55G1)
+> >> +		code = vd55g1_mbus_formats_mono[VD55G1_MBUS_CODE_IDX_DEF];
+> >> +	else
+> >> +		code = vd55g1_mbus_formats_bayer[VD55G1_MBUS_CODE_IDX_DEF][0];
+> >
+> > Being this a multi-dimensional array, I don't seem much value in
+> > defining VD55G1_MBUS_CODE_IDX_DEF if this is the only place where it
+> > is used. What's the meaning of VD55G1_MBUS_CODE_IDX_DEF for
+> > vd55g1_mbus_formats_bayer ? Does it represent the bitwidth or does it
+> > represent the bayer pattern ?
+>
+> For vd55g1_mbus_formats_bayer, the first dimension of the array is the
+> bitwidth, and the second one is the bayer pattern.
+>
+> >
+> > I would rather define a
+> > VD55G1_DEF_MBUS_CODE_MONO       MEDIA_BUS_FMT_Y8_1X8
+> > VD55G1_DEF_MBUS_CODE_BAYER      MEDIA_BUS_FMT_SRGGB8_1X8
+> >
+> > Or maybe do
+> >
+> > 		code = vd55g1_mbus_formats_bayer[VD55G1_MBUS_CODE_IDX_DEF]
+> >                                                 [VD55G1_MBUS_CODE_IDX_DEF];
+> >
+> > if easier.
+> >
+> > I understand it's a minor, so up to you.
+>
+> As you mentioned it's only used here. I won't mind removing
+> VD55G1_MBUS_CODE_IDX_DEF entirely and do :
+>
+>   code = vd55g1_mbus_formats_bayer[0][0];
+>
+> Does that sound okay ?
+>
+
+It does, thanks
+
+> >
+> >
+> >
+> >> +	vd55g1_update_pad_fmt(sensor,
+> >> +			      &vd55g1_supported_modes[VD55G1_MODE_IDX_DEF],
+> >> +			      vd55g1_get_fmt_code(sensor, code), &fmt.format);
+> >>
+> >>  	return vd55g1_set_pad_fmt(sd, sd_state, &fmt);
+> >>  }
+> >>
+> >> --
+> >> 2.43.0
+> >>
+> >>
+>
+> --
+> Regards,
+> Benjamin
+>
