@@ -1,188 +1,89 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 256353F4DC8;
-	Fri, 26 Jun 2026 12:08:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71A63E5EC9;
+	Fri, 26 Jun 2026 12:18:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782475704; cv=none; b=YwPfnvYq1JuOi2Z/Pgs06kXOcWuRxjCoI33Jdld9/4cyWfdT/9u5dk9HlWxHl2nr4zfTZDfAvtCI4vafYGUoPNCvAYQYUUtR4aJOkIjDhb0di+Yg5RnTHLq/7k0KklBoEZ9tXzOFsVir4t/7o7l8tPMCyOCNVL0RoTy/Hp0JHTg=
+	t=1782476316; cv=none; b=Rt/H2lyIg4M0ZWCAKkLYz7EMB3/uAW47kzS/kNJQzXT8I7fA+TI8ny8hcgV6sGP0617ES/jiF7sf0cK7A6nnkKD29ReEkN1MtxK+moqlwPk2S0QLWS/cPKGkRxBGrty5gTmSnqTtr8oralp3xOhVcaNz1XmSEIMTLpAZK4o+TRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782475704; c=relaxed/simple;
-	bh=1/oUhVk74PsiN3MZzcdIYvqyHY+Gnerhson6lRR0lpk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=W0X3dfC53lpXgHmM9wvE16p0vITBQapGr+wnWKqCOSLNlBQg1QBY1xwHgNqJ8s1qHfJRAW1CkT7OHkqLmk3PBDpf9IpqXJNGDA/a5rsWuZM2V9hC6lPmfLinQI9j+j3p7dpk/0u68slNbHTtutz8ECWsx3mJC/tLUSx174iyAbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=GHWKZshp; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="GHWKZshp"
-Received: from ping.linuxembedded.co.uk (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B0EFA1D0A;
-	Fri, 26 Jun 2026 14:07:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1782475650;
-	bh=1/oUhVk74PsiN3MZzcdIYvqyHY+Gnerhson6lRR0lpk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=GHWKZshpDcFnXFUHNVMtu/UJLiytezMts/EH87Rqx3kQJqmogwz1sdI8oQ0ms2fsV
-	 RUTiUZ15R/OQm8y29EwifB0WRr8G+KrRSirOP0DqcqDkoCPmR8j9p5bxVfrLszRDIM
-	 JsO78O9kqBlayrEpObQjwws28vWrevT9lYQZ19uQ=
-From: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Date: Fri, 26 Jun 2026 13:07:59 +0100
-Subject: [PATCH v2 7/8] arm64: dts: renesas: Convert to new media
- orientation definitions
+	s=arc-20240116; t=1782476316; c=relaxed/simple;
+	bh=o6Q2eIS9pDEgn2VocqHd66JeSMLwlQBezNr3n/ezLLc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kxVM8TqU416wMXpc5OOroXdISKUQ6+EPMa0COEBDWt1kMVGWjpmzRFgcfSgOm3VS/pCn86ZGcjnuC2UsmKX52L1GyilTrjtDTB2htLI1Nt6iX88bbwzD9AiM4u8UcNqdxL1Hik9/85JrdonmQbQJbu+KnhSwJmz50OtiDD8QuRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [117.182.75.66])
+	by APP-05 (Coremail) with SMTP id zQCowACnMwcTbj5qSbNnFQ--.22821S2;
+	Fri, 26 Jun 2026 20:18:29 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: sumit.semwal@linaro.org,
+	christian.koenig@amd.com
+Cc: linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] fix: dma-buf: fence_chains_init: error unwind path leaks   enable_sw_signaling reference
+Date: Fri, 26 Jun 2026 20:18:25 +0800
+Message-Id: <20260626121825.35310-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260626-kbingham-orientation-v2-7-47178be927b4@ideasonboard.com>
-References: <20260626-kbingham-orientation-v2-0-47178be927b4@ideasonboard.com>
-In-Reply-To: <20260626-kbingham-orientation-v2-0-47178be927b4@ideasonboard.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>, 
- Matthias Fend <matthias.fend@emfend.at>, 
- Mikhail Rudenko <mike.rudenko@gmail.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Michael Riesch <michael.riesch@collabora.com>, 
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
- Sylvain Petinot <sylvain.petinot@foss.st.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Paul Elder <paul.elder@ideasonboard.com>, 
- Martin Kepplinger <martin.kepplinger@puri.sm>, 
- Quentin Schulz <quentin.schulz@theobroma-systems.com>, 
- Tommaso Merciai <tomm.merciai@gmail.com>, 
- Svyatoslav Ryhel <clamor95@gmail.com>, 
- Richard Acayan <mailingradian@gmail.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
- linux@ew.tq-group.com, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782475679; l=3758;
- i=kieran.bingham@ideasonboard.com; s=20260207; h=from:subject:message-id;
- bh=2rSGjcZ6Wtxs4n28tXYT3YrV2tMO4y4R6/uKEOMLHZ4=;
- b=M2sPkEEhGzwwR4wOZOH8hrGe0NikpT9cwMXZiqcMlIOrSlHLxC4reijwMKw37IEDOBpvZsUpj
- acEeh+ARrdaA+Uybdsid9t9l0atzeRv08JnGdrORhBtZhgmJbqe7Gsa
-X-Developer-Key: i=kieran.bingham@ideasonboard.com; a=ed25519;
- pk=FVXKN7YuwHc6UtbRUeTMAmranfsQomA+vnilfglWdaY=
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACnMwcTbj5qSbNnFQ--.22821S2
+X-Coremail-Antispam: 1UD129KBjvJXoWrKw18XF17GFyUXw45Ary8Grg_yoW8Jryrpa
+	93Kr1UKr98K3WxZayDAF1DtFyFkr4rXry8WF4jka4Sv3s8ZFyUXr4vy3y2qF98Cr97GFZ8
+	J345Cry5WF1rAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+	6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1l
+	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjMqcUUUUU
+	U==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAcKA2o+ThJiEgAAs6
 
-From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+dma_fence_enable_sw_signaling acquires an extra reference on each chain
+  fence. The error unwind loop calls dma_fence_put only once per
+  chain/fence without first signaling the fence to trigger the callback
+  that releases the signaling reference. This prevents the chain fence kref
+  from reaching 0, permanently leaking the chain and its contained fence.
 
-The orientation property for video interface devices now has definitions
-to prevent hardcoded integer values for the enum options.
-
-Update the users throughout the renesas device trees to use the new
-definitions.
-
-Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Cc: stable@vger.kernel.org
+Fixes: dc2f7e67a28a ("dma-buf: Exercise dma-fence-chain under selftests")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 ---
- .../arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso | 3 ++-
- .../arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso | 3 ++-
- .../arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso | 3 ++-
- .../arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso | 3 ++-
- 4 files changed, 8 insertions(+), 4 deletions(-)
+ drivers/dma-buf/st-dma-fence-chain.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso
-index 3acaf714cf24..b816382bba0a 100644
---- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso
-+++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso
-@@ -12,6 +12,7 @@
+diff --git a/drivers/dma-buf/st-dma-fence-chain.c b/drivers/dma-buf/st-dma-fence-chain.c
+index 821023dd34df..7dc18e294387 100644
+--- a/drivers/dma-buf/st-dma-fence-chain.c
++++ b/drivers/dma-buf/st-dma-fence-chain.c
+@@ -152,7 +152,10 @@ static int fence_chains_init(struct fence_chains *fc, unsigned int count,
  
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/media/video-interfaces.h>
-+#include <dt-bindings/media/video-interface-devices.h>
- 
- &{/} {
- 	clk_cam_j1: clk-cam-j1 {
-@@ -44,7 +45,7 @@ cam@10 {
- 		VDIG-supply = <&reg_cam_j1>;
- 		VDDL-supply = <&reg_cam_j1>;
- 
--		orientation = <2>;
-+		orientation = <MEDIA_ORIENTATION_EXTERNAL>;
- 		rotation = <0>;
- 
- 		port {
-diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso
-index a19bc0840392..4019b80a88b7 100644
---- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso
-+++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso
-@@ -12,6 +12,7 @@
- 
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/media/video-interfaces.h>
-+#include <dt-bindings/media/video-interface-devices.h>
- 
- &{/} {
- 	clk_cam_j1: clk-cam-j1 {
-@@ -46,7 +47,7 @@ cam@1a {
- 		vdda-supply = <&reg_cam_j1>;
- 		vddd-supply = <&reg_cam_j1>;
- 
--		orientation = <2>;
-+		orientation = <MEDIA_ORIENTATION_EXTERNAL>;
- 		rotation = <0>;
- 
- 		port {
-diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso
-index 512810b861aa..fea1ef4a1178 100644
---- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso
-+++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso
-@@ -12,6 +12,7 @@
- 
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/media/video-interfaces.h>
-+#include <dt-bindings/media/video-interface-devices.h>
- 
- &{/} {
- 	clk_cam_j2: clk-cam-j2 {
-@@ -44,7 +45,7 @@ cam@10 {
- 		VDIG-supply = <&reg_cam_j2>;
- 		VDDL-supply = <&reg_cam_j2>;
- 
--		orientation = <2>;
-+		orientation = <MEDIA_ORIENTATION_EXTERNAL>;
- 		rotation = <0>;
- 
- 		port {
-diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso
-index a31524b59834..177201a8a6d2 100644
---- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso
-+++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso
-@@ -12,6 +12,7 @@
- 
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/media/video-interfaces.h>
-+#include <dt-bindings/media/video-interface-devices.h>
- 
- &{/} {
- 	clk_cam_j2: clk-cam-j2 {
-@@ -46,7 +47,7 @@ cam@1a {
- 		vdda-supply = <&reg_cam_j2>;
- 		vddd-supply = <&reg_cam_j2>;
- 
--		orientation = <2>;
-+		orientation = <MEDIA_ORIENTATION_EXTERNAL>;
- 		rotation = <0>;
- 
- 		port {
-
+ unwind:
+ 	for (i = 0; i < count; i++) {
+-		dma_fence_put(fc->fences[i]);
++		if (fc->fences[i]) {
++			dma_fence_signal(fc->fences[i]);
++			dma_fence_put(fc->fences[i]);
++		}
+ 		dma_fence_put(fc->chains[i]);
+ 	}
+ 	kvfree(fc->fences);
 -- 
-2.52.0
+2.39.5 (Apple Git-154)
 
