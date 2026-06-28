@@ -1,88 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE683161BA;
-	Sat, 27 Jun 2026 16:07:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CEFB40D574
+	for <linux-media@vger.kernel.org>; Sun, 28 Jun 2026 00:31:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782576465; cv=none; b=SPNlPXe9V5FNqbuWDc0OVJbZ3tVfVun5Kcqfg542eaQexdDvNJW/BB+3kWOk28nv1YmlUyZmU3npxu1NzJD+jiQdGjK44/RyR/UVBjkoy4vdioRoS4bREauJiu4p86FaeQgOy7HNrhW7+M0zj5U1zz4FMHdFr9GBoF3sivP2fqM=
+	t=1782606673; cv=none; b=fLdOhI2FnKpPTEHsOiKh+U6ma05msfFyF6ca8dXfcpr9vhSmUPXRYXL/GOg5XkjBdi4kEAyA5B5StvBHPKdmLWP21+VO+DKZaDAYoKeYsmEJESfRmJpTz6pB24nWdFpySV1aR/ymmtBNsgz2AB1oL1HUNH0gcM+nnRa14I83S1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782576465; c=relaxed/simple;
-	bh=kbXE+e2kShUdFQUZEtzV5kb5kIHvO0+olg3vo8dAYAI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
-	 References:In-Reply-To; b=QVIWMeaa2RUosxF2ZKkdx5Qbzu4wuJjA+f3NDKn1y0aqXogXgBvq2l1Shxt6lGEzla+KUv6ZpKEwK6t7BmXWcar0u0In155TyXTsu6x/6fCxfjF/EJy+/AT05+iz7W2sxrKVf7F1Rxiv0Gz7onQCEPjdcD1tJa12M9U780ta9SU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qw2Y59Rm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782606673; c=relaxed/simple;
+	bh=YCurl51Wd9up5XqC1lcIyo6fi0heIKeRJH9GNK+mSLg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XtQeAYhavQyXANKonLNbdbULPa8yEBtlard/EJUWG5l2AUK0NcHpWcCbvgQj1iC+xO/rLKhGiG6VMJ7IzqIiYJKOAkU2+ZxR14rC1E48ecEGe+KtwvT3UsVfoibNvX9LqXi62bs2W4g9YDSIC05wLSbbl7FsLi0NEi12FR81JnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bw7N4Ktu; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qw2Y59Rm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24B671F000E9;
-	Sat, 27 Jun 2026 16:07:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782576463;
-	bh=Eai9illNnwIVHHx82Y8oRRChAijNkCdc6Gtuf6pgPNA=;
-	h=Date:Cc:To:From:Subject:References:In-Reply-To;
-	b=Qw2Y59RmKIirc9QicmPqL66sTrj2a2pRKQ4q1v06L1xA9E/C/n8ujusPhFM+JyAMq
-	 Sc7C+LA2hGDEhdfXPP6JFmdPW/lxQo9uwCywxV3gUUCsoaqp/p8gFp8rSRqgPX9Rot
-	 aq3TQmnmHDhFsytBp0U3bmY62h9aCkV7OgVPCbZZlU8BaFdjaz9P3zEBUeuvx5tPmD
-	 4Tx2RvxcWeTQ2au9N+Wnor838KKBkB0xRChuAMilaNqmNIuEwn8ueK3uR1GU+mDUy3
-	 YyRV47jAv1zDKiToKjdTIwjPqIKhSumFkr9k6T4RB7BOfeDsDOS70P4Gje9HvpGVAd
-	 5T1h6xlOziCJQ==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bw7N4Ktu"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49270f771c9so5167345e9.0
+        for <linux-media@vger.kernel.org>; Sat, 27 Jun 2026 17:31:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782606671; x=1783211471; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=KOz501n904lvdLTm47kCJmdYhlDM6NLfGSeUIVVTmrQ=;
+        b=bw7N4KtumtpGsZZMwFPL7DAaM9HLBW5vDq/uZ+gWejrhf50XRyGgqiVYGWzHitCZDO
+         0+YhGEU4jVqxzgdsUQl1+u7hPE4VJ5hH1UhAlcKO5ULzb2bK2fH0jiVoCA33vVRzaM4O
+         Sodm4s3hSJhTImueqVYD0lkgGE66+ClwOkzIcSnLTwknTpYffmRnAyUGYyJyUzoMOszs
+         MNxfqa+Gr4EP1uSeARwuGCo5l54f1P7yQIO3TJQX5jOVwqXKpOKV4IulE9Zo/6ZD+c5O
+         u1AghjAR+ymLABBzKCRLy61VE7m+82cJZPNWf1NReiOdEC/oVb15/xhaEkd5BCOM1tcV
+         t/HQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782606671; x=1783211471;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KOz501n904lvdLTm47kCJmdYhlDM6NLfGSeUIVVTmrQ=;
+        b=H6WZMEL0yGiJBJFpFruVCZEuV5hRR4EjBHyyVOx+jNIQiiY8GFDU84PUytphrcyPo4
+         +4uJEo0X5JM+B0eoL3mMuhmTrd2c2dpUXzq467HBJPvScgsFP4hKana/H0usjdNqX5FR
+         NBrTo8LRwGK6zWyxNeA1zu6gL4dRacLylJPGa7EWAhc77V3IoyyVtWIAZ1J7Di3LkpDy
+         yllgOVbBrzszKT4eMZrw9EKVN5+36WxqqYeJo1+U7V7m7PMeihZ52iNQbsUvh5d8NNgv
+         hTLC77W+rqJQ0FUa9Ibl+272Tg5k9KTx7CTwQm2rRNGfH4pE6wY33Mts3HStvbz+zWK/
+         obgA==
+X-Gm-Message-State: AOJu0YzITg7X/5qAKoQSPDs9xi89gzDwTU/E59weyDDKygsaF3rK06FY
+	TB2d0kx35tvzeZXyriORdspOkaJfrgB9kgKN1bDMNJZIom59HE9auuR2
+X-Gm-Gg: AfdE7cnRTb7+ix1L49SoxTrFJ8ltHFaSsKkI0MSW1j7i3J2uWel9lRhnXASHOOyZO1E
+	yt9uHbVt9JB1TxfRWGPl9cBlptI3GS7JxtWVxtV5LwayCnxDSRTdKcUlUpZTqKIBAKG03o8mNTk
+	BCLZaHTRDOmG+WYeQgXkzLEZIupeODGL4y6pCkANFfz+nc0uUCh9x12RMGEyXv76VOOya21BgVI
+	wCe6OxqtqqjNFUId89Gt8rQ9KNUeVoZj8SD4FVScZujAnq9wJIQbOEV2sZEBsoLT2k6k0kzMhhd
+	6SP5WeCZVo+nWpdU6XLpnoVT+W6WGOfgdbyQbYQUYnGiaSdoyrHh+9B0VaTdVhzV4AtZOfdqoRy
+	ivcT8S2bc+NnVfV/fTRXwYHS8Afb2LzCWaDcJJs2RvF5eVWHXWqiZW3MbV/NpRXkG97D4Eqkt2k
+	5wB25B8SfmC0AswAFXDXh7nBND+A==
+X-Received: by 2002:a05:600c:6b70:b0:490:b06a:649e with SMTP id 5b1f17b1804b1-49266893253mr130977045e9.25.1782606671052;
+        Sat, 27 Jun 2026 17:31:11 -0700 (PDT)
+Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49268f7670bsm192987435e9.0.2026.06.27.17.31.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 27 Jun 2026 17:31:09 -0700 (PDT)
+From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+	Abhishek Kumar <abhishek_sts8@yahoo.com>,
+	stable@vger.kernel.org,
+	syzbot+39ff299961a7c07f00f0@syzkaller.appspotmail.com,
+	Yousef Alhouseen <alhouseenyousef@gmail.com>
+Subject: [PATCH] media: em28xx: keep device state alive for registered video nodes
+Date: Sun, 28 Jun 2026 02:31:03 +0200
+Message-ID: <20260628003103.24832-1-alhouseenyousef@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 27 Jun 2026 18:07:32 +0200
-Message-Id: <DJJYM56GLGXX.2L6RY669ZOJSC@kernel.org>
-Cc: "Linus Torvalds" <torvalds@linux-foundation.org>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Mark Brown" <broonie@kernel.org>, "Nathan
- Chancellor" <nathan@kernel.org>, "Nick Desaulniers"
- <nick.desaulniers+lkml@gmail.com>, "Bill Wendling" <morbo@google.com>,
- "Justin Stitt" <justinstitt@google.com>, "Raag Jadav"
- <raag.jadav@intel.com>, "Sohil Mehta" <sohil.mehta@intel.com>, "Dave
- Hansen" <dave.hansen@linux.intel.com>, "Rob Herring" <robh@kernel.org>,
- "Saravana Kannan" <saravanak@kernel.org>, "Bjorn Helgaas"
- <bhelgaas@google.com>, "Rafael J. Wysocki" <rafael@kernel.org>, "Len Brown"
- <lenb@kernel.org>, "Andi Shyti" <andi.shyti@kernel.org>,
- <linux-kernel@vger.kernel.org>, "Yemike Abhilash Chandra"
- <y-abhilashchandra@ti.com>, "Mauro Carvalho Chehab" <mchehab@kernel.org>,
- <linux-media@vger.kernel.org>, "Nicolas Frattaroli"
- <nicolas.frattaroli@collabora.com>, "Liam Girdwood" <lgirdwood@gmail.com>,
- "Jaroslav Kysela" <perex@perex.cz>, "Takashi Iwai" <tiwai@suse.com>, "Heiko
- Stuebner" <heiko@sntech.de>, <linux-rockchip@lists.infradead.org>,
- <linux-sound@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <driver-core@lists.linux.dev>, "Jonathan Cameron" <jic23@kernel.org>,
- "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, "Bartosz Golaszewski"
- <bartosz.golaszewski@oss.qualcomm.com>, "Pei Xiao" <xiaopei01@kylinos.cn>,
- "Shashank Balaji" <shashank.mahadasyam@sony.com>, "Ben Horgan"
- <ben.horgan@arm.com>, "Johan Hovold" <johan@kernel.org>,
- <linux-usb@vger.kernel.org>, "Nikita Kravets" <teackot@gmail.com>, "Hans de
- Goede" <hansg@kernel.org>, =?utf-8?q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>, <platform-driver-x86@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-i2c@vger.kernel.org>, "Daniel Scally"
- <dan.scally@ideasonboard.com>, "Sakari Ailus"
- <sakari.ailus@linux.intel.com>, "Minas Harutyunyan" <hminas@synopsys.com>,
- "Tianrui Zhao" <zhaotianrui@loongson.cn>, "Bibo Mao" <maobibo@loongson.cn>,
- "Huacai Chen" <chenhuacai@kernel.org>, "WANG Xuerui" <kernel@xen0n.name>,
- <kvm@vger.kernel.org>, <loongarch@lists.linux.dev>
-To: =?utf-8?b?VXdlIEtsZWluZS1Lw7ZuaWcgKFRoZSBDYXBhYmxlIEh1Yik=?=
- <u.kleine-koenig@baylibre.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v2 00/17] mod_devicetable.h: Split into per subsystem
- headers
-References: <cover.1782490566.git.u.kleine-koenig@baylibre.com>
-In-Reply-To: <cover.1782490566.git.u.kleine-koenig@baylibre.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri Jun 26, 2026 at 8:00 PM CEST, Uwe Kleine-K=C3=B6nig (The Capable Hub=
-) wrote:
-> Uwe Kleine-K=C3=B6nig (The Capable Hub) (17):
->   mod_devicetable.h: Split into per subsystem headers
->   driver: core: Include headers for acpi_device_id and of_device_id for s=
-truct device_driver
->   driver core: platform: Include header for struct platform_device_id
+The V4L2 core takes a video_device reference before invoking the
+driver open callback. That reference does not protect em28xx state
+because all three video_device objects are embedded in em28xx_v4l2 and
+use video_device_release_empty().
 
-With the suggested rename,
+If initialization fails after registering a node, the error path can
+unregister it and drop the last em28xx_v4l2 reference while a concurrent
+open has passed the core registration check. The open callback then
+dereferences the freed video_device in video_drvdata(), as observed by
+KASAN. A disconnect has the same lifetime gap.
 
-Acked-by: Danilo Krummrich <dakr@kernel.org>
+Give each successfully registered video node references to both the
+enclosing V4L2 state and the parent em28xx device. Release those
+references from the video_device release callback, after the core has
+drained pending opens and existing file references.
+
+Fixes: ef74a0b9ff56 ("[media] em28xx: move video_device structs from struct em28xx to struct v4l2")
+Reported-by: syzbot+39ff299961a7c07f00f0@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=39ff299961a7c07f00f0
+Cc: stable@vger.kernel.org
+Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+---
+ drivers/media/usb/em28xx/em28xx-video.c | 35 +++++++++++++++++++++++--
+ 1 file changed, 33 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
+index da0422c65e5f..4274a9bcb432 100644
+--- a/drivers/media/usb/em28xx/em28xx-video.c
++++ b/drivers/media/usb/em28xx/em28xx-video.c
+@@ -2289,6 +2289,31 @@ static void em28xx_free_v4l2(struct kref *ref)
+ 	kfree(v4l2);
+ }
+ 
++static void em28xx_vdev_release(struct video_device *vdev)
++{
++	struct em28xx_v4l2 *v4l2;
++	struct em28xx *dev;
++
++	switch (vdev->vfl_type) {
++	case VFL_TYPE_VIDEO:
++		v4l2 = container_of(vdev, struct em28xx_v4l2, vdev);
++		break;
++	case VFL_TYPE_VBI:
++		v4l2 = container_of(vdev, struct em28xx_v4l2, vbi_dev);
++		break;
++	case VFL_TYPE_RADIO:
++		v4l2 = container_of(vdev, struct em28xx_v4l2, radio_dev);
++		break;
++	default:
++		WARN_ON_ONCE(1);
++		return;
++	}
++
++	dev = v4l2->dev;
++	kref_put(&v4l2->ref, em28xx_free_v4l2);
++	kref_put(&dev->ref, em28xx_free_device);
++}
++
+ /*
+  * em28xx_v4l2_open()
+  * inits the device and starts isoc transfer
+@@ -2554,7 +2579,7 @@ static const struct v4l2_ioctl_ops video_ioctl_ops = {
+ static const struct video_device em28xx_video_template = {
+ 	.fops		= &em28xx_v4l_fops,
+ 	.ioctl_ops	= &video_ioctl_ops,
+-	.release	= video_device_release_empty,
++	.release	= em28xx_vdev_release,
+ 	.tvnorms	= V4L2_STD_ALL,
+ };
+ 
+@@ -2583,7 +2608,7 @@ static const struct v4l2_ioctl_ops radio_ioctl_ops = {
+ static struct video_device em28xx_radio_template = {
+ 	.fops		= &radio_fops,
+ 	.ioctl_ops	= &radio_ioctl_ops,
+-	.release	= video_device_release_empty,
++	.release	= em28xx_vdev_release,
+ };
+ 
+ /* I2C possible address to saa7115, tvp5150, msp3400, tvaudio */
+@@ -2965,6 +2990,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 			"unable to register video device (error=%i).\n", ret);
+ 		goto unregister_dev;
+ 	}
++	kref_get(&v4l2->ref);
++	kref_get(&dev->ref);
+ 
+ 	/* Allocate and fill vbi video_device struct */
+ 	if (em28xx_vbi_supported(dev) == 1) {
+@@ -2999,6 +3026,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 				"unable to register vbi device\n");
+ 			goto unregister_dev;
+ 		}
++		kref_get(&v4l2->ref);
++		kref_get(&dev->ref);
+ 	}
+ 
+ 	if (em28xx_boards[dev->model].radio.type == EM28XX_RADIO) {
+@@ -3012,6 +3041,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 				"can't register radio device\n");
+ 			goto unregister_dev;
+ 		}
++		kref_get(&v4l2->ref);
++		kref_get(&dev->ref);
+ 		dev_info(&dev->intf->dev,
+ 			 "Registered radio device as %s\n",
+ 			 video_device_node_name(&v4l2->radio_dev));
+-- 
+2.54.0
+
