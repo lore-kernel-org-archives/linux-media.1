@@ -1,144 +1,164 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7EA01F03DE
-	for <linux-media@vger.kernel.org>; Sun, 28 Jun 2026 10:01:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2A33446CA;
+	Sun, 28 Jun 2026 10:22:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782640914; cv=none; b=STSvog5t6VVu4akp5sRrY4ANVw6fAekb9UK/1bVv8QIIFEqsu7JmmcWUVioQjXE8OGY1wKqsZvG4UO8mJTBjydn1LDre4s3T7lp1jn+unnsPoeITFGczC1kGM32EVz6w7cJ1nO672O8JIGGNYorTOEkesI+WyrKAGPj/GnAHQfc=
+	t=1782642155; cv=none; b=dwCFvA0N10BLN37XalzKFGLE4p4X9d8SX0kBp0WL+sU7Lb96ZpgB8W6uGcNiqB2GAoGWJYsrAsVZDg6YYUB70ontyvPnYkDWDi9L1q5kQ+soSXAPunXbRlqpgepVK8w0gmSYp4JIHFWu20gq/yV8SbKh5dppEme/Lj+nJjrZXSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782640914; c=relaxed/simple;
-	bh=2t5a9qB6hNVDxj5S5IvP3ktU8+lgMMAZlQSPGY+2cYo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Zb1tfKBII5mkEj1PmCn5v3T20O1VYvcw4v2af3U4GhU4z5ZkSTQN5cL6Rbxxv9K/QN40CKhh/zdgpKdvD6SzE2ZqnLE5IkIAqsKTP20EAwgG4oh5mH1F7zgqx5wuvgxJ/wgchxH9PL5KPCLEBKXdUwZiRsjZ2y1NKdQ/BNSRY0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oS+ukM0S; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782642155; c=relaxed/simple;
+	bh=pSsloNoctZ8KZdtQMoBMTiphM6yVThkqQuPMFzEH2PI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=icfBhVIYSBzoi8MEyixIOJRDJhOry5Wm2tw0+i45GOl2MtyklmDKUJYGi6irlSjprQdsdnPxFzI32funoe9iedoY7a17IBnXOdCzHW3160WfkooXf6dagZuXy2xcnhz087sJiDjUiIKz1H0VO0MszHBUZBf2XWQZ3yEZUMYn8Cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=p+0kMGCB; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oS+ukM0S"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-472a14c9965so340586f8f.1
-        for <linux-media@vger.kernel.org>; Sun, 28 Jun 2026 03:01:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782640911; x=1783245711; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=/GcbpUykRobBfdlA1r4jXGTM9YzHADH53GFKveeipoE=;
-        b=oS+ukM0S6XxhNWJ01URy4Y6Tr1K/gSix2ZsqKk6v37kajwpS6v+S3jLaA4DWYhEIaf
-         WXVL5P8CUEekhySWm2UG9gUm8XVMVfPfU1a5Xz5cJTrtpuro4Rj1V1ePG4Q0uC+ouMu3
-         Vt5DuuydsyycBSvX3fkYlCUg0VaLoKG17JgK5uPsZwtB4+bhhDDJ36n6TR9CvyGjBHC9
-         wTR0HeqbjEDiz4IOV9zPUkJTM/qEP//j+ElDIwvX9+JjROgR9BIpVEqMrV2bh7EDQuX4
-         c5tycSeRgRqqKV2JmGX81ELctYENtJPLzY1qeqncjT0cYV9MW4elDYVcjt+ocETS5DYm
-         eoeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782640911; x=1783245711;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/GcbpUykRobBfdlA1r4jXGTM9YzHADH53GFKveeipoE=;
-        b=VqtIUPbRC0PZFXrWp9u6eVhjSdewgOMdv/WEocsTqN6qBYy5PLUSeuMcedj9gK3eTC
-         3hIL7wjPkQAKIMou896rvK324G+8i3PeUVnvmc4qCH8CMZjrb7BOZzXalYbooQA+Z2pA
-         4CSpAVMv/vjQUNiLytqCNvy1+KwtaZiZPhnmTrFo3bKubu6kSS0vGe1iZD9a1c0VPhHT
-         pG1ied/TaFFB3qES1OhmDe9E8PSH8Buok/8GZ94pJzosqm8DRnwmTIenxr0U+yrdPyyz
-         G3loLmBdp05lZPI9nbLTuE8kwtEn1sKanrQyFWtyOkiibA4T6a5FF1LB9V+op/AlVai+
-         e3SQ==
-X-Gm-Message-State: AOJu0YyYhwoCUwUre1sgeQkgmAx+5wN/yLHKezv4a0fBZp+cZkkk0NEH
-	s8DvIh3kLmOGFpZvyb42L0NzYa7jtoI80NObJydgerbtbkn7eKs1ZrLp
-X-Gm-Gg: AfdE7clx9vaLRlGvSfpCPPucyS0gS1PIEsFYBE7j4EUkHywV8tdWvmSw7brTEUWh967
-	85o5mcm0+7egcE8MKMv4mygAqtUIVH4O8mY4ny2hg27SQ3MggBy3gMqRPYU3A+jA06m+u7Ud20A
-	kZJEbWEVuDRfsllDCAcxk2axPVe4qb1hS3l5653RcLaGBy7xO+LiQIfnFVvgG8O2IHFLRLPcfRg
-	cO1mMrd2hkhJKTLqBnQ6MT2vSP9Ojt7qRVhzKFxDBpeMeQQjLqOq6PxTyW8fp8FqQO+o9v2J0aO
-	YyTn+sSo5M//xoxeycl+pjWVsTy7VdNPFuWtlHm4KtriiPdeyWVWNP+uxQNnqMdVB4EVK4QPyZw
-	Y1e9yo7/UI0g44Z+/t4f6R3ZiGbN85YpQ3O0V1Zw4/YFckGxBvon/8OGDhkAIZ3oMHpk9+FoXHy
-	dMIhKXvKsk+NfRo+/MqNs+EDfvdQ==
-X-Received: by 2002:a05:600c:3581:b0:492:66fb:5dc5 with SMTP id 5b1f17b1804b1-49266fb5f1bmr205698715e9.24.1782640911113;
-        Sun, 28 Jun 2026 03:01:51 -0700 (PDT)
-Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-472bca3caccsm5286932f8f.33.2026.06.28.03.01.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 28 Jun 2026 03:01:49 -0700 (PDT)
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+d37184d9d8cc34602616@syzkaller.appspotmail.com,
-	syzbot+d445a71e1c011b592c16@syzkaller.appspotmail.com,
-	syzbot+2e428058cafb408fb695@syzkaller.appspotmail.com,
-	Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH] media: dvb-core: publish device minors after registration succeeds
-Date: Sun, 28 Jun 2026 12:00:58 +0200
-Message-ID: <20260628100058.48760-1-alhouseenyousef@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="p+0kMGCB"
+Received: from ping.linuxembedded.co.uk (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 394B134;
+	Sun, 28 Jun 2026 12:21:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1782642098;
+	bh=pSsloNoctZ8KZdtQMoBMTiphM6yVThkqQuPMFzEH2PI=;
+	h=From:Subject:Date:To:Cc:From;
+	b=p+0kMGCBDHSdrMRCTYhGwKrbD/lVOCLOVqbLnE/Z8+r4xy36LIXysHfmItF+k60Nu
+	 grjX8hLayTsJT7xg1Tm+ykqzPWkvNDNSUz6SvkXezHR2t1L1Bl18OxNsCDb0DySnis
+	 0aXBROKTASUubfqalaG1RQhwnEvUtpRe8sgYywvI=
+From: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Subject: [PATCH v3 0/7] dt-bindings: Orientation defines
+Date: Sun, 28 Jun 2026 11:22:15 +0100
+Message-Id: <20260628-kbingham-orientation-v3-0-4ed92968aff8@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANf1QGoC/22NQQ6CMBBFr0JmbU0dsQVX3sOwaMsAE0Nr2oZoC
+ He3Epcu30/e+yskikwJrtUKkRZOHHyB86ECNxk/kuC+MKBEJZVsxMOyHyczi1A8n00ugkBpBic
+ Hq9qLhqI+Iw382rP3rvDEKYf43l8W/K6/IKr/wQWFFLU+6cZSi9rWN+7JpOBtMLE/ujBDt23bB
+ 4DwALO/AAAA
+X-Change-ID: 20260608-kbingham-orientation-20afc0fb6957
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>, 
+ Matthias Fend <matthias.fend@emfend.at>, 
+ Mikhail Rudenko <mike.rudenko@gmail.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Michael Riesch <michael.riesch@collabora.com>, 
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
+ Sylvain Petinot <sylvain.petinot@foss.st.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Paul Elder <paul.elder@ideasonboard.com>, 
+ Martin Kepplinger <martin.kepplinger@puri.sm>, 
+ Quentin Schulz <quentin.schulz@theobroma-systems.com>, 
+ Tommaso Merciai <tomm.merciai@gmail.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>, 
+ Richard Acayan <mailingradian@gmail.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux@ew.tq-group.com, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782642139; l=3899;
+ i=kieran.bingham@ideasonboard.com; s=20260207; h=from:subject:message-id;
+ bh=pSsloNoctZ8KZdtQMoBMTiphM6yVThkqQuPMFzEH2PI=;
+ b=0aU7sZbphb8cHLIWND7oWOf664qmdxaVArY7DgYx+/th2NpgB+11g+VRfyLA43pZiNPFZd0I0
+ xjGy3mD/gx+AtmBrOqJFLbLyrMn835bR+0ScSwTXbvUDKlwj/UYe6H6
+X-Developer-Key: i=kieran.bingham@ideasonboard.com; a=ed25519;
+ pk=FVXKN7YuwHc6UtbRUeTMAmranfsQomA+vnilfglWdaY=
 
-dvb_register_device() publishes dvbdev in the minor table before media
-graph and class-device creation, both of which can still fail. Their error
-paths then free dvbdev directly without removing the table entry or
-dropping its minor reference. Opening a manually created device node can
-race with or follow that failure, causing refcount corruption and
-use-after-free; without an open, the minor reference is leaked.
+Add a new dt-bindings/media/video-interface-devices.h header that
+initially supports the Orientation types and convert existing users
+throughout the code base.
 
-Keep the chosen minor private until all fallible registration steps have
-succeeded. On failure, release the initial reference through
-dvb_device_put() rather than bypassing the kref.
+v3 collects tags, and fixes the typo, but drops all hunks that do not
+apply on the media-next tree so that these changes can be merged. Once
+the core feature is accepted a second sweep will convert remaining (new)
+additions of the orientation field.
 
-Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
-Reported-by: syzbot+d37184d9d8cc34602616@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d37184d9d8cc34602616
-Reported-by: syzbot+d445a71e1c011b592c16@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d445a71e1c011b592c16
-Reported-by: syzbot+2e428058cafb408fb695@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=2e428058cafb408fb695
-Cc: stable@vger.kernel.org
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+v2:
+ - Now expands from the original v1 "dt-bindings: media: Add macros for
+   video interface devices" to update
+   Documentation/devicetree/bindings/media/video-interface-devices.yaml
+   and extend to actually change all users to the new types.
+ - Link to v2: https://lore.kernel.org/r/20260626-kbingham-orientation-v2-0-47178be927b4@ideasonboard.com
+
+v3:
+ - Fix the arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi 
+   MEDIA_ORIENTATION_REAR to MEDIA_ORIENTATION_BACK
+   - Though this patch is dropped from this series to post the main
+     integration through the media tree.
+ - Drop (temporarily) changes to:
+    - arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
+    - arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+    - arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam0.dtso
+    - arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam1.dtso
+ - Non applying changes will be re-posted after the core feature
+   lands in linux-next, or after those changes appear in media-next.
+
 ---
- drivers/media/dvb-core/dvbdev.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Kieran Bingham (7):
+      dt-bindings: media: Add macros for video interface devices
+      media: dt-bindings: video-interface-devices: add video-interface-devices.h references
+      dt-bindings: media: i2c: Utilise video-interface-devices enums
+      arm64: dts: freescale: Convert to new media orientation definitions
+      arm64: dts: qcom: Convert to new media orientation definitions
+      arm64: dts: renesas: Convert to new media orientation definitions
+      arm64: dts: rockchip: Convert to new media orientation definitions
 
-diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
-index d753d329502a..ca4d61a94270 100644
---- a/drivers/media/dvb-core/dvbdev.c
-+++ b/drivers/media/dvb-core/dvbdev.c
-@@ -545,7 +545,6 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
- 	}
- 
- 	dvbdev->minor = minor;
--	dvb_minors[minor] = dvb_device_get(dvbdev);
- 	up_write(&minor_rwsem);
- 	ret = dvb_register_media_device(dvbdev, type, minor, demux_sink_pads);
- 	if (ret) {
-@@ -558,7 +557,7 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
- 		}
- 		dvb_media_device_free(dvbdev);
- 		list_del(&dvbdev->list_head);
--		kfree(dvbdev);
-+		dvb_device_put(dvbdev);
- 		*pdvbdev = NULL;
- 		mutex_unlock(&dvbdev_register_lock);
- 		return ret;
-@@ -577,12 +576,16 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
- 		}
- 		dvb_media_device_free(dvbdev);
- 		list_del(&dvbdev->list_head);
--		kfree(dvbdev);
-+		dvb_device_put(dvbdev);
- 		*pdvbdev = NULL;
- 		mutex_unlock(&dvbdev_register_lock);
- 		return PTR_ERR(clsdev);
- 	}
- 
-+	down_write(&minor_rwsem);
-+	dvb_minors[minor] = dvb_device_get(dvbdev);
-+	up_write(&minor_rwsem);
-+
- 	dprintk("DVB: register adapter%d/%s%d @ minor: %i (0x%02x)\n",
- 		adap->num, dnames[type], id, minor, minor);
- 
+ .../devicetree/bindings/media/i2c/hynix,hi846.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov08d10.yaml     |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov4689.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov5675.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov5693.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov64a40.yaml     |  3 ++-
+ .../devicetree/bindings/media/i2c/sony,imx111.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/sony,imx355.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/sony,imx415.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/st,vd55g1.yaml        |  3 ++-
+ .../devicetree/bindings/media/i2c/st,vd56g3.yaml        |  3 ++-
+ .../devicetree/bindings/media/i2c/thine,thp7312.yaml    |  3 ++-
+ .../bindings/media/video-interface-devices.yaml         | 17 +++++++++++------
+ .../imx8mp-tqma8mpql-mba8mp-ras314-imx219.dtso          |  3 ++-
+ arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi       |  3 ++-
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts      |  3 ++-
+ .../boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts     |  3 ++-
+ .../renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso |  3 ++-
+ .../renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso |  3 ++-
+ .../renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso |  3 ++-
+ .../renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso |  3 ++-
+ arch/arm64/boot/dts/rockchip/px30-pp1516.dtsi           |  3 ++-
+ .../dts/rockchip/px30-ringneck-haikou-video-demo.dtso   |  3 ++-
+ arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts   |  5 +++--
+ include/dt-bindings/media/video-interface-devices.h     | 13 +++++++++++++
+ 25 files changed, 71 insertions(+), 30 deletions(-)
+---
+base-commit: 06cb687a5132fcffe624c0070576ab852ac6b568
+change-id: 20260608-kbingham-orientation-20afc0fb6957
+
+Best regards,
 -- 
-2.54.0
+--
+Kieran
 
