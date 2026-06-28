@@ -1,150 +1,118 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D933930FC1A;
-	Sun, 28 Jun 2026 20:28:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A823B95E9
+	for <linux-media@vger.kernel.org>; Sun, 28 Jun 2026 21:59:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782678501; cv=none; b=Da3J3LHK6byqy422ldUI6h4mbIvrqePNU6iyJT5ji2SS33fdiSSozudreaKq9eJH2bzcqRb9GwHtDjU6kvoiPAi2ylChzKSOp9n/tsn9SFgg0xQs8pN756qjyaxuAoutdn76Ak/GsJ1353GQplmrMHha5jbxO8XcSE2IB0wpgi0=
+	t=1782683994; cv=none; b=msjsndvVooFQMEyJpumhF/ixzLTiEWbkFN+Jib3XCbgmoFBhnrBQDVQTX7+SWMT6dR/IqjBcxUyv5HUBBzHzwfFNBSkuV3J8Q3DvJ/PB1u2lXkeFDkOxG9CGsevmmqGGK1lPegFMXT3sQJJOqw8Qt597bGPnSNBZd+4mVkgppS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782678501; c=relaxed/simple;
-	bh=x5Vi4f0phvjV60V3TXIOIorQbkIhfFhMCJ4c7HWwdqk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A7qkqeUsErtHbuaD6nNdKwQ8hn8ky9WKoaHVJ000qDAAEp/0+lYw+KJG/hNAR2OGABI4nbKJsuhKLu1P8RGNbt9GjCvBpXydy/LPzuf7GXQnjna12nZ94wnMhtuGa3U4S6PIKrK2s0cqEWAsS1O8vbhFByJty/6HgG3DGTFHVso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bKn7cF+Z; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1782683994; c=relaxed/simple;
+	bh=4EzIdDRUtw4t5bGv2aE92n3beG8LrrNZi5SE/buxdUU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UqKMKz6fr9d2BuSKS8lMneAj+/XsXVgEHp7Ge/QJ4xL8NFsOug4bBQsj9+wA/mE7JhfK5zKgTP2X1Ig2WGrlP+y/WvLHqt8JrXfuW4AQ8rfZNA6ljC5RQ/YXzjAuHtS4Fd/MTJpv7mx8olqygCmgHIbmVoalXUvfpVLsSowpIas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=OcnJ3TLs; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bKn7cF+Z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782678498; x=1814214498;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=x5Vi4f0phvjV60V3TXIOIorQbkIhfFhMCJ4c7HWwdqk=;
-  b=bKn7cF+Z9KvPEAC/JgqtbVIreNirgZFH+j8KuUzh1ajj+/osD0aK/T3R
-   M7SFqv1XhtAJnGkFbgF7PMP/fA/gtHLZYMlNFpZtlM/uNNID/63yI5eE9
-   C8pQ1I92if9YnDWWa+SPpQsTOKO0QK8F68czPwQd64wkYUfoKp2AZ/n/p
-   0VNN9M94ocJ/ArtPzIYcjtXSwpTm6EGjMUEcH8FTA3SqLuw5/XqI+uUw4
-   KRxgu0G5TZHuz2tyer7ohQrLKfAaZK6K7jYj6fMdIOLVTSQMS2Nw5m591
-   T8HUXiKsZcYQ9brlqdLYGvFhmyHKvlfOhngnAc9aBsTZLcFUUORf+8ccR
-   w==;
-X-CSE-ConnectionGUID: IbSWCcHpSpiTaM/8oRUsAQ==
-X-CSE-MsgGUID: XyDHT2ouTe6qdeq0LpRtjA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11831"; a="94860430"
-X-IronPort-AV: E=Sophos;i="6.24,230,1774335600"; 
-   d="scan'208";a="94860430"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jun 2026 13:28:17 -0700
-X-CSE-ConnectionGUID: 0nckVlaHRHaa9RU2NwKC9w==
-X-CSE-MsgGUID: QfjrX7T9R5Wi5lax0QCKnA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,230,1774335600"; 
-   d="scan'208";a="249152241"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.193])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jun 2026 13:28:13 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 229E0121C1C;
-	Sun, 28 Jun 2026 23:28:13 +0300 (EEST)
-Date: Sun, 28 Jun 2026 23:28:13 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Frank Li <Frank.Li@nxp.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans Verkuil <hans@jjverkuil.nl>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Martin Kepplinger-Novakovic <martink@posteo.de>,
-	Rui Miguel Silva <rmfrfs@gmail.com>,
-	Purism Kernel Team <kernel@puri.sm>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	Guoniu Zhou <guoniu.zhou@nxp.com>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v6 1/9] media: mc-entity: Store parsed V4L2 fwnode
- endpoint in media_pad
-Message-ID: <akGD3ZjW6GPHHI3D@kekkonen.localdomain>
-References: <20260624-imx8qxp_pcam-v6-0-4b3f45920d2f@nxp.com>
- <20260624-imx8qxp_pcam-v6-1-4b3f45920d2f@nxp.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="OcnJ3TLs"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4926f8e02e8so15344165e9.0
+        for <linux-media@vger.kernel.org>; Sun, 28 Jun 2026 14:59:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1782683990; x=1783288790; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yAS1LOwW4iPbNBsZXbgmDeYjHMTNiWfBWwu+VzsMgQM=;
+        b=OcnJ3TLs5FDmlCc8tX0kFvFYQaDWtxz85TISwK1wkl1XyyAYnp2o79Y56JE2zAlaMq
+         MVH63LnwqQTV12w3JetF8Ijp0YPVfhzAljl4SYK97GDmu9lxqZb4f64FW8ozEI0/DPIS
+         OUkbYqSfikWNgLyZ+XjyXjFQuVgD4Duc6d7Rw7/EBuTI31mLWqLiP1LLrBENPr1W7SHW
+         Wy0QzXT2vDVw+JWMPE3Iqj3Y8U+FjkaEZ5XYbIwGIOc1h3iycQm9CQ0tFS3QrdMNmeD8
+         k/BdPMB9ZzrM9bCjSblAm9NkjAfhzIjwf4Atwg/kKsraYPZnRaG4tFBjvmH5/DW2wJpm
+         uSyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782683990; x=1783288790;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=yAS1LOwW4iPbNBsZXbgmDeYjHMTNiWfBWwu+VzsMgQM=;
+        b=OZ44WbYXH9eyHz2stKtN9UYQW7uDgG+va1vVt8kyDd4plhlY6al5EV3KNnlD1IFPUd
+         hHH3i1gQ+1Zpaki70WYFUwMjdRVRN/ZDZHTLEkw11XdBO6q4gIiGXrFSKJLcyAzCDINx
+         OhlPFpfxZlNiGxv5B2YEnbUhUf41XJko1H/mwVKWq/7/v/nL6NI2Lyks5Z04SQHD+mA4
+         nZQdHTOMmZscebBRlSztkb9OFplrqCr11+Za9fwUJpiLahWqFv+RHvKSp2liv+aL9FHC
+         EA6hjjAXIEhbloGX/YK8eq3LQTc6pzzLCPPqLkTWHp2AujstOVA6sAsyUYD6lNpckTMa
+         maOw==
+X-Forwarded-Encrypted: i=1; AHgh+RoAPcAEkqpA1e0KiOw1pxL3Ca2K47kLRy4blPJGnpnkUBAEQN+aM8b796DvZmXCQ9bOWQUd6rvDg70lMQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxE8rgQn1uyG/MuvEhtMSydTWy9a2R/kQc2oXdOx657+8t7/V8S
+	rTmEtEup2qK8KJNht2JFXNAAV1xKn5vUn8HD0QxsUNGjy6pkPr13biG/oU9Rh2Fl5zI=
+X-Gm-Gg: AfdE7cnd80gSvC/g4yMLXC7DhnkYX0+94rkw0oLGYcyj/mMGsy43TnAnF8T2421bL3O
+	wuWAp5ozhUc8Uo3x+B+GefzHZV9XdIXjY6ytBmTQ2SU0Itf/Ac2k1o+fXsR7yqAfl2T3rk4i4Gp
+	+FJWUqo6dyFVpMyHW800X9Xh48VS8Qv3e5ma2U8grSBxTTfXvNEyY+dLFnGBWWYMXgdtLROXH6q
+	EUzqURK2RrVYO79JHx8QH+4MzAcqAJKjaX0O6qz9YTa62nW+bBgh9co4CoEb7TlZVdaoi1jXhlM
+	mAvz+9+g+DaNjyxyQgh4pdwOgjV0yGcmFv3KY/XGc44MxXTLRgC941qUOuQU7bnSDj8k77VQYm1
+	hTH955J7oBwo6MiS4a1nLGuFALOc3wpXpEm1Z0RGyO3i43oh063B2kVc4diUUSHGUAqoGahX75k
+	qs5xBwJAsIbsxCtXDSTA==
+X-Received: by 2002:a05:6000:40c8:b0:472:c426:2ce9 with SMTP id ffacd0b85a97d-472c4262f54mr4673267f8f.12.1782683989794;
+        Sun, 28 Jun 2026 14:59:49 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:559d:eec2:887f:c200])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4726b76e6f8sm13082893f8f.13.2026.06.28.14.59.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 28 Jun 2026 14:59:49 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Danilo Krummrich <dakr@kernel.org>
+Subject: [PATCH v3 02/16] media: ti: vpe: #include <linux/platform_device.h> explicitly
+Date: Sun, 28 Jun 2026 23:58:37 +0200
+Message-ID:  <453257c9fa32acc4ab5b3e4c3b010244966a7b9d.1782682124.git.ukleinek@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1782682124.git.ukleinek@kernel.org>
+References: <cover.1782682124.git.ukleinek@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260624-imx8qxp_pcam-v6-1-4b3f45920d2f@nxp.com>
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1007; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=4EzIdDRUtw4t5bGv2aE92n3beG8LrrNZi5SE/buxdUU=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqQZkRvo4eNZX8wxkfmly9iAfpsfg9yvA7r++qs I4SQvr9CUCJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCakGZEQAKCRCPgPtYfRL+ TnbrB/9CSgJUxFffneUMsgGatyIb7FRr/47bollq3E/IrnKcRqbsSo5ZtlkBK221IjBj52tKECd NU6MLzxwfUhMsAwlHzI7tiRRNe9zCUR2B1LkE6gaCKo6ewFkORSMO0HTnkMW9ksWq//dk3e1kZf s9ZC7vJvK2cOEMmJdeXd89meo5tvvvpf99knf13R2ClGp4cwKE9auLQeZDILmSlEaP+YruD9fLT 9SfGwLPbU7cw+gvsWPDM/gGgFRqB5DTAyWAi5ViNznVAqo9ruO3+YwSwbW2OxTS9891PS1xOINl ntU2K+c+qttdCju47FFSRde2vePJSeEqBlKM5Bb8mNeqgFiA
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
 
-Hi Frank,
+The driver uses several symbols and structs defined in that header. The
+header is currently included transitively via
 
-Thanks for the patch.
+	"vip.h" ->
+	<media/v4l2-ctrls.h> ->
+	<media/media-request.h> ->
+	<media/media-device.h> ->
+	<linux/platform_device.h>
 
-On Wed, Jun 24, 2026 at 04:37:48PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Each media pad is associated with a firmware node endpoint. Capture the
-> parsed V4L2 fwnode endpoint information in struct media_pad so it can be
-> reused by consumers.
-> 
-> This avoids reparsing firmware node endpoint data every time the endpoint
-> configuration is needed, reduces duplicate code, and provides a common
-> place to store endpoint properties associated with a pad.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
-> Assume 1 to 1 map between dt's endpoint to medie pad.
-> Change in v6
-> - new patch
-> ---
->  include/media/media-entity.h | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/media/media-entity.h b/include/media/media-entity.h
-> index d9b72cd87d524..4a3785cd9f370 100644
-> --- a/include/media/media-entity.h
-> +++ b/include/media/media-entity.h
-> @@ -20,6 +20,8 @@
->  #include <linux/minmax.h>
->  #include <linux/types.h>
->  
-> +#include <media/v4l2-fwnode.h>
+which seems to be on the lower end of the scale between random and
+reliable.
 
-We have dependencies from V4L2 to MC but not the other way around as MC is
-(or was?) intended for wider use then just V4L2. I'm thus more than a bit
-hesitant adding any references to V4L2 in MC.
+Acked-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+---
+ drivers/media/platform/ti/vpe/vip.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-I wonder what Hans and Laurent think.
-
-> +
->  /* Enums used internally at the media controller to represent graphs */
->  
->  /**
-> @@ -230,6 +232,7 @@ enum media_pad_signal_type {
->   * @flags:	Pad flags, as defined in
->   *		:ref:`include/uapi/linux/media.h <media_header>`
->   *		(seek for ``MEDIA_PAD_FL_*``)
-> + * @vep:	associated fwnode endpoint information
->   * @pipe:	Pipeline this pad belongs to. Use media_entity_pipeline() to
->   *		access this field.
->   */
-> @@ -240,7 +243,7 @@ struct media_pad {
->  	u16 num_links;
->  	enum media_pad_signal_type sig_type;
->  	unsigned long flags;
-> -
-> +	struct v4l2_fwnode_endpoint vep;
->  	/*
->  	 * The fields below are private, and should only be accessed via
->  	 * appropriate functions.
-> 
-
+diff --git a/drivers/media/platform/ti/vpe/vip.c b/drivers/media/platform/ti/vpe/vip.c
+index cb0a5a07a3d4..e56a95f53ea9 100644
+--- a/drivers/media/platform/ti/vpe/vip.c
++++ b/drivers/media/platform/ti/vpe/vip.c
+@@ -16,6 +16,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/module.h>
+ #include <linux/workqueue.h>
++#include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/sched.h>
+ #include <linux/mfd/syscon.h>
 -- 
-Regards,
+2.47.3
 
-Sakari Ailus
