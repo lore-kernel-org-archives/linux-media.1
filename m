@@ -1,130 +1,259 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 096AF419303;
-	Mon, 29 Jun 2026 13:17:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E488B403EB5;
+	Mon, 29 Jun 2026 13:26:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782739062; cv=none; b=uH+W8ni8nn83FjKiznICMYsWWtDL7RkymPRoVpvbj85yLFR7qktRrDY0PlnWVoOEbuDeBEDklLCIQpyoGGVQburxRxY94ncnAoCr9NXztaYnJIg33+uzBjQ2/sXDHKCiZ2EFJlsV25IOQj9e52gDrcXWwzEyDm3DGB8dJKdu3KQ=
+	t=1782739609; cv=none; b=XaIh+jDeGqeIw/ZVzWGxQoDAZ5r7S7qPGtQrdIxzojjLvbWssz9eYlmMcrqECuT3XBf/rCr/QClvr3/35noqp0QLfzNPbQNbu6ukoP0RMDaSzMZzzKUQa6YHgmw3zkbt59PJ68/66Yfvp9LU9HAKI6WSDfPcC+wOgDM3GBWjqgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782739062; c=relaxed/simple;
-	bh=xpiMn6d5fPo0qaTfPNweL2YOBZhGryyOb3EET/1QEVg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ePPp11ZSWLRCZ9xKVtWIKTX8QuEgwLDYxM05j1b0a7gRXXsaTG0Zw5DDdZZJqsooFygyPTyhvCsl+c5AAx2RgFgTf/7Px1G64yIoO9Xz5AysuoBPY6aZPPorzfSbdlN+MwWmiorIMMx5UHkwizuK/Defsuumn0UbHUdB79ohbCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=QM92N+o6; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1782739609; c=relaxed/simple;
+	bh=3I9zyzkVdbsSVB8VOhT5PsQ+7G+zS3OZld35IU7mR88=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=aXkwQ97vaYswg//aMcXXY8ektj2kdKlCzBtXw+T5wS8Y5PYct2dbACtBAYKz4Zt5UlwYJCj714pz/mkFJhw1KxzYH1JU4MGDgBYvq0IR0qAi+sDWc2QGhTCzi7I8dnLWtTRgW1arVrSFKKrU6HZoNCu3bKGaZ+Uit9+rVaNA8fc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KD4wn8FG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="QM92N+o6"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B08101692;
-	Mon, 29 Jun 2026 06:17:35 -0700 (PDT)
-Received: from [192.168.7.252] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CF58A3F85F;
-	Mon, 29 Jun 2026 06:17:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1782739060; bh=xpiMn6d5fPo0qaTfPNweL2YOBZhGryyOb3EET/1QEVg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=QM92N+o6dtt/9SuaWUaeBTF81oHVxRvf9KhYoxqQg+UrwQeABpnUf3zNQ8qJA1x7F
-	 g7fNcKX8FhdwsL78EXZqqiNSvOXk1JU43jdMGrK5qq3dZ2fc0ENlAhei4KjlokKRqT
-	 YSl9lDGp1kVMIdCDmXFkuewOMiBk2aMsb96ZFbhk=
-Message-ID: <f4380f3d-8e75-4c9c-8e56-599b4b203369@arm.com>
-Date: Mon, 29 Jun 2026 14:17:37 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KD4wn8FG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F74D1F000E9;
+	Mon, 29 Jun 2026 13:26:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782739607;
+	bh=fhZO9CCgyPTpV3ZQrTdwjnuLM+E9OikVfMuSHmZTx2M=;
+	h=From:To:Cc:Subject:Date;
+	b=KD4wn8FGWGE30eCOOOA+dBSAHZGgiXwZF29kfKE4F2uQuFsP5YxhKF+kJLGZQW+xN
+	 c1FQZuucS/z/TV0fUUP3z4XSiOfaV3yT+/2dhnHni5ghGczyBnpiiVQ4ssE+H6KI6m
+	 MB5KQA2l+xKim04AISyQhaPf4EpWJZCa1m2px2f9EeLMQklyKDL02qd8dJNCvthmg8
+	 6PFfsK+SnbxyFSGpVQU5s9PrLcj+ipaSFtc1VHy+j8TWTBJDs/nEBBWvwVfu9LYai2
+	 5NMag8oZZwUnP9IBEXZ+74fbYASdIvn/nsUwGvCqlg0YWSzWL9DSAQY7zE04B/0xQI
+	 Auc5QmUPHo7UQ==
+From: Arnd Bergmann <arnd@kernel.org>
+To: linux-gpio@vger.kernel.org
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Greg Ungerer <gerg@linux-m68k.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Dominik Brodowski <linux@dominikbrodowski.net>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-m68k@lists.linux-m68k.org,
+	linux-mips@vger.kernel.org,
+	linux-sh@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	linux-phy@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-sound@vger.kernel.org
+Subject: [PATCH 00/13] treewide: replace linux/gpio.h
+Date: Mon, 29 Jun 2026 15:26:20 +0200
+Message-Id: <20260629132633.1300009-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] media: mali-c55: Implement CCM block validation
-Content-Language: en-GB
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Nayden.Kanchev@arm.com,
- Konstantin Babin <Konstantin.Babin@arm.com>,
- Anthony McGivern <anthony.mcgivern@arm.com>, linus.walleij@arm.com,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
-References: <20260627-mali-c55-ccm-gamma-v3-0-113584c05174@ideasonboard.com>
- <20260627-mali-c55-ccm-gamma-v3-2-113584c05174@ideasonboard.com>
- <20260629095732.GC3054459@killaraus.ideasonboard.com>
- <34de3262-3e3a-4b93-90a0-bf662162dd10@arm.com>
- <20260629120552.GE3054459@killaraus.ideasonboard.com>
-From: Vincenzo Frascino <vincenzo.frascino@arm.com>
-In-Reply-To: <20260629120552.GE3054459@killaraus.ideasonboard.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Laurent,
+From: Arnd Bergmann <arnd@arndb.de>
 
-Thank you for your answer.
+The linux/gpio.h header used to be the global definition for the gpio
+interfaces, with 1100 users back in linux-3.17. In linux-7.2, only about
+130 of those remain, so this series cleans out the rest.
 
-On 29/06/2026 13:05, Laurent Pinchart wrote:
-> On Mon, Jun 29, 2026 at 12:08:08PM +0100, Vincenzo Frascino wrote:
->> On 29/06/2026 10:57, Laurent Pinchart wrote:
->>> On Sat, Jun 27, 2026 at 04:29:14PM +0200, Jacopo Mondi wrote:
->>>> From: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
->>>>
->>>> Implement validation of CCM block parameters.
->>>>
->>>> CCM coefficients are expressed as 13 bits signed Q4.8 format and their
->>>> raw value cannot be higher than 8191 (BIT(13) - 1).
->>>>
->>>> CCM gains are expressed as unsigned 12 bits Q4.8 format and their raw
->>>> value cannot be higher than 4095 (BIT(12) - 1).
->>>>
->>>> CCM offsets are 12 bits unsigned integers and their value cannot be
->>>> higher than 4095 (BIT(12) - 1).
->>>>
->>>> Validate the parameters provided by userspace using the .block_validate
->>>> callback of struct v4l2_isp_params_block_type_info.
->>> I don't think this is needed.
->>>
->>> We need to validate parameters that can cause the ISP to malfunction in
->>> ways that requires a system reset, or in ways that cause malfunction of
->>> other system components (e.g. buffer overflows, memory bus lock ups,
->>> ...). The rest doesn't need to be validated.
->>>
->>> If you want to be cautious, you can just mask the value when writing to
->>> registers, which I think you're doing in patch 1/4.
->>
->> According to me here is not a matter of being cautious, but of honouring the
->> contract with the userspace.
->>
->> If the userspace is doing something wrong it should be notified. The only
->> reasonable argument against this would be if this code is on a critical path and
->> the validations have a performance impact.
-> 
-> I don't agree with this. As long as it doesn't have an impact on other
-> parts of the system, there's no need to notify userspace. It's purely a
-> userspace issue, it's pointless to waste CPU cycles every frame.
+In each subsystem, we can replace the header either with
+linux/gpio/consumer.h for users of the modern gpio descriptor interface,
+or linux/gpio/legacy.h for the few remaining users of the old number
+based interface.
 
-I don't think it's only about protecting the hardware from invalid values.
+All patches in this series can get applied independently, so my
+preference would be for each subsystem maintainer to apply these
+directly, with the rest going into the gpio tree at some point.
 
-The userspace API defines the valid range for these parameters. If userspace
-provides values outside that range, returning an error makes the issue visible
-immediately instead of silently changing the requested configuration by masking
-or clamping the values. From userspace's perspective, silently accepting invalid
-input can make debugging harder, as the configuration that gets applied is no
-longer the one that was requested.
+The final patch here obviously needs to wait for all the others
+to get merged first.
 
-This also matches the documented behaviour of the V4L2 extended controls ioctl,
-which specifies that EINVAL should be returned when the value of a control is
-invalid:
-https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/vidioc-g-ext-ctrls.html
+      Arnd
 
-The validation also isn't on the critical per-frame path. It's only performed
-when userspace updates the parameters, so the CPU cost is negligible.
+Arnd Bergmann (13):
+  ARM: replace linux/gpio.h inclusions
+  m68k/coldfire: replace linux/gpio.h inclusions
+  mips: replace linux/gpio.h inclusions
+  sh: replace linux/gpio.h inclusions
+  mfd: replace linux/gpio.h inclusions
+  [net-next] net: replace linux/gpio.h inclusions
+  ASoC: replace linux/gpio.h inclusions
+  pcmcia: replace linux/gpio.h inclusions
+  phy: replace linux/gpio.h inclusions
+  media: replace linux/gpio.h inclusions
+  Input: matrix_keyboard - replace linux/gpio.h inclusion
+  gpib: gpio: replace linux/gpio.h inclusion
+  gpiolib: remove linux/gpio.h
 
-That said, if the expectation for the V4L2 ISP API is that drivers should only
-validate values that could affect system stability or security, and silently
-mask everything else, I'm happy to follow that approach for consistency.
-
-> 
->> @Jacopo, can you please confirm if this is the case?
-> 
+ MAINTAINERS                                   |  1 -
+ arch/arm/mach-davinci/da850.c                 |  2 +-
+ arch/arm/mach-dove/mpp.c                      |  2 +-
+ arch/arm/mach-mv78xx0/buffalo-wxl-setup.c     |  2 +-
+ arch/arm/mach-mv78xx0/irq.c                   |  2 +-
+ arch/arm/mach-mv78xx0/mpp.c                   |  2 +-
+ arch/arm/mach-mvebu/pm.c                      |  2 +-
+ arch/arm/mach-mxs/mach-mxs.c                  |  2 +-
+ arch/arm/mach-orion5x/board-d2net.c           |  2 +-
+ arch/arm/mach-orion5x/board-rd88f5182.c       |  2 +-
+ arch/arm/mach-orion5x/dns323-setup.c          |  2 +-
+ arch/arm/mach-orion5x/irq.c                   |  2 +-
+ arch/arm/mach-orion5x/kurobox_pro-setup.c     |  2 +-
+ arch/arm/mach-orion5x/mv2120-setup.c          |  2 +-
+ arch/arm/mach-orion5x/net2big-setup.c         |  2 +-
+ .../arm/mach-orion5x/terastation_pro2-setup.c |  2 +-
+ arch/arm/mach-orion5x/ts209-setup.c           |  2 +-
+ arch/arm/mach-orion5x/ts409-setup.c           |  2 +-
+ arch/arm/mach-pxa/am200epd.c                  |  2 +-
+ arch/arm/mach-pxa/am300epd.c                  |  2 +-
+ arch/arm/mach-pxa/generic.c                   |  2 +-
+ arch/arm/mach-pxa/gumstix.c                   |  2 +-
+ arch/arm/mach-pxa/mfp-pxa2xx.c                |  2 +-
+ arch/arm/mach-pxa/pxa25x.c                    |  2 +-
+ arch/arm/mach-pxa/pxa27x.c                    |  2 +-
+ arch/arm/mach-pxa/reset.c                     |  2 +-
+ arch/arm/mach-pxa/sharpsl_pm.c                |  2 +-
+ arch/arm/mach-pxa/spitz.c                     |  2 +-
+ arch/arm/mach-pxa/spitz_pm.c                  |  2 +-
+ arch/arm/mach-s3c/dev-audio-s3c64xx.c         |  2 +-
+ arch/arm/mach-s3c/devs.c                      |  2 +-
+ arch/arm/mach-s3c/mach-crag6410.c             |  2 +-
+ arch/arm/mach-s3c/pm-gpio.c                   |  2 +-
+ arch/arm/mach-s3c/pm-s3c64xx.c                |  2 +-
+ arch/arm/mach-s3c/setup-fb-24bpp-s3c64xx.c    |  2 +-
+ arch/arm/mach-s3c/setup-i2c0-s3c64xx.c        |  2 +-
+ arch/arm/mach-s3c/setup-i2c1-s3c64xx.c        |  2 +-
+ arch/arm/mach-s3c/setup-keypad-s3c64xx.c      |  2 +-
+ arch/arm/mach-s3c/setup-sdhci-gpio-s3c64xx.c  |  2 +-
+ arch/arm/mach-s3c/setup-spi-s3c64xx.c         |  2 +-
+ arch/arm/mach-sa1100/collie.c                 |  2 +-
+ arch/arm/mach-sa1100/generic.c                |  2 +-
+ arch/arm/mach-sa1100/h3600.c                  |  2 +-
+ arch/arm/mach-sa1100/h3xxx.c                  |  2 +-
+ arch/arm/plat-orion/mpp.c                     |  2 +-
+ arch/m68k/coldfire/device.c                   |  2 +-
+ arch/m68k/include/asm/mcfgpio.h               |  2 +-
+ arch/mips/alchemy/board-xxs1500.c             |  2 +-
+ arch/mips/alchemy/devboards/db1000.c          |  2 +-
+ arch/mips/alchemy/devboards/db1200.c          |  2 +-
+ arch/mips/alchemy/devboards/db1550.c          |  2 +-
+ arch/mips/bcm47xx/workarounds.c               |  2 +-
+ arch/mips/bcm63xx/boards/board_bcm963xx.c     |  1 +
+ .../include/asm/mach-bcm63xx/board_bcm963xx.h |  2 +-
+ arch/mips/txx9/rbtx4927/setup.c               |  2 +-
+ arch/sh/boards/board-magicpanelr2.c           |  2 +-
+ arch/sh/boards/board-sh7757lcr.c              |  2 +-
+ arch/sh/boards/board-urquell.c                |  2 +-
+ arch/sh/boards/mach-ap325rxa/setup.c          |  2 +-
+ arch/sh/boards/mach-ecovec24/setup.c          |  2 +-
+ .../boards/mach-highlander/pinmux-r7785rp.c   |  2 +-
+ arch/sh/boards/mach-kfr2r09/lcd_wqvga.c       |  2 +-
+ arch/sh/boards/mach-kfr2r09/setup.c           |  2 +-
+ arch/sh/boards/mach-migor/lcd_qvga.c          |  2 +-
+ arch/sh/boards/mach-migor/setup.c             |  2 +-
+ arch/sh/boards/mach-rsk/devices-rsk7203.c     |  2 +-
+ arch/sh/boards/mach-rsk/devices-rsk7269.c     |  1 -
+ arch/sh/boards/mach-se/7724/setup.c           |  2 +-
+ .../include/mach-common/mach/magicpanelr2.h   |  2 --
+ arch/sh/kernel/cpu/sh4a/setup-shx3.c          |  2 +-
+ drivers/gpib/gpio/gpib_bitbang.c              |  2 +-
+ drivers/gpio/TODO                             |  4 +---
+ drivers/gpio/gpiolib-cdev.c                   |  2 +-
+ drivers/gpio/gpiolib-legacy.c                 |  3 +--
+ drivers/gpio/gpiolib.c                        |  2 +-
+ drivers/input/keyboard/matrix_keypad.c        |  2 +-
+ drivers/media/pci/ddbridge/ddbridge.h         |  2 +-
+ .../platform/samsung/s3c-camif/camif-core.c   |  2 +-
+ drivers/media/usb/em28xx/em28xx-dvb.c         |  2 +-
+ drivers/mfd/aat2870-core.c                    |  2 +-
+ drivers/mfd/arizona-irq.c                     |  2 +-
+ drivers/mfd/lp3943.c                          |  2 +-
+ drivers/mfd/si476x-cmd.c                      |  2 +-
+ drivers/mfd/si476x-i2c.c                      |  2 +-
+ drivers/mfd/sm501.c                           |  2 +-
+ drivers/mfd/tps6105x.c                        |  2 +-
+ drivers/mfd/tps65911-comparator.c             |  2 +-
+ drivers/mfd/wm8994-irq.c                      |  2 +-
+ drivers/net/dsa/b53/b53_priv.h                |  3 ++-
+ drivers/net/dsa/microchip/ksz8.c              |  2 +-
+ drivers/net/ethernet/allwinner/sun4i-emac.c   |  2 +-
+ .../net/ethernet/apm/xgene/xgene_enet_main.c  |  2 +-
+ .../ethernet/oki-semi/pch_gbe/pch_gbe_main.c  |  2 +-
+ drivers/net/phy/mdio_device.c                 |  2 +-
+ drivers/pcmcia/bcm63xx_pcmcia.c               |  2 +-
+ drivers/pcmcia/db1xxx_ss.c                    |  2 +-
+ drivers/pcmcia/sa1100_h3600.c                 |  2 +-
+ drivers/pcmcia/soc_common.c                   |  2 +-
+ drivers/pcmcia/xxs1500_ss.c                   |  2 +-
+ drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c     |  2 +-
+ drivers/phy/rockchip/phy-rockchip-usbdp.c     |  2 +-
+ drivers/phy/ti/phy-j721e-wiz.c                |  2 +-
+ include/linux/gpio.h                          | 22 -------------------
+ include/linux/mfd/lp3943.h                    |  2 +-
+ include/linux/mfd/ti-lmu.h                    |  2 +-
+ include/linux/mfd/tps65910.h                  |  2 +-
+ include/linux/mfd/ucb1x00.h                   |  2 +-
+ sound/soc/codecs/cs42l84.c                    |  2 +-
+ sound/soc/codecs/cx2072x.c                    |  2 +-
+ sound/soc/codecs/dmic.c                       |  2 +-
+ 110 files changed, 107 insertions(+), 134 deletions(-)
+ delete mode 100644 include/linux/gpio.h
 
 -- 
-Regards,
-Vincenzo
+2.39.5
 
+Cc: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Andrew Lunn <andrew@lunn.ch>
+Cc: Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
+Cc: Gregory Clement <gregory.clement@bootlin.com>
+Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Robert Jarzmik <robert.jarzmik@free.fr>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Greg Ungerer <gerg@linux-m68k.org>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: Hauke Mehrtens <hauke@hauke-m.de>
+Cc: "Rafał Miłecki" <zajec5@gmail.com>
+Cc: Yoshinori Sato <ysato@users.sourceforge.jp>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Dominik Brodowski <linux@dominikbrodowski.net>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-samsung-soc@vger.kernel.org
+Cc: patches@opensource.cirrus.com
+Cc: linux-m68k@lists.linux-m68k.org
+Cc: linux-mips@vger.kernel.org
+Cc: linux-sh@vger.kernel.org
+Cc: linux-gpio@vger.kernel.org
+Cc: linux-input@vger.kernel.org
+Cc: linux-media@vger.kernel.org
+Cc: netdev@vger.kernel.org
+Cc: linux-sunxi@lists.linux.dev
+Cc: linux-phy@lists.infradead.org
+Cc: linux-rockchip@lists.infradead.org
+Cc: linux-sound@vger.kernel.org
