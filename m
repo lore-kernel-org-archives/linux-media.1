@@ -1,320 +1,203 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010064.outbound.protection.outlook.com [52.101.85.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD9E3B2FE4;
-	Mon, 29 Jun 2026 08:46:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782722818; cv=none; b=EITJ0PJYRSaps1CVjcZcBbI7O4NJyEF7eqVahMvtOCKD5Dwbk5IagEGHoaktQNuv7efHYCAjVdMViBGiDQlVzQhOxRKK1912d4HJU83JyG2dY3kWDME9RFHVZVzOf69RzIehwf1RyqfbTI5Zq+q0MQCE2MnT9DkbBUQbbKit704=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782722818; c=relaxed/simple;
-	bh=Sn6/pnvMV+7cTSNOzKy0Jhpp/BOj27Lxn1QBk+3onIU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LX2H0x8ahUbP2dbSemYcjoccwgs6E6f4apz7jmZj3q4x+KuwjT1weOHILl7W7I5Og6osKlUjREgADFP1gnX4R8y8WIgPahyPWBSS/R8Eo8A3HZeTLdIYXGoRKDQqh27gHE81/qOOodrePn9bnqC8/wkWHcJGwf5OFxSEKFlzVck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=bRRdsd0Z; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E8D72E7378;
+	Mon, 29 Jun 2026 08:49:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.64
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782722963; cv=fail; b=hEqBiflipQWO9007mR6HBOwjJQHPUBxCHMiBKR59TcNXNcnQy93Y29O+C5bCU0jXSOk7207ZXMYBX9kCsdbYivhV1xRi3CUVe73ZOjF8ceP6C+DAXVPGQcdX04loefcCz34nFFC7IH30k6nvuXsFax2Bj2dpz/7qqLNoeT8x1y0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782722963; c=relaxed/simple;
+	bh=3YYtEF5LBUnCk60V77lpGRmcZGJZL7GpXp1zLHYnH1A=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=iHQx9iGyMxfSMblQXFn/rPlRGUJyYbXXO8p+qaNV+UHbkU3a4Jz+48+dmyU7wJBi/H4t6jEGsjGSGh+v1yy/fpV7H2/jr8hsbW2fx78FLYlOJVRsQDGGgK+ai09+BPkyAVJC5pQ8arrvpvvD0MtSQxmGxx7eRRSrOl+Xk1KiFVI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=bv85y6To; arc=fail smtp.client-ip=52.101.85.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="bRRdsd0Z"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6FEA812F;
-	Mon, 29 Jun 2026 10:46:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1782722772;
-	bh=Sn6/pnvMV+7cTSNOzKy0Jhpp/BOj27Lxn1QBk+3onIU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bRRdsd0ZsSf7fogMbtUYfbhUgfsQVwCCWZMWTcDEYFOv/+OytRbbANuM5dUqzbuy3
-	 AiceQ6X0uU/iuq6kVZtojs33momkbdMk0wZ48tpch4aYrjGbtUZEHWaQrJjQaMyDXT
-	 W3pV5fPerzMH5K9W95hHM/hjKRT3TWFzf5dlx7os=
-Date: Mon, 29 Jun 2026 11:46:54 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Frank.Li@oss.nxp.com
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Martin Kepplinger-Novakovic <martink@posteo.de>,
-	Rui Miguel Silva <rmfrfs@gmail.com>,
-	Purism Kernel Team <kernel@puri.sm>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	Guoniu Zhou <guoniu.zhou@nxp.com>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v6 3/9] media: subdev: Add media_async_register_subdev()
- helper
-Message-ID: <20260629084654.GB3054459@killaraus.ideasonboard.com>
-References: <20260624-imx8qxp_pcam-v6-0-4b3f45920d2f@nxp.com>
- <20260624-imx8qxp_pcam-v6-3-4b3f45920d2f@nxp.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="bv85y6To"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Zm+slauHIYbplgJE0cccx1JnSWqbuMGSwYXNOctIRZH82XsNoVKiNnAbOB2b18dovp2niwSl7wQcN15X+/1qHroSAP0GB6iy32e6rXTXKv9LN9j5MG7if+p0lMsPm3QBuNMiEBtnaH/BXrcfSkBIukqZQFS9bnEpV1Aa8h+Ug39gzHmMIni/Xiy3NI2l1P/Ri5P+X1XGiLd09WU72W86AqaGQwei599gE1QzU4LXPRfmQAD7x3q0dUeNIWMxfKk3FVO+MmcKtMJ0iB14SmE9GAZwMVUQbIb1lJW76xsRbdQdbaVOJO9L72kzAsu04j2r9CKLli1g7z5HHrwf37aDLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z44lhA18GGakRfAZgS2pIKDizL/E0yBvjsmTDx1Xrfo=;
+ b=rXiqtOb7I62bECRw8tlSsDVWTtfPN6N9Ke0mrPK6rUU9XTkmQtYa1cepEu5E6wy8h02VeJRlymIGbLddaAKrv7T6D5xIoldRud+EkUQOl1+YIgBF7njRKH7n/SmtR8TYa+zz6l8Ko+wAa0/lm7do7II9fMUZxJxmUdg5jjZcEbttlEdNH0+aSN0V8JlDfJDyI9xB214tG/7otWwuJofNbzW36GSSiip9aqTjneYLtIK/qYFiykvUAxai0wDwzpE4yXazJQxezJN0XP/Ylnwx42xXawEPBLO9m8U067MGYBkmM6hNdyeVn2CxThywq1rlwCsKE0lZditI33DYXWBaEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z44lhA18GGakRfAZgS2pIKDizL/E0yBvjsmTDx1Xrfo=;
+ b=bv85y6ToTNUEwyOBY3gBHYBAFoIG2bwBk7+ICGTq1wFGFu+j9u12bidFWV5tFbYUfYJm96g2W9Ate0u71MZ9VKaRixfwQMr4LCaUiy5/3K5uNp41iwxFWgCaESK+dWE7bAF3kBzb3DDdCI+5IrvUVG1QIJJimDP3bvCzNhTD+9c=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH3PR12MB7643.namprd12.prod.outlook.com (2603:10b6:610:152::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 08:49:19 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 08:49:19 +0000
+Message-ID: <688077c3-903d-4cf5-837f-40621175cb30@amd.com>
+Date: Mon, 29 Jun 2026 10:49:14 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dma-buf: dma-fence: Fix potential NULL pointer
+ dereference
+To: Philipp Stanner <phasta@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>,
+ "Paul E . McKenney" <paulmck@kernel.org>, Boqun Feng <boqun@kernel.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260629075636.2513214-2-phasta@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260629075636.2513214-2-phasta@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN0P222CA0022.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:208:531::29) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260624-imx8qxp_pcam-v6-3-4b3f45920d2f@nxp.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB7643:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae42ac82-e3ab-4486-e357-08ded5bb4f0f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|7416014|23010399003|1800799024|18002099003|22082099003|11063799006|56012099006|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	rdlJj2/kpvHesxtXcDdZ+Orh2hiYk6X3fwG8kHuzhKtz+nSIC5xzBZq1WOaOOxxIRgZT7JgOR+u8/nEF37PBgSxfD4mr3uQiS/D5Us6pCy65+o0gUAVEgsoDTgGAsfUj3NC175uKKBQfHd2zWwUOXjRxx9xzjcvWYx03pix5AkSJIIq8XPYeXIHPs4PjQaT4xLZlM4IRAz/K98ZIs0gH+6Ozt5Gl9wtJOwT+UuN8pmu53kkCZB+N2pn3p9QMAI+XeAnYulAh8OOifU/arrcFe6lAXFb5lH6vDRx7M1UZEd0jwsafjcsf23AfMeTUzg8MBTAyb2mkuPNgL1ENzcWy+u36gFgl7T26jlCQTENg89rwiNWkIfHEwT0cTlYrULZtSEXRRZf6Tv/yQMyJ81rqSFaUiZ4t2z9c62+ieJ3f0pTclLhOhprbXfB9ZXaComLxQNdtSVqYY8tIrdm13zjXKVODN/bzW5z1bci9jGrwc7QQ6y8tzDNY+VS9W/sIIvZUVpkIOB6pqsoDBmjTToCuOJyKxyQA2vRuCcGNe21Nkfuq31HFNs/q5X/TLkjbEK0MBn5LwkvXHqHmAJrwJbdsjs65+cq/usgo364/c0zzSCdTTRkQcEMGuPZyWlHflddqxWXNFpFfYq14rWOVGt7mpHi4p1AOPEX2cAYEOG1UTFg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(23010399003)(1800799024)(18002099003)(22082099003)(11063799006)(56012099006)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZHplTUhkNWhIY3RMQUZBRldQUjRwWTE5YjY4enpjVFlocjJXZDBhU1J3VzM0?=
+ =?utf-8?B?ZEN6YzhkMnU4U2hUcjJhakx5L0F5dWprcVo5bFZJZkJDUlU1aHp2SU9PLytH?=
+ =?utf-8?B?VUxDSEFxejlrZmVSajZHWlJFVDhpaEJnSUNpY2EvNDE2Nlh4Wk9ZazRCeCtt?=
+ =?utf-8?B?bXRUK1hPaXNqUzlHeWVQOFRubGxhNVdHWDhaUWVRMlJYc0lRZnlpNmZMemll?=
+ =?utf-8?B?WkJsVld5THRlYkwza0ROVUxxU2dGQkdCaW9GVU82UldkMWFGNDM3aFRVaHdP?=
+ =?utf-8?B?RG03bXBVeUIxM2xOYzNIT3A1Sm5FUWVjYTlKRUY2SDNqOFhBV3FkMGFZY04y?=
+ =?utf-8?B?QmIwbGZnUUNWMVBVYnEzdUpQRjRyNUYyMU56d1gxWHIzOG51TnBDWlRENG52?=
+ =?utf-8?B?TVZPVVhBWFdDb2FJR09YT29ubFVoaDF0QTFIQlFIYzJEMURodHFWZHNyTmt0?=
+ =?utf-8?B?TDZoNUxlWGM4UDVzcHJvOFJ0MTJDcy80RXhVc0RER0Z6dmJxMlhRT2x5cG1P?=
+ =?utf-8?B?ZjhnTDZKRzdIc1dvYzBSUGxlSzdNMVdJRndyL1lxZkZsZ1U4QmhyR2NUOWJH?=
+ =?utf-8?B?UUo2OEdhbE8vaWRWcFdndDRiSHlaZkRSUXptdzRRMlBHV1dGTUhBTCs1OXFE?=
+ =?utf-8?B?eC94V3NRTzRsellyQXpvczI3dkhqbllhc0NPeGRIeU1tRmo2RWVSUXlIdjk0?=
+ =?utf-8?B?OGZwWmx3bDlmbHBabjhpemM2bU1MYlh5cHhHQTd4ZjVIMHU5UHo2S0UwZ0dD?=
+ =?utf-8?B?NDBnaW9HcGowbEoyM08zOEtoYnlKd1ZzUWIzMU84Vy92cmV1cUZhcDhkdXd1?=
+ =?utf-8?B?VEtoMGZScFJSK2wrMHlGaHFDc2p4WXFxN3NoMjdFditacVVHU3IxZ1hiZm5a?=
+ =?utf-8?B?RnlvWkxNQlYxZHg4UlpUZmJrNTVYR3FMMitiU2NZVlpSc2kxUEl2RzVEekJl?=
+ =?utf-8?B?SG8zakh2eENEMjFwa3VhV2NmUTFIeWNFTjBiZkVlRjk3ZWZXb1o0WGl0Z1lZ?=
+ =?utf-8?B?L3JOV3I3amlpWDgxMHR0SVRDRm9zTTFrTDI2dmVKOGtWOVF4c3BPR2NaeWdN?=
+ =?utf-8?B?OXlMVTlsb0oxczhzUmhYcnhPSlZSamNPWThSMU1rN0pMR2wyemVQdEttK3l2?=
+ =?utf-8?B?bzBMQnRVQkN1aU8xNUVJQzJiUTdienBBcmsyQTlyZWNhb21hN1FDKzNXajRo?=
+ =?utf-8?B?UWt4NncweEtPa1h0aVRHWnh1QTNSZlFIdlVnTk1wc2NMTUd4cTdpR3d4K2Vz?=
+ =?utf-8?B?QVlZT2ZUZFd0eWFGREtsZWJIOHhYYTRCWGIzNWlPSU1yNjV4OHlRUVgyOStJ?=
+ =?utf-8?B?c0RvVVgzcWpHMld1RTU0dEE1a3NaWmpESHlZbkF0eEJneVlrQjNNcFBNQk1t?=
+ =?utf-8?B?ZXJzSkJ1Vko4c1h5eFNIN1RKajJPaGdEd1ZyLzJDLzdjSzlvQVVaemdBSmE0?=
+ =?utf-8?B?amRtV2l4dzVDWXMyWXg2VVAveXk2cGxVZ1JZRlVYRXVLTU5PSWZ5WFljNHNM?=
+ =?utf-8?B?T3RJYk9ucFN4VVhObXg4Tlh0TUdsRnZwVDZ3VzFWSHYxS2xJZGRlY2x5NWtJ?=
+ =?utf-8?B?TDBOMW4yT2JDTmtZMXhTclhQR0JTbEhJeG05bjhhMmxVcGlNampNTkRSWkxw?=
+ =?utf-8?B?eXZkY2VkNjhTeHozRHJVc0UvcU0rZ3A1TldlbStCR1hpcVgrQStXQkhjZm5V?=
+ =?utf-8?B?czVxelZvSitCWitscWZBVUc3bEMzdktyZVgwZjhHdWVTYnQxNEdFMVI1S0oz?=
+ =?utf-8?B?cHpsVjBVWk1TdTlER3RkYm1MUDREcDJhN28vZkVVTEIzK1h4NlJTMlY1NjJj?=
+ =?utf-8?B?K3N4WERrdTZ0RlRKUXh3Y3dRaERDaG9EUVoyZGtvOCtnWGgyWnk4TTFobkhi?=
+ =?utf-8?B?bzNIUVg2MFpKVjF1YjZNTHlqTnQ3bGpxczdkVXh6QnFEeGVHNFJlcHpqQlJK?=
+ =?utf-8?B?NEtQSVFoWlhzRUJPQjl5bHNyNVZrTlhMYTRrVG52Q0pVVUN3YzdxRG5GRTNn?=
+ =?utf-8?B?UlhVa0ZGSENwMERuMkVBVE9FQ2ZWcFF0Q1JsZmx2OFAxTEZRSHl1clFVUkFO?=
+ =?utf-8?B?ajIxTjV6b3B1aUtIUUtpZ2tBaDBwZnRFMkFWZG5XNVlqRDFVUEFyb09yZXNH?=
+ =?utf-8?B?UFR1aCt2VUF2M1RCNWNZS2ZKcEpWSDRUb0hRRWtaVjVKWXhPZVJMRENhQkt5?=
+ =?utf-8?B?SUxhNWZrT1hQK0QwVE53bmdPSk9wN3JCZ1hHVE1xKzBwMXJvUW1nSFZScERI?=
+ =?utf-8?B?bUVLbWl2WVIwMFpGRkJnYWFqaytMUWN6dXhoNUJoc0ZrK1ZRRm9XTFNSaThS?=
+ =?utf-8?Q?tPWXkMNtxurq/xLTKZ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae42ac82-e3ab-4486-e357-08ded5bb4f0f
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 08:49:19.6697
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5QaG61w76Haeki+EFkYCM1nbJZ3A4oGeBYhQHC1ZW7BMIciLBnM/kNKlq5RGfJQQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7643
 
-On Wed, Jun 24, 2026 at 04:37:50PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
+On 6/29/26 09:56, Philipp Stanner wrote:
+> The commit mentioned in the fixes tag below introduced a mechanism
+> through which fence producers can fully decouple from fence consumers.
+> This, desirable, mechanism is based on the fence's signaled-bit as the
+> "decoupling point".
 > 
-> Add media_async_register_subdev(), a helper to register a V4L2 sub-device
-> with the asynchronous sub-device framework.
+> A sophisticated interaction between RCU and atomic instructions attempts
+> to ensure that fence consumers can still interact with fence producers
+> through the dma_fence_ops (callback pointers into the producer).
+> 
+> This is the desired behavior: to check for decoupling, the signaled-bit
+> is first checked. If it's not yet signaled, RCU ensures that the ops
+> pointer cannot yet be NULL.
+> 
+> Hereby, dma_fence_signal_timestamp_locked() first sets the signaled-bit,
+> and then sets the ops pointer to NULL. Readers first load the ops
+> pointer, and then check through the signaled-bit whether the pointer can
+> legally be accessed.
+> 
+> These set and load operations could occur out of order on weakly ordered
+> platforms. This problem can be solved very elegantly by using the ops
+> pointer itself as the synchronization point. The pointer is either NULL,
+> or cannot become NULL while it is being used thanks to RCU.
+> 
+> Replace the signaled-bit check in dma_fence_timeline_name() and
+> dma_fence_driver_name().
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: f4cc3ab824d6 ("dma-buf: protected fence ops by RCU v8")
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
 
-For the reason stated by Sakari in patch 1/9 (dependency from MC to
-V4L2), I don't think a "media_async_register_subdev()" function is a
-good idea.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-> The helper assumes a 1:1 mapping between firmware endpoints and media pads.
-> During registration it parses the firmware graph, creates media pads for
-> all endpoints, and registers common asynchronous notifiers for sink
-> endpoints. These notifiers automatically create media links when the
-> corresponding remote source devices become available.
-> 
-> The set_pad_by_ep() callback allows drivers to determine the media pad
-> associated with a firmware endpoint and identify whether the endpoint
-> represents a sink pad.
-> 
-> By centralizing firmware graph parsing, media pad creation, notifier
-> registration, and link creation, this helper reduces duplicated code and
-> simplifies error handling in V4L2 sub-device drivers.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 > ---
-> change in v6
-> - new patch
+> Changes since v1:
+>   - Use ops pointer instead of memory barriers. (Christian)
+>   - Rephrase commit message.
 > ---
->  drivers/media/v4l2-core/v4l2-fwnode.c | 155 ++++++++++++++++++++++++++++++++++
->  include/media/v4l2-async.h            |  39 +++++++++
->  2 files changed, 194 insertions(+)
+>  drivers/dma-buf/dma-fence.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/media/v4l2-core/v4l2-fwnode.c b/drivers/media/v4l2-core/v4l2-fwnode.c
-> index 62a3a452f7884..169059654478f 100644
-> --- a/drivers/media/v4l2-core/v4l2-fwnode.c
-> +++ b/drivers/media/v4l2-core/v4l2-fwnode.c
-> @@ -26,6 +26,7 @@
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index c7ea1e75d38a..0a025dfdf131 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -1170,7 +1170,7 @@ const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
 >  
->  #include <media/v4l2-async.h>
->  #include <media/v4l2-fwnode.h>
-> +#include <media/v4l2-mc.h>
->  #include <media/v4l2-subdev.h>
+>  	/* RCU protection is required for safe access to returned string */
+>  	ops = rcu_dereference(fence->ops);
+> -	if (!dma_fence_test_signaled_flag(fence))
+> +	if (ops)
+>  		return (const char __rcu *)ops->get_driver_name(fence);
+>  	else
+>  		return (const char __rcu *)"detached-driver";
+> @@ -1203,7 +1203,7 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
 >  
->  #include "v4l2-subdev-priv.h"
-> @@ -1302,6 +1303,160 @@ int __v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd, struct module *m
->  }
->  EXPORT_SYMBOL_GPL(__v4l2_async_register_subdev_sensor);
->  
-> +static int v4l2_common_notifier_bound(struct v4l2_async_notifier *notifier,
-> +				      struct v4l2_subdev *sd,
-> +				      struct v4l2_async_connection *asd)
-> +{
-> +	struct media_pad *pad = NULL;
-> +	int ret;
-> +
-> +	if (asd->match.type != V4L2_ASYNC_MATCH_TYPE_FWNODE)
-> +		return -EINVAL;
-> +
-> +	if (!asd->match.fwnode)
-> +		return -EINVAL;
-> +
-> +	struct fwnode_handle *remote __free(fwnode_handle) =
-> +		fwnode_graph_get_remote_endpoint(asd->match.fwnode);
-> +
-> +	for (int i = 0; i < notifier->sd->entity.num_pads; i++) {
-> +		if (notifier->sd->entity.pads[i].vep.base.local_fwnode == remote) {
-> +			pad = &notifier->sd->entity.pads[i];
-> +			break;
-> +		}
-> +	}
-> +
-> +	if (!pad) {
-> +		dev_err(notifier->sd->dev, "failed to find sink pad\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = v4l2_create_fwnode_links_to_pad(sd, pad, MEDIA_LNK_FL_ENABLED);
-> +	if (ret) {
-> +		dev_err(sd->dev, "failed to link source pad\n");
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct v4l2_async_notifier_operations v4l2_common_notifier_ops = {
-> +	.bound = v4l2_common_notifier_bound,
-> +};
-> +
-> +static int
-> +v4l2_async_nf_parse_fwnode(struct device *dev, struct media_pad *pads,
-> +			   struct v4l2_async_notifier *notifier)
-> +{
-> +	struct v4l2_subdev *sd = notifier->sd;
-> +	struct v4l2_async_connection *asd;
-> +	struct media_pad *pad;
-> +	int ret;
-> +
-> +	if (!sd->internal_ops->set_pad_by_ep)
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "Missed valiate_endpoint() callback\n");
-> +	pad = pads;
-> +
-> +	fwnode_graph_for_each_endpoint_scoped(dev_fwnode(dev), ep) {
-> +		u32 flags;
-> +
-> +		ret = v4l2_fwnode_endpoint_parse(ep, &pad->vep);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "failed to parse endpoint\n");
-> +
-> +		ret = sd->internal_ops->set_pad_by_ep(sd, pad);
-> +		if (ret < 0)
-> +			return dev_err_probe(dev, ret, "Can support endponit\n");
-> +
-> +		flags = pad->flags;
-> +
-> +		pad++;
-> +
-> +		if (flags & MEDIA_PAD_FL_SOURCE)
-> +			continue; /* Bypass source port */
-> +
-> +		notifier->ops = &v4l2_common_notifier_ops;
-> +
-> +		asd = v4l2_async_nf_add_fwnode_remote(notifier, ep,
-> +						      struct v4l2_async_connection);
-> +		if (IS_ERR(asd))
-> +			return dev_err_probe(dev, PTR_ERR(asd),
-> +					      "failed to add notifier\n");
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +void media_async_subdev_cleanup(struct v4l2_subdev *sd)
-> +{
-> +	v4l2_async_unregister_subdev(sd);
-> +	v4l2_subdev_cleanup(sd);
-> +	media_entity_cleanup(&sd->entity);
-> +	v4l2_async_nf_unregister(sd->subdev_notifier);
-> +	v4l2_async_nf_cleanup(sd->subdev_notifier);
-> +	kfree(sd->entity.pads);
-> +}
-> +EXPORT_SYMBOL_GPL(media_async_subdev_cleanup);
-> +
-> +int __media_async_register_subdev(struct v4l2_subdev *sd, struct module *module)
-> +{
-> +	struct device *dev = sd->dev;
-> +	u32 ep_count;
-> +	int ret;
-> +
-> +	if (WARN_ON(!sd->dev))
-> +		return -ENODEV;
-> +
-> +	struct v4l2_async_notifier *notifier __free(kfree) = kzalloc_obj(*notifier);
-> +	if (!notifier)
-> +		return -ENOMEM;
-> +
-> +	v4l2_async_subdev_nf_init(notifier, sd);
-> +
-> +	ep_count = fwnode_graph_get_endpoint_count(dev_fwnode(dev), 0);
-> +	if (!ep_count)
-> +		return dev_err_probe(dev, -EINVAL, "No connected endpoints\n");
-> +
-> +	struct media_pad *pads __free(kfree) = kzalloc_objs(struct media_pad, ep_count);
-> +	if (!pads)
-> +		return -ENOMEM;
-> +
-> +	ret = v4l2_async_nf_parse_fwnode(dev, pads, notifier);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = media_entity_pads_init(&sd->entity, ep_count, pads);
-> +	if (ret)
-> +		goto out_cleanup;
-> +
-> +	ret = v4l2_async_nf_register(notifier);
-> +	if (ret < 0)
-> +		goto out_cleanup;
-> +
-> +	ret = v4l2_subdev_init_finalize(sd);
-> +	if (ret)
-> +		goto out_unregister;
-> +
-> +	ret = __v4l2_async_register_subdev(sd, module);
-> +	if (ret < 0)
-> +		goto out_unregister;
-> +
-> +	sd->subdev_notifier = no_free_ptr(notifier);
-> +	retain_and_null_ptr(pads);
-> +
-> +	return 0;
-> +
-> +out_unregister:
-> +	v4l2_async_nf_unregister(notifier);
-> +
-> +out_cleanup:
-> +	v4l2_async_nf_cleanup(notifier);
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(__media_async_register_subdev);
-> +
->  MODULE_DESCRIPTION("V4L2 fwnode binding parsing library");
->  MODULE_LICENSE("GPL");
->  MODULE_AUTHOR("Sakari Ailus <sakari.ailus@linux.intel.com>");
-> diff --git a/include/media/v4l2-async.h b/include/media/v4l2-async.h
-> index 54a2d9620ed5b..ca41820f776c5 100644
-> --- a/include/media/v4l2-async.h
-> +++ b/include/media/v4l2-async.h
-> @@ -345,4 +345,43 @@ __v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd, struct module *modul
->   * @sd: pointer to &struct v4l2_subdev
->   */
->  void v4l2_async_unregister_subdev(struct v4l2_subdev *sd);
-> +
-> +enum v4l2_subdev_1to1_pads {
-> +	V4L2_SUBDEV_1TO1_PADS_SINK,
-> +	V4L2_SUBDEV_1TO1_PADS_SOURCE,
-> +	V4L2_SUBDEV_1TO1_PADS_TOTAL,
-> +};
-> +
-> +/**
-> + * media_async_register_subdev - registers a sub-device to the asynchronous
-> + *				 sub-device framework and parse set up common
-> + *				 related devices
-> + *
-> + * @sd: pointer to struct &v4l2_subdev
-> + *
-> + * Register a V4L2 sub-device with the asynchronous sub-device framework.
-> + * In addition to v4l2_async_register_subdev(), this function parses the
-> + * firmware graph, creates media pads for the endpoints, and registers common
-> + * notifiers to create media links between connected devices.
-> + *
-> + * This function also init media_pads.
-> + *
-> + * The sub-device is unregistered and cleanup by media_async_subdev_cleanup()
-> + *
-> + * While registered, the subdev module is marked as in-use.
-> + *
-> + * An error is returned if the module is no longer loaded on any attempts
-> + * to register it.
-> + */
-> +#define media_async_register_subdev(sd_1to1) \
-> +	 __media_async_register_subdev(sd_1to1, THIS_MODULE)
-> +
-> +int __media_async_register_subdev(struct v4l2_subdev *sd_1to1, struct module *module);
-> +
-> +/**
-> + * media_async_subdev_cleanup - unregistered and cleanup subdev and media pads
-> + * @sd_1to1: pointer to struct &v4l2_subdev_1to1
-> + */
-> +void media_async_subdev_cleanup(struct v4l2_subdev *sd_1to1);
-> +
->  #endif
+>  	/* RCU protection is required for safe access to returned string */
+>  	ops = rcu_dereference(fence->ops);
+> -	if (!dma_fence_test_signaled_flag(fence))
+> +	if (ops)
+>  		return (const char __rcu *)ops->get_driver_name(fence);
+>  	else
+>  		return (const char __rcu *)"signaled-timeline";
+> 
+> base-commit: cdeb2ccd993ed8647adbbda2c3b103aa717fd6f7
 
--- 
-Regards,
-
-Laurent Pinchart
