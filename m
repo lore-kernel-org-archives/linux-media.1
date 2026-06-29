@@ -1,177 +1,99 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579F63A783F;
-	Mon, 29 Jun 2026 06:52:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F4A3AA1B5
+	for <linux-media@vger.kernel.org>; Mon, 29 Jun 2026 06:55:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782715946; cv=none; b=QzL0WDIWZ8oyMa1m55UcNlialROIt+oLbKyoGf2HJT0G7uvrqhcEYWCaLD6NNUlzsIaHDxAzHkzwuIwP1OwAZHEqd2tFk75fp1z5KFY3BW9GjEFBmNkdefjfu0nIJvs7JMjScaA1WzK+A8dT7IBRYtnPO738mODuLW1qGotA9iI=
+	t=1782716110; cv=none; b=mNhielg79vLR6wIzJPfuKfyh5HHR6iMKHJfZS1tbOq/ZNlZDouFKmrwo7IsN1Qtq93nJh4cP8DH0CzNlpOeEO1i1LQW29HIFEMgIyYJehpMTWc5H9F9+P2w1TfoYPEJ46JONp9awHQuSbVc7ujYWFwsfcGxMR1Rfu32rBYkaG08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782715946; c=relaxed/simple;
-	bh=rm47+tpUCXXjsY0MFCWIxazlAwj+ph7QsUfZlbraD0k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lGKAz4gfeih5Qzjn3I3d258EZjsRWGepf/Hjad5Usm6ChAFeQJDqZzQF8tomIzLTjQTJjEm2x78ykfUZWRHoXL+QSHUwxvDcWu+llR49xMFkT4RoSbW5VCdFe/a5ojdiBLdjAdcQ7hyyCncJBIyydQ2dHg8symz67JWRuQknW1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=BkwvXFAQ; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="BkwvXFAQ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=rtnYJeteQp4s1E1MicQfJts/ZAxcW/7K90s6vct7pZE=; b=BkwvXFAQ6smfdrg/nXRoimRlhb
-	q+XJB34lgmHXEC8Gc04TJb++TYjB5dpPnCgEjvkjZATQ7nKxqtAthdlz6+NwW+CiWh+gQsbkiNzkP
-	EGtoTvfpqcFbQH76bolFuh845Qm7/6bRu9PO7FgwXPyCwYpUtkPrYeCjKMTMlHtcPvJM3QDFRjOlX
-	LRz2BpOLtYOndWFxfD1aaEb/AdT4fMIeoWG8nTU3Z2Lm8Js1iK6Kc5sKh+V+WDG4H871/gc9dpTSa
-	0Kn2N5bryTAu9rosMW5+PA0sRjn5aSD20u50kMfWVHh9LTx0osU3EMex6taYd6y4QhrzTgA/EjlR5
-	32PgrGcA==;
-Received: from sslproxy06.your-server.de ([78.46.172.3])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1we5ql-000KPh-1o;
-	Mon, 29 Jun 2026 08:52:11 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy06.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1we5qk-000Dff-0L;
-	Mon, 29 Jun 2026 08:52:10 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Jacopo Mondi <jacopo@jmondi.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>,
- Matthias Fend <matthias.fend@emfend.at>,
- Mikhail Rudenko <mike.rudenko@gmail.com>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Michael Riesch <michael.riesch@collabora.com>,
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Paul Elder <paul.elder@ideasonboard.com>,
- Martin Kepplinger <martin.kepplinger@puri.sm>,
- Quentin Schulz <quentin.schulz@theobroma-systems.com>,
- Tommaso Merciai <tomm.merciai@gmail.com>,
- Svyatoslav Ryhel <clamor95@gmail.com>,
- Richard Acayan <mailingradian@gmail.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux@ew.tq-group.com, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Kieran Bingham <kieran.bingham@ideasonboard.com>
-Subject:
- Re: [PATCH v3 4/7] arm64: dts: freescale: Convert to new media orientation
- definitions
-Date: Mon, 29 Jun 2026 08:52:08 +0200
-Message-ID: <2840219.mvXUDI8C0e@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To:
- <20260628-kbingham-orientation-v3-4-4ed92968aff8@ideasonboard.com>
-References:
- <20260628-kbingham-orientation-v3-0-4ed92968aff8@ideasonboard.com>
- <20260628-kbingham-orientation-v3-4-4ed92968aff8@ideasonboard.com>
+	s=arc-20240116; t=1782716110; c=relaxed/simple;
+	bh=idVxSAugDnoWKjpJV5h6mReuywkqDVwczrOpq7HxJLU=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=gdwimBSWsqIKF71ulltzfgydA3jRfPxLHnQ6w78cd9pspRLeve7pXc/oKKZU7U4aEygGPBX7aXAmORw1Kn5MYqwso/lhwWJiS7iW7s9GWJ9uyrAJbWwlZAEIVXhgyliwLkF8V0ZonQ0Skzwxj2OQkDWAXMyFy9VA/AwHRGTYOaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE4A81F000E9;
+	Mon, 29 Jun 2026 06:55:05 +0000 (UTC)
+Message-ID: <390a4281-8f18-4090-bc04-c9dcedbff809@kernel.org>
+Date: Mon, 29 Jun 2026 08:55:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28045/Sun Jun 28 08:26:16 2026)
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCHv2 1/6] media: core: v4l2-async.c: unreg subdev if asc_list
+ is empty
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, Mauricio Faria de Oliveira <mfo@igalia.com>
+References: <cover.1781615432.git.hverkuil+cisco@kernel.org>
+ <efb6cfeb1053399ebd51b83fcc4daee632281558.1781615432.git.hverkuil+cisco@kernel.org>
+ <ajFogY-MkxTmiSN6@kekkonen.localdomain>
+Content-Language: en-US, nl
+In-Reply-To: <ajFogY-MkxTmiSN6@kekkonen.localdomain>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Kieran,
+On 16/06/2026 17:15, Sakari Ailus wrote:
+> Hi Hans,
+> 
+> On Tue, Jun 16, 2026 at 03:10:27PM +0200, Hans Verkuil wrote:
+>> In v4l2_device_unregister_subdev(), if sd->asc_list is empty,
+>> then v4l2_device_unregister_subdev() is never called, but that
+>> should still happen.
+>>
+>> This causes crashes with em28xx that uses tvp5150: that i2c
+>> module uses v4l2_async, but em28xx does not as it predates
+>> v4l2_async.
+>>
+>> So if sd->asc_list is empty, then just call
+>> v4l2_device_unregister_subdev().
+>>
+>> Fixes: 28a1295795d8 ("media: v4l: async: Allow multiple connections between entities")
+>> Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+>> ---
+>>  drivers/media/v4l2-core/v4l2-async.c | 4 +++-
+>>  1 file changed, 3 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/media/v4l2-core/v4l2-async.c b/drivers/media/v4l2-core/v4l2-async.c
+>> index 888a2e213b08..fd0404ce9247 100644
+>> --- a/drivers/media/v4l2-core/v4l2-async.c
+>> +++ b/drivers/media/v4l2-core/v4l2-async.c
+>> @@ -897,7 +897,9 @@ void v4l2_async_unregister_subdev(struct v4l2_subdev *sd)
+>>  	kfree(sd->subdev_notifier);
+>>  	sd->subdev_notifier = NULL;
+>>  
+>> -	if (sd->asc_list.next) {
+>> +	if (list_empty(&sd->asc_list)) {
+> 
+> If v4l2_async_unregister_subdev() without calling
+> v4l2_async_register_subdev() first, sd->asc_list.next will be NULL. That
+> case needs to be handled here, too.
 
-thanks for the patch.
+Ah, good point. I'll do that.
 
-Am Sonntag, 28. Juni 2026, 12:22:19 CEST schrieb Kieran Bingham:
-> The orientation property for video interface devices now has definitions
-> to prevent hardcoded integer values for the enum options.
->=20
-> Update the users throughout the freescale/NXP device trees to use the new
-> definitions.
->=20
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Signed-off-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
+BTW, I think setting the next field of a list header to NULL is really
+fragile. I would prefer to see a bool to indicate that the asc_list should
+not be used (and asc_list should be an empty list in that case).
 
-Reviewed-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+async_list.next does the same.
 
-> ---
->  .../boot/dts/freescale/imx8mp-tqma8mpql-mba8mp-ras314-imx219.dtso      |=
- 3 ++-
->  arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi                      |=
- 3 ++-
->  2 files changed, 4 insertions(+), 2 deletions(-)
->=20
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mp-ras314=
-=2Dimx219.dtso b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mp-ras3=
-14-imx219.dtso
-> index e5a2b3780215..7b44ae0f19b2 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mp-ras314-imx219=
-=2Edtso
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mp-ras314-imx219=
-=2Edtso
-> @@ -9,6 +9,7 @@
-> =20
->  #include <dt-bindings/gpio/gpio.h>
->  #include <dt-bindings/media/video-interfaces.h>
-> +#include <dt-bindings/media/video-interface-devices.h>
-> =20
->  #include "imx8mp-pinfunc.h"
-> =20
-> @@ -47,7 +48,7 @@ camera@10 {
->  		VANA-supply =3D <&reg_cam>;
->  		VDIG-supply =3D <&reg_cam>;
->  		VDDL-supply =3D <&reg_cam>;
-> -		orientation =3D <2>;
-> +		orientation =3D <MEDIA_ORIENTATION_EXTERNAL>;
->  		rotation =3D <0>;
-> =20
->  		port {
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi b/arch/arm=
-64/boot/dts/freescale/imx8mq-librem5.dtsi
-> index f5d529c5baf3..178cfad93483 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-> @@ -8,6 +8,7 @@
->  #include "dt-bindings/input/input.h"
->  #include <dt-bindings/interrupt-controller/irq.h>
->  #include <dt-bindings/leds/common.h>
-> +#include <dt-bindings/media/video-interface-devices.h>
->  #include "dt-bindings/pwm/pwm.h"
->  #include "dt-bindings/usb/pd.h"
->  #include "imx8mq.dtsi"
-> @@ -1116,7 +1117,7 @@ camera_front: camera@20 {
->  		vddd-supply =3D <&reg_vcam_1v2>;
->  		vddio-supply =3D <&reg_csi_1v8>;
->  		rotation =3D <90>;
-> -		orientation =3D <0>;
-> +		orientation =3D <MEDIA_ORIENTATION_FRONT>;
-> =20
->  		port {
->  			camera1_ep: endpoint {
->=20
->=20
+Also, asc_list is a poor name, way too similar to async_list. I think
+async_conn_list would be much better.
 
+Anyway, that's unrelated to this patch.
 
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
+Regards,
 
+	Hans
+
+> 
+>> +		v4l2_device_unregister_subdev(sd);
+>> +	} else {
+>>  		list_for_each_entry_safe(asc, asc_tmp, &sd->asc_list,
+>>  					 asc_subdev_entry) {
+>>  			v4l2_async_unbind_subdev_one(asc->notifier, asc);
+> 
 
