@@ -1,47 +1,47 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E0A3CF1E3
-	for <linux-media@vger.kernel.org>; Mon, 29 Jun 2026 07:41:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272DB342539
+	for <linux-media@vger.kernel.org>; Mon, 29 Jun 2026 07:41:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782718880; cv=none; b=VQ74mIPg1y8CKKO60hXZOjMqNFPVY8Ahu8yUNJZ5dPZ8GiKpfoqX/UO66ccx06f22wBmyh69Lh9APfhYx44kna3MhNntWTdJiXUIt61fFAgeYAj+evItSJyiFJ3QCeSs1VA23qQBvd3JyHV7AqHEwBR1CIvT29qbAk9utLb0UZg=
+	t=1782718889; cv=none; b=UJIs9+Y3elQodgnI54WDh7A5WV8SWEG35IzTFFI9fHyeHEj8IXwnvBTAYeBMUue12SbzBMWmkIcbCBUhKevmu3tRyTkj7aXp0KksH/4zxXIPpPrFLWt/omkpqcCYET+jdHEzreLJZRpDsgqG5LXnhg62PXVZgTB99pG5DI0zOcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782718880; c=relaxed/simple;
-	bh=LmCfoAfqTzaypii7UNkAlnh3r+PDzWTSrj9G9wDOSx4=;
+	s=arc-20240116; t=1782718889; c=relaxed/simple;
+	bh=N4Fj6WY48SFiHJv2SHjjdMtNJfA81IjgI3/w9kXwqL8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bL9YN3kJFJJ9LslUnmk4ql97IRVPqtb6HzzvhH193OqbYy2lNsG0DOa8alPxEeB49qIEMzfRNu5grNrVazQjVNCYXRxV4/r8ABmu8byf4AB01i/v4TErPZkBlbokwHvqrvylhWx9o+qVPq0TV5iDYL5eMsPlch5QVCOgd4By7i8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aaogMZEC; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=Bud9X93GOgjlIxTepgxZ0Wan50+neLU3Yj/wtA36WzKYeqvNgEWlVQmWUbOOtw5LkVCh1BcYGIKd7dkNrRBlWC2FqhIogpv0t4WdJK1nn9ihd9Xi16kn8s90pAs6s7oMYimesQmEcPe7VqzoFezaWqpi+krwGCaxs/Xry3PgzIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=T8pyKqpq; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aaogMZEC"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="T8pyKqpq"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1782718876;
+	s=mimecast20190719; t=1782718887;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Y76BXjB6jF0TQ2a3vQSuyC3iw7Y3ehjGpmne3lURBRk=;
-	b=aaogMZECtTpPveFlxKwG9TAsG22RQPBfcyT9qBImrwhCoAtsvSGHDEHYj5O3TEjBCTM3xu
-	ODTIXJa4+B7DwrBkZfr2HvJZOuzZqnAXzMAotUFAfBEGqxdyquxymDVAARBtRLOvthNx5p
-	Xd0LncVrBqNcjfAS6y0cq88LCdMPEQw=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+	bh=s+QdmqKNDho30FCCG/pBRWGnl+chqjQBAUDyRCUTKpw=;
+	b=T8pyKqpqQj/fralkS+2Ttr6beSCSEdLDgg3xM/b+W8oz6zOicftKpTijS0MNlUhrT69vO2
+	i7Ap4YsEO7GoUF5kdt/mYC9i/XUTgsPbz3Kh8uPx9YBsInbLmq4Kowr7g9xxW/DjYG1Wtd
+	4rYNbLg5E5qjQFmIkdAo0lV8G7qhjo4=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-550-Kf-2AfdjMyi_hxi54pBsmQ-1; Mon,
- 29 Jun 2026 03:41:09 -0400
-X-MC-Unique: Kf-2AfdjMyi_hxi54pBsmQ-1
-X-Mimecast-MFC-AGG-ID: Kf-2AfdjMyi_hxi54pBsmQ_1782718867
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-517-xceaFEwhOyGC7NS-nUn0TQ-1; Mon,
+ 29 Jun 2026 03:41:20 -0400
+X-MC-Unique: xceaFEwhOyGC7NS-nUn0TQ-1
+X-Mimecast-MFC-AGG-ID: xceaFEwhOyGC7NS-nUn0TQ_1782718878
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4DD8E19560B9;
-	Mon, 29 Jun 2026 07:41:07 +0000 (UTC)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2D8EC195606C;
+	Mon, 29 Jun 2026 07:41:18 +0000 (UTC)
 Received: from hpa-thinkpadx1carbongen12.taipei.com (unknown [10.67.32.110])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 118631956041;
-	Mon, 29 Jun 2026 07:40:58 +0000 (UTC)
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 613281956041;
+	Mon, 29 Jun 2026 07:41:10 +0000 (UTC)
 From: Kate Hsuan <hpa@redhat.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans de Goede <hansg@kernel.org>,
@@ -58,9 +58,9 @@ Cc: computman <anis@talbi.fr>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	platform-driver-x86@vger.kernel.org,
 	Kate Hsuan <hpa@redhat.com>
-Subject: [PATCH v6 1/4] media: ipu-bridge: Add DMI information of Lenovo X9 to the image upside-down list
-Date: Mon, 29 Jun 2026 03:40:23 -0400
-Message-ID: <20260629074026.35490-2-hpa@redhat.com>
+Subject: [PATCH v6 2/4] media: ipu-bridge: Add Sony IMX471 for Lenovo X1 Carbon G14
+Date: Mon, 29 Jun 2026 03:40:24 -0400
+Message-ID: <20260629074026.35490-3-hpa@redhat.com>
 In-Reply-To: <20260629074026.35490-1-hpa@redhat.com>
 References: <20260629074026.35490-1-hpa@redhat.com>
 Precedence: bulk
@@ -72,65 +72,26 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-The Lenovo X9 has an upside-down-mounted Sony IMX471 sensor so the image
-was displayed upside-down. Add the DMI information of Lenovo X9 to
-resolve the issue.
+The HID for Sony IMX471 is TBE20A0 on Lenovo X1 Carbon G14.
 
 Signed-off-by: Kate Hsuan <hpa@redhat.com>
 ---
- drivers/media/pci/intel/ipu-bridge.c | 39 ++++++++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+ drivers/media/pci/intel/ipu-bridge.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 88581a4c081d..2474452b3015 100644
+index 2474452b3015..8ddfab357922 100644
 --- a/drivers/media/pci/intel/ipu-bridge.c
 +++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -134,6 +134,45 @@ static const struct dmi_system_id upside_down_sensor_dmi_ids[] = {
- 		},
- 		.driver_data = "OVTI02C1",
- 	},
-+	/*
-+	 * The first four characters of DMI_BOARD_NAME identify the Lenovo
-+	 * machine type/model. For example, a DMI_BOARD_NAME starting with
-+	 * "21Q6" indicates a ThinkPad X9-15.
-+	 *
-+	 * Reference: https://psref.lenovo.com/
-+	 */
-+	{
-+		/* Lenovo X9-14 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_BOARD_NAME, "21QA"),
-+		},
-+		.driver_data = "SONY471A",
-+	},
-+	{
-+		/* Lenovo X9-14 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_BOARD_NAME, "21QB"),
-+		},
-+		.driver_data = "SONY471A",
-+	},
-+	{
-+		/* Lenovo X9-15 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_BOARD_NAME, "21Q6"),
-+		},
-+		.driver_data = "SONY471A",
-+	},
-+	{
-+		/* Lenovo X9-15 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_BOARD_NAME, "21Q7"),
-+		},
-+		.driver_data = "SONY471A",
-+	},
- 	{} /* Terminating entry */
+@@ -97,6 +97,8 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
+ 	IPU_SENSOR_CONFIG("OVTI8856", 3, 180000000, 360000000, 720000000),
+ 	/* Sony IMX471 */
+ 	IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
++	/* Sony IMX471 (found on Lenovo X1 Carbon G14) */
++	IPU_SENSOR_CONFIG("TBE20A0", 1, 200000000),
+ 	/* Toshiba T4KA3 */
+ 	IPU_SENSOR_CONFIG("XMCC0003", 1, 321468000),
  };
- 
 -- 
 2.54.0
 
