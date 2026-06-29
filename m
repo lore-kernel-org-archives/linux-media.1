@@ -1,166 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24073469E0;
-	Mon, 29 Jun 2026 07:40:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD1F3DD50B
+	for <linux-media@vger.kernel.org>; Mon, 29 Jun 2026 07:41:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782718839; cv=none; b=Adj+BN4cRNb15RTDU+e9ywETYNySfDxifCBlFM+LVAMitwq9/QjAKIpyrZaVL/L3fRET/MSbuqOhjYaAZx06ygD9RZpWHiuedq8063WF4llzShDAXhH+pws2uutFPee2Ccq0zJSMQD3su8w07C3Iq7EMWOyIzFiRJdABd0EycAY=
+	t=1782718864; cv=none; b=rDOaJ1Q38+2wlyIg1+Xst+Qcu5kGYAxpp1idznntuel2mitpQBKJzhqlGaXSvA+wRr1Ina//FaWiV+St2hLFnp2DtBwFE9n6Kcw+lHIMtGW/5P+leNb8LKUsR9YyGQmWJHjJsS4nHbDJj/FbXEAY5qG6oIIhRenexOiz1xgW37Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782718839; c=relaxed/simple;
-	bh=F0v2Tf0kPpSnYaBMv+x2qAbbqASb6qfz4FwTchwvMY4=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=god3SEvZVW1VazUzSZsZtTDNwQMHavIG9yXPzI1KtYwLbXmxOwFyr7xw84tQ0UaGQX4HHliVjv7L+oCzvG9g3/uLLoq5X/p0wMU2fXYJ5xryP6++y2ijQILbljLFe5J9cxRLyZCclcaF+QSQiEovjYwiTJlkV6RaXC4Daa4AxwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JmHQL8lE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782718864; c=relaxed/simple;
+	bh=FyDFSzplXeB6PDHS/Nomdon6/tNG/wd2fOLuPUfZ7oM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cB2WUjLkqY74MSuwZQmKc2Q3W2PADNaXva6bY0o0d7nDaMJ5kPD9aPvMlKJUa6ousDV3IaiqjKCKsgF8qW2dYpytpdUm4z4e2uNHSyUp9b/xXf/kMrnrnhPKtS3z3VKKuSBmOMugNcOXYrIBMLubRoB3q1VsA4E3KZzyMQ3ExA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dSs673cD; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JmHQL8lE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE7FD1F000E9;
-	Mon, 29 Jun 2026 07:40:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782718836;
-	bh=WgIRlcejZoj2vu7HrtjrPtuhxXds25sfbR6cc/Z3oZM=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=JmHQL8lE9+PyPwTcD5p+IiQj7vBq5CdTbQo2NSAJonNiW8tzZXju3VE3viSbOi/Xe
-	 JYmVavc4AmKQJvVtMNuC2TV+UU1uVsyR07xu/sjuauulxWjhnPjfmhHMHLqyJIC29e
-	 7lGap7OLcO0L4xXy9+7E9Le12gWMZesIHTPtdiSsL2MY6OcWRAht+0B8Rh+ypIKUBt
-	 qpNyNbyKN5DFkB84ieGPYkldqWilITr3giSQsKXs6lhHTMw8vMdlNU9Jqh17IffV0E
-	 G/VeVpPc/LFlr4kpGRj8TuQ1Cwj+S7Sv8MELoIcnMrGn0+7vzkWtMF8/SN/MqsUpw8
-	 3XABLFRBgmBxA==
-Message-ID: <91381a8b-d562-4363-ac52-470c1ca53d80@kernel.org>
-Date: Mon, 29 Jun 2026 09:40:30 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dSs673cD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1782718860;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=8tyLqLSgpIeLAGIOfYwqq95HC8B2awaWZSPTU2Wc9uE=;
+	b=dSs673cDMkTe/yHCUkunNFYpUNkuqKBB7XyBlaKExCD0z8N2PPWV83N5/PNC1twcZKnvTm
+	X6y3PIbGs2VHHFTxqFvbimXnUHi4z+nOEguZihL742Ogc2zROq8EBj8S6JQcFtD7PXoGSe
+	HDeb/KPYgyFkT2OM6PcVSOlC45h5yoI=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-7-XdU0cYhHPSGuqGG03ci0fw-1; Mon,
+ 29 Jun 2026 03:40:56 -0400
+X-MC-Unique: XdU0cYhHPSGuqGG03ci0fw-1
+X-Mimecast-MFC-AGG-ID: XdU0cYhHPSGuqGG03ci0fw_1782718854
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1A8471956051;
+	Mon, 29 Jun 2026 07:40:54 +0000 (UTC)
+Received: from hpa-thinkpadx1carbongen12.taipei.com (unknown [10.67.32.110])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A7E8B1956041;
+	Mon, 29 Jun 2026 07:40:45 +0000 (UTC)
+From: Kate Hsuan <hpa@redhat.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Serin Yeh <serin.yeh@intel.com>,
+	Tarang Raval <tarang.raval@siliconsignals.io>,
+	Damjan Georgievski <gdamjan@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: computman <anis@talbi.fr>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org,
+	Kate Hsuan <hpa@redhat.com>
+Subject: [PATCH v6 0/4] Add Sony IMX471 camera sensor driver
+Date: Mon, 29 Jun 2026 03:40:22 -0400
+Message-ID: <20260629074026.35490-1-hpa@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: WARNING in usb_free_urb
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
- Michal Pecio <michal.pecio@gmail.com>
-Cc: sanan.hasanou@gmail.com, vbabka@suse.cz, akpm@linux-foundation.org,
- cl@gentwo.org, rientjes@google.com, roman.gushchin@linux.dev,
- harry.yoo@oracle.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- syzkaller@googlegroups.com, contact@pgazz.com,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
- Dinghao Liu <dinghao.liu@zju.edu.cn>
-References: <6a3eeead.7fb353d3.354599.b0b0@mx.google.com>
- <85cf5045-b52b-4aaa-a038-ca1b856b55f9@kernel.org>
- <20260629092033.4a83e91b.michal.pecio@gmail.com>
- <b50be148-f7e4-4c11-9893-54d4278b2e32@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <b50be148-f7e4-4c11-9893-54d4278b2e32@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-There are a lot of lifetime issues in em28xx.
+This patchset adds the Sony IMX471 camera sensor driver to the Linux
+kernel and resolves the IPU7 camera can't work issueon Lenovo X9
+laptops [1].
 
-This patch series should fix them:
+The patchset contains two patches:
+1. Add DMI information of Lenovo X9 to the image upside-down list
+2. Add Sony IMX471 image sensor driver
 
-https://patchwork.linuxtv.org/project/linux-media/list/?series=26968
+The IMX471 driver can be found in the Intel ipu6-drivers repository [2].
+To comply with the sensor driver implementation, the clean-up work
+includes:
 
-If you can, then please test with this series and see if this issue
-still appears.
+1. Use CCI register helpers.
 
-Regards,
+2. Enable and disable streams using enable_streams and disable_streams
+   functions in struct v4l2_subdev_pad_ops. Invoke
+   v4l2_subdev_s_stream_helper() to manage the streaming state.
 
-	Hans
+3. Get rotation information from fwnode properties using
+   v4l2_fwnode_device_parse().
 
-On 29/06/2026 09:31, Vlastimil Babka (SUSE) wrote:
-> On 6/29/26 09:20, Michal Pecio wrote:
->> On Mon, 29 Jun 2026 08:27:48 +0200, Vlastimil Babka (SUSE) wrote:
->>> On 6/26/26 23:27, sanan.hasanou@gmail.com wrote:
->>>> Good day, dear maintainers,
->>>>
->>>> We found a bug using a modified version of syzkaller.  
->>>
->>> Subject says "usb_free_urb" but you only CC'd slab maintainers, where slab
->>> slab is most likely a victim here of e.g. double kfree() or a kfree() of
->>> otherwise broken pointer.
->>>
->>> Ccing USB and EM28XX maintainers. But they can feel free to ignore this per
->>> the next point.
->>>
->>>> Kernel Branch: 7.0-rc1  
->>>
->>> Why use such a version for fuzzing? rc1 will have many bugs that are
->>> already fixed in 7.0 final. And it's not even latest, 7.1 was
->>> released 2 weeks ago too.
->>
->> To be fair, em28xx had no changes since 2024 until 7.1-rc1, so the bug
->> must be present in various stable releases and likely in mainline too.
-> 
-> OK I didn't check that, but in general my comment stands.
-> 
->>>> WARNING: mm/slub.c:6352 at free_large_kmalloc+0xb3/0x160 mm/slub.c:6352, CPU#1: kworker/1:4/12317  
->>>
->>> A kfree() was attempted on a pointer that's neither from a slab page nor a
->>> large kmalloc page. Might be double free or corrupted.
->>>
->>>> Call Trace:
->>>>  <TASK>
->>>>  kfree+0xae/0x630 mm/slub.c:6437
->>>>  urb_destroy drivers/usb/core/urb.c:25 [inline]  
->>>
->>> static void urb_destroy(struct kref *kref)
->>> {
->>>         struct urb *urb = to_urb(kref);
->>>
->>>         if (urb->transfer_flags & URB_FREE_BUFFER)
->>>                 kfree(urb->transfer_buffer);  <--- this one
->>>
->>>         kfree(urb);
->>> }
->>>
->>>>  kref_put include/linux/kref.h:65 [inline]
->>>>  usb_free_urb+0xd1/0x120 drivers/usb/core/urb.c:96  
->>>
->>> USB layer itself is likely also not the root cause.
->>>
->>>>  em28xx_uninit_usb_xfer+0x165/0x310 drivers/media/usb/em28xx/em28xx-core.c:833
->>>>  em28xx_alloc_urbs+0xf2a/0x1130 drivers/media/usb/em28xx/em28xx-core.c:-1
->>>>  em28xx_dvb_init+0x2b0/0x4a20 drivers/media/usb/em28xx/em28xx-dvb.c:-1
->>>>  em28xx_init_extension+0x121/0x1d0 drivers/media/usb/em28xx/em28xx-core.c:1117  
->>>
->>> So it might be this driver doing something wrong?
->>
->> Yes, it is. 
-> 
-> Cool :)
-> 
->>         /* allocate urbs and transfer buffers */
->>         for (i = 0; i < usb_bufs->num_bufs; i++) {
->>                 urb = usb_alloc_urb(usb_bufs->num_packets, GFP_KERNEL);
->>                 if (!urb) {
->>                         em28xx_uninit_usb_xfer(dev, mode);
->>                         return -ENOMEM;
->>                 }
->>                 usb_bufs->urb[i] = urb;
->>
->>                 usb_bufs->buf[i] = kzalloc(sb_size, GFP_KERNEL);
->>                 if (!usb_bufs->buf[i]) {
->>                         for (i--; i >= 0; i--)
->>                                 kfree(usb_bufs->buf[i]);
->>
->>                         em28xx_uninit_usb_xfer(dev, mode);
->>                         return -ENOMEM;
->>                 }
->>
->>                 urb->transfer_flags = URB_FREE_BUFFER;
->>
->> If buf[i] allocation fails, all previous buffers are freed and then all
->> previous URBs are destroyed. But they already have the URB_FREE_BUFFER
->> flag set, which causes a double free as shown above.
->>
->> The free(buf[i]) loop should simply be removed. It was mistakenly added
->> by d571b592c6206, then a26efd1961a18 recognized the double free but
->> attempted to fix it only by changing the order of freeing. Sent from
->> .edu domain, so probably an automatic static analyzer fix...
->>
->> Regards,
->> Michal
-> 
-> 
+4. Finalizes the initialization of the subdev, including allocation of
+   the active state using v4l2_subdev_init_finalize().
+
+5. Add the IMX471 driver to the Makefile and Kconfig file.
+
+6. The mutex lock is managed by the V4l2 core.
+
+7. Replace the supported link frequency with v4l2_link_freq_to_bitmap().
+
+8. Drop unused codes.
+
+[1] https://bugzilla.redhat.com/show_bug.cgi?id=2454119
+[2] https://github.com/intel/ipu6-drivers/commits/master/drivers/media/i2c/imx471.c
+
+Changes in v6:
+1. Add the con_id "vana" for the power enable to the int3472_gpio_map table.
+2. Drop unnecessary macros.
+3. Name the registers.
+
+Changes in v5:
+1. Add a description for the DMI_BOARD_NAME in the ipu-bridge driver.
+2. Check the numbers of MIPI lanes. The driver only support 4 lanes mode.
+3. Fix many rumetime PM issues.
+4. Drop pixel_rate control variable.
+5. Drop unnecessary comments.
+6. Name the registers.
+7. Fix a leak in imx471_init_controls().
+
+Changes in v4:
+1. Add TBE20A0 (found on Lenovo X1 Carbon G14) to the supported sensors list.
+2. Revert the sensor upside-down list to v1.
+3. Decrease the max analog gain to 800 to mitigate the image flickering problem.
+4. Return the error value when __v4l2_ctrl_modify_range() fails.
+5. Fix indentation issue in Kconfig.
+6. Fix the cci error value issue.
+7. Drop unnecessary comments.
+8. Drop unused link_freq control variable.
+
+Changes in v3:
+1. Naming the register addresses and set up the value with the correct value length.
+2. Implement the .get_selection().
+3. Drop "identified" field from struct imx471.
+4. Drop "streaming" field from struct imx471 and use the __v4l2_ctrl_grab() instead.
+5. Moreover, The naming for the register can be found in a seperated patch. If we
+   agree with the patch, I will squash it into one patch.
+
+Changes in v2:
+1. Change the Bayer format setting according to the vertical and horizontal flip settings.
+2. Replace the self-owned mutex with the v4l2 subdev state.
+3. Rework the flip control.
+4. Manage the regulators using devm_regulator_bulk_get|disable|enbale API
+5. Invoke devm_v4l2_sensor_clk_get to get clock-frequency
+
+Kate Hsuan (4):
+  media: ipu-bridge: Add DMI information of Lenovo X9 to the image
+    upside-down list
+  media: ipu-bridge: Add Sony IMX471 for Lenovo X1 Carbon G14
+  platform: int3472: discrete: con_id vana for Sony IMX471 as power
+    enable
+  media: i2c: imx471: Add Sony IMX471 image sensor driver
+
+ MAINTAINERS                                   |   6 +
+ drivers/media/i2c/Kconfig                     |  10 +
+ drivers/media/i2c/Makefile                    |   1 +
+ drivers/media/i2c/imx471.c                    | 957 ++++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c          |  41 +
+ drivers/platform/x86/intel/int3472/discrete.c |  18 +
+ 6 files changed, 1033 insertions(+)
+ create mode 100644 drivers/media/i2c/imx471.c
+
+-- 
+2.54.0
 
