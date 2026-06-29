@@ -1,143 +1,102 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010016.outbound.protection.outlook.com [52.101.69.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41D4369D53;
-	Mon, 29 Jun 2026 10:55:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782730520; cv=fail; b=se1KbvR10iqYSej3Gs4Gy8O7D1TQHyfHqUT8CZ6ue1wCZyjTAyCnUkJc9YRDNtfXQb1O1wmjN4ehhj6rYGCfLpraSultengf/nNDH5vtawdeDFzBeiE5uR4lwIU2gxkdT8xyXe3OxsENZEc4PSFHF+N4GlbyDONUb0pbwCLmKvQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782730520; c=relaxed/simple;
-	bh=CFi5VwlrEDL5LfEbBDI774LnssztussMj4c4BcBooDg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=nUFgL6O5b+sv5BJ0DVoOMu6hj2OLsbofAMCWNektQFzz/Owk/HCbj/KtA5eQ4aXOQwg5WPYrzyILbyQf75y42iGtm+0LAecyvaRqje9sBTLy2CAum1Eji9CB1yjJTqb9RABRogTr5qcSSvCZdiMFwYMg1U7eDsGM97/QnbywVyQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=RG1jxqO2; arc=fail smtp.client-ip=52.101.69.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AFBD6338593;
+	Mon, 29 Jun 2026 11:08:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782731292; cv=none; b=gtR/YD8CTld5hmNM39VSMHU4RM43EULTq1OcHQ1Wio1cPzpj6KRdKwVQyK6b4Jgm1FJSz1LAf9Kr2YiC/yoBo0gNTIZ3y6iKy/tFocr1Qc0lwY9IR5EgMKlpPZPW4bEIie9wWz9hBgQTLsNeZkz/8rR9G/xsue37hVUz8/YYook=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782731292; c=relaxed/simple;
+	bh=gs/lQN7S9TWkq/9hMF8GM6Fl7qkq9X6C7JCx31sbT6s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Zpg6groezF3EeIjKJixBmBOLqKhcRMP94fEOsolyqaHeld/H3ZAt+ClECLntsvatTEj2yCuLAT/sPtzbO7qVHeNzzKQhrF1bdSP4K3UjI+1R1j9PUwMf7uY0ko89va6wdvfwdFceWqAcUcN5TfH0PeYOX4Kfc+3whRt2GREwelA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=q6uWWNmJ; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="RG1jxqO2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LHomE7rcTz3djcFggESh7fMZgBAn4OOyjW+VUGN5zWs19FVFkKxF/IxMy+8C6bPnoWc94ooFTHBq8MxS0Hx3w7uDBTWWAG5Rw+3adBGg5rcCVx1A1bZe0loyajJvBawTdJHKtOAfnHz6O99SFohatw+S5k+WYe5CGxrVmQcxxBFRUtLxNAo7F2MC7A/4qxzNrDlYjDx7vlJbrO0GXmjImh89J63lPuRt0ICxoedrnQz4a5wbMTeZ4GG1e1jCtvRaONaa80kWC32JFqzoc1Vf5spp5aRuDUPAbd6GcwMdIIqj3JMlbxtvOF/g6Pwvj+iIInaLNnQ4gKpNAibsTg3AZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i9RmpjTtxxaAOECJryQvKu4+RLzCUUXvFMgQkkiZH8c=;
- b=yLciSjy+nmLuY0p0yHS5surdcsEMYW+OSlPQeZPAMuLLZjPTaCe34EFuU9/usGWLAEjtfkPV9h6O5xcmLJMQ8FW4yAYwMNUv36OCjI+2eA2PkUXY2eMbIwOjdcVdfrbfTy3UpC9bNHpgUz7Lc9dTm0kYI4wTfF8PTp4QxZUVntABI5yQBu6SHNej8OL5k+vP5OWYCSVX1Ayk0bCzAMo+blw/lbcgNOkU153dLKgHs8mb9vlccQlMf3A+xq9JYwPfNiDwBB/mXLOX0XYHzDCxbNgBJkoODIm9FxpO95pOM+JW2nMihlkhF7YWjZzydXAr7VW1ST4DA8VpzoqT5Z29Ig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i9RmpjTtxxaAOECJryQvKu4+RLzCUUXvFMgQkkiZH8c=;
- b=RG1jxqO275EX8yxkahggRvc4rvuLU4XqjB0CGPiKhOESEMJMqPMFdzGpABld0GPLcnd0XIp9HrcwK6JT9fbBuxeNYX0kRyJJF29mui5zcMcBkABz4eBv1lDQRDbflVQ9bElOzyhz74lqtSRyV1gnJwxMUKVB4akHUaoNQHVgoTuaK5xB0fUAJtdoQV0HxMbDYoPlEURwyURPcLuFpSPBh0tlLl8m4dpc3m0pUd/QPfwP26UjAMePb1GpjL9hY6u+sMb4f29hnsIyumSDHzqNBtlF9iBQHt8gErc8hfOx7HSnaJYFRJvdQ4iGP+qieEwW43mcZ7dPR2KXFN6bgcR6cg==
-Received: from CWLP265CA0501.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:18b::22)
- by DU0PR10MB6020.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:3b0::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.14; Mon, 29 Jun
- 2026 10:55:01 +0000
-Received: from AM3PEPF0000A78D.eurprd04.prod.outlook.com
- (2603:10a6:400:18b:cafe::18) by CWLP265CA0501.outlook.office365.com
- (2603:10a6:400:18b::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Mon,
- 29 Jun 2026 10:55:00 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- AM3PEPF0000A78D.mail.protection.outlook.com (10.167.16.116) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Mon, 29 Jun 2026 10:55:00 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 29 Jun
- 2026 12:59:42 +0200
-Received: from localhost (10.130.78.67) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 29 Jun
- 2026 12:54:58 +0200
-From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-Date: Mon, 29 Jun 2026 12:51:49 +0200
-Subject: [PATCH v2 4/5] media: dt-bindings: vd55g1: Add vd55g4 compatible
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="q6uWWNmJ"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 817CF176C;
+	Mon, 29 Jun 2026 04:08:06 -0700 (PDT)
+Received: from [192.168.7.252] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6032A3F905;
+	Mon, 29 Jun 2026 04:08:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1782731291; bh=gs/lQN7S9TWkq/9hMF8GM6Fl7qkq9X6C7JCx31sbT6s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=q6uWWNmJmjdPKDLBEIYktI5l1SR4FGnjAOS8/vHWT+lrTPm7fC24gvlEfgaYsLOA0
+	 EXQ4GSHJAxd74FJPupnXLg4kW2W1w9TcTtHBBpLAcomJ1ylopVauqrYqiZ7W+EU/WX
+	 UeiuVWFG15ceNnMCIe97fBV0rzXP6TxS61JUsRXU=
+Message-ID: <34de3262-3e3a-4b93-90a0-bf662162dd10@arm.com>
+Date: Mon, 29 Jun 2026 12:08:08 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/4] media: mali-c55: Implement CCM block validation
+Content-Language: en-GB
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Nayden.Kanchev@arm.com, Konstantin Babin <Konstantin.Babin@arm.com>,
+ Anthony McGivern <anthony.mcgivern@arm.com>, linus.walleij@arm.com,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
+References: <20260627-mali-c55-ccm-gamma-v3-0-113584c05174@ideasonboard.com>
+ <20260627-mali-c55-ccm-gamma-v3-2-113584c05174@ideasonboard.com>
+ <20260629095732.GC3054459@killaraus.ideasonboard.com>
+From: Vincenzo Frascino <vincenzo.frascino@arm.com>
+In-Reply-To: <20260629095732.GC3054459@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260629-vd55g4_and_fixes-v2-4-ea0a7cf3cd66@foss.st.com>
-References: <20260629-vd55g4_and_fixes-v2-0-ea0a7cf3cd66@foss.st.com>
-In-Reply-To: <20260629-vd55g4_and_fixes-v2-0-ea0a7cf3cd66@foss.st.com>
-To: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus
-	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-CC: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, Benjamin Mugnier
-	<benjamin.mugnier@foss.st.com>, Krzysztof Kozlowski
-	<krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM3PEPF0000A78D:EE_|DU0PR10MB6020:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2f9c3fe3-39d7-43ad-b3a2-08ded5ccde1b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|82310400026|7416014|36860700016|56012099006|22082099003|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	TXzOMUmrflduvZ9kR9S++tuTSFVpN4O75pM//aLEsD833JQQUdGvi4sl4J0+U3+bnpftBup5mDbI6oY1dGvF0I6dhU6atkHMOreYq2X3r85XG8tYrpp95nHR1jER+YD8v99bXuzbWEWKcBKLvvTM9bxyhvBJLjKC1EsgcLiYBGZwUM3OpQGi3FaxnWNrIbBnNw7Vzrvb/ovtjxqA7FpSI445jpNla4w6NjnzPrKeVTbN1XWH5wvC86JqGNeXFGcsYULOEcKkHR/gCyLDeok2HdTyNKExdZwvkUq43e+n9/14uU8h19X2jdD4p7VQD54b0kdWgOzhl91gDDzo92EoMMrNv8TwivlC7q8AgfSo9JfAMQz57vWj5jqPAB19KJV26q3TJhEaZEcSGML8R2m9X7IwZWhr9PanjoFOAT0Vc74A2MqW6SSV21Gx49C0Iq4+mScMXuISKBGMb5XjG4asYr+Fj8Qe45If8q4PAfEWZBiVSgHI03qVSJOfR59japzZSyadrq7FQOvbrr35LD+xjHhJYOeD5yApqF3eMjsBqw0g+8a4XWQzA9gOGldIB6Ob3q8Uwy96j9D4vAX1lZlQZAdCXDiZcJTTMS82FpusGtEEb/MxRtOURRIcyjoHmUSBcfTGgfXTOTvqYZLxpNQ1OocMbYDC0NDVUXYuvyiaj+whDHr9S93usCSie6OCbwqdw4jWmx51dIiR52ustW1LMQ==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(82310400026)(7416014)(36860700016)(56012099006)(22082099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	PYtn5tX5cyStPklRHH4NxlJ0AcQUdwCRGbQfYcLuZD4Z4/OMoiJUJW/DtCGkgyNioDxzbH9+xBR0UmdVr1C9nDFcSo2K9K5+SEEJBBYsGc714PaJCQwitedM94SJnHNEyHVPPbjNXgzSvIVbnuKcokTJSjXABb+wCkt3s+EXY+4RAMKqo2jqOK+z3cPnhdS+rt/aswitYSMnuda2zpDVNjBs/WiN0kChoPMGV43O0LD1uZinvP51wAlN2lAh/K9vj/GoafTl3y8oYg7D5I4CFxyyTBaA/Fez0tP/xl3/6lLlLgvGVAEwO/ipKfnjnKknvXkoUBBzZit6mBLVqb8Oi10X74JX8Op17f1gFe5tKR3xrk1vl8Ws0TJq2svuqftipFaIR07VFL46GxczDE4gcw3+x7YePan2Ob1es1nfAr4elvOsHi+445vPgfPWQEwM
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 10:55:00.8667
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f9c3fe3-39d7-43ad-b3a2-08ded5ccde1b
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM3PEPF0000A78D.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB6020
 
-Define it as a new monochrome variant of vd65g4.
+Hello Laurent,
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
----
- Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On 29/06/2026 10:57, Laurent Pinchart wrote:
+> Hi Jacopo,
+> 
+> Thank you for the patch.
+> 
+> On Sat, Jun 27, 2026 at 04:29:14PM +0200, Jacopo Mondi wrote:
+>> From: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
+>>
+>> Implement validation of CCM block parameters.
+>>
+>> CCM coefficients are expressed as 13 bits signed Q4.8 format and their
+>> raw value cannot be higher than 8191 (BIT(13) - 1).
+>>
+>> CCM gains are expressed as unsigned 12 bits Q4.8 format and their raw
+>> value cannot be higher than 4095 (BIT(12) - 1).
+>>
+>> CCM offsets are 12 bits unsigned integers and their value cannot be
+>> higher than 4095 (BIT(12) - 1).
+>>
+>> Validate the parameters provided by userspace using the .block_validate
+>> callback of struct v4l2_isp_params_block_type_info.
+> I don't think this is needed.
+> 
+> We need to validate parameters that can cause the ISP to malfunction in
+> ways that requires a system reset, or in ways that cause malfunction of
+> other system components (e.g. buffer overflows, memory bus lock ups,
+> ...). The rest doesn't need to be validated.
+> 
+> If you want to be cautious, you can just mask the value when writing to
+> registers, which I think you're doing in patch 1/4.
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml b/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
-index 060ac6829b66..58b1f9e85a9d 100644
---- a/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
-@@ -27,9 +27,10 @@ properties:
-   compatible:
-     enum:
-       - st,vd55g1
-+      - st,vd55g4
-       - st,vd65g4
-     description:
--      VD55G1 is the monochrome variant, while VD65G4 is the color one.
-+      VD55G1 and VD55G4 are monochrome variants, while VD65G4 is a color one.
- 
-   reg:
-     maxItems: 1
+According to me here is not a matter of being cautious, but of honouring the
+contract with the userspace.
+
+If the userspace is doing something wrong it should be notified. The only
+reasonable argument against this would be if this code is on a critical path and
+the validations have a performance impact.
+
+@Jacopo, can you please confirm if this is the case?
+
 
 -- 
-2.43.0
+Regards,
+Vincenzo
 
