@@ -1,139 +1,214 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC60472789;
-	Mon, 29 Jun 2026 17:26:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 828CD321445
+	for <linux-media@vger.kernel.org>; Mon, 29 Jun 2026 17:31:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782754017; cv=none; b=rJhMDyYC5bTzbjFxt8uzgW2xioJjimf1qLxFBelxwM0a6NAGQWrHWwQeqw54SKp64Pluf+8yGW/Z1esWBrcoGA+OVi5BlhJ6US2n1NeAJK3zxl6/hWf8rPBV1x9h4bbGSrpTWGJeUdLvV8Lxn6SeizvZURihFhcFDHYg+Jug3Nk=
+	t=1782754307; cv=none; b=jooYEhj1GjNQdFYkwJIhFo0yFRss3nTikaGtrLIDVfsvWeycz7TpXFb5QZFG7Hzi/R2Y58gPtdBA8CAKg2bBtqG8ZnA3AOxBVL44xT7rc2/tk0tYavU3D+f9IKq+/3ph3iPKXI3NBFbDzO27Nq4vkDgdpc9KZi09+HSdDP7fpqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782754017; c=relaxed/simple;
-	bh=4/OzXg1kRwYcddjKntVN/+Mh8XEIs2dYDYalSRkf93E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q9HV9H5Wo7ZGHfieVrm7P+vmFm2WvsFXmOASXHT90TK9nxyoIjmcw8TwQ0wT9b/I3HPImiWzbqsrjcnjE0eGB1UVrAJFmM8eBPG0dynwIAh7PDtFXorI5OROuv8mjLYax0xqqdmvKsb1ZTLMUIqUzhwEZ5B48xyTN9IfQuWh1pA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=DrnVVqD2; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	s=arc-20240116; t=1782754307; c=relaxed/simple;
+	bh=hV6yRbK2467vGWi8u/kz/QELon4l9EmKSX+FP3y6X7s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=R60tzKY4lxgR3Nx6rCNPqFe2pGmEUulMx9TIIAQ/wV4HInWwf25jMGEf2pBhU8AlzcgmxSjITgBdks1v+5pux6TtZ/UzeYqa20WUHbHvSODZHs9kWoX8tCantJ/xIF5I00UHoXcsGA9Rb3FZRErV3ahOF+VSF4mxBqlvy+i/Og4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=WHuvkSWb; arc=none smtp.client-ip=209.85.167.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="DrnVVqD2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1782754012;
-	bh=y6eTx+9vg9xblvO487zhAd78ZW9yRyedKnZlH9n/Q1A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=DrnVVqD25H/vFxEfW5d4xHnG7Pc1MM3ub184VCpBbrQ08+Vf4/gSGAFi9Ztv5RPIp
-	 +DPnMkZN0Rq1BNhf0To8wcmDt8naUQB/8DUZdLPKIhznKdibD3VFtLP4xlygASScPR
-	 jsVI3JtM7hii5yp3iVe3S/QopyVb9AmjDxnbUO6kZpGnB12C8gZHGGf8mnv9GP31s1
-	 jGj2WBAOwoUMmvyKZ0acx9Ot5s11nbcNxJo7i0ahlb/jltZ5HKISUIJeH/IQPiAlDQ
-	 t1Iw8z5AmbdTwwik49LDPiro0BE7UDScxaB0rz4itKI4TL3Oha7z1PZvGdCOzBO/iz
-	 D06sFOHWNMXaA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4gptVs3yzbz4w9j;
-	Tue, 30 Jun 2026 03:26:45 +1000 (AEST)
-Message-ID: <cc4e8b75-5b25-417c-898b-35b3fa41ccb2@ozlabs.org>
-Date: Mon, 29 Jun 2026 18:26:39 +0100
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="WHuvkSWb"
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5aeb91c003eso1152619e87.3
+        for <linux-media@vger.kernel.org>; Mon, 29 Jun 2026 10:31:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1782754304; x=1783359104; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/zAVInwpKbrIbwGCCm712zoSGUq4vsfLClxgHW2en+4=;
+        b=WHuvkSWbrWVLsO1/9O9t++4zNt3inUhU0ZUqtriLXLTe/UoakjwWoxBlNOxRqgjSdX
+         KF4lynT/xrSDz1obnCbDW/wv+6w9SvS5QUzXgRBQUkHn216q/Zn8YaoejGdUprXQEwSW
+         edQzqh6uC2xMWaxEtYyLk5vFYgAtbJ3hqtUB8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782754304; x=1783359104;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=/zAVInwpKbrIbwGCCm712zoSGUq4vsfLClxgHW2en+4=;
+        b=i5S2WJPtdyPd3sG069aOyPO6bQFo4KrImJrSYk6P1WRk+mSOt7J+WaJKqPDXBiQDYg
+         6TGscoAnmCROYTuITaCBGaZzOpbHmJQc886HAcVDeMDkJAbxfcBTyFfWv0VOwhjsUQJB
+         i+7yppB/a0Tj6K/7nTB2r+izLmv3yXhT9XoLp4iDmFYtAcNGOpkYNHmUgDdneh9a8Mep
+         NxJAHqQbMMAleiPsqpJeF6/WzFdWAlxOH89AVEu5xatLEID+dr9Guo6pqq0ACljMeejd
+         0rpYDtU3NzezoGa8DgfZIrvEnO92fn40o2msqCaxXbvpYzSuH9CdAsxC9t038XloSTw8
+         BhNg==
+X-Gm-Message-State: AOJu0YzyvNgcD3W4W/J/5sTCNQjkYUImUY5eI1W4L4UReA9e7FSmv+ef
+	R5p5FL0RPnr2Nl8CzkiyzhYoYRhH5O8XuBSMU38YVPQWNgNij+WJHFsu8FjzS0NAcg==
+X-Gm-Gg: AfdE7cnPlxiLZ+tKkG36NgVkgWAd7jWtZkWYdkHoaTvzJGhCPpStAGh+tZcXmZaopzC
+	90/NzQer2oyGrL+LpwmlCtz47lrdt4Z3OGb0orlVfxSFKPpI5CVjiL2HlCU0FZOO2qcdpUuxZE1
+	XCOGfZWLLv6yGHhkxvknfZkxIiYJQ2cN3aPQZuO7wRiXYFVPR7/vLQFgsMEicI83/g1heyGQpeR
+	H6lB2df0Kgka8jTeLtXcBWRpc9HTVvkXtQGotjDZUux2REj+8SitPwd5rJ3W4BDtpJvvL4zHzES
+	ONiQRZwa8nxKgOhN9cwWJgFxTDmGODM5uBo1/iG5/KCSvU8jrsvGHmZV5xFyxls+AU/iU+rOBia
+	GiANNBH5XWZOXmSUfyg4RQbT7fyNuSGdhEV2UYacGIDmTX+mH0RpEDY4UXwVoXlFvhMqU6OPG/l
+	TJ13UJf89ZorLcKKl5ybGD7VEEIxoBuNvlBYLuXNbL8tPBzH/OrVUCR61PLI6FkV368d0D
+X-Received: by 2002:ac2:51c9:0:b0:5ae:bd53:70f8 with SMTP id 2adb3069b0e04-5aebdbd0f47mr49607e87.47.1782754303842;
+        Mon, 29 Jun 2026 10:31:43 -0700 (PDT)
+Received: from ribalda.c.googlers.com (216.148.88.34.bc.googleusercontent.com. [34.88.148.216])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aea237d2e7sm3973868e87.28.2026.06.29.10.31.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 29 Jun 2026 10:31:43 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 29 Jun 2026 17:31:40 +0000
+Subject: [PATCH v2 1/2] media: uvcvideo: Fix race condition for meta buffer
+ list
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/9] vfio/pci: Clean up BAR zap and revocation
-Content-Language: en-GB
-To: "Tian, Kevin" <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
- Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>
-Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Pranjal Shrivastava <praan@google.com>, Alistair Popple
- <apopple@nvidia.com>, "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
-References: <20260610154327.37758-1-matt@ozlabs.org>
- <20260610154327.37758-7-matt@ozlabs.org>
- <DM6PR11MB3690CA709415069FFA5121838CE52@DM6PR11MB3690.namprd11.prod.outlook.com>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <DM6PR11MB3690CA709415069FFA5121838CE52@DM6PR11MB3690.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260629-uvc-racemeta-v2-1-10e91d2afba0@chromium.org>
+References: <20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org>
+In-Reply-To: <20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ricardo Ribalda <ribalda@chromium.org>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-Hi Kevin,
+queue->irqueue contains a list of the buffers owned by the driver. The
+list is protected by queue->irqlock. uvc_queue_get_current_buffer()
+returns a pointer to the current buffer in that list, but does not
+remove the buffer from it. This can lead to race conditions.
 
-On 16/06/2026 10:18, Tian, Kevin wrote:
->> From: Matt Evans <matt@ozlabs.org>
->> Sent: Wednesday, June 10, 2026 11:43 PM
->>
->> Previously, vfio_pci_zap_bars() (and the wrapper
->> vfio_pci_zap_and_down_write_memory_lock()) calls were paired with
->> calls to vfio_pci_dma_buf_move().
->>
->> This commit replaces them with a unified new function,
->> vfio_pci_zap_revoke_bars() containing both the vfio_pci_dma_buf_move()
->> and the unmap_mapping_range(), making it harder for callers to omit
->> one.  It adds a wrapper, vfio_pci_lock_zap_revoke_bars(), which takes
->> the write memory_lock before zapping, and adds a new
->> vfio_pci_unrevoke_bars() for the re-enable path.
-> 
-> It's unusual to have three verbs (lock/zap/revoke) in one function name.
-> 
-> I wonder whether it's simpler to have:
-> 	vfio_pci_zap_bars_locked() 	// caller already holds the lock
-> 	vfio_pci_zap_bars()
-> 
-> 'revoke' is just a side-effect of 'zap', not necessarily to highlight it in
-> the name.
+Inspecting the code, it seems that the candidate for such race is
+uvc_queue_return_buffers(). For the capture queue, that function is
+called with the device streamoff, so no race can occur. On the other
+hand, the metadata queue, could trigger a race condition, because
+stop_streaming can be called with the device in any streaming state.
 
-(Just found this one unacknowledged, apologies.)  If you reckon it's a
-handful, sure I can shorten them.
+We can solve this issue introducing a flag, stream->meta.in_flight,
+protected with a spinlock. When there is a buffer in flight that can
+write into metadata the flag is raised, notifying the stop streaming
+that it needs to wait.
 
-As it already has ..._unrevoke_bars(), it makes sense to use
-..._revoke_bars() and ..._lock_revoke_bars().  IMHO the zap is a
-secondary effect, and "revoke the BARs" means to make them inaccessible
-from both DMA and CPU.
+Reported-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Closes: https://lore.kernel.org/linux-media/20250630141707.GG20333@pendragon.ideasonboard.com/
+Cc: stable@vger.kernel.org
+Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+ drivers/media/usb/uvc/uvc_queue.c | 14 ++++++++++++++
+ drivers/media/usb/uvc/uvc_video.c | 30 +++++++++++++++++++++++++++++-
+ drivers/media/usb/uvc/uvcvideo.h  |  2 ++
+ 3 files changed, 45 insertions(+), 1 deletion(-)
 
-I don't want to go down the path of _locked() though right now; I just
-want to tidy the current pattern without pulling new duties up to the
-call sites.
+diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
+index 3c002c8f442f..af9dbfcf6f53 100644
+--- a/drivers/media/usb/uvc/uvc_queue.c
++++ b/drivers/media/usb/uvc/uvc_queue.c
+@@ -209,10 +209,24 @@ static void uvc_stop_streaming_video(struct vb2_queue *vq)
+ static void uvc_stop_streaming_meta(struct vb2_queue *vq)
+ {
+ 	struct uvc_video_queue *queue = vb2_get_drv_priv(vq);
++	struct uvc_streaming *stream = queue->stream;
+ 
+ 	lockdep_assert_irqs_enabled();
+ 
++	spin_lock_irq(&stream->meta.irqlock);
++	while (stream->meta.in_flight) {
++		spin_unlock_irq(&stream->meta.irqlock);
++		schedule();
++		spin_lock_irq(&stream->meta.irqlock);
++	}
++	stream->meta.in_flight = true;
++	spin_unlock_irq(&stream->meta.irqlock);
++
+ 	uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
++
++	scoped_guard(spinlock_irq, &stream->meta.irqlock) {
++		stream->meta.in_flight = false;
++	}
+ }
+ 
+ static const struct vb2_ops uvc_queue_qops = {
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+index fc3536a4399f..f6b55b3a3308 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -1732,6 +1732,26 @@ static void uvc_video_encode_bulk(struct uvc_urb *uvc_urb,
+ 	urb->transfer_buffer_length = stream->urb_size - len;
+ }
+ 
++static struct uvc_buffer *
++uvc_video_get_current_meta_buffer(struct uvc_streaming *stream)
++{
++	struct uvc_video_queue *queue = &stream->meta.queue;
++	struct uvc_buffer *buf;
++
++	buf = uvc_queue_get_current_buffer(queue);
++	if (!buf)
++		return NULL;
++
++	guard(spinlock_irqsave)(&stream->meta.irqlock);
++
++	if (stream->meta.in_flight)
++		return NULL;
++
++	stream->meta.in_flight = true;
++
++	return buf;
++}
++
+ static void uvc_video_complete(struct urb *urb)
+ {
+ 	struct uvc_urb *uvc_urb = urb->context;
+@@ -1767,7 +1787,7 @@ static void uvc_video_complete(struct urb *urb)
+ 	buf = uvc_queue_get_current_buffer(queue);
+ 
+ 	if (vb2_qmeta)
+-		buf_meta = uvc_queue_get_current_buffer(qmeta);
++		buf_meta = uvc_video_get_current_meta_buffer(stream);
+ 
+ 	/* Re-initialise the URB async work. */
+ 	uvc_urb->async_operations = 0;
+@@ -1778,6 +1798,12 @@ static void uvc_video_complete(struct urb *urb)
+ 	 */
+ 	stream->decode(uvc_urb, buf, buf_meta);
+ 
++	if (buf_meta) {
++		scoped_guard(spinlock_irqsave, &stream->meta.irqlock) {
++			stream->meta.in_flight = false;
++		}
++	}
++
+ 	/* If no async work is needed, resubmit the URB immediately. */
+ 	if (!uvc_urb->async_operations) {
+ 		ret = usb_submit_urb(uvc_urb->urb, GFP_ATOMIC);
+@@ -2330,6 +2356,8 @@ int uvc_video_init(struct uvc_streaming *stream)
+ 	for_each_uvc_urb(uvc_urb, stream)
+ 		INIT_WORK(&uvc_urb->work, uvc_video_copy_data_work);
+ 
++	spin_lock_init(&stream->meta.irqlock);
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+index b6bcee4a222f..6f1a3381d392 100644
+--- a/drivers/media/usb/uvc/uvcvideo.h
++++ b/drivers/media/usb/uvc/uvcvideo.h
+@@ -484,6 +484,8 @@ struct uvc_streaming {
+ 		struct uvc_video_queue queue;
+ 		u32 format;
+ 		u32 buffersize;
++		bool in_flight;
++		spinlock_t irqlock; /* Protects in_flight. */
+ 	} meta;
+ 
+ 	/* Context data used by the bulk completion handler. */
 
->> As of "vfio/pci: Convert BAR mmap() to use a DMABUF", the
->> unmap_mapping_range() to zap is no longer performed for vfio-pci since
->> the DMABUFs used for BAR mappings already zap PTEs when the
->> vfio_pci_dma_buf_move() occurs.
->>
->> However, it must be assumed that VFIO drivers which override the .mmap
->> op could create mappings _not_ backed by DMABUFs.  So, the zap is
->> still performed on revoke if .mmap is overridden, using a new
->> zap_bars_on_revoke flag.  A driver can explicitly opt out; the flag is
->> cleared by the hisi_acc_vfio_pci driver, since its .mmap just wraps
->> vfio_pci_core_mmap() and so still uses DMABUFs.
-> 
-> the cost of unmap_mapping_range() is trivial when there is no mmap
-> on the device fd.
-> 
-> so it could be simpler by always doing:
-> 
-> 	vfio_pci_dma_buf_move();
-> 	unmap_mapping_range();
-> 
-> and remove the flag.
-
-I did consider this.  I do agree it's cheap, but I still prefer to avoid
-unnecessary activities (just to decouple and insulate against things
-somehow changing in future).  From previous postings, others didn't seem
-to mind the flag approach, at least.
-
-Thanks,
-
-
-Matt
+-- 
+2.55.0.rc0.799.gd6f94ed593-goog
 
