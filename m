@@ -1,65 +1,62 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA427368D7C
-	for <linux-media@vger.kernel.org>; Mon, 29 Jun 2026 17:31:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716BF349CE4
+	for <linux-media@vger.kernel.org>; Mon, 29 Jun 2026 17:31:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782754308; cv=none; b=hSOg5oe5LTdisiqW3h2CC/1VShmICyeH9rWVyCBx9ZNwvB0fadoPpB/wNTKgCEfkCgAPQzvaFVm7sZ3zXBTtfFdRLQZlo80mgdz1epGy3iy70wjUgc+I9OwWsm6ktSePO8v8ez3trDzqY+oFw5pT2F4Dkc8Y/v6gnPIaq3yQPds=
+	t=1782754315; cv=none; b=tXgKCybcTAUcZyRj6UQdV5fSN10kM1QHc0sYmJuitHDB0Yls3s6DInAYrM09ix6BOYj7OdEJGOi7TstUH/MUSr1xQFoBizDAquD6x5z1XrUEVCALkXbrQwhpkRxhaZQhsXqagfKFX11HUWxQ3u9aLXNujqAVX5j5j5qEItVvTTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782754308; c=relaxed/simple;
-	bh=FXwZQn2oGObT0gtqNm0T5nh3tM5DS7sD3j5gEb5CzpE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DfW5Gjou9+lBH1hgkdgA+wfkj2yl1YcxEaF8nA46aXWb9lh0W6jacJynWEqB8JeDsvhh4+8YjyqUQJ5r8g4iwKKLztEpRJ4jUjnT0dExUEdt+oHKIXp/du/dsVitD5WhDafHbwA8UcejxhlRu2+pIrfk5XwFP2TUnr+UHrboMiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=jTlX55oS; arc=none smtp.client-ip=209.85.167.50
+	s=arc-20240116; t=1782754315; c=relaxed/simple;
+	bh=TL08TzO3D3qpCBAqoDnd/7ghYJ3m8ofj+GSg0J5faFg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=IelmZN6NZd5ww0GntFoGzPv/ssDRO/9f8XwQsYDI4i6hvpiRiiHWcCNgMwgNaAhVE8jyK/a9Li7Vtp2fCkjHwGTLFZSi4Z0Q2sOL8RTG+mK+q+tCclow4FuU51tvhCrcjrUYydKl/P7DO4lduOAWGie7hrY4INldIabWxZxkEUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=REYFV+to; arc=none smtp.client-ip=209.85.167.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="jTlX55oS"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5aeb36ed873so1434154e87.0
-        for <linux-media@vger.kernel.org>; Mon, 29 Jun 2026 10:31:46 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="REYFV+to"
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5aeb8c19017so1313517e87.0
+        for <linux-media@vger.kernel.org>; Mon, 29 Jun 2026 10:31:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1782754305; x=1783359105; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ub6cmXr21/KBDzFtT9pGKtoYiZcfRLiOmpX1+fKWDJg=;
-        b=jTlX55oSeNGfP6iH3JVucF2NteAM7kkhpI+gr0aF21jBmqIlSH81MC30o+kfplquno
-         4cYj5kCrDztIDYkkCGi2KHD+3d921UCWRJN8YcuDR993lBaL/OLfcqQwicIp2MV3VfEA
-         VNG1JxwVsQkoVo4hTW6yqnbeqAvPsW15nsaTg=
+        d=chromium.org; s=google; t=1782754303; x=1783359103; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9EUpiZVAqkBSshI3JVd3gOCLUNBz11MuKzvqTDhb6VI=;
+        b=REYFV+topJ/PKOhq5twnY20wYQ2qF5/AEsdB0rFySr8BDZM9NeQ/7dmCkHbKLQQI+X
+         IrGvErpXKLdjqCuA3M83GxXYc4n8cPuwLPqbdbOMfOzrThCtrgDgVJPl/cOWLfPxnpdb
+         NkNgkldJ78V6J9N2BgGDBokjh+I4l7Al//Xgs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782754305; x=1783359105;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ub6cmXr21/KBDzFtT9pGKtoYiZcfRLiOmpX1+fKWDJg=;
-        b=j+adAysYxPhfp+AMesvVdVdXEazrYMMVkvk2O5wrT0FwsjJxYv3D/r/hzqeWpUx/DP
-         7b8WwY3shruP3oJmW4w4cjFryOeghBhcc2fzz0G5vqGkxbmtOV4he29tGjhK+wzN/NoU
-         NhvAuOKU2fmaHRc0HPf3kjVd/bZwDAmr6eWPoK86llOz4WJ2iNJRvD/shWHRXR9ItbT5
-         igGekO7N9pO9wv5UCUWnV5x1h/g7ZvPO/BisbS9DKRsWkXt33SwcupewZ1WFzd4IkIUO
-         4KQmHNwg+G1ROpBYFnXGk/SB/qa0YFUXu8J1rCre2+igwYIFez8IJGwqWUwH5go14K2M
-         F2zA==
-X-Gm-Message-State: AOJu0Yx61FFKochJGwL8wy+Lrfc65H/y6zbRh7MZFqtDQ6iSzFnyQTw5
-	n0sqKF42tAD0JboqWx/dyB6gXI4/hpqIGhV6EiDc3kdf/7CJanP8Y4PfOuVgqfXW2dW3wojWMCX
-	zt8wDOihb
-X-Gm-Gg: AfdE7ckMb2TRrOF+QtLeRnQI903jKHns372zT6SbOHonWzl7oDEc5Yb8hlBiHfm+wJj
-	mTIB2VwkS7MeXXHK1o4c4yhpIxGkJLdejUfiNQv+EnqrgZccM81Og5QnlWz89l1h7x5odiArxRu
-	EnNre0XCaDeR7axhtCnu4clkoEuf43lOMRSJ4acuLzFG9YEVHcFqBtFplHXHj9JP9oQfXXs1AyG
-	UxFUKVucQK1WL3ErU7lniMoxeN5cZeSlu0mtnz3vC9A+Xuv7nZfwrtQA+yKPEN51GG/fcsGwBnJ
-	RkPuSMYmlZPqyAVmOPkWe7ZPYC+CWaydgqhIB5seC9A6xdwuqMZNzN8fHPEb7IgbVbvnR8Tllb9
-	XN6qLZlhDLkVRdusaWY1K/9lDkXZdZFqrq4sy3FrGPXJ9EJCkAwjKuHtxLoMfGVq2GrFjXuGZcM
-	qSfLsW5x7Q3HDTJ2aSIrCN7aoxkYmTgi/RUVzxV5otwGnmPxYYZSNDwKI0k9r5Dn2VUVCDfboEL
-	AnmZeo=
-X-Received: by 2002:ac2:5683:0:b0:5ae:a348:1292 with SMTP id 2adb3069b0e04-5aebdba2df9mr49810e87.38.1782754305092;
-        Mon, 29 Jun 2026 10:31:45 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782754303; x=1783359103;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9EUpiZVAqkBSshI3JVd3gOCLUNBz11MuKzvqTDhb6VI=;
+        b=nzpkf73HjJ20BAvUXd8eDhushIU/Lktw6PGeOI6y8h5RgwCSFhVzaOJYFKPr8a0brm
+         zfW4+dAwxsDFknFAMvXZ+IOk2cJXkahJVvYPqx4Ah+E0eP61joLdaOWDUqyir4FYPeHg
+         wDkLwKMWqeRakmW4+gvxOOlYaNSY1zyLeTmdIJP+51lgZD4tdDqzEGhq9mTIO2ala2nT
+         sTpGN3zz26TkbfzYIbb73tE6MaJeI1n13HoW56uXY96PLjmLSpD5vbVlm1tvCwhECd9Q
+         Bb9M0YCAITKYKiTbLpd/8LXP4KO4/A+oD3Bv/eW9+GoAXttwpm1h/LzHWBULbVrZdoBH
+         Ef2w==
+X-Gm-Message-State: AOJu0YzfhzBX/a7arYfLqnAB6nvke6H78Ga6oZrOBkkNN+96cK9q40Ls
+	9n7MmVXjP4lF6N9oKW9oU+lrDa3u+BDpZrxkA0VW2wBuJyo5NWq812fDQ0cmL3JjeQ==
+X-Gm-Gg: AfdE7ckAlEI9b9/qlikkk3R87eDEiAlqU9FwkMnvAjUC6R/wugPvmgxYfkwQzh73dgW
+	4aGGDjmANiENjeTEXGpychrQWn6Vsq11k0cX38EUAGGm9XtLUpjyLp4NJFtP0T5knqUgMIGwm4Z
+	iVhUS/MRmZJR27JvpcBnPDFRS/l5zp4u80l2WviuyVjTZThtoI4y9y1whmAjhRy+UxPUOkA3m7v
+	l40bG3a19k+WgcLutxmp4xh6Y9a+7HxoudMeqpO5EU/3Y9p4BKopan9EYF85jKlUZEE/lJ4uY1Q
+	zUs0+6yMy15uFh0g+oGfmBoOwR2LjH+6I+jl5E/MxfVGq8z6dMdV6PtjS7YrJtx8QMKcFaSUW7s
+	3zebXZ9U3REp5+xucS3BCpti0JUmDZlE6sfcEi4oz9Tyi1xyiiihME3m37QE9lxsuo7xxZRkSTJ
+	yi/F+YSZP+0xIvA6/QHpzrklkjBZAdvR1YHhXnBXmSuPdIl4KE0IT+d75ulxy1WFSIu/Ge
+X-Received: by 2002:a05:6512:3d19:b0:5aa:671d:9960 with SMTP id 2adb3069b0e04-5aebdb7d433mr66040e87.6.1782754302744;
+        Mon, 29 Jun 2026 10:31:42 -0700 (PDT)
 Received: from ribalda.c.googlers.com (216.148.88.34.bc.googleusercontent.com. [34.88.148.216])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aea237d2e7sm3973868e87.28.2026.06.29.10.31.43
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aea237d2e7sm3973868e87.28.2026.06.29.10.31.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 10:31:44 -0700 (PDT)
+        Mon, 29 Jun 2026 10:31:41 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 29 Jun 2026 17:31:41 +0000
-Subject: [PATCH v2 2/2] media: uvcvideo: Use wait queue for metadata
- streamoff
+Subject: [PATCH v2 0/2] media: uvcvideo: Fix race condition on metadata
+ buffers
+Date: Mon, 29 Jun 2026 17:31:39 +0000
+Message-Id: <20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -68,78 +65,50 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-uvc-racemeta-v2-2-10e91d2afba0@chromium.org>
-References: <20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org>
-In-Reply-To: <20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org>
+X-B4-Tracking: v=1; b=H4sIAPurQmoC/3XMQQ7CIBCF4as0sxYDaGvqynuYLigdyiwoZmiJp
+ uHuYvcu/5e8b4eETJjg3uzAmClRXGroUwPWm2VGQVNt0FK38qauYstWsLEYcDXCIWrs+nF0doJ
+ 6eTE6eh/cc6jtKa2RP4ee1W/9A2UllLh0cqqeak1vHtZzDLSFc+QZhlLKFyC8sbGrAAAA
+X-Change-ID: 20250714-uvc-racemeta-fee2e69bbfcd
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
  Hans de Goede <hansg@kernel.org>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ricardo Ribalda <ribalda@chromium.org>
+ Ricardo Ribalda <ribalda@chromium.org>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
 
-We are now using a schedule()/loop to wait for in-flight buffers. This
-works, but it is not beautiful. Instead we can use wait queues.
+This series fixes a race condition when calling streamoff only on the
+metada queue while streaming.
+
+The first patch fixes the race condition and the second patch replaces a
+busy wait with a waitqueue. It is probably overkilled and this is why it
+is a follow-up patch.
+
+Feel free to apply the first patch, both, or squash them into one patch.
+
+Regards!!
 
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/usb/uvc/uvc_queue.c | 7 ++-----
- drivers/media/usb/uvc/uvc_video.c | 2 ++
- drivers/media/usb/uvc/uvcvideo.h  | 1 +
- 3 files changed, 5 insertions(+), 5 deletions(-)
+Changes in v2:
+- Use a new flag in_flight to avoid keeping the spinlock for long
+  periods of time
+- Link to v1: https://lore.kernel.org/r/20250714-uvc-racemeta-v1-1-360de2e15a9a@chromium.org
 
-diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
-index af9dbfcf6f53..266a75862f0a 100644
---- a/drivers/media/usb/uvc/uvc_queue.c
-+++ b/drivers/media/usb/uvc/uvc_queue.c
-@@ -214,11 +214,8 @@ static void uvc_stop_streaming_meta(struct vb2_queue *vq)
- 	lockdep_assert_irqs_enabled();
- 
- 	spin_lock_irq(&stream->meta.irqlock);
--	while (stream->meta.in_flight) {
--		spin_unlock_irq(&stream->meta.irqlock);
--		schedule();
--		spin_lock_irq(&stream->meta.irqlock);
--	}
-+	wait_event_lock_irq(stream->meta.wq, !stream->meta.in_flight,
-+			    stream->meta.irqlock);
- 	stream->meta.in_flight = true;
- 	spin_unlock_irq(&stream->meta.irqlock);
- 
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index f6b55b3a3308..735080d40862 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -1802,6 +1802,7 @@ static void uvc_video_complete(struct urb *urb)
- 		scoped_guard(spinlock_irqsave, &stream->meta.irqlock) {
- 			stream->meta.in_flight = false;
- 		}
-+		wake_up(&stream->meta.wq);
- 	}
- 
- 	/* If no async work is needed, resubmit the URB immediately. */
-@@ -2357,6 +2358,7 @@ int uvc_video_init(struct uvc_streaming *stream)
- 		INIT_WORK(&uvc_urb->work, uvc_video_copy_data_work);
- 
- 	spin_lock_init(&stream->meta.irqlock);
-+	init_waitqueue_head(&stream->meta.wq);
- 
- 	return 0;
- }
-diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-index 6f1a3381d392..b28f418c6543 100644
---- a/drivers/media/usb/uvc/uvcvideo.h
-+++ b/drivers/media/usb/uvc/uvcvideo.h
-@@ -486,6 +486,7 @@ struct uvc_streaming {
- 		u32 buffersize;
- 		bool in_flight;
- 		spinlock_t irqlock; /* Protects in_flight. */
-+		wait_queue_head_t wq;
- 	} meta;
- 
- 	/* Context data used by the bulk completion handler. */
+---
+Ricardo Ribalda (2):
+      media: uvcvideo: Fix race condition for meta buffer list
+      media: uvcvideo: Use wait queue for metadata streamoff
 
+ drivers/media/usb/uvc/uvc_queue.c | 11 +++++++++++
+ drivers/media/usb/uvc/uvc_video.c | 32 +++++++++++++++++++++++++++++++-
+ drivers/media/usb/uvc/uvcvideo.h  |  3 +++
+ 3 files changed, 45 insertions(+), 1 deletion(-)
+---
+base-commit: 253355887a1ab0ac8f33b356c7c1140eee554d18
+change-id: 20250714-uvc-racemeta-fee2e69bbfcd
+
+Best regards,
 -- 
-2.55.0.rc0.799.gd6f94ed593-goog
+Ricardo Ribalda <ribalda@chromium.org>
 
