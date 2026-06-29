@@ -1,96 +1,166 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EDC13C8728;
-	Mon, 29 Jun 2026 07:39:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24073469E0;
+	Mon, 29 Jun 2026 07:40:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782718801; cv=none; b=rH9+By25MRkVPsfVwuDNtI8sGfYNA1BeKmIUKe+Y8GxjULD0mKdc3y5yZcGfUhqflbd7vTxw1skVbKfDE5pLB8PPxJKG986BQQWXENX6YCrzAqEwXflE0LZlwBsfz5c84W3ZQeZc9cs71hbVR/s6d2GFb0WBBDaaXUa2rHeBcgM=
+	t=1782718839; cv=none; b=Adj+BN4cRNb15RTDU+e9ywETYNySfDxifCBlFM+LVAMitwq9/QjAKIpyrZaVL/L3fRET/MSbuqOhjYaAZx06ygD9RZpWHiuedq8063WF4llzShDAXhH+pws2uutFPee2Ccq0zJSMQD3su8w07C3Iq7EMWOyIzFiRJdABd0EycAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782718801; c=relaxed/simple;
-	bh=iZ+bTxB6BAzrgby2gB7z3ltOwLFcZlpSnkzPDuT05bo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P4cOXuq5y7t51AHTbJ+Jecn5Qegmj4mqsk11vRKkNtoqCKm0FmrnPn6YTh+ho3wVBGr9ZhwpMm5DR/JNCbxrtag9nP4qf64YWErdexDu7SJGFdMN/cMeEkiFdhPNb+DLqJ5d7uBBjzDKnaElSVVdfugtP5cwfIwlYyHJm5Abymk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=rM9Vrckt; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1782718839; c=relaxed/simple;
+	bh=F0v2Tf0kPpSnYaBMv+x2qAbbqASb6qfz4FwTchwvMY4=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=god3SEvZVW1VazUzSZsZtTDNwQMHavIG9yXPzI1KtYwLbXmxOwFyr7xw84tQ0UaGQX4HHliVjv7L+oCzvG9g3/uLLoq5X/p0wMU2fXYJ5xryP6++y2ijQILbljLFe5J9cxRLyZCclcaF+QSQiEovjYwiTJlkV6RaXC4Daa4AxwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JmHQL8lE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="rM9Vrckt"
-Received: from ideasonboard.com (mob-109-113-0-8.net.vodafone.it [109.113.0.8])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C7F6C324;
-	Mon, 29 Jun 2026 09:39:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1782718751;
-	bh=iZ+bTxB6BAzrgby2gB7z3ltOwLFcZlpSnkzPDuT05bo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rM9Vrcktsu89Lza2eRZsdUez8zKvXaqK3QGi8maFYs6Z/uAMC6b1vG7j4siQtujql
-	 wHT8BM+tbRIvYLrNKW9VK85Mh7dcS0mLSfgZmk19T9gmT68rgytTFkVc3jNHW6Bm29
-	 FbU0RlLFx5CFCJQgcfU7JkrBv2Gnzd7Fn/uy9N0w=
-Date: Mon, 29 Jun 2026 09:39:49 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: mali-c55: Fix double mutex_destroy on capture dev
- register error
-Message-ID: <akIhCZqfi6o7tYqJ@zed>
-References: <20260628050503.16048-1-devnexen@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JmHQL8lE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE7FD1F000E9;
+	Mon, 29 Jun 2026 07:40:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782718836;
+	bh=WgIRlcejZoj2vu7HrtjrPtuhxXds25sfbR6cc/Z3oZM=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=JmHQL8lE9+PyPwTcD5p+IiQj7vBq5CdTbQo2NSAJonNiW8tzZXju3VE3viSbOi/Xe
+	 JYmVavc4AmKQJvVtMNuC2TV+UU1uVsyR07xu/sjuauulxWjhnPjfmhHMHLqyJIC29e
+	 7lGap7OLcO0L4xXy9+7E9Le12gWMZesIHTPtdiSsL2MY6OcWRAht+0B8Rh+ypIKUBt
+	 qpNyNbyKN5DFkB84ieGPYkldqWilITr3giSQsKXs6lhHTMw8vMdlNU9Jqh17IffV0E
+	 G/VeVpPc/LFlr4kpGRj8TuQ1Cwj+S7Sv8MELoIcnMrGn0+7vzkWtMF8/SN/MqsUpw8
+	 3XABLFRBgmBxA==
+Message-ID: <91381a8b-d562-4363-ac52-470c1ca53d80@kernel.org>
+Date: Mon, 29 Jun 2026 09:40:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260628050503.16048-1-devnexen@gmail.com>
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: WARNING in usb_free_urb
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+ Michal Pecio <michal.pecio@gmail.com>
+Cc: sanan.hasanou@gmail.com, vbabka@suse.cz, akpm@linux-foundation.org,
+ cl@gentwo.org, rientjes@google.com, roman.gushchin@linux.dev,
+ harry.yoo@oracle.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ syzkaller@googlegroups.com, contact@pgazz.com,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+ Dinghao Liu <dinghao.liu@zju.edu.cn>
+References: <6a3eeead.7fb353d3.354599.b0b0@mx.google.com>
+ <85cf5045-b52b-4aaa-a038-ca1b856b55f9@kernel.org>
+ <20260629092033.4a83e91b.michal.pecio@gmail.com>
+ <b50be148-f7e4-4c11-9893-54d4278b2e32@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <b50be148-f7e4-4c11-9893-54d4278b2e32@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi David
+There are a lot of lifetime issues in em28xx.
 
-On Sun, Jun 28, 2026 at 06:05:03AM +0100, David Carlier wrote:
-> In mali_c55_register_cap_dev(), a failure of media_entity_pads_init()
-> destroys cap_dev->lock inline and then jumps to err_destroy_mutex, which
-> destroys the same mutex a second time. The switch default case just above
-> already handles this correctly by jumping straight to the label without an
-> inline destroy.
->
-> Drop the inline mutex_destroy() and rely on the err_destroy_mutex label,
-> so the mutex is destroyed exactly once on every error path.
->
-> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+This patch series should fix them:
 
-Calling mutex_destroy() twice should be harmless, I don't think this
-qualfies as a fix ?
+https://patchwork.linuxtv.org/project/linux-media/list/?series=26968
 
-And in any case, remember to Cc: stable whenever you send a Fixes.
+If you can, then please test with this series and see if this issue
+still appears.
 
-> Signed-off-by: David Carlier <devnexen@gmail.com>
-> ---
->  drivers/media/platform/arm/mali-c55/mali-c55-capture.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
->
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> index 7aaa5c3f7..ff0155302 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> @@ -857,10 +857,8 @@ static int mali_c55_register_cap_dev(struct mali_c55 *mali_c55,
->
->  	cap_dev->pad.flags = MEDIA_PAD_FL_SINK;
->  	ret = media_entity_pads_init(&cap_dev->vdev.entity, 1, &cap_dev->pad);
-> -	if (ret) {
-> -		mutex_destroy(&cap_dev->lock);
-> +	if (ret)
->  		goto err_destroy_mutex;
-> -	}
+Regards,
 
-Indeed!
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+	Hans
 
->
->  	vb2q->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
->  	vb2q->io_modes = VB2_MMAP | VB2_DMABUF;
-> --
-> 2.53.0
->
->
+On 29/06/2026 09:31, Vlastimil Babka (SUSE) wrote:
+> On 6/29/26 09:20, Michal Pecio wrote:
+>> On Mon, 29 Jun 2026 08:27:48 +0200, Vlastimil Babka (SUSE) wrote:
+>>> On 6/26/26 23:27, sanan.hasanou@gmail.com wrote:
+>>>> Good day, dear maintainers,
+>>>>
+>>>> We found a bug using a modified version of syzkaller.  
+>>>
+>>> Subject says "usb_free_urb" but you only CC'd slab maintainers, where slab
+>>> slab is most likely a victim here of e.g. double kfree() or a kfree() of
+>>> otherwise broken pointer.
+>>>
+>>> Ccing USB and EM28XX maintainers. But they can feel free to ignore this per
+>>> the next point.
+>>>
+>>>> Kernel Branch: 7.0-rc1  
+>>>
+>>> Why use such a version for fuzzing? rc1 will have many bugs that are
+>>> already fixed in 7.0 final. And it's not even latest, 7.1 was
+>>> released 2 weeks ago too.
+>>
+>> To be fair, em28xx had no changes since 2024 until 7.1-rc1, so the bug
+>> must be present in various stable releases and likely in mainline too.
+> 
+> OK I didn't check that, but in general my comment stands.
+> 
+>>>> WARNING: mm/slub.c:6352 at free_large_kmalloc+0xb3/0x160 mm/slub.c:6352, CPU#1: kworker/1:4/12317  
+>>>
+>>> A kfree() was attempted on a pointer that's neither from a slab page nor a
+>>> large kmalloc page. Might be double free or corrupted.
+>>>
+>>>> Call Trace:
+>>>>  <TASK>
+>>>>  kfree+0xae/0x630 mm/slub.c:6437
+>>>>  urb_destroy drivers/usb/core/urb.c:25 [inline]  
+>>>
+>>> static void urb_destroy(struct kref *kref)
+>>> {
+>>>         struct urb *urb = to_urb(kref);
+>>>
+>>>         if (urb->transfer_flags & URB_FREE_BUFFER)
+>>>                 kfree(urb->transfer_buffer);  <--- this one
+>>>
+>>>         kfree(urb);
+>>> }
+>>>
+>>>>  kref_put include/linux/kref.h:65 [inline]
+>>>>  usb_free_urb+0xd1/0x120 drivers/usb/core/urb.c:96  
+>>>
+>>> USB layer itself is likely also not the root cause.
+>>>
+>>>>  em28xx_uninit_usb_xfer+0x165/0x310 drivers/media/usb/em28xx/em28xx-core.c:833
+>>>>  em28xx_alloc_urbs+0xf2a/0x1130 drivers/media/usb/em28xx/em28xx-core.c:-1
+>>>>  em28xx_dvb_init+0x2b0/0x4a20 drivers/media/usb/em28xx/em28xx-dvb.c:-1
+>>>>  em28xx_init_extension+0x121/0x1d0 drivers/media/usb/em28xx/em28xx-core.c:1117  
+>>>
+>>> So it might be this driver doing something wrong?
+>>
+>> Yes, it is. 
+> 
+> Cool :)
+> 
+>>         /* allocate urbs and transfer buffers */
+>>         for (i = 0; i < usb_bufs->num_bufs; i++) {
+>>                 urb = usb_alloc_urb(usb_bufs->num_packets, GFP_KERNEL);
+>>                 if (!urb) {
+>>                         em28xx_uninit_usb_xfer(dev, mode);
+>>                         return -ENOMEM;
+>>                 }
+>>                 usb_bufs->urb[i] = urb;
+>>
+>>                 usb_bufs->buf[i] = kzalloc(sb_size, GFP_KERNEL);
+>>                 if (!usb_bufs->buf[i]) {
+>>                         for (i--; i >= 0; i--)
+>>                                 kfree(usb_bufs->buf[i]);
+>>
+>>                         em28xx_uninit_usb_xfer(dev, mode);
+>>                         return -ENOMEM;
+>>                 }
+>>
+>>                 urb->transfer_flags = URB_FREE_BUFFER;
+>>
+>> If buf[i] allocation fails, all previous buffers are freed and then all
+>> previous URBs are destroyed. But they already have the URB_FREE_BUFFER
+>> flag set, which causes a double free as shown above.
+>>
+>> The free(buf[i]) loop should simply be removed. It was mistakenly added
+>> by d571b592c6206, then a26efd1961a18 recognized the double free but
+>> attempted to fix it only by changing the order of freeing. Sent from
+>> .edu domain, so probably an automatic static analyzer fix...
+>>
+>> Regards,
+>> Michal
+> 
+> 
+
