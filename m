@@ -1,116 +1,175 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C7F1408617
-	for <linux-media@vger.kernel.org>; Tue, 30 Jun 2026 12:27:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803E23F58FB
+	for <linux-media@vger.kernel.org>; Tue, 30 Jun 2026 12:35:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782822446; cv=none; b=H/OpkAg2S8efHRMlwo6by6qLfJeIZBdjdh6VKWQCCPiRy5EmApk56v/lgloPpUyZNKLr20t2BEp8m3Edv4KXICr1rR86gINx/IIHJDIImnU4IKaEdrdtNlDs+G7EgekPfkB55Zy0q5tTIvwZUhVwKGC5r72XV7gLDqFr5vd9zUA=
+	t=1782822908; cv=none; b=lXwXi+ejndEQvGApZVaV4N9DbyfV0aQZZlBHW+ERrYoMB9rMd9CJpaDOxQu9CbWKhcDuqAiLcTdSQPTd6f7iHLjG3QdJyCLXt6qULZmq8RTh1tcB6FbGeHdviO//Ye+jCnz0MAe/bvG1I96zbel26x6PMJr4M8u1feDRirFTSgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782822446; c=relaxed/simple;
-	bh=p3yHKdJMZrR8ssi9hb90/QMcVwTuEiccwUmY8qJv5y8=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=DC1n5/Wp2RkOzDyZyx/MSqiPwEGijGdjimeYthDeMeLZT+npaTAZe5sAuNzsOHUB/7qh+v8hwLrP2/R9mCwrjKciizOZZ//Skac8ckaO086Z2o4ywUZ+0TWHS6G6hC0M+LaLvN/YvsDbnGC0i2kNTIQapEnp1f1uryEIpSCq0NU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b/4qU1p3; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782822908; c=relaxed/simple;
+	bh=9TD884/1eNmXF43nG6KMGGmoxZbFnZmA8KC/ejMW04w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gce8oc756n6whJ6nCHyXzbNp0yuMtkZvaZGHDMc8sGvmyoINXi9VR6LKBAVNAGo8WU4xnLisqoYp3zJKSYj+VgQMHlq7CQMT3D0NG59lGTrVtbUZhDXJ2o3LTMhyRxbybR4x7lCBlooDlQwdN+xNlvUZQ5mTh6QviaGVEv7P/nw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KKnkbgGq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fTkZyi08; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b/4qU1p3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782822445; x=1814358445;
-  h=date:from:to:cc:subject:message-id;
-  bh=p3yHKdJMZrR8ssi9hb90/QMcVwTuEiccwUmY8qJv5y8=;
-  b=b/4qU1p3dsHZNv7jl94XJIEISbVV1yRIsuRP6t7qD/Sjx+ULSQk0PvP1
-   lJ4XKqnwXv7lTRCZ+hOJ7ycvcCSmhDApPIXs4C/fV0n2v8shi/bcqy79C
-   IaCCJ1liwLYBoz1KpnhgRiZShCO2v+s0fX+VU3jaGLitfLAVKXvoZOiZV
-   16SaQGhg1EYviInSuBqLJaJWD5ALJN0kMqY/4RHCMfAQjeRWkdUwu7hJu
-   Aur2AgPlTctnPyiKJt/QW0dd9VsOx4w9dX7elscEEHmIBIPifZZTrHTFQ
-   v2GgXw8Pz0fBWVyWomI64i7ZmXi69mG4MzJswd3cY0/hESHslJXarkDYM
-   Q==;
-X-CSE-ConnectionGUID: Kcu7gk5GRIu9KQ/tt6lEnw==
-X-CSE-MsgGUID: w00ybk9YSeCo8jI0ptxIMg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="83560178"
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; 
-   d="scan'208";a="83560178"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 05:27:25 -0700
-X-CSE-ConnectionGUID: /up156W4TXyJ8/WE3AWosg==
-X-CSE-MsgGUID: I8Ay4DPTTLyGyJvcBGifKQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; 
-   d="scan'208";a="245904262"
-Received: from lkp-server02.sh.intel.com (HELO ea128546eb3d) ([10.239.97.151])
-  by fmviesa009.fm.intel.com with ESMTP; 30 Jun 2026 05:27:23 -0700
-Received: from kbuild by ea128546eb3d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1weXYe-000000008L0-2e0m;
-	Tue, 30 Jun 2026 12:27:20 +0000
-Date: Tue, 30 Jun 2026 20:27:14 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-media@vger.kernel.org
-Subject: [sailus-media-tree:metadata-pre 17/17]
- drivers/media/i2c/ml86v7667.c:301:13: error: use of undeclared identifier
- 'v4l2_subdev_get_fmt_ci'; did you mean 'v4l2_subdev_notify'?
-Message-ID: <202606302010.Icm10dbc-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KKnkbgGq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fTkZyi08"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U9nEi61590709
+	for <linux-media@vger.kernel.org>; Tue, 30 Jun 2026 12:35:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	XbxXKmb6m1o+wu+br6lLzlt+6G9oYy2IEucIolB22Mg=; b=KKnkbgGqOr6Axbi5
+	m8AFO+/Jphf+KutD3yzjJBOBGMRnZBe0xFfEDCpHsmiMPqrNjMgEqDLg5As+APA1
+	d8qxQEA9OWFnuHHrcNzvJN31S1kOhgBbhvh5O/v/NANPH686ogZ+A6f0Jg11XSCu
+	L6oDMxUpi66Stm8pQ73m5lflpH04VKTeKA0zFa1EGW2Iuhg6ljJv0qoye7xW45Dd
+	HGtzYmxnVhiXD4HqcQrgDjuP53UqQiUinbMagr+sEQrcnIqU0lXA3SKbPhm8FgXS
+	fJ6ZJJDxasvRRXyPxZS1CTAR6hpiohrzlxjtTBOBierePcL5Z5NKnDlfpBqAH/vm
+	wze8qg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3y9k3hr6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 30 Jun 2026 12:35:05 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51bfe75b7dbso2952001cf.3
+        for <linux-media@vger.kernel.org>; Tue, 30 Jun 2026 05:35:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782822905; x=1783427705; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XbxXKmb6m1o+wu+br6lLzlt+6G9oYy2IEucIolB22Mg=;
+        b=fTkZyi08V6GwTZ86ygorNFxoRPMkH3eFEfO36sM+2I6TfgOtjmHxtMP5epbC/4kv3d
+         WWzbS+609U4AxUDJCS1uDlHxUcNMIkinGsJGUHauyf3CspEf6cXZf6x/S1bumg6qEyFd
+         SscAQVBi6aGKoLZYlxPbTH0oRojgYyTdHyd/ZkfrfpI2JCUYYZgetRqwUOd0F5EM/RL6
+         pHeZTiT8cwr/Om39mtWYA0CH6XWhQTNXZsOBDjmAZpw3PF3VN3qYcSj2Rh+KleVsz6av
+         eYl5zu3vguKNjo78QRqg48owtxhIOCLx6yFchlIDfN24rjaKSOMC79e4kqKUrWYnWoec
+         xePw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782822905; x=1783427705;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XbxXKmb6m1o+wu+br6lLzlt+6G9oYy2IEucIolB22Mg=;
+        b=dYsyw3apGA+rleIKnzI3KTUkT3NDVV0i0zqtoK416WdzQWr7bmrVClf2pdXv6QMQWD
+         l1bG6P3Oja/DKbtrxXkQ544ENpPIwcbZtrnEd4ddck35AEplinmwE3F/vqcnOiuOLOdo
+         EgdS0sIldHDTvmvj4JhrmO3Kkdsnz14FUkQ9bWm7USEmp3pfgJ0CM7WfF4w07zSetCwm
+         7meXJ1g9ubmPZ0PlK/4A3425g5/CNCrEDDn68HjQaPzqPNj4RWeA0JbO4K57/BIBw/ws
+         kJHImx7Pn7NVCpOTqcIiY4Zrv7KP9oFWd7cjlAH5ZrpptOcpENuUzpz6zdzezq8fc+yW
+         DTrQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9oQMXPVxGQAnRrvvRBKUl0cWSBDQZ3j4qkAL5EZ5ZiXUhbsl6UgLAHidFJWLAj62+XkZcUw1FtoidKHg==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy2zcn15Ly4hM7EFIpN+x4mZQ99U4lSUnQePMr1/Rl+TYJVto+r
+	vdAjWelyDBPoJuDWjvYEU+QshsDoZHONosoHmu2kdNpfgFqCfVC98uEVZxqV5RgspmZCOpUfMxa
+	taB82t28MQ6Dy7rNCluAOFdZM0TV2AMBBxsrVOlAoNigaOz68WnPQupol5kHNFs/3wA==
+X-Gm-Gg: AfdE7cnxqCoSkAQR9bmlUBatK+oeSmhMra0FWA0OC4KGVfPWzRGQDu3aUx09Z4ul648
+	yKZfHoK4VFOZypP7fLJ6i+PabDvFwShAQYoUwipDrejnWf7nP8U6axC05E7ERK8YSrqbUwMkTbc
+	FD+JO1MpPn53lcYYZBqQ04a16dLP0niT9kkN6ERPeDYQadxWFCjcbXfvwoajFdGYVsFPG4kR22a
+	tDAxNthaatHpyQgYfPVkG0CHT2qFWcnmRuGvKQ46a0KZGUL+Znpg+goW8fhyIpNpqTFyEbQMfI4
+	TWRY0eijvhmWbeC1XIqLIVy0DrduXDq5uT5Y+khXyQJq6dFQxpVLEC6T4LIw1x4eIFu4UGz1Djp
+	PBsZZ5/CDRprCAxtgVXoLcIk3cw1WrCO93xU=
+X-Received: by 2002:a05:622a:a1a:b0:51c:1744:edf0 with SMTP id d75a77b69052e-51c1744f08cmr12928971cf.9.1782822904807;
+        Tue, 30 Jun 2026 05:35:04 -0700 (PDT)
+X-Received: by 2002:a05:622a:a1a:b0:51c:1744:edf0 with SMTP id d75a77b69052e-51c1744f08cmr12928611cf.9.1782822904391;
+        Tue, 30 Jun 2026 05:35:04 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1288f4c19esm117506266b.51.2026.06.30.05.34.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 30 Jun 2026 05:35:03 -0700 (PDT)
+Message-ID: <594cf827-819e-4262-9dff-a35c7f69f86b@oss.qualcomm.com>
+Date: Tue, 30 Jun 2026 14:34:59 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 04/14] remoteproc: qcom_q6v5_pas: Switch over to
+ generic PAS TZ APIs
+To: Sumit Garg <sumit.garg@kernel.org>, andersson@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
+        netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+        ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org,
+        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+        akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+        jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+        airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+        bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
+        andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+        kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
+        mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com,
+        mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+        jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+        vignesh.viswanathan@oss.qualcomm.com,
+        srinivas.kandagatla@oss.qualcomm.com,
+        amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+        op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+        skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+        Sumit Garg <sumit.garg@oss.qualcomm.com>
+References: <20260626133440.692849-1-sumit.garg@kernel.org>
+ <20260626133440.692849-5-sumit.garg@kernel.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260626133440.692849-5-sumit.garg@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDExNiBTYWx0ZWRfXyK5JRnhG1c/x
+ xUoiD0rC3Md4DRAemrMOa4Sd340ys02GhHsMppZLEcbvwE+bEwAqewoyV0gffXLFRUwT0Mgtg8B
+ /BVZQ6+7EG00776B+IMcUOP75RhreQo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDExNiBTYWx0ZWRfX+vfveZf+fCAz
+ lQTqZlMSXHZ3bnuVYEycG7xlRoXxnSZH8TiOEgmIsHZnKBrpAyMheI/4xn54ILBPLsIytiLF4Fa
+ iwb/xdScJpo6zhstE8sKnFbro9skChKeqZWJORP5U8su39apW8sjFqZ8NVvGZcPQVPGGqeRfZQ4
+ U6hFll+c3f2BgSSg2DBfInLN+PBf9zYwBQxV9I7cpVZyrsl4jiPZJByK9vqvYkw9+jQVXYp0aES
+ jVTexhM1JGlFe+dPvbCFbWjuWKuZWwWM+8dRKjEHy3fBfX7uu9EIB6SrNtpiQOkBdvSfBWcSDmI
+ xOZQtHs/anBqY3qCuYGbztWLWpK0AXybcT9pg3fkDYxLmOYcwQLmfsbpPmtbtCAHi9HJt6ppZjN
+ f3t/6MXOCKJjbxPC0XuWJ6BqpYwIRkvo1rt3ORAxAZfbl0ZdnE5CD2+sjEmyBBQnoWtxNkjq8ZO
+ HXDoUQUTb+woN3GAZFQ==
+X-Proofpoint-ORIG-GUID: 6yViIk4WVi3rsnHwjzEh2r1Ip7YZK8rU
+X-Authority-Analysis: v=2.4 cv=TeqmcxQh c=1 sm=1 tr=0 ts=6a43b7f9 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=JRhjOG_OB-XQkuSI_8oA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-GUID: 6yViIk4WVi3rsnHwjzEh2r1Ip7YZK8rU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-30_03,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ spamscore=0 adultscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300116
 
-tree:   git://linuxtv.org/sailus/media_tree.git metadata-pre
-head:   66c090febbc3c412ced4e71cb69f47b05eea0331
-commit: 66c090febbc3c412ced4e71cb69f47b05eea0331 [17/17] media: v4l2-subdev: Add struct v4l2_subdev_client_info pointer to pad ops
-config: arm64-randconfig-003 (https://download.01.org/0day-ci/archive/20260630/202606302010.Icm10dbc-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260630/202606302010.Icm10dbc-lkp@intel.com/reproduce)
+On 6/26/26 3:34 PM, Sumit Garg wrote:
+> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> 
+> Switch qcom_q6v5_pas client driver over to generic PAS TZ APIs. Generic PAS
+> TZ service allows to support multiple TZ implementation backends like QTEE
+> based SCM PAS service, OP-TEE based PAS service and any further future TZ
+> backend service.
+> 
+> Since qcom_q6v5_pas depends on MDT loader for PAS firmware loading, it
+> has to be switched over to generic PAS APIs in this commit to avoid any
+> build issues.
+> 
+> Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
+> Tested-by: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com> # IPQ9650
+> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> ---
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202606302010.Icm10dbc-lkp@intel.com/
+I assume that the leftover qcom_scm_assign_mem() will be handled
+in a separate effort, presumably through something like FF-A lend
+on the backend
 
-All errors (new ones prefixed by >>):
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
->> drivers/media/i2c/ml86v7667.c:301:13: error: use of undeclared identifier 'v4l2_subdev_get_fmt_ci'; did you mean 'v4l2_subdev_notify'?
-     301 |         .set_fmt = v4l2_subdev_get_fmt_ci,
-         |                    ^~~~~~~~~~~~~~~~~~~~~~
-         |                    v4l2_subdev_notify
-   include/media/v4l2-device.h:238:20: note: 'v4l2_subdev_notify' declared here
-     238 | static inline void v4l2_subdev_notify(struct v4l2_subdev *sd,
-         |                    ^
->> drivers/media/i2c/ml86v7667.c:301:13: error: incompatible function pointer types initializing 'int (*)(struct v4l2_subdev *, const struct v4l2_subdev_client_info *, struct v4l2_subdev_state *, struct v4l2_subdev_format *)' with an expression of type 'void (struct v4l2_subdev *, unsigned int, void *)' [-Wincompatible-function-pointer-types]
-     301 |         .set_fmt = v4l2_subdev_get_fmt_ci,
-         |                    ^~~~~~~~~~~~~~~~~~~~~~
-   2 errors generated.
---
->> drivers/media/i2c/ak881x.c:220:13: error: use of undeclared identifier 'v4l2_subdev_get_fmt_ci'; did you mean 'v4l2_subdev_notify'?
-     220 |         .set_fmt        = v4l2_subdev_get_fmt_ci,
-         |                           ^~~~~~~~~~~~~~~~~~~~~~
-         |                           v4l2_subdev_notify
-   include/media/v4l2-device.h:238:20: note: 'v4l2_subdev_notify' declared here
-     238 | static inline void v4l2_subdev_notify(struct v4l2_subdev *sd,
-         |                    ^
->> drivers/media/i2c/ak881x.c:220:13: error: incompatible function pointer types initializing 'int (*)(struct v4l2_subdev *, const struct v4l2_subdev_client_info *, struct v4l2_subdev_state *, struct v4l2_subdev_format *)' with an expression of type 'void (struct v4l2_subdev *, unsigned int, void *)' [-Wincompatible-function-pointer-types]
-     220 |         .set_fmt        = v4l2_subdev_get_fmt_ci,
-         |                           ^~~~~~~~~~~~~~~~~~~~~~
-   2 errors generated.
-
-
-vim +301 drivers/media/i2c/ml86v7667.c
-
-   297	
-   298	static const struct v4l2_subdev_pad_ops ml86v7667_subdev_pad_ops = {
-   299		.enum_mbus_code = ml86v7667_enum_mbus_code,
-   300		.get_fmt = ml86v7667_fill_fmt,
- > 301		.set_fmt = v4l2_subdev_get_fmt_ci,
-   302		.get_mbus_config = ml86v7667_get_mbus_config,
-   303	};
-   304	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Konrad
