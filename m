@@ -1,111 +1,145 @@
-Received: from mail-lr2-f2.google.com (mail-lr2-f2.google.com [74.125.230.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E6E45104C
-	for <linux-media@vger.kernel.org>; Tue, 30 Jun 2026 16:06:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E90477980;
+	Tue, 30 Jun 2026 16:13:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782835567; cv=none; b=lfoEFypFL07mGQn70U4FBMFKRi4gj7YXuBrfrbl6ith6cX7UAJHdBZz7tg2UH2ZTHyEeNC8Y4AeR/Jv/kkakcU7jjXP+2aZAYDpw+58vM+vC0HBzmLKARODCVHzUmeFfSdmIGnSiL+UQewi0jp+azX7Jdqz/NUXvKWkwKf2wTsU=
+	t=1782836018; cv=none; b=jlGk9JP8b+ne/gYoOh9Cp34TgneNWLlXMUJ41bE1f6mDYNKzegIl+RZnEoLl4hz95r7RxkR1IKCPV2Z8zFVfN5KWffN1BenMp+OSxjzz214klnoVcagDV8f7Ao8hpeS29NH/y8wSsU3eCIyLYZsc84e7w7QvyaQ1YAB5IJSNsfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782835567; c=relaxed/simple;
-	bh=m3vAsK5slw0dcrp5GIzrlVJVX/5gpHWYHdhD9DgaINk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IkDDGol6+x+/8CPSnL/vHbZ8zyq2OKWplIrPjzqlmgTNNeT1SQtkmFJBB9HMj5zLN7fHK974FG/M8aOWMhr93PBYmNeaM4BVJbzxtkPuwteGnRLIYeKm27+H/RCJxwhUT/nfyZJZ1SeCai61EaKauGQlSPp5Y0LfSZRp7LvubmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hc/qVpMD; arc=none smtp.client-ip=74.125.230.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782836018; c=relaxed/simple;
+	bh=u/nTM72IyAPeLieBdU027OyNOOu9yBSfaw/AXdtuMkU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SJcuAy9kcjeb6b2tgi/RsrpNYLHqsNxzA+UfWFtNMNNwf0LDsqoMgIkAgphyloE1QC90WeCGYdr0fO76ky1Jz0zBaPO2tIRjALsc4Mnz4uSTSYwLlhZltJze3GDznBTmhNUXjqzm2EuF4HI1Bge8YCCs3EL6fWc43L+gR9FbFFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hjqwqJB4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hc/qVpMD"
-Received: by mail-lr2-f2.google.com with SMTP id 38308e7fff4ca-39ac6d46512so2010671fa.1
-        for <linux-media@vger.kernel.org>; Tue, 30 Jun 2026 09:06:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782835564; x=1783440364; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=GdkkU1grf9UGW9t3296G0fSDCaf7b9DnqBxsaoQmFhc=;
-        b=Hc/qVpMDjWrW56IK9q0nSistwy8d+DHo3yQ5tj5ondmlS7tCfl0p/6M5oAJd8yepez
-         RpzmY6wwYcjIOTZWmVp9E2WUSEd01A3fQcZSCIANeHZuNc24BZ++ufnjsQ4J7UPcFaZq
-         1ToA2LyB9n1m07T7/ZmDY8hfknFyH5/1XkiY4LkGEgGhBeMQQojvoQKZXjmxJ94hsMpf
-         bNIuBU7Y4mcYfa/5QSw9vrRd+4Bhxfjxri38nGnyeO8zugrZlTq5Y0rGMsNFlqRX5M9y
-         TbyROdRHy2kSeoNxdTEkvVhcZw3kmzO/sBG8aP5fa79k9YZhI5N6rnSDUdpfKFNi2uOx
-         56CA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782835564; x=1783440364;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GdkkU1grf9UGW9t3296G0fSDCaf7b9DnqBxsaoQmFhc=;
-        b=G9sK47HsIHfK5hR+2CSEiuMnpuXJtZg79aozOQKbHlDou/dVO2gAnqTJflo+9c3ZN6
-         iPrGt8BC/vxHHCZSWYBVAXOZxlqPHPR5DM2ePS1vUcFc8mFw0TqTOQxig42k8R1zBNz8
-         ChTO5XxHh9SJexNpK8HOCfA2DMu6fWdRui45zNIB8R3ku/6eFd9mBgJzUp6wTimh2R0e
-         DsMi970XJ8oXAHjaoGc9pNbGakJjOQS6+Ek16WuMtVnHRkHqgxodhvf92GlDsWgCOQMc
-         qZlKHZdC0MuYiAWRbmbZpqo8FRUtjKNoI+QjNUlpFBuW3+PehnFWMMss+RrkIv0KAAfL
-         5PzA==
-X-Forwarded-Encrypted: i=1; AHgh+Row68Rm0159GTu2FMTQwk0q7vVQfEbmqyHREJHt9wumCOvHuPztPVhT4XP3+OJf6cQW79G9DzPArYY5qg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwUMhB4Z1bLMhgVwuZu9KmS62ZmDNySVLC5ZOAyFRR16pMxDZuB
-	DnP9T0Yg50pUQjamM7CAuCRlgZcfODWk9JhXCkKitee8j5o9yG1z+95F
-X-Gm-Gg: AfdE7cm5Hh7FmSbAJHnlVHJUELaMOQ+81/KmDxrxxGO54hHNgy/C7GtR5Wag6QrxW11
-	+OL7GiCrURh4qwUbsSph6G6dKYRNxRVaIIZKJF2tqpN9v4SIFMiBnxhwghTs0kj3mGG3ESbVq2+
-	+7NmpVTFkjQ6ZrVOjkoJKSIqBnLisMSFVryb4VZD8Njiw42TYOueayI9U9APes0l4rJk4ieFFRg
-	rvLx3evzf4N/TWnwDM8AKiqTSSKq+1/u9ck5LNHa6INqTTBLTY9OaS3IT3tbfcEKhOzg+zUS5ef
-	okdlQK0jH6A1Hn+k3u5vjr+fCH2fPUJzdiMIxeV2n/cab6bt4VfCX9fYcuj3HS5wjiY30nwJrh/
-	r+/1ULrGTcyGgLcW+YmldkFRQ611cpVBT80MtzXBGucBtX9AT/ZRKv6Ie4SjVLQxs58SLmA==
-X-Received: by 2002:a05:6512:61d1:20b0:5ae:bf21:22bc with SMTP id 2adb3069b0e04-5aec10c070bmr311853e87.30.1782835563310;
-        Tue, 30 Jun 2026 09:06:03 -0700 (PDT)
-Received: from arch ([93.177.236.219])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aebe498645sm673045e87.39.2026.06.30.09.06.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Jun 2026 09:06:02 -0700 (PDT)
-From: "Bohdan D. Marcus" <bohdandmarcus@gmail.com>
-To: hansg@kernel.org,
-	mchehab@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: andy@kernel.org,
-	sakari.ailus@linux.intel.com,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	"Bohdan D. Marcus" <bohdandmarcus@gmail.com>
-Subject: [PATCH v3] media: atomisp: fix block comment formatting style
-Date: Tue, 30 Jun 2026 19:04:35 +0300
-Message-ID: <20260630160435.3293-1-bohdandmarcus@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hjqwqJB4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BE161F000E9;
+	Tue, 30 Jun 2026 16:13:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782836016;
+	bh=EPmeBmTLZcI2NvycNSs9TbGw6xQZrmlj5hEViCW2F5s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hjqwqJB4CDv38X4H7iaSRjQLFXTXvps8g/F/WWvP/LwYS+uJSu1Nq06L8vY829jjW
+	 Ose4jlI6JMagqyn5LpCnkBx9NRfq6spcTZ/YGpWCGGWw+fW1LMCmVXli54WmEsRmmj
+	 /61f6nCtgRXVJb630dqrq5W9msVqCcMNwuQmeVYJ6nJWK9h/xZMFuzmO2XLAxpGW61
+	 FCLXDDwJ7w6pAUn9cv0xsuEMGXM0z/BzCaKP0t9kD/GyNzbn6bpJtpvjjMKbmsEeat
+	 UTiWbA0n4XtMrwx6gfZT8oTFrenIglBWMsQFqOUrwOdt0vp4GrAaBz6kqKAsBgJZ26
+	 rDBc6JEInOYiQ==
+Date: Tue, 30 Jun 2026 11:13:35 -0500
+From: Rob Herring <robh@kernel.org>
+To: Nas Chung <nas.chung@chipsnmedia.com>
+Cc: mchehab@kernel.org, hverkuil@xs4all.nl, krzk+dt@kernel.org,
+	conor+dt@kernel.org, shawnguo@kernel.org, s.hauer@pengutronix.de,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-imx@nxp.com,
+	linux-arm-kernel@lists.infradead.org, jackson.lee@chipsnmedia.com,
+	lafley.kim@chipsnmedia.com, marek.vasut@mailbox.org
+Subject: Re: [PATCH v6 2/9] dt-bindings: media: nxp: Add Wave6 video codec
+ device
+Message-ID: <20260630161335.GA3699737-robh@kernel.org>
+References: <20260624072043.238-1-nas.chung@chipsnmedia.com>
+ <20260624072043.238-3-nas.chung@chipsnmedia.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260624072043.238-3-nas.chung@chipsnmedia.com>
 
-Fix a block comment formatting warning reported by
-checkpatch.pl in atomisp_cmd.c to conform to the
-Linux kernel coding style.
+On Wed, Jun 24, 2026 at 04:20:36PM +0900, Nas Chung wrote:
+> Add documentation for the Chips&Media Wave6 video codec on NXP i.MX SoCs.
+> 
+> The hardware contains one control register region and four interface
+> register regions for a shared video processing engine. The control region
+> manages shared resources such as firmware memory, while each interface
+> region has its own MMIO range and interrupt.
+> 
+> The control region and each interface region are distinct DMA requesters
+> and can be associated with separate IOMMU stream IDs. Represent the
+> control region as the parent node and the interface register regions as
+> child nodes to describe these resources.
+> 
+> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
+> ---
+>  .../bindings/media/nxp,imx95-vpu.yaml         | 163 ++++++++++++++++++
+>  MAINTAINERS                                   |   7 +
+>  2 files changed, 170 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/nxp,imx95-vpu.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/media/nxp,imx95-vpu.yaml b/Documentation/devicetree/bindings/media/nxp,imx95-vpu.yaml
+> new file mode 100644
+> index 000000000000..9a5ca53e15a3
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/nxp,imx95-vpu.yaml
+> @@ -0,0 +1,163 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/nxp,imx95-vpu.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Chips&Media Wave6 Series multi-standard codec IP on NXP i.MX SoCs
+> +
+> +maintainers:
+> +  - Nas Chung <nas.chung@chipsnmedia.com>
+> +  - Jackson Lee <jackson.lee@chipsnmedia.com>
+> +
+> +description:
+> +  The Chips&Media Wave6 codec IP is a multi-standard video encoder/decoder.
+> +  On NXP i.MX SoCs, the Wave6 codec IP exposes one control register region and
+> +  four interface register regions for a shared video processing engine.
+> +  The parent node describes the control region, which has its own MMIO range and
+> +  manages shared resources such as firmware memory. The child nodes describe the
+> +  interface register regions. Each interface region has its own MMIO range and
+> +  interrupt.
+> +  The control region and the interface regions are distinct DMA requesters.
+> +  The control region and each interface region can be associated with separate
+> +  IOMMU stream IDs, allowing DMA isolation between them.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - nxp,imx95-vpu
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: VPU core clock
+> +      - description: VPU associated block clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: core
+> +      - const: vpublk
+> +
+> +  power-domains:
+> +    items:
+> +      - description: Main VPU power domain
+> +      - description: Performance power domain
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: vpu
+> +      - const: perf
+> +
+> +  memory-region:
+> +    maxItems: 1
+> +
+> +  sram:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
 
-Signed-off-by: Bohdan D. Marcus <bohdandmarcus@gmail.com>
----
- drivers/staging/media/atomisp/pci/atomisp_cmd.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Already has a type. You just need to define how many phandles (maxItems: 1).
 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.c b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-index 6cd500d9fd26..20abc2c0de80 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-@@ -2520,9 +2520,12 @@ int atomisp_css_cp_dvs2_coefs(struct atomisp_sub_device *asd,
- 		if (sizeof(*cur) != sizeof(dvs2_coefs.grid) ||
- 		    memcmp(&dvs2_coefs.grid, cur, sizeof(dvs2_coefs.grid))) {
- 			dev_err(asd->isp->dev, "dvs grid mismatch!\n");
--			/* If the grid info in the argument differs from the current
--			grid info, we tell the caller to reset the grid size and
--			try again. */
-+						/*
-+						 * If the grid info in the argument differs
-+						 * from the current grid info, we tell the
-+						 * caller to reset the grid size and try
-+						 * again.
-+						 */
- 			return -EAGAIN;
- 		}
- 
--- 
-2.55.0
+> +    description:
+> +      phandle to the SRAM node used to store reference data, reducing DMA
+> +      memory bandwidth.
 
+Drop 'phandle to the SRAM node'
+
+Rob
