@@ -1,282 +1,123 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F321385D80;
-	Tue, 30 Jun 2026 09:23:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F5A3F0743
+	for <linux-media@vger.kernel.org>; Tue, 30 Jun 2026 09:25:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782811434; cv=none; b=PLDLRg7cVSVXIAz3ho8uqc9o2dJC7eZ8ZeLZ0r9ve1HXPgkZaKLbQBZ0E99Ojdkhzzvjs/WQjX7ASMgbqF6X+cu79wUL1l2n7InYS08I63ek0JMke6rQ13dVccAaeU/hm7DfGD8wxQpq/aBYG3V9jHDCgYV3a5R23QGimM/NYbQ=
+	t=1782811532; cv=none; b=KstOy7B+uKosY+66P62dd3as4tMU9kE++4/4lwZGpSojPaZKiWSV3iqOXwtaCfRkaw0JYXetyUX1vG5XZB1O2eeTlE/arVtZzlzZ9B0hrVk3vIBw21d3PdrbwY3FSh0UHQ602n5b0qkqdujRgZv+SR7Yt4EafR6EfQSu1waTo/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782811434; c=relaxed/simple;
-	bh=GD8uUv1Sbu/HQUA/5J7LkGvk9c9U43WQlIues+zO+qY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RDY99QaBykubiB9naceX1UxrRzh9hHRvdB/gqmTZt11Mnqv+7lYBVX1mB9WJa8CJZMNcY0lY5DSSTuw9raOhmur0uZhxUqc2Ro50BjGUMV2LBZ32u3WIY0d0HNoq2Q642YWvFfM1qh/NGaxzFjuTpKpd5sllzQbMnvksW6eGMjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=TUzh68XO; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1782811532; c=relaxed/simple;
+	bh=ezDm7Gc9EfG+/8LS5oomiWzQ1aOUYyJqUzpsCqhu0WI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bToonuSjS2RNiyQaQ+6eagMWsLbpKrITB0ST1WmfkzSKkpjgN/8o4t06ytO4Wh3H27v2zT03qQMDp5ojV6enHhwwxFTPHOLkKNi8oKqosn0G1Fgz3L+6FUxMJmH13pjNXQdlOvDmwSciT+U/dx1qEkLIWfwk37WyPRM19+E6DDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=nLAQ59me; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="TUzh68XO"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=5sd5P0AgIaXL9cs7YYNoFr4XV/WIbMgV1+mcnz0bD+k=; b=TUzh68XOuz5in6pfG8PF1xuxW8
-	y51qMVfPk2b2kGUtr7kY8Mn/QEsswHGWbJ+R/MBNR34Y/pSAIKF0jSb/pQaSRFd9cRUbPR8t3GJri
-	UcKmm6O2NZmCn394IZjYTKzKll0MC7DXwbbr45vGNiuCZt6Y+RMUJDMuczqpWdFJv21uwtkLW6M7h
-	+6eSq3s+1tO8nMA0V+NZe0nG7QvdbMBpSbnXS45JsG3lmqWheOrEWT5CkP05i52ONcv+YIbzVZiIE
-	NovVlArqY1i8AQmsbzXcIToj2nDV81iojE7SEX9tazkLP5LwrpSYmEfIrXTEWi/OKGqTasiSHQArD
-	zlMfyA6g==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1weUgf-0071Kn-Fb; Tue, 30 Jun 2026 11:23:25 +0200
-Message-ID: <1941b3c5-2ef1-4da9-aa20-a11d771274f1@igalia.com>
-Date: Tue, 30 Jun 2026 10:23:24 +0100
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="nLAQ59me"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-475cb71a4ebso330132f8f.0
+        for <linux-media@vger.kernel.org>; Tue, 30 Jun 2026 02:25:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1782811527; x=1783416327; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cDuu+2TFU7K2S5MMJE/L9xabTb9uGhBTPtQYPk3yyZs=;
+        b=nLAQ59meaFwXaR8gLnLqDJKwCSD0aBwGecZVxIVNKGREWg9W1hFkqDVFHLf+bW6nIv
+         C/llkOo7rZ8hIbh9oIJoHObatUSNaPya2hWZ+GYn3QIKytTddeY0HbikdHEI4nwkM2aQ
+         pZgepkLclfKY4d9lXOwJFnDqwV/DpdJS0YfrC3DiNLn8rAfRy3Ugdlcj9++BfPJkh9hI
+         PHoUt4OT3p1gV0q3THBxNwl2I/84lZcxCiaUYX+FuoSl/OyrY+zeEAkXpZeTltisnRDu
+         Rhn+uguqY/WUqLSaRU8Lna++kydA+KfTw1VZ7V31ahdB1m13O+bG7vFjI0hrQHcktEOv
+         G8XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782811527; x=1783416327;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=cDuu+2TFU7K2S5MMJE/L9xabTb9uGhBTPtQYPk3yyZs=;
+        b=Pc1Vf8Om8+dHiI8bLTy19DLmMBuKW6vS10tzWjsnRN8SD1Lr85pYuTJmQwParGUttN
+         YUcuCvznmub01O9qV+l6XaLKLHumGW3i1lpseNKCNY2kdPJZLdKA0MGc6vwGfvhhZ4VN
+         IYuYq92E5FnhdSllCOz35ikKmb9XwrhEn7Fx8p/Ebcz3cNd8xc+kmRUhVrKSB0t69A3Q
+         QEQ2Cb0Dnqpa24rQGnEtEjgRvc8E5oMRO/f/rs+9rOJOkuLDmpkPqsBhBPuOVPrzz+Ao
+         bUwy2W9wHAEXb7SIfDGAjo2seElFChwYVJF/8Rmx2cARwKVKvXFYHgI48BtVHh9ysP1n
+         liqg==
+X-Forwarded-Encrypted: i=1; AHgh+RqlX7Nkj3nCyCdP+Ogf6s1S7+Ui8LrWxclDjo0dlZDc7QuI1t59j8v/ua5B/5yONto8yu8/2aarmaSRiA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJs3HbI53Q1PXc1VhsJj52EtUj3qiCfwU8jnVXiAs329Ro/tIE
+	iACUjGTDV4h1Z1+EME665leY/dj8hjwVdBN4GdvmQjE6jlywRNWLlmhpHv/QOpNdEmk=
+X-Gm-Gg: AfdE7cn0SX6Iys1KcRlHH/3p1I7j6F0l9McA3lsVcKsfCVRNSv/lwW9omMWBBi3Yf5H
+	rjmt+xA2/YhKfpPCltBGfZzafI8EXsa3L/mrGQZygpArUWq3bEAnzT0IvA/vYibi0LjEDTiIwBf
+	LD3IPW7sxlqrug1GFK8fsvwSsM2vqpOTivYDnwhdgzjsJR2+x5euO1NSp+6Ik9X0mXv/fUaMuTx
+	tLCxOUwBC7EMq7NjT6qf/baRyzIcyS5D2rpYk216NCIVzszpGfYCqwNXZQ/KADhQhtT4hwWNzPx
+	3zvVyPYbibHRGrMo3cGULpHAGtg0B2Q8Xd9/3FmjbbrciSlAIjmXXV2tNJCE2ERZoxaZK91eDIR
+	aSbuWTVNlFGr7VYoycjeg5Ws4Y2NZfrZ5Fb/vuXwU3enZshlVdjB2oXIJhs6bTS3Wa8uhm6S3nB
+	gO9YH7F9t2KiGF+vwVvvp0pEONaZfz6UdbegKIyLztNZUOL+WiNIfosG9ob7NVZkyaTs6PtO5/a
+	uUy
+X-Received: by 2002:a05:6000:4382:b0:474:cd60:1157 with SMTP id ffacd0b85a97d-47551ee767fmr3317239f8f.31.1782811526948;
+        Tue, 30 Jun 2026 02:25:26 -0700 (PDT)
+Received: from localhost (p200300f65f47db042c439d749f38355a.dip0.t-ipconnect.de. [2003:f6:5f47:db04:2c43:9d74:9f38:355a])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4756636d2cfsm6720611f8f.17.2026.06.30.02.25.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Jun 2026 02:25:26 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Danilo Krummrich <dakr@kernel.org>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: [PATCH v4 02/17] media: ti: vpe: #include <linux/platform_device.h> explicitly
+Date: Tue, 30 Jun 2026 11:24:21 +0200
+Message-ID: <9f2e0e001eec087f00ac2c5af2de2e8f6d0978c1.1782808461.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1782808460.git.u.kleine-koenig@baylibre.com>
+References: <cover.1782808460.git.u.kleine-koenig@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/sched: Protect entity->last_scheduled with
- spinlock
-To: Philipp Stanner <phasta@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260626081942.2122144-2-phasta@kernel.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260626081942.2122144-2-phasta@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1234; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=ezDm7Gc9EfG+/8LS5oomiWzQ1aOUYyJqUzpsCqhu0WI=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqQ4tKtZNbNVupV0Jn6GdrsV2mVRMi4zAwPW55N wI4HgUueqGJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCakOLSgAKCRCPgPtYfRL+ TkxUCACejeoBThsQ0PbTKTYPEXkqqVn4/bkLsWh+cdpkWgCbAkPZiUlT7FH+etoOx1YTZQAIl+j h/OG6mI6AKjyR0/lnryZ9H5EZ6GXpq5enJ23SU+LOv0CVf79pSnp/kq7UF4U+sK1tjc5IQ7abzn Rnu5Yag5MSAtdGpyRBbx0401HkIMj0cHiQg2OvX202Qg6gWyT1nbZ6ijUpPbtZ3pzK87bDzRRbF N2SSw2Ue4YXGQ4/GxWOB/P0uR+Sur5fRLHQjWLWoDf/hdm6a/j9C6u2SJpbHUtspepfpcCgTxwG zWrs4SW7xsSjlZvEM6w09rdobUkQTlWbTAD7szad69wOv7Pk
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
 
+The driver uses several symbols and structs defined in that header. The
+header is currently included transitively via
 
-On 26/06/2026 09:19, Philipp Stanner wrote:
-> The entity->last_scheduled field has always been set and read with
-> special RCU functions in addition to memory barriers. There is no
-> obvious reason for that, since the entity lock is available and taken at
-> all places that evaluate the last_scheduled field. The only exception is
-> drm_sched_entity_error(), which is not performance critical in any way.
+	"vip.h" ->
+	<media/v4l2-ctrls.h> ->
+	<media/media-request.h> ->
+	<media/media-device.h> ->
+	<linux/platform_device.h>
 
-I agree this looks odd since all call sites apart from 
-drm_sched_entity_error() use 
-"rcu_dereference_check(entity->last_scheduled, true);" ie. "ignore" the RCU.
+which seems to be on the lower end of the scale between random and
+reliable.
 
-Btw this was added in:
+Acked-by: Danilo Krummrich <dakr@kernel.org>
+Reviewed-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+Acked-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Link: https://patch.msgid.link/453257c9fa32acc4ab5b3e4c3b010244966a7b9d.1782682124.git.ukleinek@kernel.org
+Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+---
+ drivers/media/platform/ti/vpe/vip.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-commit 70102d77ff22dd88a0111b1c3bac5099ac5d0425
-Author: Christian König <christian.koenig@amd.com>
-Date:   Mon Apr 17 17:32:11 2023 +0200
-
-     drm/scheduler: add drm_sched_entity_error and use rcu for 
-last_scheduled
-
-You may want to add this as a reference in the commit message.
-
-I guess it relied on dma-fence RCU destruction to enable lockless 
-lookups from the AMD submit path. Given how many other locks we have in 
-those paths it is probably noise to have one more so maybe it is a win 
-to remove some barriers and those rcu_dereference_check-true lines. I 
-think Christian will need to comment.
-
-> Improve robustness, readability and maintainability by replacing RCU and
-> barriers with the lock.
-> 
-> As a preparational step, while at it, also guard spsc_queue_pop() with
-> the lock, since spsc_queue is deprecated and supposed to be replaced
-> with a locked list.
-
-You would have said to split the logical changes into separate patches.
-
-> 
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> ---
-> Changes since v1:
->    - Add a helper variable to drop the last_scheduled reference without
->      the entity lock being held; just to be more robust.
->    - Write additional comment to detail the WRITE_ONCE().
-> ---
->   drivers/gpu/drm/scheduler/sched_entity.c | 58 +++++++++++++-----------
->   include/drm/gpu_scheduler.h              |  9 ++--
->   2 files changed, 35 insertions(+), 32 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-> index c51101ec70c1..12fd695c6d46 100644
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> @@ -135,7 +135,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
->   	entity->num_sched_list = num_sched_list;
->   	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
->   	entity->rq = &sched_list[0]->rq;
-> -	RCU_INIT_POINTER(entity->last_scheduled, NULL);
->   	RB_CLEAR_NODE(&entity->rb_tree_node);
->   	init_completion(&entity->entity_idle);
->   
-> @@ -201,10 +200,10 @@ int drm_sched_entity_error(struct drm_sched_entity *entity)
->   	struct dma_fence *fence;
->   	int r;
->   
-> -	rcu_read_lock();
-> -	fence = rcu_dereference(entity->last_scheduled);
-> +	spin_lock(&entity->lock);
-> +	fence = entity->last_scheduled;
->   	r = fence ? fence->error : 0;
-> -	rcu_read_unlock();
-> +	spin_unlock(&entity->lock);
->   
->   	return r;
->   }
-> @@ -288,8 +287,10 @@ void drm_sched_entity_kill(struct drm_sched_entity *entity)
->   	wait_for_completion(&entity->entity_idle);
->   
->   	/* The entity is guaranteed to not be used by the scheduler */
-> -	prev = rcu_dereference_check(entity->last_scheduled, true);
-> +	spin_lock(&entity->lock);
-> +	prev = entity->last_scheduled;
->   	dma_fence_get(prev);
-> +	spin_unlock(&entity->lock);
->   	while ((job = drm_sched_entity_queue_pop(entity))) {
->   		struct drm_sched_fence *s_fence = job->s_fence;
->   
-> @@ -381,8 +382,12 @@ void drm_sched_entity_fini(struct drm_sched_entity *entity)
->   		entity->dependency = NULL;
->   	}
->   
-> -	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
-> -	RCU_INIT_POINTER(entity->last_scheduled, NULL);
-> +	dma_fence_put(entity->last_scheduled);
-> +	/*
-> +	 * Normally all users should be gone now, but since drm_sched has
-> +	 * experienced many layering violations in the past, better be safe.
-> +	 */
-> +	WRITE_ONCE(entity->last_scheduled, NULL);
->   	drm_sched_entity_stats_put(entity->stats);
->   }
->   EXPORT_SYMBOL(drm_sched_entity_fini);
-> @@ -507,6 +512,10 @@ drm_sched_job_dependency(struct drm_sched_job *job,
->   
->   struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
->   {
-> +	/* Helper to avoid dropping the reference while the entity lock is held,
-> +	 * just to have some more robustness.
-> +	 */
-> +	struct dma_fence *prev_last_scheduled;
->   	struct drm_sched_job *sched_job;
->   
->   	sched_job = drm_sched_entity_queue_peek(entity);
-> @@ -523,19 +532,20 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
->   	if (entity->guilty && atomic_read(entity->guilty))
->   		dma_fence_set_error(&sched_job->s_fence->finished, -ECANCELED);
->   
-> -	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
-> -	rcu_assign_pointer(entity->last_scheduled,
-> -			   dma_fence_get(&sched_job->s_fence->finished));
-> +	spin_lock(&entity->lock);
-> +	prev_last_scheduled = entity->last_scheduled;
-> +	entity->last_scheduled = dma_fence_get(&sched_job->s_fence->finished);
->   
-> -	/*
-> -	 * If the queue is empty we allow drm_sched_entity_select_rq() to
-> -	 * locklessly access ->last_scheduled. This only works if we set the
-> -	 * pointer before we dequeue and if we a write barrier here.
-> +	/* A recent rework required taking the spinlock above. Since spsc_queue
-> +	 * is scheduled for removal as per the DRM-TODO-list, we access it here
-> +	 * locked already to prepare for that cleanup.
-> +	 *
-> +	 * TODO: Fully replace spsc_queue with a locked (h)list.
->   	 */
-> -	smp_wmb();
-> -
->   	spsc_queue_pop(&entity->job_queue);
-> +	spin_unlock(&entity->lock);
->   
-> +	dma_fence_put(prev_last_scheduled);
->   	drm_sched_rq_pop_entity(entity);
-
-Notice the entity->lock ends up cycled twice for no good reason (second 
-is in drm_sched_rq_pop_entity()). So I would suggest you somehow reduce 
-that to once. Probably just pull out entity->lock out of the 
-drm_sched_rq_pop_entity() to drm_sched_entity_pop_job()?
-
-I guess if you do that then the "while at it" part of the commit message 
-can be "upgraded" to "spsc_queue_pop() being under the lock as a 
-consequence of the rework" and then no need to split it.
-
->   
->   	/* Jobs and entities might have different lifecycles. Since we're
-> @@ -561,21 +571,15 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
->   	if (spsc_queue_count(&entity->job_queue))
->   		return;
->   
-> -	/*
-> -	 * Only when the queue is empty are we guaranteed that
-> -	 * drm_sched_run_job_work() cannot change entity->last_scheduled. To
-> -	 * enforce ordering we need a read barrier here. See
-> -	 * drm_sched_entity_pop_job() for the other side.
-> -	 */
-> -	smp_rmb();
-> -
-> -	fence = rcu_dereference_check(entity->last_scheduled, true);
-> +	spin_lock(&entity->lock);
-> +	fence = entity->last_scheduled;
->   
->   	/* stay on the same engine if the previous job hasn't finished */
-> -	if (fence && !dma_fence_is_signaled(fence))
-> +	if (fence && !dma_fence_is_signaled(fence)) {
-> +		spin_unlock(&entity->lock);
-
-Have you tried with lockdep to see if there are any hidden lock 
-inversions with this?
-
-I also wonder if we could demote this to a flag check only and remove 
-any doubt. I don't think opportunistic signalling matter in this code path.
-
-Regards,
-
-Tvrtko
-
->   		return;
-> +	}
->   
-> -	spin_lock(&entity->lock);
->   	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
->   	rq = sched ? &sched->rq : NULL;
->   	if (rq != entity->rq) {
-> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> index d61c19e78182..176ff1f936cd 100644
-> --- a/include/drm/gpu_scheduler.h
-> +++ b/include/drm/gpu_scheduler.h
-> @@ -100,7 +100,8 @@ struct drm_sched_entity {
->   	 * @lock:
->   	 *
->   	 * Lock protecting the run-queue (@rq) to which this entity belongs,
-> -	 * @priority and the list of schedulers (@sched_list, @num_sched_list).
-> +	 * @priority, @last_scheduled and the list of schedulers (@sched_list,
-> +	 * @num_sched_list).
->   	 */
->   	spinlock_t			lock;
->   
-> @@ -202,11 +203,9 @@ struct drm_sched_entity {
->   	/**
->   	 * @last_scheduled:
->   	 *
-> -	 * Points to the finished fence of the last scheduled job. Only written
-> -	 * by drm_sched_entity_pop_job(). Can be accessed locklessly from
-> -	 * drm_sched_job_arm() if the queue is empty.
-> +	 * Points to the finished fence of the last scheduled job.
->   	 */
-> -	struct dma_fence __rcu		*last_scheduled;
-> +	struct dma_fence		*last_scheduled;
->   
->   	/**
->   	 * @last_user: last group leader pushing a job into the entity.
+diff --git a/drivers/media/platform/ti/vpe/vip.c b/drivers/media/platform/ti/vpe/vip.c
+index cb0a5a07a3d4..e56a95f53ea9 100644
+--- a/drivers/media/platform/ti/vpe/vip.c
++++ b/drivers/media/platform/ti/vpe/vip.c
+@@ -16,6 +16,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/module.h>
+ #include <linux/workqueue.h>
++#include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/sched.h>
+ #include <linux/mfd/syscon.h>
+-- 
+2.47.3
 
