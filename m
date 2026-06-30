@@ -1,102 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA6283E3150
-	for <linux-media@vger.kernel.org>; Tue, 30 Jun 2026 07:53:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B4D3E5A0A
+	for <linux-media@vger.kernel.org>; Tue, 30 Jun 2026 07:58:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782806032; cv=none; b=tftiQfdl/KstM48rWtvQuqj121R7F3eVCvZ8tbciLvB0tD/1M89tTtFVpZHI3BiIAH5ibj7D9CaQNoSkmlfxJWvI/s39cu3Mp54O6f8KxCwf7Wh+oKEAkbGuT7sl7AOQeSvuSk8VQdsNc5PrXPU5Qn9BOKHf6hZA9jqWkiZGlz8=
+	t=1782806288; cv=none; b=NZv3ZTASMM1PybBluKTm3yySBkUVxoJX53ASXI7bQRBcTzMAVmwxUDP8y6iT+4tb537XqAC2rqeoElcoWyoRuFCcpIGmzuxvVNi4Vdzu1zwrghdfcWEtycG5BQ4SbnLO14gfuX5QVuyrtUKerYLiKx1fjDF97QoDdy2e/Vy5Eu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782806032; c=relaxed/simple;
-	bh=DKWuHMD8ADL0zKU3qzM6I+0+Ls324mTKAtUCV8uTQCo=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NdZMoucfwnyDXz4HGoQFxNV6F5edRlogrVHMgdPIMdTX8mncRQpFS+d48pzi/wVNuvgtkL/bqJEtkvH+OaZe5qiLf6iKcsTKa4MaIn15vsq0RTg9KAYpV/elm4sASVVzYhRJRvTSA06HaFZZ5CXK7hVhvKNio7d7qeyoTp3FKsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SzEeikn2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782806288; c=relaxed/simple;
+	bh=q1PynG58t9h4o2HtbeoHkswViSz1UylYOiJy0jbbSMM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EjOLZ+lieqegAs1ePXkbmbupZxITVTZpsSBZksC9Xl3i/IASis4iRNVuSB0srcJhMmRKbCjNj74aZzNzvgOIi6nPTGSebt33RAL+5AxDxVoCqk6LnoTLjA2eMvkoyQaWuZGP1J62p+ydQt5EshPX8yO7XjZgIXEydG1i7pr0oec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kbYfARoA; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SzEeikn2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7713E1F00ACF
-	for <linux-media@vger.kernel.org>; Tue, 30 Jun 2026 07:53:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782806030;
-	bh=QLk1TuOjiNPuCpTV4xCdDTaOjHQTK3QruyZKcZY7x1Q=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=SzEeikn298ntM12mqrr6eeAuWBznUx8HGeKI8OO6J1rAXqZe+DG8eH3kpdxS2Qwc/
-	 BEgTe/7fHp8h71X6sCGG3fIihS5C6QKcHYkMaNYrgPUk3rcaSPmJDnw8ZoM5yrlTQE
-	 KvW3inqTRly1yX4cupxJ6KIIy4QWzwTYakuwLMqpuMM/p2OaqREIyxEYDMqln50mnE
-	 C1NSCn+lHyKd79yClTWWWIpGeXloq0qHFR7J5NJc/x4YvTZ2+1E8CMWE8qqPT9V+G8
-	 G9xFlM4DvUB/S9Qvyumv8uzp49Hn1jyEjfrRcGIK8Lu7u5c1SmS6vDV9TdRuWHIBZh
-	 32YpQJymIWJ5Q==
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-39b19e7d6fcso8746991fa.1
-        for <linux-media@vger.kernel.org>; Tue, 30 Jun 2026 00:53:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rqsx8yAFSF+h5Rh+sAmnPxQH3Fh963EDHd8DheZOx/wm6p+UB7hqsbOhNSAckM2SVz/EdgBQ4alP/mrIA==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yww9M+dDDV+ptPrZ2pwyR5X8AdilSVFRhQxO/S+LbZsuoY2mJsq
-	kTUTfazW3wpT4C3BhBAW6z+Z+OqE7SmrREIdcA6/+qdMFouIGSyQiqfHEiEMV5TDFZ8VWREXfk6
-	5GSd7sncs6gyjS5isKN0IrbIPmMcNUU+n5RgaU3NLVg==
-X-Received: by 2002:a05:651c:2203:b0:39b:d0:e992 with SMTP id
- 38308e7fff4ca-39b1da26188mr5158341fa.4.1782806029201; Tue, 30 Jun 2026
- 00:53:49 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 30 Jun 2026 00:53:46 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 30 Jun 2026 00:53:46 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260629132633.1300009-1-arnd@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kbYfARoA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782806287; x=1814342287;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=q1PynG58t9h4o2HtbeoHkswViSz1UylYOiJy0jbbSMM=;
+  b=kbYfARoAiXUixl173eaXZvGeqq1v//9d37UsnW/cJxFKGqXqeDXKcxXU
+   t11euMUptVFgS6+7+eWp7DsHG3JlgVFS8aRTRZxYkactfTfKNOHKQN6vz
+   aXwNA/9Cvd4ph/gCFlZ+epwKmPD8++bzckhaYShqDOFqe9VUZy4N2cIak
+   if21nqhXgdG2jnHnBvH4WxQ2uFoLe3N3qPh08W0BzDxOkayBW4xQkhDDn
+   yDbtSdv5tDdWnngVOoU15bLUj0fKEYb+KIEetKrayhl8Rk5GbbPDAmAL1
+   ZLUsj8eqk1I1aFuh2SjS5x0RRccfFPMdeX+1FXMdYb43EsY6450odKoNy
+   g==;
+X-CSE-ConnectionGUID: T5EOJe2DTH6n/GGbsJ77xw==
+X-CSE-MsgGUID: uWk+vmviRN6zTj98f3Lhyg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="82501257"
+X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; 
+   d="scan'208";a="82501257"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 00:58:06 -0700
+X-CSE-ConnectionGUID: b+I+lHdSRnOVNyU3Rl5tzg==
+X-CSE-MsgGUID: aZ54DkhRS0GuOSgqkHAOPQ==
+X-ExtLoop1: 1
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.116])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 00:58:05 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 1C35911FAA5;
+	Tue, 30 Jun 2026 10:58:06 +0300 (EEST)
+Date: Tue, 30 Jun 2026 10:58:06 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	Mauricio Faria de Oliveira <mfo@igalia.com>
+Subject: Re: [PATCHv3 1/6] media: core: v4l2-async.c: unreg subdev if
+ asc_list is empty
+Message-ID: <akN3DglbD4LPxES1@kekkonen.localdomain>
+References: <cover.1782716154.git.hverkuil+cisco@kernel.org>
+ <2cf4473a9c16d0715aa081e234bb36c70fefce3c.1782716154.git.hverkuil+cisco@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260629132633.1300009-1-arnd@kernel.org>
-Date: Tue, 30 Jun 2026 00:53:46 -0700
-X-Gmail-Original-Message-ID: <CAMRc=McnpZK+XeMcVfrBeh8SWa44UsVSJD0GJ1pXYhiFqzdpaQ@mail.gmail.com>
-X-Gm-Features: AVVi8CcPrvp2PMd39-Ep5NDuNXP5lZT9A5toOBbKSjeAVmB0_7rIggX2JLATmJ0
-Message-ID: <CAMRc=McnpZK+XeMcVfrBeh8SWa44UsVSJD0GJ1pXYhiFqzdpaQ@mail.gmail.com>
-Subject: Re: [PATCH 00/13] treewide: replace linux/gpio.h
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: linux-gpio@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
-	Gregory Clement <gregory.clement@bootlin.com>, Frank Li <Frank.Li@nxp.com>, 
-	Robert Jarzmik <robert.jarzmik@free.fr>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Greg Ungerer <gerg@linux-m68k.org>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	Hauke Mehrtens <hauke@hauke-m.de>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
-	Yoshinori Sato <ysato@users.sourceforge.jp>, 
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Linus Walleij <linusw@kernel.org>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Dominik Brodowski <linux@dominikbrodowski.net>, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, patches@opensource.cirrus.com, 
-	linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org, 
-	linux-sh@vger.kernel.org, linux-input@vger.kernel.org, 
-	linux-media@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-sunxi@lists.linux.dev, linux-phy@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2cf4473a9c16d0715aa081e234bb36c70fefce3c.1782716154.git.hverkuil+cisco@kernel.org>
 
-On Mon, 29 Jun 2026 15:26:20 +0200, Arnd Bergmann <arnd@kernel.org> said:
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> The linux/gpio.h header used to be the global definition for the gpio
-> interfaces, with 1100 users back in linux-3.17. In linux-7.2, only about
-> 130 of those remain, so this series cleans out the rest.
->
-> In each subsystem, we can replace the header either with
-> linux/gpio/consumer.h for users of the modern gpio descriptor interface,
-> or linux/gpio/legacy.h for the few remaining users of the old number
-> based interface.
->
-> All patches in this series can get applied independently, so my
-> preference would be for each subsystem maintainer to apply these
-> directly, with the rest going into the gpio tree at some point.
->
-> The final patch here obviously needs to wait for all the others
-> to get merged first.
->
->       Arnd
+Hi Hans,
 
-Thanks for doing this Arnd!
+Thanks for the patch.
 
-For the series:
+On Mon, Jun 29, 2026 at 08:55:49AM +0200, Hans Verkuil wrote:
+> In v4l2_device_unregister_subdev(), if sd->asc_list is empty,
+> then v4l2_device_unregister_subdev() is never called, but that
+> should still happen.
+> 
+> This causes crashes with em28xx that uses tvp5150: that i2c
+> module uses v4l2_async, but em28xx does not as it predates
+> v4l2_async.
 
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Isn't the sub-device unregistered via v4l2_device_unregister() or do I miss
+something? em28xx_v4l2_fini() calls it.
+
+Or do you mean the issue happens at tvp5150 unbind time?
+
+> 
+> So if sd->asc_list is empty, then just call
+> v4l2_device_unregister_subdev().
+> 
+> Fixes: 28a1295795d8 ("media: v4l: async: Allow multiple connections between entities")
+> Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+> ---
+>  drivers/media/v4l2-core/v4l2-async.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/v4l2-core/v4l2-async.c b/drivers/media/v4l2-core/v4l2-async.c
+> index 888a2e213b08..d7437c958028 100644
+> --- a/drivers/media/v4l2-core/v4l2-async.c
+> +++ b/drivers/media/v4l2-core/v4l2-async.c
+> @@ -898,9 +898,13 @@ void v4l2_async_unregister_subdev(struct v4l2_subdev *sd)
+>  	sd->subdev_notifier = NULL;
+>  
+>  	if (sd->asc_list.next) {
+> -		list_for_each_entry_safe(asc, asc_tmp, &sd->asc_list,
+> -					 asc_subdev_entry) {
+> -			v4l2_async_unbind_subdev_one(asc->notifier, asc);
+> +		if (list_empty(&sd->asc_list)) {
+> +			v4l2_device_unregister_subdev(sd);
+> +		} else {
+> +			list_for_each_entry_safe(asc, asc_tmp, &sd->asc_list,
+> +						 asc_subdev_entry) {
+> +				v4l2_async_unbind_subdev_one(asc->notifier, asc);
+> +			}
+>  		}
+>  	}
+>  
+
+-- 
+Kind regards,
+
+Sakari Ailus
