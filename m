@@ -1,52 +1,52 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE95A481AB2
-	for <linux-media@vger.kernel.org>; Wed,  1 Jul 2026 12:23:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 037B7481ABE
+	for <linux-media@vger.kernel.org>; Wed,  1 Jul 2026 12:23:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782908598; cv=none; b=d7LHerISwHipwmwvTjrWp7umMpkm7yoDmXklxaeiaPHoEZHYBUcn8wbLTr6CodYtVsdrFYwbg8WwR5mcq2wjpsMpLyW+RODnsrpI+O78hIA0I/ReZA6MoDX9pHpjlW8r7b6i++JOmwMjle7j/s+OXPKPPdXnpzZXvGsdizBRLe8=
+	t=1782908600; cv=none; b=LuRQrT2Nvq/y+C9EC7MmzQoIVzaIEkUjWYqZFricnjw5yzLipcYk2O92yjPI56crbArcmQ02FRVjBZVJIwu9oM2Rw+KSQ2KMFpJoSTrzSeXnYPQOHj3z0xOMO1XTqLPLGglLkfdQQhLqMhV7YFkez+t/i0VROGHEYBFBh84FFkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782908598; c=relaxed/simple;
-	bh=f7QtpHXroTWy/oihFtD3mbVvXDutMUGID4Ruv4QJsHU=;
+	s=arc-20240116; t=1782908600; c=relaxed/simple;
+	bh=5srCtqnj/zKtIz+VzfcS8FumpU1+d674BbWfhrEjTsc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GCAGbZJpGtA7ZjASOUaJ5Fs+fO6RwpBv37HAn8WoW054vxYcs6RnCbei07rKUXrQQUlNeQOiFw3iWpdJdtzQvzpyobWAn7tWblv/0od2z4PUo6GylEdc8bzZNtSgtKvNlLsXEs7+nw97iK2z3tewgz8A+dgnwJ0thR4TsOLIqGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JmUR59no; arc=none smtp.client-ip=192.198.163.11
+	 MIME-Version; b=FP4/7MmkWqBH8KMZ01Zsb8uf0JUXbKn9gDxHSefdsgk8S21CBSeDHDITv8parIyyiMuFK0tVzwiog/mcRMKeXvNMJoyi3E6KJxgF7rAfs/vSrw8qPEwmrhtbRwgpjY/Q7/FU2Z25j0d9lPfVPIp1E1LdoAp9gURcuw+QxD6Keaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=giDdClpD; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JmUR59no"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="giDdClpD"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782908598; x=1814444598;
+  t=1782908599; x=1814444599;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=f7QtpHXroTWy/oihFtD3mbVvXDutMUGID4Ruv4QJsHU=;
-  b=JmUR59noSdkQWPJaIVJC+Esta5j5r3Rh0PQsSMCC0sTYkkw89OhBW/dz
-   L+1F6zZ1vx/8mzYQtg5o41tVeRYYQGlAqBjzhv2XyV4PiTKaYzkBGlXrc
-   GyV9YqgRrcbuohE9tyPjhqBqcxgKgdCJYSAfs5vb27sbkxWimkK9s376V
-   Qi4/FSRYVM5LYfCSWqlnDY3kbJhamhxUsSOO0hzHf7t9/jCbKgdxutr3h
-   SfUd1r2ifUT0g1k6bEC5puCTVyKahizAG5SyRCqG8ta1yFcSxSC61Isp7
-   8lC7paI83tLsxNIHevktn6uWSvyj1VDBwCvm3N6LxH3fDtyhmJGx3YiIc
-   g==;
-X-CSE-ConnectionGUID: 7Rpp+XN1R02AZjKBsyAHgw==
-X-CSE-MsgGUID: tsJJksuhSaOWYhIiuCV4/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="94239046"
+  bh=5srCtqnj/zKtIz+VzfcS8FumpU1+d674BbWfhrEjTsc=;
+  b=giDdClpDUcJlmwbtaebqemwBklitfROLvLT32BqJvxk9V0OkqN0VjKwH
+   pJywkj37d+lFKxe2tn3jO+RwqCTCp/xYw8CHA/NpVoMvrHnLkH/qyymX4
+   7If4QMnGb9PikL7Q5fl6u0ehxcqII/W/bGtUD60mdFLHF4PF4oRLKrXDw
+   9FR0VLMZdYwemUHWzFaORa9/hrLng9fTOSfRPuY646gJK06IhulTAYaqN
+   scljGE/ge6lDsTlKzhKXj1AnY1rtSKH5Jjf5hYqo+dLK13U2xsrjH2rP0
+   cO+PjaxJ1LhH55dv+Npn6IMpL/Tzxc9ijBlrUOGDKjKh7yhb8VJ6QwmYS
+   w==;
+X-CSE-ConnectionGUID: aONySfoDTaKcVSFUD65l7Q==
+X-CSE-MsgGUID: HRCOY3OsTLuuBCPpi09HuA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="94239058"
 X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; 
-   d="scan'208";a="94239046"
+   d="scan'208";a="94239058"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
   by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 05:23:13 -0700
-X-CSE-ConnectionGUID: LkMp0K6OR16aXumYVLgmeQ==
-X-CSE-MsgGUID: Y/wEQHaLTHqGaAkl7oqYuQ==
+X-CSE-ConnectionGUID: SwHCpEWNSFOQ8JosJaLZGw==
+X-CSE-MsgGUID: RFLQfuPQS42Ckg3Ug9uNKg==
 X-ExtLoop1: 1
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.62])
   by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 05:23:04 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id CD6F6121C16;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id D61E1121C1A;
 	Wed, 01 Jul 2026 15:23:04 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1weu1S-00000007FkN-2K9q;
+	id 1weu1S-00000007FkZ-2WMk;
 	Wed, 01 Jul 2026 15:26:34 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -78,9 +78,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v6 01/16] media: Documentation: Improve pixel rate calculation documentation
-Date: Wed,  1 Jul 2026 15:26:18 +0300
-Message-ID: <20260701122634.1728782-1-sakari.ailus@linux.intel.com>
+Subject: [PATCH v6 04/16] media: imx219: The horizontal blanking step is 8
+Date: Wed,  1 Jul 2026 15:26:21 +0300
+Message-ID: <20260701122634.1728782-4-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
 References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
@@ -92,35 +92,50 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Improve documentation on calculating the pixel rate, by adding references
-to relevant functions and mentioning V4L2 fwnode endpoint instead of OF
-endpoint.
+The step for horizontal blanking on imx219 is 8. Take this into account in
+creating and modifying the horizontal blanking control. The minimum line
+length in pixels as well as the horizontal blanking values are already
+divisible by 8.
 
+Fixes: cd5e2fd89923 ("media: i2c: imx219: make HBLANK r/w to allow longer exposures")
+Cc: stable@vger.kernel.org
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 ---
- Documentation/driver-api/media/tx-rx.rst | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/media/i2c/imx219.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/driver-api/media/tx-rx.rst b/Documentation/driver-api/media/tx-rx.rst
-index 7df2407817b3..9b231fa0216a 100644
---- a/Documentation/driver-api/media/tx-rx.rst
-+++ b/Documentation/driver-api/media/tx-rx.rst
-@@ -104,7 +104,11 @@ where
-    * - k
-      - 16 for D-PHY and 7 for C-PHY.
+diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+index 2aab6e7180d4..52a4bd9c4fd3 100644
+--- a/drivers/media/i2c/imx219.c
++++ b/drivers/media/i2c/imx219.c
+@@ -78,6 +78,7 @@
+ #define IMX219_LLP_MIN			0x0d78
+ #define IMX219_BINNED_LLP_MIN		0x0de8
+ #define IMX219_LLP_MAX			0x7ff0
++#define IMX219_LLP_STEP			8
  
--Information on whether D-PHY or C-PHY is used, and the value of ``nr_of_lanes``, can be obtained from the OF endpoint configuration.
-+Information on whether D-PHY or C-PHY is used as well as the value of
-+``nr_of_lanes`` can be obtained from the V4L2 endpoint configuration; see
-+:c:func:`v4l2_fwnode_endpoint_alloc_parse()`,
-+:c:func:`v4l2_fwnode_endpoint_parse()` and
-+:c:func:`v4l2_get_active_data_lanes()`.
- 
- .. note::
- 
+ #define IMX219_REG_X_ADD_STA_A		CCI_REG16(0x0164)
+ #define IMX219_REG_X_ADD_END_A		CCI_REG16(0x0166)
+@@ -578,7 +579,8 @@ static int imx219_init_controls(struct imx219 *imx219)
+ 	imx219->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &imx219_ctrl_ops,
+ 					   V4L2_CID_HBLANK,
+ 					   IMX219_LLP_MIN - mode->width,
+-					   IMX219_LLP_MAX - mode->width, 1,
++					   IMX219_LLP_MAX - mode->width,
++					   IMX219_LLP_STEP,
+ 					   IMX219_LLP_MIN - mode->width);
+ 	exposure_max = mode->fll_def - IMX219_EXPOSURE_OFFSET;
+ 	exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
+@@ -920,7 +922,8 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 				  IMX219_BINNED_LLP_MIN : IMX219_LLP_MIN;
+ 		ret = __v4l2_ctrl_modify_range(imx219->hblank,
+ 					       llp_min - mode->width,
+-					       IMX219_LLP_MAX - mode->width, 1,
++					       IMX219_LLP_MAX - mode->width,
++					       IMX219_LLP_STEP,
+ 					       llp_min - mode->width);
+ 		if (ret)
+ 			return ret;
 -- 
 2.47.3
 
