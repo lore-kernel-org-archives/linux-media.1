@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB4E3603E9;
-	Wed,  1 Jul 2026 08:59:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFEC03EFFD4;
+	Wed,  1 Jul 2026 08:59:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782896381; cv=none; b=Sqiciuyk7b0RxcooLbXBE9xSt/lQ/0COdrchgnqgc/xH68QFi0vzOXU/ULxlo6PXXCogSYWB57gRmrIggL/y9Csmr6+Z+JJaLrOZbBl08tdk+/AtgLRzMGeJWYXrUyuL7FbljPoG/2qSKTaZwqFIeAJnVgL2KG398P7fSgSEI54=
+	t=1782896384; cv=none; b=F0j5GvXR3jwEtJL49kOrwKLh0JV5uz95yaVhce0665VrsZxTqdSFvFc93tt+GDJ648GaeOebLnDcl3vDbuZ/Njf8FKHukrFNU9j/OzEOFd2Gi+d2YoXMHQ+4Ybt3ElknkDOygawjrhCtvJVqHr1JCpFk8H860Gg7mC226gul50s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782896381; c=relaxed/simple;
-	bh=mBvVi/8L/gOLwsb0MUCzm8UjR4UShdlM+HBCZizzqNU=;
+	s=arc-20240116; t=1782896384; c=relaxed/simple;
+	bh=C0zqSXZ4AuItRGAfhY1/njMw23vg/zqbo9biCVBDSgE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pqb8Y9ppbSMGAG7YxOEahrJy+pFXdEPiJphdA10DVOXh48oE4tfilrWhYRRrx7Gnk4wvs88sco3ehesRcSA1xQoHSyEv58b3dHGcJqP5GFR2ijJaKIOwqgQDtBjCAfDDgI7jBDY2g6LeCXEMkdFXiqKPqUjH85MDnEJECS+utvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iXmK/8Is; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WlhTD/Tykqr6TZblIclMDRglubLS04d5VQLKk8cxEKRxhi9pC7QjBigSMoaCT1Db9dnynDkWI5Hx9lrLgK9frgWm2Oezn5EEICyprupeQTr6eJxg2EkwHhvwPRrWT58arr2Km06nW6yHcCSQZhNll6c0gXqdOS28+vZT4TiEjmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m6QTuUxg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iXmK/8Is"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79A3D1F00A3A;
-	Wed,  1 Jul 2026 08:59:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m6QTuUxg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA3781F000E9;
+	Wed,  1 Jul 2026 08:59:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782896379;
-	bh=H6zZJpMjMXNC/d6NQOehh7ReaCH7b9xFtZjCC9rrxf8=;
+	s=k20260515; t=1782896383;
+	bh=0lRsz+bsd59r/YXRL4xu3uteL9lA+FSwzHtZ025wxN4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iXmK/8IsPu3VNPAyTOWukYCSn9euoofgEV11ziNWw/yYb/kOzbU0gbupyY/gzXITH
-	 apzYmG0B8KMellb4qiPsZbxhczhz9IOzft8vjlzvKjs4IHIzZgZ7DqnkFew5r2/dZx
-	 0wFKyfVUDGAjAK1azmDycN22Ir6huGJv/6Mg51UzckeVDLJYd56zF6DbCHeGHpEGey
-	 fRrMnjHF3yd8RID6J+mWbbsK0jSIJW+wyex1rO5YaQoOvmlRrKQhEqoQZJcvs7LDV+
-	 /j0vA+aej6RQ9sH/uf9v37C5DtgxVwWNNGYhlRylZ1bQE7mjiRWuFBaDbLlNi5FdrL
-	 bSjCVJmcRM5+A==
+	b=m6QTuUxgqiakjeh4Srm3Evvf+x8GPJPlS/3Lskx8UQXFHBicETcE5qifKdaVarGO2
+	 RPvCyOkZJ9PVEKt3cydgiN3nEpUYCSwX+UTu5SVKcIeDunip/TfvEh8XllbD5Imi26
+	 nKSGoJIL4UA6IOSO+vRvjfRYAwNW4GGgLb3fx0COd0rV+bdQYmMRRG9LgyivRygHbd
+	 NH2vo8wRMNzbomkC5/PBjRpDtLgLiDnp1U+AeZ9Z9HhEUAvWaZfpYv2BsSSF4Xk8t0
+	 /f+srLd0t6QmSU/4RiTfp34vrlFjWGE2QQ7oQbtgh7pb0W64HiMELyYrKC/Yx8h+mI
+	 NZWhqmKpP6Piw==
 From: Philipp Stanner <phasta@kernel.org>
 To: Matthew Brost <matthew.brost@intel.com>,
 	Danilo Krummrich <dakr@kernel.org>,
@@ -44,9 +44,9 @@ Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	linaro-mm-sig@lists.linaro.org
-Subject: [PATCH 1/5] drm/sched: Protect entity->last_scheduled with spinlock
-Date: Wed,  1 Jul 2026 10:59:17 +0200
-Message-ID: <20260701085920.3253248-3-phasta@kernel.org>
+Subject: [PATCH 2/5] drm/sched: Lock spsc_queue in drm_sched_entity_pop_job()
+Date: Wed,  1 Jul 2026 10:59:18 +0200
+Message-ID: <20260701085920.3253248-4-phasta@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260701085920.3253248-2-phasta@kernel.org>
 References: <20260701085920.3253248-2-phasta@kernel.org>
@@ -58,168 +58,49 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The entity->last_scheduled field has always been set and read with
-special RCU functions in addition to memory barriers.
+Cleanup work in the preceding commit added locking to
+drm_sched_entity_pop_job(). This cleanup causes a slightly sub-optimal
+lock cycle with drm_sched_rq_pop_entity().
 
-This was added in
+sched_entity also utilizes the lockless spsc_queue (partially already
+used simultaneously with locks), which was marked for removal in
 
-commit 70102d77ff22 ("drm/scheduler: add drm_sched_entity_error and use rcu for last_scheduled")
+commit 6e7eb171ac96 ("Documentation: drm: Add entry for removing spsc_queue to TODO list")
 
-however, no proper justification for that mechanism was provided. There
-seems to be no obvious reason, since the entity lock is available and
-taken at all places that evaluate the last_scheduled field. The only
-exception is drm_sched_entity_error(), which is not performance critical
-in any way.
+To remove the lock-cycle mentioned above, the unlock must be moved
+downwards, also locking the lockless queue.
 
-Improve robustness, readability and maintainability by replacing RCU and
-barriers with the lock.
+Guard spsc_queue_pop() in drm_sched_entity_pop_job() with the lock and
+document why that is being done.
 
 Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/gpu/drm/scheduler/sched_entity.c | 50 ++++++++++--------------
- include/drm/gpu_scheduler.h              |  9 ++---
- 2 files changed, 25 insertions(+), 34 deletions(-)
+ drivers/gpu/drm/scheduler/sched_entity.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index c51101ec70c1..91aec20611ad 100644
+index 91aec20611ad..5cf0af91faf2 100644
 --- a/drivers/gpu/drm/scheduler/sched_entity.c
 +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -135,7 +135,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 	entity->num_sched_list = num_sched_list;
- 	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
- 	entity->rq = &sched_list[0]->rq;
--	RCU_INIT_POINTER(entity->last_scheduled, NULL);
- 	RB_CLEAR_NODE(&entity->rb_tree_node);
- 	init_completion(&entity->entity_idle);
+@@ -529,9 +529,17 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+ 	spin_lock(&entity->lock);
+ 	prev_last_scheduled = entity->last_scheduled;
+ 	entity->last_scheduled = dma_fence_get(&sched_job->s_fence->finished);
+-	spin_unlock(&entity->lock);
  
-@@ -201,10 +200,10 @@ int drm_sched_entity_error(struct drm_sched_entity *entity)
- 	struct dma_fence *fence;
- 	int r;
- 
--	rcu_read_lock();
--	fence = rcu_dereference(entity->last_scheduled);
-+	spin_lock(&entity->lock);
-+	fence = entity->last_scheduled;
- 	r = fence ? fence->error : 0;
--	rcu_read_unlock();
-+	spin_unlock(&entity->lock);
- 
- 	return r;
- }
-@@ -287,9 +286,10 @@ void drm_sched_entity_kill(struct drm_sched_entity *entity)
- 	/* Make sure this entity is not used by the scheduler at the moment */
- 	wait_for_completion(&entity->entity_idle);
- 
--	/* The entity is guaranteed to not be used by the scheduler */
--	prev = rcu_dereference_check(entity->last_scheduled, true);
-+	spin_lock(&entity->lock);
-+	prev = entity->last_scheduled;
- 	dma_fence_get(prev);
-+	spin_unlock(&entity->lock);
- 	while ((job = drm_sched_entity_queue_pop(entity))) {
- 		struct drm_sched_fence *s_fence = job->s_fence;
- 
-@@ -381,8 +381,7 @@ void drm_sched_entity_fini(struct drm_sched_entity *entity)
- 		entity->dependency = NULL;
- 	}
- 
--	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
--	RCU_INIT_POINTER(entity->last_scheduled, NULL);
-+	dma_fence_put(entity->last_scheduled);
- 	drm_sched_entity_stats_put(entity->stats);
- }
- EXPORT_SYMBOL(drm_sched_entity_fini);
-@@ -507,6 +506,10 @@ drm_sched_job_dependency(struct drm_sched_job *job,
- 
- struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
- {
-+	/* Helper to avoid dropping the reference while the entity lock is held,
-+	 * just to have some more robustness.
++	/* Preceding cleanup work made it necessary to add the spinlock
++	 * to this function. spsc_queue, a lockless queue, is now
++	 * counterintuitively guarded by the lock as well. spsc_queue is queued
++	 * for removal (see DRM TODO list), so this somewhat serves as a
++	 * preparational step.
++	 *
++	 * TODO: Replace spsc_queue completely with a locked (h)list.
 +	 */
-+	struct dma_fence *prev_last_scheduled;
- 	struct drm_sched_job *sched_job;
- 
- 	sched_job = drm_sched_entity_queue_peek(entity);
-@@ -523,19 +526,14 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
- 	if (entity->guilty && atomic_read(entity->guilty))
- 		dma_fence_set_error(&sched_job->s_fence->finished, -ECANCELED);
- 
--	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
--	rcu_assign_pointer(entity->last_scheduled,
--			   dma_fence_get(&sched_job->s_fence->finished));
--
--	/*
--	 * If the queue is empty we allow drm_sched_entity_select_rq() to
--	 * locklessly access ->last_scheduled. This only works if we set the
--	 * pointer before we dequeue and if we a write barrier here.
--	 */
--	smp_wmb();
-+	spin_lock(&entity->lock);
-+	prev_last_scheduled = entity->last_scheduled;
-+	entity->last_scheduled = dma_fence_get(&sched_job->s_fence->finished);
+ 	spsc_queue_pop(&entity->job_queue);
 +	spin_unlock(&entity->lock);
  
- 	spsc_queue_pop(&entity->job_queue);
- 
-+	dma_fence_put(prev_last_scheduled);
+ 	dma_fence_put(prev_last_scheduled);
  	drm_sched_rq_pop_entity(entity);
- 
- 	/* Jobs and entities might have different lifecycles. Since we're
-@@ -561,21 +559,15 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
- 	if (spsc_queue_count(&entity->job_queue))
- 		return;
- 
--	/*
--	 * Only when the queue is empty are we guaranteed that
--	 * drm_sched_run_job_work() cannot change entity->last_scheduled. To
--	 * enforce ordering we need a read barrier here. See
--	 * drm_sched_entity_pop_job() for the other side.
--	 */
--	smp_rmb();
--
--	fence = rcu_dereference_check(entity->last_scheduled, true);
-+	spin_lock(&entity->lock);
-+	fence = entity->last_scheduled;
- 
- 	/* stay on the same engine if the previous job hasn't finished */
--	if (fence && !dma_fence_is_signaled(fence))
-+	if (fence && !dma_fence_is_signaled(fence)) {
-+		spin_unlock(&entity->lock);
- 		return;
-+	}
- 
--	spin_lock(&entity->lock);
- 	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
- 	rq = sched ? &sched->rq : NULL;
- 	if (rq != entity->rq) {
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index d61c19e78182..176ff1f936cd 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -100,7 +100,8 @@ struct drm_sched_entity {
- 	 * @lock:
- 	 *
- 	 * Lock protecting the run-queue (@rq) to which this entity belongs,
--	 * @priority and the list of schedulers (@sched_list, @num_sched_list).
-+	 * @priority, @last_scheduled and the list of schedulers (@sched_list,
-+	 * @num_sched_list).
- 	 */
- 	spinlock_t			lock;
- 
-@@ -202,11 +203,9 @@ struct drm_sched_entity {
- 	/**
- 	 * @last_scheduled:
- 	 *
--	 * Points to the finished fence of the last scheduled job. Only written
--	 * by drm_sched_entity_pop_job(). Can be accessed locklessly from
--	 * drm_sched_job_arm() if the queue is empty.
-+	 * Points to the finished fence of the last scheduled job.
- 	 */
--	struct dma_fence __rcu		*last_scheduled;
-+	struct dma_fence		*last_scheduled;
- 
- 	/**
- 	 * @last_user: last group leader pushing a job into the entity.
 -- 
 2.54.0
 
