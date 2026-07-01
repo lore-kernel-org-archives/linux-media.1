@@ -1,52 +1,52 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15CA248C8A0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826A94921A1
 	for <linux-media@vger.kernel.org>; Wed,  1 Jul 2026 12:23:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782908604; cv=none; b=cnqjqHHUd3suhXb//FDqxh2JBQhQIXipy0fHob7PGFilHajxQCIx/6S3nA8gGhDpvTCyMYlEiXy7Olv6tLmpbMWd5X7+/ijK8aeA18k46dlgRr1QqIJu/hYNxg3/rdIRM0+nC89jI3G7J21dMOybj3Sttga+WkLpfiNk9FRF9TY=
+	t=1782908604; cv=none; b=WWDxva2zUykpFr4AbQ6fP6vesa8tyrUXnmnN5LuUV1RwHJAhOKPxnMB7Rl+QIuHTLOxwJwgzeYJymd6Q2C0iU31EqAprpkr7To8he6Xs7SP3XipH7/OPtM9gFEvghtZRqasNlAwcaqM737o4ou/W07MGlcr5/SCdDmbuUNjn1pY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782908604; c=relaxed/simple;
-	bh=dukQLqHh7MfUvn0AU4TQRoWD1rNUeQCJqGnEvzSnY4k=;
+	bh=s6mql3yvxOavyk3gxFFxeoqZq1MaKTu0RoXnz+Iw/FQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TBUtvMp3mJAvebG7kkTzIla5+PTqp8kUgTKppmkYzmAoxm9DyqRC3kR7VHfqR6182BkYo0xA8wt1x2POqM42WWcVderkoxH0kVTmoQGqwIcPj5j6T7IO4Kk3sCGTzLyPKZiJOtXSZ71XVTOdCo0GuIJm2/OJjeMvfl/Yx/gxTiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=H1HnS/UW; arc=none smtp.client-ip=192.198.163.11
+	 MIME-Version; b=WUszcj6e9FHAuFzNTWXabI5V+PbRvcZmbKvDjccFg2+5pNEw/nFplhF1fWeuZgiwNrescBTrwngJ0ZyqmIDGCo7RUy1KTE4g4GSA5G4L0uXnP52AFSJYogyx2fTnycc9rC5PgabeaZsYbta+gJhwAZxrF5eIcqTRamrOrZcoTZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XIyrcArH; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="H1HnS/UW"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XIyrcArH"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1782908603; x=1814444603;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=dukQLqHh7MfUvn0AU4TQRoWD1rNUeQCJqGnEvzSnY4k=;
-  b=H1HnS/UWFVPxdeJGboL1FrA9VS3Wr0E/B7fCFGlPFHbCG600PlNAgVg+
-   7h5ECW6mwNKvfeA3qALRqVF2EmkQe8262c4Xc+mHa9NBzdwRre2Wlzaco
-   qFbz2AnUXubzsZVE2ifNC16zER19YfFW5HN2OZ8214IiXf28L0hnLuGHi
-   KpyLar8ITI84vOTpUwt/MuPtDLa6ooPlgZqM9rB9CeTCGrxrzvXXxsg1q
-   BME7NuLQ0PgcE5USQYALYFTa7oE68iIlENXqHdzgv56QqzVISG25sdweO
-   UPrOaSkt3HxCHhBcW6BJNI5Nvt84o1F5MO4z6SKdg1ojtGTD48m0tXIAv
+  bh=s6mql3yvxOavyk3gxFFxeoqZq1MaKTu0RoXnz+Iw/FQ=;
+  b=XIyrcArHLJXBTFfmvrfI+wLFo7pBV96gT9akMdGkqqAeTevbvQHLYLoD
+   KMzPsAtFVrnfDURRu7tz278hM4cqyjyvVYVqHt8qBuSwuSZjLvk7Mz1j1
+   I0XwQJW53PW3alXqnS8tCLmWd2JTn8xUsNKaLhCUJshapQRSjKliHbFkD
+   FmfTp45acW5QvaXY8eb1byP8vxwSkzEeIganp5ETNyGh3aETaRgTPYRuS
+   2YG9YuA3FBQ4DE9OBOw0K21FFFGO5jgGP/eZ39s5OXCV1ImRXFOJBWqO/
+   eFhZDgneB6Tm0x18hQKlqABUoULhJQTP4lc8SN71aQsbUP5Scy74kfclJ
    w==;
-X-CSE-ConnectionGUID: BzzV8L4IR7GaJgfWeHuWSQ==
-X-CSE-MsgGUID: NJGkPIfdSvSZqIvsG0OWew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="94239125"
+X-CSE-ConnectionGUID: AfnFiwYDQGyg2J8BR/WpEA==
+X-CSE-MsgGUID: +UHetii3Q4mWjX4yqQREBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="94239134"
 X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; 
-   d="scan'208";a="94239125"
+   d="scan'208";a="94239134"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
   by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 05:23:21 -0700
-X-CSE-ConnectionGUID: MB6+rhOOQoeY7Ke4QFVOEw==
-X-CSE-MsgGUID: m5maPByjTy6E3rC5TIiIDg==
+X-CSE-ConnectionGUID: N04jh6+3Qduo6AvTYOlb7Q==
+X-CSE-MsgGUID: GH/DM0y8TuG8d+3CylCXBw==
 X-ExtLoop1: 1
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.62])
   by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 05:23:14 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id D8F3B121C36;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id EE58F121C4E;
 	Wed, 01 Jul 2026 15:23:04 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1weu1S-00000007Fkh-2eZx;
+	id 1weu1S-00000007Fl2-2ylE;
 	Wed, 01 Jul 2026 15:26:34 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -78,9 +78,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v6 06/16] media: Improve enable_streams and disable_streams documentation
-Date: Wed,  1 Jul 2026 15:26:23 +0300
-Message-ID: <20260701122634.1728782-6-sakari.ailus@linux.intel.com>
+Subject: [PATCH v6 11/16] media: rdacm20: Don't assign set_fmt()
+Date: Wed,  1 Jul 2026 15:26:28 +0300
+Message-ID: <20260701122634.1728782-11-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
 References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
@@ -92,43 +92,26 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document that enable_streams may start additional streams and
-disable_streams may not disable requested streams if other related streams
-are still enabled.
+Do not assign set_fmt() as it is the same as get_fmt(), which will be
+called by the framework now in absence of set_fmt() op.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
 ---
- include/media/v4l2-subdev.h | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/media/i2c/rdacm21.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
-index d256b7ec8f84..d9dca6905b33 100644
---- a/include/media/v4l2-subdev.h
-+++ b/include/media/v4l2-subdev.h
-@@ -814,6 +814,11 @@ struct v4l2_subdev_state {
-  *	V4L2_SUBDEV_CAP_STREAMS sub-device capability flag can ignore the mask
-  *	argument.
-  *
-+ *	Due to device constraints, starting the requested streams may result in
-+ *	additional streams also being started by the driver. Streams that are
-+ *	started and stopped together due to the nature of the hardware are
-+ *	called a stream group.
-+ *
-  * @disable_streams: Disable the streams defined in streams_mask on the given
-  *	source pad. Subdevs that implement this operation must use the active
-  *	state management provided by the subdev core (enabled through a call to
-@@ -823,6 +828,9 @@ struct v4l2_subdev_state {
-  *	Drivers that support only a single stream without setting the
-  *	V4L2_SUBDEV_CAP_STREAMS sub-device capability flag can ignore the mask
-  *	argument.
-+ *
-+ *	When the requested stream are part of a stream group, they will be
-+ *	stopped once all streams in the group are stopped.
-  */
- struct v4l2_subdev_pad_ops {
- 	int (*enum_mbus_code)(struct v4l2_subdev *sd,
+diff --git a/drivers/media/i2c/rdacm21.c b/drivers/media/i2c/rdacm21.c
+index bcab462708c7..c7d2bb1cbe48 100644
+--- a/drivers/media/i2c/rdacm21.c
++++ b/drivers/media/i2c/rdacm21.c
+@@ -322,7 +322,6 @@ static const struct v4l2_subdev_video_ops rdacm21_video_ops = {
+ static const struct v4l2_subdev_pad_ops rdacm21_subdev_pad_ops = {
+ 	.enum_mbus_code = rdacm21_enum_mbus_code,
+ 	.get_fmt	= rdacm21_get_fmt,
+-	.set_fmt	= rdacm21_get_fmt,
+ };
+ 
+ static const struct v4l2_subdev_ops rdacm21_subdev_ops = {
 -- 
 2.47.3
 
