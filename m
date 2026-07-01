@@ -1,272 +1,123 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72DFB4949E3;
-	Wed,  1 Jul 2026 17:13:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7095937DAAC;
+	Wed,  1 Jul 2026 17:22:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782926024; cv=none; b=Hg49Im6c/V7sV/bhHpiASRVJB6MDD7j5B59Bx/5jokt7fvDTaHWxy1gUpVgzp2fbqZBMnvTJ17rwj7XTwRyx7cKZEQGaokHSRrPeX633eh6AGGG3min6fOmEoVtkQN7K7e3hMh4IEGzYAwvit+X7HhkS6LWONpFuS1ewxUUa7Qk=
+	t=1782926579; cv=none; b=mzLkOhtCe9zezH0E1zVSOg6pllX3Z65Tf5tMxndc2YS6b9fQ5Sz3Th3EDDdI/YsF9jt+MfKsGZ966pE5r5zTn6R2nSNjtBerU6edWOM4osfUKtQHAgc4Ha9uk7B3qrtFDaSreHX7fHOMqQqykKSQV8Hbq9MewCxaZMRWIBwYq1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782926024; c=relaxed/simple;
-	bh=AxoJcUVsLyOA+eHi3L+DP5Ak8JjNG2Msbmqd+wJzheM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WNd/vJe+/iIDGSKCE2J29PsOvOpvOGB/PbO0TDQALyjF7wzZmcTyOFi20MbrO4YJt0/d7QK7S7IVUnxEszvTe4Qa21Fpo5Fz2vwU4whh/SekF9tC86OuHdmoaHm21qUhdbhShvTwrxq4Q1Efm+PXHfjnnZjx7rsdTddn8wrIGXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=cwAGTMui; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	s=arc-20240116; t=1782926579; c=relaxed/simple;
+	bh=X5Y4VVZkiZCIfSDvEHN0PchShZDSL+6Bb5z4AG6HoKM=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=K5vUYOGFkee8rZbP0KTknn7DL30UApW5h4RfiUtuPTTaornD0ccqanBMairIhLrIywisuEB6otelKHrJ/hn47h1IZuXCsjBjKnhLBBOyBfWudbEY104LBcokcvH8EtZdxcKvQPAX0nr6abgtw6469i4GiBUqMbsTl7zcS0+3VQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=luaberry.com; spf=pass smtp.mailfrom=luaberry.com; dkim=pass (2048-bit key) header.d=luaberry.com header.i=@luaberry.com header.b=DW1VBKz6; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ilZptKbZ; arc=none smtp.client-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=luaberry.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=luaberry.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="cwAGTMui"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1782926021;
-	bh=Q7wMHC5wMXi79xSQJq1oa0JMjZtGpyIKwT+h3qHie/U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cwAGTMui8KAgKIqS2zh/hMf2NpJ6Igjw5IT0UAZBRm8BXsqGyTjs+kdns6POc5EMM
-	 j+p8ubTR9CxHTK9qYU6UB5yZHMa/IpIGY2avWkfEvO7VmJN+iZcfSCAw+nnC5SDZQm
-	 8mBWN+CJsV8HfDYesVlHp3WdAaU6lWfwhOAUP6YIXgns9qanLf9uXRCUfjhGAWt2p1
-	 DcFYvcyGUFWQdX0ECMysGsN6UMkP0TmF73t2Fkyw+ppNhfyfqfANe7D5cEDEtdBNRH
-	 OPiKejWu6Dj2Cuzo59AQesh2id+S4WmLKo9HCd1fCqcRnIc3EVI1hoJ+3N64tBKNpZ
-	 0zhrBSVM2ccxA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4gr66r10vmz4wgb;
-	Thu, 02 Jul 2026 03:13:40 +1000 (AEST)
-From: Matt Evans <matt@ozlabs.org>
-To: Alex Williamson <alex@shazbot.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Alex Mastro <amastro@fb.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Pranjal Shrivastava <praan@google.com>
-Cc: Mahmoud Adam <mngyadam@amazon.de>,
-	David Matlack <dmatlack@google.com>,
-	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	kvm@vger.kernel.org,
-	linux-pci@vger.kernel.org
-Subject: [PATCH v4 10/10] vfio/pci: Add mmap() attributes to DMABUF feature
-Date: Wed,  1 Jul 2026 18:12:22 +0100
-Message-ID: <20260701171245.90111-11-matt@ozlabs.org>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260701171245.90111-1-matt@ozlabs.org>
-References: <20260701171245.90111-1-matt@ozlabs.org>
+	dkim=pass (2048-bit key) header.d=luaberry.com header.i=@luaberry.com header.b="DW1VBKz6";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ilZptKbZ"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.stl.internal (Postfix) with ESMTP id AF2851D00084;
+	Wed,  1 Jul 2026 13:22:55 -0400 (EDT)
+Received: from phl-imap-17 ([10.202.2.105])
+  by phl-compute-03.internal (MEProxy); Wed, 01 Jul 2026 13:22:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=luaberry.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1782926575;
+	 x=1783012975; bh=X5Y4VVZkiZCIfSDvEHN0PchShZDSL+6Bb5z4AG6HoKM=; b=
+	DW1VBKz63qREbXwLl6jexaeKn7uirxFSqOlOdhyxkgwxw+VcyXJ4KhxmBPowVxsT
+	mDZUsiU5gH6OleUOZMndec+L7ITNWJqSJdjZ/tfZSPEwa5H9JCIuaiVO+b2b/dli
+	OEK2glkDf9qZ2vmtSHNrna2zvLdIFxGLO2ORq9EKOCPloF0b0SEWp/vLoWrDiL5r
+	O/emLzfoHZgaqjWt4UDaqBTz3P4MUDApp+qNsRPk3GxzQqzUr5vP2vGbUDISchaQ
+	gOQzkqMoBW82Y7LEH2Xkqsk+Z9nuopgaW0GnajYmIinhFAsDDXBS90fOoZxEcn7M
+	wYuzaMye7VHItvRxEbwvXw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1782926575; x=
+	1783012975; bh=X5Y4VVZkiZCIfSDvEHN0PchShZDSL+6Bb5z4AG6HoKM=; b=i
+	lZptKbZeLEz3loXr3LCk5pQsAdRekcgqx2qBuVAQ6qB07JZi2643NQkKgRKjhos5
+	l5n12QmXoQeL6M6m/cIIOHfzO1li5T2QzWYJyaGGHGraNnXtU1D/m0siGGy5cPxf
+	QGqiPRjVbFD9S/TxfpqvTtedHqaFBcKuhMiBAhl3SU8g5p4ddwpdOrJKcUJBa8Ul
+	tuWbFW4iGRlc5gCX811xNJ8u0OQ9t/u8sXNFJduDw6UpQyPFbVjJoM1EkPTAA/Dt
+	y+huhqGJjWKWcaI6lpU8VeWowpt9F6HxOxKdLXcxzUUsmbmjydZv9mO9AnHvPxWX
+	DCIdnm9POHUbjCatJf1lA==
+X-ME-Sender: <xms:70xFagnVSdos9hchodEmFBFJdRubfVMyIPanIMi_Kae2bNTx1BIUhw>
+    <xme:70xFaqqesFQSYrB-0B8n8TZzxBEsP-OgKb40vazRO4umo4R8faJ-NxfqXbqkVkmaq
+    yH7GBsZtFreVsj43sV_S6QoifEbKocMrbaYQN_6K6MzRBz8A0MTS4k>
+X-ME-Proxy-Cause: dmFkZTFW56SnLu5hUMemt9inLXuRi8LOE6B2T2byLslo0Z/0s4XkQO4GVRG914f+LOtBWw
+    jUEAoDiBNJB5Mc5jDU8mrx2MWbtIyX44ACumKQz08jLK6qV+t4Asf1hvNuuP3j4ih/7IBh
+    F3cJN0pdUpmyk9i6Wwg2PdzMg6WCpI84NELVeKYbBu+KFH//Gy0Pw+WNe0btrUkbQ8vpIC
+    fPLO8Izo57kNY65hkW9pnEiIEJ27FKx+pImZAgyHJl2HW4VYLFLl3z19x9y5R70C8ltzVb
+    upe/aUzzJ4yW5318PLgKEAMtuV1n1LbjHZE/RQEYYqU9g1APLzoxscJt196qDGjhAY1utV
+    TYzVdS8749uhDK1Ei8DSVE+qgvfIxr+ymKPReuCjkn45fdLhC2Xo5TAwJqKXOaZL7i87No
+    fer6PjpVRsc+dqz9SogCDzdDAsYe6D3pOGKFTOcfP6EX0xIiddDr0UfWGspzAzBGXbXdae
+    SfOqy9pY4QDuTbicTK95wKqk262cdKyeMvZF/idOFsS9G1805bqMQVFi4coXr2JrwlHioh
+    OIlr2zbgNX4n/DADykZMmfoj6DdR9URpGKiL01LhNqP6dKVlsxUiiFupElBILBAYQ1S1vr
+    RbUVQLcs2ocOCqhYc/zx1B+FikqQj3XdfqOsQFDOFmXDwxY+pD6nbvEt0LDQ
+X-ME-Proxy: <xmx:70xFahTMuSXSdL-jkBxwiAkCQL5kMBfz-mxskJYZ407yxchiXtW2Cw>
+    <xmx:70xFapBiXtoxaRNM6-N9fLgbgP4dM0QkRruXrNiiNMHS4ljV99sT8w>
+    <xmx:70xFagKby3o2MFUx2An3HICzYknWpwswKPQYRdDhj5ygFUD_Afo1UQ>
+    <xmx:70xFasCesc5pitFmsdqfwj3duRRsOuy_t1CZD-IuY-yWXbcOQyTENA>
+    <xmx:70xFajMMyChWspveBq68hBEMWJ7n-0uZJ2Xx97dBRWJc6EVEhZlAXNvN>
+Feedback-ID: i372e487a:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 0D484C40072; Wed,  1 Jul 2026 13:22:55 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: A74LFP6wUQ7F
+Date: Thu, 02 Jul 2026 02:22:32 +0900
+From: "Jeongin Yeo" <jeongin.yeo@luaberry.com>
+To: "Andy Shevchenko" <andy.shevchenko@gmail.com>
+Cc: hansg@kernel.org, mchehab@kernel.org,
+ "Greg KH" <gregkh@linuxfoundation.org>,
+ "Sakari Ailus" <sakari.ailus@linux.intel.com>, andy@kernel.org,
+ matt@mattwardle.net, linux-media@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Message-Id: <69b5aa9d-03ba-4082-9350-0f803edb4d06@app.fastmail.com>
+In-Reply-To: 
+ <CAHp75VcL4KK=K4ZhT+Qc8VWUBsdaPcjcHJX0WJu8cty_fpJsOg@mail.gmail.com>
+References: <20260527073705.1544479-1-jeongin.yeo@luaberry.com>
+ <CAHp75VcL4KK=K4ZhT+Qc8VWUBsdaPcjcHJX0WJu8cty_fpJsOg@mail.gmail.com>
+Subject: Re: [PATCH v3] media: atomisp: remove redundant prefix from dev_dbg calls
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-A new VFIO feature, VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR, is added to
-set CPU-facing memory type attributes for a DMABUF exported from
-vfio-pci.  These are used for subsequent mmap()s of the buffer.
+On Wed, May 27, 2026, at 5:05 PM, Andy Shevchenko wrote:
+> On Wed, May 27, 2026 at 9:37=E2=80=AFAM Jeongin Yeo <jeongin.yeo@luabe=
+rry.com> wrote:
+> >
+> > Remove the hardcoded function name and line number prefix from
+> > dev_dbg() output strings within ia_css_binary_find(). dev_dbg()
+> > can already emit the function name and line number via dynamic_debug=
+'s
+> > 'f' and 'l' flags, so embedding it in the format string is redundant.
+> >
+> > This resolves the EMBEDDED_FUNCTION_NAME checkpatch warnings without
+> > introducing __func__ to format strings.
+> >
+> > No functional changes.
+>=20
+> LGTM,
+> Reviewed-by: Andy Shevchenko <andy@kernel.org>
+>=20
 
-There are two attributes supported:
- - The default, VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC
- - VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC, which results in WC
-   PTEs for the DMABUF's BAR region.
+Hi,
 
-Signed-off-by: Matt Evans <matt@ozlabs.org>
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
----
- drivers/vfio/pci/vfio_pci_core.c   |  2 ++
- drivers/vfio/pci/vfio_pci_dmabuf.c | 57 +++++++++++++++++++++++++++++-
- drivers/vfio/pci/vfio_pci_priv.h   | 14 ++++++++
- include/uapi/linux/vfio.h          | 27 ++++++++++++++
- 4 files changed, 99 insertions(+), 1 deletion(-)
+Gentle second ping on this patch.
 
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index ebdf9ec30517..0059c176d627 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -1579,6 +1579,8 @@ int vfio_pci_core_ioctl_feature(struct vfio_device *device, u32 flags,
- 		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
- 	case VFIO_DEVICE_FEATURE_DMA_BUF_REVOKE:
- 		return vfio_pci_core_feature_dma_buf_revoke(vdev, flags, arg, argsz);
-+	case VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR:
-+		return vfio_pci_core_feature_dma_buf_memattr(vdev, flags, arg, argsz);
- 	default:
- 		return -ENOTTY;
- 	}
-diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-index cfca820b767a..31fbad93f89b 100644
---- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-+++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -49,7 +49,10 @@ static int vfio_pci_dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *
- 	if ((vma->vm_flags & VM_SHARED) == 0)
- 		return -EINVAL;
- 
--	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
-+	if (READ_ONCE(priv->memattr) == VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC)
-+		vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
-+	else
-+		vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
- 	vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
- 
- 	/* See comments in vfio_pci_core_mmap() re VM_ALLOW_ANY_UNCACHED. */
-@@ -482,6 +485,7 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
- 	priv->vdev = vdev;
- 	priv->nr_ranges = get_dma_buf.nr_ranges;
- 	priv->size = length;
-+	priv->memattr = VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC;
- 	ret = vdev->pci_ops->get_dmabuf_phys(vdev, &priv->provider,
- 					     get_dma_buf.region_index,
- 					     priv->phys_vec, dma_ranges,
-@@ -759,6 +763,57 @@ int vfio_pci_core_feature_dma_buf_revoke(
- 		}
- 	}
- 
-+out_put_buf:
-+	dma_buf_put(dmabuf);
-+
-+	return ret;
-+}
-+
-+int vfio_pci_core_feature_dma_buf_memattr(
-+	struct vfio_pci_core_device *vdev, u32 flags,
-+	struct vfio_device_feature_dma_buf_memattr __user *arg,
-+	size_t argsz)
-+{
-+	struct vfio_device_feature_dma_buf_memattr db_attr;
-+	struct vfio_pci_dma_buf *priv;
-+	struct dma_buf *dmabuf;
-+	int ret;
-+
-+	if (!vdev->pci_ops || !vdev->pci_ops->get_dmabuf_phys)
-+		return -EOPNOTSUPP;
-+
-+	ret = vfio_check_feature(flags, argsz,
-+				 VFIO_DEVICE_FEATURE_SET,
-+				 sizeof(db_attr));
-+	if (ret != 1)
-+		return ret;
-+
-+	if (copy_from_user(&db_attr, arg, sizeof(db_attr)))
-+		return -EFAULT;
-+
-+	dmabuf = dma_buf_get(db_attr.dmabuf_fd);
-+	if (IS_ERR(dmabuf))
-+		return PTR_ERR(dmabuf);
-+
-+	/* Verify DMABUF: see comments in vfio_pci_dma_buf_revoke() */
-+	priv = dmabuf->priv;
-+	if (dmabuf->ops != &vfio_pci_dmabuf_ops ||
-+	    READ_ONCE(priv->vdev) != vdev) {
-+		ret = -ENODEV;
-+		goto out_put_buf;
-+	}
-+
-+	switch (db_attr.memattr) {
-+	case VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC:
-+	case VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC:
-+		WRITE_ONCE(priv->memattr, db_attr.memattr);
-+		ret = 0;
-+		break;
-+
-+	default:
-+		ret = -ENOENT;
-+	}
-+
- out_put_buf:
- 	dma_buf_put(dmabuf);
- 
-diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-index 8741abd04461..b3c72df002c4 100644
---- a/drivers/vfio/pci/vfio_pci_priv.h
-+++ b/drivers/vfio/pci/vfio_pci_priv.h
-@@ -41,6 +41,7 @@ struct vfio_pci_dma_buf {
- 	struct kref kref;
- 	struct completion comp;
- 	unsigned long vma_pgoff_adjust;
-+	u32 memattr;
- 	enum vfio_pci_dma_buf_status status;
- };
- 
-@@ -157,6 +158,10 @@ int vfio_pci_core_feature_dma_buf_revoke(
- 	struct vfio_pci_core_device *vdev, u32 flags,
- 	struct vfio_device_feature_dma_buf_revoke __user *arg,
- 	size_t argsz);
-+int vfio_pci_core_feature_dma_buf_memattr(
-+	struct vfio_pci_core_device *vdev, u32 flags,
-+	struct vfio_device_feature_dma_buf_memattr __user *arg,
-+	size_t argsz);
- #else
- static inline int
- vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
-@@ -165,6 +170,7 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
- {
- 	return -ENOTTY;
- }
-+
- static inline int vfio_pci_core_feature_dma_buf_revoke(
- 	struct vfio_pci_core_device *vdev, u32 flags,
- 	struct vfio_device_feature_dma_buf_revoke __user *arg,
-@@ -172,6 +178,14 @@ static inline int vfio_pci_core_feature_dma_buf_revoke(
- {
- 	return -ENOTTY;
- }
-+
-+static inline int vfio_pci_core_feature_dma_buf_memattr(
-+	struct vfio_pci_core_device *vdev, u32 flags,
-+	struct vfio_device_feature_dma_buf_memattr __user *arg,
-+	size_t argsz)
-+{
-+	return -ENOTTY;
-+}
- #endif
- 
- #endif
-diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
-index 697c0bb4b9bc..ab30b89399d0 100644
---- a/include/uapi/linux/vfio.h
-+++ b/include/uapi/linux/vfio.h
-@@ -1554,6 +1554,33 @@ struct vfio_device_feature_dma_buf_revoke {
- 	__s32	dmabuf_fd;
- };
- 
-+/**
-+ * Given a dma_buf fd previously created by
-+ * VFIO_DEVICE_FEATURE_DMA_BUF, SET the memory attribute that will be
-+ * used by future mmap()s of that fd.  SETting a new attribute does
-+ * not affect existing VMAs.
-+ *
-+ * The default, if no previous SET has been performed, is NC.
-+ *
-+ * Return: 0 on success, -1 and errno is set on failure:
-+ *
-+ *  EBADF, EINVAL: dmabuf_fd is not a DMABUF fd.
-+ *  ENODEV: The dmabuf_fd does not match this VFIO device.
-+ *  ENOENT: The given memattr is not supported.
-+ */
-+#define VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR 14
-+
-+/* Valid memory attributes for the memattr field */
-+enum vfio_device_dma_buf_memattr {
-+	VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC = 0, /* pgprot_noncached */
-+	VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC = 1, /* pgprot_writecombine */
-+};
-+
-+struct vfio_device_feature_dma_buf_memattr {
-+	__s32	dmabuf_fd;
-+	__u32	memattr;
-+};
-+
- /* -------- API for Type1 VFIO IOMMU -------- */
- 
- /**
--- 
-2.50.1 (Apple Git-155)
+It already has Andy's Reviewed-by; is this patch ready to be picked up, =
+or
+is there anything else I should address?
 
+Best regards,
+Jeongin Yeo
