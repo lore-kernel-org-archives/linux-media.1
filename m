@@ -1,121 +1,247 @@
-Received: from mail-lr2-f2.google.com (mail-lr2-f2.google.com [74.125.230.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010017.outbound.protection.outlook.com [52.101.84.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DFE7348C61
-	for <linux-media@vger.kernel.org>; Wed,  1 Jul 2026 16:16:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.66
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782922612; cv=none; b=h26MKI6KVOYHdH9OQZHsP6eTV/YUPC6Q+6FucwJX0d87KoWaEtZmQCNeSmc/gX9YAUkADVj9DzBjLnJ0iE90E6e1HhgqEJejOlLh/FhwoSV+/hRfPk6ulUxa6YGpTQjvH5PfA/SZ1bK2v+ND6AN8xq8xWuKQLjCxWXg9mJNMtyI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782922612; c=relaxed/simple;
-	bh=k30cR6h+RPW1gcNU1BwUBkaFYa5qObX1UgigfxmYQ58=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rCn4le6W758ub0LAyD8tpJ/r/NRYWlwbTScW47dK3yN3jSyZ02jUbjRcdX5A0Gr8FlL+xLsUNglaRbYHBJGLzu2v2VTEnjtRiA+j3R4HnhNTfDmTWdBgz7+sR3beODn9Pc4xZNKcWdwJ00yg1dNiG8TpuyG8xBZ/WkrwdoOxfgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fy0g04NF; arc=none smtp.client-ip=74.125.230.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A957A2253EC
+	for <linux-media@vger.kernel.org>; Wed,  1 Jul 2026 16:17:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782922676; cv=fail; b=AtJ4cs3a7qLZhxWpqtMI59XgkZ+tsKlJLmP1nxHt3u2aY3IwhRSx9Qp/v7rXnTOfFlW9YYL1sSUlDaD9v5yZo5jh5uvbnsvTqyDZPuJ9yYljdE+nGC8Y3Nhvws11ZO264wzC0kzz2lA+7YJCuf4HBBJ5JKRhYJWiQklKX99dzVw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782922676; c=relaxed/simple;
+	bh=YfQHfcVqHePLzaZVN6ysi8++/t4mjjblBR2eNCCFW+A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=sbnT+atd6orwpBpyddiBwQAW9+GEsHiXa9iakWBOeTPlNI7slcSSL2vy3rqLv0eFV2r7xtXdYmHDRmtztgFIClagNJQk8kiSpOBvD+uNzBihdDxlsci7D1RgBqmwcBUjezEAdS3hOPqdaDvMMEyWQlnlahYpLgrp8euUAOfZIQ8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=jKEnOKty; arc=fail smtp.client-ip=52.101.84.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fy0g04NF"
-Received: by mail-lr2-f2.google.com with SMTP id 38308e7fff4ca-39b37733ebcso1252821fa.0
-        for <linux-media@vger.kernel.org>; Wed, 01 Jul 2026 09:16:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782922610; x=1783527410; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Lg/4RBwTmkTv5jzQw0tnWKVvJ1Hf1WuMBjrfFGp6Qy0=;
-        b=fy0g04NFmUOj9dvgHappKO3pJpAi3Xr6q5PIE8YZNpcY1kkdx4pBI2Wf6t7rqVgWdL
-         zKAMd6wX82uzWEGr+M9xadgU2f3nYmiPh5+ZsWnO5/58SeHrc2zQOp9bwMONL5a7K8b4
-         kqYVuUFOQjZ94tmE0/ljgzkBFxEfoNFefjAiBLLjhdOgc7ExKUGYPCC22PYSwweD/NqW
-         GvDLw252l/ZGkoWarpx19MmAPsr7i6W884Biyy3q++ZCdneeiFudWyHpEb6ydsAJFKQZ
-         bfO7ecLGXqUlkUfB+AUSg7sJY4z0YEMIbwUfY9K1GmKyCS/98ahjpq8jvGSLuBXAHjfX
-         auNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782922610; x=1783527410;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Lg/4RBwTmkTv5jzQw0tnWKVvJ1Hf1WuMBjrfFGp6Qy0=;
-        b=raaG6BkfN9t9v31GUDr4gCzVAkZd2R7JQeN938tWAUPuKfsullNoZOzM9iB8bhhj6t
-         arAN/1dQmPQmroGsoeUtEgz/HqHSFeKG5nJyxcfz1ikTvopx8AtAC3hvID7XLyFG0LTv
-         l3b65QHRSjm9fcjGJ1f111JiT0ueAqGnqFLrqlMsAqf7jeGqDNklfiXuq3TABozxaJ+V
-         FLyG+AGVaYCJSMa+cf0K49n+LhT7Mb4KB6+GvMyAjky+4JFJ81uh4vVDcknPOxh+8LTa
-         P7nGgRbx87omLqfBWv5Dib4gD1RnLAvOhzXzFxlwMXc8SRipbGVawzmpEnIebSqvRyOr
-         ld0g==
-X-Forwarded-Encrypted: i=1; AHgh+Rr8t16oEW9IdgfeeW6spMj5ngc6c8RdhtlLCIXvqWi2Vf6Tolrm6q0KZpuJ9w4tG67Lx29sTmfFBUHWTQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwnM7TFkK6EwZla8+49h9GqrKVqMMyDGopp4sDu7oxXmiBw2LbW
-	4JgT3Sqyf2ddw3fwyyiDV2Gzi3VgrHAPnwVKdm5nipEVXUgXSuXH85Si
-X-Gm-Gg: AfdE7ckZ0pTZ6Lz7gkk77yZ1IBzVKjgzpOe84Krq3GxGeYEMLmihTAGZ+RoaLwzQUPF
-	1lTW1ZcG0kGM0HTVuOwnUYY0HchkLiCgN8zea1zIWGh8ikKoblxZsqMkF29tsP4uhOCeo/jBFpq
-	G2aU3utsORiPbpDrz+y0v2g0RJl9s2tpIioELQUXlUB1dPG0e8lFrwqzGc/qrObRKvIzfF92s+7
-	REHP54R+V5W6L/lpOHfMdVZ5bkZXhl4j97fSGDeeeGE+3C9vkfLI1R2kFFsBdxZJ5Mb3RshfK51
-	fLeS1ERZHvCQ1MJPNZC5Ru9VwvWVijtzURJdYrGm63kZ6jh+2fHxqI4/HatGtPW9D279fl4p2sQ
-	LNo0rWJ8EK7Tat25b/55JDKya4nbe7fDPu/7clRvVTkxE0vjOkgMJQfCjK8w9lww2tlCG6Q==
-X-Received: by 2002:a05:651c:1516:b0:39a:e29b:78f8 with SMTP id 38308e7fff4ca-39b3705c516mr3385071fa.36.1782922609467;
-        Wed, 01 Jul 2026 09:16:49 -0700 (PDT)
-Received: from arch ([93.177.236.219])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39b37ff0449sm964191fa.38.2026.07.01.09.16.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 09:16:48 -0700 (PDT)
-From: "Bohdan D. Marcus" <bohdandmarcus@gmail.com>
-To: error27@gmail.com,
-	gregkh@linuxfoundation.org,
-	hansg@kernel.org,
-	mchehab@kernel.org
-Cc: andy@kernel.org,
-	sakari.ailus@linux.intel.com,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	"Bohdan D. Marcus" <bohdandmarcus@gmail.com>
-Subject: [PATCH v4] media: atomisp: fix block comment formatting style
-Date: Wed,  1 Jul 2026 19:14:51 +0300
-Message-ID: <20260701161451.5442-1-bohdandmarcus@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="jKEnOKty"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BeenkKrFB0XdUPEDK5uA6rGrGAboL1fY5maz+1wj5yeAV+P9pmwXmrng9vrHD/k7itHAeP11qJ/a7tyvT996W7/PU8I02Nka4b/3/BiujECRpyY4uWjC3vKnbdX7zcwDvk3IAZQf3jcqVP4QdZc1+wkNIIqh3UQAS/jknLXbEFI5ltdVr5WVqIkLvVOmHN6UGt91mlQ/ZSYZhpkLUwq7MkGijhMZqhiiS52FcAOEE1gCTqQ5eBpVFiyWvfs/tzC6MKVF763ZgzlHyDolP1sVmvMR8c8wSIouEMtZFBXWlxiyJWP+IqRUvPwg0gVJPHbbvkKEijeT6dpazmUlPiIe1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vh60GtwBblEHg99SPr3/DxDt/YpaR4RRDMlS6XQtlWE=;
+ b=a1cGkqXXJmEOGdCJGxkLQCO3G7S8V/ghsVP+cfpp/f0/jVuUzGlb1Lm3Q/MYtoEYQUKXRfauGWeSzeqtB2iIqh4YwSMuTERiJuZO6On2khxr+91NgXtgqoISH38snYpnsPopnLANPHMZRFymY21Yv7seX1a3TFZ7QCnvhVRZdDfcSyGNUVyxtvXUMUU2roIu97mGUpNoDZZ2t0V74pbDulTYsNVS2YlVcAy7mmMCfvPDSFrnbUN2tRtd+s4QZ9Ept09Z3FbX+cfRm+d3+apz41eoJc9DTxxlIaqQLRo3SxLvYXR7T61q/5G5RnDKw1deAsXQroH+m4avVBqXQ1pL7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vh60GtwBblEHg99SPr3/DxDt/YpaR4RRDMlS6XQtlWE=;
+ b=jKEnOKtyV6kBeXHJj74Rx/vs16WQ662fp72/z0TKemqKd9izdut3Bbuj4Swus9rrlvCbH9RxXx0upHDs+ThwhLBzaulzWj7XMtQn0IvEUkZyU/KM7GzeR8/XB2IWIIXocfH9phoKb2UOcbS+WVtCVWZmLxePXy7kv+eGL/35MZDjaQEIts10sOtPSklcnw3LgHBN/zluMUe/XIuJaGkm0Jz/hLSDBOz3PDCWhznN1lhTpWV9JqUC+IFUfWAiYpGTkNdYu/6AsDD10fb6st1bhYs2iB62psVEqrqimtEIK/xFYaGbkrkzNqMDon6/nCla9oFNmLwjnrsr/b1DsvFdPw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI0PR04MB12350.eurprd04.prod.outlook.com (2603:10a6:800:30f::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Wed, 1 Jul
+ 2026 16:17:50 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Wed, 1 Jul 2026
+ 16:17:50 +0000
+Date: Wed, 1 Jul 2026 12:17:40 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
+	laurent.pinchart@ideasonboard.com,
+	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Tommaso Merciai <tomm.merciai@gmail.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Julien Massot <julien.massot@collabora.com>,
+	Naushir Patuck <naush@raspberrypi.com>,
+	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
+	Stefan Klug <stefan.klug@ideasonboard.com>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	=?iso-8859-1?Q?Andr=E9?= Apitzsch <git@apitzsch.eu>,
+	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Ricardo Ribalda Delgado <ribalda@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	David Plowman <david.plowman@raspberrypi.com>,
+	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
+	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Rishikesh Donadkar <r-donadkar@ti.com>
+Subject: Re: [PATCH v6 07/16] media: v4l2-subdev: Move subdev client
+ capabilities into a new struct
+Message-ID: <akU9pDAt_-AypCFW@lizhi-Precision-Tower-5810>
+References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
+ <20260701122634.1728782-7-sakari.ailus@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260701122634.1728782-7-sakari.ailus@linux.intel.com>
+X-ClientProxiedBy: SN7PR04CA0219.namprd04.prod.outlook.com
+ (2603:10b6:806:127::14) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB12350:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20cda35e-9276-41c9-f5b9-08ded78c4bec
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|366016|19092799006|1800799024|376014|7416014|23010399003|18002099003|22082099003|6133799003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+ z56tlW3duwyRxH3A56Ffoo/xADX3g2SsNjQkGR6LCG2aI6eHuf69mAA0zvwltYnzE/sb2kgI47i4eJXa/iA+ZN4Ie93ebygT0GhbD0e/rVRAmIleDR2pEPH7rmvxsdAwn609k0WshXTHBBr+gnVxz321ZS8KhrWobqOFMOGJKCbsl2jjNVNks4YlX2xoyYfot4A9P5Do3uodXAxomFADkBdGqtckC+rY+HqOyYMAa2RJW2qQ2oIQB4cZW3MF+La9ULK9/At2HF93I2VHZsofGpj9J0LfuFJtcFXmzY0NoH08PGr3Wt+mF4jgcKIMwnShPfOX8+kEn6RHrMXcfKpEOTnDLVctYPGA48jeneReVA8MQVDOUCJQAutdDOC3X9BFSC3bf9gcIT4dWrcq40zHlILgAA19al8rbt3dkYmBdevWF5EupxE8LHH5zqIcH6sAvqJBMrQX1FhqySH5hgfIT+zmaPjql0TvXQ/Dxo3Rd55JYaPZfIWeouQqtY7CXKQxGnMYBUqDtU5oCmnz1shCd0+18ZMEnNIBzkdJ4SyNk/Uo26SQsjwjx5eWXF5QtelfMrgcalacYSIM68p8l5JL0Y5ePeCBeSDxwH7sMLtS3gOox1Zgq163DgkZaLYOAdNlmys1Om6gMdpCzFo1wf3AdX9nyJTxakfIRF2b1nuJ6zs=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(376014)(7416014)(23010399003)(18002099003)(22082099003)(6133799003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?amkKoHyKhIKeJ+OniI2dh8EfLW5AD7qLjZLPXOKisg7dDx8xnlnyig+fiakE?=
+ =?us-ascii?Q?8kUuMQEnlzLTJHaQgt+2DDjtfbowP4kYfIS9u44ipRBwL2QghTmrN5+8hGqc?=
+ =?us-ascii?Q?Khva2jz0yggfVDUURcMNd3b0o7gBzn2BrAiShupG4QtkIMEl7SXDxs6ZiHcl?=
+ =?us-ascii?Q?iZkgGZMXYFp3JZv9rx8WYrjZJQakyzp85t0aPjO9MlOektoMI8s8UDL1ro+7?=
+ =?us-ascii?Q?7NXom3cHkiKXGyLyUodRK6RC8GHeLjsSnPo/BuvDUzWJ4TnajvK9cPr/UWam?=
+ =?us-ascii?Q?1Caz1T/8WSgyyuvx9vcCiCGh2I+tehUwfRdh+LzR0by9Z5XrYDqMvxoPPneD?=
+ =?us-ascii?Q?dwTGAF1Ad8QXdPpEkU1EsFC8Jh06oz79elStVSxmUeb1XG3zqSuDJ3pgd+3m?=
+ =?us-ascii?Q?EAIXcEe4Ad5EfGOWqTMg6ctLpGAUaYjEyUESGLZG9IsbVw5RwoxYfd99M6RD?=
+ =?us-ascii?Q?mg4kH5N2TV2Vhbjrk6FDQHjjGe+mrbKvArVSpCQDCKsQF9eE9poSvkw1QgN+?=
+ =?us-ascii?Q?z1cAAcIsbeVGaEPEluv4mlAKWV88ac5lV+tlCMTQkVcjlPitaIjbisqXnDkS?=
+ =?us-ascii?Q?PJCUOyTmcyhpKACH7fycQSkHIX/kh4+PAROp2QwtFXB9NrykgkvpGol5Vvzp?=
+ =?us-ascii?Q?se7v5NwPJmo1HI2f02W3uI3CftiIrGd1+7CkMu1NEwm392WORhJd+GWhmA+I?=
+ =?us-ascii?Q?fRfJp/vV1T6O85iGMvi5UzUUybxYaEv3Rrok2COMsgrrWMiw/WT8wOfR74XG?=
+ =?us-ascii?Q?QMMfLtBNdE41v8Ixc38ZM6s+g0yw9tfECpP9CCxcyLcQi63HCoLglthLuAQf?=
+ =?us-ascii?Q?MYDuflcr1msVw+6u2P4NNodIOduBDf1m8OoJdOoFcdhkD6evOhxSQmZ/zs9B?=
+ =?us-ascii?Q?Rf3ZK011hL0JtcPzUjns6XShF9v2alz9OHI9GzloU7oLX14LDR+XoPEvZJVY?=
+ =?us-ascii?Q?pgGg6NyNTlwi2FFjMffGkDngZ0+WFLbpu26mkxlSgRcEk/UT+RBUldOQWyA+?=
+ =?us-ascii?Q?RxbLh+xb2+gh68isDtgXJqJuhDyE2nxot7zrZYw5Z3EiIFhSKLjNWCEBRN6Z?=
+ =?us-ascii?Q?Pab6RNcKaVNPZF+69nSAdHD22STLCM8sXVNTNgAMpCNTdJipMs4FreMhcCQZ?=
+ =?us-ascii?Q?+dwqZxfi1pQiZeJwpTse5xG5M7eHeJNcCTh+aFQIHKF+MuoWTNrp5RXAou2K?=
+ =?us-ascii?Q?SBYBVByNTq4EUh7KWBv3260F5yov4UGibrPibsasN+xXweYjjyFQ6joGqFo+?=
+ =?us-ascii?Q?4yFXuNbfKz0f5ZDHgZwDkqAmwshMVXmga0sxBFxAaS4rEuoRtkJkW7uIgWIs?=
+ =?us-ascii?Q?XUTcFQr6ir+sMbEXaj6u6ty5hqJydu44fmYmbohC5mVZKhOaP7zKMsYZiOH/?=
+ =?us-ascii?Q?oEVNRXNLODuJLeeo+15FrBn7uBGRsXMsjyhGZnRWC3DAZCepefT4rF0o14mA?=
+ =?us-ascii?Q?cg5jyXuE5SPAHtdAcwSehJ7b02diRST+jenoHXcBWqkG0yGwQxVqVdHjHIn2?=
+ =?us-ascii?Q?SN2SpyoXlhbQS/B7UJBXOpfZyBkECKdzyUsdqq74I10A6xWum3xSSa3rvIwA?=
+ =?us-ascii?Q?eSKA0pBmkAIyZXfe+mssQ164If5eOQjDuS7nLmKisSrOSj6n74QzYTgnzf1a?=
+ =?us-ascii?Q?g+ssJFkuma31Az+lJFJvgNXEGvJo5Cjf6a5/RLm+bz0sw4ZggiMaaR5oNXj2?=
+ =?us-ascii?Q?NtEVMmNMSeLp0rKSuc4wwYlo7XYLX4piecrR8F+kSi/INOCAUng/PkfJ+QE0?=
+ =?us-ascii?Q?G2tgCT0HJB3M8RXhC5AN6mWH7GAXn+hIx/klgm+UDetx6ntAVsUg?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20cda35e-9276-41c9-f5b9-08ded78c4bec
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 16:17:50.4831
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: B012gLpxksbsjCr0Hg0HrfJJ07CaK5XRgSaDpsfkYaCI76fjGqDfOiX2YJ45UBCdEcFmWMJsVSkjWAmH7/CYNxITdvfrfC1LrWRXPsJzqnRaGLrKT8SUOvO2wZ3HOzuF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12350
 
-Fix a block comment formatting warning reported by
-checkpatch.pl in atomisp_cmd.c to conform to the
-Linux kernel coding style.
+On Wed, Jul 01, 2026 at 03:26:24PM +0300, Sakari Ailus wrote:
+> Add struct v4l2_subdev_client_info to hold sub-device client capability
+> bits that used to be stored in the client_caps field of struct
+> v4l2_subdev_fh. The intent is to enable passing this struct to sub-device
+> pad operation callbacks for capability information. The main reason why
+> this is a new struct instead of a u64 field is that modifying the callback
+> arguments requires touching almost every sub-device driver and that is
+> desirable to avoid in the future, should more than the client capability bits
+> need to be known to the callbacks.
+>
+> To be squashed to the previous patch.
+>
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
+> ---
 
-Signed-off-by: Bohdan D. Marcus <bohdandmarcus@gmail.com>
----
-Changes in v4:
-  - Fixed code indentation (removed excessive tabs) as requested by Dan Carpenter
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Changes in v3:
-  - Fixed commit description line wrap to be under 75 chars per line
-
-Changes in v2:
-  - Fixed author name and Signed-off-by email mismatch
-
- drivers/staging/media/atomisp/pci/atomisp_cmd.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.c b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-index 6cd500d9fd26..d4c823f18cab 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-@@ -2520,9 +2520,12 @@ int atomisp_css_cp_dvs2_coefs(struct atomisp_sub_device *asd,
- 		if (sizeof(*cur) != sizeof(dvs2_coefs.grid) ||
- 		    memcmp(&dvs2_coefs.grid, cur, sizeof(dvs2_coefs.grid))) {
- 			dev_err(asd->isp->dev, "dvs grid mismatch!\n");
--			/* If the grid info in the argument differs from the current
--			grid info, we tell the caller to reset the grid size and
--			try again. */
-+			/*
-+			 * If the grid info in the argument differs
-+			 * from the current grid info, we tell the
-+			 * caller to reset the grid size and try
-+			 * again.
-+			 */
- 			return -EAGAIN;
- 		}
- 
--- 
-2.55.0
-
+>  drivers/media/v4l2-core/v4l2-subdev.c |  8 ++++----
+>  include/media/v4l2-subdev.h           | 12 ++++++++++--
+>  2 files changed, 14 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+> index e9f81b9be9e2..070a9e607fe3 100644
+> --- a/drivers/media/v4l2-core/v4l2-subdev.c
+> +++ b/drivers/media/v4l2-core/v4l2-subdev.c
+> @@ -611,7 +611,7 @@ subdev_ioctl_get_state(struct v4l2_subdev *sd, struct v4l2_subdev_fh *subdev_fh,
+>  	case VIDIOC_SUBDEV_S_FRAME_INTERVAL: {
+>  		struct v4l2_subdev_frame_interval *fi = arg;
+>
+> -		if (!(subdev_fh->client_caps &
+> +		if (!(subdev_fh->ci.client_caps &
+>  		      V4L2_SUBDEV_CLIENT_CAP_INTERVAL_USES_WHICH))
+>  			fi->which = V4L2_SUBDEV_FORMAT_ACTIVE;
+>
+> @@ -650,7 +650,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+>  	struct v4l2_subdev_fh *subdev_fh = to_v4l2_subdev_fh(vfh);
+>  	bool ro_subdev = test_bit(V4L2_FL_SUBDEV_RO_DEVNODE, &vdev->flags);
+>  	bool streams_subdev = sd->flags & V4L2_SUBDEV_FL_STREAMS;
+> -	bool client_supports_streams = subdev_fh->client_caps &
+> +	bool client_supports_streams = subdev_fh->ci.client_caps &
+>  				       V4L2_SUBDEV_CLIENT_CAP_STREAMS;
+>  	int rval;
+>
+> @@ -1117,7 +1117,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+>  	case VIDIOC_SUBDEV_G_CLIENT_CAP: {
+>  		struct v4l2_subdev_client_capability *client_cap = arg;
+>
+> -		client_cap->capabilities = subdev_fh->client_caps;
+> +		client_cap->capabilities = subdev_fh->ci.client_caps;
+>
+>  		return 0;
+>  	}
+> @@ -1137,7 +1137,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+>  		client_cap->capabilities &= (V4L2_SUBDEV_CLIENT_CAP_STREAMS |
+>  					     V4L2_SUBDEV_CLIENT_CAP_INTERVAL_USES_WHICH);
+>
+> -		subdev_fh->client_caps = client_cap->capabilities;
+> +		subdev_fh->ci.client_caps = client_cap->capabilities;
+>
+>  		return 0;
+>  	}
+> diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
+> index d9dca6905b33..b797923738b6 100644
+> --- a/include/media/v4l2-subdev.h
+> +++ b/include/media/v4l2-subdev.h
+> @@ -734,6 +734,14 @@ struct v4l2_subdev_state {
+>  	struct v4l2_subdev_stream_configs stream_configs;
+>  };
+>
+> +/**
+> + * struct v4l2_subdev_client_info - Sub-device client information
+> + * @client_caps: bitmask of ``V4L2_SUBDEV_CLIENT_CAP_*``
+> + */
+> +struct v4l2_subdev_client_info {
+> +	u64 client_caps;
+> +};
+> +
+>  /**
+>   * struct v4l2_subdev_pad_ops - v4l2-subdev pad level operations
+>   *
+> @@ -1130,14 +1138,14 @@ struct v4l2_subdev {
+>   * @vfh: pointer to &struct v4l2_fh
+>   * @state: pointer to &struct v4l2_subdev_state
+>   * @owner: module pointer to the owner of this file handle
+> - * @client_caps: bitmask of ``V4L2_SUBDEV_CLIENT_CAP_*``
+> + * @ci: sub-device client info related to this file handle
+>   */
+>  struct v4l2_subdev_fh {
+>  	struct v4l2_fh vfh;
+>  	struct module *owner;
+>  #if defined(CONFIG_VIDEO_V4L2_SUBDEV_API)
+>  	struct v4l2_subdev_state *state;
+> -	u64 client_caps;
+> +	struct v4l2_subdev_client_info ci;
+>  #endif
+>  };
+>
+> --
+> 2.47.3
+>
