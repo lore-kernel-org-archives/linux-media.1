@@ -1,113 +1,95 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3753B8413
-	for <linux-media@vger.kernel.org>; Wed,  1 Jul 2026 11:12:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344A543DA23
+	for <linux-media@vger.kernel.org>; Wed,  1 Jul 2026 11:17:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782904368; cv=none; b=QP37+odAe1n14EIBLIXq569/gsuNKFjyZGGTpAJIE/xQXNOMrHca1IihrpjpjvzKjDBGuxg9loNAdq3/mq3tRgjDaP8AFr4bNfxoNprxFavdkV3VWj7XS8Nzv7mJD+krSqJOdJ3nD18lrw8YicqVYdhBdQqnPTJ3qt2CxgRZEJk=
+	t=1782904621; cv=none; b=V6b5N8kNMc7yA1i5FNLdbtE2pwZ1cOpWZPYhQRoQgC0WI+zzR4f8W/NYscNbAcNJ1dqPJswYKCVlxh6L9mzCTCpfyZYoqyMgjtIrhmrMc/Y60s2Ey5O0DkwUExN1hGXSiowV6HopmMWJl52M7rYDvt0cIY+AZa1OhcHrCdH5hQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782904368; c=relaxed/simple;
-	bh=kwA92qseeq4bRhv7oLnnSWdSGjvn0QS4sfz6cv0HOpA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f3qHblwnHgKQUQkeRMWihhyRwuLR9LT1vErBA+5E1n74kQBtHXlj4qnB+kemzWVO1BxtbBQ4f95r/NJmy+Y04wB7hNANoSWYpesajIPwWe5cfDPqIOTo2PfL9Gd09rG7XTZbIsC/ozt/NgNTELlNBLXd9GNY8CN+Do+PiTafNxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kv4lrFZt; arc=none smtp.client-ip=74.125.82.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782904621; c=relaxed/simple;
+	bh=cXmXT1FX+Ngr5D3PjGGrKoWnBj3CwH/3E3Kd8Mhrs6s=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=ihTg+AaJd7DfdKmGU21GNiNU3iC5Un+pnUPlBFQRg/UZHbHO7o6WH3kDFCWEsLc7Mslj4h+0ts/dMPJIqdeLYYa1rpGXCRlumCz4wFA8EUe1GSCsuEKC4Bblb3R2G7uvY+3IewgBsjYdm/DbTukVGmU9KnLSPon3MTdoWzN11bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Om6ZEifE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kv4lrFZt"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-30b6dad2382so941328eec.0
-        for <linux-media@vger.kernel.org>; Wed, 01 Jul 2026 04:12:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782904366; x=1783509166; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=LkoKVbcxFCdFsy87mxquQYAqVgDQSp2s1Hkwlfg3a08=;
-        b=Kv4lrFZtfTgXUvmzbF7Mo91WOeylCdOhfHKWVNd38gx161gw/daAVrvDGcWKivxL/J
-         /hYQBKsBYzYdeOBapM+vxGBOAQAxHcjxUs+CGMTL9nCr5hLNLBFg00dTfz4x0R0tKuOU
-         LqOY6QyCoyJP5Eg+GjRVvjcM+HPu7V4sUFjnZmiiWGAzYAs82dOUYPNfvQgXjmOHgFe1
-         tCQUedDzH13bp4lXmnnFzcXj2MfdI2cX2mhRWTnrV9YK4eoiw18T/k3awADxk2k0NMaI
-         jSWZqu4iSjcTy7fMW4flpXwxOdqhqifcwXAo8+Gr6XDiG4kJwMpobwcD+D/iibzNLxbp
-         QEuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782904366; x=1783509166;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LkoKVbcxFCdFsy87mxquQYAqVgDQSp2s1Hkwlfg3a08=;
-        b=mijReBPBVVz9WUmlN46MQ9PgzqmAmAh9SSBba/QRiNhHL1N2sSVtB26E4vldfZ6hn4
-         Rq+PyjnoFivl/JB+7oL0lSPRqEJWlllL02gqjmevvEkOydtK8mvwdv0URlZfxl8yIQY9
-         EN35hZZR6OiSOjlTR824LEvNYGbsDL2B8LzMTs7L7cHWt4lxhcn+S+UbC87yyZ6kjrp+
-         PnOIfg8g+f/5xotQdcUKIZfhvAg98iiUZ2t093yhLmgVIeKv2gxWpg7XEC08AaVU5u6q
-         vdmfULi7P2TbwkH8nJfAawoFgQ8v8YTWL/GRZip7m/mrwfzc10knQzBaCuVMS0bUSzjh
-         i/0w==
-X-Forwarded-Encrypted: i=1; AHgh+Rq10mRZ4GyIe3kXMCKpSJx1DwP/UIBcSy1CQACja4s0aHsCvxgYYvLKN2o6ErDovUaT95lBO+rPbbYbsw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyo7y4aHyL+6wEDPlZ1BLznlPKedBlSoPIrdT54NIwzAyKXKefB
-	j6DPwghj5saYnwA25Q8TD8ApSYjcFCeepQRs8vTHJH0CehxO2gnshJ/q
-X-Gm-Gg: AfdE7ckO0V26yVeyFs7/nZ4kW0W8kkggnjRkbyg3jwq+LefEQYHbQ5mUpECbMm6S/HM
-	bo097s72AwpcFqf4FFcgkI0YJLGAmC2Z/rtVcShGOouY5b1UrqjcAvqnwuUrZ1F4l0TuiaF/zp7
-	09hgwkkIih2nYe5x8AYTu/UJgdEIYm1QMScgbG+o8SOJIwcftsA2ECzhoaIdUpt1Hr2337IzR2D
-	W3bd+PamzkKmFad1bC0QYiZiPytu+cUr5vHHcNyQCKwEq7JBJFp+ok7b//j03ZMhoPe/F15g4Jd
-	FXn8guYCC/FajyYJZ52o9NAIRDTvALt+w2cD8e42ZWLu4BlK2ANPx1709nGtgHPOnb5Iu9ct6ag
-	L0MN4v8w/UacGMMDm2k7rQzSAe8bImbmqjW3uHwcqMizfLIoDTw3iDroNgf0S2+YRrXd0KPvcix
-	oaSjZWemf1HCCKzpWm4SQ=
-X-Received: by 2002:a05:7300:3213:b0:30e:cb0a:fe7c with SMTP id 5a478bee46e88-30eff0a9e50mr1173027eec.17.1782904365910;
-        Wed, 01 Jul 2026 04:12:45 -0700 (PDT)
-Received: from ahmi-PC.lan ([2401:4900:88f4:d9c5:fca7:1ff8:6590:ebe])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30ee2fb6514sm16687832eec.7.2026.07.01.04.12.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 04:12:45 -0700 (PDT)
-From: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>
-To: Detlev Casanova <detlev.casanova@collabora.com>
-Cc: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Narasimharao Vadlamudi <ahmisaranrao@gmail.com>
-Subject: [PATCH] media: rkvdec: Propagate platform_get_irq() errors
-Date: Wed,  1 Jul 2026 16:42:03 +0530
-Message-ID: <20260701111203.62092-1-ahmisaranrao@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Om6ZEifE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 211CB1F00A3A;
+	Wed,  1 Jul 2026 11:16:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782904620;
+	bh=UxHGWs/BHwri2T71jTiI7P9bGBDabFRCO6C5vD8CRJc=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=Om6ZEifEbBGF2MhQrdnnug1qRKgcBhoVgJmXSNpG4y3BO66CZ/qPw3tVcCAFLt0TZ
+	 kAPWBiqxn42pnpgSuGii1C3/yPelUY9bn7yqr61DbDztrXfkGNPK9DBQnA0GQaNI/p
+	 QTVKAQPvr0rT8x1+Pad2BDV8Isv/fnPpPT7iakzRtVoVkXd+CVxJhRC4YVrkWbvePN
+	 CvlOxykpeAacdMnP4pKSH5Euy0ZMSKuq1kmJU8iFLi+Y1eqEIxGqt3kja7AFo5kWkd
+	 RGuBtdYM6SXzJF3Lv+C6UudLPAnFKlhC0saHUYoOQTCGyr28HozEMpm1bfEkHQ8Dxe
+	 DRcXXtRKTFsHQ==
+Message-ID: <ef33a972-e1dd-4fb5-8b96-ec33522814f0@kernel.org>
+Date: Wed, 1 Jul 2026 13:16:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] media: v4l2-ctrls: document expected validation scope
+To: Linus Walleij <linusw@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Nayden Kanchev <nayden.kanchev@arm.com>,
+ Konstantin Babin <Konstantin.Babin@arm.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org
+References: <20260701-v4l2-doc-v1-1-9cce64b7a1c2@kernel.org>
+ <440e969e-425a-4ed1-9aaa-85addb332278@kernel.org>
+ <CAD++jLmzWMWjV4-MThJe+30TqF0f=EmdMka=8eTPOagHWAsXUA@mail.gmail.com>
+Content-Language: en-US, nl
+In-Reply-To: <CAD++jLmzWMWjV4-MThJe+30TqF0f=EmdMka=8eTPOagHWAsXUA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-platform_get_irq() returns a positive IRQ number on success and a
-negative error code on failure. It no longer returns zero. The driver
-currently returns -ENXIO for all failures, which loses useful errors
-such as -EPROBE_DEFER.
+On 01/07/2026 12:59, Linus Walleij wrote:
+> Hi Hans,
+> 
+> thanks for clarifying!
+> 
+> On Wed, Jul 1, 2026 at 11:03 AM Hans Verkuil <hverkuil+cisco@kernel.org> wrote:
+> 
+>> The main change here is that it explicitly states that S_EXT_CTRLS implies
+>> a call to TRY_EXT_CTRLS is called. Something that was never clearly stated
+>> before, but it's important to know this. Because of this change the TRY_EXT_CTRLS
+>> and S_EXT_CTRLS paragraphs are swapped since S_EXT_CTRLS now refers to
+>> TRY_EXT_CTRLS.
+>>
+>> And the TRY_EXT_CTRLS documentation already says that: "It is up to the driver
+>> whether wrong values are automatically adjusted to a valid value or if an error is
+>> returned."
+> 
+> This works for me, I missed that because I'm a rookie at this.
 
-Return the error from platform_get_irq() directly.
+No problem!
 
-Fixes: cd33c830448b ("media: rkvdec: Add the rkvdec driver")
-Signed-off-by: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>
----
- drivers/media/platform/rockchip/rkvdec/rkvdec.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> For the above diff (I guess you want to send the patch? Else
+> I can make it):
+> Acked-by: Linus Walleij <linusw@kernel.org>
 
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-index 1d1e9bfef8e9..37683a6bb40f 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-@@ -1818,8 +1818,8 @@ static int rkvdec_probe(struct platform_device *pdev)
- 	vb2_dma_contig_set_max_seg_size(&pdev->dev, DMA_BIT_MASK(32));
- 
- 	irq = platform_get_irq(pdev, 0);
--	if (irq <= 0)
--		return -ENXIO;
-+	if (irq < 0)
-+		return irq;
- 
- 	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
- 					rkvdec_irq_handler, IRQF_ONESHOT,
--- 
-2.43.0
+I posted a clean patch for this with your Acked-by.
 
+> 
+>> I just saw Jacopo's reply that the discussion was for parameter buffers, not
+>> for extended controls, but the reasoning is the same: the driver must validate
+>> at some point (ideally when the buffer is queued up so userspace gets the error
+>> immediately), and ensure there are no security or stability issues. But if there
+>> are, then that's just a driver bug.
+> 
+> I get it, thanks!
+
+Regards,
+
+	Hans
