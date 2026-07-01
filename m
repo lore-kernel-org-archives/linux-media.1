@@ -1,138 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5052348BD30;
-	Wed,  1 Jul 2026 12:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C901C480DEA
+	for <linux-media@vger.kernel.org>; Wed,  1 Jul 2026 12:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782908393; cv=none; b=DvTKWK0jw9zgof1oEMQ3W98qbPtdjACOwlzwqnIy/l77cPBXUjV/wsKCz8vCZcvRQtKMcPv9LLkgryk0ZfbO7E9dIXf3cP1gEuo6brl5Sl0d5KrWTH+HUlEPkzZQVlbCw7vBO1C80jzpqTjpjAsfjVtjlH4LqVhTtnPaavXDo3E=
+	t=1782908597; cv=none; b=qxypSjlPHT2+8TiRxjSorDFkR2p4gEkVRZ9nw0Q4lGYNZt7M/rjECLQev++9ANhLmxgGdj5aqpfLFHNFQJyLqRQFI81hQtUWXbwPjzew11RlEGRcyU+t4Io2Q6EqdOHYco0Vjm2+rCZSzX2WxBwKN2M7iMJuIbDQkR27pcpE9Ms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782908393; c=relaxed/simple;
-	bh=4cTXo5Fqh5clkUbUXZvF2uNeaiQZ8FEmGKbWUO7IJpk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JeKfSfUQuFD0gUtNSMG7fbLkatg30cr14mQCoS5m6zuQSqmEjaGP3NVPiAe4QyfR13kyfzfqDn1o7JIsGEfT2s8vC5YIAz3aD9DPNDigtmABQ+FrUUScO5SjKcsI/a+qU8oCv8Z7RglnWR1vEhjfqQSigYaJOEogwJ8IymJiIdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jtFKcyyZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782908597; c=relaxed/simple;
+	bh=74toOJN02dhO2uwh3+QPQP+B4SodUKxOqieekUiwVlI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YfoNvLKeKjJ6nk/6TI2rtzpsxXR0azNPO8GNahvR1i1hFs9JKq4AWWK1u79zK0L4GcJq9Nz3FT5X4Tr/St32dckBNtPaGWK/57qXqBV8x/3weV1ZKt3M919KKKtXrRwtjyrTFSX8O2zfQY1WvyaXM8VhTBW2rvFtiIae9rnUFTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iunXZeoa; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jtFKcyyZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A7A51F00A3A;
-	Wed,  1 Jul 2026 12:19:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782908389;
-	bh=VEtKY19/199sq5hBEK8vvyifwBLgNYHuvPBHa8OeONM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jtFKcyyZbtAmVVr+fjAxI0mN12qeBbZGTuUw9k9BXdiEiT6bA/LMEPDeHMMdvoAvt
-	 kXrgEn+QCk7kmuFJLiy8pfRdMmQE1MM0azpxyJhvk+ND3rXxhq37jO/aS/w3DkRAYB
-	 Yqib/iB/7fYJ/QRLpHsQqhAum5lS8ZiA39ewOynpW1hfKl/peb/UheJYM1BKEBR+zF
-	 KbgWdMRPPFSJ6dUqpLNUfnsNm9MdiQxnS/H+zUrOSwoQW/+ddPaWE2+IKllaKJ2jTL
-	 Pt79dgBU+Vjv+rcT/UjKjLAhEg30YCwfroYzWb5zRrtHvvm0jvgAmjc3XY0LBR0w68
-	 M6TAGF0pGPmYw==
-Date: Wed, 1 Jul 2026 17:49:32 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: andersson@kernel.org, linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-	linux-media@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-	linux-remoteproc@vger.kernel.org, konradybcio@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	robin.clark@oss.qualcomm.com, sean@poorly.run,
-	akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
-	jesszhan0024@gmail.com, marijn.suijten@somainline.org,
-	airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
-	bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
-	mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com,
-	mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
-	jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
-	vignesh.viswanathan@oss.qualcomm.com,
-	srinivas.kandagatla@oss.qualcomm.com,
-	amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
-	op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
-	skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
-	Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v8 10/14] media: qcom: Pass proper PAS ID to
- set_remote_state API
-Message-ID: <akUF1EDmDNPrgaKh@sumit-xelite>
-References: <20260626133440.692849-1-sumit.garg@kernel.org>
- <20260626133440.692849-11-sumit.garg@kernel.org>
- <c251430d-2184-4ecc-8d05-9cb47533e5ec@oss.qualcomm.com>
- <akTFZgKBQYQUYxx4@sumit-xelite>
- <c93b47af-e291-4a6a-ae4b-cc46f25c422b@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iunXZeoa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782908594; x=1814444594;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=74toOJN02dhO2uwh3+QPQP+B4SodUKxOqieekUiwVlI=;
+  b=iunXZeoaX4ZM+2kknYzPYXSyFifMK3cqBQdrB8j7bcUTpId5U7K37v0P
+   MSAFWNO0O+FYKfZEYE8+2zNkHn34Qxwdly3OguTCoWPYpQU2pVenRPRIz
+   pnvussKR7MYuWHLF+98elXt9D9of8z3JdKYJr9RDhWABkNeTE4NYZEenh
+   L/VJLgrl4fjRlca+HB1mJmB4ywMPeV5C3Ljw1YjlN4Tb1eKNdUUznVLqo
+   G98iA9pLnx7nj/dkdE2o1ic8gE1orKrNsWcpmy24WRbyyjuraBxst5Omq
+   KKQKaewAC5NUGu2yErsfIN0HktLEHqVgTRZCa75CSERWPRKQdi0dSmLhI
+   g==;
+X-CSE-ConnectionGUID: aqhneEEUTdCc2nhNfcnReQ==
+X-CSE-MsgGUID: qzZGm1MARU+CQw6i8sIkuQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="94239034"
+X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; 
+   d="scan'208";a="94239034"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 05:23:12 -0700
+X-CSE-ConnectionGUID: olobotoYQVG6HDtCecbw0w==
+X-CSE-MsgGUID: njDq3X8OTEeoa9MUowR5Iw==
+X-ExtLoop1: 1
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.62])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 05:23:04 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id CE808121C18;
+	Wed, 01 Jul 2026 15:23:04 +0300 (EEST)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1weu1S-00000007FkR-2OS7;
+	Wed, 01 Jul 2026 15:26:34 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-media@vger.kernel.org
+Cc: hans@jjverkuil.nl,
+	laurent.pinchart@ideasonboard.com,
+	Prabhakar <prabhakar.csengg@gmail.com>,
+	Kate Hsuan <hpa@redhat.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Tommaso Merciai <tomm.merciai@gmail.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Julien Massot <julien.massot@collabora.com>,
+	Naushir Patuck <naush@raspberrypi.com>,
+	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
+	Stefan Klug <stefan.klug@ideasonboard.com>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	=?UTF-8?q?Andr=C3=A9=20Apitzsch?= <git@apitzsch.eu>,
+	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Ricardo Ribalda Delgado <ribalda@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	David Plowman <david.plowman@raspberrypi.com>,
+	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
+	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Rishikesh Donadkar <r-donadkar@ti.com>
+Subject: [PATCH v6 02/16] media: imx219: Account rate_factor in setting upper exposure limit
+Date: Wed,  1 Jul 2026 15:26:19 +0300
+Message-ID: <20260701122634.1728782-2-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
+References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c93b47af-e291-4a6a-ae4b-cc46f25c422b@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 01, 2026 at 01:01:52PM +0200, Konrad Dybcio wrote:
-> On 7/1/26 9:44 AM, Sumit Garg wrote:
-> > On Tue, Jun 30, 2026 at 02:42:25PM +0200, Konrad Dybcio wrote:
-> >> On 6/26/26 3:34 PM, Sumit Garg wrote:
-> >>> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> >>>
-> >>> As per testing the SCM backend just ignores it while OP-TEE makes
-> >>> use of it to for proper book keeping purpose.
-> >>>
-> >>> Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> >>> Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
-> >>> Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> >>> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> >>> ---
-> >>>  drivers/media/platform/qcom/iris/iris_firmware.c | 2 +-
-> >>>  drivers/media/platform/qcom/venus/firmware.c     | 2 +-
-> >>>  2 files changed, 2 insertions(+), 2 deletions(-)
-> >>>
-> >>> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
-> >>> index ea9654dd679e..d2e7ba4f37e3 100644
-> >>> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
-> >>> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
-> >>> @@ -110,5 +110,5 @@ int iris_fw_unload(struct iris_core *core)
-> >>>  
-> >>>  int iris_set_hw_state(struct iris_core *core, bool resume)
-> >>>  {
-> >>> -	return qcom_pas_set_remote_state(resume, 0);
-> >>> +	return qcom_pas_set_remote_state(resume, IRIS_PAS_ID);
-> >>>  }
-> >>> diff --git a/drivers/media/platform/qcom/venus/firmware.c b/drivers/media/platform/qcom/venus/firmware.c
-> >>> index 3a38ff985822..3c0727ea137d 100644
-> >>> --- a/drivers/media/platform/qcom/venus/firmware.c
-> >>> +++ b/drivers/media/platform/qcom/venus/firmware.c
-> >>> @@ -59,7 +59,7 @@ int venus_set_hw_state(struct venus_core *core, bool resume)
-> >>>  	int ret;
-> >>>  
-> >>>  	if (core->use_tz) {
-> >>> -		ret = qcom_pas_set_remote_state(resume, 0);
-> >>> +		ret = qcom_pas_set_remote_state(resume, VENUS_PAS_ID);
-> >>
-> >> This should not be in the middle of a mildly related series..
-> >> The PAS IDs should be centralized into a single header. And the
-> >> name of the driver shouldn't be part of the define. I would guesstimate
-> >> that on the secure side it's probably called VPU or VIDEO
-> > 
-> > I agree with your comments, this is something I would also like to
-> > consolidate on OP-TEE side as well: see discussion here [1].
-> > 
-> > However, the patch itself was needed to do book keeping on OP-TEE side
-> > but I can drop it since anyhow the video isn't functional yet in
-> > upstream dependent on the proper IOMMU support.
-> 
-> For this patch.. I think QCTZ may be ignoring the argument so it
-> may not matter.. on a second thought you already have it reviewed
-> and it's already a cross-subsys merge so might as well pull it in,
-> worst case scenario it'll revert cleanly
+The rate_factor multiplier is used to multiply a few values in the
+sensor's timing configuration and the exposure time is one of them. This
+also needs to be taken into account in exposure time margin: multiply it
+by rate_factor so that sensor's exposure time margin is respected.
 
-Thanks, I will keep it then.
+Fixes: f513997119f4 ("media: i2c: imx219: Scale the pixel rate for analog binning")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+---
+ drivers/media/i2c/imx219.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-> 
-> Once this lands, please move all PAS defines to.. hmm.. qcom_pas.h
-> sounds like a good candidate?
+diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+index 223d3753cc93..05d9737bdc95 100644
+--- a/drivers/media/i2c/imx219.c
++++ b/drivers/media/i2c/imx219.c
+@@ -451,7 +451,8 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
+ 		int exposure_max, exposure_def;
+ 
+ 		/* Update max exposure while meeting expected vblanking */
+-		exposure_max = format->height + ctrl->val - IMX219_EXPOSURE_OFFSET;
++		exposure_max = format->height + ctrl->val -
++			IMX219_EXPOSURE_OFFSET * rate_factor;
+ 		exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
+ 				exposure_max : IMX219_EXPOSURE_DEFAULT;
+ 		ret = __v4l2_ctrl_modify_range(imx219->exposure,
+@@ -878,6 +879,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 	crop->top = (IMX219_NATIVE_HEIGHT - crop->height) / 2;
+ 
+ 	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
++		int rate_factor = imx219_get_rate_factor(state);
+ 		int exposure_max;
+ 		int exposure_def;
+ 		int llp_min;
+@@ -896,7 +898,8 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 			return ret;
+ 
+ 		/* Update max exposure while meeting expected vblanking */
+-		exposure_max = mode->fll_def - IMX219_EXPOSURE_OFFSET;
++		exposure_max = mode->fll_def -
++			IMX219_EXPOSURE_OFFSET * rate_factor;
+ 		exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
+ 				exposure_max : IMX219_EXPOSURE_DEFAULT;
+ 		ret = __v4l2_ctrl_modify_range(imx219->exposure,
+-- 
+2.47.3
 
-Sure, I will propose that as a follow-up change. We have to agree on
-common naming there.
-
--Sumit
