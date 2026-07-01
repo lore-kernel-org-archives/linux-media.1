@@ -1,189 +1,293 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011012.outbound.protection.outlook.com [52.101.70.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9737D4963D2;
-	Wed,  1 Jul 2026 16:09:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782922181; cv=fail; b=F/SG0wVKbjnNyswY0Olm1NTULSqh6vIrQ1zrsGzGXeclnWtiHcr9FOoY418H5g7yL8AdzGztwXrE2uVUVKUx0xPQpAs+8U2l4rgigoHkYCHeo/Fbjnq4oNJNwMw2M3vsLe27T1Em6ufAxMbl/pXFCkQiIIYSG+6VB1kKFLTs0zk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782922181; c=relaxed/simple;
-	bh=RX5EsBjkdzeGJWQ8GalW3HQXczqm4rRtgM06Plaggqc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=XsKGS7ghb30rrguCP0Xi4YCxJq5QESoamca1PiYPsE4GPjBzFS1lcc0IOyoKZMCB7rb2PonMBhsZq61AM1DgcKzJdahAgLPdVkMdkgCVqjTcD799Ll8e4xEtacbbwLpzb8tHWMy6J78TTzH54sZ6oSn2Dsx9UJWw/7836QGJSVw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=bvFd/Hf+; arc=fail smtp.client-ip=52.101.70.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442D12F1FD0
+	for <linux-media@vger.kernel.org>; Wed,  1 Jul 2026 16:16:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782922601; cv=none; b=jRzvfmBfW/IRxL8UDc5xPTktMGGOT9ijI759g3vSol1eZy2WMfg76f3890KgmoRSGAjApWK3qM+0J50gU+UpOLTlfYG4jcGk815UucmUEBc58TfbvDLYHwF1Om25OIgwsGAuc7nCcSXUITO/cDnw22cdRHfC2OVC0aMiBhHTqYo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782922601; c=relaxed/simple;
+	bh=ozpwPaA0w+QjayUfndZNIG8hs+AyrILUcnu2wTnkTu0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=djYeagc7mS6DqiH9927VHsdsSxIpJLIfRaiNP+5/k0pc2TtNu61wS13XvO8KHJ09WkNEi71x8YE6loSOG8bcjRJJF240BOuSdbbj0oSdj2tHw84jf1XVRgQ4HGRX66MBWzs0EuuJx6T4r496zV5rn258LE/65RsOKUP2DqsG0Vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oBne4bQg; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="bvFd/Hf+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=E/U9HozC+CZPZdHHegN6aaNrNFo7uFe5xMhPOqhS0DzoxxZEYwu9VO1zMhiC0Q+TRNY7Oml5UbVvYYivGNTz74zVzPkm6GDN8AB3RIjl6DTpJHYITpEubDSDPF/Dci9rUKixJgmz5Zdh69pikdQLdXaa5N4KkHyKToskwdXB0v5zdYMJZk4M8XnzsEDPTztMD1LNeBFiQaY0OKxp5gSJIOnacHQPlyjxZAtqGRRUJXNrf4gcjT4bsHcx6R9CkHyORXiynXe8kS0ka0PZmLyN25DjjISicLVy8zlLDNAUicHuH7lsNufaIS6V9YjIBSp8oxGHXnprEWZeESCn/cictA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qFIDbbVfqXVTE1ZFrBd9o+vSA6cGlqSe0YuIv/Kzb5c=;
- b=BHW3VlYgUVOgH/Sll3wTxV+TTYLgNnCfPYkajk6S7g1/6KZFTTtyuOuFf174aceghkpRJMICiP72EvKlxWfTf1M4mZ0yPZfwP6aJRe3T0/UgAskP/l00+UFsx/RoTff/tVyoyKRO6SOxaGNzLXTApxKndvlB25iCzkQL1kUxDZzjsR6wsvpoC/BN8X/wIwX2cM5wa5Gs5iwnbcYWfNATviMXq3PXOa4GryfVhMKnZPLz0VYiu5g55Ur1tJhvP84P2pupGEXx5gjgj4fh5jklewlk1bor/tpAlN6Crz+8SNVilxC3QqR5SdsWlPFIF3+QONqPx/O/f75PVd1SSj1e7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qFIDbbVfqXVTE1ZFrBd9o+vSA6cGlqSe0YuIv/Kzb5c=;
- b=bvFd/Hf+GKD7uOGYB6VFU5pnCM6RmG2DquT1KXYXZY2tkll+kx8Z64GcwCoJHvBWIjQm027O7ZAsQcSrNU5VaFuY1HwTA05D9ZSsF8BPl3OiGQuK/vgHNZWcZgE+8gEjjiAlYrg5HlifFtK8RZReZlO+aSTrvLp+wBjT9IMhBLFH4m9UO9ncY6xRtPDveVARDq2RZXxJ70tiV5DzP72px38mKVtm/BdgG1q03j7u7RQpD8qfABjynTuDRGsqJTdpv6qxpLKoYwakDM0xSccaa2sWQQZ3KO5hnWZHf6dtMNMHjb6JwLsXBZjwdy9v/BRPhz8osihW3KotQT0EwqOZ9g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS8PR04MB7656.eurprd04.prod.outlook.com (2603:10a6:20b:29b::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 1 Jul 2026
- 16:09:23 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Wed, 1 Jul 2026
- 16:09:23 +0000
-Date: Wed, 1 Jul 2026 11:09:11 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Bryan O'Donoghue <bod@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Guoniu Zhou <guoniu.zhou@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>,
-	Aisheng Dong <aisheng.dong@nxp.com>, linux-media@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Guoniu Zhou <guoniu.zhou@nxp.com>
-Subject: Re: (subset) [PATCH v5 0/2] media: nxp: imx8-isi: Add virtual
- channel and frame descriptor support
-Message-ID: <akU7pzJHFXT0ZNNE@SMW015318>
-References: <20260521-isi_vc-v5-0-a38eb4fcd58e@oss.nxp.com>
- <178276214766.2429861.1950641421457268519.b4-ty@b4>
- <20260629202302.GK3054459@killaraus.ideasonboard.com>
- <geVpV765Vs_salSTWKnZ7gqdOqDTm2841DWzfwZnbn-oLEj-gSZ_-QddZyDalTzdWU-2_TGVwXOjYkXy1rwoLw==@protonmail.internalid>
- <akPsxPgLNgu3YsEV@SMW015318>
- <24be88f8-156a-432f-8d2a-4b0417e042c7@kernel.org>
- <akU3hNb_9IkwGLK2@SMW015318>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akU3hNb_9IkwGLK2@SMW015318>
-X-ClientProxiedBy: PH8PR21CA0016.namprd21.prod.outlook.com
- (2603:10b6:510:2ce::24) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oBne4bQg"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2c7ab2b9dceso2154175ad.2
+        for <linux-media@vger.kernel.org>; Wed, 01 Jul 2026 09:16:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782922599; x=1783527399; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9duww/9n/zYVsBRyTBQ5AEot5qHPgR/+kguChkwrIaQ=;
+        b=oBne4bQgo7v7IOy13DUIjAYzfzxf53gq2ylrrjOAty+pBLxs6eLwWWP45pS4K4AbxH
+         +g43hbgdCnryJ5WbLyFIybDjNatdKQeFZJxpYqNhxD2zPsocDLUJqRrZGgZarlGiQRrE
+         A9oviZFuY7Jf7tMQaPXn6zHXD5Vb7QAWCPneEwPaUZNnY16UtLXrZvZk+jIVFGDXUnkm
+         BMji6QXwYhdF9Sf19ocuzZhUrip2A93Fp3393cX+Te3L9NMPaIQ9t7U21yHeomNxHayv
+         u86/TdKrvc3bfgwfXXnPUchJs93itDMPGaTvpgkZk9ja914S4bNB0TSZ1YbilDKN5DgT
+         1K2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782922599; x=1783527399;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9duww/9n/zYVsBRyTBQ5AEot5qHPgR/+kguChkwrIaQ=;
+        b=V64t1sR8NxnlpNCvWLvl0OobVkIhNU0i6V4DIVKF/llLeWoMBKgwFvUb+xbtfmkDws
+         E129YzoREhYY87fSQbm6kYjw5LdsTWLLaOvIEDBIwXCioewQh/59kkB+LANSr3Un5XyY
+         PuyMvKlazKW9IlT2sOchu8uFKE02Gp+2lneH3HEwvfIozHsw9bmxv0uhBCDwvhSUV2Hy
+         m2ERQ+fFoHwFSgb/oB7zE7WQya/qE9b9xX6XesQg3ev5r54MtAG2YKuU0sn4xeKaa59d
+         6UqhXCqJHzHVOOmnKderv7LWqYD1cV//JeJexc139Q1bEqPk3Funy4noipnfou8dzBuz
+         pDuQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr2Op4Uh5K1IPv1WARISMKw9pvsuhgummC4wPsv6B/m08g4wm67J593fbo3aK9vgP9/9ItWF2OtqQQ6dw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxMpXX3rjP6V+CXEGgMMd1GQxkLKoZ8fDkpVGC1dbKcu3JkTmLz
+	lYy19weGQwedolTYkc0388OBBXnjlqMAyXb3+ziF9/wx60qIkd3ch09Q
+X-Gm-Gg: AfdE7ckjtIEwekUwFpRCYFFy+0YZizar0p06FRWtGYaoKDDMGhTbH68NZn0hcbFHtXS
+	RpWrX/8RV/3YydiU27/K5ocETxt6wLwrDKqNq00SIP30DjBdhI8soi1r8MRfvMKK5Q3P2i0cy21
+	pOcYuKiYvWNP3ItZeu3kVViCx7X/mXs4rL5EVZRnZsTqzj35JF0WdzFwj3p2pt1aP0FrSjoq55s
+	5v9uYZf/aX55GCsCreMffp/Mo8S5nxJ4T8lMbg0zp75CE+DSAKj80UqbrxWUYPEWwuBjHSlegRJ
+	mFTCDfmpNxPbdY9OBeW/soMt1V+zx9J444fcv60LTFFZ9h06LHUHuk/QtW2C7YTeL+l7owX2h62
+	KctLScGeFlVNioYBuCn6KZTRKSOH8wATjIuJN59whIjoibFaBAWtjd1cN+8XS4HNtVFFb/MJaO+
+	DxKyWBpNOg
+X-Received: by 2002:a17:90b:5386:b0:364:be8f:1d86 with SMTP id 98e67ed59e1d1-380aa2978d3mr1352639a91.8.1782922599407;
+        Wed, 01 Jul 2026 09:16:39 -0700 (PDT)
+Received: from desktop.lan ([2600:1700:78e0:fd0::14])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30ee2fc21casm20898228eec.10.2026.07.01.09.16.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Jul 2026 09:16:38 -0700 (PDT)
+From: Neal Patalay <nealpatalay0@gmail.com>
+To: andy@kernel.org,
+	hansg@kernel.org,
+	mchehab@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: sakari.ailus@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	matt@mattwardle.net,
+	error27@gmail.com,
+	mugrinphoto@gmail.com,
+	Neal Patalay <nealpatalay0@gmail.com>
+Subject: [PATCH] staging: media: atomisp: refactor pipe graph dump stage formatting
+Date: Wed,  1 Jul 2026 09:15:34 -0700
+Message-ID: <20260701161534.31152-1-nealpatalay0@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB7656:EE_
-X-MS-Office365-Filtering-Correlation-Id: cb85721c-2f86-4463-55f8-08ded78b1db7
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|7416014|376014|1800799024|366016|19092799006|23010399003|56012099006|4143699003|11063799006|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
- OZBFqzKhFFCsIzblJF59CaFkekhZbPDGUSdPYIvnXw/DfsL5neTfKXWEkH5xoiMR5/pKNR6+9cGCScGAtQIHbEhFsHibWzV2bQ2FLJojg8lO4rIp3obI+dBRPFXX8T2qLe6AFT0wK3HX/gCGoeCG1pGMbMm1LtiKYZTOiZcjyRHUhddWGmN4Jp7Rie9bZwFfN/GfWE5MCwSq64RIk9W2LZ9JWeTiVr/SgCbZb17lDuisW8fgv3AvdH2LdeOCwa1u1q5YCEJgWK797AhBrHmpAaDNBoAD/I9y+aCRqctRq0yaZdpB9i280OcAy9lBjVaObfSC1cR7RKxrmFANar9g+7FRZ4Ecm7DXSut+YtipxJH2Y2QfYksNFpJ+IiLzad1ADZzyyOZ2m78XaZ1ip5Xt3MraICbzDrBB/MO9ZaRg37FIjSP1MFQzBAoAiwyECJHYRz/e4eUw4v3KCw6vOryaw3iLwQPukopF1/wWiqbirYlr4WCb1q7WqTs0QBQ9B2KQ5Z3YktVeKFV/uRoqgUTC6qGW3QhlKxNIEgJ+T/xFqu9ZcrdbnOrR/WPPkuBE2xLXUkUF19rQrp3mOc0xAbYQN4w/Qihvz07nKBkknxAZSV2OtVhGpGlxuscgvaIqSwlcqS1oSwFkBPfHDXG1etBAwR43wwglnApAPaJ74jA8+Dk=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(19092799006)(23010399003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?tAeoG8Y3A2GTWvRYFZwDQBYZxmw/ycoEyVso8Sjr+NkY++XJoS/FENAyLv4h?=
- =?us-ascii?Q?7bhEf+9tj9CK2fQguvXx5KUqbZu0tnKLev78HsI0yP4amD8FQT9boVFwzvXP?=
- =?us-ascii?Q?2fY+5c4MvpyRBaTvVRy0zTgVLjsi5B3zc2Tps8aaP+kNfw1ep6giGBfI/G/a?=
- =?us-ascii?Q?NaW+v8EnmUi+Eq3fL5i9YiCOPrzgbt8mwX2B7TvLfFzUYgvNAA0Yx4+0J+dp?=
- =?us-ascii?Q?Hh8y0QvHBRANfCeDFPeFlDmO1sfZgOUjy7qeNHP/LcbNsHDg3CaZayHWxhPk?=
- =?us-ascii?Q?FeTseVge4lK7K9UwC7ewkAORnHuGuonC+3nBiGQ1C6Hc01QXc/AK89EgncLQ?=
- =?us-ascii?Q?FrjBvCkPzxSxEElnWlVoO9qu1kVSTbClXX98j3J7PZqjFwEGp0oVNqHOGGh2?=
- =?us-ascii?Q?BT/YX6UGEo4lBwcwRWl7lM2qaZOsdEjn3OK39GW2iowNhLi8LhlOzWhuLzuZ?=
- =?us-ascii?Q?D4bVJx1mRPu92MXQaYUunswxHb6CFIB2SIX4Nle8Kt7khwaN/ZHdJqn2GsMl?=
- =?us-ascii?Q?B8ooJnKwWvFKDxh/wIEE+oMH07vVoEJMh5eRJr5v9dva3MjksYqF2+sY+rKy?=
- =?us-ascii?Q?dLH4J1tT3uR/ZGcjIarzcxIjt7tThPZylI5i7ZHFOtewOaKJUDwCb0gNlUez?=
- =?us-ascii?Q?ouizmR1OXOVMdX91s1/4ZfgYE8RlcXcoU8Wq8jnuYMhuw1jtI5QpHU3slbCa?=
- =?us-ascii?Q?vDH1MNb1pSY+YuS6DCaSzMklmqTf/P+xysT5rIn4aOhReqbzGwWybVPzLx4r?=
- =?us-ascii?Q?GhDJ+OG6L5ITKo55mvElDW1Aws9wdo1elh0HPKw1ayzd20NtnhaD48mKd+b6?=
- =?us-ascii?Q?6z01qYEinCAXv9bs/XYAn3hA706DdBxtkcDzVBdExOFs43M2SRm1QSXfNUPG?=
- =?us-ascii?Q?tUtriu9qtS41bqZunyJX8NVdmTmFXcLJW81jZ5M7DogRnGBDmJHPRvusYxzR?=
- =?us-ascii?Q?HlVxqyPjZOHk3tendTHXCZSLHJKpnA+9INbbTyVUoaNppa4jaBby15wJ6tHa?=
- =?us-ascii?Q?7GUP+9Cu9QwIN1mPkjHvDCkDWf/ve2I8mKBDorFh9b2PcP1v9m7znd86t/k+?=
- =?us-ascii?Q?KUTNSj+m7Tw4HTjrnsYRjHa6gYg9Sm+iKoI8Dij9OJh+2GYYLMS8uk8kLQeO?=
- =?us-ascii?Q?qtmMj7iy2s6cKIFVq5pWIMv92ZWMDNvxE9+DwsOTr4d6xN6jUiKfCc7jOTOb?=
- =?us-ascii?Q?m4a9KQlAPg0qYJHjhfUYjM+BXi5VhjWXiI6DU0VfVQCNNxYjuOdGFTmrpArh?=
- =?us-ascii?Q?u7dl36p45GRL8hO0PLqDyCuva8C7dgkCkjQhALx2xkSGrNDXehtkprt8UyrC?=
- =?us-ascii?Q?ngskUgERmT+1yKX/gEy1eTVF7WXyuPOcDr4irtdgDxU2aGHRmYO9AahiOaEP?=
- =?us-ascii?Q?z4IUy8fDtp/EZu+cs3ZOssfJMn8woxXs8spt1fl3a3vK5sdFpH/F9hh3pWxO?=
- =?us-ascii?Q?hv2EKeC1CyrgO0NSLkEVwgGh+4jf7KpzXkwsxMopYAhlfhoqi9SJHCiUby/I?=
- =?us-ascii?Q?so37R+Q3JzVQlNQD5zyckUEBzGRSc7ALA9xhcSwKhuAdC5am8YH98a46cwD3?=
- =?us-ascii?Q?csYAtfkl+onsE+UwInCiTVXkXqnWMXLy3poDPEyC/vhTwUx7Tt6OGZnY5hCK?=
- =?us-ascii?Q?zQw63IpekhYWr0vFRfQfIjT4qnv7dzXjpWNmiYKhwQo1si7WaMvDJ8Nwr0AR?=
- =?us-ascii?Q?jCn5ArMTIqJ6vdszkdx2VFGtpBQLKEx0dlyqKrIoUaRcb+n4twkWCB/2mpkR?=
- =?us-ascii?Q?uMe4OqtUpuQy2Q1geHCIsl6dRYhxqvaTHkRzDalR8JaHEc2cbP5v?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb85721c-2f86-4463-55f8-08ded78b1db7
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 16:09:23.5065
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fFmpJ1cx+o/6SJ93m02QZvKtNJrWN1LR1kqu6hij+jazk3b3N12PArbz9hqTUwn4kxYYJp2rgR+Ei/X3G1S8kz430CegSFl8O+qsT9rntm3P+7QWvZ6uUQN0K0xML8Q5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7656
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 01, 2026 at 10:51:32AM -0500, Frank Li wrote:
-> On Tue, Jun 30, 2026 at 11:20:53PM +0100, Bryan O'Donoghue wrote:
-> > On 30/06/2026 17:20, Frank Li wrote:
-> > > On Mon, Jun 29, 2026 at 11:23:02PM +0300, Laurent Pinchart wrote:
-> > > > On Mon, Jun 29, 2026 at 03:42:31PM -0400, Frank.Li@oss.nxp.com wrote:
-> > > > > From: Frank Li <Frank.Li@nxp.com>
-> > > > >
-> > > > >
-> > > > > On Thu, 21 May 2026 17:10:03 +0800, Guoniu Zhou wrote:
-> > > > > > This patch series enhances the i.MX ISI driver's with virtual channel
-> > > > > > support and adds frame descriptor capabilities to the crossbar subdevice.
-> > > > >
-> > > > > Applied, thanks!
-> > > > >
-> > > > > [1/2] media: imx8-isi: crossbar: Add get_frame_desc operation
-> > > > >        commit: 3e15a3510908c990ee352aa206d5f9c23d4b216e
-> > > >
-> > > > Is this a mistake ? Patch 1/2 has no R-b tag, and you're not listed as
-> > > > maintainer for this driver.
-> > >
-> > > Sorry, I missed checking Maintainer files, in media summit, agree on I pick
-> > > imx's media drivers, but forget finalize the file\dir list. Can you help
-> > > summery which files\dir I should take care?
-> > >
-> > > If you have concern about this patch, I can drop it.
-> > >
-> > > Frank
-> > You should set yourself up here:
-> > https://patchwork.linuxtv.org/project/linux-media/list/
->
-> I just register it.
->
-> "Registration successful!
->
-> A confirmation email has been sent to frank.li@kernel.org. You'll need to visit the link provided in that email to confirm your registration."
->
-> I have not recieved such confirm email. Anything wrong?
+The original implementation of ia_css_debug_pipe_graph_dump_stage()
+includes an off-by-one error where the original strscpy size dropped
+characters immediately before newlines. It also allocates over 600
+bytes across multiple buffers on the stack. Address these shortcomings
+and reduce stack usage with a single 256 byte buffer via a new helper
+function, ia_css_debug_build_info().
 
-I just got it. But I am not in delegate list yet.
+Fixes: ad85094b293e ("Revert "media: staging: atomisp: Remove driver"")
+Signed-off-by: Neal Patalay <nealpatalay0@gmail.com>
+---
+ .../pci/runtime/debug/src/ia_css_debug.c      | 174 ++++++------------
+ 1 file changed, 59 insertions(+), 115 deletions(-)
 
-Frank
+diff --git a/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c b/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
+index 5113aa5973f3..9b4dd3b429da 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
++++ b/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
+@@ -1162,6 +1162,25 @@ void ia_css_debug_pipe_graph_dump_epilogue(void)
+ 	pg_inst.stream_format = N_ATOMISP_INPUT_FORMAT;
+ }
+ 
++static void ia_css_debug_build_info(char *info, size_t info_size, int *offset, bool flag,
++				    const char *flag_str, size_t flag_str_size, int *line_len)
++{
++	if (flag) {
++		/* If new line length exceeds max line length, replace the last ',' with a "\\n" */
++		if (*line_len > 0 && info_size - *offset >= 2 &&
++		    *line_len + flag_str_size > ENABLE_LINE_MAX_LENGTH) {
++			info[*offset - 1] = '\\';
++			info[*offset] = 'n';
++			*offset += 1;
++			*line_len = 0;
++		}
++
++		int len_written = scnprintf(info + *offset, info_size - *offset, "%s,", flag_str);
++		*offset += len_written;
++		*line_len += len_written;
++	}
++}
++
+ void
+ ia_css_debug_pipe_graph_dump_stage(
+     struct ia_css_pipeline_stage *stage,
+@@ -1194,123 +1213,48 @@ ia_css_debug_pipe_graph_dump_stage(
+ 
+ 	/* Guard in case of binaries that don't have any binary_info */
+ 	if (stage->binary_info) {
+-		char enable_info1[100];
+-		char enable_info2[100];
+-		char enable_info3[100];
+-		char enable_info[302];
++		char enable_info[256];
++		int offset = 0;
++		int line_len = 0;
+ 		struct ia_css_binary_info *bi = stage->binary_info;
+ 
+-		/* Split it in 2 function-calls to keep the amount of
+-		 * parameters per call "reasonable"
+-		 */
+-		snprintf(enable_info1, sizeof(enable_info1),
+-			 "%s%s%s%s%s%s%s%s%s%s%s%s%s%s",
+-			 bi->enable.reduced_pipe ?	"rp," : "",
+-			 bi->enable.vf_veceven ?		"vfve," : "",
+-			 bi->enable.dis ?		"dis," : "",
+-			 bi->enable.dvs_envelope ?	"dvse," : "",
+-			 bi->enable.uds ?		"uds," : "",
+-			 bi->enable.dvs_6axis ?		"dvs6," : "",
+-			 bi->enable.block_output ?	"bo," : "",
+-			 bi->enable.ds ?			"ds," : "",
+-			 bi->enable.bayer_fir_6db ?	"bf6," : "",
+-			 bi->enable.raw_binning ?	"rawb," : "",
+-			 bi->enable.continuous ?		"cont," : "",
+-			 bi->enable.s3a ?		"s3a," : "",
+-			 bi->enable.fpnr ?		"fpnr," : "",
+-			 bi->enable.sc ?			"sc," : ""
+-			);
+-
+-		snprintf(enable_info2, sizeof(enable_info2),
+-			 "%s%s%s%s%s%s%s%s%s%s%s",
+-			 bi->enable.macc ?		"macc," : "",
+-			 bi->enable.output ?		"outp," : "",
+-			 bi->enable.ref_frame ?		"reff," : "",
+-			 bi->enable.tnr ?		"tnr," : "",
+-			 bi->enable.xnr ?		"xnr," : "",
+-			 bi->enable.params ?		"par," : "",
+-			 bi->enable.ca_gdc ?		"cagdc," : "",
+-			 bi->enable.isp_addresses ?	"ispa," : "",
+-			 bi->enable.in_frame ?		"inf," : "",
+-			 bi->enable.out_frame ?		"outf," : "",
+-			 bi->enable.high_speed ?		"hs," : ""
+-			);
+-
+-		/* And merge them into one string */
+-		snprintf(enable_info, sizeof(enable_info), "%s%s",
+-			 enable_info1, enable_info2);
+-		{
+-			int l, p;
+-			char *ei = enable_info;
+-
+-			l = strlen(ei);
+-
+-			/* Replace last ',' with \0 if present */
+-			if (l && enable_info[l - 1] == ',')
+-				enable_info[--l] = '\0';
+-
+-			if (l > ENABLE_LINE_MAX_LENGTH) {
+-				/* Too big for one line, find last comma */
+-				p = ENABLE_LINE_MAX_LENGTH;
+-				while (ei[p] != ',')
+-					p--;
+-				/* Last comma found, copy till that comma */
+-				strscpy(enable_info1, ei, umin(p, sizeof(enable_info1)));
+-
+-				ei += p + 1;
+-				l = strlen(ei);
+-
+-				if (l <= ENABLE_LINE_MAX_LENGTH) {
+-					/* The 2nd line fits */
+-					/* we cannot use ei as argument because
+-					 * it is not guaranteed dword aligned
+-					 */
+-
+-					strscpy(enable_info2, ei, umin(l, sizeof(enable_info2)));
+-
+-					snprintf(enable_info, sizeof(enable_info), "%s\\n%s",
+-						 enable_info1, enable_info2);
+-
+-				} else {
+-					/* 2nd line is still too long */
+-					p = ENABLE_LINE_MAX_LENGTH;
+-					while (ei[p] != ',')
+-						p--;
+-
+-					strscpy(enable_info2, ei, umin(p, sizeof(enable_info2)));
+-
+-					ei += p + 1;
+-					l = strlen(ei);
+-
+-					if (l <= ENABLE_LINE_MAX_LENGTH) {
+-						/* The 3rd line fits */
+-						/* we cannot use ei as argument because
+-						* it is not guaranteed dword aligned
+-						*/
+-						strscpy(enable_info3, ei,
+-							sizeof(enable_info3));
+-						snprintf(enable_info, sizeof(enable_info),
+-							 "%s\\n%s\\n%s",
+-							 enable_info1, enable_info2,
+-							 enable_info3);
+-					} else {
+-						/* 3rd line is still too long */
+-						p = ENABLE_LINE_MAX_LENGTH;
+-						while (ei[p] != ',')
+-							p--;
+-						strscpy(enable_info3, ei,
+-							umin(p, sizeof(enable_info3)));
+-						ei += p + 1;
+-						strscpy(enable_info3, ei,
+-							sizeof(enable_info3));
+-						snprintf(enable_info, sizeof(enable_info),
+-							 "%s\\n%s\\n%s",
+-							 enable_info1, enable_info2,
+-							 enable_info3);
+-					}
+-				}
+-			}
+-		}
++#define ADD_INFO(flag, flag_str) ia_css_debug_build_info(enable_info, sizeof(enable_info), \
++		&offset, bi->enable.flag, flag_str, sizeof(flag_str), &line_len)
++
++		/* Build string in enable_info buffer */
++		ADD_INFO(reduced_pipe, "rp");
++		ADD_INFO(vf_veceven, "vfve");
++		ADD_INFO(dis, "dis");
++		ADD_INFO(dvs_envelope, "dvse");
++		ADD_INFO(uds, "uds");
++		ADD_INFO(dvs_6axis, "dvs6");
++		ADD_INFO(block_output, "bo");
++		ADD_INFO(ds, "ds");
++		ADD_INFO(bayer_fir_6db, "bf6");
++		ADD_INFO(raw_binning, "rawb");
++		ADD_INFO(continuous, "cont");
++		ADD_INFO(s3a, "s3a");
++		ADD_INFO(fpnr, "fpnr");
++		ADD_INFO(sc, "sc");
++		ADD_INFO(macc, "macc");
++		ADD_INFO(output, "outp");
++		ADD_INFO(ref_frame, "reff");
++		ADD_INFO(tnr, "tnr");
++		ADD_INFO(xnr, "xnr");
++		ADD_INFO(params, "par");
++		ADD_INFO(ca_gdc, "cagdc");
++		ADD_INFO(isp_addresses, "ispa");
++		ADD_INFO(in_frame, "inf");
++		ADD_INFO(out_frame, "outf");
++		ADD_INFO(high_speed, "hs");
++
++#undef ADD_INFO
++
++		/* Replace last ',' with '\0' */
++		if (offset > 0)
++			enable_info[offset - 1] = '\0';
++		else
++			enable_info[0] = '\0';
+ 
+ 		dtrace_dot("node [shape = circle, fixedsize=true, width=2.5, label=\"%s\\n%s\\n\\n%s\"]; \"%s(pipe%d)\"",
+ 			   bin_type, blob_name, enable_info, blob_name, id);
+-- 
+2.54.0
 
->
-> Frank
->
->
-> >
-> > That way you can coordinate with other maintainers on which files get
-> > reviewed by whom, see what the RB and ci status is.
-> >
-> > Its pretty essential.
-> >
-> > ---
-> > bod
->
