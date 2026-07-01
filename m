@@ -1,52 +1,52 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B134921AE
-	for <linux-media@vger.kernel.org>; Wed,  1 Jul 2026 12:23:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69858481FC6
+	for <linux-media@vger.kernel.org>; Wed,  1 Jul 2026 12:23:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782908604; cv=none; b=Yp5CuJfmK8q7Si8+7x8O1mCNHXAOpoN2GVLUs9c+ECiFEgb5XFH6XD8Mg8e1HnpHCRTJMajS7hvMCoTSHDEKvxeSOjC3vIc5NTGDB4eNnGUCKslDSXQ3apo+55hwqCow/8CKm8IEV+77I1dOraZUV8kl6oVpnLsb9GN5kHjGW6Y=
+	t=1782908605; cv=none; b=UW7kMDhwu35CnRSJsVK4VYFTzy8Mw9rWuErLMTdqS8fc1hWwdiB1MfxTxM0Xf0THehxPxZxDN1QoFRt8j3Y34990Xt4SMqIIZVq3/AnwTEsykr3+eunVz14g083KdSTlc5DJhnZWbmyw+zFlaf7IsIF1h3OJUjXhkEctCemiDJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782908604; c=relaxed/simple;
-	bh=Lt6UWEpWiLW+FSbcn1f+IgZVNrj7aPywShh2s6iHGpo=;
+	s=arc-20240116; t=1782908605; c=relaxed/simple;
+	bh=fzwFDLeXW4HeYfOs/Li6+l70HDgMuwwuEAWigh4JnFA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VRGjeFTdoVQO1rSJf4YLTvaKKTrVAIAJ+kcmQ7CblGdgNUiC4jja2ymBsja4BD5qfBySLKCiTwXycTEQBnxu3zMx314jCOwbUEujtC7f9SSvxbtma8wAcQE39iqftYtLRyMRz+MOdEDzBHoOZ0YfN067DGipACFnGzGgumKGey8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MmsN/G0h; arc=none smtp.client-ip=192.198.163.11
+	 MIME-Version; b=Sdat3GK8icINL8KOXHelrg3s5WXrGSVfDCfU5FkprT+EnGNdDM9Wv65a/P8tMrIuXRJpIE/lQgiOPOcVAnJcpUJmfF5srCAK4z1e9xuqOQDqO7q21QwyAahbtKSTJ/jCK0TViC6LbtC3M8Nz5AlsVwvw0x/RbMZJ68gGEaEZjFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=P/ntTnQ8; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MmsN/G0h"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="P/ntTnQ8"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1782908604; x=1814444604;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Lt6UWEpWiLW+FSbcn1f+IgZVNrj7aPywShh2s6iHGpo=;
-  b=MmsN/G0hOL7E5oZawuD75SjzXXEsCYAinZTsxVzMMFOvSkz0xTo6lhru
-   jSgPAkUPq4ks9jyLvgfQKXDAp2ZdY8DTgxyqbF/zjJkdAxGEEjr49Clcf
-   qebroqhQ1p/HXyn1/8cnZ5GrQVfUd8glSIMGVFahggLPJ19s+3yc/pNQw
-   6mXRnsqvBRmz/J+LVTjv9S+eVhXPogSur4M/rr+2CKznohzaYBVAxYlzf
-   UieoDUoZOsgl8FiP63dT8dZgLUbzKU7v+3UdkpKRwx9H8Qct5JUAISQYC
-   ZQrEdqflSdCV5SpdKjGjr6HDdtTqqRRQtXPWggvR8yJ5frXXJMehGdrU9
-   A==;
-X-CSE-ConnectionGUID: SeXv08dXTgG4nyH0pfxEzQ==
-X-CSE-MsgGUID: CehgGUr3TH+eE9u9sonYdQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="94239150"
+  bh=fzwFDLeXW4HeYfOs/Li6+l70HDgMuwwuEAWigh4JnFA=;
+  b=P/ntTnQ8v/aJ9HmmNXc0d2dx7MdW9bdjJYN8libjukIJ3vdinqyKxAJf
+   jAqdTq29TbfXHQjKwZw0NiulGkPbnUr2OJ+juabVku7+qTyaosFo+FG23
+   1he//PXDGs3mwCYVXl/Dl1ovGjK+VRsKmB0MYiHAnQOrjzw7Zue4KRjrv
+   gP2InEds/F4aDjBu0ofA6NHzd02zZXHgrbO53TMVfa+xzNmqrfF2pPOW2
+   Yx3auApoawMhAJym41g8L3k+sOSNg30YicpyNnMSwr4kw5KUS/i+Av2AA
+   XZfzCRAx8HQrjq6K2Wn+zJbx2C/P46CWV8jMKWrqZroPTedHDa4ffE/1N
+   w==;
+X-CSE-ConnectionGUID: kh+piPHTS2yc0pFYvQseXQ==
+X-CSE-MsgGUID: Q0PA7aHDRmm4YksS/Qtzbg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="94239159"
 X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; 
-   d="scan'208";a="94239150"
+   d="scan'208";a="94239159"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
   by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 05:23:21 -0700
-X-CSE-ConnectionGUID: +kqFGHVWS3C2y1a3IYk6bw==
-X-CSE-MsgGUID: UajokqcyQlSaGXMOjCxgrQ==
+X-CSE-ConnectionGUID: W41Cnc5NQkaUtevx+jhToQ==
+X-CSE-MsgGUID: WhsFEeU9QnKDWXk/Up6lOQ==
 X-ExtLoop1: 1
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.62])
   by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 05:23:14 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id D7329121C29;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id EF5E3121C68;
 	Wed, 01 Jul 2026 15:23:04 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1weu1S-00000007Fkd-2aTz;
+	id 1weu1S-00000007Fl5-32bz;
 	Wed, 01 Jul 2026 15:26:34 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -78,9 +78,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v6 05/16] media: imx219: Rename "binning" as "bin_hv" in imx219_set_pad_format
-Date: Wed,  1 Jul 2026 15:26:22 +0300
-Message-ID: <20260701122634.1728782-5-sakari.ailus@linux.intel.com>
+Subject: [PATCH v6 12/16] media: gc0310: Don't assign set_fmt()
+Date: Wed,  1 Jul 2026 15:26:29 +0300
+Message-ID: <20260701122634.1728782-12-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
 References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
@@ -92,44 +92,26 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Rename "binning" as "bin_hv" in anticipation of having a variable called
-"binning" for another purpose.
+Do not assign set_fmt() as it is the same as get_fmt(), which will be
+called by the framework now in absence of set_fmt() op.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 ---
- drivers/media/i2c/imx219.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/media/i2c/gc0310.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-index 52a4bd9c4fd3..f8bc762ebbf1 100644
---- a/drivers/media/i2c/imx219.c
-+++ b/drivers/media/i2c/imx219.c
-@@ -838,7 +838,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
- 	const struct imx219_mode *mode;
- 	struct v4l2_mbus_framefmt *format;
- 	struct v4l2_rect *crop;
--	u8 bin_h, bin_v, binning;
-+	u8 bin_h, bin_v, bin_hv;
- 	int ret;
- 
- 	format = v4l2_subdev_state_get_format(state, 0);
-@@ -871,11 +871,11 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
- 	bin_v = min(IMX219_ACTIVE_AREA_HEIGHT / format->height, 2U);
- 
- 	/* Ensure bin_h and bin_v are same to avoid 1:2 or 2:1 stretching */
--	binning = min(bin_h, bin_v);
-+	bin_hv = min(bin_h, bin_v);
- 
- 	crop = v4l2_subdev_state_get_crop(state, 0);
--	crop->width = format->width * binning;
--	crop->height = format->height * binning;
-+	crop->width = format->width * bin_hv;
-+	crop->height = format->height * bin_hv;
- 	crop->left = (IMX219_NATIVE_WIDTH - crop->width) / 2;
- 	crop->top = (IMX219_NATIVE_HEIGHT - crop->height) / 2;
- 
+diff --git a/drivers/media/i2c/gc0310.c b/drivers/media/i2c/gc0310.c
+index 7af4d66f42a0..19458eebfde2 100644
+--- a/drivers/media/i2c/gc0310.c
++++ b/drivers/media/i2c/gc0310.c
+@@ -534,7 +534,6 @@ static const struct v4l2_subdev_pad_ops gc0310_pad_ops = {
+ 	.enum_mbus_code = gc0310_enum_mbus_code,
+ 	.enum_frame_size = gc0310_enum_frame_size,
+ 	.get_fmt = v4l2_subdev_get_fmt,
+-	.set_fmt = v4l2_subdev_get_fmt, /* Only 1 fixed mode supported */
+ 	.get_selection = gc0310_get_selection,
+ 	.set_selection = gc0310_get_selection,
+ 	.enable_streams = gc0310_enable_streams,
 -- 
 2.47.3
 
