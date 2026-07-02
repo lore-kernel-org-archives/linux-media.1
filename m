@@ -1,164 +1,152 @@
-Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A31D4ADDB5
-	for <linux-media@vger.kernel.org>; Thu,  2 Jul 2026 13:57:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EFCC4BC011
+	for <linux-media@vger.kernel.org>; Thu,  2 Jul 2026 14:00:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783000657; cv=pass; b=oMVz3JmYtbfoWYnDcqTitzbUHgE1KWIUyjrBKizlyjbeRzSkpAVUeqA3M9TtyqbtN6/na7ljF1gWQDTj/r/+XuOnfF/i7mojLevpLHFOTsef3VkaHu8rnJCIV1VBSIbx5K1kIUjjZHI2duDdR+iU0F9M2ucRf46vH9wfDpfdGFE=
+	t=1783000808; cv=pass; b=J/4QZYERHCzJqhFDVOH4OXAI9yTK+rflXtQfVjksxorhEVdzTSj8cx6C6FSPzlHJLt0utoKBN+wjO61Dmhktnc98sg9sxY7pd7mAGvvupcum7W3oTBFiMx2CJ99PEHKY+Glrkktw3WFktXcXCK+B11AKSXdGLR17L7jH8J0QX4I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783000657; c=relaxed/simple;
-	bh=CgLVwhzuaGigELUUyn93ur1slsiWDZCpISB6BacqHgk=;
+	s=arc-20240116; t=1783000808; c=relaxed/simple;
+	bh=utoARpDnvA3c3vaCWBg5H9ujL8C1Fui0A2kGFCJI2Kw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=B9mZ9pSUjmBuvbkn8NJr9uj/2Talt0rdzy6ouyUkcSpWFow7I7Hupi2tZ2LlTqLoNmKfCV8CcAJe/W/VxH7grcjAvNrwf5/Mq2twhHWW6FMob9AbLHlhxhMixGd1aVue+dsTHw/hhayVWS5KtIeI4g17h/fF+O1Z52e3DGLtKYc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=BE+o5wxi; arc=pass smtp.client-ip=74.125.224.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	 To:Cc:Content-Type; b=tMybHpnCwFuBx3IR1EkDr2OQQocvMOBZdlC2tkBw8wRcjhYHO9KbybDPcJoHkqa8NUeLDLCsothF2EXolcLaITg1A74Bh0nXDyhUdCavsRpS0i0WqGUaZswIOWSchFIwdqsZypGQMl+2bCvuimIxdUVIepqpl1pfgmUrDQpsD8U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VAHLoTLw; arc=pass smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="BE+o5wxi"
-Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-6651bc5730dso2739767d50.2
-        for <linux-media@vger.kernel.org>; Thu, 02 Jul 2026 06:57:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783000654; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VAHLoTLw"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490b1bbcf3aso10426615e9.1
+        for <linux-media@vger.kernel.org>; Thu, 02 Jul 2026 07:00:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783000806; cv=none;
         d=google.com; s=arc-20260327;
-        b=Qsmk1Tiv6M4GCFrjJPmCmNlrwMDZBPaQsGAnZ/LTE5rvYDWeOUxmJxsHp3ZsAlruQJ
-         FQ9e0NR6IsOSZ+iFTXDY7tTY70IX+kWStLZhHT7cmu09W+btA/sWQF2TIS/GO6jfuHyz
-         tjmMxfxeo2qWbn2e7BfhTY+Rgh1/64xJ7MWuS9twgICrdbpSganMzaWEr5IZMe6j51av
-         LGiLuapUgsWVDi5guN2EaVRN6UYFm9tPCwuYU2ERnsk47clf6JvHHi6c2wfEH3CpiuxR
-         w9y/jh7KA+rSudEIRjXZMzDOnIBuFkew7ZEMAzLkcjgmt0cgtE/3lpZpEA73ecw5ozu9
-         Mb2Q==
+        b=AM1oOZp60aOzmy4Qf6qAxpczN9ZuExdV3zylO+7TM6qZ2luS6QB8qnVDa0BVnYxWuE
+         4yNjwhWTt92xsXgw4i8PPoahSZf19QiE3yttaYOO6asJM6wZkEmPAe97ji34XUiGqiax
+         P0O/zsiGpvZvCtUeUDg86ISnD3USYDu6ymVHlBgkNcRgcFOfR4WC2JVZKAMnZs6aa4Ei
+         bJviUDpHgwFBRRZ0e1T1289RU7Fx8KZcKmR9ykfW77YS8a5+F2adWdzccrSv0Nen+qfz
+         PFbfO8VC2l5JyIE3Cdr0s9iD6BgQCygkCUSPP5Z8F6n7OIiU2ap5yHZE7gyxlrJn5+Cj
+         +Hbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ZpVM98wv+peEQ4O6jXgP6XKpYw+FjbF84JaJw4nFIQY=;
-        fh=wCgf29w5Tfiwiv5ySPc/k82f0CcZCa01Bp13MVBRgUA=;
-        b=GuY/FpdLmh1G6HoEHAO0M8+VfjMtC5vSncYqRlItCw9ik264gK4EI9/WUzBirNuc0C
-         hWOfgiSoV1OSeCnUhStI8XvEkiVUUsphysvD96tbLJ6DJ6UWYmtpyChzIPidpHJAu6Jz
-         9tU1R1x89ecx4D7lqAtG6+M6v1ee3Ang6PSzB/gsZDYzh0SHUbbaRMA3SHseizC/fMy2
-         k3TzaqNsi7KTnt/9PTob5m6t0Oy970Km+ChxWiKAvFwwRwdOl688IxZMpxT+bahCwidY
-         nLqS2i1maqd6t9HVwE+p+yNmGJ37F/MG/FOgME62wJyXcob4GrZGwJRpLxCWVk95RwN6
-         ktcg==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Ad3f158zhv32TxrF7aQY3I8idlfk4/6P43hesQy1Oiw=;
+        fh=TjAtSV6Vz/bNdok8o3Wc38LDWKdS+W+cxXYUSuXoAfU=;
+        b=HPCHRXHiiki+JzrI9AaXYwRKLmmpG8qoLyf7ccIe4N2pyfCoXtu+/8nTjEFDrW0vzg
+         kwyyPZAVeiftSTURy8Ul9gXSXNpHU6dwAr91mfOVJAlNCVWSPVXPDOGU5c8XOHuftvCm
+         8eU/ro3rLs1evtyjsoxexvv9XEqEt/oLe63j95VlgqK0d9jizBEnrimdl4z/T0ck/Ra0
+         N5F8/j0sDArD9fJQiQ47kb2fv32nqWSMPjCxZZ7QSM893LypELYs4wuW7PCAQY6jrbWH
+         iOPsuhk/gDrxCPwaCzl1cjfm00HQye3W3CZr10gpT9B4Fe1+x2f4Tqf8hXNXe0ObDU+L
+         fG3A==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1783000654; x=1783605454; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZpVM98wv+peEQ4O6jXgP6XKpYw+FjbF84JaJw4nFIQY=;
-        b=BE+o5wxi9lVYc2MHthhLNNJsZLB94H6fp4tYuklXffkLf1CXUo7tqbZRCplPdm/sGv
-         kk2YiDUIq+Wr+SlBmrwyTta4dXSLC7LCXmBlrXS1AsumWjy47D2E+FwKOfbjH6QXgjmh
-         bPwTYpjHGN88HZ7rwGKJmCkik4yXGGNtWo3nTO2gFgr/ziqFhphrX+LQZq7eq6yxxfbj
-         PpNEZPcSwJc0R4mRY5E4KW5wOt6u4Fqu9RhNHa6zKiPMmA9QLR09Iu9vmp41ih48nYF5
-         /Vc/gfkMS5phP18uej1hswPpzotBrc+WdEzJLzT0CNnfFvJCy86KHzArS0bou48yx3GX
-         HzYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783000654; x=1783605454;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=google.com; s=20251104; t=1783000806; x=1783605606; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZpVM98wv+peEQ4O6jXgP6XKpYw+FjbF84JaJw4nFIQY=;
-        b=p7icvwd51dAz6ESaWJBCXZ+wI7LBmb9oEbas1d/42/lvqFx4mFXK9VeXsaNAXmgC/L
-         j3iiBkJjhBiAJKpzE9VPZ51aL8F+Mcno4S/dOsUPnHUB+yACp2GO62Wok/rbMgOTSrA2
-         2v4v7u8M1KC9J98fWWHRGE51fdND+iPn8tyhemmIVvek+/EYnTuXodUNOq7fbDLyF5SE
-         Tp89jLWYosZwFcHnY22I0pnUKMadzpJsSotZll6DdOPXhrEk6x0Zh44hPsh/q8P6c2OM
-         qJIDPiALXutMq/pANFd1TtVN3leGuvYbF4AAJSH2tUdHx4asboDG7EynlwnUvCRTLpov
-         BfFQ==
-X-Gm-Message-State: AOJu0YxC2YlIDTOts3XB5eRJKCOdIcFKwE80G+Wa86gJ0MBN1unOCHEX
-	xGk/dyOqS642xqJ70InlgWp6B7f+V19ZIhY7OsTxtFj95XB3hh/L6u+7eC9/wkzRC33tcJo2w/S
-	Xm6gZi90LYRU6rd90Im0eRK7SUCgq25SkJrgL9Aa4pg==
-X-Gm-Gg: AfdE7cnFSI4ozd67wXOIHPpJuFdEYorQykmYvL+CdVS73voCliFQzHaJ6s0Bee21L5v
-	x5/AVgS7vcbMXjYE8LA5n5/fyw5xAA6myqx4/OUUyGSwynKGhwQQdCl5XOjZX03pWf7M7mFXrNC
-	hYI2LxQeHPaZUyIXfFAltBkKW+10rA+VtUtK/YTsNptfpfReKiDuTZNWh49quF6Ns7u1vkHJLF8
-	Q9ChYeb8ghsXn6wJAIBdajid+0XWabYaVDsEW3PyeIe29Di2cPFS6KOCZQ9sCLN1alEIrS7NXFO
-	Z36QjOShccv8ccIcouXgnEhOcMzk6oagiqSCWISl9IFExh1s0yvP3Vn9xzRWLDwbN3KP+S0T2ma
-	GrMxILZFdSmnfTg==
-X-Received: by 2002:a05:690e:488e:10b0:664:8836:fec1 with SMTP id
- 956f58d0204a3-66521a09df6mr4593085d50.36.1783000654534; Thu, 02 Jul 2026
- 06:57:34 -0700 (PDT)
+        bh=Ad3f158zhv32TxrF7aQY3I8idlfk4/6P43hesQy1Oiw=;
+        b=VAHLoTLw1Fzhn0TrxD+uMogXY3CfAE9fVKRujwZ6BRLlJ7WxN/a5fh0fgnx6XgGlab
+         dKjrqM3e7hqpnqIUi9rBtqvLvy0hRn3vXkSOGZSQz8mcsr5A/n7ux5uDUAgj1UkvAN7s
+         uXfi4jnGR7zWBRo2YO7KzLsuRMoMWAqxem3k//zXA5ZWPHON0ZWa7fw21F2gOIbp8BlI
+         D7QOg+G6Mk8HyQMdQpmQGaAUDiPdgiPho/bnAwC/ngBfO/F6OKqVP8AYOrV0nEAyN495
+         WzpSwd7BEe8PHaXMNPo1z61EKY01ELqc50QQYXuJNidCfqGFqqDOPPJURBeuH5TbiHnq
+         fEMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783000806; x=1783605606;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Ad3f158zhv32TxrF7aQY3I8idlfk4/6P43hesQy1Oiw=;
+        b=rMcG0BXnUKcqsPu9a2mwhVHoeqaUN0yVH0PHYzUoC+vAnwP4msRdT5AOvSvkiFFNdE
+         r1xiDGpxthV1A+XwIsNLBOb8EvUZAP1tPy1u1eT5h7FBgPe2UUfgXH9HNR5n86ypNgx5
+         31Xf1pnTQPCNia+3I+hDdRgbES0yhGzrEvIxsHBR7djdAtj2Rhi8dWQK3sOHWYYUVfjx
+         sh/ExRGUVvMXt/tn9Ey/xbXGJ1EMSCElGCUB++8ZoH1IKJvYA3Nsklih5f1s3Yas0qjT
+         3PGAeYv+knAhc4LYRjpewNLaz3gCrCbGm5GovTJ6V17eKvsGlXmlIcZUcxPexxpfBm2b
+         +ZSA==
+X-Forwarded-Encrypted: i=1; AFNElJ9pNhu33PTKBom/qT3MFI+uKpTutpMAZ4F2T5xtQXNiyF8SZjY7HStZSMrydYyZmiKbmTLgFOu6w3LPvg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwPS9e2dYsFOgEDJYJrd2rkB3JCT2vihUOAb6Z3kVsiKmlSb3t8
+	avvsgbtoUp2HRfzn9ZIay1aiBU/UebYHEe2SW0WAoHf0hYtl2q72PiGnsi08wILoVkWotJF9rJl
+	NXpxdDVLhBPjGmmU76zreV1HT+gCij1l4jAQDf/sd
+X-Gm-Gg: AfdE7ckKnl342S8iH2Y6jwIeITwaneDbUgcPDzarAg/lfXsSvHJgjq7hj0jjlFzc5X6
+	Ibq3ew+t55kpDDYO5A2/+9/pAlsyyPyF+9i6/+M0kQG5Wj/f3BznWaITsQIa7wsVO2BLQeYcW6J
+	iKF88oWj7U6IbKWIXLr7qPJLac1oScIgd7HYHU5XWE7BVcwe9DQKlX0KoJilG/B1y348APHWzkC
+	csqFORKNKsZ7ujok4oY9cMf2ZnEHkScCzKmT1F5M66Kh3iJgC1j8ds0NKsKZRN6ttGytaG0PRI0
+	Ks37Q5TmN3g6dYZ0J+bOZg3vGU4=
+X-Received: by 2002:a05:600c:5296:b0:492:6efc:7c60 with SMTP id
+ 5b1f17b1804b1-493c2b99781mr85583495e9.28.1783000804786; Thu, 02 Jul 2026
+ 07:00:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260607215356.842932-1-sakari.ailus@linux.intel.com> <20260701122634.1728782-4-sakari.ailus@linux.intel.com>
-In-Reply-To: <20260701122634.1728782-4-sakari.ailus@linux.intel.com>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 2 Jul 2026 14:57:18 +0100
-X-Gm-Features: AVVi8CeEY5CUICm-LUzdhYjKJU3T90fEdiPBmxV88zvaqLW_fwB5jqcW9jktQ00
-Message-ID: <CAPY8ntBYXtnfNqpy6g9fscmk2iqXxuZHyC=utqYdq-7rH-bhRQ@mail.gmail.com>
-Subject: Re: [PATCH v6 04/16] media: imx219: The horizontal blanking step is 8
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl, 
-	laurent.pinchart@ideasonboard.com, Prabhakar <prabhakar.csengg@gmail.com>, 
-	Kate Hsuan <hpa@redhat.com>, Tommaso Merciai <tomm.merciai@gmail.com>, 
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
-	Sylvain Petinot <sylvain.petinot@foss.st.com>, 
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Julien Massot <julien.massot@collabora.com>, 
-	Naushir Patuck <naush@raspberrypi.com>, "Yan, Dongcheng" <dongcheng.yan@intel.com>, 
-	Stefan Klug <stefan.klug@ideasonboard.com>, Mirela Rabulea <mirela.rabulea@nxp.com>, 
-	=?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, Mehdi Djait <mehdi.djait@linux.intel.com>, 
-	Ricardo Ribalda Delgado <ribalda@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
-	David Plowman <david.plowman@raspberrypi.com>, "Yu, Ong Hock" <ong.hock.yu@intel.com>, 
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>, Jai Luthra <jai.luthra@ideasonboard.com>, 
-	Rishikesh Donadkar <r-donadkar@ti.com>
+References: <20260702-idtable-rename-asptr-v1-1-e0927273c71a@google.com> <DJO4SC0M6BCM.B7RP36WUWCM9@garyguo.net>
+In-Reply-To: <DJO4SC0M6BCM.B7RP36WUWCM9@garyguo.net>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Thu, 2 Jul 2026 15:59:50 +0200
+X-Gm-Features: AVVi8CexQdyFEd0R-YBeb950WefW10NhAupPBjQ8CXL2XbC1XoogGwE5GSAY5zY
+Message-ID: <CAH5fLgjz_FTzv7rFsxcvt2N-3ehPxa2kHJqUHKDBv56OZw5UVA@mail.gmail.com>
+Subject: Re: [PATCH] rust: device_id: rename IdTable::as_ptr to as_raw_id_table()
+To: Gary Guo <gary@garyguo.net>
+Cc: Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Dave Ertman <david.m.ertman@intel.com>, 
+	Ira Weiny <iweiny@kernel.org>, Leon Romanovsky <leon@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Igor Korotin <igor.korotin@linux.dev>, Bjorn Helgaas <bhelgaas@google.com>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 1 Jul 2026 at 13:23, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
+On Thu, Jul 2, 2026 at 3:48=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
 >
-> The step for horizontal blanking on imx219 is 8. Take this into account in
-> creating and modifying the horizontal blanking control. The minimum line
-> length in pixels as well as the horizontal blanking values are already
-> divisible by 8.
-
-I can't find this referenced in any of the docs, but experimentally it
-does seem to be the case
-
-> Fixes: cd5e2fd89923 ("media: i2c: imx219: make HBLANK r/w to allow longer exposures")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-
-> ---
->  drivers/media/i2c/imx219.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
+> On Thu Jul 2, 2026 at 1:30 PM BST, Alice Ryhl wrote:
+> > The current name of `as_ptr` is very generic, and if you attempt to
+> > invoke `foo.as_ptr()` on a type for which this method is missing, then
+> > an error along these lines will be printed:
+> >
+> >       error[E0599]: no method named `as_ptr` found for reference `&DmaB=
+uf` in the current scope
+> >          --> linux/rust/kernel/dma_buf/buf.rs:54:38
+> >           |
+> >        54 |         ptr::eq(self.as_ptr(), other.as_ptr())
+> >           |                                      ^^^^^^ method not foun=
+d in `&DmaBuf`
+> >           |
+> >           =3D help: items from traits can only be used if the trait is =
+implemented and in scope
+> >       note: `device_id::IdTable` defines an item `as_ptr`, perhaps you =
+need to implement it
+> >          --> linux/rust/kernel/device_id.rs:165:1
+> >           |
+> >       165 | pub trait IdTable<T: RawDeviceId, U> {
+> >           | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> >
+> > Suggesting the IdTable trait when an as_ptr() method is missing is not
+> > useful. Renaming it to `as_raw_id_table` makes the method name unique t=
+o
+> > this trait and avoids these bad suggestions.
 >
-> diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-> index 2aab6e7180d4..52a4bd9c4fd3 100644
-> --- a/drivers/media/i2c/imx219.c
-> +++ b/drivers/media/i2c/imx219.c
-> @@ -78,6 +78,7 @@
->  #define IMX219_LLP_MIN                 0x0d78
->  #define IMX219_BINNED_LLP_MIN          0x0de8
->  #define IMX219_LLP_MAX                 0x7ff0
-> +#define IMX219_LLP_STEP                        8
+> I think the name is fine. Functions of this sort is named `as_ptr()` and =
+I don't
+> see why it should differ just because it's on traits.
 >
->  #define IMX219_REG_X_ADD_STA_A         CCI_REG16(0x0164)
->  #define IMX219_REG_X_ADD_END_A         CCI_REG16(0x0166)
-> @@ -578,7 +579,8 @@ static int imx219_init_controls(struct imx219 *imx219)
->         imx219->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &imx219_ctrl_ops,
->                                            V4L2_CID_HBLANK,
->                                            IMX219_LLP_MIN - mode->width,
-> -                                          IMX219_LLP_MAX - mode->width, 1,
-> +                                          IMX219_LLP_MAX - mode->width,
-> +                                          IMX219_LLP_STEP,
->                                            IMX219_LLP_MIN - mode->width);
->         exposure_max = mode->fll_def - IMX219_EXPOSURE_OFFSET;
->         exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
-> @@ -920,7 +922,8 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
->                                   IMX219_BINNED_LLP_MIN : IMX219_LLP_MIN;
->                 ret = __v4l2_ctrl_modify_range(imx219->hblank,
->                                                llp_min - mode->width,
-> -                                              IMX219_LLP_MAX - mode->width, 1,
-> +                                              IMX219_LLP_MAX - mode->width,
-> +                                              IMX219_LLP_STEP,
->                                                llp_min - mode->width);
->                 if (ret)
->                         return ret;
-> --
-> 2.47.3
->
+> I'd rather say this is a Rust deficiency. Perhaps there needs to be a
+> improvement of `#[diagnostic::do_not_recommend]` so it can be sticked to =
+methods
+> or traits as well.
+
+I had a similar thought:
+https://internals.rust-lang.org/t/do-not-recommend-for-traits-themselves/24=
+431
+
+Alice
