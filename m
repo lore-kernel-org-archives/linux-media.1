@@ -1,49 +1,49 @@
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819D93909A5;
-	Thu,  2 Jul 2026 07:26:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3D63911A2;
+	Thu,  2 Jul 2026 07:26:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782977195; cv=none; b=kv8I5PFocgnyyUoJvIGb5IG0QlOP1Q2zMbOaLRVpv2jnO1mMThYxlv+LlfABrNeSxNVzF8zEXFetoGKQCwZHAfqm/PsheWH2maTmruxYWj/DElZQZlbu0JsS4BHvboWXYg4RYUxMjqEbhK2gzR5jfpSrr7K4bdSmZzz4WkoVOr4=
+	t=1782977197; cv=none; b=otODwR6aYg86aKhvCQWGemXj54Gx8pXvPfUqqrnW5m//JhkEomWdtrOqYRTlbNMTZ8aU+l/ugNo3v54PxkmXE3EjZ1vmkxB3FXfpW9vnRjkrwB9pln08I+h2UmT4f54SFbERPc0pyU97Acq5Imejt2rmDrzLoRJPV114Kk8Bxs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782977195; c=relaxed/simple;
-	bh=s/dq7bwmw5VMZN30ZBb+2VCcW61KD7ENnl8Lx91aNnE=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aLqJTN6eqKICIGyjml9ghwGjI12UoHmYRw2hrUdaDSbS0XPai9IyeVVk7tgzvTs+Xnt/Wec30VZG0/2ACdwfh4TQsaI3ofpdCValojxPa5X7ojDL+e4b4dPxWo1UFx6UrFLl677VDWnGCLWTiXFpvYC4G2Jz7/q0z00Ndwup0bM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=GcIWB3Qb; arc=none smtp.client-ip=210.61.82.184
+	s=arc-20240116; t=1782977197; c=relaxed/simple;
+	bh=AOw4ifyikKFRR7kKDjBtq7+EQtvzs6e/2SNzsNLqX2k=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jV592kWBRvf5T8WerOOYVIo8jQoiakDOr9mpzQ2cfLkSpDMDUp4Z/Z9VspJK03spqER7axJnjltfJemw3Hu92lBfPGm9hH90Bo99WgzDs9CuRLasZMFYaKQys9Pc4qjwHbeWGBAwqy3OLlXicoi3j42/eTIt8zwNXavS4RclNjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=U1SSqnVV; arc=none smtp.client-ip=210.61.82.184
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="GcIWB3Qb"
-X-UUID: 567fcb7275e711f18dc8c9802ae25ab1-20260702
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="U1SSqnVV"
+X-UUID: 542381ca75e711f18dc8c9802ae25ab1-20260702
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=4o/P+C0jNzf2JiOQyXN2IxeKhOI4k26hisBucaHo4zk=;
-	b=GcIWB3Qba5TllTJJUhb0DW87H8C8QNU1b8tynDfXZEB+2nsx6ftVabnPIQOMFpXalSKFPyS+7pfNMQyP4hNMqsCKVyJEm4IDtCtEnAjl2+GJG7rs0r8aWf2zALP8zYIJhAyc/b9tP+lGOTu8dWyzkVxd8erZcsVDTksYIkXOMr8=;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:To:From; bh=ERRy5/q8VZWb5InXbDFcW+NTLI8PKygJln2QCqDmHrY=;
+	b=U1SSqnVV6psEp5PV1jvtHwTPWvO7q+sTczVZdfCZZWohdQBfajulAp+81IqJHIdQ7Zr9rBbj396oxKDGnjna55Rx5V/YYHy6XYBYrfp19cXhMjaav31HXD3ppk7FWVs4b3ZvJ7qSBFdAEVsUKYA0QS1bH115JHfLEEHfwFka2Lo=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.17,REQID:f35eb790-0bc1-4a10-b6d0-ead88649e1b0,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:d497b38,CLOUDID:6698b4c4-4062-4a8f-9776-acbccc936972,B
+X-CID-O-INFO: VERSION:1.3.17,REQID:112876ca-6442-430d-ba7d-6901e7514dfe,IP:0,U
+	RL:0,TC:0,Content:0,EDM:-20,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-20
+X-CID-META: VersionHash:d497b38,CLOUDID:888ea514-ea64-44d4-98db-4e1fb89955a3,B
 	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
-	0|99|100|102|158,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,
-	COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+	0|99,EDM:1|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OS
+	I:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 567fcb7275e711f18dc8c9802ae25ab1-20260702
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw02.mediatek.com
+X-UUID: 542381ca75e711f18dc8c9802ae25ab1-20260702
+Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw02.mediatek.com
 	(envelope-from <kyrie.wu@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1827465714; Thu, 02 Jul 2026 15:26:27 +0800
+	with ESMTP id 1727349766; Thu, 02 Jul 2026 15:26:23 +0800
 Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Thu, 2 Jul 2026 15:26:26 +0800
+ 15.2.2562.29; Thu, 2 Jul 2026 15:26:22 +0800
 Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
  mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Thu, 2 Jul 2026 15:26:26 +0800
+ 15.2.2562.29 via Frontend Transport; Thu, 2 Jul 2026 15:26:21 +0800
 From: Kyrie Wu <kyrie.wu@mediatek.com>
 To: Hans Verkuil <hverkuil-cisco@xs4all.nl>, Mauro Carvalho Chehab
 	<mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
@@ -54,10 +54,9 @@ To: Hans Verkuil <hverkuil-cisco@xs4all.nl>, Mauro Carvalho Chehab
 	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-mediatek@lists.infradead.org>
-CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH v15 09/12] media: dt-bindings: mediatek,jpeg: Add mediatek, mt8196-jpgdec compatible
-Date: Thu, 2 Jul 2026 15:26:09 +0800
-Message-ID: <20260702072614.10373-10-kyrie.wu@mediatek.com>
+Subject: [PATCH v15 04/12] media: mediatek: jpeg: Fix buffer completion on multi-core streaming stop
+Date: Thu, 2 Jul 2026 15:26:04 +0800
+Message-ID: <20260702072614.10373-5-kyrie.wu@mediatek.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20260702072614.10373-1-kyrie.wu@mediatek.com>
 References: <20260702072614.10373-1-kyrie.wu@mediatek.com>
@@ -71,43 +70,58 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-MTK: N
 
-Compared to the previous generation IC, the MT8196 uses SMMU
-instead of IOMMU and supports features such as dynamic voltage
-and frequency scaling. Therefore, add "mediatek,mt8196-jpgdec"
-compatible to the binding document.
+Enhances the Mediatek JPEG driver's stability and reliability by ensuring
+that all queued buffers are processed before stopping the streaming in
+multi-core environments. It introduces a call to
+`vb2_wait_for_all_buffers()` in the `mtk_jpeg_enc_stop_streaming()` and
+`mtk_jpeg_dec_stop_streaming()` functions when the `multi_core` variant
+is enabled. This change ensures that no buffers are left unprocessed,
+preventing potential data loss or corruption during multi-core flow.
 
+Fixes: 0fa49df4222f ("media: mtk-jpegdec: support jpegdec multi-hardware")
+Fixes: dedc21500334 ("media: mtk-jpegdec: add jpeg decode worker interface")
+Fixes: 934e8bccac95 ("mtk-jpegenc: support jpegenc multi-hardware")
+Fixes: 5fb1c2361e56 ("mtk-jpegenc: add jpeg encode worker interface")
 Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- .../bindings/media/mediatek,mt8195-jpegdec.yaml           | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegdec.yaml b/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegdec.yaml
-index e5448c60e3eb..28a9a9bfdbf8 100644
---- a/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegdec.yaml
-+++ b/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegdec.yaml
-@@ -14,7 +14,9 @@ description:
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+index 6d6a999a22fc..76a5b49b7f43 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -850,8 +850,12 @@ static struct vb2_v4l2_buffer *mtk_jpeg_buf_remove(struct mtk_jpeg_ctx *ctx,
+ static void mtk_jpeg_enc_stop_streaming(struct vb2_queue *q)
+ {
+ 	struct mtk_jpeg_ctx *ctx = vb2_get_drv_priv(q);
++	struct mtk_jpeg_dev *jpeg = ctx->jpeg;
+ 	struct vb2_v4l2_buffer *vb;
  
- properties:
-   compatible:
--    const: mediatek,mt8195-jpgdec
-+    enum:
-+      - mediatek,mt8195-jpgdec
-+      - mediatek,mt8196-jpgdec
++	if (jpeg->variant->multi_core)
++		vb2_wait_for_all_buffers(q);
++
+ 	while ((vb = mtk_jpeg_buf_remove(ctx, q->type)))
+ 		v4l2_m2m_buf_done(vb, VB2_BUF_STATE_ERROR);
+ }
+@@ -859,6 +863,7 @@ static void mtk_jpeg_enc_stop_streaming(struct vb2_queue *q)
+ static void mtk_jpeg_dec_stop_streaming(struct vb2_queue *q)
+ {
+ 	struct mtk_jpeg_ctx *ctx = vb2_get_drv_priv(q);
++	struct mtk_jpeg_dev *jpeg = ctx->jpeg;
+ 	struct vb2_v4l2_buffer *vb;
  
-   power-domains:
-     maxItems: 1
-@@ -44,7 +46,9 @@ patternProperties:
- 
-     properties:
-       compatible:
--        const: mediatek,mt8195-jpgdec-hw
-+        enum:
-+          - mediatek,mt8195-jpgdec-hw
-+          - mediatek,mt8196-jpgdec-hw
- 
-       reg:
-         maxItems: 1
+ 	/*
+@@ -866,6 +871,9 @@ static void mtk_jpeg_dec_stop_streaming(struct vb2_queue *q)
+ 	 * Before STREAMOFF, we still have to return the old resolution and
+ 	 * subsampling. Update capture queue when the stream is off.
+ 	 */
++	if (jpeg->variant->multi_core)
++		vb2_wait_for_all_buffers(q);
++
+ 	if (ctx->state == MTK_JPEG_SOURCE_CHANGE &&
+ 	    V4L2_TYPE_IS_CAPTURE(q->type)) {
+ 		struct mtk_jpeg_src_buf *src_buf;
 -- 
 2.45.2
 
