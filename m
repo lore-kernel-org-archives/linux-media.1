@@ -1,74 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 017DF36E48E;
-	Thu,  2 Jul 2026 19:21:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77052304BA3;
+	Thu,  2 Jul 2026 20:35:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783020103; cv=none; b=XL2vy9EiS9fnPC5xNBWjFdhzXlbY8uIdXkRfnquFodSWbThRLDu9Aff9Mg3OnF3zvMXHFsaGcuGpekeXc+peUT0AFKdiXDMeg0JMQQ8oGJ73i7/fc8v0YWsxFojjTnVO/i7/Kioz5wzMWe+yggbwQ50nMYCcg/eH1eT1rpboHUQ=
+	t=1783024552; cv=none; b=q+rs02vNoncvh9l22HEGJ40QLkWJnhHoysZBzfZCgBQaWywdN4/1tZp1qL+Dck9VdUHTkbwz7Eny7Olqow+SJssss+cAe0s3702Ve7/Xjd4PHkNsoyPXY/jHsubsjuzSuyQ2C/LXBfdG2qGijbnA7+xgaXH6JuxejPMu1gW1oBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783020103; c=relaxed/simple;
-	bh=k50U4zlsDGzT2KXPhlrmIfaS5AHmmXlOEjBNZpjjVMA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KoGHMfE7VcNiEeTP7TOFbEdXKl09Xrx2VvesWQBHj38TRNSetQeYfbpqxtt3bhCu5Ms3RGJjPJ67v/HreKiu1RkMO2QP1FIzClLv4YDt4GLfx/E2rbMQYPHEnajiRiRPP6lWVBKcntOOMFhaPCaVP5Zg0+vzJftpHd+QOlCJevQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UtNszblP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783024552; c=relaxed/simple;
+	bh=Zm7m3tTldkvWq7EZaaaCIvCle11wRvS3oBxXy9ODNcc=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=JMB6JvltdJTWkj6uzTk+/dsRE7pYFISWmiaTM1fbR5gA6JuV1jYoeY/jodibTOJkn2nb1vuEB6Lz6SRYNOXlKsxwCVdwY1rH80rPvvsGJRQrEyrfPDr0WAprVmneC8fDSqdutiy4pkotH8bmhFAMuAUyEBBl9aasLM92YOGpiNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=cU4+yxkJ; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UtNszblP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF9771F000E9;
-	Thu,  2 Jul 2026 19:21:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783020102;
-	bh=k50U4zlsDGzT2KXPhlrmIfaS5AHmmXlOEjBNZpjjVMA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UtNszblPkgWzKj5vm2aSf30naBpgQqFI84gvMUhxhMBsGj/mzUuOo4s5Ypv0jnwmN
-	 RJnD2pS6OttrfcftdhsI0vNgUn/jBEOgDKifPlw4yMGEKgtz0iw1Zivj8aOaN2MEQn
-	 DvWPMvYuxuYKYyU1+qUmrTjMRwAKdn6DWJqm57MKanflG5+D3AWPaeuReTF7FBvBe4
-	 XCOUeXz/Hfd7QOw0gS13tIVZ0kYhmtgfVoxDFehf9Nlc3d2He4yswoISsGxA44/tWH
-	 slymMM9oFs70x4VsFRQA9h572GQHDpxQWTQ/dZiwFWfXD0ldkFCgPvLooHytJARlmw
-	 QPj763+ompbFA==
-Date: Thu, 2 Jul 2026 20:21:38 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: media: i2c: og0ve1b: Add OmniVision
- OG0VA1B camera sensor
-Message-ID: <20260702-judge-erased-99ecf9976be0@spud>
-References: <20260702-og0va1b-v2-0-0071442caa2a@oss.qualcomm.com>
- <20260702-og0va1b-v2-1-0071442caa2a@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="cU4+yxkJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=JzUSZhPWqNWNKTHl/0jMtxGhpz8F8LscUgrhOQUpk4Y=; b=cU4+yxkJdxAeS4yui7R8BmYTUJ
+	DRYWdLNFmn4IzYyA8GI4JMvn5I+ao4YCJoKHqHlZBXELhVQOR7+rbnR5az5v/BkfQgJToWwrgHqdK
+	bkyzMrds8fKOwiAy9eQt43KyjnGykPEVoAe3We6O105RJ3FqGfgbPe2c3N//eYM+RF2KlpkmplnRX
+	ZyFUAT2Yl+gEox2QjrPI7AH2qNf8wELNWJcyEDHIcdGl009phubiaMKzFVqgmjyy33HlREsTWdv3X
+	6RaWLz4M8MAKVnPl1dKbctoJ3kYc+JvbGJAMeQtwUQhSvSUPSEtpYv4AZtpLxXiHnJMSl2eirkvTa
+	pSPZ8pZQ==;
+Received: from [104.157.31.28] (helo=[192.168.1.251])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1wfO8O-000000071tG-1qho;
+	Thu, 02 Jul 2026 14:35:45 -0600
+Message-ID: <1cd1b832-082c-4f9c-ab68-706110ddcb25@deltatee.com>
+Date: Thu, 2 Jul 2026 14:34:25 -0600
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+ndhK0BzZGXmiKb2"
-Content-Disposition: inline
-In-Reply-To: <20260702-og0va1b-v2-1-0071442caa2a@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+To: Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>,
+ Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>
+Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260701171245.90111-1-matt@ozlabs.org>
+ <20260701171245.90111-3-matt@ozlabs.org>
+ <26f74cf0-8892-4672-b0e1-1f1a385c42bb@deltatee.com>
+ <aecbbc66-c154-4439-a6ae-84dc012b0f8d@ozlabs.org>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <aecbbc66-c154-4439-a6ae-84dc012b0f8d@ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 104.157.31.28
+X-SA-Exim-Rcpt-To: matt@ozlabs.org, alex@shazbot.org, leon@kernel.org, jgg@nvidia.com, amastro@fb.com, christian.koenig@amd.com, bhelgaas@google.com, kevin.tian@intel.com, praan@google.com, mngyadam@amazon.de, dmatlack@google.com, bjorn@kernel.org, sumit.semwal@linaro.org, ankita@nvidia.com, apopple@nvidia.com, vivek.kasireddy@intel.com, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org, linux-pci@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v4 02/10] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
---+ndhK0BzZGXmiKb2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
 
---+ndhK0BzZGXmiKb2
-Content-Type: application/pgp-signature; name=signature.asc
+On 2026-07-02 10:44 a.m., Matt Evans wrote:
+>> So maybe at this point it's fine to enable this on 32bit systems and we
+>> can remove this requirement. However, I think we should do that
+>> explicitly in its own patch, not hide it in this refactoring patch.
+> 
+> Your question does prove it's too stealthy as-is. :)  PCI_P2PDMA still
+> can't be enabled on 32-bit systems because of its ZONE_DEVICE -> 
+> MEMORY_HOTPLUG -> 64BIT dependency.  So we're not enabling 32-bit 
+> support for PCI_P2PDMA here, but it's not obvious and so I'll re-add the 
+> `depends on 64BIT`.  At least then it won't be enabled without intention 
+> if someone enables ZONE_DEVICE on 32-bit systems...
 
------BEGIN PGP SIGNATURE-----
+Ok, that all makes sense to me. I would be good with removing the 64BIT
+dependency (as it is is a bit confusing as is) but I think adding
+another patch would be appropriate with some of the commit message notes
+you mentioned in your emails.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaka6QgAKCRB4tDGHoIJi
-0j6eAP9w2iL+rZx7al1VvdH6D2EMjyWTpQYcwIfVDpL5nDuNfQD/VyjO3APXkD6t
-HXeQNBvpjYi882cs4bhwdvxA7yA4OwE=
-=f5PB
------END PGP SIGNATURE-----
+Besides that, I think you can add to this patch:
 
---+ndhK0BzZGXmiKb2--
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+
+Thanks,
+
+Logan
