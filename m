@@ -1,129 +1,188 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0503A7839;
-	Thu,  2 Jul 2026 16:44:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783010657; cv=none; b=pB4vth+BusfRJRyHssijBdoKq0Kkz5HcytHVp81IUXn53YZ7t6imlVNqCDU1zrSR0Gs6MxzE1Twjk1BKt/PTgilZUCFVXuCXoBUM8TaEnlwm4+J6VVcH7lroUkppM2ZvSp08kkpO7DI6BWgFsoQNhp/GXmWkB+A7hoGO9XqPunc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783010657; c=relaxed/simple;
-	bh=J6BoEH5OjHCRK21EB1+bpbUaRLMPjF1qvP9PFjp1GWg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SMkjA0TZD1WxXzaV6UYdTViqjwqsXVIPmEUvhXwGwK2ntSeuNzuipZMBAMtSgh9s2WH9LNpBsN5r1dXg2NzghiNmxlM7xjhvScvc9gXfTq6gUMme/oEKSphGnp7xD8X6nQZMhcYcJVMM1WB0Rh6P8BtBK1iQU0x/nP9a2IdEs1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=qYEuzK/e; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B66343093DD
+	for <linux-media@vger.kernel.org>; Thu,  2 Jul 2026 17:04:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783011893; cv=pass; b=Im8PJS20cLoOUWShsMSs7uT3E5Zdoct273jPsj8MKtFjHnfllmHOlA/npE3lTgn6Uv2XF5ikGOCURAHRFWCXriV8JeG+8OPGE5992yjAOKEX+iGNiK/VDyd7BCBDJlIaoC608Npa3AsgOwgXzl1AoIfUTQyo6i1XhJQOgZfs8e8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783011893; c=relaxed/simple;
+	bh=TdkisWdcgb45pwQdjAyEdDByD0+ba4ZS8eqmtiJAZQ8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DHV6MJdbSM/n6TSAs9204dVyHi57ySwNQW4sdvmcecKBxxP8WP9Fm8wu3ZzpXW2xQEzXDZIE+t7QKK9+c094OCTzO/ueoim9DR4ntoO07H3lgmioVeFC6qSW+N8NUszt0hKidffeLX6QIPwXdzq+hcQpO++GBRI39oEp3RG5GNo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=AWsTbCWR; arc=pass smtp.client-ip=74.125.224.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="qYEuzK/e"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1783010652;
-	bh=eGUo3lKj9bHSKMlrSjRH6DndGp0mwWi4QjeXdG/Uin0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qYEuzK/e9F3skixymjcn8QObes7pQqlCsZmrjKXlScEPaSshFcVeNe8bgyvNaj+le
-	 U4RMx12vyf51NkIEuJ8s2Bu0s35PnvlQQtcbTouk0k4G/XeJbnzabM1wMUGS0ZVwGE
-	 AW91C7dt35rbBuSWjCTE3V2Rv/CDpu7mLRJLqsuriuEv1G49zTFPlwQY5qbZ2Vn1V0
-	 0DqnDc+OvSyymQLyhDIXIM/nVn5//PU8DxS2CmXNsaBZs1gP07YjbYL5HVZ6x6R6Xw
-	 W/+IvghDBQLfeljyKzjzEPsuz3NadCWoSSOMhLyo3kkep/i0KryYXAPqKatX9MYurl
-	 b4kTQZp6hPKlg==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4grjQD0WXwz58f2;
-	Fri, 03 Jul 2026 02:44:03 +1000 (AEST)
-Message-ID: <aecbbc66-c154-4439-a6ae-84dc012b0f8d@ozlabs.org>
-Date: Thu, 2 Jul 2026 17:44:00 +0100
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="AWsTbCWR"
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-664d4478a64so2479503d50.3
+        for <linux-media@vger.kernel.org>; Thu, 02 Jul 2026 10:04:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783011891; cv=none;
+        d=google.com; s=arc-20260327;
+        b=egzn5pb9vvwxvEv+J+zN2YMG4yBSeGD7xgsYNHz7Rb9qlXy4Q/T/Re1EFcNAjDmVXC
+         PMrwopsf0X49UJVwK5n3nW6ZyxZIfleUirPDMtR/w1ZBKf9W25DCBdi1SuQwGHldTysX
+         e4hGeg2MxiopIJAs3E3As+8eYwtijQhI3spZh4rC/lZ12jBOKSAGY0Ck6JVrJEw81vnf
+         r6cktmthYHT0R5SL1YNS95kmWGwBLDzoqXtfZzsap5UqdE9a71xGeupsA2bjCgX5rtWL
+         rkvrqkxU2ExkBa4w88am5uNHxRhfkgQJQkhldqZNjo4MXyIyfKpy74D9GzIbalXkTcef
+         eHgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=R6z8Lt5Utqd6TRnZWBN/IhfmXEw9DXhrlK48qzxxz2U=;
+        fh=wCgf29w5Tfiwiv5ySPc/k82f0CcZCa01Bp13MVBRgUA=;
+        b=cASpQg8Xq2C+/vxNL35/E5hp90wVNjsBw+jCZADa02K+ZmntWyLKLFMifay01r92ue
+         +OVxgEfZ6wjHID3JrK7s5mS/vH8TJyx/IjBP/4Jx1pVuq+GqyHsp8wD0UXcEY3mHBBK0
+         WYNUpQVNC4UCiP5XPFSJvzqJX18ZpH6Sm+Cvc4Q2G9t/p+pnvV3iFQeKxYnErsTOyB1S
+         +vjj7yjIDHR/cl1L/7IeUh8LenICUQPUGTx5l6Wziu/62uZfgt1zhD5MPHb676XzqaoC
+         9Tv1cOZgCvgDbPJpy9rsWyrddTySrvaQ93uLKfqwMlcms08Hsxew4oKoC5ANlE7zsuyS
+         KMSQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1783011891; x=1783616691; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=R6z8Lt5Utqd6TRnZWBN/IhfmXEw9DXhrlK48qzxxz2U=;
+        b=AWsTbCWR6bZ1BPV4CAhZKsLk3ebKmtnwsoymOzKzk+ZV+shkg0rHCix8zgD7nnAWro
+         lfLjNpF4EWZCjFopoMqmpo6B7OjjnkNzA48p/6wSNlrdPUFMmKAC6XbPZO7FILluvyIq
+         xvH3nzkmZq178vDcPCu91TLy/zZM0g/p8xErMHJtujLB/iewRm5TEERg7yIzbk4MMVw/
+         7etV2asi9Q2jHV1RDmdWO/XCu8Cw0LFQXRYlfxSEgznWFcMdVhtK5oDjIowPYoyDMAoq
+         Oqaav/orumIvF0b0cGBl3/ClBOpmfJPdfrcl/++u96xsp3BorAbJSRYutUOAnCzF8N9S
+         oJ4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783011891; x=1783616691;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=R6z8Lt5Utqd6TRnZWBN/IhfmXEw9DXhrlK48qzxxz2U=;
+        b=YjWCGnLq3Z7M+DzmfIVRDjxkE3+UOLuL9zn+Wgxoh6OeaY3YxhAeiGClzyVyVOWgPl
+         Y9wIDdZ4lPZCEQz0m5c64GIt4qJXTmhanvmndpEUtIb++WY4MjZfSmSR1AfCvEIsDcTj
+         bNGpf/vf1J1xR6nz/WDF/iv47PYaJVS6tXOfeJRaKx1A/znwq8P1vTjeaiGrqa5jEbuX
+         UMIO1cHvjgi2to12nVGQ+ckUX8yS3EFRm+Eb/HjozrDRoLTwB3RoC8MhMUpxXs2xN+WW
+         OEe+urkz6XZKbu56ZcgXu+PqvNGfat7wc7ZNAvN6QEOjHaXUMHH100XSvnF3RHcd3Kl5
+         fUBQ==
+X-Gm-Message-State: AOJu0Yz3wM4aou9b8J8fDMCWK90tx2jTR8LfUDViIg3xtFYB8sR7qrYl
+	yHSktHby9sZFcPtl+ozyA6bddOTmFeCuBDeXWjARkaRpB7L9BADThapIVz2e+i3HWM147lmJ5QN
+	Xu+9rEiL7KyjjR38hqB0GbACZH+du/dI3OpTSnw+JfQ==
+X-Gm-Gg: AfdE7cnOzz6WbBye5/rQ32fTp0puoFhYBv76ZK17wmSafrwYIDZDm1ToI9tnLsSTyGU
+	xzG5uH/K0Jty4aGhDwDelXBUMrTghMJqz5Q4kXHeyDJdd4j8lmcE+f9S/6CAiZ3mWVEduNb9Hz2
+	tQwePFsn2IuCtzR80j8X87rdSC5L92NMfAEpgkoFeoWOdgOAkhQomdkIUqJrC0Tfu+D6EvvTrIn
+	FsFt2LNLyUMDGzt31Rg5u2cr4XAqAFoqZcuWQnfr5nlQ1yv3lkP/A5zwozlbwiGRgSD/XyWfbDU
+	QfBHZrRYmonqFF7MQVcXRVMW2bCXXX5X8R3B8djYiiv7+tjCP5yHJspLleQKLL/NI2q+OdvVjPJ
+	cTgssYBybDHhDJw==
+X-Received: by 2002:a05:690e:b88:b0:664:d71f:4e90 with SMTP id
+ 956f58d0204a3-66521670d1emr6799343d50.0.1783011890664; Thu, 02 Jul 2026
+ 10:04:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/10] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
-Content-Language: en-GB
-To: Logan Gunthorpe <logang@deltatee.com>, Alex Williamson
- <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>
-Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260701171245.90111-1-matt@ozlabs.org>
- <20260701171245.90111-3-matt@ozlabs.org>
- <26f74cf0-8892-4672-b0e1-1f1a385c42bb@deltatee.com>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <26f74cf0-8892-4672-b0e1-1f1a385c42bb@deltatee.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
+ <20260607215356.842932-4-sakari.ailus@linux.intel.com> <CAPY8ntDPvDdj6vSVRUsTmC9tXmy8xNATrrbyqDr7DRU1NiiDQQ@mail.gmail.com>
+ <ajPLEfuiCN9R1ben@kekkonen.localdomain>
+In-Reply-To: <ajPLEfuiCN9R1ben@kekkonen.localdomain>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 2 Jul 2026 18:04:34 +0100
+X-Gm-Features: AVVi8CdXdDTNapbfIbf61q6MdiRCdVhS2Jjf5pjbUBQ86d6WzIkvI5XZoAblmxM
+Message-ID: <CAPY8ntAfxvFRgHKYRT=ZLOL7L2A=GLQ-kuhYjhgTob83purBbQ@mail.gmail.com>
+Subject: Re: [PATCH v5 03/10] media: imx219: Account rate_factor in setting
+ upper exposure limit
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl, 
+	laurent.pinchart@ideasonboard.com, Prabhakar <prabhakar.csengg@gmail.com>, 
+	Kate Hsuan <hpa@redhat.com>, Tommaso Merciai <tomm.merciai@gmail.com>, 
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
+	Sylvain Petinot <sylvain.petinot@foss.st.com>, 
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Julien Massot <julien.massot@collabora.com>, 
+	Naushir Patuck <naush@raspberrypi.com>, "Yan, Dongcheng" <dongcheng.yan@intel.com>, 
+	Stefan Klug <stefan.klug@ideasonboard.com>, Mirela Rabulea <mirela.rabulea@nxp.com>, 
+	=?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
+	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>, 
+	Kieran Bingham <kieran.bingham@ideasonboard.com>, Mehdi Djait <mehdi.djait@linux.intel.com>, 
+	Ricardo Ribalda Delgado <ribalda@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+	David Plowman <david.plowman@raspberrypi.com>, "Yu, Ong Hock" <ong.hock.yu@intel.com>, 
+	"Ng, Khai Wen" <khai.wen.ng@intel.com>, Jai Luthra <jai.luthra@ideasonboard.com>, 
+	Rishikesh Donadkar <r-donadkar@ti.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Logan,
+Hi Sakari
 
-On 02/07/2026 16:45, Logan Gunthorpe wrote:
-> 
-> 
-> On 2026-07-01 11:12 a.m., Matt Evans wrote:>
->>  PCI POWER CONTROL
->> diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
->> index 33c88432b728..59d70bc84cc9 100644
->> --- a/drivers/pci/Kconfig
->> +++ b/drivers/pci/Kconfig
->> @@ -206,11 +206,7 @@ config PCIE_TPH
->>  config PCI_P2PDMA
->>  	bool "PCI peer-to-peer transfer support"
->>  	depends on ZONE_DEVICE
->> -	#
->> -	# The need for the scatterlist DMA bus address flag means PCI P2PDMA
->> -	# requires 64bit
->> -	#
->> -	depends on 64BIT
->> +	select PCI_P2PDMA_CORE
-> 
-> Can we remove this dependency on 64BIT? Althogh it looks like
-> af2880ec440 complicated the issue a bit.
-> 
-> If I remember correctly, the original reason for this is because on
-> 64bit systems dma_flags fit into unusued space in struct scatterlist and
-> on 32bit systems this space didn't exist and thus adding the flag
-> required increasing the size of the structure which wasn't desirable at
-> the time.
-> 
-> But af2880ec440 introduced CONFIG_NEED_SG_DMA_FLAGS which doesn't depend
-> on 64bit which means if CONFIG_IOMMU_DMA and CONFIG_SWIOTLB are now set
-> on 32bit systems that structure will grow quite a bit.
+On Thu, 18 Jun 2026 at 11:40, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
+>
+> Hi Dave,
+>
+> On Mon, Jun 08, 2026 at 04:42:44PM +0100, Dave Stevenson wrote:
+> > Hi Sakari
+> >
+> > On Sun, 7 Jun 2026 at 22:54, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
+> > >
+> > > The rate_factor multiplier is used to multiply a few values in the
+> > > sensor's timing configuration and the exposure time is one of them. This
+> > > also needs to be taken into account in exposure time margin: multiply it
+> > > by rate_factor so that sensor's exposure time margin is respected.
+> >
+> > Testing the 1640x1232 mode with FRM_LENGTH_A set to 0x288 (79.07fps),
+> > I can write register 0x15a (COARSE_INTEGRATION_TIME_A) with values up
+> > to and including 0x284 without it affecting the output frame rate, and
+> > without image corruption.
+> > With IMX219_EXPOSURE_OFFSET being 4, the current code implements
+> > exactly those limits, so why do you believe the offset should be
+> > increased?
+>
+> I agree with the upper exposure time limit (with FRM_LENGTH_A set to 0x288)
+> and the margin above but the issue is that the driver only implements
+> these limits when rate_factor is 1.
+>
+> The margin is subtracted from the frame length to calculate the upper
+> exposure limit, but as the frame length in lines an the exposure values are
+> divided by rate_factor, the margin gets divided, too, resulting the
+> effective margin of 2.
+>
+> I tested that setting the exposure value to higher than FRM_LENGTH_A -
+> margin increases the frame time. This shouldn't be the case i.e. it's a
+> driver bug.
 
-There was some discussion on this aspect of af2880ec440 in the 
-corresponding v3 patch, for example:
+Having had some more time to test experimentally, you've convinced me.
+The delivered frame time does appear to get extended if the raw
+register value in COARSE_INTEGRATION_TIME_A is greater than
+FRM_LENGTH_A - 4, so the exposure control needs to have the margin
+adjusted to account for the rate_factor division.
 
-https://lore.kernel.org/all/feaefa41-9f67-4d4f-a3e0-282dca41f3eb@ozlabs.org/
+For reference, my test setup was to run "rpicam-hello -t 0
+--viewfinder-mode 1640:1232:10 --framerate 10 --shutter 10000" which
+results in FRM_LENGTH_A being 0x1403.
+Set dev_debug for the capture device to 0xb to log the The timestamp
+delta between frames is then 0.09999s
+"i2ctransfer -y -f <bus> w4@0x10 0x01 0x5a 0x13 0xff" to set
+COARSE_INTEGRATION_TIME_A to 4 gives the same delta.
+"i2ctransfer -y -f <bus> w4@0x10 0x01 0x5a 0x14 0x01" which would be
+the max register value with the margin halved gives a delta of
+0.100028s.
 
-It seems CONFIG_NEED_SG_DMA_FLAGS doesn't have a hard/functional 
-dependency on 64BIT (and it can be enabled on some !64BIT configs 
-already, despite what the stale comments say).
+Why could Sony not just document this?!
 
-> So maybe at this point it's fine to enable this on 32bit systems and we
-> can remove this requirement. However, I think we should do that
-> explicitly in its own patch, not hide it in this refactoring patch.
+I'll double check the behaviour in your v6 and send a R-b tag.
 
-Your question does prove it's too stealthy as-is. :)  PCI_P2PDMA still
-can't be enabled on 32-bit systems because of its ZONE_DEVICE -> 
-MEMORY_HOTPLUG -> 64BIT dependency.  So we're not enabling 32-bit 
-support for PCI_P2PDMA here, but it's not obvious and so I'll re-add the 
-`depends on 64BIT`.  At least then it won't be enabled without intention 
-if someone enables ZONE_DEVICE on 32-bit systems...
+  Dave
 
-
-Thanks,
-
-
-Matt
-
-
+> >
+> > To my mind section 5-5 Frame Rate Calculation Formula of the datasheet
+> > is fairly clear with
+> > [ In the case of (frame_length_lines - 4 > coarse_integration_time) ]:
+> > Frame_Length = frame_length_lines
+> > [ In the case of (frame_length_lines - 4 < coarse_integration_time) ]:
+> > Frame_Length = coarse_integration_time + 4
+> >
+> > The register FRM_LENGTH_A (0x160) being in units of 2 lines doesn't
+> > change that calculation.
+>
+> --
+> Kind regards,
+>
+> Sakari Ailus
