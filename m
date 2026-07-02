@@ -1,57 +1,57 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D53A38E5DE
-	for <linux-media@vger.kernel.org>; Thu,  2 Jul 2026 09:05:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7170042DFF2
+	for <linux-media@vger.kernel.org>; Thu,  2 Jul 2026 09:09:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782983148; cv=none; b=Ky59XioCV/4JYdJf5f3oX7bskKH02LbYSc9EQTwzmzeduLWhsmwvwvlIzXRoc17momOPt6m+JmvfzFzJQrkFrDMIvcYU9lqZGmOgwQYqCmUuVcvL/T5P4GrJp17tbJg4MsKmoSqCDI2q9tbQVjWbUB+HuPiCdQEtcf3aZZSQWqU=
+	t=1782983357; cv=none; b=PupZpASExaEmPb1Ea0CErHCDuJuHiqoIz6GGlff8zWAnY7OHTl9sUNCejodJ7w0GzBEQN5s4ZnOPqsiBGaYR/BUobc242ZiImWDuYM9l+yHlopumS6fQV1lR6QKLjN3rQNAWcgQr97oyJNI5eY2c09ovCriGmG5L7ApT+21XMJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782983148; c=relaxed/simple;
-	bh=d/lk2C8cAMZ2vA/1WxdKT/sb9Bjcl59Dmga7fzEK/M4=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=QWzQmBMxyVjW8jupIoGbEtWFI1Mw/4NBGyrq781/dHS5nQwsil2x+HVPUXQWXyT7ZGpn1GsDP66ps3g3eOAkqA6KxrZ4Vfq1J+2IVzYaXjDVR6PjeMxlVPP9niPxIDDxZDoJNvdmPXaNqNqnD3B3APQrlBjHyeP/ioPvaGekvoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nBJIMBHe; arc=none smtp.client-ip=192.198.163.19
+	s=arc-20240116; t=1782983357; c=relaxed/simple;
+	bh=dmRvRvj1XXCrt1fZavQ2pIGFim13kSReDUJB05JeNIY=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=onI6rbpLCeOfy5z0GrkDnaXM18olVhvk8cmF+fDZVzuUHJ9hqfBCoU2xMwEKA6+rj7EMSFuECoJyPfEhJtkWXnD3CIsVHrLbaC+Rrbcqk7gnxVca2Fff0WqWW4wvO3W884R6NTev0hceczFjnyaoNlW5F6b8NIl2IUhHMxlAT2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Z/w9rH8n; arc=none smtp.client-ip=198.175.65.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nBJIMBHe"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Z/w9rH8n"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782983147; x=1814519147;
+  t=1782983356; x=1814519356;
   h=date:from:to:cc:subject:message-id;
-  bh=d/lk2C8cAMZ2vA/1WxdKT/sb9Bjcl59Dmga7fzEK/M4=;
-  b=nBJIMBHe/YlkOeWSE+rxgAF7yMLXog14dHNVKEOZKnHHzH9AxWGC0430
-   wak5KjzbTPURCVaw7tpNd36pCdAQeRTi1OOdz7iCzsNSGBLEQOIS449HJ
-   ayNKix312UElUrX1stQxoEd+jE2sf82MiE98HTyt+WNpm/Tmq1L39VZJQ
-   1f24eI2RtXmXLO7r6SQ4Vt9nZ3sVVuUiISg2FAjmYSsGs7R5OKLK5euPk
-   2bkqZfBupaVUjpSSQ1gqY2AeEm641f4SPMAfk9CRJXlm3yepbabDI1/ZZ
-   W5mpIcb45lLAErSp5S7o2gd9KQtmhVlwOMZH3dM6p3LRl/oT/2cbVnVM7
-   A==;
-X-CSE-ConnectionGUID: nfrm7elkQi+sL2aUmzhGxw==
-X-CSE-MsgGUID: /cRo2Qi/SOy0zg45Uwqo7A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="82720069"
+  bh=dmRvRvj1XXCrt1fZavQ2pIGFim13kSReDUJB05JeNIY=;
+  b=Z/w9rH8nxRd8V4j+CP9NXzrJ9bCsHPo1QKR7rL1StBrMyl9w0LRO/B1c
+   UCJvKaYgqIS3vkog7/IlL2/w7/EO0tcCQOLLVHvgujxm2e3tCYKicGcTR
+   RC8vTpqs2mXG1mxE8zmVlEQ9pbUioD3yhkHfvijLleJ3v0nz/Lhk2IR2B
+   Y3TlOhzOQojgSYN02z0I4L0F+jFzV/FTT2e0V5oneTZafm+Qbt5FzVusw
+   ANV7mOgGFKfUXPdyn+yt5qDAOhA41jDMv+XgvipyyUyUNd4RoS/Jisn0m
+   ZoAXH+Jlh0hLKNL7b9Zkt0fJe38+Gg6kiFvLctXo/MZNnonUwLaG3mCab
+   g==;
+X-CSE-ConnectionGUID: /DzLQTcjS+230bbIXxsQZg==
+X-CSE-MsgGUID: JgCiLoAyT5KJKgSsVwsh0g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="106526841"
 X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; 
-   d="scan'208";a="82720069"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jul 2026 02:05:47 -0700
-X-CSE-ConnectionGUID: lYPipB1eT1uQ3HCYLfEXOA==
-X-CSE-MsgGUID: /Yk9w85uRqiKHbfSTPgXcg==
+   d="scan'208";a="106526841"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jul 2026 02:09:16 -0700
+X-CSE-ConnectionGUID: z5/Cx5/dQvqBm9waDkS1Zg==
+X-CSE-MsgGUID: qqwnw7/MQuqqNyJI00YxaA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; 
-   d="scan'208";a="251079094"
+   d="scan'208";a="246454788"
 Received: from lkp-server02.sh.intel.com (HELO ea128546eb3d) ([10.239.97.151])
-  by orviesa006.jf.intel.com with ESMTP; 02 Jul 2026 02:05:46 -0700
+  by fmviesa009.fm.intel.com with ESMTP; 02 Jul 2026 02:09:13 -0700
 Received: from kbuild by ea128546eb3d with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1wfDLA-00000000AZB-0ahR;
-	Thu, 02 Jul 2026 09:04:42 +0000
-Date: Thu, 02 Jul 2026 17:03:23 +0800
+	id 1wfDPT-00000000Aa1-0vyp;
+	Thu, 02 Jul 2026 09:08:46 +0000
+Date: Thu, 02 Jul 2026 17:06:50 +0800
 From: kernel test robot <lkp@intel.com>
-To: Sean Young <sean@mess.org>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: linux-media@vger.kernel.org
-Subject: [linuxtv-media-pending:next] BUILD SUCCESS
- 8dac27bfa2f994ecb11f01a63641527d17d48fc1
-Message-ID: <202607021712.9VvmV7TJ-lkp@intel.com>
+Subject: [sailus-media-tree:metadata-pre] BUILD SUCCESS
+ 7ada4a9817804426a4e27306ee1b4702f054cb35
+Message-ID: <202607021738.F0uOr44I-lkp@intel.com>
 User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -59,12 +59,12 @@ List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 
-tree/branch: https://git.linuxtv.org/media-ci/media-pending.git next
-branch HEAD: 8dac27bfa2f994ecb11f01a63641527d17d48fc1  media: dt-bindings: rc: Sync keymap list with latest list
+tree/branch: git://linuxtv.org/sailus/media_tree.git metadata-pre
+branch HEAD: 7ada4a9817804426a4e27306ee1b4702f054cb35  media: v4l2-subdev: Add struct v4l2_subdev_client_info pointer to pad ops
 
-elapsed time: 728m
+elapsed time: 732m
 
-configs tested: 202
+configs tested: 206
 configs skipped: 2
 
 The following configs have been built successfully.
@@ -75,6 +75,7 @@ alpha                             allnoconfig    gcc-16.1.0
 alpha                            allyesconfig    gcc-16.1.0
 alpha                               defconfig    gcc-16.1.0
 arc                              allmodconfig    clang-23
+arc                              allmodconfig    gcc-16.1.0
 arc                               allnoconfig    gcc-16.1.0
 arc                              allyesconfig    clang-23
 arc                                 defconfig    gcc-16.1.0
@@ -84,6 +85,7 @@ arc                            randconfig-002    gcc-16.1.0
 arc                   randconfig-002-20260702    gcc-8.5.0
 arm                               allnoconfig    gcc-16.1.0
 arm                              allyesconfig    clang-23
+arm                              allyesconfig    gcc-16.1.0
 arm                                 defconfig    gcc-16.1.0
 arm                            randconfig-001    gcc-16.1.0
 arm                   randconfig-001-20260702    gcc-8.5.0
@@ -105,6 +107,7 @@ csky                              allnoconfig    gcc-16.1.0
 csky                                defconfig    gcc-16.1.0
 csky                  randconfig-001-20260702    gcc-15.2.0
 csky                  randconfig-002-20260702    gcc-15.2.0
+hexagon                          allmodconfig    clang-23
 hexagon                          allmodconfig    gcc-16.1.0
 hexagon                           allnoconfig    gcc-16.1.0
 hexagon                             defconfig    gcc-16.1.0
@@ -143,6 +146,7 @@ loongarch             randconfig-002-20260702    clang-23
 m68k                             allmodconfig    gcc-16.1.0
 m68k                              allnoconfig    gcc-16.1.0
 m68k                             allyesconfig    clang-23
+m68k                             allyesconfig    gcc-16.1.0
 m68k                                defconfig    clang-23
 microblaze                        allnoconfig    gcc-16.1.0
 microblaze                       allyesconfig    gcc-16.1.0
@@ -175,7 +179,6 @@ powerpc                        randconfig-001    clang-17
 powerpc               randconfig-001-20260702    clang-17
 powerpc                        randconfig-002    clang-17
 powerpc               randconfig-002-20260702    clang-17
-powerpc                         wii_defconfig    gcc-16.1.0
 powerpc64                      randconfig-001    clang-17
 powerpc64             randconfig-001-20260702    clang-17
 powerpc64                      randconfig-002    clang-17
@@ -215,6 +218,7 @@ sparc64               randconfig-001-20260702    gcc-16.1.0
 sparc64               randconfig-002-20260702    gcc-16.1.0
 um                               allmodconfig    clang-17
 um                                allnoconfig    clang-23
+um                               allyesconfig    gcc-14
 um                               allyesconfig    gcc-16.1.0
 um                                  defconfig    gcc-14
 um                             i386_defconfig    gcc-14
