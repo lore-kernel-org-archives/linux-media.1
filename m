@@ -1,58 +1,86 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5BE477999;
-	Thu,  2 Jul 2026 09:12:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFCE13C65F2;
+	Thu,  2 Jul 2026 09:20:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782983548; cv=none; b=cHEcyAjncKs1u6PnC1Pnrp+w3L+CJJmSOxBRGrMNDEeSq5XgkM2tVCqDsafFcI/+Vs9pC3D7Vkww6dpOR0lj13hZLzfqvZEs6V2Lizp+o154B/SUc+Qd96dA7zCz94j+ytRoU/mkz0Cm/yCKbdSp7VP8OfcHs9l07H4WYmopBFo=
+	t=1782984005; cv=none; b=HQdXlC/XM74p6u1VAG3YRv30o0PvT3w9DIx7kfkHLA/HTsRNdcvhSeg58Tj5xg/sACyiJFzIxd5mcZM2MeeROGFyNVH2sNfeEwL1BZF5f6g7+QfazIw9CHV78qi3dC2C04VchC1vhcFdqzisnzNri2cD3csb5qvc0fvnFg/0EoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782983548; c=relaxed/simple;
-	bh=Re1pebt/H4sHm958IImha/A4UIlkgi79BYxbPtjPdEc=;
+	s=arc-20240116; t=1782984005; c=relaxed/simple;
+	bh=S8HugMjxHFbPNvLg+AAYFwaWDIzsdO1q5qMD3yZa1ic=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GZ0mvi7xXloZjWpsqitmmu3PHG4HH+0XUctPaIjPba0ixrMX/5jwNX4D77zNL4ISPLfp654immwoPHLg/THmNyD8n5hQGWjns7Dnc41jHOkxGc6bW7Z+G0oaN73ShjqX+PkAjgC6LX+aPTQU4ZdSSk7mCaiT8RUSglkxzw5OARk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SL/0VEPc; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=cEAcNiscdh08ooM8IVI1gm3Nnm3z34qmbLmS9Nqk++BoAkfTSSE7QQ5bmopQwsGVJhjvbZO2Fyj9It9Qg3IUkIDrLdJ9P+bf7plUvY30qHceF11itzrQs8CP6Lu0Yg6gwSfrMwUd/Zch+Dzu5hpqVf1xaxPGZytXURxF20OAXus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=csWmZYUC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SL/0VEPc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782983547; x=1814519547;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Re1pebt/H4sHm958IImha/A4UIlkgi79BYxbPtjPdEc=;
-  b=SL/0VEPcH3q81CKLtK0HR0SCc7ZenXQrH41To7g8ILhqeJ/Jt5ZEpuNA
-   vGAXTG485zxBp0LBacmPi+/lCdL8sfFwyB76Hoaa8pMecPPabCUini9Q3
-   BTzkyFPeAhrTAS+Z80nvCv8lKE1NRY0avLV85obmUnjH7WkVyS3kuMWbW
-   BqsxPsRJPF1FAkR+zuN87oZz/4EkW11ua6IVg6NQv02WyGqY5gXzwZHy+
-   ywZlyZ6XrGWBDoLBa31lmJLjXXxeyMSFc49v3mmORpYZ07KvLyzsViXW3
-   mRVi9jR/mVgeIErdTZwhUM1G2YFwsue+WDqOwxEVFa2cZt1N4Nl0rTO6N
-   g==;
-X-CSE-ConnectionGUID: As/yJg0oTHCsWIQREeCItg==
-X-CSE-MsgGUID: WduCaLWqTnWF9dG9k1hIjQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="86274241"
-X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; 
-   d="scan'208";a="86274241"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jul 2026 02:12:27 -0700
-X-CSE-ConnectionGUID: Gxe05u50QzWOZB9vpoljGg==
-X-CSE-MsgGUID: X9J6+rLwQnaHPP924CYuVA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; 
-   d="scan'208";a="246455572"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.213])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jul 2026 02:12:25 -0700
-Date: Thu, 2 Jul 2026 12:12:23 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: "Bohdan D. Marcus" <bohdandmarcus@gmail.com>
-Cc: error27@gmail.com, gregkh@linuxfoundation.org, hansg@kernel.org,
-	mchehab@kernel.org, andy@kernel.org, sakari.ailus@linux.intel.com,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] media: atomisp: fix block comment formatting style
-Message-ID: <akYrdxIXmGbCxEV3@ashevche-desk.local>
-References: <20260701161451.5442-1-bohdandmarcus@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="csWmZYUC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3179D1F000E9;
+	Thu,  2 Jul 2026 09:19:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782984004;
+	bh=krb+dDOShP/VdQBJzNgKxbwj/+Edag23SSgoQwI13H8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=csWmZYUC4S9Nl6WrP1bTUNqSv20R6fPVTF+KG1Cmg4Dj4DYI1f3yts+zZ5SFuSxLE
+	 1zPcsdAMtlXsGeuD40TVFAs2oF468naHHJOCp0j/1bFoVDTNF6O7cSdv1QHcUl8cr1
+	 EW6MIUu8XQAwz74SIdBY2YpAOeihb71togX+9u2JNdB6lg2m2cPNh6B+BHirU09w5I
+	 RKwcx2Ycjot9IrFfgVli3rPKjJzw+RV8X3QtfO29MXfAD1a8jPLHvfU0nHbSXEKo7Z
+	 7pwjC3c7iadUtI3cUSa0bj4W+vUlp5rmb1/SIDADt3Q/PVKz8CiTd3VtiiPObNQSHp
+	 ybamgLGQIRuGw==
+Date: Thu, 2 Jul 2026 10:18:47 +0100
+From: Will Deacon <will@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Sowjanya Komatineni <skomatineni@nvidia.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Russell King <linux@armlinux.org.uk>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-mm@kvack.org,
+	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+	linux-trace-kernel@vger.kernel.org,
+	Thierry Reding <treding@nvidia.com>, Chun Ng <chunn@nvidia.com>
+Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
+ set_memory_normal()
+Message-ID: <akYs91INHMXMTI-t@willie-the-truck>
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <20260701-tegra-vpr-v3-4-d80f7b871bb4@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -61,20 +89,18 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260701161451.5442-1-bohdandmarcus@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260701-tegra-vpr-v3-4-d80f7b871bb4@nvidia.com>
 
-On Wed, Jul 01, 2026 at 07:14:51PM +0300, Bohdan D. Marcus wrote:
-> Fix a block comment formatting warning reported by
-> checkpatch.pl in atomisp_cmd.c to conform to the
-> Linux kernel coding style.
+On Wed, Jul 01, 2026 at 06:08:15PM +0200, Thierry Reding wrote:
+> From: Chun Ng <chunn@nvidia.com>
+> 
+> Add helpers to swap PROT_NORMAL and PROT_DEVICE_nGnRnE protection bits
+> on a kernel-linear-map range.
 
-This is too condensed commit message, use up to ~72 characters per line.
-Also try to find more issues of the kind and fix them altogether.
+That sounds like a really terrible idea. Why is this necessary and how
+does it interact with things like load_unaligned_zeropad()?
 
--- 
-With Best Regards,
-Andy Shevchenko
+I think you should unmap the memory from the linear map and memremap()
+it instead.
 
-
+Will
