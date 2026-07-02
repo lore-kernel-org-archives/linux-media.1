@@ -1,125 +1,182 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD9F40E8CA;
-	Thu,  2 Jul 2026 08:06:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B871409615
+	for <linux-media@vger.kernel.org>; Thu,  2 Jul 2026 08:10:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782979573; cv=none; b=UTDfoCpFoT7yYiNFMnMRMJzslW41BkvQpzolXA6yN/bzvHX028/K8u/uittGdKpzGrxdy+LpHxFruIoyO2ftpb8lDhNyuhky8s2cBlfPe8kULE0Oo35Q84jPt8CgzxvkDsW77mMlS13Bp5AhuYI3uljnntr5kFlMCCmr+caZq0A=
+	t=1782979845; cv=none; b=gZA5+eaRRb/VezIEAceS9cHkjoPxVIgNwVcC4p1DlNm/TmhD03BL7ZLsbKMoU+Z5UM/FGwkxx28RNrIlLttPqDEuwguGg8mzcBeUCl3hPc3aVWaUcjIWC8L0Yx56J99uoBe9UdPD6UUAdKfClcqWMlIglb7u09INN74kPe2ZozY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782979573; c=relaxed/simple;
-	bh=7t7WnVtxPVyOF3Dtdu7a/6PGVlN2TQ/JQ+P4dvEogjQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qtn2jkl4/U6pDp2F7kJB/gOD01Cm5h3KdgHFbytl583jsgYZbSGOkgMr3uWzIUwDXNCj19tfUJBhQWC7YK9C4shTFGNpP/nSmwZk0CJrB7NRGNCS7qB8cKHXDcI4JmQ1obneXnZTfo4+0NOMQ69r1aE1TrAEJmSNJtt8LYuWctM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ypl0vtWA; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1782979845; c=relaxed/simple;
+	bh=ap1syISulsKRSaIRGnWZqvqO+c8TnmiIW0rxGDJ3Zus=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UzP1mW6ZKvdHuEZEdvJKgB48tP1TnD52Mg9ca5qtonGQ8Rg9xluYGR6aoew+i+Mf5NoyZh1wW41Apm4bsuEJrxmhG/gX7stD0GCqelrl09hMXnwlmrFR6kbmZbeQw+SokYM9wCgHsntErSCsguRg4SVIG3FVOpPa30IwQGSxFo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mwj5zC6V; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ypl0vtWA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782979572; x=1814515572;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=7t7WnVtxPVyOF3Dtdu7a/6PGVlN2TQ/JQ+P4dvEogjQ=;
-  b=Ypl0vtWA1YJCWQsLvQX6L0CsbRt7Elk6Gk93E6jYN+J7+cZ955WCmHO5
-   66G8OoSFVJPtZEdwJdAGl0dBlWNgmMTT3NaLtWF1svljvB9GJKfwHdyTa
-   VO6w5kHyluly4UCpevHw30v4MEhGpbxjny+s1B2b26FxClRHhTYdG5xTS
-   DPLr5sM0AY1D3Zmm38ExbauBeRcqzZQ8QsfzrHBe16/a+vej5SjCPiuO0
-   bnGhnUp3f8+unoE+9kUqs0kXfKupl6ViMCXK2ECXa484WEUhDc9PQGxF5
-   VR+0r2zkj3am9a3Ne8K4UXqF5BKwOVwX7lXsKRy+2VyLNY2pY853yUyfG
-   Q==;
-X-CSE-ConnectionGUID: pbaVx3syTxmEXxMrM0CkYQ==
-X-CSE-MsgGUID: 0rySsSZKS+a9RPSwCltkUg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="86267506"
-X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; 
-   d="scan'208";a="86267506"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jul 2026 01:06:11 -0700
-X-CSE-ConnectionGUID: 0kJYRbZhShKJ8ohEZzY8xg==
-X-CSE-MsgGUID: ooAdG657Rl2hnEZo0wDuqA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; 
-   d="scan'208";a="256365713"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.244.231])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jul 2026 01:06:09 -0700
-Date: Thu, 2 Jul 2026 10:06:01 +0200
-From: Mehdi Djait <mehdi.djait@linux.intel.com>
-To: Tarang Raval <tarang.raval@siliconsignals.io>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>, Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 06/15] media: i2c: os05b10: Add H/V flip support
-Message-ID: <akYbG3uxuCAAV0q_@mdjait-mobl>
-References: <20260325114404.95188-1-tarang.raval@siliconsignals.io>
- <20260325114404.95188-7-tarang.raval@siliconsignals.io>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mwj5zC6V"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4745492ed3aso934813f8f.1
+        for <linux-media@vger.kernel.org>; Thu, 02 Jul 2026 01:10:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782979843; x=1783584643; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BIcE6G+6TDMoCdkb5TNOONacJV25dJbtV9kWeZ6u/To=;
+        b=mwj5zC6V/wMYMsIx68xHW5X++kHFiON9682T+Pq7c9ZCSi8VPN10GQCpWJ+aftzzwh
+         XswWKVBUEVKKR2866rzfMTKb+rrGiemjfwTieM5f2Ycv9wkBvgLt1CS4vXGE7oSqtq91
+         iGO6rE09n6zKp/2aIyQecCqmW3cfmI4vswq2rKpFg4QW1cN6Yjdwy4338M/nE29k51C9
+         rQ13PJIWnjS7I6w0bTRK8JLqzl1lusv52kRyvcUFT0QgonxZm0appuKDnZzksdFWbQ3O
+         5BnHXR9MGywQ8BJGr6YGuYGozQry3gpWox0ynx1/cxazUWyjNoylpqZSpfktzRLGFTcc
+         qgFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782979843; x=1783584643;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=BIcE6G+6TDMoCdkb5TNOONacJV25dJbtV9kWeZ6u/To=;
+        b=kGHRUZLoPZLhQjjg2PBFSJzmLS2f0n0EKLTQPsA3FRHQYCDiDmcc88n0Y+Y019z+52
+         xjAKil8zzt+ywVAdPV392ZWuPCA26b4N0fGF8RGk0UxUmFdLfLAyeNzQ30ZhOKzTgNMi
+         xV5PhCfShqqM2m+uN9XpMAqKwJv1Ks3pzfqlyF2dzsRAkEY/IaaMwk2GiXfPb0cMXwzr
+         q304PbbBeG8ZfFhDrvDhlmjR4O+9JWGMh59agFQurTbqXpnoZ34bsTv9BQCh/hABiZzO
+         5NuD/nMSQFzsq5rYJMZHZxSGrPuJpjLXUh69JPC5wxNysYz9t81lwtJiKP69aIWhacun
+         GBmw==
+X-Forwarded-Encrypted: i=1; AFNElJ/RQutDsbPrVpFApGyp7CPWJDFQs/iuOsqfS2yVm4UE0kxM8+knlO0j4xssnZUkgOWr2lZM4CN0jvGUnw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyAFiQokGBm1e2C/DLszvKC+s7Tr5VIyhlEfLIHDHlPtqK9TXn0
+	WJq0ZBO2h5Yp4Ogp+9WztLu82jx2IAKujMoswgyWQdtDrPqwYaIaASa9
+X-Gm-Gg: AfdE7cltXpIsveH8JmWMriVvMizC0RU5aRWRNaEu7HDq5M57UCmnECm2Dk1fU3olyIX
+	KFhZD8BcqGJHzXrJogAcDsPl7mjQhS7jiFdBQd7SItoo1PhAeV69WsfCm+eTYTZBX38YMsxiitj
+	e51rmbIprsO+QCVrGu90U6vbbGnfzUcAndOpiGhZx+TxQ+2uzSohMGRqamqzwXFKjNGr9Zhq0m8
+	+HlSzdwQOPr+hav/iaVV66Ci7POmTCa97Tq1xWq0A4TIXYc8rAMkk6lS0VHBNl8MYDREg4RdtHU
+	r4HS1+1P7fqCYuGtyRu4rSdYZku9liYi7CyOT74QVrFc023vT14JTwT56ARv7VOUOSJ6Tc+v6Lc
+	gHVBqM17CrWJp3phzMnI4qXN5ewDJlhMWLvwy7eYuJn87RqxSpNo3uYGWU5fcFc7r3h32IsflyM
+	HgZZwPPwyaSfHN1Wjwq6vf3XnAOkEPEUtcNp4TNVCs4Z1mdAmiLdoaifWT
+X-Received: by 2002:a05:600c:6c95:b0:493:bc4a:fb56 with SMTP id 5b1f17b1804b1-493c2bbcb21mr53757575e9.39.1782979842538;
+        Thu, 02 Jul 2026 01:10:42 -0700 (PDT)
+Received: from pumpkin (host-92-21-50-228.as13285.net. [92.21.50.228])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477db3db964sm6530093f8f.8.2026.07.02.01.10.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Jul 2026 01:10:42 -0700 (PDT)
+Date: Thu, 2 Jul 2026 09:10:40 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: David Hu <xuehaohu@google.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Pranjal Shrivastava <praan@google.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Nicolin Chen <nicolinc@nvidia.com>, Leon
+ Romanovsky <leon@kernel.org>, Kevin Tian <kevin.tian@intel.com>, Ankit
+ Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux.dev, jmoroni@google.com, kpberry@google.com,
+ chriscli@google.com, sashiko-bot@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] dma-buf: Split sgl into page-aligned 2G chunks
+Message-ID: <20260702091040.35eff00c@pumpkin>
+In-Reply-To: <CAPd9Lg9uY1RZvYUtcbKUg=VdWM61M2f3aqmS5veUg_8M_Ce80g@mail.gmail.com>
+References: <20260621222130.1667453-1-xuehaohu@google.com>
+	<20260623015459.1153884-1-xuehaohu@google.com>
+	<20260623094446.4a8fc2ed@pumpkin>
+	<ajryxMaT5evDUxaq@google.com>
+	<20260623235350.6540eaa2@pumpkin>
+	<20260630124252.GD7525@ziepe.ca>
+	<CAPd9Lg9uY1RZvYUtcbKUg=VdWM61M2f3aqmS5veUg_8M_Ce80g@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260325114404.95188-7-tarang.raval@siliconsignals.io>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Tarang,
+On Thu, 2 Jul 2026 00:56:40 -0400
+David Hu <xuehaohu@google.com> wrote:
 
-On Wed, Mar 25, 2026 at 05:13:52PM +0530, Tarang Raval wrote:
-> Add HFLIP and VFLIP controls, lock them while streaming,
-> and update the reported Bayer format based on the flip state.
-> 
-> Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
-> ---
->  drivers/media/i2c/os05b10.c | 59 ++++++++++++++++++++++++++++++++++---
->  1 file changed, 55 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/os05b10.c b/drivers/media/i2c/os05b10.c
-> index 2f47b02149b7..bf848eb9ba52 100644
-> --- a/drivers/media/i2c/os05b10.c
-> +++ b/drivers/media/i2c/os05b10.c
-> @@ -96,6 +96,10 @@
->  #define OS05B10_MIRROR			BIT(3)
->  #define OS05B10_FLIP			GENMASK(5, 4)
->  
-> +#define OS05B10_REG_ANALOG_FLIP         CCI_REG8(0x3716)
-> +#define OS05B10_FLIP_ENABLE             0x04
-> +#define OS05B10_FLIP_DISABLE            0x24
-> +
->  #define OS05B10_REG_FORMAT2		CCI_REG8(0x3821)
->  #define OS05B10_HDR_ENABLE		0x04
+> On Tue, Jun 30, 2026 at 8:42=E2=80=AFAM Jason Gunthorpe <jgg@ziepe.ca> wr=
+ote:
+> >
+> > On Tue, Jun 23, 2026 at 11:53:50PM +0100, David Laight wrote:
+> > =20
+> > > > If we restrict incoming dmabuf transfers to fit within VFS-centric
+> > > > limits (2GB), we impose unnecessary overhead on the RDMA stack, for=
+cing
+> > > > it to manage a significantly higher number of memory registrations.=
+ By
+> > > > cleanly splitting these massive contiguous device buffers into
+> > > > page-aligned SGL entries, we directly improve the efficiency of P2P
+> > > > transfers and memory registration. =20
+> > >
+> > > But a divide by '4G - PAGE_SIZE' is also non-trivial and (I think aff=
+ects
+> > > a lot of io) when the quotient is always 1.
+> > > Splitting into 2G chunks is a lot cheaper. =20
+> >
+> > Doesn't matter this isn't fast path stuff. It is better to use fewer
+> > SGL entries, IHMO.
+> > =20
+> > > > Since this change doesn't seem to have a negative impact on standar=
+d file
+> > > > I/O or break existing VFS constraints, I'm curious why we shouldn't
+> > > > support splitting these >4GB P2P transfers? Am I missing something?=
+ =20
+> > >
+> > > I was only wondering whether it was needed...
+> > > It does bring up the question of why the >4GB transfers even need spl=
+itting.
+> > > But that is another question. =20
+> >
+> > SGL can only store an unsigned int size, so any large physical range
+> > has to be split down.
+> >
+> > rdma now a days has code to process the sgl and restore back the > 4G
+> > sizes since mode RDMA HW can accept that.
+> >
+> > commit 486055f5e09df959ad4e3aa4ee75b5c91ddeec2e
+> > Author: Michael Margolin <mrgolin@amazon.com>
+> > Date:   Mon Feb 17 14:16:23 2025 +0000
+> >
+> >     RDMA/core: Fix best page size finding when it can cross SG entries
+> >
+> > So whatever this produces needs to be compatible with that to undo it. =
+=20
+>=20
+> Thank you everyone. It looks like most open issues are sorted out.
+> I'll wait for maintainers to weigh in before sending out v3 (which
+> will remove the type cast for min() per David L.'s feedback, and
+> revert to ALIGN_DOWN(UINT_MAX, PAGE_SIZE) per Jason's feedback).
 
-[..]
+Does this code get used a lot for 'normal' transfers?
+I'm away from my normal systems and can't check.
+But if pretty much all of the fragments are small (< 4G) then
+it is probably worth adding a check for 'size < limit' before
+anything else and optimising that case.
 
-> +	case V4L2_CID_HFLIP:
-> +	case V4L2_CID_VFLIP:
-> +		ret = cci_update_bits(os05b10->cci, OS05B10_REG_FORMAT1,
-> +				      GENMASK(5, 3),
+	David
 
-OS05B10_MIRROR and OS05B10_FLIP can be used here instead of GENMASK(5,
-3)
+>=20
+> Hi Jason,
+>=20
+> Thank you for your feedback. I took a closer look at the commit to
+> ensure compatibility. This patch is perfectly complementary, and
+> actually prevents a failure in an edge case for the latest
+> `ib_umem_find_best_pgsz` [1].
+>=20
+> Regards,
+> David
+>=20
+> [1] For dma-buf split with `0xFFFFFFFF`, in case of a discontinguity
+> in later buffers, we will hit this code path in
+> `ib_umem_find_best_pgsz`
+>=20
+> ```
+> if (i !=3D 0)
+>     mask |=3D va;
+> ```
+> (*After `va` had been incremented by `0xFFFFFFFF`, due to `va +=3D
+> sg_dma_len(sg) - pgoff`)
+> (*Which will set the lowest bit of `mask` to 1)
+>=20
+> Because `count_trailing_zeros(mask) returns 0`,
+> `ib_umem_find_best_pgsz()` will always return 0 in such cases.
 
-> +				      (!os05b10->hflip->val) << 3 |
-> +				      os05b10->vflip->val << 5 |
-> +				      os05b10->vflip->val << 4, NULL);
-
-And here also.
-
-This will make the code much cleaner.
-
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = cci_write(os05b10->cci, OS05B10_REG_ANALOG_FLIP,
-> +				(os05b10->vflip->val == 1) ?
-> +				OS05B10_FLIP_ENABLE : OS05B10_FLIP_DISABLE,
-> +				NULL);
-> +		break;
->  	default:
->  		ret = -EINVAL;
->  		break;
-
---
-Kind Regards
-Mehdi Djait
