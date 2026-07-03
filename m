@@ -1,25 +1,51 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from spamfilter1.site.eu (spamfilter1.site.eu [80.249.132.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F603D0936
-	for <linux-media@vger.kernel.org>; Fri,  3 Jul 2026 12:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0791E5207
+	for <linux-media@vger.kernel.org>; Fri,  3 Jul 2026 13:10:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.249.132.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783080930; cv=none; b=bCX2A4mY+H+2XgRtZxeD4P+dMwQHC4uPmFASkTNK8TCZ9DmNonNFI0XrBc0kWdGMLlb+oJsxQyBkNn9fb2j+y1MPzNdjaiLGWI0GdJpB/RUMGipw8wbJfBptj3YRODbnwYlfHKMViyRAg7yKrFQI3+AjLc3zfwasuBqUQARtLQg=
+	t=1783084212; cv=none; b=V1EvVFlhvEFAcTG+kF5/7Aa7arhyHk9Nh7GMEjT1bvQLPe1Ovs0Q/EgY0Md0HRWpDZNIuZVc3ba3YicznrP/B+LiGAsLDG9lzKn1Cvpiw9N2UCX3W+R0qVnZrUsCQfW9XOV5EaVuCG7p2PsIZA4W8Z7fzmOOtpCFU+Ipx47XUXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783080930; c=relaxed/simple;
-	bh=N7WOIrubAromhX0rbKY8neIG6P3RsjEgwjpFJcg5DD4=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=YSPDOVdnU4OzwUTzoyGuHAWhtr4OoAVOXoEa7qUetYt3MutFtLkMyP2vP10JB2PTOd9DI/UYrIe13CNuBdqH0u0bAsSoRrJWKFrMRpL1mXT1IZ+gXYckyEY0/Dp4VaKkhYRzsXOFQcnsZMCAvrzOLJMyYLymjy4mHHraXw41q5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.1])
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wfcnI-0002RJ-Oc; Fri, 03 Jul 2026 14:14:56 +0200
-Message-ID: <8d336c44-1fe9-4f9e-8d00-3e1d735e40b7@pengutronix.de>
-Date: Fri, 3 Jul 2026 14:14:55 +0200
+	s=arc-20240116; t=1783084212; c=relaxed/simple;
+	bh=ZV96mWqiDFAseM4MIEERU3BRr9imTw/cijwBOuLnexo=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=c5fsxAirDY1W0l60p6fYC3knMC7NphpAMxl7xNAH3i+lylG4Bh+yxjNgj4cLI7cTh0B2s/ILvKEDp2bkS28LkOW0XNZAZfi+et3E7dsXaqYC0YHjMB8lzZXbBak23b+rifRdglP8bsSCamG15UnCh+RyRL0zmUU4+DH2g5DCrP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bernardvanderwees.com; spf=pass smtp.mailfrom=bernardvanderwees.com; dkim=pass (4096-bit key) header.d=bernardvanderwees.com header.i=@bernardvanderwees.com header.b=1p3x/OMe; arc=none smtp.client-ip=80.249.132.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bernardvanderwees.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bernardvanderwees.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (4096-bit key) header.d=bernardvanderwees.com header.i=@bernardvanderwees.com header.b="1p3x/OMe"
+Received: from spamfilter1.site.eu (localhost.localdomain [127.0.0.1])
+	by spamfilter1.site.eu (Proxmox) with ESMTP id C1808E90E5;
+	Fri,  3 Jul 2026 15:04:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	bernardvanderwees.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:from:from:message-id
+	:mime-version:reply-to:subject:subject:to:to; s=site-eu1; bh=IoR
+	ncO6x2EpB6oK2lx7YkXu1U3MceSVCk4nSpKydDAA=; b=1p3x/OMez17STQHfxxo
+	WUT8U3ZZNukfAzYXgvm/wJULCNM9Ngs6WANvLCxLOGaDiYOlnK9eoGv3D4iRjZR8
+	A+a0NLMxKf5v+azNwzUHyCzW2LUVhkD4alqSkC4cApV8fFBj2EGoQa2D+9sRNuJs
+	YGYwSq8ab+SWWLkTj6Nt94Wcdta79fprexWL9+Fq3HDObbpb2FbFNnd8p/Aa0h2B
+	ta8jXbSWbVW8MFEYDCnCEerve6OiNjy0aqQlP0c+e5TBRIc/jQCLhuPLSbLnIUiN
+	zoAJs5qN9q2w5GoCcDXZYO1cNDwv4YQpCEt3flqCDjNvL3Q/iDrEJzAOcsER8g7A
+	0DoWpODWoA2duV/INi5tnRjhVdphyXnVLRH1q2ibstyrhTDKjp49gdhPSI8qLkm+
+	1BCtaWtG4SqUkR9Z7b5EL18RI/bX23lylHxcZLvf5sTbdkw/8td2fRRRMnHOAUJj
+	kX6dPlBtXnny3raGpubMcVrvNcneh7QWyjRU3Al0zj9fCEm8OygotM+GVUEWm/Bu
+	VrIibmAvN22aQWD5x8DZVEFYnbhp22POXvqSJCo8+ApNigg0doEmVxC/w5w8cMyK
+	TCAeWnhHQAeUqJ4OxsD1dPb7OzU62KLJiz+l9rySN2lTQGxX0jYT9NpTxdbVHCAj
+	qVlAZbhe8TRZGmHgrY9xV9zI=
+Received: from mail-rl1.site.eu (mail-rl1.site.eu [103.149.169.251])
+	by spamfilter1.site.eu (Proxmox) with ESMTPS id CD37EE90A6;
+	Fri,  3 Jul 2026 15:04:14 +0200 (CEST)
+Received: from mail003.site.eu (mail003.site.eu [103.149.169.203])
+	by mail-rl1.site.eu (Postfix) with ESMTPS id B22B940213;
+	Fri,  3 Jul 2026 15:04:13 +0200 (CEST)
+Received: from [192.168.178.61] (unknown [91.33.167.192])
+	(Authenticated sender: contact@bernardvanderwees.com)
+	by mail003.site.eu (Postfix) with ESMTPA id 8ED5C5A02B6;
+	Fri, 03 Jul 2026 15:04:13 +0200 (CEST)
+Message-ID: <2761ae72-1f44-4082-a5ad-38a7313e0015@bernardvanderwees.com>
+Date: Fri, 3 Jul 2026 15:04:12 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -27,109 +53,94 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: =?UTF-8?Q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Subject: Re: [PATCH v2 2/4] media: v4l2-common: Add kernel-doc for
- v4l2_fill_pixfmt_mp_aligned()
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- tomm.merciai@gmail.com
-Cc: linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mehdi Djait <mehdi.djait@linux.intel.com>,
- Nas Chung <nas.chung@chipsnmedia.com>,
- Isaac Scott <isaac.scott@ideasonboard.com>,
- Paul Cercueil <paul@crapouillou.net>,
- Daniel Scally <dan.scally+renesas@ideasonboard.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- kernel@pengutronix.de
-References: <20260701165003.1495035-1-tommaso.merciai.xr@bp.renesas.com>
- <20260701165003.1495035-3-tommaso.merciai.xr@bp.renesas.com>
 Content-Language: en-US
-In-Reply-To: <20260701165003.1495035-3-tommaso.merciai.xr@bp.renesas.com>
+To: linux-media@vger.kernel.org
+Cc: hdegoede@redhat.com
+From: Bernard van der Wees <contact@bernardvanderwees.com>
+Subject: media: i2c: ov02e10: missing sensor rotation for Samsung 940XHA
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-Hi Tommaso,
+Hi Hans, list,
 
-thanks for adding documentation.
+I'm reporting (with some AI help) a missing sensor rotation for the 
+OmniVision OV02E10 camera
+as mounted in the Samsung Galaxy Book5 Pro NP940XHA-KG1NL laptop I own.
 
-On 7/1/26 6:49 PM, Tommaso Merciai wrote:
-> Replace the bare placeholder comment with a full kernel-doc block
-> documenting all parameters, the function behaviour for both single
-> memory plane (mem_planes == 1) and multiple memory plane (mem_planes > 1)
-> formats, and the return value.
->
-> Signed-off-by: Tommaso Merciai<tommaso.merciai.xr@bp.renesas.com>
-> ---
-> v1->v2:
->   - New patch
->
->   include/media/v4l2-common.h | 27 ++++++++++++++++++++++++++-
->   1 file changed, 26 insertions(+), 1 deletion(-)
->
-> diff --git a/include/media/v4l2-common.h b/include/media/v4l2-common.h
-> index 749fe38c134e..db59dda578f0 100644
-> --- a/include/media/v4l2-common.h
-> +++ b/include/media/v4l2-common.h
-> @@ -557,7 +557,32 @@ void v4l2_apply_frmsize_constraints(u32 *width, u32 *height,
->   int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt, u32 pixelformat,
->   		     u32 width, u32 height);
->   
-> -/* @stride_alignment is a power of 2 value in bytes */
-> +/**
-> + * v4l2_fill_pixfmt_mp_aligned - Fill in a &struct v4l2_pix_format_mplane with
-> + *	stride alignment requirements.
-> + *
-> + * @pixfmt: pointer to the &struct v4l2_pix_format_mplane to be filled
-> + * @pixelformat: the V4L2 pixel format (V4L2_PIX_FMT_*)
-> + * @width: image width in pixels
-> + * @height: image height in pixels
-> + * @stride_alignment: stride alignment in bytes; must be a power of 2
-> + *
-> + * Fills all fields of @pixfmt for the given pixel format, dimensions, and
-> + * stride alignment.
-> + *
-> + * For formats stored in a single memory plane (mem_planes == 1), the
-> + * behaviour matches v4l2_fill_pixfmt_aligned(): plane_fmt[0].bytesperline
-Given that the v4l2_fill_pixfmt_aligned helper is added later in patch 
-3, don't you want to move this patch after adding the helper?
-> + * is set to the primary plane stride rounded up to @stride_alignment, and
-> + * per-component alignments are scaled to keep chroma strides consistently
-> + * derivable from the luma stride. plane_fmt[0].sizeimage covers all
+The camera is physically mounted 180° rotated, but the Samsung ACPI 
+firmware does not populate the _PLD (Physical Location of Device) 
+rotation field. As a result, V4L2_CID_CAMERA_SENSOR_ROTATION is never 
+reported by the driver, libcamera defaults to Rotation=0, and all camera 
+apps show an upside-down image.
 
-No, it's the other way: The strides of all components are aligned to the 
-@stride_alignment. To keep the chroma strides consistently derivable 
-from the luma stride, strides may be aligned to a multiple of the 
-@stride_alignment.
+== Hardware ==
+Manufacturer: SAMSUNG ELECTRONICS CO., LTD.
+Model:        940XHA
+Sensor:       OmniVision OV02E10
+ACPI ID:      OVTI02E1
+Kernel:       7.0.0-12-generic (Ubuntu 26.04 devel)
+libcamera:    0.7.0-1ubuntu2
 
-(feel free to use the above if it sounds good)
+== Diagnosis ==
+The sensor is detected and the driver loads correctly:
 
-At least I read your text, as if only the y stride would be rounded up 
-to the nearest alignment and for other component strides may be scaled 
-down to 1/2 or 1/4 of the alignment. But most of the time the y stride 
-will be scaled up (e.g. YUV420 or YUV410) and in rare cases (e.g. 
-NV24/42) the component stride is scaled up.
+   $ modinfo ov02e10 | grep alias
+   alias: acpi*:OVTI02E1:*
 
-Sincerely
-     Sven
+The physical_location/panel sysfs attribute correctly reports "front":
 
-> + * component planes.
-> + *
-> + * For formats with multiple memory planes (mem_planes > 1), each plane's
-> + * bytesperline is independently rounded up to @stride_alignment, and
-> + * sizeimage is set to bytesperline multiplied by the plane height.
-> + *
-> + * Return: 0 on success, -EINVAL if @pixelformat is unknown.
-> + */
->   int v4l2_fill_pixfmt_mp_aligned(struct v4l2_pix_format_mplane *pixfmt,
->   				u32 pixelformat, u32 width, u32 height,
->   				u8 stride_alignment);
+   $ cat /sys/bus/i2c/devices/i2c-OVTI02E1:00/physical_location/panel
+   front
+
+However, physical_location/rotation does not exist:
+
+   $ cat /sys/bus/i2c/devices/i2c-OVTI02E1:00/physical_location/rotation
+   cat: No such file or directory
+
+The driver does call v4l2_fwnode_device_parse() (ov02e10.c:445), but since
+the ACPI firmware provides no rotation data, the fwnode yields nothing and
+V4L2_CID_CAMERA_SENSOR_ROTATION is never registered.
+
+libcamera then hits the fallback path in camera_sensor_legacy.cpp:619:
+
+   properties_.set(properties::Rotation, 0);
+   mountingOrientation_ = Orientation::Rotate0;
+
+Resulting in:
+
+   $ cam -c 1 -p 2>/dev/null | grep -i rotation
+   Property: Rotation = 0
+
+The correct value should be 180.
+
+Note: using cam's --orientation rot180 flag does correctly flip the captured
+frames, confirming the sensor itself works fine and only the rotation
+metadata is missing.
+
+== Suggested fix ==
+
+Similar to how other sensor drivers work around missing ACPI rotation data,
+the ov02e10 driver should register V4L2_CID_CAMERA_SENSOR_ROTATION with a
+default value of 180 for the OVTI02E1 ACPI match, so that libcamera (and
+other consumers) can correctly orient the image.
+
+Alternatively, an entry could be added to the libcamera sensor properties
+database, but fixing it at the driver level is cleaner and benefits all
+consumers of the V4L2 API.
+
+Happy to test patches.
+
+Thanks,
+Bernard
+
+System info:
+   $ sudo dmidecode -s system-product-name
+   940XHA
+   $ sudo dmidecode -s system-manufacturer
+   SAMSUNG ELECTRONICS CO., LTD.
+   $ uname -r
+   7.0.0-12-generic
+   $ cam -l 2>&1 | grep -i camera
+   1: Internal front camera (_SB_.LNK0)
+
+
