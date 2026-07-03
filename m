@@ -1,123 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0903535E948;
-	Fri,  3 Jul 2026 07:32:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0DC352010;
+	Fri,  3 Jul 2026 07:37:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783063954; cv=none; b=p5DjjUnxm8mHBWyderL2yR1Xb+uzmU8Dm5sPXH5F8NwFZHVg3YkJMeO1+spG4XxPGDxtWuC424S+XMjl2o+S638lhu6CU93VzqThmap6agZ7tgvqP3AG7uDhOJnItLL16kN+obB4m1tTPL/a7r43eKYiiEnvSC6JwMshE9+h6XE=
+	t=1783064275; cv=none; b=YxJAf2Uoj2J2FzV71Au/s7OL5wa/l9PuWmrsEi3/SoED0Vn55IuDKGTjcIxG50l/WLThWdvj8ygKI9fsGAw1O/91Luq1I4aaQM8VdGgkSWHLo1jTqpQ/YBiIFcM1oDRoTZr7K0x5q78NY/M+sOktHteCtRVBrG8x40K15645iYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783063954; c=relaxed/simple;
-	bh=Cfzyf35WFfCL23gQouUoApv3a6NKQO0Kftlg1kb+GRo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tH3dqBtWcpW+U0A2EnpFuNZzJa66T6RvcLiB/tAOHol4975MtCZHTE9Eruzhs01EHnRr6JdFvU4Te7q7Haz270RJapVyHMhyM4S5Esd9fhNvoQP0kpp77nIgsnNGrMhLeF8uYrGS4OoD6VPBxpudNFRVMym/208yhyTBBPqfiDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NQhQGJw/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783064275; c=relaxed/simple;
+	bh=/zEdjDHHDOZlLYDj/HrAahZZ9YvreIDGoxRLp/b3nmc=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=GGt190/paI8ppa/vkzHoMhH7vj2FjlLiaXho3tJL5WVg+G9SXLyGzNhzqYKDWN612x/NqkfDqn6C2ZwYBAI8jS6tntZXySna6YiIwTVs5HetdDAF9U92csY1UroNZY6Uv2F/rjXxmyTey+B1E/TlUjzhDIX3grldEVFXVJsqP4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E7fzZHQj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NQhQGJw/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E806E1F000E9;
-	Fri,  3 Jul 2026 07:32:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E7fzZHQj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A69951F00A3D;
+	Fri,  3 Jul 2026 07:37:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783063952;
-	bh=fmCvV08WNd5aRXYPQd4CXpSl5t2HVbpLE52owDbkbBo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NQhQGJw/FGsbzEtPjCvQRuSWdfOeZwGUvQx5s0h93IEnfCKrKzd61TXMdX6au1A/u
-	 fSsN22CPMGvm1Y8wS+im/Az6o4mGItMxc2peuVnsdqhzS+wDbq7VExHOrVlxuId3WR
-	 28Fo50xRTPmAo8aa9U9ytG9UqeDRc1Tvq2F7KGqP2b9y2EulQntzB7oWDRS8kCyK2k
-	 q/VsxDJMftdUupYguXQkT6nBsoy5TYJBsQzBLQ5tUDQUbEJjUlFuwbGS1Ph3LXFYo7
-	 2mCHusr3llz+zb21hEjO28tpIfxOAom5yH+mQE3O1k0N5tZ6UG56j+nisF5eM9Nhxm
-	 lHmZ+b/VAI+8A==
-From: Philipp Stanner <phasta@kernel.org>
-To: Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Asahi Lina <lina+kernel@asahilina.net>,
-	Burak Emir <bqe@google.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Krishna Ketan Rai <prafulrai522@gmail.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Mirko Adzic <adzicmirko97@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Shankari Anand <shankari.ak0208@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org
-Subject: [PATCH v5 5/5] MAINTAINERS: Add entry for Rust dma-buf
-Date: Fri,  3 Jul 2026 09:31:41 +0200
-Message-ID: <20260703073141.3962604-7-phasta@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260703073141.3962604-2-phasta@kernel.org>
-References: <20260703073141.3962604-2-phasta@kernel.org>
+	s=k20260515; t=1783064274;
+	bh=BNjc89ZTwEE6sAh5F09SyQEpJODWyJuS+YsA1L114gk=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=E7fzZHQjHbuqRbfY5w8N/zq/LIGZMJY1SK41CeUUib7CZ4WxWm5MqtADiZytRVf8k
+	 B6AmxstGKgmn9k/gnWEMrYU/U8prhEH9/KBSrez2/6+NEuF1ehCnCime+EeHT7H/Vc
+	 3uPHNJ7e7l0I0rxnW+Hr072aIgsDpQNOHShnhFE32hDNXp6obtBsRggP9gjJ9qOPxF
+	 gm5mTrJ5kP99/8S/EVRiBrZq6SeYg8SxwOWKk+cApIcZjDHtKLqJQAQJJvgyCJU9Xh
+	 uvtmeyMNf/xe4qOOa2+jWsvz9DD00nDyID+u4LEyyFtC11nrDHmkAIGykMv8cZ9zSV
+	 H59njUBru/Yjw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56D2B39389CB;
+	Fri,  3 Jul 2026 07:37:38 +0000 (UTC)
+Subject: Re: [GIT PULL] Split <linux/mod_devicetable.h> in per subsystem headers
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <akdIS8mW2IubUWQh@monoceros>
+References: <akdIS8mW2IubUWQh@monoceros>
+X-PR-Tracked-List-Id: <devicetree.vger.kernel.org>
+X-PR-Tracked-Message-Id: <akdIS8mW2IubUWQh@monoceros>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git tags/device-id-rework
+X-PR-Tracked-Commit-Id: 995832b2cebe6969d1b42635db698803ee31294d
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: d2c9a99135da931377240942d44f3dea104cedb8
+Message-Id: <178306425679.2510133.17664517627067155845.pr-tracker-bot@kernel.org>
+Date: Fri, 03 Jul 2026 07:37:36 +0000
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, Raag Jadav <raag.jadav@intel.com>, Sohil Mehta <sohil.mehta@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, linux-kernel@vger.kernel.org, Yemike Abhilash Chandra <y-abhilashchandra@ti.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org, linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, Dani
+ lo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev, Jonathan Cameron <jic23@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Pei Xiao <xiaopei01@kylinos.cn>, Shashank Balaji <shashank.mahadasyam@sony.com>, Ben Horgan <ben.horgan@arm.com>, Johan Hovold <johan@kernel.org>, linux-usb@vger.kernel.org, Nikita Kravets <teackot@gmail.com>, Hans de Goede <hansg@kernel.org>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, devicetree@vger.kernel.org, linux-i2c@vger.kernel.org, Daniel Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, kvm@vger.kernel.org, loongarch@lists.linux.dev, Geert Uytterhoeven <geert@linux-m68k.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Mark Brown <broonie@ker
+ nel.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>, Wolfram Sang <wsa+renesas@sang-engineering.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Rust does now have abstractions for dma_fence. These abstractions are
-quite complicated and require expertise with both the C and the Rust
-side. Therefore, using the existing entry also for maintenance of the
-Rust code appears reasonable.
+The pull request you sent on Fri, 3 Jul 2026 08:04:04 +0200:
 
-Philipp volunteers to help maintain the dma_fence abstractions. Add a
-corresponding MAINTAINERS entry.
+> https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git tags/device-id-rework
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
-Acked-by: Christian König <christian.koenig@amd.com>
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
----
- MAINTAINERS | 5 +++++
- 1 file changed, 5 insertions(+)
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/d2c9a99135da931377240942d44f3dea104cedb8
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 15011f5752a9..5e5a23a21cd8 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -7622,6 +7622,7 @@ F:	fs/dlm/
- DMA BUFFER SHARING FRAMEWORK
- M:	Sumit Semwal <sumit.semwal@linaro.org>
- M:	Christian König <christian.koenig@amd.com>
-+M:	Philipp Stanner <phasta@kernel.org>
- L:	linux-media@vger.kernel.org
- L:	dri-devel@lists.freedesktop.org
- L:	linaro-mm-sig@lists.linaro.org (moderated for non-subscribers)
-@@ -7635,6 +7636,8 @@ F:	include/linux/dma-buf.h
- F:	include/linux/dma-buf/
- F:	include/linux/dma-resv.h
- F:	rust/helpers/dma-resv.c
-+F:	rust/helpers/dma_fence.c
-+F:	rust/kernel/dma_buf/
- K:	\bdma_(?:buf|fence|resv)\b
- 
- DMA GENERIC OFFLOAD ENGINE SUBSYSTEM
-@@ -8621,7 +8624,9 @@ T:	git https://gitlab.freedesktop.org/drm/rust/kernel.git
- F:	drivers/gpu/drm/nova/
- F:	drivers/gpu/drm/tyr/
- F:	drivers/gpu/nova-core/
-+F:	rust/helpers/dma_fence.c
- F:	rust/helpers/gpu.c
-+F:	rust/kernel/dma_buf/
- F:	rust/kernel/drm/
- F:	rust/kernel/gpu.rs
- F:	rust/kernel/gpu/
+Thank you!
+
 -- 
-2.54.0
-
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
