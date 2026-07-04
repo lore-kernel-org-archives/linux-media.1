@@ -1,21 +1,21 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 443F634DCC8;
-	Sat,  4 Jul 2026 07:16:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696F03242BD;
+	Sat,  4 Jul 2026 07:17:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783149418; cv=none; b=K9M94i2yimRNe3D3M1yA4xYNmwNa3XxlfDb1i1gHX5iDW9PvcG8mIU48lUMxUy2iGwXvo41v90yL47PRmeSwMCFIcXLnFsfcSK1Ogr6DDezsLCHRfjzlN+NfatSlFcce76z1v5/SYbbEbACzWmpUx6+QnydTBh3U8YNh6FENXIE=
+	t=1783149478; cv=none; b=oLzfFPXXJW1DSJqZNzYUmuFRYCgqd6x7UX9u0rTbz2BcMLA4dR1R4SyYQc8M7UyaomM6X18K3L6st0kUN11jDy125dw0JoNQjS/yTr/+TjkQfmvZGd61kY5GAn7d8SR1udvYKSSqsLZAI7QzupKQO+DPtYLNeQCv0XHJJ4dChyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783149418; c=relaxed/simple;
-	bh=XTNQ5aYBSemeGJKvt1jRaYUtqRi2W950SysLUOYkap0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nrhJm6EXKae6HrxO31ugptfJlnlElx0zh2E8DJaec3NUfYgeqDayClrw8BEf7uxk45/SwHOJDnPlt+0BzEDeMZjEYmgm/q38oo9kEYcU1aGnvSdnSMlUeCSowTKo+yA06VqE5/wpYkYejNQajVU3uFjlNNxSHPVm0kOc8SPuy40=
+	s=arc-20240116; t=1783149478; c=relaxed/simple;
+	bh=npgIiMQB6Z5b+WmY/REfSzqKXdQOvYDlhVW3oIc2MYA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T8N9OimRGllXl5fRjrb/f4pydtMLh8kc+QOGZ+a4dYJxTrH3rfTqHru2iGZaH8Ff85trh018c44+lncM+1mrCC9OWWOkzkcFROI/TtenTuxOdHCEs70tTItdyVlrJV4CnQq7nFoTodO2JCWgoWYCkHN3Sb7nOP4BCu4walyCnmU=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [111.196.245.140])
-	by APP-01 (Coremail) with SMTP id qwCowADHZc5Ys0hqLqegBA--.11598S2;
-	Sat, 04 Jul 2026 15:16:40 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowAAHocmWs0hqF6ugBA--.11681S2;
+	Sat, 04 Jul 2026 15:17:43 +0800 (CST)
 From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 To: Hugues Fruchet <hugues.fruchet@foss.st.com>,
 	Alain Volmat <alain.volmat@foss.st.com>,
@@ -27,9 +27,9 @@ To: Hugues Fruchet <hugues.fruchet@foss.st.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
 Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Subject: [PATCH] media: stm32: dcmi: Propagate runtime resume errors
-Date: Sat,  4 Jul 2026 15:16:38 +0800
-Message-ID: <20260704071638.30125-1-pengpeng@iscas.ac.cn>
+Subject: [PATCH] media: stm32: dcmipp: Propagate runtime resume errors
+Date: Sat,  4 Jul 2026 15:17:40 +0800
+Message-ID: <20260704071740.37531-1-pengpeng@iscas.ac.cn>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -38,10 +38,10 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowADHZc5Ys0hqLqegBA--.11598S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrtF1xCrWxtFW3Cr17Cry7trb_yoWDWFc_Gr
-	4fZFW7WF4xtr9rKa17tFn3ZryS9FWUW3W8Za9aqa12qa4j9w1UWry2vr9xZ3yUAr1Ikay8
-	GFn5WFyfCr9I9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+X-CM-TRANSID:qwCowAAHocmWs0hqF6ugBA--.11681S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKryfCr4UCw1kKrW7AF48Xrb_yoWkXrc_Gr
+	4SvFW7Wa1rtr9rKa12kF15ZrySgF90g3W8JwsYqan2qryIvr1DXryUur9xXayUAr1Ivayr
+	tF1FgFy3uF9aqjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
 	9fnUUIcSsGvfJTRUUUb3kFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
 	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
 	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
@@ -57,23 +57,23 @@ X-Coremail-Antispam: 1UD129KBjvdXoWrtF1xCrWxtFW3Cr17Cry7trb_yoWDWFc_Gr
 	VFxhVjvjDU0xZFpf9x0JUyMKtUUUUU=
 X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-dcmi_runtime_resume() returns clock enable failures, but dcmi_resume()
-currently ignores the result of pm_runtime_force_resume() and always
-returns success.
+dcmipp_runtime_resume() can fail while preparing the device clocks, but
+dcmipp_resume() currently ignores the result of
+pm_runtime_force_resume() and always returns success.
 
 Return the pm_runtime_force_resume() result so system resume does not
 hide a failed runtime resume.
 
 Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
- drivers/media/platform/st/stm32/stm32-dcmi.c | 4 +---
+ drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmi.c b/drivers/media/platform/st/stm32/stm32-dcmi.c
-index eeb0199864dd..b1f9af8edf6e 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmi.c
-+++ b/drivers/media/platform/st/stm32/stm32-dcmi.c
-@@ -2273,9 +2273,7 @@ static int dcmi_resume(struct device *dev)
+diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
+index 49398d077764..516334541b2c 100644
+--- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
++++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
+@@ -649,9 +649,7 @@ static int dcmipp_resume(struct device *dev)
  	pinctrl_pm_select_default_state(dev);
  
  	/* clock enable */
@@ -83,7 +83,7 @@ index eeb0199864dd..b1f9af8edf6e 100644
 +	return pm_runtime_force_resume(dev);
  }
  
- static const struct dev_pm_ops dcmi_pm_ops = {
+ static const struct dev_pm_ops dcmipp_pm_ops = {
 -- 
 2.43.0
 
