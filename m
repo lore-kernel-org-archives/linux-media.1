@@ -1,83 +1,83 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE343002D1
-	for <linux-media@vger.kernel.org>; Sat,  4 Jul 2026 12:32:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BFF929408;
+	Sat,  4 Jul 2026 13:45:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783168353; cv=none; b=olBI/82XiTkgKN4N+nowEk8j/TUv/DJbROc5fv+NfgJPArfdO0hWhc8j9VEenNqwLcr42V9mW+gVX04ay/Zd5y49zEZlhuBK1TgwApV77temZTRpkldvDXSJ9D0iyOQWH1YQ3s8saxhyVu+Vvgyf5GuSrEpwR/oV/kPR3tr6l2E=
+	t=1783172731; cv=none; b=gZuAtqFUzn+FSXWRqKb/ymsVKFRZII/0NdfciLK8SAZaCxFBx1w1V/vgyFqzhySHQpp8CJILMt9GlEi10efd8PwxgPlP9NUXlUj3zkLi7dYP7FQZLppHvjyraIo2sfpywEpPWdLt/ThcFrNbFuj7Ri2iWeuJ0gJ80N7P0Sg/4eY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783168353; c=relaxed/simple;
-	bh=pME4bjC1HkKzkbK/vNZ4vKpnul4WN5lrJo2q7vXU5kw=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=B7FyXZA1jNDESZTkWpdbgK2x1YwRjA/Q9VZnWRCuyxcCj2bL2udSPPJc4XU50luoyq/Gja+A7nKfllXqq8MJl5NUL+pBiXFKi6TZw+dDKAopSj2ER/nRT6XDBFRnUhQNIvUgO898yY40dQwrQduK9q082yas0DH474llJrDlc0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-495b8120909so1668535b6e.1
-        for <linux-media@vger.kernel.org>; Sat, 04 Jul 2026 05:32:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783168350; x=1783773150;
-        h=to:from:subject:message-id:date:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=3g8up3Ie74hsjB9ySAePHf1aEy+sKa4ZFtk7OEjujUQ=;
-        b=F380m6fuWF0+HVwI0zFYmfa36kyGrCYgUi+ZFb961GWEJye3BV+H51thn9bn47zDq6
-         yMLge+dEOZVC2gZtBOQVbahyTnlsS8bG2zHerxoJxanEQWGeI0k6z8q5kLdknj5dGHrR
-         bL+xqiRKnU/hhV20UJMlrxq2OdAbsg6Z758HAX3BtqjjfzypgV/tZrRviXuF5CGWgig8
-         J+n8pnNeEFojILhvhIVVYwttRp8djf2xZMxwBScyaokJ5w0OTUfAMEddVybLcE+BLEo4
-         Bt730weiPNZQIn59vfdT8ceiBx9jO7dCF4A4sZVMzrBvVYJ20QdK+1EFDXsZigTTxcyl
-         k4mA==
-X-Forwarded-Encrypted: i=1; AFNElJ/dQOG601OJQSMHk2Uaw8MhO2gRGfDoe+Sgo2WG1ZlzooMwERx4k8xa1bjC/gzjrjw5KlEVQO+yRetrZw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YygtU1a1+iXimJE831AB9zKu2zQp2EzExXZs+W2/dc9+HW4zQdX
-	06YAXX8qJmlF14jijwl2OvGhDSjXgqarScU9fsC6kT1PYwN9wRiAYemdmSpSHLy7NJHXSeRg2qW
-	AGPvSaGD/60dNIqdHL6AaWr3C69Flh/uYmMWG4SJZhqAjusIi013CAGPcAdE=
+	s=arc-20240116; t=1783172731; c=relaxed/simple;
+	bh=jqHtxjhUBP/2grYMg1hxVyeRBnpFzBP7XCLUmgOyz9Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JI0/XNTOeEvn7oV+dI9qImq1oAm6vVzM5MVQAZ029N8uZpet/PdbxrtXNprimk6s5+mJ4pcVyVYvwYB1ThxFxKxTsGxxYPwndbTndsZ3wM4j9zf8fvbsiMMERDrSEa0ZkXRemWJTkqgHVTXK34sMDV0J5CQzYW+diMWAg52wGsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bDYMKmxn; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bDYMKmxn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783172731; x=1814708731;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jqHtxjhUBP/2grYMg1hxVyeRBnpFzBP7XCLUmgOyz9Q=;
+  b=bDYMKmxnX6x+KuEa5/Jv48S50Xz4KgBtu1GwYO1YC+XoEOx+kpS6wEoZ
+   hfzB7d/9V/mrMlQ7QCsXGOfU5ghR1G7w9D0f710cvSujABvY9B58KQBDL
+   fxhmjSeS2fOcprkldLkqudS4Wy2o6VgZ5+PRGMGjoAhVd7pbLjoC0/tbc
+   2EW7/hyWlkmi1mni049gtaDz4MI0wp/b72NIpszJp5P/2NvQywEAQopnq
+   5Q1j6i/zr0TSSyto0K7camarkl1qEkOrAbT0OHbjH1GOnJDkwRpdJvRx2
+   ut739C6M7A+slj8AaK0BQ2/woAzLeEgAN2OQl1Q31a4gQFgSYm73W81vU
+   g==;
+X-CSE-ConnectionGUID: 0EwToWTlRui9mTQTMpJKKQ==
+X-CSE-MsgGUID: mTHSa37KQmWN4GeyN/teLQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11837"; a="95385925"
+X-IronPort-AV: E=Sophos;i="6.25,147,1779174000"; 
+   d="scan'208";a="95385925"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jul 2026 06:45:30 -0700
+X-CSE-ConnectionGUID: R+/J0dhkSp2E0Gl/LvCeHQ==
+X-CSE-MsgGUID: MjXbyDKkRkGN5ggbe2AYLQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,147,1779174000"; 
+   d="scan'208";a="249333714"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.218])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jul 2026 06:45:27 -0700
+Date: Sat, 4 Jul 2026 16:45:25 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Dileep Sankhla <dileepsankhla.ds@gmail.com>
+Cc: andy@kernel.org, hansg@kernel.org, mchehab@kernel.org,
+	sakari.ailus@linux.intel.com, gregkh@linuxfoundation.org,
+	abdelrahmanfekry375@gmail.com, error27@gmail.com,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev
+Subject: Re: [PATCH] staging: media: atomisp: Remove unnecessary else after
+ return
+Message-ID: <akkOdQ1oT0hIc0tz@ashevche-desk.local>
+References: <20260704120113.201099-1-dileepsankhla.ds@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3442:b0:495:db98:cd6d with SMTP id
- 5614622812f47-499ba7cc59dmr1554230b6e.27.1783168350517; Sat, 04 Jul 2026
- 05:32:30 -0700 (PDT)
-Date: Sat, 04 Jul 2026 05:32:30 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a48fd5e.34acba0d.1e07b.000c.GAE@google.com>
-Subject: [syzbot] Monthly media report (Jul 2026)
-From: syzbot <syzbot+listf5c80a0ffb2174ebbefc@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260704120113.201099-1-dileepsankhla.ds@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hello media maintainers/developers,
+On Sat, Jul 04, 2026 at 05:31:13PM +0530, Dileep Sankhla wrote:
+> Remove unnecessary else clause after return statement as the else branch
+> is not needed when the if branch always returns.
 
-This is a 31-day syzbot report for the media subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/media
+Is this the only place (of a such kind) that can be amended
+in the entire driver?
 
-During the period, 0 new issues were detected and 0 were fixed.
-In total, 26 issues are still open and 115 have already been fixed.
-There are also 8 low-priority issues.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Some of the still happening issues:
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Ref Crashes Repro Title
-<1> 464     Yes   KASAN: slab-use-after-free Read in em28xx_release_resources
-                  https://syzkaller.appspot.com/bug?extid=16062f26c6480975e5ed
-<2> 35      Yes   KASAN: slab-use-after-free Read in em28xx_unregister_media_device
-                  https://syzkaller.appspot.com/bug?extid=07b93bb3189febcab189
-<3> 12102   Yes   KASAN: slab-use-after-free Read in dvb_device_open
-                  https://syzkaller.appspot.com/bug?extid=1eb177ecc3943b883f0a
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
-
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
