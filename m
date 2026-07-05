@@ -1,123 +1,75 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out7.jino.ru (smtp-out7.jino.ru [81.177.141.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F14381E97;
-	Sun,  5 Jul 2026 14:22:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277A7347C6;
+	Sun,  5 Jul 2026 14:46:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=81.177.141.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783261357; cv=none; b=bFWTbjtZLJrzOQ6PMmh8aW2EzXZ0gB4TCL1+ILJrYWF0J1/yFGaKRiNFhHeT0xV2mtFK86W54cQKmqt+YRKnwb3dT5/e2DfFenb//4bs2AsgvNM6LTW1so6zp9l7li5dx83XQK2u9b0OCDlMxd3WxmJUCqP02l8oWs0zQaCpB1w=
+	t=1783262777; cv=none; b=HCZkqeB7zmR79z2d+qjCojqlsvUi5gQmirMch26JaN20px+a1qiHGdTfw0y/Pwmh11o92hGsG2S07LSrYAjBKkrkWFCtFsOI0wOoox765bhKw+SljULkqTeEKx/OpdBbvLq2hTtvc2uvuaGzppMqGIfH5kzjCPZ069GhfLHsnTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783261357; c=relaxed/simple;
-	bh=YNQVvg/XiPpVOCPUJMfQag6QloucgkMiRuDaQGZlsf8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t9T0vpzw7gInpz2kXQzU//SCI75U4LMwOU1aiaAXBFmlshWrpAPvgNLJre1lHpyiZN2D/loOaJeltrPA051FSE+wLO8nuT8hHFvySRrE9mVa0B4JHriw8PkOsLZgyPsWRhWLmp1Cqbd9HO+YdcPMAhOf44d8CWQIEiPEzBQ9YhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BcPSjMN1; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783262777; c=relaxed/simple;
+	bh=ECZC4rfEZ+cnW7kdNaHgHapogWDpTvgE7RpQqcRktyI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sy2zc/8ZR4sRPMvi01WjqcgBnKgSLnLLidt/L2R20SkWGYmLh5tTN4TLOTEQRLr+8otcnXyrcGDeeUlHMosoL67eJuGnaxKtw1GYBKqMO8yP/Dzarfo+UKQKnLyQWt3HLjPugri6WADpxSNx1JwAb/iJtXluCMIIeh0V2KyabU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mapicom.org; spf=pass smtp.mailfrom=mapicom.org; dkim=pass (2048-bit key) header.d=mapicom.org header.i=@mapicom.org header.b=XO56a9KI; arc=none smtp.client-ip=81.177.141.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mapicom.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mapicom.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BcPSjMN1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783261356; x=1814797356;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=YNQVvg/XiPpVOCPUJMfQag6QloucgkMiRuDaQGZlsf8=;
-  b=BcPSjMN1HfNAnk74PUHMNwfg672awKUyV4jC1eyJBQI/6FoKTMiyV1Yz
-   7/hCeL4++RDZfomxwpHapAdm1bEZn4XpEVJFF2UQLkDjpH2ibxfH18MQC
-   AoS6PVifeTLCezoT3ZAIoMNfxoHBPCHKmcrHw1tKh5MoHpC8rEn9s6bIn
-   pRfvpbGhT91EQnnIuyq7vhToTugeIfngG5GgU7pY0nQlKGd4BY6kJGcgV
-   uR6sa6eZkk0Ywgow2dPvUp8nROBy2BWvLx7S7cJLPIJvHycI9+dnftoex
-   B+u8t3kiXUwauTOEq8vPrX4GqxL0fSsZrrXcA3z6MQhYW9O9A4wSPKYge
-   g==;
-X-CSE-ConnectionGUID: 2zpbX+5wQI2lEaLylcNFvg==
-X-CSE-MsgGUID: idkw8A42SKuJNdc4hrE8ug==
-X-IronPort-AV: E=McAfee;i="6800,10657,11838"; a="95287973"
-X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; 
-   d="scan'208";a="95287973"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jul 2026 07:22:35 -0700
-X-CSE-ConnectionGUID: FjHEc2ngRAGBhyZyFmIEoA==
-X-CSE-MsgGUID: MPVt+0f6SaetyH/hKkSGfg==
-X-ExtLoop1: 1
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.6])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jul 2026 07:22:32 -0700
-Date: Sun, 5 Jul 2026 17:22:30 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Neal Patalay <nealpatalay0@gmail.com>
-Cc: andy@kernel.org, hansg@kernel.org, mchehab@kernel.org,
-	gregkh@linuxfoundation.org, sakari.ailus@linux.intel.com,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev, mugrinphoto@gmail.com,
-	matt@mattwardle.net
-Subject: Re: [PATCH v3] staging: media: atomisp: refactor pipe graph dump
- stage formatting
-Message-ID: <akpopoFZyWW2e9En@ashevche-desk.local>
-References: <20260705073844.146578-1-nealpatalay0@gmail.com>
+	dkim=pass (2048-bit key) header.d=mapicom.org header.i=@mapicom.org header.b="XO56a9KI"
+Received: from kirokota-srv.lan (unknown [91.204.186.31])
+	(Authenticated sender: pinigin@mapicom.org)
+	by smtp-out7.jino.ru (Postfix) with ESMTPSA id 28BBB3784C54;
+	Sun,  5 Jul 2026 17:46:11 +0300 (MSK)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mapicom.org; s=dkim;
+	t=1783262772;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=jyJqke+OJg3gQ8grppUr2wpoupU6svpv5JErbr3g2tM=;
+	b=XO56a9KIpLNT6y+DoGhz3FEHjLm70MTQsf48I681f1hUcVAvLHL2ZWLRITE+d+fYeCmVnc
+	b96UeUtE/jZo4+LeYiGvWt/PAcEbSd6DrVVDP69etFJd1j673zENv1Ry4oqTOziDEAodsM
+	f02YMw2RusmosP1oBfxwqqgZR61G2VBcS8ZK7bWu0r7qNawhxd1raGdY55kxdjMj+mtQYy
+	4g58D8v9TUcSAiPSyJrAafX9o0UAKSIJl0KTCJi4p18fUmFeJ9DVZb6saJJxdMevVRn/So
+	gDCbeIp0XDqc8MQYyC6dXGbOh7ALYl1hGvIAGJeK//MqEehBciqvtlAWtPJ6bQ==
+From: Maksim Pinigin <pinigin@mapicom.org>
+To: linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Maksim Pinigin <pinigin@mapicom.org>
+Subject: [PATCH v2] media: dw2102: Fix a buffer overflow
+Date: Sun,  5 Jul 2026 21:45:50 +0700
+Message-Id: <20260705144550.455058-1-pinigin@mapicom.org>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260705073844.146578-1-nealpatalay0@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Sun, Jul 05, 2026 at 12:38:44AM -0700, Neal Patalay wrote:
-> The original implementation of ia_css_debug_pipe_graph_dump_stage()
-> includes an off-by-one error where the original strscpy() size dropped
-> characters immediately before newlines. It also allocates over 600
-> bytes across multiple buffers on the stack. Address these shortcomings
-> and reduce stack usage with a single 256 byte buffer via a new helper
-> function, ia_css_debug_build_info().
+This bug in dw2102_load_firmware() function appears only when building the kernel via LLVM+Clang. Due to reading of 64 bytes chunk, it may happen that there will be an attempt to read a more bytes in chunk than there is left, which is why Kernel oops occurs.
+At least this bug happens when downloading the firmware for Prof Revolution DVB-S2 7500 USB.
 
-...
+Signed-off-by: Maksim Pinigin <pinigin@mapicom.org>
+---
+Changes in v2:
+ - Fix patch syntax
 
-> +static void ia_css_debug_build_info(char *info, size_t info_size,
-> +				    int *offset,
-> +				    const char *flag_str, size_t flag_str_size,
-> +				    int *line_len)
-> +{
-> +	int len = *line_len;
-> +	int off = *offset;
-> +	int len_written;
+ drivers/media/usb/dvb-usb/dw2102.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The blank line must divide the definition and code blocks.
-
-> +	/*
-> +	 * If new line length exceeds max line length,
-> +	 * replace the last ',' with a "\\n"
-
-Missing period at the end.
-
-> +	 */
-> +	if (len > 0 && info_size - off >= 2 &&
-> +	    len + flag_str_size > ENABLE_LINE_MAX_LENGTH) {
-> +		info[off - 1] = '\\';
-
-If for some reason len is > 0 and offset is 0, this will write beyond
-the boundaries.
-
-> +		info[off] = 'n';
-> +		off += 1;
-> +		len = 0;
-> +	}
-
-> +	len_written = scnprintf(info + off, info_size - off,
-> +				    "%s,", flag_str);
-
-Broken indentation. Note the statement fits a single line.
-
-> +	*offset = off + len_written;
-> +	*line_len = len + len_written;
-> +}
-
-This will continue writing even if there are more than 3 lines.
-
+diff --git a/drivers/media/usb/dvb-usb/dw2102.c b/drivers/media/usb/dvb-usb/dw2102.c
+index 4fecf2f965e9..ad90d7be4412 100644
+--- a/drivers/media/usb/dvb-usb/dw2102.c
++++ b/drivers/media/usb/dvb-usb/dw2102.c
+@@ -1893,7 +1893,7 @@ static int dw2102_load_firmware(struct usb_device *dev,
+ 		break;
+ 	}
+ 	info("start downloading DW210X firmware");
+-	p = kmalloc(fw->size, GFP_KERNEL);
++	p = kzalloc(round_up(fw->size, 0x40), GFP_KERNEL);
+ 	reset = 1;
+ 	/*stop the CPU*/
+ 	dw210x_op_rw(dev, 0xa0, 0x7f92, 0, &reset, 1, DW210X_WRITE_MSG);
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.39.5
 
