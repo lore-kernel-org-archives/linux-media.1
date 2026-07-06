@@ -1,17 +1,17 @@
 Received: from invmail4.hynix.com (exvmail4.hynix.com [166.125.252.92])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7F8113DDDC3;
-	Mon,  6 Jul 2026 06:21:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B16E93EA96A;
+	Mon,  6 Jul 2026 06:21:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=166.125.252.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783318894; cv=none; b=tiriSSl8ePOGWW547HBdrPUqWOiOxHzJxMhvaXrzDXd1R6oo9qAwllP27g/3+HLopNo/Pt8N/UiaDCcjIIS8GJpI5GoLSQBIirleafTAPwe+PdKBo1iC0Rnf9osPKFhbGUj7iUXRGnPPFfHNd/lg9xoQVRaBfMt4ShLq7oledMQ=
+	t=1783318927; cv=none; b=tqH4WVrTABZToVJm+Rw6EaSaqPpemqMoeNO9mcM1G6Rp6b2b8XqkoI5xsSyO++pv2qp+X6HudjS/3fi8sjw9adYBuIPiG8y93qPmUGat9a2goQAk457178Hr1vEpYn6B72D+iTgXWTq0KpDbyraZ1oaBq8+CgqKdv+U4IDjV/rY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783318894; c=relaxed/simple;
-	bh=w+C1tGe+D2gcMh5vmD2+eMhKBKW1r3S6v2wTTfvfqWM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=RRmABNr9cpDTnxRoEB9f/iIeYqIXDis/7JHXPQITzayXma3GMRIsQz1f0wV9NeFlHMgTnAnN+VcjOZEhGqZsZBzxb+v6pRknSNnuH4APp1mBjr2PfPqxTUew7++Kv3ndSuZrE05QHUoe4hgleMWAsSU1Z30pIfM8AZ0Z+nwKZWU=
+	s=arc-20240116; t=1783318927; c=relaxed/simple;
+	bh=mmPlRW8aN19lFRugmcatfsbnT9mjk0ziOlsqZXzc284=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=tpP80eRgnVLjkYuHNC/trN0NJK+DQtOvQUHESspLYMNwBIiK5ewfa2qOWi4PoIBG8PGUkzeORJaEcC2PTaiM63NrPf9qBvule7cs0dnBrSFGmkVSDKjgImbyyd3YkeLeRUf1xNz0GBQu6Z0sSpNHaurUX4smEb7ExcQPKegeQqk=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sk.com; spf=pass smtp.mailfrom=sk.com; arc=none smtp.client-ip=166.125.252.92
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sk.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sk.com
-X-AuditID: a67dfc5b-c45ff70000001609-d3-6a4b490581ab
+X-AuditID: a67dfc5b-c2dff70000001609-e4-6a4b498389cb
 From: Byungchul Park <byungchul@sk.com>
 To: linux-kernel@vger.kernel.org
 Cc: max.byungchul.park@gmail.com,
@@ -178,45 +178,45 @@ Cc: max.byungchul.park@gmail.com,
 	aliceryhl@google.com,
 	tmgross@umich.edu,
 	rust-for-linux@vger.kernel.org
-Subject: [PATCH v19 30/40] dept: make dept stop from working on debug_locks_off()
-Date: Mon,  6 Jul 2026 15:19:18 +0900
-Message-Id: <20260706061928.66713-31-byungchul@sk.com>
+Subject: [PATCH v19 35/40] dept: introduce APIs to set page usage and use subclasses_evt for the usage
+Date: Mon,  6 Jul 2026 15:19:23 +0900
+Message-Id: <20260706061928.66713-36-byungchul@sk.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260706061928.66713-1-byungchul@sk.com>
 References: <20260706061928.66713-1-byungchul@sk.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAAzXSe0xTZxgGcL5z+U5bLTmpJh4xC1plcxqcW4C88bJoJPFTTNToLtliZjNO
-	RhGKKYqiYVYYhgEq1lC1BS2XNh0WJa3Oy+ymBIooDSIKVVCsARQRMUjbFewcl/jfL8/z5vnr
-	ldAKLxslUWv2iFqNKk2JZYxsaGZFLLchKXW55QWGgvxDUHbRjiFsusLB7c5cBnr8BQiC4yYa
-	wno3B6OhLg4MbXoaSn29GIatxQiM/SYOBhrXw1DPXyx0Bl4jsPb+R0HYsAvOVToxDBreYhj3
-	tNJwqvQeggrfExouuZ8icNlyMfSVXKahvTcSHviHMQy1lVHwpg6DOdfFQlvLIIJykx6BodzB
-	QLdBT0GPtZ+BUwMYQtYaDqy6GDB52ll4bjNy8MGcAe7zLzhoftrBQk/TERau6J5x4HjUiGD0
-	gY8Ce3E/Da7HS6HiSDUDN1zNDBSERxG4rz6noP16GYbiusss6ExBFu66bzPQbPyDgS7PcQ4s
-	nW0U+J55WXB6WmjwlvQhqH1TidckkxrnnxTJvx/GxH7Wjsj4mB6RUUseTSx3X2My5n+IiStg
-	ZsidSoFU/z5GkROeWHLN+IQjZsde8lvDEEuctiWk6sYAtSX2B9mqZDFNnSVqv/h6pyzl4ocQ
-	u7tRvt/28hHSofwZhUgqEfg4ofRsEfvR14JVU8b8Z4LXG6InPZufLziP9k/kMgnNt0cLxdaj
-	zGQxi98q2IMWNGmGjxH+HmmdspxPEEpGBvH0aLRwvu7m1JB0Ir/wvpyatIKPF7qGm5jpm3NS
-	4X7DymnPFW7ZvEwJkptRRA1SqDVZ6Sp1WtyylGyNev+ynzPSHWji36w573+8ikbubatHvAQp
-	Z8phzcZUBavKysxOr0eChFbOln+6OClVIU9WZR8QtRk/afemiZn1aJ6EUc6RfxXYl6zgf1Ht
-	EXeJ4m5R+7GlJNIoHTowtq7j5at3Ny98f4u7VEUOJmw4XcsvXuFnko49nvFuYWoEHfinu9O/
-	dF5K4uEdCaFFDeXVtWULvvumu2a5lFqxPTHSERddOFIdDNSe9Kk35+S8OvN2rTlv5YLsVRFu
-	anvRJuXneZreQne6Qxn176/RpdzWyE+a6sjq1f518duSvu2TK5nMFNWXS2htpup/Me8HhGsD
-	AAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAAzWSe0hTcRTH/d3H787V4rIGXYyyFj3oYQVZJ4owirxpRQUhCJUjLzmfsZVp
-	EKlrtN5rsUlOy1aOmitNe61aipaVFmlmWmYrWqZpWUsdPubaiv45fM73e86X88cRkdI7dJhI
-	mb5XUKUrUuVYTIk3rdAsoNfHJi86vR102kPw3uWm4U1uNQUD/ToKCsvsGHzmOwzoKs7R8LQ1
-	j4LG66UIXAM6BN4RMwlah58Cn6GOgf6hdgaMuQj8zjoEpiYDCW2NVSTYb+YS8Lt8DENPrQeB
-	8ZMbQ353LgV91hMICjrNDHQ/jobvrvs0+Du+EtA62IvA6h4jwF19BIHPlAIXLJWBddNPDCMv
-	XpKQb2xEcPFTBwme7o8IbtZ9QOC8kofhi/4WCc3uCfB6oA/DM+NxDN+bCgn4UY6hOM9JQ9Pz
-	HgRFZgOCzndOAjSXyjCYiioocHy8x0BTzygB700GAkorNoLL2klBg95CBM4NTN2YBOZ8DREo
-	XQQYr90nYMhqY6JKEO/VnqJ4W+Vtgte+8mHeft6O+JFhA+L7SzQkr9UH2trePpI/XLmfL2no
-	xfzwQAvmnYPFFF9v4fjLR4cJ/syLBbyjoIPZvDpevDJRSFVmCqqFqxLESWX+IXrPY0nWla63
-	KAdpxx1DoSKOXcI5vJfoIGN2NtfWNkQGWcZO4ypPdgZ0sYhkm8O5E9aTVNCYyG7h7N4SFGSK
-	nck99Lz8yxJ2Kaf39OB/oeFcaXn136DQgH59tIgIspSN5Nr7nlB6JC5GITYkU6ZnpimUqZER
-	6pSk7HRlVsSujLQKFHgn68HRM3dRf3N0DWJFSD5eAlExyVJakanOTqtBnIiUyySz5sQmSyWJ
-	iuwDgipjp2pfqqCuQZNFlHySJCZOSJCyuxV7hRRB2COo/ruEKDQsBxGcKjZtnX5HiPLz88Mt
-	svqYQ1cPREc9NNhCcnaTM260tIdV2fCaKeE7lt36mUjqLK1bxlDD4KMMZt+ci9uy8FpXVcRw
-	pGwwbkWkGk3vUnXMPRsV88FvfVvgy1weHf7mV6zrQve8qfUHv82vjbfcU6zVF2q+mJgNq70W
-	j2MrfpAgp9RJisVzSZVa8Qc5S0vSSgMAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSX0xTdxzF+d37u7eXjiY31WR3+sDSqDOi6BbHvkvI5uIDV50Ji0YTfdBq
+	r1JWwBQBgbgVKB1BMLVJIaNFK0hFrUjaCKLU8MeBDZLCcIACxQKrEKksjpZR0K7V+HLyyTnf
+	c56+DCkdp9YxysyzgjpTrpLRYiz2x9VtK9mzL32Hp2UHDBd1YAgslmEw37HR8NbUKoLHI8UY
+	JgNlCJZWTCSUtoUxLC6PicBYhCDs7EHwb/M7Gl51v0Fg9M7QUD1XhKHGZxKBf/IBBSPBeQQz
+	Hb8huFLniNxV/UPDSr+bhGrjAIKr3gkSnI3FNPytv0uCy3iBBv+gmYDXzTRYip0U1JoMCHzP
+	nQSU1N+hYfDVKgHjVQYCbtn3w6TVh6FPX0eAqbokKrMEGG8/IOBJ/TgGq2YjmPqHKGjyuymY
+	7NVR0Kp5IQL7sz8QLD71EmCr8JFgnx6mwPk8Aa7qrmH4/fI4De1OF4aee1MEVDTfpcBjC1Mw
+	0NFHQV/PYwyumhsY3PdvU9AwMkiAo/8JuUvBL5VexPxNRwvBl/75luZtl22IL9VHpHt+geS1
+	jjy+oW+e5kOBv2jeGbRg/lL/Nr6tZkLEW+w5vPaRn+IdjVv4+vY5IjXhiDhZIaiUuYJ6+3fH
+	xWnW7kfUmaKkc74hN6FBhq3lKJbh2J2cJ+RFH3n2ZZCKMs1+wY2OLpNRXst+zjkqfRFfzJDs
+	UDxXYa3E0WANe4rrDAfflzG7kZtaNUQKDCNhk7jww18+bMZzt5o73u/ERuym1VoiylL2a25s
+	oRdHNzn2eiwX8DSSHwqfcZ2No1iPJBYUcxNJlZm5GXKlamdiWn6m8lziyawMO4r8nPX86tF7
+	6M3AgS7EMkgWJ4Fde9OllDw3Oz+jC3EMKVsr2bR5X7pUopDnFwjqrGPqHJWQ3YXWM1j2qeSr
+	YJ5Cyp6WnxV+FoQzgvpjSjCx6zRI9+PT+JwDLS8MS6kL5dcTvvX0ZngCKYnf1JbHHK58bQ9Z
+	8rOGC8JXoOaHwmd27XQ1n7771IBVpC0Z0b1s/+nCJ6xd5Lx40Jvs6mxJadg9cz9pzmwariqU
+	uMbGYk5Mpxh635W1mqd+VbVp3brQf5rTZEjftH3J7KpUiFPjvt9wSIaz0+RfbiHV2fL/ASb5
+	DkRvAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSe2xLcRTH97v39vaulJta4hrJaDAW84px4hXPuQgh/lj4A81c1q2tahmT
+	eXRV5t01aRfrxozVshXTMmYptTGPEauxzWM2VLdlY8we2dapW+Kfk8/5fs/55vxxKFxyWxBO
+	yVW7OY1KppCSIkK0dp4+Wr9ydeJ0u1MI6YZD8KHRK4BanZuA7q50ArKv20kYtN7mTcc5ATyp
+	SyOg+loRgsbudAS9A1YcDKUBAgZNlULo6nsvBLMOQcBVicDiMeFQX30fB/tNHQa/in+T0FbR
+	icD8yUtCZquOgA7bKQRZPqsQWh+tgG+NZQIINDRjUNfTjsDm/Y2B130MwaAlCS7kOfl1yw8S
+	Bl68xCHTXI3g4qcGHDpbmxDcrPyIwFWQRsJX4y0carzD4HV3BwlPzSdJ+ObJxuB7MQm5aS4B
+	eJ63IcixmhD43rkw0F+6ToIlx0FAadNdIXja/Bh8sJgwKHKsgUabj4AqYx7Gn8tP3RgJ1kw9
+	xpcWDMxXyzDosxUKF+UjttdwhmALnSUYa3g1SLL283bEDvSbENuVr8dZg5FvK9o7cPaIcy+b
+	X9VOsv3db0jW1ZNLsM/yGPby8X6MzXgRzZZmNQjXLd4kmr+NU8iTOc20hVtFCbaKhwK1bvY+
+	X81L7DAyTTmBQimGnsW0NPcIgkzSkUx9fR8e5DB6LOM87eN1EYXTNRHMKdtpImiMoLczDwI9
+	KMgEPYH57DfxCxQlpmczgXsH/2VGMEXF7r85obx8zZ+DBVlCxzDvOx4TRiTKRSGFKEyuSlbK
+	5IqYqdqkhBSVfN/U+J1KB+LfyXbAn3EHddWsKEc0haRDxbBoVaJEIEvWpijLEUPh0jDxxEmr
+	EyXibbKU/Zxm5xbNHgWnLUejKUI6UrwqjtsqoXfIdnNJHKfmNP9djAoNP4yiDq0bcqSz/Uf/
+	8udRk2eqzwxftutLrL/cmzon5EpqrBLG6Uvc0TMjXBsg5vux8Dr3rh1P85pLLD/jqjImxrWk
+	KsrUTzxLjbWbC/YXR8aHH10wtqqAvux3HXfNLVBKhxjeblxfO6rsbJPekVzXPGfM0PjI7N7x
+	P0NuxapV0V/kS3pPSAltgmxGFK7Ryv4AjOPYH0oDAAA=
 X-CFilter-Loop: Reflected
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -224,66 +224,231 @@ List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 
-For many reasons, debug_locks_off() is called to stop lock debuging
-feature e.g. on panic().  dept should also stop it in the conditions.
+False positive reports have been observed since dept assumes that all
+the pages have the same dept class, but the class should be split since
+the call paths are different depending on what the page is used for.
+
+At least, ones for block device and ones for regular file have
+exclusively different usages.
+
+Define usage candidates like:
+
+   DEPT_PAGE_REGFILE_CACHE /* page in regular file's address_space */
+   DEPT_PAGE_BDEV_CACHE    /* page in block device's address_space */
+   DEPT_PAGE_DEFAULT       /* the others */
+
+Introduce APIs to set each page usage properly and make sure not to
+interact between DEPT_PAGE_REGFILE_CACHE and DEPT_PAGE_BDEV_CACHE.
+Besides that, it allows the other cases:
+
+   interaction between DEPT_PAGE_DEFAULT and DEPT_PAGE_REGFILE_CACHE,
+   interaction between DEPT_PAGE_DEFAULT and DEPT_PAGE_BDEV_CACHE,
+   interaction between DEPT_PAGE_DEFAULT and DEPT_PAGE_DEFAULT.
 
 Signed-off-by: Byungchul Park <byungchul@sk.com>
 ---
- include/linux/dept.h     | 2 ++
- kernel/dependency/dept.c | 6 ++++++
- lib/debug_locks.c        | 2 ++
- 3 files changed, 10 insertions(+)
+ include/linux/dept.h       | 34 ++++++++++++++-
+ include/linux/mm_types.h   |  1 +
+ include/linux/page-flags.h | 89 +++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 120 insertions(+), 4 deletions(-)
 
 diff --git a/include/linux/dept.h b/include/linux/dept.h
-index f3cc7566ddf2..236e57befb13 100644
+index 236e57befb13..3b8faf5f04cf 100644
 --- a/include/linux/dept.h
 +++ b/include/linux/dept.h
-@@ -142,6 +142,7 @@ struct dept_ext_wgen {
+@@ -19,8 +19,8 @@ struct task_struct;
+ #define DEPT_MAX_WAIT_HIST		64
+ #define DEPT_MAX_ECXT_HELD		48
+ 
+-#define DEPT_MAX_SUBCLASSES		16
+-#define DEPT_MAX_SUBCLASSES_EVT		2
++#define DEPT_MAX_SUBCLASSES		24
++#define DEPT_MAX_SUBCLASSES_EVT		3
+ #define DEPT_MAX_SUBCLASSES_USR		(DEPT_MAX_SUBCLASSES / DEPT_MAX_SUBCLASSES_EVT)
+ #define DEPT_MAX_SUBCLASSES_CACHE	2
+ 
+@@ -142,6 +142,35 @@ struct dept_ext_wgen {
  	unsigned int wgen;
  };
  
-+void dept_stop_emerg(void);
++enum {
++	DEPT_PAGE_DEFAULT = 0,
++	DEPT_PAGE_REGFILE_CACHE,	/* regular file page cache */
++	DEPT_PAGE_BDEV_CACHE,		/* block device cache */
++	DEPT_PAGE_USAGE_NR,		/* nr of usages options */
++};
++
++#define DEPT_PAGE_USAGE_SHIFT 16
++#define DEPT_PAGE_USAGE_MASK ((1U << DEPT_PAGE_USAGE_SHIFT) - 1)
++#define DEPT_PAGE_USAGE_PENDING_MASK (DEPT_PAGE_USAGE_MASK << DEPT_PAGE_USAGE_SHIFT)
++
++/*
++ * Identify each page's usage type
++ */
++struct dept_page_usage {
++	/*
++	 * low 16 bits  : the current usage type
++	 * high 16 bits : usage type requested to be set
++	 *
++	 * Do not apply usage type on request immediately but postpone
++	 * it until the next use of PG flags.  For example, if the page
++	 * is already within a PG_locked critical section, regard it as
++	 * DEPT_PAGE_DEFAULT temporarily at least until the section ends
++	 * e.g. folio_unlock() since it's still unclear which usage type
++	 * the page acts within the section.
++	 */
++	atomic_t type; /* Update and read atomically */
++};
++
+ void dept_stop_emerg(void);
  void dept_on(void);
  void dept_off(void);
- void dept_init(void);
-@@ -194,6 +195,7 @@ struct dept_ext_wgen { };
+@@ -192,6 +221,7 @@ void dept_hardirqs_off(void);
+ struct dept_key { };
+ struct dept_map { };
+ struct dept_ext_wgen { };
++struct dept_page_usage { };
  
  #define DEPT_MAP_INITIALIZER(n, k) { }
  
-+#define dept_stop_emerg()				do { } while (0)
- #define dept_on()					do { } while (0)
- #define dept_off()					do { } while (0)
- #define dept_init()					do { } while (0)
-diff --git a/kernel/dependency/dept.c b/kernel/dependency/dept.c
-index 048348ea64d2..007e1bc7d201 100644
---- a/kernel/dependency/dept.c
-+++ b/kernel/dependency/dept.c
-@@ -187,6 +187,12 @@ static void dept_unlock(void)
- 	arch_spin_unlock(&dept_spin);
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index 5b3f54ee0d38..e25d09f3dfa9 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -220,6 +220,7 @@ struct page {
+ 	struct page *kmsan_shadow;
+ 	struct page *kmsan_origin;
+ #endif
++	struct dept_page_usage usage;
+ 	struct dept_ext_wgen pg_locked_wgen;
+ } _struct_page_alignment;
+ 
+diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
+index 8ab39823ea31..0b0655354b08 100644
+--- a/include/linux/page-flags.h
++++ b/include/linux/page-flags.h
+@@ -204,6 +204,80 @@ enum pageflags {
+ 
+ extern struct dept_map pg_locked_map;
+ 
++static inline void dept_set_page_usage(struct page *p,
++		unsigned int new_type)
++{
++	/*
++	 * Consider the page as DEPT_PAGE_DEFAULT until the next use of
++	 * PG flags e.g. folio_lock().
++	 */
++	unsigned int type = DEPT_PAGE_DEFAULT;
++
++	if (WARN_ON_ONCE(new_type >= DEPT_PAGE_USAGE_NR))
++		return;
++
++	new_type <<= DEPT_PAGE_USAGE_SHIFT;
++	new_type |= type & DEPT_PAGE_USAGE_MASK;
++	atomic_set(&p->usage.type, new_type);
++}
++
++static inline void dept_set_folio_usage(struct folio *f,
++		unsigned int new_type)
++{
++	dept_set_page_usage(&f->page, new_type);
++}
++
++static inline void dept_reset_page_usage(struct page *p)
++{
++	dept_set_page_usage(p, DEPT_PAGE_DEFAULT);
++}
++
++static inline void dept_reset_folio_usage(struct folio *f)
++{
++	dept_reset_page_usage(&f->page);
++}
++
++static inline void dept_update_page_usage(struct page *p)
++{
++	unsigned int type = atomic_read(&p->usage.type);
++	unsigned int new_type;
++
++retry:
++	new_type = type & DEPT_PAGE_USAGE_PENDING_MASK;
++	new_type >>= DEPT_PAGE_USAGE_SHIFT;
++	new_type |= type & DEPT_PAGE_USAGE_PENDING_MASK;
++
++	/*
++	 * Already updated by others.
++	 */
++	if (type == new_type)
++		return;
++
++	if (!atomic_try_cmpxchg(&p->usage.type, &type, new_type))
++		goto retry;
++}
++
++static inline unsigned long dept_event_flags(struct page *p, bool wait)
++{
++	unsigned int type;
++
++	type = atomic_read(&p->usage.type) & DEPT_PAGE_USAGE_MASK;
++
++	if (WARN_ON_ONCE(type >= DEPT_PAGE_USAGE_NR))
++		return 0;
++
++	/*
++	 * wait
++	 */
++	if (wait)
++		return (1UL << DEPT_PAGE_DEFAULT) | (1UL << type);
++
++	/*
++	 * event
++	 */
++	return 1UL << type;
++}
++
+ /*
+  * Place the following annotations in its suitable point in code:
+  *
+@@ -214,20 +288,29 @@ extern struct dept_map pg_locked_map;
+ 
+ static inline void dept_page_set_bit(struct page *p, int bit_nr)
+ {
++	dept_update_page_usage(p);
++
+ 	if (bit_nr == PG_locked)
+ 		dept_request_event(&pg_locked_map, &p->pg_locked_wgen);
  }
  
-+void dept_stop_emerg(void)
-+{
-+	WRITE_ONCE(dept_stop, 1);
-+}
-+EXPORT_SYMBOL_GPL(dept_stop_emerg);
-+
- enum bfs_ret {
- 	BFS_CONTINUE,
- 	BFS_DONE,
-diff --git a/lib/debug_locks.c b/lib/debug_locks.c
-index a75ee30b77cb..14a965914a8f 100644
---- a/lib/debug_locks.c
-+++ b/lib/debug_locks.c
-@@ -38,6 +38,8 @@ EXPORT_SYMBOL_GPL(debug_locks_silent);
-  */
- int debug_locks_off(void)
+ static inline void dept_page_clear_bit(struct page *p, int bit_nr)
  {
-+	dept_stop_emerg();
++	unsigned long evt_f = dept_event_flags(p, false);
 +
- 	if (debug_locks && __debug_locks_off()) {
- 		if (!debug_locks_silent) {
- 			console_verbose();
+ 	if (bit_nr == PG_locked)
+-		dept_event(&pg_locked_map, 1UL, _RET_IP_, __func__, &p->pg_locked_wgen);
++		dept_event(&pg_locked_map, evt_f, _RET_IP_, __func__, &p->pg_locked_wgen);
+ }
+ 
+ static inline void dept_page_wait_on_bit(struct page *p, int bit_nr)
+ {
++	unsigned long evt_f;
++
++	dept_update_page_usage(p);
++	evt_f = dept_event_flags(p, true);
++
+ 	if (bit_nr == PG_locked)
+-		dept_wait(&pg_locked_map, 1UL, _RET_IP_, __func__, 0, -1L);
++		dept_wait(&pg_locked_map, evt_f, _RET_IP_, __func__, 0, -1L);
+ }
+ 
+ static inline void dept_folio_set_bit(struct folio *f, int bit_nr)
+@@ -245,6 +328,8 @@ static inline void dept_folio_wait_on_bit(struct folio *f, int bit_nr)
+ 	dept_page_wait_on_bit(&f->page, bit_nr);
+ }
+ #else
++#define dept_set_page_usage(p, t)		do { } while (0)
++#define dept_reset_page_usage(p)		do { } while (0)
+ #define dept_page_set_bit(p, bit_nr)		do { } while (0)
+ #define dept_page_clear_bit(p, bit_nr)		do { } while (0)
+ #define dept_page_wait_on_bit(p, bit_nr)	do { } while (0)
 -- 
 2.17.1
 
