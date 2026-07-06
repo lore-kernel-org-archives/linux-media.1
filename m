@@ -1,334 +1,132 @@
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1CBD35898
-	for <linux-media@vger.kernel.org>; Mon,  6 Jul 2026 00:10:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2773A7D91;
+	Mon,  6 Jul 2026 02:43:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783296603; cv=none; b=mNYWxJ/H70Zn4Ay/g/DWzsxf++LHljQkhpbFBGh/jbdpCUlgwh7ePqdpA9urJXbSpgt6FosQfCZfrHCWHhW4g0sqdXS/FLojCP2MY/GK+DAhVys6jG2znf3Zx93f9WszfzZ0VGtyT2tAIpuwm2YrfHI9dsdf/As6Pap+8Gohjr0=
+	t=1783305810; cv=none; b=u4bVvr1hMFVH2B7+hrodBNkoxvpvimSjl8rRges6IIBR9UVz4WNy4a7YYfKf6EzPttlCILa9DYedWKdbt4IbrO77Ybz+1oki3TnYYkRBYfAnNB5Dvwcr8s52rNTT1p/ZZ/MbqaldkxndraolpnBt005QV0q6cIq1pfuDYaEGXlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783296603; c=relaxed/simple;
-	bh=X1Ah+l3/ZB5oCV+QF+h+tusCtXKrXutWylNwgaixmVo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eahL4GQA7UUegPF2G48vaB9snvMh/5WTwC6CxQWE6SMhn64Am23xPC6JbWMz7B1O1c9c7huByRh6+vnCGcfZxT03bQGwcrPn49IEqMON65BT8Pi3ellOibzRQFmbGBHTpPRsqQDbv4szAvamwzkyv4YVhoEKBKb/XHxiU/Q7tDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WgVkStzk; arc=none smtp.client-ip=74.125.224.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783305810; c=relaxed/simple;
+	bh=BP3Iyfs6C5UPNFRIIV/0n+AQzmZGr/qNrx/ZTsVwliI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=fxqf2Rjpwai8Z8fctxBYwUDmgW8li1vF3s4fHFCpDva5Om8pFuq32mYENcylMDdxNCT/NwygaLy2QM4J3TbKgXgkZ+vNLKE0pSYLjRPAtJTHUKZMYm5kFVDM6orLQu3ObO7tZwAkw25VmunO3M2a4hbeJgMQMl10F9CuwVw8b58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TW4c/3oh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WgVkStzk"
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-6649beca11aso260164d50.3
-        for <linux-media@vger.kernel.org>; Sun, 05 Jul 2026 17:10:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783296601; x=1783901401; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WoWipZJJsquAFbGvSKcXoTo7sOkuUz1BZt1zlYOduU4=;
-        b=WgVkStzky652lCvhgsTnlx9e5r+3DNc8hHYhjQGl+fftl5Bmjq6YuFLOBVu1pmKk1V
-         C7mcfM/Yh2dRjjA278jKi/cn66K9UbKOUHuLjtopufvv0DeDtDqhHf/FrbwmLHlfJ3hC
-         Z7ooLml/NbzDNcJrBLnQH8F80KfvPOaklNh3JGv0fRgvyQtw08+3EszGAxLiIvpDG7r6
-         i3VmedH6i9+uZZ3sRwfvP3qxU/UmlRyKlS4lhew29aDqqI60OQWFz96ocGRiXpxnqfzU
-         A0C3a+uHK2v78Z/RHzIvMp+bIyR1bJTl73kvNM+Ch6Fonz+y8wG+D6U5s5A6rbkiFFO7
-         RJLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783296601; x=1783901401;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WoWipZJJsquAFbGvSKcXoTo7sOkuUz1BZt1zlYOduU4=;
-        b=B7xSTdYuhySR2AeJbUDO2ta29ajswyGFbyWOMTW0eN1OtDEZ9e3RKX+XxeIXuzfhyV
-         9UGRiQYckGId9ePxnYRvt9auJe4EoeKzczOmTJI5CSvTo15r/YS30KF8j/rgImuHU2Gu
-         1viHC7gHxSaMhT3S7dambKlTMtsDdL8woJUbQn22Ef+3kd3QfRkci8jObeLQGz0gWlRs
-         T8gyMKeC+LUZONeM8KCBMVm98PBuJsIBy5EQwyv6PCTOqNbSP19O3dXocW6HwTYx7lI3
-         q8Xcv9vIGg+9CYAekSYub6fvKhm2Nn+IN5GkilsOjfb15+CK3X6iSJecsOmOPzjW/cf9
-         sPpA==
-X-Forwarded-Encrypted: i=1; AHgh+RpJrRcOwGivyR/7ClG2TmJmijZN+2v+Oowe1iD8KMma8GIFZvwukif7YL+sfOJ1+iqncQBVCUa/dtNQXw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxFmnnFmkJVWbsk7sPJof3vhkfIJpX9noKfj9uXmqmAdYxzt3/S
-	7SE5Q+NqouWve9kXre7U6rhiamiwUTav/MuEYvqudwSXq5b0CRGVrxqU
-X-Gm-Gg: AfdE7cmsNGVONVwn7bNO0fzR67kO44MrwSG97rANtf/8s4iiUxLslir7BJ0RJyYulgi
-	CUtKl8izKCkJ2UgUsEArHx7xlts3C6hV+MrNFb2IYf124d4QZGEtGkhJglmlrAP0WVcfld9F/Sw
-	WX+gRKSmkE6OlhomTG/Ogy3uclxZQnj0H1DfGAU63QWW6xzXEy7CdY/BEeI4hF7Y4+emWrzMPt4
-	R7p+RwVePqeUDWAvCxD9Qi9vmxHkJsPvSg23e8s+0sm3aIccAVEa6tQmT4xBCeyLaAlKZpv5sEF
-	0YwVaBXePoU+mvFLaKwUQfTA1RBEuA3S4pTolhuyA90o+4LYDF9Ohzt3nS/xDvBFfgOPFH/EULC
-	SYJ8e1VMForD9lHMFC8Asvn8zpYi7UkGNMEw141ejPWj8ztyvhNs2LnMXFVAvoL1E1WA+
-X-Received: by 2002:a05:690e:1241:b0:667:541c:2282 with SMTP id 956f58d0204a3-667541c23efmr5399080d50.9.1783296600821;
-        Sun, 05 Jul 2026 17:10:00 -0700 (PDT)
-Received: from desktop ([2600:1700:78e0:fd0::27])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-666408c2597sm4008673d50.21.2026.07.05.17.09.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 05 Jul 2026 17:10:00 -0700 (PDT)
-From: Neal Patalay <nealpatalay0@gmail.com>
-To: andy@kernel.org,
-	hansg@kernel.org,
-	mchehab@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: sakari.ailus@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	mugrinphoto@gmail.com,
-	matt@mattwardle.net,
-	nealpatalay0@gmail.com
-Subject: [PATCH v4] staging: media: atomisp: refactor pipe graph dump stage formatting
-Date: Sun,  5 Jul 2026 17:07:38 -0700
-Message-ID: <20260706000738.18478-1-nealpatalay0@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TW4c/3oh"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A2E06C2BCB8;
+	Mon,  6 Jul 2026 02:43:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783305810;
+	bh=BP3Iyfs6C5UPNFRIIV/0n+AQzmZGr/qNrx/ZTsVwliI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=TW4c/3ohfU5NQEsuq/Ly/Vhkk0eX7+9PB2+7YgYVopVq/23pRYgb3Q/q7gBYIdb8Y
+	 3b/4tKHONRt4Ru0mUv+f1QFGUk5DOWUUHiZkQeW0E5UN57BKO3njSgMQhgBPCoQ7WU
+	 XUoK9iOVk9uXHYWmBalGJ0fI/9yDUjQwGTG9sHqHokdHt58aHKFuwEPUnHyflYONpg
+	 ribWNmYZy6KJq2YBvOFBI07ScjThZFM3LgUM+PU4nq+WixT3euLkeAOMiONe8/6Gt7
+	 6/0ustOxEykTUwj3XBM/JF512sY34it630JMJFhH/3ZtqBHv638i0E1PK2CWD7ixFL
+	 jya+PeX+xpyGQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 83D75C44501;
+	Mon,  6 Jul 2026 02:43:30 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Date: Mon, 06 Jul 2026 02:43:28 +0000
+Subject: [PATCH 2/2] arm64: dts: amlogic: a9: Add IR controller support
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260706-a9-ir-v1-2-4f082ca8aaf1@amlogic.com>
+References: <20260706-a9-ir-v1-0-4f082ca8aaf1@amlogic.com>
+In-Reply-To: <20260706-a9-ir-v1-0-4f082ca8aaf1@amlogic.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783305808; l=1999;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=zFrCQ/4LL7v8cXwBeBaMK1lFT/U3mMj2TYJXY49GEuE=;
+ b=rFxorohK+9RKciBUQ5U2kSjVGHirLUr10V6m8Y0NbHAsF/lOl8FTZriVfx0+1BNsI7fxPqsMj
+ q0YwkUEM0A6AKT3DPhAqeHIY8Ka6J7IRoQjUG/USTxdaDKIIUZP5Dlh
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-The original implementation of ia_css_debug_pipe_graph_dump_stage()
-includes an off-by-one error where the original strscpy() size dropped
-characters immediately before newlines. It also allocates over 600
-bytes across multiple buffers on the stack. Address these shortcomings
-and reduce stack usage with a single 256 byte buffer via a new helper
-function, ia_css_debug_build_info().
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-Fixes: 662fb4fceb1a ("media: atomisp: get rid of a string_support.h abstraction layer")
-Signed-off-by: Neal Patalay <nealpatalay0@gmail.com>
+Add the IR controller node for the Amlogic A9 SoC and describe the
+corresponding remote input pin configuration.
+
+Enable the IR controller on the Amlogic A9 A311Y3 BY401 board with the
+proper pinctrl setting.
+
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 ---
-v4:
-- Changed logic to truncate output after the third line
-- Added offset check to avoid writing beyond bounds
-- Fixed indentation inside helper function
-- Separated variable definitions from code in helper function
-- Fixed comment in helper function
+ arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts |  6 ++++++
+ arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi             | 14 ++++++++++++++
+ 2 files changed, 20 insertions(+)
 
-v3:
-- Moved "len_written" variable declaration to top of helper function
-- Added local variables to track values inside helper function
-- Fixed macro indentation
-- Removed loop out of macro definition
+diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts b/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts
+index a6b380ca47a5..044d1e8e086c 100644
+--- a/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts
++++ b/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts
+@@ -38,3 +38,9 @@ secmon_reserved: secmon@5000000 {
+ &uart_b {
+ 	status = "okay";
+ };
++
++&ir {
++	status = "okay";
++	pinctrl-0 = <&remote_pins>;
++	pinctrl-names = "default";
++};
+diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
+index b0e0fadeed82..72d1cc88c9e6 100644
+--- a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
++++ b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
+@@ -241,6 +241,13 @@ test_n: gpio@c0 {
+ 					#gpio-cells = <2>;
+ 					gpio-ranges = <&aobus_pinctrl 0 (AMLOGIC_GPIO_TEST_N<<8) 1>;
+ 				};
++
++				func-ir-in {
++					remote_pins: group-remote-pins {
++						pinmux = <AML_PINMUX(AMLOGIC_GPIO_D, 5, 1)>;
++						bias-disable;
++					};
++				};
+ 			};
+ 
+ 			gpio_ao_intc: interrupt-controller@4080 {
+@@ -254,6 +261,13 @@ gpio_ao_intc: interrupt-controller@4080 {
+ 					394 395 396 397 398 399 400 401 402 403>;
+ 			};
+ 
++			ir: ir@14080 {
++				compatible = "amlogic,a9-ir", "amlogic,meson-s4-ir";
++				reg = <0x0 0x14080 0x0 0x30>;
++				interrupts = <GIC_SPI 413 IRQ_TYPE_EDGE_RISING>;
++				status = "disabled";
++			};
++
+ 			uart_b: serial@1e000 {
+ 				compatible = "amlogic,a9-uart",
+ 					     "amlogic,meson-s4-uart";
 
-v2:
-- Fixed strscpy typo in commit message
-- Changed Fixes tag to point to the actual buggy commit
-- Dropped "flag" parameter from helper function and moved check to the macro
-- Split long lines to conform with subsystem character limit
----
- .../pci/runtime/debug/src/ia_css_debug.c      | 198 ++++++++----------
- 1 file changed, 83 insertions(+), 115 deletions(-)
-
-diff --git a/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c b/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
-index 5113aa5973f3..19c4e0246c34 100644
---- a/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
-+++ b/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
-@@ -1162,6 +1162,43 @@ void ia_css_debug_pipe_graph_dump_epilogue(void)
- 	pg_inst.stream_format = N_ATOMISP_INPUT_FORMAT;
- }
- 
-+static void ia_css_debug_build_info(char *info, size_t info_size,
-+				    int *offset,
-+				    const char *flag_str, size_t flag_str_size,
-+				    int *line_len,
-+				    int *num_lines)
-+{
-+	int len = *line_len;
-+	int off = *offset;
-+	int lines = *num_lines;
-+	int len_written;
-+
-+	if (lines > 3)
-+		return;
-+
-+	/*
-+	 * If new line length exceeds max line length,
-+	 * replace the last ',' with a "\\n".
-+	 */
-+	if (len > 0 && off > 0 && info_size - off >= 2 &&
-+	    len + flag_str_size > ENABLE_LINE_MAX_LENGTH) {
-+		if (lines >= 3) {
-+			*num_lines = lines + 1;
-+			return;
-+		}
-+		info[off - 1] = '\\';
-+		info[off] = 'n';
-+		off += 1;
-+		len = 0;
-+		lines += 1;
-+	}
-+
-+	len_written = scnprintf(info + off, info_size - off, "%s,", flag_str);
-+	*offset = off + len_written;
-+	*line_len = len + len_written;
-+	*num_lines = lines;
-+}
-+
- void
- ia_css_debug_pipe_graph_dump_stage(
-     struct ia_css_pipeline_stage *stage,
-@@ -1194,123 +1231,54 @@ ia_css_debug_pipe_graph_dump_stage(
- 
- 	/* Guard in case of binaries that don't have any binary_info */
- 	if (stage->binary_info) {
--		char enable_info1[100];
--		char enable_info2[100];
--		char enable_info3[100];
--		char enable_info[302];
-+		char enable_info[256];
-+		int offset = 0;
-+		int line_len = 0;
-+		int num_lines = 1;
- 		struct ia_css_binary_info *bi = stage->binary_info;
- 
--		/* Split it in 2 function-calls to keep the amount of
--		 * parameters per call "reasonable"
--		 */
--		snprintf(enable_info1, sizeof(enable_info1),
--			 "%s%s%s%s%s%s%s%s%s%s%s%s%s%s",
--			 bi->enable.reduced_pipe ?	"rp," : "",
--			 bi->enable.vf_veceven ?		"vfve," : "",
--			 bi->enable.dis ?		"dis," : "",
--			 bi->enable.dvs_envelope ?	"dvse," : "",
--			 bi->enable.uds ?		"uds," : "",
--			 bi->enable.dvs_6axis ?		"dvs6," : "",
--			 bi->enable.block_output ?	"bo," : "",
--			 bi->enable.ds ?			"ds," : "",
--			 bi->enable.bayer_fir_6db ?	"bf6," : "",
--			 bi->enable.raw_binning ?	"rawb," : "",
--			 bi->enable.continuous ?		"cont," : "",
--			 bi->enable.s3a ?		"s3a," : "",
--			 bi->enable.fpnr ?		"fpnr," : "",
--			 bi->enable.sc ?			"sc," : ""
--			);
--
--		snprintf(enable_info2, sizeof(enable_info2),
--			 "%s%s%s%s%s%s%s%s%s%s%s",
--			 bi->enable.macc ?		"macc," : "",
--			 bi->enable.output ?		"outp," : "",
--			 bi->enable.ref_frame ?		"reff," : "",
--			 bi->enable.tnr ?		"tnr," : "",
--			 bi->enable.xnr ?		"xnr," : "",
--			 bi->enable.params ?		"par," : "",
--			 bi->enable.ca_gdc ?		"cagdc," : "",
--			 bi->enable.isp_addresses ?	"ispa," : "",
--			 bi->enable.in_frame ?		"inf," : "",
--			 bi->enable.out_frame ?		"outf," : "",
--			 bi->enable.high_speed ?		"hs," : ""
--			);
--
--		/* And merge them into one string */
--		snprintf(enable_info, sizeof(enable_info), "%s%s",
--			 enable_info1, enable_info2);
--		{
--			int l, p;
--			char *ei = enable_info;
--
--			l = strlen(ei);
--
--			/* Replace last ',' with \0 if present */
--			if (l && enable_info[l - 1] == ',')
--				enable_info[--l] = '\0';
--
--			if (l > ENABLE_LINE_MAX_LENGTH) {
--				/* Too big for one line, find last comma */
--				p = ENABLE_LINE_MAX_LENGTH;
--				while (ei[p] != ',')
--					p--;
--				/* Last comma found, copy till that comma */
--				strscpy(enable_info1, ei, umin(p, sizeof(enable_info1)));
--
--				ei += p + 1;
--				l = strlen(ei);
--
--				if (l <= ENABLE_LINE_MAX_LENGTH) {
--					/* The 2nd line fits */
--					/* we cannot use ei as argument because
--					 * it is not guaranteed dword aligned
--					 */
--
--					strscpy(enable_info2, ei, umin(l, sizeof(enable_info2)));
--
--					snprintf(enable_info, sizeof(enable_info), "%s\\n%s",
--						 enable_info1, enable_info2);
--
--				} else {
--					/* 2nd line is still too long */
--					p = ENABLE_LINE_MAX_LENGTH;
--					while (ei[p] != ',')
--						p--;
--
--					strscpy(enable_info2, ei, umin(p, sizeof(enable_info2)));
--
--					ei += p + 1;
--					l = strlen(ei);
--
--					if (l <= ENABLE_LINE_MAX_LENGTH) {
--						/* The 3rd line fits */
--						/* we cannot use ei as argument because
--						* it is not guaranteed dword aligned
--						*/
--						strscpy(enable_info3, ei,
--							sizeof(enable_info3));
--						snprintf(enable_info, sizeof(enable_info),
--							 "%s\\n%s\\n%s",
--							 enable_info1, enable_info2,
--							 enable_info3);
--					} else {
--						/* 3rd line is still too long */
--						p = ENABLE_LINE_MAX_LENGTH;
--						while (ei[p] != ',')
--							p--;
--						strscpy(enable_info3, ei,
--							umin(p, sizeof(enable_info3)));
--						ei += p + 1;
--						strscpy(enable_info3, ei,
--							sizeof(enable_info3));
--						snprintf(enable_info, sizeof(enable_info),
--							 "%s\\n%s\\n%s",
--							 enable_info1, enable_info2,
--							 enable_info3);
--					}
--				}
--			}
--		}
-+#define ADD_INFO(flag, flag_str)						\
-+	if (bi->enable.flag)							\
-+		ia_css_debug_build_info(enable_info, sizeof(enable_info),	\
-+					&offset,				\
-+					flag_str, sizeof(flag_str),		\
-+					&line_len,				\
-+					&num_lines)
-+
-+		/* Build string in enable_info buffer */
-+		ADD_INFO(reduced_pipe, "rp");
-+		ADD_INFO(vf_veceven, "vfve");
-+		ADD_INFO(dis, "dis");
-+		ADD_INFO(dvs_envelope, "dvse");
-+		ADD_INFO(uds, "uds");
-+		ADD_INFO(dvs_6axis, "dvs6");
-+		ADD_INFO(block_output, "bo");
-+		ADD_INFO(ds, "ds");
-+		ADD_INFO(bayer_fir_6db, "bf6");
-+		ADD_INFO(raw_binning, "rawb");
-+		ADD_INFO(continuous, "cont");
-+		ADD_INFO(s3a, "s3a");
-+		ADD_INFO(fpnr, "fpnr");
-+		ADD_INFO(sc, "sc");
-+		ADD_INFO(macc, "macc");
-+		ADD_INFO(output, "outp");
-+		ADD_INFO(ref_frame, "reff");
-+		ADD_INFO(tnr, "tnr");
-+		ADD_INFO(xnr, "xnr");
-+		ADD_INFO(params, "par");
-+		ADD_INFO(ca_gdc, "cagdc");
-+		ADD_INFO(isp_addresses, "ispa");
-+		ADD_INFO(in_frame, "inf");
-+		ADD_INFO(out_frame, "outf");
-+		ADD_INFO(high_speed, "hs");
-+
-+#undef ADD_INFO
-+
-+		/* Replace last ',' with '\0' */
-+		if (offset > 0)
-+			enable_info[offset - 1] = '\0';
-+		else
-+			enable_info[0] = '\0';
- 
- 		dtrace_dot("node [shape = circle, fixedsize=true, width=2.5, label=\"%s\\n%s\\n\\n%s\"]; \"%s(pipe%d)\"",
- 			   bin_type, blob_name, enable_info, blob_name, id);
 -- 
-2.55.0
+2.52.0
+
 
