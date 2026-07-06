@@ -1,157 +1,114 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7EE42CAE2;
-	Mon,  6 Jul 2026 13:42:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E918625CC57;
+	Mon,  6 Jul 2026 13:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783345359; cv=none; b=ICxbiE44HvjgWF1+ovX5y6P9uHqNOgfNtDt1SNAgLw7EL2nWggT15dZOHl8xW6p49jXaYgRWrXYoS2RIu/cpZraDGZgU+eFvT0oVCb461wmkxOS0g49lZYw+p1BQ/shmDA8FUzucXH+A4JDhjymih5WKvHB7grirq7zBhAIMq8o=
+	t=1783345633; cv=none; b=jAXqys3FUp7Y2bLyj7CmO8lu/enec0Ub0frFHfGl2TIdLeRuJzlnnJn5p6WDKTGavjDTB+KAeSK4JofQ+LoQsIU8DimBZkUZlD/kIXnrhM0Ol8fBscoTn7ufOp9fswGXihm9ym7O3cqx/kMPcjndyLT4GgpwmLg214DdSOXqcYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783345359; c=relaxed/simple;
-	bh=U44aJJ8b4BbdxcO2Vi5B2hjqvUSwUvpArxdIxZ0VMJA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aY6ism8nUXI3/RlhhtdN3dtKcZm6NtfAbjbHIUQ8fdpPk6tkS6V6QIZNANyEyYqT88UdyK7AGUzkYEvYxcs9+k6EwXUNSaQuotlEokFU1z0t0VNR0jrAJD/LkTz427Qr+8AmbB/e8qm2iefLK++/R+89O/xsVEqXC+A9dC23G3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=WYNpXFY/; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783345633; c=relaxed/simple;
+	bh=o5Okzgc8TUDOWoSiw/Td6vwFbRdv9ocx9kSgqM1OLJI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BE/z6pbpB+7N3rCjDLKf/qDnXQT0OmkjaDBTAgsSe33KFV0FAOML3q0yhqiNHO9hfwABLccADugL+SqgaU8AAmae7vCrDxo5wnRMOfLD0+SWO7VsPjHmCfIBhdGcEk2lbgzvGDYISQ2QYFmrNoVeSz4jpe6USUDDQLYXYAqkeJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SnTsISAB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="WYNpXFY/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783345356;
-	bh=U44aJJ8b4BbdxcO2Vi5B2hjqvUSwUvpArxdIxZ0VMJA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=WYNpXFY/02XAa1AqZ6hQYizozKt15Ei/m141irZHQvlO6IXa2PNc0G9AD/1qqzTwt
-	 r0W6iv4WGiNPzqWOvkpXLDdKWfmJ34xzMCLfMzl3uabKvIwgN1M/HMc0IVAOxNuz4S
-	 LmfwSqt8tJJkFklx2z65KEtaUECd0WVb+o2dwQkUqztRxaELeEhCjxrtcP+3n3Rgho
-	 EPtaMVdfPeOLDv2MdwMmBogAvtMZvLn/PPmssYqarNFIAg9Twcmgdn2LZvan9NzBZB
-	 E+4Q1aybHQNCv+HkTnN7gX/+C5kLaF8aa6Yu1BcfbWARCRvbyyOLtNG3Dc5XHK2AXs
-	 DNE83NQS8Fc5g==
-Received: from [192.168.0.15] (unknown [100.64.0.170])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: detlev)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 62CF817E0D33;
-	Mon, 06 Jul 2026 15:42:35 +0200 (CEST)
-From: Detlev Casanova <detlev.casanova@collabora.com>
-Date: Mon, 06 Jul 2026 09:42:22 -0400
-Subject: [PATCH v3 5/5] media: rkvdec: Add per-context fdinfo usage metrics
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SnTsISAB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDC811F000E9;
+	Mon,  6 Jul 2026 13:47:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783345632;
+	bh=o5Okzgc8TUDOWoSiw/Td6vwFbRdv9ocx9kSgqM1OLJI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SnTsISABRfMquvuchPKzb+DSX2SttvwEm/vZekvu7+M++JXUaM3hVkozvH0h0AWeP
+	 t+Ny5tDADiuOqMWJszVlSCsvpig+xrQStL99WRScDj1143MadRHAxqwoYbPDQu0TKI
+	 lfS97W7MYZaKzn8jYNNrLbw7pTPOJ5Q8X19RayMUsHIdCw5YJjhnLpQNFpPubbgctl
+	 jc4x1Znql8BrASbt9gpFOKimealdgSn6i4l75pTir+FsVywI7WHLVwWMqBvuaSnpSN
+	 DWz1QnCeulecXzCHfZDxwe9/hAaPhU43BaTQfretsh44WMGm+v2hElLZ2d3gzvyGpi
+	 c32m5hBq6eEZQ==
+Message-ID: <ff3dc3a7-2d1a-4065-b197-03e8112ccdd1@kernel.org>
+Date: Mon, 6 Jul 2026 14:47:09 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260706-v4l2-add-fdinfo-v3-5-d556568cf38e@collabora.com>
-References: <20260706-v4l2-add-fdinfo-v3-0-d556568cf38e@collabora.com>
-In-Reply-To: <20260706-v4l2-add-fdinfo-v3-0-d556568cf38e@collabora.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Heiko Stuebner <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, kernel@collabora.com, 
- Detlev Casanova <detlev.casanova@collabora.com>, 
- linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.15.2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] media: i2c: og0ve1b: Introduce per-sensor data
+ structure
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260702-og0va1b-v2-0-0071442caa2a@oss.qualcomm.com>
+ <ihkKqIy-tPImrDpB18hIeI3IQpv1F5GAZ2S7cNWB9n_LlHh3vVMT7G4bGeCBPJDT9GCPPtyA7s_raKqOiG69ng==@protonmail.internalid>
+ <20260702-og0va1b-v2-2-0071442caa2a@oss.qualcomm.com>
+ <5019684c-ace6-4202-97ca-98016df77d86@kernel.org>
+ <9nKYxzG8QWAM04NfGWMg3zeTTHyM3Z-ocjtwuH8IicFVPUfB1yZrYBL5UppqjztTPoOVfrL2OUmlQZj-JfgJ0A==@protonmail.internalid>
+ <b518fb22-b4db-464b-9318-43cc9663ef4c@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <b518fb22-b4db-464b-9318-43cc9663ef4c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Add hardware utilization tracking to the rkvdec stateless codec driver,
-exposed via v4l2_metrics.
+On 06/07/2026 14:36, Wenmeng Liu wrote:
+>>> +    return 0;
+>> The one thing that is not immediately clear to me is if we get
+>> equivalent logic WRT OG0VE1B_REG_PRE_ISP after this change.
+>>
+> I will kill OG0VE1B_REG_PRE_ISP logic in next version.
 
-Update the v4l2_metrics instance each time a job completes with the
-time it took in ns.
+Kill, steady on.
 
-This enables userspace monitoring tools to compute per-process decoder
-and encoder utilization. The current and max frequency keys report the
-same value today since the driver lacks devfreq support, but will
-diverge once DVFS is added, allowing userspace to approximate true
-capacity utilization without any fdinfo code changes.
+Just double check and be sure about it, is all I mean.
 
-Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
 ---
- drivers/media/platform/rockchip/rkvdec/rkvdec.c | 19 +++++++++++++++++++
- drivers/media/platform/rockchip/rkvdec/rkvdec.h |  1 +
- 2 files changed, 20 insertions(+)
-
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-index 1d1e9bfef8e9..0451d9582273 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-@@ -25,6 +25,7 @@
- #include <linux/workqueue.h>
- #include <media/v4l2-event.h>
- #include <media/v4l2-mem2mem.h>
-+#include <media/v4l2-metrics.h>
- #include <media/videobuf2-core.h>
- #include <media/videobuf2-vmalloc.h>
- 
-@@ -1094,6 +1095,9 @@ static void rkvdec_job_finish(struct rkvdec_ctx *ctx,
- {
- 	struct rkvdec_dev *rkvdec = ctx->dev;
- 
-+	v4l2_metrics_update_hw_time(&ctx->fh.metrics,
-+				   ktime_to_ns(ktime_sub(ktime_get(), ctx->start_time)));
-+
- 	pm_runtime_put_autosuspend(rkvdec->dev);
- 	rkvdec_job_finish_no_pm(ctx, result);
- }
-@@ -1174,6 +1178,8 @@ static void rkvdec_device_run(void *priv)
- 		return;
- 	}
- 
-+	ctx->start_time = ktime_get();
-+
- 	ret = desc->ops->run(ctx);
- 	if (ret)
- 		rkvdec_job_finish(ctx, VB2_BUF_STATE_ERROR);
-@@ -1304,6 +1310,8 @@ static int rkvdec_open(struct file *filp)
- 
- 	v4l2_fh_add(&ctx->fh, filp);
- 
-+	v4l2_metrics_set_driver_type(&ctx->fh.metrics, V4L2_DRIVER_TYPE_STATELESS_DECODER);
-+
- 	return 0;
- 
- err_cleanup_m2m_ctx:
-@@ -1327,10 +1335,21 @@ static int rkvdec_release(struct file *filp)
- 	return 0;
- }
- 
-+static void rkvdec_show_fdinfo(struct seq_file *m, struct file *file)
-+{
-+	struct rkvdec_ctx *ctx = file_to_rkvdec_ctx(file);
-+	struct rkvdec_dev *rkvdec = ctx->dev;
-+
-+	v4l2_metrics_show(&ctx->fh.metrics, m, 0);
-+
-+	v4l2_metrics_show_clock(m, rkvdec->axi_clk, 0);
-+}
-+
- static const struct v4l2_file_operations rkvdec_fops = {
- 	.owner = THIS_MODULE,
- 	.open = rkvdec_open,
- 	.release = rkvdec_release,
-+	.show_fdinfo = rkvdec_show_fdinfo,
- 	.poll = v4l2_m2m_fop_poll,
- 	.unlocked_ioctl = video_ioctl2,
- 	.mmap = v4l2_m2m_fop_mmap,
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.h b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-index a24be6638b6b..590e213bd800 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-@@ -157,6 +157,7 @@ struct rkvdec_ctx {
- 	void *priv;
- 	u8 has_sps_st_rps: 1;
- 	u8 has_sps_lt_rps: 1;
-+	ktime_t start_time;
- };
- 
- static inline struct rkvdec_ctx *file_to_rkvdec_ctx(struct file *filp)
-
--- 
-2.54.0
-
+bod
