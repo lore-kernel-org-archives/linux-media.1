@@ -1,161 +1,127 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F549422549;
-	Mon,  6 Jul 2026 18:06:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 079A43DC4AB
+	for <linux-media@vger.kernel.org>; Mon,  6 Jul 2026 20:25:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783361181; cv=none; b=lWre/ScDu8bT9gcIMlHG8tm5k0HuwM6UmfwWIzQE0Ng7b4wkTP2b0JrZVmvAF7kKCHD7p+uWXQsIAXw0GhKFPT3gngU4XZ3W8pZ6lxkzYU5yam4xSGy+CID8JH6+7zCOQVL12kLtmTFpQgjXxA9CySY7LaiQppt2vMWHKn5BEio=
+	t=1783369517; cv=none; b=KC69KbaTjc2iCr2AIrf1HfawhhHuSdnGIRI0FHndQo3a/yggHwq8qSqsDvaNxJNxgbnFEp1gmiA7xjhhpA2sCXYCwnCOCzs87S/snlwLNbD+PUflSnmkjxMu34kQYAxFKZ3Nq1XPmVrIiQgsZ8Q58icOnpGj3c/qqp8ObqA7zC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783361181; c=relaxed/simple;
-	bh=WSrxhZ3K3aHd+oacRAsc/khrD9rBmmLfoF539Nq0u78=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=govuGuGGEytB6D5rxJrZaN1xwVOXsq2EzjnD9vP922e/ybGk/aqV/nudPbCgA9/54xz4qS9n/ZbY9ruVJ8l4X8SG46so3IMjJKISMjE00YcIfaeBwGj+FV3Mo8n4JqZ4rRzHHHAibMO6jSPv+R4zfthXjbFrZwu8D59Lqcwho38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=CNyUy7kr; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1783369517; c=relaxed/simple;
+	bh=uFTC/JWcsUa+gq1IKNRDOiasOcI2nH/oZgetBLHx4/E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=V9JNR0ISb4jqipo+RhblSCxt9+1l2PzNDTMNgtO0KkIhtUgVPw7bVsx0IoQUAFyLurNNDLqP2VvjXkJ0ymCMmFEAoifyt53r3tiIQYr+PktC6C9iepMVlJ9HCWmAEzhlxqfCpG+MQ+A3ET/FeSDEbyBCNYD90eWxEUZsGG92hwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FAIDk4t2; arc=none smtp.client-ip=209.85.160.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="CNyUy7kr"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=7OW/CenuU9P13pzjhjZutuMsDUz3ebL4YDkxxEUpTq8=; b=CNyUy7krT2KWgEwmWVKxtIQ+mF
-	Vb+1q+gyB5yQGtWUUUTFfkVXSRepuw7fyFqIY66jb6ov+a2TSQuU6Oeko21f10IdvUo87ND796N2s
-	r4dJq4T0v6JLzeGf9VmqXcqhhRS0zxb+AYnr/OkLGsRdGJ59LoP8x6HtyxyIaDGX/UNF4eV4mx/6j
-	9DFL/3RA2rxLGItPLNRlN3OyyNrc4LrBZnn6Z3pAqvn4XXv6D9Sm5JmxAl/Nx6Vi/43ITWBd3Tatn
-	UF0bFlXL9IwSqecAJqVY3MLm3w3NDEriZxsXwEytou0y28YZK6qZ/ZV3pvVIppH/oIVxHPm218vXX
-	ibjZRXUw==;
-Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wgnhQ-0000000GLqy-1n2W;
-	Mon, 06 Jul 2026 18:05:44 +0000
-Date: Mon, 6 Jul 2026 19:05:44 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Byungchul Park <byungchul@sk.com>
-Cc: linux-kernel@vger.kernel.org, max.byungchul.park@gmail.com,
-	kernel_team@skhynix.com, torvalds@linux-foundation.org,
-	damien.lemoal@opensource.wdc.com, linux-ide@vger.kernel.org,
-	adilger.kernel@dilger.ca, linux-ext4@vger.kernel.org,
-	mingo@redhat.com, peterz@infradead.org, will@kernel.org,
-	tglx@linutronix.de, rostedt@goodmis.org, joel@joelfernandes.org,
-	sashal@kernel.org, daniel.vetter@ffwll.ch, duyuyang@gmail.com,
-	johannes.berg@intel.com, tj@kernel.org, tytso@mit.edu,
-	david@fromorbit.com, amir73il@gmail.com, gregkh@linuxfoundation.org,
-	kernel-team@lge.com, linux-mm@kvack.org, akpm@linux-foundation.org,
-	mhocko@kernel.org, minchan@kernel.org, hannes@cmpxchg.org,
-	vdavydov.dev@gmail.com, sj@kernel.org, jglisse@redhat.com,
-	dennis@kernel.org, cl@linux.com, penberg@kernel.org,
-	rientjes@google.com, vbabka@suse.cz, ngupta@vflare.org,
-	linux-block@vger.kernel.org, josef@toxicpanda.com,
-	linux-fsdevel@vger.kernel.org, jack@suse.cz, jlayton@kernel.org,
-	dan.j.williams@intel.com, hch@infradead.org, djwong@kernel.org,
-	dri-devel@lists.freedesktop.org, rodrigosiqueiramelo@gmail.com,
-	melissa.srw@gmail.com, hamohammed.sa@gmail.com,
-	harry.yoo@oracle.com, chris.p.wilson@intel.com,
-	gwan-gyeong.mun@intel.com, boqun.feng@gmail.com, longman@redhat.com,
-	yunseong.kim@ericsson.com, ysk@kzalloc.com, yeoreum.yun@arm.com,
-	netdev@vger.kernel.org, matthew.brost@intel.com,
-	her0gyugyu@gmail.com, corbet@lwn.net, catalin.marinas@arm.com,
-	bp@alien8.de, x86@kernel.org, hpa@zytor.com, luto@kernel.org,
-	sumit.semwal@linaro.org, gustavo@padovan.org,
-	christian.koenig@amd.com, andi.shyti@kernel.org, arnd@arndb.de,
-	lorenzo.stoakes@oracle.com, Liam.Howlett@oracle.com,
-	rppt@kernel.org, surenb@google.com, mcgrof@kernel.org,
-	petr.pavlu@suse.com, da.gomez@kernel.org, samitolvanen@google.com,
-	paulmck@kernel.org, frederic@kernel.org, neeraj.upadhyay@kernel.org,
-	joelagnelf@nvidia.com, josh@joshtriplett.org, urezki@gmail.com,
-	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	chuck.lever@oracle.com, neil@brown.name, okorniev@redhat.com,
-	Dai.Ngo@oracle.com, tom@talpey.com, trondmy@kernel.org,
-	anna@kernel.org, kees@kernel.org, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, mark.rutland@arm.com, ada.coupriediaz@arm.com,
-	kristina.martsenko@arm.com, wangkefeng.wang@huawei.com,
-	broonie@kernel.org, kevin.brodsky@arm.com, dwmw@amazon.co.uk,
-	shakeel.butt@linux.dev, ast@kernel.org, ziy@nvidia.com,
-	yuzhao@google.com, baolin.wang@linux.alibaba.com,
-	usamaarif642@gmail.com, joel.granados@kernel.org,
-	richard.weiyang@gmail.com, geert+renesas@glider.be,
-	tim.c.chen@linux.intel.com, linux@treblig.org,
-	alexander.shishkin@linux.intel.com, lillian@star-ark.net,
-	chenhuacai@kernel.org, francesco@valla.it,
-	guoweikang.kernel@gmail.com, link@vivo.com, jpoimboe@kernel.org,
-	masahiroy@kernel.org, brauner@kernel.org,
-	thomas.weissschuh@linutronix.de, oleg@redhat.com, mjguzik@gmail.com,
-	andrii@kernel.org, wangfushuai@baidu.com, linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org, linux-i2c@vger.kernel.org,
-	linux-arch@vger.kernel.org, linux-modules@vger.kernel.org,
-	rcu@vger.kernel.org, linux-nfs@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev, 2407018371@qq.com, dakr@kernel.org,
-	miguel.ojeda.sandonis@gmail.com, neilb@ownmail.net,
-	bagasdotme@gmail.com, wsa+renesas@sang-engineering.com,
-	dave.hansen@intel.com, geert@linux-m68k.org, ojeda@kernel.org,
-	alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
-	lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
-	tmgross@umich.edu, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v19 22/40] dept: track PG_locked with dept
-Message-ID: <akvueAxPl8aoLvMR@casper.infradead.org>
-References: <20260706061928.66713-1-byungchul@sk.com>
- <20260706061928.66713-23-byungchul@sk.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FAIDk4t2"
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-51c05dcdf49so38786371cf.0
+        for <linux-media@vger.kernel.org>; Mon, 06 Jul 2026 13:25:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783369515; x=1783974315; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xZwUuzdhxUy7lZpgkfJAvtlDYtX2QPmbs8dk3tuJJRk=;
+        b=FAIDk4t2N+6nhpKf1gajde2PG/3AWUbGTOovon9EaF8VM0ib4vjjVqv1/T96uB/Y22
+         FXX8QUiDFVrfccaq39mcwin0qNacncSvcm1krseLm57Uc3OpBsGTSwefX92aLnwBrMnk
+         2Txu/yzla9YgPzU96tkzaDdD48bwkf4Cd2QaP2kB9/6FiAssANaIML+Cu/sWuhZgziBe
+         3PVq5WT9kWymmUSVJOEnqmDJgx1iEKPpmCwUaneijX5Eqdo39kgWoVrfCM4woEVe9g0H
+         dhQUZNOI/xuUPgWcQKOrfJJHUbuyD/6+/1N1iVZb5GmAU1rhwYLqSKU5Jdp59YskiapM
+         XAfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783369515; x=1783974315;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=xZwUuzdhxUy7lZpgkfJAvtlDYtX2QPmbs8dk3tuJJRk=;
+        b=BHS25QTp3qfdGUeS3QimbhPStM2h05Z0+LHZzHRGbX7zkQkbcfkEn7eaYTRta1ceEu
+         0++0+oZnrTf1mcwuiZgW8RElpM8o7lHGx48fVi5saGgtxRqlW2nJhj3Z3O1O/R+1fqAc
+         AFkxuOGwqj4GJIcuTqrsSva6jVc8WGyKhw3/jmjhR4yfZa0vwz6WdP5ui8QQ8EGNdRf2
+         AthjY2HBQ6AogTg3QoW/2XjGZm/ByA4e5q7EAqFMjAVF7ncLpB5+GfNRUtGhGiHa5F1m
+         7RcrKgxhNXAUXCe/UxMzqRQeJYe8RKyLASewHM189pkJ0e9b9sq3fsUjQ27OEmY79TNu
+         rNXw==
+X-Gm-Message-State: AOJu0Yy8ATjcG+3vC+FnTIohDpu9izioMrEAAU6yfo/uzdi3SxBapv0R
+	RGGi78uHih98Pdvd4v9kLrnju4JWc6IMSEj3LtFatIISTYafR1PpQWwE
+X-Gm-Gg: AfdE7ckVG92SqA7ht90sO9FJmSdLG1QhRD8UP5SJ0/NERqdKOtNgRrXryelCy1wI6vS
+	EmSNcS/UJWrcPofTcaugoUJmU5n/9XnLd12MIleJgBC2VKszGvRGDMYDwpkysm/gZOk+7iQV5tI
+	3mWSthZTUjxNjZaUUaAbdmi7hZ2/Nf89bmFv4PSPtl1vH9hEEUt33yiEsWAR2/LF1NqqxCy+Xc6
+	812Ph/lBOdaAr0MRCr3CGdW4j9qbYdyBxJEBBKEHz6PH/sz7PAQjim9jAlSofiUQ7aGPZK756hu
+	g2qKdLzuWYKyk/BfyAVDp/9SSlGovjV2muNPo9ch8xqD6feMWSS6uA6v6GwE8o4irZHUNJ9U5Qo
+	MkvYqCnN2DPR4g+JwDN+UOpllc6LKhtKCzwOhGpcHCpsVVXFsxahEbYu2YR8usyiX9f5As9xzcR
+	94QCP3V6CXzCi4UQqmMByLnp+YlwGE65pSBkdj8fFvCQ==
+X-Received: by 2002:ac8:5ad4:0:b0:51c:1a11:75cf with SMTP id d75a77b69052e-51c747ae66cmr27132301cf.7.1783369514644;
+        Mon, 06 Jul 2026 13:25:14 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8f471813c8dsm144074096d6.25.2026.07.06.13.25.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Jul 2026 13:25:14 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Subject: [PATCH] media: usbtv: keep device alive while ALSA card exists
+Date: Mon,  6 Jul 2026 16:24:06 -0400
+Message-ID: <20260706202406.1381177-1-shuangpeng.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <178144969601.60470.4852887710381872458@gmail.com>
+References: <178144969601.60470.4852887710381872458@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260706061928.66713-23-byungchul@sk.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 06, 2026 at 03:19:10PM +0900, Byungchul Park wrote:
-> Makes dept able to track PG_locked waits and events, which will be
-> useful in practice.  See the following link that shows dept worked with
-> PG_locked and detected real issues in practice:
-> 
->    https://lore.kernel.org/lkml/1674268856-31807-1-git-send-email-byungchul.park@lge.com/
+The ALSA PCM callbacks store the driver state in pcm->private_data. An
+open PCM file can outlive USB disconnect because usbtv_audio_free() uses
+snd_card_free_when_closed(). The disconnect path can then drop the V4L2
+device reference and free struct usbtv before ALSA releases the substream,
+so a later close dereferences freed memory in snd_usbtv_pcm_close().
 
-> @@ -219,6 +220,7 @@ struct page {
->  	struct page *kmsan_shadow;
->  	struct page *kmsan_origin;
->  #endif
-> +	struct dept_ext_wgen pg_locked_wgen;
->  } _struct_page_alignment;
+Take a V4L2 device reference for the ALSA card and drop it from the card
+private_free callback. This keeps struct usbtv valid until ALSA has closed
+the remaining files and freed the card.
 
-I may not understand this quite correctly, but I think that tracking
-PG_locked dependencies in the struct page has both false positive and
-false negative problems.
+Closes: https://lore.kernel.org/r/178144969601.60470.4852887710381872458@gmail.com
+Fixes: 63ddf68de52e ("[media] usbtv: add audio support")
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+---
+ drivers/media/usb/usbtv/usbtv-audio.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-Imagine we have a file mapping M1 containing folio F1 at index 0 and F2
-at index 1.  It is correct locking order to lock F1 before locking F2
-(for example when doing writeback).  Later, M1 has its folios reclaimed
-and returned to the free pool.  Then each is added to mapping M2, this
-time with folio F2 at index 8 and F1 at index 9.  Now the correct order
-to lock these folios in the order F2 followed by F1.
+diff --git a/drivers/media/usb/usbtv/usbtv-audio.c b/drivers/media/usb/usbtv/usbtv-audio.c
+index 333bd305a4f9..ae0a14e5ed2a 100644
+--- a/drivers/media/usb/usbtv/usbtv-audio.c
++++ b/drivers/media/usb/usbtv/usbtv-audio.c
+@@ -317,6 +317,13 @@ static const struct snd_pcm_ops snd_usbtv_pcm_ops = {
+ 	.pointer = snd_usbtv_pointer,
+ };
+ 
++static void usbtv_audio_card_free(struct snd_card *card)
++{
++	struct usbtv *usbtv = card->private_data;
++
++	v4l2_device_put(&usbtv->v4l2_dev);
++}
++
+ int usbtv_audio_init(struct usbtv *usbtv)
+ {
+ 	int rv;
+@@ -331,6 +338,10 @@ int usbtv_audio_init(struct usbtv *usbtv)
+ 	if (rv < 0)
+ 		return rv;
+ 
++	v4l2_device_get(&usbtv->v4l2_dev);
++	card->private_data = usbtv;
++	card->private_free = usbtv_audio_card_free;
++
+ 	strscpy(card->driver, usbtv->dev->driver->name, sizeof(card->driver));
+ 	strscpy(card->shortname, "usbtv", sizeof(card->shortname));
+ 	snprintf(card->longname, sizeof(card->longname),
+-- 
+2.43.0
 
-I don't see a part of this patch where we clear pg_locked_wgen when the
-page is returned to the page allocator.  Maybe I missed that.
-
-I think we should be tracking PG_locked dependencies in the owner
-of the folio.  For files, that would be in the struct address_space.
-For anon memory, I think that's in the anon_vma, but if somebody told
-me it was in some other structure, I wouldn't argue with them.
-
-This requires slightly more complexity than lockdep currently has.
-We don't want to use a lockdep class for each folio, obviously.  So we
-need something to say "I already have folio F1 locked, is it OK to lock
-folio F2?".  Essentially figuring out how we can track all folios in a
-given mapping the same way, and making sure that we don't deadlock on
-folios in the same mapping.
-
-If F1 and F2 are in different mappings, it's not a deadlock if F1 is in a
-filesystem mapping and F2 is in its backing dev.  It's also not a deadlock
-if F1 and F2 are both filesystem folios and the inodes are both locked.
-See vfs_lock_two_folios() in fs/remap_range.c.
-
-I have much less knowledge about anonymous memory locking order.
-Maybe it doesn't happen.  Or about locking one anon and one file folio.
-For slab memory, we don't sleep on PG_locked (it's used as a spinlock bit).
-For other kinds of memory ... I don't know.  Page migration is fun.
