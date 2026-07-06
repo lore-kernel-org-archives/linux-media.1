@@ -1,113 +1,136 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637FF423798
-	for <linux-media@vger.kernel.org>; Mon,  6 Jul 2026 09:51:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783331479; cv=pass; b=hAHygb1eMZE6WZhaKP6AbSqoOZRlo+JvwoCqDnrUqEdZDUSssvJzEsnTvH2yF/1fS+WPSZMolrzoLnJjCdCibiGcm3ykkrJKQT5GrRAoM4dGXR8DO7MEFyByGE5QUCWBGHYsgpbut2bOUVYyPGljDE4sSvwyyY52sOYu4v+co70=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783331479; c=relaxed/simple;
-	bh=iahDzT5i5SGNAo4kex39xnwemNvckDKqa20uXv1E5AE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ULwccUyodNbFELlbsIY1B2e2CBeLQJaU67Uiu4iUAKYXD0gMVXxENyNEMkAvcwn0jK0pySSSVQitXBfc74BYDu0gP8P9+pqwxstLfViXA4dJcwsJzhG6WWL9P60RYA0Fl2zw29SEzjNIVM9EcT55CymxI+wmJe0A780kIBfp6iM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JZRz0s7l; arc=pass smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 957B23B52E7
+	for <linux-media@vger.kernel.org>; Mon,  6 Jul 2026 10:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783332445; cv=none; b=Wwfpzx/TIrfVydVlGmuLg72sEY480kvVxusnYscpQtWhCA/hAfmw3/1R9nyIfBaFhawZ6jeNkNbBZn95ScD4xvaIzoOoP02guuGt70Ehi0RKawEqBT7JyrgnuaDIxyvug4sUFG5a7/+AYewy5pPHj+fmfYUgod27PK85LlDHqmE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783332445; c=relaxed/simple;
+	bh=cRWNjKmduoK//U7tqDYvdW8Fw47BsRRlQaOBQhBhOfI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Rx6YBd/N4Joax//1AytXClThymAJICgu2v+22EG+PhYJr8lQOBX58OvtWb1aJ7C4MNmZZdHGA54bD2b4zH23z7+K4dBxw1nNdbUDRV6+6Qubl/UtBDJyUukMWIO57nG8usuTZ/lsvQ+4ONxc7eWQ0xDhcnVdURhfnBi890cInQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=X1UxLoY9; arc=none smtp.client-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JZRz0s7l"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-698c0ff45b5so5058046a12.1
-        for <linux-media@vger.kernel.org>; Mon, 06 Jul 2026 02:51:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783331470; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NQHeYRQt8dsaXolwHJOVkrmLuvLpCORE+CT/J4u8cmxkp4ZKym2VwFYFdPWri53uQT
-         Fd0hxTNr2n/8OmeBWamtqMHQ/PU+zza/JB265LTS2yNG7b8GSCUQbKgVItVi6U4rW4Dh
-         hHwdbz6U8ONp/ii45FcPIO/oBWyDEMPZKSFv+fZvrwjke/Zox4vlzMXEFDSySvV8U0hF
-         BKTkxyN2v9QeCwLeM0EOOYRwEfrxhjjIfAZT7q5BGwett6ZOTOwPmYKKMWCb65mizKj8
-         ZGv8DVWdgdrdNJbc97u0OyGuzcq3RTu38jF7F+HCVXTQOhVNjcbzawYweBzTuMUmBkHs
-         mwEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=iahDzT5i5SGNAo4kex39xnwemNvckDKqa20uXv1E5AE=;
-        fh=RDmBTNG0zaTCnsA7Z78n4iZ4VLLhC1wzTFvJ+3coKxM=;
-        b=sPzCJ3EakjM0WDPkx+6jClLO1DpTTU36q40VoC8NIJzGkiJl9dTpT8ZwHiejVXdJI7
-         Y8ZHaT/Ewh6hGoIT4mV8QCqplwiif5PhujkVHuyZ8w7QeW1wuPXLVwtIad+0pshUG6mI
-         0ixTUKL1e3FSr6PbwrVoUTPjI0xSZGVcWcozeSKDUHKPDRLJi0u4cfcL/iqfCsNwXKR1
-         Kx2Nd6FfCBhJzwdhp/6jm7CvXekn/yAeT9EXF3Y5GIJP1rhENLe1UrFlrHbhuBHwO+Ic
-         IsZrW+6pdalzccZdPbHyVqL+QvDa7X9QuilYOy+gkJxiAe2vbNMSugb2xxyG4dz7vK9Z
-         IdLw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="X1UxLoY9"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-697bd21fdc2so4644629a12.1
+        for <linux-media@vger.kernel.org>; Mon, 06 Jul 2026 03:07:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783331470; x=1783936270; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=iahDzT5i5SGNAo4kex39xnwemNvckDKqa20uXv1E5AE=;
-        b=JZRz0s7lUkUJs3eW6bL80/ida0PDnKwzPUzXGVX3ELYV0EouAP28sTE6MzeBEEYT2Y
-         sOkqrjg4yceYQsnRocj6BDTzO5PSlzI4xZXCokGQz4fNi4pr9oGMHKFfdTrleNMiYmcc
-         FB2Gzz/uWe8bKjxzrH6Av9iMg85YJV349Gf9LURtN57h+M1U7Atg2kbU0EbAjEIgfRS+
-         3bfft1fYqnOTl3KlG/1EeFbxHTiW72LTvAyJ/H0LORk2ag7rgZQ6QPJPwRewh+06RPqf
-         HLOyapRAleTtnzKf0l8/cV3RAHmsF9odB5RRHlmWx4EtIEe9NsuML9m0UpEGZ9lFu6l4
-         fIVw==
+        d=linaro.org; s=google; t=1783332442; x=1783937242; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3UGN+tInxm7YHzGqwLdDJ1bWYCbBBGU54xQmERlMD08=;
+        b=X1UxLoY9KDlDjt1y1R5kEZDF4V/rRkfJmQquq5271XE9EwHP32ww6JOrwjQDoOKfVT
+         qnXjmNEhgL9eWPLX62XCD04i9N3VtrvgvBaHoT2ozZcKF+59IVeQXfy2wKSvR5O0rMVb
+         43q2NVVvk9l4gqe5Og0cLHhbX3qlp0JRnQe4F2O3baDtvU1/c9VzW+3nDPiWsq4PwgGy
+         8Dnk5tyTUl+EDyF/QaI6Fx1cgBxA7egkFaGUYBQITPdX+t6CLqxBlJMELiaRGDSZWPXY
+         D15L5bQasIFmeSZGG89S3XRgGpQtGwhhoo0/0Lep19d+NyPaWgYu8+e0EBMDkXl97u6q
+         WaAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783331470; x=1783936270;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=iahDzT5i5SGNAo4kex39xnwemNvckDKqa20uXv1E5AE=;
-        b=FLmq6HfriFUESaw/h9Uu1jrAUAOaQ49A5hmttPvBhDr5Smj3P8RbZ+XaobLtD0Jg0Z
-         wngQ/o+4jVRcMzqKkhO8Jia+ZusWfzgULO2LsfCgSL9/TCFObFJw4dg+rhfVQ5Q0F98k
-         YZeEcAFQADl8+ZGi5t488GREgtRehwYPMdZe2fz/2gnK02ys8qxqQcijBVly/3itH6/t
-         cF0TkumaXZcGB/J6OujIXnWcbkHTiK5usRjqVxWM/rGWdWRB36rjGIEsPNLAdTvDxitw
-         MrOosGYFPlcUkq82CfLanvmCDC1cNFQiP+NnG/ggc/FXBeirZms1LuAbEQ9ddAcmcu4f
-         wQow==
-X-Forwarded-Encrypted: i=1; AHgh+RqHkPb5bMXLtul2prIfjYAQ6RcrfKcv3w2zRZMsh9JYOUwoUWkJnQQjgGbFOjWZkVH3XMhR7vrZj6twdA==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyq7REpEqPyvjkscD9d3cseboslwT06nT6zC3IyzfzyKqiweeVp
-	kpAds7xyNeOGah2lkZN5BVynz/nyzQa/bYrrsvHuCoVO8jS3Ai1vnzXR44GTL8lBSKyqQrZQr6Q
-	wv5p9gkaGXRu7Q8/YHZC8V+MAno0mVgCmHRSBtRE=
-X-Gm-Gg: AfdE7cm4b8GoZeskNQUhkoYJODcZn1QS+bV2X90fMax4QIk/Ke//sDIvnYin/ljaysI
-	UBI+AEUSwiDIyRMLUn2+GsTZ3NzdK1kSCUYixg8p26cHF4hor/Gb3RGuZHCv+Wkwzkhwpz7WJhb
-	HDsom0QHhNKlZl6SFYqzSepTQJ3Sm+x9JgFOiVxWJmpva4vqhTIUwi9D29IE/7IAq1yPOTsFU81
-	nRXRva7FxaV02Uo16p6g/+shCv44J7FxigGBXx0R7G8z+56xTCvnpBDECxTr63ZCaWZcZBxBXdx
-	1Fu5nsBY9SNUENXChgVclNEW1Vyv17m02ua9Zb/Rl8oPz7tpHX5v8isnrZqpRqxNwbb4q/oX
-X-Received: by 2002:a17:907:8d8d:b0:c10:10c9:6d8c with SMTP id
- a640c23a62f3a-c12c9ef80ecmr561127066b.28.1783331470033; Mon, 06 Jul 2026
- 02:51:10 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783332442; x=1783937242;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3UGN+tInxm7YHzGqwLdDJ1bWYCbBBGU54xQmERlMD08=;
+        b=OYrVopfdq8D+KghBo19zXFbpazGPKz/3rrh5r7NhCrS7WPg61eDDApP/wyeQLRas1m
+         xM/nPbLEkD/UKJ1xNYAXBmkP1YMT3iwhoVRtNj+7E6J4Lq3Yq8+IMWQ09vOwChNwDLnM
+         X0b+Lv6x869T9TnjDY2vRADTtAx85E8gBEzpEPh0/Yhw9LNRkH26y3hqiTJOPHIoXBqt
+         pU0yUrvNLK25kllNW0/oYbsp9JOBylrhNShn5F683MhuMfBaR0qV8n23UiBk+6vL1c0S
+         H/Fz3GfyoSk7TtVxza6EsijekOGIBzzrp7Ql6x/EWabZwAzaEOi4tnvKWCmLIG06gDTo
+         beOQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr+BIBrTZ4Lpuj55auQs1AN4aowlaiQTiCW42cJkAZsL9j/MhWMy3tejVQYEJ0dc9dzEJk1FadsinSSwA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwZwjjzmRFlrKXM5yuuVafzS8XJmtCcW7i+FAXDW9DUJKgkKrDN
+	2sHQ/4JYSdzB/pWZbfByiY5lId9LdMG/sF2il7tjMI5lJG3oSw5HO3d2AdGN96yYkoo=
+X-Gm-Gg: AfdE7ckhB+/8pAq95DXnTCL6IURjH7v6t9EWZl7Uv73r2xNf7TaE0ez83kWNNW2z0kG
+	MKb/d705iCEZZhNmvxAyFN1oFZHZL1PsD0qrVFaxqUUhslGzISjgoMidP8Ca23LWh30SiniSNBf
+	MX9arBkvq1/k3bHjThCgQfTgt9svaDwvacByVG+8TPVxnPfu+7mu+lK6xzYWjMX2VoldLEY/2iv
+	974zFz2eM1hdDWfOMVWLFmnNnK4DWbxEozCbv8NJVUaHjzAbVrUbSKWmz/FyyHfKumLlt0kvjwf
+	faGtakgHth2nY/Ecofjy4uajMiXNeB65eKeyk1FIjlal26YuYU10XV/zIjwKRZW53QvUhUpLdXT
+	BJQR2nSXrDpqTuc8152wsO70fqjEc8bpBTQsdiEIGTm3kZ7vOP4NLnhZide7Ohpbr67FVxfbZVZ
+	VFHEkkyeG5kvBHN9LZz+lNQ1Q6yg==
+X-Received: by 2002:a17:906:fe02:b0:beb:8c28:254 with SMTP id a640c23a62f3a-c12e66259a7mr358483366b.0.1783332441744;
+        Mon, 06 Jul 2026 03:07:21 -0700 (PDT)
+Received: from [192.168.0.101] ([109.77.44.220])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c12b62c552esm710202766b.49.2026.07.06.03.07.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 06 Jul 2026 03:07:21 -0700 (PDT)
+Message-ID: <b7c335fc-4a53-437d-824e-63f7ad6dd06f@linaro.org>
+Date: Mon, 6 Jul 2026 11:07:19 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260704120113.201099-1-dileepsankhla.ds@gmail.com>
- <akkOdQ1oT0hIc0tz@ashevche-desk.local> <CAHxc4buoGJJ4ZUbvCz7EtcosH3mZWXp0NqFMfDBH1QV__0qDpA@mail.gmail.com>
- <CAHp75VfHKcW4BfgWht5wN=SY1u8=Jw4zAo=Sx0Fm_n0=D3pNWg@mail.gmail.com>
- <CAHxc4bt4ix2O_T6m4c9y+k8hqmx-C+iRd23mqVS-8Zns0DFa4A@mail.gmail.com> <CAHp75Vdh5crSErhWQ+pvEQcPek+H81hvoTeJC_2oxAE65ijaKQ@mail.gmail.com>
-In-Reply-To: <CAHp75Vdh5crSErhWQ+pvEQcPek+H81hvoTeJC_2oxAE65ijaKQ@mail.gmail.com>
-From: Dileep Sankhla <dileepsankhla.ds@gmail.com>
-Date: Mon, 6 Jul 2026 15:28:59 +0530
-X-Gm-Features: AVVi8Ce7iwUyrsEwHvTqrYdzrnQMNe8BuEwAuAp8a-21GaLZ75nonaPy1ao2znA
-Message-ID: <CAHxc4bsSmMeagAK=Wrzu2DCCaxt2xCgKXoJcAS_xgKFAn9LmbA@mail.gmail.com>
-Subject: Re: [PATCH] staging: media: atomisp: Remove unnecessary else after return
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, andy@kernel.org, hansg@kernel.org, 
-	mchehab@kernel.org, sakari.ailus@linux.intel.com, gregkh@linuxfoundation.org, 
-	abdelrahmanfekry375@gmail.com, error27@gmail.com, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-staging@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/5] dt-bindings: media: qcom,sm8250-camss: allow JPEG
+ encoder child node
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ linux-media@vger.kernel.org
+Cc: vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com,
+ mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
+ <20260706071113.383215-3-atanas.filipov@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+In-Reply-To: <20260706071113.383215-3-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 6, 2026 at 2:55=E2=80=AFPM Andy Shevchenko
-<andy.shevchenko@gmail.com> wrote:
-> I see, but please consider that to have in the future. The driver has
-> tons of work needed to be done, but most of that needs real testing on
-> a real HW.
+On 06/07/2026 08:11, Atanas Filipov wrote:
+> The CAMSS node uses #address-cells = <2>, #size-cells = <2> and ranges
+> to act as a bus for child IP blocks such as the JPEG encoder. Add these
+> properties to the binding so that dtbs_check does not reject them.
+> 
+> Use unevaluatedProperties: false instead of additionalProperties: false
+> so that child nodes are validated against their own schema (matched by
+> compatible) without requiring the parent binding to enumerate each child
+> type explicitly. This is the correct approach for a bus-like container
+> node and avoids updating the camss binding for every new child device
+> added in the future.
+> 
+> No functional change.
+> 
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> ---
+>   .../devicetree/bindings/media/qcom,sm8250-camss.yaml   | 10 +++++++++-
+>   1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml
+> index a509d4bbcb4a..6008938ee369 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml
+> @@ -102,6 +102,14 @@ properties:
+>         - description: IFE1 GDSC - Image Front End, Global Distributed Switch Controller.
+>         - description: Titan GDSC - Titan ISP Block, Global Distributed Switch Controller.
+>   
+> +  "#address-cells":
+> +    const: 2
+> +
+> +  "#size-cells":
+> +    const: 2
+> +
+> +  ranges: true
+> +
+>     ports:
+>       $ref: /schemas/graph.yaml#/properties/ports
+>   
+> @@ -317,7 +325,7 @@ required:
+>     - vdda-phy-supply
+>     - vdda-pll-supply
+>   
+> -additionalProperties: false
+> +unevaluatedProperties: false
+>   
+>   examples:
+>     - |
 
-Sure, I will try.
-
---
-Best Regards,
-Dileep Sankhla
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
