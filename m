@@ -1,169 +1,182 @@
-Received: from aposti.net (aposti.net [185.119.170.32])
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C6E143C7B2;
-	Tue,  7 Jul 2026 18:13:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.119.170.32
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783448028; cv=none; b=VWJtBq39TMPs1U8FCOoH5RVO3FvzPaSn93P2ya5ej91RqJp5Y1giXsAO84QswwdjhC/R9aYvgjikRbGv+hv0Y7GxVHeIOA7JRRW9sXbpOJHkLBSzhJG7U4JCoI1pLbqKRbwPKg6+My1sNGgYrFhg2WZBo2uOkpLitpy5Yb3121o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783448028; c=relaxed/simple;
-	bh=jSZnB0sLqjEJbBoqe7AZJRMFNCZugWpISC+yCdraaOk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=frXj8u/839yhSKbijrBsY45eh/YecaIYEcb3lt+rF7vjNiWuCgP2FadWmL19LbWh+OlmwcE8eUo4tzOTkynIrRukrigIlN8RVfiJLvAQxEugqzz6u71ei4HjlUyZV9dWvZZBsoXfoogdetJIXKIYDvULo79KwgE+/yZk9WIT714=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net; spf=pass smtp.mailfrom=crapouillou.net; dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net header.b=taLqIYWA; arc=none smtp.client-ip=185.119.170.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46563876BD
+	for <linux-media@vger.kernel.org>; Tue,  7 Jul 2026 19:24:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783452276; cv=pass; b=Chom3NG4NEE68h+cGUyrvs+Vuto6RGvWRsVwlMGMEcfhlVNuBjPr3PKFv8CVScEOqqC6PfgP4nWgSfPndOTds7IoemUJIbc5vm6q9kWBdgTmOTkAizdckjJHg6W7Z5acPnwtKCSQkRyZNoIw5n9adHUSUX3gj7vh0ZpVPwTxGVA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783452276; c=relaxed/simple;
+	bh=lqIqD3byUVDYSUFyysmtpZVvkzId65XXgC2avO2Zwzk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HhFzWGCfN0tkCNdimImF3/yhhs4jhIE5rPyQ0VktfOUx+4BKiAax4qB6HhAnWthhIOAZBwqAINxBh8ZkZ3BXqfUp/uYjOLj3vtpfFsrxbdd0YVikBOUlMj6+kKtlSpuZ0dAkaf5/Wb+tgIorj+Fs0qPlmn6RXBiDgYoKORjvKcg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oQpdttfb; arc=pass smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net header.b="taLqIYWA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=crapouillou.net;
-	s=mail; t=1783447618;
-	bh=jSZnB0sLqjEJbBoqe7AZJRMFNCZugWpISC+yCdraaOk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=taLqIYWARPanxMePLjn0T7clMcda7af2pvmrr0dQzpeuwc0nctWzpeP7MFrEdwHD3
-	 wFNI1Cev/uBH+lstwttbgnjYpRUlRSvuTptlXHNnBzTOSCT1/sAyy72NlnTqVPq0M/
-	 E7dkR8V01XIjaryuVKTvkbf8yDy1RmuISroVos5g=
-Message-ID: <f46dfcfe04c5f8270b2ea1a947ddc0a0eeda7dbc.camel@crapouillou.net>
-Subject: Re: [PATCH 17/42] drm: ingenic: Use
- devm_of_reserved_mem_device_init()
-From: Paul Cercueil <paul@crapouillou.net>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Bjorn Andersson	
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Liviu Dudau
-	 <liviu.dudau@arm.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Joel Stanley <joel@jms.id.au>, Andrew
- Jeffery <andrew@codeconstruct.com.au>,  Anitha Chrisanthus
- <anitha.chrisanthus@intel.com>, Paul Kocialkowski <paulk@sys-base.io>,
- Linus Walleij	 <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej
- Skrabec	 <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
- Alexey Brodkin <abrodkin@synopsys.com>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, Tomi Valkeinen
- <tomi.valkeinen@ideasonboard.com>, Michal Simek <michal.simek@amd.com>,
- Daniel Scally	 <dan.scally@ideasonboard.com>, Jacopo Mondi
- <jacopo.mondi@ideasonboard.com>,  Mauro Carvalho Chehab	
- <mchehab@kernel.org>, Eddie James <eajames@linux.ibm.com>, Tiffany Lin	
- <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
- Yunfei Dong <yunfei.dong@mediatek.com>, Minghsiu Tsai
- <minghsiu.tsai@mediatek.com>, Houlong Wei	 <houlong.wei@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,  AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Joseph Liu <kwliu@nuvoton.com>,
- Marvin Lin <kflin@nuvoton.com>,  Dmitry Osipenko
- <dmitry.osipenko@collabora.com>, Krzysztof Kozlowski <krzk@kernel.org>,
- Thierry Reding	 <thierry.reding@kernel.org>, Jonathan Hunter
- <jonathanh@nvidia.com>,  Srinivas Kandagatla	 <srini@kernel.org>, Arnd
- Bergmann <arnd@arndb.de>, Greg Kroah-Hartman	 <gregkh@linuxfoundation.org>,
- Ge Gordon <gordon.ge@bst.ai>, Adrian Hunter	 <adrian.hunter@intel.com>, Ulf
- Hansson <ulfh@kernel.org>, Rob Herring	 <robh@kernel.org>, Saravana Kannan
- <saravanak@kernel.org>, Mathieu Poirier	 <mathieu.poirier@linaro.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai	 <tiwai@suse.com>, Shengjiu
- Wang <shengjiu.wang@gmail.com>, Xiubo Li	 <Xiubo.Lee@gmail.com>, Liam
- Girdwood <lgirdwood@gmail.com>, Mark Brown	 <broonie@kernel.org>, Frank Li
- <Frank.Li@nxp.com>, Sascha Hauer	 <s.hauer@pengutronix.de>, Peter Ujfalusi
- <peter.ujfalusi@linux.intel.com>,  Bard Liao
- <yung-chuan.liao@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>,
- Orson Zhai	 <orsonzhai@gmail.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Peter Chen	 <peter.chen@cixtech.com>,
- Fugang Duan <fugang.duan@cixtech.com>
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, BST Linux Kernel Upstream
- Group <bst-upstream@bstai.top>, Fabio Estevam <festevam@gmail.com>, Nicolin
- Chen <nicoleotsuka@gmail.com>,  Pengutronix Kernel Team	
- <kernel@pengutronix.de>, Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Vijendar Mukunda
- <Vijendar.Mukunda@amd.com>, Chunyan Zhang	 <zhang.lyra@gmail.com>, CIX
- Linux Kernel Upstream Group	 <cix-kernel-upstream@cixtech.com>,
- linux-arm-msm@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 	linux-aspeed@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, 	linux-mips@vger.kernel.org,
- linux-sunxi@lists.linux.dev, 	linux-media@vger.kernel.org,
- openbmc@lists.ozlabs.org, 	linux-mediatek@lists.infradead.org,
- kernel@collabora.com, 	linux-tegra@vger.kernel.org,
- linux-mmc@vger.kernel.org, 	devicetree@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, 	linux-staging@lists.linux.dev,
- linux-sound@vger.kernel.org, 	linuxppc-dev@lists.ozlabs.org,
- imx@lists.linux.dev, 	sound-open-firmware@alsa-project.org
-Date: Tue, 07 Jul 2026 20:06:50 +0200
-In-Reply-To: <20260703193855.110619-18-mukesh.ojha@oss.qualcomm.com>
-References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
-	 <20260703193855.110619-18-mukesh.ojha@oss.qualcomm.com>
-Autocrypt: addr=paul@crapouillou.net; prefer-encrypt=mutual;
- keydata=mQENBF0KhcEBCADkfmrzdTOp/gFOMQX0QwKE2WgeCJiHPWkpEuPH81/HB2dpjPZNW03ZM
- LQfECbbaEkdbN4YnPfXgcc1uBe5mwOAPV1MBlaZcEt4M67iYQwSNrP7maPS3IaQJ18ES8JJ5Uf5Uz
- FZaUawgH+oipYGW+v31cX6L3k+dGsPRM0Pyo0sQt52fsopNPZ9iag0iY7dGNuKenaEqkYNjwEgTtN
- z8dt6s3hMpHIKZFL3OhAGi88wF/21isv0zkF4J0wlf9gYUTEEY3Eulx80PTVqGIcHZzfavlWIdzhe
- +rxHTDGVwseR2Y1WjgFGQ2F+vXetAB8NEeygXee+i9nY5qt9c07m8mzjABEBAAG0JFBhdWwgQ2VyY
- 3VlaWwgPHBhdWxAY3JhcG91aWxsb3UubmV0PokBTgQTAQoAOBYhBNdHYd8OeCBwpMuVxnPua9InSr
- 1BBQJdCoXBAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEHPua9InSr1BgvIH/0kLyrI3V0f
- 33a6D3BJwc1grbygPVYGuC5l5eMnAI+rDmLR19E2yvibRpgUc87NmPEQPpbbtAZt8On/2WZoE5OIP
- dlId/AHNpdgAtGXo0ZX4LGeVPjxjdkbrKVHxbcdcnY+zzaFglpbVSvp76pxqgVg8PgxkAAeeJV+ET
- 4t0823Gz2HzCL/6JZhvKAEtHVulOWoBh368SYdolp1TSfORWmHzvQiCCCA+j0cMkYVGzIQzEQhX7U
- rf9N/nhU5/SGLFEi9DcBfXoGzhyQyLXflhJtKm3XGB1K/pPulbKaPcKAl6rIDWPuFpHkSbmZ9r4KF
- lBwgAhlGy6nqP7O3u7q23hRU=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oQpdttfb"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2cab97c86bdso22185ad.1
+        for <linux-media@vger.kernel.org>; Tue, 07 Jul 2026 12:24:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783452274; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OqSEp/Dk09viK+xd4PbcrIQhJlDg3Ve/Li6iMqM7trXsqUGq5TCJeTuN21QPj0gm+f
+         tbRVjD7nhfshwHBd+MIqqWfKaK0dYmYIHmV3/bqeEN+0OBsl5gqJvAXekcWti+tdCKqT
+         DQMYXFmXKvDtulAVV1VyGTq/eZdd438gufc4+xdggLrs3EKZGGzmRVXcvmJqUKpz1T+7
+         /aNLKF7dJOQGBAJph5s91b+y5evCNk960FBCLbhpsRoDwCgUhyrZvEsOEmvHwSnladCZ
+         tcQeKj/VxPPEENm1M93VPRGMxDUJZBSUlLZJo/ZorMRt9W7mF+YFL3viW5cuAK/WHS8O
+         tAmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6Fm7QjNSE0IJ2/34q+H/eGUWaQNYPo+v65MhhotHihY=;
+        fh=xDdI4s/IPvzxb6HlzavThI6p96tg2JILBbitvOaRTb8=;
+        b=CysyQLoZtSW4VmRCIFEH3Pfl0L7dro1OpyAWZQfv24uINQgbgt4Wa3y7Gt99chX2hT
+         VvArnRq/x+kAQJSUXb65gDt4N2KY5bcjQ9dxrA5y08d6FDpie4WSxSY7oihIT7W1YxeF
+         SBEYJ/+kJKs2LDIHRXq8Qu/jljqdio/6Jp46tNiSJS61Ho0P9fz6dPLd4cdNIOC2JA9m
+         lDC7ZhfmACLuIy2jZnzDTHpviJGESJrTZ/QWHCZBBIK7vHDpsMEt8ok4FrujP2oHhc6T
+         u6E5t93rCGKg71QBe+MrTnb8GFQh5o4GKHexHBssANUlx4yB//XOxgI9T/7WKMFjhE32
+         PRSA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1783452274; x=1784057074; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6Fm7QjNSE0IJ2/34q+H/eGUWaQNYPo+v65MhhotHihY=;
+        b=oQpdttfb2FUCW91i+sJsbmx+R2UJzLCXaTuMELV3Qmry2LGXg5KMg9biadhTxnUize
+         +dmbSO4yp/DpFMZIFGP/lDL1QbLOnCo69SlucqmyKG24GOjeOOxfUbaqwRk4VMG7Tf52
+         llgULpThfoHNPXiGK6oM4oKc2S+haSl0KS1ThuIxH5qbfDEdK1BbyApiX3ggKfi1qLKH
+         jgYqXCOQyQIflRXCoXZdlyJ3jkeBBPaADEgvuLOzDiW60E+KUxHdPPyel/jn9OMR6qLa
+         QakHO0SF3XoMmf3Bie5rOn3xa7kZ4Auz+Hl6szRPsfoes+n4KG2Wa3tgcMPwXCup9dAm
+         DbQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783452274; x=1784057074;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6Fm7QjNSE0IJ2/34q+H/eGUWaQNYPo+v65MhhotHihY=;
+        b=akcS7L95k7x02KQKfLSskG7IW2qenJqO/d+H9DAl6bS/pKTIg+tuGNq7Okvd34mGXi
+         SYmCp4m1U1f+oEyu3jwndNS+lLtRDODFWMHvmBOIRXHcCYctOFnpgt315LKTmPwcGyLw
+         FCmAdrjkFYX22TeK6klP72PBU013Mp+cbFCexVrC/bnFGD1a8OxIggF5Epcc8j7kwERw
+         ssBJjDp7AKB020761Pz6+bjfuV70RDjt1TEXxcZhsp5NX2iClQRhugwXB+doZyR5hChJ
+         jOqUygUnZebFlZP+ENOZM3Q7lJU25M2r090oLhvm5oZCXgfRuifqzMN+lYggF/QXbzbU
+         cSmg==
+X-Forwarded-Encrypted: i=1; AHgh+RrPoy8+QF02Aq7DNgPjDWpAdXdf4BVGErIlj4pr71JNgIlrwK0oBxhoQ7fxx8z2GfpLVzmmkVWPa/Pfew==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxycIOD4WUJ6i5102RGKFi4q1iHPkJajfSKwpUm250fYPTbpzD
+	3946BX0MKXZ+zTZLCgGA8zmwdNEhwo6Madeg+oKAtKLs8X95AaeQOpsD7jxEngRF5riZRD5bJC4
+	Fi7NmEygvpAYwQdNQx8DXUSIlK7I/gIaTDOPkeIit
+X-Gm-Gg: AfdE7clnEnfQXawt//rgblPJqwoHCOdQi8wrDH6Rpy/VPT7pRZPM7FimVcEaoJf0HBb
+	JHKxgPyBjaIO74KUvwf51FGp3SglrSzplfzl+QPBO5kePGzyhqm7d7CKVCJV8fcS0C2CbPXFEoH
+	4YAwCKWXhwzffk8NW55/kEHYKQFnZA/x7HFzvIfj3CGUzcZ7WDqtJivMeh5yal9D9X8G0DtjoEb
+	sCED/0bWcYOvunW4WepJqAeqKCxa6rgqY9RICrGG2gUOt3Tcn6BeFGOMBbtRJld8wXZ2yYxg9qi
+	serjbwQO0srbittYUF8X+t0uQ2g=
+X-Received: by 2002:a17:903:13c6:b0:2cc:a859:d404 with SMTP id
+ d9443c01a7336-2cce6093926mr513125ad.23.1783452273682; Tue, 07 Jul 2026
+ 12:24:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260701-tcpdm-large-niovs-v4-0-ca4654f37570@meta.com>
+In-Reply-To: <20260701-tcpdm-large-niovs-v4-0-ca4654f37570@meta.com>
+From: Mina Almasry <almasrymina@google.com>
+Date: Tue, 7 Jul 2026 12:24:21 -0700
+X-Gm-Features: AVVi8Cf2zkjvZFmISVUtPxc7XWtQGIP2yN30jA4uYxFxIOpN1CJ2PCF-gRvgh1w
+Message-ID: <CAHS8izOmA_U=Q6WOO5mcoi2vBps_JFEtAQa3gXk=JcL3rqE1BA@mail.gmail.com>
+Subject: Re: [PATCH net-next v4 0/3] net: devmem: allow rx-buf-size >
+ PAGE_SIZE per binding
+To: Bobby Eshleman <bobbyeshleman@gmail.com>
+Cc: Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, Gerd Hoffmann <kraxel@redhat.com>, 
+	Vivek Kasireddy <vivek.kasireddy@intel.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+	linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org, 
+	sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net, 
+	matttbe@kernel.org, skhawaja@google.com, dw@davidwei.uk, 
+	Joe Damato <joe@dama.to>, Bobby Eshleman <bobbyeshleman@meta.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+(I'm kinda reviewing this very late here. Some suggestions/comments
+but feel free to ignore if not useful).
 
-Le samedi 04 juillet 2026 =C3=A0 01:08 +0530, Mukesh Ojha a =C3=A9crit=C2=
-=A0:
-> Replace the hand-rolled devm wrapper (ingenic_drm_release_rmem +
-> devm_add_action_or_reset) with the standard
-> devm_of_reserved_mem_device_init(), letting the device resource
-> manager handle cleanup automatically.
->=20
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+On Wed, Jul 1, 2026 at 12:22=E2=80=AFPM Bobby Eshleman <bobbyeshleman@gmail=
+.com> wrote:
+>
+> Every devmem dmabuf binding hands the page_pool PAGE_SIZE niovs today.
+> On NICs that consume one descriptor per netmem, this caps a single RX
+> descriptor at PAGE_SIZE and burns CPU on buffer churn.
+>
+> In this series, we add a bind-time netlink attribute,
+> NETDEV_A_DMABUF_RX_BUF_SIZE, that lets userspace request a larger niov si=
+ze
+> (power of two >=3D PAGE_SIZE).
 
-Reviewed-by: Paul Cercueil <paul@crapouillou.net>
+FWIW we may be able to support arbitrary sizes with devmem. Because
+the genpool supports byte-aligned allocations AFAIR. Also the
+dma-mapping happens with the dma-buf size, so the actual niov size
+doesn't matter. The only thing I can think off which may not be
+flexible to arbitrary sizes is the driver itself. IDK what happens if
+you ask the driver to dma into a buffer that is frag size 5023 or
+something like that.
 
-Cheers,
--Paul
+But that is something that can be relaxed in the future.
 
-> ---
-> =C2=A0drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 13 +------------
-> =C2=A01 file changed, 1 insertion(+), 12 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> index 7e569af22391..990c3b4625fa 100644
-> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> @@ -1060,11 +1060,6 @@ static void ingenic_drm_unbind_all(void *d)
-> =C2=A0	component_unbind_all(priv->dev, &priv->drm);
-> =C2=A0}
-> =C2=A0
-> -static void __maybe_unused ingenic_drm_release_rmem(void *d)
-> -{
-> -	of_reserved_mem_device_release(d);
-> -}
-> -
-> =C2=A0static void ingenic_drm_configure_hwdesc(struct ingenic_drm *priv,
-> =C2=A0					 unsigned int hwdesc,
-> =C2=A0					 unsigned int next_hwdesc,
-> u32 id)
-> @@ -1127,16 +1122,10 @@ static int ingenic_drm_bind(struct device
-> *dev, bool has_components)
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	if (IS_ENABLED(CONFIG_OF_RESERVED_MEM)) {
-> -		ret =3D of_reserved_mem_device_init(dev);
-> +		ret =3D devm_of_reserved_mem_device_init(dev);
-> =C2=A0
-> =C2=A0		if (ret && ret !=3D -ENODEV)
-> =C2=A0			dev_warn(dev, "Failed to get reserved
-> memory: %d\n", ret);
-> -
-> -		if (!ret) {
-> -			ret =3D devm_add_action_or_reset(dev,
-> ingenic_drm_release_rmem, dev);
-> -			if (ret)
-> -				return ret;
-> -		}
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	priv =3D devm_drm_dev_alloc(dev, &ingenic_drm_driver_data,
+> Drivers must opt in via
+> queue_mgmt_ops.QCFG_RX_PAGE_SIZE.
+>
+
+nit that probably doesn't matter: ...QCFG_RX_NETMEM_SIZE, or
+(...NIOV_SIZE). This doesn't actually work with pages, right?
+
+If you decide to extend to arbrary sizes, I would add to the
+queue_mgmt ops supports_netmem_size(size_t size) function, and let the
+driver enforce "it has to be power of 2" if it needs to. AFAICT core
+doesn't need to.
+
+> Selftests use udmabuf, but udmabuf sgtables were previously hardcoded to
+> PAGE_SIZE. This series modifies udmabuf to respect folio sizes in its exp=
+orted
+> sgtable. The result is that when backing udmabuf with MFD_HUGETLB 2MB pag=
+es,
+> the sgtable is populated with 2MB entries, allowing devmem's gen_pool to =
+carve
+> out large (eg. 64K) niovs.
+>
+> Measurements
+> ------------
+>
+> Setup: kperf devmem RX/TX cuda, 4 flows, 64 MB messages, 60s, dctcp,
+> num-rx-queues=3D4, dmabuf-rx/tx-size-mb=3D2048, 10 runs per niov size,
+> mlx5.
+>
+>    niov       RX dev Gbps   RX flow avg Gbps         app sys %
+>   -----  ----------------  -----------------  ----------------
+>      4K  300.63 +/- 53.21    75.16 +/- 13.30   54.15 +/- 10.23
+>     16K  321.35 +/- 28.20    80.34 +/-  7.05   41.05 +/-  8.87
+>     32K  347.63 +/-  2.20    86.91 +/-  0.55   44.54 +/-  3.51
+>     64K  332.11 +/- 14.26    83.03 +/-  3.56   35.47 +/-  3.11
+>
+> RX app sys % drops ~19% from 4K to 64K.
+>
+
+Hard to read the columns for me but seems like good perf data. Did
+performance become worse from 32K to 64K? I wonder why.
+
+I have some devmem performance fixes that are very critical for our
+production that I haven't gotten around to upstreaming yet. I wonder
+if I can send them to you for upstream submission. Are you potentially
+interested?
+
+--=20
+Thanks,
+Mina
