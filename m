@@ -1,254 +1,225 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022114.outbound.protection.outlook.com [52.101.96.114])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6745E3EDAA2
-	for <linux-media@vger.kernel.org>; Tue,  7 Jul 2026 12:17:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783426675; cv=none; b=LiOC/k12Axf43n+xNcuCzqVIcSCZR160ZeI+tTin8/E0GACDOKKIftSlrnCXvHBf6HLseGQZ2rwHkC78SdfijP74vmgg2U4nEUcch1aSVVyElQAtboGMNkNZ5fygMnRiK2ESKtIygK/ZRqsaVfSn2IOCsKhr0HOYvJPI3WvK0XA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783426675; c=relaxed/simple;
-	bh=Ta/bE9egbWl7Xktartl8cK27C2xuvBOh7ciGfNUeAeo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u22YVR8PEZhMR5b+uEpQ4mkB4q8PpXqU02gPM3NSQrRn8MYxApsbNwKmMm7lxqBddB201oDXToopfhYHrJR6AJQSaOcYQs3P8VPYeOPKgnoPe5ZkNW+dsUQI3msILu3gfkLqgelrd9zkll2Rzhr1QHH6srTIlVEEuFfhqB0IDO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UzIJtxOz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gvmRMiT3; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4AC43FE362;
+	Tue,  7 Jul 2026 12:26:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.114
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783427222; cv=fail; b=tvmU3bdaAITDaCrh2HZbUDT0hSBcTfzbC0no/iOLa7GbGrh59+iyrnb5GQSaZAA6BBU7z36M+TfMpreNrEZnmX0NfI7waDIeM4v84n5X9+d+pVsDWTZavCooibl4HuLhO9sRj+E0ednbJalh7ryArM+7sbsnAYmn977taIwK/F0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783427222; c=relaxed/simple;
+	bh=MHbZObFH/YiDHiGKbRxzAATYxmqcK5zgrhAUZaM05wk=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=Xx5qOnL/t1tzQQlie+fnA1XnCBo5jM9Mw3qMteJGwbfIEaYyLqGpqTfjWm6dHg2Kf3qI84fpOG5qBQjpzEAjKkc0U2YJPSazuEjA5anpRzWKtPF1nwmVjJndHfnMnthobItwbZPihow93MSJzANU10NaV58NkwriUd0udtGyWKE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=FcCZOFAL; arc=fail smtp.client-ip=52.101.96.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UzIJtxOz";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gvmRMiT3"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667C8x5M3719155
-	for <linux-media@vger.kernel.org>; Tue, 7 Jul 2026 12:17:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2SiZ+GGo/Uh7dQhyhwAq6wJ90giuKEqOR8zd+Na239c=; b=UzIJtxOzV1cRutQd
-	LSIBy1pYgk5U6t0gbqXaVaPELgnzQ7Fgt7J0491uxgy4H8Det52h/mOZIsq8l5OX
-	VRG2x+1+D6XaVC1Ji7WT4pONK6cM0my+ta274ZayqF7h/fLoQAXC8IoRXFucj80s
-	GEFO/+tCb2On0YkvEtbKrBwY+1UMdOV/DMGAWtG/usI2gXg1HWaQxwUF4Mn8lWBQ
-	tAa4Vi+Lv6EJLukmd0UK8UfIe3rdtOwysmQ4YdpGIDlFndlMSdqE/CzlFaE6LgAd
-	4EMVHX72KPC+RuMzuo/tSwT+ff2qK5yFnuPcfs+NxfZkG/L2i7vIbgUnXNJVuBMg
-	EpVH9Q==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8v3t9dex-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 07 Jul 2026 12:17:53 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c1c7f135bso78657691cf.0
-        for <linux-media@vger.kernel.org>; Tue, 07 Jul 2026 05:17:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783426673; x=1784031473; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2SiZ+GGo/Uh7dQhyhwAq6wJ90giuKEqOR8zd+Na239c=;
-        b=gvmRMiT3WL4SnnE1vtXtuMrIC0z/mT98qoaU7cK4/ThdVWeOlIIOy+ZP6S+mnuEJ3o
-         3DylnsrKgAqF+s2KI3wK+duzLOpqtZ1Xp5gXnvXyFHRuZx2mz/wr2cCf1Dy/LFVCnRIE
-         AJfdZeN80DUsNoBIJVLE0okD/5H4qaVLEsQR6giAdVGoHHup6XUQHsdeFgOZWT7WgxDU
-         ghWR8NDb3yreCHADtMuXLvJ4sZnyw2tMRz10Xd5MprlTGMOhNRdXKDfI73JJae7BbUDT
-         7VfqZUe18SPgHRAgp0H05Fsjj9woFgZWXCXdvmsI3YeBZKgs8F+AkJyCvYz+fgZc7apa
-         yiUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783426673; x=1784031473;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2SiZ+GGo/Uh7dQhyhwAq6wJ90giuKEqOR8zd+Na239c=;
-        b=CuZ3zIyiUIDK059UDQNBPqDkBJyBkEqj/lY1flp8dwEmrxLKG5YdSXZRH8Hdk3qf02
-         BZ49co45q4p1I5jGOVAMIBNiWPpRYC+4uvEIeYuzRKOxdMyHFT/YKNkyoxVtE/tMJuxp
-         1UL0RC+OrIVUE0T/HYuxqzTHZnREqQYYnjmx2s/C3+wsbiOfmUPvoPsQq+uD+F3VFCNZ
-         3m1AwZn47iT9M1zse5+FLVmXuhh3daIiAcTj4+fj9Wu9MP4H2ZhfrOuJEh5CBho8Tq83
-         4vszpT2WigV0SclSpM8sVOXWFV/n/sUhKVDLCSlx9s23zh1kYqtpXmkhfgUpn6vUJ7jH
-         6GrQ==
-X-Forwarded-Encrypted: i=1; AHgh+RosffONtnQl2rd4J3XfDNpJbjJpjlK8qOPxuk9IPUiIcnSOB2s6zY+5Q+DFuQiAQzFdZJvm4KfU72m8Vw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyd6OOqk+rwW222KNcp/gNp32e0mjJfijol7rWT+Jn5mUJ29h1f
-	J0dQX2PZi9llyaB7J1Jx6ahjeIYq0hmlT6zXKVxwW8ms2ivn2IbT+/MBup+WJkTj7ct+FwwUHnO
-	+PYyMuEZ6TBxUaNWOZs+PNtoYQbYGYyZxolhZhFginR4pjS1qln/8UmYvNVKpI9X5RTotrW4XFw
-	==
-X-Gm-Gg: AfdE7cm3INtFjCHx5EN5BhyczMXmSInevGdsa7k2ktefkMszZwsZjGGK0HzdTn53LJU
-	f3++9vnyiAZO2LKaqBHGHnda5odLP4klNAfucvdYMrgG2Hk81EMX99jUwFazQppHEUu6ZOLUq/y
-	0yWyTndZmHsO/iDJDpBexigNAkEEB1Sc/BEhEOwrkaQ0JyySRI9/B5syLcLsLH7R0rxyUgK0hk3
-	r+K9JE/ko51fttvxNCBWsyDVAozp5S44QTWp3ZeXRf22Ea/FIDAVIFM21gio0xwNk06Zy8iWjbw
-	4b30zLpEjADtdHCcHXPo3D/+TMW2q5pfGRw3z+r9Fh15GrgagtTGlq+g4BbxSfFqFub90pDxskc
-	x5RPKb4zAJJHOgS1Z8UCpbATa2z8x1Cu0I77cgiB1HAfTvcEAUBWi2Loi0278adU+ubLQR210Xg
-	tjxovEdZE=
-X-Received: by 2002:a05:622a:286:b0:51c:7b12:120e with SMTP id d75a77b69052e-51c7b12172fmr21403941cf.76.1783426672493;
-        Tue, 07 Jul 2026 05:17:52 -0700 (PDT)
-X-Received: by 2002:a05:622a:286:b0:51c:7b12:120e with SMTP id d75a77b69052e-51c7b12172fmr21403491cf.76.1783426671913;
-        Tue, 07 Jul 2026 05:17:51 -0700 (PDT)
-Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15ad9bc655sm118332266b.41.2026.07.07.05.17.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Jul 2026 05:17:50 -0700 (PDT)
-Message-ID: <f9b667b3-26ef-4c1e-bff2-71533d657cce@oss.qualcomm.com>
-Date: Tue, 7 Jul 2026 15:17:48 +0300
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="FcCZOFAL"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q0wdsznwVTNW+UUoyhCJjgINQ13bsPyOcDS5yIh1JDCvmYUSbpuTudblZlQGTJSlcUZYs4I1j9F/NKIERiFzMpO8k6hU/die7G6L3y2rRezpmjks73jYCNKFrIWsAwo/lgFDLpfpF7hqNUhS2fV/9Eam0wM96aXcAxNBRj08fUB8ZiJF8HmCnBstFG/B8hn9okjafKsdjhDH6lnCR9q0GTs1O8ThZ02PdZ/auwZmzaqH1X7TD94QCWnVl3gfk6TlOkrAdVHJ0405efhEqj/cdZpJ+mztXsHQH3t3FaohJC/mXIuUhZh1NUCM1p3eGke6gkI/6DiSLTJOtNbas6WVfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MqUN+Ge5pa8YkE8//+RBDKMEy9BtL9Ej05adkUt6a9o=;
+ b=K95gBAnUcJ63L/kZA1c91bdaPh8oD4A40RRRZhzFPgp07wUGmtsoPBiNiRCFac2kgI82mQ7BKeupUO/SW7/BFt5oJxDa/mQ6gzlbG9LIgLzzz5WRn4gz3jLHwsADY3jDeomgtkTRRZJAVxCCvXXam3YONqs8NJMxFSlXs4e783e6+NUR+hF5gQC2aUj622HKEO7ndHNtz3RumvwsslDHI0JkkFF92zGQ72D085RL9lLUmbm+tLA6uzTr5qZMmCHzKO1pxxzfxD7Jeug8MD9JGq5eKstW1UH9I/jT+6oEVCSHjyYTP7fi2h8APvcEidHVQC+xhSjpG3cXcxIu4whAdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MqUN+Ge5pa8YkE8//+RBDKMEy9BtL9Ej05adkUt6a9o=;
+ b=FcCZOFALIoQOVKgwlR2QgXETJyFLMo4vqIVUdzvlP/BxbTqVnE0+QnK+CdCHFYOzA9I1h65wA/4Pljsb0Wuxe82AVi3PUxy3Y+rX3G/SB/RmUt346YS6UGHsys5Do8EkJyWxUGhpqQ81rwXVt2euRrLPgiiC1CSBc+FLbThAphM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CWXP265MB2615.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:8b::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.13; Tue, 7 Jul
+ 2026 12:26:56 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0181.008; Tue, 7 Jul 2026
+ 12:26:56 +0000
+From: Gary Guo <gary@garyguo.net>
+Date: Tue, 07 Jul 2026 13:26:40 +0100
+Subject: [PATCH v2 1/7] wifi: ath9k_htc: don't store usb_device_id
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260707-usb_dyn_id_uaf-v2-1-632dcf3adfba@garyguo.net>
+References: <20260707-usb_dyn_id_uaf-v2-0-632dcf3adfba@garyguo.net>
+In-Reply-To: <20260707-usb_dyn_id_uaf-v2-0-632dcf3adfba@garyguo.net>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>, 
+ Johan Hovold <johan@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Petko Manolov <petkan@nucleusys.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Chas Williams <3chas3@gmail.com>, Alan Stern <stern@rowland.harvard.edu>
+Cc: linux-usb@vger.kernel.org, driver-core@lists.linux.dev, 
+ linux-wireless@vger.kernel.org, linux-media@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, netdev@vger.kernel.org, 
+ usb-storage@lists.one-eyed-alien.net, linux-kernel@vger.kernel.org, 
+ Gary Guo <gary@garyguo.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783427215; l=2845;
+ i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
+ bh=MHbZObFH/YiDHiGKbRxzAATYxmqcK5zgrhAUZaM05wk=;
+ b=F+Xy09P6O+kMXaie+SWGy76yz7RsnCRpPLvMuUMxPJK1xq7qZ0iAhCk6TlXp5vF1B0QPNLK+2
+ a39iaBet8+QDeycXS+OpgUDlCLHz55yAIsAjNg5w1y8scG1cZBUSdXo
+X-Developer-Key: i=gary@garyguo.net; a=ed25519;
+ pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
+X-ClientProxiedBy: LO4P265CA0166.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:312::10) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/5] Add Qualcomm JPEG V4L2 encoder for SM8250
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-        linux-media@vger.kernel.org
-Cc: loic.poulain@oss.qualcomm.com, mchehab@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
-        konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
- <68e59764-5a10-4abc-849c-14ea2d9ef76e@linaro.org>
- <d74d7839-d126-427a-b151-ca895a27a83e@linaro.org>
- <437d1eb0-4495-406a-9501-b0515cfa3151@linaro.org>
- <e04cb9dc-76dd-4fa8-92f4-be002bf7ee8b@linaro.org>
- <8116c54e-4050-4e9d-b236-59d74846bd57@linaro.org>
- <8a09875d-af5f-438b-b947-bc2b61219b70@oss.qualcomm.com>
- <c8c38ec6-4422-4c91-a249-20bc20260e73@linaro.org>
-Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <c8c38ec6-4422-4c91-a249-20bc20260e73@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: RvrHPaAbMUaoUr3iThsprWOI24jqZT5v
-X-Proofpoint-ORIG-GUID: RvrHPaAbMUaoUr3iThsprWOI24jqZT5v
-X-Authority-Analysis: v=2.4 cv=HqVG3UTS c=1 sm=1 tr=0 ts=6a4cee71 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=uTxpKD40luCw_XNDSPAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDExOSBTYWx0ZWRfXwuR+0uCoG6al
- N92J0KXZYdnb27u970YJSINtPTn+JeaGvHvyIQzIb6Vo3yBh5scNFZu9gYQOhJmJPsI/SrG+pUj
- yrBgi1vffes0ZXkki0qmubJcaDfmdyRRR4aLEEixu/jNO24TBhPgB8N1hkJBzNISGlFvsNZdkI+
- FMd7iO3iG/AKO+idffnARLmYKNELa6tNv9IGQu6yN7GNFhOlgdl88Qtecrc0SrkHJQYsKL145EQ
- 7oi7zNU6i5qAPAo5YnGXr9lqLzL/9/6bsjFJkORKYf8vK8lYZzJ5ruoSNrdCdsQjmISI0vo6p/o
- 7oqJJg9WeTq5lNjM+Ga1TCn6K4UmkfTrXNMBt9CTgoBeMpYc2c2FujjWdwuiNOoTLVZ8LQQ+l8A
- n8P2+/5iYl8xuEJxZP9TTAq0BcIaXSC5mqDgSpXzaF/RdxuKMls1HP/NCBzQ/3zprv4jWHAJDgC
- Fl9zxFQ1+0gMSTvoE0g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDExOSBTYWx0ZWRfX9fbb14BOATp0
- 3sgDDcNsfQ1fynDtkFvt4RF3IYvuYNiYDzzzXrKpObpPGSngy2wyJy/v7DKrT887KyMDmuCPdbX
- FbgpcQDcjv6XuJ0E/C0Yp+USW8r0vKg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-07_03,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 adultscore=0 suspectscore=0 malwarescore=0
- bulkscore=0 lowpriorityscore=0 phishscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070119
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWXP265MB2615:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b8eee36-8e4b-4531-2aa9-08dedc230901
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|7416014|10070799003|366016|1800799024|921020|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	MjwzkSUtHUELPQWQQ9lInTnWXl55PVh4TUTfHZDJ7BkTFVcEvpJ86KVgF9Ess/Suscr7mrDU1/o4tjlBQUPjJ9D4Hsepbv8PCJH68DC743uhXyW7hiBM1UNgo0sY3ipQsCSpg2bVN1cY51iM0TEU+CyOSNGVe/YtoRwAwby1x43DpnDVQVDyf2HLVMcAryKENE3TNwUSmRbiQGd1waFTc77NxN/b1PL2dW9hgqQjB7IbrflIK8mu4bBahIulGrvMFcJR+g8sEBMmGzgH+MCwXbXpxRqFFSUnF/XHGfmzWtf4+7OvViQ2kUUvp80cID557zUv0MfBwoxdobo0tkR2ie8IxyfzYFs/+kvxlP5M8ib2Gn+YbF5tuBJ0UmSUIr9T3MsL+bB9MYoMLr1Xjan+9zQmyM+aK+v537pxmRhXAmOKH4R4u02RiFa6jpB8Bp+mv2d1VZeI0Xi7LNSfDgBwk+1MZ4mMeDRrdZ95dkY1NOCnjqYbqdhQ0na7qyH5tYjxAoqhtNem6X9TeSzgCe0ffVd5O6lwCyU+Vz2CYU6ZHfvD5cTVAFgV8xlqpjGLLe/TSF/gRLGi3gdN/BrnX/N1fpBQIW+oKqAKQPaHWWtPCV6HwBQMGrKi/uDAVYV0mcy7GeAP3388B452cGtrgYr2erZ+FReancmZDbAFisrMKVns0ZxrFcGRZE2SlxKy4APxt8TieoWoFpu7bbdpph2+/w==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(10070799003)(366016)(1800799024)(921020)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RHluSnRaM1NxT0tuTEtkYlJLM2U4Y0o2eGxSS292SUZZZXkxdTdxekNtT09O?=
+ =?utf-8?B?MUgwUDliQjA2cUZCQjR4Q05qQzgybFpmNzBEVnhjbE5QUTJ5clY5OW5jckh6?=
+ =?utf-8?B?MTF2YmFvaTlJaUw3aXNXOUprV0Q1RWpUVW5wTmp4aFJ3YldIUDBCRm1PaUFw?=
+ =?utf-8?B?eVJNMnN6dUpOS3RoTWVvZHczZjlUeFRQdXJ2eFRuSHcxbnhDZlc5L3RxRzFq?=
+ =?utf-8?B?Z0xyWGdJTzB0UXQrOXlraGdGelN4WGorTjRzNEN4a1M3L09DK2s0R2hBQlYr?=
+ =?utf-8?B?ZzBybFBFRkhLUUZkRVhRTXhiaUlWVHpKWWgrSC8wRWJvZU1YTUZZaXJuejAw?=
+ =?utf-8?B?RDROQytaVXpZLzdmdXpLaC8zdjJHVGQzOHV5SUtsS05GdUU3YUF6WjMxMlF2?=
+ =?utf-8?B?Nks5TGRlcGREZklla24yS1NHYldETU92MFFQaHo0YTlJN3BvcCsweVBIRzd1?=
+ =?utf-8?B?K1ZoemxXazlTMU1iWWhkUm5ZbUpROGFERzQ4aEV5aU5ranNsTUNURTVGZVR0?=
+ =?utf-8?B?aDBlU3Z1VnNMTHl2K3JFa0NhZkEwRjducHNhZGVqNDU5MjljZlpuM2xxMVFu?=
+ =?utf-8?B?dk16OFIvMG1tZ0NQN0IwT1hSVWRuK0xZNStuWjY4NHY4Y1luVTFmL2luT2lx?=
+ =?utf-8?B?QWVUMXF4NGk2K1YvcytPQkI5SHpTaGRHVExJZGJEd1BuNlplS2ZvQ0QxbERr?=
+ =?utf-8?B?MmVxeFN4UzRsMFVYREdvNDlQTHliVjJwVXVndnlIMERTdWNnZEltNU1icWVl?=
+ =?utf-8?B?dkpyU08zNGxMQTVlVzZlOXUvVlJkVmt0Qmt4MTNqd3B6M2hSTDVaYVFBWjdi?=
+ =?utf-8?B?bXF1TDk2SnZuSWpUVnlPRUpybVd6Vm1hcDhaeVdXaDNHUVpZVEFad2MxWGta?=
+ =?utf-8?B?UVNVRmtucm1tN2laZHBnMFVkd3NHWHA5dVJLTmc3ay94ZDJxTUswNkp1TWNh?=
+ =?utf-8?B?MUQ2SWY2ei9XZHFZSGJITk1PRWhyT3RFdGRFRWI1cmxJVXd4a042WkxPa3ha?=
+ =?utf-8?B?UHBkZjNUUm5YZVRQY3l2T0k1NnpadHMybGovTVh4VjdkcmxWQjZORE1pVU9L?=
+ =?utf-8?B?UVJaYnQyWStZYXk1QUFTWkxjMFZKY1JLckdudnNxbTBhWEZHM0lQSWJJMkRI?=
+ =?utf-8?B?eXNzQjRmVjZyTVhtTTBlNmRnaE56QXhLNXBHUHZZSGozcm5SaUtqanhsb2dy?=
+ =?utf-8?B?anRyQkJIeGlROXRvNHFtZktGYzNQWUZGSnAxUEJMN3dNQUFJY1crWi9jb1VS?=
+ =?utf-8?B?NkFxQWVmS0p4Wnk4STNDSDhLb1NlZEFZemFjS2x0aEt6SnhkMEFEczUwMSsr?=
+ =?utf-8?B?bFpuWGVKUUFGVmZqZVd4bjI3VmRhSi9QMkFtYmFBVnhNYUFiVW9qMVRPTHBB?=
+ =?utf-8?B?clM2RzI4VGFPd2FKZGJBY29zdVFzR0hET05aSFhRZlJqa3Fxd3lnTEpvVWxE?=
+ =?utf-8?B?ZCs0ZU5xWk5kVlpBcEhTeUtTWVJueGdUTVNneXVjYUlEZDd0YW8vL080ckJK?=
+ =?utf-8?B?U1VZaXFVaUIwMUN2cGkvRGhYamp1NnllL2tXb2ljUUREVUFmNS9CNFFKdnB3?=
+ =?utf-8?B?c3VsdVFWS0x1SDFVajh2cy82bTVtQlJnemVMRStFSkRmREpvblpXUmVZM3Nm?=
+ =?utf-8?B?bjBIZ3A0WWxHSlJqaVZEaHg1aWJuK2N5a3JlNnpsdWkrdW93WG9sU2ExemRE?=
+ =?utf-8?B?MTV3ZEVJRUVjYThrbURyTDZvMFM4RnorTGgraXA4QWVQczdEV1M5Q3cwdDFL?=
+ =?utf-8?B?b3FmOU9pb2RvR3MwNlFWVmN4R2lFZU0rZlFYVU9WOHZOU0tMejdWMzgxMkg3?=
+ =?utf-8?B?bGhEUVdNU3h6cXJZSVJoTTFCQlhzQVFYdVRHUEVEeThZKzI4VEtROERMVTdn?=
+ =?utf-8?B?NnRQdlVPaWVhYVVrMTFUcVJhL291cGJnMzhsMFRNNVlPM1ArUitrdDFpd3dt?=
+ =?utf-8?B?NitYbWRmKzIxT3BMYnZleWxiM1FLSEFZTm5zMGEzMkJRWGswUkdyRUhQT3kv?=
+ =?utf-8?B?aUtXa08zUmtCekVkZG1yMmErcFJNUHd0b1pBZytkZVk3Q3lTenBOQUR4cHJJ?=
+ =?utf-8?B?WWtOZy8xcnpsZ3NDOGZnK1VnOG91UkREaGtscThGRzdJT0taWFh5aTVmVVRN?=
+ =?utf-8?B?Q3VoeldtU1hIWkk2bTNobFJ2T3ViS013Mm1kK0pYaytVYnViRjUvUmFORTQ1?=
+ =?utf-8?B?Umo1cmRZOCtzNUZtQUxCa1hvSzZqZlRsNEtsTXVJMU0wR0dmOVdXRThOTmp3?=
+ =?utf-8?B?UURVbjZKVDFEYVIzOWRGd2ovUEF4bHhSdnZNdzFjY1A1eEEyanBTQmlSS3RL?=
+ =?utf-8?B?Ly91bHJOdVhVem5WRjZIdTB2SE9JM1BvR3JzcUZIdDQxdnMxcThiUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b8eee36-8e4b-4531-2aa9-08dedc230901
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 12:26:56.6948
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0gPWQKiAdJiOq3CCp36GlS+38yI1lxA77muj8KADLGI5xHP0mYGaxVLHqxVv4gMYfBm3wdDiBHYwnkbVhIJsVQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2615
 
-Hi Bryan,
+usb_device_id is not guaranteed to live longer than probe due to presence
+of dynamic ID. All information apart from driver_data can be easily
+retrieved from usb_device, so just store driver_data.
 
-On 7/7/2026 1:00 PM, Bryan O'Donoghue wrote:
-> On 07/07/2026 10:24, Konrad Dybcio wrote:
->> On 7/6/26 3:37 PM, Bryan O'Donoghue wrote:
->>> On 06/07/2026 14:02, Vladimir Zapolskiy wrote:
->
->>>>>
->>>>> The idea is to make all of these peers, eventually. Not particular 
->>>>> block
->>>>> owns the TITAN_TOP_GDSC - the entire CAMSS block is a collapsible 
->>>>> block.
->>>>>
->>>>
->>>> The statement provides the same information as before, e.g. it's 
->>>> found here:
->>>>
->>>> https://lore.kernel.org/linux-media/fbc018f5- 
->>>> c025-4747-85f2-53b45b0f0496@nxsw.ie/
->>>>
->>>>       There's no functional linkage between CAMSS/IFE and JPEG - 
->>>> they are
->>>>       peers within the CAMSS power-island.
->>>>
->>>> Thus "the CAMSS power-island" exists, and it got its hardware 
->>>> description
->>>> as the CAMSS top device tree node, and TITAN_TOP_GDSC power domain is
->>>> a natural resource of all devices on "CAMSS power-island",
->>>
->>> Vlad honestly, TITAN_TOP_GDSC is provided to the CAMSS island - all 
->>> of the nodes within it depend on that and it is _external_ to the 
->>> block.
->>>
->>> There is a CSID MUX on some SOC other than that I'll restate it 
->>> again, I'm not sure why you won't accept it.
->>>
->>> There is no dependency between JPEG and IFE, one is _not_ 
->>> subordinate to the other and trying to find ways to invalidate that 
->>> statement runs counter to the facts.
->>
->> They are all subordinate to CAMSS_TOP - Vlad indeed said they are
->> peers (i.e. there's no co-dependence between them specifically, but
->> their parent is shared).
->>
->> You can't use any of these IP blocks if you don't first power up
->> TOP because of the physical layout.
->
-> Yes and I'm asking for TOP to be listed in each of the subordinate 
-> nodes for reasons given below.
->
-> But unlike MDSS - OPE for example doesn't require IFE or CSID to do 
-> its job.
->
-> Over time we can move the bindings to a model where the only thing in 
-> CAMSS is a top-level bus like declaration but _right_now_ what you 
-> would do is create an artificial dependency on say CSIPHY for JPEG.
->
->> This is exactly identical to the MDSS case.
->> I was hoping this was clear after N other similar threads.
-> When we split IFE, CSID etc up into their own individual nodes it 
-> would be possible to model as for argument sake
->
-> compat = "camss-bus";
-> power-domains = <TITAN_TOP_GDSC>;
->
-> jpeg@x {
->     power-domains = <JPEG_GDSC>, <MMCX>, <MXC>;
-> };
->
-> What I'm saying here is do this
->
-> compat = "camss";
-> regs = ife, csid; // exisiting bindings for the last ~ 11 years
-> power-domains = <TITAN_TOP_GDSC>;
->
-> jpeg@x {
->     power-domains = <TITAN_TOP_GDSC>, <JPEG_GDSC>, <MMCX>, <MXC>;
-> };
->
-> Otherwise you create entirely artificial dependencies between IFE, 
-> CSIPHY and JPEG, OPE et al.
->
-> And BTW if/when we get to the camss-bus stage of things having 
-> TITAN_TOP_GDSC listed in OPE and JPEG is a very small price to pay.
->
-> We've already agreed to gradually transition the bindings instead of 
-> go for a big-band integration several times.
+Signed-off-by: Gary Guo <gary@garyguo.net>
+---
+ drivers/net/wireless/ath/ath9k/hif_usb.c | 12 ++++++------
+ drivers/net/wireless/ath/ath9k/hif_usb.h |  2 +-
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-Just to clarify, from the jpeg driver perspective does not make any 
-difference whether is child node of camss or other node. For sure it 
-will be explained in binding documentation,
+diff --git a/drivers/net/wireless/ath/ath9k/hif_usb.c b/drivers/net/wireless/ath/ath9k/hif_usb.c
+index 47f904e7e652..d3491ff08e6e 100644
+--- a/drivers/net/wireless/ath/ath9k/hif_usb.c
++++ b/drivers/net/wireless/ath/ath9k/hif_usb.c
+@@ -1087,7 +1087,7 @@ static int ath9k_hif_usb_download_fw(struct hif_device_usb *hif_dev)
+ 	}
+ 	kfree(buf);
+ 
+-	if (IS_AR7010_DEVICE(hif_dev->usb_device_id->driver_info))
++	if (IS_AR7010_DEVICE(hif_dev->id_info))
+ 		firm_offset = AR7010_FIRMWARE_TEXT;
+ 	else
+ 		firm_offset = AR9271_FIRMWARE_TEXT;
+@@ -1182,7 +1182,7 @@ static int ath9k_hif_request_firmware(struct hif_device_usb *hif_dev,
+ 	if (MAJOR_VERSION_REQ == 1 && hif_dev->fw_minor_index == 3) {
+ 		const char *filename;
+ 
+-		if (IS_AR7010_DEVICE(hif_dev->usb_device_id->driver_info))
++		if (IS_AR7010_DEVICE(hif_dev->id_info))
+ 			filename = FIRMWARE_AR7010_1_1;
+ 		else
+ 			filename = FIRMWARE_AR9271;
+@@ -1198,7 +1198,7 @@ static int ath9k_hif_request_firmware(struct hif_device_usb *hif_dev,
+ 
+ 		return -ENOENT;
+ 	} else {
+-		if (IS_AR7010_DEVICE(hif_dev->usb_device_id->driver_info))
++		if (IS_AR7010_DEVICE(hif_dev->id_info))
+ 			chip = "7010";
+ 		else
+ 			chip = "9271";
+@@ -1255,9 +1255,9 @@ static void ath9k_hif_usb_firmware_cb(const struct firmware *fw, void *context)
+ 
+ 	ret = ath9k_htc_hw_init(hif_dev->htc_handle,
+ 				&hif_dev->interface->dev,
+-				hif_dev->usb_device_id->idProduct,
++				le16_to_cpu(hif_dev->udev->descriptor.idProduct),
+ 				hif_dev->udev->product,
+-				hif_dev->usb_device_id->driver_info);
++				hif_dev->id_info);
+ 	if (ret) {
+ 		ret = -EINVAL;
+ 		goto err_htc_hw_init;
+@@ -1369,7 +1369,7 @@ static int ath9k_hif_usb_probe(struct usb_interface *interface,
+ 
+ 	hif_dev->udev = udev;
+ 	hif_dev->interface = interface;
+-	hif_dev->usb_device_id = id;
++	hif_dev->id_info = id->driver_info;
+ #ifdef CONFIG_PM
+ 	udev->reset_resume = 1;
+ #endif
+diff --git a/drivers/net/wireless/ath/ath9k/hif_usb.h b/drivers/net/wireless/ath/ath9k/hif_usb.h
+index dc0b0fa5c325..b3e7b0fb54b8 100644
+--- a/drivers/net/wireless/ath/ath9k/hif_usb.h
++++ b/drivers/net/wireless/ath/ath9k/hif_usb.h
+@@ -115,7 +115,7 @@ struct cmd_buf {
+ struct hif_device_usb {
+ 	struct usb_device *udev;
+ 	struct usb_interface *interface;
+-	const struct usb_device_id *usb_device_id;
++	int id_info;
+ 	const void *fw_data;
+ 	size_t fw_size;
+ 	struct completion fw_done;
 
-but just in theory we may have jpeg encoder in future platforms without 
-camera sub-system. So where jpeg is placed is strictly platform 
-depended. Do you agree to have series just
+-- 
+2.54.0
 
-for the jpeg driver as it should be, the changes in camss and device 
-tree changes for this platform will be not part of this patch series but 
-send as additional one. Or you prefer
-
-everything to have in this patch series with different order of the changes.
-
-~Gjorgji
-
->
-> ---
-> bod
->
