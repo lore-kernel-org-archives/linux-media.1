@@ -1,588 +1,199 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A06B02EB87F
-	for <linux-media@vger.kernel.org>; Tue,  7 Jul 2026 08:51:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4CA3403EB
+	for <linux-media@vger.kernel.org>; Tue,  7 Jul 2026 08:54:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783414322; cv=none; b=g9EVV7mOufledrnA2cg85XzwZ9UG3YPMSOjVuTQEUanvdU5lgeGtgoaCsfiwPF3SlzJ0GMezjISqf2mH7rnDAClynxY6rQ5A4+CX456a5UDzZS7RzMedTMVhDsSOYr5J5j8/KfTDDBO6moO+CZOSr81WStGYyyR9ONq2uehjEt0=
+	t=1783414449; cv=none; b=F5LosRcKeVvWdFLWV22wRN++FJr3YU33E+5VHBW2ADDxK7ZWnkNfL1Nx9NlBGl+zLuSTaJQUepVO9+8UiqPf8d9HCSRr5b3t7LzFz3HhIb5og4BCAJ6vomGYUWMFZRZkF5jz38F5Im0dSMF5YcWV4z2nz5PQDYLa0KbA+OLYY5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783414322; c=relaxed/simple;
-	bh=/1cNyHQL+a4sx/vadC9yO9JuUgygzQmrEaFObrFMypI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aLKZuyKEjfnpr/em2UDLA/YJ8avNhaGatfZ2yAK5ZjXXjQH3s8u/fdZ52J9Y++yJTh1+3IH0kAT419xFvJ94/grK89pX76KZp++8kiBq9FnviGCPwJTUSOQdRO3l6lisfOWucEQmeaHulwqm/bn7ctybJv59nmN7tH96Ul2jSaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pSGsoUU5; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783414449; c=relaxed/simple;
+	bh=H+1xQdIuoHy+Nk2vlq10nHbMJcUSSEPlCSoflmw4yr4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jcdMYVOXlnw1uCF8LMylbmkZVuxBLoC8dEN849C/wwHlVoLN4KwaU+OZTT1PnbeKLaRUusMMxC8LSo10pSGPHPcvcLVCN0SMfBBgNKbQbgd7cOCXCQh+XVWONjoPQyeh0IpHceefKf8PHS8+zYpCmek6AfGl6D8JpWnzOB/iD9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=G2JApmaw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HDItK/kS; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pSGsoUU5"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2caf4496889so2761035ad.1
-        for <linux-media@vger.kernel.org>; Tue, 07 Jul 2026 01:51:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="G2JApmaw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HDItK/kS"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6678DoBh3205913
+	for <linux-media@vger.kernel.org>; Tue, 7 Jul 2026 08:54:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	U2n1C9hOFlYsRmTm9Nk1r1gsSE3jJPg/8JSVraPix7s=; b=G2JApmawdiqJgeng
+	aj/GqZciBvsdO78F6chdium2PmjaE3aKnRbSyUByGQH845VNNEA+nk6g+EB3f+Re
+	IYgO5nLxldGTZb1QyM4MIKTf2StoF24DOU9FwiL3XVTRmg/l2O8lZEvOnMXnspcl
+	AikyGa6lvWnIBXhy8U7hKZW8a8avxS9Wvn5wSPy90VwZQ1QVdysUFh73NQ7aiNtA
+	bqEiQaABs9KC7LOC8xYiHLRxS4heUlU4Z446hgwCTeY0UrY8GNg8w9lOUyGvG8WI
+	JmbvoXtIjvL2xYQrU3aOJCZopIRUuMEL3ZVbYlDe+XStDZWyn4Q3TrihztjcXLaN
+	cm5jWQ==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8fdw3fhq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 07 Jul 2026 08:54:06 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c88aab7c1d4so3604897a12.3
+        for <linux-media@vger.kernel.org>; Tue, 07 Jul 2026 01:54:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783414319; x=1784019119; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=IKtRQ4BCiUq2Ije3weFti+eDiZbXblzC1xaJ6Yfm/f8=;
-        b=pSGsoUU5Mgz4s2IHMLKg3VmFZSFPN8orQBWE7fiP9O97VGdgo5voA6rjs/KaqXjAqv
-         v9N530yiOCBLCPtpzqW5quTVRN1h0Jg9VjcKUnFjgqE11SDSlR6gDSEI2FNYLy3AXmgj
-         Mo4RHj8Txr4kK/lk+aoyn6TEykGT2psUSjDFrtYWncERvZxYkmb+NPtGngi4yO67fG0x
-         bW0BR632DNdy9Xvurv+sd6BRvMtO5B5dur6cBPn61NkbSmYnSAHlOrYIUwHtGOj0XTjE
-         8WVn42wpFo9RSmLqtPhYarIoDc3UqNdOV7fkoVHwxM5MIRB7E8qfzfX7SDlI26OJ1ZfC
-         H2Kg==
+        d=oss.qualcomm.com; s=google; t=1783414446; x=1784019246; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=U2n1C9hOFlYsRmTm9Nk1r1gsSE3jJPg/8JSVraPix7s=;
+        b=HDItK/kSNujE0dUNvbgdNLTIHOAEIMaEJ6trCNdyHXFn2yeNytNLdL9yDi5l16WWZL
+         90VHduboccqhPoud+yeLAWL5X7LyN80gTzpLRRpE7HLhDrup3dH7JBRSY0cpfagrZR3Y
+         OZKyh8YDQQyozvY/AWnbSaaG3AK5a7rQzCKaymcIUy1UgsEW2zxqFxMCalGOZnKvdeBl
+         JJe8WOg72w9MBBPj52UT6SkZmQhWmxuXwug8In2gZnJwEutsqYwtyto0z6nMj5nSZlNR
+         joD/vtkMivbYKUjBahuzgVzW0OhqtfqX9gisunbSeKq2ezSEm67qdvbpYFTowH4BVA+C
+         rd/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783414319; x=1784019119;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IKtRQ4BCiUq2Ije3weFti+eDiZbXblzC1xaJ6Yfm/f8=;
-        b=qXJx0XngboFsL1mz5OhJ+lXw9Ij17CD849I1PwFlMR0+KqQnlNEV8KJcZw8ZroGP0d
-         4XY6hMasHQCq7SBZABYR48DdNonZrwGfraYnKl5Wgafd14cUlvBLlNPHDkORyxAecLpL
-         R+v6BZhawQkGbVLOhECEZurGjM7znNq1X6kP5tY3JZQyl46zAXEtYRyJCxyPPqYIBy54
-         r6Uh2VUGfbtVx0tZkYcWZfqa1MFJ4L5IFm2y0nMEWi3sURDALrNrpp7NY6qY4kh6jYKR
-         oqN6eFq+mJ4QGyDWnR3B7rSCWzbTxQ7bv9vsIZMz9BNSTEFzWSH3FEkXnysU1kyFd7Bj
-         RyyQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpbeQV18p/Qmhhb270pqyXdPBSsom/HhhGp6payrjGB6FPWLxRl7PWmnAf1YmSoWiHFHZCEP11nZeIQEA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwT6UE23eh+l7YCjy/4nIeO+QPLUIZ5MPkQ3spFD2lFs01EXx3l
-	RgQ/r+mHYo6pqQT070HG+Deq7NExuJIUX71RfRWcL9vJ7m00MxUiMZlJ
-X-Gm-Gg: AfdE7cnuk/Al6tuFMWJVizIKVxWfoPmtOmquj4QFkPfNh9Ys6ZQNqNPW2e4pxDVCKS/
-	6+BySQ5bSUpp8uKW+g3ISYgYM1cF+b+QA7+3Tw8ZLZWFGOIt+nnuyuid1DSjPCdJMsRpc3DkNyr
-	Vqytt/laSPTtgq5b5bUGirc+YV3wuvP1aHGDcYBtPJ6iHP6sAe8aiEtoe7xiHJocxouY6ooth6g
-	0kGij6jKrarvD9wXK7bDCxSfnk+yRYH1ModqKXl4zQHzMcA+5TRlIx0QARCs34RIos6+Lzq+tr2
-	wuIYBajDwEhcRIZf/IqyFfw1hwHeaAtXDZv3lNW1mDVint4VhjJGt5vjGu0fuhn1QPhoK0gg5bd
-	sai0j4QVrU55ODhgcy1n598tGXQHkpCKvkqre3hJPqjfZt+lZThBUI6xv01pHbNxT6HhWBd02UW
-	KA6WlbAO+9I85vdKKtUxyE8gC8TO2L8S0gs1gysxdSI8orVJEfM2BMQ1STx+fzcDyAyxWHBtAKc
-	O5tcL9ZRiAkyVPdRjA=
-X-Received: by 2002:a17:903:2990:b0:2c8:5de:a84e with SMTP id d9443c01a7336-2ccca8fb605mr17191785ad.10.1783414318810;
-        Tue, 07 Jul 2026 01:51:58 -0700 (PDT)
-Received: from dileep-HP-Pavilion-Laptop-15-eg2xxx.. ([2405:201:5c1b:705f:7de2:dc42:a243:cab0])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bdb877sm7991605ad.14.2026.07.07.01.51.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 01:51:58 -0700 (PDT)
-From: Dileep Sankhla <dileepsankhla.ds@gmail.com>
-To: andy@kernel.org,
-	hansg@kernel.org,
-	mchehab@kernel.org
-Cc: sakari.ailus@linux.intel.com,
-	gregkh@linuxfoundation.org,
-	dileepsankhla.ds@gmail.com,
-	chelsyratnawat2001@gmail.com,
-	abdelrahmanfekry375@gmail.com,
-	matt@mattwardle.net,
-	azpijr@gmail.com,
-	error27@gmail.com,
-	kees@kernel.org,
-	pontescpedro@gmail.com,
-	starpt.official@gmail.com,
-	karthikey3608@gmail.com,
-	roehling@debian.org,
-	feng@innora.ai,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev
-Subject: [PATCH v2] staging: media: atomisp: Drop unnecessary else block after return/break
-Date: Tue,  7 Jul 2026 14:29:37 +0530
-Message-ID: <20260707085937.17237-1-dileepsankhla.ds@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1783414446; x=1784019246;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=U2n1C9hOFlYsRmTm9Nk1r1gsSE3jJPg/8JSVraPix7s=;
+        b=KcEsa1GUcWWb/6DJrnKTXWMjQL4MdJZy25Ab7zuLm8GhtjE0EExFhPpi3fYY+IGw/h
+         Les8UNcbK4U48fyQwqr8w+1HuS3jh3W2QBFCN0GQYi6AGxk0YntVsFw0gursYTw8SONj
+         xf1uoQt7Bq2iaxeemGVRnCa29IfCD4uwROaMOEVwNKwzmzFbHFtbnm8QziVR5g93citz
+         nopqFEynNtqWL4Qoh6uPlbk55CsFu6GFjeq1li6g6pJcqN1GDhSXX21YQYlEq751dfvR
+         y0NIazgt6DuT/Q5plqs1BV5Od9l50bAbYYK8kQsYXlOxhvse1nb4T7CkerhPbiGy0m7K
+         JOCQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpdg62Agsw02EIwK4P6EC/HbvWyq8cZI4Go8ui8N5KgU+KMjvJOLwtRPAoL8fhoGvr6wGS+HL1uBu7IpA==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz+bMzp8gt7qotaATKFCGUdyifMpFFud9tbqpGR8Fytf2+Zf2ru
+	8ogxW5NEXaXdUn3PPuT7RbcGRAsRfjKkg1StW8YXWGCDaJ8qLc5Yyv/Y+xKGNUwd5s59daUfBw9
+	qX4zGYFH8H8E2UKRz+WQBBCLssYGJk8Ha6Rk33ZxP7p1orApk/0OBaON87MwpMcbAeg==
+X-Gm-Gg: AfdE7cktLBIV5dlP1QM6pkoOQthLo2R5QcDb408iJ4YKs/v9GwCnXwpT+513yCNJKn+
+	VGQoFbH3C3LM4N/SQVMAmVGqqehUCqfLGdHO2dpGz1dH6d3NAxtWKaPGA8xega4XevoZrHt8F7h
+	pPvnNBbGwCSsqFWyOezpS9txefEKgblNEmlqqWrx1aexH8jyBbvuXHzKtBWLIsaOJtjD/rPn2YG
+	5Ri0UBzuj64Ogtk8REAhSICTKrjbXLjAfLlszrCpwww8j5v1FJnh0ZEeFdUxJF9XAdfrqEO4587
+	GiPsWW4lavOGd9Z2QHeJXs/vEiGD7aqo8opzxgc0TWHcazktIy5kDVNJIVmO4t7ydDL1fDX1tUl
+	2Ktci+adKcGjqp7I2n0oGnV6W8aBOaqWWZJ7hYk0tcR5t
+X-Received: by 2002:a05:6a21:50f:b0:3bf:b68f:4682 with SMTP id adf61e73a8af0-3c08ec8d9f5mr5523183637.7.1783414446273;
+        Tue, 07 Jul 2026 01:54:06 -0700 (PDT)
+X-Received: by 2002:a05:6a21:50f:b0:3bf:b68f:4682 with SMTP id adf61e73a8af0-3c08ec8d9f5mr5523149637.7.1783414445809;
+        Tue, 07 Jul 2026 01:54:05 -0700 (PDT)
+Received: from [10.204.101.214] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b659c865asm6275219c88.11.2026.07.07.01.54.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Jul 2026 01:54:05 -0700 (PDT)
+Message-ID: <fbed6245-75dd-4975-8193-76edd4587fb5@oss.qualcomm.com>
+Date: Tue, 7 Jul 2026 14:23:59 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] media: iris: avoid bit depth validation for capture
+ formats
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+References: <20260707-qc10c_fix_and_disable_time_delta_based_rc-v1-0-33fa130bc535@oss.qualcomm.com>
+ <20260707-qc10c_fix_and_disable_time_delta_based_rc-v1-1-33fa130bc535@oss.qualcomm.com>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <20260707-qc10c_fix_and_disable_time_delta_based_rc-v1-1-33fa130bc535@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDA4NSBTYWx0ZWRfX/XT4c8UtXN9X
+ 9NBCy0TJvcwNsR60M/At+Y2xla9ZCdDTs4N/OzVp2iscr4PcmQkaSMriIQnoY/fjMy9rcL8iqSW
+ SxuJaxzFxuslw8KLtR0drz8+oZQw6a8=
+X-Proofpoint-ORIG-GUID: yampju36sd13k651kCKpcaDKqvCh9g9j
+X-Authority-Analysis: v=2.4 cv=EtziaycA c=1 sm=1 tr=0 ts=6a4cbeae cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=0mt3kmHqsDAWChUqZT8A:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDA4NSBTYWx0ZWRfXxx65+JVeBQeU
+ pDkA6smvzGG/GiKKAopxNVuz/SS21m6RzH3Pc+JITfBc9gYokrYbxw7Hc2seCvVIrsFgr8lp0cx
+ sr6I7oersvt0vdK47TQMT6HMEaR9lm5T8mY2rXtmNCF1ughK9K8sfxk0wdwTiR4sl4HjO/dnsoa
+ Th8y3DflRvD160qEwgP/nsYAvXuwqvT0wArbfdt/E0CrB5OVwjzXUPvc3WMfbbbo47ZdBxxPU2z
+ agNl8EJScy2bNf06huLJGjHzK7mWZ7ZEPfQG03zLYZmR97kOqtGbK+U2EdHymno/lNYjIlN4GHS
+ YRjdEVJeXcRlNbn0LUYTEa3+wXUNw9whtvruyvzBFaCrjiYYRrwFijUsu+nUq1H3xCbo+Od3NRl
+ gYYJY96dVAoBjBUKOUMeS4dMgNHlQVUG3Q7TQWT86hgplHgr0ZwNtckFitzTZiBZHo5MWUdqP7b
+ ZderX6dyULyDjHphdcA==
+X-Proofpoint-GUID: yampju36sd13k651kCKpcaDKqvCh9g9j
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-07_02,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 clxscore=1015 adultscore=0 phishscore=0
+ spamscore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070085
 
-Remove redundant else blocks following return or break statements. As
-control flow exits in these cases, the else branch is unnecessary.
-Dropping it improves code readability.
 
-No functional change.
 
-Signed-off-by: Dileep Sankhla <dileepsankhla.ds@gmail.com>
----
-Changes in v2:
-	- Reflow dev_err() call to two lines instead of three.
-	- Reflow ia_css_bufq_enqueue_psys_event() call to align with
-	  checkpatch's lines should not end with a '(' rule.
-	- Fixed block comments' formattings.
+On 7/7/2026 12:05 PM, Vishnu Reddy wrote:
+> When validating a capture format, check_format() compares the requested
+> pixel format against inst->fw_caps[BIT_DEPTH]. However, the bit depth
+> capability is not available at this stage and it contains the default
+> value of BIT_DEPTH_8. The actual bit depth is updated later after the
+> firmware reports stream capabilities through read_input_subcr_params().
+> Because of this, a valid QC10C format request is rejected during the
 
- .../staging/media/atomisp/pci/atomisp_fops.c  |  22 +--
- .../staging/media/atomisp/pci/atomisp_v4l2.c  |  29 ++--
- .../hive_isp_css_common/host/input_system.c   | 103 +++++++-------
- drivers/staging/media/atomisp/pci/hmm/hmm.c   |   3 +-
- .../kernels/ctc/ctc1_5/ia_css_ctc1_5.host.c   |   6 +-
- drivers/staging/media/atomisp/pci/sh_css.c    |  16 +--
- .../media/atomisp/pci/sh_css_firmware.c       |   4 +-
- .../staging/media/atomisp/pci/sh_css_params.c | 126 +++++++++---------
- 8 files changed, 154 insertions(+), 155 deletions(-)
+client request
 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_fops.c b/drivers/staging/media/atomisp/pci/atomisp_fops.c
-index c7aef066f209..8f885f72e195 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_fops.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_fops.c
-@@ -125,10 +125,9 @@ static int atomisp_q_one_metadata_buffer(struct atomisp_sub_device *asd,
- 					     stream_id, css_pipe_id)) {
- 		list_add(&metadata_buf->list, metadata_list);
- 		return -EINVAL;
--	} else {
--		list_add_tail(&metadata_buf->list,
--			      &asd->metadata_in_css[md_type]);
- 	}
-+
-+	list_add_tail(&metadata_buf->list, &asd->metadata_in_css[md_type]);
- 	asd->metadata_bufs_in_css[stream_id][css_pipe_id]++;
- 
- 	return 0;
-@@ -165,12 +164,13 @@ static int atomisp_q_one_s3a_buffer(struct atomisp_sub_device *asd,
- 		/* got from head, so return back to the head */
- 		list_add(&s3a_buf->list, s3a_list);
- 		return -EINVAL;
--	} else {
--		list_add_tail(&s3a_buf->list, &asd->s3a_stats_in_css);
--		if (s3a_list == &asd->s3a_stats_ready)
--			dev_dbg(asd->isp->dev, "drop one s3a stat with exp_id %d\n", exp_id);
- 	}
- 
-+	list_add_tail(&s3a_buf->list, &asd->s3a_stats_in_css);
-+	if (s3a_list == &asd->s3a_stats_ready)
-+		dev_dbg(asd->isp->dev, "drop one s3a stat with exp_id %d\n",
-+			exp_id);
-+
- 	asd->s3a_bufs_in_css[css_pipe_id]++;
- 	return 0;
- }
-@@ -206,12 +206,12 @@ static int atomisp_q_one_dis_buffer(struct atomisp_sub_device *asd,
- 		list_add_tail(&dis_buf->list, &asd->dis_stats);
- 		spin_unlock_irqrestore(&asd->dis_stats_lock, irqflags);
- 		return -EINVAL;
--	} else {
--		spin_lock_irqsave(&asd->dis_stats_lock, irqflags);
--		list_add_tail(&dis_buf->list, &asd->dis_stats_in_css);
--		spin_unlock_irqrestore(&asd->dis_stats_lock, irqflags);
- 	}
- 
-+	spin_lock_irqsave(&asd->dis_stats_lock, irqflags);
-+	list_add_tail(&dis_buf->list, &asd->dis_stats_in_css);
-+	spin_unlock_irqrestore(&asd->dis_stats_lock, irqflags);
-+
- 	asd->dis_bufs_in_css++;
- 
- 	return 0;
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-index 812230397409..08f8029eac3c 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-@@ -468,22 +468,21 @@ static int atomisp_mrfld_pre_power_down(struct atomisp_device *isp)
- 			__func__, irq);
- 		spin_unlock_irqrestore(&isp->lock, flags);
- 		return -EAGAIN;
--	} else {
--		pci_read_config_dword(pdev, PCI_INTERRUPT_CTRL, &irq);
--		irq &= BIT(INTR_IIR);
--		pci_write_config_dword(pdev, PCI_INTERRUPT_CTRL, irq);
--
--		pci_read_config_dword(pdev, PCI_INTERRUPT_CTRL, &irq);
--		if (!(irq & BIT(INTR_IIR))) {
--			atomisp_css2_hw_store_32(MRFLD_INTR_ENABLE_REG, 0x0);
--			goto done;
--		}
--		dev_err(isp->dev,
--			"%s: error in iunit interrupt. status reg=0x%x\n",
--			__func__, irq);
--		spin_unlock_irqrestore(&isp->lock, flags);
--		return -EAGAIN;
- 	}
-+
-+	pci_read_config_dword(pdev, PCI_INTERRUPT_CTRL, &irq);
-+	irq &= BIT(INTR_IIR);
-+	pci_write_config_dword(pdev, PCI_INTERRUPT_CTRL, irq);
-+
-+	pci_read_config_dword(pdev, PCI_INTERRUPT_CTRL, &irq);
-+	if (!(irq & BIT(INTR_IIR))) {
-+		atomisp_css2_hw_store_32(MRFLD_INTR_ENABLE_REG, 0x0);
-+		goto done;
-+	}
-+	dev_err(isp->dev, "%s: error in iunit interrupt. status reg=0x%x\n",
-+		__func__, irq);
-+	spin_unlock_irqrestore(&isp->lock, flags);
-+	return -EAGAIN;
- done:
- 	/*
- 	 * MRFLD WORKAROUND:
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_system.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_system.c
-index 68b0ad27615d..f9bf8d1ddf0a 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_system.c
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_system.c
-@@ -408,47 +408,47 @@ static input_system_err_t input_system_configure_channel(
- {
- 	input_system_err_t error = INPUT_SYSTEM_ERR_NO_ERROR;
- 	// Check if channel is not already configured.
--	if (config.ch_flags[channel.ch_id] & INPUT_SYSTEM_CFG_FLAG_SET) {
-+	if (config.ch_flags[channel.ch_id] & INPUT_SYSTEM_CFG_FLAG_SET)
- 		return INPUT_SYSTEM_ERR_CHANNEL_ALREADY_SET;
--	} else {
--		switch (channel.source_type) {
--		case INPUT_SYSTEM_SOURCE_SENSOR:
--			error = input_system_configure_channel_sensor(channel);
--			break;
--		case INPUT_SYSTEM_SOURCE_PRBS:
--		case INPUT_SYSTEM_SOURCE_FIFO:
--		default:
--			return INPUT_SYSTEM_ERR_PARAMETER_NOT_SUPPORTED;
--		}
- 
--		if (error != INPUT_SYSTEM_ERR_NO_ERROR) return error;
--		// Input switch channel configurations must be combined in united config.
--		config.input_switch_cfg.hsync_data_reg[channel.source_cfg.csi_cfg.csi_port * 2]
--		    =
--			channel.target_cfg.input_switch_channel_cfg.hsync_data_reg[0];
--		config.input_switch_cfg.hsync_data_reg[channel.source_cfg.csi_cfg.csi_port * 2 +
--											   1] =
--							       channel.target_cfg.input_switch_channel_cfg.hsync_data_reg[1];
--		config.input_switch_cfg.vsync_data_reg |=
--		    (channel.target_cfg.input_switch_channel_cfg.vsync_data_reg & 0x7) <<
--		    (channel.source_cfg.csi_cfg.csi_port * 3);
--
--		// Other targets are just copied and marked as set.
--		config.target_isp[channel.source_cfg.csi_cfg.csi_port] =
--		    channel.target_cfg.target_isp_cfg;
--		config.target_sp[channel.source_cfg.csi_cfg.csi_port] =
--		    channel.target_cfg.target_sp_cfg;
--		config.target_strm2mem[channel.source_cfg.csi_cfg.csi_port] =
--		    channel.target_cfg.target_strm2mem_cfg;
--		config.target_isp_flags[channel.source_cfg.csi_cfg.csi_port] |=
--		    INPUT_SYSTEM_CFG_FLAG_SET;
--		config.target_sp_flags[channel.source_cfg.csi_cfg.csi_port] |=
--		    INPUT_SYSTEM_CFG_FLAG_SET;
--		config.target_strm2mem_flags[channel.source_cfg.csi_cfg.csi_port] |=
--		    INPUT_SYSTEM_CFG_FLAG_SET;
--
--		config.ch_flags[channel.ch_id] = INPUT_SYSTEM_CFG_FLAG_SET;
-+	switch (channel.source_type) {
-+	case INPUT_SYSTEM_SOURCE_SENSOR:
-+		error = input_system_configure_channel_sensor(channel);
-+		break;
-+	case INPUT_SYSTEM_SOURCE_PRBS:
-+	case INPUT_SYSTEM_SOURCE_FIFO:
-+	default:
-+		return INPUT_SYSTEM_ERR_PARAMETER_NOT_SUPPORTED;
- 	}
-+
-+	if (error != INPUT_SYSTEM_ERR_NO_ERROR)
-+		return error;
-+
-+	// Input switch channel configurations must be combined in united config.
-+	config.input_switch_cfg.hsync_data_reg[channel.source_cfg.csi_cfg.csi_port * 2] =
-+	    channel.target_cfg.input_switch_channel_cfg.hsync_data_reg[0];
-+	config.input_switch_cfg.hsync_data_reg[channel.source_cfg.csi_cfg.csi_port * 2 + 1] =
-+	    channel.target_cfg.input_switch_channel_cfg.hsync_data_reg[1];
-+	config.input_switch_cfg.vsync_data_reg |=
-+	    (channel.target_cfg.input_switch_channel_cfg.vsync_data_reg & 0x7) <<
-+	    (channel.source_cfg.csi_cfg.csi_port * 3);
-+
-+	// Other targets are just copied and marked as set.
-+	config.target_isp[channel.source_cfg.csi_cfg.csi_port] =
-+	    channel.target_cfg.target_isp_cfg;
-+	config.target_sp[channel.source_cfg.csi_cfg.csi_port] =
-+	    channel.target_cfg.target_sp_cfg;
-+	config.target_strm2mem[channel.source_cfg.csi_cfg.csi_port] =
-+	    channel.target_cfg.target_strm2mem_cfg;
-+	config.target_isp_flags[channel.source_cfg.csi_cfg.csi_port] |=
-+	    INPUT_SYSTEM_CFG_FLAG_SET;
-+	config.target_sp_flags[channel.source_cfg.csi_cfg.csi_port] |=
-+	    INPUT_SYSTEM_CFG_FLAG_SET;
-+	config.target_strm2mem_flags[channel.source_cfg.csi_cfg.csi_port] |=
-+	    INPUT_SYSTEM_CFG_FLAG_SET;
-+
-+	config.ch_flags[channel.ch_id] = INPUT_SYSTEM_CFG_FLAG_SET;
-+
- 	return INPUT_SYSTEM_ERR_NO_ERROR;
- }
- 
-@@ -1171,12 +1171,11 @@ static input_system_err_t set_source_type(
- 
- 	if ((*flags) & INPUT_SYSTEM_CFG_FLAG_SET) {
- 		// Check for consistency with already set value.
--		if ((*lhs) == (rhs)) {
-+		if ((*lhs) == (rhs))
- 			return INPUT_SYSTEM_ERR_NO_ERROR;
--		} else {
--			*flags |= INPUT_SYSTEM_CFG_FLAG_CONFLICT;
--			return INPUT_SYSTEM_ERR_CONFLICT_ON_RESOURCE;
--		}
-+
-+		*flags |= INPUT_SYSTEM_CFG_FLAG_CONFLICT;
-+		return INPUT_SYSTEM_ERR_CONFLICT_ON_RESOURCE;
- 	}
- 	// Check the value (individually).
- 	if (rhs >= N_INPUT_SYSTEM_SOURCE) {
-@@ -1216,12 +1215,11 @@ static input_system_err_t set_csi_cfg(
- 		    && lhs->acquisition_buffer.mem_reg_size == rhs->acquisition_buffer.mem_reg_size
- 		    && lhs->acquisition_buffer.nof_mem_regs  == rhs->acquisition_buffer.nof_mem_regs
- 		    && lhs->nof_xmem_buffers  == rhs->nof_xmem_buffers
--		) {
-+		)
- 			return INPUT_SYSTEM_ERR_NO_ERROR;
--		} else {
--			*flags |= INPUT_SYSTEM_CFG_FLAG_CONFLICT;
--			return INPUT_SYSTEM_ERR_CONFLICT_ON_RESOURCE;
--		}
-+
-+		*flags |= INPUT_SYSTEM_CFG_FLAG_CONFLICT;
-+		return INPUT_SYSTEM_ERR_CONFLICT_ON_RESOURCE;
- 	}
- 	// Check the value (individually).
- 	// no check for backend_ch
-@@ -1273,12 +1271,11 @@ static input_system_err_t input_system_multiplexer_cfg(
- 
- 	if ((*flags) & INPUT_SYSTEM_CFG_FLAG_SET) {
- 		// Check for consistency with already set value.
--		if ((*lhs) == (rhs)) {
-+		if ((*lhs) == (rhs))
- 			return INPUT_SYSTEM_ERR_NO_ERROR;
--		} else {
--			*flags |= INPUT_SYSTEM_CFG_FLAG_CONFLICT;
--			return INPUT_SYSTEM_ERR_CONFLICT_ON_RESOURCE;
--		}
-+
-+		*flags |= INPUT_SYSTEM_CFG_FLAG_CONFLICT;
-+		return INPUT_SYSTEM_ERR_CONFLICT_ON_RESOURCE;
- 	}
- 	// Check the value (individually).
- 	if (rhs >= N_INPUT_SYSTEM_MULTIPLEX) {
-diff --git a/drivers/staging/media/atomisp/pci/hmm/hmm.c b/drivers/staging/media/atomisp/pci/hmm/hmm.c
-index f998b57f90c4..6ff77e053d5d 100644
---- a/drivers/staging/media/atomisp/pci/hmm/hmm.c
-+++ b/drivers/staging/media/atomisp/pci/hmm/hmm.c
-@@ -235,9 +235,8 @@ static int load_and_flush(ia_css_ptr virt, void *data, unsigned int bytes)
- 		vptr = hmm_bo_vmap(bo, true);
- 		if (!vptr)
- 			return load_and_flush_by_kmap(virt, data, bytes);
--		else
--			vptr = vptr + (virt - bo->start);
- 
-+		vptr = vptr + (virt - bo->start);
- 		memcpy(data, vptr, bytes);
- 		clflush_cache_range(vptr, bytes);
- 		hmm_bo_vunmap(bo);
-diff --git a/drivers/staging/media/atomisp/pci/isp/kernels/ctc/ctc1_5/ia_css_ctc1_5.host.c b/drivers/staging/media/atomisp/pci/isp/kernels/ctc/ctc1_5/ia_css_ctc1_5.host.c
-index 0089402bc12d..4b2b7667f075 100644
---- a/drivers/staging/media/atomisp/pci/isp/kernels/ctc/ctc1_5/ia_css_ctc1_5.host.c
-+++ b/drivers/staging/media/atomisp/pci/isp/kernels/ctc/ctc1_5/ia_css_ctc1_5.host.c
-@@ -29,11 +29,11 @@ static void ctc_gradient(
- 		ia_css_debug_dtrace(IA_CSS_DEBUG_TRACE_PRIVATE,
- 				    "ctc_gradient() error, illegal division operation\n");
- 		return;
--	} else {
--		dydx_int = dy / dx;
--		dydx_frc = ((dy - dydx_int * dx) << frc_bits) / dx;
- 	}
- 
-+	dydx_int = dy / dx;
-+	dydx_frc = ((dy - dydx_int * dx) << frc_bits) / dx;
-+
- 	assert(y0 >= 0 && y0 <= max_dydx);
- 	assert(y1 >= 0 && y1 <= max_dydx);
- 	assert(x0 < x1);
-diff --git a/drivers/staging/media/atomisp/pci/sh_css.c b/drivers/staging/media/atomisp/pci/sh_css.c
-index 00082276f1db..8e7c99b88c39 100644
---- a/drivers/staging/media/atomisp/pci/sh_css.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css.c
-@@ -7719,14 +7719,14 @@ ia_css_pipe_override_frame_format(struct ia_css_pipe *pipe,
- 		err = -EINVAL;
- 		IA_CSS_LEAVE_ERR_PRIVATE(err);
- 		return err;
--	} else {
--		err = ia_css_pipe_check_format(pipe, new_format);
--		if (!err) {
--			if (pin_index == 0)
--				pipe->output_info[0].format = new_format;
--			else
--				pipe->vf_output_info[0].format = new_format;
--		}
-+	}
-+
-+	err = ia_css_pipe_check_format(pipe, new_format);
-+	if (!err) {
-+		if (pin_index == 0)
-+			pipe->output_info[0].format = new_format;
-+		else
-+			pipe->vf_output_info[0].format = new_format;
- 	}
- 	IA_CSS_LEAVE_ERR_PRIVATE(err);
- 	return err;
-diff --git a/drivers/staging/media/atomisp/pci/sh_css_firmware.c b/drivers/staging/media/atomisp/pci/sh_css_firmware.c
-index af12df2f9b09..965445609eaa 100644
---- a/drivers/staging/media/atomisp/pci/sh_css_firmware.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css_firmware.c
-@@ -246,10 +246,10 @@ sh_css_load_firmware(struct device *dev, const char *fw_data,
- 		IA_CSS_ERROR("CSS code version (%s) and firmware version (%s) mismatch!",
- 			     file_header->version, release_version);
- 		return -EINVAL;
--	} else {
--		IA_CSS_LOG("successfully load firmware version %s", release_version);
- 	}
- 
-+	IA_CSS_LOG("Successfully loaded firmware version %s", release_version);
-+
- 	sh_css_num_binaries = file_header->binary_nr;
- 	/* Only allocate memory for ISP blob info */
- 	if (sh_css_num_binaries > NUM_OF_SPS) {
-diff --git a/drivers/staging/media/atomisp/pci/sh_css_params.c b/drivers/staging/media/atomisp/pci/sh_css_params.c
-index 8420a22fd8f0..7c5eb20258ba 100644
---- a/drivers/staging/media/atomisp/pci/sh_css_params.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css_params.c
-@@ -2334,10 +2334,10 @@ sh_css_create_isp_params(struct ia_css_stream *stream,
- 		IA_CSS_ERROR("%s:%d error: cannot allocate memory", __FILE__, __LINE__);
- 		IA_CSS_LEAVE_ERR_PRIVATE(err);
- 		return err;
--	} else {
--		memset(params, 0, sizeof(struct ia_css_isp_parameters));
- 	}
- 
-+	memset(params, 0, sizeof(struct ia_css_isp_parameters));
-+
- 	ddr_ptrs = &params->ddr_ptrs;
- 	ddr_ptrs_size = &params->ddr_ptrs_size;
- 
-@@ -3195,31 +3195,32 @@ sh_css_param_update_isp_params(struct ia_css_pipe *curr_pipe,
- 				   isp_params_info.output_frame_ptr,
- 				   queue_id, thread_id);
- 			break;
--		} else {
--			/* TMP: check discrepancy between nr of enqueued
--			 * parameter sets and dequeued sets
--			 */
--			g_param_buffer_enqueue_count++;
--			assert(g_param_buffer_enqueue_count < g_param_buffer_dequeue_count + 50);
--			/*
--			 * Tell the SP which queues are not empty,
--			 * by sending the software event.
--			 */
--			if (!sh_css_sp_is_running()) {
--				/* SP is not running. The queues are not valid */
--				IA_CSS_LEAVE_ERR_PRIVATE(-EBUSY);
--				return -EBUSY;
--			}
--			ia_css_bufq_enqueue_psys_event(
--			    IA_CSS_PSYS_SW_EVENT_BUFFER_ENQUEUED,
--			    (uint8_t)thread_id,
--			    (uint8_t)queue_id,
--			    0);
--			IA_CSS_LOG("pfp: added config id %d for OF %d to q %d on thread %d",
--				   isp_params_info.isp_parameters_id,
--				   isp_params_info.output_frame_ptr,
--				   queue_id, thread_id);
- 		}
-+
-+		/*
-+		 * TMP: check discrepancy between nr of enqueued
-+		 * parameter sets and dequeued sets
-+		 */
-+		g_param_buffer_enqueue_count++;
-+		assert(g_param_buffer_enqueue_count < g_param_buffer_dequeue_count + 50);
-+		/*
-+		 * Tell the SP which queues are not empty,
-+		 * by sending the software event.
-+		 */
-+		if (!sh_css_sp_is_running()) {
-+			/* SP is not running. The queues are not valid */
-+			IA_CSS_LEAVE_ERR_PRIVATE(-EBUSY);
-+			return -EBUSY;
-+		}
-+
-+		ia_css_bufq_enqueue_psys_event(IA_CSS_PSYS_SW_EVENT_BUFFER_ENQUEUED,
-+					       (uint8_t)thread_id,
-+					       (uint8_t)queue_id, 0);
-+		IA_CSS_LOG("pfp: added config id %d for OF %d to q %d on thread %d",
-+			   isp_params_info.isp_parameters_id,
-+			   isp_params_info.output_frame_ptr,
-+			   queue_id, thread_id);
-+
- 		/* clean-up old copy */
- 		ia_css_dequeue_param_buffers(/*pipe_num*/);
- 		params->pipe_dvs_6axis_config_changed[pipeline->pipe_id] = false;
-@@ -4105,44 +4106,47 @@ sh_css_update_uds_and_crop_info_based_on_zoom_region(
- 		uds->curr_dy = HRT_GDC_N;
- 	}
- 
--	if (info->enable.dvs_envelope) {
--		/* Zoom region is only supported by the UDS module on ISP
--		 * 2 and higher. It is not supported in video mode on ISP 1 */
-+	if (info->enable.dvs_envelope)
-+		/*
-+		 * Zoom region is only supported by the UDS module on ISP
-+		 * 2 and higher. It is not supported in video mode on ISP 1
-+		 */
- 		return -EINVAL;
--	} else {
--		if (enable_zoom) {
--			/* A. Calculate dx/dy based on crop region using in_frame_info
--			* Scale the crop region if in_frame_info to the stage is not same as
--			* actual effective input of the pipeline
--			*/
--			if (in_frame_info->res.width != pipe_in_res.width ||
--			    in_frame_info->res.height != pipe_in_res.height) {
--				x0 = (x0 * in_frame_info->res.width) / (pipe_in_res.width);
--				y0 = (y0 * in_frame_info->res.height) / (pipe_in_res.height);
--				x1 = (x1 * in_frame_info->res.width) / (pipe_in_res.width);
--				y1 = (y1 * in_frame_info->res.height) / (pipe_in_res.height);
--			}
--			uds->curr_dx =
--			    ((x1 - x0 - filter_envelope) * HRT_GDC_N) / in_frame_info->res.width;
--			uds->curr_dy =
--			    ((y1 - y0 - filter_envelope) * HRT_GDC_N) / in_frame_info->res.height;
--
--			/* B. Calculate xc/yc based on crop region */
--			uds->xc = (uint16_t)x0 + (((x1) - (x0)) / 2);
--			uds->yc = (uint16_t)y0 + (((y1) - (y0)) / 2);
--		} else {
--			uds->xc = (uint16_t)in_frame_info->res.width / 2;
--			uds->yc = (uint16_t)in_frame_info->res.height / 2;
--		}
- 
--		ia_css_debug_dtrace(IA_CSS_DEBUG_TRACE,
--				    "uds->curr_dx=%d, uds->xc=%d, uds->yc=%d\n",
--				    uds->curr_dx, uds->xc, uds->yc);
--		ia_css_debug_dtrace(IA_CSS_DEBUG_TRACE, "x0=%d, y0=%d, x1=%d, y1=%d\n",
--				    x0, y0, x1, y1);
--		sp_out_crop_pos->x = (uint16_t)info->pipeline.left_cropping;
--		sp_out_crop_pos->y = (uint16_t)info->pipeline.top_cropping;
-+	if (enable_zoom) {
-+		/*
-+		 * A. Calculate dx/dy based on crop region using in_frame_info
-+		 * Scale the crop region if in_frame_info to the stage is not same as
-+		 * actual effective input of the pipeline
-+		 */
-+		if (in_frame_info->res.width != pipe_in_res.width ||
-+		    in_frame_info->res.height != pipe_in_res.height) {
-+			x0 = (x0 * in_frame_info->res.width) / (pipe_in_res.width);
-+			y0 = (y0 * in_frame_info->res.height) / (pipe_in_res.height);
-+			x1 = (x1 * in_frame_info->res.width) / (pipe_in_res.width);
-+			y1 = (y1 * in_frame_info->res.height) / (pipe_in_res.height);
-+		}
-+		uds->curr_dx =
-+		    ((x1 - x0 - filter_envelope) * HRT_GDC_N) / in_frame_info->res.width;
-+		uds->curr_dy =
-+		    ((y1 - y0 - filter_envelope) * HRT_GDC_N) / in_frame_info->res.height;
-+
-+		/* B. Calculate xc/yc based on crop region */
-+		uds->xc = (uint16_t)x0 + (((x1) - (x0)) / 2);
-+		uds->yc = (uint16_t)y0 + (((y1) - (y0)) / 2);
-+	} else {
-+		uds->xc = (uint16_t)in_frame_info->res.width / 2;
-+		uds->yc = (uint16_t)in_frame_info->res.height / 2;
- 	}
-+
-+	ia_css_debug_dtrace(IA_CSS_DEBUG_TRACE,
-+			    "uds->curr_dx=%d, uds->xc=%d, uds->yc=%d\n",
-+			    uds->curr_dx, uds->xc, uds->yc);
-+	ia_css_debug_dtrace(IA_CSS_DEBUG_TRACE, "x0=%d, y0=%d, x1=%d, y1=%d\n",
-+			    x0, y0, x1, y1);
-+	sp_out_crop_pos->x = (uint16_t)info->pipeline.left_cropping;
-+	sp_out_crop_pos->y = (uint16_t)info->pipeline.top_cropping;
-+
- 	IA_CSS_LEAVE_PRIVATE("void");
- 	return err;
- }
--- 
-2.43.0
+> initial format negotiation. The driver then falls back to the default
+> capture format (NV12) and stores it as capture format.
+> 
+
+No new line
+
+> Later, when the firmware reports that the stream is 10-bit, the driver
+> sees NV12 as the selected capture format and switches to the default
+> 10-bit format (P010). As a result, the original QC10C format requested
+> by userspace is lost and QC10C decoding cannot work correctly.
+> 
+
+No new line.
+
+> The bit depth information is not reliable during the initial format
+> setup, so it should not be used to validate capture formats. Remove
+> the bit-depth checks from check_format() and only verify that the
+> requested pixel format is supported. This allows the format requested
+> by userspace is handled correctly.
+> 
+> Fixes: 20c3ef4c7cae ("media: qcom: iris: vdec: update find_format to handle 8bit and 10bit formats")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> ---
+>   drivers/media/platform/qcom/iris/iris_vdec.c | 10 ----------
+>   1 file changed, 10 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/iris/iris_vdec.c b/drivers/media/platform/qcom/iris/iris_vdec.c
+> index 9e228b70420e..7f89e745a4b1 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vdec.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vdec.c
+> @@ -95,16 +95,6 @@ static bool check_format(struct iris_inst *inst, u32 pixfmt, u32 type)
+>   	if (i == size)
+>   		return false;
+>   
+> -	if (type == V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE) {
+> -		if (iris_fmt_is_8bit(pixfmt) &&
+> -		    inst->fw_caps[BIT_DEPTH].value == BIT_DEPTH_10)
+> -			return false;
+> -
+> -		if (iris_fmt_is_10bit(pixfmt) &&
+> -		    inst->fw_caps[BIT_DEPTH].value != BIT_DEPTH_10)
+> -			return false;
+> -	}
+> -
+>   	return true;
+>   }
+>   
+> 
 
