@@ -1,121 +1,82 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5BF6379981
-	for <linux-media@vger.kernel.org>; Tue,  7 Jul 2026 15:06:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B4B37C10C
+	for <linux-media@vger.kernel.org>; Tue,  7 Jul 2026 15:13:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783436792; cv=none; b=BGiqc4Auk3bg3SxtubRV5dUdKIpLkkm/a+KhCxKaLY4WMHODLrtYevQ1xs7PrFhX+pS7Uyqk169zlsuD/uSMgnvCIshPQRcBDGZerBXh6B5ndpuBCsAyaBZ8fyCWn7oWc//RsP6lPQy3GHrOklYcGnJEdXan+x+FUFIHzRRp/so=
+	t=1783437184; cv=none; b=Gl9EKKAYfJWrySMn/tqGa9GJjscTtsS0+cuCwYWwEDYO1DYmBn+PPf/Bte89gEvj3Mqe6aO7YboiA4rbJhS0/3R74+CIfytjlYR7W3D/DHe653lSRUpRd+FWmXMJKkdJthtvZ3HgvIijbf9qQkZq/I0eEoVAP5tukfb9gCJyzgQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783436792; c=relaxed/simple;
-	bh=mF1Q8h8f8ja7oxsETzW0K9C2viuSjP/6sJUlaEJEzUM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W9SF44b+98GzjZkwRo6q6CLSwXlF5zfeT/+TWlfzc9J7EXnnp2N5P/xsdweXksv9TYuREMEXxyPfXRhPvEjK8WOk6aBC3xwQjnVimZUJ8acF/ual6suB6qfWgCbmrjYsHex77JiXZYKl09intrrmGffjTOs7qgWceHSDnzjR1zQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mGbdwmO1; arc=none smtp.client-ip=209.85.210.181
+	s=arc-20240116; t=1783437184; c=relaxed/simple;
+	bh=L9GA3HSPXwxo/D7H2OFbtIaPAfEFhpVVImiahANaNjU=;
+	h=Message-ID:Date:Content-Type:MIME-Version:From:To:Cc:Subject:
+	 In-Reply-To:References; b=KKA/YIjVFzgHxaKVfSQhFyzHnY1pl9ykEorschDrzJuWb9gdrluTDP4ul21yD3Zy/uoaHrw3TzLvhevT0r6ABpVFu5yhnxlkWj32awPtmxEi8btjziBde7JFOQGu8iZg5Dbndva2S81Y45atDJZh/6SAEhFroStCyrCJYXXJs4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rjd/9dWR; arc=none smtp.client-ip=209.85.216.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mGbdwmO1"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8478fe07f65so4419230b3a.0
-        for <linux-media@vger.kernel.org>; Tue, 07 Jul 2026 08:06:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rjd/9dWR"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-381b831d535so4931717a91.0
+        for <linux-media@vger.kernel.org>; Tue, 07 Jul 2026 08:13:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783436791; x=1784041591; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ClN3kpbhRJMWpIGpPfBJEIxCJ6EOBpj1rMef7MXHqEc=;
-        b=mGbdwmO1bdXLYYXnL4qBM+muPQcImeAv1gohVnwA5EFvxt2Oh/ctYNko3ekxY9USLd
-         5gU0E9LuA0E9e+eQ2Ga4c8oA8fDKekY/hpwdBB+EG5NkoHuFA0zGy68ON+im/Gj7cHGD
-         YDvO1z++YMrVx0QdTB7MDMFN94mmrexVLhTua4+QNffybElGBDQ+uypxEd3fdDnI4IfE
-         f2WScnddD0pMyf3Ufrw72qh8IMDK6WwR1LTMGJGrUQShHiACs6hlxzoXY8/78xOcPKp0
-         Wb63BAhMkVgtSpF8vOlTQ8ySaSY44r4TiEItqvba1p4uYIEhoWzoXX+nveywViC8zLdN
-         DDTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783436791; x=1784041591;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1783437183; x=1784041983; darn=vger.kernel.org;
+        h=references:in-reply-to:subject:cc:to:from:content-transfer-encoding
+         :mime-version:content-type:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ClN3kpbhRJMWpIGpPfBJEIxCJ6EOBpj1rMef7MXHqEc=;
-        b=gkTsWchhG/cPioOJYfd40wg9mX6WO3TlIVPwp2TSiIGRJ1hSdHAQtrQgkjd+tBakHy
-         HY0F6vM+c8y+gNd/dmczFA7H7x/95jGUOEACjCGZyWwWP2OXMpwnjhY49KidLI9yn/CS
-         vnaOUzcukY31cNQKIyPUNqaR9kntAZyPhWGignCwBWq9NxhJf82UoNOBz2eWDD5BJb1A
-         rZ1QqjrCKNn+eTX8uuTs5sgrsNv257T8rQ04oGBCQ1XkbicmiDvR3xZQYHUsTlMbfzvs
-         weJVokLXaGk8yVwdbYr+zFoUnI8TQTIjLJTULe+/dfpL43I/QDSJ1GHvGGspok2FKyF2
-         tYmg==
-X-Forwarded-Encrypted: i=1; AHgh+RqzqXw35eB9h1GR3IjUfgHTL/5agmsZkM/wnGGMNg01Ma/Hj/RH1tvURzZTYPQNhOYZux7equvVNJ/q2g==@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywisx+tAHIZZg2myGTtNSz91CdBma3WruEBmoQMNG6G5pg559w7
-	VGthg9Ev3bOm7usRt35TpGEBejbkfHXSMm3ZdzW5d3GGioZ3sKxdKV/1
-X-Gm-Gg: AfdE7clhfufNGcB8Si+I5RTR3ApsWvIVMH1f650QbzovME7guV2kigpByc3UUQFQVtN
-	ugK0YrXjEvoAGA3xav/18+MNz+inuTIooyKdAQ+dSBQ6G1cdOMCN6dU8+jXD+yp61G1Rz+OkTMJ
-	V2lXLF5I2gZMS1LlFqRBVnJ9rJeiKVd8ZNmDFYNYSFEnDkKJ0XCSK8T6WZGagOFJ+mNV66CL8oT
-	yZr7lPtcLhr3lAdp8t3+tSQd8p1ymf2KYhhom2WSnF0RmjN/T8mE6KJ4MlofUeG1Rabp9UQES1N
-	pNM20vVAB86DRGw1kimrnokQIoHkRZSCdnHfpACKg7ULFheI0On/80IcOadlQ2FxkCJjX2zKZO8
-	+w2LpiZKI33MiOXP6kwxe0LF2IAeWeHJW5a6uxAthfo3JC0HGlCB5PkeFXd61DwcaHJ4IWfVEoz
-	P0FUUC8BSZSNXjmqOm7jGZNya1qyYzDJ6J
-X-Received: by 2002:a05:6a00:138c:b0:847:888f:9b16 with SMTP id d2e1a72fcca58-84826c25b6dmr5534631b3a.18.1783436791037;
-        Tue, 07 Jul 2026 08:06:31 -0700 (PDT)
-Received: from haichao.tail057a43.ts.net ([2001:da8:e000:1206:239e:a31b:1d0d:374f])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847f6d76106sm5618994b3a.40.2026.07.07.08.06.27
+        bh=L9GA3HSPXwxo/D7H2OFbtIaPAfEFhpVVImiahANaNjU=;
+        b=Rjd/9dWRub80WqzWp177YnI4T4GndS+cGo0YUHddI4Y3S25RtVOCTzV8iptIILQ1h0
+         GLOIf8b6W9xvW6SimFJ0sI99yjjmpqOSYzkQlE1ei2IxidClGAzHLzvMDBBJud9umF+7
+         7yUuKBWYKUjAHG59j1fEwc7AKuXQfNXu3WEY7LXHpROG+LoRShaHIaCGhe/jYTm4ki+S
+         jLxLAF/5B+2kXyAkrxRzQ/N2QCw8rtH2JCn+1AoDfoNIEDgNjPtIePQYDmblUP3jogcJ
+         uMVDAP1MWgakNW/TuwtAsFIkZSTxxtnQW9A18Y7E29tEDEIqn5LpSMZQt7zMwweY1/ib
+         c8AA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783437183; x=1784041983;
+        h=references:in-reply-to:subject:cc:to:from:content-transfer-encoding
+         :mime-version:content-type:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L9GA3HSPXwxo/D7H2OFbtIaPAfEFhpVVImiahANaNjU=;
+        b=S5TGyT1Jphz5whS4sfvxzoNJQ3Lu2BpMBqR7RITIK3QxBAUiaczLmZ7lNO8PYHMVMP
+         uzCSBhYrA0cu+PiN8zQcBNCbGarar4ZSm544Nhvh/HXG5PrWASvuU1IIx6/USbP1rd4+
+         c6U7Jp5vFCmJST8NEhA0E0X40Oow01Azv20OHifvsSDJHvqMJtjK4RNONCfLszMPKKdi
+         EwhQsCT7Tts3zlM9aHvFxsdlhqGhpXsjKSQcs2ZMcEAjjgPo7N7cJP4ikWCKz31ahuax
+         +cRWTs+NtVrlgyWSftOmIPChxIs0U8SaoB5Yo8IfeM2z34tDfUwwWKegE9zKWJ2ZVwf6
+         vHyA==
+X-Forwarded-Encrypted: i=1; AHgh+RoomTtlfX7ULHVAH791vzHsLeVriVuXJ6kgMER9bsZG+R7w0xBleSrwNO4tZ52T3R3MRHVUJa0uctie7Q==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwE8DfTSE6Khr1OLJk25iZlhT6RzaMGs8JfrUxls929yFBdz1p
+	57yDmtXMIg5r1Z7p/NdSZJEiTNKRthBZ1x0qvLkRSSjWsMjk7nOsql8r
+X-Gm-Gg: AfdE7cmfEioQXnGUzH5Ltwax1RMHTxHqMMV+f+xvJJ4csXtVYqDTIRIcIWtdothvxtZ
+	6NpLx/03LS7mDdfB4Q4g5PqXM0sC63Lc0S+uJLx/XtjMYS/7qSlNulLq6Tcgxw4teo4h6h8RlPV
+	6WRForz0m3AjYV/9yOqnUaKqpEOKOJGgcPHkddNO9oZXHfRQGW0OmjgfzXy+PZ/HTceYSQkaqhL
+	u40AwWaHLSpMOnOIYzeCL4P/MPf1KRmRoFF6kb9vtpRYojPM3dEMPAIb7M/tbKKozWbbPe/YMpp
+	/z4IyiM4X/Gqm2SXZ+UWMRZEb3ZSsN+5JOPp6x2I7c0oD/wJ4Vtd5rWKaeB3OlV/8yf2DbUqWKN
+	rjEMJSIwo3DVj78xKmj8M6PHAJDz8qBYZHoY9NkBzy3pdMXO547RtjUyqNOfbKCCl393pvLKbG3
+	MCcdq3LzE4kBgM4A==
+X-Received: by 2002:a05:6a21:e19c:b0:3c0:9c1b:d0bf with SMTP id adf61e73a8af0-3c09c1bd462mr2998032637.74.1783437180818;
+        Tue, 07 Jul 2026 08:13:00 -0700 (PDT)
+Received: from [127.0.1.1] ([2001:da8:e000:1206:239e:a31b:1d0d:374f])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-ca5afeb060bsm1178246a12.14.2026.07.07.08.12.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 08:06:30 -0700 (PDT)
-From: Ruoyu Wang <ruoyuw560@gmail.com>
-To: vikash.garodia@oss.qualcomm.com,
-	dikshita.agarwal@oss.qualcomm.com,
-	bod@kernel.org,
-	mchehab@kernel.org
-Cc: stanimir.varbanov@linaro.org,
-	hverkuil@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ruoyu Wang <ruoyuw560@gmail.com>
-Subject: [PATCH] media: venus: Drop session events without an instance
-Date: Tue,  7 Jul 2026 23:06:24 +0800
-Message-ID: <20260707150624.2278561-1-ruoyuw560@gmail.com>
-X-Mailer: git-send-email 2.51.0
+        Tue, 07 Jul 2026 08:12:59 -0700 (PDT)
+Message-ID: <6a4d177b.720fb68d.3cc0da.abb4@mx.google.com>
+Date: Tue, 07 Jul 2026 08:12:59 -0700 (PDT)
+Content-Type: text/plain; charset="us-ascii"
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+From: Ruoyu Wang <ruoyuw560@gmail.com>
+To: hverkuil@kernel.org
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 26/44] media: cec: Serialize exclusive follower delivery
+In-Reply-To: <20260707150612.2276688-1-ruoyuw560@gmail.com>
+References: <20260707150612.2276688-1-ruoyuw560@gmail.com>
 
-hfi_process_msg_packet() intentionally allows HFI_MSG_EVENT_NOTIFY
-packets without a matching session instance because HFI_EVENT_SYS_ERROR
-is a system event and has no session attached.
-
-That exception currently applies to every event-notify packet. If the
-firmware reports a late or otherwise invalid session event after
-to_instance() fails, hfi_event_notify() can dispatch it to session-only
-handlers such as event_seq_changed() or event_release_buffer_ref(), which
-dereference inst.
-
-Only system errors are valid without a session instance. Drop other
-event notifications before the session event handlers can dereference a
-NULL inst.
-
-This issue was found by a static analysis checker and confirmed by
-manual source review.
-
-Fixes: 09c2845e8fe4 ("[media] media: venus: hfi: add Host Firmware Interface (HFI)")
-Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
----
- drivers/media/platform/qcom/venus/hfi_msgs.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/media/platform/qcom/venus/hfi_msgs.c b/drivers/media/platform/qcom/venus/hfi_msgs.c
-index 47b99d5b5af73..3135c1024fb1f 100644
---- a/drivers/media/platform/qcom/venus/hfi_msgs.c
-+++ b/drivers/media/platform/qcom/venus/hfi_msgs.c
-@@ -230,6 +230,9 @@ static void hfi_event_notify(struct venus_core *core, struct venus_inst *inst,
- 	if (!packet)
- 		return;
- 
-+	if (!inst && pkt->event_id != HFI_EVENT_SYS_ERROR)
-+		return;
-+
- 	switch (pkt->event_id) {
- 	case HFI_EVENT_SYS_ERROR:
- 		event_sys_error(core, EVT_SYS_ERROR, pkt);
--- 
-2.51.0
-
+The "v3 26/44" in the subject is a numbering artifact from batch
+generation. This patch was intended as a standalone fix, not part
+of a larger series. Please treat it as [PATCH] only. Apologies for
+the confusion.
