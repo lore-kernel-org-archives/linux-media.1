@@ -1,72 +1,60 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD72343933C;
-	Wed,  8 Jul 2026 19:06:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C60829B764;
+	Wed,  8 Jul 2026 19:08:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783537598; cv=none; b=mKQdpZjMQ3EzqYla/3swbV1wRGnRidoRwEh7VEyBjISs/C3HLEzfx5anK10wN3lgOau4BjrtvOHcfEY0zzl0QswdwPUe2BH4KS0geo9dpCo7pQ34x2piw5Rmc6SgW+/snc1sLtHHjyBMIq51o0Uc9+43uo+kjN/XtkHH6MYJc2A=
+	t=1783537706; cv=none; b=ecb92Oz6SgYyXr1Iy5NaJgMJ9Ltjpv1vRhaz+jm7/Ew3Uzce+39uWyN83mfYXb42HhQWNrunsNfTRlkzC4VAxlW0KPqUATLRyf/Lp31Y6hHcLupsQJTF02MPlUI4ReTq5U/KpTNSK2P0MkVB5cfbq5t0cGp+4vsrSHaCbd+oAR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783537598; c=relaxed/simple;
-	bh=8sJoYoDXnFcLvC+k9jj5ONuDpuNtpd6j34VDJBRB1sk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mpkUjGDLJYOqNQPODobHN6u6/Ww7evt+C8oP3VE9Pwe3bvhbUYlsNvc1UNJiW2CTMrMBYCMHfE+st6bwgGQWh/Uq81acDMkmmsn0ciMj3i93QjUoj3+8CE5DuOoNXvwUrBIyXm4cHqhYq1QKDTQaVouXlyGICVljZQX9HZsTGLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hpYYMji5; arc=none smtp.client-ip=192.198.163.15
+	s=arc-20240116; t=1783537706; c=relaxed/simple;
+	bh=pyt7H7xRupVU+mK8VwY1I/Ar3zs3R06s8f3mrxgAI5E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EXL61Ap8wGVimmDFsdqlQXlJ14z/GZp5IV85nusIfk6yO3lO6BCKnXzgi593iVe0FXvwIRMI/XVZHHPjVcg5odZzGN3ybk8nuv/JisPAmm5CLQdyJjAXy3BhcUNX6nwNPshsixgfTnLFe9c1EPUY3Mhu3UBkJ5CLNLJRqTmVG84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IiIlus/L; arc=none smtp.client-ip=192.198.163.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hpYYMji5"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IiIlus/L"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783537596; x=1815073596;
+  t=1783537706; x=1815073706;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=8sJoYoDXnFcLvC+k9jj5ONuDpuNtpd6j34VDJBRB1sk=;
-  b=hpYYMji5RaRDqi8fzgN8A5vOuFUip5Rj52mWKGyiy3fpe/btVVXYz0Dt
-   tWNJs1V3KE8BIiKZbj3wVuU9gWDuotKw5rIPgnAXwl2cNftjrt6FIspzn
-   Uwkv+jMVXOxiXNhhc2/iYM83ycZ+1y6nIw0GKu75NcJ9tVQevAnrkHMx5
-   1YODF5RP/YHKD/S3WN1wWZsnv2t04Zx1Hpw/Pp7gxblJ4bfdSPu9T4DRI
-   DCCzoTYOjRvMHOHESMTQi5KvBIRDfESnijLenR8gQNvirlVkCBuE2dQ1G
-   0wVlXueAWa+m2dzZdPY8qNxmzNAh5rxxjESd2J+7LNWyJY21Kov4aTx3C
-   g==;
-X-CSE-ConnectionGUID: 3SGSYmSAStu4IFUJPjaNUA==
-X-CSE-MsgGUID: ABCWlDqMTAWhTGO4TrZTlw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84329109"
+  bh=pyt7H7xRupVU+mK8VwY1I/Ar3zs3R06s8f3mrxgAI5E=;
+  b=IiIlus/LbM7SUVLGlp+r4yqqqHikTfFLT8xpGsr+/Ao5xSyRC+JRCndW
+   nATnivmCtD9Re36Ms3A3wGRM4UsBUxpDwpIqke1IpbPzEQAKpTl1SkHVx
+   SCNnUS5Bz16B7AUbJ2IQZs+B0DedZvQ+9jGaIvNSrnP0ctSFEJu+qtnaW
+   khEUHX+qQBNN/HN/08kTUc/+4gB1FXLkfe+f1C9q/a6aqlSL8MHWwcJ5m
+   McEa+h8G2nQ3SHSS0FAZE3MIEPWj2apmI1Cn+tBzk+uTKNXxyqOk0+fcw
+   82Y3COiJBJuw0WfV5tySEi9a53+66qfbiX88bmnH5WqYcQ/JsklmsBS5S
+   Q==;
+X-CSE-ConnectionGUID: ViifD/4USA6VnmrAuw1nzQ==
+X-CSE-MsgGUID: NlJUMwL2R1uclApYLQ9Z6w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84329214"
 X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
-   d="scan'208";a="84329109"
+   d="scan'208";a="84329214"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 12:06:35 -0700
-X-CSE-ConnectionGUID: Pc54uQg6RseT09XFzr8nRg==
-X-CSE-MsgGUID: TTbKTADQTCKgZ61l8Nx97g==
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 12:08:25 -0700
+X-CSE-ConnectionGUID: X2yRQeTRQZChHrBBrRj53A==
+X-CSE-MsgGUID: FZQJRIdKS8edGadIj3cb/Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
-   d="scan'208";a="257965295"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.120])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 12:06:32 -0700
-Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 238EF120FA7;
-	Wed, 08 Jul 2026 22:06:31 +0300 (EEST)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
-	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1whXbG-00000001Ygf-0S3S;
-	Wed, 08 Jul 2026 22:06:26 +0300
+   d="scan'208";a="257965921"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO svinhufvud.fi.intel.com) ([10.245.245.223])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 12:08:22 -0700
+Received: from svinhufvud.intel.com (localhost [IPv6:::1])
+	by svinhufvud.fi.intel.com (Postfix) with ESMTP id 9662D4002A;
+	Wed, 08 Jul 2026 14:47:40 +0300 (EEST)
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: linux-media@vger.kernel.org
-Cc: Yong Zhi <yong.zhi@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Lixu Zhang <lixu.zhang@intel.com>,
-	linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Richard Acayan <mailingradian@gmail.com>,
-	David Heidelberg <david@ixit.cz>,
-	Frank Li <Frank.li@nxp.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>
-Subject: [PATCH v3 1/1] MAINTAINERS: Camera sensor and Intel IPU driver changes
-Date: Wed,  8 Jul 2026 22:06:26 +0300
-Message-ID: <20260708190626.371657-1-sakari.ailus@linux.intel.com>
+To: Daniel Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-media@vger.kernel.org
+Subject: [PATCH 1/1] MAINTAINERS: Merge int3472 driver patches via the media tree by default
+Date: Wed,  8 Jul 2026 14:47:40 +0300
+Message-ID: <20260708114740.47134-1-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -76,179 +64,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dave Hansen <dave.hansen@linux.intel.com>
+The int3472 driver (under drivers/platform/x86/intel/int3472) implements
+an effective kernel API (via instantiating regulators, clocks and GPIOs)
+that is primarily used by the drivers under drivers/media. This means that
+there are often dependencies between patches to the int3472 driver and the
+camera sensor drivers whereas dependencies to other parts of the x86
+platform tree are fairly rare.
 
-Tian Shu Qiu and Bingbu Cao are maintainers and reviewers of a bunch of
-media drivers (7 and 9 respectively). Bingbu's e-mail address has changed
-and Tian Shu's is bouncing.
+Assign the int3472 driver tree to the Media tree.
 
-Update Bingbu's e-mail address, remove Bingbu as a maintainer from Intel
-specific drivers and remove Tian Shu as maintainer. Also add Dave
-Stevenson as a maintainer and David Heidelberg as a reviewer for the
-imx355 driver.
+Patches that have dependencies elsewhere than in the Media tree will be
+coordinated with the respective maintainers as usual.
 
-Also add Bingbu and Tian Shu to CREDITS.
-
-Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: Yong Zhi <yong.zhi@intel.com>
-Cc: Dan Scally <dan.scally@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Lixu Zhang <lixu.zhang@intel.com>
-Cc: linux-media@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-staging@lists.linux.dev
-Co-developed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Acked-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Acked-by: David Heidelberg <david@ixit.cz>
 ---
-since v2:
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
 
-- Add Tian Shu and Bingbu to CREDITS.
-
-- Fix line ordering in some entries.
-
- CREDITS     |  7 +++++++
- MAINTAINERS | 29 ++++++++++++-----------------
- 2 files changed, 19 insertions(+), 17 deletions(-)
-
-diff --git a/CREDITS b/CREDITS
-index 84793a967a0b..7456c8bbffc2 100644
---- a/CREDITS
-+++ b/CREDITS
-@@ -640,6 +640,10 @@ S: 25-29 St Giles
- S: Oxford
- S: United Kingdom
- 
-+N: Bingbu Cao
-+E: bingbu.cao@amd.com
-+D: Ipu6, ipu7 and camera sensor drivers
-+
- N: Luiz Fernando N. Capitulino
- E: lcapitulino@mandriva.com.br
- E: lcapitulino@gmail.com
-@@ -3334,6 +3338,9 @@ E: rpurdie@rpsys.net
- D: Backlight subsystem maintainer
- S: United Kingdom
- 
-+N: Tian Shu Qiu
-+D: Ipu6, ipu7 and camera sensor drivers
-+
- N: Daniel Quinlan
- E: quinlan@pathname.com
- W: https://www.pathname.com/~quinlan/
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 2aec6afa8108..d794223144cd 100644
+index 2aec6afa8108..d41544a41c07 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -3946,7 +3946,7 @@ F:	Documentation/devicetree/bindings/leds/ams,as3668.yaml
- F:	drivers/leds/leds-as3668.c
- 
- ASAHI KASEI AK7375 LENS VOICE COIL DRIVER
--M:	Tianshu Qiu <tian.shu.qiu@intel.com>
-+M:	Sakari Ailus <sakari.ailus@linux.intel.com>
- L:	linux-media@vger.kernel.org
- S:	Maintained
- T:	git git://linuxtv.org/media.git
-@@ -13135,9 +13135,7 @@ F:	drivers/iommu/intel/
- INTEL IPU3 CSI-2 CIO2 DRIVER
- M:	Yong Zhi <yong.zhi@intel.com>
+@@ -13379,6 +13379,7 @@ INTEL SKYLAKE INT3472 ACPI DEVICE DRIVER
+ M:	Daniel Scally <dan.scally@ideasonboard.com>
  M:	Sakari Ailus <sakari.ailus@linux.intel.com>
--M:	Bingbu Cao <bingbu.cao@intel.com>
- M:	Dan Scally <dan.scally@ideasonboard.com>
--R:	Tianshu Qiu <tian.shu.qiu@intel.com>
- L:	linux-media@vger.kernel.org
  S:	Maintained
- T:	git git://linuxtv.org/media.git
-@@ -13146,8 +13144,6 @@ F:	drivers/media/pci/intel/ipu3/
++T:	git git://linuxtv.org/media.git
+ F:	drivers/platform/x86/intel/int3472/
+ F:	include/linux/platform_data/x86/int3472.h
  
- INTEL IPU3 CSI-2 IMGU DRIVER
- M:	Sakari Ailus <sakari.ailus@linux.intel.com>
--R:	Bingbu Cao <bingbu.cao@intel.com>
--R:	Tianshu Qiu <tian.shu.qiu@intel.com>
- L:	linux-media@vger.kernel.org
- S:	Maintained
- F:	Documentation/admin-guide/media/ipu3.rst
-@@ -13157,8 +13153,6 @@ F:	drivers/staging/media/ipu3/
- 
- INTEL IPU6 INPUT SYSTEM DRIVER
- M:	Sakari Ailus <sakari.ailus@linux.intel.com>
--M:	Bingbu Cao <bingbu.cao@intel.com>
--R:	Tianshu Qiu <tian.shu.qiu@intel.com>
- L:	linux-media@vger.kernel.org
- S:	Maintained
- T:	git git://linuxtv.org/media.git
-@@ -13167,7 +13161,6 @@ F:	drivers/media/pci/intel/ipu6/
- 
- INTEL IPU7 INPUT SYSTEM DRIVER
- M:	Sakari Ailus <sakari.ailus@linux.intel.com>
--R:	Bingbu Cao <bingbu.cao@intel.com>
- L:	linux-media@vger.kernel.org
- S:	Maintained
- T:	git git://linuxtv.org/media.git
-@@ -13469,7 +13462,6 @@ F:	drivers/net/wireless/intel/iwlwifi/
- 
- INTEL VISION SENSING CONTROLLER DRIVER
- M:	Sakari Ailus <sakari.ailus@linux.intel.com>
--R:	Bingbu Cao <bingbu.cao@intel.com>
- R:	Lixu Zhang <lixu.zhang@intel.com>
- L:	linux-media@vger.kernel.org
- S:	Maintained
-@@ -19902,7 +19894,8 @@ F:	Documentation/devicetree/bindings/media/i2c/ovti,os05b10.yaml
- F:	drivers/media/i2c/os05b10.c
- 
- OMNIVISION OV01A10 SENSOR DRIVER
--M:	Bingbu Cao <bingbu.cao@intel.com>
-+M:	Bingbu Cao <bingbu.cao@amd.com>
-+M:	Sakari Ailus <sakari.ailus@linux.intel.com>
- L:	linux-media@vger.kernel.org
- S:	Maintained
- T:	git git://linuxtv.org/media.git
-@@ -19995,9 +19988,8 @@ F:	Documentation/devicetree/bindings/media/i2c/ovti,ov2735.yaml
- F:	drivers/media/i2c/ov2735.c
- 
- OMNIVISION OV2740 SENSOR DRIVER
--M:	Tianshu Qiu <tian.shu.qiu@intel.com>
--R:	Sakari Ailus <sakari.ailus@linux.intel.com>
--R:	Bingbu Cao <bingbu.cao@intel.com>
-+M:	Sakari Ailus <sakari.ailus@linux.intel.com>
-+R:	Bingbu Cao <bingbu.cao@amd.com>
- L:	linux-media@vger.kernel.org
- S:	Maintained
- T:	git git://linuxtv.org/media.git
-@@ -20139,8 +20131,8 @@ F:	Documentation/devicetree/bindings/media/i2c/ovti,ov9650.txt
- F:	drivers/media/i2c/ov9650.c
- 
- OMNIVISION OV9734 SENSOR DRIVER
--M:	Tianshu Qiu <tian.shu.qiu@intel.com>
--R:	Bingbu Cao <bingbu.cao@intel.com>
-+M:	Sakari Ailus <sakari.ailus@linux.intel.com>
-+R:	Bingbu Cao <bingbu.cao@amd.com>
- L:	linux-media@vger.kernel.org
- S:	Maintained
- T:	git git://linuxtv.org/media.git
-@@ -25217,7 +25209,8 @@ F:	Documentation/devicetree/bindings/media/i2c/sony,imx296.yaml
- F:	drivers/media/i2c/imx296.c
- 
- SONY IMX319 SENSOR DRIVER
--M:	Bingbu Cao <bingbu.cao@intel.com>
-+M:	Bingbu Cao <bingbu.cao@amd.com>
-+M:	Sakari Ailus <sakari.ailus@linux.intel.com>
- L:	linux-media@vger.kernel.org
- S:	Maintained
- T:	git git://linuxtv.org/media.git
-@@ -25239,7 +25232,9 @@ F:	Documentation/devicetree/bindings/media/i2c/sony,imx335.yaml
- F:	drivers/media/i2c/imx335.c
- 
- SONY IMX355 SENSOR DRIVER
--M:	Tianshu Qiu <tian.shu.qiu@intel.com>
-+M:	Sakari Ailus <sakari.ailus@linux.intel.com>
-+M:	Dave Stevenson <dave.stevenson@raspberrypi.com>
-+R:	David Heidelberg <david@ixit.cz>
- L:	linux-media@vger.kernel.org
- S:	Maintained
- T:	git git://linuxtv.org/media.git
 -- 
 2.47.3
 
