@@ -1,68 +1,68 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE65044D6A1
-	for <linux-media@vger.kernel.org>; Wed,  8 Jul 2026 14:49:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B40744BC92
+	for <linux-media@vger.kernel.org>; Wed,  8 Jul 2026 14:49:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783522161; cv=none; b=Md73tbZqKG7GLM8ExKnPcoAW7mctVuPl6n5+zM86DS8ggtQWtvhop2WzO+IN1ouO/2xaDdPCqR1z200ndoQMBFG4v+tspcL+WllcHwzcckEiICMe/Mg6W9hNDqsLvzyf4k/VUOtGzfaRHcqprmR8QUbbtfVLhkrVHHH4WXNdJ4Y=
+	t=1783522163; cv=none; b=qyx3gic1X6P9zMH/eMMXi32rWepfqnlIdyrQb1J15xRqcuQjyD5R/lRt5aXcib1YBQ/7gM5XN82nPH/atmcLbZG7KwZm4XcJDRRtjSam9H/60KlAU2ptq6Ohn8f2e+xbPzr3uUM7nBlanbb4SIW1OBMSMtCX2++zZyXLnkkaFKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783522161; c=relaxed/simple;
-	bh=W23XwrRaIK45UKWx+pemC8iWWRlXIUUJWHH74piX54c=;
+	s=arc-20240116; t=1783522163; c=relaxed/simple;
+	bh=txsXplviUmDHwFPKQ6jWBrpAUkebsjly2sdg2MnkYvA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rVxYb6ZXYf9Yzjxo705txMV4jFu5M9dId4wtq2D1bv8+2q3mmx82KAyjoNfOywqOwl5Si6tTqPDUUHavL+TSx9q6k7j7titBmG+A/IkPvoupmagN683ywQWQdjr7Dc14/FD2DMkzApDr3KB+KsjrXVqowoGYcMjDEp7Pvp5rw54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=SRYRgKln; arc=none smtp.client-ip=209.85.128.45
+	 In-Reply-To:To:Cc; b=gKVzpy6tRwzUVYScyX9AV9vOPUVoReSURkxQo2n/kWxWXuWzLi/5fxtMnBtHUqv8lGDckainb3DMGEfpgEeclruk0dRD84Baciw+3gGmr6RdAwJVYEvrmX3HAiKZO0wATg4GMUzEkp8VIH0RZWBq1cywlqxgJiKl42KdO8FyCX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=YRZDl254; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="SRYRgKln"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-493e497643fso4224685e9.0
-        for <linux-media@vger.kernel.org>; Wed, 08 Jul 2026 07:49:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="YRZDl254"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-493c5220cb7so6088445e9.3
+        for <linux-media@vger.kernel.org>; Wed, 08 Jul 2026 07:49:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1783522153; x=1784126953; darn=vger.kernel.org;
+        d=raspberrypi.com; s=google; t=1783522155; x=1784126955; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TJcpwUL5OnSXVi1yEj1ZgDZ7aAujN4ZxyzVguEBXsyw=;
-        b=SRYRgKlnwEAbdY2mhfvJmN3I3uE5D/4t1RYTUR3AV9VrD1l3TBGVIs5TlZBIy8OZ0N
-         E2ybG+v2iWu+AXHIcaWTeyu24xv+BdB4sR5+FcDcY2XOowb+4gLkIU4vjFEBSyHaFG0y
-         /3P/COVlD7MEnUqDueeO88DPv3DP8ifQi05BPDJby72lPlouRA5Xg3ZTAS0YnWgPqPp0
-         E0+fEPdePBxbhkggWtcdoDVphDMJpCvrA8dt3y5C1meKqoxUIy8Hp3hBhWy/ltcfXLbl
-         FZpsqmdJItSxEKtGJMMXQiYzq75uvuoIKBWfp8WngG56GQfwe0S9mAH3/ZJo7Ci47Fnj
-         EwGw==
+        bh=hgjXoLy1TNwMfRKhbBheihYw6qXgsO9wJkLUPpf+nec=;
+        b=YRZDl254+mwg1K6mexONkd7ZNLjKpvcjWtMjbF808vm5l6tAQ2K6mkL4d6hTFV1F52
+         /IOMMW7W0sYrRkteZJ3TD6JIJMaWTDSVtv5eEQo4JBsktwvy8EUw4N9rUMoiQmzCJd4z
+         hyFcLPtdCOaGrcC/WH4oBleIjhLxGUwkGtx+Xf7W/1romncZ+6rAXb/A/vSVC4jQwMvA
+         DfK6OM/0AbMNg60/zC1jLB6CUtWeQ8YW2m7j5199xi387IuaZ0AHT/bqwHSyjgSqUAMW
+         F4to890vLmm2CpTDGxp97Iy9NtmGhIS2Q5dpZXgn+5EjurPfmse9VfQihoIG6zlo9cxK
+         wFFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783522153; x=1784126953;
+        d=1e100.net; s=20251104; t=1783522155; x=1784126955;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TJcpwUL5OnSXVi1yEj1ZgDZ7aAujN4ZxyzVguEBXsyw=;
-        b=PS2a7KQ9833w4m9bUxD0h91XVyND1JzXSEUMlN2OG95bhy1Vj/7rcDC0NMw3TGtu2I
-         Dw5lfN5DSFzTiwpDIvdPzHqcIpBFbYNih36xsj85pU9x6tHfAt/sIThME0sLqhSDADQp
-         JiTxxKSLJWLnLqUWmqwBcgtybSZ72u2WZ/wEzX14O11H1M0rs0EFgc0cX96Y5hMuEKZo
-         xR8y9n88+x8E8b+k73Wk34+xeHbr+bhciQGowxKFDwUTFos0h2/1tNODbumPq1i5UnPa
-         jNGG9YYMxJodv+HSRIs3h+K6hDupBXqR9lozmv0q2P+A442vXjJuVMSPSK5GRYepQK3q
-         rc+Q==
-X-Gm-Message-State: AOJu0YwqcEdSIy8kxNTKp8rb5taTyMLBOS9mE7K4z0jByu3FAINQBzNb
-	YtFbgXrpUE6Ay5jf/YoXH2H8JUoD2QIQg8FAE+Yr1pzIqMpzgizw2SAmqtIDAAowM9M=
-X-Gm-Gg: AfdE7cnIPBnx6pAkzw9Rhju+1s3z/N+1wnGPz5JaY33lFrOOTdELA5iBeQ+EZxAEfEH
-	8ZSdkP/w7FdLjvJ0JkHiu1nnGab7L3YsKUpsdS7q18TlaP5sp8OjXjlpaI+X2Wix8X21Jh0jjAM
-	QP+o/uxKZbNgd3zKMVjXw/cS4RDhloVW1QjeUfJSEIA43tPRmyK5l+5u1dPzahmTpgZ/RMxhqKc
-	5x27Vs4qfH2SGuijccQDOtjQB2g7BtpvppMu4eNM2f6pW8STrSlvURNQv6eKt003BhQY0JUIrtR
-	SbtQlQ+iigXvJSQAwcghCnM2PN0lDYgu602+viYtFoI/y2bj/iz8pAhTCVPM7R8USMJpeEYxgLm
-	dVg5zzjDDwzPIoo8WuUGYq8NUkFg2ZzWBLZRgAyjjzCAp6n4rhpXz+BJolpBAsvgrsvI4bJSD+w
-	z3ZEfIOr3q4NcTt2AUYgfxISRayly/ToZxBF5TkCF1lvtkAV/U10ZjqS42bZdUCeRXIp41klO5g
-	CI=
-X-Received: by 2002:a05:600c:4512:b0:493:b7cb:c5f with SMTP id 5b1f17b1804b1-493e6893c66mr27120565e9.11.1783522152948;
-        Wed, 08 Jul 2026 07:49:12 -0700 (PDT)
+        bh=hgjXoLy1TNwMfRKhbBheihYw6qXgsO9wJkLUPpf+nec=;
+        b=N3P1W0G4AascsQ/FopMdCmZn3RT+E5RzwYmow6hrSZdIZlU8exiFr78RaHEyl1rrek
+         kdx5vGJiWEtb852GqR6rVLSrmC1iLW0pdCw17A/QKfc/ptU+cMxpeXJJTt4oYD+9Kg1A
+         jNDQzpLPFPOebJkY5LI6299qaAftnXVobod95x4Pi3RrWIj1nHRVYF4YUYCAM/u463CA
+         TiSXNN1VoWI7jXc789OR/zoZnvQEFPYsUeYZWIps0L+NhizxLGaet64tTqJ0HlBjb5n0
+         1azbdeZxi5c96hQ6JAedjmD6EId752ZLZxm2iKZiEQPPCI6ZcHyFNeDKFAswzB92p7qL
+         xseg==
+X-Gm-Message-State: AOJu0YxfzJ9J/tLeYw62EqmeqsXsC6UNoAocnZKWfVpynhdWyVg71AYQ
+	YE4qUwWnwHgocrAoGMnuanLyhqp7dvkJ8b34PwYODuUx0k9+t8XrSAaaQmsEcBDMMT8=
+X-Gm-Gg: AfdE7clpIXEWBfHbjDXSAQtQNe7n53uiJ92VK/Sr1Ng+ejQSg0r6faKOnfvSr8hsJ8W
+	RG9MBIUgH5BqtPx9uxaNQ175kXRsVA45eR4Ea4jvkXL7tXont8D4lxvOlUhs4PWDAA2HLIdnl8k
+	3KPy1oJTSC2irJYeGkqWEIsRMfHfKTAD34ekhBZ2g8CDVb+l32XkgkltTEimHOCVQx4zNK5vr9M
+	xclpIrjxQQkG30+ze8/5ht8SaHZvZ4QvQ4NEpbYMNV2gv8rZrt8d5yx6nWmiVIdM5La6AFnLBN0
+	9PyKf06nD0se21URHrf9w2NFLxLzjTlnNDYA6T6yBfBd9DnqGYATgM9b3Ee0te6VOw1SMG1wJ9u
+	OK1pIat+QTHxAzQosTN+7wisATg+2hBT3xvN5n7BoY0+7K2W4gUDzORffEwceCkpvMcCHs2CVte
+	fR+zWYFDKVYZCU30RvhGlD23JvVJV+pddi3KXuzNNq28FckVbsEsLdVkMwJXLqCBfhfSwvZ+5El
+	b4=
+X-Received: by 2002:a05:600c:3acf:b0:493:e46a:ab with SMTP id 5b1f17b1804b1-493e68db6edmr29746535e9.34.1783522155321;
+        Wed, 08 Jul 2026 07:49:15 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-493e0fbd355sm135363315e9.13.2026.07.08.07.49.12
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-493e0fbd355sm135363315e9.13.2026.07.08.07.49.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 07:49:12 -0700 (PDT)
+        Wed, 08 Jul 2026 07:49:14 -0700 (PDT)
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 08 Jul 2026 15:48:40 +0100
-Subject: [PATCH v3 04/20] media: imx355: Remove setting FRM_LENGTH_LINES in
- the mode regs
+Date: Wed, 08 Jul 2026 15:48:43 +0100
+Subject: [PATCH v3 07/20] media: imx355: Set binning mode registers
+ programmatically
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260708-media-imx355-v3-4-9df386a623d7@raspberrypi.com>
+Message-Id: <20260708-media-imx355-v3-7-9df386a623d7@raspberrypi.com>
 References: <20260708-media-imx355-v3-0-9df386a623d7@raspberrypi.com>
 In-Reply-To: <20260708-media-imx355-v3-0-9df386a623d7@raspberrypi.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -85,146 +85,172 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>
 X-Mailer: b4 0.14.1
 
-Registers 0x0340 and 0x0341 (FRM_LENGTH_LINES) are already written
-from the set_ctrl(V4L2_CID_VBLANK) handler, so don't write them
-from the mode register list.
+Compute the binning registers based on the difference between
+the mode width/height vs the crop width/height.
 
 Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- drivers/media/i2c/imx355.c | 28 ----------------------------
- 1 file changed, 28 deletions(-)
+ drivers/media/i2c/imx355.c | 61 +++++++++++++++-------------------------------
+ 1 file changed, 19 insertions(+), 42 deletions(-)
 
 diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-index 4eaccd9e90f1..24c883a6c520 100644
+index 7aabd281cd3c..1010c32fe969 100644
 --- a/drivers/media/i2c/imx355.c
 +++ b/drivers/media/i2c/imx355.c
-@@ -254,8 +254,6 @@ static const struct imx355_reg_list imx355_global_setting = {
+@@ -72,6 +72,10 @@
+ #define IMX355_TEST_PATTERN_GRAY_COLOR_BARS	3
+ #define IMX355_TEST_PATTERN_PN9			4
+ 
++#define IMX355_REG_BINNING_MODE		0x0900
++#define IMX355_REG_BINNING_TYPE		0x0901
++#define IMX355_REG_BINNING_WEIGHTING	0x0902
++
+ /* Flip Control */
+ #define IMX355_REG_ORIENTATION		0x0101
+ 
+@@ -263,113 +267,71 @@ static const struct imx355_reg_list imx355_global_setting = {
+ };
+ 
  static const struct imx355_reg mode_3268x2448_regs[] = {
- 	{ 0x0342, 0x0e },
- 	{ 0x0343, 0x58 },
--	{ 0x0340, 0x0a },
--	{ 0x0341, 0x37 },
- 	{ 0x0344, 0x00 },
- 	{ 0x0345, 0x08 },
- 	{ 0x0346, 0x00 },
-@@ -278,8 +276,6 @@ static const struct imx355_reg mode_3268x2448_regs[] = {
+-	{ 0x0900, 0x00 },
+-	{ 0x0901, 0x11 },
+-	{ 0x0902, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+ };
+ 
  static const struct imx355_reg mode_3264x2448_regs[] = {
- 	{ 0x0342, 0x0e },
- 	{ 0x0343, 0x58 },
--	{ 0x0340, 0x0a },
--	{ 0x0341, 0x37 },
- 	{ 0x0344, 0x00 },
- 	{ 0x0345, 0x08 },
- 	{ 0x0346, 0x00 },
-@@ -302,8 +298,6 @@ static const struct imx355_reg mode_3264x2448_regs[] = {
+-	{ 0x0900, 0x00 },
+-	{ 0x0901, 0x11 },
+-	{ 0x0902, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+ };
+ 
  static const struct imx355_reg mode_3280x2464_regs[] = {
- 	{ 0x0342, 0x0e },
- 	{ 0x0343, 0x58 },
--	{ 0x0340, 0x0a },
--	{ 0x0341, 0x37 },
- 	{ 0x0344, 0x00 },
- 	{ 0x0345, 0x00 },
- 	{ 0x0346, 0x00 },
-@@ -326,8 +320,6 @@ static const struct imx355_reg mode_3280x2464_regs[] = {
+-	{ 0x0900, 0x00 },
+-	{ 0x0901, 0x11 },
+-	{ 0x0902, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+ };
+ 
  static const struct imx355_reg mode_1940x1096_regs[] = {
- 	{ 0x0342, 0x0e },
- 	{ 0x0343, 0x58 },
--	{ 0x0340, 0x05 },
--	{ 0x0341, 0x1a },
- 	{ 0x0344, 0x02 },
- 	{ 0x0345, 0xa0 },
- 	{ 0x0346, 0x02 },
-@@ -350,8 +342,6 @@ static const struct imx355_reg mode_1940x1096_regs[] = {
+-	{ 0x0900, 0x00 },
+-	{ 0x0901, 0x11 },
+-	{ 0x0902, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+ };
+ 
  static const struct imx355_reg mode_1936x1096_regs[] = {
- 	{ 0x0342, 0x0e },
- 	{ 0x0343, 0x58 },
--	{ 0x0340, 0x05 },
--	{ 0x0341, 0x1a },
- 	{ 0x0344, 0x02 },
- 	{ 0x0345, 0xa0 },
- 	{ 0x0346, 0x02 },
-@@ -374,8 +364,6 @@ static const struct imx355_reg mode_1936x1096_regs[] = {
+-	{ 0x0900, 0x00 },
+-	{ 0x0901, 0x11 },
+-	{ 0x0902, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+ };
+ 
  static const struct imx355_reg mode_1924x1080_regs[] = {
- 	{ 0x0342, 0x0e },
- 	{ 0x0343, 0x58 },
--	{ 0x0340, 0x05 },
--	{ 0x0341, 0x1a },
- 	{ 0x0344, 0x02 },
- 	{ 0x0345, 0xa8 },
- 	{ 0x0346, 0x02 },
-@@ -398,8 +386,6 @@ static const struct imx355_reg mode_1924x1080_regs[] = {
+-	{ 0x0900, 0x00 },
+-	{ 0x0901, 0x11 },
+-	{ 0x0902, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+ };
+ 
  static const struct imx355_reg mode_1920x1080_regs[] = {
- 	{ 0x0342, 0x0e },
- 	{ 0x0343, 0x58 },
--	{ 0x0340, 0x05 },
--	{ 0x0341, 0x1a },
- 	{ 0x0344, 0x02 },
- 	{ 0x0345, 0xa8 },
- 	{ 0x0346, 0x02 },
-@@ -422,8 +408,6 @@ static const struct imx355_reg mode_1920x1080_regs[] = {
+-	{ 0x0900, 0x00 },
+-	{ 0x0901, 0x11 },
+-	{ 0x0902, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+ };
+ 
  static const struct imx355_reg mode_1640x1232_regs[] = {
- 	{ 0x0342, 0x07 },
- 	{ 0x0343, 0x2c },
--	{ 0x0340, 0x05 },
--	{ 0x0341, 0x1a },
- 	{ 0x0344, 0x00 },
- 	{ 0x0345, 0x00 },
- 	{ 0x0346, 0x00 },
-@@ -446,8 +430,6 @@ static const struct imx355_reg mode_1640x1232_regs[] = {
+-	{ 0x0900, 0x01 },
+-	{ 0x0901, 0x22 },
+-	{ 0x0902, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+ };
+ 
  static const struct imx355_reg mode_1640x922_regs[] = {
- 	{ 0x0342, 0x07 },
- 	{ 0x0343, 0x2c },
--	{ 0x0340, 0x05 },
--	{ 0x0341, 0x1a },
- 	{ 0x0344, 0x00 },
- 	{ 0x0345, 0x00 },
- 	{ 0x0346, 0x01 },
-@@ -470,8 +452,6 @@ static const struct imx355_reg mode_1640x922_regs[] = {
+-	{ 0x0900, 0x01 },
+-	{ 0x0901, 0x22 },
+-	{ 0x0902, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+ };
+ 
  static const struct imx355_reg mode_1300x736_regs[] = {
- 	{ 0x0342, 0x07 },
- 	{ 0x0343, 0x2c },
--	{ 0x0340, 0x05 },
--	{ 0x0341, 0x1a },
- 	{ 0x0344, 0x01 },
- 	{ 0x0345, 0x58 },
- 	{ 0x0346, 0x01 },
-@@ -494,8 +474,6 @@ static const struct imx355_reg mode_1300x736_regs[] = {
+-	{ 0x0900, 0x01 },
+-	{ 0x0901, 0x22 },
+-	{ 0x0902, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+ };
+ 
  static const struct imx355_reg mode_1296x736_regs[] = {
- 	{ 0x0342, 0x07 },
- 	{ 0x0343, 0x2c },
--	{ 0x0340, 0x05 },
--	{ 0x0341, 0x1a },
- 	{ 0x0344, 0x01 },
- 	{ 0x0345, 0x58 },
- 	{ 0x0346, 0x01 },
-@@ -518,8 +496,6 @@ static const struct imx355_reg mode_1296x736_regs[] = {
+-	{ 0x0900, 0x01 },
+-	{ 0x0901, 0x22 },
+-	{ 0x0902, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+ };
+ 
  static const struct imx355_reg mode_1284x720_regs[] = {
- 	{ 0x0342, 0x07 },
- 	{ 0x0343, 0x2c },
--	{ 0x0340, 0x05 },
--	{ 0x0341, 0x1a },
- 	{ 0x0344, 0x01 },
- 	{ 0x0345, 0x68 },
- 	{ 0x0346, 0x02 },
-@@ -542,8 +518,6 @@ static const struct imx355_reg mode_1284x720_regs[] = {
+-	{ 0x0900, 0x01 },
+-	{ 0x0901, 0x22 },
+-	{ 0x0902, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+ };
+ 
  static const struct imx355_reg mode_1280x720_regs[] = {
- 	{ 0x0342, 0x07 },
- 	{ 0x0343, 0x2c },
--	{ 0x0340, 0x05 },
--	{ 0x0341, 0x1a },
- 	{ 0x0344, 0x01 },
- 	{ 0x0345, 0x68 },
- 	{ 0x0346, 0x02 },
-@@ -566,8 +540,6 @@ static const struct imx355_reg mode_1280x720_regs[] = {
+-	{ 0x0900, 0x01 },
+-	{ 0x0901, 0x22 },
+-	{ 0x0902, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+ };
+ 
  static const struct imx355_reg mode_820x616_regs[] = {
- 	{ 0x0342, 0x0e },
- 	{ 0x0343, 0x58 },
--	{ 0x0340, 0x02 },
--	{ 0x0341, 0x8c },
- 	{ 0x0344, 0x00 },
- 	{ 0x0345, 0x00 },
- 	{ 0x0346, 0x00 },
+-	{ 0x0900, 0x01 },
+-	{ 0x0901, 0x44 },
+-	{ 0x0902, 0x00 },
+ 	{ 0x0700, 0x02 },
+ 	{ 0x0701, 0x78 },
+ };
+@@ -974,6 +936,7 @@ static int imx355_start_streaming(struct imx355 *imx355)
+ {
+ 	const struct imx355_reg_list *reg_list;
+ 	const struct imx355_mode *mode;
++	u8 binning_mode;
+ 	int ret;
+ 
+ 	/* Global Setting */
+@@ -1019,6 +982,20 @@ static int imx355_start_streaming(struct imx355 *imx355)
+ 	if (ret)
+ 		return ret;
+ 
++	binning_mode = ((mode->crop.width / mode->width) << 4) |
++			(mode->crop.height / mode->height);
++	ret = imx355_write_reg(imx355, IMX355_REG_BINNING_MODE, 1,
++			       binning_mode == 0x11 ? 0x00 : 0x01);
++	if (ret)
++		return ret;
++	ret = imx355_write_reg(imx355, IMX355_REG_BINNING_TYPE, 1,
++			       binning_mode);
++	if (ret)
++		return ret;
++	ret = imx355_write_reg(imx355, IMX355_REG_BINNING_WEIGHTING, 1, 0x00);
++	if (ret)
++		return ret;
++
+ 	/* Set PLL registers for the external clock frequency */
+ 	ret = imx355_write_reg(imx355, IMX355_REG_EXTCLK_FREQ, 2,
+ 			       imx355->clk_params->extclk_freq);
 
 -- 
 2.34.1
