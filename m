@@ -1,32 +1,70 @@
-Received: from zg8tmja5ljk3lje4mi4ymjia.icoremail.net (zg8tmja5ljk3lje4mi4ymjia.icoremail.net [209.97.182.222])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3DA6644BC92;
-	Wed,  8 Jul 2026 14:17:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.97.182.222
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28493B38AD
+	for <linux-media@vger.kernel.org>; Wed,  8 Jul 2026 14:33:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783520256; cv=none; b=Y4OsmAshwl5N3VAjodC1vgpqQxpxZFSKa/sJtCfEW8fXgmmCgnc9JlFEv1Zqp9JNJu3fOjpA81yROpVebPdwB6n/JKlKTJdADdHyM7Vcvrq5nUx33fBTj4aEYt5VEKjmtvCBUG9MEO/8gSTd33aHBKLN9mUO73a/NW3E+QAn1O4=
+	t=1783521225; cv=none; b=MFX8/rhCKLqn+a+GU3HJ9VEPF+3EiqJqLuYgHQimmU/rzsBWQwxUWk0ouMCG5M325m9sKPr1uTNT98Os8NE5chberUWq7sL31RLa3Nz+FmGZoAwQOyzilfiOn+b7lT+XfwXBr15bEl+VYXAF2gXaf4F3hQBRIqqqQUjSVTYPlvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783520256; c=relaxed/simple;
-	bh=nmLFcrmIJBCQo0MYGrdfkiIK6Al0g/cT/7J2OLj2+EE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TLFJGknm/3du7FeBYd3sIo3O27j1EfU6TgU1W+tjJzeRWeYLP1HIno+xhUdpRea0U3p72iWNPhSjxaIyb0nadeEvJa4/9Ka80zRVOtDI+MJtoDuJPW8r97bjFAa3Rd/XqDOl+2TLnt0DooDs+BoK/ebgGl9Aqfoo/mCfg956474=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=209.97.182.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wD3oBTuW05qgJsjAA--.14020S3;
-	Wed, 08 Jul 2026 22:17:19 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgDH+TDuW05qzMApAg--.39271S2;
-	Wed, 08 Jul 2026 22:17:18 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: mchehab@kernel.org
+	s=arc-20240116; t=1783521225; c=relaxed/simple;
+	bh=u9dO4RA2N5zN22YNEBxk+nfIcAHajXTXBLPpIfycIaQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZbAV755d5hN/IQinWtjwsf7noSmT0f/wVrYrWN/inLQ4SfN72WgqI3HpsGqxyNC68haZdXvJN99+IRPlP8Uw6iMbHcnMFt1KKEohxhP/YM751BH3b32oyR8xFJQAbSiHjpUHPuYmRjHRSZzppKJyW8JzHVM5mZ+YS+u80UxaUY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WC+049xe; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WC+049xe"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-381507c9380so587310a91.0
+        for <linux-media@vger.kernel.org>; Wed, 08 Jul 2026 07:33:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783521223; x=1784126023; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q+o3zaIf/6b+dXxvdjQtRz9xf7Upt1jRIGIgkL0q8uY=;
+        b=WC+049xeim7fDxBudynsSK/Hye80xquncFqOShTAyZW+koSiN7ycM1U3bzy1/PwGLi
+         9WqrI+7gfzB+2KVYxZD8KpFlVraO4bY0Lm681LfdWEgOfC/lDnDVAUqHtxOSzm0Hlv0q
+         vAmZ4+XUTqXqbGBPGrzBylYjemcYv/tlRan4Nfpa/T0QV01gy3pxGfjge/hKGUhgtT7R
+         lt2CX1Ev/QYhgFEp8PTvFqSMVuQAYqIctriLWqeHfLeDRpjgOgzcSv7JmwPPeFc2lItw
+         vfKQzocyWufY1GvDa/jyWKTQDCR0m0j4IcPwft+F2dnT7pVt6b2q0oFATfM4oLzh/dju
+         js+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783521223; x=1784126023;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q+o3zaIf/6b+dXxvdjQtRz9xf7Upt1jRIGIgkL0q8uY=;
+        b=VrCpPXYzLWS33G3rPyVxwhdpZkkkQPEoccrA99bDnu6mQgKvZwAnZwmiMCy68Y79ZQ
+         UgKRMr6+vD7nnU714UFzepkQfSXkqvzLhyrTeDmXaL7HW5a+PbHm9Ldr9YfUvToLthti
+         lIj1bacAMZUuOdUiwT4IPZC1mUbdUf/S28TFA3WMseTmvRwiix8EpQZIgqE/erXcnWrU
+         xr2GatjdM1xxLNFN7UZviv5QL+xools7S/tUmZoDuBDMPwPOhSg80eePEWZfOJCNukxH
+         2ap2T4mX3OHJqlBW+PAQtBzX/mMuoE74CriP91QGf7tYDzGf+OMS+N/uRe6h1SVjOoEg
+         hCuA==
+X-Gm-Message-State: AOJu0Yy+bReJTwZenkTjlTOrmbkg+RyVc6Y/Oq4IDepL5UQl58eeMuwa
+	aQqu71RpGsaHgk32ZoIzI0cHh5fOVwy1z/qvNCcjgF5Qorxzm9L/C7Fn
+X-Gm-Gg: AfdE7cmNKCKirrbSQDTGFyDy2GxyV0InBdRukjnU834ASqDZNmmf5ji2lHmAqdOh45Y
+	/JUny8MeQjr4yGzAnS0mW5VBAkuGK5EMql1IiQb//Yx0ofzTTbLGwy924tRCHu+t7+zzWDllXBV
+	wfSUZsPn890T62C0n953kUPwVdt0nCcR/aN1uZ/O2YKLynZpcah4//22B3/tLG8PWwBxl6wGzE6
+	fWeFLus8rELCrd/wEN7wQs25BZuRB2NBknbQxxbi0pRZM3x7DxpksWker3irajANqKjA2JpXiKz
+	DWD6TFbTRhHMksYr73Fr0Pz+TGyY14ZZQNf3164G2UHfCdSz2kBqPexD9+akXIbDUq9T2QMADeH
+	899CxlFivDXJiJi5tbR/bLhq1SXS1KbSsYWisAIw1ys012M/Q6s7q1QRdyeuIQlq9squ2ViaCq0
+	952hyjrB9aGYKDzWSjrlMCGlmbtJhrhGEr
+X-Received: by 2002:a17:90b:2241:b0:36b:944b:fd81 with SMTP id 98e67ed59e1d1-3893fb70506mr2601550a91.4.1783521223082;
+        Wed, 08 Jul 2026 07:33:43 -0700 (PDT)
+Received: from haichao.tail057a43.ts.net ([2001:da8:e000:1206:1b95:b995:f60c:5c67])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-387d12fcecesm2877584a91.1.2026.07.08.07.33.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Jul 2026 07:33:42 -0700 (PDT)
+From: Ruoyu Wang <ruoyuw560@gmail.com>
+To: hverkuil@kernel.org,
+	mchehab@kernel.org
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] media: cx231xx-audio: gate wq_trigger on an audio-local teardown flag
-Date: Wed,  8 Jul 2026 14:16:22 +0000
-Message-Id: <20260708141622.3936490-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	Ruoyu Wang <ruoyuw560@gmail.com>
+Subject: [PATCH] media: cobalt: Avoid freeing ALSA private data twice
+Date: Wed,  8 Jul 2026 22:33:38 +0800
+Message-ID: <20260708143338.3164671-1-ruoyuw560@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -34,196 +72,38 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgDH+TDuW05qzMApAg--.39271S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?+7646wXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZzo5cbFrir2M8XDhP8w/SFwD5FlG7u2q/6dT3oGcduNxjlG
-	stkPrON9NZL78exfTAXN5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoWxKr1UKF15JFyDAFWkXF43Jwc_yoWxJry7pa
-	4kKa4rKFW7Ja4UZrsrXw1rWF13Cws7ta1DG3y7u3Wqqwn5tr1rGF43AryxuryruF97ua17
-	ur4UX3yjvws2vagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Tv3UUUUUU==
 
-audio_trigger() is deferred work (dev->wq_trigger) armed from
-snd_cx231xx_capture_trigger() on every PCM START/STOP; it dereferences
-dev->adev state and may free the URBs via cx231xx_isoc_audio_deinit().
-cx231xx_audio_fini() tore down that state (snd_card_free_when_closed,
-alt_max_pkt_size) without draining wq_trigger, so work armed before or
-racing fini ran against freed state.
+snd_cobalt_card_create() stores cobsc in sc->private_data and installs
+snd_cobalt_card_private_free() as sc->private_free. From that point,
+snd_card_free(sc) releases cobsc through the ALSA card cleanup path.
 
-Adding cancel_work_sync() alone is insufficient: in capture_trigger() the
-DEV_DISCONNECTED test and schedule_work() were not atomic, and
-DEV_DISCONNECTED is only set on USB disconnect, but fini also runs on
-cx231xx-alsa module unload (cx231xx_unregister_extension()), which never
-sets it.  A trigger that passed the check could still queue work after
-fini's cancel returned an empty queue.
+If cobalt_alsa_init() fails after snd_cobalt_card_create(), the
+err_exit_free path calls snd_card_free(sc) and then kfree(cobsc). That
+second free releases the same object again.
 
-Add an audio-local teardown gate (dev->adev.teardown): fini raises it under
-adev.slock, releases the lock, then calls cancel_work_sync() outside the
-spinlock.  Both arm sites perform the teardown check and schedule_work()
-inside one adev.slock section, so once the gate is visible no new work can
-arm after cancel returns.  Initialize the lock, work and gate at the top of
-cx231xx_audio_init(), before any fallible allocation, and clear the
-partially-built audio state on its error path, so fini is safe even if a
-later step fails.
+Remove the explicit kfree(cobsc) and leave ownership with the ALSA card.
 
-This issue was found by an in-house static analysis tool.
+This issue was found by a static analysis checker and confirmed by
+manual source review.
 
-Fixes: 61b04cb24a12 ("[media] cx231xx-audio: fix some locking issues")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Fixes: 85756a069c55 ("[media] cobalt: add new driver")
+Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
 ---
- drivers/media/usb/cx231xx/cx231xx-audio.c | 42 +++++++++++++++++++----
- drivers/media/usb/cx231xx/cx231xx.h       |  1 +
- 2 files changed, 36 insertions(+), 7 deletions(-)
+ drivers/media/pci/cobalt/cobalt-alsa-main.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/media/usb/cx231xx/cx231xx-audio.c b/drivers/media/usb/cx231xx/cx231xx-audio.c
-index 9c71b32552df..44ca75b18a5d 100644
---- a/drivers/media/usb/cx231xx/cx231xx-audio.c
-+++ b/drivers/media/usb/cx231xx/cx231xx-audio.c
-@@ -441,6 +441,7 @@ static int snd_cx231xx_capture_open(struct snd_pcm_substream *substream)
- static int snd_cx231xx_pcm_close(struct snd_pcm_substream *substream)
- {
- 	int ret;
-+	unsigned long flags;
- 	struct cx231xx *dev = snd_pcm_substream_chip(substream);
- 
- 	dev_dbg(dev->dev, "closing device\n");
-@@ -470,7 +471,11 @@ static int snd_cx231xx_pcm_close(struct snd_pcm_substream *substream)
- 		dev_dbg(dev->dev, "released lock\n");
- 		if (atomic_read(&dev->stream_started) > 0) {
- 			atomic_set(&dev->stream_started, 0);
--			schedule_work(&dev->wq_trigger);
-+
-+			spin_lock_irqsave(&dev->adev.slock, flags);
-+			if (!dev->adev.teardown)
-+				schedule_work(&dev->wq_trigger);
-+			spin_unlock_irqrestore(&dev->adev.slock, flags);
- 		}
- 	}
- 	return 0;
-@@ -509,11 +514,14 @@ static int snd_cx231xx_capture_trigger(struct snd_pcm_substream *substream,
- {
- 	struct cx231xx *dev = snd_pcm_substream_chip(substream);
- 	int retval = 0;
-+	unsigned long flags;
- 
--	if (dev->state & DEV_DISCONNECTED)
-+	spin_lock_irqsave(&dev->adev.slock, flags);
-+	if (dev->adev.teardown || (dev->state & DEV_DISCONNECTED)) {
-+		spin_unlock_irqrestore(&dev->adev.slock, flags);
- 		return -ENODEV;
-+	}
- 
--	spin_lock(&dev->adev.slock);
- 	switch (cmd) {
- 	case SNDRV_PCM_TRIGGER_START:
- 		atomic_set(&dev->stream_started, 1);
-@@ -525,10 +533,10 @@ static int snd_cx231xx_capture_trigger(struct snd_pcm_substream *substream,
- 		retval = -EINVAL;
- 		break;
- 	}
--	spin_unlock(&dev->adev.slock);
- 
- 	schedule_work(&dev->wq_trigger);
- 
-+	spin_unlock_irqrestore(&dev->adev.slock, flags);
- 	return retval;
+diff --git a/drivers/media/pci/cobalt/cobalt-alsa-main.c b/drivers/media/pci/cobalt/cobalt-alsa-main.c
+index 7bb7f13c70c0d..9ed547cd40af5 100644
+--- a/drivers/media/pci/cobalt/cobalt-alsa-main.c
++++ b/drivers/media/pci/cobalt/cobalt-alsa-main.c
+@@ -135,7 +135,6 @@ int cobalt_alsa_init(struct cobalt_stream *s)
+ err_exit_free:
+ 	if (sc != NULL)
+ 		snd_card_free(sc);
+-	kfree(cobsc);
+ err_exit:
+ 	return ret;
  }
- 
-@@ -576,12 +584,20 @@ static int cx231xx_audio_init(struct cx231xx *dev)
- 	dev_dbg(dev->dev,
- 		"probing for cx231xx non standard usbaudio\n");
- 
-+	/*
-+	 * Extension init errors are ignored by the cx231xx core, so fini()
-+	 * must be safe even if initialization fails part way through.
-+	 */
-+	spin_lock_init(&adev->slock);
-+	INIT_WORK(&dev->wq_trigger, audio_trigger);
-+	adev->teardown = false;
-+	atomic_set(&dev->stream_started, 0);
-+
- 	err = snd_card_new(dev->dev, index[devnr], "Cx231xx Audio",
- 			   THIS_MODULE, 0, &card);
- 	if (err < 0)
- 		return err;
- 
--	spin_lock_init(&adev->slock);
- 	err = snd_pcm_new(card, "Cx231xx Audio", 0, 0, 1, &pcm);
- 	if (err < 0)
- 		goto err_free_card;
-@@ -596,8 +612,6 @@ static int cx231xx_audio_init(struct cx231xx *dev)
- 	strscpy(card->shortname, "Cx231xx Audio", sizeof(card->shortname));
- 	strscpy(card->longname, "Conexant cx231xx Audio", sizeof(card->longname));
- 
--	INIT_WORK(&dev->wq_trigger, audio_trigger);
--
- 	err = snd_card_register(card);
- 	if (err < 0)
- 		goto err_free_card;
-@@ -651,14 +665,18 @@ static int cx231xx_audio_init(struct cx231xx *dev)
- 
- err_free_pkt_size:
- 	kfree(adev->alt_max_pkt_size);
-+	adev->alt_max_pkt_size = NULL;
- err_free_card:
- 	snd_card_free(card);
-+	adev->sndcard = NULL;
- 
- 	return err;
- }
- 
- static int cx231xx_audio_fini(struct cx231xx *dev)
- {
-+	unsigned long flags;
-+
- 	if (dev == NULL)
- 		return 0;
- 
-@@ -669,6 +687,16 @@ static int cx231xx_audio_fini(struct cx231xx *dev)
- 		return 0;
- 	}
- 
-+	/*
-+	 * Block new trigger work before draining already queued work.
-+	 * cancel_work_sync() may sleep, so it must run after dropping slock.
-+	 */
-+	spin_lock_irqsave(&dev->adev.slock, flags);
-+	dev->adev.teardown = true;
-+	spin_unlock_irqrestore(&dev->adev.slock, flags);
-+
-+	cancel_work_sync(&dev->wq_trigger);
-+
- 	if (dev->adev.sndcard) {
- 		snd_card_free_when_closed(dev->adev.sndcard);
- 		kfree(dev->adev.alt_max_pkt_size);
-diff --git a/drivers/media/usb/cx231xx/cx231xx.h b/drivers/media/usb/cx231xx/cx231xx.h
-index 19f5036a78d7..99c6a279944f 100644
---- a/drivers/media/usb/cx231xx/cx231xx.h
-+++ b/drivers/media/usb/cx231xx/cx231xx.h
-@@ -418,6 +418,7 @@ struct cx231xx_audio {
- 	struct snd_card *sndcard;
- 
- 	int users, shutdown;
-+	bool teardown;		/* audio fini in progress; set under slock */
- 	/* locks */
- 	spinlock_t slock;
- 
 -- 
-2.34.1
+2.51.0
 
