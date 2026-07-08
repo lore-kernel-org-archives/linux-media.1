@@ -1,79 +1,76 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0996A26ED2D
-	for <linux-media@vger.kernel.org>; Wed,  8 Jul 2026 13:05:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED4A2264D6
+	for <linux-media@vger.kernel.org>; Wed,  8 Jul 2026 13:16:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783515945; cv=none; b=hJIlP8ITdDeAJl4cG7B80ZeEWyzB0nhGhs3PdJus7+2XNQZbfGgG+7YrIw177g+KzIc8ltxOTfgJfuggBq7gzPqWvpR67NDDMmtschb4TmYtno610fTt5tIr0azv2Fxz+4fZImZWyx/rX06AXIEuJkTuJF8L9sBEEIZVAJDxifc=
+	t=1783516613; cv=none; b=Z7cz8MtcXr5Ipli/K2+Dk0Wt28gDcotPrAzTgCOYCTq3C6ZX2o+hnFl15i4rHVS9u+mgBVyIgzLdjVoPn/wmFYYUXEHiEiU68Jfp/+JGiAOn0rvTmfaoN+wr9M5ec0FHKO+RBPzf7VxsmZdHY+GOikgQnI+G9GYSt44Zh/IKdH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783515945; c=relaxed/simple;
-	bh=Myyijv87T89uidt4IlT3B+u6WDZawELqMmMmm2VS+Cw=;
+	s=arc-20240116; t=1783516613; c=relaxed/simple;
+	bh=Ut6iGecErQbbKq1EQTWQmxnXlyJqeb4XsvAW8iInNCA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=poYSvUGJV+VSBalAdlYyB6f+AEUujW95RgiJeOldWLemX1RVUH920796mCYSniDthzGKqDhylWg/B6jsq/y1jz8kcazelnTIQ7N1lEh/C5cedew+JEWpwfQoxXQW8tbbHm2vnCX1S6+5TovMcqH2hfNearaYStja+Lrojq/XeaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gyRgVdR3; arc=none smtp.client-ip=209.85.214.180
+	 MIME-Version; b=GukMfIhpHfI+hmOOHup7CKLcVJrNjKI5HK3hpdzNGVQLyE6QBDV4ITx4xpf7zLaGHbsMeXYy5SlMRQHwPcJ0zM64FdZ5JUjJZptNy0N0LLJQnkVSfVL6fZaFHQJ4CJ9236KeLQLnmJuVBrSsSzZuOWvVC+mqO2c7CF53+sBOjcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SEhCsOtV; arc=none smtp.client-ip=209.85.216.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gyRgVdR3"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ccf2360620so3464225ad.3
-        for <linux-media@vger.kernel.org>; Wed, 08 Jul 2026 06:05:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SEhCsOtV"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-382a3fe0d28so689440a91.0
+        for <linux-media@vger.kernel.org>; Wed, 08 Jul 2026 06:16:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783515943; x=1784120743; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783516605; x=1784121405; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oiV9BZ6JtLWxJM5aFV2ir0HHpN4TWqB4aWSQOFRnO6Q=;
-        b=gyRgVdR3lzU4E4TSYPhCrjJxiHHgMW0R8wRU2jTSq7Q5EvyVN+8hFEEZX4T5a7xHTy
-         9F2+P1eRa1NbYSpVoMvn1LH7nVHVNctdaHMWxiLt5wM2XZWh6i4UCei6+JuQ5cPkWaoE
-         V9IBbb+1MFgmmbiMeM8ONYOceYrRaHjSzGtROcNr0QXxjC5ytrRnARjMp2gJaFqdehUT
-         jnhyG1jeWyMpCuoQ5lTIdxD1qFJQBZ7cQh90tkzeyUAJ8lseZI5XhiPEFE/0qfa6a2tD
-         vw5fJxnKLUSoryQTGIeF5auA0DeWoOB29+m+XzvzUUKCo/QXw0ye4M5rPTzk3NTEJSfL
-         GUcg==
+        bh=1g9bGpZfeB1rvyBPb5iXBjrZ5UuiljRZ+IlaR3rBxm0=;
+        b=SEhCsOtVjv2RWiXHpbqsbDRUbVxvw6HY9ye18BrUyuQIBjQe8T+QY/Lv7ihx6sSn8D
+         EzS51E6SjKoRFeakqlzdnfe9094JBR7EwooXw2KTSNb5034UrbcJWSZQA7/R7FaT9axb
+         28WDg+ZmcOYQRanh0cJCqBihZQSNYu9PfvyTuEncur4sSUVbJWAgo/tk+NJaf+U0wNjv
+         hDOb+YyRw9hS3KW9cZB0XnL8O1JdklSSGlYEI0WrCDMBTbiLkkez1OO0WiwB/SyYrHsG
+         DJ5+3Z3rCvp/nqy5zRBumgFrCvYa4xEIpfvHLQO8Oja7jW2LMgAGWzxKK6pggESiEgsP
+         a39A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783515943; x=1784120743;
+        d=1e100.net; s=20251104; t=1783516605; x=1784121405;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oiV9BZ6JtLWxJM5aFV2ir0HHpN4TWqB4aWSQOFRnO6Q=;
-        b=MhP5DkJcGrO1lNFKxJ+LXUNduKrsDyIKlgxRZOhNdlzGXfjKdyHaPkTPRK3o5cJ9bF
-         xnIBa3K77kf/wrKl+LQER7iKQiB09Ujeccep6NIWYvL/HglNU865kNe1tWPWdVzHkN6L
-         kqPpm2gFxg3KDGJHhfhpDyjSDFX4N/dLV9pLPuRL71sJg8qtX3nnC1lUZgYRbZUYi9AR
-         Ke+vkpPtDAqNQ5YG0qpA7+uj4i9baCDK3UOH0EJxtfBbZA88fJl89fpzTzcoEptQlvCX
-         2aLbUYCMy24u8LsHhd3FEO6m1vIPEkQ+lQdopjZt/fZ43B9xfnUBxHdfSwdz8hf7MfLx
-         tUwQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqgpU9i+/rrboxSRwbCNwayp/ve4dmR72Yc18jvoP4z0gRLDz9DaivoppaO0fuIdxkzBJrCNI5jxyD6Rw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwgKLUODdUXABwAtpqzOFwbQIu24YlddlPRU1FmTOYCyGM/eGDb
-	PUi5RkVkSexpQrCfQOMEOU8lcNuh8g+wMWOlD3+VQYguu/3Q0tRF01rjq6kOlAey
-X-Gm-Gg: AfdE7cnehHLIfbOg3yU+EPsRZqrhz3rb6eNoVo2iAkwQxJg9vVFwq00CDeEqUJVo0zb
-	r5cTDhpg831wYSEDvcyKIHCtyq/7zsjTkOxm8fBMbyJj56s2hhCY2jHCdxsjAFoRt+ziZSsj/C8
-	msBfIrSwRLTl7geMWKXImRpRVpwRdndw8w6a3n+B4JPFQnxTfOH4qtysjYmmctumWkFZIGEV24+
-	ybyW47OK2aab9Cm5SCVV6tQhKpNBNYZgY5RzQgiCiUpU2h9yQDyyWmx5hcMo5VqnFF4aVDrKgTP
-	dFDT1BqCymXEWyN8ANDAzCTIlqZX+ZD9qd32CVPpdSKrRrQd15tEQH//I/ZT3myAxNpGfAqUg5j
-	v2sTnSDUIUYmo93TKJMktxyur2VYxfFmiiyvHP1EuRvd07smMTK4h2Ir6vCdEhKiHUqThBLcKhl
-	e6SF3bnPjqfAGw3HDXmUu0LOG9vszqUjLSlGNCUKxUpMg=
-X-Received: by 2002:a05:6a20:a11d:b0:3bf:735d:7fb7 with SMTP id adf61e73a8af0-3c0bc8ab2bfmr3335231637.13.1783515943372;
-        Wed, 08 Jul 2026 06:05:43 -0700 (PDT)
+        bh=1g9bGpZfeB1rvyBPb5iXBjrZ5UuiljRZ+IlaR3rBxm0=;
+        b=fovtVvLcNAq9qoVT2wOp2GLi2gRPAwx8dEtgDqo4jZff0CoAXmhYX7NKvhWaMDkQjC
+         7NUOi/VbHibctAIrPw9c0lMCfLhjSaBRW6+iCcatQ+saD1QM6IA9vvxEosyUfjCWCmaT
+         clQRWEWy7Jloc4zwwbkbY6dEUcpQSuvM9CReUjesktDUC9ZOazmhyABG/6r1UNdDKERe
+         BfvncEIrtDyoRNsBq3C2/RsTJJTcvvr5XBN2eZeTQIlV+XMGVktgRvDgsqJi1evVweZx
+         jX2gk2jBnyXUCuCenNHTjT45cdmh/e57jTIJKw8+By+O7WRsYQPHL/Ue3TNiIisVas6j
+         TquA==
+X-Forwarded-Encrypted: i=1; AHgh+RpgXBC/q3YpKLpSLocIkc0FO70H4OBGR1rZo6AgUYZx5BSTqoedU8dkdkPltfRmB4SkxawbICSJQ6UoCw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzR9r41jukp7LTqYLXPretpbn2wH0IOoYiTMlsB1gKu9cUAYFFl
+	TfgQkim49SrYY4sF5ooO14z3idnqeNhhgX4zfX/T9xINGOK2ugbtxMUu
+X-Gm-Gg: AfdE7ckKu+zsJEkhoO/pWUc2bg2U83Rlb5PeFdsuAPxwuvqVqiOobgr6OOccciKBacg
+	B+MNDnHUH80PKpAEQ0kDEHm0mI1S6Bak7Psa0dA5pKx5kv74L2OpqOAWuWWXYcdubUuEQA6tmz7
+	d+CFo0fLR1z08OxPthtsgSHdaZiuADZWysflaKhbkj3XS7N9+4puFF6d/X4pXY38FaXUkhFShv1
+	6AT9kfBNEFxh+0W8nVY9dRnXZMmqgcRcetH7f7/EnqtP4Q7weLioAydJa3mj96XTfSwwSGXRSLL
+	sLmAZdPA8mA4KB1CjYPvoD65+jxjZkfR/kWLDfTVfTT9ppjltch3CH4RP0Ojve7t+PkTV/l8y9/
+	QdKQJkvBh2MI0Zah50AXcJ/kRbbMvLKnKDvGb5YPwwyRWyeuheOc52dtSMa0sh/ys3V+7TEc6WE
+	LuHvjYbK4iKtRBkLnBcfnywrBbXQ8834yxWRB2z7GPWak=
+X-Received: by 2002:a17:90b:3bcb:b0:381:77cd:38d1 with SMTP id 98e67ed59e1d1-3893fb74d3fmr2571017a91.10.1783516605369;
+        Wed, 08 Jul 2026 06:16:45 -0700 (PDT)
 Received: from localhost.localdomain ([49.207.223.101])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31189cd8234sm9748365eec.9.2026.07.08.06.05.39
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174accb0esm22447962eec.30.2026.07.08.06.16.42
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 08 Jul 2026 06:05:42 -0700 (PDT)
+        Wed, 08 Jul 2026 06:16:44 -0700 (PDT)
 From: Biren Pandya <birenpandya@gmail.com>
 To: sakari.ailus@linux.intel.com,
+	mani@kernel.org,
 	mchehab@kernel.org,
-	andriy.shevchenko@linux.intel.com,
-	dongchun.zhu@mediatek.com,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Biren Pandya <birenpandya@gmail.com>,
-	stable@vger.kernel.org,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Subject: [PATCH v3] media: i2c: ov02a10: fix endpoint parsing use-after-free
-Date: Wed,  8 Jul 2026 18:35:33 +0530
-Message-ID: <20260708130534.29329-2-birenpandya@gmail.com>
+Cc: Biren Pandya <birenpandya@gmail.com>
+Subject: [PATCH v3] media: i2c: imx290: Drop manual fwnode_handle_put() via scope-based cleanup
+Date: Wed,  8 Jul 2026 18:46:37 +0530
+Message-ID: <20260708131637.35132-2-birenpandya@gmail.com>
 X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260613112920.64617-1-birenpandya@gmail.com>
-References: <20260613112920.64617-1-birenpandya@gmail.com>
+In-Reply-To: <20260616081517.44685-3-birenpandya@gmail.com>
+References: <20260616081517.44685-3-birenpandya@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -82,58 +79,54 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ov02a10_check_hwcfg() function calls fwnode_handle_put(ep)
-immediately after allocating and parsing the endpoint. However, it
-subsequently calls fwnode_property_read_u32() using the same 'ep'
-handle, leading to a potential use-after-free.
+Utilize the __free(fwnode_handle) scoped guard macro from
+<linux/cleanup.h> to automate the lifecycle management of the endpoint
+fwnode in imx290_parse_dt().
 
-Additionally, reading the optional 'ovti,mipi-clock-voltage' property
-used to overwrite the 'ret' variable. If the property was missing,
-'ret' would become negative, and this failure code would be incorrectly
-returned at the end of the function, causing probe to fail entirely.
+This safely ties the release of the fwnode_handle to its compiler
+scope, allowing us to drop the manual fwnode_handle_put() call and
+removing the risk of missed puts if new early returns are added in
+the future.
 
-Fix the use-after-free by moving fwnode_property_read_u32() before
-the endpoint is parsed and freed. Avoid the error leak by not
-assigning the result of fwnode_property_read_u32() to 'ret'.
-
-Fixes: 91807efbe8ec ("media: i2c: add OV02A10 image sensor driver")
-Cc: stable@vger.kernel.org
 Signed-off-by: Biren Pandya <birenpandya@gmail.com>
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
----
- v3: moved property reads before parse to avoid UAF; fixed error leak by dropping assignment to ret; added Fixes/Cc stable; picked up Reviewed-by.
----
- drivers/media/i2c/ov02a10.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/media/i2c/ov02a10.c b/drivers/media/i2c/ov02a10.c
-index 143dcfe104456..0150e4d296af6 100644
---- a/drivers/media/i2c/ov02a10.c
-+++ b/drivers/media/i2c/ov02a10.c
-@@ -820,18 +820,16 @@ static int ov02a10_check_hwcfg(struct device *dev, struct ov02a10 *ov02a10)
- 	if (!ep)
- 		return -ENXIO;
+ v3: picked up Reviewed-by tag.
+Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+---
+ v3: picked up Reviewed-by tag.
+---
+ drivers/media/i2c/imx290.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/i2c/imx290.c b/drivers/media/i2c/imx290.c
+index 21cbc81cb2edc..5c369c7ee21f7 100644
+--- a/drivers/media/i2c/imx290.c
++++ b/drivers/media/i2c/imx290.c
+@@ -8,6 +8,7 @@
+  * Author: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+  */
  
-+	/* Optional indication of MIPI clock voltage unit */
-+	if (!fwnode_property_read_u32(ep, "ovti,mipi-clock-voltage",
-+				      &clk_volt))
-+		ov02a10->mipi_clock_voltage = clk_volt;
-+
- 	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
- 	fwnode_handle_put(ep);
- 	if (ret)
- 		return ret;
++#include <linux/cleanup.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/gpio/consumer.h>
+@@ -1514,7 +1515,7 @@ static int imx290_parse_dt(struct imx290 *imx290)
+ 	struct v4l2_fwnode_endpoint ep = {
+ 		.bus_type = V4L2_MBUS_CSI2_DPHY
+ 	};
+-	struct fwnode_handle *endpoint;
++	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
+ 	int ret;
+ 	s64 fq;
  
--	/* Optional indication of MIPI clock voltage unit */
--	ret = fwnode_property_read_u32(ep, "ovti,mipi-clock-voltage",
--				       &clk_volt);
--
--	if (!ret)
--		ov02a10->mipi_clock_voltage = clk_volt;
--
- 	for (i = 0; i < ARRAY_SIZE(link_freq_menu_items); i++) {
- 		for (j = 0; j < bus_cfg.nr_of_link_frequencies; j++) {
- 			if (link_freq_menu_items[i] ==
+@@ -1527,7 +1528,6 @@ static int imx290_parse_dt(struct imx290 *imx290)
+ 	}
+ 
+ 	ret = v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep);
+-	fwnode_handle_put(endpoint);
+ 	if (ret == -ENXIO) {
+ 		dev_err(imx290->dev, "Unsupported bus type, should be CSI2\n");
+ 		goto done;
 -- 
 2.50.1 (Apple Git-155)
 
