@@ -1,101 +1,163 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE893D170C;
-	Wed,  8 Jul 2026 10:41:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9DC3D3D01
+	for <linux-media@vger.kernel.org>; Wed,  8 Jul 2026 10:50:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783507274; cv=none; b=GNGwYiw1eNcO8AOD8Dp+Mn+EDdEGQPQai8ShH7HpZ0qUKTBQ5DsrM9Y6XTqnYU9p3CHyUO3lIl8p+hJtwl8CI0jUyULHyr+stGk+b8xwSvKMioNsmRcoVVu42ZNdlSh+Hrq482xB3A47fbpXOeD45F3+cZTv9Q0KGTQncj7jMaA=
+	t=1783507829; cv=none; b=NZzck6CGApyLH/jO+IDplrse3h2HZj2KN7hr3bHpbdzIG59cL+e2XcqF9ngYUPAG3UWO682kE22grgKM0pSNbiNEVxHnAv224ovgBquXIGU3tqfhMmiUQM31rmWqZV+K0oIr4WskL3JEhej8godGeTZXG7N9wf+o9aS6eTGZIbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783507274; c=relaxed/simple;
-	bh=V3byV+Jr38OfJj4SzwQYrO4Dd/7QC9RVjCvimfBGsQw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YePgcA1v3hK1Bf+YELrB9eOGYAgz3y5/OebxEyrxeZ3OSUjQ/5eFeo79Y0YwfXm/Qs78fISjitZd7bF+768ylul1CjAES5NDHs52eROOVQYIs5+BIPvtW/mqXKlO8OKpJE8HImLL2qcuAVJiRsoIEPrNZ3RQRRuQVBVqU/i8a/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HMNKQ0d4; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1783507829; c=relaxed/simple;
+	bh=XbtrJUUeM3xNHOoBDhocSvoqSRxhQJf5NIcQJ2vvppI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=L+EiycmkBwZ1AFrurmrIwgvJwkLnEnH3KQ5jhwJcftttSZUAiWJywiwaGMK+0rph43xG9y53VetzAtF4yuFE8wAA+RtcXI8X/j4TWGMdpIjareN26H5MX30kjNb+xISr/JHG+oRQzQNFLejkD7jkObJsqPDSqfYIfedL6h5cbZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QqthG9ND; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=QyXGLIXe; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HMNKQ0d4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783507267; x=1815043267;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=V3byV+Jr38OfJj4SzwQYrO4Dd/7QC9RVjCvimfBGsQw=;
-  b=HMNKQ0d4bPZYkcYD7bFC1k4AgcnrRy2Af/cwtJIFoKfHd6ueTs50zPpt
-   2OdUiDJGq5MedxwbRsbA+G66rJ28QhNv+FA4zs+VY3TvMCzegqJOikaMr
-   4Yco/1pK8jJK/iexCFEGtcjzTK9zYY3hFyworCI+DjGw0fwk9EM+4wFb4
-   lTtobCjWPNJFfNedPV7DIMP8bEoOxQbpTSxE683O7HD8pGrOfnFlvH+0R
-   EOHk7MIhq6v8K2KgGKGr/5B7j7e7r89vQr2xhB12GRl6qEXIVQR9H2j5r
-   ohK0sikDh2UAUz+V4LuHY9UhN/8kUGiS08WVTr5IRWBuTBayo4VmwlZ0k
-   w==;
-X-CSE-ConnectionGUID: F32uqRIoQMCWtIGOjgHKfw==
-X-CSE-MsgGUID: A4/Nb3Z0QdCsV7CmFqE0iw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="95543379"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
-   d="scan'208";a="95543379"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 03:41:03 -0700
-X-CSE-ConnectionGUID: 6dKVa7VfSoCEnzDPCGVAGA==
-X-CSE-MsgGUID: 7SpT6Cf9Q3KicpJfk5YIOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
-   d="scan'208";a="256161900"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.120])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 03:41:01 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id D061111FB4A;
-	Wed, 08 Jul 2026 13:41:00 +0300 (EEST)
-Date: Wed, 8 Jul 2026 13:41:00 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Arun T <arun.t@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Miguel Vadillo <miguel.vadillo@intel.com>,
-	Len Brown <lenb@kernel.org>, Mehdi Djait <mehdi.djait@intel.com>,
-	linux-acpi@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] ACPI: scan: Honor ACPI _DEP dependency for NVL CVS
-Message-ID: <ak4pPIH5SHFO_oJu@kekkonen.localdomain>
-References: <20260704171855.1462214-1-arun.t@intel.com>
- <20260704171855.1462214-2-arun.t@intel.com>
- <CAJZ5v0iBs98Rkyardw-XjKEpi=2s8cWqb0_RqUL0B-KKoNGu1A@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QqthG9ND";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="QyXGLIXe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1783507813;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7RthwfiaiuQwFULsU9rLR+4p2hP6BkmVyKgFOz4tjmA=;
+	b=QqthG9ND+/rwaf1cjppmLex2EYwg0ZZka8lr1sZ9MZqqF25l9xr+4Ryglr4dBUU2r57hr0
+	CmKgfd2dnH0y2ssVGOdJWjxHtQg/CeMw6aQ6G/huf2dadQRsxGmXsSfytd+a3pcSs/h3Z2
+	F0o6MxX0ZGQEF1vNxbXDCka4d9a2uMM=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-681-ZbO0f-KMP22oHc0LpL4fdw-1; Wed, 08 Jul 2026 06:50:12 -0400
+X-MC-Unique: ZbO0f-KMP22oHc0LpL4fdw-1
+X-Mimecast-MFC-AGG-ID: ZbO0f-KMP22oHc0LpL4fdw_1783507811
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-493c20d0468so7259765e9.1
+        for <linux-media@vger.kernel.org>; Wed, 08 Jul 2026 03:50:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1783507811; x=1784112611; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7RthwfiaiuQwFULsU9rLR+4p2hP6BkmVyKgFOz4tjmA=;
+        b=QyXGLIXegC9GU8f+7pf9mscNhjhpghkLNmZwWQ8FttE9MXp9UZfvHghK3670O3CIEu
+         KzUnbutFlOEcFKIGWpz+apyBYVZhDx8/SF5LqhmyOomOTjIkerJQmlBdJ6DNh5hvjWfg
+         F9mK9gOYZwv5xqLSo1hIb7UG4W+j2Y9QfKpvglZdzziSjPVy1hLsZkivX5o0/ZZ0TLmd
+         bD9HGpBnubzcwDZ54p/kMfzXV9VU1EaX9lDX3IlrkF1fiE7PMfR9lQbEhzZ905iIB5U8
+         7H3U2u4Gw74t1vyCgFWa9PEGnvLiV2mkCvSKK/gH+dvF3mJNM0J03Ojp9BEkVaBGRmVJ
+         Qb5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783507811; x=1784112611;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7RthwfiaiuQwFULsU9rLR+4p2hP6BkmVyKgFOz4tjmA=;
+        b=J1rlmQTAPiBN3XalWR64RNAK0sB708qQ1TT6RvqLWQ/81kevpApjXs3c4/ME0A2Ag/
+         giSHKwTbVwb7p0+Tpw4OY5jD7QW8DEw8okiY9SmxGnRCDnEetF6LAvKnm6fClnA8CJc+
+         PQL15OjLQJt1jVLXpIlILenKtSJNkfV8fnIGhGvHxfRLJWXIRwIqnpI//4XgfjN5REAB
+         d4gT0tijSEyci9FNhNIo121EH5V315H580HLaObEP7rlH6ol6cU3jL0Dxlh0El0h8+la
+         SCleuSG8dVHNMLRE7otzUaVyDOVq2V5wI8/q4FTiXLgZwuYe5+98nDyWedy1K5mhayRR
+         g9/w==
+X-Forwarded-Encrypted: i=1; AHgh+RpkhDyI9GNuNoRBmEbXu/mJo77D8BTUVQqk9vd6sPf6mL4KwlDnkyGPfltIszEczcNn/qFdbPDli3Uq1A==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxpg9T9MaI30mjqIjRpmPyvkS5VQwm/83r7XJqXHEsFePNiB/TQ
+	I/aGobyxw/KOAFCOEAxnR3HCe6oCTMDjc5LGBVCAqSTSkhDgAeoVAlJxuPtkkHH/boaUDZg/iZd
+	CdJmfi6Eym8yosuDTZozHiXfyghF/5PkK+uIYlwcN+bHLs83nw9NwE9ZgauSRg0ml
+X-Gm-Gg: AfdE7ckm5DuldLSv4iERIwfVpJ3Y9DIc1ISD5sXbUMTnlDG1YG7VK9m6PE3rnBrPUki
+	R4K1lshWH29nLFoJIzJlPTrztmgxzrc6ceLQnO5016H+S/KjRQ4YZiyoDbo4eVfnyaYs7GvMRIg
+	88XNP0rUYeDWD58p8Y2gdKzSN5EkhEAfnuV3ttck8U1BR9kQsfsH4vKPQknwVpszA9p0x7ee/Tx
+	Uur+Gdt7mYuxokpyYPvEZ+vqhZ6YQ4Oue6on3MdM8M72lgc6rUli79nsgCQtCOxK8fz57cEYkCD
+	6rLhfEOVD1FQbyvnABWKuPta+nhuBSl+DOeoTk26RwXbcTRnitmxxDtozcdz07ofX89VAomnazt
+	xCj+yM5ptLG4lHSpGpcUhM2oD9oGA12tc/O7w6R26VnlThLFhTOGJYLwGeXaNJhexXdr0rjzCt6
+	dO/FvAcS6IvQdw
+X-Received: by 2002:a05:600c:3b92:b0:493:e892:f03c with SMTP id 5b1f17b1804b1-493e892f05amr3891595e9.10.1783507811110;
+        Wed, 08 Jul 2026 03:50:11 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b92:b0:493:e892:f03c with SMTP id 5b1f17b1804b1-493e892f05amr3891245e9.10.1783507810639;
+        Wed, 08 Jul 2026 03:50:10 -0700 (PDT)
+Received: from ?IPV6:2a0d:3344:5521:6b10:58fd:68f:7756:389d? ([2a0d:3344:5521:6b10:58fd:68f:7756:389d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0f40912sm123922735e9.4.2026.07.08.03.50.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Jul 2026 03:50:10 -0700 (PDT)
+Message-ID: <15e72c82-ca99-481b-bd53-744fabd503b0@redhat.com>
+Date: Wed, 8 Jul 2026 12:50:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v4 1/3] net: devmem: allow rx-buf-size >
+ PAGE_SIZE per dmabuf binding
+To: Mina Almasry <almasrymina@google.com>,
+ Bobby Eshleman <bobbyeshleman@gmail.com>
+Cc: Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski
+ <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Gerd Hoffmann <kraxel@redhat.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-kselftest@vger.kernel.org, sdf@fomichev.me, razor@blackwall.org,
+ daniel@iogearbox.net, matttbe@kernel.org, skhawaja@google.com,
+ dw@davidwei.uk, Joe Damato <joe@dama.to>,
+ Bobby Eshleman <bobbyeshleman@meta.com>
+References: <20260701-tcpdm-large-niovs-v4-0-ca4654f37570@meta.com>
+ <20260701-tcpdm-large-niovs-v4-1-ca4654f37570@meta.com>
+ <CAHS8izNdJ1LTOr_pLjXef6Yv-=JOFPe1GcZtcbStD93Tkpy1XQ@mail.gmail.com>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <CAHS8izNdJ1LTOr_pLjXef6Yv-=JOFPe1GcZtcbStD93Tkpy1XQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJZ5v0iBs98Rkyardw-XjKEpi=2s8cWqb0_RqUL0B-KKoNGu1A@mail.gmail.com>
 
-Hi Rafael,
+On 7/7/26 10:36 PM, Mina Almasry wrote:
+> On Wed, Jul 1, 2026 at 12:22 PM Bobby Eshleman <bobbyeshleman@gmail.com> wrote:
+>>
+>> From: Bobby Eshleman <bobbyeshleman@meta.com>
+>>
+>> Every devmem dmabuf binding today hands the page_pool PAGE_SIZE niovs.
+>> This caps a single RX descriptor at PAGE_SIZE, burning CPU on buffer
+>> churn for large flows.
+>>
+>> Add a bind-time netlink attribute, NETDEV_A_DMABUF_RX_BUF_SIZE, that
+>> lets userspace request a larger niov size. The value must be a power of
+>> two >= PAGE_SIZE.
+>>
+>> Measurements
+>> ------------
 
-On Mon, Jul 06, 2026 at 07:53:59PM +0200, Rafael J. Wysocki (Intel) wrote:
-> On Sat, Jul 4, 2026 at 7:24 PM Arun T <arun.t@intel.com> wrote:
-> >
-> > Add INTC10FA to the ACPI dependency honor list so the CVS driver is
-> > loaded before dependent camera devices are probed on NVL platforms.
-> >
-> > This matches the camera dependency handling already used for IVSC-based
-> > platforms and ensures the camera streaming path is initialized before
-> > sensor access or pipeline setup depends on it.
-> >
-> > Signed-off-by: Arun T <arun.t@intel.com>
-> > Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Checkpatch complains about this separator usage:
+
+ERROR: Invalid commit separator - some tools may have problems applying this
+#15:
+------------
+
+Please replace or remove it in the next revision
+
+>> @@ -90,16 +90,17 @@ net_devmem_alloc_dmabuf(struct net_devmem_dmabuf_binding *binding)
+>>         struct dmabuf_genpool_chunk_owner *owner;
+>>         unsigned long dma_addr;
+>>         struct net_iov *niov;
+>> -       ssize_t offset;
+>> -       ssize_t index;
+>> +       size_t offset;
+>> +       size_t index;
+>>
 > 
-> Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
-> 
-> unless you want me to apply this patch, in which case please let me
-> know.  Otherwise, I'll assume it to go in via the media tree.
+> nit: I would keep this signed. Some of the most frustrating issues I
+> ran into is some of the underflowing and then passing a > check or
+> something. Although if the LLM is not complaining about this
+> particular case, there is probably no issue with it. I also notice a
+> lot of existing code that deals with indexes and offsets goes for
+> signed.
 
-I'll take this via the media tree.
+At very least the above change should go in a separate patch, as is
+quite unrelated from the rest.
 
-Thanks!
+/P
 
--- 
-Kind regards,
-
-Sakari Ailus
