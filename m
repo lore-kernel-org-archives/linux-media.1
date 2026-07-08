@@ -1,98 +1,98 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C60829B764;
-	Wed,  8 Jul 2026 19:08:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93A53DCDB5;
+	Wed,  8 Jul 2026 19:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783537706; cv=none; b=ecb92Oz6SgYyXr1Iy5NaJgMJ9Ltjpv1vRhaz+jm7/Ew3Uzce+39uWyN83mfYXb42HhQWNrunsNfTRlkzC4VAxlW0KPqUATLRyf/Lp31Y6hHcLupsQJTF02MPlUI4ReTq5U/KpTNSK2P0MkVB5cfbq5t0cGp+4vsrSHaCbd+oAR8=
+	t=1783539647; cv=none; b=IjiY0pAX3OOHZ9RC2DjMP/q2WNP6IsjziNujXUc2pPcQIT5rywPl5vagOhohGHp3gO6McVzkAqJ7Gb7k9uZrg3gHPKh8sGFbn/ERLySJDbTBuwv4eiUz79mtuB7aK6k1apqL7Zb4OXJv/xO+B2ErCOdtIHldfpA/GdrwHQ/LZnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783537706; c=relaxed/simple;
-	bh=pyt7H7xRupVU+mK8VwY1I/Ar3zs3R06s8f3mrxgAI5E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EXL61Ap8wGVimmDFsdqlQXlJ14z/GZp5IV85nusIfk6yO3lO6BCKnXzgi593iVe0FXvwIRMI/XVZHHPjVcg5odZzGN3ybk8nuv/JisPAmm5CLQdyJjAXy3BhcUNX6nwNPshsixgfTnLFe9c1EPUY3Mhu3UBkJ5CLNLJRqTmVG84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IiIlus/L; arc=none smtp.client-ip=192.198.163.15
+	s=arc-20240116; t=1783539647; c=relaxed/simple;
+	bh=5iLgoM6FdWeIjsguhTuPqlmikv7HeX2dzDKaGkjhz5g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FKOFf9UDJZ5XF8U+FuDc973ciQJyE5zRb9CHbJNw4h3cuGhO2IGPRgOjbC21fglEAGNlyuNq1oxfDbFTyqRoXyyBZkCCNMJDMfbL1B+fWgELiHArZCDbO2BhdzbC+b3N0BEDucUEEfCWg0w+qHxd4RbEQM/liK0biR2o/L8vEQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=T8AX9xlz; arc=none smtp.client-ip=192.198.163.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IiIlus/L"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="T8AX9xlz"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783537706; x=1815073706;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=pyt7H7xRupVU+mK8VwY1I/Ar3zs3R06s8f3mrxgAI5E=;
-  b=IiIlus/LbM7SUVLGlp+r4yqqqHikTfFLT8xpGsr+/Ao5xSyRC+JRCndW
-   nATnivmCtD9Re36Ms3A3wGRM4UsBUxpDwpIqke1IpbPzEQAKpTl1SkHVx
-   SCNnUS5Bz16B7AUbJ2IQZs+B0DedZvQ+9jGaIvNSrnP0ctSFEJu+qtnaW
-   khEUHX+qQBNN/HN/08kTUc/+4gB1FXLkfe+f1C9q/a6aqlSL8MHWwcJ5m
-   McEa+h8G2nQ3SHSS0FAZE3MIEPWj2apmI1Cn+tBzk+uTKNXxyqOk0+fcw
-   82Y3COiJBJuw0WfV5tySEi9a53+66qfbiX88bmnH5WqYcQ/JsklmsBS5S
+  t=1783539644; x=1815075644;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=5iLgoM6FdWeIjsguhTuPqlmikv7HeX2dzDKaGkjhz5g=;
+  b=T8AX9xlz0qwEB7qfgDE83LZLPYasTVswYcAT4LUeWURyn9zSpF4kj16t
+   /9D3AN0HsCM/8xDBk2AY27mitp/Xl0zGe612bFn27ML+vn3l8MjFqSjgj
+   I5qKSnP5aDgirgRq2Uf1StrXQA754fseydalIpVXzRA7sDL8GucYcZ4Vt
+   KFeLwetEZ+z3QrFkQ+Qrkqij9IzZnwip22v9DW/E/IJr1nQ9w8Y9zIXWk
+   Tey6pxiNoJq8qhgEyF8dQHUzXCef2+L7YgR8Cmg4SvHWxG3234HlCCjYI
+   izOHDdGYJQi53pLGMTwvOSUHrWdzQyaZKovx+h/LFq0jhXdak545p3jxC
    Q==;
-X-CSE-ConnectionGUID: ViifD/4USA6VnmrAuw1nzQ==
-X-CSE-MsgGUID: NlJUMwL2R1uclApYLQ9Z6w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84329214"
+X-CSE-ConnectionGUID: ZH6DH64iT1Wn6L8ZiUo/bg==
+X-CSE-MsgGUID: +qFNak3DQN2lGbYo5fyAkg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83329358"
 X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
-   d="scan'208";a="84329214"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 12:08:25 -0700
-X-CSE-ConnectionGUID: X2yRQeTRQZChHrBBrRj53A==
-X-CSE-MsgGUID: FZQJRIdKS8edGadIj3cb/Q==
+   d="scan'208";a="83329358"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 12:40:38 -0700
+X-CSE-ConnectionGUID: PQs3/ecVT320T0unyIWRVg==
+X-CSE-MsgGUID: JSKCW9JaTrW1nzg5lJBBig==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
-   d="scan'208";a="257965921"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO svinhufvud.fi.intel.com) ([10.245.245.223])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 12:08:22 -0700
-Received: from svinhufvud.intel.com (localhost [IPv6:::1])
-	by svinhufvud.fi.intel.com (Postfix) with ESMTP id 9662D4002A;
-	Wed, 08 Jul 2026 14:47:40 +0300 (EEST)
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Daniel Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-media@vger.kernel.org
-Subject: [PATCH 1/1] MAINTAINERS: Merge int3472 driver patches via the media tree by default
-Date: Wed,  8 Jul 2026 14:47:40 +0300
-Message-ID: <20260708114740.47134-1-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
+   d="scan'208";a="251724976"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.100])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 12:40:36 -0700
+Date: Wed, 8 Jul 2026 22:40:34 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Biren Pandya <birenpandya@gmail.com>
+Cc: sakari.ailus@linux.intel.com, mchehab@kernel.org,
+	dongchun.zhu@mediatek.com, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Subject: Re: [PATCH v4] media: i2c: ov02a10: fix endpoint parsing
+ use-after-free
+Message-ID: <ak6nsu5EQ2juLQdJ@ashevche-desk.local>
+References: <20260613083235.57363-1-birenpandya@gmail.com>
+ <20260708181248.57758-2-birenpandya@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708181248.57758-2-birenpandya@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The int3472 driver (under drivers/platform/x86/intel/int3472) implements
-an effective kernel API (via instantiating regulators, clocks and GPIOs)
-that is primarily used by the drivers under drivers/media. This means that
-there are often dependencies between patches to the int3472 driver and the
-camera sensor drivers whereas dependencies to other parts of the x86
-platform tree are fairly rare.
+On Wed, Jul 08, 2026 at 11:42:48PM +0530, Biren Pandya wrote:
+> The ov02a10_check_hwcfg() function calls fwnode_handle_put(ep)
+> immediately after allocating and parsing the endpoint. However, it
+> subsequently calls fwnode_property_read_u32() using the same 'ep'
+> handle, leading to a potential use-after-free.
+> 
+> Additionally, reading the optional 'ovti,mipi-clock-voltage' property
+> used to overwrite the 'ret' variable. If the property was missing,
+> 'ret' would become negative, and this failure code would be incorrectly
+> returned at the end of the function, causing probe to fail entirely.
+> 
+> Fix the use-after-free by moving fwnode_property_read_u32() before
+> the endpoint is parsed and freed. Avoid the error leak by not
+> assigning the result of fwnode_property_read_u32() to 'ret'.
 
-Assign the int3472 driver tree to the Media tree.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Patches that have dependencies elsewhere than in the Media tree will be
-coordinated with the respective maintainers as usual.
+...
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+> Changes in v4:
+> - Collapsed fwnode_property_read_u32() into a single line per Vladimir's review.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 2aec6afa8108..d41544a41c07 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -13379,6 +13379,7 @@ INTEL SKYLAKE INT3472 ACPI DEVICE DRIVER
- M:	Daniel Scally <dan.scally@ideasonboard.com>
- M:	Sakari Ailus <sakari.ailus@linux.intel.com>
- S:	Maintained
-+T:	git git://linuxtv.org/media.git
- F:	drivers/platform/x86/intel/int3472/
- F:	include/linux/platform_data/x86/int3472.h
- 
+Wasn't me?
+
 -- 
-2.47.3
+With Best Regards,
+Andy Shevchenko
+
 
