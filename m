@@ -1,95 +1,148 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46EF533F5AB;
-	Wed,  8 Jul 2026 13:27:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B1353451A9;
+	Wed,  8 Jul 2026 13:29:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783517278; cv=none; b=I85LOI7xndCUMGrY4Epq0MUwFdNTp0tr7MzPSs9qv/+YYaKJ/6FwwFJOu9VgyA1T/oHGG8/6mYPwbs5LKUWjcgjjRd8ExHcXuvZD50QADq6+7/xeuUXnWR96kv/l05RC1IuM0DNyRva8Vda7JzWdY4CxpnwQ34k8rTXyoHRS3UU=
+	t=1783517386; cv=none; b=TExHjemBiFph6QItGJzQ7s9TYelB2iqFxYNPgt7PLd6umSfEYWSF0y/IxdRDhVaNJxMcR7zYLT/R88h/0MzPo0vSuPaK+szyQKoP5oSVBVPrEm2JfdhbBoDMyjexK16OfL7tWng22Z1TXN+grrbQT7rs+nR+fTnyaAlUSN1GNzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783517278; c=relaxed/simple;
-	bh=yTe+WVZuFugswh3RL0wnMjZ7kdRAYWb7cdIGNeIj9ZU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=avZOyIeYLNwzgJ35VABY8UfpkNWSyVoQ0tG17oPGPlbZ1YG07T0/PxwEb1Lp6xis/ZYq18BmNQSKYr3toQ1Wjc8GC4uz++LvCgLw8Obp9Q4XIq6Cajk2Hoan00c2OrXLIpJrVDsabY8MFYMWJTSg0xzxYFyy1GTQZbGZenbr8J0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MUVLdYGL; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1783517386; c=relaxed/simple;
+	bh=fQ4eodHnC2Wd8oYv7fQS19erM8JlDyvxJg/CQU+4uTQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=UbqdP9/oJ5q9LEWyEqoLQeo0uEf4v3z2XXqUuv3BeglPGqWS4hShNwtAsx41swxBfzRHyzQ/VY++itlTdygEJLgKLQMirX81hFasqOZKqd/UW+CqbxR+9i5zeOGZq9ODqVD5jDbnaSFiLPSlJKQFmMgMAXt4AOeFwAIBEaWj3ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=SJ+FOWX4; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MUVLdYGL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783517276; x=1815053276;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=yTe+WVZuFugswh3RL0wnMjZ7kdRAYWb7cdIGNeIj9ZU=;
-  b=MUVLdYGLVp9gephCQ71bMY5GsQcuFYtcbg7Xfi9BnwkkNiHAWivkUzVC
-   g3LbvdACaZ4cldZuHmMjoAQCVcK+uVqEH4Fb38tojhukTRjea8ONweXZN
-   QvwU+aet0mnOXFh5ysKvFWL9hljdAsut5d2xdQgYbs7/1G4MeI+KLrGom
-   vX9Unsej6t58d0OVb0uX5wP1HdtDTzR3fjEegda8cCyxvCIXZjz/FsPDL
-   Dtv7qmqKU/C1CRlOXzcL5I18KE2ljEux8ZQOSaAPSglZZatNVdJXK/ETT
-   y6EqBbcbf8pOuHoQfm9Zsw3rinsXDN/jKEsrPhteCpC7iKr5r9TpM8UtO
-   A==;
-X-CSE-ConnectionGUID: /MsN94tCQOmWSvmgu0FZ/A==
-X-CSE-MsgGUID: P0rZ+VW1QCaVvhNvEamxJw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="88091265"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
-   d="scan'208";a="88091265"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 06:27:56 -0700
-X-CSE-ConnectionGUID: Zms+C4xfQfq5Sj1WNtAqkw==
-X-CSE-MsgGUID: KoIitXD1Q5+FLLXSITLLjw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
-   d="scan'208";a="247915914"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.120])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 06:27:54 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id EBAFC11FB4A;
-	Wed, 08 Jul 2026 16:27:53 +0300 (EEST)
-Date: Wed, 8 Jul 2026 16:27:53 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Biren Pandya <birenpandya@gmail.com>
-Cc: slongerbeam@gmail.com, mchehab@kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] media: i2c: ov5640: use scoped fwnode_handle endpoint
- cleanup
-Message-ID: <ak5QWY9g7GTCQ0BZ@kekkonen.localdomain>
-References: <20260616081517.44685-2-birenpandya@gmail.com>
- <20260708124954.26954-2-birenpandya@gmail.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="SJ+FOWX4"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gwJq831JYzMlGX;
+	Wed, 08 Jul 2026 15:29:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1783517380; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u+QzoStC3POLvanG8ZLxpgomra4Mq3Lf3oEAWOgFql8=;
+	b=SJ+FOWX4vFmAla8qj17/+0Pkuugs68BdDuOZbdI9m4etSGdWRvIHqksjIzlS628SASzyNR
+	KUPuAEN2F+d2nP5dm5oJmToHAx6/rGkovRSSvuvYNJw4KEipQgNs6ypGI36iGA3OT+v0zP
+	ckLJYh2oyXgqaptLNEQ6df75tzywBssmzdoFvUPiqIR80LQnZMii7jWW8fQt2GW5sMbKUQ
+	rz5gVk4GXSyyi3WPj18hBS6neyBkRme4/3JrBS4lnJ1LpMb/A5KTfh1XTz/tIDI5KPpgL3
+	MSR39yvd7shKThIgh60krfYf4m9FbcKLfIFGGL9Y9R/XmzqC2qTe6QCVdPZi3w==
+Message-ID: <099ab4b0fd40c476fcb5fa804800794f11758416.camel@mailbox.org>
+Subject: Re: [PATCH v5 4/5] rust: Add dma_fence abstractions
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Philipp Stanner <phasta@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
+ Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Sumit Semwal	
+ <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Daniel Almeida <daniel.almeida@collabora.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Asahi Lina
+ <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>,  Lorenzo Stoakes	
+ <ljs@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, Alexandre Courbot
+	 <acourbot@nvidia.com>, Krishna Ketan Rai <prafulrai522@gmail.com>, Tamir
+ Duberstein <tamird@kernel.org>, Mirko Adzic <adzicmirko97@gmail.com>,
+ Alistair Francis	 <alistair.francis@wdc.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
+ <work@onurozkan.dev>,  Shankari Anand <shankari.ak0208@gmail.com>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org
+Date: Wed, 08 Jul 2026 15:29:29 +0200
+In-Reply-To: <20260703073141.3962604-6-phasta@kernel.org>
+References: <20260703073141.3962604-2-phasta@kernel.org>
+	 <20260703073141.3962604-6-phasta@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260708124954.26954-2-birenpandya@gmail.com>
+X-MBO-RS-ID: 58600b92efd2db828a6
+X-MBO-RS-META: jonfcbxufdzn7z77mwmxrqxzisg6c981
 
-Hi Biren,
+On Fri, 2026-07-03 at 09:31 +0200, Philipp Stanner wrote:
+>=20
+> +// Necessary to guarantee that `inner` always comes first and can be fre=
+ed by C.
+> +// Also useful for using casts instead of container_of().
+> +#[repr(C)]
+> +#[pin_data]
+> +struct DriverFenceData<'a, T: Send + Sync + FenceCtxOps> {
+> +=C2=A0=C2=A0=C2=A0 #[pin]
+> +=C2=A0=C2=A0=C2=A0 /// The inner fence.
+> +=C2=A0=C2=A0=C2=A0 // Must always be the first member so that unsafe cas=
+ting works; but also
+> +=C2=A0=C2=A0=C2=A0 // necessary so that the C backend can free the alloc=
+ation (coming from our
+> +=C2=A0=C2=A0=C2=A0 // Rust code) with kfree_rcu().
+> +=C2=A0=C2=A0=C2=A0 inner: Fence,
+> +=C2=A0=C2=A0=C2=A0 /// Callback head for dropping this in a deferred man=
+ner through RCU.
+> +=C2=A0=C2=A0=C2=A0 rcu_head: bindings::callback_head,
+> +=C2=A0=C2=A0=C2=A0 /// Reference to access the FenceCtx. Useful for obta=
+ining name parameters.
+> +=C2=A0=C2=A0=C2=A0 fctx: &'a FenceCtx<T>,
+> +=C2=A0=C2=A0=C2=A0 /// The API user's data. This must either not need dr=
+op, or must delay its
+> +=C2=A0=C2=A0=C2=A0 /// drop by a grace period. It is essential that the =
+data only performs
+> +=C2=A0=C2=A0=C2=A0 /// operations legal in atomic context in its [`Drop`=
+] implementation.
+> +=C2=A0=C2=A0=C2=A0 #[pin]
+> +=C2=A0=C2=A0=C2=A0 data: T::FenceDataType,
+> +}
+> +
+> +pub struct DriverFence<'a, T: Send + Sync + FenceCtxOps> {
+> +=C2=A0=C2=A0=C2=A0 /// The actual content of the fence. Lives in a raw p=
+ointer so that its
+> +=C2=A0=C2=A0=C2=A0 /// memory can be managed independently. Valid until =
+both the [`DriverFence`]
+> +=C2=A0=C2=A0=C2=A0 /// and all associated [`Fence`]s have disappeared.
+> +=C2=A0=C2=A0=C2=A0 data: NonNull<DriverFenceData<'a, T>>,
+> +}
+> +
+> +/// A pre-prepared DMA fence, carrying the user's data and the memory it=
+ and the
+> +/// fence reside in. Only useful for creating a [`DriverFence`]. Splitti=
+ng
+> +/// allocation and full initialization is necessary because fences canno=
+t be
+> +/// allocated dynamically in some circumstances (deadlock).
+> +pub struct DriverFenceAllocation<'a, T: Send + Sync + FenceCtxOps> {
+> +=C2=A0=C2=A0=C2=A0 /// The memory for the actual content of the fence.
+> +=C2=A0=C2=A0=C2=A0 /// Handed over to a [`DriverFence`], or deallocated =
+once the
+> +=C2=A0=C2=A0=C2=A0 /// [`DriverFenceAllocation`] drops.
+> +=C2=A0=C2=A0=C2=A0 data: KBox<DriverFenceData<'a, T>>,
+> +}
 
-On Wed, Jul 08, 2026 at 06:19:55PM +0530, Biren Pandya wrote:
-> Utilize the __free(fwnode_handle) scoped guard macro from
-> <linux/cleanup.h> to automate the lifecycle management of the endpoint
-> fwnode in ov5640_probe().
-> 
-> This eliminates the need for manual fwnode_handle_put() calls.
-> Additionally, drop the redundant !endpoint check before
-> v4l2_fwnode_endpoint_parse(), as the parse function already handles
-> NULL endpoints safely.
-> 
-> Signed-off-by: Biren Pandya <birenpandya@gmail.com>
-> ---
->  v3: adopted __free scoped guard (Laurent); explicitly dropped redundant endpoint check (Sakari).
+One issue that I'm only discovering just now is that the request of
+deriving the DriverFence's generic through the FenceCtx's generic
+causes issues like this:
 
-Please don't include git tags in changelog; git am will pick the lines as
-tags to the changelog.
 
-The threading appears to be broken in the set; please resend v3 (three
-patches) as you sent v2.
+struct DriverFoo {
+  f: DriverFence<()>, // error: must implement FenceCtxOps
+}
 
--- 
-Kind regards,
+IOW, all DriverFence::data now must implement the trait. Which is
+obviously not what we want.
 
-Sakari Ailus
+But I cannot get easily get rid of it. See DriverFenceData.
+
+@Boris: Do you have a suggestion? Otherwise I'd want to default back to
+PhantomData, which I still believe is cleaner.
+
+
+P.
