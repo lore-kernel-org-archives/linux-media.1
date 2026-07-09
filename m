@@ -1,49 +1,50 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0D532BF51;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F5D38B7A7;
 	Thu,  9 Jul 2026 08:23:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783585400; cv=none; b=strLS1f+6SCO03m/8aK+QFhCCERi1aT48mQ/YEiriYq1mvBfbdqkTXKicoqG1N3O/T9+EgCWIF3KMeXn4liaLrot0rPYZcYwR3T15eafxZ9iK4W3oe94W7EGJW6TvC75X0BRGMWz+aFcDRUXWKnI/eXwDUGZ0bDNh/CyPzo5wf4=
+	t=1783585402; cv=none; b=Z/WT7quECJQBsJl0l4+4yxYWDu6GTocIwFZgaiMLofmn+XFgGVNTnT716q1ZWfKGOqIvq1KaSTwOYWUGNKiibg3F8IDRrC5eqQDmRVQkZJZKlhKIF295zYWeht5PfqQr3vpjolv2aJhL+ZccKqdDPcyz8IqXpzObvi3ZB3eWsHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783585400; c=relaxed/simple;
-	bh=rljXwOusHTm7R7KKgsnUtuT+uPyqEiVHJDS3j6mpj6o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KkJjwApbnBIjeyfNumQwvsw186BN3V4bn99G6MVfScJAAyuqouAVep1gynArefIt7plyHqRmW8ORfkSNlctW3b8f9n/FOFofy0hdFk+9xewEwXr3zx3WhcmFZ/owmI/U3HJFLtK6ulf/xlI8Bvd/i4QZVuit2NUe6zlp2UBA7Z0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XQpV3yWI; arc=none smtp.client-ip=198.175.65.9
+	s=arc-20240116; t=1783585402; c=relaxed/simple;
+	bh=jxyNpd1EN/8mz03lYe9jI7sYUCPetacXKvPQHcQ/S2k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JtgfBddISl0m5NhWM3yzfevytUB3/+ZvUSqYNjNIGRmBmjlRliPBaYwHTFkYpbQ5beAVZaZxRpsCu7lMW8ur0CBJCOaruwvqp7+wAsn/Kv4yWlDosnPTnMm8g4qeyDF2S8hQXR/d46u1J1qjBm3uz9ftPvKiNfWOSWlWDPN4TZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=czNHB981; arc=none smtp.client-ip=192.198.163.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XQpV3yWI"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="czNHB981"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1783585399; x=1815121399;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=rljXwOusHTm7R7KKgsnUtuT+uPyqEiVHJDS3j6mpj6o=;
-  b=XQpV3yWIyQnBMpyrxTZTd1ygwcp0TgErhEdZEQ0bSuxmpZs5EEESiyZj
-   vueDjrDAzpCdHhdPuKtCrwMv84aU03YUsRBr0OCL1CMD/f8zzaUtfSxi2
-   Qg60LBpUE5Pzvn0tLFt/McNPDSrm9jlTs7MngA8sgWd1CADN2GvZTukzy
-   zkYQrathOvSU3F3hKxTb8y6iOzK8NWa0iHIjbvn3gUA3Z8WqB6Mxxa8DI
-   8WvG58M0il70JspzrssmMsFv7rIux7deDcK4XzYpQCtO16BjLDBeMkqiV
-   oP2cNHiKaVVhQ90NwMnpZ+rAuV/8wb+l9tzgKDaypwOrBZlYGq2qRVBiY
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=jxyNpd1EN/8mz03lYe9jI7sYUCPetacXKvPQHcQ/S2k=;
+  b=czNHB981iADV3766OglPLAj6DISlV8pOA4/0/BwjyR82KkeDeNqwY0gp
+   neTqIdYw1zY1xaSNilNyH0kptABBdH3UzUkf+zagiHbsQMUsft5wshFsa
+   fdS3zM8MF2iDUzdMg2A/gVaumOYHiEptt3pEWC+xffUhAVwQF/GeH4ZcG
+   ykdD+PCJZ9TjvsJXGdA5+D/BNJGpdRi+UGzNt5hc40SPIUbAg6dqVYsPe
+   v9Le/WBL2RzJHpCBSfd8guidToa+K/LwjCdjJz5Uv7IMhxoeTjBTCtTq/
+   l4oirr2+3Yg368wVsNkcEI2pbGuyenaMF0SrM5sx3QYUZEQdiQ5daqJFG
    Q==;
-X-CSE-ConnectionGUID: 43wSQDE8TZqP7GY3+g3vJA==
-X-CSE-MsgGUID: VlQpMH9dRnKiDHSTZ1Qrgw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="107055801"
+X-CSE-ConnectionGUID: zt75uJtQTq+Ptpq1ARE5JQ==
+X-CSE-MsgGUID: FM7ZvIANR5mkvkeuRyY+Aw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="83372146"
 X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="107055801"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 01:23:18 -0700
-X-CSE-ConnectionGUID: 7WDRKX5QTxiCdhNooyvbBA==
-X-CSE-MsgGUID: JXylIt/JRxaSRKcgsq5ItA==
+   d="scan'208";a="83372146"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 01:23:18 -0700
+X-CSE-ConnectionGUID: DCdBOp04RLyi9pNNEFGxSw==
+X-CSE-MsgGUID: xPTghnOAQnyLu20MECdoNg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="254631027"
+   d="scan'208";a="250535868"
 Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa007.jf.intel.com with ESMTP; 09 Jul 2026 01:23:17 -0700
+  by fmviesa010.fm.intel.com with ESMTP; 09 Jul 2026 01:23:17 -0700
 Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id 75EA495; Thu, 09 Jul 2026 10:23:16 +0200 (CEST)
+	id 841679D; Thu, 09 Jul 2026 10:23:16 +0200 (CEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	linux-media@vger.kernel.org,
@@ -51,10 +52,12 @@ To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 Cc: Hans Verkuil <hverkuil@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Ettore Chimenti <ek5.chimenti@gmail.com>
-Subject: [PATCH v1 0/8] media: cec: core: Ad-hoc refactoring
-Date: Thu,  9 Jul 2026 10:20:52 +0200
-Message-ID: <20260709082315.72685-1-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v1 4/8] media: cec: core: Don't use "proxy" headers
+Date: Thu,  9 Jul 2026 10:20:56 +0200
+Message-ID: <20260709082315.72685-5-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260709082315.72685-1-andriy.shevchenko@linux.intel.com>
+References: <20260709082315.72685-1-andriy.shevchenko@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -63,26 +66,53 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Refactor cec-core to use modern headers and definitions and fix
-some minor issues. No functional change intended.
+Update header inclusions to follow IWYU (Include What You Use)
+principle.
 
-Also get rid of MS_TO_US() use from "cec", leave it to be "rc"-only
-custom macro, which can be dropped later on as well.
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ drivers/media/cec/core/cec-core.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
 
-Andy Shevchenko (8):
-  media: cec: core: consolidate error path in cec_allocate_adapter()
-  media: cec: core: add missing mutex_destroy to error path and remove
-  media: cec: core: Use DEFINE_SHOW_STORE_ATTRIBUTE() helper for debugfs
-  media: cec: core: Don't use "proxy" headers
-  media: cec: core: Add pr_fmt()
-  media: cec: core: Consistently use CEC_NAME where it matters
-  media: cec: core: Use predefined time multiplier
-  media: cec: seco: Use predefined time multiplier
-
- drivers/media/cec/core/cec-core.c          | 92 +++++++++++++---------
- drivers/media/cec/platform/seco/seco-cec.c |  5 +-
- 2 files changed, 59 insertions(+), 38 deletions(-)
-
+diff --git a/drivers/media/cec/core/cec-core.c b/drivers/media/cec/core/cec-core.c
+index 674bcb6450dc..1f12fb0caca7 100644
+--- a/drivers/media/cec/core/cec-core.c
++++ b/drivers/media/cec/core/cec-core.c
+@@ -5,16 +5,30 @@
+  * Copyright 2016 Cisco Systems, Inc. and/or its affiliates. All rights reserved.
+  */
+ 
++#include <linux/bitops.h>
++#include <linux/bug.h>
++#include <linux/cdev.h>
++#include <linux/container_of.h>
+ #include <linux/debugfs.h>
+-#include <linux/errno.h>
++#include <linux/device.h>
++#include <linux/err.h>
++#include <linux/fs.h>
+ #include <linux/init.h>
+-#include <linux/kernel.h>
+-#include <linux/kmod.h>
+-#include <linux/mm.h>
++#include <linux/kobject.h>
++#include <linux/kthread.h>
++#include <linux/list.h>
++#include <linux/minmax.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/printk.h>
++#include <linux/seq_file.h>
+ #include <linux/slab.h>
++#include <linux/sprintf.h>
+ #include <linux/string.h>
+ #include <linux/types.h>
++#include <linux/wait.h>
++
++#include <asm/page.h>
+ 
+ #include "cec-priv.h"
+ 
 -- 
 2.50.1
 
