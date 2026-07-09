@@ -1,121 +1,110 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E9A3EDAA0;
-	Thu,  9 Jul 2026 08:29:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4123803CC;
+	Thu,  9 Jul 2026 08:49:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783585762; cv=none; b=oJRnKghvOjXn4tlPhBSatNaxjQyK5p0EMB4qZmQbMsP82C5YosyKFzNkvJvlhmvNIvrlP2FeRQgdeic9/VZDHHacIfyPhCQW78XNAzPfgLHo6kpYU2JoJ9ZZ6KWAg0YIEKSU0U6X6H0BhfgC3xzdBciap1eBi3M/OpfMisn/PC4=
+	t=1783586950; cv=none; b=dQQJZ3QscJyaIlXs9kc4yOPiKHO+z9JcQVaecjS0KagLnBvr+kOvi8pRoI24mWeEguog3OxdhdoFd70+G8wynbJqYPHvCXHTdOtZ6y2MaVGc3uwGGbEa9ZICEholokkrco7HLqjTju9z5s7YGiVGRvY8InI4VVF7DTy6lsFMpEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783585762; c=relaxed/simple;
-	bh=WhtSeuqhSaf5jlQWVH/3YwXllhtJxBaIFEiwkRBWdz4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=isBzTP+hg2vEmqAVzAmVpr/YYCxfZHwIuZdnXnSfyngufwVoS2yoNKv+66nqtEB39sF0ryXUE6adKNBrbNy8kKHwrO/OrCRRQhdcrdydvnDGkPmxYmIJGQtf7FZDQZZ4OXxbvovSSk9uqLAlLWE03tP5hoFfrqNevygErumicJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=UJRZTj1r; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1783586950; c=relaxed/simple;
+	bh=kBPhtFu1/KtyPGIGcVkLLnshkb3noND8h1QXuTVNjX4=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=fqoixi7maDoTiS0XrGjZhNSJoJjt/pNlh1p4OhzBNfrC25UyFhrdU4FXrgb/7zuGZqqgcwLgXl3UESjeR4NUYDizpbNE8AOr4JFDKQkBwzR5AX44ONQpjcyVcM32rctuvnzJrb6RiNlMxQ55B25IU3gvz3z8xKQ1yQBd8D+ujRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=A51zVoYm; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="UJRZTj1r"
-Received: from ideasonboard.com (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7E3A14DC;
-	Thu,  9 Jul 2026 10:28:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1783585707;
-	bh=WhtSeuqhSaf5jlQWVH/3YwXllhtJxBaIFEiwkRBWdz4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UJRZTj1rjPhLwtpsz/6KzalneGwW3/P2qXKIloBX9U9sad9VOcTteBazrRuoHUuzl
-	 cUFvCXZwXXARetsO6rKFMwFFde9Hp9Fgi9s1afVMCr6xaYWTGOP24CEG6qHqPe6CzJ
-	 UvnAcYX/56IU7yB8zLxC1BK/PX2sQYZ5CkpPXV3M=
-Date: Thu, 9 Jul 2026 10:29:15 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: David CARLIER <devnexen@gmail.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	David Laight <david.laight.linux@gmail.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	dan.scally@ideasonboard.com, mchehab@kernel.org, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] media: mali-c55: Fix unaligned access of AEC histogram
- zone weights
-Message-ID: <ak9UGtj7-qOvjRmr@zed>
-References: <20260702103453.348056-1-devnexen@gmail.com>
- <akd8E5jr722oTm49@zed>
- <20260703221651.41669d55@pumpkin>
- <aks7usxfDajS-W_5@zed>
- <20260706104652.GB66892@killaraus.ideasonboard.com>
- <20260706133956.39a11738@pumpkin>
- <aku6R_EI0kLUqD8e@zed>
- <CA+XhMqz2oTTy2kY_4uqvJRnoXb0am5h6hXnLFM4EPQ7Yb6N-pw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="A51zVoYm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783586948; x=1815122948;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=kBPhtFu1/KtyPGIGcVkLLnshkb3noND8h1QXuTVNjX4=;
+  b=A51zVoYmC6MeL90JIQ0/E2qaOewdi58P/c0NhmSNB1zFgbv9tHtGwzS1
+   gjxal0rT5Ol1352qQ8O4PkktVKRdo80Ep7cnSC4ECJ1mUPwjsBl4jboaP
+   /6rXmJL2gUg4snPaOZFZbAoN9JphBANpWyWuIZTU47LqI7MhTr4ScxsAG
+   ZzvuJC6MFAlje5trI9c5OwPJZWKCdhF/1jaoNCJr+UXZ247nvZeb/XSij
+   dyw3M3t2wmATDCSypXztCfJpvOH0oLLiFTX13yZ5/IvXJmLd+RKp13gRu
+   mdCeFvGMTRl3YEY35dj88RiaMp1CHL6/x+j3GXKzpqXafH2jYfRrmRyQ8
+   w==;
+X-CSE-ConnectionGUID: 3Xc9K42KQ1ePwJ8pjt9ysA==
+X-CSE-MsgGUID: co4Fwq5KSeOyde4AJEnAKw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="94908632"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="94908632"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 01:49:07 -0700
+X-CSE-ConnectionGUID: WZheVVdTQNiZWVDfeGKmKg==
+X-CSE-MsgGUID: ItZHiQ+ERVa/EcDVDl5cYw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="253431806"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.36])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 01:49:04 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 9 Jul 2026 11:49:01 +0300 (EEST)
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+cc: Daniel Scally <dan.scally@ideasonboard.com>, 
+    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
+    linux-media@vger.kernel.org
+Subject: Re: [PATCH 1/1] MAINTAINERS: Merge int3472 driver patches via the
+ media tree by default
+In-Reply-To: <20260708114740.47134-1-sakari.ailus@linux.intel.com>
+Message-ID: <326d3746-0f81-f0b4-0f75-e80234a069b3@linux.intel.com>
+References: <20260708114740.47134-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CA+XhMqz2oTTy2kY_4uqvJRnoXb0am5h6hXnLFM4EPQ7Yb6N-pw@mail.gmail.com>
+Content-Type: multipart/mixed; boundary="8323328-1629362935-1783586941=:1261"
 
-Hi David
-   thanks for the investigation
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On Thu, Jul 09, 2026 at 06:00:58AM +0100, David CARLIER wrote:
-> > Does it ?
-> [...]
-> > seems to clarify this is a non-issue ?
->
-> I think you're right that there's no runtime fault: arm64 has
-> HAVE_EFFICIENT_UNALIGNED_ACCESS and runs with SCTLR.A off, so the
-> unaligned load doesn't trap. It's really just a C-level thing - the
-> (u32 *) cast is UB and -fsanitize=alignment would moan - rather than a
+--8323328-1629362935-1783586941=:1261
+Content-Type: text/plain; charset=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Out of curiosity: why is (u32 *) case a UB ?
+On Wed, 8 Jul 2026, Sakari Ailus wrote:
 
-> real bug, which is why v2 already dropped Fixes:/stable.
->
-> > I still see zone_weights[] at offset 10 which is not 4 bytes aligned.
-> > What have I missed ?
->
-> I don't think you missed anything - the union isn't trying to move the
-> array, offset 10 has to stay. The idea is just the __packed member: it
+> The int3472 driver (under drivers/platform/x86/intel/int3472) implements
+> an effective kernel API (via instantiating regulators, clocks and GPIOs)
+> that is primarily used by the drivers under drivers/media. This means tha=
+t
+> there are often dependencies between patches to the int3472 driver and th=
+e
+> camera sensor drivers whereas dependencies to other parts of the x86
+> platform tree are fairly rare.
+>=20
+> Assign the int3472 driver tree to the Media tree.
+>=20
+> Patches that have dependencies elsewhere than in the Media tree will be
+> coordinated with the respective maintainers as usual.
+>=20
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> ---
+>  MAINTAINERS | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 2aec6afa8108..d41544a41c07 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -13379,6 +13379,7 @@ INTEL SKYLAKE INT3472 ACPI DEVICE DRIVER
+>  M:=09Daniel Scally <dan.scally@ideasonboard.com>
+>  M:=09Sakari Ailus <sakari.ailus@linux.intel.com>
+>  S:=09Maintained
+> +T:=09git git://linuxtv.org/media.git
+>  F:=09drivers/platform/x86/intel/int3472/
+>  F:=09include/linux/platform_data/x86/int3472.h
 
-ack
+Acked-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
 
-> makes zone_weights_32[i] an alignment-1 read, so the compiler does the
-> right thing (a plain LDR on arm64) with no cast, no get_unaligned() and
-> no memcpy(). Same 240-byte layout, and it also avoids David's KASAN
+--=20
+ i.
 
-So, I run this through goldbot
-https://godbolt.org/z/xTf8jd884
-
-And it seems to me the usage of __packed triggers the compiler to emit
-an 'LDUR' instruction instead of an LDR.
-
-I'm reading a bit around
-https://stackoverflow.com/questions/52894765/ldur-and-stur-in-arm-v8
-https://developer.arm.com/documentation/dui0802/b/A64-Data-Transfer-Instructions/LDR--immediate-
-https://developer.arm.com/documentation/dui0802/b/A64-Data-Transfer-Instructions/LDUR
-and it seems to me that while less efficient LDUR is meant to support
-byte-indexed access while LDR requires the indexing to be a multiple
-of 4 or 8 bytes depending on the destination register.
-
-What are the implications of using LDUR vs LDR on "unaligned access"
-is however not 100% clear to me.
-
-> concern about memcpy().
->
-> So if you'd like it cleaned up, in mali-c55-config.h:
->
->       union {
->               __u32 zone_weights_32[56] __attribute__((__packed__));
->               __u8  zone_weights[MALI_C55_MAX_ZONES];
->       };
->
-> and index zone_weights_32[i] in the driver. And if you'd rather not
-> carry the uapi churn for something that isn't a fault, I'm equally happy
-> to just drop it - whichever you prefer.
-
-I would be a bit hesitant in changing the uAPI if there is actually
-nothing broken, but I'm happy to defer the call to anyone who knows
-best here :)
-
->
-> Cheers
+--8323328-1629362935-1783586941=:1261--
