@@ -1,165 +1,103 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987852D77E5;
-	Thu,  9 Jul 2026 03:27:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5F333F5BD;
+	Thu,  9 Jul 2026 03:30:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783567671; cv=none; b=RI5SlkInJ/ssX5bnWXIHe8IZVZDhstcQQpF2RY456eMEVk4NVTOoIDl4mCVmIMbgGzLpuatyFDJepz4Bm1ROoRYygxEiTYS49XBIq/t97be7qBfJ8V+eWgam17IXKVFPh+WeeE1lIpUlUD9tpBenTJ03AGVya8g/AFrO3bmceyE=
+	t=1783567855; cv=none; b=Da7n//sn+J0LjDKB2U6XOp4tIY33gb1katVLPnTioUnQxQEDVujKQ4S4rY8X5ZJiA8UvfCeuYQxOORfy4YWZLhjziAKeA7mxArQwDSXdZS047Y+/loT4VMa1D+dbmQC9yvMNHM3t/LVLRQ9YtRsBQhGoh/IGwUWoVre/tdXc9pQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783567671; c=relaxed/simple;
-	bh=oArxJONt05Eo3vIl1q/2tGxr9zINsPL7vlRWosauqko=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WEnr0H3EAui7Glr2KncTuj0UtO/CIXn/CoRA/i0ZmeJwGB+wbxU9gGprwTbDepBlqRzKZaAPKfZ86rrkCfZkoLtGJbVbp052EdQCrhAKVI0ymh/bKIPIPeCZ953XM2sX/Pz7dUXGRfRe7gQmbNozqxj0QFHQvqmQukiPSCHe6UY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=qo12LQG4; arc=none smtp.client-ip=60.244.123.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1783567855; c=relaxed/simple;
+	bh=DK6eCsjwuQHkUAYad97gdQ+0HLjq5RiXz29EsyvdagQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=iY0xJT9vRc9/4XMsIOj1/qPzpIbxu5mlc7wfhF+Tef4XhpvGhON1e29S800befAHuPRho6ZEdflh7uETdbGjj+X6P8sLWi/5cWnrwx7GG+NwPbwriWgc7pp1uqYrUMHwv31pJ8mkxRYxXGyPJjYOTq9Wt0P0iV0xQ79jaiH2aDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J0iQ48FX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="qo12LQG4"
-X-UUID: 2036b22e7b4611f1b1788b6acf885367-20260709
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=n//DIo26kTWHyp4QnE/oMY3z5Va3Gw4pBY0FjQJiX5A=;
-	b=qo12LQG41ikVVI+ki7lY/Uxd5HnFmjxWSPl/897DtlfOvRcuZTCW2nzGCpguP0Ld8dgBYFJwX0ddeO+y3sNazMTqdUD0KrmUEQRn0ouq0gtxihplqA9L8cvGh6+Sln6lcj+nibJ0rkhSEdcIFdjVPB6LuzqtJ411j65BXzxTzEw=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.17,REQID:1cda387a-8ec5-4e70-afe4-a43285339902,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:d497b38,CLOUDID:bb3a2158-fac4-43c3-afe2-1defadc905cc,B
-	ulkID:nil,BulkQuantity:0,SF:102|136|836|865|888|898,TC:-5,Content:0|15|50|
-	99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI
-	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 2036b22e7b4611f1b1788b6acf885367-20260709
-Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw01.mediatek.com
-	(envelope-from <jianhua.lin@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 37846582; Thu, 09 Jul 2026 11:27:34 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- MTKMBS09N2.mediatek.inc (172.21.101.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Thu, 9 Jul 2026 11:27:32 +0800
-Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
- mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Thu, 9 Jul 2026 11:27:32 +0800
-From: Jianhua Lin <jianhua.lin@mediatek.com>
-To: <nicolas@ndufresne.ca>, <mchehab@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <matthias.bgg@gmail.com>,
-	<angelogioacchino.delregno@collabora.com>
-CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-media@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>,
-	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
-	<sirius.wang@mediatek.com>, <vince-wl.liu@mediatek.com>,
-	<jh.hsu@mediatek.com>, Jianhua Lin <jianhua.lin@mediatek.com>
-Subject: [PATCH v9 0/3] Mediatek MT8189 JPEG support
-Date: Thu, 9 Jul 2026 11:26:53 +0800
-Message-ID: <20260709032657.25730-1-jianhua.lin@mediatek.com>
-X-Mailer: git-send-email 2.46.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J0iQ48FX"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1687EC2BCC6;
+	Thu,  9 Jul 2026 03:30:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783567855;
+	bh=DK6eCsjwuQHkUAYad97gdQ+0HLjq5RiXz29EsyvdagQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=J0iQ48FXTbBnTQBtKMrRfGEgDcbBv4xs04QopEZa/TqGpgFzPQWvJ+GySIRU8LgQ0
+	 0AuSZRwxjcEkaxJ3BfX/+yMYAFpx9GOPY5nA8SIA1QvmnIqLw0CwlaI2xVzs1TgQMb
+	 fm7OPxJYZcNbq8jvTrceny030VRZGe82l9g6k0x5vORCOs/DqmNBnwjGZUnHyIB1SY
+	 sRRHQHmVqChGGuDCN8biTK+IAponOo0Q2xIqnTxAqf7GCDZH7bwO3E/CEyGV3dGZ30
+	 Ur4vD+i0vIC+EU4F6tuamVRfGnCHZ6WA7kxOwAvfF3/eYID7PSpBW6blX18TYle1pT
+	 neIPEle7xelyA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EB3AEC44503;
+	Thu,  9 Jul 2026 03:30:54 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Date: Thu, 09 Jul 2026 03:30:51 +0000
+Subject: [PATCH v2 1/2] dt-bindings: media: meson6-ir: Add Amlogic A9 IR
+ compatible
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260709-a9-ir-v2-1-42c21d7a6ffc@amlogic.com>
+References: <20260709-a9-ir-v2-0-42c21d7a6ffc@amlogic.com>
+In-Reply-To: <20260709-a9-ir-v2-0-42c21d7a6ffc@amlogic.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783567853; l=1145;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=rmPAoSNSZx5LMEoeF/b4E+Q1f6fRs3+ubaclp6Z1pc8=;
+ b=RFXDKk/9e5V0rL7YIoH1aU5mVnHctr+HpC13MtW6h6g2GKfJVmXzRqsXK8xhNIlM3fjV/i6GP
+ FGq4facPZpuD82VxqBgua2YqJrDoeDW0d229XZ8SywdSlPokapRvkQ2
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-This series is based on linux-next tag next-20260707.
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-This series depends on commit 7560349ee0d9 ("media: mediatek: jpeg:
-support 34bits"), which introduced the `support_34bit` field in struct
-mtk_jpeg_variant. That commit has already been merged via the media
-tree and is present in linux-next as of next-20260707.
+Document the Amlogic A9 IR controller compatible string. The A9 IR
+controller shares the same implementation as the Meson S4 IR block,
+so add "amlogic,a9-ir" with "amlogic,meson-s4-ir" as the fallback
+compatible.
 
-Changes compared with v8:
-- Patches 1/3 & 2/3 (dt-bindings: decoder & encoder):
-  - Expand the description of the `mediatek,larb` property to explicitly
-    explain its necessity for accurately describing the hardware topology
-    (SMI LARB connection for memory bandwidth arbitration), independent
-    of the IOMMU driver's implicit handling.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+---
+ Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Changes compared with v7:
-- Patches 1/3 (dt-bindings: decoder):
-  - In the allOf constraints, only keep maxItems: 1 in the then 
-    branch and minItems: 2 in the else branch; remove duplicated
-    constraints already defined at the top level
-
-Changes compared with v6:
-- Patches 1/3 (dt-bindings: decoder):
-  update the existing `allOf` condition for mediatek,mt8189-jpgdec to
-  make the 'mediatek,larb' property strictly required for MT8189 SoC.
-- Patches 2/3 (dt-bindings: encoder):
-  Add an `allOf` condition to enforce that the `mediatek,larb` property
-  is strictly required when the compatible string contains
-  mediatek,mt8189-jpgenc.
-
-Changes compared with v5:
-- Patches 1/3 (dt-bindings: decoder):
-  - Drop top-level minItems/maxItems for clock-names per Krzysztof's
-    review.
-  - Refine allOf block to strictly enforce clock constraints.
-
-Changes compared with v4:
-- Refines the device tree bindings for JPEG decoder and encoder.
-  - Patches 1/3 (dt-bindings: decoder):
-    Moved the standalone compatible string mediatek,mt8189-jpgdec
-    into the first oneOf entry along with mt2701 and mt8173, as
-    suggested by Rob Herring. This correctly groups all independent
-    ICs and removes the redundant items wrapper.
-  - Patches 2/3 (dt-bindings: encoder):
-    Applied the same logic suggested by Rob Herring to the encoder
-    binding. Restructured the compatible property to clearly
-    distinguish between the standalone IC (mediatek,mt8189-jpgenc)
-    and the ICs that must fallback to mediatek,mtk-jpgenc.
-
-Changes compared with v3:
-- The v4 is resending the cover-letter, because the v3 cover-letter was
-  not sent successfully.
-
-Changes compared with v2:
-- Dropped the dts patch (arm64: dts: mt8188: update JPEG encoder/decoder
-  compatible) as it belongs to a different tree/series.
-- Patches 1/3 (dt-bindings: decoder):
-  - Changed the MT8189 compatible to be a standalone `const` instead of
-    an `enum`.
-  - Added an `allOf` block with conditional checks to enforce the single
-    clock ("jpgdec") requirement for MT8189, while preserving the
-    two-clock requirement for older SoCs.
-  - Updated commit message to reflect the schema structure changes and
-    hardware differences.
-- Patches 2/3 (dt-bindings: encoder):
-  - Changed the MT8189 compatible to be a standalone `const` instead of
-    an `enum` inside the `items` list, as it does not fallback to
-    "mediatek,mtk-jpgenc" due to 34-bit IOVA requirements.
-  - Updated commit message to explain the standalone compatible design.
-- Patches 3/3 (media: mediatek: jpeg):
-  - Refined commit message for better clarity regarding 34-bit IOVA and
-    single clock configuration.
-
-Changes compared with v1:
-- Patches 1/4:
-  - Updating commit message
-- Patches 2/4, 3/4: 
-  - Updating commit message
-  - Adjusted property descriptions acorrding to hardware requirements
-  - Improved formatting for better readability and consistency
-- Patches 4/4:
-  - Updating commit message
-
-Jianhua Lin (3):
-  dt-bindings: media: mediatek-jpeg-decoder: add MT8189 compatible
-    string
-  dt-bindings: media: mediatek-jpeg-encoder: add MT8189 compatible
-    string
-  media: mediatek: jpeg: add compatible for MT8189 SoC
-
- .../bindings/media/mediatek-jpeg-decoder.yaml | 49 ++++++++++++++++---
- .../bindings/media/mediatek-jpeg-encoder.yaml | 35 ++++++++++---
- .../platform/mediatek/jpeg/mtk_jpeg_core.c    | 44 +++++++++++++++++
- 3 files changed, 114 insertions(+), 14 deletions(-)
+diff --git a/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml b/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml
+index 0f95fe8dd9ac..db9387e43eff 100644
+--- a/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml
++++ b/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml
+@@ -23,6 +23,10 @@ properties:
+       - items:
+           - const: amlogic,meson-gx-ir
+           - const: amlogic,meson-gxbb-ir
++      - items:
++          - enum:
++              - amlogic,a9-ir
++          - const: amlogic,meson-s4-ir
+ 
+   reg:
+     maxItems: 1
 
 -- 
-2.45.2
+2.52.0
+
 
