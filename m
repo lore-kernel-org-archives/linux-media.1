@@ -1,133 +1,130 @@
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66EE37BE64
-	for <linux-media@vger.kernel.org>; Thu,  9 Jul 2026 19:17:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783624625; cv=pass; b=duEnVQrIkIVjUf3Tcy8jA8xJBAEgwW89BaEpWFWnXGnbofNeKsQeKwy/eNroBLT4EGSEpyA8N2sbcPjf5GzhGU0wI3FWzf6nXR5z9p5jVhGxUtTPPiYJQ6cL4sD2q9bAoEgPShf7FodAYoW0vwQvsYJGN0XVojProhemJ5PEi8k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783624625; c=relaxed/simple;
-	bh=2p7+oT4h1SRnucufUxHFnJrsgb4fPg9EoRM+HicBv5Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Pn7Phe12RVJT8UKHDr2dgYmMwQtNQCeR+RnGIfU2S69dQxcGaEszwwqxgSa92dYDIYXacHpnLZKy6MO0HS8xs9o06vZ4cv81etoOt2AszktVfwOGIJ3h5Aas4HUFC5Hwi7kbddmFBEjDPPfQ3DausbV7WDeFyoPnGupYry9IKBY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gcy3hG4a; arc=pass smtp.client-ip=209.85.160.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 815ED2750FB;
+	Thu,  9 Jul 2026 19:32:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783625569; cv=none; b=XNC4L1m4vgsBpWr0w1DazUMn8QDQ0MxGhTXJtwxxK40YYTCPwSvR2SiVzQjVz54T+UBBiL5Oc2iUCBo8+h/tTSYsIRrfFj8wpm5vp5GHG3ry8+YvSWBO9UR2bzKtfgiWPHce23qUtWcGeD5eksreGbMHt5B46TOPc6YcG2mAZE0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783625569; c=relaxed/simple;
+	bh=lBVcNbE3SdloI5j4P8VPbIu6NmrvZndG9ZjUXvjaqfU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TFTcnLos4OqI86xXTqRDbcr+Cil5Phkyqb9OksLquAU2EDCtJMyfuxjI6fqC8o61JL+ToAaoDJJ16Rq03JegWRlo6Yq9Gse/mDtBI0nTsRVGdKbdFK+CowT7LFfKjs3NyeSsPvAjqYeANxRu5H2ESKg8IvkM7srNqs8Fnyc3Nxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=auzMKv1K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gcy3hG4a"
-Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-44868d6a066so34957fac.3
-        for <linux-media@vger.kernel.org>; Thu, 09 Jul 2026 12:17:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783624622; cv=none;
-        d=google.com; s=arc-20260327;
-        b=g4BRhbmwLp/RuWeInKjW1JAETkrUvLAsNZC6rmLFPav66hld7yXqCxcnJijLexBMVm
-         X2wsA6eAysa9QK/E476an6h3/sQslRaUD5s97+zM20GLz9azfWRlDZVH/Csj8gFL6qKG
-         iJsKXdEtbNYUxgYcqrXkIPF396D0iF8r5twd6bMg7s5gCPuz1a+TVuaePap0Neq6p5Kf
-         7P/TRLe9oQ5VtO+nypq0IejogcnUWR+P+tRw3fNgaCG4n2Ucz0kO4eQOZiXeO3fRK6SO
-         r7qrZ+aBgGLIyHlwSk3kwrUejNkTYEiHC8bB221gQehJpJF3QRSkd9Jf2+CnGTuyvAjV
-         Pj7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=2p7+oT4h1SRnucufUxHFnJrsgb4fPg9EoRM+HicBv5Y=;
-        fh=gWqYzGm/ddVEIofrPIzrHCLwVfN2x70t+9ha/4B0Zpc=;
-        b=pB+dULkm2kO/fkIAEFzavCC3AF1wUqFOJxP/xDvkh21NJCP1B6bz7UKK+hF0+Jp8oI
-         TpU/hvnaZ0oeAQuS6DKgd9rLyNfsV+gX4LrivnWjEAQ3Z4y0dZlClzuoYO7SbSpFg4Dp
-         yR9ygik0GIR7oOkAa8QWvVnB8MDa+dJbX8fb2j4++JXEn3PmhjmZlklGlpmVHzwUZmCs
-         dYUHg5AODGMM0k1Iujnr6n8MULwmxna3D6cKQqQj1WRGUCs2+GSG29RkvA3n4yFbwl0f
-         GMDEjso2s+FI62hBKp3hne6P/UYlcV45Ux849nj3bwfzx0qN3TFoh7lheoxm19lKGbMY
-         y3TQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783624622; x=1784229422; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2p7+oT4h1SRnucufUxHFnJrsgb4fPg9EoRM+HicBv5Y=;
-        b=Gcy3hG4aSwTY7lZf/dQVB89rrNsUCis43N6FlBmrmliZiO2PuMYOjSzwqbyY8PK9RL
-         fdv/volreOaCzdXAcseDGlP4ecZYcluZaffr3IKp/LXvisbpVcCVBfdRC0RAfMq4Lwfh
-         0k2KaboTMMTEkk/3/d1/NMHL4IYpSa0KImxVTTeSyAoMHyH4SZ7BuBQeY/jq14aS4qlw
-         mTUv4pQ0lySUV1cJO5o5LmYuUumyWhghS8/KOFgX6RRsWu2Szsg0JVgdiMcy51aCUEiO
-         KsTSdjpMO6VCdG1R5+VOCQ+E1UK4RHAl/kuFxJ3AqYFDADDra0icikRkqA+4DptvAqhO
-         M1hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783624622; x=1784229422;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2p7+oT4h1SRnucufUxHFnJrsgb4fPg9EoRM+HicBv5Y=;
-        b=rmN+J9sIinlJ+xWK+bI3KYGOIEJPvAkH3Tl3j2DC27fSZrp22hJ6oKlTu0HtrhYhf6
-         aN4qk3dDrwhjefWqGATIuViNaYJamM9X7dWQRxKs1Wr4BL+6UCGDRaiNFBUqfHfMzh2s
-         MEkupbRAFJuwQSceEjYwTCg1hA47a59E/B7ZpVwNR4kipdIY33wQkcmBDiKB2CaqXU4y
-         zGvYdEpCSdrqaUs/LlhErxgNSTxG3ckzPz6PBbzrGAe9UbYzl5o3pToHWL9B+xgyit3P
-         qcQIGlLaiN1BmxOM2Udj2DzqczX0Ka32z72YjdB9ZwlqYgDA8cTlvb9NnxKMILf1nZ8O
-         ETbw==
-X-Forwarded-Encrypted: i=1; AHgh+RomlcPMNQBEgyLfFlRTpJIjFM6QTL5Zvp2k9seL9itMTefcSEImJ+h3XMY85jVzptwpVWXaiic6HbuTZA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyNz+76RNYtJArirKmZZq4RnPPJzAIMhkitfpQCkW1t+rh42ygN
-	ftzwwXTFAOF9FHYEK/1YcxbiV0T8eLZ/H+TjR/ULAJKAcMqUPm7zIUuKapqdeSAJYd5w+9GWxfa
-	KReqkhtAylBKcUBs2uH3jXkrtlL8cVNQ=
-X-Gm-Gg: AfdE7cnyK6uLvFl5iukR5wFe/uZdKMmtvN8l/ARZVB0kKVUEQjyaxg0Uf/Ob5tx3BZb
-	ViIXZHpjzIz4CiV/xsWNKLnmH1PIj52UfsusQw9lOr9WJEX1nz92+F1SuHL/ZFR89b1cA8J6YXp
-	kfO8I5Rm6Zs3uRHVrqHJymnd3PtBsxcaQNm+sZnXqEtWxqYlDmx2XUf2GrwybfiQYz1aGCnT94/
-	MUU+ds90a/zLCak98C7mu4cgV4D3V8w9sgqdFExwpjr7u1L/oVfTJdP6bUpsRPS2rAOYoVBH/Yc
-	kzFedNGVX62RS+hNkxF88vg0SPZ88NLNFsUxdg==
-X-Received: by 2002:a05:6870:296:b0:430:29c3:9d15 with SMTP id
- 586e51a60fabf-451637bbab8mr5476553fac.1.1783624622477; Thu, 09 Jul 2026
- 12:17:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="auzMKv1K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 244A21F000E9;
+	Thu,  9 Jul 2026 19:32:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783625568;
+	bh=kAnk8wurZx5c5OpGGojggK9/9lXOvy6JHQHST6N14hk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=auzMKv1KlscxwXNmEZXTOFba3AzC1zvV5+KdLqK0W5IDP55KMnvUDomWlmIqurbJq
+	 KvnBdQZTeHn6OnilAVzhRDXElp2+lyOAqSt8AzaPojSa6/oownhsZAeRZ66qSpL/oZ
+	 QPffV5w4Rg1Ou9qpCF7MsXqreDvfczmOByHdhc/WAsKhMv9fb0+4/LyVRMjvolSXnM
+	 gyP9Q5qvjQcq8TuiOCwfjhGGvo1RbIJw+Ef2lv9z7fc6OWQJoR7zsX7App24WvM+x2
+	 0Sx8wwnFRJlrbavFkDmXz0Sm0yUuWQncw1ncAwrPth0JOYmqq7jEyRTmUKtvOrGDpc
+	 uBdy+bMWI8DJw==
+From: Bjorn Andersson <andersson@kernel.org>
+To: konradybcio@kernel.org,
+	Sumit Garg <sumit.garg@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
+	linux-remoteproc@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	robin.clark@oss.qualcomm.com,
+	sean@poorly.run,
+	akhilpo@oss.qualcomm.com,
+	lumag@kernel.org,
+	abhinav.kumar@linux.dev,
+	jesszhan0024@gmail.com,
+	marijn.suijten@somainline.org,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	vikash.garodia@oss.qualcomm.com,
+	bod@kernel.org,
+	mchehab@kernel.org,
+	elder@kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	jjohnson@kernel.org,
+	mathieu.poirier@linaro.org,
+	trilokkumar.soni@oss.qualcomm.com,
+	mukesh.ojha@oss.qualcomm.com,
+	pavan.kondeti@oss.qualcomm.com,
+	jorge.ramirez@oss.qualcomm.com,
+	tonyh@qti.qualcomm.com,
+	vignesh.viswanathan@oss.qualcomm.com,
+	srinivas.kandagatla@oss.qualcomm.com,
+	amirreza.zarrabi@oss.qualcomm.com,
+	jenswi@kernel.org,
+	op-tee@lists.trustedfirmware.org,
+	apurupa@qti.qualcomm.com,
+	skare@qti.qualcomm.com,
+	linux-kernel@vger.kernel.org,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v9 00/14] firmware: qcom: Add OP-TEE PAS service support
+Date: Thu,  9 Jul 2026 14:32:39 -0500
+Message-ID: <178362521364.2422497.1305957434056184382.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260702115835.167602-1-sumit.garg@kernel.org>
+References: <20260702115835.167602-1-sumit.garg@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260702103453.348056-1-devnexen@gmail.com> <akd8E5jr722oTm49@zed>
- <20260703221651.41669d55@pumpkin> <aks7usxfDajS-W_5@zed> <20260706104652.GB66892@killaraus.ideasonboard.com>
- <20260706133956.39a11738@pumpkin> <aku6R_EI0kLUqD8e@zed> <CA+XhMqz2oTTy2kY_4uqvJRnoXb0am5h6hXnLFM4EPQ7Yb6N-pw@mail.gmail.com>
- <ak9UGtj7-qOvjRmr@zed>
-In-Reply-To: <ak9UGtj7-qOvjRmr@zed>
-From: David CARLIER <devnexen@gmail.com>
-Date: Thu, 9 Jul 2026 20:16:51 +0100
-X-Gm-Features: AUfX_mxOCcg4xxJn6r_NIxbQSmV8bRhUvmzPJGxaLDY5AKlV6L4ZVy-ehzY6xH8
-Message-ID: <CA+XhMqzXMMDmtMyev_UuGpn0sU6TKNBDBzO1H-wN96no5h-yXg@mail.gmail.com>
-Subject: Re: [PATCH] media: mali-c55: Fix unaligned access of AEC histogram
- zone weights
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: David Laight <david.laight.linux@gmail.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, dan.scally@ideasonboard.com, 
-	mchehab@kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-> Out of curiosity: why is (u32 *) case a UB ?
 
-Alignment, not aliasing. zone_weights is a u8[] at offset 10, so it's
-only 2-byte aligned, and casting that to a u32* (which wants 4) is
-already UB - 6.3.2.3p7 - before you even load through it.
+On Thu, 02 Jul 2026 17:28:16 +0530, Sumit Garg wrote:
+> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> 
+> Qcom platforms has the legacy of using non-standard SCM calls
+> splintered over the various kernel drivers. These SCM calls aren't
+> compliant with the standard SMC calling conventions which is a
+> prerequisite to enable migration to the FF-A specifications from Arm.
+> 
+> [...]
 
-> the usage of __packed triggers the compiler to emit an 'LDUR'
-> ... implications of using LDUR vs LDR on "unaligned access" ... not
-> 100% clear to me.
+Applied, thanks!
 
-LDUR vs LDR is only about how the offset is encoded, it's got nothing to
-do with alignment safety. LDR's scaled form needs the immediate to be a
-multiple of the access size, +10 isn't, so gcc can't use it and drops to
-LDUR (unscaled offset). Both happily load from an unaligned address on
-arm64 with SCTLR.A off - LDUR isn't "the unaligned one". The multiple-of-4
-you found is about the immediate field, not the address.
+[01/14] firmware: qcom: Add a generic PAS service
+        commit: 08314e7c2c38b9ae6a5e01c58ed10a950859404d
+[02/14] firmware: qcom_scm: Migrate to generic PAS service
+        commit: 5c1a2975d23c51c01aca51945d0f10a4ee4c9020
+[03/14] firmware: qcom: Add a PAS TEE service
+        commit: b6f7978da0c4d26fe465aa6634f5a0b48f900de0
+[14/14] MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
+        commit: 6701259025d49139131a0eb2257659a066dcca22
 
-So on arm64 __packed doesn't buy you a safer load, the plain cast already
-worked. What it buys you is not lying to the compiler about the alignment
-(so the UB is gone), plus correct codegen on the arches that do trap -
-which is David's point.
+This is available as an immutable branch, for other subsystems to pull at:
+  https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git 20260702115835.167602-2-sumit.garg@kernel.org
 
-> I would be a bit hesitant in changing the uAPI if there is actually
-> nothing broken ... happy to defer
 
-Fair enough, and you're right that nothing's actually broken - it's arm64
-only so it never faults, this is tidy-up not a fix. I don't feel strongly
-either way. Leave the uAPI as is and I'll drop it, or if you'd rather have
-it cleaned up I'll send the packed union (with MALI_C55_MAX_ZONES / 4 like
-David said). Whatever you prefer.
+[04/14] remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
+        commit: 254030af0d81b12b7624d9ce85c6bdd3171629c6
+[05/14] remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
+        commit: f3b1357673ddb37ae8b9a8fe44df73cbd2a519c5
+[06/14] remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
+        commit: ea3b5245f5deba916320b32a8e6510a74c034c17
+[07/14] remoteproc: qcom: Select QCOM_PAS generic service
+        commit: c4383254ac7a529736577e304176a10371c2ee0b
 
-Cheers
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
