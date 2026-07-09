@@ -1,65 +1,65 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC155199D8
-	for <linux-media@vger.kernel.org>; Thu,  9 Jul 2026 14:19:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97440233933
+	for <linux-media@vger.kernel.org>; Thu,  9 Jul 2026 14:26:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783606758; cv=none; b=JA2I91G8KFdds/x9PBU4JNMl/Un84KN8vdiEWHZGVzh1PJujACh61ls0gfQK7Pc9oXYOLJtvp3n5KOyZWhneDbGTVi6tld7MKO/NVL2fqVdgiy9rl4NQXQnre+g4EqALuHrX9LFMlq7ChGT94wnOHFS2CGWh/w1gi8Gjc+WEomU=
+	t=1783607165; cv=none; b=VEFTalFzJgoSVItXRS4j0kUr/b203DcdrTth6Hc4XU2uAcirxgNeUM5rADTqMTumdkBmPHlb/k+kI0KBRQSxOiPCHE3g5E9JmeyNtJ1l0AfB1rJkdJKk74TykoIm5bwWEKQcj0JHnPPSEROGFNNOAXDeuGoKcG3qoQUz3tKV3bY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783606758; c=relaxed/simple;
-	bh=ttNAzd6I/ZaDegdJeaYWdH1yZmzDjqnA/YL3Pm2rvsw=;
+	s=arc-20240116; t=1783607165; c=relaxed/simple;
+	bh=GUiGSyLWB9fQsFRzV21305kjOtQfbAKgpLx4+Ei2cqQ=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=cTr/bm0MBpz9R04/caCNeEWC4msOgRgTiM6nsFVvyEGXLBotFr6trRy+4G8i1LcWbVkpVIolgmdnlRgglRMTlVSTnMcFp/TB2ATXjsrna/slAH4AX+x28CDytQv70QFvPFh33pdsrTVboS8A1Toh/jA8lflWd3m2Y7QBsIbTGSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Zbi2aVuo; arc=none smtp.client-ip=209.85.208.41
+	 Content-Type:MIME-Version; b=fZ3FHjAes5SO+Q9Szm95MHGh+4+LcqgaEHq6Y5/Yqdvtenmw0VY5qJ/UbTLkYZtepvsqGFmZfzEehlwxum/CwmgipFsOWwxhRukVuhYGS8XuP+Rd2oYI0mn1Fk3jGVAYsuX7jA8VKgPBZWx3s2RBK5lR3rL+NAx1S5sZ/lwb45Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=NROZ2G6A; arc=none smtp.client-ip=209.85.208.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Zbi2aVuo"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-698a9f11776so3183078a12.1
-        for <linux-media@vger.kernel.org>; Thu, 09 Jul 2026 07:19:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="NROZ2G6A"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-698b558a792so2381498a12.1
+        for <linux-media@vger.kernel.org>; Thu, 09 Jul 2026 07:26:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783606755; x=1784211555; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1783607162; x=1784211962; darn=vger.kernel.org;
         h=mime-version:user-agent:content-transfer-encoding:content-type
          :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=mbTByd7x2B0SVAGizj79lBbxC5X4KQlpFVsjQoIekHk=;
-        b=Zbi2aVuootiApF4z3r/c041uaLYQJXh+LT8G5UGWMPfKxdRKmtgvVUaL9JT9Tf24yW
-         L211wYpYHLZFJ0qqGV+9Xvn3q50VqPkjKlSEa5vmJsuBvUaV2Eiqa526XEr0dwXk5gU8
-         So/jX6pOGVJqY0Q75TjC0xYfwbRsLoDjGzxNNnRmq+/iM+vNlEF7L34/cOoPZ0PQRTPd
-         FkadwZMnHKwhT0PcW3+mgpRPEMkncQOEbY+SlF+gISrSwwwvkO/R40SH1hftO2pXjJGh
-         vuTVNNzLfbExeXj5Nv0gZXv7b4UGHGGPgYTddMH3TgMEb4k95O80bCKvAk+5n3LO83eo
-         qE0A==
+        bh=GUiGSyLWB9fQsFRzV21305kjOtQfbAKgpLx4+Ei2cqQ=;
+        b=NROZ2G6Abmv3R1bxfkMXVOf0VH+ap9nBEXsB6r54FUvTOlOnsYkABPGEXlEQqgpKJ8
+         71sb0JKzFnVs7r6LSXhomhXHdMQof2esVt5lVNybEhwM3aRt3O9Nx7xjUdE7wshg/1W8
+         govgRZq3qn1tcFyNq8OXi5Xyq+PfcbvpCjZMPNYfQ8XqC5dX2sNcAThHM4IlnVdAvVz3
+         c4VLo9DnfJWc56+F2I1KF9VK7LZoNv5xDE/+6uRVQXEDZd9vdODzpnU68yRQXVYA3Rck
+         zm0WqrvyXPjZ0/MI7jckgdlmiFWmbPCvhXHvfwVmGNSP7RXmamJTcn9h3mHafKaO1kEX
+         Ck/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783606755; x=1784211555;
+        d=1e100.net; s=20251104; t=1783607162; x=1784211962;
         h=mime-version:user-agent:content-transfer-encoding:content-type
          :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mbTByd7x2B0SVAGizj79lBbxC5X4KQlpFVsjQoIekHk=;
-        b=cIEKCw1Raoi9XvnC5TAD2cKdR6QIWr61hwoSDfFDwkc/P4JXaYCCxJ4knVL/c4i4GE
-         vlZyp2BepSPew+CA7Ndp6NMtCYnnxl8vgXi0lzJanSeNqtSbWcCrv++tdjh6+Lj3QsyZ
-         7jxg6JzTsiB/4cSmslmvDUaB5iI2eQxipI00LvQFYdzlZOqcef5OUoizXnhisyS4losM
-         2WSmp7jHh4P8xjTOGuCuKvfrvhJ+S7xdjENl8OU2n2eUvw+7wF7/TJJXOO/3mS8WWsqc
-         JuN7tHA1+WBULUfTFVv8KWgsLzdMvErXUkHKqNvdTZFPjbrYwU3bHLXhTTNzfdiWRH6x
-         6Nrg==
-X-Forwarded-Encrypted: i=1; AHgh+RpeHtfSm7FWxVeKlTQOY9vxKVQ+qxoF/HRZRYSfoYMGjP7KPr6hONRC0WMKeDPFqpi7cKRqep03cd1VDA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwE38+H1G6Dp2Y0prcGemTUVa9nGU0ynatc14/7jH0t88hqvdXa
-	FCtLDbkL0nQRS5+k57PHK1Lp0+e/RF6YJ8JuAmngq2WFV5m+G3iDbV20WiCPy4FhEPI=
-X-Gm-Gg: AfdE7cm6NK5m5Pf9yNORYZiaiye8MJHpDisF+kKXXFsd96yk7wQe8Rsp6YzSAfsKooX
-	6tlnwgesbMctWGHtreK1GM55cgORU93Yob9pKdBRyV/zL/NnU+RfxOhXoVFX2EQHq4Kw/3evKyd
-	s6lYtspQ/1Qlj6fI55ylpTFbVWb1k3t0mJk36B4Sp22oKAE6HIYQdGI8gtyRZT0I7oBd2qSyRZB
-	QcHFdJgjEI9TF0ejHana43Xo6VRo+ee6Owu3dBpRmUBfKJL6M+gVvET2fDYN+4vbih885bTwxQC
-	xCKGMPzTqfDHGboa1Z4ZG/sZlqlnOvDWvFdA70avjd7HbH9RDWCIw91Oj3ik22sVKsfav3+1dV9
-	qa4i1NxL4b8jurPnvU34bEBDOgAECxNn+hnBhQOit12ZvNtA95eF/7iLz03dZVQL2indY1wMBzn
-	CyJGpqnEvvRMV06qqDbUda
-X-Received: by 2002:a17:907:e146:b0:c15:b55b:7826 with SMTP id a640c23a62f3a-c15ce0c03f0mr176642766b.39.1783606755075;
-        Thu, 09 Jul 2026 07:19:15 -0700 (PDT)
+        bh=GUiGSyLWB9fQsFRzV21305kjOtQfbAKgpLx4+Ei2cqQ=;
+        b=kJaj0SRSD8is5iDOT+Hj1vH4xyNgVCWG+6fdbZcBerX/56erA7oD3Sa+rDILJm5fvE
+         M6vZ0Zp9z47JZtaR7m66fbWweqtofgFdtD1Hkp00EVi62dThywoAosd0KtE0TxdXa2+L
+         tbekYWsZo7itGZ0QFq92uyLEGS/stNgqGbykeeBv+nfZ2XN4H9sntRY6Ye137BfHxLM1
+         i9+Chyf7BEa7092itV60Cn33fl9GbxE9FVodc9lU4LIbBwBvSqgne9mA19tN3WgTauDr
+         B1XbTRb46ZorE9WcWLEm9qIncMO4D1BlmEs+Zi9Tx9K+8UOyXBT9ri30cIOnJG1egPU8
+         ZKrg==
+X-Forwarded-Encrypted: i=1; AFNElJ9UsdTwLcZ3wj3eYMjqPHLRGiu+9ATV2DIgJx+GeDl+UzbFxDMcO4fAaEWBmMfPgX/CASeP7Sc9yFarlg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxJ+ACxWshcddyNG3+6iAuXgFeK7vc2ZICxh/M6V6DxYbxStdG0
+	f4aesFWq36IxBPnyXQk28oy6swV6PC3kuFUlsB0P30jLXXRhlg3kEOtOY8q7KqdZCOw=
+X-Gm-Gg: AfdE7ckfcpbWBLD+BjyKTa3OUriokdFlTFUX2lTOcZSkpFIBLcdLwbfndMqTTxy6hEz
+	85M3JrK86LyjzzbZpwL3FEGwRxOyMuUIgJ0N/9nYDyyUdxF4FpmkvGr3fN/OLRdUzDq/AFHnxiy
+	tLfG+1DGkVqvAz2x7aKAaZTKqB4tDoxP5HnqHdFsD6ewJxhSVHVSpUAfwh8AGkLXGwFzWtaU1h1
+	uYWIrSV9ZdmcFp92VUcPqHUW9K3VeLrkVSEDAneo/OvpBO4aaOHXHBCO12iRN5PrK+IgJYAiqSa
+	yy48Oo++RodZCyr8Oh+0/0P2tZpXXNAskNb9jCHCHYePSqTqqSOlL9T39AQt/nQFklHr1jEe8pb
+	XSuuOdXJ57s7+qPJo8TfMqFzY9OEuOS4vYKkZ6zpR/RXLUoKLHU2pjLVgNA7vFlboykA4dSS99n
+	GxsLBbaCpuXP8eMgu7DtCW
+X-Received: by 2002:a17:907:a286:b0:c12:696b:dd78 with SMTP id a640c23a62f3a-c15ce1440c4mr305311866b.39.1783607161945;
+        Thu, 09 Jul 2026 07:26:01 -0700 (PDT)
 Received: from [10.1.1.102] ([212.129.81.133])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15ae0bb618sm497210466b.20.2026.07.09.07.19.11
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15ca1bd81asm303276466b.30.2026.07.09.07.25.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 07:19:14 -0700 (PDT)
-Message-ID: <899942cc84af7a82a35b4ca34b486c40327fd543.camel@linaro.org>
+        Thu, 09 Jul 2026 07:26:01 -0700 (PDT)
+Message-ID: <f3c84538b682d0889420fb7f11834636ede481ca.camel@linaro.org>
 Subject: Re: [PATCH v2 1/2] drm/drm_crtc: ensure dma_fence_ops remain valid
  during device unbind
 From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
@@ -74,11 +74,12 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, Peter Griffin
 	 <peter.griffin@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Juan
  Yescas <jyescas@google.com>, kernel-team@android.com
-Date: Thu, 09 Jul 2026 15:19:30 +0100
-In-Reply-To: <1ccfc0b5d1696a8dec4756b675294e7fb41ab5ff.camel@mailbox.org>
+Date: Thu, 09 Jul 2026 15:25:59 +0100
+In-Reply-To: <899942cc84af7a82a35b4ca34b486c40327fd543.camel@linaro.org>
 References: <20260708-linux-drm_crtc_fix2-v2-0-cf72be75d75a@linaro.org>
-		 <20260708-linux-drm_crtc_fix2-v2-1-cf72be75d75a@linaro.org>
-	 <1ccfc0b5d1696a8dec4756b675294e7fb41ab5ff.camel@mailbox.org>
+			 <20260708-linux-drm_crtc_fix2-v2-1-cf72be75d75a@linaro.org>
+		 <1ccfc0b5d1696a8dec4756b675294e7fb41ab5ff.camel@mailbox.org>
+	 <899942cc84af7a82a35b4ca34b486c40327fd543.camel@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2-8+build1 
@@ -89,71 +90,15 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Hi Philipp,
-
-On Thu, 2026-07-09 at 14:32 +0200, Philipp Stanner wrote:
-> +Cc Danilo (who is currently concerned with drm_device life times)
+On Thu, 2026-07-09 at 15:19 +0100, Andr=C3=A9 Draszik wrote:
 >=20
-> On Wed, 2026-07-08 at 16:22 +0100, Andr=C3=A9 Draszik wrote:
-> >=20
->=20
-> [=E2=80=A6]
->=20
-> > Link: https://sashiko.dev/#/patchset/20260618-linux-drm_crtc_fix2-v1-1-=
-c03e77b36f34@linaro.org?part=3D1
-> > Signed-off-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
->=20
-> I am tempted to think that this also needs a Fixes and needs to be
-> backported into stable kernels, doesn't it? Especially if the BUG_ON
-> disappears in stable kernels.
+> Unfortunately, this still looks like an incomplete fix -
+> https://sashiko.dev/#/patchset/20260618-linux-drm_crtc_fix2-v1-1-c03e77b3=
+6f34@linaro.org?part=3D1
 
-Good point, thanks. I forgot to add this in and will try to find a reasonab=
-le
-commit to relate to.
+Wrong link above,
+https://sashiko.dev/#/patchset/20260708-linux-drm_crtc_fix2-v2-0-cf72be75d7=
+5a%40linaro.org
+is the correct one.
 
->=20
-> > ---
-> > =C2=A0drivers/gpu/drm/drm_crtc.c | 6 ++++++
-> > =C2=A01 file changed, 6 insertions(+)
-> >=20
-> > diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-> > index 63ead8ba6756..d55f1377ec36 100644
-> > --- a/drivers/gpu/drm/drm_crtc.c
-> > +++ b/drivers/gpu/drm/drm_crtc.c
-> > @@ -501,6 +501,12 @@ void drm_crtc_cleanup(struct drm_crtc *crtc)
-> > =C2=A0{
-> > =C2=A0	struct drm_device *dev =3D crtc->dev;
-> > =C2=A0
-> > +	/* Ensure our dma_fence_ops remain valid for an RCU grace period afte=
-r
-> > +	 * the fence is signaled. This is necessary because our dma_fence_ops
-> > +	 * dereference crtc->dev.
-> > +	 */
-> > +	synchronize_rcu();
->=20
-> nit:
-> I guess this is the only place where one can reasonably put the
-> synchronize_rcu(). But I would hint at the RCU delay in the function's
-> docu.
-
-Unfortunately, this still looks like an incomplete fix -
-https://sashiko.dev/#/patchset/20260618-linux-drm_crtc_fix2-v1-1-c03e77b36f=
-34@linaro.org?part=3D1
-
-My next version will simply copy the relevant strings into a custom
-
-struct drm_crtc_fence {
-	struct dma_fence base;
-	char driver_name[32];
-	char timeline_name[32];
-};
-
-or similar as part of drm_crtc_create_fence() and just use those as part
-of the dma_fence_ops. That approach should avoid all race conditions and
-corner cases with RCU.
-
-I'll also make sure to update relevant documentation.
-
-
-Cheers,
-Andre'
+A.
