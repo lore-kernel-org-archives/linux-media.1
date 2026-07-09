@@ -1,49 +1,49 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14E32D77E5;
-	Thu,  9 Jul 2026 03:27:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F114383C88;
+	Thu,  9 Jul 2026 03:27:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783567664; cv=none; b=Jo6m2HAVPIoWgqKnxEJ1l5v/2HgZAc7DybfliDnr28hK9yQX+paj7ftAUeL5ruNlv+d+eVl3qHVhOfC1/UfoX6qkAGdbnk6LtsLOlVsM+p1Nec5gq2i4xfH2DdtrMn7TUTEVresJ3b2EAgE5wrE+x2qEv3AAWQII2hpjoz5UgtI=
+	t=1783567670; cv=none; b=bLxKtHSyxVDrCkTS4gCDMyhIcXSos+r/tnJC4WNKOL9kNm/ADEvtgiIb/+pqerF6pblTHW7UkK5lzPDXtFR7T3Sqb3Ragcx7b1SY+JC5jP2T4l23kXYrsx5mFx6R9C+MYHJJkKa3R1lpuvjBFKlEqJXpsRFMsXuYRlPveK0D6qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783567664; c=relaxed/simple;
-	bh=1VcW7FVWiSaCZRxMalfs60Qi8NxvnIEEcpBDehCFm+Q=;
+	s=arc-20240116; t=1783567670; c=relaxed/simple;
+	bh=OhKIzhyPphPE7XF0tX/j+yL1U7tn2OY9OK4wIlzJ1hs=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LGSWra+O4IGROUWGa5wOhV+8EyTlMwNnT2qGV6GOz2LFqrHdTZ4xyXaYuyno39zEw+GPmJtz5pbcCZA6QwkmrSzf3MCtZa7kK/zjCePfVtFDQqkBzjQKa9L7Zb9sneFG8APXPJKw9bwb3EbvLE9goEUz+xGiXKRyvL3Cx29+pMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=U9jxRMqm; arc=none smtp.client-ip=210.61.82.184
+	 MIME-Version:Content-Type; b=REZd4PL1Y3HGRRpwwM8a8LNw4xDOOG9JCkjygQLMo5cczBQCa+UGGs6UWa1v/u2qv2T4ZBGFl9P4vHoORHKidJ6ukJC8d8sveYKvXDRqbHHCSTPEcrbps3EzuGeVlxfUclEwpNyJ29+OpdPuy/LzOp3IbWEd+bI+UPF/cmbClT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=FIAnpXRE; arc=none smtp.client-ip=60.244.123.138
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="U9jxRMqm"
-X-UUID: 21f960487b4611f18dc8c9802ae25ab1-20260709
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="FIAnpXRE"
+X-UUID: 2038cbe07b4611f1b1788b6acf885367-20260709
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=y33sl6LlKQwmsMxpToD1qauD4dOYyjLtnlR4y1Y+rgA=;
-	b=U9jxRMqmqZc8Kze8lYxPq+B72oLntXH22eAqf9PyA+Z9K/ESLCaf64iuTktu6sDAYl8XyVYgUtnxAG6Z43VcHVzrbMhQIt/F33mnT3pgNo/zED/W5dnbbU8oikHkrCMcPv3r4Vgp4YB52o2q9a9C+mdJyxactmzEy/VF7/YArDU=;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=YPIulzBzzSjRzeVrKrRnT1ZUkoYtICzdzWxddReKMC4=;
+	b=FIAnpXREU9JXzaOPIQAEtgq9xM+4rCFiC5GrX3T1GDVi5gQcJJcw2a5xZD12golTMB5NEaCQSgtv0Me5okNWU+zRSSydVSQkmLP1b1fpMDJTCSgxD5iOK6ExhGyONLTHiwAu81r02yjyzgoMgWa+s2OduI4hS0B4jo4k2H5mAP8=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.17,REQID:141ae4b0-5815-4372-b8fa-3f6370f9743d,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:d497b38,CLOUDID:16e6eb14-ea64-44d4-98db-4e1fb89955a3,B
+X-CID-O-INFO: VERSION:1.3.17,REQID:5e95d2da-736b-42f5-be5b-2a80a2e1c8dd,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:d497b38,CLOUDID:03862d82-6310-4e6b-a6b1-aca20d98ed8b,B
 	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
-	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,
-	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+	0|99|100|102|156,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,
+	COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 21f960487b4611f18dc8c9802ae25ab1-20260709
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by mailgw02.mediatek.com
+X-UUID: 2038cbe07b4611f1b1788b6acf885367-20260709
+Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw01.mediatek.com
 	(envelope-from <jianhua.lin@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 262426711; Thu, 09 Jul 2026 11:27:37 +0800
+	with ESMTP id 1972572732; Thu, 09 Jul 2026 11:27:34 +0800
 Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
  MTKMBS09N2.mediatek.inc (172.21.101.94) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Thu, 9 Jul 2026 11:27:35 +0800
+ 15.2.2562.29; Thu, 9 Jul 2026 11:27:33 +0800
 Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
  mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Thu, 9 Jul 2026 11:27:35 +0800
+ 15.2.2562.29 via Frontend Transport; Thu, 9 Jul 2026 11:27:33 +0800
 From: Jianhua Lin <jianhua.lin@mediatek.com>
 To: <nicolas@ndufresne.ca>, <mchehab@kernel.org>, <robh@kernel.org>,
 	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <matthias.bgg@gmail.com>,
@@ -54,9 +54,9 @@ CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
 	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
 	<sirius.wang@mediatek.com>, <vince-wl.liu@mediatek.com>,
 	<jh.hsu@mediatek.com>, Jianhua Lin <jianhua.lin@mediatek.com>
-Subject: [PATCH v9 3/3] media: mediatek: jpeg: add compatible for MT8189 SoC
-Date: Thu, 9 Jul 2026 11:26:56 +0800
-Message-ID: <20260709032657.25730-4-jianhua.lin@mediatek.com>
+Subject: [PATCH v9 1/3] dt-bindings: media: mediatek-jpeg-decoder: add MT8189 compatible string
+Date: Thu, 9 Jul 2026 11:26:54 +0800
+Message-ID: <20260709032657.25730-2-jianhua.lin@mediatek.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20260709032657.25730-1-jianhua.lin@mediatek.com>
 References: <20260709032657.25730-1-jianhua.lin@mediatek.com>
@@ -69,87 +69,108 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Compared to the previous generation ICs, the MT8189 uses a 34-bit IOVA
-address space (16GB) and requires a single clock configuration.
+Add the compatible string for the JPEG decoder block found in the
+MediaTek MT8189 SoC.
 
-Therefore, add new compatible strings ("mediatek,mt8189-jpgenc" and
-"mediatek,mt8189-jpgdec") along with their specific driver data to
-support the JPEG encoder and decoder of the MT8189 SoC.
+Compared to previous generation ICs, the MT8189 JPEG decoder requires
+34-bit IOVA address space support and only needs a single clock
+("jpgdec") instead of two. Therefore, it is added as a standalone
+compatible string without falling back to older SoCs.
+
+Update the binding schema to include the new compatible string and add
+an `allOf` block with conditional checks. This enforces the single clock
+requirement for MT8189 while preserving the two-clock requirement
+("jpgdec-smi", "jpgdec") for older SoCs.
 
 Signed-off-by: Jianhua Lin <jianhua.lin@mediatek.com>
 ---
- .../platform/mediatek/jpeg/mtk_jpeg_core.c    | 44 +++++++++++++++++++
- 1 file changed, 44 insertions(+)
+ .../bindings/media/mediatek-jpeg-decoder.yaml | 49 ++++++++++++++++---
+ 1 file changed, 41 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-index d147ec483081..14f2991a4053 100644
---- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-+++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-@@ -1868,6 +1868,10 @@ static struct clk_bulk_data mt8173_jpeg_dec_clocks[] = {
- 	{ .id = "jpgdec" },
- };
+diff --git a/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml b/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
+index a4aacd3eb189..13fb4fb61f2b 100644
+--- a/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
++++ b/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
+@@ -15,10 +15,10 @@ description: |-
+ properties:
+   compatible:
+     oneOf:
+-      - items:
+-          - enum:
+-              - mediatek,mt8173-jpgdec
+-              - mediatek,mt2701-jpgdec
++      - enum:
++          - mediatek,mt2701-jpgdec
++          - mediatek,mt8173-jpgdec
++          - mediatek,mt8189-jpgdec
+       - items:
+           - enum:
+               - mediatek,mt7623-jpgdec
+@@ -32,13 +32,16 @@ properties:
+     maxItems: 1
  
-+static struct clk_bulk_data mtk_jpeg_dec_clocks[] = {
-+	{ .id = "jpgdec" },
-+};
-+
- static const struct mtk_jpeg_variant mt8173_jpeg_drvdata = {
- 	.clks = mt8173_jpeg_dec_clocks,
- 	.num_clks = ARRAY_SIZE(mt8173_jpeg_dec_clocks),
-@@ -1899,6 +1903,38 @@ static const struct mtk_jpeg_variant mtk_jpeg_drvdata = {
- 	.multi_core = false,
- };
+   clocks:
++    minItems: 1
+     maxItems: 2
+-    minItems: 2
  
-+static const struct mtk_jpeg_variant mtk8189_jpegenc_drvdata = {
-+	.clks = mtk_jpeg_clocks,
-+	.num_clks = ARRAY_SIZE(mtk_jpeg_clocks),
-+	.formats = mtk_jpeg_enc_formats,
-+	.num_formats = MTK_JPEG_ENC_NUM_FORMATS,
-+	.qops = &mtk_jpeg_enc_qops,
-+	.irq_handler = mtk_jpeg_enc_irq,
-+	.hw_reset = mtk_jpeg_enc_reset,
-+	.m2m_ops = &mtk_jpeg_enc_m2m_ops,
-+	.dev_name = "mtk-jpeg-enc",
-+	.ioctl_ops = &mtk_jpeg_enc_ioctl_ops,
-+	.out_q_default_fourcc = V4L2_PIX_FMT_YUYV,
-+	.cap_q_default_fourcc = V4L2_PIX_FMT_JPEG,
-+	.support_34bit = true,
-+};
+   clock-names:
+-    items:
+-      - const: jpgdec-smi
+-      - const: jpgdec
++    oneOf:
++      - items:
++          - const: jpgdec
++      - items:
++          - const: jpgdec-smi
++          - const: jpgdec
+ 
+   power-domains:
+     maxItems: 1
+@@ -51,6 +54,15 @@ properties:
+       Documentation/devicetree/bindings/iommu/mediatek,iommu.yaml for details.
+       Ports are according to the HW.
+ 
++  mediatek,larb:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: |
++      A phandle to the local arbiter (SMI LARB) node. This explicitly
++      describes the hardware topology where the JPEG block is connected
++      to a dedicated SMI LARB for memory bandwidth arbitration. It is
++      required to accurately represent the hardware connection independently
++      of the IOMMU.
 +
-+static const struct mtk_jpeg_variant mtk8189_jpegdec_drvdata = {
-+	.clks = mtk_jpeg_dec_clocks,
-+	.num_clks = ARRAY_SIZE(mtk_jpeg_dec_clocks),
-+	.formats = mtk_jpeg_dec_formats,
-+	.num_formats = MTK_JPEG_DEC_NUM_FORMATS,
-+	.qops = &mtk_jpeg_dec_qops,
-+	.irq_handler = mtk_jpeg_dec_irq,
-+	.hw_reset = mtk_jpeg_dec_reset,
-+	.m2m_ops = &mtk_jpeg_dec_m2m_ops,
-+	.dev_name = "mtk-jpeg-dec",
-+	.ioctl_ops = &mtk_jpeg_dec_ioctl_ops,
-+	.out_q_default_fourcc = V4L2_PIX_FMT_JPEG,
-+	.cap_q_default_fourcc = V4L2_PIX_FMT_YUV420M,
-+	.support_34bit = true,
-+};
+ required:
+   - compatible
+   - reg
+@@ -60,6 +72,27 @@ required:
+   - power-domains
+   - iommus
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: mediatek,mt8189-jpgdec
++    then:
++      properties:
++        clocks:
++          maxItems: 1
++        clock-names:
++          maxItems: 1
++      required:
++        - mediatek,larb
++    else:
++      properties:
++        clocks:
++          minItems: 2
++        clock-names:
++          minItems: 2
 +
- static struct mtk_jpeg_variant mtk8195_jpegenc_drvdata = {
- 	.formats = mtk_jpeg_enc_formats,
- 	.num_formats = MTK_JPEG_ENC_NUM_FORMATS,
-@@ -1938,6 +1974,14 @@ static const struct of_device_id mtk_jpeg_match[] = {
- 		.compatible = "mediatek,mtk-jpgenc",
- 		.data = &mtk_jpeg_drvdata,
- 	},
-+	{
-+		.compatible = "mediatek,mt8189-jpgenc",
-+		.data = &mtk8189_jpegenc_drvdata,
-+	},
-+	{
-+		.compatible = "mediatek,mt8189-jpgdec",
-+		.data = &mtk8189_jpegdec_drvdata,
-+	},
- 	{
- 		.compatible = "mediatek,mt8195-jpgenc",
- 		.data = &mtk8195_jpegenc_drvdata,
+ additionalProperties: false
+ 
+ examples:
 -- 
 2.45.2
 
