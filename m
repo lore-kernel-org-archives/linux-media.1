@@ -1,42 +1,42 @@
 Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D39C3ACA54;
-	Thu,  9 Jul 2026 05:56:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA09D3ACEE2
+	for <linux-media@vger.kernel.org>; Thu,  9 Jul 2026 05:58:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783576614; cv=none; b=Ki7/+p3vvspbtXnh8490HMz7P68X2CSGBpeFeHOzR9BwrLnz+8c56fw3Q3136GN6B9Hew7TILu6s15W10qXMVtIOltO9Y1MS5x1qeW0y7rc1GnMl90Ky42qbMsC8sihDFubtdllKmq8fDSAXpf4cYqdB3VcN0bkgP8eLtnJgPX8=
+	t=1783576682; cv=none; b=AayXyhi54Dd9hxgEyfGV+REmaKxmxkyS/nCzyoI3ZDDZXeQfS7KxKq2K67G7fqR1+wNxNv21LyjiEA0tCNTzy8VWp6v696/dmQFIWfZNFKU3QL2fVvl31nFGnFnG3y2qLFiaeE49UVk3Ay8rEx5h0cb9eSLNx8pI+dlPN6zxdJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783576614; c=relaxed/simple;
-	bh=yWBPkKzs783mUEzWAbniSemwEzrqyPrMZEl2J3lxHyk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=Yru9V1C52Tfet91wXBslqbjtXU9EhftfVa3Et2X0SWxU88WkRIYuN23Eagt/eIBt6NzpbXV1Jqnj/apoUGjGIZpwhQyoFKFd/RI8f+Q8ZdYL4sN6EvpCLbInZWXk+OP3hfM0Y/mW425HBcl1Pd2BL4Q1xX+6LvfWnOhJGlzZt6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=YG6NrUKP; arc=none smtp.client-ip=210.118.77.12
+	s=arc-20240116; t=1783576682; c=relaxed/simple;
+	bh=Zdgm6ypeCj85THhMqvVHmebAMp8dCbupRfxM4egHB7k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From:In-Reply-To:
+	 Content-Type:References; b=ULlUPt6VAxHABoShzb5e/uCnGfSZ/CUypTWC5iAKFqqL/H/qAT0olIkzqe5jEg2rdovxmq+u+ryXz6m6m7T3tWnbTRMebAxpCSFJKfP+2iTtIlar8MxwBYfVVobnyuag38LL6FmEoWZ85muDQg5jYm5VWEeY6b7uNCcuvFFbHH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=nHsfvq04; arc=none smtp.client-ip=210.118.77.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="YG6NrUKP"
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="nHsfvq04"
 Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260709055650euoutp025a12a0c6f53f1597c081fde8840d680e~AiXozFXMg0222702227euoutp02U;
-	Thu,  9 Jul 2026 05:56:50 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260709055650euoutp025a12a0c6f53f1597c081fde8840d680e~AiXozFXMg0222702227euoutp02U
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260709055759euoutp0272e83538c1a9ab28522db548296d3775~AiYo6OdTb0293002930euoutp02K
+	for <linux-media@vger.kernel.org>; Thu,  9 Jul 2026 05:57:59 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260709055759euoutp0272e83538c1a9ab28522db548296d3775~AiYo6OdTb0293002930euoutp02K
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1783576610;
-	bh=0zn1dtIX1zk4qdGW1lihLluLd2XJtl/1EEzMzw8sXVc=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=YG6NrUKPsBwqBvMGbjU5xWHF+nu3KR5nOX3x74qWn9o7ulsLODQrO0+6rPDBK/gpN
-	 1aWd1EwavrpW47dURG/rZPG1Z8lkEaDbZyuKetZ8FW+4NfqXLobtjcACnZ9jgKwdIK
-	 6ZKTeq786aUMJpm83Q1TIX+j/ImTlbLRjVWgi5yM=
+	s=mail20170921; t=1783576679;
+	bh=3AS/MseAZNiwcFBJmOS/F4a/wQ4SpwXPmdblJclCDRo=;
+	h=Date:Subject:To:From:In-Reply-To:References:From;
+	b=nHsfvq04mcs9lAJV0tb0DvDsS+ZAduXZsZWLBXd5Ab/sZEMepat3GolmgrUjUvWa2
+	 TcSj22Oaop91mT+UPdF300HesSlGhl0uCZmIjUIiISUlyUxOsBW4I1mK9lLVm3qIJn
+	 RDLEhPOcAvOprRaM8NhXjorWVelWlGDs5FX2laSw=
 Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260709055650eucas1p215ba97832f0fed53c1c322ecf192ff45~AiXoi0Jv90198801988eucas1p2U;
-	Thu,  9 Jul 2026 05:56:50 +0000 (GMT)
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260709055758eucas1p184de37a1e60c04038218737c814f70e6~AiYoq3JnI0814308143eucas1p15;
+	Thu,  9 Jul 2026 05:57:58 +0000 (GMT)
 Received: from [106.210.134.192] (unknown [106.210.134.192]) by
 	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260709055646eusmtip2b9b69a8f7af4b283ece88d085252d254~AiXlAfqwT0885208852eusmtip2U;
-	Thu,  9 Jul 2026 05:56:46 +0000 (GMT)
-Message-ID: <83e5e74d-7106-4e14-9d10-56438372f6a3@samsung.com>
-Date: Thu, 9 Jul 2026 07:56:45 +0200
+	20260709055758eusmtip26d8a30a9996f75174508660d9fc97912~AiYn0yFQ63000330003eusmtip2G;
+	Thu,  9 Jul 2026 05:57:58 +0000 (GMT)
+Message-ID: <586acc4d-2a59-4cee-a774-70786c586893@samsung.com>
+Date: Thu, 9 Jul 2026 07:57:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -44,77 +44,50 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
-To: "David Hildenbrand (Arm)" <david@kernel.org>, Thierry Reding
-	<thierry.reding@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
-	Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jonathan
-	Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, Yury
-	Norov <yury.norov@gmail.com>, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Russell King <linux@armlinux.org.uk>, Alexander Gordeev
-	<agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle
-	<svens@linux.ibm.com>, Andrew Morton <akpm@linux-foundation.org>, Lorenzo
-	Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil
-	Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
-	Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Robin
-	Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey
-	<Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, "T.J. Mercier"
-	<tjmercier@google.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
-	<christian.koenig@amd.com>, Steven Rostedt <rostedt@goodmis.org>, Masami
-	Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
-	<mathieu.desnoyers@efficios.com>, Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-mm@kvack.org, iommu@lists.linux.dev,
-	linaro-mm-sig@lists.linaro.org, linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/5] media: s5p-mfc: Treat bitmap size as allocation
+ failure
+To: Yury Norov <ynorov@nvidia.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
 Content-Language: en-US
 From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <e212caac-6c30-448a-9e10-32fff8b842f6@kernel.org>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260709055650eucas1p215ba97832f0fed53c1c322ecf192ff45
+In-Reply-To: <20260709020312.133977-5-ynorov@nvidia.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260709055758eucas1p184de37a1e60c04038218737c814f70e6
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c
+X-RootMTR: 20260709020355eucas1p2dc8d045376aadfd3860eb0a88da2aca6
 X-EPHeader: CA
-X-CMS-RootMailID: 20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
-	<CGME20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c@eucas1p1.samsung.com>
-	<20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
-	<3f47aeab-33b1-4966-a5ce-5d6d5261e0e2@samsung.com>
-	<e212caac-6c30-448a-9e10-32fff8b842f6@kernel.org>
+X-CMS-RootMailID: 20260709020355eucas1p2dc8d045376aadfd3860eb0a88da2aca6
+References: <20260709020312.133977-1-ynorov@nvidia.com>
+	<CGME20260709020355eucas1p2dc8d045376aadfd3860eb0a88da2aca6@eucas1p2.samsung.com>
+	<20260709020312.133977-5-ynorov@nvidia.com>
 
-On 08.07.2026 10:35, David Hildenbrand (Arm) wrote:
-> On 7/7/26 12:02, Marek Szyprowski wrote:
->> On 01.07.2026 18:08, Thierry Reding wrote:
->>> From: Thierry Reding <treding@nvidia.com>
->>>
->>> There is no technical reason why there should be a limited number of CMA
->>> regions, so extract some code into helpers and use them to create extra
->>> functions (cma_create() and cma_free()) that allow creating and freeing,
->>> respectively, CMA regions dynamically at runtime.
->>
->> Well, the technical reason for not creating cma regions dynamically at
->> runtime is that on some architectures (like 32bit ARM) the early fixup
->> for the region is needed to make it functional for DMA.
-> Can you point me at the code that does that? Thanks!
-Check dma_contiguous_early_fixup() and dma_contiguous_remap() in 
-arch/arm/mm/dma-mapping.c. Those functions ensures that the CPU mappings for
-the CMA reserved region in linear map are remapped with 4k pages instead
-of the 1M sections, so later, it will be possible to alter the mappings and
-change them to coherent when needed (altering 1M sections is not possible,
-because each process has it's own level-1 array even for the kernel linear
-mapping).
-
-
-
-However, in the use case in this patchset the reserved region is only shared
-with buddy allocator by using the CMA infrastructure, not registered to the
-regular DMA-mapping API, so it would work fine. I'm not convinced that this
-is the right API to use for this though.
+On 09.07.2026 04:03, Yury Norov wrote:
+> bitmap_find_next_zero_area() uses an out-of-range return value to
+> indicate failure. Check for values greater than or equal to the bitmap
+> size so the caller does not depend on the exact failure sentinel.
+>
+> Signed-off-by: Yury Norov <ynorov@nvidia.com>
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> ---
+>  drivers/media/platform/samsung/s5p-mfc/s5p_mfc_opr.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc_opr.c b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc_opr.c
+> index 5ba791fa3676..b25ad2a37196 100644
+> --- a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc_opr.c
+> +++ b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc_opr.c
+> @@ -43,7 +43,7 @@ int s5p_mfc_alloc_priv_buf(struct s5p_mfc_dev *dev, unsigned int mem_ctx,
+>  
+>  	if (dev->mem_virt) {
+>  		start = bitmap_find_next_zero_area(dev->mem_bitmap, bits, 0, count, align);
+> -		if (start > bits)
+> +		if (start >= bits)
+>  			goto no_mem;
+>  
+>  		bitmap_set(dev->mem_bitmap, start, count);
 
 Best regards
 -- 
