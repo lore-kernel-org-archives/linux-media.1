@@ -1,102 +1,112 @@
-Received: from cvsmtppost102.wmail.worksmobile.com (cvsmtppost102.wmail.worksmobile.com [125.209.209.51])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A7538237D
-	for <linux-media@vger.kernel.org>; Fri, 10 Jul 2026 20:40:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=125.209.209.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783716033; cv=none; b=OtQYKfKyO5OD3iNDPmPcZoeRFH6RnceLZUj7HCB4jEz+gy09UhI9XyVtc+cNRSMyqiWif0JuvyKXraRrKvClTyo3RQnq2ILamaskXjBVyxMS4iLZUzsMdx24dE5B1Riq5krkNY8++MCWuqMNPFD7pl8U9IqxgCugZlTmz1sSFC0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783716033; c=relaxed/simple;
-	bh=u04zFavuYLvwHTm35ic5NAbzjGnp0TqATPQNqu4zp1s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CKJW+oMJgX/9hnWwgfOxgvGtqve7YnP0DjL3S2WJqF1cHNjJVwP526hkbkXcJ0oQRABvOBvPxD0QaUrU+YpsNpt80mQlRTGr05YYzO5pkl+MlSf/17BcY4eRj+SdsTDTmXeGF9LbFHrS+qDFCxTYkYwINMkksJKsBBiydCSPk18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr; spf=pass smtp.mailfrom=korea.ac.kr; dkim=pass (2048-bit key) header.d=worksmobile.com header.i=@worksmobile.com header.b=DCbJuL2k; dkim=pass (1024-bit key) header.d=korea.ac.kr header.i=@korea.ac.kr header.b=VZ02bPB+; arc=none smtp.client-ip=125.209.209.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A1F39A802;
+	Fri, 10 Jul 2026 20:43:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783716199; cv=pass; b=XB22F8194QjOwJvRWJiiqBXbioIoRYwx+r1wiqh+Z16eHQJH0Q9a9CoKPVJEN7GcYUSdAhNmf+N1g466d+3oUf4ahZs2VRJIJVowdXy+tuyuqv4jNLTb51KMo5U2fbt7tmfx2Z69iVCqsJ9+UQ6K4nOhQYw+mY+ScojFWIrXCEQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783716199; c=relaxed/simple;
+	bh=bqgKERwzP8aovhkVstmX01bXiK0fwm6fPsZM8l57Tlw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UyL42QTzbSRJlGJBVnrweL5KAHJ3/FawylY9VBmiYjHKpVY89W4RIQoetNRMLXXyjFmIV2kog5NjwmJrfOqWOlU1fc0tdfHLH04BuiGpTS1WkdidpOkgRp7MihUQ4E8+6w0KAZYbzpQYY9qTMVKe+cK5/9GMPq6LOloKf8Qq6OU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b=I9JNKRuX; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=worksmobile.com header.i=@worksmobile.com header.b="DCbJuL2k";
-	dkim=pass (1024-bit key) header.d=korea.ac.kr header.i=@korea.ac.kr header.b="VZ02bPB+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=worksmobile.com;
-	s=s20171120; t=1783715419;
-	bh=u04zFavuYLvwHTm35ic5NAbzjGnp0TqATPQNqu4zp1s=;
-	h=From:To:Subject:Date:Message-Id:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=DCbJuL2kyifsB8VHhQeeowvSNCIoljNueeYLB66cZDgx0lGZ4+gTPLd4w1ynoqzrH
-	 lAGn7kz0wWy2Mi3fH2sb2zmjQilr/XQTvL8eoYg1vRZ+77HFwRWglg6GTf60MmKsZc
-	 ATUrP7POriBNilvGwlOUo8MNS79NQVQATorqcof1MroY+TrwGr8DiWnA5ddTU6NQob
-	 Fx4Cw+X3RjAvRCYbY4WZS3VP+9dy3lVGkMW7QkuM2S0Wv85dY3TjUB7yV88auRyyaC
-	 60VdImm7KeY5M6fALl6j3K41KWN3ptKXS5uIXF4SGkg66Opn3sbnfRgSqRG6CVKp9r
-	 Nsdhl0nhQ91oQ==
-Received: from cvsendbo001.wmail ([10.113.20.163])
-  by cvsmtppost102.wmail.worksmobile.com with ESMTP id Nc+tfTO3T0mtq1G0n32aJg
-  for <linux-media@vger.kernel.org>;
-  Fri, 10 Jul 2026 20:30:19 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=korea.ac.kr;
-	s=naverworks; t=1783715419;
-	bh=u04zFavuYLvwHTm35ic5NAbzjGnp0TqATPQNqu4zp1s=;
-	h=From:To:Subject:Date:Message-Id:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=VZ02bPB+MW+9x09dprEHbgoycRxIRNAskpTw5Nw3qlYBBnMnLrJYZZo8aQH3Xf7E3
-	 Wdl2WvDxkqGCfNU9Mq2XfUcsJvwkYtwFuA0Jaij+Gbx2mKH88oIspRkUEC35Z43Ynu
-	 CobeTmc5ErHzvqqnzSIdBNDg3AjWSzF+tX6y+Ee8=
-X-Session-ID: CvxIstBYSTqLhD9WR40Ghg
-X-Works-Send-Opt: 5Yn/KqgmKAKmKAFYFqMXKAK/FqMXjAumKAgmKxEmFxudKoMqKNmmjACYKxb9Fob/FxMqFNwYjAg=
-X-Works-Smtp-Source: IZK/FoK/FqJZ+Hm/Kxgq+6E=
-Received: from s2lab05.. ([163.152.163.130])
-  by jvnsmtp401.gwmail.worksmobile.com with ESMTP id CvxIstBYSTqLhD9WR40Ghg
-  for <multiple recipients>
-  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-  Fri, 10 Jul 2026 20:30:18 -0000
-From: Jang Ingyu <ingyujang25@korea.ac.kr>
-To: Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: rockchip: rkcif: Use IS_ERR() check for media_entity_remote_source_pad_unique()
-Date: Sat, 11 Jul 2026 05:30:16 +0900
-Message-Id: <20260710203016.2250058-1-ingyujang25@korea.ac.kr>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b="I9JNKRuX"
+ARC-Seal: i=1; a=rsa-sha256; t=1783716177; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=ZyUydZzLCJqQ8wHcsSMHJlKTS8z/av6o2hGJJdBy8M1k5t9U7f0WFGpaIroEhcsIePuq8C7FHzGNBL0Ii88bns9s9EdgQKTHBo8WE8Fr+eRTkbrZpytgsQ0JhMa9vnViAC85rpb1YaiazTbAJ95Jwm5daANU6YKk66qlpO/Mxek=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1783716177; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=bpn2IgbKGrTggO+5MYIlxTrWJGnctnmaJp03+CTcNbQ=; 
+	b=MMCjpRRyJxtIpWTstuncaP6v+wBiS/7282bPwZu/2MP1cdBfLadH5jrWGthdUuQ9DuZrJLhrMmJiBio4lgrL6/w/hHAtTN7epLc4Qb5DJ9qem8mQ7D3VPoA9lNeKEtYkz9QIVEmsLfmalXAulHwQbgGaG3fjvTd0eiYlW+bKU7Q=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783716177;
+	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=bpn2IgbKGrTggO+5MYIlxTrWJGnctnmaJp03+CTcNbQ=;
+	b=I9JNKRuXOnNk4XkmPx9tXSx/ngxfTyoLiiRCSqtZR2WaTQLmD/Wa6bXMuvL7Mrqs
+	i4KHNLDNZa30uB99Q1MFbaC882rFxFWJ0J9sObXLuMKm7vdpkPwTnZEOyK4xKnxSQdh
+	RSd9na5LYg7gknWD+0V5MoTYSIgwHruYTGzjp4UM=
+Received: by mx.zohomail.com with SMTPS id 1783716174951831.1292117639873;
+	Fri, 10 Jul 2026 13:42:54 -0700 (PDT)
+Message-ID: <a6a32617-f3c9-4cf2-b020-daecf7ec18f1@collabora.com>
+Date: Fri, 10 Jul 2026 22:42:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/6] media: mc: Implement shared media graph
+To: Paul Elder <paul.elder@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ laurent.pinchart@ideasonboard.com
+Cc: xuhf@rock-chips.com, stefan.klug@ideasonboard.com,
+ dan.scally@ideasonboard.com, jacopo.mondi@ideasonboard.com,
+ linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ hverkuil+cisco@kernel.org, nicolas.dufresne@collabora.com,
+ ribalda@chromium.org, sakari.ailus@linux.intel.com
+References: <20260619052637.1110672-1-paul.elder@ideasonboard.com>
+ <20260619052637.1110672-2-paul.elder@ideasonboard.com>
+ <178229758404.3075020.12553514371020830845@ping.linuxembedded.co.uk>
+ <178237578321.292172.5229006087283359591@neptunite.rasen.tech>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <178237578321.292172.5229006087283359591@neptunite.rasen.tech>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-From: Ingyu Jang <ingyujang25@korea.ac.kr>
+Hi Paul,
 
-media_entity_remote_source_pad_unique() returns either a valid struct
-media_pad pointer or an error pointer (ERR_PTR(-ENOTUNIQ) or
-ERR_PTR(-ENOLINK)); it never returns NULL. The current NULL check
-therefore never triggers, and the "pad not connected" error path is
-unreachable.
+On 6/25/26 10:23, Paul Elder wrote:
+> [...]
+>>> +// TODO figure out locking for when multiple drivers touch the media graph;
+>>> +// maybe macros for shared versions?
+>>
+>> Do you mean for when drivers are trying to change link state directly?
+> 
+> I meant for all the operations that act on media device. I'm not sure what
+> there is because I didn't really find anything significant, and I found some
+> action point from some meeting notes somewhere that said "deprecate media_ops"
+> (not assigned to me) so...
 
-Replace the NULL check with an IS_ERR() check so the validation
-actually detects malformed media graphs.
+Oh yes, for some reason this ball ended up in our side of the field. But
+actually I think the media_ops are not much of an issue, as you don't
+set them when you create the shared media device. Problem solved, right?
 
-Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
----
- drivers/media/platform/rockchip/rkcif/rkcif-stream.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> If there aren't any then it's a non-issue, but if there are then I was
+> wondering if we need to return the shared media device to the driver (as
+> opposed to a non-shared regular media device) and use shared versions of media
+> device functions that have locking.
 
-diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-stream.c b/drivers/media/platform/rockchip/rkcif/rkcif-stream.c
-index 3130d420ad559..542aa877919df 100644
---- a/drivers/media/platform/rockchip/rkcif/rkcif-stream.c
-+++ b/drivers/media/platform/rockchip/rkcif/rkcif-stream.c
-@@ -466,7 +466,7 @@ static int rkcif_stream_link_validate(struct media_link *link)
- 	struct rkcif_stream *stream = to_rkcif_stream(vdev);
- 	int ret = -EINVAL;
- 
--	if (!media_entity_remote_source_pad_unique(link->sink->entity))
-+	if (IS_ERR(media_entity_remote_source_pad_unique(link->sink->entity)))
- 		return -ENOTCONN;
- 
- 	sd = media_entity_to_v4l2_subdev(link->source->entity);
--- 
-2.34.1
++1
+I would recommend that just to be on the safe side. And I think I would
+make the shared media device an opaque pointer to make sure that there
+won't be any monkey business.
 
+Thanks and best regards,
+Michael
+
+> 
+>>
+>>> +struct media_device_shared {
+>>> +       struct media_device mdev;
+>>> +       struct list_head members;
+>>> +       struct list_head links;
+>>> +
+>>> +       struct list_head list;
+>>> +       struct kref refcount;
+>>> +
+>>> +       struct device *removed_device;
+>>> +};
+>>> +[...]
