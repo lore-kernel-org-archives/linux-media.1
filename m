@@ -1,55 +1,62 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC083D88F0
-	for <linux-media@vger.kernel.org>; Fri, 10 Jul 2026 08:53:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DAA0397E85;
+	Fri, 10 Jul 2026 08:53:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783673637; cv=none; b=lcKFet9ijszeMNMJxTI046VlXLRP07BZt9vHIyKe03Dt4ZGMkUquGwMQDmyb7vHupKVWzhc+I8eIXUUcwg5+LB3/wlAw3LorZ3JuqUVFPpfVxAvUdUWtkA6piVWKtDWTEUtFFX1NMP3iN9/aJgXRocdCaAOf+f7ct0EEijlnTRI=
+	t=1783673638; cv=none; b=ai2VYVHTRiBZf/pBohMtYJ1B/deLIb8Gwd+3L2CA5SqCAfjwJX0h1Gc1tDfSOro43lbn992tab5o/dpm8O+38DOOxQQYqUwHiJKfZoMTYGnFaHBPwT6CtmdIWT2wctDx/MTLDNH0HfNjdCnl/a8NrMiu23yVrnDOUstx0+iyVAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783673637; c=relaxed/simple;
-	bh=f8X3hs3KfpHJ+ddgwbbAYYOPiPTGEV5jrh6ErK4IAGE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=foKp7sQ7q3mIy9an6ORtPOnf9TIQfkyz1llkreJeV/r7xySx8VXx+OAD2606j8wY/nhL63M5JpkpHpD01utmx7clxnNOdcyCUT4ZD004t83e5pfaIGI76jesv1Lm60GPP7UOXmpR+rlrGin2Rvm5dAcG2eQ/2km4FRCGcRQfRw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=f//OWYUx; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=hCpNk2TS; arc=none smtp.client-ip=92.243.27.206
+	s=arc-20240116; t=1783673638; c=relaxed/simple;
+	bh=+TpKe/mgJklkLKnDljH7vM67ggh0YzGDXp06CXV8Mjw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BBzqWHPaSJ9aNSzFQhjq9Dw6pbaIGyP8b0beB4kz1/B8zoK1dUVGi31Hwf3tTOiyiI+HCh+JWCvvsEAcziJPJ7Q3BM1YdDKA9CxwcTDtqt7C+2jg0a1T7ohXY8GA1eT2JqSg+Os/IM5cVniuCc1ObIygOvXbUTljoNH1cgV9/wo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=g1gXM920; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=E2o7NHWi; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="f//OWYUx";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="hCpNk2TS"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="g1gXM920";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="E2o7NHWi"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1783673628; bh=f8X3hs3KfpHJ+ddgwbbAYYOPiPTGEV5jrh6ErK4IAGE=;
-	h=From:To:Cc:Subject:Date:From;
-	b=f//OWYUxBNawlCd6zcsomzzaxFb9AXvYhz6EOYtQ3jflHMbedDPImph25+0vEtKnq
-	 FK5VPohYqzDvnhm6VSoqe47IBajmljRLZ1FPhetLPHNrYhtqyVG7D3berR6PWLnWFP
-	 6Iz6Y/dSxM+5xu0u1g/S/5U8QrOw0okYbPzu1+undoHHAx1vZ1Om0GPQ3QzosJBsNP
-	 Q1QJazTdx4gVRpV06gz0u8Il1Y8pM1Fb/em25zZyTK2m7bp6zQLKE0002M3YSRpmvR
-	 5LJC8DIeB8K0PFuZu90jZIC3O1kKwKyr1Z7pcB4ePn/vhJydjr4rxZBPhRnBnXtNE5
-	 GbJg544UvYZsw==
+	t=1783673629; bh=+TpKe/mgJklkLKnDljH7vM67ggh0YzGDXp06CXV8Mjw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=g1gXM920p+Z60wPFjxfbByNjcAl0cWeXNo+eym/fae8o7nPg3PqNf4U22vDs9kcmX
+	 4iH++0/sscOqYRt7I6qZvscH4trx2lh/dk5pfJxLUuWSIvFn10L3nFy/ZOac8YA+FI
+	 cjiDE95mOW08flRTOdd7AbFnYH5AoBvoQDWr7e3sKvxXHRyO8HpXgyiYPljGmrFnXY
+	 3dQ2SbQMr6nvb/X7C9Oc0cj5wi93pueMrhsm5S+ddfDOQHug1Mdk5m+JuWSYCw8i8i
+	 JGujd55xcJKPVsx/KnTUMzbBzjmyPy6TDEdhV0r15697ZI9eFytighdpyM3vpoTcjU
+	 +41eTelYS13xQ==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id A484140B2D; Fri, 10 Jul 2026 09:53:48 +0100 (BST)
+	id 24DBA40B2E; Fri, 10 Jul 2026 09:53:49 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1783673627; bh=f8X3hs3KfpHJ+ddgwbbAYYOPiPTGEV5jrh6ErK4IAGE=;
-	h=From:To:Cc:Subject:Date:From;
-	b=hCpNk2TSM0HiQFkm4gyyDSS9huvtyWz7gh2kh0oNe9PlhDxqA/TO55VIpfQHooY6L
-	 UjOGAYounpETgQH1Z5VY+VLQKYndKsAV4jrUvEXGl3NtXQse0/n/po0usUbyjWtg7w
-	 HXy424rldO3tWDzj0V3CDZme3JUjYUysYUMVphxrzS/+Oaa46XzdAyOD/jUsHuSo1h
-	 9ryCRYrfJrx0hDJAkzN6zGmLZYi+xk7Mpvv5EP9DOLPypRRYcsDhkiacZJFqwWaW8V
-	 NgdIolsr4sbCbJ9QPYq5NhZzlBUdvOzR7VAb2g5D2kvc1/yCDyTFBmRZZ5kpx+0eSx
-	 Z8Ufh9vSrLXIw==
+	t=1783673628; bh=+TpKe/mgJklkLKnDljH7vM67ggh0YzGDXp06CXV8Mjw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=E2o7NHWiXW+yMtsmOo/R6CSiyYMpYiNSFZiCQ63C7tExL0mapqpa/oWZO/mDDQPmm
+	 /uQcnwiadwxftLrIJ/6uubS5ajhOIUE26zIGGv/PinKZ5fpw4ofxnUoRSZX18ENMbB
+	 oGvZPd5hvCkTBjDRDzT67wf6RcmrncoD50csB/oQy1bJCkv912bpdBZz70B7k31NpK
+	 shnDMrpM2l540oGX7iMA2IaklApxqLxcElBVx6QHoH+QEVBnGxLJn91lFXP1+lNAxW
+	 ILgHvHTmwOe2v7jOvmOrnralcodO7S91rGmhLxx8uwJ87Dz/Pbd1U9ATjkPpqGL3Hx
+	 2zJAeNHBy4AIA==
 Received: from maru.local (unknown [62.232.99.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 9DFDA40194;
-	Fri, 10 Jul 2026 09:53:47 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id 2483740AF1;
+	Fri, 10 Jul 2026 09:53:48 +0100 (BST)
 From: Sean Young <sean@mess.org>
-To: linux-media@vger.kernel.org
-Cc: Sean Young <sean@mess.org>
-Subject: [PATCH 0/7] Fix leaks in rc core 
-Date: Fri, 10 Jul 2026 09:53:28 +0100
-Message-ID: <cover.1783673420.git.sean@mess.org>
+To: linux-media@vger.kernel.org,
+	Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Oliver Neukum <oneukum@suse.com>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 1/7] media: streamzap: Add missing rc_unregister_device()
+Date: Fri, 10 Jul 2026 09:53:29 +0100
+Message-ID: <58e043bf525c8ea0410619d738b5104eed15d286.1783673420.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1783673420.git.sean@mess.org>
+References: <cover.1783673420.git.sean@mess.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -58,23 +65,28 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+If usb_submit_urb() fails during probe, then the error path is missing a
+call to rc_unregister_device(), which will leak various things like the
+input device.
 
-Sean Young (7):
-  media: streamzap: Add missing rc_unregister_device()
-  media: redrat3: Ensure rc device is freed if enable_detector() fails
-  media: redrat3: Ensure we don't read beyond the end of the packet
-  media: sunxi-cir: Ensure no more interrupts can occur before free
-  media: meson-ir-tx: Ensure clock is disabled on unbind
-  media: meson-ir-tx: Ensure rc_free_device() is called on unbind
-  media: ir-hix5hd2: Ensure rdev is setup before interrupts are enabled
+Fixes: 42844992664f ("media: rc: streamzap: Error handling in probe")
+Signed-off-by: Sean Young <sean@mess.org>
+---
+ drivers/media/rc/streamzap.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- drivers/media/rc/ir-hix5hd2.c  |  5 +++--
- drivers/media/rc/meson-ir-tx.c | 10 ++++------
- drivers/media/rc/redrat3.c     | 15 ++++++++++++++-
- drivers/media/rc/streamzap.c   |  1 +
- drivers/media/rc/sunxi-cir.c   |  2 +-
- 5 files changed, 23 insertions(+), 10 deletions(-)
-
+diff --git a/drivers/media/rc/streamzap.c b/drivers/media/rc/streamzap.c
+index 307985d74fe8..41195ad82734 100644
+--- a/drivers/media/rc/streamzap.c
++++ b/drivers/media/rc/streamzap.c
+@@ -365,6 +365,7 @@ static int streamzap_probe(struct usb_interface *intf,
+ 
+ 	return 0;
+ rc_submit_fail:
++	rc_unregister_device(sz->rdev);
+ 	rc_free_device(sz->rdev);
+ 	usb_set_intfdata(intf, NULL);
+ rc_dev_fail:
 -- 
 2.55.0
 
