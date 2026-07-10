@@ -1,215 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0689B2641FC
-	for <linux-media@vger.kernel.org>; Fri, 10 Jul 2026 06:39:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783665546; cv=none; b=HGQEMj4tD4XUfSuubeqHlIRYEVWKBRTZPS9n9BMFpF3pMObWXFa5Jn3oD2YA4TXp3HkRYZgszn5oia99fQb3kSKlF1DYOpCqobPmM5kkvOpMNYWt563GaI3kzqOo3SDC29bawity8lRLTS9GfMRcjexaM9nNpc41KxnUGOlD/xQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783665546; c=relaxed/simple;
-	bh=e8SDB/Bo194r4JCaA3OLOqJ5XndsslpWaSVIn1NjmXI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Oiw7eI4EGq2eKHXSlvzc9OPq31yggkx20vZuyMRzIJRYZH8tZNMbNU/o8HkfQ2hb56/ZNXgjWYgF4RbhdYHJK0X4ZUvBxbyeYsWmYLBqKyK4zat9kFZYLGI35MXsUIZDPMTixYkBNYa5ihqDNe4t1Ns8aEWVAcAKoV4WMaays4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DIljIyQQ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5C892E7394;
+	Fri, 10 Jul 2026 06:56:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783666568; cv=pass; b=J7feD6XmHHErN/jkycwTF1u6xZ231H1d2yuvqfCz56TB1llcVEL31o74pdsahaM/Z6Vm5bLXc1fjQbxPv5unIlVxbtyZuE7XD6ozIu18kcLgCak5qoIG78r77BH5PDYZz2IHYZsBfUyRzw/EOyTs5Y21IZZmAuJYFfAa9KKnl1Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783666568; c=relaxed/simple;
+	bh=r/opBB8wIG3CFxEGoHyKh/g+ewFUpmZQc066nt+iQs0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:
+	 References:In-Reply-To; b=atJqRTKLnVeQhgBBZDxIjbu842bAJDAFWccviVXTmSEL0PfEvzJwObnwoxmiCn5CBAaL2GFphvb50HphDRGyuf4E6Dag1fTUs4/o6uOmsS0tO7+FYL8cMs4WwW+f7Ryymd1NinAbP3/K/tipQ0GFHWtRT4ZwXQUoY3/CMAxr2hI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ritovision.com; spf=pass smtp.mailfrom=ritovision.com; dkim=pass (1024-bit key) header.d=ritovision.com header.i=rito@ritovision.com header.b=Ephot/+q; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ritovision.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ritovision.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DIljIyQQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B09A11F000E9;
-	Fri, 10 Jul 2026 06:39:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783665544;
-	bh=1n2nq7IYE3jZVByFqRTbu6zMGUNPhgx47iDdiYvA1No=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DIljIyQQ3WgDEgMeGolZyleIqNopWUN7GaAiFfZX9leBn7ILKKBj9Fijr/AATf9ko
-	 5Se77GKAFjUMgZh5w4TtzOH/SAMQRBnRMCMvIgMdMKtzUlrP5F1yW68YG07vS3y9Rs
-	 G8n+lpifTA3Tyeg6REZwi0S4r+84rRjdEE1nBQtHjqcc7wcfqcECGPuNEy7JeoYzMn
-	 uXRCCKE7iV+TsgHaR7BMZLszr56fj0SntE3pWcs1pXi03RYyopzMQZsYvTvO1bDaCF
-	 9aW6xErmr6BJZVL6G6KKJCMQbX+Nhw/39jUlm+3bRN4YhcEeOU6/jwpxe1AEs2VJtp
-	 H0XLPjkQJmQWA==
-Date: Fri, 10 Jul 2026 08:39:00 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Derek Barbosa <debarbos@redhat.com>, Roman Gushchin
- <roman.gushchin@linux.dev>
-Cc: Matthieu Baerts <matttbe@kernel.org>, Konstantin Ryabitsev
- <konstantin@linuxfoundation.org>, Jason Gunthorpe <jgg@ziepe.ca>, Steven
- Rostedt <rostedt@goodmis.org>, users@kernel.org, Linux Media Mailing List
- <linux-media@vger.kernel.org>, Stephen Finucane <stephenfin@redhat.com>
-Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <20260710083845.23c753ca@foz.lan>
-In-Reply-To: <20260710074528.5a6e4457@foz.lan>
-References: <7E971C76-0568-43EF-9EE7-C8DB78C45CA1@linux.dev>
-	<20260530200017.0fe7f685@foz.lan>
-	<20260530204945.22ac92c6@foz.lan>
-	<20260530205351.19847fc8@foz.lan>
-	<ah7dpsLKd0Jf1Ir0@debarbos-thinkpadt14gen5.rmtusma.csb>
-	<7ia4tsrkn1k4.fsf@castle.c.googlers.com>
-	<20260602223936.27def657@foz.lan>
-	<b9f7ca3a-fa72-4a8e-94bd-9991a0882f10@kernel.org>
-	<20260604085201.177ad537@foz.lan>
-	<20260607195656.02788791@foz.lan>
-	<akQlPSNfGEllNVhe@debarbos-thinkpadt14gen5.rmtusma.csb>
-	<20260710074528.5a6e4457@foz.lan>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key) header.d=ritovision.com header.i=rito@ritovision.com header.b="Ephot/+q"
+ARC-Seal: i=1; a=rsa-sha256; t=1783666560; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=A1pHUasYDjrEz89nsEjGQef9bSKZs6vF/fjq6JoKiZeU23/cBORLjXc/t8b2Cs3ppx1IFqg9ajvNtVg7Mopuy8ENKuxVs2oHChLFc3ADMFCEEoL2qtlzSA40r6jd90PKAqOTircD7J2zrTpM72YCtHxcYBQ3o9tpWGsAEAzuuqU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1783666560; h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc; 
+	bh=r/opBB8wIG3CFxEGoHyKh/g+ewFUpmZQc066nt+iQs0=; 
+	b=Y9NSt3HBkyVU+Htn71iDfNaZkrRf1uxDs8sdgVH+YxV92MTP4nK+3faerloHOMCHagOdyzA+58FbOA068KkzSvaVVhWX9nn2QvcipKrgMxnQxzF+jwINZFOBj1H7T6okfgeuku1nbIV19VdHWn7xjK5H4fQ+eyPW7hUPPFwQkzI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ritovision.com;
+	spf=pass  smtp.mailfrom=rito@ritovision.com;
+	dmarc=pass header.from=<rito@ritovision.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783666559;
+	s=zmail; d=ritovision.com; i=rito@ritovision.com;
+	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:Subject:Subject:From:From:To:To:References:In-Reply-To:Reply-To:Cc;
+	bh=r/opBB8wIG3CFxEGoHyKh/g+ewFUpmZQc066nt+iQs0=;
+	b=Ephot/+q4+X0IktZKt1ePWV4j8WH5D+wbF03e30lPjBt3ysbwefh1TJoD8C2bjUK
+	BwSbpxzIaB0Ev60yfEMAUsu2Wl3qfNVt0YlDD+G6qLVH8SYejwmIz5rTKnB6I1rjzYW
+	/KG9Me8lF2lFzjLfmXoU3xhTBfreKkGWqisqSP9w=
+Received: by mx.zohomail.com with SMTPS id 1783666557281928.9950819909093;
+	Thu, 9 Jul 2026 23:55:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 10 Jul 2026 02:55:54 -0400
+Message-Id: <DJUP0UXLLHJ0.3P121A982R9TP@ritovision.com>
+Subject: Re: Bad wrapping in some tables
+From: "Rito Rhymes" <rito@ritovision.com>
+To: "Jonathan Corbet" <corbet@lwn.net>, "Daniel Lundberg Pedersen"
+ <dlp@qtec.com>, <linux-doc@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ "Rito Rhymes" <rito@ritovision.com>
+X-Mailer: aerc 0.21.0
+References: <c542aaf7-6a40-4730-8bd6-208c9fe932d5@qtec.com>
+ <87pl0yr9ah.fsf@trenco.lwn.net>
+In-Reply-To: <87pl0yr9ah.fsf@trenco.lwn.net>
+X-ZohoMailClient: External
 
-Hi Derek/Roman,
+I just got caught up to speed, reviewing the links, the regression, the
+prior state and other relevant context.
 
-On Fri, 10 Jul 2026 07:45:28 +0200
-Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
+Daniel, thanks for pointing out the regression. As Jon said, it's
+always good to inform the author of the patch, and I'd have been happy
+to discuss and test out solutions with you.
 
-> Hi Derek,
->=20
-> On Tue, 30 Jun 2026 16:32:30 -0400
-> Derek Barbosa <debarbos@redhat.com> wrote:
->=20
-> > On Sun, Jun 07, 2026 at 07:56:56PM +0200, Mauro Carvalho Chehab wrote: =
-=20
-> > > Added both global and per-project permissions to add CI checks:
-> > >=20
-> > > 	https://github.com/getpatchwork/patchwork/pull/653
-> > >=20
-> > > Tested on a docker container created on the top of current
-> > > upstream, with the database imported from linuxtv.org and
-> > > migrated to the new permissions model.   =20
-> >=20
-> > Hi Mauro,
-> >=20
-> > Patchwork integration has been cleaned up and the original issues filed=
- against
-> > the Sashiko project have been resolved.
-> >=20
-> > Any progress on your work for the permissions modifications (or enablin=
-g it for
-> > media)? =20
->=20
-> I'd like to have the permission modification changes applied at
-> Patchwork upstream before applying it to linux-media instance, as
-> this will require a DB change, which can make it harder in the future
-> to update linux-media patchwork instance, especially if upstream ends
-> with some changes over my proposed patch.
->=20
-> So, while patchwork doesn't have a separated permission for checks
-> addition, we'll keep using my tool to update bots feedback from
-> e-mails. To prevent too much noise at linux-media, we have now a
->=20
-> 	media-ci@linuxtv.org
->=20
-> mailing list that is meant to receive all bots feedback. The
-> e-mail parser is listening to it as well.
+> That overflow-wrap line is the problem. The patch was trying to
+> improve overflow from some literal blocks, but it does seem that the
+> cure is worse than the disease.
 
-Btw, we did an inquire among the participants of the latest media
-summit, where we discussed Sashiko.
+> This change causes truly unreadable breaking of literal strings in a
+> number of settings.
 
-There is a consensus of receiving Sashiko feedback at=20
-media-ci@linuxtv.org, where people can opt-in/opt-out.
+Can anyone provide any examples of issues happening outside of tables?
 
-With regards to c/c authors, there was a proposal to add a custom=20
-disclaimer's notice on each patch. Also, several people manifested
-that it should be possible for authors to opt-out receiving Sashiko's
-e-mails.
+If not, that suggests the fix is working fine except inside tables,
+which means a targeted fix for tables is possible.
 
-So, at least with the current way, we were unable to reach a
-consensus (or a large majority) about c/c the author.
+The intention of the fix is that inline literals in regular text bodies
+that have a generally defined (max) width will respect that width and
+not exceed it and cause overflow. It's serving that purpose and is a
+sensible default behavior because it is often used like text in text
+bodies and surrounded by other text, thus we make it also behave like
+text.
 
-So, what it is a consensus is to receive Sashiko's email via
-media-ci@linuxtv.org, evaluating its feedback results for a couple=20
-of kernel releases. IMO, it is better to receive there also e-mails
-if Sashiko didn't find any issue.
+I don't believe a reversion is the right answer, for two reasons.
 
-One interesting feedback was related to a review from i.MX DTS and DMAEngin=
-e=20
-I3C patch series.
+Reason 1:
 
-I guess it could be the start of a custom linux-media prompt.
+Reverting the fix restores the issues outside the tables it previously
+fixed, and fixes some of the tables, but makes others just as
+unreadable.
 
-The original suggestion is:
+In the second example Daniel provided, there is a two column table
+spanning the full width of the page on mobile viewport sizes without
+overflowing. The left column is inline literals only, the right column
+is regular text.
 
-	"I suggested add some actionable advice.  The below action when I handle
-	i.MX DTS and DMAEngine\I3C sashakio review feedback. =20
+After my fix:
+https://www.kernel.org/doc/html/v7.1/process/debugging/kgdb.html#run-time-p=
+arameter-kgdbreboot
 
-	- "Pre existing issue" \ "not introduce by this patch", can omit this feed=
-back,
-	But encourage fix at following patch
-	- "UAF" or lock issue,  most like is true issue, strongly suggest fix it. =
-Maintainer
-	Most likely double check this type issue.
-	- Small issue like "typo" or "indention",  please fix before maintainer in=
-volve
-	Review.=20
-	- other identify severity is HIGH issue, suggest reply sashiko email and p=
-rovide
-	Your judgement when close to land."
+The left column of inline literals wraps down into vertical text and is
+unreadable, because the column has no minimum width and expects the
+contents to set the width, but it wraps immediately. That's a problem.
+The right column text is readable, though it does some wrapping for a
+few words.
 
-There was also a discussion about a magic number inside a loop:
+Before the fix:
+https://www.kernel.org/doc/html/v7.0/process/debugging/kgdb.html#run-time-p=
+arameter-kgdbreboot
 
-	for (unsigned int i =3D 0; i < 56; i++) {
+The issue is as bad or worse. The left column is fully readable and
+spans literals as far as needed, but it's crushing the right column and
+forcing that into vertical text (maybe 2-3 characters wide), making
+that column unreadable.
 
-(on such loop, "i" was used to access an array)
+What's worse, unreadable vertical text as inline literals or as regular
+text? Regular text is worse because it's meant to be descriptive, but
+having either one is unacceptable.
 
-Sashiko didn't pick this one on one of his reviews.
+Reason 2: the real culprit here is this:
 
+Table mobile responsiveness in general in the Linux kernel
+documentation is systemically pathological.
 
-I guess we can start with a custom RAC prompt to make Sashiko
-classify its output according with a criteria similar to the
-above.
+Many if not most of the tables on smaller screens overflow page width
+and break the page margins. And this page is another example of
+pathological table behavior where the table doesn't overflow and
+break the page margins, it respects the page margin width, but
+instead makes the content inside unreadable as vertical text, either
+from the string literal wrapping or from the text wrapping. Neither
+my current fix nor the reverted state resolves that issue.
 
-E.g. maybe linux-media may start with a custom prompt similar to this
-(as part of a more complete RAC):
+The best solution:
+Make targeted changes to the tables to make them fundamentally behave
+better on smaller screen sizes.
 
-	### Classification categories and actions
+I began this effort with:
+[PATCH v3] docs: wrap generated tables to contain small-screen overflow
 
-	1. **Pre=E2=80=91existing issues** - a bug or flaw that already exists in =
-the current code and is *not introduced by this patch*. =20
-	   - **Action**: Place at the end, under "Further suggestions". Note that =
-the issue could be addressed on a separate patch =20
-	   - Mark as: `classification: PRE_EXISTING`, `action: DEFER_FOLLOWUP`.
+Jon hadn't followed up after testing out the fix with CSS and my
+explaining why the wrapper was the better approach, because it prevented
+regressions. That fix is a start, but more would need to be done.
 
-	2. **UAF / Lock issues** - use=E2=80=91after=E2=80=91free, race condition,=
- missing lock, double unlock, deadlock, incorrect refcounting, etc. =20
-	   - **Action**: This is almost certainly a true bug. Encourage the author=
- to check or consult an expert if in doubt.
-	   - Mark as: `classification: CRITICAL_LOCKING_UAF`, `action: MUST_FIX`.
+If Daniel is willing to help test out table fixes and provide examples
+of regressions, and if Jon has the bandwidth to review my patch
+submissions to improve the tables, I am willing to tackle this systemic
+issue, which will result in this issue being resolved as well.
 
-	3. **Small issues** - typo, indentation, coding=E2=80=91style, whitespace,=
- missing blank line, comment grammar, overly long line, etc. =20
-	   - **Action**: These should be corrected before the maintainer becomes i=
-nvolved in the review. =20
-	   - Mark as: `classification: STYLE_TYPO`, `action: FIX_BEFORE_MAINTAINER=
-`.
-
-	4. **Magic numbers** - when a numeric literal (like `56`, `128`) is used w=
-ithout a defined constant or obvious connection to an array size.=20
-	   - **Action**: These should be corrected before the maintainer becomes i=
-nvolved in the review. =20
-	   - Mark as: `classification: MAGIC_NUMBER`, `action: FIX_BEFORE_MAINTAIN=
-ER`.
-
-	5. **Other HIGH severity issues** =E2=80=93 any problem that is clearly a =
-functional bug (logic error, NULL deref, buffer overflow, API misuse, incor=
-rect error handling, memory leak, etc.) that does not fall into category 2.=
- =20
-	   - **Action**: the authors should provide their own judgment on the issu=
-e (e.g., explain why it is a false positive, or confirm the fix). =20
-	   - Mark as: `classification: HIGH_OTHER`, `action: REPLY_WITH_JUDGMENT_N=
-EAR_LANDING`.
-
-	6. **Low severity / Informational** =E2=80=93 anything that does not fit t=
-he above (e.g., suggestion, minor question, potential improvement that is n=
-ot a bug). =20
-	   - **Action**: Optional; can be addressed at author=E2=80=99s discretion=
-. =20
-	   - Mark as: `classification: LOW_INFO`, `action: OPTIONAL`.
-
-Please notice that we're not a prompt experts - nor, afaikt, any media
-developer tested running Sashiko locally themselves - so you probably can
-come up with a better custom prompt than us.
-
-Thanks,
-Mauro
+Rito
