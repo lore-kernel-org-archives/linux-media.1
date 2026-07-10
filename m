@@ -1,142 +1,144 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B313E416CE5
-	for <linux-media@vger.kernel.org>; Fri, 10 Jul 2026 11:11:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10429372B41
+	for <linux-media@vger.kernel.org>; Fri, 10 Jul 2026 11:16:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783681917; cv=none; b=e5scLS5LUuuzgxLYY06zWXO5qV7mm9BSZOyj+hKExqAEvbQhdJvUK7FZNCNLhSmmNZTo1WYAUWlV/avGtrCbQq2MVIYqxmcyaYUPrJoLs2qIrkzGDVN0wAEBwze6ZSwBP9sBh8DFLolUe3d5aI2K7xFEaGfFVrgIoiKFhzM0D24=
+	t=1783682169; cv=none; b=lfq7Ums5XMVEWdxpt1BgG2YmYKOJYtd4L4Go/E+5SvlWQLxZLKSLvdMo4ngrXYVLbTyaRlPo7qEzsRQAAOPQ5eoQtCOoedV/MA6tL8zqLr0bef+u0+8C1hxZpF6/Y9KZEAFFI/jx7y/ksvPzjeM0xW/3rQN8mE3akB5TcK71Yqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783681917; c=relaxed/simple;
-	bh=P9O6A7/XmFSgwLLSWqO4vkxCnJqfZGgtus1oF2ifABQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ns66vOoFwdBAdB9bHa5mOkM22MY1bO9ZCgpZLK3vRYYCNraFYXyQL5GIdZwaXEjjMZeUccmP1Gn2aiFgpZ0CQI8oXjSWrrbzoJDEjDAJbW3yHDV//cNqlrRdYZ/jDmz1LfC7h3uSOsgSqHcCTQIV8ulZLmO0zllG7TmcaXR5oZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m+ToKRuC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783682169; c=relaxed/simple;
+	bh=1f+usL2BJkwGmbs2Fr4Jq2FkbApXemYsE5L+uFlW6sg=;
+	h=Message-ID:Date:MIME-Version:From:To:Subject:Content-Type; b=pTl5u/Sm5rbVdbcOdcGZnHc/Qg7I++Ve2QVZjoUDyqFFBUK3jMh4s8gPszv4CWwjPFjEVyFHhJEjHYP8X5x0E3NXi5s4V5Sb/7jL81w2tLlj9yyg7r8z3eUmPwZyZtxqHoK2ERIc7wzQIw8UREO2zQ1cFWMSjTV9mxMKgWD4Zg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bJ5Bl+u2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m+ToKRuC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5DFC1F000E9;
-	Fri, 10 Jul 2026 11:11:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bJ5Bl+u2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 449391F00A3F
+	for <linux-media@vger.kernel.org>; Fri, 10 Jul 2026 11:16:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783681914;
-	bh=LBTWCn5kcW5JB1VvJgsM1HKvYzbbSLvMVtJM1OD7xlY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m+ToKRuCchAisZQGhuRw4QnZskmxsILv882D3YyrMwAFf4GLeHDnUl4CiDjzI1YQ7
-	 Z6wJCR/O9BtPvjnoeneOGMo3TR0bGxaPGXoMf8cwZV8OPx7zA2I1IhQFWr012XjmZM
-	 GXPhK19HSBiuKod8FJsw46jC7PUTY87QbsLoHK+WAN642C5/OzPW539aqOD7z3PRMS
-	 QXDDzQ3YmH3ECplOfGeLIsTQgqWw0vdISCEhQ848FS6FTWjF8BC1Ugf09WTaJnVT7E
-	 a4GF2bUBzwCLaeS5hCDhPPJPaxKiKGx+uHY3hdHaR2tAV9Am7cFmajHvnneQ/5IwO0
-	 XFhtecPTQdSAg==
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-To: linux-media@vger.kernel.org
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCH 8/8] media: cec/core: add error-inj-tx-timeouts debugfs entry
-Date: Fri, 10 Jul 2026 13:07:36 +0200
-Message-ID: <305102d2cd56b1724b3bfd628d46f52977f3cac4.1783681656.git.hverkuil+cisco@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1783681656.git.hverkuil+cisco@kernel.org>
-References: <cover.1783681656.git.hverkuil+cisco@kernel.org>
+	s=k20260515; t=1783682166;
+	bh=1X/XOefjad39Rq8RO4Y5in0/k8QT3+eiFXYBROpemxQ=;
+	h=Date:From:To:Subject;
+	b=bJ5Bl+u2Ofm6WmPFmm8n+WVGcivjRAMVMc6YxkpkbMj8qtHAAX2yUlB74ue1fvuNF
+	 pywwdCxR81ejQMc8Gh1DH8kuBFli2sCHCx00H4Dxde3s4OPhAKUjnk8EU7wmzMT1sf
+	 Akyn4D9RJ3d6NwFpOrKyzflERhmpFRw8/zNgY4KoEzVLWCRE+wZOo1P+JfHqC3Q8uG
+	 URKpyQMacIWHNbO5zdC3fNTdEP3ZNP8exFZHDRsC2P9rbYe6ICFSqZNtkpefHhyA7U
+	 qcbf8r/zbgK43BLF0bQ0PKNE5FYF/VBlWevzAsHuKDIznzkfpeyE16d3N0Vv4kETn7
+	 eiwSkJUoVVIDA==
+Message-ID: <65a6bd5c-4e62-4370-b654-7dce0712aae5@kernel.org>
+Date: Fri, 10 Jul 2026 13:16:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Content-Language: en-US, nl
+To: Linux Media Mailing List <linux-media@vger.kernel.org>
+Subject: [PATCH] v4l-utils: cec-compliance: test timeout handling
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add a new debugfs entry that makes it possible to do
-error injection of failing the next N transmits by a
-timeout.
-
-This can be used to test what happens in that case during
-the claiming of a free logical address.
+If we are testing against the vivid driver, then use the new timeout error injection
+mechanism to verify that timeouts while claiming logical addresses are handled correctly.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/media/cec/core/cec-adap.c |  7 +++++++
- drivers/media/cec/core/cec-core.c | 31 +++++++++++++++++++++++++++++++
- include/media/cec.h               |  2 ++
- 3 files changed, 40 insertions(+)
+Note that is requires a kernel patched with this series:
 
-diff --git a/drivers/media/cec/core/cec-adap.c b/drivers/media/cec/core/cec-adap.c
-index 774bf9099183..ee8a200b9803 100644
---- a/drivers/media/cec/core/cec-adap.c
-+++ b/drivers/media/cec/core/cec-adap.c
-@@ -629,6 +629,13 @@ void cec_transmit_done_ts(struct cec_adapter *adap, u8 status,
- 		attempts_made = 1;
- 
- 	mutex_lock(&adap->lock);
-+	if (adap->error_inj_tx_timeouts) {
-+		dprintk(2, "%s: error_inj_tx_timeouts %u\n",
-+			__func__, adap->error_inj_tx_timeouts);
-+		adap->error_inj_tx_timeouts--;
-+		mutex_unlock(&adap->lock);
-+		return;
-+	}
- 	data = adap->transmitting;
- 	if (!data) {
- 		/*
-diff --git a/drivers/media/cec/core/cec-core.c b/drivers/media/cec/core/cec-core.c
-index c51e769b4e34..230f8a413e74 100644
---- a/drivers/media/cec/core/cec-core.c
-+++ b/drivers/media/cec/core/cec-core.c
-@@ -223,6 +223,34 @@ static int cec_error_inj_show(struct seq_file *sf, void *unused)
- 	return call_op(adap, error_inj_show, sf);
+https://patchwork.linuxtv.org/project/linux-media/list/?series=27637
+
+And a v4l-utils synced to that kernel so that the new CEC_LOG_ADDRS_FL_CONFIG_FAILED
+flag is available.
+---
+diff --git a/utils/cec-compliance/cec-test-adapter.cpp b/utils/cec-compliance/cec-test-adapter.cpp
+index 1bc7d5e8..eb00d6ac 100644
+--- a/utils/cec-compliance/cec-test-adapter.cpp
++++ b/utils/cec-compliance/cec-test-adapter.cpp
+@@ -258,6 +258,43 @@ static int testAdapLogAddrs(struct node *node)
+ 	return 0;
  }
- DEFINE_SHOW_STORE_ATTRIBUTE(cec_error_inj);
-+
-+static ssize_t cec_error_inj_tx_timeouts_write(struct file *file,
-+			const char __user *ubuf, size_t count, loff_t *ppos)
+
++static int testAdapLogAddrsVivid(struct node *node, int fd)
 +{
-+	struct seq_file *sf = file->private_data;
-+	struct cec_adapter *adap = sf->private;
-+	int ret;
++	struct cec_log_addrs laddrs;
++	char buf[3] = {};
 +
-+	if (count > 5)
-+		return -EINVAL;
++	memset(&laddrs, 0, sizeof(laddrs));
++	strcpy(laddrs.osd_name, "Compliance");
++	laddrs.num_log_addrs = 1;
++	laddrs.cec_version = CEC_OP_CEC_VERSION_2_0;
++	laddrs.log_addr_type[0] = CEC_LOG_ADDR_TYPE_TV;
++	laddrs.primary_device_type[0] = CEC_OP_PRIM_DEVTYPE_TV;
++	laddrs.all_device_types[0] = CEC_OP_ALL_DEVTYPE_TV;
++	write(fd, "6", 1);
++	fail_on_test(doioctl(node, CEC_ADAP_S_LOG_ADDRS, &laddrs));
++	fail_on_test(!(laddrs.flags & CEC_LOG_ADDRS_FL_CONFIG_FAILED));
++	fail_on_test(laddrs.log_addr_mask);
++	read(fd, buf, 2);
++	fail_on_test(strcmp(buf, "0"));
 +
-+	mutex_lock(&adap->lock);
-+	ret = kstrtou32_from_user(ubuf, count, 0, &adap->error_inj_tx_timeouts);
-+	if (ret)
-+		adap->error_inj_tx_timeouts = 0;
-+	mutex_unlock(&adap->lock);
-+	return ret ? : count;
-+}
++	write(fd, "6", 1);
++	memset(&laddrs, 0, sizeof(laddrs));
++	strcpy(laddrs.osd_name, "Compliance");
++	laddrs.num_log_addrs = 1;
++	laddrs.cec_version = CEC_OP_CEC_VERSION_2_0;
++	laddrs.log_addr_type[0] = CEC_LOG_ADDR_TYPE_TV;
++	laddrs.primary_device_type[0] = CEC_OP_PRIM_DEVTYPE_TV;
++	laddrs.all_device_types[0] = CEC_OP_ALL_DEVTYPE_TV;
++	laddrs.flags = CEC_LOG_ADDRS_FL_ALLOW_UNREG_FALLBACK;
++	fail_on_test(doioctl(node, CEC_ADAP_S_LOG_ADDRS, &laddrs));
++	fail_on_test(laddrs.flags & CEC_LOG_ADDRS_FL_CONFIG_FAILED);
++	fail_on_test(laddrs.log_addr_mask != 0x8000);
++	read(fd, buf, 2);
++	fail_on_test(strcmp(buf, "0"));
 +
-+static int cec_error_inj_tx_timeouts_show(struct seq_file *sf, void *unused)
-+{
-+	struct cec_adapter *adap = sf->private;
-+
-+	seq_printf(sf, "%u", adap->error_inj_tx_timeouts);
 +	return 0;
 +}
 +
-+DEFINE_SHOW_STORE_ATTRIBUTE(cec_error_inj_tx_timeouts);
- #endif
- 
- struct cec_adapter *cec_allocate_adapter(const struct cec_adap_ops *ops,
-@@ -367,6 +395,9 @@ int cec_register_adapter(struct cec_adapter *adap,
- 	debugfs_create_devm_seqfile(&adap->devnode.dev, "status", adap->cec_dir,
- 				    cec_adap_status);
- 
-+	debugfs_create_file("error-inj-tx-timeouts", 0644, adap->cec_dir, adap,
-+			    &cec_error_inj_tx_timeouts_fops);
+ static int testTransmit(struct node *node)
+ {
+ 	struct cec_msg msg;
+@@ -1409,12 +1446,40 @@ void testAdapter(struct node &node, struct cec_log_addrs &laddrs,
+ 	printf("\tCEC_ADAP_G/S_LOG_ADDRS: %s\n", ok(testAdapLogAddrs(&node)));
+ 	fcntl(node.fd, F_SETFL, fcntl(node.fd, F_GETFL) & ~O_NONBLOCK);
+ 	sleep(1);
 +
- 	if (!adap->ops->error_inj_show || !adap->ops->error_inj_parse_line)
- 		return 0;
- 	debugfs_create_file("error-inj", 0644, adap->cec_dir, adap,
-diff --git a/include/media/cec.h b/include/media/cec.h
-index 5aff399e69e6..6b462d5efe93 100644
---- a/include/media/cec.h
-+++ b/include/media/cec.h
-@@ -281,6 +281,8 @@ struct cec_adapter {
- 	u32 tx_low_drive_log_cnt;
- 	u32 tx_error_log_cnt;
- 
-+	u32 error_inj_tx_timeouts;
++	const char *last_slash = strrchr(node.device, '/');
++	bool is_root = geteuid() == 0;
 +
- #ifdef CONFIG_CEC_NOTIFIER
- 	struct cec_notifier *notifier;
- #endif
--- 
-2.53.0
++	if (!node.phys_addr && node.is_vivid && last_slash && is_root) {
++		struct cec_log_addrs clear = { };
++
++		doioctl(&node, CEC_ADAP_S_LOG_ADDRS, &clear);
++		sleep(1);
++		std::string error_inj_tx_timeouts =
++			std::string("/sys/kernel/debug/cec") + last_slash +
++			"/error-inj-tx-timeouts";
++		int fd;
++
++		if ((fd = open(error_inj_tx_timeouts.c_str(), O_RDWR)) < 0) {
++			fprintf(stderr, "Failed to open %s: %s\n",
++				error_inj_tx_timeouts.c_str(),
++				strerror(errno));
++		} else {
++			printf("\tCEC_ADAP_G/S_LOG_ADDRS (with vivid): %s\n",
++			       ok(testAdapLogAddrsVivid(&node, fd)));
++			write(fd, "0", 1);
++			close(fd);
++		}
++	}
++
+ 	if (node.caps & CEC_CAP_LOG_ADDRS) {
+ 		struct cec_log_addrs clear = { };
 
+ 		doioctl(&node, CEC_ADAP_S_LOG_ADDRS, &clear);
+ 		doioctl(&node, CEC_ADAP_S_LOG_ADDRS, &laddrs);
++		sleep(1);
+ 	}
++
+ 	doioctl(&node, CEC_ADAP_G_LOG_ADDRS, &laddrs);
+ 	if (laddrs.log_addr_mask != node.adap_la_mask)
+ 		printf("\tNew Logical Address Mask   : 0x%04x\n", laddrs.log_addr_mask);
