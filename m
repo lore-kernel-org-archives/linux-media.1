@@ -1,86 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A0C2D5C7A
-	for <linux-media@vger.kernel.org>; Fri, 10 Jul 2026 15:08:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C297D2F8E98;
+	Fri, 10 Jul 2026 15:27:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783696084; cv=none; b=bBsAadkOKvqlTSkRNKxDndMOD9JKf+CLc6YsZMtY9KFICF5Z3ea9lJIy8EEATGSARM7B+qkQB84HzW77ibyxevY4SCdMPMAppXju09bRII9CkWB+OcWm2DYexHWFTUefAPfWSaj3w1L8DkKGvxn4JknT5/ij42C6quyA7NNBRZY=
+	t=1783697253; cv=none; b=IZrKgcPfca9WCEc1IRYUVpQ7E6f5G5B7SewC0mxLFDNtIzrjfuNOGbqC4Y2a3D7ycGYOOtDpVd2eAr0u/rGjMVxAdAgJlSfboL8lvPDlZrPctaPvCQfje1qWcapYvz1NYnINjIrFvBQ1V4frSoEBeQ+IopMWcrHbml2Y4Uh3BlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783696084; c=relaxed/simple;
-	bh=u76B2sZqmDfvNKk8fZ48vL80K3KvqjzSLiCsUfBnnOA=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type; b=OSt97WlLKWUvnPDnYqzdPjjIpPvaiZm650iJdPX643KZ7CobAe+cT2VxhBh2h4dq2MJD1KuqhzJVg229f+QB+bH+peWI6rBfT13/suHNBgQzYJWJ4hjYlAz8a9BI4yQYU/9poq//Ohv+rxaJCGeI/na2NyVSiVKa7wXbFf0ZAB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sw1jAGBJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783697253; c=relaxed/simple;
+	bh=TjcdxBN+YS1qIld4J/pIkflOExyvQiuyJWBhdY6fTZ8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=FrBPynvh43f3s6gWRaZ4v9+yTzTftiovn9N276uK/95uwh+bmGyD+LODJRsSMEElbNBhUGlMTZVDJeOS1cqbs9e6T2kM8sI0BQekZKrEqjTvwrVQwYPUDFy1G5t166MLBxY0si4MOIyXNDQleAUUPNi6qX+6gsfhDS0Gx9mmFAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=Ol8D3z8m; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sw1jAGBJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE3F1F000E9;
-	Fri, 10 Jul 2026 15:08:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783696083;
-	bh=yC4Kfi1fjsTWdBbHQtAG8DbMjs4FRnQ1l33xZJ44dTc=;
-	h=Date:From:Subject:To:Cc;
-	b=Sw1jAGBJ1uORNTCqdxw9YOrf5EtHHZX7FAA+NEge04U7LYzP4RK+tkmuVet5b2dU+
-	 Ai0fHyeFvyr7KTM560X7kpUOXdU1uNeeP2Xh47sRJD9Tz+9w3x1BqIlnYYZPoAZfy8
-	 88imEi1ZqrGE2N9ToRabDTW60DW/oB1wDqZj2cj9wObRO39Al9SqJ04gBo9FmsS9hc
-	 3wbGxz7vQ81kTixZeSb2yP3czEQMPwCBruuuq6LgQVMScPBgUeJubhBmugbJzeWlES
-	 ofTBV7J8YbjVmdMwjUvz3esH/EpEI+cJzuwqrarTI3d453XXf8bRtJ7Fcz/9hSUdjO
-	 nubJm0zL2F33g==
-Message-ID: <e94a6342-3731-470e-8c9b-370338daa7c1@kernel.org>
-Date: Fri, 10 Jul 2026 17:08:01 +0200
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="Ol8D3z8m"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net A2FD340E3D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1783697244; bh=vvQEoUVE82+owdtPfVQDI6JM2NHa6BLxY4xHAZI2FDg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=Ol8D3z8mjcd9ikJthdlEl3pUbJyntm8W94iq/eaTswXjOzuXRYVzx1OT0BKQU++sw
+	 heTSti0u7dOubbBGZ5JSlp04dyrXxn4U+wqz4P9FJ4/kdswS+bxb4u00iX7a0puqKu
+	 NGBufwut/1SP111sUH6K01GtIe+Vx9DeghhP7pgdHqQaQvZSQzSZj///CkfP1NJKCH
+	 zfr9VfCNN6vIBQHQAr+HTtWHB+fcPlSfJ8IRhM7iMdO8jNjqH3G0F8psdhOL0aFtRA
+	 9u3BZubarr2i2XoYf2tNO/A6lLmEqEJ49GITHbvcrwG4xx6BzFonn0+vBYFwHivkIq
+	 YeFY4ZWNRBRaA==
+Received: from localhost (unknown [IPv6:2601:280:4600:27b::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id A2FD340E3D;
+	Fri, 10 Jul 2026 15:27:24 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Linux Doc Mailing
+ List <linux-doc@vger.kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ linux-kernel@vger.kernel.org, Clinton Phillips
+ <clintdotphillips@gmail.com>, Daniel Lundberg Pedersen <dlp@qtec.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Petr Vorel <pvorel@suse.cz>, Randy Dunlap
+ <rdunlap@infradead.org>, Rito Rhymes <rito@ritovision.com>, Shuah Khan
+ <skhan@linuxfoundation.org>, linux-media@vger.kernel.org
+Subject: Re: [PATCH] docs: custom.css: don't limit randering to old 800px
+ monitors
+In-Reply-To: <1950557405f1150acb1de50de1801f2413223b87.1783673996.git.mchehab+huawei@kernel.org>
+References: <1950557405f1150acb1de50de1801f2413223b87.1783673996.git.mchehab+huawei@kernel.org>
+Date: Fri, 10 Jul 2026 09:27:23 -0600
+Message-ID: <87fr1qn9us.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [GIT PULL FOR v7.3] media: em28xx: lifetime fixes
-To: Linux Media Mailing List <linux-media@vger.kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-Content-Language: en-US, nl
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-This series fixes lifetime handling of the em28xx driver plus some fixes.
-Hopefully once this is merged people will stop posting bad patches trying to fix
-the lifetime issues.
+Mauro Carvalho Chehab <mchehab+huawei@kernel.org> writes:
 
-While working on this I also found a small v4l2-async regression which is
-fixed in the first patch.
+> Right now, base.css style imposes a maximum limit of 800 horizontal
+> pixels to be compatible with very old SVGA monitors.
+>
+> Remove such artificial limit, letting the output to be adjusted to
+> the browser windows size.
+>
+> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+> ---
+>  Documentation/sphinx-static/custom.css | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/Documentation/sphinx-static/custom.css b/Documentation/sphinx-static/custom.css
+> index 5aa0a1ed9864..1055db7dc1dd 100644
+> --- a/Documentation/sphinx-static/custom.css
+> +++ b/Documentation/sphinx-static/custom.css
+> @@ -3,6 +3,8 @@
+>   * CSS tweaks for the Alabaster theme
+>   */
+>  
+> +div.body {  max-width: none; }
+> +
 
-CI: https://gitlab.freedesktop.org/linux-media/users/hverkuil/-/pipelines/1704107
+800px is clearly a dumb limit, I have no problem changing that.  Going
+to arbitrary width doesn't seem good for readability, though.  What do
+you think about, instead, setting a limit in a resolution-independent
+say, to (say) 60em?
 
-Regards,
+Thanks,
 
-	Hans
-
-The following changes since commit 85aa8122459eb96d2f3e0d32af436cf8d0961f8f:
-
-  media: drivers/media/dvb-core: CodeStyle for dvb_frontend_open() (2026-07-10 14:17:56 +0200)
-
-are available in the Git repository at:
-
-  git://www.linuxtv.org/hverkuil/media.git tags/br-v7.3d
-
-for you to fetch changes up to 2848eaa6a2066985146bc3bb22fdb9d44672767e:
-
-  media: em28xx: requeue buffers if start_streaming fails (2026-07-10 15:41:27 +0200)
-
-----------------------------------------------------------------
-Tag for for-v7.3d branch
-
-----------------------------------------------------------------
-Hans Verkuil (6):
-      media: v4l2-async: Unregister sub-device if asc_list is empty
-      media: em28xx: use v4l2_device release callback
-      media: em28xx: drop 'users' field
-      media: em28xx: use vb2_video_unregister_device
-      media: em28xx: dev_info->pr_info since dev has been freed
-      media: em28xx: requeue buffers if start_streaming fails
-
- drivers/media/usb/em28xx/em28xx-cards.c |   2 +-
- drivers/media/usb/em28xx/em28xx-video.c | 114 ++++++++++++++++++++++++++++++++++++++++++++----------------------------
- drivers/media/usb/em28xx/em28xx.h       |   2 --
- drivers/media/v4l2-core/v4l2-async.c    |  15 ++++++++--
- 4 files changed, 83 insertions(+), 50 deletions(-)
+jon
