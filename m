@@ -1,144 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB03B3C3BFF;
-	Sat, 11 Jul 2026 16:06:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 582ED30B51A;
+	Sat, 11 Jul 2026 19:49:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783785993; cv=none; b=OXu916nRsi4axAo4E1F8zjYwNiaD7ymi0mB72eMfWejWC5wlT4ElMQK3jZqe0ffnFJbka0mM5qAz0XkdhZ+HSfj9Er1dZizquaaLkrIF5qIXmB5t0ghAsnlcrQd2fK71Q86Fmmi6NhaWzeCrHIbeGhvToCkvjQtE8+XLPd4Rt+Y=
+	t=1783799400; cv=none; b=B9COwLZcnXRoDGdF7u7zoPqkI85xGw62fOk+5hIUbdVGfOiwZAJvQEb2Ofj2D6Q13t478KtaeT5llqfPpdMIHLaPcDMlheFRnX9Qa7yKcHX/OuVboYJLKOdMhNJLkcgAJeEB2hXgCoR4eDQnpxtko3H2V6d60nTmhpT75J1XBvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783785993; c=relaxed/simple;
-	bh=DoyxLKmFI5e+L8bsmYWhepaKIMj63758qF7Q9IHNvJU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tyrrPrJ+8HATUrLwoVq6zdpGcXh2+8D4WTK1Orw9UwQJIlsYsf2b78xk0mdL+OjWTxovgk2kz4R2lzvGPoN6fGqxx0R5tQgDqiQZfmiw4bIYZQkyOSvhQjXIE80AModfKk2qvJXU/kIHmW5H2jqVDiYs4w3bsXryPGqcNSiIoxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZZ19zs+R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783799400; c=relaxed/simple;
+	bh=cnStKgouEira5ORQ4Gjr7kEMGeizlIeG1tKsvtb4DZQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BOUrt2XjPB+0zyPOHK1StxbvLxSgARQWB3ekNQ3u96JdkOjB2RY8ADdc4ANUdfH21mTpAULVNYRDVQZUidmdTs3wVHxJnOjB+u8eQ5NHUnJJoc/ENUaJr2UnEQ3xb6l+HFvtJfWx4HEC1SZDAA8m6CByUwr91IfiD9iVFoNBQh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OzLZmZQM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZZ19zs+R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 518971F000E9;
-	Sat, 11 Jul 2026 16:06:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OzLZmZQM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C0501F00A3D;
+	Sat, 11 Jul 2026 19:49:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783785991;
-	bh=+QuIe/JXClOlWX4qdoKvsVboO8bvQ4xPcjrHdiLMqdk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZZ19zs+RX0qgmc6OxroxmqWRc+kVvzolvhSNhDXF4fCbFaMe+AcAzIda03cdJGa0y
-	 +daVX+++fl8kWoxj48t76nY/0TrrJADWUWqcSlj3PNCnMKEg60lPZ0JFH85d/pSuES
-	 JY1O72m2XSSdTD5GQyRUMNgHGR4qfdyZ2K19SuENFJjgE/NVLPABoD8qKWUGU29J0W
-	 hju4pjk8CO0X+JR3+cu7cLk2viqFio67e08T3IjbtgWKyHTGCdAKLocCoQF3krODMe
-	 SNbFEqKoivoxfzQuFVFMVFNLNzr7Ke9Vq2M3bCpYQAqwl5hXFCK3oZTS8Ja+ph6OXe
-	 j+K1CTUi3fPbg==
-Date: Sat, 11 Jul 2026 11:06:26 -0500
+	s=k20260515; t=1783799399;
+	bh=35FyaTXq+nGWlA1B1CN4WNG6qY0MnEpe0vs6FvB/xkY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OzLZmZQMM/6MpC+Q4tqAS/Pt6WTynq1vkOu2tmLEJ2OyxayIY5t5PgJkgJNepPSCv
+	 Ks0dPzcP6kYpI2g64l4NrF2DnxqjZSItS9fRwgrWVzX3iY+CXtK5J7pAyh79s/jah8
+	 jfFoTqjxO12EL7k9FLt1/GnG9rPvJWQpQWy2WAekTG2V5O9VT2nVfkxnpJ7cBHQBwG
+	 vZjl4Sk06BMYzhUILvMedMF5EKEJpxWHq+sVNI4UhA4daT4v0QefdNScpoYbot5Njq
+	 WXsr4NPPergM9gS7VITufQhznlghIUTIheFUpy1Iu6YLo5L5ozg+HcQ3N7mD3K7PvE
+	 YG5vyQMvm7N5w==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Sumit Garg <sumit.garg@kernel.org>
-Cc: konradybcio@kernel.org, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
-	linux-media@vger.kernel.org, netdev@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, robin.clark@oss.qualcomm.com, 
-	sean@poorly.run, akhilpo@oss.qualcomm.com, lumag@kernel.org, 
-	abhinav.kumar@linux.dev, jesszhan0024@gmail.com, marijn.suijten@somainline.org, 
-	airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com, bod@kernel.org, 
-	mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org, 
-	mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com, 
-	pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com, 
-	vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com, 
-	amirreza.zarrabi@oss.qualcomm.com, jenswi@kernel.org, op-tee@lists.trustedfirmware.org, 
-	apurupa@qti.qualcomm.com, skare@qti.qualcomm.com, linux-kernel@vger.kernel.org, 
-	Sumit Garg <sumit.garg@oss.qualcomm.com>, Alex Elder <elder@riscstar.com>, 
+To: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Taniya Das <quic_tdas@quicinc.com>,
+	Jonathan Marek <jonathan@marek.ca>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Stefan Schmidt <stefan.schmidt@linaro.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Dikshita Agarwal <dikshita@qti.qualcomm.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
 	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v9 11/14] net: ipa: Switch to generic PAS TZ APIs
-Message-ID: <alJp8jMzcw9EPZoy@baldur>
-References: <20260702115835.167602-1-sumit.garg@kernel.org>
- <20260702115835.167602-12-sumit.garg@kernel.org>
+Subject: Re: [PATCH v7 0/2] arm64: dts: qcom: fix power domain handling on SM8250
+Date: Sat, 11 Jul 2026 14:49:39 -0500
+Message-ID: <178379938617.163099.9882135996822796179.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260604-iris-venus-fix-sm8250-v7-0-7bd2f0e5bae8@oss.qualcomm.com>
+References: <20260604-iris-venus-fix-sm8250-v7-0-7bd2f0e5bae8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260702115835.167602-12-sumit.garg@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 02, 2026 at 05:28:27PM +0530, Sumit Garg wrote:
-> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+
+On Thu, 04 Jun 2026 19:22:22 +0300, Dmitry Baryshkov wrote:
+> As pointed out by Konrad during the review of SM8350 / SC8280XP
+> patchset, Iris aka Venus description has several flows. It doesn't scale
+> MMCX, the frequencies in the OPP table are wrong, etc.
 > 
-> Switch ipa client driver over to generic PAS TZ APIs. Generic PAS TZ
-> service allows to support multiple TZ implementation backends like QTEE
-> based SCM PAS service, OP-TEE based PAS service and any further future TZ
-> backend service.
+> Let's correct the Iris/Venus enablement for SM8250 (unfortunately also
+> stopping it from being overclocked).
 > 
+> [...]
 
-Please find an immutable branch with the dependencies for this patch at:
-  https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git 20260702115835.167602-2-sumit.garg@kernel.org
+Applied, thanks!
 
-Alternatively, if you think there will be no conflicting patches in the
-time leading up to next merge window provide an Ack and I can pick this
-through the qcom tree.
+[1/2] arm64: dts: qcom: sm8250: sort out Iris power domains
+      commit: baa60f0354fdfe186e2876af8aa61e25cf7a070f
+[2/2] arm64: dts: qcom: sm8250: correct frequencies in the Iris OPP table
+      commit: d1fe67315216695df4f9a7aadefb27c3c0e1104e
 
-Thanks,
-Bjorn
-
-> Reviewed-by: Alex Elder <elder@riscstar.com>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> ---
->  drivers/net/ipa/Kconfig    |  2 +-
->  drivers/net/ipa/ipa_main.c | 13 ++++++++-----
->  2 files changed, 9 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/net/ipa/Kconfig b/drivers/net/ipa/Kconfig
-> index 01d219d3760c..a9aff1b7977d 100644
-> --- a/drivers/net/ipa/Kconfig
-> +++ b/drivers/net/ipa/Kconfig
-> @@ -6,7 +6,7 @@ config QCOM_IPA
->  	depends on QCOM_RPROC_COMMON || (QCOM_RPROC_COMMON=n && COMPILE_TEST)
->  	depends on QCOM_AOSS_QMP || QCOM_AOSS_QMP=n
->  	select QCOM_MDT_LOADER
-> -	select QCOM_SCM
-> +	select QCOM_PAS
->  	select QCOM_QMI_HELPERS
->  	help
->  	  Choose Y or M here to include support for the Qualcomm
-> diff --git a/drivers/net/ipa/ipa_main.c b/drivers/net/ipa/ipa_main.c
-> index 788dd99af2a4..3cd9e44680e9 100644
-> --- a/drivers/net/ipa/ipa_main.c
-> +++ b/drivers/net/ipa/ipa_main.c
-> @@ -14,7 +14,7 @@
->  #include <linux/pm_runtime.h>
->  #include <linux/types.h>
->  
-> -#include <linux/firmware/qcom/qcom_scm.h>
-> +#include <linux/firmware/qcom/qcom_pas.h>
->  #include <linux/soc/qcom/mdt_loader.h>
->  
->  #include "ipa.h"
-> @@ -624,10 +624,13 @@ static int ipa_firmware_load(struct device *dev)
->  	}
->  
->  	ret = qcom_mdt_load(dev, fw, path, IPA_PAS_ID, virt, phys, size, NULL);
-> -	if (ret)
-> +	if (ret) {
->  		dev_err(dev, "error %d loading \"%s\"\n", ret, path);
-> -	else if ((ret = qcom_scm_pas_auth_and_reset(IPA_PAS_ID)))
-> -		dev_err(dev, "error %d authenticating \"%s\"\n", ret, path);
-> +	} else {
-> +		ret = qcom_pas_auth_and_reset(IPA_PAS_ID);
-> +		if (ret)
-> +			dev_err(dev, "error %d authenticating \"%s\"\n", ret, path);
-> +	}
->  
->  	memunmap(virt);
->  out_release_firmware:
-> @@ -758,7 +761,7 @@ static enum ipa_firmware_loader ipa_firmware_loader(struct device *dev)
->  		return IPA_LOADER_INVALID;
->  out_self:
->  	/* We need Trust Zone to load firmware; make sure it's available */
-> -	if (qcom_scm_is_available())
-> +	if (qcom_pas_is_available())
->  		return IPA_LOADER_SELF;
->  
->  	return IPA_LOADER_DEFER;
-> -- 
-> 2.53.0
-> 
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
