@@ -1,147 +1,121 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58953C4B89
-	for <linux-media@vger.kernel.org>; Sat, 11 Jul 2026 12:55:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783774534; cv=pass; b=mAK5BUYKMz1BsfYGGnMR1IxqD6t96/JYYZXsHmcIpBha8vE1qSSZd6BMcyi4PSy8x72Tby5gOkXlTFYHX2t/HixgQ2wXZ3VERbtxnLmt9gNnP5jZxkTbDR4VeoFePxkUC0r3CwVhWADqAeQgTfdOpl9/bpDe1q8pvorRj6Yj65I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783774534; c=relaxed/simple;
-	bh=Sl+rcNFS4n6sfV7RASsazrAsQq0F5cbeZGTcafT17Rk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DLhcfeZXwu+Rv/RhLCfEADSadgoRfR13nyUJSKYRJUTFRu1UKYhxKFOLFPfV3GBU2EtdVlwuNfPCLC75JYLs1nh6/0KWw9npnhGIgSMSP2ifHjqsbpgBmvP5ixvcmHsp7nXeeXlze7NahlmfhMU0IBttrKhu3XzSBmLqkkffZzI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FfM/kmN/; arc=pass smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0CE4246778;
+	Sat, 11 Jul 2026 14:00:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783778411; cv=none; b=anRk0cBp8By6+CVIXAmuf4VyyGCZUtWobp+/oseOAcD/HW+BgtKlnFBwEHVvn3sVf15/vQXtkInQ3g95QsMSbkgWeGX4pCbbJ5v8cFSFQaFo8mnJIEVcUPP0hokr3nLg4YlR5BiHWs2xiK6MLSMnK0DdYwq3VFQBqdHgk5eDJvQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783778411; c=relaxed/simple;
+	bh=Cc3iXIe7vA6bWvZE/goaLJXnEVxUk1J4/yD+9CVPv6c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=k+YGxx3BdBCEfS/OKJ1rcK+hK6eLh0lvPptVFk+eJGv1++hkkdNcm6HQ0rXhoO1UweAn1rtY12gYmtolaUDZwYDBEbEkRkvYHlOWnocoX65e6aBNRfPOdAV6cWU0TVQlIXsOZpIbGuN9JPWap2H4r1IMUq9LxfL0QU1cJvQAbM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VxoTKKnQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FfM/kmN/"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-383fff6e8b6so150857a91.0
-        for <linux-media@vger.kernel.org>; Sat, 11 Jul 2026 05:55:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783774532; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lwPntjErq+NzgY1iIewiQ0zHUKFA7aBJc9xu57wmPM0aSWxPyIecv+F+AAAx6deU4V
-         mX0kiACS9lE9+o1T+ldcPM2PpUPyKiA5JVgWoaPAT5kRr0DjExm/mwK17c5VM0Xay9Zb
-         WfvWqYXgCD5FYdc/tVexBxKaor6IiS2gqEjXsUlgnjxFrhLvOhZ8Y2kJmZ2vylolS4Q3
-         tTAEHE/tt984F85wohi4qyBQ26NqczZiGge5jKMpMThT0Fn3o0mAFfAA2gQZDOSaOv+F
-         7b1v3bd0q1mizPFCUpFoZmTQeqhz6XQ+FuYE0ge3WeMOb5ZDOIu8NTaZI0Wr9iGM8QVp
-         wdGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1zUvgb/Vijkk139Zbj5Mh0/O0qV2LR06s+/nZ2EMR/8=;
-        fh=UFU9YrMyiRDuSekcVrdpHe1Oo4kbsO+KaF6R5t8PORo=;
-        b=IeeqMOeotbNAdsUDbvvd9pOy3wCnwtk6t+9dC0Y3koDutGOzuhOi1rcF+dTCHR3igt
-         EenyTkJDt0DV0tXIm0zLeh8TMLBV/1UtcO9TQmXdFSQWv4NzPoJpjhMt3vc2B6K8JcaK
-         +h9VylC8RtKDfP6xHjqedgyPJx90uPr6PAB4NeKUKa0NABxLLB5226IYzzPUu8gPgXHW
-         QFZznFTTEgwOzwt9qyt785Q5TGPnTn+4QCHtX1wJgIf0u9OaDo5ZKVhJugOAJp4bQKOf
-         4s2GE9gWKlcuIbpeAv3RSFuQmbDLmzy0YyYkkhG1/PYVJpKdlQz8tfgJhYaWcqvgPQhj
-         VZSA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783774532; x=1784379332; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1zUvgb/Vijkk139Zbj5Mh0/O0qV2LR06s+/nZ2EMR/8=;
-        b=FfM/kmN/tO2vNXlVEHoYYU4Gng3x9pt3bFUHeB17lQNTYT1U7ODfEBW9B6LtFleKVP
-         i3NLMWRmDSpf57VeosLE4ZmuaEXgWlH1kAUgg5tbB/WynOpkGfXDLIeEck+RjYlXuNu/
-         EXgFjtxaV/jI2ocYua3lwDDL9wR5K7nAGbVLIeZtv3BWy/ABg234I2cX+T7e+O3rnN3v
-         2aCo2GB3J+YdiYlnCnv2wA1jqNH/+IwrerF8N72wSXv/cT3G+y/AlYDNO/CCayiLz5ue
-         djvgoWIg1BckyiY2RsCczktQUUbvGHYqjr0H1jftRXzswFo15Fw7bVafkSLU2CFq081g
-         w5Eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783774532; x=1784379332;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1zUvgb/Vijkk139Zbj5Mh0/O0qV2LR06s+/nZ2EMR/8=;
-        b=AlHaZMoiv/RsewoozmUEdokqEaKr/W6hcsAtrudSriRbX5mZ7my72w3mEK+nIB5eq9
-         jCbkUcy357H8MDzy2C0hT0RdSDQrhtjLK6Uf2KznBpmFeUwZGQATO5U1Aqw2OxyrnhCW
-         8r/IOzGpNO6wi7r2qrJCdnDbPUQPJ2NIutEh5QnnA72vcIc4EHq6vDve8p0JayDivX2q
-         wX8jk210ucnFMBLaYeOjwmQMFsqkZhhKnfIO1MLE5/KLPCVqCXeV4IP9Bt1xJbWP27QC
-         AvC/sHtLSICxkynWSl+4vfmO1c7DJqWFaD2ua+5oCEjDl7Bcx+hgEt8klxnZVGN1hoeP
-         Hpyw==
-X-Forwarded-Encrypted: i=1; AHgh+RrMuN79k8YG5IVpSYPK5zmbc5/w0a47liYJsUFr9IwYxCrT4Sfi/GlWbLJslf9JRfw3uW7onWFMrdlzQg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwQ7bGjtGgYs4YBxVWxsQg84VJTRMbaY9jZqGxvk2hfWWyNVheG
-	97iaRn0Y6S9keZYiM0KpWtLHz0X6R/g0LPIeRDZqVziFekXlEsggRse09FeC5XhAc+nDdwW+bRS
-	YOoDi8StTR5hGWjAaq2QP5AmSBjkW8QA=
-X-Gm-Gg: AfdE7cmuDHdlQj/37yeDwi3T//46YoETNxvg3DaXOc4LyOdZXDCXe6CzekpcbjdDPB4
-	nr5vaQ6T+9EBrbp8vhSeb3dpTtXxMToNeFJpivo1vteuUv+85DapAn/yPjVTFB4nDrXI/f6kAdy
-	28inyLXZSwjeJcZsxCxAgVCDCziGblmQViIA+mCvUqPYKNDjKytfoEdKCDYlDB52VceWriVZC/Q
-	vZGyGyzm18inhdvw/aRQe7vi2CqsmU6s1uL527rTYbaBx4Ao2cvVjXDXA1dj3Vab7NkreIEYNaN
-	TFoul8UbPwDLzQAGxfIh4eNes2TpzDjCvuLqAvTR1W6X9XqK/HMQWkBDhOkuv+bgxYW8dtYiAQQ
-	CG38TpOSWTsoY
-X-Received: by 2002:a17:90b:3e48:b0:380:7688:fc06 with SMTP id
- 98e67ed59e1d1-38dc7849860mr2139954a91.8.1783774532077; Sat, 11 Jul 2026
- 05:55:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VxoTKKnQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 427D41F000E9;
+	Sat, 11 Jul 2026 14:00:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783778409;
+	bh=4OuezE/moo5Tppqmye8t2PqCkPAk1kmw20Fa1p80Uak=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VxoTKKnQlVJcRhtm2Y+EIAozs1G5BEK9wTFm6xPfRXoQ6y3tXHpdw1DTbn7UQANLH
+	 DnAOumu//hcPPhlJvcme/qgoh8yhuaPVRxc3lbm+EzAX129HxWPNtiqirqRVFQVLER
+	 56e/9iTBSS5cu0WIjKLCnxEj/ghe8NUN3mja882bBZeGt/Phv/gy1ORHnE5CjKJ+dF
+	 U+EMQyD7HbXFc3Aq2BcaLqi82cLx+zxxqXCLclDf8+IJeZk9dEMRwujbDzL4XSHxPQ
+	 sfWWw6Qspf0+34ZclkRaWc7eSiE03VknPmvSyKWlafemSMXOojLy08CO5cpHdSyp/z
+	 6QZMyNjfTYB6A==
+Received: by wens.tw (Postfix, from userid 1000)
+	id 545C65FDF3; Sat, 11 Jul 2026 22:00:06 +0800 (CST)
+From: Chen-Yu Tsai <wens@kernel.org>
+To: Maxime Ripard <mripard@kernel.org>,
+	Paul Kocialkowski <paulk@sys-base.io>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej@kernel.org>,
+	Samuel Holland <samuel@sholland.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jernej Skrabec <jernej.skrabec@gmail.com>
+Subject: [PATCH v2 2/7] dt-bindings: media: sun4i-a10-video-engine: Fix SRAM count for H6
+Date: Sat, 11 Jul 2026 21:59:53 +0800
+Message-ID: <20260711135959.3616919-3-wens@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260711135959.3616919-1-wens@kernel.org>
+References: <20260711135959.3616919-1-wens@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260708-dma-shared-buffer-config-v1-1-8c1571000855@kernel.org>
-In-Reply-To: <20260708-dma-shared-buffer-config-v1-1-8c1571000855@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sat, 11 Jul 2026 14:55:19 +0200
-X-Gm-Features: AUfX_mxzrtwl0-qM1WcyDgdPW3fSN_iew-N8VZzUs1Dmg7dy-KYQxeN-HmNLFeM
-Message-ID: <CANiq72m9t0y3pfZUw_KbJSjujjQcM=FHxTCLenPoC_-v2udibw@mail.gmail.com>
-Subject: Re: [PATCH] rust: helpers: guard dma_resv helpers with CONFIG_DMA_SHARED_BUFFER
-To: Andreas Hindborg <a.hindborg@kernel.org>, 
-	"Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Asahi Lina <lina+kernel@asahilina.net>, David Airlie <airlied@gmail.com>, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linaro-mm-sig@lists.linaro.org, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 8, 2026 at 1:53=E2=80=AFPM Andreas Hindborg <a.hindborg@kernel.=
-org> wrote:
->
-> Commit 9b836641d3bf ("rust: helpers: Add bindings/wrappers for
-> dma_resv_lock") added rust_helper_dma_resv_lock() and
-> rust_helper_dma_resv_unlock() unconditionally. However, the dma-resv
-> functionality is only available when CONFIG_DMA_SHARED_BUFFER is
-> enabled, resulting in the following link error when it is not:
->
->       LD      .tmp_vmlinux1
->     ld.lld: error: undefined symbol: dma_resv_reset_max_fences
->     >>> referenced by dma-resv.h:463
->     >>>               rust/helpers/helpers.o:(rust_helper_dma_resv_unlock=
-) in archive vmlinux.a
->
-> The dma_resv_unlock() inline in <linux/dma-resv.h> calls
-> dma_resv_reset_max_fences(), which is only compiled into
-> drivers/dma-buf/dma-resv.c when CONFIG_DMA_SHARED_BUFFER is set. With
-> the option disabled the symbol is never defined, so the helper fails
-> to link.
->
-> Fix this by guarding the helper definitions with `#ifdef
-> CONFIG_DMA_SHARED_BUFFER`.
->
-> The only user of this helper is the DRM shmem abstractions, which already
-> depend on `CONFIG_DMA_SHARED_BUFFER`.
->
-> Cc: stable@vger.kernel.org
-> Fixes: 9b836641d3bf ("rust: helpers: Add bindings/wrappers for dma_resv_l=
-ock")
-> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+On the H6, the SRAM C region includes an alias of part of the VE SRAM
+used by the video engine. This region should also be claimed so that no
+access happens through the alias window.
 
-Please see:
+Add a second SRAM region phandle to the video engine for the H6.
 
-  https://lore.kernel.org/rust-for-linux/20260708082454.1254320-3-mkchauras=
-@gmail.com/
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
+---
+ .../allwinner,sun4i-a10-video-engine.yaml     | 21 ++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
-Cheers,
-Miguel
+diff --git a/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml b/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml
+index 932043d7f0cc..818d815d4732 100644
+--- a/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml
++++ b/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml
+@@ -48,11 +48,15 @@ properties:
+ 
+   allwinner,sram:
+     $ref: /schemas/types.yaml#/definitions/phandle-array
++    minItems: 1
+     items:
+       - items:
+           - description: phandle to SRAM
+           - description: register value for device
+-    description: Phandle to the device SRAM
++      - items:
++          - description: phandle to SRAM alias
++          - description: register value for device
++    description: Phandle to the device SRAM(s)
+ 
+   iommus:
+     minItems: 1
+@@ -101,6 +105,21 @@ allOf:
+         iommus:
+           maxItems: 1
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - allwinner,sun50i-h6-video-engine
++    then:
++      properties:
++        allwinner,sram:
++          minItems: 2
++    else:
++      properties:
++        allwinner,sram:
++          maxItems: 1
++
+ additionalProperties: false
+ 
+ examples:
+-- 
+2.47.3
+
