@@ -1,40 +1,41 @@
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9370526B2D3;
-	Sat, 11 Jul 2026 14:49:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB66B28136F;
+	Sat, 11 Jul 2026 14:49:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783781341; cv=pass; b=AYUpoY11Jt2YLBOqQ1jQzIGXH29FBIXwO92W+x/TmcP+JeY4dC0I5VCOwO5LFhMJaAqiY5jt7GRclRe1cmGl3ZGjOvZ6ypomKLs0PbVzk7QT/TBkatO1QpNJ+QFzsRxJtP7Z98nmvN3MjIDOEaz1CV5uZhcmiqISv6clDJPu2nM=
+	t=1783781348; cv=pass; b=Sx7M46Ep01AfLnJK+2+c9dWZeRrvXyODSgAdeGEIxe6Oy1nM60wLa4vVefpHfGPSnvTaF5rPzTc/MPG8Gpe+e1jRQWnPm6BJC9aZ4vMFOEHnROdESwYtwkXwVlql2L8RUH869Wm47r/kjqSCY/wFOXKb1rTKnU9fVEBaK+bcGME=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783781341; c=relaxed/simple;
-	bh=eD+1Bml6jKdRXQ9pK0g5MVyYZFVmsCFzE2qXtUdKw5M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nRddeLaM+T9x4ZbBz119r6T1ev+k2aqrWdPHA3YUFGFv8mVJhk9ODCPwfr4x/OrENL+4sKQXPKeGiLyZEmDuU1ecaugVtW2egOhJHcVuDu8y0480e1S/o5+O20O6cwCSnihgNss/WRYyLM1XOyO8MsqettE161l5vO2Uh5+u5zA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=robert.mader@collabora.com header.b=XjOct0D2; arc=pass smtp.client-ip=136.143.188.11
+	s=arc-20240116; t=1783781348; c=relaxed/simple;
+	bh=64xmhQig0YSiaK7xERCHA2H1HKG3glwpBWzho00/fXs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=N9Gv86rzi9ZUtH5xsvcfGhAZIthVr+LhRIdFpf8pnIioLYYhNv8/iRXGTX81FOwB4+PDdlZo0UPCnn2UrAuB8XV04cLF9a465usrZlHS5JdlaJuSZryUik6NtqemnycWCxx16D3NlePn5rtTCOU/nAV+Ad/u552PT+fx8T7sOgs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=robert.mader@collabora.com header.b=lFe06t0V; arc=pass smtp.client-ip=136.143.188.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=robert.mader@collabora.com header.b="XjOct0D2"
-ARC-Seal: i=1; a=rsa-sha256; t=1783781328; cv=none; 
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=robert.mader@collabora.com header.b="lFe06t0V"
+ARC-Seal: i=1; a=rsa-sha256; t=1783781337; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=BH4dZUWFXQTfpBTQhaOCxYSOrJSIBoAMYPL0GW2hOvxf8SPFEl3Jaz/BLUiAaj+YfT4mmi0BJKs0xDW7qcFSEn/NuISdleLOwOspZtx1lSCrkl5WkP2L6aGxdK4nswV6YvI7MZ+Vjs8wCBZJmm3on2Poj+K9s8ExjZDMiN6xaoQ=
+	b=Pj8aR3IrKz+/CtebXwpLpunMYcMVL0mBNT1XAIp10WtYHkaOj8JX5sIXHS+WapMYXd3i3phiX83zHGUI6NXCsyAjZeC/+DIGbMXCiv2RTF3e/G0+PAwCwUdQUy4OHryCspfM443MTNW875ZKwBS4W+GjTWIeuo5pwRKafSDoFbc=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1783781328; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=kGHh/6tYI5CXdwmaq9gUtobNs8A8Brc1JnxMpe3H3lc=; 
-	b=kscEkUlWDfYiPizyVcRM2SqCMaGPorOa1/2xfEC/oLBE9CmvrWgDCM9Wa4B/xLYvFP94zbCZRobizZETbC8R4XIyxog1/mQHqHZMGAj4a0QJG+A5qJdXsy6l/R5zpBgQCtBY41snFaMtJ/inbXYfSXiyo/wxUe91yEGOQeFlQc8=
+	t=1783781337; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=8EhoijJuAVpKhH0B/9K0NROY2MQn/U8qlWzqclSATrk=; 
+	b=VEtw4m1/C/z+o3/zqtg70bZY5pqWW581LCIzm202l3ducVlq5xlGUHcSKFPjk+q1Ccylq+obuSC72363W6uk/8uvEWjrRDtRzrz5Lv2qhUVt2rqIIfbYeVrPJKjqZPY8dHQ8UU48iq0gep7c0Zo8pWsOBg8idEtSfJ9kIackBrU=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
 	spf=pass  smtp.mailfrom=robert.mader@collabora.com;
 	dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783781328;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783781336;
 	s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=kGHh/6tYI5CXdwmaq9gUtobNs8A8Brc1JnxMpe3H3lc=;
-	b=XjOct0D2Ll/nKAqt2RjQ+kSHU589TeaBxWRRs6xjdGy6+gpcnFZ/7kuq8FefC1ho
-	o40rOta3xUV1OIgsZs8owLfrX0PyKtKO7HbD1sm/kgzZUl4+DY9jSy5mO2Qp6OfXlof
-	nscyEV5UGpn1hAMcyZ2+X4qYIUq18BQHecMkNs2U=
-Received: by mx.zohomail.com with SMTPS id 1783781326029184.89565228296215;
-	Sat, 11 Jul 2026 07:48:46 -0700 (PDT)
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=8EhoijJuAVpKhH0B/9K0NROY2MQn/U8qlWzqclSATrk=;
+	b=lFe06t0VSWW7qAZWgQqe49gBXNN6/gxc/dfXhAFhRuvDeHfPoWcol7AAhZGIoIs4
+	q1rBuF02J43wuAdbflnunKCaHyUV92ULV8yjVMdef5k7okwidKSKSO8lik4HxwrFxcu
+	CCkpCU4SYD+6HJwUnLyRIFMxXdQGpFDNCURiPU18=
+Received: by mx.zohomail.com with SMTPS id 1783781333885846.2310772290999;
+	Sat, 11 Jul 2026 07:48:53 -0700 (PDT)
 From: Robert Mader <robert.mader@collabora.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Robert Mader <robert.mader@collabora.com>,
@@ -45,10 +46,12 @@ Cc: Robert Mader <robert.mader@collabora.com>,
 	linux-media@vger.kernel.org,
 	linaro-mm-sig@lists.linaro.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 1/2] dma-buf/udmabuf: Introduce CONFIG_UDMABUF_SIZE_LIMIT_MBYTES
-Date: Sat, 11 Jul 2026 16:48:12 +0200
-Message-ID: <20260711144814.8205-1-robert.mader@collabora.com>
+Subject: [RFC PATCH 2/2] dma-buf/udmabuf: Increase default size limit to 256MB
+Date: Sat, 11 Jul 2026 16:48:13 +0200
+Message-ID: <20260711144814.8205-2-robert.mader@collabora.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260711144814.8205-1-robert.mader@collabora.com>
+References: <20260711144814.8205-1-robert.mader@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -57,55 +60,50 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-As udmabuf increasingly enjoys popularity - being used in projects like
-libcamera, Gstreamer, Mesa and KWin - users more frequently encounter
-cases where the current default size limit of 64MB is too low. Examples
-include allocating video buffers at a 8K resolution - and even 4K is
-affected when using non-subsampled video formats or high bit depths.
-
-While the limit can already be changed via the kernel command line,
-exposing it as a kernel config makes that easier and more discoverable
-for distros. Thus let's do that.
+While there does not seem to be a particularly strong reason to have a
+size limit for udmabufs in the first place, raising the limit moderatly
+to 256MB is enough to avoid hitting the limit in increasingly common
+use-cases - notably allocating video buffers for 8K resolutions.
 
 Signed-off-by: Robert Mader <robert.mader@collabora.com>
 ---
- drivers/dma-buf/Kconfig   | 6 ++++++
- drivers/dma-buf/udmabuf.c | 4 ++++
- 2 files changed, 10 insertions(+)
+ drivers/dma-buf/Kconfig   | 4 ++--
+ drivers/dma-buf/udmabuf.c | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
-index 7efc0f0d0712..35f0779cdc80 100644
+index 35f0779cdc80..0e7f5dc978e2 100644
 --- a/drivers/dma-buf/Kconfig
 +++ b/drivers/dma-buf/Kconfig
-@@ -40,6 +40,12 @@ config UDMABUF
- 	  A driver to let userspace turn memfd regions into dma-bufs.
- 	  Qemu can use this to create host dmabufs for guest framebuffers.
+@@ -42,9 +42,9 @@ config UDMABUF
  
-+config UDMABUF_SIZE_LIMIT_MBYTES
-+	int "Size limit in Mega Bytes"
-+	default 64
-+	help
-+	  Maximum size of a udmabuf, in megabytes. Default is 64.
-+
+ config UDMABUF_SIZE_LIMIT_MBYTES
+ 	int "Size limit in Mega Bytes"
+-	default 64
++	default 256
+ 	help
+-	  Maximum size of a udmabuf, in megabytes. Default is 64.
++	  Maximum size of a udmabuf, in megabytes. Default is 256.
+ 
  config DMABUF_DEBUG
  	bool "DMA-BUF debug checks"
- 	depends on DMA_SHARED_BUFFER
 diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index bced421c0d65..a83153326362 100644
+index a83153326362..c7649a04b865 100644
 --- a/drivers/dma-buf/udmabuf.c
 +++ b/drivers/dma-buf/udmabuf.c
-@@ -20,7 +20,11 @@ static int list_limit = 1024;
- module_param(list_limit, int, 0644);
- MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
- 
-+#ifdef CONFIG_UDMABUF_SIZE_LIMIT_MBYTES
-+static int size_limit_mb = CONFIG_UDMABUF_SIZE_LIMIT_MBYTES;
-+#else
- static int size_limit_mb = 64;
-+#endif
+@@ -23,10 +23,10 @@ MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.
+ #ifdef CONFIG_UDMABUF_SIZE_LIMIT_MBYTES
+ static int size_limit_mb = CONFIG_UDMABUF_SIZE_LIMIT_MBYTES;
+ #else
+-static int size_limit_mb = 64;
++static int size_limit_mb = 256;
+ #endif
  module_param(size_limit_mb, int, 0644);
- MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is 64.");
+-MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is 64.");
++MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is 256.");
  
+ struct udmabuf {
+ 	pgoff_t pagecount;
 -- 
 2.55.0
 
