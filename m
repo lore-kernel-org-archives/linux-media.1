@@ -1,193 +1,119 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0F53A1DB
-	for <linux-media@vger.kernel.org>; Sun, 12 Jul 2026 01:01:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783818096; cv=pass; b=tW+cwta4Tz06sOtUKgxbsn9gKMBRsIVQWi1pUz6gvQUuA9oE36y7qm1okxbF7wUT4niVbtu0KxR8hEWSqOSavRtdiuqI0y6Z9Cd1qqCO5bXiTgImENCT1szf0qLfhT42BnsD+9HZoBS1Niei/qJrTviZ0/pUxLIGFI/dJ5fbtmM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783818096; c=relaxed/simple;
-	bh=R8xlg3RI6zLmG7lgrIZL1li1QImUsqosewBmuLTRodU=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TwR6Qd7yki1NqF+JmPbP/upL78QJ+76Zhi1WxC3qpErA61Nol9+cZj0nHxZ3JLweWgq6hGNgaw77MSLn2MLuNAJ8RvYK/4dLPV12F6wPQ8TWY+73R+h7XSOOrkXd06u78gE0OITLcNgnbE7TZWy5fzonkpYhbJBROglynu05hs0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=F2Bcm8Hw; arc=pass smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A11369D71;
+	Sun, 12 Jul 2026 03:00:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783825220; cv=none; b=nLZBuA6s7TncTiooD5csejqq6iCxPoDnW3gyc3dKNkGB1unMptw4Scj2t0pxshA6Sa1IeRqYBRxbMlih2kCcPRG7fEAA8YfW3sGeBKFZ+fL2UBPT+vRu71vzWDHZ1mUJqvbscw/06auMMS7vHRP+4rrsdLQqPI6uM4WoROCfqus=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783825220; c=relaxed/simple;
+	bh=eYBnTZ5HKkGWeLXchZhY3cgtIf3nlD6Kr1/ecwKnd14=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Pq1brnPHPcYNCLk1d8u67TdJoMwuzfSs8chwP23gIvWuZFi1evLZOdm2W0N7oNdXCD75CW5SBD6eD5J+zTbhJW4Ig7iPaB1s30CL/fTKBozPz3CRquQI3ur9yv5Ss2Stcf7w16L7T2dPt9AnymQg59j2iNZNucVcQpc/2rfulpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e2XDoclE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="F2Bcm8Hw"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-ca97d139d5fso1493609a12.0
-        for <linux-media@vger.kernel.org>; Sat, 11 Jul 2026 18:01:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783818094; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NaKQHBrk74I+7RhOCzQlteDK5/nKxjH7pKCmYhVvaf7ff1Cb32WdpKutgCZttXsqHu
-         jL+BLZCM0+g6CsADNrlVd2ZTZoH7jUVo1+Y1sKcNO/b6Q/ntmKzI4shMtuij9GDtaTRJ
-         FCIG14xWtKNkIRRpD4k4hSj/wQA65gklBGrvEBONQCICoP0QtBytkqRH4rlYR7//gZh4
-         cLs56bai0UiskOqBCncm8L0u4YGIjWw0HIZQVyqNOnpQiKCxOnFI3xnd0GUp9GUBX6lO
-         pL+fzlO3mHVJUwGQrO7AI9Tze+++PZsFnLrP3ojHhqRbhwI45JIAb8pQ+ngP5Pi6K1iH
-         GeeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=gGEYW3UAXERRsGZl8/IlnSaBkO9PGZLTdY+qnlryyhU=;
-        fh=Et1mVx4vl1S6lVVQsFQe6e+H52YUaRVaQkh4mJbMJdg=;
-        b=FhdSrh72gmgFqyIkXd+a0QufgDnjPaPVXwsOWCPdb9/W5Jss2hQXX4lhcck+xXkSrJ
-         Z8i1Tb4f1fIAZmAF3/Jk5EryIzXWiwxpjhuZzNL5foxqeVkICsKG3xlQYiCKoSHLNOfx
-         c/8gnKI2j0YmE3bwMLuxT1kwOV5+Dcm344cM5CXvShNqTbaxhRO+dAzQeStr/Nkxo1qQ
-         OJ4CJ7h6qnEZcCQpGbV1+W1Z30UJ18pED6b4GjmDb7A3T3geqlxv7b4S1glCiHyeyLEQ
-         0dMc46l4ejuj3/ce6bmSPPF8Pq0UpD9g9vKebYGFHTV1dMI9JhBJ0FHLrTOYoTxTwICo
-         haNw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783818094; x=1784422894; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gGEYW3UAXERRsGZl8/IlnSaBkO9PGZLTdY+qnlryyhU=;
-        b=F2Bcm8HwvOLs7bxy896OiDRS7aOVkXzSRJUgxn73pPsUhRXl90cRBS7fWeF9Pq3i4P
-         6WF4MlA/qmoiDZyT4/6EZCgWbHBs7BHU/SEJlV1KHoEKOTV509ukjVajnPveJcqhRLzA
-         H4VeEjDgBH1i+to9Y+rirt/kVSzSt9LYgl7M8a0sh0p/lBukORhcnzPCxs6CDPwFEbGV
-         ya9lBdjhTycogmawCL+ZGwIYaqxCx+drVf/hhVHlRxHBXHeTvlXHfcVH0/L0RGmPpq3L
-         fUp6erk2+3hEnf9ynGSI5RbRvqqGid5Ng6zLWYZohb6uvBZX7A5VGQruM8nGFYeKrhff
-         XAaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783818094; x=1784422894;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gGEYW3UAXERRsGZl8/IlnSaBkO9PGZLTdY+qnlryyhU=;
-        b=QYLXJ2s7R3hR6rhJEamvWnR5CkQouI0cLqXmFvtOQ9/HCkyDPRdXocXVRhEwbPV9S6
-         oGGkoPH8BfkGL4Q25G5Cf4DOT6oWSPT34S6zNjpLRPn/XsH2XZElKxHAF/uKpFargVTy
-         D51vr4MJ5zYtNzxxWVCnw2ydQZUIhBUvY76Nul5E3xRzw8W4LK4BAo24mDcR4SCStdB6
-         SDyNlwr2KF2lgV/VxCknS+cgw0DtbGdQzFHkp3XY3tquA9F+0emwdgA2Qel/M1QGQs+D
-         05xzStSikHI0ddnkXMWLPG7ODoR1xmXJH+EPdmTKfLSyLfWjnmuvNJpov+a4oQAsaCgX
-         wpFw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq0l+0Lx3wYFv3LWWBBDb4DilL6ALRNSWT1pYEJhdkzcMs/XjIEhxRCaCZXuib8P4BO3dBasejg5UeRew==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxOzd6/vEUqO3Lvzk1ugWgE6aVRig8euPorq4xSChN3o605Jl5t
-	CWhAFRCmFDjAmGHOK/LwMXx2rsO2cXbG32Zr/JDGp3PzjbXq7UvAZ9nrhx1rEBdlDzuV7i+o72i
-	ur+du5/5h9WklBGv6hnZydYkLH4SZph94pU275I/Q
-X-Gm-Gg: AfdE7ckFVNbztFvLfEQpGsJd4P7ygqBKmaSNW4ND7TjPNxSA0X0jh2gbq1GfMo8iA+N
-	rxgmtSwcLzQRQVEOuVWh64E6U1q+TiEjs+CN2C4hPjYZH2iO5aZ0WJG/J/jy7hAY5xcWIrLI7WP
-	JQyLCpCY6go6vlXkopQp4UmcNNiMx/rn9kX+fI0ePPy4uLma2Aga9HMHYF0HYVNmSRYSNtWadFv
-	c6RnxVI5psC177arYbKE3IhcQVaLkvJzG9dCGBSrsbowXNrG3vmOIQndI/Rx7ZnBgLDMqY3Wp/M
-	Q6z1UYJwb/gzo9SDIRpkQ+god3Qg
-X-Received: by 2002:a05:6a21:3990:b0:3bf:a7d5:df38 with SMTP id
- adf61e73a8af0-3c11075f8f6mr4812182637.9.1783818093599; Sat, 11 Jul 2026
- 18:01:33 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 11 Jul 2026 18:01:31 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 11 Jul 2026 18:01:31 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20250602133009.GC233377@nvidia.com>
-References: <20250529053513.1592088-1-yilun.xu@linux.intel.com>
- <20250529053513.1592088-11-yilun.xu@linux.intel.com> <20250602133009.GC233377@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e2XDoclE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0157C1F000E9;
+	Sun, 12 Jul 2026 03:00:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783825215;
+	bh=/qCsV/vqShpGar2CdE6+oSzfHojJA4x7ZwJRazSD1MM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=e2XDoclEhrjcVXWvh1B880XUPV66a/sOIoLIrOoFelZVtLPr/wUYWsLyZrlKRu581
+	 0O9NHLai3WeFMS/3jZeBqPVEogdIvl5wCdN3aKBoh5tYGft3DEwSWmoshmmUmRd/kQ
+	 k+Du1QevYvtZVwb8BSzkvAyGbVu9jriVr9tmU3rG8DPvItNNqd2GQfdVqvf6lxAeDH
+	 uJITsVjef9Dz4j0oylJOyQuV3b+ZnC23fR8I0WSag+l/fuqTdzFRDpNbyjhoYTID+w
+	 gd4QpTZucdCndzrFVIjiN/yF/qZrqZy0plb9VoGPnHUJ0HlhL1GsbkOdtEmb9KFyYR
+	 Gotp95BSe0iNw==
+Received: by wens.tw (Postfix, from userid 1000)
+	id D7B8A5FBF9; Sun, 12 Jul 2026 11:00:12 +0800 (CST)
+From: Chen-Yu Tsai <wens@kernel.org>
+To: Maxime Ripard <mripard@kernel.org>,
+	Paul Kocialkowski <paulk@sys-base.io>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej@kernel.org>,
+	Samuel Holland <samuel@sholland.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jernej Skrabec <jernej.skrabec@gmail.com>
+Subject: [PATCH v3 1/7] dt-bindings: media: sun4i-a10-video-engine: Fix IOMMU count for H6
+Date: Sun, 12 Jul 2026 11:00:04 +0800
+Message-ID: <20260712030011.3778169-2-wens@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260712030011.3778169-1-wens@kernel.org>
+References: <20260712030011.3778169-1-wens@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sat, 11 Jul 2026 18:01:31 -0700
-X-Gm-Features: AVVi8Cd0bGOMjMsYrL4vU20fXx-xb2mKPsbs-m9K5p8jfizmd9no0laxFphKWjw
-Message-ID: <CAEvNRgFpJWQ5M5sQhGpQUV3GbBq9N+MQhhaxdxa=D8ky94SCsw@mail.gmail.com>
-Subject: Re: [RFC PATCH 10/30] vfio/pci: Export vfio dma-buf specific info for importers
-To: Jason Gunthorpe <jgg@nvidia.com>, Xu Yilun <yilun.xu@linux.intel.com>
-Cc: kvm@vger.kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com, 
-	pbonzini@redhat.com, seanjc@google.com, alex.williamson@redhat.com, 
-	dan.j.williams@intel.com, aik@amd.com, linux-coco@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
-	linaro-mm-sig@lists.linaro.org, vivek.kasireddy@intel.com, yilun.xu@intel.com, 
-	linux-kernel@vger.kernel.org, lukas@wunner.de, yan.y.zhao@intel.com, 
-	daniel.vetter@ffwll.ch, leon@kernel.org, baolu.lu@linux.intel.com, 
-	zhenzhong.duan@intel.com, tao1.su@intel.com, linux-pci@vger.kernel.org, 
-	zhiw@nvidia.com, simona.vetter@ffwll.ch, shameerali.kolothum.thodi@huawei.com, 
-	aneesh.kumar@kernel.org, iommu@lists.linux.dev, kevin.tian@intel.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Jason Gunthorpe <jgg@nvidia.com> writes:
+On the H6 SoC, the Video Engine has two memory ports, thus two IOMMU
+connections. The secondary one that is missing is likely used for
+reading reference frames. The newer H616 is the same. On the other
+hand, the D1 only has one memory port.
 
-> On Thu, May 29, 2025 at 01:34:53PM +0800, Xu Yilun wrote:
->> Export vfio dma-buf specific info by attaching vfio_dma_buf_data in
->> struct dma_buf::priv. Provide a helper vfio_dma_buf_get_data() for
->> importers to fetch these data. Exporters identify VFIO dma-buf by
->> successfully getting these data.
->>
->> VFIO dma-buf supports disabling host access to these exported MMIO
->> regions when the device is converted to private. Exporters like KVM
->> need to identify this type of dma-buf to decide if it is good to use.
->> KVM only allows host unaccessible MMIO regions been mapped in private
->> roots.
->>
->> Export struct kvm * handler attached to the vfio device. This
->> allows KVM to do another sanity check. MMIO should only be assigned to
->> a CoCo VM if its owner device is already assigned to the same VM.
->
-> This doesn't seem right, it should be encapsulated into the standard
-> DMABUF API in some way.
->
+Add the missing IOMMU connection for the Video Engine.
 
-I'd like to propose an alternative. I've been working on guest_memfd and
-new to the world of IO, please help me along! :)
+Fixes: 62a8ccf3a248 ("arm64: dts: allwinner: h6: Fix Cedrus IOMMU usage")
+Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
+---
+ .../allwinner,sun4i-a10-video-engine.yaml     | 21 ++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
-It seems like using dmabufs are used a little awkwardly here. IIUC
-dmabufs were originally meant to expose memory of one device to another
-device, mostly meant to share memory. Dmabufs do expose MMIO too, for
-device to device communications. Without virtualization, userspace MMIO
-would be done by mmap()-ing a VFIO fd and having the userspace program
-write to the userspace addresses.
+diff --git a/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml b/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml
+index 01f2afa023f0..932043d7f0cc 100644
+--- a/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml
++++ b/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml
+@@ -55,7 +55,10 @@ properties:
+     description: Phandle to the device SRAM
+ 
+   iommus:
+-    maxItems: 1
++    minItems: 1
++    items:
++      - description: VE port on IOMMU
++      - description: VE_R port on IOMMU
+ 
+   memory-region:
+     maxItems: 1
+@@ -82,6 +85,22 @@ required:
+   - resets
+   - allwinner,sram
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - allwinner,sun50i-h6-video-engine
++    then:
++      properties:
++        iommus:
++          minItems: 2
++    else:
++      properties:
++        iommus:
++          maxItems: 1
++
+ additionalProperties: false
+ 
+ examples:
+-- 
+2.47.3
 
-Before CoCo, device passthrough (MMIO) is mostly handled by mmap()-ing a
-VFIO fd and setting up the userspace address in a KVM memslot for the
-guest.
-
-With CoCo, is the problem we're solving that we want KVM to know what
-pfns to set up in stage 2 page tables, but not via userspace addresses?
-
-guest_memfd already does that for regular host memory, tracks the
-private/shared-ness of the memory, tracks which struct kvm the memory
-belongs to.
-
-guest_memfd functions as KVM's bridge to host memory. KVM already can
-ask guest_memfd for the pfn to map into stage 2 page tables, and already
-asks guest_memfd for the shared/private state of the memory. guest_memfd
-already also blocks the host from faulting guest private memory
-(mmap()-ing is always allowed).
-
-
-Instead of using dmabuf as the intermediary between the MMIO PFNs and
-KVM, why not use guest_memfd?
-
-What if we make guest_memfd accept a VFIO fd, or a dmabuf fd?
-
-guest_memfd can then take the mmap() calls from userspace and .fault()
-from mm, and then forward them to VFIO or dmabuf. This way, VFIO/dmabuf
-can stick to their original functions, and the changes to VFIO/dmabuf
-would probably revolve around disabling access.
-
-Disabling access would probably involve some of these:
-
-+ When guest_memfd receives the fd, it could return error for existing
-  mappings, or perhaps it could just force-unmap.
-+ 1 extra flag or field to indicate that guest_memfd is controlling this
-  file, so that if userspace tries to take some actions with the
-  original VFIO or dmabuf fd, the request should be blocked.
-+ Perhaps just close the original fd, like dup2(oldfd, newfd) closes
-  newfd?
-
-
-I'm about to restart work on guest_memfd HugeTLB and I'm thinking about
-a similar approach for guest_memfd HugeTLB, where perhaps the interface
-could be that userspace will give guest_memfd a HugeTLB fd at creation
-time, and then the original HugeTLB fd would be rendered unusable in the
-same way as above, perhaps like with the S_IMMUTABLE inode flag, but
-also blocking reads, and not userspace-modifiable.
-
-
-In the course of a CoCo guest's operation, will the guest need to
-convert between private/shared MMIO? Will the guest need some pages
-shared and others private? If these are required operations, guest_memfd
-already provides the tracking and is going to have a conversion ioctl
-very soon. Instead of further extending dmabuf to track more things, how
-about letting guest_memfd track it?
