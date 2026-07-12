@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB81D36654C;
-	Sun, 12 Jul 2026 03:00:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E3C36A342;
+	Sun, 12 Jul 2026 03:00:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783825221; cv=none; b=ADvmvfFH5AGR+d4ffv7jxyl963dpg6BgExojqemmbGo7695XRQRCKFD/4O/v+ElFkD3cbQopTI2ntDETelZDUweq+UnnX3FijqKrlmuzxWyjn4pC2J1mHvTD9CnpSRQ9RMK1ymKqLmqAOku21VvT8WmJurJbJvIwwa1h2tTjrco=
+	t=1783825226; cv=none; b=TQDPrTUlkqDQr2QR70uhhWln0SnH33ZMqnHY0jDL59wImrehR9d3N1C6XK5wJUlrXX6LKNvz4myh9x9lTIt6MnYVIaBvVuqIyKu9dBPbyEcq4QuGqeOfzWecpzqznnJIDPO7VhS8DlqA0GkT0tZI3Pnih+O0HaxOUyPZF30qdYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783825221; c=relaxed/simple;
-	bh=Cc3iXIe7vA6bWvZE/goaLJXnEVxUk1J4/yD+9CVPv6c=;
+	s=arc-20240116; t=1783825226; c=relaxed/simple;
+	bh=gW2V/cjtn2yP9PlGPvyWgig9cbcM95cWOOpoDOZuA24=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ctEliKPc/AqAXHdoz3ubXXopFaCCBaK5qHQCO1uI4gYrJTwl56Vbz1S+CZ1XsRIV0GGwIsr9/CJbmfmrvm3Ot8suwDggVlFVg7HukDws5UvZCfDgn/ifhLjpZcYqMWj+OHwjgREXZSX65udv9kkafDObweL2sKSJTOrDWhICotc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M3ViGUJD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Smxg1/dXN17/PMngXi9qfl21mbdXTCQu/grNgNtt2fTiN9AGiFGhGHcbaR4sTEyJrGO9cnlQdQB4m89nfgVje5p+6ERN1k39r7fyFwUvonr99QdhkIilUhBD/M9nXWNvxCwBZX2zJ0K6Y6JOOqMuSAsUyOvX5HpfgzGgRysH/mk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OYM8XCBb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M3ViGUJD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1097D1F00A3D;
-	Sun, 12 Jul 2026 03:00:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OYM8XCBb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF64D1F00ACA;
+	Sun, 12 Jul 2026 03:00:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783825215;
-	bh=4OuezE/moo5Tppqmye8t2PqCkPAk1kmw20Fa1p80Uak=;
+	s=k20260515; t=1783825217;
+	bh=pzarCo0PiGEntl4cqzxyei11Yp87WevMdKTnQJP6EnQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M3ViGUJDdOiDRTiVtWE163GhjLsJEZern531YSS1D5os1zFDHYIvLNbuqrR2Ev8PP
-	 RAEOpFlhoxoWnZvZWEMGKj1lfMbM+WbhqgfZ8fNpN5kr8mid/ABCNeOCMB+Q5Hb8Mo
-	 RFmEW7NRCjPNhVXH3I+Bg4cbGESorTC/GXDFrHMgvG3Y+2Qgmb4yUxkK5URber0DFY
-	 F8wT9k0tB0pd5MkP5i3xquo1ZlmzvD9+lRdGfEP06GHHgeyDy/E22GifI17e/BL5yb
-	 CKkLrUm9/T1DyQuFvNJyEWnVGrhXyl359afP5EqyeMBwaRYw26d8cgkRMAulPJzgss
-	 tlXGLCKPEcCuA==
+	b=OYM8XCBbxH2+vtUBrUayX17GxvMN8/27b2gaHlDRqN4BFjlUSiSfcyRcyW2TF8L+C
+	 vJ/S7W5M2KREywFteL4VjSd0hyKmPkQLDRlnsfmSJEanKbffe/hgGc2A4R1+jwEXak
+	 Rm04jfGDdXLNsyiNVXV7FiOS4PGmd9p3PLOomY5JxFC+x1eQmRWshRJxb1cFPD2+8H
+	 4O4aMvip/0wXtkLaXk34Z3fGGxj8exBqW1dsOcrAtkmYJu56IT/aUtWi0aVtbQmkg7
+	 Gn/1q/xI0kevfc2inifGuVog2LzxvhHUyLWvX9wbF8gcCSzT+j+Gp4PvvrY8KN1SkP
+	 nCaqGfOWmlRjQ==
 Received: by wens.tw (Postfix, from userid 1000)
-	id E2AB55FE73; Sun, 12 Jul 2026 11:00:12 +0800 (CST)
+	id 1BABE60169; Sun, 12 Jul 2026 11:00:13 +0800 (CST)
 From: Chen-Yu Tsai <wens@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>,
 	Paul Kocialkowski <paulk@sys-base.io>,
@@ -46,9 +46,9 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH v3 2/7] dt-bindings: media: sun4i-a10-video-engine: Fix SRAM count for H6
-Date: Sun, 12 Jul 2026 11:00:05 +0800
-Message-ID: <20260712030011.3778169-3-wens@kernel.org>
+Subject: [PATCH v3 6/7] arm64: dts: allwinner: sun50i-h6: Add missing IOMMU for video engine
+Date: Sun, 12 Jul 2026 11:00:09 +0800
+Message-ID: <20260712030011.3778169-7-wens@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260712030011.3778169-1-wens@kernel.org>
 References: <20260712030011.3778169-1-wens@kernel.org>
@@ -60,62 +60,33 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On the H6, the SRAM C region includes an alias of part of the VE SRAM
-used by the video engine. This region should also be claimed so that no
-access happens through the alias window.
+The video engine on the H6 actually has two IOMMU ports. The one already
+listed is simply named "VE" in the user manual. The missing one is named
+"VE_R" and is probably either read-only or used for reference frames.
+Either way, it should be listed.
 
-Add a second SRAM region phandle to the video engine for the H6.
+Add a reference to the "VE_R" IOMMU port to the video engine node.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Fixes: 62a8ccf3a248 ("arm64: dts: allwinner: h6: Fix Cedrus IOMMU usage")
 Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
 ---
- .../allwinner,sun4i-a10-video-engine.yaml     | 21 ++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml b/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml
-index 932043d7f0cc..818d815d4732 100644
---- a/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml
-+++ b/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml
-@@ -48,11 +48,15 @@ properties:
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+index 88c6e3e105c0..48c771223af4 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+@@ -206,7 +206,7 @@ video-codec@1c0e000 {
+ 			resets = <&ccu RST_BUS_VE>;
+ 			interrupts = <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
+ 			allwinner,sram = <&ve_sram 1>, <&de2_sram 1>;
+-			iommus = <&iommu 3>;
++			iommus = <&iommu 3>, <&iommu 1>;
+ 		};
  
-   allwinner,sram:
-     $ref: /schemas/types.yaml#/definitions/phandle-array
-+    minItems: 1
-     items:
-       - items:
-           - description: phandle to SRAM
-           - description: register value for device
--    description: Phandle to the device SRAM
-+      - items:
-+          - description: phandle to SRAM alias
-+          - description: register value for device
-+    description: Phandle to the device SRAM(s)
- 
-   iommus:
-     minItems: 1
-@@ -101,6 +105,21 @@ allOf:
-         iommus:
-           maxItems: 1
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - allwinner,sun50i-h6-video-engine
-+    then:
-+      properties:
-+        allwinner,sram:
-+          minItems: 2
-+    else:
-+      properties:
-+        allwinner,sram:
-+          maxItems: 1
-+
- additionalProperties: false
- 
- examples:
+ 		gpu: gpu@1800000 {
 -- 
 2.47.3
 
