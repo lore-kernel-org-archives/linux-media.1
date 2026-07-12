@@ -1,87 +1,124 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6FAF24336D;
-	Sun, 12 Jul 2026 11:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D65310645
+	for <linux-media@vger.kernel.org>; Sun, 12 Jul 2026 11:51:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.177
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783855210; cv=pass; b=lnP7g6rLvUFyO3oHl7vNHUXTlarJYSoAEykSc+3tkL7bfXMvGwzbi99qzWZiHX12KTOA9fXPv3TyUJOF75arXfNjmW9I/NJBUT5dzjXlzgKMgk1CYzHmcot4u8xMtsYVY3Rw5lBLSWnKku1dhJnCJX4MbCpYxxcm8F7mURQB5UE=
+	t=1783857116; cv=pass; b=bu5S+fHe7uZqop3ED1OzxbpMB9YJiwNCf8hyWZ+i1jUC+/6pSDq26RUGryULqTaDhtDFh4IPjmUHsJB6T7Z8SmMf49WAc5WGgwY2UVIREZ0GG9nXwRAAmOn6a97apj3/oLWOQn9PDGqNjd9nMTSFc4rrlZt2vt/8moltu4A7AWE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783855210; c=relaxed/simple;
-	bh=czHN4mzH8v7HuuPxICj5uvc3lTRI5qw330MjxLOLEYU=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
-	 References:In-Reply-To; b=L54YLaw6kB4mS05yi8/pOO+Y4f6phONdFnXyU/jmYNX/Xrpx+5spekm4w4BQSunzFn7nMZ2qPoIj+s+FxGIkVFnHAPgX1LDIkIfgj8hSBrfmYN/7Bl0FXZ/r+QMLTmdU2SNXZwq+EzvVpKzNFqqBQnq31P4QQ5Z3ydEvapSb7I0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ritovision.com; spf=pass smtp.mailfrom=ritovision.com; dkim=pass (1024-bit key) header.d=ritovision.com header.i=rito@ritovision.com header.b=P25iAD99; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ritovision.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ritovision.com
+	s=arc-20240116; t=1783857116; c=relaxed/simple;
+	bh=Vq61pPu6R8RhFxhzO6MCMoN7B8JnjWnfrnKR8iKrLVo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=s+1Ux35GZGQCYOjkZ3k9TJ/PslodU4DpjI3Q06W19kjvub1gCkZeJypF1dZdIUm0v5ATSjqoAdzzCQCFeHvkhUc2hxp759kG7rl0FRaHI9KBZPPla0rHkt5dCyFtE3cBedUMu1ggZ7v4CY5/H/ufVp4XIcWZYA7SUTd5wyqTDng=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org; spf=pass smtp.mailfrom=quora.org; dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b=URUmaZ9U; arc=pass smtp.client-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quora.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ritovision.com header.i=rito@ritovision.com header.b="P25iAD99"
-ARC-Seal: i=1; a=rsa-sha256; t=1783855203; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=d0Zwk4omcLtVCdc345Pg3+CWDq7SLZtI3Wrc6kzkNbhzk3vaxCMEpCQQN2JR4AdkjiETXMlPg4Wr5nvwwVMErhVxbeU71pXlVmZaOdxYSgjGUfL92mX44HKYnp3r4nyWK5j86qUQnaC6kACCk7+iJAUPtg3ZPAMcFx94CcKPnQ8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1783855203; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=czHN4mzH8v7HuuPxICj5uvc3lTRI5qw330MjxLOLEYU=; 
-	b=MoyUoE4N85kk9EALlU1fZ+Ocj6BCv7FmLl/IGPdR6dJyVBu9dLmnky1pa5b616HmcZX8eJjyVZRMIsRC0jwJIgFboWQdrEwwYXYBCAKj7TQq4CpQzX2DKxVPSevdBs4sq8si/rB6dWAGfoii+PHx9LDTg03/giKh2YV7l+zjoKU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ritovision.com;
-	spf=pass  smtp.mailfrom=rito@ritovision.com;
-	dmarc=pass header.from=<rito@ritovision.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783855203;
-	s=zmail; d=ritovision.com; i=rito@ritovision.com;
-	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:Subject:Subject:Cc:Cc:From:From:To:To:References:In-Reply-To:Reply-To;
-	bh=czHN4mzH8v7HuuPxICj5uvc3lTRI5qw330MjxLOLEYU=;
-	b=P25iAD99dYjxX+0d3rtiVVrTmoOx0kGZ9v/bShuBMiCt0hd9cfiBzNcbiX1PP+ei
-	e4r3ueYZSXS7QIbG4upDcLuTS4VT5zrQBqxpef9hJWIh/qKkKpRof+HfJ5BONLdlQ08
-	QRIp5dwqeiWcYUQ+S377EpI37i7agZ6ggXHa1e+Q=
-Received: by mx.zohomail.com with SMTPS id 1783855201176945.8781942050364;
-	Sun, 12 Jul 2026 04:20:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b="URUmaZ9U"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8484a0b998fso3474664b3a.2
+        for <linux-media@vger.kernel.org>; Sun, 12 Jul 2026 04:51:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783857114; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QRuttIabCihPZ4VTX6QJowNwiKkR47PHyojZ4bGfhFu3vtZ8ndGjt0kQEhGErNRTYr
+         I3wiLFLwC8/SP6/zA7F6IJsFWN4lijFzISB1jgMT2sWwZyyxy0QYJaOuuwuP4wuIylR8
+         gOBvSYADWrxaqTTOflAfww5ZwNTzyvDGZoDJNK7dNelq6/WUhI9F7QxQ2gnqO7zXk37f
+         bLsfcpgfQQ50f4savp1RfqkVGFC+heQ3PqDdWl94NCKLBi98Gx0Mtaulu0TLwAp2YRar
+         FdsBqk2hE+cMltWcAI6gu51ffa3lZMCKPKCDrvXOuBBbgiPdpmRhLLVrDAwsv7RJ9RW0
+         9yjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=YsQpUC4iSbhz2nXUUh9/l1xqUNQEcKgCsyiqdbNE7Cc=;
+        fh=0zOot3mH3OkLBW+UZhdHzxtJ0HY3pW8PHwheCurhXKY=;
+        b=gzeVi5gK6wSye484zw+uqppMp3Vrthm5LNRr/MongBckrTuQRDWBGSmDkyz57HR8RC
+         MT96Ya1Eb22xC066BQdn3crqi3b6AhhM+ZczpQFTQOqKL9FqBbxKbQniBAeZlp7hCnxU
+         bZerYQnyIRHi18z+yULJ5ogc8i1Fup+zHdWnluD2HS0vlAozFKdRZZJIq2cyKHkhbXh3
+         L5eN4ObGjGOM1Xp3bg3pFr5fMBC+dySOWmyRJpnConqW2eBGhgEOWiQQ+4rygeeUFjDI
+         CVkoIns2ZLE6SWbQhjFpb9YIQeEZmghgwEztRVLtcarLYYdBaJrCBLP1ESZjMVqMibbn
+         vt+Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=quora.org; s=google; t=1783857114; x=1784461914; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YsQpUC4iSbhz2nXUUh9/l1xqUNQEcKgCsyiqdbNE7Cc=;
+        b=URUmaZ9UW7ebsoLPmv2ZwO+NMA/F/cdUeLiUqXEHvG7svopSwPCAh2vYO8eKQx9+Uq
+         qIHblZvsk0rX4E3NZ5TVXxD941gvWnFAmHodF0VYobDRHdLxLkftPV4gzn1z/DEbX8la
+         WR0e3xpTmTybNyRCJN6NPBqgRiYhey1vgPKa4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783857114; x=1784461914;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=YsQpUC4iSbhz2nXUUh9/l1xqUNQEcKgCsyiqdbNE7Cc=;
+        b=ZJB1wEJU+Mt3+K8U+bkPFOZm7D7B42E8sMiwR0BqZTdMVbMW+OlIS0rtcHv/2/V6+T
+         k0lOa7jLsZdK2Jnf6TC8tmQ1n5YN6jpOPkAelL54Wg45mpLsA42sjDjENWtFzd2MRxmw
+         B+58KL9HdC4xOuwvaqNtMcponDujZlbN/Gwz5nCF+8hV8Knsx5U9xZwf0fz/dw3puLkl
+         VbDC+rNUL0FQJU5muuSm8OF4JW0SYLwF44ABki1fdcNpcA4zyppK0uZaFszJbUugF7ML
+         u1qfvZRJIHP9Xr53za1Mynvf9Hq2aFEeCsZ5AEbnNF4r7uLKJBkb94TQesKQ4+jbh7NS
+         7+iA==
+X-Forwarded-Encrypted: i=1; AHgh+Roo2ArqJ+hndmsRPrNNe+LchjPw9USeUqHse/8U/ZwU5THKBJ36pZeZgeqNnOCWilnxcb4Rt9VcbUxH3w==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyfMWsXh9O4sR95a8GP5A2TevLFM6ItiWH6e0hnVJEBaAtm+/9i
+	54alSvRoYsjcDmatZqZCk5xCME6/D+KQyNNYDbuIC+L+cWv269rkfgqvkSZeKwTr3Wk2KOAaRcM
+	D6DbvYQGOOvif1JuR65lS1CwrezbvQVcTUbo/ZFkzlA==
+X-Gm-Gg: AfdE7ckI7WNyW7cR/0E37PF/UGdqqGxSJBFcOZaA3PKPfUA0HbfK2kLnC0w8X08eCeL
+	1cgxh8PfUMuCYj2jhCCJZ3GOulWuMNOoaSVULJHP5DwUTLtEzV/zu5lctuGv3gCYavsap2nH1Av
+	XdljSrRVsVal9vBuPnvI9AT9iIcDfvltX7HtxFb+KW+u1CsjwlTkNfJ7H43lIYyONQQ9ryW8J+V
+	Yp7tCjU55FyBSScibEM12pj5dcB1knULpf9HyiOkF9KzIPg1JpA6A+URp/hhRmfL5688eDDwB9j
+	Qmneyjq57MrtedC0mPl3WQIu6i5x7w5g4jPeH5fCHf4CMjlUzCDmqtCRI5PYAYqkH/5dlO2Qdaj
+	AtOB7zY2w47mAGcVvxdvUYk9BbYGDfBGFvvGP3V0qHsmf/Gmc5s0u/9OUcdhHIM60SfLTK1qlrN
+	s2EPkWjTMLCmRqmFdyZu++oRmtd/wnmkMwxT5HOGgWCgw/4huuZ/wQZjyLLHFyM3UdL71ZF8A=
+X-Received: by 2002:a05:6a00:c88:b0:848:2f77:e2dd with SMTP id
+ d2e1a72fcca58-848897a7553mr5221254b3a.70.1783857114306; Sun, 12 Jul 2026
+ 04:51:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 12 Jul 2026 07:19:57 -0400
-Message-Id: <DJWJW4K4MAFK.2RJI3ENU1NQYE@ritovision.com>
-Subject: Re: Bad wrapping in some tables
-Cc: "Rito Rhymes" <rito@ritovision.com>, "Jonathan Corbet" <corbet@lwn.net>,
- "Daniel Lundberg Pedersen" <dlp@qtec.com>, <linux-doc@vger.kernel.org>,
- <linux-media@vger.kernel.org>
-From: "Rito Rhymes" <rito@ritovision.com>
-To: "Mauro Carvalho Chehab" <mchehab+huawei@kernel.org>, "Hans Verkuil"
- <hverkuil+cisco@kernel.org>
-X-Mailer: aerc 0.21.0
-References: <c542aaf7-6a40-4730-8bd6-208c9fe932d5@qtec.com>
- <87pl0yr9ah.fsf@trenco.lwn.net> <DJUP0UXLLHJ0.3P121A982R9TP@ritovision.com>
- <7fcac682-60e3-4e1d-b26b-5b23f8035a91@kernel.org>
- <20260710104220.2b165f2d@foz.lan>
-In-Reply-To: <20260710104220.2b165f2d@foz.lan>
-X-ZohoMailClient: External
+MIME-Version: 1.0
+References: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
+In-Reply-To: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
+From: Daniel J Blueman <daniel@quora.org>
+Date: Sun, 12 Jul 2026 19:51:43 +0800
+X-Gm-Features: AVVi8CfIxi4WIpFkevKCP00_7Hn3fE6sIEYaOzLrzMtk6xLs3rWmXH2GtZ7E-hM
+Message-ID: <CAMVG2stqOscN2CB5Uq4qVvb3vXOze35-JzqH4GpS8z4R2dr+Mw@mail.gmail.com>
+Subject: Re: [RFC PATCH 00/11] : media: iris: Migrate iommus to iris sub nodes
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, "Bryan O'Donoghue" <bod@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-> Breaking up literals is more important on PDF output, if one wants to
-> print the documentation.
+On Thu, 9 Jul 2026 at 20:35, Vikash Garodia
+<vikash.garodia@oss.qualcomm.com> wrote:
+> VPU hardwares have a limitation where VPU streams are associated with
+> dedicated addressable address range, as illustrated below
+...
+> Mapping a stream outside its expected range can cause unintended
+> behavior, including device crashes, as reported at:
+> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+...
+> To address this limitation, the subset of stream/s are now represented as
+> sub nodes, so that they can be associated to the respective addressable
+> range.
 
-Could you clarify what you mean by PDF output here? Are you referring to
-printing the HTML page through the browser, or to the PDF generated by
-the Sphinx build process?
+Amazing work Vikash and team! This patch series applied on 7.2-rc2
+resolves spontaneous rebooting with parallel streams eg when opening
+https://ui.com in one or more browser tabs, resolving this platform
+usability blocker. As such, this is absolutely relevant for -stable.
 
-Are there any known problems or constraints we should account for
-printing? I assume you may mean that long unbroken literals can make
-tables wider than the printable page and hide outer columns, that and
-horizontal scroll overflow in general may be clipped when printing,
-making wrapping preferable for that output.
+Tested-by: Daniel J Blueman <daniel@quora.org>
 
-That makes sense for print, but it is not necessarily the preferable
-behavior for navigating the normal HTML page, where contained horizontal
-scroll overflow can preserve the page and table structure. I do not
-think the print constraint should override the primary HTML
-presentation.
-
-I would like to account for both. If this concerns browser printing, we
-may be able to apply the necessary wrapping selectively through
-`@media print`.
-
-Rito
+Thanks again,
+  Dan
+-- 
+Daniel J Blueman
