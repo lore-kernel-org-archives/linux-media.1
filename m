@@ -1,124 +1,135 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D65310645
-	for <linux-media@vger.kernel.org>; Sun, 12 Jul 2026 11:51:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783857116; cv=pass; b=bu5S+fHe7uZqop3ED1OzxbpMB9YJiwNCf8hyWZ+i1jUC+/6pSDq26RUGryULqTaDhtDFh4IPjmUHsJB6T7Z8SmMf49WAc5WGgwY2UVIREZ0GG9nXwRAAmOn6a97apj3/oLWOQn9PDGqNjd9nMTSFc4rrlZt2vt/8moltu4A7AWE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783857116; c=relaxed/simple;
-	bh=Vq61pPu6R8RhFxhzO6MCMoN7B8JnjWnfrnKR8iKrLVo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=s+1Ux35GZGQCYOjkZ3k9TJ/PslodU4DpjI3Q06W19kjvub1gCkZeJypF1dZdIUm0v5ATSjqoAdzzCQCFeHvkhUc2hxp759kG7rl0FRaHI9KBZPPla0rHkt5dCyFtE3cBedUMu1ggZ7v4CY5/H/ufVp4XIcWZYA7SUTd5wyqTDng=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org; spf=pass smtp.mailfrom=quora.org; dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b=URUmaZ9U; arc=pass smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quora.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1450E3A4F26
+	for <linux-media@vger.kernel.org>; Sun, 12 Jul 2026 11:51:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783857117; cv=none; b=LbsxrEEbMk7hNb6EBkABQRM7PS63SIgqDdO0QcAfubASSF6+I2rjwrXICqqKtV1ejBSxzQ6sE17R310v9fcHNgAAf+TGtgLL9BIqJbOYgeRbZxAJNoNUiOLLDQYXLra+3XZtQ7NnGGCBfRGig+ZgFEusLbpNOL7p87MbpRF4FfM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783857117; c=relaxed/simple;
+	bh=6+TZszz08ANN8+9ofoYjUJ5lkEzumu4XH0cVK7Cerfw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OXRRpHVOQxHw30zvHjsmf5Pyc/sk2d+mIa7jcgNXnvadr/L7NY+m4Jzl2t+ukRmy5OEjMRUA2lC1u05nosOqm/h84kT9dU1OSixTX58lzvGuEKsnFzVcIaEHW1jdgMeAXojU7ZO4940mqgqlVNCNzqNQNSGA7EcFnN3kDY3+Gbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ahZzkFIb; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b="URUmaZ9U"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8484a0b998fso3474664b3a.2
-        for <linux-media@vger.kernel.org>; Sun, 12 Jul 2026 04:51:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783857114; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QRuttIabCihPZ4VTX6QJowNwiKkR47PHyojZ4bGfhFu3vtZ8ndGjt0kQEhGErNRTYr
-         I3wiLFLwC8/SP6/zA7F6IJsFWN4lijFzISB1jgMT2sWwZyyxy0QYJaOuuwuP4wuIylR8
-         gOBvSYADWrxaqTTOflAfww5ZwNTzyvDGZoDJNK7dNelq6/WUhI9F7QxQ2gnqO7zXk37f
-         bLsfcpgfQQ50f4savp1RfqkVGFC+heQ3PqDdWl94NCKLBi98Gx0Mtaulu0TLwAp2YRar
-         FdsBqk2hE+cMltWcAI6gu51ffa3lZMCKPKCDrvXOuBBbgiPdpmRhLLVrDAwsv7RJ9RW0
-         9yjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=YsQpUC4iSbhz2nXUUh9/l1xqUNQEcKgCsyiqdbNE7Cc=;
-        fh=0zOot3mH3OkLBW+UZhdHzxtJ0HY3pW8PHwheCurhXKY=;
-        b=gzeVi5gK6wSye484zw+uqppMp3Vrthm5LNRr/MongBckrTuQRDWBGSmDkyz57HR8RC
-         MT96Ya1Eb22xC066BQdn3crqi3b6AhhM+ZczpQFTQOqKL9FqBbxKbQniBAeZlp7hCnxU
-         bZerYQnyIRHi18z+yULJ5ogc8i1Fup+zHdWnluD2HS0vlAozFKdRZZJIq2cyKHkhbXh3
-         L5eN4ObGjGOM1Xp3bg3pFr5fMBC+dySOWmyRJpnConqW2eBGhgEOWiQQ+4rygeeUFjDI
-         CVkoIns2ZLE6SWbQhjFpb9YIQeEZmghgwEztRVLtcarLYYdBaJrCBLP1ESZjMVqMibbn
-         vt+Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ahZzkFIb"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cc7ef7ec27so24350105ad.1
+        for <linux-media@vger.kernel.org>; Sun, 12 Jul 2026 04:51:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=quora.org; s=google; t=1783857114; x=1784461914; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YsQpUC4iSbhz2nXUUh9/l1xqUNQEcKgCsyiqdbNE7Cc=;
-        b=URUmaZ9UW7ebsoLPmv2ZwO+NMA/F/cdUeLiUqXEHvG7svopSwPCAh2vYO8eKQx9+Uq
-         qIHblZvsk0rX4E3NZ5TVXxD941gvWnFAmHodF0VYobDRHdLxLkftPV4gzn1z/DEbX8la
-         WR0e3xpTmTybNyRCJN6NPBqgRiYhey1vgPKa4=
+        d=gmail.com; s=20251104; t=1783857115; x=1784461915; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4Utm4P1WbP2lIpaXwLG1JxwvoUEmp6e9qMX5dfGldD8=;
+        b=ahZzkFIb7RNV6bXWLHbMYcxAxsTw2U/LC8/4hN/7qTqLtsZODyq6/Q0pTtYeWnJU1c
+         YxVgwzGfdX87fJxUclz9MEme2ze1ICFkC0I1xZFsYz+leeiKtkuCW05TTTDef5YaIJ5c
+         WMqi23LIXsU7BQ+xDc4KbUExhQOdj0eMt4r3tIiC3hcGbvvfGHhEMsbPQpV3sl4csPxR
+         MK5ibDnrPqXJQUtzKV3tOxdu5juTPJh9H0NQSm/CP7dSX+N/Een+OwfRriQRw9NvTNMi
+         lXHsYkSaAEWzuAnueJIUDiHkNWt0Zi2z4c6IS6aHwRQk9ttN1iSOHjTl3O5lPKxgo0kh
+         LsKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783857114; x=1784461914;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YsQpUC4iSbhz2nXUUh9/l1xqUNQEcKgCsyiqdbNE7Cc=;
-        b=ZJB1wEJU+Mt3+K8U+bkPFOZm7D7B42E8sMiwR0BqZTdMVbMW+OlIS0rtcHv/2/V6+T
-         k0lOa7jLsZdK2Jnf6TC8tmQ1n5YN6jpOPkAelL54Wg45mpLsA42sjDjENWtFzd2MRxmw
-         B+58KL9HdC4xOuwvaqNtMcponDujZlbN/Gwz5nCF+8hV8Knsx5U9xZwf0fz/dw3puLkl
-         VbDC+rNUL0FQJU5muuSm8OF4JW0SYLwF44ABki1fdcNpcA4zyppK0uZaFszJbUugF7ML
-         u1qfvZRJIHP9Xr53za1Mynvf9Hq2aFEeCsZ5AEbnNF4r7uLKJBkb94TQesKQ4+jbh7NS
-         7+iA==
-X-Forwarded-Encrypted: i=1; AHgh+Roo2ArqJ+hndmsRPrNNe+LchjPw9USeUqHse/8U/ZwU5THKBJ36pZeZgeqNnOCWilnxcb4Rt9VcbUxH3w==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyfMWsXh9O4sR95a8GP5A2TevLFM6ItiWH6e0hnVJEBaAtm+/9i
-	54alSvRoYsjcDmatZqZCk5xCME6/D+KQyNNYDbuIC+L+cWv269rkfgqvkSZeKwTr3Wk2KOAaRcM
-	D6DbvYQGOOvif1JuR65lS1CwrezbvQVcTUbo/ZFkzlA==
-X-Gm-Gg: AfdE7ckI7WNyW7cR/0E37PF/UGdqqGxSJBFcOZaA3PKPfUA0HbfK2kLnC0w8X08eCeL
-	1cgxh8PfUMuCYj2jhCCJZ3GOulWuMNOoaSVULJHP5DwUTLtEzV/zu5lctuGv3gCYavsap2nH1Av
-	XdljSrRVsVal9vBuPnvI9AT9iIcDfvltX7HtxFb+KW+u1CsjwlTkNfJ7H43lIYyONQQ9ryW8J+V
-	Yp7tCjU55FyBSScibEM12pj5dcB1knULpf9HyiOkF9KzIPg1JpA6A+URp/hhRmfL5688eDDwB9j
-	Qmneyjq57MrtedC0mPl3WQIu6i5x7w5g4jPeH5fCHf4CMjlUzCDmqtCRI5PYAYqkH/5dlO2Qdaj
-	AtOB7zY2w47mAGcVvxdvUYk9BbYGDfBGFvvGP3V0qHsmf/Gmc5s0u/9OUcdhHIM60SfLTK1qlrN
-	s2EPkWjTMLCmRqmFdyZu++oRmtd/wnmkMwxT5HOGgWCgw/4huuZ/wQZjyLLHFyM3UdL71ZF8A=
-X-Received: by 2002:a05:6a00:c88:b0:848:2f77:e2dd with SMTP id
- d2e1a72fcca58-848897a7553mr5221254b3a.70.1783857114306; Sun, 12 Jul 2026
- 04:51:54 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783857115; x=1784461915;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4Utm4P1WbP2lIpaXwLG1JxwvoUEmp6e9qMX5dfGldD8=;
+        b=MrDh6H+MR3S8jwHy+O4T7TraARb0UTwlxDKRNxZXDd/AQ1kHNDpwowRiw8nvhHA42q
+         dowIuvcyQji9Hm3k6bWVkyEcC0SMyLfQgvvJnYnsOZeSjMPe03XDa8n28aQ0AGYYTIdc
+         m8zfVcFxuBXAyvE/YUJd8c9h5+49upfzzkUdzTU5GsRQJF/NI9ngPKwDEyok9SmOP93a
+         YyXeU9t2RA6iaAc5xUHonFxKpz5OcwN23EjxkwwPlAkmsxyndJ+e3apWidpOAElD0Sxq
+         Kvy+KCmBCYeuC/XkGFtu4niq47MBtNBfAmeQ/wSRCyptMXfdqmI4BE0s7xVEACmuqy9J
+         YKWA==
+X-Forwarded-Encrypted: i=1; AHgh+RrmjqFfyNUAYU8HLSrLbPhRJPn/WiD+/aStEWlLtU8dGbpgEWo+UBcF3235Qo1igQ9sUG02oHyshK5TQw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzRtmUn8UwL7/jokIuDnAmdQSWYF3E5eUXsVP5cZlFRaUvwBycP
+	uFSc27Mg1pE857v534tgtauAT3uTMfByLUSnvuYExrZmrp93avPxUKT+
+X-Gm-Gg: AfdE7cmpjRtlLHzPsqMvAY8ab0SsxauxJIPNpZIzTW0gQbYOmPVBdZy1XHKq7HEiIi2
+	8IFbZlhWXB+xFx2s0FbxOTEX2Q5XCTWXGFz9I9p+uHvWQMA8VvIhfq/II+Jt5vwgo0KmN3T4zCY
+	HwW0ZIlhBTYCGHVldNy9YZgVI2kFm4HNSi6E0m2/Upl5M8MrWgIpLAZMDrIvg+65cEbv6mb6s8m
+	qP6lqKWZJCJ2IGSI9VrBZavjBGIHzLs/Q0kSlR45D67uzT7Lx6cGdSV3epVQmXiEYaH7Ghldyzt
+	9MPLC67PycBb1UshKpNV67v+RAMAngeKneoo2mVZkAlPj2ikffggIpVJ3rnC+1bUbBJPIyaK1Mq
+	BpDu20JbAG9+HZlAYyjM/xkKRPFeNtagojlehXYLEcNEfYHZxtMZjUXYfIiZVonhrIm0o+XwltA
+	/8ODKqhhsEsiRHYfDocXPQr+ABjbeWkGA+/d9F7fDCrU6AcNZWNg==
+X-Received: by 2002:a17:903:4b47:b0:2c9:ff83:41fa with SMTP id d9443c01a7336-2ce9ee1890amr53777765ad.24.1783857115288;
+        Sun, 12 Jul 2026 04:51:55 -0700 (PDT)
+Received: from nuvole ([144.202.86.13])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bfe040sm84538295ad.31.2026.07.12.04.51.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 12 Jul 2026 04:51:54 -0700 (PDT)
+From: Pengyu Luo <mitltlatltl@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Martin Kepplinger-Novakovic <martink@posteo.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+Cc: devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	Pengyu Luo <mitltlatltl@gmail.com>
+Subject: [PATCH v5 0/5] fix and improve for Hi846
+Date: Sun, 12 Jul 2026 19:50:07 +0800
+Message-ID: <20260712115012.91600-1-mitltlatltl@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
-In-Reply-To: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
-From: Daniel J Blueman <daniel@quora.org>
-Date: Sun, 12 Jul 2026 19:51:43 +0800
-X-Gm-Features: AVVi8CfIxi4WIpFkevKCP00_7Hn3fE6sIEYaOzLrzMtk6xLs3rWmXH2GtZ7E-hM
-Message-ID: <CAMVG2stqOscN2CB5Uq4qVvb3vXOze35-JzqH4GpS8z4R2dr+Mw@mail.gmail.com>
-Subject: Re: [RFC PATCH 00/11] : media: iris: Migrate iommus to iris sub nodes
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, "Bryan O'Donoghue" <bod@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu, 9 Jul 2026 at 20:35, Vikash Garodia
-<vikash.garodia@oss.qualcomm.com> wrote:
-> VPU hardwares have a limitation where VPU streams are associated with
-> dedicated addressable address range, as illustrated below
-...
-> Mapping a stream outside its expected range can cause unintended
-> behavior, including device crashes, as reported at:
-> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
-...
-> To address this limitation, the subset of stream/s are now represented as
-> sub nodes, so that they can be associated to the respective addressable
-> range.
+This series fixes errors blocking Hi846 driver function, fixes
+link frequency and supports 6MP and 8MP modes on Hi846.
 
-Amazing work Vikash and team! This patch series applied on 7.2-rc2
-resolves spontaneous rebooting with parallel streams eg when opening
-https://ui.com in one or more browser tabs, resolving this platform
-usability blocker. As such, this is absolutely relevant for -stable.
+Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+---
+Changes in v5:
+- Use separated fields instead of raw register values for PLL cfg (Sakari)
+- Use mul_u64_u32_div() to avoid loss of pricision and u64/u32 issues (Sakari)
+- Use v4l2_find_nearest_size_conditional() to filter for different lane cases. (Sakari)
+- Drop line break (Sakari)
+- Rename post_div to mipi_clk_div
+- Correct div1 number from 1 to 2
+- Link to v4: https://lore.kernel.org/linux-media/20260511103927.279550-1-mitltlatltl@gmail.com
 
-Tested-by: Daniel J Blueman <daniel@quora.org>
+Changes in v4:
+- Correct default lane cfg in commit for 'fix link frequency handling'
+- Fix messed header (the Media CI robot)
+- Move constant to the right side when comparsion (the Media CI robot)
+- Link to v3: https://lore.kernel.org/linux-media/20260511090924.269106-1-mitltlatltl@gmail.com
 
-Thanks again,
-  Dan
+Changes in v3:
+- Fix modes handling for different lane cases (Sebastian)
+- Fix header missing (the Media CI robot)
+- Link to v2: https://lore.kernel.org/linux-media/20260501095433.1609309-1-mitltlatltl@gmail.com
+
+Changes in v2:
+- Remove uncessary `else` (Sakari)
+- Fix link frequency (Sakari)
+- Correct link frequency for DT
+- Link to v1: https://lore.kernel.org/linux-media/20260429070351.1307204-1-mitltlatltl@gmail.com
+
+
+Pengyu Luo (5):
+  media: hi846: fix hi846_write_reg_16 handling
+  media: hi846: Fix link frequency handling
+  media: hi846: fix modes handling for different lane cases
+  media: hi846: Add 6MP and 8MP modes support
+  arm64: dts: imx8mq-librem5: Correct link frequency list
+
+ .../boot/dts/freescale/imx8mq-librem5.dtsi    |   2 +-
+ drivers/media/i2c/hi846.c                     | 296 +++++++++++++-----
+ 2 files changed, 227 insertions(+), 71 deletions(-)
+
 -- 
-Daniel J Blueman
+2.54.0
+
