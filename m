@@ -1,57 +1,59 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C243426B2CE;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A50E35F185;
 	Mon, 13 Jul 2026 21:31:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783978293; cv=none; b=nAWEAv8AYDGu7zMVeLFQFHYJLgJ4+TYjrkRMHKHMWcePe06XHtFiNzLvf1nuIalKBj4T/enCC1ukpnLhZSk/Al/JmewWF44rHn5fiFLPplmUJcppwK3Veu8OS3GSJRXtKaJq2rYwCUQbWazTZAeLR/MQhPJeoLgzZ7MLk1hoXio=
+	t=1783978293; cv=none; b=g+5iRTru0LwpszRkxjzF3bcfDEMwS/+YakuMT9FGCYYmItMN3cLikEm85iC3YmIbWnOUEG6RCviqA7ICJ+tSLVOBCv9UW9OV9M+8Gqt0+ADPAholayRHwLM6g0yScHkLQmID8LGQCYQSYTa+X2HOQSnXqj10xxsm+D4exR+0KGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783978293; c=relaxed/simple;
-	bh=jom5Sfj2r2NA+T+rZSarTiq+DJb0dHfs+u328K9p5yY=;
+	bh=+TpKe/mgJklkLKnDljH7vM67ggh0YzGDXp06CXV8Mjw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cUDnJlAN0DY4djTutRGOyCNOkoELrSTrgBr9h3ccdke/XLsqCW43xIT9zIQaJ9EcKSChvzYNJZC0c0prKaHSsC414SHLsRcO6fTXMPahiBMkmIdYzqspFmr4e6z+fw4Gr1KFia6nlUOqFm1EgVdxSA1Fuxy7PdQupTh/MLObFqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=A3d1pQdm; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=A3d1pQdm; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=jDa33OmKEA7Zndq2zariRFoPaDRaCUly/lQHHOAy2f53HNLZyEbBw7wc2vudz1tmCYqXoyIdBUPTqqY6UbOPtEUvkHwPMbiUOPaKL3UP19FoSILMfWh8Wt8YvLqIbDEQpuO9/brPjAXHV7sk4gqN5ymVN8D39K4JY1IL2H3xIDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=kk8eWypp; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=YjCxCoph; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="A3d1pQdm";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="A3d1pQdm"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="kk8eWypp";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="YjCxCoph"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1783978283; bh=jom5Sfj2r2NA+T+rZSarTiq+DJb0dHfs+u328K9p5yY=;
+	t=1783978282; bh=+TpKe/mgJklkLKnDljH7vM67ggh0YzGDXp06CXV8Mjw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=A3d1pQdmwAFZ2JdWYYWWLCYzmT3HomNMyxoiDR7Puk3FnFPbagIEDxRb7WzuIZ3uh
-	 TCtTaeGi7LhGjTYUjTNLQRk91CeDamR6rYDffO3DvHZh0ErnydiQf5lMGO9RopLHYq
-	 v+1iib0+fKG+8xD8Q/neEOklIzk6UmUAO4TLQ/g/J2o0sG6gisa4yowmvntv53eNqr
-	 x8McQJYGYxjUDmQS15JNgLKQBWUAbobEks/iFWUDc55KWrT5C+lpvSZEMfBAb537CN
-	 UXy5+6GT983SfatZnJJgwsBFttabTMe/F9gYUCGIt5bbmKtKtQE58VXYQr4KGsh8EL
-	 Qd8UcssY0uxNw==
+	b=kk8eWyppKmZol9pJ+z+Ghiycu4f4mBQpESexDfqmGxt99dqi27y8vGcROvj247wxe
+	 BhKQnXMgC490hAagXCgD5HkhFy8pcFvmhvjPGE84iRkWxnmFMrFgzx8slgBBFs0656
+	 gFjTVHPvp+U+3ut0sZr8CGbkFT7srMTuDT232LTfdXnsi9/4IQ3BW+87lgeajgvHk2
+	 iIKJ9Fo0y02WQxIpX/1oy4ma/FfA8kbuJB+k7VtUsoto95APJNmo/qLCS9UWAVCL9A
+	 drFOix8v+GGKpafLxbAbRiUOObGvtMFOVnieKfUc3kGQ7cNZvEdkkx2uT+20fTbqdU
+	 k02EN1SrAKJKg==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id A9B8040A4B; Mon, 13 Jul 2026 22:31:23 +0100 (BST)
+	id 2FC2140A3D; Mon, 13 Jul 2026 22:31:22 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1783978283; bh=jom5Sfj2r2NA+T+rZSarTiq+DJb0dHfs+u328K9p5yY=;
+	t=1783978281; bh=+TpKe/mgJklkLKnDljH7vM67ggh0YzGDXp06CXV8Mjw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=A3d1pQdmwAFZ2JdWYYWWLCYzmT3HomNMyxoiDR7Puk3FnFPbagIEDxRb7WzuIZ3uh
-	 TCtTaeGi7LhGjTYUjTNLQRk91CeDamR6rYDffO3DvHZh0ErnydiQf5lMGO9RopLHYq
-	 v+1iib0+fKG+8xD8Q/neEOklIzk6UmUAO4TLQ/g/J2o0sG6gisa4yowmvntv53eNqr
-	 x8McQJYGYxjUDmQS15JNgLKQBWUAbobEks/iFWUDc55KWrT5C+lpvSZEMfBAb537CN
-	 UXy5+6GT983SfatZnJJgwsBFttabTMe/F9gYUCGIt5bbmKtKtQE58VXYQr4KGsh8EL
-	 Qd8UcssY0uxNw==
+	b=YjCxCophy55RgB68zoH6Mo+LWEwPLO1i9+mvWYm+jXogOaZbvWphrjl5AnR9GsWOk
+	 PwddnuGEnQ2s8xqyFgeoet1zulNbCkHM0LYTeOM9ok5UAXkZ7s3RNvxKGrtxaAZfdJ
+	 7a3c6l4djKeeljsi56s1UhO9d2xYCPoAvPWXxyvIQuWHC+Mi/HbiDy/Fl0ZAXWeLzB
+	 ZE1VDMWLfCObNgbidf5JUh+iIZdLP4IBUszNYbMDEN7zBX/V7VYfEb4k1B5J52ABAh
+	 PPuWmy0aOOfAPtfpAwrMNJzPFd1ZSPBGv1HH66Fs178GkCG24RER4r7cqqe9oR+GtM
+	 LHqqXwDOy7YUQ==
 Received: from maru.home (host86-148-148-68.range86-148.btcentralplus.com [86.148.148.68])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 64A2340A3B;
-	Mon, 13 Jul 2026 22:31:23 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id 4808240A3B;
+	Mon, 13 Jul 2026 22:31:21 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Oliver Neukum <oneukum@suse.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v2 05/11] media: redrat3: Error path leaves device in transmitting state
-Date: Mon, 13 Jul 2026 22:30:59 +0100
-Message-ID: <d8be8047def26d35726666fee2f3ca309da200ef.1783977550.git.sean@mess.org>
+Subject: [PATCH v2 01/11] media: streamzap: Add missing rc_unregister_device()
+Date: Mon, 13 Jul 2026 22:30:55 +0100
+Message-ID: <25401d24a7f341ef3d92bded7ebb447e248f8cad.1783977550.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1783977550.git.sean@mess.org>
 References: <cover.1783977550.git.sean@mess.org>
@@ -63,38 +65,28 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If the allocation fails, transmitting is left as true and the transmitter
-cannot be used any more.
+If usb_submit_urb() fails during probe, then the error path is missing a
+call to rc_unregister_device(), which will leak various things like the
+input device.
 
+Fixes: 42844992664f ("media: rc: streamzap: Error handling in probe")
 Signed-off-by: Sean Young <sean@mess.org>
 ---
- drivers/media/rc/redrat3.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/media/rc/streamzap.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/rc/redrat3.c b/drivers/media/rc/redrat3.c
-index 468907d6c3a8..b64c6440b062 100644
---- a/drivers/media/rc/redrat3.c
-+++ b/drivers/media/rc/redrat3.c
-@@ -781,9 +781,6 @@ static int redrat3_transmit_ir(struct rc_dev *rcdev, unsigned *txbuf,
- 	if (count > RR3_MAX_SIG_SIZE - RR3_TX_TRAILER_LEN)
- 		return -EINVAL;
+diff --git a/drivers/media/rc/streamzap.c b/drivers/media/rc/streamzap.c
+index 307985d74fe8..41195ad82734 100644
+--- a/drivers/media/rc/streamzap.c
++++ b/drivers/media/rc/streamzap.c
+@@ -365,6 +365,7 @@ static int streamzap_probe(struct usb_interface *intf,
  
--	/* rr3 will disable rc detector on transmit */
--	rr3->transmitting = true;
--
- 	sample_lens = kzalloc_objs(*sample_lens, RR3_DRIVER_MAXLENS);
- 	if (!sample_lens)
- 		return -ENOMEM;
-@@ -794,6 +791,9 @@ static int redrat3_transmit_ir(struct rc_dev *rcdev, unsigned *txbuf,
- 		goto out;
- 	}
- 
-+	/* rr3 will disable rc detector on transmit */
-+	rr3->transmitting = true;
-+
- 	for (i = 0; i < count; i++) {
- 		cur_sample_len = redrat3_us_to_len(txbuf[i]);
- 		if (cur_sample_len > 0xffff) {
+ 	return 0;
+ rc_submit_fail:
++	rc_unregister_device(sz->rdev);
+ 	rc_free_device(sz->rdev);
+ 	usb_set_intfdata(intf, NULL);
+ rc_dev_fail:
 -- 
 2.55.0
 
