@@ -1,129 +1,190 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.lysator.liu.se (mail.lysator.liu.se [130.236.254.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C5A3E7179
-	for <linux-media@vger.kernel.org>; Mon, 13 Jul 2026 11:41:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6EA83EB7E5;
+	Mon, 13 Jul 2026 11:57:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.236.254.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783942877; cv=none; b=MGJPpQDIN+J8UztZ8te20gk79DjGhI3uEMVPbyAFlIDN+4DwjDXOK0SrSJHvE85MC0t+T4IIqHjNUUe5v7F8Kxa3Jfy7DmkeSIRPzIdaseZmyA6OKISE9m1tseFeu9KkQpy6IsmPZL4BReBo4p/oM8mLhDHBqh991+TIpp1DHLA=
+	t=1783943855; cv=none; b=CQxzqnA0NqP24I8VhGS+zg9VHnnUFnqe5vvfYtN5QCQ2j5eAKCPW+ZD9+PXQPG59uvdJei527ZBr70vcz3KiS7ItGLhGURZ2z8LnzFR+ZILMhw3XvP6dOJ1KqRdT53YHhm87r4W7mV2j3KuHNEviuBzz2GaPRNy7GKqt52O03oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783942877; c=relaxed/simple;
-	bh=DF8JWJfNh6M1Sw4cPR6Hjd+QCs0193pYYptH/jXmmFE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gBauMJTNhvWFuLmpCwAiHvw2KW3f6M9M/AEbuvkMC3MSk/UXQ+qC7IsCruiYSyHfr7b2cqnd3Gty/YoFu/xlyqr2gdKq3Ghb6zOXA2S2BrZeobNGvxiZ/uxyrLi/OFdmf8+zyN10rozFCF6kQOF6qbf6Lu67HXmCC+t7LapqWvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I4PRoorD; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783943855; c=relaxed/simple;
+	bh=ZU9f5XQcfOha9tsafysQKKY+BbVKCPTIcqlTdjCJdHc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=S2xHn+O7AySIgt7Wd13DqhtuZrjBWIr4NAmnotJYWx0Ioa+3rW/oduaDdEu2Pg58ogwS8dH+YMiW55PZsDcJtUJGJq334uNmvCWZkQ1dJKxOO1gd9jeKAIkorPpQxj9I33LdsZfiggrJQL31udIEGl4e62zn1gbNgsmmXg+l+8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se; spf=pass smtp.mailfrom=lysator.liu.se; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=eP0SQK4N; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=eP0SQK4N; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=tBP9qD8X; arc=none smtp.client-ip=130.236.254.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lysator.liu.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I4PRoorD"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cacb8416a1so25934185ad.1
-        for <linux-media@vger.kernel.org>; Mon, 13 Jul 2026 04:41:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783942874; x=1784547674; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bjup8tkbZReyLVbx7owWNWJpf0WRCU5BarQCoUzbWwU=;
-        b=I4PRoorDO4Oia6Gdwk/Kc/D0+f8ToiOYMGTUk6lTcb7FsTAqOMEkCjZlap27qNdGUd
-         pTL21PqGoj4S8mZIWr8Z1j+qRCSgi0IJw20qAACd5co6Ay6PT3iCu3vSzCA/Nyo+y2yK
-         t8qYUWpKln5W1rLNGUtwUp9L3MttmDPhfPf7phjh8RDCwe0KlKbkQ8qvgL4Pz/Ut+6Rq
-         t4NmddTc167tRLSXEW1JVdybAjE3K0iIaJP8A9guPUzD0uE6+KLw3djuIp5n/U5NOEbk
-         9Y/0vMyC5FIg96LRDdpr6JSjpbc3kfABhrqBEM/FsuS7ZTFwbC6yoJPhYfeVl1BcfTIv
-         TefQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783942874; x=1784547674;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bjup8tkbZReyLVbx7owWNWJpf0WRCU5BarQCoUzbWwU=;
-        b=UoRCJXkhdvs33/rJ+UR0I/SF2riMyDyoX8ezCRiqR0qCgZUzuHDwfas0M7bKJfM3M+
-         evMaLMAau6bTTdeiL+UYgwDu9y1jSjEf1BccgdN2sQVJCLWIwFs5bZRHCQJUohro4v9D
-         sa3WQ4wjQwbF4G+Tst4k4iGtaPMpSDbpGM/zA9E7v3VIayHIijGWd2x1bD86E4jqA20M
-         unN0SPycluFwBSEnah8gzKY76X5DEpAzMpneKhITGzvf/uoSSBmQVqUslVJbpo2FshAQ
-         tS9KTMGS97NFglyONatiFb/gOWVmv1Nz2HY1OTlI6on33k7syPSZQpxBx15ogXSCXs4t
-         TRXQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp+f1kiNCzET7LxI8QGGUiA98wmxRnEkq/nnrHysZ62ysPBQ4qbtEGZrqMRiOmZOU6wx5+YmlL3fqvLuw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzybgDopiKD3AoAxZHVSp7zT1JGEVCeS8h33gEo8rGQIUuIJO18
-	a9xQSzxpDESs0Wl22WRrV6p5eYoSEqHwwptMWa17/U32llQRbYdNVJL+
-X-Gm-Gg: AfdE7cnD/3wW1W+aH+2CUjPR/s8F4Lm4776vh88jcbb/iuRNjGyi6Lv6HItoUuyM90p
-	pNdGBhrjSuzukd2VmzBTdcfaN+slNdOzXEny/tsmmb4NJSLyfKTOq99VdbUrv8LsHV6/XoUKUZ8
-	WDdoU3ysrFoW4xYmloEBMJ1LqXuxL3YOrRQardJ4s1Gx+JHfJ73+hSwl7tmOQL0AdX+wIXSQoJK
-	CVCIuSGeBsgGIoSybNi4tZw7reoNg/ELCNk5nZQhNnUmVEPoOTKq6n5MUAO6UE9QktKOyU7/1VU
-	OcC5otiKd/EX4LWHDN+J7OfFeS9Xhyw008Do0TWzeACOKLnSwpQ/cTYKFn27PbMcPoNxg+z0Bjj
-	hHnirlnaGHgsXAr43dafdk+i2Ggt2Zgcy1BigqgrZbctL2iXDM7Kj9UHW/c2NEOGspakHvsbXeH
-	EIh7ymAw==
-X-Received: by 2002:a17:902:ea03:b0:2c0:e2ea:6b0c with SMTP id d9443c01a7336-2ce9ed181f6mr81660085ad.21.1783942873961;
-        Mon, 13 Jul 2026 04:41:13 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d59e33sm95978515ad.74.2026.07.13.04.41.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 04:41:13 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Johan Hovold <johan@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-	Marco Crivellari <marco.crivellari@suse.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2] media: platform: mtk-mdp3: Fix SCP device refcounting
-Date: Mon, 13 Jul 2026 19:38:59 +0800
-Message-ID: <20260713113859.921358-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="eP0SQK4N";
+	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="eP0SQK4N";
+	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="tBP9qD8X"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
+	s=2026; t=1783943841;
+	bh=ZU9f5XQcfOha9tsafysQKKY+BbVKCPTIcqlTdjCJdHc=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=eP0SQK4NrY74ZX5zlx/KwwdYyE2G/8poMBqqsYoS9tPi1RKxIjtnrjPUoiCA+Q5iA
+	 vFznL+nZ+wGAZrfHeEU4m4hA9UTu4pEx6ilGNnP+VnZ59gDhiWmGBIA261Ua29NkNs
+	 tgEmKcKTX2hMe/bXGsqXOOwzi2IN0e6i+1nE7deJUbZmfhon0rwEtoTXkioudsbNPw
+	 4qbCOy+5rK9Gpzmo6c7JXmf9ndxNv6o2xkPeOYviDTyIeXuDz5Cs1ioZHWWwBlnHHG
+	 /w7C2LqUyxwgwXiI/kLetGmJh/AWvZsS7XKNvLKy7WFkn1P0OE/dG5n8kjFROxB7TJ
+	 UYtZ16Ajcz0Xw==
+Received: from mail.lysator.liu.se (localhost [127.0.0.1])
+	by mail.lysator.liu.se (Postfix) with ESMTP id 5BD8145D0;
+	Mon, 13 Jul 2026 13:57:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
+	s=2026; t=1783943841;
+	bh=ZU9f5XQcfOha9tsafysQKKY+BbVKCPTIcqlTdjCJdHc=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=eP0SQK4NrY74ZX5zlx/KwwdYyE2G/8poMBqqsYoS9tPi1RKxIjtnrjPUoiCA+Q5iA
+	 vFznL+nZ+wGAZrfHeEU4m4hA9UTu4pEx6ilGNnP+VnZ59gDhiWmGBIA261Ua29NkNs
+	 tgEmKcKTX2hMe/bXGsqXOOwzi2IN0e6i+1nE7deJUbZmfhon0rwEtoTXkioudsbNPw
+	 4qbCOy+5rK9Gpzmo6c7JXmf9ndxNv6o2xkPeOYviDTyIeXuDz5Cs1ioZHWWwBlnHHG
+	 /w7C2LqUyxwgwXiI/kLetGmJh/AWvZsS7XKNvLKy7WFkn1P0OE/dG5n8kjFROxB7TJ
+	 UYtZ16Ajcz0Xw==
+Received: by mail.lysator.liu.se (Postfix, from userid 1004)
+	id 3EC074698; Mon, 13 Jul 2026 13:57:21 +0200 (CEST)
+X-Spam-Level: 
+X-Spam-Score: -1.1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
+	s=2026; t=1783943829;
+	bh=ZU9f5XQcfOha9tsafysQKKY+BbVKCPTIcqlTdjCJdHc=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=tBP9qD8X/xsXZ7egKwzKFvcjlUpLAIm1KgxB8b2b/QLhFDWGuOsaaNyA9AaX0h4EP
+	 UT2xTKBrUdwJ/uHPjdWfTqK0UgegGwGKDuLWoa8qiMNmxxKHEMA9HhBig1pp5ohAjX
+	 ZI/fDbfZ/PXP7cP49ifkTiFpUxlBKg38sdJlmDSBipXM++nfWkFQRfFkeqkLQyc7bx
+	 m+f1FvpSIm0o1JV9aJcwLQX8dUa/Xdwqevi/LKyHPDmfPXQ0CFyn7k19/mxEZu9W/X
+	 A9NB0oaVGN8c5fFzWE1e2YV54kMlbioLeCyOmyKxNO/NUCXCFkQTvjQuhFWkI4UuLv
+	 L4FRdHuEGTiAw==
+Received: from [192.168.2.172] (81-225-28-11-no2391.tbcn.telia.com [81.225.28.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by mail.lysator.liu.se (Postfix) with ESMTPSA id B019F45B4;
+	Mon, 13 Jul 2026 13:57:02 +0200 (CEST)
+Message-ID: <744e6181-ad21-4632-b293-5bf6c1e9fc2e@lysator.liu.se>
+Date: Mon, 13 Jul 2026 13:57:01 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dt-bindings: Drop incorrect usage of double '::'
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Sam Protsenko <semen.protsenko@linaro.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Andi Shyti
+ <andi.shyti@kernel.org>, Georgi Djakov <djakov@kernel.org>,
+ Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Linus Walleij <linusw@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Sebastian Reichel <sre@kernel.org>,
+ Javier Martinez Canillas <javier@dowhile0.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
+ Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Jonathan Marek <jonathan@marek.ca>,
+ Taniya Das <quic_tdas@quicinc.com>, Robert Marko <robimarko@gmail.com>,
+ Christian Marangi <ansuelsmth@gmail.com>,
+ Stephan Gerhold <stephan@gerhold.net>,
+ Adam Skladowski <a_skl39@protonmail.com>,
+ Sireesh Kodali <sireeshkodali@protonmail.com>,
+ Barnabas Czeman <barnabas.czeman@mainlining.org>,
+ Imran Shaik <quic_imrashai@quicinc.com>,
+ Sricharan Ramabadhran <quic_srichara@quicinc.com>,
+ Anusha Rao <quic_anusha@quicinc.com>, Luo Jie <quic_luoj@quicinc.com>,
+ Tomasz Figa <tomasz.figa@gmail.com>, Chanho Park
+ <chanho61.park@samsung.com>, Sunyeal Hong <sunyeal.hong@samsung.com>,
+ Shin Son <shin.son@samsung.com>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+ Jaehoon Chung <jh80.chung@samsung.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, Alina Yu
+ <alina_yu@richtek.com>, Andy Gross <agross@kernel.org>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Wesley Cheng <quic_wcheng@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-i2c@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-leds@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-gpio@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-usb@vger.kernel.org
+References: <20260622101606.485961-3-krzysztof.kozlowski@oss.qualcomm.com>
+ <20260622101606.485961-4-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US, sv-SE
+From: Peter Rosin <peda@lysator.liu.se>
+In-Reply-To: <20260622101606.485961-4-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-mdp_probe() first tries to get the SCP handle with scp_get(). When that
-fails, it falls back to looking up the SCP platform device with
-__get_pdev_by_id() and then reads its driver data.
+On 2026-06-22 12:16, Krzysztof Kozlowski wrote:
+> There is no use of double colon '::' in YAML. OTOH, the literal style
+> block, e.g. using '|' treats all characters as content [1] therefore
+> single use of ':' in descriptions is perfectly fine, whenever '|' is
+> used.
+> 
+> Cleanup existing code, so the confusing style won't be re-used in new
+> contributions.
+> 
+> Link: https://yaml.org/spec/1.2.2/#literal-style [1]
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> ---
+> 
+> Intention for this patch is to go via Rob's tree.
+> ---
 
-The fallback lookup returns the platform device with a reference, just
-like scp_get() does. However, the fallback path currently drops that
-reference immediately after platform_get_drvdata(). The driver later
-still calls scp_put(mdp->scp) unconditionally from the probe error path
-and from mdp_video_device_release(), which drops the SCP device
-reference again.
 
-Keep the fallback reference until the existing scp_put() call, so that
-the fallback path follows the same ownership rules as the scp_get()
-path.
 
-Fixes: 8f6f3aa21517 ("media: platform: mtk-mdp3: fix device leaks at probe")
-Cc: stable@vger.kernel.org
-Reviewed-by: Johan Hovold <johan@kernel.org>
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
-v2:
-  - Add Cc stable.
-  - Add Reviewed-by tag from Johan Hovold.
-  - No code changes.
+> diff --git a/Documentation/devicetree/bindings/mux/mux-consumer.yaml b/Documentation/devicetree/bindings/mux/mux-consumer.yaml
+> index 9e2d78a78e40..769243a2bf04 100644
+> --- a/Documentation/devicetree/bindings/mux/mux-consumer.yaml
+> +++ b/Documentation/devicetree/bindings/mux/mux-consumer.yaml
+> @@ -13,8 +13,8 @@ description: |
+>     Mux controller consumers should specify a list of mux controllers that they
+>     want to use with a property containing a 'mux-ctrl-list':
+>   
+> -    mux-ctrl-list ::= <single-mux-ctrl> [mux-ctrl-list]
+> -    single-mux-ctrl ::= <mux-ctrl-phandle> [mux-ctrl-specifier]
+> +    mux-ctrl-list := <single-mux-ctrl> [mux-ctrl-list]
+> +    single-mux-ctrl := <mux-ctrl-phandle> [mux-ctrl-specifier]
+>       mux-ctrl-phandle : phandle to mux controller node
+>       mux-ctrl-specifier : array of #mux-control-cells specifying the
+>                            given mux controller (controller specific)
+This change does not match the others? I do not think ::= is some kind
+of malformed YAML that has crept into a literal block. Instead, I think
+it is syntax inspired from BNF or something such. IIRC, it was once
+adapted from
+Documentation/devicetree/bindings/pwm/pwm.txt
 
- drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c | 1 -
- 1 file changed, 1 deletion(-)
+Or, I am missing something...
 
-diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-index 8f4da4cf55d2..121b1006ffdc 100644
---- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-+++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-@@ -294,7 +294,6 @@ static int mdp_probe(struct platform_device *pdev)
- 			goto err_destroy_clock_wq;
- 		}
- 		mdp->scp = platform_get_drvdata(mm_pdev);
--		put_device(&mm_pdev->dev);
- 	}
- 
- 	mdp->rproc_handle = scp_get_rproc(mdp->scp);
--- 
-2.43.0
-
+Cheers,
+Peter
