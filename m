@@ -1,59 +1,58 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A50E35F185;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E92F360EDC;
 	Mon, 13 Jul 2026 21:31:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783978293; cv=none; b=g+5iRTru0LwpszRkxjzF3bcfDEMwS/+YakuMT9FGCYYmItMN3cLikEm85iC3YmIbWnOUEG6RCviqA7ICJ+tSLVOBCv9UW9OV9M+8Gqt0+ADPAholayRHwLM6g0yScHkLQmID8LGQCYQSYTa+X2HOQSnXqj10xxsm+D4exR+0KGg=
+	t=1783978294; cv=none; b=P8O22XEBWUFQGh+cNasl1yzNcheeUqwLE16NoBhuOa5fLk/cN/4x2hiOSxCvfXCn2xL9KSomJu0zqWh9FBKSY/nMZvOX4f5yiZoOH8U7nO2kztUSkOIgVRZZXH/Vrhi/ljI1v2QnUN5oWq6jGNY903rmghuJGtCOva/wtWFUXNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783978293; c=relaxed/simple;
-	bh=+TpKe/mgJklkLKnDljH7vM67ggh0YzGDXp06CXV8Mjw=;
+	s=arc-20240116; t=1783978294; c=relaxed/simple;
+	bh=RjASzN1+lQ12QOCUkrxPeb7Fn9VCqtQNY/SUR6AGOxQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jDa33OmKEA7Zndq2zariRFoPaDRaCUly/lQHHOAy2f53HNLZyEbBw7wc2vudz1tmCYqXoyIdBUPTqqY6UbOPtEUvkHwPMbiUOPaKL3UP19FoSILMfWh8Wt8YvLqIbDEQpuO9/brPjAXHV7sk4gqN5ymVN8D39K4JY1IL2H3xIDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=kk8eWypp; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=YjCxCoph; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=jl7GpK6sAogwCTbE4pNeERh5wGSl6ceIdkdnY9YAqJ572xaiiCNN2kLsSeQXpc3mFJ2KysVqqsGQgrh9sR28o5wG9JC5sVWNjv34kTwLfh82RcrE7kLgS/aZFjLjoEQeozEDDxeDGQbIrEFw0AHh9K+rOHLnoQyomX8pMKInpUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=Z1D+Pv3t; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=nHpbvkBz; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="kk8eWypp";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="YjCxCoph"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="Z1D+Pv3t";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="nHpbvkBz"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1783978282; bh=+TpKe/mgJklkLKnDljH7vM67ggh0YzGDXp06CXV8Mjw=;
+	t=1783978283; bh=RjASzN1+lQ12QOCUkrxPeb7Fn9VCqtQNY/SUR6AGOxQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=kk8eWyppKmZol9pJ+z+Ghiycu4f4mBQpESexDfqmGxt99dqi27y8vGcROvj247wxe
-	 BhKQnXMgC490hAagXCgD5HkhFy8pcFvmhvjPGE84iRkWxnmFMrFgzx8slgBBFs0656
-	 gFjTVHPvp+U+3ut0sZr8CGbkFT7srMTuDT232LTfdXnsi9/4IQ3BW+87lgeajgvHk2
-	 iIKJ9Fo0y02WQxIpX/1oy4ma/FfA8kbuJB+k7VtUsoto95APJNmo/qLCS9UWAVCL9A
-	 drFOix8v+GGKpafLxbAbRiUOObGvtMFOVnieKfUc3kGQ7cNZvEdkkx2uT+20fTbqdU
-	 k02EN1SrAKJKg==
+	b=Z1D+Pv3tqmMIV52f2JxjqxZov+szmYA4YSSwQg6tBGO7ekontStJimdB8xHpnXyP7
+	 +goRYMvxszH4kWFvFLmYUBPXi3Vt+W+5b8H54vFt6VgtIa6MAcI1iTKfFy+Js0w6wm
+	 ol0vX7APy5vXkiRyhnrSPJC1S+7iHn2ZpzICgWnqh651tgHKtFLsNTsODv1SFHoLFG
+	 bXLlyLnd3HTHNeYs8kZf47thfb3h4h/fRbdNowLGGyF0qCVFg6JdTsJbHd8u+rgrIv
+	 AJkgkEx+a6gteVroUQpEUpJ1tr+Jq4LdSO+Lr/gFADZ9VZmGr0d/YlDa+otX+bk1WE
+	 fJGV/dj0aTzJw==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 2FC2140A3D; Mon, 13 Jul 2026 22:31:22 +0100 (BST)
+	id 0BFB140A45; Mon, 13 Jul 2026 22:31:23 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1783978281; bh=+TpKe/mgJklkLKnDljH7vM67ggh0YzGDXp06CXV8Mjw=;
+	t=1783978282; bh=RjASzN1+lQ12QOCUkrxPeb7Fn9VCqtQNY/SUR6AGOxQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=YjCxCophy55RgB68zoH6Mo+LWEwPLO1i9+mvWYm+jXogOaZbvWphrjl5AnR9GsWOk
-	 PwddnuGEnQ2s8xqyFgeoet1zulNbCkHM0LYTeOM9ok5UAXkZ7s3RNvxKGrtxaAZfdJ
-	 7a3c6l4djKeeljsi56s1UhO9d2xYCPoAvPWXxyvIQuWHC+Mi/HbiDy/Fl0ZAXWeLzB
-	 ZE1VDMWLfCObNgbidf5JUh+iIZdLP4IBUszNYbMDEN7zBX/V7VYfEb4k1B5J52ABAh
-	 PPuWmy0aOOfAPtfpAwrMNJzPFd1ZSPBGv1HH66Fs178GkCG24RER4r7cqqe9oR+GtM
-	 LHqqXwDOy7YUQ==
+	b=nHpbvkBzPMceB3jdpsq9HRXh0EjgYHZOD+oS2WG+lON6aOUpJc9WaSgKHjJTUgO3+
+	 BG/8OwONgzkpN/x4M1NufRutt+SttHPryBwohpzDjiZxazvntaQ/PSzrJ8w3ImJIDI
+	 ScVLRMEwZH93mBgwdhoZ4KCj4LhA1bHhLr7pBdYImNq4cpRsyiwm8oz1qD5yUn4dpU
+	 6JKY94sTD1Pt1I85HENFHrd98sc/vSd/zwq068g9rSiLyiKeYT9lgsRsBenZaoXJD6
+	 vGy3PmJdhSrxp3MT6PoJ5jRfzuWbspXXx15+zWvC9mW0N+wgvAVuRd8hRjq+qfSCrF
+	 eOcFCEy/Co+DQ==
 Received: from maru.home (host86-148-148-68.range86-148.btcentralplus.com [86.148.148.68])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 4808240A3B;
-	Mon, 13 Jul 2026 22:31:21 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id 590D940A3B;
+	Mon, 13 Jul 2026 22:31:22 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Oliver Neukum <oneukum@suse.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
+	Jarod Wilson <jarod@redhat.com>
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v2 01/11] media: streamzap: Add missing rc_unregister_device()
-Date: Mon, 13 Jul 2026 22:30:55 +0100
-Message-ID: <25401d24a7f341ef3d92bded7ebb447e248f8cad.1783977550.git.sean@mess.org>
+Subject: [PATCH v2 03/11] media: redrat3: Ensure we don't read beyond the end of the packet
+Date: Mon, 13 Jul 2026 22:30:57 +0100
+Message-ID: <b9333cd20836ec316d5d65c408cee71b89918f4a.1783977550.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1783977550.git.sean@mess.org>
 References: <cover.1783977550.git.sean@mess.org>
@@ -65,28 +64,44 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If usb_submit_urb() fails during probe, then the error path is missing a
-call to rc_unregister_device(), which will leak various things like the
-input device.
+The length and offset is provided by the usb device, so it should be
+validated.
 
-Fixes: 42844992664f ("media: rc: streamzap: Error handling in probe")
+Fixes: 2154be651b90 ("[media] redrat3: new rc-core IR transceiver device driver")
 Signed-off-by: Sean Young <sean@mess.org>
 ---
- drivers/media/rc/streamzap.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/media/rc/redrat3.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/drivers/media/rc/streamzap.c b/drivers/media/rc/streamzap.c
-index 307985d74fe8..41195ad82734 100644
---- a/drivers/media/rc/streamzap.c
-+++ b/drivers/media/rc/streamzap.c
-@@ -365,6 +365,7 @@ static int streamzap_probe(struct usb_interface *intf,
+diff --git a/drivers/media/rc/redrat3.c b/drivers/media/rc/redrat3.c
+index 391d01143491..44678ee322c2 100644
+--- a/drivers/media/rc/redrat3.c
++++ b/drivers/media/rc/redrat3.c
+@@ -358,8 +358,24 @@ static void redrat3_process_ir_data(struct redrat3_dev *rr3)
  
- 	return 0;
- rc_submit_fail:
-+	rc_unregister_device(sz->rdev);
- 	rc_free_device(sz->rdev);
- 	usb_set_intfdata(intf, NULL);
- rc_dev_fail:
+ 	/* process each rr3 encoded byte into an int */
+ 	sig_size = be16_to_cpu(rr3->irdata.sig_size);
++
++	/*
++	 * Note we are not checking if we are reading beyond the end of the
++	 * packet which was sent, and reading stale data. If the device
++	 * sends a packet which is short then we get garbage IR, but no
++	 * out of bounds read.
++	 */
++	if (sig_size > RR3_MAX_SIG_SIZE) {
++		dev_err(dev, "length %u is incorrect\n", sig_size);
++		return;
++	}
++
+ 	for (i = 0; i < sig_size; i++) {
+ 		offset = rr3->irdata.sigdata[i];
++		if (offset >= RR3_DRIVER_MAXLENS) {
++			dev_err(dev, "offset %u is incorrect\n", offset);
++			return;
++		}
+ 		val = get_unaligned_be16(&rr3->irdata.lens[offset]);
+ 
+ 		/* we should always get pulse/space/pulse/space samples */
 -- 
 2.55.0
 
