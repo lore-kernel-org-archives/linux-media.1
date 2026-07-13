@@ -1,111 +1,93 @@
-Received: from mail-yx2-f1.google.com (mail-yx2-f1.google.com [74.125.224.129])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3026334389B
-	for <linux-media@vger.kernel.org>; Mon, 13 Jul 2026 21:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 880DEAD24
+	for <linux-media@vger.kernel.org>; Mon, 13 Jul 2026 21:31:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783976942; cv=none; b=TrBiWRrET1dfA5f0oU1d7qveg2NQ4XRYCLCJ9tsWZnV2HK0qNL9cPaE4c3q5SQ14isXmD0uTQEvVkfI3xHlkItswqrlAZfh55MfFxyUKT/5NgY5J37CfVWM04fZR9OXFtRR4c3IVPDUAF4/NZbx8frDHeMtuiKh+oEklqJaD7HI=
+	t=1783978293; cv=none; b=nOP/mbKb78IbEatDXFKwCpem3wd1uEkHiFGls77UCSya8r+wPSavWj62fz3WBZXXT8YqzTAF+65vU0NsljNX9lV/za1Z7DUAxkq8KAsdJ+6OCxNSbQ/F3uKssuIzN9nyAU5ue1JNobDb0rsEYl6gtHf2LnPePTE3+HImDhGXdDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783976942; c=relaxed/simple;
-	bh=3jQ1hH8GlZgiDKSnvflUdEkxhV2abBPDIrnY3Pptvs4=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jedjuVVVPteIVy2ZsJBSU0VytAPdKwUhuxj0bmj/EfCxqczzuNMKDvQLIX5+dwE7jVcp3tqK2dHga+GTByGBTZtOzBcsogXLmtls92/n1IYqer5NBiRszUHmwarMDyqKgiNCRuH1/pOZVYWWId50a0UD6oUikl+qjwjcPztSC/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DDu2ZxQI; arc=none smtp.client-ip=74.125.224.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783978293; c=relaxed/simple;
+	bh=G09c9zdRjTJFkp9HaCvR+kdJ1DKoflUVTRryNAb+u6w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K56pXLnAQL1UABn+yB+c4KHafngEBgPYwnJa9dhktP7x06TSRSg4gscapyj2WE1VubrqwkDCn67UucGrb60G5a1Fiaa7DTuwOccedjNjZ34A3odyp7JIE39H15rQh88znUei4pP9PgQyZxYN0EKumo+p2v6zx3FdBfhlDLoliX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=H/KymOPK; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=mmfaKOY+; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DDu2ZxQI"
-Received: by mail-yx2-f1.google.com with SMTP id 00721157ae682-81cf30cb90fso16575427b3.1
-        for <linux-media@vger.kernel.org>; Mon, 13 Jul 2026 14:09:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783976940; x=1784581740; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3z11abkydzZ2iKlx8ecIFGRlioo2QGUfIr1WJRM/Diw=;
-        b=DDu2ZxQIwHAT+1WUHK+lGcra70p9GFk+7T2LBlyTerpEuC2q1C/ByWyyVwtVPaFrfV
-         RgcgDXBMmifKT1gFuRnWONEitVx9R3MwIC9sdRrDsy1nXJFjNYATaapiT72LCJJPHPW0
-         nQzYMo/qGKX2LPQVq81+xG8gTPEO1ptDcq7atl0znq8jh+9nRWHHpj/loF79upJY6zC4
-         Hp2dQXTV7LQUO6d5MvKqfClQ7WON3H/c/eL8E9O6txblqVrCCwPKcJDiCAowbAqj9Hw0
-         05zTftNpF7+wdU92OEq6WaLMdkwdzS+u6fhYpWdX5kJ9gAl6mpmOqNop4yUecJzJOgIT
-         czWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783976940; x=1784581740;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3z11abkydzZ2iKlx8ecIFGRlioo2QGUfIr1WJRM/Diw=;
-        b=STEUhW1vHQnUVunO806UQGyWQvcrt+0WEd+xI5bbbJ2F5+hPMOkKXWVXq8EdmU/3Eq
-         5Mj3ucEwMdihmbEMEDyegW2Pbvc0nB32Km66/EZBeoNblmf1ENqYMaqmuKW62xYdvbO7
-         FWpYVMAfsbNCVfu6GfgvSg4DPaxnAbnYexRbNiDnOb2YCNh/rqTL7iAzwBlpVHdzHfkB
-         aINAKFNj3haB1rmb+RVFvNbZfncp6hma8ayog+t2OhOi+JjDs+KBBx90Lg4nQ3qI6f0u
-         7gwHoaJ2r6/MucAwnwpN4se8CTW8YuowCuZ3oQLvtzAidX8uFv60xQIzaYGezy018iUw
-         zB5Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqaiK7uftX0tdPctdbL07ljjZOJmHaCK7q5N/7SQYxyKBIwBKTSwKNCo4fdUBFibppahgt80hQ3wp0kdA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxjKiklfDfLDt4E4+4NjCiGO75CeaNS6sirs7QV7Y3sJFRrXOMa
-	hb1IIK9DmZJofS92Kp28AM2jgiBQ08HO3ekcpaJ4XUxR2821WjG9lQtl
-X-Gm-Gg: AfdE7cmEo+89lsx4RcmhifiUeMT70IHWBfwtc9O61+dy1TA2bNsMepSbw2Qs/pqsaMD
-	mXZ07ISQtc/9eGW6NcYCMgDy9eate76KnggouDvwUjyfx0NEQJdHc/PnrtZqwNQ8VjM5mDDjfXO
-	pgiSCQ8oSqBpc/wjeF/eEfvDj8rkpEJyMnu7I6x0yp1cGUlnPydt2wTKfIbiXfxelvcsVx4R24B
-	SvLTBlRiqDrut7Ucj+9NE/02OFnSkgiR0bqUkSt4cwflMyk8Ql8Zm/rF21SbQhlw4x0ChEuzNnJ
-	8y9qXYUhV5Asug5GUikLcJnWGGvoafe/2M34sn7CT8GKZqgjsvzCJ26rjbhcY0O7+iQthka9qLo
-	NEzKgJwqaWLRh4vg6m6BIDXXTim27nyIV68qnRL+BT8fsAnCdmPg51fnKTQIe+qEaYZufCChIdt
-	VXWDR69cLoARfHA180FLlfGh82b+Lm8FlEu1wkZqHNORF4Eux5sdsY4axYPb5nITpAuZ0=
-X-Received: by 2002:a05:690c:61c6:b0:81e:b801:34ec with SMTP id 00721157ae682-81ebb2c92b2mr9367897b3.60.1783976940225;
-        Mon, 13 Jul 2026 14:09:00 -0700 (PDT)
-Received: from pendragon (76-234-45-214.lightspeed.cicril.sbcglobal.net. [76.234.45.214])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81e6be98dfbsm126045887b3.2.2026.07.13.14.08.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 14:08:59 -0700 (PDT)
-From: Colin Braun <colinbrauncl@gmail.com>
-X-Google-Original-From: Colin Braun <electrolitic21@gmail.com>
-Date: Mon, 13 Jul 2026 16:08:58 -0500
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Colin Braun <colinbrauncl@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Alan Stern <stern@rowland.harvard.edu>, Mathias Nyman <mathias.nyman@intel.com>, 
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-usb@vger.kernel.org, 
-	linux-media@vger.kernel.org, Colin Braun <colin.braun.cl@gmail.com>
-Subject: Re: [RFC PATCH 4/4] media: add gv-usb2 audio capture driver
-Message-ID: <alVScUlUiOS0ZiIH@pendragon>
-References: <20260712-urb-abstraction-v1-v1-0-9fa011634ead@gmail.com>
- <20260712-urb-abstraction-v1-v1-4-9fa011634ead@gmail.com>
- <DJXIV7JTU8JG.2U0I0LMHE84NJ@kernel.org>
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="H/KymOPK";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="mmfaKOY+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1783978281; bh=G09c9zdRjTJFkp9HaCvR+kdJ1DKoflUVTRryNAb+u6w=;
+	h=From:To:Cc:Subject:Date:From;
+	b=H/KymOPKAx6dkiEoA5Klm22x0yMR8i+zK2PBpgH2ECkSuZsS/aUXCbmgFn7OilfMX
+	 rD8ghkAHvqGS5dgGXKUvDWSLZZp71pTF0Yf/MZTAtu5EkXxCS2R7FlRM3o5X40pa3F
+	 fgr3kD75HBKW+aqTheKHlMiRNeWV1Hyja9mufrSzQ9wTTPy7DPuVZP7I5W+gfpSLSp
+	 4rWp4WGCIIJtdnFybfDt/0/VaIyDNdA8VT3mmO/96SritcVK6oHyaF89yNVUnC+w9f
+	 YSO6lzDStshaAOm54BonmtDkjuMyD2pkLCIED9GQZ8OqTNCArDaMbMpG2GT51LNILg
+	 aCnZbKEj9JO+w==
+Received: by extorris.mess.org (Postfix, from userid 1004)
+	id C97AF40A3A; Mon, 13 Jul 2026 22:31:21 +0100 (BST)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1783978280; bh=G09c9zdRjTJFkp9HaCvR+kdJ1DKoflUVTRryNAb+u6w=;
+	h=From:To:Cc:Subject:Date:From;
+	b=mmfaKOY+rjxEyJvSOKy+TbVID3zrqFm8jkZByxxcT2SORXP2caedHCs6Ud2I46v7f
+	 ZHHNIriZcGLkAd2dglda2oPfIha3An8k+brijxNN6LGsq+K97AaWxy6PVMR4aI5GIL
+	 qtt7FSbj5iDGMS4iuuEQpQBOH1Okbnhh59KQrAo81hl8iHsCxeyrnLL5fHgK14ugkw
+	 SmWWWLOBuHRdpcJneZlnp00/2lO7hBrxLu3wImgCXSzUeLh8hOaog+rQe5riZf+fDK
+	 VSrMBO64UgVv/ZsGMRvavCKJOyN0OmWz0eterxojpEQnuSfZ3uCn2lAD206j/6QCP6
+	 BgSx/2H9i/FhA==
+Received: from maru.home (host86-148-148-68.range86-148.btcentralplus.com [86.148.148.68])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by extorris.mess.org (Postfix) with ESMTPSA id D276740155;
+	Mon, 13 Jul 2026 22:31:20 +0100 (BST)
+From: Sean Young <sean@mess.org>
+To: linux-media@vger.kernel.org
+Cc: Sean Young <sean@mess.org>
+Subject: [PATCH v2 00/11] Fix leaks in rc core
+Date: Mon, 13 Jul 2026 22:30:54 +0100
+Message-ID: <cover.1783977550.git.sean@mess.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DJXIV7JTU8JG.2U0I0LMHE84NJ@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 13, 2026 at 04:44:24PM +0200, Danilo Krummrich wrote:
-> On Sun Jul 12, 2026 at 11:08 PM CEST, Colin Braun wrote:
-> > +/// Write a vendor-specific control register on the GV-USB2 device.
-> > +///
-> > +/// Uses a vendor-type control request (`REQ_WRITE_REG`) to write the
-> > +/// given `value` to the given `reg` address.
-> > +fn write_reg(intf: &usb::Interface<device::Bound>, reg: u16, value: u8) -> Result {
-> 
-> In addition to raw control messages, this can leverage the generic I/O backend
-> infrastructure, so you don't have to roll your own write_reg() function and use
-> the register!() infrastructure instead. See also [1] and [2].
-> 
-> [1] https://lore.kernel.org/driver-core/20260706-io_projection-v6-0-72cd5d055d54@garyguo.net/
-> [2] https://lore.kernel.org/lkml/DJVQ852J7SOH.26YBIJTQ9B66G@kernel.org/
-> 
+Changes since v1:
+ - sashiko had many good review comments
+ - Added fix rc: Use after free in ir_raw_event_handle() 
+ - Added fix meson-ir-tx: Ensure probe error is propagated
+ - Added fix redrat3: Ensure all urbs are suspended
+ - Added fix media: redrat3: Error path leaves device in transmitting state
+ - streamzap fix was incorrect 
+ - Other minor fixes
 
-Interesting, I had briefly glanced at this macro and was disappointed
-that it didn't seem to apply well to my situation, but I see that the
-Io and IoCapable traits are generic in a way that does support this.
+Sean Young (11):
+  media: streamzap: Add missing rc_unregister_device()
+  media: redrat3: Ensure rc device is freed if enable_detector() fails
+  media: redrat3: Ensure we don't read beyond the end of the packet
+  media: redrat3: Ensure all urbs are suspended
+  media: redrat3: Error path leaves device in transmitting state
+  media: sunxi-cir: Ensure no more interrupts can occur before free
+  media: meson-ir-tx: Ensure clock is disabled on unbind
+  media: meson-ir-tx: Ensure rc_free_device() is called on unbind
+  media: meson-ir-tx: Ensure probe error is propagated
+  media: ir-hix5hd2: Ensure rdev is setup before interrupts are enabled
+  media: rc: Use after free in ir_raw_event_handle()
 
-I'll include this in my next revision, thank you!
+ drivers/media/rc/ir-hix5hd2.c  |  5 +++--
+ drivers/media/rc/meson-ir-tx.c | 14 ++++++--------
+ drivers/media/rc/rc-ir-raw.c   |  8 ++++++--
+ drivers/media/rc/redrat3.c     | 28 ++++++++++++++++++++++++----
+ drivers/media/rc/streamzap.c   |  1 +
+ drivers/media/rc/sunxi-cir.c   |  2 +-
+ 6 files changed, 41 insertions(+), 17 deletions(-)
+
+-- 
+2.55.0
+
