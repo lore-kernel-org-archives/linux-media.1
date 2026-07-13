@@ -1,63 +1,63 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7079E1F3B8A
-	for <linux-media@vger.kernel.org>; Mon, 13 Jul 2026 12:11:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD2940242B
+	for <linux-media@vger.kernel.org>; Mon, 13 Jul 2026 12:11:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783944704; cv=none; b=dgwmOOGxx17glw9KMRopNckduWZfl/HHx5eca+4FWyC0P16y+Pay10TfbyWmsrDY00g8p7h5qv+oMnAKZXiYry7IRBXBJlwiRp/q/v9ens33aoouxAdZpUYAO6vKHplWW472W6QRADLRGIj0hv7AMkGEJcmFAdJowwyyI7g7FGw=
+	t=1783944715; cv=none; b=P9AGXXWfLxhZn/XmW/8A0o+JYFUvJRQj7sr9a1N5u2bOEv+/75rcxULbj6uw5su6YaEvWz6kp5chpNeKe3XpOsBUQkc7mbGxMNXcv4lN3RNGBFMQ9DBqLesM5qu2NQ87X/0mBZOETOHPOEua4+6OyAtCy4R2V/Tdp67LN1pTuLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783944704; c=relaxed/simple;
-	bh=Oo1zBhvF60qelrBXEcyAajK7JtUh598aCvxZV7Ifbmw=;
+	s=arc-20240116; t=1783944715; c=relaxed/simple;
+	bh=ptkcLZC/rZ3ISEyM/x91NL/C1Etf2/yRncxk30AlMs0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jDV+mToAXf5CPt45rExMrYIKlKPpbeMPmTImI9Donp6qkgalRUh9ohAFQxnh9ftYg+8Jl7dtg0Bx4PjQmlIklNzPWLvC/ALwVJ2TzVwdFxx6BgzsCqzEg9U+bQFuIFD8GMLOL8DImeHscE2Ti2lP9n8vkeebeip+6VoP8dhebww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SatcBO37; arc=none smtp.client-ip=209.85.215.175
+	 MIME-Version; b=QaZpjAJnVcePcs90aUYAK5YIuZrcKZVQpt+rSQWj35UlLT5nRBsmePcGkEQd2Hj8zI4pAF6TLG+DnhJeLEtgvseRJIoll6/T+pWt+UuO+wxk2721btd+8lF55HhYQbqy41Q1qZB/1HECNsw1NBamHdqfzTFBHv7Q8xX8BRCkLyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PjOEqM4o; arc=none smtp.client-ip=209.85.216.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SatcBO37"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-ca88130e09aso2058270a12.3
-        for <linux-media@vger.kernel.org>; Mon, 13 Jul 2026 05:11:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PjOEqM4o"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3811e59df58so1977396a91.1
+        for <linux-media@vger.kernel.org>; Mon, 13 Jul 2026 05:11:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783944703; x=1784549503; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783944714; x=1784549514; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xrLz/BgMOWZJw3Q53MMnd8sHfRljAQMBGTN2LAcpT4M=;
-        b=SatcBO37GthLcgCzc+9aPHbXjJT9iHq8sUJ5HRYMQ62TUl2aelWG7/mETN5N0zzDtV
-         vmZVqdLmvrZAbtcTR1o2YBeUdUKUe2Iel35C0xJbx1k8dWfQf+qTIzIIagA/NKIkaObu
-         oib2YOLu/UALvHt3oJOKGzGDKd5Xq2Iz98bntg361NI4o2l4AaAqzbz+5GSGgBnwpoWA
-         i0yoToTuzdeacgs92+OUFyvdqwvnRbRMcZVMa2ccsEth69Hcx1rJGHKcXxu+BKPKCkR8
-         CSZSmEc0Zll0dWcfVjkSLc0hJaR2aWvJLNJ78Ddp0j+ErhEi0tv5WYtdFI0LDHuN9J8y
-         G3jg==
+        bh=M8Fc1y4+RwjniJfgwRtIk0X9ABaeOzCopsCGLc1zspc=;
+        b=PjOEqM4o0ovCqKiaFjVJqWCJuuV52AYTqcRtlAQKII5bEone2chz6L8trltPCyiVBE
+         Ky6SzkltMCBjlmmvQwgdYzyTbz5/o566wdNMqeVUThx0jsoZ5KZsoa9HwrQ1uuW0AvZv
+         MRZ9Xaj2NQoViPTRh0aqYe057dUQ/0J28AoBf8+boowUuo3ydhhxZ14M9x/ngp8K3li9
+         OsUL10czxNdEHr75rUzuQxlC3mrZNAHOqKfSrXvJMi1scas3gY5NXz7V3MGyTv7zFBD2
+         fuIU3VcJXBpvhnZPgQF4yjNy0f1ah688qtByKTDbCFYmNrmB9INUZ8iVLwbBiplXdNpq
+         MoCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783944703; x=1784549503;
+        d=1e100.net; s=20251104; t=1783944714; x=1784549514;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xrLz/BgMOWZJw3Q53MMnd8sHfRljAQMBGTN2LAcpT4M=;
-        b=bA2gUtBgx6LpgiasoD8S1PHQnCc3avbRtS4OAbJzfYo6oor7//xymWPcjWKivr+TE+
-         q75JgDirmAuBf+l8mfG0IKYriV3MTk/kEOouAivgT8s4yuTEQMIaFvrOgbQZFj/i5mIv
-         SYp9+PUK/aZv/jL4WLrNwmX85YjHakxSFG0NdyUmNXQFBeHyWp91gCQe/Sy3BaHkSWrV
-         qUkjkeMu0NenkAqxIv5hvQjcQnvmM3ExGp3ekyL7WCC4ArjR2UxSpSbR6fDn8qQIJChc
-         /795Hztyd5b898qPxJZjY07YH1lBNUUqjJ9JUzZpV1mGg/XbxhtaVDK20d/IEb5SPsdH
-         9aVQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpgDa7VdgF2jFMVMhJ6tl1LWRcVXP3QV6i0IS0URuxILGnnVEGc71X73xKOeCut6Jx0CXAs1ZOKNHdgxA==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzh1kNZREVuu/6sBr5xqgyKtuUOSh20Z/3dFMIdR9MhU3CA8zo+
-	gIpAwggLBDsfZ6guxbHgAwLkv7L6PHFoYudtGNtPizyZgDf37Vs/ae9k
-X-Gm-Gg: AfdE7cme8A/Hgk45Um6OsWFzEiCMPM66SW5RXRosZmXQWvjkOdI20QVTqNZ9feV7EDy
-	5RKraG4q4YbuiyyzhSDp1uc6DRv8YzBA8F4mcWAQ0sC0R6e6evmmq5pz6PZbFa8QLI65lcqJWGc
-	v3KN4m6Cc4/SAcrc8yhqw2becWIbkxHEN4FlKPfuwAJkXUuZ4akxg1E3qJrAFXPl7O1DMryUQ4j
-	XYeLTi9pZYIymxgt+tceqkXIH7KuigeaAZ4ifpMthIsnaCI/IBge8V223VgaToCxrjgGw2crGfc
-	1gFyX8CGLNPiczmDI2biggUMt47AnunbERkzmzRdUpiSpcU9ADJ0bAA56Q2VcaO7Pqz7rDUpkhe
-	zr8qX1ETw+tvZIzM4MWcZdyK23hNUqt+eV7S6iOlDIjmDk6J9sOEOHY/sUsazTMZQ+lwcFOVI+c
-	BvHpI/Y5Sr6Q==
-X-Received: by 2002:a05:6a20:da1a:b0:3c0:9c18:d5a5 with SMTP id adf61e73a8af0-3c111073a84mr9971121637.66.1783944702870;
-        Mon, 13 Jul 2026 05:11:42 -0700 (PDT)
+        bh=M8Fc1y4+RwjniJfgwRtIk0X9ABaeOzCopsCGLc1zspc=;
+        b=bZOhWZyQDz9GilziwnvPIP4Y0JW1l4skSmLk4bhqnt+9uBVAX7khFTuVbN99NZTobO
+         /iLrtHK6VHClH0lAKtRz3ycM64/mIY3kCaDayWWKMQD3jbHrAndLbgefaCPlrhoar953
+         GkflNwGjV/vmCEJsJPH0XzWAiy9QDuPqFqNX4+YRA1nOCgxnPSRE3Di+EXn7mVd1JBbK
+         JvoQy1F4D7KOFUhIzoQF39ZEHNk2JTdg0w6iFR0JL8qjbXHANh24K9vf2YgXAdP2No1x
+         NY+vea5oVh/sqhsecMXkgJmjAlafBP7BJVUD9lOKR852TuJnlc2+PD9lFcaHLwa8S8kY
+         ga1Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpIdQqyfAX7D/gRZakXnzzeofhBQXks8GuGwIgeKDRRb/T8AdI+t6714XabkA9Ggo7k3msdEoLxORB3uQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyl0Y7uBx19enFomGi/iArf26CNFmPUbzg4pmpSPyvZZn5SA/I9
+	Ywkopl4eGPs54z43zPYrCFXIptDnzXee5b47ob/l/U1jhe3Vl7oNLUwZ
+X-Gm-Gg: AfdE7ckKirhcjm3O8ZcA4c/eMSbd1wEA6scxkEfCzzPkMf9KoiiMdT4WCsc0KznDKhv
+	XFXgw7nFyKNnmErv9ZJ12lcNkSRLQ/QuGBlzRheeT/fYMxU01X8i2AYB3CDVskG43nE1nxO8ik6
+	Wkw/Ynkgu9AgSaS5Ri4O6UUIZ1TcPm0yzP1nwWc5o6z4r9dTTenoMYCKS8r4QgOepp+/susR/lr
+	On8FOCAbarJ32BwPQbLcwMJM79RuU6nFP5gllpyezQRyXLAnDEbCJUz2do70kGdfJImUKygXckS
+	Y5iWMtwuVO8bLq8uQl2X1pRW3FyK9RjFgofOiJkBXkdpmJ/PqRKHFiCpwMd2hfqH67L7kwN/R+b
+	/FfHORXm+/lO5H7K/EwojOq1w4t6mbLdXQgr+Bq2uCZzWOfyISp/cSa3NZ1lEZ5bgIAt99ocz+w
+	5xU6GBAHrbZg==
+X-Received: by 2002:a17:90b:4c51:b0:37c:607b:2cd9 with SMTP id 98e67ed59e1d1-38dc7607589mr7644160a91.0.1783944713757;
+        Mon, 13 Jul 2026 05:11:53 -0700 (PDT)
 Received: from rockpi-5b ([45.112.0.180])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-311747f7293sm67756935eec.3.2026.07.13.05.11.36
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-311747f7293sm67756935eec.3.2026.07.13.05.11.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 05:11:42 -0700 (PDT)
+        Mon, 13 Jul 2026 05:11:53 -0700 (PDT)
 From: Anand Moon <linux.amoon@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
 	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -78,10 +78,11 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
 	linux-staging@lists.linux.dev (open list:STAGING SUBSYSTEM)
 Cc: Anand Moon <linux.amoon@gmail.com>,
 	Doruk Tan Ozturk <doruk@0sec.ai>,
-	Nicolas Dufresne <nicolas@ndufresne.ca>
-Subject: [PATCH v7 16/19] media: meson: vdec: Configure DMA mask and segment size in probe
-Date: Mon, 13 Jul 2026 17:37:11 +0530
-Message-ID: <20260713120840.17427-17-linux.amoon@gmail.com>
+	Nicolas Dufresne <nicolas@ndufresne.ca>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v7 17/19] media: meson: canvas: Fix Use-After-Free by linking canvas provider device
+Date: Mon, 13 Jul 2026 17:37:12 +0530
+Message-ID: <20260713120840.17427-18-linux.amoon@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260713120840.17427-1-linux.amoon@gmail.com>
 References: <20260713120840.17427-1-linux.amoon@gmail.com>
@@ -93,51 +94,65 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The vdec probe routine does not set explicit DMA constraints, leaving the
-driver completely dependent on platform bus default values. This lack of
-explicit layout initialization can lead to allocation failures, restricted
-address space mappings, or broken contiguous buffer handling on
-architectures with restrictive DMA layers.
+The vdec driver retrieves a canvas instance using meson_canvas_get() and
+stores the raw pointer in core->canvas. However, the helper drops the
+provider device reference via put_device() right before returning. Because
+no formal device relationship is established, an unbind of the canvas
+provider driver triggers a Use-After-Free (UAF) bug when the video decoder
+subsequently attempts to access that memory block.
 
-Address these platform constraints with the following changes during driver
-initialization:
-1. Enforce a 32-bit coherent DMA allocation window by invoking
-   dma_set_mask_and_coherent() with a DMA_BIT_MASK(32) argument.
-2. Maximize the contiguous allocation segment boundary constraint to
-   UINT_MAX using the vb2_dma_contig_set_max_seg_size() configuration
-   helper.
+Fix this lifecycle hazard by enhancing meson_canvas_get() to establish a
+formal managed device link between the consumer device and the underlying
+canvas platform device. Using DL_FLAG_AUTOREMOVE_CONSUMER ensures the
+dependency link is automatically torn down when the consumer driver
+unbinds.
 
-This guarantees that large, contiguous video frame allocation requests
-work reliably and explicitly aligns the memory management paths with
-standard Linux kernel DMA management paradigms.
+Additionally, handle missing link conditions using dev_err_probe() to
+clean up upstream error diagnostics, and ensure the canvas platform device
+reference count is dropped safely along the uninitialized driver data
+path.
 
 Cc: Nicolas Dufresne <nicolas@ndufresne.ca>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260530111022.9C6D71F00893@smtp.kernel.org
 Signed-off-by: Anand Moon <linux.amoon@gmail.com>
 ---
- drivers/staging/media/meson/vdec/vdec.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/soc/amlogic/meson-canvas.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/staging/media/meson/vdec/vdec.c b/drivers/staging/media/meson/vdec/vdec.c
-index ac86a9c4febff..d33cbebc4453b 100644
---- a/drivers/staging/media/meson/vdec/vdec.c
-+++ b/drivers/staging/media/meson/vdec/vdec.c
-@@ -1186,6 +1186,16 @@ static int vdec_probe(struct platform_device *pdev)
- 	if (IS_ERR(core->canvas))
- 		return PTR_ERR(core->canvas);
+diff --git a/drivers/soc/amlogic/meson-canvas.c b/drivers/soc/amlogic/meson-canvas.c
+index 79681afea8c61..5102a491bf778 100644
+--- a/drivers/soc/amlogic/meson-canvas.c
++++ b/drivers/soc/amlogic/meson-canvas.c
+@@ -54,6 +54,7 @@ struct meson_canvas *meson_canvas_get(struct device *dev)
+ 	struct device_node *canvas_node;
+ 	struct platform_device *canvas_pdev;
+ 	struct meson_canvas *canvas;
++	struct device_link *link;
  
-+	/* Enforce strict 32-bit DMA limit to match hardware capabilities */
-+	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to set 32-bit DMA mask\n");
+ 	canvas_node = of_parse_phandle(dev->of_node, "amlogic,canvas", 0);
+ 	if (!canvas_node)
+@@ -70,9 +71,18 @@ struct meson_canvas *meson_canvas_get(struct device *dev)
+ 	 * current state, this driver probe cannot return -EPROBE_DEFER
+ 	 */
+ 	canvas = dev_get_drvdata(&canvas_pdev->dev);
+-	put_device(&canvas_pdev->dev);
+-	if (!canvas)
++	if (!canvas) {
++		put_device(&canvas_pdev->dev);
+ 		return ERR_PTR(-EINVAL);
++	}
 +
-+	ret = vb2_dma_contig_set_max_seg_size(dev, UINT_MAX);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to set DMA max segment size\n");
-+
- 	of_id = of_match_node(vdec_dt_match, dev->of_node);
- 	core->platform = of_id->data;
++	/* Establish device link to prevent Use-After-Free */
++	link = device_link_add(dev, &canvas_pdev->dev,
++			       DL_FLAG_AUTOREMOVE_CONSUMER);
++	put_device(&canvas_pdev->dev);
++	if (!link)
++		return ERR_PTR(dev_err_probe(dev, -EINVAL,
++				     "Failed to create device link canvas\n"));
  
+ 	return canvas;
+ }
 -- 
 2.50.1
 
