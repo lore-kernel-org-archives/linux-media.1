@@ -1,83 +1,95 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C06B3EB0E1;
-	Tue, 14 Jul 2026 06:52:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CED286409
+	for <linux-media@vger.kernel.org>; Tue, 14 Jul 2026 07:07:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784011948; cv=none; b=lNWqJH9OpVPO6AiKmwkvltRCveheN+y+LXOdeK+I4mUJ0sbsE1g2tqEZZSL6vhq24IjJaaor++oR/mt/+eellRYeWumQKAJkm6aOw+HIKEa2nzjpTK2ZIVEhJ1o1M910D/1NKhQs6keBCIDqIeGbiPINNKwdA+TMgKJvMcJk7R0=
+	t=1784012825; cv=none; b=f1I+XqNs4UXqXd7knAARAF4szTsAqFr+N9RsPyL47wT6Bz17JmA1RDQFdrzncOL6Ls4DWVcumf/DhMC7g3s6fs+TyRRoQYtsKHihPf5TqUvoQSxhAInqISfadX3rK06Ok/mEem/r5jHizd9P5c5WdHzlDOGopQ5t5oPpLeoGcZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784011948; c=relaxed/simple;
-	bh=6ACPL3xPY4kCzIozm4mfvh78P8la9Wyv79Is5pmDTXU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=olOG9FuMAKGMO+9BDi+ynbQmeuQRaTe6+dhkvRuPd8YJHD4cj2E7HaAOuVB4V8HffbEH2KKTxY0+ebsXtyR8gGbridGwQTbNwNQ+dWCRxv2MYHrjdgPftmHzP6x0R/anX8vV3LN6v2Diioub9YLkD5/98oISKx9w4WmOvXPwiMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=UgihLh84; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1784012825; c=relaxed/simple;
+	bh=/KzGKOlZ3bvNcEj7sYeqDf47jh7JWb8fyxkKwOKfcd8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gm324WRSQR/YjNl9rGUA0WSepF/WTQ0gsraWrYl3DYZ/7oRCWao+4udMxHuiKtrgz5aPK1NcdtueWz9kDSgSuH5+hgmZXZCQATJTGuUMeabyaIQh7PcWG4Pa6UvHhYU6GpebDA0s9eHtusSpTgcUeXLU1gqrf9gCeQkblyfm7cc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q21vrEUS; arc=none smtp.client-ip=209.85.167.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="UgihLh84"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=on
-	YXaGprWzuvN/rin+WZnE7OSsL6l57M2UyUD/tPwgQ=; b=UgihLh84xx/q3YpzYQ
-	paj03BhnyQT+1PhOg4+BqfTBLWAi1lRG/vTs/1Q6j2gN4X1awpfVjMcYDPJUNiSu
-	FGT6bB+3mJ5wNw7YuHRNhrIK5FVrAdvOqL1Dlujhv9YiZQkXwCkwEYrZX395MJbv
-	v7u3zS5rP0GYcPpja2DaVN+bQ=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wBXlqWU3FVqGz8EJw--.28541S2;
-	Tue, 14 Jul 2026 14:52:06 +0800 (CST)
-From: Lei Huang <huanglei814@163.com>
-To: mchehab@kernel.org
-Cc: johan@kernel.org,
-	hverkuil+cisco@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lei Huang <huanglei@kylinos.cn>
-Subject: [PATCH] media: s2255: check firmware size before reading trailing marker
-Date: Tue, 14 Jul 2026 14:52:02 +0800
-Message-Id: <20260714065202.563027-1-huanglei814@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q21vrEUS"
+Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-4896ae35be9so1585223b6e.0
+        for <linux-media@vger.kernel.org>; Tue, 14 Jul 2026 00:07:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784012823; x=1784617623; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TuyYrGZ1DyNEfIN58XUvMb0/+UabFx7P6cZQIsqhIhU=;
+        b=q21vrEUSBfkgQZV8KynGMpv24gIWKddIfth04scG0gwpVb5yQYzyJYUZV48hESJe6K
+         NbkhhNZ357vXRvussqSGmIF+jij9y8b4rOh+EXCJyVN4i/QtyTJ42QTEXQevzQe/JNwE
+         m0TX8SferYfc6dKPvRTlmtXEDQ0xuAsrQeAA1OP+1wSy9pk0/HPxuPCOlcDD4ouze4jI
+         HmbofXGEpR3D9GVlOdSd+fb9zhWg87dJaPoK4VN1vOVdTBzTnOZ27LRTMJx2xMZsVqh2
+         SjoR1R0h2/p4Uu7AYcpjJrnpK/hKuns5KWRrz5FdNuaVBRiLwctkys0sLVaXd0gs6bHV
+         H8XA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784012823; x=1784617623;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TuyYrGZ1DyNEfIN58XUvMb0/+UabFx7P6cZQIsqhIhU=;
+        b=E8NYaJtyj10iB8jyN0HjjDrqDJ3Eig4JZMkYBRO92a9S3GjLuJy8tq+u/kPHGhc6q5
+         Q5UYRSEoicz2T3RcEwGkKaM0tr3qJ05fGLesrmuA+cpJ63oBo1nRAaZPhpT5xiDwC1dH
+         36eP0qJ0Dthe3YkRMOtdV2uyqDTWaiR+U7k9S0KsJBzyuOp50Y81mGgVqcsaqzGys9rY
+         Hds86ZVVa0ruK7VI2bZmQh6BCOgd7keFRXA33aUGBqhOV4O7+mZiI/TYi1M9V2aILP8L
+         I0gKXb9ZSsqWucEB1oiczeW+RURoqsZqubhkO0BZsUFicRComKqJQCtdNC/E7ptRlM17
+         OVdw==
+X-Forwarded-Encrypted: i=1; AFNElJ9mUwl0cew8Et2Pt65Gf4rM8hD8eQ3tCEgUtcwvnsBFDh50RBJZWgERiuROyaXBRdCnJau39u02b9wong==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxNQlg9dmkBgucuW3DkX1cchH2XXQEASSY8USX4aK7lAvf679GF
+	HLHX+avv5uGbpZ18hjmIUjYuQ4GMzhm7eqTo7/GCJs3mUalXx/gIBQCI
+X-Gm-Gg: AfdE7clH5p9SLji30I+memhtgrqd/eZKdcUFFBB8CRBzBpejracrHybm674qzDhxfRZ
+	gwaGi93BQFkLtSPLO+6eOiGux4VTdv0hPem1QXcvnN4bxkSTBKJ53Si0+UowDHjL5XblxQnthhp
+	lrZYAjr/FVm9B5XsufPGFosDgan5gMzrbwPSk3bIGVuxoO3haqUai2ImyedY7LsJxePcxxocAum
+	3iTN+m0BluFU4LKnfTPW+Cbou+dLLghrfpHAErnsPJg39k5u80phzzd3T9SZhaDLz9tsz/WPhJg
+	oH7gHJ0iVhwnG6qeT3NMc6F1u9t+4kUHhJbOWV0IzfELRkgfsmBBMJeZ8qli1+hi9X+XM7fq1JX
+	Co9Opj/rHNPrSyt6Tiu5moiQXC3AMyoyZ6KXGKHpMQU6ouwyiBZYe+0XBTyocisV8D2RJrVbygz
+	s8yIUa
+X-Received: by 2002:a05:6808:319b:b0:4a4:25b4:a0be with SMTP id 5614622812f47-4a42abc0379mr7380084b6e.2.1784012823154;
+        Tue, 14 Jul 2026 00:07:03 -0700 (PDT)
+Received: from localhost ([74.80.182.78])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4a1ad5a77e3sm13498322b6e.6.2026.07.14.00.06.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Jul 2026 00:07:01 -0700 (PDT)
+Date: Tue, 14 Jul 2026 10:06:55 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Alfie Varghese <alfievarghese22@gmail.com>
+Cc: neil.armstrong@linaro.org, gregkh@linuxfoundation.org,
+	linux-media@vger.kernel.org, linux-amlogic@lists.infradead.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: media: meson: vdec: propagate devm_clk_get()
+ errors
+Message-ID: <alXgD1Vr1zAiVf4B@stanley.mountain>
+References: <20260713171644.691-1-alfievarghese22@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBXlqWU3FVqGz8EJw--.28541S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtF13XF1UCr4xtw13CryxAFb_yoWkurb_ur
-	n7uw1kG3W0yry5Wr42kr1SvrWrArW8Wr1ruFn2q3W5J3yjqa1UXr4DZw1Iq3Z8GanFyF1U
-	Jas5XF4fuwn8WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU8xwIDUUUUU==
-X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC9BZMQ2pV3JZ8DgAA3q
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260713171644.691-1-alfievarghese22@gmail.com>
 
-From: Lei Huang <huanglei@kylinos.cn>
+On Mon, Jul 13, 2026 at 10:46:44PM +0530, Alfie Varghese wrote:
+> vdec_probe() maps any devm_clk_get() failure to -EPROBE_DEFER. This is
+> incorrect because devm_clk_get() can fail with other error codes like
+> -ENOMEM or -ENOENT (clock not registered). Hardcoding -EPROBE_DEFER
+> masks these real errors, causing the driver core to retry probing
+> indefinitely instead of failing early.
 
-s2255_probe() reads a 4-byte marker and version from the last 8 bytes
-of the firmware blob (fw->data[fw_size - 8] and [fw_size - 4]). If the
-firmware file is shorter than 8 bytes, fw_size - 8 underflows and the
-access reads out of bounds. Validate the firmware size before indexing.
+It will not keep retrying "indefinitely".  -EPROBE_DEFER handling
+is smarter than that.  Fix the misleading commit message and add
+a Fixes tag.
 
-Fixes: 14d962602c8b ("V4L/DVB (8752): s2255drv: firmware improvement patch")
-Signed-off-by: Lei Huang <huanglei@kylinos.cn>
----
- drivers/media/usb/s2255/s2255drv.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/media/usb/s2255/s2255drv.c b/drivers/media/usb/s2255/s2255drv.c
-index 0b8182edf8e4..3917913c3b47 100644
---- a/drivers/media/usb/s2255/s2255drv.c
-+++ b/drivers/media/usb/s2255/s2255drv.c
-@@ -2277,6 +2277,11 @@ static int s2255_probe(struct usb_interface *interface,
- 	}
- 	/* check the firmware is valid */
- 	fw_size = dev->fw_data->fw->size;
-+	if (fw_size < 8) {
-+		dev_err(&interface->dev, "Firmware invalid: too small.\n");
-+		retval = -ENODEV;
-+		goto errorFWMARKER;
-+	}
- 	pdata = (__le32 *) &dev->fw_data->fw->data[fw_size - 8];
- 
- 	if (*pdata != S2255_FW_MARKER) {
--- 
-2.25.1
+regards,
+dan carpenter
 
