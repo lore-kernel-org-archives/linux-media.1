@@ -1,99 +1,88 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C643F23C9;
-	Tue, 14 Jul 2026 07:58:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B45DD286409;
+	Tue, 14 Jul 2026 08:15:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784015900; cv=none; b=YZOgUa//U0cCouFEIRR2nOnG2YCrVuudYDgB5rckCLOWAd0JMxf2JXQF2UPb+ZmrUeiVyB8KNcTeuMw6spZhIQB0yx/D4caOhGDG6F6MoUa2fLfsgiC932yDzjAdsnVr808PkRjUlN/6pCWFGOkol8hVQsWUM0DbKtctE3HKCUQ=
+	t=1784016921; cv=none; b=Kcte6J1XET8gQf3WYPGxrmpWQBWce08Azwqx+2P1fyXlyVxqrqRnL6Z5yqgGql/VFj5wa0975c5O7N4O4VdPYU1Q78pjXu4CJMT0g9FsfMlehk9jDcer2uVhRiRZEdtWJ5mFgtFbAwOF1we63XGdmiDFxsbzZ9Vwf89fgVTTEeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784015900; c=relaxed/simple;
-	bh=FcbdSecE3CbmaU6kiFheKcd8VvJ0qHTofjF3ByVL9lQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XepuLpD5D7yU+UzU6HiP9/fH0q7rLuUJMRuOqVsF+VdyLWLI4fC+crGK0EVaU88FAZ9ksvdgxQeTnBXJBh5+7jwKo023KAu9jHowzeCxbFsk2rSNv3eFhQ13h5rohu3LCDxZad8Lh6pa7n8F/LU90nj2Yj0XVh8FLki3/J/bznY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Cl2iWTPJ; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1784016921; c=relaxed/simple;
+	bh=mH5ovusdX2PkuFsDOJP/5IHW9PCLk6DvxtbTbPvIkT8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XQYdMMPdKHnDkM6qkWg8fkgadFlLz31A+q9P/AuZAGWazgt3ZKJnHncBfix5+i+RCe1n9cvO7XVar7ZI1jUjN+fTRe+c707dPOhCbBPm5QJGmbY3r2eTfMsyE9ulP+sxCmhf6zD8DuJ70Q3GJKbNEw67xt6lHSVlKHqg/OaaPt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=PzrAcsxX; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Cl2iWTPJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784015898; x=1815551898;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=FcbdSecE3CbmaU6kiFheKcd8VvJ0qHTofjF3ByVL9lQ=;
-  b=Cl2iWTPJKsnX2Nlx79Kq00+lZ2eqitB53q9zASn9muXMTqekeDYOoXdR
-   IYSyZLm/b/arEEdzfzTMpXybkoNOMnAvk4s2vHDT65NIrBgg1QFuKdoaC
-   nqaerEVL2fuO9ljf+uxczqxMZSMh3NVom2/K1OTd03Ek5dadTFBEuzCeq
-   A+PxXiF5yebefDD2zz9sMeL2bemCkWK2CotHjBBb+m/oHrKe7Lx0NS9bV
-   JAjJz7z5xWHZO9SufcbrKrcJLlX2gqmFBnTZ1f7iyfCzCTDTWrCVxiySh
-   q0nr+7sUlM9vCl89etHcQA3/8jH0HhqOsdGq1DB2fWCjFTRF7HEm6zVzh
-   w==;
-X-CSE-ConnectionGUID: zmEsn0PaQeG11A0jsHKCWg==
-X-CSE-MsgGUID: vFKR2HO1Tcu2c/jUQTMRFg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11846"; a="84826962"
-X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; 
-   d="scan'208";a="84826962"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 00:58:17 -0700
-X-CSE-ConnectionGUID: kT2o0qwcQqueQxDbWvow0A==
-X-CSE-MsgGUID: m7s5LQMYR+WaNZSc9dPfNQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; 
-   d="scan'208";a="260662347"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.245])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 00:58:16 -0700
-Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 738CE11F8D1;
-	Tue, 14 Jul 2026 01:12:17 +0300 (EEST)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
-	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wjJHc-000000000xa-02Be;
-	Mon, 13 Jul 2026 19:13:28 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: linux-kernel@vger.kernel.org,
-	Andy Whitcroft <apw@canonical.com>,
-	Joe Perches <joe@perches.com>
-Cc: linux-media@vger.kernel.org,
-	laurent.pinchart@ideasonboard.com,
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="PzrAcsxX"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 289DB6AF;
+	Tue, 14 Jul 2026 10:14:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784016863;
+	bh=mH5ovusdX2PkuFsDOJP/5IHW9PCLk6DvxtbTbPvIkT8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=PzrAcsxXKw6HNKl8DAAVGIKJWGnVwSjRgXAGYPC6469KkOLNYgBQmzH0SBun8PCeh
+	 8I6HyFTH1zIxxj1Vg4ruIb7yQkMyNmwLhNrSHVeFjPF9DIEFeLieWVEXYdb3gNbPfU
+	 EahnWAy1a8RwX3b2Pe0IMQLKrn7zoPnKCmU2L9gM=
+Date: Tue, 14 Jul 2026 11:15:15 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, Andy Whitcroft <apw@canonical.com>,
+	Joe Perches <joe@perches.com>, linux-media@vger.kernel.org,
 	hans@jjverkuil.nl
-Subject: [PATCH 1/1] checkpatch: Deprecate V4L2 pipeline power management code
-Date: Mon, 13 Jul 2026 19:13:27 +0300
-Message-ID: <20260713161327.3682-1-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
+Subject: Re: [PATCH 1/1] checkpatch: Deprecate V4L2 pipeline power management
+ code
+Message-ID: <20260714081515.GM1127719@killaraus.ideasonboard.com>
+References: <20260713161327.3682-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260713161327.3682-1-sakari.ailus@linux.intel.com>
 
-The V4L2 pipeline power management code, in particular
-v4l2_pipeline_link_notify(), v4l2_pipeline_pm_get() and
-v4l2_pipeline_pm_put() are deprecated and shall not be used in new code.
+Hi Sakari,
 
-The drivers need to use the Runtime PM instead.
+Thank you for the patch.
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
----
- scripts/checkpatch.pl | 3 +++
- 1 file changed, 3 insertions(+)
+On Mon, Jul 13, 2026 at 07:13:27PM +0300, Sakari Ailus wrote:
+> The V4L2 pipeline power management code, in particular
+> v4l2_pipeline_link_notify(), v4l2_pipeline_pm_get() and
+> v4l2_pipeline_pm_put() are deprecated and shall not be used in new code.
+> 
+> The drivers need to use the Runtime PM instead.
 
-diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-index 2b7a42bbdd94..a8a7374dc9c4 100755
---- a/scripts/checkpatch.pl
-+++ b/scripts/checkpatch.pl
-@@ -879,6 +879,9 @@ our %deprecated_apis = (
- 	"DEFINE_IDR"				=> "DEFINE_XARRAY",
- 	"idr_init"				=> "xa_init",
- 	"idr_init_base"				=> "xa_init_flags",
-+	"v4l2_pipeline_link_notify"		=> "",
-+	"v4l2_pipeline_pm_get"			=> "",
-+	"v4l2_pipeline_pm_put"			=> "",
- );
- 
- #Create a search pattern for all these strings to speed up a loop below
+I'll be happy to see this API go, so we certainly need to make sure no
+new drivers use it.
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> ---
+>  scripts/checkpatch.pl | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+> index 2b7a42bbdd94..a8a7374dc9c4 100755
+> --- a/scripts/checkpatch.pl
+> +++ b/scripts/checkpatch.pl
+> @@ -879,6 +879,9 @@ our %deprecated_apis = (
+>  	"DEFINE_IDR"				=> "DEFINE_XARRAY",
+>  	"idr_init"				=> "xa_init",
+>  	"idr_init_base"				=> "xa_init_flags",
+> +	"v4l2_pipeline_link_notify"		=> "",
+> +	"v4l2_pipeline_pm_get"			=> "",
+> +	"v4l2_pipeline_pm_put"			=> "",
+>  );
+>  
+>  #Create a search pattern for all these strings to speed up a loop below
+
 -- 
-2.47.3
+Regards,
 
+Laurent Pinchart
