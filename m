@@ -1,156 +1,139 @@
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B8B48123B
-	for <linux-media@vger.kernel.org>; Tue, 14 Jul 2026 14:55:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10C64BC032
+	for <linux-media@vger.kernel.org>; Tue, 14 Jul 2026 15:17:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784040905; cv=none; b=GC3kLS97/uxDagXdeeVGnPRcNSFr2+W/YKFGbK1YHSMqFVJy6raUTZPdpE9A9XZepU6p4O18ey/ZXSUuc1rfXsjOy0+XUQdmcb3Comg/IVzZy9ldHDS5G23MWlrktrIIXXFokvjnlhwAVYkz4XFtG29iAhkak9Rlc7nTpW3zODA=
+	t=1784042233; cv=none; b=NMo4H2XfN0IGw/ylO7lAfISJADcxAJjx1IAahHK+gTnGDeTxyFm9RiYJUESG0QhcXjEw6SOWGS2ZpwCPNXlwVX5dEccErzdBwSUgzzlol/2nWjRuKw5GuziJ1X97k+izjLApzHK+Tv7NLXzoodvuOjhgt5mIJ4SGE8h9z5Yr7Bs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784040905; c=relaxed/simple;
-	bh=k83a3OVYpdq0z9t5DX2/SnPMtp87t5xpuZAXdVCLjVg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kBic6viaNjeDk0o1nWJvOpYjIeHZzLkCPZjcOLsP/uQJDlw8ro5GLSKWtooOb+3iTH4dkqWOCjo380+3fsns88l1N01G449rJpEyVlU5j1+ZGvVq/btIZIR4iVNcxe/b46ZHMkmAj1NS3sAjVRpPE6scBIryW+/ab8LPtcfkbAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=jC5SAS1P; arc=none smtp.client-ip=209.85.219.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1784042233; c=relaxed/simple;
+	bh=qvhInT/SgcuGyP/ork55nnSJpC2mxeW1HjGP20C6WSM=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=YFm/2fIbIPgVKVE+3msReEAyw0HZVRONJ7yXKX+pov1hQ8H5AzJmalfP/aY6eqXyvTkYJS17HqhR6V+N96HoFTrI9InW29wAvWzjX574MkaT02Pr9NEik6qg/6LsrapNPhLZ3ZLrFup6vM0v5myIj8iIvnyLQif7JELYpIy5NyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m6uRfOwM; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="jC5SAS1P"
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-8efcfdb2b43so37770566d6.3
-        for <linux-media@vger.kernel.org>; Tue, 14 Jul 2026 07:55:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m6uRfOwM"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-381891a9525so4803331a91.3
+        for <linux-media@vger.kernel.org>; Tue, 14 Jul 2026 08:17:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1784040903; x=1784645703; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=k83a3OVYpdq0z9t5DX2/SnPMtp87t5xpuZAXdVCLjVg=;
-        b=jC5SAS1PKSsxWbgU+UjbR4VKNHTWjLN1UGjUVzY84hkww9KyosWcxJzFaBNsalJdvw
-         NbzJ3dgdNNUkdlShSOCciYIzdhSZaT5X6Nnk/ek+q7tSvNb6RKR3dseQR/2oNeIW1SKM
-         ZHSHXbbsPIl2swFE/RXjo23LENmadbQHWjisiOg7mdM1bKMLNTw6L+5B3LTdcfvwcLKS
-         nTLiaAWd952B8pHBxlCPWkTu3TqHOw36GHatcR9Ky/s+h/HaQlY0FnUc2NURYMHn0Psh
-         WfnluqFIflKGD/7W2jMPwff//skd37xSJnhLpEwvUFn+M4ykU4vSdMM/KvuglZMU2bKX
-         BPRQ==
+        d=gmail.com; s=20251104; t=1784042231; x=1784647031; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=joYU7SNNWgacv3mwvw+01Lka//SvlR+4VPR0uOgRcXA=;
+        b=m6uRfOwMwwqO6OqQ1QAXW3oNIeNE7f8ckkX4ncMbFIpNzHMJPc7jnLzTX7oK7ArYqq
+         tWqPRM74fokn+3JKrsEhf13xmau7vu8LF/hMS903BV+CLxpgkKQ8VYQnl9fpOl23vO1B
+         RT7LrOtFB26+hmxXEl4fs+Q94IWeHG9UVdhtCbC1W7PnyQ3kNbUZp+PK8ETHLvyXDYD1
+         BqBNyOV8Fl30uya4ncCfjRNG0W1z/jo6yxLIL7hLuOtU+2sYWfR1U5dV+BmJOLQkD5En
+         9PKjnT+H/6hquJsRS0j2xmtjnfC0uBIgadlvq4b8KaYgIkbGcZPqbE9RoD9RLwTAchma
+         PgVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784040903; x=1784645703;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k83a3OVYpdq0z9t5DX2/SnPMtp87t5xpuZAXdVCLjVg=;
-        b=Mgu/uGjEddgFcFSzDSxFbtUS5puV1ASsxSru/NZyg5z4YbxMH/nn0R/94cenQltkLW
-         RfAAbsCh0+Z6UK+6kkta5hpa8v6UOrGyhA6uVl2PDTIr9Q+0kLxOxxHMN/rQytXrCBpP
-         O8IQabrk/NGzhMcDpj2NDh/lKVLQvMhqlDYXF5Y9uUtd4nanRFFr0jAUnHP4ZoGWwyGC
-         DDRt2IRhLtOu3ve57EdsIIg1tBCnsdYtUxujjmZ/VYk5nql1tkwIxuuuoSz25EpxW3Fu
-         8sdmRahx34xjv8f+ZGNMGdLlWigHbozBjZq0FA6VEY/KZyaGQzqwoodJAruZU2v2ugo4
-         zhsA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqj6bjoiq9DMurhoq/OnlePHPOsFlP6Ih+akqArxxuDdw/PlRO29jh3w4wBVbGZmi74njMjjVUvJTzbEw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzOqmLljQmg4N37NXePlnKO5GyXoJaDL1qBaP4DEcm4XXIu2Gh0
-	eNmgJqus2CGsHBs3YgtY7tBDAJ7NjjHJfRmyGinrYgvz4JUpD0dj+opnf82VMyDaACw=
-X-Gm-Gg: AfdE7cnDVzLB1wOUTuhxQaulU3SwuZr3eZAplCAX9rT814FOv50YHZmdG7Tpwn9AWW8
-	PngAyZELZhlZzjqmyXJjxyaC15fJDJE/P1OdxaJezCDc+9iXCT5RxvtO3sxNHw8e1hPr8+OuhgP
-	Vep/3rrwGOb2k852GtEy/s1/tnP4S9u+v9qL0Fl92bsfAMdFl9P8Z3WKpQK5+U7F9d760lpbFcJ
-	dDx+8XrOklDnBc2Z1v+6N4MQ0hh2WWNjNPgAmnP+FYbGN4brECdVF1maSu2O7Bbnpn1TjiqdbU6
-	HgocKNNHqDFfcWqNednUgezUq+bu5jB7XGPOnHx55/2nTdDnejBwj9oGfgi4Q3YMF2Nl/XLEpEJ
-	p4kAh7lRNnrC6A49qqnmfZ44m8njaeQ9ZMU2PcClpxwoYkfpX9xGIRmDXSankWJCKjI5BX3xjRw
-	nMS3wCMbzy5It24nY+1A==
-X-Received: by 2002:a05:620a:4104:b0:915:f27f:e70e with SMTP id af79cd13be357-92ef2b534dfmr1387598085a.23.1784040903030;
-        Tue, 14 Jul 2026 07:55:03 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e06b::c41? ([2606:6d00:15:e06b::c41])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-92ee5b4b1bbsm1510584885a.2.2026.07.14.07.55.01
+        d=1e100.net; s=20251104; t=1784042231; x=1784647031;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=joYU7SNNWgacv3mwvw+01Lka//SvlR+4VPR0uOgRcXA=;
+        b=dRrQjHwKCf/qWQhd9M0w++QGNQUFYaVeWC92Wtrv5t3P2Mo68TwVbS+FR1X4HYVseJ
+         hT5bnnImKQiBCSbRENvRue+8dr8G1Wy6QLBmUxAeFsENk5zVXdQFZyoVwdpkOyOe/9sr
+         3yz+3GjOKISdZN7gkj+59VOBq3SScsor2HcxM/+MMHjNQXys8Lglp2+OlCdvDd4IUUoM
+         gdXaPhuAA9PrnNI4yQWL3ElQFSR7li+MQCUoQPIA8EWEwu1KAav3FkQS9colHkAK0gGZ
+         WiFJSQcsp6htWIIoMDeZzVmacY/yhMhwKdEpVa16EmGRREmwYvNpj+kpX0FnLuVxYmmN
+         41ag==
+X-Forwarded-Encrypted: i=1; AHgh+RpnUaWq+xAM9SHgRZZxIKquZQgnb47LMmhaf3cmcS/gPcCmPYq5m2WkAayKSSWO6dwj0R3L5VCOm4xvOg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwoPXcR6PdJl+M+/gqGXnSvvfnJVbdUScUdU5hKTxXQ4LBSyJMl
+	owtbFpexOQLlYM0hGwEFoT+mUiifLjqMk1x9VomuBo2CBP5udtzlI1yZ
+X-Gm-Gg: AfdE7cnchEru7gK8ArY6nA6/p9nQjGDXAeBTqfEwe8u6HOIl044tXLiS2Nd19d2aUU6
+	MqjYsottfaxJjSoCJOR9UH0aHqqhHSrc9rNfNbSCNF21cQZgZxwxofSuV3fAEbPM9wlSZ7pwiAg
+	XxGWiNIim7ypClxJThrmSOV/KzKfzeiQ/xIxHuNehQJNvfBbFUu3Kyd8VJLq2oBiMVK36qrtlao
+	nRj3L7spPSfqdMoFrJGI9GNLeBmEUvsNE5AkIcEXFH0gOH3LSY++WJa/AUTBbkU+12l9oqEWIw+
+	9x6k4thAHa6jn7Mlke/MZjnc0fUFQ8pCnCHfAHkt9kiS0jDO9hTXodplaKRHK1SPYm7aG+FFkKU
+	gxIkEZt5pVdo06ZKdhY/ins7bZFCG5KJXvqqBTyGXa760HWV31TB0ZVDDZjrKg2Q3IQeV3ccrnf
+	YdGndh04uAVulbRxP86SDm
+X-Received: by 2002:a17:90b:5830:b0:387:e0bb:57f7 with SMTP id 98e67ed59e1d1-38e1af72937mr2984017a91.40.1784042231006;
+        Tue, 14 Jul 2026 08:17:11 -0700 (PDT)
+Received: from lgs.. ([101.76.249.46])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38d305ce5d1sm3935600a91.2.2026.07.14.08.17.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 07:55:02 -0700 (PDT)
-Message-ID: <619056acd2d8493315e8ca1055d4ce0068e3e95f.camel@ndufresne.ca>
-Subject: Re: [RFC] media: Question about reserving V4L2 UAPI control IDs for
- out-of-tree rgb133 kernel driver
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Przemek Gajos <przemek.gajos@datapath.co.uk>, linux-media@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, mchehab@kernel.org
-Date: Tue, 14 Jul 2026 10:55:00 -0400
-In-Reply-To: <fb3f8857.AVEAAKBfiogAAAAAAAAAA-L_6E0AAYDONroAAAAAABudwwBqVkiC@mailjet.com>
-References: 
-	<fb3f8857.AVEAAKBfiogAAAAAAAAAA-L_6E0AAYDONroAAAAAABudwwBqVkiC@mailjet.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-TrpDy+PfQmV2+fjPvLHW"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        Tue, 14 Jul 2026 08:17:10 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Johan Hovold <johan@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Kees Cook <kees@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: usbtv: Fix V4L2 refcount leak on probe failure
+Date: Tue, 14 Jul 2026 23:16:48 +0800
+Message-ID: <20260714151648.1724134-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+usbtv_probe() allocates usbtv before usbtv_video_init() registers its
+embedded v4l2_device. v4l2_device_register() initializes the reference
+count to one, with usbtv_release() providing the final cleanup.
 
---=-TrpDy+PfQmV2+fjPvLHW
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+If video_register_device() fails, usbtv_video_init() unregisters the
+V4L2 device and returns an error without dropping the initial
+v4l2_device reference. The probe error path then calls kfree() on usbtv
+directly, leaving the reference stranded and bypassing
+usbtv_release().
 
-Hi,
+Leave the initialized V4L2 device intact on this failure path. After
+releasing the USB reference, call v4l2_device_put() so the final
+reference invokes usbtv_release(). Retain the direct kfree() path for
+failures that occur before v4l2_device_register().
 
-Le mardi 14 juillet 2026 =C3=A0 15:32 +0100, Przemek Gajos a =C3=A9crit=C2=
-=A0:
-> Hello,
->=20
-> I maintain the rgb133 V4L2 kernel driver, which is currently out of tree.
->=20
-> The driver historically uses V4L2_CID_PRIVATE_BASE (0x08000000) as the ba=
-se
-> for its private controls. With the modern V4L2 control framework this is =
-now
-> rejected, e.g. v4l2_ctrl_new() fails to create such controls under my 7.0=
--
-> based kernel.
+This issue was found by a static analysis tool I am developing.
 
-I could not find specific changes between 6.19 and 7.0 that would explain t=
-his
-failure. Perhaps you could share a bit more details on what you are doing, =
-and
-how it fails ? Are you using v4l2_ctrl_new_custom() ?
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/media/usb/usbtv/usbtv-core.c  | 5 ++++-
+ drivers/media/usb/usbtv/usbtv-video.c | 4 +---
+ 2 files changed, 5 insertions(+), 4 deletions(-)
 
->=20
-> I would like to ask whether the media maintainers would accept a request =
-to
-> reserve a dedicated block of custom control IDs in the V4L2 UAPI header
-> (include/uapi/linux/v4l2-controls.h) for our driver?
-> On initial research, I have not found any information about restricting i=
-t for
-> out of tree drivers.
->=20
-> If this is acceptable in principle, I can prepare a patch for review.
+diff --git a/drivers/media/usb/usbtv/usbtv-core.c b/drivers/media/usb/usbtv/usbtv-core.c
+index 6c4facf4f41a..4f10f6613bc4 100644
+--- a/drivers/media/usb/usbtv/usbtv-core.c
++++ b/drivers/media/usb/usbtv/usbtv-core.c
+@@ -119,7 +119,10 @@ static int usbtv_probe(struct usb_interface *intf,
+ 
+ usbtv_video_fail:
+ 	usb_set_intfdata(intf, NULL);
+-	kfree(usbtv);
++	if (usbtv->v4l2_dev.dev)
++		v4l2_device_put(&usbtv->v4l2_dev);
++	else
++		kfree(usbtv);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/media/usb/usbtv/usbtv-video.c b/drivers/media/usb/usbtv/usbtv-video.c
+index de0328100a60..92bc7a2509c3 100644
+--- a/drivers/media/usb/usbtv/usbtv-video.c
++++ b/drivers/media/usb/usbtv/usbtv-video.c
+@@ -949,13 +949,11 @@ int usbtv_video_init(struct usbtv *usbtv)
+ 	ret = video_register_device(&usbtv->vdev, VFL_TYPE_VIDEO, -1);
+ 	if (ret < 0) {
+ 		dev_warn(usbtv->dev, "Could not register video device\n");
+-		goto vdev_fail;
++		return ret;
+ 	}
+ 
+ 	return 0;
+ 
+-vdev_fail:
+-	v4l2_device_unregister(&usbtv->v4l2_dev);
+ v4l2_fail:
+ ctrl_fail:
+ 	v4l2_ctrl_handler_free(&usbtv->ctrl);
+-- 
+2.43.0
 
-Up-streaming is the path forward.
-
-Nicolas
-
->=20
-> Thank you,
-> Przemyslaw Gajos
-> Technical Lead - Embedded
-> Datapath Ltd
-> przemek.gajos@datapath.co.uk
-
---=-TrpDy+PfQmV2+fjPvLHW
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalZNxAAKCRDZQZRRKWBy
-9LQmAPoDjl12KNAo+K6sqBSF2ngi31cvO508L4MJC42JH9UVFAD/aP9mlsPdMLp3
-MLQ12cpwPmClwluTkZkQtFMbEjUMUgI=
-=AruM
------END PGP SIGNATURE-----
-
---=-TrpDy+PfQmV2+fjPvLHW--
