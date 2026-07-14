@@ -1,68 +1,67 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4773F43D4FB
-	for <linux-media@vger.kernel.org>; Tue, 14 Jul 2026 09:22:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9257443D50D
+	for <linux-media@vger.kernel.org>; Tue, 14 Jul 2026 09:26:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784020929; cv=none; b=RM5GKlP1mWzzb3y1wmQdw+MR4Gm9SL0hy6HUoAL5c5zbAHhNbV1WszuxuSk2GAnaLwkvyJcm2IpTtiJqNbCxcvnDPc6iT3AzWr07fqYQhSnuXWp1WY5B8pm3+tW1K0s/ugbY5pDRRY+OGZ8htQsDziHcltQq2+b5qNil58l/Dqk=
+	t=1784021192; cv=none; b=Cm6Q0BX/Mq55BmZsyuPWTnIQCC1sU/eZdhQ2tqqcRJFNd0E0uxZMZuA5hDXFZX9T0nYPGnZh46LeodjBjn8BibSjr/SzQ0vytoCmG4XfEWToiVUA06bgz31i7L02CeGE92855kJwVWeXadm/rzSTUVvAEoHVQp5vxEx8c8pfWe0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784020929; c=relaxed/simple;
-	bh=W8OT6ovmAQkwBwCI5qoFSNzG+sz1ik3/qbazlMkp4fM=;
+	s=arc-20240116; t=1784021192; c=relaxed/simple;
+	bh=uk44179nBHQ0R0LbB6H0UBTLnb1nykhwAc8C7JE3Ef0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tOeFzbP+H3TZsLh/ACIlQmFj2LKjoj+N3RwUnlGNRpKnXUX2OJfN7ViS1ssYjpr/N9kvzrwC4MSTLTD/UfZgjcMHyq0Q5EFMS/rzj/Tj7EOu+/MNFTZieLP684lXrlNTtXjW2w+65guVa7nLwfW+TG94sWbaHcszjmeNsHWqg74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JlMpiiPu; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=Ecor1TQMxtzAl/zgmtUl80Pz2OhG3OBijH40jQZr3ONYOjOlRSHoDP6IK8BFR+57mz7jYBSwlNSwAT5JkkHnJhR3PQhbXnCtVsY+tZ4F3KF1H25fSFHbwByYlfm9hherqoa8ATFVOTnHp+BhSqBw5bTu7bXPvQ3uWZLqT0ur3mQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=G6Asaj16; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JlMpiiPu"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47d6c634f45so2210026f8f.3
-        for <linux-media@vger.kernel.org>; Tue, 14 Jul 2026 02:22:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="G6Asaj16"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-493f431e317so6343575e9.0
+        for <linux-media@vger.kernel.org>; Tue, 14 Jul 2026 02:26:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784020926; x=1784625726; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1784021189; x=1784625989; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ersi/mYvINkBI2FWvIZV+GjZx0POxK8U4eXz4ZcSu2s=;
-        b=JlMpiiPuB/c2oZZrBc95DV5SlirlC+vI33zg0SPOc/HulQ6PRfzknxCCkoafPIpvrP
-         /EJj/1KtO89mjrSwAg804DK5vh0COyxGNwuawFtnFZ7KMBigbh7Zzl57kK43Uc+sUCpE
-         GCcqSMQeeV9CRff6mbMZEH7sAKA5t6q/8IcQVSdLwXCGd07VBWMpDWIVtj2UX6ZZVhsX
-         0NgcdbBMpU5zzjkqiMRgF/+NQWG+NLTSjvp/R3LTfmwft2KTKXT4bD3XsaWvDLQ9qOGc
-         i61iRKqNiiAd7ancftpI04EnANyP1jtq9AboinBkMGpTe2fYXFve0PE4fjxU28iAycwY
-         oXWQ==
+        bh=GHRW4UOdyW8Ouh0luSp6xuWXdsWRjaIjBrR+ZbVhoo8=;
+        b=G6Asaj16adtmQA3dfmnS4q/2xcZo4q/bc9fOBZMWcFDs9fAMuGJKcZWUbG0099G25g
+         t2ZZIlETgU4lp4sq7zr2hOk6tua6AdIKpuf83dKdRgt3/7ZovTmI6jsq9T8SOTqJQiJx
+         RfvpKo0P4jKKXJKIasGTMwY9S3M8rwQM4PnkT5MA8hWmjmiZQwft6YlQipCYpI2/2o2c
+         +mVMQGsLA7u9PJFczb9ewrSsZwVjwaVNEULWzcKSMqkkIKvOEX0gmbmjI98T2mqH78r2
+         FINNSAqHw9Ph3xEvgBvAuhyReo6wGNT6fcVYN5lNyAllnR8GjoOwbQG5zpkqrBHUXVLE
+         dqPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784020926; x=1784625726;
+        d=1e100.net; s=20251104; t=1784021189; x=1784625989;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ersi/mYvINkBI2FWvIZV+GjZx0POxK8U4eXz4ZcSu2s=;
-        b=cL9k2ayXtzTC8XhPjLArSBlaksvYtq/1KDM3UQ/yygQgBIp1doxikX82OZ5E72oOC3
-         6xPVIU3CsOtiC6GLoV8kYWgwudOs8tnWqnnC7tN1RT8fWKYAlf8FNSsWqXkm2CkNAAjl
-         rvZMdUkUq7mHP3ekdfMFl69MElcB1ucVJHlzEi5Sgzudei4KNbOfCeu210+zsZtmP8HT
-         ujFCYoEFnmwGtZFJkgl8tGq58DBC4zrn+rRH//zINmi+zolpvNuFpR7MbjN1POdJwZdm
-         8ycQYcuvk7kc+cE86RZCt6DuogdV/gQ5kowYSjV8uT/aSUut5G1kyoTFbU/kbs0/YEQj
-         yoqQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqmEh+zY85aFc1VBUrc+l73+JzRuz4WJ6b4nZksalhBlYFC0Vgrbsu+rLwxihY8Vx+lOpQLbeBX07UBtg==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw70gMtRJTtXLu4yTqy9Q7c3D5X+5+837uFIBLkiPntnDAM6lxf
-	1NOjKyWAJnrMuw6oCnBnW591PY9w/9DXXoqzlZuu3nDzi6jTHPDef4ec
-X-Gm-Gg: AfdE7cknh8ncCbB8tcTFmeQyPo9yojk3xcMir8a44OhKcErxxIGLMYuN/bgecJjz1Tw
-	kuI7YmOUceqmQQVulk8mydxSBGlY/QAfNqbPEwsQzx9uyTZZof56hFZitkIKDQxEeiC46ZfVkx/
-	gHRj5yf8rE8z4jtxf74d54TqQb6/K2JRMGJdxc13vo1V3ai+s3Wc7u5joLDXE9Wi5ccLg/eneib
-	QobpgWQ9VD8ySpp9Yctl/B44Mr7orMCVR58tR2Bb8HjXI9a+hAvj5jfUWxTyaXhiS+gMvnahsj/
-	ifyrWQAPoynBHQ8STTURgY8HQHDI0+m4sBxQvy9aTgHxz1W5CZY67sARy8QwObwKJjmTcWdIB9N
-	2NLW7FFTlJ6MpLqhX72Y9CVAMHOh/O5v93AH9Ed82Iz759N6yDssWWzRKDXMvwyzLEUPrmks4+W
-	uJbqyKtRKOHF8tl7kbCtr8mXfaIqk00HZEomCfc4Bjs/2+ukeaNxIuRaahkrzm6MhKqGKinwQIi
-	hryutTBTzOa/l7Z6wWDZ9KGBu7gOpkSEGA+cWc8B7kGuw==
-X-Received: by 2002:adf:e186:0:b0:475:6c34:2120 with SMTP id ffacd0b85a97d-47f4887dd78mr2004457f8f.18.1784020926324;
-        Tue, 14 Jul 2026 02:22:06 -0700 (PDT)
-Received: from [192.168.0.207] (nat-wifi0.uniroma3.it. [193.204.167.180])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f476e9d02sm6291743f8f.19.2026.07.14.02.22.02
+        bh=GHRW4UOdyW8Ouh0luSp6xuWXdsWRjaIjBrR+ZbVhoo8=;
+        b=MtCLy9QFFNpCq/7ke0RVCNez/9pMidUl3ZgjH4FJiuL5j5SbgBsOyHK4+qoZqZSiJg
+         XpKKlQgcpcVOlh9b50e+PAK4w8K2xKkG+PLO9bPRYoGdmTEpiBCjZ7T4Ec8bvrF7oaEL
+         x49I40b7Lotx/hOeVnCuXtScMd3Yr5Zf70LVGTE4Up+d7lRLrBrcaAZf/RVk2TOshhxj
+         vHTEjsg2CNMwQB+If6V4rK2kH1BqmoUwjxH+nsmU/sweeOOW4Slc4LOgwwHmtjpxPoq0
+         s6r8r1s9sBjS186avFEyMj/78fiBmGARkT3138sipQfl5yj4dgq4GTnRT+PyGWdCAWbM
+         6T4g==
+X-Forwarded-Encrypted: i=1; AHgh+RonECsK4tRGSS7Qe4P48kwPIv0+avBbwViVux1tdlDrEACqAIaUF0ThQTLn2qghfzYpsNKKDNZ2Ha72Wg==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw5KWWhEVaHt2gvJ7SmNo11ON7hYeXRQ2AqbLjHZATB0rjHepL+
+	6KVlD7gy8eHmMmSaNd5FDAGpoQ5jwAbni3aVY+YwOXlrwfoY/i+wGZSwI2tvTsNPnBE=
+X-Gm-Gg: AfdE7cmjuDrhVW3T8FjcMU6IRYv1BpS1mzYHB9S5DtvvT2kaw+DmWfBuPuQzakwyjsl
+	i3pSfQ23Htl9pRhrcQmr+k6HjrsGSACuTOsSLcIgsO4sYhs1Yh9MgNLqor7dYhdTAPdTat8TDEf
+	VHVJpXtGqVAV24Unwbh+wEYQFnhaiqAnnkjE0HKcryy0/gnFZlDpxg/sOJuC7QwZUAVXKmulWWu
+	PQHvg2CBGe89wT/5Jn2DToPH/qgorA/qEQeNzHBWXZKKQJ/WV+pLBz4UC3eGW3w1HZUePTnArXb
+	1GCEZsIlYpHCIZpPvAaZkzhp1QGjTUs4Prwr3FQkFFyXCdp4/pzUq207hbfvZPyHNybZQdQSnqh
+	KTkGAu9/me5qc0hxps3MUhBItOz+mzaG1/r90nhxwTrHdyiBAm7y3LCJTVrSAWFkmDJLCq0fAU+
+	M+A1yuuxpQzu8Qzd7u5ulJKWT6Z4jw57ACmWEwHxWLhmqTN2JyQqfvjR0=
+X-Received: by 2002:a05:600c:c2:b0:493:f442:3dd4 with SMTP id 5b1f17b1804b1-493f883befcmr89458285e9.39.1784021188734;
+        Tue, 14 Jul 2026 02:26:28 -0700 (PDT)
+Received: from ?IPV6:2001:a61:13c3:1c01:3157:c849:4aaa:fa65? ([2001:a61:13c3:1c01:3157:c849:4aaa:fa65])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4950a2f635dsm63848015e9.12.2026.07.14.02.26.27
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Jul 2026 02:22:03 -0700 (PDT)
-Message-ID: <619bb771-1038-4ec1-8d4c-17dc69df33d6@gmail.com>
-Date: Tue, 14 Jul 2026 10:22:03 +0100
+        Tue, 14 Jul 2026 02:26:28 -0700 (PDT)
+Message-ID: <7e6ebb5b-8ce0-4114-85d6-98cd11a3ad81@suse.com>
+Date: Tue, 14 Jul 2026 11:26:26 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -70,40 +69,169 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/10] Add dmabuf read/write via io_uring
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
- Sagi Grimberg <sagi@grimberg.me>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
-References: <cover.1777475843.git.asml.silence@gmail.com>
- <20260713071828.GB30168@lst.de>
+Subject: Re: [RFC PATCH 2/4] rust: usb: add usb host interface and endpoint
+ abstractions
+To: Danilo Krummrich <dakr@kernel.org>, Colin Braun <colinbrauncl@gmail.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alan Stern <stern@rowland.harvard.edu>,
+ Mathias Nyman <mathias.nyman@intel.com>, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-media@vger.kernel.org, Colin Braun <colin.braun.cl@gmail.com>
+References: <20260712-urb-abstraction-v1-v1-0-9fa011634ead@gmail.com>
+ <20260712-urb-abstraction-v1-v1-2-9fa011634ead@gmail.com>
+ <DJXH4JLX4CES.11S3IZ1V2FTHF@kernel.org> <alVEUR0JrF1ga3S8@pendragon>
+ <DJXPS0HY54SU.3JEDTA04V8HJ0@kernel.org>
 Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20260713071828.GB30168@lst.de>
+From: Oliver Neukum <oneukum@suse.com>
+In-Reply-To: <DJXPS0HY54SU.3JEDTA04V8HJ0@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Christoph,
+On 13.07.26 22:09, Danilo Krummrich wrote:
+> On Mon Jul 13, 2026 at 10:03 PM CEST, Colin Braun wrote:
+>> On Mon, Jul 13, 2026 at 03:22:33PM +0200, Danilo Krummrich wrote:
+>>> (Cc: Oliver)
+>>>
+>>> On Sun Jul 12, 2026 at 11:07 PM CEST, Colin Braun wrote:
 
-On 7/13/26 08:18, Christoph Hellwig wrote:
-> Hi Pavel,
+[..]
+
+>>> An URB requires either usb::Interface<Bound> or, for a USB device driver,
+>>> usb::Device<Bound>. But since we can't derive usb::Device<Bound> from
+>>> usb::Interface<Bound> a simple forwarding helper does the trick.
+>>
+>> That makes sense, thank you for pointing this out. I should have taken a
+>> look at the git log for that line to try to understand its background.
+>>
+>> I'll remove the usb::Device<device::Bound>::set_interface() and
+>> usb::Device<device::Bound>::control_msg() implementations in my next
+>> revision (since they will no longer be used) and just implement them on
+>> usb::Interface<device::Bound>.
 > 
-> do you plan to resend this series?  A lot of people are eagerly waiting
-> for it to land.
+> I'd keep them unsafely on usb::Device and then safely expose forwarding via
+> usb::Device<Bound> and usb::Interface<Bound> once required.
 
-Absolutely, I'm going to finish v4 next or hopefully this week.
+Hi,
 
--- 
-Pavel Begunkov
+you are making me think that the fundamental assumptions of the USB
+layer are ill documented. If you find this to be the case, please tell
+me what should be improved and I'll see what I can do.
+
+Very well, this will be a bit longer, because I'll try to explain:
+For now, there is exactly one device driver, named "generic" (yes,
+imaginative). However, its behavior in that regard is rather fundamental,
+so if another driver were ever to be written, its drivers would not
+be normal interface drivers.
+
+In principle the chain goes as such:
+
+Device -> Configuration -> Interfaces
+
+The dependencies are in that order. You can have a configuration without
+interfaces and a device without configurations (it would be useless, but
+it is within spec)
+The life times are limited in the same way. An interface never lives
+longer than its configuration and a configuration does not live longer
+than its device.
+
+This is controlled by code in drivers/usb/core/generic.c
+
+int usb_generic_driver_probe(struct usb_device *udev)
+{
+         int err, c;
+
+         /* Choose and set the configuration.  This registers the interfaces
+          * with the driver core and lets interface drivers bind to them.
+          */
+         if (udev->authorized == 0)
+                 dev_info(&udev->dev, "Device is not authorized for usage\n");
+         else {
+                 c = usb_choose_configuration(udev);
+                 if (c >= 0) {
+                         err = usb_set_configuration(udev, c);
+
+This is the usual way a configuration is created. [You need not worry about
+the other ways. They also call usb_set_configuration().]
+
+Also important for this discussion is that this cannot fail:
+
+                         if (err && err != -ENODEV) {
+                                 dev_err(&udev->dev, "can't set config #%d, error %d\n",
+                                         c, err);
+                                 /* This need not be fatal.  The user can try to
+                                  * set other configurations. */
+                         }
+                 }
+         }
+         /* USB device state == configured ... usable */
+         usb_notify_add_device(udev);
+
+         return 0;
+}
+
+A configuration is destroyed by usb_set_configuration(). This
+is used in disconnect:
+
+void usb_generic_driver_disconnect(struct usb_device *udev)
+{
+         usb_notify_remove_device(udev);
+
+         /* if this is only an unbind, not a physical disconnect, then
+          * unconfigure the device */
+         if (udev->actconfig)
+                 usb_set_configuration(udev, -1);
+}
+
+( -1 means without replacement)
+
+You can see that there is no way a configuration and thereby its interfaces
+can last longer than its device.
+
+An interface driver is allowed to talk to two sets of endpoints
+
+1. endpoints associated with interfaces it has claimed, accepted or is probed for
+2. endpoint 0 of the device whose interfaces it has claimed, accepted or is probed for
+
+(Please do not ask about cdc-wdm)
+
+That does _not_ mean that a driver can communicate to them at all times. Communication
+is limited as follows:
+
+Communication may begin when
+
+1. probe() is called
+2. usb_claim_interface() returns without error
+3. resume() is called
+4. reset_resume() is called
+5. post_reset() is called
+
+Communication must cease
+
+1. before disconnect() returns
+2. before suspend() returns
+3. before pre_reset() returns
+4. before probe() is exited with an error return
+
+The only exception to that is that you may schedule a reset.
+
+I hope this makes things a bit clearer. Please ask questions
+if anything is unclear. I'd be happy to help.
+This area may be a bit murky because only the states of devices
+are named and documented. There simply is no data structure
+equivalent to the binding of a driver and an interface, hence
+we cannot just give interfaces a state.
+
+	Regards
+		Oliver
+
+
 
