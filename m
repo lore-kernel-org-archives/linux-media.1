@@ -1,128 +1,180 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-181.mta1.migadu.com (out-181.mta1.migadu.com [95.215.58.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC3B3C5539
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 20:44:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784148278; cv=pass; b=uSWS7HUgkQ4DamVy4nxVSaNYNr8gGQ9BmdM5DaUZ0asNy7mbfhpbgG009sbA0/x1vinrFaUREf1AhlfH7NAC2WYElxFG5D5YzQLvJKG0SD22q+dT9xGqMi1WhmtmZcn8tA/GbxUdzPhcw4QG+JBPSLE6t00uMseW1SnuUTDMJqs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784148278; c=relaxed/simple;
-	bh=uKutVTY39p0tACln7T4vMquumVH2p1fzakEzXi9+UDk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oaAlHyv13o0oGLC8bFgwpU9Fd0C3rVVQZAKOYziIc5WrN2YjuLibzNy3UhGwb/AGdFD83oI/i9gbnJect6ovX+T8za9chV8rwXghxo6SXLHpvjey5hWNvqY0AC2WoOzvKnxUgr1cPZco0zHI1d6aVN/h3Q2MAJHh2y9bm2SxIlU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vMQbO8si; arc=pass smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15FAA26738C
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 21:09:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784149751; cv=none; b=LFp0EbVzSqJCpbpK9/3qv3EDABZkCdHq6Mi1BQN4HWLNVGLVz5YsmTBWe3LxF0pJv0E8Nu7M26TX4Ig8aX1j4tI0NTAXfo0OEerzcRfs98e3BZ4vIy3qyTfeVJOl0+HwMBd/PaigqdwiWsrFap8QG1p3YAOwndYh8rWI7AdMhQo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784149751; c=relaxed/simple;
+	bh=SKkv3ErHhptdfYoAwGSVeqmf2EaneXa/hPmwiywYFgA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=B2QU929ouWJt1fI94G6pJXo0bUBIqlTyUnyyEt9FRAWC2/x0DcuPDgXQS5/hLQ47eGHer42iD+uicQV+nqz+9IixuSedDUpEPqEjXBaJGyUGxO1rSKEjQykGL1gV8/mKh87CoTFq5NLQy3WMv0nYm52GMNc4Yn5ipI9su7K9Ecs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qj2GJS3+; arc=none smtp.client-ip=95.215.58.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vMQbO8si"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493b8d99342so5175e9.1
-        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 13:44:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784148275; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YO1xcljl8vN+/w6dFK1fcj44/hsE+nBDhy52GR/Ne+BeN9igkXHDj53Y9/1ek/GsFV
-         TfvL6HN2r9vzfjPLaTJRzOvbaccbFv4ocbDwYlhOLS/PPOMOwlb3UZxg+K35gcTaRpyl
-         tANIPR6DzBLGWrM2I2PdEoE31kwHwBgr3KDq7pzQHbxjRm78AiW8OzleDOF2AvsQb61S
-         k0zPLzIppcbx9blzWiG9gzDZSCLHSc/6SyJ3avZKlChPBD6uv9+BVDwktGkC9aoIk/j5
-         N8delU+oYkgYlbMqKfQKynday6EqeUncV2waRob2N425hOhIRRYND6JXSf4QxbirbnG+
-         zoOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hz66rWG1l8090hWA3QPVjjyCjLvMjXWnoSa5qVyf/ME=;
-        fh=xWCtrM0DyzgHiwPFilW5mlpNAjK/v2+16YFV0UD5ZQ0=;
-        b=CbvG9fYECU1wdEtNQ9Jlrf4WN1R77RRIcrvZnu99zOXKTfcxCWuIBxI7KjVusbauYs
-         0aBd/NPuDRh+K9u3GdJPrl2SOd8f0Wr4Q/FB+zvMC0CdhfRYrO0xMihJ95W4UuN1AZlD
-         u/5q3XgGJTKfKxJLHpsJKdD1sVSOgFNSJPtzyKHUSWlfI+mHE3Lyvq88JY7V6pl38cQV
-         Kv4lt5rGVqzAAV+Vq82wpdvdx4i5QlNLif75jr2j8ob+Hu1EnvHw5fSjKIXdzXHKCHKb
-         ioDY+hrz45PUpMp50OyLdJ2wYT7A9Re0t1MD0ldvUqz0QNQ+QvDMOxFpXd5jp06Nay4t
-         Xpbg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784148275; x=1784753075; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hz66rWG1l8090hWA3QPVjjyCjLvMjXWnoSa5qVyf/ME=;
-        b=vMQbO8siYryrHz9uC+cIXn12CxECZJgEZWjnlJuaTeu6Tr18uliyzfh60ItZ+q2J4d
-         4Gdi4Hd1DTaT6RxOZP81okPwrKohv8TjP0u+Z+5b/9l6ea7bEkZMseugK20DfjMuAx1R
-         U5Wyr//dI1kCzzWchMp+dI5n7lbW4EOGG8GcsKblO85JCCwvGoX3a16d8SlfccNB3+Xq
-         QXkSDfaM5IQ4+ikCsBWPiP1B7B+U+nJxrE03i3+zrvJE9j8Ug+Pqh+RYF5PENBaJqIsz
-         CzblFn8eIy45YVSFOx9sDM84x3wKQcKVesPsEIDi0e+c/vGNde8Nlu7Lgt9EeH2aiAyK
-         O5xQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784148275; x=1784753075;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hz66rWG1l8090hWA3QPVjjyCjLvMjXWnoSa5qVyf/ME=;
-        b=Wk4vOcmM6dZfnkOS3lx1b7ipD1X6Ub+FlDwDd1mHhQNxnDCO+K7up/yXPRiFMtfpTK
-         +kYiEt/LbiOoXGbO/ovaykjGGl99OeD0E3FnLkwrLEbLggwHe42fdf7GUm2a03RTxr6D
-         JhaB2RK52mBbE985ldnzYkyPslrKzI4vkTU4mBmdbUScKnFfyNaX8AVpDwclVOLDKEnZ
-         rQJE5RgYogcnglO7bKJLgoHgr1NzNp+oVxSS/BbMUoSWBBev0kNiOrpyUc2ZrIHFYp30
-         Z4F+DxWFpj+XEZpTjbJazUJ07GdZ4YUwHAplEEKn3go21zFz2zVOiD6x6B/Zc/8tqop2
-         to6w==
-X-Forwarded-Encrypted: i=1; AHgh+Ro7BDHyOvmQkNCtlX5b6LhQl+hG/AN4Zc0Rc+Arrix3nqXxduMsxgXA0hJE/yCn2sln8A4C2yk9PjCgzg==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy4+0oY26kHVlHv7ZjMJ+2OCa+HNfTdwa0SiVq2mao6Tb2JVfbU
-	b9S7P7tkV2FskWXqZ0Po1tNZy+fkeOf7mzJnwH0HYnK3JUnhwDg2EdOTrg+sXLmcQHzwEQXVDDG
-	FvzeY/QHNpNHhBB0s29TYMOa0XogTuRNhTKrc/3uE
-X-Gm-Gg: AfdE7cmwCwoauWAvygbQdPqFHd35PVssFHkfm4dvwhW1Ctcb4kS1LiDmROl7z3Y+pKM
-	MM4W7QzXciAIU33bNP1x115rnF38ztFvElFI/UEVMfFmNZVkg7z7smofG6OFyPFtJxQpl2LK2kG
-	w3ufqbjHsEQNKpMUhcOh0SV5HQFFA0lpS+cyqwO7tvRtJYa9ulv6yJXApoEgJDhrWtbgsG2BGEz
-	gaMbE5z8vkMzYDSKxAfnWtW4mVxv9aBHIsrPf1CNM5yx4uOeo2U/awU93RbSa6ZTOJIctrd1S1S
-	QisbbJaVO1FDjWJb7+gJvNaIG8bj+JmhGkQmFzE6sIFuEdJYXGcUHLBbCjs=
-X-Received: by 2002:a05:600d:8494:20b0:493:aca0:32e2 with SMTP id
- 5b1f17b1804b1-49541e54d4amr246495e9.4.1784148274578; Wed, 15 Jul 2026
- 13:44:34 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qj2GJS3+"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784149745;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5G8w25jbF9nT6RuVbcyyH+9ndfwQr+hlB09IP9hSE40=;
+	b=qj2GJS3+7Abfh6Yjz0oQS98HIil4ON+oMoil6PZ1XMou5Nc6n68JU9CvDb2tV7XeciF63r
+	7SqUjwRzMsi4bukdoafuxZqibqEeMAi0M7QN4dphAkiRGeHXZEgZROx+nzPZgad9mm6jyH
+	YXUJBVgiSCz3CO8KOi6hsGXZYmzzePI=
+From: Roman Gushchin <roman.gushchin@linux.dev>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,  Derek Barbosa
+ <debarbos@redhat.com>,  Matthieu Baerts <matttbe@kernel.org>,  Konstantin
+ Ryabitsev <konstantin@linuxfoundation.org>,  Jason Gunthorpe
+ <jgg@ziepe.ca>,  Steven Rostedt <rostedt@goodmis.org>,  users@kernel.org,
+  Linux Media Mailing List <linux-media@vger.kernel.org>,  Stephen Finucane
+ <stephenfin@redhat.com>
+Subject: Re: Linking Patchwork with Sashiko?
+In-Reply-To: <20260715162816.GF1778116@killaraus.ideasonboard.com> (Laurent
+	Pinchart's message of "Wed, 15 Jul 2026 19:28:16 +0300")
+References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
+	<4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
+	<20260715162816.GF1778116@killaraus.ideasonboard.com>
+Date: Wed, 15 Jul 2026 21:08:47 +0000
+Message-ID: <7ia47bmw0xls.fsf@castle.c.googlers.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CABdmKX21NHc2=9Sk2F-BFpu6is0vTg-QXLE+wiFNEPdsWWjvog@mail.gmail.com>
- <20260714114654.3885457-1-shoubaineng@gmail.com> <20260714114654.3885457-3-shoubaineng@gmail.com>
-In-Reply-To: <20260714114654.3885457-3-shoubaineng@gmail.com>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Wed, 15 Jul 2026 13:44:20 -0700
-X-Gm-Features: AUfX_myDNkkGbyCVobnhwftgr4bKDJQunXmKkyEYSc1ZZ6YoWywnkOQfYn032aQ
-Message-ID: <CABdmKX2Uqw5nr3-nrSAVHGt7Nij23Mt503DBhbhKT9suN_vm+g@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] misc: fastrpc: don't publish fd before
- copy_to_user() succeeds
-To: Baineng Shou <shoubaineng@gmail.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
-	John Stultz <jstultz@google.com>, Sandeep Patil <sspatil@android.com>, 
-	"Andrew F . Davis" <afd@ti.com>, Srinivas Kandagatla <srini@kernel.org>, stable@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-Migadu-Flow: FLOW_OUT
 
-On Tue, Jul 14, 2026 at 4:47=E2=80=AFAM Baineng Shou <shoubaineng@gmail.com=
-> wrote:
->
-> fastrpc_ioctl_alloc_dmabuf() calls dma_buf_fd() which installs the fd
-> into the caller's fd table before copy_to_user() copies the fd number
-> back to userspace.  If copy_to_user() fails, the fd is already visible
-> to other threads in the same process but the ioctl returns -EFAULT.
-> The existing comment in the code even acknowledges the problem:
->
->   "The usercopy failed, but we can't do much about it, as dma_buf_fd()
->    already called fd_install()..."
->
-> Now that dma_buf_fd_install() is available (introduced to fix the same
-> issue in dma-heap), apply the same pattern here: reserve the fd with
-> get_unused_fd_flags(), attempt copy_to_user(), and only on success call
-> dma_buf_fd_install() to publish it atomically with the tracepoint.  On
-> copy_to_user() failure, put_unused_fd() and dma_buf_put() cleanly
-> unwind without any user-visible side effects.
->
-> Fixes: 6cffd79504ce ("misc: fastrpc: Add support for dmabuf exporter")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+Laurent Pinchart <laurent.pinchart@ideasonboard.com> writes:
 
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
+> Hi Roman,
+>
+> On Tue, Jul 14, 2026 at 07:00:54PM -0700, Roman Gushchin wrote:
+>> On Jul 14, 2026, at 5:59=E2=80=AFPM, Laurent Pinchart wrote:
+>> > On Tue, Jul 14, 2026 at 10:55:42PM +0000, Roman Gushchin wrote:
+>> >> Mauro Carvalho Chehab writes:
+>> >>>> On Mon, 13 Jul 2026 12:41:20 +0300 Laurent Pinchart wrote:
+>> >>>>>>> Individuals can set their
+>> >>>>>>> spam filters up if they don't want to get these emails, I can't =
+control
+>> >>>>>>> it. Providing individual authors an option "I don't want my patc=
+hes
+>> >>>>>>> to be reviewed" sound strange to me. It's like "I don't want my =
+patches
+>> >>>>>>> to be tested by unit tests".=20=20
+>> >>>>>>=20
+>> >>>>>> I agree with you, and, on my head, not sending e-mails to the aut=
+hor
+>> >>>>>> is a clear violation to one of the most basic net etiquette rule =
+on
+>> >>>>>> mailing lists: any replies to posts there should reach the author=
+.=20=20
+>> >>>>>=20
+>> >>>>> I don't know where that one comes from.
+>> >>>>>=20
+>> >>>>> What happened to this other "most basic rule" that subscription to
+>> >>>>> services that deliver e-mails should be opt-in ?
+>> >>>=20
+>> >>> Replying to an e-mail is not subscribing to a service. It is the
+>> >>> author's right to know if one replies publicly to his e-mails.
+>> >>> Explicitly removing him from the C/C of such replies is a violation
+>> >>> of his rights.
+>> >>>=20
+>> >>> On other words, it is implicit that, if you post an e-mail, you'll be
+>> >>> expecting actions or answers to it.
+>> >>>=20
+>> >>> Now, if one really doesn't really want to receive e-mails from a
+>> >>> particular sender, a block list solves it. Alternatively, a way to
+>> >>> opt-out is welcomed.
+>> >>>=20
+>> >>> See, this is different than adding someone to a mailing list without
+>> >>> his consent: On such case, people receive e-mails unrelated to their
+>> >>> preferences. For those, opt-in is the right net etiquette.
+>> >>=20
+>> >> I agree with this.
+>> >>=20
+>> >> But also just practically: if someone who opted out from sashiko emai=
+ls
+>> >> posts a patch and sashiko finds say a critical issue, do we expect the
+>> >> maintainer to go and manually check each time whether the author opted
+>> >> out and forward the review?
+>> >=20
+>> > I expect maintainers who want to act on sashiko reviews to triage and
+>> > verify them first before bothering authors, yes. I believe we should
+>> > follow the first two recommendations of the Software Freedom Conservan=
+cy
+>> > on using LLM-backed generative AI systems for FOSS contributions ([1]).
+>> >=20
+>> > [1] https://sfconservancy.org/llm-gen-ai/llm-backed-generative-ai-reco=
+mmendations.html
+>>=20
+>> I think it makes the point of sashiko - helping maintainers -
+>> unachievable.
+
+Hi Laurent!
+
+> Why do you think so ? As far as I can see, there are many maintainers
+> and contributors with a strong enthousiasm for generative AI reviews.
+> Assuming those tools would give a net positive result, isn't that
+> initial mass sizeable enough to help maintainers ? It could even be
+> argued that starting with enthousiasts will help convince some of the
+> sceptics over time.
+
+At this moment there are 36 mailing lists who opted in for delivering email
+reviews over email (without counting linux-media@). In every single case
+it was based on maintainers requests in all cases of a disagreement
+between maintainers I took the conservative side.
+
+Also:
+$ git log next/master --grep=3Dsashiko -i --oneline | wc -l
+826
+
+This is in less that 4 month since Sashiko's public launch mid-March.
+Most of this commits are bug fixes for existing issues discovered by
+Sashiko as a byproduct of reviewing new changes, so arguably there is a
+larger set of bugs which were prevented to enter the kernel.
+
+So it's fair to say that there are lot of enthusiasts and lot of data
+already which proves the usefulness of AI code reviews. If it's not
+convincing, I'm sorry, but it's unlikely I'll be able to convince you
+anyway.
+
+>> If the point to not use LLMs in general, let=E2=80=99s discuss this, not=
+ how
+>> to make each use case more complex.
+>
+> To be clear, that's not what I'm calling for. I'm asking for
+> contributors to not be forced to use LLMs. I'm not campaigning for the
+> kernel to ban their usage.
+>
+>> It seems like [1]  expresses a very anti-LLM position in general, which =
+I can understand and I agree=20
+>> with some of concerns. But I think it=E2=80=99s up to project leaders to=
+ decide if Linux in general  takes this=20
+>> position and my take so far is that the answer is not.
+>
+> I would be surprised if Linus broadly agreed with [1] :-) I however hope
+> that we, as a community, have enough shared values to listen to
+> everybody.
+
+The reality is that there are multiple actors in the world who are
+actively using AI for at least the security vulnerability scanning across
+ALL Linux kernel codebase, including your changes. And it's completely
+out of our control (ours as kernel community). And we can't ignore these
+findings completely (how to handle them it's a separate discussion).
+So there is simple no way someone who wants to contribute their code
+to the kernel can pretend to live in the world where ai doesn't exist.
+So the real choice is more like do we want to find (most of)
+AI-discoverable issues before they get merged or after.
+(Obviously not all issues are security-related, but it doesn't change
+the point).
+
+Thanks!
