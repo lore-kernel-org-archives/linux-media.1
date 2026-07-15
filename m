@@ -1,119 +1,114 @@
-Received: from out-173.mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76C04963BA
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 18:40:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B0B41D4F1;
+	Wed, 15 Jul 2026 18:51:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784140811; cv=none; b=cHdQklM+Q26DgKijYPREoJzYRsNHmx5ZqS9Cnus0aDqqsQe7d+ChL8B7H7IPZu+3nSZ4Lnvx0Fa1SAFQbx3U1g94shb3pfjFk1tCNSqfPWTTBudZpUrN+AO7O8LKszPsGFrfRs+AfBV8Iac9w0mEVuuSF7BBvmGsVzwG4zDhQXo=
+	t=1784141486; cv=none; b=qakyRm9iw3FiEPf2ajVEMosZZtX/TwtVvBbFmet74Qec2reFHmFGIMjI199XhlG95mNolyXKbY6ByfokB7Z/WoiKEgRK5HdyeaFEjqtQ6Siwb4C58boiGhtTcgmeta/JyrSTRSDIo/7zGLNLdrBZssoaGEr59G0XqXOrF0ub61k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784140811; c=relaxed/simple;
-	bh=qCMDyr6l9nngciGqwtqSZ2s10JheS05uLQm+TKEICzg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H5uvMNZaJqWchyHMu2XvBMNkZHKdDTTTl4M91pkWHi+Jvfr5eT1JtIbIJR7ejrdHhhZGBrISGDO1uHWxDZbGzvcehqAIMlJfBx/HZLKPNX9lg4nvsBiBYRhlp2/prSrVsMSyLsGzNInN3TMfN9SYHGDorrn2OLZvVBZBAGK6NKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VkIQ+vHk; arc=none smtp.client-ip=91.218.175.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784141486; c=relaxed/simple;
+	bh=FDPjXoCgRJnJSh11Yjsc76ru2V/iRZPQNxJkLKiuzdo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YNOXLdZKDXbAPV6/7CjmyJ9Sx8R9lBu2deDU1HHgTihewazJbghMj0JC5QgkGLTmd5BNTTNJHLcSxY2t8ByZa34Ajm4F4QT0nidqXQI2a1PmQO8MCIlzEv5vrwMtP6C2kUyTcSLSSolX6xW4wOBOVc/3Dc5ujUG/j275328Paro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CdhOBcNd; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VkIQ+vHk"
-Message-ID: <6a0f487f-540b-4d47-be4c-db6a0799d2d7@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784140789;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rlTfEd9+07VsxQpFxrAmQ/fuYJtyDucO9jtZIOc6jN0=;
-	b=VkIQ+vHkmeS74NvtPILVOS0jwRE6jXvgdljth2+KA0P7w7cEsY9J3pjXuFWDLVzqFeOVu+
-	8QcPTNMHYWsnvohWjNThskWLVX4DgsC/n9prpeeigGe7Cl4pH+FWlx2X9CIsmPcL9A3h7t
-	KxQU1dgahbOICgwusnQtSdq7bZpkKrk=
-Date: Wed, 15 Jul 2026 11:39:41 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CdhOBcNd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784141483; x=1815677483;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=FDPjXoCgRJnJSh11Yjsc76ru2V/iRZPQNxJkLKiuzdo=;
+  b=CdhOBcNdHhk0wRuECIJqo3s7qcMnCZc3F5VVvm+376mstOLNtRtS0z3m
+   4LxkNCbPCcomnN1VkAV7Qune6EMgZkgHbSdrIUUZMTrIq2cvwi5yBtDEA
+   89Xw8A7moJpT6kaBNONFf1N6hZLRmtiLr9KcDaMaxzqtKaIJH04wr1RRr
+   e5Plo6nVKobhHVGJMZ+/JcgO3tjnSKdB02heOFxUFrQk8V6zgmrrqNZ7F
+   8sVhX/P/G6evpZdIjXgulHJrpA7L+F+jbC6nbNlZZsAJ5J9R/jONb0ED2
+   z7+xBugf51jCFQxETAb/5i6LwQnrrGFgs2K2lodKDc05wBNX1YqB/zYel
+   Q==;
+X-CSE-ConnectionGUID: cVWdOy7QRNiByj6Df3KDcw==
+X-CSE-MsgGUID: aoOVFOIGTACQ11vHxIiVPg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84887477"
+X-IronPort-AV: E=Sophos;i="6.25,166,1779174000"; 
+   d="scan'208";a="84887477"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 11:51:21 -0700
+X-CSE-ConnectionGUID: c0ePlU7xTLe50ZfQ5a0cZA==
+X-CSE-MsgGUID: 2XWh0XIhRhen6eEpbG1r2w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,166,1779174000"; 
+   d="scan'208";a="280700291"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa001.fm.intel.com with ESMTP; 15 Jul 2026 11:51:17 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+	id 039AE9D; Wed, 15 Jul 2026 20:51:16 +0200 (CEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Bradford Love <brad@nextdimension.cc>,
+	linux-gpio@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mips@vger.kernel.org,
+	linux-media@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	Russell King <linux@armlinux.org.uk>,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: [PATCH v1 4/7] MIPS: BCM47XX: Open code gpio_request_one()
+Date: Wed, 15 Jul 2026 20:46:44 +0200
+Message-ID: <20260715185112.1323510-5-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260715185112.1323510-1-andriy.shevchenko@linux.intel.com>
+References: <20260715185112.1323510-1-andriy.shevchenko@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: Linking Patchwork with Sashiko?
-To: Mark Brown <broonie@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Derek Barbosa <debarbos@redhat.com>, Matthieu Baerts <matttbe@kernel.org>,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Steven Rostedt <rostedt@goodmis.org>,
- users@kernel.org, Linux Media Mailing List <linux-media@vger.kernel.org>,
- Stephen Finucane <stephenfin@redhat.com>, bpf <bpf@vger.kernel.org>,
- Chris Mason <clm@meta.com>, Christian Brauner <brauner@kernel.org>,
- Alexei Starovoitov <alexei.starovoitov@gmail.com>
-References: <20260710083845.23c753ca@foz.lan> <87wlv2jq4t.fsf@linux.dev>
- <20260713095538.3d5e86f1@foz.lan>
- <20260713094120.GD1127719@killaraus.ideasonboard.com>
- <20260713220427.582b28bf@foz.lan> <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
- <20260715005909.GF1656185@killaraus.ideasonboard.com>
- <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev>
- <20260715163921.GH1778116@killaraus.ideasonboard.com>
- <153db0fa-65ac-49de-9bf5-456c9639954c@linux.dev>
- <f690c44b-bb03-4085-a9f1-0321a3f33e30@sirena.org.uk>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-In-Reply-To: <f690c44b-bb03-4085-a9f1-0321a3f33e30@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 
-On 7/15/26 10:35 AM, Mark Brown wrote:
-> On Wed, Jul 15, 2026 at 10:12:03AM -0700, Ihor Solodrai wrote:
->> On 7/15/26 9:39 AM, Laurent Pinchart wrote:
->>> On Wed, Jul 15, 2026 at 09:28:03AM -0700, Ihor Solodrai wrote:
-> 
->>>> Yes, assessing whether AI report is "real" is work, but it's not
->>>> reasonable to push this work on already overwhelmed maintainers. And
->>>> if AI is wrong, again it's the job of the author to convince the
->>>> maintainers it's wrong.
-> 
->>> We disagree on this as well. This would force contributors to constantly
->>> justify their value against a machine that is known to produce a
->>> non-negligible quantity of nonsense.
-> 
->> I know what you mean and I can relate. Going through walls of
->> AI-generated paragraphs is not fun, to put it lightly.
-> 
->> However it seems that you are suggesting to simply delegate this work
->> to maintainers, and I very much disagree with that approach (even
->> though I'm not a maintainer myself).
-> 
-> This is something that already happens with human written reviews,
-> indeed I have a canned reply for one particular reviewer telling
-> submitters it's OK to ignore them.  It goes in both directions - it can
-> be ignoring some issues or postponing them for later, or it can be
-> making sure that there's input from particular people.
+Open code the gpio_request_one() call to be able to kill that API
+in the follow changes.
 
-My objection is to a suggested expectation for every review to be
-triaged by maintainers/reviewers *before* it's sent or the author
-engages with it.
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ arch/mips/bcm47xx/workarounds.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-I think the author should be the first one to engage, it's a feedback
-on their patch after all. And of course reviewers/maintainers are free
-to jump in whenever they can and feel it's necessary, and they do. Opt-in.
-
-> 
->> I think it makes much more sense for the author of the patch to do the
->> triage, as they have the best context of the work, and they are
->> usually the most invested in their patch being merged in.
-> 
-> It's not clear cut - untrustworthy tooling often causes problems, I'm
-> fairly sure I'm seeing issues that are the result of submitters getting
-> mislead by LLM reviews in a similar manner to some compiler warnings.
-
-Yes, this is a valid point. I'm not arguing automated AI feedback is
-always good. This is why the triage is needed in the first place.
-
-I think one small thing that may help with this is teaching
-contributors to not iterate on the revisions too quickly based solely
-on AI feedback. And also try to iterate with AI reviews off-list first.
-
-But that's marginal. Fundamentally, a human has to read AI feedback on
-the patch in the end. I don't see a way around it, barring the singularity™.
+diff --git a/arch/mips/bcm47xx/workarounds.c b/arch/mips/bcm47xx/workarounds.c
+index 745c6228eb2c..9148d2c219d1 100644
+--- a/arch/mips/bcm47xx/workarounds.c
++++ b/arch/mips/bcm47xx/workarounds.c
+@@ -9,11 +9,13 @@ static void __init bcm47xx_workarounds_enable_usb_power(int usb_power)
+ {
+ 	int err;
+ 
+-	err = gpio_request_one(usb_power, GPIOF_OUT_INIT_HIGH, "usb_power");
+-	if (err)
++	err = gpio_request(usb_power, "usb_power");
++	if (err) {
+ 		pr_err("Failed to request USB power gpio: %d\n", err);
+-	else
++	} else {
++		gpio_direction_output(usb_power, 1);
+ 		gpio_free(usb_power);
++	}
+ }
+ 
+ void __init bcm47xx_workarounds(void)
+-- 
+2.50.1
 
