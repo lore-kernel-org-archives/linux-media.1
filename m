@@ -1,107 +1,106 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAA14A2E1D
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 20:03:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6424963CB
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 20:03:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784145804; cv=none; b=rFvAx5xL+9vWK0EJNub0xJdtR+G4JnCfx0oQtKs+3BXQe+V5JXXzpwk7ypso05QT7bt9nLq2oT5mH1aTRUupez/x3+oa1Z/prDCFe+cswZInIkwxUCEbfT2GPfqNjRzxi4Dm/TwzgmtFHsVwlb2q3cBP+6uUVbWI33fbsc1Mklc=
+	t=1784145839; cv=none; b=cwMXSiywoR6G6uTdNcOJ2tsPPVvO9y49kE9oSN0AyfmRzGAFWhy8HgkvIIMpAAMqgfhGeE72GcXfpNqV2gn9JRlxDZTE2ngrxP9034FhRViRPyIdxyABZhnt7d1YuSpE0aBrU3u50tjLy30soRcFmP18PbYthMRK9qbDSfRvwKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784145804; c=relaxed/simple;
-	bh=mInBdVU9ed6bCPUw/1XXaBt97nOIzKTykxNqFR5oMfs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bW1M6mdNnSRVHSUURw95QXBVc3mw4SbPxGIF2XPD3/duGngXkGR7bzPsnKTPugn+oFfhMD4POFcWyA3cIohT38GSs0NthxqXfQ5b5ZzvM/sSo607EBimez7Fm689rsXZ+ANB5t+YfrJekEfsaeC4cczw5JJFw6eupD77QFl/IaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=d8v/SFEA; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784145839; c=relaxed/simple;
+	bh=mxZtatRWlTVQYOH9aCKnwVTK4nBk5WlQy0U514gTPIg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HSZjK7uBr0UqK6sXYD/mFLzP5vLVAmR/u2Xur/sCEkIYAf59cyPfVa1DzeKPKm5DeYvaAt7RlIEEet8v2gVDQxa2gaUmB/87+w3WccVVI+r3z50QSB3VxBlOOHPEOfKtJjpk2AqdKV0i3+B3p5vatY30LKObFrJPZC9erpGLTVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=KCwhOvWG; arc=none smtp.client-ip=79.135.106.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="d8v/SFEA"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 82FAE267;
-	Wed, 15 Jul 2026 22:02:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784145743;
-	bh=mInBdVU9ed6bCPUw/1XXaBt97nOIzKTykxNqFR5oMfs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=d8v/SFEAhMmVM4WxT7bhfyUyUhnIkxm9SL7MeyBolFSzmOtgPtyPdAJgkU2nngnHO
-	 d8wEmu1/6gVrf208bKVeNCxZM4QnDKBfxUn1uRTmDAh5nBL8GgUyDvJXFfSGG0zoex
-	 NwcdyPsd4ipLUWeC6nuRpdn420T1Hhh+F1PylDX4=
-Date: Wed, 15 Jul 2026 23:03:17 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Nicolas Dufresne <nicolas@ndufresne.ca>
-Cc: Jori Koolstra <jkoolstra@xs4all.nl>,
-	Linus Torvalds <torvalds@linuxfoundation.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Derek Barbosa <debarbos@redhat.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Steven Rostedt <rostedt@goodmis.org>, users@kernel.org,
-	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Stephen Finucane <stephenfin@redhat.com>
-Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <20260715200317.GA1824265@killaraus.ideasonboard.com>
-References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
- <4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
- <CAHk-=wi4zC+Ze8e+p3tMv8TtG_80KzsZ1syL9anBtmEh5Z40vg@mail.gmail.com>
- <aldx9KiAHM4CRI0m@lt-jori.localdomain>
- <e536800d8a84b99f34a79c590f57cd68cdb50e57.camel@ndufresne.ca>
- <20260715191216.GM1778116@killaraus.ideasonboard.com>
- <8061fd3d27432ba0b42fb398d70f56fabc2ee586.camel@ndufresne.ca>
+	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="KCwhOvWG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+	s=protonmail; t=1784145832; x=1784405032;
+	bh=g/CYReVUA7tKjrfK+oP2QeLP0DLtyYHy63HTvErRdJA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=KCwhOvWGo6dhXDD2UPNVTg2rQaoSm39Eto8DhZs+HS50cQps1VxPvT0m7qdYQlfob
+	 92RH+UlI8o8N9Ujz9otNa1AaOgQA9K7I2Nw6wxv2ktvEkfb2m+ipy5gToJ08f9twK/
+	 Xn1EdEjO7PsNUAukQhnsml33AFS9PUgAehMsUEL+AkBgyUoad5O9zpDdcFXyzCWipB
+	 h96svYyLG9wUam1r0Tyc6QgxU21pA2rkvaDsPdBq9fbN+X7t5+TnhmBbM5tLph3Et3
+	 bXgusswrwnznkkx4/pj9UyBX1I4w6IP61LZts6f886wZCK6+s+1FkJWBeKrvcdsw6+
+	 VqWqw0SjWEKdQ==
+X-Pm-Submission-Id: 4h0nDf3yrbz2ScdL
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: Philipp Stanner <phasta@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Asahi Lina <lina+kernel@asahilina.net>,
+	Burak Emir <bqe@google.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Krishna Ketan Rai <prafulrai522@gmail.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Mirko Adzic <adzicmirko97@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Shankari Anand <shankari.ak0208@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Subject: Re: [PATCH v5 2/5] rust: error: Add ECANCELED error code
+Date: Wed, 15 Jul 2026 23:03:37 +0300
+Message-ID: <20260715200340.48270-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <20260703073141.3962604-4-phasta@kernel.org>
+References: <20260703073141.3962604-2-phasta@kernel.org> <20260703073141.3962604-4-phasta@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <8061fd3d27432ba0b42fb398d70f56fabc2ee586.camel@ndufresne.ca>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 15, 2026 at 03:27:46PM -0400, Nicolas Dufresne wrote:
-> Le mercredi 15 juillet 2026 à 22:12 +0300, Laurent Pinchart a écrit :
-> > On Wed, Jul 15, 2026 at 02:13:12PM -0400, Nicolas Dufresne wrote:
-> > > Le mercredi 15 juillet 2026 à 14:21 +0200, Jori Koolstra a écrit :
-> > > > While there is some truly ridiculous anti-LLM brigading in some open
-> > > > source projects, I feel like saying it is just another tool does not do
-> > > > justice to some of the harm that is done by that industry. Also,
-> > > > precisely because of the usefulness of LLMs, I worry about creating an
-> > > > uneven playing field, where new contributors can't keep up if they can't
-> > > > afford the needed tools (something that is not as much the case with
-> > > > compilers.)
-> > > 
-> > > So "fairness" is likely one of the numerous ethical concerns that can drive
-> > > activist against LLM (in the sense of people actively avoiding it, boycotting
-> > > for the real extreme one, but I want to include mild cases too) in contrast to
-> > > luddite, that just don't accept the technology to provide any meaningful result.
-> > > I'm personally interested in learning more about each and every ethical
-> > > concerns, as this is needed to either fixi or mitigate the social issues this
-> > > technology is creating.
-> > > 
-> > > On this aspect specifically, Sashiko is provided equally to the Linux community.
-> > > This is very unlike coding agent, which capabilities and performance are highly
-> > > tailored to your capability to pay. In that sense, fairness is minimally
-> > > mitigated. I say mitigated considering someone have to pay for the compute and
-> > > because its currently running off proprietary owned models, also require paying
-> > > for extra royalties (which is an interesting ethical discussion in itself I
-> > > suppose). Smaller projects may not have that level of donation or budget.
-> > 
-> > Or will to pay money to companies with dubious ethics (a strong
-> > understatement).
-> 
-> Though, let's accept to cut this sub-thread here,
-
-Sure.
-
-> since we got off the
-> "technical merit", meaning we are off-topic now.
-
-I haven't argued much, if at all, about the technical merit in this mail
-thread though.
-
--- 
-Regards,
-
-Laurent Pinchart
+On Fri, 03 Jul 2026 09:31:38 +0200=0D
+Philipp Stanner <phasta@kernel.org> wrote:=0D
+=0D
+> The Rust dma_fence abstractions need the ECANCELED error code.=0D
+> =0D
+> Add ECANCELED error code.=0D
+> =0D
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>=0D
+> ---=0D
+>  rust/kernel/error.rs | 1 +=0D
+>  1 file changed, 1 insertion(+)=0D
+> =0D
+> diff --git a/rust/kernel/error.rs b/rust/kernel/error.rs=0D
+> index a56ba6309594..cb666f0d42ee 100644=0D
+> --- a/rust/kernel/error.rs=0D
+> +++ b/rust/kernel/error.rs=0D
+> @@ -67,6 +67,7 @@ macro_rules! declare_err {=0D
+>      declare_err!(EOVERFLOW, "Value too large for defined data type.");=0D
+>      declare_err!(EMSGSIZE, "Message too long.");=0D
+>      declare_err!(ETIMEDOUT, "Connection timed out.");=0D
+> +    declare_err!(ECANCELED, "Request has been canceled.");=0D
+>      declare_err!(ERESTARTSYS, "Restart the system call.");=0D
+>      declare_err!(ERESTARTNOINTR, "System call was interrupted by a signa=
+l and will be restarted.");=0D
+>      declare_err!(ERESTARTNOHAND, "Restart if no handler.");=0D
+> -- =0D
+> 2.54.0=0D
+> =0D
+=0D
+Reviewed-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
