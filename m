@@ -1,127 +1,112 @@
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6985B353A8F
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 19:47:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A3D448D07;
+	Wed, 15 Jul 2026 19:55:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784144876; cv=none; b=eSeWZLFI0Rvhs++wRugH2Gdy8BbRoXdclRcfW7L1mKJaGDPg+FWp45qycRVzbrxK7l+4R+qHNjl3qiR1s+0qz6ISs8ndQst7O6sIjxNF92Akb3xdG2f+kT9yGx+T0vtKcr6gbtjDnJ/VVAm6N1YD7Ne0G6M7MTjUraPVtkFGUKk=
+	t=1784145342; cv=none; b=PfSuojasJ6moohdJaA5R4brHZ7JKpyDAZorXusBNhyS27Unr5MieV/X2ckrCZ2FGi/qTcAkqOJOflTpeMW+TN4gH8XuHy2YuOzHTLra1wV8zQuD6MFkBIw/gjGPvtj6y1rVe7hc6K2Wx2T126wFaeT0CjSuAozfQn5WBwGjXFF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784144876; c=relaxed/simple;
-	bh=AQ2mAEPbzm04qOGxYXD+C5edEWnqOz9w1cgF2xpS6xI=;
+	s=arc-20240116; t=1784145342; c=relaxed/simple;
+	bh=bf3M7qsXxOCj54QXsTfVzp962EZ9CW8ixd4NFvp8KlA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Og0ir7zTBxeFhh98ubdk/7lpY6FQzRMOspspAeamVjTiKolAuuXSgvkuWyyTKj/Wj6/xA9mmi/j9v0waRRN7Y3uTP0DhC5S3q916dYW6ICVA6armo6b5nS50dy/Ip+z/dY8Vei4Kjs67XMJgN16Aj2JlKAEiQK1wTpdVVvQldXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rJoxSCXH; arc=none smtp.client-ip=209.85.219.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=qqsU6a96kkN+P0i+epUlW7W8Nbnzq56QlVzbHUegn0qkT1euJ6gV6q3yv9fh21fScMjcltDxuPMYrcu009vXfJ/qUIRslbcRjJQhwbdbCPFXMrlihacTkWgD00057bixv4CjqrQHi1QyWKV69kbT452YO0JBR4ezdZVd1r91mJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PVg7LMq4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rJoxSCXH"
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-902fc790cd5so59531536d6.1
-        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 12:47:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784144873; x=1784749673; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KEXXjTtbWbMQrJ2ZliFeifCGsiHTYZZHXWoNLTa8NpU=;
-        b=rJoxSCXHFcdsLztytxa/oK5XHs3LLUp69efB9zMFiCVcowdfhSRUcNdq4uYmiuP86W
-         KE4BuEv4KadIeoYvjGxf9Oxkkg20PrtZhz/1JI/zC+RftS9op9ksoh3xTJo3XTf1F9AT
-         1A4L1f2sclIB1B4RrzXyrbk2K0jTJW7kgwEfU/7XbHCmlbSnhY4YLDirDgCx8QuqRqx4
-         d2nilcAn0IqeYf1wv9ouTmiX6xpYD2PdHLRHnxpthYukAs1aC6jC03iFSbeitmXLbHbv
-         0TiBP2JEwASNli4nhAEi50NrybswUlv/IVv/EiejUbs9mdZbzn0Cj1UT3Gf0eAeTelm8
-         krew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784144873; x=1784749673;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KEXXjTtbWbMQrJ2ZliFeifCGsiHTYZZHXWoNLTa8NpU=;
-        b=EDBPJKPHtuNw4BawBbH6PXs6s0tHY9tBpAN/H2gweljPbwYUm1t9tOYgXBCrv8nZ6b
-         ChoZEClpWJIwUXU8LMO7J1Zang5ts54XnRPndkKTly+uZ5Yk4L4CmLBs06e58GsuTt07
-         icnMEbRksLOSPeo/Fubi5z/7f+iv3lua9Ckr6W2koUhjB0KsevrM4vFqoVZkEtuluW7t
-         FfzjTO5kWo/pPwJvS5aBrUqt1MmUg1bs70njxUd0vzzuRxSUSNfwiSk+jwGWEZsc7kIN
-         dpkDEyPPzwq4o+hTiBXgMcoA6TFLjrVmtoQ+c1Wb5JoMJ2bQZbtRwBpsNR2B74bSo7T4
-         FSzQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpArvvV31eK38SYdPLFUeB3R0oot81U1kJR0IB546Q0zNviRCOqN4gy8TwUotFpcSsxSnhyBBbORnlwvg==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyi0ikpb3LW0nK2FHiDvSdYyOVkp2DBDXVP22Zd184NX9t1hfuo
-	O1bbcBVZoGhVFJuUoufTYvUeG6c0+E3rkXFJVGMn4hKbpher0vq4UaFQ
-X-Gm-Gg: AfdE7ckVRz8GrANKLs2IeQSrAVuVZEyvGalPxbv4v9YaSmHoo1TPPNnJZ1aPy3q7QyW
-	2hulEJN61YmLW7Fvesn5dNngeBESM1ff8RGfXVpF7xY5ZibUf+TplNBDTJexgBnQmuzdx9Jw6rM
-	cP51Bw+bOrfuueqzMDRkWayYInhn36dpk+VW0AA46BuV/WzxIQAFFlT8dyUc/F8sK+BZSr+74jZ
-	UWq7lZskyOoXu/Adc5DOiNvW6wOekEg6/9aqmv9YC+9+RY2uQUyMEukC6f/l5xYlOuIaDHynXau
-	nRengzr61Tlk+YS1t2jQAj5mmeTvL7AexPt6mbVNTx3RYwI6f77LsCU5uoPRSI2PsArohXoAc61
-	eF9Uc26TJEasNCce++6FL5KfuOAjhfszejy/V7BKwFT0g/wDMeOEqFmf8iK3bZsNLdwYAVH2YyU
-	CYwnBjJr5jwHikffFR4icW/YSK
-X-Received: by 2002:a05:6214:c4c:b0:8ff:496e:1071 with SMTP id 6a1803df08f44-90747c2eeb4mr111182776d6.1.1784144873147;
-        Wed, 15 Jul 2026 12:47:53 -0700 (PDT)
-Received: from localhost ([174.89.92.200])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ffd87c8d4csm218276946d6.44.2026.07.15.12.47.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 12:47:52 -0700 (PDT)
-Date: Wed, 15 Jul 2026 15:47:41 -0400
-From: Richard Acayan <mailingradian@gmail.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 02/21] media: i2c: imx355: Add support for 24 MHz
- external clock
-Message-ID: <alfj3XIkX-2O5BGp@rdacayan>
-References: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
- <20260715-media-imx355-v4-2-f7f966fb9ffd@raspberrypi.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PVg7LMq4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 528EA1F00A3E;
+	Wed, 15 Jul 2026 19:55:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784145340;
+	bh=GwptbYX8KpQf9RM+RIR7cY+rOii/93/U699sbdy55oM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PVg7LMq4jhrPzNJOPT94pXoP/jsHBV6xVcbj3ljXe5cpGKaGfo1NEbHCcyMPbr51N
+	 DnY5g6iX8hLD8T4/zKR/JJuE0HX0ag+0jajfsCxwAn9y5t5cs1MkZqa95iFVDiQrSh
+	 TelyBtV2Okt1HJysYORcmDzHHgmwnT12ewreHMv7cf2sITcI6NYtB9rYkaZu9iGK5h
+	 k/lw1WWBh7Y/BmGZcOrjRAOFIX3+Z9hjkdvgr4crL9+VBDHzQpv6PYSBYeuw33mfFl
+	 Mz878PHAYgqG3g/Jn8AlaROM+bPpYgoE3eoK59IntlXnjCJmPIQNszZ3YhoHossuBL
+	 pM0y+AwOdSPqg==
+Date: Wed, 15 Jul 2026 20:55:34 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Derek Barbosa <debarbos@redhat.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	Steven Rostedt <rostedt@goodmis.org>, users@kernel.org,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Stephen Finucane <stephenfin@redhat.com>, bpf <bpf@vger.kernel.org>,
+	Chris Mason <clm@meta.com>, Christian Brauner <brauner@kernel.org>,
+	Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Subject: Re: Linking Patchwork with Sashiko?
+Message-ID: <125f38a2-9239-4b8a-9cb8-04bb00409e12@sirena.org.uk>
+References: <87wlv2jq4t.fsf@linux.dev>
+ <20260713095538.3d5e86f1@foz.lan>
+ <20260713094120.GD1127719@killaraus.ideasonboard.com>
+ <20260713220427.582b28bf@foz.lan>
+ <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
+ <20260715005909.GF1656185@killaraus.ideasonboard.com>
+ <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev>
+ <20260715163921.GH1778116@killaraus.ideasonboard.com>
+ <20260715174153.GB3846105@ziepe.ca>
+ <20260715191046.GL1778116@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="htwUcSo/8Gvpepxj"
+Content-Disposition: inline
+In-Reply-To: <20260715191046.GL1778116@killaraus.ideasonboard.com>
+X-Cookie: "Speed is subsittute fo accurancy."
+
+
+--htwUcSo/8Gvpepxj
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260715-media-imx355-v4-2-f7f966fb9ffd@raspberrypi.com>
 
-On Wed, Jul 15, 2026 at 12:43:15PM +0100, Dave Stevenson wrote:
-> From: David Heidelberg <david@ixit.cz>
-> 
-> The IMX355 sensor supports multiple external clock frequencies,
-> including 19.2 MHz and 24 MHz. The driver currently supports only
-> fixed 19.2 MHz input clock.
-> 
-> Refactor the clock handling to make the PLL configuration dependent
-> on the external clock frequency and add support for 24 MHz. Introduce
-> a table of clock parameter sets and program the corresponding EXTCLK
-> frequency and PLL multipliers to maintain consistent internal VCO
-> frequencies across supported inputs.
-> 
-> The PLL settings are adjusted so that OP VCO remains at 720 MHz
-> 
-> This preserves existing timing characteristics while allowing systems
-> using a 24 MHz clock to operate correctly.
-> 
-> No functional change for existing 19.2 MHz users.
-> 
-> Assisted-by: Claude:claude-opus-4-6
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> ---
->  drivers/media/i2c/imx355.c | 77 +++++++++++++++++++++++++++-------------------
->  1 file changed, 45 insertions(+), 32 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-> index ac59908f57aa..a6ee7532018f 100644
-> --- a/drivers/media/i2c/imx355.c
-> +++ b/drivers/media/i2c/imx355.c
-(snip)
-> @@ -1749,7 +1756,13 @@ static int imx355_probe(struct i2c_client *client)
->  				     "failed to get clock\n");
->  
->  	freq = clk_get_rate(imx355->clk);
-> -	if (freq != IMX355_EXT_CLK)
-> +	for (unsigned int i = 0; i < ARRAY_SIZE(imx355_clk_params); i++) {
+On Wed, Jul 15, 2026 at 10:10:46PM +0300, Laurent Pinchart wrote:
+> On Wed, Jul 15, 2026 at 02:41:53PM -0300, Jason Gunthorpe wrote:
 
-Did we start allowing variable declarations mixed with code?
+> > I feel Sashiko and this whole AI world has created alot more work. It
+> > is not saving time at all. Now I have to go and read every Sashiko
+> > report to see if there is something important that normal review
+> > missed. I have fix all the drive by 'this is already broken' stuff it
+> > finds. We get way more patches than we did before. Now *everything*
+> > has to be looked at more skeptically if came from some AI slop. I get
+> > crazy real security reports that need special hand holding now that we
+> > never got before.
+
+> I'd even go as far as questioning if the additional work is resulting in
+> less time being spent on changes that would address classes of problems.
+> There are many areas in the kernel where APIs are hard to use correctly.
+> Improvements there (and I know there's ongoing work such as Kees' object
+> allocator functions for instance) may pay off better than spending time
+> discussing about one-time memory leaks in error paths of probe
+> functions.
+
+Yeah, that's been one of the big issues I've noticed with people
+handling the LLM reviews poorly - people tend to end up with very
+tactical approachs for issues that are not at all tactical.  Which is
+one of the symptoms of the stuff the LLMs generate themselves.
+
+--htwUcSo/8Gvpepxj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpX5bUACgkQJNaLcl1U
+h9D90Af9GE22O8gXkjue7mzzEgOHy5+T4MkNfTEfMn7fYpOfm93fxzvlE0uiBOJ8
+F6YrKpMiKH/J+kM8naVyqvC+kGxjOqK2DqFdjnK9OJPXLIdXvJeErpDSqgnziS17
+sGO21AxmguCnqjDxBApsM8fZ0+turXhM5fnTyBg4ItXvsTRRxCWkhjuo3hO33jaU
+mHRjsjyX+LdJQx+SZMSNtVS6kwD1JhvQMF8pIi3gjVM243i1+N2IJt3sWOH9Q9uv
+FmMLmdLuEv2mQ4vpipUN4MAzRBZatYgXg00LNx9hy3kbsP4LIoxG8vPWG9GFHuRV
+c4sFG8fKDQcWyV7jAXvkTbkuZ0Savg==
+=IFLh
+-----END PGP SIGNATURE-----
+
+--htwUcSo/8Gvpepxj--
