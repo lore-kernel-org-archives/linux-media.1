@@ -1,197 +1,100 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAAC44C64B;
-	Wed, 15 Jul 2026 17:28:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784136504; cv=pass; b=UMpPaDA+gp7XoBTTMFyjccKm0Pf1t7W4lJm1y3OV3ap5G/BGpzNfcuRclgIm8t5yPkwffCHUR7SvBKasI3man1TD8v57TMhcZ4UfQIlNkgF2mCibwh2lZIRzS6MJkUdnUjx4oi2VgZxCzpbBQvem3ysalmiQvJoPwel51u+GZRY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784136504; c=relaxed/simple;
-	bh=1jC4zuorRjF4cG/NHwxsj8hoCNU1g953f2542WYm/LE=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EF793B0ACD
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 17:31:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784136687; cv=none; b=itE4/igzvERwBhel6up0bqE7mD8U7BfV+DaqIxFvbqrKv43Jehj++OwjhfaGXGsbhPhWty857WilTZnMxTGanauqx+bGsRB/zc5+2xVLqwQwIf4ilzPBg27v5cxMtD5XF1IjSpSWlDIgHtI7NdMg+YItzKZUI7zb4Yr14BcdhCM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784136687; c=relaxed/simple;
+	bh=6meeYdmCgdTHX7X3S358U2yiiJC/++sbxSx8h8Vqqfo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uqTxWTs0fykhIjqKH7eQ+WDTXpC7j/BJdl6mph4KDNCNniu//kNlr1u7Qs2cx5Nnc+7UjDY8lejlxGp13feezAUM39j0qYur2gRxt1jdHGGLlb3T5TDm94vLQFYDyZKZ4Ib98Pq3N+VoqSGru4MGp0RvQhUU2HfaNXUkHyIGF8M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=PtO0nTmm; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=AjxH/Sbd06wAPbTLSKoXzPKhCUcJTEaYCkYSQCp99shuCDj/nPqXN0Mf9/jnL9W3RuOtUadlTSF60eynOJKIHTUzwDNCHW2lLbketEC0KQa/Qr/LbOQkpa3apGtrq7CY3NnPO+amHSJum6a45eh+G4TL/MXdXmaMVyt1mL659II=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=AjByWrbC; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="PtO0nTmm"
-ARC-Seal: i=1; a=rsa-sha256; t=1784136472; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=UjcggrEWhmhgIRBHEx5b5tvEdbd8vN2dYykiP4HoIoDhaWFFoGO7QrBggnEewtTBsRhKywr0GJFuX03oJuOSORC+t4nW+6dmXExebhaGEe5ZphVI42YgBHi5q73ziyieSIr74SdP8H2yZXT1s22OMoT2E0J4O+9egAq3wz6wMxM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1784136472; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=tZMHpOSI96u+8n6WmO36hC0tSDpgTHPYMyoHs8oUXVk=; 
-	b=O00TT5g3vx9d7a4nyIkIBRYVNmvis0OurZ0giMeBbr1uJxj/tPOlbt7ksZeaPEWBhFDIhnZuYgskFoDmqy7W2fWHlDionyUGqHEthF/W0z3qBrT/sRKC/bNnBlPbTHr8zYH84qlBx7St3NJlqAKejl2hlSRH0Orj4LuZXsvckF0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784136472;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=tZMHpOSI96u+8n6WmO36hC0tSDpgTHPYMyoHs8oUXVk=;
-	b=PtO0nTmmNTPH9mSfPCCt2pDBdBmwpQ9EbBwW0uYLumMP6uod41l1XJuK9c4qKz5F
-	CZFA2AuoqNxw3pDHXHKJqOJ56QDAyK2exjr1ERI4l4HFmp7aEjIf2c+yaa5cFf87I4L
-	ednlDNSQeEIGdH5rHZal+npTVgvEscL5qplALmzw=
-Received: by mx.zohomail.com with SMTPS id 1784136470398407.1506848169139;
-	Wed, 15 Jul 2026 10:27:50 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 225A1180820; Wed, 15 Jul 2026 19:27:46 +0200 (CEST)
-Date: Wed, 15 Jul 2026 19:27:46 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, robh@kernel.org, Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, kernel@collabora.com, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 1/2] dt-bindings: media: snps,dw-hdmi-rx: add
- #sound-dai-cells
-Message-ID: <alfCQd689ATJOdwM@venus>
-References: <20260715051939.64652-1-royalnet026@gmail.com>
- <20260715051939.64652-2-royalnet026@gmail.com>
- <20260715055448.AEA021F000E9@smtp.kernel.org>
- <CAEWPSH7OqecBKvxUVtwFe4B9y0-=gsQ7vy6kdBHx-Nsne-Ct1g@mail.gmail.com>
- <aleBPE5YHlC7pLpi@venus>
- <CAEWPSH4AYfSR_DBcLFr6a=SJxnAAcjoK612v+g-TpP046qTBmg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="AjByWrbC"
+Received: from macsyma.thunk.org ([151.240.45.27])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 66FHV1Iq032122
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 15 Jul 2026 13:31:08 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1784136670; bh=W5xg98Db6keVKh5RY1acYpY4A9glKmN9ONSgd5mdPDc=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=AjByWrbCw3SyUNcaatcncbvnq1+UI7AZHUknDOp+GCukABdEwoKVEJWB95twdqxuh
+	 crp96gTF/RHfRKXuFx85TMmT0ZyVJOTV3Dt+pxS0Ix8dREPyhmUcQNLgxEuemQe7uA
+	 +1QmNUhMvhiLfNZ3AM6iNqV9dWQ8kjUi2ZFFyrZc0UKTwoVKbhkJRFRrUwQvGwetDG
+	 ppSYdgKUF25R+Y+6pmMQDWWp3ErSW+Fz+lrWnqmqcVKgZ9o+OKYN5tdXIohLoeHjyx
+	 e4XIqAaxXm1tbZjjf+v1+bKb0lqE+jFyzYioHyiY7oZFEKxXDVzrN4dxStP5UV1IJg
+	 1ma9/N85ZRdng==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 0EB1EA2F5F6; Wed, 15 Jul 2026 13:31:01 -0400 (EDT)
+Date: Wed, 15 Jul 2026 13:31:00 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>,
+        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+        Derek Barbosa <debarbos@redhat.com>,
+        Matthieu Baerts <matttbe@kernel.org>,
+        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+        Jason Gunthorpe <jgg@ziepe.ca>, Steven Rostedt <rostedt@goodmis.org>,
+        users@kernel.org,
+        Linux Media Mailing List <linux-media@vger.kernel.org>,
+        Stephen Finucane <stephenfin@redhat.com>
+Subject: Re: Linking Patchwork with Sashiko?
+Message-ID: <alfBvhZkAelq5RVf@mit.edu>
+References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
+ <4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
+ <alc3gAJfAkG5DULJ@zed>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAEWPSH4AYfSR_DBcLFr6a=SJxnAAcjoK612v+g-TpP046qTBmg@mail.gmail.com>
-Content-Transfer-Encoding: quoted-printable
-X-ZohoMailClient: External
+In-Reply-To: <alc3gAJfAkG5DULJ@zed>
 
-Hi,
+On Wed, Jul 15, 2026 at 09:59:57AM -0500, Jacopo Mondi wrote:
+> Far-fetched review comments, very convincing word salads mixed with
+> valuable findings have often been escalated by authors to maintainers
+> to have them distil the good from the bad.
 
-On Wed, Jul 15, 2026 at 03:19:54PM +0200, Igor Paunovic wrote:
-> For completeness: the driver part of the series currently wires
-> up only the I2S interface (DAI 0); the binding now describes both
-> interfaces as per the hardware.
+That hasn't been my experience with ext4.  As far as signal to noise,
+the main issue is one where pre-existing issues are flagged in
+multiple patches in the patch series.  However, (a) Romain knows about
+this, and a fix is in the works, and (b) it's flagged as a
+pre-existing issue --- and we tell newcomers that they are free to
+disgard pre-existing issues, but if they do want to fix it, in most
+cases do it as a separate patch (or in a separate patch series) and to
+avoid folding it into the current patch --- especially if the fix is
+non-trivial.
 
-Not implementing all features in the driver is perfectly fine.
-Ideally you return -ENOTSUP if somebody tries to use the S/PDIF
-DAI interface instead of I2S.
+> All discussions around AI inevitably ends being about principles and
+> good vs bad. I'm surprised Linus and Ted had to weight in to re-state
+> the "we're not against AI!" principle while I would like to discuss
+> signal-to-noise metrics instead.
 
-Greetings,
+If it makes sense for a subsystem to move reviews to a separate list,
+by all means, that should be up to the subsystem maintainers.  There
+has been quite a lot of discussion about how we should accomodate
+people who object to AI by dumping more work on maintainers, and
+that's the part that I object to.
 
--- Sebastian
+One of the things that really excites me about Shashiko is that it
+reduces my workload.  Whereas the false positives from Syxbot and
+oss-fuzz have caused me more work, not less, and has had significantly
+more noise than Shahiko.  (I've started outright ignoring oss-fuzz
+reports as a result, and the "respond within NN days or we will make
+our report public" has caused me to respond, "and this will say more
+bad things about oss-fuzz than my software"....)
 
->=20
-> Thanks for the review!
->=20
-> Igor
->=20
-> On Wed, Jul 15, 2026 at 3:00=E2=80=AFPM Sebastian Reichel
-> <sebastian.reichel@collabora.com> wrote:
-> >
-> > Hello Igor,
-> >
-> > On Wed, Jul 15, 2026 at 08:55:37AM +0200, Royal Net wrote:
-> > > > Should the constraint be set to 0 to follow standard device tree
-> > > > norms?
-> > >
-> > > Fair point. The current RFC wires up a single I2S DAI, and for a
-> > > single-DAI provider 0 is indeed the norm -- rockchip,dw-hdmi does
-> > > exactly that for its one DAI on the TX side.
-> > >
-> > > The reason I picked 1 is that the controller also has an S/PDIF
-> > > audio output path (the vendor driver exposes both I2S and S/PDIF
-> > > DAIs through hdmi-codec), so a DAI index becomes meaningful if that
-> > > second path is wired up later.
-> > >
-> > > Unless the DT maintainers prefer keeping 1 from the start to avoid
-> > > changing the cell count if/when the S/PDIF DAI is added, I'll switc=
-h
-> > > to const: 0 in the next revision -- please let me know which you'd
-> > > prefer.
-> >
-> > It should be 1 from the start as the DT binding is supposed to
-> > describe the hardware and be stable. But in the next version you
-> > should look into updating the commit descriptions to be less about
-> > the kernel driver and more about the hardware. Maybe something like
-> >
-> > > The HDMI RX controller has two digital audio interfaces, one for
-> > > I2S and one for S/PDIF. Allow referencing connections from audio
-> > > codecs to these interfaces by documenting the missing #sound-dai-ce=
-lls
-> > > property.
-> >
-> > Apart from that it makes sense to document that argument 0 means
-> > I2S and argument 1 means S/PDIF interface in the property description=
-.
-> >
-> > Last but not least drop "A value of 1 lets a sound card reference
-> > the audio DAI as <&hdmirx 0>.". Instead you can add this to the
-> > example section at the end of the file.
-> >
-> > Greetings,
-> >
-> > -- Sebastian
-> >
-> > >
-> > > Igor
-> > >
-> > > On Wed, Jul 15, 2026 at 7:54=E2=80=AFAM <sashiko-bot@kernel.org> wr=
-ote:
-> > > >
-> > > > Thank you for your contribution! Sashiko AI review found 1 potent=
-ial issue(s) to consider:
-> > > > - [Medium] Incorrect cell count constraint for single-DAI provide=
-r.
-> > > > --
-> > > >
-> > > > --- Patch [1]: [RFC PATCH 1/2] dt-bindings: media: snps,dw-hdmi-r=
-x: add #sound-dai-cells ---
-> > > > commit e6b0bac0b97f568ce749084e6c1e728bcd258b10
-> > > > Author: Igor Paunovic <royalnet026@gmail.com>
-> > > > dt-bindings: media: snps,dw-hdmi-rx: add #sound-dai-cells
-> > > >
-> > > > This commit adds the #sound-dai-cells property to the HDMI RX con=
-troller
-> > > > bindings, enabling a generic audio codec to capture incoming embe=
-dded audio.
-> > > >
-> > > > > diff --git a/Documentation/devicetree/bindings/media/snps,dw-hd=
-mi-rx.yaml b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
-> > > > > index b7f6c87d0e06a..83c10d9997c8e 100644
-> > > > > --- a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.y=
-aml
-> > > > > +++ b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.y=
-aml
-> > > > > @@ -78,6 +78,13 @@ properties:
-> > > > >        The phandle of the syscon node for the Video Output GRF =
-register
-> > > > >        to enable EDID transfer through SDAIN and SCLIN.
-> > > > >
-> > > > > +  "#sound-dai-cells":
-> > > > > +    const: 1
-> > > > > +    description:
-> > > > > +      The HDMI RX controller registers a generic HDMI audio co=
-dec so the
-> > > > > +      audio embedded in the incoming stream can be captured. A=
- value of 1
-> > > > > +      lets a sound card reference the audio DAI as <&hdmirx 0>=
-.
-> > > >
-> > > > [Severity: Medium]
-> > > > Is this cell count constraint correct for a single-DAI provider?
-> > > >
-> > > > Looking at properties:#sound-dai-cells, the hardware exposes only=
- a single
-> > > > generic audio DAI. Requiring a cell count of 1 forces device tree=
- nodes to
-> > > > use a non-standard syntax like <&hdmirx 0> instead of just <&hdmi=
-rx> for a
-> > > > single resource.
-> > > >
-> > > > Should the constraint be set to 0 to follow standard device tree =
-norms?
-> > > >
-> > > > --
-> > > > Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/202607150=
-51939.64652-1-royalnet026@gmail.com?part=3D1
+Cheers,
+
+							- Ted
