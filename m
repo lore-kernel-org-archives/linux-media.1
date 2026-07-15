@@ -1,160 +1,97 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4195544604A;
-	Wed, 15 Jul 2026 19:07:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784142426; cv=none; b=QnAH5q/e8cJ4eiU4JO/IUV5xzQPX+aUwNgy6z0G5pXbshIYkDormJxNxb44xiy7HrnGU/i2hI/7nFcXBJ65VMcdOQY7dtMO1aGwY4q5WKjk65aAnkW7LuN0q/QpsSgES4ZrBdnpjgJ4fUUT+WBr4IvngLrq5IF4U4+nL2N6IHZk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784142426; c=relaxed/simple;
-	bh=/Nj7Dd3qpxPEFHftN9BYQUKRnbUY4QzNW4WGhPouGi4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jIMaaCGIiTMFN4iDN0hFetrXC728X9Je9VpqCSNQqllts8Bpje3HDFI4ZBYqlIvvE5WaIPT1vEC3n74E4qSK2wvShTqVsdyrC9tkT2r4kYhvHBQqnM5rfrLmQlj8nB4+LvfNE7b2hNauPUJpXXGIqjVQetw0DOhal8eQ4rpFGVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=weXpNVPG; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574DF43F082;
+	Wed, 15 Jul 2026 19:08:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784142497; cv=pass; b=lRRDOmipxxf1CkFBTr4gwb7PpPd4g59sUrETkm6sts4j8FkdkMkm/bkrPJhyK3/RMXQ9EjreNyahtoJIjK+ESsV+FSwTsskpe9AalKc5braKpg9Sgia79l2Np85kvuhI3n191Qt+UVySOA8PjPqjvRcX7+HFY8Si6FDW4koHr08=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784142497; c=relaxed/simple;
+	bh=hN25WY5L8971PWg6LGMcp+nuiPyTOz9iLSWFsryIYkc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=a+8Btg2EnuN8hvYPbx4mniXGr9tyXpzUw1KjsFBgSZkOAY303cbreXIF/YjFciThX98kSIjWGvy6qFub1PiriLYThbJamDDAjK3qBJRCNbKgOQn0yd29dz+GvKHXnuDAsur1JmAk2o2xuk/KsIxGJ0K6xlqbv1gQWhUJwDyH9Qc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=VKQXg9mC; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="weXpNVPG"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 287A6104C;
-	Wed, 15 Jul 2026 21:06:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784142361;
-	bh=/Nj7Dd3qpxPEFHftN9BYQUKRnbUY4QzNW4WGhPouGi4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=weXpNVPGNdljTAof2hjl45qg9MNqJ+ebY1YJQjhPe4DX/fff3gRjVe1g26kB6+Iea
-	 a3lSF55/siMGfPjNXjG0tua/7zjto1Cu9E2dhVkwep2OLBsRVsIVx41/KsF7dXRoZg
-	 XRA8xjN91oJzsJ5zbpY+fEKEFYFUzDL4jV1nq0ZY=
-Date: Wed, 15 Jul 2026 22:06:54 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ihor Solodrai <ihor.solodrai@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Derek Barbosa <debarbos@redhat.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Steven Rostedt <rostedt@goodmis.org>, users@kernel.org,
-	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Stephen Finucane <stephenfin@redhat.com>, bpf <bpf@vger.kernel.org>,
-	Chris Mason <clm@meta.com>, Christian Brauner <brauner@kernel.org>,
-	Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <20260715190654.GK1778116@killaraus.ideasonboard.com>
-References: <20260710083845.23c753ca@foz.lan>
- <87wlv2jq4t.fsf@linux.dev>
- <20260713095538.3d5e86f1@foz.lan>
- <20260713094120.GD1127719@killaraus.ideasonboard.com>
- <20260713220427.582b28bf@foz.lan>
- <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
- <20260715005909.GF1656185@killaraus.ideasonboard.com>
- <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev>
- <20260715163921.GH1778116@killaraus.ideasonboard.com>
- <153db0fa-65ac-49de-9bf5-456c9639954c@linux.dev>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="VKQXg9mC"
+ARC-Seal: i=1; a=rsa-sha256; t=1784142470; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=kBGnWNuroPusskDm1zj0u4187PS+x19jIVs1LTI6jiSJykkBBRmtmdRpRB5juYF7GQ1NqwoM81Q2zLW+vCvQmYrhysacXeKhy39k8DM2bNY6ocef+KdvrjPv2zAh65CTWypAAoYlSZ8JUzF8eQiwqUyC4FKDxUVhHP2xcm1oBWc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784142470; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=ElXRUw3iwZwUUkeJ8T0AmYJOlPneuAtRexP5rxzu3ok=; 
+	b=Qitd6gJVoJGJnomcN03m33/bNRqONOILUcPJ3u0R1y6qD3yqYqPuFx7Yu4jcjkbNTylyqcJHj2YV2ZtSFTyiGVApdkoFJ4GUf0xsaC1/XjiVCVeJhCVicrG7z6MDmFlyqvTVGh0YAuwFBsuK0jz9oy3Jz1BqAgD7Ltk3LuIpORY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784142470;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=ElXRUw3iwZwUUkeJ8T0AmYJOlPneuAtRexP5rxzu3ok=;
+	b=VKQXg9mCRzRnHqSVA9sHj82/qc5q1eiYUYwoj2iJ9qYRCn+kzNgt18lxSSv75cWQ
+	XrDES6NHZfqfayqkh50CObFjzz2o2ZrWpYXYNNRmBLgRYZyxHMumRuN/NVfybDa22wE
+	edeDOLdzx1Vgv5CJ8u2Kr4CsSsQPPpMCGX1AAvJE=
+Received: by mx.zohomail.com with SMTPS id 1784142468976679.2896307879109;
+	Wed, 15 Jul 2026 12:07:48 -0700 (PDT)
+Message-ID: <8089de84-0793-4668-9030-42881912e6e7@collabora.com>
+Date: Wed, 15 Jul 2026 22:07:44 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <153db0fa-65ac-49de-9bf5-456c9639954c@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/2] media: synopsys: hdmirx: add HDMI audio capture
+ support
+To: Igor Paunovic <royalnet026@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
+ kernel@collabora.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260715051939.64652-1-royalnet026@gmail.com>
+ <20260715051939.64652-3-royalnet026@gmail.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20260715051939.64652-3-royalnet026@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On Wed, Jul 15, 2026 at 10:12:03AM -0700, Ihor Solodrai wrote:
-> On 7/15/26 9:39 AM, Laurent Pinchart wrote:
-> > On Wed, Jul 15, 2026 at 09:28:03AM -0700, Ihor Solodrai wrote:
-> >> On 7/14/26 5:59 PM, Laurent Pinchart wrote:
-> >>> [...]
-> >>
-> >> Yes, assessing whether AI report is "real" is work, but it's not
-> >> reasonable to push this work on already overwhelmed maintainers. And
-> >> if AI is wrong, again it's the job of the author to convince the
-> >> maintainers it's wrong.
-> > 
-> > We disagree on this as well. This would force contributors to constantly
-> > justify their value against a machine that is known to produce a
-> > non-negligible quantity of nonsense.
-> 
-> I know what you mean and I can relate. Going through walls of
-> AI-generated paragraphs is not fun, to put it lightly.
-> 
-> However it seems that you are suggesting to simply delegate this work
-> to maintainers,
+Hi,
 
-For authors who object to generative AI, yes. And most likely for junior
-developers too, see below.
+15.07.2026 08:19, Igor Paunovic пишет:
+> +static int hdmirx_register_audio_device(struct snps_hdmirx_dev *hdmirx_dev)
+> +{
+> +	struct hdmi_codec_pdata codec_data = {
+> +		.ops = &hdmirx_audio_codec_ops,
+> +		.i2s = 1,
+> +		.no_i2s_playback = 1,
+> +		.max_i2s_channels = 8,
+> +		.data = hdmirx_dev,
+> +	};
+> +	struct platform_device_info pdevinfo = {
+> +		.parent = hdmirx_dev->dev,
+> +		.id = PLATFORM_DEVID_AUTO,
+> +		.name = HDMI_CODEC_DRV_NAME,
+> +		.data = &codec_data,
+> +		.size_data = sizeof(codec_data),
+> +		.dma_mask = DMA_BIT_MASK(32),
+> +	};
+> +
+> +	hdmirx_dev->audio_pdev = platform_device_register_full(&pdevinfo);
+Nit: platform_device_register_data() should work too. The specified DMA
+mask should be unused by the codec driver and even if it was used, it
+should be inherited from the parent dev and not fixed to 32bit. Please
+either remove .dma_mask or use platform_device_register_data().
 
-> and I very much disagree with that approach (even
-> though I'm not a maintainer myself).
-
-I had noticed that :-)
-
-> I hope you're not saying "let's just not use AI", because that ship
-> has sailed a while ago.
-
-For the time being I'm not seeing this as a viable option in any way, so
-I'm not calling for it.
-
-> And if automated AI reviews are there, someone has to do the
-> triage. AI can do the triage itself only to a limited degree. For
-> example, there are instructions in review-prompts where AI checks
-> whether an issue has already been discussed. But it will never be
-> perfect.
-> 
-> I think it makes much more sense for the author of the patch to do the
-> triage, as they have the best context of the work, and they are
-> usually the most invested in their patch being merged in.
-
-The discussion regarding enabling sashiko for the linux-media mailing
-list started with the question of whether or not authors should be
-CC'ed. This came from a consideration on the impact of false positives
-and other hallucinations on junior developers. They may have the best
-context of the work, but they are also most at risk of not questioning
-the validity of the reviews. A one-size-fits-them-all approach may not
-be good, which is why I think some sort of opt-in option could address
-many concerns. I don't expect immediate and universal enthousiasm
-though.
-
-> > Furthermore, if those generative AI
-> > tools are as good as their supporters claim, the time they free for
-> > maintainers should outweight the need workload to triage the comments.
-> 
-> Even if the AI tools were ~perfect with respect to code review, I
-> think people would still be signing off patches and taking
-> responsibility for them.
-
-My comment wasn't about signing off patches. I was questioning whether
-the time that sashiko saves for a maintainer is smaller, similar, or
-larger than the time it takes to triage the comments. If the tool saves
-maintainers from having to review some of the code, or from considering
-some classes of problems in their reviews, would triaging the comments
-come even close to the time saved ?
-
-> An imaginary perfect AI reviewer that maintainer can trust to land
-> code without looking at it would essentially become an AI maintainer.
-> Independent of whether you think it's possible, it hasn't happened
-> yet, so we have to deal with imperfect AI in the meanwhile.
-> 
-> > >> I set up automated AI code reviews on BPF list using Chris Mason's
-> >> prompts in the fall last year [3], before sashiko was developed. And
-> >> originally we were very worried about the quality of the reviews.
-> >>
-> >> Time has showed that we had to be more worried about the average
-> >> quality of incoming patch instead.
-> >>
-> >> [1] https://lore.kernel.org/bpf/CAADnVQKsM8iOGO3ZL3LgbWigOBBMrGbTYZ_k_Ktz=+cVkvRLXg@mail.gmail.com/
-> >> [2] https://lore.kernel.org/all/20260703-vfs-summer-jam-22b2edbbbc44@brauner/
-> >> [3] https://lore.kernel.org/all/0d6aa077-1222-49a0-9554-dd922122a904@meta.com/
-> >>
-> >>> I believe we should
-> >>> follow the first two recommendations of the Software Freedom Conservancy
-> >>> on using LLM-backed generative AI systems for FOSS contributions ([1]).
-> >>>
-> >>> [1] https://sfconservancy.org/llm-gen-ai/llm-backed-generative-ai-recommendations.html
+Please fix Sashiko bug reports for v2. Otherwise, the patch looks okay.
+Thanks for working on it.
 
 -- 
-Regards,
-
-Laurent Pinchart
+Best regards,
+Dmitry
