@@ -1,130 +1,107 @@
-Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6443341A542
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 20:02:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAA14A2E1D
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 20:03:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784145742; cv=none; b=U7zKXUZpINUb880nc6WqH4DuPd4ewwiyaxZurCjtgQ57gaHvXNEmx6wsJp6f4hLYc7fEBiDXfj1+bBQvV7wYEPO4bAJEVNRaTqtUa4OL8xIfkQJFvZGU+FWSCy0w35xPy8h9Mm7nB5e/IFHIKcFMgZAGzftRePgQgBOejAyLjsg=
+	t=1784145804; cv=none; b=rFvAx5xL+9vWK0EJNub0xJdtR+G4JnCfx0oQtKs+3BXQe+V5JXXzpwk7ypso05QT7bt9nLq2oT5mH1aTRUupez/x3+oa1Z/prDCFe+cswZInIkwxUCEbfT2GPfqNjRzxi4Dm/TwzgmtFHsVwlb2q3cBP+6uUVbWI33fbsc1Mklc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784145742; c=relaxed/simple;
-	bh=L7CrLJMVRfz7b6Mq8AGgo76DRFLIk7+WT8WbD7OBnnQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mO+az2PgKf3JG8d7BCwO4qPFFjfTNkz9Oy2xfbL/fKXcMXflsliW7gki/C5ntXhj8uVfU1vZlI6ipPNM9+Kompl1nmdhstBMisli47e0YUH7VFytFH2TXllWgrHu3LJetD1ksB1bewaSjXl14jmXMiacVfgp37XPvq8OT4dNHH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=j1/mN7ts; arc=none smtp.client-ip=79.135.106.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
+	s=arc-20240116; t=1784145804; c=relaxed/simple;
+	bh=mInBdVU9ed6bCPUw/1XXaBt97nOIzKTykxNqFR5oMfs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bW1M6mdNnSRVHSUURw95QXBVc3mw4SbPxGIF2XPD3/duGngXkGR7bzPsnKTPugn+oFfhMD4POFcWyA3cIohT38GSs0NthxqXfQ5b5ZzvM/sSo607EBimez7Fm689rsXZ+ANB5t+YfrJekEfsaeC4cczw5JJFw6eupD77QFl/IaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=d8v/SFEA; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="j1/mN7ts"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
-	s=protonmail; t=1784145735; x=1784404935;
-	bh=4QqeuF5FUcRt5pFIExp1uYIABYGFvYOct0RfvBryi2M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=j1/mN7tsc7BUeIEdRM7EQzx9zri2n42/KPuvQ+WuRj+XQw7RXh4p+1yWVEyg9ZWhM
-	 VsWRzo4DRZMYP6xxVJdLyJAQBQ4zXnojPCGIfDwJctnfw40e+ZN8b+TRDGMInnJPvX
-	 R+BTnE0tgMd48acQzULIDu23OM6QWNoEaBcLZ7EfMNcYB7mggSgWq1MbWJRtYojL1J
-	 P2ea+jTzoG1Q2dBoLnNXT9oQvAv87RMVANGDYretM7/cvdATiNE8D5T2qwZWorERr8
-	 OVV2g8la2rv7Bbxg74o/OHvh1xvitvpXkabPaW0F/qofOlp5vXQ8OftenB5ghnmSnO
-	 3WklqdoF88K7w==
-X-Pm-Submission-Id: 4h0nBg2hrLz1DDpB
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: Philipp Stanner <phasta@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Asahi Lina <lina+kernel@asahilina.net>,
-	Burak Emir <bqe@google.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Krishna Ketan Rai <prafulrai522@gmail.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Mirko Adzic <adzicmirko97@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Shankari Anand <shankari.ak0208@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Subject: Re: [PATCH v5 3/5] rust: sync: Add abstraction for rcu_barrier()
-Date: Wed, 15 Jul 2026 23:01:52 +0300
-Message-ID: <20260715200156.47101-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20260703073141.3962604-5-phasta@kernel.org>
-References: <20260703073141.3962604-2-phasta@kernel.org> <20260703073141.3962604-5-phasta@kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="d8v/SFEA"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 82FAE267;
+	Wed, 15 Jul 2026 22:02:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784145743;
+	bh=mInBdVU9ed6bCPUw/1XXaBt97nOIzKTykxNqFR5oMfs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=d8v/SFEAhMmVM4WxT7bhfyUyUhnIkxm9SL7MeyBolFSzmOtgPtyPdAJgkU2nngnHO
+	 d8wEmu1/6gVrf208bKVeNCxZM4QnDKBfxUn1uRTmDAh5nBL8GgUyDvJXFfSGG0zoex
+	 NwcdyPsd4ipLUWeC6nuRpdn420T1Hhh+F1PylDX4=
+Date: Wed, 15 Jul 2026 23:03:17 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Nicolas Dufresne <nicolas@ndufresne.ca>
+Cc: Jori Koolstra <jkoolstra@xs4all.nl>,
+	Linus Torvalds <torvalds@linuxfoundation.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Derek Barbosa <debarbos@redhat.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Steven Rostedt <rostedt@goodmis.org>, users@kernel.org,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Stephen Finucane <stephenfin@redhat.com>
+Subject: Re: Linking Patchwork with Sashiko?
+Message-ID: <20260715200317.GA1824265@killaraus.ideasonboard.com>
+References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
+ <4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
+ <CAHk-=wi4zC+Ze8e+p3tMv8TtG_80KzsZ1syL9anBtmEh5Z40vg@mail.gmail.com>
+ <aldx9KiAHM4CRI0m@lt-jori.localdomain>
+ <e536800d8a84b99f34a79c590f57cd68cdb50e57.camel@ndufresne.ca>
+ <20260715191216.GM1778116@killaraus.ideasonboard.com>
+ <8061fd3d27432ba0b42fb398d70f56fabc2ee586.camel@ndufresne.ca>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <8061fd3d27432ba0b42fb398d70f56fabc2ee586.camel@ndufresne.ca>
 
-On Fri, 03 Jul 2026 09:31:39 +0200=0D
-Philipp Stanner <phasta@kernel.org> wrote:=0D
-=0D
-> rcu_barrier() is a frequently used C function which is always safe to be=
-=0D
-> called.=0D
-> =0D
-> Add a safe abstraction for rcu_barrier().=0D
-> =0D
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>=0D
-> ---=0D
->  rust/kernel/sync/rcu.rs | 20 ++++++++++++++++++++=0D
->  1 file changed, 20 insertions(+)=0D
-> =0D
-> diff --git a/rust/kernel/sync/rcu.rs b/rust/kernel/sync/rcu.rs=0D
-> index a32bef6e490b..7031ca5d2473 100644=0D
-> --- a/rust/kernel/sync/rcu.rs=0D
-> +++ b/rust/kernel/sync/rcu.rs=0D
-> @@ -50,3 +50,23 @@ fn drop(&mut self) {=0D
->  pub fn read_lock() -> Guard {=0D
->      Guard::new()=0D
->  }=0D
-> +=0D
-> +/// Wait until all in-flight call_rcu() callbacks complete.=0D
-> +///=0D
-> +/// Note that this primitive does not necessarily wait for an RCU grace =
-period=0D
-> +/// to complete.  For example, if there are no RCU callbacks queued anyw=
-here=0D
-> +/// in the system, then rcu_barrier() is within its rights to return=0D
-> +/// immediately, without waiting for anything, much less an RCU grace pe=
-riod.=0D
-> +/// In fact, rcu_barrier() will normally not result in any RCU grace per=
-iods=0D
-> +/// beyond those that were already destined to be executed.=0D
-> +///=0D
-> +/// In kernels built with CONFIG_RCU_LAZY=3Dy, this function also hurrie=
-s all=0D
-> +/// pending lazy RCU callbacks.=0D
-> +///=0D
-> +/// Note that this is one of the RCU primitives which must not be called=
- in=0D
-> +/// atomic context.=0D
-> +#[inline]=0D
-> +pub fn rcu_barrier() {=0D
-> +    // SAFETY: `rcu_barrier()` is always safe to be called. It just migh=
-t wait for a grace period.=0D
-> +    unsafe { bindings::rcu_barrier() };=0D
-> +}=0D
-> -- =0D
-> 2.54.0=0D
-> =0D
-=0D
-Reviewed-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
+On Wed, Jul 15, 2026 at 03:27:46PM -0400, Nicolas Dufresne wrote:
+> Le mercredi 15 juillet 2026 à 22:12 +0300, Laurent Pinchart a écrit :
+> > On Wed, Jul 15, 2026 at 02:13:12PM -0400, Nicolas Dufresne wrote:
+> > > Le mercredi 15 juillet 2026 à 14:21 +0200, Jori Koolstra a écrit :
+> > > > While there is some truly ridiculous anti-LLM brigading in some open
+> > > > source projects, I feel like saying it is just another tool does not do
+> > > > justice to some of the harm that is done by that industry. Also,
+> > > > precisely because of the usefulness of LLMs, I worry about creating an
+> > > > uneven playing field, where new contributors can't keep up if they can't
+> > > > afford the needed tools (something that is not as much the case with
+> > > > compilers.)
+> > > 
+> > > So "fairness" is likely one of the numerous ethical concerns that can drive
+> > > activist against LLM (in the sense of people actively avoiding it, boycotting
+> > > for the real extreme one, but I want to include mild cases too) in contrast to
+> > > luddite, that just don't accept the technology to provide any meaningful result.
+> > > I'm personally interested in learning more about each and every ethical
+> > > concerns, as this is needed to either fixi or mitigate the social issues this
+> > > technology is creating.
+> > > 
+> > > On this aspect specifically, Sashiko is provided equally to the Linux community.
+> > > This is very unlike coding agent, which capabilities and performance are highly
+> > > tailored to your capability to pay. In that sense, fairness is minimally
+> > > mitigated. I say mitigated considering someone have to pay for the compute and
+> > > because its currently running off proprietary owned models, also require paying
+> > > for extra royalties (which is an interesting ethical discussion in itself I
+> > > suppose). Smaller projects may not have that level of donation or budget.
+> > 
+> > Or will to pay money to companies with dubious ethics (a strong
+> > understatement).
+> 
+> Though, let's accept to cut this sub-thread here,
+
+Sure.
+
+> since we got off the
+> "technical merit", meaning we are off-topic now.
+
+I haven't argued much, if at all, about the technical merit in this mail
+thread though.
+
+-- 
+Regards,
+
+Laurent Pinchart
