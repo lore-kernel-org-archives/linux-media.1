@@ -1,66 +1,66 @@
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5446B2E6116
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 21:35:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2AB93370E4
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 21:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784151347; cv=none; b=QEHV4/mxl0ZRMlEb+rU4MmS+Hk0mosIEtiajBxAJICd4QmqUJOR2UtjAlxpgGLqHSIzBXdnpEPzy6Eelrcx0FvK9+AEmTVvZKAI/IAKK7wuexO/qPhHjS9G4Ckxer6sYzRTpfV2BzG7ghWR/BI6I407Sayt59eRT2F3ierfDNP0=
+	t=1784151983; cv=none; b=sF2H1kCO+d4ZaWohky16DBBYo0shi+GsEjDGZ9Ig0YbstwYnBYE2Y0R/OGV2fVdBkeB65ZJsdtZD+LEV5nRp/q9KlbhcD033sh6NgUYbEpbFj5WcPFWSNJPQLi1Ep0VT6n421XmUc4i+CDW65pPoq6tVr6Mf3mZFhG8JRjLKj2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784151347; c=relaxed/simple;
-	bh=nwMq4gqBjyrquwvu7cVHnFNyFGaf+hTcAdlgLVAREOE=;
+	s=arc-20240116; t=1784151983; c=relaxed/simple;
+	bh=GqZLlYvzb94ORE/rD1wVat5JpCAaEwH/QHaUfFxBi24=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Afc/gw5tD+lI3bia3+kyjjaxHWtVr/TB+I2EuCY1CdHw+2RjSlPQBQQTWQVntBdTGUByiIjfLg9YpBGXgq/ZGlVbDl1bCA4MzM8vC3avJZyHln9TYg7+Z9VyAnNF1rk+ltwTrRgVSBxG/5J9T8BmYAqhOppfmIc36IqsaWvKPqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=xMxgnVaI; arc=none smtp.client-ip=209.85.221.178
+	 Content-Type:MIME-Version; b=ilwhJZFUJm7vXuy7w04td+6uoJ/YefME2CcKyRDtDOz114EAezIx5p57ue+buK/DA1e4u5L1sm9WSaJgbltmXZTcasBIY67jyE/QPqi2GLP64yJzI+Hyvf+EnhRP5jV7s9aVg5q7q9EDcoH8c0yKccn7GWnvpt3WqTu8xSuH8A8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=iuW1Filn; arc=none smtp.client-ip=209.85.222.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="xMxgnVaI"
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5c106c38e99so2171913e0c.0
-        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 14:35:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="iuW1Filn"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-92e53581361so430165485a.1
+        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 14:46:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1784151344; x=1784756144; darn=vger.kernel.org;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1784151980; x=1784756780; darn=vger.kernel.org;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=+EpaaRrGWCXRWSePMszE17K/2eaVd5bxTxAyXQa/8ro=;
-        b=xMxgnVaIb3SQxN5DKv36qb/cDxGKBttQ+Uqm0nDX5YYJen2K5OCM2yMYxDEFfKdLEe
-         0LFuqMOrzBkGEf3TtS0EUauAfFDQ2hTnCZ5eA8le6WXfKrJMlmFDU/+BYue0png7kRpW
-         iUx+b+yvYsuDT0jHpmm5x1SlcsVBrznfNyfGJ+BIZAYX9cqBFA9RKYtlwdthItSQT9lC
-         S26D4jZN2C4kAfBEpwVc/mCsYWC4nisQEZppNDQ9XSt5Yn+ZOhCO29AX5Vz8sVrumXUR
-         L7O6rbv9J99D0OyeL+GcZVYZ2PrvCMNtkIHrSc2l2F7au+dS5jXUtxW7OwxXzRu6uAab
-         JZMQ==
+        bh=IVIF/EVfgZRuLP2uDuLbmiiZlQAtiovpRtZGImmG/o0=;
+        b=iuW1Filn4F90czB+dntuGvWolne8v4r9OkQ8BuOjLuQe2kWTOrKA3eeZhw2wpZYOOl
+         zzC963FHT2yXvgl7LLVuzJwRC0bgF93LeW6C58m87sbf7RfHLvAKvImJKmKrYlcsVvCn
+         wjB1BezarVU8bDUqQs7pNmZFeLr0X0QHa6t6EbyAFW+Rp2HwXOgb3N8x8654VXL23mCZ
+         tdlEp8eB2u9Pq3PFnKwNKViDkMYKJ/dcC4VEI6VQXi7UVdNwzIr2gQV4ZWf/X74ro8o9
+         mTvVyaB7SBkpVAQAxrT3x3DdAWlsbvRvrQN4MMXMEJ7RZpXmn+FqInoDDQQoX+n23Yt3
+         S02g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784151344; x=1784756144;
+        d=1e100.net; s=20251104; t=1784151980; x=1784756780;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+EpaaRrGWCXRWSePMszE17K/2eaVd5bxTxAyXQa/8ro=;
-        b=TpiWs1/mkpcoY2l2pDG0MAtiiLKLCHfq6tJk6vluVyOsJy3WnwKeDnJFUxV35CzJ3n
-         s/eHZ2RQmwfSVvdxj416ctImvLZIOemLi9U/+MCMUVKr19X/ei2qtn63r6BXRSiubqfX
-         1+as35KbI/qEsc+YxBl1YZZBKnHVUnUW9akHTIMG3hBLOCuSQR6rueaAFQOFa//ey6Mx
-         slE/MUxPUxNfn8Kyf2Ujitah2vfFj3kMCU+dvlp0gyHotbXwoAw/BZ40NrAhXb/GKxgK
-         VA4jurjAXQTqwGoZquc6vZcDrP1hPaWQSDfg062D4NTqrqDy+lR0vc5c3SxWwPtVsBHS
-         DK5Q==
-X-Gm-Message-State: AOJu0YyuCjPgOaCyaRiDoBXt5+UJuhWU5Ib9AzkvLXF+wr3c6pBvocqF
-	Hewf2BohhysGJVOZ+ij+GwtvttCSXBvlLorjz5aEMkeUc7/bNqJiDTmU5l+N5b3LNZs=
-X-Gm-Gg: AfdE7cl1pf7SKsiX2ffKojyzdvA7Lx03Gx4S147n4BAyUt06DE8QRztt7YQRSVfVJy2
-	sivmuEPHhLKHThYhGfI+N1GuSnveMeCMP3o4/z+NlDEAwjbg3CXhoU8O32xOGnFuFetSO0fTchd
-	dZrc1de0wOskvjBkPL/JscDq/MLXfnfrS1GVynfTkA3gScx+sgD2hrXII296UAcgyEUni66Cq4u
-	EsiMXOGXC4D2YzzVrudfVN/e1ry/fYJqiXmCEXWlT5dxpDh0WOYfYTg+z6p3ahfpcIfKsojgJxP
-	rLBQHK4NkMuvBADxRwcXAw8LDlKBU0RXhn/GzE+tiPCi7u7tKrt7vJ5IW7/FyDlbcDccewvPbFF
-	HCcw1T83JJiZWXmGN6JEUEQhlM0HFPFlEjWosolCh+SUiXgPBEzBfws7VVoAev5HYxwvl7A8j9j
-	hTZsBNUOY=
-X-Received: by 2002:a05:6102:26cb:b0:729:affa:70fd with SMTP id ada2fe7eead31-74533bd8d76mr12786250137.8.1784151344161;
-        Wed, 15 Jul 2026 14:35:44 -0700 (PDT)
+        bh=IVIF/EVfgZRuLP2uDuLbmiiZlQAtiovpRtZGImmG/o0=;
+        b=TkkZPNmyR7VIJMwwIImy5GHa47XurzM7SkeJ/TcdHTwFzyBFf1WcqfJ4qB8wRKz++c
+         6O2lL+ruUriKJvKF2lSN/Eav8fmuAePETQi52Zmj5pUb9HJtQKOvkT6+eG6PcQHGgrLQ
+         jn0ogxktbnbBTrRbRSYBmCfWS8JxVXhYdZf0VX8alxuNN2umAZNSM/HMolmJkaHXKOwh
+         Jcpt73Lernph37sEA8pOAsFSuMYUJcRizZjl4sIYRX4KZVwLgDaBrUayYv/V/H+2APMF
+         t9pfE0HRbGq5gBOiItMsleVKAW5tjxaYz4n2hiFZ1zkmPhnIOP4zbFjongjQLddiNaE2
+         PJuw==
+X-Gm-Message-State: AOJu0YwKu8kPTLeBoiuOTbWN9QyVgcbZzM0DjUwa3KFDPTdwCBfqqGhy
+	yQtv1GnzcbvPsy1r+2OAPMxIxkgwUeseoCzwe4GHOUYVZeEUzlCBkQt3GqXRvfkUREA=
+X-Gm-Gg: AfdE7cng+rSyivibjZuB4Nl6n8dPqq7DlTuVnFoF/vlXatreoC1ryPvkgVP0YiDXjYe
+	GKDRA+JkL+ZX9c6y4NeAqctjs2Inm5HycyY7K79eapnfarrKBrBDWXpu8SuAatKUH45+tHL9t3I
+	2aP6fCmkjnDHQ5ngoO3ATGlqr0YrVUmOuqAvo4KQ/vPFYaWJ+9x/hFqoBmFS/TrQkEnMd/u3owt
+	OSpiL6eywsnY2Plv4n9QEw3ZUBFNoyCleqPhkthyM0jKfW3xvGQrJ11LFpgWGbFWG3tFqVLghnQ
+	Tl4/NAGF4IRYRAiARhqOS4PDBy6IDmDJul2yAkwlNkhigdh6fPFd0qY0xt66YJRhY0YmcRafxnY
+	/D0QRloK68ewcX7cpg5bwsLdG+iTm3hixosOU+ydqA1XjQ4ogB7VlmVSMyD3p+I+SHK2YaKxw5+
+	ROts7THeA=
+X-Received: by 2002:a05:622a:1391:b0:51c:7b12:6002 with SMTP id d75a77b69052e-51e4f22e410mr44796391cf.78.1784151979625;
+        Wed, 15 Jul 2026 14:46:19 -0700 (PDT)
 Received: from ?IPv6:2606:6d00:15:e06b::5ac? ([2606:6d00:15:e06b::5ac])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96ed2c94ba7sm11813347241.4.2026.07.15.14.35.42
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51caae24d04sm140744181cf.18.2026.07.15.14.46.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 14:35:43 -0700 (PDT)
-Message-ID: <21427625c59d10a309beb656f9971e350f3e8e3d.camel@ndufresne.ca>
-Subject: Re: [PATCH 4/4] media: mediatek: vcodec: free working buf in
- vdec_vp9_slice_setup_single()
+        Wed, 15 Jul 2026 14:46:18 -0700 (PDT)
+Message-ID: <99cac4207e627acca350b9ddb5d309755a243c07.camel@ndufresne.ca>
+Subject: Re: [PATCH 3/4] media: mediatek: vcodec: free working buf on error
+ path in vdec_vp9_slice_setup_lat()
 From: Nicolas Dufresne <nicolas@ndufresne.ca>
 To: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>, tiffany.lin@mediatek.com, 
 	andrew-ct.chen@mediatek.com, yunfei.dong@mediatek.com, mchehab@kernel.org, 
@@ -70,10 +70,11 @@ To: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>, tiffany.lin@mediatek.com,
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
 	stable@vger.kernel.org
-Date: Wed, 15 Jul 2026 17:35:42 -0400
-In-Reply-To: <20260506084203.202882-5-lihaoxiang@isrc.iscas.ac.cn>
+Date: Wed, 15 Jul 2026 17:46:17 -0400
+In-Reply-To: <ac55379e5e84dd68146dac9cf38d1cc40c5f1691.camel@ndufresne.ca>
 References: <20260506084203.202882-1-lihaoxiang@isrc.iscas.ac.cn>
-	 <20260506084203.202882-5-lihaoxiang@isrc.iscas.ac.cn>
+		 <20260506084203.202882-4-lihaoxiang@isrc.iscas.ac.cn>
+	 <ac55379e5e84dd68146dac9cf38d1cc40c5f1691.camel@ndufresne.ca>
 Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -88,7 +89,7 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-DMD/oOwECZhtXySoMRZA"
+	protocol="application/pgp-signature"; boundary="=-ppTn3qsVv2dDuNzXyobN"
 User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -98,65 +99,82 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
 
---=-DMD/oOwECZhtXySoMRZA
+--=-ppTn3qsVv2dDuNzXyobN
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le mercredi 06 mai 2026 =C3=A0 16:42 +0800, Haoxiang Li a =C3=A9crit=C2=A0:
-> Add an error path label in vdec_vp9_slice_setup_single()
-> and call vdec_vp9_slice_free_working_buffer() to free
-> working buffer.
+Hi,
+
+Le mercredi 15 juillet 2026 =C3=A0 17:35 -0400, Nicolas Dufresne a =C3=A9cr=
+it=C2=A0:
+> Le mercredi 06 mai 2026 =C3=A0 16:42 +0800, Haoxiang Li a =C3=A9crit=C2=
+=A0:
+> > Add an error path label in vdec_vp9_slice_setup_lat()
+> > and call vdec_vp9_slice_free_working_buffer() to free
+> > working buffer to prevent potential memory leak.
+> >=20
+> > Fixes: 5d418351ca8f ("media: mediatek: vcodec: support stateless VP9
+> > decoding")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
 >=20
-> Fixes: b0f407c19648 ("media: mediatek: vcodec: add vp9 decoder driver for
-> mt8186")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
+> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+After consideration, I will drop path 3 and 4. The working buffer is
+implementing a re-alloc scheme. Even when the alloc fails, some buffer rema=
+ins,
+which you didn't cleanup. In the end, its not very useful to clean them up =
+as
+closing the driver FD will do that (calling IF deinit). I'll pick the two f=
+irst,
+as its fair cleanup.
 
-> ---
-> =C2=A0.../mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 4 +++-
-> =C2=A01 file changed, 3 insertions(+), 1 deletion(-)
+Nicolas
+
 >=20
-> diff --git
-> a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if=
-.c
-> b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if=
-.c
-> index 673b17d0dd8d..1dd0f7fd642f 100644
-> ---
-> a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if=
-.c
-> +++
-> b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if=
-.c
-> @@ -1806,10 +1806,12 @@ static int vdec_vp9_slice_setup_single(struct
-> vdec_vp9_slice_instance *instance,
-> =C2=A0
-> =C2=A0	ret =3D vdec_vp9_slice_setup_tile_buffer(instance, vsi, bs);
-> =C2=A0	if (ret)
-> -		goto err;
-> +		goto alloc_err;
-> =C2=A0
-> =C2=A0	return 0;
-> =C2=A0
-> +alloc_err:
-> +	vdec_vp9_slice_free_working_buffer(instance);
-> =C2=A0err:
-> =C2=A0	return ret;
-> =C2=A0}
+> > ---
+> > =C2=A0.../mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 4 +++-
+> > =C2=A01 file changed, 3 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git
+> > a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_=
+if.c
+> > b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_=
+if.c
+> > index 0f47b2671353..673b17d0dd8d 100644
+> > ---
+> > a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_=
+if.c
+> > +++
+> > b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_=
+if.c
+> > @@ -1172,10 +1172,12 @@ static int vdec_vp9_slice_setup_lat(struct
+> > vdec_vp9_slice_instance *instance,
+> > =C2=A0
+> > =C2=A0	ret =3D vdec_vp9_slice_setup_tile_buffer(instance, vsi, bs);
+> > =C2=A0	if (ret)
+> > -		goto err;
+> > +		goto alloc_err;
+> > =C2=A0
+> > =C2=A0	return 0;
+> > =C2=A0
+> > +alloc_err:
+> > +	vdec_vp9_slice_free_working_buffer(instance);
+> > =C2=A0err:
+> > =C2=A0	return ret;
+> > =C2=A0}
 
---=-DMD/oOwECZhtXySoMRZA
+--=-ppTn3qsVv2dDuNzXyobN
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalf9LgAKCRDZQZRRKWBy
-9GDcAQDsL1aA2cI34yx6YSzNqYl+sD31FYancPkFZfRBlYrukAD/WzwcjF0ymzwX
-P1Lo2EOnXxeofKa8WzaogpsiOaZONAs=
-=cUx0
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalf/qQAKCRDZQZRRKWBy
+9EzQAQDiVoRUElKz/0sSs5MKXnDN1ovXGYsSQ8nfQ9eu4Ww48gD/WlCA10wlGxfJ
+wbiBdJUn/z/YeSOAt9q9KUFJ8Orc2Aw=
+=bZm8
 -----END PGP SIGNATURE-----
 
---=-DMD/oOwECZhtXySoMRZA--
+--=-ppTn3qsVv2dDuNzXyobN--
