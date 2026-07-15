@@ -1,93 +1,135 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5E5E4248AA
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 19:12:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DF4446C00
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 19:15:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784142747; cv=none; b=prSracl9tpmrtHr4sKaULYkh9IG4uwAeRBr3HBk0H1s0kd207M2dqdl7WOZW8v/JQKnFbK9TEeVGO1B4Y1gNgLLk9goxt3NBKq9Vkkkf05fm9LtBRNezgTy4vVIvLz+ngHZQ7u6s+II8v8InU6XUnOA7/Rd4NDD+dFl4eLOL8l0=
+	t=1784142914; cv=none; b=oBjmYN8vrz51GqobRTtYg66uvmYgmBX7oT+qsdNzi13a3HnCLl9Yxk9oOlSfk30P4JX7gkVhdggXwIlnjUyRHilQOlYK1i7+VxKYnNdPzIrX06/c7fYkky1Q3iKJp0H7vKx6K4+by+EhVE2OTZP9QnSKkcab/wOGBkCMA7eihtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784142747; c=relaxed/simple;
-	bh=OzWTjCaevKfC9wmXHd3PIHD/JiI579dbo5M5Z/pL7eI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GfMRBlOuJgdlOs8XRtAom+0wY1oqOsWrbMt/GimOfySESw1CHxgQxVsMUzleWynGZe56QJJP8um/e4iPq6AAMYXxJ6xklxIitTa7aMyPmoxwgQGEGDDrWVkv2S1Mo+h53fHHzNrlwFo/usiznxEv2cVaZCcZc9EKHWd9m0EHDmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=g1J8gLsa; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784142914; c=relaxed/simple;
+	bh=XQWidDhwOatIOdg4naY+mdRJJIUMa32iaO6TQENvg5M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Z201EQoAtWuFq7H3NWoOMCiD6z6SWwlO3UCRzaFbrwzKgXhJSguR8oCcO1Bq5bljEKLbv/AdojHInUMYuFZNMHXhjAc+as87NnQFyOwYb5fkLmZszPu7OUTNjQs6saloQBgn4IsekcmwgFdS8HO+5wNQuxIlGvfEw+6uI3CrigM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DHme7ppV; arc=none smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="g1J8gLsa"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E3BE0104C;
-	Wed, 15 Jul 2026 21:11:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784142683;
-	bh=OzWTjCaevKfC9wmXHd3PIHD/JiI579dbo5M5Z/pL7eI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=g1J8gLsaFJqLLzxi0lPYhs0+JYaDZyF8qnbdxUzKbnlpKXIQ7ASUvhwoaPukUmGbG
-	 rwZ9E3XweMhhzmV76SvCS0/55OA+W06Rl/x43vBTEN4L8D45u+QrqdvbFs+IwCtHRc
-	 zeUS0c151w0u9MtA0Mnd25JVEruJVpPuH9+cTlNc=
-Date: Wed, 15 Jul 2026 22:12:16 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Nicolas Dufresne <nicolas@ndufresne.ca>
-Cc: Jori Koolstra <jkoolstra@xs4all.nl>,
-	Linus Torvalds <torvalds@linuxfoundation.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Derek Barbosa <debarbos@redhat.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Steven Rostedt <rostedt@goodmis.org>, users@kernel.org,
-	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Stephen Finucane <stephenfin@redhat.com>
-Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <20260715191216.GM1778116@killaraus.ideasonboard.com>
-References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
- <4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
- <CAHk-=wi4zC+Ze8e+p3tMv8TtG_80KzsZ1syL9anBtmEh5Z40vg@mail.gmail.com>
- <aldx9KiAHM4CRI0m@lt-jori.localdomain>
- <e536800d8a84b99f34a79c590f57cd68cdb50e57.camel@ndufresne.ca>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DHme7ppV"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-69a5ecbbfb2so4137063a12.2
+        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 12:15:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1784142905; x=1784747705; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5c+HPc/WiiFRZlK3DtEGHqnt1AShEszgTa4sld+nLck=;
+        b=DHme7ppVLR1iOyYRmN52uSNlbH857vLjcsgGNVL6yPue1UVjwGVguKyY7Ym59KaIll
+         RyF7VE5mpzjjujN3O5xIzM3R8Sr8TvxM5AcW8OOgzfrB2tGPuv3HDc9rzOcQlS5nKi2p
+         KoYU2IxsNvn//bamHbwhRp8Fq1DcH3bci4YCU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784142905; x=1784747705;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5c+HPc/WiiFRZlK3DtEGHqnt1AShEszgTa4sld+nLck=;
+        b=RCGU7aCMDvtNDDnR2hBHiwr9cyL5t/mOAVOIHqziNO6tkPy6ULSdlgmFmxsMmk5SzQ
+         sPQjJr482DHQJHIPKDtVgovU47HyJjpTC1hLMuZEOoBbrJRxLJFiQ5A5gIE63uHv6OuZ
+         hfX5REV3ptbQaq5e+/pRNmkNFwkOwACIhWPb7/s6uAHP1nx2Krbeyb0Y1YvUZycpqK/f
+         FHb4VbE0kfUZ/mavWtyZtROdzZwjG1vSBntExYFHaD5Hry2YnECmSf8xHraiYULd/5xj
+         uam5HZGl53rBBfiMwSFJMGYYo0qmMd6gt2p7Z3RY0uQOj7CoFY2rP3wILfAFbvEPnSwa
+         tHYA==
+X-Forwarded-Encrypted: i=1; AHgh+RriNdBOhR75ozwRm/VskIUJAd5KV/hxFGafiAWuFJUYPeWEW8cSmP1fhEuG3CD5YKJh1tgwGvYKPjQ1Kg==@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywz2dg8vi3VPI/FQVty8dVOes0ySIysOV+u8FNUb5pZfAJJI+wP
+	8ppNA1ag7hdztmaVmlFXy+p+XK6FIZT4VVKzweUD3WnBlsq6mH+DSdEUdbyHNzkTjWEDtnkYJff
+	vXQRPp5w=
+X-Gm-Gg: AfdE7ckYCEXKToW78+8htd11bTSbeP5wQldogiEfCSHPgB+M3fXsKq/2ONq/zzg93fB
+	tWxLB3ojfm5MjfpjmeIbERlQkOxLTB90eeToD97wCvgtwnTy/Hs+8XLZi8togX5xcFTV15LdJtV
+	MQc4177unIHa/oCNe+FSoitiYjyrZc/0Fnnyx5EF+Gcjpj1Qs8ziS/jyg0cGFl2SIm/d6SpAb7z
+	YWLpQhSzgiL7iEHdZdt07dZJFadCMmEDsWhuIWXRfhJkbWHQso5MFPodKVAG2RAAuXVtWXEFHDz
+	ND/PDwe/JgtqpQwjUm8n923H+xM2TQiya/yW0N7d8H5m7+JMHmQXq9PtxLvKIBkrYd7NJVpBVHl
+	YV0eATmeaNYPVYowszr2KUQvoXhml0WJAhYNbUD5bmGhkCX0gtwTOe2kI4F2CJBUaUG2ksvigZg
+	XcKvBRWkJ6be6IBF9oip1AQYQTh5FEg3Tc6RZyurVtmoBjMkJba/G/EpHM5ynw
+X-Received: by 2002:a17:907:1b1d:b0:c12:6ad6:6398 with SMTP id a640c23a62f3a-c161e9908bamr930698466b.34.1784142905538;
+        Wed, 15 Jul 2026 12:15:05 -0700 (PDT)
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com. [209.85.208.45])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1687166b94sm78291266b.17.2026.07.15.12.15.03
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 15 Jul 2026 12:15:04 -0700 (PDT)
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-697cee2eb6dso2783947a12.0
+        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 12:15:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rot4wguFsskMteTfG9QWscWfBzG0a1y76mhk7hzmcPImjDyk/iAwnSlKnUPy3WabgEGxeLJs5iJPxn+zg==@vger.kernel.org
+X-Received: by 2002:a17:907:948e:b0:c16:6429:a689 with SMTP id
+ a640c23a62f3a-c166429cc7amr516277566b.29.1784142903559; Wed, 15 Jul 2026
+ 12:15:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e536800d8a84b99f34a79c590f57cd68cdb50e57.camel@ndufresne.ca>
+References: <20260713095538.3d5e86f1@foz.lan> <20260713094120.GD1127719@killaraus.ideasonboard.com>
+ <20260713220427.582b28bf@foz.lan> <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
+ <20260715005909.GF1656185@killaraus.ideasonboard.com> <alcBvuIMEGSjAD1R@mit.edu>
+ <20260715161111.GC1778116@killaraus.ideasonboard.com> <ale45QPntcwA-aLB@mit.edu>
+ <20260715174138.GI1778116@killaraus.ideasonboard.com> <CAHk-=wiL7kFVWNtvE5S9A4iqXYat66NaUqX1+gZT0QCndi4eQw@mail.gmail.com>
+ <20260715185141.GJ1778116@killaraus.ideasonboard.com>
+In-Reply-To: <20260715185141.GJ1778116@killaraus.ideasonboard.com>
+From: Linus Torvalds <torvalds@linuxfoundation.org>
+Date: Wed, 15 Jul 2026 12:14:47 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wi7KN9_DYdmaE2chC92EhTrO=Wtx1bPBER-EQfAZ8FREg@mail.gmail.com>
+X-Gm-Features: AUfX_myqDD_feRUeS7Ku0H_AjydQX8yFNswyzPS-AXjb3NscZkOsvEfwEseosl8
+Message-ID: <CAHk-=wi7KN9_DYdmaE2chC92EhTrO=Wtx1bPBER-EQfAZ8FREg@mail.gmail.com>
+Subject: Re: Linking Patchwork with Sashiko?
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Theodore Tso <tytso@mit.edu>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Derek Barbosa <debarbos@redhat.com>, 
+	Matthieu Baerts <matttbe@kernel.org>, Konstantin Ryabitsev <konstantin@linuxfoundation.org>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Steven Rostedt <rostedt@goodmis.org>, users@kernel.org, 
+	Linux Media Mailing List <linux-media@vger.kernel.org>, Stephen Finucane <stephenfin@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Jul 15, 2026 at 02:13:12PM -0400, Nicolas Dufresne wrote:
-> Le mercredi 15 juillet 2026 à 14:21 +0200, Jori Koolstra a écrit :
-> > While there is some truly ridiculous anti-LLM brigading in some open
-> > source projects, I feel like saying it is just another tool does not do
-> > justice to some of the harm that is done by that industry. Also,
-> > precisely because of the usefulness of LLMs, I worry about creating an
-> > uneven playing field, where new contributors can't keep up if they can't
-> > afford the needed tools (something that is not as much the case with
-> > compilers.)
-> 
-> So "fairness" is likely one of the numerous ethical concerns that can drive
-> activist against LLM (in the sense of people actively avoiding it, boycotting
-> for the real extreme one, but I want to include mild cases too) in contrast to
-> luddite, that just don't accept the technology to provide any meaningful result.
-> I'm personally interested in learning more about each and every ethical
-> concerns, as this is needed to either fixi or mitigate the social issues this
-> technology is creating.
-> 
-> On this aspect specifically, Sashiko is provided equally to the Linux community.
-> This is very unlike coding agent, which capabilities and performance are highly
-> tailored to your capability to pay. In that sense, fairness is minimally
-> mitigated. I say mitigated considering someone have to pay for the compute and
-> because its currently running off proprietary owned models, also require paying
-> for extra royalties (which is an interesting ethical discussion in itself I
-> suppose). Smaller projects may not have that level of donation or budget.
+On Wed, 15 Jul 2026 at 11:51, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> I consider that, today, there's no ethical justification for the use of
+> generative AI in FOSS development.
 
-Or will to pay money to companies with dubious ethics (a strong
-understatement).
+So this is where the discussion ends.
 
--- 
-Regards,
+As I mentioned, Linux has never been a social warrior project.
 
-Laurent Pinchart
+If you don't have technical reasons, you don't have reasons.
+
+You can choose not to use AI, but that's your PERSONAL choice.
+
+It has absolutely no impact on anybody else, and you should not expect
+it to have any.
+
+Put another way: if you are vegetarian because you think meat is
+murder, that's perfectly fine. I know for a fact we have several vegan
+kernel developers, and I'm sure they have varied reasons for it. Maybe
+they just don't like the taste, maybe they have social or religious
+reasons for it. Lots of perfectly valid reasons, possibly driven by
+ethics.
+
+But they don't expect the rest of the kernel community to become
+vegetarian because of their personal ethical standpoint, do they?
+
+This is absolutely no different.
+
+And yes, I feel very strongly about this, not because I feel strongly
+about AI per se, but because we have a long history interacting with
+the FSF.
+
+They have their "ethical" reasons too, and use them as a weapon, and
+as a way to drive away sane people.
+
+It's why Linux is *not* GNU/Linux, and why we call things "open
+source" instead of "Free Software".
+
+So keep your ethics where they belong - in your personal life. Don't
+try to enforce your ethics on others.
+
+                Linus
