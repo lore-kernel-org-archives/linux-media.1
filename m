@@ -1,101 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E5D3C768B
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 21:09:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F193CFF4A
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 21:14:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784149800; cv=none; b=TqN910OzS7Q63TaizshfUERA0F5PPrN4AtpTLiS8NnURIRxaf2fpeXCjvlKt2JzwVSUC/c4gfo9naGnCRYmLRvelnaFlkQM/SP9CngF27KkPyoQsYQUeHuSmDhOTv3qBg5T4fv6t/yTZWIM3KM7jM6J468X57Gbm/02mCPaRmJU=
+	t=1784150047; cv=none; b=gfTD+zksaPo9sCwvwSuIA8fwQ43i62FkqiMoxU2Mnim9AWbY83/Yb4kzGR788hr0ykjRFXEv2+sEtFKUqhrKGJEftz15PPBvces292gorpSkuKK65+xAScjrE7t34dcCBuhOZAXIlICeBqTOMGpuuBS7TYJx58Teh4F4zyngg84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784149800; c=relaxed/simple;
-	bh=shMRnoBr0+XGDcqbRPYU6jN5tQHJynUO5pZjVhXjOPU=;
-	h=Message-ID:Date:MIME-Version:From:To:Cc:Subject:Content-Type; b=kY7wWbExXwMycXm7U65dLPHAd/bNCmVC9StXhCmH5Z2sR9ha1jh41hJtToWHL8FNJx6/OH6gXyTiEcxCjQrs2EpQ7DMh8WXXmg6+8rhwFR8qR3WvBvBXJ9TmWaZDmjndtyTdhq6xkSPFZgNUyxJvMbY9oQGIAoef3uWd2BggCKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jJ4avx0x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784150047; c=relaxed/simple;
+	bh=JjL5R3PM21jYjL3dhKTuqLG5KDGeSP9kpjzJIYM4Xk8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V3dscYkHOtT4POyHvJQfNx6N25lYUx8n9B9ZuqsXocNuZOminy/HCKmWji0i+edWzpqP3dUL6bwjqbDY8vmkdMrtVXilmbqDVB0zzMnpQpi3xDnDV9MU4yoJRK4ey4ZPIcGbehgnBLTJ4xqNcjlvkFJhDHE2+jdwnEhKVPuPsko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=TIDL9Mev; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jJ4avx0x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95AD21F000E9;
-	Wed, 15 Jul 2026 21:09:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784149799;
-	bh=3vDg2WtrUYMxyKFBd1fZ0wHxBBDEZ9SWmZlPkVGwBk0=;
-	h=Date:From:To:Cc:Subject;
-	b=jJ4avx0xdANwmTDwxsy0s3Vj+YDJBaVZXnhS2ZKAmn6szkGesr5r3t9ITEW92xhhI
-	 zhdVBhXJHyIoIrqzBYeXvmv1tSuFazTUlBBSE36y79b0l6HldV5WoDLspD80cqfZ87
-	 QE8Sx6XQLJT8Eel5r/mUBbfNdBnBlIdasPm7jamfHvdu742gw61f7O8OTWn/zRG1g7
-	 bnWsjGlGe7kmSO7T4kC7/ByMdZ3jgypxTwfaZIPSk5W5GMxck14SJMf2L3sBmex5sr
-	 437nKUzdqHoKlBaXmi9ywB0z7nqt/XhAQ49UnL4xfpmV3dVtouO369YmqfEgZj7Xto
-	 zQJQp2OdQj4Fg==
-Message-ID: <419c2b65-fd33-4113-8bab-1efddea6f410@kernel.org>
-Date: Wed, 15 Jul 2026 23:09:56 +0200
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="TIDL9Mev"
+Received: from macsyma.thunk.org ([151.240.45.27])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 66FLDdNs008034
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 15 Jul 2026 17:13:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1784150024; bh=uYq+byWWyif9wmZSPGAPnACZIKEOE0Zwz0myKhUMrS4=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=TIDL9Mevy2mpVgOgGEYrJIKp9tZPKCNEuamo1/3zYBVLFwH4cbTFcyzeV7cS6W9la
+	 Ek5zts/zRfs1E2X0dn5P3YKEvNuXvJIj6fGVHzm+gWDWnC6ACmzIDOo5AqGHFMR64M
+	 glfatvkEt98MX0SpNS8HO99Bob6cXxG2aitIKRfU/vMfnnr0jjjjeO801GOXSxI1v2
+	 ULy3nj7bD93RdEDNVXn2O84obn5GSZbeS8c06Fz+3fJOpLS1UFrLV5toO2DVNXK8ct
+	 CLzZLkvR4HHqqJo5Einp8Vsy5AoJw2eGUppKJomeDgCP4jLPcrqdlnHhvR84wBdB2H
+	 WkBklTDyM3a1A==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 80A5DA321C5; Wed, 15 Jul 2026 17:13:39 -0400 (EDT)
+Date: Wed, 15 Jul 2026 17:13:39 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Ihor Solodrai <ihor.solodrai@linux.dev>,
+        Roman Gushchin <roman.gushchin@linux.dev>,
+        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+        Derek Barbosa <debarbos@redhat.com>,
+        Matthieu Baerts <matttbe@kernel.org>,
+        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+        Jason Gunthorpe <jgg@ziepe.ca>, Steven Rostedt <rostedt@goodmis.org>,
+        users@kernel.org,
+        Linux Media Mailing List <linux-media@vger.kernel.org>,
+        Stephen Finucane <stephenfin@redhat.com>, bpf <bpf@vger.kernel.org>,
+        Chris Mason <clm@meta.com>, Christian Brauner <brauner@kernel.org>,
+        Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Subject: Re: Linking Patchwork with Sashiko?
+Message-ID: <alfwOgVRgUJYOGtU@mit.edu>
+References: <87wlv2jq4t.fsf@linux.dev>
+ <20260713095538.3d5e86f1@foz.lan>
+ <20260713094120.GD1127719@killaraus.ideasonboard.com>
+ <20260713220427.582b28bf@foz.lan>
+ <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
+ <20260715005909.GF1656185@killaraus.ideasonboard.com>
+ <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev>
+ <20260715163921.GH1778116@killaraus.ideasonboard.com>
+ <153db0fa-65ac-49de-9bf5-456c9639954c@linux.dev>
+ <20260715190654.GK1778116@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Content-Language: en-US, nl
-To: Linux Media Mailing List <linux-media@vger.kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-Subject: [GIT PULL FOR v7.3] media: CEC fixes/improvements + doc and vivid fix
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260715190654.GK1778116@killaraus.ideasonboard.com>
 
-Hi Mauro,
+On Wed, Jul 15, 2026 at 10:06:54PM -0500, Laurent Pinchart wrote:
+> This came from a consideration on the impact of false positives
+> and other hallucinations on junior developers.
 
-This PR has one documentation improvement, one fix for vivid, and a bunch of
-CEC related fixes and improvements.
+You keep claiming that there is an awful lot of false positives and
+other hallucinations.  That's an assertion that needs to be tested to
+make sure that we're not relying on a few pieces of anecdata.  How
+does this compare with false positives and bogus recommendations from
+certain human reviewers?
 
-Once this PR is merged, I'll also push a separate cec-compliance patch:
+After all, I can think of at *least* one human reviewer whose reviews
+are far worse than Sashiko's in false positives.  That might or might
+not be the same person as the one Mark has said that he has a stock
+e-mail reply telling a junior developer that they should be free to
+ignore reviews from that particular human being.  :-)
 
-https://lore.kernel.org/linux-media/65a6bd5c-4e62-4370-b654-7dce0712aae5@kernel.org/
+Each maintainer can decide how much they trust Shashiko reviews.  At
+least for my subsystem, I haven't seen the hallucionations that you
+are continually citing, certainly not as a common case.  I will note
+that even experienced human reviewers have occasionally flagged an
+issue, only to say, "my bad, you're right, it's fine" after a
+discussion with the patch author.  And that's OK.  When a human being
+makes a false positive criticism, no one responds with "I am feeling
+demeaned as a human being!"  Perhaps we should be giving
+tool-generated reviews (whether it is via checkpatch or Sashiko) with
+a similar level of grace?
 
-This uses the vivid CEC emulation and new error injection capability to add
-new regression tests.
+At least with tool-generated reviews, we can send bug reports asking
+that the tool can be improved.  At least with one particular human
+reviewer that I have in mind, no attempts asking that person to
+improve their reviews hasn't been helpful.
 
-Regards,
-
-	Hans
-
-The following changes since commit bb03a00d68c147fe7b1fd1a8475c078613c30ec4:
-
-  media: atomisp: Demote all broken kernel-doc comments (2026-07-15 17:12:55 +0200)
-
-are available in the Git repository at:
-
-  git://www.linuxtv.org/hverkuil/media.git tags/br-v7.3k
-
-for you to fetch changes up to eb5fe5bde8cadade023adc03f3645c8da974ad14:
-
-  media: cec/core: add error-inj-tx-timeouts debugfs entry (2026-07-15 23:00:02 +0200)
-
-----------------------------------------------------------------
-Tag branch
-
-----------------------------------------------------------------
-Hans Verkuil (12):
-      Documentation: media: vidioc-g-ext-ctrls: clarify try/set behavior
-      media: vivid: always allow meta output streaming
-      media: cec: tegra_cec: don't break off msg on NACK
-      media: cec: tegra_cec: keep track of number of Rx Low Drives
-      media: cec/core: max_retries -> max_attempts
-      media: cec/core: drop ABORTED/TIMEOUT check
-      media: cec/core: handle core events like normal events
-      media: cec/core: drop cec_post_state_event call
-      media: cec/core: flush stale STATE_CHANGE events
-      media: cec/core: add a new CEC_LOG_ADDRS_FL_CONFIG_FAILED flag
-      media: cec/core: cec-pin: toggle rx_toggle when arb lost
-      media: cec/core: add error-inj-tx-timeouts debugfs entry
-
- Documentation/userspace-api/media/cec/cec-ioc-adap-g-log-addrs.rst |  7 +++++
- Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst       | 15 ++++++----
- drivers/media/cec/core/cec-adap.c                                  | 85 +++++++++++++++++++++++++++++++++-------------------
- drivers/media/cec/core/cec-api.c                                   |  5 ++--
- drivers/media/cec/core/cec-core.c                                  | 31 +++++++++++++++++++
- drivers/media/cec/core/cec-pin.c                                   | 10 ++++++-
- drivers/media/cec/platform/tegra/tegra_cec.c                       | 32 +++++++++++++++++++-
- drivers/media/test-drivers/vivid/vivid-meta-out.c                  | 23 ++++----------
- include/media/cec.h                                                |  6 ++--
- include/uapi/linux/cec.h                                           |  2 ++
- 10 files changed, 155 insertions(+), 61 deletions(-)
+Bottom line --- if you are making the claim the Sashiko reviews are
+rife with false positives, all I can say is <<Citation Needed>>.
+ 
+					- Ted
