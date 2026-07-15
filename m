@@ -1,150 +1,119 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-173.mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2566741BA7D
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 18:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76C04963BA
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 18:40:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784139524; cv=none; b=RScRXNswSyyD88GAZCHbr1ZC9/f5Ax0xqPmvTQ7rffaRxVy5AXhHTgEONG/SusvxgvJ00Sk8CackE4l8e4A3RQiMojYZPeSM7SjPthkAzEFtKERyas3bAy/Hwa6WhVV18UsfXHE8EQYuSupKSFkHr4LpADyohORar2Piiq522JI=
+	t=1784140811; cv=none; b=cHdQklM+Q26DgKijYPREoJzYRsNHmx5ZqS9Cnus0aDqqsQe7d+ChL8B7H7IPZu+3nSZ4Lnvx0Fa1SAFQbx3U1g94shb3pfjFk1tCNSqfPWTTBudZpUrN+AO7O8LKszPsGFrfRs+AfBV8Iac9w0mEVuuSF7BBvmGsVzwG4zDhQXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784139524; c=relaxed/simple;
-	bh=QS6sUX0R+lezz6EdqEUly2fltsPzwYz4hr6S+lzeYIY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=msYeaG2Xf0ODGhUZLSNSVKFpSkPNWEXkYb4tXutZ421MW1rd1AoRhAKBRQ/njm4qbbFDGb+5C9rsPRZIiOpM8PPHmpnApRDiv1cIzcZkOWvRzZg+s3rGJrWwfR+WeNAkLxH18ALQMpKve6bTqA2FqH1zzybe9zHsTibFndDttag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=N5DlNJjP; arc=none smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1784140811; c=relaxed/simple;
+	bh=qCMDyr6l9nngciGqwtqSZ2s10JheS05uLQm+TKEICzg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=H5uvMNZaJqWchyHMu2XvBMNkZHKdDTTTl4M91pkWHi+Jvfr5eT1JtIbIJR7ejrdHhhZGBrISGDO1uHWxDZbGzvcehqAIMlJfBx/HZLKPNX9lg4nvsBiBYRhlp2/prSrVsMSyLsGzNInN3TMfN9SYHGDorrn2OLZvVBZBAGK6NKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VkIQ+vHk; arc=none smtp.client-ip=91.218.175.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="N5DlNJjP"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-69532288224so10338338a12.0
-        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 11:18:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1784139517; x=1784744317; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bcPKlVwZdEgIFdUfDBTB2PFEAlHljUL0wImXB5fcx10=;
-        b=N5DlNJjPUIMlDf85qAOWJqdxxWwaXTBObz/XII6IiOFNG3suRyNZEfdGRco2KNl36j
-         bej2cpkIty/xcxx8o1XGiqRDtV9Q38voVWp1GaGYNFTie8lSxU7ecCcPsx0FnWw/HGOX
-         Oy7eyjeCDg4EQiSD8fXieVu7juEEnH9vQyT/Q=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784139517; x=1784744317;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bcPKlVwZdEgIFdUfDBTB2PFEAlHljUL0wImXB5fcx10=;
-        b=XKsScc84z2VWZCA+gaLPEcuz+WEEwCyPMb9kht0fz3G39O54apu+arh/eVJLiqBUt5
-         g72HQeUVvkPfjOJ9lpG1A9MxCvNnyPLn539Oq/xDFfldWJQA8q8FJI2a5ZWkHYlW4vOT
-         sfGrUgKTxCrSjN+Kt+zDIdAJrCCb3hMeSYKO9H6/wNB9MBDLh1sF1a0VW8FKfME0h2DF
-         sSEkVaW83WfVxukq3D/DgAG6K6fF3CduuRa0iUlHC5nD6urZ+KdIRoFWIHh5/BY6Ea7I
-         BdnOyTYE6/bTyuBAyry2ahDbovjcl0uUVcqS6w6Jj98pdelVY62nsyCwEwfhIwqBrVrO
-         y3Bg==
-X-Forwarded-Encrypted: i=1; AHgh+RovZnkc1iF56q7HvIsOKIQWm4LhqaTSZRkGXgXzD58JOZRrPCR1QG4vlniai5kX+hhAvMiEqGvfcA76Ow==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7Cl9iPZRUtrZn//00vHBDBTPlCrKb5l/AcgWYZ9OCiKBw8KeY
-	fq4MkAXMVfiVDfi3OMff1WxioYJb3xm36J50SPUkYcIiUgXzbTVGbZJwOXzgBCFuYZ54zRgUZgQ
-	zrH5DDnc=
-X-Gm-Gg: AfdE7cnKOcPO6JwzauoSRQT57udLhpyyEeJxvyblx0Y0Gt5xgBLS+aQdwa7aaZBaIWT
-	+np9XPDD2hf5w9+QLeEDREmNnZBKPtnEaQ6VRPm8UMJ6L/txkNVIwHyS6cwyE1b/VIjlwTQ4je3
-	pMhr0hI55TzJBLi62YraggMtCyMOnWvh4vnv9RChJzZ6a78+KFmP3N9/ZP6xtRu9YcxThQM6nvs
-	v76MsrKBqoSX/c2y+4TiwdFKAaOvPtEBLqhxctJa0Nfw3rn2RRvzLSAbPLXmnyJsRJ+i5kmLKKV
-	OliQ5B/+N4zP8dUGGqq7B//5x8NVkR/mMThcTEzaS1X3/ddKG5WkTUxQRtrPwAHtmAcT3jOeAmv
-	jhHX4IawOP4qXUClNtWEdj6UIeFdtmCcQKQRgFwT/G1AAgALhvnG7XzdU31qb82aKuvQ86gZ+r2
-	tFssxe+ICQpu5w3/kdK0nbFmjHlnSwkpbFpgy7urLuXCPuAYw9hu4kOoYXqfYMOMTcZh7U/K0=
-X-Received: by 2002:a17:906:9c96:b0:c16:2750:fc56 with SMTP id a640c23a62f3a-c1667a76e98mr509264866b.41.1784139516716;
-        Wed, 15 Jul 2026 11:18:36 -0700 (PDT)
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com. [209.85.218.44])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1686f44f6fsm78711366b.0.2026.07.15.11.18.35
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 15 Jul 2026 11:18:35 -0700 (PDT)
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c15c7d22070so754812266b.2
-        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 11:18:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrWmkdYUE6cMRbgcMJb3G/Z5Y+Bc6gZJsvsYIxoNYKf/PWKIZlQ6ABWHl3HCHJhTVwzdOfBjOTKceYdaQ==@vger.kernel.org
-X-Received: by 2002:a17:907:60d1:b0:c16:558:e6a6 with SMTP id
- a640c23a62f3a-c16678c8425mr499635966b.5.1784139514856; Wed, 15 Jul 2026
- 11:18:34 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VkIQ+vHk"
+Message-ID: <6a0f487f-540b-4d47-be4c-db6a0799d2d7@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784140789;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rlTfEd9+07VsxQpFxrAmQ/fuYJtyDucO9jtZIOc6jN0=;
+	b=VkIQ+vHkmeS74NvtPILVOS0jwRE6jXvgdljth2+KA0P7w7cEsY9J3pjXuFWDLVzqFeOVu+
+	8QcPTNMHYWsnvohWjNThskWLVX4DgsC/n9prpeeigGe7Cl4pH+FWlx2X9CIsmPcL9A3h7t
+	KxQU1dgahbOICgwusnQtSdq7bZpkKrk=
+Date: Wed, 15 Jul 2026 11:39:41 -0700
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260710083845.23c753ca@foz.lan> <87wlv2jq4t.fsf@linux.dev>
- <20260713095538.3d5e86f1@foz.lan> <20260713094120.GD1127719@killaraus.ideasonboard.com>
- <20260713220427.582b28bf@foz.lan> <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
- <20260715005909.GF1656185@killaraus.ideasonboard.com> <alcBvuIMEGSjAD1R@mit.edu>
- <20260715161111.GC1778116@killaraus.ideasonboard.com> <ale45QPntcwA-aLB@mit.edu>
- <20260715174138.GI1778116@killaraus.ideasonboard.com>
-In-Reply-To: <20260715174138.GI1778116@killaraus.ideasonboard.com>
-From: Linus Torvalds <torvalds@linuxfoundation.org>
-Date: Wed, 15 Jul 2026 11:18:17 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wiL7kFVWNtvE5S9A4iqXYat66NaUqX1+gZT0QCndi4eQw@mail.gmail.com>
-X-Gm-Features: AUfX_myTuqQNvpcLEtvQxPC4lJcQjnEJBPlfP6rgApoBdDBWIpMttvH0W0eY2Sw
-Message-ID: <CAHk-=wiL7kFVWNtvE5S9A4iqXYat66NaUqX1+gZT0QCndi4eQw@mail.gmail.com>
 Subject: Re: Linking Patchwork with Sashiko?
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Theodore Tso <tytso@mit.edu>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Derek Barbosa <debarbos@redhat.com>, 
-	Matthieu Baerts <matttbe@kernel.org>, Konstantin Ryabitsev <konstantin@linuxfoundation.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Steven Rostedt <rostedt@goodmis.org>, users@kernel.org, 
-	Linux Media Mailing List <linux-media@vger.kernel.org>, Stephen Finucane <stephenfin@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+To: Mark Brown <broonie@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Derek Barbosa <debarbos@redhat.com>, Matthieu Baerts <matttbe@kernel.org>,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Steven Rostedt <rostedt@goodmis.org>,
+ users@kernel.org, Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Stephen Finucane <stephenfin@redhat.com>, bpf <bpf@vger.kernel.org>,
+ Chris Mason <clm@meta.com>, Christian Brauner <brauner@kernel.org>,
+ Alexei Starovoitov <alexei.starovoitov@gmail.com>
+References: <20260710083845.23c753ca@foz.lan> <87wlv2jq4t.fsf@linux.dev>
+ <20260713095538.3d5e86f1@foz.lan>
+ <20260713094120.GD1127719@killaraus.ideasonboard.com>
+ <20260713220427.582b28bf@foz.lan> <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
+ <20260715005909.GF1656185@killaraus.ideasonboard.com>
+ <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev>
+ <20260715163921.GH1778116@killaraus.ideasonboard.com>
+ <153db0fa-65ac-49de-9bf5-456c9639954c@linux.dev>
+ <f690c44b-bb03-4085-a9f1-0321a3f33e30@sirena.org.uk>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Ihor Solodrai <ihor.solodrai@linux.dev>
+In-Reply-To: <f690c44b-bb03-4085-a9f1-0321a3f33e30@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-On Wed, 15 Jul 2026 at 10:42, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->
-> Please, let's stop comparing generative AI with zero-day kernel bot or
-> checkpatch. That's not a relevant comparison.
+On 7/15/26 10:35 AM, Mark Brown wrote:
+> On Wed, Jul 15, 2026 at 10:12:03AM -0700, Ihor Solodrai wrote:
+>> On 7/15/26 9:39 AM, Laurent Pinchart wrote:
+>>> On Wed, Jul 15, 2026 at 09:28:03AM -0700, Ihor Solodrai wrote:
+> 
+>>>> Yes, assessing whether AI report is "real" is work, but it's not
+>>>> reasonable to push this work on already overwhelmed maintainers. And
+>>>> if AI is wrong, again it's the job of the author to convince the
+>>>> maintainers it's wrong.
+> 
+>>> We disagree on this as well. This would force contributors to constantly
+>>> justify their value against a machine that is known to produce a
+>>> non-negligible quantity of nonsense.
+> 
+>> I know what you mean and I can relate. Going through walls of
+>> AI-generated paragraphs is not fun, to put it lightly.
+> 
+>> However it seems that you are suggesting to simply delegate this work
+>> to maintainers, and I very much disagree with that approach (even
+>> though I'm not a maintainer myself).
+> 
+> This is something that already happens with human written reviews,
+> indeed I have a canned reply for one particular reviewer telling
+> submitters it's OK to ignore them.  It goes in both directions - it can
+> be ignoring some issues or postponing them for later, or it can be
+> making sure that there's input from particular people.
 
-You are correct. The AI generated reports are usually much superior
-and more flexible.
+My objection is to a suggested expectation for every review to be
+triaged by maintainers/reviewers *before* it's sent or the author
+engages with it.
 
-They aren't just syntax highlighters or reporting "this doesn't
-build", they actually find real non-trivial problems.
+I think the author should be the first one to engage, it's a feedback
+on their patch after all. And of course reviewers/maintainers are free
+to jump in whenever they can and feel it's necessary, and they do. Opt-in.
 
-Now, I'm not saying that one replaces the other. The zero-day bot
-finding things that don't even build or boot are great. That's a
-pretty hard and clear signal.
+> 
+>> I think it makes much more sense for the author of the patch to do the
+>> triage, as they have the best context of the work, and they are
+>> usually the most invested in their patch being merged in.
+> 
+> It's not clear cut - untrustworthy tooling often causes problems, I'm
+> fairly sure I'm seeing issues that are the result of submitters getting
+> mislead by LLM reviews in a similar manner to some compiler warnings.
 
-But the AI reports are often a lot better than checkpatch reports have been.
+Yes, this is a valid point. I'm not arguing automated AI feedback is
+always good. This is why the triage is needed in the first place.
 
-Those checkpatch reports have gone through years of trying to massage
-them into something that adds more value than pain - and I do think
-we're there now, but it really required that effort on the part of
-checkpatch maintainers.
+I think one small thing that may help with this is teaching
+contributors to not iterate on the revisions too quickly based solely
+on AI feedback. And also try to iterate with AI reviews off-list first.
 
-And that's exactly the kind of effort we need for Sashiko and friends.
+But that's marginal. Fundamentally, a human has to read AI feedback on
+the patch in the end. I don't see a way around it, barring the singularity™.
 
-Because no, AI reports are not always great, but neither are human
-reviews. I see less useful reviews by humans where I go "did this
-person just try to get his name in the commit log, because that has no
-useful content".
-
-I suspect you haven't used AI for programming. Try it. Try one of the
-*good* ones.
-
-And I don't mean "use it for the kernel". Use it just for the fun of
-it. Find something you want to do, and just play with it.
-
-The open models are getting pretty darn good too, but for a first
-trial without any real setup, one of the free tiers of the cloud ones
-is certainly the easiest way to just kick the tires.
-
-Do it with something you find interesting, but not "important" - start
-small, and start with something you feel you probably wouldn't really
-waste your time on if it was just yourself, but where you have enough
-background knowledge that you can judge the output.
-
-It's what I did, because I wanted to judge things based on real use,
-not on what others say (and sometimes the loudest ones do it for
-marketing reasons because they have stock that is tied to it).
-
-You might find it enlightening, or at least interesting.
-
-My own personal annoyance was how eager to please AI models tend to be
-at least by default. I understand why it happens, and that people like
-that subservient tone, but at least personally I was looking for more
-critical review of the code, not an AI that had been taught to say
-"You are entirely right" just to please people.
-
-          Linus
