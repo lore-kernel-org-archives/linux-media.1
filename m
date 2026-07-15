@@ -1,63 +1,63 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05EE3AE1A2
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 03:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 840703AF640
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 03:38:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784086730; cv=none; b=g1GUghMRT1KTURY9hRTybca9u8ctcgASz9Df8nNV00OgejxlGnSGLH7eAYxJr6J4FNI6HP/5U4rJs0OA9Hmf2GcmTOwlETUljr10l84H2Zi6LC59V3f9vuEM4HvSakaVMQIEKZrezTSxgxXhk31k8rnEHLOa6jv7xa6m6FB2bVs=
+	t=1784086735; cv=none; b=lPDsLlhUQOrcsgYQckAASE+ZqDuR0svllK7sl1de4mVfjsUxTOaZuqJHh/WE30cYajDc6lFUnJytA9GGLW00Drpcc++fn/tmVPC/UzpIYzEuETv6fGx0Rf29lz4RaIqK99o95EcV5cg6Ub8O2fzHG7OF+Cm+LN2OZxMjmR55GCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784086730; c=relaxed/simple;
-	bh=bRZRmeuak8UGKeftukzPu9pf5prdsKVf2Hg9qG80Lio=;
+	s=arc-20240116; t=1784086735; c=relaxed/simple;
+	bh=uQpQFEgVQRMZl9ga6dV8oBi/I0Inhusd5je+kblypos=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PseFmBZxGaO51NONR9MGIIyyLDRVD4gzZ6EErcGtAE5jWn4mSLOBNWnQO7p251WDz82CAVvXqNehUwAVW3wSqInqJu1/7FgJOPy60MIWNfvxJiRrUMKw33QvJB9F9gzDyguh/znt2Sz/S0jaADqyTJugDvQwPoEyARiNV40CNgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JzQTd4Dx; arc=none smtp.client-ip=209.85.214.182
+	 MIME-Version; b=U0AU+3rytD+V13pCXB3hm1G5UY5a2Kai/CltsipkOQWkAhtnjko/hko+eWSV75d95QEjSAfrR8iN4hTZko6fhXIFY+ClVsEoDhH4hjD3Geoj5MrwwHQc70aRfj/pGbMs1md6S3e219/NNEFyCfn7V7BWWfo3QgeCeKtvBDpbn5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L3OYEyRA; arc=none smtp.client-ip=209.85.214.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JzQTd4Dx"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cad4170e8eso61042575ad.3
-        for <linux-media@vger.kernel.org>; Tue, 14 Jul 2026 20:38:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L3OYEyRA"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ce9e39fccbso1647295ad.1
+        for <linux-media@vger.kernel.org>; Tue, 14 Jul 2026 20:38:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784086719; x=1784691519; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784086723; x=1784691523; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=I4LF8M4ghb+YPtxRjEmX1qyfcwiqHlXNeKROLqcS8Yw=;
-        b=JzQTd4DxuTApcV54AOKr4PfKm8P+l56qDtbM3IW62zd60nGx8WWeTjIqYIRYStJCis
-         TDO/ow5hlubks3TNgQtYVcO7DfrROdudGEFAD7DSsnV78vYJYnSSEy3pEA/makPVfM/k
-         jhtz5lSQgRHzg4QruHxAMIue56tHjBhlEhFlvQboaoiBJXKRDbHeGuN0ouhvQ1om9rHX
-         MDAzoaNNjoaB9buOcjYXyN41bJof/Lli9WDlvTlDWfLe9E/1vq+K/o8L0OQeSW7HfzeR
-         7ggfNjfkpEOllpRWElvB93uH2zoViCzB7HlLgDh1Il+27G9JLA3OooREJ7KeyYiFRQ+a
-         +KrA==
+        bh=uVEg2i1Z7njPeqcdf/tSoRttZE7Mq1P1yGV0C9miEPg=;
+        b=L3OYEyRAIVPVafkkMRy/GidjojTCAxG35oX3cHwrR5D7d4ypPvfGPz84A4oDZ3aH1q
+         HQRS5M/XS6G2wkdwHMIS9to6+TOHub/Kft4IS/Q7PQjRvwkidl+A4v6DThayTFF8R5bD
+         Fo4cks2oeDpHYs+K/dhmMsbbfmxGzIiC22Lx3v7det0B5ixXmPfSyRMtcst5fZFyPIys
+         6Jmh3ro2VlPM81iHVtTK0cJ44BkEgb/LCWVy5GE9O7r9qKlOYTaNbMSkjqJ9qIkO3s5n
+         CWQlG9ty5mTShH76f07YjoX23mCyEUXDiiH9M2bDgk3Zd07vPyipzGMdEh8ypxN98+II
+         xogg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784086719; x=1784691519;
+        d=1e100.net; s=20251104; t=1784086723; x=1784691523;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I4LF8M4ghb+YPtxRjEmX1qyfcwiqHlXNeKROLqcS8Yw=;
-        b=KmuyiwmxCV9v6UNuM7MAyalR1MnoOtXVkKhMaf550dIov5tG3ukNjv3tTJZJYEk5t+
-         eCmtEONrmevdJhwF1Zh+n109FtdCHHk7wsHT6bY2NE+/Co0Ur+ydri3nNdl4nu3JMeqW
-         X0swzZszF9a+4+j9asZJ42vou3A1wWVOtk5c4wvXGDsB5tgCk1MuGROL11HnInCfDh12
-         KSvFd11BETR4aY3I8K0/0CPk3LV60CxuF1EXOO/oC02rgA9zayi8WT/fp7O+2mhvB9aZ
-         tTI1LU8rrQ7Elqqt5PSqBUJt9MwOgYMYRi0VuI3TJDeMaChz/khvi/jX4bQRlOP/vs1w
-         HJxw==
-X-Forwarded-Encrypted: i=1; AHgh+RokHgeN6zNF7JvBbDCHpJX9YA516/K3VWeOjFdg8sXnGMfXPBhy6sJ7UtPJMUpjcq9BRoUroWc65Ak2NA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwLg84noLSQN8VOTONuy6RKwK7lcpmXlurz5rPRpUvgcL1eFRWz
-	6seauXE0xABBqdc9g9Khezpn9c1AB9nv/7Bk5T6aRkR/nQRZY8EToFM9
-X-Gm-Gg: AfdE7cmMyvsxGQC0eSSpBnWfmbmBwriZ/og2estCsB/AqIJOlGJdShf/oCExW5FBnzM
-	wvMZUv+ZW7EMmduvaIKgW78iJ9nTpir1LfPfQDxppp+iNd0fLR3ak9GYsZ21oHA91KB9NPhdzgU
-	Djsp/2c/l9catUrFope5PwtXOfJM16+hSyjwAF/IKIa4ifbKg+8mpEmvbtRb68LEbwYinfSg7CA
-	4rnq7kTq+R1vplLu7JWuLMyBQqCQtUE5mYPrXSV2QPJ6s6EAMbmq2mW7jt35bRwxlf999grnnkP
-	gQDCEsPm/FXiwFIMGMHfoRtsELnvrwpH5oSiyXJYCsTH48LoboxMyJTGc/qXV5g7GUnTRaJZ94l
-	WhbO006ukSN6m/MhdGt1u1c3zuhCdLx5gp0aXs/oAxReyef1c6fPDEkW1/6+noUZyBcGhX3FSst
-	y+iz7Q5EXS66s6p0GxRlLHiOBjtPgWtDLV6e/jnZJ181U=
-X-Received: by 2002:a05:6a20:e68b:b0:3b4:6f7e:d0f4 with SMTP id adf61e73a8af0-3c356f75ea9mr6242435637.15.1784086719025;
-        Tue, 14 Jul 2026 20:38:39 -0700 (PDT)
+        bh=uVEg2i1Z7njPeqcdf/tSoRttZE7Mq1P1yGV0C9miEPg=;
+        b=Kx36L2fjoMzo/LTZ12UzOnYyqbzBcw2AAtawW+7vN4ZkZp6QgGmWT33JfbR17GO9tM
+         LGMqB+RoRAIvNrF5mr3rbzzspBg7wxQHMhWsoZRlvNtxsHOEd6K47k/2eXc5nZ5cyuVI
+         384PEA6LssaSAJDU29EdJfm0CbqWLl3KgGovODcHOp6nFf0YUOkedpawkuf4071a93Zl
+         abj6mCZFZaQOgvPOwZ9qgIwprzMUwUdTOIYbB03VKEcWf9+H2hVYT1M0np0fdS4Z6KpS
+         TzcCHQ6iAxV3JWyre0WsifI/hf6P1mfMm0OJvOAL9QlEb44A9rY3vZ+A7NuE+IR493St
+         PlVQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpNZXf2LpjES1Wlvv037493QIgw4r6T8FD7F83cclbsS3wtftqx6ZGSWCYthl9Jv08RRALqjMpC7iMKAw==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy7J7X3meglbSpZficIr9HNCa+3afQZC/cmoSciO/YAPvmSmO+4
+	bF+cpF+LbkderTQpTqXgqAwTDHR47EjezDSOLLuIM1gKw5Cel2K3b/oD
+X-Gm-Gg: AfdE7cldrJgyLCztp9VA0q6EDth601cnb8cg13SdHpX0/obNCgSyn14+8CvyaVkzZcR
+	k6qNMIyo6kP6xkLL4un0G6alOfj+rZG0idv1VVHMW1pp394F1Q97EMpQ///xxQHbrUQbYlO9+IM
+	zuWjdF/RCZPX4eGxERoi3RrA5gFxT34WiFCFctAZTghLsa/7ONKOIbg630DAncTrZT1/ZPEMQuN
+	JwbSbYFvhngzSnLdSd5mO+d630TUAbbrrR2FQgT/n0+gHelTZ7mLPrxwNbQeUEMnJ30+N1B2O9f
+	tIAmajnhDdXUzlqPydjPOrQiljFfqXxp/kHl3iZ8ioZVwQ9IZEdzq+h64284L9pt3OVEogrk+59
+	wHEgRSXCzAonj3OSOJeK5vpCacXLDaEiXNIV8CIxd80v1NBfB8emGyiniFgyP1cFJlxkjAkL2oE
+	pujoyGoR1Kh30vuH7T0rJpiXUHsE7TyxwgmnfaPGPq9BD+0GpUt/bYiw==
+X-Received: by 2002:a05:6a20:d489:b0:3bd:1cfc:1b9b with SMTP id adf61e73a8af0-3c0f08f8997mr25664718637.10.1784086723094;
+        Tue, 14 Jul 2026 20:38:43 -0700 (PDT)
 Received: from localhost.localdomain ([49.207.223.101])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174a583bcsm91977889eec.19.2026.07.14.20.38.35
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174a583bcsm91977889eec.19.2026.07.14.20.38.39
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 14 Jul 2026 20:38:38 -0700 (PDT)
+        Tue, 14 Jul 2026 20:38:42 -0700 (PDT)
 From: Biren Pandya <birenpandya@gmail.com>
 To: mchehab@kernel.org,
 	jacopo+renesas@jmondi.org,
@@ -68,9 +68,9 @@ To: mchehab@kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Biren Pandya <birenpandya@gmail.com>
-Subject: [PATCH v2 3/5] media: i2c: msp3400-driver: Add missing media_entity_cleanup()
-Date: Wed, 15 Jul 2026 09:08:22 +0530
-Message-ID: <20260715033818.10967-10-birenpandya@gmail.com>
+Subject: [PATCH v2 4/5] media: i2c: mt9v011: Add missing media_entity_cleanup()
+Date: Wed, 15 Jul 2026 09:08:23 +0530
+Message-ID: <20260715033818.10967-11-birenpandya@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260715033818.10967-7-birenpandya@gmail.com>
 References: <20260715033818.10967-7-birenpandya@gmail.com>
@@ -82,39 +82,38 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The remove function and the probe error path are missing calls to
-media_entity_cleanup(). Add them.
+The remove function is missing a call to media_entity_cleanup(). Add it.
 
 Signed-off-by: Biren Pandya <birenpandya@gmail.com>
 ---
- drivers/media/i2c/msp3400-driver.c | 3 +++
+ drivers/media/i2c/mt9v011.c | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/drivers/media/i2c/msp3400-driver.c b/drivers/media/i2c/msp3400-driver.c
-index 4c0b0ad68c08..48c60050c5d7 100644
---- a/drivers/media/i2c/msp3400-driver.c
-+++ b/drivers/media/i2c/msp3400-driver.c
-@@ -717,6 +717,7 @@ static int msp_probe(struct i2c_client *client)
- 	if (state->rev1 == -1 || (state->rev1 == 0 && state->rev2 == 0)) {
- 		dev_dbg_lvl(&client->dev, 1, msp_debug,
- 				"not an msp3400 (cannot read chip version)\n");
+diff --git a/drivers/media/i2c/mt9v011.c b/drivers/media/i2c/mt9v011.c
+index 055b7915260a..b7ef8bff727d 100644
+--- a/drivers/media/i2c/mt9v011.c
++++ b/drivers/media/i2c/mt9v011.c
+@@ -520,6 +520,7 @@ static int mt9v011_probe(struct i2c_client *c)
+ 	    (version != MT9V011_REV_B_VERSION)) {
+ 		v4l2_info(sd, "*** unknown micron chip detected (0x%04x).\n",
+ 			  version);
 +		media_entity_cleanup(&sd->entity);
- 		return -ENODEV;
+ 		return -EINVAL;
  	}
  
-@@ -812,6 +813,7 @@ static int msp_probe(struct i2c_client *client)
- 		int err = hdl->error;
+@@ -542,6 +543,7 @@ static int mt9v011_probe(struct i2c_client *c)
  
- 		v4l2_ctrl_handler_free(hdl);
+ 		v4l2_err(sd, "control initialization error %d\n", ret);
+ 		v4l2_ctrl_handler_free(&core->ctrls);
 +		media_entity_cleanup(&sd->entity);
- 		return err;
+ 		return ret;
  	}
+ 	core->sd.ctrl_handler = &core->ctrls;
+@@ -577,6 +579,7 @@ static void mt9v011_remove(struct i2c_client *c)
  
-@@ -865,6 +867,7 @@ static void msp_remove(struct i2c_client *client)
- 	msp_reset(client);
- 
- 	v4l2_ctrl_handler_free(&state->hdl);
-+	media_entity_cleanup(&state->sd.entity);
+ 	v4l2_device_unregister_subdev(sd);
+ 	v4l2_ctrl_handler_free(&core->ctrls);
++	media_entity_cleanup(&sd->entity);
  }
  
  /* ----------------------------------------------------------------------- */
