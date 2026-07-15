@@ -1,133 +1,160 @@
-Received: from luna.linkmauve.fr (82-65-109-163.subs.proxad.net [82.65.109.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C084643E07B;
-	Wed, 15 Jul 2026 19:03:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.65.109.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4195544604A;
+	Wed, 15 Jul 2026 19:07:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784142219; cv=none; b=deq/Aql+v8EBXyjVBuJ/7Pz8QyG/d3GITH9ufu+QyZ5NdaD86ljm+8qnY/QUaTWIqjGPiv5CNKLt6I3ccsue0caSrCe4m4LdCdkB8oTxV7kkAQf9G/VyJUUv4sBozounKpQW1D6ycegkL65xYzaq9QUpSN6TdOcWjiVbZ2CxG0E=
+	t=1784142426; cv=none; b=QnAH5q/e8cJ4eiU4JO/IUV5xzQPX+aUwNgy6z0G5pXbshIYkDormJxNxb44xiy7HrnGU/i2hI/7nFcXBJ65VMcdOQY7dtMO1aGwY4q5WKjk65aAnkW7LuN0q/QpsSgES4ZrBdnpjgJ4fUUT+WBr4IvngLrq5IF4U4+nL2N6IHZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784142219; c=relaxed/simple;
-	bh=QcRclczwWInW/m9Xbw/fiBz4XRN9PVU7yN3xi60RXRI=;
+	s=arc-20240116; t=1784142426; c=relaxed/simple;
+	bh=/Nj7Dd3qpxPEFHftN9BYQUKRnbUY4QzNW4WGhPouGi4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eQKQCxZWwYYYeVRAQ6qWh+GqQHlpXRJVM9BYgt+8vSlSPLJ/RXebIZUeVaMnrtDUqTPeNFpe54/j00m946I6LcXg6WZ11NIzxHvBi4LVZGMlTKyEu8rAoKvS8ceCmJIdZTvsrHU7DHzi+cyUPlR+yOEou+x4tSzSPzXlz1YJOBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr; spf=pass smtp.mailfrom=linkmauve.fr; arc=none smtp.client-ip=82.65.109.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linkmauve.fr
-Received: by luna.linkmauve.fr (Postfix, from userid 1000)
-	id EFB14F40D2C; Wed, 15 Jul 2026 21:03:19 +0200 (CEST)
-Date: Wed, 15 Jul 2026 21:03:19 +0200
-From: Link Mauve <linkmauve@linkmauve.fr>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Link Mauve <linkmauve@linkmauve.fr>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Tianshu Qiu <tian.shu.qiu@intel.com>,
-	Bingbu Cao <bingbu.cao@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
-	Lee Jones <lee@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	"Vaibhaav Ram T.L" <vaibhaavram.tl@microchip.com>,
-	Kumaravel Thiagarajan <kumaravel.thiagarajan@microchip.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Vladimir Zapolskiy <vz@mleia.com>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Praveen Teja Kundanala <praveen.teja.kundanala@amd.com>,
-	Kalyani Akula <kalyani.akula@amd.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Joshua Kinard <linux@kumba.dev>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Ronald Claveau <linux-kernel-dev@aliel.fr>,
-	Salah Triki <salah.triki@gmail.com>, Yury Norov <ynorov@nvidia.com>,
-	David Carlier <devnexen@gmail.com>,
-	Achim Gratz <Achim.Gratz@stromeko.de>,
-	Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Patrick Wicki <patrick.wicki@siemens.com>,
-	Markus Heidelberg <m.heidelberg@cab.de>,
-	Markus Perkins <markus@notsyncing.net>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>,
-	Chen Ni <nichen@iscas.ac.cn>, Kees Cook <kees@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-omap@vger.kernel.org, mfd@lists.linux.dev,
-	linux-i2c@vger.kernel.org, linux-gpio@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com, linux-rtc@vger.kernel.org,
-	linux-sunxi@lists.linux.dev, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH 1/8] nvmem: core: make reg_write() take a const void *
-Message-ID: <alfZd_eHgNk9izcy@luna>
-References: <20260715175229.24672-1-linkmauve@linkmauve.fr>
- <20260715175229.24672-2-linkmauve@linkmauve.fr>
- <alfYQP4a1U9pI6UR@ashevche-desk.local>
+	 Content-Type:Content-Disposition:In-Reply-To; b=jIMaaCGIiTMFN4iDN0hFetrXC728X9Je9VpqCSNQqllts8Bpje3HDFI4ZBYqlIvvE5WaIPT1vEC3n74E4qSK2wvShTqVsdyrC9tkT2r4kYhvHBQqnM5rfrLmQlj8nB4+LvfNE7b2hNauPUJpXXGIqjVQetw0DOhal8eQ4rpFGVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=weXpNVPG; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="weXpNVPG"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 287A6104C;
+	Wed, 15 Jul 2026 21:06:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784142361;
+	bh=/Nj7Dd3qpxPEFHftN9BYQUKRnbUY4QzNW4WGhPouGi4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=weXpNVPGNdljTAof2hjl45qg9MNqJ+ebY1YJQjhPe4DX/fff3gRjVe1g26kB6+Iea
+	 a3lSF55/siMGfPjNXjG0tua/7zjto1Cu9E2dhVkwep2OLBsRVsIVx41/KsF7dXRoZg
+	 XRA8xjN91oJzsJ5zbpY+fEKEFYFUzDL4jV1nq0ZY=
+Date: Wed, 15 Jul 2026 22:06:54 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Derek Barbosa <debarbos@redhat.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Steven Rostedt <rostedt@goodmis.org>, users@kernel.org,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Stephen Finucane <stephenfin@redhat.com>, bpf <bpf@vger.kernel.org>,
+	Chris Mason <clm@meta.com>, Christian Brauner <brauner@kernel.org>,
+	Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Subject: Re: Linking Patchwork with Sashiko?
+Message-ID: <20260715190654.GK1778116@killaraus.ideasonboard.com>
+References: <20260710083845.23c753ca@foz.lan>
+ <87wlv2jq4t.fsf@linux.dev>
+ <20260713095538.3d5e86f1@foz.lan>
+ <20260713094120.GD1127719@killaraus.ideasonboard.com>
+ <20260713220427.582b28bf@foz.lan>
+ <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
+ <20260715005909.GF1656185@killaraus.ideasonboard.com>
+ <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev>
+ <20260715163921.GH1778116@killaraus.ideasonboard.com>
+ <153db0fa-65ac-49de-9bf5-456c9639954c@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <alfYQP4a1U9pI6UR@ashevche-desk.local>
-Jabber-ID: linkmauve@linkmauve.fr
+In-Reply-To: <153db0fa-65ac-49de-9bf5-456c9639954c@linux.dev>
 
-On Wed, Jul 15, 2026 at 09:58:08PM +0300, Andy Shevchenko wrote:
-> On Wed, Jul 15, 2026 at 07:52:17PM +0200, Link Mauve wrote:
-> > This callback used to take a mutable void * for no reason, this was
-> > found while drafting the Rust abstraction.
+On Wed, Jul 15, 2026 at 10:12:03AM -0700, Ihor Solodrai wrote:
+> On 7/15/26 9:39 AM, Laurent Pinchart wrote:
+> > On Wed, Jul 15, 2026 at 09:28:03AM -0700, Ihor Solodrai wrote:
+> >> On 7/14/26 5:59 PM, Laurent Pinchart wrote:
+> >>> [...]
+> >>
+> >> Yes, assessing whether AI report is "real" is work, but it's not
+> >> reasonable to push this work on already overwhelmed maintainers. And
+> >> if AI is wrong, again it's the job of the author to convince the
+> >> maintainers it's wrong.
+> > 
+> > We disagree on this as well. This would force contributors to constantly
+> > justify their value against a machine that is known to produce a
+> > non-negligible quantity of nonsense.
 > 
-> I don't understand how it was compiled. const void * != void * in C and can't
-> be implicitly covered, if I am not mistaken. So, this patch heavily should
-> break the build. What did I miss?
+> I know what you mean and I can relate. Going through walls of
+> AI-generated paragraphs is not fun, to put it lightly.
+> 
+> However it seems that you are suggesting to simply delegate this work
+> to maintainers,
 
-I think I missed a lot of those drivers while compiling, probably
-because I built it for my target hardware instead of doing a
-COMPILE_TEST.
+For authors who object to generative AI, yes. And most likely for junior
+developers too, see below.
 
+> and I very much disagree with that approach (even
+> though I'm not a maintainer myself).
+
+I had noticed that :-)
+
+> I hope you're not saying "let's just not use AI", because that ship
+> has sailed a while ago.
+
+For the time being I'm not seeing this as a viable option in any way, so
+I'm not calling for it.
+
+> And if automated AI reviews are there, someone has to do the
+> triage. AI can do the triage itself only to a limited degree. For
+> example, there are instructions in review-prompts where AI checks
+> whether an issue has already been discussed. But it will never be
+> perfect.
 > 
-> -- 
-> With Best Regards,
-> Andy Shevchenko
+> I think it makes much more sense for the author of the patch to do the
+> triage, as they have the best context of the work, and they are
+> usually the most invested in their patch being merged in.
+
+The discussion regarding enabling sashiko for the linux-media mailing
+list started with the question of whether or not authors should be
+CC'ed. This came from a consideration on the impact of false positives
+and other hallucinations on junior developers. They may have the best
+context of the work, but they are also most at risk of not questioning
+the validity of the reviews. A one-size-fits-them-all approach may not
+be good, which is why I think some sort of opt-in option could address
+many concerns. I don't expect immediate and universal enthousiasm
+though.
+
+> > Furthermore, if those generative AI
+> > tools are as good as their supporters claim, the time they free for
+> > maintainers should outweight the need workload to triage the comments.
 > 
+> Even if the AI tools were ~perfect with respect to code review, I
+> think people would still be signing off patches and taking
+> responsibility for them.
+
+My comment wasn't about signing off patches. I was questioning whether
+the time that sashiko saves for a maintainer is smaller, similar, or
+larger than the time it takes to triage the comments. If the tool saves
+maintainers from having to review some of the code, or from considering
+some classes of problems in their reviews, would triaging the comments
+come even close to the time saved ?
+
+> An imaginary perfect AI reviewer that maintainer can trust to land
+> code without looking at it would essentially become an AI maintainer.
+> Independent of whether you think it's possible, it hasn't happened
+> yet, so we have to deal with imperfect AI in the meanwhile.
 > 
+> > >> I set up automated AI code reviews on BPF list using Chris Mason's
+> >> prompts in the fall last year [3], before sashiko was developed. And
+> >> originally we were very worried about the quality of the reviews.
+> >>
+> >> Time has showed that we had to be more worried about the average
+> >> quality of incoming patch instead.
+> >>
+> >> [1] https://lore.kernel.org/bpf/CAADnVQKsM8iOGO3ZL3LgbWigOBBMrGbTYZ_k_Ktz=+cVkvRLXg@mail.gmail.com/
+> >> [2] https://lore.kernel.org/all/20260703-vfs-summer-jam-22b2edbbbc44@brauner/
+> >> [3] https://lore.kernel.org/all/0d6aa077-1222-49a0-9554-dd922122a904@meta.com/
+> >>
+> >>> I believe we should
+> >>> follow the first two recommendations of the Software Freedom Conservancy
+> >>> on using LLM-backed generative AI systems for FOSS contributions ([1]).
+> >>>
+> >>> [1] https://sfconservancy.org/llm-gen-ai/llm-backed-generative-ai-recommendations.html
 
 -- 
-Link Mauve
+Regards,
+
+Laurent Pinchart
