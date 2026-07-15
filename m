@@ -1,66 +1,66 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1B4472796
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 11:44:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7673D478E50
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 11:44:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784115865; cv=none; b=pXLLCRVP9BcrBp6Kg55XS/16JyGMiJq+Nz5/H+7+Iqw2B/eNAWX0NrB2dO5nIFzmvFDt8QIz4+nudOlIWn4+d/hKPkRjzMJJZdtoqcpzy8mTaCtXA7J3xxZ4PhatZ5ZsoUCUZt3eq4caDDs7quZGtehGFgoJvYIbobLaFliwefY=
+	t=1784115867; cv=none; b=ifR3AtBuo/NEO9+bVEtAx2D3cksc1n8GcnXMFxNnQG/rFLLzOurQZ37mxOXsWQjpMCM6cm04uV8jlI5MzXNHPxMKtmELLQIAzbkRELZ57W1OOduc8hQWapA0ThsVrv9mlAZ5VioUn+AaYStJTXKX1an8BGZT/M0KpK4S76LZZvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784115865; c=relaxed/simple;
-	bh=/hOFo0rPQJJCMg8TN7ca2c/YdU1t7mtGTuPyJNmtqF0=;
+	s=arc-20240116; t=1784115867; c=relaxed/simple;
+	bh=M5cgImqp1X6ATs2zX8UAJD/o0x6k2f4ZZAV3K3styBY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kOrDLmbluj6SBETCVh98LKMpX5Zpfwj5AvpYbp4DHYFGDAO1kHwemI6oCXq9dLxyMbJbNkf0FDqS57VKh2M3RZzgVJlMlcFv8TNqElSl9V60ZI5qNtIwAXaY5Iu6JuTBm9RD2IjdcmG2+7RRT8VdAi99hD8G3IEDGQOYMJIDAE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=t4I7A7e3; arc=none smtp.client-ip=209.85.221.45
+	 In-Reply-To:To:Cc; b=uTkBb/HcQm0o2J3bRL4Ms7Sdxkg1TV4jHQ3bFoy1RyxLXACtkCafNhGl/UjDoY/sEAmUW0N5jCQi0hs2ubZladMcBzM+mWYiTTcN2Q4Fnf8Qgw+pZKo0Hm62N+PT+ldJw4DH6dTXt5ZqBCwNk/ybCL2BqQCz1GbElpuY0oe1zeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=l/guKJlf; arc=none smtp.client-ip=209.85.221.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="t4I7A7e3"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47ddf7b09aaso3675735f8f.3
-        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 04:44:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="l/guKJlf"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4758b2a9e2aso3304724f8f.2
+        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 04:44:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1784115861; x=1784720661; darn=vger.kernel.org;
+        d=raspberrypi.com; s=google; t=1784115864; x=1784720664; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RisMOAAic48kNClVJf1apvBtYfMS81SJZNrhmUuPOOU=;
-        b=t4I7A7e3omHg4+2VUCClwUcufLvHI5Cf2Db7RMS1Ti9iSAghZeQ0ATFAmfbVfGjqW9
-         wkCbGFI+gNH0A1VSRQWKbl5I0w3SWT94jJctmC20pTPdRvAf9cIwJBIMEeQ4G/EQ7S0H
-         Sg9JSnQJAqly/5Q6hzMeMhEsGfrbXEsw29wlHwXIbYqUj+NU5swRhl9o8yBxAt7LSi7K
-         AQfSELXLiXSBYtfyJ8gyyUlx9faFpXDoBpkesyG50kGUCSQtL5NfFYApeT3uFRRQS9Sa
-         ns3dAokj263nW1JD2mYkqACm8kQcFJA/2mY2a1BfB4KhIllBel+UAHAxZjkqV4UW0++w
-         0xww==
+        bh=m8WwpwzBvrJSugqb6BxcRR4O4z6rF0/Sty/g6S/wo/w=;
+        b=l/guKJlfeRznmhQGz4zK2j3sXKEOnwGSxZN0nQF6PF7po62nMnErc+r5mEbQoVEHPc
+         K/n5LEUbMGzBCj855WnnqDzMMs1Imt5OXzkJoxZsOpT6BqUUFSdvLuv0JOzXL1SFO4l1
+         yKKRbOVqgxWMaAmRlZb2zoONRuNh/4Cl6Nhrn/FIRqwjFjniE6gcLxJliFs7eW8uEZFq
+         1rxgcgXAvezCUNjj+QypV4e61AWhytgFakzagQEpyS/n4s6ysKc63nUCDVOaBhS2YnHB
+         HD0RKPgpFDiqVB2GS/3haqRyfM5Zbs9/hjKoTNhPZt8AQFyHZae8KBzItDDYFZlxY/dO
+         Gphg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784115861; x=1784720661;
+        d=1e100.net; s=20251104; t=1784115864; x=1784720664;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RisMOAAic48kNClVJf1apvBtYfMS81SJZNrhmUuPOOU=;
-        b=g4fo6pezp7/RHgZsbGkI+kkulX3yI8Yq2y+K1n9azCGYE2tz+PKRwoKzsOOcbpMgVK
-         7zACn74JgxpP0TnBJtDd20+ttZIF1J1QDtaD3x14ELoTM2Cquk0Ag6AhZvfVAmeE2sy2
-         feK+j+jPbKnIi4aLuTDKfWxAsT/IS4LaNs3VcSshCazsXST+9nGh4FYfrxSXezHk3YIH
-         QoHrdBRb1ny5gnDdrw2F/EtpRXqDzwp1GNyObhrgd0XW4LDupCpxTM8umK4qhOmIGw55
-         6YZzZGxl/S9CdGPCPyBAy2G0UQU37Dur65DLt8ZIwnGizVJPLYmx5tyANybfiXJ0hgLK
-         kH7A==
-X-Gm-Message-State: AOJu0Yww7jjgO17GPJt1egMtO22T/imdffsIOYe99zVwIwArgsaNtczS
-	NMXoxscxItqTMJM5yLly5QEl6h+Q2V9HJziQErbhLfJlQtd+OsXQ73saerZnWfuDnz0=
-X-Gm-Gg: AfdE7ckQ1jA3HqzpFzZg/UdrfcEbkFfx2+PQQKUgVa+Cotq/MAEYTafuRxBWCTlaWIB
-	05nl/tYT2FfcDq810UM6B4Dfv6l8WiXGiK4mULjLjzotSA9kNHxZwcTnT6dRDRzAS8QedGrMDl6
-	/IvW4ceTx2CiE/zcuGP6dKq8GDUMGOJAawRJgNs2E48AwJtgxggLI+kove47lwIljtHzE/WcdvT
-	/v7sZmv5S7P9c4vqPIMAVm2NQmHhXx8lPC5UIX+enPeWW0V4cBmcho+JmlhrtPbjG9cnfwLBeQ5
-	AchaeS7ech/o3OfQKrYS50EAg7JOQu+tSeXhL4o2EEomio+Nd0QnxXwcXuUUzmSNcdibyxoiy76
-	6uaqM4Irb4qezSmS7guwuGtImEsxLIyCyb5vfA0BH6v2XvIfkr1E2xSHcu3nvsMVR5nffZ7xTlY
-	y2xATTBcYhR3rYEsLxDspcK49Kel9pOTBM3S7pNOsIY3ESSpCjAWHMWW3O/0Ie+EwD
-X-Received: by 2002:a05:6000:29ce:b0:460:3b5d:43b6 with SMTP id ffacd0b85a97d-47f46373bb4mr7550356f8f.31.1784115861266;
-        Wed, 15 Jul 2026 04:44:21 -0700 (PDT)
+        bh=m8WwpwzBvrJSugqb6BxcRR4O4z6rF0/Sty/g6S/wo/w=;
+        b=Enpt3oA4/wgLPPZZS17QxHDjWkPmVxkxnwfRDzNJUMQp9loJdVSRmKbCQHoWCzvkYR
+         czJCvpG9HGknD10+OiopWQE2MTRJBuM4VYfF+0aYVT7lJyjmPXnOZVefNIohltjO8lwi
+         wnlujlttD8k9loasJK7blWgCWiEdM2z1GnnHBmAnsI61sSVzvgTdkeEOMVAeYF3aoU9U
+         gNoBhEEP1lklrw261CQnR/Ug8jUYxPxUum1ZPMksyhhXoVK7f7xPaphNYnzXLV4/hgmy
+         GvO6y4yj2TQZPyzyPHmaMKb/Ip0Wx+QTYM7uqNwqd1AIBSOdcLEVwAea6uuBU3SRHDa/
+         FFZw==
+X-Gm-Message-State: AOJu0Yzp0gQtV771yMqywU1y2DOnx5MzZyTm6ceaK3kQ3ZjBCKneSvdK
+	JBpmg+XCuLwbPCZ+qYqq89VpkoAUhdcDu9eT08R+aQI7lwbdaZK154Q+vEPIBEpdpgc=
+X-Gm-Gg: AfdE7clD7eZn6l5MEgYrILZewl2u2gr2XHLJGKDDeynTRyC+DuNG5f0MUSdZPJj8idR
+	u8QpvjxkbpOlK9kSA6Tt/PzwLxRBdZ6IldnTi+9RGwwxkVfYeY/2QFI0QxXSDXiWYgdUXLtFgcB
+	F1QtzIZn8MEBaXupsX01i88KsfMtBxz0PY+cB5Ji9y3bSOT+trrVUWEuz8z8wnZGT0nbkXiWT3n
+	s8UzVjnwSCDzwcmL7HuekOYUJJEhse0r/Ym/DZ91dkL2MDW193oNflXOOJ0WustvO/f1dyuIjef
+	TD9tuL3VcA9jYNDBNE7GftZdE5pHWnEYCCOTPd7fyfdaIEqKDz84DROczEhK4i2YL8xPVWLguKg
+	7XNcLk0y3H7kDr3uCChfr3xml5Y+MzYz9XZdTt+9ko8V2UMjoITxAormfUbvHoKE84JGKkS5cI6
+	17WDDvs4tAUSmOKuFc5o2AJ/AcFdimpqv3D1X5U5qDSvMMFZ/Y0Eu54Wurw5RCVHWb
+X-Received: by 2002:adf:e186:0:b0:475:6c34:2120 with SMTP id ffacd0b85a97d-47f4887dd78mr7554369f8f.18.1784115863656;
+        Wed, 15 Jul 2026 04:44:23 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f4829896asm14005425f8f.23.2026.07.15.04.44.20
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f4829896asm14005425f8f.23.2026.07.15.04.44.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 04:44:20 -0700 (PDT)
+        Wed, 15 Jul 2026 04:44:22 -0700 (PDT)
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 15 Jul 2026 12:43:26 +0100
-Subject: [PATCH v4 13/21] media: imx355: Use pm_runtime autosuspend_delay
+Date: Wed, 15 Jul 2026 12:43:28 +0100
+Subject: [PATCH v4 15/21] media: imx355: Set the colorspace in the format
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,7 +69,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260715-media-imx355-v4-13-f7f966fb9ffd@raspberrypi.com>
+Message-Id: <20260715-media-imx355-v4-15-f7f966fb9ffd@raspberrypi.com>
 References: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
 In-Reply-To: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -83,63 +83,40 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>
 X-Mailer: b4 0.14.1
 
-Avoid powering the sensor up and down unnecessarily by using
-pm_runtime's autosuspend_delay feature.
+The colorspace fields were left set to 0 when they should be
+set appropriately for a raw image sensor. Add those values.
 
 Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- drivers/media/i2c/imx355.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/media/i2c/imx355.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-index 120eda46d982..17a2acc1152d 100644
+index 52bdfe636231..fa8a6851b44e 100644
 --- a/drivers/media/i2c/imx355.c
 +++ b/drivers/media/i2c/imx355.c
-@@ -1074,7 +1074,7 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
- 			goto err_rpm_put;
- 	} else {
- 		imx355_stop_streaming(imx355);
--		pm_runtime_put(imx355->dev);
-+		pm_runtime_put_autosuspend(imx355->dev);
- 	}
+@@ -612,6 +612,10 @@ static int imx355_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
+ 	try_fmt->height = imx355->cur_mode->height;
+ 	try_fmt->code = imx355_get_format_code(imx355);
+ 	try_fmt->field = V4L2_FIELD_NONE;
++	try_fmt->colorspace = V4L2_COLORSPACE_RAW;
++	try_fmt->ycbcr_enc = V4L2_YCBCR_ENC_601;
++	try_fmt->quantization = V4L2_QUANTIZATION_FULL_RANGE;
++	try_fmt->xfer_func = V4L2_XFER_FUNC_NONE;
  
- 	/* vflip and hflip cannot change during streaming */
-@@ -1086,7 +1086,7 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
- 	return ret;
+ 	*crop = imx355->cur_mode->crop;
  
- err_rpm_put:
--	pm_runtime_put(imx355->dev);
-+	pm_runtime_put_autosuspend(imx355->dev);
- err_unlock:
- 	mutex_unlock(&imx355->mutex);
- 
-@@ -1436,6 +1436,8 @@ static int imx355_probe(struct i2c_client *client)
- 	 */
- 	pm_runtime_set_active(imx355->dev);
- 	pm_runtime_enable(imx355->dev);
-+	pm_runtime_set_autosuspend_delay(imx355->dev, 1000);
-+	pm_runtime_use_autosuspend(imx355->dev);
- 
- 	ret = v4l2_async_register_subdev_sensor(&imx355->sd);
- 	if (ret < 0)
-@@ -1448,6 +1450,7 @@ static int imx355_probe(struct i2c_client *client)
- error_media_entity_runtime_pm:
- 	pm_runtime_disable(imx355->dev);
- 	pm_runtime_set_suspended(imx355->dev);
-+	pm_runtime_dont_use_autosuspend(imx355->dev);
- 	media_entity_cleanup(&imx355->sd.entity);
- 
- error_handler_free:
-@@ -1478,6 +1481,8 @@ static void imx355_remove(struct i2c_client *client)
- 		pm_runtime_set_suspended(imx355->dev);
- 	}
- 
-+	pm_runtime_dont_use_autosuspend(imx355->dev);
-+
- 	mutex_destroy(&imx355->mutex);
+@@ -738,6 +742,10 @@ static void imx355_update_pad_format(struct imx355 *imx355,
+ 	fmt->format.height = mode->height;
+ 	fmt->format.code = imx355_get_format_code(imx355);
+ 	fmt->format.field = V4L2_FIELD_NONE;
++	fmt->format.colorspace = V4L2_COLORSPACE_RAW;
++	fmt->format.ycbcr_enc = V4L2_YCBCR_ENC_601;
++	fmt->format.quantization = V4L2_QUANTIZATION_FULL_RANGE;
++	fmt->format.xfer_func = V4L2_XFER_FUNC_NONE;
  }
  
+ static int imx355_do_get_pad_format(struct imx355 *imx355,
 
 -- 
 2.34.1
