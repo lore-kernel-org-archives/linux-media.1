@@ -1,116 +1,67 @@
-Received: from luna.linkmauve.fr (82-65-109-163.subs.proxad.net [82.65.109.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89D44ADD9D;
-	Wed, 15 Jul 2026 17:53:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.65.109.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E7A385D96;
+	Wed, 15 Jul 2026 17:53:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784137987; cv=none; b=tQ6Z9xDeEZBagRTMvWDbOBeZjOyqRQ7kAWnpVNp9VhaquFnyBgcJT48dnmETb+XbpZ6KXqlOPV+Nbrj2xUKj/qGS9Z+/40/9JH7SP1r9rkje/xiFIawD6CspOVnX8pwyTlr+2o+iwbYYl7tH+MDK3LtQsuNsE5SA+iGRVvSqVwc=
+	t=1784138021; cv=none; b=grklT68vtBCSUW7d5I1ZQhIh0zvM1MmRSF1q8u4hY0fud1HaRaODOQZgLaDLgYeqyQ6s17yvLtrIhu4AZvkXGSwSX8jkefkhwkMy73JJHr86VrZO812mGzGaWoeA/MWEoqBYCQ+TMZA2si6HfYAgxOlTes68beBftxOfHVgx/Ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784137987; c=relaxed/simple;
-	bh=/KIAOxfi5qPCF7yk1qXbs6TZ1oDnkuWk8273p3ANjNU=;
+	s=arc-20240116; t=1784138021; c=relaxed/simple;
+	bh=FrU08tXvn3ucJC/UjWXdqCnFlcVAnQs71kFl+L4Fq0s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oSJVbwdWFC4byF61RWgXITOpv8Zi632JJ0eZe8XHS/4ZLW/9qv1z9W6FVO3uRkwpjM6zO0Wfi7GS8r81A6Pt+SsqKZQpb9osGNhKx3Ldv18McWa8dtFvfdCpnNo8SU8Wj3mvfnlfxuwdcgie/QinRQotrGdg+3DmHn9x3tqJoAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr; spf=pass smtp.mailfrom=linkmauve.fr; arc=none smtp.client-ip=82.65.109.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linkmauve.fr
-Received: by luna.linkmauve.fr (Postfix, from userid 1000)
-	id 6F87FF402E8; Wed, 15 Jul 2026 19:52:55 +0200 (CEST)
-From: Link Mauve <linkmauve@linkmauve.fr>
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Link Mauve <linkmauve@linkmauve.fr>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Tianshu Qiu <tian.shu.qiu@intel.com>,
-	Bingbu Cao <bingbu.cao@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
-	Lee Jones <lee@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	"Vaibhaav Ram T.L" <vaibhaavram.tl@microchip.com>,
-	Kumaravel Thiagarajan <kumaravel.thiagarajan@microchip.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Vladimir Zapolskiy <vz@mleia.com>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Praveen Teja Kundanala <praveen.teja.kundanala@amd.com>,
-	Kalyani Akula <kalyani.akula@amd.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Joshua Kinard <linux@kumba.dev>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Ronald Claveau <linux-kernel-dev@aliel.fr>,
-	Salah Triki <salah.triki@gmail.com>,
-	Yury Norov <ynorov@nvidia.com>,
-	David Carlier <devnexen@gmail.com>,
-	Achim Gratz <Achim.Gratz@Stromeko.DE>,
-	Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Patrick Wicki <patrick.wicki@siemens.com>,
-	Markus Heidelberg <m.heidelberg@cab.de>,
-	Markus Perkins <markus@notsyncing.net>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	 MIME-Version; b=B6Sr0K6EPfITOP1kvBBuEzjsnOr0YX6VWERBKEmoBDU26PbDgehPr+vOhEOGqxMkCH/ZOybHWvKBoZZtbOpEehMWdPjTW2LZCkSghHRnPsXi2iyAEoqU9CHeY4SR6FDEn3P9qogsq+7aTRVqP/YPXqQEYjkg5twXIxYC4r5+hB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=LJVXNCur; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="LJVXNCur"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1784137677;
+	bh=jXukzocMroSC/LDV4VxS0sy9cbxF94ekgzm+m21Hqr4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=LJVXNCurWVpFtvsQH4f8xEcT5wtlQr/+uPhxAD93C7qZBZ4wnr2GCtJ8g+s5+x5/D
+	 quT4YDUfYXU7Uxcs8fM0uemAAVEfrkwLIHrOfDFU63wHWiuqWca/xHKplc4ST59hHv
+	 DKX7T+45HBMVf2gzCniHIA8ddIg0RjgrQOMjQj/h+bodXVJOKh7n8kmpBrihWVo3Rb
+	 zaqMOgaq3QTXHvYnlvYL+YMUSHIZbEWNNTjO0lAHI+Q3pJAfsRLl/j1m/fkYuMf7sd
+	 eUx79FR3qFQ1N15c4bh93M64AX9Y2PwjFwOsrYWjPtL7whB3Q9KqQxFAa9tsuYCbnp
+	 8fG5eLLX+1O6A==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4h0kCw3B9Bz4wCB;
+	Thu, 16 Jul 2026 03:47:56 +1000 (AEST)
+From: Matt Evans <matt@ozlabs.org>
+To: Alex Williamson <alex@shazbot.org>,
+	Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Alex Mastro <amastro@fb.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
 	Bjorn Helgaas <bhelgaas@google.com>,
-	Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>,
-	Chen Ni <nichen@iscas.ac.cn>,
-	Kees Cook <kees@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Longfang Liu <liulongfang@huawei.com>
+Cc: Mahmoud Adam <mngyadam@amazon.de>,
+	David Matlack <dmatlack@google.com>,
+	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
 	linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org,
 	linux-media@vger.kernel.org,
-	linux-omap@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-i2c@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-rtc@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	rust-for-linux@vger.kernel.org
-Subject: [PATCH 8/8] media: ov2740: remove NULL reg_write callback
-Date: Wed, 15 Jul 2026 19:52:24 +0200
-Message-ID: <20260715175229.24672-9-linkmauve@linkmauve.fr>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260715175229.24672-1-linkmauve@linkmauve.fr>
-References: <20260715175229.24672-1-linkmauve@linkmauve.fr>
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	kvm@vger.kernel.org,
+	linux-pci@vger.kernel.org
+Subject: [PATCH v5 1/9] PCI/P2PDMA: Split pool-related cleanup out of pci_p2pdma_release()
+Date: Wed, 15 Jul 2026 18:47:24 +0100
+Message-ID: <20260715174737.15287-2-matt@ozlabs.org>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260715174737.15287-1-matt@ozlabs.org>
+References: <20260715174737.15287-1-matt@ozlabs.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -119,29 +70,70 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This field is already initialized to NULL, so there is no reason to
-write it again.
+Preparing for a refactor in a subsequent patch, split the pool-related
+release code into a new pci_p2pdma_release_pool() function.
 
-This prevents it from appearing while grepping for reg_write in the
-future.
+This allows future compile-time selection of a null implementation for
+pci_p2pdma_release_pool(), when p2pdma.c is refactored into core- and
+P2P-related files.
 
-Signed-off-by: Link Mauve <linkmauve@linkmauve.fr>
+Signed-off-by: Matt Evans <matt@ozlabs.org>
+Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
 ---
- drivers/media/i2c/ov2740.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/pci/p2pdma.c | 24 ++++++++++++++----------
+ 1 file changed, 14 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
-index fb590dfadda1..799eca4023da 100644
---- a/drivers/media/i2c/ov2740.c
-+++ b/drivers/media/i2c/ov2740.c
-@@ -1271,7 +1271,6 @@ static int ov2740_register_nvmem(struct i2c_client *client,
- 	nvmem_config.compat = true;
- 	nvmem_config.base_dev = dev;
- 	nvmem_config.reg_read = ov2740_nvmem_read;
--	nvmem_config.reg_write = NULL;
- 	nvmem_config.priv = nvm;
- 	nvmem_config.stride = 1;
- 	nvmem_config.word_size = 1;
+diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+index b2d5266f8653..498bca257419 100644
+--- a/drivers/pci/p2pdma.c
++++ b/drivers/pci/p2pdma.c
+@@ -226,6 +226,17 @@ static const struct dev_pagemap_ops p2pdma_pgmap_ops = {
+ 	.folio_free = p2pdma_folio_free,
+ };
+ 
++static void pci_p2pdma_release_pool(struct pci_dev *pdev,
++				    struct pci_p2pdma *p2pdma)
++{
++	if (!p2pdma->pool)
++		return;
++
++	synchronize_rcu();
++	gen_pool_destroy(p2pdma->pool);
++	sysfs_remove_group(&pdev->dev.kobj, &p2pmem_group);
++}
++
+ static void pci_p2pdma_release(void *data)
+ {
+ 	struct pci_dev *pdev = data;
+@@ -237,15 +248,8 @@ static void pci_p2pdma_release(void *data)
+ 
+ 	/* Flush and disable pci_alloc_p2p_mem() */
+ 	pdev->p2pdma = NULL;
+-	if (p2pdma->pool)
+-		synchronize_rcu();
++	pci_p2pdma_release_pool(pdev, p2pdma);
+ 	xa_destroy(&p2pdma->map_types);
+-
+-	if (!p2pdma->pool)
+-		return;
+-
+-	gen_pool_destroy(p2pdma->pool);
+-	sysfs_remove_group(&pdev->dev.kobj, &p2pmem_group);
+ }
+ 
+ /**
+@@ -946,8 +950,8 @@ void *pci_alloc_p2pmem(struct pci_dev *pdev, size_t size)
+ 	struct pci_p2pdma *p2pdma;
+ 
+ 	/*
+-	 * Pairs with synchronize_rcu() in pci_p2pdma_release() to
+-	 * ensure pdev->p2pdma is non-NULL for the duration of the
++	 * Pairs with synchronize_rcu() in pci_p2pdma_release_pool()
++	 * to ensure pdev->p2pdma is non-NULL for the duration of the
+ 	 * read-lock.
+ 	 */
+ 	rcu_read_lock();
 -- 
-2.55.0
+2.50.1 (Apple Git-155)
 
