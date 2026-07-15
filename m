@@ -1,87 +1,80 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBE741BA93
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 19:38:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6985B353A8F
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 19:47:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784144298; cv=none; b=tew4xJZZXkRyHP7+Cm8evHtgrbnj2P62yS57aVgKuzLUqTxOA+mMJSuPbZ9yMRNp5CRF1+AqmcjisnMgi4CqSyLk87oWWfnMPZsLHyIifPiL9/c0VE4RgdYdwazTIl5dhoOvJqYIYJhLqG7lfiUTIs+4eCiNrsmpYWXSf7cVcmA=
+	t=1784144876; cv=none; b=eSeWZLFI0Rvhs++wRugH2Gdy8BbRoXdclRcfW7L1mKJaGDPg+FWp45qycRVzbrxK7l+4R+qHNjl3qiR1s+0qz6ISs8ndQst7O6sIjxNF92Akb3xdG2f+kT9yGx+T0vtKcr6gbtjDnJ/VVAm6N1YD7Ne0G6M7MTjUraPVtkFGUKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784144298; c=relaxed/simple;
-	bh=L+5stxk9/TZtemXgYOZ5nKN5EvpNt30z+bEOaUlqXaI=;
+	s=arc-20240116; t=1784144876; c=relaxed/simple;
+	bh=AQ2mAEPbzm04qOGxYXD+C5edEWnqOz9w1cgF2xpS6xI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TEtNJK+trnt+0wD34d+60XNjSCw+czHXhUQpIltDFndllSkg//STF6Skg08AM5aKZ716IVHuvdP1sdIVQ9vH3cGKNrcswqITF6CYEpiStjagLAu5+ig4y86K7XZAGwejsdU0nXWlm7DrRrrdip/+DxV6B6OxAiyK/8BYMVAsEYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CwpYFHGe; arc=none smtp.client-ip=209.85.215.176
+	 Content-Type:Content-Disposition:In-Reply-To; b=Og0ir7zTBxeFhh98ubdk/7lpY6FQzRMOspspAeamVjTiKolAuuXSgvkuWyyTKj/Wj6/xA9mmi/j9v0waRRN7Y3uTP0DhC5S3q916dYW6ICVA6armo6b5nS50dy/Ip+z/dY8Vei4Kjs67XMJgN16Aj2JlKAEiQK1wTpdVVvQldXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rJoxSCXH; arc=none smtp.client-ip=209.85.219.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CwpYFHGe"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-c9eefcf9175so2178233a12.3
-        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 12:38:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rJoxSCXH"
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-902fc790cd5so59531536d6.1
+        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 12:47:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784144296; x=1784749096; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784144873; x=1784749673; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=2/XbfUj40vpAwQblEsfpgBxq5TKOWmuR7bPm/O5WftA=;
-        b=CwpYFHGeavEBoO7/bZTmAn3gie+vzSoAMWCh7H3RNkknWp98+SzJubuI1uufyVS64g
-         oF3pfok/2UBHJ03Od+pBzjysnA7uRfx+jtA+XBQaiGZssXkNM3U5SP2jdM3iIA4QgeQq
-         kQfxNX5gG4vC75bqS84r6e1nH08NPBrmpblm6tURvc92U17LOX9Vpo1BuN+a451rHtHi
-         i509rcEt5PW/LzM5s7NANAhGGnrTEbqFSPVIx5EBsxoe6OJzW+vbTDtUIzHXl/LNMeZv
-         c74M6NVHCR7Woty7UhG5v2lx/nccoEpsgRLpdJOuvxO/SahelQYlM1+EvejnmcfPkBEi
-         LG7g==
+        bh=KEXXjTtbWbMQrJ2ZliFeifCGsiHTYZZHXWoNLTa8NpU=;
+        b=rJoxSCXHFcdsLztytxa/oK5XHs3LLUp69efB9zMFiCVcowdfhSRUcNdq4uYmiuP86W
+         KE4BuEv4KadIeoYvjGxf9Oxkkg20PrtZhz/1JI/zC+RftS9op9ksoh3xTJo3XTf1F9AT
+         1A4L1f2sclIB1B4RrzXyrbk2K0jTJW7kgwEfU/7XbHCmlbSnhY4YLDirDgCx8QuqRqx4
+         d2nilcAn0IqeYf1wv9ouTmiX6xpYD2PdHLRHnxpthYukAs1aC6jC03iFSbeitmXLbHbv
+         0TiBP2JEwASNli4nhAEi50NrybswUlv/IVv/EiejUbs9mdZbzn0Cj1UT3Gf0eAeTelm8
+         krew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784144296; x=1784749096;
+        d=1e100.net; s=20251104; t=1784144873; x=1784749673;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2/XbfUj40vpAwQblEsfpgBxq5TKOWmuR7bPm/O5WftA=;
-        b=IeOpJ7vSwqLkIJbxfFDOfmBH8KEuXnYhMovO9obYfAGPO2PtOiK8mat4z1GtosV/Zi
-         GG40HEMGZ3fVzkYLMp2ZdPMECjSEWu/7a2Rx26ay7j/WGmBQ0SYBJoHhya/ILnSvuM3f
-         RHO7bLTcerRQ/CxUGUEXGvWe/e17G9IgMhLnGz1BKn3R7QsMpKlbZVsyhPLqYlJYujd2
-         Re/ejOHlCHRaXev2EE3Vy7kHttlBw6dNPGyknVj0fxbK3tZDh8NUlwirbSk8abBrA3IV
-         Swnqj598jcLCYD93OnAj6KpA1Td0Hlguc5I8ekTDNMuXf4ShLxWzudmC9yVVW6AqUvLW
-         A90A==
-X-Forwarded-Encrypted: i=1; AHgh+RoZgMGW5Li2Sy4ly2QQEQkh1LWb6zdWsErAXTfY993XtRL+viaJ0AdxeBBWvLym5FYig3Jn6CMUXysYFg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzMSCaaFxJRKPPh4cbN5vY7tiErZI4gtIw23HxG9jI7GBoLdRiG
-	JTFhBRZ0T9jS4zcPo68ycwJnNTgoXpbvSa+vfN1AqsqFlrDIvYzPSiRUGETjrQ==
-X-Gm-Gg: AfdE7ckuIuHgs1TlOxiSmlOOKM2+3rCQCR7zrOxuyCM8f8Xl6l/cKy9r3yd4Y4iuVjb
-	acjQ+5Cvw6vakeuC9lg0wGiE8MgqcT9N8FTO0jw2W587qM9//W9vex50MJJ/6Y7ny8Ak0J9dbbb
-	b2zEW6GlOWDqR6qDJtGhebv7kxh0oYahkk5yHuHm9KLLcPZBSArMKVIReuwjCi/O4IzXXc2l4Z7
-	kp6tJ5hE4i/e6CGJZaP57xGPPnS8VtIXQbpkwpRDNBQNPxrZrb6dKcJRHuSryFlVZtNwx2ZdRks
-	v0qp94oGt0PJsiEGN4qdNKIuGgou4o+7pfK8wLLNPpeDv8sy+GeTQIu9MrRW9A4sVTrTdwVjJKV
-	fcXuxelBfSDFMToFdEuU9EVmuRZz9doELDvt0q0Xu0n07LyvoGzu5Gl5HFsYo33dH9E9Ps/yXsy
-	1RHVuWPHZAFWBwNtmvqhms0ZbX6KpYA2FWnNoeyKRuL8UZPUQSAYEY
-X-Received: by 2002:a05:6a21:6088:b0:3b2:8685:1473 with SMTP id adf61e73a8af0-3c1100092c3mr20598553637.7.1784144296264;
-        Wed, 15 Jul 2026 12:38:16 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:575a:5ca:2b13:aa89])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3140e6a4866sm3682479eec.18.2026.07.15.12.38.14
+        bh=KEXXjTtbWbMQrJ2ZliFeifCGsiHTYZZHXWoNLTa8NpU=;
+        b=EDBPJKPHtuNw4BawBbH6PXs6s0tHY9tBpAN/H2gweljPbwYUm1t9tOYgXBCrv8nZ6b
+         ChoZEClpWJIwUXU8LMO7J1Zang5ts54XnRPndkKTly+uZ5Yk4L4CmLBs06e58GsuTt07
+         icnMEbRksLOSPeo/Fubi5z/7f+iv3lua9Ckr6W2koUhjB0KsevrM4vFqoVZkEtuluW7t
+         FfzjTO5kWo/pPwJvS5aBrUqt1MmUg1bs70njxUd0vzzuRxSUSNfwiSk+jwGWEZsc7kIN
+         dpkDEyPPzwq4o+hTiBXgMcoA6TFLjrVmtoQ+c1Wb5JoMJ2bQZbtRwBpsNR2B74bSo7T4
+         FSzQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpArvvV31eK38SYdPLFUeB3R0oot81U1kJR0IB546Q0zNviRCOqN4gy8TwUotFpcSsxSnhyBBbORnlwvg==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyi0ikpb3LW0nK2FHiDvSdYyOVkp2DBDXVP22Zd184NX9t1hfuo
+	O1bbcBVZoGhVFJuUoufTYvUeG6c0+E3rkXFJVGMn4hKbpher0vq4UaFQ
+X-Gm-Gg: AfdE7ckVRz8GrANKLs2IeQSrAVuVZEyvGalPxbv4v9YaSmHoo1TPPNnJZ1aPy3q7QyW
+	2hulEJN61YmLW7Fvesn5dNngeBESM1ff8RGfXVpF7xY5ZibUf+TplNBDTJexgBnQmuzdx9Jw6rM
+	cP51Bw+bOrfuueqzMDRkWayYInhn36dpk+VW0AA46BuV/WzxIQAFFlT8dyUc/F8sK+BZSr+74jZ
+	UWq7lZskyOoXu/Adc5DOiNvW6wOekEg6/9aqmv9YC+9+RY2uQUyMEukC6f/l5xYlOuIaDHynXau
+	nRengzr61Tlk+YS1t2jQAj5mmeTvL7AexPt6mbVNTx3RYwI6f77LsCU5uoPRSI2PsArohXoAc61
+	eF9Uc26TJEasNCce++6FL5KfuOAjhfszejy/V7BKwFT0g/wDMeOEqFmf8iK3bZsNLdwYAVH2YyU
+	CYwnBjJr5jwHikffFR4icW/YSK
+X-Received: by 2002:a05:6214:c4c:b0:8ff:496e:1071 with SMTP id 6a1803df08f44-90747c2eeb4mr111182776d6.1.1784144873147;
+        Wed, 15 Jul 2026 12:47:53 -0700 (PDT)
+Received: from localhost ([174.89.92.200])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ffd87c8d4csm218276946d6.44.2026.07.15.12.47.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 12:38:15 -0700 (PDT)
-Date: Wed, 15 Jul 2026 12:38:11 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Derek Barbosa <debarbos@redhat.com>, 
-	Matthieu Baerts <matttbe@kernel.org>, Konstantin Ryabitsev <konstantin@linuxfoundation.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, users@kernel.org, 
-	Linux Media Mailing List <linux-media@vger.kernel.org>, Stephen Finucane <stephenfin@redhat.com>, 
-	bpf <bpf@vger.kernel.org>, Chris Mason <clm@meta.com>, 
-	Christian Brauner <brauner@kernel.org>, Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <alfgkG4iSC902tZU@google.com>
-References: <20260710083845.23c753ca@foz.lan>
- <87wlv2jq4t.fsf@linux.dev>
- <20260713095538.3d5e86f1@foz.lan>
- <20260713094120.GD1127719@killaraus.ideasonboard.com>
- <20260713220427.582b28bf@foz.lan>
- <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
- <20260715005909.GF1656185@killaraus.ideasonboard.com>
- <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev>
- <20260715163921.GH1778116@killaraus.ideasonboard.com>
- <20260715174153.GB3846105@ziepe.ca>
+        Wed, 15 Jul 2026 12:47:52 -0700 (PDT)
+Date: Wed, 15 Jul 2026 15:47:41 -0400
+From: Richard Acayan <mailingradian@gmail.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 02/21] media: i2c: imx355: Add support for 24 MHz
+ external clock
+Message-ID: <alfj3XIkX-2O5BGp@rdacayan>
+References: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
+ <20260715-media-imx355-v4-2-f7f966fb9ffd@raspberrypi.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -90,53 +83,45 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260715174153.GB3846105@ziepe.ca>
+In-Reply-To: <20260715-media-imx355-v4-2-f7f966fb9ffd@raspberrypi.com>
 
-On Wed, Jul 15, 2026 at 02:41:53PM -0300, Jason Gunthorpe wrote:
-> On Wed, Jul 15, 2026 at 07:39:21PM +0300, Laurent Pinchart wrote:
-> > > Yes, assessing whether AI report is "real" is work, but it's not
-> > > reasonable to push this work on already overwhelmed maintainers. And
-> > > if AI is wrong, again it's the job of the author to convince the
-> > > maintainers it's wrong.
-> > 
-> > We disagree on this as well. This would force contributors to constantly
-> > justify their value against a machine that is known to produce a
-> > non-negligible quantity of nonsense. Furthermore, if those generative AI
-> > tools are as good as their supporters claim, the time they free for
-> > maintainers should outweight the need workload to triage the comments.
+On Wed, Jul 15, 2026 at 12:43:15PM +0100, Dave Stevenson wrote:
+> From: David Heidelberg <david@ixit.cz>
 > 
-> I feel Sashiko and this whole AI world has created alot more work. It
-> is not saving time at all. Now I have to go and read every Sashiko
-> report to see if there is something important that normal review
-> missed. I have fix all the drive by 'this is already broken' stuff it
-> finds. We get way more patches than we did before. Now *everything*
-> has to be looked at more skeptically if came from some AI slop. I get
-> crazy real security reports that need special hand holding now that we
-> never got before.
-
-No, we are just becoming aware how awful our code actually is and how
-may issues have been overlooked by experienced developers and
-maintainers, not even talking about junior contributors.
-
-So save all these "pre-existing issue" reports in todo/ and go over them
-when you have a chance.
-
+> The IMX355 sensor supports multiple external clock frequencies,
+> including 19.2 MHz and 24 MHz. The driver currently supports only
+> fixed 19.2 MHz input clock.
 > 
-> Even on the submitting side now I have to run patches through all
-> kinds of AI tools to have a solid chance to navigate the new guantlet
-> upstream.
-
-Yes, I experience the same. But that just shows that we are not perfect
-and prone to making mistakes.
-
+> Refactor the clock handling to make the PLL configuration dependent
+> on the external clock frequency and add support for 24 MHz. Introduce
+> a table of clock parameter sets and program the corresponding EXTCLK
+> frequency and PLL multipliers to maintain consistent internal VCO
+> frequencies across supported inputs.
 > 
-> We aren't saving time, or creating less work. My hope is we are
-> creating better quality, higher security and less bugs.
+> The PLL settings are adjusted so that OP VCO remains at 720 MHz
+> 
+> This preserves existing timing characteristics while allowing systems
+> using a 24 MHz clock to operate correctly.
+> 
+> No functional change for existing 19.2 MHz users.
+> 
+> Assisted-by: Claude:claude-opus-4-6
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> ---
+>  drivers/media/i2c/imx355.c | 77 +++++++++++++++++++++++++++-------------------
+>  1 file changed, 45 insertions(+), 32 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+> index ac59908f57aa..a6ee7532018f 100644
+> --- a/drivers/media/i2c/imx355.c
+> +++ b/drivers/media/i2c/imx355.c
+(snip)
+> @@ -1749,7 +1756,13 @@ static int imx355_probe(struct i2c_client *client)
+>  				     "failed to get clock\n");
+>  
+>  	freq = clk_get_rate(imx355->clk);
+> -	if (freq != IMX355_EXT_CLK)
+> +	for (unsigned int i = 0; i < ARRAY_SIZE(imx355_clk_params); i++) {
 
-I believe we are. Hopefully as we are fixing all these pre-existing
-issues we will be seeing less of them...
-
-Thanks.
-
--- 
-Dmitry
+Did we start allowing variable declarations mixed with code?
