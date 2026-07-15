@@ -1,215 +1,89 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from esa1.hc555-34.eu.iphmx.com (esa1.hc555-34.eu.iphmx.com [23.90.104.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A44C481649
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 14:38:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68328481A9F;
+	Wed, 15 Jul 2026 14:38:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.90.104.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784126298; cv=none; b=qqe4NAmQw9mQ75i9tiT0+Ll1sc2sT/f8qWsjqbMoArgKi+FqkAN0I0xhzpC4Uokw1Ty0ZTPMtHjs0xjV4Pkk5VZCL+1OjaO64cxzQ9+htC8RvbEnP5ie38YrAAgyguah2xeiVbujJsmf1HHfpLXolZIwZTZ7Tk0HPTwMbz5qzNs=
+	t=1784126330; cv=none; b=Rt6IeiQkOS0oBpsYQ/aZJSzFF1lNSedup4Dzr4ey0pZlLYJXNW4BCS3doGJ1ZcNRPgo+qzit5c1Dh4M+FXALatwWXW1hg+ZVygdoA5HJc8+LYC4omxc2PyiiZqrEXO14hOlZ/HNj953RcFZ1/H3VGLdQ2v9dBSjesTA4XHXL114=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784126298; c=relaxed/simple;
-	bh=wX3Ll/K9AqfiEwdJ+/jIgOd2YH34L+aERYOqL9rnsBA=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=s5JwG0bthG7lQOBCRhO3tLWsKRIPbBM8sXd4wC+/7BDs4h/HQ24oatIe2dVeuwoce9iy0y7ffpmC3NP9VtAa9c+bPk4nZKDvkeN4cg0nD9bVnS0VOGlO2fL7scLDjDuXTKat8fh699XkxSx2IcoBHmH6NK+TLECLDFY0xAgH/Ys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tT5sI22E; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784126330; c=relaxed/simple;
+	bh=vDeU+4zPoXa2rfas9DIJC/ack9B6GVrM3PJsqOJIVfM=;
+	h=From:Date:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=sM83nd7zmfgLrlRdMibDX8WouKyABQ7SJNNUS9m0msMRXiyRdhRpwS/HGyFVC3kJSlUdJSsEfz+r8QR+qssEkhUV0ngeVINpkAWfZBkm/lI5yGx23xqDa2aPlvsOepOMf2illok15Pc8tzG0b/rEe622ihUGmETADNVgR1u4dJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com; spf=pass smtp.mailfrom=mobileye.com; dkim=fail (0-bit key) header.d=mobileye.com header.i=@mobileye.com header.b=WC1Ycaot reason="key not found in DNS"; arc=none smtp.client-ip=23.90.104.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tT5sI22E"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:66a6:48e1:9e1:50d5:c75c])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 79DED12D6;
-	Wed, 15 Jul 2026 16:37:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784126235;
-	bh=wX3Ll/K9AqfiEwdJ+/jIgOd2YH34L+aERYOqL9rnsBA=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=tT5sI22EzwCVqcrkv2J/A02yE3RdrCWzRGO4/rgoJDMBFZxi9ykBNwxPBZvzRYyGs
-	 YRRhYH1hgwTMn82PDLtHuVUA/1MUK8XyVzUjdvGksyXTd1uo+S0WOCsheMFWcbFyWD
-	 YUrS4LA2X7U5KG2jef4VZ4FIKuEV7khJxE9khI38=
-Content-Type: text/plain; charset="utf-8"
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=mobileye.com header.i=@mobileye.com header.b="WC1Ycaot"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
+  t=1784126324; x=1815662324;
+  h=from:date:to:cc:subject:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=vDeU+4zPoXa2rfas9DIJC/ack9B6GVrM3PJsqOJIVfM=;
+  b=WC1YcaotmxTUUN6QFrEJZciRPQ76AqPI3QLM5tXm2soW3GVZdMwGwbuu
+   rAr12i0kQ96GhSRzSCyy/BKvhudhd/IBpw7AJfeSec/emVgshAlpPPMK+
+   iABrTI5Lyh0BVW5nRbTMeHBeYtXaJAOVNSnwU3bPNUV81IgEMH1H/v0kb
+   KMI7me0V3ooC+YMItrFeaj0XcS7mKTMimDW3l1eGWPPtSrG8IOeNDm6fN
+   QPI7Jgwnpwp8nAqbI61KeMGle0CEWNbgYIN7AXLr8BiZjWYYyoUymWHav
+   1TxNhfthVSW+IKQMOK2PEQ8Xwb/LAPoDncreEEcv4Uufu4FrRoHqt/wzF
+   Q==;
+X-CSE-ConnectionGUID: 9+Hv93NfTjm2qOkkC0ya2g==
+X-CSE-MsgGUID: 585qebj+SyC5NYuBDsN/ZQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from unknown (HELO ces04_data.me-crop.lan) ([146.255.191.134])
+  by esa1.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 17:37:30 +0300
+X-CSE-ConnectionGUID: Z+9tdsEtT2W3xzX1rtWN6Q==
+X-CSE-MsgGUID: TKtZWjU+SviYd6krL0Q0FQ==
+Received: from unknown (HELO epgd056.me-corp.lan) ([10.154.54.3])
+  by ces04_data.me-crop.lan with SMTP; 15 Jul 2026 17:43:04 +0300
+Received: by epgd056.me-corp.lan (sSMTP sendmail emulation); Wed, 15 Jul 2026 17:37:29 +0300
+From: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+Date: Wed, 15 Jul 2026 14:45:58 +0300
+To: Aniket Randive <aniket.randive@oss.qualcomm.com>
+Cc: mukesh.savaliya@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
+ andi.shyti@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com,
+ linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ naresh.maramaina@oss.qualcomm.com
+Subject: Re: [PATCH V5] i2c: qcom-geni: Add dynamic transfer timeout based
+ on transfer length and frequency
+Message-Id: <20260715144558.abf5078829bfd2a0973019a9@mobileye.com>
+In-Reply-To: <20260715101805.3615166-1-aniket.randive@oss.qualcomm.com>
+References: <20260715101805.3615166-1-aniket.randive@oss.qualcomm.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260715135711.605907-1-sakari.ailus@linux.intel.com>
-References: <20260715135711.605907-1-sakari.ailus@linux.intel.com>
-Subject: Re: [PATCH 1/1] dt-bindings: media: i2c: Add Sony IMX678
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Rob Herring <robh@kernel.org>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org
-Date: Wed, 15 Jul 2026 20:08:05 +0530
-Message-ID: <178412628543.1426769.352759015067977932@freya>
-User-Agent: alot/0.13.dev35+g4a69c46ca
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Sakari,
+On Wed, 15 Jul 2026 15:48:05 +0530
+Aniket Randive <aniket.randive@oss.qualcomm.com> wrote:
 
-Quoting Sakari Ailus (2026-07-15 19:27:11)
-> Really add Sony IMX678 bindings this time. Those were accidentally missed
-> from commit 447ea0c26e57 ("dt-bindings: media: i2c: Add Sony IMX678") even
-> though the original patch included them.
->=20
-> Fixes: 447ea0c26e57 ("dt-bindings: media: i2c: Add Sony IMX678")
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> This replaces the fixed 1-second timeout with a transfer-specific
+> timeout while preserving sufficient margin for software overheads and
+> bus-level delays.
+> 
 
-Thanks for the quick response,
+The dynamic timeout may be useful for any I2C bus controller, not only
+for qcom-geni. Structure i2c_adapter already has field "timeout". Isn't
+it worth to move the timeout calculation to i2c-core, so that the core
+updates the timeout field in i2c_adapter structure, and the controller
+driver just uses this value, instead of duplicating the calculation in
+every driver that will use this feature?
 
-Acked-by: Jai Luthra <jai.luthra@ideasonboard.com>
+Also, such parameters as I2C_TIMEOUT_SAFETY_COEFFICIENT and
+I2C_TIMEOUT_MIN_USEC may be configurable by user (for example, in
+device tree) for more flexibility.
 
---
-Jai
+Best regards,
+-- 
+Dmitry Guzman <Dmitry.Guzman@mobileye.com>
 
-> ---
->  .../bindings/media/i2c/sony,imx678.yaml       | 130 ++++++++++++++++++
->  1 file changed, 130 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx6=
-78.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml=
- b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> new file mode 100644
-> index 000000000000..098f72544216
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> @@ -0,0 +1,130 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (C) 2026 Ideas on Board Oy
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Sony IMX678 Sensor
-> +
-> +maintainers:
-> +  - Jai Luthra <jai.luthra@ideasonboard.com>
-> +
-> +description:
-> +  Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid=
--state
-> +  image sensor with a square pixel array and 8.40M (3856x2180) effective=
- pixels.
-> +
-> +allOf:
-> +  - $ref: /schemas/media/video-interface-devices.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - sony,imx678-aamr
-> +          - sony,imx678-aaqr
-> +      - const: sony,imx678
-> +    description:
-> +      The IMX678 sensor exists in a colour variant (IMX678-AAQR) and a m=
-ono
-> +      variant (IMX678-AAMR). The variant-specific compatible describes t=
-he
-> +      exact sensor variant, with the generic IMX678 compatible as a fall=
-back.
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    description: |
-> +      Input clock (INCK). Only the rates listed in the datasheet are sup=
-ported:
-> +      13.5, 18, 24, 27, 36, 37.125, 72, and 74.25 MHz.
-> +    maxItems: 1
-> +
-> +  avdd-supply:
-> +    description: Analog power supply (3.3V)
-> +
-> +  ovdd-supply:
-> +    description: Interface power supply (1.8V)
-> +
-> +  dvdd-supply:
-> +    description: Digital power supply (1.1V)
-> +
-> +  reset-gpios:
-> +    description: Sensor RESETN (XCLR) GPIO
-> +    maxItems: 1
-> +
-> +  port:
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      endpoint:
-> +        $ref: /schemas/media/video-interfaces.yaml#
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          data-lanes:
-> +            oneOf:
-> +              - items:
-> +                  - const: 1
-> +                  - const: 2
-> +              - items:
-> +                  - const: 1
-> +                  - const: 2
-> +                  - const: 3
-> +                  - const: 4
-> +              - items:
-> +                  - const: 1
-> +                  - const: 2
-> +                  - const: 3
-> +                  - const: 4
-> +                  - const: 5
-> +                  - const: 6
-> +                  - const: 7
-> +                  - const: 8
-> +
-> +        required:
-> +          - data-lanes
-> +          - link-frequencies
-> +
-> +    required:
-> +      - endpoint
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - avdd-supply
-> +  - ovdd-supply
-> +  - dvdd-supply
-> +  - port
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        camera@1a {
-> +            compatible =3D "sony,imx678-aaqr", "sony,imx678";
-> +            reg =3D <0x1a>;
-> +            clocks =3D <&imx678_clk>;
-> +
-> +            avdd-supply =3D <&camera_avdd_3v3>;
-> +            ovdd-supply =3D <&camera_ovdd_1v8>;
-> +            dvdd-supply =3D <&camera_dvdd_1v1>;
-> +
-> +            reset-gpios =3D <&gpio 0 GPIO_ACTIVE_LOW>;
-> +
-> +            port {
-> +                imx678: endpoint {
-> +                    remote-endpoint =3D <&cam>;
-> +                    data-lanes =3D <1 2 3 4>;
-> +                    link-frequencies =3D /bits/ 64 <720000000>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +...
-> --=20
-> 2.47.3
->
