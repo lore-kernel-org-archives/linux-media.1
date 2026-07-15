@@ -1,112 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f3.google.com (mail-yx2-f3.google.com [74.125.224.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A3D448D07;
-	Wed, 15 Jul 2026 19:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDEA400986
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 19:57:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784145342; cv=none; b=PfSuojasJ6moohdJaA5R4brHZ7JKpyDAZorXusBNhyS27Unr5MieV/X2ckrCZ2FGi/qTcAkqOJOflTpeMW+TN4gH8XuHy2YuOzHTLra1wV8zQuD6MFkBIw/gjGPvtj6y1rVe7hc6K2Wx2T126wFaeT0CjSuAozfQn5WBwGjXFF0=
+	t=1784145437; cv=none; b=AbD4GRwCN+wjoz8VkH4JNzF4oJejLS5w+qIfca/lAppZg4LGhZORue1BjXj2MrNgvz3OeiXpgogHWNXuoCpz4e333YuWaZxYOH+uO3SgNvctoWPZp9LtZYHPT3Nzr1r8cFPz53EWsLkMTpM203JEFOTNNVaFSDfA0JHELw9T5Ho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784145342; c=relaxed/simple;
-	bh=bf3M7qsXxOCj54QXsTfVzp962EZ9CW8ixd4NFvp8KlA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qqsU6a96kkN+P0i+epUlW7W8Nbnzq56QlVzbHUegn0qkT1euJ6gV6q3yv9fh21fScMjcltDxuPMYrcu009vXfJ/qUIRslbcRjJQhwbdbCPFXMrlihacTkWgD00057bixv4CjqrQHi1QyWKV69kbT452YO0JBR4ezdZVd1r91mJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PVg7LMq4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784145437; c=relaxed/simple;
+	bh=dWqB7+bvcc/NBuM3f79bt9xVLBZ3QNYcA1WJmcoPBwo=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cAQzMSSQUUcrKiYnqkG2hbL/wBR8BIpKvvPVpttIAAd8//6Ux+BQ0/6y26CXrRd1nesJ8BMcqKScenGVVnPVCPaslzLpTxZrevDKbdGvvGpaMNi1dJPDMXpTnzKSSEmph39N0w8b8xwZ+vTLEBDute77EyPAp01fzEZs75tmQQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KPlABJkp; arc=none smtp.client-ip=74.125.224.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PVg7LMq4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 528EA1F00A3E;
-	Wed, 15 Jul 2026 19:55:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784145340;
-	bh=GwptbYX8KpQf9RM+RIR7cY+rOii/93/U699sbdy55oM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PVg7LMq4jhrPzNJOPT94pXoP/jsHBV6xVcbj3ljXe5cpGKaGfo1NEbHCcyMPbr51N
-	 DnY5g6iX8hLD8T4/zKR/JJuE0HX0ag+0jajfsCxwAn9y5t5cs1MkZqa95iFVDiQrSh
-	 TelyBtV2Okt1HJysYORcmDzHHgmwnT12ewreHMv7cf2sITcI6NYtB9rYkaZu9iGK5h
-	 k/lw1WWBh7Y/BmGZcOrjRAOFIX3+Z9hjkdvgr4crL9+VBDHzQpv6PYSBYeuw33mfFl
-	 Mz878PHAYgqG3g/Jn8AlaROM+bPpYgoE3eoK59IntlXnjCJmPIQNszZ3YhoHossuBL
-	 pM0y+AwOdSPqg==
-Date: Wed, 15 Jul 2026 20:55:34 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Derek Barbosa <debarbos@redhat.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Steven Rostedt <rostedt@goodmis.org>, users@kernel.org,
-	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Stephen Finucane <stephenfin@redhat.com>, bpf <bpf@vger.kernel.org>,
-	Chris Mason <clm@meta.com>, Christian Brauner <brauner@kernel.org>,
-	Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <125f38a2-9239-4b8a-9cb8-04bb00409e12@sirena.org.uk>
-References: <87wlv2jq4t.fsf@linux.dev>
- <20260713095538.3d5e86f1@foz.lan>
- <20260713094120.GD1127719@killaraus.ideasonboard.com>
- <20260713220427.582b28bf@foz.lan>
- <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
- <20260715005909.GF1656185@killaraus.ideasonboard.com>
- <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev>
- <20260715163921.GH1778116@killaraus.ideasonboard.com>
- <20260715174153.GB3846105@ziepe.ca>
- <20260715191046.GL1778116@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KPlABJkp"
+Received: by mail-yx2-f3.google.com with SMTP id 00721157ae682-81daac601a1so18655457b3.0
+        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 12:57:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784145429; x=1784750229; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1wq8otHP0LCRNgmPzcboIygw2YeAuXCKv3ifkhHU0zI=;
+        b=KPlABJkp/HaRVWwjuV68joY9ose2xTzSXck5MdpD6uoXZfzic4dsjTiTkywpvebJe0
+         Y6VdRAvGgtIY7wNfLiNDKvpKH2ev4NhEU7m3TS7wAUIm8cEJXhJnUx+01PgGlkM43SvT
+         FE9Vjh7GPkuuGKQjCyqP/nZdevuTmqEVD49EI3nnKdFxpELgcS3eYE6dpTudZIQpYoOW
+         ExoxWaXFXDK5OTHCI8CNd3uNweC3eGcjKaEL4HjAyzAngqJfQORDGrRSIxC/vg4gTMM0
+         qO/g+M55LFb3+nbkB+jgFh5IXA10/nom/8ZX/gRMLCOmIM0xt7prkq/HYOOTNK+YD7+I
+         I/mQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784145429; x=1784750229;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1wq8otHP0LCRNgmPzcboIygw2YeAuXCKv3ifkhHU0zI=;
+        b=jhUiUAKXS7kh3TIUcAkOrCcv6UGpVyHm8+qoYMtrzgS94ik8TsjrdmGeM/MJZGwdee
+         d2P4eSRvzT+0JTSFN3UHMdmubu+ZbRgJciH29Vy6R0YENa+KFgCTgAav5tDy/eSMfUYA
+         wytt5JOLNW7qBl77SDbdzBXl4jIre6Dnmjj/AgW3aGIKf8zmU7mDN/9mmTzhDBzwb7AW
+         Dpe2Op+r+WRwdDwwo3nyOhOVdlVmrGR9fRMxZg40wOSpU/9Is4qMgYI21N09SayDvJwM
+         HG5ARHpBm047no0BQ4wpSiHh3GYZG7tHq9TnZKKZORLWPAgTZ5p4LM84cz/ooQzpTfMZ
+         yoYg==
+X-Forwarded-Encrypted: i=1; AHgh+Rqo5oRuIvWJLB8DZ2qltByH6d2bmm0I/cg/NfFzhNf0MHR0wA3vFOJfXow8yGfUiMZcwU6wTZwrVXr5hg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPwGYd9agJDO9ZQBliZFeG2qHmZc0SaI9/S0BJSK8Ie6U4Hsdr
+	870oAovSXPgwe1rg0HgUQN1nFEv5ih/T8EQBNd6Jaj4yIzMIYhJ2y8hJ
+X-Gm-Gg: AfdE7cm7Z+zn6ZS5rioL9sDGfxdxKVXjMWzjK/ZhaMA4ToZ+ItPCKe2SveuzGNjU8/M
+	gM8WIOSLeRFwmhez6oH8FHdbhxE/sGQpD3NxVnjCNkArVSZVC0Z2oExVrYwQ5J17J6EqnzHr5Lq
+	t98SRtrEAWeuil+ypeO0Lr+kUB+5c+zfnmNmiTz3uRB6hvOAs8xtC5TSVB+0DFWEwE6pan4Zgux
+	R2cArvDUwuVrz7a9BvWxJ9tqycXH0EwPhTe6gH4tvbSN26hMA0pOUHhivv7B0d3IeJAw5IKh1p3
+	u5E3LfKkAGduaRPMGP5fqfbLMxXK3nY8XQqZV+RnTwihHkpwUwh7/M9h9fO++RU4prsnrzrDeMx
+	J4/dyzxV+uc5HkdqGHgUWQwDPkJ/3WP5EEzDvhCruqtvGCw0/9A222m1ozX+mU/II6WY4u6gNtZ
+	q914HdkbFYLtKscf68Zf+iYnop/t4H7IzYV4c0bFCI/70OWSUd+01n2CbbDIHzL2tYWIk=
+X-Received: by 2002:a05:690c:e1e:b0:81e:735b:c880 with SMTP id 00721157ae682-81ecf82e130mr31797547b3.26.1784145429210;
+        Wed, 15 Jul 2026 12:57:09 -0700 (PDT)
+Received: from pendragon (76-234-45-214.lightspeed.cicril.sbcglobal.net. [76.234.45.214])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81e7795988dsm162879817b3.26.2026.07.15.12.57.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Jul 2026 12:57:08 -0700 (PDT)
+From: Colin Braun <colinbrauncl@gmail.com>
+X-Google-Original-From: Colin Braun <electrolitic21@gmail.com>
+Date: Wed, 15 Jul 2026 14:57:06 -0500
+To: Daniel Almeida <daniel.almeida@collabora.com>
+Cc: Colin Braun <colinbrauncl@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Alan Stern <stern@rowland.harvard.edu>, Mathias Nyman <mathias.nyman@intel.com>, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-media@vger.kernel.org, Colin Braun <colin.braun.cl@gmail.com>, 
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Subject: Re: [RFC PATCH 0/4] rust: usb: add usb request block abstractions
+ and a user
+Message-ID: <alfgqLpK9PAluzHF@pendragon>
+References: <20260712-urb-abstraction-v1-v1-0-9fa011634ead@gmail.com>
+ <1E924102-5CC7-427A-9FD0-3B15BA1BEAEB@collabora.com>
+ <alVGanOux7SJ5dpM@pendragon>
+ <0CCB6F69-1336-4254-AE1A-5DDC63BCA7B1@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="htwUcSo/8Gvpepxj"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260715191046.GL1778116@killaraus.ideasonboard.com>
-X-Cookie: "Speed is subsittute fo accurancy."
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <0CCB6F69-1336-4254-AE1A-5DDC63BCA7B1@collabora.com>
 
+On Tue, Jul 14, 2026 at 11:35:50PM -0300, Daniel Almeida wrote:
+> I’m cc’ing my colleague Nicolas. He was at the media summit this year
+> discussing a topic somewhat related to Rust.
+> 
+> IIUC, the consensus is unfavorable for Rust media drivers at the moment. They
+> are waiting for more progress on gcc-rs before allowing it, as clang does not
+> fit some of their infrastructure.
 
---htwUcSo/8Gvpepxj
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+This is good to know, thanks for mentioning this. I will table my work
+on the media driver for now, though I might continue working on some of
+it privately until gcc-rs has progressed enough.
 
-On Wed, Jul 15, 2026 at 10:10:46PM +0300, Laurent Pinchart wrote:
-> On Wed, Jul 15, 2026 at 02:41:53PM -0300, Jason Gunthorpe wrote:
+> This doesn't have to discourage you from this work, though. Last I spoke to
+> Greg, I think he was OK with having enough infrastructure to build a Rust
+> version of usb-skeleton.c. You could perhaps work on that? I never really found
+> the time to, but I can chime in with reviews. It's always nice to onboard new people :)
 
-> > I feel Sashiko and this whole AI world has created alot more work. It
-> > is not saving time at all. Now I have to go and read every Sashiko
-> > report to see if there is something important that normal review
-> > missed. I have fix all the drive by 'this is already broken' stuff it
-> > finds. We get way more patches than we did before. Now *everything*
-> > has to be looked at more skeptically if came from some AI slop. I get
-> > crazy real security reports that need special hand holding now that we
-> > never got before.
+I would definitely be interested in picking up this work.
 
-> I'd even go as far as questioning if the additional work is resulting in
-> less time being spent on changes that would address classes of problems.
-> There are many areas in the kernel where APIs are hard to use correctly.
-> Improvements there (and I know there's ongoing work such as Kees' object
-> allocator functions for instance) may pay off better than spending time
-> discussing about one-time memory leaks in error paths of probe
-> functions.
+Unless my first 3 patches seem to be heading in the wrong direction,
+I will integrate the initial and any coming feedback here, as well as
+some of the concerns the Sashiko AI bot emailed me. I'll include an
+attempt at the rust version of usb-skeleton as well.
 
-Yeah, that's been one of the big issues I've noticed with people
-handling the LLM reviews poorly - people tend to end up with very
-tactical approachs for issues that are not at all tactical.  Which is
-one of the symptoms of the stuff the LLMs generate themselves.
+I imagine it makes sense to strip out functions usb-skeleton doesn't use,
+so I will remove those in my next revision.
 
---htwUcSo/8Gvpepxj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpX5bUACgkQJNaLcl1U
-h9D90Af9GE22O8gXkjue7mzzEgOHy5+T4MkNfTEfMn7fYpOfm93fxzvlE0uiBOJ8
-F6YrKpMiKH/J+kM8naVyqvC+kGxjOqK2DqFdjnK9OJPXLIdXvJeErpDSqgnziS17
-sGO21AxmguCnqjDxBApsM8fZ0+turXhM5fnTyBg4ItXvsTRRxCWkhjuo3hO33jaU
-mHRjsjyX+LdJQx+SZMSNtVS6kwD1JhvQMF8pIi3gjVM243i1+N2IJt3sWOH9Q9uv
-FmMLmdLuEv2mQ4vpipUN4MAzRBZatYgXg00LNx9hy3kbsP4LIoxG8vPWG9GFHuRV
-c4sFG8fKDQcWyV7jAXvkTbkuZ0Savg==
-=IFLh
------END PGP SIGNATURE-----
-
---htwUcSo/8Gvpepxj--
+Thanks,
+Colin
