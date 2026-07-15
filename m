@@ -1,177 +1,167 @@
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2715C3B71B7
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 19:27:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784143673; cv=none; b=CQ45i+KIffXCtAzu42K3NLF7m3C8vRD7VoK9hq/GPYrAl937PlJpcPYTb6qRtgdIxebMkni1xfv0RiaDyAHQclnbpeF4ACcrDVNpeuEDvwDc+C4ca4VO042ACjZS0XcbDzvjQSnGwCP/Uc8uMUV5MBo/CMh7zEPecRhPPUeGpg0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784143673; c=relaxed/simple;
-	bh=RGOrQzSOXk0x1hDDZjWhmMo6oyf7CP66RHdHJmLveyQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VjPs7CfCmsrGyu4/SKDOkKEYsS3tJEvRFOKZP8AKKbqNYWhKBQJ6nZrqjYMKtRSFX1ARNW4THQu4RT+THvO/Ovv+j7VJJfhhe81V527PmCGjBEk+Gw4OqDmoy+/ff2g2E6mlviCF3gtJV+yZtnMJrLJhAFfsvjM2b6Pmr9EjjFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=urLwba9p; arc=none smtp.client-ip=209.85.160.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2072A3B635E
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 19:27:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784143679; cv=pass; b=d57PluF62s2HTxlmlyJGf2pQBmE369S/GI7oDX0SkjwB5kbRZZxmDL70Mco3YA3FE8MsFTxE8N0w9stX1L0x/n6zulP4TYCWj7nz83oOj+4oszIYnzZidh4eF4nehRVsSuqB0KEIfUlIOH2G7pZtxpLdbrfVqbOmU9FTlY2dSxs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784143679; c=relaxed/simple;
+	bh=gNpBvHU8A+yPMg6gVfkM8fNj3ETnZV3pNYTn3k5ENWg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=isc1RbwvBshhnZNPevj6HYEgqp71RGlX8bojudp+Q8BiJanLonC1BcxGk0V8sIhgeEa3gfG7XwQVkkc3QUYUjxZ6dm2qaKBtXu7jw6gmFGHlT6XWQbjteY0tknzz1RdUX1zWe1rJoRd5UsAoM/E2Bll5UvPaJ23W6vyzAGp7b5U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eygUc0HI; arc=pass smtp.client-ip=74.125.224.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="urLwba9p"
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-51c928bf172so39036071cf.3
-        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 12:27:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eygUc0HI"
+Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-664f5750b02so720416d50.2
+        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 12:27:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784143672; cv=none;
+        d=google.com; s=arc-20260327;
+        b=I4tHgJsFpEJ1yRVFYTo06Zs8OgbK8mjAaeDNFL0Uwgehci3OZ5eCqlGN8tyd9Ea1xG
+         sVRbtJ0YrzrVGh2zfuIeU4JmnPPdJ9vStlxEeD7BROPqz/Jk8+YpNP5yG0ymP9Cx7pJg
+         DRMIBvgtClO/Qu9tBPQ3qfg9PhQMpYHO1JFe05kcu+QJOl6EjUHfJ4jNBLClIYJIcCj/
+         ePf3lZUC0CGO/8iW9YZ0BF8lDX8p9Nq8hNd9jwX5W0SeZql0XCpRgcUzXk/oyp8Jb4K0
+         KM41AOeSHQvH2cNKb4wWo1QimTyoPdAUTpmcDTNVknGBBUtk6oZ9MRenSQ47LYbC3qw0
+         PoLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hsRdDVwrcLCLoPjF0Dp3de0ewZAnett3co8GPU5q6hA=;
+        fh=JviK1eCqMsFjeX+ZsO6MKTawD4zro86mcsr1S7DvGKY=;
+        b=OgO+XDGL3yMremTSHcYj6harri/wLNyxuJgALsQTQ2xTZPnpPPqQfGACgYgiRYyqfR
+         HNmhi/8NoEq7HlqQviTL0wv61JIJvu33IVpOknEoBm/q74TR0TF0wkv/jfLgqSp9wKhO
+         x6H+tKABkpZYMYYABAoSPquFSwF4gTwjy57mNhBF+WdJaWZTGcEyp/vYx8ZzZLYKwCyU
+         OyqEyTgk5ubVRTLqHUnD85thYnRBRKOYkIUNC6jabvsHIW7hTYX+vCXKi5tvfM/kGx2x
+         4kI5YDPsalKDfBB4xWCX6kjciKsN+fcuX0tnySvkNsJWsq2m+BAS2dT86A9adZfyji2M
+         LK0Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1784143670; x=1784748470; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1784143672; x=1784748472; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=RGOrQzSOXk0x1hDDZjWhmMo6oyf7CP66RHdHJmLveyQ=;
-        b=urLwba9pmagBjFFLL+wnEzaeKINyAWsQrt3xUICshfoFuqlnasWGlfBqJy+1wketpF
-         YR0MJ2VRHGyCxaUGfF3FunomL06eqMlhy1M9g9HZYO9/fum+boyb2iOkHmmDeqmNzkvg
-         S+8+zb6y4O4ro17yWxP6dEfvtBz0SwByLAeuDi0Wtc/8TBI+FJ/FiNUvPVuYvDC+uJRF
-         sDbO2ulV4ODUZM9ANzAAPDSBvBbVuewyJSU/fzkuAfYi9HiyXgNZI7RwqS9lrZQa/NWj
-         rjwHcjd+nYAl0JNo1Bc04go13ENlIJco0AWB3T7bgg2tZwz8sAL2o4ydicTZAQu1/CQ3
-         UaTA==
+        bh=hsRdDVwrcLCLoPjF0Dp3de0ewZAnett3co8GPU5q6hA=;
+        b=eygUc0HII9ARkv58QmFYFm5CvdgvR+7aFzqKWydSQTl2RNRB3pg6D2c7CEUPql4zqA
+         CbJOuEalaHXOhJKXBDWfVdsPuz/SSkIx61pzs7Uhk310pNdr6NBlZLlMQhF0wpiqgc/A
+         gqlxxKaaFtmPI+l+CGDd4ADjlUIUzZ+2ThftpLcKqD2xE0c37WEcCtm/qVPfvorE+lmt
+         WJcx/29BlGSl0SgUBe8XqLTi4FsOobCbsC+AvLUTXHMvg/4g2Tg0Zm/sZsHNTN877eXB
+         A6xNZ++08JClw7VCAR0Wm0sMozBz5A71U6IWOT7Nn7zmXwV8P7MVerCf89rKL+if9H8i
+         33FQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784143670; x=1784748470;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+        d=1e100.net; s=20251104; t=1784143672; x=1784748472;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RGOrQzSOXk0x1hDDZjWhmMo6oyf7CP66RHdHJmLveyQ=;
-        b=VaTVhDEpILBQiZCKTqcUCTURIw53/ZRmJrBkLWTgPTgYp8e9FfoWEXCPuYgrTJpLeV
-         3pwkDWeO7SKekPI8eWAmrLmGOJGZc2hoG8pT5Kym6c2eGslmGoXuozdrvG1o3ea8zmZc
-         id1YeHyc8++96bmeLWA56HFDqahDO8kgZzCwH8xCIevIc4pQs7OvDevA034YX30Hed0n
-         JXvmXLE4K7EkQB1l6Rz9gDf1P41z9LxTcqwaPjPGtaHXmZsGPi/7VUyuFh53vMqwd9PS
-         SkTlWLVz5JjntpkFbkBtjLnS4wB5vYrafSW9T5eK7VgB9SHwFe1McX64tsvQHYH+j4vv
-         DqaA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqr9enX+yRbAuii0Qtf1qyrCFyWmj/u+nZmotz9vublvzwlwOOvX/g3ym7tQqB/59eyXl7CNPuDDaibXA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxADB91QAcaf9Tve+ItedMbdAn72nKl82c1zcUjvonh5vi0dHnV
-	pkytEdOg6vnmgP/z85MRj5IwJ5CyU2mxyKiS1RUMMasEFi+3LWj/vbvWDNTKh0/xrDM=
-X-Gm-Gg: AfdE7cncvE0nYKwzc+oroZ7r47kRLG4IwrpegzdU+pkvz8l2/ftgt5PJW6XwoHiyknj
-	OpaZozOD2PS2XdkXQHal9R8hK5oEfJ8MXeJyo2ATSVblBJ5gpOJn/qWeoeur6s+uF9Jziu1uVuD
-	E8nZ5MGeV7vJuS6VmEWLSbZt6ROcL5aVda8+RRimbOzSz0AnFEW9OtgRK52yod6ZWg/B17ij0sx
-	WZ87/Q95aONn9dHl52Ryqd0DnMrHe66oyxInODWq0FN2GFkfcDLkujEPC0hfUQog/n7Iql3U+60
-	MueSrg+jwLcCvr6K9RFrI5oH+laodqgVDCiH2paWwjZbAKq5jfUGUE9Gnu6rcCAb8ioEwoGxAR7
-	esvNHc3UQVP1L89xUF8S32GPXbjRHz4PkXqf0T1JhRSwQox/XJG+uOEIjGhtUhTbCSPmo/1yhiM
-	b2pID6WGouZty3p2lsDw==
-X-Received: by 2002:a05:622a:349:b0:51c:7b12:5fdd with SMTP id d75a77b69052e-51e42496c44mr71813071cf.73.1784143669422;
-        Wed, 15 Jul 2026 12:27:49 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e06b::c41? ([2606:6d00:15:e06b::c41])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51caace31a4sm145497671cf.12.2026.07.15.12.27.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 12:27:48 -0700 (PDT)
-Message-ID: <8061fd3d27432ba0b42fb398d70f56fabc2ee586.camel@ndufresne.ca>
-Subject: Re: Linking Patchwork with Sashiko?
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Jori Koolstra <jkoolstra@xs4all.nl>, Linus Torvalds	
- <torvalds@linuxfoundation.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Derek Barbosa
- <debarbos@redhat.com>, Matthieu Baerts <matttbe@kernel.org>,  Konstantin
- Ryabitsev <konstantin@linuxfoundation.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- Steven Rostedt <rostedt@goodmis.org>, 	users@kernel.org, Linux Media
- Mailing List <linux-media@vger.kernel.org>,  Stephen Finucane
- <stephenfin@redhat.com>
-Date: Wed, 15 Jul 2026 15:27:46 -0400
-In-Reply-To: <20260715191216.GM1778116@killaraus.ideasonboard.com>
-References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
-	 <4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
-	 <CAHk-=wi4zC+Ze8e+p3tMv8TtG_80KzsZ1syL9anBtmEh5Z40vg@mail.gmail.com>
-	 <aldx9KiAHM4CRI0m@lt-jori.localdomain>
-	 <e536800d8a84b99f34a79c590f57cd68cdb50e57.camel@ndufresne.ca>
-	 <20260715191216.GM1778116@killaraus.ideasonboard.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-ST9VeWw9FlW5JJ0Aj5re"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        bh=hsRdDVwrcLCLoPjF0Dp3de0ewZAnett3co8GPU5q6hA=;
+        b=Bb4pcIejb3eqJZonqGG0JUhxTDJH7j6ULMsUzPCzDZoi3faVTcJ+gTNjA/jPvfEOQd
+         9sLqKIdNJZghMo2Qo5RckPWXAX3bLzJ9ijZySoaEvB9Vz7BuG28JYtLt9Ur09bzdAs6A
+         FFnxAiuPgJVEFG5XcobRxNVQIV4kBufxQTQ3UvpiFgb2ZK/93xg5DT98N2cC6NMHYWzf
+         tBf82PpchRydeoUcKCVs58VHsW+oFEFpDYn8/clQLfEApeafsB49lQxnh5e/NS7mN5of
+         yyQHPMKuB1D+FpwiynBTn70UvFdqTYctnsSBcErzi/4/aUCp+BP+6KRc8b4yq9RQAkdr
+         2tWQ==
+X-Forwarded-Encrypted: i=1; AHgh+RolAVfMjVzEftAQzTgAD0n9VmfRUuRimyrlKev5WpynffaAuLFhb91bdzZJHCVyRVavxsSgr66Wu2qL5g==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxFTkGlmsuJRC/bOaLrRmAnewxXRpfux+d8fNzLd5FYYdAwK5A1
+	O3oyPiTCVfjiEqo2ByRJSZnWy4c4KcACZJoU7hvOhfM7pCGkphtaFosu0K9BIzY7VBvoMB/J77g
+	nQId2pvmp2F5YhF05gFZZFrhD41qtXnM=
+X-Gm-Gg: AfdE7ckgPdsNoCwigZ78Z39mAmHZh8mIbGR53GobTsSIJfhrTgznHOduKXZF1O8WxjM
+	7D+7QkpA9NI/KjGxCLTEeS1B1PBMVGpD6bzkYCPCZdI4ztEckFiHjIoM/LOhetfuiCqzjCZTiHz
+	KmhdxlvvNdzOVPJRQJ/xfgryplMln34ICAOrz5prazKkuXczrzZmWJikReAp9iCrs2SsyUEbP6t
+	2pOmoI+D5WV3vnIP9Bm6jGU5TYqq9UrKzCF4/lQbGgqnerAogaO9E77QlEidK6mMqAwOJUIHlJf
+	4rRh9i5yUELoCTL/AxBN2hf+5UmNkRM=
+X-Received: by 2002:a53:d009:0:b0:668:7ba:dd5 with SMTP id 956f58d0204a3-66807ba2deemr4278075d50.8.1784143672247;
+ Wed, 15 Jul 2026 12:27:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-
---=-ST9VeWw9FlW5JJ0Aj5re
+References: <20260715051939.64652-1-royalnet026@gmail.com> <20260715051939.64652-3-royalnet026@gmail.com>
+ <8089de84-0793-4668-9030-42881912e6e7@collabora.com>
+In-Reply-To: <8089de84-0793-4668-9030-42881912e6e7@collabora.com>
+From: Igor Paunovic <royalnet026@gmail.com>
+Date: Wed, 15 Jul 2026 21:27:40 +0200
+X-Gm-Features: AUfX_mx-M8gA_e-89t2GABw1WiRnppyJdsqw76CHeBUhWdBRpLHz0OTmUN_j5So
+Message-ID: <CAEWPSH66deV2X6ytJpbFYHWGGS4euNX+-+UpO8eVDhmWTfSk-A@mail.gmail.com>
+Subject: Re: [RFC PATCH 2/2] media: synopsys: hdmirx: add HDMI audio capture support
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org, 
+	kernel@collabora.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hey,
+Hello Dmitry,
 
-Le mercredi 15 juillet 2026 =C3=A0 22:12 +0300, Laurent Pinchart a =C3=A9cr=
-it=C2=A0:
-> On Wed, Jul 15, 2026 at 02:13:12PM -0400, Nicolas Dufresne wrote:
-> > Le mercredi 15 juillet 2026 =C3=A0 14:21 +0200, Jori Koolstra a =C3=A9c=
-rit=C2=A0:
-> > > While there is some truly ridiculous anti-LLM brigading in some open
-> > > source projects, I feel like saying it is just another tool does not =
-do
-> > > justice to some of the harm that is done by that industry. Also,
-> > > precisely because of the usefulness of LLMs, I worry about creating a=
-n
-> > > uneven playing field, where new contributors can't keep up if they ca=
-n't
-> > > afford the needed tools (something that is not as much the case with
-> > > compilers.)
-> >=20
-> > So "fairness" is likely one of the numerous ethical concerns that can d=
-rive
-> > activist against LLM (in the sense of people actively avoiding it, boyc=
-otting
-> > for the real extreme one, but I want to include mild cases too) in cont=
-rast to
-> > luddite, that just don't accept the technology to provide any meaningfu=
-l result.
-> > I'm personally interested in learning more about each and every ethical
-> > concerns, as this is needed to either fixi or mitigate the social issue=
-s this
-> > technology is creating.
-> >=20
-> > On this aspect specifically, Sashiko is provided equally to the Linux c=
-ommunity.
-> > This is very unlike coding agent, which capabilities and performance ar=
-e highly
-> > tailored to your capability to pay. In that sense, fairness is minimall=
-y
-> > mitigated. I say mitigated considering someone have to pay for the comp=
-ute and
-> > because its currently running off proprietary owned models, also requir=
-e paying
-> > for extra royalties (which is an interesting ethical discussion in itse=
-lf I
-> > suppose). Smaller projects may not have that level of donation or budge=
-t.
->=20
-> Or will to pay money to companies with dubious ethics (a strong
-> understatement).
+> Nit: platform_device_register_data() should work too. The specified
+> DMA mask should be unused by the codec driver and even if it was
+> used, it should be inherited from the parent dev and not fixed to
+> 32bit. Please either remove .dma_mask or use
+> platform_device_register_data().
 
-Though, let's accept to cut this sub-thread here, since we got off the
-"technical merit", meaning we are off-topic now.
+Switched to platform_device_register_data() for v2 -- you're right,
+the codec doesn't do DMA, so the mask (a leftover from the vendor
+driver) is gone together with the pdevinfo boilerplate.
 
-cheers,
-Nicolas
+> Please fix Sashiko bug reports for v2. Otherwise, the patch looks
+> okay. Thanks for working on it.
 
---=-ST9VeWw9FlW5JJ0Aj5re
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+All five driver findings from that review are already fixed in my
+tree (ERR_PTR handling, remove() teardown ordering, hw_params/worker
+race, named clock lookup, consistent workqueue), along with the
+Media CI sparse warnings and Sebastian's binding and S/PDIF DAI
+comments. Re-validated on the Orange Pi 5 Plus. I'll send v2 with
+all of it shortly.
 
------BEGIN PGP SIGNATURE-----
+Thanks for the review!
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalffMgAKCRDZQZRRKWBy
-9L5tAQDS7acGOFpBvvMWlBfbHUpPnYRghrUQAKSDe8ngAN05dwD/RiWCcffALA7W
-vl5YTHdAoPxBi9hSmF2gmOj65+TFqwo=
-=qdIt
------END PGP SIGNATURE-----
+Igor
+--------------------------------------------------------
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 
---=-ST9VeWw9FlW5JJ0Aj5re--
+On Wed, Jul 15, 2026 at 9:08=E2=80=AFPM Dmitry Osipenko
+<dmitry.osipenko@collabora.com> wrote:
+>
+> Hi,
+>
+> 15.07.2026 08:19, Igor Paunovic =D0=BF=D0=B8=D1=88=D0=B5=D1=82:
+> > +static int hdmirx_register_audio_device(struct snps_hdmirx_dev *hdmirx=
+_dev)
+> > +{
+> > +     struct hdmi_codec_pdata codec_data =3D {
+> > +             .ops =3D &hdmirx_audio_codec_ops,
+> > +             .i2s =3D 1,
+> > +             .no_i2s_playback =3D 1,
+> > +             .max_i2s_channels =3D 8,
+> > +             .data =3D hdmirx_dev,
+> > +     };
+> > +     struct platform_device_info pdevinfo =3D {
+> > +             .parent =3D hdmirx_dev->dev,
+> > +             .id =3D PLATFORM_DEVID_AUTO,
+> > +             .name =3D HDMI_CODEC_DRV_NAME,
+> > +             .data =3D &codec_data,
+> > +             .size_data =3D sizeof(codec_data),
+> > +             .dma_mask =3D DMA_BIT_MASK(32),
+> > +     };
+> > +
+> > +     hdmirx_dev->audio_pdev =3D platform_device_register_full(&pdevinf=
+o);
+> Nit: platform_device_register_data() should work too. The specified DMA
+> mask should be unused by the codec driver and even if it was used, it
+> should be inherited from the parent dev and not fixed to 32bit. Please
+> either remove .dma_mask or use platform_device_register_data().
+>
+> Please fix Sashiko bug reports for v2. Otherwise, the patch looks okay.
+> Thanks for working on it.
+>
+> --
+> Best regards,
+> Dmitry
