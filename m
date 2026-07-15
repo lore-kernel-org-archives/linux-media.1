@@ -1,133 +1,129 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C50314A2E03
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 17:41:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D6F4A13AF
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 17:41:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784137303; cv=none; b=tLZSxcj+q6yq9uI5WZvWp5lrkE1oSia1LebFdCjSQzRejeKDjUwT5iliYiBnpFmyADZ7K6aUZ4WZXEZ09k2Tq1YQIMKhFdvJ2KL6j0iNbwpRMNUaL2Aq3SWK+NsAmSotj5ZA6EewPCTeKARNMrIzkHQPJJqBqqu55wkHbQWf0v0=
+	t=1784137317; cv=none; b=Rf6dpn5pCo9SXj7iUVLvR2rIQ0kcA3I9tP7jaOTsilBfDOoQa/jy1mu7iZuMg1vSoLDFyMGqzjGUvitbFBRxbhi9zbr0sz5KtgX040d1F3LKZGmEN/bema/Qw3Cd7A/J1gmYggkyyYnmLdUd4ZNRs/VXiTXE3UExpW8cvsu6D+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784137303; c=relaxed/simple;
-	bh=tFdUKjGALS8xis5uoqyzkaY08dcIfZkRGCkAEU55Qog=;
+	s=arc-20240116; t=1784137317; c=relaxed/simple;
+	bh=g/FkcdpRE4R0tn+Q1qbct0qceIo3EXzzJncWQuMz9+w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dN6ym6Iiu68al7usBEJgdkNIrCAyZSozBXE3oluZfZr3e4XEfNGLJt3lOgtC7G2yPRXO7ZSprQOl7Ke4UC86/ucOvbUPxNGBu/Ca11xG9GlZJ+6G3aRLw5R8t5DchBvPYw9Lot+TAtdMCOcyxx16oatLJZh9hrBm3gsLxpiNGSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=aZe2Q1Yq; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=aYFFR125j0O7oQnlcxzf3tFZj3t95XBtPyF+nJZXzxpXCzS5K6uObyOdqnOr0d4CJox7Xxh68KIHvVtB82WWaLVwzX3MCb/cd0eU3f3TLoqGbOWHBMwY5BL+pUPpu3jNlu2qD6De62gwSYv8ZbasYwxlfMgL79vTInSd+mVweQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=opH63vg7; arc=none smtp.client-ip=209.85.219.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="aZe2Q1Yq"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 62F2E104C;
-	Wed, 15 Jul 2026 19:40:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784137244;
-	bh=tFdUKjGALS8xis5uoqyzkaY08dcIfZkRGCkAEU55Qog=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=aZe2Q1YqaieG/FJ5f1Fw0bN2f9P1Es/MGa2ICpeJZ9wX+Q8TEaZ6e9W3P0fN1f2xk
-	 tiLG24KSWeFKu5vpriDKQNbfK2qkEKLUtjHTKxunFWPPiq2siRR37yLr1sGrq/si2z
-	 wlsx8d7AN+QSXZUyBhOjhMtuy/umcV/MFCOEvdw8=
-Date: Wed, 15 Jul 2026 20:41:38 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Theodore Tso <tytso@mit.edu>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>,
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="opH63vg7"
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-8f032b47e3cso46550936d6.0
+        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 10:41:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1784137314; x=1784742114; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uDRO6QnIuhEalRt5fJnXrzp5+6VFXuv7uQsJZiUJYuI=;
+        b=opH63vg7rMyKuWaL0T4BpcikdteK1JUez3hnULji3WebGIOyqsY+FxvHpTfPrFoDSM
+         2y7y2j/fr6G3MGoukENeDBZ6asmPfW9GAGMP9pvf8WntmValzu3LhhuKKh4WPCQxC2xX
+         IB0fieEEfCi+YxRZt0vKchAKfslOmOAfHg9JhphlDZfyiNUtOirErwqEL9wZTDD2OEUO
+         g1sfZ9gcf8IEgKaneNDE1ABP075E3kq4Gqx25yK1iEs9DzvBXHVT6ooQOBb0a6P1coRV
+         v9L7TZef+joM3blbEH7MpD68dfEmJJ86ekruSyhU0xj3Q3TJxW0BKfd7zmzS+WE2VQ40
+         I8IA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784137314; x=1784742114;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uDRO6QnIuhEalRt5fJnXrzp5+6VFXuv7uQsJZiUJYuI=;
+        b=HW3c+9nrHzFKLPPMjFd6Rc4DcnBqa4fUTnju9OOfA/NrsDSnZQJ5AE83jbQYM507p3
+         w35JGdMWDY1Iv6xm1xx3OBOFSGrA7W8m2eTTMcd2/UYIDGZ9uAr8hm8W8fhIi+CbocCo
+         DJVfc8sKPuk8AfAMqo69HoQLQX0Gv8TsFw1SqH6zLZxvbRWC9eQKaH7Dfrle6qxtSMEn
+         0mxjy6YG4Qn+BpdxwyxiUG7HAJWiCB1lHMYTu3F82imTAU2bzveJLtfEyyzwu6o+Jap3
+         X/BzZWlksg1JKNEK8cZEcy1JX8IJuwtQrGzVNxdbfBh/5iffhlhKDsSE+KUqUb3AUHFk
+         iNcA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp65dhMGxc2bv5nhQbbKvNhG/3Rp/9aHwZmm8zDK0PBDO68699R1MDjZkuFrSKOpJ0kxeihoc/gWU9GPw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyH94aTXXhEeoDdA95AEjw8bdYrc2Hq/zdk5J8elcHNHqkklMnu
+	oy+N5evYGu6hhxOmhMP4niYEsUzdUsa6n9P1LTAx1uuDDWoc0pDk90/vf0LsbAfB+lw=
+X-Gm-Gg: AfdE7cmbLWylakLmYHVpe3P/FA4OIWqvlJsrlxPvkzNx6FpFPDXFUC7vp12m2VYNnga
+	hkFa6VRnl/86vuwQHyuliI4nGex0VaZ6niV8sYR0yNKCn8sCmZp8PZnT8fKbo44/WhwKfoB/4eu
+	f+bgeGz0HM5PTh0hw8EJ9tXqkEpAH6uRMaYTHz5XhUH6uyLUcbxmjJ7SBtqyhtXzgmw9RPkDRqk
+	FEBH0VDUBZoJCRv4tkGohtnVi3BsD7rI+GwCMFLfrAGO4y7T4/2BTDSEdklBo8YHwrQ87C/liCB
+	kbs4aVj97mk3S0X2RlGEtSuGEob9vdc+sYcVgTLPXhP7Ex+Gk3CGfGJVNgD0JIPZD2aoWAaFm6+
+	HCYserC8Ft/CRyOdNOpYRE3Kp4RMmjy/mEGED8w6bwHUjJz+z+qL9Eo8HBor5
+X-Received: by 2002:a05:6214:3284:b0:8f0:448c:f9db with SMTP id 6a1803df08f44-9074c73bac7mr82792716d6.19.1784137314423;
+        Wed, 15 Jul 2026 10:41:54 -0700 (PDT)
+Received: from ziepe.ca ([159.2.72.92])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ffd5bbac2asm199815136d6.21.2026.07.15.10.41.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Jul 2026 10:41:53 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1wk3cH-00000000i1c-0sGw;
+	Wed, 15 Jul 2026 14:41:53 -0300
+Date: Wed, 15 Jul 2026 14:41:53 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
 	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
 	Derek Barbosa <debarbos@redhat.com>,
 	Matthieu Baerts <matttbe@kernel.org>,
 	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
 	Steven Rostedt <rostedt@goodmis.org>, users@kernel.org,
 	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Stephen Finucane <stephenfin@redhat.com>
+	Stephen Finucane <stephenfin@redhat.com>, bpf <bpf@vger.kernel.org>,
+	Chris Mason <clm@meta.com>, Christian Brauner <brauner@kernel.org>,
+	Alexei Starovoitov <alexei.starovoitov@gmail.com>
 Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <20260715174138.GI1778116@killaraus.ideasonboard.com>
-References: <20260710083845.23c753ca@foz.lan>
+Message-ID: <20260715174153.GB3846105@ziepe.ca>
+References: <20260710074528.5a6e4457@foz.lan>
+ <20260710083845.23c753ca@foz.lan>
  <87wlv2jq4t.fsf@linux.dev>
  <20260713095538.3d5e86f1@foz.lan>
  <20260713094120.GD1127719@killaraus.ideasonboard.com>
  <20260713220427.582b28bf@foz.lan>
  <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
  <20260715005909.GF1656185@killaraus.ideasonboard.com>
- <alcBvuIMEGSjAD1R@mit.edu>
- <20260715161111.GC1778116@killaraus.ideasonboard.com>
- <ale45QPntcwA-aLB@mit.edu>
+ <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev>
+ <20260715163921.GH1778116@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ale45QPntcwA-aLB@mit.edu>
+In-Reply-To: <20260715163921.GH1778116@killaraus.ideasonboard.com>
 
-On Wed, Jul 15, 2026 at 01:14:57PM -0400, Theodore Tso wrote:
-> On Wed, Jul 15, 2026 at 07:11:11PM -0500, Laurent Pinchart wrote:
-> > My interpretation (which conveniently matches my opinion) is that
-> > developers should not be forced to directly *use* generative AI tools,
-> > and should not be forced to *process* unfiltered output of those tools.
+On Wed, Jul 15, 2026 at 07:39:21PM +0300, Laurent Pinchart wrote:
+> > Yes, assessing whether AI report is "real" is work, but it's not
+> > reasonable to push this work on already overwhelmed maintainers. And
+> > if AI is wrong, again it's the job of the author to convince the
+> > maintainers it's wrong.
 > 
-> But maintaineres should be forced to process the output of those tools
-> because the developers refuses to do that work?
+> We disagree on this as well. This would force contributors to constantly
+> justify their value against a machine that is known to produce a
+> non-negligible quantity of nonsense. Furthermore, if those generative AI
+> tools are as good as their supporters claim, the time they free for
+> maintainers should outweight the need workload to triage the comments.
 
-Maintainers (at least some of them) are the ones introducing a change in
-the process here. I feel there's some sort of sense of panic among a
-part of the kernel maintainers, or maybe such an acute burn out, that it
-justifies anyone with different opinions being treated as collateral
-damage.
+I feel Sashiko and this whole AI world has created alot more work. It
+is not saving time at all. Now I have to go and read every Sashiko
+report to see if there is something important that normal review
+missed. I have fix all the drive by 'this is already broken' stuff it
+finds. We get way more patches than we did before. Now *everything*
+has to be looked at more skeptically if came from some AI slop. I get
+crazy real security reports that need special hand holding now that we
+never got before.
 
-Is there really no acceptable option beside forcing everybody to swallow
-the generative AI pill ? No option for people with ethics concern to be
-still considered part of the kernel community ? No option but complete
-surrender and pledging allegiance ? This is how I increasingly feel
-being treated, and I know I'm not alone.
+Even on the submitting side now I have to run patches through all
+kinds of AI tools to have a solid chance to navigate the new guantlet
+upstream.
 
-> If someone refuses to
-> use the unfiltered otuput of those tools, and their code *is* buggy, I
-> may not have time to cater to these people.  In which case, if I see
-> that their code is reliably buggy, and they are refusing to look at
-> the review from the LLM (or the zero-day kernel bot, or
-> checkpatch.pl), I reserve the right to just start ignoring patches
-> from those people.
+We aren't saving time, or creating less work. My hope is we are
+creating better quality, higher security and less bugs.
 
-Please, let's stop comparing generative AI with zero-day kernel bot or
-checkpatch. That's not a relevant comparison.
-
-> > I don't think I have called for that. What I believe is that triaging
-> > LLM reviews should not be forced onto contributors.
-> 
-> I don't believe that triaging LLM revoews should be forced onto the
-> maintainers.  Remember, the contributors outnumber the maintainers, so
-> forcing more work on maintainers don't scale.
-
-I see many people claiming that LLMs drastically lower the review
-burden. Does it do so only marginally, is effort to triage reviews
-higher than the effort to write reviews in the first place ?
-
-There's also an elephant in the room: beside paying for the tokens used
-by sashiko, I'm sure Google could also affort funding developers and
-maintainers to perform triage. That's a bit of a different question, but
-it does feel that two byproducts of sashiko useful for Google are to
-trick maintainers into forcing contributors to use generative AI, and to
-be seen as helping the community without having to address the core,
-long-term issue of underfunded maintainers.
-
-> One of the reasons why
-> I was so excited for Sashiko is that it reduced the load on
-> maintainers, while improving the quality of patch reviews.
-> 
-> > Flipping the argument, should contributors be obliged to do extra work
-> > that make them feel diminished as a human ? I'm talking here about
-> > justifying themselves against LLM arguments that have not been analyzed
-> > by a maintainer first.
-> 
-> Nope; but I don't believe I'm obliged to accept contributions from
-> people who feel that way....
-
-You're not obliged to accept contributions from anyone until Linus
-forces you. That doesn't mean discriminating contributors based on their
-beliefs would be a good idea.
-
--- 
-Regards,
-
-Laurent Pinchart
+Jason
