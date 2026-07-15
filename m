@@ -1,122 +1,177 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979773B840B;
-	Wed, 15 Jul 2026 19:20:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784143254; cv=pass; b=h0a3rhNKdLAnFp4aDZtzU/8oo8dFRMst5AxS4kq989MGhAb0XtZySif0hVZ6e9knBLDlghxIZmVmmmJUtJMq67TfOx9Z+pL9prl1/Ew7jKb+qj1Dyo7LIibF96qyJsIkh54jdz7MYRm6Ys7NHIoUQwqVo6ypotg2ADeLsfo+LhY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784143254; c=relaxed/simple;
-	bh=z4+tLqOerfQ9USKtD/ecO7iXIoy+d2Wj8l4h5iDOk3Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xoh1bumGA+HfsDkxa2PtGYqSCj7RRMkKzxa5XiiqwccUXQ06wOWuJrpIvWhcHG0kjJ+mSR/2jZeD3XrTnd7W5SUvOPrm0fyUal2BKKwa0mkH7wpxeTdeMP+xCisPi0NkGpGZ3O6aGUdo3/qivdbPCHJowr3ZSdsfoD4vGHUpKs4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=Cv//09bd; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2715C3B71B7
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 19:27:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784143673; cv=none; b=CQ45i+KIffXCtAzu42K3NLF7m3C8vRD7VoK9hq/GPYrAl937PlJpcPYTb6qRtgdIxebMkni1xfv0RiaDyAHQclnbpeF4ACcrDVNpeuEDvwDc+C4ca4VO042ACjZS0XcbDzvjQSnGwCP/Uc8uMUV5MBo/CMh7zEPecRhPPUeGpg0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784143673; c=relaxed/simple;
+	bh=RGOrQzSOXk0x1hDDZjWhmMo6oyf7CP66RHdHJmLveyQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VjPs7CfCmsrGyu4/SKDOkKEYsS3tJEvRFOKZP8AKKbqNYWhKBQJ6nZrqjYMKtRSFX1ARNW4THQu4RT+THvO/Ovv+j7VJJfhhe81V527PmCGjBEk+Gw4OqDmoy+/ff2g2E6mlviCF3gtJV+yZtnMJrLJhAFfsvjM2b6Pmr9EjjFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=urLwba9p; arc=none smtp.client-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="Cv//09bd"
-ARC-Seal: i=1; a=rsa-sha256; t=1784143217; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=a1MKzUZJlGHaLY4VDJ83Rxs7T07th72BmzmxgQaXO8JGgQqoAo2KLnQRmLJahPmYDN3cygMuwQbi1vBEbCFnE1w4Sgxun17NU/31PeTucqxxcUI/kjrcXoqL+8GetRX3oJpJtm215yENFaRVlaSBcYMZuM18bZM4s/ZPojJincI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1784143217; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=z4+tLqOerfQ9USKtD/ecO7iXIoy+d2Wj8l4h5iDOk3Q=; 
-	b=CxNMwXe1PQUtB440m0mm7pKOh+7c/p3+M/fHByUl9AhWl3/dEw4pOL9f+3YEs0BzeN6VdzSMr6/AfWSo03kgFwKTlPA9y+WjHQjRW52WrXCVJa+NinTbdWysVcxb5HFlGZgyOPnqXoIcoWz3urt5ki06wcZoAvNN0I+ldkNy04A=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784143217;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=z4+tLqOerfQ9USKtD/ecO7iXIoy+d2Wj8l4h5iDOk3Q=;
-	b=Cv//09bdWp79RVzRtwlDtFY49fyEBWmbOevhC0LGVxPbxC8bKerHT6FvwTztsTG4
-	ahMG2lRzK6LyO+KS4RnSatrUqDpZ7JWI2cJpa5aVrXvMUO516akh2MzqnwxgwxkKmXE
-	p/1fvFHlQ89dXnJY+Uo5t62wZwMUKi8tmYQYPwCg=
-Received: by mx.zohomail.com with SMTPS id 1784143215185954.3482006909511;
-	Wed, 15 Jul 2026 12:20:15 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id DAA25180820; Wed, 15 Jul 2026 21:20:11 +0200 (CEST)
-Date: Wed, 15 Jul 2026 21:20:11 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, robh@kernel.org, Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, kernel@collabora.com, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 1/2] dt-bindings: media: snps,dw-hdmi-rx: add
- #sound-dai-cells
-Message-ID: <alfcy_rcmjrKJb0H@venus>
-References: <20260715051939.64652-1-royalnet026@gmail.com>
- <20260715051939.64652-2-royalnet026@gmail.com>
- <20260715055448.AEA021F000E9@smtp.kernel.org>
- <CAEWPSH7OqecBKvxUVtwFe4B9y0-=gsQ7vy6kdBHx-Nsne-Ct1g@mail.gmail.com>
- <aleBPE5YHlC7pLpi@venus>
- <CAEWPSH4AYfSR_DBcLFr6a=SJxnAAcjoK612v+g-TpP046qTBmg@mail.gmail.com>
- <alfCQd689ATJOdwM@venus>
- <CAEWPSH6L79Kb9wQna9Cg8yGMJAN88__PwsuXvA+oo+fPStLoYg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="urLwba9p"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-51c928bf172so39036071cf.3
+        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 12:27:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1784143670; x=1784748470; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RGOrQzSOXk0x1hDDZjWhmMo6oyf7CP66RHdHJmLveyQ=;
+        b=urLwba9pmagBjFFLL+wnEzaeKINyAWsQrt3xUICshfoFuqlnasWGlfBqJy+1wketpF
+         YR0MJ2VRHGyCxaUGfF3FunomL06eqMlhy1M9g9HZYO9/fum+boyb2iOkHmmDeqmNzkvg
+         S+8+zb6y4O4ro17yWxP6dEfvtBz0SwByLAeuDi0Wtc/8TBI+FJ/FiNUvPVuYvDC+uJRF
+         sDbO2ulV4ODUZM9ANzAAPDSBvBbVuewyJSU/fzkuAfYi9HiyXgNZI7RwqS9lrZQa/NWj
+         rjwHcjd+nYAl0JNo1Bc04go13ENlIJco0AWB3T7bgg2tZwz8sAL2o4ydicTZAQu1/CQ3
+         UaTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784143670; x=1784748470;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RGOrQzSOXk0x1hDDZjWhmMo6oyf7CP66RHdHJmLveyQ=;
+        b=VaTVhDEpILBQiZCKTqcUCTURIw53/ZRmJrBkLWTgPTgYp8e9FfoWEXCPuYgrTJpLeV
+         3pwkDWeO7SKekPI8eWAmrLmGOJGZc2hoG8pT5Kym6c2eGslmGoXuozdrvG1o3ea8zmZc
+         id1YeHyc8++96bmeLWA56HFDqahDO8kgZzCwH8xCIevIc4pQs7OvDevA034YX30Hed0n
+         JXvmXLE4K7EkQB1l6Rz9gDf1P41z9LxTcqwaPjPGtaHXmZsGPi/7VUyuFh53vMqwd9PS
+         SkTlWLVz5JjntpkFbkBtjLnS4wB5vYrafSW9T5eK7VgB9SHwFe1McX64tsvQHYH+j4vv
+         DqaA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqr9enX+yRbAuii0Qtf1qyrCFyWmj/u+nZmotz9vublvzwlwOOvX/g3ym7tQqB/59eyXl7CNPuDDaibXA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxADB91QAcaf9Tve+ItedMbdAn72nKl82c1zcUjvonh5vi0dHnV
+	pkytEdOg6vnmgP/z85MRj5IwJ5CyU2mxyKiS1RUMMasEFi+3LWj/vbvWDNTKh0/xrDM=
+X-Gm-Gg: AfdE7cncvE0nYKwzc+oroZ7r47kRLG4IwrpegzdU+pkvz8l2/ftgt5PJW6XwoHiyknj
+	OpaZozOD2PS2XdkXQHal9R8hK5oEfJ8MXeJyo2ATSVblBJ5gpOJn/qWeoeur6s+uF9Jziu1uVuD
+	E8nZ5MGeV7vJuS6VmEWLSbZt6ROcL5aVda8+RRimbOzSz0AnFEW9OtgRK52yod6ZWg/B17ij0sx
+	WZ87/Q95aONn9dHl52Ryqd0DnMrHe66oyxInODWq0FN2GFkfcDLkujEPC0hfUQog/n7Iql3U+60
+	MueSrg+jwLcCvr6K9RFrI5oH+laodqgVDCiH2paWwjZbAKq5jfUGUE9Gnu6rcCAb8ioEwoGxAR7
+	esvNHc3UQVP1L89xUF8S32GPXbjRHz4PkXqf0T1JhRSwQox/XJG+uOEIjGhtUhTbCSPmo/1yhiM
+	b2pID6WGouZty3p2lsDw==
+X-Received: by 2002:a05:622a:349:b0:51c:7b12:5fdd with SMTP id d75a77b69052e-51e42496c44mr71813071cf.73.1784143669422;
+        Wed, 15 Jul 2026 12:27:49 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:15:e06b::c41? ([2606:6d00:15:e06b::c41])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51caace31a4sm145497671cf.12.2026.07.15.12.27.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Jul 2026 12:27:48 -0700 (PDT)
+Message-ID: <8061fd3d27432ba0b42fb398d70f56fabc2ee586.camel@ndufresne.ca>
+Subject: Re: Linking Patchwork with Sashiko?
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Jori Koolstra <jkoolstra@xs4all.nl>, Linus Torvalds	
+ <torvalds@linuxfoundation.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Derek Barbosa
+ <debarbos@redhat.com>, Matthieu Baerts <matttbe@kernel.org>,  Konstantin
+ Ryabitsev <konstantin@linuxfoundation.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Steven Rostedt <rostedt@goodmis.org>, 	users@kernel.org, Linux Media
+ Mailing List <linux-media@vger.kernel.org>,  Stephen Finucane
+ <stephenfin@redhat.com>
+Date: Wed, 15 Jul 2026 15:27:46 -0400
+In-Reply-To: <20260715191216.GM1778116@killaraus.ideasonboard.com>
+References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
+	 <4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
+	 <CAHk-=wi4zC+Ze8e+p3tMv8TtG_80KzsZ1syL9anBtmEh5Z40vg@mail.gmail.com>
+	 <aldx9KiAHM4CRI0m@lt-jori.localdomain>
+	 <e536800d8a84b99f34a79c590f57cd68cdb50e57.camel@ndufresne.ca>
+	 <20260715191216.GM1778116@killaraus.ideasonboard.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-ST9VeWw9FlW5JJ0Aj5re"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dxswjltreapgibcc"
-Content-Disposition: inline
-In-Reply-To: <CAEWPSH6L79Kb9wQna9Cg8yGMJAN88__PwsuXvA+oo+fPStLoYg@mail.gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.121.97
-X-ZohoMailClient: External
 
 
---dxswjltreapgibcc
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
+--=-ST9VeWw9FlW5JJ0Aj5re
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [RFC PATCH 1/2] dt-bindings: media: snps,dw-hdmi-rx: add
- #sound-dai-cells
-MIME-Version: 1.0
 
-Hi Igor,
+Hey,
 
-On Wed, Jul 15, 2026 at 07:41:22PM +0200, Igor Paunovic wrote:
-> Hello Sebastian,
+Le mercredi 15 juillet 2026 =C3=A0 22:12 +0300, Laurent Pinchart a =C3=A9cr=
+it=C2=A0:
+> On Wed, Jul 15, 2026 at 02:13:12PM -0400, Nicolas Dufresne wrote:
+> > Le mercredi 15 juillet 2026 =C3=A0 14:21 +0200, Jori Koolstra a =C3=A9c=
+rit=C2=A0:
+> > > While there is some truly ridiculous anti-LLM brigading in some open
+> > > source projects, I feel like saying it is just another tool does not =
+do
+> > > justice to some of the harm that is done by that industry. Also,
+> > > precisely because of the usefulness of LLMs, I worry about creating a=
+n
+> > > uneven playing field, where new contributors can't keep up if they ca=
+n't
+> > > afford the needed tools (something that is not as much the case with
+> > > compilers.)
+> >=20
+> > So "fairness" is likely one of the numerous ethical concerns that can d=
+rive
+> > activist against LLM (in the sense of people actively avoiding it, boyc=
+otting
+> > for the real extreme one, but I want to include mild cases too) in cont=
+rast to
+> > luddite, that just don't accept the technology to provide any meaningfu=
+l result.
+> > I'm personally interested in learning more about each and every ethical
+> > concerns, as this is needed to either fixi or mitigate the social issue=
+s this
+> > technology is creating.
+> >=20
+> > On this aspect specifically, Sashiko is provided equally to the Linux c=
+ommunity.
+> > This is very unlike coding agent, which capabilities and performance ar=
+e highly
+> > tailored to your capability to pay. In that sense, fairness is minimall=
+y
+> > mitigated. I say mitigated considering someone have to pay for the comp=
+ute and
+> > because its currently running off proprietary owned models, also requir=
+e paying
+> > for extra royalties (which is an interesting ethical discussion in itse=
+lf I
+> > suppose). Smaller projects may not have that level of donation or budge=
+t.
 >=20
-> > Not implementing all features in the driver is perfectly fine.
-> > Ideally you return -ENOTSUP if somebody tries to use the S/PDIF
-> > DAI interface instead of I2S.
->=20
-> Done for v2: the codec registration now exposes the S/PDIF DAI as
-> well, so the DAI indexes match the binding (0 =3D I2S, 1 =3D S/PDIF),
-> and hw_params() rejects the S/PDIF interface with -EOPNOTSUPP until
-> that path is actually wired up.
+> Or will to pay money to companies with dubious ethics (a strong
+> understatement).
 
-Sounds good to me.
+Though, let's accept to cut this sub-thread here, since we got off the
+"technical merit", meaning we are off-topic now.
 
-Greetings,
+cheers,
+Nicolas
 
--- Sebastian
-
---dxswjltreapgibcc
+--=-ST9VeWw9FlW5JJ0Aj5re
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpX3WsACgkQ2O7X88g7
-+poCkw/+JPyyaiO3x/Jodfj5BW9q2m4XxQh8EWQroBhi8WUgGUPzGl6Z+JL6no3E
-gVYlbNBbc59Tjd6bXpiyuvTizQH3MyuXkuKEF86KZWFr4dfVJZ9V0wSiljNc9ZD3
-XBHRLZ9gpOzP4ApWeaYdAi7kij80XKa7DEoQvUpNMSSZzAUDnZ8ha+pdX5cwQ+HP
-YqTgGpQtRYD1xrnHC/NjKXxGzWo9BuDzeTIhTn6yMV96gyaRnPEhZ6LEPkSGWkXf
-ImP31JzYd7iRieyzgJX9Zfk/+g8781+Y4iZoaQuhVvN0LUJE5G+6R0HDxC1eWm+E
-lmdqJTwbDsAPYYe2I6TDZWTZO/dQsL6jxz8qrvFVppFXhCYkjWU0/NtMtcFbAaeH
-BVlbJn7qLUhNVeRqGFSb+jQdh1ZZAHIIEt+PKzlpaFcTZ0HYOPBeVY7rkNjKphg0
-oQTWMjR8To2qnJxq+XVKJZBfvH1ktGEvBg83Dt7pGdxka/tMUeZ3P+7YUWTFUJSO
-05lTujsuG5ocilVJGuouDWyPbDk0axtDYAO/ojbEpSWCzH3mit1Aci0e83zyGl7u
-Ve3aAA2AYOyvHpLeB5fsUpVbuS0V8Rdo/Zq41R50RI6Zwf6en6A4EB0wZEN92NQi
-hBCUwNt9vlLPJNi8QFzumPYcptaWIhFzVaUphXNfBEi40YejFDM=
-=Q2Qd
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalffMgAKCRDZQZRRKWBy
+9L5tAQDS7acGOFpBvvMWlBfbHUpPnYRghrUQAKSDe8ngAN05dwD/RiWCcffALA7W
+vl5YTHdAoPxBi9hSmF2gmOj65+TFqwo=
+=qdIt
 -----END PGP SIGNATURE-----
 
---dxswjltreapgibcc--
+--=-ST9VeWw9FlW5JJ0Aj5re--
