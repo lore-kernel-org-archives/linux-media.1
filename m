@@ -1,191 +1,89 @@
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E1B423783
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 09:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784107295; cv=pass; b=hWgl3KIZVu2dlAH5VOMFVJ5NJYjemyTW0AI+GM0njoFoMGfptK9vchowyWyHnpRG1+NdEfiryASlOd/42oVc/BWP0PH3/8WKe7skkx84lSDAUJm9oaD8uk4h1i0o5fEnRI083/PdQU+xAbHJXbHH5I70Up0jA90nVQVtyCJkuVU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784107295; c=relaxed/simple;
-	bh=Hd5amGQyf5d7sp4D/OZ6c1BHeDBP0x2XX9BRCpzpK1Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ncS7y4aj+g+VIFVJVHbeoVWvE0kweQThFjQW9bXsIuSom0ahcsE5AhpEOVVCNq5G7ZX0x+d5CFVL5lU/WCsC8yIcXhjp9uSEMf9w+5Yx32z+GS7HOmhn85RM59XsLfWnIoLMK5BE5sSJGh2JeXPZnsn5QE9wTVvKuL9e9BJhGEU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=LKKRMplK; arc=pass smtp.client-ip=209.85.210.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08CCF429CD0;
+	Wed, 15 Jul 2026 09:30:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784107818; cv=none; b=d9FaaBG0C6yefNrPeKHoOIrIaQeczBNxUnSeCK2UyofqHtzgmIOndh7+dlk4dccIXecy/bChBZQ5pwE/wXW7VDgOsrQ1ZgcW2q8WUNaAoP727CKnmCon+YTHGI7i9x/i/+6B7wzmnACybultUkgX50pPEvV6IFoEoMBfyZGSJ5c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784107818; c=relaxed/simple;
+	bh=KPk5JABxy1SNrqHAewf521Zhrukm/8D6QG14DHr9QVE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=uvLcG+6qMSMSQx2kCh4qvnmMtaAXGdd7+Jn3UBlkTR0PcAhmTjcM1oExxyT9IdJx6P+WOD+llTkacH+qCN8q2CxRDJ4wzR4LVQbqW7n1l+REiZfmPaqq9JMMFZr2Db91oaS1PVyupsqGZ9+CZne1P+aH6X8qGNX2cW3AM8NcOgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Mw5cpy7x; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="LKKRMplK"
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-7e9f5637634so1127193a34.3
-        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 02:21:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784107292; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DrxG1XEexSd111ote1tfnuC7QFYQkoH1h2xag6wyhgUWY0R07D8eZSG7okwDtfmN5z
-         0pmvNYYvhzs/g+AyTrotjigM9mNSEmOc7VV+1YZPeAXVlk42k88TLtdN0Q9ovgwzV2Qi
-         huJzAWCXLILISKD/NyKIeXI+lVxk1tvW+WZ7Hkt7S5G/2gZ1zFMBsiRcff+z8YOa09cp
-         WFO2BdZUv27tLsFu17Q/P7tYJE28ApntIVtgoibH7rPzWlZnVuzAC362/L2f5XAF1Wb4
-         43zc6PySgIncjFbox9C7Pd0zX6/4/8lM+KLs1Um8paVppgxSrjEdnvK7/GrQ50k0uZel
-         s0TA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=q13SU6ITtTBdmGlSBxUH2RoASVTqkGnEBShwZvrhOJA=;
-        fh=8qElnQpPcDloH88nWRVzggBloHgdIfFRkWddXJ+cJU0=;
-        b=r2aFe/kMJp/NOv2P3JV0HoWMc+x8GKNwXkP2zstws/JBYhcbrp8iYWnlUFo+9dFwYg
-         2d66+AkmbsDAS1QaW/Ej+JREdfMtzJeCMWsL8/lMk25Mfx722N7xOMmLh8tlX6LVpbFK
-         7D/OwYR5ZU+bUixDqbVERSPkydhmF2ji160xn0OJbz3k1GsyQ0AbHQDTpF+kilNyaGGh
-         TyhR+C2UwDsSpY9Wcvs2GrMcD+iJXXUm7TAHKwDttOprhHQOLOqgFWadO/iBxiGs99cU
-         0EPTr4C1iyPB9wlhQWr8ydGbO6ZNDcn1YclWYsBsi+D2MHVZMCqt//v57LAyId9LL7Ox
-         EpIA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1784107292; x=1784712092; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q13SU6ITtTBdmGlSBxUH2RoASVTqkGnEBShwZvrhOJA=;
-        b=LKKRMplKNRXNvFPkIJ3RNyNrOBHt36SCHHZ4ifdiW0t//H1fwVjPv6R02Phhk0nWuv
-         X9sZIR4Erm7o+dD3qBiqwnSAsSkzKm0C9E0MmKdw2cKtDv2phUrWoQVvhGroc8GgKVFb
-         +GgZasKoG1LK0U6sHRHA2UCwBZY6vY7blZTlUrngdHBzC0womF+ZCxv9tbFyLPew326i
-         wZrZ81n7Q7hLs4lYwkXwj037UHNT5V2s+5Vv2y4I9yJVFJ3HHXw4191+gbZdBoJuDZxF
-         UrM/FiUvO/YCLe6m4QHknlG4mRPNcMDIV766VRJ947UZttPK9WT2obkDRxNfPB7BeJ2z
-         IqPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784107292; x=1784712092;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=q13SU6ITtTBdmGlSBxUH2RoASVTqkGnEBShwZvrhOJA=;
-        b=D2AMIhZba7cm+fSJGdmiVkSYqUoCjOY5Un3MhmoCkM3o9wAgxTOH4vWuel4PEBoz9p
-         E5T+wtI705cuWaI4SKTYNnaaph0yRva4WJ3sYTtuO7Y5Kl3I5smz6lZiz6cXH5Y0aXxh
-         BIV6CRFdRx5JbFtNv61Hrww4IfYdJx96ANjUY4+Vz1T2AfMXYFvBUvrgqPRhpBAPG9b3
-         e8h2im/CyKj02Vyaj2rAtYBs1Ul3izSGvOqnH0ema4LfpfAVjUMrtwqZTK/Yxq/2mUVn
-         LoCS4eNnhEtpccti4N7jI4LYP2IO/MOsvFRDzqL+vn6DHGU+zsJvvMBRSsUVdqND6NIh
-         BieA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr6ne+PIbXkYYVzAPi9ZPEkawD64f5uiGuWXYu0nhFeNf9bl9LhYwxIn1ozpCd0gVAzaxO15ewAdNniWw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwsMJ9i8PWEBXWCfUVJnaL838cOvnpiHg8B4ChimGle9dCLpkRR
-	VVLg3TWXHV+B60zbszAKsxbW8AsJR4ofnD7WchTUJC3TaOrmGu2UwtmMWIdIZ/bdgLP+Fm0q137
-	qEfUeab/ESoqbYwueYCQASd2MLCFr75/CYQ9sgK1gvg==
-X-Gm-Gg: AfdE7cnTLBl/7YXr4XIFi+9fcXo2/AEGen1HbYHhFM2SW8S8WifVwYGhpRW6w1yHo5T
-	WEoJEgZAfnTx6riMSj4TYkfbBLR2xpc2OrGD0q2R4TnkX0G68DYSDwmtO9Z7H0eAVp3Y7uBB6o2
-	OBHsNLFtFORkPXwQ1OIWrRcig2y1JeaPwOX0PWSyTmx9XPnGDReqKoLn3NjQZJ4tXLUxMjxUFfn
-	E0cC/jtLbNvLrHkmpag8+GiKqRlmgeq8shblS0cJhkeTGxdfa8N78AOz74szDw5XH9i/TcKvEy7
-	5yXc66YAF6E6doG/mO1CzzEjfdQMWFgk43nOI1O51ptCW+zlMXRv0LJyYWZay3tur2NDy+Z+Bom
-	HNR/BQmLKZH2Fb3eA3iHEtmw=
-X-Received: by 2002:a05:6830:710a:b0:7e9:f6ca:e59d with SMTP id
- 46e09a7af769-7ec097a2316mr10470988a34.19.1784107292358; Wed, 15 Jul 2026
- 02:21:32 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Mw5cpy7x"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=XA
+	kdVsg4hrUdoqtefoG6o30kCJvysqeJTtxqG2RwEKE=; b=Mw5cpy7xFw5/MQdDW+
+	tSBxYUkwRkcXHsMj5t8DXGDyTmkyI1z3ZXfSQZ4eh1dIzO5dwSkn60IOznVxgfmE
+	yRVuiReX4JLW82SPP4dt2LbYvGIGrxzdJ0kUwosZ+u5dgfSYCGfKxs9+ktDz65RJ
+	frR4waQ3sF5Il0hDhTedkKy+4=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wAXXroOU1dqRkKLJg--.52959S3;
+	Wed, 15 Jul 2026 17:29:55 +0800 (CST)
+From: Lei Huang <huanglei814@163.com>
+To: mchehab@kernel.org
+Cc: johan@kernel.org,
+	hverkuil+cisco@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lei Huang <huanglei@kylinos.cn>
+Subject: [PATCH v2 2/2] media: s2255: check firmware size before reading trailing marker
+Date: Wed, 15 Jul 2026 17:29:47 +0800
+Message-Id: <20260715092947.772768-2-huanglei814@163.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260715092947.772768-1-huanglei814@163.com>
+References: <20260715092947.772768-1-huanglei814@163.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260708-media-imx355-v3-0-9df386a623d7@raspberrypi.com>
- <20260708-media-imx355-v3-12-9df386a623d7@raspberrypi.com> <alYfNhqYLLP7Ob2m@kekkonen.localdomain>
-In-Reply-To: <alYfNhqYLLP7Ob2m@kekkonen.localdomain>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 15 Jul 2026 10:21:15 +0100
-X-Gm-Features: AUfX_my3kG0frO1GrVnJ7ehCBbH7PHfESPzj6OQyX5yeLJHNv31QUmhUkhMWQAk
-Message-ID: <CAPY8ntDaA6w44u88hfomYCkbTAiFW14rp2CK0WXGZP+g1+ntrg@mail.gmail.com>
-Subject: Re: [PATCH v3 12/20] media: imx355: Use pm_runtime autosuspend_delay
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Richard Acayan <mailingradian@gmail.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wAXXroOU1dqRkKLJg--.52959S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW7AF13Wr13Gry3Kw1xtr45Awb_yoW8JF4xpF
+	WjkFWDKrsrG3W5XrWxJa1Uuas5WF1rGFWUGFW2k34DXrn3Jwn7Zry8ta4DZ3sFqrs3A3W7
+	Jrn0gry09FWqqrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jwF4iUUUUU=
+X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC9BNJQGpXUxMzgwAA3j
 
-Hi Sakari
+From: Lei Huang <huanglei@kylinos.cn>
 
-On Tue, 14 Jul 2026 at 12:36, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
->
-> Hi Dave,
->
-> On Wed, Jul 08, 2026 at 03:48:48PM +0100, Dave Stevenson wrote:
-> > Avoid powering the sensor up and down unnecessarily by using
-> > pm_runtime's autosuspend_delay feature.
-> >
-> > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> > Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > ---
-> >  drivers/media/i2c/imx355.c | 9 +++++++--
-> >  1 file changed, 7 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-> > index ee1f41a66a0b..f01a1a5ae7c9 100644
-> > --- a/drivers/media/i2c/imx355.c
-> > +++ b/drivers/media/i2c/imx355.c
-> > @@ -1073,7 +1073,7 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
-> >                       goto err_rpm_put;
-> >       } else {
-> >               imx355_stop_streaming(imx355);
-> > -             pm_runtime_put(imx355->dev);
-> > +             pm_runtime_put_autosuspend(imx355->dev);
-> >       }
-> >
-> >       /* vflip and hflip cannot change during streaming */
-> > @@ -1085,7 +1085,7 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
-> >       return ret;
-> >
-> >  err_rpm_put:
-> > -     pm_runtime_put(imx355->dev);
-> > +     pm_runtime_put_autosuspend(imx355->dev);
-> >  err_unlock:
-> >       mutex_unlock(&imx355->mutex);
-> >
-> > @@ -1436,6 +1436,8 @@ static int imx355_probe(struct i2c_client *client)
-> >       pm_runtime_set_active(imx355->dev);
-> >       pm_runtime_enable(imx355->dev);
-> >       pm_runtime_idle(imx355->dev);
-> > +     pm_runtime_set_autosuspend_delay(imx355->dev, 1000);
-> > +     pm_runtime_use_autosuspend(imx355->dev);
->
-> I think it'd make sense to do this before calling pm_runtime_idle(),
-> wouldn't it?
->
-> There's also a pre-existing bug here: if pm_runtime_idle() powers the
-> sensor off before calling pm_runtime_disable(), imx355_power_off() will get
-> called twice. The easiest fix is to call pm_runtime_idle() only after
-> v4l2_async_register_subdev_sensor().
->
-> This should be fixed before adding autosuspend support.
+s2255_probe() reads a 4-byte marker and version from the last 8 bytes
+of the firmware blob (fw->data[fw_size - 8] and [fw_size - 4]). If the
+firmware file is shorter than 8 bytes, fw_size - 8 underflows and the
+access reads out of bounds. Validate the firmware size before indexing.
 
-Ack, I'll do that.
+Re-applied after the CamelCase cleanup renamed the error label from
+errorFWMARKER to err_fwmarker.
 
-I'm aiming to have a new revision out tomorrow to address the build
-breakage in the middle of the set (I've updated my test frameworks to
-catch this in future), and the Sashiko comments that the device-tree
-list bot has flagged.
+Fixes: 14d962602c8b ("V4L/DVB (8752): s2255drv: firmware improvement patch")
+Signed-off-by: Lei Huang <huanglei@kylinos.cn>
+---
+ drivers/media/usb/s2255/s2255drv.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-  Dave
+diff --git a/drivers/media/usb/s2255/s2255drv.c b/drivers/media/usb/s2255/s2255drv.c
+index f22f6ad4e8ba..64140b780e63 100644
+--- a/drivers/media/usb/s2255/s2255drv.c
++++ b/drivers/media/usb/s2255/s2255drv.c
+@@ -2277,6 +2277,11 @@ static int s2255_probe(struct usb_interface *interface,
+ 	}
+ 	/* check the firmware is valid */
+ 	fw_size = dev->fw_data->fw->size;
++	if (fw_size < 8) {
++		dev_err(&interface->dev, "Firmware invalid: too small.\n");
++		retval = -ENODEV;
++		goto err_fwmarker;
++	}
+ 	pdata = (__le32 *) &dev->fw_data->fw->data[fw_size - 8];
+ 
+ 	if (*pdata != S2255_FW_MARKER) {
+-- 
+2.25.1
 
-
-> >
-> >       ret = v4l2_async_register_subdev_sensor(&imx355->sd);
-> >       if (ret < 0)
-> > @@ -1446,6 +1448,7 @@ static int imx355_probe(struct i2c_client *client)
-> >  error_media_entity_runtime_pm:
-> >       pm_runtime_disable(imx355->dev);
-> >       pm_runtime_set_suspended(imx355->dev);
-> > +     pm_runtime_dont_use_autosuspend(imx355->dev);
-> >       media_entity_cleanup(&imx355->sd.entity);
-> >
-> >  error_handler_free:
-> > @@ -1476,6 +1479,8 @@ static void imx355_remove(struct i2c_client *client)
-> >               pm_runtime_set_suspended(imx355->dev);
-> >       }
-> >
-> > +     pm_runtime_dont_use_autosuspend(imx355->dev);
-> > +
-> >       mutex_destroy(&imx355->mutex);
-> >  }
-> >
-> >
->
-> --
-> Kind regards,
->
-> Sakari Ailus
