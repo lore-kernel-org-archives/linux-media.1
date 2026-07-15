@@ -1,187 +1,159 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E27B429CC9;
-	Wed, 15 Jul 2026 09:30:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD17435522
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 09:44:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784107818; cv=none; b=kn7wZehpN/eOqPgf+v1gvKKRSQtCuO6OSHOUSkZ/II2R/8IAClszjF6P+6nJUjD3LV5c9vQUMpHGmxdOOa+7ZX1+RrtR8efOnK5f6VTupGWabK8NOrct1Q1MBR52g2qAOoDMXeqxqyEdwXyYeF7UMeE5nHXh/b4Lx7StgJ1hykc=
+	t=1784108670; cv=none; b=B3cCdrQVWxauZzQ+A3RahaxghXkNMl46E6x0/Tp5ws2E7s+xNm4N+xxzCe+R2d/Qq2xAF/5h2RqdCiExij+VD6h9vJ8ozTMy1KOReRK1k4clgFcRIH7q1CKZqyUjtGMXsE6nKLuV0CG+RslcXEdSDOZeRE2bID7BKydYLSrYh1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784107818; c=relaxed/simple;
-	bh=2Kjc1BFOlgtJD8UJVtCyfhTiy2g23YKOQgb14GMfVoc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mfPDR0jf104ulP4H8QctRHHwbAn+2BksS3XtgzXXOXOZCc/ZEXADi5Oy83zNZDABMFmXhLd77HNeWl9OO681LbHqsGxRL3k7w2YpBQU6QKx7Yng459PbntRXc6+caqNh+RnTzMEuKZQc+1wVaU3sDQsMyCzU7hpGsgJy8+o/33k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Lhc5T5d/; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Lhc5T5d/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=dy
-	Q/fBxWoHZujlVBtTLZ1u8mkNl5Uaj9BWlYZ5OHHHQ=; b=Lhc5T5d/BA+Bshw3pI
-	JkQQqGaLJOHe3SYgN0w77XxczzBVxm8pSpWD91Ti/pzAkyV+7Y/qYpbifExNxNsC
-	1iOfkeYHwQ/rNEL5tspit/zRD5QXV3HVEAmQwhgkLcMFIceX6ATG0higQenxS7qf
-	8Dp/y+LF4t9zJXL1ple4g0JPA=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wAXXroOU1dqRkKLJg--.52959S2;
-	Wed, 15 Jul 2026 17:29:51 +0800 (CST)
-From: Lei Huang <huanglei814@163.com>
-To: mchehab@kernel.org
-Cc: johan@kernel.org,
-	hverkuil+cisco@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lei Huang <huanglei@kylinos.cn>
-Subject: [PATCH v2 1/2] media: s2255: Rename CamelCase goto labels to snake_case
-Date: Wed, 15 Jul 2026 17:29:46 +0800
-Message-Id: <20260715092947.772768-1-huanglei814@163.com>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1784108670; c=relaxed/simple;
+	bh=vkqflzHe5tu7vJFcAezQeSEiDko0g07fk9la2K18Of4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LwTXDOs3fTB/wcn4bf0arvEgh8sj+Wa+vRDzZ129J5vTLcxhWPWsXK5E/Op85pOexUeOrIrFcuKkc2yR4PG5Ii7S9AqliRi/9c7vMx5Uty0zUdRdTyE3Xc90mWAIOinxw2ZgzXTmGgfBqvARJnBo8XP3lg5+bu6964n4IcRNNLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.1])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <s.pueschel@pengutronix.de>)
+	id 1wjw9t-0007kR-EY; Wed, 15 Jul 2026 11:44:05 +0200
+Message-ID: <e89fd487-ea3f-42fd-8647-6fa74ac991e8@pengutronix.de>
+Date: Wed, 15 Jul 2026 11:44:01 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 05/17] media: v4l2-mem2mem: support running multiple jobs
+ in parallel
+To: Nicolas Dufresne <nicolas@ndufresne.ca>,
+ Jacob Chen <jacob-chen@iotwrt.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner
+ <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kernel@pengutronix.de, Detlev Casanova <detlev.casanova@collabora.com>,
+ Michael Tretter <m.tretter@pengutronix.de>
+References: <20260606-spu-rga3multicore-v1-0-3ec2b15675f7@pengutronix.de>
+ <20260606-spu-rga3multicore-v1-5-3ec2b15675f7@pengutronix.de>
+ <aae16dbfb26c8ee7e54247ca4d123b15748d623f.camel@ndufresne.ca>
+Content-Language: en-US
+From: =?UTF-8?Q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+In-Reply-To: <aae16dbfb26c8ee7e54247ca4d123b15748d623f.camel@ndufresne.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAXXroOU1dqRkKLJg--.52959S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXr47Gr13tryUJw43XF4rAFb_yoWrAr48pa
-	yxWa9Ygr4UJw1fJr9xJFWUW3WrWw48G3y5CFy2y397XryYy34kA3W8t34xuay2krW0ya17
-	A3s8W3yj9rWqgFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j8iSdUUUUU=
-X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC9A9IP2pXUw8zMAAA3u
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-media@vger.kernel.org
 
-From: Lei Huang <huanglei@kylinos.cn>
+Hi,
 
-Rename the error-path goto labels in s2255_probe() from CamelCase to
-snake_case to comply with the Linux kernel coding style:
+On 7/10/26 11:18 PM, Nicolas Dufresne wrote:
+> Hi,
+>
+> Le samedi 06 juin 2026 à 00:06 +0200, Sven Püschel a écrit :
+>> Add support for running multiple jobs in parallel for SoCs containing
+>> multiple identical devices. An example is the Rockchip RK3588 SoC,
+>> which contains two identical RGA3 devices. Therefore it is desirable to
+>> have the kernel schedule the work across all available devices and only
+>> expose one video device to the userspace.
+>>
+>> Previously the curr_ctx member of a v4l2_m2m_dev was used to track the
+>> currently running context. But the currently running context will always
+>> be at the top of the job_queue. As the TRANS_RUNNING flag can be used to
+>> check if the queue head is already running, the curr_ctx member can be
+>> completely dropped
+>>
+>> To avoid queueing too many parallel jobs, the
+>> v4l2_m2m_set_max_parallel_jobs method is added. It allows a driver
+>> to set the number of parallel jobs and avoids calling device_run when
+>> the given number of jobs is already running. This is set to 1 by default
+>> to prevent parallel job runs. Drivers with the need and support for
+>> scheduling jobs can adjust this value accordingly.
+>>
+>> Note that this change doesn't allow a context to be used multiple times
+>> in parallel. So a single stream won't be able to utilize multiple devices
+>> at once, but N streams can utilize up to N devices. This is caused by the
+>> fact that a context is not added multiple times to the job_list and also
+>> holds the job_flags to distinguish if it's currently running.
+> I do prefer this over Detlev proposal, so let's move toward this. Would be it
+> cleaner though to first remove curr_ctx and then add
+> max_parallel_jobs ?
 
-  errorBOARDINIT -> err_boardinit
-  errorFWMARKER  -> err_fwmarker
-  errorREQFW     -> err_reqfw
-  errorFWDATA2   -> err_fwdata2
-  errorFWURB     -> err_fwurb
-  errorEP        -> err_ep
-  errorUDEV      -> err_udev
-  errorFWDATA1   -> err_fwdata1
+Nice idea. I could move the max_parallel_jobs variable and the new 
+function to a new small commit.
 
-No functional changes; all label definitions and goto references are
-updated consistently.
+I could also move the whole looping and counting of running jobs over 
+the jobs to the new commit. But this would cause replacing the curr_ctx 
+variable with a `list_first_entry(...)->job_flags & TRANS_RUNNING` and 
+drop it in the commit afterwards to replace it with loops.
 
-Signed-off-by: Lei Huang <huanglei@kylinos.cn>
----
- drivers/media/usb/s2255/s2255drv.c | 36 +++++++++++++++---------------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+While the commits would look a bit nicer in the latter example (as the 
+removal of curr_ctx wouldn't also prepare for parallel jobs), I think 
+the addition and direct removal style is frowned upon and therefore I 
+tend towards the first option. On the other side I'm unsure if a 10 line 
+patch to just add max_parallel_jobs variable and function with 
+everything done in a (removal) patch provides benefit or harms to get to 
+the related changes.
 
-diff --git a/drivers/media/usb/s2255/s2255drv.c b/drivers/media/usb/s2255/s2255drv.c
-index 0b8182edf8e4..f22f6ad4e8ba 100644
---- a/drivers/media/usb/s2255/s2255drv.c
-+++ b/drivers/media/usb/s2255/s2255drv.c
-@@ -2216,14 +2216,14 @@ static int s2255_probe(struct usb_interface *interface,
- 	dev->cmdbuf = kzalloc(S2255_CMDBUF_SIZE, GFP_KERNEL);
- 	if (dev->cmdbuf == NULL) {
- 		s2255_dev_err(&interface->dev, "out of memory\n");
--		goto errorFWDATA1;
-+		goto err_fwdata1;
- 	}
- 
- 	refcount_set(&dev->num_channels, 0);
- 	dev->pid = id->idProduct;
- 	dev->fw_data = kzalloc_obj(struct s2255_fw);
- 	if (!dev->fw_data)
--		goto errorFWDATA1;
-+		goto err_fwdata1;
- 	mutex_init(&dev->lock);
- 	mutex_init(&dev->cmdlock);
- 	/* grab usb_device and save it */
-@@ -2231,7 +2231,7 @@ static int s2255_probe(struct usb_interface *interface,
- 	if (dev->udev == NULL) {
- 		dev_err(&interface->dev, "null usb device\n");
- 		retval = -ENODEV;
--		goto errorUDEV;
-+		goto err_udev;
- 	}
- 	dev_dbg(&interface->dev, "dev: %p, udev %p interface %p\n",
- 		dev, dev->udev, interface);
-@@ -2243,7 +2243,7 @@ static int s2255_probe(struct usb_interface *interface,
- 
- 	if (usb_find_bulk_in_endpoint(iface_desc, &endpoint)) {
- 		dev_err(&interface->dev, "Could not find bulk-in endpoint\n");
--		goto errorEP;
-+		goto err_ep;
- 	}
- 
- 	dev->read_endpoint = endpoint->bEndpointAddress;
-@@ -2262,18 +2262,18 @@ static int s2255_probe(struct usb_interface *interface,
- 
- 	dev->fw_data->fw_urb = usb_alloc_urb(0, GFP_KERNEL);
- 	if (!dev->fw_data->fw_urb)
--		goto errorFWURB;
-+		goto err_fwurb;
- 
- 	dev->fw_data->pfw_data = kzalloc(CHUNK_SIZE, GFP_KERNEL);
- 	if (!dev->fw_data->pfw_data) {
- 		dev_err(&interface->dev, "out of memory!\n");
--		goto errorFWDATA2;
-+		goto err_fwdata2;
- 	}
- 	/* load the first chunk */
- 	if (request_firmware(&dev->fw_data->fw,
- 			     FIRMWARE_FILE_NAME, &dev->udev->dev)) {
- 		dev_err(&interface->dev, "sensoray 2255 failed to get firmware\n");
--		goto errorREQFW;
-+		goto err_reqfw;
- 	}
- 	/* check the firmware is valid */
- 	fw_size = dev->fw_data->fw->size;
-@@ -2282,7 +2282,7 @@ static int s2255_probe(struct usb_interface *interface,
- 	if (*pdata != S2255_FW_MARKER) {
- 		dev_err(&interface->dev, "Firmware invalid.\n");
- 		retval = -ENODEV;
--		goto errorFWMARKER;
-+		goto err_fwmarker;
- 	} else {
- 		/* make sure firmware is the latest */
- 		__le32 *pRel;
-@@ -2300,30 +2300,30 @@ static int s2255_probe(struct usb_interface *interface,
- 	/* load 2255 board specific */
- 	retval = s2255_board_init(dev);
- 	if (retval)
--		goto errorBOARDINIT;
-+		goto err_boardinit;
- 	s2255_fwload_start(dev);
- 	/* loads v4l specific */
- 	retval = s2255_probe_v4l(dev);
- 	if (retval)
--		goto errorBOARDINIT;
-+		goto err_boardinit;
- 	dev_info(&interface->dev, "Sensoray 2255 detected\n");
- 	return 0;
--errorBOARDINIT:
-+err_boardinit:
- 	s2255_board_shutdown(dev);
--errorFWMARKER:
-+err_fwmarker:
- 	release_firmware(dev->fw_data->fw);
--errorREQFW:
-+err_reqfw:
- 	kfree(dev->fw_data->pfw_data);
--errorFWDATA2:
-+err_fwdata2:
- 	usb_free_urb(dev->fw_data->fw_urb);
--errorFWURB:
-+err_fwurb:
- 	timer_shutdown_sync(&dev->timer);
--errorEP:
-+err_ep:
- 	usb_put_dev(dev->udev);
--errorUDEV:
-+err_udev:
- 	kfree(dev->fw_data);
- 	mutex_destroy(&dev->lock);
--errorFWDATA1:
-+err_fwdata1:
- 	kfree(dev->cmdbuf);
- 	kfree(dev);
- 	pr_warn("Sensoray 2255 driver load failed: 0x%x\n", retval);
--- 
-2.25.1
+>> @@ -252,13 +266,11 @@ EXPORT_SYMBOL(v4l2_m2m_get_curr_priv);
+>>   static void v4l2_m2m_try_run(struct v4l2_m2m_dev *m2m_dev)
+>>   {
+>>   	unsigned long flags;
+>> +	struct v4l2_m2m_ctx *ctx;
+>> +	struct v4l2_m2m_ctx *chosen_ctx = NULL;
+>> +	u32 running_jobs = 0;
+>>   
+>>   	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
+>> -	if (NULL != m2m_dev->curr_ctx) {
+>> -		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+>> -		dprintk("Another instance is running, won't run now\n");
+>> -		return;
+>> -	}
+>>   
+>>   	if (list_empty(&m2m_dev->job_queue)) {
+>>   		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+>> @@ -272,13 +284,30 @@ static void v4l2_m2m_try_run(struct v4l2_m2m_dev
+>> *m2m_dev)
+>>   		return;
+>>   	}
+>>   
+>> -	m2m_dev->curr_ctx = list_first_entry(&m2m_dev->job_queue,
+>> -				   struct v4l2_m2m_ctx, queue);
+>> -	m2m_dev->curr_ctx->job_flags |= TRANS_RUNNING;
+>> +	list_for_each_entry(ctx, &m2m_dev->job_queue, queue) {
+>> +		if (!(ctx->job_flags & TRANS_RUNNING)) {
+>> +			chosen_ctx = ctx;
+>> +			break;
+>> +		}
+>> +
+>> +		running_jobs++;
+>> +	}
+>> +	if (running_jobs >= m2m_dev->max_parallel_jobs) {
+>> +		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+>> +		dprintk("Maximum number of parallel jobs reached\n");
+>> +		return;
+>> +	}
+>> +	if (!chosen_ctx) {
+>> +		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+>> +		dprintk("All jobs already running\n");
+>> +		return;
+>> +	}
+>> +
+>> +	chosen_ctx->job_flags |= TRANS_RUNNING;
+>>   	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+
+This is the most prominent example on how to split it up. E.g. either 
+keep everything in the curr_ctx removal commit (and just use 1 for 
+max_parallel_jobs) or use list_first_head to check if we have a curr_ctx 
+and drop it afterwards for the counting logic.
+
+
+Sincerely
+     Sven
 
