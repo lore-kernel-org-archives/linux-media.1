@@ -1,135 +1,122 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DF4446C00
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 19:15:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784142914; cv=none; b=oBjmYN8vrz51GqobRTtYg66uvmYgmBX7oT+qsdNzi13a3HnCLl9Yxk9oOlSfk30P4JX7gkVhdggXwIlnjUyRHilQOlYK1i7+VxKYnNdPzIrX06/c7fYkky1Q3iKJp0H7vKx6K4+by+EhVE2OTZP9QnSKkcab/wOGBkCMA7eihtw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784142914; c=relaxed/simple;
-	bh=XQWidDhwOatIOdg4naY+mdRJJIUMa32iaO6TQENvg5M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Z201EQoAtWuFq7H3NWoOMCiD6z6SWwlO3UCRzaFbrwzKgXhJSguR8oCcO1Bq5bljEKLbv/AdojHInUMYuFZNMHXhjAc+as87NnQFyOwYb5fkLmZszPu7OUTNjQs6saloQBgn4IsekcmwgFdS8HO+5wNQuxIlGvfEw+6uI3CrigM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DHme7ppV; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979773B840B;
+	Wed, 15 Jul 2026 19:20:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784143254; cv=pass; b=h0a3rhNKdLAnFp4aDZtzU/8oo8dFRMst5AxS4kq989MGhAb0XtZySif0hVZ6e9knBLDlghxIZmVmmmJUtJMq67TfOx9Z+pL9prl1/Ew7jKb+qj1Dyo7LIibF96qyJsIkh54jdz7MYRm6Ys7NHIoUQwqVo6ypotg2ADeLsfo+LhY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784143254; c=relaxed/simple;
+	bh=z4+tLqOerfQ9USKtD/ecO7iXIoy+d2Wj8l4h5iDOk3Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xoh1bumGA+HfsDkxa2PtGYqSCj7RRMkKzxa5XiiqwccUXQ06wOWuJrpIvWhcHG0kjJ+mSR/2jZeD3XrTnd7W5SUvOPrm0fyUal2BKKwa0mkH7wpxeTdeMP+xCisPi0NkGpGZ3O6aGUdo3/qivdbPCHJowr3ZSdsfoD4vGHUpKs4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=Cv//09bd; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DHme7ppV"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-69a5ecbbfb2so4137063a12.2
-        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 12:15:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1784142905; x=1784747705; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5c+HPc/WiiFRZlK3DtEGHqnt1AShEszgTa4sld+nLck=;
-        b=DHme7ppVLR1iOyYRmN52uSNlbH857vLjcsgGNVL6yPue1UVjwGVguKyY7Ym59KaIll
-         RyF7VE5mpzjjujN3O5xIzM3R8Sr8TvxM5AcW8OOgzfrB2tGPuv3HDc9rzOcQlS5nKi2p
-         KoYU2IxsNvn//bamHbwhRp8Fq1DcH3bci4YCU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784142905; x=1784747705;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5c+HPc/WiiFRZlK3DtEGHqnt1AShEszgTa4sld+nLck=;
-        b=RCGU7aCMDvtNDDnR2hBHiwr9cyL5t/mOAVOIHqziNO6tkPy6ULSdlgmFmxsMmk5SzQ
-         sPQjJr482DHQJHIPKDtVgovU47HyJjpTC1hLMuZEOoBbrJRxLJFiQ5A5gIE63uHv6OuZ
-         hfX5REV3ptbQaq5e+/pRNmkNFwkOwACIhWPb7/s6uAHP1nx2Krbeyb0Y1YvUZycpqK/f
-         FHb4VbE0kfUZ/mavWtyZtROdzZwjG1vSBntExYFHaD5Hry2YnECmSf8xHraiYULd/5xj
-         uam5HZGl53rBBfiMwSFJMGYYo0qmMd6gt2p7Z3RY0uQOj7CoFY2rP3wILfAFbvEPnSwa
-         tHYA==
-X-Forwarded-Encrypted: i=1; AHgh+RriNdBOhR75ozwRm/VskIUJAd5KV/hxFGafiAWuFJUYPeWEW8cSmP1fhEuG3CD5YKJh1tgwGvYKPjQ1Kg==@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywz2dg8vi3VPI/FQVty8dVOes0ySIysOV+u8FNUb5pZfAJJI+wP
-	8ppNA1ag7hdztmaVmlFXy+p+XK6FIZT4VVKzweUD3WnBlsq6mH+DSdEUdbyHNzkTjWEDtnkYJff
-	vXQRPp5w=
-X-Gm-Gg: AfdE7ckYCEXKToW78+8htd11bTSbeP5wQldogiEfCSHPgB+M3fXsKq/2ONq/zzg93fB
-	tWxLB3ojfm5MjfpjmeIbERlQkOxLTB90eeToD97wCvgtwnTy/Hs+8XLZi8togX5xcFTV15LdJtV
-	MQc4177unIHa/oCNe+FSoitiYjyrZc/0Fnnyx5EF+Gcjpj1Qs8ziS/jyg0cGFl2SIm/d6SpAb7z
-	YWLpQhSzgiL7iEHdZdt07dZJFadCMmEDsWhuIWXRfhJkbWHQso5MFPodKVAG2RAAuXVtWXEFHDz
-	ND/PDwe/JgtqpQwjUm8n923H+xM2TQiya/yW0N7d8H5m7+JMHmQXq9PtxLvKIBkrYd7NJVpBVHl
-	YV0eATmeaNYPVYowszr2KUQvoXhml0WJAhYNbUD5bmGhkCX0gtwTOe2kI4F2CJBUaUG2ksvigZg
-	XcKvBRWkJ6be6IBF9oip1AQYQTh5FEg3Tc6RZyurVtmoBjMkJba/G/EpHM5ynw
-X-Received: by 2002:a17:907:1b1d:b0:c12:6ad6:6398 with SMTP id a640c23a62f3a-c161e9908bamr930698466b.34.1784142905538;
-        Wed, 15 Jul 2026 12:15:05 -0700 (PDT)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com. [209.85.208.45])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1687166b94sm78291266b.17.2026.07.15.12.15.03
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 15 Jul 2026 12:15:04 -0700 (PDT)
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-697cee2eb6dso2783947a12.0
-        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 12:15:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rot4wguFsskMteTfG9QWscWfBzG0a1y76mhk7hzmcPImjDyk/iAwnSlKnUPy3WabgEGxeLJs5iJPxn+zg==@vger.kernel.org
-X-Received: by 2002:a17:907:948e:b0:c16:6429:a689 with SMTP id
- a640c23a62f3a-c166429cc7amr516277566b.29.1784142903559; Wed, 15 Jul 2026
- 12:15:03 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="Cv//09bd"
+ARC-Seal: i=1; a=rsa-sha256; t=1784143217; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=a1MKzUZJlGHaLY4VDJ83Rxs7T07th72BmzmxgQaXO8JGgQqoAo2KLnQRmLJahPmYDN3cygMuwQbi1vBEbCFnE1w4Sgxun17NU/31PeTucqxxcUI/kjrcXoqL+8GetRX3oJpJtm215yENFaRVlaSBcYMZuM18bZM4s/ZPojJincI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784143217; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=z4+tLqOerfQ9USKtD/ecO7iXIoy+d2Wj8l4h5iDOk3Q=; 
+	b=CxNMwXe1PQUtB440m0mm7pKOh+7c/p3+M/fHByUl9AhWl3/dEw4pOL9f+3YEs0BzeN6VdzSMr6/AfWSo03kgFwKTlPA9y+WjHQjRW52WrXCVJa+NinTbdWysVcxb5HFlGZgyOPnqXoIcoWz3urt5ki06wcZoAvNN0I+ldkNy04A=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784143217;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=z4+tLqOerfQ9USKtD/ecO7iXIoy+d2Wj8l4h5iDOk3Q=;
+	b=Cv//09bdWp79RVzRtwlDtFY49fyEBWmbOevhC0LGVxPbxC8bKerHT6FvwTztsTG4
+	ahMG2lRzK6LyO+KS4RnSatrUqDpZ7JWI2cJpa5aVrXvMUO516akh2MzqnwxgwxkKmXE
+	p/1fvFHlQ89dXnJY+Uo5t62wZwMUKi8tmYQYPwCg=
+Received: by mx.zohomail.com with SMTPS id 1784143215185954.3482006909511;
+	Wed, 15 Jul 2026 12:20:15 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id DAA25180820; Wed, 15 Jul 2026 21:20:11 +0200 (CEST)
+Date: Wed, 15 Jul 2026 21:20:11 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Igor Paunovic <royalnet026@gmail.com>
+Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org, robh@kernel.org, Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, kernel@collabora.com, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 1/2] dt-bindings: media: snps,dw-hdmi-rx: add
+ #sound-dai-cells
+Message-ID: <alfcy_rcmjrKJb0H@venus>
+References: <20260715051939.64652-1-royalnet026@gmail.com>
+ <20260715051939.64652-2-royalnet026@gmail.com>
+ <20260715055448.AEA021F000E9@smtp.kernel.org>
+ <CAEWPSH7OqecBKvxUVtwFe4B9y0-=gsQ7vy6kdBHx-Nsne-Ct1g@mail.gmail.com>
+ <aleBPE5YHlC7pLpi@venus>
+ <CAEWPSH4AYfSR_DBcLFr6a=SJxnAAcjoK612v+g-TpP046qTBmg@mail.gmail.com>
+ <alfCQd689ATJOdwM@venus>
+ <CAEWPSH6L79Kb9wQna9Cg8yGMJAN88__PwsuXvA+oo+fPStLoYg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260713095538.3d5e86f1@foz.lan> <20260713094120.GD1127719@killaraus.ideasonboard.com>
- <20260713220427.582b28bf@foz.lan> <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
- <20260715005909.GF1656185@killaraus.ideasonboard.com> <alcBvuIMEGSjAD1R@mit.edu>
- <20260715161111.GC1778116@killaraus.ideasonboard.com> <ale45QPntcwA-aLB@mit.edu>
- <20260715174138.GI1778116@killaraus.ideasonboard.com> <CAHk-=wiL7kFVWNtvE5S9A4iqXYat66NaUqX1+gZT0QCndi4eQw@mail.gmail.com>
- <20260715185141.GJ1778116@killaraus.ideasonboard.com>
-In-Reply-To: <20260715185141.GJ1778116@killaraus.ideasonboard.com>
-From: Linus Torvalds <torvalds@linuxfoundation.org>
-Date: Wed, 15 Jul 2026 12:14:47 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wi7KN9_DYdmaE2chC92EhTrO=Wtx1bPBER-EQfAZ8FREg@mail.gmail.com>
-X-Gm-Features: AUfX_myqDD_feRUeS7Ku0H_AjydQX8yFNswyzPS-AXjb3NscZkOsvEfwEseosl8
-Message-ID: <CAHk-=wi7KN9_DYdmaE2chC92EhTrO=Wtx1bPBER-EQfAZ8FREg@mail.gmail.com>
-Subject: Re: Linking Patchwork with Sashiko?
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Theodore Tso <tytso@mit.edu>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Derek Barbosa <debarbos@redhat.com>, 
-	Matthieu Baerts <matttbe@kernel.org>, Konstantin Ryabitsev <konstantin@linuxfoundation.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Steven Rostedt <rostedt@goodmis.org>, users@kernel.org, 
-	Linux Media Mailing List <linux-media@vger.kernel.org>, Stephen Finucane <stephenfin@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dxswjltreapgibcc"
+Content-Disposition: inline
+In-Reply-To: <CAEWPSH6L79Kb9wQna9Cg8yGMJAN88__PwsuXvA+oo+fPStLoYg@mail.gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.121.97
+X-ZohoMailClient: External
 
-On Wed, 15 Jul 2026 at 11:51, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->
-> I consider that, today, there's no ethical justification for the use of
-> generative AI in FOSS development.
 
-So this is where the discussion ends.
+--dxswjltreapgibcc
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC PATCH 1/2] dt-bindings: media: snps,dw-hdmi-rx: add
+ #sound-dai-cells
+MIME-Version: 1.0
 
-As I mentioned, Linux has never been a social warrior project.
+Hi Igor,
 
-If you don't have technical reasons, you don't have reasons.
+On Wed, Jul 15, 2026 at 07:41:22PM +0200, Igor Paunovic wrote:
+> Hello Sebastian,
+>=20
+> > Not implementing all features in the driver is perfectly fine.
+> > Ideally you return -ENOTSUP if somebody tries to use the S/PDIF
+> > DAI interface instead of I2S.
+>=20
+> Done for v2: the codec registration now exposes the S/PDIF DAI as
+> well, so the DAI indexes match the binding (0 =3D I2S, 1 =3D S/PDIF),
+> and hw_params() rejects the S/PDIF interface with -EOPNOTSUPP until
+> that path is actually wired up.
 
-You can choose not to use AI, but that's your PERSONAL choice.
+Sounds good to me.
 
-It has absolutely no impact on anybody else, and you should not expect
-it to have any.
+Greetings,
 
-Put another way: if you are vegetarian because you think meat is
-murder, that's perfectly fine. I know for a fact we have several vegan
-kernel developers, and I'm sure they have varied reasons for it. Maybe
-they just don't like the taste, maybe they have social or religious
-reasons for it. Lots of perfectly valid reasons, possibly driven by
-ethics.
+-- Sebastian
 
-But they don't expect the rest of the kernel community to become
-vegetarian because of their personal ethical standpoint, do they?
+--dxswjltreapgibcc
+Content-Type: application/pgp-signature; name="signature.asc"
 
-This is absolutely no different.
+-----BEGIN PGP SIGNATURE-----
 
-And yes, I feel very strongly about this, not because I feel strongly
-about AI per se, but because we have a long history interacting with
-the FSF.
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpX3WsACgkQ2O7X88g7
++poCkw/+JPyyaiO3x/Jodfj5BW9q2m4XxQh8EWQroBhi8WUgGUPzGl6Z+JL6no3E
+gVYlbNBbc59Tjd6bXpiyuvTizQH3MyuXkuKEF86KZWFr4dfVJZ9V0wSiljNc9ZD3
+XBHRLZ9gpOzP4ApWeaYdAi7kij80XKa7DEoQvUpNMSSZzAUDnZ8ha+pdX5cwQ+HP
+YqTgGpQtRYD1xrnHC/NjKXxGzWo9BuDzeTIhTn6yMV96gyaRnPEhZ6LEPkSGWkXf
+ImP31JzYd7iRieyzgJX9Zfk/+g8781+Y4iZoaQuhVvN0LUJE5G+6R0HDxC1eWm+E
+lmdqJTwbDsAPYYe2I6TDZWTZO/dQsL6jxz8qrvFVppFXhCYkjWU0/NtMtcFbAaeH
+BVlbJn7qLUhNVeRqGFSb+jQdh1ZZAHIIEt+PKzlpaFcTZ0HYOPBeVY7rkNjKphg0
+oQTWMjR8To2qnJxq+XVKJZBfvH1ktGEvBg83Dt7pGdxka/tMUeZ3P+7YUWTFUJSO
+05lTujsuG5ocilVJGuouDWyPbDk0axtDYAO/ojbEpSWCzH3mit1Aci0e83zyGl7u
+Ve3aAA2AYOyvHpLeB5fsUpVbuS0V8Rdo/Zq41R50RI6Zwf6en6A4EB0wZEN92NQi
+hBCUwNt9vlLPJNi8QFzumPYcptaWIhFzVaUphXNfBEi40YejFDM=
+=Q2Qd
+-----END PGP SIGNATURE-----
 
-They have their "ethical" reasons too, and use them as a weapon, and
-as a way to drive away sane people.
-
-It's why Linux is *not* GNU/Linux, and why we call things "open
-source" instead of "Free Software".
-
-So keep your ethics where they belong - in your personal life. Don't
-try to enforce your ethics on others.
-
-                Linus
+--dxswjltreapgibcc--
