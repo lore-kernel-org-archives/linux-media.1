@@ -1,102 +1,57 @@
-Received: from luna.linkmauve.fr (82-65-109-163.subs.proxad.net [82.65.109.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF53400986;
-	Wed, 15 Jul 2026 19:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.65.109.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0540422E34;
+	Wed, 15 Jul 2026 19:10:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784142571; cv=none; b=IJKQW8qM7CaXgjoRk42GqvRv236rtAXD9NoMaBY7Y3Zvy6gg1xhXd5M5qlB/3wUQfABRKZsyF+BCcP4gPMhLPYPOvOKqhJ9yU+uEesaEuUCsCw1rBNLiY80NYdn/XKhADFwgrkYZJrSORXHIg0FIt+hxTle+yFWhZW38+b4SS5c=
+	t=1784142655; cv=none; b=D9TJXKVKkAUyDlbc4p4px2uW+J75t86pA9N1zpLmz/0Fark+gUaQX69bzqeuarGPjBmYNW4r7+xT0ysAPX6W0UEN+Jp9WnR6/a/iSq31zUidsOlCNktMBlPdvyTt5YNR8frlAIOi5ad9nS92F8vFThQkgXIsHdYw36eI2nk8kUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784142571; c=relaxed/simple;
-	bh=66x5PoM5bVTx1CXpsNEXknXuxFVHsPvPsPCs90jO+30=;
+	s=arc-20240116; t=1784142655; c=relaxed/simple;
+	bh=b3nDkrPnfxPi1gVoXMnJB1S7ShDIU/aaMWnscLaoVqQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q+m+///HOEzU1q8J6ukbq1RQ0lV9HeZ8w05dm0C2BWewMdYGjo0dlBgU9t+CwVLL2p24Gfigf6Yqc08aP04COa6uf/iYy6+y1bzh6AFoj0SYoYkJo6TNJ79CkEzRhmnmGLvqXYii5rlhcVT1ahaoTIdje0hXFKHHkXch0HpeQIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr; spf=pass smtp.mailfrom=linkmauve.fr; arc=none smtp.client-ip=82.65.109.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linkmauve.fr
-Received: by luna.linkmauve.fr (Postfix, from userid 1000)
-	id 7F6AFF40D2D; Wed, 15 Jul 2026 21:09:06 +0200 (CEST)
-Date: Wed, 15 Jul 2026 21:09:06 +0200
-From: Link Mauve <linkmauve@linkmauve.fr>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Link Mauve <linkmauve@linkmauve.fr>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Tianshu Qiu <tian.shu.qiu@intel.com>,
-	Bingbu Cao <bingbu.cao@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
-	Lee Jones <lee@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	"Vaibhaav Ram T.L" <vaibhaavram.tl@microchip.com>,
-	Kumaravel Thiagarajan <kumaravel.thiagarajan@microchip.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Vladimir Zapolskiy <vz@mleia.com>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Praveen Teja Kundanala <praveen.teja.kundanala@amd.com>,
-	Kalyani Akula <kalyani.akula@amd.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Joshua Kinard <linux@kumba.dev>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Ronald Claveau <linux-kernel-dev@aliel.fr>,
-	Salah Triki <salah.triki@gmail.com>, Yury Norov <ynorov@nvidia.com>,
-	David Carlier <devnexen@gmail.com>,
-	Achim Gratz <Achim.Gratz@stromeko.de>,
-	Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Patrick Wicki <patrick.wicki@siemens.com>,
-	Markus Heidelberg <m.heidelberg@cab.de>,
-	Markus Perkins <markus@notsyncing.net>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>,
-	Chen Ni <nichen@iscas.ac.cn>, Kees Cook <kees@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-omap@vger.kernel.org, mfd@lists.linux.dev,
-	linux-i2c@vger.kernel.org, linux-gpio@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com, linux-rtc@vger.kernel.org,
-	linux-sunxi@lists.linux.dev, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH 0/8] nvmem: make reg_write() take a const void *
-Message-ID: <alfa0i2wLGZkhl5Z@luna>
-References: <20260715175229.24672-1-linkmauve@linkmauve.fr>
- <alfZNQGcX0Z68eto@ashevche-desk.local>
+	 Content-Type:Content-Disposition:In-Reply-To; b=TZK7tii0fx3zvVtsWs0otpoQCUXgwv+4lPvHH19hxBqXhoLQGn+6cIzplxNxXgnA/y3C2iykHzEH2kZoJC9tYdgzCA+HAk8FWY7VNA4iD1BjCNABHPOclx7Q8dAqearwXZr7T4VzieB6OiEqC5XlTjE7KqW6Hs9B5CYB8dRrnxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=AOSyM8Qi; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="AOSyM8Qi"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 275ED104C;
+	Wed, 15 Jul 2026 21:09:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784142592;
+	bh=b3nDkrPnfxPi1gVoXMnJB1S7ShDIU/aaMWnscLaoVqQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AOSyM8Qioa/cE7zSAclANTSYIUqOp9u6Bkx7/GLicg+6XndprCy5xiA6SDBHUjCl2
+	 GzAcCBKyI84SFfBCiv+gQ2ynTg6rpmxzeS3Nf4THVgwplWrTHlFkUUIVrN/K0HU40T
+	 j/JPKrtbs1yVLGuo9aiuZ741sVmDIrICoKoFBDVo=
+Date: Wed, 15 Jul 2026 22:10:46 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Derek Barbosa <debarbos@redhat.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	Steven Rostedt <rostedt@goodmis.org>, users@kernel.org,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Stephen Finucane <stephenfin@redhat.com>, bpf <bpf@vger.kernel.org>,
+	Chris Mason <clm@meta.com>, Christian Brauner <brauner@kernel.org>,
+	Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Subject: Re: Linking Patchwork with Sashiko?
+Message-ID: <20260715191046.GL1778116@killaraus.ideasonboard.com>
+References: <20260710083845.23c753ca@foz.lan>
+ <87wlv2jq4t.fsf@linux.dev>
+ <20260713095538.3d5e86f1@foz.lan>
+ <20260713094120.GD1127719@killaraus.ideasonboard.com>
+ <20260713220427.582b28bf@foz.lan>
+ <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
+ <20260715005909.GF1656185@killaraus.ideasonboard.com>
+ <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev>
+ <20260715163921.GH1778116@killaraus.ideasonboard.com>
+ <20260715174153.GB3846105@ziepe.ca>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -105,52 +60,46 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <alfZNQGcX0Z68eto@ashevche-desk.local>
-Jabber-ID: linkmauve@linkmauve.fr
+In-Reply-To: <20260715174153.GB3846105@ziepe.ca>
 
-On Wed, Jul 15, 2026 at 10:02:13PM +0300, Andy Shevchenko wrote:
-> On Wed, Jul 15, 2026 at 07:52:16PM +0200, Link Mauve wrote:
-> > This callback used to take a mutable void * for no reason, which causes
-> > the compiler to be unaware that the val buffer should never be modified
-> > by the callback.
+On Wed, Jul 15, 2026 at 02:41:53PM -0300, Jason Gunthorpe wrote:
+> On Wed, Jul 15, 2026 at 07:39:21PM +0300, Laurent Pinchart wrote:
+> > > Yes, assessing whether AI report is "real" is work, but it's not
+> > > reasonable to push this work on already overwhelmed maintainers. And
+> > > if AI is wrong, again it's the job of the author to convince the
+> > > maintainers it's wrong.
 > > 
-> > This was found while drafting the nvmem-provider Rust abstraction.
-> > 
-> > I’ve split this series based on the subsystem each patch affects, but I
-> > think it should go through the nvmem tree in one go after gathering the
-> > acks from the other subsystem maintainers.
+> > We disagree on this as well. This would force contributors to constantly
+> > justify their value against a machine that is known to produce a
+> > non-negligible quantity of nonsense. Furthermore, if those generative AI
+> > tools are as good as their supporters claim, the time they free for
+> > maintainers should outweight the need workload to triage the comments.
 > 
-> It's an option. The other option (and often we go this way) is to introduce
-> a new name, convert users, convert the name back.
+> I feel Sashiko and this whole AI world has created alot more work. It
+> is not saving time at all. Now I have to go and read every Sashiko
+> report to see if there is something important that normal review
+> missed. I have fix all the drive by 'this is already broken' stuff it
+> finds. We get way more patches than we did before. Now *everything*
+> has to be looked at more skeptically if came from some AI slop. I get
+> crazy real security reports that need special hand holding now that we
+> never got before.
 
-Thanks for the hint, I’ll go for this route for v2 then.
+I'd even go as far as questioning if the additional work is resulting in
+less time being spent on changes that would address classes of problems.
+There are many areas in the kernel where APIs are hard to use correctly.
+Improvements there (and I know there's ongoing work such as Kees' object
+allocator functions for instance) may pay off better than spending time
+discussing about one-time memory leaks in error paths of probe
+functions.
 
+> Even on the submitting side now I have to run patches through all
+> kinds of AI tools to have a solid chance to navigate the new guantlet
+> upstream.
 > 
-> See, for example, how GPIO subsystem changed a proto of .set() callback.
-
-I will, thanks.
-
-> 
-> > I’ve been told previously to not include too many maintainers in Cc, but
-> > I don’t know which ones to remove from the get_maintainers.pl output, so
-> > I’ve still included everyone, sorry about that.
-> 
-> With this, rather standard, way you will fulfill the above requirement
-> automatically. Also you won't need treewide change to bother everybody
-> with this. And also increase the chances to go in (maybe in a few releases
-> span).
-
-I originally thought given how few users of this API there are in the
-kernel, it would be simpler to fix them all in one go, but that might be
-a better option then.
-
-> 
-> -- 
-> With Best Regards,
-> Andy Shevchenko
-> 
-> 
+> We aren't saving time, or creating less work. My hope is we are
+> creating better quality, higher security and less bugs.
 
 -- 
-Link Mauve
+Regards,
+
+Laurent Pinchart
