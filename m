@@ -1,151 +1,150 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E71243F0AC
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 18:51:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7843A7D9E;
+	Wed, 15 Jul 2026 18:58:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784141509; cv=none; b=ih57OOBFwQ3iaZC/TGzytTNEuxGXnFRksDG/xRYaYI+cp2yy/nGvxHmDbM5AR7UpucwV5W/BM6RS66ZZMPOgLVQdF0ulIkPk8Vu1NiuZ5pkdKMU9LBVp7F8ol9RWSn6T+yvLUV8WujWEGaR8vu4s1iaKotwN2j4X6jqJ7non/x4=
+	t=1784141925; cv=none; b=jBkK6uRSr5ikJnpO5AJzDPYNacI/PT7Pyp7ZVTEbaGgJpDHDmOHXcvpeNWfl0+wmJhB3c+nvgmSWZneWjiJfC0FlwTVbfC2/1qJR/6Ohp+QaO7odRxAMwuWOVvPMgHtC5nz4gWxT1gQPMZnug3Kn4OxCdU3eY5Mw9pmkYEKZ4/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784141509; c=relaxed/simple;
-	bh=uo88xVxIoZZTvqJn1BH8alUKpnktZW/UBfRMAa9g0D8=;
+	s=arc-20240116; t=1784141925; c=relaxed/simple;
+	bh=o1wdb3hvZg8Mwx/nf5Q5Kz1h9rVn80wGsO8ZhPlCSqA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZLf3mvBz0CpSUCx3+EsoQobmqZFM2zvH5suAm44+yvSxkvPw8sPcISIgQ5MoZ8YSVD+W3xHC32QlrBCQWzoRLjoRUsMBY0aEPDKiaAiZoUwLaMKtPRmNCD34eX7nk9IkhMakuej4ghyRVR2R4F/B6fNTR17MUVVstgixw05VQfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=sk0zE49u; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=RzyIhloKsu3XgdTsSlWBELjrqkWqm8brC0IGN0hxE6z5y6YDqGIeUwn5EgsNNGglKTeWxFgM+Fb0gZyD6r+pO54ERW+ZY2ZctE8+MeDznXuIh/oD/NbDM3Y5q6cI2qrYqWwEk5DRdUu6lAhH8EC7OQ77bDdk/XEqv7ls5xceVb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n/Hbkcke; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="sk0zE49u"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 01DF412D6;
-	Wed, 15 Jul 2026 20:50:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784141448;
-	bh=uo88xVxIoZZTvqJn1BH8alUKpnktZW/UBfRMAa9g0D8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sk0zE49uJsoQxilUP49IxYhGWpbRktbiy1lGWo3qUyT7c6MtmITQELjoNBO4BEZN2
-	 nssE9BPsUyXC2Lh56nj3MUIq2ofeULsOdGgVHJ+crmcLTYXbPtEKQdvWNon9q6p3Zs
-	 WYNJ8Xn6D+K+6Sz5nrueJ7zZ1M+bX+NqDqd6vE44=
-Date: Wed, 15 Jul 2026 21:51:41 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Linus Torvalds <torvalds@linuxfoundation.org>
-Cc: Theodore Tso <tytso@mit.edu>, Roman Gushchin <roman.gushchin@linux.dev>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Derek Barbosa <debarbos@redhat.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Steven Rostedt <rostedt@goodmis.org>, users@kernel.org,
-	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Stephen Finucane <stephenfin@redhat.com>
-Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <20260715185141.GJ1778116@killaraus.ideasonboard.com>
-References: <20260713095538.3d5e86f1@foz.lan>
- <20260713094120.GD1127719@killaraus.ideasonboard.com>
- <20260713220427.582b28bf@foz.lan>
- <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
- <20260715005909.GF1656185@killaraus.ideasonboard.com>
- <alcBvuIMEGSjAD1R@mit.edu>
- <20260715161111.GC1778116@killaraus.ideasonboard.com>
- <ale45QPntcwA-aLB@mit.edu>
- <20260715174138.GI1778116@killaraus.ideasonboard.com>
- <CAHk-=wiL7kFVWNtvE5S9A4iqXYat66NaUqX1+gZT0QCndi4eQw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n/Hbkcke"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784141922; x=1815677922;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=o1wdb3hvZg8Mwx/nf5Q5Kz1h9rVn80wGsO8ZhPlCSqA=;
+  b=n/HbkckensbobOzm7FcgRY5B/EIJXpWbPY7XMHVrTdI5Bag3fD5KFM/M
+   rYY5MXH2u6rDULz8of0eOz9mTiWx/NvlhaHH9U+vQdo3WLL3Eg5USG5PR
+   kjz4Wq5RmqtDzd8td4lKfn9YGlm/pz5TRMX1uwt5BBsWq6NOWnI5PJ2gM
+   QAg8nUhG2/zPV8AZ+S4PXDTspYjrIi5fBra8DFp45eE7jwmldUzE4FPNC
+   jJoU/EoG3kIekm++PXZVYZg2MSUDs14qOFDmaN0IqTTCxPB0Sf7++VzLT
+   B/3WVNffEetl/HSKSuA2442pj469CoAE8+t7gv9xik+EOT4QZ3aOLzwAd
+   A==;
+X-CSE-ConnectionGUID: YBTg6K9ZSzefdbahi2FzjA==
+X-CSE-MsgGUID: Krh71h4vRoiVHTdsc4T49A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84834934"
+X-IronPort-AV: E=Sophos;i="6.25,166,1779174000"; 
+   d="scan'208";a="84834934"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 11:58:31 -0700
+X-CSE-ConnectionGUID: 49XMinnBQ1q16eL0jxD8dg==
+X-CSE-MsgGUID: kjqxmeOcQsKaDHlmEkIC5Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,166,1779174000"; 
+   d="scan'208";a="253661823"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.129])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 11:58:10 -0700
+Date: Wed, 15 Jul 2026 21:58:08 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Link Mauve <linkmauve@linkmauve.fr>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Tianshu Qiu <tian.shu.qiu@intel.com>,
+	Bingbu Cao <bingbu.cao@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	Lee Jones <lee@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	"Vaibhaav Ram T.L" <vaibhaavram.tl@microchip.com>,
+	Kumaravel Thiagarajan <kumaravel.thiagarajan@microchip.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Vladimir Zapolskiy <vz@mleia.com>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Praveen Teja Kundanala <praveen.teja.kundanala@amd.com>,
+	Kalyani Akula <kalyani.akula@amd.com>,
+	Michal Simek <michal.simek@amd.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Joshua Kinard <linux@kumba.dev>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Johan Hovold <johan@kernel.org>,
+	Ronald Claveau <linux-kernel-dev@aliel.fr>,
+	Salah Triki <salah.triki@gmail.com>, Yury Norov <ynorov@nvidia.com>,
+	David Carlier <devnexen@gmail.com>,
+	Achim Gratz <Achim.Gratz@stromeko.de>,
+	Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Patrick Wicki <patrick.wicki@siemens.com>,
+	Markus Heidelberg <m.heidelberg@cab.de>,
+	Markus Perkins <markus@notsyncing.net>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>,
+	Chen Ni <nichen@iscas.ac.cn>, Kees Cook <kees@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-omap@vger.kernel.org, mfd@lists.linux.dev,
+	linux-i2c@vger.kernel.org, linux-gpio@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com, linux-rtc@vger.kernel.org,
+	linux-sunxi@lists.linux.dev, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH 1/8] nvmem: core: make reg_write() take a const void *
+Message-ID: <alfYQP4a1U9pI6UR@ashevche-desk.local>
+References: <20260715175229.24672-1-linkmauve@linkmauve.fr>
+ <20260715175229.24672-2-linkmauve@linkmauve.fr>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAHk-=wiL7kFVWNtvE5S9A4iqXYat66NaUqX1+gZT0QCndi4eQw@mail.gmail.com>
+In-Reply-To: <20260715175229.24672-2-linkmauve@linkmauve.fr>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Linus,
+On Wed, Jul 15, 2026 at 07:52:17PM +0200, Link Mauve wrote:
+> This callback used to take a mutable void * for no reason, this was
+> found while drafting the Rust abstraction.
 
-On Wed, Jul 15, 2026 at 11:18:17AM -0700, Linus Torvalds wrote:
-> On Wed, 15 Jul 2026 at 10:42, Laurent Pinchart wrote:
-> >
-> > Please, let's stop comparing generative AI with zero-day kernel bot or
-> > checkpatch. That's not a relevant comparison.
-> 
-> You are correct. The AI generated reports are usually much superior
-> and more flexible.
-> 
-> They aren't just syntax highlighters or reporting "this doesn't
-> build", they actually find real non-trivial problems.
-> 
-> Now, I'm not saying that one replaces the other. The zero-day bot
-> finding things that don't even build or boot are great. That's a
-> pretty hard and clear signal.
-> 
-> But the AI reports are often a lot better than checkpatch reports have been.
-> 
-> Those checkpatch reports have gone through years of trying to massage
-> them into something that adds more value than pain - and I do think
-> we're there now, but it really required that effort on the part of
-> checkpatch maintainers.
-> 
-> And that's exactly the kind of effort we need for Sashiko and friends.
-> 
-> Because no, AI reports are not always great, but neither are human
-> reviews. I see less useful reviews by humans where I go "did this
-> person just try to get his name in the commit log, because that has no
-> useful content".
-> 
-> I suspect you haven't used AI for programming. Try it. Try one of the
-> *good* ones.
-> 
-> And I don't mean "use it for the kernel". Use it just for the fun of
-> it. Find something you want to do, and just play with it.
-> 
-> The open models are getting pretty darn good too, but for a first
-> trial without any real setup, one of the free tiers of the cloud ones
-> is certainly the easiest way to just kick the tires.
-> 
-> Do it with something you find interesting, but not "important" - start
-> small, and start with something you feel you probably wouldn't really
-> waste your time on if it was just yourself, but where you have enough
-> background knowledge that you can judge the output.
-> 
-> It's what I did, because I wanted to judge things based on real use,
-> not on what others say (and sometimes the loudest ones do it for
-> marketing reasons because they have stock that is tied to it).
-> 
-> You might find it enlightening, or at least interesting.
-
-I've never (OK, not never, but not for some years now) that those tools
-have technical merits. That is not my point in this or other similar
-conversations.
-
-I consider that, today, there's no ethical justification for the use of
-generative AI in FOSS development. That's a personal opinion, it will
-likely evolve with time (not entirely sure in which direction though, as
-the industry is hard to predict accurately), I don't expect everybody to
-agree, I'm not trying to change the opinion of the overall kernel
-community here, and I'm not asking for sashiko-enthousiastic maintainers
-or developers to stop using it.
-
-What I'm asking is for the community to recognize there are people with
-ethical concerns, listen, and try to see if a reasonable middleground
-exists where some of those concerns could be addressed.
-
-Because we all seem to like parallels, here's one that may or may not be
-better than comparing generative AI with checkpatch. There have been
-conscientious objectors probably for as long as humanity exists. They
-have been judged and treated differently over time, often harshly. In
-several countries today they can opt for a civilian service instead of
-being considered a deserter.
-
-Now I'll let someone reply to this comparison and argue that those
-people are destroying the fabric of society :-)
-
-> My own personal annoyance was how eager to please AI models tend to be
-> at least by default. I understand why it happens, and that people like
-> that subservient tone, but at least personally I was looking for more
-> critical review of the code, not an AI that had been taught to say
-> "You are entirely right" just to please people.
+I don't understand how it was compiled. const void * != void * in C and can't
+be implicitly covered, if I am not mistaken. So, this patch heavily should
+break the build. What did I miss?
 
 -- 
-Regards,
+With Best Regards,
+Andy Shevchenko
 
-Laurent Pinchart
+
