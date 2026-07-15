@@ -1,72 +1,215 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28FE395ACF
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 14:32:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A44C481649
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 14:38:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784125972; cv=none; b=Lb9iYZHsSFmMUClYZWuCdXUEWAbuevch+pB0Jm6Fe2jF0sUq65XAAM0cj3lUSzjYcPUdHX2+87GCYV0VD5RNRS8eWIdV2YWICkzy+2WOsefZEK1NgAdBQOaNRZpDpvx6BNq53zD1xhKzAT4nd1q+wzleYwUbYecfZoAwp3hKbiQ=
+	t=1784126298; cv=none; b=qqe4NAmQw9mQ75i9tiT0+Ll1sc2sT/f8qWsjqbMoArgKi+FqkAN0I0xhzpC4Uokw1Ty0ZTPMtHjs0xjV4Pkk5VZCL+1OjaO64cxzQ9+htC8RvbEnP5ie38YrAAgyguah2xeiVbujJsmf1HHfpLXolZIwZTZ7Tk0HPTwMbz5qzNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784125972; c=relaxed/simple;
-	bh=IsQDPxhkVVGb8strcjQSvHI2Ldh9XJp9MtvCTQ1DfVQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uVNJuTMBxSx5ZBK6PgRSVsGtxU/5ZS2DPemETAC+ti6Rmh2z+ab1d2O++0QPRQ9LXnN5/ZkwI4USl3ElaY5jkCTpvnhDN45Lno0NN5+NJyvOI2GO1ilz8ZLgQH1eYEjxBJnlz/zHcvlM+fxqENJQbB1HsdsTrPteDlgmnqNVr+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BXa8YwXL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784126298; c=relaxed/simple;
+	bh=wX3Ll/K9AqfiEwdJ+/jIgOd2YH34L+aERYOqL9rnsBA=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=s5JwG0bthG7lQOBCRhO3tLWsKRIPbBM8sXd4wC+/7BDs4h/HQ24oatIe2dVeuwoce9iy0y7ffpmC3NP9VtAa9c+bPk4nZKDvkeN4cg0nD9bVnS0VOGlO2fL7scLDjDuXTKat8fh699XkxSx2IcoBHmH6NK+TLECLDFY0xAgH/Ys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tT5sI22E; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BXa8YwXL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E33F1F000E9
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 14:32:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784125971;
-	bh=UV+M33Dyarx/zMVxzM/yyyGSeCPkNh0N0c4OTwo8lhI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=BXa8YwXLalEW+/YsOM74inF5ZtiUaQRuuspeOoLwfSnPux9T99YthXgONclCODJeX
-	 JDj28dfryVCmBSiMzXq0yqes8uJf1G5G+7Y2hQ7qD9+g9/yi1AXnriKVXlEue935/k
-	 Lez6HGkofZqtlMDs4GnCn3DEpRvlDkFEvNrX1dMcLNjOLtGMmglFweURumWfujrQBy
-	 4fl1wr7dfbkspnmNOpy7HFS6H39MrAoE9sdr7iYbJ0/jFbGg6W3Ded2lSZyhirXwK2
-	 9X+DruaLeymCd1XbcmOugrmDgANSWlr4TOUtSsIBdfBYQVWHUByx0GBU8zhG8DxA+q
-	 mBBsPPwgY1xig==
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-69c7697d523so622223a12.2
-        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 07:32:51 -0700 (PDT)
-X-Gm-Message-State: AOJu0Yx66SLp9PybvynSA+zrAzOfDVdzc04OSDd3FLrVnLMigyWqPbCU
-	9RtHRLoI5nDA9bA3hUvWDROjNgtPgRQ1MmwtjEtBpLpImQBTOABYpbmo07GWaW25CYHK6FEM/Ah
-	1JthojVOExggrd+uAE47D1Y4xneEOGg==
-X-Received: by 2002:a05:6938:a08e:20b0:c16:8931:245c with SMTP id
- a640c23a62f3a-c16893125d4mr19153966b.21.1784125970173; Wed, 15 Jul 2026
- 07:32:50 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tT5sI22E"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:66a6:48e1:9e1:50d5:c75c])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 79DED12D6;
+	Wed, 15 Jul 2026 16:37:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784126235;
+	bh=wX3Ll/K9AqfiEwdJ+/jIgOd2YH34L+aERYOqL9rnsBA=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=tT5sI22EzwCVqcrkv2J/A02yE3RdrCWzRGO4/rgoJDMBFZxi9ykBNwxPBZvzRYyGs
+	 YRRhYH1hgwTMn82PDLtHuVUA/1MUK8XyVzUjdvGksyXTd1uo+S0WOCsheMFWcbFyWD
+	 YUrS4LA2X7U5KG2jef4VZ4FIKuEV7khJxE9khI38=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260715135711.605907-1-sakari.ailus@linux.intel.com>
-In-Reply-To: <20260715135711.605907-1-sakari.ailus@linux.intel.com>
-From: Rob Herring <robh@kernel.org>
-Date: Wed, 15 Jul 2026 09:32:38 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqK4CJAuiqOo6qoRgQRkur2sAmaCFQdny0rX5j6jVDr2gQ@mail.gmail.com>
-X-Gm-Features: AUfX_mxmhccaSPpaHhLPzBtndkIPaQ402NCXW0P8OR1HbKYXiSYB6ZWkwht-Upw
-Message-ID: <CAL_JsqK4CJAuiqOo6qoRgQRkur2sAmaCFQdny0rX5j6jVDr2gQ@mail.gmail.com>
-Subject: Re: [PATCH 1/1] dt-bindings: media: i2c: Add Sony IMX678
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, Jai Luthra <jai.luthra@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260715135711.605907-1-sakari.ailus@linux.intel.com>
+References: <20260715135711.605907-1-sakari.ailus@linux.intel.com>
+Subject: Re: [PATCH 1/1] dt-bindings: media: i2c: Add Sony IMX678
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Rob Herring <robh@kernel.org>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org
+Date: Wed, 15 Jul 2026 20:08:05 +0530
+Message-ID: <178412628543.1426769.352759015067977932@freya>
+User-Agent: alot/0.13.dev35+g4a69c46ca
 
-On Wed, Jul 15, 2026 at 8:57=E2=80=AFAM Sakari Ailus
-<sakari.ailus@linux.intel.com> wrote:
->
+Hi Sakari,
+
+Quoting Sakari Ailus (2026-07-15 19:27:11)
 > Really add Sony IMX678 bindings this time. Those were accidentally missed
-> from commit 447ea0c26e57 ("dt-bindings: media: i2c: Add Sony IMX678") eve=
-n
+> from commit 447ea0c26e57 ("dt-bindings: media: i2c: Add Sony IMX678") even
 > though the original patch included them.
->
+>=20
 > Fixes: 447ea0c26e57 ("dt-bindings: media: i2c: Add Sony IMX678")
 > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+
+Thanks for the quick response,
+
+Acked-by: Jai Luthra <jai.luthra@ideasonboard.com>
+
+--
+Jai
+
 > ---
 >  .../bindings/media/i2c/sony,imx678.yaml       | 130 ++++++++++++++++++
 >  1 file changed, 130 insertions(+)
 >  create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx6=
 78.yaml
-
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+>=20
+> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml=
+ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> new file mode 100644
+> index 000000000000..098f72544216
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> @@ -0,0 +1,130 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright (C) 2026 Ideas on Board Oy
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Sony IMX678 Sensor
+> +
+> +maintainers:
+> +  - Jai Luthra <jai.luthra@ideasonboard.com>
+> +
+> +description:
+> +  Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid=
+-state
+> +  image sensor with a square pixel array and 8.40M (3856x2180) effective=
+ pixels.
+> +
+> +allOf:
+> +  - $ref: /schemas/media/video-interface-devices.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - sony,imx678-aamr
+> +          - sony,imx678-aaqr
+> +      - const: sony,imx678
+> +    description:
+> +      The IMX678 sensor exists in a colour variant (IMX678-AAQR) and a m=
+ono
+> +      variant (IMX678-AAMR). The variant-specific compatible describes t=
+he
+> +      exact sensor variant, with the generic IMX678 compatible as a fall=
+back.
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    description: |
+> +      Input clock (INCK). Only the rates listed in the datasheet are sup=
+ported:
+> +      13.5, 18, 24, 27, 36, 37.125, 72, and 74.25 MHz.
+> +    maxItems: 1
+> +
+> +  avdd-supply:
+> +    description: Analog power supply (3.3V)
+> +
+> +  ovdd-supply:
+> +    description: Interface power supply (1.8V)
+> +
+> +  dvdd-supply:
+> +    description: Digital power supply (1.1V)
+> +
+> +  reset-gpios:
+> +    description: Sensor RESETN (XCLR) GPIO
+> +    maxItems: 1
+> +
+> +  port:
+> +    $ref: /schemas/graph.yaml#/$defs/port-base
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      endpoint:
+> +        $ref: /schemas/media/video-interfaces.yaml#
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          data-lanes:
+> +            oneOf:
+> +              - items:
+> +                  - const: 1
+> +                  - const: 2
+> +              - items:
+> +                  - const: 1
+> +                  - const: 2
+> +                  - const: 3
+> +                  - const: 4
+> +              - items:
+> +                  - const: 1
+> +                  - const: 2
+> +                  - const: 3
+> +                  - const: 4
+> +                  - const: 5
+> +                  - const: 6
+> +                  - const: 7
+> +                  - const: 8
+> +
+> +        required:
+> +          - data-lanes
+> +          - link-frequencies
+> +
+> +    required:
+> +      - endpoint
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - avdd-supply
+> +  - ovdd-supply
+> +  - dvdd-supply
+> +  - port
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        camera@1a {
+> +            compatible =3D "sony,imx678-aaqr", "sony,imx678";
+> +            reg =3D <0x1a>;
+> +            clocks =3D <&imx678_clk>;
+> +
+> +            avdd-supply =3D <&camera_avdd_3v3>;
+> +            ovdd-supply =3D <&camera_ovdd_1v8>;
+> +            dvdd-supply =3D <&camera_dvdd_1v1>;
+> +
+> +            reset-gpios =3D <&gpio 0 GPIO_ACTIVE_LOW>;
+> +
+> +            port {
+> +                imx678: endpoint {
+> +                    remote-endpoint =3D <&cam>;
+> +                    data-lanes =3D <1 2 3 4>;
+> +                    link-frequencies =3D /bits/ 64 <720000000>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +...
+> --=20
+> 2.47.3
+>
