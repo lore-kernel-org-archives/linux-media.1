@@ -1,81 +1,150 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+Received: from lamorak.hansenpartnership.com (lamorak.hansenpartnership.com [198.37.111.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 114863AD51C
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 16:50:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D441A3644A4
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 16:53:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.37.111.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784134259; cv=none; b=H+hkrH8Ex+lqwLedIdug0NAKhg8d6Oi6IhPIO6cpU+Ka/qhUioMU/r/1SoKDlfQ5RdFA0Lhi48esPjlBZiRrZhAyr0UUg2y4B6VlSEnnaydLVDG1JllC883/bvi+rirzGvNfXGhxu5pDkBFva+oHyovSMnt+P27KPB3Puj19u3o=
+	t=1784134433; cv=none; b=afYfAVPOmroWTa66BnvHUmAchAuTKspuf2CR/7Aeg0+6xRkPetblpchUe52yjjkWbO4GqiM/Av9Dx7WlpONDCNvTr4YyrcFJIYuMZ57N8U0duvc6mVI6bi8wVueBzVORE96VxhIQEOFc6gth0iUveu724N6xhdpBVPjWPPO+0NE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784134259; c=relaxed/simple;
-	bh=MjFVrrN1hV+jMhbwwKtPWBuBBV05pDw5Z3VlvttnZoU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Crh8MkplThjJw8aNZz2Ci19jC53jwV+51Om63u5rqS9Vq5LLZHQGCgyICspmPku961Mu+TAjDDPavTExslfZPIrCVBHGyKyWM6qBJpQAUktH7IWDZLk0HeWbJKZwgtHm+5LbEzXE8VpqPZyejxyuFE0VRElUlcfkIj9JAF2wdV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
-Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay02.hostedemail.com (Postfix) with ESMTP id EBD5212021F;
-	Wed, 15 Jul 2026 16:50:55 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id 8D0E930;
-	Wed, 15 Jul 2026 16:50:53 +0000 (UTC)
-Date: Wed, 15 Jul 2026 12:50:58 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Jori Koolstra <jkoolstra@xs4all.nl>
-Cc: Linus Torvalds <torvalds@linuxfoundation.org>, Roman Gushchin
- <roman.gushchin@linux.dev>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab
- <mchehab+huawei@kernel.org>, Derek Barbosa <debarbos@redhat.com>, Matthieu
- Baerts <matttbe@kernel.org>, Konstantin Ryabitsev
- <konstantin@linuxfoundation.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- users@kernel.org, Linux Media Mailing List <linux-media@vger.kernel.org>,
- Stephen Finucane <stephenfin@redhat.com>
+	s=arc-20240116; t=1784134433; c=relaxed/simple;
+	bh=PjmD5Vb3Mgm/H/JPNFVcyn3tZ8JIfvi4MZRVfJG2UGM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=PT5ClDX1Qte11HBK/nLlvG3NTKvG1x2ZS6NCcBt07h++Lq9Pf7wqCoTnK05v+DiOBv3geOKWMfpMZuvjg9vir92m7UT67qTrRAF8h1y6viSH5RLRTK+rFzMBi3Xaqivc8VAw3xZ7a7BU7rqdqJxvcvVeZQku1/mtfOl2QjbhKnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com; spf=pass smtp.mailfrom=HansenPartnership.com; dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b=VlgvQsIP; arc=none smtp.client-ip=198.37.111.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=HansenPartnership.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="VlgvQsIP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=hansenpartnership.com; s=20151216; t=1784134428;
+	bh=PjmD5Vb3Mgm/H/JPNFVcyn3tZ8JIfvi4MZRVfJG2UGM=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+	b=VlgvQsIPm2e6WS76RtFlJ16qXixZDsi+Nf2u3Qp6luZpSrPG+WuremzVeRDBLhe67
+	 ob5UM2uH2HYPSq0Go1d1vR0eknJ2sL7qxz5k2qZMBbI0jrkZqAzq1UE6rJEISDEFG3
+	 c6Nasos1l+6o7upcmM6v1x7+lNCQ34Dw4czu5Or8=
+Received: from lingrow.int.hansenpartnership.com (unknown [IPv6:2601:5c4:4300:d341::8c71])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768)
+	(No client certificate requested)
+	by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id E8B4D1C023E;
+	Wed, 15 Jul 2026 12:53:47 -0400 (EDT)
+Message-ID: <a03c191ab567d1f24708a797755e380b7657617e.camel@HansenPartnership.com>
 Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <20260715125058.3692aa03@gandalf.local.home>
-In-Reply-To: <aldx9KiAHM4CRI0m@lt-jori.localdomain>
-References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
-	<4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
-	<CAHk-=wi4zC+Ze8e+p3tMv8TtG_80KzsZ1syL9anBtmEh5Z40vg@mail.gmail.com>
-	<aldx9KiAHM4CRI0m@lt-jori.localdomain>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Theodore Tso	
+ <tytso@mit.edu>, Roman Gushchin <roman.gushchin@linux.dev>, Derek Barbosa	
+ <debarbos@redhat.com>, Matthieu Baerts <matttbe@kernel.org>, Konstantin
+ Ryabitsev <konstantin@linuxfoundation.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Steven Rostedt	 <rostedt@goodmis.org>, users@kernel.org, Linux Media
+ Mailing List	 <linux-media@vger.kernel.org>, Stephen Finucane
+ <stephenfin@redhat.com>
+Date: Wed, 15 Jul 2026 12:53:47 -0400
+In-Reply-To: <20260715161840.GD1778116@killaraus.ideasonboard.com>
+References: <20260710083845.23c753ca@foz.lan> <87wlv2jq4t.fsf@linux.dev>
+	 <20260713095538.3d5e86f1@foz.lan>
+	 <20260713094120.GD1127719@killaraus.ideasonboard.com>
+	 <20260713220427.582b28bf@foz.lan> <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
+	 <20260715005909.GF1656185@killaraus.ideasonboard.com>
+	 <alcBvuIMEGSjAD1R@mit.edu> <20260715091349.2094a0ec@foz.lan>
+	 <460bb8002edc009194dcc0ad68a0538e5df6bfb5.camel@HansenPartnership.com>
+	 <20260715161840.GD1778116@killaraus.ideasonboard.com>
+Autocrypt: addr=James.Bottomley@HansenPartnership.com;
+ keydata=mQENBE58FlABCADPM714lRLxGmba4JFjkocqpj1/6/Cx+IXezcS22azZetzCXDpm2MfNE
+ lecY3qkFjfnoffQiw5rrOO0/oRSATOh8+2fmJ6el7naRbDuh+i8lVESfdlkoqX57H5R8h/UTIp6gn
+ 1mpNlxjQv6QSZbl551zQ1nmkSVRbA5TbEp4br5GZeJ58esmYDCBwxuFTsSsdzbOBNthLcudWpJZHU
+ RfMc0ew24By1nldL9F37AktNcCipKpC2U0NtGlJjYPNSVXrCd1izxKmO7te7BLP+7B4DNj1VRnaf8
+ X9+VIApCi/l4Kdx+ZR3aLTqSuNsIMmXUJ3T8JRl+ag7kby/KBp+0OpotABEBAAG0N0phbWVzIEJvd
+ HRvbWxleSA8SmFtZXMuQm90dG9tbGV5QEhhbnNlblBhcnRuZXJzaGlwLmNvbT6JAVgEEwEIAEICGw
+ MGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAhkBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAml2ZBI
+ FCS3GUMIACgkQgUrkfCFIVNZKjQf/deRzlXZClKxTC/Ee2yEPqqS7mm/INUA49KdQQ5oIhSxkUBy0
+ 9J4qjMIo5F8ZFkFTqikBqeL35LKu7O7rn8WETfX8Bxvos3HUsl3jHo34DES4MUFIpoQPgtiLRGwLb
+ K0cVCAArR2u2qj4ABmTRrs1I1kvdjEw6gatOuXtEe/j5O2fvfzTq9GBr0Q3n2IAsFXi4hLlx6VPE8
+ tyWUZ8BWJKtih3JAeUiXFvASL3McV0rV9RnU0VbjEQEhSE7PMYhWpnDC9AyBb0lXJllQRvC3NSkUB
+ 8KVQgNNxRPss0WE/nBoZ4dFA42jTyzTz8lNylxZoAWV7WJb3QxVg4oCodRVrxxrQhSmFtZXMgQm90
+ dG9tbGV5IDxqZWpiQGtlcm5lbC5vcmc+iQFVBBMBCAA/AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeA
+ QIXgBYhBNVgbnPItGJxvq2a34FK5HwhSFTWBQJgS5mYBQkbNYS9AAoJEIFK5HwhSFTWBpwIAL5Bk3
+ 5FB34U6iHmDzzgdCbxLTs43T/YQyJpcGIvopBvnI/fDY8oSG6Df64/O6B+1R+A8TDp6ZG5ysUWnCC
+ 6GuIaEHemBYkitMPglR6+sGCMQY7O0mlsPvdssvKK1KI9Bno4VU6ogaF2qVzefSqg1Djmf/DcsxWP
+ rI/jdJ8FB5AYR2rjIdDFc+zRdAJuavo1/anyY2wgpFh/3R8IOYAEfWV9nGgYkf9+tA4EIn1sxE0I3
+ L5oW2N3mbyRrkzuBwO8ztMCwqEPk7moWzhokcZqMXiAIahaZdkashJC+s2X2RZSGCy+g+pvY5NN4B
+ BVG5XwLgVBqbHMTcxE0fbmPqz+q6O0LEphbWVzIEJvdHRvbWxleSA8amVqYkBoYW5zZW5wYXJ0bmV
+ yc2hpcC5jb20+iQFXBBMBCABBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAmODZ5ACGwMFCRs1hL0F
+ CwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQgUrkfCFIVNZu0Af/TzvL2/NdgAcw9uN3x60H8
+ jc4QUq14VpxcFEFEMpcj1morkX/G93V+56HBBaXZj+yK8PhxIA/SIz+sU7C/0YvKuvzakP8ZX/7WJ
+ e32SOUtjfr/VTaqjIBzNj6OxLvZpmNbBw7s6DwhhNpHOWqJ/1ml+PtDRDV71IB58yVqQjp1xlNKVl
+ ZppcJ5908EJzsFnRIVjiQiDSKoppqB2BCibBbrWcln7CiWMyOC/cco6SIn6twH+f7+aivJ3xGcOE2
+ a9gBKF5rNi9TBoX9oyPmshv/TDmnohsVrH7AYXlGYfZTk15SWEiROh1QX8/uD9wl/gcIv5EDUpT/F
+ L2jzOsA5663bw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: 8D0E930
-X-Stat-Signature: 7m39s8fr33aw6eigor75fezrzcwohpyf
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/+krG+ox4tk2imRdoT0OXaWf0vCN83Gx0=
-X-HE-Tag: 1784134253-694296
-X-HE-Meta: U2FsdGVkX19cLACkGfD66pXtitMNVwRej5nXXoVEccRJnrAyMWXe1GrTPjvYeV1IQto3QX3PWAkPXmPlvLYzN+uJaaR2dO1y5ihNHihV6q/h2NlIcZaWTzNhfMAX206ijFtdxo1ykXe/gHkhXqsPS7GP8LMSdHeQak8vRx5QlEAewLqdjhRzeXHYAzD1ZHEjWLArF+DCIpylZWWds+qQA4sQBv8GoHlF1RyaxHy4U5iSAvV9vBL8CP5ZNWONyvRA5DScm1kyOshoRfG9QK1RFOpfNiZ0C1ZIQkAV+Lc2wJT6X2B2bCtwE9hoScEmPOi1gF4/+VNxWV6ugo0u894VdMludQSsXC0D
 
-On Wed, 15 Jul 2026 14:21:48 +0200
-Jori Koolstra <jkoolstra@xs4all.nl> wrote:
+On Wed, 2026-07-15 at 19:18 +0300, Laurent Pinchart wrote:
+> On Wed, Jul 15, 2026 at 08:42:54AM -0400, James Bottomley wrote:
+> > On Wed, 2026-07-15 at 09:13 +0200, Mauro Carvalho Chehab wrote:
+> > > On Tue, 14 Jul 2026 23:54:43 -0400 "Theodore Tso" wrote:
+[...]
+> > > > Things get a lot more complicated when we're considering the
+> > > > use of LLM's to (a) review code, (b) automate the analysis of a
+> > > > bug report or stack trace, or (c) automate backporting a patch
+> > > > to LTS kernel.
+> > > >=20
+> > > > Consider the first recommendation, "The FOSS community should
+> > > > support, not just tolerate, those who outright reject LLM-gen-
+> > > > AI systems."=C2=A0 If someone rejects LLM-gen-AI systems, and the
+> > > > LTS kernel contains patches which are automated backported, and
+> > > > they object, are we bound to forswear the use of automated
+> > > > backport technologies?
+> > > >=20
+> > > > What if someone reports a bug with a kernel stack trace, and
+> > > > someone uses an LLM agent to analyze their bug report and find
+> > > > a fix.=C2=A0 What does it mean to "support somone who outright
+> > > > rejects the use of LLM-gen-AI systems" in that case?
+> >=20
+> > I think it's simpler than that: The contributor doesn't get to
+> > approve the tools the maintainer uses to assess and apply patches.=C2=
+=A0
+> > If there's AI in there and the contributor is an AI luddite, then
+> > the patch doesn't get applied (i.e. your right to ignore AI stops
+> > when it infringes others' right to use it).
+>=20
+> I don't think anyone instructed any maintainer to stop using those
+> tools to assess patches.
 
-> While there is some truly ridiculous anti-LLM brigading in some open
-> source projects, I feel like saying it is just another tool does not do
-> justice to some of the harm that is done by that industry. Also,
-> precisely because of the usefulness of LLMs, I worry about creating an
-> uneven playing field, where new contributors can't keep up if they can't
-> afford the needed tools (something that is not as much the case with
-> compilers.)
-> 
-> These are not arguments that others should not use LLMs, and I find LLMs
-> to be tremendously useful for reviewing code and understanding context.
-> But maybe the community could think about these concerns at the same
-> time, even if its not the main focus. Maybe it is a good side topic for
-> the Maintainter summit? (or perhaps it is not process-related enough.)
+Well, AI replies to patches were the discussion.  That is part of a
+maintainer assessment (at least if sashiko replies with a problem to
+SCSI patches I ignore the patch until the submitter either fixes the
+issue or explains why it is wrong).
 
-But this is about receiving reviews of patches you send. Really, this is no
-different than kernel test robot. At least all critical errors that Sashiko
-finds should be sent as a reply, just like anyone else that reviews a patch.
+> On a side note, I find the formulation "contributor *is* an AI
+> luddite" gets close to an ad hominem attack. I assume it wasn't your
+> intention. Given how heated this topic is, focussing on people's
+> actions instead of their nature could help making the discussion more
+> productive (if that's at all possible on a mailing list).
 
-In my experience, the noise has been less than the signal. And the noise is
-usually special cases that even a human would likely miss.
+It's a common and neutral dictionary term to mean someone opposed to
+change:
 
--- Steve
+https://www.dictionary.com/browse/luddite
+
+If we avoid all words which originally had negative origins because the
+origins might cause offence to some, you'll find a long list of
+everyday words:
+
+https://www.mentalfloss.com/language/words/13-words-changed-negative-positi=
+ve-or-vice-versa
+
+Although I personally would love to support banning the word "Dude" in
+silicon valley on grounds of original negative connotation ...
+
+Regards,
+
+James
