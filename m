@@ -1,135 +1,130 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88CFE446854
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 20:13:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF42417D80;
+	Wed, 15 Jul 2026 20:19:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784146387; cv=none; b=Rfhus7PoFGR1HXnzGWWq+yh/IzbIOyrpINiYERZEw15KUcvFOpa3vW+2Rq8Cyem4BhYAoMWbMYAsxCmiv3YQbuvK6twdglqdfGeVm0sQ/pRerGQt6uAXfXyftAPex+CzzNubVVZH0Fpx/b899enVI+8So0wEHjXR1iZCWLw/95Y=
+	t=1784146759; cv=none; b=Nc8m4gpSrFASeYWE00Y5PAT05GRSSZSrj68uycZg9U+KmNoHANPirK+hcVyTLIfZIh/Jk9j6yV9jFEl9TlIpN6CpbKjw8O5coAk84hZsBk08dxUz8r1VFa5iAuJkIA9tz//rh6lZDtRDXtRorv6C1YzoKD60Qrvg6CL8KMa7RVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784146387; c=relaxed/simple;
-	bh=VAZR3TwvECAloxb0OVVEvPjXCMzItmrxti3B2map6ok=;
+	s=arc-20240116; t=1784146759; c=relaxed/simple;
+	bh=bx/1S11PcAwsuh2C3qto34IcZ2XC7n+ETlUF80ADOpU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Kvimil2X2a9Jzh98b/mFrcCMkpNbt7imYLK39amltEqvkghlwplFj8fLD7cQY6bDOeSGJKpSTQrniBcSOK4AoNhSmKVhN45RXMq1Oyhs+VyFViHH6KhHOmfPlz+VQQYsU4iD5L6nuIVZQcN2nSmJBYHwAUJ/UZruOMt1gN2TF6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=nEW04Z9g; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=VVee2wHzVwptKae309hqbgVO6Nm11C5GZlE3Pqkrr8keR1SkpWe6mApDukMQzHQPulA4RFGde9qrHRNv5OW2VItyzdHTyZ0lfFNFLyG+hQi2qN5n3vg+UN4ol3ScWq5sgZQJlU0HhUho4eiNDSGQWHUrwLBK9ilP79IT8YXBeN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RMOXIKxM; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="nEW04Z9g"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 677A1267;
-	Wed, 15 Jul 2026 22:12:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784146327;
-	bh=VAZR3TwvECAloxb0OVVEvPjXCMzItmrxti3B2map6ok=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nEW04Z9gBluTfS3SXR3FrPQOM3HpO4Ut0CS041Mds+7XbZk7HVT6L+1aUKNwlvHxa
-	 YQ/MujfCzs/JkMsTLrighf4/sOPTOhArXv+3256V7m8Se0woc7Ot7GHOE/JSOQxDxx
-	 jHN6OyN+7G+jbNVS/1FB11piXtgzasudqf2ruZs0=
-Date: Wed, 15 Jul 2026 23:13:01 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Linus Torvalds <torvalds@linuxfoundation.org>
-Cc: Theodore Tso <tytso@mit.edu>, Roman Gushchin <roman.gushchin@linux.dev>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Derek Barbosa <debarbos@redhat.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Steven Rostedt <rostedt@goodmis.org>, users@kernel.org,
-	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Stephen Finucane <stephenfin@redhat.com>
-Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <20260715201301.GB1824265@killaraus.ideasonboard.com>
-References: <20260713220427.582b28bf@foz.lan>
- <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
- <20260715005909.GF1656185@killaraus.ideasonboard.com>
- <alcBvuIMEGSjAD1R@mit.edu>
- <20260715161111.GC1778116@killaraus.ideasonboard.com>
- <ale45QPntcwA-aLB@mit.edu>
- <20260715174138.GI1778116@killaraus.ideasonboard.com>
- <CAHk-=wiL7kFVWNtvE5S9A4iqXYat66NaUqX1+gZT0QCndi4eQw@mail.gmail.com>
- <20260715185141.GJ1778116@killaraus.ideasonboard.com>
- <CAHk-=wi7KN9_DYdmaE2chC92EhTrO=Wtx1bPBER-EQfAZ8FREg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RMOXIKxM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784146757; x=1815682757;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=bx/1S11PcAwsuh2C3qto34IcZ2XC7n+ETlUF80ADOpU=;
+  b=RMOXIKxMpwzfhuVgT5LU1zpmctDQB8KXOGaYQ8QxwU/5d+BWaZBKWHhM
+   oPcBqev0F5UeWC6SYQUf3vsAexSZxvQtuKZeWWfwz1yUZYR3UXvKmIPR6
+   FVe9NxDxWVEKJhekdv9HrpVWJmEdqIfUaejbv75VvmBnao76wiuvgOSEy
+   xe6MZNSB6rEzAndiF125Cx3DHMTYAwSOiJCZx2JQDJBYUnz59MzR/4t9S
+   Q9OntoLN6WYPZLtmM7dEDcbjkKhzNrimUVYF/YYRQ9xuxMPF2QSLtR8jA
+   z5pNwrwzWnZ5w8+0ndkAhjbdD9ov26AbBiu+CO873mQD85MpXpg+CjSrk
+   g==;
+X-CSE-ConnectionGUID: ot37nhk7T5qxTIMrBPI7ZA==
+X-CSE-MsgGUID: ccZnhpLxQzqDOwNYsCtaHQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="110348804"
+X-IronPort-AV: E=Sophos;i="6.25,166,1779174000"; 
+   d="scan'208";a="110348804"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 13:19:14 -0700
+X-CSE-ConnectionGUID: npz7CyRpRL+qw0sorQnp6A==
+X-CSE-MsgGUID: 6LwJ7+tcQZ+/jLlyRHoHKg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,166,1779174000"; 
+   d="scan'208";a="258258698"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.106])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 13:19:12 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id D1C23121C06;
+	Wed, 15 Jul 2026 23:19:10 +0300 (EEST)
+Date: Wed, 15 Jul 2026 23:19:10 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Richard Acayan <mailingradian@gmail.com>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 02/21] media: i2c: imx355: Add support for 24 MHz
+ external clock
+Message-ID: <alfrPmqdQxw18bk0@kekkonen.localdomain>
+References: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
+ <20260715-media-imx355-v4-2-f7f966fb9ffd@raspberrypi.com>
+ <alfj3XIkX-2O5BGp@rdacayan>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAHk-=wi7KN9_DYdmaE2chC92EhTrO=Wtx1bPBER-EQfAZ8FREg@mail.gmail.com>
+In-Reply-To: <alfj3XIkX-2O5BGp@rdacayan>
 
-On Wed, Jul 15, 2026 at 12:14:47PM -0700, Linus Torvalds wrote:
-> On Wed, 15 Jul 2026 at 11:51, Laurent Pinchart wrote:
-> >
-> > I consider that, today, there's no ethical justification for the use of
-> > generative AI in FOSS development.
+Hi Richard,
+
+On Wed, Jul 15, 2026 at 03:47:41PM -0400, Richard Acayan wrote:
+> On Wed, Jul 15, 2026 at 12:43:15PM +0100, Dave Stevenson wrote:
+> > From: David Heidelberg <david@ixit.cz>
+> > 
+> > The IMX355 sensor supports multiple external clock frequencies,
+> > including 19.2 MHz and 24 MHz. The driver currently supports only
+> > fixed 19.2 MHz input clock.
+> > 
+> > Refactor the clock handling to make the PLL configuration dependent
+> > on the external clock frequency and add support for 24 MHz. Introduce
+> > a table of clock parameter sets and program the corresponding EXTCLK
+> > frequency and PLL multipliers to maintain consistent internal VCO
+> > frequencies across supported inputs.
+> > 
+> > The PLL settings are adjusted so that OP VCO remains at 720 MHz
+> > 
+> > This preserves existing timing characteristics while allowing systems
+> > using a 24 MHz clock to operate correctly.
+> > 
+> > No functional change for existing 19.2 MHz users.
+> > 
+> > Assisted-by: Claude:claude-opus-4-6
+> > Signed-off-by: David Heidelberg <david@ixit.cz>
+> > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> > ---
+> >  drivers/media/i2c/imx355.c | 77 +++++++++++++++++++++++++++-------------------
+> >  1 file changed, 45 insertions(+), 32 deletions(-)
+> > 
+> > diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+> > index ac59908f57aa..a6ee7532018f 100644
+> > --- a/drivers/media/i2c/imx355.c
+> > +++ b/drivers/media/i2c/imx355.c
+> (snip)
+> > @@ -1749,7 +1756,13 @@ static int imx355_probe(struct i2c_client *client)
+> >  				     "failed to get clock\n");
+> >  
+> >  	freq = clk_get_rate(imx355->clk);
+> > -	if (freq != IMX355_EXT_CLK)
+> > +	for (unsigned int i = 0; i < ARRAY_SIZE(imx355_clk_params); i++) {
 > 
-> So this is where the discussion ends.
+> Did we start allowing variable declarations mixed with code?
 
-You've cut the rest that says
+C didn't allow that until somewhat recently, hence it hasn't been used in
+the kernel either.
 
-  I don't expect everybody to agree, I'm not trying to change the
-  opinion of the overall kernel community here, and I'm not asking for
-  sashiko-enthousiastic maintainers or developers to stop using it.
-
-I think that's relevant.
-
-> As I mentioned, Linux has never been a social warrior project.
-> 
-> If you don't have technical reasons, you don't have reasons.
-
-You have accepted
-
-commit a5f526ecb075a08c4a082355020166c7fe13ae27
-Author: Dan Williams <djbw@kernel.org>
-Date:   Fri Jul 3 23:54:35 2020 -0700
-
-    CodingStyle: Inclusive Terminology
-
-
-That commit shows the community can take ethical issues into
-consideration.
-
-> You can choose not to use AI, but that's your PERSONAL choice.
-> 
-> It has absolutely no impact on anybody else, and you should not expect
-> it to have any.
-> 
-> Put another way: if you are vegetarian because you think meat is
-> murder, that's perfectly fine. I know for a fact we have several vegan
-> kernel developers, and I'm sure they have varied reasons for it. Maybe
-> they just don't like the taste, maybe they have social or religious
-> reasons for it. Lots of perfectly valid reasons, possibly driven by
-> ethics.
-> 
-> But they don't expect the rest of the kernel community to become
-> vegetarian because of their personal ethical standpoint, do they?
-
-And I'm not either, cfr supra. What I'm asking is to not be forced to
-eat meat (in the metaphorical sense only).
-
-> This is absolutely no different.
-> 
-> And yes, I feel very strongly about this, not because I feel strongly
-> about AI per se, but because we have a long history interacting with
-> the FSF.
-> 
-> They have their "ethical" reasons too, and use them as a weapon, and
-> as a way to drive away sane people.
-> 
-> It's why Linux is *not* GNU/Linux, and why we call things "open
-> source" instead of "Free Software".
-> 
-> So keep your ethics where they belong - in your personal life. Don't
-> try to enforce your ethics on others.
-
-The mail thread has grown long, you may have missed the multiple places
-where I have explained - or tried to - that I'm not expecting the rest
-of the community to abide by my personal convictions.
+In cases like the above it improves readability. E.g. with __free() that is
+also the recommended pattern.
 
 -- 
 Regards,
 
-Laurent Pinchart
+Sakari Ailus
