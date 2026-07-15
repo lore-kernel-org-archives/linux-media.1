@@ -1,132 +1,129 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from out-172.mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF492BE65F
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 17:09:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1233742BC35
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 17:12:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784135378; cv=none; b=PEcf1o99rsaocBIUzHG9GpLgCCu/2WBmAu9vOHO5PB261aFvmohZuO5HMMNCNQDjCADpZkNhPyEiGfYZdEknsoSDlnLGqAn5/zlxLNlT+bBwnjs9egQg6uupKqln2AnEbqbQdNyx8FAlulWMkpW4BjjjoJiWSD8gYVCcfkOiFnc=
+	t=1784135539; cv=none; b=oK7WEZhfpBjq6RmC57jWTzaww/JbnBSA2p5xxdsA4hQTe/bhNTbNb1JJ7GJNQ50UBbnBUg9/UhJU11ibkkpcPdbIG2aKwZLnWSdjJt/jQof3khy62xyPxnZtYKct8E6lLhbauJqOBI7jk4peI4P1SDatPb4xjABce9ce1CCnATo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784135378; c=relaxed/simple;
-	bh=mzw3hBV7t/aw/0xVudmYaTIyfRsE9p97qUnrjhOc364=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dJyT64xxAz9ZqYza9DwEntE8Lu3OV4RDEoXs2ezggXrPwB426csTAApExCAMJb8V5rNOS8i8fMElUCPNBRJn7RWeyuvMx6z4c7IsdA+X+eSmFb7wrvkQcYYSUI8M4itSeeFFHvWxvlkvBiYdPWhW0RBC2YY8zEfGj+KLfO+XWhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=I7dLtLnp; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784135539; c=relaxed/simple;
+	bh=aLSCllbEU9q7DRvLcM8t8FW9AoB3EoV7WA0747CzLRw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ecWjaaJ7tvaxs74bT9yT21jNDmck6ix0BSzwkUWr1SafIF0SxNepDGyGh72dI0M24byN2Vq1OEiyvUI3JeK1WjwK2iaIwUv1rV/ca1SMT5ASrwmW3FsugDz+zravNTZhk/ddxYKFdfIcezI95AtWdMRRKCA0vnhpe55IjiJJpJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fCBsXu14; arc=none smtp.client-ip=91.218.175.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="I7dLtLnp"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 68818104C;
-	Wed, 15 Jul 2026 19:08:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784135318;
-	bh=mzw3hBV7t/aw/0xVudmYaTIyfRsE9p97qUnrjhOc364=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=I7dLtLnpeicQunG/IQ006w0sfIN+W3HMVL2gwDNXXbaiQps4B4on9x2TK+1eHoK5j
-	 zPvLMZ8AqskOOkutYE4sj8S64k5xCPaSu2UqHm8OEBvCwh04vhiVkFGnBLYNYOqhOV
-	 7sYING5F0OgLkb3QuWz5rP9DkdDdf4PxelbdmuEg=
-Date: Wed, 15 Jul 2026 20:09:32 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Theodore Tso <tytso@mit.edu>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Derek Barbosa <debarbos@redhat.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Steven Rostedt <rostedt@goodmis.org>, users@kernel.org,
-	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Stephen Finucane <stephenfin@redhat.com>
-Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <20260715170932.GB1735001@killaraus.ideasonboard.com>
-References: <20260713095538.3d5e86f1@foz.lan>
- <20260713094120.GD1127719@killaraus.ideasonboard.com>
- <20260713220427.582b28bf@foz.lan>
- <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
- <20260715005909.GF1656185@killaraus.ideasonboard.com>
- <alcBvuIMEGSjAD1R@mit.edu>
- <20260715091349.2094a0ec@foz.lan>
- <460bb8002edc009194dcc0ad68a0538e5df6bfb5.camel@HansenPartnership.com>
- <20260715161840.GD1778116@killaraus.ideasonboard.com>
- <a03c191ab567d1f24708a797755e380b7657617e.camel@HansenPartnership.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fCBsXu14"
+Message-ID: <153db0fa-65ac-49de-9bf5-456c9639954c@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784135532;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vk9CWY7aGdz0JSYqsEotsmxVtdAivhiy5sc7diF4EZg=;
+	b=fCBsXu14c0RXGitMuAal0egSVP8YhM+74CkdeSHWaN3FsPYPr/xfJfC1BBbGOK/JiFicBq
+	rKjjxJUtgKE0yzWGFPko7ngL1TXOmgIkAj0U+FxrbuAGzLI7Uebu0QEUdny8+HcKkWvQ9/
+	uUE1C74u+r/EAjXonjapJiDlBiILjX0=
+Date: Wed, 15 Jul 2026 10:12:03 -0700
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a03c191ab567d1f24708a797755e380b7657617e.camel@HansenPartnership.com>
+Subject: Re: Linking Patchwork with Sashiko?
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Derek Barbosa <debarbos@redhat.com>, Matthieu Baerts <matttbe@kernel.org>,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Steven Rostedt <rostedt@goodmis.org>,
+ users@kernel.org, Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Stephen Finucane <stephenfin@redhat.com>, bpf <bpf@vger.kernel.org>,
+ Chris Mason <clm@meta.com>, Christian Brauner <brauner@kernel.org>,
+ Alexei Starovoitov <alexei.starovoitov@gmail.com>
+References: <akQlPSNfGEllNVhe@debarbos-thinkpadt14gen5.rmtusma.csb>
+ <20260710074528.5a6e4457@foz.lan> <20260710083845.23c753ca@foz.lan>
+ <87wlv2jq4t.fsf@linux.dev> <20260713095538.3d5e86f1@foz.lan>
+ <20260713094120.GD1127719@killaraus.ideasonboard.com>
+ <20260713220427.582b28bf@foz.lan> <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
+ <20260715005909.GF1656185@killaraus.ideasonboard.com>
+ <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev>
+ <20260715163921.GH1778116@killaraus.ideasonboard.com>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Ihor Solodrai <ihor.solodrai@linux.dev>
+In-Reply-To: <20260715163921.GH1778116@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-On Wed, Jul 15, 2026 at 12:53:47PM -0400, James Bottomley wrote:
-> On Wed, 2026-07-15 at 19:18 +0300, Laurent Pinchart wrote:
-> > On Wed, Jul 15, 2026 at 08:42:54AM -0400, James Bottomley wrote:
-> > > On Wed, 2026-07-15 at 09:13 +0200, Mauro Carvalho Chehab wrote:
-> > > > On Tue, 14 Jul 2026 23:54:43 -0400 "Theodore Tso" wrote:
-> [...]
-> > > > > Things get a lot more complicated when we're considering the
-> > > > > use of LLM's to (a) review code, (b) automate the analysis of a
-> > > > > bug report or stack trace, or (c) automate backporting a patch
-> > > > > to LTS kernel.
-> > > > > 
-> > > > > Consider the first recommendation, "The FOSS community should
-> > > > > support, not just tolerate, those who outright reject LLM-gen-
-> > > > > AI systems."  If someone rejects LLM-gen-AI systems, and the
-> > > > > LTS kernel contains patches which are automated backported, and
-> > > > > they object, are we bound to forswear the use of automated
-> > > > > backport technologies?
-> > > > > 
-> > > > > What if someone reports a bug with a kernel stack trace, and
-> > > > > someone uses an LLM agent to analyze their bug report and find
-> > > > > a fix.  What does it mean to "support somone who outright
-> > > > > rejects the use of LLM-gen-AI systems" in that case?
-> > > 
-> > > I think it's simpler than that: The contributor doesn't get to
-> > > approve the tools the maintainer uses to assess and apply patches. 
-> > > If there's AI in there and the contributor is an AI luddite, then
-> > > the patch doesn't get applied (i.e. your right to ignore AI stops
-> > > when it infringes others' right to use it).
-> > 
-> > I don't think anyone instructed any maintainer to stop using those
-> > tools to assess patches.
+On 7/15/26 9:39 AM, Laurent Pinchart wrote:
+> On Wed, Jul 15, 2026 at 09:28:03AM -0700, Ihor Solodrai wrote:
+>> On 7/14/26 5:59 PM, Laurent Pinchart wrote:
+>>> [...]
+>>
+>> Yes, assessing whether AI report is "real" is work, but it's not
+>> reasonable to push this work on already overwhelmed maintainers. And
+>> if AI is wrong, again it's the job of the author to convince the
+>> maintainers it's wrong.
 > 
-> Well, AI replies to patches were the discussion.  That is part of a
-> maintainer assessment (at least if sashiko replies with a problem to
-> SCSI patches I ignore the patch until the submitter either fixes the
-> issue or explains why it is wrong).
-> 
-> > On a side note, I find the formulation "contributor *is* an AI
-> > luddite" gets close to an ad hominem attack. I assume it wasn't your
-> > intention. Given how heated this topic is, focussing on people's
-> > actions instead of their nature could help making the discussion more
-> > productive (if that's at all possible on a mailing list).
-> 
-> It's a common and neutral dictionary term to mean someone opposed to
-> change:
-> 
-> https://www.dictionary.com/browse/luddite
+> We disagree on this as well. This would force contributors to constantly
+> justify their value against a machine that is known to produce a
+> non-negligible quantity of nonsense.
 
-It was the conjunction with *is* in that formulation that triggered me
-(and before anyone sends a meme involving Bill Clinton: pleast don't).
-It puts people in boxes and that doesn't help discussions. But we're
-digressing, I don't think this is worth debating here.
+I know what you mean and I can relate. Going through walls of
+AI-generated paragraphs is not fun, to put it lightly.
 
-> If we avoid all words which originally had negative origins because the
-> origins might cause offence to some, you'll find a long list of
-> everyday words:
+However it seems that you are suggesting to simply delegate this work
+to maintainers, and I very much disagree with that approach (even
+though I'm not a maintainer myself).
+
+I hope you're not saying "let's just not use AI", because that ship
+has sailed a while ago.
+
+And if automated AI reviews are there, someone has to do the
+triage. AI can do the triage itself only to a limited degree. For
+example, there are instructions in review-prompts where AI checks
+whether an issue has already been discussed. But it will never be
+perfect.
+
+I think it makes much more sense for the author of the patch to do the
+triage, as they have the best context of the work, and they are
+usually the most invested in their patch being merged in.
+
+> Furthermore, if those generative AI
+> tools are as good as their supporters claim, the time they free for
+> maintainers should outweight the need workload to triage the comments.
+
+Even if the AI tools were ~perfect with respect to code review, I
+think people would still be signing off patches and taking
+responsibility for them.
+
+An imaginary perfect AI reviewer that maintainer can trust to land
+code without looking at it would essentially become an AI maintainer.
+Independent of whether you think it's possible, it hasn't happened
+yet, so we have to deal with imperfect AI in the meanwhile.
+
+
+> >> I set up automated AI code reviews on BPF list using Chris Mason's
+>> prompts in the fall last year [3], before sashiko was developed. And
+>> originally we were very worried about the quality of the reviews.
+>>
+>> Time has showed that we had to be more worried about the average
+>> quality of incoming patch instead.
+>>
+>> [1] https://lore.kernel.org/bpf/CAADnVQKsM8iOGO3ZL3LgbWigOBBMrGbTYZ_k_Ktz=+cVkvRLXg@mail.gmail.com/
+>> [2] https://lore.kernel.org/all/20260703-vfs-summer-jam-22b2edbbbc44@brauner/
+>> [3] https://lore.kernel.org/all/0d6aa077-1222-49a0-9554-dd922122a904@meta.com/
+>>
+>>> I believe we should
+>>> follow the first two recommendations of the Software Freedom Conservancy
+>>> on using LLM-backed generative AI systems for FOSS contributions ([1]).
+>>>
+>>> [1] https://sfconservancy.org/llm-gen-ai/llm-backed-generative-ai-recommendations.html
 > 
-> https://www.mentalfloss.com/language/words/13-words-changed-negative-positive-or-vice-versa
-> 
-> Although I personally would love to support banning the word "Dude" in
-> silicon valley on grounds of original negative connotation ...
 
-:-D
-
--- 
-Regards,
-
-Laurent Pinchart
