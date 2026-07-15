@@ -1,108 +1,51 @@
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+Received: from mail-106101.protonmail.ch (mail-106101.protonmail.ch [79.135.106.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F193CFF4A
-	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 21:14:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC753CC7EC
+	for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 21:27:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784150047; cv=none; b=gfTD+zksaPo9sCwvwSuIA8fwQ43i62FkqiMoxU2Mnim9AWbY83/Yb4kzGR788hr0ykjRFXEv2+sEtFKUqhrKGJEftz15PPBvces292gorpSkuKK65+xAScjrE7t34dcCBuhOZAXIlICeBqTOMGpuuBS7TYJx58Teh4F4zyngg84=
+	t=1784150874; cv=none; b=U7VxnQdy1dctuHhH0z9XkYXVrZaQgNoagqXaSbI5/wpOpP4mHyIrz+gfF7e3YtmWUTSfq7EwmObsFu403PaSXh6TPmrJne2BodkENyIGV2lbyt7Xs1KbvfXdoS1xmDZ/HX+Dx+iN+kfahvpgjSgr37LuiWVExEaLT7cKy6AjRSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784150047; c=relaxed/simple;
-	bh=JjL5R3PM21jYjL3dhKTuqLG5KDGeSP9kpjzJIYM4Xk8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V3dscYkHOtT4POyHvJQfNx6N25lYUx8n9B9ZuqsXocNuZOminy/HCKmWji0i+edWzpqP3dUL6bwjqbDY8vmkdMrtVXilmbqDVB0zzMnpQpi3xDnDV9MU4yoJRK4ey4ZPIcGbehgnBLTJ4xqNcjlvkFJhDHE2+jdwnEhKVPuPsko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=TIDL9Mev; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	s=arc-20240116; t=1784150874; c=relaxed/simple;
+	bh=jJn8V57H1mur4oIdpsQs+O5mYYZI+q+mleymDQ3+Mfo=;
+	h=Date:To:From:Subject:Message-ID:MIME-Version:Content-Type; b=aGBx/T9ATMYZIR+GMyEpNNKV7hqIppr0doK172fXxYOM9MPyBh8oxLjnYND8ZtR3JSX9XvcKyYCh+p8iyeKmS06QRPaAcVBs+G0Rt6sD176FUKOqrClM8e2eOmIUzhK2VV8dYEn9pH6ubliMhf1SX+vcnTGBBb0dsmMmoNWqSi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=JreJtTDW; arc=none smtp.client-ip=79.135.106.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="TIDL9Mev"
-Received: from macsyma.thunk.org ([151.240.45.27])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 66FLDdNs008034
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 15 Jul 2026 17:13:40 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1784150024; bh=uYq+byWWyif9wmZSPGAPnACZIKEOE0Zwz0myKhUMrS4=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=TIDL9Mevy2mpVgOgGEYrJIKp9tZPKCNEuamo1/3zYBVLFwH4cbTFcyzeV7cS6W9la
-	 Ek5zts/zRfs1E2X0dn5P3YKEvNuXvJIj6fGVHzm+gWDWnC6ACmzIDOo5AqGHFMR64M
-	 glfatvkEt98MX0SpNS8HO99Bob6cXxG2aitIKRfU/vMfnnr0jjjjeO801GOXSxI1v2
-	 ULy3nj7bD93RdEDNVXn2O84obn5GSZbeS8c06Fz+3fJOpLS1UFrLV5toO2DVNXK8ct
-	 CLzZLkvR4HHqqJo5Einp8Vsy5AoJw2eGUppKJomeDgCP4jLPcrqdlnHhvR84wBdB2H
-	 WkBklTDyM3a1A==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id 80A5DA321C5; Wed, 15 Jul 2026 17:13:39 -0400 (EDT)
-Date: Wed, 15 Jul 2026 17:13:39 -0400
-From: "Theodore Tso" <tytso@mit.edu>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Ihor Solodrai <ihor.solodrai@linux.dev>,
-        Roman Gushchin <roman.gushchin@linux.dev>,
-        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-        Derek Barbosa <debarbos@redhat.com>,
-        Matthieu Baerts <matttbe@kernel.org>,
-        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-        Jason Gunthorpe <jgg@ziepe.ca>, Steven Rostedt <rostedt@goodmis.org>,
-        users@kernel.org,
-        Linux Media Mailing List <linux-media@vger.kernel.org>,
-        Stephen Finucane <stephenfin@redhat.com>, bpf <bpf@vger.kernel.org>,
-        Chris Mason <clm@meta.com>, Christian Brauner <brauner@kernel.org>,
-        Alexei Starovoitov <alexei.starovoitov@gmail.com>
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="JreJtTDW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1784150864; x=1784410064;
+	bh=jJn8V57H1mur4oIdpsQs+O5mYYZI+q+mleymDQ3+Mfo=;
+	h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=JreJtTDWU5LtPeIDOmAacZA0cg81OzXYSHauQ0aDnB9HyJWN7GbMxtDPeIEawyQPy
+	 PGwcygP/Qg3kushnnAcmfi+r3we1Y8GLmeRJ7lFBk3Q657sZmiat8FZwDOKGWif94T
+	 L4Pae4W9onTfq8JRqvv0LfuTReX8K2sgkdv4i9+OM9VnpixSsOTwr0kyCPQAkzWTcX
+	 TTpZUs510L6cvQelkIrI5lA7KKHQG08SIttANKrm7sRmRh+SDtflbmyXebBKIZImhv
+	 acPKlLiUuyZnT6jjPlA1PVhIUKIpIQkSs2ljra/m7zy5sUY/2Q8B9F+MxEdBpMlelr
+	 SYzonj4Y43Iqg==
+Date: Wed, 15 Jul 2026 21:27:36 +0000
+To: "torvalds@linuxfoundation.org" <torvalds@linuxfoundation.org>, "debarbos@redhat.com" <debarbos@redhat.com>, "jgg@ziepe.ca" <jgg@ziepe.ca>, "konstantin@linuxfoundation.org" <konstantin@linuxfoundation.org>, "laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, "matttbe@kernel.org" <matttbe@kernel.org>, "mchehab+huawei@kernel.org" <mchehab+huawei@kernel.org>, "roman.gushchin@linux.dev" <roman.gushchin@linux.dev>, "rostedt@goodmis.org" <rostedt@goodmis.org>, "stephenfin@redhat.com" <stephenfin@redhat.com>, "users@kernel.org" <users@kernel.org>
+From: voste62ocr <voste62ocr@protonmail.com>
 Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <alfwOgVRgUJYOGtU@mit.edu>
-References: <87wlv2jq4t.fsf@linux.dev>
- <20260713095538.3d5e86f1@foz.lan>
- <20260713094120.GD1127719@killaraus.ideasonboard.com>
- <20260713220427.582b28bf@foz.lan>
- <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
- <20260715005909.GF1656185@killaraus.ideasonboard.com>
- <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev>
- <20260715163921.GH1778116@killaraus.ideasonboard.com>
- <153db0fa-65ac-49de-9bf5-456c9639954c@linux.dev>
- <20260715190654.GK1778116@killaraus.ideasonboard.com>
+Message-ID: <v_TSkT4Pefxuwue-MRhQDralh5OKoRona-Y3-itUQ4r8gagkKwaPMnCOnvdNCeHZCXleOB54kJZl2L8sJZmbVMG78uErogWM7fuc3m8ow8w=@protonmail.com>
+Feedback-ID: 122911235:user:proton
+X-Pm-Message-ID: 74cacdda78c9cf440574a719ba59c14017fe46ed
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260715190654.GK1778116@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 15, 2026 at 10:06:54PM -0500, Laurent Pinchart wrote:
-> This came from a consideration on the impact of false positives
-> and other hallucinations on junior developers.
+>Because it's not like natural intelligence is always all that great either=
+.
 
-You keep claiming that there is an awful lot of false positives and
-other hallucinations.  That's an assertion that needs to be tested to
-make sure that we're not relying on a few pieces of anecdata.  How
-does this compare with false positives and bogus recommendations from
-certain human reviewers?
-
-After all, I can think of at *least* one human reviewer whose reviews
-are far worse than Sashiko's in false positives.  That might or might
-not be the same person as the one Mark has said that he has a stock
-e-mail reply telling a junior developer that they should be free to
-ignore reviews from that particular human being.  :-)
-
-Each maintainer can decide how much they trust Shashiko reviews.  At
-least for my subsystem, I haven't seen the hallucionations that you
-are continually citing, certainly not as a common case.  I will note
-that even experienced human reviewers have occasionally flagged an
-issue, only to say, "my bad, you're right, it's fine" after a
-discussion with the patch author.  And that's OK.  When a human being
-makes a false positive criticism, no one responds with "I am feeling
-demeaned as a human being!"  Perhaps we should be giving
-tool-generated reviews (whether it is via checkpatch or Sashiko) with
-a similar level of grace?
-
-At least with tool-generated reviews, we can send bug reports asking
-that the tool can be improved.  At least with one particular human
-reviewer that I have in mind, no attempts asking that person to
-improve their reviews hasn't been helpful.
-
-Bottom line --- if you are making the claim the Sashiko reviews are
-rife with false positives, all I can say is <<Citation Needed>>.
- 
-					- Ted
+Oh wow, so I guess he now believes that this crap is genuine intelligence. =
+In the past he said the exact opposite, perhaps his brain has been affected=
+ from inhaling the toxic fumes of Google's money. Time to invoke the 25th A=
+mendment.
