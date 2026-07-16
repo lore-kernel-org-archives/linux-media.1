@@ -1,633 +1,163 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 267F313B584
-	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 02:31:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0313933C198
+	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 03:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784169097; cv=none; b=MSHTzV2k9+vHwSgeINWfowtGPzYiGdqdqhgh9EiLQCFHMLBw65mY4MPXcjuitNe9Jz+hSvoJUrOi7M2lrNN6Wzh6AOcCrZ6hqCi3t3jzJnq7Yd7ic0To4N4G5aaDzn+s207ZdAmQZc199F2Xm4/OquqCfjXbOoVHSN69kaF4BaE=
+	t=1784170807; cv=none; b=MIcxENmxLKXyl/OyUx/b24/772TSSlKjEzyQuYJoZtCXC5nuNydR8fCuaa5tnq3nyC8j6n33OzCh5ZhoA5aEsTkybhZJaYaO1DGyikyy8+MJ0M137WBeEZUZoXGBTIe/B+BxWbfaOMYzUYYyn6c/0qghoJwYuO7m/W9UTF4L+q4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784169097; c=relaxed/simple;
-	bh=xGhfIOfaWMgMvnhyAcXvh+1iV5bY25kc3n6ooOryWrA=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=l56nSnIMJRHVzw7lzUgZ2qDNZCW848A8sJe90tQemI8fgI9Utua3AktS/af31EsgiFLDLMM4wpFgejTwGuS4jr69Gd5RVtEVJGE7+QodTRMiQNEipDlJVFA9haPDnVjG8FuA2UAHyAyhWl2DsKfnVRS73NOdTv/qgeZwMEK8h50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=zIhzFA5/; arc=none smtp.client-ip=209.85.219.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1784170807; c=relaxed/simple;
+	bh=xXS328NenWYdWrVxSjmVOn+66dLmS7vGg6SlIgkpuh4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=se8UE6Pha6m6wBOseaalVTJK55mA2ZTU02Yh91iaoZ4mwYlvStJ06BGM+IJsFM2oIZxSv8hLkBrRhNabz5lM+6RprTAPrXbytu9l8PG0G/78XiUEQFiaHo52xnx1mil5iQea3KtFXLHG3b1eAgy3V2tyvgm0Mpw3znP93Jd5vec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=a+s2EVqL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=M0rx0EWQ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="zIhzFA5/"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-9063b380982so35596196d6.0
-        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 19:31:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="a+s2EVqL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M0rx0EWQ"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66G0XnoH1226902
+	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 03:00:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	xXS328NenWYdWrVxSjmVOn+66dLmS7vGg6SlIgkpuh4=; b=a+s2EVqLXf9v6Fdn
+	9NQE/H5sHVS3yfE5C7hFH5wdv+geYr5SerZ9X8sy2qefOLLsJpezdCkXtdwt7dIy
+	oyoj3TWGTcPlBgC6w0sfm1uVz3YhECQFPCVuBDxGq6EEqxWemnuZxAUB438YDMmW
+	aoRGQJFqjnhjL3ekE2H6JHioTahXEFBTeG52Dld19of6DZtyE/39uZSKLP5xOmac
+	OoSJDcncz6Ur6GzcnyjesZhWBz9xjpAQ2HSdh09aVqIEbpaEMbM/bl8RfdFwo5JY
+	vN9OChJjomPWSjL2+4RWsIAfp4O6e/whRhCPV3oxi1L2ttb99foapYmjzUW3nJE0
+	JMtuBg==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feeg1hqdu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 03:00:04 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c8952346bb9so5198129a12.2
+        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 20:00:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1784169094; x=1784773894; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YrX37ubY1cjgGyu7R3wQlGo5GylE/iWJ8q7obO/JGgw=;
-        b=zIhzFA5/ojyGZ7GpEMnhFudBWaE9LWshETkJszNrSCXMWiiDC1VlxoxmeMlzCSB7yt
-         jUtKU3M99XhEazbuZ4JnUlAhReCpBlt/YtyqcEuCvaKyTkWc4ZYarguHdnSxZ4so4pkD
-         2DzqRmKfSszqILywSmBxZEyZREKFOQwiEITWNRaxyN+MX0h1GRPpMEJznkeJ/3326CCQ
-         C4vw1zjP4f24vjlXLQN7A/bSyAZUFEa0hEyL+1K75iNl5kZNfqndpT/6PbAbYVPr6+5a
-         madrlMdyi/IsmHm1DoICuREohNp5c0aJ4S3GT5LsQXgjAJD6NBLJrbVUpglUlVK2kxcs
-         ymCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784169094; x=1784773894;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1784170804; x=1784775604; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YrX37ubY1cjgGyu7R3wQlGo5GylE/iWJ8q7obO/JGgw=;
-        b=GPITbK03sX5w1Uih8SxcFKVNJbPvaCuDWn4Dij2lI70k+OGcQUnrahFdYJXwplKynF
-         /qkgbqrZuFI03mIi5HVSD44SJF4UsenG4Kg+nk9/OnX/ebw8tJ68hd3i2XnG4rHS8kO2
-         fVcS4rcGJxYCnTBMqwCkOPhfOkgR7uEV8gd3cycDnbVeIhm4he27MGdcSUPgxfIxNMiz
-         ZUcIqkAW80Qocy3jy3e32ewe4sGbGG5iUIJgDhiFnjmrBiIadiCOMppNZLtnmjN7Ys1g
-         Kn807prhwfsQ6iMkXnCiiB52fh6zHd+osOmqIFvx39f5om0uEuRTqESZ02uTpzCcRrTp
-         FHJQ==
-X-Forwarded-Encrypted: i=1; AHgh+Roy9YzBmYaKlpBYKbbRvJaVQJdeNt9drNM2lEEWHCrQC0JLLWXnmdMvO+Sa3O5/wOlE9hfycE30DKBpcg==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzl1RwNXKTD31+9Xfw0tahyLqVBl+qZCQ90UjYAIJmhRgcHs6j7
-	H+FTlaFf2ET0kdHvkqKbrNa3olhEC4eHsBD0a9Be4KgNoO3oas3WrJgbt+REo37eeBNC1MEZ3rc
-	MsaGkdCou/w==
-X-Gm-Gg: AfdE7cnGi8mkMGdfOHtoZxWNjhoUU0IvUV4LksAKN7Emqp24TauC3PzGixUtEURyANF
-	mEHZfuPf25UOlhiabxMEWl7AHIwhJ6tedAC6N/njiWKn7xv+qDcJiEo1pkzXiWOFatnwPYhwx7I
-	1qfzATLnwlG6ZvbL4N18F463uY/vKE9QYDHVGKHnehfLaxbclgQ3Vjkd5lWKVFQc7cr5MlM2qan
-	W3nDhKfCLD5IeJR+aQRKa0mUmH9DMvkDps2IFUwT8pabrbz8729T4tEQHDMPTbeESMKsxCrfdS3
-	s0PrfSzr9Qu2GVmwemKkhhoBzNEHgNwE+ARyvw6OXHUlF73qbJSKrE30744WyRzsA9FbYgdBFR/
-	eaJyp0T1HA3R3QTtOp6YB1SSAklRGJYpz52hxJPIf5c/mOwoDhNTctZ2LFA+2x7Bv+c7QReQiE+
-	2qweSRJkYUW45xbRuj+g==
-X-Received: by 2002:a05:6214:528d:b0:8e9:f5de:d636 with SMTP id 6a1803df08f44-90758e821d6mr60877036d6.55.1784169093959;
-        Wed, 15 Jul 2026 19:31:33 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e06b::5ac? ([2606:6d00:15:e06b::5ac])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ffd248e666sm207226376d6.0.2026.07.15.19.31.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 19:31:33 -0700 (PDT)
-Message-ID: <724e780f67d72fcf6248de7aabbae017df34141c.camel@ndufresne.ca>
-Subject: Re: [RFC PATCH 1/6] mem2mem_testdev: convert to the control
- framework and v4l2_fh.
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org
-Date: Wed, 15 Jul 2026 22:31:32 -0400
-In-Reply-To: <5c641e4c6890bd84c7abd30546b4ce701dd5a269.camel@ndufresne.ca>
-References: <1342699224-12642-1-git-send-email-hans.verkuil@cisco.com>
-		 <903c0da0d6e7354d6f884f0ddec783143165e54c.1342699069.git.hans.verkuil@cisco.com>
-	 <5c641e4c6890bd84c7abd30546b4ce701dd5a269.camel@ndufresne.ca>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-YMeUl/Bf6CVLAX4/LBEn"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        bh=xXS328NenWYdWrVxSjmVOn+66dLmS7vGg6SlIgkpuh4=;
+        b=M0rx0EWQOpTxguDb3LvZjSqfbwSRN+zjeUhwPWdmwTeMvjB0yXFffOmOzpSwV2RBgd
+         mnH34xlhvBbX8mHoYb7Z7U93NZbhGEDiogZ0i1Ci/wOvyzM+qJvbg8Hw0EF09Guz1XGy
+         bmfsp4kIlAGeZsKCS/e5pz9SFC/uoOa/x232n+LMY5HOT7qrt4TguBBuUqR0XIhBpN7v
+         Oqo6d1WhaXKlgFXOKcdpK8YGD5vA5khPjMyObAvVvxjx6DDCrBPOie2+kRIufu5XL0xW
+         np1WCv7MltKpuhuBDw437A535hoqo/+5HRCaFO/ROWbQzKr5MJlfycm8w/Ij6gLt57zj
+         vMlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784170804; x=1784775604;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xXS328NenWYdWrVxSjmVOn+66dLmS7vGg6SlIgkpuh4=;
+        b=dsox2lAZ6h+RSBXlKMJCBQXK0hFM2evGSltFriMPUwnDph7KWyJLD6Zwb6I1JGJ3Ie
+         7oS3V3MkAe+PP00XsqcSCJXAxA4ITiinL7qY2PR1DOb7naANhuqpSK+92FFTPRhS9kdv
+         Emid1vw68s7vEsytFu/cpDqp0us+eiTIU0G9FKFP7jOECuGDb7pgOdOq43+GweKQpkJt
+         7HufRw3CPGkSHgSqY/qUNfQX/PWHo8BktJer0qEBn3vtS/KzoOnPx4Pu9d4SL7EUKPRF
+         SyNjbSiWbAtfGcCABB0wDlmKDuue2u7QqrkPzxpcGULZyXQCZYWFXxqH9Ozem4zc6eVM
+         +sVA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp8nFIkFW3cd7IzmUIgET+CP2lot9aUg2jAUXCYGiRn+M4WRXcueqi+aOTN0lKHq8B8tF7f5TeTg/pEXA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJbidbQo7szZlUes7aRH4lJ8MVP6ZQNIm2ASYRbjMt3Rggqxxe
+	uZKCyrtbh78VDXmIqIJ0av6EK3Ia6cef3ujhJ1Zfd5LSvLvU1GhTgkEqbUPQsHb5oHJzZ953cSd
+	HKpHzdJ9LLJHP7OGWOe2RxJUpMNrv8FZSOVClXn3YmZKetEVleA7cbaqWLNOZbsPlKw==
+X-Gm-Gg: AfdE7ckAUCmJZTT3sXtXfI8BkUwNVVNjzYLPrhfJbWqgKXHoctpp4yZSS7UeiUyjOSc
+	XjL4qXwZKuHjZ5zgDfq1dhMrPMRCaVR6+T1eK1osG9oL4SQE54YNUhHu4vra3psjdSQC8+zGLTY
+	14nbf/1mUyXZl/FJEjZyE4hXud9o6qU5BKkJNHsj5HmFioZt1ChLXL+tiRUoriIBx1QuosUP02S
+	om2wizHsw4CBxl/eMMY8tWgTGk9JXA4EzHD6LFkISxsCyTjzqhCy8tamaIDskj/WjR81g7wFluR
+	qtEZxMTHQvjaEp3/WV+OdejmrhZDKehbqkcQ6yL5KkYzGDdEzSW5r7Yembt45eMlNdoY0jQsQmB
+	cJyKxb1Lqy4beAHoxhq0emGVgiQ8/D9kT
+X-Received: by 2002:a05:6a20:6a09:b0:3c0:9c19:65a4 with SMTP id adf61e73a8af0-3c36c465036mr5496356637.76.1784170803882;
+        Wed, 15 Jul 2026 20:00:03 -0700 (PDT)
+X-Received: by 2002:a05:6a20:6a09:b0:3c0:9c19:65a4 with SMTP id adf61e73a8af0-3c36c465036mr5496321637.76.1784170803467;
+        Wed, 15 Jul 2026 20:00:03 -0700 (PDT)
+Received: from [10.206.105.200] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13cd4359166sm5611519c88.14.2026.07.15.19.59.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 15 Jul 2026 20:00:02 -0700 (PDT)
+Message-ID: <205236d6-6d0f-b88d-99fd-b03decba6fa6@oss.qualcomm.com>
+Date: Thu, 16 Jul 2026 08:29:54 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v9 11/14] media: iris: Add hooks for pixel and non-pixel
+ context banks
+To: Bryan O'Donoghue <bod@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev,
+        devicetree@vger.kernel.org, Daniel J Blueman <daniel@quora.org>
+References: <20260715-glymur-v9-0-8cf2cbe12a07@oss.qualcomm.com>
+ <5bXXsqVEXaFsaBMxPP6AkG6XZFXCBP5B8YfjHjhTXuqrGd-XmP2eWPhNhH3LWxKQ_PWHTbdgIRh9AvROtnEHog==@protonmail.internalid>
+ <20260715-glymur-v9-11-8cf2cbe12a07@oss.qualcomm.com>
+ <65e09849-a27c-4d6c-9afe-934f08f802ed@kernel.org>
+Content-Language: en-US
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <65e09849-a27c-4d6c-9afe-934f08f802ed@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDAyOCBTYWx0ZWRfXxi6Xc8IVpR0n
+ beUxhvO4OeCPB7O+2ezO2GLzd5nvHSsE+LO7I+z02qe1MbAwgm9xv7+pCkK2B/mNwBX94Wy3c5s
+ bENK7wzwfhx9F2ykB7BYYtUGimcWfXf5m2a5XUvCrvGIgN59KnEdnrPyPOqcxixNYQcEU+fn9nM
+ /orTTtltGT+TSQOxnSsPPwFroYHUiLrgwbHexgacBv58vNiPjI+KZGu9ipK/cAq28eCaalY4aFz
+ Ybqx2jir3W2NAGMphnvCHxZ2EWjX67LCaP9fK2BdzHyQgJY4Y2EJyIdIlYM+EVhJA5Bby9HDB4U
+ 36OX0k3Z0KKwJHrS1M5TlDr+KiUgVALOqciJBeGxB3M3BRc6pWZI2DzdnxUvlRZjTPHBnXAGzU+
+ lhZywC8Jb0MXtrKAzNxozIzwDrcKuiESSoBelInizYs5zaHk4YxJDBlmoe8pUGWFJjO1/kNmtj6
+ hG8ER1IuCTpSKXsP7pw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDAyOCBTYWx0ZWRfX8EHi53IsfiPA
+ zM5aggNNrLbce56Y1Yfv53uon9QC4VcJ3lKoj06/28WVIPdH1zfiljJXReJnDfwTiU24zMFxp6+
+ PWev8zGZ/a/1MsB12zn2M8LluXz2MNA=
+X-Proofpoint-GUID: y6ryyRum0bq_29fUUgO7j5Pa2xWYhykW
+X-Proofpoint-ORIG-GUID: y6ryyRum0bq_29fUUgO7j5Pa2xWYhykW
+X-Authority-Analysis: v=2.4 cv=SsOgLvO0 c=1 sm=1 tr=0 ts=6a584934 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=wOmbOZ9kRXkywvreR9UA:9 a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-16_01,2026-07-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 suspectscore=0 priorityscore=1501 bulkscore=0
+ malwarescore=0 spamscore=0 impostorscore=0 adultscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607160028
 
 
---=-YMeUl/Bf6CVLAX4/LBEn
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 7/15/2026 8:57 PM, Bryan O'Donoghue wrote:
+> On 15/07/2026 15:10, Vishnu Reddy wrote:
+>> Add platform hooks to create and destroy those
+>> subdevices, and wire them up for the affected platforms.
+>
+> All platforms are affected no ?
+>
 
-Fixing Hans address, sorry for the noise.
+Agreed, it's applicable to all platforms. Will update commit description.
 
-Le mercredi 15 juillet 2026 =C3=A0 18:10 -0400, Nicolas Dufresne a =C3=A9cr=
-it=C2=A0:
-> Hi Hans,
->=20
-> see comment below ...
->=20
-> Le jeudi 19 juillet 2012 =C3=A0 14:00 +0200, Hans Verkuil a =C3=A9crit=C2=
-=A0:
-> > Signed-off-by: Hans Verkuil <hans.verkuil@cisco.com>
-> > ---
-> > =C2=A0drivers/media/video/mem2mem_testdev.c |=C2=A0 234 ++++++++++++---=
----------------
-> > --
-> > -
-> > =C2=A01 file changed, 83 insertions(+), 151 deletions(-)
-> >=20
-> > diff --git a/drivers/media/video/mem2mem_testdev.c
-> > b/drivers/media/video/mem2mem_testdev.c
-> > index f08cf38..a1d5c15 100644
-> > --- a/drivers/media/video/mem2mem_testdev.c
-> > +++ b/drivers/media/video/mem2mem_testdev.c
-> > @@ -27,6 +27,7 @@
-> > =C2=A0#include <media/v4l2-mem2mem.h>
-> > =C2=A0#include <media/v4l2-device.h>
-> > =C2=A0#include <media/v4l2-ioctl.h>
-> > +#include <media/v4l2-ctrls.h>
-> > =C2=A0#include <media/videobuf2-vmalloc.h>
-> > =C2=A0
-> > =C2=A0#define MEM2MEM_TEST_MODULE_NAME "mem2mem-testdev"
-> > @@ -101,6 +102,8 @@ static struct m2mtest_fmt formats[] =3D {
-> > =C2=A0	},
-> > =C2=A0};
-> > =C2=A0
-> > +#define NUM_FORMATS ARRAY_SIZE(formats)
-> > +
-> > =C2=A0/* Per-queue, driver-specific private data */
-> > =C2=A0struct m2mtest_q_data {
-> > =C2=A0	unsigned int		width;
-> > @@ -114,50 +117,8 @@ enum {
-> > =C2=A0	V4L2_M2M_DST =3D 1,
-> > =C2=A0};
-> > =C2=A0
-> > -#define V4L2_CID_TRANS_TIME_MSEC	V4L2_CID_PRIVATE_BASE
-> > -#define V4L2_CID_TRANS_NUM_BUFS		(V4L2_CID_PRIVATE_BASE + 1)
->=20
-> While reviewing this:
->=20
-> https://patchwork.linuxtv.org/project/linux-media/patch/20260526122205.10=
-19913-1-gdool88@mju.ac.kr/
->=20
-> I notice that this control had a weird (low) offset mainline. I've tracke=
-d
-> this
-> to this patch, which moves the controls from V4L2_CID_PRIVATE_BASE to
-> V4L2_CID_USER_BASE, with no mention of this change in the commit message.
->=20
-> Nicolas
->=20
-> > -
-> > -static struct v4l2_queryctrl m2mtest_ctrls[] =3D {
-> > -	{
-> > -		.id		=3D V4L2_CID_HFLIP,
-> > -		.type		=3D V4L2_CTRL_TYPE_BOOLEAN,
-> > -		.name		=3D "Mirror",
-> > -		.minimum	=3D 0,
-> > -		.maximum	=3D 1,
-> > -		.step		=3D 1,
-> > -		.default_value	=3D 0,
-> > -		.flags		=3D 0,
-> > -	}, {
-> > -		.id		=3D V4L2_CID_VFLIP,
-> > -		.type		=3D V4L2_CTRL_TYPE_BOOLEAN,
-> > -		.name		=3D "Vertical Mirror",
-> > -		.minimum	=3D 0,
-> > -		.maximum	=3D 1,
-> > -		.step		=3D 1,
-> > -		.default_value	=3D 0,
-> > -		.flags		=3D 0,
-> > -	}, {
-> > -		.id		=3D V4L2_CID_TRANS_TIME_MSEC,
-> > -		.type		=3D V4L2_CTRL_TYPE_INTEGER,
-> > -		.name		=3D "Transaction time (msec)",
-> > -		.minimum	=3D 1,
-> > -		.maximum	=3D 10000,
-> > -		.step		=3D 100,
-> > -		.default_value	=3D 1000,
-> > -		.flags		=3D 0,
-> > -	}, {
-> > -		.id		=3D V4L2_CID_TRANS_NUM_BUFS,
-> > -		.type		=3D V4L2_CTRL_TYPE_INTEGER,
-> > -		.name		=3D "Buffers per transaction",
-> > -		.minimum	=3D 1,
-> > -		.maximum	=3D MEM2MEM_DEF_NUM_BUFS,
-> > -		.step		=3D 1,
-> > -		.default_value	=3D 1,
-> > -		.flags		=3D 0,
-> > -	},
-> > -};
-> > -
-> > -#define NUM_FORMATS ARRAY_SIZE(formats)
-> > +#define V4L2_CID_TRANS_TIME_MSEC	(V4L2_CID_USER_BASE + 0x1000)
-> > +#define V4L2_CID_TRANS_NUM_BUFS		(V4L2_CID_USER_BASE +
-> > 0x1001)
-> > =C2=A0
-> > =C2=A0static struct m2mtest_fmt *find_format(struct v4l2_format *f)
-> > =C2=A0{
-> > @@ -190,8 +151,11 @@ struct m2mtest_dev {
-> > =C2=A0};
-> > =C2=A0
-> > =C2=A0struct m2mtest_ctx {
-> > +	struct v4l2_fh		fh;
-> > =C2=A0	struct m2mtest_dev	*dev;
-> > =C2=A0
-> > +	struct v4l2_ctrl_handler hdl;
-> > +
-> > =C2=A0	/* Processed buffers in this transaction */
-> > =C2=A0	u8			num_processed;
-> > =C2=A0
-> > @@ -212,6 +176,11 @@ struct m2mtest_ctx {
-> > =C2=A0	struct m2mtest_q_data=C2=A0=C2=A0 q_data[2];
-> > =C2=A0};
-> > =C2=A0
-> > +static inline struct m2mtest_ctx *file2ctx(struct file *file)
-> > +{
-> > +	return container_of(file->private_data, struct m2mtest_ctx, fh);
-> > +}
-> > +
-> > =C2=A0static struct m2mtest_q_data *get_q_data(struct m2mtest_ctx *ctx,
-> > =C2=A0					 enum v4l2_buf_type type)
-> > =C2=A0{
-> > @@ -227,18 +196,6 @@ static struct m2mtest_q_data *get_q_data(struct
-> > m2mtest_ctx *ctx,
-> > =C2=A0}
-> > =C2=A0
-> > =C2=A0
-> > -static struct v4l2_queryctrl *get_ctrl(int id)
-> > -{
-> > -	int i;
-> > -
-> > -	for (i =3D 0; i < ARRAY_SIZE(m2mtest_ctrls); ++i) {
-> > -		if (id =3D=3D m2mtest_ctrls[i].id)
-> > -			return &m2mtest_ctrls[i];
-> > -	}
-> > -
-> > -	return NULL;
-> > -}
-> > -
-> > =C2=A0static int device_process(struct m2mtest_ctx *ctx,
-> > =C2=A0			=C2=A0 struct vb2_buffer *in_vb,
-> > =C2=A0			=C2=A0 struct vb2_buffer *out_vb)
-> > @@ -543,13 +500,13 @@ static int vidioc_g_fmt(struct m2mtest_ctx *ctx,
-> > struct
-> > v4l2_format *f)
-> > =C2=A0static int vidioc_g_fmt_vid_out(struct file *file, void *priv,
-> > =C2=A0				struct v4l2_format *f)
-> > =C2=A0{
-> > -	return vidioc_g_fmt(priv, f);
-> > +	return vidioc_g_fmt(file2ctx(file), f);
-> > =C2=A0}
-> > =C2=A0
-> > =C2=A0static int vidioc_g_fmt_vid_cap(struct file *file, void *priv,
-> > =C2=A0				struct v4l2_format *f)
-> > =C2=A0{
-> > -	return vidioc_g_fmt(priv, f);
-> > +	return vidioc_g_fmt(file2ctx(file), f);
-> > =C2=A0}
-> > =C2=A0
-> > =C2=A0static int vidioc_try_fmt(struct v4l2_format *f, struct m2mtest_f=
-mt *fmt)
-> > @@ -588,7 +545,7 @@ static int vidioc_try_fmt_vid_cap(struct file *file=
-,
-> > void
-> > *priv,
-> > =C2=A0				=C2=A0 struct v4l2_format *f)
-> > =C2=A0{
-> > =C2=A0	struct m2mtest_fmt *fmt;
-> > -	struct m2mtest_ctx *ctx =3D priv;
-> > +	struct m2mtest_ctx *ctx =3D file2ctx(file);
-> > =C2=A0
-> > =C2=A0	fmt =3D find_format(f);
-> > =C2=A0	if (!fmt || !(fmt->types & MEM2MEM_CAPTURE)) {
-> > @@ -605,7 +562,7 @@ static int vidioc_try_fmt_vid_out(struct file *file=
-,
-> > void
-> > *priv,
-> > =C2=A0				=C2=A0 struct v4l2_format *f)
-> > =C2=A0{
-> > =C2=A0	struct m2mtest_fmt *fmt;
-> > -	struct m2mtest_ctx *ctx =3D priv;
-> > +	struct m2mtest_ctx *ctx =3D file2ctx(file);
-> > =C2=A0
-> > =C2=A0	fmt =3D find_format(f);
-> > =C2=A0	if (!fmt || !(fmt->types & MEM2MEM_OUTPUT)) {
-> > @@ -658,7 +615,7 @@ static int vidioc_s_fmt_vid_cap(struct file *file, =
-void
-> > *priv,
-> > =C2=A0	if (ret)
-> > =C2=A0		return ret;
-> > =C2=A0
-> > -	return vidioc_s_fmt(priv, f);
-> > +	return vidioc_s_fmt(file2ctx(file), f);
-> > =C2=A0}
-> > =C2=A0
-> > =C2=A0static int vidioc_s_fmt_vid_out(struct file *file, void *priv,
-> > @@ -670,13 +627,13 @@ static int vidioc_s_fmt_vid_out(struct file *file=
-,
-> > void
-> > *priv,
-> > =C2=A0	if (ret)
-> > =C2=A0		return ret;
-> > =C2=A0
-> > -	return vidioc_s_fmt(priv, f);
-> > +	return vidioc_s_fmt(file2ctx(file), f);
-> > =C2=A0}
-> > =C2=A0
-> > =C2=A0static int vidioc_reqbufs(struct file *file, void *priv,
-> > =C2=A0			=C2=A0 struct v4l2_requestbuffers *reqbufs)
-> > =C2=A0{
-> > -	struct m2mtest_ctx *ctx =3D priv;
-> > +	struct m2mtest_ctx *ctx =3D file2ctx(file);
-> > =C2=A0
-> > =C2=A0	return v4l2_m2m_reqbufs(file, ctx->m2m_ctx, reqbufs);
-> > =C2=A0}
-> > @@ -684,21 +641,21 @@ static int vidioc_reqbufs(struct file *file, void
-> > *priv,
-> > =C2=A0static int vidioc_querybuf(struct file *file, void *priv,
-> > =C2=A0			=C2=A0=C2=A0 struct v4l2_buffer *buf)
-> > =C2=A0{
-> > -	struct m2mtest_ctx *ctx =3D priv;
-> > +	struct m2mtest_ctx *ctx =3D file2ctx(file);
-> > =C2=A0
-> > =C2=A0	return v4l2_m2m_querybuf(file, ctx->m2m_ctx, buf);
-> > =C2=A0}
-> > =C2=A0
-> > =C2=A0static int vidioc_qbuf(struct file *file, void *priv, struct v4l2=
-_buffer
-> > *buf)
-> > =C2=A0{
-> > -	struct m2mtest_ctx *ctx =3D priv;
-> > +	struct m2mtest_ctx *ctx =3D file2ctx(file);
-> > =C2=A0
-> > =C2=A0	return v4l2_m2m_qbuf(file, ctx->m2m_ctx, buf);
-> > =C2=A0}
-> > =C2=A0
-> > =C2=A0static int vidioc_dqbuf(struct file *file, void *priv, struct v4l=
-2_buffer
-> > *buf)
-> > =C2=A0{
-> > -	struct m2mtest_ctx *ctx =3D priv;
-> > +	struct m2mtest_ctx *ctx =3D file2ctx(file);
-> > =C2=A0
-> > =C2=A0	return v4l2_m2m_dqbuf(file, ctx->m2m_ctx, buf);
-> > =C2=A0}
-> > @@ -706,7 +663,7 @@ static int vidioc_dqbuf(struct file *file, void *pr=
-iv,
-> > struct v4l2_buffer *buf)
-> > =C2=A0static int vidioc_streamon(struct file *file, void *priv,
-> > =C2=A0			=C2=A0=C2=A0 enum v4l2_buf_type type)
-> > =C2=A0{
-> > -	struct m2mtest_ctx *ctx =3D priv;
-> > +	struct m2mtest_ctx *ctx =3D file2ctx(file);
-> > =C2=A0
-> > =C2=A0	return v4l2_m2m_streamon(file, ctx->m2m_ctx, type);
-> > =C2=A0}
-> > @@ -714,101 +671,37 @@ static int vidioc_streamon(struct file *file, vo=
-id
-> > *priv,
-> > =C2=A0static int vidioc_streamoff(struct file *file, void *priv,
-> > =C2=A0			=C2=A0=C2=A0=C2=A0 enum v4l2_buf_type type)
-> > =C2=A0{
-> > -	struct m2mtest_ctx *ctx =3D priv;
-> > +	struct m2mtest_ctx *ctx =3D file2ctx(file);
-> > =C2=A0
-> > =C2=A0	return v4l2_m2m_streamoff(file, ctx->m2m_ctx, type);
-> > =C2=A0}
-> > =C2=A0
-> > -static int vidioc_queryctrl(struct file *file, void *priv,
-> > -			=C2=A0=C2=A0=C2=A0 struct v4l2_queryctrl *qc)
-> > -{
-> > -	struct v4l2_queryctrl *c;
-> > -
-> > -	c =3D get_ctrl(qc->id);
-> > -	if (!c)
-> > -		return -EINVAL;
-> > -
-> > -	*qc =3D *c;
-> > -	return 0;
-> > -}
-> > -
-> > -static int vidioc_g_ctrl(struct file *file, void *priv,
-> > -			 struct v4l2_control *ctrl)
-> > -{
-> > -	struct m2mtest_ctx *ctx =3D priv;
-> > -
-> > -	switch (ctrl->id) {
-> > -	case V4L2_CID_HFLIP:
-> > -		ctrl->value =3D (ctx->mode & MEM2MEM_HFLIP) ? 1 : 0;
-> > -		break;
-> > -
-> > -	case V4L2_CID_VFLIP:
-> > -		ctrl->value =3D (ctx->mode & MEM2MEM_VFLIP) ? 1 : 0;
-> > -		break;
-> > -
-> > -	case V4L2_CID_TRANS_TIME_MSEC:
-> > -		ctrl->value =3D ctx->transtime;
-> > -		break;
-> > -
-> > -	case V4L2_CID_TRANS_NUM_BUFS:
-> > -		ctrl->value =3D ctx->translen;
-> > -		break;
-> > -
-> > -	default:
-> > -		v4l2_err(&ctx->dev->v4l2_dev, "Invalid control\n");
-> > -		return -EINVAL;
-> > -	}
-> > -
-> > -	return 0;
-> > -}
-> > -
-> > -static int check_ctrl_val(struct m2mtest_ctx *ctx, struct v4l2_control
-> > *ctrl)
-> > +static int m2mtest_s_ctrl(struct v4l2_ctrl *ctrl)
-> > =C2=A0{
-> > -	struct v4l2_queryctrl *c;
-> > -
-> > -	c =3D get_ctrl(ctrl->id);
-> > -	if (!c)
-> > -		return -EINVAL;
-> > -
-> > -	if (ctrl->value < c->minimum || ctrl->value > c->maximum) {
-> > -		v4l2_err(&ctx->dev->v4l2_dev, "Value out of range\n");
-> > -		return -ERANGE;
-> > -	}
-> > -
-> > -	return 0;
-> > -}
-> > -
-> > -static int vidioc_s_ctrl(struct file *file, void *priv,
-> > -			 struct v4l2_control *ctrl)
-> > -{
-> > -	struct m2mtest_ctx *ctx =3D priv;
-> > -	int ret =3D 0;
-> > -
-> > -	ret =3D check_ctrl_val(ctx, ctrl);
-> > -	if (ret !=3D 0)
-> > -		return ret;
-> > +	struct m2mtest_ctx *ctx =3D
-> > +		container_of(ctrl->handler, struct m2mtest_ctx, hdl);
-> > =C2=A0
-> > =C2=A0	switch (ctrl->id) {
-> > =C2=A0	case V4L2_CID_HFLIP:
-> > -		if (ctrl->value)
-> > +		if (ctrl->val)
-> > =C2=A0			ctx->mode |=3D MEM2MEM_HFLIP;
-> > =C2=A0		else
-> > =C2=A0			ctx->mode &=3D ~MEM2MEM_HFLIP;
-> > =C2=A0		break;
-> > =C2=A0
-> > =C2=A0	case V4L2_CID_VFLIP:
-> > -		if (ctrl->value)
-> > +		if (ctrl->val)
-> > =C2=A0			ctx->mode |=3D MEM2MEM_VFLIP;
-> > =C2=A0		else
-> > =C2=A0			ctx->mode &=3D ~MEM2MEM_VFLIP;
-> > =C2=A0		break;
-> > =C2=A0
-> > =C2=A0	case V4L2_CID_TRANS_TIME_MSEC:
-> > -		ctx->transtime =3D ctrl->value;
-> > +		ctx->transtime =3D ctrl->val;
-> > =C2=A0		break;
-> > =C2=A0
-> > =C2=A0	case V4L2_CID_TRANS_NUM_BUFS:
-> > -		ctx->translen =3D ctrl->value;
-> > +		ctx->translen =3D ctrl->val;
-> > =C2=A0		break;
-> > =C2=A0
-> > =C2=A0	default:
-> > @@ -819,6 +712,10 @@ static int vidioc_s_ctrl(struct file *file, void *=
-priv,
-> > =C2=A0	return 0;
-> > =C2=A0}
-> > =C2=A0
-> > +static const struct v4l2_ctrl_ops m2mtest_ctrl_ops =3D {
-> > +	.s_ctrl =3D m2mtest_s_ctrl,
-> > +};
-> > +
-> > =C2=A0
-> > =C2=A0static const struct v4l2_ioctl_ops m2mtest_ioctl_ops =3D {
-> > =C2=A0	.vidioc_querycap	=3D vidioc_querycap,
-> > @@ -841,10 +738,6 @@ static const struct v4l2_ioctl_ops m2mtest_ioctl_o=
-ps =3D
-> > {
-> > =C2=A0
-> > =C2=A0	.vidioc_streamon	=3D vidioc_streamon,
-> > =C2=A0	.vidioc_streamoff	=3D vidioc_streamoff,
-> > -
-> > -	.vidioc_queryctrl	=3D vidioc_queryctrl,
-> > -	.vidioc_g_ctrl		=3D vidioc_g_ctrl,
-> > -	.vidioc_s_ctrl		=3D vidioc_s_ctrl,
-> > =C2=A0};
-> > =C2=A0
-> > =C2=A0
-> > @@ -956,6 +849,28 @@ static int queue_init(void *priv, struct vb2_queue
-> > *src_vq, struct vb2_queue *ds
-> > =C2=A0	return vb2_queue_init(dst_vq);
-> > =C2=A0}
-> > =C2=A0
-> > +static const struct v4l2_ctrl_config m2mtest_ctrl_trans_time_msec =3D =
-{
-> > +	.ops =3D &m2mtest_ctrl_ops,
-> > +	.id =3D V4L2_CID_TRANS_TIME_MSEC,
-> > +	.name =3D "Transaction Time (msec)",
-> > +	.type =3D V4L2_CTRL_TYPE_INTEGER,
-> > +	.def =3D 1001,
-> > +	.min =3D 1,
-> > +	.max =3D 10001,
-> > +	.step =3D 100,
-> > +};
-> > +
-> > +static const struct v4l2_ctrl_config m2mtest_ctrl_trans_num_bufs =3D {
-> > +	.ops =3D &m2mtest_ctrl_ops,
-> > +	.id =3D V4L2_CID_TRANS_NUM_BUFS,
-> > +	.name =3D "Buffers Per Transaction",
-> > +	.type =3D V4L2_CTRL_TYPE_INTEGER,
-> > +	.def =3D 1,
-> > +	.min =3D 1,
-> > +	.max =3D MEM2MEM_DEF_NUM_BUFS,
-> > +	.step =3D 1,
-> > +};
-> > +
-> > =C2=A0/*
-> > =C2=A0 * File operations
-> > =C2=A0 */
-> > @@ -963,17 +878,29 @@ static int m2mtest_open(struct file *file)
-> > =C2=A0{
-> > =C2=A0	struct m2mtest_dev *dev =3D video_drvdata(file);
-> > =C2=A0	struct m2mtest_ctx *ctx =3D NULL;
-> > +	struct v4l2_ctrl_handler *hdl;
-> > =C2=A0
-> > =C2=A0	ctx =3D kzalloc(sizeof *ctx, GFP_KERNEL);
-> > =C2=A0	if (!ctx)
-> > =C2=A0		return -ENOMEM;
-> > =C2=A0
-> > -	file->private_data =3D ctx;
-> > +	v4l2_fh_init(&ctx->fh, video_devdata(file));
-> > +	file->private_data =3D &ctx->fh;
-> > =C2=A0	ctx->dev =3D dev;
-> > -	ctx->translen =3D MEM2MEM_DEF_TRANSLEN;
-> > -	ctx->transtime =3D MEM2MEM_DEF_TRANSTIME;
-> > -	ctx->num_processed =3D 0;
-> > -	ctx->mode =3D 0;
-> > +	hdl =3D &ctx->hdl;
-> > +	v4l2_ctrl_handler_init(hdl, 4);
-> > +	v4l2_ctrl_new_std(hdl, &m2mtest_ctrl_ops, V4L2_CID_HFLIP, 0, 1, 1,
-> > 0);
-> > +	v4l2_ctrl_new_std(hdl, &m2mtest_ctrl_ops, V4L2_CID_VFLIP, 0, 1, 1,
-> > 0);
-> > +	v4l2_ctrl_new_custom(hdl, &m2mtest_ctrl_trans_time_msec, NULL);
-> > +	v4l2_ctrl_new_custom(hdl, &m2mtest_ctrl_trans_num_bufs, NULL);
-> > +	if (hdl->error) {
-> > +		int err =3D hdl->error;
-> > +
-> > +		v4l2_ctrl_handler_free(hdl);
-> > +		return err;
-> > +	}
-> > +	ctx->fh.ctrl_handler =3D hdl;
-> > +	v4l2_ctrl_handler_setup(hdl);
-> > =C2=A0
-> > =C2=A0	ctx->q_data[V4L2_M2M_SRC].fmt =3D &formats[0];
-> > =C2=A0	ctx->q_data[V4L2_M2M_DST].fmt =3D &formats[0];
-> > @@ -983,10 +910,12 @@ static int m2mtest_open(struct file *file)
-> > =C2=A0	if (IS_ERR(ctx->m2m_ctx)) {
-> > =C2=A0		int ret =3D PTR_ERR(ctx->m2m_ctx);
-> > =C2=A0
-> > +		v4l2_ctrl_handler_free(hdl);
-> > =C2=A0		kfree(ctx);
-> > =C2=A0		return ret;
-> > =C2=A0	}
-> > =C2=A0
-> > +	v4l2_fh_add(&ctx->fh);
-> > =C2=A0	atomic_inc(&dev->num_inst);
-> > =C2=A0
-> > =C2=A0	dprintk(dev, "Created instance %p, m2m_ctx: %p\n", ctx, ctx-
-> > > m2m_ctx);
-> > @@ -997,10 +926,13 @@ static int m2mtest_open(struct file *file)
-> > =C2=A0static int m2mtest_release(struct file *file)
-> > =C2=A0{
-> > =C2=A0	struct m2mtest_dev *dev =3D video_drvdata(file);
-> > -	struct m2mtest_ctx *ctx =3D file->private_data;
-> > +	struct m2mtest_ctx *ctx =3D file2ctx(file);
-> > =C2=A0
-> > =C2=A0	dprintk(dev, "Releasing instance %p\n", ctx);
-> > =C2=A0
-> > +	v4l2_fh_del(&ctx->fh);
-> > +	v4l2_fh_exit(&ctx->fh);
-> > +	v4l2_ctrl_handler_free(&ctx->hdl);
-> > =C2=A0	v4l2_m2m_ctx_release(ctx->m2m_ctx);
-> > =C2=A0	kfree(ctx);
-> > =C2=A0
-> > @@ -1012,14 +944,14 @@ static int m2mtest_release(struct file *file)
-> > =C2=A0static unsigned int m2mtest_poll(struct file *file,
-> > =C2=A0				 struct poll_table_struct *wait)
-> > =C2=A0{
-> > -	struct m2mtest_ctx *ctx =3D file->private_data;
-> > +	struct m2mtest_ctx *ctx =3D file2ctx(file);
-> > =C2=A0
-> > =C2=A0	return v4l2_m2m_poll(file, ctx->m2m_ctx, wait);
-> > =C2=A0}
-> > =C2=A0
-> > =C2=A0static int m2mtest_mmap(struct file *file, struct vm_area_struct =
-*vma)
-> > =C2=A0{
-> > -	struct m2mtest_ctx *ctx =3D file->private_data;
-> > +	struct m2mtest_ctx *ctx =3D file2ctx(file);
-> > =C2=A0
-> > =C2=A0	return v4l2_m2m_mmap(file, ctx->m2m_ctx, vma);
-> > =C2=A0}
+Thanks,
+Vishnu Reddy.
 
---=-YMeUl/Bf6CVLAX4/LBEn
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalhChAAKCRDZQZRRKWBy
-9LRHAP9K1RIcLiNGNetDDAHjrFObtffTxJkG2TDZe9p7Xd25JwD8Cynj0/sJrOpD
-6et7WUb8BhC5qZogA9jUIuSXn5ghgwI=
-=/EAy
------END PGP SIGNATURE-----
-
---=-YMeUl/Bf6CVLAX4/LBEn--
+> ---
+> bod
