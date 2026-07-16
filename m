@@ -1,89 +1,179 @@
-Received: from out-182.mta1.migadu.com (out-182.mta1.migadu.com [95.215.58.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5122800
-	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 00:14:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 723A517B418
+	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 00:21:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784160896; cv=none; b=Ib3sxmi05NMoPdas5gMhh3TAMjOYVn34tNh7ZRdXQkVoTlLPtLrcB8B4mSuZXxYLomEtytgzfo4BEU9/4OTOkUzBred56f0vB3LAWWda7p8Pc7UNPnsQT4r5Df/DZlywNSpFwIwd12huLqj57lKgwVmZWKiT5l+W5u+T6gtdCxk=
+	t=1784161317; cv=none; b=cR5ymFFSOYtssLhrnDa1l2PvhVSjtu8SI3y8CunvuTjljboSr0MyFsJRV5YiUhtdgHhIs9+h6CPkzZqOAqCatJmmTk+JJ75x1wbNUenss+DK1zvkEGU9sgsNjGE7xdCBxw4/xlvte02xnuPNff9DYslu4Q1n5VQdFwVmF0qgm70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784160896; c=relaxed/simple;
-	bh=LKWoL8G1qBRLXbPYq2tXucvNseyigWBplZ0jHan94q8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=MekqFRueiOEIk/3TewEYRu43xQ+P6Z49hssokGE3I415itdWMbVtcyHLExdx7rB7aI4Rtcbnbz9zHKoaw6etK/y7ClUtN8GUrKdchBNgf2LoIbf68pkNV8EjZAueUg3VpJvZJLG5RlsowIq277X1WzICSNskPpbJm5TTrOJ3Gpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GFOnKhC5; arc=none smtp.client-ip=95.215.58.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784161317; c=relaxed/simple;
+	bh=oh4LFguDXu97SMM8fIsn0hOFXs3CqGOdpfJtqN2IS2A=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YFdpkYcuOIO+V9uHlBKqMSe+jaBKBoenxMIAGB2y1ffe15hrmRwDeZmwyAYF1nhAlez1seJsrh/xDXF+tn8UaBp4s0vV2GwQdu8qiV+I9FscBxtlwtakTU1J6MdEFCE9KbV8F3Yw0BvyeWP1SNBkhQLRiLAUNjDiYCvrKDhdYIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=RSUwwtTO; arc=none smtp.client-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GFOnKhC5"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784160892;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qs6xIbSrMIDDADseyfFLisFrJ0x3PUEZvFX9L6cYdYs=;
-	b=GFOnKhC550ursiL1a5IpVB34mzEqoSGLG3VUKV0cZe1Zg2eNRcxYrS9HI+DfhKLQliXH+Y
-	ez4xlnYSQWXKJpxE1CDPzoYMWnlggoxdLkDkHFfgL4gVEGBiwM/krm6XI1yX+iBimsmFMG
-	4grufLLn0SmGMX7RNMEPKH0GCGYpMps=
-From: Roman Gushchin <roman.gushchin@linux.dev>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,  Jan Kara
- <jack@suse.cz>,  Theodore Tso <tytso@mit.edu>,  Mauro Carvalho Chehab
- <mchehab+huawei@kernel.org>,  Derek Barbosa <debarbos@redhat.com>,
-  Matthieu Baerts <matttbe@kernel.org>,  Konstantin Ryabitsev
- <konstantin@linuxfoundation.org>,  Jason Gunthorpe <jgg@ziepe.ca>,  Steven
- Rostedt <rostedt@goodmis.org>,  users@kernel.org,  Linux Media Mailing
- List <linux-media@vger.kernel.org>,  Stephen Finucane
- <stephenfin@redhat.com>
-Subject: Re: Linking Patchwork with Sashiko?
-In-Reply-To: <20260715204238.GP1778116@killaraus.ideasonboard.com> (Laurent
-	Pinchart's message of "Wed, 15 Jul 2026 23:42:38 +0300")
-References: <20260713095538.3d5e86f1@foz.lan>
-	<20260713094120.GD1127719@killaraus.ideasonboard.com>
-	<20260713220427.582b28bf@foz.lan>
-	<7ia4mrvtrxjl.fsf@castle.c.googlers.com>
-	<20260715005909.GF1656185@killaraus.ideasonboard.com>
-	<alcBvuIMEGSjAD1R@mit.edu>
-	<20260715161111.GC1778116@killaraus.ideasonboard.com>
-	<j4jhhj6rw6kgem73slctakegtoirqmngbejbabfnfwtyshdlgp@itpaup6ghuod>
-	<20260715202808.GN1778116@killaraus.ideasonboard.com>
-	<7b8e735092ecd25c61e79d8291b2edf5e54dfb15.camel@HansenPartnership.com>
-	<20260715204238.GP1778116@killaraus.ideasonboard.com>
-Date: Thu, 16 Jul 2026 00:14:22 +0000
-Message-ID: <7ia4o6g7vli9.fsf@castle.c.googlers.com>
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="RSUwwtTO"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-51c4436d02cso15236611cf.1
+        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 17:21:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1784161314; x=1784766114; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zxDOC+/uej/6RegQ8PrVVsXKUPdRyp36J+7o2AdC+N4=;
+        b=RSUwwtTOVVFKcgsMT6Pk3m3NulcKDMMT3kBHcbVkyXBeA6NAsdbhNUc+ig2kSLiNWT
+         8lddhL6+/ir3Zq60Z4aUNpUar7RNIA+C6oSm4IlFLbK/FYkJgmkP/2cjZNkeodZCM/ZX
+         irnre2AGMq3LkVnxs2fvBJQ5ySZX6psfoBAgRMHDBPmP6eyVvJByx3cJFoSYV0Jt7+w/
+         v+jhhhHOiW6bWLR71/RvQkAxrJnRps+x20hT69yf2dWG1xGDeSvJtZHX27UN9Vl5Om6A
+         /qRxAsqQSL/uef2LFfvxaU5stStIAIstTdkBJNPJrTVoEPoYeQf+n6OInrrC1+s22qKE
+         gXCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784161314; x=1784766114;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zxDOC+/uej/6RegQ8PrVVsXKUPdRyp36J+7o2AdC+N4=;
+        b=eeeSEz0/8cVwY9f86ICeeMnt3WUY5jrnKuSqXs6judo8jbzZrEi3ZX6VPgGscotI/G
+         A5HIQo2RD6Onzn3cd1/k/tAOHVdxCx7hMY0TeOuDE9fSSRo2r1rhZuiAOW1UNcWtPl8T
+         WvyeE7C7RAgwlBvXJbv3oj4L9VUUOG8+3BenueHBtpAVSZQVzazgt2sl/MKtvXSOzAv7
+         XjRZlVAPwFa5bZ8GbFcQLph0HYfuE6sOm3FDBe4ra6sB8J2vSDht8sHK7TK1kNCtJveH
+         d/1bdxXjh2CNgqvXuqJvObdLo8qIKXGFI2dxT9EOq6Eeme5X5+odMD+SSU/sofc1Dvbn
+         yyAg==
+X-Forwarded-Encrypted: i=1; AHgh+RqyaU3bqgTyM9Lh+kW6fs9HuQzOP1CFoWdznvIIWFWoOJqgvW85q+OBFqEnrN5IFN5H0ZNGjxCwlOY01w==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz+OMGS015vA0DFjukEk8UAKZax2tJuN6Jz4+rHpo4ukH2rpgDE
+	f9Yotv/pnNfSH5uOg4H2bUwYVfIa140ruLUemsH70yhfi19ZtDaxj3vGyMHTsXS3c+8=
+X-Gm-Gg: AfdE7cls1NAdhll7T6YPl20OFzmEW3YNBDif5vTRs8RX2YLgsyFeUgKplAtyKZUEeTF
+	rwoPutPrmzJdWkvOz7wbb41LWjT8ksD6z8tIKanv9U9wlOENDQDO4ViODFNhzvEpWNgxL06EjC1
+	hnfGobuzL4N1deEmKNXyD25gB7r8EaAclSekmZVUDcN3PHUNBrOhi2234p1KNR9Vt8z1b0+jqna
+	Q3d5no3cKOx0ERh2kKvP+izeBfFvMoWn+sqjjbugHRsCYk93tLRYkcKa/drx/+9wXHZRdrs2QIF
+	jNb4z6cuqXE/yug2PMylcRW7j10VqN6bAoNi72wvwPJL2jIGTxta2qVoxr9ojzLUGv3hH27lwSp
+	WXt+JoiLiCzXp2KeG/cij8fs76xfvKXez04wxTeE4vX0tHVTCVJ8FyY1ysDwfHur+sSZ7AOzpTp
+	tGY1ahH04KKQhWuHhsoQ==
+X-Received: by 2002:a05:622a:909:b0:51c:1d67:379 with SMTP id d75a77b69052e-51cbf0c476bmr207834671cf.23.1784161314258;
+        Wed, 15 Jul 2026 17:21:54 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:15:e06b::5ac? ([2606:6d00:15:e06b::5ac])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ffd5bbac2asm206884396d6.21.2026.07.15.17.21.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Jul 2026 17:21:52 -0700 (PDT)
+Message-ID: <79f19fa34a875dc4b6944ec8df498d9862b5d3f6.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: vicodec: fix out-of-bounds write on capture
+ buffer
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Junrui Luo <moonafterrain@outlook.com>, Hans Verkuil
+ <hverkuil@kernel.org>,  Mauro Carvalho Chehab	 <mchehab@kernel.org>, Dafna
+ Hirschfeld <dafna3@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Yuhao Jiang
+	 <danisjiang@gmail.com>, stable@vger.kernel.org
+Date: Wed, 15 Jul 2026 20:21:50 -0400
+In-Reply-To: <SYBPR01MB7881A4E2AC434488ABFA775CAF152@SYBPR01MB7881.ausprd01.prod.outlook.com>
+References: 
+	<SYBPR01MB7881A4E2AC434488ABFA775CAF152@SYBPR01MB7881.ausprd01.prod.outlook.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-KiacoAbzGr4Wo+lwF2YP"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Migadu-Flow: FLOW_OUT
 
-Laurent Pinchart <laurent.pinchart@ideasonboard.com> writes:
 
-> On Wed, Jul 15, 2026 at 04:36:42PM -0400, James Bottomley wrote:
->> On Wed, 2026-07-15 at 23:28 +0300, Laurent Pinchart wrote:
->> [...]
->> > No later than yesterday a friend of mine pointed me to a mail thread
->> > where sashiko referenced code that has never existed in the kernel,
->> > and the maintainer blindly trusted the comment and asked the patch
->> > author to fix that issue, seemingly doubling down when told the code
->> > didn't exist.
->> 
->> We can definitely do maintainer education if you point me (or the TAB)
->> at the thread.  Sashiko as a tool can absolutely get things wrong so,
->> as maintainers, we do need to accept a reasoned answer that shows the
->> review is wrong.
->
-> I've shared this with the person who reported the issue to me, as I
-> don't know if they're comfortable discussing it publicly.
+--=-KiacoAbzGr4Wo+lwF2YP
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I'd suggest to report these issues as github issue in the sashiko
-repository or as an email to the sashiko@ mailing list (or email me
-privately). Or the best, send me a pull request with a fix.
-It's not _always_ addressable, but in many cases it is.
-But obviously it's not gonna be fixed if it's a hidden knowledge.
+Le lundi 01 juin 2026 =C3=A0 20:30 +0800, Junrui Luo a =C3=A9crit=C2=A0:
+> The vicodec stateful decoder handles its first resolution change in
+> vicodec_buf_queue(), which calls update_capture_data_from_header() to
+> set q_dst->sizeimage to the new, possibly larger, format. Unlike a
+> subsequent change in job_ready(), it does not set ctx->source_changed,
+> so the m2m scheduler still runs a job. buf_prepare() validates queued
+> CAPTURE buffers against q_dst->vb2_sizeimage.
+>=20
+> A CAPTURE buffer allocated before the source change still passes
+> buf_prepare(), and device_process() then decodes q_dst->sizeimage bytes
+> into it with no clamp to the buffer's actual size, leading to a
+> controlled-content out-of-bounds write past the vmalloc-backed capture
+> buffer.
+>=20
+> Guard the write at the decode site in device_process() against
+> q_dst->sizeimage, the number of bytes the decode actually writes. The
+> destination buffer is completed with VB2_BUF_STATE_ERROR by the existing
+> device_run() error path.
+>=20
+> Fixes: 3b15f68e19c2 ("media: vicodec: Add support for resolution change e=
+vent.")
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+> ---
+> =C2=A0drivers/media/test-drivers/vicodec/vicodec-core.c | 2 ++
+> =C2=A01 file changed, 2 insertions(+)
+>=20
+> diff --git a/drivers/media/test-drivers/vicodec/vicodec-core.c b/drivers/=
+media/test-drivers/vicodec/vicodec-core.c
+> index 318e8330f16a..2950d42c8c63 100644
+> --- a/drivers/media/test-drivers/vicodec/vicodec-core.c
+> +++ b/drivers/media/test-drivers/vicodec/vicodec-core.c
+> @@ -321,6 +321,8 @@ static int device_process(struct vicodec_ctx *ctx,
+> =C2=A0		q_dst =3D get_q_data(ctx, V4L2_BUF_TYPE_VIDEO_CAPTURE);
+> =C2=A0		if (comp_frame_size > ctx->comp_max_size)
+> =C2=A0			return -EINVAL;
+> +		if (vb2_plane_size(&dst_vb->vb2_buf, 0) < q_dst->sizeimage)
+> +			return -EINVAL;
 
-Thank you!
+The analyses is just incorrect. At this point, the driver is entering DRC,
+meaning the queue will be drain and will stop until streamoff/on cycle happ=
+en.
+If there is a out-of-bound bug, it would be that that q_data->sizeimage is =
+not
+match to be smaller or equal to the vb2 buffer size at streamon time, not d=
+uring
+processing.
+
+NAK
+
+Nicolas
+
+> =C2=A0		state->info =3D q_dst->info;
+> =C2=A0		ret =3D v4l2_fwht_decode(state, p_src, p_dst);
+> =C2=A0		if (ret < 0)
+>=20
+> ---
+> base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
+> change-id: 20260601-fixes-452ce98d76d8
+>=20
+> Best regards,
+
+--=-KiacoAbzGr4Wo+lwF2YP
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalgkHwAKCRDZQZRRKWBy
+9C/GAPsHWmIIGnAbah5asQrVgy7zw/9W3kCj67i18MOF2Zd3kgD/RZ85ZfiaolEr
+9Ea3ozkO1l8zbYA+oef/BuOtO5ymygM=
+=OqLK
+-----END PGP SIGNATURE-----
+
+--=-KiacoAbzGr4Wo+lwF2YP--
