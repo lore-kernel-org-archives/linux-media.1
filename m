@@ -1,131 +1,96 @@
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+Received: from isildur.very.puzzling.org (isildur.very.puzzling.org [139.180.180.134])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5555C37AA78
-	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 03:55:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51836382380;
+	Thu, 16 Jul 2026 05:09:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.180.180.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784174116; cv=none; b=ehkRK/s8PYBpnuXVI+OpG1bC4GFgShfY7RGim6eYXUuz9uRfssdHHq3NYcbc93exan2Ocm/cAP3jxm7pP+WE9e/aHaZtu2dAvd/5zrewdvunmTNkyUnL/WZXfGxol+kWcEMkYU4bIl26T38wfXcviuBw/ovMS7QnDb8RwO9PEts=
+	t=1784178561; cv=none; b=jr00OQXWGtaiKNvylDEMw2szQ7h709BveKyNWfaVcpbbd1Xx7dbHT6zaMyzyRE6G16a/pHb92YCPx90WVelreMcOQPYKiHw2t0lWrOPyBhe4DH2E/ggzPvWDLYP1XgqNc5IqOao1/TLNAqX78sPMjTHbiOSEg7iqySOb6zrneIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784174116; c=relaxed/simple;
-	bh=JY4UaD0jeiUSjMFofH8dSI2EJhzBGeat6rBi7QdOfs4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e+uXRqBdnxSa+VnVgD5kp2YKU/Ih/Crd/i6kk/n41nAQamcVr9+BtNpadbK6DfRGEqsq7eG0cFtP0gjWyfPR0ODmtCzp6lYvnE9Py0szppMn5HSgzNKIX/RoKLvYbkJYkFQjq7INyE5pXYQ7jZvem1jkKh3uMBKE3TV2rGe0mME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=Mp3xSQ8Y; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	s=arc-20240116; t=1784178561; c=relaxed/simple;
+	bh=6X7bZh8IXa7nX2yklw7mIwUS9JZ86Fh0UHbqiRvPe+o=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mKLyG20DVNkJYgJ9Lv0MSnSVmdhJOVNO87eBkCzmVCLvLpyoNInpdS5j59MZsGEqVf0VAhuaLhXtkLqQoIUc1n1RGpNLqpRp5okpXDDuOQVoM5OIMxK1Bh+lKVJsbRpA512PHIPKou57UPSfCZnDYTCDwjXDSE6IYfJKRAKu9Xo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=very.puzzling.org; spf=pass smtp.mailfrom=very.puzzling.org; dkim=pass (2048-bit key) header.d=very.puzzling.org header.i=@very.puzzling.org header.b=MgGOlyaO; arc=none smtp.client-ip=139.180.180.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=very.puzzling.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=very.puzzling.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="Mp3xSQ8Y"
-Received: from macsyma.thunk.org ([151.240.45.27])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 66G3rt2l028829
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 15 Jul 2026 23:53:57 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1784174043; bh=UUp7Jai+pVhhRkverQOqPGQVEy44/dxVTc2+nLLIONI=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=Mp3xSQ8YCyCTEvxQh4n3YJL7s+HjUd0ND7yFxB8JaLFBfbzufLUZgOmQXc7tPYBnY
-	 LIEh7XozK8O9WPeMtFF99q9GTSJeKVret5NMOMJFgr9hz6KzrkscLkoqeDDu3rNDoN
-	 rOckootfuTnLJDTtBMx2m438B4Kc/snaSDMJr46M5PzoHxIkn17azKvsopjkve7BPg
-	 p6/3LXyYyS82Jkwob8i6OS3xeUfpQ/j9MuQY1IMylC84rv4wHuoOAk+KkwYIQFCLmJ
-	 7FgojTDUazxfzEovdQo3XyHVZoHV6Bbi1MvhdJ1Yre3LdWjLRCktl/j6ZOcnAD9C7G
-	 aHfWp2xDV+tYw==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id 72601A46658; Wed, 15 Jul 2026 23:53:55 -0400 (EDT)
-Date: Wed, 15 Jul 2026 23:53:55 -0400
-From: "Theodore Tso" <tytso@mit.edu>
-To: Nicolas Dufresne <nicolas@ndufresne.ca>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Ihor Solodrai <ihor.solodrai@linux.dev>,
-        Roman Gushchin <roman.gushchin@linux.dev>,
-        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-        Derek Barbosa <debarbos@redhat.com>,
-        Matthieu Baerts <matttbe@kernel.org>,
-        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-        Jason Gunthorpe <jgg@ziepe.ca>, Steven Rostedt <rostedt@goodmis.org>,
-        users@kernel.org,
-        Linux Media Mailing List <linux-media@vger.kernel.org>,
-        Stephen Finucane <stephenfin@redhat.com>, bpf <bpf@vger.kernel.org>,
-        Chris Mason <clm@meta.com>, Christian Brauner <brauner@kernel.org>,
-        Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <alhMB7vGodoewjcz@mit.edu>
-References: <20260713094120.GD1127719@killaraus.ideasonboard.com>
- <20260713220427.582b28bf@foz.lan>
- <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
- <20260715005909.GF1656185@killaraus.ideasonboard.com>
- <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev>
- <20260715163921.GH1778116@killaraus.ideasonboard.com>
- <153db0fa-65ac-49de-9bf5-456c9639954c@linux.dev>
- <20260715190654.GK1778116@killaraus.ideasonboard.com>
- <alfwOgVRgUJYOGtU@mit.edu>
- <ef9f77c613a05c5745941587099eeb4f159d5e31.camel@ndufresne.ca>
+	dkim=pass (2048-bit key) header.d=very.puzzling.org header.i=@very.puzzling.org header.b="MgGOlyaO"
+Received: from beren.home (unknown [115.128.81.176])
+	by isildur.very.puzzling.org (Postfix) with ESMTPSA id 1BD2EA4C;
+	Thu, 16 Jul 2026 15:01:21 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=very.puzzling.org;
+	s=beta; t=1784178081;
+	bh=UT+8l5jzRYIVaBbFouAzrbN8rTvujOKe+ORwEEuPfRo=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:From:Reply-To:To:Cc:Subject:
+	 Date:Message-ID:Content-Type:Content-Transfer-Encoding:
+	 Content-Disposition:MIME-Version;
+	b=MgGOlyaOO762J74nY8Cd61FuXkMRvAhaFF1O+AdSwA8CRc1k0ECjVfjpyQbHNY1TW
+	 eTZSrBkHbJSg5A9J5CnP19HMKRahqsCt/iG6oQEuKTt+rqTsyCQ/1j5I/HP+0Q+mGw
+	 l64SkcUgzyxu9LzlJwCo0Faxn06mBjl6g6PgvkUN3CLJBjwTct1BBn9Pbdd/+5RbYg
+	 QSQy627XmY25hE58Z6Wum+1PYn1DKAFD7PLW7DSxXAusAUc+CFl7kWZ4HZk++d9ezX
+	 Hyen6cVU29bQZndQQ7GPerUgFNav+Zi0icJgDnQPz7j907Iy76f0sCkRaQKvuvv0pZ
+	 yZQbwCcEBG46Q==
+Received: by beren.home (Postfix, from userid 1000)
+	id 9D4CA40080; Thu, 16 Jul 2026 15:01:19 +1000 (AEST)
+From: Michael Chapman <mike@very.puzzling.org>
+To: Michael Krufky <mkrufky@linuxtv.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Chapman <mike@very.puzzling.org>
+Subject: [PATCH 2/3] media: dvb-usb: dib0700: fix null-ptr-deref in dib0700_disconnect
+Date: Thu, 16 Jul 2026 15:01:17 +1000
+Message-ID: <20260716050118.30150-3-mike@very.puzzling.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260716050118.30150-1-mike@very.puzzling.org>
+References: <20260716050118.30150-1-mike@very.puzzling.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ef9f77c613a05c5745941587099eeb4f159d5e31.camel@ndufresne.ca>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 15, 2026 at 11:00:54PM -0500, Nicolas Dufresne wrote:
-> In V4L2 m2m notably, there is a "job" in the background, which allow
-> to safely (at least this is the theory) chain up work, and
-> synchronize against pending work. But Sashiko (and other AI) seems
-> to not get it and state with confidence and long explanation that
-> the drivers are racy and should do X/Y/Z more on top (and never
-> blames the framework).
+dib0700_disconnect() may be called before driver-specific state has been
+attached to the USB device.
 
-Is there actually a race which is allowed by the framework?  Or is
-Sashiko's proposed race actually not possible?
+Signed-off-by: Michael Chapman <mike@very.puzzling.org>
+---
+ drivers/media/usb/dvb-usb/dib0700_core.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-Or is it a case where it actually *is* racy, but it's something we
-really don't care about?  I've seen this happen with KCSAN where
-technically it really *is* a data race, but it's actually not
-important --- so we just have to mark it with the data_race() macro[1].
-
-[1] https://docs.kernel.org/dev-tools/lkmm/docs/access-marking.html
-
-This sort of thing can happen any time we introduce a new tool,
-whether it's KCSAN or lockdep.  It's not necesarily unique to AI
-reviews.  In both AI and non-AI tools, we can have developers who fix
-the problem in the wrong way, or where the fix actually makes things
-worse than the putative "bug".
-
-> This is why I recommended not forwarding the reviews to the linux
-> media list just yet during the summit. Now, the tricky part will be
-> to find time to try and help narrow this down, I never checked the
-> implementation, but I suppose you can add more layers of prompts to
-> force into looking deeper ?
-
-Has a bug been filed with the Shashiko folks?  I can imagine any
-number of solutions, including adding comments in the source, or some
-kind of marker much like the data_race() macro to shut up KCSAN
-warnings, or __attribute__((unused)) to shut up gcc or Clang warnings.
-Yet another solution might be to add some kind of a AGENTS.md file in
-the explains why a particular construct is safe.  Personally, I
-consider it to be the less desirable solution, since having something
-inline in the sources is likely to get out of sync with future code
-changes, and having the annotation in the sources will hopefully be
-useful to humans, not just AI bots.
-
-But the exact solution is going to be very specific exact warning and
-why the AI bot thinks there is a problem when it really isn't.
-
-    	       	      	       	 	 - Ted
-
-P.S.  There was a recent thread[1] where using Clang's context
-analysis resulted in a false positive, and I think it's instructive to
-see how it was handled compared to false positives from Sashiko.  We
-had a discussion, and the result was two pull requests to LLVM to
-avoid the false positive.  There was no complaints about how the false
-positive somehow was demeaning to our humanity, or that we should be
-accomodate those people who want to ban the use of static analyzers.
-There is something about AI that seems to trigger a different sort of
-energy, for better or for worse.
-
-[1] https://lore.kernel.org/r/20260712165610.366474-2-timday@thelustrecollective.com
+diff --git a/drivers/media/usb/dvb-usb/dib0700_core.c b/drivers/media/usb/dvb-usb/dib0700_core.c
+index 1caabb51ea..2d281a2f45 100644
+--- a/drivers/media/usb/dvb-usb/dib0700_core.c
++++ b/drivers/media/usb/dvb-usb/dib0700_core.c
+@@ -911,9 +911,15 @@ static int dib0700_probe(struct usb_interface *intf,
+ static void dib0700_disconnect(struct usb_interface *intf)
+ {
+ 	struct dvb_usb_device *d = usb_get_intfdata(intf);
+-	struct dib0700_state *st = d->priv;
++	struct dib0700_state *st;
+ 	struct i2c_client *client;
+ 
++	if (!d)
++		goto exit;
++	st = d->priv;
++	if (!st)
++		goto exit;
++
+ 	/* remove I2C client for tuner */
+ 	client = st->i2c_client_tuner;
+ 	if (client) {
+@@ -928,6 +934,7 @@ static void dib0700_disconnect(struct usb_interface *intf)
+ 		i2c_unregister_device(client);
+ 	}
+ 
++exit:
+ 	dvb_usb_device_exit(intf);
+ }
+ 
+-- 
+2.55.0
 
