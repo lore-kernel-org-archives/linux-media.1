@@ -1,185 +1,102 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0995D331237
-	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 21:23:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 048FD70836;
+	Thu, 16 Jul 2026 21:25:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784237009; cv=none; b=R90PPDCjl3PKHnC0rK1xpGzO4jm8utvvz2Nyk65p0m0bdP0uiEJ9QyLxXXGEVD7DWDJPBctMxNzf8PBdx43ZmYxgwlGv3WTsjIbMWMt2MNfQ6UtHxSfSKpnHEQScTTDb6bj3fY7B28TOdf6EwQveq7n7h/hV3LL2W4v52t0unsU=
+	t=1784237149; cv=none; b=Ax7MmTjURjOeDw3KXX6LJv7WmmGwLeS6PY/li8nQrxkeMzhz7euSUiSP4sH/FSdefmxAe06UgfZMNq7eon/+vtsnzucZfy3ahANRcJlHZ3oo+WRQylTJqs7Hp+aGdlgo7JCYA6IbVSGvi3IsaAALafNGYmiYOnlGj2WBVDHYfOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784237009; c=relaxed/simple;
-	bh=2dz68d3IIffgLX4URWZkOL5j0TmHliJyOzsjNddX9qU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gvv3RN+Chs9EMJRZ1LFjxa0lt0WtlyWQUMtGHuPjVwND301eoZJbOzW9JnMVrVNH6iwLj7jigirOHNLbWJFCJ8htHxzRkv+6q8r6557LviXjNcyySczNO9Q82SLUXj8Pz3VexpGcwtnysPUxAeoZ8KUPRqlEvAsrom1kzgPtGZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=D1p0XKei; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1784237149; c=relaxed/simple;
+	bh=vIGWW0q7qDZpE2XaivemThfhoGPHq88Yr7BOi4F1Frg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hGV503prsi8sWWkKm167QKWAw0P4E9KUhTEbx8s6FfKaXq2bfIrqfurzhQPwdun3NbV2mQYWysvvV5OuuvdPnjV2wgQEM0Yu1UVmtbnqs7TK1xAZ7+12xVAKJbhHpJJdd1Niat8j3acT45k8VLraWZhdz+8xMbokmAsqRGB09bE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=V/y6YCXi; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=gyQHv5Ih; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="D1p0XKei"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so3306176a91.0
-        for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 14:23:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784237007; x=1784841807; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wrUaBLbbTwHv098p1q3JOceP8CDyR8hElSHBW7qR1/4=;
-        b=D1p0XKeiNw0wz2nurr5IeJpU2USPWoaODN4YOsNGzYWLKjapmhuwB17eQbcSpQcQ1+
-         61KVnc74cF6dcsRq9JHmR0ScLneakxq8getGNh0nlFOnfZAMjdxfk+S02eNOLCrlv/DK
-         Hj33AU1B7AzXvZkMkibyWCmPSN6+mrqUsVNl55vxhVc545QC9pntLPXhXTTZgTUFSCVJ
-         XbE3C4sYFC5Nr7GA6mSeU3eGLcMablWhdkYwFLs7CvUw9SshbU+HMRSSJqjCmsMYBSmb
-         NsJgFyu1DHO6EtcjRaYZY7k0LOcqF7/P5MYaaGlLwx+xuE7yxRE8sb7/pU0kCCoA+Osa
-         ADQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784237007; x=1784841807;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wrUaBLbbTwHv098p1q3JOceP8CDyR8hElSHBW7qR1/4=;
-        b=XqzDTDFbGymKOzrB7FjB7eKKQZllZ+q9TIuuExEXlW6U1SItViuUdTV8/++Paaj+Af
-         hcgV18dqMZ5CyXWqWlYcQy1uYhixAoWXgUPcIK5RCL4JAWq+lK6IDQeKgJEj77AoUpAB
-         1kPJ/Qp2AOuUwEUF1FhxOhF1U/0P377MAv9saywS/z3aotRD1ykllTysCTIwOCB3pWnV
-         l+BSyz4A8uYv8yO61eHdvK8XdtAavSAUdHS6prtRGNUOhmM0Rea6hkeNbViFsqEIdPAr
-         L7zKMrAnfWpkJy255n/AGfiUp02J4NkB1KpiWTIu1371mNccXAJBrhXu6kWH/XdRDymZ
-         Fftg==
-X-Forwarded-Encrypted: i=1; AHgh+RqMrxF0xSw9vBs1CYOv6p7vTi54v9Out88yA9ZkC4nV/idUzXRwkYpyvKSTd/WF3rbSS1E4i4EgGRyDeQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx/SHxHowOE6k7EOshwtYAN5hZBxVc4mmVB/FxP788uZk/A0D7L
-	dAN7uDnXKITGERpEXCtEBQI0PWn9ejbu0/Dy9dqi7fpKPRjLKr+iTKEDeYQ1H3lPL0Y7OqMHkf5
-	3zbSEbA==
-X-Gm-Gg: AfdE7clzqwD6snu5uIIYpKIYPtvQFrRXyYXkygTQJrjMPzWRSi5/MoCfBIUoYFlL74r
-	ygunyk1j3wBhcFAQC2FJizPFLSakhCwvMdxhkXxoUHaVdk/e62iqh/XkUfnLGAeqa0ACGWx/o7K
-	Zxf49rr+2o9IRg2uvUx7lafTvytCUXpZnC9ZLb4cBM1/Ukzj3g7cxkZlVSHhALLV3lxp9uq38po
-	qpEHmZ33BQ3K4mEPuIqQswoghoT3uYhu2zYTGJIO26fiEk0nqIwDYMqXxo020IZUgsiWMyCaK68
-	fMEIok/5TxouiX1bqK+XSc0tkBPoETILG+Pzbi38+Vzd2B/6ehYV53ZLo5flwEh+hgqJFupV3D1
-	dp2ZJPI/qTNQniiKX6KWiCSZdc9yn6gEyozmH9thDIPX0yeHABK2DPmFNcofKMYFwRB8LOwTbGg
-	JB8Tbu5oAOHX8/mKiWFp2mi9ZtuA+NYCxUBXXPLCei
-X-Received: by 2002:a17:90b:3d90:b0:38e:250b:122f with SMTP id 98e67ed59e1d1-38e467597f3mr1142655a91.16.1784237006752;
-        Thu, 16 Jul 2026 14:23:26 -0700 (PDT)
-Received: from google.com (56.149.168.34.bc.googleusercontent.com. [34.168.149.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e39fe37d1sm1841599a91.12.2026.07.16.14.23.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 14:23:25 -0700 (PDT)
-Date: Thu, 16 Jul 2026 21:23:22 +0000
-From: David Matlack <dmatlack@google.com>
-To: Matt Evans <matt@ozlabs.org>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Pranjal Shrivastava <praan@google.com>,
-	Longfang Liu <liulongfang@huawei.com>,
-	Mahmoud Adam <mngyadam@amazon.de>,
-	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	kvm@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v5 0/9] vfio/pci: Add mmap() for DMABUFs
-Message-ID: <allLypOmtbnPrgbw@google.com>
-References: <20260715174737.15287-1-matt@ozlabs.org>
- <CALzav=fH7N+ionUnELqw5ZaGrPmgp_w6kxoCtoY8fMmZY_S4zw@mail.gmail.com>
- <65ba06e7-4c54-437d-9fbd-632c0468f66d@ozlabs.org>
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="V/y6YCXi";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="gyQHv5Ih"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1784237140; bh=vIGWW0q7qDZpE2XaivemThfhoGPHq88Yr7BOi4F1Frg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=V/y6YCXiiz5cMvhx+aDquE6lFenmx1UGpSfjtcn8fRi2IJe8KbLhjARD8AVfbhKmY
+	 Srtv9iv3obaoT9srIWlIsCh4Z0mQFj1mYtcrPqCTBt0UpepQnGchFJGDu5kHJ9ubUX
+	 ap8iozMIrX+3IUVglnHmOoaqXlvXasUYWEeKQ1o35xL3hSgad4Cs5iqgdLnWMriEE4
+	 COMXNjYfc+pbTLLxbn4X02+kFyAATGTWhGlBWE7B6Y+osITbrLaI+o1ErtfAQ3tFpx
+	 ueskNsGPPG+UXiY6Iwl3LTaVYPmaL6iwig9PI8Ue+Mz0QwZTaHbl4JkYYY/fnItEll
+	 vvRMTfzBEOr6A==
+Received: by extorris.mess.org (Postfix, from userid 1004)
+	id 09C0340A3D; Thu, 16 Jul 2026 22:25:40 +0100 (BST)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1784237139; bh=vIGWW0q7qDZpE2XaivemThfhoGPHq88Yr7BOi4F1Frg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=gyQHv5Ih9+6y4skIFPqBtqsDoP19x3D9dSWCxjeoSa0Lnk+iz0LQFXw3d0Xe+k+cx
+	 m+3lSDlb3TAsZqm2bT9AqMKiCz+nO4FYArxkgnXynNdQu8Ab72TcfrIaKlc1smxMz7
+	 i2XdjZkVqTWZoPDc2pfcbFBY/7CV7gEHCvpTju5+RlKAVxeH2Qcv3hAMMsLhSlv+kX
+	 A1UM5d9fUncUXxaNMyCax64J+YZTzHARZwpH8NIQvVfD5lNElDhdSQTd2CqeDyyFjG
+	 Qm6AErP2yc61pWlcVQWLQdSTOUS+wDQ3TamgksiaL08ljS7rOP7HMr5cw+hI7XhNF9
+	 NJlnmhDGtUGTw==
+Received: from maru.home (host86-147-232-175.range86-147.btcentralplus.com [86.147.232.175])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by extorris.mess.org (Postfix) with ESMTPSA id 273F540154;
+	Thu, 16 Jul 2026 22:25:39 +0100 (BST)
+From: Sean Young <sean@mess.org>
+To: linux-media@vger.kernel.org,
+	Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Guoxiong Yan <yanguoxiong@huawei.com>,
+	Zhangfei Gao <zhangfei.gao@linaro.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH v2 10/11] media: ir-hix5hd2: Ensure rdev is setup before interrupts are enabled
+Date: Thu, 16 Jul 2026 22:25:31 +0100
+Message-ID: <f0ec782d44f4fef11a0afb681d44ac7b6b745d57.1784236919.git.sean@mess.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1783977550.git.sean@mess.org>
+References: <cover.1783977550.git.sean@mess.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <65ba06e7-4c54-437d-9fbd-632c0468f66d@ozlabs.org>
 
-On 2026-07-16 03:51 PM, Matt Evans wrote:
-> Hi David,
-> 
-> On 15/07/2026 19:12, David Matlack wrote:
-> > On Wed, Jul 15, 2026 at 10:47 AM Matt Evans <matt@ozlabs.org> wrote:
-> > 
-> >> This is based on v7.2-rc3.
-> >>
-> >> These commits are on GitHub for easier browsing, along with
-> >> "[RFC ONLY] selftests: vfio: Add standalone vfio_dmabuf_mmap_test":
-> >>
-> >> https://github.com/metamev/linux/compare/v7.2-rc3...dev/mev/vfio-dmabuf-mmap-v5
-> > 
-> > It'd be great to have this test upstream. I'm happy to review it when
-> > you're ready. Looks like it just needs to be redone to use the VFIO
-> > selftests library and kselftests harness. AI could probably do the
-> > conversion pretty quick :)
-> 
-> For sure, I'd intended to catch up with you on best approach here. :)
-> 
-> Aside from the organic structure of the test (the open-coded VFIO
-> device/group setup/init needs to go), the main issue is that it relies
-> on a hacked/out of tree QEMU "EDU++" device with a second larger BAR
-> (containing freely read-writable memory).  A subset of tests run with
-> the in-tree EDU device, but coverage is too low.
-> 
-> The desirable properties are:
-> 
->  - Having a BAR that is pure memory (all locations present, writable
-> without disruptive side-effects) so that mapping aliases can be
-> constructed and detected.  This is good to test things like non-zero
-> vm_pgoffs and VA space presentation of physically-discontiguous DMABUFs.
-> 
->  - BAR >> hugepage size so we can eyeball huge mappings work (or better,
->  mechanically test for them).  At least 32MB would tick this box for 4K,
-> 16K page systems.
-> 
->  - Something QEMU supports*, so one can run the test in a VM/TCG system.
-> 
-> There were some real device models in QEMU that could be used this way,
-> but needed a fair bit of setup;  I didn't want to rathole
-> vfio_dmabuf_mmap_test on including a ton of device-specific code for
-> some video card or similar.
-> 
-> I'll dig more for a simple target that provides these properties --
-> obviously it would be better to point this test at an off-the-shelf
-> device (including silicon!).  And, proposing EDU extensions to the QEMU
-> folks may be useful (there're uses for a better EDU in other contexts too).
-> 
-> Since this test uses MMIO for a specific [class of] function, my first
-> thought is it should be another VFIO driver-type test sibling of
-> vfio_pci_driver_test.  For example, we could extend the driver-type
-> tests' backend struct vfio_pci_driver_ops for functions capable of
-> providing a Big Memory BAR, like QEMU EDU++.  EDU can also memcpy, so
-> could also support vfio_pci_driver_test.
-> 
-> The spirit of the device backends hiding setup of a complex device is
-> handy, and it's plausible that several backends could provide this "big
-> memory BAR" service.  What do you think, any concerns with extending
-> vfio_pci_driver_ops like that?
+Once the interrupt handler is enabled, priv->rdev can be used. Ensure
+it is setup correctly so there is no race condition.
 
-I wouldn't recommend leveraging the driver framework unless absolutely
-necessary. It makes the test harder to run.
+Fixes: a84fcdaa9058 ("[media] rc: Introduce hix5hd2 IR transmitter driver")
+Signed-off-by: Sean Young <sean@mess.org>
+---
+ drivers/media/rc/ir-hix5hd2.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-The biggest issue I see with the proposed properties is being able to
-treat the BAR as memory. That obviously will depend on the device and
-may require device-specific setup. If we decide that treating the BAR as
-memory is truly required then using the driver framework is the way to
-go. But I'm hoping we can avoid that requirement.
+diff --git a/drivers/media/rc/ir-hix5hd2.c b/drivers/media/rc/ir-hix5hd2.c
+index 1b061e4a3dcf..aa3de4d57a58 100644
+--- a/drivers/media/rc/ir-hix5hd2.c
++++ b/drivers/media/rc/ir-hix5hd2.c
+@@ -316,6 +316,9 @@ static int hix5hd2_ir_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		goto clkerr;
+ 
++	priv->rdev = rdev;
++	priv->dev = dev;
++
+ 	if (devm_request_irq(dev, priv->irq, hix5hd2_ir_rx_interrupt,
+ 			     0, pdev->name, priv) < 0) {
+ 		dev_err(dev, "IRQ %d register failed\n", priv->irq);
+@@ -323,8 +326,6 @@ static int hix5hd2_ir_probe(struct platform_device *pdev)
+ 		goto regerr;
+ 	}
+ 
+-	priv->rdev = rdev;
+-	priv->dev = dev;
+ 	platform_set_drvdata(pdev, priv);
+ 
+ 	return ret;
+-- 
+2.55.0
 
-Instead, I think you can get pretty far by inspecting /proc/pid/pagemap
-to determine if the mmap() set things up correctly, without actually
-accessing the BAR. You can use /proc/pid/pagemap to look up the PFN and
-PAGEMAP_SCAN to detect huge pages.
-
-With that requirement gone, then all you really need is a device with a
-large enough BAR. And even that it not a hard requirement. I'm sure
-there are plenty of test cases that could work with smaller BARs. The
-few tests that want to exercise huge mappings can inspect the device BAR
-sizes first, and if they're all too small, SKIP() the test.
-
-If you structure the test this way, then it's easy for the test to be
-used. It can be run against any device for the basic functional
-coverage, and can be run against a device with a larger BAR for full
-coverage of huge mappings.
-
-Does QEMU emulate any devices that have 32MB or larger BARs?
