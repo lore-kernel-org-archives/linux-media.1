@@ -1,115 +1,155 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from 4.mo560.mail-out.ovh.net (4.mo560.mail-out.ovh.net [87.98.172.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F360141E6CB
-	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 12:52:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB91A30DEA5
+	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 12:58:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=87.98.172.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784206334; cv=none; b=UobrBUN5QVYTqEoTmPWy2J0nk0toxumg/FGCS8bG51btlK4+zH/3yzlx6XJR2+OcFHjv2hi/YAfh8PDLwXalnXgErmnNw22ZovzgtRGiXYYmw9ore/ZSbWGXTReX65u8KNyZkRf2DeX+lwinWCOiVOw78RvPB9PdjKhNkQHLt5Q=
+	t=1784206723; cv=none; b=W3MlnZYfe8JSmvr16eEg92tQxY30R78Y/MTUCJuoTAtHU8QuxBXiRlGoqZ6Nuqs6VyAbEowiSO7K1SahL4Mkd/6Jg/hLML8jdxBT00Wzf8Xcr/uW4QMTCkQwJGDkOVdZmTmPZn+PTdMIS9lNnQUjZpJ5RhkL/ayUTyC66UtDyT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784206334; c=relaxed/simple;
-	bh=vAA8pxZ5/QO9WJwQ0ohnXcdfj+/EDTgsdWHMG8PbNak=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TC4DrcW7V/Atjx3XKA99L0svqPbhM0/2+mR6BY5WF785QaPR42B0HRmH92iyDzhZZSfOohihYGQZDJito4Gy5/mrT53RqL/WYyoOhF5uSEkQd5uZhbh2I8E7Rs0dn7f5RMQ7JhPDNlvtIpfvlq0lIpbIJIzllFDXGXeWsZOjFKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=PsWZshiS; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1784206723; c=relaxed/simple;
+	bh=sGBwHjd/ZVkGdkMWHFWnDzENUQGIJLOw78H6GMp3aFE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oSepfjIdhiykyQHtM2LOo1iDMryglmOghs+mbw3QoYeEGCm1hKss+c5kGX7ahroqJk/3E3EpfCFONtiBWYJ1JWJjpuF+/O7jWV6XN6Tz4Q1fmee+rFFn7j4gEOl9Imkx5BttRS57qE6lD44YXBG1E1HcNC5Zw3uIYeaKcnziMAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tesio.it; spf=pass smtp.mailfrom=tesio.it; dkim=pass (2048-bit key) header.d=tesio.it header.i=@tesio.it header.b=IXuIdPmr; arc=none smtp.client-ip=87.98.172.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tesio.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tesio.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="PsWZshiS"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4758b2a9e2aso4083862f8f.2
-        for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 05:52:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784206331; x=1784811131; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CL1+h+Sv7ciDTM5rA1EiT5WxOx+c/keG9qg756/bbt0=;
-        b=PsWZshiSjWBZHHBj5BSL8W61Ht8s9oLWMvGafStEr1/tOZeOa6lWeg+2wsg2DSSHuW
-         +AZTZ5uzuJb5RkoYARw2PL5xmBuG1UmPf9GX8QvxOKCA3pBtY8GQ+x/eyOk6cLpTavXz
-         N3GTD4zZgVpSZ8AzxXCKmlAunxXmYR/DDIYSqgihyYEbc1wBIXAp45CvOFOyO7bKA6V/
-         CYxxCv6hv8hcUJcJ0TyYRvmsMeEzqU1Ok63GIh/nrzy5rXoS4+9ZbopDkAxtlhroZeQs
-         tRWCe1knq5C19+aA52QCp/GPNJgffgIluQP8/9gip9RaLlOv88dIVWluhJ5yWMTQQC6A
-         5VFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784206331; x=1784811131;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CL1+h+Sv7ciDTM5rA1EiT5WxOx+c/keG9qg756/bbt0=;
-        b=qmkW8G7TUMs6CcIRfeECYujgnluVWKKGlbCTRjwypEFnVeG21knyVYEm6xEMzAdqoR
-         FJ4wao4+mfw7OMkLQPQL+RV9dMOOlIOwcQ/lMR57JXzNXxMI0zt2z3jPh+PoUpXphFBQ
-         jUiaSXeaWvcK8lF1Xtb4QxPzsOEnGjNAge/jq14ieJi0SqAFLgoh9fsC8AFXk3riWdpG
-         k3Q619juvhXtrsOBEuqrGpBTfhwhzg/GgJ7kM4262l2tnxqAWz+WoyWuqRsHqb+5C+4A
-         tVCFH5Noo8Nw0+29YkT3dtIlazEPWCSLjQxfPK0zntsGusB2fgzBjTuCUcX9zIjQitxo
-         jlwg==
-X-Forwarded-Encrypted: i=1; AHgh+RpDzUNCXf5y7buwHcfhfUxw4pAAJ8KRb3ZfVfEibsu0owOK+TRUtPw2+HT1J6Asjv5LR6l5yEFBOllIhg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFvbgbABx2ExG/8I0JZkk3TUfWwztqU+is3Ft8JDfWNEwRILGQ
-	qPBUIe0f0izsTCWxZ7X8srqTbfdZCkDWHfaBrnd99FIkZm6IWZYLQ5z8QvBdCrDwgUE=
-X-Gm-Gg: AfdE7clFUoa8CkLjnUDQ46ERGXJRwC5Le9O/S6uYdm26gZRP604nqtibjHRf/qil8os
-	WhLzrBoS2GmSo2S1qcWLB4hZj89nzGTgbFYEiZRyI4RpnVtCMiulKRtAjBKYZpWOjzveI8x4eMU
-	My+lGelGG8f97O6yikK5YjOyq6tCk9s36E0IL5jKLCRe3E6TebgQnhV9kU0j5zGKIrKGs4rvDNz
-	JWNeemvGL5cYyCWS433eROW4x7kia4PA574KMMLFkLAWLX46eggKSdgn3r2d283FDb+doAlHSgT
-	9uAQYh6Oj8HS19IBJrWL9TMNPYMt9SZqlnv7DfN8+mvbqAXjXJAsG/BnZCdUkol5wyuoAEXhnr+
-	79rUlkQRAYqvKWb4beE3tfFHkJ8Rs9BFr8na5K2Wg0urVVCOhujl88ONBWMyqTWQ5Rd0+My6crH
-	j6dU3+bErkG/YR1Q==
-X-Received: by 2002:a05:6000:4b19:b0:47f:56f7:7a57 with SMTP id ffacd0b85a97d-47f56f77d04mr3955700f8f.28.1784206331245;
-        Thu, 16 Jul 2026 05:52:11 -0700 (PDT)
-Received: from [192.168.0.101] ([109.77.36.131])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f464a9879sm25433837f8f.22.2026.07.16.05.52.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 16 Jul 2026 05:52:10 -0700 (PDT)
-Message-ID: <c6015615-278b-4840-a79a-9c7520141341@linaro.org>
-Date: Thu, 16 Jul 2026 13:52:09 +0100
+	dkim=pass (2048-bit key) header.d=tesio.it header.i=@tesio.it header.b="IXuIdPmr"
+Received: from director10.ghost.mail-out.ovh.net (unknown [10.110.0.90])
+	by mo560.mail-out.ovh.net (Postfix) with ESMTP id 4h16wM6w62zBDbn
+	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 09:20:51 +0000 (UTC)
+Received: from ghost-submission-7d8d68f679-hxx88 (unknown [10.110.178.103])
+	by director10.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 5935FC0CD9;
+	Thu, 16 Jul 2026 09:20:50 +0000 (UTC)
+Received: from tesio.it ([37.59.142.98])
+	by ghost-submission-7d8d68f679-hxx88 with ESMTPSA
+	id UUrDNnGiWGqVEDUAVK7ECA
+	(envelope-from <giacomo@tesio.it>); Thu, 16 Jul 2026 09:20:50 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-98R00293812815-d21b-4760-86da-3e7935d23692,
+                    3A08D15F88E16AE59486895140C0CFDE789B8E7A) smtp.auth=giacomo@tesio.it
+X-OVh-ClientIp:109.53.128.115
+Date: Thu, 16 Jul 2026 11:20:48 +0200
+From: Giacomo Tesio <giacomo@tesio.it>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Linus Torvalds <torvalds@linuxfoundation.org>, Theodore Tso
+ <tytso@mit.edu>, Roman Gushchin <roman.gushchin@linux.dev>, Mauro Carvalho
+ Chehab <mchehab+huawei@kernel.org>, Derek Barbosa <debarbos@redhat.com>,
+ Matthieu Baerts <matttbe@kernel.org>, Konstantin Ryabitsev
+ <konstantin@linuxfoundation.org>, Jason Gunthorpe <jgg@ziepe.ca>, Steven
+ Rostedt <rostedt@goodmis.org>, users@kernel.org, Linux Media Mailing List
+ <linux-media@vger.kernel.org>, Stephen Finucane <stephenfin@redhat.com>
+Subject: Re: Linking Patchwork with Sashiko?
+Message-ID: <20260716112048.2dc10a3f@hermes.development.it>
+In-Reply-To: <20260715201301.GB1824265@killaraus.ideasonboard.com>
+References: <20260713220427.582b28bf@foz.lan>
+	<7ia4mrvtrxjl.fsf@castle.c.googlers.com>
+	<20260715005909.GF1656185@killaraus.ideasonboard.com>
+	<alcBvuIMEGSjAD1R@mit.edu>
+	<20260715161111.GC1778116@killaraus.ideasonboard.com>
+	<ale45QPntcwA-aLB@mit.edu>
+	<20260715174138.GI1778116@killaraus.ideasonboard.com>
+	<CAHk-=wiL7kFVWNtvE5S9A4iqXYat66NaUqX1+gZT0QCndi4eQw@mail.gmail.com>
+	<20260715185141.GJ1778116@killaraus.ideasonboard.com>
+	<CAHk-=wi7KN9_DYdmaE2chC92EhTrO=Wtx1bPBER-EQfAZ8FREg@mail.gmail.com>
+	<20260715201301.GB1824265@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260708-x1e-csi2-phy-v9-0-0210b90c04cf@linaro.org>
- <20260708-x1e-csi2-phy-v9-1-0210b90c04cf@linaro.org>
- <YSunV_lNJ8xW_y-Aa2psZavniF6mcHJlJipuj1RYWMB8Zb8yLC-gb7eEnk0XMjfwQOneMGsZM5foFKutCNhYqw==@protonmail.internalid>
- <b7baffda-b97c-4b83-8d9e-e381d0289682@linaro.org>
- <3ab676ac-919b-4a80-8dd6-71dd7f6fe06c@kernel.org>
- <-iN0mG5nS2joxEn49UrxFlORE3R6Ji3HRebfOMNMGnupMIobTBdRDvnwjRHAXHeLmGf6O4JJENVauduwZXwhiA==@protonmail.internalid>
- <b834e9a0-a61c-4912-b57c-36d571938b75@linaro.org>
- <4d7a0e59-7c34-4557-a475-8cd7fd2ad2d9@kernel.org>
- <CAFEp6-2J0WGF6g0K7s--PxciO+d9MR-SCVnrWJ3u=sgQNwA59A@mail.gmail.com>
- <c731b03e-b550-48af-b338-37ac53018247@linaro.org>
- <CAFEp6-3U66hvi0iZrtRbyY3B-uwEap6xDFHFkVoaEBwWhV74Uw@mail.gmail.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <CAFEp6-3U66hvi0iZrtRbyY3B-uwEap6xDFHFkVoaEBwWhV74Uw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+x-ovh-tracer-id: 11705699860253830100
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTGYtsOh/QAqFffKJCjbKrqZMQCjya3Ti+dvZ6W47L7yc1UragHVV8SY1Z3aZjj5Xj5t0NtzsDtr50iVWCpwC91lpFzlvi3gqMvq5fDfZgRLQZRuGjp4vPlecaDbsSZvliOraqSLjzkvhQ2VbpfDD0KszdSXRcVhqD/HNy6BmV1KPq7moa2/4cQz7SHTRi5Y418W4ngD3k4rprUhXuIqmpy0BZhYl9rZm5Hpdfmw0RyAypFm7g6qqPZEuarXgR4sZpL+P/w6bWvbTOapr2MDnNI79QBHe3sbLwitWtuz7egtMUXpC9LUn6xSLX7gb2JWueGWa2ep07m4bT19LuQf/4AmelXi+QehwX51yCUVLCIBQt9YKaTiHrBceqXLWaQYSQRs+/LYOz+QCBpaH/Uc8QG/wJjk9KPHpWTrAENV67u3cs7vAv9Lh3PHq09cJ+4Vdi7Hrs7jIkvL6As0lo+Nz9a7kvZZDP6KkGbVM+B9Xn3hYtVJmzIpsg8SW0V+njM+v0Juiat+lEoa0b1GIgeJs4W3HIi08FfUUrrGmjP3jQmnJOb19RPQVzF+hMTg2cwih66bLD31APZJhYn2qZ7fCkucip3mgMaZAYjrIUA+E+8I3tSvWUYXA23z12Or2fxkXcVTji8CJAT+xHsxs3UXM3iVFdmOrkx8TeOgCVA1VvmFlA
+DKIM-Signature: a=rsa-sha256; bh=AoAvqbIAoGlSas1mS4ZuuG8DnjJVI5IOMf5WvZexK1E=;
+ c=relaxed/relaxed; d=tesio.it; h=From; s=ovhmo4282862-selector1;
+ t=1784193652; v=1;
+ b=IXuIdPmr80zTf6rWEEmWSKWPRDmqU+UKPBrea5N4TizZ8rewfY+d+fmcks06Q2vG1vD7ifDh
+ 4g/ziJREz7lwiiTXwSjh4XH7hf1ry2jNDB8Ru6pX1CHe4U3IMKiuhYcJKeuu9juyezuo3Lxcf1n
+ toorS7dPOfAUzF7blEXy+/H8knvMQQSwi8LmKHu+l9kZv/icPTuDeANQlwhxsSi8Qa/Hy4/TU7y
+ q9kvJn+uINsgBana2BO5vKdqP9UFazj6MKkmvTMUZAxN6SoyyOv6lYtXpKNxqfV+rWY3ChS5fuD
+ vdLwhPQc91mcc3WqPI99i8RvhooYMXCySQZxIECGwsSAQ==
 
-On 16/07/2026 12:28, Loic Poulain wrote:
->> I just wonder if there's any real upside to all that additional work and
->> delay/churn.
-> There is no really need to support runtime configuration as of now
-> since we only support D-PHY, so the delta for v10*should* be tiny,
-> either a bus-type sanity read in parse_routing(), or even nothing at
-> DT parse and a future configure() branch when C-PHY lands.
+Come on Laurent, don't be naive: pointing out Linus' contradictions
+won't move the conversation forward.
 
-Right, well I tend to agree that a runtime configure() is out of scope, 
-so, I'm going to stick to Rob's guidance.
+Because, when you look at the whole picture, his arguments and
+actions show deep coehernce with the Foundation's _political_ goals.
 
-If you look at other upstream stuff you will see phy-cells = 0 for 
-single mode PHYs and phy-cells = 1 for PHYs that can be in any mode.
 
-Consumer configures the mode in DT like every other upstream MIPI CSI2 PHY.
+On Wed, 15 Jul 2026 23:13:01 +0300 Laurent Pinchart wrote:
 
----
-bod
+> On Wed, Jul 15, 2026 at 12:14:47PM -0700, Linus Torvalds wrote:
+> > On Wed, 15 Jul 2026 at 11:51, Laurent Pinchart wrote:  
+> > >
+> > > I consider that, today, there's no ethical justification for the
+> > > use of generative AI in FOSS development.  
+> > 
+> > So this is where the discussion ends.  
+> > [...]
+> > 
+> > If you don't have technical reasons, you don't have reasons.  
+> 
+> You have accepted
+> 
+> commit a5f526ecb075a08c4a082355020166c7fe13ae27
+> Author: Dan Williams <djbw@kernel.org>
+> Date:   Fri Jul 3 23:54:35 2020 -0700
+> 
+>     CodingStyle: Inclusive Terminology
+> 
+> That commit shows the community can take ethical issues into
+> consideration.
+
+The US "inclusiveness" ethical issue was instrumental to the Linux
+Foundation's marketing and to the narrations of its largest partners.
+After all, LF tagline is "Decentralized innovation. Built on trust."
+[1] so they need a cheap narrative that make them look trustworthy.
+
+
+On the other hand, legitimizing any of the several AI issues is a greet
+concern for the LF members [2] that includes companies such as Google,
+Meta, Microsoft and Anthropic that are collectively exposed for
+trillions of dollars over the AI bubble.
+It's not that you must be "pro-AI", but if you are not, you will be
+countered or silenced in every influential technical spaces.
+
+
+So neither inclusiveness or developers' alienation are relevant ethical
+issues in this list, just political tools or not.
+
+
+Linus faithfully serves the interests of his employers, so no
+argument, either ethical, technical or whatever, really counts
+here whenever its effects could annoy them.
+
+In fact, he already explained it clearly [3]:
+
+> Linux is not one of those anti-AI projects, and if somebody has issues
+> with that, they can do the open-source thing and fork it.
+>
+> Or just walk away.
+
+Take this as a wise, friendly, suggestion.
+
+If your goals and interests are not aligned with the goals and
+interests of Linux Foundation's Platinum and Gold members [2] (and I
+guess they are not, as several of them are even actively supporting a
+genocide right now), you should simply devote your skills to projects
+more aligned with your values and interests.
+
+There are plenty of operating systems that need kernel hackers.
+
+
+Giacomo
+
+[1] https://www.linuxfoundation.org/
+
+[2] https://www.linuxfoundation.org/about/members
+
+[3]
+https://lore.kernel.org/linux-media/CAHk-=wi4zC+Ze8e+p3tMv8TtG_80KzsZ1syL9anBtmEh5Z40vg@mail.gmail.com/
