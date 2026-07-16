@@ -1,131 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A2426A08F;
-	Thu, 16 Jul 2026 20:02:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DEEB31327A
+	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 20:18:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784232125; cv=none; b=pkqCp1HvJFMyxVUXuUHh/BQHXB5yLQa6zo2Md8gL4jEw/Dtohfgo8PKpRdUyRrc9NZ1DlEMwYk0xDgPcoNL/tPO9gEM0mrezcqkzub8eeJehj5B4FpJe8uRX2vSqawHAZRwwac1LAd7+ODS2FqXybd2zre9LZlRg9VbTWa0veT0=
+	t=1784233102; cv=none; b=ZL0/8kuVSFPqo5WkJVFGG+9vC9GtIh3qwqT4Lnv+yooTZkJpRWMFO+lp5sAlx2+7zhMlAAVax7fhw+jiW2U9s5PYS5HpCyOXDsPoFqVpJV6NuGXGcaWUaHXrcqexwZNx8OfsJXXT5xnFyWA0Ah9/J8hZJuDj2emqLGCFCxpMsRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784232125; c=relaxed/simple;
-	bh=Yxs2nqD9XRl+rIle3weDRqx4hTnzFohqYVnt9MduvOI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rVWcea+EFsSK8Be32+xeXCvR0WDeuuS6sq0HZDYGgmaS8Z7Ye8XlJgsPOsMGQ1szhEKYbS3Lsjg6TPbIld3ZOUsR/Xe1Ij7of5EYIJk14uKSDuVOBJhgjHOkmjxvVD9Yk4cYS/bWife4l7bu0Wijc7RsiaBs2+CWZiTorUpMUHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aT+L5GHk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784233102; c=relaxed/simple;
+	bh=7r2ZAjIBSkcEfSfWYq58LHVGOLuvxJOL7eXgmh7SwuI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AzM574iIEcVVGw+LrYfZFRMAqUu1JdTcV4OTi77q6GySnAnh5GDWuEZQIJoH9YsQ2fSmuBIy2FXmX39AOVGmqp7aUl+INlgyZDkZUW22boZLGqC/1GekXmE5IZ24FY6z2/w53Qhj1MPk0CWGX1ngqdbU6kFeMbSSlx1w922Q0wM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cMg1dQay; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aT+L5GHk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B29C1F000E9;
-	Thu, 16 Jul 2026 20:02:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784232123;
-	bh=vHCvd1TgKcqL8918AXMBAd80n9yhDnH3tkghOy7m9X0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=aT+L5GHk16IANB5z1mWVTcPy1oaG4YqxTJH8IRot0lWtNxjwIKbY+GgOMQAqS3LO9
-	 w+3jyPJG2nr2EA1eXMn55kqQbdYtefEs8I0oMx1jZavUt+99M1LIsvV/JmgazpmNeY
-	 Ip1CRn/DY7KTXwaBYblyqJoiyQP1Fac4rZS2WZkpHjGtniFsMkRz4aM2Jezfqu6GRk
-	 dpOyRkYfo7WXHW6WRIAsqJa+upDes1k8C98pTKAwZ+xCA5CykV64PWpGbhcfXBrcOf
-	 Mx17MkQ85Nnm9YTI2qNHghb5HKR90zL9VD5vcvNHlrTo1F96uYkYsVwHksvVbVjrE5
-	 wT47dJcgfZOoA==
-Date: Thu, 16 Jul 2026 22:01:59 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: linux-media@vger.kernel.org, sashiko-reviews@lists.linux.dev,
- guoniu.zhou@oss.nxp.com, Frank.Li@kernel.org, robh@kernel.org,
- conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org,
- imx@lists.linux.dev
-Subject: Re: [media-ci] Re: [PATCH v12 3/3] media: nxp: Add i.MX95 CSI pixel
- formatter v4l2 driver
-Message-ID: <20260716220159.67443b8b@foz.lan>
-In-Reply-To: <aljVwX1wzPqV3c_7@SMW015318>
-References: <20260716-csi_formatter-v12-0-2601d17fc4af@oss.nxp.com>
-	<20260716-csi_formatter-v12-3-2601d17fc4af@oss.nxp.com>
-	<20260716072052.A20961F000E9@smtp.kernel.org>
-	<aljVwX1wzPqV3c_7@SMW015318>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cMg1dQay"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784233101; x=1815769101;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=7r2ZAjIBSkcEfSfWYq58LHVGOLuvxJOL7eXgmh7SwuI=;
+  b=cMg1dQayZW/O4MUsKvelcQq42pCciHBihzf0TkjF8JnWZfL09GztEnAs
+   otifOrTsqjV1t7c/+6Lkw7PhDhFfVboxrxOJcaTbKDaru48Qfu4Febp6l
+   gM12QiUyDVYWCSpOy3tBx7+slpWzhlKZM/z1aQuqyamhmVqUOD0oklD4n
+   NT6dy5Ris617OtBPoVfv5y5w0D/8nwgCbFHKGHawnxMCmsDVawuABd99q
+   9rzRtRgkzajcyKdPYLCdRCiFNBtnBlyGMfxqd0yLbRLymSEAhUs1NJNkT
+   F66nv43o4+s3dFS95wEd+VKrYP/JTU9fTjCPBOHGN5F167q0Omw1N9wd2
+   w==;
+X-CSE-ConnectionGUID: GrsR6LmtSIGPbIuvVo2MsA==
+X-CSE-MsgGUID: S3YrL/1ZRZSPkKsvGbOPJQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="72441470"
+X-IronPort-AV: E=Sophos;i="6.25,168,1779174000"; 
+   d="scan'208";a="72441470"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 13:18:20 -0700
+X-CSE-ConnectionGUID: ofC6k9gUQmm+dApWMNNzIA==
+X-CSE-MsgGUID: bECVOV7fQRKwvvpuP5kqsA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,168,1779174000"; 
+   d="scan'208";a="260894408"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.26])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 13:18:19 -0700
+Date: Thu, 16 Jul 2026 23:18:17 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: linux-media@vger.kernel.org
+Cc: Linux Media CI <media-ci@linuxtv.org>
+Subject: Re: [v1,0/7] gpiolib: kill gpio_request_one()
+Message-ID: <alk8iQCjTHcdhbVs@ashevche-desk.local>
+References: <20260715185112.1323510-1-andriy.shevchenko@linux.intel.com>
+ <6a57fbc2.20aff8f6.286553.85fe@mx.google.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6a57fbc2.20aff8f6.286553.85fe@mx.google.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, 16 Jul 2026 07:59:45 -0500
-Frank Li <Frank.li@oss.nxp.com> wrote:
-
-> On Thu, Jul 16, 2026 at 07:20:52AM +0000, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
-> > - [High] Missing NULL checks for the return value of `v4l2_subdev_state_get_format()` allow userspace to trigger a kernel panic.
-> > - [High] The driver caches a pointer to the remote subdevice when bound, but fails to implement an `.unbind` callback to clear it, leading to a Use-After-Free.
-> > - [Medium] Mixing `goto`-based error handling with scope-based cleanup (`__free` and `guard`) in the same function violates kernel cleanup guidelines.
-> > - [Medium] `csi_formatter_subdev_set_fmt` partially modifies the subdevice state but returns `-EINVAL` if the stream has no active route.
-> > - [Medium] The `csi_formatter_read` wrapper ignores the return value of `regmap_read`, potentially leading to uninitialized stack variable usage.
-> > --
-> >
-> > --- Patch [3]: [PATCH v12 3/3] media: nxp: Add i.MX95 CSI pixel formatter v4l2 driver ---
-> > commit 0cff6156940653a6a408d93ee678b339b7218ebb
-> > Author: Guoniu Zhou <guoniu.zhou@nxp.com>
-> > Subject: media: nxp: Add i.MX95 CSI pixel formatter v4l2 driver
-> >
-> > The CSI pixel formatter is a module found on i.MX95 used to reformat
-> > packet info, pixel and non-pixel data from CSI-2 host controller to
-> > match Pixel Link(PL) definition. Add data formatting support.
-> >  
-> > > diff --git a/drivers/media/platform/nxp/imx95-csi-formatter.c b/drivers/media/platform/nxp/imx95-csi-formatter.c
-> > > new file mode 100644
-> > > index 0000000000000..cea60327c9729
-> > > --- /dev/null
-> > > +++ b/drivers/media/platform/nxp/imx95-csi-formatter.c  
-> >
-> > [ ... ]
-> >  
-> > > +static int csi_formatter_subdev_enum_mbus_code(struct v4l2_subdev *sd,
-> > > +					       struct v4l2_subdev_state *sd_state,
-> > > +					       struct v4l2_subdev_mbus_code_enum *code)
-> > > +{
-> > > +	if (code->pad == CSI_FORMATTER_PAD_SOURCE) {
-> > > +		struct v4l2_mbus_framefmt *fmt;
-> > > +
-> > > +		if (code->index > 0)
-> > > +			return -EINVAL;
-> > > +
-> > > +		fmt = v4l2_subdev_state_get_format(sd_state, code->pad,
-> > > +						   code->stream);
-> > > +		code->code = fmt->code;  
-> >
-> > [Severity: High]
-> > Can this cause a NULL pointer dereference?
-> >
-> > The V4L2 core does not validate the stream ID provided by userspace in
-> > VIDIOC_SUBDEV_ENUM_MBUS_CODE against the active routing table before calling
-> > this function. If a user passes an invalid stream ID,
-> > v4l2_subdev_state_get_format() returns NULL, which is then unconditionally
-> > dereferenced here.  
+On Wed, Jul 15, 2026 at 02:29:38PM -0700, Patchwork Integration wrote:
+> Dear Andy Shevchenko:
 > 
-> Is it true?
+> Thanks for your patches! Unfortunately the Media CI robot detected some
+> issues:
+> 
+> # Test media-patchstyle:rc core
+> fatal: Not a valid object name 8dac27bfa2f9
+> /builds/linux-media/users/patchwork/include/media/rc-map.h:265: duplicate value for rc-hauppauge
+> rc-videomate-m1f.c: name #define RC_MAP_VIDEOMATE_K100 does not match rc-videomate-k100
+> /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/media/rc.yaml:125: expecting rc-rc6-mce found rc-rc5-tv
+> /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/media/rc.yaml:126: expecting rc-real-audio-220-32-keys found rc-rc6-mce
+> /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/media/rc.yaml:127: expecting rc-reddo found rc-real-audio-220-32-keys
+> /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/media/rc.yaml:128: expecting rc-siemens-gigaset-rc20 found rc-reddo
+> /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/media/rc.yaml:150: expecting rc-vega-s9x found rc-videomate-k100
+> /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/media/rc.yaml:151: expecting rc-videomate-m1f found rc-videomate-s350
+> /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/media/rc.yaml:152: expecting rc-videomate-s350 found rc-videomate-tv-pvr
+> /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/media/rc.yaml:153: expecting rc-videomate-tv-pvr found rc-videostrong-kii-pro
+> /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/media/rc.yaml:154: expecting rc-videostrong-kii-pro found rc-vega-s9x
+> /builds/linux-media/users/patchwork/include/media/rc-map.h:312: rc-rc5-tv does not exist
+> /builds/linux-media/users/patchwork/include/media/rc-map.h:339: rc-videomate-k100 does not exist
+> /builds/linux-media/users/patchwork/include/media/rc-map.h: missing entry for rc-videomate-m1f
+> errors: 14
 
-Yes and no ;-)
+What is this?
 
-Technically yes, v4l2_subdev_state_get_format() can return NULL on
-several conditions if it can't find a state/pad match or if
-state/pad is invalid. However, the call_enum_mbus_code() is always
-called via a wrapper, which runs check_state() first, validating
-such error conditions.
+> Please fix your series, and upload a new version. If you have a patchwork
+> account, do not forget to mark the current series as Superseded.
+> 
+> For more details, check the full report at:
+> https://linux-media.pages.freedesktop.org/-/users/patchwork/-/jobs/105065189/artifacts/report.htm .
+> 
+> ---
+> Check the latest rules for contributing your patches at:
+> https://docs.kernel.org/driver-api/media/maintainer-entry-profile.html
+> 
+> If you believe that the CI is wrong, kindly open an issue at
+> https://gitlab.freedesktop.org/linux-media/media-ci/-/issues or reply-all
+> to this message.
 
--
-
-That's said, I bet other static analyzers would also produce the
-same warning, as the check logic is indirect, using some complex
-macros.
-
-We need to create a custom LLM media prompt to prevent such
-warnings from LLMs (or reduce the complexity of the wrapper code).
-Perhaps improving comments at v4l2-subdev could also help.
-
-I already pinged earlier today a Sashiko developer to see if we
-can get some help to write a prompt.
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-Thanks,
-Mauro
