@@ -1,125 +1,98 @@
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BDFC41DEE5
-	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 12:32:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F1BA41E6A5;
+	Thu, 16 Jul 2026 12:33:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784205171; cv=none; b=oirbJpZP8PLcqdN1/EJ/A3aKPwEq3jT/NAuq+UgbA19b7bSsRKbl9UI9O0v9h/Bd5BVk2sr72ck4EmQZkoU1y1+kWIEFkxDBZs74xgiF0Aou1zIj+h2pv0REoVJfUuwJ3o0+BSR2r4wm4nFX+uReEQu+YVRJcm7XO0/eV6vLcgw=
+	t=1784205200; cv=none; b=baKFueAq2IFLkND2vv+06uAceEQOKAOX4RJtui6hW/nSEJBanhS81baSKcoprW2sJYJCnK2Eza3AZ7/I3C3SSV+dVODuBUXk7BclKFlWQPR5U6iX84KH+rH/eEZrW6xGBC809eYvfhklKMpGxA79m5qJDjoK4gjFpVlW36bW6w4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784205171; c=relaxed/simple;
-	bh=4CBJ8YnD1s2aE8qPCXY6nOU6cIkgfJQt0Zr2Ep+kCNU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QlOBPdM+Oc2ATZvZkgS4PuhK7cx14VyyCvfde3/V6S6kVNAclU9pkNgYpZCnXJnFmEYHWr0FZ9DWGSTNLk85heuHRyJjGorTOMvoh9kOdx8g/tHdv6zb0WMfmABBYLrRXWzEoNCBVzzqAdQKWUR/2i8LSJhFUZp2tJ443hsHF4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=qUCMvoKD; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	s=arc-20240116; t=1784205200; c=relaxed/simple;
+	bh=W9t2FRaP5VyIaIjG21mJV3eKWzhaWTm2/omOBQLNYmg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=KvcfdgSX0kK4uY7IUHBpjkdz+u7aXNtF+NI9Sfu5I0WUpXB5ZELZqwSzNA85R8ElgwS7axO4nMrQEKhA0ORKHv0U2ZJtbndn7JYojFhV8vCq8UR1OAZS4yU2PDXXjLsa3szWRzu80JTr2fOWinLimmhrphjGrTtFQuoR/5lifmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=clt2ZYqp; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="qUCMvoKD"
-Received: from macsyma.thunk.org ([151.240.45.27])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 66GCWEnd019170
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 16 Jul 2026 08:32:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1784205139; bh=NqxL3+SH2AbvlvVybH4sIY4E98+1L2ywgJjmzyt8SIE=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=qUCMvoKD0/7fqDuh/lBDbbI+hF1MijLx/EWHUVcydVFyR0ZsTny51YubjkXZ2yWds
-	 d9xGsv79d2SisYSsefz4TMLbJQbeu99vSGpoXWGSkZohwTZqz+2d2rvsnctyr+Qt/z
-	 ojXHBdjFFTxNxhugP23c3my58ufsrl/zkwlT5G8Ob7k3Wk9BQMHW+vcWlVcTakh4Yy
-	 9x6XWEfX9nGNpBnOtoWJVtfRs2zjr2bE+t0TxEWtVOu6YQ5XMs9CVRh7OsPrtIWr42
-	 h9ggvCryV9z+UPilYki8yZF4qTpwASqPNqMuY0mvOS+YYcG+WAb4Ek18Ar8uDxx5fN
-	 vU2WGrKD95WHg==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id 79CA5A4EB5C; Thu, 16 Jul 2026 08:32:14 -0400 (EDT)
-Date: Thu, 16 Jul 2026 08:32:14 -0400
-From: "Theodore Tso" <tytso@mit.edu>
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Ihor Solodrai <ihor.solodrai@linux.dev>,
-        Roman Gushchin <roman.gushchin@linux.dev>,
-        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-        Derek Barbosa <debarbos@redhat.com>,
-        Matthieu Baerts <matttbe@kernel.org>,
-        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-        Jason Gunthorpe <jgg@ziepe.ca>, Steven Rostedt <rostedt@goodmis.org>,
-        users@kernel.org,
-        Linux Media Mailing List <linux-media@vger.kernel.org>,
-        Stephen Finucane <stephenfin@redhat.com>, bpf <bpf@vger.kernel.org>,
-        Chris Mason <clm@meta.com>, Christian Brauner <brauner@kernel.org>,
-        Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <aljMl2wAv3mlQHhz@mit.edu>
-References: <20260713094120.GD1127719@killaraus.ideasonboard.com>
- <20260713220427.582b28bf@foz.lan>
- <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
- <20260715005909.GF1656185@killaraus.ideasonboard.com>
- <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev>
- <20260715163921.GH1778116@killaraus.ideasonboard.com>
- <153db0fa-65ac-49de-9bf5-456c9639954c@linux.dev>
- <20260715190654.GK1778116@killaraus.ideasonboard.com>
- <alfwOgVRgUJYOGtU@mit.edu>
- <178418302445.1426769.8816954031983102120@freya>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="clt2ZYqp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=W9t2FRaP5VyIaIjG21mJV3eKWzhaWTm2/omOBQLNYmg=; b=c
+	lt2ZYqp9ooq6mmSwQ4lYuJYpJV8ToAaL9vADP3iTWIOe5Tgb05l1AbGggZAzbW6Z
+	ELRWLDHbFzEeKYPzrRTeKjHTQ9/QiQq78YqDRQsglZpAdNVTtUqENFdkqYhpXR6n
+	9owU+suz0i4nw/ECXitEzwkivsXrU9PAkufJ5pE2t8=
+Received: from huanglei814$163.com ( [116.128.244.169] ) by
+ ajax-webmail-wmsvr-40-126 (Coremail) ; Thu, 16 Jul 2026 20:32:47 +0800
+ (CST)
+Date: Thu, 16 Jul 2026 20:32:47 +0800 (CST)
+From: huanglei  <huanglei814@163.com>
+To: linux-media@vger.kernel.org
+Cc: "Linux Media CI" <media-ci@linuxtv.org>, hverkuil+cisco@kernel.org,
+	johan@kernel.org, mchehab@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re:Re: [v3,0/2] media: s2255: Fix firmware parsing OOB and cleanup
+ coding style
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <6a587498.8e904814.3310e.980c@mx.google.com>
+References: <20260716022358.161471-1-huanglei814@163.com>
+ <6a587498.8e904814.3310e.980c@mx.google.com>
+X-NTES-SC: AL_Qu2TBv6bukkt4SmebOkdm0cRjuc+UcGwv/ok1YBWc8wEmyfi1xkNWnhKJ0f7wP+DFBGPuzG1fzhU589DbaBbmMXLsHTvJKa69hKWRaOpuA==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178418302445.1426769.8816954031983102120@freya>
+Message-ID: <feb382c.8c2b.19f6aea4d68.Coremail.huanglei814@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:figvCgD3H3Rxz1hqnKIfAA--.50W
+X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC0hHAt2pYz3G16QAA3k
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On Thu, Jul 16, 2026 at 11:53:44AM -0500, Jai Luthra wrote:
-> IMO false positives are possible everywhere, but LLMs are unpredictable in 
-> a very different way compared to static-analysis tools *especially* because 
-> they can be quite good at finding some issues and are non-deterministic.
-
-Syzbot reports (whether it is of a lockdep or WARN spat) are also
-non-determinstic.  Even when it claims to have a reproducer, the
-reproducer is not neecessarily reliable.  I think the difference is
-that we know what to expect with syzbot, and LLM reviews are new.
-
-And as others have recently pointed out, there is a combination of
-very deep subtle, real bugs that humans would not or have not
-discovered --- and at the same time, hallucinations that aren't real.
-So it's been hard to calibrate whether or not a particular report from
-Sashiko is valid or not.  But this is nothing new, and I would claim
-that it's not necessarily unique to LLM's.
-
-> I can understand the appeal of using them to find security bugs or as extra 
-> "eye balls to make all bugs shallow". And I am not advocating AI as bad or 
-> to ban it. But I do think usage of LLMs through Sashiko may give us free 
-> reviews, but require brand new work of reviewing the reviews. And this new 
-> work will be a burden on experienced folks, not newcomers, who will simply 
-> believe the LLM output because it is (or sounds) smarter than them.
-
-Syzbot and oss-fuzz has been an extra burden on us as well.  I suspect
-how much each tool impacts each subsystem varies, but I've had *way*
-more syzbot false positives (e.g., reports that don't conform to our
-threat models, such as reproducers using root privileges to modify the
-loop device out from under a file system being reported as a "security
-bug") than with Sashiko.  But it seems pretty clear that each
-subsystem's experience has had different experiences with differnt
-tools.
-
-> My point isn't that static-analysis tools can't make the same mistake, but 
-> that they're open source and fixable in a way that current architecture of 
-> LLM models isn't in general, other than giving it an ever-increasing prompt 
-> and hoping the random-number generator gods bless me when I need them to.
-
-Sashiko is open source as well, and there are a number of ways of
-fixing this, including adding annotations to the source code, etc.
-
-Sure, figuring out prompts is tricky, but I'd argue so is making
-changes to Clang for its context analysis.  Fortunately, there are
-people who are smarter than me in terms of their Clang-fu who have
-been improving Clang.  Similarly, Roman and his team are working on
-improving Sashiko.  I don't think anyone has said that kernel
-developers are responsible for changing the prompts (or changing
-syzbot, Coverity, etc.)
-
-Cheers,
-
-						- Ted
+SGksCgpUaGFua3MgYSBsb3QgZm9yIHlvdXIgcmV2aWV3IGZlZWRiYWNrLiBUaGlzIHZlcnNpb24g
+b2YgdGhlIHBhdGNoIHNlcmllcyBpcyBzdWJtaXR0ZWQg4oCMZnVsbHkgaW4gc3RyaWN0IGFjY29y
+ZGFuY2Ugd2l0aCBtYWludGFpbmVyIHN1Z2dlc3Rpb25z4oCMOgrvu78KIFRoZSBjcml0aWNhbCBm
+dW5jdGlvbmFsIGZpeCBtZWRpYTogczIyNTU6IGNoZWNrIGZpcm13YXJlIHNpemUgYmVmb3JlIHJl
+YWRpbmcgdHJhaWxpbmcgbWFya2VyIGlzIHBsYWNlZCBhcyB0aGUgZmlyc3QgcGF0Y2ggaW5kZXBl
+bmRlbnRseS4gSXQgcmVzb2x2ZXMgdGhlIG91dC1vZi1ib3VuZHMgcmVhZCB2dWxuZXJhYmlsaXR5
+IGNvbXBsZXRlbHkgd2l0aCBubyB1bnJlbGF0ZWQgc3R5bGUgY2hhbmdlcywgd2hpY2ggaXMgdmVy
+eSBjb252ZW5pZW50IGZvciBkaXJlY3Qgc3RhYmxlIGJhY2twb3J0aW5nLgogVGhlIHN1YnNlcXVl
+bnQgbWVkaWE6IHMyMjU1OiBSZW5hbWUgQ2FtZWxDYXNlIGdvdG8gbGFiZWxzIHRvIHNuYWtlX2Nh
+c2UgY2xlYW51cCBwYXRjaCBpcyBwbGFjZWQgb24gdG9wIG9mIHRoZSBmaXgsIGFzIGEgc2VwYXJh
+dGUgcHVyZSBub24tZnVuY3Rpb25hbCBjb21taXQgdG8gdW5pZnkgYWxsIHRoZSBlcnJvciBwYXRo
+IGxhYmVscyB0byBjb21wbHkgd2l0aCBrZXJuZWwgY29kaW5nIHN0eWxlLgrvu78KVGhpcyBvcmRl
+cmluZyBhbmQgc3BsaXQgb2YgY29tbWl0cyBmdWxseSBmb2xsb3cgbWFpbnRhaW5lciBhZHZpY2Ug
+dG8gbWFrZSB0aGUgc2VyaWVzIGVhc3kgdG8gbWVyZ2UsIHJldmlldyBhbmQgYmFja3BvcnQuIFRo
+ZSBmaW5hbCBhcHBsaWVkIHN0YXRlIGhhcyBubyByZW1haW5pbmcgbm9uLXN0YW5kYXJkIENhbWVs
+Q2FzZSBsYWJlbHMgYW5kIG1lZXRzIExpbnV4IGtlcm5lbCBjb2Rpbmcgc3R5bGUgcmVxdWlyZW1l
+bnRzLgrvu78KRm9yIHRoZSBlYXJsaWVyIENJIENhbWVsQ2FzZSB3YXJuaW5nLCBpdCBvbmx5IGV4
+aXN0cyB0ZW1wb3JhcmlseSBvbiB0aGUgZmlyc3QgaW5kZXBlbmRlbnQgZml4IHBhdGNoLCBhbmQg
+dGhlIGZ1bGwgc2VyaWVzIGFmdGVyIHRoZSB0d28gcGF0Y2hlcyBhcmUgYXBwbGllZCB3aWxsIGVs
+aW1pbmF0ZSBhbGwgc3VjaCBub24tc3RhbmRhcmQgbmFtaW5nLgoKCk9uIDE1LzA3LzIwMjYgMTI6
+MDAsIEpvaGFuIEhvdm9sZCB3cm90ZToKPiBUaGlzIGxvb2tzIG9rLCBidXQgdGhlIGZpeCBzaG91
+bGQgZ28gYmVmb3JlIHRoZSBjbGVhbnVwIChlLmcuIHRvCj4gZmFjaWxpdGF0ZSBiYWNrcG9ydGlu
+ZykuCgoKQXQgMjAyNi0wNy0xNiAxMzowNToxMiwgIlBhdGNod29yayBJbnRlZ3JhdGlvbiIgPHBh
+dGNod29ya0BtZWRpYS1jaS5vcmc+IHdyb3RlOgo+RGVhciBMZWkgSHVhbmc6Cj4KPlRoYW5rcyBm
+b3IgeW91ciBwYXRjaGVzISBVbmZvcnR1bmF0ZWx5IHRoZSBNZWRpYSBDSSByb2JvdCBkZXRlY3Rl
+ZCBzb21lCj5pc3N1ZXM6Cj4KPiMgVGVzdCBjaGVja3BhdGNoOi4vMDAwMS1tZWRpYS1zMjI1NS1j
+aGVjay1maXJtd2FyZS1zaXplLWJlZm9yZS1yZWFkaW5nLXRyYWlsLnBhdGNoIGNoZWNrcGF0Y2gK
+PkNIRUNLOiBBdm9pZCBDYW1lbENhc2U6IDxlcnJvckZXTUFSS0VSPgo+IzMwOiBGSUxFOiBkcml2
+ZXJzL21lZGlhL3VzYi9zMjI1NS9zMjI1NWRydi5jOjIyODM6Cj4rZ290byBlcnJvckZXTUFSS0VS
+Owo+Cj50b3RhbDogMCBlcnJvcnMsIDAgd2FybmluZ3MsIDEgY2hlY2tzLCAxMSBsaW5lcyBjaGVj
+a2VkCj4KPgo+Cj5QbGVhc2UgZml4IHlvdXIgc2VyaWVzLCBhbmQgdXBsb2FkIGEgbmV3IHZlcnNp
+b24uIElmIHlvdSBoYXZlIGEgcGF0Y2h3b3JrCj5hY2NvdW50LCBkbyBub3QgZm9yZ2V0IHRvIG1h
+cmsgdGhlIGN1cnJlbnQgc2VyaWVzIGFzIFN1cGVyc2VkZWQuCj4KPkZvciBtb3JlIGRldGFpbHMs
+IGNoZWNrIHRoZSBmdWxsIHJlcG9ydCBhdDoKPmh0dHBzOi8vbGludXgtbWVkaWEucGFnZXMuZnJl
+ZWRlc2t0b3Aub3JnLy0vdXNlcnMvcGF0Y2h3b3JrLy0vam9icy8xMDUxMDA0OTgvYXJ0aWZhY3Rz
+L3JlcG9ydC5odG0gLgo+Cj4KPgo+QmVzdCByZWdhcmRzLCBhbmQgSGFwcHkgSGFja2luZyEKPk1l
+ZGlhIENJIHJvYm90IG9uIGJlaGFsZiBvZiB0aGUgbGludXgtbWVkaWEgY29tbXVuaXR5Lgo+Cj4t
+LS0KPkNoZWNrIHRoZSBsYXRlc3QgcnVsZXMgZm9yIGNvbnRyaWJ1dGluZyB5b3VyIHBhdGNoZXMg
+YXQ6Cj5odHRwczovL2RvY3Mua2VybmVsLm9yZy9kcml2ZXItYXBpL21lZGlhL21haW50YWluZXIt
+ZW50cnktcHJvZmlsZS5odG1sCj4KPklmIHlvdSBiZWxpZXZlIHRoYXQgdGhlIENJIGlzIHdyb25n
+LCBraW5kbHkgb3BlbiBhbiBpc3N1ZSBhdAo+aHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3Jn
+L2xpbnV4LW1lZGlhL21lZGlhLWNpLy0vaXNzdWVzIG9yIHJlcGx5LWFsbAo+dG8gdGhpcyBtZXNz
+YWdlLgo=
