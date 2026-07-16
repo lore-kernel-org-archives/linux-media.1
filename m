@@ -1,81 +1,82 @@
-Received: from mail-wm2-f11.google.com (mail-wm2-f11.google.com [74.125.225.139])
+Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com [74.125.225.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A090E330659
-	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 15:05:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45963D9542
+	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 15:10:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784214303; cv=none; b=jJVMleQ7xAEwceSQBFTP2SwN+FLQY20XvR+YQ3AnG+lcgjR+ytV1MctYizgiORWd2VN9m/f1rwDmFbdxRgmevuT6ieYklziBzBkhXKHMrkMwckyzmuBpot+9FSqPMcXpvuSXDeNcA2+tmR1qO/9eDpegLIDk18uGNaKfF1yPYC0=
+	t=1784214617; cv=none; b=HEhRWJO4Qlwc0AX9VaQi9tMZASDRo5r4PihtyEUMv4ZTJ7qcCEQuWBpTD75IUScj11gDO6EZ5vTVH7fCanUBeGJz8EkOhl0mEwxAk+f0O5hYEUy/SMdGJftaseOqxFK6E3nRdpop5hrM/xWOm43AvdNe5LbBq1cYeFFn9kDzX1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784214303; c=relaxed/simple;
-	bh=wXfSYEa7F/UI/UoyMogygaOBI7vMQy6IjsPWOJwBiKk=;
+	s=arc-20240116; t=1784214617; c=relaxed/simple;
+	bh=cx28Ylx6Y46tf1Vv+y87AWDpybZbGIVNAky2AdLm1Uw=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=NWAHtUlnaCpK3gmxRIQkQ0+6k71px7QmaPAoY+WZSmlopU9wtK6LnsnIFdiKV4zMhhVrH8Tz1AbSLwbFHbTGi3okFTlEeGbnFuftSO4KX2PQNam9M+Z98RMp+hduFy42CtxlnOjw4YpBDSwse0IciEo7AtIVP+0IRvR+pEWEz1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XV4Rf/Rq; arc=none smtp.client-ip=74.125.225.139
+	 Content-Type:MIME-Version; b=NGE9w2PZPlgOWvL/x5Fqf1L6G/6sGMCaT8TF06zvAiglvKc7GAsxkfVPbWQrAH2toqHCA3bk8tmmIJer+BV76r/g1Mup/ETrjCDNM7yjxVIBRyv+AGxU/dnkaOnKGZ8gboyBaCHEB7gy0m5vBKntZq+DVh1gxrtZCKEUH+/TlgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BXf0AiXC; arc=none smtp.client-ip=74.125.225.138
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XV4Rf/Rq"
-Received: by mail-wm2-f11.google.com with SMTP id 5b1f17b1804b1-4953e1062e8so3874425e9.1
-        for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 08:05:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BXf0AiXC"
+Received: by mail-wm2-f10.google.com with SMTP id 5b1f17b1804b1-495459712d2so952395e9.1
+        for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 08:10:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784214300; x=1784819100; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784214614; x=1784819414; darn=vger.kernel.org;
         h=mime-version:user-agent:content-transfer-encoding:content-type
          :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=wXfSYEa7F/UI/UoyMogygaOBI7vMQy6IjsPWOJwBiKk=;
-        b=XV4Rf/RqoGkxrsMCThdskV2QgEjhOCOz3g33pF6HvOVJU+lBhkhANaV2FHhWxqLFGn
-         gTgTqjjBA9dpHZP06ZiowMwj+wglzBlOTO44wF/6Gy/cBUacFKF8sSqa6cD7GYXWmri9
-         lTQjnnDq792Ie1Nmi2xp+XIIYBfnSsfdfEDaJwU90ZqQ/jHySCGWca+eVp3iDy4cKmZy
-         +m99jp48iod8fsKtPeub5C1CnNaFAOWTjKF9emtSzlTXPzDa2jv3+PP4sYSKArZy5IkH
-         0JyM/qEaWAzGD9y5vI6x6oi6sAeSa7nXq7e7NpicxQiar0N2SQ7PjRVuiWSEv8nZqbJk
-         XSGg==
+        bh=cx28Ylx6Y46tf1Vv+y87AWDpybZbGIVNAky2AdLm1Uw=;
+        b=BXf0AiXCeAyBoesKtSDbSbowR8kTp2FfxDNDXSX21sO0acZ1+WVB1Oi7+c/nK+u3R+
+         ef8jDRzCgodru9Fj3UoftDlAHaBEYDJklanMhE88reKvXzCTFGOyIGwB8bjpzyeRMKXj
+         mvHzcV6wjJv2mBAwTTwiQ727JHvsjpndLsHsrU8N1K32l9A0NqyLxxYPxNmLIdmJCf2h
+         zwPztqO93NbFnnSu7mzHVvGymm6hforMSmHGBVrrK934usAe8Ehwc9+r/lvPnpRObUpa
+         Xr4Rdvs5FLjj/AlK704ioF+o0VdEJhC8lUr6oGdtNci/c3+gRrs3OafGR+Dr49T4q4eA
+         KeOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784214300; x=1784819100;
+        d=1e100.net; s=20251104; t=1784214614; x=1784819414;
         h=mime-version:user-agent:content-transfer-encoding:content-type
          :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wXfSYEa7F/UI/UoyMogygaOBI7vMQy6IjsPWOJwBiKk=;
-        b=isg/MkmII7IsOeAR5VKsz50cy2u/uO2oOxj9TUSNFWyhJZzHZzwlxbTAJmAAXrOTb+
-         n0a9SOUufem0fOQuTFlhzDmgX0BgTmNFkTHoQCLttDfjDensDai6/MzarkarSSk04Gj3
-         wSdvG78qlAkilqtlc9KpxA2wmf6+OOK8g0phPyBiTg6NARCoEzTX3iKjSs3JuxFUq010
-         2OONSMsdxYFlzYLmVYK6+NEJzDgNDpU8btH6DfSHlFYv36dgRz23hBNZEpZ+0M8nxyb/
-         lF5fXAKIYzoF6vHn2hAF08ATFysumepAAVLdNi/AP32EJmvT9Lw9c70a872n0T/gIwg+
-         IflA==
-X-Forwarded-Encrypted: i=1; AHgh+RrWS4zGJUQ+aPuRwK2MWkUdyeUM5/z5YplVD1f3H48sZnXuq6eB6/LoEv+6A/thF3Ij8CUo/Bh5L4tx8Q==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzTJOf32hR2EEZxymDVgvvXDSkYOwyybTcDe8H7U27Y4T4O/Jou
-	y3NWdQ2xm3k9nbli08rwny4opZyLvbPVGiJVerAL3QHtrnIYBoRBoWhB
-X-Gm-Gg: AfdE7ckM//3Vd7lXr+pkfV/VKeAj9AiBljjjlavA2HFzsxT0aHPwgIXK1WQmbpovd5i
-	3fpOwKn4NOZnSU0DZMR/fmQqor5FVIVIc2MNotV9667e2d/NHUiftSp6zjgVvo8Y1dyKPAxzKIQ
-	ZNgJ1025amx20AJPkmVV6HO9X1/ogYrLhO9rCD9e63bxzZdPWWgzAHiWCNhubMzpyZonmRb+Ca0
-	smAOCoH4OsxMWJ/0bK11TwO/r1UqLlVTQgBaV93/CYNJGoGB7Ezo6Ylb1apTBXu7ytLiRRKxabb
-	38RTlcKIA0YMRE/OgsL71Ld2OTk6RtJK/8ghtoy7vneN+yCB55EQxBKpv+rHQPd9WbhzBknxzqu
-	vtjLHBP9ouenj6V5T4SsKUJHXOvAIIjlcQoeZZ4YuZlZGNNv465DrFl7sGlpmPq+/yvRWADXXA0
-	+Bf3wuy93PjrzyYV+Nggw+Xtld3Y3h
-X-Received: by 2002:a05:600c:6792:b0:495:3f28:3f19 with SMTP id 5b1f17b1804b1-495407316c4mr52967395e9.37.1784214299505;
-        Thu, 16 Jul 2026 08:04:59 -0700 (PDT)
+        bh=cx28Ylx6Y46tf1Vv+y87AWDpybZbGIVNAky2AdLm1Uw=;
+        b=rzYoMNcJ+Gw3o9TaImVJnnqrCy5Bd84O3eidE6M3EekxOOkz0DDoP7D4Nd7nN8KSmX
+         gf0G6xLuVipSikxcFawp/okeAcHjSSj9sV/663klfiSY1RPMLWKEcEbBUBgl9Qgv+tmM
+         cRfn047OqSRcYWALVF1Rdle0cFnwYZ03ltGALBCMUO1rzPq1wxSfhyh/T1C+7KivKxDV
+         2OFwbQDdDtoZHKie39pulLa3JRKF+QWm4d5JFnt75q+ZWovvJ2fvUm0PtzBbST6cnnTC
+         Ap0zUrCLaNVrNnPtcdAR8/8zLzJ6OYdoJWHzjI40K5Msoo7pwgQbvHMGAcRfjtYt7eKW
+         4BtA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr/rveAD1IPE5ijbZ4zzMzhHZprZdd5wLixw4vr67drxPLS0pq2iRV6ONDj75XAV/oZhHvnbMkbtVPDow==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyL+Glxzc8Oa2gwSVcN+vYvk7R+Sdd2sw0FIopSTA2DFaGEOWfv
+	xbhSRLVg+mkE11710aYteJq9Bm6AcslZQSrCFgXdDvtQMBDMKTfVftV6
+X-Gm-Gg: AfdE7ckBDjQSTMBsv/+Y4YtOXESKEKPrn7mWIkKzOMhN3wFyQsy15MsJXTkPYuXmVaF
+	FbMjFy7hGC9qCwcg9UYHFW3en1be/Ov5lObBZgVUfNAfEr+oJdCYd17z3aq9jSwK4AgMng0v6k7
+	fhe4b2yEj8y+rCsXeilvdLNv2AtMK7zPxdNVMxU/CblS5RMWgZ6jCUD0SwbQHNgKGtTUCnF6FDn
+	7EUa2JBFPEHh9pZwfelNr/Q0/wYPAhf1MZ+QEsMOjY0cMWc15E8n5qbZTml8szukvwYjQVQZRyG
+	FkACR7FN3ms86uczbqQ1fayKRIhS6x9oXCRam8AfQGOqOxn0JcUPh8F+o8k+l86m0MVXwGF93Hp
+	i4OZx3X/DW/GRSERZJKmzplyd3Ep3Go/Pv9ulCU51kYPyg3kA1ViXaEfCWuNVdE8VT7bJmJ4xwd
+	JusNtxNt47YMHhPq8ReGXGm8sXWiTU
+X-Received: by 2002:a05:600c:1382:b0:495:3de8:33a6 with SMTP id 5b1f17b1804b1-4953de834e4mr78060125e9.16.1784214613685;
+        Thu, 16 Jul 2026 08:10:13 -0700 (PDT)
 Received: from [10.1.0.100] (62-178-209-45.cable.dynamic.surfer.at. [62.178.209.45])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49541ebe625sm58832345e9.15.2026.07.16.08.04.57
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4953c6fe0c6sm118119835e9.1.2026.07.16.08.10.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 08:04:59 -0700 (PDT)
-Message-ID: <4ccd9f0cea1adbce53f5d1f614382315b20ad9c2.camel@gmail.com>
+        Thu, 16 Jul 2026 08:10:12 -0700 (PDT)
+Message-ID: <eab30fce0d18137800ce7a77ee1083f11aa1a770.camel@gmail.com>
 Subject: Re: Linking Patchwork with Sashiko?
 From: August Zeller <augzeller@gmail.com>
-To: Jori Koolstra <jkoolstra@xs4all.nl>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>, Laurent Pinchart	
- <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab	
- <mchehab+huawei@kernel.org>, Derek Barbosa <debarbos@redhat.com>, Matthieu
- Baerts <matttbe@kernel.org>, Konstantin Ryabitsev
- <konstantin@linuxfoundation.org>, Jason Gunthorpe <jgg@ziepe.ca>, Steven
- Rostedt <rostedt@goodmis.org>, users@kernel.org, Linux Media Mailing List
- <linux-media@vger.kernel.org>, Stephen Finucane <stephenfin@redhat.com>
-Date: Thu, 16 Jul 2026 17:04:50 +0200
-In-Reply-To: <aldx9KiAHM4CRI0m@lt-jori.localdomain>
-References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
-	 <4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
-	 <CAHk-=wi4zC+Ze8e+p3tMv8TtG_80KzsZ1syL9anBtmEh5Z40vg@mail.gmail.com>
-	 <aldx9KiAHM4CRI0m@lt-jori.localdomain>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: users@kernel.org, Linux Media Mailing List <linux-media@vger.kernel.org>
+Date: Thu, 16 Jul 2026 17:10:11 +0200
+In-Reply-To: <20260715201301.GB1824265@killaraus.ideasonboard.com>
+References: <20260713220427.582b28bf@foz.lan>
+	 <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
+	 <20260715005909.GF1656185@killaraus.ideasonboard.com>
+	 <alcBvuIMEGSjAD1R@mit.edu>
+	 <20260715161111.GC1778116@killaraus.ideasonboard.com>
+	 <ale45QPntcwA-aLB@mit.edu>
+	 <20260715174138.GI1778116@killaraus.ideasonboard.com>
+	 <CAHk-=wiL7kFVWNtvE5S9A4iqXYat66NaUqX1+gZT0QCndi4eQw@mail.gmail.com>
+	 <20260715185141.GJ1778116@killaraus.ideasonboard.com>
+	 <CAHk-=wi7KN9_DYdmaE2chC92EhTrO=Wtx1bPBER-EQfAZ8FREg@mail.gmail.com>
+	 <20260715201301.GB1824265@killaraus.ideasonboard.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.60.2 
@@ -85,22 +86,6 @@ List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-> While there is some truly ridiculous anti-LLM brigading in some open
-> source projects, I feel like saying it is just another tool does not
-> do
-> justice to some of the harm that is done by that industry. Also,
-> precisely because of the usefulness of LLMs, I worry about creating
-> an
-> uneven playing field, where new contributors can't keep up if they
-> can't
-> afford the needed tools (something that is not as much the case with
-> compilers.)
->=20
-> These are not arguments that others should not use LLMs, and I find
-> LLMs
-> to be tremendously useful for reviewing code and understanding
-> context.
 
 The frustrating part of this situation is how everyone arguing on both
 sides is right in some way.
