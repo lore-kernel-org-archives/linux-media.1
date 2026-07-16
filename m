@@ -1,99 +1,131 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CEF336A356;
-	Thu, 16 Jul 2026 03:41:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5555C37AA78
+	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 03:55:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784173288; cv=none; b=Qbly/ZIXLreE/dQk2anCAqfuMXAViGuG1jhOVAKbUlkmYrFn230e0i1uL6e6U/mJRyIiagC/xdaN09Gn9dpfUtYHeJvsGpFzzhSczHLa+NfbxOf/KeLawYbCZU4RTHg2qbWNsV/K8t1RowcgaVfhHTve671koJiEjY5Yq7nAbng=
+	t=1784174116; cv=none; b=ehkRK/s8PYBpnuXVI+OpG1bC4GFgShfY7RGim6eYXUuz9uRfssdHHq3NYcbc93exan2Ocm/cAP3jxm7pP+WE9e/aHaZtu2dAvd/5zrewdvunmTNkyUnL/WZXfGxol+kWcEMkYU4bIl26T38wfXcviuBw/ovMS7QnDb8RwO9PEts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784173288; c=relaxed/simple;
-	bh=kT4pawudicouAWRFhpr4j7YF16tPZHnXROuSpfuzbDA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Sq1y/rrWQJxEDgjmFwNUUH6SCFLe0YdfwBLLiD8W7ThP2D1HTzB1JQI6jhcRNwIoyk16fxD36lbFM+PDzzwKp0ZnCYUU+8gpr4zLvxmPvPJHrsg4D00bPdm9Wd6PUT1KotQmkpngJtxLeDwUHXZ2gVVwjiIgZ7VXBrxLy6GBDrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 35bb14f080c811f1aa26b74ffac11d73-20260716
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
-	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_UNTRUSTED
-	SA_UNFAMILIAR, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
-	CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
-	AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:2a5791ce-17b4-4627-89e2-9684be8d1097,IP:10,
-	URL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:-15
-X-CID-INFO: VERSION:1.3.12,REQID:2a5791ce-17b4-4627-89e2-9684be8d1097,IP:10,UR
-	L:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-15
-X-CID-META: VersionHash:e7bac3a,CLOUDID:7bf9cc0a01e823d24d2a605480e0cda5,BulkI
-	D:2607161141216LG0E4QN,BulkQuantity:0,Recheck:0,SF:10|66|78|102|127|136|85
-	0|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:n
-	il,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BR
-	E:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 35bb14f080c811f1aa26b74ffac11d73-20260716
-X-User: lilinmao@kylinos.cn
-Received: from localhost.localdomain [(112.64.161.44)] by mailgw.kylinos.cn
-	(envelope-from <lilinmao@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 2085523666; Thu, 16 Jul 2026 11:41:20 +0800
-From: Linmao Li <lilinmao@kylinos.cn>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linmao Li <lilinmao@kylinos.cn>
-Subject: [PATCH] media: renesas: vsp1: Propagate runtime PM resume errors
-Date: Thu, 16 Jul 2026 11:41:13 +0800
-Message-Id: <20260716034113.81187-1-lilinmao@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1784174116; c=relaxed/simple;
+	bh=JY4UaD0jeiUSjMFofH8dSI2EJhzBGeat6rBi7QdOfs4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e+uXRqBdnxSa+VnVgD5kp2YKU/Ih/Crd/i6kk/n41nAQamcVr9+BtNpadbK6DfRGEqsq7eG0cFtP0gjWyfPR0ODmtCzp6lYvnE9Py0szppMn5HSgzNKIX/RoKLvYbkJYkFQjq7INyE5pXYQ7jZvem1jkKh3uMBKE3TV2rGe0mME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=Mp3xSQ8Y; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="Mp3xSQ8Y"
+Received: from macsyma.thunk.org ([151.240.45.27])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 66G3rt2l028829
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 15 Jul 2026 23:53:57 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1784174043; bh=UUp7Jai+pVhhRkverQOqPGQVEy44/dxVTc2+nLLIONI=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=Mp3xSQ8YCyCTEvxQh4n3YJL7s+HjUd0ND7yFxB8JaLFBfbzufLUZgOmQXc7tPYBnY
+	 LIEh7XozK8O9WPeMtFF99q9GTSJeKVret5NMOMJFgr9hz6KzrkscLkoqeDDu3rNDoN
+	 rOckootfuTnLJDTtBMx2m438B4Kc/snaSDMJr46M5PzoHxIkn17azKvsopjkve7BPg
+	 p6/3LXyYyS82Jkwob8i6OS3xeUfpQ/j9MuQY1IMylC84rv4wHuoOAk+KkwYIQFCLmJ
+	 7FgojTDUazxfzEovdQo3XyHVZoHV6Bbi1MvhdJ1Yre3LdWjLRCktl/j6ZOcnAD9C7G
+	 aHfWp2xDV+tYw==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 72601A46658; Wed, 15 Jul 2026 23:53:55 -0400 (EDT)
+Date: Wed, 15 Jul 2026 23:53:55 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Nicolas Dufresne <nicolas@ndufresne.ca>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Ihor Solodrai <ihor.solodrai@linux.dev>,
+        Roman Gushchin <roman.gushchin@linux.dev>,
+        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+        Derek Barbosa <debarbos@redhat.com>,
+        Matthieu Baerts <matttbe@kernel.org>,
+        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+        Jason Gunthorpe <jgg@ziepe.ca>, Steven Rostedt <rostedt@goodmis.org>,
+        users@kernel.org,
+        Linux Media Mailing List <linux-media@vger.kernel.org>,
+        Stephen Finucane <stephenfin@redhat.com>, bpf <bpf@vger.kernel.org>,
+        Chris Mason <clm@meta.com>, Christian Brauner <brauner@kernel.org>,
+        Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Subject: Re: Linking Patchwork with Sashiko?
+Message-ID: <alhMB7vGodoewjcz@mit.edu>
+References: <20260713094120.GD1127719@killaraus.ideasonboard.com>
+ <20260713220427.582b28bf@foz.lan>
+ <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
+ <20260715005909.GF1656185@killaraus.ideasonboard.com>
+ <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev>
+ <20260715163921.GH1778116@killaraus.ideasonboard.com>
+ <153db0fa-65ac-49de-9bf5-456c9639954c@linux.dev>
+ <20260715190654.GK1778116@killaraus.ideasonboard.com>
+ <alfwOgVRgUJYOGtU@mit.edu>
+ <ef9f77c613a05c5745941587099eeb4f159d5e31.camel@ndufresne.ca>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ef9f77c613a05c5745941587099eeb4f159d5e31.camel@ndufresne.ca>
 
-vsp1_pm_runtime_resume() can fail while deasserting reset, initializing
-the device, or enabling the FCP. However, vsp1_pm_resume() ignores the
-return value from pm_runtime_force_resume() and restarts video pipelines
-even if the device failed to resume. This can access hardware that is
-still unavailable while reporting a successful system resume.
+On Wed, Jul 15, 2026 at 11:00:54PM -0500, Nicolas Dufresne wrote:
+> In V4L2 m2m notably, there is a "job" in the background, which allow
+> to safely (at least this is the theory) chain up work, and
+> synchronize against pending work. But Sashiko (and other AI) seems
+> to not get it and state with confidence and long explanation that
+> the drivers are racy and should do X/Y/Z more on top (and never
+> blames the framework).
 
-Propagate the error and skip the pipeline restart when the device could
-not be resumed.
+Is there actually a race which is allowed by the framework?  Or is
+Sashiko's proposed race actually not possible?
 
-Fixes: 1e6af546ee66 ("[media] v4l: vsp1: Implement runtime PM support")
-Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
----
- drivers/media/platform/renesas/vsp1/vsp1_drv.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Or is it a case where it actually *is* racy, but it's something we
+really don't care about?  I've seen this happen with KCSAN where
+technically it really *is* a data race, but it's actually not
+important --- so we just have to mark it with the data_race() macro[1].
 
-diff --git a/drivers/media/platform/renesas/vsp1/vsp1_drv.c b/drivers/media/platform/renesas/vsp1/vsp1_drv.c
-index 627b5046fa80..2a9f9f114575 100644
---- a/drivers/media/platform/renesas/vsp1/vsp1_drv.c
-+++ b/drivers/media/platform/renesas/vsp1/vsp1_drv.c
-@@ -641,8 +641,11 @@ static int vsp1_pm_suspend(struct device *dev)
- static int vsp1_pm_resume(struct device *dev)
- {
- 	struct vsp1_device *vsp1 = dev_get_drvdata(dev);
-+	int ret;
- 
--	pm_runtime_force_resume(vsp1->dev);
-+	ret = pm_runtime_force_resume(vsp1->dev);
-+	if (ret)
-+		return ret;
- 
- 	/*
- 	 * When used as part of a display pipeline, the VSP is stopped and
+[1] https://docs.kernel.org/dev-tools/lkmm/docs/access-marking.html
+
+This sort of thing can happen any time we introduce a new tool,
+whether it's KCSAN or lockdep.  It's not necesarily unique to AI
+reviews.  In both AI and non-AI tools, we can have developers who fix
+the problem in the wrong way, or where the fix actually makes things
+worse than the putative "bug".
+
+> This is why I recommended not forwarding the reviews to the linux
+> media list just yet during the summit. Now, the tricky part will be
+> to find time to try and help narrow this down, I never checked the
+> implementation, but I suppose you can add more layers of prompts to
+> force into looking deeper ?
+
+Has a bug been filed with the Shashiko folks?  I can imagine any
+number of solutions, including adding comments in the source, or some
+kind of marker much like the data_race() macro to shut up KCSAN
+warnings, or __attribute__((unused)) to shut up gcc or Clang warnings.
+Yet another solution might be to add some kind of a AGENTS.md file in
+the explains why a particular construct is safe.  Personally, I
+consider it to be the less desirable solution, since having something
+inline in the sources is likely to get out of sync with future code
+changes, and having the annotation in the sources will hopefully be
+useful to humans, not just AI bots.
+
+But the exact solution is going to be very specific exact warning and
+why the AI bot thinks there is a problem when it really isn't.
+
+    	       	      	       	 	 - Ted
+
+P.S.  There was a recent thread[1] where using Clang's context
+analysis resulted in a false positive, and I think it's instructive to
+see how it was handled compared to false positives from Sashiko.  We
+had a discussion, and the result was two pull requests to LLVM to
+avoid the false positive.  There was no complaints about how the false
+positive somehow was demeaning to our humanity, or that we should be
+accomodate those people who want to ban the use of static analyzers.
+There is something about AI that seems to trigger a different sort of
+energy, for better or for worse.
+
+[1] https://lore.kernel.org/r/20260712165610.366474-2-timday@thelustrecollective.com
+
