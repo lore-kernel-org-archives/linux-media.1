@@ -1,215 +1,194 @@
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE5DB2FFFA5
-	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 02:26:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1CE8227EA4;
+	Thu, 16 Jul 2026 02:29:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784168793; cv=none; b=riJKH4LIQQATD5ZtjMO5ammbtzqbifp44wpwkiGQdJdvq4f69Q0vSvI+K/BK9dx28IjynxEybxDQmBFXYWQiLcngaozbLUfj/ow1dOt9u46WslRD1MVjur91KU1uXg4A5di+1c+/FqN/Ol47gtHLp1UkFQVPyrxTo1efKl0xucg=
+	t=1784168996; cv=none; b=mzfVktLI+Ju3ycF2xK3kM44NADHaEEpt+93eGVuZYSmTIBltKYzvzRyT2TJQ5l3AP7evTwvLyW4eCckuvhv9ErvCJas8Y5fcvBOWEwWPFImOx+LLbs7OD8Ckss9teHqcdu3DnthRS2iHjskrfigmen410h3/vRyk8JKbxCBCS88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784168793; c=relaxed/simple;
-	bh=92NoDO5o5ANm4kLOvaboSdcq2hwEcDiHvjCZ9JFokak=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=av9rMv4yCJmbxlr+d2fh9JhsXLCw0ZNtspgsxXd3EZaUJQtGTxFF2SkcvdKVC/PRst1Ne9A2h+6dRS4uAWeQoMo36Tq9F6MeVGHLqpd5P0OTYHKEYdqj+yEPfr9FVRbSRpirrQoo8h1NY91kHwEBrw5yRrhuiPnc9SSpOIFQizg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=Tmd+jmSc; arc=none smtp.client-ip=209.85.219.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1784168996; c=relaxed/simple;
+	bh=VsUBDrpTnOCNDYawodtB33AzkBd8y8KPfHEG1Ir7Qhg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fz7UHmOoPzjDdxTPUeAwvlI62scrisytzmrWHtbKUz12aee01MPRDOECb4cALaLml2y6x/PEJ0Uod4upgT86ewHnGL62szHUtBUYGb6QLnUU9YbttJCc8DoaIsNHc7HMrX9/sQWZXq8KRC9LkLlz8Td6uuq47hIzAez2zJUYmgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KwuvMv/f; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="Tmd+jmSc"
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-902f92b8504so53655756d6.2
-        for <linux-media@vger.kernel.org>; Wed, 15 Jul 2026 19:26:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1784168789; x=1784773589; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mBPsq3oZXwhpSh2XrVu878yUmmYOIRjytvCJ/xaqJJ0=;
-        b=Tmd+jmScqbu6JeiRRkZFGo6xy052u2pdjWOJo3UgXrC/g4VrAMd8a3+1rxg66DwyvN
-         SH8uLfLPcK+oLiFqZS5QXmhEuEbPWzvdpB07BOQK4mmsIwoP8Q622+CfJA1/E1JZi5m4
-         Jq5aldMEnjvkna0aRc5ZpsDly3nqMnm0OlnbIB/SpvCbcPllbo92OUUaozxphwk6tudp
-         K0K5yI1ScL+az6GROd20vHdh85RZZn+p4FXeuicufX5bMe9UK+SXnX4qYvu9VMqDxQu6
-         mPnH0uFtRZg0v2aWfDKO15AtTMEnFDbW9I3GYox+FbcJzDzhDowNoYZFj7I3hfuIlTLU
-         z+rQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784168789; x=1784773589;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mBPsq3oZXwhpSh2XrVu878yUmmYOIRjytvCJ/xaqJJ0=;
-        b=WaIk1BosyeSIwJkV3CqeOSGdhDuCr9UGUpkW9GPv9dFMbU5SzV0NA2N7q9WEQ16pv1
-         3HXQbnhlfGDiJglJa33rK2+PIUvCTpaA9o5tuLCV3i5KYVPE+IyaxohHKoEANqddi8cs
-         pY/Yi1G9h3OUrpyNC1wUuxDqEUFEM8AEag/BvFIpYV/xitEmH2WgmQEGhZcHmgaPatzF
-         PizqFU1cmMFgJlYGTzGJ0pT4k1elvtkCoFa/drW36awha8KUTBd4+v797aQDNDHAAw7k
-         4D+YzkwlJRPFiFf7uuak5GesxDEuUleuws8kdrcw8a5zvyxN6qQXzzXBVta1AmjbGF6i
-         Ss7g==
-X-Forwarded-Encrypted: i=1; AHgh+Rqsg9dSfalLyHoHRkVXHH5Cl/cVfn0ATraJ4T2CqjNlViMg8KvoUudxFEn0XXEAaaPOrWD4Keb2WA37WA==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyejj65UQg1/jv+0f0AL4TsokTw2AGl+udSrYFzOXJGI0pg2uRJ
-	GIGrOwz/DVR3dZZT5P3zFCEL+R5njGd8I2AbALQtXGYgRlGR4aiUdZwKjHh4Q8AIcWk=
-X-Gm-Gg: AfdE7ckADvbz1bLoiFHDTd6K0v23H0fbUjHfNys8eHBHD5vdClR0rCEidPXDIA4ivLB
-	F6A8LHesMgFlNU4hJHHgVNVzxBJI6Wpxio6r7SwFi1+vY9kPb1nXFm2eYl/mLJKCZ+eA4d9xxju
-	gaZMnJ1Ognb2nq1fiecvcIx8bZgBx4zCGFm1ObX9WGCCtEmxujuoUGHlRJpgI0/U0+8Ps1MUGNR
-	ujdQUIMYV/TZtMCbkVcns2SFAjULj6/j5gdyHvn4L00hrk5qPcBe2TUkFwODXJAPyoqb56mirxW
-	gDkdbGqS2Ok1+b/uHImXheHBKKeHn/pt3A54DJ4oqtngbJ82hVyz6kM3vYPnYImfAZExjRNt2+k
-	cNg9FnVtPpTYx5e6vrwGXn70rqLyKWg0PY+k6jgzDRPhcKpqBF6QcTRqTn96xpkCrauEgld9P/B
-	tjc5uPXko=
-X-Received: by 2002:a05:6214:5005:b0:8ec:235c:7a66 with SMTP id 6a1803df08f44-90758d0d3c0mr59599196d6.27.1784168789618;
-        Wed, 15 Jul 2026 19:26:29 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e06b::5ac? ([2606:6d00:15:e06b::5ac])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ffd56c06e1sm206619606d6.14.2026.07.15.19.26.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 19:26:28 -0700 (PDT)
-Message-ID: <95a47297c80c78345510cb5c09d9614841dcdb7a.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: rkvdec: use DIV_ROUND_UP() for CTB counts
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Hiroki Nakajima <3na7nanana@gmail.com>, detlev.casanova@collabora.com, 
-	ezequiel@vanguardiasur.com.ar
-Cc: mchehab@kernel.org, heiko@sntech.de, linux-media@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Date: Wed, 15 Jul 2026 22:26:27 -0400
-In-Reply-To: <20260712072652.2881919-1-3na7nanana@gmail.com>
-References: <20260712072652.2881919-1-3na7nanana@gmail.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-bNkDQXvvPI7fGSpXPcBO"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KwuvMv/f"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=sA
+	A5efWz8LkgBa8eXqtQTxVtLPrp6j5XpGGHWB8S2rs=; b=KwuvMv/fo0rft7RvKU
+	gMoz1pU3IpiuHznKFcN14eg42LH+OAie8ZugpJRLZgdP6rWW9qulJ+rxaGcLmNf5
+	zf4ghas3UQK1e8UTFZIR+D4rKfuLtHhwFvHSPdny5bvjJsG3pjMcnbrRyMRkiXso
+	KZqDCF5i+xy4PYU3wW3m4dNeI=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgAXbyoQQlhqFSn4HQ--.48404S2;
+	Thu, 16 Jul 2026 10:29:36 +0800 (CST)
+From: Lei Huang <huanglei814@163.com>
+To: mchehab@kernel.org
+Cc: johan@kernel.org,
+	hverkuil+cisco@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lei Huang <huanglei@kylinos.cn>
+Subject: [PATCH v3 2/2] media: s2255: Rename CamelCase goto labels to snake_case
+Date: Thu, 16 Jul 2026 10:29:33 +0800
+Message-Id: <20260716022933.168626-1-huanglei814@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgAXbyoQQlhqFSn4HQ--.48404S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXr47Gr13tryUJw43ZF1xGrg_yoWrCr47pF
+	WxWa9Ygr48Jw1fJr9xJayUW3Z8Ww48G3y5CFy2y397XryYy34kA3Wrt34xuay2krWvya17
+	Ar98W3yj9rWqgFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jn6pPUUUUU=
+X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC9BBFPGpYQhCwogAA3v
 
+From: Lei Huang <huanglei@kylinos.cn>
 
---=-bNkDQXvvPI7fGSpXPcBO
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Rename the error-path goto labels in s2255_probe() from CamelCase to
+snake_case to comply with the Linux kernel coding style:
 
-Le dimanche 12 juillet 2026 =C3=A0 16:26 +0900, Hiroki Nakajima a =C3=A9cri=
-t=C2=A0:
-> Use DIV_ROUND_UP() when computing HEVC coding tree block counts
-> instead of open-coding the same rounding expression. This keeps the
-> rounding intent explicit without changing behavior.
->=20
-> Found using a Coccinelle rule generated from the DIV_ROUND_UP() macro
-> definition.
->=20
-> Signed-off-by: Hiroki Nakajima <3na7nanana@gmail.com>
+  errorBOARDINIT -> err_boardinit
+  errorFWMARKER  -> err_fwmarker
+  errorREQFW     -> err_reqfw
+  errorFWDATA2   -> err_fwdata2
+  errorFWURB     -> err_fwurb
+  errorEP        -> err_ep
+  errorUDEV      -> err_udev
+  errorFWDATA1   -> err_fwdata1
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+No functional changes; all label definitions and goto references are
+updated consistently.
 
-> ---
-> =C2=A0drivers/media/platform/rockchip/rkvdec/rkvdec-hevc.c=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 4 ++--
-> =C2=A0.../media/platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c=C2=A0 | 8 =
-++++----
-> =C2=A0.../media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c=C2=A0 | 8 =
-++++----
-> =C2=A03 files changed, 10 insertions(+), 10 deletions(-)
->=20
-> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc.c
-> b/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc.c
-> index 87abf93dfd5e..ff3942f91c5d 100644
-> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc.c
-> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc.c
-> @@ -258,9 +258,9 @@ static void assemble_hw_pps(struct rkvdec_ctx *ctx,
-> =C2=A0		for (i =3D 0; i <=3D pps->num_tile_rows_minus1; i++)
-> =C2=A0			WRITE_PPS(pps->row_height_minus1[i], ROW_HEIGHT(i));
-> =C2=A0	} else {
-> -		WRITE_PPS(((sps->pic_width_in_luma_samples + ctb_size_y - 1)
-> / ctb_size_y) - 1,
-> +		WRITE_PPS(DIV_ROUND_UP(sps->pic_width_in_luma_samples,
-> ctb_size_y) - 1,
-> =C2=A0			=C2=A0 COLUMN_WIDTH(0));
-> -		WRITE_PPS(((sps->pic_height_in_luma_samples + ctb_size_y - 1)
-> / ctb_size_y) - 1,
-> +		WRITE_PPS(DIV_ROUND_UP(sps->pic_height_in_luma_samples,
-> ctb_size_y) - 1,
-> =C2=A0			=C2=A0 ROW_HEIGHT(0));
-> =C2=A0	}
-> =C2=A0
-> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c
-> b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c
-> index fe6414a17551..d07c74679552 100644
-> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c
-> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c
-> @@ -261,8 +261,8 @@ static void assemble_hw_pps(struct rkvdec_ctx *ctx,
-> =C2=A0	memset(row_height, 0, sizeof(row_height));
-> =C2=A0
-> =C2=A0	max_cu_width =3D 1 << (sps->log2_diff_max_min_luma_coding_block_si=
-ze +
-> log2_min_cb_size);
-> -	pic_in_cts_width =3D (width + max_cu_width - 1) / max_cu_width;
-> -	pic_in_cts_height =3D (height + max_cu_width - 1) / max_cu_width;
-> +	pic_in_cts_width =3D DIV_ROUND_UP(width, max_cu_width);
-> +	pic_in_cts_height =3D DIV_ROUND_UP(height, max_cu_width);
-> =C2=A0
-> =C2=A0	if (pps->flags & V4L2_HEVC_PPS_FLAG_TILES_ENABLED) {
-> =C2=A0		if (pps->flags & V4L2_HEVC_PPS_FLAG_UNIFORM_SPACING) {
-> @@ -275,8 +275,8 @@ static void assemble_hw_pps(struct rkvdec_ctx *ctx,
-> =C2=A0						=C2=A0 column_width, row_height);
-> =C2=A0		}
-> =C2=A0	} else {
-> -		column_width[0] =3D (width + max_cu_width - 1) / max_cu_width;
-> -		row_height[0] =3D (height + max_cu_width - 1) / max_cu_width;
-> +		column_width[0] =3D DIV_ROUND_UP(width, max_cu_width);
-> +		row_height[0] =3D DIV_ROUND_UP(height, max_cu_width);
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	for (i =3D 0; i < 20; i++) {
-> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-> b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-> index 3575338a531a..3462d995d4cf 100644
-> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-> @@ -287,8 +287,8 @@ static void assemble_hw_pps(struct rkvdec_ctx *ctx,
-> =C2=A0	memset(row_height, 0, sizeof(row_height));
-> =C2=A0
-> =C2=A0	max_cu_width =3D 1 << (sps->log2_diff_max_min_luma_coding_block_si=
-ze +
-> log2_min_cb_size);
-> -	pic_in_cts_width =3D (width + max_cu_width - 1) / max_cu_width;
-> -	pic_in_cts_height =3D (height + max_cu_width - 1) / max_cu_width;
-> +	pic_in_cts_width =3D DIV_ROUND_UP(width, max_cu_width);
-> +	pic_in_cts_height =3D DIV_ROUND_UP(height, max_cu_width);
-> =C2=A0
-> =C2=A0	if (tiles_enabled) {
-> =C2=A0		if (pps->flags & V4L2_HEVC_PPS_FLAG_UNIFORM_SPACING) {
-> @@ -301,8 +301,8 @@ static void assemble_hw_pps(struct rkvdec_ctx *ctx,
-> =C2=A0						=C2=A0 column_width, row_height);
-> =C2=A0		}
-> =C2=A0	} else {
-> -		column_width[0] =3D (width + max_cu_width - 1) / max_cu_width;
-> -		row_height[0] =3D (height + max_cu_width - 1) / max_cu_width;
-> +		column_width[0] =3D DIV_ROUND_UP(width, max_cu_width);
-> +		row_height[0] =3D DIV_ROUND_UP(height, max_cu_width);
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	for (i =3D 0; i < 20; i++)
+Signed-off-by: Lei Huang <huanglei@kylinos.cn>
+---
+ drivers/media/usb/s2255/s2255drv.c | 38 +++++++++++++++---------------
+ 1 file changed, 19 insertions(+), 19 deletions(-)
 
---=-bNkDQXvvPI7fGSpXPcBO
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+diff --git a/drivers/media/usb/s2255/s2255drv.c b/drivers/media/usb/s2255/s2255drv.c
+index 3917913c3b47..64140b780e63 100644
+--- a/drivers/media/usb/s2255/s2255drv.c
++++ b/drivers/media/usb/s2255/s2255drv.c
+@@ -2216,14 +2216,14 @@ static int s2255_probe(struct usb_interface *interface,
+ 	dev->cmdbuf = kzalloc(S2255_CMDBUF_SIZE, GFP_KERNEL);
+ 	if (dev->cmdbuf == NULL) {
+ 		s2255_dev_err(&interface->dev, "out of memory\n");
+-		goto errorFWDATA1;
++		goto err_fwdata1;
+ 	}
+ 
+ 	refcount_set(&dev->num_channels, 0);
+ 	dev->pid = id->idProduct;
+ 	dev->fw_data = kzalloc_obj(struct s2255_fw);
+ 	if (!dev->fw_data)
+-		goto errorFWDATA1;
++		goto err_fwdata1;
+ 	mutex_init(&dev->lock);
+ 	mutex_init(&dev->cmdlock);
+ 	/* grab usb_device and save it */
+@@ -2231,7 +2231,7 @@ static int s2255_probe(struct usb_interface *interface,
+ 	if (dev->udev == NULL) {
+ 		dev_err(&interface->dev, "null usb device\n");
+ 		retval = -ENODEV;
+-		goto errorUDEV;
++		goto err_udev;
+ 	}
+ 	dev_dbg(&interface->dev, "dev: %p, udev %p interface %p\n",
+ 		dev, dev->udev, interface);
+@@ -2243,7 +2243,7 @@ static int s2255_probe(struct usb_interface *interface,
+ 
+ 	if (usb_find_bulk_in_endpoint(iface_desc, &endpoint)) {
+ 		dev_err(&interface->dev, "Could not find bulk-in endpoint\n");
+-		goto errorEP;
++		goto err_ep;
+ 	}
+ 
+ 	dev->read_endpoint = endpoint->bEndpointAddress;
+@@ -2262,32 +2262,32 @@ static int s2255_probe(struct usb_interface *interface,
+ 
+ 	dev->fw_data->fw_urb = usb_alloc_urb(0, GFP_KERNEL);
+ 	if (!dev->fw_data->fw_urb)
+-		goto errorFWURB;
++		goto err_fwurb;
+ 
+ 	dev->fw_data->pfw_data = kzalloc(CHUNK_SIZE, GFP_KERNEL);
+ 	if (!dev->fw_data->pfw_data) {
+ 		dev_err(&interface->dev, "out of memory!\n");
+-		goto errorFWDATA2;
++		goto err_fwdata2;
+ 	}
+ 	/* load the first chunk */
+ 	if (request_firmware(&dev->fw_data->fw,
+ 			     FIRMWARE_FILE_NAME, &dev->udev->dev)) {
+ 		dev_err(&interface->dev, "sensoray 2255 failed to get firmware\n");
+-		goto errorREQFW;
++		goto err_reqfw;
+ 	}
+ 	/* check the firmware is valid */
+ 	fw_size = dev->fw_data->fw->size;
+ 	if (fw_size < 8) {
+ 		dev_err(&interface->dev, "Firmware invalid: too small.\n");
+ 		retval = -ENODEV;
+-		goto errorFWMARKER;
++		goto err_fwmarker;
+ 	}
+ 	pdata = (__le32 *) &dev->fw_data->fw->data[fw_size - 8];
+ 
+ 	if (*pdata != S2255_FW_MARKER) {
+ 		dev_err(&interface->dev, "Firmware invalid.\n");
+ 		retval = -ENODEV;
+-		goto errorFWMARKER;
++		goto err_fwmarker;
+ 	} else {
+ 		/* make sure firmware is the latest */
+ 		__le32 *pRel;
+@@ -2305,30 +2305,30 @@ static int s2255_probe(struct usb_interface *interface,
+ 	/* load 2255 board specific */
+ 	retval = s2255_board_init(dev);
+ 	if (retval)
+-		goto errorBOARDINIT;
++		goto err_boardinit;
+ 	s2255_fwload_start(dev);
+ 	/* loads v4l specific */
+ 	retval = s2255_probe_v4l(dev);
+ 	if (retval)
+-		goto errorBOARDINIT;
++		goto err_boardinit;
+ 	dev_info(&interface->dev, "Sensoray 2255 detected\n");
+ 	return 0;
+-errorBOARDINIT:
++err_boardinit:
+ 	s2255_board_shutdown(dev);
+-errorFWMARKER:
++err_fwmarker:
+ 	release_firmware(dev->fw_data->fw);
+-errorREQFW:
++err_reqfw:
+ 	kfree(dev->fw_data->pfw_data);
+-errorFWDATA2:
++err_fwdata2:
+ 	usb_free_urb(dev->fw_data->fw_urb);
+-errorFWURB:
++err_fwurb:
+ 	timer_shutdown_sync(&dev->timer);
+-errorEP:
++err_ep:
+ 	usb_put_dev(dev->udev);
+-errorUDEV:
++err_udev:
+ 	kfree(dev->fw_data);
+ 	mutex_destroy(&dev->lock);
+-errorFWDATA1:
++err_fwdata1:
+ 	kfree(dev->cmdbuf);
+ 	kfree(dev);
+ 	pr_warn("Sensoray 2255 driver load failed: 0x%x\n", retval);
+-- 
+2.25.1
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalhBVAAKCRDZQZRRKWBy
-9FbPAQDvknjU5MBUBlBk+2NOWC1I7Q9Cjqj2M0AnwCfQTfkg5wD/Trt36/37q2Ks
-fllOCGSBF7ly4N7X+HlKSf5YFnqQqgI=
-=3mvY
------END PGP SIGNATURE-----
-
---=-bNkDQXvvPI7fGSpXPcBO--
