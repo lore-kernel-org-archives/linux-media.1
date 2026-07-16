@@ -1,162 +1,93 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C05421CC44;
-	Thu, 16 Jul 2026 06:23:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBCCF274B5F;
+	Thu, 16 Jul 2026 07:00:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784183035; cv=none; b=nALVgCADyE/26kNdNRLjo1ooSX13gPSIph5dd8A5YVR/DvWH/4isL6S3T800DF8Go04PEsn6PiC9WRmzAJ1641x+5arZ8OoEXVzjyAZcVkOnejQHovjJuxh1+MneDVy2ouSi87czzYvEa3WT9QYhaYcBwfthOuKKttK0pRko2ss=
+	t=1784185246; cv=none; b=QZ/QQg/dSz5HHTrIP0h3yonfHQq+E0fNEWc9NQ5BwdGQzLBhddOWG9JRr/L99/0Em+9JCnZt0I1d+BjUk499b1+Z0HHqvXrnOtt2dImu4Y093+Kc8lovCrgvndSmKo5KY1B8uzYDHAr/LizW5uNX6IP6iZ8aMy7R/ac5Od2crJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784183035; c=relaxed/simple;
-	bh=lVUi3whRdmsEgUNHPPhKoIfDdnLa+nuFtQcY7RhnlQc=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=ZJQNXHkxKr5TOSa6kOHvvKxTrF27PyRn3EgozxuQC/OvEDS8LRMuebo+dpNP0b1OnpgX4/Ld7PWHeW108Pd7jliRSzRzqnq2awpXhBbDuXIwt10OA+hhejr7U9oUZfwfCO8vqFaMRvRY1UxWYaHXqioG340U+ZZVeiRhybxptoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=qaRv0Vqc; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784185246; c=relaxed/simple;
+	bh=y1xQ7+H8jCxVMgR3DzOqWh/rhmWTnisPBf7Ii4iYwyk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=N6mq/zgpR1+3XsopkErTk++xTN02I/md+tiUQW0SfBWBC4QGJwht1/HVdGSBlHBom+9x6fwoLjnGA34ZG4ORBOaA+kxpFNj87y7ZnoqIHBxLzUC2Z/4tRSqzOvCAiWziaZrItbLm+uGCcJ04uWr2k07L0LFnq/nnjs21tK3ejpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Wtk+3yoC; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="qaRv0Vqc"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:66a6:48e1:9e1:50d5:c75c])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2B95A9D1;
-	Thu, 16 Jul 2026 08:22:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784182975;
-	bh=lVUi3whRdmsEgUNHPPhKoIfDdnLa+nuFtQcY7RhnlQc=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=qaRv0Vqcnso2uhR+t6f+/4ElLOlzYaSZBBC94TT2hbFEwVU0LoAtZG9SVN2f1pU0w
-	 KJ2H4Zdkv/1SmPgyj9+hFsyAVbuJ/irMiGgI/8xKLuvMU0VF6x/wIcGOTOHJExTbx9
-	 ynbFQObKDXPQObzNrNGzhL1O56irkrc2jRy8jbrg=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Wtk+3yoC"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4h13pV5sr4zMlFm;
+	Thu, 16 Jul 2026 09:00:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1784185234; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y1xQ7+H8jCxVMgR3DzOqWh/rhmWTnisPBf7Ii4iYwyk=;
+	b=Wtk+3yoC+pP5dW9/kQwriOudsuK5RaOGT0paxpM7/qbeYtjsWw1o4IT5oz5s17CfB2VmQP
+	y9CvAz00vx+hFFXAFzuy3f+D/q3t8nPSx4MsX6FASpG676RlB4y2h+CqlyFC3VXwVjBla9
+	6apFlJLMcXHx1hSGX2ds8/V9ZhRfvT7P8rwn4imJaq3e++BQ4/+sioEZYKmYjPBJgVmg7P
+	XaICzjyVtAqUW7kR97UaGbrkzlABqvysBUBuJeS7QkMqpcmcKUfTYytl2tcBfwMc6TqmCL
+	SspXzOz8VJ3yMatzTPuIptMAkwKh4NqtLlmT9NECZGHD2G3GN8SmfZ+/dZKqRg==
+Message-ID: <d75e18a4bccd53ec0e2853923374eb5cde3b1a5b.camel@mailbox.org>
+Subject: Re: [PATCH v5 4/5] rust: Add dma_fence abstractions
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Onur =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Philipp Stanner
+	 <phasta@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+	 <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Sumit Semwal	 <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
+	 <christian.koenig@amd.com>, Daniel Almeida <daniel.almeida@collabora.com>,
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Asahi Lina
+ <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>,  Lorenzo Stoakes	
+ <ljs@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, Alexandre Courbot
+	 <acourbot@nvidia.com>, Krishna Ketan Rai <prafulrai522@gmail.com>, Tamir
+ Duberstein <tamird@kernel.org>, Mirko Adzic <adzicmirko97@gmail.com>,
+ Alistair Francis	 <alistair.francis@wdc.com>, Shankari Anand
+ <shankari.ak0208@gmail.com>, 	linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, 	linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 	linaro-mm-sig@lists.linaro.org
+Date: Thu, 16 Jul 2026 09:00:21 +0200
+In-Reply-To: <20260715200036.46182-1-work@onurozkan.dev>
+References: <20260703073141.3962604-2-phasta@kernel.org>
+	 <20260703073141.3962604-6-phasta@kernel.org>
+	 <20260715200036.46182-1-work@onurozkan.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <alfwOgVRgUJYOGtU@mit.edu>
-References: <87wlv2jq4t.fsf@linux.dev> <20260713094120.GD1127719@killaraus.ideasonboard.com> <20260713220427.582b28bf@foz.lan> <7ia4mrvtrxjl.fsf@castle.c.googlers.com> <20260715005909.GF1656185@killaraus.ideasonboard.com> <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev> <20260715163921.GH1778116@killaraus.ideasonboard.com> <153db0fa-65ac-49de-9bf5-456c9639954c@linux.dev> <20260715190654.GK1778116@killaraus.ideasonboard.com> <alfwOgVRgUJYOGtU@mit.edu>
-Subject: Re: Linking Patchwork with Sashiko?
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Ihor Solodrai <ihor.solodrai@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Derek Barbosa <debarbos@redhat.com>, Matthieu Baerts <matttbe@kernel.org>, Konstantin Ryabitsev <konstantin@linuxfoundation.org>, Jason Gunthorpe <jgg@ziepe.ca>, Steven Rostedt <rostedt@goodmis.org>, users@kernel.org, Linux Media Mailing List <linux-media@vger.kernel.org>, Stephen Finucane <stephenfin@redhat.com>, bpf <bpf@vger.kernel.org>, Chris Mason <clm@meta.com>, Christian Brauner <brauner@kernel.org>, Alexei Starovoitov <alexei.starovoitov@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Theodore Tso <tytso@mit.edu>
-Date: Thu, 16 Jul 2026 11:53:44 +0530
-Message-ID: <178418302445.1426769.8816954031983102120@freya>
-User-Agent: alot/0.13.dev35+g4a69c46ca
+X-MBO-RS-ID: 6d4420cebe1a82b94ce
+X-MBO-RS-META: wzu5jussqj8sw67xadr3ykcz4xgy6b6i
 
-Hi Ted,
-
-Quoting Theodore Tso (2026-07-16 02:43:39)
-> On Wed, Jul 15, 2026 at 10:06:54PM -0500, Laurent Pinchart wrote:
-> > This came from a consideration on the impact of false positives
-> > and other hallucinations on junior developers.
+On Wed, 2026-07-15 at 23:00 +0300, Onur =C3=96zkan wrote:
+> On Fri, 03 Jul 2026 09:31:40 +0200
+> Philipp Stanner <phasta@kernel.org> wrote:
 >=20
-> You keep claiming that there is an awful lot of false positives and
-> other hallucinations.  That's an assertion that needs to be tested to
-> make sure that we're not relying on a few pieces of anecdata.  How
-> does this compare with false positives and bogus recommendations from
-> certain human reviewers?
+> > +}
+> > +
+> > +#[allow(unused_unsafe)]
 >=20
-> After all, I can think of at *least* one human reviewer whose reviews
-> are far worse than Sashiko's in false positives.  That might or might
-> not be the same person as the one Mark has said that he has a stock
-> e-mail reply telling a junior developer that they should be free to
-> ignore reviews from that particular human being.  :-)
+> Why is this needed?
+
+Relic from copy pasting around and sorting. Will remove.
+
+P.
+
 >=20
-
-That's actually a point against Sashiko. I can maintain a mental score of=20
-different humans, their past review comments and behaviour, and other=20
-contextual things like the time of day of their response.
-
-It's really hard to do that with a bot like Sashiko, which can show two=20
-extremes (even in the same review):
-
-1. Find insane(ly good) security bugs that other humans missed
-2. Hallucinate code that doesn't exist, or give false positives=20
-goose-chases [1][2] that make sense if you read the code like prose, but=20
-miss key details or context
-
-Which makes me extra cautious and thorough when going through LLM generated=
-=20
-reviews compared to a human reviewer I trust.
-
-Later in this thread you've equated Sashiko to static-analyzer tools=20
-instead of humans (which is a bit convenient).
-
-IMO false positives are possible everywhere, but LLMs are unpredictable in =
-
-a very different way compared to static-analysis tools *especially* because=
-=20
-they can be quite good at finding some issues and are non-deterministic.
-
-I can understand the appeal of using them to find security bugs or as extra=
-=20
-"eye balls to make all bugs shallow". And I am not advocating AI as bad or =
-
-to ban it. But I do think usage of LLMs through Sashiko may give us free=20
-reviews, but require brand new work of reviewing the reviews. And this new =
-
-work will be a burden on experienced folks, not newcomers, who will simply =
-
-believe the LLM output because it is (or sounds) smarter than them.
-
-[1] https://lore.kernel.org/all/20260520160638.7F2BA1F000E9@smtp.kernel.org/
-[2] https://lore.kernel.org/all/20260715174326.0E5B51F00A3A@smtp.kernel.org/
-
-See the pm_rumtime_put() suggestions above. Some people started giving the =
-
-same review comments after possibly seeing Sashiko comments.
-
-But on deeper inspection it turned out to be a false-positive:
-lore.kernel.org/all/178080367434.9570.8101421417305606672@freya
-
-My point isn't that static-analysis tools can't make the same mistake, but =
-
-that they're open source and fixable in a way that current architecture of =
-
-LLM models isn't in general, other than giving it an ever-increasing prompt=
-=20
-and hoping the random-number generator gods bless me when I need them to.
-
-Thanks,
-Jai
-
-> Each maintainer can decide how much they trust Shashiko reviews.  At
-> least for my subsystem, I haven't seen the hallucionations that you
-> are continually citing, certainly not as a common case.  I will note
-> that even experienced human reviewers have occasionally flagged an
-> issue, only to say, "my bad, you're right, it's fine" after a
-> discussion with the patch author.  And that's OK.  When a human being
-> makes a false positive criticism, no one responds with "I am feeling
-> demeaned as a human being!"  Perhaps we should be giving
-> tool-generated reviews (whether it is via checkpatch or Sashiko) with
-> a similar level of grace?
->=20
-> At least with tool-generated reviews, we can send bug reports asking
-> that the tool can be improved.  At least with one particular human
-> reviewer that I have in mind, no attempts asking that person to
-> improve their reviews hasn't been helpful.
->=20
-> Bottom line --- if you are making the claim the Sashiko reviews are
-> rife with false positives, all I can say is <<Citation Needed>>.
-> =20
-
-PS: There is a separate issue of how LF is advocating closed-weights paid=20
-models trained on public data, just because it is free (as in beer) today=20
-for *them* because they're a big organization. That demotivates a lot of=20
-people (including me) who like working on open source projects because=20
-they're open to inspect and tinker with.
-
-Unfortunately if the "my way or the highway" approach is pushed too much,=20
-the kernel might end up with a lot of free Gemini tokens but not many=20
-enthusiastic humans to use them :-)
-
-I've personally stopped using closed-weights model for anything, but=20
-somehow now required to interact with one while working on the biggest open=
-=20
-source project in the world?? Maybe LF hasn't gotten the memo on how good=20
-the open-weights models are these days, so I'll stop my whining here and=20
-wait for a few months ;-)
-
->                                         - Ted
->
+> > +impl<'a, T: Send + Sync + FenceCtxOps> FenceCtx<T> {
+> > +=C2=A0=C2=A0=C2=A0 // This can later be extended as a vtable in case o=
+ther parties need support
+> > +=C2=A0=C2=A0=C2=A0 // for the more "exotic" callbacks.
