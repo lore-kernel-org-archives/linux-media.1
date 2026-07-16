@@ -1,124 +1,195 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13183161AD
-	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 13:45:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [4.193.249.245])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 91FEF2DC79B;
+	Thu, 16 Jul 2026 13:49:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=4.193.249.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784209528; cv=none; b=K/wxOU8UZm/QLI+idLLvBQt/Wk7ygAr/GThUrQfF778pCKms4OU8Hwx7L2hK2yVFMIKoAg8xkGFkvKY3Wfz7huex00uqD9+GKbU+xvW+NSWbPYcBFXk9ABMyJ7Z8NbWf9QLX9IQ+kSIpzuikuB9iFZqCyQ48yBkdZ7c3ztczO88=
+	t=1784209804; cv=none; b=CHM9RR+cVwWFMAtCoUMvR771PVRxFh3pZ8u31X3JIA6jGfq4WEPEhdUCkFfzIPZZ01OezTAicBnfwH+EXpW8bfeb/TLZBY3UgSaplnwydkbTMIeGzOKT/5rm+yT7v3T3vX1XSQ1MlDBxQ2BcfRPGoAI50noFKHA47es8osG3lJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784209528; c=relaxed/simple;
-	bh=Ic1p9l23LMUS0idoGpsKbc5C5GZGJZdCAt9BrDifgTk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tfQlVHEQ4vB2BfElNNlqviFf8yZxEBMH6X4A5DxtpIs9JzWPr3LUJRHgLZqT1FRMAYfs5zEGbTFdXdGOF9Z36to+9h9Uk9oueE4inlyZ/nX6mHpklUk9TSJWtm2ow7KBWHPMeoKAetetl4OItbvNMVyYLwQKw5F8WCMjJpFZ9XU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=U7xFlYb1; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="U7xFlYb1"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 327737CA;
-	Thu, 16 Jul 2026 15:44:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784209468;
-	bh=Ic1p9l23LMUS0idoGpsKbc5C5GZGJZdCAt9BrDifgTk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=U7xFlYb1XoULlXRaIKzq+ciyhZhu0AAGDfMGxNVaS4TFTIQyUe5sMDt8dAZFs1sFs
-	 TWllreQcS0GJ/9n9qV3JcqC5QN3VJATAKI3VtVLAHZK9g2WA0pNG5100lvYMVQ7a0H
-	 4TlXFAqytUV/sCF5nyzvyalXgsbUgWfV/0te8+EY=
-Date: Thu, 16 Jul 2026 16:45:22 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
-	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Tommaso Merciai <tomm.merciai@gmail.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Julien Massot <julien.massot@collabora.com>,
-	Naushir Patuck <naush@raspberrypi.com>,
-	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	Stefan Klug <stefan.klug@ideasonboard.com>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	=?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>,
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Ricardo Ribalda Delgado <ribalda@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	David Plowman <david.plowman@raspberrypi.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v6 02/16] media: imx219: Account rate_factor in setting
- upper exposure limit
-Message-ID: <20260716134522.GA1889304@killaraus.ideasonboard.com>
-References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
- <20260701122634.1728782-2-sakari.ailus@linux.intel.com>
+	s=arc-20240116; t=1784209804; c=relaxed/simple;
+	bh=edHyrD6g3YKFiajOhYcLs5D0M0Wq54QPpEaPDMPgvbk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=GnUWy9lnrFnuXuoAymQPa+Cq7lFJRNb4nIsQnLrOJmcVyYHOA+KTo4lNhsUdV/cE2aX+Ef/qLL/pZC0xesGnrncBoZItQPvRtOFyWbkmm/BkJrXPMawCzvoLlAGUwpcfdlqxPnkOYRpS7TLxKVck3EeNWg172SXOLfe159aSo9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=4.193.249.245
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wA3IV934VhqkgZgAA--.10752S3;
+	Thu, 16 Jul 2026 21:49:44 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgB358x14VhqjDbxAg--.35535S2;
+	Thu, 16 Jul 2026 21:49:41 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: mchehab@kernel.org
+Cc: hverkuil+cisco@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH v2] media: cx231xx-audio: drain wq_trigger before audio fini
+Date: Thu, 16 Jul 2026 13:48:46 +0000
+Message-Id: <20260716134846.3132097-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260708141622.3936490-1-fanwu01@zju.edu.cn>
+References: <20260708141622.3936490-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260701122634.1728782-2-sakari.ailus@linux.intel.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgB358x14VhqjDbxAg--.35535S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?pJe2awXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI3IWMtfu/GU2xOferQPnfgLLxCi5s1C7HjcijontArQBLD5
+	D7askrhb8LEjBgo6zO7N5RPxYw6l01w8CbPzC/8w
+X-Coremail-Antispam: 1Uk129KBj93XoW3GrW7CrWrur1UWFW5Gr17urX_yoW7Wr1rpF
+	Z5t34FyrZ7JF40qF47Jw1akFyYkr4vyayjk347uw1Ykr43Gr1YvF1xJa48ZF93AFyxZay2
+	yr45t3y8ur45XFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Tv3UUUUUU==
 
-On Wed, Jul 01, 2026 at 03:26:19PM +0300, Sakari Ailus wrote:
-> The rate_factor multiplier is used to multiply a few values in the
-> sensor's timing configuration and the exposure time is one of them. This
-> also needs to be taken into account in exposure time margin: multiply it
-> by rate_factor so that sensor's exposure time margin is respected.
-> 
-> Fixes: f513997119f4 ("media: i2c: imx219: Scale the pixel rate for analog binning")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+audio_trigger() is deferred work (dev->wq_trigger) armed from
+snd_cx231xx_capture_trigger() on every PCM START/STOP; it dereferences
+dev->adev state and may free the URBs via cx231xx_isoc_audio_deinit().
+cx231xx_audio_fini() tore down that state without draining wq_trigger,
+so work armed before or racing fini ran against freed state.
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Use disable_work_sync() in fini to drain the work and prevent further
+queueing.  Initialize the work, lock and stream_started counter at the
+top of cx231xx_audio_init(), before any fallible allocation, and clear
+the partially-built audio state on its error path, so fini is safe even
+if a later step fails.
 
-> ---
->  drivers/media/i2c/imx219.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-> index 223d3753cc93..05d9737bdc95 100644
-> --- a/drivers/media/i2c/imx219.c
-> +++ b/drivers/media/i2c/imx219.c
-> @@ -451,7 +451,8 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
->  		int exposure_max, exposure_def;
->  
->  		/* Update max exposure while meeting expected vblanking */
-> -		exposure_max = format->height + ctrl->val - IMX219_EXPOSURE_OFFSET;
-> +		exposure_max = format->height + ctrl->val -
-> +			IMX219_EXPOSURE_OFFSET * rate_factor;
->  		exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
->  				exposure_max : IMX219_EXPOSURE_DEFAULT;
->  		ret = __v4l2_ctrl_modify_range(imx219->exposure,
-> @@ -878,6 +879,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
->  	crop->top = (IMX219_NATIVE_HEIGHT - crop->height) / 2;
->  
->  	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
-> +		int rate_factor = imx219_get_rate_factor(state);
->  		int exposure_max;
->  		int exposure_def;
->  		int llp_min;
-> @@ -896,7 +898,8 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
->  			return ret;
->  
->  		/* Update max exposure while meeting expected vblanking */
-> -		exposure_max = mode->fll_def - IMX219_EXPOSURE_OFFSET;
-> +		exposure_max = mode->fll_def -
-> +			IMX219_EXPOSURE_OFFSET * rate_factor;
->  		exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
->  				exposure_max : IMX219_EXPOSURE_DEFAULT;
->  		ret = __v4l2_ctrl_modify_range(imx219->exposure,
+This issue was found by an in-house static analysis tool.
 
+Fixes: 61b04cb24a12 ("[media] cx231xx-audio: fix some locking issues")
+Cc: stable@vger.kernel.org # needs adjustments for <= 6.6: use cancel_work_sync()
+Link: https://lore.kernel.org/r/8c7e1294-b906-4636-890c-b64d03b0e1d0@kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+Changes in v2: use disable_work_sync() instead of a teardown flag +
+cancel_work_sync(), as suggested by Hans Verkuil.  The init-ordering
+fix and error-path cleanup from v1 are retained.
+---
+ drivers/media/platform/ti/vpe/vip.c   | 37 ++++++++++++++++++++++++---
+ drivers/media/platform/ti/vpe/vpdma.c |  3 ++-
+ 2 files changed, 35 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/media/platform/ti/vpe/vip.c b/drivers/media/platform/ti/vpe/vip.c
+index cb0a5a07a3d4..30e9a85d4cf5 100644
+--- a/drivers/media/platform/ti/vpe/vip.c
++++ b/drivers/media/platform/ti/vpe/vip.c
+@@ -814,6 +814,22 @@ static void clear_irqs(struct vip_dev *dev, int irq_num, int list_num)
+ 	vpdma_clear_list_stat(dev->shared->vpdma, irq_num, dev->slice_id);
+ }
+ 
++/*
++ * Quiesce recovery work and per-list IRQs before releasing stream resources.
++ * disable_work_sync() prevents the overflow handler from requeueing recovery
++ * work. Mask and synchronize IRQs afterwards because a running worker may
++ * have re-enabled them before exiting.
++ */
++static void vip_quiesce_stream(struct vip_stream *stream)
++{
++	struct vip_dev *dev = stream->port->dev;
++
++	disable_work_sync(&stream->recovery_work);
++	disable_irqs(dev, dev->slice_id, stream->list_num);
++	clear_irqs(dev, dev->slice_id, stream->list_num);
++	synchronize_irq(dev->irq);
++}
++
+ static void populate_desc_list(struct vip_stream *stream)
+ {
+ 	struct vip_port *port = stream->port;
+@@ -2428,6 +2444,7 @@ static int vip_start_streaming(struct vb2_queue *vq, unsigned int count)
+ 		goto err;
+ 
+ 	stream->num_recovery = 0;
++	enable_work(&stream->recovery_work);
+ 
+ 	clear_irqs(dev, dev->slice_id, stream->list_num);
+ 	enable_irqs(dev, dev->slice_id, stream->list_num);
+@@ -2452,13 +2469,17 @@ static void vip_stop_streaming(struct vb2_queue *vq)
+ 	struct vip_dev *dev = port->dev;
+ 	int ret;
+ 
++	/*
++	 * A running recovery worker may re-enable the parser, so quiesce it
++	 * and its IRQ handler before stopping the parser or releasing the
++	 * descriptor list.
++	 */
++	vip_quiesce_stream(stream);
++
+ 	vip_parser_stop_imm(port, true);
+ 	vip_enable_parser(port, false);
+ 	unset_fmt_params(stream);
+ 
+-	disable_irqs(dev, dev->slice_id, stream->list_num);
+-	clear_irqs(dev, dev->slice_id, stream->list_num);
+-
+ 	if (port->subdev) {
+ 		ret = v4l2_subdev_call(port->subdev, video, s_stream, 0);
+ 		if (ret)
+@@ -3074,6 +3095,8 @@ static int alloc_stream(struct vip_port *port, int stream_id, int vfl_type)
+ 		goto do_free_hwlist;
+ 
+ 	INIT_WORK(&stream->recovery_work, vip_overflow_recovery_work);
++	/* Start disabled; vip_start_streaming() enables it before IRQs. */
++	disable_work(&stream->recovery_work);
+ 
+ 	INIT_LIST_HEAD(&stream->vidq);
+ 
+@@ -3139,6 +3162,13 @@ static void free_stream(struct vip_stream *stream)
+ 		return;
+ 
+ 	dev = stream->port->dev;
++	/*
++	 * Unpublish the stream and quiesce its IRQ handler and recovery worker
++	 * before releasing stream-owned resources.
++	 */
++	stream->port->cap_streams[stream->stream_id] = NULL;
++	vip_quiesce_stream(stream);
++
+ 	/* Free up the Drop queue */
+ 	list_for_each_safe(pos, q, &stream->dropq) {
+ 		buf = list_entry(pos,
+@@ -3150,7 +3180,6 @@ static void free_stream(struct vip_stream *stream)
+ 
+ 	video_unregister_device(stream->vfd);
+ 	vpdma_hwlist_release(dev->shared->vpdma, stream->list_num);
+-	stream->port->cap_streams[stream->stream_id] = NULL;
+ 	kfree(stream);
+ }
+ 
+diff --git a/drivers/media/platform/ti/vpe/vpdma.c b/drivers/media/platform/ti/vpe/vpdma.c
+index 573aa83f62eb..f9f5b2f1ee1a 100644
+--- a/drivers/media/platform/ti/vpe/vpdma.c
++++ b/drivers/media/platform/ti/vpe/vpdma.c
+@@ -988,7 +988,8 @@ void *vpdma_hwlist_release(struct vpdma_data *vpdma, int list_num)
+ 
+ 	spin_lock_irqsave(&vpdma->lock, flags);
+ 	vpdma->hwlist_used[list_num] = false;
+-	priv = vpdma->hwlist_priv;
++	priv = vpdma->hwlist_priv[list_num];
++	vpdma->hwlist_priv[list_num] = NULL;
+ 	spin_unlock_irqrestore(&vpdma->lock, flags);
+ 
+ 	return priv;
 -- 
-Regards,
+2.34.1
 
-Laurent Pinchart
