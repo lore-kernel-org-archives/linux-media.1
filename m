@@ -1,98 +1,41 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809B141A56F
-	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 11:33:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.237.72.81])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3A29F3D5C0B;
+	Thu, 16 Jul 2026 11:33:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.237.72.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784201586; cv=none; b=PKYOzGRGQ8B8EJtuukOtBZ7XMJF89LLCb7bKxr5WGeArTn9VWXagZgGOj2XzMnXeJPjvgp99DoH9IDdBycok+MVK51OVxt/5KJQFPi1yIhflOOs+LiqONJO4OyehI3cOav00et74ai9Pd9B7pI298pWvxgmPTWs0zPFq6xoqtMs=
+	t=1784201624; cv=none; b=B8JIcXVCNq0ZgFES5kFodOOBUxOzhmG0m95oV12Co6g8Jk0IoBLbBU3mhN+It8Sd7zZIeelxN6kJtEXLMKz8X5hG6uR+qsLso/Wol3U7gtZa4EMajsouQ09D03MPF6tqIAxCorzOorHXr9+3HD40IMHSMICjfCdnnU8cxva8uxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784201586; c=relaxed/simple;
-	bh=jYEQSNSXghcx7Fw1MtIrQtYBab21ddmsYwTyeN7ku40=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=W2f+9mZV4iCUcO9vCHICBAZwdtrhMQJ+Y/g7hHmE/UAyzubI3WKymXbkWVSkMhLNoD6ovkUvJTPPRe4CUs9xeLFZQCo7EYaxyjcSR99ZB+6SCeIJ+S5wrSVZ86xYf4oO1+BaynPHRYjuKnTfb2fXgjXVC+D/yXrdCvjd/oHO7W0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nIOEbz0x; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kNP3aqFk; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nIOEbz0x";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kNP3aqFk"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66G9sj192485130
-	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 11:33:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=WTRAy0sFKkt4K0c5tsI7r8dGzDm6tiowQmt
-	RyKw+h+s=; b=nIOEbz0x42ITX9HMEChRpQQdhLHg32UyJEKHCfy1gJSH5X9iIOa
-	g+neUaME8/v06rQnmfBdT+PSZTVaQ7tqGnRsncARLEUQTeKjQo3DadGlA/Dk5ENB
-	0hY/y8O9x5ZZJoVvrBc42gkNDKAZl+RPhXnKa3zEaUClGHOHat+7DUEPGksFhmaU
-	RFnhfr0Xitvkg9JP1gzDFIm0M7HnY1sDmFRZ45dytQAz+Gtj5if8DFiyR8bDmImg
-	Ew53E7EnBLoFI0JWLZNkMH2/mx4oNRsj45XPVGQwf6WjT54nnM4AGfl6an8XJEzs
-	4XzN0Ufr8QJEkfEwx8djBsIy3bYecxrVFKg==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4feeg1km2a-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 11:33:03 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c889d1eedcdso10171340a12.1
-        for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 04:33:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784201582; x=1784806382; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WTRAy0sFKkt4K0c5tsI7r8dGzDm6tiowQmtRyKw+h+s=;
-        b=kNP3aqFkBgZ9NH2crd3RgcWcqlnEPFLn0yGpROS4XJKEwj9sSe7cv1eQ9Raf1C2w1H
-         FAXjf9DdLgdT9qysTra5kV7/CeuhIJOLWDUwJ1rql2WxmAJJ4fhIHLxBu5UI2Ybhhq5+
-         1GaRBpFGbzccIApmYy78eRdWz5LnZJw6xzuCP4k80KPaY+3//6tupfVmvOdpEFl6McpV
-         TFI5YWScnosIai0a13XYd+wjhprzd28jxN5xE608qGhlRYGMmUl8c4x8UXKwDdD7vmzC
-         cKJ0FtvEmAY4NWhyU43RrEZL+/cwICiZFcSz4KZ8OnvtUwKkRe9OyDRfHUjCEmJ+lrTV
-         /65w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784201582; x=1784806382;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WTRAy0sFKkt4K0c5tsI7r8dGzDm6tiowQmtRyKw+h+s=;
-        b=rCiK/w1Z0P6QVnNwj89Z4IdfZ22SGCMEjOkBj2/2SzpMl1jeXz+TJYKnMfDxfAr6pq
-         mv2T/BYOA5oj3ZkDmBXQQWL4C8uZefjuSqk1S8ygZRS8QFOjYhbrbiHrG7geauLly3Z5
-         bG5MZIYUuTn40qEboVyyPPPCe+XuDVEVitUp8WyJAM38os2VRZGY/p7gIXA1vrbLwH1D
-         2ZZKHqBQngt6lacYqhxo5cRv6861GTKMtZv5vdYPJdRFUYG6hRS0HVk4p26znefEA9Pb
-         KXbAwL+19N7x+Z8VRlmMmtFuqiDK6UFoBJ8jOJ7WuUZKGlvE9c4sPTn3Y7Kko1NzQ2ef
-         R7Aw==
-X-Forwarded-Encrypted: i=1; AHgh+RqXwbmfP92Nxofg4hFoReK/YdpSVNbxuggqg9vtkbukIlkFAtlmGTeZPTqLqHcE+WW5NQ3FTT7cRr+vhQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw2R5G7/ocNqKTEGeHPV7i/mzBGGgmiR5AnJCuICobCc5HGoM++
-	AJ+bMBlOW2av0yj4lgXE4U7MbL5RKOpZoe1oLrAtuJdnRW5bKZRfY1kgTP55aZuxDe+j/Ex9f8g
-	0Uky2vHvZnKmtnIpKZ6xD6PezjcTMgMNz1k5XR8QHykp85QRwZuExCedkhYV7HgD9Vg==
-X-Gm-Gg: AfdE7cmFa6SzrFbarnPVAxxRk76HdtXm9bs9b6xqYwuGJ4NOI2j6n44SO5vXSPiNgFd
-	TemsHDxn6QM6HSFGRioP0B5OYrtxyGR6dZx08+biaFng/spYCSSL+AaQkXVqzgJUsnF0kSfDmrN
-	GVnxFz26OMBSrkiCM7G7JAklqH6KWyW03xR6LuRiXOWX2XcCUo/c5LwPqQ17euyeO/CbDU0kNiw
-	UuMVNlA/4mQdd8OolzG4oxTK4BygWaf4j8ifX9HNiymcolilWpdklGEtuDFPFxHzvB+uDN5vHjo
-	Zeb+T0POxWy0Zb+IflrLOcp27G7h1tSGyWSQzevnXdcyuRe/U4h/Px/wnlD2nV2I1/6SrP0aBou
-	iXE6HEX4PT0VZcWM1xAQzbBvyZBMqDxY1/OYif8L1B3GAUphAwPQxhg6Re1e8mW9/8Jxq5bq08w
-	==
-X-Received: by 2002:a05:6a00:4c8f:b0:848:4d4f:d477 with SMTP id d2e1a72fcca58-84a51442133mr11053316b3a.18.1784201582141;
-        Thu, 16 Jul 2026 04:33:02 -0700 (PDT)
-X-Received: by 2002:a05:6a00:4c8f:b0:848:4d4f:d477 with SMTP id d2e1a72fcca58-84a51442133mr11053277b3a.18.1784201581521;
-        Thu, 16 Jul 2026 04:33:01 -0700 (PDT)
-Received: from QCOM-SocCW5bzXR.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84a4ff2ea4csm4624667b3a.23.2026.07.16.04.32.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 04:33:01 -0700 (PDT)
-From: Jianping Li <jianping.li@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Jianping Li <jianping.li@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-        Ling Xu <quic_lxu5@quicinc.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org, quic_chennak@quicinc.com,
-        stable@kernel.org
-Subject: [PATCH v2] misc: fastrpc: avoid duplicate DMA mappings in fastrpc_create_maps()
-Date: Thu, 16 Jul 2026 19:32:54 +0800
-Message-Id: <20260716113254.570-1-jianping.li@oss.qualcomm.com>
+	s=arc-20240116; t=1784201624; c=relaxed/simple;
+	bh=6fr47kLJuvDzx9THgVPea8JKczKVtXdRPptJqq93sIM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=CrGTah/3CQ8HX4vQ99lg087HtpuegqnIDHVaIS7anquT7tJTqVRKXRfaNglbydFL+JkQ91oU4xoszU4GjdAOzsS5m3OY80jv5l+dWu/svD91gPzI2i26WD17zNkzZKphRvn0P/l1BwBNTCAmk4jv06KKxrKf0JVZp/nVqq3woyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.237.72.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDnYfyGwVhqvDJfAA--.24087S3;
+	Thu, 16 Jul 2026 19:33:27 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgDXadCFwVhqsW3wAg--.63253S2;
+	Thu, 16 Jul 2026 19:33:25 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: mchehab@kernel.org,
+	hverkuil+cisco@kernel.org
+Cc: y-abhilashchandra@ti.com,
+	bparrot@ti.com,
+	dale@farnsworth.org,
+	dagriego@biglakesoftware.com,
+	sbellary@baylibre.com,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v4] media: ti: vpe: quiesce overflow recovery before freeing streams
+Date: Thu, 16 Jul 2026 11:32:30 +0000
+Message-Id: <20260716113230.3131086-1-fanwu01@zju.edu.cn>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <801025b7-a3b8-4655-af49-f9bb65254170@kernel.org>
+References: <801025b7-a3b8-4655-af49-f9bb65254170@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -100,229 +43,188 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE2MDExOCBTYWx0ZWRfXzLCrmr9MSJsL
- 2ckVZahiVqenhslNA7f/NQa4dkVHtNXnBkV6xWoCaMBusBUJAfihpzvW3NH44eIj9NO9k6nxLBX
- tqC0zPxB05r/ZjaLdyuA+zjuvOPnEIKMH7W4mn8lT7THZg5y0gRcjldiaxSawoBjCU99vL/tLZb
- MO1Za5lYdfoYjwRp7ETcaIyYKEFygZiUlPq8sc3zo437+mUjfGSb16Xo1Gevi90gS+TlfdsKXUS
- uIAJWBOl7y6CLwQ8VXPovPl36b/GUaMYAv8B8e3YVbF5nZ6/T0WtDEXKthQW5eHCmC8UECoTWhO
- tEWaHZ6DDmb+yKXPOCm6BGSWhUWN9J0OFVzA05mdlUO1/JYrJ61k+khvK1qNUMPYY4tBdwogzR6
- m5/RM6ed4+c4lo7lybwIupM1029NxZKU8BxbUULt7Plnk/9gO2iW++q861OehjQjgCUjUERFYeE
- yzX+NFOdeq4zWsXNl/A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE2MDExOCBTYWx0ZWRfXx4cvbg1emjfv
- YE17DDFw8niR8eq7+fj9fmaCYUBkib69ijRumz8zdv5RXM07bbPiPUXc3jUNKu7O8SsqKG8g9fd
- hl3Nam3WTN3PAW9izniDgH1e880ZSXc=
-X-Proofpoint-GUID: _8Ygh5g9ij7GVGXUm2Ki9_eK-3OLqBxh
-X-Proofpoint-ORIG-GUID: _8Ygh5g9ij7GVGXUm2Ki9_eK-3OLqBxh
-X-Authority-Analysis: v=2.4 cv=SsOgLvO0 c=1 sm=1 tr=0 ts=6a58c16f cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=jcsToSEUEPbHcpESBJIA:9 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-16_04,2026-07-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 suspectscore=0 priorityscore=1501 bulkscore=0
- malwarescore=0 spamscore=0 impostorscore=0 adultscore=0 clxscore=1011
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607160118
+X-CM-TRANSID:zC_KCgDXadCFwVhqsW3wAg--.63253S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?vBJ5GAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI0xPAQCwWO2pVhAwqD+sIzxQW78zoMDftY1wSw0eA+KHkhq
+	coeV5GNxBiZVRkxxB8fN5RPxYw6l01w8CbPzC/8w
+X-Coremail-Antispam: 1Uk129KBj93XoW3Ary8Jw4kuF4kWF1DKFWxGrX_yoWxuFW5pF
+	Z5t34FkrZ7XF40vF4UAw13tFy5CrWvv3yjyry8u343Aw45tryYvF1xKF10vF97Gryvva42
+	yrs8J3y7ur45JrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
+	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-DMA handles passed as invoke arguments (scalars beyond nbufs) may refer
-to the same dma_buf fd as an input/output buffer argument. Taking an
-extra reference for such DMA handle maps leads to duplicate mappings and
-an unbalanced reference count, since DMA handle maps are released
-separately when the DSP returns the fd through the fdlist.
+The VIP overflow recovery worker is armed from the hardirq handler when a
+FIFO overflow is detected, and the list-complete path looks the stream up
+through the VPDMA list private pointer. Both keep touching stream, port
+and device state; the recovery worker also resets the parser and VPDMA,
+repopulates the descriptor list, and re-enables the per-list IRQs.
 
-Fix this by not taking an extra reference for DMA handle arguments
-(take_ref = false) and tagging them with FASTRPC_MAP_DMA_HANDLE. As
-these maps are borrowed references, fastrpc_get_args() re-validates the
-map via fastrpc_map_lookup() before dereferencing it, so it is not used
-after being freed. fastrpc_put_args() only releases maps flagged as
-FASTRPC_MAP_DMA_HANDLE and clears the flag to guarantee the map is freed
-exactly once.
+vip_stop_streaming() masks and clears the per-list IRQs, but it neither
+synchronizes the hardirq handler nor disables recovery_work. An overflow
+IRQ that has already queued recovery_work, or a list-complete IRQ in
+flight when the stream is torn down, can therefore still dereference the
+stream after its resources are released: the descriptor list is freed by
+vip_release_stream() on file release, and the stream itself by
+free_stream() on unbind/remove.
 
-Also reject FASTRPC_MAP_DMA_HANDLE in fastrpc_req_mem_map(), since such
-handles are already mapped implicitly during the remote invoke call and
-must not be mapped again through the explicit MEM_MAP path.
+Drain the recovery worker and the IRQ handler at both teardown points
+through a shared vip_quiesce_stream() helper, before any stream-owned
+resource is released. disable_work_sync() cancels pending recovery_work,
+drains a running instance, and raises its disable depth, so a subsequent
+schedule_work() issued by a racing IRQ handler is rejected at the
+workqueue scheduler: recovery_work cannot be requeued after
+disable_work_sync() takes effect. The worker may still re-enable the
+per-list IRQs before disable_work_sync() returns; disable_irqs() then
+masks those sources and synchronize_irq() waits for any in-flight handler
+that still dereferences stream state. In vip_stop_streaming() the helper
+runs before the parser is stopped, since a worker drained by
+disable_work_sync() may re-enable the parser before exiting and would
+otherwise undo the stop. recovery_work is created disabled and enabled in
+vip_start_streaming() before IRQs, pairing the enable with the teardown
+disable across the streaming lifecycle.
 
-Fixes: 10df039834f84 ("misc: fastrpc: Skip reference for DMA handles")
-Cc: stable@kernel.org
-Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+This issue was found by an in-house static analysis tool and confirmed
+by manual code review.
+
+Fixes: fc2873aa4a21 ("media: ti: vpe: Add the VIP driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
-Patch [v1]: https://lore.kernel.org/all/20260625080832.17477-1-jianping.li@oss.qualcomm.com/
+Changes in v4:
+- Drop the unrelated vpdma_hwlist_release() cleanup from this fix (Hans
+  Verkuil).
+- In free_stream(), call vip_quiesce_stream() before clearing
+  cap_streams[], so the stream remains published while in-flight IRQ
+  handling is drained (Hans Verkuil).
+
+Changes in v3:
+- Replace the per-stream irq_rearm_allowed flag and the repeated IRQ
+  disable/synchronize_irq() in vip_quiesce_stream() with the workqueue
+  disable-depth API (disable_work_sync/enable_work/disable_work), as
+  suggested by Yemike Abhilash Chandra. This also closes a window the v2
+  double-drain left open, where its second synchronize_irq() waited for
+  the in-flight handler but did not cancel the recovery_work it had
+  requeued, so that work could run after free.
+- Create recovery_work disabled and enable it in vip_start_streaming()
+  before IRQs.
+- In vip_stop_streaming(), quiesce before stopping the parser: a worker
+  drained by disable_work_sync() may re-enable the parser before exiting,
+  so stopping the parser first would be undone.
 
 Changes in v2:
-- Rework the commit message to describe the DMA handle reference and
-  lifetime problem more precisely.
-- Introduce a new FASTRPC_MAP_DMA_HANDLE uapi flag and a 'flags' field
-  in struct fastrpc_map to explicitly tag DMA handle maps, instead of
-  relying only on the nbufs boundary / take_ref.
-- Plumb an mflags argument through fastrpc_map_create() and
-  fastrpc_map_attach() so DMA handle maps are tagged at creation time.
-- Re-validate the borrowed map in fastrpc_get_args() via
-  fastrpc_map_lookup() before dereferencing it, to avoid a
-  use-after-free when the map was created with take_ref = false.
-- In fastrpc_put_args(), only release maps tagged FASTRPC_MAP_DMA_HANDLE
-  and clear the flag afterwards, so such maps are freed exactly once.
-- Reject FASTRPC_MAP_DMA_HANDLE in fastrpc_req_mem_map(), since these
-  handles are already mapped implicitly during the remote invoke and
-  must not be mapped again through the explicit MEM_MAP path.
----
- drivers/misc/fastrpc.c      | 56 ++++++++++++++++++++++++++-----------
- include/uapi/misc/fastrpc.h |  2 ++
- 2 files changed, 42 insertions(+), 16 deletions(-)
+- Drain the overflow recovery worker at both teardown points through a
+  shared vip_quiesce_stream() helper: vip_stop_streaming() (file release
+  path) and free_stream() (unbind/remove). v1 drained only in
+  free_stream().
+- Document how the issue was found and that the patch was prepared with
+  LLM assistance (Assisted-by trailer and body note).
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index d86e79134c68..fa8c58a97e35 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -223,6 +223,7 @@ struct fastrpc_map {
- 	u64 len;
- 	u64 raddr;
- 	u32 attr;
-+	u32 flags;
- 	struct kref refcount;
- };
- 
-@@ -833,7 +834,7 @@ static dma_addr_t fastrpc_compute_dma_addr(struct fastrpc_user *fl, dma_addr_t s
+Link: https://lore.kernel.org/r/20260708013738.110752-1-fanwu01@zju.edu.cn/
+---
+ drivers/media/platform/ti/vpe/vip.c | 37 +++++++++++++++++++++++++----
+ 1 file changed, 33 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/platform/ti/vpe/vip.c b/drivers/media/platform/ti/vpe/vip.c
+index cb0a5a07a3d4..673f9addfade 100644
+--- a/drivers/media/platform/ti/vpe/vip.c
++++ b/drivers/media/platform/ti/vpe/vip.c
+@@ -814,6 +814,22 @@ static void clear_irqs(struct vip_dev *dev, int irq_num, int list_num)
+ 	vpdma_clear_list_stat(dev->shared->vpdma, irq_num, dev->slice_id);
  }
  
- static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
--			      u64 len, u32 attr, struct fastrpc_map **ppmap)
-+			      u64 len, u32 attr, struct fastrpc_map **ppmap, int mflags)
- {
- 	struct fastrpc_session_ctx *sess = fl->sctx;
- 	struct fastrpc_map *map = NULL;
-@@ -850,6 +851,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
- 
- 	map->fl = fl;
- 	map->fd = fd;
-+	map->flags = mflags;
- 	map->buf = dma_buf_get(fd);
- 	if (IS_ERR(map->buf)) {
- 		err = PTR_ERR(map->buf);
-@@ -924,13 +926,13 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
- 	return err;
- }
- 
--static int fastrpc_map_create(struct fastrpc_user *fl, int fd,
--			      u64 len, u32 attr, struct fastrpc_map **ppmap)
-+static int fastrpc_map_create(struct fastrpc_user *fl, int fd, u64 len, u32 attr,
-+			      struct fastrpc_map **ppmap, bool take_ref, int mflags)
- {
--	if (!fastrpc_map_lookup(fl, fd, ppmap, true))
-+	if (!fastrpc_map_lookup(fl, fd, ppmap, take_ref))
- 		return 0;
- 
--	return fastrpc_map_attach(fl, fd, len, attr, ppmap);
-+	return fastrpc_map_attach(fl, fd, len, attr, ppmap, mflags);
- }
- 
- /*
-@@ -1000,23 +1002,25 @@ static int fastrpc_create_maps(struct fastrpc_invoke_ctx *ctx)
- 	int i, err;
- 
- 	for (i = 0; i < ctx->nscalars; ++i) {
-+		bool take_ref = i < ctx->nbufs;
-+		int mflags = 0;
- 
- 		if (ctx->args[i].fd == 0 || ctx->args[i].fd == -1 ||
- 		    ctx->args[i].length == 0)
- 			continue;
- 
--		if (i < ctx->nbufs)
--			err = fastrpc_map_create(ctx->fl, ctx->args[i].fd,
--				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
--		else
--			err = fastrpc_map_attach(ctx->fl, ctx->args[i].fd,
--				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
-+		/* Set the DMA handle mapping flag for DMA handles */
-+		if (i >= ctx->nbufs)
-+			mflags = FASTRPC_MAP_DMA_HANDLE;
++/*
++ * Quiesce recovery work and per-list IRQs before releasing stream resources.
++ * disable_work_sync() prevents the overflow handler from requeueing recovery
++ * work. Mask and synchronize IRQs afterwards because a running worker may
++ * have re-enabled them before exiting.
++ */
++static void vip_quiesce_stream(struct vip_stream *stream)
++{
++	struct vip_dev *dev = stream->port->dev;
 +
-+		err = fastrpc_map_create(ctx->fl, ctx->args[i].fd, ctx->args[i].length,
-+					 ctx->args[i].attr, &ctx->maps[i], take_ref, mflags);
- 		if (err) {
- 			dev_err(dev, "Error Creating map %d\n", err);
- 			return -EINVAL;
- 		}
--
- 	}
++	disable_work_sync(&stream->recovery_work);
++	disable_irqs(dev, dev->slice_id, stream->list_num);
++	clear_irqs(dev, dev->slice_id, stream->list_num);
++	synchronize_irq(dev->irq);
++}
 +
- 	return 0;
- }
+ static void populate_desc_list(struct vip_stream *stream)
+ {
+ 	struct vip_port *port = stream->port;
+@@ -2428,6 +2444,7 @@ static int vip_start_streaming(struct vb2_queue *vq, unsigned int count)
+ 		goto err;
  
-@@ -1144,6 +1148,16 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
- 		list[i].num = ctx->args[i].length ? 1 : 0;
- 		list[i].pgidx = i;
- 		if (ctx->maps[i]) {
-+			/* It is possible that map is created with
-+			 * mflags FASTRPC_MAP_DMA_HANDLE and take_ref
-+			 * is false. Check if map still exists or is
-+			 * being freed as take_ref is false
-+			 */
-+			if (fastrpc_map_lookup(ctx->fl, ctx->args[i].fd,
-+					       &ctx->maps[i], false)) {
-+				ctx->maps[i] = NULL;
-+				return -EINVAL;
-+			}
- 			pages[i].addr = ctx->maps[i]->dma_addr;
- 			pages[i].size = ctx->maps[i]->size;
- 		}
-@@ -1200,8 +1214,13 @@ static int fastrpc_put_args(struct fastrpc_invoke_ctx *ctx,
- 	for (i = 0; i < FASTRPC_MAX_FDLIST; i++) {
- 		if (!fdlist[i])
- 			break;
--		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false))
-+		/* Validate the map flags for DMA handles and skip freeing map if invalid */
-+		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false) &&
-+		    mmap->flags == FASTRPC_MAP_DMA_HANDLE) {
-+			/* Allow DMA handle maps to free only once */
-+			mmap->flags = 0;
- 			fastrpc_map_put(mmap);
-+		}
- 	}
+ 	stream->num_recovery = 0;
++	enable_work(&stream->recovery_work);
  
- 	return ret;
-@@ -1511,7 +1530,7 @@ static int fastrpc_init_create_process(struct fastrpc_user *fl,
- 	fl->pd = USER_PD;
+ 	clear_irqs(dev, dev->slice_id, stream->list_num);
+ 	enable_irqs(dev, dev->slice_id, stream->list_num);
+@@ -2452,13 +2469,17 @@ static void vip_stop_streaming(struct vb2_queue *vq)
+ 	struct vip_dev *dev = port->dev;
+ 	int ret;
  
- 	if (init.filelen && init.filefd) {
--		err = fastrpc_map_create(fl, init.filefd, init.filelen, 0, &map);
-+		err = fastrpc_map_create(fl, init.filefd, init.filelen, 0, &map, true, 0);
- 		if (err)
- 			goto err;
- 	}
-@@ -2107,9 +2126,14 @@ static int fastrpc_req_mem_map(struct fastrpc_user *fl, char __user *argp)
- 
- 	if (copy_from_user(&req, argp, sizeof(req)))
- 		return -EFAULT;
--
 +	/*
-+	 * Prevent mapping backward compatible DMA handles here, as they are
-+	 * already mapped in the remote call.
++	 * A running recovery worker may re-enable the parser, so quiesce it
++	 * and its IRQ handler before stopping the parser or releasing the
++	 * descriptor list.
 +	 */
-+	if (req.flags == FASTRPC_MAP_DMA_HANDLE)
-+		return -EINVAL;
- 	/* create SMMU mapping */
--	err = fastrpc_map_create(fl, req.fd, req.length, 0, &map);
-+	err = fastrpc_map_create(fl, req.fd, req.length, 0, &map, true, 0);
- 	if (err) {
- 		dev_err(dev, "failed to map buffer, fd = %d\n", req.fd);
- 		return err;
-diff --git a/include/uapi/misc/fastrpc.h b/include/uapi/misc/fastrpc.h
-index c6e2925f47e6..142ddaeed85f 100644
---- a/include/uapi/misc/fastrpc.h
-+++ b/include/uapi/misc/fastrpc.h
-@@ -44,6 +44,8 @@ enum fastrpc_map_flags {
- 	FASTRPC_MAP_FD = 2,
- 	FASTRPC_MAP_FD_DELAYED,
- 	FASTRPC_MAP_FD_NOMAP = 16,
-+	/* Map the DMA handle in the invoke call for backward compatibility */
-+	FASTRPC_MAP_DMA_HANDLE = 0x20000,
- 	FASTRPC_MAP_MAX,
- };
++	vip_quiesce_stream(stream);
++
+ 	vip_parser_stop_imm(port, true);
+ 	vip_enable_parser(port, false);
+ 	unset_fmt_params(stream);
+ 
+-	disable_irqs(dev, dev->slice_id, stream->list_num);
+-	clear_irqs(dev, dev->slice_id, stream->list_num);
+-
+ 	if (port->subdev) {
+ 		ret = v4l2_subdev_call(port->subdev, video, s_stream, 0);
+ 		if (ret)
+@@ -3074,6 +3095,8 @@ static int alloc_stream(struct vip_port *port, int stream_id, int vfl_type)
+ 		goto do_free_hwlist;
+ 
+ 	INIT_WORK(&stream->recovery_work, vip_overflow_recovery_work);
++	/* Start disabled; vip_start_streaming() enables it before IRQs. */
++	disable_work(&stream->recovery_work);
+ 
+ 	INIT_LIST_HEAD(&stream->vidq);
+ 
+@@ -3139,6 +3162,13 @@ static void free_stream(struct vip_stream *stream)
+ 		return;
+ 
+ 	dev = stream->port->dev;
++	/*
++	 * Quiesce the IRQ handler and recovery worker, then drop the stream
++	 * from cap_streams[], before releasing stream-owned resources.
++	 */
++	vip_quiesce_stream(stream);
++	stream->port->cap_streams[stream->stream_id] = NULL;
++
+ 	/* Free up the Drop queue */
+ 	list_for_each_safe(pos, q, &stream->dropq) {
+ 		buf = list_entry(pos,
+@@ -3150,7 +3180,6 @@ static void free_stream(struct vip_stream *stream)
+ 
+ 	video_unregister_device(stream->vfd);
+ 	vpdma_hwlist_release(dev->shared->vpdma, stream->list_num);
+-	stream->port->cap_streams[stream->stream_id] = NULL;
+ 	kfree(stream);
+ }
  
 -- 
-2.43.0
+2.34.1
 
