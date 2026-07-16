@@ -1,160 +1,156 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1E33D5679
-	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 09:42:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
+Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A71DC3FF1BC;
+	Thu, 16 Jul 2026 10:16:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.21.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784194947; cv=none; b=I+anTCxXbdHnIseo8QFN5vLUze+P6Bp+IAqqSTZuiKD/gmwpLzKvWtQ7QbkWfB1tdWiplAx6jujjlAb0B0ofwzw7g0NXYvLCTtX9WuxdU8Rmjg7BjG434GA8D2JJbg0Ltb5SeXWJaO3sHTmNc3VpO62AOIFJkOnXRGCzF4DzzWQ=
+	t=1784197024; cv=none; b=lRhYEJP9GqCsEiBhplPbI3IHWRM3l90To4BQPsL4QqE7miuPqV/ogJHiklv34G2prT4UTPFaKyeS+jD7QsTZ5Jg29dtvs8Vkek3x/gAH3ZsEnW3FsYrRX8G+82aKu0UV2g5mzA9YeB9I81NfNA9KzccDbmvbcnlk4la7blDPDhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784194947; c=relaxed/simple;
-	bh=39XAndTQmo1NBabNFph+WMyYTOzWodq39/QO5d975ec=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Kp0BXtMEZscxkvWY5iUXncm4VRv+dDncm8qS0FysEa1lodSTBgSUMcT7GTl6q7Y7Dyxe2TQH+s2TFWYH6BW7bEezUwlhfpYT3uN7YHo+ad/iG5qHqJzW1Mk5cwJgmLvwWW+hCU93wtOYgHJM7GlNdNvIGXshoNxCV/+1ZPVkGRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wVnzoGim; arc=none smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wVnzoGim"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-69c1220bd51so5520403a12.3
-        for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 02:42:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784194943; x=1784799743; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rWQ9oJo6FYvzxfcIJtWdNxYH0ur72y3xrCIEL4tMOu8=;
-        b=wVnzoGimyIuFYJpQ+bs41iY0dB9gOxUSZbBh97G0xWGZpgKyYvQy3vWv2r+gnFwudb
-         VM1UPrkQYTKCGp5f/2lLd/gHL8ZVziQ3lDhMwpxTsIHV4B32B5Sr8IBzFx5epym+4GcL
-         7oStHBLNWPcILe1NpsOOkwjY/MWIg0oHi+iqbRijHn5eB8RRzJVSRUbXBkkBKcuujNv6
-         uMhyBwnb6/thgYFaZVYvWq/6tf5lAZihrZEBxtHevBst2+CuwUpqdi6oChAfVCbmHC9c
-         COb741tB3SW2JEhuQSc3jTT08b7MXIIl1lC9QRVZZGd9jRXZLsPa2YRMpmJaZIZBPGd0
-         gzrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784194943; x=1784799743;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rWQ9oJo6FYvzxfcIJtWdNxYH0ur72y3xrCIEL4tMOu8=;
-        b=qaHLy4fPL9TDKPdP/35vMHX5Gcxtd8nPnj6sa1r/ItW3OOxOWFZHps2aHlXie3bE7L
-         l2o//Rqx/dssEXQSMBjvzWZu/fueufOMBiJx9i6yNRyZPa5trzy6xAhPBrg6ZvcS9tNr
-         21+OmJFW/bTZ7PM3E56v7OQYN7Zo9EUzvAIafz50MNaur9rUf485kZ67ar30rgVtY3sb
-         OFWfAJUAipko3QYT+plqg912JHk3CFzLNTD5cWIycU5a3Rv+yCYYs6ieyXcqBJZfpMBk
-         IPdgpB0VkLUOl6NsmiEnPuKg+bLXFt2tHxJif1cNIPi22/UVK1E7oc7j+Uvk0mc5XzTw
-         6Xsw==
-X-Forwarded-Encrypted: i=1; AHgh+RrpGJjlBy0yeIRP38G9gAgsvjpaTS3qgAywRf3r4suwplSjIUwBeYTvsbUO+yS6cIyutFY448U3+mpHNg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzRwI9bcwg8s1uOr2ylUSeQlJ/MtXg2/J3BYOG7jIk1BgurTCZh
-	gkWFRHA3pIVlKk0WP8S5P+jdvuS7HNkreQMKWpXLNyo1ucjrwKMjnSpKLp7mnlmp1pg=
-X-Gm-Gg: AfdE7cnJYr7b1domFzhuRn4yglAUtkWpV9kfEyVackHZlEW2jQUDdgzLhcp+B/Xq488
-	CmzyJUQynGdao59jEN1+iMCrldgwYM8hDK9QU34Jf4KUEuLQ4E6UvzIrHtHhaqboW2aD29TSJjo
-	XEbj988lTwxDe4S6KturWKCl/YKBuXq9+nvlU9HOuF7D44pD9UCcV+L76g1yHgs3WhgOTD03Rq7
-	WZeAYWT0rxqfy75ogjOAKjb8HfpCcMjpIcyszXATu74hLT7mKx1gzhjwxhTSwUMMVyzZ86LEWXR
-	t+t2xNtJfxDjtJBvygP9DMCxw31Vj3ds7Z71LHhoxtJ8uGiaFn4vGvFI3ai9yjf7/+/mXTdF9dw
-	lPwEdSq60lSRvg+AZuqAZl9sWvo4d6A7/i2pdDicXBZ5rLK51g3ZWnGz2HUe9NI0lxi9mi6QVLr
-	B+T9ZJhq+xH5O9xnJmgd+NUpQ=
-X-Received: by 2002:a05:6402:51cb:b0:699:39c5:204b with SMTP id 4fb4d7f45d1cf-69c5f0be27dmr11018264a12.18.1784194942921;
-        Thu, 16 Jul 2026 02:42:22 -0700 (PDT)
-Received: from [192.168.0.35] ([109.77.36.131])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69cd294fb1asm4400218a12.26.2026.07.16.02.42.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 16 Jul 2026 02:42:22 -0700 (PDT)
-Message-ID: <c731b03e-b550-48af-b338-37ac53018247@linaro.org>
-Date: Thu, 16 Jul 2026 10:42:20 +0100
+	s=arc-20240116; t=1784197024; c=relaxed/simple;
+	bh=N0S9er2LGR8GbaReji/9Gp961ULE7zW/LAoxiRd+OVM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=sc5qkZhd6DnyM+UjPfGZIcdQIgzQe9W9nBHskvJJ0/2LEO2p2fNmqQ7cePo2XJqNBvqGUzEk2SYO+16ue0T5wGiDxc4i4Pla/dOpHiexAPyi1sXN+6qZy34YRibh5zPsCmXHa3dIEIdnMHF2S8Ulj71gtU8N40NHiUAX06M40NQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.21.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wB3F8SHr1hqgcdeAA--.12602S3;
+	Thu, 16 Jul 2026 18:16:40 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with SMTP id zS_KCgCHcneHr1hqM+o5Aw--.20469S2;
+	Thu, 16 Jul 2026 18:16:39 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: kwliu@nuvoton.com,
+	kflin@nuvoton.com
+Cc: hverkuil@kernel.org,
+	mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH v2] media: nuvoton: npcm-video: quiesce VCD IRQ before teardown
+Date: Thu, 16 Jul 2026 10:15:39 +0000
+Message-Id: <20260716101539.3129478-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <04a332fc-2025-4a74-ae4d-1d8f30fe20bf@kernel.org>
+References: <04a332fc-2025-4a74-ae4d-1d8f30fe20bf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260708-x1e-csi2-phy-v9-0-0210b90c04cf@linaro.org>
- <20260708-x1e-csi2-phy-v9-1-0210b90c04cf@linaro.org>
- <YSunV_lNJ8xW_y-Aa2psZavniF6mcHJlJipuj1RYWMB8Zb8yLC-gb7eEnk0XMjfwQOneMGsZM5foFKutCNhYqw==@protonmail.internalid>
- <b7baffda-b97c-4b83-8d9e-e381d0289682@linaro.org>
- <3ab676ac-919b-4a80-8dd6-71dd7f6fe06c@kernel.org>
- <-iN0mG5nS2joxEn49UrxFlORE3R6Ji3HRebfOMNMGnupMIobTBdRDvnwjRHAXHeLmGf6O4JJENVauduwZXwhiA==@protonmail.internalid>
- <b834e9a0-a61c-4912-b57c-36d571938b75@linaro.org>
- <4d7a0e59-7c34-4557-a475-8cd7fd2ad2d9@kernel.org>
- <CAFEp6-2J0WGF6g0K7s--PxciO+d9MR-SCVnrWJ3u=sgQNwA59A@mail.gmail.com>
-Content-Language: en-US
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <CAFEp6-2J0WGF6g0K7s--PxciO+d9MR-SCVnrWJ3u=sgQNwA59A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgCHcneHr1hqM+o5Aw--.20469S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?sWMI7AXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WN26x6ymw/Gzm2rA1oErI67BnJnJgK4NPimhNDjoe6B4OQI
+	PUV2ixKyJRdXsuy+OHTN5RPxYw6l01w8CbPzC/8w
+X-Coremail-Antispam: 1Uk129KBj93XoWxAF18Jw15KFykZr17KFWxGrX_yoW5tw4kpF
+	W8Ga4SkrWftF1I93ZrJw4UZFy3Xr4xKw4FyFyjk34fA3s8JryFqF109Fy8tFWrArykWasr
+	taySvwsruFWYqacCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-On 16/07/2026 09:56, Loic Poulain wrote:
-> On Mon, Jul 13, 2026 at 1:18 AM Bryan O'Donoghue <bod@kernel.org> wrote:
->>
->> On 09/07/2026 08:40, Vladimir Zapolskiy wrote:
->>>> As explained in the cover letter: I'm following guidance from Rob on that.
->>> Pehaps you've misread a given review comment, because Rob's guidance is
->>> to remove 'phy-type' property,
->>
->> I'll just quote verbatim "Perhaps putting this in phy cells would be
->> better because the consumer decides on the mode."
->>
->> That is not "remove phy-type" - it's "move the mode into the cell". I'm
->> shifting this back to the DT schema maintainers since, I take their
->> feedback literally, seriously and canonically.
->>
->> Any of the triumvirate will do, Rob, Krzysztof or Conor.
->>
->> Absent a different answer from the DT schema guys, v10 ships with the
->> consumer deciding the mode as per Rob's original guidance.
-> 
-> On the #phy-cells question, IMO we should drop #phy-cells to 0 and
-> derive the C-PHY/D-PHY mode from the endpoint bus-type. The operating
-> mode is really a configuration of the link rather than a hardware
-> description/limitation of the PHY block itself,and the sensor endpoint
-> is conventionally where the bus type originates. I guess this costs us
-> nothing on the driver side today, we only support D-PHY, so the
-> mode-check just moves into the endpoint parsing we already do in
-> phy_qcom_mipi_csi2_parse_routing(). It can be a minimal
-> fwnode_property_read_u32(ep, "bus-type", ...) sanity check and adding
-> C-PHY later is then a one-line case MEDIA_BUS_TYPE_CSI2_CPHY
-> with no DT ABI change.
+The VCD IRQ is devm-requested, but npcm_video_remove() frees the video
+object before devres releases that IRQ.  The threaded handler dereferences
+video->vcd_regmap before checking VIDEO_STREAMING, so an interrupt in that
+interval can access freed memory.
 
-So I take your point on link-type - in theory you can select the mode 
-from the sensor @ config time. The established practice is that the 
-consumer decides the PHY mode, so if we wanted to make this a _runtime_ 
-configuration - then that should be information that is passed to the 
-PHY via configure() not via DT because we've said its a link-mode 
-abstracted from the DT entirely.
+Request the IRQ with IRQF_NO_AUTOEN.  Enable it after starting capture and
+setting VIDEO_STREAMING, and disable it first in stop_streaming().
+disable_irq() waits for an in-flight threaded handler to finish, after
+which stop_streaming() can mask and reset the VCD without a handler
+re-enabling it.
 
-In the extreme case I have a user-space utility selecting sensor mode, 
-which the CSI controller parses and then signals the PHY to switch modes.
+Use vb2_video_unregister_device() during remove.  It releases the vb2
+queue and calls stop_streaming() for an active stream, ensuring that the
+IRQ is disabled before the video object is freed.  Do not release the queue
+separately.
 
-If its a run-time config, then its a run-time config and DT should be 
-excluded from the mode selection tree.
+If streaming is never started, IRQF_NO_AUTOEN keeps the IRQ disabled
+until devres releases it.
 
-I'm in fact willing to entertain this idea - but it will require passing 
-the PHY mode to configure() not consuming - DT data from the endpoint.
+This issue was found by an in-house static analysis tool.
 
-My core point here is both acknowleding Rob's point the consumer decides 
-the mode - and _if_ we go the runtime configuration route, then actually 
-making the selection @ configure not at probe/dt parse time.
+Fixes: 46c15a4ff1f4 ("media: nuvoton: Add driver for NPCM video capture and encoding engine")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+Changes since v1:
+- Follow Hans Verkuil's suggestion to tie IRQ enablement to the streaming
+  lifecycle (IRQF_NO_AUTOEN + enable_irq/disable_irq) and to use
+  vb2_video_unregister_device() for teardown.
 
-I just wonder if there's any real upside to all that additional work and 
-delay/churn.
+Compile-tested only; I do not have NPCM hardware, so runtime testing by
+the Nuvoton maintainers would be appreciated.
+---
+ drivers/media/platform/nuvoton/npcm-video.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-> On data-lanes numbering, I don't have a strong opinion here. Keeping
-> the current 0-based values is defensible, in this driver the value is
-> used as a physical lane index and it selects the per-lane register
-> bank (0x200 * n), so 0 maps to physical LN0. In that sense 0-based is
-> a faithful representation of the physical lane position on the SoC.
-> 
-> Regards,
-> Loic
+diff --git a/drivers/media/platform/nuvoton/npcm-video.c b/drivers/media/platform/nuvoton/npcm-video.c
+index 52505af35c08..c28d9d7edd83 100644
+--- a/drivers/media/platform/nuvoton/npcm-video.c
++++ b/drivers/media/platform/nuvoton/npcm-video.c
+@@ -120,6 +120,7 @@ struct npcm_video {
+ 
+ 	struct list_head buffers;
+ 	struct mutex buffer_lock; /* buffer list lock */
++	int irq;
+ 	unsigned long flags;
+ 	unsigned int sequence;
+ 
+@@ -1486,6 +1487,7 @@ static int npcm_video_start_streaming(struct vb2_queue *q, unsigned int count)
+ 	}
+ 
+ 	set_bit(VIDEO_STREAMING, &video->flags);
++	enable_irq(video->irq);
+ 	return 0;
+ }
+ 
+@@ -1494,6 +1496,7 @@ static void npcm_video_stop_streaming(struct vb2_queue *q)
+ 	struct npcm_video *video = vb2_get_drv_priv(q);
+ 	struct regmap *vcd = video->vcd_regmap;
+ 
++	disable_irq(video->irq);
+ 	clear_bit(VIDEO_STREAMING, &video->flags);
+ 	regmap_write(vcd, VCD_INTE, 0);
+ 	regmap_write(vcd, VCD_STAT, VCD_STAT_CLEAR);
+@@ -1707,9 +1710,10 @@ static int npcm_video_init(struct npcm_video *video)
+ 		dev_err(dev, "Failed to find VCD IRQ\n");
+ 		return -ENODEV;
+ 	}
++	video->irq = irq;
+ 
+ 	rc = devm_request_threaded_irq(dev, irq, NULL, npcm_video_irq,
+-				       IRQF_ONESHOT, DEVICE_NAME, video);
++				       IRQF_ONESHOT | IRQF_NO_AUTOEN, DEVICE_NAME, video);
+ 	if (rc < 0) {
+ 		dev_err(dev, "Failed to request IRQ %d\n", irq);
+ 		return rc;
+@@ -1807,8 +1811,7 @@ static void npcm_video_remove(struct platform_device *pdev)
+ 	struct v4l2_device *v4l2_dev = dev_get_drvdata(dev);
+ 	struct npcm_video *video = to_npcm_video(v4l2_dev);
+ 
+-	video_unregister_device(&video->vdev);
+-	vb2_queue_release(&video->queue);
++	vb2_video_unregister_device(&video->vdev);
+ 	v4l2_ctrl_handler_free(&video->ctrl_handler);
+ 	v4l2_device_unregister(v4l2_dev);
+ 	if (video->ece.enable)
+-- 
+2.34.1
 
