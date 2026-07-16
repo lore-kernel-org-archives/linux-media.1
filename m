@@ -1,156 +1,147 @@
-Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A71DC3FF1BC;
-	Thu, 16 Jul 2026 10:16:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.21.223
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E652640A92C;
+	Thu, 16 Jul 2026 10:44:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784197024; cv=none; b=lRhYEJP9GqCsEiBhplPbI3IHWRM3l90To4BQPsL4QqE7miuPqV/ogJHiklv34G2prT4UTPFaKyeS+jD7QsTZ5Jg29dtvs8Vkek3x/gAH3ZsEnW3FsYrRX8G+82aKu0UV2g5mzA9YeB9I81NfNA9KzccDbmvbcnlk4la7blDPDhQ=
+	t=1784198653; cv=none; b=sUL/SEkz/5vWrgpGpqjO3W1b/8m15/AroQBQBEm3NvcthM0WcyeqzWnz43SrO2Jqyt7l9f2I8b6hpzTvR8gUe3QcdwFt3yg7mXhjZjXiemZvcTN6cL/JKpCrxy9kxvoonHa6M4FHhmXLOr9irYvYA2164XvFF1UfyDEFCZQfuRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784197024; c=relaxed/simple;
-	bh=N0S9er2LGR8GbaReji/9Gp961ULE7zW/LAoxiRd+OVM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=sc5qkZhd6DnyM+UjPfGZIcdQIgzQe9W9nBHskvJJ0/2LEO2p2fNmqQ7cePo2XJqNBvqGUzEk2SYO+16ue0T5wGiDxc4i4Pla/dOpHiexAPyi1sXN+6qZy34YRibh5zPsCmXHa3dIEIdnMHF2S8Ulj71gtU8N40NHiUAX06M40NQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.21.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wB3F8SHr1hqgcdeAA--.12602S3;
-	Thu, 16 Jul 2026 18:16:40 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app3 (Coremail) with SMTP id zS_KCgCHcneHr1hqM+o5Aw--.20469S2;
-	Thu, 16 Jul 2026 18:16:39 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: kwliu@nuvoton.com,
-	kflin@nuvoton.com
-Cc: hverkuil@kernel.org,
-	mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH v2] media: nuvoton: npcm-video: quiesce VCD IRQ before teardown
-Date: Thu, 16 Jul 2026 10:15:39 +0000
-Message-Id: <20260716101539.3129478-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <04a332fc-2025-4a74-ae4d-1d8f30fe20bf@kernel.org>
-References: <04a332fc-2025-4a74-ae4d-1d8f30fe20bf@kernel.org>
+	s=arc-20240116; t=1784198653; c=relaxed/simple;
+	bh=/wwJ8YIkXCpBwSVVTMrGXqVGLZdZXp1TX5uW8ri0eyA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=KXyrN65aklRqiD0LUKjyHfGB5MMo2dxEK4MZmqF25apPdiq6tEbSVWG0dbZGavAlgS8hwLUW4/jIOA7jkp0d0DltqnBKZlKmIxQRTmVczG0J8hbkOM0lLBCA/bOc1SWJlIHle7pCNtxs2pCuqhTupIewdE4YKHIbXxo+/IYyP1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=MSTbwqnb; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="MSTbwqnb"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260716104401euoutp0162896187b46659a20abee1581481c5cc~CvzYh7gBq1199711997euoutp01Z;
+	Thu, 16 Jul 2026 10:44:01 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260716104401euoutp0162896187b46659a20abee1581481c5cc~CvzYh7gBq1199711997euoutp01Z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1784198641;
+	bh=4NOe5ksl2vlSwjo56KjbWsmML1a42hyFiwBD/c9eZDU=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=MSTbwqnbrDKyLKGraNwvsA+y4j51U4MbSsUqWrLD7zYBuseQk2jHYvQzKWIBHlqF3
+	 POTrMf4g8ZRPRjBC3B//DjIkSnL2hCqPkA9P1ECuexq2YdaXf+5B3xWtrCF/91gL8O
+	 xIohKEswRPMt4SaVihbMOLSt8JqgZ1C22LyTuDUo=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260716104401eucas1p1f2c155f5f3a4655c82e831bffdeeece7~CvzYOfJRQ0283202832eucas1p1K;
+	Thu, 16 Jul 2026 10:44:01 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260716104357eusmtip2cc624be619bcd0856727825883ac67e0~CvzVIUrCg2851928519eusmtip2d;
+	Thu, 16 Jul 2026 10:43:57 +0000 (GMT)
+Message-ID: <1eec88e6-1ea8-4525-bb17-e41444d715dc@samsung.com>
+Date: Thu, 16 Jul 2026 12:43:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, Mikko
+	Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, Rasmus
+	Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>,
+	Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer
+	<gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, Vasily
+	Gorbik <gor@linux.ibm.com>, Christian Borntraeger
+	<borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Andrew
+	Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam
+ R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike
+	Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal
+	Hocko <mhocko@suse.com>, Robin Murphy <robin.murphy@arm.com>, Sumit Semwal
+	<sumit.semwal@linaro.org>, Benjamin Gaignard
+	<benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>,
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Steven Rostedt
+	<rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu
+	Desnoyers <mathieu.desnoyers@efficios.com>, Catalin Marinas
+	<catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-mm@kvack.org, iommu@lists.linux.dev,
+	linaro-mm-sig@lists.linaro.org, linux-trace-kernel@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <ak_E4UxfnFJywJa7@orome>
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zS_KCgCHcneHr1hqM+o5Aw--.20469S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?sWMI7AXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnZPoDCNGYdHSfuFmYJL54WN26x6ymw/Gzm2rA1oErI67BnJnJgK4NPimhNDjoe6B4OQI
-	PUV2ixKyJRdXsuy+OHTN5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoWxAF18Jw15KFykZr17KFWxGrX_yoW5tw4kpF
-	W8Ga4SkrWftF1I93ZrJw4UZFy3Xr4xKw4FyFyjk34fA3s8JryFqF109Fy8tFWrArykWasr
-	taySvwsruFWYqacCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
+X-CMS-MailID: 20260716104401eucas1p1f2c155f5f3a4655c82e831bffdeeece7
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c
+X-EPHeader: CA
+X-CMS-RootMailID: 20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+	<CGME20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c@eucas1p1.samsung.com>
+	<20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
+	<3f47aeab-33b1-4966-a5ce-5d6d5261e0e2@samsung.com>
+	<e212caac-6c30-448a-9e10-32fff8b842f6@kernel.org>
+	<83e5e74d-7106-4e14-9d10-56438372f6a3@samsung.com> <ak_E4UxfnFJywJa7@orome>
 
-The VCD IRQ is devm-requested, but npcm_video_remove() frees the video
-object before devres releases that IRQ.  The threaded handler dereferences
-video->vcd_regmap before checking VIDEO_STREAMING, so an interrupt in that
-interval can access freed memory.
+On 09.07.2026 17:59, Thierry Reding wrote:
+> On Thu, Jul 09, 2026 at 07:56:45AM +0200, Marek Szyprowski wrote:
+>> On 08.07.2026 10:35, David Hildenbrand (Arm) wrote:
+>>> On 7/7/26 12:02, Marek Szyprowski wrote:
+>>>> On 01.07.2026 18:08, Thierry Reding wrote:
+>>>>> From: Thierry Reding <treding@nvidia.com>
+>>>>>
+>>>>> There is no technical reason why there should be a limited number of CMA
+>>>>> regions, so extract some code into helpers and use them to create extra
+>>>>> functions (cma_create() and cma_free()) that allow creating and freeing,
+>>>>> respectively, CMA regions dynamically at runtime.
+>>>> Well, the technical reason for not creating cma regions dynamically at
+>>>> runtime is that on some architectures (like 32bit ARM) the early fixup
+>>>> for the region is needed to make it functional for DMA.
+>>> Can you point me at the code that does that? Thanks!
+>> Check dma_contiguous_early_fixup() and dma_contiguous_remap() in 
+>> arch/arm/mm/dma-mapping.c. Those functions ensures that the CPU mappings for
+>> the CMA reserved region in linear map are remapped with 4k pages instead
+>> of the 1M sections, so later, it will be possible to alter the mappings and
+>> change them to coherent when needed (altering 1M sections is not possible,
+>> because each process has it's own level-1 array even for the kernel linear
+>> mapping).
+>>
+>>
+>>
+>> However, in the use case in this patchset the reserved region is only shared
+>> with buddy allocator by using the CMA infrastructure, not registered to the
+>> regular DMA-mapping API, so it would work fine. I'm not convinced that this
+>> is the right API to use for this though.
+> Are you saying you're not convinced that CMA is the right API to use for
+> this? Or something else?
+I read this again and indeed CMA seems to be right solution. I only wonder
+why do You want to create the CMA areas dynamically? Imho it would work if
+You just create large enough CMA area on boot, what would automatically
+share the memory with buddy allocator and then allocate dynamic VPR regions
+with cma_alloc(), potentially unmapping or marking the allocated region as
+reserved in linear kernel mapping to avoid any potential speculative access
+to the protected memory.
 
-Request the IRQ with IRQF_NO_AUTOEN.  Enable it after starting capture and
-setting VIDEO_STREAMING, and disable it first in stop_streaming().
-disable_irq() waits for an in-flight threaded handler to finish, after
-which stop_streaming() can mask and reset the VCD without a handler
-re-enabling it.
+In both cases You will probably won't need the DMA-mapping API on top of
+it, although it might be even possible to partially use with by
+registering custom dma_ops for the devices using the protected region
+(assuming that it would support only DMA_ATTR_NO_KERNEL_MAPPING
+allocations).
 
-Use vb2_video_unregister_device() during remove.  It releases the vb2
-queue and calls stop_streaming() for an active stream, ensuring that the
-IRQ is disabled before the video object is freed.  Do not release the queue
-separately.
 
-If streaming is never started, IRQF_NO_AUTOEN keeps the IRQ disabled
-until devres releases it.
+> I certainly don't think we want to get the DMA-mapping API involved for
+> this because that always implies that we perform cache operations, which
+> we specifically don't want for this memory.
+>
+> Thierry
 
-This issue was found by an in-house static analysis tool.
-
-Fixes: 46c15a4ff1f4 ("media: nuvoton: Add driver for NPCM video capture and encoding engine")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
-Changes since v1:
-- Follow Hans Verkuil's suggestion to tie IRQ enablement to the streaming
-  lifecycle (IRQF_NO_AUTOEN + enable_irq/disable_irq) and to use
-  vb2_video_unregister_device() for teardown.
-
-Compile-tested only; I do not have NPCM hardware, so runtime testing by
-the Nuvoton maintainers would be appreciated.
----
- drivers/media/platform/nuvoton/npcm-video.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/platform/nuvoton/npcm-video.c b/drivers/media/platform/nuvoton/npcm-video.c
-index 52505af35c08..c28d9d7edd83 100644
---- a/drivers/media/platform/nuvoton/npcm-video.c
-+++ b/drivers/media/platform/nuvoton/npcm-video.c
-@@ -120,6 +120,7 @@ struct npcm_video {
- 
- 	struct list_head buffers;
- 	struct mutex buffer_lock; /* buffer list lock */
-+	int irq;
- 	unsigned long flags;
- 	unsigned int sequence;
- 
-@@ -1486,6 +1487,7 @@ static int npcm_video_start_streaming(struct vb2_queue *q, unsigned int count)
- 	}
- 
- 	set_bit(VIDEO_STREAMING, &video->flags);
-+	enable_irq(video->irq);
- 	return 0;
- }
- 
-@@ -1494,6 +1496,7 @@ static void npcm_video_stop_streaming(struct vb2_queue *q)
- 	struct npcm_video *video = vb2_get_drv_priv(q);
- 	struct regmap *vcd = video->vcd_regmap;
- 
-+	disable_irq(video->irq);
- 	clear_bit(VIDEO_STREAMING, &video->flags);
- 	regmap_write(vcd, VCD_INTE, 0);
- 	regmap_write(vcd, VCD_STAT, VCD_STAT_CLEAR);
-@@ -1707,9 +1710,10 @@ static int npcm_video_init(struct npcm_video *video)
- 		dev_err(dev, "Failed to find VCD IRQ\n");
- 		return -ENODEV;
- 	}
-+	video->irq = irq;
- 
- 	rc = devm_request_threaded_irq(dev, irq, NULL, npcm_video_irq,
--				       IRQF_ONESHOT, DEVICE_NAME, video);
-+				       IRQF_ONESHOT | IRQF_NO_AUTOEN, DEVICE_NAME, video);
- 	if (rc < 0) {
- 		dev_err(dev, "Failed to request IRQ %d\n", irq);
- 		return rc;
-@@ -1807,8 +1811,7 @@ static void npcm_video_remove(struct platform_device *pdev)
- 	struct v4l2_device *v4l2_dev = dev_get_drvdata(dev);
- 	struct npcm_video *video = to_npcm_video(v4l2_dev);
- 
--	video_unregister_device(&video->vdev);
--	vb2_queue_release(&video->queue);
-+	vb2_video_unregister_device(&video->vdev);
- 	v4l2_ctrl_handler_free(&video->ctrl_handler);
- 	v4l2_device_unregister(v4l2_dev);
- 	if (video->ece.enable)
+Best regards
 -- 
-2.34.1
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
