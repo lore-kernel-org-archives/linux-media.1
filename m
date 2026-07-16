@@ -1,91 +1,221 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from linuxtv.org (140-211-166-241-openstack.osuosl.org [140.211.166.241])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB72D2DF717;
-	Thu, 16 Jul 2026 23:08:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784243331; cv=pass; b=QLyKtg1tN8xl+yUsQb/3ubz9vN7tFrOgwwTHRM1olPc4TK+KNHzSmftDnpmC19SSuE+WbQSEFsqNLH6OMzsI+Hx3m6SIW2OEDFj+6Dxpw/dJhTmNk2H1JZxdHe6zH6v3x1bdOt+3Ivlu7NGO3U9nqHxYh/fxg2JUOlp1s0r8/a0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784243331; c=relaxed/simple;
-	bh=JI6Z785l1jaXzWoH6ZjDJqo30C4TDnlDdSSexW+kpgE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J1SK78aLqpxIqB0PvLoP7rWM/u6Q6odc3/lx78QvMpR7G0zRHg3nSs3ROl1uftll1rbthzi8pQYUqtySDeueKlNQHN/YPjBnJJV24h5fDRRdyM48XLv7Yd8SVv7xGv3xexeu7yvaAnovKKSmph2AgR4mMFBuKyQNWHTxlbDmSYM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=X6yGHRwP; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5156743F097;
+	Thu, 16 Jul 2026 23:26:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.241
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784244391; cv=none; b=UNGyRANA7/In2Fcme2JSV+bmuIWk6f1XyIkerdF1Rp695EbzJYHqiCeawHZg3shiC9TgteYfaJJw936eD+p+g97X0dMjZzQt+sO55hj9Fx07g2ZhwonOyxVwUiLzPc+Ki3H4rjknGSle+fQyaoPAqh9pzc9s+9VKTMSv7gw3vs0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784244391; c=relaxed/simple;
+	bh=BVhjvZhGMiaLCa93vfj3ujq5Weyad55MoNHzoDNXoG0=;
+	h=Subject:From:To:Message-Id:Date; b=aPxhIkNuM5wGK19aW5PEUA9HhyclKDs8m+S9yEuPlCQlyp7VWxsqckG+gvcSoLux+j/dKpxHd1aFnYC3RGoKZMHu9P9gmPLpyUJSVLaJl04JWvH0NP+yniifRltiRX98dR2H31N8hb9A7iH32KD3ig3oC/G9qyKcEWxIE6700yU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxtv.org; spf=pass smtp.mailfrom=linuxtv.org; dkim=pass (2048-bit key) header.d=linuxtv.org header.i=@linuxtv.org header.b=dsvb9vYj; arc=none smtp.client-ip=140.211.166.241
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxtv.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtv.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="X6yGHRwP"
-ARC-Seal: i=1; a=rsa-sha256; t=1784243318; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=BlIvqUaOxtteu/dhydeaWYPLXm31QHXcxGEIK8iw7SuHvYJ6OnHsHWz8MNllgoczgOSOIgiXwC8OQR0okkqu3aJbFQOU3Qrl0gKDLwi3mB3g2qARQ6y7+hN8paeyL0nRpI2bXul4Cc3qnnGPvb8Nk7ae7PQOFhqs+Dvkhux123A=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1784243318; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=UDJ7qwaoIKUl67uVdh5vCd23Dcn5LTlGir30uhmz0mg=; 
-	b=T1/QWSFVXOhWmtQAks+oCDwYYVOhCiwbOKw0Ql/liPf1NAsRAAUmrA4jqfyTuGZ8QMHdOrYGEL0GowOvVdtVD4e+1+IG3x/EOBXoqezrND0dyJkwowdxYs2V8Kzx4DCwk0gBa55595f8UG1LZ/OXjYajsv4e1Mytk/fwpe8s2WM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784243318;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=UDJ7qwaoIKUl67uVdh5vCd23Dcn5LTlGir30uhmz0mg=;
-	b=X6yGHRwPOmkRNUmD/+/RmZ8CG0jdcPP/56jYhWTGoDhsN5Ot/FYLxuVg9nnfdQOH
-	j0Zm4lHM/lxeyWpB9hhh6u4kfL4eqB8CukEOtyesgIjWiJ7/8Q0gfRLHtHB2BQIxHth
-	iQWmBousOwFhcX3JigxVyhbKzmlrkjFB1TDB0IZA=
-Received: by mx.zohomail.com with SMTPS id 1784243315163381.4056402935056;
-	Thu, 16 Jul 2026 16:08:35 -0700 (PDT)
-Message-ID: <3b5092d0-f132-4335-a3a2-b7f9de55d8e9@collabora.com>
-Date: Fri, 17 Jul 2026 02:08:30 +0300
+	dkim=pass (2048-bit key) header.d=linuxtv.org header.i=@linuxtv.org header.b="dsvb9vYj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=linuxtv.org
+	; s=s1; h=Date:Message-Id:Reply-to:To:From:Subject:Sender:Cc:MIME-Version:
+	Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=qaHa8KJLoBTZfeWC+MVLBqEjDwLjXw5lbB496sY+B64=; b=dsvb9vYj7tAQuKEQq01EVU+dsx
+	yecGq94XdJ5UJGKVQ/rVzhBZhM6qJRIAIzCgbYW65BucU6bbZ21M4G9Pj4iP+S16Zy937vHDibZTp
+	yha4VgK/Nw8Z+IPNNZXlCpmMvfMONS1ZD9om5aNElaBfogJDXFIiwEnq2FgdFmE7ac4CbSiZQYs77
+	jXT9ltYUGW4Hm//jROn1uRC8qX2Zk5GH744+wcztAsOBW5V3w2ISRtTvo2lbhp9uWZqBnP/KtbZX+
+	qUgOkdA3IYK/XDMN4pQYH/DjLWzXU+7YXHbUVwSVR1lxqDSZa7tC4nTALztBolVO58HLHHWBUQgK9
+	9YSL8POA==;
+Received: from mchehab by linuxtv.org with local (Exim 4.96)
+	(envelope-from <mchehab@linuxtv.org>)
+	id 1wkT7F-0006fi-2H;
+	Thu, 16 Jul 2026 20:55:33 +0000
+Subject: [media.git/next] MAINTAINERS: Camera sensor and Intel IPU driver changes
+From: media-ci@linuxtv.org
+To: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Yong Zhi <yong.zhi@intel.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, David Heidelberg <david@ixit.cz>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linuxtv-commits@linuxtv.org, Bingbu Cao <bingbu.cao@amd.com>, Dan Scally <dan.scally@ideasonboard.com>, Dave Hansen <dave.hansen@linux.intel.com>, Lixu Zhang <lixu.zhang@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-staging@lists.linux.dev
+Mail-followup-to: linux-media@vger.kernel.org
+Forward-to: linux-media@vger.kernel.org
+Reply-to: linux-media@vger.kernel.org
+Message-Id: <E1wkT7F-0006fi-2H@linuxtv.org>
+Date: Thu, 16 Jul 2026 20:55:33 +0000
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] media: synopsys: hdmirx: add HDMI audio capture
- support
-To: Igor Paunovic <royalnet026@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
- kernel@collabora.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260715200834.8486-1-royalnet026@gmail.com>
- <20260715200834.8486-3-royalnet026@gmail.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260715200834.8486-3-royalnet026@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
-15.07.2026 23:08, Igor Paunovic пишет:
-> @@ -2788,6 +3058,16 @@ static void hdmirx_remove(struct platform_device *pdev)
->  	struct device *dev = &pdev->dev;
->  	struct snps_hdmirx_dev *hdmirx_dev = dev_get_drvdata(dev);
->  
-> +	/*
-> +	 * Clear the streaming flag first so a running worker cannot re-arm
-> +	 * itself, then tear down the codec (which stops any active stream)
-> +	 * before the final cancel.
-> +	 */
-> +	WRITE_ONCE(hdmirx_dev->audio_streaming, false);
-> +	if (hdmirx_dev->audio_pdev)
-> +		platform_device_unregister(hdmirx_dev->audio_pdev);
-> +	cancel_delayed_work_sync(&hdmirx_dev->audio_work);
-> +
+On Tue May 26 14:41:31 2026 -0700, Dave Hansen wrote:
+> Tian Shu Qiu and Bingbu Cao are maintainers and reviewers of a bunch of
+> media drivers (7 and 9 respectively). Bingbu's e-mail address has changed
+> and Tian Shu's is bouncing.
+> 
+> Update Bingbu's e-mail address, remove Bingbu as a maintainer from Intel
+> specific drivers and remove Tian Shu as maintainer. Also add Dave
+> Stevenson as a maintainer and David Heidelberg as a reviewer for the
+> imx355 driver.
+> 
+> Also add Bingbu and Tian Shu to CREDITS.
+> 
+> Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
+> Cc: Yong Zhi <yong.zhi@intel.com>
+> Cc: Dan Scally <dan.scally@ideasonboard.com>
+> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Lixu Zhang <lixu.zhang@intel.com>
+> Cc: linux-media@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-staging@lists.linux.dev
+> Co-developed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> Acked-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> Acked-by: David Heidelberg <david@ixit.cz>
+> Reviewed-by: Bingbu Cao <bingbu.cao@amd.com>
 
-Audio capture should be stopped when the codec removed and
-hdmirx_audio_shutdown() stops the audio_work. The v1 was good here,
-Sashiko bot should be wrong.
+Patch committed.
 
-I'd like to see rest of the patches (I2S and etc) to test this patch
-before giving ack.
+Thanks,
+Sakari Ailus
 
--- 
-Best regards,
-Dmitry
+ CREDITS     |  7 +++++++
+ MAINTAINERS | 29 ++++++++++++-----------------
+ 2 files changed, 19 insertions(+), 17 deletions(-)
+
+---
+
+diff --git a/CREDITS b/CREDITS
+index 84793a967a0b..7456c8bbffc2 100644
+--- a/CREDITS
++++ b/CREDITS
+@@ -640,6 +640,10 @@ S: 25-29 St Giles
+ S: Oxford
+ S: United Kingdom
+ 
++N: Bingbu Cao
++E: bingbu.cao@amd.com
++D: Ipu6, ipu7 and camera sensor drivers
++
+ N: Luiz Fernando N. Capitulino
+ E: lcapitulino@mandriva.com.br
+ E: lcapitulino@gmail.com
+@@ -3334,6 +3338,9 @@ E: rpurdie@rpsys.net
+ D: Backlight subsystem maintainer
+ S: United Kingdom
+ 
++N: Tian Shu Qiu
++D: Ipu6, ipu7 and camera sensor drivers
++
+ N: Daniel Quinlan
+ E: quinlan@pathname.com
+ W: https://www.pathname.com/~quinlan/
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b083e44ffce4..05b783f429e6 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3946,7 +3946,7 @@ F:	Documentation/devicetree/bindings/leds/ams,as3668.yaml
+ F:	drivers/leds/leds-as3668.c
+ 
+ ASAHI KASEI AK7375 LENS VOICE COIL DRIVER
+-M:	Tianshu Qiu <tian.shu.qiu@intel.com>
++M:	Sakari Ailus <sakari.ailus@linux.intel.com>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ T:	git git://linuxtv.org/media.git
+@@ -13135,9 +13135,7 @@ F:	drivers/iommu/intel/
+ INTEL IPU3 CSI-2 CIO2 DRIVER
+ M:	Yong Zhi <yong.zhi@intel.com>
+ M:	Sakari Ailus <sakari.ailus@linux.intel.com>
+-M:	Bingbu Cao <bingbu.cao@intel.com>
+ M:	Dan Scally <dan.scally@ideasonboard.com>
+-R:	Tianshu Qiu <tian.shu.qiu@intel.com>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ T:	git git://linuxtv.org/media.git
+@@ -13146,8 +13144,6 @@ F:	drivers/media/pci/intel/ipu3/
+ 
+ INTEL IPU3 CSI-2 IMGU DRIVER
+ M:	Sakari Ailus <sakari.ailus@linux.intel.com>
+-R:	Bingbu Cao <bingbu.cao@intel.com>
+-R:	Tianshu Qiu <tian.shu.qiu@intel.com>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/admin-guide/media/ipu3.rst
+@@ -13157,8 +13153,6 @@ F:	drivers/staging/media/ipu3/
+ 
+ INTEL IPU6 INPUT SYSTEM DRIVER
+ M:	Sakari Ailus <sakari.ailus@linux.intel.com>
+-M:	Bingbu Cao <bingbu.cao@intel.com>
+-R:	Tianshu Qiu <tian.shu.qiu@intel.com>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ T:	git git://linuxtv.org/media.git
+@@ -13167,7 +13161,6 @@ F:	drivers/media/pci/intel/ipu6/
+ 
+ INTEL IPU7 INPUT SYSTEM DRIVER
+ M:	Sakari Ailus <sakari.ailus@linux.intel.com>
+-R:	Bingbu Cao <bingbu.cao@intel.com>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ T:	git git://linuxtv.org/media.git
+@@ -13469,7 +13462,6 @@ F:	drivers/net/wireless/intel/iwlwifi/
+ 
+ INTEL VISION SENSING CONTROLLER DRIVER
+ M:	Sakari Ailus <sakari.ailus@linux.intel.com>
+-R:	Bingbu Cao <bingbu.cao@intel.com>
+ R:	Lixu Zhang <lixu.zhang@intel.com>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+@@ -19902,7 +19894,8 @@ F:	Documentation/devicetree/bindings/media/i2c/ovti,os05b10.yaml
+ F:	drivers/media/i2c/os05b10.c
+ 
+ OMNIVISION OV01A10 SENSOR DRIVER
+-M:	Bingbu Cao <bingbu.cao@intel.com>
++M:	Bingbu Cao <bingbu.cao@amd.com>
++M:	Sakari Ailus <sakari.ailus@linux.intel.com>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ T:	git git://linuxtv.org/media.git
+@@ -19995,9 +19988,8 @@ F:	Documentation/devicetree/bindings/media/i2c/ovti,ov2735.yaml
+ F:	drivers/media/i2c/ov2735.c
+ 
+ OMNIVISION OV2740 SENSOR DRIVER
+-M:	Tianshu Qiu <tian.shu.qiu@intel.com>
+-R:	Sakari Ailus <sakari.ailus@linux.intel.com>
+-R:	Bingbu Cao <bingbu.cao@intel.com>
++M:	Sakari Ailus <sakari.ailus@linux.intel.com>
++R:	Bingbu Cao <bingbu.cao@amd.com>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ T:	git git://linuxtv.org/media.git
+@@ -20139,8 +20131,8 @@ F:	Documentation/devicetree/bindings/media/i2c/ovti,ov9650.txt
+ F:	drivers/media/i2c/ov9650.c
+ 
+ OMNIVISION OV9734 SENSOR DRIVER
+-M:	Tianshu Qiu <tian.shu.qiu@intel.com>
+-R:	Bingbu Cao <bingbu.cao@intel.com>
++M:	Sakari Ailus <sakari.ailus@linux.intel.com>
++R:	Bingbu Cao <bingbu.cao@amd.com>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ T:	git git://linuxtv.org/media.git
+@@ -25217,7 +25209,8 @@ F:	Documentation/devicetree/bindings/media/i2c/sony,imx296.yaml
+ F:	drivers/media/i2c/imx296.c
+ 
+ SONY IMX319 SENSOR DRIVER
+-M:	Bingbu Cao <bingbu.cao@intel.com>
++M:	Bingbu Cao <bingbu.cao@amd.com>
++M:	Sakari Ailus <sakari.ailus@linux.intel.com>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ T:	git git://linuxtv.org/media.git
+@@ -25239,7 +25232,9 @@ F:	Documentation/devicetree/bindings/media/i2c/sony,imx335.yaml
+ F:	drivers/media/i2c/imx335.c
+ 
+ SONY IMX355 SENSOR DRIVER
+-M:	Tianshu Qiu <tian.shu.qiu@intel.com>
++M:	Sakari Ailus <sakari.ailus@linux.intel.com>
++M:	Dave Stevenson <dave.stevenson@raspberrypi.com>
++R:	David Heidelberg <david@ixit.cz>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ T:	git git://linuxtv.org/media.git
