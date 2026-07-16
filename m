@@ -1,90 +1,81 @@
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4592E38D414
-	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 20:54:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB69A34CFD0
+	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 21:18:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784235284; cv=none; b=kUn2r9V8+TrZlK4KW2rST6Fb18c9WsjnCoF9cDpP+tTL23Y+pHpxt1/iVyTNFFGaaY0377nnhhT8hfpfmMIOXiANvXfRLwIkaiODILmDOarOCJRWVodLAWifi7meKkKAxSiA9OUGqtiUzVtjatn7FFGKkBgeSVmajt5P9kV7LvY=
+	t=1784236738; cv=none; b=NGEi3TBYmEXU1UJY/Sm+DpqcdZswJlwOamhh4kJTY9xwsF0Gjd7bT5NFsmWGnUpPdVNgWRDVZ/kK6DU97fDUV8Q+hrVnAvrwSFAxx6oXbW/7QzCt6tOzRAO4lfELP3HMuuee5/GrNs23cNtMGD2b/4Xp/ERSknOLD8+mFRYxKO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784235284; c=relaxed/simple;
-	bh=OstskZNC91S+/d8lT6ZS+KM5fQoSVJ250tyiTLevjR0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EMUSbZRfpBJXmGCpUrpRhj7Sd3XcTCG66qXk2VsjVakA7AlIQUxovbiC5xVb8HesG3j8SWn8RM/o6gDFA3WuS7KF6pZyXZFnfMTpbGuWWqoX9tcqGGo8YUEqv5d3wHxPeTcDZF75Ho7ELSTXF+tv2mS3uE+U9EFH21Ffm9mHcLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=ru721m9v; arc=none smtp.client-ip=209.85.222.180
+	s=arc-20240116; t=1784236738; c=relaxed/simple;
+	bh=zID+e/VnFYmXJ7oFah+jcYE0b+DUEnO3XA5uyAS2PN8=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=S1N8at8GvYjj6TULIYwJHX5d9zhDn6V7U5sCkvK9K8irXINUDLxZfZnGCn72zV85JRPBvdEXR6AVepAsgz6Y0mqRl5dSaYQEgZAHj6Hf0DiHcFLWywVgrjdpk2hdahcwCBrjPc1uDYcqCUn17yTwhKxiCE10XvhPR8ZcXccrCvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=YuUBXbPy; arc=none smtp.client-ip=209.85.160.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="ru721m9v"
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-9305a2121a1so335073585a.2
-        for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 13:54:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="YuUBXbPy"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-51c0c45c580so60420611cf.0
+        for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 14:18:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1784235281; x=1784840081; darn=vger.kernel.org;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1784236736; x=1784841536; darn=vger.kernel.org;
         h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=95cbsQRMz66HA3tAaT1LO+1gPHeCIHK5SKoKPYy6pjw=;
-        b=ru721m9vxfjnEsPeaL0WiOkHkdTL7LAY+ygtjG7FO/qxBj2Efl7ZBJ+wChiFg5G2sN
-         5useAUBIur/n8r0lN6vz/eUXtCYZ0V/cn0OMXEcLC7aqSUSC2YjoFOysgmdDlX0IVme+
-         NsQNgnW/JmjWe9zl1tm2o7i9zpZPm7qCkaU4CS/e9ktp1ONEqSRf9SyTb7vD2suSsdZ7
-         aLQ+8WyqZG/CSt+p2joUVGXjWXUER6LvI/veaKrPevMrA2V44/aO+eQpexsmZdlhSd0P
-         6fuvjIxFFym/3rQSv57DNR9KQ+ZqpeYRTzqaWijDnEHiiOq4RnfI0X8tQnuID2ePaAB5
-         vkgw==
+         :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3mfs6TPohHB4ptVhWPd7wCfPWGeW/kT+9UO9C9aZwuc=;
+        b=YuUBXbPyB2AQlxpDsEb3sK25pooHVlBC8Ua2sn3ucgnyvXb5gY/bJt7mk8E1Xn4h1x
+         8z0mLBqng0XUhf21oU/l2itA4Q1ZxcOC2eTjR4i5Ol0XvXyDPo2mNHGq5nQdnJtD7D02
+         kWxrXB6g6gfZ4Qb1z7ra43+JjqC88U7UYYzbDp5NKCZdcHMXWnzJWEERbdXjYs768tsd
+         Jqtft6+oXnaqQa1V0ITImNvq+V9gN4xZ3fL0XqXFm1mX8xyhsuBPOqrH1tH0iP61XXe/
+         8LLBgbglSiSwUaP+kgLXQdsXsMzKAHckKuzhCLzmRE0piqnpt38E3XncoBeETPTZQCZ8
+         Y4FQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784235281; x=1784840081;
+        d=1e100.net; s=20251104; t=1784236736; x=1784841536;
         h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :in-reply-to:date:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=95cbsQRMz66HA3tAaT1LO+1gPHeCIHK5SKoKPYy6pjw=;
-        b=A0AaPrvLRqzwZuGNwYFERI7bFAmmF632zIRAC+BgqKvjrjD+qNL9fG3lnHa63sv+ax
-         x/Zipp+T36kbL9BYTkyKCmHISsNC+7AUjaCzl0+AQoKMKwLhP17oAHo3SITwVTjqgj3q
-         HE6LRfBVA0TX3XCPDucTGWr6t8a9Wic4jsasJ1klskx26EvAFI4iSazi9iK7gf4Amrx8
-         nBt/x2VAfG06r42CHN9vmsbB2kEZeAZ9K8ANUhw2As6FENjy/EJ2yDNrt4R/CSxS+NEi
-         yab6s9DD5Scei2wrGKC+55jNEawtkk5V8dLK6Xb2BrJdNTYrswVymLXvzu/IeAh5a4YD
-         6y5g==
-X-Forwarded-Encrypted: i=1; AHgh+Rps5X00PDzOOtM8E704tc6OJ4U03RcML+Yp2wDBYAoGVHDxBhRhxHAnEHILPdgJ7vD7e/Y7sUmjH+O8jA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwKu9NGsaVecpHREZxcr0uMNdYncTU67p68Mm92ySfzQuBK+THc
-	/gtBIWozQ8BhSW3iGOJpwftoviw0R4VledL/Yy22SPvG7YsRKGIhqxpw6eYOOXPcRvU=
-X-Gm-Gg: AfdE7ckDzy6kqSWUvhnJqNKgxPMBs0pdADQ+ioOnQYnh21otdyz1yGzgp3l7BTkNLQb
-	V9FnKKcqhs57p+VcC03EPuLsHJHMzM/5sR6HW3GBdXwubbif+sYgc7GkDLVLzB307PSGfmb3WbA
-	9ZJbwaXeGRzUgFmlh98vptkx3diYPknZ0f9bqKTH8g67qad0SdopupTGGmMtFGls7Vp0zuObJGc
-	ziK0n/Edp0+8HBX2qgoKz/PNgcoaLiyO+XJufcxHDDmkgMk/Jezc/lUT0ImDWEPSPcgWUdT6ebu
-	x2ghqKwxFoQfV58aCnw85dwKga1HlxMAdF6Ic6nNIQn4wX5SDNnUwKst2hl5ZdKykve8XoVFNbh
-	i5ebQYAzuQZaUAvu4xQzkXGYe4BH+K0II5mExAk1foat00yl3mi4Wu8sVL5teU5y6pkm8rGu3aS
-	3bFMKALIY=
-X-Received: by 2002:a05:620a:6492:b0:92a:e474:92eb with SMTP id af79cd13be357-93096371496mr987518785a.55.1784235280985;
-        Thu, 16 Jul 2026 13:54:40 -0700 (PDT)
+        bh=3mfs6TPohHB4ptVhWPd7wCfPWGeW/kT+9UO9C9aZwuc=;
+        b=ote5jo6HCEQQhhuvpuSOPj+cPQnEZku9FFoScJxK+Qagn8z3cWUzWmtPbawAisD1lI
+         XDqB0zE2ocqg5b+3ycLRFSJ+K7h7zdH00Knr4DUhtdxolGYUzv3I/FwAfTYI2BaSUPjq
+         vK9IWzq/GypOqQZ5d341zN4oRlufhfFGdXenxaIZ5EpLkuG4YBCRuca5uiUcG0MZpcxb
+         0XsodU8afkoQ9oZURr1laoKAYuvHDpAyXQWRyH37pTjVnMR6qCbQVVwRocgiDBRqn8/D
+         VNOZdCMX1LiBn0pI5p42QiCOO2bCP3aJrcrJOMBmmmfxuZO+4/gpq9eIXSJ3qT46F0K4
+         R/9w==
+X-Forwarded-Encrypted: i=1; AHgh+RoIz6LOnP9aOuza/EqPFJ0JOxN5n8uKCuu1tDYSqhFL6hciFyFT1GVoT0e1o/EXrlmtw62fqL104bOXww==@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywl9q+/R8xQtJ/HGTFUeNxW8wtqCa4MOav5lcake9rWc5CJwdHg
+	So8ClBnav9x8CwV5OhpJWNYwWKM6V8YKydlSM2iaymy2W3vieGk7q+afBqGwfXqAeOM=
+X-Gm-Gg: AfdE7clmTW18+szDSJ+W1DTVc9BMtiCOOPzte/jzktN7tjjxzK5S6OLM88ZzN0VDlZz
+	bu3SkYV8NmyGsmA8pKkHFGBRWPZ5usxRXOgmjr13Onvshx9PbxxbSirZ7JXIpfE0tluBH3fPyON
+	XX1gLC1hCdPl3dQLreJFxF0PvUX7zp3wzoVIHzH1g9+MgqROKbYyU0YRVWEJ5hLCxJyzZ0viEn+
+	DNFqTyb0FqpInKJAITC/tf9DHRSEzsnJUl2xaXc+FShjq7DuZwJbjG2UB8JMORq5EZBtjId5lVa
+	x4fAiVNvFz5Gf0FDuTMJwBHZFzHJ+dp6eHQ6bOfY9Wye8UaNywNaCFWlUOykKZbBSSOLQSoRzU/
+	9/67ffEaSFM/u144+yuoMg5iq5slcuYKp4kBs2SkdvbYDSOdlU1lgU29h9XSUp1g9H95b3QmTnd
+	GBHLQEOjk=
+X-Received: by 2002:ac8:5915:0:b0:51a:8c9c:7f52 with SMTP id d75a77b69052e-51e3c340859mr149029421cf.69.1784236735471;
+        Thu, 16 Jul 2026 14:18:55 -0700 (PDT)
 Received: from ?IPv6:2606:6d00:15:e06b::c41? ([2606:6d00:15:e06b::c41])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-92ee5d69a78sm2093114085a.44.2026.07.16.13.54.38
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51caaf671e2sm162519051cf.25.2026.07.16.14.18.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 13:54:39 -0700 (PDT)
-Message-ID: <cd791ba9f1819528a9a964ae2ae3833c8e6c4b87.camel@ndufresne.ca>
-Subject: Re: Linking Patchwork with Sashiko?
+        Thu, 16 Jul 2026 14:18:54 -0700 (PDT)
+Message-ID: <723eb4c02c01e2af19394b715413c198baef687e.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: mtk-mdp: unregister VPU watchdog handler
 From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Theodore Tso <tytso@mit.edu>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Ihor Solodrai	
- <ihor.solodrai@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, Mauro
- Carvalho Chehab <mchehab+huawei@kernel.org>, Derek Barbosa
- <debarbos@redhat.com>, Matthieu Baerts	 <matttbe@kernel.org>, Konstantin
- Ryabitsev <konstantin@linuxfoundation.org>,  Jason Gunthorpe	
- <jgg@ziepe.ca>, Steven Rostedt <rostedt@goodmis.org>, users@kernel.org,
- Linux Media Mailing List <linux-media@vger.kernel.org>, Stephen Finucane
- <stephenfin@redhat.com>, bpf <bpf@vger.kernel.org>,  Chris Mason	
- <clm@meta.com>, Christian Brauner <brauner@kernel.org>, Alexei Starovoitov	
- <alexei.starovoitov@gmail.com>
-Date: Thu, 16 Jul 2026 16:54:37 -0400
-In-Reply-To: <alhMB7vGodoewjcz@mit.edu>
-References: <20260713094120.GD1127719@killaraus.ideasonboard.com>
-	 <20260713220427.582b28bf@foz.lan> <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
-	 <20260715005909.GF1656185@killaraus.ideasonboard.com>
-	 <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev>
-	 <20260715163921.GH1778116@killaraus.ideasonboard.com>
-	 <153db0fa-65ac-49de-9bf5-456c9639954c@linux.dev>
-	 <20260715190654.GK1778116@killaraus.ideasonboard.com>
-	 <alfwOgVRgUJYOGtU@mit.edu>
-	 <ef9f77c613a05c5745941587099eeb4f159d5e31.camel@ndufresne.ca>
-	 <alhMB7vGodoewjcz@mit.edu>
+To: Guangshuo Li <lgs201920130244@gmail.com>, Minghsiu Tsai	
+ <minghsiu.tsai@mediatek.com>, Houlong Wei <houlong.wei@mediatek.com>, 
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Matthias Brugger	 <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno	 <angelogioacchino.delregno@collabora.com>,
+ Tiffany Lin	 <tiffany.lin@mediatek.com>, Yunfei Dong
+ <yunfei.dong@mediatek.com>, Hans Verkuil <hverkuil@kernel.org>, Eizan
+ Miyamoto <eizan@chromium.org>, Enric Balletbo i Serra	
+ <eballetbo@kernel.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org
+Date: Thu, 16 Jul 2026 17:18:53 -0400
+In-Reply-To: <20260708121910.758166-1-lgs201920130244@gmail.com>
+References: <20260708121910.758166-1-lgs201920130244@gmail.com>
 Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -99,7 +90,7 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-vNfo8YD8KuhvtCjCItm6"
+	protocol="application/pgp-signature"; boundary="=-crHtUZ7+2c5Ajf8qSv7r"
 User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -109,159 +100,127 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
 
---=-vNfo8YD8KuhvtCjCItm6
+--=-crHtUZ7+2c5Ajf8qSv7r
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le mercredi 15 juillet 2026 =C3=A0 23:53 -0400, Theodore Tso a =C3=A9crit=
+Le mercredi 08 juillet 2026 =C3=A0 20:19 +0800, Guangshuo Li a =C3=A9crit=
 =C2=A0:
-> On Wed, Jul 15, 2026 at 11:00:54PM -0500, Nicolas Dufresne wrote:
-> > In V4L2 m2m notably, there is a "job" in the background, which allow
-> > to safely (at least this is the theory) chain up work, and
-> > synchronize against pending work. But Sashiko (and other AI) seems
-> > to not get it and state with confidence and long explanation that
-> > the drivers are racy and should do X/Y/Z more on top (and never
-> > blames the framework).
+> mtk_mdp_probe() registers the MDP reset handler with the VPU watchdog
+> code and passes the MDP device as the private data.
 >=20
-> Is there actually a race which is allowed by the framework?=C2=A0 Or is
-> Sashiko's proposed race actually not possible?
-
-Not that I'm aware of, as long as the driver follow the conventions. A typi=
-cal
-occurrence of this is when Sashiko suggest that you should do an extra work=
-er
-cancel after streamoff. The framework already ensure, through a job wait
-mechanism, that there is no more active tasks. This allow chaining this wor=
-k
-across workers, and one really done with the task, the driver will call a
-function to finish the job.
-
-Though, AI is also fed with code using the framework, but not the jobs. Ven=
-us
-and Iris from Qualcomm just leave the job running, and manually tear down a=
-nd
-finish the job on streamoff. So when AI use that as example (or thinking mo=
-del),
-they conclude defensive coding is needed. I bet that if Qualcomm Iris/Venus
-developer where to review other m2m they would provide similar reviews. But=
- they
-will likely add words that show a certain level of uncertainty, very unlike
-Sashiko today.
-
-What happens is that developers endup producing defensive code for cases th=
-at
-will never occur, but it can go as far as refactoring and putting in place =
-extra
-mechanism that are simply duplicate of the existing framework. So we receiv=
-e
-more complex code, with convincing comment that does not reflect any real-l=
-ife
-scenarios.
-
-Now its not a great mechanism, since its easy to "finish the job" and keep
-working, which can make the driver code run concurrently with a device_run(=
+> The handler is stored in the VPU device and can outlive the MDP probe or
+> remove path. If probe fails after the handler has been registered, or if
+> the MDP device is removed, the VPU watchdog table can keep a pointer to
+> an MDP object that is about to be released. A later VPU watchdog reset ca=
+n
+> then call mtk_mdp_reset_handler() with a stale pointer and dereference
+> freed memory while queuing the MDP watchdog work.
+>=20
+> Add a VPU watchdog unregister helper and clear the MDP watchdog handler
+> from both the probe error path and the remove path before dropping the VP=
+U
+> device reference.
+>=20
+> Fixes: ee18fc7b0b95 ("media: mtk-mdp: handle vpu_wdt_reg_handler() errors=
+ during probe")
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+> =C2=A0.../media/platform/mediatek/mdp/mtk_mdp_core.c=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 2 ++
+> =C2=A0drivers/media/platform/mediatek/vpu/mtk_vpu.c=C2=A0=C2=A0=C2=A0=C2=
+=A0 | 15 +++++++++++++++
+> =C2=A0drivers/media/platform/mediatek/vpu/mtk_vpu.h=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 2 ++
+> =C2=A03 files changed, 19 insertions(+)
+>=20
+> diff --git a/drivers/media/platform/mediatek/mdp/mtk_mdp_core.c b/drivers=
+/media/platform/mediatek/mdp/mtk_mdp_core.c
+> index 8432833814f3..5ccb7aa925d9 100644
+> --- a/drivers/media/platform/mediatek/mdp/mtk_mdp_core.c
+> +++ b/drivers/media/platform/mediatek/mdp/mtk_mdp_core.c
+> @@ -221,6 +221,7 @@ static int mtk_mdp_probe(struct platform_device *pdev=
 )
-from another thread. And for multi-core drivers, its easy to forget that th=
-e
-framework does not protect anything concurrent inside your driver.
+> =C2=A0	return 0;
+> =C2=A0
+> =C2=A0err_reg_handler:
+> +	vpu_wdt_unreg_handler(mdp->vpu_dev, VPU_RST_MDP);
+> =C2=A0	platform_device_put(mdp->vpu_dev);
+> =C2=A0
+> =C2=A0err_vpu_get_dev:
+> @@ -254,6 +255,7 @@ static void mtk_mdp_remove(struct platform_device *pd=
+ev)
+> =C2=A0
+> =C2=A0	pm_runtime_disable(&pdev->dev);
+> =C2=A0	vb2_dma_contig_clear_max_seg_size(&pdev->dev);
+> +	vpu_wdt_unreg_handler(mdp->vpu_dev, VPU_RST_MDP);
+> =C2=A0	platform_device_put(mdp->vpu_dev);
+> =C2=A0	mtk_mdp_unregister_m2m_device(mdp);
+> =C2=A0	v4l2_device_unregister(&mdp->v4l2_dev);
+> diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.c b/drivers/medi=
+a/platform/mediatek/vpu/mtk_vpu.c
+> index 8d8319f0cd22..5dc50a658c2b 100644
+> --- a/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+> +++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+> @@ -437,6 +437,21 @@ int vpu_wdt_reg_handler(struct platform_device *pdev=
+,
+> =C2=A0}
+> =C2=A0EXPORT_SYMBOL_GPL(vpu_wdt_reg_handler);
+> =C2=A0
+> +void vpu_wdt_unreg_handler(struct platform_device *pdev, enum rst_id id)
+> +{
+> +	struct mtk_vpu *vpu =3D platform_get_drvdata(pdev);
+> +
+> +	if (!vpu || id >=3D VPU_RST_MAX)
+> +		return;
+> +
+> +	mutex_lock(&vpu->vpu_mutex);
+> +	vpu->wdt.handler[id].reset_func =3D NULL;
+> +	vpu->wdt.handler[id].priv =3D NULL;
+> +	mutex_unlock(&vpu->vpu_mutex);
+> +}
+> +EXPORT_SYMBOL_GPL(vpu_wdt_unreg_handler);
+> +
+> +
 
-Sashiko is just not doing the teaching that is needed for new contributors,=
- or
-for experienced developers handling slightly different type of HW with this
-"problematic" framework. So if someone up for designing something better an=
-d
-porting bunch of drivers, that person is very welcome!
+This extra blank makes checkpatch sad :-\ Since I see nothing else to comme=
+nt
+about, I'll simply apply this fix on my end.
 
->=20
-> Or is it a case where it actually *is* racy, but it's something we
-> really don't care about?=C2=A0 I've seen this happen with KCSAN where
-> technically it really *is* a data race, but it's actually not
-> important --- so we just have to mark it with the data_race() macro[1].
->=20
-> [1] https://docs.kernel.org/dev-tools/lkmm/docs/access-marking.html
->=20
-> This sort of thing can happen any time we introduce a new tool,
-> whether it's KCSAN or lockdep.=C2=A0 It's not necesarily unique to AI
-> reviews.=C2=A0 In both AI and non-AI tools, we can have developers who fi=
-x
-> the problem in the wrong way, or where the fix actually makes things
-> worse than the putative "bug".
->=20
-> > This is why I recommended not forwarding the reviews to the linux
-> > media list just yet during the summit. Now, the tricky part will be
-> > to find time to try and help narrow this down, I never checked the
-> > implementation, but I suppose you can add more layers of prompts to
-> > force into looking deeper ?
->=20
-> Has a bug been filed with the Shashiko folks?=C2=A0 I can imagine any
-> number of solutions, including adding comments in the source, or some
-> kind of marker much like the data_race() macro to shut up KCSAN
-> warnings, or __attribute__((unused)) to shut up gcc or Clang warnings.
-> Yet another solution might be to add some kind of a AGENTS.md file in
-> the explains why a particular construct is safe.=C2=A0 Personally, I
-> consider it to be the less desirable solution, since having something
-> inline in the sources is likely to get out of sync with future code
-> changes, and having the annotation in the sources will hopefully be
-> useful to humans, not just AI bots.
->=20
-> But the exact solution is going to be very specific exact warning and
-> why the AI bot thinks there is a problem when it really isn't.
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-I believe this have to start as a case by case. Perhaps if we could mark an=
-d tag
-these on the web UI, and once we have a good collection we might be able to=
- see
-clearly. At the minute, its very all over the place, since we are getting s=
-ome
-patch witch don't always cross-reference the reports, or may be reviewed by
-other AI. Its all very unclear and variable where and how the issue was
-identified in the first place. What we get is code, and sometimes wall of t=
-ext.
-We need to organize ourself a bit more and have clear communication in this
-regard.
-
-For the teaching aspect, that is too complicated for AI at the moment. You =
-want
-this toned based on the submitter experience. There is judgment to be made.
-
-With AI, I also keep a reserve on how much effort I put to fix things like =
-that,
-as the models evolve really fast, this work might not be required in the ne=
-xt
-update.
-
+regards,
 Nicolas
 
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0	=C2=A0	 - Ted
->=20
-> P.S.=C2=A0 There was a recent thread[1] where using Clang's context
-> analysis resulted in a false positive, and I think it's instructive to
-> see how it was handled compared to false positives from Sashiko.=C2=A0 We
-> had a discussion, and the result was two pull requests to LLVM to
-> avoid the false positive.=C2=A0 There was no complaints about how the fal=
-se
-> positive somehow was demeaning to our humanity, or that we should be
-> accomodate those people who want to ban the use of static analyzers.
-> There is something about AI that seems to trigger a different sort of
-> energy, for better or for worse.
->=20
-> [1]
-> https://lore.kernel.org/r/20260712165610.366474-2-timday@thelustrecollect=
-ive.com
+> =C2=A0unsigned int vpu_get_vdec_hw_capa(struct platform_device *pdev)
+> =C2=A0{
+> =C2=A0	struct mtk_vpu *vpu =3D platform_get_drvdata(pdev);
+> diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.h b/drivers/medi=
+a/platform/mediatek/vpu/mtk_vpu.h
+> index 3951547e9ec5..2ccb481a04cf 100644
+> --- a/drivers/media/platform/mediatek/vpu/mtk_vpu.h
+> +++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.h
+> @@ -141,6 +141,8 @@ int vpu_wdt_reg_handler(struct platform_device *pdev,
+> =C2=A0			void vpu_wdt_reset_func(void *priv),
+> =C2=A0			void *priv, enum rst_id id);
+> =C2=A0
+> +void vpu_wdt_unreg_handler(struct platform_device *pdev, enum rst_id id)=
+;
+> +
+> =C2=A0/**
+> =C2=A0 * vpu_get_vdec_hw_capa - get video decoder hardware capability
+> =C2=A0 *
 
---=-vNfo8YD8KuhvtCjCItm6
+--=-crHtUZ7+2c5Ajf8qSv7r
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCallFDgAKCRDZQZRRKWBy
-9A88AQC3ulMMJRaxvdmxyfDy5ToqVD6uFVd3StbBWuI/r4n2NAD+I17SVS6qE5YN
-ySeL2cDy1QgG5sGpcRS76uFEzICIzQU=
-=OjMC
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCallKvQAKCRDZQZRRKWBy
+9IGdAQCpnzqE1azFjuacoNMcIeisgg6SaEx51b5TkFJe6O4jWgEA32oGJzf58ofO
++IbTOnKXkPrL4p5Lp8+f60gxG2qdQAY=
+=4s28
 -----END PGP SIGNATURE-----
 
---=-vNfo8YD8KuhvtCjCItm6--
+--=-crHtUZ7+2c5Ajf8qSv7r--
