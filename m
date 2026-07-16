@@ -1,179 +1,152 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949ED4252D9;
-	Thu, 16 Jul 2026 14:02:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784210547; cv=pass; b=UM6hw3+W1uCPH0wJ053znJysbnLTyWFMnW6gJc4NbyQnpmT3hPvSGUu439icIvIJ2JtkSA4IwfqAzQnAg+p5rbII8B/YKDewuWmCkbv2XSY81FnfLiQ3MIIKyzY71lsWPG2EPQofXNjClzONShCyAyraHL4p4k9rmI7bw1ehChU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784210547; c=relaxed/simple;
-	bh=7grx8XTPIipf+FoRQT/A3KtkoQkQ2z5TuUvzoNXGNRQ=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=h7P2damCWDyVDa4wf/Mxwxx0woBEPQcbJbMcVa/dtvEf8ohxAcR4VaUdw/IIfpcYHjxmnkZ2vx4QP1JPYuMS1qQ6hk/za0uFrKiyB5EzpO7NqS8iYJXm2PUepPlStqERwqWkPmWIBSZdGQrtJE0+Jcd5jvtcuFDYZtlhJa12TdY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=iHB/t/6f; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D7DA3148C2;
+	Thu, 16 Jul 2026 14:03:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784210625; cv=none; b=A9XRMsB1UNUXtr2vHBi4cnc5LA7VPGeTKFazt+koEaJttZa895Hf7aiSo7cHqwAr7WDUzKar2J8Om4orAdlozEd+9Pk/UbtvOiJgizCmJN6RM9sK3Ryji8P282K4osg1xWb4CYUKIMuhdvBq02Ypee1opi9G1m3avx/2u7A45FQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784210625; c=relaxed/simple;
+	bh=k8lqZyi67/cE00tplYqwtKXLvQlw0UH/9cYPqGsrFLQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yi/o9cPuDYb8s3LyyGjjUB5LnbSvAmJVqowTi8zulWJW1ljSDn7DMOYi36Chxx+2Vl3nWE15zJFXCr0UHWkNYo3IFhXt3x/ksS0M/zhq4Urr1FhuIJqWLPrLuqNBb0/FrCCnqJkzmdm4Jsg7Mb9ZqcZLrJcSyGcZmlhDUCBHpX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Jn7DH2jc; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="iHB/t/6f"
-ARC-Seal: i=1; a=rsa-sha256; t=1784210495; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=DqrX0QCVhhcHKSAHdoeahzKeUmohOTDkxQwdy4b4U5CQ6/9w5QHqDiVoIhqrWsmI89mwFe67g1dy8qNbi5XmGjxR+pXNaJq5CzFQ8bHCsIYhzZUA1tbmQkTKl3XeJxwRciDCRbcscZx6ow+proXu/xbuRpbp4ivQts9Jokc3tx4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1784210495; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=YkCswN9vU9klZCbaHmjobgXuhJ9kv2i+jhOyWtNZ/gU=; 
-	b=AVvnwQwUJIRzJqU0K4yFQ1ts22OjjzvdrO9I0pKO+j9KP8UF4SNWX+J4ARFcWL6CQQwJTF7fizXxrhZMtaGJKjtnTz7VC7QzswwuRCSwEz+UjLXN72XZPqMJQywSPf34rGNPAP5mafXs9yDSItCBJAl1rW/40uH5YMamAIwR0g4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
-	dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784210495;
-	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
-	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
-	bh=YkCswN9vU9klZCbaHmjobgXuhJ9kv2i+jhOyWtNZ/gU=;
-	b=iHB/t/6f8THx8oP3hx/xsCnbqejJwdbqld2us2HWG/dkLDiAtcEa4Dqwn1KSpWpG
-	5QqOlb5RRrVVcp3yKbkj+4eYewmyIZKezdvgYZ2oNhCAQH8lp5O7fUBwUKqtxO9G0RQ
-	Er3mWUHUzAXjc65l7SKCF/vzIQAvWb8YH1HPFJoU=
-Received: by mx.zohomail.com with SMTPS id 1784210492755133.6375897949889;
-	Thu, 16 Jul 2026 07:01:32 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Jn7DH2jc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784210625; x=1815746625;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=k8lqZyi67/cE00tplYqwtKXLvQlw0UH/9cYPqGsrFLQ=;
+  b=Jn7DH2jc2FrjcqpaQv8+tUlHdCfjXNTNgrZnDCbneOHzDRNLalUVV0h3
+   VDlyWgmJ92wS6L5tQMUH6Y9zOjAl8tBus623cm+sFahlhvzfpLRz00LrE
+   3bePmjQCKU4Vy5gQC2L2ZmKCGXC7vEo3ahNua9OvID3hYe4aXljxzjSRm
+   b1NpvP62UChs/eammwB5Ff0hRiP694GdqmWmyQAjv/UioKNjMWz/cu8Hh
+   drhBUE7+vRH5TQVy6I/Cf8ma+YGQWLl44bdtG7nfuSM2K287VB2t0spE1
+   MEv8Rwdz1VWWCifqucydmTTkuytDLVUROLPKmIzD/Z86P6DpvzQYwrsrJ
+   g==;
+X-CSE-ConnectionGUID: PnlXtTByREmrPuF6Bc6g+A==
+X-CSE-MsgGUID: r1SkbvnTQpWrF3/+HrqN4A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="102297055"
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
+   d="scan'208";a="102297055"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 07:03:44 -0700
+X-CSE-ConnectionGUID: bUH4yj73Sq6t7Ni1bmKhLA==
+X-CSE-MsgGUID: Fdvr64eARQe4+34jGuuvyg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
+   d="scan'208";a="260807402"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.85])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 07:03:42 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 2934811F7EE;
+	Thu, 16 Jul 2026 17:03:40 +0300 (EEST)
+Date: Thu, 16 Jul 2026 17:03:40 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Richard Acayan <mailingradian@gmail.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 02/21] media: i2c: imx355: Add support for 24 MHz
+ external clock
+Message-ID: <aljkvL3UBlF-twnT@kekkonen.localdomain>
+References: <20260715-media-imx355-v4-0-f7f966fb9ffd@raspberrypi.com>
+ <20260715-media-imx355-v4-2-f7f966fb9ffd@raspberrypi.com>
+ <alfj3XIkX-2O5BGp@rdacayan>
+ <alfrPmqdQxw18bk0@kekkonen.localdomain>
+ <aljZf9q6GpdmGFjh@zed>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v5 4/5] rust: Add dma_fence abstractions
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <7a2cf5494824b8451824ebe82e0391df05a7cb5a.camel@mailbox.org>
-Date: Thu, 16 Jul 2026 11:01:12 -0300
-Cc: Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Asahi Lina <lina+kernel@asahilina.net>,
- Burak Emir <bqe@google.com>,
- Lorenzo Stoakes <ljs@kernel.org>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Krishna Ketan Rai <prafulrai522@gmail.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Mirko Adzic <adzicmirko97@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Shankari Anand <shankari.ak0208@gmail.com>,
- linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org,
- linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <B393F982-3746-4AE8-81DB-00D07232C681@collabora.com>
-References: <20260703073141.3962604-2-phasta@kernel.org>
- <20260703073141.3962604-6-phasta@kernel.org>
- <046C4D44-1966-4EE9-AE86-A8F83A136771@collabora.com>
- <7a2cf5494824b8451824ebe82e0391df05a7cb5a.camel@mailbox.org>
-To: phasta@kernel.org
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aljZf9q6GpdmGFjh@zed>
 
+Hi Jacopo,
 
->=20
->>> +}
->>> +// Necessary to guarantee that `inner` always comes first and can =
-be freed by C.
->>> +// Also useful for using casts instead of container_of().
->>> +#[repr(C)]
->>> +#[pin_data]
->>> +struct DriverFenceData<'a, T: Send + Sync + FenceCtxOps> {
->>> +    #[pin]
->>> +    /// The inner fence.
->>> +    // Must always be the first member so that unsafe casting =
-works; but also
->>> +    // necessary so that the C backend can free the allocation =
-(coming from our
->>> +    // Rust code) with kfree_rcu().
->>> +    inner: Fence,
->>> +    /// Callback head for dropping this in a deferred manner =
-through RCU.
->>> +    rcu_head: bindings::callback_head,
->>> +    /// Reference to access the FenceCtx. Useful for obtaining name =
-parameters.
->>> +    fctx: &'a FenceCtx<T>,
->>=20
->> This creates a self-referential borrow in the JobQueue, since it =
-holds both (a) the
->> context to mint new seqnos from and (b) the xarray with fences which =
-borrow from
->> that same context. This issue does not exist with the Arc and we =
-should really
->> fix it before moving with this series.
->=20
-> Can you detail that a bit more. So your JobQueue version has a `data:
-> T` where T holds both the xarray and a jobqueue. The xarray contains
-> fences that hold references to the FenceCtx. But shouldn't that be =
-fine
-> since the life time ensures that the drop order is correct?
->=20
->=20
-> btw we are recently coming up with a proposal on how JobQueue could
-> store DriverFences for the driver. I want to present some RFC for that
-> soonish.
->=20
+On Thu, Jul 16, 2026 at 03:25:25PM +0200, Jacopo Mondi wrote:
+> Hi Sakari
+> 
+> On Wed, Jul 15, 2026 at 11:19:10PM +0300, Sakari Ailus wrote:
+> > Hi Richard,
+> >
+> > On Wed, Jul 15, 2026 at 03:47:41PM -0400, Richard Acayan wrote:
+> > > On Wed, Jul 15, 2026 at 12:43:15PM +0100, Dave Stevenson wrote:
+> > > > From: David Heidelberg <david@ixit.cz>
+> > > >
+> > > > The IMX355 sensor supports multiple external clock frequencies,
+> > > > including 19.2 MHz and 24 MHz. The driver currently supports only
+> > > > fixed 19.2 MHz input clock.
+> > > >
+> > > > Refactor the clock handling to make the PLL configuration dependent
+> > > > on the external clock frequency and add support for 24 MHz. Introduce
+> > > > a table of clock parameter sets and program the corresponding EXTCLK
+> > > > frequency and PLL multipliers to maintain consistent internal VCO
+> > > > frequencies across supported inputs.
+> > > >
+> > > > The PLL settings are adjusted so that OP VCO remains at 720 MHz
+> > > >
+> > > > This preserves existing timing characteristics while allowing systems
+> > > > using a 24 MHz clock to operate correctly.
+> > > >
+> > > > No functional change for existing 19.2 MHz users.
+> > > >
+> > > > Assisted-by: Claude:claude-opus-4-6
+> > > > Signed-off-by: David Heidelberg <david@ixit.cz>
+> > > > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> > > > ---
+> > > >  drivers/media/i2c/imx355.c | 77 +++++++++++++++++++++++++++-------------------
+> > > >  1 file changed, 45 insertions(+), 32 deletions(-)
+> > > >
+> > > > diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+> > > > index ac59908f57aa..a6ee7532018f 100644
+> > > > --- a/drivers/media/i2c/imx355.c
+> > > > +++ b/drivers/media/i2c/imx355.c
+> > > (snip)
+> > > > @@ -1749,7 +1756,13 @@ static int imx355_probe(struct i2c_client *client)
+> > > >  				     "failed to get clock\n");
+> > > >
+> > > >  	freq = clk_get_rate(imx355->clk);
+> > > > -	if (freq != IMX355_EXT_CLK)
+> > > > +	for (unsigned int i = 0; i < ARRAY_SIZE(imx355_clk_params); i++) {
+> > >
+> > > Did we start allowing variable declarations mixed with code?
+> >
+> > C didn't allow that until somewhat recently, hence it hasn't been used in
+> > the kernel either.
+> 
+> Recently as in C99 ? :)
+> https://en.cppreference.com/c/language/scope "Block scope"
 
-Let me address this first, I will reply to your other points later today =
-:)
+Well, it's still "recent" for C, isn't it? ;-)
 
-So about =E2=80=9Cyour JobQueue version has a data: T where T holds both =
-the xarray
-and a jobqueue=E2=80=9D: no. The JobQueue has an xarray backing all the =
-stages and
-a context to mint new seqnos from:
+> 
+> See: e8c07082a810 ("Kbuild: move to -std=gnu11")
+> 
+> >
+> > In cases like the above it improves readability. E.g. with __free() that is
+> > also the recommended pattern.
+> >
+> > --
+> > Regards,
+> >
+> > Sakari Ailus
 
+-- 
+Regards,
 
-struct JobQueueInner {
-  fifo: XArray<XaEntry>
-  fctx: FenceContext
-  // other fields..
-}
-
-This fifo backs all the stages in the queue, and we track stages by =
-tracking
-indices pointing to the XArray.
-
-XaEntry is split between a fallible prepare() and a infallible commit():
-
-// prepare() stores this:
-XaEntry::Reserved {
-    job: Arc<T::Job>,
-    uninit_fence: DriverFenceAllocation<???, ...>,
-    deps: KVec<ARef<Fence>>,
-    // other fields
-}
-
-XaEntry::Live is similar, except that the allocation is initialized and =
-there's
-the whole DriverFence/Fence split and etc.
-
-Under your proposed design, fences must borrow their context from =
-somewhere,
-and this somewhere is a sibling field in the JobQueue. This relationship =
-is
-unrepresentable in Rust. It only works if you don't store these two =
-things
-together.
-
-There are probably a few different ways of fixing this, but I recommend =
-going
-back to refcounting.
-
-=E2=80=94 Daniel=
+Sakari Ailus
