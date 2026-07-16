@@ -1,195 +1,159 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [4.193.249.245])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 91FEF2DC79B;
-	Thu, 16 Jul 2026 13:49:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=4.193.249.245
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0308D424669;
+	Thu, 16 Jul 2026 14:01:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784209804; cv=none; b=CHM9RR+cVwWFMAtCoUMvR771PVRxFh3pZ8u31X3JIA6jGfq4WEPEhdUCkFfzIPZZ01OezTAicBnfwH+EXpW8bfeb/TLZBY3UgSaplnwydkbTMIeGzOKT/5rm+yT7v3T3vX1XSQ1MlDBxQ2BcfRPGoAI50noFKHA47es8osG3lJU=
+	t=1784210479; cv=none; b=NJOIr9G2UklE/bamq45iMERnTJZ7nd95D1qtyC7l6+WBexA4f2jrKyu2+E2GQRcwNeqzySSOpPSiCiFFM36e2k+JBCMTYODZmGsXDEJIsgKqz02yxvVwX5JuLRlVmEAxMv9JsSbSBEoBe4H/Mgk6mdbqpI3/9kUSVe4xHxli2RU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784209804; c=relaxed/simple;
-	bh=edHyrD6g3YKFiajOhYcLs5D0M0Wq54QPpEaPDMPgvbk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=GnUWy9lnrFnuXuoAymQPa+Cq7lFJRNb4nIsQnLrOJmcVyYHOA+KTo4lNhsUdV/cE2aX+Ef/qLL/pZC0xesGnrncBoZItQPvRtOFyWbkmm/BkJrXPMawCzvoLlAGUwpcfdlqxPnkOYRpS7TLxKVck3EeNWg172SXOLfe159aSo9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=4.193.249.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wA3IV934VhqkgZgAA--.10752S3;
-	Thu, 16 Jul 2026 21:49:44 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgB358x14VhqjDbxAg--.35535S2;
-	Thu, 16 Jul 2026 21:49:41 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: mchehab@kernel.org
-Cc: hverkuil+cisco@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH v2] media: cx231xx-audio: drain wq_trigger before audio fini
-Date: Thu, 16 Jul 2026 13:48:46 +0000
-Message-Id: <20260716134846.3132097-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260708141622.3936490-1-fanwu01@zju.edu.cn>
-References: <20260708141622.3936490-1-fanwu01@zju.edu.cn>
+	s=arc-20240116; t=1784210479; c=relaxed/simple;
+	bh=fZhUW9XbwDK//Y1wiW7eA4BY6zVO9reTPYfY6CVKMT0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z8qTj0FtKfr8les7VNgFNI40hZg37b5aPLFsKycCkzPu62WwDM2x6vHewTs2qBpzAS2s1oxMQJPB+NvXCyen7Q/89dYcfKKFYwgCuD3Pyhj/Wf7Q6KieqoQ4vn7PdZ52xotp2UX0lX51/3VBCvgmYtQRapoHJWeOsFAIUEclmls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MpXJyrvr; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MpXJyrvr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784210477; x=1815746477;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=fZhUW9XbwDK//Y1wiW7eA4BY6zVO9reTPYfY6CVKMT0=;
+  b=MpXJyrvrHBD4dmlVEVFuLD6Ad8nmSgfMpHKiYE2rIxeazS0P4Q/uwVaZ
+   OCqRbtG34d/Z4kR/FXP2igJu85XqjTYG8kb+0NEp0dpiFME4mfTo3KsAu
+   nTRw785or/Jqe+fXq38U4w6CiD8MB77Gbpt7wmIQeVIWws728LKfyxM5u
+   MOsw1fe2v5D397UlgRhUw1gi2gYvw5SxLTDjhYbjNXshusHwspKAAH7/3
+   7obVDGA2WUZn/Nxl1zc6BouujaMGW0IoJmId8qC5iocaGq951N94g2Of6
+   nFKmNI6HQzYI5138MyqmOv0HQ6FjGaNZhEU3c+FJphLQmhzTfxUDavDnA
+   Q==;
+X-CSE-ConnectionGUID: KutNZ6d/TFuvoH5JddILUQ==
+X-CSE-MsgGUID: jBmVD6dqQienBfhUY+GQ+A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="85068762"
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
+   d="scan'208";a="85068762"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 07:01:16 -0700
+X-CSE-ConnectionGUID: yz2UQmBLQa2MP5rEv1qZhA==
+X-CSE-MsgGUID: kq1w6wdbReqCE7VLsKPc1A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; 
+   d="scan'208";a="255369631"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.85])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jul 2026 07:01:13 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 5630811F7EE;
+	Thu, 16 Jul 2026 17:01:12 +0300 (EEST)
+Date: Thu, 16 Jul 2026 17:01:12 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Eugen Hristev <ehristev@kernel.org>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Maxime Ripard <mripard@redhat.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: bcm2835-unicam: Fix pipeline wrong validation for
+ unpacked formats
+Message-ID: <aljkKMRvv18mw_lP@kekkonen.localdomain>
+References: <20260520-bcmpi-v1-1-41d80125a7b9@kernel.org>
+ <178046930079.1525445.16102733967737177325@freya>
+ <bb075afb-56bf-4cea-9732-f2613feb88d1@kernel.org>
+ <20260716081240.GA1837346@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgB358x14VhqjDbxAg--.35535S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?pJe2awXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI3IWMtfu/GU2xOferQPnfgLLxCi5s1C7HjcijontArQBLD5
-	D7askrhb8LEjBgo6zO7N5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoW3GrW7CrWrur1UWFW5Gr17urX_yoW7Wr1rpF
-	Z5t34FyrZ7JF40qF47Jw1akFyYkr4vyayjk347uw1Ykr43Gr1YvF1xJa48ZF93AFyxZay2
-	yr45t3y8ur45XFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Tv3UUUUUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260716081240.GA1837346@killaraus.ideasonboard.com>
 
-audio_trigger() is deferred work (dev->wq_trigger) armed from
-snd_cx231xx_capture_trigger() on every PCM START/STOP; it dereferences
-dev->adev state and may free the URBs via cx231xx_isoc_audio_deinit().
-cx231xx_audio_fini() tore down that state without draining wq_trigger,
-so work armed before or racing fini ran against freed state.
+On Thu, Jul 16, 2026 at 11:12:40AM +0300, Laurent Pinchart wrote:
+> On Thu, Jul 16, 2026 at 10:22:03AM +0300, Eugen Hristev wrote:
+> > On 6/3/26 09:48, Jai Luthra wrote:
+> > > Quoting Eugen Hristev (2026-05-20 21:07:00)
+> > >> The commit
+> > >> 08f9794d9b79 ("media: bcm2835-unicam: Fix RGB format / mbus code association")
+> > >> introduced a check to see whether the format requested is the same as the
+> > >> fourcc in the format list.
+> > >>
+> > >> However, this breaks the case when userspace requested an unpacked fourcc,
+> > >> e.g. RG10.
+> > >>
+> > >> Unicam can work with or without unpacking pixels, e.g. pRAA or RG10, depending
+> > >> on what userspace requests.
+> > >> In the unpacking case, a dedicated register is being set.
+> > >>
+> > >> If the userspace requests pRAA, this works, because the check validates the
+> > >> pipeline:
+> > >>
+> > >> v4l2-ctl -d /dev/video0 --set-fmt-video=width=3280,height=2464,pixelformat=pRAA \
+> > >>  --stream-mmap --stream-count=1 --stream-to=frame.raw
+> > >>
+> > >> but, with
+> > >> v4l2-ctl -d /dev/video0 --set-fmt-video=width=3280,height=2464,pixelformat=RG10 \
+> > >> --stream-mmap --stream-count=1 --stream-to=frame.raw
+> > >>
+> > >> unicam complains at validation level:
+> > >>
+> > >> image: format mismatch: 0x300f <=> RG10 little-endian (0x30314752)
+> > >>
+> > >> This should work, because MEDIA_BUS_FMT_SRGGB10_1X10 can be packed into either
+> > >> RG10 or pRAA depending on the packing register.
+> > >>
+> > >> To fix this, modified the condition check to also allow in the case when
+> > >> requested format (fmt->pixelformat) is equal to fmtinfo->unpacked_fourcc.
+> > >>
+> > >> Fixes: 08f9794d9b79 ("media: bcm2835-unicam: Fix RGB format / mbus code association")
+> > >> Signed-off-by: Eugen Hristev <ehristev@kernel.org>
+> > >> ---
+> > >>  drivers/media/platform/broadcom/bcm2835-unicam.c | 3 ++-
+> > >>  1 file changed, 2 insertions(+), 1 deletion(-)
+> > >>
+> > >> diff --git a/drivers/media/platform/broadcom/bcm2835-unicam.c b/drivers/media/platform/broadcom/bcm2835-unicam.c
+> > >> index 8d28ba0b59a3..cc7627e9a51a 100644
+> > >> --- a/drivers/media/platform/broadcom/bcm2835-unicam.c
+> > >> +++ b/drivers/media/platform/broadcom/bcm2835-unicam.c
+> > >> @@ -2158,7 +2158,8 @@ static int unicam_video_link_validate(struct media_link *link)
+> > >>                  * In order to allow the applications using the old behaviour to
+> > >>                  * run, let's accept the old combination, but warn about it.
+> > >>                  */
+> > >> -               if (fmtinfo->fourcc != fmt->pixelformat) {
+> > >> +               if (fmt->pixelformat != fmtinfo->fourcc &&
+> > >> +                   fmt->pixelformat != fmtinfo->unpacked_fourcc) {
+> > >>                         if ((fmt->pixelformat == V4L2_PIX_FMT_BGR24 &&
+> > >>                              format->code == MEDIA_BUS_FMT_BGR888_1X24) ||
+> > >>                             (fmt->pixelformat == V4L2_PIX_FMT_RGB24 &&
+> > >>
+> > > 
+> > > Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> > > 
+> > 
+> > Hi Sakari,
+> > 
+> > I saw you taking some of the patches on unicam, this one is the most
+> > important as all unpacked formats are basically broken for a very long
+> > time (months) and the patch is pending for quite some time.
+> > 
+> > This should also go in stable as some older versions also affected.
+> 
+> The commit message should include
+> 
+> Cc: stable@vger.kernel.org
+> 
+> after the Fixes: tag. Sakari can likely add that when applying.
 
-Use disable_work_sync() in fini to drain the work and prevent further
-queueing.  Initialize the work, lock and stream_started counter at the
-top of cx231xx_audio_init(), before any fallible allocation, and clear
-the partially-built audio state on its error path, so fini is safe even
-if a later step fails.
+Yes. I expect to pick the patch later this week.
 
-This issue was found by an in-house static analysis tool.
-
-Fixes: 61b04cb24a12 ("[media] cx231xx-audio: fix some locking issues")
-Cc: stable@vger.kernel.org # needs adjustments for <= 6.6: use cancel_work_sync()
-Link: https://lore.kernel.org/r/8c7e1294-b906-4636-890c-b64d03b0e1d0@kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
-Changes in v2: use disable_work_sync() instead of a teardown flag +
-cancel_work_sync(), as suggested by Hans Verkuil.  The init-ordering
-fix and error-path cleanup from v1 are retained.
----
- drivers/media/platform/ti/vpe/vip.c   | 37 ++++++++++++++++++++++++---
- drivers/media/platform/ti/vpe/vpdma.c |  3 ++-
- 2 files changed, 35 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/media/platform/ti/vpe/vip.c b/drivers/media/platform/ti/vpe/vip.c
-index cb0a5a07a3d4..30e9a85d4cf5 100644
---- a/drivers/media/platform/ti/vpe/vip.c
-+++ b/drivers/media/platform/ti/vpe/vip.c
-@@ -814,6 +814,22 @@ static void clear_irqs(struct vip_dev *dev, int irq_num, int list_num)
- 	vpdma_clear_list_stat(dev->shared->vpdma, irq_num, dev->slice_id);
- }
- 
-+/*
-+ * Quiesce recovery work and per-list IRQs before releasing stream resources.
-+ * disable_work_sync() prevents the overflow handler from requeueing recovery
-+ * work. Mask and synchronize IRQs afterwards because a running worker may
-+ * have re-enabled them before exiting.
-+ */
-+static void vip_quiesce_stream(struct vip_stream *stream)
-+{
-+	struct vip_dev *dev = stream->port->dev;
-+
-+	disable_work_sync(&stream->recovery_work);
-+	disable_irqs(dev, dev->slice_id, stream->list_num);
-+	clear_irqs(dev, dev->slice_id, stream->list_num);
-+	synchronize_irq(dev->irq);
-+}
-+
- static void populate_desc_list(struct vip_stream *stream)
- {
- 	struct vip_port *port = stream->port;
-@@ -2428,6 +2444,7 @@ static int vip_start_streaming(struct vb2_queue *vq, unsigned int count)
- 		goto err;
- 
- 	stream->num_recovery = 0;
-+	enable_work(&stream->recovery_work);
- 
- 	clear_irqs(dev, dev->slice_id, stream->list_num);
- 	enable_irqs(dev, dev->slice_id, stream->list_num);
-@@ -2452,13 +2469,17 @@ static void vip_stop_streaming(struct vb2_queue *vq)
- 	struct vip_dev *dev = port->dev;
- 	int ret;
- 
-+	/*
-+	 * A running recovery worker may re-enable the parser, so quiesce it
-+	 * and its IRQ handler before stopping the parser or releasing the
-+	 * descriptor list.
-+	 */
-+	vip_quiesce_stream(stream);
-+
- 	vip_parser_stop_imm(port, true);
- 	vip_enable_parser(port, false);
- 	unset_fmt_params(stream);
- 
--	disable_irqs(dev, dev->slice_id, stream->list_num);
--	clear_irqs(dev, dev->slice_id, stream->list_num);
--
- 	if (port->subdev) {
- 		ret = v4l2_subdev_call(port->subdev, video, s_stream, 0);
- 		if (ret)
-@@ -3074,6 +3095,8 @@ static int alloc_stream(struct vip_port *port, int stream_id, int vfl_type)
- 		goto do_free_hwlist;
- 
- 	INIT_WORK(&stream->recovery_work, vip_overflow_recovery_work);
-+	/* Start disabled; vip_start_streaming() enables it before IRQs. */
-+	disable_work(&stream->recovery_work);
- 
- 	INIT_LIST_HEAD(&stream->vidq);
- 
-@@ -3139,6 +3162,13 @@ static void free_stream(struct vip_stream *stream)
- 		return;
- 
- 	dev = stream->port->dev;
-+	/*
-+	 * Unpublish the stream and quiesce its IRQ handler and recovery worker
-+	 * before releasing stream-owned resources.
-+	 */
-+	stream->port->cap_streams[stream->stream_id] = NULL;
-+	vip_quiesce_stream(stream);
-+
- 	/* Free up the Drop queue */
- 	list_for_each_safe(pos, q, &stream->dropq) {
- 		buf = list_entry(pos,
-@@ -3150,7 +3180,6 @@ static void free_stream(struct vip_stream *stream)
- 
- 	video_unregister_device(stream->vfd);
- 	vpdma_hwlist_release(dev->shared->vpdma, stream->list_num);
--	stream->port->cap_streams[stream->stream_id] = NULL;
- 	kfree(stream);
- }
- 
-diff --git a/drivers/media/platform/ti/vpe/vpdma.c b/drivers/media/platform/ti/vpe/vpdma.c
-index 573aa83f62eb..f9f5b2f1ee1a 100644
---- a/drivers/media/platform/ti/vpe/vpdma.c
-+++ b/drivers/media/platform/ti/vpe/vpdma.c
-@@ -988,7 +988,8 @@ void *vpdma_hwlist_release(struct vpdma_data *vpdma, int list_num)
- 
- 	spin_lock_irqsave(&vpdma->lock, flags);
- 	vpdma->hwlist_used[list_num] = false;
--	priv = vpdma->hwlist_priv;
-+	priv = vpdma->hwlist_priv[list_num];
-+	vpdma->hwlist_priv[list_num] = NULL;
- 	spin_unlock_irqrestore(&vpdma->lock, flags);
- 
- 	return priv;
 -- 
-2.34.1
-
+Sakari Ailus
