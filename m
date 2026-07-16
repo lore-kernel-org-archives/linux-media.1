@@ -1,83 +1,125 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE4141B8FD;
-	Thu, 16 Jul 2026 11:45:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BDFC41DEE5
+	for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 12:32:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784202346; cv=none; b=gkishwEcZWkCIvqPaG+4qiXweOCGoNld2DYNlZvVwv1PRCCgyg8IGcF/Q7DPnFcbzJrUM3dT9QbyTSNMjgXtvr3sDkhIyfeUKdz9TacC+S8gcdADuiThQkkaHhZXlvCPvNbHgjMzqZClicT7SmVHhcCOmn/sPCTsF573gi8apWk=
+	t=1784205171; cv=none; b=oirbJpZP8PLcqdN1/EJ/A3aKPwEq3jT/NAuq+UgbA19b7bSsRKbl9UI9O0v9h/Bd5BVk2sr72ck4EmQZkoU1y1+kWIEFkxDBZs74xgiF0Aou1zIj+h2pv0REoVJfUuwJ3o0+BSR2r4wm4nFX+uReEQu+YVRJcm7XO0/eV6vLcgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784202346; c=relaxed/simple;
-	bh=7lHA1KIF3ZYfJgjJcHFiljPd/+p5UTTmoz7g08D3Lmo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=FRIquDKaAGbKLRSKo+9yT6Kjxk7DXcxX8NBQmxEGKzLp5CpPJJxtRKPw3JKWKDzl9C54Ig5pEE5Jp4hxyv2SnRRlMvHgnG1BzU6av/63iwron4tC6hxvcTs+GrFabRd6PJkAzUZVdCS5rC6+PRE+cehsmU1wf69tlM7IQKWT3W4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=RAK67tkS; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1784205171; c=relaxed/simple;
+	bh=4CBJ8YnD1s2aE8qPCXY6nOU6cIkgfJQt0Zr2Ep+kCNU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QlOBPdM+Oc2ATZvZkgS4PuhK7cx14VyyCvfde3/V6S6kVNAclU9pkNgYpZCnXJnFmEYHWr0FZ9DWGSTNLk85heuHRyJjGorTOMvoh9kOdx8g/tHdv6zb0WMfmABBYLrRXWzEoNCBVzzqAdQKWUR/2i8LSJhFUZp2tJ443hsHF4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=qUCMvoKD; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="RAK67tkS"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4h1B7K2xNPzMlG6;
-	Thu, 16 Jul 2026 13:45:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1784202333; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7lHA1KIF3ZYfJgjJcHFiljPd/+p5UTTmoz7g08D3Lmo=;
-	b=RAK67tkSHlU0B04BSrusTG8IXcVCZDhL94XVL9kim4khV3z2shM4hfQBIpX9M1rnJ7taJd
-	bLmTp8MCEpJB8Y7NR3Mz9ONdc9EKlxgXEM+9t7FV0quqZsEz2ytUtMNu7RkMx4X1oK6aQI
-	ovDpxncnfrgc/mQTmJ8vpNKIsR+2dRgMb4l5ZX/uLkssaOzHE0TMe+Ngo+TpHYJ7g4k4Nq
-	ZIgb78BXCx/U2PVqQWnW776YkRTEgKWTCHFbLtedd87pittalYpJ+Fny9PVAxMfTYuXMdK
-	2iEJHZM2+JuHOjmcZAFvsVCylY6NifnbFC22YYekQuV2TRwl8SINE1I47RFuAQ==
-Message-ID: <a0d969408a5a55dfb6d0b3e65906fd7bbf3eee1c.camel@mailbox.org>
-Subject: Re: [PATCH 1/5] drm/sched: Protect entity->last_scheduled with
- spinlock
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, Tvrtko
- Ursulin <tursulin@ursulin.net>, Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich	 <dakr@kernel.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <ckoenig.leichtzumerken@gmail.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- Marco Pagani <marco.pagani@linux.dev>, Boris Brezillon	
- <boris.brezillon@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Date: Thu, 16 Jul 2026 13:45:26 +0200
-In-Reply-To: <9e6c5123-f8b2-4a06-9fb0-be84c39ddd77@igalia.com>
-References: <20260701085920.3253248-2-phasta@kernel.org>
-	 <20260701085920.3253248-3-phasta@kernel.org>
-	 <a4091099-1931-4ca2-a81a-9c3321b123a8@ursulin.net>
-	 <51fbde808bd059510d667d130afae179626303be.camel@mailbox.org>
-	 <ce33edbb-11dd-4722-bb87-d16155f35a75@igalia.com>
-	 <e9e12e30-80c1-4650-9d71-4107517bc956@igalia.com>
-	 <9e6c5123-f8b2-4a06-9fb0-be84c39ddd77@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="qUCMvoKD"
+Received: from macsyma.thunk.org ([151.240.45.27])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 66GCWEnd019170
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 16 Jul 2026 08:32:15 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1784205139; bh=NqxL3+SH2AbvlvVybH4sIY4E98+1L2ywgJjmzyt8SIE=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=qUCMvoKD0/7fqDuh/lBDbbI+hF1MijLx/EWHUVcydVFyR0ZsTny51YubjkXZ2yWds
+	 d9xGsv79d2SisYSsefz4TMLbJQbeu99vSGpoXWGSkZohwTZqz+2d2rvsnctyr+Qt/z
+	 ojXHBdjFFTxNxhugP23c3my58ufsrl/zkwlT5G8Ob7k3Wk9BQMHW+vcWlVcTakh4Yy
+	 9x6XWEfX9nGNpBnOtoWJVtfRs2zjr2bE+t0TxEWtVOu6YQ5XMs9CVRh7OsPrtIWr42
+	 h9ggvCryV9z+UPilYki8yZF4qTpwASqPNqMuY0mvOS+YYcG+WAb4Ek18Ar8uDxx5fN
+	 vU2WGrKD95WHg==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 79CA5A4EB5C; Thu, 16 Jul 2026 08:32:14 -0400 (EDT)
+Date: Thu, 16 Jul 2026 08:32:14 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Ihor Solodrai <ihor.solodrai@linux.dev>,
+        Roman Gushchin <roman.gushchin@linux.dev>,
+        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+        Derek Barbosa <debarbos@redhat.com>,
+        Matthieu Baerts <matttbe@kernel.org>,
+        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+        Jason Gunthorpe <jgg@ziepe.ca>, Steven Rostedt <rostedt@goodmis.org>,
+        users@kernel.org,
+        Linux Media Mailing List <linux-media@vger.kernel.org>,
+        Stephen Finucane <stephenfin@redhat.com>, bpf <bpf@vger.kernel.org>,
+        Chris Mason <clm@meta.com>, Christian Brauner <brauner@kernel.org>,
+        Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Subject: Re: Linking Patchwork with Sashiko?
+Message-ID: <aljMl2wAv3mlQHhz@mit.edu>
+References: <20260713094120.GD1127719@killaraus.ideasonboard.com>
+ <20260713220427.582b28bf@foz.lan>
+ <7ia4mrvtrxjl.fsf@castle.c.googlers.com>
+ <20260715005909.GF1656185@killaraus.ideasonboard.com>
+ <00a244f8-5be6-4ee7-b5b1-e4cbdcd4fc77@linux.dev>
+ <20260715163921.GH1778116@killaraus.ideasonboard.com>
+ <153db0fa-65ac-49de-9bf5-456c9639954c@linux.dev>
+ <20260715190654.GK1778116@killaraus.ideasonboard.com>
+ <alfwOgVRgUJYOGtU@mit.edu>
+ <178418302445.1426769.8816954031983102120@freya>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: ab856407d7812df3992
-X-MBO-RS-META: mxz4g73r3dcs4fncjxmyhzfaeoq5ytw6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178418302445.1426769.8816954031983102120@freya>
 
-On Tue, 2026-07-07 at 10:21 +0100, Tvrtko Ursulin wrote:
-> Therefore, for what I am concerned, it is okay to go ahead with this=20
-> simplification.
+On Thu, Jul 16, 2026 at 11:53:44AM -0500, Jai Luthra wrote:
+> IMO false positives are possible everywhere, but LLMs are unpredictable in 
+> a very different way compared to static-analysis tools *especially* because 
+> they can be quite good at finding some issues and are non-deterministic.
 
+Syzbot reports (whether it is of a lockdep or WARN spat) are also
+non-determinstic.  Even when it claims to have a reproducer, the
+reproducer is not neecessarily reliable.  I think the difference is
+that we know what to expect with syzbot, and LLM reviews are new.
 
-It is not a "simplification", it is establishing of proper computer
-science standards, which trumps -2% fps, lock cycles and
-microbenchmarks in any case.
+And as others have recently pointed out, there is a combination of
+very deep subtle, real bugs that humans would not or have not
+discovered --- and at the same time, hallucinations that aren't real.
+So it's been hard to calibrate whether or not a particular report from
+Sashiko is valid or not.  But this is nothing new, and I would claim
+that it's not necessarily unique to LLM's.
 
+> I can understand the appeal of using them to find security bugs or as extra 
+> "eye balls to make all bugs shallow". And I am not advocating AI as bad or 
+> to ban it. But I do think usage of LLMs through Sashiko may give us free 
+> reviews, but require brand new work of reviewing the reviews. And this new 
+> work will be a burden on experienced folks, not newcomers, who will simply 
+> believe the LLM output because it is (or sounds) smarter than them.
 
-P.
+Syzbot and oss-fuzz has been an extra burden on us as well.  I suspect
+how much each tool impacts each subsystem varies, but I've had *way*
+more syzbot false positives (e.g., reports that don't conform to our
+threat models, such as reproducers using root privileges to modify the
+loop device out from under a file system being reported as a "security
+bug") than with Sashiko.  But it seems pretty clear that each
+subsystem's experience has had different experiences with differnt
+tools.
+
+> My point isn't that static-analysis tools can't make the same mistake, but 
+> that they're open source and fixable in a way that current architecture of 
+> LLM models isn't in general, other than giving it an ever-increasing prompt 
+> and hoping the random-number generator gods bless me when I need them to.
+
+Sashiko is open source as well, and there are a number of ways of
+fixing this, including adding annotations to the source code, etc.
+
+Sure, figuring out prompts is tricky, but I'd argue so is making
+changes to Clang for its context analysis.  Fortunately, there are
+people who are smarter than me in terms of their Clang-fu who have
+been improving Clang.  Similarly, Roman and his team are working on
+improving Sashiko.  I don't think anyone has said that kernel
+developers are responsible for changing the prompts (or changing
+syzbot, Coverity, etc.)
+
+Cheers,
+
+						- Ted
