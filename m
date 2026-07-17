@@ -1,118 +1,95 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A223C3453
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 07:07:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8386A3BD225;
+	Fri, 17 Jul 2026 07:13:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784272050; cv=none; b=l+SM3W7ACR+1XWTxyOTvCvjObKEYpkpdRrx6CuISFt9QTShyxSkrN66BM1ewgxut+kSogI8VfkF2cXYnzgVQvsAz5yPpFEyLr6k9JCsgY05/oW976uaIEQ2hjBucTEqo7tsFjVUc8nNH3T6pHlRQw2FhuiooPmil/xuAYzJCFKE=
+	t=1784272410; cv=none; b=UZyONGbEsKaTrX7oxQZELWZBxjSuXGHfXVrt70wzoG/34sHdWqLJBdxv6GPstdBS7bgmwaB3oMoJX/NRtVI8x9BHM0Zqoty+qttr+lPP0uMGwE80HMCsKwDgRZu4mWIPvxq10B3bapg1+bX6pOQe8PBUlbYzAfRq+Eh/2RGqVfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784272050; c=relaxed/simple;
-	bh=TWJULxJCKYD8lAG9/bBgGAdQ290Riy+Guowxce5yRtc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oAEoQBQj4nvugaI7/HMmxqSwhrv+CEF5FccK5ev0XSq4EJLdo7n2fxH1nRLvGurTIuyIokMWCbv2PuNdCmTfk73uuyzprByqkpRj7WlbpkouUIhMkjS85ZG04DyNpYgi1vrbcxSHHCRpEr1IkV9EdVFkKm2ML9F5pruJ5Jl8FqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=L8KGPrUW; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="L8KGPrUW"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c15b33f7b23so1098343966b.3
-        for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 00:07:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784272047; x=1784876847; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vkmhPcMQizpSJ0cxQqSXnDgGsG0fYJSSu1lv1n0/Fu0=;
-        b=L8KGPrUWcbxYx0OHKMP/Guph4WWcxmOe5Vd2cfWelOLqxQVpoU5wzs9hUjKeswSkOJ
-         qsb53uKf1zmiWwCatfTyTPlyqxEixeERI1umTGyUospMzuWIfuRjP/uLizwKT/fE6QT1
-         F1fyy5Bde66JhzurnZv9DmYeAHrwHV7U5EbiA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784272047; x=1784876847;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vkmhPcMQizpSJ0cxQqSXnDgGsG0fYJSSu1lv1n0/Fu0=;
-        b=fsMp6i/cMP/tJ5LabFzCoTfa8mwSLB1Mnyh16OBqJkHDAkQlZov9g402r/hKATWPgg
-         SYNommhkJH3vbgIHPAKyXiI2utD5ZNMytAQ3I0HYi86AlTcaqlfjQQJLdTIQxw632H9H
-         hGDWequhyYz+hJljGRf+y9JG7gzDfUnbWKRpqyHaXZBK2RdOb5jbCf2Z1AYKbKir7Aiu
-         5tXYu4+O/Id5PR58Whn+kXLgKcXgPD6wv+jlIxgKJg6CoCVNYVO6+sJRSqU2RW5+diDa
-         tWRs3lFJ+mUpXI+MpmiOeGeqLM32kS8m0OeOJ+dI4o2vX7F63cUHNG19mspJnWfmhr1V
-         IDgg==
-X-Forwarded-Encrypted: i=1; AHgh+RqtrJzY+OGT4G57574AlkfhDPznXNHur1VfaSW+ow/pdI4P8QQjzBixz8Wm5m6zDORC0mxI8AVOOKjQlg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxcGu7kHnkAQfEYgl39FqVS9hoxpsJeVF5F3EX0cMj5H9vTnILi
-	EK1eGbJJelVfpmsp53zdFy4ZB3yjCnLU7vJJDsOMGx/SWC7rOrq+aoRBfux1aSUvLhrDhc0c7+x
-	4m32xyQ==
-X-Gm-Gg: AfdE7cneg18bCUF81XX6XDUadf5lGeqkGabeHlu7Q973AW5pTG13/tLI2T6Fac+i/yl
-	P5wRL3t0Jtwx/8aCTdqyqihXajdMBt/fYzGgDBEC/Gqpl3XCVqtlBJ40QTADVl2YjQdeZmaikU/
-	piXENbjjXxQz1wFDHP0HXBMelvIvBX3Jmtm0Wln1yIsE5wmnQuZF/q9jltNQFZIbBBqoD6LrHt8
-	/4YDl6nsEB1zyJTqijFHUA8ZhGQh8qj8sjk89lO7KBJ9XQqqdb3PqFnpPNp2BzaxfADjMh+m0io
-	zdY68SzpmjIuMigGCyv/1q3tBYUVAakxjbc9y8N+l6QSaskjpbe+8Q0eXlqZ0jHh6ItX5tmBS8D
-	mL0iTWbBDZRnz9TXjl97p2b40knOmQjhFzd3/+3LV2g+XvzkwVG7IFkzQwFKw8kSccEcH5Rd05i
-	NZ0pv9ic2LUIQftWieBD3TxIp1tWIQSVvcjf1Pa+E=
-X-Received: by 2002:a17:906:1005:20b0:c12:6bcc:a3d6 with SMTP id a640c23a62f3a-c16b4854d66mr29869866b.54.1784272046671;
-        Fri, 17 Jul 2026 00:07:26 -0700 (PDT)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com. [209.85.218.46])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1705912972sm32741066b.14.2026.07.17.00.07.25
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Jul 2026 00:07:26 -0700 (PDT)
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c15cd3fd760so855355766b.2
-        for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 00:07:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rq0DvoNXK2GxxQj2OZettqgt0tMzVAt/G6jdUeY8AG+g2v7DIP87vj24oDKeU+G8/7etjlRk4Y/fUZ1Qw==@vger.kernel.org
-X-Received: by 2002:a17:907:72c6:b0:c16:36ef:d437 with SMTP id
- a640c23a62f3a-c16b477cad2mr54827966b.34.1784272044756; Fri, 17 Jul 2026
- 00:07:24 -0700 (PDT)
+	s=arc-20240116; t=1784272410; c=relaxed/simple;
+	bh=/GRBTVCBnNMhdTmgROYtCEFwoe4XtBNJQfBS3w9bKhg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mNFtd9HzEFp38jo59OzyV7rjm/8F45IV1ChUTRhzBSPxaTcI61egbFwqLzaNAlpnZwxMlPlQaY6rT324fmPOkVYpf3k/AzP3xqlk4paP3xLgCoxD9bk/k/lPbqe4T/Dw2h07UP76ZDUWZyYTFgJpecvnEnr1wVaOhwSv7sjg8YQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: fd4f9fa481ae11f1aa26b74ffac11d73-20260717
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:2d2486ae-ce1c-4cc2-ba41-e3ebc4a8d99d,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:e7bac3a,CLOUDID:781a12360464066d5a466714afb83265,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|136|850|865|898,TC:nil,Content:0|15|
+	50,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
+	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: fd4f9fa481ae11f1aa26b74ffac11d73-20260717
+X-User: lilinmao@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lilinmao@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1548124036; Fri, 17 Jul 2026 15:13:19 +0800
+From: Linmao Li <lilinmao@kylinos.cn>
+To: Nas Chung <nas.chung@chipsnmedia.com>,
+	Jackson Lee <jackson.lee@chipsnmedia.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Linmao Li <lilinmao@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: chips-media: wave5: Handle polling IRQ thread failure
+Date: Fri, 17 Jul 2026 15:13:15 +0800
+Message-Id: <20260717071315.1485454-1-lilinmao@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAL+2LXtmekL+oc8e48uUXL_2SXvfCc_v7MrHJ6JDh9usRHu0sQ@mail.gmail.com>
- <CANiDSCukMqtarMGb3F0Nf3TfTB7TxHDeWu776StV+0q5q1VSVQ@mail.gmail.com>
- <CAL+2LXvV66O_qvbrHeFyHGjreyart277PgfKVK7jKfJ-MXihbw@mail.gmail.com>
- <CANiDSCttWrSLoftLWPtx7XxYaQ7PRV2+Y0tvir2qaE77PMG1-w@mail.gmail.com> <2026071726-gopher-onshore-61ca@gregkh>
-In-Reply-To: <2026071726-gopher-onshore-61ca@gregkh>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 17 Jul 2026 09:07:12 +0200
-X-Gmail-Original-Message-ID: <CANiDSCs9T2iDaptLnv4g1ZxNyRQqTzNCD=Ay2uRQoPeSaGv+GQ@mail.gmail.com>
-X-Gm-Features: AUfX_mxXQFSgnkHKC3yX-O-fBrQDPXsqK6uhxbq7baRDiPyPihBRrXf4plhXf68
-Message-ID: <CANiDSCs9T2iDaptLnv4g1ZxNyRQqTzNCD=Ay2uRQoPeSaGv+GQ@mail.gmail.com>
-Subject: Re: uvcvideo: deadlock when async control drops the last PM reference
- from the status-event path
-To: Greg KH <greg@kroah.com>
-Cc: stable@vger.kernel.org, linux-media@vger.kernel.org, 
-	laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org, 
-	Jay Chooi <jay@robocurve.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Greg
+When falling back to polling mode, wave5_vpu_probe() does not check the
+return value of kthread_run().  On failure, dev->irq_thread holds an
+error pointer instead of a valid task pointer.
 
-No worries, thanks for the update.
+Both the probe error path and the remove path only check
+dev->irq_thread against NULL before calling kthread_stop() on it, so an
+error pointer passes the check and kthread_stop() crashes on it.
 
-Is there a public page where we can see the status of patches
-(queued/rejected) so we do not have to bother you?
+Check the kthread_run() result, clear dev->irq_thread and unwind the
+probe on failure.
 
-Thanks!
+Fixes: e66ff2b08e4e ("media: chips-media: wave5: Fix Null reference while testing fluster")
+Cc: stable@vger.kernel.org
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+---
+ drivers/media/platform/chips-media/wave5/wave5-vpu.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-On Fri, 17 Jul 2026 at 09:05, Greg KH <greg@kroah.com> wrote:
->
-> On Fri, Jul 17, 2026 at 08:54:06AM +0200, Ricardo Ribalda wrote:
-> > Dear stable
-> >
-> > Could you help landing  6d27f92c54ce28cfbd2a8a479a96d6f4a781b7d2 in
-> > the stable branches?
->
-> It's in the queue, still about 500 patches deep to get through.  That's
-> the "joy" of getting bug fixes into -rc1, and not earlier releases, they
-> get delayed due to everyone doing the same thing :(
->
-> thanks,
->
-> greg k-h
-
-
-
+diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu.c b/drivers/media/platform/chips-media/wave5/wave5-vpu.c
+index 76d57c6b636a..37df270b5f99 100644
+--- a/drivers/media/platform/chips-media/wave5/wave5-vpu.c
++++ b/drivers/media/platform/chips-media/wave5/wave5-vpu.c
+@@ -340,6 +340,13 @@ static int wave5_vpu_probe(struct platform_device *pdev)
+ 		dev_err(&pdev->dev, "failed to get irq resource, falling back to polling\n");
+ 		sema_init(&dev->irq_sem, 1);
+ 		dev->irq_thread = kthread_run(irq_thread, dev, "irq thread");
++		if (IS_ERR(dev->irq_thread)) {
++			ret = PTR_ERR(dev->irq_thread);
++			dev_err(&pdev->dev, "failed to create irq thread\n");
++			dev->irq_thread = NULL;
++			goto err_vdi_release;
++		}
++
+ 		hrtimer_setup(&dev->hrtimer, &wave5_vpu_timer_callback, CLOCK_MONOTONIC,
+ 			      HRTIMER_MODE_REL_PINNED);
+ 		dev->worker = kthread_run_worker(0, "vpu_irq_thread");
 -- 
-Ricardo Ribalda
+2.25.1
+
