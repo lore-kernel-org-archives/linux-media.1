@@ -1,73 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E65283E00BA
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:25:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EACAB364953
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:42:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784276738; cv=none; b=h8/1OyEaW0g+u7EBr5spZfoP+XR8Bncq6hwGtqFN0eD546aPPWja92A2t79n0jH6oJKOjpUd0XEG682bi5g7LSHOetOvFq3+8qo9UvmhXr8SLmQSfK6jncwg/KsOfLql/MCAMVfUTdJSymN2VvYym1r1BHlZ7As4UNMYCNhF3MI=
+	t=1784277763; cv=none; b=fwbpyoeaLkKHVXphao7uqL4OplJtE8YmFvhSv2loL8Bp/d+4u5CGLrMg1I85iN3CtiRInsJ9M6e0TU/uhD2QKp7IEMaoAtxZJoLsiWSHsqlFaDidEi6LBkNdTht2EbTXnEWjwGouKN+q6GTcQQral4ASziNyWkeZnz3O6gIzBdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784276738; c=relaxed/simple;
-	bh=4PjrkH90KgdYNAIdcxAGyl3eOWAzA4ZFvzWvfxYP0m8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ONOARHriso4qyf+yAEgyiTBZdoYNcY+8Rp7rA08ByS2AW30ukbm4t4EktMwI9XKQs/KyVVDS4rARDLzQhBp4B7U/2PhrjT6j5t9JZZ3QS976M14i2hb5KXtSQCN3YOCJsYu73uL6ArixIVknVhpf7KyeYV75CTm6ZQp8MbEeysE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j/8WJflD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784277763; c=relaxed/simple;
+	bh=t1LMTk+m9oNtNRG5YfAumyLAJRoq18yZjfUqUDBAyso=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lXmqD0lMR54Hc8MTGJNLGoua/NkgoBdTJydkLx41N6HZyqSHBn7PPEOxGjNaZetlHYVq5xb2WEKkOj03qiHUraqA+OJyog4+OeUxkJUtp8SAbX4I20bvOSp88KJ61IbPJ6FkeTlMOxrI749RkGdmVMKlr9vbpakx6I5xEVqkKuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RoUqw7+h; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j/8WJflD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 631B21F00A3A;
-	Fri, 17 Jul 2026 08:25:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784276736;
-	bh=/oorBryDQ5ba/gkKrdTOCWNxMPDAKb7mYndoFfyd5HE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j/8WJflDJc5AJ1QEJUb/7Og8kDNysErVYat2cCEQRpAPDEMUU2F5C/D8SBBzNLjCC
-	 2hgpQRHRq8/avWxRUNvy9vNWE8Z4COaHtOkJV4VbtkpA+TyUgxAasG290xpg9ikq0P
-	 xoacKOUoUJtfHsIP/Jt8rQe/f71GeYeX0ego04kdrfhDnB4NzpMFZEDDe9zM1M0FJJ
-	 IicxwDwvHsPwImtxRWIJdfjiI/DHlAZKDo7AIfRLsCy9cR3yYjnO6DPnwpMGHT7WPh
-	 AqcRX0o4dn8rWRp5y5v0ZKlVfNBJrUgnKP3Bvd69ye0JWcwg+5x08RyTmH1YQuVisd
-	 0IUC5z6sxbGHQ==
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-To: linux-media@vger.kernel.org
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Subject: [PATCH 19/19] media: renesas: rzg2l-cru: drop unnecessary vb2_queue_release
-Date: Fri, 17 Jul 2026 10:19:42 +0200
-Message-ID: <65f9a56df4dc3e3d942ce7bd286872a10da5452b.1784276382.git.hverkuil+cisco@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1784276382.git.hverkuil+cisco@kernel.org>
-References: <cover.1784276382.git.hverkuil+cisco@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RoUqw7+h"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-476d8e647e9so6922697f8f.0
+        for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 01:42:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784277760; x=1784882560; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=x1bNr8ApLUuasJ6rLo6oRgqpfU7n7a0nEcTyafySNYU=;
+        b=RoUqw7+hDNY9s0TTmG9YDmrcpny9e/AlnCz3xwS6lwuk12nG3NsMCsPHlVYxVIb4iP
+         o6zWxiVr5TX4mmurxtpKv7EfcXXf98WQzYdHUCC0dbV1s3Btoso+UJ+NOEKry3tT9B7K
+         FMjX0b8BUEdub/kBNXIfFvRElSpEFI4wRL+GpKTm1869bRttvIYm0mBAkj4+gIQYT15i
+         /7kQEto0xPDRPaAwShUYdFTaY0ckW1mjzpPq67/F6UHof/28xH2SvXJYDV96Tebe6qWL
+         FkSndvFucgQiN4Ib+/t894odTymxWpas4MZigvOJt+k8L8NVsOia+9ZmLCVb6XYThzbo
+         TQaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784277760; x=1784882560;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x1bNr8ApLUuasJ6rLo6oRgqpfU7n7a0nEcTyafySNYU=;
+        b=WFDNmRaMdAvt+puy1QzJI2fYUyUtC9SZf3mMCW2r6iVyPZGse9eZON10TFXNDbbULT
+         Urc9z+Po/Hfo65CRL5s70wN6Z5tvYgvgb9NQeOkcb/hX5aykutl6b7vsCGg/7/6IN7Va
+         Sxdf3Uz+YHM1n3s/1iTHLhwabgvh+mGoDVBVb+u8JPKuNKpyZFGnSpR+uaMFJffc7I76
+         m7bJ6UZvhyad5DLURAGTy0xSzJv+pYJIgF1z02SovvhzlFThNxzPcHZfodNlxfqd720u
+         2HXkgciEuLqIJ/vg18EtKPUHiQSTMVYkKzPNUblqRc9PJzHmamcIBRh+iVoJNjBucsDJ
+         HbJQ==
+X-Forwarded-Encrypted: i=1; AHgh+RouuK9R8Gm4lukMw2BqPYvUtR//E2X0RCh829FdgnGJ0Pgej41V0wvZsLfrVf/Z88bS8v1tyH5HNlFdCQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyirBGI/xT9NmIgE4vsByq6AdNeZB9CP2i42I80B1/CdTwjHL31
+	Ft6KKd0c3mbumR1JaZRVsy6tQqssq5brsQMqLhf3U0apo9nWKYMoKdkP
+X-Gm-Gg: AfdE7clJuOCQ4kxoDsl7CGN0M0E54bBde9c5YJVYnKqC/9O2MvKvEsqh7wi5zrgUyTZ
+	wxPrW+wbFOnYyALsRs2Okkh3jPAziGO0i15Clwqx2dYcXEZ8FgS00gYWfC9AjCGl9Qt6rmEOjRb
+	2DpezeM+PCiONUiGhFLjCM7D9Zd1c0BBUvcNEYTrOH/Cjk9ZfaJC7tWyYRBlTb+rFFLFo+uTEWK
+	kyDBorxLMQ3BR2XQPFH7X7msQoYf6GU7vPtFNRpiXrpnja1lqv/9E/oLfuMZTXG9rK90fIxgZ92
+	StoCcP2XjKBHWcfY7K9xwWEh4FxHrmzQkwQ4XTFr2u9vhfbXUr6WS+TGu/Cibawpa3lvfKuBSP0
+	xBRcwIflHwpNfpOKUHF7TUjH2rzjGyJ2yEi04LegaQ+kEj8cXcy39I2T/7686QtsRt88TBborEp
+	fs7m+CeIFuB9P99YsJ7mQurH53TNcCwfULgQcl0+Q=
+X-Received: by 2002:a05:600c:3107:b0:493:d305:b8f3 with SMTP id 5b1f17b1804b1-4954a3d6462mr20532115e9.3.1784277759663;
+        Fri, 17 Jul 2026 01:42:39 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4954a2692a3sm28806635e9.0.2026.07.17.01.42.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 01:42:39 -0700 (PDT)
+Date: Fri, 17 Jul 2026 09:42:30 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: David Matlack <dmatlack@google.com>
+Cc: Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>, Leon
+ Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro
+ <amastro@fb.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>, Logan
+ Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>, Pranjal
+ Shrivastava <praan@google.com>, Longfang Liu <liulongfang@huawei.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal
+ <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>, Vivek Kasireddy
+ <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+Subject: Re: [PATCH v5 0/9] vfio/pci: Add mmap() for DMABUFs
+Message-ID: <20260717094230.21829508@pumpkin>
+In-Reply-To: <allLypOmtbnPrgbw@google.com>
+References: <20260715174737.15287-1-matt@ozlabs.org>
+	<CALzav=fH7N+ionUnELqw5ZaGrPmgp_w6kxoCtoY8fMmZY_S4zw@mail.gmail.com>
+	<65ba06e7-4c54-437d-9fbd-632c0468f66d@ozlabs.org>
+	<allLypOmtbnPrgbw@google.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-There is no need to call vb2_queue_release if the video device
-has not been registered, or if vb2_video_unregister_device was
-called since that already calls vb2_queue_release internally.
+On Thu, 16 Jul 2026 21:23:22 +0000
+David Matlack <dmatlack@google.com> wrote:
 
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
----
- drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c | 1 -
- 1 file changed, 1 deletion(-)
+> On 2026-07-16 03:51 PM, Matt Evans wrote:
+> > Hi David,
+> >=20
+> > On 15/07/2026 19:12, David Matlack wrote: =20
+> > > On Wed, Jul 15, 2026 at 10:47=E2=80=AFAM Matt Evans <matt@ozlabs.org>=
+ wrote:
+> > >  =20
+> > >> This is based on v7.2-rc3.
+> > >>
+> > >> These commits are on GitHub for easier browsing, along with
+> > >> "[RFC ONLY] selftests: vfio: Add standalone vfio_dmabuf_mmap_test":
+> > >>
+> > >> https://github.com/metamev/linux/compare/v7.2-rc3...dev/mev/vfio-dma=
+buf-mmap-v5 =20
+> > >=20
+> > > It'd be great to have this test upstream. I'm happy to review it when
+> > > you're ready. Looks like it just needs to be redone to use the VFIO
+> > > selftests library and kselftests harness. AI could probably do the
+> > > conversion pretty quick :) =20
+> >=20
+> > For sure, I'd intended to catch up with you on best approach here. :)
+> >=20
+> > Aside from the organic structure of the test (the open-coded VFIO
+> > device/group setup/init needs to go), the main issue is that it relies
+> > on a hacked/out of tree QEMU "EDU++" device with a second larger BAR
+> > (containing freely read-writable memory).  A subset of tests run with
+> > the in-tree EDU device, but coverage is too low.
+> >=20
+> > The desirable properties are:
+> >=20
+> >  - Having a BAR that is pure memory (all locations present, writable
+> > without disruptive side-effects) so that mapping aliases can be
+> > constructed and detected.  This is good to test things like non-zero
+> > vm_pgoffs and VA space presentation of physically-discontiguous DMABUFs.
+> >=20
+> >  - BAR >> hugepage size so we can eyeball huge mappings work (or better,
+> >  mechanically test for them).  At least 32MB would tick this box for 4K,
+> > 16K page systems.
+> >=20
+> >  - Something QEMU supports*, so one can run the test in a VM/TCG system.
+> >=20
+> > There were some real device models in QEMU that could be used this way,
+> > but needed a fair bit of setup;  I didn't want to rathole
+> > vfio_dmabuf_mmap_test on including a ton of device-specific code for
+> > some video card or similar.
+> >=20
+> > I'll dig more for a simple target that provides these properties --
+> > obviously it would be better to point this test at an off-the-shelf
+> > device (including silicon!).  And, proposing EDU extensions to the QEMU
+> > folks may be useful (there're uses for a better EDU in other contexts t=
+oo).
+> >=20
+> > Since this test uses MMIO for a specific [class of] function, my first
+> > thought is it should be another VFIO driver-type test sibling of
+> > vfio_pci_driver_test.  For example, we could extend the driver-type
+> > tests' backend struct vfio_pci_driver_ops for functions capable of
+> > providing a Big Memory BAR, like QEMU EDU++.  EDU can also memcpy, so
+> > could also support vfio_pci_driver_test.
+> >=20
+> > The spirit of the device backends hiding setup of a complex device is
+> > handy, and it's plausible that several backends could provide this "big
+> > memory BAR" service.  What do you think, any concerns with extending
+> > vfio_pci_driver_ops like that? =20
+>=20
+> I wouldn't recommend leveraging the driver framework unless absolutely
+> necessary. It makes the test harder to run.
+>=20
+> The biggest issue I see with the proposed properties is being able to
+> treat the BAR as memory. That obviously will depend on the device and
+> may require device-specific setup. If we decide that treating the BAR as
+> memory is truly required then using the driver framework is the way to
+> go. But I'm hoping we can avoid that requirement.
 
-diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-index 2f5ab1e4707e..edca6cfb5839 100644
---- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-+++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-@@ -767,7 +767,6 @@ void rzg2l_cru_dma_unregister(struct rzg2l_cru_dev *cru)
- 	mutex_destroy(&cru->lock);
- 
- 	v4l2_device_unregister(&cru->v4l2_dev);
--	vb2_queue_release(&cru->queue);
- }
- 
- int rzg2l_cru_dma_register(struct rzg2l_cru_dev *cru)
--- 
-2.53.0
+Could you run a test where only a known part of the BAR can be treated
+as memory?
+A large BAR is likely to have some areas that can be accessed as memory.
+
+	David
+
+>=20
+> Instead, I think you can get pretty far by inspecting /proc/pid/pagemap
+> to determine if the mmap() set things up correctly, without actually
+> accessing the BAR. You can use /proc/pid/pagemap to look up the PFN and
+> PAGEMAP_SCAN to detect huge pages.
+>=20
+> With that requirement gone, then all you really need is a device with a
+> large enough BAR. And even that it not a hard requirement. I'm sure
+> there are plenty of test cases that could work with smaller BARs. The
+> few tests that want to exercise huge mappings can inspect the device BAR
+> sizes first, and if they're all too small, SKIP() the test.
+>=20
+> If you structure the test this way, then it's easy for the test to be
+> used. It can be run against any device for the basic functional
+> coverage, and can be run against a device with a larger BAR for full
+> coverage of huge mappings.
+>=20
+> Does QEMU emulate any devices that have 32MB or larger BARs?
+>=20
 
