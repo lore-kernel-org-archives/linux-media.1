@@ -1,131 +1,82 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD5F31A55E
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 03:06:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E629F3750CF;
+	Fri, 17 Jul 2026 03:23:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784257563; cv=none; b=QNMGfzbGXqa2qO639hidpVSqtaQ9kj/iQdne+CezojPYQ6voqX6WcNEVyF1BRJf+GPxrLrp57YPPJQkWQKprzppenXoN3lQXNFXmTXkgmxXmcvpuqEnPBGq+OuYSU5tDQs1D1p1qrioxyFb0kpEPsiZLJpA6wkUgAJ8hWtSnnCM=
+	t=1784258628; cv=none; b=ai4dspmeJ+wZFflxcsRMLWFebEmzymjS9IGtSamLkbvti2KIJFN1N2+5cyDuGoVdw/7PhbLN6NHLuS4jglvrMWpOAkBVIweK9mk1VkGCrhdyOCWjDBKZ+MxQCvKX4Xio2AN4bKMfqX8LUoAmrGzeybrEKR2XvH8ojQ9kioMYebc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784257563; c=relaxed/simple;
-	bh=IVQpi5kOsSjc6nbKgnNr4wTB7eZdYdNqamQ1aOhbGM4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CuzT1g4lJzEF3HpAGQi+aoBD/9f9b6cjpzlraT1Ypk5UwTyYE1oeZ83rt2tgYHKFUFpn7MGfhey+DrExeyXOx/oB/dAykP3OwP6col87pOJaPNw32/tnfEIs+qyQjQrG4kDMV/CPUQNVybEcrAnNRzJ4t1Rw8B9QR3sV18xGpH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kO6Z23b1; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784258628; c=relaxed/simple;
+	bh=WPm0mbEs1OtI5CyXDyZFz3qqvGoNUX4xEsEof9QmFA0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cIyiCRko+88aYTuILWPV8TLbN1GAHlT+T4NDkeQRqyes/z2jrOeMn5plDtTBzD+x2Rxgu5cSi7EgRtyQDv+sgL6xuSsiyAcjxqGZX5Tw+kEe//9XB8G1j00ickrv6Is3/v7X4DvyPf+pspRECz6D3t2t2v2Z9jrQmLOP3IdBnOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m7e8cVqq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kO6Z23b1"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38e071ed6aeso3978827a91.0
-        for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 20:06:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784257561; x=1784862361; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mZVR56XOREeMXVCUwfvytwmladieL4xpwdBWK5Npchw=;
-        b=kO6Z23b1eVbRdc74ucI94vhxYTXsLZAtfig0piFQT2GChZ65Q2SRB7z3wOvDdh7LQ+
-         PsbRvSc+hV/Rn5u4Qr903g7svgPqMneKMaf3b4ljPOzWWEqAwBdudiVYth2DKkQqiDXM
-         bvUD0sZXL038DLgPKYwVae6jDEQ63daN4GLe6arnIXyW8z94r8DzXxdTe8L3QZ8CqeKV
-         E3yXG/je7a2F45HRkzsbaU35StnVS0BJJg6Cafng8qyKGT9TRmS5SDnDRPQyf0YMt3WQ
-         VDb4Tfat/ZBH9jrttk4m7uTTDDTzmXO5trBEc31bMq6E4Te/8buqBF0v8l24YdLhzrw1
-         WPNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784257561; x=1784862361;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mZVR56XOREeMXVCUwfvytwmladieL4xpwdBWK5Npchw=;
-        b=NLwQU8MYFR7TfjdcaPC+X12S9gR8TxW/E3Dpao/hW/hCGjbgaA0WRccjN3qS5XLhCo
-         WtAqjGEYD/Nr5BuUWG2dr4hmFCb1rdoAtiR1oCLTHIr7Fo8QTsZNmI1CcsPke2GFk869
-         ZTmt/YIqMq6oPexOxBmR8pgZqlNemJ867oPZBG0kE9yIACqi9qBefxp1ZDz/rzSFjtt/
-         RQc+oKNwP+mqxIIZ1YNiUZDKt1XRKcVdSEtCIFMz42EZhATNUulidnAdIz2Uk2McYzWU
-         GoissZQFut784nd5NlRQbuojmUji4yFHLOme/mAtBWfybWlqGqYEr6V7BwaH8RkwC1qC
-         8VvQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqf8TPfvjFlPaWHAIIGxfcnlKaWfzFzgv0Ysju4wtHVMFePS57NVIpjOjJAXpZK7VgrpzLdyjdnBDNx/g==@vger.kernel.org
-X-Gm-Message-State: AOJu0YweNarB7xZzhI0KZxhybtYdZBO4Ql3Hh02x8cVyc9myQyks4gGT
-	mYqod8/aoe7A1oXTrs9MyPFb1VGZKegml/haiGn/MvTbil/4TXOY91j6
-X-Gm-Gg: AfdE7ckKRS2Iixv8Gb1PhiUEOp9wfMGM4RNY3YrarpzT0j6oC5NHjJDFA+GaPWLy+jx
-	qDjsKnyhXyXnvhnUXWI/rho6nUTcidtc/lmckyJYKpNc5e+sP4pZk0G5sx6YdEm3/uStm9KBXcK
-	nlPt749FUkP9mvQJ5uabcxBTGwY0hBM9V0MTbDiLKtbyLlHOeZNmMQnSPSuLcY0GOP4xTn1DuZN
-	e9Pn8ddaEVKSyhM3T/TsRCLnBpZWn0rxwSKYSVK0HmbxBYHC2sygfwo/yrqaCWBfTxwUMcJIZvf
-	mI83lhXX+F2B+iLNuftFsW5uuYf3mbDDONqKqiEpV24q2Bnhe47k5607/Tzeodblld5sCNHiirp
-	jswOEX6DYsP/3krrg9wUix711NVbU+inVXEI5cP5bpBx77kS2jl46LMfbzxNDFQKmA6UE/fSWBc
-	eR+FZLXkcl9zHgbMuqPZzoMQrEu0QejJwZbuco2ZpMV03G79uUOi6GTQnme+LuLMgycwhyRUOrf
-	Sls2jKuW977HXOMRk9IBb7avLm8LKXTwEM5
-X-Received: by 2002:a17:90b:58cb:b0:381:5bd6:eb19 with SMTP id 98e67ed59e1d1-38e4b47765dmr715137a91.18.1784257561268;
-        Thu, 16 Jul 2026 20:06:01 -0700 (PDT)
-Received: from OMEN ([103.184.238.237])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31429fe1014sm1424650eec.7.2026.07.16.20.05.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 20:06:00 -0700 (PDT)
-From: Alfie Varghese <alfievarghese22@gmail.com>
-To: neil.armstrong@linaro.org
-Cc: gregkh@linuxfoundation.org,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m7e8cVqq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 648071F000E9;
+	Fri, 17 Jul 2026 03:23:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784258622;
+	bh=Jg7ilhqfLbJ/BbdPC2qKW9mLJmW2XY4evCJmiXdrwWo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=m7e8cVqqOQJjTtxGdPPsVObwkKZwScKhijFOzakppZAWUh4lc7ZbdeKhS+dD4xqJk
+	 kwS6BXj8t7vHXyz3pgEY35N/A1EE9Euiu4nEwBOHbDADOoVzfPQbGSSLoJ618Fw07r
+	 VXBvkCK/++74eyY8yPcSZgOr3plRjurtsWq3gupujTCEoRNTdPJDI8QXCYlxtOeWkA
+	 89VHr0WVSEamTHM2wm36z/U92REziOIz08+yLeihEe3MHaexOl24uszVtDT/mx7V7E
+	 CZBmE5b7LB5ACvO4zDNz/11tFKji+BhW0fQZM3acnsJuDMWRFAdMW/zJA+TGowtB63
+	 yGi67r870YHEw==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Bryan O'Donoghue <bod@kernel.org>,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Wangao Wang <wangao.wang@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-amlogic@lists.infradead.org,
-	dan.carpenter@linaro.org,
-	error27@gmail.com,
-	alfievarghese22@gmail.com
-Subject: [PATCH v3] staging: media: meson: vdec: propagate devm_clk_get() errors
-Date: Fri, 17 Jul 2026 08:35:58 +0530
-Message-ID: <20260717030559.167-1-alfievarghese22@gmail.com>
-X-Mailer: git-send-email 2.54.0.windows.1
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v9 0/2] media: iris: add support for purwa platform
+Date: Thu, 16 Jul 2026 22:23:29 -0500
+Message-ID: <178425854597.1084804.12425956841748083386.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260713-enable_iris_on_purwa-v9-0-633d7b87f0c9@oss.qualcomm.com>
+References: <20260713-enable_iris_on_purwa-v9-0-633d7b87f0c9@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-vdec_probe() hardcodes -EPROBE_DEFER for all devm_clk_get() failures.
-This masks the actual error code returned by the clock framework, such
-as -ENOENT when a clock is not registered or -ENOMEM on allocation
-failure.
 
-Return PTR_ERR() instead to propagate the real error to the caller.
+On Mon, 13 Jul 2026 18:17:25 +0800, Wangao Wang wrote:
+> This series enables the Iris video codec on purwa, allowing purwa to
+> use hardware‑accelerated video encoding and decoding.
+> 
+> The Iris codec on purwa is nearly identical to the one on hamoa(X1E),
+> except that it requires one additional clock and uses a different OPP
+> table.
+> 
+> [...]
 
-Reviewed-by: Dan Carpenter <error27@gmail.com>
-Signed-off-by: Alfie Varghese <alfievarghese22@gmail.com>
----
- drivers/staging/media/meson/vdec/vdec.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Applied, thanks!
 
-diff --git a/drivers/staging/media/meson/vdec/vdec.c b/drivers/staging/media/meson/vdec/vdec.c
-index a039d925c0fe..fba1e7f88d81 100644
---- a/drivers/staging/media/meson/vdec/vdec.c
-+++ b/drivers/staging/media/meson/vdec/vdec.c
-@@ -1026,24 +1026,24 @@ static int vdec_probe(struct platform_device *pdev)
- 	    core->platform->revision == VDEC_REVISION_SM1) {
- 		core->vdec_hevcf_clk = devm_clk_get(dev, "vdec_hevcf");
- 		if (IS_ERR(core->vdec_hevcf_clk))
--			return -EPROBE_DEFER;
-+			return PTR_ERR(core->vdec_hevcf_clk);
- 	}
- 
- 	core->dos_parser_clk = devm_clk_get(dev, "dos_parser");
- 	if (IS_ERR(core->dos_parser_clk))
--		return -EPROBE_DEFER;
-+		return PTR_ERR(core->dos_parser_clk);
- 
- 	core->dos_clk = devm_clk_get(dev, "dos");
- 	if (IS_ERR(core->dos_clk))
--		return -EPROBE_DEFER;
-+		return PTR_ERR(core->dos_clk);
- 
- 	core->vdec_1_clk = devm_clk_get(dev, "vdec_1");
- 	if (IS_ERR(core->vdec_1_clk))
--		return -EPROBE_DEFER;
-+		return PTR_ERR(core->vdec_1_clk);
- 
- 	core->vdec_hevc_clk = devm_clk_get(dev, "vdec_hevc");
- 	if (IS_ERR(core->vdec_hevc_clk))
--		return -EPROBE_DEFER;
-+		return PTR_ERR(core->vdec_hevc_clk);
- 
- 	irq = platform_get_irq_byname(pdev, "vdec");
- 	if (irq < 0)
+[1/2] arm64: dts: qcom: purwa: Override Iris clocks and operating points
+      commit: 43899c55d79baef54652ec3310683da304706fd5
+[2/2] arm64: dts: qcom: purwa-iot-som: enable video
+      commit: b66ca23dd964f78eb9ed0207ed0909fd9e8c27e1
+
+Best regards,
 -- 
-2.54.0.windows.1
-
+Bjorn Andersson <andersson@kernel.org>
