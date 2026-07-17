@@ -1,111 +1,124 @@
-Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BDD30B50C;
-	Fri, 17 Jul 2026 07:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A474E3ACF17;
+	Fri, 17 Jul 2026 07:57:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784273278; cv=none; b=ahhBeHqv5YwAzmId1Gv+sEejmRcIkLa1uxcyE24fV1aQs+lUnF0Rjy1lkthh4z9NOlh8Iu95T1r59fjmPq0Ye9xmK48Y21jIqOvVWjmDOO45I12tOQ/h6yX1e+mlSezXArplW5J8fJHdNn/at48AR58fgAgx5KSPYOgKR/+KIW4=
+	t=1784275054; cv=none; b=dyhP5+3n8Kw4IrMcmHpaSRCDa5GYNLrA12aMkRXe13pysD/E2JMsayEPfC+UDW3CKB7kGFZJh3HfgXMQmn7zNyTZce2HwYwvGruMOliy8NFgpJ5qYnd8FDHp1WJXSPEOXCqVcqXK2Op6aAek37+C5sDIzC4LxnbfWavuVWz7cXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784273278; c=relaxed/simple;
-	bh=s8zP1T0NL8XqSr3VbHmrcIJ81JR4RdHZOzGGP90wQnU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QBIp9IC86NHcGb9XyZNy9RMg2zJzrIh/PcTYajoJ4eDPYYwQRG/4bPNiTWWVHJtO3kTveNfrJAYksP/QNF1fwe6xsQEJuH7EMGL71R1wMfThWPPBQ8Z6Ld4X4S7+TG4dyVALtP5eiGqQ3ARifWlybRF7JQk/r39fV6MZrQmsUEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=URxXQRE7; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=TKGvCaem; arc=none smtp.client-ip=202.12.124.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="URxXQRE7";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="TKGvCaem"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.stl.internal (Postfix) with ESMTP id D08E11D000DD;
-	Fri, 17 Jul 2026 03:27:55 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Fri, 17 Jul 2026 03:27:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1784273275; x=1784359675; bh=ov05dwqPiT
-	QXEGSFLNCB0PVReZIcBs04J4OkXWRRwvo=; b=URxXQRE7KCDPWIy9XU0l4z0zjj
-	kcv836jj95Ru+QRBO5t/7HYxhqVAskHDv8KYE99ddfJED+KbaEeysnHLn4A8EOmp
-	i9QNgE97gZFYr/LzijQWIZp9hytmSswCv43tBl+5VYSjqyfVaBAy/A+yEGrIlAu2
-	kFBmcQgTkfMuRGIODSZZHHe4boynduvA6EeBuVJjl94NIxNI3hd+klLvBrLC096Q
-	RQ9vqtU6ZnmyvE28fBUnEyLTPd11vRW3BtVltSHUk9HMgyKQuPQsrPM4w3MCeXNM
-	MA3l4yGmERzNUlF1MoWU8uhiFHPO/VF2WcZpqNFpGt96M0dBOlTESTmq0yfQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1784273275; x=1784359675; bh=ov05dwqPiTQXEGSFLNCB0PVReZIcBs04J4O
-	kXWRRwvo=; b=TKGvCaemc+WXS+7Igh+dl647fSKm0jJleoeFmIwQX5um+JMlIbX
-	NEreXIs5i6bChy2vVjC3Ej9tMMXgh71V43Qe+LTVSntBTTGPBXaBM4S4Uge3Q1YH
-	5T6CkBwTv8VS29hcMqr361RamxQGy18loaK19m2vjGOjOsDcXf6glqLzwn47ik7q
-	9t4ije4/yLZXmWT/ro1lTlyXW99w2oxB1xiWsH6wxgJZKoajsN3DUi/kJFiXkAEj
-	Q0glQNxioDb9s+8dGPA8wgFAa6brfSxRb12CXD5EVhzfS4iTTkw2O1hpzFO5hqF8
-	2emyPV5Gqbvt/UrkeqsfHkbjBX9uKjFNWDA==
-X-ME-Sender: <xms:e9lZajpqEFCPB_SyMSJN5G2guYKM9YVnmbAbu6QxfHlR92k56Tmpkg>
-    <xme:e9lZaqDWxVDPvmd1QoROC_FsCpM-VrRHwRuxTDpROKcc6LcXkXfvd2vLykNSFlgmo
-    9E8DZArW6L31hyKPntWFqX0EjJXoNeXBGcQWxwYoWJg_VZvuiA>
-X-ME-Received: <xmr:e9lZakqzSwE0WZLljzkPD_d3c95jS4StU1l_i8KpNBrgBcoznGtgg88-o-78xdIIk8c4dyNmaKDpxX56OMDkv9Mm7w>
-X-ME-Proxy-Cause: dmFkZTEyWUvUivhHubgnuywq76ZBUFI+iKcAUd9XptajDdfqI90y12kSYu2GEY0v4WRp1Z
-    GXeyzBRWyCXsYv2m3cct2Id5P987uzSKNwJnG4BzDE8+Xjs9ZpJYF/z6UNO7TmODQbyyXd
-    P2phYKx6v20vcOGysaglCOGTM4QfoVc050tHmolP0HYSCz5v4gFqZdp3dAuVK8pXMDPLeg
-    URG+IQLFfMluORBbrQvPpWMyaW7Q5RF5AYKmnl2OEstSH1bISKYzqROKTB6WplYhZUJEy9
-    SiljPWhHGh56mOUuoOLYtYXNgoLM/Zp0ovuL44mT9sWzlQ3wDgrxtVAMeHCbpx2fP6AFED
-    8OmAskRa/lvxdwNvnYUm8ydtBOhDVp/7ytQIf0CohvcOiQg65/8mcQ65CByRC+p6bfkxrV
-    9/jPdrFd6PYf6T8DU3Pa96v/VemDZi26fDJ8KPbsOKdy2ETyEu3dpcNhH8k2ipt6Ry0SKk
-    +Slykd0ZqJUXsm+ybMBUMtrw+Ssof8KmyRTBWPsJ9Nj/nu+tNInQEgQy2INFyNFMj5dG24
-    /DHruwXMaJ0y7WeBFtR7rwndw/pAYbrDIpdbF0tPdOaGM5X7Wy424yCGo6p0T4C6eCyjUh
-    1dAUvTrnbe6ndjZuGyomWGKbBAlNzV5tKgFqOt4RAdsb2txJiL+Eu9mKG3KQ
-X-ME-Proxy: <xmx:e9lZalDnvIulDkSMCW7SqkwfO9bksdmHUjknRcD6N1EbW-chmtJZvw>
-    <xmx:e9lZavX8xoGg-_T70MdT2ANIM_p50I5noW0mmWb2rP3FXXkKZxWWgA>
-    <xmx:e9lZanD2QMzh6dLZdaAdTLAZ5lOK5ppV-zMotnCf4VhG_WrpNM07jw>
-    <xmx:e9lZaseSfDjXfanU04x-lh8OXJFNuPK5EZhTRsj2icQdle5TgtHZTw>
-    <xmx:e9lZaoyKP0bXMmegZh-ASN9zIlswvJFdQ4f3Yq5Qz_KMpvzW19kp764z>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 17 Jul 2026 03:27:55 -0400 (EDT)
-Date: Fri, 17 Jul 2026 09:27:49 +0200
-From: Greg KH <greg@kroah.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: stable@vger.kernel.org, linux-media@vger.kernel.org,
-	laurent.pinchart@ideasonboard.com, hansg@kernel.org,
-	mchehab@kernel.org, Jay Chooi <jay@robocurve.org>
-Subject: Re: uvcvideo: deadlock when async control drops the last PM
- reference from the status-event path
-Message-ID: <2026071747-exposure-owl-c4f0@gregkh>
-References: <CAL+2LXtmekL+oc8e48uUXL_2SXvfCc_v7MrHJ6JDh9usRHu0sQ@mail.gmail.com>
- <CANiDSCukMqtarMGb3F0Nf3TfTB7TxHDeWu776StV+0q5q1VSVQ@mail.gmail.com>
- <CAL+2LXvV66O_qvbrHeFyHGjreyart277PgfKVK7jKfJ-MXihbw@mail.gmail.com>
- <CANiDSCttWrSLoftLWPtx7XxYaQ7PRV2+Y0tvir2qaE77PMG1-w@mail.gmail.com>
- <2026071726-gopher-onshore-61ca@gregkh>
- <CANiDSCs9T2iDaptLnv4g1ZxNyRQqTzNCD=Ay2uRQoPeSaGv+GQ@mail.gmail.com>
+	s=arc-20240116; t=1784275054; c=relaxed/simple;
+	bh=c9Z6ZrHEYriG6gG9sf7H1/tHmv5K0/tRp2Qm2oVEj20=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=R8J57gUfufcB7swE1tgJ9OLcMk0icFT7qamAoYI+xCBfWuS+HUIIpNhLgqV+su2TeAKz3892/kLbO6ruFth5UrxjJcxxrCAMTY01efp/3tc9pg/Rd8tbaLQzvs29qJpzNs3BGjSUQEuk4CjyZcnNYJuFHSZaXlY1Qf+OyYH/ZJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 2348cc2a81b511f1aa26b74ffac11d73-20260717
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:c2559770-bef1-4ec2-9b45-43df99297e51,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:e7bac3a,CLOUDID:79a0ed7f2a628db40f25b7ddf52455b0,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|136|850|865|898,TC:nil,Content:0|15|
+	50,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,
+	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 2348cc2a81b511f1aa26b74ffac11d73-20260717
+X-User: lilinmao@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lilinmao@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1314255756; Fri, 17 Jul 2026 15:57:20 +0800
+From: Linmao Li <lilinmao@kylinos.cn>
+To: Nas Chung <nas.chung@chipsnmedia.com>,
+	Jackson Lee <jackson.lee@chipsnmedia.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Sebastian Fricke <sebastian.fricke@collabora.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Linmao Li <lilinmao@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: chips-media: wave5: Balance runtime PM on encoder close errors
+Date: Fri, 17 Jul 2026 15:57:14 +0800
+Message-Id: <20260717075714.1508938-1-lilinmao@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANiDSCs9T2iDaptLnv4g1ZxNyRQqTzNCD=Ay2uRQoPeSaGv+GQ@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 17, 2026 at 09:07:12AM +0200, Ricardo Ribalda wrote:
-> Hi Greg
-> 
-> No worries, thanks for the update.
-> 
-> Is there a public page where we can see the status of patches
-> (queued/rejected) so we do not have to bother you?
+wave5_vpu_enc_close() resumes the device before taking the hardware lock.
+Its three error paths call pm_runtime_resume_and_get() again instead of
+dropping that reference.  Each failure therefore increments the runtime PM
+usage count twice and can prevent the device from suspending afterward.
 
-Nope, not really, that would take more effort to set up and maintain
-that it would be to just keep the mboxes locally as I currently do :)
+Replace the extra resume calls with pm_runtime_put_sync() to balance the
+reference acquired on entry, matching the successful close path.  This
+aligns wave5_vpu_enc_close() with wave5_vpu_dec_close(), which already
+releases the reference on its error paths.
 
-And normally we do stay on top, this summer it's been a bit harder due
-to massive conference travel combined with massive amounts of patches
-being tagged for this -rc1 window.
+Fixes: 2092b3833487 ("media: chips-media: wave5: Support runtime suspend/resume")
+Cc: stable@vger.kernel.org
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+---
+ .../platform/chips-media/wave5/wave5-vpuapi.c     | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-thanks,
+diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
+index f77abd5e122a..4c1842f02c88 100644
+--- a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
++++ b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
+@@ -754,7 +754,7 @@ int wave5_vpu_enc_close(struct vpu_instance *inst, u32 *fail_res)
+ 
+ 	ret = mutex_lock_interruptible(&vpu_dev->hw_lock);
+ 	if (ret) {
+-		pm_runtime_resume_and_get(inst->dev->dev);
++		pm_runtime_put_sync(inst->dev->dev);
+ 		return ret;
+ 	}
+ 
+@@ -762,16 +762,13 @@ int wave5_vpu_enc_close(struct vpu_instance *inst, u32 *fail_res)
+ 		ret = wave5_vpu_enc_finish_seq(inst, fail_res);
+ 		if (ret < 0 && *fail_res != WAVE5_SYSERR_VPU_STILL_RUNNING) {
+ 			dev_warn(inst->dev->dev, "enc_finish_seq timed out\n");
+-			pm_runtime_resume_and_get(inst->dev->dev);
+-			mutex_unlock(&vpu_dev->hw_lock);
+-			return ret;
++			goto unlock_and_return;
+ 		}
+ 
+ 		if (*fail_res == WAVE5_SYSERR_VPU_STILL_RUNNING &&
+ 		    retry++ >= MAX_FIRMWARE_CALL_RETRY) {
+-			pm_runtime_resume_and_get(inst->dev->dev);
+-			mutex_unlock(&vpu_dev->hw_lock);
+-			return -ETIMEDOUT;
++			ret = -ETIMEDOUT;
++			goto unlock_and_return;
+ 		}
+ 	} while (ret != 0);
+ 
+@@ -787,10 +784,12 @@ int wave5_vpu_enc_close(struct vpu_instance *inst, u32 *fail_res)
+ 	}
+ 
+ 	wave5_vdi_free_dma_memory(vpu_dev, &p_enc_info->vb_task);
++
++unlock_and_return:
+ 	mutex_unlock(&vpu_dev->hw_lock);
+ 	pm_runtime_put_sync(inst->dev->dev);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ int wave5_vpu_enc_register_frame_buffer(struct vpu_instance *inst, unsigned int num,
+-- 
+2.25.1
 
-greg k-h
