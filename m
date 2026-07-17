@@ -1,128 +1,128 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5003A3264FB;
-	Fri, 17 Jul 2026 11:36:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71863DCDA3
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 12:21:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784288182; cv=none; b=BgN5EHyB44LUKE3Mgjkpcl2MTfVaeSlSI5F9qnnr4JUbuREUYM4C871s8hAF8s43ylvKtGkEZrFlX2DDLScX9lZ6u6lktMfieIiCZV3O1iKJGZ9pQ8OlzRoDD84Ss21yINGVq7/XeVfp/t7iN2omdFJNaCog8wu+NM5Ce2OGhCo=
+	t=1784290875; cv=none; b=b+v5soTimGS8pQNSAlrUktvLheeN7xtX2GjvvX8I08J3d/OflPbCWLPPNMXV+IP6TVayLgp9sEgd0q5itOIKI63nhkpRsv2SD02nWH+JcPl+qOI8vW8VTaGaMr3Wzy3sgqr6TZX9ulCbG5E3IzhZiefAHYiLEisLiF4Lt7cf15g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784288182; c=relaxed/simple;
-	bh=FNePNVppOEoL/+yPS7KDbKsab4bLD3Klrarm7dVKLtU=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=YZ0TuDZIft4WaqVDKQ7dv2KIa31Cx1RubH9FkAc4HM/rh0O/ze0zCgEANKsVQ5CXGYvw2aU5mfdW0sbpFTA1daskPSjfkVVItkzHCRU6frA+AMaAMd8wCen5z9DFfKQl+JqWS/pWEuVwdxu4v2dYwftr/xKI+4Q8ZlC8erJKn2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=jIubq+AI; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784290875; c=relaxed/simple;
+	bh=aBRYhELff08ys9h4cuD5q2Kft8muOBSKwvu40KFURZw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EsGwiHRC9M80vAU4OQAX5vupKGrkBGb5WG5/P2tgB3TfIjJXU3f5lq01I7l/uQVGT3R6/wusObHrTQ/AdBnX7c16iF+H/H56J4MZBk7ktJbidqhnZqfWf1M8Yfw2lxWT4epaljwEclIMM721QLabuhJGuvF7TOTgIwhwKfXdBfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=gblbfg9x; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="jIubq+AI"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:66a6:48e1:9e1:50d5:c75c])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3C9E58FA;
-	Fri, 17 Jul 2026 13:35:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784288122;
-	bh=FNePNVppOEoL/+yPS7KDbKsab4bLD3Klrarm7dVKLtU=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=jIubq+AIpTSpky0jQECYUptn722NA9JfztOP1x+POKGZEiDx2T6fu5TlUaybydsJZ
-	 dmPe3ypllTE+Lc/BWk1RQr3K0nM387HfwWy8VwS6cjSN4VJLlwhXktsjh5ybZ1vpT4
-	 q1dz/+nkACDgoa7qAy+k6VY1IxxoR38gTB8lCBQo=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="gblbfg9x"
+Received: from macsyma.thunk.org ([151.240.45.25])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 66HCKmid022457
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 17 Jul 2026 08:20:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1784290853; bh=0vYmu9fT3YPaVNsvyA1jpwIKI/N7Ej0isCAHikoD9qo=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=gblbfg9xESiWYF3USUZprOdQwnTYgr47GMuoyazdgU33I26i0IgeASOSPoLZY1Q7D
+	 6f9viosQg1Y0fdxjqy5dPzeFL+63sE3ZUd/QzZNRFlpqTcdjxUAz4U3D8qG8fYAbZw
+	 TMlKFLfRC/eIhFc5iogLQffItNu2zlplN2CNWiVWBpzhUbz6yyJPlVL8hVhpbY4W94
+	 epEBmZteYy8ZV8RXNnmH3Xn94mTRi1xeBbxUnYov3SZRFDHBmWlzyQzbFf9MBZ8fxy
+	 KAmImIo6717SPh2dlc8gbqZMFkk045Pm4VKqt+xtZAu42DGx6/ESC0SHHfmep5XpuU
+	 2uvnGeWeqWuMQ==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 2B82DA6536B; Fri, 17 Jul 2026 08:20:48 -0400 (EDT)
+Date: Fri, 17 Jul 2026 08:20:48 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>,
+        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+        Derek Barbosa <debarbos@redhat.com>,
+        Matthieu Baerts <matttbe@kernel.org>,
+        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+        Jason Gunthorpe <jgg@ziepe.ca>, Steven Rostedt <rostedt@goodmis.org>,
+        users@kernel.org,
+        Linux Media Mailing List <linux-media@vger.kernel.org>,
+        Stephen Finucane <stephenfin@redhat.com>
+Subject: Re: Linking Patchwork with Sashiko?
+Message-ID: <aloZ9hqSgzN3beqH@mit.edu>
+References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
+ <4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
+ <alc3gAJfAkG5DULJ@zed>
+ <alfBvhZkAelq5RVf@mit.edu>
+ <aliMsSH373RJ31Mq@zed>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260717-b4-vchiq-isp-v3-7-fb8235e15c68@ideasonboard.com>
-References: <20260717-b4-vchiq-isp-v3-0-fb8235e15c68@ideasonboard.com> <20260717-b4-vchiq-isp-v3-7-fb8235e15c68@ideasonboard.com>
-Subject: Re: [PATCH v3 7/9] media: platform: broadcom: Move unicam driver to subdir
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-To: Florian Fainelli <florian.fainelli@broadcom.com>, Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Tomasz Figa <tfiga@chromium.org>
-Date: Fri, 17 Jul 2026 17:06:13 +0530
-Message-ID: <178428817339.1426769.9456608230178052105@freya>
-User-Agent: alot/0.13.dev35+g4a69c46ca
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aliMsSH373RJ31Mq@zed>
 
-Quoting Jai Luthra (2026-07-17 16:34:22)
-> The BCM283x/BCM2711x SoCs capture camera frames using CSI-2, and
-> optionally process the raw frames using a VC4 firmware-based ISP block.
->=20
-> As the ISP driver will be added subsequently, move the files related to
-> the unicam driver to a separate subdirectory to ease distinction between
-> the two drivers' files.
->=20
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+On Thu, Jul 16, 2026 at 10:07:03AM -0500, Jacopo Mondi wrote:
+> I got fooled by a Sashiko reported issue on patch for a driver I
+> maintain. I asked the developer to address it, he did so in a separate
+> patch, people got involved, lost quite some time on it, it ended up
+> being a false positive.
 
-[...]
+Thanks, I think I see why the Media subsystem has such a huge
+difference in their experience of Sashiko.  With the media subsystem,
+you have to support drivers and the driver maintainers don't
+necessarily have as much deep experience with the core media
+infrastructure / framework.  Hence, you didn't immediately realize
+that something which was a false positive.  I'm going to guess that
+you have three levels of expertise; (a) the patch authors, some of
+whom might have very little experience with the kernel, since their
+last project might have been developing the firmware for the card, (b)
+the driver maintainers, who know that driver very well, but might not
+have deep expertise the core media subsystems, and (c) the core media
+infrastructure developers / maintainers, who *do* know what is and
+isn't fair.
 
-> diff --git a/drivers/media/platform/broadcom/Kconfig b/drivers/media/plat=
-form/broadcom/Kconfig
-> index 93ba565d9a02..cab44885182c 100644
-> --- a/drivers/media/platform/broadcom/Kconfig
-> +++ b/drivers/media/platform/broadcom/Kconfig
-> @@ -1,18 +1,5 @@
->  # SPDX-License-Identifier: GPL-2.0
-> =20
-> -config VIDEO_BCM2835_UNICAM
-> -       tristate "Broadcom BCM283x/BCM271x Unicam video capture driver"
-> -       depends on ARCH_BCM2835 || COMPILE_TEST
-> -       depends on COMMON_CLK && PM
-> -       depends on VIDEO_DEV
-> -       select MEDIA_CONTROLLER
-> -       select V4L2_FWNODE
-> -       select VIDEO_V4L2_SUBDEV_API
-> -       select VIDEOBUF2_DMA_CONTIG
-> -       help
-> -         Say Y here to enable support for the BCM283x/BCM271x CSI-2 rece=
-iver.
-> -         This is a V4L2 driver that controls the CSI-2 receiver directly,
-> -         independently from the VC4 firmware.
-> +comment "Broadcom BCM283x/BCM271x media platform drivers"
-> =20
-> -         To compile this driver as a module, choose M here. The module w=
-ill be
-> -         called bcm2835-unicam.
-> +source "drivers/media/platform/broadcom/bcm2835-unicam/Kconfig"
-> diff --git a/drivers/media/platform/broadcom/bcm2835-unicam/Kconfig b/dri=
-vers/media/platform/broadcom/bcm2835-unicam/Kconfig
-> new file mode 100644
-> index 000000000000..32b76ebfcd9a
-> --- /dev/null
-> +++ b/drivers/media/platform/broadcom/bcm2835-unicam/Kconfig
-> @@ -0,0 +1,23 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +
-> +config VIDEO_BCM2835_UNICAM
-> +       tristate "Broadcom BCM283x/BCM271x Unicam video capture driver"
-> +       depends on ARCH_BCM2835 || COMPILE_TEST
-> +       depends on COMMON_CLK && PM
-> +       depends on VIDEO_DEV
-> +       select MEDIA_CONTROLLER
-> +       select V4L2_FWNODE
-> +       select VIDEO_V4L2_SUBDEV_API
-> +       select VIDEOBUF2_DMA_CONTIG
-> +       help
-> +         Say Y here to enable support for the BCM283x/BCM271x CSI-2 rece=
-iver.
-> +         This is a V4L2 driver that controls the CSI-2 receiver directly,
-> +         independently from the VC4 firmware.
-> +
-> +         This driver is mutually exclusive with the use of bcm2835-camer=
-a. The
-> +         firmware will disable all access to the peripheral from within =
-the
-> +         firmware if it finds a DT node using it, and bcm2835-camera will
-> +         therefore fail to probe.
-> +
+I think the other difference is that in the media subsystem, you can
+rely on the userspace code being "nice" (so you don't need to worry
+about certain races or cleanup bugs, because a well-behaved upper
+layers of the stack would *never* abuse the kernel system call in that
+way).  With file systems, we can *count* on syzbot abusing the system
+call interface and filing bugs which they will report to management as
+security bugs even though no sane userspace would ever do something
+like that.  So we get things which we could call false positives all
+the *time* from syzbot, and arguably, if this can be used to crash the
+kernel, perhaps it's fair to call it a security issue.  After all, can
+you guarantee that only well-behaved media frameworks will be calling
+the media subsystem's kernel interfaces?
 
-Oops the above paragraph is no longer there in the old location, I must
-have missed dropping it during the rebase.
+The combination of these two means that we've already hardened against
+many of the cases where userspace does something "unusual", and we are
+inured to ignoring many of the syzbot's "false positives" (After all,
+if it requires root to trigger an oops, is it really a security issue?
+It might be a quality of implementation issue, but if it's a
+pre-existing issue, we've been getting complaints from syzbot for
+years.)
 
-> +         To compile this driver as a module, choose M here. The module w=
-ill be
-> +         called bcm2835-unicam.
+And then because we don't have to deal with drivers, if we get someone
+who is relatively inexperienced trying to fix a syzbot bug, the result
+is almost always a complete disaster (especially since good luck
+trying to get new contributors to run the regression tests) having the
+Sashiko review point out the obvious bugs is a huge time server.
+Furthermore, since we don't have the layer of driver maintainers, if
+we get a false positive from Sashiko, we don't have trouble
+recognizing them, and the main cost to us is telling the patch author
+not to fix unrelated problems in a single commit --- and so to either
+fix the Sashiko complaint in a separate commit, or to save it for a
+later patch series.
 
---
-Jai
+This has also helped us because it sometimes gives a newer contributor
+another opportunity to work on the subsystem, and we just have to make
+sure to warn off a contributor that a particular issue proposed by
+Sashiko mgiht be beyond that new contributor's experience.  But I've
+seen a few cases where the new contributor has found Sashiko reviews
+to be quite engaging.
+
+Cheers,
+
+						- Ted
