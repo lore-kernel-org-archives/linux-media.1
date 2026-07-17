@@ -1,174 +1,101 @@
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC743A7F41
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 05:49:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BECF63A9854
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 05:51:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784267395; cv=none; b=tELRzi1/Yt7OZQW19u9U5/yGLow6NkSqF+bLVsoIeXyEdcxqRVd2JB1v6vN1v5whKJRvgCVXbdn0dX5HvjrBK9UA9Y7/WwV4E8L/KC6hbhSJiQC0sZ+/GHHo6lb9hbZf5ks/TGZDws/rjZ8Or/ECg2flqGxORNXQpYBsnXSH2fg=
+	t=1784267506; cv=none; b=OWZMIcyK7weoJj0LGbR8FTCkORmjig3BL6OUngP0XcDSHvrNkDl5YUijXe1Fr9b7ansW86HOi/4WI30bgum7bWfGRk+Ql05Rn8qhX0J6WzYdYhYen886bry9Zpal/mTML0WwThb6hvjtzqYxi4o2lhlu9D1PNABB4SQm+Vf8980=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784267395; c=relaxed/simple;
-	bh=zko0DNTJNhO6nLopXgEhpBF+G76yMwm8/kgwCnSg4tg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iFWrWaNxbrFXgqWeDJ8Vt29nWERD94ZFdgvm1i0tQLUjSIne3ZTuuED2dzXTWnxvgd+/bE9uPYdL+V/7nGWDdbSvpRmClplLiqUYqYOXbgaJGfw+xVAYOtHiN5gIx8GwAwvn/BZvcQfvqDTN0DpWUTy/7hszOjIm3jcbdF1Nr+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n2N6u7gp; arc=none smtp.client-ip=209.85.160.170
+	s=arc-20240116; t=1784267506; c=relaxed/simple;
+	bh=1EFfARZqTYougMDxqJVwrAAU6s5k6TPIb1KJJancNeA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ULATLTJHNPiTxFmxWV6+BOVAPCcrlqSO6i3a5Zq6c7+rlBBdhOX4dnBgt/MuuD9eVtr+4QQxq5A108agwtxRof2YOA1o9AW1vYmULjTc+EQnhyW2uJ0EbeV5KkeFlIZgibGGla4jCZzT9hc3xdSGeuIH+54HbJacCMRXUV8t1Rc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JMbT5/6M; arc=none smtp.client-ip=209.85.210.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n2N6u7gp"
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-51c21495722so50420491cf.3
-        for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 22:49:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JMbT5/6M"
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-7eb545db3afso2382536a34.0
+        for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 22:51:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784267392; x=1784872192; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vojM1XpTdcxnBW7GtKa8Noe5VtZU5Xmye6lFOvFDJfg=;
-        b=n2N6u7gp/7uqjTtiQivH+s/fWt1seJTis6FLhe2nrdf7JUT9gSAgcmCRSCvxtdvPe2
-         ufmWLfvYsOLyejU+hmurbF81dPoPsDeg+Yh0anMS1k3RnMlb9sgPx6U7pAUN3NJPwhQn
-         BkWzBYsLUlH80aORNXbH224d9XQKyz+mS8hf8J+S6CeI5hxuyoOyX6JgObmJDFjlJrfN
-         KDhvbt+RRExiTG3cVCSwgsXzcJwhVqTw/LpFLZH7aWEm2aj15tF6ibN5rb8Ct/syPHQn
-         8Gr8UzslKzdOxlr7yUre87jK6wXcGtRtg0TAXoQ4gLmCXZmcDXAgvlnMpx8/X9wm9CoH
-         1TQQ==
+        d=gmail.com; s=20251104; t=1784267501; x=1784872301; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7GNJ2VsT/H/OoPywtw6dAhOceHxaw517jB295gP2NHc=;
+        b=JMbT5/6MSRxsbUAqcv/WmmJvt/PZky0MEYp7ofDy2bEU+miaLnSDA3pJoDAxHMNVNJ
+         KcF4kcfVI2+AJhBEQW6vEOfzJnzL/WdLFi/rr0BkUokwEcmi7fOKeLF7wE4G/Xvt7yhF
+         Lgi1CUHGnspTAAONdhTi5PCu2L9jtnpDmJiJwyETCpBJ6llFBGWibW7lIcXwLc4F/I+8
+         HD22HCoclZ1hpHSnANabTnDeN9IGrpyISkYqI+wRwirkq6i+auKRwHis38pApPnuI2FK
+         giu4iT1EP0jV8ltsADVnoOYxVWMRxCx2/H2p7vUiQLueuG2Mf+bUztqm+q5/Mt2WRlvY
+         9EZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784267392; x=1784872192;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vojM1XpTdcxnBW7GtKa8Noe5VtZU5Xmye6lFOvFDJfg=;
-        b=O7tW3+tFUSug6fEzsz90GHbe9f3+Zu3JYIvArDmHzI1LnS++Cc1xBpUWV3Tj/V+INb
-         sQhdIoPKnCsTES0ALulk/ys5+ZjXaMcbx0qWyItaw4DDVg7rH9XuSttQDsC4jZYT+HQI
-         ppKD1RFHoCNEI+eq0tNTy+4QALY27owIiEOwFKA7nnp1JfovTGwiQjAxvKClU3t//XNT
-         Hv02q7MgBzu9OTUomawEYVg+hTIm4vB5mYJEjWmAJPWusnMMabX4IAmUt4/VVgPHN9yu
-         ahuMJQdapVUTVSsO6cUIfxAYSBxbo1HtHju6PTfTtwFokYT/Xl3vp7AnXaNfSB+LpMoh
-         MMyQ==
-X-Gm-Message-State: AOJu0Yz8I6OdYOZn2iTsLXZiUvN7KHEdJpGq8nbM7PwYYu7rs7SL1K6y
-	9oKzJhZsP335WlnQ4bGC0bIA8TOtl068EJqtMAknrSRfvr3+UsHiDBl+
-X-Gm-Gg: AfdE7cl8dwGvjWT+WwZkA2OvVZBuf6iT+TRCUX9JBqD+RpNzro8RgLmvHNUiQPUCSXK
-	qAw65lxO55oar5ILl2vw6cTh9twaI/7uIP4q2iqNyQS3XkrtzwVIBq142iX3Wpl8oAAGHZIt+TI
-	7ePXZPFEFCJiCMhN0Fu/vFooSKC4LltTgrU1eIIilr8z5SUN8WKtLjZOCNd+ys/IWXt2vXaXbMd
-	6zr4DIpdv1dg9xqOlnDaaUe/0EKJrgymTFeGPnUTmsRUu8PGJrB0djzvHo9GFsjTl1trdKr7Cn1
-	8MZGnCbVU/hcvLlc2Pjg8CzJvLSxkzfB5adAjCWuDbvS0ERBCJ0bzwcXXmX2GnEayI616+p0U1D
-	Hqd3KHKHw/Yd/HJnCPTwykg6w3Ws/rqTkqONxvfR9ZvOqFAYdwGR3Y1SvtuebcjOiMzozqW4bsc
-	ekAfHV5y49iXVXCthli0eJtgGgTe98Rkc=
-X-Received: by 2002:ac8:5901:0:b0:51c:1590:8e28 with SMTP id d75a77b69052e-5213c7e5699mr9021741cf.25.1784267392365;
-        Thu, 16 Jul 2026 22:49:52 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5214f5fb88esm4407551cf.21.2026.07.16.22.49.51
+        d=1e100.net; s=20251104; t=1784267501; x=1784872301;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7GNJ2VsT/H/OoPywtw6dAhOceHxaw517jB295gP2NHc=;
+        b=e3887/xz9pNV3YsIbhtYlppLX0tBoH8g9IStNGzyGO3fdWW8eiGEECuaRQX9m5Zxnd
+         nVU2PjTtFypR+5QuI7/F26wFFbnYb943TpJl/b89kLxaRe4hz5gVejaT7X6J3ZsvMndZ
+         oRC0xY+GjjyMHZPvdGXK/1AbKJN/QJRjI0zrD2JR3qa9AEzPMKhIK01tTGNSeZjVcn55
+         jR4AYEOTQLkCA9AkYgQTHq8boGjIaih+2rqRt/hviidsz9/DR58FEN36DqqYydHoBbKa
+         /UERGsntLC+FCbxK5deboPih8L8uGEtVN1J3n44CcqFFwcdLY1wfHrceg0bXyp8MHjTt
+         v7AA==
+X-Forwarded-Encrypted: i=1; AHgh+RoPdINhqjBIBuAZrBLfD7sLIwnQVkp/r4v+jSMm3s0WkPpokWKn4HoK84F53wdi1Omxk3y1B58TwDmHXw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyLk3G86YxhBErfGnZcroMpWEdgQpUcZ3/8jNrawY2OJeqquIVv
+	KgITY05JUFaoDCbmiXJCr/85Y36JoVC5Xwfqkt6TpXFXZP+lvEOPLfQT
+X-Gm-Gg: AfdE7clwpR5E9a/ZiLoAwPbsQwVa1wv1ICnlUjWxA7nXQa6BnPzH3JnrJFL4nYCeL30
+	erJPm3VAtj579uMPGUU/fkVgQeBpaH9MTTB+B0Meaz0BmccN7WLobpbIXIDbWUYALGYlm4wm8F8
+	auHFoP2RJdv0p/UsLITxgrAIP6QyEtxI7qN/3mgxo+Phc4DJS3ZzC338ciPgOSf/oiIXqQaNwoa
+	Ne7t7iNS7fxb3qMvwhNp7mdg7UiwtmdSbCqvpC3qqIg4mDLn6XMfgcpY7eGeUNnk6cqHrq9ult1
+	6kpzTNeryCPrDxXQMI9TNJ2A5dasjM3JDzcukm0iy+MxGF06X/sF9L0KTKaALQWMBLnGN3k/9cN
+	UqqEg40J1SEZIjerK2j5P4t2BN5LlgkzdQzncCyAeyZnHivaLKnKjK4x9H3pUZb3dpZm5Fw==
+X-Received: by 2002:a05:6808:308c:b0:4a4:c12:46f6 with SMTP id 5614622812f47-4a4d01f55ebmr585102b6e.2.1784267501599;
+        Thu, 16 Jul 2026 22:51:41 -0700 (PDT)
+Received: from localhost ([74.80.182.90])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4a4d3cb035csm167035b6e.11.2026.07.16.22.51.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jul 2026 22:49:51 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kees Cook <kees@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: dvb-core: fix UAF on failed device registration
-Date: Fri, 17 Jul 2026 01:49:21 -0400
-Message-ID: <20260717054921.873577-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Thu, 16 Jul 2026 22:51:39 -0700 (PDT)
+Date: Fri, 17 Jul 2026 08:51:32 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Alfie Varghese <alfievarghese22@gmail.com>
+Cc: neil.armstrong@linaro.org, gregkh@linuxfoundation.org,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
+	dan.carpenter@linaro.org
+Subject: Re: [PATCH v3] staging: media: meson: vdec: propagate devm_clk_get()
+ errors
+Message-ID: <alnC5GH7m84F-tnk@stanley.mountain>
+References: <20260717030559.167-1-alfievarghese22@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260717030559.167-1-alfievarghese22@gmail.com>
 
-dvb_register_device() stores a dvb_device pointer in dvb_minors[] and
-takes a reference for that slot before calling dvb_register_media_device()
-and device_create().
+On Fri, Jul 17, 2026 at 08:35:58AM +0530, Alfie Varghese wrote:
+> vdec_probe() hardcodes -EPROBE_DEFER for all devm_clk_get() failures.
+> This masks the actual error code returned by the clock framework, such
+> as -ENOENT when a clock is not registered or -ENOMEM on allocation
+> failure.
+> 
+> Return PTR_ERR() instead to propagate the real error to the caller.
+> 
+> Reviewed-by: Dan Carpenter <error27@gmail.com>
+> Signed-off-by: Alfie Varghese <alfievarghese22@gmail.com>
+> ---
 
-If either later step fails, the error paths free the dvb_device directly
-without clearing the published minor slot or dropping the minor-table
-reference. A subsequent open of the same character device minor can fetch
-the stale pointer from dvb_minors[] and dereference freed memory in
-dvb_device_open().
+There is supposed to be a note here under the --- cut off line which
+says what changed.  Did you resend just to add my Reviewed-by line?
 
-This can be reproduced with the in-tree vidtv driver by using failslab to
-fail the media_devnode_create() allocation in dvb_register_media_device().
+No need for that.
 
-Add a helper to undo the minor-table publication and use it in both the
-normal remove path and the post-publication registration failure paths.
-Drop the initial registration reference with dvb_device_put() instead of
-bypassing the kref with kfree().
-
-Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
----
- drivers/media/dvb-core/dvbdev.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
-index d753d329502a..64c68581b649 100644
---- a/drivers/media/dvb-core/dvbdev.c
-+++ b/drivers/media/dvb-core/dvbdev.c
-@@ -448,6 +448,14 @@ static int dvb_register_media_device(struct dvb_device *dvbdev,
- 	return 0;
- }
- 
-+static void dvb_device_remove_minor(struct dvb_device *dvbdev)
-+{
-+	down_write(&minor_rwsem);
-+	dvb_minors[dvbdev->minor] = NULL;
-+	dvb_device_put(dvbdev);
-+	up_write(&minor_rwsem);
-+}
-+
- int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
- 			const struct dvb_device *template, void *priv,
- 			enum dvb_device_type type, int demux_sink_pads)
-@@ -551,6 +559,7 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
- 	if (ret) {
- 		pr_err("%s: dvb_register_media_device failed to create the mediagraph\n",
- 		       __func__);
-+		dvb_device_remove_minor(dvbdev);
- 		if (new_node) {
- 			list_del(&new_node->list_head);
- 			kfree(dvbdevfops);
-@@ -558,8 +567,8 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
- 		}
- 		dvb_media_device_free(dvbdev);
- 		list_del(&dvbdev->list_head);
--		kfree(dvbdev);
- 		*pdvbdev = NULL;
-+		dvb_device_put(dvbdev);
- 		mutex_unlock(&dvbdev_register_lock);
- 		return ret;
- 	}
-@@ -570,6 +579,7 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
- 	if (IS_ERR(clsdev)) {
- 		pr_err("%s: failed to create device dvb%d.%s%d (%pe)\n",
- 		       __func__, adap->num, dnames[type], id, clsdev);
-+		dvb_device_remove_minor(dvbdev);
- 		if (new_node) {
- 			list_del(&new_node->list_head);
- 			kfree(dvbdevfops);
-@@ -577,8 +587,8 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
- 		}
- 		dvb_media_device_free(dvbdev);
- 		list_del(&dvbdev->list_head);
--		kfree(dvbdev);
- 		*pdvbdev = NULL;
-+		dvb_device_put(dvbdev);
- 		mutex_unlock(&dvbdev_register_lock);
- 		return PTR_ERR(clsdev);
- 	}
-@@ -596,10 +606,7 @@ void dvb_remove_device(struct dvb_device *dvbdev)
- 	if (!dvbdev)
- 		return;
- 
--	down_write(&minor_rwsem);
--	dvb_minors[dvbdev->minor] = NULL;
--	dvb_device_put(dvbdev);
--	up_write(&minor_rwsem);
-+	dvb_device_remove_minor(dvbdev);
- 
- 	dvb_media_device_free(dvbdev);
- 
--- 
-2.43.0
+regards,
+dan carpenter
 
