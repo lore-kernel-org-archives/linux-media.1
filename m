@@ -1,38 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03F93E00A7
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:25:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBAD3DFC8A
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:25:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784276732; cv=none; b=gBAVgUFKAQnh39tHKzUVsZZVPvr1CTx1itZBXnN5mFhSbeWxDIl/iQBbIY9AN1Rt8xP+4r1Dqpg0cmhIYVHVN1q8XFdn27HpTSbg3Z2aDddN0I+bAk3Yy4U5LUlprv5/haHc6lGAMjWyqJXU0JHRrXWVZ2YfBspff5cZ0cn014I=
+	t=1784276734; cv=none; b=kWcJQWFUA1RKEhcmU2+gjuCkUeyzXaNntNvBTo8sPMECCUahCbzSI55UR8aLVs2g1Eg5BM9haL9ew1IVL10paEk44KkRPYuTtthRBKKD/pEwsBiK6lNZtKhcpK5wjgNu1dfcE4Hj58ow+oenWYf615/DVL2DLROoNz7StDUsinw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784276732; c=relaxed/simple;
-	bh=KlAsDleqfwpumNCPAe6EYeucuAblOT8qXpUrA4PyZbc=;
+	s=arc-20240116; t=1784276734; c=relaxed/simple;
+	bh=Ju3D8rUT4ZOMKVKEWIOdbSTGHHG5uFEFXCrfnWryTK4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZSvsRxNm87k9ukJCkKclRqedjCxLOOYnVXJti/pA1R8fTwldp2l/NHh0vrPd06BaqAeOV6DfmyB8NlcvT3Qllacw46473/qkFmmpB6cMFZu7nwFake0KupR7VB+KkTbi96tB7ZE6DeJOeOlirggXJHR5ymetu56YwTxesFO9WhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VP1xSZns; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qFLRp8Oicg83vYcwYAg4hpRKezM0j3rAxBntOpQAMPIG0pPmAwoUelFOt8ZMpifRs9MtlerGWts2IlZh5Jie2IxVBhdDEsq8dbTGeGPVN5Bo9tG2+esOsqT1u7DqbVXZmD0qkmyXs15vX1fMEQtEO0bz6qosE+z1/9OHH3RS0zA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GzN2/Zxu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VP1xSZns"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5553C1F000E9;
-	Fri, 17 Jul 2026 08:25:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GzN2/Zxu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE2861F00A3A;
+	Fri, 17 Jul 2026 08:25:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784276731;
-	bh=kQck56oeVpuns2fN9OsEhaVdg19C5RSmHC58PEeBjbM=;
+	s=k20260515; t=1784276733;
+	bh=DIkQE7Zd3yJHsiZH/soVWT4kHvmyV+xNIhnXhyeRvZM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VP1xSZnsDWinWeM1pRDtcm188BGCJ3DZvaNUt+884HqlF9O6S0eRi14T3IkiuhA6x
-	 bBF3yocsS9ymZs1TUI81gH2Ug680dHJuxXQunn0l2IfGi5sRN3ozIM2q9VRtpeWust
-	 yrIU+CmKrE1KwJa1tbF6OWCB+qS8mUSAisjZz28b8vhJuZI2J2N0MOYhI9KE886O8k
-	 2+Z6OdW/w00qPwQCGP4PEEqrPc8A7/IGykHnWy0e23RKVX32wX1kaTCT8DeO62hteZ
-	 xAyVjK3IlzwupdTNKFPclm2ramhMYrwzejzmVKqc6hoJ5PZmBKiaSwqNA+XP+Zku9i
-	 w/Himc9AKA9QA==
+	b=GzN2/ZxuJVKVChZNc1CDx2Kx9272wJjAQ5+TNcZx+t8kCRmrWVnnhr/TpNT+49+AD
+	 WtM//6zKkZPTxyKJ04zs8d/PesJRp6GmA/K65sqKCrtfp2N7kdgLZv5VPKJEXPogOf
+	 cIa1f2ZUvkqorSens9u9EXCrSAjfrw1Zm6XkvmiBleyK0GcOQpRiX53CrFlaPm9JpB
+	 NvHOgtz0FdqiF4Cyyje3y7q0b1IkLmbWIvmjTe4XnQ6Ll6Mk2XMSjxDNEJYj7hzC1J
+	 nQlwEVuU2rZtBhR30cx/AI6M2V6bnByZb3VEsqt0JuiOFT5JpSf98vGx9jAVJhMj90
+	 JtMTWoKo+qj8w==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Jai Luthra <jai.luthra@linux.dev>
-Subject: [PATCH 16/19] media: ti: j721e-csi2rx: use vb2_video_unregister_device
-Date: Fri, 17 Jul 2026 10:19:39 +0200
-Message-ID: <7362277c11e6401bf9dca456f98b024acc6fa6bb.1784276382.git.hverkuil+cisco@kernel.org>
+	Steve Longerbeam <slongerbeam@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: [PATCH 17/19] staging: media: imx: drop vb2_queue_release call
+Date: Fri, 17 Jul 2026 10:19:40 +0200
+Message-ID: <2adccbdebd9c899d63d9788f69693c2b609fcfa0.1784276382.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1784276382.git.hverkuil+cisco@kernel.org>
 References: <cover.1784276382.git.hverkuil+cisco@kernel.org>
@@ -44,30 +46,57 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace the vb2_queue_release/video_unregister_device pair by
-a single vb2_video_unregister_device call.
+Replace vb2_queue_release/v4l2_fh_release by _vb2_fop_release.
+
+Replace video_unregister_device by vb2_video_unregister_device to
+ensure vb2_queue_release is called from vb2_video_unregister_device.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Jai Luthra <jai.luthra@linux.dev>
+Cc: Steve Longerbeam <slongerbeam@gmail.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Frank Li <Frank.Li@nxp.com>
 ---
- drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/staging/media/imx/imx-media-capture.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-index 4769931b1930..7ae7d1e33ce3 100644
---- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-+++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-@@ -1268,9 +1268,7 @@ static void ti_csi2rx_cleanup_ctx(struct ti_csi2rx_ctx *ctx)
- 	if (!pm_runtime_status_suspended(ctx->csi->dev))
- 		dma_release_channel(ctx->dma.chan);
+diff --git a/drivers/staging/media/imx/imx-media-capture.c b/drivers/staging/media/imx/imx-media-capture.c
+index bfd71d25facc..e95989a6f861 100644
+--- a/drivers/staging/media/imx/imx-media-capture.c
++++ b/drivers/staging/media/imx/imx-media-capture.c
+@@ -808,14 +808,10 @@ static int capture_release(struct file *file)
  
--	vb2_queue_release(&ctx->vidq);
--
--	video_unregister_device(&ctx->vdev);
-+	vb2_video_unregister_device(&ctx->vdev);
+ 	mutex_lock(&priv->mutex);
  
- 	mutex_destroy(&ctx->mutex);
+-	if (file->private_data == vq->owner) {
+-		vb2_queue_release(vq);
+-		vq->owner = NULL;
+-	}
++	_vb2_fop_release(file, NULL);
+ 
+ 	v4l2_pipeline_pm_put(&vfd->entity);
+ 
+-	v4l2_fh_release(file);
+ 	mutex_unlock(&priv->mutex);
+ 	return 0;
  }
+@@ -938,7 +934,7 @@ int imx_media_capture_device_register(struct imx_media_video_dev *vdev,
+ 				    &vfd->entity, 0, link_flags);
+ 	if (ret) {
+ 		dev_err(priv->dev, "failed to create link to device node\n");
+-		video_unregister_device(vfd);
++		vb2_video_unregister_device(vfd);
+ 		return ret;
+ 	}
+ 
+@@ -955,7 +951,7 @@ void imx_media_capture_device_unregister(struct imx_media_video_dev *vdev)
+ 	struct video_device *vfd = priv->vdev.vfd;
+ 
+ 	media_entity_cleanup(&vfd->entity);
+-	video_unregister_device(vfd);
++	vb2_video_unregister_device(vfd);
+ }
+ EXPORT_SYMBOL_GPL(imx_media_capture_device_unregister);
+ 
 -- 
 2.53.0
 
