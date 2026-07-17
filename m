@@ -1,236 +1,110 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8414042D755
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 16:30:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784305861; cv=pass; b=PPEA6lnRFXHPbzWPezdy5HAJRtDFL7LGdAc02lFYeFQGwbVPY3flJg/SBi+UBlRWb+O5FJRl9ypc6/wt/khVsxJpV2FyNJOHwI7sfxiQ5tlWs4CxbMc2TRWQpvlntU9nBm0xBejJU948xQxT1zhplbMBrDKmIaVSIM+Y91JQZkw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784305861; c=relaxed/simple;
-	bh=x/TpikJydgPAR12gjRCW5tgQd0rdAPkfC74w1d+46DU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SkUpqJgRxfT1ClM/qpLYUTUe7RuRtPnXNpA7E2MlxePW/YyumnlX34+UbviWTwqxYEA4n4R7GDjogKrxGldx/6I+VIQYImriCW2YW3w3Hrq9aOKOJlo0iWaIZpLv3t1H5fdYvJfB6QIjsKATZVI6MNfxz1D0Mih4G2LIvKnQzqs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=iQ5c9IGv; arc=pass smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFF83AC0F4
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 16:55:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784307323; cv=none; b=ZzKlSzPcjsy/7O9icqp1g+/JMaVkFZvNNZ3wzeqBUH8WzCOWTTiDYBSCtXQpS6mOHY/O8cie3ZCVBW0PSiuw02a5Zd/BvH+RRb/HaL525ACXGwJsTEjlXiwHQjmhx9xuC/YramEfAgJj6JEsXu26MouwfB3OrliFIdv6stPAPEc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784307323; c=relaxed/simple;
+	bh=zSAWwGEjCo/ISFQ05jLdZTK9jBIloQTAjMIWES3GCTU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TcPJ1A39hxcXtz+njp284A5yH7//Bs6IqPdIEs2c2C6s77So2YA4cSMvhgljYOlVWXJfC+nyzFOBKKHjQ8loHhRQ80lOePC4kCWbR3OrUGLe8+DrwP47+djmPSCYUh7g+w0zQf5DyxdUNNH0sv+0yEJdD/TzYaOiRrmr5Y0FC1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PyuaOWar; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="iQ5c9IGv"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2ceb096e675so75618675ad.0
-        for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 09:30:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784305855; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Dcbkzmw3J+uHn8mqE9JgBMX56ANR05XU4s2+88T9nOE+1qOiFZDqee6N+u4lbLEUQj
-         RTnyNUuvCJe1kxHdKyUaEsSfVTHWLUUB5X9SoSwGG85es0+PkdybmCj4wHKiCWlgrXMO
-         tGb86M5Wli6OaTPzVTjRU/L/QIWjqbcbvHqHC/EuQDi4VJlaKENrWsmSAx1DjQNsi2wV
-         wViCGl6Efyk9jpob58NMf1YZ08k4i8bot3g6nRGV8dgjLZzBa48j14Uh7CYeO6DXY6tx
-         jySU2mUjbOmGfDO6W3GW7QC5+5M7N+1RVPOsEUuqnuVEJCsUgxD8svEcIcnZTTazvS1b
-         9gtw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mEFacLIneOp/QmtLUJi4Z80V3TBrQh57oZzZOS5MMp4=;
-        fh=xlmSJ2d9XYOS3dznUWHJglE3iJ4egakAsA3lmcOFzgM=;
-        b=lawd56L+6Ch17gkLKzymUO+jZpN0U3KQ0wlVu8cQlnk94INOu4Nb1qPMZcuvLmRieg
-         UIPjLP5h7lZwTKc5O7zgiS8p9P33BkPLb655/LqK8cgUfMIuT9e5WFal7d+nQtdLEj2h
-         B7Sp3EsNZs0Il5y4WAo2WWuJTKlnyohc10L6l6U+D7xIoECusf3UNqxm/g9+UMnfhtqy
-         BU+nj3yFeZvN1YVqlsxxQ6sYM0mcWsIfk9orNir+4EfbiTAxrGPMDVkppptrahFOozFi
-         JZ537zzW2vjWIlnSn8eu7NoSwP2TpjRZdRjXyqXtDKQS2I3qRS5FATiVTeJ7w9hw7k3Z
-         RfqA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PyuaOWar"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38e1a9d9105so3905521a91.1
+        for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 09:55:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784305855; x=1784910655; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mEFacLIneOp/QmtLUJi4Z80V3TBrQh57oZzZOS5MMp4=;
-        b=iQ5c9IGvFLkz0xaRw5nAwEGKUVzfx1qtxWW1wL4ki/D31ldKaTVYfS/REUdnOClFAp
-         bFSGlPRnARwsbo7ySwsFZkdP/l3xCwxILPqKik+Hs1JG5NhxTr7mYRqRJelDhBdSYxzz
-         H3gNmymPfHecpyeYAuGmTaDJN1NtqTxPJ1HIFFAR6KHCW5aMS8aC5Ro67pnFbiQEkafl
-         h55M6+/6V38K0W13XSqSlBi5118CJiV/Y1dj45sGAUjiqU2MkroSUulLnubCyO2cXmhY
-         ipNnwM4ovPP1xIwxpyODFIbd9Bpcbe2qxJM6wpgXGFzkeICs5Yu8RUQrbnyaNnNtJFP3
-         chHQ==
+        d=gmail.com; s=20251104; t=1784307321; x=1784912121; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6Ly5xIEgI4AcPsFzsa4YqSru8hFVFu/iGied4OTbOEw=;
+        b=PyuaOWarZWN91wYI4JVRycZdaRZMNV6VhvxpDYHM/rpZi/qrJV+bMjhZqWc1KBLDPS
+         QJFi2mRayVyzELUeNjNvTI2dxRiJ8t29MZS9qPAO0P/f/lZXiJFH/OAggt7H180WbRan
+         kZvM5i6moKWRk8BeaHbc3ojOjFdfG6YtGmT74vkBMS1zhcEct01fV0iY8NS9VWqkUNGo
+         MJfkq+gZKeAtf6KqEyO8Kjbkz4Pb5kEEnVx5iCyaPQEUT9ibROpnHbMKj9YOBQ3CUe3k
+         9K+nfw7cCTShgJvskng322ujnMtY9TBVUZkEjt6ETwYO1sdAjO9X5WvPdFKpIf/7E6Cc
+         VbsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784305855; x=1784910655;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mEFacLIneOp/QmtLUJi4Z80V3TBrQh57oZzZOS5MMp4=;
-        b=VWbgpcJsHd8p4JPgy+TKXkXOPbjQqSObz0lqd70KgKt6yVDEsrwGEz+W8+L5HwYQwW
-         XUfNVnDcd9Lme1Hik/gTzwqsgGM1b7H9FYs9lzBhCoTh1edAlJRmIjZd1lYLOFIUAe3S
-         W+XtLwwrzm1kaVHrsLcKF0OqyLZ1oLJM2LmkO8MvAxomkrL67P3QWGK1bip7mepO85Zr
-         dCTx4y0fNwvIrpdIxcJq8hSUwsPMhRa5Fj8dJoegir0hA3vxIlg0wug+6may4exfnDJI
-         RkyMkEudC7eHQSQv2hiVO/UTHe2fzgg3tqDR3/4LVIRNXXcnDEY3tci+D3UDkKETWoIj
-         /SCA==
-X-Forwarded-Encrypted: i=1; AHgh+RpaMLEVpVNePHYGFeskqwB2+xwYYCDfrNaexrSzieY7+WCOjc4NMFNFsH0HPWZ4gPYltVqWXlv+6+goiw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw3UgxRAs1mNEFZSFzjiZ5kTbWhSyJaSLv0me/j92VcaC3VlX1b
-	s7A73t0vVgvTHHNYJ+LgH+3UA9bsYi9j9SCsZBo8bK70ugLv5es6PE4r3aVVlnios36TZilJQZ1
-	dD+x6eHDvEQvQITRcvkZQAu+DuCd89DYSG3+d8rw4
-X-Gm-Gg: AfdE7cn69nGBzizCBcSqE8he0bnGVvIirm2ylTnwW2XNoEpmjh9Zw2nK4CZ+4XO5TBN
-	E2zREWXpxBHnfD0+S3wzvHfg0h/TK9sHWImoRzo7HXMZO+8SWdpF/KtZrJrWjZvnpT/SYRXyDd1
-	xxGcpA/Ax+CobFBVyGc/v3jfyMYbdU8q3lfXyFYXQVNWLOV4yvghXBQb2DB5EUy8NwSAaxVPD1b
-	yG8w4n/ZzVBzpmoeCBKBs+Z+STUSrxb81H5tOZnRGiP5LJpgSTLL4AIoFLqxg==
-X-Received: by 2002:a17:903:19cc:b0:2cc:db71:4db5 with SMTP id
- d9443c01a7336-2cf349d3ee3mr39097735ad.37.1784305853798; Fri, 17 Jul 2026
- 09:30:53 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784307321; x=1784912121;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6Ly5xIEgI4AcPsFzsa4YqSru8hFVFu/iGied4OTbOEw=;
+        b=p6juQBaghh9FMCVmbl0i6J9aX4OikwzXqJN8DmC2XapER0nAb6z3bdPe19YxMlCxXv
+         8UzCvcshdx3xo0ML8SQjEO4voged4MmA6wNVIOm89ZXNJDYoucOyXakmL+T4Oarw3neP
+         7XMKDxBRsUIUgrCqvWRiwjQB8DqLMxITCQkU5BHdHLEtPfA7GcNwY2qOElbjLyCXwm4P
+         f1NLUd4fOA5Hnd9dPDvpscCHWFPWfta8HFQKx/bUh9aUofm/2m8XN5lHsL9OhSolbudl
+         xeC42Ia5iLG9iTiMF4quej+ltEARu8L+iWdlZu1aL9lm+ZAW9K0oJ89AehF95QCOEokx
+         3ltw==
+X-Gm-Message-State: AOJu0YwfdojXb/aVDMZzrS96UnMLimy0SY6IfE59l8wdMHQyBZlJ/JxH
+	Kk/yaxX4vrCt0X/8B/iH+gkM3Vl632zP4FBYir2+IYH/4shhw1q753EWg5clMw==
+X-Gm-Gg: AfdE7ckzruU9bGucPkYRhnmD6IEZjQ0iBLOAUkrgRixNuNOdM7sLsJ2ss6jIkyEalad
+	jYWcI+62TCWpIQSQhnGUa7v3QxeHwuSno5X4NQzGQ3eVL64dnJfnJym+anqjO5ZEK4YVnO5Uwxw
+	ZV3Vh2cvY0zl4VzZaleE8IvGC6gs2mbnDQf5F0ykWyaNz39RX0UtGLF0hUok41Buaql4XTmViE1
+	fTKfkYHd2DEr8Yp2o0iyJ+roHXLDPXl+kY1XQXYi8s1pyBHgSP1nDwYBqXm21TKU/PZnXYYGqxY
+	rl1tYgTiPNHxDjjbhB/rKQ8LTjre3rrjy6GU8XcKS+i36YgpgMjxr9wyl5449PUrCRS9CyumdsS
+	eUmKO+Bo3SgvP7cvX5+IJk+e5KAVkiKx5J/UK48cbBXuLcPeXjsC9iBZQqd9dUsuNURLYtot4HF
+	lxkmsw5pcc
+X-Received: by 2002:a17:90b:2f10:b0:387:e0bb:5803 with SMTP id 98e67ed59e1d1-38e4b5ea2f8mr3349933a91.42.1784307321574;
+        Fri, 17 Jul 2026 09:55:21 -0700 (PDT)
+Received: from cachyy.lan ([2409:40f2:1183:2842:9e3b:2493:9d45:c117])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a1bb8a4sm9512668eec.14.2026.07.17.09.55.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 09:55:21 -0700 (PDT)
+From: Sai Vishnu M <saivishnu725@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: Sai Vishnu M <saivishnu725@gmail.com>
+Subject: [PATCH v4l-utils] Add missing allocation failure check
+Date: Fri, 17 Jul 2026 22:24:45 +0530
+Message-ID: <20260717165445.46734-1-saivishnu725@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260715174737.15287-1-matt@ozlabs.org> <CALzav=fH7N+ionUnELqw5ZaGrPmgp_w6kxoCtoY8fMmZY_S4zw@mail.gmail.com>
- <65ba06e7-4c54-437d-9fbd-632c0468f66d@ozlabs.org> <allLypOmtbnPrgbw@google.com>
- <20260717094230.21829508@pumpkin>
-In-Reply-To: <20260717094230.21829508@pumpkin>
-From: David Matlack <dmatlack@google.com>
-Date: Fri, 17 Jul 2026 09:30:25 -0700
-X-Gm-Features: AUfX_mwhrL8yyMXeQp2wwPQntVuYsbostLm0_QgQevpUJ-QTbHpefGc5UhWYaLU
-Message-ID: <CALzav=fx2i1ONLjBTheHpdOQqQJJ05OP9b4-D3HkK6NumKi=pg@mail.gmail.com>
-Subject: Re: [PATCH v5 0/9] vfio/pci: Add mmap() for DMABUFs
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>, 
-	Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>, 
-	Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>, 
-	Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>, 
-	=?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>, 
-	Alistair Popple <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
-	kvm@vger.kernel.org, linux-pci@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 17, 2026 at 1:42=E2=80=AFAM David Laight
-<david.laight.linux@gmail.com> wrote:
->
-> On Thu, 16 Jul 2026 21:23:22 +0000
-> David Matlack <dmatlack@google.com> wrote:
->
-> > On 2026-07-16 03:51 PM, Matt Evans wrote:
-> > > Hi David,
-> > >
-> > > On 15/07/2026 19:12, David Matlack wrote:
-> > > > On Wed, Jul 15, 2026 at 10:47=E2=80=AFAM Matt Evans <matt@ozlabs.or=
-g> wrote:
-> > > >
-> > > >> This is based on v7.2-rc3.
-> > > >>
-> > > >> These commits are on GitHub for easier browsing, along with
-> > > >> "[RFC ONLY] selftests: vfio: Add standalone vfio_dmabuf_mmap_test"=
-:
-> > > >>
-> > > >> https://github.com/metamev/linux/compare/v7.2-rc3...dev/mev/vfio-d=
-mabuf-mmap-v5
-> > > >
-> > > > It'd be great to have this test upstream. I'm happy to review it wh=
-en
-> > > > you're ready. Looks like it just needs to be redone to use the VFIO
-> > > > selftests library and kselftests harness. AI could probably do the
-> > > > conversion pretty quick :)
-> > >
-> > > For sure, I'd intended to catch up with you on best approach here. :)
-> > >
-> > > Aside from the organic structure of the test (the open-coded VFIO
-> > > device/group setup/init needs to go), the main issue is that it relie=
-s
-> > > on a hacked/out of tree QEMU "EDU++" device with a second larger BAR
-> > > (containing freely read-writable memory).  A subset of tests run with
-> > > the in-tree EDU device, but coverage is too low.
-> > >
-> > > The desirable properties are:
-> > >
-> > >  - Having a BAR that is pure memory (all locations present, writable
-> > > without disruptive side-effects) so that mapping aliases can be
-> > > constructed and detected.  This is good to test things like non-zero
-> > > vm_pgoffs and VA space presentation of physically-discontiguous DMABU=
-Fs.
-> > >
-> > >  - BAR >> hugepage size so we can eyeball huge mappings work (or bett=
-er,
-> > >  mechanically test for them).  At least 32MB would tick this box for =
-4K,
-> > > 16K page systems.
-> > >
-> > >  - Something QEMU supports*, so one can run the test in a VM/TCG syst=
-em.
-> > >
-> > > There were some real device models in QEMU that could be used this wa=
-y,
-> > > but needed a fair bit of setup;  I didn't want to rathole
-> > > vfio_dmabuf_mmap_test on including a ton of device-specific code for
-> > > some video card or similar.
-> > >
-> > > I'll dig more for a simple target that provides these properties --
-> > > obviously it would be better to point this test at an off-the-shelf
-> > > device (including silicon!).  And, proposing EDU extensions to the QE=
-MU
-> > > folks may be useful (there're uses for a better EDU in other contexts=
- too).
-> > >
-> > > Since this test uses MMIO for a specific [class of] function, my firs=
-t
-> > > thought is it should be another VFIO driver-type test sibling of
-> > > vfio_pci_driver_test.  For example, we could extend the driver-type
-> > > tests' backend struct vfio_pci_driver_ops for functions capable of
-> > > providing a Big Memory BAR, like QEMU EDU++.  EDU can also memcpy, so
-> > > could also support vfio_pci_driver_test.
-> > >
-> > > The spirit of the device backends hiding setup of a complex device is
-> > > handy, and it's plausible that several backends could provide this "b=
-ig
-> > > memory BAR" service.  What do you think, any concerns with extending
-> > > vfio_pci_driver_ops like that?
-> >
-> > I wouldn't recommend leveraging the driver framework unless absolutely
-> > necessary. It makes the test harder to run.
-> >
-> > The biggest issue I see with the proposed properties is being able to
-> > treat the BAR as memory. That obviously will depend on the device and
-> > may require device-specific setup. If we decide that treating the BAR a=
-s
-> > memory is truly required then using the driver framework is the way to
-> > go. But I'm hoping we can avoid that requirement.
->
-> Could you run a test where only a known part of the BAR can be treated
-> as memory?
-> A large BAR is likely to have some areas that can be accessed as memory.
+Signed-off-by: Sai Vishnu <saivishnu725@gmail.com>
+---
+ utils/common/keymap.c | 11 ++++++++++-
+ 1 file change
+ d, 10 insertions(+), 1 deletion(-)
 
-Yeah. But then the test can only run against devices the test knows
-about. So we have to update the test every time someone needs to use a
-new device.
+diff --git a/utils/common/keymap.c b/utils/common/keymap.c
+index 21c1c0b5..b881187a 100644
+--- a/utils/common/keymap.c
++++ b/utils/common/keymap.c
+@@ -124,7 +124,11 @@ static error_t parse_plain_keymap(char *fname, struct keymap **keymap, bool verb
+ 							struct keymap *k;
+ 
+ 							k = calloc(1, sizeof(*k));
+-							k->protocol = strdup(p);
++                            if (!k) {
++								perror("parse_keymap");
++								return ENOMEM;
++							}
++                            k->protocol = strdup(p);
+ 							k->next = map->next;
+ 							map->next = k;
+ 						}
+@@ -399,6 +403,11 @@ static error_t parse_toml_protocol(const char *fname, struct toml_table_t *proot
+ 			struct protocol_param *param;
+ 
+ 			param = malloc(sizeof(*param));
++			if (!param) {
++				perror("parse_toml_protocol");
++				free_keymap(map);
++				return ENOMEM;
++			}
+ 			param->name = strdup(key);
+ 			param->value = value;
+ 			param->next = map->param;
+-- 
+2.55.0
 
-We could support a command line option to specify the BAR subregion.
-But then the user has to figure out what to pass there.
-
-So if we can find a way to get equivalent test coverage with "any
-device with a large enough BAR", that would be ideal. Then it's just
-matter of the user picking a device, and it's easy enough to look at
-BAR sizes via lspci.
-
-> >
-> > Instead, I think you can get pretty far by inspecting /proc/pid/pagemap
-> > to determine if the mmap() set things up correctly, without actually
-> > accessing the BAR. You can use /proc/pid/pagemap to look up the PFN and
-> > PAGEMAP_SCAN to detect huge pages.
-> >
-> > With that requirement gone, then all you really need is a device with a
-> > large enough BAR. And even that it not a hard requirement. I'm sure
-> > there are plenty of test cases that could work with smaller BARs. The
-> > few tests that want to exercise huge mappings can inspect the device BA=
-R
-> > sizes first, and if they're all too small, SKIP() the test.
-> >
-> > If you structure the test this way, then it's easy for the test to be
-> > used. It can be run against any device for the basic functional
-> > coverage, and can be run against a device with a larger BAR for full
-> > coverage of huge mappings.
-> >
-> > Does QEMU emulate any devices that have 32MB or larger BARs?
-> >
->
