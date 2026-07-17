@@ -1,39 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B9423DD50D
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:25:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECFC93DD512
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:25:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784276719; cv=none; b=Vu8TlK8EitXpe5JkqO6oXycU5Cf3FbzLucrGO1IrMKWbxYSYc8v6z4WXdl/8MtljFBmneiBEZyeyrRujVbQ+OgyC3OnudvIRnsG6znjnswIsP2O1i0tOWgLIiQaUn1j8R/sTehjW/RMiPiTE9qQ5+CeDhtqx1mdyKLIItl4gl7I=
+	t=1784276721; cv=none; b=onOzFSMOtGrvzjlFKvRdybckrf6rqTs0GDAXJclvrYDntmjeZEwyB6sHbgMcETcHs89iI/DoG/HLEa9euCdFPpgYtUhRAxAm04d7rpXfbkTAB6Ofa6hGYKs8LqfgFC/BkevY5wJbs1C/k0reEXv48lavE9eKvn+boI4AtAY6ZfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784276719; c=relaxed/simple;
-	bh=tMNobsGDoveVT5sn5PfmixJxXn/nkTgfoVb3+FaoMwU=;
+	s=arc-20240116; t=1784276721; c=relaxed/simple;
+	bh=bWbHPQvzsBdjmZFbcpbXlwPRWvTNF+Ie75CkTCGhOQU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=olFvmayVsJ+Ypp5QM5mh1CLNcF4vHnn8L/VS9ZSHy3JdeeJ72hrTCq8eTUTMsBm6MLB9G+pd+tyaF3uhoTioySuD/pAhTSxUtieFm2DDSpiEhkpft4nUNHDil90N6FM6Y7CUG2AP2k0W/d1/HR1fm3gJPgvz4mfmpwoc9nsR8Ro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jjAxqeMc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BU0rSz41aBg77tEhJMZ8Ww4m+MaoZax2SQ6GkGvopo3Y6OjluIp15Wz1a68jiVi7PUiaM/Ui+QsBUwTxws3TPcfwY/Bnz+SGGypDfrgm/ixbrIB0vsb/BoH+M7xLHhrZqsT1r9qjGMy3bYELJv4hwNQ0rFtF5uR0ovVV5fg6qsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d0Jo5XkG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jjAxqeMc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B29921F00A3A;
-	Fri, 17 Jul 2026 08:25:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d0Jo5XkG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7543D1F000E9;
+	Fri, 17 Jul 2026 08:25:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784276718;
-	bh=mG3ATbmvZ2Cr+ARGKJrzCR92YtulnlZZIzVNBbEk1vQ=;
+	s=k20260515; t=1784276719;
+	bh=JG4nB7DmCxfxYRMmTyixxGREEecxZp2djOL2qiowRAI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jjAxqeMcYxgsI6WrQPZ7+niWXVZ3VTBA4hroNX2lmQm6M8G0y2NM8ITzfqLSQoCnD
-	 OyIXxuY7LKcQWR4injAMhZqr00Egx2lMKa16Xx8Lv6H0sUoOlNfnor7EamGfedbvjB
-	 /ZHUBkiCL6goHP+5H5VDs+CoT9MSXXw6+c/O5kiis5i8SP5Q/m8zEPgTV7vQI2bR5G
-	 jMI3hveSbLh2wO49B1MUgmxwyofU2FvMDxJwCehSf4clwUWy/QsQ/TeL6Ic19h7+Ow
-	 TRrZsZ6WxPD1DZ1D7RI+DbX5PsTyLwERiIl7nFSDC6aCGYDlfEgmqDaCxQFVP5dFOF
-	 Qh8hXK9dBgyoQ==
+	b=d0Jo5XkGDonVdrqkXV5DxJj4bUQhN6ernE5O4PW7ICr4V/B9cgJjcrE7mHjzECX1i
+	 80OSvniYhy1RLvIBnITsWZ+z71fjIIxfMAXWdoPIwkZQ+o6Eu74YX1rRfdvvKG7we5
+	 /KWQTKgRyKEOpXRd5IMeshZAMQwJhuSN0kjTP0Z5HQtvSxseniIMq7edJoeaS+eU63
+	 mDZgCS5bzeHyA4+Px2IVy4cHkEh6yHum17D4HMGbsGDB/wDAY2zpGfiOhcqV25PtD4
+	 +vGNsC4NfRB+bWao03HNvKALAPmRHq8oeDB5SUPDRwkRvGZTgfGIdxgE9LvOAO0mZy
+	 8Tymtqe+X4CIw==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Subject: [PATCH 08/19] media: arm: mali-c55: drop unnecessary vb2_queue_release calls
-Date: Fri, 17 Jul 2026 10:19:31 +0200
-Message-ID: <ff487dafa3973426588900056849f341a090d4d2.1784276382.git.hverkuil+cisco@kernel.org>
+	Devarsh Thakkar <devarsht@ti.com>
+Subject: [PATCH 09/19] media: imagination: e5010-jpeg-enc: drop vb2_queue_release
+Date: Fri, 17 Jul 2026 10:19:32 +0200
+Message-ID: <f6eb47e6bad9f0f5d961aa92c23005b6768adcf2.1784276382.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1784276382.git.hverkuil+cisco@kernel.org>
 References: <cover.1784276382.git.hverkuil+cisco@kernel.org>
@@ -45,80 +44,34 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-There is no need to call vb2_queue_release if the video device
-has not been registered, or if vb2_video_unregister_device was
-called since that already calls vb2_queue_release internally.
+No need to call vb2_queue_release after a failed vb2_queue_init.
+Drop that call and simplify the code.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Devarsh Thakkar <devarsht@ti.com>
 ---
- drivers/media/platform/arm/mali-c55/mali-c55-capture.c | 4 +---
- drivers/media/platform/arm/mali-c55/mali-c55-params.c  | 4 +---
- drivers/media/platform/arm/mali-c55/mali-c55-stats.c   | 4 +---
- 3 files changed, 3 insertions(+), 9 deletions(-)
+ drivers/media/platform/imagination/e5010-jpeg-enc.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-index 7aaa5c3f7354..37412e33f825 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-@@ -904,13 +904,11 @@ static int mali_c55_register_cap_dev(struct mali_c55 *mali_c55,
- 		dev_err(mali_c55->dev,
- 			"%s failed to register video device\n",
- 			cap_dev->vdev.name);
--		goto err_release_vb2q;
-+		goto err_cleanup_media_entity;
- 	}
+diff --git a/drivers/media/platform/imagination/e5010-jpeg-enc.c b/drivers/media/platform/imagination/e5010-jpeg-enc.c
+index 42ad9ee3993b..2676bb25b5e2 100644
+--- a/drivers/media/platform/imagination/e5010-jpeg-enc.c
++++ b/drivers/media/platform/imagination/e5010-jpeg-enc.c
+@@ -606,13 +606,7 @@ static int queue_init(void *priv, struct vb2_queue *src_vq, struct vb2_queue *ds
+ 	dst_vq->lock = &e5010->mutex;
+ 	dst_vq->dev = e5010->v4l2_dev.dev;
  
- 	return 0;
+-	ret = vb2_queue_init(dst_vq);
+-	if (ret) {
+-		vb2_queue_release(src_vq);
+-		return ret;
+-	}
+-
+-	return 0;
++	return vb2_queue_init(dst_vq);
+ }
  
--err_release_vb2q:
--	vb2_queue_release(vb2q);
- err_cleanup_media_entity:
- 	media_entity_cleanup(&cap_dev->vdev.entity);
- err_destroy_mutex:
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-params.c b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-index de0e9d898db7..93664791e2c9 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-@@ -922,15 +922,13 @@ int mali_c55_register_params(struct mali_c55 *mali_c55)
- 	if (ret) {
- 		dev_err(mali_c55->dev,
- 			"failed to register params video device\n");
--		goto err_release_vb2q;
-+		goto err_cleanup_entity;
- 	}
- 
- 	params->mali_c55 = mali_c55;
- 
- 	return 0;
- 
--err_release_vb2q:
--	vb2_queue_release(vb2q);
- err_cleanup_entity:
- 	media_entity_cleanup(&params->vdev.entity);
- err_destroy_mutex:
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-index 655e52a5f288..aaeb361b2be2 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-@@ -304,15 +304,13 @@ int mali_c55_register_stats(struct mali_c55 *mali_c55)
- 	if (ret) {
- 		dev_err(mali_c55->dev,
- 			"failed to register stats video device\n");
--		goto err_release_vb2q;
-+		goto err_cleanup_entity;
- 	}
- 
- 	stats->mali_c55 = mali_c55;
- 
- 	return 0;
- 
--err_release_vb2q:
--	vb2_queue_release(vb2q);
- err_cleanup_entity:
- 	media_entity_cleanup(&stats->vdev.entity);
- err_destroy_mutex:
+ static int e5010_s_ctrl(struct v4l2_ctrl *ctrl)
 -- 
 2.53.0
 
