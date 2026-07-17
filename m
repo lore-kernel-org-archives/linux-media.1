@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9BC3B9618;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F41C13C1983;
 	Fri, 17 Jul 2026 09:24:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784280289; cv=none; b=GHf8vJ99y3fM6BitzbV3y0wi+ddmlZ1bb9gZGSpCT/VWZrFj5WPIuBfl61O+DblAXeCBgzqtacbrWql+Kfq49u3T4x/g1SyE6mW9QKMT38MniKQ2iQQLQyQnC0StgVvBfx4yZajb3WBPqdZ19wSakfsgo6Bnxy0Xd7TCjpg3UFU=
+	t=1784280290; cv=none; b=L8wRTt9v9XxXRK/QjoeKv/JMWQJG6P3W8qm5DQUoWs3fIrRuJlAzs5G8qxHxaoXXkdiezqJLKi/kWdMSZTarXSQZO7SVH2oDKHqY1t2TdTEtwWt2e2xtmGjAQddcPTGspCIppGstFJ9CsGn1awtg436MfcAzcxrOTqFTVFrmNik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784280289; c=relaxed/simple;
-	bh=WklQwgCcY8NaqpQUwF10uWWl6iMBxFXZ6VqV6p2mmYg=;
+	s=arc-20240116; t=1784280290; c=relaxed/simple;
+	bh=lofeOO3ifA3TRnLp8l6eJuSms2EsY7zELlTpfkPs2mo=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=AMiflVn/rgRWZDAvWBARqShehe6zYmhDP/g81XDmi+9lQB1m+b4XwRIL5MAMCdv7FPW5GEdqCpuTuA12ys/Yi424O3G0YYyWEcI5CNRv80UcMTeMt+1+IG0/Tqj9P7E2r7ZD4CL/Ra4Gehd9HVnqDeZe+Z8Fu+W/CRoCU6SYvqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eett6UZ6; arc=none smtp.client-ip=117.135.210.5
+	 MIME-Version; b=oBAFr87e7imkElELy9Ffwzd1n+ouKK+yF5xtgitUk1LXIBU2FG4B18/irDJ7XW+A5kykswSqyAniCj43IQvt7sxXHQIiA5uTxEM5sCxLrEUtwJe0tB+7dtvk78Q9EY23EyiPJKIBwM1OebPYhka5NYR5C63b0MhGFfWNu30uyNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Dv59rq9j; arc=none smtp.client-ip=117.135.210.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eett6UZ6"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Dv59rq9j"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=U0
-	6s//FcangayRz5TPmdLXncqURKjDnR4HO1WoPel1Y=; b=eett6UZ6qWfSA6Behj
-	avVbAER5Mzbd43Zu4b58li0cM/Z4CB/DL22DuCkdS1R6t6J/jpIHKxw40NZJq7zm
-	wsicBO9WApEuYQXBoZDMoHKGyPu/97DjoHBs/BdxX0hbMrG61hnopB1gll++GVup
-	RyPa3z725iMrslu6dHGLnemmo=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=0p
+	7mKLj+VY+cRvyS/XnOTQje98mrIJfieHHWznRloBw=; b=Dv59rq9j3QkRFFxsEj
+	CHuhZr81aGq9NtqQL8L6R9aDHJQ0T7c8pfO0t2GWeyDgh+23pU1BzfjrF+lTxVfM
+	wMiBJDNlEJ0sTUySt7a3P7AY+PR4Z5jV6+E9f6jwc6x66hJfjb8M173efvrSKXEp
+	lwoN68/Tvip6r4vEK9voBmozw=
 Received: from localhost.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgCnESG+9Flq5w+gHg--.17942S11;
-	Fri, 17 Jul 2026 17:24:29 +0800 (CST)
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgCnESG+9Flq5w+gHg--.17942S8;
+	Fri, 17 Jul 2026 17:24:25 +0800 (CST)
 From: Lei Huang <huanglei814@163.com>
 To: mchehab@kernel.org
 Cc: johan@kernel.org,
@@ -32,9 +32,9 @@ Cc: johan@kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Lei Huang <huanglei@kylinos.cn>
-Subject: [PATCH 09/16] media: s2255: Remove unnecessary parentheses around conditions
-Date: Fri, 17 Jul 2026 17:23:42 +0800
-Message-Id: <20260717092349.684342-10-huanglei814@163.com>
+Subject: [PATCH 06/16] media: s2255: Remove multiple blank lines and before close braces
+Date: Fri, 17 Jul 2026 17:23:39 +0800
+Message-Id: <20260717092349.684342-7-huanglei814@163.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260717092349.684342-1-huanglei814@163.com>
 References: <20260717092349.684342-1-huanglei814@163.com>
@@ -45,88 +45,126 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgCnESG+9Flq5w+gHg--.17942S11
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXr4UAr1DAryUArWrGF47CFg_yoW5Cr15pF
-	Z8Cr90kr15JF15Zws5ta18JFy5KF95t3y2g3y3G3Wv9wsxCFyDXF1Ik3Z5uF1ktr97A3W2
-	qFs8JFy0krWqyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U_GYJUUUUU=
-X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC0g1hWGpZ9M05MwAA3m
+X-CM-TRANSID:QCgvCgCnESG+9Flq5w+gHg--.17942S8
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGr17tF1fZFW5XrWfKr4rZrb_yoW5uF4fpF
+	ZxJa42yrWUta1UWFWkJr4DuF15Jw1ktrWUGF47Aa10yr1qy34kXF1kA34xAr98JrySk3W3
+	Xrn0qr18G34DtrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j7qXQUUUUU=
+X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC8wlgV2pZ9Ml4PgAA3F
 
 From: Lei Huang <huanglei@kylinos.cn>
 
-Fix all 11 'CHECK: Unnecessary parentheses around' issues reported by
-checkpatch.pl in s2255drv.c. Remove redundant inner parentheses from
-if-condition expressions where operator precedence already guarantees
-the correct evaluation order.
+Remove all 9 instances of double blank lines: 'CHECK: Please don't use
+multiple blank lines' reported by checkpatch.pl in s2255drv.c.
+
+Fix all 3 'CHECK: Blank lines aren't necessary before a close brace'
+issues reported by checkpatch.pl in s2255drv.c.
 
 Signed-off-by: Lei Huang <huanglei@kylinos.cn>
 ---
- drivers/media/usb/s2255/s2255drv.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ drivers/media/usb/s2255/s2255drv.c | 12 ------------
+ 1 file changed, 12 deletions(-)
 
 diff --git a/drivers/media/usb/s2255/s2255drv.c b/drivers/media/usb/s2255/s2255drv.c
-index ee69492ba8b9..c65cb794599b 100644
+index f3e4bd069f1c..dc3a9d69789c 100644
 --- a/drivers/media/usb/s2255/s2255drv.c
 +++ b/drivers/media/usb/s2255/s2255drv.c
-@@ -566,8 +566,8 @@ static const struct s2255_fmt *format_by_fourcc(int fourcc)
- 	for (i = 0; i < ARRAY_SIZE(formats); i++) {
- 		if (-1 == formats[i].fourcc)
- 			continue;
--		if (!jpeg_enable && ((formats[i].fourcc == V4L2_PIX_FMT_JPEG) ||
--				     (formats[i].fourcc == V4L2_PIX_FMT_MJPEG)))
-+		if (!jpeg_enable && (formats[i].fourcc == V4L2_PIX_FMT_JPEG ||
-+				     formats[i].fourcc == V4L2_PIX_FMT_MJPEG))
- 			continue;
- 		if (formats[i].fourcc == fourcc)
- 			return formats + i;
-@@ -659,10 +659,10 @@ static int buffer_prepare(struct vb2_buffer *vb)
- 	if (!vc->fmt)
- 		return -EINVAL;
+@@ -86,7 +86,6 @@
+ #define LINE_SZ_DEF		640
+ #define NUM_LINES_DEF		240
  
--	if ((w < norm_minw(vc)) ||
--	    (w > norm_maxw(vc)) ||
--	    (h < norm_minh(vc)) ||
--	    (h > norm_maxh(vc))) {
-+	if (w < norm_minw(vc) ||
-+	    w > norm_maxw(vc) ||
-+	    h < norm_minh(vc) ||
-+	    h > norm_maxh(vc)) {
- 		dprintk(vc->dev, 4, "invalid buffer prepare\n");
- 		return -EINVAL;
+-
+ /* predefined settings */
+ #define FORMAT_NTSC	1
+ #define FORMAT_PAL	2
+@@ -144,7 +143,6 @@ struct s2255_mode {
+ 	u32 restart;	/* if DSP requires restart */
+ };
+ 
+-
+ #define S2255_READ_IDLE		0
+ #define S2255_READ_FRAME	1
+ 
+@@ -243,7 +241,6 @@ struct s2255_vc {
+ 	spinlock_t qlock;
+ };
+ 
+-
+ struct s2255_dev {
+ 	struct s2255_vc         vc[MAX_CHANNELS];
+ 	struct v4l2_device      v4l2_dev;
+@@ -284,7 +281,6 @@ struct s2255_buffer {
+ 	struct list_head list;
+ };
+ 
+-
+ /* current cypress EEPROM firmware version */
+ #define S2255_CUR_USB_FWVER	((3 << 8) | 12)
+ /* current DSP FW version */
+@@ -430,7 +426,6 @@ static int norm_minh(struct s2255_vc *vc)
+ 	    (NUM_LINES_1CIFS_NTSC) : (NUM_LINES_1CIFS_PAL);
+ }
+ 
+-
+ /*
+  * TODO: fixme: move YUV reordering to hardware
+  * converts 2255 planar format to yuyv or uyvy
+@@ -482,7 +477,6 @@ static void s2255_timer(struct timer_list *t)
  	}
-@@ -718,8 +718,8 @@ static int vidioc_enum_fmt_vid_cap(struct file *file, void *priv,
+ }
  
- 	if (index >= ARRAY_SIZE(formats))
- 		return -EINVAL;
--	if (!jpeg_enable && ((formats[index].fourcc == V4L2_PIX_FMT_JPEG) ||
--			     (formats[index].fourcc == V4L2_PIX_FMT_MJPEG)))
-+	if (!jpeg_enable && (formats[index].fourcc == V4L2_PIX_FMT_JPEG ||
-+			     formats[index].fourcc == V4L2_PIX_FMT_MJPEG))
- 		return -EINVAL;
- 	f->pixelformat = formats[index].fourcc;
+-
+ /* this loads the firmware asynchronously.
+    Originally this was done synchronously in probe.
+    But it is better to load it asynchronously here than block
+@@ -538,7 +532,6 @@ static void s2255_fwchunk_complete(struct urb *urb)
+ 		atomic_set(&data->fw_state, S2255_FW_LOADED_DSPWAIT);
+ 	}
+ 	return;
+-
+ }
+ 
+ static void s2255_got_frame(struct s2255_vc *vc, int jpgsize)
+@@ -637,7 +630,6 @@ static void s2255_fillbuff(struct s2255_vc *vc,
+ 		vbuf, pos);
+ }
+ 
+-
+ /* ------------------------------------------------------------------
+    Videobuf operations
+    ------------------------------------------------------------------*/
+@@ -881,7 +873,6 @@ static int vidioc_s_fmt_vid_cap(struct file *file, void *priv,
  	return 0;
-@@ -1296,8 +1296,8 @@ static int vidioc_s_parm(struct file *file, void *priv,
- 		return -EINVAL;
- 	mode = vc->mode;
- 	/* high quality capture mode requires a stream restart */
--	if ((vc->cap_parm.capturemode != sp->parm.capture.capturemode)
--	    && vb2_is_streaming(&vc->vb_vidq))
-+	if (vc->cap_parm.capturemode != sp->parm.capture.capturemode &&
-+	    vb2_is_streaming(&vc->vb_vidq))
- 		return -EBUSY;
- 	def_num = (mode.format == FORMAT_NTSC) ? 1001 : 1000;
- 	def_dem = (mode.format == FORMAT_NTSC) ? 30000 : 25000;
-@@ -1822,8 +1822,8 @@ static int save_frame(struct s2255_dev *dev, struct s2255_pipeinfo *pipe_info)
- 		vc->last_frame = vc->cur_frame;
- 		vc->cur_frame++;
- 		/* end of system frame ring buffer, start at zero */
--		if ((vc->cur_frame == SYS_FRAMES) ||
--		    (vc->cur_frame == vc->buffer.num_frames))
-+		if (vc->cur_frame == SYS_FRAMES ||
-+		    vc->cur_frame == vc->buffer.num_frames)
- 			vc->cur_frame = 0;
- 		/* frame ready */
- 		if (vb2_is_streaming(&vc->vb_vidq))
+ }
+ 
+-
+ /* write to the configuration pipe, synchronously */
+ static int s2255_write_config(struct usb_device *udev, unsigned char *pbuf,
+ 			      int size)
+@@ -1663,7 +1654,6 @@ static int s2255_probe_v4l(struct s2255_dev *dev)
+ 		refcount_inc(&dev->num_channels);
+ 		v4l2_info(&dev->v4l2_dev, "V4L2 device registered as %s\n",
+ 			  video_device_node_name(&vc->vdev));
+-
+ 	}
+ 	pr_info("Sensoray 2255 V4L driver Revision: %s\n",
+ 		S2255_VERSION);
+@@ -1805,7 +1795,6 @@ static int save_frame(struct s2255_dev *dev, struct s2255_pipeinfo *pipe_info)
+ 	/* skip the marker 512 bytes (and offset if out of sync) */
+ 	psrc = (u8 *)pipe_info->transfer_buffer + offset;
+ 
+-
+ 	if (!frm->lpvbits) {
+ 		dprintk(dev, 1, "s2255 frame buffer == NULL.%p %p %d %d",
+ 			frm, dev, dev->cc, idx);
+@@ -1840,7 +1829,6 @@ static int save_frame(struct s2255_dev *dev, struct s2255_pipeinfo *pipe_info)
+ 		vc->frame_count++;
+ 		frm->state = S2255_READ_IDLE;
+ 		frm->cur_size = 0;
+-
+ 	}
+ 	/* done successfully */
+ 	return 0;
 -- 
 2.25.1
 
