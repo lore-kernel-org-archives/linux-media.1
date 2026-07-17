@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBC33DFC9C
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:25:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03F93E00A7
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:25:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784276731; cv=none; b=q8nrwgCQeQG6pLAX/yarUg4aPZUO+hOweFiNcBTk/kuYh//ykaiHTFxU36W6q8ssi89b57Br/FRpKCrP7/4XiNurn2rozxnxt9q8UWzmW2GsCgPBB3cNjXvMoTUCVYqQzVGvRpfd7RGWB+N6t48yrYb+VJLELJfR40rlFzP+ba4=
+	t=1784276732; cv=none; b=gBAVgUFKAQnh39tHKzUVsZZVPvr1CTx1itZBXnN5mFhSbeWxDIl/iQBbIY9AN1Rt8xP+4r1Dqpg0cmhIYVHVN1q8XFdn27HpTSbg3Z2aDddN0I+bAk3Yy4U5LUlprv5/haHc6lGAMjWyqJXU0JHRrXWVZ2YfBspff5cZ0cn014I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784276731; c=relaxed/simple;
-	bh=f/6I2R88XeSpqa0EDmUDuu9b+FroZ9k6tbgSKJqUBso=;
+	s=arc-20240116; t=1784276732; c=relaxed/simple;
+	bh=KlAsDleqfwpumNCPAe6EYeucuAblOT8qXpUrA4PyZbc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RldJUhprUvZJM2VU/FMdcZz2ZJ4cahRIr1n/lb9jGYwKwXfKROS85jzupObCrcLb+3QNvR2Pfe2RAV5NisqFdoeLB+5jzOt4pmjO5rILjlGeim/z4E4CFw1uxOPFPYhfszf+ZGSrSTTHAQmwtXrZlTKoghFKYfMYLjhekgjfceU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fuwG3FbF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZSvsRxNm87k9ukJCkKclRqedjCxLOOYnVXJti/pA1R8fTwldp2l/NHh0vrPd06BaqAeOV6DfmyB8NlcvT3Qllacw46473/qkFmmpB6cMFZu7nwFake0KupR7VB+KkTbi96tB7ZE6DeJOeOlirggXJHR5ymetu56YwTxesFO9WhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VP1xSZns; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fuwG3FbF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C08791F00A3A;
-	Fri, 17 Jul 2026 08:25:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VP1xSZns"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5553C1F000E9;
+	Fri, 17 Jul 2026 08:25:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784276729;
-	bh=/ob3pRmoUwb/BHfeixDWGaBNgxJ1XglqSvhLTqtypnU=;
+	s=k20260515; t=1784276731;
+	bh=kQck56oeVpuns2fN9OsEhaVdg19C5RSmHC58PEeBjbM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fuwG3FbFF2bUxLWmGao+qmFw5fqOkdHyr/85/Wc6Kh7g1shwSvXkLsR/k7ldpGYhN
-	 xNdvYH7Vgy6C2BKq40xa8SpUzwo0DIAp42ECGOPLmZPskgdcRscFrfLk60t2zXCN6P
-	 Z9XZdkI/BIl4xiPNEWR975uPfWYDBgas17FtbkkhMuHMh4+B96cx27kc7C6R8jQGdw
-	 o8FwLPrMNFYlLS2KFBrJWhhysFLviLWzOUDnCqHu0eVM8pz1UGmkeD+bj5lUcIOe33
-	 zlFNN7czcih4LzDlN12oSCnyyOfn59mbWdtFqO2/18LPROufgRHzsQ/Ch0pOFYdjP3
-	 +cQMwwibG7blw==
+	b=VP1xSZnsDWinWeM1pRDtcm188BGCJ3DZvaNUt+884HqlF9O6S0eRi14T3IkiuhA6x
+	 bBF3yocsS9ymZs1TUI81gH2Ug680dHJuxXQunn0l2IfGi5sRN3ozIM2q9VRtpeWust
+	 yrIU+CmKrE1KwJa1tbF6OWCB+qS8mUSAisjZz28b8vhJuZI2J2N0MOYhI9KE886O8k
+	 2+Z6OdW/w00qPwQCGP4PEEqrPc8A7/IGykHnWy0e23RKVX32wX1kaTCT8DeO62hteZ
+	 xAyVjK3IlzwupdTNKFPclm2ramhMYrwzejzmVKqc6hoJ5PZmBKiaSwqNA+XP+Zku9i
+	 w/Himc9AKA9QA==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Sylwester Nawrocki <sylvester.nawrocki@gmail.com>
-Subject: [PATCH 15/19] media: samsung: s3c-camif: drop unnecessary vb2_queue_release
-Date: Fri, 17 Jul 2026 10:19:38 +0200
-Message-ID: <b1d577b30ee53d7f9dcd8fd290db6e6455419f95.1784276382.git.hverkuil+cisco@kernel.org>
+	Jai Luthra <jai.luthra@linux.dev>
+Subject: [PATCH 16/19] media: ti: j721e-csi2rx: use vb2_video_unregister_device
+Date: Fri, 17 Jul 2026 10:19:39 +0200
+Message-ID: <7362277c11e6401bf9dca456f98b024acc6fa6bb.1784276382.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1784276382.git.hverkuil+cisco@kernel.org>
 References: <cover.1784276382.git.hverkuil+cisco@kernel.org>
@@ -44,40 +44,30 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use _vb2_fop_release instead of vb2_queue_release/v4l2_fh_release.
-
-No need to call camif_stop_capture: _vb2_fop_release will call
-the stop_streaming op if streaming is in progress, and that op
-calls camif_stop_capture.
+Replace the vb2_queue_release/video_unregister_device pair by
+a single vb2_video_unregister_device call.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Sylwester Nawrocki <sylvester.nawrocki@gmail.com>
+Cc: Jai Luthra <jai.luthra@linux.dev>
 ---
- drivers/media/platform/samsung/s3c-camif/camif-capture.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/media/platform/samsung/s3c-camif/camif-capture.c b/drivers/media/platform/samsung/s3c-camif/camif-capture.c
-index ed1a1d693293..3cbf58b2128e 100644
---- a/drivers/media/platform/samsung/s3c-camif/camif-capture.c
-+++ b/drivers/media/platform/samsung/s3c-camif/camif-capture.c
-@@ -572,16 +572,11 @@ static int s3c_camif_close(struct file *file)
+diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+index 4769931b1930..7ae7d1e33ce3 100644
+--- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
++++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+@@ -1268,9 +1268,7 @@ static void ti_csi2rx_cleanup_ctx(struct ti_csi2rx_ctx *ctx)
+ 	if (!pm_runtime_status_suspended(ctx->csi->dev))
+ 		dma_release_channel(ctx->dma.chan);
  
- 	mutex_lock(&camif->lock);
+-	vb2_queue_release(&ctx->vidq);
+-
+-	video_unregister_device(&ctx->vdev);
++	vb2_video_unregister_device(&ctx->vdev);
  
--	if (vp->owner == file_to_v4l2_fh(file)) {
--		camif_stop_capture(vp);
--		vb2_queue_release(&vp->vb_queue);
--		vp->owner = NULL;
--	}
-+	ret = _vb2_fop_release(file, NULL);
- 
- 	sensor_set_power(camif, 0);
- 
- 	pm_runtime_put(camif->dev);
--	ret = v4l2_fh_release(file);
- 
- 	mutex_unlock(&camif->lock);
- 	return ret;
+ 	mutex_destroy(&ctx->mutex);
+ }
 -- 
 2.53.0
 
