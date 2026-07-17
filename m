@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F0373BE627;
-	Fri, 17 Jul 2026 09:24:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9BC3B9618;
+	Fri, 17 Jul 2026 09:24:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784280287; cv=none; b=Fc2qmEvA3GUiUdxKTNcUjqquROlt2ZoGVB+LK2qclKN1p2pYir27zXD37CiPjh7PwEpw2/mdx+lFAxt1G8T59HDBNsKFD++xR32YlrNkc1plwgG6bA328sYjyx/LAd7jDZex2fh+GNyOcS7/TByza8ELYn6E2X2lIZXWpQNAUlk=
+	t=1784280289; cv=none; b=GHf8vJ99y3fM6BitzbV3y0wi+ddmlZ1bb9gZGSpCT/VWZrFj5WPIuBfl61O+DblAXeCBgzqtacbrWql+Kfq49u3T4x/g1SyE6mW9QKMT38MniKQ2iQQLQyQnC0StgVvBfx4yZajb3WBPqdZ19wSakfsgo6Bnxy0Xd7TCjpg3UFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784280287; c=relaxed/simple;
-	bh=6yumHfCo3RyYbivrt06kRUv9ZT5D+VT/PZvoD6jq14k=;
+	s=arc-20240116; t=1784280289; c=relaxed/simple;
+	bh=WklQwgCcY8NaqpQUwF10uWWl6iMBxFXZ6VqV6p2mmYg=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Wh4PJobtDjuQBWY5pKySFO2CuifPyhedv0KSIiDgy1J15OrJ3n8qRSA9IWyER4KF+d/bsoLdUDMxDA8uuaUvtpRGhATR9rOMJbk/KCYTYv7xm5dadoDPleuIJaZ7f4ExTe460FszDWSkLlXCjYDxQo+vITuAWg6/JZF/42lW0aA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=HjzxFjj8; arc=none smtp.client-ip=220.197.31.4
+	 MIME-Version; b=AMiflVn/rgRWZDAvWBARqShehe6zYmhDP/g81XDmi+9lQB1m+b4XwRIL5MAMCdv7FPW5GEdqCpuTuA12ys/Yi424O3G0YYyWEcI5CNRv80UcMTeMt+1+IG0/Tqj9P7E2r7ZD4CL/Ra4Gehd9HVnqDeZe+Z8Fu+W/CRoCU6SYvqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eett6UZ6; arc=none smtp.client-ip=117.135.210.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="HjzxFjj8"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eett6UZ6"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=fP
-	Fmfum7TLcFkxwOaE03ywicc1Ax55XWHhoItc8IsrU=; b=HjzxFjj8wx/iULrN9q
-	ZXPRxHHmHPQp1eLocRwYytmpLMyyRI5W9pAD3YX519YHZHkZMJUPi8fnGX3gxMXY
-	/PHMA02bVyX7xLmgDC0xNiVrnG+mfQTni+0zd5VP0y5zJxI+022mjZmgS07OMB8X
-	+sG1poMXOeS8SYgoDu4wsiKh8=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=U0
+	6s//FcangayRz5TPmdLXncqURKjDnR4HO1WoPel1Y=; b=eett6UZ6qWfSA6Behj
+	avVbAER5Mzbd43Zu4b58li0cM/Z4CB/DL22DuCkdS1R6t6J/jpIHKxw40NZJq7zm
+	wsicBO9WApEuYQXBoZDMoHKGyPu/97DjoHBs/BdxX0hbMrG61hnopB1gll++GVup
+	RyPa3z725iMrslu6dHGLnemmo=
 Received: from localhost.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgCnESG+9Flq5w+gHg--.17942S7;
-	Fri, 17 Jul 2026 17:24:24 +0800 (CST)
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgCnESG+9Flq5w+gHg--.17942S11;
+	Fri, 17 Jul 2026 17:24:29 +0800 (CST)
 From: Lei Huang <huanglei814@163.com>
 To: mchehab@kernel.org
 Cc: johan@kernel.org,
@@ -32,9 +32,9 @@ Cc: johan@kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Lei Huang <huanglei@kylinos.cn>
-Subject: [PATCH 05/16] media: s2255: Fix alignment to match open parenthesis
-Date: Fri, 17 Jul 2026 17:23:38 +0800
-Message-Id: <20260717092349.684342-6-huanglei814@163.com>
+Subject: [PATCH 09/16] media: s2255: Remove unnecessary parentheses around conditions
+Date: Fri, 17 Jul 2026 17:23:42 +0800
+Message-Id: <20260717092349.684342-10-huanglei814@163.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260717092349.684342-1-huanglei814@163.com>
 References: <20260717092349.684342-1-huanglei814@163.com>
@@ -45,151 +45,88 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgCnESG+9Flq5w+gHg--.17942S7
-X-Coremail-Antispam: 1Uf129KBjvJXoW3JF17JF48Jr18ZF45tFy3CFg_yoW7Xr4DpF
-	Z5W3WDtr1UJr1rWw48tF4UuF1a9wn7tr4Y9FWrW348Wrnakr95WFZ3Kas2yrZIkFyIk3Zr
-	tws0qrW5Cryjyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j7qXQUUUUU=
-X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC9AhgV2pZ9MiFygAA3L
+X-CM-TRANSID:QCgvCgCnESG+9Flq5w+gHg--.17942S11
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXr4UAr1DAryUArWrGF47CFg_yoW5Cr15pF
+	Z8Cr90kr15JF15Zws5ta18JFy5KF95t3y2g3y3G3Wv9wsxCFyDXF1Ik3Z5uF1ktr97A3W2
+	qFs8JFy0krWqyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U_GYJUUUUU=
+X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC0g1hWGpZ9M05MwAA3m
 
 From: Lei Huang <huanglei@kylinos.cn>
 
-Fix all 16 'CHECK: Alignment should match open parenthesis' issues
-reported by checkpatch.pl in s2255drv.c. Adjust continuation line
-indentation in function declarations, if-conditions, function calls,
-and block comments to properly align with the opening parenthesis.
+Fix all 11 'CHECK: Unnecessary parentheses around' issues reported by
+checkpatch.pl in s2255drv.c. Remove redundant inner parentheses from
+if-condition expressions where operator precedence already guarantees
+the correct evaluation order.
 
 Signed-off-by: Lei Huang <huanglei@kylinos.cn>
 ---
- drivers/media/usb/s2255/s2255drv.c | 36 +++++++++++++++---------------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+ drivers/media/usb/s2255/s2255drv.c | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/media/usb/s2255/s2255drv.c b/drivers/media/usb/s2255/s2255drv.c
-index 4df558a7b8b3..f3e4bd069f1c 100644
+index ee69492ba8b9..c65cb794599b 100644
 --- a/drivers/media/usb/s2255/s2255drv.c
 +++ b/drivers/media/usb/s2255/s2255drv.c
-@@ -720,21 +720,21 @@ static int vidioc_querycap(struct file *file, void *priv,
- }
+@@ -566,8 +566,8 @@ static const struct s2255_fmt *format_by_fourcc(int fourcc)
+ 	for (i = 0; i < ARRAY_SIZE(formats); i++) {
+ 		if (-1 == formats[i].fourcc)
+ 			continue;
+-		if (!jpeg_enable && ((formats[i].fourcc == V4L2_PIX_FMT_JPEG) ||
+-				     (formats[i].fourcc == V4L2_PIX_FMT_MJPEG)))
++		if (!jpeg_enable && (formats[i].fourcc == V4L2_PIX_FMT_JPEG ||
++				     formats[i].fourcc == V4L2_PIX_FMT_MJPEG))
+ 			continue;
+ 		if (formats[i].fourcc == fourcc)
+ 			return formats + i;
+@@ -659,10 +659,10 @@ static int buffer_prepare(struct vb2_buffer *vb)
+ 	if (!vc->fmt)
+ 		return -EINVAL;
  
- static int vidioc_enum_fmt_vid_cap(struct file *file, void *priv,
--			       struct v4l2_fmtdesc *f)
-+				   struct v4l2_fmtdesc *f)
- {
- 	int index = f->index;
+-	if ((w < norm_minw(vc)) ||
+-	    (w > norm_maxw(vc)) ||
+-	    (h < norm_minh(vc)) ||
+-	    (h > norm_maxh(vc))) {
++	if (w < norm_minw(vc) ||
++	    w > norm_maxw(vc) ||
++	    h < norm_minh(vc) ||
++	    h > norm_maxh(vc)) {
+ 		dprintk(vc->dev, 4, "invalid buffer prepare\n");
+ 		return -EINVAL;
+ 	}
+@@ -718,8 +718,8 @@ static int vidioc_enum_fmt_vid_cap(struct file *file, void *priv,
  
  	if (index >= ARRAY_SIZE(formats))
  		return -EINVAL;
- 	if (!jpeg_enable && ((formats[index].fourcc == V4L2_PIX_FMT_JPEG) ||
--			(formats[index].fourcc == V4L2_PIX_FMT_MJPEG)))
-+			     (formats[index].fourcc == V4L2_PIX_FMT_MJPEG)))
+-	if (!jpeg_enable && ((formats[index].fourcc == V4L2_PIX_FMT_JPEG) ||
+-			     (formats[index].fourcc == V4L2_PIX_FMT_MJPEG)))
++	if (!jpeg_enable && (formats[index].fourcc == V4L2_PIX_FMT_JPEG ||
++			     formats[index].fourcc == V4L2_PIX_FMT_MJPEG))
  		return -EINVAL;
  	f->pixelformat = formats[index].fourcc;
  	return 0;
- }
- 
- static int vidioc_g_fmt_vid_cap(struct file *file, void *priv,
--			    struct v4l2_format *f)
-+				struct v4l2_format *f)
- {
- 	struct s2255_vc *vc = video_drvdata(file);
- 	int is_ntsc = vc->std & V4L2_STD_525_60;
-@@ -754,7 +754,7 @@ static int vidioc_g_fmt_vid_cap(struct file *file, void *priv,
- }
- 
- static int vidioc_try_fmt_vid_cap(struct file *file, void *priv,
--			      struct v4l2_format *f)
-+				  struct v4l2_format *f)
- {
- 	const struct s2255_fmt *fmt;
- 	enum v4l2_field field;
-@@ -805,7 +805,7 @@ static int vidioc_try_fmt_vid_cap(struct file *file, void *priv,
- }
- 
- static int vidioc_s_fmt_vid_cap(struct file *file, void *priv,
--			    struct v4l2_format *f)
-+				struct v4l2_format *f)
- {
- 	struct s2255_vc *vc = video_drvdata(file);
- 	const struct s2255_fmt *fmt;
-@@ -1234,7 +1234,7 @@ static int s2255_s_ctrl(struct v4l2_ctrl *ctrl)
- }
- 
- static int vidioc_g_jpegcomp(struct file *file, void *priv,
--			 struct v4l2_jpegcompression *jc)
-+			     struct v4l2_jpegcompression *jc)
- {
- 	struct s2255_vc *vc = video_drvdata(file);
- 
-@@ -1245,7 +1245,7 @@ static int vidioc_g_jpegcomp(struct file *file, void *priv,
- }
- 
- static int vidioc_s_jpegcomp(struct file *file, void *priv,
--			 const struct v4l2_jpegcompression *jc)
-+			     const struct v4l2_jpegcompression *jc)
- {
- 	struct s2255_vc *vc = video_drvdata(file);
- 
-@@ -1348,7 +1348,7 @@ static const struct v4l2_frmsize_discrete pal_sizes[] = {
- };
- 
- static int vidioc_enum_framesizes(struct file *file, void *priv,
--			    struct v4l2_frmsizeenum *fe)
-+				  struct v4l2_frmsizeenum *fe)
- {
- 	struct s2255_vc *vc = video_drvdata(file);
- 	int is_ntsc = vc->std & V4L2_STD_525_60;
-@@ -1366,7 +1366,7 @@ static int vidioc_enum_framesizes(struct file *file, void *priv,
- }
- 
- static int vidioc_enum_frameintervals(struct file *file, void *priv,
--			    struct v4l2_frmivalenum *fe)
-+				      struct v4l2_frmivalenum *fe)
- {
- 	struct s2255_vc *vc = video_drvdata(file);
- 	const struct s2255_fmt *fmt;
-@@ -1418,7 +1418,7 @@ static int s2255_open(struct file *file)
- 		return -ENODEV;
- 	case S2255_FW_FAILED:
- 		s2255_dev_err(&dev->udev->dev,
--			"firmware load failed. retrying.\n");
-+			      "firmware load failed. retrying.\n");
- 		s2255_fwload_start(dev);
- 		wait_event_timeout(dev->fw_data->wait_fw,
- 				   ((atomic_read(&dev->fw_data->fw_state)
-@@ -1601,17 +1601,17 @@ static int s2255_probe_v4l(struct s2255_dev *dev)
- 
- 		v4l2_ctrl_handler_init(&vc->hdl, 6);
- 		v4l2_ctrl_new_std(&vc->hdl, &s2255_ctrl_ops,
--				V4L2_CID_BRIGHTNESS, -127, 127, 1, DEF_BRIGHT);
-+				  V4L2_CID_BRIGHTNESS, -127, 127, 1, DEF_BRIGHT);
- 		v4l2_ctrl_new_std(&vc->hdl, &s2255_ctrl_ops,
--				V4L2_CID_CONTRAST, 0, 255, 1, DEF_CONTRAST);
-+				  V4L2_CID_CONTRAST, 0, 255, 1, DEF_CONTRAST);
- 		v4l2_ctrl_new_std(&vc->hdl, &s2255_ctrl_ops,
--				V4L2_CID_SATURATION, 0, 255, 1, DEF_SATURATION);
-+				  V4L2_CID_SATURATION, 0, 255, 1, DEF_SATURATION);
- 		v4l2_ctrl_new_std(&vc->hdl, &s2255_ctrl_ops,
--				V4L2_CID_HUE, 0, 255, 1, DEF_HUE);
-+				  V4L2_CID_HUE, 0, 255, 1, DEF_HUE);
- 		vc->jpegqual_ctrl = v4l2_ctrl_new_std(&vc->hdl,
--				&s2255_ctrl_ops,
--				V4L2_CID_JPEG_COMPRESSION_QUALITY,
--				0, 100, 1, S2255_DEF_JPEG_QUAL);
-+						      &s2255_ctrl_ops,
-+						      V4L2_CID_JPEG_COMPRESSION_QUALITY,
-+						      0, 100, 1, S2255_DEF_JPEG_QUAL);
- 		if (dev->dsp_fw_ver >= S2255_MIN_DSP_COLORFILTER &&
- 		    (dev->pid != 0x2257 || vc->idx <= 1))
- 			v4l2_ctrl_new_custom(&vc->hdl, &color_filter_ctrl,
-@@ -2301,7 +2301,7 @@ static int s2255_probe(struct usb_interface *interface,
- 		if (dev->dsp_fw_ver < S2255_CUR_DSP_FWVER)
- 			pr_info("s2255: f2255usb.bin out of date.\n");
- 		if (dev->pid == 0x2257 &&
--				dev->dsp_fw_ver < S2255_MIN_DSP_COLORFILTER)
-+		    dev->dsp_fw_ver < S2255_MIN_DSP_COLORFILTER)
- 			pr_warn("2257 needs firmware %d or above.\n",
- 				S2255_MIN_DSP_COLORFILTER);
- 	}
+@@ -1296,8 +1296,8 @@ static int vidioc_s_parm(struct file *file, void *priv,
+ 		return -EINVAL;
+ 	mode = vc->mode;
+ 	/* high quality capture mode requires a stream restart */
+-	if ((vc->cap_parm.capturemode != sp->parm.capture.capturemode)
+-	    && vb2_is_streaming(&vc->vb_vidq))
++	if (vc->cap_parm.capturemode != sp->parm.capture.capturemode &&
++	    vb2_is_streaming(&vc->vb_vidq))
+ 		return -EBUSY;
+ 	def_num = (mode.format == FORMAT_NTSC) ? 1001 : 1000;
+ 	def_dem = (mode.format == FORMAT_NTSC) ? 30000 : 25000;
+@@ -1822,8 +1822,8 @@ static int save_frame(struct s2255_dev *dev, struct s2255_pipeinfo *pipe_info)
+ 		vc->last_frame = vc->cur_frame;
+ 		vc->cur_frame++;
+ 		/* end of system frame ring buffer, start at zero */
+-		if ((vc->cur_frame == SYS_FRAMES) ||
+-		    (vc->cur_frame == vc->buffer.num_frames))
++		if (vc->cur_frame == SYS_FRAMES ||
++		    vc->cur_frame == vc->buffer.num_frames)
+ 			vc->cur_frame = 0;
+ 		/* frame ready */
+ 		if (vb2_is_streaming(&vc->vb_vidq))
 -- 
 2.25.1
 
