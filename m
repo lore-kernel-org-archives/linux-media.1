@@ -1,262 +1,104 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A4D37C929
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 06:54:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2645399019;
+	Fri, 17 Jul 2026 07:05:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784271266; cv=none; b=ERwkK0ewCFb5FkZLVRurKgA2nhJ80kNRoQF8RGIBcJ2iLG97ndKJ65CjiMpKPgpmXvsVevsaPUdfNrl1h5wtEg2G/XaOsW6klHGpEFjz4mmqK2PkvPLRv+iMkldd14NqzieUvgEBhfGv1Ti7zf1ropkWqResV8lHNFxbwUcDjmY=
+	t=1784271925; cv=none; b=TQsxNzV8euEnKVmWGN+/BC4Whpf+tZt4AIyxhJwaPFA65bt73m6B0+LqLxRKYkAmzqPeHtcBBhANNIZYabvnlCb4l31gPBwD5BHuEeuHWtKsz1ou3guCPLvuFlPsRLoGTxjzOoXqKrt2NquBIURai4LUmy90Yog7zYovds37yU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784271266; c=relaxed/simple;
-	bh=tVNSowxhSextdRxzWBieprk+FnCHCFVwgFbHNoXnWms=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ktbpj1F6lMqyAfhhIds38IkK8u9TP6COBoOeUP/rY0NrAxHnBYadr5H6sTkbUIuhjsiTIRPLG6txFwrhSccXDpjBD9RvQpXIBoOcJc+SNCR/inayLiLtvMC/jkkE3hl9Cn1bXxW6g8JHYjTOTo0N8FQG+qKOo8PA3rGKgyWd5fw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=iIwtOTxp; arc=none smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1784271925; c=relaxed/simple;
+	bh=0hwnV622AfE2GAnSMNoSc4ILPbsn62OjfFzGQI4nDsc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rjrsAKrvpVuGlihOCsVdgkehlGRwvLcg1iNQyo+5uUH40b5lO7rbVyENA6uohatsgorjpEOO5n9SdoyaeXTyXL3r2Zae2Gp+0gAtuwVm/uKZUE/W/B6Upx/ZN39nKdVMIZl8KzmYHbgXbwz+/67EH/DdVCEot5Yzj6XbeRerONA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=r8gQmRjC; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=pLzDhtXj; arc=none smtp.client-ip=202.12.124.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="iIwtOTxp"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-69c5fda04a8so11821340a12.1
-        for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 23:54:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784271262; x=1784876062; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=z6hz1r6iwgOBKq4fkKYrVarepHS3W1T0QqkGacktWfw=;
-        b=iIwtOTxpj+AeJoc/Wpl1XDLOImfRTiYSEzuJ+V1ibJ3rHwcPjW60FF67eMwM1I/0bH
-         Wm2G1iBO6M8KTvayFB1d7MRV4mr67uzJEY4S+osfaMSK4+ZLWNbFIygN+01xmyWvrS3b
-         h4arwifk8Ws2ZsUJk1BwijCSNW2RKqhuXFaNo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784271262; x=1784876062;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z6hz1r6iwgOBKq4fkKYrVarepHS3W1T0QqkGacktWfw=;
-        b=iuEppyCNkIbPuIz6dGkH6IEQ+P3ileuXQkZmjRZd+X2aZiEqaVTwHQkIuffPGhevoL
-         RWTHhB1m3uiY5Qd2KXFgfZANCEDLqj9BO+XvWa+GYz2o4AB8haQiP0CYTsGdlmTNLjvG
-         6Fwi0qw22QJ/t059xcqO65x7w1SY0LhFaI9jX3bYFCXkq82/aVU90RQVZrE+VXt9DwNL
-         4CC5dqGOuzCMMnmm6waPY41W8VdCo2rpCM5rS32NskKetNsKH/vkTApLE5FZJxfOo0J/
-         1beCSoK48nzTX7Emd608Wb0eNwdTeXqinc+Gmn6P8iKK0+J9adYvo8Phc4mSEg7QF9Vu
-         qn1w==
-X-Gm-Message-State: AOJu0Yx91WZlT0ACROJU/sw97OGhREz8vXSP+j4Qym6iIuqPx3cMaErM
-	SYntAAyP+74RMhe9T9QoBza0N0zTD+kizxQsebLjZ6Sl8Rl1OGCSe/mfjC6VrhDjQAJl1jtkoba
-	BTNqm+Q==
-X-Gm-Gg: AfdE7cmZJ6gJygu8LWFN8d/iMsf1fFXewnblYaobjKf5nE7ias1EJcNXoqLXHFrNogr
-	1cqf4tFgq3ql8rR9D0WKAhpPBUbk1xN7mS1EcOJMg94VPhFk8xrBcmvJWHAueVegDMJ1wySLhGh
-	X8uGE7d1zSPx295GCbgPuhQ9agRv6iX6hOh1XgF3wM1g4yZajGuaOCIbNBrVO0UErJH0uVLxvAi
-	x6F6xlYLeoHf7E+I0sspCdxdsuFvxppjdG2NRjPcIr7OtPHxalgS4rkdGkmfVmArX+uQrfwYo7S
-	J2CCx1zx5YstCP/3I+3DEbdRO2n0AGUKx8qOnotXQC5Ft41SMsPfx9nX1I6zK8MwbPuG8ZnHyRm
-	SZla+jmTZNtj6keviqUauuAbOjTUbpq9n8hIWuYekqWcwoGOMnyM2xCefuQo3W+JhHMdWezwVqp
-	1u7JoBCS18ItGRTeVlutjNTy8dtTQhoAHCHW61A2yJCMNiGVxhBw==
-X-Received: by 2002:a05:6402:5054:b0:697:d475:9692 with SMTP id 4fb4d7f45d1cf-69e6523366cmr357721a12.11.1784271262412;
-        Thu, 16 Jul 2026 23:54:22 -0700 (PDT)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com. [209.85.218.46])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69e6fee3304sm218254a12.5.2026.07.16.23.54.20
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 16 Jul 2026 23:54:20 -0700 (PDT)
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c16794450aeso338236166b.2
-        for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 23:54:20 -0700 (PDT)
-X-Received: by 2002:a17:907:3fa6:b0:c15:b5fa:958 with SMTP id
- a640c23a62f3a-c16b4765a01mr46242666b.34.1784271259050; Thu, 16 Jul 2026
- 23:54:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="r8gQmRjC";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="pLzDhtXj"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.stl.internal (Postfix) with ESMTP id 699A81D00133;
+	Fri, 17 Jul 2026 03:05:22 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Fri, 17 Jul 2026 03:05:22 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1784271922; x=1784358322; bh=ZjTQ7BBxX7
+	BxMZn/XHlgskJKXfujCvMR6jBeytcxCeA=; b=r8gQmRjCpGpbgLuJ+NmDJYsf5t
+	DimD9fEPDxCHunlRXyI9zlqV6d+Aqo/0slsvlBNBrLZfB8mZj9jkuS4X/Vvliaza
+	/7T2g4m02HZXLRVjqQmXS0aLLQCD9P9ajg+rrMolBttgHo1F68AX3kZOC7WdRX7d
+	MlBVgm82YmdaOaQSUpo+1oSto+X7/Q6cXjlDkwBocHJvW3DlxJpPt10+lKIFKQVE
+	ioS/dZToKRZIR+m8VyLlhyhM6kG2Feh8dPlhX3j0lFspAjmbY252P+/O/UJJRlp2
+	oyfuqKuhgVbh1waKznZ1eUnKUSOTG1n8Gbsat5s22QqecdHHhLmGoR06EChQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1784271922; x=1784358322; bh=ZjTQ7BBxX7BxMZn/XHlgskJKXfujCvMR6jB
+	eytcxCeA=; b=pLzDhtXjAshMGBZRewvR68LuDfjg4y7Y0AaS8uLL1YcNvyIaXYn
+	GlDauZQqfjEtK1amfUGmhxYCFcmcqJ1ckGKAWGYtdXZ7AlfB5vR0qXd2mxJuk3jm
+	Nhpuk12BLjZUyou3wKbSKoSXeqROtehHDFcpChtnqk40Izck9MyuYeLWU0nc3opd
+	9/9dxS3hq2vt6Pb1VrF2naDymurn1zXg/VwuOdrcfP6Ovk7g6L7k9q3l3Gn7kCu+
+	L3wm4vZvx65KAIHq/0fsj9lYeujxp8bq4S+pAbXcs84VYXwpkpwMRWrbHYyGB2Yt
+	0D7argX6m7FrV0KBKudbnZVAMC+T4HytUDQ==
+X-ME-Sender: <xms:MdRZam0DBd8Lc4-drNf1Q7ZOc_HCcRF6cgnSytJyySGj2Ef7T7b1Ww>
+    <xme:MdRZalfjkmXTFp03-jjCMtUOGJeifVJGpONSUvywC4PwYPTe4xatfreVhjlI-GhDA
+    P1oJpupa1fTWnvJdFqlvE-xExp9gtMFEyFdO0DjpE1BfwoTCA>
+X-ME-Received: <xmr:MdRZajWHuoA0bkfAIcq44FUIrtrMLz4xg8BnL9FTw1_ASk6TSFY83SriaI__qZDGkx2fWMR5rZlisiawkGAYgw8clQ>
+X-ME-Proxy-Cause: dmFkZTE/NZscOm6WbqUCDU+JxqgeecwpxctQwR+Y2LJ0R1wen5v+tDUrcMuf+0BeWo9sUi
+    Ni7nSLfFmb/rAWYP9VN64JwxmucDY0IGadpPOFUsShmApfu/0PzOW3a26upb6vMVsyyq7k
+    JOsg3hEQ77Rv+jD+jm353PPd9A3RDKiOFYMQ3RE2X+UtGpOIVwQaqx2MN40xsvC/ocO3oq
+    sjHNCu4SKL8jTSjUSvcK+K//FY0lSTjFq8xYLy8wYovLut5RJaEuyKdhhvlw7IP9JtiMM5
+    jw/avbfL43Ef7V/xNtj3pD9I9ReyV/Q/p+bGR6a6gF4j6AtBl336GCYom7a/b/ZSaaxfCr
+    rmDz/EceO1OlSCNa+y89AtOhZrPmJrOIU/tre4MzWJEZbmMZ7tKv9fZEGnrE1fTWcynBD0
+    yenLyAAfdUF2qbCeB2uihlqqWZfO+H0/PUMFuItXkXxkmFrrwzpxsdMv2g4ZKmZiSJHboi
+    S5ARHgWgk6mqD6mIBY/tfo7S4nPWYzUMEwxTw91ezgkMoDR4QkhVjZuG3NwBtXKUE1Kpze
+    kNCRULZXDN+u2EkKmUza3KjlOn1mI0ll5A3E92erLyXm/q344MqdsDZhFQ4aS95j6X6zaV
+    Z1G3qr7iDe1tHA2A82N5NtyaTGD1G7oHD2mDdF0WZxBykIhxntooUY6cpDFw
+X-ME-Proxy: <xmx:MdRZal9E9obRv3negdGzSFm7Hka4VcDnap8DyRJFwWVnBhBeP1MTJg>
+    <xmx:MdRZalgWo85x8Ev0N90JjP60OGTZsFsjt98-kiLZEkms4BurOfJzxg>
+    <xmx:MdRZape3CoYyZQO-KXAqbF-kyjnnPMao8EHKOEZalAWzWAP2BXWM9g>
+    <xmx:MdRZamLa4HiLaqw3t22k3rbAEjm02zD8SKAisf7I4P40AZLnO4Y08w>
+    <xmx:MtRZar_5diKGExksiyV1FA398pNEijgSEY3ll8QSkbol9l8w-BB2TKBr>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 17 Jul 2026 03:05:21 -0400 (EDT)
+Date: Fri, 17 Jul 2026 09:05:15 +0200
+From: Greg KH <greg@kroah.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: stable@vger.kernel.org, linux-media@vger.kernel.org,
+	laurent.pinchart@ideasonboard.com, hansg@kernel.org,
+	mchehab@kernel.org, Jay Chooi <jay@robocurve.org>
+Subject: Re: uvcvideo: deadlock when async control drops the last PM
+ reference from the status-event path
+Message-ID: <2026071726-gopher-onshore-61ca@gregkh>
+References: <CAL+2LXtmekL+oc8e48uUXL_2SXvfCc_v7MrHJ6JDh9usRHu0sQ@mail.gmail.com>
+ <CANiDSCukMqtarMGb3F0Nf3TfTB7TxHDeWu776StV+0q5q1VSVQ@mail.gmail.com>
+ <CAL+2LXvV66O_qvbrHeFyHGjreyart277PgfKVK7jKfJ-MXihbw@mail.gmail.com>
+ <CANiDSCttWrSLoftLWPtx7XxYaQ7PRV2+Y0tvir2qaE77PMG1-w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAL+2LXtmekL+oc8e48uUXL_2SXvfCc_v7MrHJ6JDh9usRHu0sQ@mail.gmail.com>
- <CANiDSCukMqtarMGb3F0Nf3TfTB7TxHDeWu776StV+0q5q1VSVQ@mail.gmail.com> <CAL+2LXvV66O_qvbrHeFyHGjreyart277PgfKVK7jKfJ-MXihbw@mail.gmail.com>
-In-Reply-To: <CAL+2LXvV66O_qvbrHeFyHGjreyart277PgfKVK7jKfJ-MXihbw@mail.gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 17 Jul 2026 08:54:06 +0200
-X-Gmail-Original-Message-ID: <CANiDSCttWrSLoftLWPtx7XxYaQ7PRV2+Y0tvir2qaE77PMG1-w@mail.gmail.com>
-X-Gm-Features: AUfX_mxLDEXNqAd79OfZAD65-VzbQpKVQ4KFZ4WV5zGruAe1WMEYqDm3nKM4NHY
-Message-ID: <CANiDSCttWrSLoftLWPtx7XxYaQ7PRV2+Y0tvir2qaE77PMG1-w@mail.gmail.com>
-Subject: Re: uvcvideo: deadlock when async control drops the last PM reference
- from the status-event path
-To: stable@vger.kernel.org
-Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
-	hansg@kernel.org, mchehab@kernel.org, Jay Chooi <jay@robocurve.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CANiDSCttWrSLoftLWPtx7XxYaQ7PRV2+Y0tvir2qaE77PMG1-w@mail.gmail.com>
 
-Dear stable
+On Fri, Jul 17, 2026 at 08:54:06AM +0200, Ricardo Ribalda wrote:
+> Dear stable
+> 
+> Could you help landing  6d27f92c54ce28cfbd2a8a479a96d6f4a781b7d2 in
+> the stable branches?
 
-Could you help landing  6d27f92c54ce28cfbd2a8a479a96d6f4a781b7d2 in
-the stable branches?
+It's in the queue, still about 500 patches deep to get through.  That's
+the "joy" of getting bug fixes into -rc1, and not earlier releases, they
+get delayed due to everyone doing the same thing :(
 
-Thanks!
+thanks,
 
-On Fri, 17 Jul 2026 at 03:59, Jay Chooi <jay@robocurve.org> wrote:
->
-> > Can you check if this patch is part of your kernel?
->
-> It is not. Ubuntu 7.0.0-27-generic (based on v7.0.6) has no uvcvideo
-> changes on top; disassembly of the shipped module shows no current_work()
-> check in uvc_status_stop() and no flush_work() in uvc_status_start().
-> The deadlock reproduces there on every async control sequence with our
-> D405s on camera firmware 5.17.3.10.
->
-> > It landed in 7.1 but I cannot see it in
-> > https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/log/dr=
-ivers/media/usb/uvc?h=3Dlinux-7.0.y
->
-> Confirmed missing from linux-7.0.y. I backported 6d27f92c54ce alone onto
-> the 7.0.0-27 tree as an out-of-tree module and re-ran the same stress on
-> the same hardware: no hang across 15/15 apply/verify cycles, and async
-> control readback completes, where the unpatched module hung unkillably on
-> the first attempt. Please queue it for linux-7.0.y; it carries
-> Cc: stable and Fixes: a32d9c41bdb8, which is in 7.0. Also requested for
-> the Ubuntu kernel in
-> https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2160752
->
-> Tested-by: Jay Chooi <jay@robocurve.org>
->
-> One thing I noticed while reading the code: the synchronous flush in
-> uvc_status_stop() ("if (cancel_work_sync(&w->work))
-> uvc_ctrl_status_event(...)") still runs the event handler under
-> status_lock. If that event clears a pending async control handle,
-> uvc_pm_put() -> uvc_status_put() re-acquires status_lock on the same
-> thread. All our hung-task traces were the worker-side path that
-> 6d27f92c54ce fixes, so this may be unreachable in practice, but it looked
-> worth a second pair of eyes.
->
-> Best regards,
-> Jay
->
-> On Thu, Jul 16, 2026 at 12:27=E2=80=AFAM Ricardo Ribalda <ribalda@chromiu=
-m.org> wrote:
-> >
-> > Hi Jay,
-> >
-> > Thanks for the detailed report.
-> >
-> > Can you check if this patch is part of your kernel?
-> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
-it/drivers/media/usb/uvc?id=3D6d27f92c54ce28cfbd2a8a479a96d6f4a781b7d2
-> >
-> > It landed in 7.1 but I cannot see it in
-> > https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/log/dr=
-ivers/media/usb/uvc?h=3Dlinux-7.0.y
-> >
-> > Regards!
-> >
-> > On Thu, 16 Jul 2026 at 09:17, Jay Chooi <jay@robocurve.org> wrote:
-> > >
-> > > Hello,
-> > >
-> > > We are hitting a reproducible, unkillable deadlock in uvcvideo's
-> > > status-event / power-management path on v7.0.6 (Ubuntu 7.0.0-27-gener=
-ic);
-> > > by code inspection the same paths are present in current mainline.
-> > >
-> > > Hardware: 2x Intel RealSense D405 (8086:0b5b) and 1x D435 (8086:0b07)=
- on
-> > > the same host. The trigger is ordinary control access (exposure /
-> > > auto-exposure, which these devices expose as asynchronous, auto-updat=
-e
-> > > controls). With camera firmware 5.15.1.55 one unit wedged on most con=
-trol
-> > > accesses and the other rarely; after updating both to firmware 5.17.3=
-.10
-> > > the deadlock became deterministic on both =E2=80=94 the newer firmwar=
-e appears to
-> > > deliver the control-change status interrupt more reliably, hitting th=
-e
-> > > race window every time.
-> > >
-> > > Analysis
-> > > --------
-> > >
-> > > uvc_ctrl_set_handle() takes a PM reference (uvc_pm_get) for a pending
-> > > asynchronous control, released by uvc_ctrl_clear_handle() -> uvc_pm_p=
-ut()
-> > > when the control-change status event arrives. That release runs insid=
-e
-> > > uvc_ctrl_status_event(), which is reached from two contexts where dro=
-pping
-> > > the LAST status user deadlocks:
-> > >
-> > > 1. From the async worker uvc_ctrl_status_event_work():
-> > >    uvc_pm_put -> uvc_status_put (takes status_lock) -> uvc_status_sto=
-p ->
-> > >    cancel_work_sync(&dev->async_ctrl.work) =E2=80=94 cancelling the w=
-ork item it
-> > >    is currently executing in. It waits for itself forever while holdi=
-ng
-> > >    status_lock.
-> > >
-> > > 2. From uvc_status_stop() itself, via the synchronous flush
-> > >    ("if (cancel_work_sync(&w->work)) uvc_ctrl_status_event(...)"):
-> > >    the same put chain re-acquires status_lock, which the caller
-> > >    (uvc_status_put/uvc_status_suspend) already holds. Self-deadlock o=
-n a
-> > >    non-recursive mutex.
-> > >
-> > > Once either happens, every subsequent open/ioctl blocks in
-> > > uvc_status_get() on status_lock (unkillable D state), and
-> > > uvc_status_unregister() -> uvc_status_suspend() blocks the USB discon=
-nect
-> > > path, which in turn wedges the hub workqueue (usb_hub_wq in D state) =
-=E2=80=94
-> > > after that no device on the hub can enumerate and only a reboot recov=
-ers.
-> > > System shutdown also hangs indefinitely waiting on the D-state tasks.
-> > >
-> > > Hung-task stacks (Ubuntu 7.0.0-27-generic)
-> > > ------------------------------------------
-> > >
-> > > Blocked ioctl side:
-> > >   uvc_v4l2_unlocked_ioctl+0x97/0x190 [uvcvideo]
-> > >   uvc_status_get+0x1d/0x90 [uvcvideo]
-> > >
-> > > Blocked worker side:
-> > >   Workqueue: events uvc_ctrl_status_event_work [uvcvideo]
-> > >   uvc_ctrl_status_event_work+0x22/0x90 [uvcvideo]
-> > >   uvc_ctrl_status_event+0x77/0x180 [uvcvideo]
-> > >   uvc_pm_put+0x12/0x40 [uvcvideo]
-> > >   uvc_status_put+0x6d/0x80 [uvcvideo]
-> > >   uvc_status_stop.part.0+0x22/0xb0 [uvcvideo]
-> > >
-> > > (Full traces available on request.)
-> > >
-> > > Workaround we validated
-> > > -----------------------
-> > >
-> > > A local module parameter that skips arming the status interrupt endpo=
-int
-> > > in uvc_status_init() (no events -> no worker -> no deadlock) eliminat=
-es
-> > > the hang across repeated control-access stress on both firmware versi=
-ons.
-> > > Expected side effect confirmed: pending async controls are then never
-> > > cleared (GET on them returns -EBUSY indefinitely), so this is a
-> > > workaround, not a fix.
-> > >
-> > > Downstream report:
-> > > https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2160752
-> > >
-> > > It looks like dropping the pending-async-control PM reference must no=
-t
-> > > synchronously stop the status URB from the event-delivery contexts =
-=E2=80=94
-> > > e.g. defer the final uvc_status_stop() when current_work() =3D=3D
-> > > &dev->async_ctrl.work, and avoid re-entering uvc_status_put under
-> > > status_lock in the synchronous-flush path. Happy to test patches; the
-> > > setup reproduces the deadlock within seconds.
-> > >
-> > > Reported-by: Jay Chooi <jay@robocurve.org>
-> >
-> >
-> >
-> > --
-> > Ricardo Ribalda
-
-
-
---=20
-Ricardo Ribalda
+greg k-h
