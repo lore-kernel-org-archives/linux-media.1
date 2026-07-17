@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D62523B5310
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:25:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64ED43DD50D
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:25:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784276707; cv=none; b=uVCirQD24hvpD+5PAJRyYZe6QvLJtw5D3r8WET0kw4N85ggYMyACV+NFF5Wnob5aQ21MT4lhwmsZFjGWEQ04qj70Ykzsopk+KskE2VOyuixXDU+ap/JmgcZAC4V1tSSDpiL9G6WxHiFaH8U8yYQ/o2DbqvZOKX7s4nmijPN3qzY=
+	t=1784276709; cv=none; b=dmoLbfeEV3sQjSg9PFW6ug3fa1O7XCJTZtcV9FhlKVaNRmlDa4o8B63REB3BVUZFhbFUF7YWSnOGvmXggfmtxKfk2cv2J0FtdbXz3hIVUTYBJVP2DGmnMFe/iCY8Dq3slYBNJGUDJeAUrpG4FjDnRHpFz38g0L8Qp/eOtTuMdyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784276707; c=relaxed/simple;
-	bh=ug7fm16F3Xf/YmzKbkYS+9RocgTNQJj3gljHu0/gwqs=;
+	s=arc-20240116; t=1784276709; c=relaxed/simple;
+	bh=IJ5XSffakCbpAN4BF/LBzw2n4ReG4kcdNwxgU335YpA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LBdktlZ6ZqmLiZ/VP8T1hrEomlg4UL0fOiUDr3kW8bM50Ui51LKs98GwVw2ShDs7nclByID87Gqn2wg2vmf4aZLnTa/BmVnNUjobjg4ZLRxHSJ04Cl2i5vzAHGnN+8e6rnmJBK7SGcP/+w9w7fznvL3FloVxVU1p12Eq+EzUYgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MF2V2K2R; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tC0N46i8eY9aLNijckELdcgLIxtdpYhivhVED89RavkwJz3Lwa72yMkxRsUqFG7NlusRumAqIYr2pXMmPvqllGyvdL2ym4O3rKlgXt5q6Gt/WrVgupgzyE0wJRgeSUU/9/acO1Y3Qkc3Kipi6uy8IMgFT56D9YILkiV4tq2yfro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X/Kq7JwV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MF2V2K2R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 969A81F000E9;
-	Fri, 17 Jul 2026 08:25:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X/Kq7JwV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F29981F00A3A;
+	Fri, 17 Jul 2026 08:25:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784276706;
-	bh=go+w51MsVLBsRn8sFHc1otxmie8y0F2MOPax1F2/cBY=;
+	s=k20260515; t=1784276708;
+	bh=RI5kSTMgY6KLtVojef2YrY4/+n60D0hL6lHQ7fGNx8o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MF2V2K2REx0HmzhMkPrQh30/ZJAyUe3U4/0F52g9RLVVNrCDrgJQFxWNcErTRhzuB
-	 i1UTneMDl38IjSyxZ8z8xedBI2fl1AVX9+SGtYX/ghWOmiHdU/h0WyP83w8nCENuAh
-	 eHuf/ImR9IGArpYd5+fCVlrK/GAdwWCR7OLLVd4Kb07OLI5ST4CSkayDBvOQOdUfL4
-	 gookMN4U0LcrgkTHT3Jn+pTgt3FhgUZrVDjW5dZzbMqbUFQXsxchokJFAsfJzVLbgU
-	 Zd3ATjYMa/K9crlBIB7GavrODxwB75hOp5eHVkK9l+sUhwN87v7nJ6lN8WTJXsdkRv
-	 IdaLdTsYct8bw==
+	b=X/Kq7JwVpWNorHJKtjJq9etABQ4nRjtMtvzszOyfRvezho4v8c60LvyegbHnXIp2f
+	 K5WhI+r0daUK4FyFrblik316uwl8XHpgGG2fc90mOyiw85uEtjDmh4hrPHXOhr4ijW
+	 6C/Kc0/EtTfXXrAY7k5wNLLgoST5Bo3MPwtsOB1zTWCxFi63YV1+mFBuuw5LoDXtaz
+	 1b1aG9ivsSeuWrSLdO8peEi2xbSrhEM3Wl0/3BfnoZsfUsJRYSXLlriDvHSdEuyIuN
+	 q6wu3oQhWgexvvRQnQqffuydsWZgye3Qfb0Bgnci+NsDZHj8lz+Vay3jIaRqX+ZAoF
+	 cjoaP+lXVvDAg==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCH 01/19] media: videobuf2-v4l2.h: improve vb2_queue_release() documentation
-Date: Fri, 17 Jul 2026 10:19:24 +0200
-Message-ID: <52873a20d9ea4b9d8e4f5be815c07d7ff8dea629.1784276382.git.hverkuil+cisco@kernel.org>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Ben Hoff <hoff.benjamin.k@gmail.com>
+Subject: [PATCH 02/19] media: pci: hws: drop call to vb2_queue_release
+Date: Fri, 17 Jul 2026 10:19:25 +0200
+Message-ID: <9e22e2878ac7e7063474cb7e0b9bb8399f33649a.1784276382.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1784276382.git.hverkuil+cisco@kernel.org>
 References: <cover.1784276382.git.hverkuil+cisco@kernel.org>
@@ -43,28 +44,30 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Drivers should normally never call vb2_queue_release() directly.
-Document this.
+The call to vb2_video_unregister_device() takes care of that,
+no need to call vb2_queue_release directly.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Ben Hoff <hoff.benjamin.k@gmail.com>
 ---
- include/media/videobuf2-v4l2.h | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/media/pci/hws/hws_video.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-diff --git a/include/media/videobuf2-v4l2.h b/include/media/videobuf2-v4l2.h
-index d51e10c10fc0..bbdb171df969 100644
---- a/include/media/videobuf2-v4l2.h
-+++ b/include/media/videobuf2-v4l2.h
-@@ -265,6 +265,10 @@ int __must_check vb2_queue_init_name(struct vb2_queue *q, const char *name);
-  * This function stops streaming and performs necessary clean ups, including
-  * freeing video buffer memory. The driver is responsible for freeing
-  * the vb2_queue structure itself.
-+ *
-+ * There is normally no reason for drivers to call this function directly,
-+ * instead call (_)vb2_fop_release(), vb2_video_unregister_device() or
-+ * v4l2_m2m_ctx_release().
-  */
- void vb2_queue_release(struct vb2_queue *q);
+diff --git a/drivers/media/pci/hws/hws_video.c b/drivers/media/pci/hws/hws_video.c
+index 18e4bc6901d3..27f12bbec00a 100644
+--- a/drivers/media/pci/hws/hws_video.c
++++ b/drivers/media/pci/hws/hws_video.c
+@@ -384,11 +384,6 @@ static void hws_video_drain_queue_locked(struct hws_video *vid)
+ 
+ static void hws_video_release_registration(struct hws_video *vid)
+ {
+-	if (vid->buffer_queue.ops) {
+-		vb2_queue_release(&vid->buffer_queue);
+-		vid->buffer_queue.ops = NULL;
+-	}
+-
+ 	if (!vid->video_device)
+ 		return;
  
 -- 
 2.53.0
