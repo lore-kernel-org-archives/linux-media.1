@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D943264D1;
-	Fri, 17 Jul 2026 05:29:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F3124DD17;
+	Fri, 17 Jul 2026 05:31:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784266174; cv=none; b=uCIOWmiv30Y6tOlcjgVP2UibHiuhgruzSKqERDfnguxVow9Bkbb+e7ndiDl1R4WxW2u6UAnQub+3u9Cjch0NJEJDksIJCIPC26+cs3wMqXmnqu49CTWSZFx+cPusxxrH2wTbj69pky5yepaztGMxsTFMrzTHCt1iXKXpi6J6H5w=
+	t=1784266288; cv=none; b=jISguttNo9se8xo3qUKNmFeAnEMswhjLSND2XmsdsBi1NPrwN+2CDpoyEJ0aN26QQdbd5OQbiv80tBhwtufgVHfO49owpxzcYJcDnJtwVcX7wE2/YiDQHAOoYFsS1ffEk0+ENIlbslZlsaXybxDcrGCeg4IcwOmLEhYfHMncxZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784266174; c=relaxed/simple;
-	bh=avMCZV4Ra+Fo2JV4wScbZKbb3IsntCrwy/ytBNBHNGk=;
+	s=arc-20240116; t=1784266288; c=relaxed/simple;
+	bh=3T5pgjHoZUS6SyAuRVMuwRC/7zs1hZ1BZyd7zTrZ2M0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uw8SyR0f1twtRikK/hWrdQ5FFt2XXsg+YPnxN9uNkGcF2Xoz2IrIbGdnxbocgKm4jwn7/kpI2hNLX/P1ZKa5k7x3Wn3UW9SZ3TOcJ+8O/iPIvL0vH4aeJ+9KU395BuPgzkAwd66E8DZ4UPvNMdDQxKxE7PofVX/iox6U27GMR+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=itDqfH/l; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=t4N+4EsZ2Ydsu5CXXN9vjAzXvGJ3/0BvJT0Bm+8thQeLCdCBJK0/Sumz+2cDuWy8k+5xqeZPUPG7e18ZDqFspOgRmZGg2nmdsUdesZ63i1qmtxAdHZ5Q7uIQdaQ5L2sMTbaz/2Tm2HGsQ9xCrdT0wwNGwWCz+QWDurdwW1KlpI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nZ7AzxKS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="itDqfH/l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C521F000E9;
-	Fri, 17 Jul 2026 05:29:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nZ7AzxKS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D21001F000E9;
+	Fri, 17 Jul 2026 05:31:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784266173;
-	bh=+uYDOHm1X9jhXzTi8AHfVmPLyE+IUY6UUahEDxuLJw0=;
+	s=k20260515; t=1784266287;
+	bh=oql6awHgm7RCuMBhQo1fhAYs7jKBo0GfSnCyNZuwnis=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=itDqfH/lLaNqT4PbjqlvIPROQmS8rk9oYSBR2FKJjtvSYGW5P6AA7JaltrZ+dPrrU
-	 VLSJGqTw8rIyGxjiuU97UKjN1mF8Ay4mEW0QPEo1fUZnaB2g+A6NuYW9SO2gQAujz8
-	 HNr0FchqY6azEdO5dY3YQJbg7Dk64sj4mx2mlwHWgnBH4VMO7WLMMCLFHDUUcXjrnP
-	 jCgVf0k0hhPFQzvU3Q/LAlu+dIWMHz9YyYsDQsf/+nHTJBk9KHeqj9tAhbeHC9H9uq
-	 JPwwrR65gxsQQKF60qMNhsBZiKltfQdfaXoi8cQI2zfHR65WhswVDt9lUAqA5C/Dtj
-	 y1UlwvVrYkv3A==
-Message-ID: <058e077d-acdb-4b86-8499-82b824759f08@kernel.org>
-Date: Fri, 17 Jul 2026 08:29:29 +0300
+	b=nZ7AzxKSrIMAt4RciSjpDwGyKD84mmUOJqX7nnYe+V+NHBFB9aqK63SpT32CPHv0v
+	 GYZ3rZByqoNNdJuMnWvCMGdbYN5ypQLI/jWaZUbI2JMTc/6ZbO+ILukELprxIZ/tLK
+	 3WBsBQnmCIxmafslb1E5fahmj9dTeja90smSoYB09F5vDUITVFosBg61iF+e55eGuQ
+	 HiiHfae/jfC+ZnQjPZdBrFQot8GRe7jlfESKEK55MVjk2+JW9ppdfEN714pHBi6DIi
+	 iV6xxZxUw50LDdHEgXnL6MlpOXQ5MMCqlSI1ruKVzVvyP8iiX6RFLR64PWeaUpwlQ+
+	 /6Hl4NSEAZA2g==
+Message-ID: <9a8a5393-8c91-4283-8d0d-aa861aafe2ee@kernel.org>
+Date: Fri, 17 Jul 2026 08:31:24 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,74 +35,32 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/10] media: microchip-isc: fix WB offset and gain
- register field masking
+Subject: Re: [PATCH v2 07/10] media: microchip-isc: fix ISC_PFG_CFG0_BPS macro
+ name typo
 To: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Hans Verkuil <hverkuil@kernel.org>,
  Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+ linux-kernel@vger.kernel.org
 References: <20260629-balki-isc-prefix-fixes-v1-v2-0-3b120cc3742f@microchip.com>
- <20260629-balki-isc-prefix-fixes-v1-v2-10-3b120cc3742f@microchip.com>
+ <20260629-balki-isc-prefix-fixes-v1-v2-7-3b120cc3742f@microchip.com>
 From: Eugen Hristev <ehristev@kernel.org>
 Content-Language: en-US
-In-Reply-To: <20260629-balki-isc-prefix-fixes-v1-v2-10-3b120cc3742f@microchip.com>
+In-Reply-To: <20260629-balki-isc-prefix-fixes-v1-v2-7-3b120cc3742f@microchip.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 6/29/26 14:09, Balakrishnan Sambath wrote:
-> ISC_WB_O_* and ISC_WB_G_* pack two 13-bit fields per register. Sign
-> extension from negative offsets corrupts the upper field. Mask both
-> fields to 13 bits before packing.
+> The BPS field macros for ISC_PFE_CFG0 were spelled ISC_PFG_CFG0_BPS_*
+> (NINE, TEN, ELEVEN, TWELVE). The register is PFE, not PFG. Rename them
+> to ISC_PFE_CFG0_BPS_* to match the register and the EIGHT and MASK
+> macros. No functional change.
 > 
-> Fixes: 91b4e487b0c6 ("media: microchip: add ISC driver as Microchip ISC")
-> Cc: stable@vger.kernel.org
 > Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 > ---
->  .../media/platform/microchip/microchip-isc-base.c  | 22 ++++++++++++++--------
->  1 file changed, 14 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-> index 1a9b97edfa32..79a58efb6333 100644
-> --- a/drivers/media/platform/microchip/microchip-isc-base.c
-> +++ b/drivers/media/platform/microchip/microchip-isc-base.c
-> @@ -62,18 +62,24 @@ static inline void isc_update_awb_ctrls(struct isc_device *isc)
->  
->  	/* In here we set our actual hw pipeline config */
->  
-> +	/*
-> +	 * Offsets are 13-bit signed fields [12:0] and [28:16]. Cast to
-> +	 * u32 and mask to 13 bits so sign extension of a negative value
-> +	 * cannot corrupt the adjacent field.
-> +	 */
->  	regmap_write(isc->regmap, ISC_WB_O_RGR,
-> -		     ((ctrls->offset[ISC_HIS_CFG_MODE_R])) |
-> -		     ((ctrls->offset[ISC_HIS_CFG_MODE_GR]) << 16));
-> +		     ((u32)ctrls->offset[ISC_HIS_CFG_MODE_R] & GENMASK(12, 0)) |
-> +		     (((u32)ctrls->offset[ISC_HIS_CFG_MODE_GR] & GENMASK(12, 0)) << 16));
->  	regmap_write(isc->regmap, ISC_WB_O_BGB,
-> -		     ((ctrls->offset[ISC_HIS_CFG_MODE_B])) |
-> -		     ((ctrls->offset[ISC_HIS_CFG_MODE_GB]) << 16));
-> +		     ((u32)ctrls->offset[ISC_HIS_CFG_MODE_B] & GENMASK(12, 0)) |
-> +		     (((u32)ctrls->offset[ISC_HIS_CFG_MODE_GB] & GENMASK(12, 0)) << 16));
-> +	/* Gains are 13-bit unsigned fields [12:0] and [28:16] */
->  	regmap_write(isc->regmap, ISC_WB_G_RGR,
-> -		     ctrls->gain[ISC_HIS_CFG_MODE_R] |
-> -		     (ctrls->gain[ISC_HIS_CFG_MODE_GR] << 16));
-> +		     (ctrls->gain[ISC_HIS_CFG_MODE_R] & GENMASK(12, 0)) |
-> +		     ((ctrls->gain[ISC_HIS_CFG_MODE_GR] & GENMASK(12, 0)) << 16));
->  	regmap_write(isc->regmap, ISC_WB_G_BGB,
-> -		     ctrls->gain[ISC_HIS_CFG_MODE_B] |
-> -		     (ctrls->gain[ISC_HIS_CFG_MODE_GB] << 16));
-> +		     (ctrls->gain[ISC_HIS_CFG_MODE_B] & GENMASK(12, 0)) |
-> +		     ((ctrls->gain[ISC_HIS_CFG_MODE_GB] & GENMASK(12, 0)) << 16));
->  }
->  
+>  drivers/media/platform/microchip/microchip-isc-regs.h  |  8 ++++----
+>  .../media/platform/microchip/microchip-sama5d2-isc.c   | 18 +++++++++---------
+>  .../media/platform/microchip/microchip-sama7g5-isc.c   | 18 +++++++++---------
+>  3 files changed, 22 insertions(+), 22 deletions(-)
 
-Do you think you can rewrite these using FIELD_PREP ? It's getting a
-little complicated to understand what is being written here.
-
-
->  static inline void isc_reset_awb_ctrls(struct isc_device *isc)
-> 
-
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
