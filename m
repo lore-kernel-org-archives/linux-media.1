@@ -1,35 +1,35 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E845388E6B;
-	Fri, 17 Jul 2026 11:05:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 778723F485D;
+	Fri, 17 Jul 2026 11:05:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784286318; cv=none; b=iSJdE8F2Hbzi/7zI8iQNcWHXfgz4QznrtouebLP54suX2sO6vqrS/o5iMOC3mwbHUoNortOEN0IOPRf0GqnXuR00Z1b5yRB8pfBH4KkJonYRrtndvx5VNQmZhdoLGn08IvpbckVbg/SgoP+aV6G7ty/fxRUT1VF5iP+90eT9dHs=
+	t=1784286324; cv=none; b=RBRJLxd8Fov6I3spRg1SdDL06YQlcgf3dzaZFt0fTKcDECt7KVbV2qH1pFvqvAU1dhp02zxl4cJ/1RYLqj9A5d837Ei0JbjYTh9PwZXejHlLl78B7/+G5KHzFouRl1wEOi3MKUpTzv2WkBOcBWnecBeBRMNbvQiSX7mWa4nbg3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784286318; c=relaxed/simple;
-	bh=9oyv0oRvyx/vg5QftcwUjEylNuPNzPNtB39M17ApURQ=;
+	s=arc-20240116; t=1784286324; c=relaxed/simple;
+	bh=iMWS1uRm6ThowvAMGP3VxcUHNYt0kc5cCSs3koYZCbM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NOTlsv1WYda95aZeqFq7gjBTOwG5rAwZWYLr2PsjEVRZzuGQBY7uuX3ewZifvHxxxTXtpAnk9d3MAjT3qOFJcRznaeYZb1c5rq/Cs65By17ZaIUDm6jupDXSyG2iSFEnXeB9g+noDyfFQEQh11goQ1frTuY/P0WmpOfZd1xPsd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=G9dMUpXo; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=A/mxmURTSZk4Bn0avyuk545HZn3JxL2DZE3pMxcZMzCE4SQLdc461yC/fcfoIQKIbTQbL3Cm8YT2THW2++JeAbBkajML+Hv6ss5Ol3/FobHJfoZsbzALYQUB7TlnbpOA9R6nlOdfl2AkbAjSCUCo2kp6C7traoh0P1nzkSlXORA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=v0cahx6Y; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="G9dMUpXo"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="v0cahx6Y"
 Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:66a6:48e1:9e1:50d5:c75c])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 154E2130E;
-	Fri, 17 Jul 2026 13:04:14 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6AF401337;
+	Fri, 17 Jul 2026 13:04:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784286255;
-	bh=9oyv0oRvyx/vg5QftcwUjEylNuPNzPNtB39M17ApURQ=;
+	s=mail; t=1784286259;
+	bh=iMWS1uRm6ThowvAMGP3VxcUHNYt0kc5cCSs3koYZCbM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=G9dMUpXoVwsoxNPV6gcL4nFOKyqNOYuggj/UWAxwMiFMwBqeuXDwkpNa/OfIKg90e
-	 QoiE7VaKqlNNeg7r8Sps4iY9Qfld+gJ/NV4MGJy+R0K+aJlphvdBP9WZ3dKAWJCxOC
-	 ZvXoJoOqXyF5ywfMijmqx51WZH4Gm61inxZYr+Fo=
+	b=v0cahx6YRZPUwZE2vJ3nBR666MzXRHUzLUQOhDIa2k5VyRDa/Tq8sbLutb/nVQyH9
+	 uI09gUpamfq4Xt7HOeNlMZuS9sz40NKxWNLeVNjI6m2eIVfeO3x1oNwhysn8i97soy
+	 mbvjFIqMj1ch7Y18vzYaL2DvJdXaxI+qCWt18rGc=
 From: Jai Luthra <jai.luthra@ideasonboard.com>
-Date: Fri, 17 Jul 2026 16:34:16 +0530
-Subject: [PATCH v3 1/9] platform/raspberrypi: vchiq-mmal: Include missing
- headers
+Date: Fri, 17 Jul 2026 16:34:17 +0530
+Subject: [PATCH v3 2/9] platform/raspberrypi: vchiq-mmal: Move headers to
+ include/linux
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260717-b4-vchiq-isp-v3-1-fb8235e15c68@ideasonboard.com>
+Message-Id: <20260717-b4-vchiq-isp-v3-2-fb8235e15c68@ideasonboard.com>
 References: <20260717-b4-vchiq-isp-v3-0-fb8235e15c68@ideasonboard.com>
 In-Reply-To: <20260717-b4-vchiq-isp-v3-0-fb8235e15c68@ideasonboard.com>
 To: Florian Fainelli <florian.fainelli@broadcom.com>, 
@@ -55,48 +55,121 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Jai Luthra <jai.luthra@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=919;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4837;
  i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
- bh=9oyv0oRvyx/vg5QftcwUjEylNuPNzPNtB39M17ApURQ=;
- b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqWgxUNPc5yu8OKu87MGd8gVWvppRHROVq8oteq
- CNpangNu4GJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCaloMVAAKCRBD3pH5JJpx
- RSZJD/4xAqR6Sxd2yIhoOWkOYovEUeMvxchlgWOTFhSprtFVp6Te23OjZ2JysCUYzX8gkNIuydi
- t26jBFWQnVgJ3E4HKJlyRMV1mKGIhqKp9lRHMCPauaqBZy9tPEyN14bjFuZkRZZ41xgTEHSVVD2
- VNoSNgu+9tIVkOkPPA4wo8gL6VhiqEE238C4N0S1Oqe/owyzxMGZZRqrep7hs2FT564s+tC2Y2T
- c0trIkAqc634Wy1j91btxjoQNM4ak3ANA4Yreg8NPKffRAPp3GCAv1YxaFcq57usURLzNi5S+KE
- j8Va4ZXJ+Q6BEkxdkcEf+Pjv08l8zmS9ig8hBkZrVJLb/pbvcce7UwBT3C1nbElGlA+iKWX3z2l
- n5dS6fTUhJBXtaewgKiIEa16IKHERGFktvZoNTpXc02onmRKYJs6vfdNm43PyLV9jGmCJXoGrds
- PypXZWSm6zKtu2FLxwwO76ckJsSyVg9Yfnf7LOa6UQxYxlGLTdBT3gEATOnXUrEfIjB4+vRAtgE
- 1bYK6X9v2DbrfP+eSv59YyFDaHbHoyAGXiaiOsYHL4Ukli9M6O3axfd4xTX0j8/ol8/sG4uwlHw
- F29msF8urlqj1v508vmmNXi1rkbQmXOawnGc06fTua4ujvryUjDG2E7JY6ml3ryIb1x2sxAxNqH
- 695mhr18rdXthgQ==
+ bh=iMWS1uRm6ThowvAMGP3VxcUHNYt0kc5cCSs3koYZCbM=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqWgxVTvUV63MBjTMFLwzj8l19deZ83O652pWU8
+ GSI1kU3TsCJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCaloMVQAKCRBD3pH5JJpx
+ Ra5lEADGG9Nm/iCGWxKLBheKTsMjNIClOVrSiUKb/q6FgMkGgPykqU1zMKzmnLQOq8UzF4irIEG
+ iHV6xwZeYMn/mgKqVdWPQ+qeSuGkmrGzKzK0OvCNdNEfXB+88rKiKAIjGLX41RcZHDkbfjkMW6Q
+ 5GIM4grVBu+Za/JrWhd6JKMsMFpGQpIyKFpSgH3RZKMt7TNPcXWlD4OMiKs+SZF3N7R3wcMIDsj
+ 94FNloE+H9UGwhJTKZvAd7XTLHxJvrEWLuGH6KPcJBGD8LqyVit8FpHR79gCCchJzh0c2Di7s/G
+ yIqBkeO46H7hSFjKm0upwCNpk6tQOEvbo1Ro9lLXD8la0EOETO10UGX7QW8WHg46WP+DfNhSzwl
+ muSMRfCj0j+X7HYedWhIpIUOpFHcUUBCqDDvnpvC1fwX5r/bU3J1lOQ+WLopKefKN1UXV22Ct4a
+ urQcKKVRjp+Ql9Pcv7XW/Yn6N3zUICNzZd1nCFAxea3NapHHiibuAK3CzYPy2vHLbZ9wVmg00ay
+ 7iUpRC6SUTS7mQ44bw4/wq9tALLYQgqSnNwMzHCrM+FwBPXKCv2WKpA6Apl6pBEhQs8hJv22wQn
+ q8YDIEeLWuP07RJquAnG7YksHU1gRlD/eTiL2nxc+EHYaWQaVG0D1kOCtcWYSwYTc3b/Osdd1sa
+ TyIiZxIO1faLqIQ==
 X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
  fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-The structures defined in mmal-common.h use types related to lists and
-videobuf2 framework, but are missing the explicit includes for them.
-Include those.
+Now that VCHIQ interface is destaged, different drivers (like ISP or
+codec) no longer live under the same tree as VCHIQ-MMAL, but in their
+relevant trees like media or audio.
 
+Enable access to the MMAL headers for such drivers by moving them under
+include/linux/raspberrypi with other VCHIQ headers.
+
+Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
- drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h | 4 ++++
- 1 file changed, 4 insertions(+)
+Changes in v3:
+- Split missing includes patch
+- Update commit message
+---
+ MAINTAINERS                                                      | 1 +
+ drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c             | 9 ++++-----
+ .../vchiq-mmal => include/linux/raspberrypi}/mmal-common.h       | 0
+ .../vchiq-mmal => include/linux/raspberrypi}/mmal-encodings.h    | 0
+ .../vchiq-mmal => include/linux/raspberrypi}/mmal-msg-common.h   | 0
+ .../vchiq-mmal => include/linux/raspberrypi}/mmal-msg-format.h   | 0
+ .../vchiq-mmal => include/linux/raspberrypi}/mmal-msg-port.h     | 0
+ .../vchiq-mmal => include/linux/raspberrypi}/mmal-msg.h          | 0
+ .../vchiq-mmal => include/linux/raspberrypi}/mmal-parameters.h   | 0
+ .../vchiq-mmal => include/linux/raspberrypi}/mmal-vchiq.h        | 0
+ 10 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h b/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h
-index 6c5092a68b99..c9976bdd7490 100644
---- a/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h
-+++ b/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h
-@@ -16,6 +16,10 @@
- #ifndef MMAL_COMMON_H
- #define MMAL_COMMON_H
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f81226569eb2..d570a293b1d1 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -5114,6 +5114,7 @@ F:	Documentation/devicetree/bindings/pci/brcm,stb-pcie.yaml
+ F:	drivers/pci/controller/pcie-brcmstb.c
+ F:	drivers/platform/raspberrypi/vchiq-*
+ F:	drivers/staging/vc04_services
++F:	include/linux/raspberrypi/mmal*
+ F:	include/linux/raspberrypi/vchiq*
+ N:	bcm2711
+ N:	bcm2712
+diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c b/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c
+index ccd8910c315f..80406e1f4bdc 100644
+--- a/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c
++++ b/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c
+@@ -22,17 +22,16 @@
+ #include <linux/mm.h>
+ #include <linux/slab.h>
+ #include <linux/completion.h>
++#include <linux/raspberrypi/mmal-common.h>
++#include <linux/raspberrypi/mmal-parameters.h>
++#include <linux/raspberrypi/mmal-vchiq.h>
++#include <linux/raspberrypi/mmal-msg.h>
+ #include <linux/raspberrypi/vchiq.h>
+ #include <linux/raspberrypi/vchiq_arm.h>
+ #include <linux/raspberrypi/vc_sm_knl.h>
+ #include <linux/vmalloc.h>
+ #include <media/videobuf2-vmalloc.h>
  
-+#include <linux/list.h>
-+#include <linux/types.h>
-+#include <media/videobuf2-v4l2.h>
-+
- #define MMAL_FOURCC(a, b, c, d) ((a) | (b << 8) | (c << 16) | (d << 24))
- #define MMAL_MAGIC MMAL_FOURCC('m', 'm', 'a', 'l')
- 
+-#include "mmal-common.h"
+-#include "mmal-parameters.h"
+-#include "mmal-vchiq.h"
+-#include "mmal-msg.h"
+-
+ /*
+  * maximum number of components supported.
+  * This matches the maximum permitted by default on the VPU
+diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h b/include/linux/raspberrypi/mmal-common.h
+similarity index 100%
+rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h
+rename to include/linux/raspberrypi/mmal-common.h
+diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-encodings.h b/include/linux/raspberrypi/mmal-encodings.h
+similarity index 100%
+rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-encodings.h
+rename to include/linux/raspberrypi/mmal-encodings.h
+diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-common.h b/include/linux/raspberrypi/mmal-msg-common.h
+similarity index 100%
+rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-common.h
+rename to include/linux/raspberrypi/mmal-msg-common.h
+diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-format.h b/include/linux/raspberrypi/mmal-msg-format.h
+similarity index 100%
+rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-format.h
+rename to include/linux/raspberrypi/mmal-msg-format.h
+diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-port.h b/include/linux/raspberrypi/mmal-msg-port.h
+similarity index 100%
+rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-port.h
+rename to include/linux/raspberrypi/mmal-msg-port.h
+diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-msg.h b/include/linux/raspberrypi/mmal-msg.h
+similarity index 100%
+rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-msg.h
+rename to include/linux/raspberrypi/mmal-msg.h
+diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-parameters.h b/include/linux/raspberrypi/mmal-parameters.h
+similarity index 100%
+rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-parameters.h
+rename to include/linux/raspberrypi/mmal-parameters.h
+diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.h b/include/linux/raspberrypi/mmal-vchiq.h
+similarity index 100%
+rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.h
+rename to include/linux/raspberrypi/mmal-vchiq.h
 
 -- 
 2.54.0
