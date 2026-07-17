@@ -1,63 +1,63 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CDCD3FD147
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 13:20:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B123FDBE5
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 13:20:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784294445; cv=none; b=Ncv4MStx4Kl8EcY2GtJCkQg6EB1od9MWortBaHUBnttcZmJqjKu2DIIYTzsOqRjkPJU81YpjtaBDNGqDpfUmlmi8rLdGTjsP8KpcagDwh2Wg9T7WQ7Nrt6miNC5EMhRLwwpVZiYPUMRiDoGVODj70Ld/K2b9mmGnno18/hkBvbg=
+	t=1784294446; cv=none; b=tizIV0YmyU0yBU5UJF68Aq7xgwVMUtaWA3EFIS2MiAK+VJOYqvlr/fYMqi63CVxr2LfGgK3G1yjDNVApcEoL0ZsCvss/TdIkuSe0mixCj0ErvFCKJPcNGc4mts5EIug0tVPbYSFtkE1yZvQSyGaqqlN1c4w7yD58eCAOtLHHtBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784294445; c=relaxed/simple;
-	bh=NUTLoZyN/tdYsma4CGebWjgdJR2UIHqZeKYPgdnv51s=;
+	s=arc-20240116; t=1784294446; c=relaxed/simple;
+	bh=7Mf6k0qVkozT4YeFG9EjJGBACApFcUwcZixfGal0Bpc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UVHwnsZlh24zs553/s94lhhimKT5S/0mAHs5Rk57wTnYOBL2gck/ix0ViZ9qcjPjM6XXNO4irFN2GauKXTMLQ6MW+p+AINmq9hdT4eTLkKQi2sLmyqIF4NfDiXf0pbM7SUCBih7j1GFu2hA0M0iC12p9JHUrF+HUlxY+ZicMmYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=siW3NmVR; arc=none smtp.client-ip=209.85.221.53
+	 MIME-Version; b=YEL/CWnfNy16IIJd0T2YG5xz2gshF2EXLlvedx4DYkuVsqhG+S9JJqSWIRQLhktxCKPR7ds+aoTODcsULVbGqzKh1UuX1irAf67pkB3/HV5wqKcpiqWYfRGD0B7HTIll6wJI+OUhzHwcg4OMRGeXYM09QXv0pNpaajMiQp/yT/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BO+4oX2e; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="siW3NmVR"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so3964679f8f.1
-        for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 06:20:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BO+4oX2e"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49548e01d02so3807945e9.0
+        for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 06:20:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784294442; x=1784899242; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784294443; x=1784899243; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XmEh0b1AWjNzwz4y/z64I5zQpyXXlsU7mTp/CY11+hQ=;
-        b=siW3NmVRq2ABnh6AoMUJprMEfp9zTW9i2shakkWQ6eEcDm9bHzevfFpsfrAyPO0RPl
-         Lbgbh2FzDbFKQOnzUPy2L0B4H6o0sf54O6MHmyRueDNd919pYIBEhlFno58VQau11Y8X
-         lY++Hrge7+p3QC8Ydfcmgc1w7W0rcmrnuf/hSNitZwIAtPTbVujiTKR1bf7caKUGCJyR
-         Ph+fOUXk10AcjSAdGlo7CdlZfqiliYJSt2/pixBn6x3v1epelX+iXUkSpRKosFmvkehX
-         ESkw+OyoCpyTaVRmiB60p1jkBrS/wYIG91WH7APdMAF3pL8n0K33jaL6PqVkzApYdDvl
-         l+Xg==
+        bh=SM52+0dlyaiG6ccFqkc22ArwQiXLj4h7/RuQ4lLTioI=;
+        b=BO+4oX2e/KCOrJPjgUqUI31hZEPJBuvJgaXw1c7pdrhJGSQNAu6FG9F96mznVCZZkr
+         0JfK3ptJOUvn/ekJFUv8/N/yCstcvLrrmSbiPQcF6oeQWk3aWBTNTUa6Bgt36Mz+QVjp
+         1NeHRi8qEJe2IMTafE64IOu7nldSEz4qGQPiXBGadcL2LEPBxZiuG+n0NBLYCsOQaUR8
+         uDPjRSezz0EnzfEWHD16U2LqsxEVYO59pSdMIpVx7zGKn2GskDq+2qc0tWoC3Mn+Lqqq
+         gZgvSjpvnIeImPo7W1CkdcFGhEsNpbP8cI90Zp/eo54ifFtIHW1Jloy9xjOwswJ4EUVk
+         Abxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784294442; x=1784899242;
+        d=1e100.net; s=20251104; t=1784294443; x=1784899243;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XmEh0b1AWjNzwz4y/z64I5zQpyXXlsU7mTp/CY11+hQ=;
-        b=QFENvg/DLH/c+s/8+xuB0NMfl3qw1lhM3r7LKpRuKxpWvNE2fM4Mj5/qKgpq666lHO
-         uDAJpA5XOr0Q9D+zaM3INsbGYw+mv/vQa5bYtT2a4lCAiV3Wmga1gfIqEPw/N09qJ0iM
-         ESNh+yncEeTI7nZrfa2zdSdEa9aGKeEQgsUpT03gi4PFDZvOduGgHVbTGjN6bwvLzD33
-         vYWYlUQF1Z2dQzyc6Zj0m6j6oKEDUAJR4kRYdwGm/GnBzLpX/ViJrj92Hecy3Rhozd4c
-         o2+cy/VNOH1TWVa9UBi3x9CqVuy0r0EPJUctVkzCAPL/wHLkmZM63rQ2Y3VNQGu+RglE
-         kX+g==
-X-Forwarded-Encrypted: i=1; AHgh+Rq4eeKDmSnafUa2gB4pLCa3BxoavdVxfvkjvZ4NHl20J9bA3NsrnfjUxNxrpw6IJHpJxMqCF1VJGeOjYA==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw+oLrGRvWMrQhwey9LyYWywmCTa3tZbnfb5F4uRiLgBvW4RMJ+
-	YU9SLyhcg51A81t3fomU/7ZQ5coCVdxKPaLJdqcx8IGGsyyHQCvMxhkh
-X-Gm-Gg: AfdE7clDBrHoRtHu6IRYdAy9/ILMwMnBCXT1XPDNEwpAyGTbScdDvUHvdeUJbHXlMyK
-	1+gr+2kv1CP32WiGcEgTM3WpHWDr+0WQVwIMGXG4cKC+oTVQaCKD3/c9P4BPhgfaRbcErfbdyW7
-	81VizOQvQWeqX6ErPan34oOIh5I+0BwNKxRJ9ZrbIIlAznSt1UUZwwLEYcZuUSn47/rJ+QYnCqI
-	wfoJdER9Hd4lQmcbvvcUwDJ+Rnxv4zk9m+2fsfwVKumsxWwrvgXC+az+80ekCzjHBy87Wl9eENK
-	5s71ovU2kGyZK+AxQ1zxSedLa+db9yRmYWlpIme9gWKwARt71fguSc7pYwdwFmz0u5fwOVeeYKA
-	0FhLgvyIbL/nR1E2H6yqWzsWWA2y5gccveS7d5Z/nEg0OuTpcwooB0D0bPzdPs+1n4a+o/fWB9z
-	qk5Li2spNRE/m/XsTlcs+QV8D3ObKMHLY+CXgY/g==
-X-Received: by 2002:a05:600c:ad7:b0:495:3c6d:f294 with SMTP id 5b1f17b1804b1-4954a402da3mr22916375e9.23.1784294441484;
-        Fri, 17 Jul 2026 06:20:41 -0700 (PDT)
+        bh=SM52+0dlyaiG6ccFqkc22ArwQiXLj4h7/RuQ4lLTioI=;
+        b=RqtHfuaWuiPDQK3om9nC6sUwquEjenfcsQsbWnmCpVMSjm6sjf5HvWPr7tRfqLOAmW
+         8kRXDjdMJvPaKsltiY3qhdw5RD+vH7/ZShrmNjk45NQ/YWqUdQsHxkSGyxPLFslePBQl
+         xlBhjly9YjTzYN5LvX4yig2UiASkexNGUCovpZZ23WB6etSZQ9eB5Yir8fp9ThcHwQTx
+         C0bZOi7Jj781u2aD4jy6dO+F0aqKCaUg9wOH8Gs49a6WKckdb8ZiqrkdbaVAgrqbqfjA
+         YqQLgSG8sE81Quat7eS9HN5ZKwaxGE3ku66gc49JBRuPpgmp7uf+h0hS1A4bRk8W2g0f
+         +CWQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpPOuXKMsrqO47N5VlXhAOl8n1gfh+U8P10iXoqQ9rYSj3NHKdSjUn6jw9zK45yELR56XlgQfZXWCOeWA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YymxrZGiQg/lxBjcDv+ncRSaDQiN+GQTAheZOJm0RPSfKrkQArh
+	dluJwqo1t72n5IcIt0wVXB7ZEADdEtLrLIzdhjBl4FpNQBHa8dTVZYP3
+X-Gm-Gg: AfdE7cnw4fYBKSiKUSkgdK7MrO5usGLOzg+rnp+d13J+wAFGFFkaJkRgjC26ETZxPaA
+	MJBRilLPdbFvpfo8pFUqs7miNT9RTIrKPKAKJi0+BNAv13YtYlidl89XUm2w2NpWM8UsLkW5I/t
+	k5eI2FDr2XlDj3EnKO9YDegZocQsrO4WZiGeRfVJuyeOX3gLJmxJC0vLqrPCmUiaBVXSsfXdSpo
+	gNC1i+maldA1CRYF4QcevPwzMroIX2I3/8kzzuWrfXa7DmYERGOKVq2lLwEX9PDXELX7H/Al9Yc
+	Gl+8E7G461eJjegtcEIvDFYQZVUF8rqJK2PncsqDbdgb3sVwVL9e3hsSzFem7d7ER1hl81eobSZ
+	uHpTpkA25mKks1rW4aamEoghlJ4OeW91QQjJd98KW61KpIPdDa+ELGsRQS6aYUmpLIMknmRPPDe
+	2jLx6f3mCmnACwRWl9CxdvWasZ4uc=
+X-Received: by 2002:a05:600c:4512:b0:493:bc4a:fb56 with SMTP id 5b1f17b1804b1-4954a50e92bmr30412295e9.39.1784294442564;
+        Fri, 17 Jul 2026 06:20:42 -0700 (PDT)
 Received: from localhost.localdomain ([2001:b07:5d3a:fe75:f8eb:f0df:1ea8:edb8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4954a2eddb8sm98841705e9.14.2026.07.17.06.20.40
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4954a2eddb8sm98841705e9.14.2026.07.17.06.20.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 06:20:41 -0700 (PDT)
+        Fri, 17 Jul 2026 06:20:42 -0700 (PDT)
 From: Fernando Rimoli <fernandorimoli11@gmail.com>
 To: Daniel Scally <dan.scally@ideasonboard.com>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>,
@@ -66,12 +66,13 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Arsalan Naeem <naeemarsalan@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	Fernando Rimoli <fernandorimoli11@gmail.com>
-Subject: [PATCH v2 0/3] media: Enable the OV5693 front camera on IPU6 Surface devices
-Date: Fri, 17 Jul 2026 15:20:18 +0200
-Message-ID: <20260717132021.18034-1-fernandorimoli11@gmail.com>
+Subject: [PATCH v2 1/3] media: i2c: ov5693: Add OVTI5693 ACPI HID
+Date: Fri, 17 Jul 2026 15:20:19 +0200
+Message-ID: <20260717132021.18034-2-fernandorimoli11@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260708213633.18392-1-fernandorimoli11@gmail.com>
+In-Reply-To: <20260717132021.18034-1-fernandorimoli11@gmail.com>
 References: <20260708213633.18392-1-fernandorimoli11@gmail.com>
+ <20260717132021.18034-1-fernandorimoli11@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -80,58 +81,36 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Apologies for the slow turnaround on v2, I wanted to properly
-characterise the MIPI_CTRL00 register before answering, and I was
-coordinating with Arsalan Naeem, who originally found the register write
-(linux-surface PR#2171); the third patch is co-developed with him.
+The ov5693 driver only matches the "INT33BE" ACPI HID. Some Intel IPU6
+Surface devices (e.g. Microsoft Surface Pro 9) enumerate the OV5693
+front camera with the ACPI HID "OVTI5693" instead, so the i2c core never
+binds the driver.
 
-This enables the OV5693 front camera on Intel IPU6 Surface devices such as
-the Microsoft Surface Pro 9. Three independent pieces are needed on a stock
-kernel:
+Add "OVTI5693" to the ACPI match table. Devices that use "INT33BE"
+(e.g. Surface Go 4) are unaffected.
 
-  1/3  ov5693: add the "OVTI5693" ACPI HID so the i2c core binds the driver
-       (these devices enumerate the sensor as OVTI5693, not INT33BE).
-  2/3  ipu-bridge: add the same HID so the bridge builds the sensor's fwnode
-       graph.
-  3/3  ov5693: gate the MIPI clock lane, which the IPU6 CSI-2 receiver needs
-       in order to lock (this is the register write from PR#2171).
+Tested on Surface Pro 9 (IPU6): the sensor enumerates as OVTI5693:00
+(ACPI path \_SB_.PC00.I2C3.CAMF) and binds with this change.
 
-On the MIPI_CTRL00 value, in reply to Sakari's question on v1:
+Link: https://github.com/linux-surface/linux-surface/pull/2171
+Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
+Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
+---
+ drivers/media/i2c/ov5693.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-I swept the register on a Surface Pro 9 (IPU6) with read-back. The power-on
-default reads 0x00. Every value with bit 5 (clock-lane gate) set streams
-(300/300 frames, steady ~28 fps); every value with bit 5 clear, including
-0x00 and 0x04 (LP11-idle alone), fails with "stream stop time out" and no
-frames. So bit 5 is the decisive bit for IPU6, and 0x04 alone is not enough.
-Bit 5 is not an IPU6-specific hack: ov5640, ov5647 and ov5648 all gate the
-clock lane on every platform. Patch 3 sets bit 5 plus bit 2 (LP11-idle,
-i.e. 0x24, matching ov5640's value); I have only been able to test this on
-IPU6, not on IPU3 (CIO2) or Rockchip, so I have kept it to the conventional
-OV-family bits rather than the vendor's 0x2d (which also sets bit 3 and an
-undocumented bit 0).
-
-Patches 1-2 are independent of patch 3 and useful on their own for
-enumeration; patch 1 carries Dan Scally's Reviewed-by from v1.
-
-Changes since v1 [1]:
-- Split the single v1 patch into the two HID patches (1/3, 2/3), as
-  requested by Sakari.
-- Added patch 3/3, the MIPI clock-lane gate, co-developed with Arsalan
-  Naeem, with the characterisation above answering Sakari's v1 question.
-- Carried Daniel Scally's Reviewed-by on patch 1/3.
-- Used named bit macros instead of a bare register value.
-
-[1] https://lore.kernel.org/linux-media/20260708213633.18392-1-fernandorimoli11@gmail.com/
-
-Fernando Rimoli (3):
-  media: i2c: ov5693: Add OVTI5693 ACPI HID
-  media: ipu-bridge: Add OVTI5693 to the list of supported sensors
-  media: i2c: ov5693: Gate the MIPI clock lane for IPU6
-
- drivers/media/i2c/ov5693.c           | 21 +++++++++++++++++++++
- drivers/media/pci/intel/ipu-bridge.c |  2 ++
- 2 files changed, 23 insertions(+)
-
+diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
+index 4cc796bbe..02236f3db 100644
+--- a/drivers/media/i2c/ov5693.c
++++ b/drivers/media/i2c/ov5693.c
+@@ -1396,6 +1396,7 @@ static const struct dev_pm_ops ov5693_pm_ops = {
+ 
+ static const struct acpi_device_id ov5693_acpi_match[] = {
+ 	{"INT33BE"},
++	{"OVTI5693"},
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(acpi, ov5693_acpi_match);
 -- 
 2.43.0
 
