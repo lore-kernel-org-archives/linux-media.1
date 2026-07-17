@@ -1,85 +1,86 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83A021ABBD
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 03:46:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1893349CD6
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 03:48:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784260013; cv=none; b=ijwNrb16oj1LYdPFpBbrelY1ThsJKX2o4vy6DEjNz1q7O7dV9Vv3eoHLfn09T9rLxF7HxUUKcvsBCuGQxxfzbwt+xyIPCHojdysrjsPIYXwXqM1lQAENxr3fCIpWNJWCO5UHxfED9SNlSuU+PR0ekJ3kbfchc8NFcAfEZepaVLY=
+	t=1784260117; cv=none; b=DxqghsDqG+tNmFwBdFVE734CgMMc/RBKG22+UgWL3ZBykSy8Y4a+7VZ9CI61PssBotltb4GULTOFvNdZOomT0wWsoiMQ9yWLLNQX9lyUc+CFkQbI44riVoh16FoSyHHgZoq0RHRUkDuFzqha57VUZmqJ4WdXhIVy7T3vrX+4qMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784260013; c=relaxed/simple;
-	bh=xeS7TuAWqC3a2+4w8CYotSIfCCdHNfwCj0vuvc731FE=;
+	s=arc-20240116; t=1784260117; c=relaxed/simple;
+	bh=Sa3wk56MV2g/ndnDgfSJgHE84Rp9SbiopO4rIgP3Ijc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mxo7YavrgLr+YCZM0DDYqePcHeO23cgkqbWnrgnsdUiXxzYf2/efTGIYvJkGYx0T+fjj0TyPv6cs0yGGq7cxTAewBLX4ex3DGk5cD2P9+nm2oFJHP5dj8FH0wYGr8TwtzjXmpQcKVRbWA1a4/xxpKvZl2pEYvvH2N8+ad+EstWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fWgCcWR7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MtleqQCW; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:Content-Type; b=r02nmygvkfHiTN4p4OP/4j4hNCkZ5qnr//Xh7PHk7PjwXg9OR5/ywlR1eu7PiW0C053z8tGVry9DsYq1SCWawfirZ7/dOhh0DTH11zHD9EkSvlT7BlIWFsLP7evFxXHwgPPwgB1qZiFJA2auHRxPRu2ewF7LatKWdmlh9hVMwMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Jqmxyi0B; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g6eDH9QD; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fWgCcWR7";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MtleqQCW"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66H33deG580712
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 03:46:51 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Jqmxyi0B";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g6eDH9QD"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66H33jKH337982
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 03:48:35 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Z5W+HbbHXYh5BWmthVDLvjbzDM6yxh4CTBRhyy88iEI=; b=fWgCcWR7H/tADzU7
-	gv9UAGC9+6P2xGMFkXF3jEJdATfbxdt0AujnvhsWgp9hQde826cM0/hZfPITj+Ks
-	Xm+T9SFqEs53sQu5awfkanIpgpK0fumcDstcY6WFx0bu6plas+H76vGi/eia3GNn
-	/U2N+F61T2TQmUBIL6mi7bmfzYe/1VP5nLmP+eEJ6mxP6Uyc1bSFwPLp9i0ezR67
-	ucFfljNv/6i203QkNpYytbIGpI9NvvdB3z8tZiDcZtYwcKToNYslM8B7GQYjHRv6
-	cjt1eNglHLOVUFfU0vxsmoF2KgvdEc4bNxcipKEdi/F9hj1+Z+DqRvEMepEeXYnJ
-	Ksy13A==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ffbqug6rb-1
+	Sa3wk56MV2g/ndnDgfSJgHE84Rp9SbiopO4rIgP3Ijc=; b=Jqmxyi0BoBIbO7SH
+	m4Ze+Co4+zLo2mX7ah0CABGEPhAjxVMyzc71vmcub7tF7atTvUJkSB44okuHQQcP
+	awn8Iz15DQw4Sj9zMck6wwsJ/Gek6PjVqht7DBltNUJgKWUVQsgDIba344ThT8db
+	eu54JqhePGGKoamLY+e8C3vKaEfleJx2mbpS0+vxcmxDGPTqLtRxYgSOSz7C7RH7
+	30SGP307HrIG7NGIEcwgV5LKq3apqmMKpcG9lse66cO4HO++QSeAGKUrKo8qb1ms
+	arGsRtJvB1OEUvCm7Oz2SbzSxhP8uAm+myA6oV+RBwNrxoY1eA9iaR6m7gh3ojY1
+	1BWKCg==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ff1weaekc-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 03:46:50 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38e095fd889so8039931a91.2
-        for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 20:46:50 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 03:48:34 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cee894b3d8so71866025ad.2
+        for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 20:48:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784260010; x=1784864810; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1784260114; x=1784864914; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from:references
          :cc:to:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z5W+HbbHXYh5BWmthVDLvjbzDM6yxh4CTBRhyy88iEI=;
-        b=MtleqQCWU4cVKnHAGISceqS0hDuZzF6M2dEwP7RW7E1EeYTqnU7L8aKHLjaMlnAe0N
-         kA6Pjp8VVfyyHS9GMFqjEPIcXn+9W2OjRC0SxTNyA/yRKH4M1ynA02YG8jzeZBeezI5Z
-         kXzKl2jMrY8FzjbsI/YPgh19iA3Na7AnyimHnt1m6+fjZIFBpKn/JSHQyjfWaxPJDQm7
-         qOl4rkqqB+89tq/avePEIFayLA04IHw613RIY5IcyrcdpR4gNTGZuUn4tfWA7N+y07Dy
-         K9LCq1AKZ9DsmdXJun4mi3g+fEC4UUCZmEQRPi8Kqh2xvKQzzopreKNiB+2CJM8I6lqi
-         umzg==
+        bh=Sa3wk56MV2g/ndnDgfSJgHE84Rp9SbiopO4rIgP3Ijc=;
+        b=g6eDH9QDP1QGbOadxYNxryuYZKcaMd7QR3/VccOyX5cLUT8WuVNJ72vCPFz6uIwkoE
+         abOEBNZ5iHT6UtwZVqIIJ2qGiay6B+ThbBDtXadbRRxU8+AAV9cyT70JkMbPvHvcMM9/
+         ynJArGapXbLd6++wBTAhBjk6vh2CyAtAr1zGQ9vGmZQOLv/38BIy6T33JGYmpBckeySw
+         ew0TXCjgS6jsGpPk/pxInA7XdfL5bQAUrVA5yJXP4pCOYc3iQkynlVq+XTU6SO4KRCjQ
+         B3MNCqK/ztZdjKxzj+r1j/ewfYGF+VvpDZGWittBxZd13q9d8ft5AfaXKm9idlSGlQre
+         ordA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784260010; x=1784864810;
+        d=1e100.net; s=20251104; t=1784260114; x=1784864914;
         h=content-transfer-encoding:content-type:in-reply-to:from:references
          :cc:to:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Z5W+HbbHXYh5BWmthVDLvjbzDM6yxh4CTBRhyy88iEI=;
-        b=SLBkp9HtbEad2XsP39ST+3JBBJ8CAq6BLnuMzyoRN5CENOujRMPgwNvVxKsIUaQclV
-         Ul4xN3Bkq2q4lo4sQCkjxyf1VnHmGr/+y+cNFUcyiSJ1a/UUF9uBgILBHv/kFHztadGt
-         CwPM1rIGVJKQZ3JR6yURZ12ldwBrR8HkbrhyFDmMRFY2CT9USKfQPDWwo9hSJAc4zEYH
-         0SkOJy41kXltU8FudjN40CVS0NwhOZYCMatCryt4UeTFj2pq9kqwKcOdEJBguX67Ly9E
-         EebG+az6SfDW/Bjl72gW/PSTxWgD+b8HWRzNZ+J34PnmmxPSHC8SXjqX8ncpMbrhy7mb
-         Cb3A==
-X-Gm-Message-State: AOJu0YyoxukWShEE97HRWib0yNkmjZxkCHh3yF4UgnsFMik/NxNDNzub
-	zHAZpUyITgr3/pqxzJBVcF7ThU+eHjaw+bpwAqGaur3aAPjwq0Qy8RD+uV4qka4QwUSdLfYxacw
-	S2sW41qJrfXxzZCR4jpwvUO6JH8aZ9pt30GaukWx0sLdfzO9q7NBpHZ4NisivwgS2Mw==
-X-Gm-Gg: AfdE7clpv0XMCgW/M3tXuHzLN8WmCm9KFisx+dMIGYiC5mETLOgaR8KP3PTcmGKKAoG
-	/evcny45h7ukkO3YNr70YA2hy+beQ+IIQ8xB+rv4r9ZN/0m6IsYVRvnansUO8ONuKB0nvSXyVeD
-	+9IiEcIZh3oCSzEHo6qf4VGYSdmN7kYDhPuKbucnOKff0Tm4bQlhvZp16zClNaka1gM49r7GTHx
-	e/heUNwIwyvDxmSynCQz8NfCXrk8bc/RA2nmeyf4xsBf7K5HC5nf0vdoJdZjF76R1prgxoiNthc
-	HurxRaW5aOz1ZoTorGbz0YgP4TDEyaSnfVBZMYUG2fv9DyR2RNONg3hXN3s+daY8/WbhVwFV/zr
-	B99OcwimA/SsbHB526SyB3Nvy9TUZYWUC
-X-Received: by 2002:a17:90b:2b4c:b0:387:e0db:3fae with SMTP id 98e67ed59e1d1-38e4b5f285fmr791766a91.39.1784260010120;
-        Thu, 16 Jul 2026 20:46:50 -0700 (PDT)
-X-Received: by 2002:a17:90b:2b4c:b0:387:e0db:3fae with SMTP id 98e67ed59e1d1-38e4b5f285fmr791744a91.39.1784260009709;
-        Thu, 16 Jul 2026 20:46:49 -0700 (PDT)
+        bh=Sa3wk56MV2g/ndnDgfSJgHE84Rp9SbiopO4rIgP3Ijc=;
+        b=NAifAOcZXqkm4p9ZzFIXcaCcCv5PiknGX/b01o5aFd2AF28qbJrwLhhK3ZuhuYvczw
+         HR1d0VKWv3P4M+QoC4Pedqy6/hFf5yJeAGo9cebPeq7Agh24Jj8DHbK5dV9afVpJxNo8
+         I2rvNQ4Bk0i8ZVOqFy0j10TFGtgm1gVxpCr5TuxexSXOj6qByyJRpO3wMAmTEE4j/Dia
+         DEkoht5cHLG4NvR+VviVgrhyS6QC64ptL41LdVdgVyy3hVsMirEJwI4aq/f5vcR+/J68
+         QS13NgBPb02pPC9+LQpSoW9kLFWOtDwSb8XMZlgkrcE2AIFHWtKRaBDhmDvNMs7u3VQg
+         zpUQ==
+X-Forwarded-Encrypted: i=1; AHgh+RouNl9lJ2JuTYhFS2/Iq5a8MMkTGB5tEXiSaQkurJBqSDS4VHGNJIp9WhN7bBuLcifIQlKKJf2WyiVf1g==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzfeCNIlkbOcbe2jnaLDuChFBWr8Ffm5BPP/6OJxgw2kCFtGjo9
+	pUN6WduVZDgBacwLgZGq5EBZXFakIdmMmhWGnQjmzfyQuTW4WIlobsAhmi3ilp1BUpBFmfVYWxd
+	0Cxbue4uNkvfVUSDsk3eaucyKXdB9FRrixKFg7G+B/g0dQzte/yemcnBZDPkiZLRJFg==
+X-Gm-Gg: AfdE7claLGmqDEmxU+X6qouZ9ORjmbh0eivjYUmwdPWKd0Rk0BVERGpljtwhfCxsJBt
+	e2bWSrM+U0Ar/9+WW6fmbJvNSd1tSpfPAOHi6l7P+mo240nNOTY0yrCRvjiNacJkN1iw7y86+EY
+	dbUMGDBYD83pooZE6U/tnyVEPieYXWD5fx5F/UOPVqPGxa5DlMdITgZFD7SBt/EmnkItOEPTPUz
+	6FEbC5rnf995bb8vQARr6ShMVxAdzlvOG/DSdupAAy2qEI2KKXSwXedoEYos2Q+ZB5CpCj68Ftv
+	BicIFW0ZY73JDbwGfKnUW2IjzNN/q8u4n8vOjiJF3W6RpCHNBcUt2SyMoEcat88PssywYLo/HS7
+	cFoaQtr7o7X8zI6eS/K2ysx4hK3YNh8w8
+X-Received: by 2002:a17:90b:4c48:b0:387:df8f:1402 with SMTP id 98e67ed59e1d1-38e4b57e9aamr785466a91.35.1784260114122;
+        Thu, 16 Jul 2026 20:48:34 -0700 (PDT)
+X-Received: by 2002:a17:90b:4c48:b0:387:df8f:1402 with SMTP id 98e67ed59e1d1-38e4b57e9aamr785438a91.35.1784260113651;
+        Thu, 16 Jul 2026 20:48:33 -0700 (PDT)
 Received: from [10.206.105.200] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a1bbaf6sm1523528eec.17.2026.07.16.20.46.44
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31429fe4677sm1547122eec.11.2026.07.16.20.48.26
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 16 Jul 2026 20:46:49 -0700 (PDT)
-Message-ID: <2ec138d8-242d-6d0a-0b87-cd6a65c7228c@oss.qualcomm.com>
-Date: Fri, 17 Jul 2026 09:16:42 +0530
+        Thu, 16 Jul 2026 20:48:32 -0700 (PDT)
+Message-ID: <8ebd304d-b03d-a8cd-2bf5-a45763780098@oss.qualcomm.com>
+Date: Fri, 17 Jul 2026 09:18:24 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -88,205 +89,84 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH v7 04/18] media: iris: Filter UBWC raw formats based on
- hardware capabilities
+Subject: Re: [PATCH v9 01/14] dt-bindings: media: qcom,glymur-iris: Add glymur
+ video codec
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
         Abhinav Kumar <abhinav.kumar@linux.dev>,
         Bryan O'Donoghue <bod@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
         Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-References: <20260709-iris-ar50lt-v7-0-76af9dd4d1f6@oss.qualcomm.com>
- <20260709-iris-ar50lt-v7-4-76af9dd4d1f6@oss.qualcomm.com>
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        iommu@lists.linux.dev, devicetree@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260715-glymur-v9-0-8cf2cbe12a07@oss.qualcomm.com>
+ <20260715-glymur-v9-1-8cf2cbe12a07@oss.qualcomm.com>
+ <20260716-soft-dexterous-adder-badb49@quoll>
 From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <20260709-iris-ar50lt-v7-4-76af9dd4d1f6@oss.qualcomm.com>
+In-Reply-To: <20260716-soft-dexterous-adder-badb49@quoll>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: dHRQT4IECQFhFiOFb-45W_gC-UqR3o3t
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDAzMiBTYWx0ZWRfX2CvtafW+5UK0
- y49B8P+6e0APiI96d1n3bmbnVU8Z+sT7R0q7wc7DmSSN+4F2//VID9aACDTffOEOwjyfMVt2ukE
- PEP7X/QdnlpHUkIXq6JGafXLi1oSDmOFhnkBw85rcg1bl7ZB0+SZVkmNG9G4bn3uQwAJ8dwbwwt
- pFT13Ag6kv6EJj+CCHj0hOV3eQGQRq2huy5oXlxb+wt5XdhzEOUfIILfyKyyNZlS7WZVLLxj2h7
- kgS42O1NQnMCpqjImGgCQoTely7KKtoxje3ufGf4h+qpO+fQmCT5oOLRy0ObN4S4AJle6eflNUo
- PBj/ObbvLZq+yL5cP0oVfAxQus6L+RC3L3wb+26XEQ/KJYbPNdpJWiWtxjf1V7gqssRpAm4jxVy
- XlvFVo8nT+PnV4DHlhdl+cA9w0YP4JXCho0Q/WDoBpCfY5ek1jEuk18ujEAnzsyMHKxyYy2LClv
- aqaMkvyBdl3VMcHhKgg==
-X-Authority-Analysis: v=2.4 cv=NZ3WEWD4 c=1 sm=1 tr=0 ts=6a59a5aa cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDAzMiBTYWx0ZWRfX//vneZjLr5h1
+ 3GicdL6In+34rzA7soWRYC8+9zQd66+YME4cyfWAr6at3IqdLfyE6zzTH9xJ/5EZn03M7CNYCQ4
+ mv8jILJ+NSPzRSbMu+HiN6KobbOHiNzWDRNnjNNQrLyUcjKO9iS49xfElmBZxRwQhwACkv/nCc0
+ F7AERD3mPGXg+XBtLLpIJzaqEY2hWinNQ64AdFHiyMfUI8V7JFVhAh1s8bNQS3fSy3XXzajrWN9
+ 8gjgoLYtYy4hZUY1Vl0+TJUu4H4AOc3PQOaIXC9vsFVKLuor6hvcE7SvoCCGbCETOVAT8XFHzYI
+ MGbyPJ10iNh3cLZtpU2N3f2iwxiHuIyPM+TPn1+OHvZTKngNIKfK7ZJ/Pqq4ZHEx1rvvV+HvDrA
+ e26qgLiMMn64io3R0MrlCvyjjKeu4p8WJIZKtZ1j8lIy3J1LNH1f+++FqmnAKs3qDznNag3Zvj7
+ Zik22mw1aeqtIk9B76w==
+X-Authority-Analysis: v=2.4 cv=JJ8LdcKb c=1 sm=1 tr=0 ts=6a59a612 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=8n6RmP5xwyQ-3vr3y5EA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-ORIG-GUID: dHRQT4IECQFhFiOFb-45W_gC-UqR3o3t
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDAzMiBTYWx0ZWRfX5eLjKCjzj9pZ
- SkZNi+GnjqppReXf8cUAnRN7WlSXhqlNXJkXQj8otM42ukLjeSFA/hLlvVI0CPhFnLlx7zqWmpv
- megD5QOTyCn4F9ix/q4vd/O1/Gsvwh4=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=Mf6ET5Z485SzACLcFDwA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDAzMiBTYWx0ZWRfX3BabLx+NjN4h
+ nmsRNYUbI3pJDR+Ys5TmnBwQYKmoq1TCP1D028tTwAPdTVkneLBp6x6qgAHLuZAw/6v07VMfc1z
+ i3W7scqdLJYuqR3v6YRZCK+DcXWv8FM=
+X-Proofpoint-ORIG-GUID: _cLrU_6PZlMfyl8CP2Ne1UN2qJQ2hi9Z
+X-Proofpoint-GUID: _cLrU_6PZlMfyl8CP2Ne1UN2qJQ2hi9Z
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-17_01,2026-07-15_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1015 adultscore=0
- bulkscore=0 phishscore=0 suspectscore=0 priorityscore=1501 impostorscore=0
+ impostorscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015
+ priorityscore=1501 adultscore=0 suspectscore=0 phishscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170032
 
 
-On 7/9/2026 7:11 PM, Dmitry Baryshkov wrote:
-> From: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
->
-> The raw formats supported by Iris were previously advertised
-> unconditionally, assuming UBWC support on all platforms. However, some
-> platforms do not support UBWC which results in incorrect format
-> capability exposure.
->
-> Use the UBWC configuration provided by the platform to dynamically
-> filter raw formats at runtime. If UBWC is not supported, UBWC-based
-> formats are omitted from the advertised capability list, while linear
-> formats remain available.
->
-> Signed-off-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/iris_vdec.c | 26 ++++++++++++++++++++++----
->  drivers/media/platform/qcom/iris/iris_venc.c | 25 +++++++++++++++++++++----
->  2 files changed, 43 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/media/platform/qcom/iris/iris_vdec.c b/drivers/media/platform/qcom/iris/iris_vdec.c
-> index 4c8bc7aac135..9fee5f28097d 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vdec.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vdec.c
-> @@ -3,6 +3,7 @@
->   * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
->   */
->  
-> +#include <linux/soc/qcom/ubwc.h>
->  #include <media/v4l2-event.h>
->  #include <media/v4l2-mem2mem.h>
->  
-> @@ -69,8 +70,14 @@ static const u32 iris_vdec_formats_cap[] = {
->  	V4L2_PIX_FMT_QC10C,
->  };
->  
-> +static const u32 iris_vdec_formats_noubwc_cap[] = {
-> +	V4L2_PIX_FMT_NV12,
-> +	V4L2_PIX_FMT_P010,
-> +};
-> +
->  static bool check_format(struct iris_inst *inst, u32 pixfmt, u32 type)
->  {
-> +	const struct qcom_ubwc_cfg_data *ubwc = inst->core->ubwc_cfg;
->  	unsigned int size, i;
->  	const u32 *fmt;
->  
-> @@ -80,8 +87,13 @@ static bool check_format(struct iris_inst *inst, u32 pixfmt, u32 type)
->  		size = inst->core->iris_platform_data->inst_iris_fmts_size;
->  		break;
->  	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
-> -		fmt = iris_vdec_formats_cap;
-> -		size = ARRAY_SIZE(iris_vdec_formats_cap);
-> +		if (ubwc->ubwc_enc_version) {
-> +			fmt = iris_vdec_formats_cap;
-> +			size = ARRAY_SIZE(iris_vdec_formats_cap);
-> +		} else {
-> +			fmt = iris_vdec_formats_noubwc_cap;
-> +			size = ARRAY_SIZE(iris_vdec_formats_noubwc_cap);
-> +		}
->  		break;
->  	default:
->  		return false;
-> @@ -110,6 +122,7 @@ static bool check_format(struct iris_inst *inst, u32 pixfmt, u32 type)
->  
->  static u32 find_format_by_index(struct iris_inst *inst, u32 index, u32 type)
->  {
-> +	const struct qcom_ubwc_cfg_data *ubwc = inst->core->ubwc_cfg;
->  	unsigned int size;
->  	const u32 *fmt;
->  
-> @@ -119,8 +132,13 @@ static u32 find_format_by_index(struct iris_inst *inst, u32 index, u32 type)
->  		size = inst->core->iris_platform_data->inst_iris_fmts_size;
->  		break;
->  	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
-> -		fmt = iris_vdec_formats_cap;
-> -		size = ARRAY_SIZE(iris_vdec_formats_cap);
-> +		if (ubwc->ubwc_enc_version) {
-> +			fmt = iris_vdec_formats_cap;
-> +			size = ARRAY_SIZE(iris_vdec_formats_cap);
-> +		} else {
-> +			fmt = iris_vdec_formats_noubwc_cap;
-> +			size = ARRAY_SIZE(iris_vdec_formats_noubwc_cap);
-> +		}
->  		break;
->  	default:
->  		return 0;
-> diff --git a/drivers/media/platform/qcom/iris/iris_venc.c b/drivers/media/platform/qcom/iris/iris_venc.c
-> index 16c52ad07e2c..2f2c56bf9122 100644
-> --- a/drivers/media/platform/qcom/iris/iris_venc.c
-> +++ b/drivers/media/platform/qcom/iris/iris_venc.c
-> @@ -3,6 +3,7 @@
->   * Copyright (c) 2022-2025 Qualcomm Innovation Center, Inc. All rights reserved.
->   */
->  
-> +#include <linux/soc/qcom/ubwc.h>
->  #include <media/v4l2-event.h>
->  #include <media/v4l2-mem2mem.h>
->  
-> @@ -89,15 +90,25 @@ static const u32 iris_venc_formats_out[] = {
->  	V4L2_PIX_FMT_QC08C,
->  };
->  
-> +static const u32 iris_venc_formats_noubwc_out[] = {
-> +	V4L2_PIX_FMT_NV12,
-> +};
-> +
->  static bool check_format(struct iris_inst *inst, u32 pixfmt, u32 type)
->  {
-> +	const struct qcom_ubwc_cfg_data *ubwc = inst->core->ubwc_cfg;
->  	unsigned int size, i;
->  	const u32 *fmt;
->  
->  	switch (type) {
->  	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
-> -		fmt = iris_venc_formats_out;
-> -		size = ARRAY_SIZE(iris_venc_formats_out);
-> +		if (ubwc->ubwc_enc_version) {
-> +			fmt = iris_venc_formats_out;
-> +			size = ARRAY_SIZE(iris_venc_formats_out);
-> +		} else {
-> +			fmt = iris_venc_formats_noubwc_out;
-> +			size = ARRAY_SIZE(iris_venc_formats_noubwc_out);
-> +		}
->  		break;
->  	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
->  		fmt = iris_venc_formats_cap;
-> @@ -117,13 +128,19 @@ static bool check_format(struct iris_inst *inst, u32 pixfmt, u32 type)
->  
->  static u32 find_format_by_index(struct iris_inst *inst, u32 index, u32 type)
->  {
-> +	const struct qcom_ubwc_cfg_data *ubwc = inst->core->ubwc_cfg;
->  	unsigned int size;
->  	const u32 *fmt;
->  
->  	switch (type) {
->  	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
-> -		fmt = iris_venc_formats_out;
-> -		size = ARRAY_SIZE(iris_venc_formats_out);
-> +		if (ubwc->ubwc_enc_version) {
-> +			fmt = iris_venc_formats_out;
-> +			size = ARRAY_SIZE(iris_venc_formats_out);
-> +		} else {
-> +			fmt = iris_venc_formats_noubwc_out;
-> +			size = ARRAY_SIZE(iris_venc_formats_noubwc_out);
-> +		}
->  		break;
->  	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
->  		fmt = iris_venc_formats_cap;
+On 7/16/2026 1:10 PM, Krzysztof Kozlowski wrote:
+> On Wed, Jul 15, 2026 at 07:39:55PM +0530, Vishnu Reddy wrote:
+>> Add device tree binding for the Qualcomm Glymur Iris video codec. Glymur
+>> is a new generation of video IP that introduces a dual-core architecture.
+>> The second core brings its own power domain, clocks, and reset lines,
+>> requiring additional power domains and clocks in the power sequence.
+>> The current maxItems constraints for clocks and power-domains in the
+>> common venus schema were sized for platforms available at the time of
+>> authoring. The glymur platform introduces a dual core architecture
+>> that requires more clocks and power domains, exceeding these limits.
+>> Raise maxItems for clocks, clock-names, power-domains and
+>> power-domain-names to accommodate the glymur platform.
+>> The glymur platform-specific schema have fixed constraints for these
+>> properties, so the common schema only acts as an upper bound.
+>>
+>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> You must drop the tag, you changed the binding significantly without any
+> doubts.
 
-Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Ack
 
+> Best regards,
+> Krzysztof
+>
