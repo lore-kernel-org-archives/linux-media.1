@@ -1,40 +1,40 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E053F823C
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 12:41:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D885BA3D
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 12:47:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784292075; cv=none; b=TlPib2BwqnZj7UNNUzRX3evpvK3mjIYxnSDi+JJBSEuMG6cAgKyNDPoUKlb310szXISdlGcJj0qmOKLeQg1vGcjmjWw92xw5rjwvlbSh8B1/0MhZ+lKAtpJ/QItC5VR9GuzwWheNfpKXAvwkIdZ2tQnaWKrrC5Qjh0r2PKjEIp4=
+	t=1784292465; cv=none; b=MC7+eu02J+qD4lrF8L6jjvacCf9mXhUHBclerMocFsAkwDYj/BTYyPU/kSayDsR6CAv0Hu20pcfovU4/Ncun8IloJ0RA1LwFww/fokizwyHS72hb58rAYh6f8S6/KUj2fY+bSsLdMqGruxNqsj0G+enYnRe95I5703WrFwS2gkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784292075; c=relaxed/simple;
-	bh=u1DtGi3XWo3iXDeNVgg++VXJDhiGxmQ6aYP0X9cMfqY=;
+	s=arc-20240116; t=1784292465; c=relaxed/simple;
+	bh=GNopo1IsDHYaZsHZoXVdB1ioZkQ0LkKCIPzLGK2mIwg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D72m9aMIGnpi1FfIunOnwzXXai+mqLni2RETZqAlDM1Ap2dVKGb8n84flYSGYEv51/BrEnqd4c0mxvPY0r4BcS4mOxkjva2u03brar+MuOZXWFZK6JzbfKtsV5mcUrGK4+gSalRAtPv9ez8zn9feuPjg6/Hk2jj98wx/MUvv5TM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=qw4WouAS; arc=none smtp.client-ip=213.167.242.64
+	 Content-Type:Content-Disposition:In-Reply-To; b=It4WhgOn/eXiJmtbL2ApkPiZRBGUCVtInpUf+aCIuXXTLTwybHCveem1BbOhUDURvnuEMTbj1i3LC5Pbz8UNZWG5TVzvipD4hXwU8snuZJ6aYZZLvneui9eW5R3AXgo82dGy/kM8M0fM6KW7i6R1suq1UFZTjbYp26ai8g9QeJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=wpOfro4w; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="qw4WouAS"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="wpOfro4w"
 Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 29851267;
-	Fri, 17 Jul 2026 14:40:15 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8A319269;
+	Fri, 17 Jul 2026 14:46:45 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784292015;
-	bh=u1DtGi3XWo3iXDeNVgg++VXJDhiGxmQ6aYP0X9cMfqY=;
+	s=mail; t=1784292405;
+	bh=GNopo1IsDHYaZsHZoXVdB1ioZkQ0LkKCIPzLGK2mIwg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qw4WouASoIRFHj+kbyZT4jg4Fr83dC2z5ZgkM3mQUo8LM8Yua6eMgt8l5r11E4kk1
-	 zue5U1gPwEF6oIL/nOCc5iOipmhqREWc6Ow0KAVtkOgbSAOcazL8gprQJrKilxScLV
-	 b0XXoXcxMGVGZbPfxU4lgtvjYn/Lw5dKIGNKBSSg=
-Date: Fri, 17 Jul 2026 15:41:10 +0300
+	b=wpOfro4wEYx2IXptUw/iyxvfC5k3KOsQcOJTnEHeHHqRLWQWsUeaaTSIHR+bojJVh
+	 QLJJYZBnnROONF12l0s8YGeJ1vmU3LTYtvMiAF7rIlATRaKhrdfgxPC9MbdanoAt0M
+	 VSIHXeOtdfE/8nkMCLN9hSMzeulaHGRZShrNbCsw=
+Date: Fri, 17 Jul 2026 15:47:40 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH 11/19] media: nxp: imx7-media-csi: use
- _vb2_fop_release/vb2_video_unregister_device
-Message-ID: <20260717124110.GS1778116@killaraus.ideasonboard.com>
+Cc: linux-media@vger.kernel.org, Keke Li <keke.li@amlogic.com>
+Subject: Re: [PATCH 06/19] media: amlogic: c3: isp: drop vb2_queue_release
+ calls
+Message-ID: <20260717124740.GT1778116@killaraus.ideasonboard.com>
 References: <cover.1784276382.git.hverkuil+cisco@kernel.org>
- <b782f0db9e0521f97f001d71e3acdc0bc610b066.1784276382.git.hverkuil+cisco@kernel.org>
+ <23c3158b126781da9437ec8facf153bf95520fc4.1784276382.git.hverkuil+cisco@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -43,71 +43,139 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <b782f0db9e0521f97f001d71e3acdc0bc610b066.1784276382.git.hverkuil+cisco@kernel.org>
+In-Reply-To: <23c3158b126781da9437ec8facf153bf95520fc4.1784276382.git.hverkuil+cisco@kernel.org>
 
-On Fri, Jul 17, 2026 at 10:19:34AM +0200, Hans Verkuil wrote:
-> Use _vb2_fop_release instead of manually calling vb2_queue_release
-> and v4l2_fh_release.
+Hi Hans,
+
+Thank you for the patch.
+
+On Fri, Jul 17, 2026 at 10:19:29AM +0200, Hans Verkuil wrote:
+> Either that function was called when the video device was not
+> yet registered (so nothing to release), or use vb2_video_unregister_device
+> instead of the video_unregister_device/vb2_queue_release pair.
 > 
-> Use vb2_video_unregister_device instead of video_unregister_device
-> to ensure vb2_queue_release is called inside vb2_video_unregister_device
-> if needed.
-
-Please expand on the "if needed" to explain why this is needed.
-
 > Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+> Cc: Keke Li <keke.li@amlogic.com>
 > Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Cc: Frank Li <Frank.Li@nxp.com>
 > ---
->  drivers/media/platform/nxp/imx7-media-csi.c | 10 +++-------
->  1 file changed, 3 insertions(+), 7 deletions(-)
+>  .../media/platform/amlogic/c3/isp/c3-isp-capture.c    |  7 ++-----
+>  drivers/media/platform/amlogic/c3/isp/c3-isp-params.c | 11 ++++-------
+>  drivers/media/platform/amlogic/c3/isp/c3-isp-stats.c  |  7 ++-----
+>  3 files changed, 8 insertions(+), 17 deletions(-)
 > 
-> diff --git a/drivers/media/platform/nxp/imx7-media-csi.c b/drivers/media/platform/nxp/imx7-media-csi.c
-> index 7ddc7ba06e3d..eb2b54944ed1 100644
-> --- a/drivers/media/platform/nxp/imx7-media-csi.c
-> +++ b/drivers/media/platform/nxp/imx7-media-csi.c
-> @@ -1545,14 +1545,10 @@ static int imx7_csi_video_release(struct file *file)
+> diff --git a/drivers/media/platform/amlogic/c3/isp/c3-isp-capture.c b/drivers/media/platform/amlogic/c3/isp/c3-isp-capture.c
+> index 11d85f5342f0..a0d92ac1b78c 100644
+> --- a/drivers/media/platform/amlogic/c3/isp/c3-isp-capture.c
+> +++ b/drivers/media/platform/amlogic/c3/isp/c3-isp-capture.c
+> @@ -720,7 +720,7 @@ static int c3_isp_register_capture(struct c3_isp_capture *cap)
+>  	cap->pad.flags = MEDIA_PAD_FL_SINK;
+>  	ret = media_entity_pads_init(&vdev->entity, 1, &cap->pad);
+>  	if (ret)
+> -		goto err_queue_release;
+> +		goto err_destroy;
 >  
->  	mutex_lock(&csi->vdev_mutex);
->  
-> -	if (file->private_data == vq->owner) {
-> -		vb2_queue_release(vq);
-> -		vq->owner = NULL;
-> -	}
-> +	_vb2_fop_release(file, NULL);
->  
->  	v4l2_pipeline_pm_put(&csi->vdev->entity);
->  
-> -	v4l2_fh_release(file);
-
-You're effectively inverting the order of v4l2_pipeline_pm_put() and
-v4l2_fh_release(). Please explain in the commit message why this is
-safe.
-
-Commit messages need first and foremost to explain *why* a change is
-needed. The *what* and *how* are secondary.
-
->  	mutex_unlock(&csi->vdev_mutex);
->  	return 0;
->  }
-> @@ -1627,7 +1623,7 @@ static int imx7_csi_video_register(struct imx7_csi *csi)
->  				    MEDIA_LNK_FL_ENABLED);
+>  	ret = video_register_device(vdev, VFL_TYPE_VIDEO, -1);
 >  	if (ret) {
->  		dev_err(csi->dev, "failed to create link to device node\n");
-> -		video_unregister_device(vdev);
-> +		vb2_video_unregister_device(vdev);
->  		return ret;
->  	}
+> @@ -733,8 +733,6 @@ static int c3_isp_register_capture(struct c3_isp_capture *cap)
 >  
-> @@ -1637,7 +1633,7 @@ static int imx7_csi_video_register(struct imx7_csi *csi)
->  static void imx7_csi_video_unregister(struct imx7_csi *csi)
+>  err_entity_cleanup:
+>  	media_entity_cleanup(&vdev->entity);
+> -err_queue_release:
+> -	vb2_queue_release(vb2_q);
+>  err_destroy:
+>  	mutex_destroy(&cap->lock);
+>  	return ret;
+> @@ -789,9 +787,8 @@ void c3_isp_captures_unregister(struct c3_isp_device *isp)
+>  
+>  		if (!cap->isp)
+>  			continue;
+> -		vb2_queue_release(&cap->vb2_q);
+>  		media_entity_cleanup(&cap->vdev.entity);
+> -		video_unregister_device(&cap->vdev);
+> +		vb2_video_unregister_device(&cap->vdev);
+
+Is it safe to change the order of operations here, can't driver code
+called from queue release access the media entity ?
+
+Same below.
+
+>  		mutex_destroy(&cap->lock);
+>  	}
+>  }
+> diff --git a/drivers/media/platform/amlogic/c3/isp/c3-isp-params.c b/drivers/media/platform/amlogic/c3/isp/c3-isp-params.c
+> index aec3eed0e443..782f18c90995 100644
+> --- a/drivers/media/platform/amlogic/c3/isp/c3-isp-params.c
+> +++ b/drivers/media/platform/amlogic/c3/isp/c3-isp-params.c
+> @@ -876,12 +876,12 @@ int c3_isp_params_register(struct c3_isp_device *isp)
+>  
+>  	ret = vb2_queue_init(vb2_q);
+>  	if (ret)
+> -		goto err_detroy;
+> +		goto err_destroy;
+>  
+>  	params->pad.flags = MEDIA_PAD_FL_SOURCE;
+>  	ret = media_entity_pads_init(&vdev->entity, 1, &params->pad);
+>  	if (ret)
+> -		goto err_queue_release;
+> +		goto err_destroy;
+>  
+>  	ret = video_register_device(vdev, VFL_TYPE_VIDEO, -1);
+>  	if (ret < 0) {
+> @@ -894,9 +894,7 @@ int c3_isp_params_register(struct c3_isp_device *isp)
+>  
+>  err_entity_cleanup:
+>  	media_entity_cleanup(&vdev->entity);
+> -err_queue_release:
+> -	vb2_queue_release(vb2_q);
+> -err_detroy:
+> +err_destroy:
+>  	mutex_destroy(&params->lock);
+>  	return ret;
+>  }
+> @@ -905,9 +903,8 @@ void c3_isp_params_unregister(struct c3_isp_device *isp)
 >  {
->  	media_entity_cleanup(&csi->vdev->entity);
-> -	video_unregister_device(csi->vdev);
-> +	vb2_video_unregister_device(csi->vdev);
+>  	struct c3_isp_params *params = &isp->params;
+>  
+> -	vb2_queue_release(&params->vb2_q);
+>  	media_entity_cleanup(&params->vdev.entity);
+> -	video_unregister_device(&params->vdev);
+> +	vb2_video_unregister_device(&params->vdev);
+>  	mutex_destroy(&params->lock);
 >  }
 >  
->  static int imx7_csi_video_init(struct imx7_csi *csi)
+> diff --git a/drivers/media/platform/amlogic/c3/isp/c3-isp-stats.c b/drivers/media/platform/amlogic/c3/isp/c3-isp-stats.c
+> index 8a5d7e1a30c9..78722cbe44b4 100644
+> --- a/drivers/media/platform/amlogic/c3/isp/c3-isp-stats.c
+> +++ b/drivers/media/platform/amlogic/c3/isp/c3-isp-stats.c
+> @@ -279,7 +279,7 @@ int c3_isp_stats_register(struct c3_isp_device *isp)
+>  	stats->pad.flags = MEDIA_PAD_FL_SINK;
+>  	ret = media_entity_pads_init(&vdev->entity, 1, &stats->pad);
+>  	if (ret)
+> -		goto err_queue_release;
+> +		goto err_destroy;
+>  
+>  	ret = video_register_device(vdev, VFL_TYPE_VIDEO, -1);
+>  	if (ret) {
+> @@ -292,8 +292,6 @@ int c3_isp_stats_register(struct c3_isp_device *isp)
+>  
+>  err_entity_cleanup:
+>  	media_entity_cleanup(&vdev->entity);
+> -err_queue_release:
+> -	vb2_queue_release(vb2_q);
+>  err_destroy:
+>  	mutex_destroy(&stats->lock);
+>  	return ret;
+> @@ -303,9 +301,8 @@ void c3_isp_stats_unregister(struct c3_isp_device *isp)
+>  {
+>  	struct c3_isp_stats *stats = &isp->stats;
+>  
+> -	vb2_queue_release(&stats->vb2_q);
+>  	media_entity_cleanup(&stats->vdev.entity);
+> -	video_unregister_device(&stats->vdev);
+> +	vb2_video_unregister_device(&stats->vdev);
+>  	mutex_destroy(&stats->lock);
+>  }
+>  
 
 -- 
 Regards,
