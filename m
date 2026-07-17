@@ -1,252 +1,217 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AAD733BBCB
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 15:38:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F75369D4F
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 15:45:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784302701; cv=none; b=nKJWha9YgE8BcEjiNUwGsW+JH82ecW9JTduvcOdWGEXUm3P6N8hn3es3IziFvxmngIhc8Chr50yDbDMx7X9yzjOwGpECeYx3GqvEG4OD8otPmek2xpcATMNSLssyBVohq1fpsSCJrSE9onoxHkVf3YV1KlCkz/IOT8Nvrm6QDFQ=
+	t=1784303118; cv=none; b=V3kJJI4zXPBQQgKUMz8KXpZUjMpKnfsIE69wdGfdDX+d+4fdBqBbv6jIUCJipIYm2Lo01M3P59dA2xSk2eZt8CMQzYgJYeYOGzDXDQuZSXBYACcHQzndGh0v7l2kCq4DsGU9ZuwRbAlVS3aaz+pr77zYB81lBCLXHrO1yfGPEho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784302701; c=relaxed/simple;
-	bh=o05B1sznnG0EFm5f12G7gh70bDdeJZm8AZ8ddNvmIWk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rBC1c20S3xpo6TGci3Ocwi3RCMNqhtnEmGQww1eobUoCO8pLUezZj5DOmntkTOyUyzMFbCXkvfIwIezNaQNkNUAStAmYYAHoOGtEM7PqUbRTSpyliDtm/R1Kxq+an6OQyu5hg/Z5vA4oTVEYmVliUik/ABuw5JZlR0VatuYcKnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ym4T26FG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=S+Wg4ydU; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784303118; c=relaxed/simple;
+	bh=bLwkSaMM2QyNilXq0RTf9i0nymRBPAHMhYEXy94WATU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E0l2wfQmENpOOEnteKyvo6eZIA4ibbYU1OvcxL79D+2gs0/gWx1WIOsfflYjmjK6TVw8YoygZeTaTTSRJOx+EwhrtTyz53KfTwaPR4sTS0wT4vL9qzSK5bfE5vsYWzJjRsqukBfIayYoRSb58xhYlnWIyScnOHlnj1C2bcl/I2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X/P4Qp0q; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ym4T26FG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="S+Wg4ydU"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66HE7mmN2186970
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 15:38:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=mU5plK4wOuXslrH5tzmT1Lzf
-	M6TA652cX7f9RNduBGg=; b=Ym4T26FGSboWTOc59JBr4POlPj3J+PuT82mbDSwY
-	XRzYDLR7OkRMjCjKvvmpRPZUEZNEZMcUJ1TZdM4i/OaecTGpd6cyft7WENJinH3I
-	tt+dg/pjeYGey+bAGfsUAHGHYuXb2P2XVE+y2CZlw+s3g6Hy/zxMT+dzsg7x9s5B
-	aEFFYNAT2NBk2//h4axm8Mdozm7fS+2wo7KaY/Zvpq078psWnAojwMnMNp90TaNv
-	f4rpRtOOsOiOi80JUSgnZflxbXIVULuHMQJnsoJ97l4BNPwX9SwsLB1iLasZBlsI
-	jxlOgKg2QlM/2l2jEprhcugzH/8XqpQggUULE2Sxb8hRsA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ffd3atheu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 15:38:15 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-388cfc4848dso9634307a91.3
-        for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:38:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X/P4Qp0q"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4720f3bf164so936758f8f.1
+        for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:45:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784302694; x=1784907494; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mU5plK4wOuXslrH5tzmT1LzfM6TA652cX7f9RNduBGg=;
-        b=S+Wg4ydUj1zaA4iC5vchIBBJxraeU4X+65/ROsfEWDWGljNbohHNdeIeBHjcnd+Pj+
-         fZ8hhmiAnNcLRfiQer90xTEo3MhiK99M9/HplVosFTD5JrDK1B7buHkpHVMSOitPlCWl
-         LjT80CXo4+aRgaOdpQY6qXpvgrZGpjmCtqfXAQ0BCaZWqMvWCcig/O/cLTOkBWHPsJdt
-         +3s+zSjRzUqzGHeXWqQNj+KAaODh86yn4Gy/qX2mMcDEzZ5NMlF5u0SDzIuMyS2DLYrw
-         +1G/SzVagWmVyFURBRD9i7X0AxA1hiP5GRxsmfpB+pOy5gbeU/to2tRhxmBzi+owSKGy
-         tCfQ==
+        d=gmail.com; s=20251104; t=1784303115; x=1784907915; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tk8lVGnRUzd3xxkm+i4v8VOVuBwgnyAk7LAw5MNlK7s=;
+        b=X/P4Qp0qPHvF9Vds5cS9twvS+wd7H/9POFJAFgxnEi/lOy7atj7Y57GerSoax5x/+P
+         hLxhGrDBOk4Fb0KXfavqq/Ixx4oFkceilAcctFvGnzyTpQTrNgx/n63ficVGJ4ox+AHH
+         icF0Xuwdzdbon+30H1sYuA2QfGLb4nlpM33fAOrsQbddN62WTkb3QtiQjvOh32DBkduE
+         gSpkeZSlX2wM+KejNgKIkPALzezjCrV18TgiVb3cVWll9YtLau7COpqlVVLZbvLGR/hz
+         Gawkp6KyvqPNcvtSljWNNugL37eaqd/XdaoWwP3JaHydgh0p//hyOQ8d1LGsSud5aq2/
+         KkTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784302694; x=1784907494;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mU5plK4wOuXslrH5tzmT1LzfM6TA652cX7f9RNduBGg=;
-        b=sKz+FU4OS6uMFjWTRUMJsjrURVYpojVPCMXr19o9F2g5UrBVBtdUepFJWDUJFc98rH
-         7IJBpAuYSPOlIA6GJkxiGB72s3OHV6o0M5iuvCteK0sUoUdUsRQYtawESbPNlH2wQ4h5
-         x786vrR7qHDyN3skeRuX/8UB3chk5Z5zxiSDKhLlPPaakZhP8FS+Dj5CBPwfa/Ki5M47
-         dwOwaUQbJp8OvbbctPLymt6hNAb4SX5CVlfZT/UI7QvaYnVUu+gGzwxA4TVfRcfrDCBx
-         8u4M7Y1NVmMCX9qUQPUpFvg7s9zikBeaHyQ1g+UsZRJs4ood21CeLNUj1UGC3qzbH7/n
-         AqTA==
-X-Forwarded-Encrypted: i=1; AHgh+RpHlOSFTIedyg4M5ja7mkXjxcwGICO/SO4l6ah3XZjd7176CGd9uKDgulVPC3Z5J9qGiKTVLWDwx3mzXQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxHBmdcTEr/dMmblv8zCVcHz0Zxf8se1N2/wMC/6NZBOsTTlAbb
-	N3UHhJbhRze1o6ok9l2BvB+rWDBMv2I2orQqv4mag1zrabJ+zrowVRtlcoautlE8tpxuElVx3Z2
-	VV7qbGq+2nwg1q+h//8+6b+tHpjxkGCX4GeYGS/lc8awcv5oYfrgIQDCWZkN1wQjPHA==
-X-Gm-Gg: AfdE7clEN3etPaCEN9NIuiZN91Fv3DRMHwxXsSNu6/M6OqAVvLMcT8Dc3GEFFJpu7lJ
-	ZYFY83ofnxwQhcPTnerzuNJ6ItcgX5XSzZpUPyV7XDzb4WJXZCODdexuUGfYn+nkeYgC/ZrUqU6
-	q2qbwOzbHgXJbzr0A+mvbt4estlE3PJ35fytOuGGILUsziyX/UqrKFcanW5QwmvszzDp6TR/fug
-	W2mPg7YMe5BG9JOPwnpQbX5maT0WOHjKCYFDgzbhKJ5J7GpJEkhXKjTrW00wryAE2WF2wwv/fE3
-	r+BcsSFR4e2k+43y0JpRE/ZUGjKHJdFhL0n1WaM38H5bdMRcjOKh66ivvCctfXiqmG4lZ9KYjcR
-	OUw4T81pwEaL63BtLlMvV5w3ahNg=
-X-Received: by 2002:a17:90b:2684:b0:38d:f5bb:e0f4 with SMTP id 98e67ed59e1d1-38e4b3e1473mr3203851a91.1.1784302694263;
-        Fri, 17 Jul 2026 08:38:14 -0700 (PDT)
-X-Received: by 2002:a17:90b:2684:b0:38d:f5bb:e0f4 with SMTP id 98e67ed59e1d1-38e4b3e1473mr3203716a91.1.1784302693542;
-        Fri, 17 Jul 2026 08:38:13 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a1ddeb6sm10087302eec.20.2026.07.17.08.37.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 08:38:13 -0700 (PDT)
-Date: Fri, 17 Jul 2026 21:07:45 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Liviu Dudau <liviu.dudau@arm.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Joel Stanley <joel@jms.id.au>,
-        Andrew Jeffery <andrew@codeconstruct.com.au>,
-        Paul Cercueil <paul@crapouillou.net>,
-        Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
-        Paul Kocialkowski <paulk@sys-base.io>,
-        Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Samuel Holland <samuel@sholland.org>,
-        Alexey Brodkin <abrodkin@synopsys.com>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-        Michal Simek <michal.simek@amd.com>,
-        Daniel Scally <dan.scally@ideasonboard.com>,
-        Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Eddie James <eajames@linux.ibm.com>,
-        Tiffany Lin <tiffany.lin@mediatek.com>,
-        Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-        Yunfei Dong <yunfei.dong@mediatek.com>,
-        Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
-        Houlong Wei <houlong.wei@mediatek.com>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>,
-        Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Thierry Reding <thierry.reding@kernel.org>,
-        Jonathan Hunter <jonathanh@nvidia.com>,
-        Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Ge Gordon <gordon.ge@bst.ai>, Adrian Hunter <adrian.hunter@intel.com>,
-        Ulf Hansson <ulfh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Shengjiu Wang <shengjiu.wang@gmail.com>,
-        Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
-        Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-        Bard Liao <yung-chuan.liao@linux.intel.com>,
-        Daniel Baluta <daniel.baluta@nxp.com>,
-        Orson Zhai <orsonzhai@gmail.com>,
-        Baolin Wang <baolin.wang@linux.alibaba.com>,
-        Peter Chen <peter.chen@cixtech.com>,
-        Fugang Duan <fugang.duan@cixtech.com>,
-        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-        BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
-        Fabio Estevam <festevam@gmail.com>,
-        Nicolin Chen <nicoleotsuka@gmail.com>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-        Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-        Chunyan Zhang <zhang.lyra@gmail.com>,
-        CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
-        linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
-        linux-sunxi@lists.linux.dev, linux-media@vger.kernel.org,
-        openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org,
-        kernel@collabora.com, linux-tegra@vger.kernel.org,
-        linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
-        linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        imx@lists.linux.dev, sound-open-firmware@alsa-project.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 01/42] of: reserved_mem: Introduce devres-managed
- initialization functions
-Message-ID: <20260717153745.geqmmgm4o3j3vhom@hu-mojha-hyd.qualcomm.com>
-References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
- <20260703193855.110619-2-mukesh.ojha@oss.qualcomm.com>
- <20260716200048.GA1183026-robh@kernel.org>
+        d=1e100.net; s=20251104; t=1784303115; x=1784907915;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tk8lVGnRUzd3xxkm+i4v8VOVuBwgnyAk7LAw5MNlK7s=;
+        b=X7i93fMeZq2JRr1pS5aIXtitZowVxC46KIZMig+Oo+u3kzE/NiLwG+O3QbDrRBxuPM
+         5wZvD0eZS/mj9+B0rz3AsjhFaDFzBPjo8N49CB8PdFeGF7ADCUU/x8SgqL3JoMCALB1m
+         txL4rhXFJkANQLfzsnoIJg6DhlkwK6V6jMdjlQ7aFlu8CrI+eevybDKBQyydOWTQ03wR
+         DC+bStSG4NRUwezEh7gTC0UZhdTcMF0523u/6KjAVUmeGDweN00Jwf5F5DsLeu5mp834
+         IdA0zZfyn9bfFEraLq/TEx7xtwTq4HmQxN68kKfbZiTcjjPnH/wAVqKS3khumvz8e32y
+         xfSg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro9Sl6d/2ehyUr1AAy2S5egPC+MNGKVxT7muOgymJ7+7/VJa7LxECkW08dYcthrM5xaFEcf5K68ww0ARg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyvTTRvjSjw0PgwhA1OoNCuDxOWnzc8LYAnrywZRJwNx/b+XydO
+	/6CzJLOAU0gMHtATagAJFg+QzC0qJNM6PUf6KXf+sPxqLDCLN2tsLww=
+X-Gm-Gg: AfdE7clKeL4PcD8NB0QRrliExW9xLrvR5A1+eEKXT1e4Zgb173rq18GWVKt1f6xanMH
+	wLIfdFCwJp9MY4ttDcuq3ImN4SX0wllghMMOEmUCJGSIYXJ0vJkX9MHgPSuaFrCFWHd3vnp3f4J
+	N4Od9dgtYDfTY8tSFDbaHifBkeEfvj4Cb+OguNzw/LT0m2Im3rwsaMEULzRwcYsoMQpDjhxTy/V
+	xOXisPs7KMFiw/K3fpXQwJ6AcSJpE7JIRRQg1fOWz7LzY+22ld9ruhxzrxV0cPOgzAkRxcNNcx1
+	y1llzBai0P1PgsXZGIe1XqSUvAy8m0NX0veykJ6dofTLmbztYnwXso/q5I/NDd/dJmEvnAE0N0H
+	4xaLBVwJOLrsuwr9wHTq70E9DciPAYVN+6uPccpe1eHGyJ1+89dB3ffsqt5QXrELh+ENp4iGR+t
+	IrzKItJc5n0e0x6Z7TFEWpqKh+7gT2q+jA1Nk8Ia9yOf2MhRPuOk+A9VM/enC71W8=
+X-Received: by 2002:a05:6000:250e:b0:47f:4834:99cd with SMTP id ffacd0b85a97d-47f5a66292bmr10529100f8f.26.1784303115040;
+        Fri, 17 Jul 2026 08:45:15 -0700 (PDT)
+Received: from localhost.localdomain ([151.43.147.3])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63e49500sm4629130f8f.2.2026.07.17.08.45.13
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 17 Jul 2026 08:45:14 -0700 (PDT)
+From: Francesco Saverio Pavone <pavone.lawyer@gmail.com>
+To: jonas@kwiboo.se,
+	detlev.casanova@collabora.com,
+	nicolas.dufresne@collabora.com,
+	hverkuil@kernel.org,
+	mchehab@kernel.org
+Cc: ezequiel@vanguardiasur.com.ar,
+	heiko@sntech.de,
+	linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4] media: rkvdec: fix clk reference leak on unbind
+Date: Fri, 17 Jul 2026 17:45:05 +0200
+Message-ID: <20260717154505.83935-1-pavone.lawyer@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260716200048.GA1183026-robh@kernel.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE3MDE2MCBTYWx0ZWRfX7ClqfjDzRyJZ
- Muq0Pt/bFW4qjjc3EwwUTno/irQTW58IW8sFNKazVp+Gv2E6t5a1AR+QtJwYIEv8UZCac6lBRQi
- pCFL8MP6/0BuHqjdKNepwfM8GaMZHzk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE3MDE2MCBTYWx0ZWRfX/bdPakrxobAj
- BfRk5kBbdUJcodZ2GPn76pW8W38qLH1qKyXH8LB9FxTEUbNK9RxRhHvgVeBSkcI7hWIrs7zcNZS
- TZGgdE6eTLd8hRwmH+ZubVAoBspKmyY6vruew3hoUGiOJFhl0PQF4Lh6gNSiYqQkG9YBwXdtWvQ
- ukb2gPQlpkTc4TiKyqF5FwHtaEOnGFCstIpf3NZzrbXi7tteCIJ3zHe/Ld6JIy1E7Ccv660OVEG
- UIYZPxyzdN0sPPMI7OGaDg4i9wLyWp7UEeYb1z1LZgnWZdpYuIjHqFtF/OVj8owhInwzRV85k0+
- gnTDfXEMU8VVBXq15VhOVbCWV/ha3jt7SijxzgkcsenoEW8+SPXU91KDc5pxH+qJzMuNOohM+o5
- 7hYyuNEUc/xRd1KKTiZvrsBbRditWhnIqsihoJ/+rXUwMdxDuRLcI+a4hmk4iMqcIr5mSeWZCKW
- hzVLmqEhv6P0jCyMFog==
-X-Proofpoint-GUID: Fez3uDw9z1fDOEWxeZogkmGVcV3wf0-d
-X-Proofpoint-ORIG-GUID: Fez3uDw9z1fDOEWxeZogkmGVcV3wf0-d
-X-Authority-Analysis: v=2.4 cv=e/M2j6p/ c=1 sm=1 tr=0 ts=6a5a4c67 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=9JV1VVRos5_Q502CX78A:9 a=CjuIK1q_8ugA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-17_04,2026-07-17_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 suspectscore=0 phishscore=0 priorityscore=1501
- spamscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607170160
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 16, 2026 at 03:00:48PM -0500, Rob Herring wrote:
-> On Sat, Jul 04, 2026 at 01:08:14AM +0530, Mukesh Ojha wrote:
-> > From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> > 
-> > Introduce devres-based helpers for of_reserved_mem_device_init(_by_idx)
-> > to help fight dangling references and ever so slightly reduce the
-> > number of boilerplate deinitialization calls.
-> > 
-> > Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> > Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> > ---
-> >  drivers/of/of_reserved_mem.c    | 41 +++++++++++++++++++++++++++++++++
-> >  include/linux/of_reserved_mem.h | 25 ++++++++++++++++++++
-> >  2 files changed, 66 insertions(+)
-> > 
-> > diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> > index 82222bd45ac6..b35541e9fbe8 100644
-> > --- a/drivers/of/of_reserved_mem.c
-> > +++ b/drivers/of/of_reserved_mem.c
-> > @@ -787,6 +787,47 @@ void of_reserved_mem_device_release(struct device *dev)
-> >  }
-> >  EXPORT_SYMBOL_GPL(of_reserved_mem_device_release);
-> >  
-> > +static void devm_of_reserved_mem_device_release(struct device *dev, void *res)
-> > +{
-> > +	of_reserved_mem_device_release(*(struct device **)res);
-> > +}
-> > +
-> > +/**
-> > + * devm_of_reserved_mem_device_init_by_idx() - Resource managed of_reserved_mem_device_init_by_idx()
-> > + * @dev: Pointer to the device to configure
-> > + * @np: Pointer to the device node with 'memory-region' property
-> > + * @idx: Index of selected region
-> > + *
-> > + * This is a resource managed version of of_reserved_mem_device_init_by_idx().
-> > + * The reserved memory region will be released automatically when the device
-> > + * is unbound.
-> > + *
-> > + * Returns: Negative errno on failure or zero on success.
-> > + */
-> > +int devm_of_reserved_mem_device_init_by_idx(struct device *dev,
-> > +					    struct device_node *np, int idx)
-> 
-> It looks to me like the only 2? users of this could be converted to 
-> devm_of_reserved_mem_device_init() instead. The mmc one obviously can. 
-> The imx one depends if np is dev->of_node. I'm not a fan of APIs with 
-> only a few users.
+From: Jonas Karlman <jonas@kwiboo.se>
 
-You are right, mmc can be but imx can't. I can make this static and drop
-the API usage from imx but fix the leak by release function.
+remove() calls pm_runtime_disable() before
+pm_runtime_dont_use_autosuspend(), so the second call can never suspend
+the device: it reaches rpm_idle(), which returns -EACCES once PM runtime
+is disabled. The probe error path has had the two the other way round
+since the driver was merged.
 
+This shows up when the device is unbound while the 100ms autosuspend
+window is still open, which is what an rmmod right after a decode does.
+device_release_driver() calls pm_runtime_put_sync() before .remove(),
+and rpm_idle() adds RPM_AUTO on its own, so that put only arms the
+autosuspend timer. pm_runtime_disable() then cancels the timer, and
+pm_runtime_reinit() relabels the device suspended without calling the
+driver back. The clk_bulk reference taken by rkvdec_runtime_resume() is
+never dropped, and a later probe does not reclaim it, so every such
+unbind leaks one enable count.
+
+Drop autosuspend first, so the callback still runs and releases the
+clocks.
+
+The PM calls also have to move ahead of rkvdec_v4l2_cleanup() rather
+than just swap with each other. rkvdec_runtime_suspend() looks its state
+up with dev_get_drvdata(), and v4l2_device_unregister() clears it:
+struct rkvdec_dev has v4l2_device as its first member, so
+&rkvdec->v4l2_dev and rkvdec are the same address and the check in
+v4l2_device_disconnect() matches. That is harmless today because
+pm_runtime_disable() suppresses the callback, but once the callback can
+run, a suspend after the V4L2 teardown dereferences NULL. Swapping only
+the two PM calls oopses on every unbind.
+
+Fixes: cd33c830448b ("media: rkvdec: Add the rkvdec driver")
+Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+[fsp: wrote the commit message; the diff is unchanged]
+Tested-by: Francesco Saverio Pavone <pavone.lawyer@gmail.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Francesco Saverio Pavone <pavone.lawyer@gmail.com>
+---
+Changes in v4:
+ - No functional change. Resent as its own thread (no In-Reply-To on v2),
+   per Nicolas's note that a new version should be its own thread for
+   patchwork tracking. Same diff and same commit message as v3.
+
+Changes in v3:
+ - Rewrote the commit message, and dropped the VP9 claim from v1 and v2.
+   Those said this fixed a VP9 inter-prediction bug on RK3588, green chroma
+   from the second ALTREF frame onward. The bug is real, but this is not
+   what fixes it, and I should have established that before sending v1.
+
+   What happened: I took this patch out of chewitt's tree along with two
+   others and tested the three as a batch. The green is fixed by "media:
+   rkvdec: implement reset controls" from Alex Bee, which adds the
+   reset_control handling that recovers the VDPU381 after a transient error
+   (COLMV_REF_ERR_STA and friends) instead of leaving it dirty for the next
+   inter frame. Randy Li's PMU idle export goes with it. This patch was the
+   third one in that batch and got the credit.
+
+   Retested this week on the same Rock 5B+ with an unpatched driver: a VP9
+   Profile 0 1080p clip with alt-ref frames decodes byte-identical to the
+   libvpx reference, across five rmmod/insmod cycles and after an unbind
+   inside the autosuspend window. The green does not come back, because the
+   reset_control work is in the tree I test on. Sorry for the review and the
+   testing you spent on that basis.
+
+ - Worth flagging separately: mainline rkvdec has no reset_control support
+   at all, so the VDPU381 is never recovered after a transient error. That
+   is a real gap, it is just not this patch. I can write it up properly if
+   that is useful.
+
+ - The diff is unchanged from v1 and v2. It is Jonas's 2020 commit verbatim,
+   and his original one-line subject already described exactly what it does.
+   The wrong story was mine, not his.
+
+ - The subject changed with the message: "media: rkvdec: fix PM runtime
+   teardown ordering in remove" in v1 and v2, "media: rkvdec: fix clk
+   reference leak on unbind" here, since that is what it actually fixes.
+
+ - What is left is measured. With a dev_info() at the top of
+   rkvdec_runtime_suspend(), autosuspend_delay raised to 60s to take the
+   timer out of the race, and unbind driven through sysfs:
+       unpatched: 0 suspend callbacks, aclk_rkvdec0 enable_count 1 -> 2
+       patched:   1 suspend callback,  enable_count 1 -> 1
+   The leak survives rmmod and accumulates one per unbind. With
+   autosuspend_delay=0 both orders suspend once, which is the control: the
+   difference only exists inside the window.
+
+ - Fixes: was wrong in v1 and v2. ff8c5622f9f7 has the two pm_runtime calls
+   as context and only added iommu_domain_free(). cd33c830448b added remove()
+   with the reversed order, and the probe error path with the right one, so
+   the tag points there now.
+
+ - Dropped Cc: stable. A clk reference leaked on unbind is not backport
+   material, and the tag was only there for the VP9 claim.
+
+ - Dropped your Reviewed-by and Tested-by from v2: they were given for a fix
+   to something else.
+
+ - Not included, happy to send as follow-ups: clearing empty_domain after
+   iommu_domain_free(), and hoisting the unregisters to the top of remove()
+   as you suggested on v2.
+
+Tested on a Radxa Rock 5B+ (RK3588) on a 7.1 tree where the six calls in
+rkvdec_v4l2_cleanup() are open-coded; the executed sequence is the one this
+patch produces. VP9 decode stays byte-identical to libvpx, and five
+rmmod/insmod cycles leave dmesg clean.
+
+Link to v1: https://lore.kernel.org/all/20260518105413.42147-1-pavone.lawyer@gmail.com/
+Link to v2: https://lore.kernel.org/all/20260518145414.64514-1-pavone.lawyer@gmail.com/
+Link to v3: https://lore.kernel.org/all/20260717150440.77079-1-pavone.lawyer@gmail.com/
+ drivers/media/platform/rockchip/rkvdec/rkvdec.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+index 1d1e9bfef8e9..0ec3fca9cccc 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+@@ -1869,12 +1869,13 @@ static void rkvdec_remove(struct platform_device *pdev)
+ 
+ 	cancel_delayed_work_sync(&rkvdec->watchdog_work);
+ 
+-	rkvdec_v4l2_cleanup(rkvdec);
+-	pm_runtime_disable(&pdev->dev);
+ 	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 
+ 	if (rkvdec->empty_domain)
+ 		iommu_domain_free(rkvdec->empty_domain);
++
++	pm_runtime_disable(&pdev->dev);
++	rkvdec_v4l2_cleanup(rkvdec);
+ }
+ 
+ #ifdef CONFIG_PM
 -- 
--Mukesh Ojha
+2.54.0
+
