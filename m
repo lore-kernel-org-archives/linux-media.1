@@ -1,29 +1,29 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E488D37882A;
-	Fri, 17 Jul 2026 09:25:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B57D3BE14D;
+	Fri, 17 Jul 2026 09:26:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784280361; cv=none; b=GiVCQ2GtoN2OhVM60Iass3YPYnLIz2ExCODpRxKXSEYWsO9TH0Qa6E4dbpztNcvFY8ambgO6uuubqzVktX+uR07OU2y0LZw9Ufz53n17pVUuKOOT2QzQFSIg0WnATZ1nHfsq2rpbxegPXGcXi+gnydHt1faoQe1KIGhiIl2XK4U=
+	t=1784280366; cv=none; b=nzy1X5067BjZgFzcoOAdhgLBaA1D8nXuuIaMO3WUc5TWuabldtX2l5nXEGsPHBPVnbrJ4l9dh0U4kCT3Mh0pkmf50iBrkR7jcQORbd4m8v+FThR8KJVMys9VWrDAnMpMh8vBSh2xcQz8rQuM9KBwR6nVS0g2hIkNCP2Zq07KplM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784280361; c=relaxed/simple;
-	bh=wfWh8IjMAFPtP+OnBhlXY8xJ1JuRsQOowoIzjTfEftY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OBIoY6R6drJBLxmtksRFG9c/CbJRzshUg7z3FOBmp29T8p/idoNAfb6SEsvzpwlO2sOyQM6w7QlPus9UvdRsyBo+/SlHOuW2sF16hLJlU+o1MvhFa7j6JODUN/sHev71VHm4L1e5Fax6BTPOC4jeCiPMU72NbP/176K3zY3Vvdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AiW2p7hC; arc=none smtp.client-ip=220.197.31.2
+	s=arc-20240116; t=1784280366; c=relaxed/simple;
+	bh=yphcsMms8/bxNxlQgL6ssuuj35N3Sn+NmJe9wV7ho6s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=X7GC4wonFbiQIsXKXNloUyeYoXZ77djtfCH4Y0LtzUpGPxSyM4kiVVIWjLkcXGpdfE47vEp7vaOjaJKzPVfsqNaL2Ep+axI9TkUyOCxECPMY1ycqKqrGtsrxziAE/dEqRX1FDOl1L8JczgNWp6gR1jh9exLvRm2OJiTBlE2+Gyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=PQ1CvaAr; arc=none smtp.client-ip=117.135.210.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AiW2p7hC"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="PQ1CvaAr"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=o6
-	IfAxE7Gvat9/Iy55YMQDiRdPv0HWMSbGcsu0f2GXk=; b=AiW2p7hCS0EdXZUR4/
-	Ffoy3n8fqPwge8WvO0bw20FlaiivVMFH8ZRjkaXcdRtBlcetPlaWJJTylH77Gn9S
-	gghPNBOaX1UIZHcs9oopLSUgSvhwPbiYGVcjuVa3iNdcwwDf0VDJIrjJZ4+DmK+d
-	EZIu/drwQuQfXUe/Z6bkbqXLw=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=cq
+	ZzGjtVU+DPIP4tEa1SCltBwGYL2X0t8QYtd9auucA=; b=PQ1CvaArMGZHvMjvcX
+	L8UMhw+nbDvD44sVKWN2HfOclfJh7yGM4hvgbRa+k2brCGTgGHhP3i4lwN9C+6L6
+	7JQWhpTMEaDy+7frg/vX7HkF6FiWJ/JfsftubM2JMniFtoqTpylSGNn0IWGuvBNj
+	jI+j7+PpGKBZhdRQ0v1E1tK/Q=
 Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3n3AW9Vlqwb89KQ--.61678S2;
-	Fri, 17 Jul 2026 17:25:43 +0800 (CST)
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wA39V0e9VlqNwpiIw--.171S2;
+	Fri, 17 Jul 2026 17:25:52 +0800 (CST)
 From: Lei Huang <huanglei814@163.com>
 To: mchehab@kernel.org
 Cc: johan@kernel.org,
@@ -31,9 +31,9 @@ Cc: johan@kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Lei Huang <huanglei@kylinos.cn>
-Subject: [PATCH 11/16] media: s2255: Add blank lines after variable declarations
-Date: Fri, 17 Jul 2026 17:25:41 +0800
-Message-Id: <20260717092541.686565-1-huanglei814@163.com>
+Subject: [PATCH 12/16] media: s2255: Fix block comment style to kernel format
+Date: Fri, 17 Jul 2026 17:25:49 +0800
+Message-Id: <20260717092549.686822-1-huanglei814@163.com>
 X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -42,204 +42,137 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3n3AW9Vlqwb89KQ--.61678S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3AF4rAF47AryxuryxGryfZwb_yoWxZr47pF
-	ZxtFWYyF4UJ3W7GFWrJr4Uur1aqw1Dt397GFWfKa40yry5A3s5XFWkC34IyrykAFyIk3W7
-	AFs0qr4UG3y7KF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j0UDXUUUUU=
-X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC9BdzampZ9ReNBQAA3j
+X-CM-TRANSID:_____wA39V0e9VlqNwpiIw--.171S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3GFWDKr4kKw17Kr47ZF47urg_yoW7XrW5pF
+	WfJF42yr4DJr1UJry8Jr48G348Jwn5J3y5Gr4UJw18Ar1Yyr1DJr1xXrW8JryDJryxJw17
+	tr1DXryUGr9rtrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j00PhUUUUU=
+X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC9AB2bWpZ9SCN3wAA3b
 
 From: Lei Huang <huanglei@kylinos.cn>
 
-Fix all 22 'WARNING: Missing a blank line after declarations' issues
-reported by checkpatch.pl in s2255drv.c. Insert a blank line between
-local variable declarations and the first statement in each function.
+Fix all 'WARNING: Block comments use * on subsequent lines' and
+'WARNING: Block comments use a trailing */ on a separate line'
+issues reported by checkpatch.pl in s2255drv.c. Convert block
+comments to kernel-style format with leading '*' on continuation
+lines and '*/' on its own line. Convert banner-style separator
+comments to single-line format.
 
 Signed-off-by: Lei Huang <huanglei@kylinos.cn>
 ---
- drivers/media/usb/s2255/s2255drv.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/media/usb/s2255/s2255drv.c | 50 ++++++++++++++++--------------
+ 1 file changed, 26 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/media/usb/s2255/s2255drv.c b/drivers/media/usb/s2255/s2255drv.c
-index e5242247a118..501ac7cf31b3 100644
+index 501ac7cf31b3..543155fe75a9 100644
 --- a/drivers/media/usb/s2255/s2255drv.c
 +++ b/drivers/media/usb/s2255/s2255drv.c
-@@ -440,6 +440,7 @@ static void planar422p_to_yuv_packed(const unsigned char *in,
- 	unsigned char *p_cr;
- 	unsigned long size = height * width;
- 	unsigned int i;
-+
- 	p_y = (unsigned char *)in;
- 	p_cr = (unsigned char *)in + height * width;
- 	p_cb = (unsigned char *)in + height * width + (height * width / 2);
-@@ -468,6 +469,7 @@ static void s2255_timer(struct timer_list *t)
+@@ -110,9 +110,9 @@
+ #define FDEC_3		3	/* capture every 3rd frame */
+ #define FDEC_5		5	/* capture every 5th frame */
+ 
+-/*-------------------------------------------------------
+- * Default mode parameters.
+- *-------------------------------------------------------*/
++/*-------------------------------------------------------*/
++/* Default mode parameters.                              */
++/*-------------------------------------------------------*/
+ #define DEF_SCALE	SCALE_4CIFS
+ #define DEF_COLOR	COLOR_YUVPL
+ #define DEF_FDEC	FDEC_1
+@@ -480,11 +480,11 @@ static void s2255_timer(struct timer_list *t)
+ }
+ 
+ /* this loads the firmware asynchronously.
+-   Originally this was done synchronously in probe.
+-   But it is better to load it asynchronously here than block
+-   inside the probe function. Blocking inside probe affects boot time.
+-   FW loading is triggered by the timer in the probe function
+-*/
++ * Originally this was done synchronously in probe.
++ * But it is better to load it asynchronously here than block
++ * inside the probe function. Blocking inside probe affects boot time.
++ * FW loading is triggered by the timer in the probe function
++ */
+ static void s2255_fwchunk_complete(struct urb *urb)
  {
- 	struct s2255_dev *dev = timer_container_of(dev, t, timer);
- 	struct s2255_fw *data = dev->fw_data;
-+
- 	if (usb_submit_urb(data->fw_urb, GFP_ATOMIC) < 0) {
- 		pr_err("s2255: can't submit urb\n");
- 		atomic_set(&data->fw_state, S2255_FW_FAILED);
-@@ -488,6 +490,7 @@ static void s2255_fwchunk_complete(struct urb *urb)
  	struct s2255_fw *data = urb->context;
- 	struct usb_device *udev = urb->dev;
- 	int len;
-+
- 	if (urb->status) {
- 		dev_err(&udev->dev, "URB failed with status %d\n", urb->status);
- 		atomic_set(&data->fw_state, S2255_FW_FAILED);
-@@ -563,6 +566,7 @@ static void s2255_got_frame(struct s2255_vc *vc, int jpgsize)
- static const struct s2255_fmt *format_by_fourcc(int fourcc)
- {
- 	unsigned int i;
-+
- 	for (i = 0; i < ARRAY_SIZE(formats); i++) {
- 		if (-1 == formats[i].fourcc)
- 			continue;
-@@ -639,6 +643,7 @@ static int queue_setup(struct vb2_queue *vq,
- 		       unsigned int sizes[], struct device *alloc_devs[])
- {
- 	struct s2255_vc *vc = vb2_get_drv_priv(vq);
-+
- 	if (*nbuffers < S2255_MIN_BUFS)
- 		*nbuffers = S2255_MIN_BUFS;
- 	*nplanes = 1;
-@@ -682,6 +687,7 @@ static void buffer_queue(struct vb2_buffer *vb)
- 	struct s2255_buffer *buf = container_of(vbuf, struct s2255_buffer, vb);
- 	struct s2255_vc *vc = vb2_get_drv_priv(vb->vb2_queue);
- 	unsigned long flags = 0;
-+
- 	dprintk(vc->dev, 1, "%s\n", __func__);
- 	spin_lock_irqsave(&vc->qlock, flags);
- 	list_add_tail(&buf->list, &vc->buf_list);
-@@ -880,6 +886,7 @@ static int s2255_write_config(struct usb_device *udev, unsigned char *pbuf,
- 	int pipe;
- 	int done;
- 	long retval = -1;
-+
- 	if (udev) {
- 		pipe = usb_sndbulkpipe(udev, S2255_CONFIG_EP);
- 		retval = usb_bulk_msg(udev, pipe, pbuf, size, &done, 500);
-@@ -954,6 +961,7 @@ static u32 get_transfer_size(struct s2255_mode *mode)
- static void s2255_print_cfg(struct s2255_dev *sdev, struct s2255_mode *mode)
- {
- 	struct device *dev = &sdev->udev->dev;
-+
- 	dev_info(dev, "------------------------------------------------\n");
- 	dev_info(dev, "format: %d\nscale %d\n", mode->format, mode->scale);
- 	dev_info(dev, "fdec: %d\ncolor %d\n", mode->fdec, mode->color);
-@@ -1153,6 +1161,7 @@ static int vidioc_enum_input(struct file *file, void *priv,
- 	inp->status = 0;
- 	if (dev->dsp_fw_ver >= S2255_MIN_DSP_STATUS) {
- 		int rc;
-+
- 		rc = s2255_cmd_status(vc, &status);
- 		dprintk(dev, 4, "s2255_cmd_status rc: %d status %x\n",
- 			rc, status);
-@@ -1191,6 +1200,7 @@ static int s2255_s_ctrl(struct v4l2_ctrl *ctrl)
- 	struct s2255_vc *vc =
- 		container_of(ctrl->handler, struct s2255_vc, hdl);
- 	struct s2255_mode mode;
-+
- 	mode = vc->mode;
- 	/* update the mode to the corresponding value */
- 	switch (ctrl->id) {
-@@ -1292,6 +1302,7 @@ static int vidioc_s_parm(struct file *file, void *priv,
- 	struct s2255_mode mode;
- 	int fdec = FDEC_1;
- 	__u32 def_num, def_dem;
-+
- 	if (sp->type != V4L2_BUF_TYPE_VIDEO_CAPTURE)
- 		return -EINVAL;
- 	mode = vc->mode;
-@@ -1692,6 +1703,7 @@ static int save_frame(struct s2255_dev *dev, struct s2255_pipeinfo *pipe_info)
- 	struct s2255_framei *frm;
- 	unsigned char *pdata;
- 	struct s2255_vc *vc;
-+
- 	dprintk(dev, 100, "buffer to user\n");
- 	vc = &dev->vc[dev->cc];
- 	idx = vc->cur_frame;
-@@ -1840,6 +1852,7 @@ static void s2255_read_video_callback(struct s2255_dev *dev,
- 				      struct s2255_pipeinfo *pipe_info)
- {
- 	int res;
-+
- 	dprintk(dev, 50, "callback read video\n");
+@@ -507,8 +507,8 @@ static void s2255_fwchunk_complete(struct urb *urb)
+ 	}
+ #define CHUNK_SIZE 512
+ 	/* all USB transfers must be done with continuous kernel memory.
+-	   can't allocate more than 128k in current linux kernel, so
+-	   upload the firmware in chunks
++	 * can't allocate more than 128k in current linux kernel, so
++	 * upload the firmware in chunks
+ 	 */
+ 	if (data->fw_loaded < data->fw_size) {
+ 		len = (data->fw_loaded + CHUNK_SIZE) > data->fw_size ?
+@@ -634,9 +634,9 @@ static void s2255_fillbuff(struct s2255_vc *vc,
+ 		vbuf, pos);
+ }
  
- 	if (dev->cc >= MAX_CHANNELS) {
-@@ -1916,6 +1929,7 @@ static int s2255_create_sys_buffers(struct s2255_vc *vc)
- {
- 	unsigned long i;
- 	unsigned long reqsize;
-+
- 	vc->buffer.num_frames = SYS_FRAMES;
- 	/* always allocate maximum size(PAL) for system buffers */
- 	reqsize = SYS_FRAMES_MAXSIZE;
-@@ -1948,6 +1962,7 @@ static int s2255_create_sys_buffers(struct s2255_vc *vc)
- static int s2255_release_sys_buffers(struct s2255_vc *vc)
- {
- 	unsigned long i;
-+
- 	for (i = 0; i < SYS_FRAMES; i++) {
- 		vfree(vc->buffer.frame[i].lpvbits);
- 		vc->buffer.frame[i].lpvbits = NULL;
-@@ -1961,6 +1976,7 @@ static int s2255_board_init(struct s2255_dev *dev)
- 	int fw_ver;
- 	int j;
- 	struct s2255_pipeinfo *pipe = &dev->pipe;
-+
- 	dprintk(dev, 4, "board init: %p", dev);
- 	memset(pipe, 0, sizeof(*pipe));
- 	pipe->dev = dev;
-@@ -1985,6 +2001,7 @@ static int s2255_board_init(struct s2255_dev *dev)
+-/* ------------------------------------------------------------------
+-   Videobuf operations
+-   ------------------------------------------------------------------*/
++/* ------------------------------------------------------------------ */
++/* Videobuf operations                                                */
++/* ------------------------------------------------------------------ */
  
- 	for (j = 0; j < MAX_CHANNELS; j++) {
- 		struct s2255_vc *vc = &dev->vc[j];
-+
- 		vc->mode = mode_def;
- 		if (dev->pid == 0x2257 && j > 1)
- 			vc->mode.color |= (1 << 16);
-@@ -2008,6 +2025,7 @@ static int s2255_board_init(struct s2255_dev *dev)
- static int s2255_board_shutdown(struct s2255_dev *dev)
- {
- 	u32 i;
-+
- 	dprintk(dev, 1, "%s: dev: %p", __func__,  dev);
+ static int queue_setup(struct vb2_queue *vq,
+ 		       unsigned int *nbuffers, unsigned int *nplanes,
+@@ -949,7 +949,8 @@ static u32 get_transfer_size(struct s2255_mode *mode)
+ 	}
  
- 	for (i = 0; i < MAX_CHANNELS; i++) {
-@@ -2028,6 +2046,7 @@ static void read_pipe_completion(struct urb *purb)
- 	struct s2255_dev *dev;
- 	int status;
- 	int pipe;
-+
- 	pipe_info = purb->context;
- 	if (!pipe_info) {
- 		dev_err(&purb->dev->dev, "no context!\n");
-@@ -2080,6 +2099,7 @@ static int s2255_start_readpipe(struct s2255_dev *dev)
- 	int pipe;
- 	int retval;
- 	struct s2255_pipeinfo *pipe_info = &dev->pipe;
-+
- 	pipe = usb_rcvbulkpipe(dev->udev, dev->read_endpoint);
- 	dprintk(dev, 2, "%s: IN %d\n", __func__, dev->read_endpoint);
- 	pipe_info->state = 1;
-@@ -2245,6 +2265,7 @@ static int s2255_probe(struct usb_interface *interface,
- 	init_waitqueue_head(&dev->fw_data->wait_fw);
- 	for (i = 0; i < MAX_CHANNELS; i++) {
- 		struct s2255_vc *vc = &dev->vc[i];
-+
- 		vc->idx = i;
- 		vc->dev = dev;
- 		init_waitqueue_head(&vc->wait_setmode);
-@@ -2335,6 +2356,7 @@ static void s2255_disconnect(struct usb_interface *interface)
- 	struct s2255_dev *dev = to_s2255_dev(usb_get_intfdata(interface));
- 	int i;
- 	int channels = refcount_read(&dev->num_channels);
-+
- 	mutex_lock(&dev->lock);
- 	v4l2_device_disconnect(&dev->v4l2_dev);
- 	mutex_unlock(&dev->lock);
+ 	/* total bytes to send including prefix and 4K padding;
+-	   must be a multiple of USB_READ_SIZE */
++	 * must be a multiple of USB_READ_SIZE
++	 */
+ 	usb_in_size = out_image_size + PREFIX_SIZE;	/* always send prefix */
+ 	mask_mult = 0xffffffffUL - DEF_USB_BLOCK + 1;
+ 	/* if size not a multiple of USB_READ_SIZE */
+@@ -1141,12 +1142,12 @@ static int vidioc_g_std(struct file *file, void *priv, v4l2_std_id *i)
+ }
+ 
+ /* Sensoray 2255 is a multiple channel capture device.
+-   It does not have a "crossbar" of inputs.
+-   We use one V4L device per channel. The user must
+-   be aware that certain combinations are not allowed.
+-   For instance, you cannot do full FPS on more than 2 channels(2 videodevs)
+-   at once in color(you can do full fps on 4 channels with greyscale.
+-*/
++ * It does not have a "crossbar" of inputs.
++ * We use one V4L device per channel. The user must
++ * be aware that certain combinations are not allowed.
++ * For instance, you cannot do full FPS on more than 2 channels(2 videodevs)
++ * at once in color(you can do full fps on 4 channels with greyscale.
++ */
+ static int vidioc_enum_input(struct file *file, void *priv,
+ 			     struct v4l2_input *inp)
+ {
+@@ -1228,9 +1229,9 @@ static int s2255_s_ctrl(struct v4l2_ctrl *ctrl)
+ 	}
+ 	mode.restart = 0;
+ 	/* set mode here.  Note: stream does not need restarted.
+-	   some V4L programs restart stream unnecessarily
+-	   after a s_crtl.
+-	*/
++	 * some V4L programs restart stream unnecessarily
++	 * after a s_crtl.
++	 */
+ 	s2255_set_mode(vc, &mode);
+ 	return 0;
+ }
+@@ -1436,7 +1437,8 @@ static int s2255_open(struct file *file)
+ 	case S2255_FW_NOTLOADED:
+ 	case S2255_FW_LOADED_DSPWAIT:
+ 		/* give S2255_LOAD_TIMEOUT time for firmware to load in case
+-		   driver loaded and then device immediately opened */
++		 * driver loaded and then device immediately opened
++		 */
+ 		pr_info("%s waiting for firmware load\n", __func__);
+ 		wait_event_timeout(dev->fw_data->wait_fw,
+ 				   ((atomic_read(&dev->fw_data->fw_state)
 -- 
 2.25.1
 
