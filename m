@@ -1,40 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBAD3DFC8A
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:25:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D573E0096
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:25:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784276734; cv=none; b=kWcJQWFUA1RKEhcmU2+gjuCkUeyzXaNntNvBTo8sPMECCUahCbzSI55UR8aLVs2g1Eg5BM9haL9ew1IVL10paEk44KkRPYuTtthRBKKD/pEwsBiK6lNZtKhcpK5wjgNu1dfcE4Hj58ow+oenWYf615/DVL2DLROoNz7StDUsinw=
+	t=1784276736; cv=none; b=FnsuaoL0D11hNNDo2aueJ32MB5CuGdCYYkBpjw1MwuxFz7BTiNRi6wS5kBsb9d/84FUbz5PcCcr1qgVK/Qleed/fcE0U4Ti5r9GevRAwZ+IceDaBJwH3fG7KjNljoQTF+NQI71yOK3vR62aym0H2j0WJ6PFt52LQr9XyZ4sld00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784276734; c=relaxed/simple;
-	bh=Ju3D8rUT4ZOMKVKEWIOdbSTGHHG5uFEFXCrfnWryTK4=;
+	s=arc-20240116; t=1784276736; c=relaxed/simple;
+	bh=W6a0yZzl7YD/juLyLVSB9btRwjs3FDZh/jkD9DMXCTc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qFLRp8Oicg83vYcwYAg4hpRKezM0j3rAxBntOpQAMPIG0pPmAwoUelFOt8ZMpifRs9MtlerGWts2IlZh5Jie2IxVBhdDEsq8dbTGeGPVN5Bo9tG2+esOsqT1u7DqbVXZmD0qkmyXs15vX1fMEQtEO0bz6qosE+z1/9OHH3RS0zA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GzN2/Zxu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=h9PiZCWXzbW9lCje6fOz8sPw7+BdhBoLTTn2Jw7mLfgVa/6IK3IxTeJfLYsILmLpYT67XqdypoKflIz7tkr4dnCwxJGYf/o6nr4MWGQaBc7mKT9hJi8+aUhPkpVMjaY60ejbFL8cu09FhRWTDHekJj4zUz3/qCRxYUXbMQrWqS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nFRRQYpO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GzN2/Zxu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE2861F00A3A;
-	Fri, 17 Jul 2026 08:25:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nFRRQYpO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE8571F000E9;
+	Fri, 17 Jul 2026 08:25:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784276733;
-	bh=DIkQE7Zd3yJHsiZH/soVWT4kHvmyV+xNIhnXhyeRvZM=;
+	s=k20260515; t=1784276734;
+	bh=ODMwatRiU1waL9Fg2yjeBtRe/UsbLFlhby4k+zOiN+M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GzN2/ZxuJVKVChZNc1CDx2Kx9272wJjAQ5+TNcZx+t8kCRmrWVnnhr/TpNT+49+AD
-	 WtM//6zKkZPTxyKJ04zs8d/PesJRp6GmA/K65sqKCrtfp2N7kdgLZv5VPKJEXPogOf
-	 cIa1f2ZUvkqorSens9u9EXCrSAjfrw1Zm6XkvmiBleyK0GcOQpRiX53CrFlaPm9JpB
-	 NvHOgtz0FdqiF4Cyyje3y7q0b1IkLmbWIvmjTe4XnQ6Ll6Mk2XMSjxDNEJYj7hzC1J
-	 nQlwEVuU2rZtBhR30cx/AI6M2V6bnByZb3VEsqt0JuiOFT5JpSf98vGx9jAVJhMj90
-	 JtMTWoKo+qj8w==
+	b=nFRRQYpOC1UgeSPNdE0WgE9dHdRqfBKTktH5aBmkTme1c5VjroTbJYJSKRFW7IyQ3
+	 lchvypSZL66XURmqjd8XLSf6tcm7sMZnna2C0l3z1HYBXhYPzo3SsKhorahL/beiIV
+	 0Sxcd5toVzMF+n/IJOhPxbEb93mYd74q1Nt5m9m7x+AaoQE9CJY/2jsbNw0y7DV47I
+	 BtJyM8/ldil1dFhteJ31wWMib1VbOooVOa0Sp/cCmoXIXI8IKQ7IvgWfEEsS+VDQBL
+	 vCfDEXL2uptxNByg/tDkLOWplNXWtrNwp0doshRf1J/lqlvDWqdKIPmkgNzxs3HjwE
+	 l8SGnkgoZPkHg==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Steve Longerbeam <slongerbeam@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: [PATCH 17/19] staging: media: imx: drop vb2_queue_release call
-Date: Fri, 17 Jul 2026 10:19:40 +0200
-Message-ID: <2adccbdebd9c899d63d9788f69693c2b609fcfa0.1784276382.git.hverkuil+cisco@kernel.org>
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Subject: [PATCH 18/19] staging: media: ipu7: drop unnecessary cleanup calls
+Date: Fri, 17 Jul 2026 10:19:41 +0200
+Message-ID: <f53405513d94e58f164ba42618b712689998f4dd.1784276382.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1784276382.git.hverkuil+cisco@kernel.org>
 References: <cover.1784276382.git.hverkuil+cisco@kernel.org>
@@ -46,56 +44,40 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace vb2_queue_release/v4l2_fh_release by _vb2_fop_release.
-
-Replace video_unregister_device by vb2_video_unregister_device to
-ensure vb2_queue_release is called from vb2_video_unregister_device.
+If the video device isn't registered, then there is no
+need to call vb2_video_unregister_device or vb2_queue_release.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Steve Longerbeam <slongerbeam@gmail.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/staging/media/imx/imx-media-capture.c | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
+ drivers/staging/media/ipu7/ipu7-isys-video.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/drivers/staging/media/imx/imx-media-capture.c b/drivers/staging/media/imx/imx-media-capture.c
-index bfd71d25facc..e95989a6f861 100644
---- a/drivers/staging/media/imx/imx-media-capture.c
-+++ b/drivers/staging/media/imx/imx-media-capture.c
-@@ -808,14 +808,10 @@ static int capture_release(struct file *file)
+diff --git a/drivers/staging/media/ipu7/ipu7-isys-video.c b/drivers/staging/media/ipu7/ipu7-isys-video.c
+index 8c6730833f24..5f3f091aabb5 100644
+--- a/drivers/staging/media/ipu7/ipu7-isys-video.c
++++ b/drivers/staging/media/ipu7/ipu7-isys-video.c
+@@ -1035,7 +1035,7 @@ int ipu7_isys_video_init(struct ipu7_isys_video *av)
+ 	av->pad.flags = MEDIA_PAD_FL_SINK | MEDIA_PAD_FL_MUST_CONNECT;
+ 	ret = media_entity_pads_init(&av->vdev.entity, 1, &av->pad);
+ 	if (ret)
+-		goto out_vb2_queue_cleanup;
++		goto out_mutex_destroy;
  
- 	mutex_lock(&priv->mutex);
+ 	av->vdev.entity.ops = &entity_ops;
+ 	av->vdev.release = video_device_release_empty;
+@@ -1058,12 +1058,8 @@ int ipu7_isys_video_init(struct ipu7_isys_video *av)
+ 	return ret;
  
--	if (file->private_data == vq->owner) {
--		vb2_queue_release(vq);
--		vq->owner = NULL;
--	}
-+	_vb2_fop_release(file, NULL);
+ out_media_entity_cleanup:
+-	vb2_video_unregister_device(&av->vdev);
+ 	media_entity_cleanup(&av->vdev.entity);
  
- 	v4l2_pipeline_pm_put(&vfd->entity);
- 
--	v4l2_fh_release(file);
- 	mutex_unlock(&priv->mutex);
- 	return 0;
- }
-@@ -938,7 +934,7 @@ int imx_media_capture_device_register(struct imx_media_video_dev *vdev,
- 				    &vfd->entity, 0, link_flags);
- 	if (ret) {
- 		dev_err(priv->dev, "failed to create link to device node\n");
--		video_unregister_device(vfd);
-+		vb2_video_unregister_device(vfd);
- 		return ret;
- 	}
- 
-@@ -955,7 +951,7 @@ void imx_media_capture_device_unregister(struct imx_media_video_dev *vdev)
- 	struct video_device *vfd = priv->vdev.vfd;
- 
- 	media_entity_cleanup(&vfd->entity);
--	video_unregister_device(vfd);
-+	vb2_video_unregister_device(vfd);
- }
- EXPORT_SYMBOL_GPL(imx_media_capture_device_unregister);
+-out_vb2_queue_cleanup:
+-	vb2_queue_release(&av->aq.vbq);
+-
+ out_mutex_destroy:
+ 	mutex_destroy(&av->mutex);
  
 -- 
 2.53.0
