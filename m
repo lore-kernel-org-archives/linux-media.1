@@ -1,128 +1,195 @@
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71863DCDA3
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 12:21:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 751DE3F889E
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 12:33:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784290875; cv=none; b=b+v5soTimGS8pQNSAlrUktvLheeN7xtX2GjvvX8I08J3d/OflPbCWLPPNMXV+IP6TVayLgp9sEgd0q5itOIKI63nhkpRsv2SD02nWH+JcPl+qOI8vW8VTaGaMr3Wzy3sgqr6TZX9ulCbG5E3IzhZiefAHYiLEisLiF4Lt7cf15g=
+	t=1784291584; cv=none; b=bFLxMSpmOO7KejFBBaawzMvjyfAza+z50qw2NcBbWmYjN6RqyIv00vRFQYJJO/rjYuCM+maYZIVQgAm53wkh9gDUZHyOJrYqW1BUo0VfkFk6jSmH6tlH70SiqfbPBeagW61fKivPyHrskoFUZQhiW/W+PKygu/uhFGln5KpfKno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784290875; c=relaxed/simple;
-	bh=aBRYhELff08ys9h4cuD5q2Kft8muOBSKwvu40KFURZw=;
+	s=arc-20240116; t=1784291584; c=relaxed/simple;
+	bh=u1E6/CWroLgvtEkgaB8Buco/RKSVZuyngnEsFTwsGZk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EsGwiHRC9M80vAU4OQAX5vupKGrkBGb5WG5/P2tgB3TfIjJXU3f5lq01I7l/uQVGT3R6/wusObHrTQ/AdBnX7c16iF+H/H56J4MZBk7ktJbidqhnZqfWf1M8Yfw2lxWT4epaljwEclIMM721QLabuhJGuvF7TOTgIwhwKfXdBfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=gblbfg9x; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	 Content-Type:Content-Disposition:In-Reply-To; b=SP6jleUbY8tXTnIG5KWy3X/ljRvdUCfqpCSkz7EFVeTqcdQbxYyV8qD+9+mElSE/yuIYDk4ko5ADTpAnPbjkjLYQyZhieQ6E7YLUWcdNpvptOvUQ6QwvP8fIpJi1VEsjYR6HCw3C8pDhyQfbNvNCzC2BfXHcEJkuP2ryXqsLzYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=DDPFD9sb; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="gblbfg9x"
-Received: from macsyma.thunk.org ([151.240.45.25])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 66HCKmid022457
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 17 Jul 2026 08:20:50 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1784290853; bh=0vYmu9fT3YPaVNsvyA1jpwIKI/N7Ej0isCAHikoD9qo=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=gblbfg9xESiWYF3USUZprOdQwnTYgr47GMuoyazdgU33I26i0IgeASOSPoLZY1Q7D
-	 6f9viosQg1Y0fdxjqy5dPzeFL+63sE3ZUd/QzZNRFlpqTcdjxUAz4U3D8qG8fYAbZw
-	 TMlKFLfRC/eIhFc5iogLQffItNu2zlplN2CNWiVWBpzhUbz6yyJPlVL8hVhpbY4W94
-	 epEBmZteYy8ZV8RXNnmH3Xn94mTRi1xeBbxUnYov3SZRFDHBmWlzyQzbFf9MBZ8fxy
-	 KAmImIo6717SPh2dlc8gbqZMFkk045Pm4VKqt+xtZAu42DGx6/ESC0SHHfmep5XpuU
-	 2uvnGeWeqWuMQ==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id 2B82DA6536B; Fri, 17 Jul 2026 08:20:48 -0400 (EDT)
-Date: Fri, 17 Jul 2026 08:20:48 -0400
-From: "Theodore Tso" <tytso@mit.edu>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-        Derek Barbosa <debarbos@redhat.com>,
-        Matthieu Baerts <matttbe@kernel.org>,
-        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-        Jason Gunthorpe <jgg@ziepe.ca>, Steven Rostedt <rostedt@goodmis.org>,
-        users@kernel.org,
-        Linux Media Mailing List <linux-media@vger.kernel.org>,
-        Stephen Finucane <stephenfin@redhat.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="DDPFD9sb"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1CB311337;
+	Fri, 17 Jul 2026 14:32:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784291522;
+	bh=u1E6/CWroLgvtEkgaB8Buco/RKSVZuyngnEsFTwsGZk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DDPFD9sb8pZEFT0E6pU4SNh7fw7YGOiQWxIA3x6DZA8L6iqghSqHZyN2xVAVg8+Kr
+	 u0L7kv+wvKnSq9k92F2NhDiBZnXMLDsTr052WQzPecdfyGG1DAxhghMbIpOWgq7AGQ
+	 sFfQjZEAEg/hTb4WdUJexvhiFDJaLG86j6eX7T9k=
+Date: Fri, 17 Jul 2026 15:32:57 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Derek Barbosa <debarbos@redhat.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Steven Rostedt <rostedt@goodmis.org>, users@kernel.org,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Stephen Finucane <stephenfin@redhat.com>
 Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <aloZ9hqSgzN3beqH@mit.edu>
+Message-ID: <20260717123257.GR1778116@killaraus.ideasonboard.com>
 References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
  <4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
- <alc3gAJfAkG5DULJ@zed>
- <alfBvhZkAelq5RVf@mit.edu>
- <aliMsSH373RJ31Mq@zed>
+ <20260715162816.GF1778116@killaraus.ideasonboard.com>
+ <7ia47bmw0xls.fsf@castle.c.googlers.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <aliMsSH373RJ31Mq@zed>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7ia47bmw0xls.fsf@castle.c.googlers.com>
 
-On Thu, Jul 16, 2026 at 10:07:03AM -0500, Jacopo Mondi wrote:
-> I got fooled by a Sashiko reported issue on patch for a driver I
-> maintain. I asked the developer to address it, he did so in a separate
-> patch, people got involved, lost quite some time on it, it ended up
-> being a false positive.
+Hi Roman,
 
-Thanks, I think I see why the Media subsystem has such a huge
-difference in their experience of Sashiko.  With the media subsystem,
-you have to support drivers and the driver maintainers don't
-necessarily have as much deep experience with the core media
-infrastructure / framework.  Hence, you didn't immediately realize
-that something which was a false positive.  I'm going to guess that
-you have three levels of expertise; (a) the patch authors, some of
-whom might have very little experience with the kernel, since their
-last project might have been developing the firmware for the card, (b)
-the driver maintainers, who know that driver very well, but might not
-have deep expertise the core media subsystems, and (c) the core media
-infrastructure developers / maintainers, who *do* know what is and
-isn't fair.
+On Wed, Jul 15, 2026 at 09:08:47PM +0000, Roman Gushchin wrote:
+> Laurent Pinchart writes:
+> > On Tue, Jul 14, 2026 at 07:00:54PM -0700, Roman Gushchin wrote:
+> >> On Jul 14, 2026, at 5:59 PM, Laurent Pinchart wrote:
+> >> > On Tue, Jul 14, 2026 at 10:55:42PM +0000, Roman Gushchin wrote:
+> >> >> Mauro Carvalho Chehab writes:
+> >> >>>> On Mon, 13 Jul 2026 12:41:20 +0300 Laurent Pinchart wrote:
+> >> >>>>>>> Individuals can set their
+> >> >>>>>>> spam filters up if they don't want to get these emails, I can't control
+> >> >>>>>>> it. Providing individual authors an option "I don't want my patches
+> >> >>>>>>> to be reviewed" sound strange to me. It's like "I don't want my patches
+> >> >>>>>>> to be tested by unit tests".  
+> >> >>>>>> 
+> >> >>>>>> I agree with you, and, on my head, not sending e-mails to the author
+> >> >>>>>> is a clear violation to one of the most basic net etiquette rule on
+> >> >>>>>> mailing lists: any replies to posts there should reach the author.  
+> >> >>>>> 
+> >> >>>>> I don't know where that one comes from.
+> >> >>>>> 
+> >> >>>>> What happened to this other "most basic rule" that subscription to
+> >> >>>>> services that deliver e-mails should be opt-in ?
+> >> >>> 
+> >> >>> Replying to an e-mail is not subscribing to a service. It is the
+> >> >>> author's right to know if one replies publicly to his e-mails.
+> >> >>> Explicitly removing him from the C/C of such replies is a violation
+> >> >>> of his rights.
+> >> >>> 
+> >> >>> On other words, it is implicit that, if you post an e-mail, you'll be
+> >> >>> expecting actions or answers to it.
+> >> >>> 
+> >> >>> Now, if one really doesn't really want to receive e-mails from a
+> >> >>> particular sender, a block list solves it. Alternatively, a way to
+> >> >>> opt-out is welcomed.
+> >> >>> 
+> >> >>> See, this is different than adding someone to a mailing list without
+> >> >>> his consent: On such case, people receive e-mails unrelated to their
+> >> >>> preferences. For those, opt-in is the right net etiquette.
+> >> >> 
+> >> >> I agree with this.
+> >> >> 
+> >> >> But also just practically: if someone who opted out from sashiko emails
+> >> >> posts a patch and sashiko finds say a critical issue, do we expect the
+> >> >> maintainer to go and manually check each time whether the author opted
+> >> >> out and forward the review?
+> >> > 
+> >> > I expect maintainers who want to act on sashiko reviews to triage and
+> >> > verify them first before bothering authors, yes. I believe we should
+> >> > follow the first two recommendations of the Software Freedom Conservancy
+> >> > on using LLM-backed generative AI systems for FOSS contributions ([1]).
+> >> > 
+> >> > [1] https://sfconservancy.org/llm-gen-ai/llm-backed-generative-ai-recommendations.html
+> >> 
+> >> I think it makes the point of sashiko - helping maintainers -
+> >> unachievable.
+> 
+> Hi Laurent!
+> 
+> > Why do you think so ? As far as I can see, there are many maintainers
+> > and contributors with a strong enthousiasm for generative AI reviews.
+> > Assuming those tools would give a net positive result, isn't that
+> > initial mass sizeable enough to help maintainers ? It could even be
+> > argued that starting with enthousiasts will help convince some of the
+> > sceptics over time.
+> 
+> At this moment there are 36 mailing lists who opted in for delivering email
+> reviews over email (without counting linux-media@). In every single case
+> it was based on maintainers requests in all cases of a disagreement
+> between maintainers I took the conservative side.
+> 
+> Also:
+> $ git log next/master --grep=sashiko -i --oneline | wc -l
+> 826
+> 
+> This is in less that 4 month since Sashiko's public launch mid-March.
+> Most of this commits are bug fixes for existing issues discovered by
+> Sashiko as a byproduct of reviewing new changes, so arguably there is a
+> larger set of bugs which were prevented to enter the kernel.
+> 
+> So it's fair to say that there are lot of enthusiasts and lot of data
+> already which proves the usefulness of AI code reviews. If it's not
+> convincing, I'm sorry, but it's unlikely I'll be able to convince you
+> anyway.
 
-I think the other difference is that in the media subsystem, you can
-rely on the userspace code being "nice" (so you don't need to worry
-about certain races or cleanup bugs, because a well-behaved upper
-layers of the stack would *never* abuse the kernel system call in that
-way).  With file systems, we can *count* on syzbot abusing the system
-call interface and filing bugs which they will report to management as
-security bugs even though no sane userspace would ever do something
-like that.  So we get things which we could call false positives all
-the *time* from syzbot, and arguably, if this can be used to crash the
-kernel, perhaps it's fair to call it a security issue.  After all, can
-you guarantee that only well-behaved media frameworks will be calling
-the media subsystem's kernel interfaces?
+Sometimes I wonder where I fail so blatantly in my communication. Until
+I figure it out, I'll restate what I think I said multiple times in this
+mail thread: I know there are technical merits to the tools. I know it
+can catch bugs, both preexisting and new. You don't need to convince me
+on that.
 
-The combination of these two means that we've already hardened against
-many of the cases where userspace does something "unusual", and we are
-inured to ignoring many of the syzbot's "false positives" (After all,
-if it requires root to trigger an oops, is it really a security issue?
-It might be a quality of implementation issue, but if it's a
-pre-existing issue, we've been getting complaints from syzbot for
-years.)
+I also know there are lots of enthusiasts, that's even clearer :-)
 
-And then because we don't have to deal with drivers, if we get someone
-who is relatively inexperienced trying to fix a syzbot bug, the result
-is almost always a complete disaster (especially since good luck
-trying to get new contributors to run the regression tests) having the
-Sashiko review point out the obvious bugs is a huge time server.
-Furthermore, since we don't have the layer of driver maintainers, if
-we get a false positive from Sashiko, we don't have trouble
-recognizing them, and the main cost to us is telling the patch author
-not to fix unrelated problems in a single commit --- and so to either
-fix the Sashiko complaint in a separate commit, or to save it for a
-later patch series.
+> >> If the point to not use LLMs in general, let’s discuss this, not how
+> >> to make each use case more complex.
+> >
+> > To be clear, that's not what I'm calling for. I'm asking for
+> > contributors to not be forced to use LLMs. I'm not campaigning for the
+> > kernel to ban their usage.
+> >
+> >> It seems like [1]  expresses a very anti-LLM position in general, which I can understand and I agree 
+> >> with some of concerns. But I think it’s up to project leaders to decide if Linux in general  takes this 
+> >> position and my take so far is that the answer is not.
+> >
+> > I would be surprised if Linus broadly agreed with [1] :-) I however hope
+> > that we, as a community, have enough shared values to listen to
+> > everybody.
+> 
+> The reality is that there are multiple actors in the world who are
+> actively using AI for at least the security vulnerability scanning across
+> ALL Linux kernel codebase, including your changes. And it's completely
+> out of our control (ours as kernel community). And we can't ignore these
+> findings completely (how to handle them it's a separate discussion).
 
-This has also helped us because it sometimes gives a newer contributor
-another opportunity to work on the subsystem, and we just have to make
-sure to warn off a contributor that a particular issue proposed by
-Sashiko mgiht be beyond that new contributor's experience.  But I've
-seen a few cases where the new contributor has found Sashiko reviews
-to be quite engaging.
+So far, no disagreement. As much as I dislike this situation, I have
+never pretended to ignore the facts.
 
-Cheers,
+> So there is simple no way someone who wants to contribute their code
+> to the kernel can pretend to live in the world where ai doesn't exist.
+> So the real choice is more like do we want to find (most of)
+> AI-discoverable issues before they get merged or after.
 
-						- Ted
+I think that's a falso dichotomy. I find it odd at best that the answer
+of Google, who has high financial stakes in the AI race with Gemini, is
+to present usage of a product based on Gemini as an ineluctable
+solution. And yes, I know that in theory sashiko could use different
+models, but I don't think that changes the problem fundamentally.
+
+Where are the AI companies when it comes to addressing the massive
+underfunding and maintainer burnout problem, to help doing the ground
+work making the kernel more secure ?
+
+> (Obviously not all issues are security-related, but it doesn't change
+> the point).
+
+-- 
+Regards,
+
+Laurent Pinchart
