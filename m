@@ -1,206 +1,131 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C7BC25B0B8
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 02:29:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD5F31A55E
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 03:06:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784255364; cv=none; b=EyO8IIqN99qWJ13261k1KjHqocejOjP8HH1hQfrb3F/G1uGX7UosjFPzMfc86s+jPs0ab6ddq497EVjaPI88Lz8mRqhHULVjgYrXY7NCi6Pa5LjatGStrD+qTyvtWqRnPFZaQdVVZEQ0Cnvy+3S/Bz61BL2LWPU8P5lPjWMGAus=
+	t=1784257563; cv=none; b=QNMGfzbGXqa2qO639hidpVSqtaQ9kj/iQdne+CezojPYQ6voqX6WcNEVyF1BRJf+GPxrLrp57YPPJQkWQKprzppenXoN3lQXNFXmTXkgmxXmcvpuqEnPBGq+OuYSU5tDQs1D1p1qrioxyFb0kpEPsiZLJpA6wkUgAJ8hWtSnnCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784255364; c=relaxed/simple;
-	bh=SZFO+VczdZ215XdPuWayizGlDoFxBQ57VTOTtFjDFN4=;
-	h=Message-ID:Subject:From:To:Date:Content-Type:MIME-Version; b=XbvvDl8cHTLgYPDVxEFaU9iHNTYcsWcxld9X333a//LtNRNX4hbt6zhdTOKgED/g0ewlIlelCLNri6d+6fotSlrQ/NoY8+Kp0UGK/xNhYILJkA2L3aPuaEbuEiHLcm30Q7IWRzrKZ8zM8oDbqwtrdONzZj6dcWmSZtgWF2V7CeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=O5rJE+YB; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1784257563; c=relaxed/simple;
+	bh=IVQpi5kOsSjc6nbKgnNr4wTB7eZdYdNqamQ1aOhbGM4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CuzT1g4lJzEF3HpAGQi+aoBD/9f9b6cjpzlraT1Ypk5UwTyYE1oeZ83rt2tgYHKFUFpn7MGfhey+DrExeyXOx/oB/dAykP3OwP6col87pOJaPNw32/tnfEIs+qyQjQrG4kDMV/CPUQNVybEcrAnNRzJ4t1Rw8B9QR3sV18xGpH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kO6Z23b1; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="O5rJE+YB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1784255361;
-	bh=SZFO+VczdZ215XdPuWayizGlDoFxBQ57VTOTtFjDFN4=;
-	h=Subject:From:To:Date:From;
-	b=O5rJE+YBuKXzB65wFIwiOqMWE5X/P228o/pTI1UV4getbWbJcZH1bXbTskhe3cJF1
-	 qHFqjTdRngtHaNfqD8muc5+PIeXtjAKZ+pLbrBuq84xd6yH+USrdun/wBWxQTZf7+p
-	 I0M3aS1ykjlaIOFgPuF7BsVHXN5LRGH3fPoqIEBETM40wOgDNQxcQ1qIrjv+bbxafh
-	 DO7U41fdVLtyqBnjgLyUPA/wrwBJ/aTG991qZbjux/5aVg3V9iwVTbMjfPAP47fNEf
-	 w+QX2PFXPce7L6AxqLQEGOO71R6dUjFQ+WQGMBPP2/m4RW0Vl3wpzeQVQb6BsmtEsa
-	 8NE4jEyNB22ug==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id B2FEC17E010F
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 04:29:20 +0200 (CEST)
-Message-ID: <bc418ee4db84949cd0c78a729d46e35cc65282de.camel@collabora.com>
-Subject: [GIT PULL FOR 7.3] Media codec for 7.3 2026-07-16
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: linux-media@vger.kernel.org
-Date: Thu, 16 Jul 2026 22:29:19 -0400
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-braSvAXfnsNE9O2A+wPL"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kO6Z23b1"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38e071ed6aeso3978827a91.0
+        for <linux-media@vger.kernel.org>; Thu, 16 Jul 2026 20:06:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784257561; x=1784862361; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mZVR56XOREeMXVCUwfvytwmladieL4xpwdBWK5Npchw=;
+        b=kO6Z23b1eVbRdc74ucI94vhxYTXsLZAtfig0piFQT2GChZ65Q2SRB7z3wOvDdh7LQ+
+         PsbRvSc+hV/Rn5u4Qr903g7svgPqMneKMaf3b4ljPOzWWEqAwBdudiVYth2DKkQqiDXM
+         bvUD0sZXL038DLgPKYwVae6jDEQ63daN4GLe6arnIXyW8z94r8DzXxdTe8L3QZ8CqeKV
+         E3yXG/je7a2F45HRkzsbaU35StnVS0BJJg6Cafng8qyKGT9TRmS5SDnDRPQyf0YMt3WQ
+         VDb4Tfat/ZBH9jrttk4m7uTTDDTzmXO5trBEc31bMq6E4Te/8buqBF0v8l24YdLhzrw1
+         WPNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784257561; x=1784862361;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mZVR56XOREeMXVCUwfvytwmladieL4xpwdBWK5Npchw=;
+        b=NLwQU8MYFR7TfjdcaPC+X12S9gR8TxW/E3Dpao/hW/hCGjbgaA0WRccjN3qS5XLhCo
+         WtAqjGEYD/Nr5BuUWG2dr4hmFCb1rdoAtiR1oCLTHIr7Fo8QTsZNmI1CcsPke2GFk869
+         ZTmt/YIqMq6oPexOxBmR8pgZqlNemJ867oPZBG0kE9yIACqi9qBefxp1ZDz/rzSFjtt/
+         RQc+oKNwP+mqxIIZ1YNiUZDKt1XRKcVdSEtCIFMz42EZhATNUulidnAdIz2Uk2McYzWU
+         GoissZQFut784nd5NlRQbuojmUji4yFHLOme/mAtBWfybWlqGqYEr6V7BwaH8RkwC1qC
+         8VvQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rqf8TPfvjFlPaWHAIIGxfcnlKaWfzFzgv0Ysju4wtHVMFePS57NVIpjOjJAXpZK7VgrpzLdyjdnBDNx/g==@vger.kernel.org
+X-Gm-Message-State: AOJu0YweNarB7xZzhI0KZxhybtYdZBO4Ql3Hh02x8cVyc9myQyks4gGT
+	mYqod8/aoe7A1oXTrs9MyPFb1VGZKegml/haiGn/MvTbil/4TXOY91j6
+X-Gm-Gg: AfdE7ckKRS2Iixv8Gb1PhiUEOp9wfMGM4RNY3YrarpzT0j6oC5NHjJDFA+GaPWLy+jx
+	qDjsKnyhXyXnvhnUXWI/rho6nUTcidtc/lmckyJYKpNc5e+sP4pZk0G5sx6YdEm3/uStm9KBXcK
+	nlPt749FUkP9mvQJ5uabcxBTGwY0hBM9V0MTbDiLKtbyLlHOeZNmMQnSPSuLcY0GOP4xTn1DuZN
+	e9Pn8ddaEVKSyhM3T/TsRCLnBpZWn0rxwSKYSVK0HmbxBYHC2sygfwo/yrqaCWBfTxwUMcJIZvf
+	mI83lhXX+F2B+iLNuftFsW5uuYf3mbDDONqKqiEpV24q2Bnhe47k5607/Tzeodblld5sCNHiirp
+	jswOEX6DYsP/3krrg9wUix711NVbU+inVXEI5cP5bpBx77kS2jl46LMfbzxNDFQKmA6UE/fSWBc
+	eR+FZLXkcl9zHgbMuqPZzoMQrEu0QejJwZbuco2ZpMV03G79uUOi6GTQnme+LuLMgycwhyRUOrf
+	Sls2jKuW977HXOMRk9IBb7avLm8LKXTwEM5
+X-Received: by 2002:a17:90b:58cb:b0:381:5bd6:eb19 with SMTP id 98e67ed59e1d1-38e4b47765dmr715137a91.18.1784257561268;
+        Thu, 16 Jul 2026 20:06:01 -0700 (PDT)
+Received: from OMEN ([103.184.238.237])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31429fe1014sm1424650eec.7.2026.07.16.20.05.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Jul 2026 20:06:00 -0700 (PDT)
+From: Alfie Varghese <alfievarghese22@gmail.com>
+To: neil.armstrong@linaro.org
+Cc: gregkh@linuxfoundation.org,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-amlogic@lists.infradead.org,
+	dan.carpenter@linaro.org,
+	error27@gmail.com,
+	alfievarghese22@gmail.com
+Subject: [PATCH v3] staging: media: meson: vdec: propagate devm_clk_get() errors
+Date: Fri, 17 Jul 2026 08:35:58 +0530
+Message-ID: <20260717030559.167-1-alfievarghese22@gmail.com>
+X-Mailer: git-send-email 2.54.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+vdec_probe() hardcodes -EPROBE_DEFER for all devm_clk_get() failures.
+This masks the actual error code returned by the clock framework, such
+as -ENOENT when a clock is not registered or -ENOMEM on allocation
+failure.
 
---=-braSvAXfnsNE9O2A+wPL
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Return PTR_ERR() instead to propagate the real error to the caller.
 
-Hi Mauro, Hans,
+Reviewed-by: Dan Carpenter <error27@gmail.com>
+Signed-off-by: Alfie Varghese <alfievarghese22@gmail.com>
+---
+ drivers/staging/media/meson/vdec/vdec.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-This PR cocntains a collections of fixes across codecs and m2m drivers.
+diff --git a/drivers/staging/media/meson/vdec/vdec.c b/drivers/staging/media/meson/vdec/vdec.c
+index a039d925c0fe..fba1e7f88d81 100644
+--- a/drivers/staging/media/meson/vdec/vdec.c
++++ b/drivers/staging/media/meson/vdec/vdec.c
+@@ -1026,24 +1026,24 @@ static int vdec_probe(struct platform_device *pdev)
+ 	    core->platform->revision == VDEC_REVISION_SM1) {
+ 		core->vdec_hevcf_clk = devm_clk_get(dev, "vdec_hevcf");
+ 		if (IS_ERR(core->vdec_hevcf_clk))
+-			return -EPROBE_DEFER;
++			return PTR_ERR(core->vdec_hevcf_clk);
+ 	}
+ 
+ 	core->dos_parser_clk = devm_clk_get(dev, "dos_parser");
+ 	if (IS_ERR(core->dos_parser_clk))
+-		return -EPROBE_DEFER;
++		return PTR_ERR(core->dos_parser_clk);
+ 
+ 	core->dos_clk = devm_clk_get(dev, "dos");
+ 	if (IS_ERR(core->dos_clk))
+-		return -EPROBE_DEFER;
++		return PTR_ERR(core->dos_clk);
+ 
+ 	core->vdec_1_clk = devm_clk_get(dev, "vdec_1");
+ 	if (IS_ERR(core->vdec_1_clk))
+-		return -EPROBE_DEFER;
++		return PTR_ERR(core->vdec_1_clk);
+ 
+ 	core->vdec_hevc_clk = devm_clk_get(dev, "vdec_hevc");
+ 	if (IS_ERR(core->vdec_hevc_clk))
+-		return -EPROBE_DEFER;
++		return PTR_ERR(core->vdec_hevc_clk);
+ 
+ 	irq = platform_get_irq_byname(pdev, "vdec");
+ 	if (irq < 0)
+-- 
+2.54.0.windows.1
 
-cheers,
-Nicolas
-
-The following changes since commit 42f83a32259a82c4481d3cccf560c3bfeb32c892=
-:
-
-  dt-bindings: media: i2c: Add Sony IMX678 (2026-07-15 23:16:20 +0300)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/linux-media/users/ndufresne.git tags/for-7=
-.3-media-codecs-2026-07-16
-
-for you to fetch changes up to 6fd034a6bca8c00aeab914c22cc6f3553bbdb719:
-
-  media: chips-media: wave5: Resume device before setting EOS flag (2026-07=
--16 22:21:27 -0400)
-
-----------------------------------------------------------------
-Media codec and m2m fixes
-
-----------------------------------------------------------------
-Biren Pandya (1):
-      media: platform: hantro_drv: Add missing media_entity_cleanup()
-
-Christian Hewitt (1):
-      media: meson: vdec: fix NULL pointer deref in vdec_try_fmt_common
-
-Dawei Feng (1):
-      media: cedrus: fix memory leak in cedrus_init_ctrls()
-
-Guangshuo Li (1):
-      media: platform: mtk-mdp3: Fix SCP device refcounting
-
-Haoxiang Li (2):
-      media: mediatek: vcodec: remove redundant return value of vdec_vp9_sl=
-ice_setup_lat_buffer()
-      media: mediatek: vcodec: remove redundant return value of vdec_vp9_sl=
-ice_setup_prob_buffer()
-
-Hiroki Nakajima (1):
-      media: rkvdec: use DIV_ROUND_UP() for CTB counts
-
-Jackson Lee (7):
-      media: chips-media: wave5: Guard bit depth check with initial_info_ob=
-tained
-      media: chips-media: wave5: Set inst->std during default format initia=
-lization
-      media: chips-media: wave5: avoid skipping device_run while VPU has wo=
-rk
-      media: chips-media: wave5: Add timeout while stop_streaming
-      media: chips-media: wave5: Defer job_finish() only when a DEC_PIC was=
- queued
-      media: chips-media: wave5: Fix pipeline stall when queuing fails
-      media: chips-media: wave5: Resume device before setting EOS flag
-
-Jason-JH Lin (2):
-      media: platform: mtk-mdp3: Refactor CMDQ writes for CMDQ API change
-      media: platform: mtk-mdp3: Change cmdq_pkt_jump_rel() to cmdq_pkt_jum=
-p_rel_temp()
-
-Johan Hovold (1):
-      media: platform: mtk-mdp3: fix NULL deref on failed SCP lookup
-
-Michael Bommarito (3):
-      media: rkvdec: hevc: tighten EXT SPS RPS control dimensions
-      media: v4l2-ctrls: validate HEVC EXT SPS RPS counts
-      media: rkvdec: hevc: guard INTER_REF_PIC_SET_PRED index underflow
-
-Ming Qian (1):
-      media: amphion: Remove obsolete frame_count check in venc_start_sessi=
-on
-
-Narasimharao Vadlamudi (1):
-      media: rkvdec: Propagate platform_get_irq() errors
-
-Sven P=C3=BCschel (1):
-      media: rockchip: rga: don't change RGB quantization
-
- drivers/media/platform/amphion/venc.c                                     =
-|  2 --
- drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c                  =
-| 64 ++++++++++++++++++++++++++++++++++++++++++++++++++++------------
- drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c                  =
-|  6 ++++--
- drivers/media/platform/chips-media/wave5/wave5-vpuconfig.h                =
-|  2 +-
- drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c                      =
-|  6 +++---
- drivers/media/platform/mediatek/mdp3/mtk-mdp3-comp.h                      =
-|  6 +++---
- drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c                      =
-|  6 +++++-
- drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c =
-| 29 +++++++++--------------------
- drivers/media/platform/rockchip/rga/rga3-hw.c                             =
-| 12 ++++++++----
- drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c               =
-|  3 +++
- drivers/media/platform/rockchip/rkvdec/rkvdec-hevc.c                      =
-|  4 ++--
- drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c              =
-|  8 ++++----
- drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c              =
-|  8 ++++----
- drivers/media/platform/rockchip/rkvdec/rkvdec.c                           =
-|  8 ++++----
- drivers/media/platform/verisilicon/hantro_drv.c                           =
-| 12 +++++++++---
- drivers/media/v4l2-core/v4l2-ctrls-core.c                                 =
-| 15 +++++++++++++++
- drivers/staging/media/meson/vdec/vdec.c                                   =
-|  4 ++--
- drivers/staging/media/sunxi/cedrus/cedrus.c                               =
-|  4 +++-
- 18 files changed, 131 insertions(+), 68 deletions(-)
-
-Nicolas Dufresne
-Principal Engineer at Collabora
-
---=-braSvAXfnsNE9O2A+wPL
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalmTfwAKCRDZQZRRKWBy
-9KjcAP9j3AUnO24E9gpV1yr4gBKJqn/XGVj0OdYRkQTphiGkbQEAkIA0m4dMdX9s
-UvuVPBJ4TlkNHdc8bILJQrqAV7u0JQ4=
-=GocE
------END PGP SIGNATURE-----
-
---=-braSvAXfnsNE9O2A+wPL--
