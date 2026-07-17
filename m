@@ -1,138 +1,77 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA6840097D;
-	Fri, 17 Jul 2026 14:31:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087B112D1F1;
+	Fri, 17 Jul 2026 14:49:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784298721; cv=none; b=rTn6QxKHIU6xBG8DEPkSpUr9FgxgcSpuiTbZf/Vu8+RMUb1VU0DOyBwaWYJnUB0EsHALQrOYkF/C2jhr6CbvGuNnD5E4xGaNyAjqyuo1Cu6DDaxbGN1eGMmMgFtjnW6is8dwRuDwhNTbHetvIaOwBaIBlTe1Nqz1QEXyVvKMXLU=
+	t=1784299772; cv=none; b=gSkPPQzQFNr8GnS4+Kp55WiSRJWM8ZJpIH0nwxZcKB45DkOy9u6NbdvOHVz+LoEDxwc6ebQ3hPRv0kW5Z3ITqQGIAjrKOkMuRh8gFs2d9Bjh+ZNzhFn6r8SfZmZY25FLMszI3jNOJx+ti0naYa6GeRDVj9XfoVNp2gPHw1bXiEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784298721; c=relaxed/simple;
-	bh=c0SDOQ15nRyXj8rLOqoDsDZP84RsTgp7QGlThjQu/3I=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AwJ9siNSeuMhxpmv+AGmCo/k7+tn8c5fgkm1fzRH0sR7Ei9igmcZAlQcPzy8aoF9zeSq9Ml3tqRK3PAr8g3vLUNuCKtQOG3IbwX5CIPw53Hu9Nu77HcjbS1hQYRgd2FtQZrr4eGNO/1wtss7lEax35970rHICD0uY2JU44jY0W0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=pb7Wkl1O; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1784299772; c=relaxed/simple;
+	bh=qa/81JIfcQybn4akAYQX/T13BkvL3/0IoNUaBDJcq+o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s/a58uBnUEVXV6gV06+PvZNtDwOiIWzkzumm73Qtx46glmJ8SkDGdzwXxfCxZx/ToivUbgqOFAZ3v89wmeyPp9BEpgeDzghwc2UXEjZ2jbQPZLGIUW0rthhM7kCYN/W9IuBIGVFX/oPlMkRuKOa8OGc3hCIVKa3Z55D29ASGmJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d4a2x4gI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="pb7Wkl1O"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1784298712;
-	bh=c0SDOQ15nRyXj8rLOqoDsDZP84RsTgp7QGlThjQu/3I=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=pb7Wkl1Oe1LW55745pa/+Y0p+12T4XczXXj6ws7qYt/Lq0lDrQ3RkHKPh/ie7R1eO
-	 BwOTuuCf8Rv3SzkLwUZXiVcTVAprAMkLtnlKu5+Emu526Z9Nxju8/MBKcqWR/AXg3K
-	 7abTMDD2SGAJ5IHFqRCuO8Rq0xhR+rqlAux9J4hIO6l7TdB92c+X60aCn5kdqtTaLs
-	 aKelK1/Ww4hBP9hfwKkEyMgThHcSoUww/EHt0nvoe9y3cY5+WR/LxP7k5Xviv4pSg3
-	 oQZVCSZwZ2ByhSLYrY4FhBmoDj2E8ckU4e+DUioDR0BahkvqcHQZ3taHOfGX0vZu8/
-	 F9pRmNYPl42Qw==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 739F917E010F;
-	Fri, 17 Jul 2026 16:31:51 +0200 (CEST)
-Message-ID: <7bd147f9472fa3093bc958843d7dbed51251b456.camel@collabora.com>
-Subject: Re: [PATCH] media: chips-media: wave5: Handle polling IRQ thread
- failure
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Linmao Li <lilinmao@kylinos.cn>, Nas Chung <nas.chung@chipsnmedia.com>, 
- Jackson Lee <jackson.lee@chipsnmedia.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil
-	 <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Fri, 17 Jul 2026 10:31:49 -0400
-In-Reply-To: <20260717071315.1485454-1-lilinmao@kylinos.cn>
-References: <20260717071315.1485454-1-lilinmao@kylinos.cn>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Ehf1BOs+FlJ9LBiRwIAc"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d4a2x4gI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B84E1F000E9;
+	Fri, 17 Jul 2026 14:49:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784299770;
+	bh=+q8YiWXqmTGRkRi0w5HPuLZXGyFgeLZWZr5ZctekBP0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=d4a2x4gIkZTEk1CE5Hsyf2XDeER920GZ6ahZHtyGapAoOhoKiNOivRAi6YlPVNH0t
+	 XgKt3Qirf0rU3OAZQl4n3mCv4VH3dgm8EJ8xXCdaCet3iKwxxRXpcVBnEcxdOQdo+k
+	 Y6DyVb0KqVQuZ9ELZYaWC3x2PGk1SZ0VIvHPnXXaOpIN6j3/m72psCVSpa5XYuGKoi
+	 cOg9HJ29PuK9ouPW/9885t08Z+JZgcUI+xOeJdr14jq9HgD0pk2/UlgQj4oSEE4AUN
+	 Ehs/91MSiTBfa6TDC6k6QP0fAZPaHMoCOWkKPPaNd56uRJTVJtbCxm4+coGu33ZR5J
+	 6MYtS4kKEwIyg==
+Date: Fri, 17 Jul 2026 08:49:25 -0600
+From: Tycho Andersen <tycho@kernel.org>
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	iommu@lists.linux.dev, linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin" <hpa@zytor.com>, x86@kernel.org, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, 
+	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Shuah Khan <shuah@kernel.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, Kees Cook <kees@kernel.org>, Ashish Kalra <ashish.kalra@amd.com>, 
+	Connor Williamson <connordw@amazon.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Zhou Yuhang <zhouyuhang@kylinos.cn>, Zi Li <zi.li@linux.dev>, Dan Williams <djbw@kernel.org>, 
+	Eric Biggers <ebiggers@kernel.org>, Colin Ian King <colin.i.king@gmail.com>, connordw@amazon.co.uk, 
+	graf@amazon.de, fgriffo@amazon.co.uk, David Woodhouse <dwmw@amazon.co.uk>
+Subject: Re: [RFC PATCH 01/11] KVM: selftests: sev_smoke_test: Only run VM
+ types the host offers
+Message-ID: <alpAqex9iHS2rk8b@tycho.pizza>
+References: <20260716151706.244987-1-dwmw2@infradead.org>
+ <f09647f427565c1789a6979470045aab78661563.1784194290.git.dwmw@amazon.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f09647f427565c1789a6979470045aab78661563.1784194290.git.dwmw@amazon.co.uk>
 
+On Thu, Jul 16, 2026 at 10:31:21AM +0100, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
+> 
+> sev_smoke_test ran the plain SEV subtest unconditionally, gated only on
+> the X86_FEATURE_SEV CPUID bit, while gating SEV-ES and SNP on the
+> KVM_CAP_VM_TYPES bits.  CPUID reporting SEV does not mean KVM offers the
+> SEV VM type: when all SEV ASIDs are assigned to SEV-SNP, KVM_X86_SEV_VM
+> is unavailable even though X86_FEATURE_SEV is set.  On such a host the
+> test aborts in KVM_CREATE_VM instead of exercising the available modes.
+> 
+> Gate the SEV subtest on KVM_CAP_VM_TYPES like the others, so the test
+> runs the VM types the host actually offers.
+> 
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 
---=-Ehf1BOs+FlJ9LBiRwIAc
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Le vendredi 17 juillet 2026 =C3=A0 15:13 +0800, Linmao Li a =C3=A9crit=C2=
-=A0:
-> When falling back to polling mode, wave5_vpu_probe() does not check the
-> return value of kthread_run().=C2=A0 On failure, dev->irq_thread holds an
-> error pointer instead of a valid task pointer.
->=20
-> Both the probe error path and the remove path only check
-> dev->irq_thread against NULL before calling kthread_stop() on it, so an
-> error pointer passes the check and kthread_stop() crashes on it.
->=20
-> Check the kthread_run() result, clear dev->irq_thread and unwind the
-> probe on failure.
->=20
-> Fixes: e66ff2b08e4e ("media: chips-media: wave5: Fix Null reference while
-> testing fluster")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
-> ---
-> =C2=A0drivers/media/platform/chips-media/wave5/wave5-vpu.c | 7 +++++++
-> =C2=A01 file changed, 7 insertions(+)
->=20
-> diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu.c
-> b/drivers/media/platform/chips-media/wave5/wave5-vpu.c
-> index 76d57c6b636a..37df270b5f99 100644
-> --- a/drivers/media/platform/chips-media/wave5/wave5-vpu.c
-> +++ b/drivers/media/platform/chips-media/wave5/wave5-vpu.c
-> @@ -340,6 +340,13 @@ static int wave5_vpu_probe(struct platform_device *p=
-dev)
-> =C2=A0		dev_err(&pdev->dev, "failed to get irq resource, falling back
-> to polling\n");
-> =C2=A0		sema_init(&dev->irq_sem, 1);
-> =C2=A0		dev->irq_thread =3D kthread_run(irq_thread, dev, "irq thread");
-> +		if (IS_ERR(dev->irq_thread)) {
-> +			ret =3D PTR_ERR(dev->irq_thread);
-> +			dev_err(&pdev->dev, "failed to create irq thread\n");
-> +			dev->irq_thread =3D NULL;
-> +			goto err_vdi_release;
-> +		}
-> +
-> =C2=A0		hrtimer_setup(&dev->hrtimer, &wave5_vpu_timer_callback,
-> CLOCK_MONOTONIC,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 HRTIMER_MODE_REL_PINNED);
-> =C2=A0		dev->worker =3D kthread_run_worker(0, "vpu_irq_thread");
-
-Looks fine to me.
-
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
---=-Ehf1BOs+FlJ9LBiRwIAc
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalo81QAKCRDZQZRRKWBy
-9NmLAP9ql7QYEto+/cHOxwgRAIkk38xuT1hojtzuqZ0vCSkgCQD/W1bUXpkLuK+V
-Dk3sJkvSNANSTIGBBdqQGxnV7REXcAI=
-=hLGq
------END PGP SIGNATURE-----
-
---=-Ehf1BOs+FlJ9LBiRwIAc--
+Reviewed-by: Tycho Andersen (AMD) <tycho@kernel.org>
