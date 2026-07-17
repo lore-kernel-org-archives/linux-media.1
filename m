@@ -1,249 +1,132 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D75F2F8E9E
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 19:46:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784317610; cv=pass; b=uGBLWpbvJrUolwiKbvpDuytEpODyovf5J8bDhPCqGBGJpPmXqM0ziGf81dRhlYQJlFhclhr9N/QTW5cpNDjofx8GaTqdcHGQrB8sgyR3BgMvp+qUhZlJgC4hRSPZCsRVxlaUX5d281zGjwynA3fqMQbO1qCGijqLE7YhYPt7s6Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784317610; c=relaxed/simple;
-	bh=zoiSF3JeQIqnQcvMW43JD4qB9vpjOVAXImiebAn+BPg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EoUzz50Kr7hhe1qSF6SrKMj2ejJWt6PNW03gqYa2hSa0fAZTGcP1m76nck6dHqSiD9K82rZRbJzmgcminMbCqY5+eZGoIzTIPtY6ESW9FcXkKyvqFsAybBvgl6AjWfv6Ckm+dBWuZh0bxjDDBZ0cJrp2CKEHyfRd3/OqPi+wd/Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZLJJ4FtI; arc=pass smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4463A1E80
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 20:56:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784321770; cv=none; b=ZbM8LQvqrXaQwdVQT+T2mm29CpwZ64i47o8UamcbrTx63R7NVWJO/IkE+EYmY5Vhj3i1PLs6vlPHuxpFHRvbwMrwex4FchMor2zkDvZbBC15okOraQE5F1C5AKi76flp347AgsxvUhoV8FrIoiLd1eZpUFzB7KG0nb9gb/UBCyo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784321770; c=relaxed/simple;
+	bh=jwiyrxfQgomvuGswE8+LEVhWGmTsiXsVXkjrwYAy8rM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SZkdkuIrZYAvBe9RBD72ZLFIvSpoGVmqZJKSXA/95A+60d8nMuZnVmxuzkjMXoWDbt3C8q7J1g4QXPY12/qIR7AQHBBPWM9iIswLbRfBjOwQdNN7HkDcGNlvrkMqduG4xXDkAxaRc09sFiEe10qOzCfpkpUCP7Yx2tZTsLkrz7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RMfmLWtu; arc=none smtp.client-ip=209.85.210.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZLJJ4FtI"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cab97c86bdso220145ad.1
-        for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 12:46:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784317608; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TX73HddBKemvg8SYAeCEY3GbSBBrwL2UYHUKiTqKYCvuJGx82FAIJC7tuqd9bzbaKq
-         cDrJqWbTXPZBLXF/JkjV6h/jsDH4tS8Uni1wdvkB9QYWI2sbGmx8QQqw3SacRpccEYfl
-         BObdeOZ9Mv/7Q7esu/VgScnKhLUXmrjCitkRfHdTUbSnIS+iat8rcc0SH3N3BN4cdDYP
-         mHt2CHV4CmydqVTl3wOTlN4yyU95D3fBv/SpmlZRyE2a2NnovVmj4ju8fWUKczRNnIww
-         K+JTIFoqpw+KdWx0sLCQqD98RvWGREywL/eYNhJ0rtTFp9nm7Hs1igcEiElmLv+YTAYJ
-         isSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nsZo6eYxZiNwWUFhdwOagBZhkMfykQcqUISKPpPxaDA=;
-        fh=dOlNbiW6Urco0byt7T5UpFujNImDoAtOqtXZokSSmWU=;
-        b=WPrLVFz2d8HuXYlQ4FGncRbc6EjCByT67Qby/sxd4rkDkD2frq7xnd6C1UMFLVN1Aj
-         BWH4yG6jn/8z1Gjl/s4qP0FMqKNMe0+mEQFM2O/IwuDXIaeYISkqKPyuawFhoCVyXEjV
-         8NmtrsclayLi/+Q+S+y0rRP8JLuYQ3B00NKnaCAMwQBWfnuxscXGP132fkmccakcO+n0
-         3qFgInnUywXUJbNAAhQ/fAQW/abhy6UifpdS9gy1Q847NIpKdAzrDKF0BHWtNlTp7BLC
-         7QwtEqnjlmBTxRE//HgOMiXEXMM2cv0PUZBfGzCS4ur8zuvPeUKZviCicinT5Ab7OIj5
-         83UQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RMfmLWtu"
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7eb545db3afso2904635a34.0
+        for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 13:56:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784317608; x=1784922408; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nsZo6eYxZiNwWUFhdwOagBZhkMfykQcqUISKPpPxaDA=;
-        b=ZLJJ4FtIxJdZLTVhd1RiJptzGMSMFeQdCy76jT9+DTiciAT7YfYWb72fFvMDWNpFgl
-         N3XWmuPV96ZVobFtEwFO2V2fgqk+u1szCWiZbDlJIo8X4otQ+Mhm2g4ZrCjeCUJ0PHUO
-         avO+Fm+uF4LOBKtbTGwVHnxiAXI1hFgGFH7rTFiD6N1BYsEmBhfqv7UcCVvTFUDwEZsz
-         7gFHNWFj+qYNQTPCi78yKvjzlXUq/Qa9s+DUrVqpLnU2AntH/UeRM/O+8WkQl2BKs1Et
-         uXwTbiQmhH+zogVH6PRG/DKvKD2RBfS4ercFxgzk4iR76MGhlrDYtF7DSiFsJXff5Jpz
-         BIDQ==
+        d=gmail.com; s=20251104; t=1784321768; x=1784926568; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dn6lNE6okfAVFge0J6jVrbXGd9etd2d28/dC2ZBL9I4=;
+        b=RMfmLWtuKEtyJ+trChG/K0gtkKKdqrvU7SDG1XoZSsptgQvGJcpAIB4N6MKha7NuuJ
+         iEnPOzqjnw2kBIhV6f7Haa4misWwU3O1UwoUC6p8Hc/2odStA4tJ+kk2p7massP2Hurh
+         od5zPoiuGsJbnanF+qa8Df+oT8dhFC9fU8faA60oQrYgV130Ep0nMvppguu8CKvn5gXv
+         L1Nq8VfF/8VOW8IPyr//vU7oZeid737JoJEpfNcPjRXhm4RQAp0ukMwBIP8AhdHWZqu1
+         U0P1xJxq1pgBAegkkY3io8PQvvHtWnRF6kvfM4Hld7FlkySa1Vru5/QHRdYrwcNc97El
+         dEDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784317608; x=1784922408;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nsZo6eYxZiNwWUFhdwOagBZhkMfykQcqUISKPpPxaDA=;
-        b=XKgNgStNbEnYvxVyLa71iaEFq/NE95q5+E5nR+0pJ/3upr4hl8n1vgB9GyUZyYbB6s
-         tWsK29CLahYEcCmS19tRLd5QTsYq1XT/pBA8+Z3w9fdcnMkTn5nyI+5JSC1fofrmS+vS
-         9Yr1NPMx+DBuuJvQjiRc1Zwz9rCi82b6NiZpNreAYT0NW5EOQA97f1tqE854qIm5KPkD
-         m99oL+aGMkKFLeXkqhxKf2wtxRA79RXaNuSnGun9Mcdylw8vSRFw78ZfGNgQ+8NY/qW6
-         rMUUhhmyDQxXOrR3Jr/qt8zYU9H9bms9hsng9sJYMWQrdw6B8de14bfPv3H9rYWlRItj
-         01hA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp+UR79emYcDhwwQoYLN2yQ0k7LQe/urKRB7EjjT9d6k3q+0BIs14Gcwqh1OEyVEv+aItDujenpd29XIA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzldatG9HovKi96IEJgeJgKRK182Qq/As8jVWSqQKoG9Y7Jcjz9
-	NVeJVRlocKVIjSCIxmlbDRfWETobg7xbQmyZOe03kLseeL1N0kHgG6OQXtPMrb4GM7pbKFKmcow
-	FN9is67WdVXv8RP2z7aWfR61ZFynN/50sRChFjcE=
-X-Gm-Gg: AfdE7cnP7DLpTmxc27TVrX+8up7xrzgKqwRcwSWZHECIldi3mAlI3y9naLon3KD8iE7
-	Ve8bqUqnk1wDnF6K8yOZyuShUpt3ftwFD34rKfk29LTxhb96ofgEFxWDEL3vOJA1nFIsdRo08fo
-	uTNEGEUd63fC357BF24Z3DOErV5/Y9uLW0373rjaxS79XYdLfwHN2VIA9ErUHnRjOj0l4aNUnnf
-	O0pZcmVyOobBsEU2NVqM68XcVJ+85cQMAEonsDP9kY0+rCt/HWuG3uF/0Rq3mcsDcpyNzE=
-X-Received: by 2002:a17:902:cec8:b0:2cf:41ba:96b8 with SMTP id
- d9443c01a7336-2cf45301963mr639285ad.6.1784317608017; Fri, 17 Jul 2026
- 12:46:48 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784321768; x=1784926568;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dn6lNE6okfAVFge0J6jVrbXGd9etd2d28/dC2ZBL9I4=;
+        b=Cz1K8rw2ZPEv/DoKjKVmFj3UGFdB6qvgaa/b4EA8KkRfvy1eP+NA5JEVQPdpOYKZf9
+         TiaOSbkb0tal7euvJP2qGpq+GNW9yCB4pTRcW8Or7MyBzQEmYJmgPRGTTL5wEzFPaKGd
+         kqP4mOC0yGllnrzS22za3uF+QbjNgVQt4Q1E5L4lByE/LOXbYjoGdHApkE7I9BGkuxZL
+         uljWo48aK9dvSGXd+JFu9lsli78O/FYoxg8sTRzPEYFq606S5JJeS6bv/o9k2bze7uP9
+         UVfQikUaIjeaVdq4BZJpN+/z8EBt1w6hzky8tJAyT2iOh//7sWMF9eGS9UhY2VgM1Bge
+         q+Mw==
+X-Gm-Message-State: AOJu0YypwTcWBkYZm8jZJ+5cygxoTELB1dwsmFoz9+iw/1IM1gIdjOlR
+	QAln4wycPJ//01Oc6u7Fm/88A8YH7AfxfHA6sy4/iY/Q8fH69oVcpy/v
+X-Gm-Gg: AfdE7cnudt5EyrtOxQxuD7jCVJeYL8uiPMNH9wuyd80GvWF+XTFtaZGaxH42fUx4wmW
+	0HupH0YqDp3EcQplUO0pP+Dv5gU4b3SqetsXBkq3DX2Lzt2qD/hKW2ND698CqisvyGyOKDsGarr
+	bqKaNBDy/vVoRHray/hq/XX4VmJfEg9TgxgVZrLfrxUkbO6Lwr3M6WeCClR4cdQMDcqoIZK4ESY
+	1Tgp1gghp0NaGfG+PwZDKolArE4bafTGu0FtWvoXzFfNxOVthzo+KHkkA9qJmKVPZBC2JSm5mFv
+	b9zI8ApUa+yKUzBrZrCTXqzDU10HF7ZkamsiP50b4EMADjHKQvwO10HzacRd91yvI1gSENKiEzh
+	0kJKTwLMm4c6c/Xhm9HvMx/lDbXEjxjYig/EjwBBxIBVe3DpCTjsgR0nXLuOGn6zMF0Yl3AiCPV
+	YpD5N4be7aZY9NfN3YCCAmre8=
+X-Received: by 2002:a05:6820:61a:b0:6a1:8291:b06c with SMTP id 006d021491bc7-6a536817d5cmr1946935eaf.24.1784321767649;
+        Fri, 17 Jul 2026 13:56:07 -0700 (PDT)
+Received: from capidev ([2806:264:548c:900d:21a4:2af0:52de:9e80])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4568e61d5fesm2378948fac.10.2026.07.17.13.56.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jul 2026 13:56:07 -0700 (PDT)
+From: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>,
+	syzbot+a11c46f37ee083a73deb@syzkaller.appspotmail.com
+Subject: [PATCH] media: em28xx: fix use-after-free of dev_next in em28xx_close_extension()
+Date: Fri, 17 Jul 2026 14:56:05 -0600
+Message-ID: <20260717205605.1688-1-diegomancera.dev@gmail.com>
+X-Mailer: git-send-email 2.54.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260622204343.1994418-1-briandaniels@google.com>
- <20260622204343.1994418-3-briandaniels@google.com> <20260622170708-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20260622170708-mutt-send-email-mst@kernel.org>
-From: Brian Daniels <briandaniels@google.com>
-Date: Fri, 17 Jul 2026 15:46:36 -0400
-X-Gm-Features: AUfX_mw74d-5_R4YCuTDMGPYdle20s2YGu2aL-50gbj-ggLz6JZziwCSX5CR83w
-Message-ID: <CAD4i_GTBkZRAnBTohkzJSh2XTx+MHkTS_KokEMQ4s0-WP+DxcA@mail.gmail.com>
-Subject: Re: [PATCH v4 2/8] media: virtio: Add virtio-media driver structs and
- function declarations
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, acourbot@google.com, adelva@google.com, 
-	aesteve@redhat.com, changyeon@google.com, daniel.almeida@collabora.com, 
-	eperezma@redhat.com, gnurou@gmail.com, gurchetansingh@google.com, 
-	hverkuil@xs4all.nl, jasowang@redhat.com, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, nicolas.dufresne@collabora.com, 
-	virtualization@lists.linux.dev, xuanzhuo@linux.alibaba.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Antivirus: Norton (VPS 260717-4, 17/7/2026), Outbound message
+X-Antivirus-Status: Clean
 
-On Mon, Jun 22, 2026 at 5:08=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com>=
- wrote:
->
-> On Mon, Jun 22, 2026 at 04:43:37PM -0400, Brian Daniels wrote:
-> > From: Alexandre Courbot <gnurou@gmail.com>
-> >
-> > Add the structs and function declarations for the new virtio-media drvi=
-er.
-> >
-> > Signed-off-by: Alexandre Courbot <gnurou@gmail.com>
-> > Co-developed-by: Brian Daniels <briandaniels@google.com>
-> > Signed-off-by: Brian Daniels <briandaniels@google.com>
-> > ---
-> >  drivers/media/virtio/virtio_media.h | 95 +++++++++++++++++++++++++++++
-> >  1 file changed, 95 insertions(+)
-> >  create mode 100644 drivers/media/virtio/virtio_media.h
-> >
-> > diff --git a/drivers/media/virtio/virtio_media.h b/drivers/media/virtio=
-/virtio_media.h
-> > new file mode 100644
-> > index 000000000..52809d4e9
-> > --- /dev/null
-> > +++ b/drivers/media/virtio/virtio_media.h
-> > @@ -0,0 +1,95 @@
-> > +/* SPDX-License-Identifier: BSD-3-Clause OR GPL-2.0+ */
-> > +
-> > +/*
-> > + * Virtio-media structures & functions declarations.
-> > + *
-> > + * Copyright (c) 2024-2025 Google LLC.
-> > + */
-> > +
-> > +#ifndef __VIRTIO_MEDIA_H
-> > +#define __VIRTIO_MEDIA_H
-> > +
-> > +#include <linux/virtio_config.h>
-> > +#include <media/v4l2-device.h>
-> > +
-> > +#include "protocol.h"
-> > +
-> > +#define DESC_CHAIN_MAX_LEN SG_MAX_SINGLE_ALLOC
-> > +
-> > +#define VIRTIO_MEDIA_DEFAULT_DRIVER_NAME "virtio-media"
-> > +
-> > +extern char *virtio_media_driver_name;
-> > +extern bool virtio_media_allow_userptr;
-> > +
-> > +/**
-> > + * struct virtio_media - Virtio-media device.
-> > + * @v4l2_dev: v4l2_device for the media device.
-> > + * @video_dev: video_device for the media device.
-> > + * @virtio_dev: virtio device for the media device.
-> > + * @commandq: virtio command queue.
-> > + * @eventq: virtio event queue.
-> > + * @eventq_work: work to run when events are received on @eventq.
-> > + * @mmap_region: region into which MMAP buffers are mapped by the host=
-.
-> > + * @event_buffer: buffer for event descriptors.
-> > + * @sessions: list of active sessions on the device.
-> > + * @sessions_lock: protects @sessions and ``virtio_media_session::list=
-``.
-> > + * @events_lock: prevents concurrent processing of events.
-> > + * @cmd: union of the device commands "open" and "munmap". The other
-> > + *       commands are handled by @struct virtio_media_session
-> > + * @resp: union of responses.to device commands "open" and "munmap". T=
-he
-> > + *        other responses are handled by @struct virtio_media_session
-> > + * @vlock: serializes access to the command queue.
-> > + * @wq: waitqueue for host responses on the command queue.
-> > + */
-> > +struct virtio_media {
-> > +     struct v4l2_device v4l2_dev;
-> > +     struct video_device video_dev;
-> > +
-> > +     struct virtio_device *virtio_dev;
-> > +     struct virtqueue *commandq;
-> > +     struct virtqueue *eventq;
-> > +     struct work_struct eventq_work;
-> > +
-> > +     struct virtio_shm_region mmap_region;
-> > +
-> > +     void *event_buffer;
-> > +
-> > +     struct list_head sessions;
-> > +     struct mutex sessions_lock; /* protects sessions list */
-> > +
-> > +     struct mutex events_lock; /* prevents concurrent event processing=
- */
-> > +
-> > +     union {
-> > +             struct virtio_media_cmd_open open;
-> > +             struct virtio_media_cmd_munmap munmap;
-> > +     } cmd;
-> > +
-> > +     union {
-> > +             struct virtio_media_resp_open open;
-> > +             struct virtio_media_resp_munmap munmap;
-> > +     } resp;
->
->
-> You need DMA alignment padding for these things.
+For dual-TS devices em28xx_usb_probe() creates a second em28xx instance,
+dev->dev_next, and initialises it with em28xx_init_dev(), which adds it
+to em28xx_devlist via em28xx_init_extension() (list_add_tail()).
 
-Each member of the above unions is already padded to 64-bit alignment,
-is that sufficient?
+On disconnect em28xx_usb_disconnect() calls em28xx_close_extension(dev),
+which only unlinks the primary device from the list:
 
-If not, could you tell me what else is necessary?
+	list_del(&dev->devlist);
 
-> Which one can only see when I reads the actual driver 8 patches down.
-> Which is why it's not a sensible way to split patches.
->
-> A sensible way is to have a driver then add functionality
-> in logical pieces gradually.
->
+and then frees dev->dev_next (kref_put() -> em28xx_free_device() ->
+kfree()). The second device is therefore freed while it is still linked
+into em28xx_devlist, leaving a dangling node behind. A later walk of
+em28xx_devlist - for instance another device being unlinked in
+em28xx_close_extension() during its own disconnect - then dereferences the
+freed entry:
 
-Appreciate the feedback. There was a previous comment requesting to
-split the patch into c/h file pairs, but I can try reformatting it as
-you suggest for v5.
+  BUG: KASAN: use-after-free in __list_del_entry_valid_or_report+0x1d4/0x200
+  Read of size 8 at addr ffff888047254250 by task kworker/0:4/6312
+  ...
+   __list_del_entry_valid_or_report+0x1d4/0x200
+   em28xx_close_extension+0x10b/0x2b0
+   em28xx_usb_disconnect+0x19d/0x610
+   usb_unbind_interface+0x1dd/0x9e0
+   ...
+   hub_event+0x1d81/0x5360
 
-> > +
-> > +     struct mutex vlock; /* serializes command queue access */
-> > +     wait_queue_head_t wq;
-> > +};
-> > +
-> > +static inline struct virtio_media *
-> > +to_virtio_media(struct video_device *video_dev)
-> > +{
-> > +     return container_of(video_dev, struct virtio_media, video_dev);
-> > +}
-> > +
-> > +/* virtio_media_driver.c */
-> > +
-> > +int virtio_media_send_command(struct virtio_media *vv, struct scatterl=
-ist **sgs,
-> > +                           const size_t out_sgs, const size_t in_sgs,
-> > +                           size_t minimum_resp_len, size_t *resp_len);
-> > +void virtio_media_process_events(struct virtio_media *vv);
-> > +
-> > +/* virtio_media_ioctls.c */
-> > +
-> > +long virtio_media_device_ioctl(struct file *file, unsigned int cmd,
-> > +                            unsigned long arg);
-> > +extern const struct v4l2_ioctl_ops virtio_media_ioctl_ops;
-> > +
-> > +#endif // __VIRTIO_MEDIA_H
-> > --
-> > 2.55.0.rc0.799.gd6f94ed593-goog
->
+  Freed by em28xx_usb_disconnect() (kfree() of the dev_next allocated with
+  kmemdup() in em28xx_usb_probe()).
+
+Unlink dev->dev_next from em28xx_devlist as well before it is freed.
+
+Reported-by: syzbot+a11c46f37ee083a73deb@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a11c46f37ee083a73deb
+Fixes: 4a089668ef22 ("media: em28xx-cards: rework the em28xx probing code")
+Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
+---
+ drivers/media/usb/em28xx/em28xx-core.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/media/usb/em28xx/em28xx-core.c b/drivers/media/usb/em28xx/em28xx-core.c
+index 5bbb082dbed9..3d6b196b8483 100644
+--- a/drivers/media/usb/em28xx/em28xx-core.c
++++ b/drivers/media/usb/em28xx/em28xx-core.c
+@@ -1265,6 +1265,8 @@ void em28xx_close_extension(struct em28xx *dev)
+ 			ops->fini(dev);
+ 		}
+ 	}
++	if (dev->dev_next)
++		list_del(&dev->dev_next->devlist);
+ 	list_del(&dev->devlist);
+ 	mutex_unlock(&em28xx_devlist_mutex);
+ }
+-- 
+2.43.0
+
