@@ -1,39 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B977C3DE438
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:25:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBC33DFC9C
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:25:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784276729; cv=none; b=u4LO25ei5DJznEACbuTYi9l+Q/5YDQ1HxxGdattDvBaCM88KQ9Ke9HvbbPPMoqP0DkqxOfxRnZ0LxpQ5j45BCnZiJHZp3iZUCHiOsr0prUTr+BFHiT4lckeoDJHf6cKHtEZn2V91EyYeBTNsvRFLdHI/QBWGNt8VWdMECvz+7g0=
+	t=1784276731; cv=none; b=q8nrwgCQeQG6pLAX/yarUg4aPZUO+hOweFiNcBTk/kuYh//ykaiHTFxU36W6q8ssi89b57Br/FRpKCrP7/4XiNurn2rozxnxt9q8UWzmW2GsCgPBB3cNjXvMoTUCVYqQzVGvRpfd7RGWB+N6t48yrYb+VJLELJfR40rlFzP+ba4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784276729; c=relaxed/simple;
-	bh=O1Zm72TtpkfgCpTxTXnpkhYUUjFJI3znsPo+wCaOmZo=;
+	s=arc-20240116; t=1784276731; c=relaxed/simple;
+	bh=f/6I2R88XeSpqa0EDmUDuu9b+FroZ9k6tbgSKJqUBso=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AShxgiy1uRrqM3uv7WtJwV4sYMqRmNKvAhoLImLi1N5XuZYuO42ZcoRYsNFWkY1aj7wBNiu2VcqugS9+vYy++GnmP+MEn6i3Rx5aHaWQPR4WKwVYdXbdhaMoq0uohMe8ygYN0j0/u+uMsmGtuWM86j660Fe7NmgiCUwiH7NwLD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SRCA7gG3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=RldJUhprUvZJM2VU/FMdcZz2ZJ4cahRIr1n/lb9jGYwKwXfKROS85jzupObCrcLb+3QNvR2Pfe2RAV5NisqFdoeLB+5jzOt4pmjO5rILjlGeim/z4E4CFw1uxOPFPYhfszf+ZGSrSTTHAQmwtXrZlTKoghFKYfMYLjhekgjfceU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fuwG3FbF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SRCA7gG3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 096B41F000E9;
-	Fri, 17 Jul 2026 08:25:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fuwG3FbF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C08791F00A3A;
+	Fri, 17 Jul 2026 08:25:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784276728;
-	bh=Joc2XM8mB8HOb/exMmm6s/b1RMUNsZC8YQx5whwtWEs=;
+	s=k20260515; t=1784276729;
+	bh=/ob3pRmoUwb/BHfeixDWGaBNgxJ1XglqSvhLTqtypnU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SRCA7gG3oUHyThaZCjUMj/Qm0CpkQRezHvT3o6INrzwL+LRhG/nG23lhNHLjJFAck
-	 SpM5tY1gqjyCnaM+7clPL4E9xLbhRDWj8C/Y0ZTl1XTvCMJjDnBOCeqV8t9PopuBfP
-	 w0OXxMmnk9bdSxrwu8BbkfGWTzsvMAVFe1/Vc0ZpIHxgBs7WY1co3cFFbZ7o44VqKF
-	 1UXKXKnUAGd41U7PY2qirZD6aPM8ftq3GIVAqup3X5WQfm5mxK4iSmIBnw9bYzYd1r
-	 rlVjzv+iSj+BeijAltwf5exUNp3t7U3scX6H0HahwBKgIJhD0yEZAM4HAwjuInWg/g
-	 d51eLiEcEO3gA==
+	b=fuwG3FbFF2bUxLWmGao+qmFw5fqOkdHyr/85/Wc6Kh7g1shwSvXkLsR/k7ldpGYhN
+	 xNdvYH7Vgy6C2BKq40xa8SpUzwo0DIAp42ECGOPLmZPskgdcRscFrfLk60t2zXCN6P
+	 Z9XZdkI/BIl4xiPNEWR975uPfWYDBgas17FtbkkhMuHMh4+B96cx27kc7C6R8jQGdw
+	 o8FwLPrMNFYlLS2KFBrJWhhysFLviLWzOUDnCqHu0eVM8pz1UGmkeD+bj5lUcIOe33
+	 zlFNN7czcih4LzDlN12oSCnyyOfn59mbWdtFqO2/18LPROufgRHzsQ/Ch0pOFYdjP3
+	 +cQMwwibG7blw==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Subject: [PATCH 14/19] media: renesas: rzv2h-ivc: drop unnecessary vb2_queue_release calls
-Date: Fri, 17 Jul 2026 10:19:37 +0200
-Message-ID: <f46445de6e04a00c59f5e9ea13ec5ec53642474f.1784276382.git.hverkuil+cisco@kernel.org>
+	Sylwester Nawrocki <sylvester.nawrocki@gmail.com>
+Subject: [PATCH 15/19] media: samsung: s3c-camif: drop unnecessary vb2_queue_release
+Date: Fri, 17 Jul 2026 10:19:38 +0200
+Message-ID: <b1d577b30ee53d7f9dcd8fd290db6e6455419f95.1784276382.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1784276382.git.hverkuil+cisco@kernel.org>
 References: <cover.1784276382.git.hverkuil+cisco@kernel.org>
@@ -45,54 +44,40 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-No need to call vb2_queue_release if the video device is
-never registered.
+Use _vb2_fop_release instead of vb2_queue_release/v4l2_fh_release.
 
-No need to call vb2_queue_release if vb2_video_unregister_device
-is used (it calls vb2_queue_release internally).
-
-Replace a video_unregister_device/vb2_queue_release pair by
-vb2_video_unregister_device.
+No need to call camif_stop_capture: _vb2_fop_release will call
+the stop_streaming op if streaming is in progress, and that op
+calls camif_stop_capture.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Sylwester Nawrocki <sylvester.nawrocki@gmail.com>
 ---
- drivers/media/platform/renesas/rzv2h-ivc/rzv2h-ivc-video.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ drivers/media/platform/samsung/s3c-camif/camif-capture.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-diff --git a/drivers/media/platform/renesas/rzv2h-ivc/rzv2h-ivc-video.c b/drivers/media/platform/renesas/rzv2h-ivc/rzv2h-ivc-video.c
-index 932fed38cf3f..d37179dc8bda 100644
---- a/drivers/media/platform/renesas/rzv2h-ivc/rzv2h-ivc-video.c
-+++ b/drivers/media/platform/renesas/rzv2h-ivc/rzv2h-ivc-video.c
-@@ -511,7 +511,7 @@ int rzv2h_ivc_init_vdev(struct rzv2h_ivc *ivc, struct v4l2_device *v4l2_dev)
- 	ivc->vdev.pad.flags = MEDIA_PAD_FL_SOURCE;
- 	ret = media_entity_pads_init(&ivc->vdev.dev.entity, 1, &ivc->vdev.pad);
- 	if (ret)
--		goto err_release_vb2q;
-+		return ret;
+diff --git a/drivers/media/platform/samsung/s3c-camif/camif-capture.c b/drivers/media/platform/samsung/s3c-camif/camif-capture.c
+index ed1a1d693293..3cbf58b2128e 100644
+--- a/drivers/media/platform/samsung/s3c-camif/camif-capture.c
++++ b/drivers/media/platform/samsung/s3c-camif/camif-capture.c
+@@ -572,16 +572,11 @@ static int s3c_camif_close(struct file *file)
  
- 	ret = video_register_device(vdev, VFL_TYPE_VIDEO, -1);
- 	if (ret) {
-@@ -531,11 +531,9 @@ int rzv2h_ivc_init_vdev(struct rzv2h_ivc *ivc, struct v4l2_device *v4l2_dev)
- 	return 0;
+ 	mutex_lock(&camif->lock);
  
- err_unregister_vdev:
--	video_unregister_device(vdev);
-+	vb2_video_unregister_device(vdev);
- err_cleanup_vdev_entity:
- 	media_entity_cleanup(&vdev->entity);
--err_release_vb2q:
--	vb2_queue_release(vb2q);
+-	if (vp->owner == file_to_v4l2_fh(file)) {
+-		camif_stop_capture(vp);
+-		vb2_queue_release(&vp->vb_queue);
+-		vp->owner = NULL;
+-	}
++	ret = _vb2_fop_release(file, NULL);
  
+ 	sensor_set_power(camif, 0);
+ 
+ 	pm_runtime_put(camif->dev);
+-	ret = v4l2_fh_release(file);
+ 
+ 	mutex_unlock(&camif->lock);
  	return ret;
- }
-@@ -547,5 +545,4 @@ void rzv2h_deinit_video_dev_and_queue(struct rzv2h_ivc *ivc)
- 
- 	vb2_video_unregister_device(vdev);
- 	media_entity_cleanup(&vdev->entity);
--	vb2_queue_release(vb2q);
- }
 -- 
 2.53.0
 
