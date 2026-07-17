@@ -1,196 +1,197 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013027.outbound.protection.outlook.com [40.93.196.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EACAB364953
-	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:42:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784277763; cv=none; b=fwbpyoeaLkKHVXphao7uqL4OplJtE8YmFvhSv2loL8Bp/d+4u5CGLrMg1I85iN3CtiRInsJ9M6e0TU/uhD2QKp7IEMaoAtxZJoLsiWSHsqlFaDidEi6LBkNdTht2EbTXnEWjwGouKN+q6GTcQQral4ASziNyWkeZnz3O6gIzBdA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784277763; c=relaxed/simple;
-	bh=t1LMTk+m9oNtNRG5YfAumyLAJRoq18yZjfUqUDBAyso=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lXmqD0lMR54Hc8MTGJNLGoua/NkgoBdTJydkLx41N6HZyqSHBn7PPEOxGjNaZetlHYVq5xb2WEKkOj03qiHUraqA+OJyog4+OeUxkJUtp8SAbX4I20bvOSp88KJ61IbPJ6FkeTlMOxrI749RkGdmVMKlr9vbpakx6I5xEVqkKuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RoUqw7+h; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20AA3ACA59
+	for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 08:53:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784278433; cv=fail; b=l5Z7SL3bi4apq3mdlUfFyiFFAJle950F9plNF9FRhErg6sGWhy90WVuWS6OsGDT9f167S21g9DDR32ualEi14L3GXyd0+pOktuNe2H/0Y/ue22LWwmcAZTCjRSDdxY+soFj15h1EfNVgLwQg0fj3A2dZ8EXfQl6oF7Qii63asTg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784278433; c=relaxed/simple;
+	bh=8J2GaXIKNttkrUUzPqIibNRn1QdahdRRjuPfnzP/p7U=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=XNKxsbonwJmccfq3IfcCX1+VL6bn3bQ+9PGbfmotccWZuQZxvE7woalN9oogQ2nb8sLciASJXBt02DqaU8IX4WDzblp2izW9C+Nx3JbLT4uMo+CWTN1IOmFq6fb4MKH5olopkwWddoG8AYOzi1T3f8aIj4ueg3iLZxhm1BZrZOo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=aLxGmdcL; arc=fail smtp.client-ip=40.93.196.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RoUqw7+h"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-476d8e647e9so6922697f8f.0
-        for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 01:42:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784277760; x=1784882560; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=x1bNr8ApLUuasJ6rLo6oRgqpfU7n7a0nEcTyafySNYU=;
-        b=RoUqw7+hDNY9s0TTmG9YDmrcpny9e/AlnCz3xwS6lwuk12nG3NsMCsPHlVYxVIb4iP
-         o6zWxiVr5TX4mmurxtpKv7EfcXXf98WQzYdHUCC0dbV1s3Btoso+UJ+NOEKry3tT9B7K
-         FMjX0b8BUEdub/kBNXIfFvRElSpEFI4wRL+GpKTm1869bRttvIYm0mBAkj4+gIQYT15i
-         /7kQEto0xPDRPaAwShUYdFTaY0ckW1mjzpPq67/F6UHof/28xH2SvXJYDV96Tebe6qWL
-         FkSndvFucgQiN4Ib+/t894odTymxWpas4MZigvOJt+k8L8NVsOia+9ZmLCVb6XYThzbo
-         TQaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784277760; x=1784882560;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x1bNr8ApLUuasJ6rLo6oRgqpfU7n7a0nEcTyafySNYU=;
-        b=WFDNmRaMdAvt+puy1QzJI2fYUyUtC9SZf3mMCW2r6iVyPZGse9eZON10TFXNDbbULT
-         Urc9z+Po/Hfo65CRL5s70wN6Z5tvYgvgb9NQeOkcb/hX5aykutl6b7vsCGg/7/6IN7Va
-         Sxdf3Uz+YHM1n3s/1iTHLhwabgvh+mGoDVBVb+u8JPKuNKpyZFGnSpR+uaMFJffc7I76
-         m7bJ6UZvhyad5DLURAGTy0xSzJv+pYJIgF1z02SovvhzlFThNxzPcHZfodNlxfqd720u
-         2HXkgciEuLqIJ/vg18EtKPUHiQSTMVYkKzPNUblqRc9PJzHmamcIBRh+iVoJNjBucsDJ
-         HbJQ==
-X-Forwarded-Encrypted: i=1; AHgh+RouuK9R8Gm4lukMw2BqPYvUtR//E2X0RCh829FdgnGJ0Pgej41V0wvZsLfrVf/Z88bS8v1tyH5HNlFdCQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyirBGI/xT9NmIgE4vsByq6AdNeZB9CP2i42I80B1/CdTwjHL31
-	Ft6KKd0c3mbumR1JaZRVsy6tQqssq5brsQMqLhf3U0apo9nWKYMoKdkP
-X-Gm-Gg: AfdE7clJuOCQ4kxoDsl7CGN0M0E54bBde9c5YJVYnKqC/9O2MvKvEsqh7wi5zrgUyTZ
-	wxPrW+wbFOnYyALsRs2Okkh3jPAziGO0i15Clwqx2dYcXEZ8FgS00gYWfC9AjCGl9Qt6rmEOjRb
-	2DpezeM+PCiONUiGhFLjCM7D9Zd1c0BBUvcNEYTrOH/Cjk9ZfaJC7tWyYRBlTb+rFFLFo+uTEWK
-	kyDBorxLMQ3BR2XQPFH7X7msQoYf6GU7vPtFNRpiXrpnja1lqv/9E/oLfuMZTXG9rK90fIxgZ92
-	StoCcP2XjKBHWcfY7K9xwWEh4FxHrmzQkwQ4XTFr2u9vhfbXUr6WS+TGu/Cibawpa3lvfKuBSP0
-	xBRcwIflHwpNfpOKUHF7TUjH2rzjGyJ2yEi04LegaQ+kEj8cXcy39I2T/7686QtsRt88TBborEp
-	fs7m+CeIFuB9P99YsJ7mQurH53TNcCwfULgQcl0+Q=
-X-Received: by 2002:a05:600c:3107:b0:493:d305:b8f3 with SMTP id 5b1f17b1804b1-4954a3d6462mr20532115e9.3.1784277759663;
-        Fri, 17 Jul 2026 01:42:39 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4954a2692a3sm28806635e9.0.2026.07.17.01.42.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 01:42:39 -0700 (PDT)
-Date: Fri, 17 Jul 2026 09:42:30 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: David Matlack <dmatlack@google.com>
-Cc: Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>, Leon
- Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro
- <amastro@fb.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>, Logan
- Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>, Pranjal
- Shrivastava <praan@google.com>, Longfang Liu <liulongfang@huawei.com>,
- Mahmoud Adam <mngyadam@amazon.de>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal
- <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>, Vivek Kasireddy
- <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-Subject: Re: [PATCH v5 0/9] vfio/pci: Add mmap() for DMABUFs
-Message-ID: <20260717094230.21829508@pumpkin>
-In-Reply-To: <allLypOmtbnPrgbw@google.com>
-References: <20260715174737.15287-1-matt@ozlabs.org>
-	<CALzav=fH7N+ionUnELqw5ZaGrPmgp_w6kxoCtoY8fMmZY_S4zw@mail.gmail.com>
-	<65ba06e7-4c54-437d-9fbd-632c0468f66d@ozlabs.org>
-	<allLypOmtbnPrgbw@google.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="aLxGmdcL"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A+QGkpaue2lp1RKiUNFhvgMSragnIGlPx7w2RC0dvDMSEJjwCs4Q4qmvUVucdDTQhw07Q4WPu3UJyOSF0AVVVgpo6ULjcicOCA+2scwGrHZBjLZZgEKwIwxKdFYkvdDywMgoeXceA976SRwWiPKytUDTqxIC03kznPSqBo9sb5WLDTpDxVz4RZHu3zABx8WVsqzGNHu3aABwb15Wd5MShO+gipjPZzvxXkHhN0zi8Ggaan+jIx/auRlKdWbbEa3z+S2z2DehuFMCqxJgCsJZlBxdotNu+eWI63jnhXUx2RlRcZEwG2hQ20IEgnazzI4VfZk7s8yjnHLEqo4T81pkgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9hlmWrxA7WlnLMuZekUQU25d8WBaF5JWe07855moWjE=;
+ b=tBHwGvejex6e33D3PLhO92L6eD2IG/IpqlujeTRMzlQPttlyD8LdcDtgJ+V9FOQcEcRvf67Zs5KcoxHxF8hbd/PjzQajsMNiRXc32VzbuI27bKkVH7OVcFagwKiRgdnVxROt881BNuONkpECjER8Jqm3OqipQrhDgu8WXHz53F64egraY8GktoAU79qmSTyHHzBacU4s2MKDBAY0GPlOMp1eEbscRI/i4dtl1iQd1mdcjDs/Js+ipQmk6sYwHj9Pi7lDsGDXGr61JHS+5ffdQXpZMCQhVRhaX0t/6hKak9zlgI05UbT44e68L0nwncUeIbB38ujjTnaCsYtocmcB9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9hlmWrxA7WlnLMuZekUQU25d8WBaF5JWe07855moWjE=;
+ b=aLxGmdcL3eLUkEqvhHyr45ZpUCCRGWcso2ujJXKMGuwudcmh+JVQv2MXmJShU4ECUEfRgNsyeS/a9TZ7F4IYV1x/Q6ayl8GMDsEnvJOD0mpu0JTw60gsYo0WV6hNhEAfHYKPpMpUBlj6Cpjo1AYZ9cGgi0K0JAX5bcE+Xq6uU7w=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB7747.namprd12.prod.outlook.com (2603:10b6:8:138::20)
+ by DM4PR12MB5724.namprd12.prod.outlook.com (2603:10b6:8:5f::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.13; Fri, 17 Jul 2026 08:53:47 +0000
+Received: from DS0PR12MB7747.namprd12.prod.outlook.com
+ ([fe80::2ef2:e88:4708:b589]) by DS0PR12MB7747.namprd12.prod.outlook.com
+ ([fe80::2ef2:e88:4708:b589%6]) with mapi id 15.21.0223.011; Fri, 17 Jul 2026
+ 08:53:47 +0000
+Message-ID: <f36981d2-798f-47b2-b2d5-53c3988d79fc@amd.com>
+Date: Fri, 17 Jul 2026 16:53:43 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 05/19] media: platform: amd: isp4: drop vb2_queue_release
+ calls
+To: Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org
+Cc: Nirujogi Pratap <pratap.nirujogi@amd.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+References: <cover.1784276382.git.hverkuil+cisco@kernel.org>
+ <78b9e1f607f16526b9f69ec32a4b89b65e77b163.1784276382.git.hverkuil+cisco@kernel.org>
+Content-Language: en-US
+From: Bin Du <Bin.Du@amd.com>
+In-Reply-To: <78b9e1f607f16526b9f69ec32a4b89b65e77b163.1784276382.git.hverkuil+cisco@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TY4PR01CA0035.jpnprd01.prod.outlook.com
+ (2603:1096:405:2bd::17) To DS0PR12MB7747.namprd12.prod.outlook.com
+ (2603:10b6:8:138::20)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7747:EE_|DM4PR12MB5724:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19f3afde-fc85-4ff5-7cdd-08dee3e0e9e6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|22082099003|18002099003|4143699003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	ZYUoTwDX5e/QqXJV91e5xZ1WBnlAS046V3G8ztjt+DPw8gvuKyEsvuayPGywJ2vAskSn6QqBf8ZeUxMXcxriKPW7+NicUqmZ4Bbo54OY/ZP7dUOKts8iau6ldnZYtqOvlgt+3r/gBxI8waC5fCTaL/LLDz7aDsfDjKu3HJPnTXIjxJ4gK8U3PrAJMkBZ2vjSYK2pUeAnP35zUJFV6npvBLB2jAUNt0TE7x7zXQ0wxRnTYkIZ1K9tx6oJEfYaYizKlTRRsZHYJcYPOvM6g2bLefwnseIuiUm58Per92j/WnrdFm5313GgMJKytjmNU9NxVy0ADQ86jZszLIibl0IVSwvpd2lzlJ7cy/6n5sYBDKZrNKJ7Fcij1DjEciPt1GSri8ZZ9BkcuBwvFqPvgoXDhfgMkw2cw8MglShkezv34+0ZQk+aIQaGe0TOzaSn4oFKXpzgupSWA9ux/zGeBUVXu/oYQMPg77rxmWNyzl2PUfT6si7gUe/z+YSPqQEQ1rg+b+hHI5NyKOKGSZ09CC2+rqTEdIrDFXinHZpGkC2MI9QyqsEMePhCyuP523egsqBimcaROXgJ8wWwshozBiZNf0EBWXo6QAuKwad0hD08dc6WBI0hFtsiuiOCYP+/kha1kD3y4e84MlZpRgXvCPlqGrjaQDTyW+YIg4iNiKjGBMA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7747.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aGt4aGsrQU9id3V4TDJBWjlNTEVGNmJVOVllVG1sdVdaYS81QXloNXBuVjBo?=
+ =?utf-8?B?bEdrbnRXeWRGaHhQL3ZwYU10bHVaRlE4YXd6eU1pQ3RLN0phaFlsQVdtUlJK?=
+ =?utf-8?B?c0o0WnhqMmpRR2lkL3pmT1RISCtxaGg0MGlLNks3MlpndEN1eGwxeUUxcFBE?=
+ =?utf-8?B?aStqcnBoSUxQR0x2YkR0RGlLbnkzUko4S2NhbGtiSzByU2toWnFIakJHUUlM?=
+ =?utf-8?B?dG9MaFgvYmpPYllUWTU4dThJRVVQQ1JQYXl2K0cvVTROWG9BdzJqdzQ1MVNn?=
+ =?utf-8?B?RFU0ZmZFYXhuSC9PTGdTNlNPUWl2dklpQlc1MXBrVnBRTUdnRWxzdU9NcXR1?=
+ =?utf-8?B?b3dldTV0MlRZSUZRSGdkS3NNdGNIM0g2RjNHZGJZQ2dDKzhoaXNNMlR3YUlm?=
+ =?utf-8?B?Q0FhVjFkK2dDenAyVXltS2ZBUnkrYXlQazZyN1lLNDdVOE1FTldQcWYwTGxj?=
+ =?utf-8?B?TkNjeGV6dmdPc0E3OTVyNDBqbUNCblRsQUc5bFAvSk9GSm1vLzBhcjZmMWVT?=
+ =?utf-8?B?dTJXNXlnQW1RTDRtRU1ERmN0YTF2Q2o3QUl0Q25NRlB0RkQwTFl5ZjdzVTdi?=
+ =?utf-8?B?V3JKT2RQREs1NnJuOCtYeXhrcnNKL2lEK25FREJsbjVNNWMxb3h0cGY1eEFv?=
+ =?utf-8?B?OXYwWnV5bHlNckVzVTJsMVhSOHdyTitsbmF4d2MxWDNMUk81bjZNN3J5MEJh?=
+ =?utf-8?B?MkdGZTUwaElzck8zUUxmYVNJU1c5ZmR4bURvSThCMExRem1Kc20zV2wrdldF?=
+ =?utf-8?B?ejNBRUNUQ2diWmFYK2hxeFlrWG1obWkvWTZReU9DenpHaWkrNnN3OWJoOWJ0?=
+ =?utf-8?B?YnJkWXZQRUhpVExUT2tUeEEzV3VzSll2TjJwVUNycGYyN1RSUEgya2w0SDNZ?=
+ =?utf-8?B?Rit0ODdFbFVHVGF4OUlyKzBrT1d3Y01kSXdFdzQ3am5FczdqeXdhaE5IUEVl?=
+ =?utf-8?B?T2Jyc2lBOEZUMkQ1WEhTZ3d2d21OalJTMlJwWmNzQXA2akZ2YWF1RmtGMWdw?=
+ =?utf-8?B?TFV4eGpSQUZPczk1Wk54dGtGUSs5Z2duN1BzNGxUZVRKcmJtUFRaUDVUV3lz?=
+ =?utf-8?B?ZXZaSnhmZ0U0blMwMXJPR2J3Rmc0ak9MZGRKYThuOG1GN2dKcnFTRXg5TmpO?=
+ =?utf-8?B?TkIyd3Y0RUFoU3FhOGoxL0E2TFovMXVqMHh3RGV3MmpCMWZFa0ZYMG90Z3Qz?=
+ =?utf-8?B?dW82dHkvQTJiSEd3R2xRQ3VEbGZ4OGFQSGMvQkhiOVM4QWVqQW82d2g2QUg0?=
+ =?utf-8?B?YUx5aENJTnNWU3JiZzY0bkVtWk5kNVBGUTRtMTRkR3VIeWZFUXdFelZKUFN2?=
+ =?utf-8?B?bWdkZHN2NXBxQlI0OHl3eDZYdC9vY1kxZExBaVdtV1lnU0E0MjVUSTJXbWcy?=
+ =?utf-8?B?eHdrSnh1L2RtQXljODc5VHpOUlpUYWJUL3YwOG5hRG9abldlOHVkT3diUEtJ?=
+ =?utf-8?B?Y08wRFVmZ1NndnhMUThtUnFRdjFzVVF3K1YvamMrVHJhOVcxN2VQTXprd1lq?=
+ =?utf-8?B?a05UV3F0ZCt4MitDQ055dTNFaTlVVlpBRVMySnhialpNaVhKVFhEZ2VncFRF?=
+ =?utf-8?B?eitpNk5aK2hKeFV3K3VxLzBBMHpEQ0o3czg0MTREanhxcjdpZGtrQ1EwT2w0?=
+ =?utf-8?B?TEVZUTBqbWg2dmhIZjlkS2hXYzFNQWdPeWF5WEwyMC9NR0E2ZFpGQ0d1ZDg4?=
+ =?utf-8?B?NXl0Z01meWpyOWR2NXdOUnY2Rm5QWUtWODlFZXFGWUtoNTdoNmlHWW1MSjlD?=
+ =?utf-8?B?Ri9mQWlsU2t5N3M3NEFCMVh6V1V0RXhRelVJMk5qMDRYMSs0d2RpRThGY2w1?=
+ =?utf-8?B?WmJmVWhZbjFUKzVTUzdCeE1kV1Q1bC9MMWtQbUVOR0htRnVaTUVSTGN3WTJN?=
+ =?utf-8?B?TzlwamNpUTJJVTNOcEpQMG9UUkszWnpNcURXMG1HVERnaEVCWTNnM0FKeTJO?=
+ =?utf-8?B?ay9CQ1NJQ245b1VqRW9ONnA5UTJZZjJJQW1BSzZTam1QWXl0SlJpZS93b0ZG?=
+ =?utf-8?B?cHZxVmZ6a1VnTXl5c0RrODRaRko3VXZwSlBEZlZaYldHbkxMak9wdmkvbEVq?=
+ =?utf-8?B?dWREeDdoVnp2TEI2N3Bpa0tXaytrTTl3bWVRd1ZQWWVhQWkyUXNjd2VmR3Fo?=
+ =?utf-8?B?R1lhdGlRV2FZRG5UMytpa3loak1keEFrWk53VnVIeDdDTDBCem5xanoyTDVT?=
+ =?utf-8?B?SlFRZkw3Ryt5clkvcmlBUDJ4TW9nZjNXSDhvRkRMR21USXkyTVVJUkJubnZU?=
+ =?utf-8?B?UE1ScUhza0FHa3JWWFFRdlRiRSs4Ym5kbjBFY3YwaEQwMFBST3pSQ2UrZ3hI?=
+ =?utf-8?Q?tnyl+wm/tqLUcs5b+V?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19f3afde-fc85-4ff5-7cdd-08dee3e0e9e6
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7747.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 08:53:47.2993
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TYUciFsuOmZrqqrQdyZB8X1jhlZnuIaQoh6q8zrhVFQmwI/nWMBfQsnyOm4sKShm
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5724
 
-On Thu, 16 Jul 2026 21:23:22 +0000
-David Matlack <dmatlack@google.com> wrote:
 
-> On 2026-07-16 03:51 PM, Matt Evans wrote:
-> > Hi David,
-> >=20
-> > On 15/07/2026 19:12, David Matlack wrote: =20
-> > > On Wed, Jul 15, 2026 at 10:47=E2=80=AFAM Matt Evans <matt@ozlabs.org>=
- wrote:
-> > >  =20
-> > >> This is based on v7.2-rc3.
-> > >>
-> > >> These commits are on GitHub for easier browsing, along with
-> > >> "[RFC ONLY] selftests: vfio: Add standalone vfio_dmabuf_mmap_test":
-> > >>
-> > >> https://github.com/metamev/linux/compare/v7.2-rc3...dev/mev/vfio-dma=
-buf-mmap-v5 =20
-> > >=20
-> > > It'd be great to have this test upstream. I'm happy to review it when
-> > > you're ready. Looks like it just needs to be redone to use the VFIO
-> > > selftests library and kselftests harness. AI could probably do the
-> > > conversion pretty quick :) =20
-> >=20
-> > For sure, I'd intended to catch up with you on best approach here. :)
-> >=20
-> > Aside from the organic structure of the test (the open-coded VFIO
-> > device/group setup/init needs to go), the main issue is that it relies
-> > on a hacked/out of tree QEMU "EDU++" device with a second larger BAR
-> > (containing freely read-writable memory).  A subset of tests run with
-> > the in-tree EDU device, but coverage is too low.
-> >=20
-> > The desirable properties are:
-> >=20
-> >  - Having a BAR that is pure memory (all locations present, writable
-> > without disruptive side-effects) so that mapping aliases can be
-> > constructed and detected.  This is good to test things like non-zero
-> > vm_pgoffs and VA space presentation of physically-discontiguous DMABUFs.
-> >=20
-> >  - BAR >> hugepage size so we can eyeball huge mappings work (or better,
-> >  mechanically test for them).  At least 32MB would tick this box for 4K,
-> > 16K page systems.
-> >=20
-> >  - Something QEMU supports*, so one can run the test in a VM/TCG system.
-> >=20
-> > There were some real device models in QEMU that could be used this way,
-> > but needed a fair bit of setup;  I didn't want to rathole
-> > vfio_dmabuf_mmap_test on including a ton of device-specific code for
-> > some video card or similar.
-> >=20
-> > I'll dig more for a simple target that provides these properties --
-> > obviously it would be better to point this test at an off-the-shelf
-> > device (including silicon!).  And, proposing EDU extensions to the QEMU
-> > folks may be useful (there're uses for a better EDU in other contexts t=
-oo).
-> >=20
-> > Since this test uses MMIO for a specific [class of] function, my first
-> > thought is it should be another VFIO driver-type test sibling of
-> > vfio_pci_driver_test.  For example, we could extend the driver-type
-> > tests' backend struct vfio_pci_driver_ops for functions capable of
-> > providing a Big Memory BAR, like QEMU EDU++.  EDU can also memcpy, so
-> > could also support vfio_pci_driver_test.
-> >=20
-> > The spirit of the device backends hiding setup of a complex device is
-> > handy, and it's plausible that several backends could provide this "big
-> > memory BAR" service.  What do you think, any concerns with extending
-> > vfio_pci_driver_ops like that? =20
->=20
-> I wouldn't recommend leveraging the driver framework unless absolutely
-> necessary. It makes the test harder to run.
->=20
-> The biggest issue I see with the proposed properties is being able to
-> treat the BAR as memory. That obviously will depend on the device and
-> may require device-specific setup. If we decide that treating the BAR as
-> memory is truly required then using the driver framework is the way to
-> go. But I'm hoping we can avoid that requirement.
 
-Could you run a test where only a known part of the BAR can be treated
-as memory?
-A large BAR is likely to have some areas that can be accessed as memory.
+On 7/17/2026 4:19 PM, Hans Verkuil wrote:
+> [You don't often get email from hverkuil+cisco@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> These calls are not needed since the video device was never
+> registered.
+> 
 
-	David
+Would it be better to say:
 
->=20
-> Instead, I think you can get pretty far by inspecting /proc/pid/pagemap
-> to determine if the mmap() set things up correctly, without actually
-> accessing the BAR. You can use /proc/pid/pagemap to look up the PFN and
-> PAGEMAP_SCAN to detect huge pages.
->=20
-> With that requirement gone, then all you really need is a device with a
-> large enough BAR. And even that it not a hard requirement. I'm sure
-> there are plenty of test cases that could work with smaller BARs. The
-> few tests that want to exercise huge mappings can inspect the device BAR
-> sizes first, and if they're all too small, SKIP() the test.
->=20
-> If you structure the test this way, then it's easy for the test to be
-> used. It can be run against any device for the basic functional
-> coverage, and can be run against a device with a larger BAR for full
-> coverage of huge mappings.
->=20
-> Does QEMU emulate any devices that have 32MB or larger BARs?
->=20
+"Drop the unnecessary vb2_queue_release() calls from failure
+paths before the video device is registered."
+
+> Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+> Cc: Bin Du <bin.du@amd.com>
+> Cc: Nirujogi Pratap <pratap.nirujogi@amd.com>
+> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> ---
+>  drivers/media/platform/amd/isp4/isp4_video.c | 8 +++-----
+>  1 file changed, 3 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/media/platform/amd/isp4/isp4_video.c b/drivers/media/platform/amd/isp4/isp4_video.c
+> index 0cebb39f98e1..0e702add6144 100644
+> --- a/drivers/media/platform/amd/isp4/isp4_video.c
+> +++ b/drivers/media/platform/amd/isp4/isp4_video.c
+> @@ -742,13 +742,13 @@ int isp4vid_dev_init(struct isp4vid_dev *isp_vdev, struct v4l2_subdev *isp_sd)
+>         ret = isp4vid_fill_buffer_size(&isp_vdev->format);
+>         if (ret) {
+>                 dev_err(v4l2_dev->dev, "fail to fill buffer size: %d\n", ret);
+> -               goto err_release_vb2_queue;
+> +               return ret;
+>         }
+> 
+>         ret = isp4vid_set_fmt_2_isp(isp_sd, &isp_vdev->format);
+>         if (ret) {
+>                 dev_err(v4l2_dev->dev, "fail init format :%d\n", ret);
+> -               goto err_release_vb2_queue;
+> +               return ret;
+>         }
+> 
+>         /* Initialize the video_device struct */
+> @@ -760,7 +760,7 @@ int isp4vid_dev_init(struct isp4vid_dev *isp_vdev, struct v4l2_subdev *isp_sd)
+> 
+>         if (ret) {
+>                 dev_err(v4l2_dev->dev, "init media entity pad fail:%d\n", ret);
+> -               goto err_release_vb2_queue;
+> +               return ret;
+>         }
+> 
+>         vdev->device_caps = V4L2_CAP_VIDEO_CAPTURE |
+> @@ -786,8 +786,6 @@ int isp4vid_dev_init(struct isp4vid_dev *isp_vdev, struct v4l2_subdev *isp_sd)
+> 
+>  err_entity_cleanup:
+>         media_entity_cleanup(&isp_vdev->vdev.entity);
+> -err_release_vb2_queue:
+> -       vb2_queue_release(q);
+>         return ret;
+>  }
+> 
+> --
+> 2.53.0
+>
+
+
+Acked-by: Bin Du <bin.du@amd.com>
 
