@@ -1,47 +1,47 @@
-Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020125.outbound.protection.outlook.com [52.101.225.125])
+Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020114.outbound.protection.outlook.com [52.101.225.114])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04CD336D4E1;
-	Sat, 18 Jul 2026 20:11:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.125
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7543237187B;
+	Sat, 18 Jul 2026 20:11:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.114
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784405471; cv=fail; b=nXq2ItG89SVHZuZDDB4OvVKs4SxBWcK3dCyPEyS03WLPAhyEigeoaewv8Bznfnp6cGrfjOfVR/umyBN6KkdCt3k/gYubtF4vBiKQTdU+JpBDkfvrRQVHwcaWZL6naCriIxenbA7HjvF8PPho8b/z4+hWK7NeE/Ufr95Ncr2XiFw=
+	t=1784405479; cv=fail; b=YABgeFAA8oEjQr8rGFm3FYbXDlYkt/KDK1fvO5YUOW1igkO4ZTf0nmV3QOzgRsScx5yI3VczLwBY3nIna6tzkve8fS7/m/filHkU6A4Iau54CYqLMQsBbJyaeG1/3KgRJq3xaR3ME0JAv+q2fIPp/ABo8f1Ekg5ZX1vHtUFymMQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784405471; c=relaxed/simple;
-	bh=9rJE0g4yJHGHvikXqZKw5GwWuZYYbbNoz5dC6lkiXik=;
+	s=arc-20240116; t=1784405479; c=relaxed/simple;
+	bh=4m4CzQVKT4Mjk3Ded31+r7Dv3tt+HSulOC2USJta/6U=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Srg2dOyf0tQupfsDk7YKseWb9ddK1s7BY27vd82GtQ+Dh4g7pEJY74gCViAbGN0ruyXfaNB+4V8ZAY65UGeltVBDoAjRUtDcLG8exPxYqe7kTe34HWPm12BkxLPtMY44/TiICfmWXsju+24g/+rnsDWeug2/01pO9d6pfQZLZPo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=Iw5LR6SJ reason="key not found in DNS"; arc=fail smtp.client-ip=52.101.225.125
+	 Content-Type:MIME-Version; b=lI47L7++RrAz747Lc/YbV9DPr9/aeW6V0OZOIRe7ULF/VtuRxGmCKnjHw4UwhLN3AWxZOlo7NUqllDnb46s+E4VcmoyAZd7IHNh8ta9FvuzPhtgOuBzd6xSMY9j+435yk6HcP7W06+i2z6ygvXx45opbw9nuGPWFIArpz3lHzpw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=c560HAx9 reason="key not found in DNS"; arc=fail smtp.client-ip=52.101.225.114
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="Iw5LR6SJ"
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="c560HAx9"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xYzaS0DI3sSVU06MI4GNgLmr7HQ6VgvEgbZDaEJPwqvqUB8edCULsbiZ0tR8sNE2yI3LoCAnYIB/qT/Q5WAQX2xp+S946vahw3TZ9AvfFh6LD+2frfr5CtJpHJdCLLXFTeB5zDQnHQ7r0MExQlQVYGoDSLEmoxe9qFhttjiu/nv+X64qcgCC6kl9HlkvURgi74y3S4JnInXDDdCwpFm8nn8PGJID0ts9Kzcj54mmsA1Kn+dfciA9E30pgAI5XFB3E4En+SXWZsl6Dr9bUu3+h8pHRcdzoNry1Q2hRmyeckPCzJjdbWOKwRcXNu5F0JjU5w2o6yG8zBtPgV8LTAEXKw==
+ b=I2t6Uc4XuLssFxXxLLBHP96xm3E+hdRYHEEgMV+NDIwZsGoNgvzgZYfbclTdV4NNHTsxDpTNrACmMoCRYWgXJgNZStv8w18EvlSijqGtYUs0KAZq6XJihGXAzAdeHp/Vg3UGo53Qg1SILe3d7NRXlLE1thEb/WmwnqDvrFWHXErRnJM6LRFPfMQFoyihSUT6lSCM5+v/LECTIVScf1iHxj0vJmi2TlIEc6WEny722gKb2L+BBzBNeLiRYnErQXbmbDPD3/zsx2XkaKKosNupY83vVcKA/dI2uXL6s2rLfABPRZ9D9Dk1AI50EalGAFQzKcBhdtPfkpzDUOq3EafS7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4ATgSpa1bA7EVzME8BH6eq2KERIMb69wPRvEuP4GA6k=;
- b=D+jiqy/4JUpOl1ztWvEj6QVNCBqWxDBExtfG+4nX7M9QGfYOdL2r+dCpD4aPqXktsrkuG8h5qPXDQ5w0NZQtV5EOhPvN+dhYOS9j1WMauWtOHp9ykgJ2aVHfbxOTJwb6aKKZHUlEqmBQzJzbcJeUrBulziiyUxtgJU3Nq8ySyMCG0i8Sbbo4fIaFKLCnMaN4wcCyrpUpNr0UK5xVWClPNFvd3hdzOWSUSf1oEqrwbNJuyjQH7QG95cOdOPJC9KfNF3eQ3QldDx+UJDZKJLPwXpemazB46wQrnWpWo4xb7c0JbGTXEYzLuOFy2QzspYDUmkaTmQgd2Pqwko0hSaE7cQ==
+ bh=55WkyTp4D6/g3NGB00m3oqHmRuCgJlja+lgAJulh1DQ=;
+ b=dNYkEj0UzBt6mqKHHiFTojqk3IbW6LI8Tu//x46IeJClTE/LLfPOtyof9yMUZ/eDawU3czdd755hVpzPl01E7WTlZTCrXTe+OxlCsjcdisyn3nttpa9PIZURQuCb9BDQjzlXLiq0paVd0XxQXMvwz+zn33Rvj7aId0Wm8zw9gRjJ9BSM6cwvNbBX/Ti9dpA1sEdm1LHl94MDt0ZRU5BOAbfmBW6F9bZZOtDWY9b0maRuh81k7MCRUp/8uhXfV7WrmSKFgGp7JhKHr4u1FlgI735G1edFh42hx6T6EpVOtR0uiH/FdxbivnFH/JtGfrUA8uY0s92x1UPXGVcRJHHAsg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
  header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4ATgSpa1bA7EVzME8BH6eq2KERIMb69wPRvEuP4GA6k=;
- b=Iw5LR6SJ/B9jftDrDmOcgbujyZqoZViWF0XWhh8CKT5i2lEgaJ1bT3d+wcmtl8N7vY9A/1+jGWUvEYh/Ll1jZzzx3GxL9664DIC++SAzWbrt4Nyu3Il4j5DAeaoQXTAkmaPugvBNeMDKgyYTgrCOyuV2ArG7i2zQpkH0N1tH7NKdskmp/1sKBk5Qeyo7vmSWtLjJUU/bPke5rqAL8VTOYSENIDKFp9/hz6UuQB3mujigtiTWWXdAjY35Q3sy42TkMrLb2giDmEuBkO5m4OqI+zZGUGGnciwrey62ofQ3fsCOMts7YGrzPW6S3eZ2hzFPVZjxw6LjbqaZSpBNedgjLg==
+ bh=55WkyTp4D6/g3NGB00m3oqHmRuCgJlja+lgAJulh1DQ=;
+ b=c560HAx9QEdEGyEIyqJmK/lPLDvHW34mME4ux135cJauWaGnryC8KutyrL5eL1aPjBq4lQ4FVI1pB7aderwcIyptMTgMiJXyd1xhDWVQJxH66TurEqgrRPV19ZpbcNeLbMr8Gvp+A3Oza5kCSpEP//9NoSoHsqvvUd9q8stxzK7IcZUgkhfvDlPpVSF3HruG8RvNhbaEo6UbhUpyMVhso2o3m1H/Eol+b6YRSOfgtKJdYXGRJVv52ivJMN8izkVDN6uIBZB2KZpIAOxEGIvS5rjZcN2rch3IZPrB9VJugVBMFcOFdIDbzt22WNQsOlxoUidX7FVXL4TZ1QxOGnjd9A==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=siliconsignals.io;
 Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
  by PN2P287MB0774.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:131::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.14; Sat, 18 Jul
- 2026 20:11:06 +0000
+ 2026 20:11:15 +0000
 Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
  ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
  ([fe80::ce63:5749:b390:508b%3]) with mapi id 15.21.0223.013; Sat, 18 Jul 2026
- 20:11:06 +0000
+ 20:11:14 +0000
 From: Tarang Raval <tarang.raval@siliconsignals.io>
 To: sakari.ailus@linux.intel.com,
 	mehdi.djait@linux.intel.com
@@ -49,12 +49,13 @@ Cc: Tarang Raval <tarang.raval@siliconsignals.io>,
 	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
 	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 11/17] media: i2c: os05b10: keep vblank and exposure range in sync on mode switch
-Date: Sun, 19 Jul 2026 01:39:02 +0530
-Message-Id: <20260718200912.16001-12-tarang.raval@siliconsignals.io>
+Subject: [PATCH v3 12/17] media: i2c: os05b10: Update active format before adjusting framing controls
+Date: Sun, 19 Jul 2026 01:39:03 +0530
+Message-Id: <20260718200912.16001-13-tarang.raval@siliconsignals.io>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260718200912.16001-1-tarang.raval@siliconsignals.io>
 References: <20260718200912.16001-1-tarang.raval@siliconsignals.io>
@@ -71,127 +72,95 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PN3P287MB1829:EE_|PN2P287MB0774:EE_
-X-MS-Office365-Filtering-Correlation-Id: 96204b8e-9752-41fb-d318-08dee508b360
+X-MS-Office365-Filtering-Correlation-Id: 4d53232e-ebac-4aab-83c6-08dee508b7e7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|366016|52116014|10070799003|1800799024|376014|23010399003|18002099003|22082099003|10067099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	/T0w4LLd1Ybqeyi7yxu8fenCwbEUg6hUsunmTNlZHAiXh6tDBWotf1tGeqp8obgizyI1j0TPGpQ0qwoFnetKIBXtWB4nrUDzh4XQt4QKeDf+rw1z8JRqNbziU1ABBONZVtbKhSdV4KA2AYoQ+a9pUEYPL+030n10YU+vTpXMSTZgguSajPfo2KXWv5t2Z9fp/kpic1oTlE1roYryjKA4leIjSwrPYfHCwDX2jphiRsu3sJEqlcrNxOiJfIjKNB/13UcVtxA8FgTwRQS3TzfVJhyL7sfTL1xTq5uHx0YAW9y53WUZy+axHvPhj1FGFokThfnemlOuAPSrdJxCH1bekIwoskVgTsRr3HnHUG1vZfAZ4rDnN24LSiu82Ewh3rfE2iImq+MKjXJ1goZaxjFdeAEXvlWw/AGWqmGExQ3hSV9RrPCgs34L3MPSK8iQJER/QbCgtJGMHqQHtCP2v8SgheDg3cXBYIiALpJLhGI37h7cLGlfJwe9GBcfl21RKpcNi9h7t1gOxUsm5E1OFAjgBPB/vmCulJBh66tsNENZhnYyLPQi1QhbDHvq9uNzCjhHhI59oddlX7Jq4ltPWVdaF7H+vV62pHnPHQ05KOojxhcAQSx9rsPt1Yi5IhrfGPklEOspqVzBu09qGBwPeufAcSd63MzMU5uI5nssmvDdLjM=
+	MP39nuU7AEbE6BO9YINhCp98TrVlp4b1J63d2GZrg5IuoQD3LaK2imAXQNliaQEnXCeV1gVaH4KYvraFR+jCL3Hd792RKpp5IZ3Hr4IO7rmTQshspycGdAi6xdk7mjM7al9Dfsxa/xhDtsIB/MwtfmhLo0Y7fAiTmFWRcH612ZBUzVFonYmdJvZ5Fv9PhHAJd+MHWVb5zpQOjz99li69Q+yVFvUrisOsV+LAbN2G60auvPVS8amq0xtWMtzCmSTgb/r5s/P0DUK2M+rljpoBLDZfDY4pVZOxd7E1Hri0oXz+1qvthsdOJYjXECBOk+mxf5HOXSPkFvJSrNY9J7wuc2Ad+U3K6mnsUheZejv78p1aBDX9fyRIcbWylV8FL9l4EZnKIQKylNDWoY9RGqov9yrgGGEmdhMRVY2i4DsxOs7p8It6ev/Itzf5gjt/PJ1z8tsb0/E5eEudvTl2xWiBbpoLH6BZhDgkI3LADbhwHbvlYTynvEPZJR6UBh7uWZBtiTT/yr8DMdzk/ylynvGZShzn49QMa+reR9sIk6lzDSn34ePhajA6ywU/BZBvU6lH3vS3/AOuhRytXDvgJz4olFCa4w9faz4Gd5d3iJ0wxqIS1CXtYGAXNybfOREDAPk1WPmVdZSSmqU0X+loewF2YJma4Xqq7pwDUybJvUXsfVQ=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(10070799003)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?swEJrSVr+V7o44nYFAuVhrtl6viL+YgKxF8O8OF2ZkPcoICzioNuG6cmqU3a?=
- =?us-ascii?Q?EU6zZK81x50RVHzqJimbSmjN+JlM0YAAzItcZlyGAKfDO0uT4f53DAw6XkrO?=
- =?us-ascii?Q?P7T4Zq1vW2uSN1zhmheFsISIVSVLX9cqqRv0Jmzs2WLdkfEVOOj5uMW8Zyxb?=
- =?us-ascii?Q?sJ0uNDm0IBjUGsn0ZarpYn8PgIdx5+z5WLCrULRwyzFAtYfTGeE5fxmlBGHM?=
- =?us-ascii?Q?Q1bnfxYuMiz1w5I51wBqSNOhItDDCKqYnryUptExD8pipn3ZQXFOrvk4URvs?=
- =?us-ascii?Q?E/mIbex5+/yH0WZePDglTK5u0y1WFpgiOXTi9GeknAqU1NNlGdLZf3KCDhOQ?=
- =?us-ascii?Q?orlBvS8tkVoI8QMjUpUWf4/WMGyFDuYxfqhyPo8dBYJPiNJVsfl8XV+Mp1PR?=
- =?us-ascii?Q?1O9Qvor4csyXkrjUW7GvInZkdR0eJC0fjDENi35cxjem8Hx+lOpPbyWEv4F3?=
- =?us-ascii?Q?uuT/MpOap89IHEqIJxsfzB9U0+RDF8KeYA7b+oXk/1sZpMW65SpUQJlfVdTm?=
- =?us-ascii?Q?1uSwkoASESL6y9pteN72NHAQg4xvpxGfNkMOcGCi9u9lf4GeQzdNe++uC5j3?=
- =?us-ascii?Q?l+GV+62l6s+pOeRdo6nvkTxozm2Oq7DuFe35sKMhoCLyyP4TmKwVyJkiLG/3?=
- =?us-ascii?Q?GVUQtmhgGlsPvtYfBS5rLU+xupyDltlwM2F+5Q2m5M7GSPK36nPiKCmGZPoA?=
- =?us-ascii?Q?9lIhDjoWu1OGczLm8E3sUXqfzAM8FkrrT42+xYJc0qBO1emgTs60APg8PbCe?=
- =?us-ascii?Q?cuVRt+QUlBAplyKZT7C7VrAJQE8BM99tBivqsJiMIed3Cx8qJUk30qbUHR6i?=
- =?us-ascii?Q?NkXb0N491yxbY1SVEivo0RHPJeCeF4wASqc9ctW5KkklwPs71UEK6sp9l1Tb?=
- =?us-ascii?Q?T80wy8rpzBZUrLWkeItDRny3AZDjV8NQAxdV11aofAty3pV/OR1gwqZxqhZL?=
- =?us-ascii?Q?znu7tlqq0GVZNit49sV1Me4+zBKgGGs+8EXdU1M70AlUzY8ltxbia1uF5EK3?=
- =?us-ascii?Q?/lwGE0Kx84NtNxkpwriJZNWYypeJje2dg2+4CAhqd2uxt4EU2xY2NX9thbjO?=
- =?us-ascii?Q?A5Mi9ZrLsBG5N6sPUdpoFQUaTghBlGBehogl5/VnVMtR91QH7jqcMyx/7urP?=
- =?us-ascii?Q?mgQZ/Rq3s5RgPKySe+3u6LOxtSL5/KZAXkqVTpmgfT8LAjgPtchEeVDvCUNK?=
- =?us-ascii?Q?ja4XPyAm2yukA6N6IwyRrSJEfLaHVc/SEa1/Zo1NqnZ6Ga6RH5+EMjOgDoq/?=
- =?us-ascii?Q?U+Cqkp/G+tQ4QLNbVlLbFZVXu/CXLoLmNhigq8SguAf1yUrH9Wxtpwyns5BO?=
- =?us-ascii?Q?AibvTWNVPQEP2+ieaZltYnpFEGXRSNb0pFlRDKQwQO1N9EgKhqiJExicWfs4?=
- =?us-ascii?Q?5bIzpgte2/KSabJjBtsQW3fRwbZUeuxRX50JvgYB8WauZdjPXU3uYlRY7QdN?=
- =?us-ascii?Q?uMW76kI9ORIv6JWnZraV9EJctoroEKCbhj1uS7mNgdYJupGeKBtiMCZiqanp?=
- =?us-ascii?Q?voJj/L67eG2MQ1Y8p8nE3434D75H9z/E3gvs1y1Glp2RUYoiWCq63SDfxeVe?=
- =?us-ascii?Q?YhXQsCZ8BhUGosMYAsqlvgiZBaMeFOcGTVk/71co1SSsYCmIRW8OKlfIAkI1?=
- =?us-ascii?Q?l6a+cN7TXrbCDyDDk6R7Mttl8lFJpyQchNSMRuStse3dBISUqluxCREXuVLe?=
- =?us-ascii?Q?Ca0q7QHWCfw9e9urv0OWClPDLxo+UqYaEX1l5yiXvrOrQjvuvvcN+7wr8Ylo?=
- =?us-ascii?Q?8mXHjoX9/ryYZwduxzzBz4EJP6+8bI4pWDSwVA36DpB8KDxV7Qau/10JvsPX?=
-X-MS-Exchange-AntiSpam-MessageData-1: LdESJtSxN3Rhgtak67q1gcyNgJmWGJForJ4=
+	=?us-ascii?Q?NNSV05NGeh+OykR4Uapl0egzeN7mn+mNbVRFZb5DDcogR0kxrJWCsNb3p7T9?=
+ =?us-ascii?Q?HTh7w2tKNwTdbo2E9W56b7v053cAFVoNPe9mliTlc+HdLlIIYJUKHvNxqpLF?=
+ =?us-ascii?Q?YHmoFNsU0+RWV2Usxh3nN/LL4Ji7dk9Dq1dvSBvKMMhea8baYq1b0G3VFwuc?=
+ =?us-ascii?Q?5fJYM3jKmmbwI3YHjXaBtxaquAAUrxNxjfy0oLCABe5CFd8YaHJTpGtF94hb?=
+ =?us-ascii?Q?/Pxhj+l5INNUlyl0+PYGxgVJ8bg0wAn3QPno75PUQXU8FiH/R3aBY5gxFrBA?=
+ =?us-ascii?Q?eZd60vwDt/qjUkh8Oepd5gMGSEtYcr+KJc1gMicL/zKP15bVVEZ+Pf72NAuH?=
+ =?us-ascii?Q?GLMkeWtnwV4ZcLss1tghx2KAERBNYJuR2tjSPyQtO9XMkaan5tnzgH3oQt0u?=
+ =?us-ascii?Q?mA11pHd9LnTPgG6+7i3py4CYf8Pr2jnCN/dWPPGgOX0WUUOAW2dRSur+Vf37?=
+ =?us-ascii?Q?jMKt71ewQFQ8FWo5OT4RtiFzPc2DaLJFkADohTyZ1QbEPXndyLBWczkJ7dkn?=
+ =?us-ascii?Q?y8k9Vyw/aPlZZGY4tbGXPKQbgd5/irfdeRbFXiq99TSzhwJTZqpP5ClCKOVF?=
+ =?us-ascii?Q?DV7PoQFXBEynoumK3ttNewPfbEzBuwV5GtUIWOkWqBJsBbYvwb1KsZz3zCcR?=
+ =?us-ascii?Q?RTVqk4yk3jsC6fxbhW/r5k6HqeLztab4iXUI9zTpTpbhlrWg7gziiUgn4YGi?=
+ =?us-ascii?Q?/qO2jdp/Ss8PXnCYCq8jZtUaHMuzg4PE0TYlNWjwAmXbBAoxafA/jqq0VRN0?=
+ =?us-ascii?Q?272ra+LH3DDDwGzU5IjAYJY/l4aXn931YNRGw7A5RpkBRH3UiRwWr3t8kzR8?=
+ =?us-ascii?Q?D4CiwsRrOGPhUm2/6PhDTDuXDr/ed4Yzi4jh+u77DN95Ave48Qo+HNq2kidU?=
+ =?us-ascii?Q?rZhyD9c9845tQL3l2DSDQsGd5/MrWrhQ7kM8gW2NzpaKAyOHdaOfFunQnuhG?=
+ =?us-ascii?Q?3lL0mqyBqSIOPKuLxxIR4JV94/pS27Vape+pfEflZ8+Va+NWmf7dugjmkviU?=
+ =?us-ascii?Q?NeaLQnlKZ5I13DsBOrSWvlpK+f0dL+W6aV5dudKsueA0eQ/lgj9ySKd7UDJq?=
+ =?us-ascii?Q?qDr2cIibnM99RN6XNxB+/9nMcQw3k0zf7MeVsT5CHabt5Sa50aTnNamf8zZg?=
+ =?us-ascii?Q?oJEhv2IznyjqNEeX9eIH4tKXjuJlWoAQr/e0iUHpQr5rFd1BYgLLrFt3xQAj?=
+ =?us-ascii?Q?etslLFZVv/XrplPrAZ/QnecDujvlQgA2fyoseoyRFZbzyQIxakGKA1pVKh2e?=
+ =?us-ascii?Q?2DcJXu09DaXUbyB5c6gucJLmppnhydxCqpdw7J6Bw8BZT4wImypMRHEdH5Tc?=
+ =?us-ascii?Q?ewQduRi7vvcsE3qxfmguLDgmBtLDWUpP3TYj0haIyl8qUSKLiUPA43J3NtnO?=
+ =?us-ascii?Q?0H0qD6LfuC/e2PBrtaWGX4zvChL74DD1ChnTKWlv3DhS+UNx8SDhiReNSRyw?=
+ =?us-ascii?Q?oTwaT6L69BN2/rl6i2F41Bllq7CsSLZqmYKLgveTVLHo48BF53JH7nIMMnAL?=
+ =?us-ascii?Q?71JqIivZ/+4k6WOXrz8dOh6xWolYDu7wh5qkHpLqE+hYDxlR6stopfMkKQ7l?=
+ =?us-ascii?Q?7zbkfaVGW2xuftfRN4F5iTD5aPTgZU1uioz2kNkEwe0Cdb5pq09o5Cq1KiQc?=
+ =?us-ascii?Q?3yXXLjapu6Q3mmxdrm+v9J3FU5l6ZllKkjCPRzVWi8fFWuMRAxIa/9OAGiTW?=
+ =?us-ascii?Q?sQevoE7JqIr+KZMor3KMq2RghkMqnN8kflWfaTnMZWOLq0umULsVmHl+32y0?=
+ =?us-ascii?Q?rtzwy5wWfAUK42hzHPAmBQqPtfmcRAfTKFNPopGbayouKQ4JrooSAgOio+Uu?=
+X-MS-Exchange-AntiSpam-MessageData-1:
+	us9HwFk2nMosocB0cvTRyxcAJvi5bzIhUfq8yLQzT947yQgdPS+DNXsx
 X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96204b8e-9752-41fb-d318-08dee508b360
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d53232e-ebac-4aab-83c6-08dee508b7e7
 X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2026 20:11:06.8478
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2026 20:11:14.3829
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: M8PvTl4DzcHQjExd8veLNluzDoxUuPbaKE8Iiz+qmoA3hRWWN2bNyznewH/wqoLv80EpvCUx3B5qha3wkHNIgpH3u8amSA+Nxq38Omm1pas=
+X-MS-Exchange-CrossTenant-UserPrincipalName: mZndiMCjh4pFQroPRgC7AzHyQKbtpkMPx6wZ3UzpWrAf9TbjfF2c8awAcVigNSAAe8i7iphNazj58M1W2Ea8UlQPKXkmhN2U34BVb1c1Gwc=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2P287MB0774
 
-Update vblank through the control path on mode changes so exposure
-limits and default values are recalculated consistently from the
-active mode.
+os05b10_set_pad_format() calls os05b10_set_framing_limits() before updating
+the ACTIVE format. As a result, the VBLANK control handler uses the old
+height when recalculating exposure limits, causing -ERANGE when switching
+to a larger resolution.
+
+Update the ACTIVE format before adjusting framing controls so control
+callbacks use the correct dimensions.
 
 Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
 ---
- drivers/media/i2c/os05b10.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+ drivers/media/i2c/os05b10.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/i2c/os05b10.c b/drivers/media/i2c/os05b10.c
-index c54b466656aa..d124db74766c 100644
+index d124db74766c..82a96081fe21 100644
 --- a/drivers/media/i2c/os05b10.c
 +++ b/drivers/media/i2c/os05b10.c
-@@ -745,13 +745,23 @@ static int os05b10_set_ctrl(struct v4l2_ctrl *ctrl)
- {
- 	struct os05b10 *os05b10 = container_of_const(ctrl->handler,
- 						     struct os05b10, handler);
-+	const struct os05b10_mode *mode_list;
- 	struct v4l2_subdev_state *state;
-+	const struct os05b10_mode *mode;
- 	struct v4l2_mbus_framefmt *fmt;
-+	unsigned int num_modes;
- 	int vmax, ret;
+@@ -907,14 +907,14 @@ static int os05b10_set_pad_format(struct v4l2_subdev *sd,
  
- 	state = v4l2_subdev_get_locked_active_state(&os05b10->sd);
- 	fmt = v4l2_subdev_state_get_format(state, 0);
+ 	format = v4l2_subdev_state_get_format(sd_state, 0);
  
-+	ret = get_mode_table(os05b10, fmt->code, &mode_list, &num_modes);
-+	if (ret)
-+		return ret;
++	*format = fmt->format;
 +
-+	mode = v4l2_find_nearest_size(mode_list, num_modes, width, height,
-+				      fmt->width, fmt->height);
-+
- 	if (ctrl->id == V4L2_CID_VBLANK) {
- 		/* Honour the VBLANK limits when setting exposure. */
- 		s64 max = fmt->height + ctrl->val - OS05B10_EXPOSURE_MARGIN;
-@@ -759,7 +769,7 @@ static int os05b10_set_ctrl(struct v4l2_ctrl *ctrl)
- 		ret = __v4l2_ctrl_modify_range(os05b10->exposure,
- 					       os05b10->exposure->minimum, max,
- 					       os05b10->exposure->step,
--					       os05b10->exposure->default_value);
-+					       mode->exp);
+ 	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
+ 		ret = os05b10_set_framing_limits(os05b10, mode);
  		if (ret)
  			return ret;
  	}
-@@ -842,7 +852,7 @@ static int os05b10_set_framing_limits(struct os05b10 *os05b10,
- 				      const struct os05b10_mode *mode)
- {
- 	u64 pixel_rate = os05b10_pixel_rate(os05b10, mode);
--	u32 hblank, vblank, vblank_max, max_exp;
-+	u32 hblank, vblank, vblank_max;
- 	int ret;
  
- 	ret = __v4l2_ctrl_modify_range(os05b10->pixel_rate, pixel_rate,
-@@ -867,10 +877,7 @@ static int os05b10_set_framing_limits(struct os05b10 *os05b10,
- 	if (ret)
- 		return ret;
- 
--	max_exp = mode->vts - OS05B10_EXPOSURE_MARGIN;
--	return __v4l2_ctrl_modify_range(os05b10->exposure,
--					OS05B10_EXPOSURE_MIN, max_exp,
--					OS05B10_EXPOSURE_STEP, mode->exp);
-+	return __v4l2_ctrl_s_ctrl(os05b10->vblank, vblank);
+-	*format = fmt->format;
+-
+ 	return 0;
  }
  
- static int os05b10_set_pad_format(struct v4l2_subdev *sd,
 -- 
 2.34.1
 
