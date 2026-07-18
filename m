@@ -1,67 +1,64 @@
-Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020119.outbound.protection.outlook.com [52.101.225.119])
+Received: from MA0PR01CU012.outbound.protection.outlook.com (mail-southindiaazon11021113.outbound.protection.outlook.com [40.107.57.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0378A2FDC53;
-	Sat, 18 Jul 2026 20:11:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E615288D0;
+	Sat, 18 Jul 2026 20:38:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.57.113
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784405517; cv=fail; b=jq3GCOGIEf6fnaBOUEcuw7D26UM2+hqiuLly2ld2LxezHtoqTmED4T8OPR/hc4U1/yGVLVfwyK+GFagQDNNDfyoZKYMzlAngloy3lSiIqZQd/wh3hUjw7z6PTFY9WUpsChoJQO3zQagQ3NMtoRJKqy77gUrEys/zgQdBtFxdIdQ=
+	t=1784407138; cv=fail; b=G97c1TFwDOD/Pg0d+XGx5QlF9UxtIrc7fF6GUVHqF71VqOlcX4ZA+PPRQ+PYfaCb9gzXLx4hBPoDvKRK9uP9JWE/jb62/3cxebk4mTrpz6NSUZycqorAFT/KlCoZjoiaXoJOFbewb1fBb75YLF6uM4egktCi0KRtonQznG/UAnk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784405517; c=relaxed/simple;
-	bh=67tQ3Hr5m3yF4yJ2O3ZQ/MmzVQudU6Sj2P+3nyYHdWE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=czkV4aewCUE7l5vMXm8ag2fcxmbJ4LHb3KlJEU7wPGHMo7GkMUdA+rskc0/sXjqAaWI3+iZY1tlbVp/plRMeopSxXSDDmZw94EUMQLQjRUV8rdMD9+rICRZW2GjgtnOxmIeX+xHm5dD2Qx/uzNALKACp7qA4zIG0HRZ5vqmecnM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=IK6u7ubm reason="key not found in DNS"; arc=fail smtp.client-ip=52.101.225.119
+	s=arc-20240116; t=1784407138; c=relaxed/simple;
+	bh=NbMONZN+gcc614EkIizxwXNcX4kR8dGYa8ISEvar0zs=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=BgqWWUCYuCI7IJ+nlfSBVfSfWOkRLHz07+mew9/8BqTWBZdVPNo/jNTti+rVdX/cMgBjbQP3P7HuVrjm3z8AwNkmGt/tp96u34y5aJawVqxL3mKBR092iczeLJ2iyxx/4FXIYT0/AYoRgDi/w4PlWI5m2cPOQZdeJFjyKlraQH8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=Vrf7xqeu reason="key not found in DNS"; arc=fail smtp.client-ip=40.107.57.113
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="IK6u7ubm"
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="Vrf7xqeu"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gU/TU/+H5R4zQA7b1ksG4ZMWEpiWxUI740tF4J2fPXYNM0mQIcbI5+RBYhPDU/c+ntWtpmZV1guMk9gxSJc+4VgYnryShVyHNz1Uywxm88ZNgN/eYaDz4NFHhq3yk6ygZ5i5DpkLTOHQDb5D3uVGl8tHHSB+6WMKbc8ShRj6eebFRVhIcVB+4laXtYqOvUpwegUi3zeZUegM7rcYMs8vg+I+dIoY7HTHYaLNicUqN5raA95fb+M1POuAlimult20nDRJY0eQTWaGp53WlydX8vrxk3Pov15KEulIxSpfYvC+vPZngmGhk4DG9FjrCXE6hg7WXpNmGK+lClP8g7DAlg==
+ b=Q85jUZRl0wtc/7Uo2FFmYZt28/IwdFprhDtDh/y3bVgTZ0YkSFKosQtDKS7dwFKlCiw1TV5yJNYr0H34WTBJFmjU3UBYtSZhuwsDTmyJ0cyCJ3/HYuLcrTXIlCWqmUJ8pkR+S9EaZ4ponVSJbTypBETZ51JFbWoOfo5MmraV3B1RG3AuFFE73xcvZWvq28sA9Os1mIjC+QDqAMDVhcAuLaNeBPCM4avdLd+ZqjO6DJOnQTbuZw7JKhdYbyX8e6RuI+suIDQl7kyig7ARr8W6773N9FrNXVH9QHw+b+tPkqtQcvDXXMC2ba6sW2xdBmDxT1zEkfDur3+yi4cqY8KoGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PflYzfzrCl5/JCCSCDtDtLWWlWynimrdFaNNhgKfm8c=;
- b=OGcUIn3sP8lY2MOoaKSOcZNQNWUC3Rx/1XhadGLFlPaqRFKdEYdd20wk4MBbhj4F0c0z4J+rpBoeLytfl5PzasxkpjymMIbdKHWU/lqSLNx6KtIiVUaBe2I6CcduK7ExlPtJBv9s7KB2v2mleTKyhUcGndoaWHV77l9TwwSQsxo65jySTVt6gGTUUW2Wt08dRNJAYxrXJiiiLhxHPPCwJJHTVkySwYXyp6RkBwOSbsLJ+Mag9OYigh1lB+9ocRRBhHSlkNrnutXM2PMvVkW9jnJRiRNS55AocypBLf9Cca9TIk9/XST1XjpqBix7IQ+VRSxjYjIs/xky5qJgCas+gQ==
+ bh=MRyzdPJ2XBBED5L+PJD1bTgJYqfaaGgTrk2A5pp5f5Y=;
+ b=oKQv/3XXL00FsKxo/cvpWYT5QPLnJZxQaiYqmlhyiivjNyY42nnAbqvMn3Kcm2ln82e91DuPso8j2BSyLBvW4Yxy8THcx7KQJopoa6XZn/WzbcG/dvyhJQc3PYIfZbzrkeT9G9/SxHV8RTgj9EAHgPWeURqhEB10dDzxBuAhoHXgjZ/xLthHPtjPoVq5SMf+Hzo7MB9ZEAC379ZeNEwyfU9qIb1VLvExgrp1+Mq7tTT/RcGPGiLkze+P3+MiTR1V2or0VGxowghIcNBBu0BhWTxtst6xHPwjhu0gWROtM9LdfFJv9bI79pYV2uXNO5xkUXlxtdEri1MXLyYXLiKQkQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
  header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PflYzfzrCl5/JCCSCDtDtLWWlWynimrdFaNNhgKfm8c=;
- b=IK6u7ubmZ7ussyrdN2F/U//kr627e6J1PfQEe79CDjBzA4fD+GfuVgOh3kiqDus1L+mONPkWXOu4/basot3lFrQIerDSl4KvgR9PegzZN8VZCQovPrj2u0H+sVWH9p1Bv2/fSjCtljiWm2F6oawN/DJdmm4D3oYHKb4Z3XirhdWv3bFtbZs16hZo1hjR6nz1vssSLUwWsaHAXJASU1b9fmcrBNDy0LPF8uNlaPf9UNyl3Nf/DClex0sR9R+actWVBVcmvCdXuoyZq+/dIcUz8A0B9Wy9uWJQWl1Jgx7SNUl02R1AH9V24WsQnGLSlryYB+iGCjDdNuPgki6atN5o4w==
+ bh=MRyzdPJ2XBBED5L+PJD1bTgJYqfaaGgTrk2A5pp5f5Y=;
+ b=Vrf7xqeumG62T1IboRBR/0+VSUg2H3XfkQgQAx4jRIFG/0LgjReZghjkRpmfNQGaWwDnskc948DuSk+ZXSArUTkVFIABQmzOL7b27NCdEuDjhuTdQ0ZabFI1qZ4PlP0o4wVUAes9GLNJEPntKqs1dM4k1b8sx4VlGz0jgkOQWVlshwojZtyBHP+0aiixjT2OWAgbdWDzQdULhzwuMrSGveVgDsRO1fGwnJYIiRM2sKVwVDUksd2xnpBwR/Et/Ir5Ul45a6t25Ci3S58EQy4RhoXgjERKLyBUDO9rUPBrz2TrdW006tcJYemKDJyTpTvu/972knaVoCa9BRzE8pbQuA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=siliconsignals.io;
 Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
- by PN2P287MB2078.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1c2::14) with
+ by MA5P287MB5202.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:1c5::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.14; Sat, 18 Jul
- 2026 20:11:53 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.15; Sat, 18 Jul
+ 2026 20:38:52 +0000
 Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
  ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
  ([fe80::ce63:5749:b390:508b%3]) with mapi id 15.21.0223.013; Sat, 18 Jul 2026
- 20:11:52 +0000
+ 20:38:52 +0000
 From: Tarang Raval <tarang.raval@siliconsignals.io>
 To: sakari.ailus@linux.intel.com,
-	mehdi.djait@linux.intel.com
-Cc: Tarang Raval <tarang.raval@siliconsignals.io>,
-	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
-	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	hansg@kernel.org
+Cc: hpa@redhat.com,
 	linux-media@vger.kernel.org,
+	Tarang Raval <tarang.raval@siliconsignals.io>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 17/17] media: i2c: os05b10: remove unused control fields, simplify error handling
-Date: Sun, 19 Jul 2026 01:39:08 +0530
-Message-Id: <20260718200912.16001-18-tarang.raval@siliconsignals.io>
+Subject: [PATCH v2] platform: int3472: discrete: Support multiple HIDs per GPIO map entry
+Date: Sun, 19 Jul 2026 02:08:20 +0530
+Message-Id: <20260718203821.17684-1-tarang.raval@siliconsignals.io>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260718200912.16001-1-tarang.raval@siliconsignals.io>
-References: <20260718200912.16001-1-tarang.raval@siliconsignals.io>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: PN0PR01CA0018.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:4f::23) To PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+X-ClientProxiedBy: MA0PR01CA0061.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:ac::18) To PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
  (2603:1096:c01:199::7)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -70,195 +67,219 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN3P287MB1829:EE_|PN2P287MB2078:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c7680c1-8366-4ec4-f429-08dee508cef7
+X-MS-TrafficTypeDiagnostic: PN3P287MB1829:EE_|MA5P287MB5202:EE_
+X-MS-Office365-Filtering-Correlation-Id: 144acdde-5050-4766-eb20-08dee50c9462
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|52116014|1800799024|23010399003|10070799003|56012099006|10067099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|52116014|376014|23010399003|10070799003|366016|18002099003|56012099006|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	tdXWpqdg6khxo+7NkjZwJW0jj0UTnnQkHBRz20EoCdysJEyBpjceIZB+D5xbn/cPO3+XuQIH0uAvGS3zlJCO+vM0aV+KwxMGjUGpKF23TbpLtkn2gYH2ulg9ho1UgOM9AT3upikaLKpBC9rZrh6mH4ewBToF70kmzm/YB/yDPoYT9TF6z0Dyjh9IZ+l9h6z+k4nl2U+CbQu2FdpkQMpq08TqkK+4R95nEAzfXW0btEZOpo8W+5JabxM1xRKqeX8UOdwp2WYoqUU6Tj/syI7qh3M5vFDQYyqPUNMiqQpHRr728iwiSC7TUsLU0GSWex8+yzxz+6wXjzz1dWdJgll0unEHe2q4PI9fXjgd4gg0lMgYmxRi2i4rmOyIvECW4v1qpWDaPoW33/eyQek8H6Osw66y73gc6bYs5DzWVvMR6Lz3EGIbWavFsz2LaDGvslEIDeSqV+E2Fpo45/I9ASPbbnKdXiih0lAjgpssU2HqDvyBrNOwBb4Tl3dyurKzpl/fqK5ZgSN1iWRtZkBgTzFt6S9tLDB8tcDScSYTaSSKSUQy4km8oG993GvxcB9dlcNqrFpZ2vcPR4u3kvelzL59MCBvbXph9TE9J23+lwjze0SXMpyDu5avJ1HlHVbFixraJr/TUH9dmcH3J1Fs5uABiKW3ml2ZarWfcjebxH0sxU8=
+	34KsSo3WZeS/tDt/cIj+i/JfA/BuHMoiDo9W9cOhxP+nDOj0aXjxbiZYOEK/1LLGw2//4jiu/bNrElhCeUQiCgMdszTqEUaNeOR8hTW+Ha02xjWqW/NLTp9FoZKft75lUyc6QQXk6SVXbTBu8PRK6ZvdUfFPrspZCIkE88ZEZTF1XK/0+dzPMmgpFkYB+r8r9Y/7Jl2PJLbsubFVGYP564FnO/Vz51dc3WDTTGB4xH1SiOfTqrlt5bYr4vLXbBWVsQGhMid42Al9XMadFPykoWMOqbj1vZ6nct3D12cQwHWtwqArJA9BiDejPleU3v4ZnYPnVDXeue6Auga8lZbFhcMri4grIDAPX/o1Ga0lrbMEn0f5MEwbvEHss5Qo+sts5ZVJr+dkxRqjr7YUK4xgIeTc2q2aWgknhnwPO6WUUjKCq97Hu+JUGiYeoHpqfHjJHG7YKKr9tSysB1+t1PmoC6zRbgCkZTXmgogSsLSv6nhOqUS+KTv5KsiR2Ukdc8v/sRFPHN3+51CrcUyQrPnVJMRD56jD3dS+Uo6pScO5PZi5nIetZJX3mRPXuADbd5dmCcIR6CO1OsYyqClnY/6AqXn/JuNsjoLtCh6ZLk/8Z9aG2MbiN0xkWRlrpLcSb5nY
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(52116014)(1800799024)(23010399003)(10070799003)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(52116014)(376014)(23010399003)(10070799003)(366016)(18002099003)(56012099006)(10067099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?LchqtoJO1JIMXlmPQm7wy1gxTsoVOsFwM7upnIxnpbZdzTv+u0SAumyXLhEb?=
- =?us-ascii?Q?tkeGg5J/gUJd7KNL8zdEdaVoOM0svzYwfI353bmrXm1+fCuky8NXq/dW0Mic?=
- =?us-ascii?Q?6ux04+4sxc142ZIZqfCqxHvD5X7JLdaFzHVK8mIFDjQLKx2hGCwwMREOIwpQ?=
- =?us-ascii?Q?O/ZeauEjnC9MXvmmdKMpJzg2V8GdxSyWnW7ISlTnicvuDM6DcDzKMM9pmvPO?=
- =?us-ascii?Q?aO15OQ7+gB2c/PFPUnca3NuKGZTWmLEdrygICvg0ssnXyk1qTsh01qouPvGi?=
- =?us-ascii?Q?XHBXvAfGf+hsG6yqxPbuOKzRU8SKooxbI+sJdqisSGXkWKLrC2zmXToZUEtq?=
- =?us-ascii?Q?O3bxTVFaUxYVBIte5rA+7BjtZLz/HgCx7FsXnbx3UIMON/QTHuSs67JD988l?=
- =?us-ascii?Q?tHGkhY+h/ZiTSqoQEZh5X+WRf4qHzk4OryMYPWemo4W5rXIpPiNgLt7DhWh3?=
- =?us-ascii?Q?eKAHsBLswY8l35Vb09Kudpzc3x+N4k7ogWiCN45112GVYmpWMrHj2VOccbG7?=
- =?us-ascii?Q?KgqplgNT2odqKHSTfu9zFN/2dw4L+DorJ8nTIQYIzyv7hDUErrNeIuBd4LCo?=
- =?us-ascii?Q?1S63OWIMYuZoOioO4vm7TuerkcIfnyrz2q9Br+Fo+fow9TPxxNQ8Iv9NPqRo?=
- =?us-ascii?Q?G8GNqtSyUnnk2XcFoouZLWK6XrQ1znJ9ZPpvN0nX6N2baBuUOJDfkxRTESJd?=
- =?us-ascii?Q?3U/emAA6FK2Bfmad97bKQ3d3e0pVnE/K0/0rVKVv4WmmDxngsOf3uyx5VG5t?=
- =?us-ascii?Q?9Sri7vbaUZ21z/nOcM0fyFb46pSP6Etl4W2bKCwpl2porbOcdn0iW0/EaDBr?=
- =?us-ascii?Q?fpuyyzWUEqAxht0Y9dvcvFJnmLiDCmPgEBq8yxRnTebfiFZkTAJOyx8rbIcI?=
- =?us-ascii?Q?bd+dgoQTMEqZWoVFNsTsGmhnFyjMUDVgBDeFu6BwxFLCCbxLq5pMe/ROgB6T?=
- =?us-ascii?Q?triXGzS2wIZF+I/o+HfppxANmTFjCvSTBmJrRdVKMk3lcI0HWEaei7tND53X?=
- =?us-ascii?Q?YSlnQUKKhN6uX3j81RyuLKlKIVG8y07rpEqkxkD6sIYgzuVdBUnGHUjDHZb8?=
- =?us-ascii?Q?t/NNECcf/gDMtawhgyEx2+Vxttq1NYxibaM51fUWYQHgkyEsEgv2DmwMqN07?=
- =?us-ascii?Q?DVSHUI7lLSieXlIsroiL8/5KyetrZtLW4lCjmzdlNl4ANkCl//iCXsas0LUL?=
- =?us-ascii?Q?xeUsgYxoKtZMS/6AAW/WDOjvAc4frY7wSErmsIiMrWgBVhVMaANTb883NvNo?=
- =?us-ascii?Q?idUr5AITmNINoHqYjH3OeFcwKxFSpg5Hq2nhIeiUFTT+ywIaVApPlvIQc1S1?=
- =?us-ascii?Q?1iX0NDMwYub5zkyOv1P7LoSro2vUiHc/i6bdux06bh8+XRUu2VNgqf/aFmXF?=
- =?us-ascii?Q?s/coTYWPhZ+mrdiaDVUUd5zrMBVmCPsX2JRUFHgEfmccEe33fPLAFL+uSEdR?=
- =?us-ascii?Q?6Z17rXjaa20y3mht13hEEej9RQnqw0z1UlGITJUj+Exqun7nrcpFc5xGHjEo?=
- =?us-ascii?Q?wqBmRDvmHpE4IFE5QjGZ3njt/oPwZpFT+/jKq6SkEGqqGKfYoWCBXz+i7IhO?=
- =?us-ascii?Q?pyFBG3WqicQBZ3ILoN2YjCERXYEwWD10SN7W68PnXUoSVoDpm81zB+EztbZX?=
- =?us-ascii?Q?TPbYK3jJTP7e2KGqLNfTzjm9li4wFjud4YQD+NQhzB/wq4uMBbz2FFr/vUAj?=
- =?us-ascii?Q?OQMnTPEdXmOHT68AU/K8xAaotKe/kJljbbrfz18Hc1Mb05pV2tpp3oh1xpQ3?=
- =?us-ascii?Q?dEagGKW209/FtKerssgRJJUx0jKabCimlVbrrR5KHCsRHSTJZ5Z96JTArW0/?=
-X-MS-Exchange-AntiSpam-MessageData-1: xO6r3IpDT161S+7dVuWiq1fKitdfPqqK1ao=
+	=?us-ascii?Q?wUw2fvTiC/B4IsVcqB5bg1duKRy729Vpthkz/PGSCESfJDNw7AOvAYMVHEWF?=
+ =?us-ascii?Q?zYB63CT+IVArGJIwP9yECeB7W2ezNE5Yyn4DoY6GKHO+U3Pk8C146cdxv3QZ?=
+ =?us-ascii?Q?PgYO5SZnHZJLqPvRPLqed/Hit27k3og9fdo0aNVrBf1H3EteOnqbVpYgR1st?=
+ =?us-ascii?Q?HNZZg8vGCFpDYbw4j/19+8Ocd+Ln1n1mrV7MQavdWprPHibE3UP+6gZ4ybq1?=
+ =?us-ascii?Q?YzsCAHf5vWgb5e7Myf/et3neKEkciig31sUkBjCU12fg+Yntuntyyw98ZNh3?=
+ =?us-ascii?Q?DMoiIpblq3Fqpyk8SuKk21WXt58BumtIw7+RyxoQEhZmgCx88EK9uQk9y4Gh?=
+ =?us-ascii?Q?FbCM5XNtAcLBe5Xycts9sTmo4XXhmpjyrP9/4G0NoqiS9pNdUGrSoUc0Ss0+?=
+ =?us-ascii?Q?SylKUfpnOGo9QOO7n6fdMBxvs8khzrcwW2szLx11Hkgt+l+Ie0mKDq2iv80n?=
+ =?us-ascii?Q?i5+Z8IUhx3w+7gmdvmF1ybXvvOK7DdstAfXqFcgCvJyzghPBEtBby9ich2Xe?=
+ =?us-ascii?Q?+ezeXU2nrDfy7+8CJI3BIc69DWG8u/OM+nPBV+aco3XW03RSKu+IhJc6vYsf?=
+ =?us-ascii?Q?niz7uzY9lgWu9KrQfKRdshhVqnv9C/BWswbCYFOvwT4nU8ZaJ0+79bpjE9Oj?=
+ =?us-ascii?Q?SNWK7h6ahRNEWX3g+QbYvYgqKkqEEF2DOFL4YGtDnmE0k2J1s6I60ICkBgHO?=
+ =?us-ascii?Q?yrzs6/ZX0dNYCnFj/sKWZRZCHN0+GTVVFk8IJ6UFddQdC/0EezZIcZ4Y8Ddo?=
+ =?us-ascii?Q?TO9va9xN/ea18GRku/RYlTQouHxLLN+yyWaF85JGdJx56U2ksC58NG2EkZCj?=
+ =?us-ascii?Q?/YeDtay4+WGJP6o1FPX770bYA0oC6BEjDcF5Ko+QZMLmx3448QRXbh3s21fW?=
+ =?us-ascii?Q?BI6baoIsFmwwlsX7v05ip87h0ioDTW5S8zCqOwu15cWLXESnKLnvJFHAuJ1h?=
+ =?us-ascii?Q?8YiE4an5eD/YGqovB9TENKUlAnDLRlgKP4NqOQX3qGznV3g1VG20wlEvbmBX?=
+ =?us-ascii?Q?9cxLqWHoY9lZAsf0JGtMGN4LXMMYSBAArONbwfYJn9CdJhZV0Z1EsU0zEACS?=
+ =?us-ascii?Q?zTH+Kk+ct59FvP65DtP5UNp42e+LnARGatXKKoMZBlwr7Uw2kLmDzqWyTc0k?=
+ =?us-ascii?Q?BeAhbH+wDfoYjInsNbiFXMUmMRW2/VGcVnYeaD7/QVhS5dRonkII/5PX1bDd?=
+ =?us-ascii?Q?rlfmmMqAjIm8znpDeQDGC6nPhED4M7NFZ26aHuTTGr+jru25C3eqRmVT53sb?=
+ =?us-ascii?Q?imObkSfCQcnSJe565SaTWg1KX8cLjlkcERR70B6h0HEJqDWynN1p+jy364fF?=
+ =?us-ascii?Q?TgNMcEMlXef6DNy/+c/vx47k02vWjbr3pBQVRyzUNJ4znQ8M97Xgs5bQrBPp?=
+ =?us-ascii?Q?kEpVv1MTshZ7kkrPoU85zM8ypo5lHVbfUvvY7wqmm7lVroJVyS/n+GENs2Yg?=
+ =?us-ascii?Q?3plw/4vDYQkorWLddZl+d2QS5WDCxfR2ESgdE6w63HFLIK10yOih50qibK2S?=
+ =?us-ascii?Q?2pwuSBmsuNQgd7ASY6bs8irw2l5OWcIIrP3SGcOnM/kDNqAc7h6yO7IrmRfR?=
+ =?us-ascii?Q?mBui3YCpVA7rwWjYe/GQvASY6LUASdLm+5QcBM1YdONSsBH7QFMuWDMz6jkC?=
+ =?us-ascii?Q?HTFxP59vceq9p4cqWJ/zpp6iQdGtM4pGxS4JedU5RnVp/SdCJsP9um2S+HLX?=
+ =?us-ascii?Q?wcPtdDxgyPVL9bxU6wDfX9IX80H/kou7E7EamOxEY1TdnlsMLiEkWER7oj78?=
+ =?us-ascii?Q?F/sJNF3lFxrv7tX2pxQJMYivSzjghKH9BIB1kIahL5ZwXnEbg9dYNuoAH2OH?=
+X-MS-Exchange-AntiSpam-MessageData-1: y+PGZSWK2sTwtagTKJwHH2qR9P8d4FZWhPE=
 X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c7680c1-8366-4ec4-f429-08dee508cef7
+X-MS-Exchange-CrossTenant-Network-Message-Id: 144acdde-5050-4766-eb20-08dee50c9462
 X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2026 20:11:52.9158
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2026 20:38:52.7098
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3jIyN6ysS0hmz5lZFjY/4f+igcK0oeqfTXJJ1UtAY8a30CT/p3wlT1ropOH24WNMVS87yb/Dx3LYHmzX9jLeSHZndljiQabPW8A1zZctlNg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2P287MB2078
+X-MS-Exchange-CrossTenant-UserPrincipalName: ad3HEdcadgwDq4ek1p3V9A5D8OayPEI/5KatxqGNeHOficbhBTg5ecocJtxqDNpiZOtbl0VZYok3FIeM9xAMEHZ2UhS6IBgA9MrTM55h/p4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA5P287MB5202
 
-link_freq and gain don't need to be stored in struct os05b10; make
-them local.
+Each int3472_gpio_map entry currently maps exactly one ACPI HID to a
+GPIO quirk. As more sensors needing the same quirk are identified, this
+means adding a full duplicate table entry per HID, differing only in
+the HID string, which does not scale.
 
-Parse the fwnode properties up front and register them before the
-single ctrl_hdlr->error check, so all controls are covered by one
-check and the per-control NULL guards before setting flags can be
-dropped.
+Change int3472_gpio_map::hid to a NULL-terminated hids array so a
+single entry can match any number of ACPI HIDs, letting new HIDs be
+added to the relevant array instead of duplicating quirk entries.
 
+Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
+Tested-by: Kate Hsuan <hpa@redhat.com>
 ---
- drivers/media/i2c/os05b10.c | 55 +++++++++++++++++--------------------
- 1 file changed, 25 insertions(+), 30 deletions(-)
+change log:
 
-diff --git a/drivers/media/i2c/os05b10.c b/drivers/media/i2c/os05b10.c
-index b4dd3137ad5c..c355ac197eb2 100644
---- a/drivers/media/i2c/os05b10.c
-+++ b/drivers/media/i2c/os05b10.c
-@@ -557,11 +557,9 @@ struct os05b10 {
- 
- 	/* V4L2 Controls */
- 	struct v4l2_ctrl_handler handler;
--	struct v4l2_ctrl *link_freq;
- 	struct v4l2_ctrl *pixel_rate;
- 	struct v4l2_ctrl *hblank;
- 	struct v4l2_ctrl *vblank;
--	struct v4l2_ctrl *gain;
- 	struct v4l2_ctrl *exposure;
- 	struct v4l2_ctrl *vflip;
- 	struct v4l2_ctrl *hflip;
-@@ -1276,9 +1274,14 @@ static int os05b10_init_controls(struct os05b10 *os05b10)
- 	struct v4l2_fwnode_device_properties props;
- 	struct v4l2_ctrl_handler *ctrl_hdlr;
- 	u64 vblank_def, exp_max, pixel_rate;
-+	struct v4l2_ctrl *link_freq;
- 	s64 hblank_def;
- 	int ret;
- 
-+	ret = v4l2_fwnode_device_parse(os05b10->dev, &props);
-+	if (ret)
-+		return ret;
+v1 -> v2:
+
+- Add per-HID comments to power_enable_hids_vana[] (Lenovo X9-14/X9-15
+  for SONY471A, Lenovo X1 Carbon G14 for TBE20A0)
+- Convert INT33F0 (mt9m114), INT347E (ov7251) entries to use named
+  power_enable_hids_*[] arrays instead of anonymous compound literals,
+  for style consistency
+- Did not convert OVTI08F4 (ov08x40) to a named array, and did not add
+  a NULL guard in int3472_gpio_map_hids_match(): not fully convinced
+  these changes are needed yet, but open to further discussion on both
+
+Identified while reviewing Kate Hsuan's imx471 vana con_id patch, whose
+two near-identical SONY471A/TBE20A0 entries are collapsed here into
+one, backed by a new power_enable_hids_vana[] array.
+
+This patch is on top of kate's imx471 driver series[1].
+
+Link: https://lore.kernel.org/linux-media/20260629074026.35490-1-hpa@redhat.com/T/#t [1].
+---
+ drivers/platform/x86/intel/int3472/discrete.c | 63 +++++++++++++------
+ 1 file changed, 44 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
+index adff564bf3fd..f70bd661592d 100644
+--- a/drivers/platform/x86/intel/int3472/discrete.c
++++ b/drivers/platform/x86/intel/int3472/discrete.c
+@@ -123,10 +123,35 @@ skl_int3472_gpiod_get_from_temp_lookup(struct int3472_discrete_device *int3472,
+ 	return desc;
+ }
+
++/*
++ * Other vana-supply users (e.g. ST, Toshiba, Sony sensors) can be added to
++ * this array instead of adding new quirk table entries.
++ */
++static const char * const power_enable_hids_vana[] = {
++	/* Lenovo X9-14 and X9-15 */
++	"SONY471A",
++	/* Lenovo X1 Carbon G14 */
++	"TBE20A0",
++	NULL
++};
 +
- 	ctrl_hdlr = &os05b10->handler;
- 	v4l2_ctrl_handler_init(ctrl_hdlr, 12);
- 
-@@ -1287,22 +1290,18 @@ static int os05b10_init_controls(struct os05b10 *os05b10)
- 						V4L2_CID_PIXEL_RATE, pixel_rate,
- 						pixel_rate, 1, pixel_rate);
- 
--	os05b10->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &os05b10_ctrl_ops,
--						    V4L2_CID_LINK_FREQ,
--						    ARRAY_SIZE(link_frequencies_4lane) - 1,
--						    os05b10->link_freq_index,
--						    (os05b10->data_lanes == 2) ?
--						    link_frequencies_2lane :
--						    link_frequencies_4lane);
--	if (os05b10->link_freq)
--		os05b10->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &os05b10_ctrl_ops,
-+					   V4L2_CID_LINK_FREQ,
-+					   ARRAY_SIZE(link_frequencies_4lane) - 1,
-+					   os05b10->link_freq_index,
-+					   (os05b10->data_lanes == 2) ?
-+					   link_frequencies_2lane :
-+					   link_frequencies_4lane);
- 
- 	hblank_def = (s64)mode->hts -(s64)mode->width;
- 	os05b10->hblank = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK,
- 					    hblank_def, hblank_def,
- 					    1, hblank_def);
--	if (os05b10->hblank)
--		os05b10->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
- 
- 	vblank_def = mode->vts - mode->height;
- 	os05b10->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &os05b10_ctrl_ops,
-@@ -1317,12 +1316,10 @@ static int os05b10_init_controls(struct os05b10 *os05b10)
- 					      exp_max, OS05B10_EXPOSURE_STEP,
- 					      mode->exp);
- 
--	os05b10->gain = v4l2_ctrl_new_std(ctrl_hdlr, &os05b10_ctrl_ops,
--					  V4L2_CID_ANALOGUE_GAIN,
--					  OS05B10_ANALOG_GAIN_MIN,
--					  OS05B10_ANALOG_GAIN_MAX,
--					  OS05B10_ANALOG_GAIN_STEP,
--					  OS05B10_ANALOG_GAIN_DEFAULT);
-+	v4l2_ctrl_new_std(ctrl_hdlr, &os05b10_ctrl_ops,
-+			  V4L2_CID_ANALOGUE_GAIN, OS05B10_ANALOG_GAIN_MIN,
-+			  OS05B10_ANALOG_GAIN_MAX, OS05B10_ANALOG_GAIN_STEP,
-+			  OS05B10_ANALOG_GAIN_DEFAULT);
- 
- 	v4l2_ctrl_new_std(ctrl_hdlr, &os05b10_ctrl_ops, V4L2_CID_DIGITAL_GAIN,
- 			  OS05B10_DIGITAL_GAIN_MIN, OS05B10_DIGITAL_GAIN_MAX,
-@@ -1330,33 +1327,31 @@ static int os05b10_init_controls(struct os05b10 *os05b10)
- 
- 	os05b10->hflip = v4l2_ctrl_new_std(ctrl_hdlr, &os05b10_ctrl_ops,
- 					   V4L2_CID_HFLIP, 0, 1, 1, 0);
--	if (os05b10->hflip)
--		os05b10->hflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
- 
- 	os05b10->vflip = v4l2_ctrl_new_std(ctrl_hdlr, &os05b10_ctrl_ops,
- 					   V4L2_CID_VFLIP, 0, 1, 1, 0);
--	if (os05b10->vflip)
--		os05b10->vflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
- 
- 	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &os05b10_ctrl_ops,
- 				     V4L2_CID_TEST_PATTERN,
- 				     ARRAY_SIZE(os05b10_test_pattern_menu) - 1,
- 				     0, 0, os05b10_test_pattern_menu);
- 
-+	ret = v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &os05b10_ctrl_ops,
-+					      &props);
-+	if (ret)
-+		goto error;
++static const char * const power_enable_hids_vdd[] = {
++	/* mt9m114 */
++	"INT33F0",
++	NULL
++};
 +
- 	if (ctrl_hdlr->error) {
- 		ret = ctrl_hdlr->error;
- 		dev_err(os05b10->dev, "control init failed (%d)\n", ret);
- 		goto error;
- 	}
- 
--	ret = v4l2_fwnode_device_parse(os05b10->dev, &props);
--	if (ret)
--		goto error;
- 
--	ret = v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &os05b10_ctrl_ops,
--					      &props);
--	if (ret)
--		goto error;
-+	link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	os05b10->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	os05b10->hflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
-+	os05b10->vflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
- 
- 	os05b10->sd.ctrl_handler = ctrl_hdlr;
- 
--- 
++static const char * const power_enable_hids_enable[] = {
++	/* ov7251 */
++	"INT347E",
++	NULL
++};
++
+ /**
+  * struct int3472_gpio_map - Map GPIOs to whatever is expected by the
+  * sensor driver (as in DT bindings)
+- * @hid: The ACPI HID of the device without the instance number e.g. INT347E
++ * @hids: NULL-terminated array of ACPI HIDs of the devices without the
++ * instance number e.g. INT347E
+  * @type_from: The GPIO type from ACPI ?SDT
+  * @type_to: The assigned GPIO type, typically same as @type_from
+  * @enable_time_us: Enable time in usec for GPIOs mapped to regulators
+@@ -135,7 +160,7 @@ skl_int3472_gpiod_get_from_temp_lookup(struct int3472_discrete_device *int3472,
+  * GPIO_ACTIVE_HIGH otherwise
+  */
+ struct int3472_gpio_map {
+-	const char *hid;
++	const char * const *hids;
+ 	u8 type_from;
+ 	u8 type_to;
+ 	bool polarity_low;
+@@ -145,38 +170,27 @@ struct int3472_gpio_map {
+
+ static const struct int3472_gpio_map int3472_gpio_map[] = {
+ 	{	/* mt9m114 designs declare a powerdown pin which controls the regulators */
+-		.hid = "INT33F0",
++		.hids = power_enable_hids_vdd,
+ 		.type_from = INT3472_GPIO_TYPE_POWERDOWN,
+ 		.type_to = INT3472_GPIO_TYPE_POWER_ENABLE,
+ 		.con_id = "vdd",
+ 		.enable_time_us = GPIO_REGULATOR_ENABLE_TIME,
+ 	},
+ 	{	/* ov7251 driver / DT-bindings expect "enable" as con_id for reset */
+-		.hid = "INT347E",
++		.hids = power_enable_hids_enable,
+ 		.type_from = INT3472_GPIO_TYPE_RESET,
+ 		.type_to = INT3472_GPIO_TYPE_RESET,
+ 		.con_id = "enable",
+ 	},
+ 	{	/* ov08x40's handshake pin needs a 45 ms delay on some HP laptops */
+-		.hid = "OVTI08F4",
++		.hids = (const char * const[]) { "OVTI08F4", NULL },
+ 		.type_from = INT3472_GPIO_TYPE_HANDSHAKE,
+ 		.type_to = INT3472_GPIO_TYPE_HANDSHAKE,
+ 		.con_id = "dvdd",
+ 		.enable_time_us = 45 * USEC_PER_MSEC,
+ 	},
+-	{	/* imx471 expects "vana" as con_id for power enable */
+-		.hid = "SONY471A",
+-		.type_from = INT3472_GPIO_TYPE_POWER_ENABLE,
+-		.type_to = INT3472_GPIO_TYPE_POWER_ENABLE,
+-		.con_id = "vana",
+-		.enable_time_us = GPIO_REGULATOR_ENABLE_TIME,
+-	},
+-	{
+-		/*
+-		 * imx471 (on Lenovo ThinkPads X1 G14) expects "vana" as con_id
+-		 * for power enable
+-		 */
+-		.hid = "TBE20A0",
++	{	/* Sensors which expect "vana" as con_id for power enable */
++		.hids = power_enable_hids_vana,
+ 		.type_from = INT3472_GPIO_TYPE_POWER_ENABLE,
+ 		.type_to = INT3472_GPIO_TYPE_POWER_ENABLE,
+ 		.con_id = "vana",
+@@ -184,6 +198,17 @@ static const struct int3472_gpio_map int3472_gpio_map[] = {
+ 	},
+ };
+
++static bool int3472_gpio_map_hids_match(struct acpi_device *adev,
++					const char * const *hids)
++{
++	for (unsigned int i = 0; hids[i]; i++) {
++		if (acpi_dev_hid_uid_match(adev, hids[i], NULL))
++			return true;
++	}
++
++	return false;
++}
++
+ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3472, u8 *type,
+ 					    const char **con_id, unsigned long *gpio_flags,
+ 					    unsigned int *enable_time_us)
+@@ -200,7 +225,7 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
+ 		if (*type != int3472_gpio_map[i].type_from)
+ 			continue;
+
+-		if (!acpi_dev_hid_uid_match(adev, int3472_gpio_map[i].hid, NULL))
++		if (!int3472_gpio_map_hids_match(adev, int3472_gpio_map[i].hids))
+ 			continue;
+
+ 		dev_dbg(int3472->dev, "mapping type 0x%02x pin to 0x%02x %s\n",
+--
 2.34.1
 
