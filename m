@@ -1,396 +1,253 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC77B3D5C2A;
-	Sat, 18 Jul 2026 14:56:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082C8283C82
+	for <linux-media@vger.kernel.org>; Sat, 18 Jul 2026 17:27:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784386610; cv=none; b=t8f5MO9Jhkts9m0k3V/6C1g1ghPF5bMosKulPLWIUXe2jRzqFePHC/P6+8WFNO81lSEMLWD+dHXZbhUR5iAkcl10SDjLQKTzCEI4AyGnDZM5wADj9PYMqre18WlyeR9fz3XV4qM5pafA0vBKHxxiMB9YytKNDEpkb6FXPTSV8/w=
+	t=1784395642; cv=none; b=qXCUQuVkERLtbeIvslmUOZ26sPIHi7/3wsxlr4Dcc9i2RHApDRVo4h/kwobW1JXi1z5LobpQc05IiWLDgl3ZI0nSE73BlaqAL2Z9T2iJOLr+WGkA3bOdSi/z5UmkEUq1rkVQd8JyFD6Jt3zD3M9dshQ+AotpdvfCyggh+rjBaBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784386610; c=relaxed/simple;
-	bh=LKs2RiOPdG74pFGp0r9TLdRwYZYM+8e0AGESKFmQTCg=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gGqHIH0uyArYX5Y/v9/mETqQmF1q0hqf7+prLrAh5epw9s+NMKgRttWqwnNTMEj9oMWr+iYc8p0o0I8RR/9dHENX6PM/EfDe7rCPu6JyF7hbUCFPdlWCV7+BQhN9Pm3LBBlutTodG7qGk5XtJVvXj5Ne/CZkOdyxEa5iGBnSRq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=S0GsWdsg; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1784395642; c=relaxed/simple;
+	bh=6rSrZyCWXJlF3I3FaDITfDYsoSwgsFAnSZw5FPIkPTo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Os5jnaWNNLXuFO8va0UHydJXla80Sep0rIVXEnmMHxhCyL+pgJNw4ISDSXdLzHpt0vIspHccFsLkfhXzlt5CZidSywH8m/wZsR/3CYVs6kSyg9M3NJRAo0lO4DbMMQJm0TV9qNA2473GdOqTbqHpWiFSluEYg4sqF3+nPtJm0XM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Zs4dkLZF; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=kN0GmuFI; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="S0GsWdsg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1784386600;
-	bh=LKs2RiOPdG74pFGp0r9TLdRwYZYM+8e0AGESKFmQTCg=;
-	h=Subject:From:To:Date:In-Reply-To:References:From;
-	b=S0GsWdsgyMCyLvnFVNPDKVdpoqhZAQwPMfMsjqs9COYNqLaG9AssULlErRoBJGxhS
-	 jit0rkTF/XnPbQYsxu4BsGtNwNOd//9N3+oYk6Ukj68Pz5nQ8i7MtzK3vGhGknPzX7
-	 jILuftE8/j9F4HPqwdEKBoaeYO73wbIuJ7mPixkw8f1V+++nBPNPrLjmIFj0ZeDVll
-	 5q6hIdSCfY7jELoE4G5rM5TAxMVUnAgsCR08PjaZ9Xs5k1zi0+5gD81J+qElwzP79h
-	 2fDZrUL22DHhdQaDgnOsb/pAWU4Bq22nWucoa1UANUQ1Nsr0Z5Fu0N2f8VGMiAVj9V
-	 NllbABsAf5/LQ==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5409917E0564;
-	Sat, 18 Jul 2026 16:56:39 +0200 (CEST)
-Message-ID: <f60f255b81db1db310276a1acdca412f6070a28b.camel@collabora.com>
-Subject: Re: [PATCH v2] media: mtk-jpeg: drain hardware completion before
- freeing context
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>, Bin Liu
- <bin.liu@mediatek.com>,  Mauro Carvalho Chehab	 <mchehab@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,  AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Hans Verkuil
- <hverkuil+cisco@kernel.org>, Fan Wu	 <fanwu01@zju.edu.cn>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Date: Sat, 18 Jul 2026 10:56:37 -0400
-In-Reply-To: <20260718112448.3289122-1-lgs201920130244@gmail.com>
-References: <20260718112448.3289122-1-lgs201920130244@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-0dO7DanIzYXmfAeHXFYB"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Zs4dkLZF";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="kN0GmuFI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784395637;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Y4SYB/B+bDlxilXL6idtvWKAFgvw269dvYm2IM94meE=;
+	b=Zs4dkLZF+DMsL3zSIkXhlzZ0Sm7kiIKtL30sMbff7RcEHMX69+9WqZ2Dlm/JBn8zLgYTSy
+	pObWgYQlhslSAVfFbh5qAsv/wyNiwZaBDL/wtLDg0ZtNKnwSE05ILCeMvIdARW01irVMeI
+	R1K/gbJ+Z+G4OXrqcTagVzLVMios5ds=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-7-ssgszS3ROlSXfrqMFnYR5A-1; Sat, 18 Jul 2026 13:27:16 -0400
+X-MC-Unique: ssgszS3ROlSXfrqMFnYR5A-1
+X-Mimecast-MFC-AGG-ID: ssgszS3ROlSXfrqMFnYR5A_1784395635
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4953c5d6d87so42802065e9.3
+        for <linux-media@vger.kernel.org>; Sat, 18 Jul 2026 10:27:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1784395635; x=1785000435; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y4SYB/B+bDlxilXL6idtvWKAFgvw269dvYm2IM94meE=;
+        b=kN0GmuFIilQKzHzT6GyKQ/+Hgj8l3V6mTaah8JHz/MeA/JCK6CyNw/3oZQ/Cj+wjQh
+         JrIMuy01RoNxJdf041ZLWsRgqNYQxB+/kLM4vR1x3Et6acbAeYzGU38gZ8LAw7QFd0tk
+         oXK4o4dqQfppQ3oQuvisbIJwDuRHNlXQfoDZgAmwlza9GqkoV5zh1BR3jB1O/aUXGJNj
+         fNgxR/41AioNwcd55V5dB8DlmLMr8Ty7ZWv9ul6rVNmvpgDcA3ck+ipEJrbp/lzq0tsz
+         t0k4lJMJ5oZaUJXXIU14tH9kFQxYD11WrAaX75BowJbysPPJI1gzQuBUiVhsX30KE5zV
+         y3Ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784395635; x=1785000435;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Y4SYB/B+bDlxilXL6idtvWKAFgvw269dvYm2IM94meE=;
+        b=QijOZdrHBgMXG0LspB3Uiu/+GQkIXnFzU9WKPUb4qaXD+Kk6K2T8BkE3IjlV0HZSsN
+         txW8HFS/lmoHwVp7twM1sXa9LAJqEBJGjoY9M52W+7+7Zo70+yt4qq2oEwBQ3smtjc0b
+         HL25prG3DO/Dhu6fXSCnTIAQMlpVz8QRlYJGwDKGEtEhW52PamtQDcpqCcnqhytGegt0
+         zWylFTaVeSNdfDH8Bf1F3lV6V+tgGPagIDp04/g4N5nIk4df9mj6RCTRi/hib1Ez8v/X
+         CDTgaTwp863z3BKgaJ9OfeA8vzX5MIiZ1gREefk+WLdqYml7Q7x1QRZ/32V6b2yvPcKL
+         FXzw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq8USp6LWBqgL1zpxjPrhBOo3v+S1esRZSCzG7k4imacbWFu8yCS322Blz8/1TzXDf0C8HgRBcW57oNXQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzsg5Wr0lPFyYqMlTYFwoJ//b+MuSt5bq+2OsFFdCeR+uAibRu1
+	GRdguNI9JG0p7SPSsLCKbVc3RjN5eMinLpHuWwzzcpsVGJdVslZBRgzMm+32Rk8TQLFJFaC4KcT
+	Hfje1kUNEIQPNWVrfpMHioMGEU55pl7+DrhsT2jev5dbJsDzv/9Tt2IPiatrqx0VO
+X-Gm-Gg: AfdE7cnNJUwu9mZbs0JVDUNc80o1uOgqCh7rFuQ405inaNApTkNP7/4fKxjuSLsgLx+
+	TKUf4shZ6YBcLH37PYosJhYxivDhZOsuWrH8o14iVmL+2+vyYBBH0EoMqG7hwkXjjES35cHc69j
+	8qO1+J8uO4eT1QE3QH6gZyI5nWUNbFCoDDujOYZR+R/w7fhkwOXI+3DwsbyqYXYmZTfzyowez7L
+	J+g7QIPiK7kkktJOUUdi1sMutwQ9s9oOg1cCu7YYJ/bvJEpS3onzqZzR0uJ/nTJQbGTgz4B0SMV
+	ifWPuKBW+ceLROrGCB/s4cpXhck+9rAIYzoA+mQG05kvrN3APuIn/IkFzSvK4b9QVEVjBRvk+Jz
+	3vmPsyx2+Z0dBVvPCVkT0oIaEWk2hPxA=
+X-Received: by 2002:a05:600c:1c0b:b0:495:46dd:e238 with SMTP id 5b1f17b1804b1-4954a50ea30mr92150585e9.30.1784395634913;
+        Sat, 18 Jul 2026 10:27:14 -0700 (PDT)
+X-Received: by 2002:a05:600c:1c0b:b0:495:46dd:e238 with SMTP id 5b1f17b1804b1-4954a50ea30mr92150045e9.30.1784395634331;
+        Sat, 18 Jul 2026 10:27:14 -0700 (PDT)
+Received: from redhat.com (bzq-79-177-145-168.red.bezeqint.net. [79.177.145.168])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f6b85970esm7812651f8f.15.2026.07.18.10.27.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 18 Jul 2026 10:27:12 -0700 (PDT)
+Date: Sat, 18 Jul 2026 13:27:09 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Brian Daniels <briandaniels@google.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, acourbot@google.com,
+	adelva@google.com, aesteve@redhat.com, changyeon@google.com,
+	daniel.almeida@collabora.com, eperezma@redhat.com, gnurou@gmail.com,
+	gurchetansingh@google.com, hverkuil@xs4all.nl, jasowang@redhat.com,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	nicolas.dufresne@collabora.com, virtualization@lists.linux.dev,
+	xuanzhuo@linux.alibaba.com
+Subject: Re: [PATCH v4 2/8] media: virtio: Add virtio-media driver structs
+ and function declarations
+Message-ID: <20260718132340-mutt-send-email-mst@kernel.org>
+References: <20260622204343.1994418-1-briandaniels@google.com>
+ <20260622204343.1994418-3-briandaniels@google.com>
+ <20260622170708-mutt-send-email-mst@kernel.org>
+ <CAD4i_GTBkZRAnBTohkzJSh2XTx+MHkTS_KokEMQ4s0-WP+DxcA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD4i_GTBkZRAnBTohkzJSh2XTx+MHkTS_KokEMQ4s0-WP+DxcA@mail.gmail.com>
+
+On Fri, Jul 17, 2026 at 03:46:36PM -0400, Brian Daniels wrote:
+> On Mon, Jun 22, 2026 at 5:08 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+> >
+> > On Mon, Jun 22, 2026 at 04:43:37PM -0400, Brian Daniels wrote:
+> > > From: Alexandre Courbot <gnurou@gmail.com>
+> > >
+> > > Add the structs and function declarations for the new virtio-media drvier.
+> > >
+> > > Signed-off-by: Alexandre Courbot <gnurou@gmail.com>
+> > > Co-developed-by: Brian Daniels <briandaniels@google.com>
+> > > Signed-off-by: Brian Daniels <briandaniels@google.com>
+> > > ---
+> > >  drivers/media/virtio/virtio_media.h | 95 +++++++++++++++++++++++++++++
+> > >  1 file changed, 95 insertions(+)
+> > >  create mode 100644 drivers/media/virtio/virtio_media.h
+> > >
+> > > diff --git a/drivers/media/virtio/virtio_media.h b/drivers/media/virtio/virtio_media.h
+> > > new file mode 100644
+> > > index 000000000..52809d4e9
+> > > --- /dev/null
+> > > +++ b/drivers/media/virtio/virtio_media.h
+> > > @@ -0,0 +1,95 @@
+> > > +/* SPDX-License-Identifier: BSD-3-Clause OR GPL-2.0+ */
+> > > +
+> > > +/*
+> > > + * Virtio-media structures & functions declarations.
+> > > + *
+> > > + * Copyright (c) 2024-2025 Google LLC.
+> > > + */
+> > > +
+> > > +#ifndef __VIRTIO_MEDIA_H
+> > > +#define __VIRTIO_MEDIA_H
+> > > +
+> > > +#include <linux/virtio_config.h>
+> > > +#include <media/v4l2-device.h>
+> > > +
+> > > +#include "protocol.h"
+> > > +
+> > > +#define DESC_CHAIN_MAX_LEN SG_MAX_SINGLE_ALLOC
+> > > +
+> > > +#define VIRTIO_MEDIA_DEFAULT_DRIVER_NAME "virtio-media"
+> > > +
+> > > +extern char *virtio_media_driver_name;
+> > > +extern bool virtio_media_allow_userptr;
+> > > +
+> > > +/**
+> > > + * struct virtio_media - Virtio-media device.
+> > > + * @v4l2_dev: v4l2_device for the media device.
+> > > + * @video_dev: video_device for the media device.
+> > > + * @virtio_dev: virtio device for the media device.
+> > > + * @commandq: virtio command queue.
+> > > + * @eventq: virtio event queue.
+> > > + * @eventq_work: work to run when events are received on @eventq.
+> > > + * @mmap_region: region into which MMAP buffers are mapped by the host.
+> > > + * @event_buffer: buffer for event descriptors.
+> > > + * @sessions: list of active sessions on the device.
+> > > + * @sessions_lock: protects @sessions and ``virtio_media_session::list``.
+> > > + * @events_lock: prevents concurrent processing of events.
+> > > + * @cmd: union of the device commands "open" and "munmap". The other
+> > > + *       commands are handled by @struct virtio_media_session
+> > > + * @resp: union of responses.to device commands "open" and "munmap". The
+> > > + *        other responses are handled by @struct virtio_media_session
+> > > + * @vlock: serializes access to the command queue.
+> > > + * @wq: waitqueue for host responses on the command queue.
+> > > + */
+> > > +struct virtio_media {
+> > > +     struct v4l2_device v4l2_dev;
+> > > +     struct video_device video_dev;
+> > > +
+> > > +     struct virtio_device *virtio_dev;
+> > > +     struct virtqueue *commandq;
+> > > +     struct virtqueue *eventq;
+> > > +     struct work_struct eventq_work;
+> > > +
+> > > +     struct virtio_shm_region mmap_region;
+> > > +
+> > > +     void *event_buffer;
+> > > +
+> > > +     struct list_head sessions;
+> > > +     struct mutex sessions_lock; /* protects sessions list */
+> > > +
+> > > +     struct mutex events_lock; /* prevents concurrent event processing */
+> > > +
+> > > +     union {
+> > > +             struct virtio_media_cmd_open open;
+> > > +             struct virtio_media_cmd_munmap munmap;
+> > > +     } cmd;
+> > > +
+> > > +     union {
+> > > +             struct virtio_media_resp_open open;
+> > > +             struct virtio_media_resp_munmap munmap;
+> > > +     } resp;
+> >
+> >
+> > You need DMA alignment padding for these things.
+> 
+> Each member of the above unions is already padded to 64-bit alignment,
+> is that sufficient?
+> 
+> If not, could you tell me what else is necessary?
+
+Read up "What memory is DMA'able?" and following chapters in
+Documentation/core-api/dma-api-howto.rst
 
 
---=-0dO7DanIzYXmfAeHXFYB
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> > Which one can only see when I reads the actual driver 8 patches down.
+> > Which is why it's not a sensible way to split patches.
+> >
+> > A sensible way is to have a driver then add functionality
+> > in logical pieces gradually.
+> >
+> 
+> Appreciate the feedback. There was a previous comment requesting to
+> split the patch into c/h file pairs, but I can try reformatting it as
+> you suggest for v5.
+> 
+> > > +
+> > > +     struct mutex vlock; /* serializes command queue access */
+> > > +     wait_queue_head_t wq;
+> > > +};
+> > > +
+> > > +static inline struct virtio_media *
+> > > +to_virtio_media(struct video_device *video_dev)
+> > > +{
+> > > +     return container_of(video_dev, struct virtio_media, video_dev);
+> > > +}
+> > > +
+> > > +/* virtio_media_driver.c */
+> > > +
+> > > +int virtio_media_send_command(struct virtio_media *vv, struct scatterlist **sgs,
+> > > +                           const size_t out_sgs, const size_t in_sgs,
+> > > +                           size_t minimum_resp_len, size_t *resp_len);
+> > > +void virtio_media_process_events(struct virtio_media *vv);
+> > > +
+> > > +/* virtio_media_ioctls.c */
+> > > +
+> > > +long virtio_media_device_ioctl(struct file *file, unsigned int cmd,
+> > > +                            unsigned long arg);
+> > > +extern const struct v4l2_ioctl_ops virtio_media_ioctl_ops;
+> > > +
+> > > +#endif // __VIRTIO_MEDIA_H
+> > > --
+> > > 2.55.0.rc0.799.gd6f94ed593-goog
+> >
 
-Le samedi 18 juillet 2026 =C3=A0 19:24 +0800, Guangshuo Li a =C3=A9crit=C2=
-=A0:
-> The change referenced by the Fixes tag cancels ctx->jpeg_work before
-> freeing the JPEG context.
->=20
-> That prevents the worker itself from accessing the context after it has
-> been freed. However, the multi-core workers return after programming a
-> hardware instance. The IRQ handler or the per-hardware timeout work can
-> then continue to access the context through hw_param.curr_ctx after the
-> worker has completed.
->=20
-> If userspace closes the file while a hardware job is still pending,
-> cancel_work_sync() can return and mtk_jpeg_release() can free the
-> context before the IRQ or timeout path has finished using it.
->=20
-> Track the number of in-flight hardware jobs for each context and wait
-> for them to complete in mtk_jpeg_release().
->=20
-> Use a per-hardware active flag to ensure that only the IRQ handler or
-> the timeout work completes each job. Clear hw_param.curr_ctx and drop
-> the in-flight count only after the completion path has finished all
-> accesses to the context.
->=20
-> Fixes: 34c519feef3e ("media: mtk-jpeg: fix use-after-free in release path=
- due to uncancelled work")
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
-> v2:
-> =C2=A0 - Replace the undefined mtk_jpeg_release_hw() call with per-contex=
-t
-> =C2=A0=C2=A0=C2=A0 in-flight hardware job tracking.
-> =C2=A0 - Ensure that only the IRQ or timeout path completes each hardware=
- job.
-> =C2=A0 - Clear hw_param.curr_ctx after the completion path stops using th=
-e
-> =C2=A0=C2=A0=C2=A0 context.
-> =C2=A0 - Keep hardware instances busy until the timeout path has finished
-> =C2=A0=C2=A0=C2=A0 accessing their saved context and buffers.
->=20
-> =C2=A0.../platform/mediatek/jpeg/mtk_jpeg_core.c=C2=A0=C2=A0=C2=A0 | 12 +=
-+++++++-
-> =C2=A0.../platform/mediatek/jpeg/mtk_jpeg_core.h=C2=A0=C2=A0=C2=A0 | 14 +=
-++++++++++
-> =C2=A0.../platform/mediatek/jpeg/mtk_jpeg_dec_hw.c=C2=A0 | 25 +++++++++++=
-++------
-> =C2=A0.../platform/mediatek/jpeg/mtk_jpeg_enc_hw.c=C2=A0 | 25 +++++++++++=
-++------
-> =C2=A04 files changed, 61 insertions(+), 15 deletions(-)
->=20
-> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
-rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> index d147ec483081..d41c0e0516b9 100644
-> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> @@ -1161,6 +1161,8 @@ static int mtk_jpeg_open(struct file *file)
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	INIT_WORK(&ctx->jpeg_work, jpeg->variant->jpeg_worker);
-> +	atomic_set(&ctx->hw_jobs, 0);
-> +	init_waitqueue_head(&ctx->hw_jobs_wq);
-> =C2=A0	INIT_LIST_HEAD(&ctx->dst_done_queue);
-> =C2=A0	spin_lock_init(&ctx->done_queue_lock);
-> =C2=A0	v4l2_fh_init(&ctx->fh, vfd);
-> @@ -1202,8 +1204,12 @@ static int mtk_jpeg_release(struct file *file)
-> =C2=A0	struct mtk_jpeg_dev *jpeg =3D video_drvdata(file);
-> =C2=A0	struct mtk_jpeg_ctx *ctx =3D mtk_jpeg_file_to_ctx(file);
-> =C2=A0
-> -	if (jpeg->variant->jpeg_worker)
-> +	if (jpeg->variant->jpeg_worker) {
-> =C2=A0		cancel_work_sync(&ctx->jpeg_work);
-> +		wait_event(ctx->hw_jobs_wq,
-> +			=C2=A0=C2=A0 atomic_read(&ctx->hw_jobs) =3D=3D 0);
-> +	}
-> +
-> =C2=A0	mutex_lock(&jpeg->lock);
-> =C2=A0	v4l2_m2m_ctx_release(ctx->fh.m2m_ctx);
-
-The things is that we already paid the price of this complexity in the m2m
-framework by synchronously waiting for the last v4l2_m2m_job_finish() to be
-called from the driver. I think we should not add a mechanism on top, but r=
-ather
-figure-out why this is not working for your usage of this driver.
-
-Nicolas
-
-> =C2=A0	v4l2_ctrl_handler_free(&ctx->ctrl_hdl);
-> @@ -1640,6 +1646,8 @@ static void mtk_jpegenc_worker(struct work_struct *=
-work)
-> =C2=A0	v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
-> =C2=A0	v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
-> =C2=A0
-> +	atomic_inc(&ctx->hw_jobs);
-> +	atomic_set_release(&comp_jpeg[hw_id]->hw_param.job_active, 1);
-> =C2=A0	schedule_delayed_work(&comp_jpeg[hw_id]->job_timeout_work,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 msecs_to_jiffies(MTK_JPEG_HW_TIME=
-OUT_MSEC));
-> =C2=A0
-> @@ -1759,6 +1767,8 @@ static void mtk_jpegdec_worker(struct work_struct *=
-work)
-> =C2=A0		goto setdst_end;
-> =C2=A0	}
-> =C2=A0
-> +	atomic_inc(&ctx->hw_jobs);
-> +	atomic_set_release(&comp_jpeg[hw_id]->hw_param.job_active, 1);
-> =C2=A0	schedule_delayed_work(&comp_jpeg[hw_id]->job_timeout_work,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 msecs_to_jiffies(MTK_JPEG_HW_TIME=
-OUT_MSEC));
-> =C2=A0
-> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h b/drive=
-rs/media/platform/mediatek/jpeg/mtk_jpeg_core.h
-> index 02ed0ed5b736..be8ada60782a 100644
-> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h
-> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h
-> @@ -103,6 +103,7 @@ struct mtk_jpeg_hw_param {
-> =C2=A0	struct vb2_v4l2_buffer *src_buffer;
-> =C2=A0	struct vb2_v4l2_buffer *dst_buffer;
-> =C2=A0	struct mtk_jpeg_ctx *curr_ctx;
-> +	atomic_t job_active;
-> =C2=A0};
-> =C2=A0
-> =C2=A0enum mtk_jpegenc_hw_id {
-> @@ -282,6 +283,8 @@ struct mtk_jpeg_q_data {
-> =C2=A0 * @restart_interval:		jpeg encoder restart interval
-> =C2=A0 * @ctrl_hdl:			controls handler
-> =C2=A0 * @jpeg_work:			jpeg encoder workqueue
-> + * @hw_jobs:			number of hardware jobs still referencing this context
-> + * @hw_jobs_wq:			wait queue for hardware job completion
-> =C2=A0 * @total_frame_num:		encoded frame number
-> =C2=A0 * @dst_done_queue:		encoded frame buffer queue
-> =C2=A0 * @done_queue_lock:		encoded frame operation spinlock
-> @@ -299,6 +302,8 @@ struct mtk_jpeg_ctx {
-> =C2=A0	struct v4l2_ctrl_handler ctrl_hdl;
-> =C2=A0
-> =C2=A0	struct work_struct jpeg_work;
-> +	atomic_t hw_jobs;
-> +	wait_queue_head_t hw_jobs_wq;
-> =C2=A0	u32 total_frame_num;
-> =C2=A0	struct list_head dst_done_queue;
-> =C2=A0	/* spinlock protecting the encode done buffer */
-> @@ -306,4 +311,13 @@ struct mtk_jpeg_ctx {
-> =C2=A0	u32 last_done_frame_num;
-> =C2=A0};
-> =C2=A0
-> +static inline void
-> +mtk_jpeg_hw_job_done(struct mtk_jpeg_hw_param *hw_param,
-> +		=C2=A0=C2=A0=C2=A0=C2=A0 struct mtk_jpeg_ctx *ctx)
-> +{
-> +	WRITE_ONCE(hw_param->curr_ctx, NULL);
-> +	if (atomic_dec_and_test(&ctx->hw_jobs))
-> +		wake_up(&ctx->hw_jobs_wq);
-> +}
-> +
-> =C2=A0#endif /* _MTK_JPEG_CORE_H */
-> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c b/dri=
-vers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
-> index 32372781daf5..c2d40653891a 100644
-> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
-> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
-> @@ -527,7 +527,12 @@ static void mtk_jpegdec_timeout_work(struct work_str=
-uct *work)
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0 job_timeout_work.work);
-> =C2=A0	struct mtk_jpeg_dev *master_jpeg =3D cjpeg->master_dev;
-> =C2=A0	struct vb2_v4l2_buffer *src_buf, *dst_buf;
-> +	struct mtk_jpeg_ctx *ctx;
-> +
-> +	if (atomic_cmpxchg(&cjpeg->hw_param.job_active, 1, 0) !=3D 1)
-> +		return;
-> =C2=A0
-> +	ctx =3D cjpeg->hw_param.curr_ctx;
-> =C2=A0	src_buf =3D cjpeg->hw_param.src_buffer;
-> =C2=A0	dst_buf =3D cjpeg->hw_param.dst_buffer;
-> =C2=A0	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
-> @@ -535,11 +540,13 @@ static void mtk_jpegdec_timeout_work(struct work_st=
-ruct *work)
-> =C2=A0	mtk_jpeg_dec_reset(cjpeg->reg_base);
-> =C2=A0	clk_disable_unprepare(cjpeg->jdec_clk.clks->clk);
-> =C2=A0	pm_runtime_put(cjpeg->dev);
-> +	v4l2_m2m_buf_done(src_buf, buf_state);
-> +	mtk_jpegdec_put_buf(cjpeg);
-> +	mtk_jpeg_hw_job_done(&cjpeg->hw_param, ctx);
-> +
-> =C2=A0	cjpeg->hw_state =3D MTK_JPEG_HW_IDLE;
-> =C2=A0	atomic_inc(&master_jpeg->hw_rdy);
-> =C2=A0	wake_up(&master_jpeg->hw_wq);
-> -	v4l2_m2m_buf_done(src_buf, buf_state);
-> -	mtk_jpegdec_put_buf(cjpeg);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static irqreturn_t mtk_jpegdec_hw_irq_handler(int irq, void *priv)
-> @@ -555,12 +562,10 @@ static irqreturn_t mtk_jpegdec_hw_irq_handler(int i=
-rq, void *priv)
-> =C2=A0	struct mtk_jpegdec_comp_dev *jpeg =3D priv;
-> =C2=A0	struct mtk_jpeg_dev *master_jpeg =3D jpeg->master_dev;
-> =C2=A0
-> -	cancel_delayed_work(&jpeg->job_timeout_work);
-> +	if (atomic_cmpxchg(&jpeg->hw_param.job_active, 1, 0) !=3D 1)
-> +		return IRQ_HANDLED;
-> =C2=A0
-> -	ctx =3D jpeg->hw_param.curr_ctx;
-> -	src_buf =3D jpeg->hw_param.src_buffer;
-> -	dst_buf =3D jpeg->hw_param.dst_buffer;
-> -	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
-> +	cancel_delayed_work(&jpeg->job_timeout_work);
-> =C2=A0
-> =C2=A0	irq_status =3D mtk_jpeg_dec_get_int_status(jpeg->reg_base);
-> =C2=A0	dec_irq_ret =3D mtk_jpeg_dec_enum_result(irq_status);
-> @@ -570,6 +575,11 @@ static irqreturn_t mtk_jpegdec_hw_irq_handler(int ir=
-q, void *priv)
-> =C2=A0	if (dec_irq_ret !=3D MTK_JPEG_DEC_RESULT_EOF_DONE)
-> =C2=A0		dev_warn(jpeg->dev, "Jpg Dec occurs unknown Err.");
-> =C2=A0
-> +	ctx =3D jpeg->hw_param.curr_ctx;
-> +	src_buf =3D jpeg->hw_param.src_buffer;
-> +	dst_buf =3D jpeg->hw_param.dst_buffer;
-> +	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
-> +
-> =C2=A0	jpeg_src_buf =3D
-> =C2=A0		container_of(src_buf, struct mtk_jpeg_src_buf, b);
-> =C2=A0
-> @@ -582,6 +592,7 @@ static irqreturn_t mtk_jpegdec_hw_irq_handler(int irq=
-, void *priv)
-> =C2=A0	mtk_jpegdec_put_buf(jpeg);
-> =C2=A0	pm_runtime_put(ctx->jpeg->dev);
-> =C2=A0	clk_disable_unprepare(jpeg->jdec_clk.clks->clk);
-> +	mtk_jpeg_hw_job_done(&jpeg->hw_param, ctx);
-> =C2=A0
-> =C2=A0	jpeg->hw_state =3D MTK_JPEG_HW_IDLE;
-> =C2=A0	wake_up(&master_jpeg->hw_wq);
-> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c b/dri=
-vers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
-> index b312a15d707b..b08f94845613 100644
-> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
-> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
-> @@ -257,7 +257,12 @@ static void mtk_jpegenc_timeout_work(struct work_str=
-uct *work)
-> =C2=A0	struct mtk_jpeg_dev *master_jpeg =3D cjpeg->master_dev;
-> =C2=A0	enum vb2_buffer_state buf_state =3D VB2_BUF_STATE_ERROR;
-> =C2=A0	struct vb2_v4l2_buffer *src_buf, *dst_buf;
-> +	struct mtk_jpeg_ctx *ctx;
-> +
-> +	if (atomic_cmpxchg(&cjpeg->hw_param.job_active, 1, 0) !=3D 1)
-> +		return;
-> =C2=A0
-> +	ctx =3D cjpeg->hw_param.curr_ctx;
-> =C2=A0	src_buf =3D cjpeg->hw_param.src_buffer;
-> =C2=A0	dst_buf =3D cjpeg->hw_param.dst_buffer;
-> =C2=A0	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
-> @@ -265,11 +270,13 @@ static void mtk_jpegenc_timeout_work(struct work_st=
-ruct *work)
-> =C2=A0	mtk_jpeg_enc_reset(cjpeg->reg_base);
-> =C2=A0	clk_disable_unprepare(cjpeg->venc_clk.clks->clk);
-> =C2=A0	pm_runtime_put(cjpeg->dev);
-> +	v4l2_m2m_buf_done(src_buf, buf_state);
-> +	mtk_jpegenc_put_buf(cjpeg);
-> +	mtk_jpeg_hw_job_done(&cjpeg->hw_param, ctx);
-> +
-> =C2=A0	cjpeg->hw_state =3D MTK_JPEG_HW_IDLE;
-> =C2=A0	atomic_inc(&master_jpeg->hw_rdy);
-> =C2=A0	wake_up(&master_jpeg->hw_wq);
-> -	v4l2_m2m_buf_done(src_buf, buf_state);
-> -	mtk_jpegenc_put_buf(cjpeg);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static irqreturn_t mtk_jpegenc_hw_irq_handler(int irq, void *priv)
-> @@ -283,12 +290,10 @@ static irqreturn_t mtk_jpegenc_hw_irq_handler(int i=
-rq, void *priv)
-> =C2=A0	struct mtk_jpegenc_comp_dev *jpeg =3D priv;
-> =C2=A0	struct mtk_jpeg_dev *master_jpeg =3D jpeg->master_dev;
-> =C2=A0
-> -	cancel_delayed_work(&jpeg->job_timeout_work);
-> +	if (atomic_cmpxchg(&jpeg->hw_param.job_active, 1, 0) !=3D 1)
-> +		return IRQ_HANDLED;
-> =C2=A0
-> -	ctx =3D jpeg->hw_param.curr_ctx;
-> -	src_buf =3D jpeg->hw_param.src_buffer;
-> -	dst_buf =3D jpeg->hw_param.dst_buffer;
-> -	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
-> +	cancel_delayed_work(&jpeg->job_timeout_work);
-> =C2=A0
-> =C2=A0	irq_status =3D readl(jpeg->reg_base + JPEG_ENC_INT_STS) &
-> =C2=A0		JPEG_ENC_INT_STATUS_MASK_ALLIRQ;
-> @@ -297,6 +302,11 @@ static irqreturn_t mtk_jpegenc_hw_irq_handler(int ir=
-q, void *priv)
-> =C2=A0	if (!(irq_status & JPEG_ENC_INT_STATUS_DONE))
-> =C2=A0		dev_warn(jpeg->dev, "Jpg Enc occurs unknown Err.");
-> =C2=A0
-> +	ctx =3D jpeg->hw_param.curr_ctx;
-> +	src_buf =3D jpeg->hw_param.src_buffer;
-> +	dst_buf =3D jpeg->hw_param.dst_buffer;
-> +	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
-> +
-> =C2=A0	result_size =3D mtk_jpeg_enc_get_file_size(jpeg->reg_base,
-> =C2=A0						 ctx->jpeg->variant->support_34bit);
-> =C2=A0	vb2_set_plane_payload(&dst_buf->vb2_buf, 0, result_size);
-> @@ -305,6 +315,7 @@ static irqreturn_t mtk_jpegenc_hw_irq_handler(int irq=
-, void *priv)
-> =C2=A0	mtk_jpegenc_put_buf(jpeg);
-> =C2=A0	pm_runtime_put(ctx->jpeg->dev);
-> =C2=A0	clk_disable_unprepare(jpeg->venc_clk.clks->clk);
-> +	mtk_jpeg_hw_job_done(&jpeg->hw_param, ctx);
-> =C2=A0
-> =C2=A0	jpeg->hw_state =3D MTK_JPEG_HW_IDLE;
-> =C2=A0	wake_up(&master_jpeg->hw_wq);
-
---=-0dO7DanIzYXmfAeHXFYB
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaluUJQAKCRDZQZRRKWBy
-9OfiAP9dS9e9CSZovtBek0vhUMnhqaHhuPmqsAPzZS3/CjgQdAD9GzllYArQQrXZ
-IbvNmGEM7Sck0Vh/95Y1Gahbl+q0oAo=
-=0tOb
------END PGP SIGNATURE-----
-
---=-0dO7DanIzYXmfAeHXFYB--
