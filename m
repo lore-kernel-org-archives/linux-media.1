@@ -1,71 +1,98 @@
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20658282F39
-	for <linux-media@vger.kernel.org>; Sat, 18 Jul 2026 02:55:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEEB51A9FA4;
+	Sat, 18 Jul 2026 05:32:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784343314; cv=none; b=SnlLWiomoVjD4yzCuApE5L0/F+CKo6rgXO0YawGBtIve52eiRRHh8CmlXrFaMYSG88SCtdAWVmbp7LJw+pFCq1lIRYhJ9aj0xuhSqkF257arLH5Ru9deDxdcZ1pFprJsA/9lYkw3p1B1ioS/6dIMFxafONSPQCCKU9bPOZn8Lzo=
+	t=1784352779; cv=none; b=kHRkyvAvZMP/guL4sror2cCzGHXnS5M62xXAI2WdGoEn+GSLr+gTk7GNGPokcCqIpaTIogn+F0aqCYiBTRGh3A5nUO+WsA6YHc2xP1HMDA+1ZmfCh4b03fPTJzxntZqbxM8xYd4GBVES9CpK0U57clJlAnzHSadXYp0r7270R2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784343314; c=relaxed/simple;
-	bh=Ul0DFw3Ej73eiCwcTexNy8jh0poOMPwPODq7wz9FOLo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rOb9UjZH+rlWhqurTfZRoKmSA6zJ3CR1mLkvXM/rZTUoDTF2UthXB5gHhqCqsD28ZLhNw76xuduKObybOGn+L1EWipfk+Na93IrbXl+/V+ixDdooWa+DmMZks4Q/O2s3uzwiHJHmiTTf8kIA1Muf8LwMpFKKrOUsnju+2XfWde0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RvgJ5Vio; arc=none smtp.client-ip=209.85.219.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784352779; c=relaxed/simple;
+	bh=AiA5FaxDk/WIqsTmFuRJM5AVAq/hdFLlRbR0mL4W6Vw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mhPeRftWd2NG7H0kfZRcj6SBVUGdB+GbqMoFNo9J5+qlwE/MX7j660PLqtCVB2SFuIIWBMz3bstV2j9DZeJZNtM9mF/DCD4CowfVazX9ILvddqtyXc/lKNEmY21z9VgkOHFXnvioXOAspPN7yyD+HmKbeVyXukylFl+cuinLX2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EOQtiaQ6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RvgJ5Vio"
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-8eeb4508f29so86592886d6.0
-        for <linux-media@vger.kernel.org>; Fri, 17 Jul 2026 19:55:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784343312; x=1784948112; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=47ZO/fVoFhUn5pOP6KZbb4HeOIXd+WNQBMG6RHvVVbs=;
-        b=RvgJ5ViotQLfRJiSoeDnezx0MSxNBQrQhs1y/0aA3Lc4gB4efOA9SsmL9lNInY91Bo
-         BHii1kkunIXszvkFdLmUMdwBqx8feuJNjK7EPwG21Y497bYfH5gKiGgIaZqE9zkr2eoc
-         3tpU3Oy+CW6yygTJ9+id/LdfSWvC+pde91Y2xFmvw8WBLhgF2pRfSJTuf6ek4i0p7k44
-         kr5Zv60T5M5OQfbPQEOnDENEryu68zeNh5cn/Tc3Dyxj0wDyDkjisBlII63/jLj5I0h1
-         Wywvz+L1guefGKMynuFzgj12D4oK1teUgCGDuDM9Ew6AkRl14UX9hDAKKzDfo3XEzUCD
-         079g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784343312; x=1784948112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=47ZO/fVoFhUn5pOP6KZbb4HeOIXd+WNQBMG6RHvVVbs=;
-        b=lHHy9jJiTnWaBe7+QkAsPRhRausRVbvBCLLfNYfaiqm1ac6juCvMtNTwn15sh2FLoy
-         qMu7+BoJDqXp0nbG+GtAb6Lep0y+XDd5oFiEj/qpYQPJL/NCVOEfuczpiQppFP4O2Fn0
-         tCkQXXlD/qmhWoJhac5Idx0aRzRQKLvkOUUwPYGahiAM5jwdI8t/w66x/dw+bdLoN2bb
-         guRpevqyzYsld+4DjeCIPX/V+h9172KhWBGnpWh9Tfq/37EY02VLxJDKP5SPIg+W3eSl
-         PpWltJRZH9yByfjDy4JgGMxwkP32ChiBAw2EUAnHWqVM60cBdKO53YFdkwf4UerW+57K
-         mi1w==
-X-Gm-Message-State: AOJu0YxHNiLiUsfwKjRgHJeBDO0NiyWLEAlygW4XRyk6X9+oWtPDbwlg
-	BQDRK2zSlxnQ3+0KItDsVqIrWnuBm1EeZ5iaZXkCizd5dHbsFbBhqZxd
-X-Gm-Gg: AfdE7cmR0WkcMIP8G5VHLrXqQY+zx4RInhix+uzYa7WlOPqvu3f3zvo7oaWTlnPtO2l
-	9isI/vyg10lGQ5uISTyTi180R56h3FjwwLR9AxkyDUhnpM/Q8c0o/aQmu+fODwxnKcy76MKAlhu
-	c/P5eQmjKglinYXXJeA4BcjgvakePoSyHEdY3PNecqDQQP5KIUXqNEJXzulQoi7PDhBus2JW9YX
-	+DxLFf2Aldb930HPnvaCVpnOer3JGAHGVnKQ/3rHs9XroQnbpHcsoElPfLEOvwK66/iVARXq7LK
-	exKimARhYqOlM/nNnSRImDRG9FVQ5n0+J8t2n4IKCHxu8lLiQ9WRlMs0bFUAm0oZMdW4WlXzi5R
-	iNBEY6TAUSFbUtT9+SrUta6afSmzAWEh2sBskJqQBc70Ix0D1r0/bWkttS5VU4VUfkk0k62Fa9J
-	HMwCCr77tUHKKVpYhKvej2F3WmC7sv42U=
-X-Received: by 2002:a05:6214:331b:b0:907:8374:6abb with SMTP id 6a1803df08f44-90783746d93mr18429716d6.59.1784343311874;
-        Fri, 17 Jul 2026 19:55:11 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90778728a50sm31883066d6.47.2026.07.17.19.55.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 19:55:11 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: hverkuil@kernel.org,
-	mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Subject: [PATCH] media: gspca: hold a usb_device reference while registered
-Date: Fri, 17 Jul 2026 22:54:34 -0400
-Message-ID: <20260718025434.2259756-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EOQtiaQ6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C2A91F00A3A;
+	Sat, 18 Jul 2026 05:32:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784352777;
+	bh=kwtjjGmmiAFcJH+349xh1RmY0+cdYF3UnpCgzEY++n8=;
+	h=From:To:Cc:Subject:Date;
+	b=EOQtiaQ6nmW/x59ilsYVxtoSgBJj5WvdLTR4F05KRrRUGLktimBgD1StbpObcFt9j
+	 XXufM0cGb+rn5QRPxtgxqQY15aRP/45qMqzQyw6QkQjqa5rca+CcZzjVyMeKlCRiId
+	 x5bRucQYnwbsSs/4Hg+YaXG2pgUtZ6Lh7dx22ychuQgQYZSOx+1OuWyS1OGo5B4Bu2
+	 lFvNRHXO6z8qWFhah47bqUJLHcZg6xCqmzmZqYwfQ/Si9Vk3yLsnUFLpMLBuXpgZpF
+	 doZRxoWSeEx3rpAojEeimuJheITG7jxc1bIQUhXoYexbO78A7aWODd8YWKWasi28cQ
+	 nbBt+xSIEQdwQ==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 3E035F40067;
+	Sat, 18 Jul 2026 01:32:55 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Sat, 18 Jul 2026 01:32:55 -0400
+X-ME-Sender: <xms:BxBbauwHm1FcfFvmUjGng9huZPoSRclRePWS7b0VkA--cU2vHYh1YQ>
+    <xme:BxBbakFCAEwq9URGxa9JfhOhiNojXbKwwaJnWSuQjPDp00hUmDsuvlLK-vxfdwnEx
+    mxyIUtNaUa3_GZJKrz9srYzgVuUcrdzI3Ss0a04xMGZa13t7lWuvjo>
+X-ME-Received: <xmr:BxBbaryYUd35u1l0--7nv1GBJZf6twciiFCv0x18wAdN42Kyi_Co-2FMGerL7BbIlwSgvKBaduMWlD47rFdT4yVFmfGL7wQr>
+X-ME-Proxy-Cause: dmFkZTES8M4nCmmYKnGMqobh3TqhunEGFElLNM+viRad93RdmeJRGfaj0RUMOtFBg6bXs7
+    ypRH2PFkw0ks3z7mx1ng3QrV7lhgf1fSoT2136oH2jbEe9eoM7ag0CsJVTgNRR31HEuUg7
+    YaUSD28NyGPwedMfKZngj2o/+7VJZGW1f/u4fz7QhpD8PDjuuOxyPNmNaRuF+xecSzJNfh
+    u9MwMO+JdQEtSmeM/ZgcfqHqOtf5Ik3jzWJgBntXvL1J2CS8mFHvJZhx+DzRmfWOr1Mv9d
+    80lUu3lcp/F+8I7Vz6nFvx4UxoWaXhdO8e3rKesyTqFCQYvNgIDmw3KjYp8Kux0JHTJcjO
+    2GnoBLq6JKO5fF5OKZWIUK2LOvJ1RSiQMRWG3PqZfJkboQ9IoWIS+2e3nPa9gLGjyzzrGO
+    EctPrVXKnEzF2+RZf4WR7mkhGQNIUXxdvuwnETBLLwA6S9GK6qZWJGUIa3WILNk3JlS5zp
+    GfF5RHdxNfuM3+2TIKaNimuf+8WUiwPv3ARjlQZm2ZkB6c/jTDDec7tgJ6EYeoNvXJt5ss
+    Y0H0M4WKwFjhA0HRovQGmgCy4ykb6gLtsVkfaFoA5W2RvVDkaYwKbEhpMfVuI3S8zEkdqE
+    ajC9oE7GWZt30rlTAIOg01uzdJ4dngOidGReT9RsKS/FhiJUbQXFFOw/seww
+X-ME-Proxy: <xmx:BxBbag57_HwhpOYMVPGkzpr6q6_JGmFSzKcxr2VuqzGR4aOHtHe2rg>
+    <xmx:BxBbaq6-bfpiViAkVZVMbLud7Pb12b70zxBfx-5uUn5WlKXHT9q7fQ>
+    <xmx:BxBbapKXT52eXSePdRzpL6iW-nlhuCSaRF3ok0KtMGYtQdbuywxUZA>
+    <xmx:BxBbasEE9fe6KiG8C753GKmWtFz8EZAcPaDz08KImbAiXjQn-LHf8g>
+    <xmx:BxBbam2ISzee3hCoD0_v6Px5DeOx0mMncavCQ3yd-e1qXTntz5AqTcOU>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 18 Jul 2026 01:32:53 -0400 (EDT)
+From: Boqun Feng <boqun@kernel.org>
+To: rust-for-linux@vger.kernel.org,
+	rcu@vger.kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>,	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Andrew Ballance <andrewjballance@gmail.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,	Jan Kara <jack@suse.cz>,
+	Lyude Paul <lyude@redhat.com>,	"Paul E. McKenney" <paulmck@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,	Zqiang <qiang.zhang@linux.dev>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
+	Asahi Lina <lina+kernel@asahilina.net>,
+	Matthew Maurer <mmaurer@google.com>,	Lorenzo Stoakes <ljs@kernel.org>,
+	linux-kernel@vger.kernel.org,	maple-tree@lists.infradead.org,
+	linux-mm@kvack.org,	linux-fsdevel@vger.kernel.org,
+	linux-media@vger.kernel.org,	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org
+Subject: [RFC PATCH v2 0/4] rust: sync: Introduce Rcu*Box
+Date: Fri, 17 Jul 2026 22:32:43 -0700
+Message-ID: <20260718053247.25154-1-boqun@kernel.org>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -74,56 +101,41 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-gspca keeps a pointer to the probed struct usb_device in
-gspca_dev->dev, but it does not hold a reference to it. The
-V4L2/video-device reference can keep the outer gspca_dev alive after USB
-disconnect, and the streaming queue can then be canceled from the last
-file release path.
+v1: https://lore.kernel.org/rust-for-linux/20260605133541.22569-1-boqun@kernel.org/
 
-That late release path still calls into gspca_stream_off(), which may
-call sub-driver stop callbacks or usb_set_interface() and dereference
-gspca_dev->dev after the USB core has freed the device.
+Changes since v1:
 
-Take a reference to the usb_device when storing it in gspca_dev and drop
-it from the final gspca_release() path. Balance the reference in the
-probe error path as well.
+* Rebased on 7.2-rc1
+* As Alice pointed out [5], RcuFreeBox::with_rcu() should return a type
+  that disallows extending the RCU read-side critical section to
+  outlive the guard. As for now, no user needs with_rcu(), hence remove
+  it.
 
-Fixes: 63eb9546dcb5 ("V4L/DVB (8152): Initial release of gspca with only one driver.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
----
- drivers/media/usb/gspca/gspca.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+* Includes a not-for-merge example based on Alice's patch.
 
-diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
-index 594d73e50b9f..59eb4cec1aed 100644
---- a/drivers/media/usb/gspca/gspca.c
-+++ b/drivers/media/usb/gspca/gspca.c
-@@ -1178,6 +1178,7 @@ static void gspca_release(struct v4l2_device *v4l2_device)
- 	v4l2_ctrl_handler_free(gspca_dev->vdev.ctrl_handler);
- 	v4l2_device_unregister(&gspca_dev->v4l2_dev);
- 	kfree(gspca_dev->usb_buf);
-+	usb_put_dev(gspca_dev->dev);
- 	kfree(gspca_dev);
- }
- 
-@@ -1462,7 +1463,7 @@ int gspca_dev_probe2(struct usb_interface *intf,
- 		ret = -ENOMEM;
- 		goto out;
- 	}
--	gspca_dev->dev = dev;
-+	gspca_dev->dev = usb_get_dev(dev);
- 	gspca_dev->iface = intf->cur_altsetting->desc.bInterfaceNumber;
- 	gspca_dev->xfer_ep = -1;
- 
-@@ -1574,6 +1575,7 @@ int gspca_dev_probe2(struct usb_interface *intf,
- 	if (sd_desc->probe_error)
- 		sd_desc->probe_error(gspca_dev);
- 	kfree(gspca_dev->usb_buf);
-+	usb_put_dev(gspca_dev->dev);
- 	kfree(gspca_dev);
- 	return ret;
- }
+v1's cover letter
+-----------------
+
+(this series is based on Alice's RFC [1] and discussion around Philipp's
+patches [2], [3])
+
+As an easy way to provide RCU-protected allocation, two major types are
+provided:
+
+- `RcuBox<T, A>`, inner T will be dropped and after a grace period.
+  Users: binder with maple_tree and dma_fence.
+- `RcuFreeBox<T, A>`, inner T will be cleaned up immmediately and freed
+  after a grace period. (Name suggestion is welcome). This is an attempt
+  to consolidate Alice's `PollCondVarBox` [4] into a generic
+  implementation, InPlaceInit support is still missing, but I want to
+  get some feedback on the trait `RcuFreeSafe`.
+
+[1]: https://lore.kernel.org/rust-for-linux/20260116-rcu-box-v1-0-38ebfbcd53f0@google.com/
+[2]: https://lore.kernel.org/rust-for-linux/20260530143541.229628-2-phasta@kernel.org/
+[3]: https://lore.kernel.org/rust-for-linux/20260520131725.266014-2-phasta@kernel.org/
+[4]: https://lore.kernel.org/rust-for-linux/20260523-upgrade-poll-v4-0-f5b4c747eac2@google.com/
+[5]: https://lore.kernel.org/rust-for-linux/aiLXWHg22P6OTb7O@google.com/
+
 -- 
-2.43.0
+2.50.1 (Apple Git-155)
 
