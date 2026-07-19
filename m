@@ -1,63 +1,63 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73CC38E8BD
-	for <linux-media@vger.kernel.org>; Sun, 19 Jul 2026 14:09:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8891390601
+	for <linux-media@vger.kernel.org>; Sun, 19 Jul 2026 14:09:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784470177; cv=none; b=qogdo+y9Wrn1OILARTMVRAdskwWksPqi1JCznCzdkV5TdbD5Hbqic0xlQ+qSc/65WATQjx0EzDdsVEEwa0f6dHK0yUSd8sPS9dM2IzDHUegoJX6Dmm1R8qIsZ76Zi148hnc7HBiVhqJUFCZr1/pFUX2JYZq6P0nG0+ECRYzyrVw=
+	t=1784470185; cv=none; b=b0ivSpamIO+k6BDhzx9ihppZNND31lCLuT9tudH5jS5nyrJg1BJ3qr9v3JTuDrEV88Kvm0VxVlv4yJqMibp5rbLBzFxBDCT5GSWt/KHUxyrZXSnUgV1IaBk6ptePWMlwuerLIjRxWo9vjDd95HtmxCocD2YcsOHB0b7lKSe3lqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784470177; c=relaxed/simple;
-	bh=VyoYZX2D8OpDlEMmDS96qc0SFFUHyp553K5Y3reG7BU=;
+	s=arc-20240116; t=1784470185; c=relaxed/simple;
+	bh=JT5pBunVOED5YNd5Y/C35r+p54dGIHbbwJ/3rtqdFAc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=qVoxDgNubal7GmmH//knypzM2edW0XSdjXLVEyie+FtK2uzBHzfe7L8/uLkiPjhSRIIAXnUJcGHbqp5/bHemqN+M7FxJPgDqDlm19Hch9kdPNK+GHiAKZvYqEgqxxBMzH7Z1/5s/GiiWNBwrH9tKvmwUbAKl7PiJGbzyv5H/X9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kYJSSaGB; arc=none smtp.client-ip=209.85.214.174
+	 MIME-Version; b=iWLKFvM9nB3UcEOkB6WzJfIznFFhtyO+IW5FaqyNb7XHEqP/rYG4BkMxzKqLV+WtkJyraAcTkD5wCkuBrMcAgRhxzGHNfRAazW63bOs9+wAn+5Fl3HqwdRN3wy1Ma8fEJoN9hpFJNnxwiZx+auxCzjkYiCOe6Ca2O+sT574Qvr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gulyygag; arc=none smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kYJSSaGB"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cce6a0c9c3so83900495ad.1
-        for <linux-media@vger.kernel.org>; Sun, 19 Jul 2026 07:09:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gulyygag"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cf41bab353so22705975ad.0
+        for <linux-media@vger.kernel.org>; Sun, 19 Jul 2026 07:09:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784470176; x=1785074976; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784470183; x=1785074983; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/VsDwgGBi6jRNk4FQjDctfybeowX+5DSAIGnbjWlZPo=;
-        b=kYJSSaGBOHv5hVaMNYe/m8Whq5DhxMbYr2RmTOU1BZjYOEHgU6/aM4Bqla0SZNzhnm
-         MEdJj4i5Bb7Igq3YjAFV8Gop9+G187AxgywRsmkQIgWYO886KJ2FNazcmxGz97bFgoXM
-         Z0Y0mo/VCYv3quymJk06JnpYhJbi/E2AAdX+CwXRlK+wFyTtVYUJ9aBPzmEarw3RWZtt
-         gc83vwjfy6W9ohacCgeU0Z8c4p3+NqlL/suNuT+rX8dus8QgxRUbghZdntVJ9+6FccYa
-         tRBJaq4Ysnv+VXtpihuvXcYdJ/JsohudYk0mFazTR9To8pxDUzq3dZgjNB9nPyYEGEcV
-         I0XA==
+        bh=BvODTp626G7ayt7G642HB6l/p2dvUiPvXuiviwmOFoA=;
+        b=gulyygagGZPmOKgsvLvfd089hgzymNc9NRLzUl0APKjO9Of0YZzzK/Xqzwrx0lnEbQ
+         PNOy6xMaVsIkhBYX6N3+TvnaJYa2NUgeI7uDB7IE6zwGLx+wYrhYP2BttVkfhqdaGS2Z
+         xoVUpdDQzOQKiGRa0Fgl6Oy8ViJgOedA8IFMIyHs6R0e6J4VG47QJnmnmHQ2BbjdtBw5
+         txfUe2X/Ghy+bkmwsY/yC29oPdX+zP3Mk+bJWDGdC9SMQOvo2f0hFmJwxx2es429dbOn
+         IjW9QivT9PFTJt6sJsJkOHCucHw8F8CTVz716rz9UMiHxfO8/FhGZ6Ox4XIMl2MfUg3d
+         kp1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784470176; x=1785074976;
+        d=1e100.net; s=20251104; t=1784470183; x=1785074983;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/VsDwgGBi6jRNk4FQjDctfybeowX+5DSAIGnbjWlZPo=;
-        b=rmYYcA3JDamFBOMtQbn2aY6MaG1ql19fXdD1VOI9ovqlgcidsVGrTlOux0pCROK0cs
-         /yN+3anWgSr95w9yOAu1teCOOe2uYyesMcNQDp7gm8Q3ZIYcaTLMlIxUzfGJ98rXuS3o
-         EZMGofvL2yUlQLx/hhS29mWP19S/gtm5HxJ7R2A5ROGY9ds5n8alkYKWOP6Ms2u6W91t
-         LjcxipmxbP44jJGymB+/VGP2bmP04UL8RGeZAQgXgi1KI4TsjjFYokTOibPHeCuOjkfW
-         zcXuPR12YJe2Fv6wEdwn6JTqZZSsAI6V7NhhnWTwTIQ/d3E4v3q1yAAvQ7soVbPXqqVm
-         a2cQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr2SGXcH8l8TVUki52PMmDAZh5MvHaA1wP5DQRNPNvRhE41meNtsvxg5hrRjgdq7IMwSZOXGZQBzklyMA==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw9QdPHmf1B/aIEKUTzZCHt4d/NuasHY/prlpfrVDs4oPJiZx/y
-	atsb8M2npv1wwfKGhKqnlXL4xsMOIVZ0pGGOXOLh5nLXvrZjt8FN7Fyb
-X-Gm-Gg: AfdE7cnrSYUolRwOWtwa+JEzqqDG3hJaXMq5H/5+/L7ZmdlW+iarA5PCpK6zn+orWLG
-	hW8g06StbUws1EZ173K9CqVUC55i9O+8f039AeArpwaAqWkh2jxPtTJmLpIQfw07bbJjbBgkpfz
-	X1lr7Z7lmAP9ew8zhGiDx3KEBl/mGkSX9Y+1a7TJ3yMYi0QkNsQOVeUn+k4khqvJa0yAHHWfcnH
-	miXZ1Ylitq3BTElphlo1Wnz4vBiIFp6NO11nW/vcpunen43gsJc00V4agySRbIUgJ01Mu1LKxD6
-	UERtiPvz7W7keXbajbty+vUNGMvaW1t0pSTBu2HJDeUESTzIqoAB5LCWsLIJNjDA7kFr3/VoRVD
-	xyHGUTngIGzdvBYZhHkcHt4K6nLtWVDCTSUJEmGKj0+GIRi8cg4N/B0MSrYqQrEKdhYNU/8rt6F
-	QvqxuQs7lbjbKiPUj73Db12US9fLUG9s0KGMpvJ2SGtOjy8w==
-X-Received: by 2002:a05:6a20:9397:b0:3bf:82c5:ed13 with SMTP id adf61e73a8af0-3c3ad8eccf3mr10908276637.38.1784470175969;
-        Sun, 19 Jul 2026 07:09:35 -0700 (PDT)
+        bh=BvODTp626G7ayt7G642HB6l/p2dvUiPvXuiviwmOFoA=;
+        b=WR6M6wsoVdDheVMCfneDFlJ6PGVMuVbi9m+fa9tfPBHGBIAycbTf0RCja57JlSAcYJ
+         wCu5PGMXJE6vJZ9jYGrLAbaYdHz8YkNbQlzrLDyNHQjRVPpWUJ+voVZ9MFcNnbT0017O
+         I7oFlM0fId7dbAZhJB+l0nM5HRRhLhozF3nbhDQOQXWAtVa5IyDP20Zj7/0vZXoQqcix
+         I2TIMlB1qIxA3u8oyugYDPe+H3h7E9GF9+QUYl91j7ZAiotgJLpTgGEiSs1GNfpg/s/M
+         FJKWRlkZTJUx0z9mUt9x0HGRY1dvzYScd4u1R54z3ptL997rfB5ZsehHw51N5bFLwwqc
+         SBhA==
+X-Forwarded-Encrypted: i=1; AHgh+RptNQRaIoe8lGSxI0dj6enbceknYCCuRte70V6IuXoKyJ313rvSQuPGEgZoz2hL+kshKKaiQZ2bnr+LgA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwTNRMJtKc73tLU191arPjTq5gQX4DJFJb+gEu5ucz6EQ+dKjap
+	mMggwG37tZMNdxqGOwKqNMmmj1o0e2bbTj8D7iu3dnG8MG5ANcQKn+MT
+X-Gm-Gg: AfdE7cm+M6Zj8pM4RPq7uIosRX4HGbmjGHJWkFRVSaobT8bXJtDeRbneyzeH8dgMPWt
+	EACq3H/XH/X71D69CSys1OaUekBThsceAkJ2/rhnMuSP3oQkkLpy02gdkfoge3KYUxexrzxz2lu
+	pBdxGKu++OrlDYrysiCOaLlvf/Rh6UmHL9ybhlb02j/skAd/tqODVKTmCJp7cyUbq1mQEpUC+/B
+	UjmiwRjrKIO5rWJtmkoWRcG0fDDSEeZvgfYS6OrPwqI1/lThCwKFKLcTc/VHpUV15YgCTD6rfzE
+	3iNJzqogOYoXX2ObrsMZd/rlzemNXjCdYscpDJHPMIb6zT6CRa+khLS1vc8AfvcgT1DzzL0Clxh
+	c7U7xe01qSXvGngZFVOcsuyiNygvsGP2pJ/ix3Gt7O/lEJUpnpPV8S4sFzWZnYfZ4a2ryoVAVim
+	SWFekVk8g9leG7jNNmeLrOxPbc
+X-Received: by 2002:a05:6a21:7d06:b0:3bf:e24e:3afe with SMTP id adf61e73a8af0-3c3ad949d5dmr11182254637.43.1784470183117;
+        Sun, 19 Jul 2026 07:09:43 -0700 (PDT)
 Received: from UbuntuOS.. ([49.34.211.33])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a20bf96sm26738331eec.28.2026.07.19.07.09.30
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a20bf96sm26738331eec.28.2026.07.19.07.09.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Jul 2026 07:09:35 -0700 (PDT)
+        Sun, 19 Jul 2026 07:09:42 -0700 (PDT)
 From: Prajval Chaudhary <prajvalchaudhari733@gmail.com>
 To: Hans de Goede <hansg@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -68,9 +68,9 @@ Cc: Andy Shevchenko <andy@kernel.org>,
 	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Prajval Chaudhary <prajvalchaudhari733@gmail.com>
-Subject: [PATCH 1/2] staging: media: atomisp: Remove unused and unwanted debug module parameters
-Date: Sun, 19 Jul 2026 19:33:49 +0530
-Message-Id: <20260719140350.8266-2-prajvalchaudhari733@gmail.com>
+Subject: [PATCH 2/2] staging: media: atomisp: Mark pad_w and pad_h as const constants
+Date: Sun, 19 Jul 2026 19:33:50 +0530
+Message-Id: <20260719140350.8266-3-prajvalchaudhari733@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260719140350.8266-1-prajvalchaudhari733@gmail.com>
 References: <20260719140350.8266-1-prajvalchaudhari733@gmail.com>
@@ -82,51 +82,50 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Remove the unused module parameters 'dbg_level' and 'dbg_func'.
-Additionally, remove the 'pad_w' and 'pad_h' module parameters
-to prevent userspace from overriding internal ISP hardware padding
-boundaries, leaving them as internal driver constants.
+Now that the user-facing module parameters for pad_w and pad_h
+have been removed, these variables are strictly internal driver
+configurations. Mark them as const to prevent accidental runtime
+modification and allow compiler optimization.
 
-This addresses the 'Remove unnecessary/unwanted module parameters'
-task in the driver's TODO file.
+This completes the internal cleanup follow-up resulting from
+addressing the driver's module parameter TODO item.
 
 Signed-off-by: Prajval Chaudhary <prajvalchaudhari733@gmail.com>
 ---
- drivers/staging/media/atomisp/pci/atomisp_v4l2.c | 15 ---------------
- 1 file changed, 15 deletions(-)
+ drivers/staging/media/atomisp/pci/atomisp_common.h | 6 ++----
+ drivers/staging/media/atomisp/pci/atomisp_v4l2.c   | 4 ++--
+ 2 files changed, 4 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_common.h b/drivers/staging/media/atomisp/pci/atomisp_common.h
+index a2462fc306fb..aa230c3708dd 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_common.h
++++ b/drivers/staging/media/atomisp/pci/atomisp_common.h
+@@ -20,10 +20,8 @@
+ 
+ #include "ia_css.h"
+ 
+-extern int dbg_level;
+-extern int dbg_func;
+-extern int pad_w;
+-extern int pad_h;
++extern const int pad_w;
++extern const int pad_h;
+ 
+ /* Minimum padding requirements for ISP2400 (BYT) */
+ #define ISP2400_MIN_PAD_W		12
 diff --git a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-index 812230397409..5c2f5996a03f 100644
+index 5c2f5996a03f..5ca7e79fd1e5 100644
 --- a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
 +++ b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-@@ -44,17 +44,6 @@
- /* G-Min addition: pull this in from intel_mid_pm.h */
- #define CSTATE_EXIT_LATENCY_C1  1
- 
--/* cross component debug message flag */
--int dbg_level;
--module_param(dbg_level, int, 0644);
--MODULE_PARM_DESC(dbg_level, "debug message level (default:0)");
--
--/* log function switch */
--int dbg_func = 1;
--module_param(dbg_func, int, 0644);
--MODULE_PARM_DESC(dbg_func,
--		 "log function switch non/printk (default:printk)");
--
- /*
-  * Set to 16x16 since this is the amount of lines and pixels the sensor
-  * exports extra. If these are kept at the 10x8 that they were on, in yuv
-@@ -65,12 +54,8 @@ MODULE_PARM_DESC(dbg_func,
+@@ -53,9 +53,9 @@
+  * output res, and isp output res. however since we do not have this yet,
   * the chosen solution is the next best thing.
   */
- int pad_w = 16;
--module_param(pad_w, int, 0644);
--MODULE_PARM_DESC(pad_w, "extra data for ISP processing");
+-int pad_w = 16;
++const int pad_w = 16;
  
- int pad_h = 16;
--module_param(pad_h, int, 0644);
--MODULE_PARM_DESC(pad_h, "extra data for ISP processing");
+-int pad_h = 16;
++const int pad_h = 16;
  
  /*
   * FIXME: this is a hack to make easier to support ISP2401 variant.
