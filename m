@@ -1,184 +1,134 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A1143F099;
-	Sat, 18 Jul 2026 23:32:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784417530; cv=pass; b=AzcSs5gRg7XtKM2+dhLiwodHVICZ+D5OAkAdDane4ZUaPTNiZcucExM3bqSEUoJj8KH1BhuZ0eACySUZqdNLXUKsALhOeXSL0GVoMmvC0DEjmPCURwp0+k6aCyWYReWsfwIPLXH5cJ3SQ/Bj2UcbUmDeWLdHoy5dnteDnaK4a/0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784417530; c=relaxed/simple;
-	bh=RqtFYTexteQxVcWst3wcvuvjxFyI1jJyzw43+6a0XOQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h+4996PLlPV0izCrkr8tyaxG6FjNR39ICZJg5abWMLwPMJslWKmxsMbBsRtc/WNE1LDFwdX3xqzOSXandMhXqIYHu+LJM0Vom1b85dQ2yJ064gVfBpqpRkkbeWZxbX6wtS2eVDstjaR1zAOWs5TYEcpRXYe37SDLwzyi/qs4TqQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=aW8DOYx1; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="aW8DOYx1"
-ARC-Seal: i=1; a=rsa-sha256; t=1784417506; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=mjlBT5fBOmj0puaOAj3NrQ4dZIxtuOA+NuCb2Yzp1io4uYKf/JLzyEvzPxyp6rpc1wznjzHszAc6K/k9XBPK9IYRPJpNKcqW9EeFoyUmzYdfXmJGYnUdPyBtti8FyWT/1duxip0xZ+Jdbm5BWJ8thayTrVTDNSZDEsos0oid4Po=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1784417506; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=oMGvRNkuFyXaMYeP4ES+8jelR30jNKVF+YZjl8fjH+c=; 
-	b=TbfNsxKSpnNYMGfhpBfgeOqw7FcUXw62jOTFe/BZYXXiMdcvqp/HSlMIdMOl5yIckY69c1dXk/LiybPChgxtXLdAq1xBTCkMgk/6tl04QI4BAkfjCBzzzYFU19EdGkKMSmT2ntdnN5RLD/+SXe1m0S0yIFKIs8rNYhXmMYqxCFc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784417506;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=oMGvRNkuFyXaMYeP4ES+8jelR30jNKVF+YZjl8fjH+c=;
-	b=aW8DOYx18xezxX/CNds+Jm5xao3XhXf0fOSTgrsWOjnRFZPS9yPLGz0G2STbaGGV
-	SwdjbNK3dU0INwq+tHVxn5ZaaSIW9JhWVo246avHA7kdjEjND5cuOxR/hRhIMpnN3Me
-	ZDffuyEhqnXqJEj8O/dh84qj58eb5Q9pYTHIoDUo=
-Received: by mx.zohomail.com with SMTPS id 1784417504416910.5266533899085;
-	Sat, 18 Jul 2026 16:31:44 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 2C8CE1804CF; Sun, 19 Jul 2026 01:31:39 +0200 (CEST)
-Date: Sun, 19 Jul 2026 01:31:39 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, kernel@collabora.com, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] arm64: dts: rockchip: enable HDMI RX audio
- capture on Orange Pi 5 Plus
-Message-ID: <alwKdkNsMi9L4ZiY@venus>
-References: <20260718085728.6797-1-royalnet026@gmail.com>
- <20260718085728.6797-5-royalnet026@gmail.com>
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B692E24DFF9;
+	Sun, 19 Jul 2026 01:43:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784425407; cv=none; b=GmPXGNExQtt0iuaLHbntpi3J3Cq8Q8Jg8mUYvf+6XTZ9RH08aVAIk8TZz//FTazmu37aNpNDVu3/0esTwC8ZMLxJpQxN+TbsJ0/U6ho7Kb7Rp80eFBd5NcjyYbWpxCWK9Wfh0inNDCgKx2sP1v/nQFtJtvfHHddv6RSaLKjJ4Zk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784425407; c=relaxed/simple;
+	bh=O89bbFA20RmpyqSYgYVWt2OM+tCkz0iWGLthW3OtOzA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CJ0UGEmLhx6fqk4pRsiSWOTKNNt65mqS8kQgCLMZiv9tMh14ilbQWku+HywV3Rl8e8R1DBhHISWLZGTUpRQYzJhF37glUEnC947r+62JrW3QGG0pS66JBCLppf4FI+R1RmROybmcDvSbEYvcu8MnBmJDuE6x1m9ODWAv+3hBhB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.76.78.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wAnEfe0K1xqZeIQAA--.29823S3;
+	Sun, 19 Jul 2026 09:43:17 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app4 (Coremail) with SMTP id zi_KCgCn2TCzK1xq2YZnAg--.18290S2;
+	Sun, 19 Jul 2026 09:43:15 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] media: dvb-usb-v2: fix double-free on URB allocation failure
+Date: Sun, 19 Jul 2026 01:42:20 +0000
+Message-Id: <20260719014220.3164004-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5auwkjfiihzxz3ef"
-Content-Disposition: inline
-In-Reply-To: <20260718085728.6797-5-royalnet026@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.404.57
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zi_KCgCn2TCzK1xq2YZnAg--.18290S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?2HJs3gXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnXz+g1OQfMo27QHy5TwQyZzZ6AS7DkpwtAM66MLhS4sr7iQKTvl37/i7z3mVDKI+te9n
+	Wf1JGG2Oxkpgz+tpcN6p9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxCF17AF1UZryfXFy7uF1rAFc_yoW5Zr45pw
+	s3Gw45tFyDJF1xJw1Ut3ZxKr4rGa1xZ34fKrW3Wwn8ZF4rGw1fta4xKr4rKrn2kr4vva4x
+	tr90v3y8Ar4DW3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Cb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAF
+	wI0_Cr1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57
+	IF6xkI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE
+	14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2
+	IYc2Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I
+	3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxV
+	WUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAF
+	wI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcI
+	k0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j
+	6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jnKsUUUUUU=
 
+usb_urb_alloc_bulk_urbs() and usb_urb_alloc_isoc_urbs() allocate URBs in
+a loop. When usb_alloc_urb() fails at index i, the error path frees the
+already-allocated URBs:
 
---5auwkjfiihzxz3ef
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 4/4] arm64: dts: rockchip: enable HDMI RX audio
- capture on Orange Pi 5 Plus
-MIME-Version: 1.0
+    for (j = 0; j < i; j++)
+        usb_free_urb(stream->urb_list[j]);
+    return -ENOMEM;
 
-Hi,
+but it leaves stream->urb_list[j] pointing at the freed URBs. At that
+point stream->urbs_initialized equals i, since it is incremented once
+per successful usb_alloc_urb() before the fill/setup of the next URB.
 
-On Sat, Jul 18, 2026 at 10:57:28AM +0200, Igor Paunovic wrote:
-> Route the HDMI receiver audio to i2s7_8ch, the receive-only I2S
-> interface dedicated to HDMI RX, through a simple-audio-card with the
-> receiver as bitclock and frame master. Together with the audio
-> capture support in the snps_hdmirx driver this exposes a capture-only
-> ALSA card fed by the HDMI input.
->=20
-> Tested on the Orange Pi 5 Plus with multiple HDMI sources: capture
-> follows the source sample rate and stays in sync via the FIFO-level
-> clock tracking in the driver.
->=20
-> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-> ---
-> New in v3.
->=20
->  .../dts/rockchip/rk3588-orangepi-5-plus.dts   | 20 +++++++++++++++++++
->  1 file changed, 20 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/ar=
-ch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-> index 9950d11..d5840e1 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-> @@ -37,6 +37,22 @@
->  		};
->  	};
-> =20
-> +	hdmiin-sound {
-> +		compatible =3D "simple-audio-card";
-> +		simple-audio-card,name =3D "rockchip,hdmiin";
+The -ENOMEM propagates up through usb_urb_initv2() and
+dvb_usbv2_adapter_stream_init(). dvb_usbv2_adapter_init() returns the
+error, dvb_usbv2_init() returns it, and dvb_usbv2_probe() then takes its
+err_free_all path, which calls dvb_usbv2_exit() ->
+dvb_usbv2_adapter_exit() -> dvb_usbv2_adapter_stream_exit() ->
+usb_urb_exitv2() -> usb_urb_free_urbs().
 
-The name is exposed to userspace and visible to the user (e.g.
-in alsamixer), but also used by Alsa UCM2. I suggest to use
-"RK3588 HDMI-IN".
+usb_urb_free_urbs() walks urb_list[urbs_initialized-1 .. 0] and, for
+each non-NULL slot, calls usb_free_urb(). urb_list[0..i-1] are still the
+non-NULL dangling pointers from the alloc error path, so they are freed a
+second time. URBs allocated here start with a refcount of one (usb_get_urb
+is never taken in this path), so the first free releases the memory and
+the second is a use-after-free / double-free.
 
-> +		simple-audio-card,format =3D "i2s";
-> +		simple-audio-card,bitclock-master =3D <&hdmiin_codec>;
-> +		simple-audio-card,frame-master =3D <&hdmiin_codec>;
-> +
-> +		simple-audio-card,cpu {
-> +			sound-dai =3D <&i2s7_8ch>;
-> +		};
-> +
-> +		hdmiin_codec: simple-audio-card,codec {
-> +			sound-dai =3D <&hdmi_receiver 0>;
-> +		};
-> +	};
-> +
+struct usb_data_stream is embedded in the kzalloc'd dvb_usb_device, so
+urb_list[] starts zeroed; the double-free requires at least one prior
+usb_alloc_urb() to succeed before the failing one. That is the normal
+multi-URB streaming configuration (e.g. ce6230 .count = 6).
 
-Move the whole card definition to rk3588-extra.dtsi with a new label
-(e.g. hdmi_receiver_sound) and add status =3D "disabled"; Then just do
+Null each slot immediately after freeing it, so usb_urb_free_urbs() skips
+the already-freed entries via its existing non-NULL check.
 
-&hdmi_receiver_sound {
-    status =3D "okay";
-};
+This issue was found by an in-house static analysis tool.
 
-in the Orange Pi 5+ DT, i.e. just like the soundcards for HDMI
-output. This reduces a lot of duplication as the soundcard is the
-same on all boards considering there is a dedicated I2S channel for
-it. It's disabled by default as some boards do not route the HDMI
-receiver at all.
+Fixes: eb28dc39d3e8 ("[media] drivers/media/dvb/dvb-usb/usb-urb.c: adjust array index")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/media/usb/dvb-usb-v2/usb_urb.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Greetings,
+diff --git a/drivers/media/usb/dvb-usb-v2/usb_urb.c b/drivers/media/usb/dvb-usb-v2/usb_urb.c
+index 2ad2ddeaff51..a6edec097fb3 100644
+--- a/drivers/media/usb/dvb-usb-v2/usb_urb.c
++++ b/drivers/media/usb/dvb-usb-v2/usb_urb.c
+@@ -143,8 +143,10 @@ static int usb_urb_alloc_bulk_urbs(struct usb_data_stream *stream)
+ 		stream->urb_list[i] = usb_alloc_urb(0, GFP_ATOMIC);
+ 		if (!stream->urb_list[i]) {
+ 			dev_dbg(&stream->udev->dev, "%s: failed\n", __func__);
+-			for (j = 0; j < i; j++)
++			for (j = 0; j < i; j++) {
+ 				usb_free_urb(stream->urb_list[j]);
++				stream->urb_list[j] = NULL;
++			}
+ 			return -ENOMEM;
+ 		}
+ 		usb_fill_bulk_urb(stream->urb_list[i],
+@@ -173,8 +175,10 @@ static int usb_urb_alloc_isoc_urbs(struct usb_data_stream *stream)
+ 				stream->props.u.isoc.framesperurb, GFP_ATOMIC);
+ 		if (!stream->urb_list[i]) {
+ 			dev_dbg(&stream->udev->dev, "%s: failed\n", __func__);
+-			for (j = 0; j < i; j++)
++			for (j = 0; j < i; j++) {
+ 				usb_free_urb(stream->urb_list[j]);
++				stream->urb_list[j] = NULL;
++			}
+ 			return -ENOMEM;
+ 		}
+ 
+-- 
+2.34.1
 
--- Sebastian
-
->  	ir-receiver {
->  		compatible =3D "gpio-ir-receiver";
->  		gpios =3D <&gpio4 RK_PB3 GPIO_ACTIVE_LOW>;
-> @@ -247,6 +263,10 @@
->  	status =3D "okay";
->  };
-> =20
-> +&i2s7_8ch {
-> +	status =3D "okay";
-> +};
-> +
->  &led_blue_gpio {
->  	gpios =3D <&gpio3 RK_PA6 GPIO_ACTIVE_HIGH>;
->  	status =3D "okay";
-> --=20
-> 2.53.0
->=20
-
---5auwkjfiihzxz3ef
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpcDNYACgkQ2O7X88g7
-+przAxAAmp27ahike5cooDDpLsXCvhfzlAUohPcO39nvyh7GFLDhdFywIckmqKXe
-UQnJTwlqRZ2YQank3VipcBojKahUe+fvYFM5RSo1A7qc4eGHryFmNxBwGGh14qCm
-A+3dpyh7baCzsOPI/2rYib6Uncb/G6cQ/udYhE6le1dll3XnGTNq2iuBnFzxZd0U
-p1Wg8F/XLnrytXM6+1QAh5XoGPkjGUNjDqyrM+P+rvS46DR2UE2+bGvl8ggROL+e
-1ClG2mLugtFeV2VPpsdexirwUgqv0y4tRTv9Dw+XwzvweBE7EVz4mvZOVTphcHjL
-LjrTcKzLw2ZEUslgwXuyuVYNIUjs7Q1MgWDivPS8BFFI3YVruhHiAu0f6/sJUokL
-8mTNpE2b0N6VV+s85/W20LsHHAzdnJE+lERY1Zxw1ZT9ii+XXIn+N1VB0xBIGzMc
-7epiBSwb3N5Z7d+XwQtHCsma42JsGXFCBpgbIswphhoq0rLndqiT4dTUdn0yfL1h
-Y5Gm4dBH4h+yKioxzIrm3NZ6drbX3Eyd9TY7v0thdycAIGtuXtmLTnP9Fha98lb3
-jLXxlCBDtZ0kIV964HslAqBjOaV7Q1QSMRJ11+sy64p3GV6YMt0AevWRWua5w0fT
-qvGboGN2P6KsR85rLJ5ryFeEilUivC2nu3F/eId0Wpu+fUuCHEQ=
-=1b/t
------END PGP SIGNATURE-----
-
---5auwkjfiihzxz3ef--
