@@ -1,222 +1,273 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DD41A9B58
-	for <linux-media@vger.kernel.org>; Sun, 19 Jul 2026 21:00:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C39E17BB21
+	for <linux-media@vger.kernel.org>; Sun, 19 Jul 2026 21:13:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784494842; cv=none; b=e6J7z5pGMY/wpcQla5ECrKOiS+PsghjrazdEoeFa/w7lDjca/4s76p3qONal3nlECLoA9Tp7XaltD3euboXsg4owHcMZlGfTWhjxlEBRmmDPr7TM3K+Iz65bVs3Y6xd1ZO0ocqx9bZm32QLBC97rwq/5HHBsz6idAVAJjymfU8o=
+	t=1784495625; cv=none; b=eNTMB/w0vZXHgvEob3LUW0Paz21CoOGGEPuM157rEv6lfd5bQvjfcHF1abvwQyThNX0IoZjF13hfHxZo+Uhn61pU3xZFCm0VNr2JEZ6b0yLJ021oHGNwOeOAYKhmlCegS+eqP+L7SkqQp66YkigXvDXZ9GDxMncA0IEb4/qKiQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784494842; c=relaxed/simple;
-	bh=ICPPZxuxVXcTTpK0xYdFOj0tO4ouKm1QcDecOEi6POA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sSiXLNZdALXc0WeYKGrVzaPhekZh2wuTaHgxTcWtgQphLjLrkLsUh8BUcNwK2eMjqZMjHc6w0rDbJ+4zsgZQgY5itCGl4zsmLzaFyfE8yV3OG5X5kxjKStv/rwJ2qh0pVblUAvKVGCfBadr/vXJPu50eQX55ZsswKDzGdsoqPSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W7kPZIvs; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1784495625; c=relaxed/simple;
+	bh=e07fAaUhpcUkCZZMoFfPX2XrQcVmO3HNNsorV6toWLU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Hn36MqYOxpBHBcNbWFLFP5I0mYTCwdzPOx7P/AwGlXzvDmjTGYEEFJcw0IDodEa/3WYIiO37z4aFNzJqvdRF37fc1nOtEzoei2rVpVjurys6Lt/7FUi3KyswVyv4Uxtju4OvKt54JlODMDMLw4ZeMiawwVKHi9IaqJXH7hKE6zA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=daSuNbsZ; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W7kPZIvs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784494840; x=1816030840;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ICPPZxuxVXcTTpK0xYdFOj0tO4ouKm1QcDecOEi6POA=;
-  b=W7kPZIvs7OS5tOdfo0qhMhid0kQUhFahX9m6q9/nrRtsV2N1KU7k0aPu
-   FZntqom/g6wNh8PK0eOEvA4P1Viua6AfG61B3/ETZEB1Fhd5FdCV6Lly2
-   NtnV2kARrRNoz2gqYQN2ybXRuG9U5G1Mig8eabDlasK9Jm+T4IvBwBhCe
-   c6kjyHxr0vhoZh/9TBHljgbnJYm+W2jSjl3WXaSq2sWLK1bjY3V91Gh6T
-   nxj7+hy83XDX9A+F8sA2iIAbg6hv6YvuRrpD6Hk2oAQ98xWtQyDVp8KSG
-   fQe4Ilzd0f6kJ7PaSJzq3fKg1s4mwcZENzzrVs0Il/CA3ZlPSQ9So7Nwv
-   g==;
-X-CSE-ConnectionGUID: ZmrPPAnkTvaD88QY0maa6A==
-X-CSE-MsgGUID: GsdL/v3oSJ6+T5EvIVUqlQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="107870882"
-X-IronPort-AV: E=Sophos;i="6.25,173,1779174000"; 
-   d="scan'208";a="107870882"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 14:00:39 -0700
-X-CSE-ConnectionGUID: Hsp+hGY4T/+KpV2HtXAcwQ==
-X-CSE-MsgGUID: H6XrdYcqRkasTiepXjRp7A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,173,1779174000"; 
-   d="scan'208";a="256116033"
-Received: from dalessan-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.73])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 14:00:33 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 3E03F121C0D;
-	Mon, 20 Jul 2026 00:00:35 +0300 (EEST)
-Date: Mon, 20 Jul 2026 00:00:35 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
-	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Tommaso Merciai <tomm.merciai@gmail.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Julien Massot <julien.massot@collabora.com>,
-	Naushir Patuck <naush@raspberrypi.com>,
-	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	Stefan Klug <stefan.klug@ideasonboard.com>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	=?iso-8859-1?Q?Andr=E9?= Apitzsch <git@apitzsch.eu>,
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Ricardo Ribalda Delgado <ribalda@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	David Plowman <david.plowman@raspberrypi.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v6 03/16] media: imx219: Account for rate_factor in
- control steps
-Message-ID: <al0686b7StFtPfY2@kekkonen.localdomain>
-References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
- <20260701122634.1728782-3-sakari.ailus@linux.intel.com>
- <20260717142121.GC1889304@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="daSuNbsZ"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cc8311c6ddso12509715ad.0
+        for <linux-media@vger.kernel.org>; Sun, 19 Jul 2026 14:13:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784495623; x=1785100423; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gTIjnhiBERStWEwLazrFs+tWSWYBzp910us9UNmsjTU=;
+        b=daSuNbsZWBrsz3He/O+BTgLI1xtaIIcISWVhd5cw7LetnYvD+SpeP5hUVMz6yijFHu
+         xTCZSVHSsOrT9UcjT2z13GbUHhuVo1pusCpJOw5tr5/6VzYMD+KPVL6yj+ntdWk3Ql2z
+         j3m54ALsRhCXUg4k+y6xzjiVa7wfriQ0fZrU+aQG7BXbjrN9B0OJpdQ0u7QpuaaouFjx
+         wKvvnMNY8rNmapjSaXUOkemo0OxIjnl4Ewj8vqOndfsk9KFigcwceRBmb8F1wvpOZHF8
+         trkXczvTkhpurDeBc5FQ4bF3b5lSaE1MyI11s4m+nNt0xzI5wdkSFAAr+m2dWeZX7otl
+         1BPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784495623; x=1785100423;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=gTIjnhiBERStWEwLazrFs+tWSWYBzp910us9UNmsjTU=;
+        b=eqbbD76XkR++JjKvfuUEqxhFnqVQpUc0chzqNEYsI9wJsOjJjawDywbzPon8Y1/GDY
+         UJpL61fFqsVQ+9o9c9CpnOoUQZaOwIgQPuRCo3NJLRqaVAbEYLPO1MaDE+vhjLmn8RX1
+         1e0Qlu6FaQjeYzlFg9bDhESo2R44NzXiD68MOfrmAexhsdLJSbWli5EwwjPBjigP/zZ1
+         huj8hcpRQCDHSoqSi1kIftkYdLx859dG5e2MQNo+DYOCbQHsMNCagz719iczwv964fI0
+         0UtlYH2cQsmndNy1MXq9xY5KDiykrWa8w6l4h6ZoCmge/j+AhedOpi9ZPEGcW8/tEOuo
+         Z3Og==
+X-Gm-Message-State: AOJu0YygsrgLBH0Y5KDOzMWvyOXKcr8Uvl/URMquqzUdW0WVipteKm1+
+	7tAgBEk6//6Wx+uk/d2P0Gi20k2hMYBM7ERRbh8NO572+me0krBHCWa8
+X-Gm-Gg: AfdE7cnLDiWheSw3/b+3021wLU+55XP/v5krQMKblUouKTY3IRsNKX/rQzfyLp0Qpe1
+	gTxbJK6b/uyVUUsctlA1Fk6Q688TGXh8sHhx0Ky1AUxLZjYQqEdXLsgHZnh5BPUXvmAprJ+v6Ob
+	ZQtUKb0Vq7RiJbXQh63Yu58f39StpnOMK+GO+5sks8m6U70bmdLAyRjXgUk9GkOyaKFRlhpw3HP
+	ICpf/xo6FOQfkH8JtE+waCqW7EtlGyou+oTYPDLa1N/GwaDKFJ55sPG0yHK+VHKZohhN/rRS28l
+	eUxiI+CXTj67INll41em4fFKcYEMNxC9nFxkkdnMzVCJ5PPj3W6OEAmNyFO1bI8xsbQuIWd/9g8
+	S1ncphukkoLahTiflvB7axeh58OEf3ffp4/9//UKLS4ggDZ7wE3ZPkGk6LRvVZsRx6rSLK/CVrc
+	b+Hp8nFPtul1nAc4U=
+X-Received: by 2002:a17:902:fc47:b0:2cc:df15:91e2 with SMTP id d9443c01a7336-2cf34a3e692mr95258635ad.7.1784495623273;
+        Sun, 19 Jul 2026 14:13:43 -0700 (PDT)
+Received: from [172.28.140.252] ([2409:40c2:5413:1bcb:522f:a9d1:353f:2e7f])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31429fdcaefsm29001067eec.10.2026.07.19.14.13.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 Jul 2026 14:13:42 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Mon, 20 Jul 2026 02:43:23 +0530
+Subject: [PATCH] dt-bindings: media: ti,am437x-vpfe: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260717142121.GC1889304@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260720-ti-am437x-vpfe-v1-1-d4a260021b64@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDcyMD3ZJM3cRcE2PzCt2ygrRUXXNjSwszwyRDY9PURCWgpoKi1LTMCrC
+ B0bG1tQBGzChyYAAAAA==
+X-Change-ID: 20260720-ti-am437x-vpfe-739861b135ea
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Benoit Parrot <bparrot@ti.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784495615; l=5632;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=e07fAaUhpcUkCZZMoFfPX2XrQcVmO3HNNsorV6toWLU=;
+ b=FOIB+Tzdra6V0I4I4j5p8/BaByrNUDmVBT1Wr7ToUbH+FRsHUTDGMZ6EsYLAp3fd4fSbdGGcS
+ /LeofrkO9hbC82udhTCWOPEJ7GweHqaHirPOd/Tn/2wVimoFR3vQkqP
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Hi Laurent,
+Convert Texas Instruments AM437x CAMERA Video Processing Front End
+(VPFE) from legacy text to DT schema.
 
-On Fri, Jul 17, 2026 at 05:21:21PM +0300, Laurent Pinchart wrote:
-> Hi Sakari,
-> 
-> Thank you for the patch.
-> 
-> On Wed, Jul 01, 2026 at 03:26:20PM +0300, Sakari Ailus wrote:
-> > The controls that are divided by the rate_factor before writing them to
-> > the registers have the step of the value of the rate_factor. Take this
-> > into account when the control's range is modified. The controls are
-> > created in a configuration where rate_factor is always 1, hence there's no
-> > need to change the code adding new controls.
-> > 
-> > Fixes: f513997119f4 ("media: i2c: imx219: Scale the pixel rate for analog binning")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> > ---
-> >  drivers/media/i2c/imx219.c | 18 ++++++++----------
-> >  1 file changed, 8 insertions(+), 10 deletions(-)
-> > 
-> > diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-> > index 05d9737bdc95..2aab6e7180d4 100644
-> > --- a/drivers/media/i2c/imx219.c
-> > +++ b/drivers/media/i2c/imx219.c
-> > @@ -319,19 +319,19 @@ static const struct imx219_mode supported_modes[] = {
-> >  		/* 1080P 30fps cropped */
-> >  		.width = 1920,
-> >  		.height = 1080,
-> > -		.fll_def = 1763,
-> > +		.fll_def = 1762,
-> 
-> This is not a binned mode, an odd default value is not incorrect. Is
-> there a reason to change it ?
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+ .../devicetree/bindings/media/ti,am437x-vpfe.yaml  | 93 ++++++++++++++++++++++
+ .../devicetree/bindings/media/ti-am437x-vpfe.txt   | 61 --------------
+ 2 files changed, 93 insertions(+), 61 deletions(-)
 
-The fll_def field is used to calculate the VBLANK control range and odd
-number here results in an odd number for the default, which is invalid and
-so __v4l2_ctrl_modify_range() will fail as a result.
+diff --git a/Documentation/devicetree/bindings/media/ti,am437x-vpfe.yaml b/Documentation/devicetree/bindings/media/ti,am437x-vpfe.yaml
+new file mode 100644
+index 000000000000..983e705ab1e8
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/ti,am437x-vpfe.yaml
+@@ -0,0 +1,93 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/ti,am437x-vpfe.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments AM437x CAMERA Video Processing Front End (VPFE)
++
++maintainers:
++  - Benoit Parrot <bparrot@ti.com>
++  - Bhargav Joshi <j.bhargav.u@gmail.com>
++
++description:
++  The Video Processing Front End (VPFE) is a key component for image capture
++  applications. The capture module provides the system interface and the
++  processing capability to connect RAW image-sensor modules and video decoders
++  to the AM437x device.
++
++properties:
++  compatible:
++    const: ti,am437x-vpfe
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++    description:
++      A single parallel input port connecting to an external image sensor or
++      video decoder. The VPFE supports only one input port per instance.
++
++    properties:
++      endpoint:
++        $ref: video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          ti,am437x-vpfe-interface:
++            $ref: /schemas/types.yaml#/definitions/uint32
++            enum: [0, 1, 2, 3, 4]
++            description:
++              Selects the VPFE input interface type can be one of following
++                0 - Raw Bayer        (VPFE_RAW_BAYER)
++                1 - BT.656 8-bit     (VPFE_BT656)
++                2 - BT.656 10-bit    (VPFE_BT656_10BIT)
++                3 - YCbCr 8-bit sync (VPFE_YCBCR_SYNC_8)
++                4 - YCbCr 16-bit sync (VPFE_YCBCR_SYNC_16)
++
++          bus-width:
++            minimum: 8
++            maximum: 16
++
++        required:
++          - remote-endpoint
++          - ti,am437x-vpfe-interface
++          - bus-width
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    vpfe@48328000{
++        compatible = "ti,am437x-vpfe";
++        reg = <0x48328000 0x2000>;
++        interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
++
++        pinctrl-names = "default", "sleep";
++        pinctrl-0 = <&vpfe_pins_default>;
++        pinctrl-1 = <&vpfe_pins_sleep>;
++
++        port {
++            vpfe0_ep: endpoint {
++                remote-endpoint = <&ov2659_1>;
++                ti,am437x-vpfe-interface = <0>;
++                bus-width = <8>;
++                hsync-active = <0>;
++                vsync-active = <0>;
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/media/ti-am437x-vpfe.txt b/Documentation/devicetree/bindings/media/ti-am437x-vpfe.txt
+deleted file mode 100644
+index 3932e766553a..000000000000
+--- a/Documentation/devicetree/bindings/media/ti-am437x-vpfe.txt
++++ /dev/null
+@@ -1,61 +0,0 @@
+-Texas Instruments AM437x CAMERA (VPFE)
+---------------------------------------
+-
+-The Video Processing Front End (VPFE) is a key component for image capture
+-applications. The capture module provides the system interface and the
+-processing capability to connect RAW image-sensor modules and video decoders
+-to the AM437x device.
+-
+-Required properties:
+-- compatible: must be "ti,am437x-vpfe"
+-- reg: physical base address and length of the registers set for the device;
+-- interrupts: should contain IRQ line for the VPFE;
+-- ti,am437x-vpfe-interface: can be one of the following,
+-	0 - Raw Bayer Interface.
+-	1 - 8 Bit BT656 Interface.
+-	2 - 10 Bit BT656 Interface.
+-	3 - YCbCr 8 Bit Interface.
+-	4 - YCbCr 16 Bit Interface.
+-
+-VPFE supports a single port node with parallel bus. It should contain one
+-'port' child node with child 'endpoint' node. Please refer to the bindings
+-defined in Documentation/devicetree/bindings/media/video-interfaces.txt.
+-
+-Example:
+-	vpfe: vpfe@f0034000 {
+-		compatible = "ti,am437x-vpfe";
+-		reg = <0x48328000 0x2000>;
+-		interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
+-
+-		pinctrl-names = "default", "sleep";
+-		pinctrl-0 = <&vpfe_pins_default>;
+-		pinctrl-1 = <&vpfe_pins_sleep>;
+-
+-		port {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-
+-			vpfe0_ep: endpoint {
+-				remote-endpoint = <&ov2659_1>;
+-				ti,am437x-vpfe-interface = <0>;
+-				bus-width = <8>;
+-				hsync-active = <0>;
+-				vsync-active = <0>;
+-			};
+-		};
+-	};
+-
+-	i2c1: i2c@4802a000 {
+-
+-		ov2659@30 {
+-			compatible = "ti,ov2659";
+-			reg = <0x30>;
+-
+-			port {
+-				ov2659_1: endpoint {
+-					remote-endpoint = <&vpfe0_ep>;
+-					bus-width = <8>;
+-					mclk-frequency = <12000000>;
+-				};
+-			};
+-	};
 
-The register value isn't changed whereas the value that is visible to the
-userspace does change.
+---
+base-commit: c6859eed755df351a3978b33cb92365f9b3e8f06
+change-id: 20260720-ti-am437x-vpfe-739861b135ea
 
-> 
-> >  	},
-> >  	{
-> >  		/* 2x2 binned 60fps mode */
-> >  		.width = 1640,
-> >  		.height = 1232,
-> > -		.fll_def = 1707,
-> > +		.fll_def = 1706,
-> >  	},
-> >  	{
-> >  		/* 640x480 60fps mode */
-> >  		.width = 640,
-> >  		.height = 480,
-> > -		.fll_def = 1707,
-> > +		.fll_def = 1706,
-> 
-> Those two are fine as they won't (AFAIU) change register values.
-> 
-> >  	},
-> >  };
-> >  
-> > @@ -458,8 +458,7 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
-> >  		ret = __v4l2_ctrl_modify_range(imx219->exposure,
-> >  					       imx219->exposure->minimum,
-> >  					       exposure_max,
-> > -					       imx219->exposure->step,
-> > -					       exposure_def);
-> > +					       rate_factor, exposure_def);
-> 
-> The change is simple so I'm fine with it, but in general I'm not sure
-> this would be worth it if it were to make the code more complex.
-> Userspace can benefit from getting a precise step value, as well as
-> seeing the control value being adjusted when setting controls. However,
-> dealing with limit updates reported through events is quite cumbersome
-> for userspace. It's a big change and not a high priority, but I'd like
-> an API where ioctls such as VIDIOC_SUBDEV_S_FMT would have the ability
-> to report control changes synchronously.
-
-I wonder if VIDIOC_S_EXT_EXT_CTRLS could do that. :-)
-
-> 
-> With the change to the first fll_def possibly dropped,
-> 
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-
-Thank you.
-
-> 
-> >  		if (ret)
-> >  			return ret;
-> >  
-> > @@ -887,7 +886,8 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
-> >  
-> >  		/* Update limits and set FPS to default */
-> >  		ret = __v4l2_ctrl_modify_range(imx219->vblank, IMX219_VBLANK_MIN,
-> > -					       IMX219_FLL_MAX - mode->height, 1,
-> > +					       IMX219_FLL_MAX - mode->height,
-> > +					       rate_factor,
-> >  					       mode->fll_def - mode->height);
-> >  		if (ret)
-> >  			return ret;
-> > @@ -905,8 +905,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
-> >  		ret = __v4l2_ctrl_modify_range(imx219->exposure,
-> >  					       imx219->exposure->minimum,
-> >  					       exposure_max,
-> > -					       imx219->exposure->step,
-> > -					       exposure_def);
-> > +					       rate_factor, exposure_def);
-> >  		if (ret)
-> >  			return ret;
-> >  
-> > @@ -931,8 +930,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
-> >  			return ret;
-> >  
-> >  		/* Scale the pixel rate based on the mode specific factor */
-> > -		pixel_rate = imx219_get_pixel_rate(imx219) *
-> > -			     imx219_get_rate_factor(state);
-> > +		pixel_rate = imx219_get_pixel_rate(imx219) * rate_factor;
-> >  		ret = __v4l2_ctrl_modify_range(imx219->pixel_rate, pixel_rate,
-> >  					       pixel_rate, 1, pixel_rate);
-> >  		if (ret)
-> 
-
+Best regards,
 -- 
-Kind regards,
+Bhargav
 
-Sakari Ailus
