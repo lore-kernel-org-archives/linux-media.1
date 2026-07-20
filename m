@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D7742D94BA;
-	Mon, 20 Jul 2026 02:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4142C375E;
+	Mon, 20 Jul 2026 02:55:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784516119; cv=none; b=Ol3x9rt/0DLZl8nd+53Bdk6ZP7WoM/PM5JnOaGvRRrB9TilvqO/pSn70NEFmliHHTJ/ojR05TRQTmUzn4vJ7pSO2qKpZxkIWp9uO5g2LyR/fuwA0cJf/1j4zOx5e7tq0SiWVqfDO9GOskPCIAxvM2v9wmH+OZFBYw9FSRRdRIfA=
+	t=1784516120; cv=none; b=tXZisgGWrynGIPytslTmueXNiEoN5aG3wEDT8rHIgYjk5VXMmVLZ78FWEBUTdjRi89BGTNFiTaI2jy7xPdKn0XBn7ujYN3Dv/f7sGwiODn32vDEUyHg1hMK45JyZeaMs0uez47DqBXG1+H0cP82dS2yfeL1mBkO2wdkp5ZAIfsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784516119; c=relaxed/simple;
-	bh=2YIieWuP7AeigHxzRyf2683bP5bK+BOZGBQqcb2PYVo=;
+	s=arc-20240116; t=1784516120; c=relaxed/simple;
+	bh=8y/rWWDFfo+fHuVBOWu0Aknjuype/jk33qDbe3MIv3E=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=FOBEsla5fxogWLP2R6Dj/mU/RQXPVO0t47sbpppUPjPgpAj6l304jRkJDtkHmOfYfuu7Vfu409Cl1hKSOD9+8C7EwdQxqxMeiDrMhxDifDy2T16p1HXq76+9WvAbvMSHgNrqficp/5CreOTVc9NnT0PskI3Qu++sel6sJMq+ilg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=HfacBBLX; arc=none smtp.client-ip=220.197.31.2
+	 MIME-Version; b=GWOduxXia+2zHSN0tp5w2yFXpi21QdAr6Tu3M+HXunYH7wm1DICjuXVyX0zgzFmk08jl2UL+ze696hYs1qIpKUuep25LN0dH/OEnvAJiAQeeQfLS8AYIZhKVHJ1vYUSDwX/l8TYLlH35ZxYPCqv+q1p0f9+Y2aV0KLsg5Ge8wMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=TWIo+TGK; arc=none smtp.client-ip=117.135.210.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="HfacBBLX"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="TWIo+TGK"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=y0
-	qoNGo3zAUD4ghJXQGTMVvLR2N4yxQeUkJY4IHyJJY=; b=HfacBBLXgg4/+bfuBr
-	Nqlc7TjUjUSxNe78rzh2PSkev2D7+kRNS2D9DTZnr7VSICFatNvksRW+g/KHqkK2
-	90A+aYZIf+lIqvMldJMzaBI7xypU6DwAfH/y5v/RybgE/imIxE17UZ41glskeba+
-	khM4K4T1mFpFA8HmvvG3X8vuI=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=aV
+	U/VDBXJmWW7gqj2wSCfqF0qmfwsioCAZ9w6gfg81E=; b=TWIo+TGKQBUuIK6yqs
+	6qq3T/bMuEa/up/qMOvam09PZxNeCmsmgiDVhOdpgObpy11H0IUiekuw2z0blr17
+	/+bjaRCWjNjj9tvpKydqSUA+wS35pJlcrJKOQNNQGs78eukN/fkNL4V3nVHoK/2H
+	GXgBBgF8CMhTcElk+TSnrzU+c=
 Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3v5rwjV1qaGtIJQ--.123S7;
-	Mon, 20 Jul 2026 10:54:50 +0800 (CST)
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3v5rwjV1qaGtIJQ--.123S4;
+	Mon, 20 Jul 2026 10:54:47 +0800 (CST)
 From: Lei Huang <huanglei814@163.com>
 To: mchehab@kernel.org
 Cc: johan@kernel.org,
@@ -32,9 +32,9 @@ Cc: johan@kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Lei Huang <huanglei@kylinos.cn>
-Subject: [PATCH v2 05/17] media: s2255: Replace NULL comparisons with ! notation
-Date: Mon, 20 Jul 2026 10:54:34 +0800
-Message-Id: <20260720025438.207149-6-huanglei814@163.com>
+Subject: [PATCH v2 02/17] media: s2255: Rename remaining CamelCase identifiers to snake_case
+Date: Mon, 20 Jul 2026 10:54:31 +0800
+Message-Id: <20260720025438.207149-3-huanglei814@163.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260720025438.207149-1-huanglei814@163.com>
 References: <20260720025438.207149-1-huanglei814@163.com>
@@ -45,158 +45,364 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v5rwjV1qaGtIJQ--.123S7
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCr1DGFW7Cw45Wr4fury3urg_yoWruFWxpa
-	yagFZ5trW8try7Zrn3JF48WryYvwn3t3y2kFW7u3ykAr15J3s8Xw43GryIyr92krZayw13
-	Jrs8Xr1UurWDKF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07URCJQUUUUU=
-X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC0RqTimpdjfrNXgAA3B
+X-CM-TRANSID:_____wD3v5rwjV1qaGtIJQ--.123S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW3uF4ftr4DCryfZF4xtFWkZwb_yoWkZFWrpF
+	4rtFs0yr4Dta4UA3s3Cr1rZ345XFnrJ3y7KFW3C3sYgFyUJrykXF9rA3yIvryDAr929a4f
+	CFs8Wr17CayDtaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jzUDJUUUUU=
+X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC0heSiWpdjfdtDwAA3x
 
 From: Lei Huang <huanglei@kylinos.cn>
 
-Fix all 15 'CHECK: Comparison to NULL could be written' issues reported by
-checkpatch.pl in s2255drv.c. Replace 'x == NULL' with '!x' for pointer
-NULL checks.
+Rename CamelCase identifiers throughout s2255drv.c to comply with the
+Linux kernel coding style. All identifiers are local to this file
+(no header file or cross-file references).
+
+Struct members:
+  ulState      -> state
+  dwFrames     -> num_frames
+
+Function parameters (s2255_vendor_req, also updating the forward
+declaration to match):
+  Request              -> req
+  Index                -> index
+  Value                -> value
+  TransferBuffer       -> xfer_buf
+  TransferBufferLength -> xfer_buf_len
+  bOut                 -> is_out
+
+Local variables:
+  pY/pCb/pCr           -> p_y/p_cb/p_cr
+  linesPerFrame        -> lines_per_frame
+  pixelsPerLine        -> pixels_per_line
+  outImageSize         -> out_image_size
+  usbInSize            -> usb_in_size
+  transBuffer          -> trans_buf
+  pRel                 -> p_rel
+
+No functional changes.
 
 Signed-off-by: Lei Huang <huanglei@kylinos.cn>
 ---
- drivers/media/usb/s2255/s2255drv.c | 30 +++++++++++++++---------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+ drivers/media/usb/s2255/s2255drv.c | 139 +++++++++++++++--------------
+ 1 file changed, 70 insertions(+), 69 deletions(-)
 
 diff --git a/drivers/media/usb/s2255/s2255drv.c b/drivers/media/usb/s2255/s2255drv.c
-index a759ba9a6d51..4df558a7b8b3 100644
+index 64140b780e63..0f98a4cc18a4 100644
 --- a/drivers/media/usb/s2255/s2255drv.c
 +++ b/drivers/media/usb/s2255/s2255drv.c
-@@ -501,7 +501,7 @@ static void s2255_fwchunk_complete(struct urb *urb)
- 		wake_up(&data->wait_fw);
- 		return;
- 	}
--	if (data->fw_urb == NULL) {
-+	if (!data->fw_urb) {
- 		s2255_dev_err(&udev->dev, "disconnected\n");
- 		atomic_set(&data->fw_state, S2255_FW_FAILED);
- 		/* wake up anything waiting for the firmware */
-@@ -664,7 +664,7 @@ static int buffer_prepare(struct vb2_buffer *vb)
+@@ -151,14 +151,14 @@ struct s2255_mode {
+ /* frame structure */
+ struct s2255_framei {
  	unsigned long size;
+-	unsigned long ulState;	/* ulState:S2255_READ_IDLE, S2255_READ_FRAME*/
++	unsigned long state;	/* state:S2255_READ_IDLE, S2255_READ_FRAME*/
+ 	void *lpvbits;		/* image data */
+ 	unsigned long cur_size;	/* current data copied to it */
+ };
  
- 	dprintk(vc->dev, 4, "%s\n", __func__);
--	if (vc->fmt == NULL)
-+	if (!vc->fmt)
- 		return -EINVAL;
+ /* image buffer structure */
+ struct s2255_bufferi {
+-	unsigned long dwFrames;			/* number of frames in buffer */
++	unsigned long num_frames;			/* number of frames in buffer */
+ 	struct s2255_framei frame[SYS_FRAMES];	/* array of FRAME structures */
+ };
  
- 	if ((w < norm_minw(vc)) ||
-@@ -763,7 +763,7 @@ static int vidioc_try_fmt_vid_cap(struct file *file, void *priv,
+@@ -343,8 +343,8 @@ static int s2255_board_shutdown(struct s2255_dev *dev);
+ static void s2255_fwload_start(struct s2255_dev *dev);
+ static void s2255_destroy(struct s2255_dev *dev);
+ static long s2255_vendor_req(struct s2255_dev *dev, unsigned char req,
+-			     u16 index, u16 value, void *buf,
+-			     s32 buf_len, int bOut);
++			     u16 index, u16 value, void *xfer_buf,
++			     s32 xfer_buf_len, int is_out);
  
- 	fmt = format_by_fourcc(f->fmt.pix.pixelformat);
+ /* dev_err macro with driver name */
+ #define S2255_DRIVER_NAME "s2255"
+@@ -440,19 +440,19 @@ static void planar422p_to_yuv_packed(const unsigned char *in,
+ 				     int width, int height,
+ 				     int fmt)
+ {
+-	unsigned char *pY;
+-	unsigned char *pCb;
+-	unsigned char *pCr;
++	unsigned char *p_y;
++	unsigned char *p_cb;
++	unsigned char *p_cr;
+ 	unsigned long size = height * width;
+ 	unsigned int i;
+-	pY = (unsigned char *)in;
+-	pCr = (unsigned char *)in + height * width;
+-	pCb = (unsigned char *)in + height * width + (height * width / 2);
++	p_y = (unsigned char *)in;
++	p_cr = (unsigned char *)in + height * width;
++	p_cb = (unsigned char *)in + height * width + (height * width / 2);
+ 	for (i = 0; i < size * 2; i += 4) {
+-		out[i] = (fmt == V4L2_PIX_FMT_YUYV) ? *pY++ : *pCr++;
+-		out[i + 1] = (fmt == V4L2_PIX_FMT_YUYV) ? *pCr++ : *pY++;
+-		out[i + 2] = (fmt == V4L2_PIX_FMT_YUYV) ? *pY++ : *pCb++;
+-		out[i + 3] = (fmt == V4L2_PIX_FMT_YUYV) ? *pCb++ : *pY++;
++		out[i] = (fmt == V4L2_PIX_FMT_YUYV) ? *p_y++ : *p_cr++;
++		out[i + 1] = (fmt == V4L2_PIX_FMT_YUYV) ? *p_cr++ : *p_y++;
++		out[i + 2] = (fmt == V4L2_PIX_FMT_YUYV) ? *p_y++ : *p_cb++;
++		out[i + 3] = (fmt == V4L2_PIX_FMT_YUYV) ? *p_cb++ : *p_y++;
+ 	}
+ 	return;
+ }
+@@ -896,10 +896,10 @@ static int s2255_write_config(struct usb_device *udev, unsigned char *pbuf,
  
--	if (fmt == NULL)
-+	if (!fmt)
- 		return -EINVAL;
- 
- 	dprintk(vc->dev, 50, "%s NTSC: %d suggested width: %d, height: %d\n",
-@@ -820,7 +820,7 @@ static int vidioc_s_fmt_vid_cap(struct file *file, void *priv,
- 
- 	fmt = format_by_fourcc(f->fmt.pix.pixelformat);
- 
--	if (fmt == NULL)
-+	if (!fmt)
- 		return -EINVAL;
- 
- 	if (vb2_is_busy(q)) {
-@@ -904,7 +904,7 @@ static u32 get_transfer_size(struct s2255_mode *mode)
- 	u32 usb_in_size;
+ static u32 get_transfer_size(struct s2255_mode *mode)
+ {
+-	int linesPerFrame = LINE_SZ_DEF;
+-	int pixelsPerLine = NUM_LINES_DEF;
+-	u32 outImageSize;
+-	u32 usbInSize;
++	int lines_per_frame = LINE_SZ_DEF;
++	int pixels_per_line = NUM_LINES_DEF;
++	u32 out_image_size;
++	u32 usb_in_size;
  	unsigned int mask_mult;
  
--	if (mode == NULL)
-+	if (!mode)
- 		return 0;
- 
- 	if (mode->format == FORMAT_NTSC) {
-@@ -1358,7 +1358,7 @@ static int vidioc_enum_framesizes(struct file *file, void *priv,
- 		return -EINVAL;
- 
- 	fmt = format_by_fourcc(fe->pixel_format);
--	if (fmt == NULL)
-+	if (!fmt)
- 		return -EINVAL;
- 	fe->type = V4L2_FRMSIZE_TYPE_DISCRETE;
- 	fe->discrete = is_ntsc ?  ntsc_sizes[fe->index] : pal_sizes[fe->index];
-@@ -1380,7 +1380,7 @@ static int vidioc_enum_frameintervals(struct file *file, void *priv,
- 		return -EINVAL;
- 
- 	fmt = format_by_fourcc(fe->pixel_format);
--	if (fmt == NULL)
-+	if (!fmt)
- 		return -EINVAL;
- 
- 	sizes = is_ntsc ? ntsc_sizes : pal_sizes;
-@@ -1806,7 +1806,7 @@ static int save_frame(struct s2255_dev *dev, struct s2255_pipeinfo *pipe_info)
- 	psrc = (u8 *)pipe_info->transfer_buffer + offset;
- 
- 
--	if (frm->lpvbits == NULL) {
-+	if (!frm->lpvbits) {
- 		dprintk(dev, 1, "s2255 frame buffer == NULL.%p %p %d %d",
- 			frm, dev, dev->cc, idx);
- 		return -ENOMEM;
-@@ -1937,7 +1937,7 @@ static int s2255_create_sys_buffers(struct s2255_vc *vc)
- 		/* allocate the frames */
- 		vc->buffer.frame[i].lpvbits = vmalloc(reqsize);
- 		vc->buffer.frame[i].size = reqsize;
--		if (vc->buffer.frame[i].lpvbits == NULL) {
-+		if (!vc->buffer.frame[i].lpvbits) {
- 			pr_info("out of memory.  using less frames\n");
- 			vc->buffer.num_frames = i;
+ 	if (mode == NULL)
+@@ -909,16 +909,16 @@ static u32 get_transfer_size(struct s2255_mode *mode)
+ 		switch (mode->scale) {
+ 		case SCALE_4CIFS:
+ 		case SCALE_4CIFSI:
+-			linesPerFrame = NUM_LINES_4CIFS_NTSC * 2;
+-			pixelsPerLine = LINE_SZ_4CIFS_NTSC;
++			lines_per_frame = NUM_LINES_4CIFS_NTSC * 2;
++			pixels_per_line = LINE_SZ_4CIFS_NTSC;
  			break;
-@@ -1979,7 +1979,7 @@ static int s2255_board_init(struct s2255_dev *dev)
+ 		case SCALE_2CIFS:
+-			linesPerFrame = NUM_LINES_2CIFS_NTSC;
+-			pixelsPerLine = LINE_SZ_2CIFS_NTSC;
++			lines_per_frame = NUM_LINES_2CIFS_NTSC;
++			pixels_per_line = LINE_SZ_2CIFS_NTSC;
+ 			break;
+ 		case SCALE_1CIFS:
+-			linesPerFrame = NUM_LINES_1CIFS_NTSC;
+-			pixelsPerLine = LINE_SZ_1CIFS_NTSC;
++			lines_per_frame = NUM_LINES_1CIFS_NTSC;
++			pixels_per_line = LINE_SZ_1CIFS_NTSC;
+ 			break;
+ 		default:
+ 			break;
+@@ -927,35 +927,35 @@ static u32 get_transfer_size(struct s2255_mode *mode)
+ 		switch (mode->scale) {
+ 		case SCALE_4CIFS:
+ 		case SCALE_4CIFSI:
+-			linesPerFrame = NUM_LINES_4CIFS_PAL * 2;
+-			pixelsPerLine = LINE_SZ_4CIFS_PAL;
++			lines_per_frame = NUM_LINES_4CIFS_PAL * 2;
++			pixels_per_line = LINE_SZ_4CIFS_PAL;
+ 			break;
+ 		case SCALE_2CIFS:
+-			linesPerFrame = NUM_LINES_2CIFS_PAL;
+-			pixelsPerLine = LINE_SZ_2CIFS_PAL;
++			lines_per_frame = NUM_LINES_2CIFS_PAL;
++			pixels_per_line = LINE_SZ_2CIFS_PAL;
+ 			break;
+ 		case SCALE_1CIFS:
+-			linesPerFrame = NUM_LINES_1CIFS_PAL;
+-			pixelsPerLine = LINE_SZ_1CIFS_PAL;
++			lines_per_frame = NUM_LINES_1CIFS_PAL;
++			pixels_per_line = LINE_SZ_1CIFS_PAL;
+ 			break;
+ 		default:
+ 			break;
+ 		}
+ 	}
+-	outImageSize = linesPerFrame * pixelsPerLine;
++	out_image_size = lines_per_frame * pixels_per_line;
+ 	if ((mode->color & MASK_COLOR) != COLOR_Y8) {
+ 		/* 2 bytes/pixel if not monochrome */
+-		outImageSize *= 2;
++		out_image_size *= 2;
+ 	}
  
- 	pipe->transfer_buffer = kzalloc(pipe->max_transfer_size,
- 					GFP_KERNEL);
--	if (pipe->transfer_buffer == NULL) {
-+	if (!pipe->transfer_buffer) {
- 		dprintk(dev, 1, "out of memory!\n");
+ 	/* total bytes to send including prefix and 4K padding;
+ 	   must be a multiple of USB_READ_SIZE */
+-	usbInSize = outImageSize + PREFIX_SIZE;	/* always send prefix */
++	usb_in_size = out_image_size + PREFIX_SIZE;	/* always send prefix */
+ 	mask_mult = 0xffffffffUL - DEF_USB_BLOCK + 1;
+ 	/* if size not a multiple of USB_READ_SIZE */
+-	if (usbInSize & ~mask_mult)
+-		usbInSize = (usbInSize & mask_mult) + (DEF_USB_BLOCK);
+-	return usbInSize;
++	if (usb_in_size & ~mask_mult)
++		usb_in_size = (usb_in_size & mask_mult) + (DEF_USB_BLOCK);
++	return usb_in_size;
+ }
+ 
+ static void s2255_print_cfg(struct s2255_dev *sdev, struct s2255_mode *mode)
+@@ -1066,7 +1066,7 @@ static int start_streaming(struct vb2_queue *vq, unsigned int count)
+ 	vc->cur_frame = 0;
+ 	vc->frame_count = 0;
+ 	for (j = 0; j < SYS_FRAMES; j++) {
+-		vc->buffer.frame[j].ulState = S2255_READ_IDLE;
++		vc->buffer.frame[j].state = S2255_READ_IDLE;
+ 		vc->buffer.frame[j].cur_size = 0;
+ 	}
+ 	return s2255_start_acquire(vc);
+@@ -1701,7 +1701,7 @@ static int save_frame(struct s2255_dev *dev, struct s2255_pipeinfo *pipe_info)
+ 	vc = &dev->vc[dev->cc];
+ 	idx = vc->cur_frame;
+ 	frm = &vc->buffer.frame[idx];
+-	if (frm->ulState == S2255_READ_IDLE) {
++	if (frm->state == S2255_READ_IDLE) {
+ 		int jj;
+ 		unsigned int cc;
+ 		__le32 *pdword; /*data from dsp is little endian */
+@@ -1790,12 +1790,12 @@ static int save_frame(struct s2255_dev *dev, struct s2255_pipeinfo *pipe_info)
+ 	/* search done.  now find out if should be acquiring on this channel */
+ 	if (!vb2_is_streaming(&vc->vb_vidq)) {
+ 		/* we found a frame, but this channel is turned off */
+-		frm->ulState = S2255_READ_IDLE;
++		frm->state = S2255_READ_IDLE;
+ 		return -EINVAL;
+ 	}
+ 
+-	if (frm->ulState == S2255_READ_IDLE) {
+-		frm->ulState = S2255_READ_FRAME;
++	if (frm->state == S2255_READ_IDLE) {
++		frm->state = S2255_READ_FRAME;
+ 		frm->cur_size = 0;
+ 	}
+ 
+@@ -1829,13 +1829,13 @@ static int save_frame(struct s2255_dev *dev, struct s2255_pipeinfo *pipe_info)
+ 		vc->cur_frame++;
+ 		/* end of system frame ring buffer, start at zero */
+ 		if ((vc->cur_frame == SYS_FRAMES) ||
+-		    (vc->cur_frame == vc->buffer.dwFrames))
++		    (vc->cur_frame == vc->buffer.num_frames))
+ 			vc->cur_frame = 0;
+ 		/* frame ready */
+ 		if (vb2_is_streaming(&vc->vb_vidq))
+ 			s2255_got_frame(vc, vc->jpg_size);
+ 		vc->frame_count++;
+-		frm->ulState = S2255_READ_IDLE;
++		frm->state = S2255_READ_IDLE;
+ 		frm->cur_size = 0;
+ 
+ 	}
+@@ -1863,33 +1863,33 @@ static void s2255_read_video_callback(struct s2255_dev *dev,
+ 	return;
+ }
+ 
+-static long s2255_vendor_req(struct s2255_dev *dev, unsigned char Request,
+-			     u16 Index, u16 Value, void *TransferBuffer,
+-			     s32 TransferBufferLength, int bOut)
++static long s2255_vendor_req(struct s2255_dev *dev, unsigned char req,
++			     u16 index, u16 value, void *xfer_buf,
++			     s32 xfer_buf_len, int is_out)
+ {
+ 	int r;
+ 	unsigned char *buf;
+ 
+-	buf = kmalloc(TransferBufferLength, GFP_KERNEL);
++	buf = kmalloc(xfer_buf_len, GFP_KERNEL);
+ 	if (!buf)
  		return -ENOMEM;
- 	}
-@@ -2039,12 +2039,12 @@ static void read_pipe_completion(struct urb *purb)
- 	int status;
- 	int pipe;
- 	pipe_info = purb->context;
--	if (pipe_info == NULL) {
-+	if (!pipe_info) {
- 		dev_err(&purb->dev->dev, "no context!\n");
- 		return;
- 	}
- 	dev = pipe_info->dev;
--	if (dev == NULL) {
-+	if (!dev) {
- 		dev_err(&purb->dev->dev, "no context!\n");
- 		return;
- 	}
-@@ -2211,13 +2211,13 @@ static int s2255_probe(struct usb_interface *interface,
  
- 	/* allocate memory for our device state and initialize it to zero */
- 	dev = kzalloc_obj(struct s2255_dev);
--	if (dev == NULL) {
-+	if (!dev) {
- 		s2255_dev_err(&interface->dev, "out of memory\n");
- 		return -ENOMEM;
+-	if (!bOut) {
++	if (!is_out) {
+ 		r = usb_control_msg(dev->udev, usb_rcvctrlpipe(dev->udev, 0),
+-				    Request,
++				    req,
+ 				    USB_TYPE_VENDOR | USB_RECIP_DEVICE |
+ 				    USB_DIR_IN,
+-				    Value, Index, buf,
+-				    TransferBufferLength, USB_CTRL_SET_TIMEOUT);
++				    value, index, buf,
++				    xfer_buf_len, USB_CTRL_SET_TIMEOUT);
+ 
+ 		if (r >= 0)
+-			memcpy(TransferBuffer, buf, TransferBufferLength);
++			memcpy(xfer_buf, buf, xfer_buf_len);
+ 	} else {
+-		memcpy(buf, TransferBuffer, TransferBufferLength);
++		memcpy(buf, xfer_buf, xfer_buf_len);
+ 		r = usb_control_msg(dev->udev, usb_sndctrlpipe(dev->udev, 0),
+-				    Request, USB_TYPE_VENDOR | USB_RECIP_DEVICE,
+-				    Value, Index, buf,
+-				    TransferBufferLength, USB_CTRL_SET_TIMEOUT);
++				    req, USB_TYPE_VENDOR | USB_RECIP_DEVICE,
++				    value, index, buf,
++				    xfer_buf_len, USB_CTRL_SET_TIMEOUT);
+ 	}
+ 	kfree(buf);
+ 	return r;
+@@ -1904,14 +1904,14 @@ static int s2255_get_fx2fw(struct s2255_dev *dev)
+ {
+ 	int fw;
+ 	int ret;
+-	u8 transBuffer[2] = {};
++	u8 trans_buf[2] = {};
+ 
+-	ret = s2255_vendor_req(dev, S2255_VR_FW, 0, 0, transBuffer,
+-			       sizeof(transBuffer), S2255_VR_IN);
++	ret = s2255_vendor_req(dev, S2255_VR_FW, 0, 0, trans_buf,
++			       sizeof(trans_buf), S2255_VR_IN);
+ 	if (ret < 0)
+ 		dprintk(dev, 2, "get fw error: %x\n", ret);
+-	fw = transBuffer[0] + (transBuffer[1] << 8);
+-	dprintk(dev, 2, "Get FW %x %x\n", transBuffer[0], transBuffer[1]);
++	fw = trans_buf[0] + (trans_buf[1] << 8);
++	dprintk(dev, 2, "Get FW %x %x\n", trans_buf[0], trans_buf[1]);
+ 	return fw;
+ }
+ 
+@@ -1923,7 +1923,7 @@ static int s2255_create_sys_buffers(struct s2255_vc *vc)
+ {
+ 	unsigned long i;
+ 	unsigned long reqsize;
+-	vc->buffer.dwFrames = SYS_FRAMES;
++	vc->buffer.num_frames = SYS_FRAMES;
+ 	/* always allocate maximum size(PAL) for system buffers */
+ 	reqsize = SYS_FRAMES_MAXSIZE;
+ 
+@@ -1936,14 +1936,14 @@ static int s2255_create_sys_buffers(struct s2255_vc *vc)
+ 		vc->buffer.frame[i].size = reqsize;
+ 		if (vc->buffer.frame[i].lpvbits == NULL) {
+ 			pr_info("out of memory.  using less frames\n");
+-			vc->buffer.dwFrames = i;
++			vc->buffer.num_frames = i;
+ 			break;
+ 		}
  	}
  
- 	dev->cmdbuf = kzalloc(S2255_CMDBUF_SIZE, GFP_KERNEL);
--	if (dev->cmdbuf == NULL) {
-+	if (!dev->cmdbuf) {
- 		s2255_dev_err(&interface->dev, "out of memory\n");
- 		goto err_fwdata1;
+ 	/* make sure internal states are set */
+ 	for (i = 0; i < SYS_FRAMES; i++) {
+-		vc->buffer.frame[i].ulState = 0;
++		vc->buffer.frame[i].state = 0;
+ 		vc->buffer.frame[i].cur_size = 0;
  	}
-@@ -2231,7 +2231,7 @@ static int s2255_probe(struct usb_interface *interface,
- 	mutex_init(&dev->cmdlock);
- 	/* grab usb_device and save it */
- 	dev->udev = usb_get_dev(interface_to_usbdev(interface));
--	if (dev->udev == NULL) {
-+	if (!dev->udev) {
- 		dev_err(&interface->dev, "null usb device\n");
- 		retval = -ENODEV;
- 		goto err_udev;
+ 
+@@ -2123,7 +2123,7 @@ static int s2255_start_acquire(struct s2255_vc *vc)
+ 	vc->bad_payload = 0;
+ 	vc->cur_frame = 0;
+ 	for (j = 0; j < SYS_FRAMES; j++) {
+-		vc->buffer.frame[j].ulState = 0;
++		vc->buffer.frame[j].state = 0;
+ 		vc->buffer.frame[j].cur_size = 0;
+ 	}
+ 
+@@ -2290,10 +2290,11 @@ static int s2255_probe(struct usb_interface *interface,
+ 		goto err_fwmarker;
+ 	} else {
+ 		/* make sure firmware is the latest */
+-		__le32 *pRel;
+-		pRel = (__le32 *) &dev->fw_data->fw->data[fw_size - 4];
+-		pr_info("s2255 dsp fw version %x\n", le32_to_cpu(*pRel));
+-		dev->dsp_fw_ver = le32_to_cpu(*pRel);
++		__le32 *p_rel;
++
++		p_rel = (__le32 *)&dev->fw_data->fw->data[fw_size - 4];
++		pr_info("s2255 dsp fw version %x\n", le32_to_cpu(*p_rel));
++		dev->dsp_fw_ver = le32_to_cpu(*p_rel);
+ 		if (dev->dsp_fw_ver < S2255_CUR_DSP_FWVER)
+ 			pr_info("s2255: f2255usb.bin out of date.\n");
+ 		if (dev->pid == 0x2257 &&
 -- 
 2.25.1
 
