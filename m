@@ -1,115 +1,89 @@
-Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FBB42B733
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 14:29:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784557767; cv=none; b=eyc5B8cgmb81wO2YpAJDV8a7Kq1IhGEU04bkeoXMiTfLwDjerrjJaa8d8hu+2x1lx0pWd72x3SyKrtyVGd+YpNfzVgw5lof35M/XKKTbSXqb+XpvxPZoRbMB6oe6EB1Kw8jbQUbeLIyPb8+nBZwR1UPGknneI9e15XuF+BHssVg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784557767; c=relaxed/simple;
-	bh=/xxjhTeTYlPskVvcuW8vsxe5iugEc5NZC/WrGRNyeqc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TarncN3ijTtoaJHOZefB9+XjWcRLqks3V9p16WFcMPV0exbHup1Mm3Wvj8rqMtyVWicVt8U3QslrhQJ7txrSPhHmhymPbjLuwSbLRhYS6KN+Tu28iI2+EW+RFZJiBPumD1jkRTDc8QBEXEUOE7iorycwz9IoZcAiUVcctjUibyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm; spf=pass smtp.mailfrom=berg.pm; dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b=lYGFnjyx; arc=none smtp.client-ip=185.70.43.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berg.pm
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2165C3E6396;
+	Mon, 20 Jul 2026 14:37:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784558224; cv=pass; b=bKJaXoLhAK18dN04CgLyf5qEtb+8T9cjsQW4gAnFEPmGtC9D9jeq+bA5t8eYHHwOWBCiSXRWRQ8pElIVbO+WS/XGF1yyGxLeUyo2AxEvFh2HXu8N7+FyCG3lMtuakCunSUbsm0z0k64gIxWrgCjcFUJCn3dLj9MIUYMWXE901Fo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784558224; c=relaxed/simple;
+	bh=CoOZMtk6XHc1FjNBTqqquHL+TZcrggfXywztwhSjV3g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fasoNHLG0AedIjd7qAHzcYsts4sQSmLOYC3gWUgSppZD60BNd24cq0FNLzBbe3EEXa6WrsyiM/a6pyACHjmRhtyqdrowfGPgApBt9VLfjSOz9hZIdJCEYXOeX3X+YYS5dj6Bw4pnzQes0rFTpZ69Y+3PW8Gwenp9Cx8w9+sn8cg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=BfK2iFa8; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b="lYGFnjyx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=berg.pm;
-	s=protonmail; t=1784557755; x=1784816955;
-	bh=qMxNineG/nldiihWlEY9FdiQ6QC7kxpKIqji2f+Qolk=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=lYGFnjyx5IXHHPJCdH9BGlOhLSHTPCHJcyJNDTKFif2v34KMCqZdyBKUx+bxiw+8L
-	 /iT6lVfEhCjUo0YE/kGX4BK8vnulcLOmA2rfSUscbWaSEyAwyvInwzXoylVa4XJQOP
-	 MfzthV7+l4T9bx+xRvfDuH6VxB2KkPDBA8/lF/btYBYw7pt9S7XgQO3++hAC7PhP3m
-	 4oUsaFrtBRuS96oVTrfnOm4G6W3+Dlb26hxe5pZt21dS9K2x/Ni6CPSIPCK+KG/OtW
-	 BiWbaijjdKRynvQ6nGEAM+ykM2UwamNRMxkLPg/DWmQ/minW30jC0K1lEK3GQdNRFy
-	 OIHABk+mI1yug==
-X-Pm-Submission-Id: 4h3jZJ3V3fz1DDLl
-From: Jakob Berg Jespersen <dev@berg.pm>
-Date: Mon, 20 Jul 2026 16:28:40 +0200
-Subject: [PATCH RFC 1/2] media: i2c: ov8865: fix horizontal flip control
- polarity
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="BfK2iFa8"
+ARC-Seal: i=1; a=rsa-sha256; t=1784558205; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Zk2niH1F0FMDASBDJHW4T1D8LwCoRgcWxVsvlLMaRjbQsjeqcJRa4ZsIaWMHGl6mRLmN8TL9r3ieALJC+rC39gKlHV6J/DOfDElvc0TD9c1GVAoMG7stVx56dhHJxdq3XiKLr1fk25v9I6f2cHbGFbDXUydZm1lgWEgTWJKKyIE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784558205; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=/wsZJyigWi4VXhv0iWi6BonguYvhNMUA5fX0Vo4g9SM=; 
+	b=Bahm1CcytqwOeGqj/TFacnKL+gJo4FJlvSJU548ZSxhNJzrbjN+bJVdYSVbk7jwouMR4/4788vE9ggff4jBWxGXf9dqpJ/NhiTOmC+jd4cvez/0V9OLTx9h2bRRnXIEVkPuhwqxXvkv8ZlggfrB2MuceuZtbS17QXBdC+IQVY64=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784558205;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=/wsZJyigWi4VXhv0iWi6BonguYvhNMUA5fX0Vo4g9SM=;
+	b=BfK2iFa8lQWfSq3+niadj8GnCtMfiaiB1NmvDt7uYAmxPYsCICQAdtxPDEQPT5Md
+	vshKmokcYoTg814I1OXngSt73AjlHo7lJPN0KJ6bF6N10kZET7gJTNEOszitK3iRAB5
+	7U5rhp2MSjOwZrDvX6jtGMy/J0PKdmg9hsuSax/k=
+Received: by mx.zohomail.com with SMTPS id 1784558202613285.0487905776356;
+	Mon, 20 Jul 2026 07:36:42 -0700 (PDT)
+Message-ID: <b8d63f61-b73e-412e-8119-ced1afdd4551@collabora.com>
+Date: Mon, 20 Jul 2026 17:36:37 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/4] media: synopsys: hdmirx: add HDMI audio capture
+ support
+To: Igor Paunovic <royalnet026@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260718085728.6797-1-royalnet026@gmail.com>
+ <20260718085728.6797-3-royalnet026@gmail.com>
+ <25922edc-4ff1-4d28-9a64-2c28b2b690cb@collabora.com>
+ <CAEWPSH70FecQRuGtA=S8+_CnLY5sMyf1j57Uwzwv54zceS1HZg@mail.gmail.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <CAEWPSH70FecQRuGtA=S8+_CnLY5sMyf1j57Uwzwv54zceS1HZg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260720-sp7plus-ov-flips-v1-1-5f345b0673de@berg.pm>
-References: <20260720-sp7plus-ov-flips-v1-0-5f345b0673de@berg.pm>
-In-Reply-To: <20260720-sp7plus-ov-flips-v1-0-5f345b0673de@berg.pm>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Daniel Scally <dan.scally@ideasonboard.com>
-Cc: Hans de Goede <hansg@kernel.org>, 
- Fernando Rimoli <fernandorimoli11@gmail.com>, 
- Tooraj Taraz <tooraj.taraz@yahoo.com>, 
- "Joseph V. Lavigne" <jlavig88@gmail.com>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Jakob Berg Jespersen <dev@berg.pm>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784557750; l=2010;
- i=dev@berg.pm; s=20260719; h=from:subject:message-id;
- bh=/xxjhTeTYlPskVvcuW8vsxe5iugEc5NZC/WrGRNyeqc=;
- b=t+gXxG2gCVslmYEuL0qk4Q4FnaUBzKDZbDNV8toBc5ZSTvi9QJYjoeAzyLJCM+AoLcKmNJObd
- 5IXZzYShbrCDt/T1wEfvgybWUDqRnFWeb4cQrC8FjnfxYO9LlQLxfY+
-X-Developer-Key: i=dev@berg.pm; a=ed25519;
- pk=b1r+eoJThwSQ/r5DjO7jrcosyrIsyhlOuKk9CBdvBxs=
+X-ZohoMailClient: External
 
-The ov8865's native readout is horizontally mirrored and the
-FORMAT2 FLIP_HORZ bits (reg 0x3821) un-mirror it: with the bits
-cleared the image is mirrored, with them set it is not. The driver
-maps V4L2_CID_HFLIP=1 to setting the bits, so requesting a flip
-produces an unflipped image and vice versa.
+On 7/20/26 15:30, Igor Paunovic wrote:
+> Hi Dmitry,
+> 
+> Great to hear it works on the 5B -- thanks for testing!
+> 
+> Agreed on the -EBUSY guard, done in my tree exactly as you wrote it.
+> It also supersedes the suspend cancel/re-arm I had queued from the
+> bot review: with suspend refused while audio_streaming is set, the
+> worker can never be armed at suspend time, so those hunks are
+> dropped.
+> 
+> v4 follows shortly with this plus Sebastian's dts restructuring
+> (shared disabled-by-default card in rk3588-extra.dtsi, renamed to
+> "RK3588 HDMI-IN") and Krzysztof's binding comments (dai-common.yaml
+> reference + unevaluatedProperties).
 
-This is user-visible on the Surface Pro 7+ rear camera (mounted with a
-180 degree rotation, SSDB degree=180): libcamera requests HFLIP=1+VFLIP=1
-to undo the mount rotation and gets a horizontally flipped image.
-
-Verified by a live 4-state flip/image matrix on the streaming sensor:
-
-  hflip=0 vflip=0 -> 180 degree rotation (both flips)
-  hflip=1 vflip=0 -> vertical flip only
-  hflip=0 vflip=1 -> correct image
-  hflip=1 vflip=1 -> horizontal flip only
-
-(vertical flip = reflection over a horizontal mirror line, as on water;
-horizontal flip = reflection over a vertical mirror line, as in a mirror)
-
-which is only consistent with an inverted HFLIP and a correct VFLIP.
-
-Invert the polarity so HFLIP=0 yields the unflipped image.
-
-Signed-off-by: Jakob Berg Jespersen <dev@berg.pm>
----
- drivers/media/i2c/ov8865.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/i2c/ov8865.c b/drivers/media/i2c/ov8865.c
-index c6d53c3d55ca..901ea7c16395 100644
---- a/drivers/media/i2c/ov8865.c
-+++ b/drivers/media/i2c/ov8865.c
-@@ -2204,8 +2204,14 @@ static int ov8865_flip_horz_configure(struct ov8865_sensor *sensor, bool enable)
- 	u8 bits = OV8865_FORMAT2_FLIP_HORZ_ISP_EN |
- 		  OV8865_FORMAT2_FLIP_HORZ_SENSOR_EN;
- 
-+	/*
-+	 * The sensor's native readout is horizontally mirrored; the
-+	 * FLIP_HORZ bits un-mirror it. Map the control so that HFLIP=0
-+	 * yields an unmirrored image (verified on Surface Pro 7+ rear
-+	 * camera by a live flip-control/image matrix test).
-+	 */
- 	return ov8865_update_bits(sensor, OV8865_FORMAT2_REG, bits,
--				  enable ? bits : 0);
-+				  enable ? 0 : bits);
- }
- 
- /* Test Pattern */
+Re-arming will be best option if it works properly.
 
 -- 
-2.55.0
-
+Best regards,
+Dmitry
