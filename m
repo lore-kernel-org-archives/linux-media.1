@@ -1,125 +1,104 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE3C38C40C
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 14:13:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5449839A806
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 14:26:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784556820; cv=none; b=YPoYzDmGy30gcRfIkqkh8zKm+4abYR+NWv1e9Dn60X/PBiIRGwT2rHo4wwieXiZ2q50MGMzdITjsSxAPyGdTnwFfIMeZBqffIcwrbOiYEDKVGPCTuGkMtIcEZjrW/jboYkvnVru2cd34wn7nKP8DmXE5BmdTQxtL3Til/sYNP3k=
+	t=1784557601; cv=none; b=Dr0L0oDCX5O/MYZB/7Bb+DhUKrC4a72k/gFuO+D7oKKnYLQlTB6EX4VTKf0ZbLZN0f/tMHhN+0UWzhxW2kOtRpeD04rFg4KF6MSumkhfU3OxNtEfveuUgIBDCM6YHIfRhpgowcCiC+3Clo0Bfwea8AT1r4kjdrix8eALKzNSPQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784556820; c=relaxed/simple;
-	bh=puhdLhuRoke0s76W7Rati63RDEwMRchyb4bINHzgH0c=;
+	s=arc-20240116; t=1784557601; c=relaxed/simple;
+	bh=spQSkh+QrD92ygbE74b4O6NuAcu59lrkkkPAA8WOSZo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H83r/y+3vaDsVJmEAkIg98N/SrtUALVjgb8UpkVdESX6mOrb69SjvBuYIDiZ03/GrzN3JuX2xjBS+JnnzvgionI2Uvdl/ZOOFpyD8r1XeOwVE1+buqczLnC6rQEO/hFY0wx5xcBpJhy/VV1apXyjzKcmW0OFqijp8kECovjGTNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OvWsUubf; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=gl1WNqhwJP9l9v307sS9qh1vihcBez6Yt67SL0AeSqMXb/o1U4yOz1jlBM0XsRG4ecRRbAlr/0L5KX4j23Q6wV9bnVhooysYcDYsoDv+X1UeXztDLi+oPPGvK7b+FH9jKfN9MZ/oJjLSHyzNlm02GOASojggtdb6SNLOw+ShK6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PK9jZIci; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OvWsUubf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784556818; x=1816092818;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=puhdLhuRoke0s76W7Rati63RDEwMRchyb4bINHzgH0c=;
-  b=OvWsUubfhzS4gbWNfer8TnVQKUJAig0Xi8hcvy7jlyPCkNjTx5k2zuXU
-   e0SUCJo6lewE/t/cZZIqGj/eO/qgu1/U7zEauXzTjuA7JAgI9C6a1We9b
-   OmVusGvSql6+6BkIctt41io9FLgHa/A/tIcaZcWwYfL48+DSsfS04Npj+
-   MWKNEcZvfIHmdL5Ra5l5ldnB4eZevZ/wljyuOIrU8Yiph7MwUMOw75MK6
-   bmAGqz+JtBqAothRftfK0IRvln4trC/vbIuqEwdHSAxp5aWehErTXnM5n
-   8n3bmp/MUy5W4vhjJxfoVXkO6ewufEDF/6C2OuJ+AAPH10I0NjJcJJgCE
-   w==;
-X-CSE-ConnectionGUID: ijOPdsJnS2SQvCNrwqg5yA==
-X-CSE-MsgGUID: bPDwR4xyQq++Di/Z4YDDlA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="102558123"
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
-   d="scan'208";a="102558123"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 07:13:37 -0700
-X-CSE-ConnectionGUID: fII0tMQxTeilmKSgVropag==
-X-CSE-MsgGUID: kkUF3DriT2S+asnATIwEEg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
-   d="scan'208";a="254063631"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.94])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 07:13:28 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 2EE9D121C2B;
-	Mon, 20 Jul 2026 17:13:31 +0300 (EEST)
-Date: Mon, 20 Jul 2026 17:13:31 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: hans@jjverkuil.nl, Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
-	Kate Hsuan <hpa@redhat.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Tommaso Merciai <tomm.merciai@gmail.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Julien Massot <julien.massot@collabora.com>,
-	Naushir Patuck <naush@raspberrypi.com>,
-	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	Stefan Klug <stefan.klug@ideasonboard.com>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	=?iso-8859-1?Q?Andr=E9?= Apitzsch <git@apitzsch.eu>,
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Ricardo Ribalda Delgado <ribalda@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PK9jZIci"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A68D1F000E9;
+	Mon, 20 Jul 2026 14:26:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784557600;
+	bh=spQSkh+QrD92ygbE74b4O6NuAcu59lrkkkPAA8WOSZo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PK9jZIci69cUA3J1TWmFFd5dUQhtEkr7FfLSEsUtnL4OqE4s49nlM3pLiGdhMw2Jj
+	 WWQJfmvZ4PxvzNEoHe36A9suZ2VPTcme5CH1aVxjxQsivSXqyXoangOnG3pNVkoxsi
+	 gxcJMknkPO5YHgfTMu8/8RgpZ2HVrebOXxKtqUDS2hv+nh0NX873ROjG6jJRSAl4yK
+	 ++ag6mHzZwuyeWISdUdy+n7hj4ys/HJuS6Ov6+ECblMmSd2To00On9Msn7XtlLYMXA
+	 i+VYqmHlJLXEEicdmtrsac79aV/lWDWrY/l8MecrvoxlI91d73OlJ2OZHAq267uzy/
+	 XZzsjl5IudpPw==
+Date: Mon, 20 Jul 2026 15:26:34 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Theodore Tso <tytso@mit.edu>,
 	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	David Plowman <david.plowman@raspberrypi.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v6 13/16] media: v4l2-subdev: Add
- v4l2_subdev_call_ci_state_{active,try}
-Message-ID: <al4tC7BsVWiVBqOg@kekkonen.localdomain>
-References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
- <20260701122634.1728782-13-sakari.ailus@linux.intel.com>
- <20260720084553.GD3679@killaraus.ideasonboard.com>
- <al3hi3-oTj1CCxaD@kekkonen.localdomain>
- <20260720124651.GA9442@killaraus.ideasonboard.com>
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Derek Barbosa <debarbos@redhat.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>, users@kernel.org,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Stephen Finucane <stephenfin@redhat.com>
+Subject: Re: Linking Patchwork with Sashiko?
+Message-ID: <ce1df91e-0674-4861-90ff-bcaf5428b414@sirena.org.uk>
+References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
+ <4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
+ <alc3gAJfAkG5DULJ@zed>
+ <alfBvhZkAelq5RVf@mit.edu>
+ <aliMsSH373RJ31Mq@zed>
+ <aloZ9hqSgzN3beqH@mit.edu>
+ <20260717152559.2d2bfc8d@localhost>
+ <20260720095537.4d5d503b@robin>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="v6TdgCBrZ9oIfXbr"
+Content-Disposition: inline
+In-Reply-To: <20260720095537.4d5d503b@robin>
+X-Cookie: Caution: Keep out of reach of children.
+
+
+--v6TdgCBrZ9oIfXbr
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260720124651.GA9442@killaraus.ideasonboard.com>
 
-On Mon, Jul 20, 2026 at 03:46:51PM +0300, Laurent Pinchart wrote:
-> On Mon, Jul 20, 2026 at 11:51:23AM +0300, Sakari Ailus wrote:
-> > On Mon, Jul 20, 2026 at 11:45:53AM +0300, Laurent Pinchart wrote:
-> > > On Wed, Jul 01, 2026 at 03:26:30PM +0300, Sakari Ailus wrote:
-> > > > Add v4l2_subdev_call_ci_state_active(), and
-> > > > v4l2_subdev_call_ci_state_try() to call sub-device pad ops that
-> > > > take struct v4l2_subdev_client_info pointer as an argument. These ops
-> > > > cannot be called using v4l2_subdev_call_state_active() or
-> > > > v4l2_subdev_call_state_try() as the client_info argument precedes the
-> > > > state argument.
-> > > 
-> > > Is there a reason why the state argument can't go first ? This patch
-> > > then wouldn't be needed.
-> > 
-> > The client capabilities are constant as is the sub-device itself (at least
-> > in terms of this call) whereas the callback operates on the state, followed
-> > by its arguments. That is a more natural order of arguments IMO.
-> 
-> At the cost of lots of complexity when calling operations. Is it worth
-> it ?
+On Mon, Jul 20, 2026 at 09:55:37AM -0400, Steven Rostedt wrote:
 
-There's only a single implementation of the macros whereas the callers are
-spread out in the framework and all the drivers. I prefer keeping the API
-nice for the drivers and the rest of the framework, and in this case that
-does indeed bring some complexity.
+> designed. But I fortunately know of these areas and can easily see when
+> Sashiko falls over it. Hence, these false positives do not waste my
+> time as I'm already aware of them. (I do take a deeper look to make
+> sure it's not reporting something similar that may truly be a bug).
 
-I wonder what Hans thinks.
+OTOH I had a submitter up to v14 on a new series over the weekend since
+they were iterating Sashiko feedback.
 
--- 
-Sakari Ailus
+> Do we need to add an flag to the MAINTAINERS file that states which
+> sub-systems uses AI?
+
+That's probably too complicated - some poeple will want submitters to do
+things like ask submitters to address Sashiko reviews before the
+maintainers will look at it, other subsystems might make use of Sashiko
+reviews or whatever but not make it a requirement for submitters to do
+so.
+
+--v6TdgCBrZ9oIfXbr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpeMBoACgkQJNaLcl1U
+h9BHwgf9EL99RQ8Xd5lpdhU1Iko4oPfxWIG+LsRBtwRRW5LL66SyyB95llVHPLBa
+/8lA/BEQStc+dVt8xVldmMqpuVWM6U6J3hgcRL0ZT4/AkkYLBi+4lfgq46HQ82dY
+2gy4BqhZgO90ztFgGoupLCEa4/YeKF11KrY2PUY8ViIB/+ZiCNqAzl3pFg3pKSUd
+ERmE5HXhVBnHk/O7f80ipADhGKjhpSyZDddYdilQWaf92UR6rE6z9HdqOstE6Pcw
+YdvgRBhNWP6v8VmxAlNdZinzypGm2Bfru7g3KmFstuKcfADBTJkgwjTnOwzyLoH7
+A5xrqM7CvehuPQDh4OpCkJlStkKv4w==
+=O76p
+-----END PGP SIGNATURE-----
+
+--v6TdgCBrZ9oIfXbr--
