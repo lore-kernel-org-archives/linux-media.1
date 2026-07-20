@@ -1,89 +1,111 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2165C3E6396;
-	Mon, 20 Jul 2026 14:37:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784558224; cv=pass; b=bKJaXoLhAK18dN04CgLyf5qEtb+8T9cjsQW4gAnFEPmGtC9D9jeq+bA5t8eYHHwOWBCiSXRWRQ8pElIVbO+WS/XGF1yyGxLeUyo2AxEvFh2HXu8N7+FyCG3lMtuakCunSUbsm0z0k64gIxWrgCjcFUJCn3dLj9MIUYMWXE901Fo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784558224; c=relaxed/simple;
-	bh=CoOZMtk6XHc1FjNBTqqquHL+TZcrggfXywztwhSjV3g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fasoNHLG0AedIjd7qAHzcYsts4sQSmLOYC3gWUgSppZD60BNd24cq0FNLzBbe3EEXa6WrsyiM/a6pyACHjmRhtyqdrowfGPgApBt9VLfjSOz9hZIdJCEYXOeX3X+YYS5dj6Bw4pnzQes0rFTpZ69Y+3PW8Gwenp9Cx8w9+sn8cg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=BfK2iFa8; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D8442BC5C
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 14:37:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784558261; cv=none; b=Ay1mynM+g/nCtU18T1I5XL5urils9jCq5CStHXl7DXtY08FxKsaUPeoqRmhSbBZdAafeMUmhpmxMxCiZPCwUrj8UTGvEZzq00X4txu61fj024Sbdc3gGP/3fNYz8ojv/wKThaf1k4m6BhanQDlBqGtGWZAU+n3kT0zr22rq5UbI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784558261; c=relaxed/simple;
+	bh=Arv91AgL99OfhbwYhRTCoMc0jynxEjEcXC1LB/Vcuiw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aP0rrPDix3pxZ28N75Z3MUrZZs9opSQdgaaR6YgxTBEAPJXnygCaj/Guhgjs52ArEj0lN/Z3LsUw+CPdN/EkbttZzsddg/zVm3vaXQlyK9lee8kBUqzYVLKObqF539W3fuRwjyEASk/Fyq3bHiAnYLEF1bOltARLogIYk81qV7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=UHt+FWKL; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="BfK2iFa8"
-ARC-Seal: i=1; a=rsa-sha256; t=1784558205; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Zk2niH1F0FMDASBDJHW4T1D8LwCoRgcWxVsvlLMaRjbQsjeqcJRa4ZsIaWMHGl6mRLmN8TL9r3ieALJC+rC39gKlHV6J/DOfDElvc0TD9c1GVAoMG7stVx56dhHJxdq3XiKLr1fk25v9I6f2cHbGFbDXUydZm1lgWEgTWJKKyIE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1784558205; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=/wsZJyigWi4VXhv0iWi6BonguYvhNMUA5fX0Vo4g9SM=; 
-	b=Bahm1CcytqwOeGqj/TFacnKL+gJo4FJlvSJU548ZSxhNJzrbjN+bJVdYSVbk7jwouMR4/4788vE9ggff4jBWxGXf9dqpJ/NhiTOmC+jd4cvez/0V9OLTx9h2bRRnXIEVkPuhwqxXvkv8ZlggfrB2MuceuZtbS17QXBdC+IQVY64=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784558205;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=/wsZJyigWi4VXhv0iWi6BonguYvhNMUA5fX0Vo4g9SM=;
-	b=BfK2iFa8lQWfSq3+niadj8GnCtMfiaiB1NmvDt7uYAmxPYsCICQAdtxPDEQPT5Md
-	vshKmokcYoTg814I1OXngSt73AjlHo7lJPN0KJ6bF6N10kZET7gJTNEOszitK3iRAB5
-	7U5rhp2MSjOwZrDvX6jtGMy/J0PKdmg9hsuSax/k=
-Received: by mx.zohomail.com with SMTPS id 1784558202613285.0487905776356;
-	Mon, 20 Jul 2026 07:36:42 -0700 (PDT)
-Message-ID: <b8d63f61-b73e-412e-8119-ced1afdd4551@collabora.com>
-Date: Mon, 20 Jul 2026 17:36:37 +0300
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="UHt+FWKL"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7FA48161;
+	Mon, 20 Jul 2026 16:36:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784558197;
+	bh=Arv91AgL99OfhbwYhRTCoMc0jynxEjEcXC1LB/Vcuiw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UHt+FWKLRLIEmmyK/wOwLV5qAoUUBTZmBnh5pIloJS5xjivEVMSPj3DdVXVkmYa0c
+	 BMisu3Y1jpEAGnTAxqe8WWXhw6Z3Le/51q8OCydbXIAAToV8rX90lp3Dky2IVuzErJ
+	 uRdAnTae5q703hlPUg3mPNsoyOkEjGERi+YqIw28=
+Date: Mon, 20 Jul 2026 17:37:34 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: hans@jjverkuil.nl, linux-media@vger.kernel.org,
+	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Tommaso Merciai <tomm.merciai@gmail.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Julien Massot <julien.massot@collabora.com>,
+	Naushir Patuck <naush@raspberrypi.com>,
+	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
+	Stefan Klug <stefan.klug@ideasonboard.com>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	=?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>,
+	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Ricardo Ribalda Delgado <ribalda@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	David Plowman <david.plowman@raspberrypi.com>,
+	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
+	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Rishikesh Donadkar <r-donadkar@ti.com>
+Subject: Re: [PATCH v6 13/16] media: v4l2-subdev: Add
+ v4l2_subdev_call_ci_state_{active,try}
+Message-ID: <20260720143734.GB9442@killaraus.ideasonboard.com>
+References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
+ <20260701122634.1728782-13-sakari.ailus@linux.intel.com>
+ <20260720084553.GD3679@killaraus.ideasonboard.com>
+ <al3hi3-oTj1CCxaD@kekkonen.localdomain>
+ <20260720124651.GA9442@killaraus.ideasonboard.com>
+ <al4tC7BsVWiVBqOg@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] media: synopsys: hdmirx: add HDMI audio capture
- support
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260718085728.6797-1-royalnet026@gmail.com>
- <20260718085728.6797-3-royalnet026@gmail.com>
- <25922edc-4ff1-4d28-9a64-2c28b2b690cb@collabora.com>
- <CAEWPSH70FecQRuGtA=S8+_CnLY5sMyf1j57Uwzwv54zceS1HZg@mail.gmail.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <CAEWPSH70FecQRuGtA=S8+_CnLY5sMyf1j57Uwzwv54zceS1HZg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <al4tC7BsVWiVBqOg@kekkonen.localdomain>
 
-On 7/20/26 15:30, Igor Paunovic wrote:
-> Hi Dmitry,
+On Mon, Jul 20, 2026 at 05:13:31PM +0300, Sakari Ailus wrote:
+> On Mon, Jul 20, 2026 at 03:46:51PM +0300, Laurent Pinchart wrote:
+> > On Mon, Jul 20, 2026 at 11:51:23AM +0300, Sakari Ailus wrote:
+> > > On Mon, Jul 20, 2026 at 11:45:53AM +0300, Laurent Pinchart wrote:
+> > > > On Wed, Jul 01, 2026 at 03:26:30PM +0300, Sakari Ailus wrote:
+> > > > > Add v4l2_subdev_call_ci_state_active(), and
+> > > > > v4l2_subdev_call_ci_state_try() to call sub-device pad ops that
+> > > > > take struct v4l2_subdev_client_info pointer as an argument. These ops
+> > > > > cannot be called using v4l2_subdev_call_state_active() or
+> > > > > v4l2_subdev_call_state_try() as the client_info argument precedes the
+> > > > > state argument.
+> > > > 
+> > > > Is there a reason why the state argument can't go first ? This patch
+> > > > then wouldn't be needed.
+> > > 
+> > > The client capabilities are constant as is the sub-device itself (at least
+> > > in terms of this call) whereas the callback operates on the state, followed
+> > > by its arguments. That is a more natural order of arguments IMO.
+> > 
+> > At the cost of lots of complexity when calling operations. Is it worth
+> > it ?
 > 
-> Great to hear it works on the 5B -- thanks for testing!
-> 
-> Agreed on the -EBUSY guard, done in my tree exactly as you wrote it.
-> It also supersedes the suspend cancel/re-arm I had queued from the
-> bot review: with suspend refused while audio_streaming is set, the
-> worker can never be armed at suspend time, so those hunks are
-> dropped.
-> 
-> v4 follows shortly with this plus Sebastian's dts restructuring
-> (shared disabled-by-default card in rk3588-extra.dtsi, renamed to
-> "RK3588 HDMI-IN") and Krzysztof's binding comments (dai-common.yaml
-> reference + unevaluatedProperties).
+> There's only a single implementation of the macros whereas the callers are
+> spread out in the framework and all the drivers. I prefer keeping the API
+> nice for the drivers and the rest of the framework, and in this case that
+> does indeed bring some complexity.
 
-Re-arming will be best option if it works properly.
+I won't fight strongly for this, but I'm getting concerned about the
+complexity of the macros in v4l2-subdev.h.
+
+> I wonder what Hans thinks.
 
 -- 
-Best regards,
-Dmitry
+Regards,
+
+Laurent Pinchart
