@@ -1,121 +1,144 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B9511E2834;
-	Mon, 20 Jul 2026 01:43:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784511793; cv=pass; b=IFyiE2KVBGARU5RDxh0Kn4RV0BbJoRvWIT+ji5bUzJhBhWYucfqfWALAfuZ9kYGHWHb6w90FVR893H0S61GX25KTKG3LXPXAi4g+1HLDvYERNDJA2GhjxLhgFDraVucEflW3tm2KPptSs7ErAVbfruwN1/VodJvxDt3yYSJ4bFk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784511793; c=relaxed/simple;
-	bh=oJqF8kaDTWd8eAjrRtHphHkIJEENBtlndBFcxib4YyU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tsyq6zsATSiJOpW4WPogZu+gSEaEE9dX0Wp9jg60KSqVKBsH3pjtJyg27yLzjgql+1ufBJmEmQbSRGJahaifTYdslb5qa9gQGgnnRKhgISUKHpqDzOSMJevYnYO9uPBhSwkFM3MnoZkmmhXy1VJyqjYXQwlrlbU1NvHLUOMOv2w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=GSCFCTXl; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05AA2DCF55;
+	Mon, 20 Jul 2026 02:55:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784516116; cv=none; b=PPwZ/PzUtb/vQoac5qv6Se8PkFDlswDyRVqP40K7X+on+yGXd6O21NmgOtx9JNx54gJHrSTEoy6YYMtvAD3ax0TQ8pRZoM4k2+ffp+GT+i0hNiXep2mpuxmnWOYGM9uwJonrP9pIuB9jXajaYTPl4YTOWi4HSR80nis2wJMUFKI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784516116; c=relaxed/simple;
+	bh=DUdfb7d4OKEMCkJJcaNdPLA4LTKwI3kX0SCUubtO7JI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=cDDE2ghqsoaMvWR22+IBXBfSLo7+9MBnefhYtxMMtOp3zJULw0Z6ORKboeYshDzGBSyw/QaPbVIwOLkR3lJoGdlcawuzyw6LRUDNDFTRbnGYxXxkDxdYAynMsijHIQbAuvGTMUo5eRiKMWMZhn3XUjKHmQCYK6ze/zoNZy2aN3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=qUQvBG8x; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="GSCFCTXl"
-ARC-Seal: i=1; a=rsa-sha256; t=1784511773; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Ntzxg1tMkTsBJu+8nZOI4xF6q5qVUGi7eyIAkCk7XviyPR+hTwHgmmYGID8Zz1HZC83fXVIb5uzNQ2Oowe1oQ1qMjeXky4VIjDLtoo6v4Qs2RasvEF6iWKQ8kPfDSdV45X+hnbguCw41aCZS95i2tgSr7siPbaZKaRibZKs2frw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1784511773; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=yys6sowO+tcH4AVDZLsOFkrCtg1Kt/CYxSR87VjOuDA=; 
-	b=b6/Lv+eYFzmy2ilh/JPYv8YuLovokiGjYORVUHBRafhhXswOZXkEUuqtQLpk+0WUCjhm4ARd42xt/HzTTkA85lu+XH05m6F8aBWVNrD736DcoXQYZ6PxR2gemq4PBxJ+fSMMDdQ49VA0yhvhM/2cRltoLmPABj+kCfu6GIejTPE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784511773;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=yys6sowO+tcH4AVDZLsOFkrCtg1Kt/CYxSR87VjOuDA=;
-	b=GSCFCTXlVDiZZEgxryIfeTQ787CgNRdOpzy5DB7ZQXWXb6/iWSoyjW9vCKIaUlwD
-	Hs+FKSyp2Ek5rgaxp9BPl3GC/nq0/tc497ROz9C2DBy/485CMenNrn29Nqx78nZq5KF
-	2FAY8CZAY7juLOdyFkgiyKePBrmPp1HNhpzp6axQ=
-Received: by mx.zohomail.com with SMTPS id 1784511771230880.9938946254076;
-	Sun, 19 Jul 2026 18:42:51 -0700 (PDT)
-Message-ID: <25922edc-4ff1-4d28-9a64-2c28b2b690cb@collabora.com>
-Date: Mon, 20 Jul 2026 04:42:46 +0300
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="qUQvBG8x"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=/v
+	7GlNTYHme3fqhDFM99RttUvH+K+kjKWV9cwUnU7P4=; b=qUQvBG8xt7bgMhBIkl
+	8WFVzuFM/DNg+esPmzXsk7MmagI4XB5Vkpd5NZqBWfasDjf0vV8CxAALqEfWjaWz
+	e2iMeieIr3Pzz6Qv2OAgTHZCJb/2tNnwUhgYcvLAbeMvgQ5uiSEeira5u8qon6OY
+	luBSLHQUhR3ffxKHRJqyDAbjg=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3v5rwjV1qaGtIJQ--.123S5;
+	Mon, 20 Jul 2026 10:54:48 +0800 (CST)
+From: Lei Huang <huanglei814@163.com>
+To: mchehab@kernel.org
+Cc: johan@kernel.org,
+	hverkuil+cisco@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lei Huang <huanglei@kylinos.cn>
+Subject: [PATCH v2 03/17] media: s2255: Remove unnecessary spaces after casts
+Date: Mon, 20 Jul 2026 10:54:32 +0800
+Message-Id: <20260720025438.207149-4-huanglei814@163.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260720025438.207149-1-huanglei814@163.com>
+References: <20260720025438.207149-1-huanglei814@163.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] media: synopsys: hdmirx: add HDMI audio capture
- support
-To: Igor Paunovic <royalnet026@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260718085728.6797-1-royalnet026@gmail.com>
- <20260718085728.6797-3-royalnet026@gmail.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260718085728.6797-3-royalnet026@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3v5rwjV1qaGtIJQ--.123S5
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJFWrtrWkXFy7XryrCFW5Awb_yoW5tFy8pa
+	yYgFWYkrs8Ja15Gw48Jr1Durn8XFn7X3y5uFW7Kw18Kr98J34kZF1vv34xXFyqvryxK3Wx
+	Ar1qgFZ7W393t3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jlCJQUUUUU=
+X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC0RiTimpdjfjNLQAA3y
 
-On 7/18/26 11:57, Igor Paunovic wrote:
-> The Synopsys DesignWare HDMI RX controller extracts the audio stream
-> embedded in the incoming HDMI signal and feeds it to an on-SoC I2S
-> controller. Expose it as an ALSA capture device by registering the
-> generic hdmi-codec as a child of the controller, so that a
-> simple-audio-card in the device tree can bind the HDMI RX audio DAI.
-> 
-> The sample rate is recovered from the ACR N/CTS values together with the
-> measured TMDS character rate. A periodic worker keeps the local audio
-> reference clock locked to the source by nudging it in small ppm steps to
-> hold the audio FIFO fill level near its target, which avoids FIFO
-> under/overflow and the resulting dropped samples.
-> 
-> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-> ---
-> Changes in v3:
-> - restore the v1 audio teardown in remove(): audio_shutdown() already
->   stops the worker when the stream closes, so the extra flag clear
->   and trailing cancel added in v2 were redundant (Dmitry Osipenko)
-> - rename the ACR read locals and add a comment documenting the
->   register byte packing
-> - drop the get_dai_id stub so OF-graph cards resolve the DAI index
->   from the reg property
-> 
-> Changes in v2:
-> - register the S/PDIF DAI so the indexes match the binding and reject
->   it with -EOPNOTSUPP until wired up (Sebastian Reichel)
-> - use platform_device_register_data() and drop the fixed 32-bit DMA
->   mask (Dmitry Osipenko)
-> - don't leave an ERR_PTR in audio_pdev on registration failure
-> - fix teardown ordering in remove()
-> - stop the worker before reprogramming shared state in hw_params()
-> - look up the "audio" clock by name instead of indexing clks[1]
-> - keep the worker on system_unbound_wq when re-arming
-> 
->  .../platform/synopsys/hdmirx/snps_hdmirx.c    | 271 ++++++++++++++++++
->  .../platform/synopsys/hdmirx/snps_hdmirx.h    |   8 +
->  2 files changed, 279 insertions(+)
+From: Lei Huang <huanglei@kylinos.cn>
 
-Works well on 5b, thanks. Only one additional review comment:
+Fix all 8 'CHECK: No space is necessary after a cast' issues reported by
+checkpatch.pl in s2255drv.c. Remove the space between the cast type and
+the value being cast.
 
-Please update hdmirx_suspend() to return -EBUSY if audio_streaming=true.
+Signed-off-by: Lei Huang <huanglei@kylinos.cn>
+---
+ drivers/media/usb/s2255/s2255drv.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-```
-static __maybe_unused int hdmirx_suspend(struct device *dev)
-{
-	struct snps_hdmirx_dev *hdmirx_dev = dev_get_drvdata(dev);
-
-	if (READ_ONCE((hdmirx_dev->audio_streaming)))
-		return -EBUSY;
-```
-
+diff --git a/drivers/media/usb/s2255/s2255drv.c b/drivers/media/usb/s2255/s2255drv.c
+index 0f98a4cc18a4..78011f5fe99c 100644
+--- a/drivers/media/usb/s2255/s2255drv.c
++++ b/drivers/media/usb/s2255/s2255drv.c
+@@ -521,7 +521,7 @@ static void s2255_fwchunk_complete(struct urb *urb)
+ 			memset(data->pfw_data, 0, CHUNK_SIZE);
+ 
+ 		memcpy(data->pfw_data,
+-		       (char *) data->fw->data + data->fw_loaded, len);
++		       (char *)data->fw->data + data->fw_loaded, len);
+ 
+ 		usb_fill_bulk_urb(data->fw_urb, udev, usb_sndbulkpipe(udev, 2),
+ 				  data->pfw_data, CHUNK_SIZE,
+@@ -875,7 +875,7 @@ static int vidioc_s_fmt_vid_cap(struct file *file, void *priv,
+ 	else if (mode.format != vc->mode.format)
+ 		mode.restart = 1;
+ 	vc->mode = mode;
+-	(void) s2255_set_mode(vc, &mode);
++	(void)s2255_set_mode(vc, &mode);
+ 	return 0;
+ }
+ 
+@@ -1001,7 +1001,7 @@ static int s2255_set_mode(struct s2255_vc *vc,
+ 	dprintk(dev, 1, "%s: reqsize %ld\n", __func__, vc->req_image_size);
+ 	/* set the mode */
+ 	buffer[0] = IN_DATA_TOKEN;
+-	buffer[1] = (__le32) cpu_to_le32(chn_rev);
++	buffer[1] = (__le32)cpu_to_le32(chn_rev);
+ 	buffer[2] = CMD_SET_MODE;
+ 	for (i = 0; i < sizeof(struct s2255_mode) / sizeof(u32); i++)
+ 		buffer[3 + i] = cpu_to_le32(((u32 *)&vc->mode)[i]);
+@@ -1038,7 +1038,7 @@ static int s2255_cmd_status(struct s2255_vc *vc, u32 *pstatus)
+ 	dprintk(dev, 4, "%s chan %d\n", __func__, vc->idx);
+ 	/* form the get vid status command */
+ 	buffer[0] = IN_DATA_TOKEN;
+-	buffer[1] = (__le32) cpu_to_le32(chn_rev);
++	buffer[1] = (__le32)cpu_to_le32(chn_rev);
+ 	buffer[2] = CMD_STATUS;
+ 	*pstatus = 0;
+ 	vc->vidstatus_ready = 0;
+@@ -1078,7 +1078,7 @@ static void stop_streaming(struct vb2_queue *vq)
+ 	struct s2255_vc *vc = vb2_get_drv_priv(vq);
+ 	struct s2255_buffer *buf, *node;
+ 	unsigned long flags;
+-	(void) s2255_stop_acquire(vc);
++	(void)s2255_stop_acquire(vc);
+ 	spin_lock_irqsave(&vc->qlock, flags);
+ 	list_for_each_entry_safe(buf, node, &vc->buf_list, list) {
+ 		list_del(&buf->list);
+@@ -2129,7 +2129,7 @@ static int s2255_start_acquire(struct s2255_vc *vc)
+ 
+ 	/* send the start command */
+ 	buffer[0] = IN_DATA_TOKEN;
+-	buffer[1] = (__le32) cpu_to_le32(chn_rev);
++	buffer[1] = (__le32)cpu_to_le32(chn_rev);
+ 	buffer[2] = CMD_START;
+ 	res = s2255_write_config(dev->udev, (unsigned char *)buffer, 512);
+ 	if (res != 0)
+@@ -2151,7 +2151,7 @@ static int s2255_stop_acquire(struct s2255_vc *vc)
+ 	chn_rev = G_chnmap[vc->idx];
+ 	/* send the stop command */
+ 	buffer[0] = IN_DATA_TOKEN;
+-	buffer[1] = (__le32) cpu_to_le32(chn_rev);
++	buffer[1] = (__le32)cpu_to_le32(chn_rev);
+ 	buffer[2] = CMD_STOP;
+ 
+ 	res = s2255_write_config(dev->udev, (unsigned char *)buffer, 512);
+@@ -2282,7 +2282,7 @@ static int s2255_probe(struct usb_interface *interface,
+ 		retval = -ENODEV;
+ 		goto err_fwmarker;
+ 	}
+-	pdata = (__le32 *) &dev->fw_data->fw->data[fw_size - 8];
++	pdata = (__le32 *)&dev->fw_data->fw->data[fw_size - 8];
+ 
+ 	if (*pdata != S2255_FW_MARKER) {
+ 		dev_err(&interface->dev, "Firmware invalid.\n");
 -- 
-Best regards,
-Dmitry
+2.25.1
+
