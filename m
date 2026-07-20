@@ -1,37 +1,36 @@
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
+Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16E793A380A
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 14:29:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF35342B33A;
+	Mon, 20 Jul 2026 14:29:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.107
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784557764; cv=none; b=NUFSQosdr86jYxG484Xe+9fFWwnATWNCEGm02FA65BBEXfDoyUG/p+7KuijdyIID/R5OO9Psxy4DFZjBgX+iVpdVis9uESaCI7PLlY8UdKqLb5k+cSxH/WjfLc6TV1pG57IfCPDlkuQtknqBKq9IkH7HX4EG3VpdsT7lGow9wNY=
+	t=1784557767; cv=none; b=VBFy4qEc65G8wFJyhhPTN9Uf722QKoipFawLoFi7pU01muJ9KIdlE0m0A81XJRdhEq7T83LuQn4r80x2LbZ/QxmHkeckXvIkyBCERz+6SZzgNmCOHX+/DzuvYy7acQYSj5PMP83iPIABRBY/D8xosK/BroJO4bOLiglcX48BZCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784557764; c=relaxed/simple;
-	bh=1eY9tAkEvPPuQJSxLFf9+C++D+iIDA3Q9citWB/XFqA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LfDSjJIMAezkg0pMd9TBUtGLnBeDr8fRlWhFhfNoKmx03jdbEFhUTC32kN3xoGqLvFviiWiT3EA2VW7VjWpEHIwGeL8q9Vuyj5efHJV34uAliIHwbcD1Jau0AZ4bXx7r+C7s/bx8/lR9LcFoWJ1Lk41XmcDBChW9o3e3vkbq0x4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm; spf=pass smtp.mailfrom=berg.pm; dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b=eZC/Y0mo; arc=none smtp.client-ip=79.135.106.112
+	s=arc-20240116; t=1784557767; c=relaxed/simple;
+	bh=PKu6ZM0R5CwUasCTKi7Ym+D5wVThMFpjTVz34hJF4YY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=R1q71wG7LRcCvy/csUb/8WjHvsGcy5LPDtoOGBEZjQPPBHBi9AF8Kj1VYnmr/9jVWDSp1M40a+g7ba1QTpeeDsaKchhaTG49siEQOCM7JmHRumfPfHvGPWwcnOfDAlFV0tYaXVNoMrLpwCTP2F/RbstQxUBlGK75owIUItr2wq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm; spf=pass smtp.mailfrom=berg.pm; dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b=WGzsUOSs; arc=none smtp.client-ip=109.224.244.107
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berg.pm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b="eZC/Y0mo"
+	dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b="WGzsUOSs"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=berg.pm;
-	s=protonmail; t=1784557757; x=1784816957;
-	bh=j+LVHoTpL8nxBUUAk+O7qsyoV75A13acO9XcZV3Od00=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=eZC/Y0moEajO8WQw0aYceJqJIyJNxu/aciegaXa2nO1SPJyuufyvFuZgBtNjY/HC7
-	 sQMg+vc+EoscTjQSVcj1LxGh5swkYeo0FRL7g/GVs/M8LvTZsF0AiMwi4/0sjwyD40
-	 ztfwBmLGbLAuxnSPCsv0sjTSQ84rtOAfpLX+VWLDQ9O3PzjbrFYpVuriqq6+oMwY4c
-	 okqvHlCeNSnMHW1qSuez+bWghG9VkGCWZpQDQwCICZCYWBlBV+8Khxief2cXB1u3xj
-	 I8BgeyNvqt8mSe2oVfdbDJJrT6Gz06Kknfqds9DRog8tWy94+TLYKRZHpUre0uzA41
-	 ezzOAI4MGZidw==
-X-Pm-Submission-Id: 4h3jZM1ktTz1DDp6
+	s=protonmail; t=1784557753; x=1784816953;
+	bh=xrHY0E4R1CByJ1fh1ODLNLl+6NRKYdyAqh5u+gIG9zU=;
+	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=WGzsUOSsUybiJeF72y3HebYRsxO28Puv3azpNKO2OVkqIyoXG608KprqZlZVLLY9z
+	 DXtbKm8U4DGSM9ciw9cwctcvaXXnZr8HyssHDJByH6if91gyf4VOvw3kt8RyKrvCSk
+	 FCswD9RtxA/A77OIxWoK0OluPVIurwQu5+QGHyDO3RwEpgL9NRMkI554pJF4q/AoTH
+	 is20JFvjc7gEyboQodz5aMNt7kS/kz3w2MacT53UjqJ5CvxL3HE2aRELqZHXWGiNFs
+	 3J5yCS2Yxnkelzk3zc4+/LEqQqLvLwY3G1m/JOxUWtjW0KcKok3IL+PM3jYYqlosej
+	 OkiU9aCMlCniQ==
+X-Pm-Submission-Id: 4h3jZG3NLWz1DDpC
 From: Jakob Berg Jespersen <dev@berg.pm>
-Date: Mon, 20 Jul 2026 16:28:41 +0200
-Subject: [PATCH RFC 2/2] media: i2c: ov5693: fix horizontal flip polarity
- and Bayer phase
+Subject: [PATCH RFC 0/2] media: i2c: Surface Pro 7+ camera flip fixes
+Date: Mon, 20 Jul 2026 16:28:39 +0200
+Message-Id: <20260720-sp7plus-ov-flips-v1-0-5f345b0673de@berg.pm>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -40,9 +39,10 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260720-sp7plus-ov-flips-v1-2-5f345b0673de@berg.pm>
-References: <20260720-sp7plus-ov-flips-v1-0-5f345b0673de@berg.pm>
-In-Reply-To: <20260720-sp7plus-ov-flips-v1-0-5f345b0673de@berg.pm>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDcyMD3eIC84Kc0mLd/DLdtJzMgmLdJLPkZDMTUyNjsyQzJaC2gqLUtMw
+ KsJHRSkFuzkqxEMHi0qSs1OQSkGFKtbUAQynIhnkAAAA=
+X-Change-ID: 20260720-sp7plus-ov-flips-b6cc645236b6
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Daniel Scally <dan.scally@ideasonboard.com>
@@ -52,81 +52,83 @@ Cc: Hans de Goede <hansg@kernel.org>,
  "Joseph V. Lavigne" <jlavig88@gmail.com>, linux-media@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Jakob Berg Jespersen <dev@berg.pm>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784557750; l=2974;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784557750; l=3750;
  i=dev@berg.pm; s=20260719; h=from:subject:message-id;
- bh=1eY9tAkEvPPuQJSxLFf9+C++D+iIDA3Q9citWB/XFqA=;
- b=0ECAa2GAtrMIzstlkChlbyDn7OfaIT+ak7+8PK/2PZIBzT9TjQmwwuQEcUbAmesdaTAPI69ym
- 5iHscq6aCFTCIy2+5ncGisD51eUH+EpsAscQZ/+9XhA/c0UU9Yu0S48
+ bh=PKu6ZM0R5CwUasCTKi7Ym+D5wVThMFpjTVz34hJF4YY=;
+ b=RYk8iPAVY12MqSkhQXIED9UCdIwtaQMdorCu5ftzJMhdfbWaXPxKq6k5UVtmiCU6+un6/Qq2b
+ 7Yhf6+w7XAJB1MZOiQUhwZM23PUY5dwRLHAnGun2ZsbzXtS1kybyNz3
 X-Developer-Key: i=dev@berg.pm; a=ed25519;
  pk=b1r+eoJThwSQ/r5DjO7jrcosyrIsyhlOuKk9CBdvBxs=
 
-Like the ov8865 (see previous patch), the ov5693's native readout is
-horizontally mirrored and the FORMAT2 FLIP_HORZ bits (reg 0x3821)
-un-mirror it: with the bits cleared the image is mirrored, with them set
-it is not. The vendor init table sets the bits by default (0x3821 =
-0x1e). The driver maps V4L2_CID_HFLIP=1 to setting the bits, so
-requesting a flip produces an unflipped image and vice versa.
+This RFC series fixes two horizontal-flip issues on the front and rear
+cameras of the Microsoft Surface Pro 7+ (Tiger Lake IPU6, ACPI/ipu-bridge).
+Both were found and validated on real hardware (Surface Pro 7+, Fedora 44,
+kernel 7.0.12) and have been in daily use on that machine for over a
+month; each is described in detail in its own patch.
 
-This is user-visible on the Surface Pro 7+ front camera (mounted with a
-180 degree rotation, SSDB degree=180): libcamera requests HFLIP=1+VFLIP=1
-to undo the mount rotation and gets a horizontally flipped image.
+  1/2  media: i2c: ov8865: fix horizontal flip control polarity
+  2/2  media: i2c: ov5693: fix horizontal flip polarity and Bayer phase
 
-Verified the same way as the ov8865, with a live 4-state flip/image
-matrix on the streaming sensor giving the same result: an inverted HFLIP
-with a correct VFLIP.
+Both camera sensors on this device are mounted with a 180 degree rotation
+(ACPI SSDB rotation 180), so libcamera requests HFLIP=1+VFLIP=1 to
+correct the mount. Both patches address the same class of bug on the two
+OmniVision sensors: the FORMAT2 FLIP_HORZ bits un-mirror a
+natively-mirrored readout, so the V4L2_CID_HFLIP control is inverted. I
+isolated this with a live 4-state flip/image matrix on the streaming
+sensor (details in each patch). The ov5693 patch (2/2) additionally
+compensates the Bayer phase, since clearing the flip bits shifts the
+sampling one column off the fixed SBGGR10 the driver reports.
 
-Invert the polarity so HFLIP=0 yields the unflipped image (bits set) and
-HFLIP=1 the flipped one (bits cleared).
+Why RFC:
+ * Both polarity fixes change behavior for every existing user of
+   these sensors, not just the SP7+, so confirmation of the flip
+   direction from other-platform users could be considered before
+   this is applied. Colors were verified unaffected on the SP7+.
+ * For the ov5693 Bayer compensation I used a window-offset approach that
+   keeps the mbus code fixed and userspace untouched; the alternative
+   idiom is a flip-dependent mbus code + V4L2_CTRL_FLAG_MODIFY_LAYOUT on
+   the flip controls (similar to that of imx219 from what I understand).
+   Maintainer preference welcome.
 
-Clearing the bits also shifts the Bayer sampling by one column: the
-fixed SBGGR10 mbus code the driver reports is only correct for the
-bits-set orientation, so the HFLIP=1 state has the wrong colors.
-Compensate by shifting the ISP output window (reg 0x3810) one column in
-that state only: OFFSET_START_X = 1 when HFLIP=1, 0 otherwise. There is
-a spare column to shift into because the crop end is programmed
-inclusively (crop end = crop start + width). Validated on the SP7+:
-correct geometry and colors in both flip states.
+Note: bringing these cameras up on the Surface Pro 7+ takes two
+prerequisites this series does not itself depend on. The ov5693 front
+camera streams on IPU6 only with a MIPI_CTRL00 (0x4800) clock-lane-gate
+write, posted by Fernando Rimoli as "[PATCH v2 0/3] media: Enable the
+OV5693 front camera on IPU6 Surface devices" [1] (confirmed here on the
+SP7+); and the ov8865 rear camera probes only with an int3472 regulator
+patch I posted separately to platform-drivers-x86 [2]. This series is
+independent of both: it concerns only image orientation and color, not
+bring-up.
+
+I discovered these issues independently, though the motivation to work on
+the Surface cameras came from the linux-surface community. I'd like to
+credit two parallel efforts there on the same hardware family: Tooraj
+Taraz observed both the inverted-feed and power-cycling quirks while
+adding Surface Pro 9 camera support out of tree [3], and Joseph V.
+Lavigne posted an RFC enabling the ov8865 power supply on the Surface
+Pro 7+ itself [4]. These are among my first kernel patches; I read their
+work closely only while writing this up and have not drawn on their code
+here.
+
+[1] https://lore.kernel.org/linux-media/20260717132021.18034-1-fernandorimoli11@gmail.com/
+[2] https://lore.kernel.org/platform-driver-x86/20260719-sp7plus-int3472-v1-1-521a43f5c191@berg.pm/
+[3] https://github.com/linux-surface/linux-surface/pull/1867
+[4] https://github.com/linux-surface/linux-surface/pull/2201
 
 Signed-off-by: Jakob Berg Jespersen <dev@berg.pm>
 ---
+Jakob Berg Jespersen (2):
+      media: i2c: ov8865: fix horizontal flip control polarity
+      media: i2c: ov5693: fix horizontal flip polarity and Bayer phase
+
  drivers/media/i2c/ov5693.c | 22 +++++++++++++++++++++-
- 1 file changed, 21 insertions(+), 1 deletion(-)
+ drivers/media/i2c/ov8865.c |  8 +++++++-
+ 2 files changed, 28 insertions(+), 2 deletions(-)
+---
+base-commit: a52e6f7923c17a672135b485ffd96fbd72f46267
+change-id: 20260720-sp7plus-ov-flips-b6cc645236b6
 
-diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
-index 4cc796bbee92..95dc6af45125 100644
---- a/drivers/media/i2c/ov5693.c
-+++ b/drivers/media/i2c/ov5693.c
-@@ -375,8 +375,28 @@ static int ov5693_flip_horz_configure(struct ov5693_device *ov5693,
- 		  OV5693_FORMAT2_FLIP_HORZ_SENSOR_EN;
- 	int ret;
- 
-+	/*
-+	 * The sensor's native readout is horizontally mirrored; the
-+	 * FLIP_HORZ bits un-mirror it. Map the control so that HFLIP=0
-+	 * yields an unmirrored image (verified on Surface Pro 7+ front
-+	 * camera by a live flip-control/image matrix test, matching the
-+	 * same behaviour found on the ov8865).
-+	 */
- 	ret = cci_update_bits(ov5693->regmap, OV5693_FORMAT2_REG, bits,
--			      enable ? bits : 0, NULL);
-+			      enable ? 0 : bits, NULL);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Clearing the FLIP_HORZ bits shifts the Bayer sampling by one
-+	 * column relative to the orientation the init table (0x3821 = 0x1e)
-+	 * and the reported SBGGR10 mbus code assume, which corrupts colors.
-+	 * Offset the ISP output window by one column in that state to keep
-+	 * the BGGR phase; the crop window always has one spare column
-+	 * (crop end = start + width, inclusive).
-+	 */
-+	ret = cci_write(ov5693->regmap, OV5693_OFFSET_START_X_REG,
-+			enable ? 1 : 0, NULL);
- 	if (ret)
- 		return ret;
- 
-
--- 
-2.55.0
+Best regards,
+--  
+Jakob Berg Jespersen <dev@berg.pm>
 
