@@ -1,151 +1,121 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25B173AEB4A;
-	Mon, 20 Jul 2026 06:29:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC2C390CB2
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 06:34:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784528944; cv=none; b=FzVhLcz1rHFsxlx20+rLGTqs2qOM/L4J6Sga5t6LXYNErxrLq2CFnOUJKNcnnpYGKRQeG99a/Ig6eqKuyAY2ewEJ485IGsvLP1cVqdl4LAvoNg4gB0R4LuI+44a+P/1Ht2g/C/RLPRxYQoAZkOZNRrKpl6rDs2mEUF8GiMc8c6E=
+	t=1784529251; cv=none; b=cWLophJDfwlHqVEM8eCcBg5FDnt9R1R70Rsqflc9xkxJk+xGqhqf99u8I94m33lo93XL2knYda6Q1+wpwho7kTX5XwVlMShkp3m5JPlv88N8s1WETa535DVTXLHQG+qPQTMw85C97ziLBm2fKz9DH6HgsF68PFkSkm/iuufAyrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784528944; c=relaxed/simple;
-	bh=NwANSrF+1zpCQ4N8BwklI/zvGPdPnweDVTBHFQs4HdU=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mNiKOxdeDvXt8ZbCm0nM/S1IG1C9qlUzS/3dmKgj/lnm+/L9d6qPm/bvzUeu+J5Ky6yBYXgmf06nYnCN20ujzHVjjnMntdoaUK8ZojorCHLQfqM5hsw6N7x6RmLVs/oEPWjnUH0Z4v0LGBFP2GjE+Me0cEhZZP6oiJkI0PXXMfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=aIb6NVqH; arc=none smtp.client-ip=60.244.123.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1784529251; c=relaxed/simple;
+	bh=Vm4o7nWqcGxeFQ0nZC867PltdGPy5HZSHaWxwr+TqUE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dyR2cLeAvxK5iQ+/MwKib+g1ga+DKiLBzDBpXazCQrCLdqhNSI8MhdkXOWQxi2vTWhOtm5hIbvz5eZTokFjCPOXV+8hrile/HW9y4/gi6Moz5d7gUz+uuh81/StrQ254PyZQNXxbWgXELU1qdz2OzD9A+zA54SVbQvPFB1gFnzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=QvC1vliU; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="aIb6NVqH"
-X-UUID: 47a0ebf6840411f1b1788b6acf885367-20260720
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=Vhhrx3XAin13rBinyDL72GY/9zQ/T+0nCt/5TRK8MN8=;
-	b=aIb6NVqHJhQuTNhDsUSyXNmTJ9L0vJ88MwDxEHtjdI8GO2/3weE0roUhhlUIIdbIB5ZQ6+h+XOMeT3djfgzoN8lSoy8u0zxSS9QFPIU/FevN1wKynfxmPyo8ZPR+yuitkMBH4n67EjUuHPoSEM0z0gVAeCKzWtDZ5qOI8I/rt0Q=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.18,REQID:350e8cbb-84c0-4deb-8f08-7652092ddce6,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:8a735a6,CLOUDID:5044793f-46cf-453a-bd84-ad9fc7cb0e8c,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
-	0|99|100|102|156,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,
-	COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 47a0ebf6840411f1b1788b6acf885367-20260720
-Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by mailgw01.mediatek.com
-	(envelope-from <jianhua.lin@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1561231841; Mon, 20 Jul 2026 14:28:54 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 20 Jul 2026 14:28:52 +0800
-Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
- mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Mon, 20 Jul 2026 14:28:52 +0800
-From: Jianhua Lin <jianhua.lin@mediatek.com>
-To: <nicolas@ndufresne.ca>, <mchehab@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <matthias.bgg@gmail.com>,
-	<angelogioacchino.delregno@collabora.com>
-CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-media@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>,
-	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
-	<sirius.wang@mediatek.com>, <vince-wl.liu@mediatek.com>,
-	<jh.hsu@mediatek.com>, Jianhua Lin <jianhua.lin@mediatek.com>
-Subject: [PATCH v10 2/3] dt-bindings: media: mediatek-jpeg-encoder: add MT8189 compatible string
-Date: Mon, 20 Jul 2026 14:28:28 +0800
-Message-ID: <20260720062829.7343-3-jianhua.lin@mediatek.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20260720062829.7343-1-jianhua.lin@mediatek.com>
-References: <20260720062829.7343-1-jianhua.lin@mediatek.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="QvC1vliU"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2B1EEC1;
+	Mon, 20 Jul 2026 08:33:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784529188;
+	bh=Vm4o7nWqcGxeFQ0nZC867PltdGPy5HZSHaWxwr+TqUE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=QvC1vliU5A8io3KF+xfyB89iM1h3uHPnpWOz7ijto7Hvqq8czcWCQ6vZTI60v39/o
+	 vw7AR+Yx1elLkxPy04viI57r77xBF0uEDw6LRJpjwUo2V3YBG3MNpN9M87OKi07vaq
+	 ruy7IxNqbTDWaS6Lisj/tx7qChGEzoJKSNy60KOQ=
+Date: Mon, 20 Jul 2026 09:34:04 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
+	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Tommaso Merciai <tomm.merciai@gmail.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Julien Massot <julien.massot@collabora.com>,
+	Naushir Patuck <naush@raspberrypi.com>,
+	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
+	Stefan Klug <stefan.klug@ideasonboard.com>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	=?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>,
+	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Ricardo Ribalda Delgado <ribalda@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	David Plowman <david.plowman@raspberrypi.com>,
+	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
+	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Rishikesh Donadkar <r-donadkar@ti.com>
+Subject: Re: [PATCH v6 06/16] media: Improve enable_streams and
+ disable_streams documentation
+Message-ID: <20260720063404.GC2208631@killaraus.ideasonboard.com>
+References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
+ <20260701122634.1728782-6-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260701122634.1728782-6-sakari.ailus@linux.intel.com>
 
-Add the compatible string for the JPEG encoder block found in the
-MediaTek MT8189 SoC.
+Hi Sakari,
 
-Unlike some previous SoCs, the MT8189 JPEG encoder requires 34-bit IOVA
-address space support. Therefore, it is added as a standalone compatible
-string without falling back to the generic "mediatek,mtk-jpgenc" to
-ensure the driver applies the correct hardware-specific configurations.
+Thank you for the patch.
 
-Signed-off-by: Jianhua Lin <jianhua.lin@mediatek.com>
----
- .../bindings/media/mediatek-jpeg-encoder.yaml | 38 ++++++++++++++++---
- 1 file changed, 32 insertions(+), 6 deletions(-)
+On Wed, Jul 01, 2026 at 03:26:23PM +0300, Sakari Ailus wrote:
+> Document that enable_streams may start additional streams and
+> disable_streams may not disable requested streams if other related streams
+> are still enabled.
+> 
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
 
-diff --git a/Documentation/devicetree/bindings/media/mediatek-jpeg-encoder.yaml b/Documentation/devicetree/bindings/media/mediatek-jpeg-encoder.yaml
-index 5b15f8977f67..d2f035715a2e 100644
---- a/Documentation/devicetree/bindings/media/mediatek-jpeg-encoder.yaml
-+++ b/Documentation/devicetree/bindings/media/mediatek-jpeg-encoder.yaml
-@@ -14,13 +14,17 @@ description: |-
- 
- properties:
-   compatible:
--    items:
-+    oneOf:
-       - enum:
--          - mediatek,mt2701-jpgenc
--          - mediatek,mt8183-jpgenc
--          - mediatek,mt8186-jpgenc
--          - mediatek,mt8188-jpgenc
--      - const: mediatek,mtk-jpgenc
-+          - mediatek,mt8189-jpgenc
-+      - items:
-+          - enum:
-+              - mediatek,mt2701-jpgenc
-+              - mediatek,mt8183-jpgenc
-+              - mediatek,mt8186-jpgenc
-+              - mediatek,mt8188-jpgenc
-+          - const: mediatek,mtk-jpgenc
-+
-   reg:
-     maxItems: 1
- 
-@@ -45,6 +49,15 @@ properties:
-       Documentation/devicetree/bindings/iommu/mediatek,iommu.yaml for details.
-       Ports are according to the HW.
- 
-+  mediatek,larb:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: |
-+      A phandle to the local arbiter (SMI LARB) node. This explicitly
-+      describes the hardware topology where the JPEG block is connected
-+      to a dedicated SMI LARB for memory bandwidth arbitration. It is
-+      required to accurately represent the hardware connection independently
-+      of the IOMMU.
-+
- required:
-   - compatible
-   - reg
-@@ -54,6 +67,19 @@ required:
-   - power-domains
-   - iommus
- 
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: mediatek,mt8189-jpgenc
-+    then:
-+      required:
-+        - mediatek,larb
-+    else:
-+      properties:
-+        mediatek,larb: false
-+
- additionalProperties: false
- 
- examples:
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+> ---
+>  include/media/v4l2-subdev.h | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
+> index d256b7ec8f84..d9dca6905b33 100644
+> --- a/include/media/v4l2-subdev.h
+> +++ b/include/media/v4l2-subdev.h
+> @@ -814,6 +814,11 @@ struct v4l2_subdev_state {
+>   *	V4L2_SUBDEV_CAP_STREAMS sub-device capability flag can ignore the mask
+>   *	argument.
+>   *
+> + *	Due to device constraints, starting the requested streams may result in
+> + *	additional streams also being started by the driver. Streams that are
+> + *	started and stopped together due to the nature of the hardware are
+> + *	called a stream group.
+> + *
+>   * @disable_streams: Disable the streams defined in streams_mask on the given
+>   *	source pad. Subdevs that implement this operation must use the active
+>   *	state management provided by the subdev core (enabled through a call to
+> @@ -823,6 +828,9 @@ struct v4l2_subdev_state {
+>   *	Drivers that support only a single stream without setting the
+>   *	V4L2_SUBDEV_CAP_STREAMS sub-device capability flag can ignore the mask
+>   *	argument.
+> + *
+> + *	When the requested stream are part of a stream group, they will be
+> + *	stopped once all streams in the group are stopped.
+>   */
+>  struct v4l2_subdev_pad_ops {
+>  	int (*enum_mbus_code)(struct v4l2_subdev *sd,
+
 -- 
-2.45.2
+Regards,
 
+Laurent Pinchart
