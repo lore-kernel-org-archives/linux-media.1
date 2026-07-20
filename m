@@ -1,42 +1,46 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A1C40EBB4;
-	Mon, 20 Jul 2026 16:51:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BAD6383983;
+	Mon, 20 Jul 2026 16:53:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784566283; cv=none; b=CDi/p5dzYHjTjeHL7Pil+wO59te8X8QC3d66EQVqm/tJ6Zb2eKpZQquKNZrYKBbSDZmfy6oxJRtLibZPfu5md5BeSCs9g/qUj2cxhwbQbBlI38mkR3n8QnXixVxHOMeCXNms5kxaaGZkuXH6RsjJ5lzlB4hQ2dMib4StWiLjj/Y=
+	t=1784566419; cv=none; b=PnH3gh5LajWoOMHM9JVLU+4H+0EgsQDa86B+NupPKc0mhoPXO3i9WiEUcgfmLRToRnPmZQ08OQ9yaKSBU/aUIQgNGb9qQp1oJRec5OTmq8Obr5M2jNAXDqxnmv7woO2LO1oe2IbDCwhDHbOr0DYa1T7nHv8sdFHQAqEPwR+Jrlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784566283; c=relaxed/simple;
-	bh=48xzokJJGunmLrBLv47blN7DL2NI8uGuGfFPzvlNX1A=;
+	s=arc-20240116; t=1784566419; c=relaxed/simple;
+	bh=r69KWif/WluETzLaObyRwXUP59GDiT0sfR5I8jHTQl0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pjUisTcnRKV3i1GRdI/Iai75Cwfmdx9b/1vrIxU1zf3MNbFZEibQt0oLm1JiHdi3dJRS7Z2Vvmq1z/kEf4entuwlbG9Xxi1D9VDXwpRu3pxKeHqgY4hKIhdNr5EeF8BAeHtG6tTa3i52U+af+ad2wRYzMIBauFgmW6J6eXMDeXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=gtvC+Tjy; arc=none smtp.client-ip=213.167.242.64
+	 Content-Type:Content-Disposition:In-Reply-To; b=AeBQ1g31mKdQU7EAaFH0xjquFi+irzs9GSx+EiKOA9UH9LPjh5pjxhjLheOy3/hFkKwiZkZSeEjdJyjHr6n35EMiE/PgC3DBOR1waf2oE9RJtGnGgngGOyjbhljp2pqE0htcO3h/zQkCdOpiOn/seQts6ukMCxax1lj+DStPlv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=fSd3YdkK; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="gtvC+Tjy"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="fSd3YdkK"
 Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 44AE2270;
-	Mon, 20 Jul 2026 18:50:21 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0A113270;
+	Mon, 20 Jul 2026 18:52:37 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784566221;
-	bh=48xzokJJGunmLrBLv47blN7DL2NI8uGuGfFPzvlNX1A=;
+	s=mail; t=1784566358;
+	bh=r69KWif/WluETzLaObyRwXUP59GDiT0sfR5I8jHTQl0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gtvC+Tjyg+IRDW+9R3MGxXe7KYwLjQLKe6Pw0cyTfAip1Dogo9d5obuoITP7/yJ+m
-	 xM5U7Ro1UQ3/rQYp/vmL+3fHL41hvO7vRhc+aHzH0RnfuQRWOrtxWSoxMM7Z3K/V0r
-	 dAW1E7tFtqUvpY6mtrqMfSye/Rwq5kchcsOyA1+A=
-Date: Mon, 20 Jul 2026 19:51:18 +0300
+	b=fSd3YdkKBtHHk+KYSmbdJ9WdF5PChKyzb2dZ3az35o0PUhNDHLqxGQwWlKmrJgeCf
+	 uCXbeUnNxoGTYo1v0KDhdPlCav0OKPB8KgJO5IVwqWuJ41ePhqZCQEJmQYNIJ0AWQl
+	 e00Zw4kisruOQvhYPA5aT+WVvt3jPruyWgSJVzy0=
+Date: Mon, 20 Jul 2026 19:53:35 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Frank.Li@oss.nxp.com
-Cc: mchehab@kernel.org, kernel@pengutronix.de, estevam@gmail.com,
-	linux-media@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH 1/1] MAINTAINERS: media: nxp: imx8-isi: Add Frank Li as
- reviewer and i.MX mailing list
-Message-ID: <20260720165118.GA42426@killaraus.ideasonboard.com>
-References: <20260630163456.3317624-1-Frank.Li@oss.nxp.com>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Aisheng Dong <aisheng.dong@nxp.com>, linux-media@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Guoniu Zhou <guoniu.zhou@nxp.com>
+Subject: Re: [PATCH v5 1/2] media: imx8-isi: crossbar: Add get_frame_desc
+ operation
+Message-ID: <20260720165335.GB42426@killaraus.ideasonboard.com>
+References: <20260521-isi_vc-v5-0-a38eb4fcd58e@oss.nxp.com>
+ <20260521-isi_vc-v5-1-a38eb4fcd58e@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -45,41 +49,52 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260630163456.3317624-1-Frank.Li@oss.nxp.com>
+In-Reply-To: <20260521-isi_vc-v5-1-a38eb4fcd58e@oss.nxp.com>
 
-Hi Frank,
+Hi Guoniu,
 
-On Tue, Jun 30, 2026 at 12:34:56PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
+Thank you for the patch.
+
+On Thu, May 21, 2026 at 05:10:04PM +0800, Guoniu Zhou wrote:
+> From: "Guoniu.zhou" <guoniu.zhou@nxp.com>
 > 
-> Add Frank Li as a reviewer and the i.MX mailing list for the i.MX8 ISI
-> driver. This helps ensure patches receive review by the NXP i.MX
-> maintainers.
+> Implement the get_frame_desc pad operation for the crossbar subdev using
+> the v4l2_subdev_get_frame_desc_passthrough() helper. This allows the
+> crossbar to properly propagate frame descriptors from its sink pads to
+> its source pads, which is necessary for proper stream configuration in
+> multiplexed streams scenarios.
 > 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-
-Thank you for volunteering.
+> Signed-off-by: Guoniu.zhou <guoniu.zhou@nxp.com>
 
 Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
 > ---
->  MAINTAINERS | 2 ++
->  1 file changed, 2 insertions(+)
+> Changes in v5:
+> - Use v4l2_subdev_get_frame_desc_passthrough helper
+> - Rewrote commit message
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 361a4f447277c..62ed60238b1cb 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -19470,7 +19470,9 @@ F:	drivers/iio/adc/vf610_adc.c
->  
->  NXP i.MX 8M ISI DRIVER
->  M:	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> +R:	Frank Li <Frank.Li@nxp.com>
->  L:	linux-media@vger.kernel.org
-> +L:	imx@lists.linux.dev
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/media/fsl,imx8*-isi.yaml
->  F:	Documentation/devicetree/bindings/media/nxp,imx8-isi.yaml
+> Changes in v4:
+> - Use %d instead of %u for ret variable in error messages
+> - Fix potential -ENOIOCTLCMD leak by resetting ret to 0 on continue
+> 
+> Changes in v3:
+> - New patch added based on feedback from Laurent Pinchart
+> ---
+>  drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
+> index 605a45124103..0b593aed618b 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
+> @@ -404,6 +404,7 @@ static const struct v4l2_subdev_pad_ops mxc_isi_crossbar_subdev_pad_ops = {
+>  	.enum_mbus_code = mxc_isi_crossbar_enum_mbus_code,
+>  	.get_fmt = v4l2_subdev_get_fmt,
+>  	.set_fmt = mxc_isi_crossbar_set_fmt,
+> +	.get_frame_desc = v4l2_subdev_get_frame_desc_passthrough,
+>  	.set_routing = mxc_isi_crossbar_set_routing,
+>  	.enable_streams = mxc_isi_crossbar_enable_streams,
+>  	.disable_streams = mxc_isi_crossbar_disable_streams,
 
 -- 
 Regards,
