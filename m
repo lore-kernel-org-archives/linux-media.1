@@ -1,52 +1,52 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5EAA390CAE
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 07:17:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473363B7751
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 07:21:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784531871; cv=none; b=ggPlQwF6DBiN5BqBD0OS9RgboGKrScMDkTVSdDWHNsiUza8Ripm3v5z2h8uLvhvKCTSItPW71Dea7fx9D5kVx40SkGng8EP1BlHQ2q27/3nBBAMXMdL3ahL7hOGorneKPC9JJUO1q5FpY4+jskaN1pUP+mmtGDn4zsfTFfeaQSU=
+	t=1784532070; cv=none; b=bG2w1F669XwkiQCqUjGmEr1nKBET0Jl6ry0vpnhfxh5YgfSp9w0YafSPQDDoghO7je7bJJda0H1ykCCzW3aCtYP4equatZ4/50cAVdu7stNLldOpCUEn+UntwSJ/UzfYG346JNc7UJMMrSJQrunNfnx0kuNDOlkt7bmL6IwA27I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784531871; c=relaxed/simple;
-	bh=rt6VRX8E8bZyz80/yomDrD8ltDGUsDGqnr6virTcC7M=;
+	s=arc-20240116; t=1784532070; c=relaxed/simple;
+	bh=fBTisUKk2GAfPI+EFncb5DfTz1SbVYqBAGOZPEirgis=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SNQ6VqmDl7SdftLfZSlacfmoDdMDzru0ZrebHgZX+bPrzpFBKIXblan4P85cia3ipbnaxf+9VDOqLz/A9nXR/D9igqYqnBAs+Lu8lMVFlaYYbQuG5AVXlFH/8fxxKA5/wMH4G4QCz9JdpM5FNrCsCCV6E7kTAs/qxYz05cs7SEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AdosAkhg; arc=none smtp.client-ip=198.175.65.15
+	 Content-Type:Content-Disposition:In-Reply-To; b=k3wgTGwA5xAxrvlwIIsqa4eDWSesMTLgVJejZlkInYJ8TFmPaZStFeeN2Ej/AGa4UK5PuR2tkcgvgCgijciK1mtOblfj2clvGfubR5Xpv2X94/TDA4mhuJbGYy92ZmE1m00Etrh43i0TneRPDBiWD5tQ2ckRMaYQT5mPtuDMvl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mHXGpfdg; arc=none smtp.client-ip=192.198.163.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AdosAkhg"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mHXGpfdg"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784531869; x=1816067869;
+  t=1784532067; x=1816068067;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=rt6VRX8E8bZyz80/yomDrD8ltDGUsDGqnr6virTcC7M=;
-  b=AdosAkhgRwfLxded9huznY99RNtmmEfolOB5SJ727/Tx/bbvnRSDi1k+
-   Olx8x72QVoF5+batA/YFQYKZd6vipl5o8E3W3v/JPP4v0YMkKgADWQeik
-   95EmbTx6Ti0p4+dr5fkIAH6UsgCjZgiT380jN/dJbhUFJm7CVwwpuXGO2
-   x3YwVGV6c6vjOaDKoOIHTvkQbfeSkUEozsawbYLLPGTDRojHT+V/861ts
-   MDVdiN8OG2uLpgY8rkG9rWKgttMDStvewKzJUK+6/iLLUBuCDriV5DMIo
-   hxBEDGuVBWNtC/eIfCy75BIoytXu9KL5N37pZSpcJXtD1sPf85WKjswTB
-   g==;
-X-CSE-ConnectionGUID: 6qN4H8rgThaUDVJ75GbQ1Q==
-X-CSE-MsgGUID: N6fZ+S++Q7uNR+yZHzb+Ng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="88782589"
+  bh=fBTisUKk2GAfPI+EFncb5DfTz1SbVYqBAGOZPEirgis=;
+  b=mHXGpfdgRptWvFH0uSNDZoS4+bHst6ppePilkHypp2SvpIEBnHTpVET8
+   lqVf/6kLorHQv/X+SE358MhE8MXmZbxbhcUWjRBUj2tcht6eyq981fd+y
+   xRLbZ1UqYMTEj1XXZA+bmyenfqRWJ+PSoL5hgOAazTr5O6nfhXPBBrhti
+   zHZLJjq4jQe9USNCEhjKk8+diuFiMz3uvmGjseY+LLzcxz/lZmwnv4YFV
+   ZT1kpaDQBz1ZZ8GfurG85V5oRsAip14lAuGK8vYxbLyOf+ioctU2uvMme
+   v2UhwfRrP5gNzcp9rQ0KjyFiX94p2NyCy1KHZBdAym2fV0jgHqEDDT90r
+   w==;
+X-CSE-ConnectionGUID: URle2+/PR+CU/4sU7fLhvw==
+X-CSE-MsgGUID: quOUhYRGQo66cXMiSH66dQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="95756801"
 X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
-   d="scan'208";a="88782589"
+   d="scan'208";a="95756801"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 00:17:49 -0700
-X-CSE-ConnectionGUID: pb+Dd5RpQUeVTUo4HUEj8Q==
-X-CSE-MsgGUID: 5g4tje6ESf+UXzAiNPCPeg==
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 00:21:00 -0700
+X-CSE-ConnectionGUID: 92X0RgbUQF64eWNE+rvUHA==
+X-CSE-MsgGUID: Rz3dkx1vTuOpXSWdX+sB1w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
-   d="scan'208";a="258019838"
+   d="scan'208";a="258020832"
 Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.94])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 00:17:43 -0700
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 00:20:54 -0700
 Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id A5CEC121C02;
-	Mon, 20 Jul 2026 10:17:45 +0300 (EEST)
-Date: Mon, 20 Jul 2026 10:17:45 +0300
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 96845121C02;
+	Mon, 20 Jul 2026 10:20:56 +0300 (EEST)
+Date: Mon, 20 Jul 2026 10:20:56 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
@@ -75,11 +75,12 @@ Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v6 04/16] media: imx219: The horizontal blanking step is 8
-Message-ID: <al3LmaU1AcKw7MGU@kekkonen.localdomain>
+Subject: Re: [PATCH v6 07/16] media: v4l2-subdev: Move subdev client
+ capabilities into a new struct
+Message-ID: <al3MWLt9yQOAftm0@kekkonen.localdomain>
 References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
- <20260701122634.1728782-4-sakari.ailus@linux.intel.com>
- <20260720062836.GB2208631@killaraus.ideasonboard.com>
+ <20260701122634.1728782-7-sakari.ailus@linux.intel.com>
+ <20260720063556.GD2208631@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -88,38 +89,26 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260720062836.GB2208631@killaraus.ideasonboard.com>
+In-Reply-To: <20260720063556.GD2208631@killaraus.ideasonboard.com>
 
-Hi Laurent,
-
-On Mon, Jul 20, 2026 at 09:28:36AM +0300, Laurent Pinchart wrote:
-> Hi Sakari,
-> 
-> Thank you for the patch.
-
-Thanks for the review!
-
-> 
-> On Wed, Jul 01, 2026 at 03:26:21PM +0300, Sakari Ailus wrote:
-> > The step for horizontal blanking on imx219 is 8. Take this into account in
-> 
-> I'd write "for the LINE_LENGTH register" or something similar here,
-> unless the constraint is really on the blanking.
-
-I'll use FRM_LENGTH_A.
-
-> 
-> > creating and modifying the horizontal blanking control. The minimum line
-> > length in pixels as well as the horizontal blanking values are already
-> > divisible by 8.
+On Mon, Jul 20, 2026 at 09:35:56AM +0300, Laurent Pinchart wrote:
+> On Wed, Jul 01, 2026 at 03:26:24PM +0300, Sakari Ailus wrote:
+> > Add struct v4l2_subdev_client_info to hold sub-device client capability
+> > bits that used to be stored in the client_caps field of struct
+> > v4l2_subdev_fh. The intent is to enable passing this struct to sub-device
+> > pad operation callbacks for capability information. The main reason why
+> > this is a new struct instead of a u64 field is that modifying the callback
+> > arguments requires touching almost every sub-device driver and that is
+> > desirable to avoid in the future, should more than the client capability bits
+> > need to be known to the callbacks.
 > > 
-> > Fixes: cd5e2fd89923 ("media: i2c: imx219: make HBLANK r/w to allow longer exposures")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> > To be squashed to the previous patch.
 > 
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> It looks like you forgot to take my review comments from v5 into
+> account.
 
-Thanks!
+I'll drop that line for v7. I thought I already removed them all but this
+one was left.
 
 -- 
 Sakari Ailus
