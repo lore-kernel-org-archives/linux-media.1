@@ -1,32 +1,32 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4EB83C342B
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 07:30:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C3F2D29C7
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 07:31:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784532652; cv=none; b=Rk+wc4ntBVm6dBnue05R0SiE1sIkNmKV4qIxYDFl9xw4ErzmuB3rHzqrZTT77OUyEH3H4p7cyWjYq0Z46swOWvrhxGJvc5ZAln4dDJ47lgE1XM4SOeF9s5RfpWdijXABKm9Lax0lDEk9hCGyib9wlM/ThjyEZSrxDRztYVY3juY=
+	t=1784532695; cv=none; b=GYxC8TFxLbFMhXcOTOggaSQzDIbAdbHzG7dJdhKs760sI2ogsJb69SumJVzqin3gt7vQLfAkbxwkbjICKYJq0TPfisQlddZkazsOi3sSPWxODM31ZcmwWPHelL/pxZj7E3P3uJNqbviyvEutJOatIZia2002NhjkQ1hgB4ld2jg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784532652; c=relaxed/simple;
-	bh=sAzDug9yigAB9DFxluOImeWiNEJqjxzu7k0Rhqcm7JA=;
+	s=arc-20240116; t=1784532695; c=relaxed/simple;
+	bh=nbO91ENHFLuw/6fbtSgkbWwnrFrpL1fWybtG23+Vvmo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qnF1u9GxtdGlchYRurUIUUxpGXOgNCJmzZu/UEXolC7Qso141jSimJ8Nh5enhWl1lYCv0THoFj3+7bx5/FCL+OEmnlqLf39Y26rJCgSugf912bUrAlngEle9VPUNLkBaBihn5ux+fqCek+E1/QKze4YYUVO/T+d82Dsx4f8ZiLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=j3jZXAej; arc=none smtp.client-ip=213.167.242.64
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wdtu5rMEnmkyLWuMXDY4La55Dp0/E9+BB6xplNjVBasltlJT+wsETvl/WtO7dd3SeHChpLFNpXG0vpK+CWlzlAKpNp4OKLrsRKBWr4lbsrJMkkbFJh39kpNV1yPBgGJ7rXY9S0gIaieL3Ksb/RhsPI4GpO+ex2cszNFSH1jvk4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=pSRq7RS0; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="j3jZXAej"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="pSRq7RS0"
 Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AFC53161;
-	Mon, 20 Jul 2026 09:29:49 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E0C4F161;
+	Mon, 20 Jul 2026 09:30:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784532589;
-	bh=sAzDug9yigAB9DFxluOImeWiNEJqjxzu7k0Rhqcm7JA=;
+	s=mail; t=1784532634;
+	bh=nbO91ENHFLuw/6fbtSgkbWwnrFrpL1fWybtG23+Vvmo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=j3jZXAej47rT7LrktyQpWBX3Fs6P8ciy9ngA5btsArsbZGIud9JaqHWWJ+SMEZ/o0
-	 bJiBvyQ8RUmBRXNsVkt+MX5eec7CUR4TFXfyQBKBMDYB38Es4cuicUFUtcZkli8j41
-	 eGQ6A4CnuOXc4L2VXNu7eJdDb83APupH43CyHcas=
-Date: Mon, 20 Jul 2026 10:30:46 +0300
+	b=pSRq7RS0ecC8ri+lmkpCCD+rdMiVAqZagM6nvVTTA1hvYeGJqgwihDyFuYIhGW/m9
+	 mWJXlec7DeTgoZVmugXe4OUCyyxzKn4QfWSKL2EX/1cLTQ/FWP6uk/XfunTYma/afq
+	 J2t0Vrc9n16qZHJq3r7eDcCB5Lpiu2DcNihA+zLo=
+Date: Mon, 20 Jul 2026 10:31:31 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
@@ -54,14 +54,10 @@ Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v6 08/16] media: v4l2-subdev: Move op check to sub-device
- op wrappers
-Message-ID: <20260720073046.GA2288997@killaraus.ideasonboard.com>
+Subject: Re: [PATCH v6 11/16] media: rdacm20: Don't assign set_fmt()
+Message-ID: <20260720073131.GA2259915@killaraus.ideasonboard.com>
 References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
- <20260701122634.1728782-8-sakari.ailus@linux.intel.com>
- <20260720064521.GE2208631@killaraus.ideasonboard.com>
- <20260720064559.GF2208631@killaraus.ideasonboard.com>
- <al3MvhlOFGEIdZZM@kekkonen.localdomain>
+ <20260701122634.1728782-11-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -70,39 +66,37 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <al3MvhlOFGEIdZZM@kekkonen.localdomain>
+In-Reply-To: <20260701122634.1728782-11-sakari.ailus@linux.intel.com>
 
-On Mon, Jul 20, 2026 at 10:22:38AM +0300, Sakari Ailus wrote:
-> On Mon, Jul 20, 2026 at 09:45:59AM +0300, Laurent Pinchart wrote:
-> > On Mon, Jul 20, 2026 at 09:45:22AM +0300, Laurent Pinchart wrote:
-> > > On Wed, Jul 01, 2026 at 03:26:25PM +0300, Sakari Ailus wrote:
-> > > > In anticipation of performing work for sub-device operation when the
-> > > > driver doesn't implement one, move the check of operation existence to the
-> > > > wrapper itself.
-> > > > 
-> > > > No functional change intended.
-> > > > 
-> > > > Many drivers implement set_fmt() pad op that simply returns the format
-> > > > just as get_fmt() would do, usually because the driver only supports a
-> > > > single one. The arguments to set_fmt() and get_fmt() are about to get
-> > > > differentiated so call get_fmt() always if set_fmt() isn't supported by
-> > > > the driver. This avoids changing drivers now and allows removing
-> > > > boilerplate code from existing drivers.
-> > > 
-> > > I don't see this change in the patch. Am I missing something ?
-> > 
-> > Patch 09/16 answers my question. With this paragraph dropped from the
-> > commit message,
+Incorrect subject line, s/rdacm20/rdacm21/
+
+On Wed, Jul 01, 2026 at 03:26:28PM +0300, Sakari Ailus wrote:
+> Do not assign set_fmt() as it is the same as get_fmt(), which will be
+
+s/will be/is/
+
+> called by the framework now in absence of set_fmt() op.
 > 
-> If you think the first paragraph is enough to explain why this is done, I'm
-> fine with dropping this one.
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-The second paragraph states "call get_fmt() always if set_fmt() isn't
-supported by the driver", which is done in patch 09/16, not here.
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
-> > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> ---
+>  drivers/media/i2c/rdacm21.c | 1 -
+>  1 file changed, 1 deletion(-)
 > 
-> Thanks!
+> diff --git a/drivers/media/i2c/rdacm21.c b/drivers/media/i2c/rdacm21.c
+> index bcab462708c7..c7d2bb1cbe48 100644
+> --- a/drivers/media/i2c/rdacm21.c
+> +++ b/drivers/media/i2c/rdacm21.c
+> @@ -322,7 +322,6 @@ static const struct v4l2_subdev_video_ops rdacm21_video_ops = {
+>  static const struct v4l2_subdev_pad_ops rdacm21_subdev_pad_ops = {
+>  	.enum_mbus_code = rdacm21_enum_mbus_code,
+>  	.get_fmt	= rdacm21_get_fmt,
+> -	.set_fmt	= rdacm21_get_fmt,
+>  };
+>  
+>  static const struct v4l2_subdev_ops rdacm21_subdev_ops = {
 
 -- 
 Regards,
