@@ -1,179 +1,180 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830953E928F
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 12:23:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 162253B14CA
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 12:30:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784550182; cv=pass; b=pVqBzYyA3BmiidihpwmCnIjgueD/ZeUHrZtKuqzGokFEnu6HWbglANVbFOpH2RSNanWCqlQKHTpI3LRz6c5GPu/yUgpLiQ4mtSs8XaPzOq6lILzIM6mh1UC3d7Ht49yhQH0RvL73lE+bTkuMELhvqde9+ac+YVw86fhPoTOpVkc=
+	t=1784550642; cv=pass; b=OysrYtHzO29swMEmWPHARpG9vlhsWSiLQFNEDTF/2cWLd58BSCQZ249MUE8RfOICL92k+UF8G9tF8t7nClhOUxsjIjgwG6Vo/6W2YhZTFC8d2mb3URb4+1KtRM5WYKFcl14mqQb5GDvu0QF0vvMNkIxz40vW2opvexGmqoUPUeA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784550182; c=relaxed/simple;
-	bh=0mitG+8FThZx81ptAQLduASuicVYCnxMrJeUe80oBYE=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=GdsZToNWV4V23Mwthr4TQG6nBTWCdGkwQdmP+4ECMiHM3E1JmW1PsL3ega4f/SwAvy41/lK4VZOSSH5G9UxUrGqB7zvjC0j11piw0CefN1xRzjMkJq8IqGy4JJeSrFo9msjtEG3wsY0IasNmFhn+oV2WhPhIXnY4Kj7w69vGslg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XqywrI6J; arc=pass smtp.client-ip=209.85.214.180
+	s=arc-20240116; t=1784550642; c=relaxed/simple;
+	bh=cPM8oDxwzYcAcNEQsPk/5pfWXGHxBQ/pHARivsKUXGI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rx41wy3vgYXwVYmahq9r1o3ZaA4+qtZCKu2unpObm2xbiwA8hm4bT23vwpOkmBN9VGFtK33z400EsbythmpejbX75Adc5AblB0QH5vd1306ESqmY4aPwug5SH22eiKTyTMeIfkpw5Ny5GzMRMXwrHd0j08ZMi0y5m+4E0WIufsc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y/QLhcvE; arc=pass smtp.client-ip=74.125.224.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XqywrI6J"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ceab75934dso104562105ad.2
-        for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 05:23:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784550181; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y/QLhcvE"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-6651abddd5bso1054861d50.1
+        for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 05:30:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784550640; cv=none;
         d=google.com; s=arc-20260327;
-        b=K08r9Wj+mi/paHCYNZkPxcP3nv2Ifw75ZI5vPRZaTAwU+Ka9iS9yeCBAa1k9nyhn/d
-         GugVzVrRu0DDPieLL4QcczJ3wp1434IwpXtL3onRpCVLupLzLdX43sWXzG6GliK7EPFg
-         IkSgDRrp+pl9l18nTk8hKGJDzL7awv5pKkTyHAk5gyWMyY7iOBa8uqx5WGDqxrr6XcHF
-         OQ359dhNluoFz/yF543IKHWrIs+xVon41llQq2PjJu06mQhfF01yZXoeAsn8EOqSZE8j
-         Pt16NG0eG7mO7M090HKhoNra7jGZ4tw8D2s2x5Z9s4iVOfNeg7J8TiatZa+l7pneZz4b
-         j5OQ==
+        b=CgCkdK0wVq1qReeLVgoQV/b81GQjiaGDt8M+VllkakQi+rClVIGu8TLfwLCc3dqGCv
+         TTKfBUePxSC7xLJlkLm20dIHDH3NIrBE3TxhUko5dlEMnUxjCk+0fysC90JLA9gDOitQ
+         2zra8YuraW9+VkEPsQT3k7AC+T/NJth7X1kZ5KKmFCVmURFdomxudSilD7vHbY5xqjiw
+         On9+0/nD1iWh5w7ZYqVUoB98t/WIqXV71wP7Th/iukbjC7Era0tSqHtB6kv4Y4b+501H
+         tQw/gucG1mlLv7MUvXwKIGDmbk9ZhJQDqDjYV3Ec8gyZnj9FxF4bepkFGcz3mDKeNfbw
+         9sWA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:dkim-signature;
-        bh=EElgMrmvO1hr91/z88S9QUFIgNeRTIFWBxAntyFjN/o=;
-        fh=ut8VfA+08RKNjuCm9gciNCPBPsJoXrkKr/q61lMoWWs=;
-        b=CHOFnY8ug/n/Pc7Z9ruvW1qGnajQ0SHNrORPDT1UOyZwldbxU87g0k6I0YqjiyjG7Q
-         YPb0EYac1Tdgeida+DOQC8ePoWpNX9V++dYOIUa1sXz6fYkVyfqUtmGl1p9Rf0D68WCb
-         gF9yPHAdPyv3P+GiJTQzimWvNgSw6Bh3luhpEmNcklY+Ujni1J2nrPxGhs2Apdq8Kt9n
-         /U3mOZrTrHWJIt/xyKoma+wQSsk/47bpcjKQjID14vYl2GuTrtvAEJ0FTGvTaKTrzxBG
-         Ekr3AXNxgJdGgBluviD26p+0zpJugLcg0re32BNAViowvQ4we+dO6fFe1USCSgp91hBi
-         FYSg==;
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=RK3orBipLvBxv9OpAnJ3z8fX6ifrA1MYoB2RBjJvzSM=;
+        fh=WqT2iyjmKjcAc04DaRyDMrp+igKerq+xFGyrObM8ko4=;
+        b=R+jpQOMJdH3lKPo2dUr9KDVtdOJ9Vlu5wtHNFPhCatJld4j/4y+IqQF+0hd7mU+c/K
+         +3QAF/rqTkD0fAZezdZIXA+XNuW2tpa5MrGQ1IMXVMcczehh7L5m0FNxq/yfB+kHkAeg
+         Kvpa5kp9VNW32I0YYyrT8qads4ELRfj2OZwqt06Uf1opEyfvhp4HQ8WM3ucR8cLMiwmz
+         jcl3qNysp2jCqVXtiXcjKo1PbSxRSFuWRD4RaaLXW0Xmxw/2wOzAKImF2AGgsV1BtEcD
+         GhVBtQDMhFCXFQ+ljoSAUrKowqDB4LOquNr8eiCwDEctRdIEksjh+RtP8H+GFWecBiNx
+         b02Q==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784550181; x=1785154981; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784550640; x=1785155440; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EElgMrmvO1hr91/z88S9QUFIgNeRTIFWBxAntyFjN/o=;
-        b=XqywrI6JjYaGJJm/X2wbxd1M3unL6rxNfSeGuIdupR4+SDf+KigujgoR6j2dPl3B5Z
-         dx4/S1Vis53oOEOeAObBE9L+RsaRGPXUi10+kynrqwBujCg3Vl9aw4i33IePRU+5Wlln
-         b09o8qohuIi7vp+yq6UBKKttyz1QTJfyixux5CZlgU0ERuEt2LL4Rmi55ztBZFdOQ63U
-         skucKOcQem6w8rjzAuzG7aOPxB3KKFFLisqAi8j2YiEWrLfZ/1GveM32tp0pAdcgMgQ4
-         Kjmj/6/Asy7uh7JSJ60mQp/Db8qfA58hl78t/eZQ3pHzmKA7CDwv4a9Sspuv4sYJI+tN
-         gP8A==
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RK3orBipLvBxv9OpAnJ3z8fX6ifrA1MYoB2RBjJvzSM=;
+        b=Y/QLhcvEDbgfmgQxLM5cmpKjUF3I8jb84H57wTPPaZxS5ZQFOLdgbTkIGS8mVt/DoF
+         7wZwFNx6L6RiegJomoOvh0ITPLls+YRV293Nstg3wXcgZNSAfNckGBQ7f9iSBssHWXly
+         CUVejkFoBe2vgEjdd+W+nxoxuz10+Hq7W+Fus5/T4+ca+bnkeZwzfuHYjdDrj+gywVO9
+         I8+IR9/Vulegu0Gghzh22iHTAO5KQ7tRfKRMIoWQz+b3+MgIhSJVJu5Bah+VAuMkZJdg
+         0Zl+i+GiMgLJSi/6MnfgWj5Qhd8E1hZL07363LF1ZsHOrHYnCPhso7nZHTr44c2Eymqn
+         zkXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784550181; x=1785154981;
+        d=1e100.net; s=20251104; t=1784550640; x=1785155440;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=EElgMrmvO1hr91/z88S9QUFIgNeRTIFWBxAntyFjN/o=;
-        b=Qag7Tc6j760FgxsC0SbuHXlMPUcUU3pAeSw/FkEhXXlVTXoSUzSnwebUsuxs2eOJDS
-         +HcH7pY3SMfhYGrm2iIpWbHU3ui2QkapEhfQEJHantdNYQPB7K/kMRoMVKcLsAL06W+o
-         0nVOPEEXmAY1/TTQKRSMZVqDg/wAPV8fAYfd/5NMi2DL1LENewxISrBvaZwooWQpOfZx
-         KlPTY9vg1gaum5TElV/buQA2vzbrcTwK9ASim3Lfl80TTnrYVaofSNsjUAx6AoQxsFeN
-         KJDTAC5jPg0omxWJqX4h72tCMG68fRW1/1qaatv9eIK7PW+QB+DSU3W9lUuq+7cIICy5
-         U95Q==
-X-Gm-Message-State: AOJu0YxhhrFwfIhXDJP48rIHqDtg1km5bU8L2lYGhh1o79RCAFag9I4l
-	1/y21I/vq5wroLbySrH+GnuzZ/DHhbZv+LPz2shQU5DjG4AwO61WEV96BHGixHVaM+QhEc+pBIZ
-	qlrRtW4iy2MZmPENSFrZc0TQAKKsecrwYlg309lei+Q==
-X-Gm-Gg: AR+sD10Dl3DyJnn14kIxXvdpe3Vi2ps1s009n/GkgmOTS+/5TQCb/A0l/ojpccDRbGr
-	UCcOjtbyMIPyACKNm3UbQUTYsraqel0E0q30NtIU7a+jrIVrqOU7kJPGbWBL4WQgeVoqXUFfQWb
-	0Y2zoEm4G1QbKgxnLl7Rs4JsKXvzohcd9Qlu6RdwdrSeErk0xRV/RqFJ15nP0AD3GN4djdHR7Ez
-	L1mzVTh5mBzyMKLB3OoXLqZbQ5Nk8G7sDq+ft0IdGzXXRZ61mwg+rLjf/nU
-X-Received: by 2002:a17:902:fdae:b0:2ca:ecf6:910e with SMTP id
- d9443c01a7336-2cf3466a93fmr155729425ad.0.1784550180710; Mon, 20 Jul 2026
- 05:23:00 -0700 (PDT)
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RK3orBipLvBxv9OpAnJ3z8fX6ifrA1MYoB2RBjJvzSM=;
+        b=UaWQ6hCO5AQLL6j46qq3PUZSyr9TSViGoaCNJoZ9bM5atbr2NTiP+iv7+42uMP0art
+         v9laGkXOrIm2agyITWDPe4dXbmnI8SAyvKNhi00w9A78mcT5SNW1QokQ8dcqJDyuNM1x
+         O3ehgMqxHgVPNnp2dDRMcxUKHEi7fgQcniAS9E2vk2b9FAXHZS8GVuFGfNb4s3M24JFt
+         twieRYeoQi+LwQsJ15bJwiUbUHOw92HeclPLEaZb9rqi6rvkfv2brXsIPxWlDQhdQATc
+         GazgqPz7tmwXqKlJL5wYsuwiTouUxR+Nh7v3vDGQ1l7QLgNmKMl9YA5oos2e4LiRxd/k
+         +3fw==
+X-Forwarded-Encrypted: i=1; AHgh+RocJRYobwU0oVbkIhMz3CSPQEQCcmONzehAasSLGw6csmFMHdy1JxYo6yvxQIFH4DsP6hUTVUTxifpkkA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YydNzckLNWiqes79tkzTZhrZ6+VGW0XiuznGtPjifs5Sr4W5BhS
+	slxMWd9F+Mb8IVZ6pM5zVpaI0MhLVbiDLinyrCeSU8Ls5O0/j188MSVWtt6hlLkdwk2amnJqJ89
+	6hEsmqC7GeiEaaUFlvgn6tGBwXd+5gVE=
+X-Gm-Gg: AR+sD12AZYZO8pdnnMAqOrtZ1suhKEXNIUwfAY9Vr8CCsOAm6hoLo9SWkDhazLjG8Ea
+	tTQrWmDwqUd0twzDnX+f2Vii4WfkwKbf91n6Aq2pkFtUyhhVUj3fQqrPEEN0cMN3nP1mrlwUoNz
+	t1oouVfsWHn6NRGhdaprNBviqf0PrLX5YuuMMggdIbzpcAWF+hlwjNp4oSQSF/5vF44c2bZVQfh
+	zFku+VhvQPH02di1ZF71a0KO4+FQsbo7+BYRUFX+ywrzUWMsmMr2oegRklUj2t0JaHGmyLTsKrA
+	VvTlJre1Y7KoIDoyF5Laj/SQadjwC/c=
+X-Received: by 2002:a53:b185:0:b0:664:afd7:e41d with SMTP id
+ 956f58d0204a3-6683bd3225fmr3054006d50.6.1784550639803; Mon, 20 Jul 2026
+ 05:30:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Kirill Ermolitskiy <00vopoj00@gmail.com>
-Date: Mon, 20 Jul 2026 16:22:48 +0400
-X-Gm-Features: AUfX_mwaO4JEgK4MvbPx7H0QEU-64ZjDqzMHa6VLQXSHts_xmQIs7yaGScXS29M
-Message-ID: <CADRRrN12FvS3v3c3on69XLErB9i8ih=LgJOGaKhYYT7KrZKe2g@mail.gmail.com>
-Subject: =?UTF-8?Q?venus=3A_encoder_job_execution_hard=2Dresets_SoC_on_SM73?=
-	=?UTF-8?Q?25_=28sc7280=2Dcompatible=29_=E2=80=94_extensive_analysis=2C_need_wrapper=2F?=
-	=?UTF-8?Q?GDSC_insight?=
-To: linux-media@vger.kernel.org
-Cc: vikash.garodia@oss.qualcomm.com, dikshita.agarwal@oss.qualcomm.com, 
-	bod@kernel.org, linux-arm-msm@vger.kernel.org
+References: <20260718085728.6797-1-royalnet026@gmail.com> <20260718085728.6797-3-royalnet026@gmail.com>
+ <25922edc-4ff1-4d28-9a64-2c28b2b690cb@collabora.com>
+In-Reply-To: <25922edc-4ff1-4d28-9a64-2c28b2b690cb@collabora.com>
+From: Igor Paunovic <royalnet026@gmail.com>
+Date: Mon, 20 Jul 2026 14:30:26 +0200
+X-Gm-Features: AUfX_mxl6V0Fcqr3p7PwGpYbAibraD_hti9tBU-fCmVXnkE6AMcEpLARKs3E8NU
+Message-ID: <CAEWPSH70FecQRuGtA=S8+_CnLY5sMyf1j57Uwzwv54zceS1HZg@mail.gmail.com>
+Subject: Re: [PATCH v3 2/4] media: synopsys: hdmirx: add HDMI audio capture support
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Sebastian Reichel <sebastian.reichel@collabora.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	kernel@collabora.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hi Dmitry,
 
-On a mainline port of the Xiaomi 11 Lite 5G NE (sm7325-xiaomi-lisa,
-SM7325 "kodiak", sc7280-compatible venus, kernel 7.1.2, postmarketOS),
-the Venus decoder works fine (H264/VP9/HEVC/MPEG2 via v4l2 m2m), but
-executing any encoder job instantly hard-resets the SoC below the
-kernel. I've spent considerable effort narrowing this down and I
-believe I've hit the limit of what can be done without wrapper/GDSC
-documentation.
+Great to hear it works on the 5B -- thanks for testing!
 
-Reproducer (100%):
+Agreed on the -EBUSY guard, done in my tree exactly as you wrote it.
+It also supersedes the suspend cancel/re-arm I had queued from the
+bot review: with suspend refused while audio_streaming is set, the
+worker can never be armed at suspend time, so those hunks are
+dropped.
 
-  ffmpeg -f lavfi -i testsrc2=3Dsize=3D176x144:rate=3D10 -vf format=3Dnv12 =
-\
-    -c:v h264_v4l2m2m -b:v 100k -t 5 /tmp/e.mp4
+v4 follows shortly with this plus Sebastian's dts restructuring
+(shared disabled-by-default card in rk3588-extra.dtsi, renamed to
+"RK3588 HDMI-IN") and Krzysztof's binding comments (dai-common.yaml
+reference + unevaluatedProperties).
 
-With venus dyndbg + custom HFI tracing on UART, the full session
-negotiates cleanly: SYS_INIT, SESSION_INIT (acked), all
-SET_PROPERTY/SET_BUFFERS (accepted), LOAD_RESOURCES (acked), START
-(acked), 4x ETB. The SoC dies the instant the first FTB is issued and
-the engine starts executing =E2=80=94 no SYS_ERROR, no EBD/FBD, no SMMU fau=
-lt,
-nothing from the kernel. XBL log after reboot shows "PM: Reset by
-PSHOLD / Warm Reset", i.e. a TZ/secure-level reset. HEVC dies
-identically (engine-level, not codec-specific).
+Igor
 
-What I've verified/excluded (all cross-checked against the downstream
-yupik tree):
-- memory-region (0x8b200000/0x500000), SMMU SID (0x2180/0x20), CP
-ranges (cp 0x0+0x25800000, nonpixel 0x1000000+0x24800000), clock set,
-GDSC offsets (0x3004/0x2004): all match downstream.
-- Firmware: vendor vpu20_1v.mbn, Xiaomi-signed (Xiaomi Root CA /
-Attestation CA in the cert chain), reproduced with two firmware stacks
-(old and HyperOS OS2.0.8.0 coherent TZ+vpu pair). Venus hw version
-6.40.a.
-- Reproduced identically with the iris driver (sc7280 platform data) =E2=80=
-=94
-two independent implementations, same silent reset.
-- Encoder scratch buffer sizes x4: no change. Runtime PM pinned: no change.
-
-The interesting part is the power matrix around vcodec_control_v4():
-
-1. Stock (dev_pm_genpd_set_hwmode, HW_CTRL_TRIGGER on mvs0_gdsc):
-set_hwmode returns 0, engine powers up on first frame -> instant
-PSHOLD reset.
-2. Forced legacy path: WRAPPER_VCODEC0_MMCC_POWER_STATUS BIT(1) never
-asserts (readl_poll_timeout -110, register reads 0x0). No crash =E2=80=94 b=
-ut
-ignoring the timeout shows the engine never leaves clamps: session
-runs to FTB, zero EBD/FBD, fw eventually non-idle ("wait for cpu and
-video core idle fail").
-3. GDSC forced SW-mode via genpd, or ALWAYS_ON: same as (2) =E2=80=94 rail =
-up,
-engine clamped, no execution, no crash.
-4. video_cc_xo_clk (0x7018 branch + 0x7000 RCG): missing entirely from
-mainline videocc-sc7280.c, downstream marks it CLK_IS_CRITICAL. Ported
-it (confirmed on at 19.2 MHz in clk_summary): no behavioral change in
-any mode.
-5. Dropping en_rest_wait_val/en_few_wait_val/clk_dis_wait_val from
-mvs0_gdsc (keeping XBL defaults): still resets, but behavior became
-nondeterministic across runs (one run showed a msg-queue response
-after FTB before dying) =E2=80=94 smells like power-ramp timing.
-
-So: the encoder engine only actually executes when the MVS0 GDSC is
-under HW control, and that execution/power-up hard-resets the SoC;
-every software-controlled arrangement leaves the engine clamped (MMCC
-handshake never completes). Downstream (msm-vidc + gdsc-regulator with
-qcom,support-hw-trigger) uses hw-trigger on the same silicon and
-encodes fine under Android, so the hardware is capable =E2=80=94 something =
-in
-the mainline hw-trigger power-up sequencing differs fatally on kodiak.
-
-Questions for people with wrapper/GDSC documentation:
-- What does the hw-triggered MVS0 power-up require on kodiak/sc7280
-beyond what mainline gdsc.c + venus do today (AON config? NoC LPI
-handshake? different GDSCR sequencing)?
-- Is the sm7280_reg_preset ({0xb0088, 0}) sufficient for this part, or
-does downstream program additional AON/wrapper registers before
-encode?
-
-I can test patches quickly (UART attached, one-command reproducer,
-full HFI traces of both healthy decode and dying encode sessions
-available on request).
-
-Thanks,
-Del'aRun
+On Mon, Jul 20, 2026 at 3:43=E2=80=AFAM Dmitry Osipenko
+<dmitry.osipenko@collabora.com> wrote:
+>
+> On 7/18/26 11:57, Igor Paunovic wrote:
+> > The Synopsys DesignWare HDMI RX controller extracts the audio stream
+> > embedded in the incoming HDMI signal and feeds it to an on-SoC I2S
+> > controller. Expose it as an ALSA capture device by registering the
+> > generic hdmi-codec as a child of the controller, so that a
+> > simple-audio-card in the device tree can bind the HDMI RX audio DAI.
+> >
+> > The sample rate is recovered from the ACR N/CTS values together with th=
+e
+> > measured TMDS character rate. A periodic worker keeps the local audio
+> > reference clock locked to the source by nudging it in small ppm steps t=
+o
+> > hold the audio FIFO fill level near its target, which avoids FIFO
+> > under/overflow and the resulting dropped samples.
+> >
+> > Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+> > ---
+> > Changes in v3:
+> > - restore the v1 audio teardown in remove(): audio_shutdown() already
+> >   stops the worker when the stream closes, so the extra flag clear
+> >   and trailing cancel added in v2 were redundant (Dmitry Osipenko)
+> > - rename the ACR read locals and add a comment documenting the
+> >   register byte packing
+> > - drop the get_dai_id stub so OF-graph cards resolve the DAI index
+> >   from the reg property
+> >
+> > Changes in v2:
+> > - register the S/PDIF DAI so the indexes match the binding and reject
+> >   it with -EOPNOTSUPP until wired up (Sebastian Reichel)
+> > - use platform_device_register_data() and drop the fixed 32-bit DMA
+> >   mask (Dmitry Osipenko)
+> > - don't leave an ERR_PTR in audio_pdev on registration failure
+> > - fix teardown ordering in remove()
+> > - stop the worker before reprogramming shared state in hw_params()
+> > - look up the "audio" clock by name instead of indexing clks[1]
+> > - keep the worker on system_unbound_wq when re-arming
+> >
+> >  .../platform/synopsys/hdmirx/snps_hdmirx.c    | 271 ++++++++++++++++++
+> >  .../platform/synopsys/hdmirx/snps_hdmirx.h    |   8 +
+> >  2 files changed, 279 insertions(+)
+>
+> Works well on 5b, thanks. Only one additional review comment:
+>
+> Please update hdmirx_suspend() to return -EBUSY if audio_streaming=3Dtrue=
+.
+>
+> ```
+> static __maybe_unused int hdmirx_suspend(struct device *dev)
+> {
+>         struct snps_hdmirx_dev *hdmirx_dev =3D dev_get_drvdata(dev);
+>
+>         if (READ_ONCE((hdmirx_dev->audio_streaming)))
+>                 return -EBUSY;
+> ```
+>
+> --
+> Best regards,
+> Dmitry
