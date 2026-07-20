@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85EF030DEBE;
-	Mon, 20 Jul 2026 02:55:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52CF2E7388;
+	Mon, 20 Jul 2026 02:55:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784516145; cv=none; b=B1MuiGhnc6fCL6Ro6EhrCxwQ8d/qeUCKghFhTHPCYeLGlil9N56A+I2x2k+Mf1jId0PJwV1+SS9jZ/9rWmctyQNwCY97fGd+FVZ8K/DLEgnaQRGc593EmxwvOJW9fSV1++vXFFpBD50g6/ioqh9avfcAKQjpT3kXuyaSc9rsMAQ=
+	t=1784516145; cv=none; b=ScsEV3rtCLqq9mZ5GXucNl2gIKaNAa0F2BQgEY1U2/ppzxQovVd1oOjOQWkpEWeOY6PwrxaCaOOpww4jOg3PELVasWBA3HAGYBPLCZ9WYzx3ua5oqSXXKwkGEeCRB/CcJSrCBkH5mEv4Q/eREuS515+uDdyUi5HBzhnjLWjy2Uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784516145; c=relaxed/simple;
-	bh=tYc0rSHf59xvk6hwCOVS+nA/C2J7/Hhkkm28If3nxQc=;
+	bh=4zWLFVNomFePmMF2BxhKBRrospAeZZG/vGZ7t4/x8jU=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=QN3DMrKuvOyo6hDzbo15mxOsQ5l2jD5wvfEmcY0NfjySK279feR4jjwsFb7MssUxwzMBHtMyib1M1TxtNQtbVxnTv30B7kCFKGHSM/l0nURqhh32yL4mVPnajO0pcs7Baet7xyZbVXFmQZlcL+TSyVzZUfACHyRAXtz8sQAiEUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=MYR3lHnF; arc=none smtp.client-ip=220.197.31.3
+	 MIME-Version; b=BcnlIcR/OOHZI2Y7xsrBjHjRDzYx29zT4bRJBQQtAyc2R68mzeMQ/68KJjlY/97WgkpleMp8vLP+QrpUp51JDa6ma1R3J4gvqxoYSEoMVLZuTTJZ/43XanzltqH84ap6M032ISzU97SFnY9HwhxFg+zFbYfifMYvTavF7vNAghs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=VFOnoVl6; arc=none smtp.client-ip=220.197.31.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="MYR3lHnF"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="VFOnoVl6"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=SI
-	5Xza7vx1jANaFpKhsJ9QPkCe10bTifrZn3lAmEOaY=; b=MYR3lHnFEBnzu0MbOD
-	pvBRiwK+Oyq5sNl7/ID+apHtnfnEc3hyjBzY7T4k+hFo3JyNTx3Y/wr1vfcylSnx
-	U3ln8Mv97kb/UrcZB33X0up2Y/Ye8P783A6OUycU/WpgOiSV9B6VNJ6sFFlUcVEk
-	JCey+elpooeoa/nz/2SgfqYQk=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=N4
+	5Icrhro654/GNeR8Fzgk0KDXvtXXsqVJj1N3N4CrE=; b=VFOnoVl6P6LYUuP5W4
+	P+7+jZzuFHCGg/nTF9v92eXL5u3ZCFum47CViEw5TMJGvb7C71iXBmR1aU5UJ8nE
+	WrYASf0KD1n/XKkxyW4C8hAfFMnEIC8HHFseEYPlGGXGJYdiDhrueiIObd0h6VCQ
+	fqQP5Q+oEyIKwIE4H6K6UsXtE=
 Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDnZIkOjl1qWxR+Kw--.19016S8;
-	Mon, 20 Jul 2026 10:55:15 +0800 (CST)
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDnZIkOjl1qWxR+Kw--.19016S7;
+	Mon, 20 Jul 2026 10:55:14 +0800 (CST)
 From: Lei Huang <huanglei814@163.com>
 To: mchehab@kernel.org
 Cc: johan@kernel.org,
@@ -32,9 +32,9 @@ Cc: johan@kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Lei Huang <huanglei@kylinos.cn>
-Subject: [PATCH v2 16/17] media: s2255: Remove unnecessary braces from single-statement blocks
-Date: Mon, 20 Jul 2026 10:55:07 +0800
-Message-Id: <20260720025508.207815-7-huanglei814@163.com>
+Subject: [PATCH v2 15/17] media: s2255: Remove unnecessary debug logging and out-of-memory messages
+Date: Mon, 20 Jul 2026 10:55:06 +0800
+Message-Id: <20260720025508.207815-6-huanglei814@163.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260720025508.207815-1-huanglei814@163.com>
 References: <20260720025508.207815-1-huanglei814@163.com>
@@ -45,67 +45,112 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnZIkOjl1qWxR+Kw--.19016S8
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CrWftw1DtFWrZr1rXryrJFb_yoW8AF4xpa
-	95WFWvkry5Jw15XFWkJ3WUXa45X3WkJayUKFW2v3yDWr13A34DZryktFyxZrWDArySk3WS
-	qrs0gr129r4jqFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:_____wDnZIkOjl1qWxR+Kw--.19016S7
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuF45Wr1xGr1kZF18Gw4DJwb_yoW5KF18pF
+	WfKayvkFWDtw1rWrWkJF4UuFyrA3WktrWjkFW2k3sYvr1UJ3s0qasYya4IyFWkAryIk3Wa
+	qr1DWw4UuayqgF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jcyCJUUUUU=
-X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC9BOZkGpdjhPMkAAA3Y
+X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC8xKZkGpdjhLQrQAA3+
 
 From: Lei Huang <huanglei@kylinos.cn>
 
-Fix all 4 'WARNING: braces {} are not necessary for single statement
-blocks' issues reported by checkpatch.pl in s2255drv.c. Remove braces
-from single-statement if blocks where they are not needed.
+Fix all 5 'WARNING: Unnecessary ftrace-like logging - prefer using
+ftrace' issues reported by checkpatch.pl in s2255drv.c. Remove
+dprintk/dev_info calls that only print the function name, as ftrace
+can provide the same function tracing information.
+
+Fix all 3 'WARNING: Possible unnecessary 'out of memory' message'
+issues reported by checkpatch.pl in s2255drv.c. The kernel's memory
+allocator already prints a warning on allocation failure, making
+these messages redundant.
 
 Signed-off-by: Lei Huang <huanglei@kylinos.cn>
 ---
- drivers/media/usb/s2255/s2255drv.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ drivers/media/usb/s2255/s2255drv.c | 10 ----------
+ 1 file changed, 10 deletions(-)
 
 diff --git a/drivers/media/usb/s2255/s2255drv.c b/drivers/media/usb/s2255/s2255drv.c
-index a9ed663cece4..c66cca2e76dd 100644
+index 78c78e55d180..a9ed663cece4 100644
 --- a/drivers/media/usb/s2255/s2255drv.c
 +++ b/drivers/media/usb/s2255/s2255drv.c
-@@ -1978,9 +1978,8 @@ static int s2255_board_init(struct s2255_dev *dev)
+@@ -657,7 +657,6 @@ static int buffer_prepare(struct vb2_buffer *vb)
+ 	int h = vc->height;
+ 	unsigned long size;
  
+-	dprintk(vc->dev, 4, "%s\n", __func__);
+ 	if (!vc->fmt)
+ 		return -EINVAL;
+ 
+@@ -685,7 +684,6 @@ static void buffer_queue(struct vb2_buffer *vb)
+ 	struct s2255_vc *vc = vb2_get_drv_priv(vb->vb2_queue);
+ 	unsigned long flags = 0;
+ 
+-	dprintk(vc->dev, 1, "%s\n", __func__);
+ 	spin_lock_irqsave(&vc->qlock, flags);
+ 	list_add_tail(&buf->list, &vc->buf_list);
+ 	spin_unlock_irqrestore(&vc->qlock, flags);
+@@ -1487,7 +1485,6 @@ static int s2255_open(struct file *file)
+ 
+ static void s2255_destroy(struct s2255_dev *dev)
+ {
+-	dprintk(dev, 1, "%s", __func__);
+ 	/* board shutdown stops the read pipe if it is running */
+ 	s2255_board_shutdown(dev);
+ 	/* make sure firmware still not trying to load */
+@@ -1939,7 +1936,6 @@ static int s2255_create_sys_buffers(struct s2255_vc *vc)
+ 		vc->buffer.frame[i].lpvbits = vmalloc(reqsize);
+ 		vc->buffer.frame[i].size = reqsize;
+ 		if (!vc->buffer.frame[i].lpvbits) {
+-			pr_info("out of memory.  using less frames\n");
+ 			vc->buffer.num_frames = i;
+ 			break;
+ 		}
+@@ -1983,7 +1979,6 @@ static int s2255_board_init(struct s2255_dev *dev)
  	pipe->transfer_buffer = kzalloc(pipe->max_transfer_size,
  					GFP_KERNEL);
--	if (!pipe->transfer_buffer) {
-+	if (!pipe->transfer_buffer)
+ 	if (!pipe->transfer_buffer) {
+-		dprintk(dev, 1, "out of memory!\n");
  		return -ENOMEM;
--	}
+ 	}
  	/* query the firmware */
- 	fw_ver = s2255_get_fx2fw(dev);
+@@ -2183,7 +2178,6 @@ static void s2255_stop_readpipe(struct s2255_dev *dev)
+ 		usb_free_urb(pipe->stream_urb);
+ 		pipe->stream_urb = NULL;
+ 	}
+-	dprintk(dev, 4, "%s", __func__);
+ }
  
-@@ -2210,14 +2209,12 @@ static int s2255_probe(struct usb_interface *interface,
- 
+ static void s2255_fwload_start(struct s2255_dev *dev)
+@@ -2217,13 +2211,11 @@ static int s2255_probe(struct usb_interface *interface,
  	/* allocate memory for our device state and initialize it to zero */
  	dev = kzalloc_obj(struct s2255_dev);
--	if (!dev) {
-+	if (!dev)
+ 	if (!dev) {
+-		s2255_dev_err(&interface->dev, "out of memory\n");
  		return -ENOMEM;
--	}
+ 	}
  
  	dev->cmdbuf = kzalloc(S2255_CMDBUF_SIZE, GFP_KERNEL);
--	if (!dev->cmdbuf) {
-+	if (!dev->cmdbuf)
+ 	if (!dev->cmdbuf) {
+-		s2255_dev_err(&interface->dev, "out of memory\n");
  		goto err_fwdata1;
--	}
+ 	}
  
- 	refcount_set(&dev->num_channels, 0);
- 	dev->pid = id->idProduct;
-@@ -2266,9 +2263,8 @@ static int s2255_probe(struct usb_interface *interface,
- 		goto err_fwurb;
+@@ -2275,7 +2267,6 @@ static int s2255_probe(struct usb_interface *interface,
  
  	dev->fw_data->pfw_data = kzalloc(CHUNK_SIZE, GFP_KERNEL);
--	if (!dev->fw_data->pfw_data) {
-+	if (!dev->fw_data->pfw_data)
+ 	if (!dev->fw_data->pfw_data) {
+-		dev_err(&interface->dev, "out of memory!\n");
  		goto err_fwdata2;
--	}
+ 	}
  	/* load the first chunk */
- 	if (request_firmware(&dev->fw_data->fw,
- 			     FIRMWARE_FILE_NAME, &dev->udev->dev)) {
+@@ -2371,7 +2362,6 @@ static void s2255_disconnect(struct usb_interface *interface)
+ 	}
+ 	if (refcount_dec_and_test(&dev->num_channels))
+ 		s2255_destroy(dev);
+-	dev_info(&interface->dev, "%s\n", __func__);
+ }
+ 
+ static struct usb_driver s2255_driver = {
 -- 
 2.25.1
 
