@@ -1,134 +1,257 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28F338756E
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 19:16:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784575014; cv=none; b=qz7EZWbzuAvN1JpzKhN6kQzlUPxyltUQq2N3nz9p5G4IGxhbSzFLy381ePE29Al9WrJG4qsoCFAc2BXJTPjDj2yBkBTUAMkUVKWgSp8i8hD7+BATVaQKMOyEZghfaBzxHrGtJZgk2dMefZy22xfrkYQrJqcfA3GmMucdzvXIkaU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784575014; c=relaxed/simple;
-	bh=dTTFES1H/NZMVMmw+FkFPJ8QujVahpuAvQaqpvWfK3U=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LH9p/PD+yqmjQH+CJy7D91G4x9YccW+yCcwzgdBd12+RoWTqRwAqc85i2o9iNoL6sKoiGpE9vhWenrKjn5HKyDAaEAAw3QLlKJUTvsfiQDVTcmwu3n9TtN1tRVX26fZJwgWc8sYTh/wYaJwoQc54jYwYW/nit93DUphTqyLRWHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FU5ZcbZF; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3643394E91
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 19:18:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784575121; cv=pass; b=KNlN8ykkgoNd6ZSdCwRkehP2s5AKJX3CDuCFELif+q7w4oLFpMvHHz/10OiU1vEIyzvC9IRfapQ23OuKWer23REc1b0hBnRqkkfN+Vbpj6bgUhcJIBIti6yYkda/3MKd65oh5h45cA7scaC5GmC3mDyJYdOX9FNDlnRPzixq+qg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784575121; c=relaxed/simple;
+	bh=CzOzvw9sY6kxmGwhIsCJLwfImNmbkBT0gx9KZ9/KDKk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YbtJRdMi1s+1y2WwmFKcoFOJNWVXHzvYqJufakCnvE5eLX2RLbsPC6eRloaAZ2sJ1wi8silZplv6JjtS3gQLlmTHA9uTHZ+OtSM/PjYPPt9aE71MPr8XShCPGP60TFtpYtAAr1zfIq/alo6u5xj36q/239hazoljH75cwuOJCK4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZvsJU3Fs; arc=pass smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FU5ZcbZF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C0061F000E9;
-	Mon, 20 Jul 2026 19:16:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784575012;
-	bh=zFN9Vqz4Q1btaJHtifoFTcALuh1ABqGWIxNavpNcQnM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FU5ZcbZFQi2qQgo7Zn4lwj++6qgT1SXfUVrkBjZ6B+2Z2xhPyTqir6FAuhsKg7mkE
-	 qWbJTuVzbtET4x6mdQr6xcicfOA5t97rU2/caqn6ELICG/cPQSJY3D3Z2N+/gXiQKn
-	 Spxqq52VpiSVZxQ27JNtN50RAoVFcJkuBuwLCIoZEJo6gj8hIRUjRiZvYAksha2bKn
-	 CH9Xkr1SOyn/pLddFFKtPmdiRQkXZEwIisuQPpj0PWbSnCcrp9ji6demH6DUTza4Oe
-	 TT8aGD437D6Umna/Z7azLDxQ10EWbjHqYZgQy/gHrZ6Sev62m5fw10fMZkDuwxdwNZ
-	 6BUh9bemjSMCg==
-Date: Mon, 20 Jul 2026 21:16:47 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: "Theodore Tso" <tytso@mit.edu>, Jacopo Mondi
- <jacopo.mondi@ideasonboard.com>, Roman Gushchin <roman.gushchin@linux.dev>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Derek Barbosa
- <debarbos@redhat.com>, Matthieu Baerts <matttbe@kernel.org>, Konstantin
- Ryabitsev <konstantin@linuxfoundation.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- users@kernel.org, Linux Media Mailing List <linux-media@vger.kernel.org>,
- Stephen Finucane <stephenfin@redhat.com>
-Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <20260720211647.3d62f4b9@foz.lan>
-In-Reply-To: <20260720095537.4d5d503b@robin>
-References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
-	<4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
-	<alc3gAJfAkG5DULJ@zed>
-	<alfBvhZkAelq5RVf@mit.edu>
-	<aliMsSH373RJ31Mq@zed>
-	<aloZ9hqSgzN3beqH@mit.edu>
-	<20260717152559.2d2bfc8d@localhost>
-	<20260720095537.4d5d503b@robin>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZvsJU3Fs"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2ccdf36f63dso417025ad.0
+        for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 12:18:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784575119; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WPGv6NmmjPtjx9xy9GK6b6R2FnANY2Y716UhoYItq00h2ZorS3vkUz/1L1Ha08WaBm
+         IIysLARtKsIf4E0xn5Dim5MZUDKwl/aJiAAvOuAeJmbBGSBZ6T6HKnVvkENQWspiz01s
+         O9ymo5LetelB5LBNBxWQawLEn+wNHMLhCTe2g2d96Wy+qUJgVUVmnQ1hNKWXU/+VGx/c
+         Cdn788IyimoGdRSYXTp6lWetiawdSgdkkvbhsRVDMVgfxMLhyV+n2AWVrmnMVVO5aNzg
+         xMjapNDSk68nOZPOhGtoG8HBQZBPlLxkRLv75pcZhdgQdZXd6HA2Bz4HM7x3qPDrpMiF
+         hXiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xZApkQlP3tUF+0sIVFilGXDzjCPNwegylhqk3EBxphQ=;
+        fh=qrKd8JZ+T6LIvM77Djh+umsPgv/+wUv7kELPy1WuGnc=;
+        b=rTnhdEjVG/KNpTKiHzSCtIi7q4dWlseu7JSxUUHODAVtpUTOwVKwI+Ktd8qWTgJ1n/
+         MLmXkv/Pn+LRL3uz/KqlWq0bckJN9GaSaWwJaF0aHPTLtqiusZOU7ddIqtyc+ZY1s9uH
+         F96dJWZ8jXPqCV4/H7p3TJuDn5jzuK4mJtr3qaqxqRqkOhIIX/AchHaTV5tUVT/gqf1W
+         yJXplp/6QdNHMlFKHQGTvpgh+oegeKai1zag0aYOgDKg3yYVkvxqDfYd8+x1/rgylKia
+         +GfJFfoZRpl1vsNOleVxOledZOls3lBiHOPbql1HJ6OLaQ0omvzDnLdOqH3L11W+uDVj
+         DnQQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1784575119; x=1785179919; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xZApkQlP3tUF+0sIVFilGXDzjCPNwegylhqk3EBxphQ=;
+        b=ZvsJU3FsAPRSa4YHucj5v6EVOfLO5qk8JIQqF6wzKspt3y7T6VluPADGOzTklxY3Cs
+         3G3EEI+2pbjzDvIXH7llyDZXNzLnshzqIZijJh4ShctRoAo11eM8WbbfcJ9WNh4IBKvb
+         YU7zPyZHZKR/ckEIsG+YNjvgDW94UHoz2gdDG+yKbdqm/piFRX8kuyHdeBR3LXhqMWgD
+         7bgzfqZaovA6fvsvkddJEiCtDaewht/dNHPAENm+6Wzd5QVf7DbsUdrNdh9dg4/Ruvw6
+         y+yGnNm3NGps1vkfQZp3iKzwhIIL1coXmi94baPalTDp/Y/sbGXKRtpHIMhe62aYMDvs
+         2q3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784575119; x=1785179919;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xZApkQlP3tUF+0sIVFilGXDzjCPNwegylhqk3EBxphQ=;
+        b=QMZ25jb2v+3eF8XPVDd+LzpV/GDpprcCVLZMuVtjHEi7LowvTbIkk4xptUfMAvcntc
+         TQiRJvi2/HpL4jTQDkcqk9tOULfd8XyNY+BB5AlMqT09Nr5L1lkb5JH8N5MplpCAGuiV
+         xcINq72QJqL4ZlJw0sA1MGWQm4cPBOV7p9HN/agRsrghwjWCnF0tU3qWqcu3lpjuXi42
+         vCv+oSYXqmCDIPD/cNskJcpJ6ccixA6oHznyWiqVjNfsLKnp7IGRS9knZWHgvFpJnAKN
+         dnMDZL2cneZ+/kacvycgRcIe8np35GHU+WavL0NaWj1n3nc7Wb/SJuD7YqBKmxtY+UM1
+         0S0Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrD0l4j9yJ3+AvfjcZtb45NMLOtoLZTGKv1uIOCBSkDPdbXLWLOGu2/TM9oqJWWTsP8rkk+bnWaC+XrBQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyb33lv0EqWvBNl//5JuZ6M7b7BhKej5YcicsXKjmsDY5DFJO00
+	taDoe/De0z+XhUY13IKby3IcAxA9NwSW2tLjU/c6jgK7GgZVoUGBoObS6X6Q4MztJV1xSZyb9cg
+	o2TmcSFM5/ch4POCPIYDzyOxPHFipD3Ctf+8SVtwg
+X-Gm-Gg: AR+sD11DM63Lrc9ekjHdM2K2XUbU1jfCK/e/MPTaD4BZCQ6gQ75Ebw6P4AxplvB6Gqb
+	VfFnAuAtMTjbanMDMNRslkBfs4dYQGTUgU3YK1pFp0Go8AulOf42+sBz+CgrnUzsvRk/WjAOu0/
+	8/6oPIVu1S08lVCey/ZSNaYvTzOVotF7APepFHPCBgLiIfiSQRMwxmOwNpDluXBm6JgLh/eHnNk
+	m18pWGEY2IWRKxiFv6lQEjMrjLlUxsMcEZAXYvxAtuP+yuZC5thLhtZ51VUCX6KCz8KRA6MrNxm
+	7Zyx2wgII9rXIpSyfj+Rma+Ryio=
+X-Received: by 2002:a17:902:ec92:b0:2ce:f9e2:4646 with SMTP id
+ d9443c01a7336-2cf7b71d50emr2078035ad.27.1784575118135; Mon, 20 Jul 2026
+ 12:18:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260719175857.4071636-1-ap420073@gmail.com>
+In-Reply-To: <20260719175857.4071636-1-ap420073@gmail.com>
+From: Mina Almasry <almasrymina@google.com>
+Date: Mon, 20 Jul 2026 12:18:25 -0700
+X-Gm-Features: AUfX_mytWgNwpYQoEAQtZaZUmAoldCJ_ZYmUTMTxrjD32WIPJUFR9GJy7g5tI1U
+Message-ID: <CAHS8izMocev_0TtAsUr9BqCm6sH2DBh-bPK4DfZYNEAb_d2G6w@mail.gmail.com>
+Subject: Re: [RFC PATCH net-next 00/13] net: knod: in-kernel network offload device
+To: Taehee Yoo <ap420073@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Alexei Starovoitov <ast@kernel.org>, 
+	amd-gfx@lists.freedesktop.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	Andrii Nakryiko <andrii@kernel.org>, Bill Wendling <morbo@google.com>, bpf@vger.kernel.org, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Daniel Borkmann <daniel@iogearbox.net>, David Airlie <airlied@gmail.com>, 
+	"David S. Miller" <davem@davemloft.net>, Donald Hunter <donald.hunter@gmail.com>, 
+	dri-devel@lists.freedesktop.org, Eduard Zingerman <eddyz87@gmail.com>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Eric Dumazet <edumazet@google.com>, 
+	Felix Kuehling <Felix.Kuehling@amd.com>, Hoyeon Lee <hoyeon.rhee@gmail.com>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	John Fastabend <john.fastabend@gmail.com>, Justin Stitt <justinstitt@google.com>, 
+	Kees Cook <kees@kernel.org>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, Leon Romanovsky <leon@kernel.org>, 
+	linaro-mm-sig@lists.linaro.org, linux-hardening@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-media@vger.kernel.org, linux-rdma@vger.kernel.org, llvm@lists.linux.dev, 
+	Mark Bloch <mbloch@nvidia.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Michael Chan <michael.chan@broadcom.com>, Nathan Chancellor <nathan@kernel.org>, netdev@vger.kernel.org, 
+	Nick Desaulniers <ndesaulniers@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+	Pavan Chebbi <pavan.chebbi@broadcom.com>, Saeed Mahameed <saeedm@nvidia.com>, 
+	Shuah Khan <shuah@kernel.org>, Simona Vetter <simona@ffwll.ch>, Simon Horman <horms@kernel.org>, 
+	Song Liu <song@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Tariq Toukan <tariqt@nvidia.com>, 
+	Yonghong Song <yonghong.song@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 20 Jul 2026 09:55:37 -0400
-Steven Rostedt <rostedt@goodmis.org> wrote:
+On Sun, Jul 19, 2026 at 11:01=E2=80=AFAM Taehee Yoo <ap420073@gmail.com> wr=
+ote:
+>
+> knod (in-kernel network offload device) drives a GPU directly from the
+> Linux kernel - with no userspace GPU runtime such as CUDA or ROCm, and
+> no userspace component in the data path - to accelerate packet
+> processing.
+>
+> The kernel itself allocates the GPU's queues, JIT-compiles the
+> per-packet program to GPU machine code, and dispatches it; the NIC DMAs
+> received packets straight into GPU memory and the GPU returns a verdict.
+> The GPU is programmed like any other in-kernel offload, not through a
+> userspace framework, so existing XDP programs and IPsec SAs can be
+> offloaded to it transparently.
+>
+> The design and motivation were presented at Linux Plumbers Conference
+> 2025:
+>
+>   https://lpc.events/event/19/contributions/2267/
+>
+> Motivation
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+> Line-rate packet processing that does non-trivial per-packet work - an
+> XDP program doing L4 load balancing, or IPsec crypto - is bound by the
+> host CPU: each core handles one packet at a time, so scaling means
+> spending more cores. A GPU is the opposite shape - thousands of lanes
+> running the same small program over many packets at once (SIMT) - which
+> happens to match the per-packet-program model of XDP.
+>
+> knod moves that per-packet compute off the host CPU and onto a GPU. The
+> NIC DMAs received packets directly into GPU memory, the GPU runs the
+> program across a batch of packets in parallel, and only the result
+> comes back: a verdict for every packet, plus the packet itself for the
+> ones destined to the host. The CPU no longer pays the per-packet
+> program cost, and throughput scales with GPU occupancy rather than core
+> count.
+>
+> Crucially this happens entirely inside the kernel. GPU packet processing
+> today generally launches work from a userspace GPU runtime (CUDA and
+> friends) and keeps that runtime in the data path; knod instead builds
+> the GPU queues, compiles the program, and dispatches it from the kernel,
+> so it plugs into existing offload paths (XDP, xfrm) with nothing to
+> install or keep running in userspace.
+>
 
-> On Fri, 17 Jul 2026 15:25:59 +0200
-> Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
-> 
-> > That's one of the reasons why I do think media needs its own custom
-> > prompts.  
-> 
-> Reading this thread I've come to the conclusion that different systems
-> have different results from Sashiko. Sashko gets confused with some of
-> the tracing logic, but that's because tracing does some hacks to keep
-> the overhead down (it's where live text updates started). It reports
-> issues sometimes that are not a problem due to the way the code was
-> designed.
+TBH I found this motivation weak, especially since IIUC you're asking
+for almost ~50K lines of code to be merged to the kernel. My thinking
+is that (a) it's true that Native XDP takes up CPU cores, but
+HW-offload XDP already exists and takes up no CPU. (b) with AI, GPUs
+are very expensive and the work they're doing is critical, so you're
+unlikely to buy a GPU and use it for knod-offloaded XDP; you'd
+probably buy a cheaper smart-NIC? And in the cases where you do have a
+GPU, it's likely your system's money-maker, and you probably want to
+offload work from the GPU, not to your GPU.
 
-There is a custom prompt for tracing:
+But as far as I can tell there should be much more interesting
+applications for what you're doing rather than offloading XDP. Like
+wouldn't you with this feature be able to implement ML collectively
+like all-to-all/all-reduce/all-gather as purely XDP programs offloaded
+to the GPU? If you have that implemented and can positively compare
+performance to RoCE or RDMA that would be a much more interesting use
+case IMO.
 
-	https://github.com/sashiko-dev/sashiko/blob/main/third_party/prompts/kernel/subsystem/tracing.md
+> Model
+> =3D=3D=3D=3D=3D
+>
+> knod binds two endpoints through a third object:
+>
+>   - a NIC-side netdev, registered by the NIC driver;
+>   - an accelerator (the GPU), registered by a provider built into the
+>     GPU driver;
+>   - an offload device, created on attach, that connects them and owns
+>     the per-queue data-path state.
+>
+> The accelerator ops are feature-agnostic, so different per-packet
+> programs plug in behind one interface. This series ships two features
+> to show the framework is not tied to a single use case (the accel-type
+> uAPI also reserves "dpu" for future non-GPU backends):
+>
+>   - BPF:   an XDP program attached in offload mode is JIT-compiled from
+>            eBPF to an AMD GCN shader and executed on the GPU.
+>   - IPsec: RX ESP full-packet decrypt on the GPU (proof of concept,
+>            see below).
+>
+> Data path
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+> For a NIC RX queue bound to an accelerator, a received packet flows as
+> follows:
+>
+>   1. Attach reconfigures the NIC's page_pool so its pages come from GPU
+>      memory, exported as a dma-buf and plugged in through the devmem
+>      memory provider. The NIC therefore DMAs the packet straight into
+>      GPU memory - there is no host-side copy on RX.
+>
+>   2. Instead of building an skb and entering the stack, the NIC's NAPI
+>      pushes a small descriptor (memory ref + offset + length) onto a
+>      per-queue lock-free SPSC ring shared with the GPU.
+>
+>   3. A persistent GPU worker drains descriptors and runs the active
+>      feature's shader over a batch of packets in parallel - one
+>      workgroup per packet - then writes a per-packet verdict back onto
+>      the ring: PASS, DROP or TX.
+>
+>   4. Back on the NIC NAPI, each verdict is applied:
+>        - DROP: the GPU page is recycled to the pool;
+>        - TX:   the packet is sent back out the NIC directly from GPU
+>                memory (XDP_TX), with no host round-trip;
+>        - PASS: the packet is copied out of GPU memory into a host
+>                delivery page by the GPU's DMA engine (async SDMA),
+>                wrapped as an skb, and handed to the normal stack.
+>
+> So only PASS packets ever touch host memory, and even then the copy is
+> done by the GPU, not the CPU.
+>
+> The control plane is a generic netlink family ("knod") for
+> attach/detach, accelerator/NIC inventory, and per-accelerator feature
+> selection, with notifications on bind/unbind.
+>
+> Code layout
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+> knod separates into a subsystem-neutral core and a GPU-specific
+> provider; nothing in the core knows about GPUs. Roughly:
+>
+>   - core + control plane + NIC drivers   net/, kernel/bpf/       (~4.4k)
+>   - GPU provider (queues, JIT, shaders)  drivers/gpu/drm/amd/    (~39k)
+>
 
-Probably, if you run Sashiko without it you would get more false
-positives.
+Since the changes are so large, I would break this work into many
+series, the first which only supports a very minimal set of work
+(which I would guess would be XDP_DROP and XDP_TX), and then follow up
+with another series which adds XDP_PASS support, and then IPSec, etc.
 
-> But I fortunately know of these areas and can easily see when
-> Sashiko falls over it. Hence, these false positives do not waste my
-> time as I'm already aware of them. (I do take a deeper look to make
-> sure it's not reporting something similar that may truly be a bug).
-> 
-> But I can see where this could cause a bit more problems with a
-> different sub-system.
-> 
-> Hence, I don't believe there should be a one-size-fits-all for the
-> entire kernel,
-
-It is not like that. On static analyzers like Coverity, smatch,
-sparse, coccinelle... there's no space for per-subsystem adjustments.
-
-Now, with LLM, each subsystem may have custom prompts:
-
-	https://github.com/sashiko-dev/sashiko/tree/main/third_party/prompts/kernel/subsystem
-
-Also, when LLM parses a C file, it can pick some things from
-the documentation on it.
-
-
-> but do as we have been doing and have everything be
-> opt-in by subsystem. But that also means that if you contribute to a
-> sub-system, you need to follow their rules. If you don't want to deal
-> with AI, don't contribute to a subsystem that has it set up where you
-> will receive an email from AI if you submit to it.
-> 
-> Do we need to add an flag to the MAINTAINERS file that states which
-> sub-systems uses AI?
-
-I don't think this would help.
-
-Also, from my point of view, Sashiko is not different than any other
-new CI technology: when one enables it, people will discover lots of
-problems and start fixing. It can take quite some time to adjust.
-
-On media, we had this when we started using Jenkis. We're now with
-another CI via gitlab actions for some time: the project started on
-Jan, 2024. I can't remember when we started deploying it, but it was
-more than one year ago. Still, we're adjusting it to try to reduce
-false positives and inconsistencies.
-
-For instance, last week we added a fix where CI internal problems
-was ending marking patches on patchwork checks as errors
-
-In the specific case of Sashiko, we do need to adjust it to the
-media subsystem, as currently it is running without any hints
-about what is relevant to us and what are false positives.
-
+--=20
 Thanks,
-Mauro
+Mina
