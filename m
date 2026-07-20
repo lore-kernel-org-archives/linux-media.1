@@ -1,101 +1,101 @@
-Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C925A391E58
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 18:24:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8359131AF1B;
+	Mon, 20 Jul 2026 18:31:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784571886; cv=none; b=knCT9UeOh7WeCQBICFYClstHTLlOMxs3z/vKuIJy9vmbhBYtqLwC9uzo5EY9glteRRg4yDsU/7D2Losw0o5x46A+46h9aE9C65Z5hV/FKxvk/Zp7oEdpsfFsnY8QsCcFcndTJNm4E2Iy10bKUQwybpJ3xoupW1BLV9G2PSjDETY=
+	t=1784572268; cv=none; b=WWOdncHwdgQfiDxdgjiVCqpS1Xsvqe1safNs3XsAi6s+OG9xMsfeIF7657DIcbAiD/UCJRmpA4DD5mjng84nMcx84mKBlFZEpJ0WycmRDHSpgthmTN2OMTo6dA5r2WaxV5Z5FiYwNCOQjDhsoZQgB2gXhbyWcWsfDs/oB1P+2AA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784571886; c=relaxed/simple;
-	bh=G3TQcj/YkSfGten6cYDML9KalXgRp5WN3C03njyGE1A=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DfQD0VxqVEeLmio1zgJZ81k3ZOwZAIf9OEnPsugU7M6t3rLB+GtZZgq7KOdiNRBbU39qaxsVO5YDWKgS+B0wTpLG28FWmHuzyKODnoCHEghJTK6fIcGQ09ioCVO4U1zqclULE+u2L1VIUwnCwis1pfHntt1qOjZFLvXIphcN+qU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
-Received: from omf09.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay10.hostedemail.com (Postfix) with ESMTP id 08ED2C025D;
-	Mon, 20 Jul 2026 18:24:36 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf09.hostedemail.com (Postfix) with ESMTPA id 57CF32002A;
-	Mon, 20 Jul 2026 18:24:34 +0000 (UTC)
-Date: Mon, 20 Jul 2026 14:24:32 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Theodore Tso
- <tytso@mit.edu>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Roman
- Gushchin <roman.gushchin@linux.dev>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, Derek Barbosa <debarbos@redhat.com>,
- Matthieu Baerts <matttbe@kernel.org>, Konstantin Ryabitsev
- <konstantin@linuxfoundation.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- users@kernel.org, Linux Media Mailing List <linux-media@vger.kernel.org>,
- Stephen Finucane <stephenfin@redhat.com>
-Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <20260720142432.288b0433@robin>
-In-Reply-To: <ce1df91e-0674-4861-90ff-bcaf5428b414@sirena.org.uk>
-References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
-	<4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
-	<alc3gAJfAkG5DULJ@zed>
-	<alfBvhZkAelq5RVf@mit.edu>
-	<aliMsSH373RJ31Mq@zed>
-	<aloZ9hqSgzN3beqH@mit.edu>
-	<20260717152559.2d2bfc8d@localhost>
-	<20260720095537.4d5d503b@robin>
-	<ce1df91e-0674-4861-90ff-bcaf5428b414@sirena.org.uk>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	s=arc-20240116; t=1784572268; c=relaxed/simple;
+	bh=TF1Va7Kvd78gB/+nDw6b3xVkllExwoPZb7OdeLW7OqU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RgvsDflODCICTAvuV7uy53tVpGIaXBfnSUmqMJTguTF0m0JNtgelxyb4bsFIDqF5m0FUZ+mLEvZ5uLkiuO6lYW+AB9PK6rdMMjazG88OOTZw4xsUU4GTXZBCnr6japrCnE6scDuu3Q7cFwVW6UEALf4RQ/HxyjxFH6vJpknwM1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=T35RMJx2; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="T35RMJx2"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2521BC2BCB8;
+	Mon, 20 Jul 2026 18:31:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
+	t=1784572268; bh=TF1Va7Kvd78gB/+nDw6b3xVkllExwoPZb7OdeLW7OqU=;
+	h=From:Date:Subject:To:Cc:From;
+	b=T35RMJx2s95t1w01oNw8Mpn7xxr+HduAGfVGsojWeywFSxVcCxSKnBG+Yk7t/zvqa
+	 UxDVRazX2iVqJZuZJjum61UsTyTP1CRKmHf59JM71YQXrE2mh+DyBbqDT9cSldbEyZ
+	 4a/hFBP7rixIlhmx25CEPYS3H1bFw38p2Y2Y7fZE=
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EA974C44515;
+	Mon, 20 Jul 2026 18:31:07 +0000 (UTC)
+From: Richard Leitner <richard.leitner@linux.dev>
+Date: Mon, 20 Jul 2026 20:31:00 +0200
+Subject: [PATCH] media: i2c: ov9282: restore flash duration calculation
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 57CF32002A
-X-Stat-Signature: jg1eeiwpbnf8g9tjempskc4hoqwk9uu3
-X-Rspamd-Server: rspamout03
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19i7NinCZg3vi93tCiowh9F5sHHIoJ++v4=
-X-HE-Tag: 1784571874-142857
-X-HE-Meta: U2FsdGVkX188ehWJJ+AAdcPyuuhJQqNovOfsyaInZvyqTVRO2amF+VE7x98+cGk1OOwCrx8hvfrRAxHZGz9VAL8QQLvRP4MTrt2CVBPOElZlYoLIT+1ibKKRbpSEwH30SreBW8Do/Jd1rI84YNAcrMUgJXmYV2eZLDs4UOxUZ4pTRXzU7VpdBe/2VRY5LNxeiPG+tSYPeD1E/P0RKE6wpliTrjzOqD9dAtEROzpxkOXXnVIgnRmHqi7980+2LL7Ute3fb12gs2On/nWRe+kWnMldxtzasEknBz9hmXyq69Vv1RMgKXjv2dqEBVavE/hdu0cT7VpPt3PQTEnyl8IUhd5GEDDNQUUC
+Message-Id: <20260720-ov9282-fix-v1-1-0145062ec9f1@linux.dev>
+X-B4-Tracking: v=1; b=H4sIAGNpXmoC/yXMQQ5AMBCF4as0s9aknQjlKmJBDcYCaWkkjbsrl
+ t9L3h/Bk2PyUIsIjgJ73tYEnQmwc7dOJHlIBlRYqBKV3EKFBuXIlyRLRa4HW3bGQDrsjtL8xZr
+ 2tz/7hezxFuC+H7SMldVuAAAA
+X-Change-ID: 20260720-ov9282-fix-ece641dc7a88
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Tarang Raval <tarang.raval@siliconsignals.io>, 
+ Xiaolei Wang <xiaolei.wang@windriver.com>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Richard Leitner <richard.leitner@linux.dev>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784572267; l=1494;
+ i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
+ bh=TF1Va7Kvd78gB/+nDw6b3xVkllExwoPZb7OdeLW7OqU=;
+ b=tC0eEjcpW4RTuCluO4nHRi8JlMSZv3R8zhKpzfRiYD3RhCTPTAA+NABjr6oFhGRNtFhGs1VtH
+ MqF77ZkKbBpBNTPtQppVIPuPBiYFuoXSgQ4SEgLCQM1gJwv0k7w5Qb9
+X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
+ pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
+X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
+ with auth_id=350
 
-On Mon, 20 Jul 2026 15:26:34 +0100
-Mark Brown <broonie@kernel.org> wrote:
+The migration to CCI helpers made V4L2_CID_FLASH_DURATION write the
+requested duration directly to OV9282_REG_STROBE_FRAME_SPAN, dropping
+the conversion from microseconds to the register value.
 
-> On Mon, Jul 20, 2026 at 09:55:37AM -0400, Steven Rostedt wrote:
-> 
-> > designed. But I fortunately know of these areas and can easily see when
-> > Sashiko falls over it. Hence, these false positives do not waste my
-> > time as I'm already aware of them. (I do take a deeper look to make
-> > sure it's not reporting something similar that may truly be a bug).  
-> 
-> OTOH I had a submitter up to v14 on a new series over the weekend since
-> they were iterating Sashiko feedback.
+This made flash strobes too long and produced overly bright frames.
+Restore the missing calculation so flash duration is programmed
+correctly again.
 
-Hmm, we should state that Sashiko is sometimes wrong.  A submitter to
-me asked what they should do about a Sashiko feedback they diddn't
-understand, and after reading the Sashiko review, I told them to ignore
-it.
+Fixes: 273f52f3cbec ("media: i2c: ov9282: Convert to CCI register access helpers")
+Cc: Xiaolei Wang <xiaolei.wang@windriver.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+---
+ drivers/media/i2c/ov9282.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-> 
-> > Do we need to add an flag to the MAINTAINERS file that states which
-> > sub-systems uses AI?  
-> 
-> That's probably too complicated - some poeple will want submitters to do
-> things like ask submitters to address Sashiko reviews before the
-> maintainers will look at it, other subsystems might make use of Sashiko
-> reviews or whatever but not make it a requirement for submitters to do
-> so.
+diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+index 5b6f897a74fcd..5abe51d21f89c 100644
+--- a/drivers/media/i2c/ov9282.c
++++ b/drivers/media/i2c/ov9282.c
+@@ -648,7 +648,8 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+ 				      ctrl->val ? OV9282_OUTPUT_ENABLE6_STROBE : 0, NULL);
+ 		break;
+ 	case V4L2_CID_FLASH_DURATION:
+-		ret = cci_write(ov9282->regmap, OV9282_REG_STROBE_FRAME_SPAN, ctrl->val, NULL);
++		ret = cci_write(ov9282->regmap, OV9282_REG_STROBE_FRAME_SPAN,
++				ov9282_us_to_flash_duration(ov9282, ctrl->val), NULL);
+ 		break;
+ 	default:
+ 		dev_err(ov9282->dev, "Invalid control %d", ctrl->id);
 
-Is it too complicated? Do you mean it's too complicated if one
-sub-system says "resolve all Sashiko feedback you receive" and another
-is "You may ignore it"?
+---
+base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
+change-id: 20260720-ov9282-fix-ece641dc7a88
 
-We probably don't want maintainers to require resolving all Sashiko
-reviews, but at least respond to them. Where "I don't know" and "I
-think this review is wrong" are legitimate responses. It is basically
-saying "I want to speak to a person" when drudging through the phone
-automated AI teleprompters.
+Best regards,
+--  
+Richard Leitner <richard.leitner@linux.dev>
 
--- Steve
 
