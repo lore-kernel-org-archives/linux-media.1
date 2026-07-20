@@ -1,60 +1,62 @@
 Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C70306768
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 08:58:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFAE3AFD06
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 08:58:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784537899; cv=none; b=iUXihkGcSsK0zPIzsLKP143horqfJhYBMLmnIvEWBA4qM0GW+2uKRVorQlgiMK30uujbXD0rIr+qy94l2gyP85kTUtSlinRRJBjmte7Mr4veozFV0904Vrc4OXnyPVW2q7BYfGROLi6sAJNz5CV3rJq64CHbypiF1lCQ2CpOITY=
+	t=1784537906; cv=none; b=SoOnqwISLkB7SUy2pOXrtPsr/vLWP4vZDE+ParDv2US57Eb2XCU+i/URDBa+V8CLHivvA0Wm34+7AKw/y3LJnjp9/OSoeivczUIZYaW/xJ5M+jKaXlKIsZgKp0853xhW2X3nh8Q7E/923fsZyo2B63pQJlC9B+YGJ/5XFISnO7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784537899; c=relaxed/simple;
-	bh=1V40n5G7B6GKH+0Mur5egdMJTjHkmhTfStILr52M9Ic=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=SasBKnWayMB3TL65a/bdQF8EqDLPP7TDx+gMrsf/J6AEpU3uwhVMXRhXs9ACU9ZbY/J89Qj5qvBcYaw6IYxqiaZ5LZqCRO0dG54k9EeLTDM6pzsUxOSajgjztBzVYWhiGEKa9M2RAXnDLBgB33Edwjjk9YtT/TqpSa5CZGX9KBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VXrDCoAT; arc=none smtp.client-ip=209.85.210.179
+	s=arc-20240116; t=1784537906; c=relaxed/simple;
+	bh=wZvAUft1XsQt11zE5PHfmNpfM2ivDTKtZI7A5DfH1jI=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qOX7uFw+pmkn1ia37Q04tAzUVsFd5vvgzw4I9FJqTxm54dqSemohbWF+BRK76hNXKMYxu8bm2twIJaWgWiK1FES6zKDcfjMxeK1tRruUFpnsvHSTCZPxazvVYsTHS3Xu5TFUd/iqllSofnXz9SyLhoPu8tbuZv+xKsI0YmWfmKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IB4U2fSz; arc=none smtp.client-ip=209.85.210.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VXrDCoAT"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8485b358552so10596090b3a.2
-        for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 01:58:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IB4U2fSz"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8485bd28dd0so11445053b3a.2
+        for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 01:58:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784537897; x=1785142697; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VFpLun3aTRlN5AWiLiGZ73OhLT8cMhNwsTldXssx/wk=;
-        b=VXrDCoAT/0/mXYxCC6uCsBTQwnKQP+z98nc2R9z/PE/WsYbu99bOSA1sUEstICPef+
-         aPg6rU7QQd4WePimFI7pZSfsrPTYI8dQgSw5bfFkXt0M1Is3cW7SDrDRS7JCW9SvMGfh
-         5nrEX+0kEvZjjGrd3XPEBcshoet40qTxFzIBIeOIV7DOMMWlD5AaBzvz+TPcms6XgiQU
-         CEkEgW1Fm0Mb4Sp7IJ7p7++Ox8BwYuOOdZJ295ZlcVWGWTtUSjaaOf3a7Locz6Ss7awR
-         ptbWTjCv+msihg6vM4Ycsf+FeHRwVc3dy8hx/piGzDcvtBc+rTHNEGuRtYdjSmWos+Y0
-         crgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784537897; x=1785142697;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20251104; t=1784537904; x=1785142704; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=VFpLun3aTRlN5AWiLiGZ73OhLT8cMhNwsTldXssx/wk=;
-        b=nuQUiG/lfIHJ0H0HWKLPfEPpK80LDtXUCwgSniFgzvb6/rHI5kQ1KNmG1jBjU2vqoi
-         Zz7TefDkGYhS/zrBFB1Nw0V1DGOpJHX9+wld3zhuDtgpbjVataCzSMY+OtN0FFjqth81
-         VYz0B1AM2SXhnkq6P4eSnW7kxu5J1O9Or1b8Me93MQFIu4DX9MoZCmxYxMv2OrSLhv+3
-         FFm755VdmZRbQKCPIilMBmjYrDckuHAVixgsM28cN1CsS5hgEjMbZ9N1QGX4erq+z8X+
-         GV2Lb3/ROuRjlIaeZeicianyLK0X4xJajEdgB5w1NfjgMSWxNQg9Ho1eXaSPNkd80NM6
-         wWDQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rpj4QtiZcvWiMfixlNZwyugLBBaPebk5bFIu64bILBPq9rK7KqIA//CmrCHwXhmUKDvMwmf5oZJ7acrYA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFsFGSyiV1wv5gklkxbaxt7Ls72fQ/5cV6BNMO6xRilIO8kY0E
-	awgJpEEnCvn0FtyJegeUarE7heO4OLya4uNrJN87IH1AyuhYr3616xiU
-X-Gm-Gg: AfdE7clH81PX4SBFOlPsJa20BQlfAL1z+gZdF55I+ztuqMpyyIXwEh9zXf7D7zUc8LN
-	IaSvDU2LiIPndrUOyBLlIlIaV24Gzb+aPCOK621DyjQNPQQs+LafweloVrQFEmdFHSzarl7na9x
-	p41kQJfEI/ZIT5L/wO7j5ZQNC2Rp7lPj3jKgoKLivoehydRXfG1wTLzSu0yyZYXyinCc0tJKRpN
-	OwJx/JsCP5SABNAVhKSBAtSf+Yte8G/R68LAq5k22bv5OljPL2uZEAuAi5zsDn6d58/b60jHTvz
-	GiWi2yGPgqMgiR8EfirNMucJPU2wsBF1eGPNzD6SpEtARUuEtg1JJpNsHojUp1XrqTFejoJrXN4
-	nYs0V6KdB2+RKn7WniprnBX2bD3z+YPVVa4Z/cs2+QYhtmXxtL8DclSuOOQQfRpoyHNs=
-X-Received: by 2002:a05:6a00:a96:b0:848:64fc:510d with SMTP id d2e1a72fcca58-84c294892d9mr12402258b3a.45.1784537897395;
-        Mon, 20 Jul 2026 01:58:17 -0700 (PDT)
+        bh=cOfUy+CQo+u3Sm5zMP7PbJnZMmWfXxmWUpfU0u6aASk=;
+        b=IB4U2fSzXKC/Qq/EpUcPNCZTswB4pbFIq+9JXzcEF5wyhQ2RSSMJPWM+jYYl0cM7kH
+         ohgYm8JcT3dEDjW2mkpLMzijyTjtpmscQBYpcI7tx/s2EIqJ6fr0UW2agsHDF1y29Pqk
+         Dk7MMyEB4not78Hdi7UL0TVgSDmnLi2xHgoI0svhtSU0TaItqzZqmHVKEPjIRkdpAULq
+         HQFFnTkIJ1qaSFy5Bc/iii9NqolbLS7KbgORD/qPQOJZgKGpYzcC7Zr85tuXl48fnzL0
+         IFn6bm7esHMv2l5kIWLPtFi/TSXSwHXNgGxEMx36Zyu/XubjNjE4xTpKgUKj5kH1YrY2
+         kxnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784537904; x=1785142704;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=cOfUy+CQo+u3Sm5zMP7PbJnZMmWfXxmWUpfU0u6aASk=;
+        b=oXcbOjQC7JRLy7sTDhjzbregJWYPHAwFZ8hsY/fj+6jcs7kyY22DjDRIyrA5t6/OA+
+         bxa47eDh7WgASZZUaNVbZ3QwloGYiU1cY6dGrEe0dUPqlvtSpTQbrB7PWc1phngCN1Eb
+         UlbcdJhW5t3iIbswrkoARwnt8X8/Ml10SsrLzsVsoqusO+k4MytbAbn1y14MU4XNP6DU
+         qYT2h7Vi+9XZia7WGIa+xbVVrEYphL4LPZIkRO9mjplj3VzF6FjFAUSRWtb63tybz4Ba
+         M4lCIIHFzbEP81x54ZTTXk4JpnBcRYDIyZQIS310L8z6gtEx8wH3JOgWrBIFhUax4koT
+         3flg==
+X-Forwarded-Encrypted: i=1; AHgh+RrFhawIme3yxEPBcH/MJruygpBcnhmYCbUtjfcp4Xe/SJzFe98DG/zKuCkyGGQUWZR/f71QRoYpQg795Q==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yywr5BTQ7wvr7sfrE+ATNziD3x1tcpbTKuGsDGtcUm4VJPKnLuG
+	AAjBOGyd0/w2Dl9tsLPWY3gHOvt/I1UmaWJ1vtfd6fw8sowOmKDhGh/U
+X-Gm-Gg: AfdE7ckfWHacDebzO/jYPzpW2RhgEDsNhFBBoIEU2hLpAKG+8EJRlFwsPaWSVjIkrCH
+	yv32SGeSS4fHPRipSj7RwKhibZ8Cn9aoIalgOlEfeNN/ep3dqZOiL/nZIN1xft2N1hnJ93OqzjR
+	j2SlTaD4+34seQISevJ0KcTEANLfsZ1xMDcpTzj9kmY6XX67Q8NRXcsio6w63Dcs4DWPXIYCm1T
+	1xVM6mHtHsOJEVKMNWPxpZPbmcgvfv+iZPRBJPNhtuMdmuuytdCbLtGwOHA9tZiDmIZ/hluP3eH
+	edt1W+cLPwUezifyVs6CXXuMPCtKuNJeUg4ZdrtBxSUgGyesLZJyS4xME5lvsCukbbK0H9S5O9w
+	8JdYSniyDpOxbhkNik9G1vD3RNRrECG5VYrky7yWzcmqgjAmIhAAGKnOIlFBF5QvuWCI=
+X-Received: by 2002:a05:6a00:1888:b0:845:e740:8ba6 with SMTP id d2e1a72fcca58-84c294d43e9mr13050873b3a.43.1784537904420;
+        Mon, 20 Jul 2026 01:58:24 -0700 (PDT)
 Received: from lgs.. ([118.193.39.55])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2adcc78asm5247901b3a.23.2026.07.20.01.58.11
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2adcc78asm5247901b3a.23.2026.07.20.01.58.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 01:58:16 -0700 (PDT)
+        Mon, 20 Jul 2026 01:58:23 -0700 (PDT)
 From: Guangshuo Li <lgs201920130244@gmail.com>
 To: Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
 	Houlong Wei <houlong.wei@mediatek.com>,
@@ -77,10 +79,12 @@ To: Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
-Subject: [PATCH v2 0/3] media: mediatek: unregister VPU watchdog handlers
-Date: Mon, 20 Jul 2026 16:57:53 +0800
-Message-ID: <20260720085756.465667-1-lgs201920130244@gmail.com>
+Subject: [PATCH v2 1/3] media: mediatek: vpu: add watchdog handler unregister helper
+Date: Mon, 20 Jul 2026 16:57:54 +0800
+Message-ID: <20260720085756.465667-2-lgs201920130244@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260720085756.465667-1-lgs201920130244@gmail.com>
+References: <20260720085756.465667-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -89,42 +93,59 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Mediatek vcodec and MDP drivers register watchdog reset handlers
-with the VPU driver and pass driver-owned objects as private data.
+VPU clients register watchdog reset handlers with private data owned by
+the client device. The VPU driver currently provides no way to clear a
+handler when client initialization fails or when the client device is
+removed.
 
-These handlers can remain registered after an initialization failure or
-device removal. A later VPU watchdog reset can therefore invoke a
-handler with stale private data and potentially dereference freed
-memory.
+Add vpu_wdt_unreg_handler() to clear the reset callback and its private
+data while holding the VPU mutex. This allows clients to remove stale
+watchdog entries before releasing their device references.
 
-This series adds a common helper for unregistering VPU watchdog
-handlers, then uses it in the vcodec and MDP cleanup paths before their
-VPU device references are released.
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/media/platform/mediatek/vpu/mtk_vpu.c | 14 ++++++++++++++
+ drivers/media/platform/mediatek/vpu/mtk_vpu.h |  2 ++
+ 2 files changed, 16 insertions(+)
 
-The series is organized as follows:
-
-1. Add vpu_wdt_unreg_handler() to the VPU driver.
-2. Unregister the vcodec watchdog handler during initialization
-   failure and firmware release.
-3. Unregister the MDP watchdog handler during probe failure and
-   device removal.
-
-v2:
-
-  - Split the changes into three patches as requested by Nicolas.
-  - Fix the extra blank line reported by checkpatch.
-  - Carry Nicolas' Reviewed-by tag on the MDP patch.
-
-Guangshuo Li (3):
-media: mediatek: vpu: add watchdog handler unregister helper
-media: mediatek: vcodec: unregister VPU watchdog handler
-media: mtk-mdp: unregister VPU watchdog handler
-
-drivers/media/platform/mediatek/mdp/mtk_mdp_core.c |  2 ++
-.../mediatek/vcodec/common/mtk_vcodec_fw_vpu.c     |  6 ++++++
-drivers/media/platform/mediatek/vpu/mtk_vpu.c      | 14 ++++++++++++++
-drivers/media/platform/mediatek/vpu/mtk_vpu.h      |  2 ++
-4 files changed, 24 insertions(+)
-
---
+diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.c b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+index 8d8319f0cd22..a2b937095248 100644
+--- a/drivers/media/platform/mediatek/vpu/mtk_vpu.c
++++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+@@ -437,6 +437,20 @@ int vpu_wdt_reg_handler(struct platform_device *pdev,
+ }
+ EXPORT_SYMBOL_GPL(vpu_wdt_reg_handler);
+ 
++void vpu_wdt_unreg_handler(struct platform_device *pdev, enum rst_id id)
++{
++	struct mtk_vpu *vpu = platform_get_drvdata(pdev);
++
++	if (!vpu || id >= VPU_RST_MAX)
++		return;
++
++	mutex_lock(&vpu->vpu_mutex);
++	vpu->wdt.handler[id].reset_func = NULL;
++	vpu->wdt.handler[id].priv = NULL;
++	mutex_unlock(&vpu->vpu_mutex);
++}
++EXPORT_SYMBOL_GPL(vpu_wdt_unreg_handler);
++
+ unsigned int vpu_get_vdec_hw_capa(struct platform_device *pdev)
+ {
+ 	struct mtk_vpu *vpu = platform_get_drvdata(pdev);
+diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.h b/drivers/media/platform/mediatek/vpu/mtk_vpu.h
+index 3951547e9ec5..2ccb481a04cf 100644
+--- a/drivers/media/platform/mediatek/vpu/mtk_vpu.h
++++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.h
+@@ -141,6 +141,8 @@ int vpu_wdt_reg_handler(struct platform_device *pdev,
+ 			void vpu_wdt_reset_func(void *priv),
+ 			void *priv, enum rst_id id);
+ 
++void vpu_wdt_unreg_handler(struct platform_device *pdev, enum rst_id id);
++
+ /**
+  * vpu_get_vdec_hw_capa - get video decoder hardware capability
+  *
+-- 
 2.43.0
+
