@@ -1,119 +1,115 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FBE72C026C
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 08:51:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C3E3B6BFA
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 08:54:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784537489; cv=none; b=Lmc3N4NAInQabN011+asB5iASEUjlplCth96ThffyHR/EMqIReVnA6uwCwE4Ng7rJlpGkJbv/3sgwEFCUfGLYhORB66ojT6zu+pvQKWvQGVtdulayGIk9I/rCAkqZBe7rNg4Gdrakd33rBQk0TOlvjDEXP/eMofm9jnR20bRLhA=
+	t=1784537645; cv=none; b=nY6eyBByZ1j52lHGlgVNwJlBSwD3FxhT6IY8yM5pt+xG/9u/zDQknf8VoGhql/g3sBUd1obomOUum2mn5f81xv3gFxy/lYCbMHjAMUu8QTKp8rpX9uAKPKA5uCKtXrGEU6ksOfR58VH5K+B5lKqqDVEgknjeZpwqYMf96s9Exx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784537489; c=relaxed/simple;
-	bh=/iM2UVkSxBZfA01X6XOKYSmESk3/rCUICO1bh4JgUz4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DxIqDPrbEj8+SK45Ymuh/J7gjgF4sLLC3wHF7NLf/uP9nsnkGoE8CnuwBNWY4vl1GXPJai6kM0rCoTddYhdHas74VDwoIw5oAMntcbStmuXE9CD0i1LqohIwy7/sBDUXmrI8111XaBt5BBxQiubiwl0RKL/eeG0yXiMonVK+PmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ewxtewm4; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1784537645; c=relaxed/simple;
+	bh=ZyQZcq0mPTOKU5v2//FvoAr/q2BoYg80anwUr3T53CU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IjfISpSt39bnxWcj83nb2ar2eiyAsQtyuckdxqfylREICkqXMQj/fexniUFhThLBwPyr49aZdMpmll0NyLKy0nDF8iPhFG5R4CiTsUiAN69Fk5T7ET49d7nIIjtdL6Yb7JZkzMgmI/dL101/2bjj5Ggb9wItTqJy9AvKljn1X78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i9LDvkBx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ewxtewm4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784537488; x=1816073488;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=/iM2UVkSxBZfA01X6XOKYSmESk3/rCUICO1bh4JgUz4=;
-  b=Ewxtewm4bvfaPNwbGOFbnRXXQFQeEGLF9TS6HBmaXS3yQsMvGHzQ8HZB
-   uyyuBoK/t8bWeeLIuZz0TnZ0DiW6172zkh3WDEM3NdVEQ5Ck0i2kNsXOd
-   SuHnKofbFldzmaZ6rCR3ECoMLzPk9lDya2LJjb0xnmZq2bK7z+d3WVeZQ
-   cbCBBTHNoy/yVSZ1Bm2e6FMp0xSpE3hEMJlklwnp0aavPXa5VluJDQJvH
-   IaTVAGZoU8bwn9ByjOuLIXIolQs+PRYn7453R2Bgk3MRuhJSKLMhepCt6
-   1ZbWiRPJZA8jHFMZ66MEvPpRQHrhuDEh2g/UR3PTWM3TX83OiEDiW3t8o
-   A==;
-X-CSE-ConnectionGUID: ttVGK6izRT6VnDpynojvxQ==
-X-CSE-MsgGUID: te2o6YBKRBuFXmfHMEGQFQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="84967503"
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
-   d="scan'208";a="84967503"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 01:51:27 -0700
-X-CSE-ConnectionGUID: fTS2tQ7USvW+oDqrV/5Sag==
-X-CSE-MsgGUID: 0BkUacb2RRmoulvb/FHD9A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
-   d="scan'208";a="261687729"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.94])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 01:51:21 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 6BD69121C02;
-	Mon, 20 Jul 2026 11:51:23 +0300 (EEST)
-Date: Mon, 20 Jul 2026 11:51:23 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
-	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Tommaso Merciai <tomm.merciai@gmail.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Julien Massot <julien.massot@collabora.com>,
-	Naushir Patuck <naush@raspberrypi.com>,
-	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	Stefan Klug <stefan.klug@ideasonboard.com>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	=?iso-8859-1?Q?Andr=E9?= Apitzsch <git@apitzsch.eu>,
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Ricardo Ribalda Delgado <ribalda@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	David Plowman <david.plowman@raspberrypi.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v6 13/16] media: v4l2-subdev: Add
- v4l2_subdev_call_ci_state_{active,try}
-Message-ID: <al3hi3-oTj1CCxaD@kekkonen.localdomain>
-References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
- <20260701122634.1728782-13-sakari.ailus@linux.intel.com>
- <20260720084553.GD3679@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i9LDvkBx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8E641F000E9;
+	Mon, 20 Jul 2026 08:54:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784537644;
+	bh=0u2m1AQKWYxyboCzF48tI2DvuzQoXXu1SOAVjrULkmo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=i9LDvkBxjgaYkdpvqr4tfN7WiMA4DlY3rx6+S06zK+EfvkGK4tcS8Y+GKMZm7y88b
+	 WTaf7leoyTI1KkVPoHY1ySgcPeqmNYQRk/Y8Vj81KroXVRulqI7A2sFnVrRV8OAjma
+	 sTojxy6596RCY+YG8c5e2XURNS1B9gxFW9p74s3HOOCYOPXDSmAGHZNLRlHX6P7TP7
+	 l5xHQTU8paqZq7Jiyyz1dm286gWSjYYL/KS3mNf1wTocBYjCnkgqCqb0I5GIBTX5v5
+	 eqMoEJ1htgL9IHz8UNw3D73cgZOS1SNh09H7DDx9G3cpN5jRaTvW7xX+LbIW+EEx1J
+	 hsTNIB847Aj8g==
+Message-ID: <681bd27e-d58b-4b2f-b65d-49f3b2c01bc2@kernel.org>
+Date: Mon, 20 Jul 2026 09:54:01 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260720084553.GD3679@killaraus.ideasonboard.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] media: i2c: ov8856 : remove ACPI node bypass
+ mechanism
+To: "Yeh, Serin" <serin.yeh@intel.com>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Cc: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
+ "Su, Jimmy" <jimmy.su@intel.com>, "Sapre, Sarang" <sarang.sapre@intel.com>
+References: <BPkAfNBWv3FtV-5v-zRwnqX_ASShq9wG6NhI7ftYKii_3qF0KxcdaxS31MAkVKB7zlAUoLQQXAaef5p2Qpn4LA==@protonmail.internalid>
+ <20260623084536.3400318-1-serin.yeh@intel.com>
+ <d9b110be-a14b-4fbe-bf2d-036f3cd922a6@nxsw.ie>
+ <nwsGXSUCUOLmR7tbtAgvOc3Cvog_0QqnFUI9jev6FLOxt0Cyf6D8gYfJT6XUWuvzYFvsYgGrp21TCTKGQ4Mm5w==@protonmail.internalid>
+ <PH7PR11MB7962C4FE368856857E5D21CBF6C32@PH7PR11MB7962.namprd11.prod.outlook.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <PH7PR11MB7962C4FE368856857E5D21CBF6C32@PH7PR11MB7962.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Laurent,
-
-On Mon, Jul 20, 2026 at 11:45:53AM +0300, Laurent Pinchart wrote:
-> Hi Sakari,
+On 20/07/2026 06:53, Yeh, Serin wrote:
+> Let me give the background. The sensor is enumerated via ACPI on an Intel host, and an INT3472 "discrete" companion device (the power-logic-control driver,
+> drivers/platform/x86/intel/int3472) provides the sensor's power resources: it registers the reset/powerdown GPIOs and the regulator supply.
+> These are therefore discoverable and usable through the standard gpiod /regulator lookups at probe time.
 > 
-> Thank you for the patch.
-> 
-> On Wed, Jul 01, 2026 at 03:26:30PM +0300, Sakari Ailus wrote:
-> > Add v4l2_subdev_call_ci_state_active(), and
-> > v4l2_subdev_call_ci_state_try() to call sub-device pad ops that
-> > take struct v4l2_subdev_client_info pointer as an argument. These ops
-> > cannot be called using v4l2_subdev_call_state_active() or
-> > v4l2_subdev_call_state_try() as the client_info argument precedes the
-> > state argument.
-> 
-> Is there a reason why the state argument can't go first ? This patch
-> then wouldn't be needed.
+> With the is_acpi_node() checks in place, ov8856_get_hwcfg() never requests the reset GPIO or the regulators, and ov8856_power_on()/_off() return early without running the power sequence.
+> The sensor is then never actually powered/reset by the driver, so probe fails when the driver first talks to the chip (the chip-ID read in ov8856_identify_module()).
+> Removing the checks makes the ACPI path run the same sequence as DT, after which the sensor probes and streams correctly.
 
-The client capabilities are constant as is the sub-device itself (at least
-in terms of this call) whereas the callback operates on the state, followed
-by its arguments. That is a more natural order of arguments IMO.
+Great description thank you.
 
--- 
-Kind regards,
+Some kind of distilled version of this - less prose more bullet points 
+should go into one of your commits or - the cover letter at least.
 
-Sakari Ailus
+Otherwise LGTM, thanks for the detail.
+
+---
+bod
