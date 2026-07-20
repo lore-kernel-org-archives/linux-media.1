@@ -1,63 +1,63 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B19C43F4D5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E5643E068
 	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 16:38:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784565520; cv=none; b=Y2gQy8+NoyrSQjTmQrH9JjHfik6du1wkBEl1pMmmnmL89grFVmFWjoaljjLcJ0aR37jaN66VDK9LCtGP9n27BeMQN8Q4u7RVFpK2/bYMzUT2vTelsxj9KEN9Eo+sQePtIqjGCXKSJj64j98BzCcZpDs8bEMW8jz2ffMr2OaEPbM=
+	t=1784565520; cv=none; b=IkWsqA+FvcqHvSqzHHoCbokHE9HJC0bFZWEwxNRVxAZywcGO6mGbewZCcURWQC/ZBwvgho9xK9Gjys1ZOG+FCYq6+pbPJbrKgvALULd40HwBrpsNwECPaUftqmpv4nywr0A0FYlSaGjYF+aalU651hLORsC/BtJJNbe94iK1Lgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784565520; c=relaxed/simple;
-	bh=8Fm3vEh+1dWQI8swqJhCYbgEM+cB8Zzx1PqOZJ4zxcs=;
+	bh=/E4JZW3jDM5GUAK41+FuL3LL+1nKExqpNHn60e1vrGA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bh+6h9xLJk+A9qgfqa91+B2EEWnZEtiMn//0+QNv0sL6AXICDpzmNJtsPJU9EDlgdgJjAUocFeDZc4Np/S2xOHLxPNNan3jgM1h/VdYhZuxZ3Ok6nfcXZITnIr8HtMi/mv5Y6cANhX2opHCE8uPgXjxV+HvVgzeBdd0IERUgEPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=awUgsM9T; arc=none smtp.client-ip=209.85.128.45
+	 MIME-Version; b=gWh1u81awflBL0j30oV8kgjodPpPMiLR2mTMxBA2SOQcs3MWTqSoiprs5YY98Qd7K6vOFKaVUMAgdl0hOOPX77neQdICulmMhEH9Mt+OB5k4II/fzKtDrsv7gMSMgJm6e4hV9d99bXb9e0FHxFavbjg6RY55XTI6xs1HkoPLRzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hiwUoq/1; arc=none smtp.client-ip=209.85.221.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="awUgsM9T"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49557167508so19164265e9.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hiwUoq/1"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47db714766aso2250323f8f.0
         for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 09:38:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784565515; x=1785170315; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784565516; x=1785170316; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tpd1FFeABygMAE3RBVlHC8AOP8gSRlvHTu7ypo6aoKs=;
-        b=awUgsM9Tp68B3xdqujmAURZzTARdEm+kuEFSDAQOy71H/UEgbuLSv5yTe665iRZv7H
-         He7LO/wcdcAXI/HUktgban8tynshHkN4O7d/BBaVpUuq5lQebW/Y8skV7PSQVdGKo4hn
-         G0QFpdIBV2+sQpjHQ/s6MxPigrsBFG/Z0uxBunUetS16E27LuzYVtjWkdpJhc8JIigBM
-         OFUYMtPtONjB7VKgXhISu7tUyMBdZ76XT3dVZjfgYyyxUhZS8UkJgvQRD9kQW4TwFqPS
-         3xegh16q2SWazK8PnKU61R9T6FUTDzHZyxnK2eDHmOaM2HXodO3WCfRwmC/SGFchIrk9
-         6AUw==
+        bh=5KhQUN7+DqlY5NuKQZAeeshI54ay0kd3WmgziqyHq2w=;
+        b=hiwUoq/1dMwaXlF6z76R0WAP0fuOKHm7YUBYnATIFByl/WbkxHqyFJHK5IxZCwrMjJ
+         jQ5T3iOpVeIOoJb6mMpdVo9JBNSOI+8DY4kqHNqm8CJ2e7cRpIO5wIvCPYH/SiNs7mPY
+         MGc9+2N2guLG89swtLJb2CyJmoQnVSkQcYYj1bjAFD5AVC21gTEwRmV2iOn7kf6W6cfe
+         WbaTgs8gdwlRHzE4u9Py5oNA0TZD/CzjZIyXUhB1Ey/DKSfaUEgMm+R+9jYIuLyKtDUj
+         4xr81Ze+4u3OJYCDyVmetLXH7gzr3JZKIU5Kn+wZ8MARwEBvV4SvLjDUWGEY8vKdNm6r
+         3ZCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784565515; x=1785170315;
+        d=1e100.net; s=20251104; t=1784565516; x=1785170316;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tpd1FFeABygMAE3RBVlHC8AOP8gSRlvHTu7ypo6aoKs=;
-        b=g7R4QNeFQErRuPnAz9xF/4lHYxgtGDbh4MTKSnOWlnvnMAw52MiUTwt/tlQ75aJkPV
-         vS+8p4fNAE95IZKNeY79MmZI1+Kojd+am8X6BzemIiy3jLiI8/8H/Ty/ADB993O1tklA
-         z0Qy2zuZwhfcSGLeeUPjR7ivDTo1pVjTxB4G+RWkRJeibiIA+k6xTR4khdWVljUwFPVQ
-         jcbqzGmPEh/6pe110xi6onm3ZyOo3nBJEI5eBdOBp3lgtFNZaVjeyspqM0urath9rdP7
-         SnoQjAygaozaS8aHtBUac51tl9wsb1UqBiqv3B5sHIXARFXUb160QKfGMkVfhg0AeA+0
-         3zkw==
-X-Forwarded-Encrypted: i=1; AHgh+RrDIC+9LPjSgRXbKmU2AY6UWmttS0YcWTsr82roZizBuTD4eqSRByvFASS5CkhEpbOrP14JyE0LzAyK0Q==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwOkjC3Rwa0p0dR3zPZTU7KAkyftN3PKxNIBxrImHBvqmSLzqAv
-	aa72fgKjtO1wZSN6b63D3dTnv6P9+i95KIGRr1YOg5LGhiS4fzdVd38e
-X-Gm-Gg: AfdE7cmek/rq5ehd1+w9WHk+f6qJbmyAsq8FOVcXaN+I3kwizF+LJ8duDZ1H3pKXUrU
-	2q8sRMZKbbvdl3vfr5ZDmDdXvMEDzMbaUHH3FFJYT84oKQbAQh4K6ONbNGC5JgMmq9deDrHx1Ps
-	Y4oi8C428ZlWFqpHGudsa8zzRRPdonJcCTu89WMehXFQpPGQjklvIpBuKGrDY1aABPlKC5DtICN
-	4w/jqazmDOKwkzNSybB1HkwHLOcxBZU5hKUVSy2fXggLroK4l3xnoIJzkAOC+kYtR4IylBW1vNL
-	WzHW51RX6SWYzkbQq/3KrFxGpLkR/ziIGqlcpC5hTTfCAGI5UNDx36GIUtIcoTC6avY51tC0lDK
-	5qt5sjIhQnhAwm9IrGdHl/u6+Hsb1lqHQiYzL4S8EZNOh4toYdXuHjFz5nLNFR+sVGXjN4HduQJ
-	XjHHzz6gF9ZX0s+R9S5plnn683FiQ=
-X-Received: by 2002:a05:600c:e558:20b0:495:5cda:52ec with SMTP id 5b1f17b1804b1-4955cda5441mr50515775e9.16.1784565515124;
-        Mon, 20 Jul 2026 09:38:35 -0700 (PDT)
+        bh=5KhQUN7+DqlY5NuKQZAeeshI54ay0kd3WmgziqyHq2w=;
+        b=Z/TIQcIN0ys7cU43UG/MELBIVlaXBL6sm5t2YRWMy96AlqMA8Zoy142P5v0XL6EBjy
+         rWyp8G3kadqrCqLZAYComZehnXsGLFqhdkh0W83zFtkld7eGNjf6oE6HoVCjsQ3l0woD
+         qsKKWzQyWli87me+WCZkXSvKif7DrTDnDbJRIfudVabuE/6k5FaFWKCwa+GPv4xmlFWq
+         0ZwTu700IgdE2CQ9M4VgYiy3QSGiv2T5jicDMLZgi7Ke9OM+pVu3JuEAoPmaLWiJxsmr
+         R1cXTG5DBTudo+6mckljSjUWMiCk29UVLS1XvlDJGFFaGlGbjXqTGrSHqkOLKmtKHFaa
+         1z5Q==
+X-Forwarded-Encrypted: i=1; AHgh+RoG1mZvsxnGCNCdgEIlcj0ubT4ObrmzM0rRkK2QZurlp3F9HX/GYFvbxQZd2OoE1ndu58tUSlnIYxFwfg==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw4Z91StwskwBy51yWj+grcrxVYY/SlTYuxH8HOZMs5tkZ8gqll
+	+6atnlhokbwsfwaivUueoR/x+uD3JuTWg1RFpnk7VKaZ/Lt13z9HX22f
+X-Gm-Gg: AfdE7clzoaeisrRGDTgeX85eu88c8q7L/ZRgWon4zM/0L5eaGud5nl1vUSkQhaoWuuG
+	Bsf9HYGVRY8IVPiXq1j/3vdTX+q6tx+ZSVNfV4nVC7EaYoATKInC2JNvoErW3ubiAbom0iqWoYG
+	047QApKanmLNJdVklz+hUOsiBScjfmBGzqc/jb+Px+BVv1GjRGpsZVB5xkVs5bP23p5/VT5gC5D
+	urcZhoNJmFopWwaRJeyojjzMvEnpIT5n8dOXtQC6lecEd2mg86oO4M/tYU/VLKZMjmsDmoS+1eA
+	zGODIzeHYgaZ/datCGsAkKtPj5ihBO4juCMZCQT0Ab3BpRTMbESaBpvIc6z1KFGlGqY/Xj4gSsa
+	yvombN5VHo0HDu52Qd3Y+FgAGWFGeIGHcIGBh2E7WoZPV+31W1r/lrp9LVrP+Ei+0EaNgFgZp4H
+	ccY1LCmBFEXPnhRoSaWiL/eZzB0Ko=
+X-Received: by 2002:a05:600c:c178:b0:495:5d6d:9cc1 with SMTP id 5b1f17b1804b1-4955d6d9f9bmr61667515e9.0.1784565516090;
+        Mon, 20 Jul 2026 09:38:36 -0700 (PDT)
 Received: from localhost.localdomain ([2001:b07:5d3a:fe75:4352:bba7:6d7f:5f92])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49565373608sm2105325e9.6.2026.07.20.09.38.34
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49565373608sm2105325e9.6.2026.07.20.09.38.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 09:38:34 -0700 (PDT)
+        Mon, 20 Jul 2026 09:38:35 -0700 (PDT)
 From: Fernando Rimoli <fernandorimoli11@gmail.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Daniel Scally <dan.scally@ideasonboard.com>,
@@ -67,9 +67,9 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Jakob Berg Jespersen <dev@berg.pm>,
 	linux-kernel@vger.kernel.org,
 	Fernando Rimoli <fernandorimoli11@gmail.com>
-Subject: [PATCH v3 3/4] media: i2c: ov5693: Gate the MIPI clock lane for non-continuous clock
-Date: Mon, 20 Jul 2026 18:38:18 +0200
-Message-ID: <20260720163819.104130-4-fernandorimoli11@gmail.com>
+Subject: [PATCH v3 4/4] media: ipu-bridge: Request non-continuous clock for ov5693 on IPU6
+Date: Mon, 20 Jul 2026 18:38:19 +0200
+Message-ID: <20260720163819.104130-5-fernandorimoli11@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260720163819.104130-1-fernandorimoli11@gmail.com>
 References: <20260717132021.18034-1-fernandorimoli11@gmail.com>
@@ -82,100 +82,99 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ov5693 never programs MIPI_CTRL00 (0x4800), leaving it at its 0x00
-power-on default (free-running MIPI clock). The IPU3 CSI-2 receiver
-tolerates this, but the IPU6 receiver (e.g. on Microsoft Surface Pro 8/9
-and Surface Go 4) fails to lock onto the link, so the sensor streams but
-capture times out with "stream stop time out" and no frames arrive.
+The ov5693 (INT33BE / OVTI5693) needs its MIPI clock lane gated while
+idle for the IPU6 CSI-2 receiver to lock onto the link; otherwise the
+sensor streams but capture times out and no frames arrive. The sensor
+driver gates the clock lane when the endpoint requests a non-continuous
+clock, so the bridge has to supply that property.
 
-Parse the "clock-noncontinuous" endpoint property (which sets the
-V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK flag) and, when it is present, gate
-the clock lane while idle (bit 5) and keep the bus in LP11 (bit 2) at
-stream on, matching the approach ov5647 already uses for the same
-register. When the flag is absent the register is left at its reset
-default, so IPU3 and other users are unaffected.
+The same sensor works with a free-running clock on the IPU3, and other
+sensors are unaffected, so add the "clock-noncontinuous" endpoint
+property only for the ov5693 and only when the bridge sits on an IPU6
+(matched against ipu6_pci_tbl). Non-PCI bridge instances (e.g. the IVSC
+mei_csi path) are skipped.
 
-Gating the clock lane was determined to be necessary and sufficient by
-sweeping the register at runtime on a Surface Pro 9 (IPU6): every value
-with bit 5 set streams (300/300 frames, steady 28 fps), every value with
-bit 5 clear fails with the CSI-2 timeout; register read-back confirmed
-the power-on default is 0x00. Bit 2 (bus idle in LP11) is set as well,
-matching ov5640's value. Note that unlike ov5647 the line-sync bit
-(bit 4) is deliberately not set: adding it collapses the IPU6 stream to
-a couple of frames, so this value differs from ov5647's - the IPU6 D-PHY
-behaves differently, consistent with these settings being PHY-specific.
-
-The "clock-noncontinuous" property is supplied by the ipu-bridge for the
-affected IPU6 variants in a subsequent patch.
-
-Link: https://github.com/linux-surface/linux-surface/pull/2171
-Co-developed-by: Arsalan Naeem <naeemarsalan@gmail.com>
-Signed-off-by: Arsalan Naeem <naeemarsalan@gmail.com>
 Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
-Tested-by: Jakob Berg Jespersen <dev@berg.pm>
 ---
- drivers/media/i2c/ov5693.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ drivers/media/pci/intel/ipu-bridge.c | 30 ++++++++++++++++++++++++++++
+ include/media/ipu-bridge.h           |  2 +-
+ 2 files changed, 31 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
-index 02236f3db..5468e89d6 100644
---- a/drivers/media/i2c/ov5693.c
-+++ b/drivers/media/i2c/ov5693.c
-@@ -35,6 +35,14 @@
- #define OV5693_STOP_STREAMING			0x00
- #define OV5693_SW_RESET				0x01
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index b70d61099..98773a99a 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -8,6 +8,7 @@
+ #include <linux/dmi.h>
+ #include <linux/i2c.h>
+ #include <linux/mei_cl_bus.h>
++#include <linux/pci.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/property.h>
+@@ -15,6 +16,7 @@
+ #include <linux/workqueue.h>
  
-+/* MIPI transmitter control */
-+#define OV5693_MIPI_CTRL00_REG			CCI_REG8(0x4800)
-+/* bit 5: gate the clock lane when idle; bit 2: keep the bus in LP11 when idle */
-+#define OV5693_MIPI_CTRL00_CLOCK_LANE_GATE	BIT(5)
-+#define OV5693_MIPI_CTRL00_BUS_IDLE		BIT(2)
-+#define OV5693_MIPI_CTRL00_NCONT_CLOCK		(OV5693_MIPI_CTRL00_CLOCK_LANE_GATE | \
-+						 OV5693_MIPI_CTRL00_BUS_IDLE)
-+
- #define OV5693_REG_CHIP_ID			CCI_REG16(0x300a)
- /* Yes, this is right. The datasheet for the OV5693 gives its ID as 0x5690 */
- #define OV5693_CHIP_ID				0x5690
-@@ -144,6 +152,9 @@ struct ov5693_device {
- 	struct regulator_bulk_data supplies[OV5693_NUM_SUPPLIES];
- 	struct clk *xvclk;
+ #include <media/ipu-bridge.h>
++#include <media/ipu6-pci-table.h>
+ #include <media/v4l2-fwnode.h>
  
-+	/* Gate the MIPI clock lane when idle (CSI-2 non-continuous clock) */
-+	bool clock_ncont;
+ #define ADEV_DEV(adev) ACPI_PTR(&((adev)->dev))
+@@ -383,6 +385,25 @@ int ipu_bridge_parse_ssdb(struct acpi_device *adev, struct ipu_sensor *sensor)
+ }
+ EXPORT_SYMBOL_NS_GPL(ipu_bridge_parse_ssdb, "INTEL_IPU_BRIDGE");
+ 
++/*
++ * The ov5693 (INT33BE / OVTI5693, on Microsoft Surface devices) only locks
++ * onto the IPU6 CSI-2 receiver when its clock lane is gated while idle, which
++ * the sensor driver does when the endpoint requests a non-continuous clock.
++ * The same sensor works with a free-running clock on the IPU3, so only request
++ * the non-continuous clock on the IPU6 variants, keyed off the bridge's PCI ID.
++ */
++static bool ipu_bridge_needs_ncont_clock(struct ipu_bridge *bridge,
++					 const struct ipu_sensor_config *cfg)
++{
++	if (strcmp(cfg->hid, "INT33BE") && strcmp(cfg->hid, "OVTI5693"))
++		return false;
 +
- 	struct ov5693_mode {
- 		struct v4l2_rect crop;
- 		struct v4l2_mbus_framefmt format;
-@@ -611,6 +622,19 @@ static int ov5693_enable_streaming(struct ov5693_device *ov5693, bool enable)
- {
- 	int ret = 0;
++	if (!dev_is_pci(bridge->dev))
++		return false;
++
++	return !!pci_match_id(ipu6_pci_tbl, to_pci_dev(bridge->dev));
++}
++
+ static void ipu_bridge_create_fwnode_properties(
+ 	struct ipu_sensor *sensor,
+ 	struct ipu_bridge *bridge,
+@@ -463,6 +484,15 @@ static void ipu_bridge_create_fwnode_properties(
+ 			cfg->link_freqs,
+ 			cfg->nr_link_freqs);
  
 +	/*
-+	 * When the CSI-2 link is configured for a non-continuous clock, gate
-+	 * the MIPI clock lane while idle (bit 5) and keep the bus in LP11
-+	 * (bit 2). The power-on default of MIPI_CTRL00 is 0x00 (free-running
-+	 * clock): the IPU3 CSI-2 receiver tolerates that, but the IPU6 one
-+	 * fails to lock onto the link and capture times out. Only touch the
-+	 * register when the endpoint requests a non-continuous clock, leaving
-+	 * the reset default in place otherwise.
++	 * This must stay after the link-frequencies above: the property array
++	 * is NULL-terminated, so the entry only takes effect when a preceding
++	 * slot is populated. All IPU6 ov5693 configs define a link frequency.
 +	 */
-+	if (enable && ov5693->clock_ncont)
-+		cci_write(ov5693->regmap, OV5693_MIPI_CTRL00_REG,
-+			  OV5693_MIPI_CTRL00_NCONT_CLOCK, &ret);
++	if (ipu_bridge_needs_ncont_clock(bridge, cfg))
++		sensor->ep_properties[4] =
++			PROPERTY_ENTRY_BOOL("clock-noncontinuous");
 +
- 	cci_write(ov5693->regmap, OV5693_SW_STREAM_REG,
- 		  enable ? OV5693_START_STREAMING : OV5693_STOP_STREAMING,
- 		  &ret);
-@@ -1259,6 +1283,9 @@ static int ov5693_check_hwcfg(struct ov5693_device *ov5693)
- 		goto out_free_bus_cfg;
- 	}
+ 	sensor->ipu_properties[0] = PROPERTY_ENTRY_U32_ARRAY_LEN(
+ 					sensor->prop_names.data_lanes,
+ 					bridge->data_lanes, sensor->lanes);
+diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
+index 16fac7654..48eb1e270 100644
+--- a/include/media/ipu-bridge.h
++++ b/include/media/ipu-bridge.h
+@@ -141,7 +141,7 @@ struct ipu_sensor {
+ 	const char *vcm_type;
  
-+	ov5693->clock_ncont = bus_cfg.bus.mipi_csi2.flags &
-+			      V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK;
-+
- out_free_bus_cfg:
- 	v4l2_fwnode_endpoint_free(&bus_cfg);
- 
+ 	struct ipu_property_names prop_names;
+-	struct property_entry ep_properties[5];
++	struct property_entry ep_properties[6];
+ 	struct property_entry dev_properties[5];
+ 	struct property_entry ipu_properties[3];
+ 	struct property_entry ivsc_properties[1];
 -- 
 2.43.0
 
