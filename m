@@ -1,64 +1,64 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD4A3F39F3;
-	Mon, 20 Jul 2026 11:09:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69C83EF648;
+	Mon, 20 Jul 2026 11:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784545786; cv=fail; b=sBn7pT+AP/uWvkBARXI01oKfbU9csllhf7hyM5obp7pH2iChnFc8a8c47Ifnwj0RJNezChHNKMH2ebs3ZIkAno02lt9pgqond84Cy2zYnS8GnZ9SI8GwfSmcvj1U5EfKELY0igU5kI1WgmZnKVpfyOYWB/Yc3BuVS4ARIxf5CdI=
+	t=1784545826; cv=fail; b=UIeuZZED9EmDm8majQizXBLMLtataWuhFHG8+icxWbixcCmK+/kQnMl2bIwSU6aypWAAoVwu8/MngweJYL8gALkCEttguJ66aIJ0Af6B49rvScQ+g6Q8Zo+KeDT/IVyJUKIfUkhr55VY28/dTO2V1inahlrAgI3vgU9rw8YWe/A=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784545786; c=relaxed/simple;
-	bh=ihIjYekTERBLXDwYon1aMsAPVM1SpXG3A+jrxK+6bnc=;
+	s=arc-20240116; t=1784545826; c=relaxed/simple;
+	bh=cb0lbwr/7x0YSBN+g9as7U3XYv86C1GuHpLZP8gNwmk=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Gc42wUTsGFVSgUqa3eFmbmrLaHSudU68AXYIFlehrh+14FWpb8oDG3FX1vWIuDaOBDcOFnpVzuzEWzHYF5M5GZZSsHi3Cmn9oK8b92NnVC+8Q8EnQ1onffmDlnRasS3oAguwd1Vezb7yB9HnQkZy0W3MWIpyhV7FrdUCmtrUKMQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=K6w/vDPA; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=YIUJKn3K; arc=fail smtp.client-ip=148.163.150.75
+	 MIME-Version:Content-Type; b=RUb79blShJ2dl+0EVoRzr0/FQjBZTsxSaF/e9nx7yA4g9KtBgB4Nd0hyKuWCb0XHPKNFa2Cy7zFlvX+h9kX5xVmzAmT4+Hm/tT3IpfAarFSW2W9/M69LEX2SSMiL4Bnz82kyGFw1whVtdksCjGqt6V7jHMrFUll6r+NfwTa/b9E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Az6FuDH5; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=aGmiNzYj; arc=fail smtp.client-ip=148.163.154.28
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="K6w/vDPA";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="YIUJKn3K"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 66KAsheL111060;
-	Mon, 20 Jul 2026 06:09:40 -0500
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Az6FuDH5";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="aGmiNzYj"
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66KAsiNJ1969487;
+	Mon, 20 Jul 2026 06:10:20 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=5nsypIxkl3wh1TwYFLY4riDZ82BhRN8v+O6aZOPmQ
-	kE=; b=K6w/vDPArVJpQiLwmLzUPoXTwTFowHcU+ScnmM4SOchNMCdrB6bPSDtkZ
-	scXrsQtT2E0QQMqbpnwV+BG/pXTPKPllhIzBzSTiSmJlZERFvQX8SbjP907hh1jz
-	nH4UZgu7Yqd+fgsFM82OU30ZYWxFoumxQpaTJoAN4khet6ROdFeCD7Wq9PxY4prb
-	qksVyhhpxYpWV6NP/pbIAh+bLTlmNvNaFzx+19cU3hF1oREFlCRbnYya9poU/X6H
-	TqwOVPEEV3Zc2NyZGqkG1e6Qk3hJKbTsW1BpMoP67mAgDkk1YngNAmGVX5fd+QmO
-	ahfuqsq07oG836kzVuwQdJyyD6rWg==
-Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11012028.outbound.protection.outlook.com [40.93.195.28])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4fguemnap5-1
+	proofpoint-05-2026; bh=gLaC+J2fc5GN+UbG9pS2/DwYB+1s8IGcM9N1CVZFs
+	CE=; b=Az6FuDH5C7g+MX6phv8AuV4n3Aj9t+8y/D5Q8nMOuXdn5DjS4ISSttleK
+	Zprzbg/PBcMyYYqOMFVzXt7g4bZEBTgvRJzb0lPe0bewi5g7YpxloZze2sR5MGV8
+	E/Mo04QmpeazV2ktytf4iRUVaYCaDrBCkMDPp22lmR+5tInBgz91h0r8jMBHS3NL
+	H9ibnZzfpupIb7sxjWrfjxaQ0cXzZdnnVVv+F+2n/B4rb8fGOjl+PIUYKEA+S1YH
+	fgnIyuXnvVTuxfKLQG5D4SOFqlGRspaOqG2aWltWJ6SLKDXh5wWhtswswN8E75LY
+	al51SVnuBP2WGMz07fMPto/uHF3aQ==
+Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11013006.outbound.protection.outlook.com [40.93.201.6])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4fgrmkwnwx-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 20 Jul 2026 06:09:40 -0500 (CDT)
+	Mon, 20 Jul 2026 06:10:19 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ET90Kqrzq6+kk7t24oS0RXmDNYBH2SGbKoyPhWcCTpf9WCan+dT7N0xQI+1IzPxOQUKm9fVX9QJNpQEUzTlbI5gqfYeFwTbcws3+4dBDu5KqfmWOp7uPmEN+q0eAKRjG98UrFuYIvH9sFUVZ/H6aPCVLMvK7OYcsKIHisGnMZ4jfYShWclv5KjKho8DDi7fZ6BJfVNlHRJgos5XLesnvMpDN74qweJB1Trb3NeFQ0HxbB1K7NMwVqEHqG7vLnyKCNuua2d44243Vl5o/3Cy2wO9zNurIgTQzPE0Mi3yA6LPueb/FVNNWi4wQKT/0dXsLU61CCOLoC0r2ngcal1O+Yw==
+ b=IsXWy/+PT6TH1OBkxLFUYNEUcTtCf7p6WFB2ufZ/uPHlTXx7kC2zpU4M7sOsvl/D5ouk+G3LF8XDDPzsJ3zy3p4+Io5ocfxyBUoeMc1ceemvfIkEnUYjU0oXF2J7A/TEZKMf3KEQpMrkxRYR9nYDTVv70D3ZQp7lFCfdBzzOD2+FtCCI0DN3QM97M1zTH4Vru2gR4XeH0Rn4aQvZznjnRSHx+3MfAGljUUnj5mzhtGXw03btC1x09i7DFa32AWDE/KnHV0qqNum4OtbFd+t/dNlsrbf4yRneDkVlK7lYtjHZv2s9WHNEa+O0uGCCL/sQQCsSDkj368DnMabFOKsu9Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5nsypIxkl3wh1TwYFLY4riDZ82BhRN8v+O6aZOPmQkE=;
- b=AZAJTWz8mLjBe1UzKh7JJ1G6VhhrXox1Hrcywmc3tzV/r9g2ayEovd24vDpR+kB5H0KumE+cAUqhWNFNCzQcM/bpVARcASp7V3qCS3JHLTK3GRNwNF3BI+lHqvuLo3xAPDeCdKx0cGxYDRww/55GFB3gnOTruFqku+jHdkBdI3oMOW2HBBOPIjnEFwwxXqIGpcem3kUduxBPwGmfuxAdQLNq/C/PsVn0PazxPPUq8Fbu5kLO2aWyLo9S3XuYZN5vSGwIt1tmugkxfngRHAzxThkC3RQnmfXL3zZZRQ073BrF0wv2+g/6K8CjJcDsSahJJEah9wHWuwZp2WPzDQjbcw==
+ bh=gLaC+J2fc5GN+UbG9pS2/DwYB+1s8IGcM9N1CVZFsCE=;
+ b=HVnsPwnvWjoaRaV11G1SuySx3j2Lgm/HRIjKhVcJSr8tUYzzfT9mjugI564JGZiZh47yr5FZJIQarpMRwWm/CIveP4Ys4XfQDt5aCYSk3hJL2E7boNvMzg+yCcq+4wrJf63iYkd6OUGd11VbFCgJcpWK2YSOn6q3KcgXjSWehQH5Pwz2iIS9itZZLrQHU0t7gT6ITRENRo2rXzBrI09n/LQXDEzQlc+Vp+G+9VduUtxbvAa/JrHELw5mZNttIZ3iq2jSzVlNpXEnwKXeAfXEvP7keINxs9jGThl2/DYPT/8G5kqR5B68Q+8DPmI1LQEif7DhjhOPpnCp5A+qKxcxbQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  198.47.23.194) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=ti.com;
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5nsypIxkl3wh1TwYFLY4riDZ82BhRN8v+O6aZOPmQkE=;
- b=YIUJKn3KmAddwGse4qXGY+p0iw91iTR+naLR72XFXB3VG241nw0PwdNzZP8rq2jSqXvd8VDQVOL1OtamwuaXUrgDAj9u/kgSYHHP0jL2w8ljy1e8iWESPsWdRvNipAnvmf2nZZ/TkCCQNcCu7WoiktdYY9s8SGSrg6kov7b/PEw=
-Received: from SJ0PR13CA0150.namprd13.prod.outlook.com (2603:10b6:a03:2c6::35)
- by SA1PR10MB5865.namprd10.prod.outlook.com (2603:10b6:806:231::10) with
+ bh=gLaC+J2fc5GN+UbG9pS2/DwYB+1s8IGcM9N1CVZFsCE=;
+ b=aGmiNzYjDri41A9Rf1hJ8Hf1mcysvgPdncChpCub5mUJgEPwdtpiLm+8PFnX+/SOz0P7ETtpqDCYbTtH9S+bs6vdh0KHuw9vINsUecns67CEZDY1fWGkhiRWoGIeo1SU6OaAT9x2Jvc8NbLar8q4TMruAXxBThwPVcejiND8N9I=
+Received: from SJ0PR13CA0124.namprd13.prod.outlook.com (2603:10b6:a03:2c6::9)
+ by DS0PR10MB7222.namprd10.prod.outlook.com (2603:10b6:8:f2::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Mon, 20 Jul
- 2026 11:09:34 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Mon, 20 Jul
+ 2026 11:09:38 +0000
 Received: from SJ1PEPF00002322.namprd03.prod.outlook.com
- (2603:10b6:a03:2c6:cafe::d3) by SJ0PR13CA0150.outlook.office365.com
- (2603:10b6:a03:2c6::35) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:2c6:cafe::46) by SJ0PR13CA0124.outlook.office365.com
+ (2603:10b6:a03:2c6::9) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Mon,
- 20 Jul 2026 11:09:34 +0000
+ 20 Jul 2026 11:09:38 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
  smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
  action=none header.from=ti.com;
@@ -68,30 +68,30 @@ Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
 Received: from lewvzet200.ext.ti.com (198.47.23.194) by
  SJ1PEPF00002322.mail.protection.outlook.com (10.167.242.84) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.245.5 via Frontend Transport; Mon, 20 Jul 2026 11:09:33 +0000
-Received: from DLEE209.ent.ti.com (157.170.170.98) by lewvzet200.ext.ti.com
+ 15.21.245.5 via Frontend Transport; Mon, 20 Jul 2026 11:09:38 +0000
+Received: from DLEE208.ent.ti.com (157.170.170.97) by lewvzet200.ext.ti.com
  (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 20 Jul
- 2026 06:09:33 -0500
-Received: from DLEE208.ent.ti.com (157.170.170.97) by DLEE209.ent.ti.com
- (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 20 Jul
- 2026 06:09:33 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE208.ent.ti.com
+ 2026 06:09:35 -0500
+Received: from DLEE210.ent.ti.com (157.170.170.112) by DLEE208.ent.ti.com
  (157.170.170.97) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 20 Jul
+ 2026 06:09:35 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE210.ent.ti.com
+ (157.170.170.112) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Mon, 20 Jul 2026 06:09:33 -0500
+ Transport; Mon, 20 Jul 2026 06:09:35 -0500
 Received: from ws.dhcp.ti.com (ws.dhcp.ti.com [10.24.52.125])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66KB9SD92823611;
-	Mon, 20 Jul 2026 06:09:31 -0500
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66KB9SDA2823611;
+	Mon, 20 Jul 2026 06:09:33 -0500
 From: Rishikesh Donadkar <r-donadkar@ti.com>
 To: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
         <tomi.valkeinen@ideasonboard.com>
 CC: <mchehab@kernel.org>, <jai.luthra@ideasonboard.com>, <devarsht@ti.com>,
         <y-abhilashchandra@ti.com>
-Subject: [PATCH v2 1/2] media: i2c: ds90ub960: Enable CSI TX1 port
-Date: Mon, 20 Jul 2026 16:39:26 +0530
-Message-ID: <20260720110927.3570235-2-r-donadkar@ti.com>
+Subject: [PATCH v2 2/2] media: i2c: ds90ub960: Support multi-channel sensors
+Date: Mon, 20 Jul 2026 16:39:27 +0530
+Message-ID: <20260720110927.3570235-3-r-donadkar@ti.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260720110927.3570235-1-r-donadkar@ti.com>
 References: <20260720110927.3570235-1-r-donadkar@ti.com>
@@ -106,180 +106,366 @@ Content-Type: text/plain
 X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002322:EE_|SA1PR10MB5865:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49977525-0588-494a-c86f-08dee64f612f
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002322:EE_|DS0PR10MB7222:EE_
+X-MS-Office365-Filtering-Correlation-Id: 592d7610-4fab-4f71-0c60-08dee64f63e1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|82310400026|1800799024|23010399003|13003099007|6133799003|56012099006|10067099003|22082099003|3023799007|18002099003;
+	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|3023799007|56012099006|5023799004|10067099003|6133799003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	e4xwW6Q3oxhCEp4hlW8fNkK8X3Ri/suq2YHIaZEKiQnu3Z8B+yjozIRwDk+zxit3voa2zGRQSvCIuhk2viPS6BfvgPi1X4Q6190A9g+BvwBfLrvhptHRpGpmb5NuH0YUqRHZLiMkzRPNHdZnWfNX03t0PUdifYv4OL/6bxY2hMXXV2PyZgR85KyuHN268xAYhGqrb5wVH7hFTbvj1Ki22Zbwig/1Qsm1/g8Ut84aYkIajjNaLLPRosvSnOPTwfO0BFuADGK8OlXWM5snnEdOD6cjVGTqxLBciw/qMJW3vyiS6RdrUackPUCFw+D4E+T9uLNGIzKyv5hbQW50H6+uAyWzue1BYsuhVG/Dolhzmt/MuqlB6Q2FhAEPU9USfETWK0SE5RMbrQMdDQxXu1Q24ad776Ifx73xOtpzJ+b/YE0LjuEK+cixoULNANvnqdKYBZedWgSrYNprKKDt6uu9J5cR9byiigglmwEgQHUAb3yufqxT4neHLIPDPHmd7HPboLmPc2GyAYKVVkFw4wchkrd+avMrkp660UJLpI4p83RduDTljVj7rYtoGEq+CYNqVUqMCxvOBZYNVFrY+XXOck8q8IWwbq628/vBYiUyxzk52V6I3lMgTGikmxA2QKs1ZHQr7ZFDJMCJEW2+PtU7kQ==
+	ThLQVcCRnBNIG6ON6BeZlCtK55NdURAuIMBW2oWaJR4OquQWXD8wdSqyDRCOp7DDgANxeQGN+8cREbnIKubC/lL1kNm+jlkneBqT1BINurTZJSRZ8LH28DewuMADN2GySXKvlIKl66j4GXwyY6ZyYeCkoUiNg0HvMdCa/P/bnjS1hcbFFhV+cITSHjbwcWbvvcZZZhn7gYRetbrEHh5PKO7P5f2H4ObmtGesm1pwaE/34JpTbQ0EKaM6DyJTM/FIGlxJiyBIYU9q1gpcSWEio9NvKVdN3SR7UuL7mzU6nUevs34Zt4z/MSWxZrKU3zu2OzbC10vwRWGEtDccL+TbIbaRn8Q/gHdOkQaph8Ip8VBjPD7T4eUVJjXMgKpA0VCt3ybhatPGLUICE6+GM8G4KV5txFVc1OdksRG2gG4bXy3TXi3F1bk7/VKtD/DVxtrz+lypnWjDrqHrzRKcEe/FPLsrUZfAmU/bLXVUAsqtTX7vgshZ5xx+tncdz27sVkSmnTw6o803RxjWb09cKeZXsntRXcEHJ29vpvt50mQzNbxkxiI1HmtXXOASlL8APAk8Xv7wdNeYk0FvK6C003AZx9e/DFBl5lr8s+sbkIgDn10ZVD/eqmwuqM4aLjE3RMWdfsSx5tNmipsGmU1oO7KJ3KiHHEzF6l7WsGV7WdcWRv+fUIsFiDkPArpC38zVDkzUXidmqXE+lhEbbM05Z4QPug==
 X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(23010399003)(13003099007)(6133799003)(56012099006)(10067099003)(22082099003)(3023799007)(18002099003);DIR:OUT;SFP:1101;
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(3023799007)(56012099006)(5023799004)(10067099003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	bttQwtytFBtiU1ohaD9NIktPcgh07+so4mGL68a2UXWGujaB4PIIqYg8QvjKZHIdiilZpYxczRC8tNZ/tRSTFrGZ685+RzdFBofV2OxqjV7ucoM8n2kmBfh6CxTSHis1BzEKAiLf1BevZULbPPNOb6+7iJ3mhyNDTBMQB6MWEQO9Lz7QWMj5Ussa/Rd2e5nGOlK2wu4vvHpq3omvMtNt6IhMu6sO7lXEW4uRW38Skpp1whyOGtuJGAkcEZzKlzwILGmhpZ9UDvH1O1HMCGDqZAVXPmkKSTmYLQl+bllpi4Fr8B5kHRXr4Hh7zvFyYkZ+r26RoSBgIQ3kzsgAQzRKt4YxK4vNGeE9wGBtnCZAL7Zj/P8fuhzT1881q0N1NxDCJ2fhdVbPbCJEAWhP1gi4u/c0QNjZ4kMtRBCvSu8qKuZRiTk31bYvGpmC/zXSkLpD
+	mAG/1Ky/QeGqZmVj1/iPsUOu4mJlNAdefjc4q36YGj1dP0WGWYfudgU3UsO3aHE5cElDt7CFU9fYTvE6H/r1tIA4BnnAImL4vA+FY+hBhaJaXW1wNkuuPtgKIB+rs6NEJcSuOpVnqVzWsaLtpfobFpo+aFWarw8xTzcN8X7CVcNDbvR9gL0H4oxh/qCMOR4UInZQRLxHN6JYUo0EHjEwWXMonNTj7VvjshXNio/Mi1TNis6SxyBECPcAifGzwGW5rMKaVaGhdMMD9CEpAuO7S1tdNpB8pNdgK0kox8UYdDWvK/DtTjHEbyVNx0kIfIwOdb+L/p2ii37UoqJFCpWD6qJXjluW8u47UICZOxBGJ84D+jcvR3jyhFWOQSi8qKhyYmm2t8sAIamLQPpoaYWhZ1a3XLIkG+XClHqK9Vs3VMhXVa1gXUhQ0ovTxJNbV65q
 X-Exchange-RoutingPolicyChecked:
-	RV0ocfSXqIoSQeUDxyced3QuGWGJbp98TkazmnkPUTGnYrbDodoQdJ8BzsHMJmvktin2oqwvCMqfiKDULlEp5935BpjHZ0t/Iw6s2l2dvwgUG266bmTjdv+Pvdw9Zy6nMYYzBZi5q62iNj6ftwzgnSxhgcEmsuO56WOcBuuwQlE9m5AUVXPrihfEiMjlheBbIRk7WYk+w4C4w2woZFK31TNU62/tAuraoWQp9nd5FEo6Zvvv60yEXBg0Iz3JdDJfILqHT+CDl0nDibLqCqrYssxQY05k9TH7TwTrQkNDnvsG9a8YndTiW2QU+hG6EulRa5fRwQPuH7UoGKEtOJNUOg==
+	nfIV0d74UUw/CZCTLKNk8CsNOm6197AKmNR+sj6D8bVIoybPUGAVl6IYFrnRlBzAFgu3HRDdDx50uFkFwMlaPcoN9O6UilGZ1diza0TFWECWHb8qusSfKpSYBW08rh7ObkHQFCTB2j56jV6D28YtyaYAoJ1N2+heyt59Nhar6XZ/cAgWqa6MbLDtSnksgsci+o7JC0XI6XbxWIhz2KBxH1iofxUljTZoYEYVk7BsZbWuEfTo1xbK0ljBGCp7f0lLkfBgjM9hA/g5gXSuxliqfduvrCl1fjHTaLgGxQuxwuN3nEDPr48N2iVMcoZ1E8/5BMWx8w63L4JHed7iRfRtSw==
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 11:09:33.9249
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 11:09:38.4381
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49977525-0588-494a-c86f-08dee64f612f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 592d7610-4fab-4f71-0c60-08dee64f63e1
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	SJ1PEPF00002322.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB5865
-X-Authority-Analysis: v=2.4 cv=N4QZ0W9B c=1 sm=1 tr=0 ts=6a5e01f4 cx=c_pps
- a=ueqEiCdEPg/1B0HMGLd3rg==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB7222
+X-Proofpoint-GUID: m6DCuNaLsxPytBCyUMTbeu40AkYlPPTX
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDEyNCBTYWx0ZWRfX17K1llFk1fiP
+ 03Y3Eb4UY9ZxHXtSgaVu6xt98/DpwZrgtTHzv7sk21NZiqa68cc42uPodnPqDj0bh1qZdy+/Lfi
+ C0sKq07BAZrHfYQ4J0DiSurAbyfvAlk=
+X-Proofpoint-ORIG-GUID: m6DCuNaLsxPytBCyUMTbeu40AkYlPPTX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDEyNCBTYWx0ZWRfX0IlKq0tRARWO
+ +zx+6SETSM95V+4CD29xemJKiLanhYYLuflevj99s2aQOmuA+1wxpzwoZXbxKaQSvEi64EBmzWX
+ Vw8HkGz10fUcfH/Zjy6Hbj1Jf9l/fYFA9ebB8Yt/VsVpL97ACK79fFDud339UrDasWc+HF1lITL
+ iDnvipuSZa+Q1LVxUYVO8+3oX0KiFovCCELT71gNoG/7nTI9lFeJDNgkgs2kBxZG6uYgDSQMxYt
+ ge68LS19I02eUiqqpWlyIJOVOWm2zoY0jsGNRerGyBQkNHA/d03uTFrFjBJtfDV8soFQiEuhhTk
+ ut79okb/eM8dAiwkgjKBYcZJ81JJ7lXiY/6l3YyusxfodasKvEMLn2pk18jV917HmaOJ4i0BwTw
+ VW7LXAcAt5LZqZDjBselqXl4Xbjw20NDcI0F/K9bQ2Ef40WMV+ADCzdmmgevzLS1vDsBzJt79nR
+ oJnISAmSmcwlbtDJr+g==
+X-Authority-Analysis: v=2.4 cv=KIJqylFo c=1 sm=1 tr=0 ts=6a5e021b cx=c_pps
+ a=/+xYJgQt7uUW31a/4HdwMg==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=RAioF0-LDSMA:10 a=s63m1ICgrNkA:10
  a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8 a=qQhfavAqTGy3mrGoeLkA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDEyNCBTYWx0ZWRfXzuqjqhNVMCCF
- ZotFfn9xNb88B29YA0yZj7h9cTSNLPXJE9RsmSS/SGP2xXwqqIvRdS3nQljrxdvA0Lahb4KX0KF
- 3z56z8C6mjyjCogLgoFl55Lfk2mj24M=
-X-Proofpoint-ORIG-GUID: 5FzsdFE8d_Q9lAeQjtXJ1cGUbBu5oLFJ
-X-Proofpoint-GUID: 5FzsdFE8d_Q9lAeQjtXJ1cGUbBu5oLFJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDEyNCBTYWx0ZWRfXwBPu6I1fcRV3
- B/uF5K1QxpBTcyrONjjHuHO8TFAs+USL+7uSltOTNc0WM3OmcafYdokmEzyEVAtCsOYCmESE03M
- 2BXf3e9JefVmt3rkYtRuJOxzc1CEuilyGSIJ30Eec1hbnkSqCu0ah62H+dNpTuGR698i14ybqvG
- Psf5Q7Wi6xvLE2txpWiOXjJAJ3IvgKGuVa/rKFrw+oeIxQzFHmpFfR6K1XE/FXd8EZlJPWPz3Xi
- Vkd/g4+oQ0LqqacqqA3y2mSI9JBycGbfBTSEn6Lh0z4fnRnnuiAOfpyFdrVCSjwhrmNI0gZeAci
- 7SWkHbZaprWzNMENEzeSXpH/gdJqX8qu0aPbf3EUtNS7xAzMCyIZ9+42vXGiUFz+b//6VsXycwh
- 1IOznYCcXjQ5tHaPjXQrEwcoSrfACFWRPjJ+e3Eh11HKSnLgT861RcGEWdTyCAn5BBz2oxWdZjc
- SXd3yRyplI+fTMGTOSA==
+ a=jwouBfj2j3NM8CExmVVE:22 a=sozttTNsAAAA:8 a=b9NraOpvF2LdFZi3UlIA:9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-20_02,2026-07-20_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0
- bulkscore=0 clxscore=1011 adultscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607200124
+ lowpriorityscore=0 priorityscore=1501 malwarescore=0 adultscore=0
+ phishscore=0 impostorscore=0 clxscore=1011 bulkscore=0 suspectscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607200124
 
-From: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+From: Jai Luthra <j-luthra@ti.com>
 
-The DS90UB960 chip has two CSI-2 transmit ports (TX0 and TX1), but the
-current driver implementation only utilizes TX0. To enable TX1 as the
-active output port, the I2C Bidirectional Control Channel (BCC) mapping in
-the RX_PORT_CTL register must be configured to use I2C Slave Port 1.
+Before this, the deserializer would ignore the virtual channel (VC) ID
+set in the incoming CSI packets, and set the ID to the RX port number in
+the outgoing packets. This was done to support multiple single-channel
+cameras, all sending packets with the same default VC ID = 0.
 
-This patch adds a new function, ub960_parse_active_ports(), which is
-called during driver initialization to scan the device tree and identify
-which RX and TX ports are enabled. The function creates bitmasks
-representing the active ports and uses these masks to correctly configure
-the RX_PORT_CTL register, ensuring proper port routing for whichever TX
-port is in use.
+Now we check which (and how many) channels are under use on any incoming
+FPDLink port, and map it to available channels on the outgoing CSI port.
 
-DS90UB960 data sheet: https://www.ti.com/lit/ds/symlink/ds90ub960-q1.pdf
-Signed-off-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+Add a dedicated virtual channel mapping for ub9702 deserializers which
+require different VC configuration compared to ub960. Update the
+configuration logic to select the appropriate map based on the
+deserializer type.
+
+Signed-off-by: Jai Luthra <j-luthra@ti.com>
 Co-developed-by: Rishikesh Donadkar <r-donadkar@ti.com>
 Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
 ---
- drivers/media/i2c/ds90ub960.c | 46 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 45 insertions(+), 1 deletion(-)
+ drivers/media/i2c/ds90ub960.c | 194 +++++++++++++++++++---------------
+ 1 file changed, 109 insertions(+), 85 deletions(-)
 
 diff --git a/drivers/media/i2c/ds90ub960.c b/drivers/media/i2c/ds90ub960.c
-index 15a9797b47ac..653dc7a4eee5 100644
+index 653dc7a4eee5..9ce6d9e6e3e8 100644
 --- a/drivers/media/i2c/ds90ub960.c
 +++ b/drivers/media/i2c/ds90ub960.c
-@@ -26,6 +26,7 @@
-  * - i2c-atr could be made embeddable instead of allocatable.
+@@ -72,6 +72,7 @@
+ #define UB960_MAX_RX_NPORTS	4
+ #define UB960_MAX_TX_NPORTS	2
+ #define UB960_MAX_NPORTS	(UB960_MAX_RX_NPORTS + UB960_MAX_TX_NPORTS)
++#define UB960_MAX_VC		4
+ 
+ #define UB960_MAX_PORT_ALIASES	8
+ 
+@@ -3471,40 +3472,100 @@ static int ub960_rxport_handle_events(struct ub960_data *priv, u8 nport)
   */
  
-+#include <linux/bitfield.h>
- #include <linux/bitops.h>
- #include <linux/cleanup.h>
- #include <linux/clk.h>
-@@ -76,6 +77,8 @@
- 
- #define UB960_NUM_BC_GPIOS		4
- 
-+#define UB960_CSI_TX0			BIT(4)
-+
  /*
-  * Register map
+- * The current implementation only supports a simple VC mapping, where all VCs
+- * from a one RX port will be mapped to the same VC. Also, the hardware
+- * dictates that all streams from an RX port must go to a single TX port.
++ * Map incoming streams with different virtual channels from 1-4 sensors to
++ * unique VCs on CSI TX0. Sensors using multiple VCs will work, but due to
++ * limited total channels (4) this will reduce the total number of sensors that
++ * can work simultaneously.
   *
-@@ -114,6 +117,7 @@
- #define UB960_SR_SCL_HIGH_TIME			0x0a
- #define UB960_SR_SCL_LOW_TIME			0x0b
- #define UB960_SR_RX_PORT_CTL			0x0c
-+#define UB960_SR_RX_PORT_CTL_BCC_MAP		GENMASK(7, 4)
- #define UB960_SR_IO_CTL				0x0d
- #define UB960_SR_GPIO_PIN_STS			0x0e
- #define UB960_SR_GPIO_INPUT_CTL			0x0f
-@@ -589,6 +593,9 @@ struct ub960_data {
- 	u32 tx_data_rate;		/* Nominal data rate (Gb/s) */
- 	s64 tx_link_freq[1];
- 
-+	u8 rx_mask;
-+	u8 tx_mask;
+- * This function decides the target VC numbers for each RX port with a simple
+- * algorithm, so that for each TX port, we get VC numbers starting from 0,
+- * and counting up.
++ * The current implementation is limited to using a single CSI TX port
++ * at a time (either TX0 or TX1 and not both simultaneously),
++ * as that is the most common HW configuration found on boards with DS90UB960.
++ * For using both CSI TX0 & TX1 the below method will need significant changes.
+  *
+- * E.g. if all four RX ports are in use, of which the first two go to the
+- * first TX port and the secont two go to the second TX port, we would get
+- * the following VCs for the four RX ports: 0, 1, 0, 1.
++ * VC mapping differs between ub960 and ub9702 deserializers:
++ * For ub960:
++ *		- Each VC uses 2 bits in the mapping register
++ *		- Supports up to 4 virtual channels (VC0-VC3)
++ * For ub9702:
++ *		- Each VC uses 4 bits in the mapping register
++ *		- Currently uses only 2 virtual channels (VC0, VC1)
+  *
+- * TODO: implement a more sophisticated VC mapping. As the driver cannot know
+- * what VCs the sinks expect (say, an FPGA with hardcoded VC routing), this
+- * probably needs to be somehow configurable. Device tree?
++ * The mapping registers determine which output VC a given input VC
++ * will be mapped to when forwarding data from the deserializer.
+  */
+-static void ub960_get_vc_maps(struct ub960_data *priv,
+-			      struct v4l2_subdev_state *state, u8 *vc)
 +
- 	struct i2c_atr *atr;
++static void ub960_get_vc_maps(struct ub960_data *priv, u8 *vc_map)
+ {
+-	u8 cur_vc[UB960_MAX_TX_NPORTS] = {};
+-	struct v4l2_subdev_route *route;
+-	u8 handled_mask = 0;
++	struct device *dev = &priv->client->dev;
++	u8 nport, available_vc = 0;
  
- 	struct {
-@@ -2538,7 +2545,18 @@ static int ub960_init_rx_ports_ub960(struct ub960_data *priv)
- 	struct device *dev = &priv->client->dev;
- 	unsigned int port_lock_mask;
- 	unsigned int port_mask;
--	int ret;
-+	u8 enabled_rxports_mask;
-+	u8 enabled_rxports;
-+	int ret = 0;
-+
-+	/* Configure I2C interface for RX ports */
-+	enabled_rxports_mask = FIELD_PREP(UB960_SR_RX_PORT_CTL_BCC_MAP, priv->rx_mask);
-+	enabled_rxports = (priv->tx_mask & UB960_CSI_TX0)  ? 0x00 : enabled_rxports_mask;
-+
-+	ret = ub960_update_bits(priv, UB960_SR_RX_PORT_CTL, enabled_rxports_mask,
-+				enabled_rxports, &ret);
-+	if (ret)
-+		return ret;
+-	for_each_active_route(&state->routing, route) {
+-		unsigned int rx, tx;
++	for (nport = 0; nport < priv->hw_data->num_rxports; ++nport) {
++		struct v4l2_mbus_frame_desc source_fd;
++		bool used_vc[UB960_MAX_VC] = {false};
++		u8 vc, cur_vc = available_vc;
++		int j, ret;
++		u8 map;
  
- 	for_each_active_rxport(priv, it) {
- 		ret = ub960_init_rx_port_ub960(priv, it.rxport);
-@@ -4789,6 +4807,30 @@ static int ub960_parse_dt_txports(struct ub960_data *priv)
- 	return 0;
+-		rx = ub960_pad_to_port(priv, route->sink_pad);
+-		if (BIT(rx) & handled_mask)
++		if (!priv->rxports[nport])
+ 			continue;
+ 
+-		tx = ub960_pad_to_port(priv, route->source_pad);
++		ret = v4l2_subdev_call(priv->rxports[nport]->source.sd, pad,
++				       get_frame_desc,
++				       priv->rxports[nport]->source.pad,
++				       &source_fd);
++		/* Mark channels used in source in used_vc[] */
++		if (!ret) {
++			for (j = 0; j < source_fd.num_entries; ++j) {
++				u8 source_vc = source_fd.entry[j].bus.csi2.vc;
++
++				if (source_vc < UB960_MAX_VC)
++					used_vc[source_vc] = true;
++			}
++		} else if (ret == -ENOIOCTLCMD) {
++			/* assume VC=0 is used if sensor driver doesn't provide info */
++			used_vc[0] = true;
++		} else {
++			continue;
++		}
++
++		/* Start with all channels mapped to first free output */
+ 
+-		vc[rx] = cur_vc[tx]++;
+-		handled_mask |= BIT(rx);
++		if (priv->hw_data->chip_type == UB960) {
++			map = (cur_vc << 6) | (cur_vc << 4) | (cur_vc << 2) |
++				(cur_vc << 0);
++		} else {
++			map = (cur_vc << 4) | (cur_vc << 0);
++		}
++
++		/* Map actually used to channels to distinct free outputs */
++		for (vc = 0; vc < UB960_MAX_VC; ++vc) {
++			if (used_vc[vc]) {
++				if (priv->hw_data->chip_type == UB960) {
++					/* For ub960: 2 bits per VC */
++					map &= ~(0x03 << (2 * vc));
++					map |= (cur_vc << (2 * vc));
++				} else {
++					/* For ub9702: 4 bits per VC */
++					map &= ~(0x0f << (4 * vc));
++					map |= (cur_vc << (4 * vc));
++				}
++				++cur_vc;
++			}
++		}
++
++		/* Don't enable port if we ran out of available channels */
++		if (cur_vc > UB960_MAX_VC) {
++			dev_err(dev,
++				"No VCs available for RX port %d\n",
++				nport);
++			continue;
++		}
++
++		/* Enable port and update map */
++		vc_map[nport] = map;
++		available_vc = cur_vc;
++		dev_dbg(dev, "%s: VC map for port %d is 0x%02x",
++			__func__, nport, map);
+ 	}
  }
  
-+static void ub960_parse_active_ports(struct ub960_data *priv)
+@@ -3552,45 +3613,6 @@ static int ub960_disable_rx_port(struct ub960_data *priv, unsigned int nport)
+ 				 UB960_SR_FWD_CTL1_PORT_DIS(nport), NULL);
+ }
+ 
+-/*
+- * The driver only supports using a single VC for each source. This function
+- * checks that each source only provides streams using a single VC.
+- */
+-static int ub960_validate_stream_vcs(struct ub960_data *priv)
+-{
+-	for_each_active_rxport(priv, it) {
+-		struct v4l2_mbus_frame_desc desc;
+-		int ret;
+-		u8 vc;
+-
+-		ret = v4l2_subdev_call(it.rxport->source.sd, pad,
+-				       get_frame_desc, it.rxport->source.pad,
+-				       &desc);
+-		if (ret)
+-			return ret;
+-
+-		if (desc.type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2)
+-			continue;
+-
+-		if (desc.num_entries == 0)
+-			continue;
+-
+-		vc = desc.entry[0].bus.csi2.vc;
+-
+-		for (unsigned int i = 1; i < desc.num_entries; i++) {
+-			if (vc == desc.entry[i].bus.csi2.vc)
+-				continue;
+-
+-			dev_err(&priv->client->dev,
+-				"rx%u: source with multiple virtual-channels is not supported\n",
+-				it.nport);
+-			return -ENODEV;
+-		}
+-	}
+-
+-	return 0;
+-}
+-
+ static int ub960_configure_ports_for_streaming(struct ub960_data *priv,
+ 					       struct v4l2_subdev_state *state)
+ {
+@@ -3606,11 +3628,7 @@ static int ub960_configure_ports_for_streaming(struct ub960_data *priv,
+ 	struct v4l2_subdev_route *route;
+ 	int ret;
+ 
+-	ret = ub960_validate_stream_vcs(priv);
+-	if (ret)
+-		return ret;
+-
+-	ub960_get_vc_maps(priv, state, vc_map);
++	ub960_get_vc_maps(priv, vc_map);
+ 
+ 	for_each_active_route(&state->routing, route) {
+ 		struct ub960_rxport *rxport;
+@@ -3676,16 +3694,14 @@ static int ub960_configure_ports_for_streaming(struct ub960_data *priv,
+ 	for_each_active_rxport(priv, it) {
+ 		unsigned long nport = it.nport;
+ 
+-		u8 vc = vc_map[nport];
+-
+ 		if (rx_data[nport].num_streams == 0)
+ 			continue;
+ 
+ 		switch (it.rxport->rx_mode) {
+ 		case RXPORT_MODE_RAW10:
+ 			ub960_rxport_write(priv, nport, UB960_RR_RAW10_ID,
+-				rx_data[nport].pixel_dt | (vc << UB960_RR_RAW10_ID_VC_SHIFT),
+-				&ret);
++				rx_data[nport].pixel_dt | (nport << UB960_RR_RAW10_ID_VC_SHIFT),
++					&ret);
+ 
+ 			ub960_rxport_write(priv, nport,
+ 				UB960_RR_RAW_EMBED_DTYPE,
+@@ -3701,15 +3717,10 @@ static int ub960_configure_ports_for_streaming(struct ub960_data *priv,
+ 
+ 		case RXPORT_MODE_CSI2_SYNC:
+ 		case RXPORT_MODE_CSI2_NONSYNC:
+-			if (priv->hw_data->chip_type == UB960 ||
+-			    priv->hw_data->chip_type == UB954) {
+-				/* Map all VCs from this port to the same VC */
+-				ub960_rxport_write(priv, nport, UB960_RR_CSI_VC_MAP,
+-						   (vc << UB960_RR_CSI_VC_MAP_SHIFT(3)) |
+-						   (vc << UB960_RR_CSI_VC_MAP_SHIFT(2)) |
+-						   (vc << UB960_RR_CSI_VC_MAP_SHIFT(1)) |
+-						   (vc << UB960_RR_CSI_VC_MAP_SHIFT(0)),
+-						   &ret);
++			if (priv->hw_data->chip_type == UB960) {
++				ub960_rxport_write(priv, nport,
++						   UB960_RR_CSI_VC_MAP,
++						   vc_map[nport], &ret);
+ 			} else {
+ 				unsigned int i;
+ 
+@@ -3717,8 +3728,7 @@ static int ub960_configure_ports_for_streaming(struct ub960_data *priv,
+ 				for (i = 0; i < 8; i++)
+ 					ub960_rxport_write(priv, nport,
+ 							   UB9702_RR_VC_ID_MAP(i),
+-							   (nport << 4) | nport,
+-							   &ret);
++							   vc_map[nport], &ret);
+ 			}
+ 
+ 			break;
+@@ -3965,6 +3975,11 @@ static int ub960_set_routing(struct v4l2_subdev *sd,
+ 	return _ub960_set_routing(sd, state, routing);
+ }
+ 
++static inline u8 ub960_get_output_vc(u8 map, u8 input_vc)
 +{
-+	struct device *dev = &priv->client->dev;
-+	int nport;
-+
-+	priv->rx_mask = 0;
-+	priv->tx_mask = 0;
-+
-+	for (nport = 0; nport < priv->hw_data->num_rxports + priv->hw_data->num_txports; nport++) {
-+		struct fwnode_handle *ep_fwnode;
-+
-+		ep_fwnode = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), nport, 0, 0);
-+		if (!ep_fwnode)
-+			continue;
-+
-+		if (nport < priv->hw_data->num_rxports)
-+			priv->rx_mask |= BIT(nport);
-+		else
-+			priv->tx_mask |= BIT(nport);
-+
-+		fwnode_handle_put(ep_fwnode);
-+	}
++	return (map >> (2 * input_vc)) & 0x03;
 +}
 +
- static int ub960_parse_dt(struct ub960_data *priv)
+ static int ub960_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+ 				struct v4l2_mbus_frame_desc *fd)
  {
- 	int ret;
-@@ -5162,6 +5204,8 @@ static int ub960_probe(struct i2c_client *client)
- 	if (ret)
- 		goto err_mutex_destroy;
+@@ -3982,7 +3997,7 @@ static int ub960_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
  
-+	ub960_parse_active_ports(priv);
+ 	state = v4l2_subdev_lock_and_get_active_state(&priv->sd);
+ 
+-	ub960_get_vc_maps(priv, state, vc_map);
++	ub960_get_vc_maps(priv, vc_map);
+ 
+ 	for_each_active_route(&state->routing, route) {
+ 		struct v4l2_mbus_frame_desc_entry *source_entry = NULL;
+@@ -4025,7 +4040,16 @@ static int ub960_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+ 		fd->entry[fd->num_entries].length = source_entry->length;
+ 		fd->entry[fd->num_entries].pixelcode = source_entry->pixelcode;
+ 
+-		fd->entry[fd->num_entries].bus.csi2.vc = vc_map[nport];
++		if (priv->hw_data->chip_type == UB960)
++			fd->entry[fd->num_entries].bus.csi2.vc =
++				(vc_map[nport] >> (2 * source_entry->bus.csi2.vc)) & 0x03;
++		else
++			fd->entry[fd->num_entries].bus.csi2.vc =
++				(vc_map[nport] >> (4 * source_entry->bus.csi2.vc)) & 0x0f;
 +
- 	ret = ub960_parse_dt(priv);
- 	if (ret)
- 		goto err_disable_core_hw;
++		dev_dbg(dev, "Mapping sink %d/%d to output VC %d",
++			route->sink_pad, route->sink_stream,
++			fd->entry[fd->num_entries].bus.csi2.vc);
+ 
+ 		if (source_fd.type == V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
+ 			fd->entry[fd->num_entries].bus.csi2.dt =
 -- 
 2.34.1
 
