@@ -1,175 +1,130 @@
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A405392C4C
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 08:55:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784537746; cv=pass; b=ddnikfU7MZUnVPInpfbdC69ukN0gPOdLWPZRgxwC6cqBq2wHtlok9zItUVNlrJ9IsN0yrxql5kxt12XTvVu1Qu1UGjCr0+oGiN7bJivex5vl9kbnX+iGXDwD9AE9nfS9I+MovhVomJadX/3SShYkNbMMYFjmJFiJBC82t2JgGZ0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784537746; c=relaxed/simple;
-	bh=fmPo3YI6uCHOrEltD7Nq5KoHM5BVX3BZmTMqwCweE08=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jyuK0tnqZ4v1i65f71Qdw1NRKMnuGEANYQfweAyi/tx6Kzvzo5Gg3pAy3HjVxJtoiB2H9/PBC2c0nTAoHRxqPlGHYUwS/aJlu4roWuJY0vFsIwi2L2GmBYDskJgYjOFtup07BcpQ9OzAOoxzk7IMVz14LxcHasfYYJuXQ2lDhqI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pJCj7FBk; arc=pass smtp.client-ip=209.85.210.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C70306768
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 08:58:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784537899; cv=none; b=iUXihkGcSsK0zPIzsLKP143horqfJhYBMLmnIvEWBA4qM0GW+2uKRVorQlgiMK30uujbXD0rIr+qy94l2gyP85kTUtSlinRRJBjmte7Mr4veozFV0904Vrc4OXnyPVW2q7BYfGROLi6sAJNz5CV3rJq64CHbypiF1lCQ2CpOITY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784537899; c=relaxed/simple;
+	bh=1V40n5G7B6GKH+0Mur5egdMJTjHkmhTfStILr52M9Ic=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=SasBKnWayMB3TL65a/bdQF8EqDLPP7TDx+gMrsf/J6AEpU3uwhVMXRhXs9ACU9ZbY/J89Qj5qvBcYaw6IYxqiaZ5LZqCRO0dG54k9EeLTDM6pzsUxOSajgjztBzVYWhiGEKa9M2RAXnDLBgB33Edwjjk9YtT/TqpSa5CZGX9KBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VXrDCoAT; arc=none smtp.client-ip=209.85.210.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pJCj7FBk"
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7eb4d532e65so3717863a34.0
-        for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 01:55:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784537744; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YkxFGBD09ejxEeV2kHJWYg33iw6TDBCqu1Tp3tUharNPqme+Tqz2IBVRcQ3UD+LN4I
-         79bL4H5AJBbSussfR851g8vGJoM//KblnU48zwdaphDSW0LhMys7pnNhE2oadCPsoh2b
-         lK8FkJbnUZlHlKCi1/DXki0DPiwSx8z05AHG/Oa50hTDLqsFl2Ebu16Im6lLA+pYB+kn
-         2M/6+yHxE1lPXzTOwRWgs6J3NwZ+BGw+lzBdI2wgjjENOfhJNbckscsYz8A+Aqlkhea2
-         Xw/PWYL6Pwsyhv9ghKZituedjkEpigVUDV9Wttvy3NSTCOkg3vKTSmRBAYqotyHAi2rm
-         Wogw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fmPo3YI6uCHOrEltD7Nq5KoHM5BVX3BZmTMqwCweE08=;
-        fh=181YcCaErmwtApfgcJlQhBMqRc8MnTeW7Zf4qH8Ossg=;
-        b=KREq51ILC17BYhHgJXL0Rw9jyHeXqZCSymvOBAQ53/owO+Ms9G23kRtE+sS9gnLPSY
-         7wHxyxDJb0CUdG6Cs7K+3uN9rPwicwk65U3ZLOLb+mH5O5f69DRBsIsGu7QOki4WRgcB
-         /kw0baxjL7h/KM4q8Ss7G1UMvo8Ry2Q1l3AOsvUUfbWn8K7LnIYAaOYil9v5d8OH6bfE
-         UiKj1BO5nWMJp3aEI402gJblBc8HQ9ZuQJ0NlKMRIiJNtKHMvjy/K3Jn+jtsjbK3U/2N
-         b9DZz8H5ljNwTl2baQlDTFLiFV3blGNnXpoBEaKfJ/dfY7R8XFRwz07a5wrkHOhkmath
-         sB4Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VXrDCoAT"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8485b358552so10596090b3a.2
+        for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 01:58:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784537744; x=1785142544; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fmPo3YI6uCHOrEltD7Nq5KoHM5BVX3BZmTMqwCweE08=;
-        b=pJCj7FBkyDDKcQlaF5imLbb8vWPqGWMx5qgoPnSP+z3KkFFI32H8289VpME5fKAESn
-         2/O70qi2tpwYzrq4drZvjvroylIhRV3QeNh+B6arTztT+GRezVvzuheoN/+H80n5UH5D
-         d1uvxw5H4qhy2BNgusmyBD5kv/XcCpbl4OlO/7jnO3efQmjBJl03EG1XuGf8wZGyldZo
-         4Pq169Yf2O2CQ8nJtPmQXH699cTdWysRnxxqihl/pAomEw+6Z3eRo9JDIkHNBWFSoLKA
-         Oy8MbqXZftVvTFrWxG5KXcCj70FJn0ESgHEp2YWLjmrcmfqIxi5SIVCG+dUQzCVd8srE
-         3ytQ==
+        d=gmail.com; s=20251104; t=1784537897; x=1785142697; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VFpLun3aTRlN5AWiLiGZ73OhLT8cMhNwsTldXssx/wk=;
+        b=VXrDCoAT/0/mXYxCC6uCsBTQwnKQP+z98nc2R9z/PE/WsYbu99bOSA1sUEstICPef+
+         aPg6rU7QQd4WePimFI7pZSfsrPTYI8dQgSw5bfFkXt0M1Is3cW7SDrDRS7JCW9SvMGfh
+         5nrEX+0kEvZjjGrd3XPEBcshoet40qTxFzIBIeOIV7DOMMWlD5AaBzvz+TPcms6XgiQU
+         CEkEgW1Fm0Mb4Sp7IJ7p7++Ox8BwYuOOdZJ295ZlcVWGWTtUSjaaOf3a7Locz6Ss7awR
+         ptbWTjCv+msihg6vM4Ycsf+FeHRwVc3dy8hx/piGzDcvtBc+rTHNEGuRtYdjSmWos+Y0
+         crgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784537744; x=1785142544;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fmPo3YI6uCHOrEltD7Nq5KoHM5BVX3BZmTMqwCweE08=;
-        b=A2YjWhrgUjfEBmwMw4gF1S/ojhxo6OMf351tuej3iUPQMjyzhp6Ck7aw3EuSmahyfp
-         XrclDUxkjszakEogwjqHan3MllyIlaidEwP2Rd7N4LsrBW8NjWNv7RPBYwleu43TIuRJ
-         zu/a44P9GQxtnKZJMTJ/xbf22TgFyV9v2e41F8LAb+OCsZojDh1caXBkspFaexvEI5BM
-         mLtEWRhJnPAVBYXAtjIfu9Ht9/hBK9/8fZnTZAvf3C+X1KN+EZZ3V0cGeyWaWBXiMmgq
-         Xm9eeYNZDqZHihW4DIyQwXOwYkOausXFrETZrbEAAKBKAH1NitgXqEPn6CF612ic8Ag6
-         ATWg==
-X-Gm-Message-State: AOJu0YwgEF0XRq/r+CuY2t9rhI/KkQEB5jG3m61wF+o/Djh/fQCmpGwW
-	UvYhej6X8N7i03rcGEreoG4xPoiDGEyfmSJDW+ZZVOtCJBXJjbimQH5uyNAis0WGrQsU75RA44o
-	r9Y0vvW5XqSfHcgu2wo5mD+pZaVfXINA=
-X-Gm-Gg: AfdE7cmRrg0Oa4wvsAp2iVH25In3oHGsNw2r5osauZMuXc+7kQVs1AzWd9+CULaOcyc
-	3KMZ3feK/P83AUGpKXfV5KQN9tuKybK4xLi3uy7wK3t6t2mXTUMZ15iT/6a//k8OeAoLnAjXhRo
-	i9kg4Z7GP8deiNtJ0qLPdEuhVg3Fqk/BXZ0/HfrMn2IkFHG0f231PfD7quMr9ZYHyuItUL/7G2i
-	0CcTEcTCBWLFiuj/Q5pl/RsSIM9IkK2wlcK8yr5rJxO/G+ruiY1wxP7EAd69UihRLqH078wNqU6
-	Ff90TZD86RhdKQw=
-X-Received: by 2002:a05:6830:7105:b0:7e9:5022:3639 with SMTP id
- 46e09a7af769-7eda0e6e810mr7927130a34.15.1784537744252; Mon, 20 Jul 2026
- 01:55:44 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784537897; x=1785142697;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VFpLun3aTRlN5AWiLiGZ73OhLT8cMhNwsTldXssx/wk=;
+        b=nuQUiG/lfIHJ0H0HWKLPfEPpK80LDtXUCwgSniFgzvb6/rHI5kQ1KNmG1jBjU2vqoi
+         Zz7TefDkGYhS/zrBFB1Nw0V1DGOpJHX9+wld3zhuDtgpbjVataCzSMY+OtN0FFjqth81
+         VYz0B1AM2SXhnkq6P4eSnW7kxu5J1O9Or1b8Me93MQFIu4DX9MoZCmxYxMv2OrSLhv+3
+         FFm755VdmZRbQKCPIilMBmjYrDckuHAVixgsM28cN1CsS5hgEjMbZ9N1QGX4erq+z8X+
+         GV2Lb3/ROuRjlIaeZeicianyLK0X4xJajEdgB5w1NfjgMSWxNQg9Ho1eXaSPNkd80NM6
+         wWDQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpj4QtiZcvWiMfixlNZwyugLBBaPebk5bFIu64bILBPq9rK7KqIA//CmrCHwXhmUKDvMwmf5oZJ7acrYA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwFsFGSyiV1wv5gklkxbaxt7Ls72fQ/5cV6BNMO6xRilIO8kY0E
+	awgJpEEnCvn0FtyJegeUarE7heO4OLya4uNrJN87IH1AyuhYr3616xiU
+X-Gm-Gg: AfdE7clH81PX4SBFOlPsJa20BQlfAL1z+gZdF55I+ztuqMpyyIXwEh9zXf7D7zUc8LN
+	IaSvDU2LiIPndrUOyBLlIlIaV24Gzb+aPCOK621DyjQNPQQs+LafweloVrQFEmdFHSzarl7na9x
+	p41kQJfEI/ZIT5L/wO7j5ZQNC2Rp7lPj3jKgoKLivoehydRXfG1wTLzSu0yyZYXyinCc0tJKRpN
+	OwJx/JsCP5SABNAVhKSBAtSf+Yte8G/R68LAq5k22bv5OljPL2uZEAuAi5zsDn6d58/b60jHTvz
+	GiWi2yGPgqMgiR8EfirNMucJPU2wsBF1eGPNzD6SpEtARUuEtg1JJpNsHojUp1XrqTFejoJrXN4
+	nYs0V6KdB2+RKn7WniprnBX2bD3z+YPVVa4Z/cs2+QYhtmXxtL8DclSuOOQQfRpoyHNs=
+X-Received: by 2002:a05:6a00:a96:b0:848:64fc:510d with SMTP id d2e1a72fcca58-84c294892d9mr12402258b3a.45.1784537897395;
+        Mon, 20 Jul 2026 01:58:17 -0700 (PDT)
+Received: from lgs.. ([118.193.39.55])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2adcc78asm5247901b3a.23.2026.07.20.01.58.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Jul 2026 01:58:16 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
+	Houlong Wei <houlong.wei@mediatek.com>,
+	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Tiffany Lin <tiffany.lin@mediatek.com>,
+	Yunfei Dong <yunfei.dong@mediatek.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Fei Shao <fshao@chromium.org>,
+	Tomasz Figa <tfiga@chromium.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Haoxiang Li <haoxiang_li2024@163.com>,
+	Eizan Miyamoto <eizan@chromium.org>,
+	Enric Balletbo i Serra <eballetbo@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH v2 0/3] media: mediatek: unregister VPU watchdog handlers
+Date: Mon, 20 Jul 2026 16:57:53 +0800
+Message-ID: <20260720085756.465667-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260715185112.1323510-1-andriy.shevchenko@linux.intel.com>
- <6a57fbc2.20aff8f6.286553.85fe@mx.google.com> <alk8iQCjTHcdhbVs@ashevche-desk.local>
-In-Reply-To: <alk8iQCjTHcdhbVs@ashevche-desk.local>
-From: Ricardo Ribalda Delgado <ricardo.ribalda@gmail.com>
-Date: Mon, 20 Jul 2026 10:55:23 +0200
-X-Gm-Features: AUfX_mz1ruRruzodLXqUilutbk-gdifuwtgsYNYnPYUdw2zmQ75BNrgP8-2c928
-Message-ID: <CAPybu_1h+dKxzst-GJgJRrJfhxUzEkmhn0wWu6KYH+6L_3JUBQ@mail.gmail.com>
-Subject: Re: [v1,0/7] gpiolib: kill gpio_request_one()
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-media@vger.kernel.org, Linux Media CI <media-ci@linuxtv.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Andy
+The Mediatek vcodec and MDP drivers register watchdog reset handlers
+with the VPU driver and pass driver-owned objects as private data.
 
-On Thu, Jul 16, 2026 at 10:20=E2=80=AFPM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> On Wed, Jul 15, 2026 at 02:29:38PM -0700, Patchwork Integration wrote:
-> > Dear Andy Shevchenko:
-> >
-> > Thanks for your patches! Unfortunately the Media CI robot detected some
-> > issues:
-> >
-> > # Test media-patchstyle:rc core
-> > fatal: Not a valid object name 8dac27bfa2f9
-> > /builds/linux-media/users/patchwork/include/media/rc-map.h:265: duplica=
-te value for rc-hauppauge
-> > rc-videomate-m1f.c: name #define RC_MAP_VIDEOMATE_K100 does not match r=
-c-videomate-k100
-> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
-edia/rc.yaml:125: expecting rc-rc6-mce found rc-rc5-tv
-> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
-edia/rc.yaml:126: expecting rc-real-audio-220-32-keys found rc-rc6-mce
-> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
-edia/rc.yaml:127: expecting rc-reddo found rc-real-audio-220-32-keys
-> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
-edia/rc.yaml:128: expecting rc-siemens-gigaset-rc20 found rc-reddo
-> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
-edia/rc.yaml:150: expecting rc-vega-s9x found rc-videomate-k100
-> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
-edia/rc.yaml:151: expecting rc-videomate-m1f found rc-videomate-s350
-> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
-edia/rc.yaml:152: expecting rc-videomate-s350 found rc-videomate-tv-pvr
-> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
-edia/rc.yaml:153: expecting rc-videomate-tv-pvr found rc-videostrong-kii-pr=
-o
-> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
-edia/rc.yaml:154: expecting rc-videostrong-kii-pro found rc-vega-s9x
-> > /builds/linux-media/users/patchwork/include/media/rc-map.h:312: rc-rc5-=
-tv does not exist
-> > /builds/linux-media/users/patchwork/include/media/rc-map.h:339: rc-vide=
-omate-k100 does not exist
-> > /builds/linux-media/users/patchwork/include/media/rc-map.h: missing ent=
-ry for rc-videomate-m1f
-> > errors: 14
->
-> What is this?
+These handlers can remain registered after an initialization failure or
+device removal. A later VPU watchdog reset can therefore invoke a
+handler with stale private data and potentially dereference freed
+memory.
 
-Please ignore. Media-CI applied your patch to the fixes tree instead
-of the next tree and "fixes" has some issues with the rc-checks
+This series adds a common helper for unregistering VPU watchdog
+handlers, then uses it in the vcodec and MDP cleanup paths before their
+VPU device references are released.
 
-Sorry about that.
+The series is organized as follows:
 
->
-> > Please fix your series, and upload a new version. If you have a patchwo=
-rk
-> > account, do not forget to mark the current series as Superseded.
-> >
-> > For more details, check the full report at:
-> > https://linux-media.pages.freedesktop.org/-/users/patchwork/-/jobs/1050=
-65189/artifacts/report.htm .
-> >
-> > ---
-> > Check the latest rules for contributing your patches at:
-> > https://docs.kernel.org/driver-api/media/maintainer-entry-profile.html
-> >
-> > If you believe that the CI is wrong, kindly open an issue at
-> > https://gitlab.freedesktop.org/linux-media/media-ci/-/issues or reply-a=
-ll
-> > to this message.
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
->
+1. Add vpu_wdt_unreg_handler() to the VPU driver.
+2. Unregister the vcodec watchdog handler during initialization
+   failure and firmware release.
+3. Unregister the MDP watchdog handler during probe failure and
+   device removal.
 
+v2:
 
---=20
-Ricardo Ribalda
+  - Split the changes into three patches as requested by Nicolas.
+  - Fix the extra blank line reported by checkpatch.
+  - Carry Nicolas' Reviewed-by tag on the MDP patch.
+
+Guangshuo Li (3):
+media: mediatek: vpu: add watchdog handler unregister helper
+media: mediatek: vcodec: unregister VPU watchdog handler
+media: mtk-mdp: unregister VPU watchdog handler
+
+drivers/media/platform/mediatek/mdp/mtk_mdp_core.c |  2 ++
+.../mediatek/vcodec/common/mtk_vcodec_fw_vpu.c     |  6 ++++++
+drivers/media/platform/mediatek/vpu/mtk_vpu.c      | 14 ++++++++++++++
+drivers/media/platform/mediatek/vpu/mtk_vpu.h      |  2 ++
+4 files changed, 24 insertions(+)
+
+--
+2.43.0
