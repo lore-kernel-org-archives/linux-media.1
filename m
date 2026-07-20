@@ -1,143 +1,208 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E5E3ACEFE;
-	Mon, 20 Jul 2026 05:49:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F6203AEF3F
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 05:53:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784526589; cv=none; b=kJN3vSMlYOgl3lD1daf5Slje+wv98tIW1RiF5eIoFki8QH/bExGCxnxP+sUOTsT+n2OZnYvXOYhHtolIxSZaT7zzHdP6SloKDFs7rjneStTlXLHxoneUKIJuO4lU/1XLkk2dMWl2t01LaICNPAsvgt0AN9DlrHK7xG3ENNbcnyA=
+	t=1784526805; cv=none; b=CSDMs8KyWr+KOB8tw0H0Lt5KcGXblPkrcZ+qS8+Z2iAp+c08AeuKBkHH19tJ7g5k2tHB8LMzysMzJgv/IL45ojas5h72a5APb0f1zN1SacQIlf6Ua++fDSzOTlXf4DrOUzm5maayJx8eYvLS4gPgeV3dRsFuwkXLRVj0d52F5HM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784526589; c=relaxed/simple;
-	bh=ZdLUOg9JZ7V0tKJn0COkPZuiGEbpR0R2XVS5fpr/p3s=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=ff4OxX7ZBpFU15Ce+N2Gin2MdFgAu38XHAS8CKMgSkpSuAzqTEj4u5rWAMbG55qftXW2+CUEbEm/mMb2UhShOUtrRZRdBy3syn4xJU1duaQf6/xX6IiOOXnwQlp5gg5936rVUuUtwVfD6wl5Tv1hP0edzNufsN1rVjhdnzGGXuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bb5pKvCY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784526805; c=relaxed/simple;
+	bh=KxEy9QrlmX6VLqcgGcVFoFNHB1clRRgSimrbJPgMiD4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nHk3U6hsAJWwU2wV98YHmoX7t4uEitreJUfpunKYChH59kGt9tYrI00A3LtBQ1eJDYj5Lxckjd7A0nbkL/T6meXem7iwf053VOGW6g5rFCKhHGOHmWWd25zHB61z2J9Jcx0iwlgt0ZbsvJHfv9sGCARtQoo9E+VPVy5tbkdu/c4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vbcsZ2V1; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bb5pKvCY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 083C61F000E9;
-	Mon, 20 Jul 2026 05:49:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784526581;
-	bh=h87MjyOkgvbatscvEMzR32hzBNFeHeOEb6wSOXen/Vw=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=Bb5pKvCYZ4/Qc0o1kGLJR2FNVc7vNgRofJFz0tFV2WfOEHUTzJYWokVeB/G2sjzPy
-	 HnXeLQvx2XsH4Opja4l1thSwnu+TROZXYUcDDtljyF55Jddu6fQwdKyD7ZPJlpKI+z
-	 VS4Y6EiFiHCAQBQekCZRc/u+OG8cNOJCz2ObN1RvfyY+Tkh6eE7nsJLXZ1XGgWbAAO
-	 MFxCoAjnVIox/7U04m8Ee+syxq+E/xzsqN0YLjs7Aegy7Ul5wblWbOWKATTXRBFtKY
-	 L4mv272T9907lXhkWiB/6OjGB1R3ZvM1HvvZ3TAQ770RiJ5J5cKiuKf0CSReia4XIg
-	 LvgWTqImxx1uw==
-Message-ID: <f499f2c3-f31d-4c2c-84fb-d1d9d95fc868@kernel.org>
-Date: Mon, 20 Jul 2026 07:49:28 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vbcsZ2V1"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 77B9D6DF;
+	Mon, 20 Jul 2026 07:51:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784526711;
+	bh=KxEy9QrlmX6VLqcgGcVFoFNHB1clRRgSimrbJPgMiD4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=vbcsZ2V1lg3LmS/o07uRsKW7Aoang4W0gfk6R8c2D+k9Ns04afbiSVhGJWBLKDw5l
+	 KpmDA9RNE8Lfn90xFREZKoLv4v9ZYFPQF43q9Y6oSB/vgrmsc5DTjl0fv1hCi7lhqT
+	 h3aHknfcPalQQNjcgY9+3AaMLVP3JvZ0KzxCSLEw=
+Date: Mon, 20 Jul 2026 08:52:48 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
+	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Tommaso Merciai <tomm.merciai@gmail.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Julien Massot <julien.massot@collabora.com>,
+	Naushir Patuck <naush@raspberrypi.com>,
+	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
+	Stefan Klug <stefan.klug@ideasonboard.com>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	=?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>,
+	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Ricardo Ribalda Delgado <ribalda@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	David Plowman <david.plowman@raspberrypi.com>,
+	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
+	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Rishikesh Donadkar <r-donadkar@ti.com>
+Subject: Re: [PATCH v6 03/16] media: imx219: Account for rate_factor in
+ control steps
+Message-ID: <20260720055248.GA2208631@killaraus.ideasonboard.com>
+References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
+ <20260701122634.1728782-3-sakari.ailus@linux.intel.com>
+ <20260717142121.GC1889304@killaraus.ideasonboard.com>
+ <al0686b7StFtPfY2@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 08/14] dt-bindings: media: mediatek: vcodec: add
- decoder dt-bindings for mt8196
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Kyrie Wu <kyrie.wu@mediatek.com>
-Cc: Tiffany Lin <tiffany.lin@mediatek.com>,
- Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
- Yunfei Dong <yunfei.dong@mediatek.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Ricardo Ribalda <ribalda@chromium.org>, Kees Cook <kees@kernel.org>,
- Hans Verkuil <hverkuil+cisco@kernel.org>, Fei Shao <fshao@chromium.org>,
- Haoxiang Li <haoxiang_li2024@163.com>, Chen-Yu Tsai <wenst@chromium.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomasz Figa <tfiga@chromium.org>,
- Sebastian Fricke <sebastian.fricke@collabora.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Qianfeng Rong <rongqianfeng@vivo.com>, Irui Wang <irui.wang@mediatek.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Fan Wu <fanwu01@zju.edu.cn>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org,
- Sakari Ailus <sakari.ailus@linux.intel.com>
-References: <20260720012056.1026551-1-kyrie.wu@mediatek.com>
- <20260720012056.1026551-9-kyrie.wu@mediatek.com>
- <20260720-gregarious-satisfied-shrew-f71cba@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260720-gregarious-satisfied-shrew-f71cba@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <al0686b7StFtPfY2@kekkonen.localdomain>
 
-On 20/07/2026 07:46, Krzysztof Kozlowski wrote:
-> On Mon, Jul 20, 2026 at 09:20:50AM +0800, Kyrie Wu wrote:
->> Add the MT8196 compatible string to the MediaTek vcodec subdev
->> decoder binding.
->>
->> Compared to previous ICs, the MT8196 supports a 10-bit decoder
->> and has a decoding capability of 4K@120fps. It also supports
->> 36-bit DRAM IOVA address and Video Power Control to optimize
->> bandwidth and voltage usage.
+On Mon, Jul 20, 2026 at 12:00:35AM +0300, Sakari Ailus wrote:
+> Hi Laurent,
 > 
-> Please wrap commit message according to Linux coding style / submission
-> process (neither too early nor over the limit):
-> https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
+> On Fri, Jul 17, 2026 at 05:21:21PM +0300, Laurent Pinchart wrote:
+> > Hi Sakari,
+> > 
+> > Thank you for the patch.
+> > 
+> > On Wed, Jul 01, 2026 at 03:26:20PM +0300, Sakari Ailus wrote:
+> > > The controls that are divided by the rate_factor before writing them to
+> > > the registers have the step of the value of the rate_factor. Take this
+> > > into account when the control's range is modified. The controls are
+> > > created in a configuration where rate_factor is always 1, hence there's no
+> > > need to change the code adding new controls.
+> > > 
+> > > Fixes: f513997119f4 ("media: i2c: imx219: Scale the pixel rate for analog binning")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> > > ---
+> > >  drivers/media/i2c/imx219.c | 18 ++++++++----------
+> > >  1 file changed, 8 insertions(+), 10 deletions(-)
+> > > 
+> > > diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+> > > index 05d9737bdc95..2aab6e7180d4 100644
+> > > --- a/drivers/media/i2c/imx219.c
+> > > +++ b/drivers/media/i2c/imx219.c
+> > > @@ -319,19 +319,19 @@ static const struct imx219_mode supported_modes[] = {
+> > >  		/* 1080P 30fps cropped */
+> > >  		.width = 1920,
+> > >  		.height = 1080,
+> > > -		.fll_def = 1763,
+> > > +		.fll_def = 1762,
+> > 
+> > This is not a binned mode, an odd default value is not incorrect. Is
+> > there a reason to change it ?
 > 
->>
->> Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
->> Acked-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
->> ---
->>  .../bindings/media/mediatek,vcodec-subdev-decoder.yaml           | 1 +
->>  1 file changed, 1 insertion(+)
-> 
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> The fll_def field is used to calculate the VBLANK control range and odd
+> number here results in an odd number for the default, which is invalid and
+> so __v4l2_ctrl_modify_range() will fail as a result.
 
-Actually no. I checked previous comments and you received feedback which
-you basically ignored, so explain why this model has flexible number of
-clocks
+It's only invalid if the step is 2, isn't it ? The 1920x1080 mode
+doesn't use binning, so the rate factor should be 1, and the step should
+therefore be 1 as well as far as I understand. Am I missing something ?
 
-Best regards,
-Krzysztof
+> The register value isn't changed whereas the value that is visible to the
+> userspace does change.
+> 
+> > 
+> > >  	},
+> > >  	{
+> > >  		/* 2x2 binned 60fps mode */
+> > >  		.width = 1640,
+> > >  		.height = 1232,
+> > > -		.fll_def = 1707,
+> > > +		.fll_def = 1706,
+> > >  	},
+> > >  	{
+> > >  		/* 640x480 60fps mode */
+> > >  		.width = 640,
+> > >  		.height = 480,
+> > > -		.fll_def = 1707,
+> > > +		.fll_def = 1706,
+> > 
+> > Those two are fine as they won't (AFAIU) change register values.
+> > 
+> > >  	},
+> > >  };
+> > >  
+> > > @@ -458,8 +458,7 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
+> > >  		ret = __v4l2_ctrl_modify_range(imx219->exposure,
+> > >  					       imx219->exposure->minimum,
+> > >  					       exposure_max,
+> > > -					       imx219->exposure->step,
+> > > -					       exposure_def);
+> > > +					       rate_factor, exposure_def);
+> > 
+> > The change is simple so I'm fine with it, but in general I'm not sure
+> > this would be worth it if it were to make the code more complex.
+> > Userspace can benefit from getting a precise step value, as well as
+> > seeing the control value being adjusted when setting controls. However,
+> > dealing with limit updates reported through events is quite cumbersome
+> > for userspace. It's a big change and not a high priority, but I'd like
+> > an API where ioctls such as VIDIOC_SUBDEV_S_FMT would have the ability
+> > to report control changes synchronously.
+> 
+> I wonder if VIDIOC_S_EXT_EXT_CTRLS could do that. :-)
+
+It wouldn't, we would need to have new versions of all ioctls that can
+result in controls being changed. That would be quick a big modification
+of the API.
+
+> > With the change to the first fll_def possibly dropped,
+> > 
+> > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> 
+> Thank you.
+> 
+> > >  		if (ret)
+> > >  			return ret;
+> > >  
+> > > @@ -887,7 +886,8 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+> > >  
+> > >  		/* Update limits and set FPS to default */
+> > >  		ret = __v4l2_ctrl_modify_range(imx219->vblank, IMX219_VBLANK_MIN,
+> > > -					       IMX219_FLL_MAX - mode->height, 1,
+> > > +					       IMX219_FLL_MAX - mode->height,
+> > > +					       rate_factor,
+> > >  					       mode->fll_def - mode->height);
+> > >  		if (ret)
+> > >  			return ret;
+> > > @@ -905,8 +905,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+> > >  		ret = __v4l2_ctrl_modify_range(imx219->exposure,
+> > >  					       imx219->exposure->minimum,
+> > >  					       exposure_max,
+> > > -					       imx219->exposure->step,
+> > > -					       exposure_def);
+> > > +					       rate_factor, exposure_def);
+> > >  		if (ret)
+> > >  			return ret;
+> > >  
+> > > @@ -931,8 +930,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+> > >  			return ret;
+> > >  
+> > >  		/* Scale the pixel rate based on the mode specific factor */
+> > > -		pixel_rate = imx219_get_pixel_rate(imx219) *
+> > > -			     imx219_get_rate_factor(state);
+> > > +		pixel_rate = imx219_get_pixel_rate(imx219) * rate_factor;
+> > >  		ret = __v4l2_ctrl_modify_range(imx219->pixel_rate, pixel_rate,
+> > >  					       pixel_rate, 1, pixel_rate);
+> > >  		if (ret)
+
+-- 
+Regards,
+
+Laurent Pinchart
