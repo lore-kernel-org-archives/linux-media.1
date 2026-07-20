@@ -1,109 +1,105 @@
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 718F640587D
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 11:49:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C416D406821;
+	Mon, 20 Jul 2026 11:53:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784548169; cv=none; b=jp+KUoJ8Ix3kfVXNIzhPNBmzGcWdgFejCWw6Ek8RbIC80LvNqwH6XrxxVRFa6LMATsxhlYbpWFPcdjj06wXGvGAxb/0KqaeR6CH2u67tLSLpsiw9SqxKeMavCb9My9uHe41cyc2CSqQVpHPC/9YS5ezJR5Jy0ygEbj6VuVTUK5E=
+	t=1784548412; cv=none; b=KWkPuKHMiD1GOFtoJdKj5Ev/FeEeVzzdf37pYcF8lHAeX6jkbtCMnE8Xw7whDx5M04sdbpRKErPxCNnDdIYUsSSBDvEDFpzzbe223bJbm4xYTTIMtMmYnfR+IOSoqagjk0U01XFR7MZIqOjE22mJ8u6wNiI77DyrtevmGUSaLjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784548169; c=relaxed/simple;
-	bh=kpQgwtqvNqqfcKxqM9LsZoSGqgZW8nCIf1+4VaTHB2c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cppUtuP/Y3/pTJUKqoNQLxtXopTBZD/2rakJzArL7czbHsTgJuh11+R+U17jajoNrdB29gjvU6WcfUWVHwkwvuFddt2tG1ocGbUWhRZuEQQsNs1SZ7KJJDvqEtVu314xOhfbPjEoupGSkK6FHAddZD8eGS6lZW/FBwY4rhKBzxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DHuoHJ5g; arc=none smtp.client-ip=209.85.210.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DHuoHJ5g"
-Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-7eb4d532e65so3773365a34.0
-        for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 04:49:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784548166; x=1785152966; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FWzkp2Wnqm0l9stmCGpc16u0gXSQJW1RvOaJ/1MTuh8=;
-        b=DHuoHJ5gX2m2cmkhFxdRAmTK68daXhmBpsQAaN83hJD/tdpiI5XM+vJMFs8MKuo3x6
-         o5/JOaIaxgIfHS5Deyf1pLrbP7HMkV54G1gyFpe45frkXvlFkoyNfF77dggt95oYSwp0
-         v65VkkDqHa1YVFy9gQZB6zTvLxT9R8Hl9zNElXhXFK1UmBNydNKJxtpSp05PTCmcIndN
-         tQKYsZCNTqHRsbmicf4qBIjbDekeo1f9D3JnSlEJ74lrahZFsMDYG+fRwngAi7OLjCau
-         /rfOSBmO+QhQbidkO+jjWpLLQyrQ6WbxSay51+ZUSZIX9g/1z3rXjyUvdGvqSdxYcsdz
-         eLJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784548166; x=1785152966;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FWzkp2Wnqm0l9stmCGpc16u0gXSQJW1RvOaJ/1MTuh8=;
-        b=YVkXXqdDmNxnE20PoIgWIPsFysnzbxjcI85wXv4Jox1JA7EjhuvzE73TbKAriIM2PH
-         xWoVN9t95EEJTId10iUYFoDx9aM5WzDEoLb0bKQGMIYFHNIXeEz2GuhnbYOT8cG3DNsn
-         +mQwN0XWLIyaueVM7oVth3sn/IJXMIVHnFcUZv9B1TOS+Vd7uIPURYRqWl1/Dx77R98t
-         jlHbhcgNbmMAKsgaB0pGwESDrzThBFr+qMeeY2+Fu7W184IgzgvnslbLUiV6kCZyuzfu
-         2aAQZWk01QwqtajNwZKlqnMbCT1IajGGkIjgrgCRI6vPBscguW2M0biJt+mDmaqcuoYO
-         Ub4g==
-X-Forwarded-Encrypted: i=1; AHgh+RrSG3sFmAtOA2GkHU8Y/izd+MadChs9h+gBhdqZ5rKZyHKGnzxmHgZZ+biRyhwmiZWV/PxcymUzs5Hehw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz+NcgOSlX2QFtNbA9ucqyevxVgcJHhmS5k6Oj5MnlluVP/Pfqj
-	ONyEg0NowEeptcU6bRrpCJ4PO5O2b/qIHDDIgY+1dVZLzLFM3KSP+qOwk0qEyf3FOj4=
-X-Gm-Gg: AfdE7cnFauHHA9joCPks6rdqRhk9SLdDPqa/7tUDq12816KfB6G7DgmcDA3V3PR5ZQf
-	eF2yqNAcBgnIUreglECr2jOHfD+vfjElbd4yiMD4a6MsnVRHCjhHxIyvOh7qZVMM5f5SVLZsfos
-	86HmrkPGFtpV1w9j/Uakrae7U3D3palNQIUX3rvAFNCc1OorvHQju14B4zioEOKKF66yj8zvkJv
-	TAe0AeZIsHY/SEscr7NdBfPb85He2y5cihv4EnEM/4Q6ObAivQYA2uUJS3Rlr1p4yijfHhDewKz
-	HTZgwhtPBPRohgju+5PrzuRvXm0tOcMpqvAcqPDRoPwR5UnLigevtVEpdb+cROcufKnzmAP2c+9
-	YpacdsCG8nBT6brbuXcabD5usqtpka5vQct/49D4k877hYZLrEO6VUPLW3DNmAkjj0PqRfA==
-X-Received: by 2002:a05:6830:4412:b0:7d7:ea9f:c0f9 with SMTP id 46e09a7af769-7ed9a604debmr6712118a34.0.1784548166307;
-        Mon, 20 Jul 2026 04:49:26 -0700 (PDT)
-Received: from localhost ([74.80.182.90])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7edad94e86csm8007715a34.7.2026.07.20.04.49.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 04:49:25 -0700 (PDT)
-Date: Mon, 20 Jul 2026 14:49:19 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Prajval Chaudhary <prajvalchaudhari733@gmail.com>
-Cc: andy@kernel.org, hansg@kernel.org, mchehab@kernel.org,
-	sakari.ailus@linux.intel.com, gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev
-Subject: Re: [PATCH v3] staging: media: atomisp: Remove pad_w and pad_h
- module parameters
-Message-ID: <al4LPyMIZ2F5EElx@stanley.mountain>
-References: <20260720112807.6348-1-prajvalchaudhari733@gmail.com>
+	s=arc-20240116; t=1784548412; c=relaxed/simple;
+	bh=+H9sxZgfPoUdVnrA+kHpYFMwzNmVsSsPCq/V5Ez2gs0=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=iR8QgkSwnq4U5WXHGOcMCPdU/HpVfaIN/MuHCidNqdj60mhiWTevuTjCTMYctpl7U3peHO28lq7Iek0UJasNqCRvMaAFzkCJ7RyRqkTAJgOUt88ornsZ3rFR9zPfHCUeMf2Ej2yGFKV5jV6EdY1N1LXzoiGZnr/lzcJ6qsj9abg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.245.140])
+	by APP-05 (Coremail) with SMTP id zQCowADHND8yDF5qtcmIAA--.52459S2;
+	Mon, 20 Jul 2026 19:53:22 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Bin Liu <bin.liu@mediatek.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Nicolas Dufresne <nicolas@ndufresne.ca>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>
+Subject: [PATCH v2] media: mediatek: jpeg: retry HW selection after successful wait
+Date: Mon, 20 Jul 2026 19:53:22 +0800
+Message-ID: <20260720115322.89784-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260720112807.6348-1-prajvalchaudhari733@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADHND8yDF5qtcmIAA--.52459S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw4rWFyftryxJF1fXFyftFb_yoW8ZFWxpr
+	W5K39IvrW8Gr4qgr48Aa1UAF15Gw1rCa1xWrnxZw48ArsIqF1Dt3WUta48tFyxAFy2ka45
+	JF1FvayfCrW2yFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8Jw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
+	CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
+	nIWIevJa73UjIFyTuYvjfUOuc_DUUUU
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-On Mon, Jul 20, 2026 at 04:58:07PM +0530, Prajval Chaudhary wrote:
-> Hi Andy, Dan, Hans,
-> 
-> Thank you for the review and catching this. 
-> 
-> In this v3, I have completely dropped the changes to the debug 
-> parameters to keep the staging debug facilities fully intact as requested.
-> 
-> This patch now strictly focuses on removing the 'pad_w' and 'pad_h' 
-> module parameters and converting them into internal driver constants.
-> 
-> Remove the 'pad_w' and 'pad_h' module parameters to prevent userspace
-> from overriding internal ISP hardware padding boundaries. Convert them
-> into internal driver constants instead.
-> 
-> This partially addresses the 'Remove unnecessary/unwanted module
-> parameters' task in the driver's TODO file, while keeping the debug
-> facilities intact as requested by maintainers.
-> 
-> Signed-off-by: Prajval Chaudhary <prajvalchaudhari733@gmail.com>
-> ---
+wait_event_interruptible_timeout() returns a positive value when its
+condition becomes true before timeout. mtk_jpegdec_worker() treats every
+nonzero result as failure, so a normal decoder wakeup can finish the
+mem2mem job as though no hardware became available.
 
-No.  The real answer requires is a bit complicated and requires
-some thought.
+Handle an interrupted wait and exhausted timeout retries separately, and
+retry hardware selection after a successful wakeup. The encoder uses
+wait_event_interruptible(), whose successful return is zero, so this change
+does not alter its separate no-timeout waiting policy.
 
-regards,
-dan carpenter
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+Changes since v1: https://lore.kernel.org/all/20260625003142.99598-1-pengpeng@iscas.ac.cn/
+- split interrupted waits, timeout exhaustion and successful wakeups
+- use distinct diagnostics and explain why the encoder path is outside this
+  fix
+- rebase onto v7.2-rc4
+
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+index d147ec483081..9634c95aaada 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -1697,9 +1697,15 @@ static void mtk_jpegdec_worker(struct work_struct *work)
+ 		ret = wait_event_interruptible_timeout(jpeg->hw_wq,
+ 						       atomic_read(&jpeg->hw_rdy) > 0,
+ 						       MTK_JPEG_HW_TIMEOUT_MSEC);
+-		if (ret != 0 || (i++ > MTK_JPEG_MAX_RETRY_TIME)) {
+-			dev_err(jpeg->dev, "%s : %d, all HW are busy\n",
+-				__func__, __LINE__);
++		if (ret < 0) {
++			dev_err(jpeg->dev, "decoder HW wait interrupted: %d\n",
++				ret);
++			v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
++			return;
++		}
++
++		if (!ret && i++ > MTK_JPEG_MAX_RETRY_TIME) {
++			dev_err(jpeg->dev, "all decoder HW are busy\n");
+ 			v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
+ 			return;
+ 		}
 
