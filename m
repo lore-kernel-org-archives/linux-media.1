@@ -1,142 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15488266B46;
-	Mon, 20 Jul 2026 21:31:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F91305E3B
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 21:33:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784583064; cv=none; b=aRMAO2QPF4S38Iuhpt4lTfurAzD0lkGHFwdlTGnUGZE8b33m3NI7xVJoCQOCOq3rLe3g4l9d2gOqBOMxhgmb27TDCvaIeam7tDUYKJxwu1jOIG6sIgXxBIvQPkadzkPoSlMuckzKsi8Chcq5RMoy2LOhzo32lnDQtTaxKlsfV/s=
+	t=1784583228; cv=none; b=TaCfuDvC8aVf1dWow6PFqjEVs4338r30nRfCMx4oLwU26eYZjRV/D3/lONHA0Pw+kja0ZQ6Sn7RgrByp78YqeRl/8GB3H4+K1+UD2TeKuG/hrXDsEOa27s3KXuldWNWfsViGQeqNbe9kBy9Vgvl6T8R4LwqgsjNt1CytQpAMfvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784583064; c=relaxed/simple;
-	bh=WiugJUWrwIjTFZbj5jNlsSMkzX65MiC5rSX3OeS0BRw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OJ1dRcyRsObTAZkL3nz0anl5/qnuUDbIv2NoQr96mCrA1OUjW5/YBM9AhRiJXl24hC+MyQXHcF4cglo9ZiUQxfzsJlRyooiIEHWbGhuAgR4Z0OmIPR1FSD8/ky2g+Z/bbGDWhWRrYRaAQlz9x66KyC8Y8760C58uENjyjdizMuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jNqGNQxS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784583228; c=relaxed/simple;
+	bh=44idU8XRPllgsta208T3pPheGd2tESHEjmpM2ssCfH8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JvYLidpscQqMYH+V7SMDdddPBR66Bxpps2S4MWnAocEEq1tmnxZGrmPrYZACPxQbXRcwS3ga6OcYQ5/TslQB/P/+PJTvuHwgI15+Y+AQ2aE58uaGhri8r/KC4GK1MzW2SfQBCrniDdIZV1dWFkXZpUwcnKQfzaA0iiejipXls2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NS1UvihY; arc=none smtp.client-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jNqGNQxS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE8071F000E9;
-	Mon, 20 Jul 2026 21:31:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784583062;
-	bh=5bDKsS4X2DOvmiKswxP7LxCXe27fjucwq85p9QD/fnI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jNqGNQxSXqoqYqFgClffrx9FtgPaQpWT6mOBaC26UScRvt4BYVCGTRzBuR0djIE7h
-	 yLNGD7mGLzNKfh5lwMpRNn+IqEsMBcJhJ+RAFWKWAt8WjCncZpj+fL1J8lxpeW57P+
-	 oWbd1tmWgrgkkHhdIhj/8dDUKxseLbqWyLRJ0g2X2sTTTFq4M2vnedXMTR3N1UcAeY
-	 BAN375mDk6MQmmUDm6/cy/TL4ZDMJbwKg9USRNM3zsnOpcoS6HPEDNwIHWLRb+sUMP
-	 cf+Nk5wwSw7XvrZvIK8hfSDI+F19qV0XC23SuujCP+huRBk9aDFn0mHzcxLicVXb1n
-	 R7nmAH30px+Zg==
-Message-ID: <1bc74fac-859b-46fd-91ef-16c40c8f9a7f@kernel.org>
-Date: Mon, 20 Jul 2026 22:31:00 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NS1UvihY"
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-81ec29f1d07so87499007b3.1
+        for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 14:33:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784583226; x=1785188026; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=usAr8RVI0THAJ8XIFOJ4ZxGvrwrm2FlwhEayG2wImz0=;
+        b=NS1UvihYe05ZdEsYa2d5+tzFnVGekPYGLoctqkl8AnLBPX8s+e6REiBv0lcE1RLJKV
+         2CsX2sldiKiaycJDqfKW5p0UwUbIm1/qHJRRB4F1zc8iGTZ5ELxxGw3ZM6k7OgmTQgVL
+         J28OvY4FgqoHAXg/9Fd+dVW+GD+VwuSpXVn8K+WVoxR59qi+fF6NgL+ouLorVxuz2ym/
+         LUxuba/OkHjVGwtvpYywF4AEeoEd3s+vsK75RRwtIeer88FVbqCuUPdcekXksdhhVPK3
+         kZioLDiSF7sdargd8ZZXk7OsScNL9hCOHCiq0Z0R508vp/fhSLFi5Wd/7ugnoPHBdeqo
+         e74A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784583226; x=1785188026;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=usAr8RVI0THAJ8XIFOJ4ZxGvrwrm2FlwhEayG2wImz0=;
+        b=oIElA3iRLlHA24ejXl5auL8VkmJdqXYC909d9uz+fpNfb7a1Xa9mLeHQ8vS3pj5NYu
+         ge31YaNg4Zv6metKJt2CsRupC+KUJyhupcR0kkPUdwnV8SQfgASEgKkvHQEphM5BDZ76
+         etwU2O9y3MJyitj/vriuEYSFf8+eWDnV9RqNzgXHU4fBnbKEGh4MkS0fQqTYufNUaAwx
+         e0iq/vB9TjSFOzEioH/amQQBro1SGRaKovFw37bzmTDf0Jl58y/61XbS4qGoJ7JYQ9do
+         g3cSAr2d0tRjvco6r8kJIley7acLOhjwWimTabH53fIAbGI3qv9fBZJS2PveG7hoSOwQ
+         3sEA==
+X-Forwarded-Encrypted: i=1; AHgh+RqhCVazEDNt6OQsd3JQJScrQ+ZlGx3nBJwEQ3t2EQcf2GJPuwGq+jMQ905uEjHS9Z+SbLcIbhzHXdbOiQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxkwmnp0TeR8zS3uMT0klqPGTTWSfwJG+xjsIAJdrwRWvKYb/8l
+	NSjsPTZmntAGoQIhE3Q/z5W4MeLjjIj+/yGFQdHSVGeNvJzRm2ICUip/k352jqr5
+X-Gm-Gg: AR+sD11fGrqw7HC9GVGmtRXHe61f+sepkZV0LX6j2o51ru4DT8r48obrYEMyFwcPpJg
+	zUqKQcScsyiNRV0PHueVAg/EpBzZlmmSClyK8baJEhPeP+t1NWQKf8MM4bkzbNePB7rB9WIBd+w
+	5P4TDaaZGudyzZooRNyyA8SbhOubCHgOoB0U7ZabOfRPLKywx6WunjROplPDHvz2dKWPDEaakfk
+	/7PG3dquU+v5NqjtHhjKJT0fV4ME9gDst5g4jJJLdZCHsvpQH0gryWtVc6Pm02/nHz9V3n+6SbO
+	79GeX0hGe9QF/O1jWwnV3HphPVSrSAACNZ4Hj/3TykNv7zjJoyKs1HVJH+vhNWuJWs31U8C7/GD
+	5iZKX/WBTDN3mxjOztPeTerR4oN5qS78Noz3QNRG95lqBoTzNveUlWwL5u2lueqOEzFlhWkxcPu
+	+dvbTeBWOYVE1F9g92d+NziLwojlVpKUK8xci+4qWujMSk1Jo=
+X-Received: by 2002:a05:690c:6607:b0:81e:d032:f3c8 with SMTP id 00721157ae682-81ef26a5baemr53618927b3.37.1784583225589;
+        Mon, 20 Jul 2026 14:33:45 -0700 (PDT)
+Received: from zenbox ([2600:1700:18fb:6011:50af:ea84:8387:c8b5])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81ef406700csm56746327b3.22.2026.07.20.14.33.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Jul 2026 14:33:45 -0700 (PDT)
+Date: Mon, 20 Jul 2026 17:33:44 -0400
+From: Justin Suess <utilityemal77@gmail.com>
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Sean Young <sean@mess.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH 0/4] media: rc: sunxi-cir: support the A523/H728/T527 IR
+ receiver
+Message-ID: <al6TyVD2EO3MxHY1@zenbox>
+References: <20260702214750.3428694-1-utilityemal77@gmail.com>
+ <20260720225310.039aca2e@ryzen.lan>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: =?UTF-8?Q?Re=3A_venus=3A_encoder_job_execution_hard-resets_SoC_on_S?=
- =?UTF-8?Q?M7325_=28sc7280-compatible=29_=E2=80=94_extensive_analysis=2C_nee?=
- =?UTF-8?Q?d_wrapper/GDSC_insight?=
-To: Kirill Ermolitskiy <00vopoj00@gmail.com>
-Cc: linux-media@vger.kernel.org, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, linux-arm-msm@vger.kernel.org
-References: <MOR1FYP_9xkM8GfpziB5D4Q3H5XLHq6MowZkeFMhI_49wkvgOVxXHbtJYMHHnToR_DOz2HU3N102cMMRPNWfLA==@protonmail.internalid>
- <CADRRrN12FvS3v3c3on69XLErB9i8ih=LgJOGaKhYYT7KrZKe2g@mail.gmail.com>
- <035192d8-9d6e-4e04-ad1b-56f52c11933d@kernel.org>
- <b6rUao5eYcEHwZ_P1JyyUjJUtwY-yJnWVfxHUa9sHdWOmlMoXSLxjMoscSmOu0V5VkwrO7q4TnNzRvoFP5RpLg==@protonmail.internalid>
- <CADRRrN23tWrKKnPDdsO_61QQd790z2W+2ejZ-s1iZkJh+=oHhw@mail.gmail.com>
- <f4041aba-ccbb-4126-a65b-a385e882949e@kernel.org>
- <36vhfeWCV4PqtDGfEur9lR9MVGp1d_CMjIb_Wr9zTFbeNM9QPzCJsn1TzyTYnZfbku-iwBZo-eDdLasYJ5hE5Q==@protonmail.internalid>
- <CADRRrN35SjSPqYH+kUowf3RCcKgnGqVQAKTd73vqMLgdz1q5AQ@mail.gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <CADRRrN35SjSPqYH+kUowf3RCcKgnGqVQAKTd73vqMLgdz1q5AQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260720225310.039aca2e@ryzen.lan>
 
-On 20/07/2026 21:41, Kirill Ermolitskiy wrote:
-> Adapted Daniel's patch to kodiak: added the reserved-memory node with
-> iommu-addresses covering [0, 0x25800000) for &venus plus a second
-> memory-region entry. Since downstream yupik's non-secure pool is exactly
-> 0x25800000-0xe0000000 and venus runs with a 32-bit DMA mask (top-down
-> allocations land above 0xe0000000), I additionally reserved
-> [0xe0000000, 4GiB). Both reservations confirmed via the iommu group's
-> reserved_regions:
+On Mon, Jul 20, 2026 at 10:53:10PM +0200, Andre Przywara wrote:
+> On Thu,  2 Jul 2026 17:47:46 -0400
+> Justin Suess <utilityemal77@gmail.com> wrote:
 > 
-> 0x0000000000000000 0x00000000257fffff reserved
-> 0x00000000e0000000 0x00000000ffffffff reserved
+> Hey Justin,
 > 
-> Encoder still hard-resets identically at the first FTB. So on kodiak it
-> doesn't look like an IOVA-window/SID issue — or at least not only that.
+> > This series adds support for the CIR receiver found in the Allwinner
+> > A523/T527/H728 family (sun55i). The only board in this family that I
 > 
-> One more finding from diffing against downstream: mainline's
-> sm7280_reg_preset zeroes the whole of 0xb0088 (AON region), while
-> downstream applies it with mask 0x11, preserving the remaining bits. On
-> this device the register holds 0x3 at core boot, so mainline does
-> clobber a live bit. Preserving it (read-modify-write with downstream's
-> mask) doesn't change the encoder outcome, but it's probably worth fixing
-> regardless — same for video_cc_xo_clk, which downstream marks
-> CLK_IS_CRITICAL and mainline videocc-sc7280 doesn't register at all
-> (ported it, confirmed running at 19.2 MHz; no behavioral change either).
+> will you be able to send a v2 with the fixes we discussed in this
+> thread? No driver changes, just the binding for the new specific
+> compatible string, and the DT changes.
+> I tested this on the X96QPro+, and also managed to enable IR operation
+> on the Avaota board, where it uses the other IP instance (and another
+> pin).
 > 
-> That exhausts what I can usefully test blind: DT constants (fw region,
-> SMMU SID, CP ranges, clocks, GDSC offsets — all match downstream), power
-> sequencing (hwmode / forced SW / GDSC always-on / legacy MMCC handshake /
-> GDSC wait values), XO clock, max CX votes via required-opps, IOVA
-> windows, two firmware stacks (old and coherent OS2.0.8.0 TZ+vpu pair),
-> and both venus and iris — every variant that actually executes the
-> encode engine resets the SoC at the first frame, silently, below the
-> kernel (PSHOLD warm reset). Full two-sided HFI traces of healthy decode
-> and dying encode sessions available; happy to test patches on hardware.
+> Please let us know if you can send a new version this week still, to
+> possibly allow a v7.3 merge. Happy to review that quickly then.
+> If not, please drop me a note, I can then take care of that.
+>
+Gotcha should be no problem! Sorry I was working on some other patches
+for a bit and was out of town and didn't have access to the hardware.
 
-Eh it's not clear to me if you are running the venus or iris driver. 
-Both are supported - can you flip the switch in your defconfig ?
+I'll get the board out of my closet and do some testing before I send...
 
-Perhaps you are testing both already - if not please try the other driver.
-
----
-bod
+Justin
+> Cheers,
+> Andre
+> 
