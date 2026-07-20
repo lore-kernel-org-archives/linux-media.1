@@ -1,267 +1,257 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013051.outbound.protection.outlook.com [52.101.72.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C821C37D110
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 15:30:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C39EE384CEF;
+	Mon, 20 Jul 2026 15:34:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784561453; cv=pass; b=q909Cqd2xENZLHe2kicY88aGcImh9qpM1G/h6K8N9SMfYzgfqq6c5bqiw2N5ZtrYnHT3xA/Fh+e1db0nlgpCbXXhoRGhCfxRNuUT6PqH+e6eYDzAbnS8JP59spBhW4YtXKl3EVrwDChrAbicnNp1aijDv5EEaEGvvc7WgZoY4/A=
+	t=1784561669; cv=fail; b=T0UPkZm+rH3mE5ROda4EOHrzn8RITunfkbMra5uNAfMFG2NxD+rXyonuU2rNZcnReyk6hwYmN7TVlqjUHraQlhtnVnBMosSXkEReDFFbL2LDwvXw0W21YRIhFTJ1FSXvhzk8kYTBQUFgvJxFjJLGfidfzs6UVS8bA5rGOiKhwog=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784561453; c=relaxed/simple;
-	bh=z6HTALdKR+S8qZiGcJUt8xHO7LZzh2vu5r30XzI1PqA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S9/AYOzMgJimIj+1O4o7vjCuWl91QS4ESDnqnzLIAM2FQvF+0fGp4eSxnyGDWhgPTIsG4a+VPTKICxQs21b/eWxEHh4ynVomPLQ8KcwnRQJ0ok0HFQWKI9hpBC47YRww/GFPCqDGqoy2KYnwTrPATal50Uq4uVGfaWdtAPWJO6Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=j9HDxkHt; arc=pass smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1784561669; c=relaxed/simple;
+	bh=eG78SK0H6UEhzyF+eEu5wV7/R+1p4o7xSu97Kr72CSM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=PycfmTyi+bVX6QayjH+5uZQ5gBbevaZqqjFvZPm5SO/UVo11J6kV7nRtprGryGNk/QVFgyBnET/x32hAH6OeqpxNmszjKxxrAzEzSO/wgQVPa3glLC36WkNh6e7uRGaB276XFXng5NrfhhpIunAVngyFo59CduZEO8tFR9LQ4rQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=qaKjBD5p; arc=fail smtp.client-ip=52.101.72.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="j9HDxkHt"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cede6375caso327635ad.0
-        for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 08:30:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784561451; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ge21N6aKEWGqzd3vnueDE0yRLCB+0e306C6Vbm8hbxFfzDllt359uiDzWhcmG4QBj6
-         IHAhBkkwsMea+ufhYIJKCnxNZFrBJqr8yUQ4v0nEdI4BDcbElH4UeP+GjMYdobZKLI0I
-         bTTwMq2OYDTHRQISe34ULUSc7WAOVvr+dvccMv0wWfAqetPKJMMLohsw6c163Oh4qWBS
-         ClCshJ2qwMTD/seH6ajM3R41PC9HX6qmS+S1hii/yJ2SvbrQGMdMY7uM0j8Xb2BFRv/X
-         ZNocbLD2cyd8b1jfUzwhBQJgqMY60XWdCODq6n1jCnVOCsQM/x+wrsdMV9ZZNQebWO2c
-         mueQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=OaEXvFbvhMm6zafmsE8YuX95tDfvYPIMS3NPHCOYJiY=;
-        fh=ECjZ8C8DQlzxSUptVVoAgMuMrWAzY0EQvDbERjCu3ng=;
-        b=B+mFIiMhuW8skJiV+V1w0VKvRxugqtCFw7dWrL3ZCZelmBY9mzT/d7b/RZ7fCmkBjs
-         RW/ypSoCwAVoTWUoks3jcMTmFZCWohukDoxr1WAOBa64SLGO5FOq/xAVzoLTgQa+GyxN
-         QQIRhTGMnrq4s8VHoKpmqhpTCZbHpi2IGjkmZCEvlp9a/3CJresixuPQqkP17kdeomQG
-         JRNtFYa911kFBoYBVXJNL/5q0fe+tTcukYyoBAX7YVPBP6PVH7rgF11apSIfsCNdpdqJ
-         xisOqxbYNc88fWfFZwPdteXQbxMOD1SrYaGG+8m1AmqHrEFj1SLnazJixpMFu9/YImga
-         PL4Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784561451; x=1785166251; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OaEXvFbvhMm6zafmsE8YuX95tDfvYPIMS3NPHCOYJiY=;
-        b=j9HDxkHtdQWc1GRYjEkmREb2GmNdSBmNUO7KX8EZSSH1g5RKWT8r2Y2b80RVAHKUdZ
-         vgyxB1iyJnJrFzt+bUAYYzSyRa5BjzlFOdY8il4LsbkKQMBf4DytpJqMYDs3FgbdzUW+
-         cnH6OyT53qBXfsAv761BSIIX7lsp+d1ry16G/FUN78i+PKpwvIREprq9yhbn+OECtPX3
-         U3NVCPV5h6QdyepvpwgB2Q8lHVisvLu3Ch8FM80LLYdERfJrcCQnlFdW3+37zpggEOw8
-         vwukexaP8ezOeOKZBZngElAfzSDX0UdYEq1EXDq2CQcull/Z8+bB5UgwpImLbKFdUd9x
-         p33g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784561451; x=1785166251;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OaEXvFbvhMm6zafmsE8YuX95tDfvYPIMS3NPHCOYJiY=;
-        b=EIOphM1ec1JQDmIAnkytFa1y/4BQkr//xWOhylnCh+SFpHMPt0u0jeIoxOo2KzXtJX
-         /7yNQIsTdeKdBe0BHH1hpBPLGFWkncBJJB39jzqGtlS1CG8zsHNiEvkfL5tqQtGKWGs9
-         S3zrYoTrUqd1mDIkMl7XErUcP2cWRqC6MjZcpdqnpURpzux03DY4JFOb5ottOuIZtk4x
-         3ltatnU3ov6D43j5tI0nTuCnsYObZqr7F2HOegK1VAZSAmAOS10n90Um6IGeDlK0Z9X7
-         hdnHLLl8IEn25xQGlnP7nWc/VxcRvV9W4Fz3oZfCd4kM3DcU/FXYHKjyxtfXLrYBqatj
-         /1sw==
-X-Forwarded-Encrypted: i=1; AHgh+RrjAy9lYwpE6yIZEtqbilHvYqz7Bo045If5LPBNiz71x+q6P2lvkPOYdPQ5lEBA74ssNBA435K2nT5bDw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy7oOpdXNacE3ESQKMTvAjU67hOPZnyD0Ay9lr6I1up/dwZ77ye
-	n4yYrXtIKBUutETHLcl1KzOAb2DsASnEW433YhJF47OTniwAqwZGlSwRfGEOn2NYe75GiVLvOO5
-	5sm1Dizo7BHA9jXWjiYoNUH8Ys9NRRKwBKcIa85g=
-X-Gm-Gg: AR+sD11KWEvKZ+HrnO+mcN9fsqO/N8o2HYJ87IiV65RUmAEnTbWVF0ZlRLhXsP/ZbOF
-	RrZ5Tp6CuDd2RQdOXbIaBhvgF/8nXLdIHwcWN2or1d632KFq7oeNhR+OzM6+fk0tVl3IKNcJNS6
-	PKaBLTEgYgOA/yeG9hjgLInKGv0LssUTW1emXGdlJbPmm22b5yBwCMO6le2TdnEgJpKU7RHyvZJ
-	2laT9xVEc4V/AbDp9JDeW2MtJGNedf+9Dm0is+x9Dj/7vwUhVnPdgvbCgYR
-X-Received: by 2002:a17:902:e94d:b0:2c7:a13a:7fe6 with SMTP id
- d9443c01a7336-2cf7b5302afmr989835ad.10.1784561450388; Mon, 20 Jul 2026
- 08:30:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="qaKjBD5p"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=O8lWDdFHDMzHkPGQ7yejpvUBBPIc5J8U30BhYWmiCELcwSBO93/hGpz4lRkJ0HqIEOy8FhZ0GasC3YYwftfL3IIrlTeapNayP8y57/9v7RSF5Gri/4PTwpRknbC9fPZ9UzAdoDA6tYF+BcFr8mg6xhn+T7n2LXKX68q+Pp6wGoMfB+wOm34FexQx7QyOKQX2Mk0pNmyQvN4lSxmQI2020q4eMWx4zOGeeo4BSd9y6MrPrJSdOw9lnQbMjPQkaszYqvjW+Qcq068+iqH5PL1XPRei9AtFWcIO3sK9vZsYG95veO/yAtQvNu+O8roM9WRwUMlPbFK9JUeMDtjR5d+QhQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SmytSW5t85CAAUF8zU1nLaZq19UYTLcY0RXfcP0CySQ=;
+ b=GSXQAuvMrAPTQ9DhhP5kZAVfsvdZNH1Vp8Cah9sUeST7RzpyOXQlML3fdEnWT262UbBo2wjlFSo27VMTNI/+e69yowo4bFrfJdLgovuu89H5E1AY6oD7L8dF0ubzBJ8m/HKuZGzZ+VjFh0rNLHKO8WrGEt0dmGU1ew5s4ogk4g7C634T4sKDcSbuicrKFLDAmjxQliRh1SzOC21FbhEVhzByAY/DAu1FNiqfxPoVnoSNuRfzfYrGT12HlXGLGyhsk8/toAqDlOb1GMDMhiGQP1GAuGBt3tx50pcMF9q2BhDtnQmPuGeI4sKoXJjFc7OueMqEKZYCr/IfTQHFA4UYRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SmytSW5t85CAAUF8zU1nLaZq19UYTLcY0RXfcP0CySQ=;
+ b=qaKjBD5pNo8du7eM9kksEi1wq9BLEn1SL+Kn676MZKfuBE3fUnHDd/8RpvZbf0hfjw21+PJz+IUk9WWmUcMFbnrwgNGFYb9mgSWcDYcdKXCLgRSJ7YR0ompuFse9Vij8y2CXYSZgUXpO7xqG+gjXh/eY/T4hBzwkJbBcZT91ScD91mVqmh5s/ZtnFzDvOMCSKshNSLIN5MMRVIQepNbrHetcnuo6OWB7ke0DwHqQteGP9UqsiVCC4VwwToBSSt+m3EUVsmy4AXIFoHDw7yK3oa29dh7f1xIfr/YcD74FhN4UoQ6SzNyh8npWxKgLb87opXi2yc5ACCqeyPolzQT/Qg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AS8PR04MB8152.eurprd04.prod.outlook.com (2603:10a6:20b:3fb::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Mon, 20 Jul
+ 2026 15:34:24 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0223.012; Mon, 20 Jul 2026
+ 15:34:24 +0000
+Date: Mon, 20 Jul 2026 10:34:12 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Christian Hemp <c.hemp@phytec.de>,
+	Stefan Riedmueller <s.riedmueller@phytec.de>,
+	Jacopo Mondi <jacopo@jmondi.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Dong Aisheng <aisheng.dong@nxp.com>,
+	Guoniu Zhou <guoniu.zhou@nxp.com>, linux-media@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 3/6] media: nxp: imx8-isi: Fix per-stream reference
+ counting for multiplexed streams
+Message-ID: <al4_9MFuz0lVzxHc@SMW015318>
+References: <20260720-isi-v2-0-45845bc5d4fa@oss.nxp.com>
+ <20260720-isi-v2-3-45845bc5d4fa@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260720-isi-v2-3-45845bc5d4fa@oss.nxp.com>
+X-ClientProxiedBy: PH0PR07CA0097.namprd07.prod.outlook.com
+ (2603:10b6:510:4::12) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260622204343.1994418-1-briandaniels@google.com>
- <20260622204343.1994418-3-briandaniels@google.com> <20260622170708-mutt-send-email-mst@kernel.org>
- <CAD4i_GTBkZRAnBTohkzJSh2XTx+MHkTS_KokEMQ4s0-WP+DxcA@mail.gmail.com> <20260718132340-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20260718132340-mutt-send-email-mst@kernel.org>
-From: Brian Daniels <briandaniels@google.com>
-Date: Mon, 20 Jul 2026 11:30:38 -0400
-X-Gm-Features: AUfX_my7bUIuVQK5CvtCwH3h8wEpjooaJfs_B6T4ePVxaDFByVxemESeA75h3sM
-Message-ID: <CAD4i_GQwWkze6tcHL1mX8V8RCVKDbmHvZYMvOf2eW4NoygA4CA@mail.gmail.com>
-Subject: Re: [PATCH v4 2/8] media: virtio: Add virtio-media driver structs and
- function declarations
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, acourbot@google.com, adelva@google.com, 
-	aesteve@redhat.com, changyeon@google.com, daniel.almeida@collabora.com, 
-	eperezma@redhat.com, gnurou@gmail.com, gurchetansingh@google.com, 
-	hverkuil@xs4all.nl, jasowang@redhat.com, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, nicolas.dufresne@collabora.com, 
-	virtualization@lists.linux.dev, xuanzhuo@linux.alibaba.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8152:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3ece4a0f-ecb1-4021-d196-08dee6745fef
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|1800799024|7416014|376014|19092799006|23010399003|366016|6133799003|18002099003|22082099003|56012099006|4143699003|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+ ZHLfmea0FUwVCyYRMautEqiSBqw3nhRazZDTWgZhrdnfUew6G4zJL/VkTLpm0EldyZWUI7E6cJfTY9uOJe9NAFMf3YtfMSw50xyIgcrkWZcwqs45g0DKdZfZzIxK0mOjM4TYgrsjjpRIOwlKuUHLSgW4xRimvUwZ+daISQhuRa986g2ka6xLccStoTZ2F7MEfl3lRJaXQLWTRZ1s9MTtqwQz1ZCrzRzYAVRsU1Bu8rUlxnXvyUl5NzH+Tk4ByFRecMPu2miqq/LDKnUrnKp5hc0CN6AEL2qogUcNsabnMpcw4by7TPs2J0GpGitTjpmZoFCpAU5aHxIXCD/pwH2nqw4ltaHM4/JyaonhZ2Ryea1BvoPKrZeRprPzH9apAmlfDKrQWjcAefORHh0TBuM2UuiaeZe0NkEKi7O5BwL0ITLABg3U2YzyjViCATWyUrR+omX4CZJQBKTw+jebnfc3wnZrzGtpyd6ngt9P/7oynPuomTnS71Sp2jFyl0DtNJFMvOuy2N0JVGMS54rQm4PDNvDQC3DGXZzHxKRVI/DKvOAkW6iMGJqnVxn2AwW8caPsctK5OxJ3+SyN1wlmF55P+GP6N2LwJuzNvW0I3Jl9R0mStSeqP4HvVxED3II9aH/ttMJOEF4nTkyiAGkn48JZHfpGYEVwXJpxZTQyNcjOjoU=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(19092799006)(23010399003)(366016)(6133799003)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?vs8uI+Ytdg/s+yhE/jHdfxLixo/gy4tVz9aFf8hGZoRkst1eOUloY1akdE8k?=
+ =?us-ascii?Q?x8rVvLpCFh/9tnjv6Xey2pd8XgFER5+ZRoqH2itgj/HoHJyvWhmvOSC5qU3V?=
+ =?us-ascii?Q?ObxgH5zZfSZYXZ79WnlpaaOEliPGEEn4roexjoIQJRDtwEulQAwD+6S99GDE?=
+ =?us-ascii?Q?k0d0nRYNr43h6zQRsmOyikMvw7Z/zuxkJB+x4UAW54+8DaxiGDTSEzqo3pgj?=
+ =?us-ascii?Q?17Vy8Il5yL81lf9A0TPnQ5Pf4quOa5ywDU+Cy67xanEh8QW1eP3TH69I1D1g?=
+ =?us-ascii?Q?ZeRi9eOUqamdHbsffAcdgsXNfdH08CbslDTXOsafCjo3pN4X+3uXq2ioobwr?=
+ =?us-ascii?Q?AY9TOTpK4ScoWv18VMRBpxem+PWPldbJjk1V2CMieGH5PdqdLryr/x3sQHOg?=
+ =?us-ascii?Q?N6SCDsCmrjcVr4Y2idjPJZ+2bVEhAfuBfAqxp5L8TC9UwB8GiJkSTmFkCjHw?=
+ =?us-ascii?Q?84R5Qc7a71ftu8eo3NRkv795pVGq7yGDe/qtSu45wEkxlw6nkRazv1Aln1Jo?=
+ =?us-ascii?Q?/PX+EOTELujTiY6Se+cdHaDM7GsI0dRLfuODEud6wylvJoNJGerS9aXNXbvK?=
+ =?us-ascii?Q?Tl1khjzOkd1z/P1mzcBy2FiqAM4ryMOyIBsYf+zsac0mGXgomSiPErDsX6Pi?=
+ =?us-ascii?Q?MgIteulMaSmgsI02LNgHQdFBjV1/HCotXWYX5ti5SUdTFjVol4272FvbKZfz?=
+ =?us-ascii?Q?3bw7OHgoaWz75ksd/a2EmlduZRLjhj3IOS71mxCniWHN1C+GLFdITOaeOtKa?=
+ =?us-ascii?Q?pG31jFsp+6JuhdoyRxK6dsNxv3KFFKbWs7Zsa+fMq7iArsmUSYM2ES2FhBUj?=
+ =?us-ascii?Q?4oF5VLkE1hnFaJoM5UJNc8LQJkTeAcoOKQkGm5rUgNWrzHVsY+lcsWGDWkVf?=
+ =?us-ascii?Q?PA8Dyvk3aacCSR+Wqqv3katXGRFrCELTBUYV95y0TXCuJDJ3+5Scx4Grkt7l?=
+ =?us-ascii?Q?/9AI2sYrn/xRa8AgwTHQflxN0lz94Xqh9EcXWX3DEza6hcGVh6wqPmczb1fx?=
+ =?us-ascii?Q?eIL1nsFIQdCZtqMcNf3Te2fQ1JxcIj1awq0Jh6mjTEbXWitQrCPVLZE/n62R?=
+ =?us-ascii?Q?aKTQskYVTMsSUHT8MSWXpPEzRrSKNfglf+YPF1iod7qMzy74jyNaXyz05Hmb?=
+ =?us-ascii?Q?gJottp0ekv/omD8cVBxWDNvlJBWoXzR7MTDe+/f/bFsyCQHvXKWHLQp6y50Y?=
+ =?us-ascii?Q?yWZiC+QkiN7njYKEpNyNATSMm/KAsQN1erfnGPY6zMwwWtEXJc8/LRLq3uvm?=
+ =?us-ascii?Q?Vc/20Nl6X7DN4Is+qa8+zSA4Zp3I5/iC981KmxlwvzUvbqCAQ4putmXa4tED?=
+ =?us-ascii?Q?VZp7e0VHzzLALp2TU0tzSRLvJSOYzD5/mHJNnWZ7vuBu/PBzad66MYJzekO+?=
+ =?us-ascii?Q?VMwl74crHvF6DWVPijTxUdp/8vVjkDE9/vjXDX+3r3/lF/9IVjkWogX4OhwT?=
+ =?us-ascii?Q?syXru8ghtXcZOXNknYahT+7VkBBI4ZtDdj6U6mRmd9RmvWGkn1lxVoaPra8h?=
+ =?us-ascii?Q?DsZIjaPYIQMXifILjVaQ4H5D3/1tTArHC7aRzH8nt5T8dDt9ItTt7HLI1Hz3?=
+ =?us-ascii?Q?m+SUwNBi5C+LG8TIlCShH7xDAHG4Q1Iw9U4pGyD7zrdV6mQfS+Yg0kKJ1w0F?=
+ =?us-ascii?Q?dVEgdeOGqL4YcNeDrhp+0VelbUrUbNer0kRV5u4lPMuisBHSGeMylabHWf2h?=
+ =?us-ascii?Q?B3IVY6M/jNQgG5BF/SUD/HJQnVYp+mUYh2zB6tq1hVXRotbNy9wTQPC9Mibp?=
+ =?us-ascii?Q?2VM7OJlBRg5dUyyqdYydJgP8ynN7KeFJhxzqKPOb1PCN8DMXn0uE?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ece4a0f-ecb1-4021-d196-08dee6745fef
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 15:34:24.1463
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YjjMo4LsttB+36GT+XxEH3n4fytq4KvZF9VTqpXMJ9aI+lGdL1BIIKL0TWvCqh6SVGi9hp+hBjo5YThbsCayEiWXHMKQA1GCsEMyUogM5pvSzC0XDxLWzp6Dt6eXmwA8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8152
 
-On Sat, Jul 18, 2026 at 1:27=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com>=
- wrote:
+On Mon, Jul 20, 2026 at 11:34:05AM +0800, Guoniu Zhou wrote:
+> The ISI crossbar fails to properly enable multiple streams from different
+> virtual channels on the same input pad. Only the first stream gets enabled
+> in hardware, subsequent streams are silently ignored.
 >
-> On Fri, Jul 17, 2026 at 03:46:36PM -0400, Brian Daniels wrote:
-> > On Mon, Jun 22, 2026 at 5:08=E2=80=AFPM Michael S. Tsirkin <mst@redhat.=
-com> wrote:
-> > >
-> > > On Mon, Jun 22, 2026 at 04:43:37PM -0400, Brian Daniels wrote:
-> > > > From: Alexandre Courbot <gnurou@gmail.com>
-> > > >
-> > > > Add the structs and function declarations for the new virtio-media =
-drvier.
-> > > >
-> > > > Signed-off-by: Alexandre Courbot <gnurou@gmail.com>
-> > > > Co-developed-by: Brian Daniels <briandaniels@google.com>
-> > > > Signed-off-by: Brian Daniels <briandaniels@google.com>
-> > > > ---
-> > > >  drivers/media/virtio/virtio_media.h | 95 +++++++++++++++++++++++++=
-++++
-> > > >  1 file changed, 95 insertions(+)
-> > > >  create mode 100644 drivers/media/virtio/virtio_media.h
-> > > >
-> > > > diff --git a/drivers/media/virtio/virtio_media.h b/drivers/media/vi=
-rtio/virtio_media.h
-> > > > new file mode 100644
-> > > > index 000000000..52809d4e9
-> > > > --- /dev/null
-> > > > +++ b/drivers/media/virtio/virtio_media.h
-> > > > @@ -0,0 +1,95 @@
-> > > > +/* SPDX-License-Identifier: BSD-3-Clause OR GPL-2.0+ */
-> > > > +
-> > > > +/*
-> > > > + * Virtio-media structures & functions declarations.
-> > > > + *
-> > > > + * Copyright (c) 2024-2025 Google LLC.
-> > > > + */
-> > > > +
-> > > > +#ifndef __VIRTIO_MEDIA_H
-> > > > +#define __VIRTIO_MEDIA_H
-> > > > +
-> > > > +#include <linux/virtio_config.h>
-> > > > +#include <media/v4l2-device.h>
-> > > > +
-> > > > +#include "protocol.h"
-> > > > +
-> > > > +#define DESC_CHAIN_MAX_LEN SG_MAX_SINGLE_ALLOC
-> > > > +
-> > > > +#define VIRTIO_MEDIA_DEFAULT_DRIVER_NAME "virtio-media"
-> > > > +
-> > > > +extern char *virtio_media_driver_name;
-> > > > +extern bool virtio_media_allow_userptr;
-> > > > +
-> > > > +/**
-> > > > + * struct virtio_media - Virtio-media device.
-> > > > + * @v4l2_dev: v4l2_device for the media device.
-> > > > + * @video_dev: video_device for the media device.
-> > > > + * @virtio_dev: virtio device for the media device.
-> > > > + * @commandq: virtio command queue.
-> > > > + * @eventq: virtio event queue.
-> > > > + * @eventq_work: work to run when events are received on @eventq.
-> > > > + * @mmap_region: region into which MMAP buffers are mapped by the =
-host.
-> > > > + * @event_buffer: buffer for event descriptors.
-> > > > + * @sessions: list of active sessions on the device.
-> > > > + * @sessions_lock: protects @sessions and ``virtio_media_session::=
-list``.
-> > > > + * @events_lock: prevents concurrent processing of events.
-> > > > + * @cmd: union of the device commands "open" and "munmap". The oth=
-er
-> > > > + *       commands are handled by @struct virtio_media_session
-> > > > + * @resp: union of responses.to device commands "open" and "munmap=
-". The
-> > > > + *        other responses are handled by @struct virtio_media_sess=
-ion
-> > > > + * @vlock: serializes access to the command queue.
-> > > > + * @wq: waitqueue for host responses on the command queue.
-> > > > + */
-> > > > +struct virtio_media {
-> > > > +     struct v4l2_device v4l2_dev;
-> > > > +     struct video_device video_dev;
-> > > > +
-> > > > +     struct virtio_device *virtio_dev;
-> > > > +     struct virtqueue *commandq;
-> > > > +     struct virtqueue *eventq;
-> > > > +     struct work_struct eventq_work;
-> > > > +
-> > > > +     struct virtio_shm_region mmap_region;
-> > > > +
-> > > > +     void *event_buffer;
-> > > > +
-> > > > +     struct list_head sessions;
-> > > > +     struct mutex sessions_lock; /* protects sessions list */
-> > > > +
-> > > > +     struct mutex events_lock; /* prevents concurrent event proces=
-sing */
-> > > > +
-> > > > +     union {
-> > > > +             struct virtio_media_cmd_open open;
-> > > > +             struct virtio_media_cmd_munmap munmap;
-> > > > +     } cmd;
-> > > > +
-> > > > +     union {
-> > > > +             struct virtio_media_resp_open open;
-> > > > +             struct virtio_media_resp_munmap munmap;
-> > > > +     } resp;
-> > >
-> > >
-> > > You need DMA alignment padding for these things.
-> >
-> > Each member of the above unions is already padded to 64-bit alignment,
-> > is that sufficient?
-> >
-> > If not, could you tell me what else is necessary?
+> The driver uses a single enable_count per input to track the input state.
+> When enable_count is non-zero, the code assumes the input is already active
+> and skips calling v4l2_subdev_enable_streams() for additional streams:
 >
-> Read up "What memory is DMA'able?" and following chapters in
-> Documentation/core-api/dma-api-howto.rst
+>   Call 1: enable_streams(stream 0)
+>     -> enable_count == 0, enable gasket and stream 0 in hardware
+>     -> enable_count = 1
+>
+>   Call 2: enable_streams(stream 1)
+>     -> enable_count == 1, skip hardware enable (BUG!)
+>     -> enable_count = 2
+>     -> stream 1 never gets enabled
+>
+> Similarly on disable, when enable_count reaches zero, ALL streams are
+> disabled regardless of which streams are actually still active.
+>
+> Fix this by tracking per-stream state using:
+> - enabled_streams (u64 bitmask): tracks which streams are currently enabled
+> - enabled_count[] (array): per-stream reference counter to support the same
+>   stream being enabled/disabled multiple times
+>
+> Now each stream is independently enabled/disabled in hardware based on the
+> enabled_streams bitmask, while enabled_count[] provides reference counting
+> for scenarios where the same stream is enabled multiple times, such as
+> duplicate cases in the ISI stream.
+>
+> Fixes: cf21f328fcaf ("media: nxp: Add i.MX8 ISI driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+> ---
+> Changes in v2:
+> - Use fixed-size array for enabled_count instead of dynamic allocation
+> - Use BIT_ULL() macro for u64 bitmask operations
+> - Use MXC_ISI_MAX_STREAMS (64) as loop boundary instead of num_sources
+> - Remove mxc_isi_stream_counters_alloc/free functions
+> ---
+>  .../media/platform/nxp/imx8-isi/imx8-isi-core.h    |  7 +-
+>  .../platform/nxp/imx8-isi/imx8-isi-crossbar.c      | 76 ++++++++++++++++------
+>  2 files changed, 63 insertions(+), 20 deletions(-)
+>
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> index 7547a6559d4c..9adbe2fe7cf8 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> @@ -184,8 +184,13 @@ struct mxc_isi_dma_buffer {
+>  	dma_addr_t			dma;
+>  };
+>
+> +/* V4L2 subdev max stream ID is 63, need 64 counters (0-63) */
+> +#define MXC_ISI_MAX_STREAMS		64
 
-Great thanks!
+Any existing Macro define max stream ID as 63? it'd better to use such
+macro
 
-> > > Which one can only see when I reads the actual driver 8 patches down.
-> > > Which is why it's not a sensible way to split patches.
-> > >
-> > > A sensible way is to have a driver then add functionality
-> > > in logical pieces gradually.
-> > >
-> >
-> > Appreciate the feedback. There was a previous comment requesting to
-> > split the patch into c/h file pairs, but I can try reformatting it as
-> > you suggest for v5.
-> >
-> > > > +
-> > > > +     struct mutex vlock; /* serializes command queue access */
-> > > > +     wait_queue_head_t wq;
-> > > > +};
-> > > > +
-> > > > +static inline struct virtio_media *
-> > > > +to_virtio_media(struct video_device *video_dev)
-> > > > +{
-> > > > +     return container_of(video_dev, struct virtio_media, video_dev=
-);
-> > > > +}
-> > > > +
-> > > > +/* virtio_media_driver.c */
-> > > > +
-> > > > +int virtio_media_send_command(struct virtio_media *vv, struct scat=
-terlist **sgs,
-> > > > +                           const size_t out_sgs, const size_t in_s=
-gs,
-> > > > +                           size_t minimum_resp_len, size_t *resp_l=
-en);
-> > > > +void virtio_media_process_events(struct virtio_media *vv);
-> > > > +
-> > > > +/* virtio_media_ioctls.c */
-> > > > +
-> > > > +long virtio_media_device_ioctl(struct file *file, unsigned int cmd=
-,
-> > > > +                            unsigned long arg);
-> > > > +extern const struct v4l2_ioctl_ops virtio_media_ioctl_ops;
-> > > > +
-> > > > +#endif // __VIRTIO_MEDIA_H
-> > > > --
-> > > > 2.55.0.rc0.799.gd6f94ed593-goog
-> > >
+> +
+>  struct mxc_isi_input {
+> -	unsigned int			enable_count;
+> +	u64				enabled_streams;
+> +	/* Per-stream reference counter */
+> +	unsigned int			enabled_count[MXC_ISI_MAX_STREAMS];
+>  };
+>
+...
+> @@ -396,19 +417,36 @@ static int mxc_isi_crossbar_disable_streams(struct v4l2_subdev *sd,
+>
+>  	input = &xbar->inputs[sink_pad];
+>
+> -	input->enable_count--;
+> +	/*
+> +	 * Decrease the enable count for each stream. Only disable streams
+> +	 * whose count reaches zero.
+> +	 */
+> +	for (stream = 0; stream < MXC_ISI_MAX_STREAMS; stream++) {
+> +		if (!(sink_streams & BIT_ULL(stream)))
+> +			continue;
+
+for_each_set_bit() ?
+
+Frank
+>
+> -	if (!input->enable_count) {
+> -		ret = v4l2_subdev_disable_streams(remote_sd, remote_pad,
+> -						  sink_streams);
+> -		if (ret)
+> -			dev_err(xbar->isi->dev,
+> -				"failed to disable streams 0x%llx on '%s':%u: %d\n",
+> -				sink_streams, remote_sd->name, remote_pad, ret);
+> +		if (!(input->enabled_streams & BIT_ULL(stream)))
+> +			continue;
+>
+> -		mxc_isi_crossbar_gasket_disable(xbar, sink_pad);
+> +		if (--input->enabled_count[stream] == 0)
+> +			streams_to_disable |= BIT_ULL(stream);
+>  	}
+>
+> +	if (!streams_to_disable)
+> +		return 0;
+> +
+> +	ret = v4l2_subdev_disable_streams(remote_sd, remote_pad,
+> +					  streams_to_disable);
+> +	if (ret)
+> +		dev_err(xbar->isi->dev,
+> +			"failed to disable streams 0x%llx on '%s':%u: %d\n",
+> +			streams_to_disable, remote_sd->name, remote_pad, ret);
+> +
+> +	input->enabled_streams &= ~streams_to_disable;
+> +
+> +	if (!input->enabled_streams)
+> +		mxc_isi_crossbar_gasket_disable(xbar, sink_pad);
+> +
+>  	return ret;
+>  }
+>
+>
+> --
+> 2.34.1
+>
 >
