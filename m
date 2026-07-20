@@ -1,104 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5449839A806
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 14:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16E793A380A
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 14:29:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784557601; cv=none; b=Dr0L0oDCX5O/MYZB/7Bb+DhUKrC4a72k/gFuO+D7oKKnYLQlTB6EX4VTKf0ZbLZN0f/tMHhN+0UWzhxW2kOtRpeD04rFg4KF6MSumkhfU3OxNtEfveuUgIBDCM6YHIfRhpgowcCiC+3Clo0Bfwea8AT1r4kjdrix8eALKzNSPQ4=
+	t=1784557764; cv=none; b=NUFSQosdr86jYxG484Xe+9fFWwnATWNCEGm02FA65BBEXfDoyUG/p+7KuijdyIID/R5OO9Psxy4DFZjBgX+iVpdVis9uESaCI7PLlY8UdKqLb5k+cSxH/WjfLc6TV1pG57IfCPDlkuQtknqBKq9IkH7HX4EG3VpdsT7lGow9wNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784557601; c=relaxed/simple;
-	bh=spQSkh+QrD92ygbE74b4O6NuAcu59lrkkkPAA8WOSZo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gl1WNqhwJP9l9v307sS9qh1vihcBez6Yt67SL0AeSqMXb/o1U4yOz1jlBM0XsRG4ecRRbAlr/0L5KX4j23Q6wV9bnVhooysYcDYsoDv+X1UeXztDLi+oPPGvK7b+FH9jKfN9MZ/oJjLSHyzNlm02GOASojggtdb6SNLOw+ShK6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PK9jZIci; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784557764; c=relaxed/simple;
+	bh=1eY9tAkEvPPuQJSxLFf9+C++D+iIDA3Q9citWB/XFqA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=LfDSjJIMAezkg0pMd9TBUtGLnBeDr8fRlWhFhfNoKmx03jdbEFhUTC32kN3xoGqLvFviiWiT3EA2VW7VjWpEHIwGeL8q9Vuyj5efHJV34uAliIHwbcD1Jau0AZ4bXx7r+C7s/bx8/lR9LcFoWJ1Lk41XmcDBChW9o3e3vkbq0x4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm; spf=pass smtp.mailfrom=berg.pm; dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b=eZC/Y0mo; arc=none smtp.client-ip=79.135.106.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berg.pm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PK9jZIci"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A68D1F000E9;
-	Mon, 20 Jul 2026 14:26:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784557600;
-	bh=spQSkh+QrD92ygbE74b4O6NuAcu59lrkkkPAA8WOSZo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PK9jZIci69cUA3J1TWmFFd5dUQhtEkr7FfLSEsUtnL4OqE4s49nlM3pLiGdhMw2Jj
-	 WWQJfmvZ4PxvzNEoHe36A9suZ2VPTcme5CH1aVxjxQsivSXqyXoangOnG3pNVkoxsi
-	 gxcJMknkPO5YHgfTMu8/8RgpZ2HVrebOXxKtqUDS2hv+nh0NX873ROjG6jJRSAl4yK
-	 ++ag6mHzZwuyeWISdUdy+n7hj4ys/HJuS6Ov6+ECblMmSd2To00On9Msn7XtlLYMXA
-	 i+VYqmHlJLXEEicdmtrsac79aV/lWDWrY/l8MecrvoxlI91d73OlJ2OZHAq267uzy/
-	 XZzsjl5IudpPw==
-Date: Mon, 20 Jul 2026 15:26:34 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Theodore Tso <tytso@mit.edu>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Derek Barbosa <debarbos@redhat.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>, users@kernel.org,
-	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Stephen Finucane <stephenfin@redhat.com>
-Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <ce1df91e-0674-4861-90ff-bcaf5428b414@sirena.org.uk>
-References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
- <4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
- <alc3gAJfAkG5DULJ@zed>
- <alfBvhZkAelq5RVf@mit.edu>
- <aliMsSH373RJ31Mq@zed>
- <aloZ9hqSgzN3beqH@mit.edu>
- <20260717152559.2d2bfc8d@localhost>
- <20260720095537.4d5d503b@robin>
+	dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b="eZC/Y0mo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=berg.pm;
+	s=protonmail; t=1784557757; x=1784816957;
+	bh=j+LVHoTpL8nxBUUAk+O7qsyoV75A13acO9XcZV3Od00=;
+	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=eZC/Y0moEajO8WQw0aYceJqJIyJNxu/aciegaXa2nO1SPJyuufyvFuZgBtNjY/HC7
+	 sQMg+vc+EoscTjQSVcj1LxGh5swkYeo0FRL7g/GVs/M8LvTZsF0AiMwi4/0sjwyD40
+	 ztfwBmLGbLAuxnSPCsv0sjTSQ84rtOAfpLX+VWLDQ9O3PzjbrFYpVuriqq6+oMwY4c
+	 okqvHlCeNSnMHW1qSuez+bWghG9VkGCWZpQDQwCICZCYWBlBV+8Khxief2cXB1u3xj
+	 I8BgeyNvqt8mSe2oVfdbDJJrT6Gz06Kknfqds9DRog8tWy94+TLYKRZHpUre0uzA41
+	 ezzOAI4MGZidw==
+X-Pm-Submission-Id: 4h3jZM1ktTz1DDp6
+From: Jakob Berg Jespersen <dev@berg.pm>
+Date: Mon, 20 Jul 2026 16:28:41 +0200
+Subject: [PATCH RFC 2/2] media: i2c: ov5693: fix horizontal flip polarity
+ and Bayer phase
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="v6TdgCBrZ9oIfXbr"
-Content-Disposition: inline
-In-Reply-To: <20260720095537.4d5d503b@robin>
-X-Cookie: Caution: Keep out of reach of children.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260720-sp7plus-ov-flips-v1-2-5f345b0673de@berg.pm>
+References: <20260720-sp7plus-ov-flips-v1-0-5f345b0673de@berg.pm>
+In-Reply-To: <20260720-sp7plus-ov-flips-v1-0-5f345b0673de@berg.pm>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Daniel Scally <dan.scally@ideasonboard.com>
+Cc: Hans de Goede <hansg@kernel.org>, 
+ Fernando Rimoli <fernandorimoli11@gmail.com>, 
+ Tooraj Taraz <tooraj.taraz@yahoo.com>, 
+ "Joseph V. Lavigne" <jlavig88@gmail.com>, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jakob Berg Jespersen <dev@berg.pm>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784557750; l=2974;
+ i=dev@berg.pm; s=20260719; h=from:subject:message-id;
+ bh=1eY9tAkEvPPuQJSxLFf9+C++D+iIDA3Q9citWB/XFqA=;
+ b=0ECAa2GAtrMIzstlkChlbyDn7OfaIT+ak7+8PK/2PZIBzT9TjQmwwuQEcUbAmesdaTAPI69ym
+ 5iHscq6aCFTCIy2+5ncGisD51eUH+EpsAscQZ/+9XhA/c0UU9Yu0S48
+X-Developer-Key: i=dev@berg.pm; a=ed25519;
+ pk=b1r+eoJThwSQ/r5DjO7jrcosyrIsyhlOuKk9CBdvBxs=
 
+Like the ov8865 (see previous patch), the ov5693's native readout is
+horizontally mirrored and the FORMAT2 FLIP_HORZ bits (reg 0x3821)
+un-mirror it: with the bits cleared the image is mirrored, with them set
+it is not. The vendor init table sets the bits by default (0x3821 =
+0x1e). The driver maps V4L2_CID_HFLIP=1 to setting the bits, so
+requesting a flip produces an unflipped image and vice versa.
 
---v6TdgCBrZ9oIfXbr
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+This is user-visible on the Surface Pro 7+ front camera (mounted with a
+180 degree rotation, SSDB degree=180): libcamera requests HFLIP=1+VFLIP=1
+to undo the mount rotation and gets a horizontally flipped image.
 
-On Mon, Jul 20, 2026 at 09:55:37AM -0400, Steven Rostedt wrote:
+Verified the same way as the ov8865, with a live 4-state flip/image
+matrix on the streaming sensor giving the same result: an inverted HFLIP
+with a correct VFLIP.
 
-> designed. But I fortunately know of these areas and can easily see when
-> Sashiko falls over it. Hence, these false positives do not waste my
-> time as I'm already aware of them. (I do take a deeper look to make
-> sure it's not reporting something similar that may truly be a bug).
+Invert the polarity so HFLIP=0 yields the unflipped image (bits set) and
+HFLIP=1 the flipped one (bits cleared).
 
-OTOH I had a submitter up to v14 on a new series over the weekend since
-they were iterating Sashiko feedback.
+Clearing the bits also shifts the Bayer sampling by one column: the
+fixed SBGGR10 mbus code the driver reports is only correct for the
+bits-set orientation, so the HFLIP=1 state has the wrong colors.
+Compensate by shifting the ISP output window (reg 0x3810) one column in
+that state only: OFFSET_START_X = 1 when HFLIP=1, 0 otherwise. There is
+a spare column to shift into because the crop end is programmed
+inclusively (crop end = crop start + width). Validated on the SP7+:
+correct geometry and colors in both flip states.
 
-> Do we need to add an flag to the MAINTAINERS file that states which
-> sub-systems uses AI?
+Signed-off-by: Jakob Berg Jespersen <dev@berg.pm>
+---
+ drivers/media/i2c/ov5693.c | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
-That's probably too complicated - some poeple will want submitters to do
-things like ask submitters to address Sashiko reviews before the
-maintainers will look at it, other subsystems might make use of Sashiko
-reviews or whatever but not make it a requirement for submitters to do
-so.
+diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
+index 4cc796bbee92..95dc6af45125 100644
+--- a/drivers/media/i2c/ov5693.c
++++ b/drivers/media/i2c/ov5693.c
+@@ -375,8 +375,28 @@ static int ov5693_flip_horz_configure(struct ov5693_device *ov5693,
+ 		  OV5693_FORMAT2_FLIP_HORZ_SENSOR_EN;
+ 	int ret;
+ 
++	/*
++	 * The sensor's native readout is horizontally mirrored; the
++	 * FLIP_HORZ bits un-mirror it. Map the control so that HFLIP=0
++	 * yields an unmirrored image (verified on Surface Pro 7+ front
++	 * camera by a live flip-control/image matrix test, matching the
++	 * same behaviour found on the ov8865).
++	 */
+ 	ret = cci_update_bits(ov5693->regmap, OV5693_FORMAT2_REG, bits,
+-			      enable ? bits : 0, NULL);
++			      enable ? 0 : bits, NULL);
++	if (ret)
++		return ret;
++
++	/*
++	 * Clearing the FLIP_HORZ bits shifts the Bayer sampling by one
++	 * column relative to the orientation the init table (0x3821 = 0x1e)
++	 * and the reported SBGGR10 mbus code assume, which corrupts colors.
++	 * Offset the ISP output window by one column in that state to keep
++	 * the BGGR phase; the crop window always has one spare column
++	 * (crop end = start + width, inclusive).
++	 */
++	ret = cci_write(ov5693->regmap, OV5693_OFFSET_START_X_REG,
++			enable ? 1 : 0, NULL);
+ 	if (ret)
+ 		return ret;
+ 
 
---v6TdgCBrZ9oIfXbr
-Content-Type: application/pgp-signature; name="signature.asc"
+-- 
+2.55.0
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpeMBoACgkQJNaLcl1U
-h9BHwgf9EL99RQ8Xd5lpdhU1Iko4oPfxWIG+LsRBtwRRW5LL66SyyB95llVHPLBa
-/8lA/BEQStc+dVt8xVldmMqpuVWM6U6J3hgcRL0ZT4/AkkYLBi+4lfgq46HQ82dY
-2gy4BqhZgO90ztFgGoupLCEa4/YeKF11KrY2PUY8ViIB/+ZiCNqAzl3pFg3pKSUd
-ERmE5HXhVBnHk/O7f80ipADhGKjhpSyZDddYdilQWaf92UR6rE6z9HdqOstE6Pcw
-YdvgRBhNWP6v8VmxAlNdZinzypGm2Bfru7g3KmFstuKcfADBTJkgwjTnOwzyLoH7
-A5xrqM7CvehuPQDh4OpCkJlStkKv4w==
-=O76p
------END PGP SIGNATURE-----
-
---v6TdgCBrZ9oIfXbr--
