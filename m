@@ -1,32 +1,32 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3575C34DCD2
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 07:31:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 427853C3432
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 07:32:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784532716; cv=none; b=kIiZY/3CviGSTQpwE5YCQCkLsy6KV6ZcK7G9EUZ7+0xefa4tZEJnZ67tSeceqOuDpMhQIniuKG5oraup2IdkV8XAFAd89gOuPjG2V8DS3ZrPlTmp3ewGVr0UrMZRKoH3htdIu50Bb/Vt8EMp6ZCDv1aPW/3GEnFi2mKpWkSiyQk=
+	t=1784532743; cv=none; b=uNaIqMJOkz3eRxYqF8Gop47UD6UFGdZGbFKRgd4PC5K0LtktnnA4y3mjRUlp65zOhTrsv47nhoWbF8bnL83TELpBC2VFfT8n0mS5cdC6nM99HFBCXE98Bf9TYfCvhC+H/t4TUuLzIsz0q33BEGfBJO0FfU8eK6qY+3KLPJgc6rY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784532716; c=relaxed/simple;
-	bh=1ElOTal8uzB9pbOiUrKjyapJe6QHK5YfhraTugcjhG4=;
+	s=arc-20240116; t=1784532743; c=relaxed/simple;
+	bh=5Z93bxTsqYe9zVV2eoxtixL6RyKdlMh8nzy0pokNp1c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MWtgykwgk9RGyRLybneP/mDji4oVPfFgo/eAw2vE2K2yU6TkrZmZ0HfBQengvyS4I2xiaR4goYFZHOiYEI+tI7G+LJq4WxxDcRZf3RLHmSUV+a8Yn8dlVNRJQx7Iap55dbycv1PCYg6bGutfnw0BscY/sDFDrp4AbWf3tpzWZJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=iFkThyuE; arc=none smtp.client-ip=213.167.242.64
+	 Content-Type:Content-Disposition:In-Reply-To; b=i9IjBtYa5dYeR7etSyYa6XP1k82r10w4xUzDDauLRZoPOFuzTQSEpqKtzZres2GMCNaK4g/KZtTlgp8e8MtivD8Ez2QO2GFDQcT/CtT7XcvW0OudnWdhYeMDKbOztcSZtfYj/jDpZluICddWAUfdM3ZCJJwQh9uPJwhIZ7PbyFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=FODGAD78; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="iFkThyuE"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="FODGAD78"
 Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1DFA1161;
-	Mon, 20 Jul 2026 09:30:55 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 33A93161;
+	Mon, 20 Jul 2026 09:31:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784532655;
-	bh=1ElOTal8uzB9pbOiUrKjyapJe6QHK5YfhraTugcjhG4=;
+	s=mail; t=1784532682;
+	bh=5Z93bxTsqYe9zVV2eoxtixL6RyKdlMh8nzy0pokNp1c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iFkThyuEXUEwqswVzqh7el4XyJgFvZq/jcUzxOqMpZelW4f6PrJyHnzMmfrM5gIZ8
-	 kYQwb514nCrPaxLRNBcZyRh86pzVpkipSFpde/RRTDYUQlzI3E+YLUVWjB5He3DVtk
-	 iXUgkDcRB5ApXnC5K6RTSc3Kj0o4iZ7xzhF3XEDA=
-Date: Mon, 20 Jul 2026 10:31:52 +0300
+	b=FODGAD78ZgSotSbiMlzYH/OvvqNqV6ZU6N1ERzcY0eycEpPWrZcCgpSOCWiansIhT
+	 oO5eRvQ/Fy5chuvUuNqRQOYB/EBMvH4az4mO6owJh5ReWHtA6rCbKMLxi2PDaguoNl
+	 eu7zJpRPkn2JzHImlX0j1hBK4wEdoLVStfN4kcKY=
+Date: Mon, 20 Jul 2026 10:32:19 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
@@ -54,10 +54,10 @@ Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v6 10/16] media: rdacm20: Don't assign set_fmt()
-Message-ID: <20260720073152.GB2259915@killaraus.ideasonboard.com>
+Subject: Re: [PATCH v6 12/16] media: gc0310: Don't assign set_fmt()
+Message-ID: <20260720073219.GC2259915@killaraus.ideasonboard.com>
 References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
- <20260701122634.1728782-10-sakari.ailus@linux.intel.com>
+ <20260701122634.1728782-12-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -66,9 +66,9 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260701122634.1728782-10-sakari.ailus@linux.intel.com>
+In-Reply-To: <20260701122634.1728782-12-sakari.ailus@linux.intel.com>
 
-On Wed, Jul 01, 2026 at 03:26:27PM +0300, Sakari Ailus wrote:
+On Wed, Jul 01, 2026 at 03:26:29PM +0300, Sakari Ailus wrote:
 > Do not assign set_fmt() as it is the same as get_fmt(), which will be
 
 s/will be/is/
@@ -80,21 +80,21 @@ s/will be/is/
 Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
 > ---
->  drivers/media/i2c/rdacm20.c | 1 -
+>  drivers/media/i2c/gc0310.c | 1 -
 >  1 file changed, 1 deletion(-)
 > 
-> diff --git a/drivers/media/i2c/rdacm20.c b/drivers/media/i2c/rdacm20.c
-> index 52e8e2620b4d..0179508626b5 100644
-> --- a/drivers/media/i2c/rdacm20.c
-> +++ b/drivers/media/i2c/rdacm20.c
-> @@ -442,7 +442,6 @@ static const struct v4l2_subdev_video_ops rdacm20_video_ops = {
->  static const struct v4l2_subdev_pad_ops rdacm20_subdev_pad_ops = {
->  	.enum_mbus_code = rdacm20_enum_mbus_code,
->  	.get_fmt	= rdacm20_get_fmt,
-> -	.set_fmt	= rdacm20_get_fmt,
->  };
->  
->  static const struct v4l2_subdev_ops rdacm20_subdev_ops = {
+> diff --git a/drivers/media/i2c/gc0310.c b/drivers/media/i2c/gc0310.c
+> index 7af4d66f42a0..19458eebfde2 100644
+> --- a/drivers/media/i2c/gc0310.c
+> +++ b/drivers/media/i2c/gc0310.c
+> @@ -534,7 +534,6 @@ static const struct v4l2_subdev_pad_ops gc0310_pad_ops = {
+>  	.enum_mbus_code = gc0310_enum_mbus_code,
+>  	.enum_frame_size = gc0310_enum_frame_size,
+>  	.get_fmt = v4l2_subdev_get_fmt,
+> -	.set_fmt = v4l2_subdev_get_fmt, /* Only 1 fixed mode supported */
+>  	.get_selection = gc0310_get_selection,
+>  	.set_selection = gc0310_get_selection,
+>  	.enable_streams = gc0310_enable_streams,
 
 -- 
 Regards,
