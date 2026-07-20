@@ -1,101 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013056.outbound.protection.outlook.com [40.107.159.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8359131AF1B;
-	Mon, 20 Jul 2026 18:31:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784572268; cv=none; b=WWOdncHwdgQfiDxdgjiVCqpS1Xsvqe1safNs3XsAi6s+OG9xMsfeIF7657DIcbAiD/UCJRmpA4DD5mjng84nMcx84mKBlFZEpJ0WycmRDHSpgthmTN2OMTo6dA5r2WaxV5Z5FiYwNCOQjDhsoZQgB2gXhbyWcWsfDs/oB1P+2AA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784572268; c=relaxed/simple;
-	bh=TF1Va7Kvd78gB/+nDw6b3xVkllExwoPZb7OdeLW7OqU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RgvsDflODCICTAvuV7uy53tVpGIaXBfnSUmqMJTguTF0m0JNtgelxyb4bsFIDqF5m0FUZ+mLEvZ5uLkiuO6lYW+AB9PK6rdMMjazG88OOTZw4xsUU4GTXZBCnr6japrCnE6scDuu3Q7cFwVW6UEALf4RQ/HxyjxFH6vJpknwM1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=T35RMJx2; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9179421A92F
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 18:53:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784573587; cv=fail; b=DjrQbD8jjAlm/a45ET5u6Q2rISK514E9yx2Oko7jgfRSkAXjl4vF4Bb5cwNspe0j29LDZgZ6YZZyf5N0Tq+q/UojJgyk9rmx8l0a9VoCJXZhIfpQTXxfXsxwsPU4QNdHNnCBkx6hPjs4wVt+Zb5SIvek2W2IrIHDpnoqZj2v0O8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784573587; c=relaxed/simple;
+	bh=pB7evlOLXjgmcqtvGS5pg2zmwgK9cFHMkK4Fcd3CCSE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=HpgJCYJ4Jqmxt/bO3XJvRtrpqYixBoEzbWbWMlQjLI+Iav+/lj9L89J+DGEWYM26x6XLk8XZEOmxNsPmqgYhmlH1qrNPtyTD9n7enT6bhUS5g38SGHSV7m1PbvxBNIZnNj4Hz7vvWNurpF/JaeH0XVKZNal0sgkpJGJyy2NQDDQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=q33LFyFH; arc=fail smtp.client-ip=40.107.159.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="T35RMJx2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2521BC2BCB8;
-	Mon, 20 Jul 2026 18:31:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
-	t=1784572268; bh=TF1Va7Kvd78gB/+nDw6b3xVkllExwoPZb7OdeLW7OqU=;
-	h=From:Date:Subject:To:Cc:From;
-	b=T35RMJx2s95t1w01oNw8Mpn7xxr+HduAGfVGsojWeywFSxVcCxSKnBG+Yk7t/zvqa
-	 UxDVRazX2iVqJZuZJjum61UsTyTP1CRKmHf59JM71YQXrE2mh+DyBbqDT9cSldbEyZ
-	 4a/hFBP7rixIlhmx25CEPYS3H1bFw38p2Y2Y7fZE=
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EA974C44515;
-	Mon, 20 Jul 2026 18:31:07 +0000 (UTC)
-From: Richard Leitner <richard.leitner@linux.dev>
-Date: Mon, 20 Jul 2026 20:31:00 +0200
-Subject: [PATCH] media: i2c: ov9282: restore flash duration calculation
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="q33LFyFH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gYLuqEoXpYAspRQJqvnaH4177vkvjlU7jXZAFeparOw8wfKHgUY0/mfyXFWUxt8OhdSFSV0kf/cdrC8nNYBvP9woTcMcgZDGmLGkcDnTpUP93DCBXzEGrtwqf/qhMtbT4yH08iMnBAzgphqSG0GyPaZop3TUkLSAUo408KWqX6sYljYu2rSzOI67mCDOUJ7C0zMqdmz1lPEW5nXJ8w+XkZaaQTmJWNWMchIzIBFOudM3sp7g6V/70vkF2JncjsbDreGvWmCdcAhYAHYIE7OmVJRLD87wvjYvHalSJ+jakxb6tGCssEHKLAd6eT1NqalVDYaAJJLMRvekgDgL0vDCCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZtWKZI5jGSiXkDBWKcoezS2UmXcwsKmDWSuW+66sNfE=;
+ b=KVlnKhSWSISq+9oLwjMbmVa/WeAxUrrG+dMn3CxIw2CIa+aaVU/FRdvzE0/YfUb13azoGwr4EKg9bpoMFsNuDbDBM/IPLJAs5G7JhdAnhB7xNKiUavXl32pJQN74XPynIfveUtfXBEXVQu43Bu/ZrjJKWOruGQUC7Y0UGrvMdyO+681OWNsn7uBMrnpXddFX1vn/1sOrs4vOLinbPnWKeEg5oxVUY9RIG0xqfpdHY6txAq0rTdVfFj5ZBdJWu23fez04YhuxUUsxv3j1e0ahNzdi/LGuz0WqcY7gArEMRbMvkpOQCbHsdI6sZjpEMWAwx4JjZolSl90lrba4S2UUgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZtWKZI5jGSiXkDBWKcoezS2UmXcwsKmDWSuW+66sNfE=;
+ b=q33LFyFHN6Wv6T1vw91+jh1pKfCxKwjRrvF3qoJmrqrT363JzsEe1IrHAIHbcVGSNMOP6ZlkfpUJmfbCClDIZ4XH65lXPj0x/NOjohRXprjDZhHZGRGYiXYGR74mbhxtmn4pVz8ixAelsNcSCuuQ+sdQlgCp0R1LYFInk0Km3Z2AXjULbDKAT6LtxxF9ylHymsxVh1D5Tk2z5ERW4AjUbsWhT+bQ0cHjpS/BwJFNkpcnoEOQVpLZ4MG/D02i6b8N/AWpg1W4LYNMjs+TqFd0Kd6VdD1AbyV4OLNfQKTUamigLblqpQ3+flZ/icm6+mg2MfoGugSEgV6pG2E7FHs/5Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DUZPR04MB10015.eurprd04.prod.outlook.com (2603:10a6:10:4d9::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Mon, 20 Jul
+ 2026 18:53:03 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0223.017; Mon, 20 Jul 2026
+ 18:53:02 +0000
+Date: Mon, 20 Jul 2026 14:52:55 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, Guoniu Zhou <guoniu.zhou@nxp.com>,
+	Frank Li <frank.li@nxp.com>, Dong Aisheng <aisheng.dong@nxp.com>,
+	Jacopo Mondi <jacopo@jmondi.org>, imx@lists.linux.dev
+Subject: Re: [PATCH] media: nxp: imx8-isi: Drop unneeded downscaling factor
+ clamping
+Message-ID: <al5uh4RMReHOLXKH@lizhi-Precision-Tower-5810>
+References: <20260520202738.86782-1-laurent.pinchart@ideasonboard.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260520202738.86782-1-laurent.pinchart@ideasonboard.com>
+X-ClientProxiedBy: SA9P221CA0002.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:806:25::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260720-ov9282-fix-v1-1-0145062ec9f1@linux.dev>
-X-B4-Tracking: v=1; b=H4sIAGNpXmoC/yXMQQ5AMBCF4as0s9aknQjlKmJBDcYCaWkkjbsrl
- t9L3h/Bk2PyUIsIjgJ73tYEnQmwc7dOJHlIBlRYqBKV3EKFBuXIlyRLRa4HW3bGQDrsjtL8xZr
- 2tz/7hezxFuC+H7SMldVuAAAA
-X-Change-ID: 20260720-ov9282-fix-ece641dc7a88
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Tarang Raval <tarang.raval@siliconsignals.io>, 
- Xiaolei Wang <xiaolei.wang@windriver.com>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Richard Leitner <richard.leitner@linux.dev>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784572267; l=1494;
- i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=TF1Va7Kvd78gB/+nDw6b3xVkllExwoPZb7OdeLW7OqU=;
- b=tC0eEjcpW4RTuCluO4nHRi8JlMSZv3R8zhKpzfRiYD3RhCTPTAA+NABjr6oFhGRNtFhGs1VtH
- MqF77ZkKbBpBNTPtQppVIPuPBiYFuoXSgQ4SEgLCQM1gJwv0k7w5Qb9
-X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
- pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
-X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
- with auth_id=350
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DUZPR04MB10015:EE_
+X-MS-Office365-Filtering-Correlation-Id: a173f03f-8c06-48de-89e5-08dee690200f
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|19092799006|18002099003|22082099003|3023799007|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+ s4leYNTPWETxRyzLrp1INMQVsxk4oRoZES6IUdOTlVpzfHiCy6GvJyEi8vrAx7MFKmQ4oRf/Ho13LQUFFYz9GpUNIpLy8eFGpxPA1GKJPUG1cy+RhY3ezONZORdBAfJ/tPIXNtp97n9m/mjhW2MvnEo9B7xmg8dedVPU1NIHeDyxETylwqc4/2xcSXy+amhhlSl5JPizQ86X8ZPYsBEFLScihhCNuf31QLxj6vFhIAr2vkmjjBMRJA+seI6Gf29SRLAofTPBj6HTMJO0Ap5lS7TvzhVzgyfnwoavV0ANCU2ibEWHj8l6sHLNH1rcuJmTGCv2uU4oHAxYlJnV9V9ZXh8m1Gk0sWCAe+2i8LmbuFiDQ46Yy560dNINXQEiAmgk78Haf77ycsbB62szIbv4XGQIAqTaSz3D9tk4lbwpukkAuqs0PVUW/AUN0fBPkjhB32ZSKctlrUazXtRp/2zvT28oEYhX3JxgWy5wx7uU7VPcSvEC+DvoW2PMrCHAv9RKeVWJxh4tP3H173kHlMnuI5HcchKBgCbLqYnreIUqSgWleDcUyPjJw/C35M2nQ55OfPpeRh1Ho/6jtVDyOnO3CzrrfeLZpr3b7NJz2gKOn+9tNwA8Y9RWDSN96+qI0XblW6oD+vldPXq3VddMJ3emiYiCwBDUsRsmkS5HZDrFaB0=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(19092799006)(18002099003)(22082099003)(3023799007)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?9UXjJEmz/U9uizByU1bKNCckjKlZPw98LUu7pMvM/r7U6YYNk6iRgVQfaJsU?=
+ =?us-ascii?Q?iCcAoezEzD4OwkYGyVnOh4jLfBmFAxiTTezbpYP70cBR6OMcQS6AC118kuhL?=
+ =?us-ascii?Q?vO8wrutdA7Lyux2NFZRYp4VbJjaiEazGOnORe7Ea3PTn3TGxYL2eVxNTQVrL?=
+ =?us-ascii?Q?Mry5R3c1UghmDpgZe4sqaHXZMOpuQ6uNAMuGo43vNTttpTUsFvkzQffko9Dg?=
+ =?us-ascii?Q?H6BsSrk5CCQ5b74sA4XkV8+vqA/fwQ8xAR+vYttyEs4IKIcfno32AdUBH9VE?=
+ =?us-ascii?Q?lvBfZCiWpLa9SVwXMXTc6tjM1Yc8ngQziN/CMm89nsaW2GO3KxjPSPFmZBet?=
+ =?us-ascii?Q?2bZqHv9O3Q72y2qEVOzPj0ONGaZsgDxoHgnvSWE7o1k6mf4uVGowmepYqs/T?=
+ =?us-ascii?Q?4nyLBlc2qlZ+ZbAg/ZpWZeStS0ywSgwxaEwunMAFGamfLAISSnmXF7yUWucu?=
+ =?us-ascii?Q?79hze02dkyOi8kGm/5AnROlFJ37V7Jvhmk2HyiNx3f67J3vh+SepkU7Y7QNy?=
+ =?us-ascii?Q?6GtdRE9Pclr5j4OH6cSd4lkXuvvqx9uRYNudwveapPMjRdHKg8WcnrHNtS4c?=
+ =?us-ascii?Q?GykGi1T7TTdorxqoRTMN80Y74uex3qCI6+DPsrx+kT2O2L739tjM46CmqYZW?=
+ =?us-ascii?Q?mjReCmxAkB0gmHMaLeqSoIqRtcdgE4il3TgM/kjZ7XgzFdYh1ISILcqR3t24?=
+ =?us-ascii?Q?vXQY2B3t2xxwmgSORrWkjm3ihF8A+gM2gfzCFnA/lp/FYq/IErfR2nIn15Be?=
+ =?us-ascii?Q?DTIkFLSKqesf99MoMuIk494voCl15J9lEyAQ+nsugOutkYJ9EIpGjUqpcH3A?=
+ =?us-ascii?Q?vJkuRTfbDgFk/b7fssWjBrTJFOEemZkcpZ0b0TFWlUVYW6I1yrWWram3S8vK?=
+ =?us-ascii?Q?PTa5YIzBOCj9TdvGC5KGVvmdzmT60QEiVoW9/333M1G2H+vjolC5bwmMqsIO?=
+ =?us-ascii?Q?1XoKfjNClTmc19WXu3IF/Ufi33In/SKR0X0S0HfHQ5GqQQZDQ2Wno6wwntgT?=
+ =?us-ascii?Q?dsSkZtSSSvDnQHf4lVaEeMmrjTrSXR/gR7TYtAX0qxVooKFAImqiqgkEKRRB?=
+ =?us-ascii?Q?AxdZG7edeAIeNRGNAUPStuXJlflzIlRddcGDLaXuBw+e/nXIpCzKevkpsbi7?=
+ =?us-ascii?Q?WkkzKeireZIapgCI5LSbgvD9AqCzepst627w7vByuMKKXAtkIuHR3CCg1QUR?=
+ =?us-ascii?Q?cnSMPoolQqwXh6Pi323t/f7eCK5pXI742WoDHW2P5oOQC5W1Dc6nHJN79Wo9?=
+ =?us-ascii?Q?jQpPPESO/cRt3zIL81+50JuzIlDTJbxBmO6Qb+74WQPcijdJPGnh1jPq5X5M?=
+ =?us-ascii?Q?LZww9pPd8YAKIqyvub37TCDEdpBuRXXJJ7rrra2tjgQyO4QxhnaT/d5+pt+/?=
+ =?us-ascii?Q?Hy/IF38nNRPOxUd3G3VpA3Z8aGfTAtabJfNVXmoey1jy5SJaCDkz8DArVlZE?=
+ =?us-ascii?Q?hhm2mdgNmoGYf/GTx9YgovHfe0UD6IYnr+atFiF4JCHZ6pp9gu/0bx19KVbT?=
+ =?us-ascii?Q?x29KjWL9Dz3j7KbFkZKQMRMI9pQlKKuzbEz70rvq1XN1WG7daDbvKsLI1uk9?=
+ =?us-ascii?Q?gIxrOL5HncWj5MXKLqOC86Wh54rUzCAvxVvr5g5j9AuOk4A43ezNkHfM9SVz?=
+ =?us-ascii?Q?3FON8s4a02Y3vXybtbaAmzFGzgAUG+WAtjAU789hNYRllpB4bsEYQLepu/vX?=
+ =?us-ascii?Q?ZOF/bC+/xdqYdkz+7LMJbxXhH6gv8igFkn6OOd6wYI7thJvO+wrVSNg5/8Cr?=
+ =?us-ascii?Q?t+N/IucJpb8Kxg8theAD7cCkFAwnWd4BkRmS9SC3kMmobz6FYoVg?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a173f03f-8c06-48de-89e5-08dee690200f
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 18:53:02.3009
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: U6YHpVJj4ZqfV1TTwSXb04zjA10cIBEEeFT+Flk7OcJpUPAsOKLmwyL/T0nNRY8b+og+tHMWbRN5AUuN/H9YN7LmmKRGtNYaWPh387V18BqGLvM5XzdpJMbhPMh2NWGe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB10015
 
-The migration to CCI helpers made V4L2_CID_FLASH_DURATION write the
-requested duration directly to OV9282_REG_STROBE_FRAME_SPAN, dropping
-the conversion from microseconds to the register value.
+On Wed, May 20, 2026 at 10:27:38PM +0200, Laurent Pinchart wrote:
+> The total scaling factor including bi-linear downscaling and decimation
+> is clamped to 16. The bilinear factor calculation therefore produceds
+> values guaranteed not to exceed the maximum factor of 2.0. The clamping
+> is unneeded, drop it.
+>
+> Note that the ISI_DOWNSCALE_THRESHOLD value of 0x4000 is incorrect, as
+> that would be a factor of 4.0. This was inconsequential given that the
+> computed factor never exceeded 0x2000.
+>
+> Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> ---
 
-This made flash strobes too long and produced overly bright frames.
-Restore the missing calculation so flash duration is programmed
-correctly again.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Fixes: 273f52f3cbec ("media: i2c: ov9282: Convert to CCI register access helpers")
-Cc: Xiaolei Wang <xiaolei.wang@windriver.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
----
- drivers/media/i2c/ov9282.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-index 5b6f897a74fcd..5abe51d21f89c 100644
---- a/drivers/media/i2c/ov9282.c
-+++ b/drivers/media/i2c/ov9282.c
-@@ -648,7 +648,8 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
- 				      ctrl->val ? OV9282_OUTPUT_ENABLE6_STROBE : 0, NULL);
- 		break;
- 	case V4L2_CID_FLASH_DURATION:
--		ret = cci_write(ov9282->regmap, OV9282_REG_STROBE_FRAME_SPAN, ctrl->val, NULL);
-+		ret = cci_write(ov9282->regmap, OV9282_REG_STROBE_FRAME_SPAN,
-+				ov9282_us_to_flash_duration(ov9282, ctrl->val), NULL);
- 		break;
- 	default:
- 		dev_err(ov9282->dev, "Invalid control %d", ctrl->id);
-
----
-base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
-change-id: 20260720-ov9282-fix-ece641dc7a88
-
-Best regards,
---  
-Richard Leitner <richard.leitner@linux.dev>
-
-
+>  drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c | 5 +----
+>  1 file changed, 1 insertion(+), 4 deletions(-)
+>
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
+> index 16b20ea2d1db..e07eebae9e2b 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
+> @@ -11,8 +11,6 @@
+>  #include "imx8-isi-core.h"
+>  #include "imx8-isi-regs.h"
+>
+> -#define	ISI_DOWNSCALE_THRESHOLD		0x4000
+> -
+>  static inline u32 mxc_isi_read(struct mxc_isi_pipe *pipe, u32 reg)
+>  {
+>  	return readl(pipe->regs + reg);
+> @@ -118,8 +116,7 @@ static u32 mxc_isi_channel_scaling_ratio(unsigned int from, unsigned int to,
+>  	 * output (input / scale_factor) rounds up to exactly the desired
+>  	 * output.
+>  	 */
+> -	return min_t(u32, DIV_ROUND_UP(from * 0x1000, to * *dec),
+> -		     ISI_DOWNSCALE_THRESHOLD);
+> +	return DIV_ROUND_UP(from * 0x1000, to * *dec);
+>  }
+>
+>  static void mxc_isi_channel_set_scaling(struct mxc_isi_pipe *pipe,
+>
+> base-commit: d97d13c24d7893abcfb80d38630ce74daaa1434c
+> prerequisite-patch-id: 2d7379698fb55fe2345d604dfb73914f91705a5a
+> --
+> Regards,
+>
+> Laurent Pinchart
+>
