@@ -1,257 +1,117 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3643394E91
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 19:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784575121; cv=pass; b=KNlN8ykkgoNd6ZSdCwRkehP2s5AKJX3CDuCFELif+q7w4oLFpMvHHz/10OiU1vEIyzvC9IRfapQ23OuKWer23REc1b0hBnRqkkfN+Vbpj6bgUhcJIBIti6yYkda/3MKd65oh5h45cA7scaC5GmC3mDyJYdOX9FNDlnRPzixq+qg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784575121; c=relaxed/simple;
-	bh=CzOzvw9sY6kxmGwhIsCJLwfImNmbkBT0gx9KZ9/KDKk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YbtJRdMi1s+1y2WwmFKcoFOJNWVXHzvYqJufakCnvE5eLX2RLbsPC6eRloaAZ2sJ1wi8silZplv6JjtS3gQLlmTHA9uTHZ+OtSM/PjYPPt9aE71MPr8XShCPGP60TFtpYtAAr1zfIq/alo6u5xj36q/239hazoljH75cwuOJCK4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZvsJU3Fs; arc=pass smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2040432E98;
+	Mon, 20 Jul 2026 19:36:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784576178; cv=none; b=JUWaYnoywBanu2A1aaufnbK0T+U0cTgXKeLQ2BlMfZXZAE1lZd0cli4t/n+oGv1ux/0tEtp0oammyzEGCLe+KkGR9O+jh3B22aGjaGTenSglzKcwAKQordLtdWRLssZQVr1q/ozcCmiDEad+hu/GbBpAeaArneAlK2PMCjwHDWU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784576178; c=relaxed/simple;
+	bh=kAWAgMbi/RN/UZiUf2m+M3gAzh04lOtNsDjwHOkSnBw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HnXGUn+TSWmgKURsMw8wEqnsWURRwPNtC5WZV2hK0r7hcsLvF92g1NqExiIz1VUIHhrTRIe4NHmGlEysbxKh+rN8v4AaF6i4mu63Ma2AqjwHPuLFnuW7pa+wJIPPgnFyvFGitFcPacaZvqlCv7+yk38S+R4OWZGqb5Lg9kXDEGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NlwaH8io; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZvsJU3Fs"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2ccdf36f63dso417025ad.0
-        for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 12:18:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784575119; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WPGv6NmmjPtjx9xy9GK6b6R2FnANY2Y716UhoYItq00h2ZorS3vkUz/1L1Ha08WaBm
-         IIysLARtKsIf4E0xn5Dim5MZUDKwl/aJiAAvOuAeJmbBGSBZ6T6HKnVvkENQWspiz01s
-         O9ymo5LetelB5LBNBxWQawLEn+wNHMLhCTe2g2d96Wy+qUJgVUVmnQ1hNKWXU/+VGx/c
-         Cdn788IyimoGdRSYXTp6lWetiawdSgdkkvbhsRVDMVgfxMLhyV+n2AWVrmnMVVO5aNzg
-         xMjapNDSk68nOZPOhGtoG8HBQZBPlLxkRLv75pcZhdgQdZXd6HA2Bz4HM7x3qPDrpMiF
-         hXiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xZApkQlP3tUF+0sIVFilGXDzjCPNwegylhqk3EBxphQ=;
-        fh=qrKd8JZ+T6LIvM77Djh+umsPgv/+wUv7kELPy1WuGnc=;
-        b=rTnhdEjVG/KNpTKiHzSCtIi7q4dWlseu7JSxUUHODAVtpUTOwVKwI+Ktd8qWTgJ1n/
-         MLmXkv/Pn+LRL3uz/KqlWq0bckJN9GaSaWwJaF0aHPTLtqiusZOU7ddIqtyc+ZY1s9uH
-         F96dJWZ8jXPqCV4/H7p3TJuDn5jzuK4mJtr3qaqxqRqkOhIIX/AchHaTV5tUVT/gqf1W
-         yJXplp/6QdNHMlFKHQGTvpgh+oegeKai1zag0aYOgDKg3yYVkvxqDfYd8+x1/rgylKia
-         +GfJFfoZRpl1vsNOleVxOledZOls3lBiHOPbql1HJ6OLaQ0omvzDnLdOqH3L11W+uDVj
-         DnQQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784575119; x=1785179919; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xZApkQlP3tUF+0sIVFilGXDzjCPNwegylhqk3EBxphQ=;
-        b=ZvsJU3FsAPRSa4YHucj5v6EVOfLO5qk8JIQqF6wzKspt3y7T6VluPADGOzTklxY3Cs
-         3G3EEI+2pbjzDvIXH7llyDZXNzLnshzqIZijJh4ShctRoAo11eM8WbbfcJ9WNh4IBKvb
-         YU7zPyZHZKR/ckEIsG+YNjvgDW94UHoz2gdDG+yKbdqm/piFRX8kuyHdeBR3LXhqMWgD
-         7bgzfqZaovA6fvsvkddJEiCtDaewht/dNHPAENm+6Wzd5QVf7DbsUdrNdh9dg4/Ruvw6
-         y+yGnNm3NGps1vkfQZp3iKzwhIIL1coXmi94baPalTDp/Y/sbGXKRtpHIMhe62aYMDvs
-         2q3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784575119; x=1785179919;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xZApkQlP3tUF+0sIVFilGXDzjCPNwegylhqk3EBxphQ=;
-        b=QMZ25jb2v+3eF8XPVDd+LzpV/GDpprcCVLZMuVtjHEi7LowvTbIkk4xptUfMAvcntc
-         TQiRJvi2/HpL4jTQDkcqk9tOULfd8XyNY+BB5AlMqT09Nr5L1lkb5JH8N5MplpCAGuiV
-         xcINq72QJqL4ZlJw0sA1MGWQm4cPBOV7p9HN/agRsrghwjWCnF0tU3qWqcu3lpjuXi42
-         vCv+oSYXqmCDIPD/cNskJcpJ6ccixA6oHznyWiqVjNfsLKnp7IGRS9knZWHgvFpJnAKN
-         dnMDZL2cneZ+/kacvycgRcIe8np35GHU+WavL0NaWj1n3nc7Wb/SJuD7YqBKmxtY+UM1
-         0S0Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrD0l4j9yJ3+AvfjcZtb45NMLOtoLZTGKv1uIOCBSkDPdbXLWLOGu2/TM9oqJWWTsP8rkk+bnWaC+XrBQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyb33lv0EqWvBNl//5JuZ6M7b7BhKej5YcicsXKjmsDY5DFJO00
-	taDoe/De0z+XhUY13IKby3IcAxA9NwSW2tLjU/c6jgK7GgZVoUGBoObS6X6Q4MztJV1xSZyb9cg
-	o2TmcSFM5/ch4POCPIYDzyOxPHFipD3Ctf+8SVtwg
-X-Gm-Gg: AR+sD11DM63Lrc9ekjHdM2K2XUbU1jfCK/e/MPTaD4BZCQ6gQ75Ebw6P4AxplvB6Gqb
-	VfFnAuAtMTjbanMDMNRslkBfs4dYQGTUgU3YK1pFp0Go8AulOf42+sBz+CgrnUzsvRk/WjAOu0/
-	8/6oPIVu1S08lVCey/ZSNaYvTzOVotF7APepFHPCBgLiIfiSQRMwxmOwNpDluXBm6JgLh/eHnNk
-	m18pWGEY2IWRKxiFv6lQEjMrjLlUxsMcEZAXYvxAtuP+yuZC5thLhtZ51VUCX6KCz8KRA6MrNxm
-	7Zyx2wgII9rXIpSyfj+Rma+Ryio=
-X-Received: by 2002:a17:902:ec92:b0:2ce:f9e2:4646 with SMTP id
- d9443c01a7336-2cf7b71d50emr2078035ad.27.1784575118135; Mon, 20 Jul 2026
- 12:18:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NlwaH8io"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AD6B1F00ACF;
+	Mon, 20 Jul 2026 19:36:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784576175;
+	bh=LPoAl9v0TquURXlgmm05N/FuKsQlylGZTNHAzAHS/yc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=NlwaH8ioqGGqlhA9HfvAJL9Fqi3HdMzYma98NWC6WAVx8smf0Vcesa8gvhhPvYSDC
+	 c6RdEVrLJF+BZZCrQWTAAI8XswqIClNgs8x+sbFlKV5gA1YP0dt925Ygb5wqRUSy89
+	 4znsn7AQzvWlVR9vmlN5TeO9iigKcI9MY8Xwx5s3Hi8LoM4AqyqAry4YNjwF4Eqe6D
+	 FOj91tCQMspCStWM1hRkQDnCx4dIYwgOKESgYzdiPZNkdHTMEHaXuyMK/Z1YrOCDpg
+	 e4H04EyLwaO2hMgyOTgiv/BQZmElTlvvwQ63hJWeNxbVwaihRc7iB5qnYwihoGV/R4
+	 fuVDm13YNhNhg==
+Message-ID: <f4041aba-ccbb-4126-a65b-a385e882949e@kernel.org>
+Date: Mon, 20 Jul 2026 20:36:11 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260719175857.4071636-1-ap420073@gmail.com>
-In-Reply-To: <20260719175857.4071636-1-ap420073@gmail.com>
-From: Mina Almasry <almasrymina@google.com>
-Date: Mon, 20 Jul 2026 12:18:25 -0700
-X-Gm-Features: AUfX_mytWgNwpYQoEAQtZaZUmAoldCJ_ZYmUTMTxrjD32WIPJUFR9GJy7g5tI1U
-Message-ID: <CAHS8izMocev_0TtAsUr9BqCm6sH2DBh-bPK4DfZYNEAb_d2G6w@mail.gmail.com>
-Subject: Re: [RFC PATCH net-next 00/13] net: knod: in-kernel network offload device
-To: Taehee Yoo <ap420073@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Alexei Starovoitov <ast@kernel.org>, 
-	amd-gfx@lists.freedesktop.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	Andrii Nakryiko <andrii@kernel.org>, Bill Wendling <morbo@google.com>, bpf@vger.kernel.org, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Daniel Borkmann <daniel@iogearbox.net>, David Airlie <airlied@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Donald Hunter <donald.hunter@gmail.com>, 
-	dri-devel@lists.freedesktop.org, Eduard Zingerman <eddyz87@gmail.com>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Eric Dumazet <edumazet@google.com>, 
-	Felix Kuehling <Felix.Kuehling@amd.com>, Hoyeon Lee <hoyeon.rhee@gmail.com>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	John Fastabend <john.fastabend@gmail.com>, Justin Stitt <justinstitt@google.com>, 
-	Kees Cook <kees@kernel.org>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, Leon Romanovsky <leon@kernel.org>, 
-	linaro-mm-sig@lists.linaro.org, linux-hardening@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-rdma@vger.kernel.org, llvm@lists.linux.dev, 
-	Mark Bloch <mbloch@nvidia.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Michael Chan <michael.chan@broadcom.com>, Nathan Chancellor <nathan@kernel.org>, netdev@vger.kernel.org, 
-	Nick Desaulniers <ndesaulniers@google.com>, Paolo Abeni <pabeni@redhat.com>, 
-	Pavan Chebbi <pavan.chebbi@broadcom.com>, Saeed Mahameed <saeedm@nvidia.com>, 
-	Shuah Khan <shuah@kernel.org>, Simona Vetter <simona@ffwll.ch>, Simon Horman <horms@kernel.org>, 
-	Song Liu <song@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Tariq Toukan <tariqt@nvidia.com>, 
-	Yonghong Song <yonghong.song@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: =?UTF-8?Q?Re=3A_venus=3A_encoder_job_execution_hard-resets_SoC_on_S?=
+ =?UTF-8?Q?M7325_=28sc7280-compatible=29_=E2=80=94_extensive_analysis=2C_nee?=
+ =?UTF-8?Q?d_wrapper/GDSC_insight?=
+To: Kirill Ermolitskiy <00vopoj00@gmail.com>
+Cc: linux-media@vger.kernel.org, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, linux-arm-msm@vger.kernel.org
+References: <MOR1FYP_9xkM8GfpziB5D4Q3H5XLHq6MowZkeFMhI_49wkvgOVxXHbtJYMHHnToR_DOz2HU3N102cMMRPNWfLA==@protonmail.internalid>
+ <CADRRrN12FvS3v3c3on69XLErB9i8ih=LgJOGaKhYYT7KrZKe2g@mail.gmail.com>
+ <035192d8-9d6e-4e04-ad1b-56f52c11933d@kernel.org>
+ <b6rUao5eYcEHwZ_P1JyyUjJUtwY-yJnWVfxHUa9sHdWOmlMoXSLxjMoscSmOu0V5VkwrO7q4TnNzRvoFP5RpLg==@protonmail.internalid>
+ <CADRRrN23tWrKKnPDdsO_61QQd790z2W+2ejZ-s1iZkJh+=oHhw@mail.gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <CADRRrN23tWrKKnPDdsO_61QQd790z2W+2ejZ-s1iZkJh+=oHhw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sun, Jul 19, 2026 at 11:01=E2=80=AFAM Taehee Yoo <ap420073@gmail.com> wr=
-ote:
->
-> knod (in-kernel network offload device) drives a GPU directly from the
-> Linux kernel - with no userspace GPU runtime such as CUDA or ROCm, and
-> no userspace component in the data path - to accelerate packet
-> processing.
->
-> The kernel itself allocates the GPU's queues, JIT-compiles the
-> per-packet program to GPU machine code, and dispatches it; the NIC DMAs
-> received packets straight into GPU memory and the GPU returns a verdict.
-> The GPU is programmed like any other in-kernel offload, not through a
-> userspace framework, so existing XDP programs and IPsec SAs can be
-> offloaded to it transparently.
->
-> The design and motivation were presented at Linux Plumbers Conference
-> 2025:
->
->   https://lpc.events/event/19/contributions/2267/
->
-> Motivation
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
-> Line-rate packet processing that does non-trivial per-packet work - an
-> XDP program doing L4 load balancing, or IPsec crypto - is bound by the
-> host CPU: each core handles one packet at a time, so scaling means
-> spending more cores. A GPU is the opposite shape - thousands of lanes
-> running the same small program over many packets at once (SIMT) - which
-> happens to match the per-packet-program model of XDP.
->
-> knod moves that per-packet compute off the host CPU and onto a GPU. The
-> NIC DMAs received packets directly into GPU memory, the GPU runs the
-> program across a batch of packets in parallel, and only the result
-> comes back: a verdict for every packet, plus the packet itself for the
-> ones destined to the host. The CPU no longer pays the per-packet
-> program cost, and throughput scales with GPU occupancy rather than core
-> count.
->
-> Crucially this happens entirely inside the kernel. GPU packet processing
-> today generally launches work from a userspace GPU runtime (CUDA and
-> friends) and keeps that runtime in the data path; knod instead builds
-> the GPU queues, compiles the program, and dispatches it from the kernel,
-> so it plugs into existing offload paths (XDP, xfrm) with nothing to
-> install or keep running in userspace.
->
+On 20/07/2026 17:28, Kirill Ermolitskiy wrote:
+> Tested forcing all venus_opp_table entries to rpmhpd_opp_turbo_l1
+> (verified via /sys/firmware/devicetree) — encoder still hard-resets
+> identically at first frame. So if it's an operating-point failure,
+> it's not the CX vote via required-opps; possibly a different rail
+> (MX/MMCX?) or something the OPP framework doesn't reach on kodiak.
+> 
+> ---
+> Del'aRun
 
-TBH I found this motivation weak, especially since IIUC you're asking
-for almost ~50K lines of code to be merged to the kernel. My thinking
-is that (a) it's true that Native XDP takes up CPU cores, but
-HW-offload XDP already exists and takes up no CPU. (b) with AI, GPUs
-are very expensive and the work they're doing is critical, so you're
-unlikely to buy a GPU and use it for knod-offloaded XDP; you'd
-probably buy a cheaper smart-NIC? And in the cases where you do have a
-GPU, it's likely your system's money-maker, and you probably want to
-offload work from the GPU, not to your GPU.
+In which case let's try constraining the pixel and non-pixel IOVAs.
 
-But as far as I can tell there should be much more interesting
-applications for what you're doing rather than offloading XDP. Like
-wouldn't you with this feature be able to implement ML collectively
-like all-to-all/all-reduce/all-gather as purely XDP programs offloaded
-to the GPU? If you have that implemented and can positively compare
-performance to RoCE or RDMA that would be a much more interesting use
-case IMO.
+Give this a go
 
-> Model
-> =3D=3D=3D=3D=3D
->
-> knod binds two endpoints through a third object:
->
->   - a NIC-side netdev, registered by the NIC driver;
->   - an accelerator (the GPU), registered by a provider built into the
->     GPU driver;
->   - an offload device, created on attach, that connects them and owns
->     the per-queue data-path state.
->
-> The accelerator ops are feature-agnostic, so different per-packet
-> programs plug in behind one interface. This series ships two features
-> to show the framework is not tied to a single use case (the accel-type
-> uAPI also reserves "dpu" for future non-GPU backends):
->
->   - BPF:   an XDP program attached in offload mode is JIT-compiled from
->            eBPF to an AMD GCN shader and executed on the GPU.
->   - IPsec: RX ESP full-packet decrypt on the GPU (proof of concept,
->            see below).
->
-> Data path
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D
->
-> For a NIC RX queue bound to an accelerator, a received packet flows as
-> follows:
->
->   1. Attach reconfigures the NIC's page_pool so its pages come from GPU
->      memory, exported as a dma-buf and plugged in through the devmem
->      memory provider. The NIC therefore DMAs the packet straight into
->      GPU memory - there is no host-side copy on RX.
->
->   2. Instead of building an skb and entering the stack, the NIC's NAPI
->      pushes a small descriptor (memory ref + offset + length) onto a
->      per-queue lock-free SPSC ring shared with the GPU.
->
->   3. A persistent GPU worker drains descriptors and runs the active
->      feature's shader over a batch of packets in parallel - one
->      workgroup per packet - then writes a per-packet verdict back onto
->      the ring: PASS, DROP or TX.
->
->   4. Back on the NIC NAPI, each verdict is applied:
->        - DROP: the GPU page is recycled to the pool;
->        - TX:   the packet is sent back out the NIC directly from GPU
->                memory (XDP_TX), with no host round-trip;
->        - PASS: the packet is copied out of GPU memory into a host
->                delivery page by the GPU's DMA engine (async SDMA),
->                wrapped as an skb, and handed to the normal stack.
->
-> So only PASS packets ever touch host memory, and even then the copy is
-> done by the GPU, not the CPU.
->
-> The control plane is a generic netlink family ("knod") for
-> attach/detach, accelerator/NIC inventory, and per-accelerator feature
-> selection, with notifications on bind/unbind.
->
-> Code layout
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
-> knod separates into a subsystem-neutral core and a GPU-specific
-> provider; nothing in the core knows about GPUs. Roughly:
->
->   - core + control plane + NIC drivers   net/, kernel/bpf/       (~4.4k)
->   - GPU provider (queues, JIT, shaders)  drivers/gpu/drm/amd/    (~39k)
->
+https://patch.msgid.link/20260601041336.9497-2-daniel@quora.org
 
-Since the changes are so large, I would break this work into many
-series, the first which only supports a very minimal set of work
-(which I would guess would be XDP_DROP and XDP_TX), and then follow up
-with another series which adds XDP_PASS support, and then IPSec, etc.
+* Adapted to the appropriate dtsi obvs.
 
---=20
-Thanks,
-Mina
+---
+bod
