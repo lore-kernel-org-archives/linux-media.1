@@ -1,29 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 623C12E718F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB1A22E3B15;
 	Mon, 20 Jul 2026 02:55:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784516121; cv=none; b=YX70GHdS6fwEbRjaRrcVE2erVkp/Rr0S+dX+w+oOIpoDA93sE3xvkXJEogDjKyYO+vEwK9b/65K2Uv03PoTlX6rymSkm9nNCWmZnjOsiYveVjuJNFHgtFRPSu+/+VaNIOOJoa/gkVIRsttud9lJeAoM9bafclQKtANUiDJ3sm2k=
+	t=1784516121; cv=none; b=u2MzX2NESbgysZyze9/RLO1pKsksW4aMDftmaKU9oTBI5aHYKM2vEBusCSIrWAeHG3+5CRjg3LhmcLtpCuEhJKTOJeJJ0tZdg1ZXUnQGS2wS/Smejt7LQO4LIv4YlRykp8e0tmKYva9BQHxeEADhdUz+xDLFMR0YbpdQPaGdkkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784516121; c=relaxed/simple;
-	bh=zgZzkhWZeDFxK0qc5c1OHOKT1LuDEN0p9JQhIfuEbfg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RhjH9tHWXh/UbfIVYeHlaICstTGuz87HdqP2zri0MjfUFbMqz+RyWTr9NcKiJhQmegfe/9gE0J/eLHBiMTP24JcBhSMWvm6EuHSE9ZyrTcAemKO+756iI+1PYWIZqqBtl1ZKg8QczTuiJc2rytp0o3D+IZrnt+cpAvQPVTpj3jg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=RazdPaCm; arc=none smtp.client-ip=220.197.31.4
+	bh=dzRGBBdcRV9pFEaHBB6L1KYX9geo/tRkjlSW01786QY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=UlKF0A5IqP+ashzo0KBow32/sFfgYakeU+2WWiRQadHjfs+vnr7h0D+mKY+n3VxsIy2zujrN4rRjUKnlrFdtJnFMKPvBewtjFNwxRwXHz7i3Y8tZDuCiMJszfAbKJ0qQCUhcBlDjHfgaf5aVQUJM2fWZ2SLgWJGb9ec6eNHKeg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Cf7gGOyO; arc=none smtp.client-ip=117.135.210.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="RazdPaCm"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Cf7gGOyO"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=HB
-	37kvVHno9BV4k4w7cIHVIwTAZjuMJ4VqPJ/r22pNc=; b=RazdPaCm8SIxX28RGO
-	3EISmW27l1XbpYnXdC7zLaORVUiN44wZqBnf6fZTvSLs0MPf3x71UqHMbBKYBptd
-	yubF35YbOvZ82rByPAQ87H1ilK9vXO9i7eiS3je4WN3RWNZJfKdIiwV4pz2WSkUt
-	MqJGuGfkuMVWG9ahbzAZNb4jM=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Bu
+	cxJunHYdfaz2vPFDEMTkXya3D0p0OPJTTD8Pugtgs=; b=Cf7gGOyOoGctMLzHBw
+	IR1IutfWVPJFcz5/8m9PDYcRjjSWhLTS1qV9YFRO+bvHmxcxw2OpVdqFTt2Z7ImM
+	E6rTBsXVglBuwgGr64BATo45eBwgLdDxjqR/icRPRQDiZMn9qMv3KkU07OLjpWo0
+	bkZISgq7+1ZDEH6lJ7CUudJeY=
 Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3v5rwjV1qaGtIJQ--.123S2;
-	Mon, 20 Jul 2026 10:54:45 +0800 (CST)
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3v5rwjV1qaGtIJQ--.123S11;
+	Mon, 20 Jul 2026 10:54:54 +0800 (CST)
 From: Lei Huang <huanglei814@163.com>
 To: mchehab@kernel.org
 Cc: johan@kernel.org,
@@ -31,10 +32,12 @@ Cc: johan@kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Lei Huang <huanglei@kylinos.cn>
-Subject: [PATCH v2 00/17] media: s2255: Coding style cleanup
-Date: Mon, 20 Jul 2026 10:54:29 +0800
-Message-Id: <20260720025438.207149-1-huanglei814@163.com>
+Subject: [PATCH v2 09/17] media: s2255: Add spaces around multiplication operators
+Date: Mon, 20 Jul 2026 10:54:38 +0800
+Message-Id: <20260720025438.207149-10-huanglei814@163.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260720025438.207149-1-huanglei814@163.com>
+References: <20260720025438.207149-1-huanglei814@163.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -42,71 +45,37 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v5rwjV1qaGtIJQ--.123S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAFyUGF17CrW8ur4fKw1ftFb_yoW5AryxpF
-	n5KFs8Aa9xJ340y3s2yw17tFn3C34rJr4UGryaq34xXrn8CFy8Xwsa9a129FykJr97Za9r
-	ZF4qgrsrGa4Yv3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UPpnLUUUUU=
-X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC0RWSiWpdjfXM0wAA3P
+X-CM-TRANSID:_____wD3v5rwjV1qaGtIJQ--.123S11
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Gw48Aw17Zr47ArWUuFy3Jwb_yoWDGFX_Ww
+	13Zrn3XFyjkr15KF42yr1vvayYyF43WF18uFn0qwnxJa4jya15XwsxZw13A3s8GFZ7ZF45
+	X398JFn3ZrnIgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU0eRRtUUUUU==
+X-CM-SenderInfo: xkxd0wxohlmiqu6rljoofrz/xtbC0R6Ui2pdjf7NtAAA3t
 
 From: Lei Huang <huanglei@kylinos.cn>
 
-The previous coding style cleanup series failed during
-integration by the Media CI robot because it depended on the
-"media: s2255: Rename CamelCase goto labels to snake_case" patch,
-which had not been merged independently in the linux-media community.
+Fix all 3 'CHECK: spaces preferred around that '*' (ctx:VxV)' issues
+reported by checkpatch.pl in s2255drv.c. Add spaces around the
+multiplication operators in the SYS_FRAMES_MAXSIZE macro.
 
-To resolve this, the goto labels rename patch is now included as
-patch 1/17 in this v2 series, followed by the remaining coding
-style cleanups. This ensures the entire series can be applied and
-integrated cleanly as a single unit.
+Signed-off-by: Lei Huang <huanglei@kylinos.cn>
+---
+ drivers/media/usb/s2255/s2255drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This series applies a series of coding style cleanups to the
-s2255 USB video driver (drivers/media/usb/s2255/s2255drv.c) to bring
-it closer to the Linux kernel coding style. The changes address issues
-flagged by checkpatch.pl and general style review:
-
-  - Rename CamelCase goto labels and remaining identifiers to snake_case
-  - Remove unnecessary spaces after casts and parentheses around
-    conditions
-  - Use consistent braces on all arms of if/else statements, and remove
-    unnecessary braces from single-statement blocks
-  - Replace NULL comparisons with ! notation and bare 'unsigned' with
-    'unsigned int'
-  - Fix alignment to match open parenthesis and add spaces around
-    multiplication operators
-  - Parenthesize macro arguments to avoid precedence issues
-  - Fix block comment style to kernel format
-  - Add blank lines after function/struct/enum declarations and after
-    variable declarations, and remove extra blank lines
-  - Remove unnecessary return statements from void functions
-  - Remove unnecessary debug logging and out-of-memory messages
-
-No functional changes; the driver behavior is unchanged.
-
-Lei Huang (17):
-  media: s2255: Rename CamelCase goto labels to snake_case
-  media: s2255: Rename remaining CamelCase identifiers to snake_case
-  media: s2255: Remove unnecessary spaces after casts
-  media: s2255: Use consistent braces on all arms of if/else statements
-  media: s2255: Replace NULL comparisons with ! notation
-  media: s2255: Fix alignment to match open parenthesis
-  media: s2255: Remove multiple blank lines and before close braces
-  media: s2255: Add blank lines after function/struct/enum declarations
-  media: s2255: Add spaces around multiplication operators
-  media: s2255: Remove unnecessary parentheses around conditions
-  media: s2255: Parenthesize macro argument to avoid precedence issues
-  media: s2255: Add blank lines after variable declarations
-  media: s2255: Fix block comment style to kernel format
-  media: s2255: Remove unnecessary return statements from void functions
-  media: s2255: Remove unnecessary debug logging and out-of-memory
-    messages
-  media: s2255: Remove unnecessary braces from single-statement blocks
-  media: s2255: Replace bare 'unsigned' with 'unsigned int'
-
- drivers/media/usb/s2255/s2255drv.c | 413 ++++++++++++++---------------
- 1 file changed, 205 insertions(+), 208 deletions(-)
-
+diff --git a/drivers/media/usb/s2255/s2255drv.c b/drivers/media/usb/s2255/s2255drv.c
+index 3aa6270358fc..ee69492ba8b9 100644
+--- a/drivers/media/usb/s2255/s2255drv.c
++++ b/drivers/media/usb/s2255/s2255drv.c
+@@ -69,7 +69,7 @@
+ #define MAX_CHANNELS		4
+ #define SYS_FRAMES		4
+ /* maximum size is PAL full size plus room for the marker header(s) */
+-#define SYS_FRAMES_MAXSIZE	(720*288*2*2 + 4096)
++#define SYS_FRAMES_MAXSIZE	(720 * 288 * 2 * 2 + 4096)
+ #define DEF_USB_BLOCK		S2255_USB_XFER_SIZE
+ #define LINE_SZ_4CIFS_NTSC	640
+ #define LINE_SZ_2CIFS_NTSC	640
 -- 
 2.25.1
 
