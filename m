@@ -1,193 +1,156 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4EB4314A3
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 21:48:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784584113; cv=pass; b=iAbjjx5aX21yg7bOm1pyi18rKqNH95Rj3ONsZoV7g4L1Xcxbdk7HYn38+bRAt5LVWXEoVN4IAAMSE8xVlFJaJ2cUX/CCtWIlz0gaWcCy+iMlWYkcqE9qX+aYbruoPAuR1j8Dtx+umtTGOXW2PWmbzgnLudqwe/LnGVbnhAnYhEE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784584113; c=relaxed/simple;
-	bh=IuyC+RBdxjQutCteBHbmnDWmH1b9acslBBlJICc0Uk8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nn79IWbs8YlKKZEFgrb+HdGNhWkB9P7uNxR5EE6xMLqec5143s0W0M4BsyHoGSiPnmXwDVteCCPzq8SGFyziGu+EMuRl9m1AMuDu6xpVUxAP1M/FqG0D0xa20sq1aLcv+g1XHOLb2JOlm2T+9uqbxidjMQU6D38h3S0c2vYXgv4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JTxm0Ax9; arc=pass smtp.client-ip=209.85.215.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2A031AF1B;
+	Mon, 20 Jul 2026 21:49:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784584164; cv=none; b=g3qVaLkAY7ltSsaalJ5NHLyQG0N4SweZ61Y0MTGIWanQjevv2nUw2Jya5Hj1CerPnKLWIQ4fFo1ibU68IbT1BMxCZGcmONBmECGx/VhhcKa3ee9DsDLy/21ui8t1Lb22ZAJXiBbXyurJXLMs4OMhk66bh6rpR8DaNBRbvac8ObY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784584164; c=relaxed/simple;
+	bh=bxeKhxPra0/TrWcL8Baz4fn4UyMC1HHMu0gQn9WgXwI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=By8kXDSrDmSXWtY/JVdQNdTG7eQ8mQoHnPKfK3ZDoGArEemNaRSyxlU8jNNKUtAjRQEMMyG16zKDijwS5HCk+R63c6V/Bqj4juMRhb2GEOifivCnBwnF/TWa2XLbs5MCVC9sVMA259BU1KPJFhh2ZTD6wh7RneAHAG8Rw2+/GaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tB4D82oy; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JTxm0Ax9"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-c9d1fff21edso6963146a12.1
-        for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 14:48:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784584109; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Oq4adgquMOboBaSjaDM1812YCEhDtY4Ph3eQx+t+igeSx32+TVKiHhUwD/UMrDCYp+
-         5tK6w9U1v2HAkY1fJqzY+Lv4mJQ0Nrb4FIXyLUpVONeGiECXwGYzCKmu1tm9CHb1prFX
-         8yFC9XEOTE2jSrkycRMviE23izeW5anem5vaEFPg6l9hPXtU9suUHrbSvd3Em+aJFfLe
-         UhmMFMGCxnoIX1gxK1UWvid6UPjrXxCX39leT2PFL9y1dLXF8r/MLi7qPMQasjXL72gD
-         XXQc0HL3r5DGvzJi0liBzWdxubk2KX72sK/7WdIUXmKKxQMl5K81KbSNOzBm6ot9kfpW
-         h12g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IuyC+RBdxjQutCteBHbmnDWmH1b9acslBBlJICc0Uk8=;
-        fh=HurTwBHtPIEYuqFqEc5CoVCwfzWqTsgIqB4GbI1Syzo=;
-        b=iL177vnICnI4jJnA3dum6xvAhCm1gc8SyPGJJ22eMe3m12qbE4hm/HRxudioAEXnOz
-         uVoPemZpNcWcDeSMtYoMicfDnmm2gYFb9WwdNZkItpizDtOj9LM/2QVy8wWQVXYGdpZo
-         p+mqXQafhk/Gl2EeC6fGFGNkEeRKLgeXC0RcNv8kv0T1MByLaXs6fdLaPKDGIX1gKCo7
-         cazDuaG83PnG8iofsSezgSwvW/iYn77kWkEcOE3XFh9VTRhot1rQD1l27crD1H63Yc6I
-         RmdhIIdp+Gat4aVioy+FQXhE/2UUIM1lY9oRf4MdzDLIonifUe+e1p8HL55mjQMr1CD0
-         dF5w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784584109; x=1785188909; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IuyC+RBdxjQutCteBHbmnDWmH1b9acslBBlJICc0Uk8=;
-        b=JTxm0Ax9gd++T9zta1apSQa3TF2C5iVWo36gNI7cbTjI3uTYnvpctI5t2bGc7kFbqj
-         I2fULYheXUwVcYy7NG7OJKZIBt/7MpR/UqW8YPUhyqMWmN1b4z6AvgjmTzvswi9yHSZy
-         lJVxdUpoeDJ/Kewq8ulOb0E/3Nkczpsc33QrBW4x96BPAIW+BYotWlDDmfRMohaTmMUr
-         rB8dAvspix+HUSn7+Un54H+1RmQp14jUrtpiDm7Uz+M5vbrJplzOrB9KQRq8YjUb2cgN
-         xDmrh4m254Szd2L36OOxNIFiIaRocWsyJhM/I76s7DT9RlLMvR3mO2WdCzhLzWAx6LSe
-         x10g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784584109; x=1785188909;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IuyC+RBdxjQutCteBHbmnDWmH1b9acslBBlJICc0Uk8=;
-        b=m4SRpMuz01EDRZqoNDNouqMiTOXfq2s13OtR1Od/aDawbrNfEPn/r3NKXe9UUXSfcp
-         8knZConyUV4XBShwZekyeKIFg5LE4oG/vGgnXuwOui5DXbyHzLQyB3I5Jxtwdq00vZWN
-         RiwLpjmpdlwVXFht7q2vQ/rlDhkNjruaMnzO9+qpmlIIQUIcrKmoBNwp9XwB2QRowscj
-         trTpFW6lzRIDGlMJQBo1rseCz260TVlM5vDyy2rFizj/EQs4R3d0uuaCAAk3xf+ZDk4h
-         z+wc4bv6K1qh27lE4O/wiV70aux2ap3N1h61OORpXxaFwcmBMtHYNppXjgsISrkIQQo+
-         D93A==
-X-Gm-Message-State: AOJu0YxYihOxm7Q6NRCCG60EariKZue/OeWw9j3VUknYEwfCc4RU8dEt
-	dDg5H5bwEoMUVkBuWjJjOUqnLjZmFqvDneUC5W1/gI6bMZxeBQgyjQFSgei/K5yRbNs2djhkdM8
-	FIqRvmXoD7l5R/iYRw7S8aY+uI+66i7U=
-X-Gm-Gg: AfdE7cmW+7oRyxBGS05gMAq+ECbYXo8UeBHV8hU0lavD0ZLSZUgrUb78S7yAW3CF5Cb
-	ohDs+xPxoQ8l07Xfy+F77OAcMURbk3YR44QF/YGfn+Q9iVL57Qri7YwdsJSbdZF00RLdf2Bkw1v
-	2RyVC5V2DANyl68fBR8CpmBr5vJTmSEpGxyFFvimz2QUoAycMvhtQstq4qw40v9B+vlz+hCQUwf
-	TjQlLCIkoQ0jjeY9pLafGjUzNwzyinI23syN0MFOkLNVBBR7q8s99t0lvAmYJanqLFqWTCbHGxk
-	ctTYekThw1SDnSF9Mymj5dn+aGw=
-X-Received: by 2002:a05:6a20:7487:b0:3bf:6c05:ab with SMTP id
- adf61e73a8af0-3c3ad9d632bmr16959486637.58.1784584108970; Mon, 20 Jul 2026
- 14:48:28 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tB4D82oy"
+Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0F613289;
+	Mon, 20 Jul 2026 23:48:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784584102;
+	bh=bxeKhxPra0/TrWcL8Baz4fn4UyMC1HHMu0gQn9WgXwI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=tB4D82oy9LFkgPWxI3XPD/EZ1a5pVPNO/VLsjKLT0xxvh44a0ZDRYxa7PIzaH7/Kl
+	 ju4kcWPWJIqRhAz79cfFuosB+XlubgavryiU9Qh2+SoXJvW5vhDQBcfZm5+utIkfo1
+	 168PNjK/MlwWotoflJWoW8fFe99HdADFmWGImKI0=
+Message-ID: <ef0a434f-cbe1-49f7-a573-b0a4146b8b31@ideasonboard.com>
+Date: Mon, 20 Jul 2026 22:49:18 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <MOR1FYP_9xkM8GfpziB5D4Q3H5XLHq6MowZkeFMhI_49wkvgOVxXHbtJYMHHnToR_DOz2HU3N102cMMRPNWfLA==@protonmail.internalid>
- <CADRRrN12FvS3v3c3on69XLErB9i8ih=LgJOGaKhYYT7KrZKe2g@mail.gmail.com>
- <035192d8-9d6e-4e04-ad1b-56f52c11933d@kernel.org> <b6rUao5eYcEHwZ_P1JyyUjJUtwY-yJnWVfxHUa9sHdWOmlMoXSLxjMoscSmOu0V5VkwrO7q4TnNzRvoFP5RpLg==@protonmail.internalid>
- <CADRRrN23tWrKKnPDdsO_61QQd790z2W+2ejZ-s1iZkJh+=oHhw@mail.gmail.com>
- <f4041aba-ccbb-4126-a65b-a385e882949e@kernel.org> <36vhfeWCV4PqtDGfEur9lR9MVGp1d_CMjIb_Wr9zTFbeNM9QPzCJsn1TzyTYnZfbku-iwBZo-eDdLasYJ5hE5Q==@protonmail.internalid>
- <CADRRrN35SjSPqYH+kUowf3RCcKgnGqVQAKTd73vqMLgdz1q5AQ@mail.gmail.com>
- <1bc74fac-859b-46fd-91ef-16c40c8f9a7f@kernel.org> <CADRRrN36-iWMdOBxDHKjV_SCs2U7jH6YwJO4ycTe5_w-2QTTyw@mail.gmail.com>
-In-Reply-To: <CADRRrN36-iWMdOBxDHKjV_SCs2U7jH6YwJO4ycTe5_w-2QTTyw@mail.gmail.com>
-From: Kirill Ermolitskiy <00vopoj00@gmail.com>
-Date: Tue, 21 Jul 2026 01:48:17 +0400
-X-Gm-Features: AUfX_my75XCe1q14f7Agj6T56DY2iKCfkWy8D1s3N1aJjUn6DfedU23YZwDWTY4
-Message-ID: <CADRRrN25w3Tgnnoi7FD3U69gVyf9COO_m+k9rdX9GOcb6asm6g@mail.gmail.com>
-Subject: =?UTF-8?Q?Re=3A_venus=3A_encoder_job_execution_hard=2Dresets_SoC_on_?=
-	=?UTF-8?Q?SM7325_=28sc7280=2Dcompatible=29_=E2=80=94_extensive_analysis=2C_need_wrap?=
-	=?UTF-8?Q?per=2FGDSC_insight?=
-To: "Bryan O'Donoghue" <bod@kernel.org>
-Cc: linux-media@vger.kernel.org, vikash.garodia@oss.qualcomm.com, 
-	dikshita.agarwal@oss.qualcomm.com, linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/4] media: i2c: ov5693: Gate the MIPI clock lane for
+ non-continuous clock
+To: Fernando Rimoli <fernandorimoli11@gmail.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Arsalan Naeem <naeemarsalan@gmail.com>, Jakob Berg Jespersen <dev@berg.pm>,
+ linux-kernel@vger.kernel.org
+References: <20260717132021.18034-1-fernandorimoli11@gmail.com>
+ <20260720163819.104130-1-fernandorimoli11@gmail.com>
+ <20260720163819.104130-4-fernandorimoli11@gmail.com>
+Content-Language: en-US
+From: Dan Scally <dan.scally@ideasonboard.com>
+In-Reply-To: <20260720163819.104130-4-fernandorimoli11@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Re-verified with iris (CONFIG_VIDEO_QCOM_IRIS, venus disabled; ffmpeg
-confirms 'iris_driver' on card 'Iris Encoder'), this time with all
-current fixes in place =E2=80=94 the IOVA reservations and video_cc_xo_clk =
-apply
-regardless of driver since they live in DT/videocc. Identical result:
-silent PSHOLD reset at the first encode frame.
+Hi Fernando, thanks for the patch
 
-So that's now confirmed twice across both drivers, with and without the
-accumulated fixes. Decode works fine on both; only encode execution is
-fatal. Ready to test whatever you'd like to try next once you've had a
-go on 8250.
+On 20/07/2026 17:38, Fernando Rimoli wrote:
+> The ov5693 never programs MIPI_CTRL00 (0x4800), leaving it at its 0x00
+> power-on default (free-running MIPI clock). The IPU3 CSI-2 receiver
+> tolerates this, but the IPU6 receiver (e.g. on Microsoft Surface Pro 8/9
+> and Surface Go 4) fails to lock onto the link, so the sensor streams but
+> capture times out with "stream stop time out" and no frames arrive.
+> 
+> Parse the "clock-noncontinuous" endpoint property (which sets the
+> V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK flag) and, when it is present, gate
+> the clock lane while idle (bit 5) and keep the bus in LP11 (bit 2) at
+> stream on, matching the approach ov5647 already uses for the same
+> register. When the flag is absent the register is left at its reset
+> default, so IPU3 and other users are unaffected.
+> 
+> Gating the clock lane was determined to be necessary and sufficient by
+> sweeping the register at runtime on a Surface Pro 9 (IPU6): every value
+> with bit 5 set streams (300/300 frames, steady 28 fps), every value with
+> bit 5 clear fails with the CSI-2 timeout; register read-back confirmed
+> the power-on default is 0x00. Bit 2 (bus idle in LP11) is set as well,
+> matching ov5640's value. Note that unlike ov5647 the line-sync bit
+> (bit 4) is deliberately not set: adding it collapses the IPU6 stream to
+> a couple of frames, so this value differs from ov5647's - the IPU6 D-PHY
+> behaves differently, consistent with these settings being PHY-specific.
+> 
+> The "clock-noncontinuous" property is supplied by the ipu-bridge for the
+> affected IPU6 variants in a subsequent patch.
+> 
 
----
-Del'aRun
+This one looks good to me:
 
-=D0=B2=D1=82, 21 =D0=B8=D1=8E=D0=BB. 2026=E2=80=AF=D0=B3. =D0=B2 01:38, Kir=
-ill Ermolitskiy <00vopoj00@gmail.com>:
->
-> Primary testing was on venus (CONFIG_VIDEO_QCOM_VENUS, confirmed via the
-> device's driver symlink). I did test iris once earlier =E2=80=94 identica=
-l
-> silent reset at first encode frame =E2=80=94 but that predates the IOVA
-> reservations and the video_cc_xo_clk port, so I'm rebuilding with
-> CONFIG_VIDEO_QCOM_IRIS right now to re-verify iris with all current
-> fixes in place. Will report back shortly.
->
+Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
+
+> Link: https://github.com/linux-surface/linux-surface/pull/2171
+> Co-developed-by: Arsalan Naeem <naeemarsalan@gmail.com>
+> Signed-off-by: Arsalan Naeem <naeemarsalan@gmail.com>
+> Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
+> Tested-by: Jakob Berg Jespersen <dev@berg.pm>
 > ---
-> Del'aRun
->
-> =D0=B2=D1=82, 21 =D0=B8=D1=8E=D0=BB. 2026=E2=80=AF=D0=B3. =D0=B2 01:31, B=
-ryan O'Donoghue <bod@kernel.org>:
-> >
-> > On 20/07/2026 21:41, Kirill Ermolitskiy wrote:
-> > > Adapted Daniel's patch to kodiak: added the reserved-memory node with
-> > > iommu-addresses covering [0, 0x25800000) for &venus plus a second
-> > > memory-region entry. Since downstream yupik's non-secure pool is exac=
-tly
-> > > 0x25800000-0xe0000000 and venus runs with a 32-bit DMA mask (top-down
-> > > allocations land above 0xe0000000), I additionally reserved
-> > > [0xe0000000, 4GiB). Both reservations confirmed via the iommu group's
-> > > reserved_regions:
-> > >
-> > > 0x0000000000000000 0x00000000257fffff reserved
-> > > 0x00000000e0000000 0x00000000ffffffff reserved
-> > >
-> > > Encoder still hard-resets identically at the first FTB. So on kodiak =
-it
-> > > doesn't look like an IOVA-window/SID issue =E2=80=94 or at least not =
-only that.
-> > >
-> > > One more finding from diffing against downstream: mainline's
-> > > sm7280_reg_preset zeroes the whole of 0xb0088 (AON region), while
-> > > downstream applies it with mask 0x11, preserving the remaining bits. =
-On
-> > > this device the register holds 0x3 at core boot, so mainline does
-> > > clobber a live bit. Preserving it (read-modify-write with downstream'=
-s
-> > > mask) doesn't change the encoder outcome, but it's probably worth fix=
-ing
-> > > regardless =E2=80=94 same for video_cc_xo_clk, which downstream marks
-> > > CLK_IS_CRITICAL and mainline videocc-sc7280 doesn't register at all
-> > > (ported it, confirmed running at 19.2 MHz; no behavioral change eithe=
-r).
-> > >
-> > > That exhausts what I can usefully test blind: DT constants (fw region=
-,
-> > > SMMU SID, CP ranges, clocks, GDSC offsets =E2=80=94 all match downstr=
-eam), power
-> > > sequencing (hwmode / forced SW / GDSC always-on / legacy MMCC handsha=
-ke /
-> > > GDSC wait values), XO clock, max CX votes via required-opps, IOVA
-> > > windows, two firmware stacks (old and coherent OS2.0.8.0 TZ+vpu pair)=
-,
-> > > and both venus and iris =E2=80=94 every variant that actually execute=
-s the
-> > > encode engine resets the SoC at the first frame, silently, below the
-> > > kernel (PSHOLD warm reset). Full two-sided HFI traces of healthy deco=
-de
-> > > and dying encode sessions available; happy to test patches on hardwar=
-e.
-> >
-> > Eh it's not clear to me if you are running the venus or iris driver.
-> > Both are supported - can you flip the switch in your defconfig ?
-> >
-> > Perhaps you are testing both already - if not please try the other driv=
-er.
-> >
-> > ---
-> > bod
+>   drivers/media/i2c/ov5693.c | 27 +++++++++++++++++++++++++++
+>   1 file changed, 27 insertions(+)
+> 
+> diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
+> index 02236f3db..5468e89d6 100644
+> --- a/drivers/media/i2c/ov5693.c
+> +++ b/drivers/media/i2c/ov5693.c
+> @@ -35,6 +35,14 @@
+>   #define OV5693_STOP_STREAMING			0x00
+>   #define OV5693_SW_RESET				0x01
+>   
+> +/* MIPI transmitter control */
+> +#define OV5693_MIPI_CTRL00_REG			CCI_REG8(0x4800)
+> +/* bit 5: gate the clock lane when idle; bit 2: keep the bus in LP11 when idle */
+> +#define OV5693_MIPI_CTRL00_CLOCK_LANE_GATE	BIT(5)
+> +#define OV5693_MIPI_CTRL00_BUS_IDLE		BIT(2)
+> +#define OV5693_MIPI_CTRL00_NCONT_CLOCK		(OV5693_MIPI_CTRL00_CLOCK_LANE_GATE | \
+> +						 OV5693_MIPI_CTRL00_BUS_IDLE)
+> +
+>   #define OV5693_REG_CHIP_ID			CCI_REG16(0x300a)
+>   /* Yes, this is right. The datasheet for the OV5693 gives its ID as 0x5690 */
+>   #define OV5693_CHIP_ID				0x5690
+> @@ -144,6 +152,9 @@ struct ov5693_device {
+>   	struct regulator_bulk_data supplies[OV5693_NUM_SUPPLIES];
+>   	struct clk *xvclk;
+>   
+> +	/* Gate the MIPI clock lane when idle (CSI-2 non-continuous clock) */
+> +	bool clock_ncont;
+> +
+>   	struct ov5693_mode {
+>   		struct v4l2_rect crop;
+>   		struct v4l2_mbus_framefmt format;
+> @@ -611,6 +622,19 @@ static int ov5693_enable_streaming(struct ov5693_device *ov5693, bool enable)
+>   {
+>   	int ret = 0;
+>   
+> +	/*
+> +	 * When the CSI-2 link is configured for a non-continuous clock, gate
+> +	 * the MIPI clock lane while idle (bit 5) and keep the bus in LP11
+> +	 * (bit 2). The power-on default of MIPI_CTRL00 is 0x00 (free-running
+> +	 * clock): the IPU3 CSI-2 receiver tolerates that, but the IPU6 one
+> +	 * fails to lock onto the link and capture times out. Only touch the
+> +	 * register when the endpoint requests a non-continuous clock, leaving
+> +	 * the reset default in place otherwise.
+> +	 */
+> +	if (enable && ov5693->clock_ncont)
+> +		cci_write(ov5693->regmap, OV5693_MIPI_CTRL00_REG,
+> +			  OV5693_MIPI_CTRL00_NCONT_CLOCK, &ret);
+> +
+>   	cci_write(ov5693->regmap, OV5693_SW_STREAM_REG,
+>   		  enable ? OV5693_START_STREAMING : OV5693_STOP_STREAMING,
+>   		  &ret);
+> @@ -1259,6 +1283,9 @@ static int ov5693_check_hwcfg(struct ov5693_device *ov5693)
+>   		goto out_free_bus_cfg;
+>   	}
+>   
+> +	ov5693->clock_ncont = bus_cfg.bus.mipi_csi2.flags &
+> +			      V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK;
+> +
+>   out_free_bus_cfg:
+>   	v4l2_fwnode_endpoint_free(&bus_cfg);
+>   
+
