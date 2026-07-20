@@ -1,52 +1,52 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473363B7751
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 07:21:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647253BBFCE
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 07:22:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784532070; cv=none; b=bG2w1F669XwkiQCqUjGmEr1nKBET0Jl6ry0vpnhfxh5YgfSp9w0YafSPQDDoghO7je7bJJda0H1ykCCzW3aCtYP4equatZ4/50cAVdu7stNLldOpCUEn+UntwSJ/UzfYG346JNc7UJMMrSJQrunNfnx0kuNDOlkt7bmL6IwA27I=
+	t=1784532168; cv=none; b=NITIGkUcCIOG/a3KC/GPr08zfbk1lVxzmquaH7kaxM4VVwJAGsqkp4h0ZT9DT5DsCph6vgEaCaUVmCkEJcwsHPvaeUXzpjdmhELKU35NajSMxeOD2bMcTMGpOmT47pd9cAY+s4RlB1rYNnXcLi7Ui2DliF6V2UiO1sRK+ovGc70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784532070; c=relaxed/simple;
-	bh=fBTisUKk2GAfPI+EFncb5DfTz1SbVYqBAGOZPEirgis=;
+	s=arc-20240116; t=1784532168; c=relaxed/simple;
+	bh=RUNMetXvATuKykenUrAEJJ4+1EtSZgMLWtvPqn0m+nU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k3wgTGwA5xAxrvlwIIsqa4eDWSesMTLgVJejZlkInYJ8TFmPaZStFeeN2Ej/AGa4UK5PuR2tkcgvgCgijciK1mtOblfj2clvGfubR5Xpv2X94/TDA4mhuJbGYy92ZmE1m00Etrh43i0TneRPDBiWD5tQ2ckRMaYQT5mPtuDMvl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mHXGpfdg; arc=none smtp.client-ip=192.198.163.9
+	 Content-Type:Content-Disposition:In-Reply-To; b=iqz1tNk95ZFb1yQ+8JEvSGZFHQKQQEu/OqQQD8w2qiLH/NVtuWbliNTlzUD0//CI/JDYxRnhPNGLRR3nqvplfM2cLxDv6sVw5Eeadax6LIGDOYm75GUFwfeEXMiOU+f70VlgZgPEEiEr/kwIwPIXRBdz/EniojHj0gkrJ+BwfaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=et97dUgB; arc=none smtp.client-ip=198.175.65.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mHXGpfdg"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="et97dUgB"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784532067; x=1816068067;
+  t=1784532164; x=1816068164;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=fBTisUKk2GAfPI+EFncb5DfTz1SbVYqBAGOZPEirgis=;
-  b=mHXGpfdgRptWvFH0uSNDZoS4+bHst6ppePilkHypp2SvpIEBnHTpVET8
-   lqVf/6kLorHQv/X+SE358MhE8MXmZbxbhcUWjRBUj2tcht6eyq981fd+y
-   xRLbZ1UqYMTEj1XXZA+bmyenfqRWJ+PSoL5hgOAazTr5O6nfhXPBBrhti
-   zHZLJjq4jQe9USNCEhjKk8+diuFiMz3uvmGjseY+LLzcxz/lZmwnv4YFV
-   ZT1kpaDQBz1ZZ8GfurG85V5oRsAip14lAuGK8vYxbLyOf+ioctU2uvMme
-   v2UhwfRrP5gNzcp9rQ0KjyFiX94p2NyCy1KHZBdAym2fV0jgHqEDDT90r
-   w==;
-X-CSE-ConnectionGUID: URle2+/PR+CU/4sU7fLhvw==
-X-CSE-MsgGUID: quOUhYRGQo66cXMiSH66dQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="95756801"
+  bh=RUNMetXvATuKykenUrAEJJ4+1EtSZgMLWtvPqn0m+nU=;
+  b=et97dUgBEOq0vAWA1a0kiUPFszVw9KOC2PN3S7cw4t2GHKGEd4xzOrZz
+   fBHKepyPpBef/aLiSPD4dmuQ5fJF5WsUMYhjYsgqtFzNx68tIyjwaHhZ/
+   itRRGouUTL6ulDDm1yFsNqcftuEUYKBqPd3gIo6ZtHsZYiS/DnmtQ1YI3
+   ct001vrQkMcjCSXQaOyR/YNUHrYBz7yKE4ZDQ8d3Bdgxm9KORF2Bt73UE
+   KW6SixnGbTcQ85LHqqO/N/YeKX3TMilSZRcoNIYm8p3/BGV5KBIhwEmHE
+   rAiIT6X9DwQPO5IqvWQ040aC/ypmxeenoV/tP8ooQ0i/Qtqi0n+tA9aQ9
+   Q==;
+X-CSE-ConnectionGUID: zjl71MS8ReyOc02MQLgetw==
+X-CSE-MsgGUID: qp/BE/ImRheX+ey6xLbwSg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="85128637"
 X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
-   d="scan'208";a="95756801"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 00:21:00 -0700
-X-CSE-ConnectionGUID: 92X0RgbUQF64eWNE+rvUHA==
-X-CSE-MsgGUID: Rz3dkx1vTuOpXSWdX+sB1w==
+   d="scan'208";a="85128637"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 00:22:42 -0700
+X-CSE-ConnectionGUID: Le1XlSgdSkmbWLgDvQMh2g==
+X-CSE-MsgGUID: jmTWDbv5Tamwxeyw6pgadQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
-   d="scan'208";a="258020832"
+   d="scan'208";a="261663589"
 Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.94])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 00:20:54 -0700
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 00:22:36 -0700
 Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 96845121C02;
-	Mon, 20 Jul 2026 10:20:56 +0300 (EEST)
-Date: Mon, 20 Jul 2026 10:20:56 +0300
+	by kekkonen.fi.intel.com (Postfix) with SMTP id BF93B121C02;
+	Mon, 20 Jul 2026 10:22:38 +0300 (EEST)
+Date: Mon, 20 Jul 2026 10:22:38 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
@@ -75,12 +75,13 @@ Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v6 07/16] media: v4l2-subdev: Move subdev client
- capabilities into a new struct
-Message-ID: <al3MWLt9yQOAftm0@kekkonen.localdomain>
+Subject: Re: [PATCH v6 08/16] media: v4l2-subdev: Move op check to sub-device
+ op wrappers
+Message-ID: <al3MvhlOFGEIdZZM@kekkonen.localdomain>
 References: <20260607215356.842932-1-sakari.ailus@linux.intel.com>
- <20260701122634.1728782-7-sakari.ailus@linux.intel.com>
- <20260720063556.GD2208631@killaraus.ideasonboard.com>
+ <20260701122634.1728782-8-sakari.ailus@linux.intel.com>
+ <20260720064521.GE2208631@killaraus.ideasonboard.com>
+ <20260720064559.GF2208631@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -89,26 +90,42 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260720063556.GD2208631@killaraus.ideasonboard.com>
+In-Reply-To: <20260720064559.GF2208631@killaraus.ideasonboard.com>
 
-On Mon, Jul 20, 2026 at 09:35:56AM +0300, Laurent Pinchart wrote:
-> On Wed, Jul 01, 2026 at 03:26:24PM +0300, Sakari Ailus wrote:
-> > Add struct v4l2_subdev_client_info to hold sub-device client capability
-> > bits that used to be stored in the client_caps field of struct
-> > v4l2_subdev_fh. The intent is to enable passing this struct to sub-device
-> > pad operation callbacks for capability information. The main reason why
-> > this is a new struct instead of a u64 field is that modifying the callback
-> > arguments requires touching almost every sub-device driver and that is
-> > desirable to avoid in the future, should more than the client capability bits
-> > need to be known to the callbacks.
+Hi Laurent,
+
+On Mon, Jul 20, 2026 at 09:45:59AM +0300, Laurent Pinchart wrote:
+> On Mon, Jul 20, 2026 at 09:45:22AM +0300, Laurent Pinchart wrote:
+> > Hi Sakari,
 > > 
-> > To be squashed to the previous patch.
+> > Thank you for the patch.
+> > 
+> > On Wed, Jul 01, 2026 at 03:26:25PM +0300, Sakari Ailus wrote:
+> > > In anticipation of performing work for sub-device operation when the
+> > > driver doesn't implement one, move the check of operation existence to the
+> > > wrapper itself.
+> > > 
+> > > No functional change intended.
+> > > 
+> > > Many drivers implement set_fmt() pad op that simply returns the format
+> > > just as get_fmt() would do, usually because the driver only supports a
+> > > single one. The arguments to set_fmt() and get_fmt() are about to get
+> > > differentiated so call get_fmt() always if set_fmt() isn't supported by
+> > > the driver. This avoids changing drivers now and allows removing
+> > > boilerplate code from existing drivers.
+> > 
+> > I don't see this change in the patch. Am I missing something ?
 > 
-> It looks like you forgot to take my review comments from v5 into
-> account.
+> Patch 09/16 answers my question. With this paragraph dropped from the
+> commit message,
 
-I'll drop that line for v7. I thought I already removed them all but this
-one was left.
+If you think the first paragraph is enough to explain why this is done, I'm
+fine with dropping this one.
+
+> 
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+Thanks!
 
 -- 
 Sakari Ailus
