@@ -1,197 +1,142 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C9642A80
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 21:15:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784582159; cv=pass; b=CdUR6FA18uv05GA6I7xArkJdzqzwwj6qwe4PANxZujjgkz/xR30lup+qDjv4DhDgimrJGrnCu9h+yhFkMZnTPZuIppeKxUWe05SE5DzadloqAoZMw6mDaJnI2MEt87BKL1UGflA78gZcjrqApIF8SRN6X/B7zmFwjYgk8Gi9DSk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784582159; c=relaxed/simple;
-	bh=GYmozcAMwSemNlmhz+B3xhx2TrSFNt5xSE7k56r5ovg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=j5eKq4h4kpIpRjhsCnxEbajBY2WAmd++2kNld56O7OXOfqM82dgQe5z9+BIQlvupiMx0E0/VmBFYvzLNHrgyVD01lRw+xYpVr6M0OoO7cov7N9IDGN+cIVuvDwhuRIrND4622KlOYDyQkQgfdrF/1C5wj2+J5WwPa4Mec4nhJDg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=F5hO0hcB; arc=pass smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15488266B46;
+	Mon, 20 Jul 2026 21:31:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784583064; cv=none; b=aRMAO2QPF4S38Iuhpt4lTfurAzD0lkGHFwdlTGnUGZE8b33m3NI7xVJoCQOCOq3rLe3g4l9d2gOqBOMxhgmb27TDCvaIeam7tDUYKJxwu1jOIG6sIgXxBIvQPkadzkPoSlMuckzKsi8Chcq5RMoy2LOhzo32lnDQtTaxKlsfV/s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784583064; c=relaxed/simple;
+	bh=WiugJUWrwIjTFZbj5jNlsSMkzX65MiC5rSX3OeS0BRw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OJ1dRcyRsObTAZkL3nz0anl5/qnuUDbIv2NoQr96mCrA1OUjW5/YBM9AhRiJXl24hC+MyQXHcF4cglo9ZiUQxfzsJlRyooiIEHWbGhuAgR4Z0OmIPR1FSD8/ky2g+Z/bbGDWhWRrYRaAQlz9x66KyC8Y8760C58uENjyjdizMuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jNqGNQxS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="F5hO0hcB"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cab97c86bdso454155ad.1
-        for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 14:15:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784582158; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N2hd8bkrvQWsgqOal49ZmHiT+X85WswDpc8T1dO6Y7s6P8VMRQLRfuWxa/bHCcyAC0
-         j8G6WwUQ0W5VRstwGvk9HIWnNnFRH0/5RKhonP+R6s2ON59THCWe3HoBjR6jEm7EDOIM
-         bSjUBAIeRep8HviLCrkyXwz9bU6fDckyvYZJK/1uSiB9uSnT7Inca4fo1YjOV4a6eqnI
-         dbtJac8s4nZsw7C/LbQXkQ1XblmFoiaTrDooV30kCc5v/ahbM2gIzz7YvgbMDLdlY6/7
-         yi5TjluY0Cy1G0y/4gdAI/HvFFo3MEUbfStTkc5oDjgftVW86g8Jj+CHgA+bhMprzSpd
-         GFwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=AUz90BaUvuUhSt2RwJPSmjEfCptOlPXUUGIO067pPsI=;
-        fh=Ei8eAvE6Wnz7iCP4nxI4PH08u4jUvYIzEoXrD5ECOZw=;
-        b=rR+P/btK+iuzTSGgE4SA5iVWh1X7oKmUCNGWNTj9uEXsZVEuYNxxc+V5luzsJ2Koq+
-         xbrxglsviU3/Ek2OnTkqbmGDx9F7tiD0yFeIiumouz+IJu6JVVbq4GfQwI8AonVTqUBg
-         sfc/bKyugMPPznTZkoo+yJyUh3Ub1+8j9DELaPuU9WyZu7lA74Hle25CQg02aq0Z1zJ1
-         7uvrSIUqShb5QM8psAqnXLO6+k1x1n70W4BWyGmIuJdmSNOFNfDhZ8FLyU6I5+6mOMzZ
-         +8ZLwcX2tCZ9QCEeLF2xlcCt8JtzrAI3Q6i6Kb6L7CPUS9VlPBUoC3Q9X/s4b788l3LM
-         8gfg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784582158; x=1785186958; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AUz90BaUvuUhSt2RwJPSmjEfCptOlPXUUGIO067pPsI=;
-        b=F5hO0hcBNHdKGk9M59qXB0EfAf1ZQL0kiD2GIokeaFPVUU7JE0sBVMIOaHAJJlbqf1
-         hT0EOsaGQxdzfkSQxV5SGVl+QdL5b6YSb2ZjQcZcLVNAPL1/8wIsNcH96dHr/vpiGqUG
-         I/27/r9cfrp5Ztsp3RVhurZRlE2qZSv42m69MWpB8o09v5sRx2Rp61wKfeDuQt8qOgV/
-         5Npk2kIQYLRLDeexi5vPRbcgEYHVubzyoIEQIKsfg75YWhiyH8NwE+Gc22p4+NDE9kWL
-         Kq02Bv1RfaF6OK4XicyN5ZimBBBuQoKC7Cd85xPJt3ndaYNSfPVYjdP+YdCYZm6nh5OX
-         79lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784582158; x=1785186958;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AUz90BaUvuUhSt2RwJPSmjEfCptOlPXUUGIO067pPsI=;
-        b=dy1uNnoafp56MaYXFeo+rHZY6+LDLo7RJfpTQdlOq/Ld45t4OP6ajrqIBT3S33pbHp
-         6OAzZq0YbCzIrPGkeDp93aMd4wIExRVnAqS9A4Ftz0QUSiz19Kvkz9y3nSMSdxME1duw
-         jcHWeHmpN5Wt6GfdfhX/yCvMR+pbEgWnORqSGsPtrFmwCUwuEIDQmZXrdB0Mi/SRHPC/
-         LWKN7fBJOKPJ++3ePpp0CtQLvMMJYW+YIxHWODqANyoJM0sTArNd8cXHvbugW75Kgxyw
-         HqShCr/jIfJOKe2/GjD2gw31Q9jYJXvx0qbb3kdAJn1q0mJaa5tpBjGTGIme413YNrbl
-         RcYA==
-X-Forwarded-Encrypted: i=1; AHgh+RroS4F18tsCfy+yY6fGihmhhhML5DacycbvJImzizlTuLgqR0y+1XpcQ3olATonZuq333in/TGIe/ldeA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyFVF8ISCtF29WsTAlFcAMJl66CtnhMm+pRPI83pSlTDDxmljKo
-	U3krOjrwo3fZDztzMt+nAbjKCiyfU/rIscOuqZggGxlFL5Veci17a44uLjZ1QjDvL+mP3yWFCVO
-	KEXeWIbW5RS1HQMgUmvz5EvTV7uNrK0+2kD/2bN7C
-X-Gm-Gg: AR+sD132LrJdoduiLhaR0cYEbrb+IUXQbYpkdLGjvxIkKfvMJVSic30f0Vghcia61k+
-	VelMeU9OaqvTjaQpQ/H85GgtS0VgSWYYJ9TDu62p/XyT9SeQeZtJUHFfq94DxrHVSAjvHeeTXtQ
-	xG2o0GSRfuojklkB/9qpxIs/Am3nVFyjeTbWD6VXSF4c4WME4Lqp5BUmHBSled6AjMwSAUOW02J
-	RN9trt5Rc6oLwiuo4xjYepyBYDccOYD6D+CvVaCDgZXdT5WpuTQm+eQpR9v0prqCiw1s7WqK3Zn
-	ODs5N4StqTso3ChHIhr3tZcu/lM=
-X-Received: by 2002:a17:902:f54c:b0:2ce:7ae6:2a23 with SMTP id
- d9443c01a7336-2cf7b702c3dmr2558895ad.27.1784582156890; Mon, 20 Jul 2026
- 14:15:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jNqGNQxS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE8071F000E9;
+	Mon, 20 Jul 2026 21:31:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784583062;
+	bh=5bDKsS4X2DOvmiKswxP7LxCXe27fjucwq85p9QD/fnI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jNqGNQxSXqoqYqFgClffrx9FtgPaQpWT6mOBaC26UScRvt4BYVCGTRzBuR0djIE7h
+	 yLNGD7mGLzNKfh5lwMpRNn+IqEsMBcJhJ+RAFWKWAt8WjCncZpj+fL1J8lxpeW57P+
+	 oWbd1tmWgrgkkHhdIhj/8dDUKxseLbqWyLRJ0g2X2sTTTFq4M2vnedXMTR3N1UcAeY
+	 BAN375mDk6MQmmUDm6/cy/TL4ZDMJbwKg9USRNM3zsnOpcoS6HPEDNwIHWLRb+sUMP
+	 cf+Nk5wwSw7XvrZvIK8hfSDI+F19qV0XC23SuujCP+huRBk9aDFn0mHzcxLicVXb1n
+	 R7nmAH30px+Zg==
+Message-ID: <1bc74fac-859b-46fd-91ef-16c40c8f9a7f@kernel.org>
+Date: Mon, 20 Jul 2026 22:31:00 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260708-tcpdm-large-niovs-v5-0-34bf6fac941b@meta.com> <20260708-tcpdm-large-niovs-v5-2-34bf6fac941b@meta.com>
-In-Reply-To: <20260708-tcpdm-large-niovs-v5-2-34bf6fac941b@meta.com>
-From: Mina Almasry <almasrymina@google.com>
-Date: Mon, 20 Jul 2026 14:15:42 -0700
-X-Gm-Features: AUfX_mxUXqtSIB0dpGSWPZIOzVEGjkP0LeV9jHf6fDBCDwwRrEGRR9CjBBihAPw
-Message-ID: <CAHS8izMz_S8K80EXn3oFXiDNkGuPUMzjecaJjAvaZVky-7O40Q@mail.gmail.com>
-Subject: Re: [PATCH net-next v5 2/3] selftests/net: ncdevmem: add -b option to
- set rx-buf-size on bind
-To: Bobby Eshleman <bobbyeshleman@gmail.com>
-Cc: Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, Gerd Hoffmann <kraxel@redhat.com>, 
-	Vivek Kasireddy <vivek.kasireddy@intel.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
-	linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org, 
-	sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net, 
-	matttbe@kernel.org, skhawaja@google.com, dw@davidwei.uk, 
-	Joe Damato <joe@dama.to>, Bobby Eshleman <bobbyeshleman@meta.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: =?UTF-8?Q?Re=3A_venus=3A_encoder_job_execution_hard-resets_SoC_on_S?=
+ =?UTF-8?Q?M7325_=28sc7280-compatible=29_=E2=80=94_extensive_analysis=2C_nee?=
+ =?UTF-8?Q?d_wrapper/GDSC_insight?=
+To: Kirill Ermolitskiy <00vopoj00@gmail.com>
+Cc: linux-media@vger.kernel.org, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, linux-arm-msm@vger.kernel.org
+References: <MOR1FYP_9xkM8GfpziB5D4Q3H5XLHq6MowZkeFMhI_49wkvgOVxXHbtJYMHHnToR_DOz2HU3N102cMMRPNWfLA==@protonmail.internalid>
+ <CADRRrN12FvS3v3c3on69XLErB9i8ih=LgJOGaKhYYT7KrZKe2g@mail.gmail.com>
+ <035192d8-9d6e-4e04-ad1b-56f52c11933d@kernel.org>
+ <b6rUao5eYcEHwZ_P1JyyUjJUtwY-yJnWVfxHUa9sHdWOmlMoXSLxjMoscSmOu0V5VkwrO7q4TnNzRvoFP5RpLg==@protonmail.internalid>
+ <CADRRrN23tWrKKnPDdsO_61QQd790z2W+2ejZ-s1iZkJh+=oHhw@mail.gmail.com>
+ <f4041aba-ccbb-4126-a65b-a385e882949e@kernel.org>
+ <36vhfeWCV4PqtDGfEur9lR9MVGp1d_CMjIb_Wr9zTFbeNM9QPzCJsn1TzyTYnZfbku-iwBZo-eDdLasYJ5hE5Q==@protonmail.internalid>
+ <CADRRrN35SjSPqYH+kUowf3RCcKgnGqVQAKTd73vqMLgdz1q5AQ@mail.gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <CADRRrN35SjSPqYH+kUowf3RCcKgnGqVQAKTd73vqMLgdz1q5AQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 8, 2026 at 3:55=E2=80=AFPM Bobby Eshleman <bobbyeshleman@gmail.=
-com> wrote:
->
-> From: Bobby Eshleman <bobbyeshleman@meta.com>
->
-> Add -b <bytes> to request a non-default niov size via
-> NETDEV_A_DMABUF_RX_BUF_SIZE. When the value exceeds PAGE_SIZE,
-> udmabuf_alloc() switches to an MFD_HUGETLB-backed memfd so each 2 MB
-> hugepage produces one naturally-aligned sg entry.
->
-> Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
-> Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+On 20/07/2026 21:41, Kirill Ermolitskiy wrote:
+> Adapted Daniel's patch to kodiak: added the reserved-memory node with
+> iommu-addresses covering [0, 0x25800000) for &venus plus a second
+> memory-region entry. Since downstream yupik's non-secure pool is exactly
+> 0x25800000-0xe0000000 and venus runs with a 32-bit DMA mask (top-down
+> allocations land above 0xe0000000), I additionally reserved
+> [0xe0000000, 4GiB). Both reservations confirmed via the iommu group's
+> reserved_regions:
+> 
+> 0x0000000000000000 0x00000000257fffff reserved
+> 0x00000000e0000000 0x00000000ffffffff reserved
+> 
+> Encoder still hard-resets identically at the first FTB. So on kodiak it
+> doesn't look like an IOVA-window/SID issue — or at least not only that.
+> 
+> One more finding from diffing against downstream: mainline's
+> sm7280_reg_preset zeroes the whole of 0xb0088 (AON region), while
+> downstream applies it with mask 0x11, preserving the remaining bits. On
+> this device the register holds 0x3 at core boot, so mainline does
+> clobber a live bit. Preserving it (read-modify-write with downstream's
+> mask) doesn't change the encoder outcome, but it's probably worth fixing
+> regardless — same for video_cc_xo_clk, which downstream marks
+> CLK_IS_CRITICAL and mainline videocc-sc7280 doesn't register at all
+> (ported it, confirmed running at 19.2 MHz; no behavioral change either).
+> 
+> That exhausts what I can usefully test blind: DT constants (fw region,
+> SMMU SID, CP ranges, clocks, GDSC offsets — all match downstream), power
+> sequencing (hwmode / forced SW / GDSC always-on / legacy MMCC handshake /
+> GDSC wait values), XO clock, max CX votes via required-opps, IOVA
+> windows, two firmware stacks (old and coherent OS2.0.8.0 TZ+vpu pair),
+> and both venus and iris — every variant that actually executes the
+> encode engine resets the SoC at the first frame, silently, below the
+> kernel (PSHOLD warm reset). Full two-sided HFI traces of healthy decode
+> and dying encode sessions available; happy to test patches on hardware.
 
-Reviewed-by: Mina Almasry <almasrymina@google.com>
+Eh it's not clear to me if you are running the venus or iris driver. 
+Both are supported - can you flip the switch in your defconfig ?
 
+Perhaps you are testing both already - if not please try the other driver.
 
-> ---
->  tools/testing/selftests/drivers/net/hw/ncdevmem.c | 36 +++++++++++++++++=
-++++--
->  1 file changed, 33 insertions(+), 3 deletions(-)
->
-> diff --git a/tools/testing/selftests/drivers/net/hw/ncdevmem.c b/tools/te=
-sting/selftests/drivers/net/hw/ncdevmem.c
-> index d96e8a3b5a65..a16e55af51ee 100644
-> --- a/tools/testing/selftests/drivers/net/hw/ncdevmem.c
-> +++ b/tools/testing/selftests/drivers/net/hw/ncdevmem.c
-> @@ -40,6 +40,7 @@
->
->  #include <linux/uio.h>
->  #include <stdarg.h>
-> +#include <stdint.h>
->  #include <stdio.h>
->  #include <stdlib.h>
->  #include <unistd.h>
-> @@ -61,6 +62,7 @@
->  #include <sys/time.h>
->
->  #include <linux/memfd.h>
-> +#include <sys/param.h>
->  #include <linux/dma-buf.h>
->  #include <linux/errqueue.h>
->  #include <linux/udmabuf.h>
-> @@ -79,6 +81,7 @@
->  #define PAGE_SHIFT 12
->  #define TEST_PREFIX "ncdevmem"
->  #define NUM_PAGES 16000
-> +#define MB(x) ((x) << 20)
->
->  #ifndef MSG_SOCK_DEVMEM
->  #define MSG_SOCK_DEVMEM 0x2000000
-> @@ -100,6 +103,7 @@ static unsigned int dmabuf_id;
->  static uint32_t tx_dmabuf_id;
->  static int waittime_ms =3D 500;
->  static bool fail_on_linear;
-> +static uint32_t rx_buf_size;
->
->  /* System state loaded by current_config_load() */
->  #define MAX_FLOWS      8
-> @@ -142,6 +146,7 @@ static struct memory_buffer *udmabuf_alloc(size_t siz=
-e)
->  {
->         struct udmabuf_create create;
->         struct memory_buffer *ctx;
-> +       unsigned int memfd_flags;
->         int ret;
->
->         ctx =3D malloc(sizeof(*ctx));
-> @@ -156,9 +161,14 @@ static struct memory_buffer *udmabuf_alloc(size_t si=
-ze)
->                 goto err_free_ctx;
->         }
->
-> -       ctx->memfd =3D memfd_create("udmabuf-test", MFD_ALLOW_SEALING);
-> +       memfd_flags =3D MFD_ALLOW_SEALING;
-> +       if (rx_buf_size > getpagesize())
-> +               memfd_flags |=3D MFD_HUGETLB | MFD_HUGE_2MB;
-> +
-
-The fact that you are using HUGETLM and 2MB mappings here made me
-realize there is a pathological edge case in the code where the netmem
-size you're requesting is greater than the mapping size, so you
-actually get no netmems. So like if you ask for a 64KB netmem size but
-actually you did a normal udambuf mapping and all the maps (sg len
-entries) are 4K or something. IDK if the code already handles this
-well with an error or what not. Worth checking.
-
---
-Thanks,
-Mina
+---
+bod
