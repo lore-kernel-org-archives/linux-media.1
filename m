@@ -1,115 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C3E3B6BFA
-	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 08:54:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784537645; cv=none; b=nY6eyBByZ1j52lHGlgVNwJlBSwD3FxhT6IY8yM5pt+xG/9u/zDQknf8VoGhql/g3sBUd1obomOUum2mn5f81xv3gFxy/lYCbMHjAMUu8QTKp8rpX9uAKPKA5uCKtXrGEU6ksOfR58VH5K+B5lKqqDVEgknjeZpwqYMf96s9Exx4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784537645; c=relaxed/simple;
-	bh=ZyQZcq0mPTOKU5v2//FvoAr/q2BoYg80anwUr3T53CU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IjfISpSt39bnxWcj83nb2ar2eiyAsQtyuckdxqfylREICkqXMQj/fexniUFhThLBwPyr49aZdMpmll0NyLKy0nDF8iPhFG5R4CiTsUiAN69Fk5T7ET49d7nIIjtdL6Yb7JZkzMgmI/dL101/2bjj5Ggb9wItTqJy9AvKljn1X78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i9LDvkBx; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A405392C4C
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 08:55:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784537746; cv=pass; b=ddnikfU7MZUnVPInpfbdC69ukN0gPOdLWPZRgxwC6cqBq2wHtlok9zItUVNlrJ9IsN0yrxql5kxt12XTvVu1Qu1UGjCr0+oGiN7bJivex5vl9kbnX+iGXDwD9AE9nfS9I+MovhVomJadX/3SShYkNbMMYFjmJFiJBC82t2JgGZ0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784537746; c=relaxed/simple;
+	bh=fmPo3YI6uCHOrEltD7Nq5KoHM5BVX3BZmTMqwCweE08=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jyuK0tnqZ4v1i65f71Qdw1NRKMnuGEANYQfweAyi/tx6Kzvzo5Gg3pAy3HjVxJtoiB2H9/PBC2c0nTAoHRxqPlGHYUwS/aJlu4roWuJY0vFsIwi2L2GmBYDskJgYjOFtup07BcpQ9OzAOoxzk7IMVz14LxcHasfYYJuXQ2lDhqI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pJCj7FBk; arc=pass smtp.client-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i9LDvkBx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8E641F000E9;
-	Mon, 20 Jul 2026 08:54:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784537644;
-	bh=0u2m1AQKWYxyboCzF48tI2DvuzQoXXu1SOAVjrULkmo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=i9LDvkBxjgaYkdpvqr4tfN7WiMA4DlY3rx6+S06zK+EfvkGK4tcS8Y+GKMZm7y88b
-	 WTaf7leoyTI1KkVPoHY1ySgcPeqmNYQRk/Y8Vj81KroXVRulqI7A2sFnVrRV8OAjma
-	 sTojxy6596RCY+YG8c5e2XURNS1B9gxFW9p74s3HOOCYOPXDSmAGHZNLRlHX6P7TP7
-	 l5xHQTU8paqZq7Jiyyz1dm286gWSjYYL/KS3mNf1wTocBYjCnkgqCqb0I5GIBTX5v5
-	 eqMoEJ1htgL9IHz8UNw3D73cgZOS1SNh09H7DDx9G3cpN5jRaTvW7xX+LbIW+EEx1J
-	 hsTNIB847Aj8g==
-Message-ID: <681bd27e-d58b-4b2f-b65d-49f3b2c01bc2@kernel.org>
-Date: Mon, 20 Jul 2026 09:54:01 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pJCj7FBk"
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7eb4d532e65so3717863a34.0
+        for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 01:55:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784537744; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YkxFGBD09ejxEeV2kHJWYg33iw6TDBCqu1Tp3tUharNPqme+Tqz2IBVRcQ3UD+LN4I
+         79bL4H5AJBbSussfR851g8vGJoM//KblnU48zwdaphDSW0LhMys7pnNhE2oadCPsoh2b
+         lK8FkJbnUZlHlKCi1/DXki0DPiwSx8z05AHG/Oa50hTDLqsFl2Ebu16Im6lLA+pYB+kn
+         2M/6+yHxE1lPXzTOwRWgs6J3NwZ+BGw+lzBdI2wgjjENOfhJNbckscsYz8A+Aqlkhea2
+         Xw/PWYL6Pwsyhv9ghKZituedjkEpigVUDV9Wttvy3NSTCOkg3vKTSmRBAYqotyHAi2rm
+         Wogw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fmPo3YI6uCHOrEltD7Nq5KoHM5BVX3BZmTMqwCweE08=;
+        fh=181YcCaErmwtApfgcJlQhBMqRc8MnTeW7Zf4qH8Ossg=;
+        b=KREq51ILC17BYhHgJXL0Rw9jyHeXqZCSymvOBAQ53/owO+Ms9G23kRtE+sS9gnLPSY
+         7wHxyxDJb0CUdG6Cs7K+3uN9rPwicwk65U3ZLOLb+mH5O5f69DRBsIsGu7QOki4WRgcB
+         /kw0baxjL7h/KM4q8Ss7G1UMvo8Ry2Q1l3AOsvUUfbWn8K7LnIYAaOYil9v5d8OH6bfE
+         UiKj1BO5nWMJp3aEI402gJblBc8HQ9ZuQJ0NlKMRIiJNtKHMvjy/K3Jn+jtsjbK3U/2N
+         b9DZz8H5ljNwTl2baQlDTFLiFV3blGNnXpoBEaKfJ/dfY7R8XFRwz07a5wrkHOhkmath
+         sB4Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784537744; x=1785142544; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fmPo3YI6uCHOrEltD7Nq5KoHM5BVX3BZmTMqwCweE08=;
+        b=pJCj7FBkyDDKcQlaF5imLbb8vWPqGWMx5qgoPnSP+z3KkFFI32H8289VpME5fKAESn
+         2/O70qi2tpwYzrq4drZvjvroylIhRV3QeNh+B6arTztT+GRezVvzuheoN/+H80n5UH5D
+         d1uvxw5H4qhy2BNgusmyBD5kv/XcCpbl4OlO/7jnO3efQmjBJl03EG1XuGf8wZGyldZo
+         4Pq169Yf2O2CQ8nJtPmQXH699cTdWysRnxxqihl/pAomEw+6Z3eRo9JDIkHNBWFSoLKA
+         Oy8MbqXZftVvTFrWxG5KXcCj70FJn0ESgHEp2YWLjmrcmfqIxi5SIVCG+dUQzCVd8srE
+         3ytQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784537744; x=1785142544;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fmPo3YI6uCHOrEltD7Nq5KoHM5BVX3BZmTMqwCweE08=;
+        b=A2YjWhrgUjfEBmwMw4gF1S/ojhxo6OMf351tuej3iUPQMjyzhp6Ck7aw3EuSmahyfp
+         XrclDUxkjszakEogwjqHan3MllyIlaidEwP2Rd7N4LsrBW8NjWNv7RPBYwleu43TIuRJ
+         zu/a44P9GQxtnKZJMTJ/xbf22TgFyV9v2e41F8LAb+OCsZojDh1caXBkspFaexvEI5BM
+         mLtEWRhJnPAVBYXAtjIfu9Ht9/hBK9/8fZnTZAvf3C+X1KN+EZZ3V0cGeyWaWBXiMmgq
+         Xm9eeYNZDqZHihW4DIyQwXOwYkOausXFrETZrbEAAKBKAH1NitgXqEPn6CF612ic8Ag6
+         ATWg==
+X-Gm-Message-State: AOJu0YwgEF0XRq/r+CuY2t9rhI/KkQEB5jG3m61wF+o/Djh/fQCmpGwW
+	UvYhej6X8N7i03rcGEreoG4xPoiDGEyfmSJDW+ZZVOtCJBXJjbimQH5uyNAis0WGrQsU75RA44o
+	r9Y0vvW5XqSfHcgu2wo5mD+pZaVfXINA=
+X-Gm-Gg: AfdE7cmRrg0Oa4wvsAp2iVH25In3oHGsNw2r5osauZMuXc+7kQVs1AzWd9+CULaOcyc
+	3KMZ3feK/P83AUGpKXfV5KQN9tuKybK4xLi3uy7wK3t6t2mXTUMZ15iT/6a//k8OeAoLnAjXhRo
+	i9kg4Z7GP8deiNtJ0qLPdEuhVg3Fqk/BXZ0/HfrMn2IkFHG0f231PfD7quMr9ZYHyuItUL/7G2i
+	0CcTEcTCBWLFiuj/Q5pl/RsSIM9IkK2wlcK8yr5rJxO/G+ruiY1wxP7EAd69UihRLqH078wNqU6
+	Ff90TZD86RhdKQw=
+X-Received: by 2002:a05:6830:7105:b0:7e9:5022:3639 with SMTP id
+ 46e09a7af769-7eda0e6e810mr7927130a34.15.1784537744252; Mon, 20 Jul 2026
+ 01:55:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] media: i2c: ov8856 : remove ACPI node bypass
- mechanism
-To: "Yeh, Serin" <serin.yeh@intel.com>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Cc: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
- "Su, Jimmy" <jimmy.su@intel.com>, "Sapre, Sarang" <sarang.sapre@intel.com>
-References: <BPkAfNBWv3FtV-5v-zRwnqX_ASShq9wG6NhI7ftYKii_3qF0KxcdaxS31MAkVKB7zlAUoLQQXAaef5p2Qpn4LA==@protonmail.internalid>
- <20260623084536.3400318-1-serin.yeh@intel.com>
- <d9b110be-a14b-4fbe-bf2d-036f3cd922a6@nxsw.ie>
- <nwsGXSUCUOLmR7tbtAgvOc3Cvog_0QqnFUI9jev6FLOxt0Cyf6D8gYfJT6XUWuvzYFvsYgGrp21TCTKGQ4Mm5w==@protonmail.internalid>
- <PH7PR11MB7962C4FE368856857E5D21CBF6C32@PH7PR11MB7962.namprd11.prod.outlook.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- xsFNBGRJNSgBEADD7Vm2ZFa+v+JGJ2QYTJqQAkqis/uOHkhdFNXqpBarVBd47QU/DMNU5Rxg
- jedMQEmHoeDbJ6UOpjbrUQ63c5sgG1JbroHJJctwsEI75OOlekMuebEbjIJBLfgENGwPBMHv
- piv5TgCWr0VgYaXfp2eh2LINFywzqj823HiDPibQAXDrjzvF1ogksi/6cQZs8d4if8YQkLOr
- YISFouG+eR0nN1I7mUfIddXOWu6lJeTyqbWVurv58k2ekIXKaOC9ixLHFbcfYV0hOgRaTwQC
- B8CYF9nfqZla19iItfsN9QxN+ZdQjcRoYipp6HPCMfJlKH7GfaFcW93LKc4DKJ2lVL+pg/OQ
- lythZbjRPY492NG9kZ65aYstCs90uhMUEVVPuGUw7wBEku+6IEwZfrbMVKeWzLlPyM4Hv9hM
- 8ktxSmxWsPTPqpBC8eyeAQLalMELAyVcZlkaCtEcbj7w4l/JkYz+4l37obG8ZD+B34udBUUz
- MsAJ8foDFrBh2MOFA3hxD6G90D23mmWsri7pnKA2tZs92aQX7Ee+FbCyg6g5ln62Sq83ZDbf
- 53DdBs55EVpBadeInWmXhzCHPQx06H+CwTEjShTYIaMmBfrewvYUDKvFTC5iKQhAEUgt6i94
- JsbG7NoeqcxkUMcBOEUQ3uCQG1D70ugspgXc0wd3Rimiq6535wARAQABzSFCcnlhbiBPJ0Rv
- bm9naHVlIDxib2RAa2VybmVsLm9yZz7CwZEEEwEIADsWIQTmk/sqq6Nt4Rerb7QicTuzoY3I
- OgUCZ+R+mwIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCRAicTuzoY3IOimUD/94
- BwVEJX31JRe2sxbB/e1w2p8x1bxvTw5AeIzpV3ox7coJg1bSU2mnGuj1V4o0Yxf/3zmcJzCN
- VfVjwRF8Ii3GnC7uUXk2t+87piQfKTyJAYQABhZUKgoVJbjJq/S+C3XCKIyBA+EiezoUsgsA
- jTzwU+FzV7zVWIXFPJNtBERLwboE9w9U3KjAExOa1kSY8eLrsg6kOwlOHWy5UsQqYOjrS96M
- mzm2xuc1+RCjrndAyYhCnrOKvJ67HsPnBeJCjw7ImGD/U1GchwYbX8o3DO3JNHm3qfC86ZqX
- 2sCouENg4OzgPTtLKUrueM6xsu6KMM7gj17vxsiR3KQEoJnnMB8D1xtBofN3mFZE0wD9M24m
- 8yGunZbtntMCUHzIrlJgAPwKWKuGOYtA8UgMTFkccnUJtQrg9KotKtEF/FuftG9zLG9XEkt4
- 5ZdNgbSoLWgelu3T47mbOJ8LHhiLaCWP7yrovtVAvLUQ1BsiA42u8ECrFCFvQj9nrejE/ICv
- kP+uqcKtdDvP9HrIGycF1WZyfZLp0RvopKW92FLvI4I1QFWJ+wenk6+LGyJ5bzlrWzevjxmf
- nHcXE6sJBHrE7eijlbbImDAi3uLYN8Nd9Dm11IDAy4GAIQxSiQn0yblDhPiyGtchy80EVkCm
- g9k17Wol+2E2mC4DKgVdCkyUtTRSLgsJCs7BTQRkSTUoARAAuTnmWHBS6izRcEE93ajpzI7h
- dgQO4U3IRvOEsvIKR5NGcNEs0ngGebwsZ/lVULjN4vYU0LleqVhPBidNXUoZCN3A0F0Z2Ov8
- NZdef+2EhQPBVWxFO7JBzhe8Z3ALj+wFtlg8akJjBzU56azW/iJzAobqHVrudzKoO2b1/CMg
- VbiAQ+RXjgfN5kY/HqYDU7mw+hXuUV9PbtX1L8xqQQac95oM9rHzKHHpiVwxTeJnGQsa+THi
- Kze+YET3rCoGHMvOQEJhdrucTv5FpAakKdkOFNel9FFckLRKEuWgCzhpFsjQ7xbirQgFUxG9
- vlk1+q4hMRGNyEqoD6svYEeqbiUSd0oPUJeioiC3rNMRCNHLVrfZ2J6SCPkxfda08uzSdDQU
- 1/YPjOh8ZtQDMu7WctZ3XO288Z1gyBR49V7fbFs2w4sQxG+h/enlxqP7fdw1mjUlZjU5huCJ
- ielS0oEaIpmUpkugli7x4WhwLnhK2EbSoz7nLBC0y+ALUOdMlz/Y1l9xRt+bkDhpmf4O4IcI
- MxgZ0QMLq8rHDkGaEbsgZZHQPS58T0XE3IP30Q9SNxsruCMXtd2hYtBssf/wohc6JVsTtMg2
- VYTPDPIFNZFSXupEJB7jlqpDWJ8ooJfJRLBatbjT5+mVQaMYB7Hs/t+zWYWaJKHyc8O6WLEC
- NUV5Tdt5EkkAEQEAAcLBdgQYAQoAIBYhBOaT+yqro23hF6tvtCJxO7Ohjcg6BQJkSTUoAhsM
- AAoJECJxO7Ohjcg6LuIQALnXt36OUuK43wqw6UYt0cnN6EbUqJHApAF5eNFn0jCCB2XELjSz
- JKJwuNAweowBdabiBniJ+501WIW+ewEsz1uby5fUQjZuCEsIkuaIluyfUFPb73qrQyAGuusd
- 7teA4WT+/jUku9g7lX5sVoRCrKQPkd16f6Bzfztyqyjcn43/X5yQI+wlboQ6HuKe/3I3yiOx
- OgmCHzOawpC9PvhEcKj79RLM3Zz5Ts5AuHpRX70Jz8Be76LwVFLp5Msx3S24ZTU1lBo2uiJ3
- xSkay2lTpyVWRPx9vgcwzxGguOPJQJwsQeLb7wpoJMPpD3ERoaRii7Q7hvmxklpZjhKYWB3d
- t6nQ497Ek9loCrp3MIjRCSDN5xEGffiHks9yTeGMUQwO4tX8RE04uOJPkUY7uCFzFqN6/qey
- X3oFfPgkULMdiHofPAL1OskZSTzGPSfTYRE46NCJw8yoZBQ/oOyWeqaUQbK0wmW/g81wm8p7
- LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
- 3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
- Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <PH7PR11MB7962C4FE368856857E5D21CBF6C32@PH7PR11MB7962.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260715185112.1323510-1-andriy.shevchenko@linux.intel.com>
+ <6a57fbc2.20aff8f6.286553.85fe@mx.google.com> <alk8iQCjTHcdhbVs@ashevche-desk.local>
+In-Reply-To: <alk8iQCjTHcdhbVs@ashevche-desk.local>
+From: Ricardo Ribalda Delgado <ricardo.ribalda@gmail.com>
+Date: Mon, 20 Jul 2026 10:55:23 +0200
+X-Gm-Features: AUfX_mz1ruRruzodLXqUilutbk-gdifuwtgsYNYnPYUdw2zmQ75BNrgP8-2c928
+Message-ID: <CAPybu_1h+dKxzst-GJgJRrJfhxUzEkmhn0wWu6KYH+6L_3JUBQ@mail.gmail.com>
+Subject: Re: [v1,0/7] gpiolib: kill gpio_request_one()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-media@vger.kernel.org, Linux Media CI <media-ci@linuxtv.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 20/07/2026 06:53, Yeh, Serin wrote:
-> Let me give the background. The sensor is enumerated via ACPI on an Intel host, and an INT3472 "discrete" companion device (the power-logic-control driver,
-> drivers/platform/x86/intel/int3472) provides the sensor's power resources: it registers the reset/powerdown GPIOs and the regulator supply.
-> These are therefore discoverable and usable through the standard gpiod /regulator lookups at probe time.
-> 
-> With the is_acpi_node() checks in place, ov8856_get_hwcfg() never requests the reset GPIO or the regulators, and ov8856_power_on()/_off() return early without running the power sequence.
-> The sensor is then never actually powered/reset by the driver, so probe fails when the driver first talks to the chip (the chip-ID read in ov8856_identify_module()).
-> Removing the checks makes the ACPI path run the same sequence as DT, after which the sensor probes and streams correctly.
+Hi Andy
 
-Great description thank you.
+On Thu, Jul 16, 2026 at 10:20=E2=80=AFPM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Wed, Jul 15, 2026 at 02:29:38PM -0700, Patchwork Integration wrote:
+> > Dear Andy Shevchenko:
+> >
+> > Thanks for your patches! Unfortunately the Media CI robot detected some
+> > issues:
+> >
+> > # Test media-patchstyle:rc core
+> > fatal: Not a valid object name 8dac27bfa2f9
+> > /builds/linux-media/users/patchwork/include/media/rc-map.h:265: duplica=
+te value for rc-hauppauge
+> > rc-videomate-m1f.c: name #define RC_MAP_VIDEOMATE_K100 does not match r=
+c-videomate-k100
+> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
+edia/rc.yaml:125: expecting rc-rc6-mce found rc-rc5-tv
+> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
+edia/rc.yaml:126: expecting rc-real-audio-220-32-keys found rc-rc6-mce
+> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
+edia/rc.yaml:127: expecting rc-reddo found rc-real-audio-220-32-keys
+> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
+edia/rc.yaml:128: expecting rc-siemens-gigaset-rc20 found rc-reddo
+> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
+edia/rc.yaml:150: expecting rc-vega-s9x found rc-videomate-k100
+> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
+edia/rc.yaml:151: expecting rc-videomate-m1f found rc-videomate-s350
+> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
+edia/rc.yaml:152: expecting rc-videomate-s350 found rc-videomate-tv-pvr
+> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
+edia/rc.yaml:153: expecting rc-videomate-tv-pvr found rc-videostrong-kii-pr=
+o
+> > /builds/linux-media/users/patchwork/Documentation/devicetree/bindings/m=
+edia/rc.yaml:154: expecting rc-videostrong-kii-pro found rc-vega-s9x
+> > /builds/linux-media/users/patchwork/include/media/rc-map.h:312: rc-rc5-=
+tv does not exist
+> > /builds/linux-media/users/patchwork/include/media/rc-map.h:339: rc-vide=
+omate-k100 does not exist
+> > /builds/linux-media/users/patchwork/include/media/rc-map.h: missing ent=
+ry for rc-videomate-m1f
+> > errors: 14
+>
+> What is this?
 
-Some kind of distilled version of this - less prose more bullet points 
-should go into one of your commits or - the cover letter at least.
+Please ignore. Media-CI applied your patch to the fixes tree instead
+of the next tree and "fixes" has some issues with the rc-checks
 
-Otherwise LGTM, thanks for the detail.
+Sorry about that.
 
----
-bod
+>
+> > Please fix your series, and upload a new version. If you have a patchwo=
+rk
+> > account, do not forget to mark the current series as Superseded.
+> >
+> > For more details, check the full report at:
+> > https://linux-media.pages.freedesktop.org/-/users/patchwork/-/jobs/1050=
+65189/artifacts/report.htm .
+> >
+> > ---
+> > Check the latest rules for contributing your patches at:
+> > https://docs.kernel.org/driver-api/media/maintainer-entry-profile.html
+> >
+> > If you believe that the CI is wrong, kindly open an issue at
+> > https://gitlab.freedesktop.org/linux-media/media-ci/-/issues or reply-a=
+ll
+> > to this message.
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
+>
+
+
+--=20
+Ricardo Ribalda
