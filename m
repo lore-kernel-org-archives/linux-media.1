@@ -1,246 +1,87 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011000.outbound.protection.outlook.com [52.101.70.0])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBB03955E3;
-	Mon, 20 Jul 2026 03:31:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784518285; cv=fail; b=r/YAJLzzTmN5ZrvWoZJYEqOSXidlNr6Kom+yUVr0LB10XLoWhxq+gfwm2CV6QLS1L42GLm+iJMUCeTOa4lUJ9wxNWwYjH6S5/9XYEJlqkymyLc2maOdhTPBh8ozcs7Fba/+H2F3elJaHIPZP5O5A9HN8yvPiYsJGkfTgedkEjq8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784518285; c=relaxed/simple;
-	bh=gQ84FhidFxOrMQlGZqdpL26VQTTR7PRmXdT31fsLHkI=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=OcV288odO7/cKdRdDmsW8x7xU+cUTSXp3/amMinuUMSpHFi7OHIKx90YW3C+kq+hgnCmQtS4ad+BXsQYWF5CDob/GnHCso/ay5gdVlR4/ieM/hcvWJLW4iQ7P91xDCqo8blgWNgdtyQK/fd+SC3mD2mmcCu/S5pXdfAVOg95o0A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=xU2pYoHg; arc=fail smtp.client-ip=52.101.70.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A973A963C;
+	Mon, 20 Jul 2026 05:46:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784526413; cv=none; b=FP7QrZYBSb+avPu7WPkf4PM/bnErXCABEXPpw26imf8yM+4hoErGtxCm4nhX5verzRDcM9AO2v/jAWY4uT9wOn/iBHk7P/FyPGDzMMfjuYjmHuKFQ+kqFOjUKbQbfbngX/qQ5wRQrCo89b9nlq5aUXtfqRYdYWzTpYaS4LINVWE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784526413; c=relaxed/simple;
+	bh=FrOREJ4y5hitXRThgiDHCBim1JhpJz4MjFauLtbOQYY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j9yoljhM0jATAhgYiPPX8+qNpxUfvgJwBbYKfxRC3zwi7g5jdt+WBzqkCjTRQtFgya02Z0iToXJMkw3uacbJyBdBiaZw1hr964ZIwVwSxraJHKVcELeoGn+7F76c5/iNawrv/RaUQi5i8wqZ7oVwitYhBaa5baB/P+EMnw72fsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fJmqte4I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="xU2pYoHg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n6BKyMpVYGTM8+hg5uw8FCNkStOdEzoRcrGKuIpv8EDZ0SeJL9Q2SUooWcYFVYWQfUECJsrTA3/1Zy4Va9Bu56qML3QHJBGv+sUWUEW6U3sZ7vn5aagpFRKZFxt/y0dgrv9Ib2SJm4rglWOQ1ul0pRCht2FYqzCLAJd01wrJuUyjjn9K0O0FyHZ7Y+nz0dRQ9zEr194tMe+hYZnjP2g8bnnkPaMo1YpOFFrVv0q9C3gjupVQYzmLpuHAteqOTk3XlB58obf7phCsKQ5ACX7/5eXXXhLupY1F0nEtm6cnRVCwxYXB+nuneaHZqrhIN+OJBc9L/5FQNyBaSbEwYL3jRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Uc4Nulb9p9hc+eMM5m5OIXTvCXPBrbT+CMETT720AFg=;
- b=BZp6TvNf3qJLpMOg5bVkkRDcjx/Ik7yAAqt15t5uLr73KjHtvCoFr+2FI1qUzLvpykpEGyWwhIHlFvbAXBdOOnK2m/8+/KVgPcQL24cIjufogaTOIaouT4ARq44p81nA9mMjNPAf3kPl66Zqad4m1jMzq53ZKDGY5vqVHq1lAmpuOHcRfccrjRXDXNUMY3jVjpTTVeHptw7i+c38o7GV7lUuwvU3gYiSwTJktC1o2zBOIhxAqTi/XFjxd6FJzpnX65LjY5bO771LcCMZVLEuTA46pPkMbXlch95vzmL2w6WGRUVSwgWZ79wLI4BrZGBhswPKQWcP+zO7wXO8QPjMcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Uc4Nulb9p9hc+eMM5m5OIXTvCXPBrbT+CMETT720AFg=;
- b=xU2pYoHgNbFijvsgLLK0nvr7M880zzA1h9HkuURLqQAdyAddSrpAYE5Mosn68Lsd+8wRwqrd4HS3UB6W/Rke0qGowJsrpaFkHI4llGVlaSzebW1JZtG/Hic+yfRevCS/qL10Ybc0hSwkta3cnvFrcPteC7JWPOxOg/JtTRa4K5d/HdeNCErVprRDCz5YsFptuLk1p6137mEIlhzOhwXmTZ4jqTcyKqkCeP+hcoLFHK1mNWbzCSVkjk5AjRptXAPcV/rUy6vZLLBuNb/LoGO405yX01O96nrSuPNI8jkd2cqStmz5Vu3P6gtbuhd9L9/J4RG8nT9v6GxA9zGde6WfnA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV1PR04MB11513.eurprd04.prod.outlook.com (2603:10a6:150:284::9)
- by GV1PR04MB10534.eurprd04.prod.outlook.com (2603:10a6:150:205::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.16; Mon, 20 Jul
- 2026 03:31:21 +0000
-Received: from GV1PR04MB11513.eurprd04.prod.outlook.com
- ([fe80::29e0:98a1:4577:2cc7]) by GV1PR04MB11513.eurprd04.prod.outlook.com
- ([fe80::29e0:98a1:4577:2cc7%3]) with mapi id 15.21.0223.012; Mon, 20 Jul 2026
- 03:31:21 +0000
-From: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Date: Mon, 20 Jul 2026 11:34:08 +0800
-Subject: [PATCH v2 6/6] media: nxp: imx8-isi: Add additional 32-bit RGB
- format support
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260720-isi-v2-6-45845bc5d4fa@oss.nxp.com>
-References: <20260720-isi-v2-0-45845bc5d4fa@oss.nxp.com>
-In-Reply-To: <20260720-isi-v2-0-45845bc5d4fa@oss.nxp.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Christian Hemp <c.hemp@phytec.de>, 
- Stefan Riedmueller <s.riedmueller@phytec.de>, 
- Jacopo Mondi <jacopo@jmondi.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Bryan O'Donoghue <bod@kernel.org>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Guoniu Zhou <guoniu.zhou@nxp.com>, 
- linux-media@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Guoniu Zhou <guoniu.zhou@oss.nxp.com>, 
- Robert Chiras <robert.chiras@nxp.com>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784518456; l=3424;
- i=guoniu.zhou@oss.nxp.com; s=20250815; h=from:subject:message-id;
- bh=gQ84FhidFxOrMQlGZqdpL26VQTTR7PRmXdT31fsLHkI=;
- b=4TUsZBN5Zv3s5V0a9Rs+VZ9xKCxSc7vA5Q918WzLEN9SiuK4kPExLWbc3vRFl2C4Tw40ZVSl3
- wORoYvyceaMAeSJ4GYbApIrM53poQMtH8O5gIje0/klhnQ2l0Zwx75W
-X-Developer-Key: i=guoniu.zhou@oss.nxp.com; a=ed25519;
- pk=MM+/XICg5S78/gs+f9wtGP6yIvkyjTdZwfaxXeu5rlo=
-X-ClientProxiedBy: SG2PR02CA0136.apcprd02.prod.outlook.com
- (2603:1096:4:188::16) To GV1PR04MB11513.eurprd04.prod.outlook.com
- (2603:10a6:150:284::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fJmqte4I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69AB31F000E9;
+	Mon, 20 Jul 2026 05:46:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784526402;
+	bh=vNOj+nqn+Y5SfsvGLwG0FLLtMfQy7PUJ2s4IhoKO0Lw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fJmqte4IXJggDcPEMNwYZvuzwRn34JvUCZ4Q1HAv9kWIfUlI7tCuRFRFE/c9TG72/
+	 zAWZtV3Uwhq7GAMWU3DxXFgqYI/l4EyMLeHGnkF/7/LwOpdYnj62ASwLS1fW799+mv
+	 RzIEikaRdTWQGjR4eOTa5OQfBzGcccGWyPtTjR80cIyVTlv7uchNfXmaQliobFvX9c
+	 w0pLoA/hozK/X7FZHzU6KT2hElPi/WvbS698Bnw66nN7xyWC5yrUjdkLEm10XdlbD/
+	 bNC9HxKgS5bQCb2vWCxBcOnmYYk+ACMqIGykUYutwswroN7YnFEdZ6Z0Kar6Y3xlQz
+	 6vY6+AjjMhhjg==
+Date: Mon, 20 Jul 2026 07:46:38 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kyrie Wu <kyrie.wu@mediatek.com>
+Cc: Tiffany Lin <tiffany.lin@mediatek.com>, 
+	Andrew-CT Chen <andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+	Ricardo Ribalda <ribalda@chromium.org>, Kees Cook <kees@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Fei Shao <fshao@chromium.org>, 
+	Haoxiang Li <haoxiang_li2024@163.com>, Chen-Yu Tsai <wenst@chromium.org>, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, Tomasz Figa <tfiga@chromium.org>, 
+	Sebastian Fricke <sebastian.fricke@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Qianfeng Rong <rongqianfeng@vivo.com>, 
+	Irui Wang <irui.wang@mediatek.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Fan Wu <fanwu01@zju.edu.cn>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, Sakari Ailus <sakari.ailus@linux.intel.com>
+Subject: Re: [PATCH v6 08/14] dt-bindings: media: mediatek: vcodec: add
+ decoder dt-bindings for mt8196
+Message-ID: <20260720-gregarious-satisfied-shrew-f71cba@quoll>
+References: <20260720012056.1026551-1-kyrie.wu@mediatek.com>
+ <20260720012056.1026551-9-kyrie.wu@mediatek.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV1PR04MB11513:EE_|GV1PR04MB10534:EE_
-X-MS-Office365-Filtering-Correlation-Id: 53352083-fc69-47f3-543d-08dee60f5e52
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|19092799006|376014|7416014|366016|23010399003|1800799024|921020|22082099003|18002099003|3023799007|6133799003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
- dpwhEi0F01+nDsTO3gytMMl5w6xEcg0a7SUmU44hCqxHfUy0io+niWgpArRzgwYw3tDctfKGRCPzQAEgZ5UFuXN8jH5tqtX+KZHfcIATnfRcudURcMPvoqRqef5TiwwL183jKH/sAuaEBMrV+24RoswV85okgObfGB6L0I7jwJK0YldoUD78257ETXy6ATyN5qJnVBYcwApyLzrk0UlEPpEG266kl5icz63ujWqhKV3S9N6Gn30qhmZb50s+Sw/f/NB9S7iFJYD4y/xcicL0W11P4Su6yCbb/4/WPAfLHAIcvDmnfIJ1SsnpiMXBYtLflQcpXnGI0vL82ziexSMNXodBoeshcnw8gLpwe91KJuV9PcVrXdSXEgA23dO5k9MrcBHmGJlUv6nWKYmH3iSdkb1JJlKEedSvm5yojDthJCdsJzJi9Ni40DzsHdqMsmNrJdxHpRmsOw1V/j8nl/18c2yba/FbHinCHcOgoyN5tCvPbqgW2yeIgp51rT/RUqrcjJVg0nZvcRePQYOsyVIXYW1NT2uRsDojN7Aq+HPu+o+5gFnO2uugC41uMNAPq2Vqe/fWicMVMPhc8t6eD6ui1KtizilFut6XapsfdT9LJl15TBD3gHpS3/A4+GQ2ORzatzQ0WTzWllP3ia6KF50lD8MRxvoT4dyoovkg584939RD08hyKcILq8XdRmBuDro9wHv6p+MmUmoOHJb0Z6hw0g==
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR04MB11513.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(7416014)(366016)(23010399003)(1800799024)(921020)(22082099003)(18002099003)(3023799007)(6133799003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?b1JxaGxhZ2FVbjN3OVc5V1lGaGtrMHhkcjBxdm9DZU1aNWRYTkw1bmJLaU5q?=
- =?utf-8?B?SnZCVnVNcVc5TkxucVRtRTlzcG5xTVRTdkFUNlFkS1dmZS9ZMDJVeEhLaGJD?=
- =?utf-8?B?SDN2emZMalFXK2tNbDNUdGJNWGlsb2hQN3Z6OTFDN2pKNTlSZlY0UUNFeGY4?=
- =?utf-8?B?Ync5MGZsVzFnT3FOdFVabFFiRUV3QzNwZnlYTFRteWdrZXBzR3g1cG0rMTd5?=
- =?utf-8?B?MGtKaEdua3ZocUpDWVc2S2lLQm1iWVNrMys2UXQwS0hTUnFGd0dkTXVBbUZ3?=
- =?utf-8?B?RW9CNEtYTFFwZHBsYlpVOXlJUjB2TE12MER5MWtzTUdtUlUxVC8vUE5wWGR4?=
- =?utf-8?B?Vk9rb2F3MDllaERJOFMrTE5nKzZ2SkhldUNubi8yblFiYVI3QWFOUTA0a3Uw?=
- =?utf-8?B?TWVST1kwRndFY2NYRTdVWkZTQjdtODROS0daeFpxemg4dkdQYVFSWnZzUmdW?=
- =?utf-8?B?Skx6TjBiU3l4L2NLTXNIMUhLT3lyOHdQKzhZajNzWXpnZXU2SUJNTm8yQ0Jk?=
- =?utf-8?B?QWV2UHdnMnI4a0VKVWdoaVFianc4V1Fxb2hJUlRXL3gzUys1TFNjNlYzN2dI?=
- =?utf-8?B?WGNpeFAvRWpPZlhSK2RDZHQwbEJHWHUzRVN2U0k3aHQxc0lpaWtUVVlVUWNz?=
- =?utf-8?B?bzRIbmRYQ0lhbWFGcG5XanRxam5DUWhQc3lWQk5hUWdQSVVVeGJEK3NYR1BI?=
- =?utf-8?B?Y0d2ZDdxYTRrT2ZWTDFPeDYyVmRKZEZnZnVWVHhHMU9hNXNGTmYxQjdUOG1u?=
- =?utf-8?B?ZXpDYlc2RmJTbUVxZng3WDVocUpRWk0raEZUWEcxaWtVcVZ5VmJjRkZpTzVk?=
- =?utf-8?B?UGp5UnQ0dzk5RlpvMHFWd2huYVFKZ29DczdCOW1iR0dsVnBqMDJBa3lnWnhs?=
- =?utf-8?B?ejRpMjk2bjk4VndPMHBhWC9PMTFZSFZlWHFWcUl3SlRaRVlzZHF5cW5vRlN1?=
- =?utf-8?B?ckFiTXZJRm1tNTN4UlJKR05neE8xUEM4NnB1S0pNKzROU2JOWm4zVHEvazdy?=
- =?utf-8?B?WUpGNmdmZmZtdW9maFVmWEFsTHNXbXg5TG9SUEZ5Um1pSU5FMnlua1crUjY0?=
- =?utf-8?B?UkdDekxWSHUrckI0TTV0RmFEYnppWjFlWUg2VHI4WW8yblA3a2tZZGpVYUZ3?=
- =?utf-8?B?N0FyUmdiRS80T2ZIT2FERmRVQ2Rla3gzRmFjRjd6WUxCZlgzaWFWSUFyUFFr?=
- =?utf-8?B?VUFZb3RPd1h1K2VYWlNFOEx6MDJveWNyWUh6RWRNUVZEMzM3L1JnamRhTHkr?=
- =?utf-8?B?ZHg4N1lVNTBNNi9hT1hhNWYycWpsSWUzcXBhNmtScHlLNE1RUGs1VEpHNWwr?=
- =?utf-8?B?d3M3bXE1cWk0bXVieGJsa0VNNDJvTVM5aUsxOHZjajFzbHc5K29DT0dZWmk5?=
- =?utf-8?B?aU9Zc01oMlZvR3dHYjYzR0NjamIvbDdkT1JVSWV3SUtYVjgzQzYvQmtESG5U?=
- =?utf-8?B?K0dqZkdCdzRzeVpnYXRPYTg0V1J3b21yNlVHZWFOYzVCMHFLeTJYYmFhbVNQ?=
- =?utf-8?B?RWI1aGV6VEFGemwzaUJ4R2w1dy9kRkxtT1BpNCs5NVgrdEduN1VpQ0JnWE93?=
- =?utf-8?B?TzB2cHdURmh2T2hKVFpGOUNiOG9CWElXU0w5NkljYlk5RC9xd0hVWTloYStI?=
- =?utf-8?B?R3d6RzlKZ2pXdTgrRm9kNDVrV3RtQWhyZk50MS9RbzgxVDhja0c5Sk5EQ3Ir?=
- =?utf-8?B?QXJsVkw3cW9qMVdwMm5JenpOdkZJYnBWYm9zSkhFTm9TM092UlB0TVoxQnZh?=
- =?utf-8?B?dWszNUdZNEpoeXhXakEzVGp2WVB4aGlyc1BiL3o5dWVXeDVkcUlubzdBVmsx?=
- =?utf-8?B?V1I3VVZOdncxR1lGblFlaml4bVJlNFJRS0wvUkZISTFRdkZLbzBDNFlhRWpk?=
- =?utf-8?B?K1lER3daSFV5QWs4NVRENCs3MGRTcDNTUVdTK21KMGlaTnhKaUZOYTZJYmts?=
- =?utf-8?B?KzhSdXlOTlRsS0lSUTFVbkk1eVF6L0gwR0hmUUpNanBsVjJ1VHVVZ0ZaeTdG?=
- =?utf-8?B?Z1M0Um1yQUpaSGFZNGhrdUxOTkZKSCtrd05FcHZzN3o1Wjl0WVBlelFBVEhL?=
- =?utf-8?B?aGhKNUdjWXVlZWgybk1hMnJXdW9hdmVzWG40WjB4Y2ZEb2c4UHBtbXVQMFgz?=
- =?utf-8?B?YXpMS0dHdGdHbnAyb1lNRU5MSklEeEFEOTAwcXplc21jRXQ5bE93eEd1UWZz?=
- =?utf-8?B?RWtEYTJybUZGS2tQOFMyeGljQkZkbEU4cDlrbU1TblI1SG5hMXhKYkVnRHZt?=
- =?utf-8?B?b2g1eFVOUW5IVHRFK3JUQ3dRaXpwN3hieE9WK0hwcnJMN01ETGdRckxOenBN?=
- =?utf-8?B?OFNEVkRndzZJZXlMWmx4UHFLOG1EVzFqelB5R2Y5VnNraE80K1JJanNUcmkx?=
- =?utf-8?Q?EWmQmCqQHO8zK0lrI6DtQGn4jRV9M6dYksKWd?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53352083-fc69-47f3-543d-08dee60f5e52
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR04MB11513.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 03:31:21.6018
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ewmAO6TjVNqzjZj+Gwq2qbd3IJhXeFWFZlvshtGLiDaQWeLgveB6AOTIFuYKQRvanBr85kXTMDT5N/VFPHyHNcy5uQhBTGOYiwdTc42kHaO1YKQX82Wud11D+lxlyUIo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10534
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260720012056.1026551-9-kyrie.wu@mediatek.com>
 
-Add support for additional 32-bit RGB pixel formats (BGRA32, RGBA32,
-BGRX32, RGBX32, ARGB2101010) and extend existing ABGR32 format with
-full memory-to-memory capabilities to meet Android requirements.
+On Mon, Jul 20, 2026 at 09:20:50AM +0800, Kyrie Wu wrote:
+> Add the MT8196 compatible string to the MediaTek vcodec subdev
+> decoder binding.
+> 
+> Compared to previous ICs, the MT8196 supports a 10-bit decoder
+> and has a decoding capability of 4K@120fps. It also supports
+> 36-bit DRAM IOVA address and Video Power Control to optimize
+> bandwidth and voltage usage.
 
-All formats support capture, M2M input, and M2M output operations,
-enabling complete format conversion pipelines.
+Please wrap commit message according to Linux coding style / submission
+process (neither too early nor over the limit):
+https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
 
-Signed-off-by: Robert Chiras <robert.chiras@nxp.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
----
-Changes in v2:
-- Add Reviewed-by tag from Frank Li
----
- .../media/platform/nxp/imx8-isi/imx8-isi-video.c   | 59 +++++++++++++++++++++-
- 1 file changed, 58 insertions(+), 1 deletion(-)
+> 
+> Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+> Acked-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+> ---
+>  .../bindings/media/mediatek,vcodec-subdev-decoder.yaml           | 1 +
+>  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-index 05b51b98344b..ef638af350fe 100644
---- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-+++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-@@ -160,12 +160,69 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
- 	}, {
- 		.mbus_code	= MEDIA_BUS_FMT_RGB888_1X24,
- 		.fourcc		= V4L2_PIX_FMT_ABGR32,
--		.type		= MXC_ISI_VIDEO_CAP | MXC_ISI_VIDEO_M2M_CAP,
-+		.type		= MXC_ISI_VIDEO_CAP | MXC_ISI_VIDEO_M2M_OUT
-+				| MXC_ISI_VIDEO_M2M_CAP,
-+		.isi_in_format	= CHNL_MEM_RD_CTRL_IMG_TYPE_XRGB8,
- 		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_ARGB8888,
- 		.mem_planes	= 1,
- 		.color_planes	= 1,
- 		.depth		= { 32 },
- 		.encoding	= MXC_ISI_ENC_RGB,
-+	}, {
-+		.mbus_code	= MEDIA_BUS_FMT_RGB888_1X24,
-+		.fourcc		= V4L2_PIX_FMT_BGRA32,
-+		.type		= MXC_ISI_VIDEO_CAP | MXC_ISI_VIDEO_M2M_OUT
-+				| MXC_ISI_VIDEO_M2M_CAP,
-+		.isi_in_format	= CHNL_MEM_RD_CTRL_IMG_TYPE_RGBX8,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RGBA8888,
-+		.mem_planes	= 1,
-+		.color_planes	= 1,
-+		.depth		= { 32 },
-+		.encoding	= MXC_ISI_ENC_RGB,
-+	}, {
-+		.mbus_code	= MEDIA_BUS_FMT_RGB888_1X24,
-+		.fourcc		= V4L2_PIX_FMT_RGBA32,
-+		.type		= MXC_ISI_VIDEO_CAP | MXC_ISI_VIDEO_M2M_OUT
-+				| MXC_ISI_VIDEO_M2M_CAP,
-+		.isi_in_format	= CHNL_MEM_RD_CTRL_IMG_TYPE_XBGR8,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_ABGR8888,
-+		.mem_planes	= 1,
-+		.color_planes	= 1,
-+		.depth		= { 32 },
-+		.encoding	= MXC_ISI_ENC_RGB,
-+	}, {
-+		.mbus_code	= MEDIA_BUS_FMT_RGB888_1X24,
-+		.fourcc		= V4L2_PIX_FMT_BGRX32,
-+		.type		= MXC_ISI_VIDEO_CAP | MXC_ISI_VIDEO_M2M_OUT
-+				| MXC_ISI_VIDEO_M2M_CAP,
-+		.isi_in_format	= CHNL_MEM_RD_CTRL_IMG_TYPE_RGBX8,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RGBX888,
-+		.mem_planes	= 1,
-+		.color_planes	= 1,
-+		.depth		= { 32 },
-+		.encoding	= MXC_ISI_ENC_RGB,
-+	}, {
-+		.mbus_code	= MEDIA_BUS_FMT_RGB888_1X24,
-+		.fourcc		= V4L2_PIX_FMT_RGBX32,
-+		.type		= MXC_ISI_VIDEO_CAP | MXC_ISI_VIDEO_M2M_OUT
-+				| MXC_ISI_VIDEO_M2M_CAP,
-+		.isi_in_format	= CHNL_MEM_RD_CTRL_IMG_TYPE_XBGR8,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_XBGR888,
-+		.mem_planes	= 1,
-+		.color_planes	= 1,
-+		.depth		= { 32 },
-+		.encoding	= MXC_ISI_ENC_RGB,
-+	}, {
-+		.mbus_code	= MEDIA_BUS_FMT_RGB888_1X24,
-+		.fourcc		= V4L2_PIX_FMT_ARGB2101010,
-+		.type		= MXC_ISI_VIDEO_CAP | MXC_ISI_VIDEO_M2M_OUT
-+				| MXC_ISI_VIDEO_M2M_CAP,
-+		.isi_in_format	= CHNL_MEM_RD_CTRL_IMG_TYPE_A2RGB10,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_A2RGB10,
-+		.mem_planes	= 1,
-+		.color_planes	= 1,
-+		.depth		= { 32 },
-+		.encoding	= MXC_ISI_ENC_RGB,
- 	},
- 	/*
- 	 * RAW formats
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
--- 
-2.34.1
+Best regards,
+Krzysztof
 
