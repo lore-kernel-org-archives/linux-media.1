@@ -1,221 +1,158 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD0F42CB1E;
-	Mon, 20 Jul 2026 21:59:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F31B439349
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 22:01:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784584785; cv=none; b=fIhujlcQ+tYvm+N9B+Z///ZOOlTn4tdsAjRyis98mpL1DOGcBKGobwFl6j//yEsl6aAASVY44g4wXtVLIPS4NUf+PD19MwniOo5ZgYmowzeRgQFdjw+oGouM8aDWOMK/+7o/G1IifskrN8iJ9tvhWcKVlzmt7qP1wmdsndlBOG8=
+	t=1784584871; cv=none; b=q5R4oOIUccTjA4VSDGeMH6Gq/ersVdAPDon0xdEQU4rJwi+hQXWGzs+3V46tNMYbeVXr1dJg6P4q5IhPtOM23BijXtsegmfgNw0R7oqx7N9w8fs8KHpohUURt+MpDeSamDAI0qWlkBedPIy2BkOoBpRCKqt4cdQQGeueH5DEH/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784584785; c=relaxed/simple;
-	bh=UkdDazohtWkl3zDqbPUEI1+7kgEx8ZXq9albSD6f2cU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XrQbUjDPmiwp99wTD10il+EhWg0Mm9cwMwY0wVwwM3KSdE3B/25E5qLkCNCnN2eMJ4oLFpA9amIJGm8i1L8Vvdyb7zdlLKgJGkLZAeamL+Yl/FEXiqsYgN+suCtsGpN80Oreiopfa4OTJxvDDQWzDegtS7JyYSPcA7FumIGmqL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=JucT+hsU; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784584871; c=relaxed/simple;
+	bh=nXYn4tA/GAdByxO836CB5rzbiFWKaDtYily2blwiFNA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mNV7GCPp+fdKvq/cM0a5M5Q5V41LfRU5jfIHqHinofdJHMUzyvmF7soIISGO/C0U04tNL/gyyO1/5SoxfQb/Dz3abZY2yuA6MG4qXHt2PRf2zB0cBqHS7uyeCcZacEg4t6IpyOk+eiOHCG3lzQeH/oNNXZUc7fdclCMMqfuzGhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mssAy0/i; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VXIbdrR3; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="JucT+hsU"
-Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 094EB8E0;
-	Mon, 20 Jul 2026 23:58:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784584723;
-	bh=UkdDazohtWkl3zDqbPUEI1+7kgEx8ZXq9albSD6f2cU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=JucT+hsUf1VLB3zZYEK2pig8McDTMdZ2xljZeJ4b44di6JtaU4lQuu4QiNEiNPSx8
-	 X9qqYKcS265EVcHp34Ss+L0pbA49zi3z6i15ZC8ak9bNF9PfNVxXdMHwz0BKGjyIfT
-	 BXJQpJJXaP4IUXYLZESYGet7BUNgFyCqHEKDIYRE=
-Message-ID: <3ef0ea37-13a0-4a73-b66d-cbbcdfe18b9a@ideasonboard.com>
-Date: Mon, 20 Jul 2026 22:59:38 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mssAy0/i";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VXIbdrR3"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66KJTmGX3106828
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 22:01:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Quf25WWyBMlHRX3MWi/eB+cE6gRpot0aHn286hMxyPc=; b=mssAy0/i/mniwKDq
+	+Njx8gTueVtyls0hVI3jMYexs/vk2/drSuGfrv/o68xrx8/lerR0kM1HpVJc5m1b
+	z34nCIX1c3NeIgxyQE/7H6rQCChXRcsNWgAqQHjG5kDQib1Xc6DAOf7fWDvmZvPm
+	J8zLbchUqo8Wuk8i7oktlzSFHvM2Fvd5AVGCuEHY0NGjGFDBe1+sUEgxhtVv5imE
+	swvkg5h83HUeSZw7Sgy0KP/mOSIQ0bzIzwu/DBzwysiQbrUXOYv32YLUFrW6fZ5t
+	SjMsBvjs7wpJb/bMh49yhxrzu4YBF87D2K0uHiQ0yXXsRdxcduzAU1MXng5ubD/C
+	tDA+xA==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fhgs53880-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 22:01:09 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5bfc6b860a9so3396643e0c.2
+        for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 15:01:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784584868; x=1785189668; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Quf25WWyBMlHRX3MWi/eB+cE6gRpot0aHn286hMxyPc=;
+        b=VXIbdrR3OHYb83r8fXwiLAcFzTW5jpi+hyEecwrNODaupo73AL20Qm/0RwXZCNqCLB
+         pDxTPsEdh7KShIHDCleBZpEGSrcTMWMGPQZq/FkRpRcH7OWbg40z1qERWUPVrsHvS3w+
+         w7GMi2R2oSv/c9ZNVRyINmNRD8ojfNl8PN1OEXh2lMXvM1B73mZxNn2l6Y+dWeUCHxC6
+         v2axrRveEoH7sxqpWyYTlnp7ET1rXxy6r1wxmIgRyBIhwpV3cyFoBAWjCxTgDrX2UlRo
+         9ooOwAsQ1JZwJ1+JWOpUgwByyKx/BRZ5nJZuh4ax1WIQ684YvCbJbpBueSiTQjO6QUJw
+         YIQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784584868; x=1785189668;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Quf25WWyBMlHRX3MWi/eB+cE6gRpot0aHn286hMxyPc=;
+        b=Qjev4mPVNfqc5U31pEWXqSQUqOXVt0qGJcdO4vQxfU3m4fAnT5iW4144fwbw/EEfzm
+         E4M+vQDwhWVSAxPQCD1iLVQNenLcE4yqza6lxZf3ea5gtOOnPadyewOPfffB+acI0P2I
+         27eeCHY5WnTQteOoSkturNoI/jbJjBqErJ4V2ucDGypEH+vqn0lMCrZ3CU4MhmR7aqlG
+         mm1apHzqAmZ/X2pgZxQnvkMc7dsJozVWsiHT3keUXkNhYwO1wPEcXfBROLQueZ78EAna
+         HxdAt4SpBWHTPmJrnVrFtRgbLTx//TyNHBbYLjKeNRFqbxDm3uq0xsvlIzcp59Lz4qMD
+         +FAQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpbWMgHyHq9Utr4ZZlaTvo7/WhojUbFUDLQicAzZlOm2TidIcyv2B3jViTiCeBcsMoXcYYefYJaAqpsjQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyPJo4jRsdPfZZ7rwbKAqHgQHQz/V3WzDh6ax7ujNhiKSdWRbq9
+	9CnM5AoFIZC+TVS6c6q1wda5pBO+QZiWN1COF0a9srjdnsk4HnzH+gjTc05G2gftUjW0XchFtJP
+	euy7AAK+PiET8/8wneq7qRClr87nkVZz8T27y3pVcHKxnEHwSwTaVrKRV4YnkjmnK0w==
+X-Gm-Gg: AfdE7cnkEyTqh8KKwEAqBK5Ner5KalR35UyXtDZNHkQfns175GLFfqXmJBzswaTRdP3
+	l+gEA4RoLHMZy9GvhtZYjlbCUba6MCY9DGEzOlMya/UVVEgB6BPHnYyn4vc8DXYXxyPIlW0rhRT
+	yZxWk/phd42OyQ1YDCdPhHrzwuDYcIDvswOZQ8Ugbdq+g0n7tg82ZOZM7hCrswm/APemIZfWk/v
+	TjcYIC6CUv7TFC435p20wQvDhN0c71UBUGJ/G7hOszD2mmfyCEOEn4wBSP5ljbB01KuGAfiSFmi
+	u9fTIQE0p9LYsql/KaFKY2TYrApsHV/PdqzzJCx55e4vNyrV9CQl3OdpqRpmKhSK1DQ+mmH1Czf
+	H2YP/8gceFHBR/xP7vUCxPXrfJRDKRdHPGvx9AXY+hAz/MRi5S9l2LEeONzxZnAkBsNch1f2S+z
+	5pOR4RgnCGCUR0VA==
+X-Received: by 2002:a05:6102:2928:b0:737:1ca6:84d1 with SMTP id ada2fe7eead31-7475371037bmr4225662137.24.1784584868271;
+        Mon, 20 Jul 2026 15:01:08 -0700 (PDT)
+X-Received: by 2002:a05:6102:2928:b0:737:1ca6:84d1 with SMTP id ada2fe7eead31-7475371037bmr4225635137.24.1784584867709;
+        Mon, 20 Jul 2026 15:01:07 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2a24737cdsm316213e87.77.2026.07.20.15.01.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Jul 2026 15:01:06 -0700 (PDT)
+Date: Tue, 21 Jul 2026 01:01:04 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Kirill Ermolitskiy <00vopoj00@gmail.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, linux-media@vger.kernel.org,
+        vikash.garodia@oss.qualcomm.com, dikshita.agarwal@oss.qualcomm.com,
+        linux-arm-msm@vger.kernel.org
+Subject: Re: venus: encoder job execution hard-resets SoC on =?utf-8?Q?SM7?=
+ =?utf-8?Q?325_=28sc7280-compatible=29_?= =?utf-8?B?4oCU?= extensive
+ analysis, need wrapper/GDSC insight
+Message-ID: <zfcbexld5clt6rrvlhfgtjztxus26vwsbceslye4gsb2gopdvz@f67onnyhpskr>
+References: <CADRRrN12FvS3v3c3on69XLErB9i8ih=LgJOGaKhYYT7KrZKe2g@mail.gmail.com>
+ <035192d8-9d6e-4e04-ad1b-56f52c11933d@kernel.org>
+ <b6rUao5eYcEHwZ_P1JyyUjJUtwY-yJnWVfxHUa9sHdWOmlMoXSLxjMoscSmOu0V5VkwrO7q4TnNzRvoFP5RpLg==@protonmail.internalid>
+ <CADRRrN23tWrKKnPDdsO_61QQd790z2W+2ejZ-s1iZkJh+=oHhw@mail.gmail.com>
+ <f4041aba-ccbb-4126-a65b-a385e882949e@kernel.org>
+ <36vhfeWCV4PqtDGfEur9lR9MVGp1d_CMjIb_Wr9zTFbeNM9QPzCJsn1TzyTYnZfbku-iwBZo-eDdLasYJ5hE5Q==@protonmail.internalid>
+ <CADRRrN35SjSPqYH+kUowf3RCcKgnGqVQAKTd73vqMLgdz1q5AQ@mail.gmail.com>
+ <1bc74fac-859b-46fd-91ef-16c40c8f9a7f@kernel.org>
+ <CADRRrN36-iWMdOBxDHKjV_SCs2U7jH6YwJO4ycTe5_w-2QTTyw@mail.gmail.com>
+ <CADRRrN25w3Tgnnoi7FD3U69gVyf9COO_m+k9rdX9GOcb6asm6g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] platform: int3472: discrete: Support multiple HIDs per
- GPIO map entry
-To: Tarang Raval <tarang.raval@siliconsignals.io>,
- sakari.ailus@linux.intel.com, hansg@kernel.org
-Cc: hpa@redhat.com, linux-media@vger.kernel.org,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260718203821.17684-1-tarang.raval@siliconsignals.io>
-Content-Language: en-US
-From: Dan Scally <dan.scally@ideasonboard.com>
-In-Reply-To: <20260718203821.17684-1-tarang.raval@siliconsignals.io>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADRRrN25w3Tgnnoi7FD3U69gVyf9COO_m+k9rdX9GOcb6asm6g@mail.gmail.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDIzNyBTYWx0ZWRfXx1NIRra8chzE
+ w5dyC7noUpJVdkjxUlhYCfC53baRN/a28vYH1qNKQkBg9FH/mHKEYgzS18v46CGiX2qYKc68oV6
+ f3wvkTg8VsKV6WkIhjZZ8YNqGmcYSbY=
+X-Proofpoint-GUID: wo9dJVdO83P1YPMDPyopv0rNYR4VMUDP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDIzNyBTYWx0ZWRfX5zt3GFFh1kgg
+ 4XZKF2Jr/pOQ17nXz0u5J2hcnTlgghNPOWEQwPIQ4A7CfXid6x9AA4wkcBy/YB6clZ+1u1FkaD+
+ 4z4SDeyrGC2kdR5MARhlg8NLeuA60cgguFAuTO92Oa0j2vc7SOq9hU4tjUK0ixSWOAiMwrGjqfx
+ NOepfMENI7vwmHkxYMpxFyoYGi2fkvuOixdwnUhpX6C5RSBiYY08xmju6OETj33H8BENrKcw+S0
+ SKgISPJo/VMrqJoE5vJaE7xWdbH2x/8njGcLgm1DEoVFTQXFdEfZ9/lDDPra1PbnBZkylSIefXa
+ CL/4+Y88fAIy/UArBQEW2zUnxMXJdBJoeNE5WupYbUTiKdvgobjWbllgLXDCIBPRARK5Q2sZ3N8
+ qevo12OppPa9HxCJef7lHDpky997UaYOorLMcf0ywI1qx2xlI2pgNeTqexMzGynwoG3onEuv+17
+ 37ADselEAq+sGWpYQzg==
+X-Authority-Analysis: v=2.4 cv=CpiPtH4D c=1 sm=1 tr=0 ts=6a5e9aa5 cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=5KLPUuaC_9wA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=zbWqsRPLY0wYEQuEYD4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=zgiPjhLxNE0A:10 a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-ORIG-GUID: wo9dJVdO83P1YPMDPyopv0rNYR4VMUDP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-20_05,2026-07-20_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 phishscore=0 spamscore=0 clxscore=1015
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607200237
 
-Hi Tarang, thanks for the patch
+On Tue, Jul 21, 2026 at 01:48:17AM +0400, Kirill Ermolitskiy wrote:
+> Re-verified with iris (CONFIG_VIDEO_QCOM_IRIS, venus disabled; ffmpeg
+> confirms 'iris_driver' on card 'Iris Encoder'), this time with all
+> current fixes in place — the IOVA reservations and video_cc_xo_clk apply
+> regardless of driver since they live in DT/videocc. Identical result:
+> silent PSHOLD reset at the first encode frame.
+> 
+> So that's now confirmed twice across both drivers, with and without the
+> accumulated fixes. Decode works fine on both; only encode execution is
+> fatal. Ready to test whatever you'd like to try next once you've had a
+> go on 8250.
 
-On 18/07/2026 21:38, Tarang Raval wrote:
-> Each int3472_gpio_map entry currently maps exactly one ACPI HID to a
-> GPIO quirk. As more sensors needing the same quirk are identified, this
-> means adding a full duplicate table entry per HID, differing only in
-> the HID string, which does not scale.
-> 
-> Change int3472_gpio_map::hid to a NULL-terminated hids array so a
-> single entry can match any number of ACPI HIDs, letting new HIDs be
-> added to the relevant array instead of duplicating quirk entries.
-> 
-> Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
-> Tested-by: Kate Hsuan <hpa@redhat.com>
-> ---
+This sounds like the issue which was hit on the QCM2290 because of the
+lack of secure context support...
 
-Looks fine to me, thanks again:
-
-Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
-
-> change log:
-> 
-> v1 -> v2:
-> 
-> - Add per-HID comments to power_enable_hids_vana[] (Lenovo X9-14/X9-15
->    for SONY471A, Lenovo X1 Carbon G14 for TBE20A0)
-> - Convert INT33F0 (mt9m114), INT347E (ov7251) entries to use named
->    power_enable_hids_*[] arrays instead of anonymous compound literals,
->    for style consistency
-> - Did not convert OVTI08F4 (ov08x40) to a named array, and did not add
->    a NULL guard in int3472_gpio_map_hids_match(): not fully convinced
->    these changes are needed yet, but open to further discussion on both
-> 
-> Identified while reviewing Kate Hsuan's imx471 vana con_id patch, whose
-> two near-identical SONY471A/TBE20A0 entries are collapsed here into
-> one, backed by a new power_enable_hids_vana[] array.
-> 
-> This patch is on top of kate's imx471 driver series[1].
-> 
-> Link: https://lore.kernel.org/linux-media/20260629074026.35490-1-hpa@redhat.com/T/#t [1].
-> ---
->   drivers/platform/x86/intel/int3472/discrete.c | 63 +++++++++++++------
->   1 file changed, 44 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
-> index adff564bf3fd..f70bd661592d 100644
-> --- a/drivers/platform/x86/intel/int3472/discrete.c
-> +++ b/drivers/platform/x86/intel/int3472/discrete.c
-> @@ -123,10 +123,35 @@ skl_int3472_gpiod_get_from_temp_lookup(struct int3472_discrete_device *int3472,
->   	return desc;
->   }
-> 
-> +/*
-> + * Other vana-supply users (e.g. ST, Toshiba, Sony sensors) can be added to
-> + * this array instead of adding new quirk table entries.
-> + */
-> +static const char * const power_enable_hids_vana[] = {
-> +	/* Lenovo X9-14 and X9-15 */
-> +	"SONY471A",
-> +	/* Lenovo X1 Carbon G14 */
-> +	"TBE20A0",
-> +	NULL
-> +};
-> +
-> +static const char * const power_enable_hids_vdd[] = {
-> +	/* mt9m114 */
-> +	"INT33F0",
-> +	NULL
-> +};
-> +
-> +static const char * const power_enable_hids_enable[] = {
-> +	/* ov7251 */
-> +	"INT347E",
-> +	NULL
-> +};
-> +
->   /**
->    * struct int3472_gpio_map - Map GPIOs to whatever is expected by the
->    * sensor driver (as in DT bindings)
-> - * @hid: The ACPI HID of the device without the instance number e.g. INT347E
-> + * @hids: NULL-terminated array of ACPI HIDs of the devices without the
-> + * instance number e.g. INT347E
->    * @type_from: The GPIO type from ACPI ?SDT
->    * @type_to: The assigned GPIO type, typically same as @type_from
->    * @enable_time_us: Enable time in usec for GPIOs mapped to regulators
-> @@ -135,7 +160,7 @@ skl_int3472_gpiod_get_from_temp_lookup(struct int3472_discrete_device *int3472,
->    * GPIO_ACTIVE_HIGH otherwise
->    */
->   struct int3472_gpio_map {
-> -	const char *hid;
-> +	const char * const *hids;
->   	u8 type_from;
->   	u8 type_to;
->   	bool polarity_low;
-> @@ -145,38 +170,27 @@ struct int3472_gpio_map {
-> 
->   static const struct int3472_gpio_map int3472_gpio_map[] = {
->   	{	/* mt9m114 designs declare a powerdown pin which controls the regulators */
-> -		.hid = "INT33F0",
-> +		.hids = power_enable_hids_vdd,
->   		.type_from = INT3472_GPIO_TYPE_POWERDOWN,
->   		.type_to = INT3472_GPIO_TYPE_POWER_ENABLE,
->   		.con_id = "vdd",
->   		.enable_time_us = GPIO_REGULATOR_ENABLE_TIME,
->   	},
->   	{	/* ov7251 driver / DT-bindings expect "enable" as con_id for reset */
-> -		.hid = "INT347E",
-> +		.hids = power_enable_hids_enable,
->   		.type_from = INT3472_GPIO_TYPE_RESET,
->   		.type_to = INT3472_GPIO_TYPE_RESET,
->   		.con_id = "enable",
->   	},
->   	{	/* ov08x40's handshake pin needs a 45 ms delay on some HP laptops */
-> -		.hid = "OVTI08F4",
-> +		.hids = (const char * const[]) { "OVTI08F4", NULL },
->   		.type_from = INT3472_GPIO_TYPE_HANDSHAKE,
->   		.type_to = INT3472_GPIO_TYPE_HANDSHAKE,
->   		.con_id = "dvdd",
->   		.enable_time_us = 45 * USEC_PER_MSEC,
->   	},
-> -	{	/* imx471 expects "vana" as con_id for power enable */
-> -		.hid = "SONY471A",
-> -		.type_from = INT3472_GPIO_TYPE_POWER_ENABLE,
-> -		.type_to = INT3472_GPIO_TYPE_POWER_ENABLE,
-> -		.con_id = "vana",
-> -		.enable_time_us = GPIO_REGULATOR_ENABLE_TIME,
-> -	},
-> -	{
-> -		/*
-> -		 * imx471 (on Lenovo ThinkPads X1 G14) expects "vana" as con_id
-> -		 * for power enable
-> -		 */
-> -		.hid = "TBE20A0",
-> +	{	/* Sensors which expect "vana" as con_id for power enable */
-> +		.hids = power_enable_hids_vana,
->   		.type_from = INT3472_GPIO_TYPE_POWER_ENABLE,
->   		.type_to = INT3472_GPIO_TYPE_POWER_ENABLE,
->   		.con_id = "vana",
-> @@ -184,6 +198,17 @@ static const struct int3472_gpio_map int3472_gpio_map[] = {
->   	},
->   };
-> 
-> +static bool int3472_gpio_map_hids_match(struct acpi_device *adev,
-> +					const char * const *hids)
-> +{
-> +	for (unsigned int i = 0; hids[i]; i++) {
-> +		if (acpi_dev_hid_uid_match(adev, hids[i], NULL))
-> +			return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
->   static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3472, u8 *type,
->   					    const char **con_id, unsigned long *gpio_flags,
->   					    unsigned int *enable_time_us)
-> @@ -200,7 +225,7 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
->   		if (*type != int3472_gpio_map[i].type_from)
->   			continue;
-> 
-> -		if (!acpi_dev_hid_uid_match(adev, int3472_gpio_map[i].hid, NULL))
-> +		if (!int3472_gpio_map_hids_match(adev, int3472_gpio_map[i].hids))
->   			continue;
-> 
->   		dev_dbg(int3472->dev, "mapping type 0x%02x pin to 0x%02x %s\n",
-> --
-> 2.34.1
-> 
-
+-- 
+With best wishes
+Dmitry
