@@ -1,225 +1,254 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C662C31F999;
-	Tue, 21 Jul 2026 13:19:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB683612D5
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 13:21:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784639995; cv=none; b=IngXvOkdNnwmOVuFbtAFyW9md2VrLZ7x+JGwLVynZ7B3XofKF9W1X3ffI0fwb3zfWqXlahiIm3ro8UKxwXEe/3jITur+POpHZ3+lP/8351VQTZu9XsTYvZuDEEWJnghHNyrSo8RkfBvXlBT5WJ7gNKQpUTPYvfvAxadiKD5W3c8=
+	t=1784640077; cv=none; b=rAFtw+uKl748S65YqCaSZUD2tt57RZ2ZDS3aXOZS9+0los1uxxCPfLg2ZkkLLYmy/NNcdZ5tb3Y/MZZ0MW2Bhuf0TeMdhTJR9SnU7egvIk8hjsclVBbZLEJnI5ynYvwun7+IepjP+nNBmOQHRqrCdVo2gHuQlgdAXFWZgK5FPpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784639995; c=relaxed/simple;
-	bh=Tv9wpRV0eedsjEJJpl1BhaeSjPz58Ru/YSsNOKrR+u4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fKsNhB4laBM6qTv8QdTJeRZt+VXHMYkrX3SsKd3SHOeqtZAppAcXOF/2+6LZz5qruvLv7tj3/nuhPgVltEgGCYLh1e4OYpmfv6PGhGokf2Ra62yxb2vstpnGh0NeePjUDhp+bvJc6VGlLxv6Z8bZPOOlMAs7UrOgKIOvtPQW60M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DATqEc5+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784640077; c=relaxed/simple;
+	bh=3hTRvGqDf8rSeCVyeZpAh08rSXRH25yL/6K24MeAhGA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=KlmYJe9ZE8NICOFq+xow5OQsrnEiNtqPGboEIAuJ1en3nD3uFdx9eYlyx3BA26xGkVSPbZZJv4pe9LfulpInJc/BaOljHBILKaiwX9+OOSUuH9/QlUmrxv2ApAwyAjxERir2Q59yojgR589iulqx3kVCt5fJiLpSf664N71auDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=REP+9LRH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VUQfARdM; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DATqEc5+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03F8D1F000E9;
-	Tue, 21 Jul 2026 13:19:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784639994;
-	bh=6mRC81lpYWqjArUJfT8WHzdSYdH8busT9c5Y72tL6L0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DATqEc5+6t07PN5kJO74T0PfktLb2rqMqdO08KQ4hl/kBClpvjM7v5yDcEIxIE76/
-	 bUz9YKJC3J4IeNAR27vOwzRqVsQvMYi3OWYHuQl4JyqXW18bc2ZX0PlaivbXbVK/rN
-	 uJeX2mdJIDsZ1yTYuJSgItjuuyqGYr3ulU7B4LIcAHwjzT3ynpW0h52CxkyqBnsths
-	 FZo2NL5vS5MApW0qjD6aV4W0wr2pgaaXHVvyYrro4YbvrXqnyzBLeyAAmqJ8ECl+3C
-	 4OmjZOft2h/8QwCUt3vwUU+tUCIiOqlaeW+J+pOL0Kmo1mZTPEL0+TIWWCuL9z6DyZ
-	 8Vo2OYkSrAV+w==
-Message-ID: <1f128571-ed46-4a60-9594-74fdd5f440d0@kernel.org>
-Date: Tue, 21 Jul 2026 14:19:49 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="REP+9LRH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VUQfARdM"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66LARN2h945882
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 13:21:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6+9IMhfgU2+XhfVP6NO09mWvG091m8PU8yYOknpFkUs=; b=REP+9LRHLdNTJVtP
+	OgaCPPBtnPA9+HqYd0rTE1XHfhkzu5+DmDTrhKL+tsTtK8+u17pLPIRqaVrrdMez
+	WSbWAWHMPi6fcxfS0iU+NfZUnEuKkgp9+x3s+UO1zvyzBsQGI5pZfN6QKjpKtZDM
+	glWdU0YPwERSN1a2sHwcGZnjk+8+uSeoeCAegKgI8aMu+cSxZsNH1AaLIMOoFo+5
+	JI7tNkvNY5b0kLj/Xn4DjkxSvs2LLZKzJAAu029vfdgIzsaxIGrjJAzkMZH7WQfo
+	+sIhXdaM3Ey7DV3VCjjeVI3nFWiHvJSGmjUZ2/EzFWvRrF4LFkr8ZZPDTBCkrWeu
+	PWMn9g==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj1es2j23-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 13:21:14 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c1d30035dso144317981cf.2
+        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 06:21:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784640073; x=1785244873; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6+9IMhfgU2+XhfVP6NO09mWvG091m8PU8yYOknpFkUs=;
+        b=VUQfARdM+uWORmLRXoH2UhqsRC9fKmlJfg7KupP9Uiu6vc5IvM6AlwldByhlVvZ42S
+         ODH3CTqIfWS/sLDkD06aY9VGvCbv0BG87gROwyQ5+ocQpsoQvEs1n0e4umLkhkcQjC7v
+         2zakX5A7Mu4eXcdTrK5WTMxORdc5/w65+pS55fMtu3X0xlKgA+OsZ25IAy9l7YwlyGsq
+         Qyy8fjATXjgVPMMYSS9HWnDT+Lwv8mWhJB2Qz72nqb6h8DD8CbO+moN2kk209Q6W+z7a
+         8FQUc7y4gE4luYqRolyPsg7Rsmd1nBnluApcaJAM1vqkzSo7hd8YpB3lGowH+QAJ4wx8
+         S15w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784640073; x=1785244873;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6+9IMhfgU2+XhfVP6NO09mWvG091m8PU8yYOknpFkUs=;
+        b=ZCfBjphkq1MOulIHAA+9kA7TZkqUS30rm8XVH6BzKVbtyOZtlXj3olsoriA5PiM44m
+         KwLdNHtcnIRkhic8+b6UNwFj0RK/daBKytmSIiDBubV3K+OpYeUg0rjnQ1126+tc5JBn
+         m8lTNORVGEyBmSUfxxiPEE1YOgJcCHbm8iOsbFEh5OvBBeCVRZqcIf7//mslYiMORPo7
+         7aCpRxKHmvlWPcNlBtrblL7zi96VI0T1TqXtafEdyUezKTXp58//5GcQkhzDyCIjmSoo
+         1JW76p+is1N4o72ooXdo5MwhvTMgTfSiPz8tAj1/uTr/ooWWmSA8ZLoJoCJT2b8wu66g
+         jT1Q==
+X-Gm-Message-State: AOJu0YzDCANmCIwm2YHrCDZGZVlTGMq5kfyLz4mLaq/crH52pyycVGqN
+	DZi9mVcaziptRiOjrvk/BYaHTceRhaz0UYEWFv6OgNMBOqtkZZW9SKJ78y1MtsXH+zLkJZHWUL/
+	Vz4zeQeaUqekirnYB58xLdxZJfTE8CZv+POVY2vgOBSbrF8DpsdfNMAtTS1cxjRzpuQ==
+X-Gm-Gg: AfdE7cmYV3+GKyMODl6c8QoKK7rJH92Q5WoMNQDYBDpqS7EULZ9hOQ5EraIwcqSVc8H
+	9PTpvwluy7szs/rFqu9dbzezU8Ye5+n5kjmLjoohUg8FByIDFPOY09/3c4bCjPXdWf05r44L6e4
+	iqxbm7nD+ZPTqNzxmC4Gs3VjWnaRyTUaR1BgyW3xGKSzN9X97tnc9/snp9FWT5FtMLilVKVXZit
+	tadhSbcqAA1sbBJYhEa9ZM58XXCFcrZD90gemKg4IESXelyvT7LcMVAnAhm0vELvX7TjtDl4LKi
+	YJAzynwLQ5yPRWl9JC6dwQphFQuQ8YjSZGQr3Ep7lEQx9wdTNkUksli1uHGxvuLE9SVwAyjLe1n
+	HA5c3/LnbofdjQpZiKeu5n1dsebduscxaVXUs1QlkCRraeWy9/KaEj4eTrxDl4Ih5zDr4QeE/na
+	6cfwBFKf/lyPiLwlAxzV/Zs7VVWvEQMyQqZXItj29BY2CPm8xhS3Q=
+X-Received: by 2002:a05:622a:4ccf:b0:516:e0eb:d7d with SMTP id d75a77b69052e-5213c2028b8mr182200811cf.27.1784640073143;
+        Tue, 21 Jul 2026 06:21:13 -0700 (PDT)
+X-Received: by 2002:a05:622a:4ccf:b0:516:e0eb:d7d with SMTP id d75a77b69052e-5213c2028b8mr182200281cf.27.1784640072594;
+        Tue, 21 Jul 2026 06:21:12 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:751c:d61c:c91:60dd])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1712a5f8c5sm598326066b.34.2026.07.21.06.21.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jul 2026 06:21:11 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Tue, 21 Jul 2026 15:21:08 +0200
+Subject: [PATCH v2 1/4] media: qcom: camss: Add PM clock support and
+ integrate with runtime PM
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
- schema
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260721-camss-version-v2-1-b2440d99085a@oss.qualcomm.com>
+References: <20260721-camss-version-v2-0-b2440d99085a@oss.qualcomm.com>
+In-Reply-To: <20260721-camss-version-v2-0-b2440d99085a@oss.qualcomm.com>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260720-x1e-csi2-phy-v13-0-160c31958863@linaro.org>
- <20260720-x1e-csi2-phy-v13-1-160c31958863@linaro.org>
- <LyWJAb2qKsAFTMHNJUce9VqoqbkFKUQanb6z8ziA63RYZ1P9jj1XpA83uGPvz9m4QnWvEjJFK8dGD_8EtioHVQ==@protonmail.internalid>
- <0da6d314-bfa9-493a-bcc6-8c3b75751d0c@linaro.org>
- <88ae6662-cb85-4e3a-bbb5-1b536348df34@kernel.org>
- <_t1jiMTX3iIXhUkTDz0Cbh_uZhdUK_Y8vlIwxt1VNRbuKuRnpVCWabal-b4AuFrVaKrDnQSFOWtDn6-VCbS3DA==@protonmail.internalid>
- <345ca98e-09f6-4965-87bb-e64dac096498@linaro.org>
- <c236cf94-a775-4158-88db-9a337c7fa862@kernel.org>
- <e8bc8ade-d699-497e-8c4a-fbdc03fcc549@linaro.org>
- <wzsAes-UM4_r8scRyy_yhd39ZdxvT8W9VroVPOGWABLsw7MqR05o_z2MwhgiC1gTSBgfVHpXWADbsqoIOsR0Uw==@protonmail.internalid>
- <ec3d6035-d4de-4e38-8c72-b29a04b263ae@linaro.org>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <ec3d6035-d4de-4e38-8c72-b29a04b263ae@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Authority-Analysis: v=2.4 cv=SPZykuvH c=1 sm=1 tr=0 ts=6a5f724a cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=BAJ2-saCjKdBVCgQpPYA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-GUID: O-cMhCD0xaBJmdC4hHyG3s5o9EqoOPBo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE0MSBTYWx0ZWRfX9+Shylv0OQu2
+ TQsJcYQ6nq7mgkorMyL1Rh9FTd5YYyM00/bovBwWWKWlZj9DrxEFZxmWuG6CEw2ysS1vskvt5Mz
+ QsYD8h3Ue6GpCdNyp7MEBklC7OlEczvGab8MKie9XZR/maj6mBAy1eVKHnGG+CTcpu3CEZ0kIJp
+ 6grNcrz4R6H6dHZxFPA+i1GbVIojg5/y9zj5o+Gq4B60S5id6BNeiEZzcC6pfcxjaLfaLU4mGi6
+ w0dD1sUifvQ4wpLWL7ELATeQJUV+eX3Ns5IXJQFL9/HMXwyp08hbS/tbRotxvM6pELpyRcBacPn
+ budYIN7MPbEbpZHqwZep9TWz5jMJ/3QuGy/DSLdr+21z5QJ/pnZkSGTeT3xIHQUOArAZZi5HAWf
+ 30CRG+hVxyfQAzzAIYDf2uj3oYqGH5NZXXAnZFOAbuHS5YJoRFvferG4mi1lREdRJSfsnsVWovP
+ WvtKjvUyWSNGtEQEHSA==
+X-Proofpoint-ORIG-GUID: O-cMhCD0xaBJmdC4hHyG3s5o9EqoOPBo
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE0MSBTYWx0ZWRfXyOlw5+q3bGW9
+ OVbCGCleLyYgnNDClQsP99f8qW5hssGRcc4aJ9qUlF+vk1ZZm2QESKEX2mB/2LQPXaqlrxiSOVm
+ 9YdwRnSgJORChRsWA1ghCIkBPe4Xfys=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-21_01,2026-07-20_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 bulkscore=0 phishscore=0 lowpriorityscore=0
+ spamscore=0 clxscore=1015 suspectscore=0 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210141
 
-On 21/07/2026 12:24, Bryan O'Donoghue wrote:
-> On 21/07/2026 12:05, Vladimir Zapolskiy wrote:
->> On 7/21/26 13:47, Bryan O'Donoghue wrote:
->>> On 21/07/2026 10:56, Vladimir Zapolskiy wrote:
->>>> On 7/21/26 12:39, Bryan O'Donoghue wrote:
->>>>> On 21/07/2026 09:17, Vladimir Zapolskiy wrote:
->>>>>>> +  "#phy-cells":
->>>>>>> +    const: 1
->>>>>>> +    description:
->>>>>>> +      The single cell specifies the PHY operating mode.
->>>>>> This has been reported before, #phy-cells shall be 0, the operation
->>>>>> mode is selected by bus-type of endpoints as it is described in
->>>>>> video-interfaces.yaml
->>>>>>
->>>>>> Two competing values are redundant and it opens a door to a wrong
->>>>>> hardware description, the technical discussion has not been started
->>>>>> yet.
->>>>> So as I said before, I'm following Rob Herring's input on this and
->>>>> Krzysztof has given RB for this binding. At this stage, I don't see
->>>>> scope to change it.
->>>>>
->>>>> Adding endpoints was already a compromise to address your feedback,
->>>>> which I hoped would bring you on board with the design.
->>>> That's my comment dated March 27, 2026, and it says moving phy type
->>>> from phy cell to the endpoint property excludes the need to set any
->>>> phy cells:
->>>>
->>>> https://lore.kernel.org/linux-arm-msm/e37ce438-12c7-462d-
->>>> b2bc-1351be62b806@linaro.org/
->>>>
->>>> The technical comment is left unresponded so far since then.
->>>>
->>>> Since there is no expected phy cells to get on consumer's side, and
->>>> since there is another link between CSIPHY and CSID described in
->>>> video-interfaces.yaml, any kind of dependency of this IP on phy can
->>>> be just removed, which serves the purpose of hardware description
->>>> simplification.
->>>
->>> Rob's v1 feedback was consumer-decides-mode via the cell; Krzysztof has
->>> R-b'd the binding with cells=1.
->>
->> Unfortunately this is not a technical discussion to move forward
->> a better hardware description.
->>
->>> I'm happy to lock down this binding as-is on that basis.
->>>
->>> Are you arguing about phy-cells or are you actually arguing the entire
->>> instantiation of Qualcomm MIPI CSI2 as a standalone generic driver in
->>> drivers/phy ? Its not the same debate at all.
->>
->> So far I don't review the driver, only CSIPHY IP hardware description.
->>
->> In the current version of the hardware description one may find that
->> the exploited 'video-intefaces' interface completely covers the 'phys'
->> interface between CSIPHY and CSID, quite probably both are not needed
->> at the same time, and the simpler 'phys' can be removed without any
->> losses. But if it is kept, then its cell value is anyway redundant.
->>
->>> As the CAMSS maintainer, I'm fully against adding more inline monolithic
->>> CSIPHY init sequences. That could be represented as a separate
->>> linux-media driver but, then that implies that _all_ upstream CSIPHY
->>> drivers in drivers/phy are wrong, and I just don't accept that.
->>
->> Other two drivers are different and should be excluded as good
->> references, both of them links exactly one sensor to exactly one
->> CSI-2 decoder, it's not the case here. Also one of these two drivers
->> has no upstream users.
->>
->>> The bindings have DT maintainer RB, and the driver has Qcom engineer
->>> tested-by, review-by.
->>>
->>> Vinod, Kishon - Again, I'd request this merges as-is.
->>>
->>
-> 
-> The graph and phys are different layers, endpoints describe the
-> media topology, phys is how CSID controls the PHY through the PHY
-> framework (phy_get/configure/power_on).
-> 
-> Removing phys doesn't simplify the description, it removes the control
-> interface which is the monolith again.
-> 
-> We have multiple examples of this model upstream, cdns-dphy-rx +
-> ti-csi2rx in-tree, with users.
-> 
-> I'm still kicking this up to Vinod, Kishon, request stands.
-> 
-> Multiple DT and driver users are RB/Tested-by on the schema and driver,
-> lots of other work is gated.
-> 
-> It is time to merge.
-> 
-> Please adjudicate.
-> 
-> ---
-> bod
+Add optional PM clock support to the CAMSS driver using the PM clock
+framework. This allows CAMSS clocks to be registered once and
+automatically managed during runtime suspend and resume.
 
-Had a brief discussion with Vlad, Neil and Vinod
+This is especially useful for global CAMSS clocks that are shared across
+multiple CAMSS subblocks.
 
-Resolution:
+This avoids the need for each subblock to reference and manage the
+shared clocks individually. A typical example is the set of clocks in
+the top_group, which may be used by CSID, PHY, CCI, and other CAMSS
+blocks.
 
-- phys = <> retained
-- phy-cells = <0>
-- bus-type from the media-controller
-   Already specified with camss still aligns with Rob's declaration
-   "the consumer defines the mode" so I'm comfortable with this
-   compromise position.
-   This will still facilitate CPHY work/mode-selection via
-   phy_ops->configure() with how to define the CPHY part TBD.
-- data-lanes = <0 1 2 3> valid
-- MAX_LANES 8 instead of MAX_DATA_LANES 7
+Introduce a small PM clock descriptor table in the CAMSS resources
+structure to describe clocks and their optional rates. Initialize
+these clocks at probe time and delegate clock ownership to the PM
+core.
 
-- v14 with these changes shortly.
+Hook PM clock handling into the runtime PM callbacks to ensure clocks
+are properly suspended and resumed alongside power domains and ICC
+paths.
 
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
-bod
+ drivers/media/platform/qcom/camss/camss.c | 42 ++++++++++++++++++++++++++++++-
+ drivers/media/platform/qcom/camss/camss.h |  1 +
+ 2 files changed, 42 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index 2123f6388e3d7eafe669efd6b033e22d8eb5cf79..01a9d4f780fbe130554601481bed50eac5978bed 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -18,6 +18,7 @@
+ #include <linux/of_graph.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/pm_domain.h>
++#include <linux/pm_clock.h>
+ #include <linux/slab.h>
+ #include <linux/videodev2.h>
+ 
+@@ -5346,6 +5347,37 @@ static void camss_genpd_cleanup(struct camss *camss)
+ 	dev_pm_domain_detach(camss->genpd, true);
+ }
+ 
++/*
++ * camss_init_pm_clks - register shared CAMSS clocks with the PM clock framework
++ *
++ * Clocks listed in res->pm_clks are shared across all CAMSS sub-devices (e.g.
++ * top_ahb, axi). They are managed automatically by the PM framework.
++ */
++static int camss_init_pm_clks(struct camss *camss)
++{
++	struct device *dev = camss->dev;
++	unsigned int i;
++	int ret;
++
++	if (!camss->res->pm_clks[0])
++		return 0;
++
++	ret = devm_pm_clk_create(dev);
++	if (ret)
++		return ret;
++
++	for (i = 0; i < CAMSS_RES_MAX && camss->res->pm_clks[i]; i++) {
++		ret = pm_clk_add(dev, camss->res->pm_clks[i]);
++		if (ret) {
++			dev_err(dev, "failed to add pm_clk %s: %d\n",
++				camss->res->pm_clks[i], ret);
++			return ret;
++		}
++	}
++
++	return 0;
++}
++
+ /*
+  * camss_probe - Probe CAMSS platform device
+  * @pdev: Pointer to CAMSS platform device
+@@ -5434,6 +5466,10 @@ static int camss_probe(struct platform_device *pdev)
+ 
+ 	pm_runtime_enable(dev);
+ 
++	ret = camss_init_pm_clks(camss);
++	if (ret)
++		goto err_v4l2_device_unregister;
++
+ 	ret = camss_parse_ports(camss);
+ 	if (ret < 0)
+ 		goto err_v4l2_device_unregister;
+@@ -5775,7 +5811,7 @@ static int __maybe_unused camss_runtime_suspend(struct device *dev)
+ 			return ret;
+ 	}
+ 
+-	return 0;
++	return pm_clk_suspend(dev);
+ }
+ 
+ static int __maybe_unused camss_runtime_resume(struct device *dev)
+@@ -5785,6 +5821,10 @@ static int __maybe_unused camss_runtime_resume(struct device *dev)
+ 	int i;
+ 	int ret;
+ 
++	ret = pm_clk_resume(dev);
++	if (ret)
++		return ret;
++
+ 	for (i = 0; i < camss->res->icc_path_num; i++) {
+ 		ret = icc_set_bw(camss->icc_path[i],
+ 				 icc_res[i].icc_bw_tbl.avg,
+diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
+index 93d691c8ac63b2a47dbb234856b627d8911a1851..fe5fe25d5f18d8a3ce35b48077a975f1453c341f 100644
+--- a/drivers/media/platform/qcom/camss/camss.h
++++ b/drivers/media/platform/qcom/camss/camss.h
+@@ -107,6 +107,7 @@ enum icc_count {
+ struct camss_resources {
+ 	enum camss_version version;
+ 	const char *pd_name;
++	const char *pm_clks[CAMSS_RES_MAX];
+ 	const struct camss_subdev_resources *csiphy_res;
+ 	const struct camss_subdev_resources *tpg_res;
+ 	const struct camss_subdev_resources *csid_res;
+
+-- 
+2.34.1
+
