@@ -1,235 +1,157 @@
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013032.outbound.protection.outlook.com [52.101.83.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FB73822BB
-	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 11:30:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784633406; cv=none; b=phGlRsHVgFAsqvEqXdvk1HJV8fopZjjH9axtGQ8xpl6zIwV1LnOXgZXfA7WgChTKWPF5R2QogpUMM/XxbB+8Xv2cnCzTc+taqdpvVcIJmaJr6GGGkB6GraB3o/QjtZeJcEAwOHpyASpaNSFxwWpbBKoHyG7An8jprLAoF+Ic7D0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784633406; c=relaxed/simple;
-	bh=ai6jPq8Wtn1ummFuqvNnpq2EI6Wg3aANfgCXYu780eY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NJXIaN9rNxgjOYNaA/yKfrRMOaAOLGE1g5r/YBpU5LuiYIPLTA2D4V2Qv9twLQBD58whFlJuAKJZ+I3CEaqiN8dUtdII+6j5sAIaNz0k6HagHUHqMQJhqiGh+qRHVe0QGXsujQJwGe1yY2FjF2ktOAtacNrJuQaNo2YpQnApuQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=rvUZdufz; arc=none smtp.client-ip=209.85.167.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 958C8165F1A
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 12:18:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784636336; cv=fail; b=m6VLwp9b6RfV1OjuNEJ/f+Ds1/40K4b0/zf+6C5QThQkPcnK4TRbstIbfw1IE0s7DYLPeY/hfe355Z6DK7B27t9Kn5juYMhipJ9fWt95M9A2JskS00hz5nTPZQHeWqckZDFkcaKwGsE5qNIndDxb0TowlX2MJ0nvHOBolEttvGU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784636336; c=relaxed/simple;
+	bh=Vpslvo/dSSB72fymrWHLHpFhN7lcXOXVxulYdJjG89I=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ptk2fhcvJycKB7Zk2ejZV83mYTe4cDDs+djwWEZVH/WYMEw8TXVMo3HMz6yr6iSAhtb9LeQmQghKv8mM5yrpkUn5iNM1X2p9Ac7GmKyqSeN0KI+02ZJt7hRXHMmYZQzpfS5ygL5t2cVrz3+6VS6zM6IHkqH3lM6XzDfOSoX03bY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=k6IMTEjx; arc=fail smtp.client-ip=52.101.83.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="rvUZdufz"
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5aebd7da975so1271038e87.2
-        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 04:30:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784633403; x=1785238203; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=hJp9wJTddQB51y4t9E/fwU9/+8UJoIvDaCNcWbFBtuY=;
-        b=rvUZdufzCnuIgu2LMg6/u+UjJEBnKy8jo+JLIDwBkpq2iVyYp2lTqW5pK23pIC3TUw
-         tzZ41ues4oy71bdW+urIcdLSY5dIAnAC1bs9Q6VPGy6qb6eOcdMCtsV05loOSe8VwYNq
-         xOgpx14f2M/rvoIiaiLb46KqratKjAalUAHJFCmB5Y+kshJc3wZfuxmv0j9/heD4DlfJ
-         uOXmOCaZaSJmZN0N0UD2RFId06gWdE/enk0L/HYrdqzZO14udzrn2S+qsYA1YUzfU7jK
-         FZmYPUcPApBSwdYYTlZ0Izey8a1F7bTukBlqq7O1nq8yaYz+4FcNc4w3s2oMumi7d3+6
-         VXfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784633403; x=1785238203;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hJp9wJTddQB51y4t9E/fwU9/+8UJoIvDaCNcWbFBtuY=;
-        b=kVGYDZnTytIy2SV3zqELaxHYcM9LJUfMRnBqSQC0SdPut3Im1pQVzf4ykpYDaYhxQk
-         NnSEIQG/5k3zaDwIn1QShT9tAkwtEL807lKBAHZwBxd9CFy9n+o8j9ljz9qDIaKR9+Pf
-         We3bhtMCj6NzpBCKYIvzlWu9sh8F/qB0jdaVDzrWOnqxCBL3PTG0SEZRhCm2X67wmGFZ
-         7K4LD15QpZlHnZNHNwThoRgzzi5ooBP7jIU60YMHL9UWuq+8vc8w3vJ+FVg9nHHCxuQI
-         5z9ESU1PqlK38+HLtlKKivWNXz1ThEKEUnpWxkVZsl5yyVczSEM7tDxZ8uuNlbvbMVmq
-         gEJQ==
-X-Forwarded-Encrypted: i=1; AHgh+RphoSbL1VeaF29qzB3dDvgUiXGWwzrwq05IL6DGBYZoIRwrHYLh6GhFu70ELaybJmKJOrJJkW64UE/XKA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzqB5wGiM+v+DQ7pd2iv0aNL8URFgDY2XazTQqJS/qVKC9Q4Nx3
-	w+XR4yJ8xyafeD3a4UAQt38PpdpILyCdabADd3L7LkAlINaxWcjxfYD7xwC7g/jVMAE=
-X-Gm-Gg: AR+sD10lwo4pUZz5u8AIMCyqAu8qxN+KEMX12zB+uXMsUTYaPwjzzcI51sd8L1spNAC
-	wD1SQlqDmdtf7WnIbgtu8TdTb1u/RTZTGF4YEBhTwrNmMUiR/XVwZrfXeoXINsOZXUBW3S6aMXv
-	kAn0L5+jlGAXpMqABtdLJ8opASpk4xmy3vP4tWSJCNvMWk82JLreiDrlKQ2/K0QP1JqmS/PgTQ0
-	RgOAvhVBgPZslo6Qv/ko+BLWEMGWyuT8pFKhXdflNPe1BPOa0G623wy+FLWjFRP+0cIc8Y/3tVX
-	2ygVSSLWJRW0bXidI/aXVVFvTD+yXJEE3eAHYiyZ7ozBYsIr7dqjxnfgl8tU3CbAH/Mr2jeUeUo
-	SOuBJTA5yxvMzZwL0s+NOIGpV1m9e1O5vRs17bmQ/KyZGdiQ5DN6o/3L2W4g1WcjOxtYB0HR5FJ
-	75AMgDbAEGupBOwlahnLzIRO9HWOt9Laau/PCmoXGKpREp8jdS8pXWM01KJ82iArHSzcY=
-X-Received: by 2002:a05:6512:39c1:b0:5b0:2ba4:542d with SMTP id 2adb3069b0e04-5b2a4a79881mr367879e87.3.1784633402587;
-        Tue, 21 Jul 2026 04:30:02 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b291d0fdd6sm2868216e87.0.2026.07.21.04.30.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 04:30:02 -0700 (PDT)
-Message-ID: <ce8538e1-3755-461c-b699-87d570436122@linaro.org>
-Date: Tue, 21 Jul 2026 14:30:01 +0300
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="k6IMTEjx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rQPMlSdi7PHU3FuqjVy/sfslKmRNNsDmgHDMDFmu5/q3DPvVrn/UDDml8KsIRN4sKm82O3rR9z98tm40RCuKwvsSqi6/lfbHvaywb1qNqsK2L4xux7mgiNB5lxKwZ25Ed3klLwBguckT1FmjAjlBD9bTtxqB7mhO1doGq+24bn8qerWDAld/BP5TEaP36KZPA6n7QajEoPDLExl1IH26aA3orULT1vJ1QC5ElPa33pCnwns7Lhvr0tA8q+BU9mA9d62DKqzbmwao9SOkQX0cOq1GaPvKKSSfW6UKTYPT8Y8IwTuDop0IQ/9ASEa//ZYsCHaBu9GLXzt4RJbc4st//A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TYU1rJF3CJfjk/6tRB6pgzqf2m6z/n0AwnoC8+PlZdA=;
+ b=MHKIWoo2Zb4h/R+AzXGX14MixJJvQOv/xdIJ30oB3n24CV8DA9FRrtILVaHObys+wMHh9SeqvsMdsFGakEeCrD8ojWGXjESfJ9LuZUXl/WxV5VUNxE0wXAShyOp9wEY5yG6DtknKyjz3dL8oKsySxpRkCs9eaQq9qEBeIxn6qX2QlREfadQ1N0k6TdmZb8b4OFCteuEzvmhknz97ows0RN9PzQ1pN/ws/QQElhXTskYm/zvUZuNxRK/Hr+BY2UObLqcAO9FS8fHfITOrLt7ZH0W2hzNdPAY6ykv7TY6+iqnW6pwUUXKmXEBOAagB7QVplnf0qMV4Mqfa07M/5gHIUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TYU1rJF3CJfjk/6tRB6pgzqf2m6z/n0AwnoC8+PlZdA=;
+ b=k6IMTEjx5IAKA2lQwphxYoz95qRMeMO5p+q8zlKnjvU5C92zpDSKa/nNgja2/QOVbKJFyYJTPSai3IWVaztYkRP/IxrCIHtYTBPQqCf3RuC+qHUNx160EBcEXcUQz3VgUg87BeestpxUy5VSCHtvG4hN1fMQogG2K3rrayCkdEaqUK7xSA1L0BVojJ9ELynU+AHjGZzaulxP02/tV9iustF/Da3LkvW3HQwfhkWEzSX9A0GewaP3H73Bfcsm7pjQWf6Kl98GcMdzJbD0jNEWQ38Y/tixGlJ4Hz8dpNqt5P/0O6Rhose/wnQDrMsJOfGBI7Pg4SOmaRxZXE61A6cb5g==
+Received: from DU2PR04CA0319.eurprd04.prod.outlook.com (2603:10a6:10:2b5::24)
+ by DU4PR10MB9190.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:55a::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
+ 2026 12:18:50 +0000
+Received: from DB3PEPF00008859.eurprd02.prod.outlook.com
+ (2603:10a6:10:2b5:cafe::98) by DU2PR04CA0319.outlook.office365.com
+ (2603:10a6:10:2b5::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.16 via Frontend Transport; Tue,
+ 21 Jul 2026 12:18:50 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ DB3PEPF00008859.mail.protection.outlook.com (10.167.242.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Tue, 21 Jul 2026 12:18:49 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 21 Jul
+ 2026 14:23:25 +0200
+Received: from gnbcxd0016.gnb.st.com (10.130.77.119) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 21 Jul
+ 2026 14:18:48 +0200
+Date: Tue, 21 Jul 2026 14:18:42 +0200
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: Biren Pandya <birenpandya@gmail.com>
+CC: <linux-media@vger.kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+	<alexandre.torgue@foss.st.com>, Hans Verkuil <hverkuil@kernel.org>
+Subject: Re: [PATCH v3 06/22] media: platform: stm32-csi: Add missing
+ media_entity_cleanup()
+Message-ID: <al9jomV3t_UOWJ1c@gnbcxd0016.gnb.st.com>
+References: <20260614202835.11977-1-birenpandya@gmail.com>
+ <20260614202835.11977-7-birenpandya@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260720-x1e-csi2-phy-v13-0-160c31958863@linaro.org>
- <20260720-x1e-csi2-phy-v13-2-160c31958863@linaro.org>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <20260720-x1e-csi2-phy-v13-2-160c31958863@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260614202835.11977-7-birenpandya@gmail.com>
+X-Disclaimer: ce message est personnel / this message is private
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB3PEPF00008859:EE_|DU4PR10MB9190:EE_
+X-MS-Office365-Filtering-Correlation-Id: 90bab68e-d1d2-40bb-a734-08dee72238bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ja+yLaRdkDLnnncWYF+csjOYss9sWGDEp+S9obqAEEvH8ersvrFK1dc2qRZtQ3RB0+fm8Ye/PSrNcqoXU+gkODjbEPncG7Vr77ygh7ZflNLKGyhbEKEQ4cFm5WISw6A8nMfITiAiTsD+Q8ko9wOMCQPwwft2RPKAtEThxBAoUtKNQ2Ma09JKHHSvfQdeX8NsRXf4MB5nLclmvL3D4Hoj819v3HD9EK5GvRxCgKVSPwkrqAEb12MYtwLxE2KDAznxru79bhcbi1rHxtAD5NRVbGNlHQV0+HjBxy3P7vWgtCBgP82HvrTMIU14iLRKFZSbS/lfpjFmnqP2tG5fLfnIdw7GtBytXMSiZghDzeZ+TiFdwrbYKYGv2ZhvxbYJtXelR3hWd9OYu6qbY/Riv0WJ4i9PF3ug5VZyXBoABMiX85mymE/EGXOyhX7S7HNQoeC0sj2/6sTRyAA9xwa6m6u5WWYUJNp2D14ZSOFGewtHKLoZsTxSpmfnueBOErDUBxToOeewXCMnzS7Jke4kOQ4rqCIgpYAEefV1wSKg+TdXcl02XkERhBjb7zQAOMbZEprh7lv7SO5Ap9n1XOi6V5fEnKy70rDYqfh+ORP/5GgrN0mdFSPIV39/wdTpxW81jKvbr7OCXr5Otx/sSt0DC5pk063bvEu467tGeCfQ3hzx7IHW5awPC/3cm+B7L+FtZ5Hf9ClnrSfWWHDFilxv2Noeig==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	rNyqPrXTM6dXeb/yl0VC0Hgpl73XCQuy9zYRuxzzZZg80Vmn/8x6c9NfgmFPKcA/SvgQGtPkyf5TXAdmi5Vi1o4rkh2XvVI10RqNRAMk4xZyvGbkHP1bXbXNF6Rs6eVdGMCEC/jy6O2yyhdH683QvunXGSkEMR8tP4IZBpeModHFj0plyEyxRBJ2Ae3ceYp32XjirgzasI8RvDOfIK4NybE0dKkGzHjQ1vzdK+Jk+CAVKaA8LcEb3M+FXK9/1+vZZa1b017zix94REK0pSd9PztCW0P4rPWen83iJc90H7haFqjz8Ei7DxBibwsrJCsuoBQzfnQj+uGUu76qyS+oaUiZTGjDO0O+DGRRnfVhNQq7+4ZPJrovVa9GvmaKH5j0z3izf6Bqn6a+wRsIhhsHe+0l0wF7iAS+RppDt2VuqNMR/kV10zR1nNjtX11ETEs/
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 12:18:49.8810
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90bab68e-d1d2-40bb-a734-08dee72238bd
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB3PEPF00008859.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR10MB9190
 
-On 7/20/26 04:11, Bryan O'Donoghue wrote:
-> Add a new MIPI CSI2 driver in DPHY mode initially. The entire set of
-> existing CAMSS CSI PHY init sequences are imported in order to save time
-> and effort in later patches.
+Hi,
+
+thanks for your patch.
+
+On Mon, Jun 15, 2026 at 01:58:06AM +0530, Biren Pandya wrote:
+> The media_entity_pads_init() (or media_entity_init()) function initializes
+> the media entity, but the driver forgets to call media_entity_cleanup()
+> in the error paths and remove function. Add the missing calls to fix the
+> API violation and prevent potential future memory leaks.
 > 
-> The following devices are supported in this drop:
-> "qcom,x1e80100-csi2-phy"
-> 
-> In-line with other PHY drivers the process node is included in the name.
-> Data-lane and clock lane positioning and polarity selection via newly
-> amended struct phy_configure_opts_mipi_dphy{} is supported.
-> 
-> The Qualcomm 3PH class of PHYs can do both DPHY and CPHY mode. For now only
-> DPHY is supported.
-> 
-> In porting some of the logic over from camss-csiphy*.c to here its also
-> possible to rationalise some of the code.
-> 
-> In particular use of regulator_bulk and clk_bulk as well as dropping the
-> seemingly useless and unused interrupt handler.
-> 
-> The PHY sequences and a lot of the logic that goes with them are well
-> proven in CAMSS and mature so the main thing to watch out for here is how
-> to get the right sequencing of regulators, clocks and register-writes.
-> 
-> The register init sequence table is imported verbatim from the existing
-> CAMSS csiphy driver. A follow-up series will rework the table to extract
-> the repetitive per-lane pattern into a loop.
-> 
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Fixes: dcb0f4c16be5 ("media: stm32: csi: addition of the STM32 CSI driver")
+> Signed-off-by: Biren Pandya <birenpandya@gmail.com>
 > ---
-
-<snip>
-
-> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
-> new file mode 100644
-> index 0000000000000..7e55ae0073704
-> --- /dev/null
-> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
-> @@ -0,0 +1,97 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + *
-> + * Qualcomm MIPI CSI2 CPHY/DPHY driver
-> + *
-> + * Copyright (C) 2025 Linaro Ltd.
-> + */
-> +#ifndef __PHY_QCOM_MIPI_CSI2_H__
-> +#define __PHY_QCOM_MIPI_CSI2_H__
-> +
-> +#include <linux/phy/phy.h>
-> +
-> +#define CSI2_MAX_DATA_LANES	4
-> +#define CSI2_DEFAULT_CLK_LANE	7
-
-There is no 7 lanes on CSIPHY, this value is bogus, also it was reported
-previously.
-
-The 'data-lanes' handling is broken in this version of the driver, since
-it does not follow the description from included video-interfaces.yaml.
-
-> +
-> +struct mipi_csi2phy_lane {
-> +	u8 pos;
-> +	u8 pol;
-> +};
-> +
-> +struct mipi_csi2phy_lanes_cfg {
-> +	struct mipi_csi2phy_lane data[CSI2_MAX_DATA_LANES];
-> +	struct mipi_csi2phy_lane clk;
-> +};
-> +
-> +struct mipi_csi2phy_stream_cfg {
-> +	s64 link_freq;
-> +	u8 num_data_lanes;
-> +	struct mipi_csi2phy_lanes_cfg lane_cfg;
-> +};
-> +
-> +struct mipi_csi2phy_device;
-> +
-> +struct mipi_csi2phy_hw_ops {
-> +	void (*hw_version_read)(struct mipi_csi2phy_device *csi2phy_dev);
-> +	void (*reset)(struct mipi_csi2phy_device *csi2phy_dev);
-> +	int (*lanes_enable)(struct mipi_csi2phy_device *csi2phy_dev,
-> +			    struct mipi_csi2phy_stream_cfg *cfg);
-> +	void (*lanes_disable)(struct mipi_csi2phy_device *csi2phy_dev,
-> +			      struct mipi_csi2phy_stream_cfg *cfg);
-> +};
-> +
-> +struct mipi_csi2phy_lane_regs {
-> +	const s32 reg_addr;
-> +	const s32 reg_data;
-> +	const u32 delay_us;
-> +	const u32 param_type;
-> +};
-> +
-> +struct mipi_csi2phy_device_regs {
-> +	const struct mipi_csi2phy_lane_regs *init_seq;
-> +	const int lane_array_size;
-> +	const u32 common_regs_offset;
-> +};
-> +
-> +struct mipi_csi2_genpd {
-> +	const char *name;
-> +	bool scaled;
-> +};
-> +
-> +struct mipi_csi2phy_soc_cfg {
-> +	const struct mipi_csi2phy_hw_ops *ops;
-> +	const struct mipi_csi2phy_device_regs reg_info;
-> +
-> +	const char ** const supply_names;
-> +	const unsigned int num_supplies;
-> +
-> +	const char ** const clk_names;
-> +	const unsigned int num_clk;
-> +
-> +	const struct mipi_csi2_genpd *genpds;
-> +	const unsigned int num_genpds;
-> +};
-> +
-> +struct mipi_csi2phy_device {
-> +	struct device *dev;
-> +	u8 phy_mode;
-> +
-> +	struct phy *phy;
-> +	void __iomem *base;
-> +
-> +	struct clk_bulk_data *clks;
-> +	struct clk *timer_clk;
-> +	u32 timer_clk_rate;
-> +
-> +	struct regulator_bulk_data *supplies;
-> +	struct dev_pm_domain_list *pd_list;
-> +
-> +	const struct mipi_csi2phy_soc_cfg *soc_cfg;
-> +	struct mipi_csi2phy_stream_cfg stream_cfg;
-> +
-> +	u32 hw_version;
-> +};
-> +
-> +extern const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_4nm_x1e;
-> +
-> +#endif /* __PHY_QCOM_MIPI_CSI2_H__ */
+>  drivers/media/platform/st/stm32/stm32-csi.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
+> diff --git a/drivers/media/platform/st/stm32/stm32-csi.c b/drivers/media/platform/st/stm32/stm32-csi.c
+> index fd2b6dfbd44c..0847fd347d56 100644
+> --- a/drivers/media/platform/st/stm32/stm32-csi.c
+> +++ b/drivers/media/platform/st/stm32/stm32-csi.c
+> @@ -1060,6 +1060,7 @@ static int stm32_csi_probe(struct platform_device *pdev)
+>  
+>  err_cleanup:
+>  	v4l2_async_nf_cleanup(&csidev->notifier);
+> +	media_entity_cleanup(&csidev->sd.entity);
+>  	return ret;
+>  }
+>  
+> @@ -1068,6 +1069,7 @@ static void stm32_csi_remove(struct platform_device *pdev)
+>  	struct stm32_csi_dev *csidev = platform_get_drvdata(pdev);
+>  
+>  	v4l2_async_unregister_subdev(&csidev->sd);
+> +	media_entity_cleanup(&csidev->sd.entity);
+>  
+>  	pm_runtime_disable(&pdev->dev);
+>  }
 
--- 
-Best wishes,
-Vladimir
+Reviewed-by: Alain Volmat <alain.volmat@foss.st.com>
+
+Regards,
+Alain
+
+> -- 
+> 2.50.1 (Apple Git-155)
+> 
