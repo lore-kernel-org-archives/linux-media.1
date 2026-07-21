@@ -1,182 +1,369 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC9D442FDC
-	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 08:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6EF3B9949;
+	Tue, 21 Jul 2026 08:25:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784622095; cv=none; b=fnvi+pS0VkbEjlugf8rzQZppf+MpQt1+ITSYT29lmK7RUJohE0QAXQBYG79stt+cT1fxexmRs4td/hDwDvHBWh8MC+YtapWfbFAK0Obd3P9eEI0eJ0jVevHEtCSoM23L+FXGp9Ph3+MKxsb6yZB2sRa03Gp/VMcrZhQhNtMUg7M=
+	t=1784622330; cv=none; b=RpSd/yVr/8axrxGJtqiY7d94cfBendGMAiw0xNOuQWgtpXYF3aD9/A41vrRTkjLe3DZ6njXD5k6xVgU7ryzVeIzQQpF/L6FPVFITm75R3Sw9cBcxSRauhGCaTuAjGZBOZmDovodLs80RY8CibwdE3G4iVdMpNubiQXqx7+b//Tw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784622095; c=relaxed/simple;
-	bh=ctu2JAjDb4vEv2Ofqw5ZSiuq7IdmtEWY9UJl9tqds/g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=M1HdeLFCpwrS1mCw+yENGxDlNzUhoCEJOsBmnaqDerP2ePJ6yAtD5SAyA60mBHql1dhYIujuqCCRAIPE/0pTf43K2OccpYF+HBaF5tA776IpkrgYkjzrxTN7nHMsRidADRy59DLE2GFDmuWxuNaYa7dRmY7EEfXYEa8V6z4p+To=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=kyt04m/P; arc=none smtp.client-ip=209.85.218.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1784622330; c=relaxed/simple;
+	bh=JI8+g2Svx3dWaQrBfiRMbYJpKDJvm3nGHKLKXGsd2oU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=sfAZOlwVXiQpCB6UWTNYH4H+xJnF0cqa3D4pAQiR/yV5TWowJv1NaA088M56tbSWGOAE/FC8g7Y2TbDeQnA6Bs0YvIfFSrDvxMmzZ5xH6CrBHnf3wCQ+TEZFFxE6Q+1EW5DJhuAbcwN2keEPT9T0/6fSG4uZmarX8Pc0bBk+Y90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=UksD+XCn; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="kyt04m/P"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c15f360851aso1174773866b.2
-        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 01:21:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784622092; x=1785226892; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yOwKc54gLFklrg6TasEGy36BkhC9F73PBQa2PoKh7F4=;
-        b=kyt04m/P2r5oxEC7ywbWuP+tmSyEzFkvUV4fMlHCNbYNb3aTEbUQv1kqASeYNC7dna
-         IOnCzpSojBAZmUw9/E2NyK8rtUjW2Y3KOoHJ0ijDBeebq6OIioBCzOr4gikWeyyUDggQ
-         Yy4QJ7WZ0fitLw27yTQv8sJXKsi60zpDAIY664OzPPb58JWLojqSXrNKl2sUyFQyJ0d/
-         IpF5qOaAHm15UraZee/UkvRiTeM4eZbRe6iVi6TUGrglPuicP8EkK387LJ3hZVeL7sfh
-         Fmd8V1RF5NstAAK9428gdb1lO2WwJp8CkE+BfaIBQoKGjloYrwd1Phf0h0n/TujIZQM5
-         UKiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784622092; x=1785226892;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yOwKc54gLFklrg6TasEGy36BkhC9F73PBQa2PoKh7F4=;
-        b=D5d+Z2N/uBFXKDpIedg+WSplSExdAWIKql8QyqauQrYY1f6wpbT/6EdwStXL89Uie/
-         +K2aKgjeOM378n+sneBmVzpsC/jsWv+BDK+OIge+enFaMNBCIRC7nZrQ43fQyLiAp25l
-         yRDttQgR4+LLXiYheRhMqfIvTUmQZ+JcBzUHa8grccZbbB9qukgn9XOpKNMu92NN7s+n
-         wub0D8brgXu0mlKGyu164PoWWePx7RoNK0tX+e/JArEcbCNKK2FVq8IHf7sssvXF5AEo
-         8y/OgJV6nNkeWo/c7lxrZevbqtfNQK4qdpqmPFSiQfoZfg4zSNc3DTC11O9HH1ZP87NW
-         Pm/A==
-X-Forwarded-Encrypted: i=1; AHgh+Rq3kJe2+80uLH3RoIaaf7Ir39296xkeIlphjCyMkGOeCxsuyaKs3rh7WN8S3fpy6NGHINJjzGTUahZ+MQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzVoo97u0vlwmPM+lZIXrVesz3kz7BKDhlc/I7JdFLG5YBy/CLI
-	MAoKCfJ0WQULzq+TXTjq+wNN5rXAslwizAxZ36scNlYb678LM3yy4I8z/R4E5mm/WCg=
-X-Gm-Gg: AfdE7clNdE7Kkjdyiaik7N67YFmkPRL8wphM8jsBW2PCEJpT5uKW2QLNwdDTs32Fnwv
-	3nT0UiIv1+sAyTAKV4ptEkstVpZQLqpuIK8ea37QNloytawB05qmsi4OUMmz5MM2YegUx/P99C/
-	ToGybQxLv73Hxs6T09Di0Tg9UiMedZtFLC74OdnVsK+jLHNEpl1TTR9IJJJYwFw/Io/TZbS8BVG
-	QKWy6oL8BhiaRvam+BtOvSvo7YIyBITYe06j8/aiBnYT5gFR9xcApmZAw8dshQM+7NLhVrxsO9N
-	hkKlFrgEZ8XVHTIfaVf5XXUpAz6kDHgTaTQXnIcDnmKPSXaC24UAzqjgPYnTZDaI0smpjShgu7Q
-	efUNTnYa9y+hA5B45e+7UUpA/AZNjqINOhvkpW5URUrM1JFLkcWaNccP9HIeT8lOIlJV8u8Stlj
-	5p4ePbavFxzIt3uRLZHWwCGbzxT5uTq7NP6ByDZuoCoaV19gkyNj1KQcA50g5J1Mnd3A==
-X-Received: by 2002:a17:907:c5c5:b0:c12:f81:661f with SMTP id a640c23a62f3a-c16b4833e24mr638733366b.51.1784622092166;
-        Tue, 21 Jul 2026 01:21:32 -0700 (PDT)
-Received: from puffmais2.c.googlers.com (185.155.90.34.bc.googleusercontent.com. [34.90.155.185])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1724f50b72sm564725066b.48.2026.07.21.01.21.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 01:21:31 -0700 (PDT)
-From: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Date: Tue, 21 Jul 2026 09:21:27 +0100
-Subject: [PATCH v3 2/2] drm/drm_crtc: fix race with dma_fence_signal() in
- ::get_driver_name()
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="UksD+XCn"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4h49Rw4PrVz8sYd;
+	Tue, 21 Jul 2026 10:25:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1784622316; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=L5YKxCPFIITOB3AAzpsrNVFKyhv95E3nU3TRkHrZrxg=;
+	b=UksD+XCnamdnqxVh5dol8RPV+pHhpUqJXmpAqgRSObUiKuHJDntw8xf7NUNh+NRCmwenCp
+	HymDoO3CjJE+oQafVS4FOL1+SD7N8dhRLvHG7gW8WWpcEYTcnvHByNAv2lkD+uyLji0pLu
+	U8W0In9tLlH3isx/tBpuQC8MLCtyMUuv6/Nmj3vyfO55lxGXbJ6G+/pveszCA6eEfOpVIm
+	4skM40F4/mnVTKxxdQF5IV0TwnxriQl6akUD3DIasFn9fqxjAjkFFjWP8+Q8RbxKXN6pKo
+	9D1sAmkg7gVTupPY2enaxIHkJhn3N5DAfFtkQZWtNJnAVf5YrbZrXDhM+qWvLg==
+Message-ID: <e6b51fd8eedfe18be5d7aa4e0007f932920d9fac.camel@mailbox.org>
+Subject: Re: [PATCH v5 4/5] rust: Add dma_fence abstractions
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Daniel Almeida <daniel.almeida@collabora.com>, phasta@kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+	 <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Sumit Semwal	 <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
+	 <christian.koenig@amd.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>,  Asahi Lina <lina+kernel@asahilina.net>,
+ Burak Emir <bqe@google.com>, Lorenzo Stoakes <ljs@kernel.org>,  Joel
+ Fernandes <joelagnelf@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Krishna Ketan Rai	 <prafulrai522@gmail.com>, Tamir Duberstein
+ <tamird@kernel.org>, Mirko Adzic	 <adzicmirko97@gmail.com>, Alistair
+ Francis <alistair.francis@wdc.com>, Onur =?ISO-8859-1?Q?=D6zkan?=	
+ <work@onurozkan.dev>, Shankari Anand <shankari.ak0208@gmail.com>, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org
+Date: Tue, 21 Jul 2026 10:25:06 +0200
+In-Reply-To: <F72EFF33-E4F8-4E9B-B966-58BCCBA495C4@collabora.com>
+References: <20260703073141.3962604-2-phasta@kernel.org>
+	 <20260703073141.3962604-6-phasta@kernel.org>
+	 <046C4D44-1966-4EE9-AE86-A8F83A136771@collabora.com>
+	 <7a2cf5494824b8451824ebe82e0391df05a7cb5a.camel@mailbox.org>
+	 <F72EFF33-E4F8-4E9B-B966-58BCCBA495C4@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260721-linux-drm_crtc_fix2-v3-2-afa8c71506e6@linaro.org>
-References: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
-In-Reply-To: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Sean Paul <seanpaul@chromium.org>, 
- Gustavo Padovan <gustavo.padovan@collabora.co.uk>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>, 
- kernel-team@android.com, Simona Vetter <simona.vetter@ffwll.ch>, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
+X-MBO-RS-ID: 1914ef1328700d3862a
+X-MBO-RS-META: md733ttmoctpshqfcrn3aqejj3fm8zpc
 
-Since commit 541c8f2468b9 ("dma-buf: detach fence ops on signal v3"),
-I'm seeing the BUG_ON() triggering in drm_crtc's fence_to_crtc() via
-drm_crtc_fence_get_driver_name() regularly:
+On Fri, 2026-07-17 at 14:14 -0300, Daniel Almeida wrote:
+> >=20
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 try_pin_init!(Self {
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ // SAFETY: `dma_fence_context_alloc()` merely works on a global atomic.
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ // Parameter `1` is the number of contexts we want to allocate.
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ nr: unsafe { bindings::dma_fence_context_alloc(1) },
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ seqno: AtomicU64::new(0),
+> > >=20
+> > > Do we really need to force a 0 here? i.e.: can=E2=80=99t we take the =
+initial seqno
+> > > as an argument?
+> >=20
+> > We could. What would that be useful for?
+>=20
+>=20
+> On Mali, the hardware syncobj starts at 0. If you see a 0, is this the de=
+fault
+> state, or should you signal seqno 0?
+>=20
+> This problem goes away if we can have seqnos starting at a custom value, =
+like
+> 1. It seems like the C machinery also special-cases 0 in a few other plac=
+es too.
 
-    Call trace:
-     panic+0x58/0x5c
-     die+0x160/0x178
-     bug_brk_handler+0x70/0xa4
-     call_el1_break_hook+0x3c/0x1a0
-     do_el1_brk64+0x24/0x74
-     el1_brk64+0x34/0x54
-     el1h_64_sync_handler+0x80/0xfc
-     el1h_64_sync+0x84/0x88
-     drm_crtc_fence_get_driver_name+0x60/0x68 (P)
-     sync_file_get_name+0x184/0x45c
-     sync_file_ioctl+0x404/0xf70
-     __arm64_sys_ioctl+0x124/0x1dc
+ACK.
 
-This looks to be caused by a code flow similar to the following:
+>=20
+> >=20
+> > Hm, no, we don't.
+> >=20
+> > For the most part that's irrelevant, since all critical components then
+> > only get set in new_fence(). Correct typization is enforced through T.
+> >=20
+> > The notable exception is the fence_ctx reference itself.
+> >=20
+> > What should we do about it?
+> >=20
+> > We could keep the fctx field as a MaybeUninit and set it later. Or we
+> > check through the fctx identifier number whether it's the correct one
+> > in new_fence(), but then new_fence() could fail with some error, and
+> > it's probably better to have it be completely fail-free.
+>=20
+> Agree about the fail-free part.
+>=20
+> The problem I see here is that new_fence() will use "seqno" and "nr" from
+> whatever context called new_fence(), but DriverFenceAllocation has some o=
+ther
+> (possibly unrelated) context as its DriverFenceData::fctx.
+>=20
+> The lifetimes are apparently broken too, because 'a is the lifetime of th=
+e
+> context where new_fence_allocation was called, meaning that the context t=
+hat
+> actually called new_fence() can drop, even though it provided the state f=
+or
+> dma_fence_init().
+>=20
+> I guess this can be solved by moving new_fence() to impl DriverFenceAlloc=
+ation?
+> That already has a context, and most importantly, the right context.
 
-+++ snip +++
-thread A                             thread B
+Yes that is / was broken. Having the wrong fctx would cause wrong
+container_of() calls and therefore explode.
 
-                                     ioctl(SYNC_IOC_FILE_INFO)
-                                     sync_file_ioctl()
-                                     sync_file_get_name()
-dma_fence_signal_timestamp_locked()  dma_fence_driver_name()
-                                       ops = rcu_dereference(fence->ops)
-                                       if (!dma_fence_test_signaled_flag())
-                                         ops->get_driver_name(fence) i.e.
-                                         drm_crtc_fence_get_driver_name()
-test_and_set_bit(SIGNALED)
-RCU_INIT_POINTER(fence->ops, NULL)
-                                     drm_crtc_fence_get_driver_name()
-                                       BUG_ON(rcu_access_pointer(fence->ops)
-                                              != &drm_crtc_fence_ops)
-+++ snap +++
+Fixed it locally following your suggestion of creating fences on the
+allocation object.
 
-In other words, a fence's ops pointer can now change to NULL on signal,
-which wasn't the case before the culprit commit and hence the BUG_ON()
-triggers.
+> >=20
 
-Simply drop the BUG_ON() as it's usage of fence ops is invalid now, and
-because using BUG_ON() and friends to take down the system is an
-unacceptable way to handle a failure.
+[=E2=80=A6]
 
-Note that the adjacent drm_crtc_fence_get_timeline_name() has the same
-problem and is fixed by this patch as well.
+> > > > +
+> > > > +/// The receiving counterpart of a [`DriverFence`], designed to re=
+gister callbacks
+> > > > +/// on, check the signalled state etc. A [`Fence`] cannot be signa=
+lled.
+> > > > +/// A [`Fence`] is always refcounted.
+> > >=20
+> > > I would explain this a tad better.
+> >=20
+> > What exactly? The refcounting? The dualism between DriverFence and
+> > Fence? :)
+>=20
+> For example, you say =E2=80=9Ca Fence cannot be signaled=E2=80=9D. A pers=
+on seeing this
+> code for the first time might ask why. Specially if they start by reading=
+ the
+> docs for Fence first.
+>=20
+> I think explaining a bit more about the DriverFence/Fence/refcounting as =
+you
+> said is already enough to settle it.
 
-Fixes: 541c8f2468b9 ("dma-buf: detach fence ops on signal v3")
-Cc: stable@vger.kernel.org
-Reviewed-by: Philipp Stanner <phasta@kernel.org>
-Signed-off-by: André Draszik <andre.draszik@linaro.org>
----
-v3:
-- Philipp:
-  - shorten commit message
-  - explicitly Cc: stable
-  - collect tag
+OK, I flesh that out a bit.
 
-v2:
-- don't turn fence_to_crtc() into macro
-- update commit message to include reference to unacceptable use of BUG
----
- drivers/gpu/drm/drm_crtc.c | 3 ---
- 1 file changed, 3 deletions(-)
+> > >=20
 
-diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-index e8e80c936852..5295ec122e0d 100644
---- a/drivers/gpu/drm/drm_crtc.c
-+++ b/drivers/gpu/drm/drm_crtc.c
-@@ -154,11 +154,8 @@ static void drm_crtc_crc_fini(struct drm_crtc *crtc)
- #endif
- }
- 
--static const struct dma_fence_ops drm_crtc_fence_ops;
--
- static struct drm_crtc *fence_to_crtc(struct dma_fence *fence)
- {
--	BUG_ON(rcu_access_pointer(fence->ops) != &drm_crtc_fence_ops);
- 	return container_of(fence->extern_lock, struct drm_crtc, fence_lock);
- }
- 
 
--- 
-2.55.0.229.g6434b31f56-goog
+[=E2=80=A6]
 
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let ret =3D unsafe { bi=
+ndings::dma_fence_is_signaled(fence) };
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // To guarantee that an=
+ API caller can 100% rely on the signalling being
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // completed (i.e., all=
+ fence callbacks ran), we have to take the lock.
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 //
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // The reason is that t=
+he C dma_fence backend currently does not carefully
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // synchronize the `dma=
+_fence_is_signaled()` function with the proper
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // spinlock. This can l=
+ead to the function returning `true` while fence
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // callbacks are still =
+being executed. This can be mitigated by guarding
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // the entire function =
+with the spinlock.
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 //
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // See commit c8a5d5ea3=
+ba6a.
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `fence` is v=
+alid because `self` is valid. `flag_ptr` is
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // merely a pointer to =
+an integer, which lives as long as this function.
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe { bindings::dma_=
+fence_lock_irqsave(fence, flag_ptr) };
+> > >=20
+> > > Shouldn=E2=80=99t this be before the =E2=80=9Cis_signaled=E2=80=9D ff=
+i call? Or is this
+> > > only about ensuring all callbacks have run? i.e.: is =E2=80=9Cret=E2=
+=80=9D valid even
+> > > though it was computed before taking the lock?
+> >=20
+> > OK, this is where it gets ugly.
+> >=20
+> > So during the last weeks I've been struggling to get the C backend into
+> > better shape. One issue from my POV is that the C dma_fence spinlock
+> > does not protect the fence state; there is insistence that the lock
+> > shall only protect the callback list.
+> >=20
+> > The function dma_fence_is_signaled() has an unlocked fast path check:
+> >=20
+> > https://elixir.bootlin.com/linux/v7.2-rc3/source/include/linux/dma-fenc=
+e.h#L551
+> >=20
+> > whereas setting of that bit is done under lock-protection:
+> >=20
+> > https://elixir.bootlin.com/linux/v7.2-rc3/source/drivers/dma-buf/dma-fe=
+nce.c#L362
+> >=20
+> >=20
+> > This can lead to funny races like in the commit mentioned in the
+> > comment block above (c8a5d5ea3ba6a).
+> >=20
+> > And it also leads to weird hacks like this:
+> >=20
+> > https://elixir.bootlin.com/linux/v7.2-rc3/source/drivers/gpu/drm/amd/am=
+dgpu/amdgpu_vm.c#L2775
+> >=20
+> >=20
+> > Now, in principle I agree with you that a pattern like this:
+> >=20
+> > dma_fence_lock_irqsave(=E2=80=A6);
+> > let signaled =3D dma_fence_is_signaled_locked(=E2=80=A6);
+> > dma_fence_unlock_irqrestore(=E2=80=A6);
+> >=20
+> > would be better.
+> >=20
+> > However, lengthy discussions with Christian seem to settle at the point
+> > where Christian sees the very strict requirement of never calling fence
+> > callbacks under lock protection, and where he views
+> > dma_fence_is_signaled_locked() as a broken function that should be
+> > removed.
+> >=20
+> > He's currently working on removing all bits where fence callbacks are
+> > invoked under lock protection:
+> >=20
+> > https://lore.kernel.org/dri-devel/20260624122917.2483-1-christian.koeni=
+g@amd.com/
+> >=20
+> > There's been a ton of discussions and proposals about that in recent
+> > weeks
+> >=20
+> > https://lore.kernel.org/dri-devel/20260608142436.265820-2-phasta@kernel=
+.org/
+> > https://lore.kernel.org/dri-devel/20260612104251.2264707-2-phasta@kerne=
+l.org/
+> >=20
+> >=20
+> > So tl;dr: The weird code you're commenting on above ensures that
+> >=20
+> > a) the fence->ops->is_signaled() callback is not called under lock
+> > protection and
+> > b) taking and releasing the lock guarantees that all callbacks are
+> > really finished, i.e. they have run.
+> >=20
+> >=20
+> > (I continue to believe that setting the bit under lock protection and
+> > reading it without lock is fundamentally broken and needs to be fixed,
+> > but fixes are being rejected because of claimed performance regressions
+> > years ago when this was tried, because checking the bit is some sort of
+> > fast path check for.. parties that spin on dma_fence_is_signaled() ??)
+>=20
+> I see, there is a lot more context on this then. Can you merely add a com=
+ment
+> saying it=E2=80=99s ok to call dma_fence_is_signaled() without the locks?=
+ Otherwise
+> people might try to =E2=80=9Cfix=E2=80=9D this down the line...
+
+I tried to make it clear with the comment above:
+
+        // To guarantee that an API caller can 100% rely on the signalling =
+being
+        // completed (i.e., all fence callbacks ran), we have to take the l=
+ock.
+        //
+        // The reason is that the C dma_fence backend currently does not ca=
+refully
+        // synchronize the `dma_fence_is_signaled()` function with the prop=
+er
+        // spinlock. This can lead to the function returning `true` while f=
+ence
+        // callbacks are still being executed. This can be mitigated by gua=
+rding
+        // the entire function with the spinlock.
+        //
+        // See commit c8a5d5ea3ba6a.
+
+
+I can try to make it more explicit.
+
+Actually, I suppose with our design in Rust we would not actually need
+this lock-unlock, because we ensure that it does not matter whether a
+callback already ran.
+
+But since we don't know who will be working on this in 5 years, adding
+this or that exotic callback, or maybe registering callbacks on his own
+fence, I put this sequence there for robustness.
+
+So if the function returns true, you really know that all callbacks are
+gone forever.
+
+>=20
+> >=20
+> > >=20
+> > > >=20
+> >=20
+> > [=E2=80=A6]
+> > >=20
+> > >=20
+> > > > +=C2=A0=C2=A0=C2=A0 /// The API user's data. This must either not n=
+eed drop, or must delay its
+> > > > +=C2=A0=C2=A0=C2=A0 /// drop by a grace period. It is essential tha=
+t the data only performs
+> > > > +=C2=A0=C2=A0=C2=A0 /// operations legal in atomic context in its [=
+`Drop`] implementation.
+> > > > +=C2=A0=C2=A0=C2=A0 #[pin]
+> > > > +=C2=A0=C2=A0=C2=A0 data: T::FenceDataType,
+> > > > +}
+> > > > +
+> > > >=20
+> >=20
+> > [=E2=80=A6]
+> >=20
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // DriverFenceData is r=
+epr(C) and a Fence is its first member.
+> > >=20
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let fence_data_ptr =3D =
+fence_ptr as *mut DriverFenceData<'a, T>;
+> > >=20
+> > > Without a =E2=80=9CCAST:=E2=80=9D keyword, I think this will trigger =
+the linter?
+> > >=20
+> >=20
+> > Didn't see a complaint from clippy nor compiler.
+>=20
+> I recommend the CAST thing anyways. It=E2=80=99s being adopted in other p=
+arts of the kernel
+> crate.
+
+I can write a CAST comment, no problem.
+
+
+
+Thx
+P.
