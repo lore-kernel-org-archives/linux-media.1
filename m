@@ -1,38 +1,37 @@
-Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
+Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD39823DD
-	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 19:15:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB49846EF61
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 19:18:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784661310; cv=none; b=dYUHnrfn85IznZcq44pT1IzdnbNGAE4K0vA4PFsL39qMF7z5umt9uP3jpAuspIPwQ2oadBuHH31/HDe+f3rDLTdiiYwoUV7AVjxHwC9YXuRp94kILVjjdbgKMLvheAyVochmWgOYY8JISOUp8LnndAA8lTzfot9NqbnfQ0T+OXA=
+	t=1784661486; cv=none; b=JhDTmC5nRtO2uxAYblZMlnTBCPro+RcllhVCJ5kz5x2pTYHRuI+RiQw+WYPmOzzM0cTCaTCV1yYFq4jXqE/VaiSTf1i8Jpb02gEOFsHaDA7Y0TOLPtoF8Viv7NbCOopq1QREhHR3UdTqlpL8+iuevIJiH96B79xv7MQA7JrY4DU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784661310; c=relaxed/simple;
-	bh=o/LkGKhm+PQu6JZN8bDLNOMVzCT58EhCcJssTTJSiMo=;
+	s=arc-20240116; t=1784661486; c=relaxed/simple;
+	bh=m0ZRfFKXwjpMf9uwUeE/g2eEalMO9vBxa6A4B+pYBoU=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dhkPoX/olSgSyn7FfGRtUfUKa/NvH1xhHE+V3oh0ldl2uhoV44TsP1K8WoY0RBLesxzk6FIq4DRC4oi8gPDnJDslADcvaMkIkQJ3NENRWgfBhT+lRCxBXy54ktL6aMKwHBw8n3KD3si428CUA/DofhRFA1EkbOADep7enYzHeXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.14
+	 MIME-Version:Content-Type; b=t5t4n3SELEOCM7tE/KYfssBeoGsCn82Ea4g6Qqyi0Tbm38l6bqnwM4is71JHTQJQVUYR8J9cCA5oYxAln+CPOffnKTC1FghW+GIfNRI+pbIPyFF32LMZm4/6TbJ98Drb9LsOO/QgDUr8SFMBBfZAhGjxg8rwJLrM/893+S3w6Gw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay08.hostedemail.com (Postfix) with ESMTP id 199E8140288;
-	Tue, 21 Jul 2026 19:15:01 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id 846953B;
-	Tue, 21 Jul 2026 19:14:58 +0000 (UTC)
-Date: Tue, 21 Jul 2026 15:15:17 -0400
+	by unirelay03.hostedemail.com (Postfix) with ESMTP id AFDE3A01AA;
+	Tue, 21 Jul 2026 19:18:02 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id F1CCE3C;
+	Tue, 21 Jul 2026 19:17:59 +0000 (UTC)
+Date: Tue, 21 Jul 2026 15:18:18 -0400
 From: Steven Rostedt <rostedt@goodmis.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Theodore Tso
- <tytso@mit.edu>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Roman
- Gushchin <roman.gushchin@linux.dev>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, Derek Barbosa <debarbos@redhat.com>,
- Matthieu Baerts <matttbe@kernel.org>, Konstantin Ryabitsev
- <konstantin@linuxfoundation.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- users@kernel.org, Linux Media Mailing List <linux-media@vger.kernel.org>,
- Stephen Finucane <stephenfin@redhat.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Mark Brown <broonie@kernel.org>, Mauro Carvalho Chehab
+ <mchehab+huawei@kernel.org>, Theodore Tso <tytso@mit.edu>, Jacopo Mondi
+ <jacopo.mondi@ideasonboard.com>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Derek Barbosa <debarbos@redhat.com>, Matthieu Baerts <matttbe@kernel.org>,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>, Jason Gunthorpe
+ <jgg@ziepe.ca>, users@kernel.org, Linux Media Mailing List
+ <linux-media@vger.kernel.org>, Stephen Finucane <stephenfin@redhat.com>
 Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <20260721151517.42674981@gandalf.local.home>
-In-Reply-To: <c349b75c-556b-4f70-a243-f44fc04a0684@sirena.org.uk>
+Message-ID: <20260721151818.5e7981f1@gandalf.local.home>
+In-Reply-To: <20260721171249.GF536385@killaraus.ideasonboard.com>
 References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
 	<4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
 	<alc3gAJfAkG5DULJ@zed>
@@ -43,7 +42,7 @@ References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
 	<20260720095537.4d5d503b@robin>
 	<ce1df91e-0674-4861-90ff-bcaf5428b414@sirena.org.uk>
 	<20260720142432.288b0433@robin>
-	<c349b75c-556b-4f70-a243-f44fc04a0684@sirena.org.uk>
+	<20260721171249.GF536385@killaraus.ideasonboard.com>
 X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -53,44 +52,32 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Stat-Signature: kegh14gaus45s4k1g3fo8xfzu9griwtr
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: 846953B
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: F1CCE3C
+X-Stat-Signature: ejj5itxcj3r5tuqi6suso6g8u981w7jm
 X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19dat/8/pK8ThJM+09/gC01MBAlCPUBwqw=
-X-HE-Tag: 1784661298-158482
-X-HE-Meta: U2FsdGVkX1/PGgkwmSI4Wss2trAURqcAH6WCsC6KoHmW8gRdu6wOgnII/o37rST/Os8sccgGsstKqrKnhdTIljPb++CjJTuwPC6nSxVLPx0vvrPE7Pj7/h4JhubcT2k66/NfGI121pNKkV+eIg+qSoHOkUrkIpXR4TApg/qdAnIHeVAWjVNS+IFhu7QON+9RO59eKLX4R907u+7FcDIEzUeKSgLHTqa0OuvTCz1vps1XKPuz1JHzC+bo/pHn1LSqp/seVtXO6eBmvznWeeehLrD012mUaAsjdNvB3Q9QEIxySwahTgPbmwQmiTdlUHebfLdPI0YQJYRmFPEiNao2I86NqMmwa4b/
+X-Session-ID: U2FsdGVkX1+6Ro2WRWjlCTT3WE61puHqUeU5MefS21Y=
+X-HE-Tag: 1784661479-503795
+X-HE-Meta: U2FsdGVkX1/Fx+LmeF7eIcQRsg1CSyEK5P6s7Jr3xHNoBoXFu+sFOpiEIDBDyXM669vSp3ph2Z5ahvaemMjrxwdWQM2m35c7InkGspqN8QtFOBh+Y9l0F8saI50hZjE1KY42ztBQLIGh/nBOm9Py9qUOfHtK5cv/l3P9w6KSsLUZUcWuG3X1/UYMWRR1nke6Ayy+eqbezXxu3gtvhQAmt+Q+9sIPc+EbhEQg+TM/JxI3pi4m3DfxpKQFivKVGonyTqUdT35akeBkLXYOWZuQTgXvg2pmpxg6cHNAhSz+748ZBIIt7DLQsebb4Sf2M8FVTyaXXbmFEvc+dybvaQ3jSTxDgmKJ3D1jLRWYeIKpQ7eIaaUTLMg9+U1XF/XUQmlA
 
-On Tue, 21 Jul 2026 17:42:51 +0100
-Mark Brown <broonie@kernel.org> wrote:
+On Tue, 21 Jul 2026 20:12:49 +0300
+Laurent Pinchart <laurent.pinchart@ideasonboard.com> wrote:
 
-> > Is it too complicated? Do you mean it's too complicated if one
-> > sub-system says "resolve all Sashiko feedback you receive" and another
-> > is "You may ignore it"?  
+> > Hmm, we should state that Sashiko is sometimes wrong.  A submitter to
+> > me asked what they should do about a Sashiko feedback they diddn't
+> > understand, and after reading the Sashiko review, I told them to ignore
+> > it.  
 > 
-> I mean that "use AI" covers a huge spectrum of things, Sashiko and
-> potential requirements for submitters to interact with it is just one
-> example of LLM usage.
+> We discussed this at length in linux-media. There were proposals for a
+> custom header telling patch authors that in case they think a flagged
+> issue may be incorrect they should reach to an experienced reviewer (or
+> just ignore it, the wording went through multiple iterations). The
+> problem there is that, by definition, a junior, unexperienced developer
+> will have more trouble determining if feedback is correct or not.
 
-I was thinking of just having two options, each with various levels.
-Option one, if AI is allowed to write algorithms (I mean something that is
-enough to be copyrightable), and option two, if AI will be reviewing the
-code you send. Yeah, the second is for those who are completely anti-AI and
-want to avoid having any communication with AI. But then again, do we
-really care?
+Then add to that header "When in doubt, just say 'I don't know'".
 
-> 
-> > We probably don't want maintainers to require resolving all Sashiko
-> > reviews, but at least respond to them. Where "I don't know" and "I
-> > think this review is wrong" are legitimate responses. It is basically
-> > saying "I want to speak to a person" when drudging through the phone
-> > automated AI teleprompters.  
-> 
-> People were complaining very strongly about such requirements elsewhere
-> in this thread, especially given it's propensity for warning about
-> preexisting issues.
-
-It was also mentioned that the pre-existing errors should be separated. It
-shouldn't be bother patch submitters with them.
+But for obvious issues (like error paths not covered), the submitter should
+be fixing them and sending a new version without bothering the maintainer.
 
 -- Steve
