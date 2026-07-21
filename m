@@ -1,137 +1,194 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA8346AA60;
-	Tue, 21 Jul 2026 15:32:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF8B46AA62;
+	Tue, 21 Jul 2026 15:34:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784647937; cv=none; b=HvfpWtzEWk0thwfF+ebgNQP7KAN8peHPoHNLrzHdC4hznox3HmngUYZlu9p4HfTekArnsKlbfMytNxBKekEWrgihwy4NljU1PdymOTd/xl1VdLAG238kcUgdMP/4JrZ5i22hO0SwH+8DN6QYo8uIUbQwJ+p+uqrqA3/8sEtEeEI=
+	t=1784648059; cv=none; b=Tfy+6R0PJ8OuXRPDn/Jd1iwUstaO76cOLnTyAtbeDwt5PZecbCm4di0dTxp6jLOGLm8GvZVxaSCQS3niW+7K0AbydPfJGzk59fcIOEAqCCH5OqDZQ9ECCnk5or/TY4FooHXzR/tu7836y6W/rd2xRWKZ5vLSr9Yp7cBaJR/+6O8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784647937; c=relaxed/simple;
-	bh=t6Ai+E5koIEVC/lAWoZNJddRID1TUkuPv9C1ZyMtBV0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GsuZHDIBRjy5pVjXB16fbEX3vTxTs1fKH+3TTdHRuxwFA8Tbd1gm9CNvf5IRBkhl9GRYzIQALXCnPdNYuXsjF2pUPj9NIW9tBkGnoR+Q7UqNPEOOKfRFnHvyW+nJ3nPAE3S4A4LouzjmWUtSANMKNYYq4FEqb5oniYK6wOdCBO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vFjW2CFH; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784648059; c=relaxed/simple;
+	bh=P9NFqOPQ+ahnEAmnYRZ+YeWM0M6Grv5rI5fBpk8sY2A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tPSZ0m/waEHlNCXDZOEOsKVpvTT9Qu0tDE+xq435YRhp3j6iMSh5JMjARTJvwi690c9+Hm6dQ/mbnRBim9nSBtwvkkh9Pvx2ZuO7POITfSzMDKyo13WnDk89v526ENpp+sfbiiQjwVVqV2Rs4qDW79P6Kw23dRUvVE0zzfELnf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XmQTpHyL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vFjW2CFH"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A4120C1;
-	Tue, 21 Jul 2026 17:31:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784647874;
-	bh=t6Ai+E5koIEVC/lAWoZNJddRID1TUkuPv9C1ZyMtBV0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vFjW2CFHDvg2TteGV1oKIn8/7nnQIacd6MNodk2KXvRLWHwURkUsvtrRxo9xZieQ6
-	 lh6Mg3jqEkz9pl0aUkEk+u6aIGPUfb6WGXZNxxQxnFZkpzyvDJqyyQuqcf07Byn9BL
-	 N0gLF3mHvVDFl0mO1ujLo5OSgDmDqTJjVpA9bo/0=
-Date: Tue, 21 Jul 2026 18:32:12 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Hans de Goede <hansg@kernel.org>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: ov9282: enable single-read I2C transactions
-Message-ID: <20260721153212.GP50424@killaraus.ideasonboard.com>
-References: <20260721-cci-single-v1-0-8485171e1393@linux.dev>
- <20260721-cci-single-v1-2-8485171e1393@linux.dev>
- <2422477.ElGaqSPkdT@steina-w>
- <al-Jw_O8faK3oqqB@bombadil>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XmQTpHyL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66EB11F000E9;
+	Tue, 21 Jul 2026 15:34:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784648057;
+	bh=WUqoHTTN7TD+0YNLF4CcQ3ZD8lceHyyKIY+Zdq79w8M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XmQTpHyLU4UbG2suqP6OcLysEEKoNbNJmlTbM7Xw3B1muAKxX+f5FgQpHYGdZnz2f
+	 gj9Kf+XMk9FevJepcIH13yLEDcUOvLclJrcKUouE5yTFFe32PjrdLO1sqC8FON9gkU
+	 vhNVkNGCqhFsUVV7eupAN61P4uZlUannKAyVohsw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.1 0056/2077] dma-fence: Fix potential tracepoint null pointer dereferences
+Date: Tue, 21 Jul 2026 16:55:29 +0200
+Message-ID: <20260721152554.014075514@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
+References: <20260721152552.646164743@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <al-Jw_O8faK3oqqB@bombadil>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Richard,
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-On Tue, Jul 21, 2026 at 05:15:06PM +0200, Richard Leitner wrote:
-> On Tue, Jul 21, 2026 at 03:38:26PM +0200, Alexander Stein wrote:
-> > Am Dienstag, 21. Juli 2026, 15:25:29 CEST schrieb Richard Leitner:
-> > > Some OV9282 camera modules, such as those from Vision Components, fail
-> > > multi-byte register reads with the default CCI I2C regmap access pattern
-> > > and only work when single-register read transactions are used. This
-> > > results in the driver being unable to probe due to a chip id mismatch.
-> > > 
-> > > As the driver has no reliable way to identify affected modules enable
-> > > use_single_read for OV9282 unconditionally when creating the CCI regmap.
-> > 
-> > What about a property in the DT instead? In DT it should be clear if a
-> > Vision Components camera is used.
-> 
-> I've talked to Laurent about this topic (I guess a year ago or so...)
-> and he pointed me to his downstream work regarding the vc-mipi driver
-> (which I am currently also using):
-> 
-> https://gitlab.com/ideasonboard/nxp/linux/-/commits/v7.0/sensors/vcmipi
-> 
-> There is a new driver (and therefore DT compatible) for the controller
-> (without the sensor) on the Vision Components board implemented. This
-> separates basically the "regulator" part of the VC microprocessor from
-> the "forward I2C traffic to the sensor" part. AFAICT...
-> 
-> Talking about that separation I vaguely remember he argued against a
-> new device-tree property or compatible for the vcmipi variants of the
-> ov9282. Therefore I went for the "easy" approach of just enabling single
-> register reads.
-> 
-> Nonetheless if I understood this wrong or "things" changed, please feel
-> free to correct me.
-> 
-> Just to be clear: I'm also perfectly fine with introducing a new
-> "vcmipi,ov9282" compatible or something like a "quirk-vision-components"
-> property if that's preferred.
+------------------
 
-My main concern is that I don't want to see this being handled manually
-in drivers. Whatever solution we decide to implement (I proposed two in
-a separate e-mail in this thread) should not require modifying image
-sensor drivers to implement logic specific to the Vision Components
-module. I'm fine relying on drivers using specific helpers (for instance
-requiring drivers to be ported to regmap or v4l2-cci in order to support
-the quirk).
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-> > > Tested on an i.M8MP system with OV9282 modules from Vision Components.
-> > > 
-> > > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> > > ---
-> > >  drivers/media/i2c/ov9282.c | 7 ++++++-
-> > >  1 file changed, 6 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> > > index 5b6f897a74fcd..8267a0a9c6f2d 100644
-> > > --- a/drivers/media/i2c/ov9282.c
-> > > +++ b/drivers/media/i2c/ov9282.c
-> > > @@ -1283,6 +1283,11 @@ static int ov9282_probe(struct i2c_client *client)
-> > >  	struct ov9282 *ov9282;
-> > >  	int ret;
-> > >  
-> > > +	const struct cci_regmap_config config = {
-> > > +		.reg_addr_bits = 16,
-> > > +		.use_single_read = true,
-> > > +	};
-> > > +
-> > >  	ov9282 = devm_kzalloc(&client->dev, sizeof(*ov9282), GFP_KERNEL);
-> > >  	if (!ov9282)
-> > >  		return -ENOMEM;
-> > > @@ -1301,7 +1306,7 @@ static int ov9282_probe(struct i2c_client *client)
-> > >  		return ret;
-> > >  	}
-> > >  
-> > > -	ov9282->regmap = devm_cci_regmap_init_i2c(client, 16);
-> > > +	ov9282->regmap = devm_cci_regmap_init_i2c_cfg(client, &config);
-> > >  	if (IS_ERR(ov9282->regmap))
-> > >  		return dev_err_probe(ov9282->dev, PTR_ERR(ov9282->regmap),
-> > >  				     "Failed to init CCI\n");
+[ Upstream commit e94b9f01543cc6a83538c2c2cc645a424d3015ca ]
 
+Trace_dma_fence_signaled, trace_dma_fence_wait_end and
+trace_dma_fence_destroy can all currently dereference a null fence->ops
+pointer after it has been reset on fence signalling.
+
+Lets use the safe string getters for most tracepoints to avoid this class
+of a problem, while for the signal tracepoint we move it to before ops are
+cleared to avoid losing the driver and timeline name information. Apart
+from moving it we also need to add a new tracepoint class to bypass the
+safe name getters since the signaled bit is already set.
+
+For dma_fence_init we also need to use the new tracepoint class since the
+rcu read lock is not held there, and we can do the same for the enable
+signaling since there we are certain the fence cannot be signaled while
+we are holding the lock and have even validated the fence->ops.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Fixes: 541c8f2468b9 ("dma-buf: detach fence ops on signal v3")
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Philipp Stanner <phasta@kernel.org>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: linux-media@vger.kernel.org
+Cc: linaro-mm-sig@lists.linaro.org
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Tvrtko Ursulin <tursulin@ursulin.net>
+Link: https://lore.kernel.org/r/20260415083207.40513-2-tvrtko.ursulin@igalia.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/dma-buf/dma-fence.c      |  3 ++-
+ include/trace/events/dma_fence.h | 40 +++++++++++++++++++++++++++-----
+ 2 files changed, 36 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+index a2aa82f4eedd49..b3bfa6943a8e13 100644
+--- a/drivers/dma-buf/dma-fence.c
++++ b/drivers/dma-buf/dma-fence.c
+@@ -363,6 +363,8 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+ 				      &fence->flags)))
+ 		return;
+ 
++	trace_dma_fence_signaled(fence);
++
+ 	/*
+ 	 * When neither a release nor a wait operation is specified set the ops
+ 	 * pointer to NULL to allow the fence structure to become independent
+@@ -377,7 +379,6 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+ 
+ 	fence->timestamp = timestamp;
+ 	set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags);
+-	trace_dma_fence_signaled(fence);
+ 
+ 	list_for_each_entry_safe(cur, tmp, &cb_list, node) {
+ 		INIT_LIST_HEAD(&cur->node);
+diff --git a/include/trace/events/dma_fence.h b/include/trace/events/dma_fence.h
+index 3abba45c0601a4..5b10a9e06fb4ec 100644
+--- a/include/trace/events/dma_fence.h
++++ b/include/trace/events/dma_fence.h
+@@ -9,12 +9,40 @@
+ 
+ struct dma_fence;
+ 
++DECLARE_EVENT_CLASS(dma_fence,
++
++	TP_PROTO(struct dma_fence *fence),
++
++	TP_ARGS(fence),
++
++	TP_STRUCT__entry(
++		__string(driver, dma_fence_driver_name(fence))
++		__string(timeline, dma_fence_timeline_name(fence))
++		__field(unsigned int, context)
++		__field(unsigned int, seqno)
++	),
++
++	TP_fast_assign(
++		__assign_str(driver);
++		__assign_str(timeline);
++		__entry->context = fence->context;
++		__entry->seqno = fence->seqno;
++	),
++
++	TP_printk("driver=%s timeline=%s context=%u seqno=%u",
++		  __get_str(driver), __get_str(timeline), __entry->context,
++		  __entry->seqno)
++);
++
+ /*
+  * Safe only for call sites which are guaranteed to not race with fence
+- * signaling,holding the fence->lock and having checked for not signaled, or the
+- * signaling path itself.
++ * signaling, holding the fence->lock and having checked for not signaled, or
++ * the signaling path itself.
++ *
++ * TODO: Remove the need for this event class when drivers switch to independent
++ *       fences.
+  */
+-DECLARE_EVENT_CLASS(dma_fence,
++DECLARE_EVENT_CLASS(dma_fence_ops,
+ 
+ 	TP_PROTO(struct dma_fence *fence),
+ 
+@@ -46,7 +74,7 @@ DEFINE_EVENT(dma_fence, dma_fence_emit,
+ 	TP_ARGS(fence)
+ );
+ 
+-DEFINE_EVENT(dma_fence, dma_fence_init,
++DEFINE_EVENT(dma_fence_ops, dma_fence_init,
+ 
+ 	TP_PROTO(struct dma_fence *fence),
+ 
+@@ -60,14 +88,14 @@ DEFINE_EVENT(dma_fence, dma_fence_destroy,
+ 	TP_ARGS(fence)
+ );
+ 
+-DEFINE_EVENT(dma_fence, dma_fence_enable_signal,
++DEFINE_EVENT(dma_fence_ops, dma_fence_enable_signal,
+ 
+ 	TP_PROTO(struct dma_fence *fence),
+ 
+ 	TP_ARGS(fence)
+ );
+ 
+-DEFINE_EVENT(dma_fence, dma_fence_signaled,
++DEFINE_EVENT(dma_fence_ops, dma_fence_signaled,
+ 
+ 	TP_PROTO(struct dma_fence *fence),
+ 
 -- 
-Regards,
+2.53.0
 
-Laurent Pinchart
+
+
