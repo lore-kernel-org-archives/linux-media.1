@@ -1,115 +1,116 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6985746EF61
-	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 22:19:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2178A3CAE7F
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 22:40:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784672376; cv=none; b=b+lVROgat7d5ZQ7QPaA7AC91Ea6Hct4fdjBwfR8isKQ7dsjnBrdLp2DVxMA+cRUAqTUfIIqOY3xK7z+/zA9+KHAN0/UI23mvnV7OFgRmPcdhpSlgP/DP5SXVQwgmgEybAR21rCDObPBPb8Udn8c4ur/aYAiLHdQoMIf/U2PXllc=
+	t=1784673619; cv=none; b=TgUeudU4NwcKdsn0S1RNNfy6e5VkrQqIPguX4h5ouYDA2i1xC5kqvTiU8WUdPWdVvZWbl+8ZkbbKRlQSk2vgWOmpGqMTuU2+DbcRUO7lw6oKuTn2cSS4A5vSI45CfD0p9uwKd3HOOyuq88e5dF1UF0D2JEG9z0/dWSI7oEfW7S0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784672376; c=relaxed/simple;
-	bh=h2aJj7pziAHUBp+6L5MUVW4GhG2BrpklrlUA9BA13eg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nBX7Tg5b6Bb7635V2ms7dC7KKZDi+vcgePmWl+EugEB2PlzuM8mj3G9oYyoCmSTMmcj3sFUhnCWeYQC034P2uZFucNLWgQnyIoIhYeBU8LEQs5hrVpdmAS+FEoD6rCPCfQuSgdKWAoAAH1x8lohkWGPvpdJj/5CKwxM8nKJd0M4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=QwHhk+8k; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784673619; c=relaxed/simple;
+	bh=86+FFVf2RJXCDge481xc40j9yQcZbXPzCSDbKxjMSQ8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nkLZV/2bur1WSNk82u507yT9bcoo6LeSLVbtev2FMQxiwU6LbEVb7sqA7WVJ6rBhgOm/m9oSVCHsxuess+xGkvZcc4PUv8GT3gz+H3SuG/8jpYlnrqHC6RD5MegJHJucZAcS5zF4kxfgE+6XJ+usp7Sg2tZqxiKUxBzEyw4v6nY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=IVqIG5mP; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="QwHhk+8k"
-Received: from [127.0.1.1] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 92EC8BAE;
-	Wed, 22 Jul 2026 00:18:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784672311;
-	bh=h2aJj7pziAHUBp+6L5MUVW4GhG2BrpklrlUA9BA13eg=;
-	h=From:Date:Subject:To:Cc:From;
-	b=QwHhk+8kupvIuVIaOsJJXGrg90y+9AolhqEW8LMJIOHnToDcYGKq7Xqy4L5xugFOl
-	 kvD0YaBlVQ/vTQ1GY+g6gpmebIn5OU8kZj0dGQF6HxbPQaS8ufSLaAy6oncvnyJoMG
-	 0H3wE6an/R1dk4xuEOdB4iXYqRMjw4Cr06D57PIs=
-From: Daniel Scally <dan.scally@ideasonboard.com>
-Date: Tue, 21 Jul 2026 23:19:19 +0100
-Subject: [PATCH] media: i2c: Expand gain values for ov5693
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="IVqIG5mP"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47f7854678cso1278526f8f.1
+        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 15:40:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1784673616; x=1785278416; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RskP6QT1dpaQK7qfXd+bxkNm79lnYJ2LdMNrXnjHeIs=;
+        b=IVqIG5mPge4kyxaEU3iL1xqOKSXgvrOTGk9GR5/koVoRSn8/lrEYcwdbaXEZD6d9y/
+         ZpCsMjousZtMAJ5Kg78w0IWAbM4++jsnzlVTir75PCDAfkGh9sjZ8BiF0a7vaIKd0fVq
+         RJmmWUjW6LUvuZDxw3nEtU4PLupoW4jXrX8bmw+jNXoRVFxlKnp5ieSGInXX4/k4UxEk
+         ZKdb/0lRUHvJFDvsbjaNCAy8mMp73gP1SZxWaUqZq8+fKWY9KC2ogN/gtj0mdkovNpz8
+         el/eMIkw6u2/N0rB6TsOGTW1NkHEW8XogucJq8sMv6EYbgTw0/thk+0sLWZn766mUvaT
+         vwAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784673616; x=1785278416;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RskP6QT1dpaQK7qfXd+bxkNm79lnYJ2LdMNrXnjHeIs=;
+        b=sVm6PxEaN/Ie9JV+7Rdx0Gsl78k1+Isk5Wwu2q1LI2arz5Kt04eBgocmsgFY3WpfOl
+         14C7jooqf9UVbyvseYHm/euZYgtGDj+OELrfwqBzfGh8qKVQ+vm8xxcNltyburY+2aCq
+         Ae+y4qYTvR0GCzjyvwc/ccCkArFlEDUdJ6z4xzZOw7bYIXV2c0X4FOXiZatb6SMtYj9l
+         HynLZyRfCQyVRTuAGKI42hF+Z9sARx+pwwkq/f/OEbCXJErftOQGrbTcXqcObo3dPxeQ
+         LCmlCNH7/bldpTFZcowpNXApZtOPd7N4PbbsDVUQNar2jQnsMA+8QwKB+6dyT1biD1Z6
+         2oow==
+X-Forwarded-Encrypted: i=1; AHgh+Ro929DLNw4VoG0xiatpGVklpkZy3oS8gnSLLiHv8HCqItvhlBltDlEly13bNOr0J9mFqxG3TS3zwo/Rvw==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy5RaHXHCJDGMkI0Jw/8RwFo9tMiPx1PTJqVDiJbdK1U26dnZrj
+	rrVfYePL6Wzah49xpSqTMcWEJ32uGLIt7IfHpM3RbirN+gSCmP2uOLdM+PP1+npd19A=
+X-Gm-Gg: AR+sD110SDwNdcl0NwjpjveqgZlzYHj+hySHM/BbLitAbaOycSpALs5CXeAlWd0JaZq
+	H/C82qeJqIILJfFhHe6v7Dmglt4uK6R0OwqLE0X/eUKehO5iNqFnZYYi6c7lfaxD5a4//9fRDPF
+	wd0jZtrN+AbrSF7el0hYM+53mOcIUfPFSakS3Cf/gFmtPHFhVuPpVCn0wkh4SoNFOSQD6oZN6XJ
+	okRZG9o9V8tIoZwl+nB+wOIZaYntNUh+J6UEvP9jFm3z9hy83b20JUM3KMcOAy604wYaNXNKvam
+	XVa9zEmkDxm2sig8jBElCMDvw4Zcw+CPRWrl4t/z8x0jChVq2HK9jFZ1+c9SM2I9i4/Zl0dWLzD
+	O+QjwMN7Xk+UK9AyTN4jeGd5HqXQDZgd3Tepx1/H8g/Iuh6vbILHqbvcd0stoqCA9CqZAwmOmrJ
+	cZwViK8jDRN4uzPjgevNVjycsE6Q==
+X-Received: by 2002:a05:6000:712:b0:47f:6f2c:7303 with SMTP id ffacd0b85a97d-47f6f2c73c3mr17096854f8f.33.1784673616312;
+        Tue, 21 Jul 2026 15:40:16 -0700 (PDT)
+Received: from [192.168.0.101] ([109.76.186.235])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85bb57cfsm249830f8f.11.2026.07.21.15.40.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 21 Jul 2026 15:40:15 -0700 (PDT)
+Message-ID: <b14b7ead-d063-42d4-92cb-1299ef0a81e8@linaro.org>
+Date: Tue, 21 Jul 2026 23:40:14 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v15 1/8] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add
+ Kaanapali CSI2 PHY
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Todor Tomov <todor.too@gmail.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ jeyaprakash.soundrapandian@oss.qualcomm.com,
+ Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
+References: <20260720-kaanapali-camss-v15-0-c0b1c1167c5d@oss.qualcomm.com>
+ <20260720-kaanapali-camss-v15-1-c0b1c1167c5d@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260720-kaanapali-camss-v15-1-c0b1c1167c5d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260721-ov5693-gain-v1-1-0eaaee0a7bd4@ideasonboard.com>
-X-B4-Tracking: v=1; b=H4sIAGbwX2oC/x3MQQqAIBBG4avErBNsNKOuEi2k/mo2FgoSSHdPW
- n6L9wolREGiqSkUkSXJFSq6tqH19OGAkq2aWLPTA3fqyr0bjTq8BAVrHLO2gAXV4o7Y5flv8/K
- +H3wwS3tdAAAA
-X-Change-ID: 20260721-ov5693-gain-e4362204ee4e
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, 
- Daniel Scally <dan.scally@ideasonboard.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1687;
- i=dan.scally@ideasonboard.com; h=from:subject:message-id;
- bh=h2aJj7pziAHUBp+6L5MUVW4GhG2BrpklrlUA9BA13eg=;
- b=owEBbQKS/ZANAwAKAchJV3psRXUyAcsmYgBqX/BytFUcwvfOcVJB5Lw/AehlOHDHZW4pSbqN+
- UE3k7eYFNyJAjMEAAEKAB0WIQQqyuwyDnZdb+mxmm/ISVd6bEV1MgUCal/wcgAKCRDISVd6bEV1
- MtBTD/0bEuDytuLODY8kM/hP32CdBt0LkV1dkcx7v+EFsrQ2LiGAN7TkOBv92xWXDCx1Enuoqa7
- wl7PwJVGcMCXPHz8phtkeFxPKsbt+Dl9jYEDoqcuNaEoGiZjcnhkdBU8fm5hxPnt/dNQIphtj/S
- CtNhDJkiJ9HgyNyszcWnxH4mHAysOr/ji+JXcu/l1Q1jIt7BBUrKH9UFwtqVcEduhjMpY1TKckv
- BSXA4n0yCTdIQAs5x//Cu/A3bS7vRQhsglnCr+nNFyLe1cNldAuEiux2I6K62M8CveHBS6g98Fd
- uw67PmbkHPcoXt3wWiqOj1lTMrFK2PU3rs/QckJSdoYfBXrOG2h0Jiv6RmUyfQ2RR9Y9S3mWyx9
- kbvmt9+/HIAz9ZwtaETCXlspHT5sc6z6IuAz0E/zZJy2pZh9Dru6+roaupHP7tjR1o/D17g7GgD
- ugNeq43s0JxAE/2aRM1pRd2rRZpKcrvSe4UMEPPwL12Rmpbewt98v3RLGVFwgjIPYjSwHR3b37v
- 36dfGs7kunaHwREn1r+7uA8UIz5+/Kyjbcf86ziW4Phl0DnDvJoYaLk+UI0A16hZicTiCD61bO+
- ayClu0jz47NO3hJycFSIGTR3pPmfiYqIusvrk2ArW3jP3zzylZtCRZ6kngl8Ah+0ntiDmfAhk/u
- b6xqneGK+R2G4bQ==
-X-Developer-Key: i=dan.scally@ideasonboard.com; a=openpgp;
- fpr=EEC699ACA1B7CB5D31330C0BBD501C2A3546CCF6
 
-The ov5693 driver currently allows values for the
-V4L2_CID_ANALOGUE_GAIN control in the range 1-127. The input values
-are left-shifted 4 bits before being applied to the hardware. The 4
-least significant bits are fractional bits, which means that in
-practice gain can only be applied in steps of 1.0.
-
-Update the allowed range to take any value that fits into the 11-bit
-register and stop masking off the fractional bits.
-
-Signed-off-by: Daniel Scally <dan.scally@ideasonboard.com>
----
- drivers/media/i2c/ov5693.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
-index 4cc796bbee9263c032384d8327961b5cee52b9e7..1fedd835fb69532ebc3b48b7b8c9b02744bf3da4 100644
---- a/drivers/media/i2c/ov5693.c
-+++ b/drivers/media/i2c/ov5693.c
-@@ -48,10 +48,10 @@
- 
- /* Analogue Gain */
- #define OV5693_GAIN_CTRL_REG			CCI_REG16(0x350a)
--#define OV5693_GAIN_CTRL_MASK			GENMASK(10, 4)
-+#define OV5693_GAIN_CTRL_MASK			GENMASK(10, 0)
- #define OV5693_GAIN_MIN				1
--#define OV5693_GAIN_MAX				127
--#define OV5693_GAIN_DEF				8
-+#define OV5693_GAIN_MAX				2047
-+#define OV5693_GAIN_DEF				16
- #define OV5693_GAIN_STEP			1
- 
- /* Digital Gain */
-@@ -444,7 +444,7 @@ static int ov5693_analog_gain_configure(struct ov5693_device *ov5693, u32 gain)
- {
- 	int ret = 0;
- 
--	gain = (gain << 4) & OV5693_GAIN_CTRL_MASK;
-+	gain &= OV5693_GAIN_CTRL_MASK;
- 
- 	cci_write(ov5693->regmap, OV5693_GAIN_CTRL_REG, gain, &ret);
- 
-
----
-base-commit: a52e6f7923c17a672135b485ffd96fbd72f46267
-change-id: 20260721-ov5693-gain-e4362204ee4e
-
-Best regards,
--- 
-Daniel Scally <dan.scally@ideasonboard.com>
-
+On 21/07/2026 05:50, Hangxiang Ma wrote:
+> The Kaanapali CSI2 PHY is compatible with the existing x1e80100 CSI2
+> C-PHY/DPHY binding. Add the "qcom,kaanapali-csi2-phy" compatible.
+> 
+> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> ---
+>   Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> index 880fe602945c..7943049834f9 100644
+> --- a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> @@ -16,7 +16,9 @@ description:
+>   
+>   properties:
+>     compatible:
+> -    const: qcom,x1e80100-csi2-phy
+> +    enum:
+> +      - qcom,kaanapali-csi2-phy
+> +      - qcom,x1e80100-csi2-phy
+>   
+>     reg:
+>       maxItems: 1
+> 
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
