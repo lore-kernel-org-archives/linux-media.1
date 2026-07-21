@@ -1,359 +1,213 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C54F446839
-	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 09:45:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784627129; cv=pass; b=BvXOi1mT/8Y6IavVRgXmnAoJU5HJGU8T9qN8yGHgyr+f1TD0pmvHAVJvhb+X52c2GDeq1for0hCAtHJeHFwVerIDwT7oG+GN2LlVQX6Bdaf8aiZyowt16FnUpuBTkgEaA7XoGPZ8YmXEqXp0AxGB+Cqb0lrtdYWFeI+WPguKv+c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784627129; c=relaxed/simple;
-	bh=XchrFODCUSTk0Hozqy43QkoAzqZXaAPj6KG7wO7Ql9g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QskZX3K0os4qqEi2Gi0HzKke1ThJHrTbQ6PyEqnaP3tpADp0SNE/o1j+/IR/p5yoZsPfvdoC0D5+9FGr+dTUEHIO2Z05JQ9XPQh9b1l9+ABGk0Ol16EvOpItwoRk5praPiBOF0r9fbCwA2nqGEMHVYNxHXXmBr/FODYnZ6U4TnM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vidkg+C8; arc=pass smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5244657EE
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 09:53:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784627641; cv=none; b=E8RL4hT8B5efQbwwrffT+AXiZ3M+npNIC54mtRtwuIvf0ASHu8bib8Yw41eiAfiI4PEkmK9OdavFiPQjQ6QAeKarb7fgm3IVdNAkTi038FhbJbwLn6W7KbHzGZoNtJc7kxTC8kXkjwVbD0/OaiFP0B+ZppBzU9lpVanh/Bn3cNg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784627641; c=relaxed/simple;
+	bh=h/I5qtQCyzhc0DcHlJvNKASagwuTPEwMjUgB/gz6q4Y=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=g/pSkzHsl+HwMZRk4C+jO8vLTnD4eRJJcpVVz0cPCsvAivb/r6RN424+QAUIKheTyMHakDVPlVNhf1AV5mhLWFFuptBg777yD09pLYDvzAhxJgGkcYXbROHRJLHjVdXzoq8dpxR0ACOg6makLGfoAyKkjqPxcolK2SKsXS5QnGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bxjqEHp/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Aisp2oeH; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vidkg+C8"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-ca2fad0ae38so8687155a12.3
-        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 02:45:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784627127; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Rf045Kka9+gt76qHEuaQse3GlMZfuP5bk/7Zdsk1niDVqVYYcRWzjlGF+L6FQYEkg9
-         fIIO/3npPHJ41wXxFtlIUIUt/tBwJsrP+Y3/FXpWO9ZPsMoPct5AytOoray6O0H8oY3c
-         b8G0vJoa4L02+0hF6eJ5bur80YGuC6VGcy/2+W8HlcXY62daHEg1FE8DUR9CeclBK+F/
-         DJv5IaTuQloyk753ynQpgjJHWLQ7ILgk4NfmDTG+KQa9VVqk7MF4fOQOL94fim/s7j4/
-         Je3xCaqTzztbyisdZGbVwqpke/S+VRcg/9A8mXjOfR1f3fql9TMs5/G6wJ35TypnnpW1
-         7LJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lhaTOMzoD32lDFFebGEk/tTq7bPp6JiL4J2BZ4SmDn0=;
-        fh=30BJLag8VtfOUSkgD2b3tFExz8YMqa9xsfxcMNjZ3tg=;
-        b=GGXXtoowU6e5iAhxbEfHf3F43OSR4GkA/PEpCp4FvBSutPNmcg23m88+EIkn89O3rT
-         BVdjl8B7jRRTLyY2STVyQdgRBw9aLGY658zeSoLbsICPHZR7gIbLx1pBIPU0A8ojzh8R
-         nikleM337ITIUcYFlhrtsEvgZjyrjHsSUn8iuVMs12AnIMduUJ/HJQocoD39emc4qSnD
-         UPCkoSbLQzlaW+NHq8cHYJ7MUQzfMJEV0sl7mcI9vP/+EXscPgpWJs+g3FU+uSAlqfz5
-         9fEcQf5ulPFvK5aQn8dO3ViEixmQJ825VBPKbQEnCzhWa9YgssPLO7Rlaquljsqv2ABW
-         w4WQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bxjqEHp/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Aisp2oeH"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66L9XFG01389930
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 09:53:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=s0Ad/kTqFIEVVHlyxWbVsM
+	ZZs2OLjnk7ipym+9asjYY=; b=bxjqEHp/JB3PChbSsUhCCjsZVSN3i9MN+EwqhO
+	b8zqhIMFsrN8iB54J/1Bvh9F5afhslJkpWLJSwatPS9LGMJGm5nu8c/2iPsnOaPP
+	ex6OlJBkcEgy6MDvKECWACjh3Y6+ZSMrGmQ/+lrXgLP0qx56Z2Jlk1O+jlLXQq0s
+	0jbsoue9jia7XxylrGw2cApsGMt8yEjFLg6sDURWZjEFejFi1Iu/5uargKSeBd7e
+	ucLPkZh42A7i4kM0lcvBcwoJXehRVTv97PCulRj5rxWfMRcBuDbbyWTvdk9oIs7H
+	q5wDyaZz8nx1ZKOc6g8bgo2aGQ5gjJI9zoo9O29ycJXqRQdQ==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj68602g6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 09:53:58 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e2f61c09dso7610483a91.2
+        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 02:53:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784627127; x=1785231927; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lhaTOMzoD32lDFFebGEk/tTq7bPp6JiL4J2BZ4SmDn0=;
-        b=Vidkg+C8bro6+hcLpRL1AU8RFHgWuZIRVXgiOwvD7uoAwWTuQ23XZeduT+ldfeybt+
-         LExeR1J6Rd/IOWYG36iiBVU8tCbFuFqLdC7C1MS9Wa6sdBiwGfKgsl60bRR1806+genD
-         ENmIfokApgeYRfwBtWl13/xSw8yi2LjfgENP6l8bISotwLbDsxfGWB2AtBhUk9ynoiVe
-         ZSyk4K6EmkNazrdTh8xKCtVWUr20mzZ6Iu8EynWj85GqG4X9VLyGuRsb1Mm6DvEnHKqf
-         ZSFQqUyRidxv34N+ZN6699zMZfJ1e9FvH8D2t4l6kTMbLCvifbStMabM/WhaxqX3DHvV
-         sn0A==
+        d=oss.qualcomm.com; s=google; t=1784627637; x=1785232437; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=s0Ad/kTqFIEVVHlyxWbVsMZZs2OLjnk7ipym+9asjYY=;
+        b=Aisp2oeH5vlx10bnD9ajf92dkssWeDTD/uUQ+g6613P2GUDDBFBL44YvLmBQ8bu2LD
+         PQqwgzkpdrGTEcxLvEXKdQ50ONIFfHkCLa/uslCL+MAhqh5Z4mRrRqrkrH3HbrawQTE0
+         yZI+Q0HSQWnZ/UA8JGi3jKufxuuGJ3YFIOfVMZhyW0GUvsLhMR6OyqkCFmNCWaQV1XT7
+         BfW5vp0o0EvwHsx34ycHqJTTedSXzQJaUC02yiN7J2D33diQv0iTN+yTZuFxj3dozLtB
+         XSr/GmvdRiWt/oSipcUbqr6WQvdfsQ2fpIk2HXF5K+dZrGFbgJo+W7A0uAiNkrcE0anE
+         OBOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784627127; x=1785231927;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lhaTOMzoD32lDFFebGEk/tTq7bPp6JiL4J2BZ4SmDn0=;
-        b=DoS71iXqU82vFv2poNTwJZ3/p3DrLLAftnv8lhTu6Mi6XE4CUeL8kHyHHjp7pOah1r
-         CS4aheI6nmdOPPMG1sjWUho7qony4Vn1RlMbsSycfRB3cloPsNDqMUMY2+E8kB8/bZbW
-         92doHEA+Ty2LMsmhcX3L2IuJdATiIIENZQkhVUMv1R0K1xISpmmltfXQ+ZZsefY7EuIc
-         SVOfw/skl6tsUfP18JF4uqcQRAiaoWZWN6mOqc91S9vk9f1vZmIV+HUfOiV9oW2rgTWs
-         +0sgodxm1CCmQVCi9IpBBDpGWURrAPdSY5WNLOa7LbdA0NS9Ej89kRt9yP6WofU5A9vD
-         KTkw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro3OAtDeoB9YHoGye423ipbsEFTbQ2iwFj8rbhl3KqXD2ZB1oXLhz2o0iK4TTLyJsY7a5mFcirDYJ2tRg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyTpzkzuAJjBDDA1qJZYs+uahrn4mk/YKNyHW3HPvyvzDs1sCwf
-	vRgl/jJxw3AjVH/ZXAHNXt1csHLv3yuE26/k6b/qxDyeY32lEaSOvE+PVS6DLbJj8rky//lKaT1
-	Hbas0wYYciAkpVwyU7NFjuWhoBJ5BKTaexvBf
-X-Gm-Gg: AfdE7clfMO/eH9M0e7pxtdvDWNChWvoFfIHSDc+HamqeucEYm6DbibwkWzhfRHU5kdN
-	CLt88Y8Ql8eVIpD7B1piOfJf5Z1geRrUWEg0bs0MGA2xCakMeN6XVH+4dIRPMjpeoj7zLQS+eKc
-	JWeH0tVq4jzBgdXXrKxWPYPZgXf/Jy0RJuviCtCeT2DNfMnY0BdSQJt4l1rxeQVpznzAPPvKdNO
-	PP9W/PgTett5bJq9xvL9Ze4zYr0ngMWYKiuGf/kZ2Cy3ce2hCWYltqBIsjLPT70hn8JAlHChMh9
-	TUiupoZyUB84JuCs0so=
-X-Received: by 2002:a05:6a21:1404:b0:3bf:6c08:fb83 with SMTP id
- adf61e73a8af0-3c3ad9bc105mr18441172637.51.1784627127358; Tue, 21 Jul 2026
- 02:45:27 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784627637; x=1785232437;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=s0Ad/kTqFIEVVHlyxWbVsMZZs2OLjnk7ipym+9asjYY=;
+        b=GSvU9eIhmvX1G7ikNCij9YOLNuD0xAKLyfuwQTPgX+RwyOONYiZhzn52DmOZVP0ap5
+         LyUcXgesoktza/J+lQR7URF+Jg5ASNbOMltYROCFQpmWoSgGeVIQ5QxyNtOeDhUQnUmY
+         LXchNNl6cMdt6vICmVOKfX7iQH2iO8XuAJgh1j/aDWwmTePnaJZzulEFI5SNrhFv8x7J
+         mbYMS2J0rHUku55v+yoQKx6gACAvbC7v2cX9PTFcsxkPPzr99Ei0xa3UjuZCjeJ7rPrs
+         p8vlLp+DbUNByOZtLOVSblgmFs3+xdq+F1bDMl6I1Q7p67oDVOviobtX+fe11ilNDR1u
+         B1ig==
+X-Gm-Message-State: AOJu0YyMO2SJ9dJQoWGUT5S2s80kr6raHWCc7DnBWNRqhXMif+9UInuI
+	QnGl1OvFp7qqXN37HL6YFJnuCzz2jr6JDXvB9yJpCfz3lxFhL+80VFjPKvibBdGUqY5AuEaQxE+
+	qqE+buLWzXZkPRvXsmF6smeAGQCdIE/fOktNrtm7/ZGxpNrfy8xh4f0tdWuG7hTLIuQ==
+X-Gm-Gg: AR+sD13clcfrWCXZE95JEnkVc8+ivKzZ4J7LZJY02ymHSQ5kSvrRH3Jf48q8VR8MziF
+	k5n8j/k461OEumgWJZUn9FScDK5KsPd35PcswT604lmbre+e5rgonSwEN96PIlYOsz2Rd33vATV
+	TvVgBum2I+Gq/plvQpBnaGDX0HUZZaqGxGX1g/OXiJFczlQelbYfAyxIUeiKRkuVQoVDpDhehoY
+	CLCr3I+GcOrp8Hhp54LE3uiGSseCNBV3Q5CFiVHfHIGxACcKtzHX1Lsv2G9DA3EqakIh/elmbQa
+	J07i5DQ37c3cZj82T1dR/18kPf+kEt4yIafIT/ugsu5yPd94CWX2HnCmAE9u7JACaiO4hyt3KHL
+	RRx95RYL9x12IUC+HQ4p99C9V0MyNzbc=
+X-Received: by 2002:a17:90b:5251:b0:38e:76f8:fcc6 with SMTP id 98e67ed59e1d1-38e76f91cacmr8851076a91.32.1784627637192;
+        Tue, 21 Jul 2026 02:53:57 -0700 (PDT)
+X-Received: by 2002:a17:90b:5251:b0:38e:76f8:fcc6 with SMTP id 98e67ed59e1d1-38e76f91cacmr8850991a91.32.1784627635789;
+        Tue, 21 Jul 2026 02:53:55 -0700 (PDT)
+Received: from hu-sachinku-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e92064c77sm1285462a91.1.2026.07.21.02.53.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jul 2026 02:53:55 -0700 (PDT)
+From: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+Subject: [PATCH v3 0/2] media: qcom: iris: add multi slice support
+Date: Tue, 21 Jul 2026 15:23:31 +0530
+Message-Id: <20260721-iris_multi_slice-v3-0-adc61a687e7e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260625082111.47898-1-clamor95@gmail.com> <20260625082111.47898-2-clamor95@gmail.com>
- <20260714191637.GA1675278@killaraus.ideasonboard.com> <CAPVz0n0k4O1+RGFMhAUnFG7qsc-7HVwVj23-8MRGnYLzXL+TPw@mail.gmail.com>
- <20260715163106.GG1778116@killaraus.ideasonboard.com> <CAPVz0n1ivPO=Y+cv6sVAzaMqWYMJp9a-UwNipFM3CuXLCgkZXA@mail.gmail.com>
- <20260721091257.GI50424@killaraus.ideasonboard.com>
-In-Reply-To: <20260721091257.GI50424@killaraus.ideasonboard.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 21 Jul 2026 12:45:15 +0300
-X-Gm-Features: AUfX_mxcU8qIWruL_jK4qWtL0YVhrW3OjdATv1CTDArR5fl9dGckY7yAMExKAnc
-Message-ID: <CAPVz0n2UpVXuyVOxj-w1R-3Z1fxBDSuXY1Kgx0NcXEtS72H6MA@mail.gmail.com>
-Subject: Re: [PATCH v1 1/1 RESEND] media: i2c: mt9m114: Add get_fwnode_pad
- operation for IFP
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJtBX2oC/23OQQqDMBAF0KtI1o2YRBPTVe9RRDQd64CaNlFpE
+ e/eKJQu7GbgL+b9vxAPDsGTc7QQBzN6tEMI4hQR01bDHSjeQiY84TJRTFJ06Mt+6kYsfYcGaCZ
+ TxXNV6UwKEt4eDhp87eS1CLlxtqdj66D6QSnPj9DMKKOaG8GVZBrq5mK9j59T1Rnb93E4G9+iH
+ 61774NnvpV8t6k/JKcJ1VmW1KyBWuj6SBbrun4AjTLhgQYBAAA=
+X-Change-ID: 20260716-iris_multi_slice-5647287a9563
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784627632; l=3281;
+ i=sachin.garg@oss.qualcomm.com; s=20260211; h=from:subject:message-id;
+ bh=h/I5qtQCyzhc0DcHlJvNKASagwuTPEwMjUgB/gz6q4Y=;
+ b=OIHB7iJJH/bsljDJ31qY0FyhTE4wdmTMhwPPlBzDfsxFUf1wlPmdbAmTh0s06wJQEF9X+4hLp
+ RfhJsRzSt37AIOLyNreinrweTbtZK0OHlU1r5pmJzvbcpAq1oQ3rQOH
+X-Developer-Key: i=sachin.garg@oss.qualcomm.com; a=ed25519;
+ pk=KcRhp4CP9cR1V2tg6xSNRnB2STYaU0vVigdUF4Actu0=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDEwNCBTYWx0ZWRfXwH/jK7Lr1IXX
+ Qe2wUmAce5Qk1YkxgmW67iHdms3UE6iIXKwP9eoESm+r5yfI0PmFVFBCugwj0DdinGBeN2y6Asu
+ E8wCiO6J4JnH/tL3jjQTLjNwtMA3R2c=
+X-Proofpoint-ORIG-GUID: t9CRxEXJAu9Y9FL3uzOK0HwVN-izR_nX
+X-Proofpoint-GUID: t9CRxEXJAu9Y9FL3uzOK0HwVN-izR_nX
+X-Authority-Analysis: v=2.4 cv=X75i7mTe c=1 sm=1 tr=0 ts=6a5f41b6 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=AsnL8gqb6cm0EwA9_ewA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDEwNCBTYWx0ZWRfX8GNjVDzk6FoN
+ J6NAlpxsvG1iDwZ2Vn1Mogs3GHWD9aNLkwR9DPEUABx08ZJLEwEoRX73EQgejz8EHPlis/ox8Fc
+ AjTKSAWbHh+j3iMYSEd1WLhlu3Nb53l/YTDT/lTF+1kbvdft5NkdLLzEd9NHzPHtdJ7bupFoVvb
+ yyFMOA7zDkmHQVBffSiJWe4jJSHRMQoe93S1g2nLeWnsWCEtAWrqVfgKp1oEkhXWz1guaG5KfP0
+ AD9Q2f9pOglbtFPM8dQS8VejW6zyhsvBJ6sR/nG5SEdLqco7Em6ZjR20191pKuS1aNXOKO0IUKP
+ q0ZC3gcgJ1Pj9OoNntsgLT8b6NfyQGYelBT9fgiwWgKXM2PUNXdgFBxcmu/q96pSuBBGOmxARrh
+ BBTS6cs7q/81lwJsdYHQ7GbDTRVLto1dAlDUj50bA/yUZid4OuD5Gct81Dzhfsf62yjrWzTBuey
+ Z4934mGmUwr/2F/iXUw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-20_06,2026-07-20_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ malwarescore=0 phishscore=0 adultscore=0 suspectscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210104
 
-=D0=B2=D1=82, 21 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 12:12 Laur=
-ent Pinchart
-<laurent.pinchart@ideasonboard.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Tue, Jul 21, 2026 at 11:36:50AM +0300, Svyatoslav Ryhel wrote:
-> > =D1=81=D1=80, 15 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 19:31 =
-Laurent Pinchart =D0=BF=D0=B8=D1=88=D0=B5:
-> > > On Wed, Jul 15, 2026 at 07:18:18PM +0300, Svyatoslav Ryhel wrote:
-> > > > =D0=B2=D1=82, 14 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 22=
-:16 Laurent Pinchart =D0=BF=D0=B8=D1=88=D0=B5:
-> > > > > On Thu, Jun 25, 2026 at 11:21:11AM +0300, Svyatoslav Ryhel wrote:
-> > > > > > Currently, the driver's binding exposes only one endpoint, whic=
-h maps to
-> > > > > > the IFP subdevice's SOURCE pad. This configuration causes failu=
-res for
-> > > > > > many devices using this camera because both the DT binding and =
-the
-> > > > > > one-to-one pad mapping logic map the endpoint to the wrong pad.
-> > > > >
-> > > > > Could you please explain what failures this causes ? A brief anal=
-ysis  of
-> > > > > the code seems to indicate the patch will only make a difference =
-when
-> > > > > the DT node has multiple endpoints, and will prevent links to be =
-created
-> > > > > for any endpoint but the first one. I don't think that's desirabl=
-e.
-> > > >
-> > > > OF schema documents only a single port with a single endpoint. Sinc=
-e
-> > > > driver has no alternative OF matching logic endpoints patch to medi=
-a
-> > > > pads one-to-one. IFP has 2 pads, id 0 is sink and id 1 is source. S=
-o
-> > > > according to one-to-one match endpoint from the binding co-responds=
- to
-> > > > the sink media pad of IFP, source pad which is usually used to buil=
-d
-> > > > the video pipe is not represented in the bindings entirely.
-> > >
-> > > But the mt9m114 driver doesn't use 1-to-1 matching, it does not use t=
-he
-> > > v4l2_subdev_get_fwnode_pad_1_to_1() function to implement
-> > > .get_fwnode_pad().
-> >
-> > Correct, hence media framework does not know how to link pads and
-> > starts to do weird stuff.
->
-> When .get_fwnode_pad() is not set, media_entity_get_fwnode_pad() will
-> return the first pad of the entity that matches the requested direction.
-> That should work fine as far as I can see.
->
+This series adds support for multi-slice encoding in the Qualcomm Iris
+driver.
 
-Correct, those could be pad 0 and pad 1 of IFP depending on the caller.
+Multi-slice mode allows encoding a single frame into multiple slices,
+which can improve error resilience and enable parallel processing.
+The feature supports two slice modes:
+- MAX_MB mode: slices are created based on macroblock count, controlled
+  via V4L2_CID_MPEG_VIDEO_MULTI_SLICE_MAX_MB
+- MAX_BYTES mode: slices are created based on byte size, controlled via
+  V4L2_CID_MPEG_VIDEO_MULTI_SLICE_MAX_BYTES
 
-> > > > This causes drivers which relay on OF bindings to build their video=
- pipes
-> > > > fail to work with this driver.
-> > >
-> > > Could you provide an example of such a failure ?
-> >
-> > Tegra VI driver hooks mt9m114 IFP sink pad to sci source and mt9m114
-> > IFP sink pad to csi source. With this patch OF endpoint is strictly
-> > associated with IFP source pad, and nothing else which is desirable
-> > setup IMHO.
->
-> Could you please investigate to see why this happens ? I suspect there's
-> a bug somewhere else, possibly in the VI driver.
->
+Clients can enable slice mode using the V4L2_CID_MPEG_VIDEO_MULTI_SLICE_MODE
+control.
 
-I cannot copy proper log since my device has some USB regressions in 7.2.0 =
-next
+Patch 1 is a prerequisite fix: iris_set_stage() currently always selects
+STAGE_2 work mode for encoder sessions, but CBR rate control requires
+STAGE_1. This is fixed by forcing STAGE_1 when BITRATE_MODE is set to
+CBR.
 
-mt9m114 PA
- pad 0: source ->  mt9m114 IFP pad 0
+Patch 2 adds the multi-slice support itself for Iris HFI Gen2 based
+targets (qcs8300, sm8550 and other SM8550-derived targets).
+Support for HFI Gen1 targets will be added in a follow-up series.
 
-mt9m114 IFP
- pad 0: sink <- csi channel pad 1
-                    <- mt9m114 PA pad 0
- pad 1: source -> csi channel pad 0
+This series has been verified with GST level testing.
+Command used:
+gst-launch-1.0 -v videotestsrc ! video/x-raw,format=NV12, \
+width=1280,height=720,framerate=30/1 ! v4l2h264enc output-io-mode=4 |
+capture-io-mode=4 extra-controls="controls,video_bitrate_mode=1, \
+slice_partitioning_method=1,number_of_mbs_in_a_slice=460;" \
+! filesink location=/opt/test_enc.h264
 
-CSI channel
- pad 0: sink <- mt9m114 IFP pad 1
- pad 1: source -> mt9m114 IFP pad 0
-                        -> vi output pad 0
+Changes in v3:
+- Patch 1 (force stage 1 work mode for CBR RC): cache the computed
+  work_mode into inst->fw_caps[STAGE].value so buffer-size and
+  clock-frequency calculations stay consistent with what is actually
+  configured on firmware.
+- Patch 2 (multi-slice support):
+  - Use inst->hfi_rc_type instead of the raw V4L2 BITRATE_MODE value
+    when validating/deriving slice parameters, avoiding a mismatch
+    between V4L2 and firmware rate-control enums.
+  - Round up (instead of truncate) when computing the minimum
+    MAX_MB and MAX_BYTES slice size floors, so the hardware's
+    max-slices-per-frame limit is never exceeded.
 
-As you can see csi channel pad 1 must not be linked to IFP and mt9m114
-IFP pad 0 must not be linked to CSI channel.
+Changes in v2:
+- Added a prerequisite patch to force STAGE_1 work mode for CBR rate
+  control on the encoder, required for multi-slice encoding to work
+  correctly.
+- Addressed review comments on the multi-slice patch (updated commit
+  subject and description).
 
-Tegra VI builds video graph by endpoint to endpoint and uses
-media_entity_get_fwnode_pad to get associated pad. Since this driver
-does not have get_fwnode_pad operation media_entity_get_fwnode_pad
-will return both sink and source depending on the call, hence we can
-see this cycling above. Adding get_fwnode_pad operation that links
-endpoint strictly yo IFP source eliminates ambiguity since
-get_fwnode_pad blocks sink of IFP to be exposed at all.
+Signed-off-by: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+---
+Sachin Kumar Garg (2):
+      media: iris: force stage 1 work mode for CBR RC on encoder
+      media: iris: add support for multi_slice in iris encoder
 
-> > > > Sakari suggested this to fix OF
-> > > > matching, so I have implemented it.
-> > > >
-> > > > > > Fix this
-> > > > > > by implementing the get_fwnode_pad operation for the IFP, which=
- correctly
-> > > > > > matches the endpoint to the corresponding IFP pad.
-> > > > > >
-> > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > > ---
-> > > > > >  drivers/media/i2c/mt9m114.c | 44 ++++++++++++++++++++++++++++-=
---------
-> > > > > >  1 file changed, 34 insertions(+), 10 deletions(-)
-> > > > > >
-> > > > > > diff --git a/drivers/media/i2c/mt9m114.c b/drivers/media/i2c/mt=
-9m114.c
-> > > > > > index e395e2d14e97..16c2582551d3 100644
-> > > > > > --- a/drivers/media/i2c/mt9m114.c
-> > > > > > +++ b/drivers/media/i2c/mt9m114.c
-> > > > > > @@ -1020,14 +1020,6 @@ static int mt9m114_stop_streaming(struct=
- mt9m114 *sensor)
-> > > > > >       return ret;
-> > > > > >  }
-> > > > > >
-> > > > > > -/* -----------------------------------------------------------=
-------------------
-> > > > > > - * Common Subdev Operations
-> > > > > > - */
-> > > > > > -
-> > > > > > -static const struct media_entity_operations mt9m114_entity_ops=
- =3D {
-> > > > > > -     .link_validate =3D v4l2_subdev_link_validate,
-> > > > > > -};
-> > > > > > -
-> > > > > >  /* -----------------------------------------------------------=
-------------------
-> > > > > >   * Pixel Array Control Operations
-> > > > > >   */
-> > > > > > @@ -1381,6 +1373,10 @@ static const struct v4l2_subdev_internal=
-_ops mt9m114_pa_internal_ops =3D {
-> > > > > >       .init_state =3D mt9m114_pa_init_state,
-> > > > > >  };
-> > > > > >
-> > > > > > +static const struct media_entity_operations mt9m114_pa_entity_=
-ops =3D {
-> > > > > > +     .link_validate =3D v4l2_subdev_link_validate,
-> > > > > > +};
-> > > > > > +
-> > > > > >  static int mt9m114_pa_init(struct mt9m114 *sensor)
-> > > > > >  {
-> > > > > >       struct v4l2_ctrl_handler *hdl =3D &sensor->pa.hdl;
-> > > > > > @@ -1403,7 +1399,7 @@ static int mt9m114_pa_init(struct mt9m114=
- *sensor)
-> > > > > >
-> > > > > >       /* Initialize the media entity. */
-> > > > > >       sd->entity.function =3D MEDIA_ENT_F_CAM_SENSOR;
-> > > > > > -     sd->entity.ops =3D &mt9m114_entity_ops;
-> > > > > > +     sd->entity.ops =3D &mt9m114_pa_entity_ops;
-> > > > > >       pads[0].flags =3D MEDIA_PAD_FL_SOURCE;
-> > > > > >       ret =3D media_entity_pads_init(&sd->entity, 1, pads);
-> > > > > >       if (ret < 0)
-> > > > > > @@ -2092,6 +2088,29 @@ static int mt9m114_ifp_registered(struct=
- v4l2_subdev *sd)
-> > > > > >       return 0;
-> > > > > >  }
-> > > > > >
-> > > > > > +/*
-> > > > > > + * The IFP has only one fwnode endpoint, which corresponds to =
-the pad
-> > > > > > + * linked to the PA (PA SINK), while it should be the SOURCE f=
-or the
-> > > > > > + * next media device in the pipe.
-> > > > > > + */
-> > > > > > +static int mt9m114_ifp_get_fwnode_pad(struct media_entity *ent=
-ity,
-> > > > > > +                                   struct fwnode_endpoint *end=
-point)
-> > > > > > +{
-> > > > > > +     struct v4l2_subdev *sd =3D media_entity_to_v4l2_subdev(en=
-tity);
-> > > > > > +     struct mt9m114 *sensor =3D ifp_to_mt9m114(sd);
-> > > > > > +     struct fwnode_handle *ifp_port =3D dev_fwnode(&sensor->cl=
-ient->dev);
-> > > > >
-> > > > > This is not a port fwnode. I'd name the variable just fwnode.
-> > > > >
-> > > >
-> > > > fair
-> > > >
-> > > > > > +     struct fwnode_handle *ifp_ep;
-> > > > > > +     int ret;
-> > > > > > +
-> > > > > > +     ifp_ep =3D fwnode_graph_get_next_endpoint(ifp_port, NULL)=
-;
-> > > > > > +
-> > > > > > +     ret =3D endpoint->local_fwnode =3D=3D ifp_ep ? 1 : -ENXIO=
-;
-> > > > > > +
-> > > > > > +     fwnode_handle_put(ifp_ep);
-> > > > > > +
-> > > > > > +     return ret;
-> > > > >
-> > > > > Let's use the cleanup API:
-> > > > >
-> > > > > #include <cleanup.h>
-> > > > >
-> > > > > ...
-> > > > >
-> > > > >         struct v4l2_subdev *sd =3D media_entity_to_v4l2_subdev(en=
-tity);
-> > > > >         struct mt9m114 *sensor =3D ifp_to_mt9m114(sd);
-> > > > >         struct fwnode_handle *fwnode =3D dev_fwnode(&sensor->clie=
-nt->dev);
-> > > > >         struct fwnode_handle *ifp_ep __free(fwnode_handle) =3D
-> > > > >                 fwnode_graph_get_next_endpoint(fwnode, NULL);
-> > > > >
-> > > > >         return endpoint->local_fwnode =3D=3D ifp_ep ? 1 : -ENXIO;
-> > > > >
-> > > >
-> > > > The code is functionally same. I am fine with any version subsystem
-> > > > maintainer will prefer.
-> > > >
-> >
-> > Sakari, should I apply Laurent's changes and resend?
-> >
-> > > > > > +}
-> > > > > > +
-> > > > > >  static const struct v4l2_subdev_video_ops mt9m114_ifp_video_op=
-s =3D {
-> > > > > >       .s_stream =3D mt9m114_ifp_s_stream,
-> > > > > >  };
-> > > > > > @@ -2119,6 +2138,11 @@ static const struct v4l2_subdev_internal=
-_ops mt9m114_ifp_internal_ops =3D {
-> > > > > >       .unregistered =3D mt9m114_ifp_unregistered,
-> > > > > >  };
-> > > > > >
-> > > > > > +static const struct media_entity_operations mt9m114_ifp_entity=
-_ops =3D {
-> > > > > > +     .link_validate =3D v4l2_subdev_link_validate,
-> > > > > > +     .get_fwnode_pad =3D mt9m114_ifp_get_fwnode_pad,
-> > > > > > +};
-> > > > > > +
-> > > > > >  static int mt9m114_ifp_init(struct mt9m114 *sensor)
-> > > > > >  {
-> > > > > >       struct v4l2_subdev *sd =3D &sensor->ifp.sd;
-> > > > > > @@ -2136,7 +2160,7 @@ static int mt9m114_ifp_init(struct mt9m11=
-4 *sensor)
-> > > > > >
-> > > > > >       /* Initialize the media entity. */
-> > > > > >       sd->entity.function =3D MEDIA_ENT_F_PROC_VIDEO_ISP;
-> > > > > > -     sd->entity.ops =3D &mt9m114_entity_ops;
-> > > > > > +     sd->entity.ops =3D &mt9m114_ifp_entity_ops;
-> > > > > >       pads[0].flags =3D MEDIA_PAD_FL_SINK;
-> > > > > >       pads[1].flags =3D MEDIA_PAD_FL_SOURCE;
-> > > > > >       ret =3D media_entity_pads_init(&sd->entity, 2, pads);
->
-> --
-> Regards,
->
-> Laurent Pinchart
+ drivers/media/platform/qcom/iris/iris_ctrls.c      | 87 ++++++++++++++++++++++
+ drivers/media/platform/qcom/iris/iris_ctrls.h      |  1 +
+ drivers/media/platform/qcom/iris/iris_hfi_gen2.c   | 33 +++++++-
+ .../platform/qcom/iris/iris_hfi_gen2_defines.h     |  2 +
+ .../platform/qcom/iris/iris_platform_common.h      | 12 +++
+ .../platform/qcom/iris/iris_platform_qcs8300.h     |  9 +++
+ .../platform/qcom/iris/iris_platform_sm8550.h      |  9 +++
+ .../media/platform/qcom/iris/iris_platform_vpu2.c  |  9 +++
+ 8 files changed, 161 insertions(+), 1 deletion(-)
+---
+base-commit: 42f83a32259a82c4481d3cccf560c3bfeb32c892
+change-id: 20260716-iris_multi_slice-5647287a9563
+
+Best regards,
+-- 
+Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+
