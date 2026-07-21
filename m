@@ -1,86 +1,88 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2AF23546EC
-	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 13:21:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 659A13655E7
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 13:21:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784640078; cv=none; b=nVdOsFF87ZjIWH92cgR/MOQzYVmvuY7p6pGj3zrQIZbw+YXAR5C6wRnS7AppazCuYbPBSfMBzJottCxetfN7HloqmVBFyW5kxe9GjUe5sGN91zjP0Vm2cx1fOoKGCi8g/ouxHUoqRiqSP9Dt8lgQP3KNs0O28M2VLZ+kieo+2og=
+	t=1784640080; cv=none; b=nwu+1SJ5XsRMWGjTaKCHc4zG/kGnNQsoEEyniFUNoOetunGlZ2IJvbXNbRVOwveOpufJZBtW5AOfA3/Egv0Fc1P5PUrfFMeG0tYiTOXPZBd6PjSDEKc7G/5l+r+aJnzHRxTJR7O0gsz4IvHkAYO1JWL6iPtAZklYZnU2Qng0NLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784640078; c=relaxed/simple;
-	bh=uWOMXeaD7MK1c8npIECmu0+72rBlgBlf7ZnWFnrji/g=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=CP3+TAjQ9ILaazt6uajixBxdsyfg7SHAqlu70tFFrALfsr8DsbtGSNo1/Hj+DaNUODbXDegkwmBttMwo8mxYCCytdPXqmoFAmc/UWolbdCVRYBqn3Caut3WfC7LGLvcliq1JV4wx27W6hlrKkdUd2iUo8GmchBcbvasEZup8Y74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=R5VKWZZf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MRtrem0M; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1784640080; c=relaxed/simple;
+	bh=zZ37TWSmwG1/lzRCMjeybh+YUmab0aHUrm4xknMXWtk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=bW79RLlzyEBkkO3VyHGbXDLSNYZyXhbgcUZy5gGXLbHNbP+2hmhyC2z7dI8mtI3YQnLX4N73A0Tq8ZuAMPSzmLBaUHEggrptmSsZCvqZB+4hpgvfFkzGHwnp23ogcEnyI4NZ5wGVwucjB+YIbD43PTK0uTTFfPorvCO0M28O84w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SJBOX36u; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hRtYkz78; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="R5VKWZZf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MRtrem0M"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66LAR2ji2502773
-	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 13:21:13 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SJBOX36u";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hRtYkz78"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66LD5iCM1853472
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 13:21:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=1B1bpITxNj0fdko2dvptB/
-	+3xeAM2PNOaCl1+gbFVDU=; b=R5VKWZZfTL4rVH9MDfSGglvMpCrVisrhEMLSto
-	52OYgEPgIdX5G/TvtA4Vcc2naYx5BjyKAKp1BgbZLNYoMsnxUyJEIoW2m+zHa1/v
-	wabbmRl8TtbDRA96pPpNAaqYZKOXMaNtKkC5z+GTtbaB9YbpuuDWZ8RKR1Ayv3VF
-	Q7hRwZnsDfpl9/nQ7oLJKtc4aOw+4W8gpXYPiBKI6A2Lc2geFOq8gfwrKJ665qrM
-	kqzcpSk+nrlSl/hjOIuD8WrZN7MWhJWiKXM84Z5Ky8fV7c7DhduwuFKokadIb/g2
-	AiN0Ly+zXsEZ8WBS6O4EHExR6P704/qhOLVnjG5d9Y9AoVPw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj6nsrxqb-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	pzm0TOt37Nn9UAlWvpmSRCC3YSQDv8P/PcvNVlb0Ee4=; b=SJBOX36unOsx2TQT
+	Ephsjf+VP0JrrtPwpl2AUHQ5P1QHNnIx1stDh60m6Vymayp7B7NKU/Hs1X0qpfIG
+	NlKa1rGeUqmKmwiuwefVo+wgvGC79aACy5wATvI7rwta151WkRQV70z9Mb/XHqXh
+	hi3XnqJTUSz4fWr+ki0T/tnt8Tve+rKMTlrquR8tKTXOplYMNI08AjWNiyEMmzct
+	AdKveLMRx37iYYRI4c5+dHrD+WKaMMObVsShHNjkcMUf85h+CZpKfcc+W5rYuUzH
+	hfhTMYGchJdLRz4/vhg5Xu3QMb216eiL6U5c6sPBveFqLz2Anaji6IJwE6Mk6LUO
+	VYsjhA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj9bs825t-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 13:21:12 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52769fc3f2eso3285291cf.0
-        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 06:21:12 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 13:21:17 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51bf321d786so100689951cf.1
+        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 06:21:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784640072; x=1785244872; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1B1bpITxNj0fdko2dvptB/+3xeAM2PNOaCl1+gbFVDU=;
-        b=MRtrem0MfRhhaKPVzHpxRS82HHfmwszcrLCOyGMo5D2ESBVY0sH1FMHSJgqzMP/T+s
-         qZE4hvvNXWBV2SsiOmBGjdyvstD67SIJR2C9j4swu9Gnd+kEdNxCm/+4382nlX/K712u
-         VkNufc6Ea7fdGFmecZn194uxFLSW3zbg5PYXgUHWpxVmRWKIDBjy3l+mLsBUw67LuXmm
-         zRCiCDaNwc9lNFXrBqzV3PCvPY8YZcdIaHh9yIvlPoXVVqaWxr9UaETb+tx+o+3pVHZy
-         Gxw9/rd7YnNMpfXYTqx40wrao48MBU7OuTA15H5JQjv8KHeo6Zlr/TIDdCL6nh0kicUG
-         LwXw==
+        d=oss.qualcomm.com; s=google; t=1784640077; x=1785244877; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pzm0TOt37Nn9UAlWvpmSRCC3YSQDv8P/PcvNVlb0Ee4=;
+        b=hRtYkz788qfZDuM8DyUllJ9bP/QQUEnUF3maauAObYIWxpBgaMTQPIjLwq00xfP8NH
+         nFSJx3qux2v8rofNlnvGQ9nBerlWNPvCtZj+8SpBOtCGRBM5DHm+V0XAN2wY0OS87mD4
+         FGX6aR+BwAuI4A8vVWjx/HPxzbZANrbUpsgN596v5MOn9YRI7n/clykXOyjjRNk6elCb
+         qDKkIAuaPlpsR8iDMACjA5I5fblCS13l4XYizh6uGByWgInCpPlvalMx/t8NM3sxu/U4
+         MBs7Tm6cTLB27t8P/xCHvHiYzQquGe3L4TAZWu25lrBO4dmDnbGWatdaLzx+6Mm4sLVu
+         Xsog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784640072; x=1785244872;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1B1bpITxNj0fdko2dvptB/+3xeAM2PNOaCl1+gbFVDU=;
-        b=FUYpgsBFe/mKy73UUSpDn0L7i4z22NRP7WSeLraSdh2c1Niep1BMjO3ktkzOt+xyQq
-         jdvuShijRXJg8mvb3NQBJ6utjQcsfj14ZtcWRDfbHDsjgiDC1VqQOLYrclqJmi/a8i3X
-         x1qYJaaXxZmvHwxE9sDbWBNk3ZhL5Muwi1oWgFcbYzg3TmcpUgIEd0WacCBSXOwLuj+s
-         XN4jYd9jGiX5Xo2ZYCsRQr52uh+91i/fqOUCSLlXmm8yAwS2TyO/047b78q9Zb5zN5FB
-         wokibyaWFspiX0lODOgavWVu6nRvU8EDlUIhoahh4t8vwLy+pvVgu/HVGk91npOoYKDo
-         Tttw==
-X-Gm-Message-State: AOJu0Yxa+9HvlV7UHtq2IH3zoBXCgj5oBcrOPsV8nKpMoyHhj/L5l9Qu
-	XZSTLWFeNiFECuD6fVX0ohmQM7+I4RqXDgjAYAOHGko7QVaJNUFJNc3jROhhYxjvbmLyT5x+BsA
-	raLpuCAs8RO0BlGGZGMnibzrpv1X4Z3CNvsK19JGILFFkfmXuFK4NXPlJGEPOBQ5i1g==
-X-Gm-Gg: AfdE7cmKkN/gdtGks1qTdDv07GlaXg2sDM2qCCAZkFSiY3BPFF5Ew7F4SB7tA6XQnJ7
-	N8jmc+kwRqfiJvtgP8ebFtBU9UNieEEGlgCALDuU4iAsBqoiuebZpBkfvFl+rzxegz12MNrLMom
-	6ol3imQ9htB3efA476JMk9PaAo+PUBa3wZ5esRD4aDlSW2XyMotGGrI8MpNVa9jND+74kBk+RgD
-	PaVFrJ3fl+nQD5Qc9Z4e+0ha584GOrwUu2MVR4M1INQaFympUT07t8Yi54rTvUewI8aCHfMRA6D
-	YngeORCtHutY9avCqzfcsa2MDkKnlqM/KX6QboRI23LyZDvlH8aHm/8HjJFeG33105rVoLuDx9M
-	iATPJ1P3JVKu8OuAusYvya3HnfOBdCPOOBjB8hEDe2lDDAueUwXGBWHy1ADvbcHTu7WsgAO/K47
-	yH7+WFMR+57wyEiXaAFm4kZ8DAln11SePhhH9o9/bGzwKIb0fspCE=
-X-Received: by 2002:a05:622a:95:b0:51c:11aa:1cd with SMTP id d75a77b69052e-5213e28fc2fmr176835251cf.50.1784640071462;
-        Tue, 21 Jul 2026 06:21:11 -0700 (PDT)
-X-Received: by 2002:a05:622a:95:b0:51c:11aa:1cd with SMTP id d75a77b69052e-5213e28fc2fmr176834491cf.50.1784640070586;
-        Tue, 21 Jul 2026 06:21:10 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784640077; x=1785244877;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pzm0TOt37Nn9UAlWvpmSRCC3YSQDv8P/PcvNVlb0Ee4=;
+        b=KhJzMW1vSC0myZT3hfEunQoUoX48MOTxN+qvY4ZYLw/d+eDPnMYCkp5Z4YDTlMu4do
+         sA2AHTYP4j9ZbaGI0OynC+y0Xfrtb0+96QwKQr9RujOoPlJJJW6wiOjp4yJMiKONLmUf
+         NpK7xYTk0Wo8OEYlKM/aGIpD3YliQ0fzucK9KzDonmbR9Hum+FUi+33vP3/dkyDAmLlP
+         x0t2Dga5aiYMiJnBsPwnKJBu+4JT03jGF0E000AcpKKOF580S8SqbbQ1vW8mMKhmzpcO
+         1EQWRMTqRL8fC257Lda8hnZmQws0TdxZ571ry/gcWICe/3r81IpOvlOya7wmNNOVltlQ
+         I0HQ==
+X-Gm-Message-State: AOJu0YzcTKOz1L3poYQzh2lyZG9mILvp3ARcpsWQMEm2R6uUr+DIccjS
+	pCjDs06FDXXVjqBaOW5927i0Po2yNhvKi0qK7b7sOclPe9j4sFmJlglXca5mbVrFSOX7iEtep3F
+	dLBNvQnCmkAYr92AE9A45uV1FAEoE4iJ+pDiNm1VA7b5evq5aexncjsV+4OUOFMCjqw==
+X-Gm-Gg: AfdE7cma1v3WoihHQLJtCaoylGBOGK+h9zC48LBRwo7lhfSgD1MHMK9YEy7CsqLqLsz
+	+xEs2KBr8+1k2xO162LBI7d2DvhUI+SujZcLDlhagC3uTXI2dtrttGstHEmBetVZBIzICUJSloJ
+	1A5QsDrVbY1HR3F/X4alqRJ4nni63ZduCA22P+cY/g+ZG/PBka3QdKMvqixGeossVGSZ5zOC6vV
+	GCnwk9hTInzeuIMkdi+N2C+1sb6D1608IrUCzJXcy103bjyqX52aC8O8bYfiuCyjvKWgHC3mFCO
+	AcQWhQQmvUnn1OZcqLmea0lIVQHjLh99YGV129x9Rc5O42fzobQfGE1clgh/arY52ud8OEnZkuu
+	X1J89DdsMp6kz7poMEt7VfbcrL2Pk5fqVieDTDlzXM4Ph9nkiPuLeGyUtXft+oKeHPtXc3OoCRI
+	0Lyt6c+/88/9XomR8yMALp769Uvu7BCyv22EFG2nCEUoxPZmyM9QE=
+X-Received: by 2002:ac8:59cb:0:b0:51c:12bf:d4a6 with SMTP id d75a77b69052e-5213e48ba27mr170446601cf.48.1784640076504;
+        Tue, 21 Jul 2026 06:21:16 -0700 (PDT)
+X-Received: by 2002:ac8:59cb:0:b0:51c:12bf:d4a6 with SMTP id d75a77b69052e-5213e48ba27mr170446071cf.48.1784640076018;
+        Tue, 21 Jul 2026 06:21:16 -0700 (PDT)
 Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:751c:d61c:c91:60dd])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1712a5f8c5sm598326066b.34.2026.07.21.06.21.09
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1712a5f8c5sm598326066b.34.2026.07.21.06.21.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 06:21:09 -0700 (PDT)
+        Tue, 21 Jul 2026 06:21:15 -0700 (PDT)
 From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Subject: [PATCH v2 0/4] media: qcom: camss: Report CAMSS hardware version
- via media controller
-Date: Tue, 21 Jul 2026 15:21:07 +0200
-Message-Id: <20260721-camss-version-v2-0-b2440d99085a@oss.qualcomm.com>
+Date: Tue, 21 Jul 2026 15:21:10 +0200
+Subject: [PATCH v2 3/4] media: qcom: camss: Drop top_ahb/ahb/axi from
+ QCM2290 subdevice clocks
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -89,94 +91,140 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAENyX2oC/3WMwQrCMBBEf6Xs2ZQk0KZ68j9KD0uytQHTaFaDU
- vLvpr17GXjDzNuAKXliuDQbJMqefVwr6FMDdsH1RsK7yqCl7qVRRlgMzCJT2pcCB8JeuRmpc1A
- /j0Sz/xy+caq8eH7F9D30We3tP1NWQgpDzqiZ8NzRcI3M7fONdxtDaGvAVEr5AXs6XxixAAAA
-X-Change-ID: 20260717-camss-version-a8ea61dfae5d
+Message-Id: <20260721-camss-version-v2-3-b2440d99085a@oss.qualcomm.com>
+References: <20260721-camss-version-v2-0-b2440d99085a@oss.qualcomm.com>
+In-Reply-To: <20260721-camss-version-v2-0-b2440d99085a@oss.qualcomm.com>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
         Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
         Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         linux-kernel@vger.kernel.org,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+        Loic Poulain <loic.poulain@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Proofpoint-GUID: 1q9qzi99oEoP3p2ohENIcMc_yjcWWslX
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE0MSBTYWx0ZWRfX3HDsDvRRtpEI
- oSD+pMmmkqWRmTRFisQ1JqBm8fq7zPVwYxJyOadUDMUsfY9bDi0gVodBUHgIeYyVjV2j7Ha14lB
- Ua5+OAajegylguBjzdFA9ccadHFutwc=
-X-Authority-Analysis: v=2.4 cv=ZJjnX37b c=1 sm=1 tr=0 ts=6a5f7248 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-ORIG-GUID: l42c_WtXSVdcpmLpIEK-hqewhjedrTg1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE0MSBTYWx0ZWRfXwJLK8JH4Jhoa
+ uHjsPERs9snu1dGAwlNVoQLJ3h2r3FrCKUl8yommJRjr9O4dILS3VlH7bUZWrc+I2sAIC5MuVr5
+ UBFxRvYK/mfxvzeDrUXD6slwjQFv4DPfugADQ8mDBr/CSo7clL9paXO0+6fzJu+hcRtq+yEb9Mb
+ c6xddKP8QfBQGU6GwiHyyCt4+X/0wmwa0ld/4Y84VzGsZpxvLyBig9VGZZBPYAf9xT3Mk8jMOlV
+ Z2ELI4A1FG3+YQY4GgBZF/vSExvJSGAjRKc+2itImpui50RA0lKY6iZbHpckDO3ZjBdN99Fl0Ft
+ VGJP8PX3FOznxnK8qv69bRnAjWCVx7Le6hu8pI4wIPDZ07+mPK7xZf72oyygrCzYpcBfLMdSzUt
+ WyqoD7OUnWJsYUg++5DkDRvTj5oBMk94hTezZjzm/RifwBToWwIiQm+Je3UTWl7VcMtOkz2PoRT
+ bU0zovO3o3SOnfG5POA==
+X-Proofpoint-GUID: l42c_WtXSVdcpmLpIEK-hqewhjedrTg1
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE0MSBTYWx0ZWRfX2igYpSRV9Ebj
+ pPbwVUubm69YxkFKpojvHjv3BYJzmfhQFqsxPb68DOwoYNIbHeS7W7HiHbM0KmvPIbmXW8s5hTd
+ T6NRiQXGx7/1g1bd/qfhUAg9N4N1LX0=
+X-Authority-Analysis: v=2.4 cv=QK1YgALL c=1 sm=1 tr=0 ts=6a5f724d cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=MrhWIHkXN22OVaadGZ4A:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: 1q9qzi99oEoP3p2ohENIcMc_yjcWWslX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE0MSBTYWx0ZWRfX/0jddculW88V
- ewLbrYsjHLyQUTLSDzyS65WLmkMhKq+bvKqsZiwAxNM+A1nrYNePiwZb9SePhyEw5Tb34UCJlNz
- ZLNm67JK08BehkdCy0iciUQsI/OrcwVe3Ed8Yti/pPdBgOFNpqOebF+0TzHqXpB5nQqCKniPTm2
- erHpWPcWuJnJkmGQuMWGIX1QVkdGN7ssL+f9uIK28gjG6iOlmYhIynUe33BqyBstmxJjeWrw4d4
- Y8hzUNo/UeJ0J9C43v3LZYKRskRjAJjEiC9dXHVDUqDai4Swr/xwqYn6pnIHxvq4bZU2aYYoeSH
- Uu6YsVS2isHmcTZuguW32JdZzB7TpsbkoTo9P4g534HsST9AEo051LteykcUCb2RIMS+n3HDpdv
- jz25dwjDg49Fm/AbmZhHdjDPhKt1KZ3nJ3s6GIg5Z8dn6wo15OR4t76p2cZRtTp9zGbyUWqfosP
- Y+wWprUwJHK15dMHCbQ==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=jcYsRx50IvbP8YDAZZQA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-21_01,2026-07-20_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 priorityscore=1501 suspectscore=0 impostorscore=0
- malwarescore=0 spamscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
+ priorityscore=1501 spamscore=0 phishscore=0 impostorscore=0 bulkscore=0
+ suspectscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210141
 
-This series lets user space discover the exact CAMSS hardware variant by
-reporting the top-level CAMSS hardware version register through the media
-controller (media_dev.hw_revision), queryable via media-ctl -p or
-MEDIA_IOC_DEVICE_INFO. This helps identify the platform variant and adapt
-behaviour accordingly, for example allowing libcamera to apply quirks or
-enable features that cannot be discovered through standard V4L2 or
-media-controller APIs.
+Remove the top_ahb, ahb and axi clocks from QCM2290 subdevice clock
+lists. These clocks are now handled centrally as global CAMSS PM clocks
+and are automatically enabled when CAMSS is runtime resumed.
 
-The version register is exposed by some platforms through the top-level
-"top" (or "cpas-top") reg region at offset 0. Accessing it requires the
-AHB bus to be clocked. To make this possible at probe time, the series
-first moves the shared CAMSS clocks (top_ahb, ahb, axi on QCM2290) into
-the PM clock framework, so they are managed by runtime PM at the CAMSS
-instance level rather than by each individual sub-block (VFE, CSID, ...).
-
-For now, only Agatti is supported. But support for other platforms like
-TITAN-based ones will be introduced in a follow-up series.
-
-Reported media info on Agatti/CM2290 (Spectra 520):
-Media Driver Info:
-        Driver name      : qcom-camss
-        Model            : Qualcomm Camera Subsystem
-        Bus info         : platform:5c11000.camss
-        Hardware revision: 0x00050200 (328192)
+This avoids redundant clock references in individual subdevices and
+ensures consistent clock management across the CAMSS pipeline.
 
 Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
-Changes in v2:
-- PM clock support: propagate pm_clk_add() failures (Bryan)
-- make camss_read_version() return an int and propagate (Bryan)
-- use pm_runtime_put() instead of pm_runtime_put_sync() (Konrad)
-- Link to v1: https://lore.kernel.org/r/20260717-camss-version-v1-0-7ed71fea95e8@oss.qualcomm.com
+ drivers/media/platform/qcom/camss/camss.c | 38 ++++++++++---------------------
+ 1 file changed, 12 insertions(+), 26 deletions(-)
 
----
-Loic Poulain (4):
-      media: qcom: camss: Add PM clock support and integrate with runtime PM
-      media: qcom: camss: Add PM clock definitions for QCM2290
-      media: qcom: camss: Drop top_ahb/ahb/axi from QCM2290 subdevice clocks
-      media: qcom: camss: Report hardware version via media controller
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index a87161f3d5524a6e40a7281e28787538613dd9cd..1f691b8940a9b3d8a9c03cb3159ed711d0d18e77 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -688,10 +688,8 @@ static const struct camss_subdev_resources csiphy_res_2290[] = {
+ 			{ .supply = "vdd-csiphy-1p2", .init_load_uA = 26700 },
+ 			{ .supply = "vdd-csiphy-1p8", .init_load_uA = 2600 }
+ 		},
+-		.clock = { "top_ahb", "ahb", "csiphy0", "csiphy0_timer" },
+-		.clock_rate = { { 0 },
+-				{ 0 },
+-				{ 240000000, 341330000, 384000000 },
++		.clock = { "csiphy0", "csiphy0_timer" },
++		.clock_rate = { { 240000000, 341330000, 384000000 },
+ 				{ 100000000, 200000000, 268800000 }  },
+ 		.reg = { "csiphy0" },
+ 		.interrupt = { "csiphy0" },
+@@ -708,10 +706,8 @@ static const struct camss_subdev_resources csiphy_res_2290[] = {
+ 			{ .supply = "vdd-csiphy-1p2", .init_load_uA = 26700 },
+ 			{ .supply = "vdd-csiphy-1p8", .init_load_uA = 2600 }
+ 		},
+-		.clock = { "top_ahb", "ahb", "csiphy1", "csiphy1_timer" },
+-		.clock_rate = { { 0 },
+-				{ 0 },
+-				{ 240000000, 341330000, 384000000 },
++		.clock = { "csiphy1", "csiphy1_timer" },
++		.clock_rate = { { 240000000, 341330000, 384000000 },
+ 				{ 100000000, 200000000, 268800000 }  },
+ 		.reg = { "csiphy1" },
+ 		.interrupt = { "csiphy1" },
+@@ -727,10 +723,8 @@ static const struct camss_subdev_resources csid_res_2290[] = {
+ 	/* CSID0 */
+ 	{
+ 		.regulators = {},
+-		.clock = { "top_ahb", "ahb", "csi0", "vfe0_cphy_rx", "vfe0" },
+-		.clock_rate = { { 0 },
+-				{ 0 },
+-				{ 192000000, 240000000, 384000000, 426400000 },
++		.clock = { "csi0", "vfe0_cphy_rx", "vfe0" },
++		.clock_rate = { { 192000000, 240000000, 384000000, 426400000 },
+ 				{ 0 },
+ 				{ 0 } },
+ 		.reg = { "csid0" },
+@@ -745,10 +739,8 @@ static const struct camss_subdev_resources csid_res_2290[] = {
+ 	/* CSID1 */
+ 	{
+ 		.regulators = {},
+-		.clock = { "top_ahb", "ahb", "csi1", "vfe1_cphy_rx", "vfe1" },
+-		.clock_rate = { { 0 },
+-				{ 0 },
+-				{ 192000000, 240000000, 384000000, 426400000 },
++		.clock = { "csi1", "vfe1_cphy_rx", "vfe1" },
++		.clock_rate = { { 192000000, 240000000, 384000000, 426400000 },
+ 				{ 0 },
+ 				{ 0 } },
+ 		.reg = { "csid1" },
+@@ -765,11 +757,8 @@ static const struct camss_subdev_resources vfe_res_2290[] = {
+ 	/* VFE0 */
+ 	{
+ 		.regulators = {},
+-		.clock = { "top_ahb", "ahb", "axi", "vfe0", "camnoc_rt_axi", "camnoc_nrt_axi" },
+-		.clock_rate = { { 0 },
+-				{ 0 },
+-				{ 0 },
+-				{ 19200000, 153600000, 192000000, 256000000, 384000000, 460800000 },
++		.clock = { "vfe0", "camnoc_rt_axi", "camnoc_nrt_axi" },
++		.clock_rate = { { 19200000, 153600000, 192000000, 256000000, 384000000, 460800000 },
+ 				{ 0 },
+ 				{ 0 }, },
+ 		.reg = { "vfe0" },
+@@ -785,11 +774,8 @@ static const struct camss_subdev_resources vfe_res_2290[] = {
+ 	/* VFE1 */
+ 	{
+ 		.regulators = {},
+-		.clock = { "top_ahb", "ahb", "axi", "vfe1", "camnoc_rt_axi", "camnoc_nrt_axi" },
+-		.clock_rate = { { 0 },
+-				{ 0 },
+-				{ 0 },
+-				{ 19200000, 153600000, 192000000, 256000000, 384000000, 460800000 },
++		.clock = { "vfe1", "camnoc_rt_axi", "camnoc_nrt_axi" },
++		.clock_rate = { { 19200000, 153600000, 192000000, 256000000, 384000000, 460800000 },
+ 				{ 0 },
+ 				{ 0 }, },
+ 		.reg = { "vfe1" },
 
- drivers/media/platform/qcom/camss/camss.c | 121 +++++++++++++++++++++++-------
- drivers/media/platform/qcom/camss/camss.h |   2 +
- 2 files changed, 96 insertions(+), 27 deletions(-)
----
-base-commit: 8c7fc7de3b6cc89e68f115ee5ffe28cb93d99e5b
-change-id: 20260717-camss-version-a8ea61dfae5d
-
-Best regards,
 -- 
-Loic Poulain <loic.poulain@oss.qualcomm.com>
+2.34.1
 
