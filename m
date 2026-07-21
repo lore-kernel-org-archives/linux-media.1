@@ -1,67 +1,66 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC61444700
-	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 08:15:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08996445AD3
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 08:17:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784621748; cv=none; b=AWqX0Pa6NZmIRPbNiPJoGwv0SiCFx8W61miJXR2obaVrpoOswCPJzmS5shbfOg30iEw57FwhK3G63g0u0GrE6tG48hwnYx5cmSIaJQv2+6SOrk7oMmhjUqnfQDWqZkRJWnIGODZz4Vr2N1iHmsqQLFPWvRdb9LjOWzs/FA+JbSk=
+	t=1784621847; cv=none; b=tcX1AjE8iomfGjEdFjewPrGgrJlFGNeXpY6hH3tjj7xiCbXE9pl/vXemH+QuBZh0FH2b3IR1XDFKWhY4GKHOuAw5Xpu4UdUZ6ZsbyJlgfkCMC9dj8gcvZfWyQ9XeC2dUdaMrF4cDkhUhlimklrQlNyWSQ2tLissPg7ER8Ym9Nek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784621748; c=relaxed/simple;
-	bh=prhorMOs0HUs4HPMOoyn3Wxj7sy84z7z9tcp/RjFPvo=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=IfTjJU2Ey0EanZKYHNe0XSzDNBjrMFaZ+EEhgpm83BA7htYnYI10dbbnoAml/twbJjzYKhzQgPefrPyKR80dU9vEDOsvb9hydBnNUUHljZqneIlIfR6aOc2fEiwzeOvwoPG78LJhceNbL+JzFvwoiF7L/gNWjrMjKCpyMdBZMAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vsTC1/nm; arc=none smtp.client-ip=209.85.221.53
+	s=arc-20240116; t=1784621847; c=relaxed/simple;
+	bh=dpVwbMp9E2vKDgBuXrm9+r2iQvb25xCrAl3x2/DGoCk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UQV1cG27aA6Mk+tJEuRr/ym8Dmn6eDXjtYZRnUReq2NU12UnNWc7cdSd0e6ZqY/psEjupm2EAVBODt8Ss18HG4ZQ03ezhUQmY+OLnkMLkA+9Xiw72pBttlSktICbyfCQFdYOzoPeB31TJs8LrBKyVjshDiXO5GywdjZTlsk9UdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=fbDbdf1M; arc=none smtp.client-ip=209.85.167.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vsTC1/nm"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-471eeac43bfso10244331f8f.3
-        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 01:15:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="fbDbdf1M"
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5aeb72b0af1so1249938e87.3
+        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 01:17:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784621732; x=1785226532; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZYoAtIkHW87FIAd0vM+TKdI5UC2ppQruRqxPUsfJzmE=;
-        b=vsTC1/nmIHqMBYyt8RzRVERPI6lqz+eDYrvMeYS+647+48QW9wkrJ43Ep2gxHTvKGm
-         KHwLcvGVxYI0LG9dyhVGXLZ+CoLUsG3MvTGDaFSdw25rVd+zM0Z6x72mIow63B35qnLs
-         zw2DdiPhBsPRfKcHyzuw+QXVp0zf8RUwcpviQzsIjIU6wNCnzmCZSLzhDmHKp4Ng8Whl
-         bZrjKtHXMf/gemHNwYKOo5tJoBMagYuZpT6ofr0jUETs2z7iWYtubkXRhIQGxMeVNm2p
-         tr3hZI6s2BNNnylL5gJGEETH6Z4Bxv7SQ2lf5LpQhwnA8rKqVM0sohKx0fLF7+v60nLO
-         hvhg==
+        d=linaro.org; s=google; t=1784621837; x=1785226637; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gKMYuSxpffkyrGpleNqSwP2E6RLfbUM1DxXqtJdN6kU=;
+        b=fbDbdf1M3fFP9iwmagRMeWDkM5YPETFEQp2qxkJu6rWzR8h6RIzKIVnUOq8HK60bsU
+         J9d5nRpjjKR/SaX4yTjIinY7mUM7DKZAshxaLyBcFQSDZMLm6iPVZ1ym8O5Vto8AvZRf
+         flriLfknHFFU9MQTvNhngTchCSZgKrA3kTZyjKy5I5J8jmVJNpy3ehV3ocOuF68AGf9v
+         7nttAtXS+q3Cy12A8hWnzBKu8Pm4xtFDVq7mssu5RVYek82NA5gixUPZ99KfoPd7q6YX
+         3eyqPjX9rHP4UYK0Qos6OSrLO6x8CHIjmvM8mImF86tfvoTlOTKXvsITKTg8ChEPLqSa
+         5XyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784621732; x=1785226532;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZYoAtIkHW87FIAd0vM+TKdI5UC2ppQruRqxPUsfJzmE=;
-        b=F8ho5khIn+DC1HeYGnWfhZu4cw/2yET0uQr00gnES4t0lJj2wfPis23dgayUgIAk6T
-         9TiGJR2+JR90R81A8Y7nJJoml/3ha7yFFSRImHSOKzHn6gR8dSd//UT6xK1AKNaOukx8
-         j6A76OFOBgVkKxPI3nzUuDvygsGAq0/DoxMO94vqQGHGR45OfSwDKvL6Jx1YOewjZDd5
-         vQp12Z1IkqXFJ8IwZywwx4gJisHAPTGV5zqWMOcMv/c2OwyjLhqkPXNzwCtghPOzEphO
-         DkdW+EcI98fKS7xHoHBsrLFX73PbBmZaPrmtCSf1/Defy/m08xeTOF3J3h36IGXaPU/9
-         gxnA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq9ZFCXf6AYEez11pvOvSeIJTEEz2Z/PLfyGfirAEjP3sE02wBUrqTCfcBAIe2i6O7lzyF55Kq/VPZdmQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyNeq6QeKgHM7f7h1Ady8YmbeI6Ip0ac5sV2J1XMu+LBR0qxu1V
-	SraBuR+SgnZuOAeSBtGfaOJbeWP6hivWBE8G0MKt+0vXTporYGfzrXqYJa6F9yLstjM=
-X-Gm-Gg: AR+sD125N45sqwhIkU5uiS6Tgw3t0oXU88lOeAF23KFHoGNCGkJty2F0D9Yzk43TS9f
-	sZ2Q2V+OzTIM8WZwG37XCFGvj8y2VAacQVMvHjEEW9K/+VEDugH+bAzhFn3DQ7vaonYpUqc9mqT
-	TkJaGiT+3nmQA+WGuJlzOvMJr2qYT5VSh3UkBW6d1dA4Ltam1ZojA+kOva3c/O1KecrGwfcc82u
-	4zdjis33kGZhBmgw20J/RB4t30WDMA8R9N30wlRlyzDmKOIy16AT47u/g0mZv2kH2dE+5LIaSrk
-	e52RduCPt9KG3T2QNl6NWBABOMYtcFC4QdVPJ7Tq3ua+GpOXzhiB8yiRmtRXcIQiYOCpnogcs5I
-	nNbOV2f0nILTKHgnV2kPI0GNjzkrwN39+RGx1w4hv1O2A64e1S0sN6VdohLxzwsbynkF3NOKtB5
-	OdI06pFarbE633twHRaOOkg8B3idrIQytUjB3DYT5LKZZYyWeVLGDbkxk=
-X-Received: by 2002:adf:e00f:0:20b0:47f:77ae:d8f9 with SMTP id ffacd0b85a97d-47f77aeda2emr6547848f8f.59.1784621731787;
-        Tue, 21 Jul 2026 01:15:31 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:588:18d6:82ff:eb96? ([2a01:e0a:106d:1080:588:18d6:82ff:eb96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f6b85970esm30396524f8f.15.2026.07.21.01.15.31
+        d=1e100.net; s=20251104; t=1784621837; x=1785226637;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gKMYuSxpffkyrGpleNqSwP2E6RLfbUM1DxXqtJdN6kU=;
+        b=UKVQLRtJDYP6IwAolZhvWPNTol6BgSvx6g7BVvC1aRhdu/A3BfraOGpEe712GrnrmN
+         k5sk0/jlq6KnVVU70byw1UjyMN7J4IsebtWpofwKuPrJkJsgybA7h/3rUHwDyzG1I9bZ
+         J9rlt85uU9oIRS5XHS/m+nnMe+JhWcZxr+b47AuO6jEkpviPbTypfhlXp2Xpt37WzwM9
+         pYY9tUxy8JfuHNf+QeHwd5QxKzgJYQx59i2r9X+3CHQU5w3/qbTpeJC8MdKdWKQ2HZTL
+         5HNEQGK8sb2c1k+kbXNyHvBWaOPcpwG0yzt12du1I1M0hsLnSZr9jNN0FNcCjZhJrIWW
+         TQoQ==
+X-Forwarded-Encrypted: i=1; AHgh+RobX5n65jRn5/NCaSwpxSfhFTBxqsizi/ga/MtvnBWS8yDIwyCvZtzoxuTT5ChurZoqH/ODwt0zcQ+dwQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwlwOImRaK8xLUGFgeZsyURQr4l8D5DAInE3i5WugXexXZeXVpu
+	htdPjiJ3ExenjnY7nwiHyuavJGCS+KWpxr74OqbiWEO11BRLH2oaHPcj0trJK3Zc1Rw=
+X-Gm-Gg: AR+sD10kTNv5p0X13yUUBWI04Dq9EZeE5VuN0vROg8mwsBMEBawaV+ciWpm+SdR6R8F
+	ry8E+bBHZInMMNF/fBPoeWopGOiRF2VUMHUzoe/Ra5L3KP+NVs7f+wKaKP3QwxHsLLxiUZ/qQH0
+	ruJp8OqXnZ6aa8HsEUyeQc1jsJuB3LCyv2aalQRquiF/mQFAZV1Wh15b8zZfqHCdV1RQIzP7BwI
+	OtuUBgBfkZtF0+alflXycZ5YSmMFtsUjoH5ZbXniLTJLBQ2P66McNAcYp7GxEsuB6wrAyGj5BDx
+	HpqFS74zvxnE6L8Gn3MoeBJOTDNOa9r0K2gvvaY4tDvV2v7b/EUedSD8Qh5O/aLOq2iSGHRWrHt
+	Opexgl1AsDo5xZT9RgaNa5denaXr7IEXJ4AuIJr62WAt2XN7NTetUA+dLMyDmU/7wOfCb0K/QP8
+	qTQsoqqZ9Hqwbely4QhWfMtDK1sut+4OCgfh/RnlpTdY84q0T+T008qGpE
+X-Received: by 2002:a05:6512:3e24:b0:5ae:c063:638c with SMTP id 2adb3069b0e04-5b2a4a87341mr290377e87.7.1784621837200;
+        Tue, 21 Jul 2026 01:17:17 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b291e25e5bsm2736698e87.78.2026.07.21.01.17.16
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 01:15:31 -0700 (PDT)
-Message-ID: <4c9ef1ac-1748-4604-99af-52e37877b23b@linaro.org>
-Date: Tue, 21 Jul 2026 10:15:30 +0200
+        Tue, 21 Jul 2026 01:17:16 -0700 (PDT)
+Message-ID: <0da6d314-bfa9-493a-bcc6-8c3b75751d0c@linaro.org>
+Date: Tue, 21 Jul 2026 11:17:16 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,55 +68,25 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Subject: Re: [PATCH v13 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
  schema
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
  Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 References: <20260720-x1e-csi2-phy-v13-0-160c31958863@linaro.org>
  <20260720-x1e-csi2-phy-v13-1-160c31958863@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 In-Reply-To: <20260720-x1e-csi2-phy-v13-1-160c31958863@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
-
-On 7/20/26 03:11, Bryan O'Donoghue wrote:
+On 7/20/26 04:11, Bryan O'Donoghue wrote:
 > Add a base schema for the MIPI CSI2 PHYs on Qualcomm SoCs. This PHY
 > supports both DPHY and CPHY operation. A special mode of DPHY operation -
 > called variously split-mode or combo-mode also allows for two sensors to be
@@ -128,6 +97,12 @@ On 7/20/26 03:11, Bryan O'Donoghue wrote:
 > 
 > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+
+Since there is no changes in dt bindings from v12, all comments from here
+are still applicable to this version of the changeset:
+
+https://lore.kernel.org/linux-arm-msm/20260719-x1e-csi2-phy-v12-0-cc7311326d1b@linaro.org/
+
 > ---
 >   .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 195 +++++++++++++++++++++
 >   1 file changed, 195 insertions(+)
@@ -165,6 +140,14 @@ On 7/20/26 03:11, Bryan O'Donoghue wrote:
 > +    const: 1
 > +    description:
 > +      The single cell specifies the PHY operating mode.
+
+This has been reported before, #phy-cells shall be 0, the operation
+mode is selected by bus-type of endpoints as it is described in
+video-interfaces.yaml
+
+Two competing values are redundant and it opens a door to a wrong
+hardware description, the technical discussion has not been started yet.
+
 > +
 > +  clocks:
 > +    maxItems: 3
@@ -217,6 +200,10 @@ On 7/20/26 03:11, Bryan O'Donoghue wrote:
 > +
 > +        patternProperties:
 > +          "^endpoint(@[0-9a-f]+)?$":
+
+endpoint suffix regexp is incorrected, this issue has been reported
+previously, still it is not fixed.
+
 > +            $ref: /schemas/media/video-interfaces.yaml#
 > +            unevaluatedProperties: false
 > +            properties:
@@ -311,6 +298,10 @@ On 7/20/26 03:11, Bryan O'Donoghue wrote:
 > +                reg = <0>;
 > +                csiphy0_in: endpoint {
 > +                    data-lanes = <0 1 2 3>;
+
+data-lanes values has not been corrected in accordance to linux-media
+requirements.
+
 > +                    remote-endpoint = <&sensor_out>;
 > +                };
 > +            };
@@ -335,19 +326,6 @@ On 7/20/26 03:11, Bryan O'Donoghue wrote:
 > +    };
 > 
 
-While I see the utility of moving the CSI PHY into a separate node and
-transferring the sensor endpoints there, I don't see why the PHYs would
-be linked to CAMSS via the `phys =` property and via a port/endpoint to the CSIDs.
-
-In my view, the `phys =` property should be used to reference static PHYs
-associated with a controller, whereas port/endpoint graphs are better suited
-for identifying the node and device for dynamic PHYs, like the ones we have here.
-
-To that extent, I understand how moving this to the PHY framework could help
-clean up the code. However, some PHY-related logic will still need to remain in
-CAMSS to handle dynamic associations to different CSIDs at runtime.
-
-I'm still not really convinced about moving this code to the PHY subsystem
-as a standalone PHY driver.
-
-Neil
+-- 
+Best wishes,
+Vladimir
