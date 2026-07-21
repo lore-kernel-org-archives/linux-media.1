@@ -1,191 +1,190 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60DB32BE7DD;
-	Tue, 21 Jul 2026 05:06:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784610390; cv=none; b=mCxM3wO/2yxGjlk3JbDqE1CEGbsiHMfJhGp1975zmcjZexVuok8xmIhi6Q2c6fKLZxVaiWd+f/MnLXSlb535r+mImuunGfzlX3xEKlZ0PoXJPRzrPcix2zw4nOBs0TtEhHYy8ckgL+fcbaFPfcNwXPFwpnYNhyxHxVI8FI/s0U4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784610390; c=relaxed/simple;
-	bh=+SlVsu0byqwlv39VNd7MB8KOit5jVOQ59RbCUIDpmyo=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=qDjzKIbvuJ8XhXyLLYw/jkKW4LrBTsDBiO+PYqTqxicZfUo+RnAzdOC+Q4UkHmdXetBpeQK0Y3uqkd4TKmbbWNMT2EZcrLfkJ7S7cMymqS9PnwuM9MWfmrIQLenL9TRrwNA4D/NYekvupOU4q1zxuq7LA1DRcshhTy/q6FXzGF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tVU010Of; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1F4534DCF3
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 05:31:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784611887; cv=pass; b=Jem4y4KDorE1mA5VCj5BKuQ07sU0rm1N7J0G4fQxKnGTyOU6tBeWVm5CLWgrDLO/2IgggLQU6nCk2XXV7Z4yYdZxPBB1yrMtbdVpk0qIBVs7p1kbW7SoViG7B4RSpjtTdgQFefXoEBKppiV3Ms36Cb7gU7CTwNwQliMDxgFjp1o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784611887; c=relaxed/simple;
+	bh=2TB196GaR66SwyFsnNzabKS/+vodO/WvG61qZe4uFOY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QCFpURM9Uda7WmsxtiYWUkRWfkx9cBO2a6SpwC3mBlylOxftAGCcIxELfU9w7+YJy2Q0MmKcTOlu6UTn5LcIfJzLU/f2Uqs6JdIJUXrKw0fbCjRqTSuTdZ4ABGxtyJSnWSh/IgCYxhZGVVXp4g8tzoUFeTW41NY3GUeh79vvv1k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UVx17kWp; arc=pass smtp.client-ip=74.125.224.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tVU010Of"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:25d4:fa24:78d1:31:7a56])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E8B92593;
-	Tue, 21 Jul 2026 07:05:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784610327;
-	bh=+SlVsu0byqwlv39VNd7MB8KOit5jVOQ59RbCUIDpmyo=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=tVU010Of+FyyRQjoH0R2LmJDQwP9nG0+23lEmIUvev3kXCxi3Hec0m1XMRe6WEdYR
-	 x+bifmLBu3dagzLJLUP1J8lEyVzURNhEE8zdIs1281hq8Uve0eML4fxfbYQfP2OVHz
-	 Z0rQ5LtE7zHRUmbkd/dn1J9PsqQQpdGKdM5oWSj8=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UVx17kWp"
+Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-6646fd19d8cso1288842d50.2
+        for <linux-media@vger.kernel.org>; Mon, 20 Jul 2026 22:31:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784611885; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PsRyYyl5hcFrL7v+bjtgr2sLdN0W7MSe1NiFJYN4j42tGpsKZgZZKqj7l+C6tF17f9
+         a28mTe0msr0RfwuvHRLzvhbZP1ny87Ee2f+PmQK02uHRsXg3xdtcV6iPbzuXqbaS00lb
+         K1s5VLfeJDYVNPTWE5ZZENfh20ts0wQMbzQfdE46yKCQECEdfFDGpzfuw6FRe19dJXy7
+         uqqdbgZLqvY4zzsaSNHWjsscgBq3/h2kwbAL0oY26V2DDHn9Tr4jcwX+GnL9I+aDdfM1
+         e6J2ArCRHly5fPcRw0gbM6v5q/946zDm58BoL8tE4a5jlJDUK5TxbK4B8V/lgE3hckCl
+         9gog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2TB196GaR66SwyFsnNzabKS/+vodO/WvG61qZe4uFOY=;
+        fh=WVA5ddoShgvudBUO4TDE/Pf9byZ8uU2Q8GgDyuEQ/qw=;
+        b=ZhgdGQCB6injt8DSlDROzgmSP6Gh8xcJylouK2oQICmwma8Q/+K/WbQD11kJ5bur9+
+         +nhPSfjeIHsbxPMPzn/bIS1f3j/90B5UuAT9/uspv3QFJPp7XRoXJC4vONvrE5sukz72
+         XWbTyto0G25AcXA2eNR97NBZt4+QfdR0HPyU3rXObTVOU/HYjnYujaI1zWKkc63Ahc91
+         Zw0aiuqLyv5Zq/lSHFf9FGuo4FAQHzT/3k9ghqjth66MTiwqgiE/wF4FkjoOBNNa+AkZ
+         clvX//4Y7ihZK2/aiMnWTbgJ3fzCkOMLdDfOM3VH0FXFKs+tkoTwmOzt5OHHvvmM/Myb
+         HqZA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784611885; x=1785216685; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2TB196GaR66SwyFsnNzabKS/+vodO/WvG61qZe4uFOY=;
+        b=UVx17kWprd1A0hwIg/+8+jMQ1y/KJW3JNnrpqXE+igyI5bz/PdmD8FSq5/2lM3qHrQ
+         ihyGGh619Z7iPulsibOexOm52HKXUo92rYKw44x5oK2rT8Sga47gZn2FfcJCfu0hQzjq
+         9/GcTRBTLQxdEO36/kiMmhVbX3vVBVhSxOA01/rhEuzrOXIQ4vXW1vekyLZ6IK5XAPry
+         Xme/DzIpHVaMgTguh5r6G9CoJ4DQzMa5baMfvxWoSsOwxUeY2/0yT+2FmxMXqd+Di3Kk
+         IgXZzmMm0owmeenjMtWnnqAKB3EmrsYkuTlE8y0Iw2KAEOYpKgOCwx0JkprQu9L5kR4W
+         xdqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784611885; x=1785216685;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2TB196GaR66SwyFsnNzabKS/+vodO/WvG61qZe4uFOY=;
+        b=mvITBglgttvBFXB9jr1GRNojSbxoxNBX151jgJ4ZnEE+raOyUwUTUcjacEBdmvRuw+
+         CAbiAZ9JEtQ6xcGgmWONB8z/QbQMhquNBOJO/Rvh0CTVrmK4rMdYRbPJLuDtPYiSVeHk
+         fyOC0RzbKmmEJ90HZRJ4qk4RBbJkOUMqob6GTo8Nh0blG0TG7NDuAH3ge2/CQdMxBbb5
+         VcEpHGfsrX+tIWc1pK+E5K0GSsZ90wN4zfpxSwhuqmNUE5dqLXPwhUylulXBYPh061e9
+         SZYNrDCVe8hwc3Hnr3ytCMjiTdzOSG06NdIvBcGeK18AAcT7C+XqGrp3ZoktCDhnYBtt
+         sqcg==
+X-Forwarded-Encrypted: i=1; AHgh+Ropo5NtqcolYbB+WWMU0N2Uk11rayWsETLgPsadFnMclZqokGfrRKzdI7ILwT/ocmU50vx903w7qHxtKA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBAixcLEJMuW0A9Ah6QnV7ZVKR8EQmwdL8UP6C/DUOivalo92l
+	rNnbT540HfzAEfK+gPMA9H5b7PwsA83ZhOv36wgOrbHPS5tOH7aBgQoasMNm3It0K83aW2vvXbt
+	W9WkMyZXfEbIdT6DD9wR5bxsJqqyaDhQ=
+X-Gm-Gg: AR+sD100YevmPyzbNhuTj3+yq/u1BH+QxBx0TPb59j5FVmfW/mhSTeDM5dVV7EjVh+/
+	YL5x4lNj2gTN6VbWDWA0V9wHl5lzdYZGfIXy5vHmsvg7yaqvXu2OxnZmsn2Hk6hQXVYZIj5+mUq
+	VDBZj+2EXsegwiswqyOaMV8Ss1Sw7Cw12Jjm8v1Z4IL7j0BA2+uH9qiblHqKzYngcHaHMWg1hBG
+	TKeiXxwFisviBmuW61sdJG3qRklYiDeb67Ub9K/ksbAC1fa1Dc6SBTTMQmAq06YtVy83PbhNGKF
+	YVnTftJ9W2EBp9v9Rj4E
+X-Received: by 2002:a05:690e:e26:b0:664:ae68:33d7 with SMTP id
+ 956f58d0204a3-6683bdaf398mr3367592d50.9.1784611884801; Mon, 20 Jul 2026
+ 22:31:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260718085728.6797-1-royalnet026@gmail.com> <20260718085728.6797-3-royalnet026@gmail.com>
+ <25922edc-4ff1-4d28-9a64-2c28b2b690cb@collabora.com> <CAEWPSH70FecQRuGtA=S8+_CnLY5sMyf1j57Uwzwv54zceS1HZg@mail.gmail.com>
+ <b8d63f61-b73e-412e-8119-ced1afdd4551@collabora.com>
+In-Reply-To: <b8d63f61-b73e-412e-8119-ced1afdd4551@collabora.com>
+From: Igor Paunovic <royalnet026@gmail.com>
+Date: Tue, 21 Jul 2026 07:31:13 +0200
+X-Gm-Features: AUfX_mxmfnzPqEwa71ax-VO-JiPM0c52nSKLc5Ko0WZ2ScXDIi8A0Y6FL5e5p2A
+Message-ID: <CAEWPSH5j3tYNb1JKRGwa00PVnYAgCKS+B-Qz07D8Z7TJea5cMw@mail.gmail.com>
+Subject: Re: [PATCH v3 2/4] media: synopsys: hdmirx: add HDMI audio capture support
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Sebastian Reichel <sebastian.reichel@collabora.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	kernel@collabora.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <CAPY8ntCvB9ij=rMwwBmBDfe_gWQboX9Xbt0ZB6WPVyFvc2CLZw@mail.gmail.com>
-References: <20260312150437.1091195-1-eagle.alexander923@gmail.com> <20260312150437.1091195-3-eagle.alexander923@gmail.com> <CAPY8ntAf9TjgW-E6WeJuMdsHy8pV8-CvqQJriWEFpgLB-brD5A@mail.gmail.com> <178455866124.1426769.18237320419273419942@freya> <CAPY8ntCvB9ij=rMwwBmBDfe_gWQboX9Xbt0ZB6WPVyFvc2CLZw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] media: i2c: Add driver for Sony IMX662 sensor
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Hans Verkuil <hverkuil@kernel.org>, Hans de Goede <hansg@kernel.org>, Tetsuya Nomura <tetsuya.nomura@soho-enterprise.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 21 Jul 2026 10:36:21 +0530
-Message-ID: <178461038136.1426769.8068222330738680407@freya>
-User-Agent: alot/0.13.dev35+g4a69c46ca
 
-Hi Dave,
+Hi Dmitry,
 
-Quoting Dave Stevenson (2026-07-20 23:09:34)
-> Hi Jai
->=20
-> On Mon, 20 Jul 2026 at 15:44, Jai Luthra <jai.luthra@ideasonboard.com> wr=
-ote:
+> Re-arming will be best option if it works properly.
+
+Went back to it and made it work properly -- with one honest caveat
+at the end.
+
+Plain cancel/re-arm could not have been enough as previously
+written: hdmirx_resume() fully resets the controller via
+reset_control_bulk_assert/deassert in hdmirx_enable(), wiping the
+audio configuration (I2S_EN, AUDIO_ENABLE, FIFO thresholds), and
+the worker's error path never re-programs those -- it only resyncs
+the clock rate and reinits the FIFO. So v4 does:
+
+- suspend: cancel_delayed_work_sync() on the audio worker before
+the clocks are gated (audio_streaming stays set);
+- resume: if a capture stream is active, re-program the whole
+audio path (clock from the last known sample rate, FIFO
+thresholds, I2S_EN, AUDIO_ENABLE) and re-arm the worker.
+
+The programming is factored out of hw_params() into a shared
+hdmirx_audio_setup() helper so resume and hw_params cannot drift.
+I also checked that nothing in the post-resume hotplug re-init path
+(plugout/plugin/submodule_init/controller_init) touches the audio
+bits, so the restore survives the replug dance resume triggers.
+
+Measured on the Orange Pi 5 Plus (pm_test=3Ddevices, i.e. full device
+suspend/resume callbacks, active capture stream with live audio
+through the whole cycle): on resume the capture simply continues --
+audio was flowing again the moment the display came back, no
+userspace intervention, clean dmesg, no oops in any of the ~6
+cycles exercised tonight.
+
+The caveat: a *second* suspend/resume cycle in the same boot leaves
+the audio datapath silent (the I2S slave sees no bit clock, so
+capture reads time out) even though the resume restore re-programs
+everything, and a fresh stream open does not recover it -- only a
+reboot does. Notably this happens with plain no-stream suspend
+cycles as well, so it is not caused by (and would not be prevented
+by) either the re-arm or the -EBUSY approach -- it looks like more
+controller state lost on repeated reset that neither hw_params nor
+resume currently covers, likely the same warm-up state machine I
+described in the v3 testing note (audio needing a video STREAMON
+after a replug). I am instrumenting the register state next to
+root-cause it; I'd treat it as a follow-up rather than a v4
+blocker, but happy to hear if you see it differently -- and curious
+whether the 5B shows the same second-cycle behavior.
+
+v4 follows with the re-arm plus the dts and binding changes already
+mentioned.
+
+One more small thing the audio bit exposes, for a possible
+follow-up: hdmirx_cec_update_bits() is a non-atomic RMW (the read
+and the write each take rst_lock separately), and with audio added
+there are now two writers of GLOBAL_SWENABLE, so a CEC adapter
+enable racing an audio enable/disable could in theory lose the
+other side's bit. Mainline today has a single writer, so it is not
+a bug there. Can send a small patch making it atomic if you think
+it is worth it.
+
+Best regards,
+Igor
+
+On Mon, Jul 20, 2026 at 4:37=E2=80=AFPM Dmitry Osipenko
+<dmitry.osipenko@collabora.com> wrote:
+>
+> On 7/20/26 15:30, Igor Paunovic wrote:
+> > Hi Dmitry,
 > >
-> > Hi Dave, Alexander,
+> > Great to hear it works on the 5B -- thanks for testing!
 > >
-> > Quoting Dave Stevenson (2026-03-13 01:20:15)
-> > > Hi Alexander
-> > >
-> > > On Thu, 12 Mar 2026 at 15:11, Alexander Shiyan
-> > > <eagle.alexander923@gmail.com> wrote:
-> > > >
-> > > > This patch adds a V4L2 subdevice driver for the Sony IMX662 CMOS im=
-age
-> > > > sensor. The sensor has a native resolution of 1936x1100 (effective
-> > > > 1920x1080) and can achieve up to 90 frames per second depending on
-> > > > the configuration. The driver supports:
-> > > > - MIPI CSI-2 with 2 or 4 data lanes.
-> > > > - RAW10 and RAW12 formats (both colour and monochrome).
-> > > > - Controls: exposure, analogue gain, horizontal/vertical blanking,
-> > > >   horizontal/vertical flip, brightness.
-> > > > - A placeholder V4L2_CID_HDR_SENSOR_MODE control for future Clear H=
-DR
-> > > >   support (the actual HDR modes are not yet implemented).
-> > > > - Runtime PM.
-> > > > - Cropping via the selection API.
-> > > > - Multiple link frequencies selectable via device tree.
-> > > >
-> > > > Tested on ARM64 Rockchip RK3568 platform with a 24 MHz external clo=
-ck
-> > > > and various link frequencies.
-> > >
-> > > Interesting timing as I've been looking at IMX662 too, but on a Raspb=
-erry Pi.
-> > > FWIW my driver is at
-> > > https://github.com/6by9/linux/blob/rpi-6.12.y-imx662/drivers/media/i2=
-c/imx662.c
-> > >
+> > Agreed on the -EBUSY guard, done in my tree exactly as you wrote it.
+> > It also supersedes the suspend cancel/re-arm I had queued from the
+> > bot review: with suspend refused while audio_streaming is set, the
+> > worker can never be armed at suspend time, so those hunks are
+> > dropped.
 > >
-> > I saw libcamera patches for IMX676,
->=20
-> IMX676? I assume that's a typo.
->=20
-
-Oops, yes I meant IMX662. Names are hard.
-
-> > does the below branch have the latest
-> > driver you plan to post as v2?
-> >
-> > https://github.com/6by9/linux/blob/rpi-6.18.y-imx662-mainline-clean/dri=
-vers/media/i2c/imx662.c
->=20
-> That's a downstream Pi tree. My mainline branch is
-> https://github.com/6by9/linux/tree/mainline_imx662 and is basically
-> the patches I intend to send.
-
-Thank you.
-
-> There is one niggle to resolve first in imx662_ctrls_init. There is
-> currently a catch-22 in setting up the state vs initialising the
-> blanking and exposure ranges as they refer to each other. I need to
-> come back and look at that one.
->=20
-
-I remember I faced something similar in IMX678 and ended up doing that
-calculation explicity while initializing the blanking/exposure controls,
-without reusing the set_framing_limits() function that is called on
-resolution updates.
-
-> > > Comments are based on brief testing and reading of the code. This is
-> > > not a full review.
-> > >
-> > > > Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
-> >
-> > [...]
-> >
-> > > > +static int imx662_set_selection(struct v4l2_subdev *sd,
-> > > > +                               struct v4l2_subdev_state *sd_state,
-> > > > +                               struct v4l2_subdev_selection *sel)
-> > > > +{
-> >
-> > Can we keep cropping and binning out of the initial driver,
->=20
-> There is no binning currently implemented in this driver, only cropping.
->=20
-
-Okay, that might make things easier to port to the new model.
-
-> > and implement
-> > it using the common raw sensor model directly?
-> >
-> > I did it for IMX678 [1] on Sakari's suggestion [2]. The two sensors are
-> > quite similar, so I'm happy to help in whatever way I can on getting th=
-is
-> > working with the new model too :-)
->=20
-> Is this effectively saying that linux-media is closed to sensor
-> drivers not adopting the common raw sensor model, even though AIUI
-> that isn't ready yet? I can accept that for a period, but how long is
-> it reasonable for that to be the case? A year?
-> With all due respect to those involved, the series has been around so
-> long in various guises that it's a case of I'll believe it when I see
-> it merged.
->=20
-> There are already a number of sensor drivers in the tree that support
-> set_selection (imx296 being the main one I care about). Presumably
-> there is a plan for how to migrate those to work with the common
-> sensor model without regression for existing users. Is there a reason
-> that plan isn't also valid for imx662 and imx678?
->=20
-
-Yes we can migrate in a way to support both the old and new models
-depending upon the client capability flags, Sakari has done that for
-IMX219. But it gets a bit cumbersome in the driver, especially for handling
-binning through the new controls while supporting it through some other way
-in old model.
-
-Given you don't plan to add binning support, I think it shouldn't be as
-complicated. The selection rectangle for analogue crop will move to the
-internal image pad from the source pad if the client has the
-COMMON_RAW_SENSOR capability.
-
-> I would offer to review the common raw sensor patches, but as so much
-> of it is core framework stuff and so is outside my area of knowledge.
-> I guess I can do the same as your imx678 branch and give it a go for a
-> Tested-by, but that feels fairly limited in scope.
-> Have you got a libcamera branch that supports the new model for imx678?
->=20
-
-I looked into it briefly, here's a branch with bare minimum support to get
-libcamera streaming with the new model:
-https://github.com/jailuthra/libcamera/tree/raw-sensors
-
-It doesn't support crop/binning yet.
-
-> Thanks
->   Dave
->=20
-
-Thanks,
-Jai
+> > v4 follows shortly with this plus Sebastian's dts restructuring
+> > (shared disabled-by-default card in rk3588-extra.dtsi, renamed to
+> > "RK3588 HDMI-IN") and Krzysztof's binding comments (dai-common.yaml
+> > reference + unevaluatedProperties).
+>
+> Re-arming will be best option if it works properly.
+>
+> --
+> Best regards,
+> Dmitry
