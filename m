@@ -1,52 +1,52 @@
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9154C954F;
-	Tue, 21 Jul 2026 10:29:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB80D4C9566;
+	Tue, 21 Jul 2026 10:29:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784629768; cv=none; b=BLo55PHSOjaVo+tFy4HUSy5v7wj9MOuAxkghaMJ6m5XTzicmp2QYQCmiirkERAjk0YcVUWgcITa1GxJtvn/GZcIV+vS0iAcYy0sMF4x+H+fewJLl6IOm71GCHBy0f/hsN8ahocfrZwWapdZ6j2ngbBeoDz63KGR5pE7A3LQns4k=
+	t=1784629772; cv=none; b=hgXp8afPxz7V3NxpwJqzV3yHVIwdi0r0mBy5f7czd9R+dbkLhGKWaTccuzYBZuJoEMl/15Z8a/PDLGKK/j+Nc3moO7OpPcAdGcF1FEn+zZczSdWNcYd19NSm+sgH18nQF2QU6n4KWrJm24ItyPwshESeR8FsPd406jFl1qVldqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784629768; c=relaxed/simple;
-	bh=j0KXHVhA9Nk3Zu437OiBALAmlzFLPYeLHG9ejmycSoY=;
+	s=arc-20240116; t=1784629772; c=relaxed/simple;
+	bh=qxWdVD0AsoiU45oXdsmwcyX0G+gw2bxgoYJjzFSHfZs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=uZ8ZMsr11VTj6bE4iIXiKTwxDGNzo116PfE9irT8q33GmhgdTnsgLfyBRoRIwXW35CW+Efs4hlIrb/sKEmZdju4S5T10cwIP8DkaiRpfaZXzw+MR4eDBmdpvXTCmmd1O/QoLx7UkhualQzXUCiUaqBMVOXyp5B717WLvN6RX2UM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=sc0yJ17F; arc=none smtp.client-ip=68.232.154.123
+	 In-Reply-To:To:CC; b=p8PZn8hEGqccQBCO6KQxSeL4vBVwfnVxGyJRDChb5Njmin91C7eoM5O/gnYdNaKXUvWZk37WPa8TEl2D1897Rv2NuiUTKPexekN1+MIO82r/0M//K6UKgPKFmQy33VqgXK2XlYLbFkOz9nI7YC82aH25aFPs4tzHERZ6XcPZF38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=WO9VSj5c; arc=none smtp.client-ip=68.232.154.123
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="sc0yJ17F"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="WO9VSj5c"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1784629769; x=1816165769;
+  t=1784629773; x=1816165773;
   h=from:date:subject:mime-version:content-transfer-encoding:
    message-id:references:in-reply-to:to:cc;
-  bh=j0KXHVhA9Nk3Zu437OiBALAmlzFLPYeLHG9ejmycSoY=;
-  b=sc0yJ17FvceawoYwz9goXIDYVLQok11GRVPVcRC/WZvSINRw992KScFI
-   z9VG91h++oduI+rEQL5DxMxDUr6Q3muPU7FZaMV26rJFNGT12qfq1ryCf
-   qB8lj8+1WDjedgbtXejLUTnpnHdD/YVogkVq4L47MgcnnTHI7z//DeFCj
-   IeQx/yxpP3JfFoJ2862LiRTdkltjzIDdZmie8yve8PaRHo9viCHl1Jab+
-   PgQuR0lN4qDqa+ERp0blhq8CKreg+BlG1mS7n+XyaLCjIPM9swbuxt2eT
-   G6pTBQ8T+pLETyAWxlfvc4iEL7c6+CRQNiodjtBbJX4s+kQGTc6bZCS0y
-   w==;
-X-CSE-ConnectionGUID: tbhQ8VSlQLSDmZv37VHgYQ==
-X-CSE-MsgGUID: EiIDMRKQRWy3wOY25oC9Ow==
+  bh=qxWdVD0AsoiU45oXdsmwcyX0G+gw2bxgoYJjzFSHfZs=;
+  b=WO9VSj5c2n3JG9cjJWJfOdsxbmNxwPtW//JLj4ltnzi7mTRQeeeloQhi
+   mqWBvupeB05pUut5eAPeo/I3qk+gju/XkXDCzTal5OX80Nw0BXdqORWqx
+   9ORzPL3keWXV/C5Ul8gojHaA3D9+ELUirhrP/NRMg1qerE4cmZNTJBD9V
+   MbP5FWNUYqsDKWvxCqA89CWExHL26OJTDAIj4bSGOzkGmsG5jnrieaJ6I
+   gyZdw1aHpMwzaBQMUw1PWKM9fz0zCwNsmley4LxD1WtoMdqJpBqT1Q6Fm
+   XMeoKpQftlnrA1Chywf3DizHOdROzOpB5M28XDxl5lnin/ljggwYd0u5e
+   Q==;
+X-CSE-ConnectionGUID: daZRHHOSQpCoww4GMMvSvw==
+X-CSE-MsgGUID: gBOkENhXQTqVXfaCUw7KZQ==
 X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="61253563"
+   d="scan'208";a="61253565"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 21 Jul 2026 03:29:29 -0700
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 21 Jul 2026 03:29:33 -0700
 Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
  chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 21 Jul 2026 03:29:26 -0700
+ 15.1.2507.58; Tue, 21 Jul 2026 03:29:30 -0700
 Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex01.mchp-main.com
  (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Tue, 21 Jul 2026 03:29:22 -0700
+ Transport; Tue, 21 Jul 2026 03:29:26 -0700
 From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Date: Tue, 21 Jul 2026 15:59:01 +0530
-Subject: [PATCH v3 07/10] media: microchip-isc: fix ISC_PFG_CFG0_BPS macro
- name typo
+Date: Tue, 21 Jul 2026 15:59:02 +0530
+Subject: [PATCH v3 08/10] media: microchip-isc: fix PM runtime leak in AWB
+ work handler
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -55,7 +55,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260721-balki-isc-prefix-fixes-v1-v3-7-ffe10640a2d9@microchip.com>
+Message-ID: <20260721-balki-isc-prefix-fixes-v1-v3-8-ffe10640a2d9@microchip.com>
 References: <20260721-balki-isc-prefix-fixes-v1-v3-0-ffe10640a2d9@microchip.com>
 In-Reply-To: <20260721-balki-isc-prefix-fixes-v1-v3-0-ffe10640a2d9@microchip.com>
 To: Eugen Hristev <ehristev@kernel.org>, Mauro Carvalho Chehab
@@ -63,182 +63,40 @@ To: Eugen Hristev <ehristev@kernel.org>, Mauro Carvalho Chehab
 CC: Hans Verkuil <hverkuil@kernel.org>, Sakari Ailus
 	<sakari.ailus@linux.intel.com>, <linux-media@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, Balakrishnan Sambath
-	<balakrishnan.s@microchip.com>
+	<balakrishnan.s@microchip.com>, <stable@vger.kernel.org>
 X-Mailer: b4 0.14.3
 
-The BPS field macros for ISC_PFE_CFG0 were spelled ISC_PFG_CFG0_BPS_*
-(NINE, TEN, ELEVEN, TWELVE). The register is PFE, not PFG. Rename them
-to ISC_PFE_CFG0_BPS_* to match the register and the EIGHT and MASK
-macros. No functional change.
+Early return when streaming stops skips pm_runtime_put_sync(),
+leaking the reference and preventing runtime suspend.
 
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
+Fixes: 91b4e487b0c6 ("media: microchip: add ISC driver as Microchip ISC")
+Cc: stable@vger.kernel.org
 Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
 ---
- drivers/media/platform/microchip/microchip-isc-regs.h  |  8 ++++----
- .../media/platform/microchip/microchip-sama5d2-isc.c   | 18 +++++++++---------
- .../media/platform/microchip/microchip-sama7g5-isc.c   | 18 +++++++++---------
- 3 files changed, 22 insertions(+), 22 deletions(-)
+ drivers/media/platform/microchip/microchip-isc-base.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/microchip/microchip-isc-regs.h b/drivers/media/platform/microchip/microchip-isc-regs.h
-index 185ef0eab7ad..9ddbbb6dd68b 100644
---- a/drivers/media/platform/microchip/microchip-isc-regs.h
-+++ b/drivers/media/platform/microchip/microchip-isc-regs.h
-@@ -32,10 +32,10 @@
- #define ISC_PFE_CFG0_MODE_MASK          GENMASK(6, 4)
+diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
+index 4e87e5f45ac4..1a9b97edfa32 100644
+--- a/drivers/media/platform/microchip/microchip-isc-base.c
++++ b/drivers/media/platform/microchip/microchip-isc-base.c
+@@ -1432,7 +1432,7 @@ static void isc_awb_work(struct work_struct *w)
+ 	/* streaming is not active anymore */
+ 	if (isc->stop) {
+ 		mutex_unlock(&isc->awb_mutex);
+-		return;
++		goto out_pm_put;
+ 	}
  
- #define ISC_PFE_CFG0_BPS_EIGHT  0x4
--#define ISC_PFG_CFG0_BPS_NINE   0x3
--#define ISC_PFG_CFG0_BPS_TEN    0x2
--#define ISC_PFG_CFG0_BPS_ELEVEN 0x1
--#define ISC_PFG_CFG0_BPS_TWELVE 0x0
-+#define ISC_PFE_CFG0_BPS_NINE   0x3
-+#define ISC_PFE_CFG0_BPS_TEN    0x2
-+#define ISC_PFE_CFG0_BPS_ELEVEN 0x1
-+#define ISC_PFE_CFG0_BPS_TWELVE 0x0
- #define ISC_PFE_CFG0_BPS_MASK   GENMASK(30, 28)
+ 	isc_update_profile(isc);
+@@ -1443,6 +1443,7 @@ static void isc_awb_work(struct work_struct *w)
+ 	if (ctrls->awb)
+ 		regmap_write(regmap, ISC_CTRLEN, ISC_CTRL_HISREQ);
  
- #define ISC_PFE_CFG0_COLEN	BIT(12)
-diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-index 5d49b9d48f57..5c59a692b30e 100644
---- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-@@ -146,49 +146,49 @@ static struct isc_format sama5d2_formats_list[] = {
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
- 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
- 		.mbus_code	= MEDIA_BUS_FMT_SGBRG10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 		.cfa_baycfg	= ISC_BAY_CFG_GBGB,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGRBG10,
- 		.mbus_code	= MEDIA_BUS_FMT_SGRBG10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 		.cfa_baycfg	= ISC_BAY_CFG_GRGR,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SRGGB10,
- 		.mbus_code	= MEDIA_BUS_FMT_SRGGB10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SBGGR12,
- 		.mbus_code	= MEDIA_BUS_FMT_SBGGR12_1X12,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
- 		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGBRG12,
- 		.mbus_code	= MEDIA_BUS_FMT_SGBRG12_1X12,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
- 		.cfa_baycfg	= ISC_BAY_CFG_GBGB,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGRBG12,
- 		.mbus_code	= MEDIA_BUS_FMT_SGRBG12_1X12,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
- 		.cfa_baycfg	= ISC_BAY_CFG_GRGR,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SRGGB12,
- 		.mbus_code	= MEDIA_BUS_FMT_SRGGB12_1X12,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
- 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
- 	},
- 	{
-@@ -209,7 +209,7 @@ static struct isc_format sama5d2_formats_list[] = {
- 	{
- 		.fourcc		= V4L2_PIX_FMT_Y10,
- 		.mbus_code	= MEDIA_BUS_FMT_Y10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 	},
- 
- };
-diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-index 4f9e9a5ed4d1..5c7a10c9a2a5 100644
---- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-@@ -155,49 +155,49 @@ static struct isc_format sama7g5_formats_list[] = {
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
- 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
- 		.mbus_code	= MEDIA_BUS_FMT_SGBRG10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 		.cfa_baycfg	= ISC_BAY_CFG_GBGB,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGRBG10,
- 		.mbus_code	= MEDIA_BUS_FMT_SGRBG10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 		.cfa_baycfg	= ISC_BAY_CFG_GRGR,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SRGGB10,
- 		.mbus_code	= MEDIA_BUS_FMT_SRGGB10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SBGGR12,
- 		.mbus_code	= MEDIA_BUS_FMT_SBGGR12_1X12,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
- 		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGBRG12,
- 		.mbus_code	= MEDIA_BUS_FMT_SGBRG12_1X12,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
- 		.cfa_baycfg	= ISC_BAY_CFG_GBGB,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGRBG12,
- 		.mbus_code	= MEDIA_BUS_FMT_SGRBG12_1X12,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
- 		.cfa_baycfg	= ISC_BAY_CFG_GRGR,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SRGGB12,
- 		.mbus_code	= MEDIA_BUS_FMT_SRGGB12_1X12,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
- 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
- 	},
- 	{
-@@ -223,7 +223,7 @@ static struct isc_format sama7g5_formats_list[] = {
- 	{
- 		.fourcc		= V4L2_PIX_FMT_Y10,
- 		.mbus_code	= MEDIA_BUS_FMT_Y10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 	},
- };
++out_pm_put:
+ 	pm_runtime_put_sync(isc->dev);
+ }
  
 
 -- 
