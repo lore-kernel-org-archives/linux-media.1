@@ -1,369 +1,307 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6EF3B9949;
-	Tue, 21 Jul 2026 08:25:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784622330; cv=none; b=RpSd/yVr/8axrxGJtqiY7d94cfBendGMAiw0xNOuQWgtpXYF3aD9/A41vrRTkjLe3DZ6njXD5k6xVgU7ryzVeIzQQpF/L6FPVFITm75R3Sw9cBcxSRauhGCaTuAjGZBOZmDovodLs80RY8CibwdE3G4iVdMpNubiQXqx7+b//Tw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784622330; c=relaxed/simple;
-	bh=JI8+g2Svx3dWaQrBfiRMbYJpKDJvm3nGHKLKXGsd2oU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sfAZOlwVXiQpCB6UWTNYH4H+xJnF0cqa3D4pAQiR/yV5TWowJv1NaA088M56tbSWGOAE/FC8g7Y2TbDeQnA6Bs0YvIfFSrDvxMmzZ5xH6CrBHnf3wCQ+TEZFFxE6Q+1EW5DJhuAbcwN2keEPT9T0/6fSG4uZmarX8Pc0bBk+Y90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=UksD+XCn; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298DD3ABD91
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 08:37:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784623024; cv=pass; b=ihfmbZBXUFv1/QfcTWeMXvI7rt3855Yxl1LibThWpqH22S5wBXNwqLPPwxAEgmVxpGGyL08GwQ2JaWR/DIXvbNfXoHeCpYeEvFGZT0fjiCXN8A7arWVPGb38ElZfIeWzS875q3YhfpjsZPAvmZ5M0k3FjZA+VAipwQPJHJ2vL5w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784623024; c=relaxed/simple;
+	bh=dw8Ve3AEpNDp8v+UaXuv7E9ZNeaAOdEhgaWZxpJeZjo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tJP188kyHSkMPe0SOro2CGnj0Zdio+6Iy/wnQXgZWeAceh1bMSRiE2g8FVK1BT1l6rqK4VJ6Fejw1bxlOhKOlAl63n/RBQw/yJI3MHqQKlA1Abei1FO1FARBp3dpkkbqeU6+ztJ4vU2ZQbT4aDpuhoaLEUOvj9jR0w8uawttzWs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r5I6cu/3; arc=pass smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="UksD+XCn"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4h49Rw4PrVz8sYd;
-	Tue, 21 Jul 2026 10:25:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1784622316; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=L5YKxCPFIITOB3AAzpsrNVFKyhv95E3nU3TRkHrZrxg=;
-	b=UksD+XCnamdnqxVh5dol8RPV+pHhpUqJXmpAqgRSObUiKuHJDntw8xf7NUNh+NRCmwenCp
-	HymDoO3CjJE+oQafVS4FOL1+SD7N8dhRLvHG7gW8WWpcEYTcnvHByNAv2lkD+uyLji0pLu
-	U8W0In9tLlH3isx/tBpuQC8MLCtyMUuv6/Nmj3vyfO55lxGXbJ6G+/pveszCA6eEfOpVIm
-	4skM40F4/mnVTKxxdQF5IV0TwnxriQl6akUD3DIasFn9fqxjAjkFFjWP8+Q8RbxKXN6pKo
-	9D1sAmkg7gVTupPY2enaxIHkJhn3N5DAfFtkQZWtNJnAVf5YrbZrXDhM+qWvLg==
-Message-ID: <e6b51fd8eedfe18be5d7aa4e0007f932920d9fac.camel@mailbox.org>
-Subject: Re: [PATCH v5 4/5] rust: Add dma_fence abstractions
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Daniel Almeida <daniel.almeida@collabora.com>, phasta@kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
-	 <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Sumit Semwal	 <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
-	 <christian.koenig@amd.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>,  Asahi Lina <lina+kernel@asahilina.net>,
- Burak Emir <bqe@google.com>, Lorenzo Stoakes <ljs@kernel.org>,  Joel
- Fernandes <joelagnelf@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Krishna Ketan Rai	 <prafulrai522@gmail.com>, Tamir Duberstein
- <tamird@kernel.org>, Mirko Adzic	 <adzicmirko97@gmail.com>, Alistair
- Francis <alistair.francis@wdc.com>, Onur =?ISO-8859-1?Q?=D6zkan?=	
- <work@onurozkan.dev>, Shankari Anand <shankari.ak0208@gmail.com>, 
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linaro-mm-sig@lists.linaro.org
-Date: Tue, 21 Jul 2026 10:25:06 +0200
-In-Reply-To: <F72EFF33-E4F8-4E9B-B966-58BCCBA495C4@collabora.com>
-References: <20260703073141.3962604-2-phasta@kernel.org>
-	 <20260703073141.3962604-6-phasta@kernel.org>
-	 <046C4D44-1966-4EE9-AE86-A8F83A136771@collabora.com>
-	 <7a2cf5494824b8451824ebe82e0391df05a7cb5a.camel@mailbox.org>
-	 <F72EFF33-E4F8-4E9B-B966-58BCCBA495C4@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r5I6cu/3"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-ca2fad0ae38so8644335a12.3
+        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 01:37:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784623022; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Vk2mj2ghpPmEaYOIz4nVmiWCtMj55jgkB0m7TT88K1GCfnfMIu0lyeeJCH5xuFqsRa
+         X0WBO7R8KBx69dIHPUseqcSNgP98vFnV5k/PH+aJFGa2RGHdRQvdHSxRDOudYBtpWuCc
+         Kaq54/sFzVCOzTChV8ZEQBpfYPMy9aIPUtRcze8uXMprhrwDsI3yDhrgxXFklhEAdzIg
+         NVYmPkmk1OdxRXhT1ttbObPYSJ2pwbPAiBvWNKzRv9PDa9tGZPk2OLMAjf01KpB9EBOj
+         GZrCy4OQrZjEITENMdZzrHRZev7suGl4hoDO9RikTVVfFABr0zhuSAo3BlkmpXjvjDVK
+         TIyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=meDLq1IHns8ToYvK1KV86Q2eW8As1MagReQeqUyoETc=;
+        fh=v9e1WYUfrh+MmMyXwhdU7GcjsC+cBYHGR7QY/68xd6Y=;
+        b=EkSabBowdbFC5oLnboNUMjVtLBPvJXfeRbW6PVqtAOUNTo8JETPx2dzF4QMypafwVn
+         wf89BSmQlfXH7TLNWze3qLRRU/3AqV3De5GE+Xsq9HHH3RBAG3YnGa4aVH9pceUw/tWA
+         HHcm5FvOmR9tIhQy9vrg4TpzDdKGqpw7uaibQTyv+88+vcmcwACVn++QILb/XKwW4b3A
+         TGeBfl2oGKEMDiPwJexYrfnRiTnzTjeBjfe+lXkT5df2GnW8245IsJMWkIKM7upnmPtO
+         M4xCbVc0O0AQUUqFcXnN2c+9EfvXsjZNlTG+k9245pQPpfxG9+YqlhnTbG2rXEbZwp3G
+         5Brg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784623022; x=1785227822; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=meDLq1IHns8ToYvK1KV86Q2eW8As1MagReQeqUyoETc=;
+        b=r5I6cu/39D908/wd8M7JcpnrwDGJgqjvCENmFSxUxy1R1zWTHoMJ1/92JmNZW3/g+w
+         EPi9wiSqf2ZYsob/F9apuusFQsiuRjb/4beZPPXZFRBlcY8sD6/l1avcdPuooikexknk
+         XvNawgeOVO+mu0fSvFzuVtdFV16fs9tVI78oI4if+tUjnMUcmG1LtaoF3jnnCx4g3ckK
+         dnrzumNhDlqoTJFftXT8lKyubJ4UgsvILshcVOXCFD1Mb5ZbThYX2BbIYtz/isCDFxt5
+         3Lf3hcWhGihQChDXnhKqSxaFo3MwE4BeZ6Xdqb1YembzlOvAW7Cd9ArLJNKqB0p4cOyS
+         NfXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784623022; x=1785227822;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=meDLq1IHns8ToYvK1KV86Q2eW8As1MagReQeqUyoETc=;
+        b=KDOnAv4BZzSZIK0+BpiYyOp34Y5c3TpA2Hxltd0NTSSWq9q0Va79I+Rb33cVyYY0GK
+         Cuda4miqKNE3Wc6tAgipPe18rGeYy3F4mmmyvZgyt4fOA4/kN/rGxbvi2hXJeYm+igoe
+         FvZu+/N2EhbxFDbfX5sUYYyQQfX7CpuQjDgdEV6/EiKy7kA3XWcsSdoQCX+TiriNSC1N
+         pbZdIdWL1We7q61mFbmUdr0602e8M4M231/H29UDSZo8PEJXeUPYQ1Ce13ZAa1sFL2BX
+         +DfvDq3Y22EcKYX55qekO67v95A/QFeup/QF3BHGMi60HFElZH1Ksti1JestjSTihuSf
+         s9Yw==
+X-Forwarded-Encrypted: i=1; AHgh+RoSOowPnJ1EaKXoW5QE6aKHvIuu8A7h+AdugYEBo9YEE6IgWea6HXXJRhPC2cPf8SkUq/Dc9qr0pvc1uQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwHBMsUB0AEiP3NA+yasajQX6gKxxNSOAggKNWv5fgk/OG5l6pg
+	7tJpWMeA2c9JdWXWRSMOnVmQRUBkwfMq1Hk5NBmBoHkm19QqG/krceP1QBmgGAoaPP2SQVs0mf2
+	sB1FNs/28UfL/P2mVhTKzyyXizoRVb1s=
+X-Gm-Gg: AfdE7cmLZJztcgHa06HrmvjoK/fB5Ky11mJMKkOKAEwD/S414VS+CHwn9HKvNNSMiNS
+	fZUyiib4OT2zI/hj3sKQbIK+8RkmR5i4HZnA9uItRjVJ1gSH/ygXyXmvozxNadaqeIiVKU+Ku2+
+	+f4z8cOnqSioY41EbYhgwvNWG1DSJNVMMozPmT3HgX/tVSPnAhMi26z9i0i0oQLmXnNgUjX8vb+
+	UxloOw3207KtfUdYJvU7gmRv9+DelH1tLeDO5zWVc4ImNiAZBl4y94EWQbbV0O+6XvQVkCvuQGf
+	RPPMU6TKVYZKQePTGpc=
+X-Received: by 2002:a05:6300:48:b0:3c3:994f:b4f5 with SMTP id
+ adf61e73a8af0-3c3ad67a262mr19149358637.28.1784623022499; Tue, 21 Jul 2026
+ 01:37:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: 1914ef1328700d3862a
-X-MBO-RS-META: md733ttmoctpshqfcrn3aqejj3fm8zpc
+References: <20260625082111.47898-1-clamor95@gmail.com> <20260625082111.47898-2-clamor95@gmail.com>
+ <20260714191637.GA1675278@killaraus.ideasonboard.com> <CAPVz0n0k4O1+RGFMhAUnFG7qsc-7HVwVj23-8MRGnYLzXL+TPw@mail.gmail.com>
+ <20260715163106.GG1778116@killaraus.ideasonboard.com>
+In-Reply-To: <20260715163106.GG1778116@killaraus.ideasonboard.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 21 Jul 2026 11:36:50 +0300
+X-Gm-Features: AUfX_mzd1MTMZN_gNDYdz3bzofiIbzMVE9IfjLZdkm09sompRH8FIE3OHzoAJAU
+Message-ID: <CAPVz0n1ivPO=Y+cv6sVAzaMqWYMJp9a-UwNipFM3CuXLCgkZXA@mail.gmail.com>
+Subject: Re: [PATCH v1 1/1 RESEND] media: i2c: mt9m114: Add get_fwnode_pad
+ operation for IFP
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2026-07-17 at 14:14 -0300, Daniel Almeida wrote:
-> >=20
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 try_pin_init!(Self {
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- // SAFETY: `dma_fence_context_alloc()` merely works on a global atomic.
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- // Parameter `1` is the number of contexts we want to allocate.
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- nr: unsafe { bindings::dma_fence_context_alloc(1) },
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- seqno: AtomicU64::new(0),
-> > >=20
-> > > Do we really need to force a 0 here? i.e.: can=E2=80=99t we take the =
-initial seqno
-> > > as an argument?
-> >=20
-> > We could. What would that be useful for?
->=20
->=20
-> On Mali, the hardware syncobj starts at 0. If you see a 0, is this the de=
-fault
-> state, or should you signal seqno 0?
->=20
-> This problem goes away if we can have seqnos starting at a custom value, =
-like
-> 1. It seems like the C machinery also special-cases 0 in a few other plac=
-es too.
+=D1=81=D1=80, 15 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 19:31 Laur=
+ent Pinchart
+<laurent.pinchart@ideasonboard.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Wed, Jul 15, 2026 at 07:18:18PM +0300, Svyatoslav Ryhel wrote:
+> > =D0=B2=D1=82, 14 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 22:16 =
+Laurent Pinchart =D0=BF=D0=B8=D1=88=D0=B5:
+> > > On Thu, Jun 25, 2026 at 11:21:11AM +0300, Svyatoslav Ryhel wrote:
+> > > > Currently, the driver's binding exposes only one endpoint, which ma=
+ps to
+> > > > the IFP subdevice's SOURCE pad. This configuration causes failures =
+for
+> > > > many devices using this camera because both the DT binding and the
+> > > > one-to-one pad mapping logic map the endpoint to the wrong pad.
+> > >
+> > > Could you please explain what failures this causes ? A brief analysis=
+  of
+> > > the code seems to indicate the patch will only make a difference when
+> > > the DT node has multiple endpoints, and will prevent links to be crea=
+ted
+> > > for any endpoint but the first one. I don't think that's desirable.
+> >
+> > OF schema documents only a single port with a single endpoint. Since
+> > driver has no alternative OF matching logic endpoints patch to media
+> > pads one-to-one. IFP has 2 pads, id 0 is sink and id 1 is source. So
+> > according to one-to-one match endpoint from the binding co-responds to
+> > the sink media pad of IFP, source pad which is usually used to build
+> > the video pipe is not represented in the bindings entirely.
+>
+> But the mt9m114 driver doesn't use 1-to-1 matching, it does not use the
+> v4l2_subdev_get_fwnode_pad_1_to_1() function to implement
+> .get_fwnode_pad().
+>
 
-ACK.
+Correct, hence media framework does not know how to link pads and
+starts to do weird stuff.
 
->=20
-> >=20
-> > Hm, no, we don't.
-> >=20
-> > For the most part that's irrelevant, since all critical components then
-> > only get set in new_fence(). Correct typization is enforced through T.
-> >=20
-> > The notable exception is the fence_ctx reference itself.
-> >=20
-> > What should we do about it?
-> >=20
-> > We could keep the fctx field as a MaybeUninit and set it later. Or we
-> > check through the fctx identifier number whether it's the correct one
-> > in new_fence(), but then new_fence() could fail with some error, and
-> > it's probably better to have it be completely fail-free.
->=20
-> Agree about the fail-free part.
->=20
-> The problem I see here is that new_fence() will use "seqno" and "nr" from
-> whatever context called new_fence(), but DriverFenceAllocation has some o=
-ther
-> (possibly unrelated) context as its DriverFenceData::fctx.
->=20
-> The lifetimes are apparently broken too, because 'a is the lifetime of th=
-e
-> context where new_fence_allocation was called, meaning that the context t=
-hat
-> actually called new_fence() can drop, even though it provided the state f=
-or
-> dma_fence_init().
->=20
-> I guess this can be solved by moving new_fence() to impl DriverFenceAlloc=
-ation?
-> That already has a context, and most importantly, the right context.
+> > This causes drivers which relay on OF bindings to build their video pip=
+es
+> > fail to work with this driver.
+>
+> Could you provide an example of such a failure ?
+>
 
-Yes that is / was broken. Having the wrong fctx would cause wrong
-container_of() calls and therefore explode.
+Tegra VI driver hooks mt9m114 IFP sink pad to sci source and mt9m114
+IFP sink pad to csi source. With this patch OF endpoint is strictly
+associated with IFP source pad, and nothing else which is desirable
+setup IMHO.
 
-Fixed it locally following your suggestion of creating fences on the
-allocation object.
-
-> >=20
-
-[=E2=80=A6]
-
+> > Sakari suggested this to fix OF
+> > matching, so I have implemented it.
+> >
+> > > > Fix this
+> > > > by implementing the get_fwnode_pad operation for the IFP, which cor=
+rectly
+> > > > matches the endpoint to the corresponding IFP pad.
+> > > >
+> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > ---
+> > > >  drivers/media/i2c/mt9m114.c | 44 ++++++++++++++++++++++++++++-----=
+----
+> > > >  1 file changed, 34 insertions(+), 10 deletions(-)
+> > > >
+> > > > diff --git a/drivers/media/i2c/mt9m114.c b/drivers/media/i2c/mt9m11=
+4.c
+> > > > index e395e2d14e97..16c2582551d3 100644
+> > > > --- a/drivers/media/i2c/mt9m114.c
+> > > > +++ b/drivers/media/i2c/mt9m114.c
+> > > > @@ -1020,14 +1020,6 @@ static int mt9m114_stop_streaming(struct mt9=
+m114 *sensor)
+> > > >       return ret;
+> > > >  }
+> > > >
+> > > > -/* ---------------------------------------------------------------=
+--------------
+> > > > - * Common Subdev Operations
+> > > > - */
+> > > > -
+> > > > -static const struct media_entity_operations mt9m114_entity_ops =3D=
+ {
+> > > > -     .link_validate =3D v4l2_subdev_link_validate,
+> > > > -};
+> > > > -
+> > > >  /* ---------------------------------------------------------------=
+--------------
+> > > >   * Pixel Array Control Operations
+> > > >   */
+> > > > @@ -1381,6 +1373,10 @@ static const struct v4l2_subdev_internal_ops=
+ mt9m114_pa_internal_ops =3D {
+> > > >       .init_state =3D mt9m114_pa_init_state,
+> > > >  };
+> > > >
+> > > > +static const struct media_entity_operations mt9m114_pa_entity_ops =
+=3D {
+> > > > +     .link_validate =3D v4l2_subdev_link_validate,
+> > > > +};
 > > > > +
-> > > > +/// The receiving counterpart of a [`DriverFence`], designed to re=
-gister callbacks
-> > > > +/// on, check the signalled state etc. A [`Fence`] cannot be signa=
-lled.
-> > > > +/// A [`Fence`] is always refcounted.
-> > >=20
-> > > I would explain this a tad better.
-> >=20
-> > What exactly? The refcounting? The dualism between DriverFence and
-> > Fence? :)
->=20
-> For example, you say =E2=80=9Ca Fence cannot be signaled=E2=80=9D. A pers=
-on seeing this
-> code for the first time might ask why. Specially if they start by reading=
- the
-> docs for Fence first.
->=20
-> I think explaining a bit more about the DriverFence/Fence/refcounting as =
-you
-> said is already enough to settle it.
-
-OK, I flesh that out a bit.
-
-> > >=20
-
-
-[=E2=80=A6]
-
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let ret =3D unsafe { bi=
-ndings::dma_fence_is_signaled(fence) };
+> > > >  static int mt9m114_pa_init(struct mt9m114 *sensor)
+> > > >  {
+> > > >       struct v4l2_ctrl_handler *hdl =3D &sensor->pa.hdl;
+> > > > @@ -1403,7 +1399,7 @@ static int mt9m114_pa_init(struct mt9m114 *se=
+nsor)
+> > > >
+> > > >       /* Initialize the media entity. */
+> > > >       sd->entity.function =3D MEDIA_ENT_F_CAM_SENSOR;
+> > > > -     sd->entity.ops =3D &mt9m114_entity_ops;
+> > > > +     sd->entity.ops =3D &mt9m114_pa_entity_ops;
+> > > >       pads[0].flags =3D MEDIA_PAD_FL_SOURCE;
+> > > >       ret =3D media_entity_pads_init(&sd->entity, 1, pads);
+> > > >       if (ret < 0)
+> > > > @@ -2092,6 +2088,29 @@ static int mt9m114_ifp_registered(struct v4l=
+2_subdev *sd)
+> > > >       return 0;
+> > > >  }
+> > > >
+> > > > +/*
+> > > > + * The IFP has only one fwnode endpoint, which corresponds to the =
+pad
+> > > > + * linked to the PA (PA SINK), while it should be the SOURCE for t=
+he
+> > > > + * next media device in the pipe.
+> > > > + */
+> > > > +static int mt9m114_ifp_get_fwnode_pad(struct media_entity *entity,
+> > > > +                                   struct fwnode_endpoint *endpoin=
+t)
+> > > > +{
+> > > > +     struct v4l2_subdev *sd =3D media_entity_to_v4l2_subdev(entity=
+);
+> > > > +     struct mt9m114 *sensor =3D ifp_to_mt9m114(sd);
+> > > > +     struct fwnode_handle *ifp_port =3D dev_fwnode(&sensor->client=
+->dev);
+> > >
+> > > This is not a port fwnode. I'd name the variable just fwnode.
+> > >
+> >
+> > fair
+> >
+> > > > +     struct fwnode_handle *ifp_ep;
+> > > > +     int ret;
 > > > > +
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // To guarantee that an=
- API caller can 100% rely on the signalling being
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // completed (i.e., all=
- fence callbacks ran), we have to take the lock.
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 //
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // The reason is that t=
-he C dma_fence backend currently does not carefully
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // synchronize the `dma=
-_fence_is_signaled()` function with the proper
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // spinlock. This can l=
-ead to the function returning `true` while fence
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // callbacks are still =
-being executed. This can be mitigated by guarding
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // the entire function =
-with the spinlock.
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 //
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // See commit c8a5d5ea3=
-ba6a.
+> > > > +     ifp_ep =3D fwnode_graph_get_next_endpoint(ifp_port, NULL);
 > > > > +
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `fence` is v=
-alid because `self` is valid. `flag_ptr` is
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // merely a pointer to =
-an integer, which lives as long as this function.
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe { bindings::dma_=
-fence_lock_irqsave(fence, flag_ptr) };
-> > >=20
-> > > Shouldn=E2=80=99t this be before the =E2=80=9Cis_signaled=E2=80=9D ff=
-i call? Or is this
-> > > only about ensuring all callbacks have run? i.e.: is =E2=80=9Cret=E2=
-=80=9D valid even
-> > > though it was computed before taking the lock?
-> >=20
-> > OK, this is where it gets ugly.
-> >=20
-> > So during the last weeks I've been struggling to get the C backend into
-> > better shape. One issue from my POV is that the C dma_fence spinlock
-> > does not protect the fence state; there is insistence that the lock
-> > shall only protect the callback list.
-> >=20
-> > The function dma_fence_is_signaled() has an unlocked fast path check:
-> >=20
-> > https://elixir.bootlin.com/linux/v7.2-rc3/source/include/linux/dma-fenc=
-e.h#L551
-> >=20
-> > whereas setting of that bit is done under lock-protection:
-> >=20
-> > https://elixir.bootlin.com/linux/v7.2-rc3/source/drivers/dma-buf/dma-fe=
-nce.c#L362
-> >=20
-> >=20
-> > This can lead to funny races like in the commit mentioned in the
-> > comment block above (c8a5d5ea3ba6a).
-> >=20
-> > And it also leads to weird hacks like this:
-> >=20
-> > https://elixir.bootlin.com/linux/v7.2-rc3/source/drivers/gpu/drm/amd/am=
-dgpu/amdgpu_vm.c#L2775
-> >=20
-> >=20
-> > Now, in principle I agree with you that a pattern like this:
-> >=20
-> > dma_fence_lock_irqsave(=E2=80=A6);
-> > let signaled =3D dma_fence_is_signaled_locked(=E2=80=A6);
-> > dma_fence_unlock_irqrestore(=E2=80=A6);
-> >=20
-> > would be better.
-> >=20
-> > However, lengthy discussions with Christian seem to settle at the point
-> > where Christian sees the very strict requirement of never calling fence
-> > callbacks under lock protection, and where he views
-> > dma_fence_is_signaled_locked() as a broken function that should be
-> > removed.
-> >=20
-> > He's currently working on removing all bits where fence callbacks are
-> > invoked under lock protection:
-> >=20
-> > https://lore.kernel.org/dri-devel/20260624122917.2483-1-christian.koeni=
-g@amd.com/
-> >=20
-> > There's been a ton of discussions and proposals about that in recent
-> > weeks
-> >=20
-> > https://lore.kernel.org/dri-devel/20260608142436.265820-2-phasta@kernel=
-.org/
-> > https://lore.kernel.org/dri-devel/20260612104251.2264707-2-phasta@kerne=
-l.org/
-> >=20
-> >=20
-> > So tl;dr: The weird code you're commenting on above ensures that
-> >=20
-> > a) the fence->ops->is_signaled() callback is not called under lock
-> > protection and
-> > b) taking and releasing the lock guarantees that all callbacks are
-> > really finished, i.e. they have run.
-> >=20
-> >=20
-> > (I continue to believe that setting the bit under lock protection and
-> > reading it without lock is fundamentally broken and needs to be fixed,
-> > but fixes are being rejected because of claimed performance regressions
-> > years ago when this was tried, because checking the bit is some sort of
-> > fast path check for.. parties that spin on dma_fence_is_signaled() ??)
->=20
-> I see, there is a lot more context on this then. Can you merely add a com=
-ment
-> saying it=E2=80=99s ok to call dma_fence_is_signaled() without the locks?=
- Otherwise
-> people might try to =E2=80=9Cfix=E2=80=9D this down the line...
+> > > > +     ret =3D endpoint->local_fwnode =3D=3D ifp_ep ? 1 : -ENXIO;
+> > > > +
+> > > > +     fwnode_handle_put(ifp_ep);
+> > > > +
+> > > > +     return ret;
+> > >
+> > > Let's use the cleanup API:
+> > >
+> > > #include <cleanup.h>
+> > >
+> > > ...
+> > >
+> > >         struct v4l2_subdev *sd =3D media_entity_to_v4l2_subdev(entity=
+);
+> > >         struct mt9m114 *sensor =3D ifp_to_mt9m114(sd);
+> > >         struct fwnode_handle *fwnode =3D dev_fwnode(&sensor->client->=
+dev);
+> > >         struct fwnode_handle *ifp_ep __free(fwnode_handle) =3D
+> > >                 fwnode_graph_get_next_endpoint(fwnode, NULL);
+> > >
+> > >         return endpoint->local_fwnode =3D=3D ifp_ep ? 1 : -ENXIO;
+> > >
+> >
+> > The code is functionally same. I am fine with any version subsystem
+> > maintainer will prefer.
+> >
 
-I tried to make it clear with the comment above:
+Sakari, should I apply Laurent's changes and resend?
 
-        // To guarantee that an API caller can 100% rely on the signalling =
-being
-        // completed (i.e., all fence callbacks ran), we have to take the l=
-ock.
-        //
-        // The reason is that the C dma_fence backend currently does not ca=
-refully
-        // synchronize the `dma_fence_is_signaled()` function with the prop=
-er
-        // spinlock. This can lead to the function returning `true` while f=
-ence
-        // callbacks are still being executed. This can be mitigated by gua=
-rding
-        // the entire function with the spinlock.
-        //
-        // See commit c8a5d5ea3ba6a.
-
-
-I can try to make it more explicit.
-
-Actually, I suppose with our design in Rust we would not actually need
-this lock-unlock, because we ensure that it does not matter whether a
-callback already ran.
-
-But since we don't know who will be working on this in 5 years, adding
-this or that exotic callback, or maybe registering callbacks on his own
-fence, I put this sequence there for robustness.
-
-So if the function returns true, you really know that all callbacks are
-gone forever.
-
->=20
-> >=20
-> > >=20
-> > > >=20
-> >=20
-> > [=E2=80=A6]
-> > >=20
-> > >=20
-> > > > +=C2=A0=C2=A0=C2=A0 /// The API user's data. This must either not n=
-eed drop, or must delay its
-> > > > +=C2=A0=C2=A0=C2=A0 /// drop by a grace period. It is essential tha=
-t the data only performs
-> > > > +=C2=A0=C2=A0=C2=A0 /// operations legal in atomic context in its [=
-`Drop`] implementation.
-> > > > +=C2=A0=C2=A0=C2=A0 #[pin]
-> > > > +=C2=A0=C2=A0=C2=A0 data: T::FenceDataType,
 > > > > +}
 > > > > +
-> > > >=20
-> >=20
-> > [=E2=80=A6]
-> >=20
+> > > >  static const struct v4l2_subdev_video_ops mt9m114_ifp_video_ops =
+=3D {
+> > > >       .s_stream =3D mt9m114_ifp_s_stream,
+> > > >  };
+> > > > @@ -2119,6 +2138,11 @@ static const struct v4l2_subdev_internal_ops=
+ mt9m114_ifp_internal_ops =3D {
+> > > >       .unregistered =3D mt9m114_ifp_unregistered,
+> > > >  };
+> > > >
+> > > > +static const struct media_entity_operations mt9m114_ifp_entity_ops=
+ =3D {
+> > > > +     .link_validate =3D v4l2_subdev_link_validate,
+> > > > +     .get_fwnode_pad =3D mt9m114_ifp_get_fwnode_pad,
+> > > > +};
 > > > > +
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // DriverFenceData is r=
-epr(C) and a Fence is its first member.
-> > >=20
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let fence_data_ptr =3D =
-fence_ptr as *mut DriverFenceData<'a, T>;
-> > >=20
-> > > Without a =E2=80=9CCAST:=E2=80=9D keyword, I think this will trigger =
-the linter?
-> > >=20
-> >=20
-> > Didn't see a complaint from clippy nor compiler.
->=20
-> I recommend the CAST thing anyways. It=E2=80=99s being adopted in other p=
-arts of the kernel
-> crate.
-
-I can write a CAST comment, no problem.
-
-
-
-Thx
-P.
+> > > >  static int mt9m114_ifp_init(struct mt9m114 *sensor)
+> > > >  {
+> > > >       struct v4l2_subdev *sd =3D &sensor->ifp.sd;
+> > > > @@ -2136,7 +2160,7 @@ static int mt9m114_ifp_init(struct mt9m114 *s=
+ensor)
+> > > >
+> > > >       /* Initialize the media entity. */
+> > > >       sd->entity.function =3D MEDIA_ENT_F_PROC_VIDEO_ISP;
+> > > > -     sd->entity.ops =3D &mt9m114_entity_ops;
+> > > > +     sd->entity.ops =3D &mt9m114_ifp_entity_ops;
+> > > >       pads[0].flags =3D MEDIA_PAD_FL_SINK;
+> > > >       pads[1].flags =3D MEDIA_PAD_FL_SOURCE;
+> > > >       ret =3D media_entity_pads_init(&sd->entity, 2, pads);
+>
+> --
+> Regards,
+>
+> Laurent Pinchart
