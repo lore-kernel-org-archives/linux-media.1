@@ -1,61 +1,63 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1672F25392A
-	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 16:35:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96AF931F99D
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 16:36:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784651756; cv=none; b=QfmtJqZgAsOA/DpxpUpG1I/tCNw9h8nJEDbg1FYOYo28UrqV79wRaewK6NgMXlubX218zq76lr6LIcHh65FBemp8aZH3LvU5tNlJlU+2W6HZdin4mo3wgyn9ZWOy239mcCiR3oWMjYYX5wsR/sORV3Pu2665wXi/vJW/NaAP+qg=
+	t=1784651768; cv=none; b=qjDjRNM4xNQr/frCqAGuQtq2L83UikkS4dDkTs2aZXYkNFppGMdRJi2OaSw2Aw+aRG99Wsj8t5FDyE+h8P1TiPrbwuhHC308L4Sa85XTS/kLP0qjR3oFCSjQqpPQCHg8wCRrk4D4BPW056tzhrwNzZ8rQm9iVw8ybgKfsRu2NZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784651756; c=relaxed/simple;
-	bh=LUkRNKzepSaZx852sFTD7IAADviE3NHX3PZR7fWHOQc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MCZX+wXa2Nla3Ier453K9gc2rtZVWp7azWh4uA/Pcn3eQ744+uih0iz5JJ5yEvlctJSBqoTUr/SoRlkJ0rZ2T9nbmQXn2Jhkvkx07pNwWkn/F5R8Sxc/bcsedpJdd8Vwvk4/w27iq5TUE5n11Kkr4D059wvmpXiJrUN6m7tkaTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dRKjW706; arc=none smtp.client-ip=209.85.215.176
+	s=arc-20240116; t=1784651768; c=relaxed/simple;
+	bh=XVWfsIAgGX9Xd1n8zXWGc6IgbtmhQvC36aepBIb8Tf8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=E0ulM1/i258Xy/qalDQaHSYoxko8s27fE/3ViPPGSZloKnlxNm0woiy40qX1hAGlEjqwJp2MUuKvoiFee6yCFRsSgixrqYV1+ImoXK6lbI3tSzRLhPD19pGCTz64D8nwzTRqx4quT+K8zioOw0Bi05Xwn4U328gtNht1y2AWmHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B4R3ZMJ6; arc=none smtp.client-ip=209.85.215.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dRKjW706"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-c9e607d81fcso5070186a12.2
-        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 09:35:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B4R3ZMJ6"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-c9ef3e1337fso7827762a12.2
+        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 09:36:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784651754; x=1785256554; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4MlzGXQvHorwQ6k/VUetDD3RH9v8/Ym8L+R4VPXISEI=;
-        b=dRKjW7069MAzLgDxp20gfmStnCjBi+kfK0I2T7SMCCPiMo7VlcLy6fxhQsat44tfjm
-         ely7dLZLISTdQhTxWMUGxji5yiIS01OIZLtnBPidep/sXGVHywaC5TCIkkbWPRVSGeki
-         BKyX8Ldt6p6fOcCQ5iBxo/Iuam+zpcybxq7mSyIs2gXkJqA2H6seHm+iOdlSNcvwEABC
-         YeDtjgSzr5reMDjok6tyY2X9nXqzIdV+w1aBV2IKpkRq2LvZt18KxVlERYjg3L9ngGBs
-         cACimB2wbfVgtr9kAk5D4rM9jrjeTSXwfdW4KuyrinMcvpEFxdUIGYILMvs+6OUektHc
-         Qx1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784651754; x=1785256554;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1784651767; x=1785256567; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4MlzGXQvHorwQ6k/VUetDD3RH9v8/Ym8L+R4VPXISEI=;
-        b=JWfizcRVqbxZtxvHjjf0P/Cc6oJfQs3+ZFIpU5f6Gmb7qY3t4NlYp55Q7AuBlIZc72
-         HLcw32/dACeO9K2DVs2NEH4w6RaWhEs9qxdbpysSNbwXtYQo4D7JMBFv9wq3cBp7LfuD
-         XVkHGCejHGfb5aXU33j3Hq5xNOwa7PZhQa12JuFdKkMLZmL0DFPvN8uZfOBo7iDfr7Ap
-         7AYV2U6mp3fHX8iQTgQt20WZAZjtyAFbTv1o8DBOHSIxWnjOPQYUpdaNHfH7KE6Y4Str
-         KNa7aak4Z93M902gl8qzyi/beY/P6AdVoOccqutzxK59Rre38GBy6JY3GM5ZMbx38cgL
-         tcSQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpI2gNL8SLI3tpPknPZuTpmgsSVtsLS933ZssU2xzGoTlUdrmUJQP+x/4SCVBAYtwTb+efWeGpynN0JWg==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw9i2YagtphlR1OZIDVQbgijOJVw8uxNhoK5dF6rYX8hNF5W3EV
-	NADCr8Il+WStiPw3zClihXuHkecv+WrZK2g7QcldPtUn1456QBuXDWlb
-X-Gm-Gg: AfdE7clnITniXJybw6OOPpv4IvJRJBsJMSLMwptNVM1X6+FWzoGLxW+wu1zkxCMBpHf
-	wvsgGlQvekBS63PlYiCxf8ZPCaNPcGdeCg84HHFgL5WVEkrwdxC+KDq4SSb66ANd1J8ZAo8JHLm
-	HxCwtPysIP1gQIhb3KS3IYgpC59zat1O5dvrMzK6nKAqPIvMWZO9sC9+3SfeLIQ327rRyrTnfCY
-	y3f6HDXWu3B052ACo43R9fxeNgoaDG8YaKoKGAsXRiQuMzqtV0bJIOwgaDh+WAvJNGSwvjVQldG
-	HjGIMY4+GEwKG83ERFaWp50VMw/A4RfqcRnv1Z5wRH9+ER4sx6NToxNDaioG09R1pUg8LfF7LXh
-	WQFHUY0IheeBmm6iwzT1WPhM+HDF8Hr63duqXn2vRMJ4+zO+PMyHFoNPuJV70FP5iM9hACIxE7S
-	WkWo17Tuds47rel2CyFpC4kKcS
-X-Received: by 2002:a05:6a20:4388:b0:3b3:fc6:622d with SMTP id adf61e73a8af0-3c3ada195d5mr21213199637.38.1784651754293;
-        Tue, 21 Jul 2026 09:35:54 -0700 (PDT)
+        bh=gPJSl7du6t+JICWFEnlJMKsprDG3NXTVNkQiPLiNnnI=;
+        b=B4R3ZMJ6hPxe7wzh+zfrkl/YO1voaEEmiRsiF/EDLhdIKa+G+LWIrj1D52OAhwt6BX
+         ZkCX3jiNOKgekKKEmPdtvjbu0CgHL7QrQejfPFqFDcTB2Nn2Rvtev28Gczx50564nduB
+         ANNn4qqmcw/bwCYxATf5oBBvPUFLtndKDuYL05Q5dFaT3gMIIsEcWlUVYbYjzKgZUUux
+         2Hmn7n8uH4FF6e4QJPf3we3EeU/aRYgWdF3lUG+7MLQ0iMfdRqO/hAJm9oeVjg1ZHtwE
+         PpA+WgoKa6eptW5VfCpiDFVwN6dJHKFURdMskBrDk3XuyFoyHGj9ImiD5y7W2rYZzGjJ
+         0KRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784651767; x=1785256567;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gPJSl7du6t+JICWFEnlJMKsprDG3NXTVNkQiPLiNnnI=;
+        b=NpU5C4vbvuKV/W2ktJfLg+f8nn/3Ej3ckVYG+xX5b3uVks3uA+D9YYdnD3IUxT+6j3
+         vwWx8Gdji7/SjGdp4/UKJyoMjbOlnc+pcck7/FY4fJ97YiCN6/m/0JOnDgK+K0SWebJT
+         fh39rW+vQ1PYHIwzR9Dr3k8itDZMBoueAsn30qISDZJqPovMujdgLi1mDou/7WR91+Fn
+         1W4Hh1N+fdDoNxwDXmjF1qsuHLsdCfB7xVciGSgb0JeCY7K49fNQ4NuBY6hG6uH4PN4f
+         ZZJhYVbkK59XRTqzBQpZyaTz+3I+KOC4EvGW/si4PcXCyhdfoIQJgBTcnoYm9FWgLSTN
+         S9kg==
+X-Forwarded-Encrypted: i=1; AHgh+RokcC6OCOsCpfEUqbmu5FchrmccMGg2fVlnq7+mPSsZPTE+rnkh7dBcWRhPmhrxA5W8GFGAEoGLYIASmw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzR28lxLljhMkEyQYpnf7llC2aWIkRKbLSig1N5RVwGxxcvlSFT
+	VTq6wwnN299n0nDw2c+EKfQQkHXHq8kAt4wzNO5VPOxb+QmOw9pxT6c+
+X-Gm-Gg: AfdE7clU//0KfnZsr7A6C5jpnUxOVyj6nrfW84SsrynJCAfmwuuTKsBxZBT8yw02Pb2
+	OSQNWNskSIIMmxxwmZX/Lk4tiIf6GVJR2Wh5c+iTxdOcH4iU8dtC3DZ9sfvC5UXp5XpC1ZaD6xF
+	jpB41Ua7RSqDEcRpxbvrFwtTp5BnHutMvk15pVutjxxYVLCp/HXaHBCS8peJ19OCodyt4z+JG/U
+	9zkUcVfwlIdOdaHrEWevvbcFKGNVP67a/xqZGXMHJifQfSzZUXEp+Gfo7jrirwNvtFc3RBdZJ1p
+	UWD/DAU/1vCABVPShhWly2DiGgPMlByAf0XaW9AAWPYPLn3rB/2FvBKxD8nuceA19TIdz2q89Nq
+	rjmYTmBwaICBGUoDfQraOgKz4g1ePHKGFM1AfFrYBRo58O3JnKUKGFt3+eBjNFxaAQvgoOVbfd1
+	zZleK0BIVvrJCNwzm8dRs46Y33
+X-Received: by 2002:a05:6a20:c70b:b0:3bf:ba89:5236 with SMTP id adf61e73a8af0-3c3ad8083e7mr20534478637.33.1784651766739;
+        Tue, 21 Jul 2026 09:36:06 -0700 (PDT)
 Received: from UbuntuOS.. ([49.34.103.77])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147e0818e4sm482146eec.22.2026.07.21.09.35.47
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147e0818e4sm482146eec.22.2026.07.21.09.36.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 09:35:53 -0700 (PDT)
+        Tue, 21 Jul 2026 09:36:05 -0700 (PDT)
 From: Prajval Chaudhary <prajvalchaudhari733@gmail.com>
 To: Andy Shevchenko <andy@kernel.org>,
 	Hans de Goede <hansg@kernel.org>,
@@ -66,10 +68,12 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	linux-kernel@vger.kernel.org,
 	linux-staging@lists.linux.dev,
 	Prajval Chaudhary <prajvalchaudhari733@gmail.com>
-Subject: [PATCH v4 0/2] staging: media: atomisp: Cleanup unused module parameters
-Date: Tue, 21 Jul 2026 22:05:30 +0530
-Message-Id: <20260721163533.15888-1-prajvalchaudhari733@gmail.com>
+Subject: [PATCH v4 1/2] staging: media: atomisp: Remove pad_w and pad_h module parameters
+Date: Tue, 21 Jul 2026 22:05:31 +0530
+Message-Id: <20260721163533.15888-2-prajvalchaudhari733@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260721163533.15888-1-prajvalchaudhari733@gmail.com>
+References: <20260721163533.15888-1-prajvalchaudhari733@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -78,36 +82,51 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series cleans up unused module parameters from the atomisp driver.
+Remove the 'pad_w' and 'pad_h' module parameters to prevent userspace
+from overriding internal ISP hardware padding boundaries. Convert them
+into internal driver constants instead.
 
-Patch 1 removes unused 'pad_w' and 'pad_h' module parameters.
-Patch 2 removes unused 'dbg_level' and 'dbg_func' module parameters, 
-and updates ia_css_debug_vdtrace() to filter trace logging to WARNING 
-level or below to avoid potential kernel log flooding.
+Signed-off-by: Prajval Chaudhary <prajvalchaudhari733@gmail.com>
+---
+ drivers/staging/media/atomisp/pci/atomisp_common.h | 4 ++--
+ drivers/staging/media/atomisp/pci/atomisp_v4l2.c   | 8 ++------
+ 2 files changed, 4 insertions(+), 8 deletions(-)
 
-Changes in v4:
- - Fix macro constant name in ia_css_debug_vdtrace()
-   to IA_CSS_DEBUG_WARNING.
- - Guard vprintk() with level check to prevent log flooding.
-
-Changes in v3:
- - [Add brief note if applicable]
-
-Changes in v2:
- - [Add brief note if applicable]
-
-Prajval Chaudhary (2):
-  staging: media: atomisp: Remove pad_w and pad_h module parameters
-  staging: media: atomisp: Remove dbg_level and dbg_func module
-    parameters
-
- .../staging/media/atomisp/pci/atomisp_common.h    |  6 ++----
- .../media/atomisp/pci/atomisp_compat_css20.c      | 12 +++---------
- drivers/staging/media/atomisp/pci/atomisp_v4l2.c  | 15 ++-------------
- .../pci/runtime/debug/interface/ia_css_debug.h    |  7 +++----
- .../atomisp/pci/runtime/debug/src/ia_css_debug.c  |  4 ++--
- 5 files changed, 12 insertions(+), 32 deletions(-)
-
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_common.h b/drivers/staging/media/atomisp/pci/atomisp_common.h
+index a2462fc306fb..7c6c0124ff72 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_common.h
++++ b/drivers/staging/media/atomisp/pci/atomisp_common.h
+@@ -22,8 +22,8 @@
+ 
+ extern int dbg_level;
+ extern int dbg_func;
+-extern int pad_w;
+-extern int pad_h;
++extern const int pad_w;
++extern const int pad_h;
+ 
+ /* Minimum padding requirements for ISP2400 (BYT) */
+ #define ISP2400_MIN_PAD_W		12
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+index 812230397409..d117fea2860c 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+@@ -64,13 +64,9 @@ MODULE_PARM_DESC(dbg_func,
+  * output res, and isp output res. however since we do not have this yet,
+  * the chosen solution is the next best thing.
+  */
+-int pad_w = 16;
+-module_param(pad_w, int, 0644);
+-MODULE_PARM_DESC(pad_w, "extra data for ISP processing");
++const int pad_w = 16;
+ 
+-int pad_h = 16;
+-module_param(pad_h, int, 0644);
+-MODULE_PARM_DESC(pad_h, "extra data for ISP processing");
++const int pad_h = 16;
+ 
+ /*
+  * FIXME: this is a hack to make easier to support ISP2401 variant.
 -- 
 2.34.1
 
