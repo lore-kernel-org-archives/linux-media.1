@@ -1,121 +1,91 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B74D46EC9B
-	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 19:24:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F6F46EF84
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 19:24:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784661885; cv=none; b=YVCTeIj8pV1ZkZlgARVN9BxidvFrvnZBvWL2zCxQhK8EG14HaYRDbq8Xe3gVbjpPy1CPmdFhpWmyDUIPImE53m2ndMlGfLTBXAtVF3dtwyF9T2MqbWrtGTf6qcPC+uK123FRLzpnKZdtaLqbyXAEf8Tj89xaJO13vY7elrmNie4=
+	t=1784661894; cv=none; b=BypyHUVicuWjmf6DQ426bEnyih6uUiPrlTunJVZqnfjKFuD6z8MrMK51e/M6WK2qb6sp3s6x+1Ysr8wC0p//rinJLtE2LU0a91GML1j3CxC3+fad4oOJLkQE3gYr5fVaPhthQlWCyZKgVdx3FkFCQKGkdMO8U6gG9g6/xkdmNj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784661885; c=relaxed/simple;
-	bh=l0DnZO8FRwU2en+jhINecBJpPrpTXO5fLYNKyERE9oI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jAFHcfTAWWLHTtnOjr0HHoa9i44NECsogPSSuFGDelJ8EGtK6xEDbiusjT+QDgfLo/RLyf1r+oNdMs/UZ2H0rT0t8iC6glCSBinRynWx8FrHL090tytVrfD0GeUz4sSk/BLESb7HdbfQP9gfANYBTCw6IkL74Wnmh8iVJQEm7MU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=D1JEOYqU; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="D1JEOYqU"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-47f71156e1aso1500462f8f.3
-        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 12:24:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784661881; x=1785266681; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Xv7RcLIXwcJHJp4KDHhwlbXkkuhNl3KPHg9K6zOoWbw=;
-        b=D1JEOYqURoXf5D2i3SsmyJge2VH7Q57Dgsr5HEC5V1/SVAoDWZvMOLSU/DVg0ZzwVo
-         H5wCVCFAlD2VZd0QGk7E+Nr45NagJN3ce2g0QfmHe7ZsYj8H7aJdiU9UMfidnNhcx41l
-         3txMPO5yUDcssD4/aa8AUwwqsvSFzSV5MAIjq6XEt6jonDP6KFhQIuwrmIozQmql64Jl
-         wtF2GEJ0K7E/afwAOji6lhoEVxyMwtOQ01mPARNclwxiw6cfl/cMMS8aVT9Bkv341tTj
-         fnfoy1xf4n8YqZtzvj3vYeVL3dgpum6wtGw8O7g6E9ZRl8crhDZnwV9d7aRaLpr8uChe
-         nPAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784661881; x=1785266681;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xv7RcLIXwcJHJp4KDHhwlbXkkuhNl3KPHg9K6zOoWbw=;
-        b=e41JIqGK+489oewvq6NrqcBcx/QXtxf5mqC071y9rRRqzb+eyEKa4GcZ8g1DTdttHs
-         Nmh9oRjNfawCSFfzdstKJYLNNSQvVn9bgWXSO014g38oCW/qqpVZ+6r3DBgNjKHKAuse
-         kHW0CMaV8Q+G6yxNJmASURbulS6lLiJAJULR+Vco5A+BYfHDgYoPLWQqw1oH48kZ16Nf
-         P47wY2Er4JP4jhZq9WiCs3FwpQq4Fe/IyPMJHmr5F/V4CbxM8wwly5bt5ZXO0Y6rv3ec
-         Z5tNogbDVMRoGnnZR85iZTGmsvzhapQoeX4noXWK5Y172BDQGSkneJaq3BO/zQhV1xAh
-         D4IQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoUCeVJauIf7zRV2RoF+zwvJ3jpCRtlEmyzvgG0gNHXegvfbclpKEdb+EXNO9fdjBMliulbOkYT2heB7w==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxAgBSJYdQV5W+GH5uu48wOeB2E+9zu2f5nZB99NCR61wp+L9Mf
-	G70uiDjHhJ4vQ5qP+oso+52OqXsHi7Z1S9ZZLjKZL4507nJU8y7qlfQcY9D3I65FJko=
-X-Gm-Gg: AR+sD13A0AZIGPi17dGJSTbdrkZCgDVZjazSaA9KdOcMbDy4GPEExbXC8Ry+7e4tkcA
-	oyam6RF1ePRN88+TDj4nGtaaJOAv7F5QJm3P8SBqEW91gz2wqrqcfGJfPuKBhhFO34rf0vDMQFc
-	cWxo+cdbvk2kVzBAL7mtiCc5BShsN9BjmgLS60Q5I/gvjNoEm+b6EzDYfEeLWOTELKRevjKBVEM
-	dQQJNZ7Vkaa/YocYhXuy+wSOKQQDFbdw+j6vU0Ibf01LoH3w/cXNAN0H2nUzlToB0DhHip6sEqC
-	Jas1Etj8BTvleUZ46DbsoOYn1js4iXf7dtEwZlAZ8mOG23QUnR46ADJVIJMdF31elABxpHfm13j
-	uPNqrrNhuCirGEnbS7JxkL5p2rDuvwvoDW2EHLEiQDLzrtXBT7Ppn8nbp7QEFnw78FNvMRcYYle
-	gL0ZWK/5CFXe5dEMs=
-X-Received: by 2002:a05:6000:2988:10b0:47f:6981:a04a with SMTP id ffacd0b85a97d-47f6981a22bmr13980470f8f.31.1784661881488;
-        Tue, 21 Jul 2026 12:24:41 -0700 (PDT)
-Received: from [192.168.0.101] ([109.76.186.235])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63e49ce4sm41781481f8f.8.2026.07.21.12.24.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 12:24:40 -0700 (PDT)
-Message-ID: <1642e709-df23-43a4-9ac9-2e004e2b3bdc@linaro.org>
-Date: Tue, 21 Jul 2026 20:24:37 +0100
+	s=arc-20240116; t=1784661894; c=relaxed/simple;
+	bh=8VOeCTGKSamuz1dVtdzSYi66anVIRPETVlUTlzGiCvQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HYtN5sjXoD8hAta1t2h52LFx4yjiyVdSSkhvHAjkZ1arD69uTrxrjQN6mu5DzvCo7oZMMeRIo1ctENRzc8AEQRtwY/1BdrxzmEMh0Ly3L0ska1tKSHN8jy3P9fR/lq3pWUtuil7bYsXexegGy6DtcqJ5rWOQICJZ7IYdhsHJ+RY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+Received: from omf11.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay05.hostedemail.com (Postfix) with ESMTP id 121DA4023E;
+	Tue, 21 Jul 2026 19:24:45 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf11.hostedemail.com (Postfix) with ESMTPA id B744520029;
+	Tue, 21 Jul 2026 19:24:42 +0000 (UTC)
+Date: Tue, 21 Jul 2026 15:25:01 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>, Mauro Carvalho Chehab
+ <mchehab+huawei@kernel.org>, Derek Barbosa <debarbos@redhat.com>, Matthieu
+ Baerts <matttbe@kernel.org>, Konstantin Ryabitsev
+ <konstantin@linuxfoundation.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ users@kernel.org, Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Stephen Finucane <stephenfin@redhat.com>
+Subject: Re: Linking Patchwork with Sashiko?
+Message-ID: <20260721152501.0ff97e8c@gandalf.local.home>
+In-Reply-To: <20260721182509.GG536385@killaraus.ideasonboard.com>
+References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
+	<4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
+	<20260715162816.GF1778116@killaraus.ideasonboard.com>
+	<7ia47bmw0xls.fsf@castle.c.googlers.com>
+	<20260721182509.GG536385@killaraus.ideasonboard.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
- schema
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260720-x1e-csi2-phy-v13-0-160c31958863@linaro.org>
- <20260720-x1e-csi2-phy-v13-1-160c31958863@linaro.org>
- <LyWJAb2qKsAFTMHNJUce9VqoqbkFKUQanb6z8ziA63RYZ1P9jj1XpA83uGPvz9m4QnWvEjJFK8dGD_8EtioHVQ==@protonmail.internalid>
- <0da6d314-bfa9-493a-bcc6-8c3b75751d0c@linaro.org>
- <88ae6662-cb85-4e3a-bbb5-1b536348df34@kernel.org>
- <_t1jiMTX3iIXhUkTDz0Cbh_uZhdUK_Y8vlIwxt1VNRbuKuRnpVCWabal-b4AuFrVaKrDnQSFOWtDn6-VCbS3DA==@protonmail.internalid>
- <345ca98e-09f6-4965-87bb-e64dac096498@linaro.org>
- <c236cf94-a775-4158-88db-9a337c7fa862@kernel.org>
- <e8bc8ade-d699-497e-8c4a-fbdc03fcc549@linaro.org>
- <wzsAes-UM4_r8scRyy_yhd39ZdxvT8W9VroVPOGWABLsw7MqR05o_z2MwhgiC1gTSBgfVHpXWADbsqoIOsR0Uw==@protonmail.internalid>
- <ec3d6035-d4de-4e38-8c72-b29a04b263ae@linaro.org>
- <1f128571-ed46-4a60-9594-74fdd5f440d0@kernel.org>
- <864c13a0-a52c-43f4-9d94-646bf66ba31a@linaro.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <864c13a0-a52c-43f4-9d94-646bf66ba31a@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout01
+X-Rspamd-Queue-Id: B744520029
+X-Stat-Signature: tea7ngkbdn5rz6f4rcgpcda5g6b43grc
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19EjSpfBFYOyE+7aFpX2iwO5R6Arzw8mSE=
+X-HE-Tag: 1784661882-993440
+X-HE-Meta: U2FsdGVkX1+Gx/Lj9FZciv1Ow4gNBF2rtM5N3hqmlg2aL3z1QaHZc5joPzUvVTWbqVcYxntHT5PMhIR+S4IkIw9ObWLtwFfxXHGEtmfvWG0XgAP841357cxBcRJSGapD40v0W1QMQ0TGkvDBOzzAHH8lVAvz77q7PfRnwkbXHI1YP6fbGR31yZtkuX9W2XXMWX8K2ufwNLonpLlzpu6q77339eY6w9x9/FkgQfPFN/FuRmk8JMBB62wmtrFKkeBoJPK0Wz+VUWGEYwnMDAXeUxv3hw2cesAd19k086HtS7qx4a/76lptTs8r5yiHsUK3DYrx6jl9w84cZk1HAliu8YA+g0IlyWwV/ZH4a9reWtvwQzSvEe1xJgdr99hE6LE7
 
-On 21/07/2026 14:35, Vladimir Zapolskiy wrote:
->> - bus-type from the media-controller
->>     Already specified with camss still aligns with Rob's declaration
->>     "the consumer defines the mode" so I'm comfortable with this
->>     compromise position.
->>     This will still facilitate CPHY work/mode-selection via
->>     phy_ops->configure() with how to define the CPHY part TBD.
+On Tue, 21 Jul 2026 21:25:09 +0300
+Laurent Pinchart <laurent.pinchart@ideasonboard.com> wrote:
+
+> We've long known that we can't win if we treat security as a game of
+> whack-a-mole. Kees Cook and others have for years spent large mounts of
+> time and energy into securing the kernel by closing classes of
+> vulnerabilities. We've accepted a second programming language for kernel
+> development that should make memory-related bugs impossible in the first
+> place. In a less disruptive way, switching from C89 to C11 has enabled
+> features likes __free() that help make the code base safer.
 > 
-> As it was discussed there should be no phy specific interfaces
-> between this phy driver and CAMSS driver.
+> Do we need to act on security issues reported by LLMs ? For the time
+> being, surely. Is that enough ? No way. It's even more important today
+> than it used to be to make whole classes of bugs impossible in the first
+> place. The good news for people interested in that development is
+> there's lots of work to be done all across the kernel :-)
 > 
->> - data-lanes = <0 1 2 3> valid
-> 
-> Would be nice to get an ack from linux-media maintainers on it.
+> Touting AI reviews as the solution to the security problem LLMs
+> generated in the first place without massively investing in kernel
+> hardening is in my opinion the real "putting our heads in the sand"
+> here.
 
-OK so clearly the consensus I thought we had reached doesn't exist.
+Who said the two are mutually exclusive? I believe there is still a large
+effort in hardening the kernel. AI reviews is totally agnostic to that
+effort. Roman said at LSF/MM/BPF that he's the only one working on Sashikio
+at Google. Yes, Google is investing billions (if not trillions) of dollars
+into AI, but that has nothing to do with the Linux kernel. Roman has simply
+tapped into that effort to allow the Linux kernel to take advantage of that
+investment.
 
-Vinod I would ask to merge this series as-is.
+It really sounds like you want companies to move effort from AI into the
+Linux kernel hardening. If Google did that, all it would do is move Roman
+from working on Sashiko to working on hardening the kernel. I think Roman
+is doing a hell of a lot more for the Linux kernel by staying with Sashiko!
 
----
-bod
+-- Steve
