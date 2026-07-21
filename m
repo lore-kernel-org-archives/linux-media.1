@@ -1,156 +1,147 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from out-189.mta1.migadu.com (out-189.mta1.migadu.com [95.215.58.189])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D9894D98FC;
-	Tue, 21 Jul 2026 15:15:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784646927; cv=pass; b=R3q6E0WRA8Pt05in8yWi6odEujfh5f0ZixEgxd9ZataH3n1f5s/keHI+riclvJXiMWzFMMueOw4oqOl895GmatFx0AyU62AX0tJj6xMLLqAfsvRErElr26pLoCEKykz9a1t4sRWEf4AUtMDsFH6Ygo10z1Itm+RuKVb67c6Bv3w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784646927; c=relaxed/simple;
-	bh=ETzqqR3X/WZ5qERWLgLEx7zSVM0/qbeiDGTqT07iscM=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE53D4DA537;
+	Tue, 21 Jul 2026 15:15:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.189
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784646935; cv=none; b=VMEkXD1Of+73k7BG/kS9xfGrxw8krgcN6H/bJOojSavcKh7auPJ6eOL+Eh3BSKdRdEKapS2AtsbAQqUJLsYbjQgpWHzRQmgtqwc3YzlaDI5Z9a+s8qQ6LeGalJuL1KL28/v6wVTuPZQSxb3U9MNOG9xyyvqcQDMdEGD16lqRVyk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784646935; c=relaxed/simple;
+	bh=Bn8pdBCphfaoRE6ia4ccvYbqJ0SNBdCTdh7QdU86jOg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mxzpyI99p9GuglKbRKBYR17CZ+O+apnlD7f/qzoBcg7iPDjJSg8dXp3N7PAAuuzim0zcP7DhLmhv3q8DLb/wxwMHeL+1/LA7edJfJb5FlKp4kv5asv/CvmdxU+r/AfJn6Tqf/2uBLMJID8Ho123VHCNxeHYqRx2DhM1nbO//Q44=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=XgYrilH0; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=qLWo5IiQk6kKSBi34u4AE1G3jPrvaarlKT4YAfM3iwoTbX3ExryAxgExOUqjp9MUKU5F4FafrGZhl5M+9X2hEjten4Cch4X7zAMDjI12abLmek3wFv1Oqm6ZiAfB6bzhoY7eou4y0mjbSyFsrTLwCQHPkw1YtG449rmEVc18z84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=a9qwNjSC; arc=none smtp.client-ip=95.215.58.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="XgYrilH0"
-ARC-Seal: i=1; a=rsa-sha256; t=1784646910; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=DVQQFaeaXJsErpXSmalKDRjp1wKLGpoTBMShl9q+/nye75MohNH2vJacaVILCqfr1zGO+0MfGqIXw3HyFytabBbyIBIfEvhPtXB8BhNR0R0WrrrrGOzIDpzKU5Rg5k0kQl0dolSQGGPBimFH35/1rw8MYMWSkDPApOGl8TLQ7f0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1784646910; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Am4FBLquimoXLofVW39R5TXiLDXR3ax8a+vHWlboXD8=; 
-	b=GVdE9TgLfuxGwU5xYXs662IyQhf7y0C0Ae7WeaIAjeBq6SXSjxPlOsA8smbmhsQyE0lMK0S7xq1XetyGwwIV+EBWKpt0yEg0HRBtw+Y7TCKAcepXEb3WYiCMLxfTp77OFUDXAReixhD5o4KM05H95U+FTch55sOUeTCexXn+obo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784646910;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=Am4FBLquimoXLofVW39R5TXiLDXR3ax8a+vHWlboXD8=;
-	b=XgYrilH0DhdO3/Apsdp2g/O94Wepv5AWFeY2GH3ivNF+yasnIYsV//q+IhhMT5bx
-	/VuyhjGZlNp5DxV6ZYRpypl4J4TMBoW80UMpoKqPhX1ABTrnP+fba/GkG4uoDMCOOwH
-	j5W1bQ4IdMOz3i2CfGUc3RL5OwfJTkzKWm0hLVhQ=
-Received: by mx.zohomail.com with SMTPS id 178464690796118.531816677270967;
-	Tue, 21 Jul 2026 08:15:07 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 04A7C180765; Tue, 21 Jul 2026 17:15:04 +0200 (CEST)
-Date: Tue, 21 Jul 2026 17:15:03 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, kernel@collabora.com, devicetree@vger.kernel.org, 
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="a9qwNjSC"
+Date: Tue, 21 Jul 2026 17:15:06 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784646930;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1de3W7Rs24fvXvZyRaaR3DK376Zv4eG5d/LRkVgE2hU=;
+	b=a9qwNjSC7DWzFQ/FybWLPnFWiK1jpuhacMM+sUKfS2obAEgmzWfS+jYkzTpBMWF9GkQWSD
+	rPFTE4v3GGP14aLujjCB2Sbkvn2lYl6tf+d2SZI4BIjMltRHvUnIPxYUuW08KsWk7az6o7
+	jfHdnDnOF7JSsIjqkpJrZ854ShzNqSQ=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Richard Leitner <richard.leitner@linux.dev>
+To: Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, linux-media@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 4/4] arm64: dts: rockchip: enable HDMI RX audio
- capture on Orange Pi 5 Plus
-Message-ID: <al-M4gZ4cZwpEF_H@venus>
-References: <20260721064115.64809-1-royalnet026@gmail.com>
- <20260721064115.64809-5-royalnet026@gmail.com>
+Subject: Re: [PATCH 2/2] media: ov9282: enable single-read I2C transactions
+Message-ID: <al-Jw_O8faK3oqqB@bombadil>
+References: <20260721-cci-single-v1-0-8485171e1393@linux.dev>
+ <20260721-cci-single-v1-2-8485171e1393@linux.dev>
+ <2422477.ElGaqSPkdT@steina-w>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="iv6yyu46n7brq5vz"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260721064115.64809-5-royalnet026@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.638.57
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2422477.ElGaqSPkdT@steina-w>
+X-Migadu-Flow: FLOW_OUT
 
+Hi Alexander,
 
---iv6yyu46n7brq5vz
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 4/4] arm64: dts: rockchip: enable HDMI RX audio
- capture on Orange Pi 5 Plus
-MIME-Version: 1.0
+thanks for your feedback!
 
-Hi,
+On Tue, Jul 21, 2026 at 03:38:26PM +0200, Alexander Stein wrote:
+> Hi Richard,
+> 
+> thanks for addressing this long-standing issue.
+> 
+> Am Dienstag, 21. Juli 2026, 15:25:29 CEST schrieb Richard Leitner:
+> > Some OV9282 camera modules, such as those from Vision Components, fail
+> > multi-byte register reads with the default CCI I2C regmap access pattern
+> > and only work when single-register read transactions are used. This
+> > results in the driver being unable to probe due to a chip id mismatch.
+> > 
+> > As the driver has no reliable way to identify affected modules enable
+> > use_single_read for OV9282 unconditionally when creating the CCI regmap.
+> 
+> What about a property in the DT instead? In DT it should be clear if a
+> Vision Components camera is used.
 
-On Tue, Jul 21, 2026 at 08:41:15AM +0200, Igor Paunovic wrote:
-> Enable the shared HDMI RX sound card and the i2s7_8ch interface it
-> uses. Together with the audio capture support in the snps_hdmirx
-> driver this exposes a capture-only ALSA card fed by the HDMI input.
->=20
-> Tested on the Orange Pi 5 Plus with multiple HDMI sources: capture
-> follows the source sample rate and stays in sync via the FIFO-level
-> clock tracking in the driver.
->=20
-> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-> ---
+I've talked to Laurent about this topic (I guess a year ago or so...)
+and he pointed me to his downstream work regarding the vc-mipi driver
+(which I am currently also using):
 
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+https://gitlab.com/ideasonboard/nxp/linux/-/commits/v7.0/sensors/vcmipi
 
--- Sebastian
+There is a new driver (and therefore DT compatible) for the controller
+(without the sensor) on the Vision Components board implemented. This
+separates basically the "regulator" part of the VC microprocessor from
+the "forward I2C traffic to the sensor" part. AFAICT...
 
-> Changes in v4:
-> - only enable the shared hdmi_receiver_sound card and i2s7_8ch, now
->   that the card definition lives in rk3588-extra.dtsi (Sebastian
->   Reichel)
->=20
-> New in v3.
->  arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts | 8 ++++++++
->  1 file changed, 8 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/ar=
-ch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-> index 9950d11..9f9a303 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-> @@ -171,6 +171,10 @@
->  	status =3D "okay";
->  };
-> =20
-> +&hdmi_receiver_sound {
-> +	status =3D "okay";
-> +};
-> +
->  &hdptxphy0 {
->  	status =3D "okay";
->  };
-> @@ -247,6 +251,10 @@
->  	status =3D "okay";
->  };
-> =20
-> +&i2s7_8ch {
-> +	status =3D "okay";
-> +};
-> +
->  &led_blue_gpio {
->  	gpios =3D <&gpio3 RK_PA6 GPIO_ACTIVE_HIGH>;
->  	status =3D "okay";
-> --=20
-> 2.53.0
->=20
+Talking about that separation I vaguely remember he argued against a
+new device-tree property or compatible for the vcmipi variants of the
+ov9282. Therefore I went for the "easy" approach of just enabling single
+register reads.
 
---iv6yyu46n7brq5vz
-Content-Type: application/pgp-signature; name="signature.asc"
+Nonetheless if I understood this wrong or "things" changed, please feel
+free to correct me.
 
------BEGIN PGP SIGNATURE-----
+Just to be clear: I'm also perfectly fine with introducing a new
+"vcmipi,ov9282" compatible or something like a "quirk-vision-components"
+property if that's preferred.
 
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpfjPcACgkQ2O7X88g7
-+pqFLRAAkmIPl5/P8Z94H28WY+soiwfSEDNsLAiSGJlJVS8FgREkVhPImsKSVjR3
-4o3c4JrrBdq9xWtsdrGrMq3CpCGJ1DJo9OtHO0XMVMWs9d9ubkjM0ob/usXXhjxU
-OAzf5GLrUiNsMj8w149tKjXpYF1whrUVPN6ZXmhRpcKkzlsGPhFiD766yx//N0ty
-yeh8uFvXqYA5IrRy0G3ZOnUl9bxnqJ/DumiW414ps5KGfdkx51psOGE7y5L//MhS
-MhDrmU1MzPRNzo+GUaVahydIG8WA5LHI52fTRSeausAuuuzrgKlIyQWCnjAPxA5X
-9MiD4rdNpUZRjPiddyT1AiezcSqHtL4e6KcRhnRjuMDne/32jNsBZnCfSeCdpk3A
-5dWp60RnpVzYYGp93F7BRe25Urj3ik5HVmGVMUkSJ4bwSVP2RWSX+GiPTjlAe2IK
-x63SwNOF++ZZSXd0VX2tP2mm1Ih2LvD5NI0R2Az8pzfmpwPST2UfgSvVfOfp7mMI
-HSUOh6hFH8XlAg2rz8Ny4u25SzmyCa6wQbf6t9n1Fzoeam47sfuEcH9BaexoX/B4
-RcU4y9M5N3ZmsQf0z2rhP6fkyFv/ifDrl7wMrCnScB0wtKoBluIt3wzJ+zKFn3z4
-8pudmmYwXa7d6tb+SfCxNtEh7SbqGZWhHZmJtYy6V9uJdbBQk7w=
-=d36M
------END PGP SIGNATURE-----
+Thanks & regards;rl
 
---iv6yyu46n7brq5vz--
+> 
+> Best regards,
+> Alexander
+> 
+> > 
+> > Tested on an i.M8MP system with OV9282 modules from Vision Components.
+> > 
+> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> > ---
+> >  drivers/media/i2c/ov9282.c | 7 ++++++-
+> >  1 file changed, 6 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> > index 5b6f897a74fcd..8267a0a9c6f2d 100644
+> > --- a/drivers/media/i2c/ov9282.c
+> > +++ b/drivers/media/i2c/ov9282.c
+> > @@ -1283,6 +1283,11 @@ static int ov9282_probe(struct i2c_client *client)
+> >  	struct ov9282 *ov9282;
+> >  	int ret;
+> >  
+> > +	const struct cci_regmap_config config = {
+> > +		.reg_addr_bits = 16,
+> > +		.use_single_read = true,
+> > +	};
+> > +
+> >  	ov9282 = devm_kzalloc(&client->dev, sizeof(*ov9282), GFP_KERNEL);
+> >  	if (!ov9282)
+> >  		return -ENOMEM;
+> > @@ -1301,7 +1306,7 @@ static int ov9282_probe(struct i2c_client *client)
+> >  		return ret;
+> >  	}
+> >  
+> > -	ov9282->regmap = devm_cci_regmap_init_i2c(client, 16);
+> > +	ov9282->regmap = devm_cci_regmap_init_i2c_cfg(client, &config);
+> >  	if (IS_ERR(ov9282->regmap))
+> >  		return dev_err_probe(ov9282->dev, PTR_ERR(ov9282->regmap),
+> >  				     "Failed to init CCI\n");
+> > 
+> > 
+> 
+> 
+> -- 
+> TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
+> Amtsgericht München, HRB 105018
+> Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
+> http://www.tq-group.com/
+> 
+> 
