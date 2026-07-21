@@ -1,140 +1,89 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701F1415F0E;
-	Tue, 21 Jul 2026 17:51:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058DF415F0A;
+	Tue, 21 Jul 2026 18:07:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784656267; cv=none; b=XUCy0BRdipC3s7KEsD1BFOxpvYVmAU4fphHyV7BBBEmJgoj735+5MciQZpk8qn44DluKJecmvFPrO7M3SF1/Aj6UM9otCuhfK8l5bkqcEo6RyLDnXbv9zpFAT5hGlyKLPpzLn0OCCyqzWDxChUDXPAqlud+Wo/62uho7aSgKUkI=
+	t=1784657237; cv=none; b=Kt/4NaEH+Z6eeHGPG24hxfr+W9YST1/jyxt1ntBFEvkKQlAblaA8srl/YOv6jP9QSQ0hdNTjtP2rYNgqdtwOU+fiCe/xxdqeYkdip3DkZP/68dH9sWoh6RlSxC0N5CmsXOKLIlTcrdZxep6lFGgp81LX9fyReaj5oBpQXPELR6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784656267; c=relaxed/simple;
-	bh=Dv+SVGiVgomshLT/GZc90uzu6kJkJinMymTgp5KB7fw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B4MA+TtaH/wVrUuPDfcjTORMm/C4FpYRs36HKw/cYrqYhprznoIDiJt7KS4mZ+qKycplJOSrtC15EedgoMcaV4JSmV6OL6OomJt/L9lH6cDnAqOjvE2HO6bspIjpF5jNC/7cdQ/qa1BtMZqijJW0zFuwod14GNB/fdsC6woo3oQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=M/ZCsgOo; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1784657237; c=relaxed/simple;
+	bh=WgxtnRTwJp1h60BWd4QOULmHHIyqZ0VFpP6dCKrQ7/M=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XxmGrJht74sqsFATmp5LLenTIGHXKc871akAhAi0+vs+a26GI4nkUTgcJGoj4g74BnXtOoTYfoY75x+J92k7pcMwHd1hPhwNj88gW2YQsV/ozHj4Gxr9eH/C8xf881P3Hw0y4hWB833n9oJzDJ2fgZxW6lWJGLfmkcujLa61TqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PNvEhFP9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="M/ZCsgOo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784656266; x=1816192266;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Dv+SVGiVgomshLT/GZc90uzu6kJkJinMymTgp5KB7fw=;
-  b=M/ZCsgOoYRfCeagL/mVUIFv4/JL/YBYIN2C53INLVTwMs57I98S6DRrI
-   /H8Pot23bB7NS7EhGHGZ0Bfrb6SR7/HdELkttxLX9S/FQiopJ9xfmKrWv
-   2xpNJc/NZ4W6zJwcg4Idtf1CRvz3E2+Gyx7T3/p1tU7Iy5fQK3SnZAj/L
-   j/2rl4LrdTfc0djcspbgQsPkNOFtW5hb7ynNw4qdBf4910doASrJVS7ls
-   X1SAwgi2qB0JazDCjofnmB+EmL8viK9Ye3lfGPrctBCvQrBXSPSB3jaC4
-   n/Vuy3j6BQC/JvvKaJQoZjdUTY2yoH2dqIItqLYhfSp09XBVJVklKX3hr
-   Q==;
-X-CSE-ConnectionGUID: rTkJzZj1QQe6S4gZ6UyHyQ==
-X-CSE-MsgGUID: 7/ltIcMZR9qnnQq0eygEeA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="85030463"
-X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; 
-   d="scan'208";a="85030463"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 10:51:05 -0700
-X-CSE-ConnectionGUID: 6vZ3RK7DS/W+bRGIUznhJg==
-X-CSE-MsgGUID: Yobd4ihwQBqYJdNLABqoFA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; 
-   d="scan'208";a="255185274"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.245.135])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 10:51:02 -0700
-Date: Tue, 21 Jul 2026 19:50:55 +0200
-From: Mehdi Djait <mehdi.djait@linux.intel.com>
-To: Tarang Raval <tarang.raval@siliconsignals.io>
-Cc: sakari.ailus@linux.intel.com, 
-	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>, Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 07/17] media: i2c: os05b10: Add test pattern options
-Message-ID: <al-xEoRrdO7nyO8d@mdjait-mobl>
-References: <20260718200912.16001-1-tarang.raval@siliconsignals.io>
- <20260718200912.16001-8-tarang.raval@siliconsignals.io>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PNvEhFP9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 000011F00A3A;
+	Tue, 21 Jul 2026 18:07:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784657235;
+	bh=RHcGoloNYmYwH+aPEyfH+QAtWnrh9cY7GdbPjNJEb2I=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=PNvEhFP9645lghGJsCG8GgCfsizcixDocQTZP/Jk6GkO1SWpREEYImH6pjG10Gl0i
+	 qj/FMGwx4brGfBsMKCXRYjtv5+vDX55HWlMdfuL15LlTQgzc0BEsba3ImS0cHxT0Us
+	 lYqa1cl1tfW/f5herNlKVyqbQ/VV8Dj1qN/CFOPELPW2TmxWjl8apxqdgFMhO/vi0z
+	 +3GXyZBMFYqUQD8HpTQJqzeJIP66baWdBGSAe3lwxkBv/IaAAclBbW2jBPmiguqhy3
+	 8fiffwJdgqX1Giiidq+xUoXUjrIjedRr6SnaLTrApnjuYdkZ80JCIctPla2k754m2n
+	 +xQyCICMamqMw==
+Date: Tue, 21 Jul 2026 11:07:13 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Bobby Eshleman <bobbyeshleman@gmail.com>
+Cc: Donald Hunter <donald.hunter@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, Gerd Hoffmann <kraxel@redhat.com>, Vivek Kasireddy
+ <vivek.kasireddy@intel.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Shuah Khan
+ <shuah@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
+ sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net,
+ almasrymina@google.com, matttbe@kernel.org, skhawaja@google.com,
+ dw@davidwei.uk, Joe Damato <joe@dama.to>, Bobby Eshleman
+ <bobbyeshleman@meta.com>
+Subject: Re: [PATCH net-next v5 1/3] net: devmem: allow rx-buf-size >
+ PAGE_SIZE per dmabuf binding
+Message-ID: <20260721110713.325d36ba@kernel.org>
+In-Reply-To: <20260708-tcpdm-large-niovs-v5-1-34bf6fac941b@meta.com>
+References: <20260708-tcpdm-large-niovs-v5-0-34bf6fac941b@meta.com>
+	<20260708-tcpdm-large-niovs-v5-1-34bf6fac941b@meta.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260718200912.16001-8-tarang.raval@siliconsignals.io>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Tarang,
+On Wed, 08 Jul 2026 15:55:04 -0700 Bobby Eshleman wrote:
+> diff --git a/Documentation/netlink/specs/netdev.yaml b/Documentation/netlink/specs/netdev.yaml
+> index 5f143da7458c..70b902008bd3 100644
+> --- a/Documentation/netlink/specs/netdev.yaml
+> +++ b/Documentation/netlink/specs/netdev.yaml
+> @@ -598,6 +598,13 @@ attribute-sets:
+>          type: u32
+>          checks:
+>            min: 1
+> +      -
+> +        name: rx-buf-size
 
-On Sun, Jul 19, 2026 at 01:38:58AM +0530, Tarang Raval wrote:
-> Add V4L2_CID_TEST_PATTERN support with multiple sensor test-pattern modes
-> and program them via register 0x5080. Drop the fixed 0x5080 setting from
-> the common register sequence so the pattern is selected only through the
-> control.
-> 
-> Removing the default write of 0x04 to register 0x5080 does not change the
-> sensor's default behaviour. The value 0x04 leaves the test pattern enable
-> bit (bit 7) cleared, so the sensor remains in normal streaming mode. It
-> only programs the color bar style field, which is ignored unless a test
-> pattern is enabled.
-> 
+rx-page-size, we're modeling device pages.
+rx-buf-len exists in ethtool and is something else.
 
-Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
-
-> Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
-> ---
->  drivers/media/i2c/os05b10.c | 55 +++++++++++++++++++++++++++++++++++--
->  1 file changed, 53 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/os05b10.c b/drivers/media/i2c/os05b10.c
-> index 61c51844a91e..4e177eacc815 100644
-> --- a/drivers/media/i2c/os05b10.c
-> +++ b/drivers/media/i2c/os05b10.c
-> @@ -102,6 +102,17 @@
->  
->  #define OS05B10_REG_FORMAT2		CCI_REG8(0x3821)
->  
-> +#define OS05B10_REG_PRE_ISP_20_0       CCI_REG8(0x5080)
-> +#define OS05B10_DISABLED               0x00
-> +#define OS05B10_COLOR_BAR_1            0x80
-> +#define OS05B10_COLOR_BAR_2            0x84
-> +#define OS05B10_COLOR_BAR_3            0x88
-> +#define OS05B10_COLOR_BAR_4            0x8c
-> +#define OS05B10_COLOR_SQUARE           0x82
-> +#define OS05B10_BW_SQUARE              0x92
-> +#define OS05B10_TRANSPARENT_EFFECT     0xa0
-> +#define OS05B10_ROLLING_BAR_EFFECT     0xc0
+> +	if (info->attrs[NETDEV_A_DMABUF_RX_BUF_SIZE]) {
+> +		u32 rx_buf_size = nla_get_u32(info->attrs[NETDEV_A_DMABUF_RX_BUF_SIZE]);
 > +
->  #define OS05B10_LINK_FREQ_600MHZ	(600 * HZ_PER_MHZ)
->  
->  static const struct v4l2_rect os05b10_native_area = {
-> @@ -395,7 +406,6 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
->  	{ CCI_REG8(0x5004), 0x00 },
->  	{ CCI_REG8(0x5005), 0x0e },
->  	{ CCI_REG8(0x5036), 0x00 },
-> -	{ CCI_REG8(0x5080), 0x04 },
->  	{ CCI_REG8(0x5082), 0x00 },
->  	{ CCI_REG8(0x5180), 0x00 },
->  	{ CCI_REG8(0x5181), 0x10 },
-> @@ -513,6 +523,30 @@ static const u32 os05b10_mbus_codes[] = {
->  	MEDIA_BUS_FMT_SBGGR10_1X10,
->  };
->  
-> +static const char * const os05b10_test_pattern_menu[] = {
-> +	"Disabled",
-> +	"Colour bar type 1",
+> +		if (!rx_buf_size || !is_power_of_2(rx_buf_size) ||
+> +		    rx_buf_size < PAGE_SIZE) {
 
-nit: make it color to be consistent with the rest of the driver ?
+we should add a check: min: page-size in the Netlink policy?
 
-> +	"Colour bar type 2",
-> +	"Colour bar type 3",
-> +	"Colour bar type 4",
-> +	"Colour square",
-> +	"Black-white square",
-> +	"Transparent effect",
-> +	"Rolling bar effect",
-> +};
+> +			NL_SET_ERR_MSG_FMT(info->extack,
+> +					   "rx_buf_size %u must be a power of 2 >= page size (%lu)",
+> +					   rx_buf_size, PAGE_SIZE);
 
---
-Kind Regards
-Mehdi Djait
+This must point at _ATTR, the _FMT is unnecessary.
+-- 
+pw-bot: cr
