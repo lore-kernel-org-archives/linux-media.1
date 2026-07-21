@@ -1,207 +1,1051 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DB147F2DB
-	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 10:23:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784629420; cv=pass; b=bntgigCPznMqBqxY8cyed+XpyJtWRULJSdHMxGvVWtlJedFf0MhiLm78q7DJs2k/pw/8ZViLVcChMFe+5bk2/7p4bnLxERQeKSDLBruL+w82S48hydDBk4uNOMafnGBu7rwOgCuQRVuEjL3X0Ybs1Vs/C89DWeST8fN8Wxooeyw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784629420; c=relaxed/simple;
-	bh=dAg65rfGUktkEyRGS6LHi1HlhBVqv2aq5WVTQI9cBnY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uVFuSIpP5oCZliseBZnslSZMnlBgPZIlbJ6zySGIipevteCDaEficJJLwvm/NSo+cMbFwAEmrTDk4w8HKxmd+b21D3GYBF4r3XolomrPiuebvZVoL5IEV8GdjQ8C9hucr75GYK51frvhjAJNoEEB6vGiZHI2LcoDjSDfh1ymCfU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YkZU9qx6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a+9NFGkQ; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC9A48097C;
+	Tue, 21 Jul 2026 10:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784629648; cv=none; b=DU0gCNQvBHgwRqno3VIKk9EUxcSTRsH4ZJQhr7coPgktstnqS9QaGJkkISK6LLuzC5A0uYF9Wog9JbN6nosC/hZERZ12iK27jkCeNB3Wbp6edAo2fN5Ik2J0EqOXyi0TPsIhV9t0gmjCABGcwiyBObfLEn/gSYc4t5zXWWOEP6E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784629648; c=relaxed/simple;
+	bh=WFALDH5GINKUXN3O0vtIu54A48lUgoYl9nWt1RrnrAo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DQQHymg87UXYctBxcPeUcLMv1/KhaJAK8B6KFFifYI43Hb9kshJs5OkLeskBySm9bhftvfLjJF5pbZUuoOLH4qogx4eQQ5LLIO5hLkMs8cTS2s35X80Y0EjpdC8ACLlrKnYNze7CBBfd8h+4jJu3FJJMvGgweWRzpthZfdjmg0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=hTDrsnG0; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YkZU9qx6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a+9NFGkQ"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66L8iMXI037670
-	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 10:23:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	FNVZLfwCsaGZu+dN7KdgMrqhUKre/8+4rzOhShj+rOc=; b=YkZU9qx6lnMX4N5K
-	Do0b62EpRlotw+/e8mEbhWDllZ3QfTEvVcxyBwNAymMa+RQMcZQyFEuQy7fXxd9Z
-	rWH4cWFfbPEGE74FlVO+pJA4iZDM+btPk9jltI5eWsv1UAL6mEo05qZHc0IR+y0z
-	RJsUEtKoGNdiMaoLigiqBrxnJsAIW/jkcyEcEb2/Ff2hxrfXhIsfC3c5NR0SSa5G
-	7y0HXEdC1VzjBR0o4gRORznyxuibrXiiQ2YD0U1oyc1mN4nSgSvfjlan7Iy2q5or
-	tQ7kd/Y3Ni1XNudl9Rhgf4CDLVN9VCLP+AO3YviOI66wsozf3nEO/8J4yKJpE4ju
-	0TPZmQ==
-Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj1es1qh7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 10:23:38 +0000 (GMT)
-Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-6651da40ecbso4142907d50.1
-        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 03:23:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784629416; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T6RSQN3i/FqsB31uPqDdpQXIJsUvfqWqtr2iJlhwa3BWyk9aWSmgt5SH+V1Gb11eJd
-         790dT6Pp/axVbRARikiNNGNZph7SiC1e/dEBg8/9JDSIo3Dvg+4Nte6g4rxxAujIC+0Y
-         ulS55SlmSrWQ7mwGmh14Sb8EApzPnbk9G6j1nR0pr3qt818J2fZtwPojViDJxbL/rRvw
-         OfTiwwHtTnrfmAQByToK648Sedri9rxGN+STjQaCXhIplEufEmPJ6bVDsEwYBdF4czvh
-         U1marsGHy2Pnm86V16YsZDlRKkTfvraS6S9oX9gowJMNp284CBxjtiwfMIq+/8Rs4coi
-         kqBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FNVZLfwCsaGZu+dN7KdgMrqhUKre/8+4rzOhShj+rOc=;
-        fh=3hiMUfLmRvBPxM2ye9YOyHgbAir79iZUTaxz89wYQLs=;
-        b=fkSNwacR6eNHBnlbPKLslvy1zx+e8l5AioN90nF0WBIfRWpBON198Gpe8skbZUVzZn
-         HDx2mvGGqgxfGgZIj8Qf4eV7+G17lDq9b1CrvP2QTBHvXzARTSGExmkc4I9LBOuJ6q0p
-         FEt8t71ZlMYn6zR40pSexibWYodx0Jp9m2ICPwTDwpCvE93dRn+SwQeovUvpGPaFV9pK
-         OJpYqFGWdDyF+czCySK6u7vp2hnVBwRLWeraQkC7Rw3ahmwPItVxMG2J3XgYI407Ub7g
-         t92z3MEUMNmdsmukSISEWHhvnxqWcLWl1Wt6bgk4PofE6xMxOHUCgWGcIGV0tBCmM9K0
-         xzUw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784629416; x=1785234216; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FNVZLfwCsaGZu+dN7KdgMrqhUKre/8+4rzOhShj+rOc=;
-        b=a+9NFGkQzqDbR4UJTTXL2nX41AQ2LKh+fb3qfJ7xzTcCnZBzuEjZKlsriGLROVw9pm
-         02K8x1LR1Kg/31neA5TeGFddMhUCGGESNaKaTpwEYcNIZUqb8WV7R768NJmbeatVgpyX
-         A36Dv5177kb3gGouuGkOGq9ztgb016vjqB6ihO+sd1TpinEOrexUaBQOBAUJmmfryxgT
-         DsA5d9MmKIsZ2TbkM8/rY5Ugmn6dJm7rauTie/S618CWKYy5dZRCVgo8ITUA63G0dnZg
-         CA7OnLAzpDL6Q4zGNcEaRacNRhQef73krPY+Djj3ta8RRnfdWv0UCqxMZY2395o2lRjA
-         VLIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784629416; x=1785234216;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FNVZLfwCsaGZu+dN7KdgMrqhUKre/8+4rzOhShj+rOc=;
-        b=UOUyAGq87v4t5s215XNLym3yUoHxFNrblz7CcvstfJq5yJxqS2+4kCHUthkVy5ZDeG
-         hobv3nWH/P0KLOB0Z7ptGpi8o2osYwBgZbUVPrKNp004CWuvfaR7jwX1k5u9zVEWrz0e
-         Lk0JjKyFzurezsiQzQFc5FQ/5htHkCaQK7nuj+t9WRvOXnIvuuoVTx5sTD3amYKp0GWF
-         2Lr/Vw+djwxgKdv4FtfgGxtFhm4yAycvhlpt30UbDdBN61vQmH0y6JTZtqB5OlRTHFUi
-         YiNxza14fEEwvcdPt4UjvC5x009MmD6sGQQNSrhetvRl3+EhURRUJbh5aRRb6P56No1w
-         UjnQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpIIhlei/hwEe0Hvwck9bXgWNyIuAbcdGeJ5F7qdW6kUnBynzrYS8cwB+HDd4qA1LqrMMhNemV0VrgmKQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxD7CS+atbD2hIC0Rn+Y7bVfxDGEqzDrHsY04Dp4E6Rs1rQNrZ2
-	HwA3uNG2jOx5Dscy7Cc5XMAx78Zw9Evt00EiSffLiqTvRvK/KIkoTuzDzdbF/+oTiZElfCVF+vl
-	xVcc1ZeR23RG0vn21WfvCWfKmpBNShYGhgoLvsynAnshyXysW3dtDio75VtSpi9M/1iiJ3AXB06
-	nSUAb4uAdUjlTXaRagKSB/phsD8N3RhSC9xhyxHfyw
-X-Gm-Gg: AR+sD11w3kICd7kfRJqSc9MHsdyv67Nbpp+mawyfAri3W1bmSMaXHp3QkgmlOuFmjgC
-	mjROg0uY8xoWvpgF02ewAYmlmMqIKJ1x2D6iN8VGbg79IyUPD5zgwyTnTxkCM9KbfUZy4X5kRty
-	GxCx8nEnxZiRbMI7+SJ2WqFyb7eh+vqU3tGJLOh/8C+inrbqQt4l5Uqk99tQ==
-X-Received: by 2002:a05:690e:148e:b0:668:85e8:7cb with SMTP id 956f58d0204a3-66885e80a8fmr310941d50.38.1784629416519;
-        Tue, 21 Jul 2026 03:23:36 -0700 (PDT)
-X-Received: by 2002:a05:690e:148e:b0:668:85e8:7cb with SMTP id
- 956f58d0204a3-66885e80a8fmr310932d50.38.1784629416151; Tue, 21 Jul 2026
- 03:23:36 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="hTDrsnG0"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5A242C1;
+	Tue, 21 Jul 2026 12:26:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784629582;
+	bh=WFALDH5GINKUXN3O0vtIu54A48lUgoYl9nWt1RrnrAo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hTDrsnG0fNWbxs9mhD03wr+wC5CSM7tv0t814WpjPWVD8FOQLc3wCQW9S3KOSHx7L
+	 SSVb/fHrvXhMD48PI0sLqjkNjiS50iyLaGkr1hm8iwRQ4OP9ahVkhHp1HndYSZKEG1
+	 YJsd4ctXpjZapdX+0VWtfbhnd8lnJLjcMYM3OAm0=
+Date: Tue, 21 Jul 2026 13:27:20 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: guoniu.zhou@oss.nxp.com
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <frank.li@nxp.com>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Bryan O'Donoghue <bod@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+	Peng Fan <peng.fan@nxp.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, imx@lists.linux.dev,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, Guoniu Zhou <guoniu.zhou@nxp.com>
+Subject: Re: [PATCH v14 3/3] media: nxp: Add i.MX95 CSI pixel formatter v4l2
+ driver
+Message-ID: <20260721102720.GA489921@killaraus.ideasonboard.com>
+References: <20260721-csi_formatter-v14-0-ca239fbb441f@oss.nxp.com>
+ <20260721-csi_formatter-v14-3-ca239fbb441f@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260702115835.167602-1-sumit.garg@kernel.org>
- <20260702115835.167602-10-sumit.garg@kernel.org> <alJpc3nFX9D7_8i1@baldur>
-In-Reply-To: <alJpc3nFX9D7_8i1@baldur>
-From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-Date: Tue, 21 Jul 2026 15:53:25 +0530
-X-Gm-Features: AUfX_my8FmFS_RPsD9P_wAO_xi3w3rSS9J18xqmBVD6VnuXnMyKuUdz39cXSwBQ
-Message-ID: <CAGptzHP8EQyvx3tn-ZVWZPN6TwFec-ADvAuxEQhwQBE00Sg=Kw@mail.gmail.com>
-Subject: Re: [PATCH v9 09/14] media: qcom: Switch to generic PAS TZ APIs
-To: bod@kernel.org, mchehab@kernel.org
-Cc: Bjorn Andersson <andersson@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-        konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
-        netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
-        ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        robin.clark@oss.qualcomm.com, sean@poorly.run,
-        akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
-        jesszhan0024@gmail.com, marijn.suijten@somainline.org,
-        airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
-        elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
-        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-        jjohnson@kernel.org, mathieu.poirier@linaro.org,
-        trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
-        pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
-        tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
-        srinivas.kandagatla@oss.qualcomm.com,
-        amirreza.zarrabi@oss.qualcomm.com, jenswi@kernel.org,
-        op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
-        skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=SPZykuvH c=1 sm=1 tr=0 ts=6a5f48aa cx=c_pps
- a=J+5FMm3BkXb42VdG8aMU9w==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=lt5aTsHmsBbDyw7JONsA:9 a=QEXdDO2ut3YA:10 a=Epx66wHExT0cjJnnR-oj:22
-X-Proofpoint-GUID: ZDhnEbXx-YBOc3pXViHWHSuDqxADOo4H
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDExMCBTYWx0ZWRfX1WCFeKGMXRDd
- m9otlOOBGVd5KiRk6wA/qS264gdrA9I8pJ665USTN12ai9u+fVRmIT5/y3qYAXsb49tTGyEw9ix
- AvC7osTxH2wv9DdkuSAkdl6nMgheMhNVeYWbMO1dJNsFIWHT4WBF4eNh6tColZRLlkPYYkzGHBk
- GBlBUYY4osXBdNIBWWDEmXvVdMIhUCH462uvpjnByY+yuVrQKhMKPmWKBAJBcPykAA3LkFso9wj
- u6boETIeviOQeNyNTSg3iBhQkmoyGLouRryMjCs1czTGleHFpbaud0aN9lYNg50M9jlKqkdEtRe
- W6aqSCli/K9sfCIXVwpD0VxOUYzAHKddr8Oe72dmfBk0NYOc6sKG5caxfUeQIqnToJxVA3tTMgV
- B8rZkr7Qts3htEmn4lL/RV7xhjqEXwFba4t1wgX+jhu7LwSH/+g4nt8X869eOMSZW9nhp1SLOE/
- xqc3YhgjTh1dOuRCBaQ==
-X-Proofpoint-ORIG-GUID: ZDhnEbXx-YBOc3pXViHWHSuDqxADOo4H
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDExMCBTYWx0ZWRfX8wCt/ld6A592
- pOvKPSu+6Zy2tByny1jzb5o8wUq2ULOhDd9CYhCMo/26llxRWfAGyLaZxhcz+kMz392PIq/4Rsb
- Qj+jkIHMCCIXivaKSxSktMmP21PC0EY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-20_06,2026-07-20_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 bulkscore=0 phishscore=0 lowpriorityscore=0
- spamscore=0 clxscore=1011 suspectscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210110
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260721-csi_formatter-v14-3-ca239fbb441f@oss.nxp.com>
 
-Hi Bryan, Mauro,
+On Tue, Jul 21, 2026 at 04:40:23PM +0800, guoniu.zhou@oss.nxp.com wrote:
+> From: Guoniu Zhou <guoniu.zhou@nxp.com>
+> 
+> The CSI pixel formatter is a module found on i.MX95 used to reformat
+> packet info, pixel and non-pixel data from CSI-2 host controller to
+> match Pixel Link(PL) definition.
+> 
+> Add data formatting support.
+> 
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@nxp.com>
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+> Changes in v14:
+> - Use select MFD_SYSCON instead of depends on MFD_SYSCON (Laurent)
+> - Remove unused v4l2-ctrls.h and v4l2-event.h includes (Laurent)
+> - Rename csi_sd to remote_sd and group with remote_pad (Laurent)
+> - Move reg_offset after clk to group generic resources (Laurent)
+> - Remove mutex lock as enable/disable_streams hold state lock (Laurent)
+> - Rename formatter_dt_to_index_map to csi_formatter_dt_to_index_map (Laurent)
+> - Rename formats to csi_formatter_formats (Laurent)
+> - Declare loop variables in for-loop and add braces (Laurent)
+> - Simplify set_fmt, rename sdformat to format, drop NULL check (Laurent)
+> - Set field to V4L2_FIELD_NONE as interlaced not yet supported (Laurent)
+> - Add streaming check in set_fmt to match set_routing (Laurent)
+> - Add WARN_ON for unsupported data type as it indicates driver bug (Laurent)
+> - Return -EPIPE instead of -EINVAL for invalid VC (Laurent)
+> - Refactor ENOIOCTLCMD handling and remove redundant pad check (Laurent)
+> - Use strscpy instead of snprintf for sd->name (Laurent)
+> - Remove redundant dev_dbg in notify_bound (Laurent)
+> - Simplify remote_pad assignment and drop NULL check (Laurent)
+> - Read reg property directly into formatter->reg_offset (Laurent)
+> - Store formatter pointer in drvdata to avoid sd_to_formatter calls (Laurent)
+> - Enable runtime PM autosuspend with 1s delay (Laurent)
+> - Use PM clock framework instead of manual clock handling (Loic)
+> - Add Reviewed-by tag from Loic Poulain
+> 
+> Changes in v13:
+> - Replace pr_warn_once() with dev_warn() in csi_formatter_get_index_by_dt()
+>   to provide device context and warn on every occurrence (Loic)
+> - Add WARN_ON() check for csi_formatter_find_format() return value in
+>   start/stop_stream functions to catch unexpected NULL (Loic)
+> - Use regmap_set_bits()/regmap_clear_bits() instead of read-modify-write
+>   pattern and remove unused csi_formatter_read/write helper functions (Loic)
+> - Add Reviewed-by tag from Frank Li
+> 
+> Changes in v12:
+> - Fix stream ID handling: iterate routing table instead of assuming
+>   stream ID equals loop index (0-7)
+> - Remove stream_to_vc[] array: derive VC from routing table and frame
+>   descriptor on each start/stop operation
+> - Remove V4L2_SUBDEV_FL_HAS_EVENTS flag since driver does not generate events
+> - Support stream IDs 0-63 by using BIT_ULL() for stream masks
+> - Add get_frame_desc call in stop_stream with proper error handling
+> - Add csi_formatter_read() helper function for register reads
+> - Use read-modify-write for CSI_VC_PIXEL_DATA_TYPE register to support
+>   multiplexed streams sharing the same virtual channel
+> - Use route->sink_pad instead of hardcoded CSI_FORMATTER_PAD_SINK
+> - Write back coerced format in set_fmt before propagating to source stream
+> - Drop Frank's Reviewed-by tag due to significant changes, requesting re-review
+> 
+> Changes in v10:
+> - Use u8 for vc in csi_formatter_get_vc() and drop vc < 0 check
+> - Add MFD_SYSCON dependency to Kconfig
+> - Fix stream/VC mapping potential mismatch in start_stop_stream functions
+> 
+> Changes in v8:
+> - Remove fmt field and look up format from subdev state instead
+> - Unify function and structure naming to use csi_formatter_ prefix
+> - Remove misleading alignment comment from set_fmt function
+> - Optimize get_frame_desc to call once per start_stream
+> - Replace V4L2_FRAME_DESC_ENTRY_MAX with CSI_FORMATTER_VC_NUM in loops
+> - Remove redundant debug message in enable_streams
+> - Use MEDIA_PAD_FL_MUST_CONNECT flag instead of manual link check
+> - Fix typo: Formater -> Formatter in Kconfig help text
+> - Improve grammar in data type index mapping comment
+> 
+> Changes in v7:
+> - Update references from imx9 to imx95 for consistency with dt-bindings
+> - Enable PM runtime before async registration
+> 
+> Changes in v6:
+> - Remove unused header includes
+> - Unify macro naming: VCx/VCX -> VC and parameter x -> vc
+> - Remove unused format field from csi_formatter struct
+> - Use compact initialization for formats array
+> - Make find_csi_format() return NULL instead of default format
+> - Use unsigned int for array index in find_csi_format()
+> - Add err_ prefix to error handling labels
+> - Add v4l2_subdev_cleanup() and reorder cleanup sequence
+> - Update enable_streams debug output format
+> - Rename VC_MAX to VC_NUM and fix boundary check
+> - Update CSI formatter Kconfig description
+> - Use v4l2_subdev_get_frame_desc_passthrough() helper
+> - Fix error paths in async registration and probe
+> - Add mutex to protect enabled_streams
+> - Switch to devm_pm_runtime_enable()
+> - Remove redundant num_routes check in set_routing
+> - Optimize get_index_by_dt() and add warning for unsupported type
+> - csi_formatter_start/stop_stream: Process all streams in mask
+> ---
+>  MAINTAINERS                                      |   8 +
+>  drivers/media/platform/nxp/Kconfig               |  16 +
+>  drivers/media/platform/nxp/Makefile              |   1 +
+>  drivers/media/platform/nxp/imx95-csi-formatter.c | 751 +++++++++++++++++++++++
+>  4 files changed, 776 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index efbf808063e5..05009228b162 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -19275,6 +19275,14 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/media/nxp,imx8-jpeg.yaml
+>  F:	drivers/media/platform/nxp/imx-jpeg
+>  
+> +NXP i.MX 95 CSI PIXEL FORMATTER V4L2 DRIVER
+> +M:	Guoniu Zhou <guoniu.zhou@nxp.com>
+> +L:	imx@lists.linux.dev
+> +L:	linux-media@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/media/fsl,imx95-csi-formatter.yaml
+> +F:	drivers/media/platform/nxp/imx95-csi-formatter.c
+> +
+>  NXP i.MX CLOCK DRIVERS
+>  M:	Abel Vesa <abelvesa@kernel.org>
+>  R:	Peng Fan <peng.fan@nxp.com>
+> diff --git a/drivers/media/platform/nxp/Kconfig b/drivers/media/platform/nxp/Kconfig
+> index 40e3436669e2..e714bdaf65c9 100644
+> --- a/drivers/media/platform/nxp/Kconfig
+> +++ b/drivers/media/platform/nxp/Kconfig
+> @@ -28,6 +28,22 @@ config VIDEO_IMX8MQ_MIPI_CSI2
+>  	  Video4Linux2 driver for the MIPI CSI-2 receiver found on the i.MX8MQ
+>  	  SoC.
+>  
+> +config VIDEO_IMX95_CSI_FORMATTER
+> +	tristate "NXP i.MX95 CSI Pixel Formatter driver"
+> +	depends on ARCH_MXC || COMPILE_TEST
+> +	depends on VIDEO_DEV
+> +	select MEDIA_CONTROLLER
+> +	select MFD_SYSCON
+> +	select PM_CLK
+> +	select V4L2_FWNODE
+> +	select VIDEO_V4L2_SUBDEV_API
+> +	help
+> +	  This driver provides support for the CSI Pixel Formatter found on
+> +	  i.MX95 series SoCs. This module unpacks the pixels received from the
+> +	  CSI-2 interface and reformats them to meet pixel link requirements.
+> +
+> +	  Say Y here to enable CSI Pixel Formatter module for i.MX95 SoC.
+> +
+>  config VIDEO_IMX_MIPI_CSIS
+>  	tristate "NXP MIPI CSI-2 CSIS receiver found on i.MX7 and i.MX8 models"
+>  	depends on ARCH_MXC || COMPILE_TEST
+> diff --git a/drivers/media/platform/nxp/Makefile b/drivers/media/platform/nxp/Makefile
+> index 4d90eb713652..6410115d870e 100644
+> --- a/drivers/media/platform/nxp/Makefile
+> +++ b/drivers/media/platform/nxp/Makefile
+> @@ -6,6 +6,7 @@ obj-y += imx8-isi/
+>  
+>  obj-$(CONFIG_VIDEO_IMX7_CSI) += imx7-media-csi.o
+>  obj-$(CONFIG_VIDEO_IMX8MQ_MIPI_CSI2) += imx8mq-mipi-csi2.o
+> +obj-$(CONFIG_VIDEO_IMX95_CSI_FORMATTER) += imx95-csi-formatter.o
+>  obj-$(CONFIG_VIDEO_IMX_MIPI_CSIS) += imx-mipi-csis.o
+>  obj-$(CONFIG_VIDEO_IMX_PXP) += imx-pxp.o
+>  obj-$(CONFIG_VIDEO_MX2_EMMAPRP) += mx2_emmaprp.o
+> diff --git a/drivers/media/platform/nxp/imx95-csi-formatter.c b/drivers/media/platform/nxp/imx95-csi-formatter.c
+> new file mode 100644
+> index 000000000000..7ccb3eee3a5e
+> --- /dev/null
+> +++ b/drivers/media/platform/nxp/imx95-csi-formatter.c
+> @@ -0,0 +1,751 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright 2025 NXP
+> + */
+> +
+> +#include <linux/bits.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_clock.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/regmap.h>
+> +
+> +#include <media/mipi-csi2.h>
+> +#include <media/v4l2-fwnode.h>
+> +#include <media/v4l2-mc.h>
+> +#include <media/v4l2-subdev.h>
+> +
+> +/* CSI Pixel Formatter registers map */
+> +
+> +#define CSI_VC_INTERLACED_LINE_CNT(vc)		(0x00 + (vc) * 0x04)
+> +#define INTERLACED_ODD_LINE_CNT_SET(x)		FIELD_PREP(GENMASK(13, 0), (x))
+> +#define INTERLACED_EVEN_LINE_CNT_SET(x)		FIELD_PREP(GENMASK(29, 16), (x))
+> +
+> +#define CSI_VC_INTERLACED_CTRL			0x20
+> +
+> +#define CSI_VC_INTERLACED_ERR			0x24
+> +#define CSI_VC_ERR_MASK				GENMASK(7, 0)
+> +#define CSI_VC_ERR(vc)				BIT((vc))
+> +
+> +#define CSI_VC_YUV420_FIRST_LINE_EVEN		0x28
+> +#define YUV420_FIRST_LINE_EVEN(vc)		BIT((vc))
+> +
+> +#define CSI_RAW32_CTRL				0x30
+> +#define CSI_VC_RAW32_MODE(vc)			BIT((vc))
+> +#define CSI_VC_RAW32_SWAP_MODE(vc)		BIT((vc) + 8)
+> +
+> +#define CSI_STREAM_FENCING_CTRL			0x34
+> +#define CSI_VC_STREAM_FENCING(vc)		BIT((vc))
+> +#define CSI_VC_STREAM_FENCING_RST(vc)		BIT((vc) + 8)
+> +
+> +#define CSI_STREAM_FENCING_STS			0x38
+> +#define CSI_STREAM_FENCING_STS_MASK		GENMASK(7, 0)
+> +
+> +#define CSI_VC_NON_PIXEL_DATA_TYPE(vc)		(0x40 + (vc) * 0x04)
+> +
+> +#define CSI_VC_PIXEL_DATA_CTRL(vc)		(0x60 + (vc) * 0x04)
+> +#define NEW_VC(vc)				FIELD_PREP(GENMASK(3, 1), vc)
+> +#define REROUTE_VC_ENABLE			BIT(0)
+> +
+> +#define CSI_VC_ROUTE_PIXEL_DATA_TYPE(vc)	(0x80 + (vc) * 0x04)
+> +
+> +#define CSI_VC_NON_PIXEL_DATA_CTRL(vc)		(0xa0 + (vc) * 0x04)
+> +
+> +#define CSI_VC_PIXEL_DATA_TYPE(vc)		(0xc0 + (vc) * 0x04)
+> +
+> +#define CSI_VC_PIXEL_DATA_TYPE_ERR(vc)		(0xe0 + (vc) * 0x04)
+> +
+> +#define CSI_FORMATTER_PAD_SINK			0
+> +#define CSI_FORMATTER_PAD_SOURCE		1
+> +#define CSI_FORMATTER_PAD_NUM			2
+> +
+> +#define CSI_FORMATTER_VC_NUM			8 /* Number of virtual channels */
+> +
+> +struct csi_formatter_pix_format {
+> +	u32 code;
+> +	u32 data_type;
+> +};
+> +
+> +struct csi_formatter {
+> +	struct device *dev;
+> +	struct regmap *regs;
+> +	u32 reg_offset;
+> +
+> +	struct v4l2_subdev sd;
+> +	struct v4l2_async_notifier notifier;
+> +	struct media_pad pads[CSI_FORMATTER_PAD_NUM];
+> +
+> +	struct v4l2_subdev *remote_sd;
+> +	u32 remote_pad;
+> +
+> +	u64 enabled_streams;
+> +};
+> +
+> +struct csi_formatter_dt_index {
+> +	u8 dtype;
+> +	u8 index;
+> +};
+> +
+> +/*
+> + * The index corresponds to the bit index in the register that enables
+> + * the data type of pixel data transported by the Formatter.
+> + */
+> +static const struct csi_formatter_dt_index csi_formatter_dt_to_index_map[] = {
+> +	{ .dtype = MIPI_CSI2_DT_YUV420_8B,        .index = 0 },
+> +	{ .dtype = MIPI_CSI2_DT_YUV420_8B_LEGACY, .index = 2 },
+> +	{ .dtype = MIPI_CSI2_DT_YUV422_8B,        .index = 6 },
+> +	{ .dtype = MIPI_CSI2_DT_RGB444,		  .index = 8 },
+> +	{ .dtype = MIPI_CSI2_DT_RGB555,           .index = 9 },
+> +	{ .dtype = MIPI_CSI2_DT_RGB565,           .index = 10 },
+> +	{ .dtype = MIPI_CSI2_DT_RGB666,           .index = 11 },
+> +	{ .dtype = MIPI_CSI2_DT_RGB888,           .index = 12 },
+> +	{ .dtype = MIPI_CSI2_DT_RAW6,             .index = 16 },
+> +	{ .dtype = MIPI_CSI2_DT_RAW7,             .index = 17 },
+> +	{ .dtype = MIPI_CSI2_DT_RAW8,             .index = 18 },
+> +	{ .dtype = MIPI_CSI2_DT_RAW10,            .index = 19 },
+> +	{ .dtype = MIPI_CSI2_DT_RAW12,            .index = 20 },
+> +	{ .dtype = MIPI_CSI2_DT_RAW14,            .index = 21 },
+> +	{ .dtype = MIPI_CSI2_DT_RAW16,            .index = 22 },
+> +};
+> +
+> +static const struct csi_formatter_pix_format csi_formatter_formats[] = {
+> +	/* YUV formats */
+> +	{ MEDIA_BUS_FMT_UYVY8_1X16,	MIPI_CSI2_DT_YUV422_8B },
+> +	/* RGB formats */
+> +	{ MEDIA_BUS_FMT_RGB565_1X16,	MIPI_CSI2_DT_RGB565 },
+> +	{ MEDIA_BUS_FMT_RGB888_1X24,	MIPI_CSI2_DT_RGB888 },
+> +	/* RAW (Bayer and greyscale) formats */
+> +	{ MEDIA_BUS_FMT_SBGGR8_1X8,	MIPI_CSI2_DT_RAW8 },
+> +	{ MEDIA_BUS_FMT_SGBRG8_1X8,	MIPI_CSI2_DT_RAW8 },
+> +	{ MEDIA_BUS_FMT_SGRBG8_1X8,	MIPI_CSI2_DT_RAW8 },
+> +	{ MEDIA_BUS_FMT_SRGGB8_1X8,	MIPI_CSI2_DT_RAW8 },
+> +	{ MEDIA_BUS_FMT_Y8_1X8,		MIPI_CSI2_DT_RAW8 },
+> +	{ MEDIA_BUS_FMT_SBGGR10_1X10,	MIPI_CSI2_DT_RAW10 },
+> +	{ MEDIA_BUS_FMT_SGBRG10_1X10,	MIPI_CSI2_DT_RAW10 },
+> +	{ MEDIA_BUS_FMT_SGRBG10_1X10,	MIPI_CSI2_DT_RAW10 },
+> +	{ MEDIA_BUS_FMT_SRGGB10_1X10,	MIPI_CSI2_DT_RAW10 },
+> +	{ MEDIA_BUS_FMT_Y10_1X10,	MIPI_CSI2_DT_RAW10 },
+> +	{ MEDIA_BUS_FMT_SBGGR12_1X12,	MIPI_CSI2_DT_RAW12 },
+> +	{ MEDIA_BUS_FMT_SGBRG12_1X12,	MIPI_CSI2_DT_RAW12 },
+> +	{ MEDIA_BUS_FMT_SGRBG12_1X12,	MIPI_CSI2_DT_RAW12 },
+> +	{ MEDIA_BUS_FMT_SRGGB12_1X12,	MIPI_CSI2_DT_RAW12 },
+> +	{ MEDIA_BUS_FMT_Y12_1X12,	MIPI_CSI2_DT_RAW12 },
+> +	{ MEDIA_BUS_FMT_SBGGR14_1X14,	MIPI_CSI2_DT_RAW14 },
+> +	{ MEDIA_BUS_FMT_SGBRG14_1X14,	MIPI_CSI2_DT_RAW14 },
+> +	{ MEDIA_BUS_FMT_SGRBG14_1X14,	MIPI_CSI2_DT_RAW14 },
+> +	{ MEDIA_BUS_FMT_SRGGB14_1X14,	MIPI_CSI2_DT_RAW14 },
+> +	{ MEDIA_BUS_FMT_SBGGR16_1X16,	MIPI_CSI2_DT_RAW16 },
+> +	{ MEDIA_BUS_FMT_SGBRG16_1X16,	MIPI_CSI2_DT_RAW16 },
+> +	{ MEDIA_BUS_FMT_SGRBG16_1X16,	MIPI_CSI2_DT_RAW16 },
+> +	{ MEDIA_BUS_FMT_SRGGB16_1X16,	MIPI_CSI2_DT_RAW16 },
+> +};
+> +
+> +static const struct v4l2_mbus_framefmt formatter_default_fmt = {
+> +	.code = MEDIA_BUS_FMT_UYVY8_1X16,
+> +	.width = 1920U,
+> +	.height = 1080U,
+> +	.field = V4L2_FIELD_NONE,
+> +	.colorspace = V4L2_COLORSPACE_SMPTE170M,
+> +	.xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(V4L2_COLORSPACE_SMPTE170M),
+> +	.ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(V4L2_COLORSPACE_SMPTE170M),
+> +	.quantization = V4L2_QUANTIZATION_LIM_RANGE,
+> +};
+> +
+> +static const struct csi_formatter_pix_format *csi_formatter_find_format(u32 code)
+> +{
+> +	for (unsigned int i = 0; i < ARRAY_SIZE(csi_formatter_formats); i++) {
+> +		if (code == csi_formatter_formats[i].code)
+> +			return &csi_formatter_formats[i];
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+> +/* -----------------------------------------------------------------------------
+> + * V4L2 subdev operations
+> + */
+> +
+> +static inline struct csi_formatter *sd_to_formatter(struct v4l2_subdev *sdev)
+> +{
+> +	return container_of(sdev, struct csi_formatter, sd);
+> +}
+> +
+> +static int __csi_formatter_subdev_set_routing(struct v4l2_subdev *sd,
+> +					      struct v4l2_subdev_state *state,
+> +					      struct v4l2_subdev_krouting *routing)
+> +{
+> +	int ret;
+> +
+> +	ret = v4l2_subdev_routing_validate(sd, routing,
+> +					   V4L2_SUBDEV_ROUTING_ONLY_1_TO_1);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return v4l2_subdev_set_routing_with_fmt(sd, state, routing,
+> +						&formatter_default_fmt);
+> +}
+> +
+> +static int csi_formatter_subdev_init_state(struct v4l2_subdev *sd,
+> +					   struct v4l2_subdev_state *sd_state)
+> +{
+> +	struct v4l2_subdev_route routes[] = {
+> +		{
+> +			.sink_pad = CSI_FORMATTER_PAD_SINK,
+> +			.sink_stream = 0,
+> +			.source_pad = CSI_FORMATTER_PAD_SOURCE,
+> +			.source_stream = 0,
+> +			.flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE,
+> +		},
+> +	};
+> +
+> +	struct v4l2_subdev_krouting routing = {
+> +		.num_routes = ARRAY_SIZE(routes),
+> +		.routes = routes,
+> +	};
+> +
+> +	return __csi_formatter_subdev_set_routing(sd, sd_state, &routing);
+> +}
+> +
+> +static int csi_formatter_subdev_enum_mbus_code(struct v4l2_subdev *sd,
+> +					       struct v4l2_subdev_state *sd_state,
+> +					       struct v4l2_subdev_mbus_code_enum *code)
+> +{
+> +	if (code->pad == CSI_FORMATTER_PAD_SOURCE) {
+> +		struct v4l2_mbus_framefmt *fmt;
+> +
+> +		if (code->index > 0)
+> +			return -EINVAL;
+> +
+> +		fmt = v4l2_subdev_state_get_format(sd_state, code->pad,
+> +						   code->stream);
+> +		code->code = fmt->code;
+> +		return 0;
+> +	}
+> +
+> +	if (code->index >= ARRAY_SIZE(csi_formatter_formats))
+> +		return -EINVAL;
+> +
+> +	code->code = csi_formatter_formats[code->index].code;
+> +
+> +	return 0;
+> +}
+> +
+> +static int csi_formatter_subdev_set_fmt(struct v4l2_subdev *sd,
+> +					struct v4l2_subdev_state *sd_state,
+> +					struct v4l2_subdev_format *format)
+> +{
+> +	struct v4l2_mbus_framefmt *fmt;
+> +
+> +	if (format->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
+> +	    media_entity_is_streaming(&sd->entity))
+> +		return -EBUSY;
+> +
+> +	if (format->pad == CSI_FORMATTER_PAD_SOURCE)
+> +		return v4l2_subdev_get_fmt(sd, sd_state, format);
+> +
+> +	if (!csi_formatter_find_format(format->format.code))
+> +		format->format.code = csi_formatter_formats[0].code;
+> +
+> +	v4l_bound_align_image(&format->format.width, 1, 0xffff, 2,
+> +			      &format->format.height, 1, 0xffff, 0, 0);
+> +
+> +	/* TODO: Add interlaced format support */
+> +	format->format.field = V4L2_FIELD_NONE;
+> +
+> +	fmt = v4l2_subdev_state_get_format(sd_state, format->pad,
+> +					   format->stream);
+> +	*fmt = format->format;
+> +
+> +	/* Propagate the format from sink stream to source stream */
+> +	fmt = v4l2_subdev_state_get_opposite_stream_format(sd_state, format->pad,
+> +							   format->stream);
+> +	*fmt = format->format;
+> +
+> +	return 0;
+> +}
+> +
+> +static int csi_formatter_subdev_set_routing(struct v4l2_subdev *sd,
+> +					    struct v4l2_subdev_state *state,
+> +					    enum v4l2_subdev_format_whence which,
+> +					    struct v4l2_subdev_krouting *routing)
+> +{
+> +	if (which == V4L2_SUBDEV_FORMAT_ACTIVE &&
+> +	    media_entity_is_streaming(&sd->entity))
+> +		return -EBUSY;
+> +
+> +	return __csi_formatter_subdev_set_routing(sd, state, routing);
+> +}
+> +
+> +static u8 csi_formatter_get_index_by_dt(struct csi_formatter *formatter,
+> +					u8 data_type)
+> +{
+> +	for (unsigned int i = 0; i < ARRAY_SIZE(csi_formatter_dt_to_index_map); ++i) {
+> +		const struct csi_formatter_dt_index *entry =
+> +			&csi_formatter_dt_to_index_map[i];
+> +
+> +		if (data_type == entry->dtype)
+> +			return entry->index;
+> +	}
+> +
+> +	dev_warn(formatter->dev, "Unsupported data type 0x%x, using default\n",
+> +		 data_type);
+> +	WARN_ON(1);
 
-On Sat, Jul 11, 2026 at 9:36=E2=80=AFPM Bjorn Andersson <andersson@kernel.o=
-rg> wrote:
->
-> On Thu, Jul 02, 2026 at 05:28:25PM +0530, Sumit Garg wrote:
-> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> >
-> > Switch qcom media client drivers over to generic PAS TZ APIs. Generic P=
-AS
-> > TZ service allows to support multiple TZ implementation backends like Q=
-TEE
-> > based SCM PAS service, OP-TEE based PAS service and any further future =
-TZ
-> > backend service.
-> >
->
-> Please find an immutable branch with the dependencies for this patch at:
->   https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git 20260702=
-115835.167602-2-sumit.garg@kernel.org
->
-> Alternatively, if you think there will be no conflicting patches in the
-> time leading up to next merge window provide an Ack and I can pick this
-> through the qcom tree.
+	dev_WARN(formatter->dev, "Unsupported data type 0x%x, using default\n",
+		 data_type);
 
-Just a gentle reminder for this patch to be picked up as only the Qcom
-media client is left in the next branch for migration to the generic
-PAS layer.
+> +
+> +	return csi_formatter_dt_to_index_map[0].index;
+> +}
+> +
+> +static int csi_formatter_get_vc(struct csi_formatter *formatter,
+> +				struct v4l2_mbus_frame_desc *fd,
+> +				unsigned int stream)
+> +{
+> +	struct v4l2_mbus_frame_desc_entry *entry = NULL;
+> +	u8 vc;
+> +
+> +	for (unsigned int i = 0; i < fd->num_entries; ++i) {
+> +		if (fd->entry[i].stream == stream) {
+> +			entry = &fd->entry[i];
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (!entry) {
+> +		dev_err(formatter->dev,
+> +			"No frame desc entry for stream %u\n", stream);
+> +		return -EPIPE;
+> +	}
+> +
+> +	vc = entry->bus.csi2.vc;
+> +
+> +	if (vc >= CSI_FORMATTER_VC_NUM) {
+> +		dev_err(formatter->dev, "Invalid virtual channel %u\n", vc);
+> +		return -EPIPE;
+> +	}
+> +
+> +	return vc;
+> +}
+> +
+> +static void csi_formatter_stop_stream(struct csi_formatter *formatter,
+> +				      struct v4l2_subdev_state *state,
+> +				      u64 stream_mask)
+> +{
+> +	const struct csi_formatter_pix_format *pix_fmt;
+> +	struct v4l2_mbus_frame_desc fd = {};
+> +	struct v4l2_subdev_route *route;
+> +	struct v4l2_mbus_framefmt *fmt;
+> +	unsigned int reg;
+> +	unsigned int mask;
+> +	int vc;
+> +	int ret;
+> +
+> +	ret = v4l2_subdev_call(formatter->remote_sd, pad, get_frame_desc,
+> +			       formatter->remote_pad, &fd);
+> +	if (ret < 0 && ret != -ENOIOCTLCMD) {
+> +		dev_err(formatter->dev, "Failed to get frame desc: %d\n", ret);
+> +		return;
+> +	}
+> +
+> +	if (ret == -ENOIOCTLCMD) {
+> +		fd.type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
+> +		fd.num_entries = 1;
+> +	}
+> +
 
-If there aren't any conflicts then please allow Bjorn to pick this
-patch since the cleanup patch dropping the old SCM APIs is blocked on
-this.
+I was oing to write that you can copy here the comment from
+csi_formatter_start_stream(), but then realized we can split this to a
+helper:
 
--Sumit
+static int csi_formatter_get_frame_desc(struct csi_formatter *formatter,
+				        struct v4l2_mbus_frame_desc *fd)
+{
+	int ret;
 
->
-> Thanks,
-> Bjorn
->
-> > Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> > Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
-> > Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > ---
+	ret = v4l2_subdev_call(formatter->remote_sd, pad, get_frame_desc,
+			       formatter->remote_pad, fd);
+	if (ret < 0 && ret != -ENOIOCTLCMD) {
+		dev_err(formatter->dev, "Failed to get frame desc: %d\n", ret);
+		return ret;
+	}
+
+	/*
+	 * If the source doesn't implement .get_frame_desc(), assume a single
+	 * stream on VC 0. fd is zero-initialized, only set the fields that have
+	 * a non-zero value.
+	 */
+	if (ret == -ENOIOCTLCMD) {
+		fd->type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
+		fd->num_entries = 1;
+	}
+
+	return 0:
+}
+
+and in this function,
+
+	ret = csi_formatter_get_frame_desc(formatter, &fd);
+	if (ret)
+		return ret;
+
+Same in csi_formatter_start_stream().
+
+> +	for_each_active_route(&state->routing, route) {
+> +		if (!(stream_mask & BIT_ULL(route->source_stream)))
+> +			continue;
+> +
+> +		vc = csi_formatter_get_vc(formatter, &fd, route->sink_stream);
+> +		if (vc < 0)
+> +			continue;
+> +
+> +		fmt = v4l2_subdev_state_get_format(state, route->sink_pad,
+> +						   route->sink_stream);
+> +
+> +		pix_fmt = csi_formatter_find_format(fmt->code);
+> +		if (WARN_ON(!pix_fmt))
+> +			continue;
+> +
+> +		reg = CSI_VC_PIXEL_DATA_TYPE(vc) + formatter->reg_offset;
+> +		mask = BIT(csi_formatter_get_index_by_dt(formatter,
+> +							 pix_fmt->data_type));
+> +
+> +		/* Clear the data type bit to disable this VC */
+> +		regmap_clear_bits(formatter->regs, reg, mask);
+> +	}
+> +}
+> +
+> +static int csi_formatter_start_stream(struct csi_formatter *formatter,
+> +				      struct v4l2_subdev_state *state,
+> +				      u64 stream_mask)
+> +{
+> +	const struct csi_formatter_pix_format *pix_fmt;
+> +	struct v4l2_subdev_route *route;
+> +	struct v4l2_mbus_framefmt *fmt;
+> +	struct v4l2_mbus_frame_desc fd = {};
+> +	u64 configured_streams = 0;
+> +	unsigned int reg;
+> +	unsigned int mask;
+> +	int vc;
+> +	int ret;
+> +
+> +	ret = v4l2_subdev_call(formatter->remote_sd, pad, get_frame_desc,
+> +			       formatter->remote_pad, &fd);
+> +	if (ret < 0 && ret != -ENOIOCTLCMD) {
+> +		dev_err(formatter->dev, "Failed to get frame desc: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	/*
+> +	 * If the source doesn't implement .get_frame_desc(), assume a single
+> +	 * stream on VC 0. fd is zero-initialized, only set the fields that have
+> +	 * a non-zero value.
+> +	 */
+> +	if (ret == -ENOIOCTLCMD) {
+> +		fd.type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
+> +		fd.num_entries = 1;
+> +	}
+> +
+> +	for_each_active_route(&state->routing, route) {
+> +		if (!(stream_mask & BIT_ULL(route->source_stream)))
+> +			continue;
+> +
+> +		vc = csi_formatter_get_vc(formatter, &fd, route->sink_stream);
+> +		if (vc < 0) {
+> +			ret = vc;
+> +			goto err_cleanup;
+> +		}
+> +
+> +		fmt = v4l2_subdev_state_get_format(state, route->sink_pad,
+> +						   route->sink_stream);
+> +
+> +		pix_fmt = csi_formatter_find_format(fmt->code);
+> +		if (WARN_ON(!pix_fmt)) {
+> +			ret = -EINVAL;
+> +			goto err_cleanup;
+> +		}
+> +
+> +		reg = CSI_VC_PIXEL_DATA_TYPE(vc) + formatter->reg_offset;
+> +		mask = BIT(csi_formatter_get_index_by_dt(formatter,
+> +							 pix_fmt->data_type));
+> +
+> +		/* Set the data type bit to enable this VC */
+> +		regmap_set_bits(formatter->regs, reg, mask);
+> +
+> +		configured_streams |= BIT_ULL(route->source_stream);
+> +	}
+> +
+> +	return 0;
+> +
+> +err_cleanup:
+> +	csi_formatter_stop_stream(formatter, state, configured_streams);
+> +	return ret;
+> +}
+> +
+> +static int csi_formatter_subdev_enable_streams(struct v4l2_subdev *sd,
+> +					       struct v4l2_subdev_state *state,
+> +					       u32 pad, u64 streams_mask)
+> +{
+> +	struct csi_formatter *formatter = sd_to_formatter(sd);
+> +	struct device *dev = formatter->dev;
+> +	u64 sink_streams;
+> +	int ret;
+> +
+> +	sink_streams = v4l2_subdev_state_xlate_streams(state,
+> +						       CSI_FORMATTER_PAD_SOURCE,
+> +						       CSI_FORMATTER_PAD_SINK,
+> +						       &streams_mask);
+> +	if (!sink_streams || !streams_mask)
+> +		return -EINVAL;
+> +
+> +	if (!formatter->enabled_streams) {
+> +		ret = pm_runtime_resume_and_get(formatter->dev);
+> +		if (ret < 0) {
+> +			dev_err(dev, "Failed to resume runtime PM: %d\n", ret);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	ret = csi_formatter_start_stream(formatter, state, streams_mask);
+> +	if (ret)
+> +		goto err_runtime_put;
+> +
+> +	ret = v4l2_subdev_enable_streams(formatter->remote_sd,
+> +					 formatter->remote_pad,
+> +					 sink_streams);
+> +	if (ret)
+> +		goto err_stop_stream;
+> +
+> +	formatter->enabled_streams |= streams_mask;
+> +
+> +	return 0;
+> +
+> +err_stop_stream:
+> +	csi_formatter_stop_stream(formatter, state, streams_mask);
+> +err_runtime_put:
+> +	if (!formatter->enabled_streams)
+> +		pm_runtime_put(formatter->dev);
+
+Don't you need pm_runtime_put_autosuspend() now that you've enabled
+autosuspend ?
+
+> +	return ret;
+> +}
+> +
+> +static int csi_formatter_subdev_disable_streams(struct v4l2_subdev *sd,
+> +						struct v4l2_subdev_state *state,
+> +						u32 pad, u64 streams_mask)
+> +{
+> +	struct csi_formatter *formatter = sd_to_formatter(sd);
+> +	u64 sink_streams;
+> +	int ret;
+> +
+> +	sink_streams = v4l2_subdev_state_xlate_streams(state,
+> +						       CSI_FORMATTER_PAD_SOURCE,
+> +						       CSI_FORMATTER_PAD_SINK,
+> +						       &streams_mask);
+> +	if (!sink_streams || !streams_mask)
+> +		return -EINVAL;
+> +
+> +	ret = v4l2_subdev_disable_streams(formatter->remote_sd, formatter->remote_pad,
+> +					  sink_streams);
+> +	if (ret)
+> +		dev_err(formatter->dev, "Failed to disable streams: %d\n", ret);
+> +
+> +	csi_formatter_stop_stream(formatter, state, streams_mask);
+> +
+> +	formatter->enabled_streams &= ~streams_mask;
+> +
+> +	if (!formatter->enabled_streams)
+> +		pm_runtime_put(formatter->dev);
+
+Same here.
+
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct v4l2_subdev_pad_ops formatter_subdev_pad_ops = {
+> +	.enum_mbus_code		= csi_formatter_subdev_enum_mbus_code,
+> +	.get_fmt		= v4l2_subdev_get_fmt,
+> +	.set_fmt		= csi_formatter_subdev_set_fmt,
+> +	.get_frame_desc		= v4l2_subdev_get_frame_desc_passthrough,
+> +	.set_routing		= csi_formatter_subdev_set_routing,
+> +	.enable_streams		= csi_formatter_subdev_enable_streams,
+> +	.disable_streams	= csi_formatter_subdev_disable_streams,
+> +};
+> +
+> +static const struct v4l2_subdev_ops formatter_subdev_ops = {
+> +	.pad = &formatter_subdev_pad_ops,
+> +};
+> +
+> +static const struct v4l2_subdev_internal_ops formatter_internal_ops = {
+> +	.init_state = csi_formatter_subdev_init_state,
+> +};
+> +
+> +/* -----------------------------------------------------------------------------
+> + * Media entity operations
+> + */
+> +
+> +static const struct media_entity_operations formatter_entity_ops = {
+> +	.link_validate	= v4l2_subdev_link_validate,
+> +	.get_fwnode_pad = v4l2_subdev_get_fwnode_pad_1_to_1,
+> +};
+> +
+> +static int csi_formatter_subdev_init(struct csi_formatter *formatter)
+> +{
+> +	struct v4l2_subdev *sd = &formatter->sd;
+> +	int ret;
+> +
+> +	v4l2_subdev_init(sd, &formatter_subdev_ops);
+> +
+> +	strscpy(sd->name, dev_name(formatter->dev), sizeof(sd->name));
+> +	sd->internal_ops = &formatter_internal_ops;
+> +
+> +	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE |
+> +		     V4L2_SUBDEV_FL_STREAMS;
+> +	sd->entity.function = MEDIA_ENT_F_PROC_VIDEO_PIXEL_FORMATTER;
+> +	sd->entity.ops = &formatter_entity_ops;
+> +	sd->dev = formatter->dev;
+> +
+> +	formatter->pads[CSI_FORMATTER_PAD_SINK].flags = MEDIA_PAD_FL_SINK
+> +						      | MEDIA_PAD_FL_MUST_CONNECT;
+> +	formatter->pads[CSI_FORMATTER_PAD_SOURCE].flags = MEDIA_PAD_FL_SOURCE;
+> +
+> +	ret = media_entity_pads_init(&sd->entity, CSI_FORMATTER_PAD_NUM,
+> +				     formatter->pads);
+> +	if (ret) {
+> +		dev_err(formatter->dev, "Failed to init pads\n");
+> +		return ret;
+> +	}
+> +
+> +	ret = v4l2_subdev_init_finalize(sd);
+> +	if (ret)
+> +		media_entity_cleanup(&sd->entity);
+> +
+> +	return ret;
+> +}
+> +
+> +static inline struct csi_formatter *
+> +notifier_to_csi_formatter(struct v4l2_async_notifier *n)
+> +{
+> +	return container_of(n, struct csi_formatter, notifier);
+> +}
+> +
+> +static int csi_formatter_notify_bound(struct v4l2_async_notifier *notifier,
+> +				      struct v4l2_subdev *sd,
+> +				      struct v4l2_async_connection *asc)
+> +{
+> +	const unsigned int link_flags = MEDIA_LNK_FL_IMMUTABLE
+> +				      | MEDIA_LNK_FL_ENABLED;
+> +	struct csi_formatter *formatter = notifier_to_csi_formatter(notifier);
+> +	struct v4l2_subdev *sdev = &formatter->sd;
+> +	struct media_pad *sink = &sdev->entity.pads[CSI_FORMATTER_PAD_SINK];
+> +	int ret;
+> +
+> +	formatter->remote_sd = sd;
+> +
+> +	ret = v4l2_create_fwnode_links_to_pad(sd, sink, link_flags);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	formatter->remote_pad = media_pad_remote_pad_first(sink)->index;
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct v4l2_async_notifier_operations formatter_notify_ops = {
+> +	.bound = csi_formatter_notify_bound,
+> +};
+> +
+> +static int csi_formatter_async_register(struct csi_formatter *formatter)
+> +{
+> +	struct device *dev = formatter->dev;
+> +	struct v4l2_async_connection *asc;
+> +	int ret;
+> +
+> +	struct fwnode_handle *ep __free(fwnode_handle) =
+> +		fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0,
+> +						FWNODE_GRAPH_ENDPOINT_NEXT);
+> +	if (!ep)
+> +		return -ENOTCONN;
+> +
+> +	v4l2_async_subdev_nf_init(&formatter->notifier, &formatter->sd);
+> +
+> +	asc = v4l2_async_nf_add_fwnode_remote(&formatter->notifier, ep,
+> +					      struct v4l2_async_connection);
+> +	if (IS_ERR(asc)) {
+> +		ret = PTR_ERR(asc);
+> +		goto err_cleanup_notifier;
+> +	}
+> +
+> +	formatter->notifier.ops = &formatter_notify_ops;
+> +
+> +	ret = v4l2_async_nf_register(&formatter->notifier);
+> +	if (ret)
+> +		goto err_cleanup_notifier;
+> +
+> +	ret = v4l2_async_register_subdev(&formatter->sd);
+> +	if (ret)
+> +		goto err_unregister_notifier;
+> +
+> +	return 0;
+> +
+> +err_unregister_notifier:
+> +	v4l2_async_nf_unregister(&formatter->notifier);
+> +err_cleanup_notifier:
+> +	v4l2_async_nf_cleanup(&formatter->notifier);
+> +	return ret;
+> +}
+> +
+> +static void csi_formatter_async_unregister(struct csi_formatter *formatter)
+> +{
+> +	v4l2_async_unregister_subdev(&formatter->sd);
+> +	v4l2_async_nf_unregister(&formatter->notifier);
+> +	v4l2_async_nf_cleanup(&formatter->notifier);
+> +}
+> +
+> +static DEFINE_RUNTIME_DEV_PM_OPS(csi_formatter_pm_ops,
+> +				 pm_clk_suspend, pm_clk_resume, NULL);
+> +
+> +static int csi_formatter_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct csi_formatter *formatter;
+> +	int ret;
+> +
+> +	formatter = devm_kzalloc(dev, sizeof(*formatter), GFP_KERNEL);
+> +	if (!formatter)
+> +		return -ENOMEM;
+> +
+> +	formatter->dev = dev;
+> +
+> +	formatter->regs = syscon_node_to_regmap(dev->parent->of_node);
+> +	if (IS_ERR(formatter->regs))
+> +		return dev_err_probe(dev, PTR_ERR(formatter->regs),
+> +				     "Failed to get csi formatter regmap\n");
+> +
+> +	ret = of_property_read_u32(dev->of_node, "reg", &formatter->reg_offset);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to get csi formatter reg property\n");
+> +
+> +	ret = devm_pm_clk_create(dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = of_pm_clk_add_clks(dev);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to add clocks\n");
+> +
+> +	ret = csi_formatter_subdev_init(formatter);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to initialize formatter subdev\n");
+> +
+> +	platform_set_drvdata(pdev, formatter);
+> +
+> +	/* Enable runtime PM with autosuspend. */
+> +	pm_runtime_set_autosuspend_delay(dev, 1000);
+> +	pm_runtime_use_autosuspend(dev);
+> +	ret = devm_pm_runtime_enable(dev);
+> +	if (ret)
+
+If the devm_pm_runtime_enable() call fails, autosuspend will remain
+enabled. You need a
+
+		pm_runtime_dont_use_autosuspend(dev);
+
+here. The call is not needed in the err_cleanup_subdev error path or in
+remove() as the cleanup action registered when devm_pm_runtime_enable()
+completes successfully disables autosuspend.
+
+With those small issues fixed,
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+> +		goto err_cleanup_subdev;
+> +
+> +	ret = csi_formatter_async_register(formatter);
+> +	if (ret < 0) {
+> +		dev_err_probe(dev, ret, "Failed to register async subdevice\n");
+> +		goto err_cleanup_subdev;
+> +	}
+> +
+> +	return 0;
+> +
+> +err_cleanup_subdev:
+> +	v4l2_subdev_cleanup(&formatter->sd);
+> +	media_entity_cleanup(&formatter->sd.entity);
+> +	return ret;
+> +}
+> +
+> +static void csi_formatter_remove(struct platform_device *pdev)
+> +{
+> +	struct csi_formatter *formatter = platform_get_drvdata(pdev);
+> +
+> +	csi_formatter_async_unregister(formatter);
+> +
+> +	v4l2_subdev_cleanup(&formatter->sd);
+> +	media_entity_cleanup(&formatter->sd.entity);
+> +}
+> +
+> +static const struct of_device_id csi_formatter_of_match[] = {
+> +	{ .compatible = "fsl,imx95-csi-formatter" },
+> +	{ /* sentinel */ },
+> +};
+> +MODULE_DEVICE_TABLE(of, csi_formatter_of_match);
+> +
+> +static struct platform_driver csi_formatter_device_driver = {
+> +	.driver = {
+> +		.name           = "csi-pixel-formatter",
+> +		.of_match_table = csi_formatter_of_match,
+> +		.pm             = pm_ptr(&csi_formatter_pm_ops),
+> +	},
+> +	.probe  = csi_formatter_probe,
+> +	.remove = csi_formatter_remove,
+> +};
+> +
+> +module_platform_driver(csi_formatter_device_driver);
+> +
+> +MODULE_AUTHOR("NXP Semiconductor, Inc.");
+> +MODULE_DESCRIPTION("NXP i.MX95 CSI Pixel Formatter driver");
+> +MODULE_LICENSE("GPL");
+
+-- 
+Regards,
+
+Laurent Pinchart
