@@ -1,45 +1,48 @@
-Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F8322E1F06;
-	Tue, 21 Jul 2026 16:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.186
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774C346D54A
+	for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 16:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784649698; cv=none; b=aYZ3V9jtVwmjkai0mdPIuMrLgz5NLmwE4GQMhHAkyGkaJkRWa2vYHc7YYBS9PIQSwQ6iCw6ClkFU4EBsxBwRKN5mc+zpWJnOYNhSByp8kAW+f394/U9WapPBqH5MDsw1CjexRsyRdQ/jGahoafY2ufDEezwWVIU/ZXdVzZ4YKF4=
+	t=1784649834; cv=none; b=Nj2dJNZe3vK4DYjWnXRfccC6B6d/lU+9W8OeGvT/JUW2z7CGEvprsWF/t2sGpP2Koqi+OEbPXYlXsGNyuzoevJFmb11rtu1Ig9gHaUHnsM0KQ2hfpx90+/dgSlKjaOrCXz7WDOoE3MwKePjgE5bh9Xyl2BNE1a0EuoSkzDK1n3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784649698; c=relaxed/simple;
-	bh=HIlFykM+aU0w04oZ1TxF/xznHCRRKSbrYIfTc5+x6ng=;
+	s=arc-20240116; t=1784649834; c=relaxed/simple;
+	bh=Kxnw4Na2pOx89/0IREFLqdz0u9HnEDzpOqIGsseKmgg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RIK/wcAsENjIpwfnFjuL0vq++swXUqjx1f4UJLwsazKO8afwexrNRFWPoaeqSjAJ4ZufYrlxk4ltjWjDeoXlA+p0a5U6N0YKmZyajr1kCVDHG5w/G88fIRPf45NiYcNmhp5XnukYIL3uKHBsXnL5dTpQx7LyIjNa8jsDtCgfSk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ussrbNWz; arc=none smtp.client-ip=91.218.175.186
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=eGw/TjU7c5L2dkqlEXvnEin9RUmtj8SLopl2uF8CwT2G8tYLNPQ6c3PpHZKzJ3fAARtDtX2ihBZo+YQIXpUrqZjgZSHK2sjwjV5QOt+AbuC98M5x3K4fOTCBmSJvQDwAmHGN6cGjR3MC4Hu5WLdUdMwGAA+xWPCBdP+Btbtm8L0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=szvTlNKW; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ussrbNWz"
-Date: Tue, 21 Jul 2026 18:01:10 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784649694;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eys/4Qe9QDzUBYysnEj0pqqrB6eil2IcXI5qwah6udo=;
-	b=ussrbNWzBVn+GgvkioZvHj5ok85wxaUW1WsjIacELNqhDll7G7vMfzdxTDBGzzVdv8S4Xt
-	n+UsYRXHnFPCovhbrxOtytp1TeW4w3gagd7xY4PYYg2vlWjMRqzF8k3cFPVlESgzV8pgLC
-	HkJCIxOpoF1h0N/VOJmL+UpcIIRVqbw=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Hans de Goede <hansg@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: ov9282: enable single-read I2C transactions
-Message-ID: <al-XSDYrEfMmaEqR@bombadil>
-References: <20260721-cci-single-v1-0-8485171e1393@linux.dev>
- <20260721-cci-single-v1-2-8485171e1393@linux.dev>
- <CAPY8ntBUntw3DDRMfoCnr69yKfCMPcrPyqL2k8_-rGfr5tY8gg@mail.gmail.com>
- <20260721151614.GN50424@killaraus.ideasonboard.com>
- <al-OpcU5M8UL_c8f@bombadil>
- <20260721155822.GB536385@killaraus.ideasonboard.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="szvTlNKW"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 29798517;
+	Tue, 21 Jul 2026 18:02:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784649772;
+	bh=Kxnw4Na2pOx89/0IREFLqdz0u9HnEDzpOqIGsseKmgg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=szvTlNKWULS0aBnlYbI/JhNK7qk+0vnrZ6i8U6C90NMRMPRSPG+y5WNNeEony1eig
+	 KVxvlJfAeC900ywcUYEIndZUKQvT/JHFCTrv+26/J3zU2rTCOdKhJpjXCytKy8sGGs
+	 DtKHvUUBYr87qhvzYWinOqaeJJo+lum/WuVViOIg=
+Date: Tue, 21 Jul 2026 19:03:50 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: August Zeller <augzeller@gmail.com>
+Cc: users@kernel.org,
+	Linux Media Mailing List <linux-media@vger.kernel.org>
+Subject: Re: Linking Patchwork with Sashiko?
+Message-ID: <20260721160350.GD536385@killaraus.ideasonboard.com>
+References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
+ <alcBvuIMEGSjAD1R@mit.edu>
+ <20260715161111.GC1778116@killaraus.ideasonboard.com>
+ <ale45QPntcwA-aLB@mit.edu>
+ <20260715174138.GI1778116@killaraus.ideasonboard.com>
+ <CAHk-=wiL7kFVWNtvE5S9A4iqXYat66NaUqX1+gZT0QCndi4eQw@mail.gmail.com>
+ <20260715185141.GJ1778116@killaraus.ideasonboard.com>
+ <CAHk-=wi7KN9_DYdmaE2chC92EhTrO=Wtx1bPBER-EQfAZ8FREg@mail.gmail.com>
+ <20260715201301.GB1824265@killaraus.ideasonboard.com>
+ <eab30fce0d18137800ce7a77ee1083f11aa1a770.camel@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -48,59 +51,42 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260721155822.GB536385@killaraus.ideasonboard.com>
-X-Migadu-Flow: FLOW_OUT
+In-Reply-To: <eab30fce0d18137800ce7a77ee1083f11aa1a770.camel@gmail.com>
 
-On Tue, Jul 21, 2026 at 06:58:22PM +0300, Laurent Pinchart wrote:
-> On Tue, Jul 21, 2026 at 05:44:21PM +0200, Richard Leitner wrote:
-> > Hi Laurent,
-> > 
-> > thank you very much for your quick feedback!
-> > 
-> > On Tue, Jul 21, 2026 at 06:16:14PM +0300, Laurent Pinchart wrote:
-> > > On Tue, Jul 21, 2026 at 02:39:46PM +0100, Dave Stevenson wrote:
-> > > > On Tue, 21 Jul 2026 at 14:25, Richard Leitner wrote:
-> > > > >
-> > > > > Some OV9282 camera modules, such as those from Vision Components, fail
-> > > > > multi-byte register reads with the default CCI I2C regmap access pattern
-> > > > > and only work when single-register read transactions are used. This
-> > > > > results in the driver being unable to probe due to a chip id mismatch.
-> > > > 
-> > > > Those damn stupid Vision Components modules with the MCU that prevents
-> > > > you reading registers.
-> > > 
-> > > There's good news, the situation is improving with recent modules. We
-> > > still have to handle the other ones of course.
-> > > 
-> > > > I seem to recall Laurent had a plan for how to handle those without
-> > > > having to patch all the drivers, however I can't find that thread
-> > > > quickly.
-> > > 
-> > > I'm thinking of two options:
-> > > 
-> > > - We can introduce a new standard DT property for I2C device that will
-> > >   be parsed by regmap or the I2C core directly, and switch to single
-> > >   reads.
-> > > 
-> > > - We could model the MCU as some sort of I2C mux, sitting in DT between
-> > >   the I2C controller and the image sensor, and translate multi-byte
-> > >   reads to single-byte reads in that driver.
-> > 
-> > I'm basically fine with both. Personally I would prefer the first
-> > option, as this would be a generic approach which other devices could also
-> > use. Furthermore it's IMHO the simpler solution. But that's just my 2 cents.
+On Thu, Jul 16, 2026 at 05:10:11PM +0200, August Zeller wrote:
+> The frustrating part of this situation is how everyone arguing on both
+> sides is right in some way.
 > 
-> The next step is to then write and send an RFC, to get feedback on the
-> idea from the DT and I2C maintainers (and possibly regmap, if we handle
-> the quirk at that level). Is that something you could work on ?
-
-Sure. I'll take a more detailled look at it tomorrow.
-
-regards;rl
-
-...
-
-> -- 
-> Regards,
+> 1. The tools work, yes. This used to be up for debate until recently,
+> but now it's clear that AI can enhance contributor *and* maintainer
+> productivity in the kernel if used correctly.
 > 
-> Laurent Pinchart
+> 2. On the other hand, it is also true that LLMs and derived tools are a
+> comprehensive manifestation of the problems of the industry and there
+> are valid ethical concerns regarding access discrimination, copyright,
+> workload externalization, job loss, etc.
+> 
+> 3. However, a "no AI used" policy is unenforcible. Many people would
+> use these tools regardless without announcing it, which is the worse
+> outcome. If we're transparent about our AI usage, then at least
+> everyone is aware and can treat the affected code with the right level
+> of scrutiny.
+> 
+> 4. Moreover, a "no AI used" policy isn't the best thing to do
+> technically, as AI has proven to be very useful to catch bugs, review
+> code, and even write some new code. Some critical bugs that we could've
+> caught with AI *will* slip under the radar if we refuse to use those
+> tools, while bad actors will gladly use the newest models to find
+> exploits.
+
+I don't think there's much disagreement on all that. I'm not aware of
+anyone trying to get the kernel to adopt a "no AI" policy.
+
+> Overall, even though I've been known as a great AI skeptic in the past,
+> I'm with Linus on this issue. *Accepting and embracing AI may not be a
+> desirable thing to do, but the alternative is even worse.*
+
+-- 
+Regards,
+
+Laurent Pinchart
