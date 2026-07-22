@@ -1,236 +1,270 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2214C77A5;
-	Wed, 22 Jul 2026 10:23:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776F6339391;
+	Wed, 22 Jul 2026 10:55:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784715827; cv=none; b=G7NKslTL8JzjWjJ0V3uKklWCM1GSrenVI/0FVibLdBqw2E/3V51Zb7bYUIm21uSkbMEXfQnPSZ7/9bWTHO6+/8wfHHc5z+MynIlTOGITQtJbUwMvFnAxNBDTaUKSKy9edrhHI43MN9s7Vc2v4w008Y6S7JjTHbkrGz34ubjpTIg=
+	t=1784717732; cv=none; b=hx8qyUuF3bQuXJxaf0NyDxYgLHw5Sk7BEjUtY/arxBXSDo+LN97WpzJAx3yfzQ5nJdwxp6oWgXUNc18EUdAcEa0/vCm/B7+CDulv8/oecc1eAoY1jGrHCmwiUon/zBVVMObnOqHE9J8S3qEo41kZXnX1hASuluN5jqhJB3aKFcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784715827; c=relaxed/simple;
-	bh=4CpmGGiYX0XDIWEvB5BLJQQ+5BYs2QbT7UxoeJF38kY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SGB2B07A8Dk4GGnz76rds11gU0gnjqB/zc2fX6XcoOgi73Sqcu/SUtJsZtpQUGVArUEmSoFCI7Fe8M4ILiEnQpkaN+/6gK1LDXoKTKj92jyIYrNlJcMw5hv7/mqTznhD4dXlsyAZmn/fnnbK2vY9Qzy7v+Tdw/apXSz+7BJQvs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=S6lho7Cz; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=S6lho7Cz; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	s=arc-20240116; t=1784717732; c=relaxed/simple;
+	bh=6861X9bi9vK38WBkpmhEMhplV27wyPqqBR+RAaxZbUs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=CrXhiQF2H0kswAHxlStkuNyFRye3OzY1AFdFAsQLGiebwg5p9Tv/Si8DUAmnNMvZOGVcOZDXabhnyXfdV+iYqrpRNZ/Yr4DVzHEGIcj58d1D2rcz8ac+5zZGBv7qoBNyjOgVH8fBzM8gvhvuo9OxlqRunM6zi65/v92vRtDQ9k8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=dqaHB+Cy; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="S6lho7Cz";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="S6lho7Cz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1784715823; bh=4CpmGGiYX0XDIWEvB5BLJQQ+5BYs2QbT7UxoeJF38kY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=S6lho7Czl+rXsDUPPExvYeDZ0iwlJWgcS8FchgF/ciRpp8TbvwbwmtCd8C0vrzN1j
-	 jNYoa8SCj5p2piaA755k7O8ht+ce0ZTElAOlryIFtmWVq8S2HRYQzVd3x/IrctGnIM
-	 RO3HGv0l6w3v0rQU/F4ZvoPSk/RR2pATn9J1aycPA1rR+RvRRF1URHI6NuNhWD9HWM
-	 vtU1LX3sYPgDrdiF/WiBK5o74yU+eXA7vR7RS1QInu+paXTjvbyXrm8tzmNsQuZLhA
-	 c+UlfQ5/pEk6vpDMVTQL4G2lzZsH5hZEfhsabK+rnBXnCBvAqK5dmus+SO+96PkrXb
-	 FJFYX0+dnaaMQ==
-Received: by extorris.mess.org (Postfix, from userid 1004)
-	id F3B0D42540; Wed, 22 Jul 2026 11:23:43 +0100 (BST)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1784715823; bh=4CpmGGiYX0XDIWEvB5BLJQQ+5BYs2QbT7UxoeJF38kY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=S6lho7Czl+rXsDUPPExvYeDZ0iwlJWgcS8FchgF/ciRpp8TbvwbwmtCd8C0vrzN1j
-	 jNYoa8SCj5p2piaA755k7O8ht+ce0ZTElAOlryIFtmWVq8S2HRYQzVd3x/IrctGnIM
-	 RO3HGv0l6w3v0rQU/F4ZvoPSk/RR2pATn9J1aycPA1rR+RvRRF1URHI6NuNhWD9HWM
-	 vtU1LX3sYPgDrdiF/WiBK5o74yU+eXA7vR7RS1QInu+paXTjvbyXrm8tzmNsQuZLhA
-	 c+UlfQ5/pEk6vpDMVTQL4G2lzZsH5hZEfhsabK+rnBXnCBvAqK5dmus+SO+96PkrXb
-	 FJFYX0+dnaaMQ==
-Received: from maru.local (unknown [62.232.99.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id E27DA42528;
-	Wed, 22 Jul 2026 11:23:42 +0100 (BST)
-From: Sean Young <sean@mess.org>
-To: linux-media@vger.kernel.org,
-	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v3 13/13] media: rc: Fix race condition during rc_register_device()
-Date: Wed, 22 Jul 2026 11:23:25 +0100
-Message-ID: <3605fbe4b95f8c3f92849b67a7b8b79b28dad736.1784715737.git.sean@mess.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1784715737.git.sean@mess.org>
-References: <cover.1784715737.git.sean@mess.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="dqaHB+Cy"
+Received: from [192.168.1.101] (mob-5-90-61-61.net.vodafone.it [5.90.61.61])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 4CF9EB08;
+	Wed, 22 Jul 2026 12:54:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784717668;
+	bh=6861X9bi9vK38WBkpmhEMhplV27wyPqqBR+RAaxZbUs=;
+	h=From:Subject:Date:To:Cc:From;
+	b=dqaHB+CyRH/dY/HpcWp4LknBQfL/iFsOdUfvSnBm9RWCX5dJXIoLamDVVJlfrBSD4
+	 WV+sj/rpnP9o/KQrtSUPO3/a4ssHmH/yjoN0EohJQvGL4REj0K9rvoCCTceUPfyHX0
+	 EwqXvwiI+ut932vjQvttkTehXd/K8GfiRDEEa2eo=
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Subject: [PATCH v7 0/2] media: i2c: Add driver for Mira220
+Date: Wed, 22 Jul 2026 12:55:15 +0200
+Message-Id: <20260722-mira220-v7-0-dd5f1de98cd4@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJOhYGoC/22MQQ7CIBBFr9KwFjMdAkRX3sO4oDC1s2gx0BBN0
+ 7tLu9FEl+/nv7eITIkpi3OziESFM8epgj00wg9uupPkUFkgoAGLrRw5OUSQoMCCa63qrRf1/Uj
+ U83MvXW+VB85zTK89XPS2/jaKliC1Uh240ILRdOFALsepiy6Fo4+j2FLFfOv40U3VERQp9Ppkw
+ j99Xdc3gHjrFuQAAAA=
+X-Change-ID: 20260721-mira220-03070a173f7c
+To: Philippe Baetens <philippebaetens@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8114;
+ i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
+ bh=6861X9bi9vK38WBkpmhEMhplV27wyPqqBR+RAaxZbUs=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBqYKGeQpgzRWOQQZ+F7cthe3rChuotHrUb3DmdE
+ 13/B4B4u+eJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCamChngAKCRByNAaPFqFW
+ PMzlD/sEHaV02+g9KwOjdtah9YyNNUM0z6lmXzl54Qwx+bL6YY+gRM5hmAM/vyJfl7VwCLG0NBQ
+ fJh0xqOBTAL+IcEYHFmiFhtVwmnQf/s9MLfPbekUjx11BsiiiJIGFgYRwTYa6MdIKu6mwDFMV2v
+ nl3zbsP53VPrxF01XrXQJFkyTGUhGc76VycEyvSOzwC6eyi10dd84FTZk4BJLl3lgCKHWSsTqFa
+ 8kMSCHxaePqcDBfOkk1Eoi2iDYoxU9iGm3+uOPH4m61MtvEq2fr24vUVtk6jv8RZwKUirllVYRk
+ pBipGyET+5VOxLdKHDTGjvf1i+zmSzVZsFlFwj4HFgjtyrfqw1pSag7M3/um8za5MlHXQpDo2ZN
+ 4UIjJFNgmf2G7Hv6WT129cEWW7C+TdyjfaRWQUFhSaYaJ0QsvASOiQaKHwNEl4viploP0cMaeoN
+ eBG3Pwuw6JUdv7ZuPJr/GY7lcENbWXGpcVi6FDw+vin7PTy6fdShrLIbr3WrqGg8uh6+jlbIhkE
+ tJQwA4T5NtmOIdV/BhPDSomZnpLoYePEHYtnoonaOYz2pODIqB72tN3/+2GXgUNgEuVN/WAEMcW
+ JN5aN31k8s9e0/yWlPHGwVC1ermJuoEiXhCkRnJUSSbUPAv7+3/FHuMnLVkxRKn6TrS92a1LnSr
+ lwKn8GIchOnXlNw==
+X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
+ fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 
-The correct sequence for rc core is so:
+Resume the work done by Philippe on Mira 220, available at
+https://patchwork.linuxtv.org/project/linux-media/list/?series=18460
 
-     rc_allocation_device()
+The detailed changelog is available on the single patches.
 
-     /*
-      * setup hardware and now calls to ir_raw_event_store etc are
-      * permitted, as well as rc_keydown. There is no rc device in sysfs
-      * or lirc chardev.
-      */
-     rc_register_device()
+On the current set of supported features: mira220 doesn't support
+binning/skipping but only cropping the full sensor array. It also
+supports embedded data. It would be an ideal candidate for the new
+RAW sensor model.
 
-     /*
-      * After rc_register_device(), the rc device can be used now from lirc
-      * chardev, sysfs and IR is now decoded and reported.
-      */
+As the model is not available yet in mainline, this first version
+doesn't support set_selection() and doesn't support embedded data.
 
-     rc_unregister_device()
-     /*
-      * User space can no longer access /dev/lirc or the rc sysfs
-      * attributes. They will get -ENODEV if they still have a file
-      * descriptor open.
-      * Calls to ir_raw_event_handle() etc or rc_keydown() are permitted
-      * but they must stop before the call to rc_free_device(), so
-      * this is the time to stop the hardware.
-      */
-     rc_free_device()
+These features will be implemented on top of the new RAW sensor model
+once available.
 
-This means that during rc_register_device(), we can get calls to
-ir_raw_event_{store,handle,overflow,store_with_filter}. Ensure this
-is done race-free.
+Thanks
+   j
 
-Signed-off-by: Sean Young <sean@mess.org>
+Changes in v7:
+- Address Sashiko review comments; changelog is per-patch
+- Link to v6: https://lore.kernel.org/r/20260722-mira220-v6-0-203e32c596de@ideasonboard.com
+
+Changes in v6:
+- Address Sashiko review comments; changelog is per-patch
+- Link to v5: https://lore.kernel.org/r/20260721-mira220-v5-0-533b0ad1065e@ideasonboard.com
+
+Just a note on hblank: prompted by sashiko review I reworked the hblank
+calculation procedure to use the full line length (which will make it
+easier to use the new Raw Sensor Model) and I've scaled the line lenght
+according tot the number of data lanes, to match the row_length
+settings, and I tested frame rate for 1 and 2 data lane operations.
+
+I'll report the results here
+
+1 data lane: hblank = 4480
+
+    10fps -> vblank = 4915
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=4915
+    2633.788743 (10.00 fps) cam0-stream0 seq: 000210 bytesused: 1920000
+    2633.888732 (10.00 fps) cam0-stream0 seq: 000211 bytesused: 1920000
+    2633.988712 (10.00 fps) cam0-stream0 seq: 000212 bytesused: 1920000
+    2634.088696 (10.00 fps) cam0-stream0 seq: 000213 bytesused: 1920000
+
+    15fps -> vblank = 2810
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=2810
+    2690.081596 (15.00 fps) cam0-stream0 seq: 000833 bytesused: 1920000
+    2690.148251 (15.00 fps) cam0-stream0 seq: 000834 bytesused: 1920000
+
+    30fps -> blank = 705
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=705
+    2732.142696 (29.98 fps) cam0-stream0 seq: 001736 bytesused: 1920000
+    2732.176004 (30.02 fps) cam0-stream0 seq: 001737 bytesused: 1920000
+    2732.209315 (30.02 fps) cam0-stream0 seq: 001738 bytesused: 1920000
+
+    min_vblank = 14
+    2823.028261 (46.07 fps) cam0-stream0 seq: 005180 bytesused: 1920000
+    2823.051318 (43.37 fps) cam0-stream0 seq: 005181 bytesused: 1920000
+    2823.073032 (46.05 fps) cam0-stream0 seq: 005182 bytesused: 1920000
+    2823.096081 (43.39 fps) cam0-stream0 seq: 005183 bytesused: 1920000
+
+2 data lanes: hblank = 1440
+
+    10fps -> vblank = 11231
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=11231
+    163.127449 (10.00 fps) cam0-stream0 seq: 000106 bytesused: 1920000
+    163.227446 (10.00 fps) cam0-stream0 seq: 000107 bytesused: 1920000
+    163.327425 (10.00 fps) cam0-stream0 seq: 000108 bytesused: 1920000
+
+    15fps -> vblank = 7021
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=7021
+    206.325595 (15.00 fps) cam0-stream0 seq: 000551 bytesused: 1920000
+    206.392256 (15.00 fps) cam0-stream0 seq: 000552 bytesused: 1920000
+    206.458943 (15.00 fps) cam0-stream0 seq: 000553 bytesused: 192000
+
+    30fps -> vblank = 2810
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=2810
+    244.891759 (30.00 fps) cam0-stream0 seq: 001153 bytesused: 1920000
+    244.925094 (30.00 fps) cam0-stream0 seq: 001154 bytesused: 1920000
+    244.958439 (29.99 fps) cam0-stream0 seq: 001155 bytesused: 1920000
+    244.991746 (30.02 fps) cam0-stream0 seq: 001156 bytesused: 1920000
+
+    60fps -> vblank = 733
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=733
+    67.273857 (57.04 fps) cam0-stream0 seq: 007285 bytesused: 1920000
+    367.290091 (61.60 fps) cam0-stream0 seq: 007286 bytesused: 1920000
+    367.307637 (56.99 fps) cam0-stream0 seq: 007287 bytesused: 1920000
+    367.323866 (61.62 fps) cam0-stream0 seq: 007288 bytesused: 1920000
+
+    90 fps -> vblank = 22
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=22
+    326.909808 (83.83 fps) cam0-stream0 seq: 003739 bytesused: 1920000
+    326.920403 (94.38 fps) cam0-stream0 seq: 003740 bytesused: 1920000
+    326.931644 (88.96 fps) cam0-stream0 seq: 003741 bytesused: 1920000
+
+-------------------------------------------------------------------------------
+v4l2-compliance 1.33.0-5491, 64 bits, 64-bit time_t
+v4l2-compliance SHA: b32589c51481 2026-07-16 08:51:38
+
+Compliance test for device /dev/v4l-subdev6:
+
+Driver Info:
+	Driver version   : 6.18.37
+	Capabilities     : 0x00000000
+	Client Capabilities: 0x0000000000000002
+interval-uses-which
+Required ioctls:
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev6 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 14 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for device /dev/v4l-subdev6: 46, Succeeded: 46, Failed: 0, Warnings: 0
+-------------------------------------------------------------------------------
+
+Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- drivers/media/rc/rc-ir-raw.c | 20 +-------------------
- drivers/media/rc/rc-main.c   | 18 +++++++++++-------
- 2 files changed, 12 insertions(+), 26 deletions(-)
+Philippe Baetens (2):
+      dt-bindings: media: i2c: Add mira220 image sensor
+      media: i2c: Add driver for AMS-OSRAM Mira220
 
-diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
-index 26962b500b0c..963562f03770 100644
---- a/drivers/media/rc/rc-ir-raw.c
-+++ b/drivers/media/rc/rc-ir-raw.c
-@@ -71,9 +71,6 @@ static int ir_raw_event_thread(void *data)
-  */
- int ir_raw_event_store(struct rc_dev *dev, struct ir_raw_event *ev)
- {
--	if (!dev->raw)
--		return -EINVAL;
--
- 	dev_dbg(&dev->dev, "sample: (%05dus %s)\n",
- 		ev->duration, TO_STR(ev->pulse));
- 
-@@ -102,9 +99,6 @@ int ir_raw_event_store_edge(struct rc_dev *dev, bool pulse)
- 	ktime_t			now;
- 	struct ir_raw_event	ev = {};
- 
--	if (!dev->raw)
--		return -EINVAL;
--
- 	now = ktime_get();
- 	ev.duration = ktime_to_us(ktime_sub(now, dev->raw->last_event));
- 	ev.pulse = !pulse;
-@@ -129,9 +123,6 @@ int ir_raw_event_store_with_timeout(struct rc_dev *dev, struct ir_raw_event *ev)
- 	ktime_t		now;
- 	int		rc = 0;
- 
--	if (!dev->raw)
--		return -EINVAL;
--
- 	now = ktime_get();
- 
- 	spin_lock(&dev->raw->edge_spinlock);
-@@ -166,9 +157,6 @@ EXPORT_SYMBOL_GPL(ir_raw_event_store_with_timeout);
-  */
- int ir_raw_event_store_with_filter(struct rc_dev *dev, struct ir_raw_event *ev)
- {
--	if (!dev->raw)
--		return -EINVAL;
--
- 	/* Ignore spaces in idle mode */
- 	if (dev->idle && !ev->pulse)
- 		return 0;
-@@ -200,9 +188,6 @@ EXPORT_SYMBOL_GPL(ir_raw_event_store_with_filter);
-  */
- void ir_raw_event_set_idle(struct rc_dev *dev, bool idle)
- {
--	if (!dev->raw)
--		return;
--
- 	dev_dbg(&dev->dev, "%s idle mode\n", idle ? "enter" : "leave");
- 
- 	if (idle) {
-@@ -226,7 +211,7 @@ EXPORT_SYMBOL_GPL(ir_raw_event_set_idle);
-  */
- void ir_raw_event_handle(struct rc_dev *dev)
- {
--	if (!dev->raw || !dev->raw->thread)
-+	if (!dev->raw->thread)
- 		return;
- 
- 	wake_up_process(dev->raw->thread);
-@@ -612,9 +597,6 @@ EXPORT_SYMBOL(ir_raw_encode_carrier);
-  */
- int ir_raw_event_prepare(struct rc_dev *dev)
- {
--	if (!dev)
--		return -EINVAL;
--
- 	dev->raw = kzalloc_obj(*dev->raw);
- 	if (!dev->raw)
- 		return -ENOMEM;
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index dda3479ea3ad..365f3d056a06 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -1701,14 +1701,24 @@ static const struct device_type rc_dev_type = {
- struct rc_dev *rc_allocate_device(enum rc_driver_type type)
- {
- 	struct rc_dev *dev;
-+	int ret;
- 
- 	dev = kzalloc_obj(*dev);
- 	if (!dev)
- 		return NULL;
- 
-+	if (type == RC_DRIVER_IR_RAW) {
-+		ret = ir_raw_event_prepare(dev);
-+		if (ret < 0) {
-+			kfree(dev);
-+			return NULL;
-+		}
-+	}
-+
- 	if (type != RC_DRIVER_IR_RAW_TX) {
- 		dev->input_dev = input_allocate_device();
- 		if (!dev->input_dev) {
-+			ir_raw_event_free(dev);
- 			kfree(dev);
- 			return NULL;
- 		}
-@@ -1724,6 +1734,7 @@ struct rc_dev *rc_allocate_device(enum rc_driver_type type)
- 		spin_lock_init(&dev->rc_map.lock);
- 		spin_lock_init(&dev->keylock);
- 	}
-+
- 	mutex_init(&dev->lock);
- 
- 	dev->dev.type = &rc_dev_type;
-@@ -1917,12 +1928,6 @@ int rc_register_device(struct rc_dev *dev)
- 		dev->sysfs_groups[attr++] = &rc_dev_wakeup_filter_attr_grp;
- 	dev->sysfs_groups[attr++] = NULL;
- 
--	if (dev->driver_type == RC_DRIVER_IR_RAW) {
--		rc = ir_raw_event_prepare(dev);
--		if (rc < 0)
--			goto out_minor;
--	}
--
- 	if (dev->driver_type != RC_DRIVER_IR_RAW_TX) {
- 		rc = rc_prepare_rx_device(dev);
- 		if (rc)
-@@ -1980,7 +1985,6 @@ int rc_register_device(struct rc_dev *dev)
- 	ir_free_table(&dev->rc_map);
- out_raw:
- 	ir_raw_event_free(dev);
--out_minor:
- 	ida_free(&rc_ida, minor);
- 	return rc;
- }
+ .../devicetree/bindings/media/i2c/ams,mira220.yaml |  101 +
+ MAINTAINERS                                        |    8 +
+ drivers/media/i2c/Kconfig                          |   14 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/mira220.c                        | 2068 ++++++++++++++++++++
+ 5 files changed, 2192 insertions(+)
+---
+base-commit: a52e6f7923c17a672135b485ffd96fbd72f46267
+change-id: 20260721-mira220-03070a173f7c
+
+Best regards,
 -- 
-2.55.0
+Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 
