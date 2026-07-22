@@ -1,140 +1,113 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A673624AB
-	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 22:03:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.175
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784757816; cv=pass; b=kKFGA+eW2xKk/gyJFp5Uikgip8aCoaSTNkHDMFFXcUgj+NgQe9GI0hybKdeTnPpF386Ijc9GcQxW8JtnENTgVgi9uA68UImbCrj1qaLetgEATCqZMbZgf4fqN0ZhyMvGQp06+5e2gB+VHPYDiKYOHoz9NxsSvSgE2uXzI+4wqN4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784757816; c=relaxed/simple;
-	bh=nsRU1Gu+XGhBydVcwwxOTsh+6FvoRS0dlKUQknheAUU=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=Kf8560+kQKlu9EyPfNsrHQ1TXEw61rk1LKcg1DPTn8ZB7rHd7QmBQ5OjHH4iZiOhAvxo2FsjO/9euHkfXHAJ8S268L2lP8OoI2vMZ6djK1ljKmoS5P3hnsa/cpyR0B2kQ08ii5ZFMtfEWvGmDyAyleUzSm3GKJ00pZf+Mvew4Lk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WbX+3TPp; arc=pass smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6793A4457AE;
+	Wed, 22 Jul 2026 22:14:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784758468; cv=none; b=CDyvmGo2Pa4sCbSX+NRDmMZUWxBZ+NRzw4js3wsZCNXC/PHIU7aJ8t+sVekgUtAHUpoOVPKgdWanfTFzynmvFMe8gCvx4PqvBEkA7vW0IOGdlVD4BVyi4uft+UWJ7jnRR3yUcmOXG/BCPoVgXmgX2jqQ9P7bZZ9y353Wl7u5Kz4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784758468; c=relaxed/simple;
+	bh=So6sivGtSSZCkRimjZHK4/rWExcYXp8lmi9k0TSONoQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=czaRCkLVUJw/qnvF+fVvxQVOZzKALgXpurWhaWsEBqaON/tR6yniOF2cz9Synk4zu9DLUijVMMw74/tqxy/zwEQfPM18jgdM7yWUeemFNcnhNRfgTvT+3WquJ9D8hZz9U0rY8jVszftbDL/1TwluqekP7/IQET9oQzUsXSDrB54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c3shZkVq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WbX+3TPp"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cc7e86e7aeso104807565ad.2
-        for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 15:03:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784757814; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PzdHz00Q+hAnzFw4h9yEhBiNlQ3rnIYtBcKaK1wkfHpswADhM/NFVrWSP9yU/Z5mi4
-         Vyz0Tj+rekatNhMObOl66ZPxwzLj36Locz6MWGkwNFX0m/4Djm/SZQ8ibjxLvy4l1Xrd
-         ghxxkZdzKs2R2nNKlgbMtUya4o5HZNKaH7vgw1Swt89Ltkpy8NirQ7ExYn9LqSeS8qnG
-         EHgCDguoyspd7+B72kXN7xbwn5MKTAOREMmvhq322wDanGEVgZFeQVrbncXhVHjjmA0/
-         hGxsl3x6jKCmJNz8uRrGfzV51afwAHkB+vEP3ttS+w6PqcI3erFyxrNXImLYLjVx/ans
-         VW/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=Arzg6VKXzHdZLo4PxEfQobRLDWRSk+Y65lybWp5rUag=;
-        fh=WMG8nm8L2fLR2SXg/yt1N0S80P9HqDn2UMsy4+5xDks=;
-        b=lX4V7rn4mZ3Dwp75uZgW+Y2Jzs5FoY1YAYQosD7jfktKZ1itEi6o3SG7trAXQ+V1Gu
-         xNb4LAHGzbXIc5l5+Bw46Qx4q6oE8wGm6oyEiecerLsnJJ0+kPM4qGwqjwu541cX8QwO
-         UiD9s+Rfm/vDEF6z3bdiv7h+i4ziLJEY63Ib/+gE9kOceguHrNFLVDPnN2nUtXQ/hEGN
-         bXq2l2dEOUJTE8CiXZRUfe5+HCmNL+pu3HtQ9eN4T8X4KwioBcaW5u/nbayXjFWRKFis
-         YMDSaQe+9ic/PLpWVEm+YrFb2pEHPke1Fxs0DjIe5gQ9HmJ6G8zXksZUuZ2Gi4ozAW7J
-         IvJg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784757814; x=1785362614; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Arzg6VKXzHdZLo4PxEfQobRLDWRSk+Y65lybWp5rUag=;
-        b=WbX+3TPp44/PRUv1XsPU+G4L+vWcO0kuZcxd3erafyU/Oeytk8vc7h4EXeNTKUz7xq
-         A9YCR7SGD53IQ/U0sVgSZZSXLLvItBQ68j8A/V48yFrXPL0NP3iT+zrbq1w3+ux42RnV
-         RxxXUVpRcSpJRaNxr80/n5TQN79X1ofGODTxPj6J08GF3QLFpHb+hysGEU/jxYz4xbt3
-         AKXG5C+iPIiFmXbJ9WGDDI8PffAQNy/TET2zdEYyAieY9iGZeWhz4AxAGuBS/2tgr6lT
-         bQGGnL/BBCC2Fc8S9DZ1fnDzdsV/+7VbGt6lHzTLg5krX1HnPaYOaelawncNnHGErrUl
-         XwYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784757814; x=1785362614;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Arzg6VKXzHdZLo4PxEfQobRLDWRSk+Y65lybWp5rUag=;
-        b=U8levf+iX/5TcmqUiUSIRFNOkeJxauyZXOa26y9jY3dVHZVFLNcYZNWMaueEjzS7Y+
-         kizCwC5xDXKBTEW1w6vQ/l3RM9f62TwuLKrpJhuX2rQMYEYr5HUaow3Xtyih0DJhFEjm
-         pKQjD0Ny/J/5N62mEDuay6kGt3VA7FTLBFV3X/F/z1BGqmZjbMDJ2Dn4xxHSrrZ7oYot
-         JE5z+uAOruzdFqOIJU2l73kuEV+0nib9nd1VgTiDLeAIZIm13TBxfv064ulyJBR3eiLk
-         HKNUi/ETIFS3ODiM+fCStF07QAXz7rT7n+wGFszmSx+1gCYMrGEmICRK9YYC4dvA8+dS
-         X5aQ==
-X-Gm-Message-State: AOJu0YxN/xVB9h7l9RCWgJnh+Dm6EkfqXsluNjkoni9tVENk/gV6kQA2
-	hpsgx4MhYj+fJTaPwBv3d94//1b3KrIscqhOGCmtSxrjOQuZXCJd8F3ipSPmUQuLLBJ2Bd/1BeX
-	+fDh4MkmiFLoGdeI2EQAOK/owxccro4nbpAix
-X-Gm-Gg: AR+sD12BBztjnV4oUr0ef1l6jPfG60eqzQuM6PcjE8QE5k0T7Tia2BSGdwYVoJxvLw/
-	owBJQ4vY/LsYvg+PnuJ7K7wrz6pip2N42iAjY1A5riuOdgn9E1Y4bdSnkHEYc3sqpNCMXedmpob
-	RwyRfSRMHyhPUjJA9r7pIrQOeR2/o1upR9RVJovKWnwh9QgU8j9avxN73Qkx/ubVKjScoJxKjcJ
-	9aECzu9RzcdBK7OS8MJy1/jDzkdmGdnimBzT9FYjJ+yShm15OSEpoaRrJ3FU9E=
-X-Received: by 2002:a17:90b:314e:b0:381:5a08:6291 with SMTP id
- 98e67ed59e1d1-38ec658fc68mr388862a91.20.1784757813942; Wed, 22 Jul 2026
- 15:03:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c3shZkVq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91B5B1F000E9;
+	Wed, 22 Jul 2026 22:14:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784758464;
+	bh=xNBBfpX58a5jrsr3PSNzVQryjUXlO1AagBrOzCjTWTg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=c3shZkVqhPHchtjOEjxTQrxe1a1j7Naqz2NTcdcCvsOOWv/F4rJWwd8WcsPnf/p32
+	 zGu0dsyIEeDVjjurNxMLUXsH9fauud94Cp3+yHnlPHoFki8BFDZeJHuRYU9zyqU2rC
+	 94qH6S08W2k6ZSwHzB+rc/LPK0H6f3YDKOayWBMOISw/WdjgBaLdIbEGQnlvtyGeZZ
+	 jffa5QBLFE8VAuXMLaThC351DrLF2AdEGx3sBKMmIIHenyGhl/Zo7HiB1gB3NyqUOq
+	 yhtD0M94kh+wu/nGNfkX8+dng6Tro1CIzSJklmSmo+BJsscYdlikNHXJ7GDoj0kpfP
+	 hYsSi34Q/3mvw==
+Message-ID: <11ca0787-e990-4f49-a409-fd96a48e2238@kernel.org>
+Date: Wed, 22 Jul 2026 23:14:21 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Colin Steinmann <colin.steinmann@gmail.com>
-Date: Wed, 22 Jul 2026 17:03:22 -0500
-X-Gm-Features: AUfX_mz_O7HQoeWNx_OicEZR3lUZ5m2qjczmyvwdu_xXAAISmKMsEo2P6dTySOQ
-Message-ID: <CANupWgLN1J5U0_je_a+gS8-hBCjZRFVRAnAPYedfUvQY9EhOrg@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/2] Add support for Geniatech/MyGica A681B and PT682C
- USB ATSC/QAM TV tuners
-To: cyrozap@gmail.com
-Cc: linux-media@vger.kernel.org, mchehab@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 0/2] media: i2c: Surface Pro 7+ camera flip fixes
+To: Jakob Berg Jespersen <dev@berg.pm>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Daniel Scally <dan.scally@ideasonboard.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+ Fernando Rimoli <fernandorimoli11@gmail.com>,
+ Tooraj Taraz <tooraj.taraz@yahoo.com>, "Joseph V. Lavigne"
+ <jlavig88@gmail.com>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <Q5OH0unwBM9QICxTJXBm1W7LkqYpiGtPRvNqI8FMsDW63Z1AgVArhC3__6dhY4hjrsuDCsbMfvArNyf_qB0Akw==@protonmail.internalid>
+ <20260720-sp7plus-ov-flips-v1-0-5f345b0673de@berg.pm>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260720-sp7plus-ov-flips-v1-0-5f345b0673de@berg.pm>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Forest,
+On 20/07/2026 15:28, Jakob Berg Jespersen wrote:
+> This RFC series fixes two horizontal-flip issues on the front and rear
+> cameras of the Microsoft Surface Pro 7+ (Tiger Lake IPU6, ACPI/ipu-bridge).
+> Both were found and validated on real hardware (Surface Pro 7+, Fedora 44,
+> kernel 7.0.12) and have been in daily use on that machine for over a
+> month; each is described in detail in its own patch.
+ From a pure process point of view.
 
-I tested this series on a PT682C (1f4d:e691) and it works! Thanks for
-doing this! Details and one issue found below.
+Anything that fixes a bug should have a Fixes: and a Cc: stable, 
+especially granular stuff like in this series.
 
-Environment: patches applied onto the v6.8 mxl692/dvbsky sources and built
-out-of-tree against Ubuntu 24.04's 6.8.0-134-generic (arm64), device passed
-through to a QEMU VM from a macOS host. Firmware extracted from Geniatech's
-Windows driver (cyDtv.Sys), sha256 8f77d5cb...9c4e600d.
+Please add both.
 
-Working as posted (cold device):
-- Probe, mxl692 attach, adapter registration all fine.
-- Firmware upload by the driver: "MxL692_DEMOD Chip ID: 691",
-  "FW Version: 1.1.1.3_RC6".
-- dvbv5-zap on a local ATSC station (599 MHz, 8VSB): Lock (0x1f), UCB=0,
-  ~19.4 Mbps captured from dvr0 for 15 s without errors, stream plays fine.
-
-Issue: warm restart fails on the PT682C. If the MxL692 is already running
-firmware (driver reload, or a previous session without a power cycle), init
-fails and the frontend never locks. With mxl692 dynamic debug enabled the
-Eagle response mailbox is visibly desynchronized, each command reads the
-previous command's response:
-
-    mxl692 0-0060: Something failed seq=X  opcode=X  pSize=X
-    mxl692 0-0060: rx_header->payloadSize=11   rx_payload_expected=4
-    mxl692 0-0060: err -121
-
-The cause seems to be that dvbsky_identify_state() gives the A681B the
-0x80 GPIO toggle but lets the PT682C fall through to the generic
-gpio(0x04, 1) path, which doesn't reset an already-running chip. Extending
-the A681B sequence to the PT682C fixes warm restart for me and cold boot
-still works:
-
-} else if (le16_to_cpu(d->udev->descriptor.idProduct) == USB_PID_MYGICA_A681B ||
-   le16_to_cpu(d->udev->descriptor.idProduct) == USB_PID_MYGICA_PT682C) {
-dvbsky_gpio_ctrl(d, 0x80, 0);
-msleep(100);
-dvbsky_gpio_ctrl(d, 0x80, 1);
-msleep(100);
-
-(I independently hit the same behavior writing a userspace libusb driver
-for this device: cold init succeeds after gpio(0x04, 1), but recovering a
-warm chip requires the 0x80 toggle.)
-
-With that change, for the whole series:
-
-Tested-by: Colin Steinmann <colin.steinmann@gmail.com>
-
-I'd be happy to re-test a v2 on real hardware. I have the PT682C on hand.
-
-Best,
-Colin Steinmann
+---
+bod
