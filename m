@@ -1,124 +1,130 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 894113BBFAB
-	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 09:43:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83BC844AB94;
+	Wed, 22 Jul 2026 10:00:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784713396; cv=none; b=sMXvwNJce6GAJdDJBMFvs7yY3j2JsVTUC2/JJgcFapvf+ZFn3jlSbYwvLxjQoow4b2X1siAFJ05zBfcuYwgNkV7mV1SVoF4EaAwi5KWoGU1JdbYgT6yRYPa/nU60M2uErvRe8m+bTgv+OOGqECJaTpqfJ5ABzKOJLGpztSisOts=
+	t=1784714431; cv=none; b=fhu1YitXk9EmhMTJJ4kBG6DBzInvdlojdbZv5ukArccQJEMe5E2wQqlUIpAo4WKyXBp/HYY5NWuiwYC+GZx0L3PH/bG1XV4rTsypxxL7BAjjR6bQWrMimiPxmmqRdLjQeXCGCs9/9ETbEsoflSLQVf3zuvTEzuYIllh0NR2TTEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784713396; c=relaxed/simple;
-	bh=U+PGb6aIFUkkwFis3Hkvn0up5svo/RYtJBDhQOzvuYY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XA41cF9u8XxtXBnHwfLH6Mg8HI3zS73HDeDsog6VDLe4VtnT0VRLi4gbYhyj644aJK7BxoPYOlRrwgJygbt0zsNqIaewDJ96YYhwPmJQOc8zBwV3w5Mvogfugg8zDpZrwMfzsB7f8z+9NwztyjOHycKNoWhIbo/EFI6gmrfoFXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Avnx/QEG; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1784714431; c=relaxed/simple;
+	bh=H2E5SAYDZsN9P+pHCklo95G8JwQNxDI1MtwfO2yckiM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=W1mrOnToM2YNB2qu2QJFp+IGyplhsUgaOo2ra7HmYM3h6TIPSKTS25HAcB6qlNRFk2gcWFWic0dC7NRYUOy8p1dWSo5UD9zQNE2smDzf2Ghqn5FJcCCzb5+aBzeeZZiJFE4w/3WRqWj6Hbe60XqGOIFvNPejqcjl4Ue1p205tP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=AwgZpszx; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Avnx/QEG"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-69e28b554ceso12165460a12.0
-        for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 02:43:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784713393; x=1785318193; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eBmeLLqRW24OAr47eslDpBbvu1uL5Oy4qRjOe70Vezk=;
-        b=Avnx/QEGzy/jX0hjH6PTuxP2fjMJWuYsCIfr1tDig7G1CmiwGdBX7rsyQovv3xR17U
-         +caNZbFthz7lzqFPxDm+TrvndfMEcc81xNkcFRn4Nh+Qsh6nihoCgjo+qpGPyebJKcuK
-         MGHt4/eNVoLzLUyIBjdtwHBWsaIFaof9mD7bxNXNTBsAOM508HXkn4yBDcGcxHPEm+ka
-         tYzHvdpNt0auhnu2NHBnjXMTzIzVksJJuQ1w8CKg/t2722KTDYi/u7I9qi5i8fWQTb0e
-         c/ewS+hLUgI7eaZLbqWhpJ2ZpEIo2AgNlER3wN9BG/RwKx6lwgoiXlpN3SCoEMVy8+Ss
-         PTaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784713393; x=1785318193;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eBmeLLqRW24OAr47eslDpBbvu1uL5Oy4qRjOe70Vezk=;
-        b=iVSqe3/rOJRKqn1gSsWzCmYTcwnd5SMApl0KT3me16HRuq4vQ44OS5vPRyCglsR/bk
-         420PGC+9r3dSJTUr+rr//sq9c30bqu7rQ0sreZS7Is5x+0hiXl9fWp6ZtzBUiBrMvu5I
-         RAujRtRn43NN2U2Lbv9RtwezSm3SbWmJvdO3U909pxfeahF+JVPC0DnlrYusHNX7Ipgp
-         gEV1BW31dOktxQfF41aCB7//g7tezrbZ+18ZhQWvxn+LJQJa3lGCjfqPxk0lg5FBVGwv
-         PQQVbDbgjSnbGV2f6TlaZZjT3q3aKvWsyq32rLz23YmqmA2YiiinqQgWUyt11IVsiULr
-         g3Iw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq0hIyYY2/eW0kAmQFvIBMHhV9lzmSlSsKKAykVmvEOD5FdJ8F4msc2ZD1DlwT1wRLm2CvmAXLhN0pc4Q==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy8zZtVursQ8/pVTTCsRcl7X+eOCb9TJbbXXlkBZDKDLs30+h0p
-	g0O/HNESnQ0T9yP6+EqJweNWW5f4z4RC6QWxhAbYFnEkO1A41MOZIrWrwErKl+Epm2U=
-X-Gm-Gg: AR+sD11vfuGnJd4vxqGpf1viXaV9xeE8FQaBSrLremvPW3xeUjAhQPtmhAxJcOdL1dH
-	yROphxQjLH/vUo7u7bts/hdWzlbnA8pbtio/bZpnxEbKPYWKwL0db9ZIvw/et1w2gref8V9348Z
-	RSJCZz/D8mCWzYm3gkyEgHbXRKmh6rOAdnh5M9dtpOOWfgTzEZrvFhZ+LB9WdcWQV16zmu63LIV
-	wgGKy1gNPpPf22F40QNdZiaFPdLVDu3Btj0C/sUFBoCZx59cuqZ3UAGaYcQdT98oRt5A66ldlFn
-	JUsXXAyQwEzNHlJSVF40cAVYKYZ2RE/mjsEGtcRDPiUoeRZDlGZpkkfJgT+YQBWu8Id9LboQ6Ca
-	CRNP9Ufpd9b6VnEc3gnGrYOHVCazoo2jyR2Y4lYFXYitdBeaA4PCyn/gKu46lYznV/CIyatayL9
-	xLP6/iiWdvL4ebkg==
-X-Received: by 2002:a17:907:c0b:b0:c16:8931:245c with SMTP id a640c23a62f3a-c16b4756003mr1081440366b.21.1784713392626;
-        Wed, 22 Jul 2026 02:43:12 -0700 (PDT)
-Received: from [192.168.0.101] ([109.77.14.136])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32ebbaf5sm77858966b.44.2026.07.22.02.43.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Jul 2026 02:43:12 -0700 (PDT)
-Message-ID: <95d6ed14-d2c4-4b3c-8320-9307b5ad9d6b@linaro.org>
-Date: Wed, 22 Jul 2026 10:43:10 +0100
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="AwgZpszx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=sWDWsM9TBRItqToA/efliUD8bssiJSLzstCW4+0QWoE=; b=AwgZpszx5epBC4Iy5r0MfWV7nm
+	NqsefgU0PQJF7xw8wCPw9mDwW1avyoqiCPDSl6Byd4DUNYl7/auQYEpedEmoTNniJ4vIcqfbzfW29
+	Lzc0U9RmTHeJMvLoxb8mwDTiPo/rB0aTGIJNYUn6rENStzqvpNln1B2NHIkaWZ2ahkiZWlxIKv8FQ
+	cuoa2tlp+gFkdkBakUUi83prtZEI5g6vFAKypdM4XkE4/urMmDKIGrZ9RcG+cU+Ri78pFlzb7znC7
+	Mu5ZiDTPI9jepe3KCqBwVSIPvuZhee94BeM2P9byVXTXOd5HJPMmJcqDAFL/5qMMo+zq24XI+OAsE
+	ah9a+nPQ==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, nicolas.dufresne@collabora.com,
+ Jiaxing Hu <gahing@gahingwoo.com>
+Cc: ezequiel@vanguardiasur.com.ar, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jiaxing Hu <gahing@gahingwoo.com>
+Subject:
+ Re: [RFC PATCH 2/3] media: rockchip: add VEPU510 H.264 encoder driver for
+ RK3576
+Date: Wed, 22 Jul 2026 12:00:16 +0200
+Message-ID: <3096814.BaHzMo0RvP@diego>
+In-Reply-To: <20260722073417.2064667-3-gahing@gahingwoo.com>
+References:
+ <20260722073417.2064667-1-gahing@gahingwoo.com>
+ <20260722073417.2064667-3-gahing@gahingwoo.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 4/8] phy: qcom-mipi-csi2: Parametrise the common
- status register offset
-To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Todor Tomov <todor.too@gmail.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- jeyaprakash.soundrapandian@oss.qualcomm.com,
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
-References: <20260720-kaanapali-camss-v15-0-c0b1c1167c5d@oss.qualcomm.com>
- <20260720-kaanapali-camss-v15-4-c0b1c1167c5d@oss.qualcomm.com>
- <ZjDt97YCI6QX2gXf-F4lYaIj4po25RZtKf27ElBUOzGcXoPUf6mR9uSVb16GcrHYpJdCJg5Ee0IX6oJvQx1gFg==@protonmail.internalid>
- <2512aab8-fbde-4b95-8619-6c32d60ab500@oss.qualcomm.com>
- <f5b9bf18-1bb9-48fd-8168-b5b82cac08db@kernel.org>
- <d91877e0-3b41-45c8-a9a6-6ef8456c3c13@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <d91877e0-3b41-45c8-a9a6-6ef8456c3c13@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On 22/07/2026 10:11, Hangxiang Ma wrote:
-> On 7/22/2026 4:07 PM, Bryan O'Donoghue wrote:
->> On 22/07/2026 03:24, Hangxiang Ma wrote:
->>> Hi Bryan, could you try to add this change into your PHY driver? This
->>> macro format has existed in old arch. We once have such discussion on v5
->>> thread.
->>>
->>> https://lore.kernel.org/all/bc6abd24- 
->>> d56a-4fc0-89e9-8986e8d8b3b7@oss.qualcomm.com/
->>
->> I'd be obliged if you could generate a patch I can include and mark 
->> you as Co-Developed-by !?
->>
->> ---
->> bod
-> 
-> Sure. I think it makes sense to pick up this patch from the series 
-> directly now, especially since I need to post another revision anyway. I 
-> don’t have any concerns with that. If you have better way to handle 
-> this, please share your thought. Thanks a lot.
-> 
-> Best regards,
-> Hangxiang
+Am Mittwoch, 22. Juli 2026, 09:34:16 Mitteleurop=C3=A4ische Sommerzeit schr=
+ieb Jiaxing Hu:
+> Add a from-scratch stateful V4L2 mem2mem driver for the Rockchip RK3576
+> VEPU510 H.264 hardware video encoder (raw NV12 in, H.264 Annex-B out),
+> modelled on the verisilicon/hantro device_run()/codec_ops split rather
+> than the downstream MPP-service/task-queue model.
+>=20
+> The two encoder cores (rkvenc0/rkvenc1) are exposed as two independent
+> V4L2 M2M device nodes, each driving one physical core standalone; the
+> downstream vendor CCU cross-core load-balancing is not implemented.
+>=20
+> Register field semantics were worked out by trial-and-error against
+> Rockchip's own open-source userspace codec library (rockchip-linux/mpp)
+> and cross-checked against a real register-write trace of the downstream
+> vendor stack running the same encode.
+>=20
+> Intra (I-frame) encoding is confirmed working on real hardware (Radxa
+> ROCK 4D): it produces valid H.264 that the reference decoders accept.
+> Inter (P-frame) encoding still hits a hardware-watchdog stall in the
+> reference-read datapath -- this is the main open question for this RFC;
+> see the cover letter for the full symptom analysis.
+>=20
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
 
-I'm asking you to do all the work :)
+[...]
 
-i.e. test the integration
+> diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc.c b/drivers/me=
+dia/platform/rockchip/rkvenc/rkvenc.c
+> new file mode 100644
+> index 000000000..d70bcc5fb
+> --- /dev/null
+> +++ b/drivers/media/platform/rockchip/rkvenc/rkvenc.c
+> @@ -0,0 +1,892 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Rockchip VEPU510 (RK3576) hardware video encoder driver.
+> + *
+> + * Copyright (C) 2026 Jiaxing Hu <gahing@gahingwoo.com>
+> + *
+> + * Architecture notes (see also rkvenc-regs.h):
+> + *
+> + *  - This is a *stateful* V4L2 mem2mem encoder (raw NV12 in on OUTPUT,
+> + *    H.264 Annex-B out on CAPTURE) modelled on
+> + *    drivers/media/platform/verisilicon's hantro_drv.c device_run()/
+> + *    codec_ops{run,done} split, NOT on rkvdec's stateless request-API
+> + *    decoder pattern =E2=80=94 an encoder has no per-frame bitstream to=
+ parse,
+> + *    so there is nothing analogous to rkvdec_run_preamble/postamble her=
+e.
+> + *
+> + *  - The vendor downstream driver (rockchip-linux/kernel,
+> + *    drivers/video/rockchip/mpp/mpp_rkvenc2.c) groups rkvenc0/rkvenc1
+> + *    under a "CCU" (rockchip,rkv-encoder-rk3576-ccu) that does pure
+> + *    software task-queue load balancing across both cores, plus an
+> + *    optional DCHS (dual-core-handshake) register protocol used only
+> + *    when *deliberately* splitting one frame's rows across both cores.
+> + *    There is no hardware descriptor/link-list engine behind it (unlike
+> + *    the decoder's CCU). v1 of this driver does not implement either:
+> + *    rkvenc0 and rkvenc1 are exposed as two independent V4L2 M2M device
+> + *    nodes, each driving one physical core standalone =E2=80=94 the same
+> + *    simplification rkvdec itself makes for multi-core VDPU hardware
+> + *    (see rkvdec_disable_multicore()).
 
----
-bod
+At least the comment and from a casual look also the code get this
+backwards. The idea is to explicitly _not_ expose multiple video devices.
+
+See
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/dri=
+vers/media/platform/rockchip/rkvdec/rkvdec.c#n1613
+
+Any (future) scheduling should happen inside the driver, and not get
+offloaded onto _every_ userspace application individually.
+
+
+Heiko
+
+
