@@ -1,112 +1,110 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6073E6DC8
-	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 04:58:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784696321; cv=pass; b=WGC3pvPnTZNF33lo481Cxao8f/lSbpz7xDaoH/mtz6ZnnlkqnetCLxlvd2Kpu3uIkDa+WqW0GeT4H1Co0F8gSS7uenNsh2hrezIeGKBktdL+WmNOKmXxtzWpR3ioezhysk3LdpLM4A88UrovonvV+ftYZ0ABPgCoJ+iHv5rwSQk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784696321; c=relaxed/simple;
-	bh=1GSR0gsWpfn47zXsK2cT+SXQaixu4TtHz878rL5by6c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TjSVCVm0I1ALBWexY1KYrvaQ2kYhEzFrX92lTIYXIKWIn9S2pmxuOdEhCFkpL36Z2+q1ICe4MPGTHNWJoW6CcbSuRbUeNHUOYzu5fPKDYqrY4U3xNBalQUdsuSMcQv5C8tUdMkIQSu1A6rgzR11Snj1S5NqbLBd+L+7+B9DHyRE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rq/j9vkl; arc=pass smtp.client-ip=209.85.218.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5534B2139C9
+	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 05:08:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784696902; cv=none; b=t5p7gmb7v2yw/aJ03GhQNg95iUROkNL/w6HWbEUedaItiibEX9OBoZo8qHUD2/0ApTXk6Srmp/Onn+wSMEf8gGxyvoZXb4iOx9zE/T1eIjf4CvPRx7gkBnNoJquBPQy2z84V01wtz9sWEj9lAAV2W1fdyC/NisomZ2jaJUAe1zI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784696902; c=relaxed/simple;
+	bh=H0epFU6j8qeKXiHDlxDEEk3BFdsDo5te7I4FrjRGv3g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oaBtCscYeicauVk+mvBFuPhXcCiREL2QHL7pnCHaCiErU33dhOsWDkOSaQ4VASKp12nfqphYWR/HxrUvOuZdFuFTlp3o8P3vT7FYTMkFEHqAdj+2NOXZK59Mja7ZFDYX/F8EtzIPpXghaoMAC2SRMlIbZa+9OpNs3AbVBaz1S3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=Gwa/w3fG; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rq/j9vkl"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c1c26d7e951so214599266b.0
-        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 21:58:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784696319; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZLJxxqUVLRrhDajeSKBaOIJ9P6Xv9kvbhD9WYL9JZxrZ3GU30Z4iE8OUDhk+6X8Q4U
-         0Hdloa37Cn3fA1sUe3lSGCsVL2DvXiPJna2LU5sIdCVgJuSphpxSDr/12+PD7fk+SIQ2
-         BMImcHH0xIUZnIozqDy8ns2yu+VI7re+dp3Z6X1mlIcHDwC4lvR4Ni5lAVpqDkHMj7EA
-         XRMEXonuEPQz4vbKt01ZV4r3Uf5PQM6sQbXqbZ6KgTHXZvj41m2Aum7zE1+OhxqaLhN6
-         oRxhieek1gDiop7trQCzwpGRBKNJWUFwXDXFjoVgCHTKls5GhpToaMHJL0P2+BDbkafS
-         3sCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1GSR0gsWpfn47zXsK2cT+SXQaixu4TtHz878rL5by6c=;
-        fh=R75tyB/rhZnACTSaMoLXwv6X1qUtQRPpxLH03SdANZM=;
-        b=jAdqHv/46rfSlfzuATo3aaP7219Iin7j/32edRRl/NLwU8onzqdiUzODoZWu5eaZ/x
-         eywM0UQbTFMGMGXBYiIobR6zmWhsJW5xq6x/l3BYEtOUMrK7Cp+6odCNLpwFrPwK/IVJ
-         0CZFyMKdBbdu/YNxPkK+6JlX0Kw05GHCpI+Bar/2odyoPRoLcU/tnnpCpTsIdrQMNkKu
-         /dfDNCK8sCF4UmtFfEDAC+tpVbybB8S6kijv/pPG/ctRetR7Ne4RnS2BHOC0tBSyWgSM
-         h2itGTEg7mHZp4KJ7VFWFcBSXGgA88XSz0Bb8uDP6bkv4nPo/mQOjh0BcpiIlAREGcTU
-         TTRA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784696319; x=1785301119; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1GSR0gsWpfn47zXsK2cT+SXQaixu4TtHz878rL5by6c=;
-        b=Rq/j9vklo/S9uQU0MMd9z6A3ulh2o03rI1GdOm7FonMVcjYeNWrYg2lDrD07+5pu04
-         nzopOzghDbSIQmQ+6FKnXPVfs+1XPrGwq+DTmWOquNeyonKyQ8JJzy8UBFnvlTXhQ862
-         AFHFoI4lSoife5rEkiipLre37R/yt/2Uh200xXjAdtcPE3jdyv65/sSy4iLGzi6OtArB
-         OQwWa56hJVdZs/qQuchnqx85kOrigQxdh0hVEqm85fNI4Q6k9yZT8tN9YZu47/77e9BL
-         2x+avSjZ20jh+gr/h7KyNTGbDq7aZW+/hcnRQrUKPgg8CqJxTBBpSYm25hqzk5QqO0L0
-         1JKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784696319; x=1785301119;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1GSR0gsWpfn47zXsK2cT+SXQaixu4TtHz878rL5by6c=;
-        b=Te3x8ONQ597oBuAjLISVNglBuCdVV7C4nelpdxJbe/T7sPMB8PCb7v8MnIcZzct6FI
-         Whux1MiyfSVPFQt+dis8yPvmXLAK2zh+i44CR8DpFUKmp7pnTSaZ8qR0JMEfibEzVzls
-         yo8MqOxkuB7gdxcyITum/mAX0H79DNtEmkEx4wpQXmpHpPH7+sglywyJmbFLkpHaOiFN
-         8yaym8z+JsDJ5LulDzhqP6ybJVlVXwU9TUCuPMZDgydKFF3MD/IclxTR6jd4uaaB/1zC
-         5ugFD59XnKvj36Ek3puQQZNG11q0x9QmSlKtxRNt6P+mu10U7byDcPWlDQcAiT8uWL1F
-         cvOA==
-X-Forwarded-Encrypted: i=1; AHgh+RpMrOGY1yEy77a1H96/8+PLot/Ewr3OBQyeJNoWUfv/yCtwOrG/aEJYG8pONJYqkv5sTmaT3tufcOtScg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyhyKLCjnguHsUpuGDd/5Rz15pZYYBuiXaYDIDHyr743e9aVtmf
-	f1wOLeJvzwu9xz4oH65uhtSmM5QoYxgV+4v6Jiy/ZYbbJpcnMkkxYK1Sb6Q1fibHlzY6RJZ4pHs
-	rPr2CQF4/mCRGCzxfKigQKR0elqIy7R4=
-X-Gm-Gg: AR+sD13IT8rFJ1y+csky662XSsu6Gk5IHZrQz+kSaUhuQWCmFjXof8dOiIwcL+fhBBb
-	J9sUBtC9BG1U4WwyxEK2mGQ++C4r/ME8OkXXT2leKUPkKxGyALhFbFL0KGN+1jdOYFd7Y9mQDlz
-	0ocqeRQvjK7aROkPajgI+NGHexk6gbh6kjPClIX1Eutpl3g7ZDRVG0xhKo3f5mxrGVmuQ+rkqK2
-	nkZgzdcDwNzedZe6Hn8i2NM7/0M8C5+SrmBxxkBOzq+L8HD7yXwJoN+0K8QL7lHzTUmTUo4pz/u
-	czghHilNtogvQgcGMBBFjH95Rpaodi5oulTOmSp8Y0qZMStlViSnAaLxneYN0dg2Uxed/NBpWfV
-	3RHC1s/r6wFWDQtuz+Ssli8DXSVCqXylay3Elswy6gtIZRGTcS8jp9uLbMdo=
-X-Received: by 2002:a17:907:8dc3:b0:c1c:2c92:fd60 with SMTP id
- a640c23a62f3a-c1c2c93cdb8mr154769766b.13.1784696318562; Tue, 21 Jul 2026
- 21:58:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="Gwa/w3fG"
+Received: from macsyma.thunk.org (pool-108-49-65-18.bstnma.fios.verizon.net [108.49.65.18])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 66M57mpe005275
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 22 Jul 2026 01:07:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1784696872; bh=FOPYY2DqCaisT4DVX8Tlcf9mdl8LeryErN6fEgAZDbI=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=Gwa/w3fGJZIJ77MuUo82nUVkxxQA5pLjGh4p0ozdZHd0HGv1UlRJY6t00/HFq0S4+
+	 5Q88HnDTl1ABnjsH18oJSrJY+o6U8Z64KZ9piXS/mAwUh37pm68vanz306XoVRgUsn
+	 I0UPC4pEOV3RdZeQ3XRbLCKrs+BL4+yVQnbJbPQzJaIF99ZliIyhwHhzW/q+hH5m9Q
+	 +OPpTIDL2YrQnbpd09TfHB12NFYjXZfBg5ywYOi6LNXfjejqSDCO8atMeNINZt76ju
+	 sTTKzviAJ32kg8Larir4XV6C8GYlU7Fg8hO1Me/HEI3HNXgK1Th1yyoHyWgpQjfKKm
+	 S5cUprlYK/vOQ==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 0F68DB9BBBF; Wed, 22 Jul 2026 01:06:48 -0400 (EDT)
+Date: Wed, 22 Jul 2026 01:06:47 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+        Roman Gushchin <roman.gushchin@linux.dev>,
+        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+        Derek Barbosa <debarbos@redhat.com>,
+        Matthieu Baerts <matttbe@kernel.org>,
+        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+        Jason Gunthorpe <jgg@ziepe.ca>, users@kernel.org,
+        Linux Media Mailing List <linux-media@vger.kernel.org>,
+        Stephen Finucane <stephenfin@redhat.com>
+Subject: Re: Linking Patchwork with Sashiko?
+Message-ID: <amBH3uJCxtHJ1cQ-@mit.edu>
+References: <20260715005909.GF1656185@killaraus.ideasonboard.com>
+ <4928C919-7999-4E76-ADCB-F8643FED105B@linux.dev>
+ <20260715162816.GF1778116@killaraus.ideasonboard.com>
+ <7ia47bmw0xls.fsf@castle.c.googlers.com>
+ <20260721182509.GG536385@killaraus.ideasonboard.com>
+ <20260721152501.0ff97e8c@gandalf.local.home>
+ <20260721224642.GI536385@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721214238.840406-1-nikolayof23@gmail.com>
-In-Reply-To: <20260721214238.840406-1-nikolayof23@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Wed, 22 Jul 2026 07:58:01 +0300
-X-Gm-Features: AUfX_mzCi86JGgiYv2ZdDa9mOYUwwlZcSdNTj_cSAxQsSOFdMkR8VtM0KfpQJx4
-Message-ID: <CAHp75VdoH_WCR+erV6rm-LohUYacJN91XsmbNN1JmJDCxi-xtQ@mail.gmail.com>
-Subject: Re: [PATCH 0/2] staging: media: atomisp: remove unused functions
-To: Nikolay Kulikov <nikolayof23@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans de Goede <hansg@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Andy Shevchenko <andy@kernel.org>, linux-media@vger.kernel.org, 
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260721224642.GI536385@killaraus.ideasonboard.com>
 
-On Wed, Jul 22, 2026 at 12:42=E2=80=AFAM Nikolay Kulikov <nikolayof23@gmail=
-.com> wrote:
->
-> This series removes functions in pci/hmm/ that are declared and defined
-> but never called.
+On Wed, Jul 22, 2026 at 01:46:42AM -0500, Laurent Pinchart wrote:
+> > It really sounds like you want companies to move effort from AI into the
+> > Linux kernel hardening. If Google did that, all it would do is move Roman
+> > from working on Sashiko to working on hardening the kernel. I think Roman
+> > is doing a hell of a lot more for the Linux kernel by staying with Sashiko!
+> 
+> As you said, it's not mutually exclusive. I'm sure Google has other
+> kernel developers than Roman.
 
-Don't do it per file, squash these changes as it seems not so many of
-them (I assume you checked the entire driver, right?).
+Google has contributed to various kernel hardening efforts; consider
+the work of Kees Cook and Jann Horn.  And while I have my differences
+with syzbot and oss-fuzz team, those are also security-related
+projects that have helped improve the open source ecosystem.
 
---=20
-With Best Regards,
-Andy Shevchenko
+And earlier this year, the number of companies including Anthropic,
+Amazon Web Services (AWS), GitHub, Google, Google DeepMind, Microsoft,
+and OpenAI contributed a total of $12.5 million dollars to the Open
+Source Security Foundation[1].
+
+[1] https://openssf.org/blog/2026/03/17/leading-tech-coalition-invests-12-5-million-through-openssf-and-alpha-omega-to-strengthen-open-source-security/
+
+Could all of these companies contributed more?  Perhaps, especially
+given how much the entire Tech Industry has invested in building new
+Data Center.  But it's always been part of the Open Source model that
+companies are free to choose how much an in what areas they will
+contribute dollars or engineer time.  In practice, the "Stone Soup"
+has worked pretty well over the past few decades, even if we wished
+that Facebook had invested more of their profits from their Social
+Media empire to Linux development; or Amazon or Microsoft investing
+more of their profits for their varius lines of business towards Free
+and Open Source projects; or if Netflix had contributed more of
+Brendan Gregg's time towards improving tooling around BPF.
+
+Personally, I'm much happier being grateful for the amount of time and
+effort we've gotten from Brendan Gregg, or Omar Sandoval on drgn, as
+opposed to stamping my feet and asking, "why didn't they and their
+company contribute *more*"?
+
+Cheers,
+
+					- Ted
+
+
+
