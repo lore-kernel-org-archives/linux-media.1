@@ -1,60 +1,62 @@
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FA83793D0
-	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 23:36:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E8C945BD4B
+	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 23:36:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784763376; cv=none; b=q651TZHGPQBk6q34S1sulbHna2TSPwXVLjQJj/JyIE2h9jbA+ixMvBvYCna5n9qu3RHOYTRE/IORUMHXn/g9VCM5uqrNeO0QfFSw0jsp21ISsyX2PHQaDyF98U/buD48AOTJzaVbvaRv/8C0871Ys3KdzzzdqOKLde0i1d0BAds=
+	t=1784763378; cv=none; b=GOyi7LbK++x6NJnpbXFAnAX3Ey3wRTI+rBUEOfbzRBdkuJYYhfATp6AxTIaphO/+iyTgijJgGE85or4yj+YKEW8Lm+ACdw47RlCCw4of1cF8bOpfL7Me2uZFebz5E9pTdy30aHuJls9baMlhX1wTmbtn4QA6b4BSm1Rt7o9miZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784763376; c=relaxed/simple;
-	bh=/WNSjUiB7ZBKYkg1c73HlDQeL6X829IxPmKArxDi2w8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e7IGINMshxX1FZS4fk7oSxij7nTZRpRQxwBGQGJxUCsQ3Wb/WVLuia88eOIC0imncrNyYBOU7iDQ5yC10Q2Ivm3SdEprkEoFDbetlHfADGJaY6OLiG6ZZgfeiB6FgC0R9wcDif+4c3mOiWQVN2grBDydYSHItyQmlO3cCormxLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qVPI4BjA; arc=none smtp.client-ip=209.85.128.178
+	s=arc-20240116; t=1784763378; c=relaxed/simple;
+	bh=p2luxpgausQjIcXu34TXu0p86I0tMOO4Cg1dU7QLAbM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XidHkJdQHt8b5MIpoP4Jj83z5OWVgGyTOjzBs+u6cwO4lKXXcjPuxrG22yvCxXHrX/Pgr8zOAumjWTiIqe+esOGsNUq7dKifcrFiUoWaJd3iqqxz0cnp1wzxpwJwd2QUnUcxZtLnaWGVvGMPCq26eLgEIGOHP8+109vi1OPgp38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MfI261vI; arc=none smtp.client-ip=209.85.128.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qVPI4BjA"
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-81e9d8f3289so694437b3.1
-        for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 16:36:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MfI261vI"
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-81eaf3709b4so706287b3.0
+        for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 16:36:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784763374; x=1785368174; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qgIx2gbKb5iWCG1ogTe9qMQNQTnak53463bbnfl8YvU=;
-        b=qVPI4BjAZdNd296OAWtBrEa9mj/aymYwSGN7PO4xQtoFTjzc61P/4Nz3vVFZ2glfz+
-         V2x+FwB9opeXcHmCvi/dO6x6MphFaegzjC45cVGgcg8i7I+fXbFJyaDILZW3xi7nD5nh
-         5Hin3GAPPi1mm45f1vV7h465UaGNE9Dp8AoNcEIzNRoTEKAus954L2Wxpfb41YA+Wdc2
-         fpBDPtBt2csGRAXwt0wwAuIw++JvagRVrGpb7PeL08JJC55pfFQHBtzfDjzX6UPJ7QL9
-         dR1cRJ8el3oMTTWF+T677x3Ru4zBbJfCu4P9aMYCPgh+70Ez44X6AYgiJNIYI5yLROR7
-         X1hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784763374; x=1785368174;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1784763376; x=1785368176; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qgIx2gbKb5iWCG1ogTe9qMQNQTnak53463bbnfl8YvU=;
-        b=hE+TSRyQ6AhJTuWBo1fIh2jV7btCpwRI24NKwhP39un53DLxd1l7fsnEZ6lsnfuR3u
-         Aj3Z9pN7fIhpqnw/0AP6hlOGkVvV7noPF9CnJJPjV2caNwtNiHQiasC1BWkXm3Ufv4lc
-         7cuSWZq0d9rN4jv7w3HwU/ee7H+8wTxgyGEZ/wI0PAdKnXtymp/745+HdQzZJ93Ub/FS
-         ZquF8vqAQbL7Le5wrqnPG9Yh8wID0mZMLqlnHfsV+vVYyqaXnBf3K4UaHYdRZjdR0t5V
-         Z80G6Ed2yCWffhluBDEZJYxKoFP621e5Yozb1tA+O2LX0xRIJdRNFWmiMGSpH6Zam3nn
-         dDqQ==
-X-Gm-Message-State: AOJu0YztvZeZ5d+l9oH3WXHYLS0GZUISwo2kDVWDgPR51kKInPcKXolE
-	fFd4Z5ne3yWwnjVhETTyFc86pjSbhr3xEXsWdRlO4KIMmulUGseelfxq
-X-Gm-Gg: AR+sD12Q7SWPBWpQ2qG7t5YQC1frdtTIRUCsqse28sxt+7196psH5J/pD0zJwhwYZ2C
-	5tycs04e6U2qIfpqVCjhd3YGp98SodN3JkVlbwE7ZKc4dWaWQ7awebSR63rrHh1+5/6X5dWabFW
-	QucvS2hkv3d/G6E4pkpDT07SWyRou6CASBkJ+AwyGHJfmiQUxzDfHKJSxGjndJp3h/c/movKflA
-	dP+squhvHs9HRxThUTS9tiVK4hY5obTYxMeVmPPc8rive7+WDzgmbpsV+aHLrG7AkSi8Oja7I49
-	zhqLe5KZcQa5uqgpTVVSOKrRZtIpAheYzRb9OjcA8c4gB4j6q/Cx+XYdddieKvDVZLyNL8Ehe6a
-	1gkdu6RqsDV9xqqI5nyg+yW6CxnQp0SvWo5gbWV+R6IgLUDXbsC8WKM0KZAIjq5oDQHdUoFrBXv
-	EB0pARVpFlHG0w7yaU603pMt3RCVASx94sx4lE
-X-Received: by 2002:a05:690c:6c12:b0:81f:4247:de29 with SMTP id 00721157ae682-81f4c3bf31amr2438677b3.68.1784763374425;
-        Wed, 22 Jul 2026 16:36:14 -0700 (PDT)
+        bh=/fvg+6+1EtvjWR0RkLSp0ui0eU2DSRzRszmxxfr+HzU=;
+        b=MfI261vICAM/inpXeTAEG2WraI+AYskeKW11DEOI9mOMM+1iEV7SIuAf8Go99bMOUu
+         FsXAhHIxND9/LWPntsiJexLfq8B0Mr6C02oVQ8CkcC/I+99G/xMWIVLMZKrRIKD/hn5D
+         2n7wvTKtJMqN44VypA0uCTybB728vvgV7So6iNABSa/h8BfizqtEhhY5ejfhqcdFej2V
+         zNQpG4vEVwa9Jpq9HhYbg7hVW+cExUHhpzDHre8cFa7PDDaanu6Rj/WFfhQBbfNKmcfD
+         8uS2oACja7TAN8ypAGnnhRvU4EgmGYOnIh8zUuTiTTZ1nxcdy/awSdWD/C/+kMEIeHQK
+         TgEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784763376; x=1785368176;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/fvg+6+1EtvjWR0RkLSp0ui0eU2DSRzRszmxxfr+HzU=;
+        b=laAHkXAWi3kVevXv71cYbZf6YxCLniAIky90XUtplWN1mGjKwnmruRjgm+sGpRPSkM
+         gOwSVUFqSrWH++h/YEaiawshyJUEDekHmzj7/8UdE2X+kUyHFBo3eyigmD+jx2TN14yx
+         kY7XT5q8UHcJAdcgPmUWqXt3XaopRaPNlItkH2HXkHTmWm5oremz2y6a3/96pJxedS06
+         o1dy4rUsWt9ngvzOuTclCdzneciRWwxqH/kfCiSsAuLjKnntkpHUgCAaT1SlLoQz2HLw
+         spkAE/WghTEMBGJp3IgjEsJ/LUAwuLqfxWsIS+4eDz9YwuzEGj8Gsib4vgn/Ifq3Amu2
+         8jdw==
+X-Gm-Message-State: AOJu0YwdHshglJPJfgrU+bwA7GDqRdDq8RXhUGMrsop2qBtK7CCtlbGD
+	63rHqAqcjiHhyPueGTw1ZSOKJ6IEfhFwTpW/JhvCEshMOghq3bZKvRH+
+X-Gm-Gg: AR+sD10psj/QG6bznRxd5cH7mJs41E+C6PtWVSpYzPiGQuSAvddS3EYYba3A88F+RZi
+	CIbfWld/SFgzgYhMvwmAdALWsN77/UM1R647WSJaBphYpgN5x/ER9Pnt7idg77HD/ndsAacZN2i
+	mXUMKm8aesU41k/YLwStMVwmtGSKhT61YXAPUO6D6g92/nt0mutlX58GhYmpaCw6nJgTyuc9APo
+	zdONM3NVGd4HKAaIEeLPZq+DCr0P1w0qN+jY3jeSA2JNSmb/iccrBqi1COpBlV5AXaj3AH22D++
+	U/DzuaRH8ys2cCsMf4HHHJhSKevzNcVpjuf7aX/PglnDTFw2QDO7W1lAVRRFSQHcRyb+IThhXOK
+	jqq5aSMMnsupp8yeLAlbp3q2WNsOCSaby/Hqpmjtk5f/50DIPY6RLMUQWti/OqVoca5Miq3hG0Z
+	0pReeh+q7xTTgEa1blcG0p0f2t1p2M7Xs7ndmOuJ5sp2JCaIU=
+X-Received: by 2002:a05:690c:6b81:b0:80d:e214:c2bc with SMTP id 00721157ae682-81f4c2a96bfmr2265757b3.35.1784763376007;
+        Wed, 22 Jul 2026 16:36:16 -0700 (PDT)
 Received: from zenbox ([2600:1700:18fb:6011:4392:41cd:1ce2:e391])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81f33c627c9sm20937027b3.19.2026.07.22.16.36.12
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81f33c627c9sm20937027b3.19.2026.07.22.16.36.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 16:36:13 -0700 (PDT)
+        Wed, 22 Jul 2026 16:36:15 -0700 (PDT)
 From: Justin Suess <utilityemal77@gmail.com>
 To: Sean Young <sean@mess.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -70,11 +72,14 @@ Cc: linux-media@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-sunxi@lists.linux.dev,
 	Sashiko <sashiko-bot@kernel.org>,
-	Justin Suess <utilityemal77@gmail.com>
-Subject: [PATCH v3 0/4] media: rc: sunxi-cir: support the A523/H728/T527 IR receiver
-Date: Wed, 22 Jul 2026 19:36:00 -0400
-Message-ID: <20260722233604.3001063-1-utilityemal77@gmail.com>
+	Justin Suess <utilityemal77@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3 1/4] media: dt-bindings: allwinner,sun4i-a10-ir: add A523 compatible
+Date: Wed, 22 Jul 2026 19:36:01 -0400
+Message-ID: <20260722233604.3001063-2-utilityemal77@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260722233604.3001063-1-utilityemal77@gmail.com>
+References: <20260722233604.3001063-1-utilityemal77@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -83,36 +88,47 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+The A523 (sun55i) contains a newer revision of the sunxi CIR receiver.
+The reset defaults match the fixed behaviour of the older IP, so the
+device works fine when driven as an A31 CIR receiver.
 
-Quick series respin for easier application.
+Add the A523 compatible, with allwinner,sun6i-a31-ir as the fallback.
 
-This series adds support for the CIR receiver on the
-Allwinner A523/T527/H728 family (sun55i).
+While at it, merge the standalone compatible entries into a single
+enum.
 
-One-line function name change s_cir -> s_cir_rx at Andre's
-suggestion, with his patch for the Avaota A1 applied on top
-for convenience.
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Justin Suess <utilityemal77@gmail.com>
+---
+ .../devicetree/bindings/media/allwinner,sun4i-a10-ir.yaml | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-v2: https://lore.kernel.org/linux-sunxi/20260722201717.2205609-1-utilityemal77@gmail.com/
-v1: https://lore.kernel.org/linux-sunxi/20260702214750.3428694-1-utilityemal77@gmail.com/
-
-Andre Przywara (1):
-  arm64: dts: allwinner: a523: enable IR on the Avaota A1
-
-Justin Suess (3):
-  media: dt-bindings: allwinner,sun4i-a10-ir: add A523 compatible
-  arm64: dts: allwinner: a523: add IR receiver nodes
-  arm64: dts: allwinner: a523: enable IR receiver on the X96Q Pro+
-
- .../media/allwinner,sun4i-a10-ir.yaml         |  8 +++--
- .../arm64/boot/dts/allwinner/sun55i-a523.dtsi | 35 +++++++++++++++++++
- .../dts/allwinner/sun55i-h728-x96qpro+.dts    |  6 ++++
- .../dts/allwinner/sun55i-t527-avaota-a1.dts   |  6 ++++
- 4 files changed, 52 insertions(+), 3 deletions(-)
-
-
-base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
+diff --git a/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-ir.yaml b/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-ir.yaml
+index 42dfe22ad5f1..18b28feacf83 100644
+--- a/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-ir.yaml
++++ b/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-ir.yaml
+@@ -16,9 +16,10 @@ allOf:
+ properties:
+   compatible:
+     oneOf:
+-      - const: allwinner,sun4i-a10-ir
+-      - const: allwinner,sun5i-a13-ir
+-      - const: allwinner,sun6i-a31-ir
++      - enum:
++          - allwinner,sun4i-a10-ir
++          - allwinner,sun5i-a13-ir
++          - allwinner,sun6i-a31-ir
+       - items:
+           - enum:
+               - allwinner,suniv-f1c100s-ir
+@@ -27,6 +28,7 @@ properties:
+               - allwinner,sun50i-a64-ir
+               - allwinner,sun50i-h6-ir
+               - allwinner,sun50i-h616-ir
++              - allwinner,sun55i-a523-ir
+           - const: allwinner,sun6i-a31-ir
+ 
+   reg:
 -- 
 2.54.0
 
