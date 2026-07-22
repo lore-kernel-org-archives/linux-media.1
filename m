@@ -1,48 +1,48 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61574C9562;
-	Wed, 22 Jul 2026 10:23:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACCF84CA287;
+	Wed, 22 Jul 2026 10:23:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784715823; cv=none; b=Kk6Ofm9I48BneARL5gQ8pRBamhYrWDfeV1bw5ws9LtqX55sw6iFXzgMoIqpgPqxJHQZJwsq9R9cJZS639n1AiOevfaQmezRuuxJ14ryJ4GIJFWHKg70mEnvG/nVNhk1/elZNRmnTyetrQDbiyF09hEGtLkLZr0hP6b+4h+dgYnQ=
+	t=1784715824; cv=none; b=ILLhh3cbIwbymZrRIDlP8SLm3GOBYSloizcSRBScH5TXGgmQO7qtA3ATi4/RSNsNlE8ekpxQcHyXtOleHxAvRPP9qy4vCD/LsgSy8hqayVnpkBIG+rfK1Uyitvy96/GheYRf9bJR6dMR0L8GqTJUUu9YgSPPUk0928zrPoNyQ64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784715823; c=relaxed/simple;
-	bh=v0aZIk+G8qQOaUMq8H69z/O75gsUb1OibfhX/UC/5PI=;
+	s=arc-20240116; t=1784715824; c=relaxed/simple;
+	bh=mIylYCO0JFLAiBSJwkYAbJj9cPt23NJtSym9D8CkTxU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n/2CZJp7Q1ABMQZkI/Rc+XnrHv3ZpRRqsMlnx24WzbSIyeLeORkRgFl6AX3I7FXz87VbjqXB8i6VwhYHAb4+G4BQ6tFTEHYNTV0Z5m17M8zYz3F7FPOhO1QLhPz+cA3VEk8t7zbNn4pHfXQ0uw2dEXcES8PR5itEfZvsfKofkvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=p8nIqaVy; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=mDQMFol5; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=qLFMkXvhJIXcwqllq1vKF3zix/peJ5ZuZKroe7ct14JSneZtaRllGY3KS1/bkGZlz7hyV3f648Ro7W8m1ElIx+NeE2PF/ToTvaw1YGiXgQVP0GJfwmzbF24FbqfeI2UFDg+dHkbctOtCEvPLpkTksA9UERPTVt1kkquGrxTEhpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=VUPr5NkB; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=RSBe0T+u; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="p8nIqaVy";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="mDQMFol5"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="VUPr5NkB";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="RSBe0T+u"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1784715820; bh=v0aZIk+G8qQOaUMq8H69z/O75gsUb1OibfhX/UC/5PI=;
+	t=1784715821; bh=mIylYCO0JFLAiBSJwkYAbJj9cPt23NJtSym9D8CkTxU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=p8nIqaVy2DRAugJh8aw//UBb54MV40uLKDuKRL1RlRkX+MpGQcinX4Og9iqb3+Z6l
-	 C9vTi7FtrqrajL9bKCSxY4S69e5YoaXj9FP785NDijsteKl8d3oSMfJ+O0eLtkWFyK
-	 bNG6N3Ai7ykyR+R+lEScdY/++kzhcf7gLgUP/yHpFDlaS11CNpuKxBu2ojkO71EU1j
-	 RK2jydoXQyr/9pa9yoViRbJJV/EaghpzUisfrEJe/6rzzEHwJirrnsDf47ZFP4KYJp
-	 kPi+MXEVF3zqhzY/fCIqZhV+HZhMzZFScF6eLJNacTqFkrlVBn+ttXWzWhvwlEF+Tq
-	 pL69BC263WWrQ==
+	b=VUPr5NkBbXJ6ZCEnoJ94cJPTHx3NEeN9hEEzOraWppANJcewQPt+QZBNjrfCY8cKs
+	 Mclj/4En6hzrRKayQ1ErOQDbavhAgatClvZEdJIe3TLwqviadImcsE3eQj+Gu4BO+8
+	 T+MFCKTlSXImatsfZ3QGbG/7yrN8b8w7XAPOeoj5tEbKqMMsvfc6j+0Oufe9OSiDak
+	 eQ+zcDmt8FO3j37fWIHKrr6zU3H7aanhztR5vHHmS4FIlR0coNqVqwher6LHJo8jQk
+	 /nRfJ6sNqblpSs24Oah+1hT5PGahluXRkba4SDNzd5LWWxjpav9s60kqCDp17Imelh
+	 o2Xqx9Y+mK4Mw==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 7A8424254A; Wed, 22 Jul 2026 11:23:40 +0100 (BST)
+	id 4DDE842534; Wed, 22 Jul 2026 11:23:41 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1784715819; bh=v0aZIk+G8qQOaUMq8H69z/O75gsUb1OibfhX/UC/5PI=;
+	t=1784715820; bh=mIylYCO0JFLAiBSJwkYAbJj9cPt23NJtSym9D8CkTxU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=mDQMFol5QBHHj3Osr3lFNkgmOfBFQ3HLbZ0N14Iuyn3D4GVP/e2erCiWqaO/I0u3n
-	 vDdg3N6fLu3cEJCs1HxkpKzVW2c61m/Z+/WiOGdAL1EPqvDxz8YX2JjSJFAdfU840n
-	 93TeS/6TRrvENsGMVBQrTSe2HSHrvG67Hansj69c9xhhzRH+MeS7Fwv7t6RnIyiekt
-	 sBHMtgtLfctNuQTjSscPdiBiSYfQ1KGFzCVDCItN8NddINsVqBDGq1ckSb0SlbGF30
-	 lmh6f0MreVpEmGqoGikiSJ8NjdQyGq8Mg27wQRHzoMgbnOkc1eV+a4I2uqJhidYcvu
-	 kHlBw1NVeHQfw==
+	b=RSBe0T+uNUqE6lYdYPl+glJsWQ8ISBAagSMukBOdLpJ59DGQScSkPmVQcFsjx7Gfs
+	 /A/jSXwKYMs3yxfwP/ZaoFqk+4eR2ZX87EUofM5P8HORG78DnToYT+oniXPyEvLv2K
+	 i0XRBdv/T0yU41aaMBB8Hpsx5Cq7sea1jwQPQ3z8imYVzD7ILMikuqOtKVeNR6i2cn
+	 MW7ErIuqGT242dYTzVEz4fm1I4DTUdeswxUWZUMwYfYdkoU9TOhUEEe/A+XDhYNC4c
+	 2XRQ+wfNE2UU/xSy4guGTQAqCEwNdzEasL6xXOnTuWNLHCakIwiOysblzgXgDgltuu
+	 2i7Fw1XYpNgpQ==
 Received: from maru.local (unknown [62.232.99.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 247FB4252C;
+	by extorris.mess.org (Postfix) with ESMTPSA id C890742544;
 	Wed, 22 Jul 2026 11:23:39 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
@@ -52,14 +52,14 @@ To: linux-media@vger.kernel.org,
 	Kevin Hilman <khilman@baylibre.com>,
 	Jerome Brunet <jbrunet@baylibre.com>,
 	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Viktor Prutyanov <viktor.prutyanov@phystech.edu>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Patrice Chotard <patrice.chotard@foss.st.com>
+Cc: linux-arm-kernel@lists.infradead.org,
 	linux-amlogic@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 07/13] media: meson-ir-tx: Ensure clock is disabled on unbind
-Date: Wed, 22 Jul 2026 11:23:19 +0100
-Message-ID: <ff9948f8d30ceb0f7d2c962097798dc9ed8a1a40.1784715737.git.sean@mess.org>
+Subject: [PATCH v3 08/13] media: meson-ir-tx: Ensure rc_free_device() is called on unbind
+Date: Wed, 22 Jul 2026 11:23:20 +0100
+Message-ID: <bb206cf5e5bdf607bafda87ba3af4f8f05c30f08.1784715737.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1784715737.git.sean@mess.org>
 References: <cover.1784715737.git.sean@mess.org>
@@ -71,31 +71,40 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-clk_prepare_enable() needs a call to clk_disable_unprepare() on
-driver unbind. Make it devm managed.
+Make rc_dev devm managed.
 
-Fixes: 49be1c78d575 ("media: rc: introduce Meson IR TX driver")
+Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
 Signed-off-by: Sean Young <sean@mess.org>
 Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
 ---
- drivers/media/rc/meson-ir-tx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/media/rc/meson-ir-tx.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/media/rc/meson-ir-tx.c b/drivers/media/rc/meson-ir-tx.c
-index fded2c256f2a..e7bb107e6a84 100644
+index e7bb107e6a84..abb107d19e8c 100644
 --- a/drivers/media/rc/meson-ir-tx.c
 +++ b/drivers/media/rc/meson-ir-tx.c
-@@ -288,8 +288,8 @@ static int meson_irtx_mod_clock_probe(struct meson_irtx *ir,
- 	if (!np)
- 		return -ENODEV;
+@@ -345,7 +345,7 @@ static int meson_irtx_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "irq request failed\n");
  
--	clock = devm_clk_get(ir->dev, "xtal");
--	if (IS_ERR(clock) || clk_prepare_enable(clock))
-+	clock = devm_clk_get_enabled(ir->dev, "xtal");
-+	if (IS_ERR(clock))
- 		return -ENODEV;
+-	rc = rc_allocate_device(RC_DRIVER_IR_RAW_TX);
++	rc = devm_rc_allocate_device(dev, RC_DRIVER_IR_RAW_TX);
+ 	if (!rc)
+ 		return -ENOMEM;
  
- 	*clk_nr = IRB_MOD_XTAL3_CLK;
+@@ -358,10 +358,8 @@ static int meson_irtx_probe(struct platform_device *pdev)
+ 	rc->s_tx_duty_cycle = meson_irtx_set_duty_cycle;
+ 
+ 	ret = devm_rc_register_device(dev, rc);
+-	if (ret < 0) {
+-		rc_free_device(rc);
++	if (ret < 0)
+ 		return dev_err_probe(dev, ret, "rc_dev registration failed\n");
+-	}
+ 
+ 	return 0;
+ }
 -- 
 2.55.0
 
