@@ -1,142 +1,123 @@
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F373A8739
-	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 19:37:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF623FA5F0;
+	Wed, 22 Jul 2026 20:06:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784749044; cv=none; b=tCTSsa2E5530p3NV1qv4xrZr19Wzm2qIUrxu28ZaYsN9etaEE5RrjhBevBcXG5L+c09bgX62J6PEW3SO7Jso092xBBcT03Hv0FT0gVKilQGBliGscMRSpD8BQ9hB5x4LsomTje0z1jCFO86qc7/jcrL45v1Mko9R7UlZrLNdav4=
+	t=1784750786; cv=none; b=q3UtJCOXIOQEO7+FUQfZwtuhCnFTnVH5t46Z2tIXv0xa1AoU0Fxkv2p9GF3kmU/V7Km+21+QOhqMcmwPRoGBLT/sEHcIaquSPInAQpVVAD6LMx6RRyQcU5ksCj9I86htm+hBI0J1SD/Kl/guFJQFDFsJ5SAngzN1deGl/0lW2jk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784749044; c=relaxed/simple;
-	bh=SdLw3jGnwqxER9MQB25ENOmjNqYOO1QJBZsLOcTXYoY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ghzBfG6cCS9tL1aH2GciXLN5cdHOrHGo6viiftC2RDivHdPtbUMEmFvQ9q0xoTxlexRJJXD5mu2B/+5cMhnrK3rYwPLWhUleOyTjeS7bzlMWPTeqEKdMqiItH0RHt+beMJLGObdAMmeRQ2WjeTjt+r3M3Wrc8DmjOa4oKtCMBsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EpEqApAx; arc=none smtp.client-ip=209.85.128.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784750786; c=relaxed/simple;
+	bh=stshlyFU5jeSS4sb+KL/9qGL6v351n1j1DTdzSeYxms=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ynp2YjqBeMMaOJxMRbE9C/YMHSOI4+J5r+fxnp+P4t+FSqvPY8M2ULxBC31Pv+y9zr2qfgk1YZEw+5RPBxIEeSX87tDhfqnyl8XIKyJjZkPKadcRoOd6WdvR1bvZrRtWXvBXu1ar3qT/jDkNMzO9hLQkrWM+CfmpxtdDVty7C5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ToqILh9C; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EpEqApAx"
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-81e9d8f3289so106739027b3.1
-        for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 12:37:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784749042; x=1785353842; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6gJFEt2M+Nlar+eflQsqBPUZL3USmtVhd3t9VrQs5fw=;
-        b=EpEqApAxXTRX+F8QrLNaLmTbMJx1L8qfZIbW5jhDHRH0HTJ+Fhkr7TWgibhhF7uwLJ
-         UzUKEW5Lqas5Q51OL8SLEPJdPwe5f6Qs5p9riF8iVUEOIuKo+Xhvq3zrzT8f02/7B63n
-         wnTCCz/K2B0FSuH0By7aAddE35B1+uUiBA5jkmUe6RZybrY0kYARKtHbv+DjaeMzT+HS
-         zp7UhSx3GuuKHykQUmck0z+br1hP0bXgiE4HeDNYp76OyebBiom3Vq0rTBiwZ45JQmqG
-         YqiKiz1QJTpU9RY5dOzt1jw+EJAWNVFOLRCRhaJIHfxWn/rIRoTJcPF0gb2PUeBrcjBg
-         TMbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784749042; x=1785353842;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6gJFEt2M+Nlar+eflQsqBPUZL3USmtVhd3t9VrQs5fw=;
-        b=iMSOVzhLtVDGvf3cq7N2teDLhaKszqciH7s3OT+veO/XPcwibKL5rad6zDdokGzWk4
-         tOSEHA3Xped07NJAoVX6sZUcybQFAxmJguQa0hhQ/l2MuP40HEa9Wl6gTRcyHHCAbexO
-         k8MUDIkYHUwoZOanmTBMvoU/dQggfPZLlc/yGL7j+iwwbxwmLFLtoGTdNbtDRlLhoBIK
-         +4iWlMJgKZsjiCjnR+B1zF0OgsNx2swjM5Q0Dd25E1/DVPuV/rLo1sDLG1kRLCtVwXkt
-         bhWdxGyaCDIqr+VX9vx4zErfid/5D4mSIFV03tdmLbTcTJGA4fPvKszxXTmaqshQpFf0
-         yX7Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrSHjVBXRfYqIYnel4uPuVFEqNAvf49n73aHvu5bxlz1XZszT6e5QmjYMVUEv4UZQxrtdfAD4dqUM8cdQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZ+1q72ry4Nw8I2zF0uVLV2xrV1ksTC1fouGbJJACCnQrRSiCt
-	KnamnXy81GmoSNsKZP71+sZB4w11cmwgiPWtlT7V1+RF+Jfg/GLhktiQ
-X-Gm-Gg: AR+sD12D9cUibgOh/uFE4O4zR5zYkMJKyPFGfWtXSjgIUiigXO4DOROqsXSOCPpsA4W
-	GsLhYNokCO28PwetUbLKAyrI3RJHNfpUDknetx7mp2Er7BVulD31dDSbda46OoWWXUz/NHht9aY
-	tRK2CXJ/uDrFW0psrpbSl5K9hsjP1HxJ7GgoSBv4vI++uGFIriC6/hqXNdaPLIthdAmW1VM/Xy/
-	eholcPXYsVv2Y6P1ZKOAP/1Eh6FJjo/TMqf0DI9RCyWxa2dv8fCQqvKwFHJ3sl0cr7sZmFRnBT3
-	WPQX88h3JS+RpEaJgxxQv4NNO5RqUmqiMOW9dgR8w67DJ/pV3JhbwRKnwHJrRJ3cdzFIMyPg1s0
-	RLENBhvYLYL+zghki9YrH3kXQmLHTgvOLgHrmRvaIupaDmC93e/macHVxsZbhkdtTf2wJZjODm4
-	39qgfyfVyiGdGJ4TPSKh9VPKArwGPRY8wH3cSX0wJ6brvUYgcmIYESwF3up1Esqv+n2kPO
-X-Received: by 2002:a05:690c:c0b:b0:7dc:e96a:26ed with SMTP id 00721157ae682-81f4c1a6540mr207b3.9.1784749042057;
-        Wed, 22 Jul 2026 12:37:22 -0700 (PDT)
-Received: from LAPTOP-83ECOPAB.f7a5e5c3-cab1-4810-bdbb-207cdd06de9e.globalsecureaccess.local ([2600:1700:37c0:9da0::29])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81f33c6fa89sm18604857b3.22.2026.07.22.12.37.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 12:37:20 -0700 (PDT)
-From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
-To: mchehab@kernel.org,
-	hverkuil@kernel.org
-Cc: kees@kernel.org,
-	rongqianfeng@vivo.com,
-	axboe@kernel.dk,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	tgopinath@linux.microsoft.com,
-	kys@microsoft.com,
-	blbllhy@gmail.com
-Subject: [PATCH] media: dvb-core: add upper bound check in DMX_SET_BUFFER_SIZE ioctl
-Date: Wed, 22 Jul 2026 15:37:19 -0400
-Message-ID: <20260722193719.81157-1-blbllhy@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ToqILh9C"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 25E6E594;
+	Wed, 22 Jul 2026 22:05:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784750722;
+	bh=stshlyFU5jeSS4sb+KL/9qGL6v351n1j1DTdzSeYxms=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ToqILh9CPGJo0smEwP7rP4LkNeMgmIrJ+Q9iCToV2K2r361f3GHLEh8QgGGyhpyjl
+	 ip4IuQea7teP2RyzbNfgzH7OmAUnSK2gT5T1wKtAAixCwsWhGB/HGiMD/k494dvbU8
+	 VnXbholLCrbgR3UiGSTBYqggNj3fjvXwk+TWetOI=
+Date: Wed, 22 Jul 2026 23:06:20 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Haowen Tu <tuhaowen@uniontech.com>
+Cc: rafael@kernel.org, gregkh@linuxfoundation.org, hansg@kernel.org,
+	kernel@uniontech.com, lenb@kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-usb@vger.kernel.org, mchehab@kernel.org, oneukum@suse.com,
+	pavel@kernel.org, stern@rowland.harvard.edu
+Subject: Re: [PATCH v3 3/3] media: uvcvideo: skip streaming restart after
+ hibernation snapshot
+Message-ID: <20260722200620.GC648629@killaraus.ideasonboard.com>
+References: <20260602032413.1540166-1-tuhaowen@uniontech.com>
+ <20260618013133.1047270-1-tuhaowen@uniontech.com>
+ <20260618013133.1047270-4-tuhaowen@uniontech.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260618013133.1047270-4-tuhaowen@uniontech.com>
 
-dvb_dvr_set_buffer_size() and dvb_dmxdev_set_buffer_size() pass the
-user-supplied size argument directly to vmalloc() without any upper
-bound check. This allows excessive kernel memory allocation via the
-DMX_SET_BUFFER_SIZE ioctl, which can lead to system-wide OOM conditions.
+On Thu, Jun 18, 2026 at 09:31:33AM +0800, Haowen Tu wrote:
+> After the hibernation snapshot is created, devices are resumed with
+> PMSG_THAW before the image is written and the system is powered off.
+> Restarting an active UVC stream during this phase reinitializes the
+> camera and visibly turns its indicator LED back on.
+> 
+> Skip only the UVC streaming hardware restart while the snapshot is
+> available.  The driver's frozen state and clock are still updated before
+> the check, and a subsequent UVC suspend can stop the stream and select
+> alternate setting 0 as usual.
 
-  Kernel panic - not syncing: System is deadlocked on memory
+Why is that desired (both the decision to only block the resume of the
+video interface, and the decision to not block the next suspend) ?
 
-  Call Trace:
-   out_of_memory+0x12fd/0x1370
-   __alloc_frozen_pages_noprof+0x2620/0x2fa0
-   __vmalloc_node_range_noprof+0x7fa/0x1490
-   dvb_dvr_do_ioctl+0x11e/0x260 (drivers/media/dvb-core/dmxdev.c:296)
-   dvb_usercopy+0x15b/0x360
+> uvcvideo does not provide a shutdown
+> callback that requires the streaming hardware to be restarted first.
+> 
+> This is a device-specific use of pm_hibernation_snapshot_done().  The
+> helper does not cause other drivers or USB core to skip THAW resume.
 
-Fix by cap both functions at 64 MB and return -EINVAL for oversized
-requests.
+I don't think this sentence belongs to the commit message.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Fixes: a095be4b030c ("V4L/DVB (7659): dvb-core: Implement DMX_SET_BUFFER_SIZE for dvr")
-Reported-by: AutonomousCodeSecurity@microsoft.com
-Signed-off-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
----
- drivers/media/dvb-core/dmxdev.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+> Tested with hibernation image written to local storage and resumed from
+> disk on a system with a USB UVC camera attached; the camera LED remains
+> off during image writing and the video stream resumes correctly after
+> restore.
+> 
+> Signed-off-by: Haowen Tu <tuhaowen@uniontech.com>
+> ---
+> Changes in v3:
+> - Clarify that only the UVC streaming hardware restart is skipped.
+> - Explain the subsequent UVC suspend and shutdown handling.
+> 
+> Changes in v2:
+> - Use pm_hibernation_snapshot_done() after the PM helper was renamed.
+> - Move the check after clearing the frozen state and resetting the clock.
+> 
+>  drivers/media/usb/uvc/uvc_video.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+> index f6c8e3223796..1744298f4b1f 100644
+> --- a/drivers/media/usb/uvc/uvc_video.c
+> +++ b/drivers/media/usb/uvc/uvc_video.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/list.h>
+>  #include <linux/module.h>
+>  #include <linux/slab.h>
+> +#include <linux/suspend.h>
+>  #include <linux/usb.h>
+>  #include <linux/usb/hcd.h>
+>  #include <linux/videodev2.h>
+> @@ -2151,6 +2152,13 @@ int uvc_video_resume(struct uvc_streaming *stream, int reset)
+>  	if (!uvc_queue_streaming(&stream->queue))
+>  		return 0;
+>  
+> +	/*
+> +	 * Avoid restarting the streaming hardware during the transient THAW
+> +	 * phase after a hibernation snapshot has been created.
+> +	 */
+> +	if (pm_hibernation_snapshot_done())
+> +		return 0;
+> +
+>  	ret = uvc_commit_video(stream, &stream->ctrl);
+>  	if (ret < 0)
+>  		return ret;
 
-diff --git a/drivers/media/dvb-core/dmxdev.c b/drivers/media/dvb-core/dmxdev.c
-index 3c8bc75e4d6c..b4dc87945be1 100644
---- a/drivers/media/dvb-core/dmxdev.c
-+++ b/drivers/media/dvb-core/dmxdev.c
-@@ -20,6 +20,9 @@
- #include <media/dmxdev.h>
- #include <media/dvb_vb2.h>
- 
-+/* 64 MB upper bound for DVB ring buffer allocations */
-+#define DVB_BUFFER_SIZE_MAX (64 * 1024 * 1024)
-+
- static int debug;
- 
- module_param(debug, int, 0644);
-@@ -292,6 +295,8 @@ static int dvb_dvr_set_buffer_size(struct dmxdev *dmxdev,
- 		return 0;
- 	if (!size)
- 		return -EINVAL;
-+	if (size > DVB_BUFFER_SIZE_MAX)
-+		return -EINVAL;
- 
- 	newmem = vmalloc(size);
- 	if (!newmem)
-@@ -333,6 +338,8 @@ static int dvb_dmxdev_set_buffer_size(struct dmxdev_filter *dmxdevfilter,
- 		return -EINVAL;
- 	if (dmxdevfilter->state >= DMXDEV_STATE_GO)
- 		return -EBUSY;
-+	if (size > DVB_BUFFER_SIZE_MAX)
-+		return -EINVAL;
- 
- 	newmem = vmalloc(size);
- 	if (!newmem)
 -- 
-2.53.0
+Regards,
 
+Laurent Pinchart
