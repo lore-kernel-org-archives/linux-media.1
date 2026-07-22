@@ -1,108 +1,150 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3089D371CE0
-	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 14:51:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D5939EF30
+	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 15:38:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784731908; cv=none; b=MqAa2kjt8fuV2R3UKogRV0evfuS6lQ61DI+Riyp5Lc+AyFllT744HvYk3qU6jWDGTJRD7GonGrDfURFimEwOprbqrC4o8+3j9hD57oQsM81gSjT16XCYqt7bm3MMIZGbH3CtoCcirsCZresNOGxwR3wY2eMkMT+OYa8KrTyXTdk=
+	t=1784734690; cv=none; b=anNlJC0YNExC2oP/j/aGpaULICF/+AiGzjdpEL4pL1Bry5YtqO7+iwBAXX62ba1CN+9JO7wh+w/6TvqJw9xb+ZnsWOvwwEk3XTT3vwlN24bZPlF4KV6Mxf4F1i0qOjOLM6ogMGVscPYdQIm6bcqdpUEuJFcPyUglFEaNkkra3G4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784731908; c=relaxed/simple;
-	bh=3RFiJSGQKs0gZkYqlLVATttYTgkVnbNSPDbJBPcj3Rg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bRHhlb00nBBOvtLZQnj4qncrRt2vFlun012PiCvm4sQGh7uwaeroIdEsBmk+4z9VhrL/6Yzw+V0oao5pGw2PuIAJnKTBRUQqJErnBUqF8dRKSnFlnphBtKBrkRefzNhpV7UShx3xHI9mmT0E1+BSvVpfpaNKWogCWVFBVHlXD1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=faox863p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784734690; c=relaxed/simple;
+	bh=Kz9ruYnDBf8oo2BBSEesv2Clep9S3O9EEh5hSaSVKRk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gZkM/kudARCoN/8pmQoH8KN3nexrPaIbog2vMjIvDfBzZF25611Jyf1Y1mZhITg257DW10fe9KC24G+6XWanggETwPbZDq4mSzuLfTR018sZn2P2z5LVzpU7Y3FKmP9K78sAbW7jq5HdxrSdwEghC/DQ2+t6hj61XLk0zdZJgxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mdopnx6L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="faox863p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 683301F000E9;
-	Wed, 22 Jul 2026 14:51:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mdopnx6L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49B721F01558
+	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 15:38:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784731906;
-	bh=3RFiJSGQKs0gZkYqlLVATttYTgkVnbNSPDbJBPcj3Rg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=faox863pK7w/cNdMIBUrnrYeuQ/ZskVTZhfa4yIIwxrPJ65khsuBxSw9HrDCb0OFH
-	 ZNeuInxKDCBLVJEAO6YWFoJ/b+4Jg394J74n+SMTV++Ml4LQ0PskRQCweiK9d2wY4G
-	 SAF0N0rrvb8dF/JccOSZoGFXTpjJlATbVxbr8SirDNeb6f/t6MJyWQ6t9XB03ix2SB
-	 23+J1ZKp4ni8IPbK+kAIpSVsUCrwUGhpZhE5uz5ZbnY81OMcidA+Mc+xiqHahx0H28
-	 0iyULxqNy/c+Ynacw5WtW3+WEZRrlj4Jqwf/omBDBU2Akn36MBLvhPmhj9XzJeS4rj
-	 xWp+vMM0fE6nw==
-Date: Wed, 22 Jul 2026 15:51:41 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Theodore Tso <tytso@mit.edu>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Derek Barbosa <debarbos@redhat.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>, users@kernel.org,
-	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Stephen Finucane <stephenfin@redhat.com>
-Subject: Re: Linking Patchwork with Sashiko?
-Message-ID: <b68a3c0a-6894-4f51-ac98-a28912ee2c82@sirena.org.uk>
-References: <alc3gAJfAkG5DULJ@zed>
- <alfBvhZkAelq5RVf@mit.edu>
- <aliMsSH373RJ31Mq@zed>
- <aloZ9hqSgzN3beqH@mit.edu>
- <20260717152559.2d2bfc8d@localhost>
- <20260720095537.4d5d503b@robin>
- <ce1df91e-0674-4861-90ff-bcaf5428b414@sirena.org.uk>
- <20260720142432.288b0433@robin>
- <c349b75c-556b-4f70-a243-f44fc04a0684@sirena.org.uk>
- <20260721151517.42674981@gandalf.local.home>
+	s=k20260515; t=1784734688;
+	bh=PU53zP2ZgYOzNVSXialkgWNhgjIomM0I0DCTOOJVrdA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Mdopnx6LNND9dD1lcVqJSplP0C59cqSy/YDjvD9Qr8e5//ozxm85tIqfCcHVb+wkk
+	 QsP1IZtH7IaaM+E6zlv3RE90dSRqnVfqnIS6Ny2EHkZOXtdfiFMaevvnHUo/0Txkxn
+	 eyhySHWpjoqocVW+IZbWAECP9mEcUIhm3RI8wQ5EuuXFyaZVlNZX4/JBS+kEj6FBhX
+	 HsQCAgFPL2ktL3jGQkIDqtcGEPA9CHKHK1UQYmjJRrlCLLZS0Q3RS1I1FD2FAiLWyl
+	 BGjxc15v8Y5lvwn4v/iUcy8rFwgVOh+iWzG8X63egX1h+nJjI6tIyHHgonuhmxbDeQ
+	 lAWcZGjEhP8vg==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b00d083818so5071633e87.1
+        for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 08:38:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rro9XP8NfS0uX6h29J/o1coKDglaTbmJb8p2zDhuG0LqT3QH853Niqx35TInhrSNPSGufommHXYqdG4KA==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxi9D7KLHdkxQYiIOUJEL4co0PMa2IBv4bmlRTTa5hYn4U3JyBM
+	kaGFXTrTa/tV8G9TIdeMOXNF8QmiWjfQIDpxUCApij0XmFgPOMr9Q+06qc10kAA+xfiZ+m0u+ir
+	vGVCskLRf0FXlFcEbS6ZME8PrNZZzmcI=
+X-Received: by 2002:a05:6512:3d86:b0:5ae:b5d7:4b99 with SMTP id
+ 2adb3069b0e04-5b2a9af1a7cmr1068564e87.0.1784734686708; Wed, 22 Jul 2026
+ 08:38:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="HaOTdzHBXKUXMs/m"
-Content-Disposition: inline
-In-Reply-To: <20260721151517.42674981@gandalf.local.home>
-X-Cookie: Life is like an analogy.
-
-
---HaOTdzHBXKUXMs/m
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260602032413.1540166-1-tuhaowen@uniontech.com>
+ <20260618013133.1047270-1-tuhaowen@uniontech.com> <20260618013133.1047270-2-tuhaowen@uniontech.com>
+In-Reply-To: <20260618013133.1047270-2-tuhaowen@uniontech.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 22 Jul 2026 17:37:53 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0iO4Re1p90aoBTvThbw1BYH=0VGZmjWun8dgn3S6prXAw@mail.gmail.com>
+X-Gm-Features: AUfX_myuzvGbwGKCjnps4TgHXITnByYo2PRHGzvo6ZCk9NSFKcnMHG_GDC7r-lo
+Message-ID: <CAJZ5v0iO4Re1p90aoBTvThbw1BYH=0VGZmjWun8dgn3S6prXAw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] PM: hibernate: clear in_suspend before freeing the snapshot
+To: Haowen Tu <tuhaowen@uniontech.com>
+Cc: rafael@kernel.org, gregkh@linuxfoundation.org, hansg@kernel.org, 
+	kernel@uniontech.com, laurent.pinchart@ideasonboard.com, lenb@kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org, mchehab@kernel.org, 
+	oneukum@suse.com, pavel@kernel.org, stern@rowland.harvard.edu
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 21, 2026 at 03:15:17PM -0400, Steven Rostedt wrote:
-> Mark Brown <broonie@kernel.org> wrote:
->=20
-> > I mean that "use AI" covers a huge spectrum of things, Sashiko and
-> > potential requirements for submitters to interact with it is just one
-> > example of LLM usage.
+On Thu, Jun 18, 2026 at 3:32=E2=80=AFAM Haowen Tu <tuhaowen@uniontech.com> =
+wrote:
+>
+> in_suspend indicates that a hibernation snapshot has been created and is
+> still available.  Keep that state consistent with the lifetime of the
+> snapshot memory by clearing in_suspend before swsusp_free() releases it.
+>
+> If image creation fails after in_suspend has been set,
+> hibernation_snapshot() releases the snapshot memory but currently leaves
+> in_suspend set.  Preserve its value locally long enough to select the
+> appropriate device resume message, then clear it before releasing the
+> snapshot.
+>
+> Also clear in_suspend before releasing the snapshot after swsusp_write()
+> returns.
+>
+> Signed-off-by: Haowen Tu <tuhaowen@uniontech.com>
 
-> I was thinking of just having two options, each with various levels.
-> Option one, if AI is allowed to write algorithms (I mean something that is
-> enough to be copyrightable), and option two, if AI will be reviewing the
-> code you send. Yeah, the second is for those who are completely anti-AI a=
-nd
-> want to avoid having any communication with AI. But then again, do we
-> really care?
+This is fine with me, so
 
-There's a whole range of things we could mean when we talk about AI
-reviewing things - are we expecting the contributor to deal with some
-specific tool, will other people happen to use LLMs (with or without
-disclosure that they're doing so)?
+Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
 
---HaOTdzHBXKUXMs/m
-Content-Type: application/pgp-signature; name="signature.asc"
+and please feel free to route it along with the media patch.
 
------BEGIN PGP SIGNATURE-----
+Alternatively, I can pick up the whole series if I get an ACK on the
+media patch.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpg2PwACgkQJNaLcl1U
-h9C3awf+JSKgeEW6cukecPLmR0DzYSoM/2Dt8T4Y+3Ni9CtE7KepJpV3KHtKUHzd
-q6VzK4tGsqQm2xHK483eDQ6vLW+3PInyjdPDnYcWykBALG74J76UF6R7LFRX+zlT
-HUJrkjxWzYKfHUsZ4vwfLQN28HARPdKdhOHVqc4AzjYF63V6hZfmJJ6VjDtHhN8q
-shrdj4tmBNjS5ErJeXxWxq+jgVCEcEQ+XoVLvG9kAycH5JYxmPeAC/yAI6Q8AEoA
-E5Py7Zvn7mz83jUkQCU2T88ZHXkvIyUn75mxYFjV0251/KU45PqYUaHW6ZZeNT+i
-vFKPqTHPjk1EJ20Cx2eSrXEFJ+06SA==
-=hY9/
------END PGP SIGNATURE-----
-
---HaOTdzHBXKUXMs/m--
+> ---
+> Changes in v3:
+> - Split this cleanup from the helper patch.
+>
+>  kernel/power/hibernate.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+>
+> diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
+> index af8d07bafe02..6d3e637c5a02 100644
+> --- a/kernel/power/hibernate.c
+> +++ b/kernel/power/hibernate.c
+> @@ -418,6 +418,7 @@ static void shrink_shmem_memory(void)
+>  int hibernation_snapshot(int platform_mode)
+>  {
+>         pm_message_t msg;
+> +       bool snapshot_done;
+>         int error;
+>
+>         pm_suspend_clear_flags();
+> @@ -474,15 +475,18 @@ int hibernation_snapshot(int platform_mode)
+>          * returns here (1) after the image has been created or the
+>          * image creation has failed and (2) after a successful restore.
+>          */
+> +       snapshot_done =3D in_suspend;
+>
+>         /* We may need to release the preallocated image pages here. */
+> -       if (error || !in_suspend)
+> +       if (error || !snapshot_done) {
+> +               in_suspend =3D 0;
+>                 swsusp_free();
+> +       }
+>
+> -       msg =3D in_suspend ? (error ? PMSG_RECOVER : PMSG_THAW) : PMSG_RE=
+STORE;
+> +       msg =3D snapshot_done ? (error ? PMSG_RECOVER : PMSG_THAW) : PMSG=
+_RESTORE;
+>         dpm_resume(msg);
+>
+> -       if (error || !in_suspend)
+> +       if (error || !snapshot_done)
+>                 pm_restore_gfp_mask();
+>
+>         console_resume_all();
+> @@ -865,6 +869,7 @@ int hibernate(void)
+>
+>                 pm_pr_dbg("Writing hibernation image.\n");
+>                 error =3D swsusp_write(flags);
+> +               in_suspend =3D 0;
+>                 swsusp_free();
+>                 if (!error) {
+>                         if (hibernation_mode =3D=3D HIBERNATION_TEST_RESU=
+ME)
+> @@ -872,7 +877,6 @@ int hibernate(void)
+>                         else
+>                                 power_down();
+>                 }
+> -               in_suspend =3D 0;
+>                 pm_restore_gfp_mask();
+>         } else {
+>                 pm_pr_dbg("Hibernation image restored successfully.\n");
+> --
+> 2.20.1
