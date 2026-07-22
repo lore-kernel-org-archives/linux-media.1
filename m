@@ -1,207 +1,174 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0093749E3
-	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 12:24:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D62F229D260
+	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 12:28:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784723058; cv=none; b=MYkpzZxgDq7eyjaYFrYsWVMd8ijyASiVFPfoGL1XOT6IoNRgjBktOGlmijRdIxpejJQSOK9jd8SIjSh14AM+chx4trOIwfdZg7TJwIESwPtA98v4mPpWrDzqwmpckDk6vHJOMnTBQ7MREmBDbgqVOtM8S91D71fP+rdqgYj+ogQ=
+	t=1784723282; cv=none; b=jOWlHsdz4vkdcHo64G1c7QQDJZ5X58aWOVVZ2Jr7ALa7waB9uJ1kLGpeio4pmX93YhRJa0o6rB7T5NsSQOr7cc83jWagPlXTgMV2glDVgmdspslXONVJdECxSoSA2ma3VpW5cAYaoIYsaw55/vDG3EiJZLooCMTtWejQAoUz+ns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784723058; c=relaxed/simple;
-	bh=pgXseHL4P/N9X8ED+Sbc539UZ8xz5ai3F8u24033syI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=e3etNCo4t3JuBqi/ZmhzhR8WLF3YQYoRyN0+q23xo5sTHbT0WREyc91ihwWZVywVeeLgASrKR5k1n/W0ag3sYmFWMT/DIPjEmSPqSHOjYu3N0iYYpggof7sHNI3wSXG3R5ytH2tXkJYMPDSc1FL0eokrJc6GExCaG5whUiaK8o8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CVEY9OI6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DSFbEH49; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784723282; c=relaxed/simple;
+	bh=h3nh6/m9u27UeyfkIjGb0w7DLjcxbqFubh8HORfNYqw=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type; b=TFBmUT8UjCwlE0d1aakyN0MlwToMe/Ho8UwzH/QLPJTtL6oEZCysTqBP5EZngauN9wF/1l81Msi19DGJxdxkX73lzWx/nyJAaABFC5jAnrpeJ+YM0c7s+4yVgZt9VNdWBSIGst6j6vCVz0pmBi8FDaGZNzzBuJQGgKjXsdUHA/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A6CvixAg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CVEY9OI6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DSFbEH49"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M8xCYS141190
-	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 12:24:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1RbH7wZTH7xnFksDCiSXKzskPFK0RJ+i+meU0vJp3WY=; b=CVEY9OI6MDW2LR9N
-	qJckEixGB8BL9SIhmTPK7aY0E6n6ZqA94hTdogvQ8b82+QZDRuRLFs9O8lLIHzCC
-	AAHU+FMvea6OXPU/0VOVUtLxmMhLtTirWGT/Qj+z6re04N4dm8Wqfs8/y0i30ao8
-	uDnni7GOxND1UcojmiJC4rtQbnt6I4/pUIBFplGBG8tgpqRYWpoOoQBZINbUcrp4
-	so0u8O3yzBO2XlQPC3KYu+c7pH6cGXEkNutkqTnVrqra2+7X53WYU99bKNM2tcNA
-	WQlxVsWlCyr1/eV9Bq0r8vm/IqV69artCdj7/5jtLM4xQqiKoARnVbUHf++0wdWf
-	a1Vy5A==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjtn2rva2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 12:24:11 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cacf17c7e0so128125805ad.0
-        for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 05:24:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784723051; x=1785327851; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1RbH7wZTH7xnFksDCiSXKzskPFK0RJ+i+meU0vJp3WY=;
-        b=DSFbEH49IvGQ3gBB+XpLgXrb0kTHu1RGMqtDl7M1Xt6OWUir2dYQZZUawSH5TNj3gI
-         RpZ6wCz/bF51E59o4ecbsDjW0yD8fiRwidL1RdWbIWrPB8Wf6TSFFVigGzb6sZH4Uqfz
-         HuE5D71QTNAzgYLjDR1lQ40FUGpTx9M2uViYLOAAEd08wtNuQRF50pODHJQKEzDPlbPM
-         MN8hX5WFKC6mNTYbf+51lrZD2Y+Rr20bz4yONSPx0BwwyQODJGZRbRpVfiT1XBf5L1Ro
-         k/oBgMPe94LibWxeES3RuhgvsJHNtU9osyQTCVLazYaSd4zsB4GchzMMd/ar9smKv2JU
-         G6hQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784723051; x=1785327851;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1RbH7wZTH7xnFksDCiSXKzskPFK0RJ+i+meU0vJp3WY=;
-        b=i/ZcgrLn7gl+NP/8AuyFnEdsD/B1FialYwo8DvV56aoYqPWxcM6VFUYMzKeP48sopb
-         k9yWgcwj0AqAfVhXD4eEMwf195eaiEq0kxKsDO6g+cP/TxHx350/BnYRz1O2VtEW8aLQ
-         i1RbDktojd09wpV3XoE4yVI1OFR3TRw0FcKX2nyX3f99Yxey4Vkhd57WQSLl66QzltPc
-         mHlMo5za6423ugwPHX5qrjVHf7fBumdSn7Zo/i4nYI2UHCzKfesacbjZ599eFfsrbo6V
-         Qds2CA1g05Q/rIVtFQC069OyVMGppk5GszpiKNv/5AC4+kBNrrfGbq7QuCD4Ee7HoXyf
-         /m4w==
-X-Forwarded-Encrypted: i=1; AHgh+RpXfaULuLPW4iAKAggEWKbqkpy/a2JOYRwnb1rv3/CEf/zRJUOOVpEBOLU4/PbaEuRE88qWGEk8J472Ug==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzUlPDG7Le8EcSh3hiN01qie4TaIuWukPxnjrhFp8w2dJEiPwwK
-	AerlAYlJQXnRSZYVPnGDFuvFIbYMaC7U5hIt9h8tSIci8cKBedaprInyVpLhFtJ+C9zqs97y+3C
-	uxCcD7U2eeV/kMeBIQtrGyNvAkW2u5wtpBjdtc1T96RNc5RzwrXH9+Vh7M2+q+5K5Qg==
-X-Gm-Gg: AR+sD10b9E+NVm1tflklpIxzcAUSqB6Lmiqv2031UCB89cim3WOtWrPAdVk/E683LwO
-	Vpm7Bc9oUeoiRHdri9hbkJ4sJK38HgEoSwH6U1R5kBYIuyQkJn4gZcyTcwYRlY0DJPDzjjkWtsz
-	X3jf6TewCm5IqKO5OeMQXRavqvI5lLVYZP2ShvFMHVhG/M0lQ4wIefEq250HZ/OlBTXm4FwqpoQ
-	TaLbDi0IpmUqWmOg6TntVVylZQSzUDzK+6caYI1dVXHnEPmB2C3VEicTQQkbrsNpwNwh1SZ7yJW
-	v01K837WwJsX/siJ8ecCcjkGzjbXBLez5A/3jWwfb7LQsopnGLf4SeGW1kd+8u25B7zVrgCGG2A
-	w3GXQwlnXFEToB7/Yz91y1i4O+gXcT7RT
-X-Received: by 2002:a17:902:d48a:b0:2ca:b8fd:f31 with SMTP id d9443c01a7336-2cf34889935mr252841065ad.15.1784723050762;
-        Wed, 22 Jul 2026 05:24:10 -0700 (PDT)
-X-Received: by 2002:a17:902:d48a:b0:2ca:b8fd:f31 with SMTP id d9443c01a7336-2cf34889935mr252840675ad.15.1784723050307;
-        Wed, 22 Jul 2026 05:24:10 -0700 (PDT)
-Received: from [10.206.101.140] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147e1b6a45sm8794496eec.28.2026.07.22.05.24.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Jul 2026 05:24:08 -0700 (PDT)
-Message-ID: <3c48c1fc-94a2-7180-0922-aff5a1a5ddb4@oss.qualcomm.com>
-Date: Wed, 22 Jul 2026 17:54:03 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A6CvixAg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E737D1F000E9
+	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 12:27:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784723280;
+	bh=kEVseO75jFnFJQZ1Z57GiJa1UY+k66y6xQQpUJMQKAE=;
+	h=Date:From:To:Subject;
+	b=A6CvixAgUV9pCTb4qFZ00UUHYJr48hW5mk2HHRWlQB9q03l9P49Wq7MDQa1/KIU1d
+	 02gNqhCaqA6ISaiULz9Z6SG8gmQ+tVT5fLgHsbN+T00+R7b8JFvRo8QSd+0KMqO5SL
+	 jKzCahwYgArjKPNPIjO942C3biW9bF5udcsb73zk7y15MhUJpPd9JWxkYjXmy6Viz7
+	 kWzSokMRxpaoCz+vB4R92QTFBVPZSCopZzxvL162pnkiFK3AMJuybsCipOKM7lYwrr
+	 3LxQwnPqcJwRD4dKzz/JgB21vx7S/SkFYG3c10gAw6eIcwocIA+MYRHcAOwiIb7EM/
+	 f9cqkdjgmSYbA==
+Date: Wed, 22 Jul 2026 14:27:57 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Linux Media Mailing List <linux-media@vger.kernel.org>
+Subject: [ANN] Sashiko reviews for Linux media
+Message-ID: <20260722142757.020b70e1@foz.lan>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v2 0/3] media: iris: add LTR and hierarchical coding
- support for ar50lt
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Gourav Kumar <gouravk@qti.qualcomm.com>
-References: <20260721-shikra_ltr_support-v2-0-702842f1f3c2@oss.qualcomm.com>
- <moj26vrjujn6ci74yrthdjyfdabg4tn67n7hczkeqvjhknm4ai@ilxz3c4jvcfe>
-Content-Language: en-US
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <moj26vrjujn6ci74yrthdjyfdabg4tn67n7hczkeqvjhknm4ai@ilxz3c4jvcfe>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDEyMCBTYWx0ZWRfX/RqopBTU0qAZ
- 5njGtu/LTPujET6m4jUzikYa2kCmZirqhN+P05bju1Q4LZBGZFDIN0LEcYR2AoznFUvQYtUCLHd
- hmNi9bkNJoWnwRX7ZRlaJHQludoi4WVhUD6aBcXbVioSBuhwgxpx4t/9U4yCYRWLIRlKH1Rri8G
- rrjRd3mo9xQk8b+jmJdl9DAJQomMlIQXQkOPV7wiDYdE1Ee7QdS3kkDSSr6CrqvtvTFymqtWGMk
- W+m6e3nxEC0CFcda4qx22Kq0uPy+Q/kwzhnDQXkJTGScbQEIJsw8ONN7Nz9MjJGZiQ4c7iRQrap
- A8OIYdysYElykAN+uYaHbyK4jhZJPxDMeEhbRPFsp+EaduHElbZ+csxnb702Hru6nuYbgiYcCkF
- MemgqwFHL6YR85L2yoW4Lsc1DdSuzpORSyu8nZiR9f2mnBzFRAFqjuqLfJ/jee0ud1fj1Lvx4nU
- u4YH9Hq/cFdefCg6uPA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDEyMCBTYWx0ZWRfX+xS4EZZdqRRY
- Qj6o8BmZRjeyISjRucvIBVd8ZmnXZOk2AhFDwya9gHApitTxoHrN+F7+fCd4gA5krr3g2quHuuW
- TAD1YbvlIu3m+xQ0m+BO0VbFcHwkiTo=
-X-Proofpoint-GUID: rooFXQdXYGPTiAiFQvNWZ49SoEBD08qg
-X-Proofpoint-ORIG-GUID: rooFXQdXYGPTiAiFQvNWZ49SoEBD08qg
-X-Authority-Analysis: v=2.4 cv=T+28ifKQ c=1 sm=1 tr=0 ts=6a60b66b cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=VgYAnUeYBmn4XOIh2sEA:9
- a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-22_03,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 impostorscore=0 malwarescore=0 spamscore=0
- clxscore=1015 bulkscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220120
 
+Hi all,
 
-On 7/22/2026 2:45 AM, Dmitry Baryshkov wrote:
-> On Tue, Jul 21, 2026 at 07:06:22AM +0530, Vishnu Reddy wrote:
->> This series adds support for Long-Term Reference (LTR), hierarchical
->> coding and request key frame controls for the AR50LT encoder by enabling
->> the required firmware capabilities in the iris driver.
->>
->> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
->> ---
->> Changes in v2:
->> - Added request key frame support
->> - Link to v1: https://patch.msgid.link/20260710-shikra_ltr_support-v1-0-458b587268ea@oss.qualcomm.com
-> This should be coming as a review feedback rather than a separate
-> series. I'll incorporate those changes into the AR50LT series (together
-> with the similar changes to Gen1 firmware).
+1. Introduction
 
-That works for me as well.
+There have been lots of discuss and efforts over the last years with regards
+to improving the quality of media patches.
 
-Regards,
-Vishnu Reddy.
+In the past, Mauro had my own set of scripts to check for regressions and 
+do media compiling per patch while reviewing submitted patches. Later on,
+Hans came up with his set of scripts as well. Both approaches rely not
+only on kernel compilation but they also run two static analyzer tools:
+sparse and smatch.
 
->> To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
->> To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
->> To: Abhinav Kumar <abhinav.kumar@linux.dev>
->> To: Bryan O'Donoghue <bod@kernel.org>
->> To: Mauro Carvalho Chehab <mchehab@kernel.org>
->> Cc: linux-media@vger.kernel.org
->> Cc: linux-arm-msm@vger.kernel.org
->> Cc: linux-kernel@vger.kernel.org
->>
->> ---
->> Gourav Kumar (2):
->>       media: iris: add Long-Term Reference control support for ar50lt encoder
->>       media: iris: add hierarchical coding support for ar50lt encoder
->>
->> Vishnu Reddy (1):
->>       media: qcom: iris: add request key frame support for ar50lt encoder
->>
->>  drivers/media/platform/qcom/iris/iris_hfi_gen2.c | 222 +++++++++++++++++++++++
->>  1 file changed, 222 insertions(+)
->> ---
->> base-commit: 34cf6dafc47441dfb6b356a095b89c3585a93714
->> change-id: 20260710-shikra_ltr_support-27bd9a496950
->> prerequisite-message-id: <20260709-iris-ar50lt-v7-0-76af9dd4d1f6@oss.qualcomm.com>
->> prerequisite-patch-id: 8b5a1be5778fb4c7feb069452ecb60e8b8dfc3f8
->> prerequisite-patch-id: e669517302297a7b315c9aa4f4189e4928091e0c
->> prerequisite-patch-id: 922bc325dbd9a499a3a209d2f8dbbce6a4166e60
->> prerequisite-patch-id: a5a49cda4e21d835558fa84f2f6bd25b8f7e72b4
->> prerequisite-patch-id: e62e8285bcbddade64c026379f23a8c5ae70fe52
->> prerequisite-patch-id: cac29b25348e2e791638a0286283109f2546f9a7
->> prerequisite-patch-id: 4dfaff2f9644d7a168b1b35fe947660b8f464af6
->> prerequisite-patch-id: a26fa49eefecf2b5ba6cf964be9327eb5ba5929a
->> prerequisite-patch-id: d97c79463fe1487fa7bc9eebd4cfb4610713f44a
->> prerequisite-patch-id: 76eafea8230160a3b5e6503c68a5c9c3c2d1497e
->> prerequisite-patch-id: ea9cd9a8e6561321cd9cf338a76da1382ff47e13
->> prerequisite-patch-id: 26e9083b709cc8f2f1184edf6b39fb89f365a9f1
->> prerequisite-patch-id: ce4576bd3d20880939a97a1cda9bb8678808ea65
->> prerequisite-patch-id: 8c94bec467b385c373bd98eb9ee5a5805fc4e6a6
->> prerequisite-patch-id: 6e258cd475b77927d6476704cbf91bf48a63aa0d
->> prerequisite-patch-id: 54c8855d0721ba8667d095e6ad6556c2021f89e9
->> prerequisite-patch-id: f5479d2ca6b850c0c750944a8e0b05a7df2cc5a8
->> prerequisite-patch-id: 96dfec1c2df69f748c1a4bd741628e946cb7bec1
->> prerequisite-message-id: <a2c02dce-b097-4f52-80d4-d63006ebd8c5@kernel.org>
->> prerequisite-patch-id: aae7aad665adb93ab0106c28420e34587ee82aba
->> prerequisite-patch-id: a2b7908b27a6308f9919c986f8bde5b902e5d6da
->>
->> Best regards,
->> --  
->> Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
->>
+Media ML also receives since a long time ago mails from bots like Syzbot, 
+kernel test robot - and there were some other bots as well that sent us 
+reviews in the past.
+
+We also added the first CI using Jenkins, which we still use for userspace
+tools.
+
+There was also Coverity which is a paid tool which usage is free for
+open source developers, which provides more sophisticated analysis of
+the Kernel code. Its last run was 8 months ago, so probably nobody is
+using it anymore.
+
+Starting on Jan, 2024, Ricardo started writing the media-ci code which is
+now used to review all Linux Kernel media patches and merges.
+
+There is a common pattern on *all* such tools: they produce false
+positives. Last week we just addressed one such issue on media-CI:
+if, for whatever reason, a CI job is interrupted (system error), it
+was reporting it the same way as if the patch had a high relevance
+issue.
+
+Btw, media-ci also have on its tree a list of false-positive issues
+to be ignored, which needs to be reviewed and eventually updated on
+every new kernel release.
+
+So, 2,5 years after the start of process, we're still fine-tuning
+media CI to reduce false-positives. There have been more than 300 merge
+requests for Media-CI since v0, and the rate if MR is not slowing down.
+
+That's perfectly fine, as having bots doing their work properly requires 
+hard work. 
+
+Ricardo and other media-ci contributors: thank you for your work there!
+
+So, maybe despite common sense, all CI bots have issues and can
+generate false positives. In doubt, authors should use their own good
+sense, and, in doubt, check with a more experienced developer to
+double-check CI findings.
+
+2. Sashiko
+
+Maybe to cover the space left by Coverity, there is now a new
+project aiming to do some static analysis of the kernel code
+using LLM. Version 0.1.0 is from March, 2026, so this is
+a brand new approach. As such, it can also generate false
+positives, and, more importantly, as it is a new tool, it
+will certainly need some time to become mature.
+
+One of the strengths of using static analysis tools is that they
+are usually better to review error paths that may slip on normal
+reviews.
+
+With LLM-based tools, the hardest part is to have a set of
+prompts that teach the tool what it should produce, what kind
+of reviews are important and what it can consider as false
+positives.
+
+During the last Media Summit, we reached a consensus about
+start testing it. There was some doubts about who should be
+receiving Sashiko's return. So, there was an inquiry with
+Media Summit participants later on to double check how
+Sashiko tests would work on media. There was non consensus,
+so we opted to be conservative: Sashiko's e-mails will be
+sent to media-ci@linuxtv.org mailing list without c/c the
+patch author. Our patchwork instance is picking such e-mails
+and adding them as checks at https://patchwork.linuxtv.org.
+
+Subscribing to it can be done via mailman3 Postorious interface:
+	https://linuxtv.org/mailman3/postorius/lists/media-ci.linuxtv.org/
+
+(to avoid SPAM, only members can post to it without moderation)
+
+Archives are available at:
+	https://linuxtv.org/mailman3/hyperkitty/list/media-ci@linuxtv.org/
+and:
+	https://sashiko.dev/#/?list=org.kernel.vger.linux-media
+
+Yesterday, Sashiko v.0.2.5 was tagged(*), containing IMHO two 
+relevant set of changes:
+
+1. Initial support for linux-media was added. This includes
+   a new prompt meant to cover media specifics:
+	https://github.com/sashiko-dev/sashiko/blob/main/third_party/prompts/kernel/subsystem/media.md
+   Those prompts were generated after a feedback we gave to
+   Sashiko maintainers, reflected on this issue:
+
+	https://github.com/sashiko-dev/sashiko/issues/334
+
+2. It should be possible now to use Ollama to run it locally
+   using open-weight models. 
+   This may help media developers to test how changes at the 
+   media prompt may affect the tool. Still, running it locally
+   takes maybe 10-20 minutes per patch, and most models are bad
+   honoring JSON format, which is currently needed by the Ollama
+   integration.
+
+(*) https://github.com/sashiko-dev/sashiko/releases/tag/v.0.2.5
+
+With that in place, we guess we can now start testing the tool.
+
+For such purpose, we kindly ask all contributors (patch authors and
+reviewers) to subscribe to media-ci@linuxtv.org, check Sashiko output
+and in the event of finding false positives share with media-ci ML
+so we can improve the prompts or create a new issue at:
+
+	https://github.com/sashiko-dev/sashiko/issues
+
+This way, Sashiko developers can work to improve linux-media
+specifics.
+
+Btw, the same applies to media CI: if you find false positive
+issues there, feel free to open/update issues at:
+
+	https://gitlab.freedesktop.org/linux-media/media-ci/-/work_items
+
+Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Signed-off-by: Hans Verkuil <hverkuil@kernel.org>
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+
