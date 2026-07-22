@@ -1,60 +1,57 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A55E4D991D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2214C77A5;
 	Wed, 22 Jul 2026 10:23:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784715827; cv=none; b=XKCFAeIU5YkqT4qsk2+91OSQTedzHS3bTZQqM3LdnyrNS18mnc6XEJ3RN9RPwUx9shXkulafyBAyagwQSgIPpehc6yqdBdfz/69O72BT/fkXrkWbVzahQ9ZdjJ7u0Os9ldjbEqqh8kRwO2nP3M8GlgQ9A6RTzHILnT6s7a0plOU=
+	t=1784715827; cv=none; b=G7NKslTL8JzjWjJ0V3uKklWCM1GSrenVI/0FVibLdBqw2E/3V51Zb7bYUIm21uSkbMEXfQnPSZ7/9bWTHO6+/8wfHHc5z+MynIlTOGITQtJbUwMvFnAxNBDTaUKSKy9edrhHI43MN9s7Vc2v4w008Y6S7JjTHbkrGz34ubjpTIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784715827; c=relaxed/simple;
-	bh=KmBEI0QqBfLJsbIjc2Gk7pu9WEqMvEOx9sfqp1Aled0=;
+	bh=4CpmGGiYX0XDIWEvB5BLJQQ+5BYs2QbT7UxoeJF38kY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Q2N6NIPTkBrAk2M99y2z2UFn9x+VHJPpRr1VEVgrfHbMxw2Kg3zbufyvb2OBUTZbBjjXHXtJ+H6z7hIf0nwGcpIfK9G2o+7GuxeIyL+Be8Aa4yFLjxdutn5SFHX8/wcqzpqlAIv8NO4QMmyhKwES4yhisy31lp98XJ7oVMiks/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=GnXEPpI7; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=jKsXW2Rh; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=SGB2B07A8Dk4GGnz76rds11gU0gnjqB/zc2fX6XcoOgi73Sqcu/SUtJsZtpQUGVArUEmSoFCI7Fe8M4ILiEnQpkaN+/6gK1LDXoKTKj92jyIYrNlJcMw5hv7/mqTznhD4dXlsyAZmn/fnnbK2vY9Qzy7v+Tdw/apXSz+7BJQvs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=S6lho7Cz; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=S6lho7Cz; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="GnXEPpI7";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="jKsXW2Rh"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="S6lho7Cz";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="S6lho7Cz"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1784715823; bh=KmBEI0QqBfLJsbIjc2Gk7pu9WEqMvEOx9sfqp1Aled0=;
+	t=1784715823; bh=4CpmGGiYX0XDIWEvB5BLJQQ+5BYs2QbT7UxoeJF38kY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=GnXEPpI7WojQs5xx0JMVTnSJoueJH5f7svQ5DaongSIAKXt6WfWhEi5Wp+58DJF02
-	 SpLy1VObE+MZWpytPloqrej/JbVVdmz9C5VPoJfcZAqiQ4EuuVnMpejBMl/ZBhX9Je
-	 N9tBo4Kj7mm8kyPsAvA7+WoWrncR75ge6L1bJAx40EOZXSk3eOFUP1ud3vXL78r15f
-	 iwBPHys/H3hxiXVxYASTUMGe49utpliFrwe8uBqmoGo51O+/w4rkud8CH0FhzJ2/vm
-	 XkS5IinKVYchw7pLovRWOxQLdculzA5wqxMdDKjfMsKrepYz1kA+IJP4cmPl4RCYR3
-	 hKGtX2Yyeac2A==
+	b=S6lho7Czl+rXsDUPPExvYeDZ0iwlJWgcS8FchgF/ciRpp8TbvwbwmtCd8C0vrzN1j
+	 jNYoa8SCj5p2piaA755k7O8ht+ce0ZTElAOlryIFtmWVq8S2HRYQzVd3x/IrctGnIM
+	 RO3HGv0l6w3v0rQU/F4ZvoPSk/RR2pATn9J1aycPA1rR+RvRRF1URHI6NuNhWD9HWM
+	 vtU1LX3sYPgDrdiF/WiBK5o74yU+eXA7vR7RS1QInu+paXTjvbyXrm8tzmNsQuZLhA
+	 c+UlfQ5/pEk6vpDMVTQL4G2lzZsH5hZEfhsabK+rnBXnCBvAqK5dmus+SO+96PkrXb
+	 FJFYX0+dnaaMQ==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id A56F54017A; Wed, 22 Jul 2026 11:23:43 +0100 (BST)
+	id F3B0D42540; Wed, 22 Jul 2026 11:23:43 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1784715822; bh=KmBEI0QqBfLJsbIjc2Gk7pu9WEqMvEOx9sfqp1Aled0=;
+	t=1784715823; bh=4CpmGGiYX0XDIWEvB5BLJQQ+5BYs2QbT7UxoeJF38kY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=jKsXW2Rh+L5FPEDcWhvyyWoe1MaTpBdyeIRX8/LisFuybM6EH4afPPC8JyT5P/aHE
-	 ynqYd7HS94M1SVEbMRfEXo0UYcaGOb8Q/vv5UJtCIdOFqQY+W1wYnf/AfuFeEL8qPi
-	 I3Z73fEgQq4iMOpnhYrG3vpjYqKE79Mbd5pLgM052OMnnrdYWOesCjX0J6C3MasY1G
-	 VftVAc9Z5Bq3jwByC6eY1bKwzRsaF+Eqqv5AmHv87Qfs/7ry8tX6Yhh9clLHXeWT2s
-	 /5XkiIBiexSLMziwjeVTTo3NpErfQYps5SiZq/xqcQoxc2F8zxrGRfHIhsUKTX+vm/
-	 uNYTzXxo0nY+g==
+	b=S6lho7Czl+rXsDUPPExvYeDZ0iwlJWgcS8FchgF/ciRpp8TbvwbwmtCd8C0vrzN1j
+	 jNYoa8SCj5p2piaA755k7O8ht+ce0ZTElAOlryIFtmWVq8S2HRYQzVd3x/IrctGnIM
+	 RO3HGv0l6w3v0rQU/F4ZvoPSk/RR2pATn9J1aycPA1rR+RvRRF1URHI6NuNhWD9HWM
+	 vtU1LX3sYPgDrdiF/WiBK5o74yU+eXA7vR7RS1QInu+paXTjvbyXrm8tzmNsQuZLhA
+	 c+UlfQ5/pEk6vpDMVTQL4G2lzZsH5hZEfhsabK+rnBXnCBvAqK5dmus+SO+96PkrXb
+	 FJFYX0+dnaaMQ==
 Received: from maru.local (unknown [62.232.99.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 40B8F42540;
+	by extorris.mess.org (Postfix) with ESMTPSA id E27DA42528;
 	Wed, 22 Jul 2026 11:23:42 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: [PATCH v3 12/13] media: rc: Fix use after free in bpf progs
-Date: Wed, 22 Jul 2026 11:23:24 +0100
-Message-ID: <ef00c264d0ead1324c4d61bbb3b1a4b2dc5bd4f6.1784715737.git.sean@mess.org>
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH v3 13/13] media: rc: Fix race condition during rc_register_device()
+Date: Wed, 22 Jul 2026 11:23:25 +0100
+Message-ID: <3605fbe4b95f8c3f92849b67a7b8b79b28dad736.1784715737.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1784715737.git.sean@mess.org>
 References: <cover.1784715737.git.sean@mess.org>
@@ -66,113 +63,174 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit dccc0c3ddf8f ("media: rc: fix race between unregister and
-urb/irq callbacks"), rcdev->raw is no longer set to NULL after device
-unregister. raw->progs could point to stale data.
+The correct sequence for rc core is so:
 
-Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
+     rc_allocation_device()
+
+     /*
+      * setup hardware and now calls to ir_raw_event_store etc are
+      * permitted, as well as rc_keydown. There is no rc device in sysfs
+      * or lirc chardev.
+      */
+     rc_register_device()
+
+     /*
+      * After rc_register_device(), the rc device can be used now from lirc
+      * chardev, sysfs and IR is now decoded and reported.
+      */
+
+     rc_unregister_device()
+     /*
+      * User space can no longer access /dev/lirc or the rc sysfs
+      * attributes. They will get -ENODEV if they still have a file
+      * descriptor open.
+      * Calls to ir_raw_event_handle() etc or rc_keydown() are permitted
+      * but they must stop before the call to rc_free_device(), so
+      * this is the time to stop the hardware.
+      */
+     rc_free_device()
+
+This means that during rc_register_device(), we can get calls to
+ir_raw_event_{store,handle,overflow,store_with_filter}. Ensure this
+is done race-free.
+
 Signed-off-by: Sean Young <sean@mess.org>
 ---
- drivers/media/rc/bpf-lirc.c  | 18 +++++++++++++-----
- drivers/media/rc/rc-ir-raw.c | 11 +++--------
- 2 files changed, 16 insertions(+), 13 deletions(-)
+ drivers/media/rc/rc-ir-raw.c | 20 +-------------------
+ drivers/media/rc/rc-main.c   | 18 +++++++++++-------
+ 2 files changed, 12 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/media/rc/bpf-lirc.c b/drivers/media/rc/bpf-lirc.c
-index 2f7564f26445..14ab611e7445 100644
---- a/drivers/media/rc/bpf-lirc.c
-+++ b/drivers/media/rc/bpf-lirc.c
-@@ -148,12 +148,13 @@ static int lirc_bpf_attach(struct rc_dev *rcdev, struct bpf_prog *prog)
- 	if (ret)
- 		return ret;
- 
--	raw = rcdev->raw;
--	if (!raw) {
-+	if (!rcdev->registered) {
- 		ret = -ENODEV;
- 		goto unlock;
- 	}
- 
-+	raw = rcdev->raw;
-+
- 	old_array = lirc_rcu_dereference(raw->progs);
- 	if (old_array && bpf_prog_array_length(old_array) >= BPF_MAX_PROGS) {
- 		ret = -E2BIG;
-@@ -186,12 +187,13 @@ static int lirc_bpf_detach(struct rc_dev *rcdev, struct bpf_prog *prog)
- 	if (ret)
- 		return ret;
- 
--	raw = rcdev->raw;
--	if (!raw) {
-+	if (!rcdev->registered) {
- 		ret = -ENODEV;
- 		goto unlock;
- 	}
- 
-+	raw = rcdev->raw;
-+
- 	old_array = lirc_rcu_dereference(raw->progs);
- 	ret = bpf_prog_array_copy(old_array, prog, NULL, 0, &new_array);
- 	/*
-@@ -235,7 +237,8 @@ void lirc_bpf_free(struct rc_dev *rcdev)
- 	struct bpf_prog_array_item *item;
- 	struct bpf_prog_array *array;
- 
--	array = lirc_rcu_dereference(rcdev->raw->progs);
-+	array = rcu_replace_pointer(rcdev->raw->progs, NULL,
-+				    lockdep_is_held(&ir_raw_handler_lock));
- 	if (!array)
- 		return;
- 
-@@ -316,6 +319,11 @@ int lirc_prog_query(const union bpf_attr *attr, union bpf_attr __user *uattr)
- 	if (ret)
- 		goto put;
- 
-+	if (!rcdev->registered) {
-+		ret = -ENODEV;
-+		goto unlock;
-+	}
-+
- 	progs = lirc_rcu_dereference(rcdev->raw->progs);
- 	cnt = progs ? bpf_prog_array_length(progs) : 0;
- 
 diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
-index f066176c9f37..26962b500b0c 100644
+index 26962b500b0c..963562f03770 100644
 --- a/drivers/media/rc/rc-ir-raw.c
 +++ b/drivers/media/rc/rc-ir-raw.c
-@@ -650,8 +650,11 @@ int ir_raw_event_register(struct rc_dev *dev)
- void ir_raw_event_free(struct rc_dev *dev)
+@@ -71,9 +71,6 @@ static int ir_raw_event_thread(void *data)
+  */
+ int ir_raw_event_store(struct rc_dev *dev, struct ir_raw_event *ev)
  {
- 	if (dev->raw) {
-+		mutex_lock(&ir_raw_handler_lock);
- 		if (dev->raw->thread)
- 			put_task_struct(dev->raw->thread);
-+		lirc_bpf_free(dev);
-+		mutex_unlock(&ir_raw_handler_lock);
- 		kfree(dev->raw);
- 		dev->raw = NULL;
- 	}
-@@ -661,9 +664,6 @@ void ir_raw_event_unregister(struct rc_dev *dev)
- {
- 	struct ir_raw_handler *handler;
+-	if (!dev->raw)
+-		return -EINVAL;
+-
+ 	dev_dbg(&dev->dev, "sample: (%05dus %s)\n",
+ 		ev->duration, TO_STR(ev->pulse));
  
--	if (!dev || !dev->raw)
+@@ -102,9 +99,6 @@ int ir_raw_event_store_edge(struct rc_dev *dev, bool pulse)
+ 	ktime_t			now;
+ 	struct ir_raw_event	ev = {};
+ 
+-	if (!dev->raw)
+-		return -EINVAL;
+-
+ 	now = ktime_get();
+ 	ev.duration = ktime_to_us(ktime_sub(now, dev->raw->last_event));
+ 	ev.pulse = !pulse;
+@@ -129,9 +123,6 @@ int ir_raw_event_store_with_timeout(struct rc_dev *dev, struct ir_raw_event *ev)
+ 	ktime_t		now;
+ 	int		rc = 0;
+ 
+-	if (!dev->raw)
+-		return -EINVAL;
+-
+ 	now = ktime_get();
+ 
+ 	spin_lock(&dev->raw->edge_spinlock);
+@@ -166,9 +157,6 @@ EXPORT_SYMBOL_GPL(ir_raw_event_store_with_timeout);
+  */
+ int ir_raw_event_store_with_filter(struct rc_dev *dev, struct ir_raw_event *ev)
+ {
+-	if (!dev->raw)
+-		return -EINVAL;
+-
+ 	/* Ignore spaces in idle mode */
+ 	if (dev->idle && !ev->pulse)
+ 		return 0;
+@@ -200,9 +188,6 @@ EXPORT_SYMBOL_GPL(ir_raw_event_store_with_filter);
+  */
+ void ir_raw_event_set_idle(struct rc_dev *dev, bool idle)
+ {
+-	if (!dev->raw)
 -		return;
 -
- 	kthread_stop(dev->raw->thread);
- 	timer_delete_sync(&dev->raw->edge_handle);
+ 	dev_dbg(&dev->dev, "%s idle mode\n", idle ? "enter" : "leave");
  
-@@ -676,11 +676,6 @@ void ir_raw_event_unregister(struct rc_dev *dev)
+ 	if (idle) {
+@@ -226,7 +211,7 @@ EXPORT_SYMBOL_GPL(ir_raw_event_set_idle);
+  */
+ void ir_raw_event_handle(struct rc_dev *dev)
+ {
+-	if (!dev->raw || !dev->raw->thread)
++	if (!dev->raw->thread)
+ 		return;
  
- 	lirc_bpf_free(dev);
+ 	wake_up_process(dev->raw->thread);
+@@ -612,9 +597,6 @@ EXPORT_SYMBOL(ir_raw_encode_carrier);
+  */
+ int ir_raw_event_prepare(struct rc_dev *dev)
+ {
+-	if (!dev)
+-		return -EINVAL;
+-
+ 	dev->raw = kzalloc_obj(*dev->raw);
+ 	if (!dev->raw)
+ 		return -ENOMEM;
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+index dda3479ea3ad..365f3d056a06 100644
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@ -1701,14 +1701,24 @@ static const struct device_type rc_dev_type = {
+ struct rc_dev *rc_allocate_device(enum rc_driver_type type)
+ {
+ 	struct rc_dev *dev;
++	int ret;
  
--	/*
--	 * A user can be calling bpf(BPF_PROG_{QUERY|ATTACH|DETACH}), so
--	 * ensure that the raw member is null on unlock; this is how
--	 * "device gone" is checked.
--	 */
- 	mutex_unlock(&ir_raw_handler_lock);
+ 	dev = kzalloc_obj(*dev);
+ 	if (!dev)
+ 		return NULL;
+ 
++	if (type == RC_DRIVER_IR_RAW) {
++		ret = ir_raw_event_prepare(dev);
++		if (ret < 0) {
++			kfree(dev);
++			return NULL;
++		}
++	}
++
+ 	if (type != RC_DRIVER_IR_RAW_TX) {
+ 		dev->input_dev = input_allocate_device();
+ 		if (!dev->input_dev) {
++			ir_raw_event_free(dev);
+ 			kfree(dev);
+ 			return NULL;
+ 		}
+@@ -1724,6 +1734,7 @@ struct rc_dev *rc_allocate_device(enum rc_driver_type type)
+ 		spin_lock_init(&dev->rc_map.lock);
+ 		spin_lock_init(&dev->keylock);
+ 	}
++
+ 	mutex_init(&dev->lock);
+ 
+ 	dev->dev.type = &rc_dev_type;
+@@ -1917,12 +1928,6 @@ int rc_register_device(struct rc_dev *dev)
+ 		dev->sysfs_groups[attr++] = &rc_dev_wakeup_filter_attr_grp;
+ 	dev->sysfs_groups[attr++] = NULL;
+ 
+-	if (dev->driver_type == RC_DRIVER_IR_RAW) {
+-		rc = ir_raw_event_prepare(dev);
+-		if (rc < 0)
+-			goto out_minor;
+-	}
+-
+ 	if (dev->driver_type != RC_DRIVER_IR_RAW_TX) {
+ 		rc = rc_prepare_rx_device(dev);
+ 		if (rc)
+@@ -1980,7 +1985,6 @@ int rc_register_device(struct rc_dev *dev)
+ 	ir_free_table(&dev->rc_map);
+ out_raw:
+ 	ir_raw_event_free(dev);
+-out_minor:
+ 	ida_free(&rc_ida, minor);
+ 	return rc;
  }
- 
 -- 
 2.55.0
 
