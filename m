@@ -1,323 +1,172 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011018.outbound.protection.outlook.com [52.101.57.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EFC8411F83;
-	Wed, 22 Jul 2026 18:29:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784744996; cv=none; b=rGC0Bvg9qAEwYM8hckiJGuZ6NVbm8xdylN95Hf51trQwLVFvlaueTCbmP9Z173Ef929GEH32l+QxWrOA3RerZ4SE6rlXAQmFeZvrL3aZm+GBSBG9tglzP89VBRJ3pF6XMsknBDkoan2qnv1vuV57KEFiHeOI+HLpc1yQMWICmpA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784744996; c=relaxed/simple;
-	bh=7ogeBpkIocufNIb27LJFBqBwT824xovj4Eifj30yY0Y=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=tuv5jqNmT9lpB60EVnpsM1276R7PjS4RKGA7Nd+t8vt5z/fCwNsTSPpmXqJJQqC9CBLMifRNnYs58F0Dn29bNLFnVzijFDCz9xJRJaj5ZhJHBDLlTbqNb05PcF2CR3qIlKx/CH7ijZfQZjaXtVXL0FJq++EVLjh/3GHYPkSNoMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=MD0hlhNh; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1574457AA;
+	Wed, 22 Jul 2026 18:38:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784745494; cv=fail; b=Q7/AnXqdq7QgtR63EUL/dIXeBOQCgHcrTdpkeXLswenShXUTj17QGnrwCVDSkKRfDqIlFDOb8c2GeORQ9AiggzYiCX8XcCqknH4A6sIvMOx4lbMbvzia0ASRATBIsIDsvMcxhOyIuiWr19QEm3f4IcNDgRM9Drh2X457TvyTNCA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784745494; c=relaxed/simple;
+	bh=HJOOrW7ekbMnnArtVLs7wyDnqLUMStIdXGMljZ5XUM0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=rk08mMy6AlBZttlLty/tW3ol3nHwtj+cOdGZiES6+YVgbPHuCA3E3KCf6uoKuPH0JYof4rsLC2u89zE9Mu5Ipfb8PHw6CZjKGcMAKGhn0BoSaPG39TJKQTh9U42d9nhQVVRfeIK/pZSaSwEqSFn/f/LsgomcxZwgG6qAZOk6AOQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=HpQTMpkw; arc=fail smtp.client-ip=52.101.57.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="MD0hlhNh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1784744991;
-	bh=7ogeBpkIocufNIb27LJFBqBwT824xovj4Eifj30yY0Y=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=MD0hlhNh0kzaDVirBstMFJJqiPKP3u7RE58b3bqXK9LK6RiDXgYq0gmYuM3beXUlt
-	 gWWNK8+Ke3Sll/fARMdSz+KT3iwdNAWA1Ng9VvEPaO4MNJRtkP11HGKna6sXOVZKH+
-	 k5f7Lhk0ZAnB8M55FDqD3jN/bvgn+y64fbGOzGf4KDSWWyswj1a+57uzaAIDTaD5Zy
-	 gGYHLn87tjPq3gFR/Hmaystd/XeaDxn/ugiWufVVfP7hF99lEshu6DBU/UQs+1nXRr
-	 2ktIKQeSG5wsRfaevym+RXqsI+H+PNfGIE49t6sep0C66+tfj9WnxQ6Q2qGloN5ch7
-	 TTEYjqrDTuhbg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1AA8517E09AA;
-	Wed, 22 Jul 2026 20:29:49 +0200 (CEST)
-Message-ID: <082e1141c38205222a91abf13b1a97d9a00e117a.camel@collabora.com>
-Subject: Re: [RFC PATCH 0/3] media: rockchip: VEPU510 H.264 encoder for
- RK3576
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Jiaxing Hu <gahing@gahingwoo.com>, mchehab@kernel.org, heiko@sntech.de, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, Detlev Casanova
-	 <detlev.casanova@collabora.com>
-Cc: ezequiel@vanguardiasur.com.ar, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Wed, 22 Jul 2026 14:29:48 -0400
-In-Reply-To: <20260722073417.2064667-1-gahing@gahingwoo.com>
-References: <20260722073417.2064667-1-gahing@gahingwoo.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-XXWEcMDbT8lXfd6RB4xN"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="HpQTMpkw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dZvQpW2lQwaQIJydQ/yx1i9C0i+u7N0usCNnnPmV4E4toDxAc5iVF340Ghq0sJHPYrzoF2nfkQxnxYOWNPzwLKr5GE7tPhPqCVW9jI8zaIwjn2Ga6J6iG+B9gT7g7YALxxHeMqXvkkROnnzqrHQbjDWq/kEmanXc6ituAUTsB77KmFXovH626OVxK3GvQz/h7Ol34dFYrUykQjnho7OUYDxT5Ftwc6KeS7DR+b/Krj7fXPtq+jj9UQjZ0qwcZKya5KJYmVqDV6znU3+vIouELKqI/1pYE9waOF1ycmBucFC512myJjGEZrrJPNDB6bGOast7FmbV3NsjEj7qYPi3/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HJOOrW7ekbMnnArtVLs7wyDnqLUMStIdXGMljZ5XUM0=;
+ b=dTAHaSqvH5IdQ3PcYU0ER4v4ueg9b9nv1S/MHXhDmu1UnA7Y6LtLCGoVanLw6I7JdHBB+aR3UfEQ+GVdoxlx8qfU5OM+YFERaQiy+q4gjuzJDdZDbA4dTr2ccALJQKGjbjmRAMzHbsX0kNQa0zk/RLo8yhHTDU8gDrA0StAweP5fW5MJm86Fez6K4Bjm5U1uCfntZcVX3p0Tvtsts5ZFFRCPEjQx+FoFz4KPuPyTBa5HatWwvUXH029OPF2au6KsdYucZ+KQTstCrvzogrwSnOHDJ4DeZSh7lGXGcdlq4fHufJOMGXp3B+OxA5VylhuGAc/DuDM4mOXAyitdgwVXDg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HJOOrW7ekbMnnArtVLs7wyDnqLUMStIdXGMljZ5XUM0=;
+ b=HpQTMpkwHh36L/orRc2zdNYxCxJiZZqxXosfJjuNatDN1HOip+sUXOjGvYSXBwhTZC5IJsRyZkjMak9aAT5mTcBq14aUwAKySUQjhfgx6gqol+hn1pKLPXPkm5vmixRIWZPNkMUYnWK+p6e1QfopXdqYb9FfZImEgTTicm5Hv7Gak/ou3/QkN1VOEv5FLwu8fQ/cm8nC7LnsrdINQZWdT/JM7ktrZOWWcyeB2Du9TIVyGgNHxzRj3U36a8JJyUYRacmZ8v0YBPIQ22iXk0YeMQcCNY+ZYr6V0fP5lHtTnWQgWiFVbtJflwcmFV9eTLlYLojsm6kpYby6T6L2HjrKuA==
+Received: from CY8PR12MB8412.namprd12.prod.outlook.com (2603:10b6:930:6f::11)
+ by DS5PPF5C5D42165.namprd12.prod.outlook.com (2603:10b6:f:fc00::64f) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
+ 2026 18:38:05 +0000
+Received: from CY8PR12MB8412.namprd12.prod.outlook.com
+ ([fe80::76e6:4d65:7ed1:6970]) by CY8PR12MB8412.namprd12.prod.outlook.com
+ ([fe80::76e6:4d65:7ed1:6970%5]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
+ 18:38:04 +0000
+From: Timur Tabi <ttabi@nvidia.com>
+To: "qiang.zhang@linux.dev" <qiang.zhang@linux.dev>, "josh@joshtriplett.org"
+	<josh@joshtriplett.org>, Joel Fernandes <joelagnelf@nvidia.com>,
+	"delcastillodelarosadaniel@gmail.com" <delcastillodelarosadaniel@gmail.com>,
+	"a.hindborg@kernel.org" <a.hindborg@kernel.org>, Alexandre Courbot
+	<acourbot@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
+	"adzicmirko97@gmail.com" <adzicmirko97@gmail.com>, "alistair.francis@wdc.com"
+	<alistair.francis@wdc.com>, "ojeda@kernel.org" <ojeda@kernel.org>,
+	"sumit.semwal@linaro.org" <sumit.semwal@linaro.org>,
+	"christian.koenig@amd.com" <christian.koenig@amd.com>, "yury.norov@gmail.com"
+	<yury.norov@gmail.com>, "tmgross@umich.edu" <tmgross@umich.edu>,
+	"frederic@kernel.org" <frederic@kernel.org>, "aliceryhl@google.com"
+	<aliceryhl@google.com>, "daniel.almeida@collabora.com"
+	<daniel.almeida@collabora.com>, "boqun@kernel.org" <boqun@kernel.org>,
+	"lossin@kernel.org" <lossin@kernel.org>, "bjorn3_gh@protonmail.com"
+	<bjorn3_gh@protonmail.com>, "neeraj.upadhyay@kernel.org"
+	<neeraj.upadhyay@kernel.org>, "paulmck@kernel.org" <paulmck@kernel.org>,
+	"phasta@kernel.org" <phasta@kernel.org>, "rostedt@goodmis.org"
+	<rostedt@goodmis.org>, "dakr@kernel.org" <dakr@kernel.org>,
+	"tamird@kernel.org" <tamird@kernel.org>, "gregkh@linuxfoundation.org"
+	<gregkh@linuxfoundation.org>, "lyude@redhat.com" <lyude@redhat.com>,
+	"lina+kernel@asahilina.net" <lina+kernel@asahilina.net>, "ljs@kernel.org"
+	<ljs@kernel.org>, "mathieu.desnoyers@efficios.com"
+	<mathieu.desnoyers@efficios.com>, "work@onurozkan.dev" <work@onurozkan.dev>,
+	"urezki@gmail.com" <urezki@gmail.com>, "gary@garyguo.net" <gary@garyguo.net>,
+	"jiangshanlai@gmail.com" <jiangshanlai@gmail.com>,
+	"fujita.tomonori@gmail.com" <fujita.tomonori@gmail.com>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+	"rcu@vger.kernel.org" <rcu@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "rust-for-linux@vger.kernel.org"
+	<rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v6 2/6] rust: error: Add ECANCELED error code
+Thread-Topic: [PATCH v6 2/6] rust: error: Add ECANCELED error code
+Thread-Index: AQHdGesESzt36KBa/EixWW27QHW3A7Z53p+A
+Date: Wed, 22 Jul 2026 18:38:04 +0000
+Message-ID: <fdcff2949180fa40d0605866fcb306781ddae4cf.camel@nvidia.com>
+References: <20260722144931.1070312-2-phasta@kernel.org>
+	 <20260722144931.1070312-4-phasta@kernel.org>
+In-Reply-To: <20260722144931.1070312-4-phasta@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.56.2-9 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB8412:EE_|DS5PPF5C5D42165:EE_
+x-ms-office365-filtering-correlation-id: 6b0f82e3-082e-4af8-b7a3-08dee8205e12
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|38070700021|921020|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ 6pFAfNPXDExAv5OUJnsAclJTMtVhHH8hFTmjfQB+Ky7Tn5rdpYwugAbyzNq/U2QGoaqNpUZd9vP+yMbFLGQcNQciZhFHIdBlSIEnMB1OmeaY5KAT3yO6RWDGxbuIlOwMZ2dsGITQNsp/uhjab8iz8Ipbca6n6Offnm2OXkTovxYzgQ+dTqj5tKRR72suvL1OejWhAcf6oV4fiaDl/99WWk4KwA1ekJvSEHIrfFhdJMWo4hMzJ9kl3J8Hrd1o/UYi3Z+REOfdEmzbEdCWj7jys0GekP8Q+mcUAZ0DQO5Qp4HoFFFuOXx1expMDtOIxssD+VZ9/OttqRw1wAuvDxOFsnSgHsipUf0DRBPSFMLcTP32wdDyzp/AFjRhc2teG92fcrldBrL5KhW+PC4ZyBLBvOBoajTnoUMQRhuRoI6zcIsON8ysWNo9ZN4yKg4yKycLFUuq6wAXr9hxu/yFijbu7j3AlHUWRlef2v0/vH9iYXj4bDICIvILECvsim4ZAZVLKP0Fy89tRGTgIb3KUypo8lzzdAMYaBWQUN7vB7MoIw9B42RTt9NNFFRz7GufAZIZsb9aanH1FBztD2kUrwfmF/TB4oS4kAbOUQ06uifDxDiuyJLJM/j8YTKSE56znCN53ZftEjZY5VeX28Ok0molBEuwhyYbX9wGoHnN+U4wY9FAhl1E9QIua5mEw6VJul/KQru6/fKHyRPDN1BaiHM+kXxVznXbxlgPh+HYECXC/KAJFH06Bk5OK/AEnUqeMLQQ
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB8412.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(38070700021)(921020)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?clhRc21ZcFEwRGh6M2ZlWWxzNzUzN2NoQ3Q1MElHU0JsZTNvcHlYemFuUUda?=
+ =?utf-8?B?YnJJbHBCZUEyTXhHbmpyNFNzL2w0WmxOL0F1cDdCanB2aWkyTXJlUnliVkZU?=
+ =?utf-8?B?eFFTc2lRNHREWjk0c1lqbEZUbnlvQ0tBQld2bk14NGVUSlhNclhpV0RuaXA5?=
+ =?utf-8?B?d0hZUUJIUWhCMi9RZFk3d0ZhWTJNUEJPcHlYMVF2ME1uc2tBaWExYlNnODNX?=
+ =?utf-8?B?clBzQUhPbmFRVWZnQklzRDIxTUduZCtPNEZZMzJSTWJlUUE2RlpTSjJEb3dm?=
+ =?utf-8?B?QnZSMFBoRFhCRGJPZXQxL1dJM1Y2djdUNHNsUnpNWVlxbG5xUVJYWTEya2h2?=
+ =?utf-8?B?OVYwdSsvSzloUjRjM2tKQlZUNk9CYWU2K3B4Qk9taDUvYUhwVFR6SlkySGF3?=
+ =?utf-8?B?bUpFUUxqM3dIcWIxYXNlR0lNZXE5SHZxanpiRnZWV3FLYStXUnZGQ1gvTitT?=
+ =?utf-8?B?V09FNkhiNEM4RnJnK0hRazFXWGYzTEE3Y2tJNTdlZjlKYWhyZUVwL0NyWENm?=
+ =?utf-8?B?aGpubXU3Wk01ZDlmVnROSFRTcm40WG4wVXV4cE1TaEM5bENTSlF5dCt3dTQy?=
+ =?utf-8?B?SWtUeXliTk9XQWhwLytnclBuZllnT3RFKzZQYW9SUk9XNzlscHQ1bjJFR2d6?=
+ =?utf-8?B?VjI4cjJWeTRZR1IrYldCcXpaMEJ1cW5KRUg4eUt0OHdyZGoxbWVnTExnbHdK?=
+ =?utf-8?B?SlVmUHIxeEhTdTdXQVhSdDhGb1lHWEl1ZW5vYTlFL2M0RTIwQ3BSTDlEZHpY?=
+ =?utf-8?B?dHUxNHRicm1YbkVBWHRXcTQxc2F2OEljOEtoOStNcWFqcGg4Y3p6SHU2OE55?=
+ =?utf-8?B?VkV1bGxUanN4cGdkMlJpM2Z4TVhoK2pVMXZPVGhXWndTaklkRWthTmdmRzVF?=
+ =?utf-8?B?b2hUbUVCY1B5SE83QVVsUzh5TnNJQU45SkExbGFSZkhGc094SDc2OXNad2NT?=
+ =?utf-8?B?VDY5WjgzM1Z6VXNOcGdHZlVhS1UvaFJPNnBveUNmaHFjalFSeTcwcjdGMkMw?=
+ =?utf-8?B?QU91NFJaSEVJd3NwejBqT0d5Y2Jod0RLalR6RWhlVlJxOWZ5eGNER0F3dmU4?=
+ =?utf-8?B?eFo5R0k5LzFRSEF5LzlmTnJsNE9kMlRQVng0K2xaVi9idEo0MWVrbzdTQ1Jo?=
+ =?utf-8?B?YlFia21VS3ErclltQ2kyUkg3WURRNENMM0oxYjhKMENYeFNjUjhEUnQralpO?=
+ =?utf-8?B?cjdJTkliZmZrQWl5OTB4OGlHMTJJMitFSFIwSktpeE02TUNzUHRrT043VDJF?=
+ =?utf-8?B?TExXMVhNSkVaVlBGcm5sbXBzZmtBSnVhYVdJVzh5UmFsZkNEcXZVRmZneHUy?=
+ =?utf-8?B?dVJZMjM1TG1iSFYzU09GRk1qWkovNmRBZDNuK3BEaHliMTNIeVRESmk1bFdC?=
+ =?utf-8?B?UWxSRmVYOG15T0hVVXhML1NxKzB5a0tLbkxEWUVIb2hLNnFtQTNSdVNldVVG?=
+ =?utf-8?B?clpjL3VYRlNkemp1a0l0MXpzYWNqMXV2S3NrZDdFdzUyb2MzRmRLRjJjeEs4?=
+ =?utf-8?B?ajY0d2dUNEJyUzhZWWVUL2o0MS9VM1h0OFIzcDgyOXM0eVVybjJyNlJHMHd4?=
+ =?utf-8?B?OE1sd1o5ZTRJN2FWZnRpcFhiL3R5bjY5VjNua0VzWGt0bWd5STdnS2RYcXJT?=
+ =?utf-8?B?MGQvem9kd1N1RWlWZ3pXZUdyRCtFQlhHRkMrMjh1ZkRPUU42ZGdlbXFzRnQ4?=
+ =?utf-8?B?emsrZUFKb2tpMCs4Z2UzUWRBOHpuYStmL1lyYzQ1a3VLQU80dE96QzRENStR?=
+ =?utf-8?B?ek5vVUNvcWVXTDMyNVNuOVd0UzhQc1N4SC9LMzZaYjRoZnE4YWtrWThZMGpI?=
+ =?utf-8?B?QzhpVDgzaVg3U0FlMnhNVjZKSDJ3QzhMOGV3c3g0WFg4U0J0bW9QTDd3b3dX?=
+ =?utf-8?B?cy9TZjMxNVQwckYwSmkreXhrUmhvbjgyMW9jRFdoODJCbk1tV1ZZRkFCYTVE?=
+ =?utf-8?B?eUlGdVFtUjZySUNvUHdqUm5RVXEwcjc0OWhUWFlaUWM0N1gwVHZDRzNMODdH?=
+ =?utf-8?B?aGRwYy81ajROYStMZ1RZejBJejJCRVdJVU9uRkpFRHVvWTkvTmkvRFV1Z09U?=
+ =?utf-8?B?OUNmemdiWGNuRGF0bWVWKzRKa3ZuM05RcFgzd0ROT3hjcUpiaTFNdVFQY1F2?=
+ =?utf-8?B?NCtMZGxuZHZ2dFZ6NmhBRDZtc2dSbWlIT3NDS3UwOVA2YTRLZy9EOVBxai9u?=
+ =?utf-8?B?a0xtMDZPY1RpRmVGR296ZnI2SGQ1cDdQUVFhbVBKaEhjL1ZLODRTam8vejcz?=
+ =?utf-8?B?WFBRSGI2NUlrWi9uMCtJNEZWaTZmVC9ZOUc3T2prR3Q3QzZHU2t3UzBkejRR?=
+ =?utf-8?B?bXMzTCtwUVFoN0tBczViZytxbWE3ZTdQLzFxdm5URHZsSHIyeStWQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <E72ADE0257D07E438C1BFB4ACF576C6D@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8412.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b0f82e3-082e-4af8-b7a3-08dee8205e12
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jul 2026 18:38:04.7499
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Jt78FC67L8IDh/L3n6Jm3yswjNjw/iaxBqUF2LH4WZkN3cN5kKzjdJtTt+M0XvEUl+svwaqrOJ3qvVvWwMcZXw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF5C5D42165
 
-
---=-XXWEcMDbT8lXfd6RB4xN
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-Le mercredi 22 juillet 2026 =C3=A0 19:34 +1200, Jiaxing Hu a =C3=A9crit=C2=
-=A0:
-> This is an RFC for a from-scratch mainline V4L2 driver for the H.264
-> hardware video encoder (VEPU510) on the Rockchip RK3576.=C2=A0 It is a
-> stateful mem2mem encoder (NV12 in, H.264 Annex-B out) modelled on the
-> verisilicon/hantro driver, not on the downstream MPP-service model.
->=20
-> I'm posting it as an RFC because intra frames work but inter frames do
-> not, and I'd like a second pair of eyes on the inter-frame problem
-> before this is worth a real submission.
-
-This is really nice to see interest in enabling encoder for this chips set.=
- I'm
-adding Detlev in CC here, as he's actively working on RK3588 encoder, which=
- is
-quite a similar chip. But there is quite a twist his approach which I'll ex=
-plain
-shortly.
-
-What I believe I've seen walking through your RFC is an encoder based on V4=
-L2
-Stateful encoder interface:
-
-https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/dev-encoder.=
-html
-
-While this isn't invalid, specially for encoders, for this type of hardware=
-, the
-community agreed direction was to introduce V4L2 Stateless Encoder
-specification, using the media request and compound controls to maintain a =
-lower
-level interface for this HW. See Paul's proposal for IMX8MP Hantro VC8000E =
-chips
-(H.264 only for now):
-
-https://lore.kernel.org/all/20260522101653.2565125-1-paulk@sys-base.io/
-
-The downside is that we need a new spec document for this class of driver t=
-o
-reach upstream (not part of Paul's series). Plus, for each codec, appropria=
-te
-encode parameter controls needs to be designed, and they must be proven to =
-work
-across multiple hardware (generally at least 2). I still think there is a n=
-eed
-for V4L2 drivers like this. Being high level, they offer a great interface =
-to
-protect against HW actions that would be harmful to the Linux operating sys=
-tem.
-Specially when you don't have an IOMMU like the IMX8M Plus. But at the same
-time, V4L2 memory model often clash with modern graphic stack, making the
-integration quite painful.
-
-Here's the twist to Detlev (and myself) approach. In order to make the kern=
-el
-module even thinner, and to avoid having to specify new V4L2 interfaces, we
-decided to look into making drivers similar to how we do GPU drivers today.=
- This
-is possible today thanks to the Vulkan Video standard. So Detlev driver, wh=
-ich
-finally got P-Frames support few days ago (he'll explain why this didn't wo=
-rk
-initially for him), is split in two part:
-
-- The kernel module, which expose hardware specific interface (he decided t=
-o
-implement it in Rust)
-- The userspace driver, which he's implementing in Mesa project
-
-What I really like of this approach is that the kernel driver is much more
-stable, as it expose the HW at a lower level in a codec agnostic way. For t=
-he
-final application, the interface is the same regardless if its a GPU attach=
-ed
-codec or a standalone codec. Its even the same interface if you are on Wind=
-ows,
-except for the low level zero-copy interop. The rest of the development can
-happen in userspace, which is a lot faster to develop and easier to debug.
-
-One thing we notice, is that for performance reason, keeping rate control a=
-s
-close to the IRQ as possible is important. Its impossible to batch any work=
- if
-you have to constantly wait for the previous work to be done in order to co=
-mpute
-the next set of QP values. For that reason, we plan to eventually share the=
-se
-in-kernel implementation with V4L2. In our imagination, eBPF could also be =
-a
-usable option.
-
-I will leave to Detlev to share some early code once he's ready, but consid=
-ering
-you both are working on the same family of encoder, it would certainly be a=
- lot
-nicer if both endup with the same type of drivers. Offering two interface f=
-or
-the same hardware would impose a lot of extra effort that I would rather av=
-oid.
-
-regards,
-Nicolas
-
->=20
-> What works
-> ----------
->=20
-> Intra-only (I-frame) encoding is confirmed on real hardware (Radxa
-> ROCK 4D).=C2=A0 With GOP size 1 the driver produces a valid H.264 stream =
-the
-> reference decoder accepts.=C2=A0 This already exercises the full path: V4=
-L2
-> m2m, the register programming, the software SPS/PPS prepend, and the
-> hardware slice output.
->=20
-> There is no upstream userspace involved (an encoder needs no request
-> API); I drive it with a small ioctl test program that feeds NV12 frames
-> and writes the CAPTURE buffers to a .h264 file.
->=20
-> The open problem: inter (P-frame) frames hang
-> ---------------------------------------------
->=20
-> Every P-frame stalls the encoder's own hardware watchdog (INT_STA bit 8,
-> ~20 ms after the kick) and produces essentially no bitstream.=C2=A0 I hav=
-e
-> spent a lot of time narrowing this; it is sharply localized but I cannot
-> close it:
->=20
-> =C2=A0 - The P-frame register writes match a real register-write trace of=
- the
-> =C2=A0=C2=A0=C2=A0 vendor stack encoding the same content, byte for byte =
-(I traced the
-> =C2=A0=C2=A0=C2=A0 vendor kernel's writes and diffed against this driver'=
-s).
->=20
-> =C2=A0 - The reconstruction the previous frame writes is *valid*: dumping=
- the
-> =C2=A0=C2=A0=C2=A0 recon buffer after the I-frame shows correct reconstru=
-cted pixels.
->=20
-> =C2=A0 - If the P-frame reads its own (older, settled) recon slot instead=
- of
-> =C2=A0=C2=A0=C2=A0 the immediately-preceding frame's, it completes.=C2=A0=
- Reading the
-> =C2=A0=C2=A0=C2=A0 immediately-preceding frame's *fresh* reconstruction a=
-s the
-> =C2=A0=C2=A0=C2=A0 reference is what hangs.
->=20
-> =C2=A0 - It is not FBC: storing the reconstruction uncompressed
-> =C2=A0=C2=A0=C2=A0 (enc_pic.rec_fbc_dis =3D 1) still hangs.
->=20
-> =C2=A0 - The first frame of a session always works; the first P-frame han=
-gs;
-> =C2=A0=C2=A0=C2=A0 after a couple of failures + core resets, later frames=
- sometimes
-> =C2=A0=C2=A0=C2=A0 start completing.=C2=A0 It behaves like a warm-up / se=
-ttling problem on
-> =C2=A0=C2=A0=C2=A0 the reference-read path, not a wrong register value.
->=20
-> So the encoder programs identically to the vendor and reads a valid
-> reference, but stalls fetching the previous frame's reconstruction as
-> the inter reference on the first inter frame of a session.=C2=A0 My best
-> guess is that the vendor does something between consecutive frame
-> submissions -- a completion/drain wait, a cache/coherency step, or a
-> per-frame re-arm -- that I am missing, but I have not found it.=C2=A0 If
-> anyone recognizes this on VEPU5xx, or knows what the reference-read path
-> needs between frames, a pointer would be very welcome.
->=20
-> The shape of this -- the first operation of a power session works, the
-> next stalls, and a reset/warm-up sometimes helps -- is the same one I
-> ran into bringing up this SoC's NPU (accel/rocket RKNN), where the
-> second/chained submit in a session would not fire [1].=C2=A0 I can't clai=
-m
-> they share a root cause, but if this is a known RK3576-wide submit /
-> re-arm quirk rather than an encoder-specific bug, that would be good to
-> know.
->=20
-> [1] https://lore.kernel.org/all/20260718031146.3368811-1-gahing@gahingwoo=
-.com/
->=20
-> Notes for review
-> ----------------
->=20
-> =C2=A0 - The PARAM/SQI register classes are programmed from mpp's constan=
-t
-> =C2=A0=C2=A0=C2=A0 "default tuning" tables (not derived per-frame), as no=
-ted in the
-> =C2=A0=C2=A0=C2=A0 code.=C2=A0 They are required: leaving them unwritten =
-stalls even the
-> =C2=A0=C2=A0=C2=A0 I-frame.
->=20
-> =C2=A0 - Rate control is fixed-QP only for now (the bitrate control is
-> =C2=A0=C2=A0=C2=A0 advisory).
->=20
-> =C2=A0 - H.264 baseline/main, single slice, 4:2:0 only.
->=20
-> =C2=A0 - Tested at 176x144; other resolutions are not yet validated.
->=20
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
->=20
-> Jiaxing Hu (3):
-> =C2=A0 dt-bindings: media: add Rockchip RK3576 VEPU H.264 encoder
-> =C2=A0 media: rockchip: add VEPU510 H.264 encoder driver for RK3576
-> =C2=A0 arm64: dts: rockchip: rk3576: add VEPU H.264 encoder nodes
->=20
-> =C2=A0.../bindings/media/rockchip,rk3576-vepu.yaml=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 94 ++
-> =C2=A0arch/arm64/boot/dts/rockchip/rk3576.dtsi=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 50 +
-> =C2=A0drivers/media/platform/rockchip/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0 1 +
-> =C2=A0drivers/media/platform/rockchip/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0 1 +
-> =C2=A0drivers/media/platform/rockchip/rkvenc/Kconfig=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0=C2=A0 14 +
-> =C2=A0drivers/media/platform/rockchip/rkvenc/Makefile=C2=A0=C2=A0=C2=A0 |=
-=C2=A0=C2=A0=C2=A0 6 +
-> =C2=A0.../media/platform/rockchip/rkvenc/rkvenc-h264.c=C2=A0=C2=A0 | 1095
-> ++++++++++++++++++++
-> =C2=A0.../media/platform/rockchip/rkvenc/rkvenc-regs.h=C2=A0=C2=A0 |=C2=
-=A0 929 +++++++++++++++++
-> =C2=A0drivers/media/platform/rockchip/rkvenc/rkvenc.c=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 892 ++++++++++++++++
-> =C2=A0drivers/media/platform/rockchip/rkvenc/rkvenc.h=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 212 ++++
-> =C2=A010 files changed, 3294 insertions(+)
-> --
-> 2.43.0
->=20
-
---=-XXWEcMDbT8lXfd6RB4xN
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCamEMHAAKCRDZQZRRKWBy
-9IQsAP97F8TiDvCpd8MPCAYppalOLVR+6bo5YculruVs2yACqwEA73InRBRrajrb
-Y+bYUq3c5TeCggPz7SXo053SFuZqswA=
-=I3ME
------END PGP SIGNATURE-----
-
---=-XXWEcMDbT8lXfd6RB4xN--
+T24gV2VkLCAyMDI2LTA3LTIyIGF0IDE2OjQ5ICswMjAwLCBQaGlsaXBwIFN0YW5uZXIgd3JvdGU6
+DQo+IFRoZSBSdXN0IGRtYV9mZW5jZSBhYnN0cmFjdGlvbnMgbmVlZCB0aGUgRUNBTkNFTEVEIGVy
+cm9yIGNvZGUuDQo+IA0KPiBBZGQgRUNBTkNFTEVEIGVycm9yIGNvZGUuDQo+IA0KPiBTaWduZWQt
+b2ZmLWJ5OiBQaGlsaXBwIFN0YW5uZXIgPHBoYXN0YUBrZXJuZWwub3JnPg0KPiBUZXN0ZWQtYnk6
+IERhbmllbCBBbG1laWRhIDxkYW5pZWwuYWxtZWlkYUBjb2xsYWJvcmEuY29tPg0KDQpObyBuZWVk
+IGZvciB0aGlzLCBhbGwgcmVtYWluaW5nIGNvZGVzIGFyZSBiZWluZyBhZGRlZCB2aWENCg0KaHR0
+cHM6Ly9sb3JlLmtlcm5lbC5vcmcvcnVzdC1mb3ItbGludXgvMjAyNjA2MjkxODMwMjIuMjcwOTUy
+NC0xLXR0YWJpQG52aWRpYS5jb20vDQoNClBsZWFzZSBwaWNrIHVwIHRoYXQgcGF0Y2ggaW5zdGVh
+ZC4NCg==
