@@ -1,71 +1,158 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B012433BBCD;
-	Wed, 22 Jul 2026 06:19:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE2036A375
+	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 06:26:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784701173; cv=none; b=ItFiVFyhinmHZYvjfGQzrIXxQG2Um8UwnNVHMx+/bzW6gioscBWoXgTGOuDHce5n3Rgjt+2pYB3peLP+HajTG0hVoZbOmGOm/vvj82oGX9woRRiP83ARoSxUToPxZbtWrghVMMe6twIi35PKG3Wja22DOfgvmZcbimUH8i4QsHY=
+	t=1784701585; cv=none; b=mL96Nka578KGvfinvN2ZutJQs/YTGP4jNGsvxj9PxIJJzvFqB+ZxgGe02LRAntktFSZMB72lFYyay4uQ3P9XWj/+Mv0SOc7Hz/GuThyYsuriOlEV52a7afuAl0gdZZ1LLXfn51YLsY/HbyhV/AWdF3dLUmXkT6mURAI23U6CsJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784701173; c=relaxed/simple;
-	bh=xqpvfA0WLUaIHGyt23U1itcbS20V7/b242bSCICE/B4=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=uWP3Sta4AQbJJ7Gu5peAFEBPh+VbprB2H+cI7RsZ3895I+xIaOdKN13LUa8NlpelxROcmK2fHj15BZZK7n6mAIsGrBz7KhRtSDkqCiBf7sWxYvW4Gaoam8jR0UiWtSRBz5TKvEodheHK5Mz9vTtArnsq7STWL1XY6IRODmGSoIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=jBMMSDtA; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784701585; c=relaxed/simple;
+	bh=ANWqAyRMt/cbgEm11tuJyzpAvdtzHqlsryChIh3tj18=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eKPQchdSRdnybWUAIM2IKWm0d3JjMcaRwVrS8VzWQKfq4TiTnxiZL5oZIRwneIXGVqYjboDShIwip1FXW7hfMvJef79Hm7lZImInF8w+uSun8ZqLnNSlQRej3G6TiuIBcUFC7cQOxZmoOGb8Soll4ShNXJ5kFyuHVCA/02OhM6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HqCEdssq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cbVJ5gnd; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="jBMMSDtA"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:25d4:fa24:78d1:31:7a56])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 21E6E838;
-	Wed, 22 Jul 2026 08:18:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784701110;
-	bh=xqpvfA0WLUaIHGyt23U1itcbS20V7/b242bSCICE/B4=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=jBMMSDtAhaK8jZs+nyqQ7tLIxXpoSdXxH7gRmLr3XTUB0LAVi04ImGqZi+AP5Ptm/
-	 ECTl6mE/UhBpCcwJObA7JytBHXn9FMHAD5X4j5zw2wZpLKl8VZ/qdZUEhM1ahCOk2e
-	 rdo/MUeVOG6bZ7jehwEWYuJixE5gJk75/womB/Ls=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HqCEdssq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cbVJ5gnd"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M61sTs984434
+	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 06:26:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=gGbgei6b6aS8ASTNJNECuJ+8
+	vcnkKt5wKDZiufHMYFU=; b=HqCEdssq0klyMc6rTS9Eh8duA0xUEdLzSBHLwm5K
+	qnmCef+OIT52xTguxcEh3CAODvoHxg/zAUi0t7WHQeVqdPLe5hzVw0p6j0RUh49/
+	sWDToenazpfb9Tns+XQTXmK9H/8fCWfIGXJpmzw7ziuA/uBIjdaoxW2E07ukFZWL
+	B6JKO9VZV/BFznkqOqRy4X8hkFJXuOr8WvpwT+mmHToq/b09n/dDIgI5/MIbFpGi
+	HaKvEPkdhQJ78SUYpYn5nPNR+e+wcv9XL5jYZ8ZSNa8nfYHyIunnSHa4F8N6rL2Z
+	1PLsOaJ6zuHzaGDibotAyRn0ps9zvGPSIxDdGSHeR/a1dA==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjr83832f-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 06:26:21 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c1d137a68so332840031cf.3
+        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 23:26:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784701581; x=1785306381; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gGbgei6b6aS8ASTNJNECuJ+8vcnkKt5wKDZiufHMYFU=;
+        b=cbVJ5gndkTF8kwRoJddF0q1XxJrH5O//+n5d1GTDbIUirrIg5TAnHNq7TLDF7EOCLE
+         O+GBlMRL2Tcn2yq+157jIpaLykFZu04TNFTahV/z4XMJjdBNA3szYDJoXMLFb6KMvL0X
+         fRHAZqmdDaWkfwe+MuoiEBArX58Wo3tSEf5zw35CIYBgilcjM1MW86ch2eRNR4/GWosy
+         PCRhFD8PM1QuEr/5XJu+gW9rB1Pk9AsZjUUHX8Fp82zraF6++29UwojyvPtIyRyP3Yld
+         Ojaqgf56shDosyXv4QDUs4yCD+z7mgzJTYeEM321/8aQe23jOh5Oy8T4OV6XEiiC4i5i
+         1gnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784701581; x=1785306381;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gGbgei6b6aS8ASTNJNECuJ+8vcnkKt5wKDZiufHMYFU=;
+        b=S0e4tNLXqNEQT0M2etQkTbgRnypBr2TIqY2/fQsWHcyIn8Vlq4dB2GBgXPHH6uhxaz
+         Jx65/iTYJIDH/ptyCYFeTxAVHijhJZ75O4xZwyGY1H+aB8i5WW8/R0j9IWItN3V7CQkW
+         5GznCLNkNhQ7vNfBVADMtcFl1G/vWGZATZ40UwhsXzHvxKBsrccSVbVF2Ff9+eDvVH8n
+         jOoAcqGlSyyWLwaTVA8aFA8+Ln18OCFNX076NA8hALu+/T3KGaFgFQafqf5tbJ2J+hk9
+         HgTTnFXt612WymgoZslIUH4oire1lU1+IWAZ+Lhc5z0zqkqRcl4YGfvCYa7gPnciEFyg
+         kd9Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrXSDyAM3YcMyL6ZBPvCwfn9J6lKfrFbFTDA3AOeHMBgf1I7D/JmkHLPwzVGdYVnHL4dtkdg+texJOukw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyGv0j+JqhELV/EIhP4QeKJ/tFlewWqgjNMe7ANQaILjXRPaJ+Q
+	EUgWRwNjpcw5PfxpcxR6d1qE3pQhz4SBA2UMlJ+hi0BKQXoFaiGRD8QKEySZSXPIE3LekadJuXg
+	A0etKZ9pTmMsr4cWIeVisGaBq1O+yV/EXRqH+z3x9skhjicxe8IT8xZuuVqFOv9JM3w==
+X-Gm-Gg: AR+sD10Vkhl0hTFxoCRxQPi4rk5kC2zv1EMWSTKL9gkFl4TyoSPQoNRthoKcrQlxGPu
+	63V5wjDAgzJ8sR5Cp3AaJae27obYajwUB/p0MREuqzivDvJOYzDpVOBXmBqK2JT0bBMzHSpgc/W
+	cwXveDBgb0+lujRiubvRBrnYIoFhIpdh8xbfhg8xU3bAzpxdpra3NE+iTFalSaACBFFIRDMd6vz
+	jVEYHLe0OFSzrkUqjWKaBTlL4LA3J5GACAIkQYyYC3Mnr2jIP+bF8ajN1IEavNp4SlzFvAm7gCl
+	P5TaGmtgnpjPSjXPO1Sfue2tr91n6e/W7B26lBhHhiB6jJZKtL2YFQYN4Ad6T9hI2P8/baxYK8y
+	+FJMej7LnThyUI2Npj5welIpsJ6gUT1NE+3XVZCbO6UDjGQPu3Sjqmzh1BR5L2q4En+S0cHILZJ
+	E0pzjH1kaO7+UWcw==
+X-Received: by 2002:ac8:5909:0:b0:51c:16b3:351a with SMTP id d75a77b69052e-5213c8e2e55mr203299821cf.1.1784701581037;
+        Tue, 21 Jul 2026 23:26:21 -0700 (PDT)
+X-Received: by 2002:ac8:5909:0:b0:51c:16b3:351a with SMTP id d75a77b69052e-5213c8e2e55mr203299731cf.1.1784701580638;
+        Tue, 21 Jul 2026 23:26:20 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2a9b8c00bsm290004e87.3.2026.07.21.23.26.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jul 2026 23:26:19 -0700 (PDT)
+Date: Wed, 22 Jul 2026 09:26:17 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Hans Verkuil <hverkuil+cisco@kernel.org>,
+        Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: Re: [PATCH v4 4/7] media: qcom: iris: Remove dead assignment in
+ iris_hfi_gen2_set_tier()
+Message-ID: <fdhgr3wow74em47qnwsyx4u2ysytcoc4zyus4gkegqyro2qhc2@yzgehyqpuxig>
+References: <20260721-iris-code-improvement-v4-0-4395bd8acfbb@oss.qualcomm.com>
+ <20260721-iris-code-improvement-v4-4-4395bd8acfbb@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <178470106909.3005206.2322043808025262811@freya>
-References: <20260718200912.16001-1-tarang.raval@siliconsignals.io> <20260718200912.16001-10-tarang.raval@siliconsignals.io> <178470106909.3005206.2322043808025262811@freya>
-Subject: Re: [PATCH v3 09/17] media: i2c: os05b10: update pixel rate on 10/12-bit mode switch
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Tarang Raval <tarang.raval@siliconsignals.io>, Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>, Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>, Mauro Carvalho Chehab <mchehab@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-To: Tarang Raval <tarang.raval@siliconsignals.io>, mehdi.djait@linux.intel.com, sakari.ailus@linux.intel.com
-Date: Wed, 22 Jul 2026 11:49:24 +0530
-Message-ID: <178470116466.3005206.11839379637753408198@freya>
-User-Agent: alot/0.13.dev35+g4a69c46ca
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260721-iris-code-improvement-v4-4-4395bd8acfbb@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: 6CXNlzL15n9F2eXPzQ4sl5vIpY7RbEkC
+X-Authority-Analysis: v=2.4 cv=VfrH+lp9 c=1 sm=1 tr=0 ts=6a60628d cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=VwQbUJbxAAAA:8 a=miKMHEkbYx8bjHyJJFAA:9 a=CjuIK1q_8ugA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-GUID: 6CXNlzL15n9F2eXPzQ4sl5vIpY7RbEkC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDA1NyBTYWx0ZWRfX2GGXnNonDJ+5
+ fGPya25pPdEASkKKEL0uj/Li+Yo0EDWiUTpv6J8W7SLh/tO67iuj/LAxI7LoAqHA4pxGlaXHGzk
+ d5twSsYAvSa7/bKxFAI3KcmD+5fXQ4tI3XsjrDwjQObMl4Gf76IDdrwS6MYldR1BCPvzxF72Xq8
+ bXCa1e5ZnyTrdA8P6J6ehRCNLlnbOxbT+Lk1FJcwhkuLzUmgKeVXtkWRt6fK23Gy9eCek2ISylZ
+ yQ5FY3CXmpoNIWOO4buVeHZ/y+/U/1bzuMAbNZz7/q2CWMuUhoalWUdggpPMK2DRq8ayGF+bSMB
+ 9GjlZEmzlBBs7jdwWWeJfnTnhJ7cHBKocTkYEKms7dW3P/SiEKRNp9o/7Qo8AMKMg8IyuHn73FW
+ Djdl16rau1ORDK3t6HqYuYF8lGPxkbivH+dTbC3uwTJpl9D7kkreVKIPDqe6dTbPcHrOBGfzUbj
+ lNivXjZMqGs1L0RBgkw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDA1NyBTYWx0ZWRfXxufbXscTvm1Z
+ OeehrTNYq1Qpo4wQRCTAMFyZcu8M1GQnQFdwGnaHMBjSN7TttBvrOSHWMahasZdGhUnsmPShVS5
+ b3chOUFAnyKJfS0MLoiYmOVdGDmNKMI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-22_02,2026-07-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015
+ priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607220057
 
-Quoting Jai Luthra (2026-07-22 11:47:49)
-> Quoting Tarang Raval (2026-07-19 01:39:00)
-> > After adding 12-bit RAW support, the pixel rate depends on the selected
-> > mode bpp. Store the V4L2_CID_PIXEL_RATE control pointer and update its
-> > range/value when the mode changes so 10/12-bit switching reports the
-> > correct pixel rate.
-> >=20
->=20
-> Link frequency (output bus rate) and Pixel rate (sensor internal readout)
-> can often be independent of each other. It would be good to verify that in
-> the sensor documentation.
->=20
-> A quick test would be different bpp and the same HTS/VTS and frame size
-> registers if you get the same frame rate, it's likely that the sensor's
-> internal PIXEL_RATE doesn't change due to bpp.
->=20
+On Tue, Jul 21, 2026 at 07:50:37AM +0530, Vishnu Reddy wrote:
+> From: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+> 
+> Fold the ternary initialiser directly into the variable declaration,
+> removing the dead store that was immediately overwritten.
+> 
+> Reviewed-by: Bryan O'Donoghue <bod@kernel.org>
+> Signed-off-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> ---
+>  drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
 
-If this sensor indeed operates on different pixel rates just because of the
-output width, I would suggest you squash this to the prior patch which
-introduced the 12 bit support.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-> > Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
->=20
-> Thanks,
->     Jai
+
+-- 
+With best wishes
+Dmitry
