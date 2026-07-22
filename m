@@ -1,115 +1,120 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4989471CE6
-	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 16:45:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E1104334DC
+	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 17:34:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784738726; cv=none; b=bziaQMSkNkw0zTfkOO0QQJWuVkz0utloSV7UjkxD/JpcuZv0GGWD/xxY2YAvSGUENf7PtzZgorKP8LWXUBnyy+9u7lmAD2JvgluGozgIXUzNAuyUZvxQlOo20I6Ojft8oc4EBQk+/WqrEnWVGMFt+ydmr/vYUj7JDdVYgfqLDqY=
+	t=1784741647; cv=none; b=ZIvHasgsjCHgyKZW5vG5GJs6c4oJlmPJ3cbDCrhsVP1s4MrG7bx6QA2+MuSD7AXlLliymDfnYzEwnmrBPyYxjcZ+6pq/QXHIdVDURZl2f/8rfhegaiQQQ4hpxnpM7zX1at4i+5OP+hK9QSgbzrHFkSbhu57q6SMAr2aW3jKWQkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784738726; c=relaxed/simple;
-	bh=izjVJ1GsaHMy0A8Z4dzQrA/0kJYmzfi7T0ir8KG7JY0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=a7AUlWrcTgNeYRYK7/Eio1qwoEHgDVqO6Zcickxn7ttab9DJXIVmVa4HE50cHt37qQ9Kc265Iv1JpOf/Ix1c7nTZKJYL259ZvDTh5/XSnuDT8xbcdnlUr1rnVdViEpQnnWcfVCBDLaXFs04IjegwDv1JgK6Bn8qj31oPMD3Ixp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RaFvnh0D; arc=none smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784741647; c=relaxed/simple;
+	bh=8xlIPfJ+ChrZ8UwU5QYPS9K3pxjgNVYdKnhAzoEm2+E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kaEIwVur5f++k3FjChIVDoFCp/xC4HYMcpO63ZK0X8DOB+yQuJ5o0W4Qkfk6xsMR4ZNbWDHRE8kBtSNM/8PqVVtObWN3ntX65oXwfGuQlTequ+fGiYDwpA7bcguChJU46k486VaQzETEBzUyYCLpGwAFU6oabCau1hcBc11ATk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=pLdx2JbB; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RaFvnh0D"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5aea0fff535so10602118e87.3
-        for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 09:45:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784738714; x=1785343514; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RMaItLf+wLPzPOkAIWLQbZ5Iu0QU3hrWrmvyorzSKio=;
-        b=RaFvnh0D0aJGTHuzESvpBwj8zJbWDJQN5rMr6JN1jJ6Mpzn/3z2kJ5bf+9chzYJqeT
-         jh4JQXo6iUbtGJjOOvwEEXwIAgleturkK+DpPRpor7vGokZRuoXgH0/AHGt2P11lrosW
-         CiXFY0Rb0/oH460BT7ZGBG1+BcS2OAUzcVqF8RzzxTQ1JwWG8xvOXN4awA3vx8Go4b6v
-         lZksGS441u5/OokqtE6iKBoVc+xj61r5509/7uUQuNeU9X/u9iF7u6WDFWIDauiveRU7
-         XAvjGpE46W357z3S8GJ946YwxJQVw80duaXUSGdaBne1IuY9xILIi46vhZV/mJOynsHv
-         czaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784738714; x=1785343514;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RMaItLf+wLPzPOkAIWLQbZ5Iu0QU3hrWrmvyorzSKio=;
-        b=s336JJRk+zKPZHqe0Wsze3n7EP0L4kxPyBUF8w6q6dNQEjMGjyhtC0H/7jtWwOnrZJ
-         c0nWGYV0skSfvX2ja+T0eVT2FTDSfRw3HxtxHert9/VhhmSLcRXGhkZzd9PZLmicrsAH
-         e4O92rU+vLzLvTiYr6uJaC4ulXm989aX/hYTke6mHPj5MGOWEZErtpaZwywAHfHqI3Nj
-         uMPeZdg6X8yJqqnuGbFj9QYunW3jhrFgufFVwH7RJbYSgmy0RL+uh1JHKoCfLfiJIB/4
-         7jE1T5jsliydVKE5hV/ONd8aUSIHKBus7qArgDuuT795/T4KiwSKmSWn9Q9lp1Shc2x+
-         K2tg==
-X-Gm-Message-State: AOJu0YyvB0LrLw8097ncMInv8J6qI+WNGptiViHfjx9us8T1qh6MR7tU
-	kKV12D2Yz7wTQ5Pr6W+AfxLO1JqAcRvsM5PMFE/rwSRFTd2aQc02XqAr
-X-Gm-Gg: AR+sD12QnizaghQDq81QWin2ucAfNOK3n5XlSYQhTgna6GCjzHupt/Gb+SjienESVFv
-	LXMUczzsb+I3gUfLTwvqh7BCNdBtRh9swvOkmzaHfDb8NDhgjqdnxHGBUNekb2giwQii+gC6OY3
-	B2pt2dq4pwd85QvdE4lsBkKpG9DbjQBDQUTIddLfIkwiH2QfJTQl3Cp5n9jxa0U6tJffKvTa0NM
-	SK529JcAsso1CkIAbRRBcg9C0ICjp2Yyd1TYi9YNUHOAQHqZrmsv9YOnFsX8xKxN/2Rf4eAT+uZ
-	ORxVqwqBzVoTPwLV4K9zx2gJ0Z38P6ySOLpijC+NNLOOOw1avmFA7TCoucaBio9yPX78zipMIWA
-	BnrpA08EXJISvyoSxh5rQbGuMbctSk0EquyuiRTHvQ4NR6KXnbv+d5C4tbl+1l2K9olAGqAQmuU
-	8/HoS3HKTgG2P1wfUoFjfsBhE02Gw5Nu6A3QZS4cwRsmFFJG/jHzQaJX8wT4du
-X-Received: by 2002:a05:6512:1309:b0:5b1:56db:b069 with SMTP id 2adb3069b0e04-5b28f9bc8a3mr5436335e87.54.1784738713899;
-        Wed, 22 Jul 2026 09:45:13 -0700 (PDT)
-Received: from thinkpad ([5.217.151.126])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2a9d302e3sm590498e87.51.2026.07.22.09.45.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 09:45:13 -0700 (PDT)
-From: Arash Golgol <arash.golgol@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: skhan@linuxfoundation.org,
-	kieran.bingham@ideasonboard.com,
-	mchehab@kernel.org,
-	hverkuil@kernel.org,
-	lucmaga@gmail.com,
-	helen.koike@collabora.com,
-	Arash Golgol <arash.golgol@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: vimc: fix pixel format lookup in enum_framesizes
-Date: Wed, 22 Jul 2026 20:14:51 +0330
-Message-Id: <20260722164451.13485-1-arash.golgol@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="pLdx2JbB"
+Received: from macsyma.thunk.org ([104.135.218.222])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 66MHXVNr027167
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 22 Jul 2026 13:33:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1784741616; bh=W7CFE+0Q3AYiv3JHJ3zwCj9PvQyvsnuxfziUF4oH4mE=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=pLdx2JbBmFDActUL41ZT2s1th26zwVaZjnEGuE/sDLisQSVG2v2FFaCXl+/l9fDxp
+	 TGbGnsdjpsQ01FoMuOFy1DCs+di4I1uPVhc9gt9eTFVpv4hsIUnlu4ueMLXd02NLO5
+	 PaDxxzeBt50TGvGcBdrmwJbLgejFdMwzDK1mEbtMLYxZ7Z6xbRtcO02TO/cygKqsfK
+	 NrnJb3SfnPASxcA+tcTFyElUMNSfNS3aIvMQpQpLdOyWp1YYqJBZNW7h0OUCDpz9ed
+	 ltKzy79mWIV5mDtDQDxx8O4AZK7DqptDBGRA/QUiOoz+68d94GyzQ10zWnUdwpkoes
+	 vB+HtYFN5xxdw==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 23B59BAB4C1; Wed, 22 Jul 2026 13:33:31 -0400 (EDT)
+Date: Wed, 22 Jul 2026 13:33:31 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Mark Brown <broonie@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+        Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+        Roman Gushchin <roman.gushchin@linux.dev>,
+        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Derek Barbosa <debarbos@redhat.com>,
+        Matthieu Baerts <matttbe@kernel.org>,
+        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+        Jason Gunthorpe <jgg@ziepe.ca>, users@kernel.org,
+        Linux Media Mailing List <linux-media@vger.kernel.org>,
+        Stephen Finucane <stephenfin@redhat.com>
+Subject: Re: Linking Patchwork with Sashiko?
+Message-ID: <amD6YEiOp7KkSMzu@mit.edu>
+References: <alfBvhZkAelq5RVf@mit.edu>
+ <aliMsSH373RJ31Mq@zed>
+ <aloZ9hqSgzN3beqH@mit.edu>
+ <20260717152559.2d2bfc8d@localhost>
+ <20260720095537.4d5d503b@robin>
+ <ce1df91e-0674-4861-90ff-bcaf5428b414@sirena.org.uk>
+ <20260720142432.288b0433@robin>
+ <c349b75c-556b-4f70-a243-f44fc04a0684@sirena.org.uk>
+ <20260721151517.42674981@gandalf.local.home>
+ <b68a3c0a-6894-4f51-ac98-a28912ee2c82@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b68a3c0a-6894-4f51-ac98-a28912ee2c82@sirena.org.uk>
 
-vimc_capture_enum_framesizes() looks up the requested format using
-vimc_pix_map_by_code(), which searches the pix map table by media
-bus code (MEDIA_BUS_FMT_*).
+On Wed, Jul 22, 2026 at 03:51:41PM -0500, Mark Brown wrote:
+> On Tue, Jul 21, 2026 at 03:15:17PM -0400, Steven Rostedt wrote:
+> > I was thinking of just having two options, each with various levels.
+> > Option one, if AI is allowed to write algorithms (I mean something that is
+> > enough to be copyrightable), and option two, if AI will be reviewing the
+> > code you send. Yeah, the second is for those who are completely anti-AI and
+> > want to avoid having any communication with AI. But then again, do we
+> > really care?
+> 
+> There's a whole range of things we could mean when we talk about AI
+> reviewing things - are we expecting the contributor to deal with some
+> specific tool, will other people happen to use LLMs (with or without
+> disclosure that they're doing so)?
 
-However, v4l2_frmsizeenum::pixel_format holds a V4L2 pixel format
-(V4L2_PIX_FMT_*), not a media bus code, so valid pixel formats end
-up being rejected with -EINVAL.
+I assume that we're talking about the case where the contributor is
+given an AI generated review.  (e.g., an e-mail from Sashiko).  The
+complaints here have fallen into two categories (1) sometimes the
+reviews contain false positives, and (2) the fact that an AI bot is
+criticizing a submitter code, even if it is true, somehow demeans the
+humanity of the patch submitter.
 
-Fix this by using vimc_pix_map_by_pixelformat() instead, which
-performs the lookup by pixel format as the ioctl expects.
+In the case of (1) those are bugs, and we should work to try to
+improve the kernel review prompts.  Roman has recently checked in
+changes to reduce false positives in the media subsystem, and I've
+reported a bug for a false positive when reviewing an ext4
+contribution[1], which has since been fixed.
 
-Fixes: 09c41a23a2e2 ("media: Revert "media: vimc: propagate pixel format in the stream"")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arash Golgol <arash.golgol@gmail.com>
----
- drivers/media/test-drivers/vimc/vimc-capture.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+[1] https://github.com/sashiko-dev/sashiko/issues/357
 
-diff --git a/drivers/media/test-drivers/vimc/vimc-capture.c b/drivers/media/test-drivers/vimc/vimc-capture.c
-index e0c6bc9f8f20..ac60c9b5418e 100644
---- a/drivers/media/test-drivers/vimc/vimc-capture.c
-+++ b/drivers/media/test-drivers/vimc/vimc-capture.c
-@@ -175,8 +175,8 @@ static int vimc_capture_enum_framesizes(struct file *file, void *priv,
- 	if (fsize->index)
- 		return -EINVAL;
- 
--	/* Only accept code in the pix map table */
--	vpix = vimc_pix_map_by_code(fsize->pixel_format);
-+	/* Only accept pixel_format in the pix map table */
-+	vpix = vimc_pix_map_by_pixelformat(fsize->pixel_format);
- 	if (!vpix)
- 		return -EINVAL;
- 
--- 
-2.34.1
+In case (2), I don't have a lot of sympathy, especially if the
+solution is demanding that the maintainer rephrase the Sashiko report
+so it's coming from a human being instead of an AI bot.
+
+If we're talking about other people happening to use LLM's, presumably
+for code reviews, I'm not sure we need to report that.  After all,
+copyright can't be implicated if the LLM is pointing out a problem in
+pre-existing code, or in a patch, since LLM generated code isn't going
+to end up the sources.  And if someone else is running a review, on
+their code, why should the contributor care if it wasn't disclsoed?
+
+I suppose if the NSA or GCHQ runs LLM reviews that finds that some
+patch would introduce a zero-day bug, if they choose not to disclose
+it, that would be sad.  But that's probably happening already, whether
+we want it to happen or not, and there's nothing we can do about it.
+
+Cheers,
+
+	  	   	      	      	 	- Ted
 
