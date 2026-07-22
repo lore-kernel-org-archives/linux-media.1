@@ -1,58 +1,57 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E643E49ED;
-	Wed, 22 Jul 2026 10:23:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC03B2C21E6;
+	Wed, 22 Jul 2026 10:23:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784715820; cv=none; b=pqVt6u+Hjbm77Su+ov+8yTX5OuPyNG6q8UhN5Q4easTVInWovtRBdfsm++7n0NaFlgKTiqaUjtYqIJ380G3vVw9gbtouCpE683+LCz0HvPskuvCsQtcotRBOj4J6BXqsPvsaxpLjP1Y7Qu3KXq+8AzSQ2zXWSpH6MQP7EX1l4qQ=
+	t=1784715821; cv=none; b=Za5yhtfeIOd5kHbiGAAYgwk2/JS7DnVHAKI6hs779slQG37ng7LkNR9xXSs0HHy2ag4/5XWmVupm1+RgdKl0tKZUpoC1W1K5n00US9bt/MQNO2Llxo0WyX9yYn/Wv4tqow7u5efvTdYRWfDVFs8n8INoHygQcexa2EpibodggAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784715820; c=relaxed/simple;
-	bh=a1G56zNNur1a8fCqIlqt3CG84kd9mah7RZUxoshwVNw=;
+	s=arc-20240116; t=1784715821; c=relaxed/simple;
+	bh=7QPx3+atZCgXOQM3zfRS0Xo965HSLxG9TQ+UNIgrUT8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iV6BeOgseeQGF32clj4RT4luGSw5O6bl5tVNF7XMOjXF1mfreAxFSjvQF/wu/CFYNAO42usGVRjTSbguw8C1GRHCNl442DRU20Dl33Mn0FRAF74DEZbpWXF7pYzvaFRiggjoNh30DD31iBjVl6mdO2s4MqqmUbLMbagPZvGOHQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=BYRcon4t; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=F2j/+T1Q; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=j0CJXgr6Ik7A+7Fo1v/qibcxVAmiHFki1hxeFDasJ7Mbmae/X/Y0CZ8rsm+IQumNH6v+/dZAJAmMhQ1xDKQV95boMW+/540KeooiZMyiItkCmV6LozFfvx/7ZuDbny3418ocIN5sHD2Mhd4OgZHV2W+AH+iiQDgYJjNThOJ9gdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=pd4dUw6Q; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=Bn1GrctA; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="BYRcon4t";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="F2j/+T1Q"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="pd4dUw6Q";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="Bn1GrctA"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1784715817; bh=a1G56zNNur1a8fCqIlqt3CG84kd9mah7RZUxoshwVNw=;
+	t=1784715818; bh=7QPx3+atZCgXOQM3zfRS0Xo965HSLxG9TQ+UNIgrUT8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=BYRcon4tJBwuy6QAUT/eADqTHJdXUv11PSGTDaF/xT7I5DUiSIHBLaQj4maBm0dx9
-	 3L9ExfaHz0mYCf9V4LNU/syiW7AgsHv9gTBxXyYxDGsLFJ6Guow7crT2cKEC34fGPu
-	 pGNogjATtAopFyxjWRbsS01QLG9+Zh6V8qdqqKhYYxqcwmdXTBGeJPckpbeDa47aEd
-	 lpGvmOZ1miG90DiT1fZEMKYiraRK3HP3bvX0OYRAgVDtuZM8L8vNR0k+blbNxTdima
-	 OAIlmSYRakWcyGEAiYDgWK9y6L07sj3JKcCxdJeHZwH+fAVOnCc1WXShdnYwHJDpXB
-	 3BN1T6TbprIKQ==
+	b=pd4dUw6Q6KbdOsxIfa+d1mLX4/iaqeWnZyds4gsglJPbxixXhPk6YoYup0j9/6OIi
+	 1dkPk4bQJodtyYFiamvXeuViG3GXxnjGH35LQap68eierAJXza8qaoGniVscqmSZNA
+	 orFzdPaMRmfpWGmn+AiOl9rbxcj63/Vby7nQb5nP4TPMIgCxtjrGiGMH5yAuAkL6He
+	 wfpyyz0JCsSND8Oh+myX0Kz2Uhasxr3PPJY0xzr7GePlCgg+AcmaTgNbxCL/jhL9dw
+	 V5r7GsWZC9n01dQYkwz/T3JA9/JSM2aXkrHfKdHTU6QB6jNxfs5guzy7nvhL1Ot5eR
+	 ClILL7AnAy/aA==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 16E074252E; Wed, 22 Jul 2026 11:23:37 +0100 (BST)
+	id 25E9A42534; Wed, 22 Jul 2026 11:23:38 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1784715816; bh=a1G56zNNur1a8fCqIlqt3CG84kd9mah7RZUxoshwVNw=;
+	t=1784715817; bh=7QPx3+atZCgXOQM3zfRS0Xo965HSLxG9TQ+UNIgrUT8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=F2j/+T1Q9WkivPNLnH0GYn8G1Bl9LVGVKp3b/iIeyxChkGYRBPBtcww98GjZDpAEz
-	 jKVBJAyQzAHezjlkCbDPZ1eOPTfIO5DRHgnNM/EUd0X1+Op8if+yzHPp7uHn9+8BDh
-	 5zDEl+aJslD0lVoCqPfDyLxfvZnnxCgbByGyeFYR60Fw6dCpr2JuTzOrLCeyHlimud
-	 pvTRpL/Eg3aKP44TvdjIsoZ/HGmXkW7UOpXT7CJQeaWdNrKSZtN/2XdifxpZsBQ0RP
-	 E4T6vFNmXrPD+jS+G/JUEDL8+QZYM1ECZNL5iNOmL+rfjLNaq5Pg5NeMy2fatPbOVy
-	 klvU5/r2QB3qg==
+	b=Bn1GrctAmq3tJNANhIiDT9jsNTrPpMtzJWzIArAWPmNakfD/SGtwEZu/Lo263FZ4t
+	 oIFsHJWMSaqHW8Qd7QuTugvWpHO7p/bakzywmVE1FP/RjIhIMuBA5IP+moBSq+gKgh
+	 p8f+8zr0F/6gcwwEhit3sEc6IX/KJCRA5fwFRdyMMiy05kPMgjiL+QiqIXt1fK1VaK
+	 ExAADwhLts9P2WNK2keC+N2H5qyvFk6BATgHtLp8tLl0ryappvXyosuM9jopDLWwCA
+	 HrV2Ki7jeOvr70nsr6FL5x+f0IgV3KNaxnAGXtI5JUWOnviqJXYqJC2FVeAP2oVRIj
+	 Uo62q9q9GwWhA==
 Received: from maru.local (unknown [62.232.99.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 687F141567;
-	Wed, 22 Jul 2026 11:23:36 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id 6B53842528;
+	Wed, 22 Jul 2026 11:23:37 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Jarod Wilson <jarod@redhat.com>
+	Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v3 02/13] media: redrat3: Ensure rc device is freed if enable_detector() fails
-Date: Wed, 22 Jul 2026 11:23:14 +0100
-Message-ID: <d5d7f661845474c2ca3686afd5ca2696742287f2.1784715737.git.sean@mess.org>
+Subject: [PATCH v3 04/13] media: redrat3: Ensure all urbs are suspended
+Date: Wed, 22 Jul 2026 11:23:16 +0100
+Message-ID: <2c0674320c25380fd6eea0117fab7304979933d2.1784715737.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1784715737.git.sean@mess.org>
 References: <cover.1784715737.git.sean@mess.org>
@@ -64,62 +63,26 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This particular error path does not free the rc device at all, with
-its priv pointer still pointing at freed memory.
+Ensure that the learn urb is stopped before suspend.
 
-Fixes: 2154be651b90 ("[media] redrat3: new rc-core IR transceiver device driver")
+Fixes: c49fcdde38cb ("[media] redrat3: enable carrier reports using wideband receiver")
 Signed-off-by: Sean Young <sean@mess.org>
 ---
- drivers/media/rc/redrat3.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/media/rc/redrat3.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/media/rc/redrat3.c b/drivers/media/rc/redrat3.c
-index 3f828a564e19..2b639fe59923 100644
+index f86efcb74e6e..994d4864520c 100644
 --- a/drivers/media/rc/redrat3.c
 +++ b/drivers/media/rc/redrat3.c
-@@ -979,6 +979,7 @@ static int redrat3_dev_probe(struct usb_interface *intf,
- 	struct usb_endpoint_descriptor *ep_narrow = NULL;
- 	struct usb_endpoint_descriptor *ep_wide = NULL;
- 	struct usb_endpoint_descriptor *ep_out = NULL;
-+	struct rc_dev *rc = NULL;
- 	u8 addr, attrs;
- 	int pipe, i;
- 	int retval = -ENOMEM;
-@@ -1102,26 +1103,31 @@ static int redrat3_dev_probe(struct usb_interface *intf,
- 	if (retval)
- 		goto redrat_free;
- 
--	rr3->rc = redrat3_init_rc_dev(rr3);
--	if (!rr3->rc) {
-+	rc = redrat3_init_rc_dev(rr3);
-+	if (!rc) {
- 		retval = -ENOMEM;
- 		goto led_free;
- 	}
- 
-+	rr3->rc = rc;
-+
- 	/* might be all we need to do? */
- 	retval = redrat3_enable_detector(rr3);
- 	if (retval < 0)
--		goto led_free;
-+		goto rc_free;
- 
- 	/* we can register the device now, as it is ready */
- 	usb_set_intfdata(intf, rr3);
- 
+@@ -1170,6 +1170,7 @@ static int redrat3_dev_suspend(struct usb_interface *intf, pm_message_t message)
+ 	usb_kill_urb(rr3->narrow_urb);
+ 	usb_kill_urb(rr3->wide_urb);
+ 	usb_kill_urb(rr3->flash_urb);
++	usb_kill_urb(rr3->learn_urb);
  	return 0;
+ }
  
-+rc_free:
-+	rc_unregister_device(rc);
- led_free:
- 	led_classdev_unregister(&rr3->led);
- redrat_free:
- 	redrat3_delete(rr3, rr3->udev);
-+	rc_free_device(rc);
- 
- no_endpoints:
- 	return retval;
 -- 
 2.55.0
 
