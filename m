@@ -1,135 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C4A37207D;
-	Wed, 22 Jul 2026 14:51:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3089D371CE0
+	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 14:51:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784731871; cv=none; b=rQTD84vFLIkOqVg875JPlRNYZ5Si+x+xW2JYF5+ckwE8yMcOuyA3TgFO0QQPo5mF0t7SkOHgG/AdqE6/GJKFs4d7t6lmuGY/YpO3KoAu1vcbvd6Wgf9+YmjAhu+qH9YK6dGATj39EqBJ2JOPaRJtj3BXAzSaw2L4dCddA7VZOO8=
+	t=1784731908; cv=none; b=MqAa2kjt8fuV2R3UKogRV0evfuS6lQ61DI+Riyp5Lc+AyFllT744HvYk3qU6jWDGTJRD7GonGrDfURFimEwOprbqrC4o8+3j9hD57oQsM81gSjT16XCYqt7bm3MMIZGbH3CtoCcirsCZresNOGxwR3wY2eMkMT+OYa8KrTyXTdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784731871; c=relaxed/simple;
-	bh=a2JzSHpl1u9rJ6J+B/5Ln6ZHvZE8FVqmZtBCNW+d51I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=O3TFzZTH1rvDMIQxcfAdYGFrxQFjaqxkafk9vZsYmbG+NuTsgQirjB3oC0roOUjzpLJTRy3l/mRdkpwewK9po2H5DrbyGg33ZzOzjoJeDcTtn3gPF+jnR6lSp0Vj43Z/hzDVj4uBCMS0j0VOXYdcYMjE3j4jNSTwSGjq/Tj8HKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eFze4hgc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784731908; c=relaxed/simple;
+	bh=3RFiJSGQKs0gZkYqlLVATttYTgkVnbNSPDbJBPcj3Rg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bRHhlb00nBBOvtLZQnj4qncrRt2vFlun012PiCvm4sQGh7uwaeroIdEsBmk+4z9VhrL/6Yzw+V0oao5pGw2PuIAJnKTBRUQqJErnBUqF8dRKSnFlnphBtKBrkRefzNhpV7UShx3xHI9mmT0E1+BSvVpfpaNKWogCWVFBVHlXD1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=faox863p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eFze4hgc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 156EA1F000E9;
-	Wed, 22 Jul 2026 14:51:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="faox863p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 683301F000E9;
+	Wed, 22 Jul 2026 14:51:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784731869;
-	bh=4+kdpOSbYNuwg9iO0Aocs3O30U1qLI1bO+WgZ1kcKkQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eFze4hgcsvO59JcuBCrNf5eYU1oZfBzqbKWg26kkzcyJ8dgZpWsOkkaXLVRybnGXN
-	 3j98h8baBTR530HbWrsyQF3irXTkwA2a81dVCmEDdTCbcdX9eCJSfLJ3Kk9VVCt3lk
-	 Ch4EdZB4CbZXbEYynMj0duN90jV7eeNbpnrbJs3ZVi4abwUIajJLHiigFLnTyix9dJ
-	 8PiGHjlnfFuCyCOt/RV+bZoz0CjSRF7w3OIpnaV7AvU7dRbfhI6+NdYmP8r/l5Dxz9
-	 lAj8FaiTdxjk5BFjVm97DIZ3CDkcA6hDi3hXPkFtRJ4JrVil5OowRArSqll3b1oEyW
-	 Pjry3JLOLQziQ==
-From: Philipp Stanner <phasta@kernel.org>
-To: Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Lyude Paul <lyude@redhat.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
-	Asahi Lina <lina+kernel@asahilina.net>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	FUJITA Tomonori <fujita.tomonori@gmail.com>,
-	Eliot Courtney <ecourtney@nvidia.com>,
-	Mirko Adzic <adzicmirko97@gmail.com>,
-	Daniel del Castillo <delcastillodelarosadaniel@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>
-Cc: linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	rcu@vger.kernel.org
-Subject: [PATCH v6 6/6] MAINTAINERS: Add entry for Rust dma-buf
-Date: Wed, 22 Jul 2026 16:49:30 +0200
-Message-ID: <20260722144931.1070312-8-phasta@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260722144931.1070312-2-phasta@kernel.org>
-References: <20260722144931.1070312-2-phasta@kernel.org>
+	s=k20260515; t=1784731906;
+	bh=3RFiJSGQKs0gZkYqlLVATttYTgkVnbNSPDbJBPcj3Rg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=faox863pK7w/cNdMIBUrnrYeuQ/ZskVTZhfa4yIIwxrPJ65khsuBxSw9HrDCb0OFH
+	 ZNeuInxKDCBLVJEAO6YWFoJ/b+4Jg394J74n+SMTV++Ml4LQ0PskRQCweiK9d2wY4G
+	 SAF0N0rrvb8dF/JccOSZoGFXTpjJlATbVxbr8SirDNeb6f/t6MJyWQ6t9XB03ix2SB
+	 23+J1ZKp4ni8IPbK+kAIpSVsUCrwUGhpZhE5uz5ZbnY81OMcidA+Mc+xiqHahx0H28
+	 0iyULxqNy/c+Ynacw5WtW3+WEZRrlj4Jqwf/omBDBU2Akn36MBLvhPmhj9XzJeS4rj
+	 xWp+vMM0fE6nw==
+Date: Wed, 22 Jul 2026 15:51:41 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Theodore Tso <tytso@mit.edu>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Derek Barbosa <debarbos@redhat.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>, users@kernel.org,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Stephen Finucane <stephenfin@redhat.com>
+Subject: Re: Linking Patchwork with Sashiko?
+Message-ID: <b68a3c0a-6894-4f51-ac98-a28912ee2c82@sirena.org.uk>
+References: <alc3gAJfAkG5DULJ@zed>
+ <alfBvhZkAelq5RVf@mit.edu>
+ <aliMsSH373RJ31Mq@zed>
+ <aloZ9hqSgzN3beqH@mit.edu>
+ <20260717152559.2d2bfc8d@localhost>
+ <20260720095537.4d5d503b@robin>
+ <ce1df91e-0674-4861-90ff-bcaf5428b414@sirena.org.uk>
+ <20260720142432.288b0433@robin>
+ <c349b75c-556b-4f70-a243-f44fc04a0684@sirena.org.uk>
+ <20260721151517.42674981@gandalf.local.home>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="HaOTdzHBXKUXMs/m"
+Content-Disposition: inline
+In-Reply-To: <20260721151517.42674981@gandalf.local.home>
+X-Cookie: Life is like an analogy.
 
-Rust does now have abstractions for dma_fence. These abstractions are
-quite complicated and require expertise with both the C and the Rust
-side. Therefore, using the existing entry also for maintenance of the
-Rust code appears reasonable.
 
-Philipp volunteers to help maintain the dma_fence abstractions. Add a
-corresponding MAINTAINERS entry.
+--HaOTdzHBXKUXMs/m
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
-Acked-by: Christian König <christian.koenig@amd.com>
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
----
- MAINTAINERS | 5 +++++
- 1 file changed, 5 insertions(+)
+On Tue, Jul 21, 2026 at 03:15:17PM -0400, Steven Rostedt wrote:
+> Mark Brown <broonie@kernel.org> wrote:
+>=20
+> > I mean that "use AI" covers a huge spectrum of things, Sashiko and
+> > potential requirements for submitters to interact with it is just one
+> > example of LLM usage.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 15011f5752a9..5e5a23a21cd8 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -7622,6 +7622,7 @@ F:	fs/dlm/
- DMA BUFFER SHARING FRAMEWORK
- M:	Sumit Semwal <sumit.semwal@linaro.org>
- M:	Christian König <christian.koenig@amd.com>
-+M:	Philipp Stanner <phasta@kernel.org>
- L:	linux-media@vger.kernel.org
- L:	dri-devel@lists.freedesktop.org
- L:	linaro-mm-sig@lists.linaro.org (moderated for non-subscribers)
-@@ -7635,6 +7636,8 @@ F:	include/linux/dma-buf.h
- F:	include/linux/dma-buf/
- F:	include/linux/dma-resv.h
- F:	rust/helpers/dma-resv.c
-+F:	rust/helpers/dma_fence.c
-+F:	rust/kernel/dma_buf/
- K:	\bdma_(?:buf|fence|resv)\b
- 
- DMA GENERIC OFFLOAD ENGINE SUBSYSTEM
-@@ -8621,7 +8624,9 @@ T:	git https://gitlab.freedesktop.org/drm/rust/kernel.git
- F:	drivers/gpu/drm/nova/
- F:	drivers/gpu/drm/tyr/
- F:	drivers/gpu/nova-core/
-+F:	rust/helpers/dma_fence.c
- F:	rust/helpers/gpu.c
-+F:	rust/kernel/dma_buf/
- F:	rust/kernel/drm/
- F:	rust/kernel/gpu.rs
- F:	rust/kernel/gpu/
--- 
-2.55.0
+> I was thinking of just having two options, each with various levels.
+> Option one, if AI is allowed to write algorithms (I mean something that is
+> enough to be copyrightable), and option two, if AI will be reviewing the
+> code you send. Yeah, the second is for those who are completely anti-AI a=
+nd
+> want to avoid having any communication with AI. But then again, do we
+> really care?
 
+There's a whole range of things we could mean when we talk about AI
+reviewing things - are we expecting the contributor to deal with some
+specific tool, will other people happen to use LLMs (with or without
+disclosure that they're doing so)?
+
+--HaOTdzHBXKUXMs/m
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpg2PwACgkQJNaLcl1U
+h9C3awf+JSKgeEW6cukecPLmR0DzYSoM/2Dt8T4Y+3Ni9CtE7KepJpV3KHtKUHzd
+q6VzK4tGsqQm2xHK483eDQ6vLW+3PInyjdPDnYcWykBALG74J76UF6R7LFRX+zlT
+HUJrkjxWzYKfHUsZ4vwfLQN28HARPdKdhOHVqc4AzjYF63V6hZfmJJ6VjDtHhN8q
+shrdj4tmBNjS5ErJeXxWxq+jgVCEcEQ+XoVLvG9kAycH5JYxmPeAC/yAI6Q8AEoA
+E5Py7Zvn7mz83jUkQCU2T88ZHXkvIyUn75mxYFjV0251/KU45PqYUaHW6ZZeNT+i
+vFKPqTHPjk1EJ20Cx2eSrXEFJ+06SA==
+=hY9/
+-----END PGP SIGNATURE-----
+
+--HaOTdzHBXKUXMs/m--
