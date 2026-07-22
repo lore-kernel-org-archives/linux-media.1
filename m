@@ -1,179 +1,112 @@
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397203E2AB7
-	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 04:23:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784694195; cv=none; b=pVlSoFyWYQs/Gw9BwkEJfkhvEtBOhAFvyoE7ZGkEGLoPoC6jnvNQB+CNCvnOalRgramvFIjNBm6SqpkxQnsO8XfUXckKeHJCQsfY03t77buoK+GCNKAdxlKb10RKrKBrbdQ8rEGNUbPxfXsl6fusD26RcYF209BkWWk8ac8Cff8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784694195; c=relaxed/simple;
-	bh=Tz8ATHq3AOH0oiRHBDlB0/d5Gvc7fJ2Zya9H84QVcgQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MWPOGLGk6GEPPikLJ2CAsAjcx2VY9ZpFiz3QWjh9BGnfifGygev04dC18BKzmphDy5HBw3CvvL7nNcZRerDiIiq9DdSJyWHI9IY2bLfA6vctoYQYTP2zlsBBdnCTdjo1uvcUHsbTDuO9icaPVVP9Fud5YhfZCAnPGnsXmRV9hqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ihNe+z1K; arc=none smtp.client-ip=74.125.224.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6073E6DC8
+	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 04:58:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784696321; cv=pass; b=WGC3pvPnTZNF33lo481Cxao8f/lSbpz7xDaoH/mtz6ZnnlkqnetCLxlvd2Kpu3uIkDa+WqW0GeT4H1Co0F8gSS7uenNsh2hrezIeGKBktdL+WmNOKmXxtzWpR3ioezhysk3LdpLM4A88UrovonvV+ftYZ0ABPgCoJ+iHv5rwSQk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784696321; c=relaxed/simple;
+	bh=1GSR0gsWpfn47zXsK2cT+SXQaixu4TtHz878rL5by6c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TjSVCVm0I1ALBWexY1KYrvaQ2kYhEzFrX92lTIYXIKWIn9S2pmxuOdEhCFkpL36Z2+q1ICe4MPGTHNWJoW6CcbSuRbUeNHUOYzu5fPKDYqrY4U3xNBalQUdsuSMcQv5C8tUdMkIQSu1A6rgzR11Snj1S5NqbLBd+L+7+B9DHyRE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rq/j9vkl; arc=pass smtp.client-ip=209.85.218.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ihNe+z1K"
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-66893db7bccso166305d50.1
-        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 21:23:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rq/j9vkl"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c1c26d7e951so214599266b.0
+        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 21:58:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784696319; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZLJxxqUVLRrhDajeSKBaOIJ9P6Xv9kvbhD9WYL9JZxrZ3GU30Z4iE8OUDhk+6X8Q4U
+         0Hdloa37Cn3fA1sUe3lSGCsVL2DvXiPJna2LU5sIdCVgJuSphpxSDr/12+PD7fk+SIQ2
+         BMImcHH0xIUZnIozqDy8ns2yu+VI7re+dp3Z6X1mlIcHDwC4lvR4Ni5lAVpqDkHMj7EA
+         XRMEXonuEPQz4vbKt01ZV4r3Uf5PQM6sQbXqbZ6KgTHXZvj41m2Aum7zE1+OhxqaLhN6
+         oRxhieek1gDiop7trQCzwpGRBKNJWUFwXDXFjoVgCHTKls5GhpToaMHJL0P2+BDbkafS
+         3sCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1GSR0gsWpfn47zXsK2cT+SXQaixu4TtHz878rL5by6c=;
+        fh=R75tyB/rhZnACTSaMoLXwv6X1qUtQRPpxLH03SdANZM=;
+        b=jAdqHv/46rfSlfzuATo3aaP7219Iin7j/32edRRl/NLwU8onzqdiUzODoZWu5eaZ/x
+         eywM0UQbTFMGMGXBYiIobR6zmWhsJW5xq6x/l3BYEtOUMrK7Cp+6odCNLpwFrPwK/IVJ
+         0CZFyMKdBbdu/YNxPkK+6JlX0Kw05GHCpI+Bar/2odyoPRoLcU/tnnpCpTsIdrQMNkKu
+         /dfDNCK8sCF4UmtFfEDAC+tpVbybB8S6kijv/pPG/ctRetR7Ne4RnS2BHOC0tBSyWgSM
+         h2itGTEg7mHZp4KJ7VFWFcBSXGgA88XSz0Bb8uDP6bkv4nPo/mQOjh0BcpiIlAREGcTU
+         TTRA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784694190; x=1785298990; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BVU1uXONejBx60ngAbjZKU1diMFaAoxWI34xUNLIr4k=;
-        b=ihNe+z1KC2yBiwU3FjLI/+98w/HV6PAZD20uzxDED9jQMebOvhGSzIsVORh9BF8E06
-         GgpEsTZJHCjEYtUpnYYx10uegl60U+eIJXY+6hq37Mx43UjYmT/BjAwflyBDu+pU2tRI
-         +UtTeqRVKkdZr25Nsp9qG3iykGa6BPCZ5YKn/C064wSqowy8U+mUM23ZxehQFLWuT787
-         kbSxAg97zGa5NquU1MKriElfow4s64ZTjaALLI7yVMyAlu4fJ7b2al5+FvMt6bwowL4u
-         J9EywylXAcXQUWQh3fQGnWAurboc+oKHzudvbsWlGAP2ZtnoWqdQgnI9NWTALp9WWBME
-         /6ZQ==
+        d=gmail.com; s=20251104; t=1784696319; x=1785301119; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1GSR0gsWpfn47zXsK2cT+SXQaixu4TtHz878rL5by6c=;
+        b=Rq/j9vklo/S9uQU0MMd9z6A3ulh2o03rI1GdOm7FonMVcjYeNWrYg2lDrD07+5pu04
+         nzopOzghDbSIQmQ+6FKnXPVfs+1XPrGwq+DTmWOquNeyonKyQ8JJzy8UBFnvlTXhQ862
+         AFHFoI4lSoife5rEkiipLre37R/yt/2Uh200xXjAdtcPE3jdyv65/sSy4iLGzi6OtArB
+         OQwWa56hJVdZs/qQuchnqx85kOrigQxdh0hVEqm85fNI4Q6k9yZT8tN9YZu47/77e9BL
+         2x+avSjZ20jh+gr/h7KyNTGbDq7aZW+/hcnRQrUKPgg8CqJxTBBpSYm25hqzk5QqO0L0
+         1JKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784694190; x=1785298990;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BVU1uXONejBx60ngAbjZKU1diMFaAoxWI34xUNLIr4k=;
-        b=SsmTPH7+H6WFb46FjcqDmBqHCS5gfVU0hwDpSzULz8MHm1B1I9d7OmNLprNY/BytZh
-         jQ5qBPJv/ejY2fAxpNSlbA2ElH4+HCFNJu+V0iBRdTFfnow7FaSarT0+eKVa0LOAG6Cb
-         gdIXBlXV1RL3YlewQqI9Ip28v9l3n+/RCFO9r0nEW1qhcRL9fakUMHIk8o9oh940IJMb
-         bA5LRwXhM5BHmwPiMgkneQ0P29e5PN4lakQVrkYCkqbz603Uw3zq9DjaL+eFh1bqldSa
-         2yahZ69jfYGDrEfaWUC3hKmOxvvb1whLmSmEfxhU7WC4YCUSsprD83Q6dZjqmdsbQZHk
-         Y+uw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq3uwOa/hBI+KJ/gl+rlAgP8Adz5xt5fkI6eBll9vtECAzAxbrhvKrYVjskhnyhEnLR8m/Zr3JyRXY/sg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwARA5FnTZoWnfqzHQH4m3Lme6INu4ky4zwHDrAfoi6HQP/kRra
-	GJl/eBRa1uIIQKaVtdUvGKVeHsrbIyYLHjqkZxxqpMZTpYztWxZVJ9rc
-X-Gm-Gg: AR+sD12axrp96yOz0Oror+oNT6AOTy3o8a7J5ZYU+iALXGr5qK5Vfq+47pzBzAYBOu/
-	EOiVkEFioOIMh/ekb6hJNEjQRIWfgs25VY/g8PiyElOzv2mJD2IKTlRPyWxQO2T0Zck8m/HxwT/
-	g8JaFUVizBZIpezeQxWb46FaOC5oFWWEnFNBwJnSKtl6g+v5SaFXIDnrTTiqXWxN9fTjzgNoiNz
-	1jjKB31Uf57FDM1szIFKOcY6/vjtPohsJHkc17//DI3jb2LsS6z+Igh1vPTTPkWF3UDfaPGl+IL
-	Js5XoY3pWpR9WmlJqVa4PSsIdnJCBGyRp6ac9oBx879sKuZEZbQsgG3/CwrFhSZNMsS+HR6O2x8
-	panAdunqT82xJVT/Q3aUUGYo4nXIh5d9kVv3jFEqykp7LOBScLLQtorh7E0XoChA1dH3ag2BCCa
-	HYiXOUh3MsYfCihK4iNAkyMPlMWirmnphvT0YR1CjqT3t/qvFAQ3v9YeoU3mE3shopuf6kHBWWV
-	T5jWOAtBGGK5g==
-X-Received: by 2002:a53:d057:0:10b0:667:8b90:2eeb with SMTP id 956f58d0204a3-6683bdb71c2mr4845726d50.102.1784694190034;
-        Tue, 21 Jul 2026 21:23:10 -0700 (PDT)
-Received: from LAPTOP-83ECOPAB.f7a5e5c3-cab1-4810-bdbb-207cdd06de9e.globalsecureaccess.local ([136.55.173.105])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-668906d9344sm695500d50.12.2026.07.21.21.23.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 21:23:09 -0700 (PDT)
-From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
-To: mchehab@kernel.org,
-	linux-media@vger.kernel.org
-Cc: kees@kernel.org,
-	linux-kernel@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	tgopinath@linux.microsoft.com,
-	kys@microsoft.com,
-	blbllhy@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: v4l2-event: limit number of event subscriptions per file handle
-Date: Wed, 22 Jul 2026 00:23:08 -0400
-Message-ID: <20260722042308.75939-1-blbllhy@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1784696319; x=1785301119;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1GSR0gsWpfn47zXsK2cT+SXQaixu4TtHz878rL5by6c=;
+        b=Te3x8ONQ597oBuAjLISVNglBuCdVV7C4nelpdxJbe/T7sPMB8PCb7v8MnIcZzct6FI
+         Whux1MiyfSVPFQt+dis8yPvmXLAK2zh+i44CR8DpFUKmp7pnTSaZ8qR0JMEfibEzVzls
+         yo8MqOxkuB7gdxcyITum/mAX0H79DNtEmkEx4wpQXmpHpPH7+sglywyJmbFLkpHaOiFN
+         8yaym8z+JsDJ5LulDzhqP6ybJVlVXwU9TUCuPMZDgydKFF3MD/IclxTR6jd4uaaB/1zC
+         5ugFD59XnKvj36Ek3puQQZNG11q0x9QmSlKtxRNt6P+mu10U7byDcPWlDQcAiT8uWL1F
+         cvOA==
+X-Forwarded-Encrypted: i=1; AHgh+RpMrOGY1yEy77a1H96/8+PLot/Ewr3OBQyeJNoWUfv/yCtwOrG/aEJYG8pONJYqkv5sTmaT3tufcOtScg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyhyKLCjnguHsUpuGDd/5Rz15pZYYBuiXaYDIDHyr743e9aVtmf
+	f1wOLeJvzwu9xz4oH65uhtSmM5QoYxgV+4v6Jiy/ZYbbJpcnMkkxYK1Sb6Q1fibHlzY6RJZ4pHs
+	rPr2CQF4/mCRGCzxfKigQKR0elqIy7R4=
+X-Gm-Gg: AR+sD13IT8rFJ1y+csky662XSsu6Gk5IHZrQz+kSaUhuQWCmFjXof8dOiIwcL+fhBBb
+	J9sUBtC9BG1U4WwyxEK2mGQ++C4r/ME8OkXXT2leKUPkKxGyALhFbFL0KGN+1jdOYFd7Y9mQDlz
+	0ocqeRQvjK7aROkPajgI+NGHexk6gbh6kjPClIX1Eutpl3g7ZDRVG0xhKo3f5mxrGVmuQ+rkqK2
+	nkZgzdcDwNzedZe6Hn8i2NM7/0M8C5+SrmBxxkBOzq+L8HD7yXwJoN+0K8QL7lHzTUmTUo4pz/u
+	czghHilNtogvQgcGMBBFjH95Rpaodi5oulTOmSp8Y0qZMStlViSnAaLxneYN0dg2Uxed/NBpWfV
+	3RHC1s/r6wFWDQtuz+Ssli8DXSVCqXylay3Elswy6gtIZRGTcS8jp9uLbMdo=
+X-Received: by 2002:a17:907:8dc3:b0:c1c:2c92:fd60 with SMTP id
+ a640c23a62f3a-c1c2c93cdb8mr154769766b.13.1784696318562; Tue, 21 Jul 2026
+ 21:58:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260721214238.840406-1-nikolayof23@gmail.com>
+In-Reply-To: <20260721214238.840406-1-nikolayof23@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Wed, 22 Jul 2026 07:58:01 +0300
+X-Gm-Features: AUfX_mzCi86JGgiYv2ZdDa9mOYUwwlZcSdNTj_cSAxQsSOFdMkR8VtM0KfpQJx4
+Message-ID: <CAHp75VdoH_WCR+erV6rm-LohUYacJN91XsmbNN1JmJDCxi-xtQ@mail.gmail.com>
+Subject: Re: [PATCH 0/2] staging: media: atomisp: remove unused functions
+To: Nikolay Kulikov <nikolayof23@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans de Goede <hansg@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Andy Shevchenko <andy@kernel.org>, linux-media@vger.kernel.org, 
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-v4l2_event_subscribe() allows an unbounded number of event subscriptions
-per file handle. Since the subscription id field is fully user-controlled
-(32-bit), an unprivileged user with access to a V4L2 device node can
-create up to 2^32 distinct subscriptions, each pinning a kernel
-allocation (~200 bytes). This can exhaust kernel memory, causing an OOM
-condition and kernel panic.
+On Wed, Jul 22, 2026 at 12:42=E2=80=AFAM Nikolay Kulikov <nikolayof23@gmail=
+.com> wrote:
+>
+> This series removes functions in pci/hmm/ that are declared and defined
+> but never called.
 
-An unprivileged local user can trigger this by issuing repeated
-VIDIOC_SUBSCRIBE_EVENT ioctls with incrementing id values. The allocated
-objects reside in kernel slab (not accounted to the process cgroup), so
-existing memory limits (ulimit, memcg) do not prevent this. Most V4L2
-drivers are affected because the framework function v4l2_event_subscribe()
-enforces no limit, such as uvcvideo (USB webcams) and the vicodec test
-driver used to reproduce this issue. This leads to:
+Don't do it per file, squash these changes as it seems not so many of
+them (I assume you checked the entire driver, right?).
 
-  Kernel panic - not syncing: Out of memory: compulsory panic_on_oom
-   is enabled
-
-Fix by adding a per-filehandle subscription counter and capping it at 256.
-
-Fixes: 6e239399e580 ("[media] v4l2-ctrls: add control events")
-Cc: stable@vger.kernel.org
-Reported-by: Autonomous Code Security <AutonomousCodeSecurity@microsoft.com>
-Link: https://lore.kernel.org/all/20260722004818.72310-1-blbllhy@gmail.com
-Signed-off-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
----
-v2:
- - Add Cc: stable@vger.kernel.org
- - Add Link: to v1
- - Wrap long line in commit message
-
- drivers/media/v4l2-core/v4l2-event.c | 14 +++++++++++++-
- include/media/v4l2-fh.h              |  2 ++
- 2 files changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/v4l2-core/v4l2-event.c b/drivers/media/v4l2-core/v4l2-event.c
-index 9dd2aaa95a67..fcd8ce4addc1 100644
---- a/drivers/media/v4l2-core/v4l2-event.c
-+++ b/drivers/media/v4l2-core/v4l2-event.c
-@@ -18,6 +18,9 @@
- #include <linux/slab.h>
- #include <linux/export.h>
- 
-+/* Per-filehandle limit on the number of event subscriptions. */
-+#define V4L2_MAX_EVENT_SUBSCRIPTIONS	256
-+
- static unsigned int sev_pos(const struct v4l2_subscribed_event *sev, unsigned int idx)
- {
- 	idx += sev->first;
-@@ -218,6 +221,7 @@ static void __v4l2_event_unsubscribe(struct v4l2_subscribed_event *sev)
- 		fh->navailable--;
- 	}
- 	list_del(&sev->list);
-+	fh->nsubscribed--;
- }
- 
- int v4l2_event_subscribe(struct v4l2_fh *fh,
-@@ -251,8 +255,16 @@ int v4l2_event_subscribe(struct v4l2_fh *fh,
- 
- 	spin_lock_irqsave(&fh->vdev->fh_lock, flags);
- 	found_ev = v4l2_event_subscribed(fh, sub->type, sub->id);
--	if (!found_ev)
-+	if (!found_ev) {
-+		if (fh->nsubscribed >= V4L2_MAX_EVENT_SUBSCRIPTIONS) {
-+			spin_unlock_irqrestore(&fh->vdev->fh_lock, flags);
-+			kvfree(sev);
-+			mutex_unlock(&fh->subscribe_lock);
-+			return -ENOSPC;
-+		}
- 		list_add(&sev->list, &fh->subscribed);
-+		fh->nsubscribed++;
-+	}
- 	spin_unlock_irqrestore(&fh->vdev->fh_lock, flags);
- 
- 	if (found_ev) {
-diff --git a/include/media/v4l2-fh.h b/include/media/v4l2-fh.h
-index aad4b3689d7e..65a7f31af889 100644
---- a/include/media/v4l2-fh.h
-+++ b/include/media/v4l2-fh.h
-@@ -33,6 +33,7 @@ struct v4l2_ctrl_handler;
-  * @subscribe_lock: serialise changes to the subscribed list; guarantee that
-  *		    the add and del event callbacks are orderly called
-  * @subscribed: list of subscribed events
-+ * @nsubscribed: number of subscribed events at @subscribed list
-  * @available: list of events waiting to be dequeued
-  * @navailable: number of available events at @available list
-  * @sequence: event sequence number
-@@ -49,6 +50,7 @@ struct v4l2_fh {
- 	wait_queue_head_t	wait;
- 	struct mutex		subscribe_lock;
- 	struct list_head	subscribed;
-+	unsigned int		nsubscribed;
- 	struct list_head	available;
- 	unsigned int		navailable;
- 	u32			sequence;
--- 
-2.53.0
-
+--=20
+With Best Regards,
+Andy Shevchenko
