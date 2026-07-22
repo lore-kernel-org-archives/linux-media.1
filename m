@@ -1,84 +1,179 @@
-Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B298023C8AE
-	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 04:06:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397203E2AB7
+	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 04:23:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784693169; cv=none; b=XdSuSO/P5YzEiCVPGZr8V0IZIaKrVZtnZp4uErtOl7scEIYB8+BeAMJTI2RKbBZ+ddnPLhlj4H3JMGSwuFkZib+5A0a7q52MafZ/EFk26cZ9ipZoKu8XhO+cRGpnsxzRyKZmtpANH+Ph0AatmdwrzuBEw5wsZLaU0XizNHz9uzo=
+	t=1784694195; cv=none; b=pVlSoFyWYQs/Gw9BwkEJfkhvEtBOhAFvyoE7ZGkEGLoPoC6jnvNQB+CNCvnOalRgramvFIjNBm6SqpkxQnsO8XfUXckKeHJCQsfY03t77buoK+GCNKAdxlKb10RKrKBrbdQ8rEGNUbPxfXsl6fusD26RcYF209BkWWk8ac8Cff8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784693169; c=relaxed/simple;
-	bh=6jtXqLSAARYK3BswstCo91ZoWuJEQSUA1pR3CcbwDSA=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=PsrxxJDzPJBvXCkZuCxCh7MhG9AERBP6bKrltO9orXAMYG2g680SQjtqnmtpG30rfX1vGFCvSzm/nS1FH6F1RCo8TMieWcZ+ro0Ooq70dNKQ+Lfa0TJYe7PPf3VBPNMozgU1FA1ecRCeyZ11cjFJnEM4mCuBri0HgEt6lAG5N1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=p7vNoF+A; arc=none smtp.client-ip=95.215.58.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784694195; c=relaxed/simple;
+	bh=Tz8ATHq3AOH0oiRHBDlB0/d5Gvc7fJ2Zya9H84QVcgQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MWPOGLGk6GEPPikLJ2CAsAjcx2VY9ZpFiz3QWjh9BGnfifGygev04dC18BKzmphDy5HBw3CvvL7nNcZRerDiIiq9DdSJyWHI9IY2bLfA6vctoYQYTP2zlsBBdnCTdjo1uvcUHsbTDuO9icaPVVP9Fud5YhfZCAnPGnsXmRV9hqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ihNe+z1K; arc=none smtp.client-ip=74.125.224.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="p7vNoF+A"
-Content-Type: text/plain; charset=utf-8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784693164;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6jtXqLSAARYK3BswstCo91ZoWuJEQSUA1pR3CcbwDSA=;
-	b=p7vNoF+A3/UjCEcvMnrgys5CYoqLSuOuEK9JFroJu/Th2Swoe4QJ8yFpFrG8VjiJx1KmYn
-	kndywntHWALgsnwg8SgwLvjFICU4MFjSpmayltgMGQ2Qe2VarhS8coqV/MNFb+FN4+52L2
-	9ReGBZaR02ngTfD9sJ8IMKWJPMp6b4Q=
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ihNe+z1K"
+Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-66893db7bccso166305d50.1
+        for <linux-media@vger.kernel.org>; Tue, 21 Jul 2026 21:23:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784694190; x=1785298990; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BVU1uXONejBx60ngAbjZKU1diMFaAoxWI34xUNLIr4k=;
+        b=ihNe+z1KC2yBiwU3FjLI/+98w/HV6PAZD20uzxDED9jQMebOvhGSzIsVORh9BF8E06
+         GgpEsTZJHCjEYtUpnYYx10uegl60U+eIJXY+6hq37Mx43UjYmT/BjAwflyBDu+pU2tRI
+         +UtTeqRVKkdZr25Nsp9qG3iykGa6BPCZ5YKn/C064wSqowy8U+mUM23ZxehQFLWuT787
+         kbSxAg97zGa5NquU1MKriElfow4s64ZTjaALLI7yVMyAlu4fJ7b2al5+FvMt6bwowL4u
+         J9EywylXAcXQUWQh3fQGnWAurboc+oKHzudvbsWlGAP2ZtnoWqdQgnI9NWTALp9WWBME
+         /6ZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784694190; x=1785298990;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BVU1uXONejBx60ngAbjZKU1diMFaAoxWI34xUNLIr4k=;
+        b=SsmTPH7+H6WFb46FjcqDmBqHCS5gfVU0hwDpSzULz8MHm1B1I9d7OmNLprNY/BytZh
+         jQ5qBPJv/ejY2fAxpNSlbA2ElH4+HCFNJu+V0iBRdTFfnow7FaSarT0+eKVa0LOAG6Cb
+         gdIXBlXV1RL3YlewQqI9Ip28v9l3n+/RCFO9r0nEW1qhcRL9fakUMHIk8o9oh940IJMb
+         bA5LRwXhM5BHmwPiMgkneQ0P29e5PN4lakQVrkYCkqbz603Uw3zq9DjaL+eFh1bqldSa
+         2yahZ69jfYGDrEfaWUC3hKmOxvvb1whLmSmEfxhU7WC4YCUSsprD83Q6dZjqmdsbQZHk
+         Y+uw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq3uwOa/hBI+KJ/gl+rlAgP8Adz5xt5fkI6eBll9vtECAzAxbrhvKrYVjskhnyhEnLR8m/Zr3JyRXY/sg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwARA5FnTZoWnfqzHQH4m3Lme6INu4ky4zwHDrAfoi6HQP/kRra
+	GJl/eBRa1uIIQKaVtdUvGKVeHsrbIyYLHjqkZxxqpMZTpYztWxZVJ9rc
+X-Gm-Gg: AR+sD12axrp96yOz0Oror+oNT6AOTy3o8a7J5ZYU+iALXGr5qK5Vfq+47pzBzAYBOu/
+	EOiVkEFioOIMh/ekb6hJNEjQRIWfgs25VY/g8PiyElOzv2mJD2IKTlRPyWxQO2T0Zck8m/HxwT/
+	g8JaFUVizBZIpezeQxWb46FaOC5oFWWEnFNBwJnSKtl6g+v5SaFXIDnrTTiqXWxN9fTjzgNoiNz
+	1jjKB31Uf57FDM1szIFKOcY6/vjtPohsJHkc17//DI3jb2LsS6z+Igh1vPTTPkWF3UDfaPGl+IL
+	Js5XoY3pWpR9WmlJqVa4PSsIdnJCBGyRp6ac9oBx879sKuZEZbQsgG3/CwrFhSZNMsS+HR6O2x8
+	panAdunqT82xJVT/Q3aUUGYo4nXIh5d9kVv3jFEqykp7LOBScLLQtorh7E0XoChA1dH3ag2BCCa
+	HYiXOUh3MsYfCihK4iNAkyMPlMWirmnphvT0YR1CjqT3t/qvFAQ3v9YeoU3mE3shopuf6kHBWWV
+	T5jWOAtBGGK5g==
+X-Received: by 2002:a53:d057:0:10b0:667:8b90:2eeb with SMTP id 956f58d0204a3-6683bdb71c2mr4845726d50.102.1784694190034;
+        Tue, 21 Jul 2026 21:23:10 -0700 (PDT)
+Received: from LAPTOP-83ECOPAB.f7a5e5c3-cab1-4810-bdbb-207cdd06de9e.globalsecureaccess.local ([136.55.173.105])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-668906d9344sm695500d50.12.2026.07.21.21.23.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jul 2026 21:23:09 -0700 (PDT)
+From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
+To: mchehab@kernel.org,
+	linux-media@vger.kernel.org
+Cc: kees@kernel.org,
+	linux-kernel@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	tgopinath@linux.microsoft.com,
+	kys@microsoft.com,
+	blbllhy@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: v4l2-event: limit number of event subscriptions per file handle
+Date: Wed, 22 Jul 2026 00:23:08 -0400
+Message-ID: <20260722042308.75939-1-blbllhy@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (1.0)
-Subject: Re: Linking Patchwork with Sashiko?
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Roman Gushchin <roman.gushchin@linux.dev>
-In-Reply-To: <20260720140817.16a8924f@robin>
-Date: Tue, 21 Jul 2026 21:05:48 -0700
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Derek Barbosa <debarbos@redhat.com>, Matthieu Baerts <matttbe@kernel.org>,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, users@kernel.org,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Stephen Finucane <stephenfin@redhat.com>
-Message-Id: <7DE3083B-0F7F-42B5-9D6F-69EFCA3BA8C7@linux.dev>
-References: <20260720140817.16a8924f@robin>
-To: Steven Rostedt <rostedt@goodmis.org>
-X-Migadu-Flow: FLOW_OUT
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-> On Jul 20, 2026, at 11:08=E2=80=AFAM, Steven Rostedt <rostedt@goodmis.org>=
- wrote:
->=20
-> =EF=BB=BFOn Fri, 17 Jul 2026 15:32:57 +0300
-> Laurent Pinchart <laurent.pinchart@ideasonboard.com> wrote:
->=20
->> Where are the AI companies when it comes to addressing the massive
->> underfunding and maintainer burnout problem, to help doing the ground
->> work making the kernel more secure ?
->=20
-> Ask Roman how many people in Google are supporting the Sashiko project.
-> I believe the answer is 1.
+v4l2_event_subscribe() allows an unbounded number of event subscriptions
+per file handle. Since the subscription id field is fully user-controlled
+(32-bit), an unprivileged user with access to a V4L2 device node can
+create up to 2^32 distinct subscriptions, each pinning a kernel
+allocation (~200 bytes). This can exhaust kernel memory, causing an OOM
+condition and kernel panic.
 
-It=E2=80=99s slightly better than this. Elkin Cruz helped a lot with bringin=
-g up the production instance,
-the initial Claude support and several important ideas including the early i=
-mplementation=20
-of a multi-stage approach.
+An unprivileged local user can trigger this by issuing repeated
+VIDIOC_SUBSCRIBE_EVENT ioctls with incrementing id values. The allocated
+objects reside in kernel slab (not accounted to the process cgroup), so
+existing memory limits (ulimit, memcg) do not prevent this. Most V4L2
+drivers are affected because the framework function v4l2_event_subscribe()
+enforces no limit, such as uvcvideo (USB webcams) and the vicodec test
+driver used to reproduce this issue. This leads to:
 
-And there is a number of other googlers who contributed less directly, but p=
-layed a very
-important role in various parts of the project, including providing early fe=
-edback, helping with
-various processes, etc.
+  Kernel panic - not syncing: Out of memory: compulsory panic_on_oom
+   is enabled
 
-And btw we=E2=80=99re hiring! (Unfortunately google in general is pretty res=
-trictive about being remote,
-so you have to be in Bay Area or Zurich).
+Fix by adding a per-filehandle subscription counter and capping it at 256.
 
-Thanks,
-Roman=
+Fixes: 6e239399e580 ("[media] v4l2-ctrls: add control events")
+Cc: stable@vger.kernel.org
+Reported-by: Autonomous Code Security <AutonomousCodeSecurity@microsoft.com>
+Link: https://lore.kernel.org/all/20260722004818.72310-1-blbllhy@gmail.com
+Signed-off-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
+---
+v2:
+ - Add Cc: stable@vger.kernel.org
+ - Add Link: to v1
+ - Wrap long line in commit message
+
+ drivers/media/v4l2-core/v4l2-event.c | 14 +++++++++++++-
+ include/media/v4l2-fh.h              |  2 ++
+ 2 files changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/v4l2-core/v4l2-event.c b/drivers/media/v4l2-core/v4l2-event.c
+index 9dd2aaa95a67..fcd8ce4addc1 100644
+--- a/drivers/media/v4l2-core/v4l2-event.c
++++ b/drivers/media/v4l2-core/v4l2-event.c
+@@ -18,6 +18,9 @@
+ #include <linux/slab.h>
+ #include <linux/export.h>
+ 
++/* Per-filehandle limit on the number of event subscriptions. */
++#define V4L2_MAX_EVENT_SUBSCRIPTIONS	256
++
+ static unsigned int sev_pos(const struct v4l2_subscribed_event *sev, unsigned int idx)
+ {
+ 	idx += sev->first;
+@@ -218,6 +221,7 @@ static void __v4l2_event_unsubscribe(struct v4l2_subscribed_event *sev)
+ 		fh->navailable--;
+ 	}
+ 	list_del(&sev->list);
++	fh->nsubscribed--;
+ }
+ 
+ int v4l2_event_subscribe(struct v4l2_fh *fh,
+@@ -251,8 +255,16 @@ int v4l2_event_subscribe(struct v4l2_fh *fh,
+ 
+ 	spin_lock_irqsave(&fh->vdev->fh_lock, flags);
+ 	found_ev = v4l2_event_subscribed(fh, sub->type, sub->id);
+-	if (!found_ev)
++	if (!found_ev) {
++		if (fh->nsubscribed >= V4L2_MAX_EVENT_SUBSCRIPTIONS) {
++			spin_unlock_irqrestore(&fh->vdev->fh_lock, flags);
++			kvfree(sev);
++			mutex_unlock(&fh->subscribe_lock);
++			return -ENOSPC;
++		}
+ 		list_add(&sev->list, &fh->subscribed);
++		fh->nsubscribed++;
++	}
+ 	spin_unlock_irqrestore(&fh->vdev->fh_lock, flags);
+ 
+ 	if (found_ev) {
+diff --git a/include/media/v4l2-fh.h b/include/media/v4l2-fh.h
+index aad4b3689d7e..65a7f31af889 100644
+--- a/include/media/v4l2-fh.h
++++ b/include/media/v4l2-fh.h
+@@ -33,6 +33,7 @@ struct v4l2_ctrl_handler;
+  * @subscribe_lock: serialise changes to the subscribed list; guarantee that
+  *		    the add and del event callbacks are orderly called
+  * @subscribed: list of subscribed events
++ * @nsubscribed: number of subscribed events at @subscribed list
+  * @available: list of events waiting to be dequeued
+  * @navailable: number of available events at @available list
+  * @sequence: event sequence number
+@@ -49,6 +50,7 @@ struct v4l2_fh {
+ 	wait_queue_head_t	wait;
+ 	struct mutex		subscribe_lock;
+ 	struct list_head	subscribed;
++	unsigned int		nsubscribed;
+ 	struct list_head	available;
+ 	unsigned int		navailable;
+ 	u32			sequence;
+-- 
+2.53.0
+
