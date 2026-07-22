@@ -1,48 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E583F9FB;
-	Wed, 22 Jul 2026 07:01:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05C3380FF1;
+	Wed, 22 Jul 2026 07:10:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784703673; cv=none; b=ruTG7R/1N2YkI9v4nVfksC7orMeebE4rzmIZysga69k/dNWBGM+0X6A8IKKDfT8iMDcp+waBqjx4b6JPtMDg5TMztADj+Not888Jllu+CWpAOK4baQg9QM20X7teOm4BVF1pN9yYWQpsRgXpAb02YzqKu7a+x0jfkQj1pc+kYro=
+	t=1784704252; cv=none; b=WebAUqxaxbWd8fcT5bPVtWwOA4V6pxgOjD9cCxU7ZTKmltOOY5h32rz6DS85+vUOtHYuNU+i6xsnElongJQLZ2jIJmHHZF8OOsvaA3wrSCtLAD/xscNfF/sGU/mog2HFFAEOP68v9EYGOzlx2yAKBoqpjxJTnVU8AZNM6DISTlQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784703673; c=relaxed/simple;
-	bh=gDq48SDa44mMrqAXCaxOL0HPIua4m0ABHDJCra1EBAc=;
+	s=arc-20240116; t=1784704252; c=relaxed/simple;
+	bh=hGF/4W1Jicr1QkMn+Cm/pC6hnAR5jcnGTZe4PpzEwgo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z2p2xVkckUpdE9JcCNutf80/ADEihZ4RzECRqG672u6iuwGgokLG9Bpwmgx+EJRW0T36+gDV7Y3Czf7E9X4amwCs6k1qutZC7DHnM2eZ0YeMabrFcUnpwW2CmTdPPt90tGWf5hJEnvqSeOaLc1LI1vhlAQSULGbC0DiszPI2lII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=esa6/k+P; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=WeAgMWIpqEr4FQM65mVh+Qp/kuppaYWlAVf2Akqqjhzlo5U/KuZmf3fgvWGGDHUjPiAilRi8xsba+hsxTXAK1Ka0gJHqtt7Yg6KXHaxLWkKOpbMQ8dLL1bs2ql5gzZKa74UAdYCcdi+jXEKKE7YOl9xS6icD7yHgkn3hzAyx+tQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KpBaUoOJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="esa6/k+P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6934B1F000E9;
-	Wed, 22 Jul 2026 07:01:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KpBaUoOJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A15371F000E9;
+	Wed, 22 Jul 2026 07:10:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784703661;
-	bh=CI+UMo385N4h+hc9M6wJenaTKuLPOI4BaoeYVQ49/R0=;
+	s=k20260515; t=1784704251;
+	bh=pUBOybuaQ4oLhv5gpLAxGaNiHUDAVsgBLzkdhW8dxfI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=esa6/k+PMxEFbkw7m4bgcelBl49jBZiH9qd5G0ZvGMysh72ybSGx7sabDnxQqE603
-	 rPgUTSsSrY9bv/EXXfXx2lwhBXJtIBDNWPn510TP5thoCShlUdsmCxZiJoy5rB50ZZ
-	 hn5av/a4drQdOWhKNI2bQWmJ/5U4baK0meLPd9n+hQMxliFCSTd+1WN56CxlkK5bvR
-	 IN9m0M0nF6yQ+5rB5N5FpsRJ+1SVVijR02KTVh8YaLS0B6lcBtlfqnJSlJVW7SRFcb
-	 oLMxdQdI1tj+3lMmMSZGd44tLS/Hf4yFRyfW9pPrZK0hYV8Twkpk8O+jJHPjZ5n+0y
-	 OYRD3f5oeN4dA==
-Date: Wed, 22 Jul 2026 09:00:58 +0200
+	b=KpBaUoOJSGKMnsiMgykFnlLyGr0UYTSYsafvK5qGTdkU37nmDEYxE+aytF+Q3r7mw
+	 DlpaIYcllglU8Et2PTZ24NNkhmQDxHrizvXN4pKAaccQIPo9BBZRt/p3q7Y3KDgWVC
+	 wQFLmdiKPFmhYvU/onvqomIE1e9VdSSPQtIvgFqhLgtLrVaHUfq1QeIrnyhkS1GA6y
+	 +SXvguG/AXyp9VnBSv0pemkG0gVkwevBxFGrQCcIgt/uZigUZv8F8i4dVJrd1of1ma
+	 /R4/qXbiJRlnj3F6vHIGn6CUYKMVkskalfeL6hTqK23goD67ZpGPEv34kFXTWHz7Mb
+	 Bwd8Lr3hZhegQ==
+Date: Wed, 22 Jul 2026 09:10:48 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Cc: Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bryan O'Donoghue <bod@kernel.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	jeyaprakash.soundrapandian@oss.qualcomm.com, Vijay Kumar Tumati <quic_vtumati@quicinc.com>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v6 2/7] media: dt-bindings: Add CAMSS device for SM8750
-Message-ID: <20260722-enthusiastic-hyrax-of-zoology-17bd7d@quoll>
-References: <20260721-add-support-for-camss-on-sm8750-v6-0-a5f841061d18@oss.qualcomm.com>
- <20260721-add-support-for-camss-on-sm8750-v6-2-a5f841061d18@oss.qualcomm.com>
+To: Igor Paunovic <royalnet026@gmail.com>
+Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Sebastian Reichel <sebastian.reichel@collabora.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, kernel@collabora.com, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/4] dt-bindings: media: snps,dw-hdmi-rx: add
+ #sound-dai-cells
+Message-ID: <20260722-gabby-active-seagull-5aaea6@quoll>
+References: <20260721064115.64809-1-royalnet026@gmail.com>
+ <20260721064115.64809-2-royalnet026@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -51,25 +48,16 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260721-add-support-for-camss-on-sm8750-v6-2-a5f841061d18@oss.qualcomm.com>
+In-Reply-To: <20260721064115.64809-2-royalnet026@gmail.com>
 
-On Tue, Jul 21, 2026 at 05:46:01AM -0700, Hangxiang Ma wrote:
-> Add bindings for Camera Subsystem (CAMSS) on the Qualcomm SM8750 platform.
+On Tue, Jul 21, 2026 at 08:41:12AM +0200, Igor Paunovic wrote:
+> The HDMI RX controller can expose the audio embedded in the incoming
+> HDMI stream as an ALSA capture device. Document the #sound-dai-cells
+> property so that a sound card can reference the HDMI RX audio DAI.
 > 
-> The SM8750 platform provides:
-> - 6 x CSIPHY (CSI Physical Layer)
-> - 3 x TPG (Test Pattern Generator)
-> - 3 x CSID (CSI Decoder)
-> - 2 x CSID Lite
-> - 3 x VFE (Video Front End), 5 RDI per VFE
-> - 2 x VFE Lite, 4 RDI per VFE Lite
-> 
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
 
-Drop both tags.
-
-Binding was very different.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
