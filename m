@@ -1,65 +1,59 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4595D4C900F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E664C6F16;
 	Wed, 22 Jul 2026 10:23:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784715825; cv=none; b=N97vbE4VXQz8GMzEIS8SMXMO5sVoyTyHASfp0G9xjgNj9X3WNl4Mn8qL6eKfROvy0sSAzYxXsZB1Pcwznl4Qt9k3OkyZW1jzW3EkfE+bfDqyD479V9H/iwCjfT4FtOpRqlx3rgYCRuNLFVgQN3l50gea3Ily1Gw3dRehL1NTKRI=
+	t=1784715826; cv=none; b=MpUxD8Kukc7MaPWBaeownkVHnrcWc0Yb0/FvPkGUnFgqdcgO7TWLBgpUK04VN3PWqvJP2Xytr6k34ySL9vdVP5bjP/DnyXB/lJ3PgvrAGMyeWNsaPD2MMZhg+oc9K+XjegPH519YVOpPa1fh25ChH14xg0RkP/eHKTqUakGu1zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784715825; c=relaxed/simple;
-	bh=1yP18ZTlPXUiRlBsdmIVfczBqI+60MXCB3xkhNeyZNs=;
+	s=arc-20240116; t=1784715826; c=relaxed/simple;
+	bh=jqslKCSwrVbWt146DlZm+Nc3XR/IkUMq73PIcZIrDNc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ai/gqWMUmrAPfECzCnybYQMolalVa300eUsoUlce7VYmCe4bL3Fbt7628h+9LtT7RqGpvLbJ93lcfL6B6CC8fUzuuiwx2Ilqljiq0aEyFN0WbR3dtvWWlBQIPohXa7G1QGIZpyOtXavo56Nvgzgz3YdCWJkKRVJOJyJsYHmGbt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=HzxLcXgk; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=aUxM38md; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=ehtp17usVoUp1zQ1BToM47A4p8FiA6LHDm8G8iHLlxiUpqI8gJ3sIjFkUTvRSgoPw/ZcYTlThKui27SpuApWE9FZUazJxyaPqqt1KowA0thYNhmJH7OPGiUB7vbVIIYsQqU7FGbLA3S8ZgxahbAkRD0N69enzGl6KBiFcEZlVys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=ilI+7aSz; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=Nrq/j9UF; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="HzxLcXgk";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="aUxM38md"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="ilI+7aSz";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="Nrq/j9UF"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1784715822; bh=1yP18ZTlPXUiRlBsdmIVfczBqI+60MXCB3xkhNeyZNs=;
+	t=1784715823; bh=jqslKCSwrVbWt146DlZm+Nc3XR/IkUMq73PIcZIrDNc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=HzxLcXgkKaYQcSvFjwQthQLoUoVFV49AzEyrtxOJGsJ9SXieeKiwfq1GVYODlCHIm
-	 l2RmdzSZC+g8DuLoB0ALjSfpMjF3q/TGgIrMY2h7SxJb2E0Nnkjxa967ph/hGsMztm
-	 8IMGrXiw/Wg52+ImrENFB9nwO6C30Ns805KUAu9YTmwfrEJDd+H1rptVmAQytnOAxY
-	 7r2NagwliEVZLh9qeux0fjFHMU/gw1cRKNB1iC1Y/Q4qA1oT6EIUAWVIVw5NkxMgkD
-	 XTzysIGgzkzNJQ9m5fr/eaGyb9bdpkavQzU8+dh/N6E8HLnXgqh5MkaiSYdhkfHoAn
-	 X6Tx3XOS4tUxw==
+	b=ilI+7aSzRSLWKKNsOaw8puzO+6D5aUGoSIHQ7wHaJEpXJJ3PrZo1HRiBRqgh/gWW2
+	 Kfq5vUVW8MdNi46Ri3Z0A62P92Zw8dM1bV66wiF2Rp61hi6xAcPkelPqUf1b9J8XeL
+	 CqLE9Q3Iqh3Prl+A+coMgkAwOnODGKVKeUSq0cMfCVdzJx2nGgkPPV82NVpT1RP+YO
+	 Vyd16hiWJOUuVgXIbO3trrkiTnlnzXm/x/NhR29a1iP+m60OGU4R3NKVn/HCxGmXJg
+	 5hrvbTsCS/XzeiXRxzPsY7+hECopZGL9SAc6amD4FqDE5zpU+5Q/zvAM0UM+VBAOzL
+	 T6l+9FSUs/Bvg==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id D36844253C; Wed, 22 Jul 2026 11:23:42 +0100 (BST)
+	id 2700E4253E; Wed, 22 Jul 2026 11:23:43 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1784715820; bh=1yP18ZTlPXUiRlBsdmIVfczBqI+60MXCB3xkhNeyZNs=;
+	t=1784715821; bh=jqslKCSwrVbWt146DlZm+Nc3XR/IkUMq73PIcZIrDNc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=aUxM38mdUebm/sODIPjAEyhB2MYCSGA5vpuK9NuaD41gzIs8jVMeNLFQfZw/PDYsf
-	 4c1/O/w90NCefxlE0SWSsMHmHR3+ExQSDNaXRQ+bUZ6M9c9J7uYxDOU2TleYAKxt5G
-	 grc9w6L5D76tEycvdqZexf15/PFQs+d0DIiXxVBYM5EpdHkxhD/5nM2u8bcBU3gn5q
-	 E5kgB1lhkHZJ5D5dd1ZRgTEwghIFFUmSENv3wswcIX1XZLUDTJeoqPp5noRWuPF8oK
-	 OtwxAwdnROdN8y1cNziAk0PcSIkbZEf6H0fnqlT+qSDRtIMCzswiLFT+SghNwRV6Px
-	 dm1cmKhlZ8z6g==
+	b=Nrq/j9UFoRv/cQeyhrDZXYKm8rz2y4o9/2aPE0wRbswBsaUpzF5Ov/mvWvty04t9e
+	 yvdA/Fv6iCsnI6ch2t5b+1NsjIpYsGpKxPbhsXUfqdElZcWpBk8314tDQVUKhh/tIk
+	 6ImN3iQElVpalIM7lXHx8sQYSlCDn+Prdgnh8XwGPcqpMlPp89kAmISH/dJAYGTirc
+	 M/+rq5OuIG4IYJyOKqnFAUJkDSv52jTFerZTbnfOoftDo1eiAnh23L0QX9KsYypHUm
+	 gdcfJAho9CsKREVDP2HSIQYtDa1f7FViHFzQEDRZ7NTLFxFPzAEc3Pe+Oe9uwOgQcH
+	 J5AjbZM7MhOuQ==
 Received: from maru.local (unknown [62.232.99.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 6AA5F42538;
-	Wed, 22 Jul 2026 11:23:40 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id 904A04017A;
+	Wed, 22 Jul 2026 11:23:41 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Viktor Prutyanov <viktor.prutyanov@phystech.edu>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 09/13] media: meson-ir-tx: Ensure probe error is propagated
-Date: Wed, 22 Jul 2026 11:23:21 +0100
-Message-ID: <b34fb1c2603376b4ae99829fafae49897d975625.1784715737.git.sean@mess.org>
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Patrice Chotard <patrice.chotard@foss.st.com>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH v3 11/13] media: rc: Use after free in ir_raw_event_handle()
+Date: Wed, 22 Jul 2026 11:23:23 +0100
+Message-ID: <f6836332ca08640cbe319b9f8a7231ccd44c1935.1784715737.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1784715737.git.sean@mess.org>
 References: <cover.1784715737.git.sean@mess.org>
@@ -71,37 +65,43 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-devm_clk_get_enabled() may return -EPROBE_DEFER which needs to be
-propagated else the probe will not be deferred, it will fail instead.
+If rc_unregister_device() is called while IR is being processed, then
+ir_raw_event_handle() could call wake_up_process(dev->raw->thread)
+after kthread_stop(dev->raw->thread).
 
-Fixes: 49be1c78d575 ("media: rc: introduce Meson IR TX driver")
+Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
 Signed-off-by: Sean Young <sean@mess.org>
 ---
- drivers/media/rc/meson-ir-tx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/media/rc/rc-ir-raw.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/rc/meson-ir-tx.c b/drivers/media/rc/meson-ir-tx.c
-index abb107d19e8c..174d5135e1bb 100644
---- a/drivers/media/rc/meson-ir-tx.c
-+++ b/drivers/media/rc/meson-ir-tx.c
-@@ -290,7 +290,7 @@ static int meson_irtx_mod_clock_probe(struct meson_irtx *ir,
+diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
+index ba24c2f22d39..f066176c9f37 100644
+--- a/drivers/media/rc/rc-ir-raw.c
++++ b/drivers/media/rc/rc-ir-raw.c
+@@ -637,6 +637,7 @@ int ir_raw_event_register(struct rc_dev *dev)
+ 	if (IS_ERR(thread))
+ 		return PTR_ERR(thread);
  
- 	clock = devm_clk_get_enabled(ir->dev, "xtal");
- 	if (IS_ERR(clock))
--		return -ENODEV;
-+		return PTR_ERR(clock);
++	get_task_struct(thread);
+ 	dev->raw->thread = thread;
  
- 	*clk_nr = IRB_MOD_XTAL3_CLK;
- 	ir->clk_rate = clk_get_rate(clock) / 3;
-@@ -324,7 +324,7 @@ static int meson_irtx_probe(struct platform_device *pdev)
+ 	mutex_lock(&ir_raw_handler_lock);
+@@ -648,8 +649,12 @@ int ir_raw_event_register(struct rc_dev *dev)
  
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0)
--		return -ENODEV;
-+		return irq;
+ void ir_raw_event_free(struct rc_dev *dev)
+ {
+-	kfree(dev->raw);
+-	dev->raw = NULL;
++	if (dev->raw) {
++		if (dev->raw->thread)
++			put_task_struct(dev->raw->thread);
++		kfree(dev->raw);
++		dev->raw = NULL;
++	}
+ }
  
- 	ir->dev = dev;
- 	ir->carrier = MIRTX_DEFAULT_CARRIER;
+ void ir_raw_event_unregister(struct rc_dev *dev)
 -- 
 2.55.0
 
