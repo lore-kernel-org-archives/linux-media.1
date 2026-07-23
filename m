@@ -1,56 +1,56 @@
-Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com [74.125.224.72])
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13333939B9
-	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 18:32:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9F186334
+	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 18:32:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784831570; cv=none; b=pFoAIvgH+ysoGu11lNGx2VV7r3TYxtm2N2kwHkpZI7AYK895wQQkrXFCCeuyzdqXjthZz8Jrgxg7PY2eeiJXa39a8h93E34Z52suFDvQ5zMB9+d7Lx6ij49PXrxQBwK3GKYVmdn99IHEtYbDXnBK6Wy6MFmUh3EU/GB1kGM++QU=
+	t=1784831577; cv=none; b=AwSTzB11c5FO8j+sn6cKzuUR1pnEyIC7VYlnpMDAJ7EoFiNilA6q7kuyooH/gz/QuYEpE6/U7awoXXM/9SfknYySr0KUSRz5OsmfDAIMLqDFmEqFBlHhBwP+Hs0rJD/F2If5J6agfdSwZ0FNM0B+XYBnQgg64Lb1E3GsE2YaNXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784831570; c=relaxed/simple;
-	bh=aF9A/FCgNIS4jOX54s1G8w70lJPpMHXK508TzR31w04=;
+	s=arc-20240116; t=1784831577; c=relaxed/simple;
+	bh=IPklzax1sX3JMecp1sHDk9yzLkie2zC7+TkNXOiCpfM=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=teE7vemDS7vLJl8P2k6yK9R6ltGF0XjAwNmA2fUSTh6KKwjMvTYHl0IQ/01CiH5aZmXoERl0iIo/YlahJGPSGFfjnSfoVs1b6Mtmj9Jjzq30q4r0R4wfTChButc2ObpGMQiqoXdhi/O0hA4JZSdU28bQYmnhJDLGbOdNhFP2SJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kMeX6ATJ; arc=none smtp.client-ip=74.125.224.72
+	 To:Cc:Content-Type; b=pzYqKdGPlKnFFlXp81v/Z/aeXw/Cum/7ZN1dNYcoVw+8oO8z3XkU8Tkgk6oxay4WEFB9LIJxem5BaIdIuZfJ/fbGIjJndjgciKx5z3cMDLaC2NoyckL1fIXPaRpYqrPeXe2+S1CQSadb/4XPt1Kg5ca2EASv+qJSX6Ij17YSEdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=twdWr+2Q; arc=none smtp.client-ip=209.85.160.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kMeX6ATJ"
-Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-66898a9bc85so353003d50.3
-        for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 11:32:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="twdWr+2Q"
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c1a97644aso25450861cf.2
+        for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 11:32:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784831558; x=1785436358; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1784831568; x=1785436368; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GJb49RO2LPnuct6XuS+q/9xxHDm8ErPy1eyGobZI6Io=;
-        b=kMeX6ATJQuT8M+dt8uhIWsGkPFwxuJ1Xdpi16lAo3OCzECLVlhxjcwsov1JHT43T+b
-         ncMxHQLrNL9+xv9QyDb92dSjQ8/sBdfMijO+jb8eWHT/01TGJrCOc84uMcUBt+MGv2G0
-         Tf8pFNc+MQE33erb2RdWSXZOmv+uw9dbf9JVPIL203qyQFj5Uy045bIoBjiMRzeE2QqS
-         AYCyl9hnn1Bc4hOVQNxihATf7+fAI6liFeI4naJr4yWIOngVsMsXdOJC0dkl3Wx63DYl
-         cTWP/z2Q+sugRLzrOyQ3i92hIS7ptx3QnGYsgWEggvicgxiUhE+evTlJN8rpWsmDGLOw
-         5BwQ==
+        bh=quGVCnraxnYQQECAxjbCFZOkewp1s0ghYIHCu6WLLM4=;
+        b=twdWr+2Qw6Nwp+/rpX4/XWuz/V5VdFlqN3qnYk7Q3IeAOIWKviYwTUzNInJGcs4VOR
+         y3uAhxY06DLrXyw5fFfJiJFbARl08wkVHs9lO909UM2q6mRfui2cjxGGyS3UH/IOQ3BR
+         BFzAQz1SOo6HiR4gUkOA36BBwTyXvlae3eHFctbxJcW89NfG26+vRPASst22nO088uD4
+         YdXddzhyxmXeaE2fHwmd8DZClB3bdMTORvmGRW/f/34yN1VbpnzwtVQEL37NFSJ/HAoi
+         x7/IwvmtclajOVUMF2V/ehcVmvuvIIQT/C2yaCGM9Pj+iqnwR1rWFX8tqLSLgROMfaSR
+         uOpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784831558; x=1785436358;
+        d=1e100.net; s=20251104; t=1784831568; x=1785436368;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GJb49RO2LPnuct6XuS+q/9xxHDm8ErPy1eyGobZI6Io=;
-        b=QGUzlcJ7ZrE8MozSqiK09GqwXxhjyKjeOR0nlgpAiQeTBQJUFecrYb6kH+ACCoVXoT
-         A3VoZQU0JO/7qjbX1dJq9yVNy5n0Sj+OsqjkogXXnQZeWul7xV4l34IuBaUBNXyOe2yl
-         KwuxglZQwGZklvF0zb7igKZL4jMfyO7yDWmayDuiTrvOhebyCjovpXALggBU1aqudMPQ
-         wlY7kVCRCEMi7wTmvnE2n5MYPmCFe1YCUwfOzptiwj4YWd3ZCFiq3RQy3yqWcYMySVhi
-         tCmkfe3bXiY37oCEsPDP2iexWXy28s9fhMd+p97rl6uxw/76Oud4hXouP+8/4L5hoEBd
-         Kk5Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqbpyXv36qpx8RY85s/p4uF/3WehgMoR/LU15hFKwsfwKVXUHREiMPIXdzMxAa11w1tqVjg7GUivdF8cw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzrmNXa4qjbpbUb6CYGGjYiZd44531jPSMVnko5+JfDqBKbQeJv
-	kyZmfgr59mXwE1oFHkqao1W9i2pwTolbHHDvWW3FJ2tZ1tjGuXetEe75T0fDIRSrLxOzvpxkvJs
-	IKxh736y/PWWGqkYebjvFAX/3YEwb
-X-Received: from yxqz15.prod.google.com ([2002:a53:a9cf:0:b0:668:430b:914d])
+        bh=quGVCnraxnYQQECAxjbCFZOkewp1s0ghYIHCu6WLLM4=;
+        b=B6HF64QihYum0/fTZMrtYiundMq6GM3JDl/E6lTOWf07ksVBPQcek4t0/qFfjodPH3
+         fJOHL/4QBiakjRJ750J+Dvby7Qzmpb5eEZCzULssXh3tlBAbAAxRCKyeiDEZ/I4synG6
+         s6zaMog7wCRp22BldGFarF3ppJeZbxiRc8CPkdFnWNTiGffZWuRM7FP82ES8bC7ick82
+         1Fp6LYTcSab/YTtsqZVE+aGIU2lZnXHAtNVuBg7zOBNSA4b39x+rfGFyhZJ/ym9WKGxi
+         l/TMH7vSaarRSyIJD47H6sTkJTN3A/fiivs4jm5/CV+JPQ2AMwxK531Gw9EdoB7N5OCh
+         WUuA==
+X-Forwarded-Encrypted: i=1; AHgh+RphaEUULmAQAu8b20pzgZL0S1nXcem5kbjo1QDCGmhOv6PU3y3qZaqEX5pYVKddcaWWL3keYISQelJ3YA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyM1VF3qbBiAB0ML2dB6zhRxnlBShNJJ7OIT+Xt4cuqQ+cH/B4G
+	w1QtsFtBXW4bre+j66i78vWVd7DZC2vtzgZV9EDBzhpQoeC7LNN6V+tOEVmAR52YPVYeraDGZxq
+	Ifvu6Ihp57DCTzeGdJQ4bVRw+23pF
+X-Received: from qvzt16.prod.google.com ([2002:a05:6214:5d0:b0:907:61d4:a0c7])
  (user=briandaniels job=prod-delivery.src-stubby-dispatcher) by
- 2002:a53:cb03:0:b0:668:49fb:b680 with SMTP id 956f58d0204a3-668a4c3549bmr828002d50.23.1784831557689;
- Thu, 23 Jul 2026 11:32:37 -0700 (PDT)
-Date: Thu, 23 Jul 2026 14:32:15 -0400
+ 2002:a05:622a:15d2:b0:51c:7b11:41ad with SMTP id d75a77b69052e-5283df5e260mr41044381cf.73.1784831567409;
+ Thu, 23 Jul 2026 11:32:47 -0700 (PDT)
+Date: Thu, 23 Jul 2026 14:32:17 -0400
 In-Reply-To: <20260723183219.737296-1-briandaniels@google.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260723183219.737296-1-briandaniels@google.com>
 X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
-Message-ID: <20260723183219.737296-2-briandaniels@google.com>
-Subject: [PATCH v5 1/5] media: virtio: Add skeleton virtio-media driver
+Message-ID: <20260723183219.737296-4-briandaniels@google.com>
+Subject: [PATCH v5 3/5] media: virtio: Add scatterlist builder
 From: Brian Daniels <briandaniels@google.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: adelva@google.com, aesteve@redhat.com, changyeon@google.com, 
@@ -74,658 +74,672 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Alexandre Courbot <gnurou@gmail.com>
 
-This patch adds a minimum viable virtio-media driver that binds to the
-virtio device and registers a V4L2 device and a video device, but lacks
-any actual functionality.
+This patch adds the scatterlist builder, which is used to construct
+scatterlists for virtio commands from V4L2 structures.
 
-It adds the UAPI header defining the protocol, internal driver headers,
-Kconfig and Makefile entries, and MAINTAINERS entry. Many of the structs
-in the protocol add reserved bits. These are present to ensure 64-bit
-alignment. They are not intended to be used as reserved expansion for
-the protocol in the future, so more reserved space is not required.
+It adds drivers/media/virtio/scatterlist_builder.c and
+drivers/media/virtio/scatterlist_builder.h.
 
 Signed-off-by: Alexandre Courbot <gnurou@gmail.com>
 Assisted-by: Antigravity:gemini-3.5-flash
 Co-developed-by: Brian Daniels <briandaniels@google.com>
 Signed-off-by: Brian Daniels <briandaniels@google.com>
 ---
- MAINTAINERS                                |   8 +
- drivers/media/Kconfig                      |  13 +
- drivers/media/Makefile                     |   2 +
- drivers/media/virtio/Makefile              |   7 +
- drivers/media/virtio/virtio_media.h        |  97 +++++++
- drivers/media/virtio/virtio_media_driver.c | 146 +++++++++++
- include/uapi/linux/virtio_media.h          | 287 +++++++++++++++++++++
- 7 files changed, 560 insertions(+)
- create mode 100644 drivers/media/virtio/Makefile
- create mode 100644 drivers/media/virtio/virtio_media.h
- create mode 100644 drivers/media/virtio/virtio_media_driver.c
- create mode 100644 include/uapi/linux/virtio_media.h
+ drivers/media/virtio/Makefile              |   2 +-
+ drivers/media/virtio/scatterlist_builder.c | 515 +++++++++++++++++++++
+ drivers/media/virtio/scatterlist_builder.h | 109 +++++
+ 3 files changed, 625 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/media/virtio/scatterlist_builder.c
+ create mode 100644 drivers/media/virtio/scatterlist_builder.h
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index efbf80806..879bff12d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -28215,6 +28215,7 @@ F:	Documentation/devicetree/bindings/virtio/
- F:	Documentation/driver-api/virtio/
- F:	drivers/block/virtio_blk.c
- F:	drivers/crypto/virtio/
-+F:	drivers/media/virtio/
- F:	drivers/vdpa/
- F:	drivers/virtio/
- F:	include/linux/vdpa.h
-@@ -28327,6 +28328,13 @@ S:	Maintained
- F:	drivers/iommu/virtio-iommu.c
- F:	include/uapi/linux/virtio_iommu.h
- 
-+VIRTIO MEDIA DRIVER
-+M:	Brian Daniels <briandaniels@google.com>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	drivers/media/virtio/
-+F:	include/uapi/linux/virtio_media.h
-+
- VIRTIO MEM DRIVER
- M:	David Hildenbrand <david@kernel.org>
- L:	virtualization@lists.linux.dev
-diff --git a/drivers/media/Kconfig b/drivers/media/Kconfig
-index 6abc9302c..7bc7306fa 100644
---- a/drivers/media/Kconfig
-+++ b/drivers/media/Kconfig
-@@ -136,6 +136,19 @@ config MEDIA_PLATFORM_SUPPORT
- 
- 	  Say Y when you want to be able to see such devices.
- 
-+config MEDIA_VIRTIO
-+	tristate "Virtio-media Driver"
-+	depends on VIRTIO && VIDEO_DEV && 64BIT && (X86 || (ARM && CPU_LITTLE_ENDIAN))
-+	select VIDEOBUF2_CORE
-+	select VIDEOBUF2_MEMOPS
-+	help
-+	  Enables the virtio-media driver.
-+
-+	  This driver is used to virtualize media devices such as cameras or
-+	  decoders from a host into a guest using the V4L2 protocol.
-+
-+	  If unsure, say N.
-+
- config MEDIA_TEST_SUPPORT
- 	bool
- 	prompt "Test drivers" if MEDIA_SUPPORT_FILTER
-diff --git a/drivers/media/Makefile b/drivers/media/Makefile
-index 20fac24e4..357e786cc 100644
---- a/drivers/media/Makefile
-+++ b/drivers/media/Makefile
-@@ -23,6 +23,8 @@ obj-$(CONFIG_DVB_CORE) += dvb-core/
- # There are both core and drivers at RC subtree - merge before drivers
- obj-y += rc/
- 
-+obj-$(CONFIG_MEDIA_VIRTIO) += virtio/
-+
- obj-$(CONFIG_CEC_CORE) += cec/
- 
- #
 diff --git a/drivers/media/virtio/Makefile b/drivers/media/virtio/Makefile
-new file mode 100644
-index 000000000..09d9834da
---- /dev/null
+index 09d9834da..8290d8506 100644
+--- a/drivers/media/virtio/Makefile
 +++ b/drivers/media/virtio/Makefile
-@@ -0,0 +1,7 @@
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Makefile for the virtio-media device driver.
-+
-+virtio-media-objs := virtio_media_driver.o
-+
-+obj-$(CONFIG_MEDIA_VIRTIO) += virtio-media.o
-diff --git a/drivers/media/virtio/virtio_media.h b/drivers/media/virtio/virtio_media.h
+@@ -2,6 +2,6 @@
+ #
+ # Makefile for the virtio-media device driver.
+ 
+-virtio-media-objs := virtio_media_driver.o
++virtio-media-objs := scatterlist_builder.o virtio_media_driver.o
+ 
+ obj-$(CONFIG_MEDIA_VIRTIO) += virtio-media.o
+diff --git a/drivers/media/virtio/scatterlist_builder.c b/drivers/media/virtio/scatterlist_builder.c
 new file mode 100644
-index 000000000..3fd240a46
+index 000000000..97925b277
 --- /dev/null
-+++ b/drivers/media/virtio/virtio_media.h
-@@ -0,0 +1,97 @@
-+/* SPDX-License-Identifier: BSD-3-Clause OR GPL-2.0+ */
-+
-+/*
-+ * Virtio-media structures & functions declarations.
-+ *
-+ * Copyright (c) 2024-2026 Google LLC.
-+ */
-+
-+#ifndef __VIRTIO_MEDIA_H
-+#define __VIRTIO_MEDIA_H
-+
-+#include <linux/virtio_config.h>
-+#include <media/v4l2-device.h>
-+
-+#include "uapi/linux/virtio_media.h"
-+
-+#define DESC_CHAIN_MAX_LEN SG_MAX_SINGLE_ALLOC
-+
-+#define VIRTIO_MEDIA_DEFAULT_DRIVER_NAME "virtio-media"
-+
-+extern bool virtio_media_allow_userptr;
-+
-+/**
-+ * struct virtio_media - Virtio-media device.
-+ * @v4l2_dev: v4l2_device for the media device.
-+ * @video_dev: video_device for the media device.
-+ * @virtio_dev: virtio device for the media device.
-+ * @commandq: virtio command queue.
-+ * @eventq: virtio event queue.
-+ * @eventq_work: work to run when events are received on @eventq.
-+ * @mmap_region: region into which MMAP buffers are mapped by the host.
-+ * @event_buffer: buffer for event descriptors.
-+ * @sessions: list of active sessions on the device.
-+ * @sessions_lock: protects @sessions and &struct virtio_media_session.list.
-+ * @events_lock: prevents concurrent processing of events.
-+ * @cmd: union of the device commands ``open`` and ``munmap``. The other
-+ *       commands are handled by &struct virtio_media_session
-+ * @resp: union of responses to device commands ``open`` and ``munmap``. The
-+ *        other responses are handled by &struct virtio_media_session
-+ * @vlock: serializes access to the command queue.
-+ * @wq: waitqueue for host responses on the command queue.
-+ */
-+struct virtio_media {
-+	struct v4l2_device v4l2_dev;
-+	struct video_device video_dev;
-+
-+	struct virtio_device *virtio_dev;
-+	struct virtqueue *commandq;
-+	struct virtqueue *eventq;
-+	struct work_struct eventq_work;
-+
-+	struct virtio_shm_region mmap_region;
-+
-+	void *event_buffer;
-+
-+	struct list_head sessions;
-+	struct mutex sessions_lock; /* protects sessions list */
-+
-+	struct mutex events_lock; /* prevents concurrent event processing */
-+
-+	__dma_from_device_group_begin();
-+	union {
-+		struct virtio_media_cmd_open open;
-+		struct virtio_media_cmd_munmap munmap;
-+	} cmd;
-+
-+	union {
-+		struct virtio_media_resp_open open;
-+		struct virtio_media_resp_munmap munmap;
-+	} resp;
-+	__dma_from_device_group_end();
-+
-+	struct mutex vlock; /* serializes command queue access */
-+	wait_queue_head_t wq;
-+};
-+
-+static inline struct virtio_media *
-+to_virtio_media(struct video_device *video_dev)
-+{
-+	return container_of(video_dev, struct virtio_media, video_dev);
-+}
-+
-+/* virtio_media_driver.c */
-+
-+int virtio_media_send_command(struct virtio_media *vv, struct scatterlist **sgs,
-+			      const size_t out_sgs, const size_t in_sgs,
-+			      size_t minimum_resp_len, size_t *resp_len);
-+void virtio_media_process_events(struct virtio_media *vv);
-+
-+/* virtio_media_ioctls.c */
-+
-+long virtio_media_device_ioctl(struct file *file, unsigned int cmd,
-+			       unsigned long arg);
-+extern const struct v4l2_ioctl_ops virtio_media_ioctl_ops;
-+
-+#endif // __VIRTIO_MEDIA_H
-+
-diff --git a/drivers/media/virtio/virtio_media_driver.c b/drivers/media/virtio/virtio_media_driver.c
-new file mode 100644
-index 000000000..144e2f077
---- /dev/null
-+++ b/drivers/media/virtio/virtio_media_driver.c
-@@ -0,0 +1,146 @@
++++ b/drivers/media/virtio/scatterlist_builder.c
+@@ -0,0 +1,515 @@
 +// SPDX-License-Identifier: BSD-3-Clause OR GPL-2.0+
 +
 +/*
-+ * Virtio-media driver.
++ * Scatterlist builder helpers for virtio-media.
 + *
 + * Copyright (c) 2024-2026 Google LLC.
 + */
 +
-+#include <linux/device.h>
-+#include <linux/dev_printk.h>
-+#include <linux/mutex.h>
-+#include <linux/types.h>
-+#include <linux/module.h>
-+#include <linux/virtio.h>
-+#include <linux/virtio_config.h>
-+#include <linux/virtio_ids.h>
-+
-+#include <media/v4l2-dev.h>
-+#include <media/v4l2-device.h>
++#include <linux/moduleparam.h>
++#include <linux/scatterlist.h>
++#include <linux/videodev2.h>
++#include <media/videobuf2-memops.h>
 +
 +#include "uapi/linux/virtio_media.h"
-+#include "virtio_media.h"
++#include "scatterlist_builder.h"
++#include "session.h"
 +
-+static void commandq_callback(struct virtqueue *vq)
++/*
++ * If set to %true, then the driver will always copy the data passed to the
++ * host into the shadow buffer (instead of trying to map the source memory into
++ * the SG table directly when possible).
++ */
++static bool always_use_shadow_buffer;
++module_param(always_use_shadow_buffer, bool, 0660);
++
++/* Convert a V4L2 IOCTL into the IOCTL code we can give to the host */
++#define VIRTIO_MEDIA_IOCTL_CODE(IOCTL) (((IOCTL) >> _IOC_NRSHIFT) & _IOC_NRMASK)
++
++/**
++ * scatterlist_builder_add_descriptor() - Add a descriptor to the chain.
++ * @builder: builder to use.
++ * @desc_index: index of the descriptor to add.
++ *
++ * Returns %-ENOSPC if @builder->sgs is already full.
++ */
++int scatterlist_builder_add_descriptor(struct scatterlist_builder *builder,
++				       size_t desc_index)
 +{
-+}
-+
-+static void eventq_callback(struct virtqueue *vq)
-+{
-+}
-+
-+static const struct v4l2_file_operations virtio_media_fops = {
-+	.owner = THIS_MODULE,
-+	.open = v4l2_fh_open,
-+	.release = v4l2_fh_release,
-+};
-+
-+static int virtio_media_probe(struct virtio_device *virtio_dev)
-+{
-+	struct device *dev = &virtio_dev->dev;
-+	struct virtqueue *vqs[2];
-+	static struct virtqueue_info vq_info[2] = {
-+		{
-+			.name = "command",
-+			.callback = commandq_callback,
-+		},
-+		{
-+			.name = "event",
-+			.callback = eventq_callback,
-+		},
-+	};
-+	struct virtio_media *vv;
-+	struct video_device *vd;
-+	int ret;
-+
-+	vv = devm_kzalloc(dev, sizeof(*vv), GFP_KERNEL);
-+	if (!vv)
-+		return -ENOMEM;
-+
-+	INIT_LIST_HEAD(&vv->sessions);
-+	mutex_init(&vv->sessions_lock);
-+	mutex_init(&vv->events_lock);
-+	mutex_init(&vv->vlock);
-+
-+	vv->virtio_dev = virtio_dev;
-+	virtio_dev->priv = vv;
-+
-+	init_waitqueue_head(&vv->wq);
-+
-+	ret = v4l2_device_register(dev, &vv->v4l2_dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = virtio_find_vqs(virtio_dev, 2, vqs, vq_info, NULL);
-+	if (ret)
-+		goto err_find_vqs;
-+
-+	vv->commandq = vqs[0];
-+	vv->eventq = vqs[1];
-+
-+	vd = &vv->video_dev;
-+	vd->v4l2_dev = &vv->v4l2_dev;
-+	vd->vfl_type = VFL_TYPE_VIDEO;
-+	vd->fops = &virtio_media_fops;
-+	vd->release = video_device_release_empty;
-+	strscpy(vd->name, "virtio-media", sizeof(vd->name));
-+
-+	video_set_drvdata(vd, vv);
-+
-+	vd->device_caps = virtio_cread32(virtio_dev, 0);
-+	if (vd->device_caps & (V4L2_CAP_VIDEO_M2M | V4L2_CAP_VIDEO_M2M_MPLANE))
-+		vd->vfl_dir = VFL_DIR_M2M;
-+	else if (vd->device_caps &
-+		 (V4L2_CAP_VIDEO_OUTPUT | V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE))
-+		vd->vfl_dir = VFL_DIR_TX;
-+	else
-+		vd->vfl_dir = VFL_DIR_RX;
-+
-+	ret = video_register_device(vd, virtio_cread32(virtio_dev, 4), 0);
-+	if (ret)
-+		goto err_register_device;
-+
-+	virtio_device_ready(virtio_dev);
++	if (builder->cur_sg >= builder->num_sgs)
++		return -ENOSPC;
++	builder->sgs[builder->cur_sg++] = &builder->descs[desc_index];
 +
 +	return 0;
++}
 +
-+err_register_device:
-+	virtio_dev->config->del_vqs(virtio_dev);
-+err_find_vqs:
-+	v4l2_device_unregister(&vv->v4l2_dev);
++/**
++ * scatterlist_builder_add_data() - Append arbitrary data to the descriptor
++ *                                  chain.
++ * @builder: builder to use.
++ * @data: pointer to the data to add to the descriptor chain.
++ * @len: length of the data to add.
++ *
++ * @data will either be directly referenced, or copied into the shadow buffer
++ * to be referenced from there.
++ */
++int scatterlist_builder_add_data(struct scatterlist_builder *builder,
++				 void *data, size_t len)
++{
++	const size_t cur_desc = builder->cur_desc;
++
++	if (len == 0)
++		return 0;
++
++	if (builder->cur_desc >= builder->num_descs)
++		return -ENOSPC;
++
++	if (!always_use_shadow_buffer && virt_addr_valid(data + len)) {
++		/*
++		 * If "data" is in the 1:1 physical memory mapping then we can
++		 * use a single SG entry and avoid copying.
++		 */
++		struct page *page = virt_to_page(data);
++		size_t offset = (((size_t)data) & ~PAGE_MASK);
++		struct scatterlist *next_desc =
++			&builder->descs[builder->cur_desc];
++
++		memset(next_desc, 0, sizeof(*next_desc));
++		sg_set_page(next_desc, page, len, offset);
++		builder->cur_desc++;
++	} else if (!always_use_shadow_buffer && is_vmalloc_addr(data)) {
++		int prev_pfn = -2;
++
++		/*
++		 * If "data" has been vmalloc'ed, we need at most one entry per
++		 * memory page but can avoid copying.
++		 */
++		while (len > 0) {
++			struct page *page = vmalloc_to_page(data);
++			int cur_pfn = page_to_pfn(page);
++			/* All pages but the first will start at offset 0. */
++			unsigned long offset =
++				(((unsigned long)data) & ~PAGE_MASK);
++			size_t len_in_page = min(PAGE_SIZE - offset, len);
++			struct scatterlist *next_desc =
++				&builder->descs[builder->cur_desc];
++
++			if (builder->cur_desc >= builder->num_descs)
++				return -ENOSPC;
++
++			/* Optimize contiguous pages */
++			if (cur_pfn == prev_pfn + 1) {
++				(next_desc - 1)->length += len_in_page;
++			} else {
++				memset(next_desc, 0, sizeof(*next_desc));
++				sg_set_page(next_desc, page, len_in_page,
++					    offset);
++				builder->cur_desc++;
++			}
++			data += len_in_page;
++			len -= len_in_page;
++			prev_pfn = cur_pfn;
++		}
++	} else {
++		/*
++		 * As a last resort, copy into the shadow buffer and reference
++		 * it with a single SG entry. Calling
++		 * scatterlist_builder_retrieve_data() will be necessary to copy
++		 * the data written by the device back into @data.
++		 */
++		void *shadow_buffer =
++			builder->shadow_buffer + builder->shadow_buffer_pos;
++		struct page *page = virt_to_page(shadow_buffer);
++		unsigned long offset =
++			(((unsigned long)shadow_buffer) & ~PAGE_MASK);
++		struct scatterlist *next_desc =
++			&builder->descs[builder->cur_desc];
++
++		if (len >
++		    builder->shadow_buffer_size - builder->shadow_buffer_pos)
++			return -ENOSPC;
++
++		memcpy(shadow_buffer, data, len);
++		memset(next_desc, 0, sizeof(*next_desc));
++		sg_set_page(next_desc, page, len, offset);
++		builder->cur_desc++;
++		builder->shadow_buffer_pos += len;
++	}
++
++	sg_mark_end(&builder->descs[builder->cur_desc - 1]);
++	return scatterlist_builder_add_descriptor(builder, cur_desc);
++}
++
++/**
++ * scatterlist_builder_retrieve_data() - Retrieve a response written by the
++ *                                       device on the shadow buffer.
++ * @builder: builder to use.
++ * @sg_index: index of the descriptor to read from.
++ * @data: destination for the shadowed data.
++ *
++ * If the shadow buffer is pointed to by the descriptor at index @sg_index of
++ * the chain, then ``sg->length`` bytes are copied back from it into @data.
++ * Otherwise nothing is done since the device has written into @data directly.
++ *
++ * @data must have originally been added by scatterlist_builder_add_data() as
++ * the same size as passed to scatterlist_builder_add_data() will be copied
++ * back.
++ */
++int scatterlist_builder_retrieve_data(struct scatterlist_builder *builder,
++				      size_t sg_index, void *data)
++{
++	void *shadow_buf = builder->shadow_buffer;
++	struct scatterlist *sg;
++	void *kaddr;
++
++	/* We can only retrieve from the range of sgs currently set. */
++	if (sg_index >= builder->cur_sg)
++		return -ERANGE;
++
++	sg = builder->sgs[sg_index];
++	kaddr = pfn_to_kaddr(page_to_pfn(sg_page(sg))) + sg->offset;
++
++	if (kaddr >= shadow_buf &&
++	    kaddr < shadow_buf + VIRTIO_SHADOW_BUF_SIZE) {
++		if (kaddr + sg->length >= shadow_buf + VIRTIO_SHADOW_BUF_SIZE)
++			return -EINVAL;
++
++		memcpy(data, kaddr, sg->length);
++	}
++
++	return 0;
++}
++
++/**
++ * scatterlist_builder_add_ioctl_cmd() - Add an ioctl command to the descriptor
++ *                                       chain.
++ * @builder: builder to use.
++ * @session: session on behalf of which the ioctl command is added.
++ * @ioctl_code: code of the ioctl to add (i.e. ``VIDIOC_*``).
++ */
++int scatterlist_builder_add_ioctl_cmd(struct scatterlist_builder *builder,
++				      struct virtio_media_session *session,
++				      u32 ioctl_code)
++{
++	struct virtio_media_cmd_ioctl *cmd_ioctl = &session->cmd.ioctl;
++
++	cmd_ioctl->hdr.cmd = VIRTIO_MEDIA_CMD_IOCTL;
++	cmd_ioctl->session_id = session->id;
++	cmd_ioctl->code = VIRTIO_MEDIA_IOCTL_CODE(ioctl_code);
++
++	return scatterlist_builder_add_data(builder, cmd_ioctl,
++					    sizeof(*cmd_ioctl));
++}
++
++/**
++ * scatterlist_builder_add_ioctl_resp() - Add storage to receive an ioctl
++ *                                        response to the descriptor chain.
++ * @builder: builder to use.
++ * @session: session on behalf of which the ioctl response is added.
++ */
++int scatterlist_builder_add_ioctl_resp(struct scatterlist_builder *builder,
++				       struct virtio_media_session *session)
++{
++	struct virtio_media_resp_ioctl *resp_ioctl = &session->resp.ioctl;
++
++	return scatterlist_builder_add_data(builder, resp_ioctl,
++					    sizeof(*resp_ioctl));
++}
++
++/**
++ * __scatterlist_builder_add_userptr() - Add user pages to @builder.
++ * @builder: builder to use.
++ * @userptr: pointer to userspace memory that we want to add.
++ * @length: length of the data to add.
++ * @sg_list: output parameter. Upon success, points to the area of the shadow
++ *           buffer containing the array of SG entries to be added to the
++ *           descriptor chain.
++ * @nents: output parameter. Upon success, contains the number of entries
++ *         pointed to by @sg_list.
++ *
++ * Data referenced by userspace pointers can be potentially large and very
++ * scattered, which could overwhelm the descriptor chain if added as-is. For
++ * these, we instead build an array of &struct virtio_media_sg_entry in the
++ * shadow buffer and reference it using a single descriptor.
++ *
++ * This function is a helper to perform that. Callers should then add the
++ * descriptor to the chain properly.
++ *
++ * Returns %-EFAULT if @userptr is not a valid user address, which is a case the
++ * driver should consider as "normal" operation. All other failures signal a
++ * problem with the driver.
++ */
++static int
++__scatterlist_builder_add_userptr(struct scatterlist_builder *builder,
++				  unsigned long userptr, unsigned long length,
++				  struct virtio_media_sg_entry **sg_list,
++				  int *nents)
++{
++	struct sg_table sg_table = {};
++	struct frame_vector *framevec;
++	struct scatterlist *sg_iter;
++	struct page **pages;
++	const unsigned int offset = userptr & ~PAGE_MASK;
++	unsigned int pages_count;
++	size_t entries_size;
++	int i;
++	int ret;
++
++	framevec = vb2_create_framevec(userptr, length, true);
++	if (IS_ERR(framevec)) {
++		if (PTR_ERR(framevec) != -EFAULT) {
++			pr_warn("error %ld creating frame vector for userptr 0x%lx, length 0x%lx\n",
++				PTR_ERR(framevec), userptr, length);
++		} else {
++			/* -EINVAL is expected in case of invalid userptr. */
++			framevec = ERR_PTR(-EINVAL);
++		}
++		return PTR_ERR(framevec);
++	}
++
++	pages = frame_vector_pages(framevec);
++	if (IS_ERR(pages)) {
++		pr_warn("error getting vector pages\n");
++		ret = PTR_ERR(pages);
++		goto done;
++	}
++	pages_count = frame_vector_count(framevec);
++	ret = sg_alloc_table_from_pages(&sg_table, pages, pages_count, offset,
++					length, 0);
++	if (ret) {
++		pr_warn("error creating sg table\n");
++		goto done;
++	}
++
++	/* Allocate our actual SG in the shadow buffer. */
++	*nents = sg_nents(sg_table.sgl);
++	entries_size = sizeof(**sg_list) * *nents;
++	if (builder->shadow_buffer_pos + entries_size >
++	    builder->shadow_buffer_size) {
++		ret = -ENOMEM;
++		goto free_sg;
++	}
++
++	*sg_list = builder->shadow_buffer + builder->shadow_buffer_pos;
++	builder->shadow_buffer_pos += entries_size;
++
++	for_each_sgtable_sg(&sg_table, sg_iter, i) {
++		struct virtio_media_sg_entry *sg_entry = &(*sg_list)[i];
++
++		sg_entry->start = sg_phys(sg_iter);
++		sg_entry->len = sg_iter->length;
++	}
++
++free_sg:
++	sg_free_table(&sg_table);
++
++done:
++	vb2_destroy_framevec(framevec);
 +	return ret;
 +}
 +
-+static void virtio_media_remove(struct virtio_device *virtio_dev)
++/**
++ * scatterlist_builder_add_userptr() - Add a user-memory buffer using an array
++ *                                     of &struct virtio_media_sg_entry.
++ * @builder: builder to use.
++ * @userptr: pointer to userspace memory that we want to add.
++ * @length: length of the data to add.
++ *
++ * Upon success, an array of &struct virtio_media_sg_entry referencing
++ * @userptr has been built into the shadow buffer, and that array added to the
++ * descriptor chain.
++ */
++static int scatterlist_builder_add_userptr(struct scatterlist_builder *builder,
++					   unsigned long userptr,
++					   unsigned long length)
 +{
-+	struct virtio_media *vv = virtio_dev->priv;
++	int ret;
++	int nents;
++	struct virtio_media_sg_entry *sg_list;
 +
-+	virtio_reset_device(virtio_dev);
-+	v4l2_device_unregister(&vv->v4l2_dev);
-+	virtio_dev->config->del_vqs(virtio_dev);
-+	video_unregister_device(&vv->video_dev);
++	ret = __scatterlist_builder_add_userptr(builder, userptr, length,
++						&sg_list, &nents);
++	if (ret)
++		return ret;
++
++	ret = scatterlist_builder_add_data(builder, sg_list,
++					   sizeof(*sg_list) * nents);
++	if (ret)
++		return ret;
++
++	return 0;
 +}
 +
-+static struct virtio_device_id id_table[] = {
-+	{ VIRTIO_ID_MEDIA, VIRTIO_DEV_ANY_ID },
-+	{ 0 },
-+};
++/**
++ * scatterlist_builder_add_buffer() - Add a &struct v4l2_buffer and its planes
++ *                                    to the descriptor chain.
++ * @builder: builder to use.
++ * @b: &struct v4l2_buffer to add.
++ */
++int scatterlist_builder_add_buffer(struct scatterlist_builder *builder,
++				   struct v4l2_buffer *b)
++{
++	int ret;
 +
-+static unsigned int features[] = {};
++	/* v4l2_buffer */
++	ret = scatterlist_builder_add_data(builder, b, sizeof(*b));
++	if (ret)
++		return ret;
 +
-+static struct virtio_driver virtio_media_driver = {
-+	.feature_table = features,
-+	.feature_table_size = ARRAY_SIZE(features),
-+	.driver.name = VIRTIO_MEDIA_DEFAULT_DRIVER_NAME,
-+	.driver.owner = THIS_MODULE,
-+	.id_table = id_table,
-+	.probe = virtio_media_probe,
-+	.remove = virtio_media_remove,
-+};
++	if (V4L2_TYPE_IS_MULTIPLANAR(b->type) && b->length > 0) {
++		/* Array of v4l2_planes */
++		ret = scatterlist_builder_add_data(builder, b->m.planes,
++						   sizeof(struct v4l2_plane) *
++							   b->length);
++		if (ret)
++			return ret;
++	}
 +
-+module_virtio_driver(virtio_media_driver);
++	return 0;
++}
 +
-+MODULE_DEVICE_TABLE(virtio, id_table);
-+MODULE_DESCRIPTION("virtio media driver");
-+MODULE_AUTHOR("Alexandre Courbot <gnurou@gmail.com>");
-+MODULE_LICENSE("Dual BSD/GPL");
-diff --git a/include/uapi/linux/virtio_media.h b/include/uapi/linux/virtio_media.h
++/**
++ * scatterlist_builder_retrieve_buffer() - Retrieve a &struct v4l2_buffer
++ *                                         written by the device on the shadow
++ *                                         buffer, if needed.
++ * @builder: builder to use.
++ * @sg_index: index of the first SG entry of the buffer in the builder's
++ *            descriptor chain.
++ * @b: &struct v4l2_buffer to copy shadow buffer data into.
++ * @orig_planes: the original ``planes`` pointer, to be restored if the buffer
++ *               is multi-planar.
++ *
++ * If the &struct v4l2_buffer pointed to by @sg_index was copied into the
++ * shadow buffer, then its updated content is copied back into @b.
++ * Otherwise nothing is done as the device has written into @b directly.
++ *
++ * @orig_planes is used to restore the original ``planes`` pointer in case it
++ * gets modified by the host. The specification stipulates that the host should
++ * not modify it, but we enforce this for additional safety.
++ */
++int scatterlist_builder_retrieve_buffer(struct scatterlist_builder *builder,
++					size_t sg_index, struct v4l2_buffer *b,
++					struct v4l2_plane *orig_planes)
++{
++	int ret;
++
++	ret = scatterlist_builder_retrieve_data(builder, sg_index++, b);
++	if (ret)
++		return ret;
++
++	if (V4L2_TYPE_IS_MULTIPLANAR(b->type)) {
++		b->m.planes = orig_planes;
++
++		if (orig_planes) {
++			ret = scatterlist_builder_retrieve_data(builder,
++								sg_index++,
++								b->m.planes);
++			if (ret)
++				return ret;
++		}
++	}
++
++	return 0;
++}
++
++/**
++ * scatterlist_builder_add_ext_ctrls() - Add a &struct v4l2_ext_controls and its
++ *                                       controls to @builder.
++ * @builder: builder to use.
++ * @ctrls: &struct v4l2_ext_controls to add.
++ *
++ * Add @ctrls and its array of &struct v4l2_ext_control to the descriptor
++ * chain.
++ */
++int scatterlist_builder_add_ext_ctrls(struct scatterlist_builder *builder,
++				      struct v4l2_ext_controls *ctrls)
++{
++	int ret;
++
++	/* v4l2_ext_controls */
++	ret = scatterlist_builder_add_data(builder, ctrls, sizeof(*ctrls));
++	if (ret)
++		return ret;
++
++	if (ctrls->count > 0) {
++		/* array of v4l2_controls */
++		ret = scatterlist_builder_add_data(builder, ctrls->controls,
++						   sizeof(ctrls->controls[0]) *
++							   ctrls->count);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
++/**
++ * scatterlist_builder_add_ext_ctrls_userptrs() - Add the userspace payloads of
++ *                                                a &struct v4l2_ext_controls
++ *                                                to the descriptor chain.
++ * @builder: builder to use.
++ * @ctrls: &struct v4l2_ext_controls from which we want to add the
++ *         userspace payload.
++ *
++ * Add the userspace payloads of @ctrls to the descriptor chain. This is split
++ * out of scatterlist_builder_add_ext_ctrls() because we only want to add
++ * these to the device-readable part of the descriptor chain.
++ */
++int
++scatterlist_builder_add_ext_ctrls_userptrs(struct scatterlist_builder *builder,
++					   struct v4l2_ext_controls *ctrls)
++{
++	int i;
++	int ret;
++
++	/* Pointers to user memory in individual controls */
++	for (i = 0; i < ctrls->count; i++) {
++		struct v4l2_ext_control *ctrl = &ctrls->controls[i];
++
++		if (ctrl->size > 0) {
++			unsigned long uptr = (unsigned long)ctrl->ptr;
++
++			ret = scatterlist_builder_add_userptr(builder, uptr,
++							      ctrl->size);
++			if (ret)
++				return ret;
++		}
++	}
++
++	return 0;
++}
++
++/**
++ * scatterlist_builder_retrieve_ext_ctrls() - Retrieve controls written by the
++ *                                            device on the shadow buffer,
++ *                                            if needed.
++ * @builder: builder to use.
++ * @sg_index: index of the first SG entry of the controls in the builder's
++ *            descriptor chain.
++ * @ctrls: &struct v4l2_ext_controls to copy shadow buffer data into.
++ *
++ * If the shadow buffer is pointed to by @sg_index, copy its content back into
++ * @ctrls.
++ */
++int scatterlist_builder_retrieve_ext_ctrls(struct scatterlist_builder *builder,
++					   size_t sg_index,
++					   struct v4l2_ext_controls *ctrls)
++{
++	struct v4l2_ext_control *controls_backup = ctrls->controls;
++	int ret;
++
++	ret = scatterlist_builder_retrieve_data(builder, sg_index++, ctrls);
++	if (ret)
++		return ret;
++
++	ctrls->controls = controls_backup;
++
++	if (ctrls->count > 0 && ctrls->controls) {
++		ret = scatterlist_builder_retrieve_data(builder, sg_index++,
++							ctrls->controls);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
+diff --git a/drivers/media/virtio/scatterlist_builder.h b/drivers/media/virtio/scatterlist_builder.h
 new file mode 100644
-index 000000000..371dbe811
+index 000000000..47bfd7ae0
 --- /dev/null
-+++ b/include/uapi/linux/virtio_media.h
-@@ -0,0 +1,287 @@
++++ b/drivers/media/virtio/scatterlist_builder.h
+@@ -0,0 +1,109 @@
 +/* SPDX-License-Identifier: BSD-3-Clause OR GPL-2.0+ */
 +
 +/*
-+ * Definitions of virtio-media protocol structures.
++ * Scatterlist builder helpers for virtio-media.
 + *
 + * Copyright (c) 2024-2026 Google LLC.
 + */
 +
-+#ifndef __VIRTIO_MEDIA_PROTOCOL_H
-+#define __VIRTIO_MEDIA_PROTOCOL_H
++#ifndef __VIRTIO_MEDIA_SCATTERLIST_BUILDER_H
++#define __VIRTIO_MEDIA_SCATTERLIST_BUILDER_H
 +
-+#include <linux/videodev2.h>
++#include <linux/scatterlist.h>
 +
-+/*
-+ * Virtio protocol definition.
-+ */
++#include "session.h"
 +
 +/**
-+ * struct virtio_media_cmd_header - Header for all virtio-media commands.
-+ * @cmd: one of VIRTIO_MEDIA_CMD_*.
-+ * @__reserved: must be set to zero by the driver.
++ * struct scatterlist_builder - helper to build a scatterlist from data.
++ * @descs: pool of descriptors to use.
++ * @num_descs: number of entries in descs.
++ * @cur_desc: next descriptor to be used in @descs.
++ * @shadow_buffer: pointer to a shadow buffer where elements that cannot be
++ * mapped directly into the scatterlist get copied.
++ * @shadow_buffer_size: size of @shadow_buffer.
++ * @shadow_buffer_pos: current position in @shadow_buffer.
++ * @sgs: descriptor chain to eventually pass to virtio functions.
++ * @num_sgs: total number of entries in @sgs.
++ * @cur_sg: next entry in @sgs to be used.
 + *
-+ * This header starts all commands from the driver to the device on the
-+ * commandq.
-+ */
-+struct virtio_media_cmd_header {
-+	u32 cmd;
-+	u32 __reserved;
-+};
-+
-+/**
-+ * struct virtio_media_resp_header - Header for all virtio-media responses.
-+ * @status: 0 if the command was successful, or one of the standard Linux error
-+ *          codes.
-+ * @__reserved: must be set to zero by the device.
++ * Virtio passes data from the driver to the device (through e.g.
++ * virtqueue_add_sgs()) via a scatterlist that the device interprets as a
++ * linear view over scattered driver memory.
 + *
-+ * This header starts all responses from the device to the driver on the
-+ * commandq.
-+ */
-+struct virtio_media_resp_header {
-+	u32 status;
-+	u32 __reserved;
-+};
-+
-+/**
-+ * VIRTIO_MEDIA_CMD_OPEN - Command for creating a new session.
++ * In virtio-media, the payload of ioctls from user-space can for the most part
++ * be passed as-is, or after slight modification, which makes it tempting to
++ * just forward the ioctl payload received from user-space as-is instead of
++ * doing another copy into a dedicated buffer. This structure helps with this.
 + *
-+ * This is the equivalent of calling ``open`` on a V4L2 device node. Upon
-+ * success, a session id is returned which can be used to perform other
-+ * commands on the session, notably ioctls.
-+ */
-+#define VIRTIO_MEDIA_CMD_OPEN 1
-+
-+/**
-+ * struct virtio_media_cmd_open - Driver command for VIRTIO_MEDIA_CMD_OPEN.
-+ * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_OPEN.
-+ */
-+struct virtio_media_cmd_open {
-+	struct virtio_media_cmd_header hdr;
-+};
-+
-+/**
-+ * struct virtio_media_resp_open - Device response for VIRTIO_MEDIA_CMD_OPEN.
-+ * @hdr: header containing the status of the command.
-+ * @session_id: if &struct virtio_media_resp_header.status == 0, contains the
-+ *              id of the newly created session.
-+ * @__reserved: must be set to zero by the device.
-+ */
-+struct virtio_media_resp_open {
-+	struct virtio_media_resp_header hdr;
-+	u32 session_id;
-+	u32 __reserved;
-+};
-+
-+/**
-+ * VIRTIO_MEDIA_CMD_CLOSE - Command for closing an active session.
++ * virtio-media descriptor chains are typically made of the following parts:
 + *
-+ * This is the equivalent of calling ``close`` on a previously opened V4L2
-+ * session. All resources associated with this session will be freed and the
-+ * session ID shall not be used again after queueing this command.
++ * Device-readable:
++ * - A command structure, i.e. ``virtio_media_cmd_*``,
++ * - An ioctl payload (one of the regular ioctl parameters),
++ * - (optionally) arrays of &struct virtio_media_sg_entry describing the
++ *   content of buffers in guest memory.
 + *
-+ * This command does not require a response from the device.
-+ */
-+#define VIRTIO_MEDIA_CMD_CLOSE 2
-+
-+/**
-+ * struct virtio_media_cmd_close - Driver command for VIRTIO_MEDIA_CMD_CLOSE.
-+ * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_CLOSE.
-+ * @session_id: id of the session to close.
-+ * @__reserved: must be set to zero by the driver.
-+ */
-+struct virtio_media_cmd_close {
-+	struct virtio_media_cmd_header hdr;
-+	u32 session_id;
-+	u32 __reserved;
-+};
-+
-+/**
-+ * VIRTIO_MEDIA_CMD_IOCTL - Driver command for executing an ioctl.
++ * Device-writable:
++ * - A response structure, i.e. ``virtio_media_resp_*``,
++ * - An ioctl payload, that the device will write to.
 + *
-+ * This command asks the device to run one of the ``VIDIOC_*`` ioctls on the
-+ * active session.
++ * This structure helps laying out the descriptor chain into its @sgs member in
++ * an optimal way, by building a scatterlist adapted to the originating memory
++ * of the data we want to pass to the device while avoiding copies when
++ * possible.
 + *
-+ * The code of the ioctl is extracted from the VIDIOC_* definitions in
-+ * ``videodev2.h``, and consists of the second argument of the ``_IO*`` macro.
-+ *
-+ * Each ioctl has a payload, which is defined by the third argument of the
-+ * ``_IO*`` macro defining it. It can be writable by the driver (``_IOW``), the
-+ * device (``_IOR``), or both (``_IOWR``).
-+ *
-+ * If an ioctl is writable by the driver, it must be followed by a
-+ * driver-writable descriptor containing the payload.
-+ *
-+ * If an ioctl is writable by the device, it must be followed by a
-+ * device-writable descriptor of the size of the payload that the device will
-+ * write into.
-+ *
++ * It is made of a pool of &struct scatterlist (@descs) that is used to
++ * build the final descriptor chain @sgs, and a @shadow_buffer where data that
++ * cannot (or should not) be mapped directly by the host can be temporarily
++ * copied.
 + */
-+#define VIRTIO_MEDIA_CMD_IOCTL 3
++struct scatterlist_builder {
++	struct scatterlist *descs;
++	size_t num_descs;
++	size_t cur_desc;
 +
-+/**
-+ * struct virtio_media_cmd_ioctl - Driver command for VIRTIO_MEDIA_CMD_IOCTL.
-+ * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_IOCTL.
-+ * @session_id: id of the session to run the ioctl on.
-+ * @code: code of the ioctl to run.
-+ */
-+struct virtio_media_cmd_ioctl {
-+	struct virtio_media_cmd_header hdr;
-+	u32 session_id;
-+	u32 code;
++	void *shadow_buffer;
++	size_t shadow_buffer_size;
++	size_t shadow_buffer_pos;
++
++	struct scatterlist **sgs;
++	size_t num_sgs;
++	size_t cur_sg;
 +};
 +
-+/**
-+ * struct virtio_media_resp_ioctl - Device response for VIRTIO_MEDIA_CMD_IOCTL.
-+ * @hdr: header containing the status of the ioctl.
-+ */
-+struct virtio_media_resp_ioctl {
-+	struct virtio_media_resp_header hdr;
-+};
++int scatterlist_builder_add_descriptor(struct scatterlist_builder *builder,
++				       size_t desc_index);
 +
-+/**
-+ * struct virtio_media_sg_entry - Description of part of a scattered guest
-+ *                                memory.
-+ * @start: start guest address of the memory segment.
-+ * @len: length of this memory segment.
-+ * @__reserved: must be set to zero by the driver.
-+ */
-+struct virtio_media_sg_entry {
-+	u64 start;
-+	u32 len;
-+	u32 __reserved;
-+};
++int scatterlist_builder_add_data(struct scatterlist_builder *builder,
++				 void *data, size_t len);
 +
-+/**
-+ * VIRTIO_MEDIA_MMAP_FLAG_RW - Bit position of the VIRTIO_MEDIA_MMAP_FLAG_RW
-+ *                             flag.
-+ */
-+#define VIRTIO_MEDIA_MMAP_FLAG_RW 0
++int scatterlist_builder_retrieve_data(struct scatterlist_builder *builder,
++				      size_t sg_index, void *data);
 +
-+/**
-+ * VIRTIO_MEDIA_CMD_MMAP - Command for mapping a MMAP buffer into the driver's
-+ *                         address space.
-+ */
-+#define VIRTIO_MEDIA_CMD_MMAP 4
++int scatterlist_builder_add_ioctl_cmd(struct scatterlist_builder *builder,
++				      struct virtio_media_session *session,
++				      u32 ioctl_code);
 +
-+/**
-+ * struct virtio_media_cmd_mmap - Driver command for VIRTIO_MEDIA_CMD_MMAP.
-+ * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_MMAP.
-+ * @session_id: ID of the session we are mapping for.
-+ * @flags: combination of VIRTIO_MEDIA_MMAP_FLAG_*.
-+ * @offset: mem_offset field of the plane to map, as returned by
-+ *          VIDIOC_QUERYBUF.
-+ */
-+struct virtio_media_cmd_mmap {
-+	struct virtio_media_cmd_header hdr;
-+	u32 session_id;
-+	u32 flags;
-+	u32 offset;
-+};
++int scatterlist_builder_add_ioctl_resp(struct scatterlist_builder *builder,
++				       struct virtio_media_session *session);
 +
-+/**
-+ * struct virtio_media_resp_mmap - Device response for VIRTIO_MEDIA_CMD_MMAP.
-+ * @hdr: header containing the status of the command.
-+ * @driver_addr: offset into SHM region 0 of the start of the mapping.
-+ * @len: length of the mapping.
-+ */
-+struct virtio_media_resp_mmap {
-+	struct virtio_media_resp_header hdr;
-+	u64 driver_addr;
-+	u64 len;
-+};
++int scatterlist_builder_add_buffer(struct scatterlist_builder *builder,
++				   struct v4l2_buffer *buffer);
 +
-+/**
-+ * VIRTIO_MEDIA_CMD_MUNMAP - Unmap a MMAP buffer previously mapped using
-+ *                           VIRTIO_MEDIA_CMD_MMAP.
-+ */
-+#define VIRTIO_MEDIA_CMD_MUNMAP 5
++int scatterlist_builder_retrieve_buffer(struct scatterlist_builder *builder,
++					size_t sg_index,
++					struct v4l2_buffer *buffer,
++					struct v4l2_plane *orig_planes);
 +
-+/**
-+ * struct virtio_media_cmd_munmap - Driver command for VIRTIO_MEDIA_CMD_MUNMAP.
-+ * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_MUNMAP.
-+ * @driver_addr: offset into SHM region 0 at which the buffer has been
-+ *               previously mapped.
-+ */
-+struct virtio_media_cmd_munmap {
-+	struct virtio_media_cmd_header hdr;
-+	u64 driver_addr;
-+};
++int scatterlist_builder_add_ext_ctrls(struct scatterlist_builder *builder,
++				      struct v4l2_ext_controls *ctrls);
 +
-+/**
-+ * struct virtio_media_resp_munmap - Device response for
-+ *                                   VIRTIO_MEDIA_CMD_MUNMAP.
-+ * @hdr: header containing the status of the command.
-+ */
-+struct virtio_media_resp_munmap {
-+	struct virtio_media_resp_header hdr;
-+};
++int
++scatterlist_builder_add_ext_ctrls_userptrs(struct scatterlist_builder *builder,
++					   struct v4l2_ext_controls *ctrls);
 +
-+/* The values for these events are set by the virtio-media specification. */
-+#define VIRTIO_MEDIA_EVT_ERROR 0
-+#define VIRTIO_MEDIA_EVT_DQBUF 1
-+#define VIRTIO_MEDIA_EVT_EVENT 2
++int scatterlist_builder_retrieve_ext_ctrls(struct scatterlist_builder *builder,
++					   size_t sg_index,
++					   struct v4l2_ext_controls *ctrls);
 +
-+/**
-+ * struct virtio_media_event_header - Header for events on the eventq.
-+ * @event: one of VIRTIO_MEDIA_EVT_*
-+ * @session_id: ID of the session the event applies to.
-+ */
-+struct virtio_media_event_header {
-+	u32 event;
-+	u32 session_id;
-+};
-+
-+/**
-+ * struct virtio_media_event_error - Unrecoverable device-side error.
-+ * @hdr: header for the event.
-+ * @errno: error code describing the kind of error that occurred.
-+ * @__reserved: must be set to zero by the device.
-+ *
-+ * Upon receiving this event, the session mentioned in the header is considered
-+ * corrupted and closed.
-+ */
-+struct virtio_media_event_error {
-+	struct virtio_media_event_header hdr;
-+	u32 errno;
-+	u32 __reserved;
-+};
-+
-+/* This is set to VIDEO_MAX_PLANES defined in include/uapi/linux/videodev2.h.
-+ * It is renamed here to match the constant that is defined in the virtio-media
-+ * specification.
-+ */
-+#define VIRTIO_MEDIA_MAX_PLANES VIDEO_MAX_PLANES
-+
-+/**
-+ * struct virtio_media_event_dqbuf - Dequeued buffer event.
-+ * @hdr: header for the event.
-+ * @buffer: &struct v4l2_buffer describing the buffer that has been dequeued.
-+ * @planes: plane information for the dequeued buffer.
-+ *
-+ * This event is used to signal that a buffer is not being used anymore by the
-+ * device and is returned to the driver.
-+ */
-+struct virtio_media_event_dqbuf {
-+	struct virtio_media_event_header hdr;
-+	struct v4l2_buffer buffer;
-+	struct v4l2_plane planes[VIRTIO_MEDIA_MAX_PLANES];
-+};
-+
-+/**
-+ * struct virtio_media_event_event - V4L2 event.
-+ * @hdr: header for the event.
-+ * @event: description of the event that occurred.
-+ *
-+ * This event signals that a V4L2 event has been emitted for a session.
-+ */
-+struct virtio_media_event_event {
-+	struct virtio_media_event_header hdr;
-+	struct v4l2_event event;
-+};
-+
-+/* Maximum size of an event. We will queue descriptors of this size on the
-+ * eventq.
-+ */
-+#define VIRTIO_MEDIA_EVENT_MAX_SIZE sizeof(struct virtio_media_event_dqbuf)
-+
-+#endif // __VIRTIO_MEDIA_PROTOCOL_H
++#endif // __VIRTIO_MEDIA_SCATTERLIST_BUILDER_H
 -- 
 2.55.0.229.g6434b31f56-goog
 
