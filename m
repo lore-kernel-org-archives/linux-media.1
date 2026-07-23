@@ -1,173 +1,136 @@
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC201C84DC
-	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 20:55:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784840122; cv=none; b=lHL6E83Emqh4BbETy5Itzgo7V/U1NJj787z3PQGLXwiEjkmxeboWNvrUQJ1Ku8pWamvlDebX0QlRBmHQrytDhMSzSiykAVHmZQR+GlH9VDyt9eKSF3qXJv5nNXWvcRBWPoyLpIqiZkY3medKAVzlyQYT7HAw7Ye7RtDG4wtltTA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784840122; c=relaxed/simple;
-	bh=kpNpmXP2zUcfvgI+VUB/mqBaz21ktP2Izhk8EyYE0Ng=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mhYikhvvQPagUNwj1CkO2fwQ1TIxy45l8meD5ce1oM70D62oha5ih4E60/WqzrjeYOE4Mie6iYFDjqRZX9e+E6evo7rri0cC33BgAA3y4FhJkRq0F2U0UrkZpOucpRRGcwniIk1HNbXuv+YH2NM/4pZhrzAiNnxK+DgtpkHqiNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dwP/4SFp; arc=none smtp.client-ip=209.85.219.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8CD345ED9;
+	Thu, 23 Jul 2026 20:56:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784840196; cv=pass; b=g32x9W+tMU1A2vjCNd2II2NnjRWVw45E6skForoHNcRX4oa/XLlIejL0KmKqRJD40qT1MMfVwU+/FI/lamXXXVEKGpPQshwMsZko/5WBvVP62mxrWX9G2Vb32PxORO5L+NH1CkASIiPOkjgIq0DF+kiRtT5Mw+f8ASDQPoeCuBg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784840196; c=relaxed/simple;
+	bh=ds4YAyGxUGGXS3T7kkGkgx0wApLTLcviM14ykvvKwY4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DBCZKVjcuoQLCcPaCebz+RSMF/GDpinUSiEcZn0Dqnv7HdlIFoUB/lDKTr5d30wZ2NKWs+NJDDYJgVlq55Kljk9FYQQ+WMbvRIwviPz6axv6Tv6ODJq77Gh9bAddZUs7xLq+x1MTE+6CA+wfRSxOPatCjeBp7DVhmC+j6MgxcoE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=M+mj4sir; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dwP/4SFp"
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-8efbafa1bacso9426556d6.1
-        for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 13:55:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784840120; x=1785444920; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZLkFGK35XJxgAtHBySSU6z2wsXFjqNEj24rUwtelC/Y=;
-        b=dwP/4SFp/Kl/ZP8TH8yvyCAr0AKapl/J/FzcRiUzzYLqRjqZi9/bRKxUYcd082yDPd
-         D7LfRtY+W85sBMrzWwR6bvtYht7MQvxvC8Q7PlDqGsrJnz2g06NIPbGbKGcQ8BUKtrTF
-         GsHroYrbBby4cnFnRD6aeKQ7TzXMYgST7HDVWAPUjKpucLUe38a9SUEeZl5UBYEwhiGg
-         OWafKL1pmt/vynfh5GX37Gu/bc4jK2xfbBnF+SLYqi4xUoxpQUsoN47+bsPs8+ljmIQb
-         5o/G9GqGVb4dnm/gHwo61z51tsp7pyXfXdPp/OpxbSu1jCwqzgle7QV0XKxg9U9ptYXZ
-         2XEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784840120; x=1785444920;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZLkFGK35XJxgAtHBySSU6z2wsXFjqNEj24rUwtelC/Y=;
-        b=db/pqpScwXyj4dO09UnWE3tgqSg+GXGR3Ps4/JOPtWTrvlklSCCjCFxJqb4AoNwmmC
-         JKFTtCxVnxV2Gsq34WxqvUHWd05hsXU0CXF/5b89bvvTqwMpbraas9m3P6XHPGx7w7xP
-         gi2p7f8+DSqP8hP0fkLeH3MQvzTdDDXNu36bH9Rf+jNJHUKPHuJ3t4+YVAzjGUgDGoYG
-         kQHmbJD23G++ktuR+8wYAcw+nkU6yMCmKK8Ze8JLYtXZ4lReXfxIaoWR4m9KuIrt8YP0
-         7cNgy3qIGyj+RBhJcmvt9XEuRCE25kenVAcGUNalD3AdCo1MJEY8CKykCOAOH7udW8UQ
-         YwDg==
-X-Gm-Message-State: AOJu0YwOL5Ga3b1v3w9V9//ufA1ofFXbdlcYBb6wdDFpfH6reMdGaF/8
-	JEMKBMrQozrWRf79FzGkC8rzvOsJS5BT7niYQekYaBr+ETT1BQNGG7jI
-X-Gm-Gg: AR+sD12yPKF7wm5f9wgV1DnbfB0eaSnyYBRLyKT3BKLoxr8TLDE2xA0nAN1o5p9TrL8
-	+3aCzAgHJx7eyZoTONFx8C6pkUINjNFAU+H9sPVkwRqeT9lEPmlekGYG2451wmSyTi9L/eCydGz
-	5ftyTIKIkjVehab30j3pJGb/ynFRgxysAjxDdpqTTE/2Ty7wxumoIv9+0+x7byITCRVZwtJcDIU
-	sft36z3G+5kNvsOjw/J3sl9rNOunTm1VFn3Lss9cy+vdvuSftjLYSnXlsHhrUmbgMW3oRDm7PSm
-	tQriwQ7jH04tXVTmp5y4x2eB8Q7WqbBaB2OKyaSEAId/pHhgQvDbnmEm1asluLjBZfVG9xhYgT/
-	Md3Q8qSW13e1v3ywTi8qHSUgs2EVwZzfhUi6Xvvhwlk0GQc38CRyDBtkJf+23i4gXp8tewIIX9O
-	cTiHDZFMXLeSQn8XxXVg5PLGdzZcj7FsTIl/XsmKrOii/DgVeH42/PRL0QZGN+sqxFQY0W6NSxy
-	Q==
-X-Received: by 2002:a05:620a:3945:b0:92e:c116:bf11 with SMTP id af79cd13be357-93103aa2d39mr458620285a.90.1784840119399;
-        Thu, 23 Jul 2026 13:55:19 -0700 (PDT)
-Received: from Ai-Server.tail94eb8c.ts.net (131-193-45-111.cs.uic.edu. [131.193.45.111])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-930f687a6aasm501134585a.9.2026.07.23.13.55.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 13:55:19 -0700 (PDT)
-From: Luyao Bai <bailuyao1997@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Henri A <contact@henrialfonso.com>
-Cc: linux-media@vger.kernel.org,
-	Patrick Boettcher <pb@linuxtv.org>,
-	linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	syzbot+0cd0fb4cf3f4722d6663@syzkaller.appspotmail.com
-Subject: [PATCH] media: dib0700: reject zero-length I2C reads in both transfer paths
-Date: Thu, 23 Jul 2026 20:55:10 +0000
-Message-ID: <20260723205510.662761-1-bailuyao1997@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260621192222.337738-1-contact@henrialfonso.com>
-References: <20260621192222.337738-1-contact@henrialfonso.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="M+mj4sir"
+ARC-Seal: i=1; a=rsa-sha256; t=1784840177; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=D9+jE3ftNDflNHtQS33dbevRLkr8wXunkO2Onj2Lu/ALSlCFoj4c/61dJdpCBiSYp4iPNhXABhUuS7YflA/qcxSuPjLHqR1+lPmGIya4dZett6ngj4pL7rymaVQ1PcRxoaXgatWY0o38gDW/DNaqVt2FmL4MSQwilBey6hKUI58=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784840177; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=8I9WwvhFbEM9iAa53dhbxA1gFJZWlii6YXBZUb5eEow=; 
+	b=ZhMp2BG2WaLBVBGgodkSC30NjhHbJ3KsVF/bY1FLG31ri8YaxXA6TECod9WY6qTBaYO9bofUE04gasDYF4xi1LJ89G7tWkqXNy4hXzTUUxmW0k/yRLb0rzjGzRuEUxoz79WaknWRB4dppASuGICKwHoaU706yudRJbcWB4JqKNo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784840177;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=8I9WwvhFbEM9iAa53dhbxA1gFJZWlii6YXBZUb5eEow=;
+	b=M+mj4sirUiKmA5b2cRUrbBUrgIrqj3ze6YoyZu5iEJApefiJ0nJ+aClAPDiKbTaf
+	RezgtJvXsCx0NyK+9kMOFnrEbIBilEBehJiuPgWU/V+Kti2WURFxjHPQ00gv+HiRCe0
+	cLFBysy7TYOsMxDZ/VFghjCc/x2ls9Nb04Bn5mT4=
+Received: by mx.zohomail.com with SMTPS id 1784840175686843.6352557845835;
+	Thu, 23 Jul 2026 13:56:15 -0700 (PDT)
+Message-ID: <1ac66aab-8985-4441-8ce1-07e2ea5183bd@collabora.com>
+Date: Thu, 23 Jul 2026 23:56:11 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/4] media: synopsys: hdmirx: add HDMI audio capture
+ support
+To: Igor Paunovic <royalnet026@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260718085728.6797-1-royalnet026@gmail.com>
+ <20260718085728.6797-3-royalnet026@gmail.com>
+ <25922edc-4ff1-4d28-9a64-2c28b2b690cb@collabora.com>
+ <CAEWPSH70FecQRuGtA=S8+_CnLY5sMyf1j57Uwzwv54zceS1HZg@mail.gmail.com>
+ <b8d63f61-b73e-412e-8119-ced1afdd4551@collabora.com>
+ <CAEWPSH5j3tYNb1JKRGwa00PVnYAgCKS+B-Qz07D8Z7TJea5cMw@mail.gmail.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <CAEWPSH5j3tYNb1JKRGwa00PVnYAgCKS+B-Qz07D8Z7TJea5cMw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-A zero-length I2C read (I2C_M_RD with len == 0), issued from user space
-through /dev/i2c-N with the I2C_RDWR ioctl, is translated by the dib0700
-bridge into a control-IN usb_control_msg() whose wLength is the I2C
-message length, i.e. 0. usb_submit_urb() treats a zero-length control
-transfer as OUT, so the pipe direction (IN) and the setup-packet
-direction (bRequestType = 0xc0, IN) disagree and trip the WARN() in
-usb_submit_urb():
+On 7/21/26 08:31, Igor Paunovic wrote:
+> Hi Dmitry,
+> 
+>> Re-arming will be best option if it works properly.
+> 
+> Went back to it and made it work properly -- with one honest caveat
+> at the end.
+> 
+> Plain cancel/re-arm could not have been enough as previously
+> written: hdmirx_resume() fully resets the controller via
+> reset_control_bulk_assert/deassert in hdmirx_enable(), wiping the
+> audio configuration (I2S_EN, AUDIO_ENABLE, FIFO thresholds), and
+> the worker's error path never re-programs those -- it only resyncs
+> the clock rate and reinits the FIFO. So v4 does:
+> 
+> - suspend: cancel_delayed_work_sync() on the audio worker before
+> the clocks are gated (audio_streaming stays set);
+> - resume: if a capture stream is active, re-program the whole
+> audio path (clock from the last known sample rate, FIFO
+> thresholds, I2S_EN, AUDIO_ENABLE) and re-arm the worker.
+> 
+> The programming is factored out of hw_params() into a shared
+> hdmirx_audio_setup() helper so resume and hw_params cannot drift.
+> I also checked that nothing in the post-resume hotplug re-init path
+> (plugout/plugin/submodule_init/controller_init) touches the audio
+> bits, so the restore survives the replug dance resume triggers.
+> 
+> Measured on the Orange Pi 5 Plus (pm_test=devices, i.e. full device
+> suspend/resume callbacks, active capture stream with live audio
+> through the whole cycle): on resume the capture simply continues --
+> audio was flowing again the moment the display came back, no
+> userspace intervention, clean dmesg, no oops in any of the ~6
+> cycles exercised tonight.
+> 
+> The caveat: a *second* suspend/resume cycle in the same boot leaves
+> the audio datapath silent (the I2S slave sees no bit clock, so
+> capture reads time out) even though the resume restore re-programs
+> everything, and a fresh stream open does not recover it -- only a
+> reboot does. Notably this happens with plain no-stream suspend
+> cycles as well, so it is not caused by (and would not be prevented
+> by) either the re-arm or the -EBUSY approach -- it looks like more
+> controller state lost on repeated reset that neither hw_params nor
+> resume currently covers, likely the same warm-up state machine I
+> described in the v3 testing note (audio needing a video STREAMON
+> after a replug). I am instrumenting the register state next to
+> root-cause it; I'd treat it as a follow-up rather than a v4
+> blocker, but happy to hear if you see it differently -- and curious
+> whether the 5B shows the same second-cycle behavior.
+> 
+> v4 follows with the re-arm plus the dts and binding changes already
+> mentioned.
+> 
+> One more small thing the audio bit exposes, for a possible
+> follow-up: hdmirx_cec_update_bits() is a non-atomic RMW (the read
+> and the write each take rst_lock separately), and with audio added
+> there are now two writers of GLOBAL_SWENABLE, so a CEC adapter
+> enable racing an audio enable/disable could in theory lose the
+> other side's bit. Mainline today has a single writer, so it is not
+> a bug there. Can send a small patch making it atomic if you think
+> it is worth it.
 
-  usb 4-1: BOGUS control dir, pipe 80000280 doesn't match bRequestType c0
-  WARNING: drivers/usb/core/urb.c:411 at usb_submit_urb+0x1573/0x1910
-   usb_submit_urb
-   usb_start_wait_urb
-   usb_control_msg
-   dib0700_ctrl_rd drivers/media/usb/dvb-usb/dib0700_core.c:95
-   dib0700_i2c_xfer_legacy drivers/media/usb/dvb-usb/dib0700_core.c:315
-   dib0700_i2c_xfer drivers/media/usb/dvb-usb/dib0700_core.c:361
-   __i2c_transfer
-   i2c_transfer
-   i2cdev_ioctl_rdwr drivers/i2c/i2c-dev.c:306
+Feel free to send the follow ups.
 
-The .master_xfer entry point dib0700_i2c_xfer() dispatches to one of two
-transfer routines depending on the device firmware: dib0700_i2c_xfer_new()
-(firmware >= 1.20) and dib0700_i2c_xfer_legacy(). Both build a control-IN
-usb_control_msg() from the I2C read length, so both can submit the bogus
-zero-length transfer; the syzbot reproducer happens to take the legacy
-path. Guarding a single path therefore leaves the other exposed.
-
-Reject zero-length reads in the shared dispatcher, before the firmware
-split, so neither path can submit such a transfer. -EOPNOTSUPP is
-returned because the adapter cannot express a zero-length read, matching
-the error the i2c core returns for the I2C_AQ_NO_ZERO_LEN_READ quirk.
-
-The i2c core can enforce this centrally via the I2C_AQ_NO_ZERO_LEN_READ
-adapter quirk, but the dib0700 bridge reuses the i2c adapter registered
-by the dvb-usb core (dvb-usb-i2c.c), and the dvb-usb framework provides
-no hook for an individual driver to set adapter quirks; using the quirk
-would require a dvb-usb framework change. Rejecting the read in the
-driver's own .master_xfer keeps the fix local and minimal.
-
-Reported-by: syzbot+0cd0fb4cf3f4722d6663@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=0cd0fb4cf3f4722d6663
-Fixes: b7f54910ce01 ("V4L/DVB (4647): Added module for DiB0700 based devices")
-Signed-off-by: Luyao Bai <bailuyao1997@gmail.com>
----
-This is an alternative to Henri A's patch for the same syzbot report [1],
-which places the guard inside dib0700_i2c_xfer_legacy(). That fix is
-correct for the reproducer, but dib0700_i2c_xfer_new() builds its
-control-IN transfer from the read length in the same way, so a device
-running firmware >= 1.20 can still submit the bogus zero-length transfer.
-Checking in the shared .master_xfer entry point covers both paths with a
-single guard.
-
-Henri: happy for you to fold the second path into a v2 of yours instead if
-you prefer, whichever lands the complete fix.
-
-Tested with the syzbot reproducer under QEMU: the "BOGUS control dir"
-WARNING at drivers/usb/core/urb.c fires on a clean mainline build and no
-longer fires with this patch applied.
-
-[1] https://lore.kernel.org/linux-media/20260621192222.337738-1-contact@henrialfonso.com/
-
- drivers/media/usb/dvb-usb/dib0700_core.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/drivers/media/usb/dvb-usb/dib0700_core.c b/drivers/media/usb/dvb-usb/dib0700_core.c
-index 1caabb51ea47..084c56e734e6 100644
---- a/drivers/media/usb/dvb-usb/dib0700_core.c
-+++ b/drivers/media/usb/dvb-usb/dib0700_core.c
-@@ -352,6 +352,20 @@ static int dib0700_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msg,
- {
- 	struct dvb_usb_device *d = i2c_get_adapdata(adap);
- 	struct dib0700_state *st = d->priv;
-+	int i;
-+
-+	/*
-+	 * Both transfer paths translate an I2C read into a control-IN
-+	 * usb_control_msg() whose wLength is the message length. A
-+	 * zero-length read produces a control URB whose pipe direction
-+	 * (IN) disagrees with a zero-length setup packet (which
-+	 * usb_submit_urb() treats as OUT), tripping its "BOGUS control
-+	 * dir" WARN(). Reject such reads up front so neither path can
-+	 * submit one.
-+	 */
-+	for (i = 0; i < num; i++)
-+		if ((msg[i].flags & I2C_M_RD) && msg[i].len == 0)
-+			return -EOPNOTSUPP;
-
- 	if (st->fw_use_new_i2c_api == 1) {
- 		/* User running at least fw 1.20 */
---
-2.43.0
+-- 
+Best regards,
+Dmitry
