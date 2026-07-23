@@ -1,183 +1,222 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E87139A045
-	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 10:44:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3904D4399D5
+	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 11:09:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784803494; cv=none; b=ZK0ZR49cXAn4Jn9ricUg9QUhIo5OEAhiPBJjwOKvb+mOfgpO09L2sSOQV242ik06XpFhtFlbljTsKveYXk+HxarLn2HRqfH7ucD2c5BgJInWoA5VmS8oUde+UKFY3B7zsoTyqVqxApoUI3QWhGLtKgADgNpekNQKupxcQmb+zQI=
+	t=1784804998; cv=none; b=CGHZGelGuCgO8b3016UrHaOD7X5sCdYx50BeCvEzYp5Bb5iCmvAX2osEBuHqak/gD20PyUvEvT2W4YNl3aX5KHowV2BVygBjH/TJxD3kzd8xdBAXMCQLNDYO/oQk+W5XEbnU5KQPjZpsQNbsxXV8irAeaQcEq0VbN/p6e0fktLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784803494; c=relaxed/simple;
-	bh=yItWL3c+OS6k18uzUiRpkFbbNdNjokIgL9umHpO/PXo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I2BGjNr20zWfjtLGIyaYIOgVL0UTHCvZqGJe1H3XyWw090M85UHygnjiXUhSXxU3v76GfBl0Dww0Ke2Eu3R7Fb/M2L6b5Kf5+rLJWgXugLGNenq0aFg/QA/sUup1F5mLEEu6kzQHRvBiYLL9E8qO7dCZkYPZTnkraRxeuV8Dvjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RkiV1L/u; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IAdTgbDe; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1784804998; c=relaxed/simple;
+	bh=SKWhPK9r/CD2ee55hEiraz82UixFWuEJolMCsudUorI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GDVxd2mrfVCPDDhNxSuDPEX1N4ntC2yVmvnIUS6nZJf/6Ogw+slUOpv54zZyVIJevTVASKvJvE9VmXnkHsw7KhJIEyI9wzlSpRhX5STU9SjSDkuuESFXWlQyOr8oO3TRYvmvBMrsgRrnJ7Zexo/MOycHPVxyBVAhB2EQ8d5I6A8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Lc0onpeF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Onnklhw8; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RkiV1L/u";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IAdTgbDe"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66N8qedK3648898
-	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 10:44:52 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Lc0onpeF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Onnklhw8"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66N8qYAT3390475
+	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 11:09:56 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HNWzteKUJDDrezgHK2pPHptQNAYDHgVe9x2wwVDkaUI=; b=RkiV1L/ui0O03Dq3
-	Mbqz1wRJDuCQ7IJKUywd7PgqochTtXxJCZrkWCIlWmm5wtUJnW36SIxjWHpVIwfH
-	Jx8VSuVWZq2PG9rJ7nSk/Y0o7tbslhN4syj7bmcsCHuQHmxwQJTfPO7v95v64UBA
-	5jX1k/wZQTsw3Af0H5NKGQAsnJLKNbRk/OAjN8UqXosXNxHX27UBiLXpoH2void8
-	ZPHh10F0kd9nsum0MbSUI4ZZLrEXTEIdVZFMPie8y7qIM1hmkCt60n5ab3AFBJ5o
-	BHj3tvFEWfg0R2U0g9F5hm6M+vctUhjYOP8yCCY3n7575o5AngKWOhBEE7SLGrPP
-	xJEgxQ==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fk6c7jk79-1
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=CHoRBXMfdQXDX9QzatQyMVjO8U/itkAz0C0
+	aNlKdJAc=; b=Lc0onpeFNzuvujB/ZpSyTlb1FCZPn6ECdlBXgCgIS9pzotGKgCo
+	jHAo+QfMFL1sDwfZi265kTlydW9+BcnagLYZUS6GmFtA6pvbitbG2+oVkDmy6bsk
+	GzCBfneHky9vuO2wMmVQnAIeJekCz0OTO783zh+1zXXtXnXhlMCECpZ67o7fnj10
+	iEs0xfTdCxVZEXQraq9vCDkHjgE4pvvaOfATs1QRc5uMzTxQHG3FPWIw7PvzbFoZ
+	Ux0gUJKr4gsOwjeuUWNWSFzqCI5N/T3Z8d2sGa6Ul+iLj0A4O1PA2KrdTegSImEr
+	0Oyc8igR4bU/QDfEBn1p/Hwm3MVMEDayh3w==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fke0ks0gu-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 10:44:52 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb7049fa552so494785a12.2
-        for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 03:44:52 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 11:09:55 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c07f25de2so7436691cf.3
+        for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 04:09:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784803492; x=1785408292; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HNWzteKUJDDrezgHK2pPHptQNAYDHgVe9x2wwVDkaUI=;
-        b=IAdTgbDeWzXzcckoi4VgyN2ZkG2dhAYmQZbRi0zpLe3tGUHbQCagqDjkZd1r/p7vX4
-         3IJDnhjF2btYHi264htnnWWOEuhMbj1ddBVJ/QjUxvubJ1nQmFFA6oF7kD1qdekUOC2Y
-         kpPPe4Y3YKifgQt4B78MVY+gToSUvSoYVdIUqidRscXNdGD6qxhsFJsnoF4sO6ubYiti
-         KSMwu716Nuy+BE7/8sKjA6mKBsuIVyMXgYezJIkneA9+76hl8nYlzda3MJnX3iHLVuor
-         PzB3b+zRDKzMCbemrOIVFHeI7bcLmgb6ZBieMZa+XRIic3AAjj7dj88Okp+/tV7Dlcm+
-         hC6g==
+        d=oss.qualcomm.com; s=google; t=1784804995; x=1785409795; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CHoRBXMfdQXDX9QzatQyMVjO8U/itkAz0C0aNlKdJAc=;
+        b=Onnklhw8dXsvtszNQ4nLtgsudqrEvcFScod4XchZuX8dDopJN0C+yhuV0BB+SHublM
+         zB8Zs0ezjNSyMsipC1a4ivcRDH63cCQeHeFR1NoY2jnzjwM7romStF4WMHgLwl2Jlhj+
+         781E/ULlBB1BagA++Prz9Op7yYp/6En3TN0N12qNgL5e2TQhWDZt/L2fvGzxdCfzLGeh
+         Jbjmno6pXLMxIo5GNG4ViSzmDYjDqL2ySznrcHl4YalbeR5FlfKWWc6A/cnrnsmHfchC
+         hsePebORmDhXq9SuiF8S1ZczX+ThgebXVUmfSdv3bGCh5oOgsOdWPdarqT7qbCDb9BIR
+         whVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784803492; x=1785408292;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1784804995; x=1785409795;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HNWzteKUJDDrezgHK2pPHptQNAYDHgVe9x2wwVDkaUI=;
-        b=UOnIsGC0g4rFPgxuGsFmoS9LuJy1JWTrWuTD2WRKbU9an0TexfDQ04zTbgp5OhGjhx
-         dwRA1vFkSrxq9yroXJHBcbrG6gKkxLmDW7UNut/d8+g56EHO99tSoPIom9o8+rYsfQXq
-         5/PEqj1Sq5btmq22SBiILOJ4SUE37nkU10zLATKgLYezDv12Q0HUCOen6NyxizvrrjLt
-         lPXjp2qzyRA4z+6qmm880VZqUZ7qrTRoMZJeEKLkR+BHZJb4lJkb/6rYzsZ6eOMsduoH
-         Tzh5VfvkSKA/tTO1pOipSylitouNnmjC/rnOqEZCGpxK5fZuZqvUzRiwPnKJtEanHnZU
-         mp6w==
-X-Forwarded-Encrypted: i=1; AHgh+RqUdyVV2F+nVkjHDLkdVGzwghPtZ6xmksOJSJ9tuONH0SJcCBCoikM5rX4B3whJGqibIThnuy07JVOXnA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwQ91iq9mtpkH2JGFNRLRtOwmZdBoNN6VOpzRsuhqjSCbg5jNCs
-	swic/eeoxfyyv2Mttk+8szAB2g0QLrlf1qYGOTXOun2uRF7V3qz5lgttaNbEeQhRWTv+b9u+G0e
-	mVSsjzzL4K1i3XO6geIk1l9C64yeAxu/cKLPmjkh6bODjNr80GGi5kmmfyN2/NPNBRw==
-X-Gm-Gg: AR+sD12Plrzg9Rn2aq/LUX+ie8KNQYlLlXJhHjDM/1zcLiFlbzBqd98tno4wDnSVS6i
-	6JJNnbc5XSX4c2PYvTgAIx7P3n1XT0mAmbsseKXENGsAXCrIr5Elz3u4ia7lTShOGTyKQyZgawM
-	w3dlbaxt5unq2A9YZXUw5Uy3BJtqEynbrzLV5FpwNXSjEx7u7sm68aMSMtWP96VmdSswBkXpkkQ
-	zgJXI+SIcWZskKKXOAiopjWJT1K7ctAZhytUNqwoJieZUNTZTZowOU0aJ+ohFtTnE+9e+oOir+m
-	kMOY97b2m/rqACiHkS0BceWFPLhjfi8eraRuPaLqShKWUsIEawcb9H9PftCH61WBCl9tmczZZUa
-	PgNoqSGjef/+CRMjeUU3fZTaa0ThhMQ5QyA==
-X-Received: by 2002:a05:6a21:6b16:b0:3c3:a31b:3949 with SMTP id adf61e73a8af0-3c44afceac0mr2620906637.11.1784803492047;
-        Thu, 23 Jul 2026 03:44:52 -0700 (PDT)
-X-Received: by 2002:a05:6a21:6b16:b0:3c3:a31b:3949 with SMTP id adf61e73a8af0-3c44afceac0mr2620870637.11.1784803491586;
-        Thu, 23 Jul 2026 03:44:51 -0700 (PDT)
-Received: from [10.204.101.214] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314a4206878sm294902eec.10.2026.07.23.03.44.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 23 Jul 2026 03:44:51 -0700 (PDT)
-Message-ID: <048506d0-7dac-43f1-a50b-f9f4c1d125a1@oss.qualcomm.com>
-Date: Thu, 23 Jul 2026 16:14:45 +0530
+        bh=CHoRBXMfdQXDX9QzatQyMVjO8U/itkAz0C0aNlKdJAc=;
+        b=Oy7XfRpno2rKgu3ez6Nb8NdB2Cl4dktHNCdfnLHZ/u3SnrDYgmij++WVdmA5EGAWRI
+         7NtVNaQqe+kzCe+h4aX08SeUx2/UI9n7E6YrDhUjtezCawPevbd5k6BZNwoPk7ZLXtBO
+         84N7NRRo5V7RH6SHKuYYQLfAA7qbOCK/sHoOs0fz1nefKkWvZpKfZYCQwXE6r0joR1A5
+         Rd24InBdqpjShrxVw/uSAz5jq6efK68miGpVn4X89eS3A6e73K6sl5qbGWg6SSEO0xiE
+         cU+UuXh/EFlFOOhEV9MRY48J3/fltdqadKr6+Rqj7hYG+NFsJP5+Wmxak5g646Gz3MGQ
+         YD+g==
+X-Forwarded-Encrypted: i=1; AHgh+RpdoUaymifIAZ8jxHpGOSLKuBu32IdDE52o9XKBjUe/nczJmBwOtR70BPSnHyyt8TDXW4DvnwKgzeqW4A==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyE02p5SxN49xbf6qtManEeFqF8ZH1zka2pZo5VVCvE683DXzuN
+	sun6iS8/3Q/LyvZN5ERqSbKjlk734f80NWgeM+QOftHn/GUszQ2gddJH1tgQQxhgXgqZ6GF226k
+	s+tIO7fD7ElOTSjkQj2bCzJZObR7LCFhRatl8WJQkMzim5RdsqOxlZeqjlz8SGsQWQg==
+X-Gm-Gg: AR+sD13si8RLuuAR2zEk/nSVjL5M9BLPGTgQMKcNiVpm60Xtzi4yc5BhzIWkioXJiUy
+	+Io82txuBRv1vzTRB0M9xY6lrv0uvC/KGuZwroWa7VljzMaTLAgrb2rOcR6fjlXUv3ICM97U7H9
+	JSjv6QiGD7L1M+lRtlnxdyxawmbwJoXS+lP+n1+p/4lIGYOZ1LkN4q79zVztmxb9d9w85giSE4q
+	XRorOT3mIewqTtn2/vHRDq3z37UXUkZrE6sjTltx35lbaf5toh+taA/btl0whn+3tNi9DkMFmlf
+	yify77uCFgHdwHJa1i3d/NpJOJCaeBIudNSPQ65sfZfuMphiJsrxex9Jr1ESi8E8XqD69Zmwy6D
+	grpVU+5jRxtDtVT/xbNT8TMr5ZfxL5w2266/9KMoHSLLqg03b8zto6TNwqbhwn/Fdxub3YNlfvp
+	chsVx4bOKwRmnX8sk=
+X-Received: by 2002:a05:622a:2307:b0:528:1dd:628 with SMTP id d75a77b69052e-5283dfbfe5fmr21224361cf.72.1784804995034;
+        Thu, 23 Jul 2026 04:09:55 -0700 (PDT)
+X-Received: by 2002:a05:622a:2307:b0:528:1dd:628 with SMTP id d75a77b69052e-5283dfbfe5fmr21224021cf.72.1784804994522;
+        Thu, 23 Jul 2026 04:09:54 -0700 (PDT)
+Received: from shalem (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32f11af2sm214176466b.57.2026.07.23.04.09.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Jul 2026 04:09:53 -0700 (PDT)
+From: Hans de Goede <johannes.goede@oss.qualcomm.com>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+        Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        stable@vger.kernel.org
+Subject: [PATCH v2 1/3] media: qcom: camss: Add "gcc_axi_hf" to 8775p VFE lite clock lists
+Date: Thu, 23 Jul 2026 13:09:50 +0200
+Message-ID: <20260723110952.55597-1-johannes.goede@oss.qualcomm.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/4] dt-bindings: media: qcom,venus-common: Add IOMMU
- IOVA reservation region
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260722-shikra_vpu-v5-0-3d80babd4672@oss.qualcomm.com>
- <5nIoqMekE2B3CTU4TIlUJxoI3Exckc2sUM9RmZBqboEOvgmkdrhKlRX3-FiMOiYFCWXwzO5pii52NJ6epuy1Fw==@protonmail.internalid>
- <20260722-shikra_vpu-v5-1-3d80babd4672@oss.qualcomm.com>
- <557377b0-7a21-45b6-b62c-d3b34a6a29f4@linaro.org>
- <67c78d88-92b8-44b9-bbcc-6f53f6c60ef9@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <67c78d88-92b8-44b9-bbcc-6f53f6c60ef9@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: qKMV-oLQgkoO70g9bGXeKpEwTe5cawAm
-X-Proofpoint-ORIG-GUID: qKMV-oLQgkoO70g9bGXeKpEwTe5cawAm
-X-Authority-Analysis: v=2.4 cv=baZbluPB c=1 sm=1 tr=0 ts=6a61f0a4 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=JQ8ddJNmfgoLVfyDzDgA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDEwNCBTYWx0ZWRfX4cDh3KaMgtkA
- YIYzDb5IRRus9Eiw0ATuMiKX5754tSeNtrOlaYvj5a8UkbjsGwsEnen7MxmwFfMuOLeA5dWPHsV
- hN3qjoxeY5Ir8xXRbQGUtQKkKm6Lb44=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDEwNCBTYWx0ZWRfXxTxW0LB2ggDw
- raIrQYQG/LlvY+6KyykJvJhVrky43kcEKvHTBQlZyozC/kZuvJXoopcfVsPThiwxUQQSfFgqdJy
- hEu0JnN8I3u5x3d4hnuoVJZuV8r1BzgdMRQqMFkdALijFbTXj//SCJCUcBG479I3JYyaNkal6Tu
- JS4Jw8E6Ew/bODYy7kPuDCIf3tz1ksSjiqTGh3arpEJilMXcGDT6+2+OtpuWVw+iiRAgll/8Ecg
- Z9fGmXxaLqb9CdCaBOX0VOcoQp6/dRa99xd30Uef8MqME5l52VXSB1NVbNylEgyLd6SBZZoU7sP
- 15hvY4cUuxCFTD4keluPQQjN8pV0XHTq7sZLg739ScdsAg7waymBSgBF8FoQKM/+4OFlbIq2Jpw
- gwl7RiqRG6EDafQgehzfKvt0uxp6AVDe+uAsI1D5Bb/ToaDwWV/4i6sl94hBnFKHovBK0/X7ewp
- XZFFTNNU4oRgTbka4iA==
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: javh82GPVWm87DYFsUUpEALqd1mb6JCd
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDEwOSBTYWx0ZWRfXwD4fL7MT8QTV
+ KTB6OI63HwmgHghbNB6ZywdSpz6YjWJBPXmDa6DCm95HZcWnqHd8sy8qNDtGPz7S4/LDKEL/564
+ 6WyH1s+EnJcBiGIySa/TjEopKod8a7I=
+X-Authority-Analysis: v=2.4 cv=S7DpBosP c=1 sm=1 tr=0 ts=6a61f683 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
+ a=qncfPZRv0pdA0gtCnvQA:9 a=uxP6HrT_eTzRwkO_Te1X:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: javh82GPVWm87DYFsUUpEALqd1mb6JCd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDEwOSBTYWx0ZWRfX6YIdoOHO2BWE
+ tc33mqfm/ch/SM9pDj4gNkMSHFkVRIt1k4KTzlQCus6bP2OnhrXPKqxXOufHjbr/i+rJt/ImKXk
+ 6ZOrjS+QhparxaoMisks+OmtB8fZlmLWi8SsOLKw8Oj5BlGGSOm7SorUmP90LuW9TUJm/PBdbh2
+ mxn2AWjHlJTv8NOS//O7XNnbzIFdNx8fK1lgq6JzbqiBT4Z3h8mLU+8/Oc/5g4405/COR4wPiNV
+ mjKvNxOz4npW7UpO4G93adAA0JU/hA0ySos9eZD1NI74/9QnNsb6tD9AbvJoZnE8GpZdtjkONtJ
+ FWQTAkSmdOF3Qh5QT6AU1ly3KPi8XE+G3/Bw9UbL9l8FTNgq2c7PU3ca6AgcK9TkLP0AbHN/hEz
+ AQeAfMK1RtErVbW1jR13vLMLRrvL6wZpWqwUR1YqkxkKufhAbp+DjTz2UdCT7yYfQEpf/n6y8LX
+ wC1sLMWfmZYTg+Lqvyw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-23_03,2026-07-22_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
- adultscore=0 impostorscore=0 priorityscore=1501 bulkscore=0 spamscore=0
+ spamscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0 bulkscore=0
+ priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607230104
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607230109
 
+The "gcc_axi_hf" clock is correctly listed in the clock list of the
+8775p 2 main VFE-s, but it is missing from all the VFE-lite clock lists,
+causing these to not work on platforms where the firmware allows turning
+off "gcc_axi_hf".
 
-On 7/23/2026 2:36 PM, Konrad Dybcio wrote:
-> On 7/23/26 12:03 AM, Bryan O'Donoghue wrote:
->> On 22/07/2026 14:41, Vikash Garodia wrote:
->>> Update the memory-region property to support two regions:
->>> 1. Firmware-loaded codec carveout (existing)
->>> 2. IOMMU IOVA reservation region (new)
->>>
->>> The IOMMU IOVA reservation region is required to restrict usage of
->>> specific IOVA memory range. For example, VPU restricts usage of 600MB
->>> for specific streams, which could otherwise lead to device crash. This
->>> change allows platforms to define separate memory regions for codec
->>> carveout and IOVA restrictions.
->>> This schema update supports existing DTS having single memory-region,
->>> thereby allowing gradual migration of DTS to support two memory region.
->>>
->>> Signed-off-by: Vikash Garodia<vikash.garodia@oss.qualcomm.com>
->>> ---
->>
->> I'm not mega-happy with this pattern being used - I prefer the pixel pixel_cb sub-node model you've proposed yourself.
->>
->> OTOH you're the maintainer so its really up to you how you want to arbitrate this - the 600MB constraint will work even if its not pretty or the best thing (tm).
->>
->> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> 
-> Doesn't this cause the same limitation that the initial patch
-> by Daniel (all HW contexts can't access 0-600MiB anymore)?
+Add the missing "gcc_axi_hf" to fix the VFE-lite blocks not working on
+these platforms.
 
-Yes, it does, but for cases, like Shikra, which have single streams 
-(with SMRs), there is no additional benefit in going with sub nodes in 
-such case.
+Fixes: 924f45e58b1fe ("media: qcom: camss: Add missing clocks for VFE lite on sa8775p")
+Cc: stable@vger.kernel.org
+Suggested-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+---
+Changes in v2:
+- Also update clock_rate lists
+- Add missing Fixes: tag
+---
+ drivers/media/platform/qcom/camss/camss.c | 25 ++++++++++++++---------
+ 1 file changed, 15 insertions(+), 10 deletions(-)
 
-Regards,
-Vikash
-
-> 
-> Konrad
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index 2123f6388e3d..68491b16d647 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -4037,10 +4037,11 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 	/* VFE2 (lite) */
+ 	{
+ 		.regulators = {},
+-		.clock = { "cpas_ahb", "cpas_vfe_lite", "vfe_lite_ahb",
+-			   "vfe_lite_csid", "vfe_lite_cphy_rx",
++		.clock = { "cpas_ahb", "gcc_axi_hf", "cpas_vfe_lite",
++			   "vfe_lite_ahb", "vfe_lite_csid", "vfe_lite_cphy_rx",
+ 			   "vfe_lite", "camnoc_axi"},
+ 		.clock_rate = {
++			{ 0 },
+ 			{ 0 },
+ 			{ 0 },
+ 			{ 300000000, 400000000, 400000000, 400000000 },
+@@ -4062,10 +4063,11 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 	/* VFE3 (lite) */
+ 	{
+ 		.regulators = {},
+-		.clock = { "cpas_ahb", "cpas_vfe_lite", "vfe_lite_ahb",
+-			   "vfe_lite_csid", "vfe_lite_cphy_rx",
++		.clock = { "cpas_ahb", "gcc_axi_hf", "cpas_vfe_lite",
++			   "vfe_lite_ahb", "vfe_lite_csid", "vfe_lite_cphy_rx",
+ 			   "vfe_lite", "camnoc_axi"},
+ 		.clock_rate = {
++			{ 0 },
+ 			{ 0 },
+ 			{ 0 },
+ 			{ 300000000, 400000000, 400000000, 400000000 },
+@@ -4087,10 +4089,11 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 	/* VFE4 (lite) */
+ 	{
+ 		.regulators = {},
+-		.clock = { "cpas_ahb", "cpas_vfe_lite", "vfe_lite_ahb",
+-			   "vfe_lite_csid", "vfe_lite_cphy_rx",
++		.clock = { "cpas_ahb", "gcc_axi_hf", "cpas_vfe_lite",
++			   "vfe_lite_ahb", "vfe_lite_csid", "vfe_lite_cphy_rx",
+ 			   "vfe_lite", "camnoc_axi"},
+ 		.clock_rate = {
++			{ 0 },
+ 			{ 0 },
+ 			{ 0 },
+ 			{ 300000000, 400000000, 400000000, 400000000 },
+@@ -4112,10 +4115,11 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 	/* VFE5 (lite) */
+ 	{
+ 		.regulators = {},
+-		.clock = { "cpas_ahb", "cpas_vfe_lite", "vfe_lite_ahb",
+-			   "vfe_lite_csid", "vfe_lite_cphy_rx",
++		.clock = { "cpas_ahb", "gcc_axi_hf", "cpas_vfe_lite",
++			   "vfe_lite_ahb", "vfe_lite_csid", "vfe_lite_cphy_rx",
+ 			   "vfe_lite", "camnoc_axi"},
+ 		.clock_rate = {
++			{ 0 },
+ 			{ 0 },
+ 			{ 0 },
+ 			{ 300000000, 400000000, 400000000, 400000000 },
+@@ -4137,10 +4141,11 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 	/* VFE6 (lite) */
+ 	{
+ 		.regulators = {},
+-		.clock = { "cpas_ahb", "cpas_vfe_lite", "vfe_lite_ahb",
+-			   "vfe_lite_csid", "vfe_lite_cphy_rx",
++		.clock = { "cpas_ahb", "gcc_axi_hf", "cpas_vfe_lite",
++			   "vfe_lite_ahb", "vfe_lite_csid", "vfe_lite_cphy_rx",
+ 			   "vfe_lite", "camnoc_axi"},
+ 		.clock_rate = {
++			{ 0 },
+ 			{ 0 },
+ 			{ 0 },
+ 			{ 300000000, 400000000, 400000000, 400000000 },
+-- 
+2.55.0
 
