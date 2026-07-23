@@ -1,132 +1,116 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B94E3F5BFA;
-	Thu, 23 Jul 2026 11:50:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D67AC48AE36;
+	Thu, 23 Jul 2026 12:04:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784807417; cv=none; b=jMBzQBppEYTfS3WIBiMXV32i/Rtip8tSrpKABP2eWdRQ8jSH642e7/koTdW4actPpkmFVCBff7HFjSfsTxXuQOZwJCHKUqRe7ieFDaVePM6T9eqrVMfQVIXs2G4wU3SQQo2hgVrqC6XQYQSLBQzwuWbJTUz/HR8DSsZVol+VxTA=
+	t=1784808268; cv=none; b=nGVIA20bl2OYrEpsNKmMdoXRz9zm1Y0Wleb4Js0eo7dbtQzJMl9kfRn9Z3fVB5HbHLusokBMagY/3GI71034l40HInVNF2hO/YLugXEX0oSK3dgR+KnZiRFHAlQr93IWgiLdnwPiEqFJG7nJz6fHHB6K333yONc9SOfBAbO4Fik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784807417; c=relaxed/simple;
-	bh=WuUPJAm5e+bP+tc7WqWPJD7tQMUJ9wgDl48pEF/IUR0=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=Hvc6irkGYP5Cxlo0m0oUWaIelBn9E2P9bsni6auoeSoilQz4ZYxvPJcq2No92amhYysPGwDA1VAMhBsznMams7bFZOtE+OI2i4cPPigEFuo4aXJ4wbnRYHkMFDfqZH4u+SQyfJaQbkHKH93hjhgaQLIYe+OkojQPsrvuRlxpu8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=teWDYXeS; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784808268; c=relaxed/simple;
+	bh=m3/0YSZYQzDgQyuA6SQ6Ur7WoM1y3Eq+jlVzjnL0T7c=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=oxA0JmJ95JvT6izUCmgNeji+/WkwWBvNUXNuNgmI+bPryRg3dFv3fhT+6jqOfU+vvof+PLqVhZWGKMZ0i/NzNmFbPG2Hvvq1xuujhClnoC9CMDVw1kTeK5IwyMjY+KnDdBtLNJ3S6+s/bR/NvnwCeDOLQNB1ij4Sk4jnTOBWdI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=StdM88VO; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="teWDYXeS"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:25d4:fa24:78d1:31:7a56])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 52CB61C37;
-	Thu, 23 Jul 2026 13:49:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784807344;
-	bh=WuUPJAm5e+bP+tc7WqWPJD7tQMUJ9wgDl48pEF/IUR0=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=teWDYXeSBl2hmlaLPHZZpSx2KXIX4e0WgBLBFweCNSGBUCCUSNLZiYTGf2s+CCsl3
-	 zqS2y11p+ovL2uK8D8Lfa8hqbpUbSnrt3wjX304wsUxhcw5Se4iEXr2pNgt7593/SD
-	 oNd65QWKnE/hIZHefZjngPlj1lJkJ3EqT1LFIIWk=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="StdM88VO"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4h5V2h6GJWzKpmh;
+	Thu, 23 Jul 2026 13:56:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1784807788; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=m3/0YSZYQzDgQyuA6SQ6Ur7WoM1y3Eq+jlVzjnL0T7c=;
+	b=StdM88VOL0qKMar551fpvZ4V8Ra4MhAyAJnN/U1PArk+62n3lTwyHwRSOL8Ir/L561oVss
+	Qq7WBQHYut/4lTneTkg0IPPgW7Or5hKUZDZWgQqM45fHdSlQ6e1vXrrmTJ0sArXgtlEjDu
+	RJRzTjpt4uflj+tAzuDTIRp2/QqDCyo7eMVo04X7grMdfr1AKQuXY/YNtTy64RL/rprZ6K
+	AznFIIgCWu7PIzVtau7TxEVbpUgIMq6whmYSHbgzKMuo6bjWkm9ZSj20mGD7o2MMgI4qN+
+	cCFPqAZp+KO28Mhxk73e9/Skz0+3qs2yXbzUrMrNwhkQXQGaa6CyZDrSXWf/Kg==
+Message-ID: <73981717a8a609013eaca197a41a741c52bff44d.camel@mailbox.org>
+Subject: Re: [PATCH v6 2/6] rust: error: Add ECANCELED error code
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Timur Tabi <ttabi@nvidia.com>, "qiang.zhang@linux.dev"	
+ <qiang.zhang@linux.dev>, "josh@joshtriplett.org" <josh@joshtriplett.org>, 
+ Joel Fernandes <joelagnelf@nvidia.com>,
+ "delcastillodelarosadaniel@gmail.com"	
+ <delcastillodelarosadaniel@gmail.com>, "a.hindborg@kernel.org"	
+ <a.hindborg@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, Eliot
+ Courtney <ecourtney@nvidia.com>, "adzicmirko97@gmail.com"
+ <adzicmirko97@gmail.com>,  "alistair.francis@wdc.com"	
+ <alistair.francis@wdc.com>, "ojeda@kernel.org" <ojeda@kernel.org>, 
+ "sumit.semwal@linaro.org"	 <sumit.semwal@linaro.org>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>, 
+ "yury.norov@gmail.com"	 <yury.norov@gmail.com>, "tmgross@umich.edu"
+ <tmgross@umich.edu>,  "frederic@kernel.org"	 <frederic@kernel.org>,
+ "aliceryhl@google.com" <aliceryhl@google.com>, 
+ "daniel.almeida@collabora.com"	 <daniel.almeida@collabora.com>,
+ "boqun@kernel.org" <boqun@kernel.org>,  "lossin@kernel.org"	
+ <lossin@kernel.org>, "bjorn3_gh@protonmail.com" <bjorn3_gh@protonmail.com>,
+  "neeraj.upadhyay@kernel.org"	 <neeraj.upadhyay@kernel.org>,
+ "paulmck@kernel.org" <paulmck@kernel.org>,  "phasta@kernel.org"	
+ <phasta@kernel.org>, "rostedt@goodmis.org" <rostedt@goodmis.org>, 
+ "dakr@kernel.org"	 <dakr@kernel.org>, "tamird@kernel.org"
+ <tamird@kernel.org>,  "gregkh@linuxfoundation.org"	
+ <gregkh@linuxfoundation.org>, "lyude@redhat.com" <lyude@redhat.com>, 
+ "lina+kernel@asahilina.net"	 <lina+kernel@asahilina.net>, "ljs@kernel.org"
+ <ljs@kernel.org>,  "mathieu.desnoyers@efficios.com"	
+ <mathieu.desnoyers@efficios.com>, "work@onurozkan.dev"
+ <work@onurozkan.dev>,  "urezki@gmail.com"	 <urezki@gmail.com>,
+ "gary@garyguo.net" <gary@garyguo.net>,  "jiangshanlai@gmail.com"	
+ <jiangshanlai@gmail.com>, "fujita.tomonori@gmail.com"	
+ <fujita.tomonori@gmail.com>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "linux-media@vger.kernel.org"	 <linux-media@vger.kernel.org>,
+ "linaro-mm-sig@lists.linaro.org"	 <linaro-mm-sig@lists.linaro.org>,
+ "rcu@vger.kernel.org" <rcu@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>,
+ "rust-for-linux@vger.kernel.org"	 <rust-for-linux@vger.kernel.org>
+Date: Thu, 23 Jul 2026 13:56:15 +0200
+In-Reply-To: <fdcff2949180fa40d0605866fcb306781ddae4cf.camel@nvidia.com>
+References: <20260722144931.1070312-2-phasta@kernel.org>
+		 <20260722144931.1070312-4-phasta@kernel.org>
+	 <fdcff2949180fa40d0605866fcb306781ddae4cf.camel@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <amH3qaUBCOBOKxjL@zed>
-References: <20260722-mira220-v7-0-dd5f1de98cd4@ideasonboard.com> <20260722-mira220-v7-2-dd5f1de98cd4@ideasonboard.com> <178472387683.3005206.5602199112336367476@freya> <amG5CiajbwGXhb59@zed> <178479424623.3238585.7446724208192156945@freya> <amHRMQfRzppwZ5xz@zed> <178480022192.3238585.15132202916626773351@freya> <amH3qaUBCOBOKxjL@zed>
-Subject: Re: [PATCH v7 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Philippe Baetens <philippebaetens@gmail.com>, Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Date: Thu, 23 Jul 2026 17:20:00 +0530
-Message-ID: <178480740067.3238585.393583431156412387@freya>
-User-Agent: alot/0.13.dev35+g4a69c46ca
+X-MBO-RS-META: 1wph3j35gedcc8zuwpiwyyaxym5kdm86
+X-MBO-RS-ID: a53eb3e66d41100d98c
 
-Quoting Jacopo Mondi (2026-07-23 16:47:09)
-> Hi Jai
+On Wed, 2026-07-22 at 18:38 +0000, Timur Tabi wrote:
+> On Wed, 2026-07-22 at 16:49 +0200, Philipp Stanner wrote:
+> > The Rust dma_fence abstractions need the ECANCELED error code.
+> >=20
+> > Add ECANCELED error code.
+> >=20
+> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> > Tested-by: Daniel Almeida <daniel.almeida@collabora.com>
 >=20
-> On Thu, Jul 23, 2026 at 03:20:21PM +0530, Jai Luthra wrote:
-> > Hi Jacopo,
-> >
-> > Quoting Jacopo Mondi (2026-07-23 14:46:07)
-> > > Hi Jai
-> > >
+> No need for this, all remaining codes are being added via
 >=20
-> [snip]
+> https://lore.kernel.org/rust-for-linux/20260629183022.2709524-1-ttabi@nvi=
+dia.com/
 >=20
-> > > > > > > +#define MIRA220_MIPI_HSIZE_REG CCI_REG16_LE(0x207d)
-> > > > > > > +
-> > > > > > > +/* MIPI bus control */
-> > > > > > > +#define MIRA220_MIPI_LANES_REG CCI_REG8(0x6012)
-> > > > > > > +
-> > > > > > > +#define MIRA220_MIPI_CLK_MODE_REG CCI_REG8(0x6013)
-> > > > > > > +#define MIRA220_MIPI_CLK_CONTINUOUS 0x00
-> > > > > > > +#define MIRA220_MIPI_CLK_NON_CONTINUOUS 0x01
-> > > > > >
-> > > > > > Does DT allow clock-continuous property? Do we handle it?
-> > > > > >
-> > > > >
-> > > > > The bindings for this sensor allows all properties from
-> > > > > video-interfaces.yaml, including clock-noncontinuous.
-> > > > >
-> > > > > The driver doesn't support it at the moment and unconditionally u=
-se
-> > > > > continuous clock, but I guess it's nice to provide macros for the
-> > > > > non-continuous configuration as well
-> > > >
-> > > > Ah, that's not too good if the DT allows it but the driver silently=
- ignores
-> > > > it.
-> > >
-> > > Why ?
-> > >
-> > > We allow all properties from video-interfaces.yaml (something which I
-> > > think it's wrong, but that's a long time ago discussion with dt
-> > > maintainers, so I'm not contesting that) and we certainly don't handle
-> > > them in drivers (in facts, what drivers do is not relevant to which
-> > > properties are allowed for a device).
-> > >
-> >
-> > I am not saying the bindings shouldn't support that property, bindings =
-are
-> > for hardware. And yes you are free to not implement all features in the
-> > driver.
-> >
-> > But given the bindings and the hardware both support toggling between
-> > continuous or non-continous MIPI clock, from a hardware engineer or
-> > integrators perspective it would be quite confusing that setting the fi=
-eld
-> > in DT will do nothing, with *no* warning to the user either during the =
-DT
-> > validation or the driver probe that it was ignored.
-> >
->=20
-> True that.
->=20
-> But does this mean I should be doing the same for all the properties
-> that apply to the hardware ?
->=20
-> clock-noncontinuous:
+> Please pick up that patch instead.
 
-Yes, to me it seems like a low-effort win.
+Ok, pulled it in my local branch for now, thx for the heads-up.
 
-> link-frequencies:
+I see that your patch is from June. If it lands in drm-rust-next
+soonish I'd simply rebase.
 
-Supporting different rates is hard, but at least driver should print a
-warning if the DT supplied frequency is not supported today. Most driver
-use v4l2_link_freq_to_bitmap() to make life easy.
 
-> lane-polarities:
-
-Does the sensor hardware support flipping polarities? I've seen some
-bridges supporting that, in which case they should handle it instead.
-
-But let's not "perfect be the enemy of good" :-)
-
-> ?
->=20
-
-Thanks,
-    Jai
+Regards
+P.
