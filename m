@@ -1,181 +1,208 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 340C0341ABB
-	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 02:42:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A6D357CF1;
+	Thu, 23 Jul 2026 02:44:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784774525; cv=none; b=DM8SO1LsxH2GlZPjglr5iYj8D1TYSgvSDbmbo9Ypxc7KqYeak7VVZM+SYvg54X1kZxWvishjkJznT0Vw5XBzXluZsXVqeIoUrKrPtXCMFHBi+K4lXzvexunXzpHLTyTmyeIvmMwyaJUTfcWAT3ee1tEDxSvwmyXeFQP3BflUP6s=
+	t=1784774645; cv=none; b=sl1oWxzV+ZIpCKF52d5mCgSVu96S0Z8W4/YiZxS8ewqTxwnYHbwqxdGzYT6K4crvzErupZAyXFMbpGKy0b0RCLwzSe4N+mXfgcrWNYz71XyOBGvsftnwdlSrxUxyPNNwim1yARZmvRT6lQ2jZziT9LaNYc+XRWLkS1yHtS2SVpk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784774525; c=relaxed/simple;
-	bh=gxjGPjmSz1vW7zel+2ORlINXP5pnBuOm3+zMsz6kbqo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q1d/F/mHAxIavQu8TaiR1EX5BONu3fVXv3IEBvZrulM6oDBYIN8WxXcqfYk8/SZnWjKvhTuWJ/itULbdYLEHam2WuhoveCpRmJ+2hBKtdlA/W5/WcQ2kR/kMghmRvBdicFqAQTHmmbn7NRpvi9UYuyE12HbmY+exVn0dvPoZLXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KwYPufiS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZWNtTQ8k; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784774645; c=relaxed/simple;
+	bh=+oOd3mrWrdysA11L5N2My6LB6FqPVMrTkdPO0VDNjs0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=W/d2G65pDNU1jLZ3XG81gHt4yoqB8rdVWYluBUAUxH6aa8MZVnvIRymldXwLWflNmx/c2TJrd3ydJN9zj8Uty3TSpMYufLgZV2iyhFBGnoObO0xAbEt8EzEVSpIatFXxMD/QJMcuMyFIQ2bPWDS5zTXQCBAuLY/sNdEjeg+DK3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sfvLk+3e; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KwYPufiS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZWNtTQ8k"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66N0XCWK2141399
-	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 02:42:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	iYgpgOZ7PLgQDrFNyTVWW8qUD7STH6qW1+QOGOGINmk=; b=KwYPufiSkjn5lxtn
-	i6sUyVY/1TAuxucm5ZyDrYnDF7QgfEyTc+pHw2GqAZ6b2jR2ZNs+7PNcRMovmqzt
-	piV0wAZdCy99TIYd6RMeTF6uTUGKV9Ne1X+5loAFToJmpO/lo6qx6EmB5K9q77Lx
-	BwO6X6cbn/JLvZO/CeNfZGIz0JyeMEP6uGyv1S43R1V00GuoLvhAnnTz9g1Nntfw
-	OwCFT4DWH57063fUm7qXawJ9HTUrn0sigkNm0GPNDkoDWAW1gGRUv8eHTFojnVCo
-	0o7qv/RmHPYutVpHBXAHuGLUKm7HPafvZvExFS9WVYMDGaRMHsCBwL0sw5oLwjGq
-	TScmJg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fju22by9u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 02:42:03 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e9a2b95b5so40496485a.2
-        for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 19:42:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784774522; x=1785379322; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iYgpgOZ7PLgQDrFNyTVWW8qUD7STH6qW1+QOGOGINmk=;
-        b=ZWNtTQ8kQzk5poBDAfBzc98vR0EzxE70pwHczwX9qfNzo4BpOT5ikSYja8As01pTnz
-         c9NYbeyYp59cdqsB+uDtRiMJ3kwpzNWFgRHhgjUiCnf6OodeRYM9sAL8hSmxvV9d3ksq
-         faA7rOrqxWKLRpfSBb+DWHoHYIK8nQGHPiuNTTnZ44unOC4Z1dBETKyFNBISY1AcN3sM
-         ZbAqNKl2xkg9emHIcX7to6nkFagKcJOGm88THnzPk+omBcNXvL42IFn8OOqXHiPFDU6r
-         9nfvkkou8eyrWWRdSu8i3Slo2y3j4kqkOKJOQ9xSyEcA1zx3A/xHGwB4eZAspWr/8td+
-         7Lmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784774522; x=1785379322;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iYgpgOZ7PLgQDrFNyTVWW8qUD7STH6qW1+QOGOGINmk=;
-        b=suRtqm+MOqOkzIRDUvpck/uPBdQOC8qAWfhdrQtVm9KkIi0x08i1eOt1LfSNpBO1X0
-         O1EdY6Ng/S94JrBKqG6tAcdkb5waOTnY+Qa7Zr4kCZFegryK+ZX7TpwjgLLCOnLJBltK
-         I1XdW6XI4B9ne/fCIbszMCchxm400BD3q5kNLQjeG0frPjMCHLFIGvEJRZgx+QODqr04
-         TQQaEMe9b8c+u3a4FGVb9pfhpzbTcc9fF/nrtq0GoF6sa8hGKjHQP/1HhHlu/j7ZB1x3
-         IxXRsDDy+oIKhrhY9VXxG8PAQWH6bdpwyRhu5rlHKqsIomCJ6zRZP4cRLKUlAjtPRrbk
-         h9hg==
-X-Gm-Message-State: AOJu0YyOvT4tdygLU96MJhw/WS69j39ivn2YCiFAwRVpSUzi+uoIpdHI
-	Euis4BEShF2mJtkPXvc+fVS0HcLiXLRQDA0R3pmHE0ogGtg5DAZwemW1H/z/wPSXWi0ojqDX4fi
-	LUNtlkzbyPTvyZSAs7i352soF+MHMAdro48JugOpAN8buH3KV3/Bs9JoVtwqJX3YUgA==
-X-Gm-Gg: AR+sD13wbMyB+lIufPp3xYvsk4EpW9haismhaD5plneRGcsJHNFhGV5XdG9ksYQqYZQ
-	Fed+YU05+iUh3E8xCEpNV2nqWNH21ps32tQ9xlMkgK8C2SxJUDeJEci5N7jYTGPZFMjKXkPQLwF
-	yrIH9cvUoNjRuwNaOTcmCi1lG1xMcdqqb7P1xWo6WjBOFA/Yba+jD9QeG6eomUP1+KDlz/IArxs
-	pw79GSUJ2LpjtaqOxcfOkTG4trVQqIlXhKzUuJO1QkhEbubPjQoS5lzaO26mh3qqd3bv4xsNtyI
-	Wd2PTcswiSGIG0aT/u1RrBAf3FZx7AUWehuGbXjBqR9vwlOVOUuD7cC8hOGpJIj3FT+qiogj80Z
-	8y5welXXMeflNFZLCLA5zb0mNa/Rn9ZsAPFFDgzfC0ujDxxJ5qA4ix9EWhoX6Vbwi
-X-Received: by 2002:a05:620a:294e:b0:92e:c28c:9dff with SMTP id af79cd13be357-93103806f5fmr143015385a.6.1784774522367;
-        Wed, 22 Jul 2026 19:42:02 -0700 (PDT)
-X-Received: by 2002:a05:620a:294e:b0:92e:c28c:9dff with SMTP id af79cd13be357-93103806f5fmr143012985a.6.1784774521891;
-        Wed, 22 Jul 2026 19:42:01 -0700 (PDT)
-Received: from [10.111.167.143] (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-930f6879e8bsm311713685a.6.2026.07.22.19.41.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Jul 2026 19:42:01 -0700 (PDT)
-Message-ID: <f12c1344-67ff-4242-9c39-59ac208e9b35@oss.qualcomm.com>
-Date: Thu, 23 Jul 2026 10:41:52 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sfvLk+3e"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9DDB4C19425;
+	Thu, 23 Jul 2026 02:44:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784774644;
+	bh=+oOd3mrWrdysA11L5N2My6LB6FqPVMrTkdPO0VDNjs0=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=sfvLk+3ewbLEZ2hrRIP3ySIj+tgiR1FQrzMY2L9SGZcBZ8e1vHCa3GWJr1atxfb4W
+	 fSM991JidOdm5TetDyFu/yKoZ7AicgvUUiGeU5czuhdHDyKSbP14fGlemJM9wZg2ec
+	 Z9H+WWoeeNmDYRrp101+gNFmfZcwZcxkA5kl6UZk5VlQHfFEkIWo1R9rZ0Ij2oeJF5
+	 zZb+AJJV5BBNY/0LjEVy3dekLOfRU38OBKGabptVPqvD9hLuhByUCLNt+YxOQsCWkN
+	 aiDhC5P0tYzEiAfAAxuhuIuK9/eTxoQJ/CfzV0JlOTife2jtUImA+rgUxNEKFOKPGH
+	 5EAQi1ZeNHhfQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 71E69C531C7;
+	Thu, 23 Jul 2026 02:44:04 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Subject: [PATCH v7 0/2] media: i2c: add support for ITE IT6625/IT6626 HDMI
+ to MIPI CSI-2 bridge
+Date: Thu, 23 Jul 2026 10:44:01 +0800
+Message-Id: <20260723-upstream-it6625-it6626-v7-0-f8175bb0ea12@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] media: i2c: Add OmniVision OG0VA1B camera sensor
- driver
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Conor Dooley <conor.dooley@microchip.com>
-References: <20260708-og0va1b-v3-0-de8e44455a42@oss.qualcomm.com>
-From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-In-Reply-To: <20260708-og0va1b-v3-0-de8e44455a42@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=X4Bi7mTe c=1 sm=1 tr=0 ts=6a617f7b cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=MB_9mUK8FT8Lwu4MbwcA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: VkJ6GGFxV4qJshhKw7sB_RdVdhhEJgeb
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDAyNSBTYWx0ZWRfX0oh2zpP+Axj+
- wO5LP7X+ZHo9g8pSu25BPk/hW8lVJ3jhc96XsZT5K7Zt9Pb3C38aPbL0UtwtgAN+rXDj4UEwbTA
- 8lXntTkFRIRlDFRdL0jvviVfB1QeZvU=
-X-Proofpoint-ORIG-GUID: VkJ6GGFxV4qJshhKw7sB_RdVdhhEJgeb
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDAyNSBTYWx0ZWRfX9Ay93mzFVSm2
- mVF6mRcokCYhH7LeLhUuXvw1RESAqPPbW8Sc6DjO+N+MGqvukKNg2XQF7PKu3vp02gybpx5BKWe
- glpuvUG3vQVxvtBF5pXu8zQ24srl5hEgeeN1RKq2MrbNPQMyFqRUKZIV6yEQsyNw5RjW8PmMNcP
- e1edQzmfxGVyHxU2csk5AEdDHFGbuV7e6Uhhe+dE+3wsCKiUWbRzOVSsUxYzIsdgy5aQAi5OIRn
- QTf+1Yt9HyQx59sEfpL8jcGGZwD5kMQMjy8qrMUPBcTs9rD29SnJw62/cT1B+lmMUAMRfcZ8XL4
- V7P01eIi3L8zX3xi8jUhSIWP5it9tpUEjxy18eDP9Lq4K4qP4luSwT5p/tL0ZGDBt7Czwf7LrHh
- QFCQt+t02EjroBW/CsagsyHMz0GW64U1vdWA8WkejP83USI+qvvPQKbRdhTFUzqGaQPWUFsZMer
- Ut4DEcMY/9JcFrIDPrQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-23_01,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0 malwarescore=0
- clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607230025
+X-B4-Tracking: v=1; b=H4sIAPF/YWoC/43QS07DMBAG4KtUXuPKj3kkrLgHYuE6NvWiTWWbA
+ Kpyd9zCoiiKlNXoH2m+0cxVlJBTKOJ5dxU5TKmk8dwCP+2EP7rze5BpaFkYZUixJvlxKTUHd5K
+ pEhn8LSSpY3CHzqFVKNrwJYeYvu7w61vLx1TqmL/veyZ96/6RRq2Rk5ZKAmOvTWQA7F9SDXs/n
+ vb1U9zMyTw6etUxzWEP0SKBd7ZbOPbRMauObU4PHFBFpZlg4cA2B5rjlbVkwgHRu4WD2xxsju0
+ 4MHYQjV/+h7Y51BzSmgcYekL+f9c8zz8hNZRjJQIAAA==
+X-Change-ID: 20260716-upstream-it6625-it6626-6874ab8a5305
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784774643; l=7614;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=+oOd3mrWrdysA11L5N2My6LB6FqPVMrTkdPO0VDNjs0=;
+ b=12s1KrJfa7i8T1858P1cZjbn5wQCOqLzqyntYZfFVmWJz32ULnr/Bw7y/OdjHiDFWnq9FZHhC
+ vqmd6pLrG39Bn6NtCtxX0CUTirvPaxpvsVlXBK9PU9n2dmfzdgDs93p
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
+
+This series adds support for the ITE IT6625/IT6626 HDMI to MIPI CSI-2
+bridge chips. IT6625 accepts an HDMI 2.0 input and IT6626 an HDMI 2.1
+input, converting it to a D-PHY (or C/D-PHY on IT6626) MIPI CSI-2
+output. The bridge is configured over I2C, exposes an HDMI CEC
+adapter, and supports EDID read/write, DV timings detection and
+configuration, and HPD control via the standard V4L2 subdevice pad
+and video ops.
+
+Patch 1 documents the devicetree binding for the bridge, including
+its two selectable CSI-2 output graph ports.
+
+Patch 2 adds the V4L2 subdevice driver itself.
+
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+---
+Changes in v7:
+- Patch 1 (dt-bindings): add back port@2 for the HDMI input port,
+  reversing the v4 decision to drop it -- the v6 automated review
+  re-raised the concern, and adi,adv7604.yaml (an actively-maintained
+  binding for a comparable HDMI-receiver chip) confirms documenting an
+  input port unused by the driver is the established convention, not
+  a defect.
+- Patch 2 (driver): fix three correctness issues found by automated
+  review of v6 -- it6625_parse_endpoint() could read the mipi_csi2
+  union under a bus_type the parser had silently fallen back to
+  parallel/BT656 on; it6625_set_fmt()'s active-format path left
+  format->format.colorspace stale for VIDIOC_SUBDEV_S_FMT callers; and
+  it6625_s_edid() never rejected a non-zero start_block as the
+  VIDIOC_S_EDID spec requires. See the patch's own changelog for the
+  full list.
+- Link to v6: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v6-0-6117d4d96574@ite.com.tw
+
+Changes in v6:
+- Patch 2 (driver): fix two correctness issues found by automated
+  review of v5 -- an ignored v4l2_phys_addr_validate() return let a
+  malformed CEC physical address reach cec_s_phys_addr() and get
+  broadcast on the CEC bus, and it6625_parse_endpoint() pre-set the
+  fwnode bus_type to D-PHY, which made the parser reject every IT6626
+  C-PHY device tree outright. One other v5 review finding (a
+  concurrent-ioctl-vs-remove() race) was checked and is not being
+  acted on -- see the patch's own changelog for the reasoning.
+- Patch 1 (dt-bindings): unchanged -- the v5 review concern was
+  checked and dismissed; see the patch's own changelog for the
+  reasoning.
+- Link to v5: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v5-0-387e7584f2c9@ite.com.tw
+
+Changes in v5:
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v4 -- two debugfs read handlers could leak uninitialized
+  kernel stack memory to userspace on an I2C read failure, TRY-format
+  state could go stale or leak active hardware state into what should
+  be an isolated buffer, a concurrent S_FMT ioctl could interleave
+  with hardware programming because the lock was released too early,
+  S_EDID's blocks==0 case didn't actually disable the EDID per spec
+  and a failed EDID write left HPD disabled permanently, the mipi_reg
+  debugfs write was unlocked, and the HDMI info control returned a
+  hardcoded string instead of real telemetry; also wire up the
+  previously-unused reset-gpios line during probe. See the patch's
+  own changelog for the full list, including three other v4 review
+  findings that were checked (one against the hardware author's own
+  knowledge of the chip) and are not being acted on -- see the
+  patch's own changelog for the reasoning.
+- Patch 1 (dt-bindings): unchanged -- both v4 review concerns for this
+  patch were self-dismissed by the automated review itself with sound
+  reasoning (the endpoint/patternProperties gap matches an established
+  single-endpoint convention already used elsewhere in-tree, and
+  dropping port@2 doesn't weaken validation since graph.yaml's own
+  generic port pattern still covers it).
+- Link to v4: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v4-0-c03362eb55ca@ite.com.tw
+
+Changes in v4:
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v3 -- a CEC RX interrupt left unacknowledged on an invalid
+  message length could storm the IRQ line, set_fmt returned -EINVAL
+  for an unrecognized format code instead of falling back to a
+  default, get_fmt's active-path reads of the format state were
+  unlocked against a concurrent set_fmt, g_edid/s_edid didn't follow
+  the VIDIOC_G/S_EDID spec for over-capacity requests, and the two
+  mipi_reg debugfs handlers were missing locking/offset handling; also
+  mark the HDMI info control volatile so it is actually refreshed. See
+  the patch's own changelog for the full list. Separately (not a
+  review finding), drop a redundant FW-start register trigger from
+  probe -- the firmware starts automatically on power-on.
+- Patch 1 (dt-bindings): drop the unused port@2 (HDMI input) graph
+  port entirely rather than the review's suggested fix of adding it to
+  required, and require bus-type on port@0/port@1 endpoints for
+  "ite,it6626" specifically, since only that variant's D-PHY default
+  can silently mismatch actual board wiring. Both found by the
+  automated review of v3, which also flagged one other dt-bindings
+  issue that was checked and is not being acted on -- see the patch's
+  own changelog for the reasoning.
+- Link to v3: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v3-0-947e50f01764@ite.com.tw
+
+Changes in v3:
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v2 -- two banked-register reads still missing a lock, a
+  CEC RX length TOCTOU and a dropped CEC TX interrupt on invalid RX
+  length, it6625_s_edid() treating a successful write as a failure,
+  missing V4L2_SUBDEV_FORMAT_TRY support, an unlocked active-format
+  commit, and detected timings lumping the whole blanking interval
+  into hsync/vsync instead of reading the real porch registers. See
+  the patch's own changelog for the full list, including four other
+  v2 review findings that were checked and are not being acted on
+  (with reasoning).
+- Patch 1 (dt-bindings): unchanged.
+- Link to v2: https://lore.kernel.org/r/20260721-upstream-it6625-it6626-v2-0-7c4f3564ca38@ite.com.tw
+
+Changes in v2:
+- Patch 2 (driver): fix several correctness issues found by automated
+  review of v1 -- premature V4L2 async subdev registration/teardown
+  ordering, a missing-lock race on banked register reads, a
+  status-poll interval bug, a dropped CEC interrupt, an unacked CEC
+  transmit, set_fmt mutating active state on TRY, EDID blocks=0
+  handling, and a couple of uninitialized-stack hardening fixes. See
+  the patch's own changelog for the full list.
+- Patch 1 (dt-bindings): restrict port@0/port@1 bus-type to D-PHY (4)
+  only for "ite,it6625", since that chip doesn't support C-PHY (also
+  found by the automated review of v1).
+- Link to v1: https://lore.kernel.org/r/20260720-upstream-it6625-it6626-v1-0-475912f74459@ite.com.tw
+
+---
+Hermes Wu (2):
+      dt-bindings: media: add ITE IT6625/IT6626 HDMI bridge binding
+      media: i2c: add driver for ITE IT6625/IT6626
+
+ .../devicetree/bindings/media/i2c/ite,it6625.yaml  |  174 ++
+ MAINTAINERS                                        |    7 +
+ drivers/media/i2c/Kconfig                          |   18 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/it6625.c                         | 2231 ++++++++++++++++++++
+ 5 files changed, 2431 insertions(+)
+---
+base-commit: 8dac27bfa2f994ecb11f01a63641527d17d48fc1
+change-id: 20260716-upstream-it6625-it6626-6874ab8a5305
+
+Best regards,
+-- 
+Hermes Wu <Hermes.wu@ite.com.tw>
 
 
-
-On 7/8/2026 10:33 PM, Wenmeng Liu wrote:
-> Add OmniVision OG0VA1B driver support. The OmniVision OG0VA1B is a
-> 1/10-inch monochrome CMOS VGA image sensor. It outputs 10-bit raw (Y10)
-> frames at up to 640x480 resolution over a single-lane MIPI CSI-2
-> interface and is controlled via an I2C-compatible SCCB bus.
-> 
-> This driver has been verified(include tpg) on the Purwa EVK.
-> 
-> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-> ---
-> Changes in v3:
-> - Generalise the binding title and description for both sensors. -- Vladimir
-> - Keep the cached pre_isp read so the OG0VE1B test pattern still works,
-> select it via a per-sensor callback. -- Bryan, Vladimir
-> - Rename the "sensor" field to "data", drop bpp (derive from code) and
-> add og0ve1b_pixel_rate(). -- Vladimir
-> - Sort defines, rename the shared CHIP_ID reg to OG0V_ and order
-> og0va1b_data first. -- Vladimir
-> - Expose all four OG0VA1B test patterns instead of one.
-> - Link to v2: https://lore.kernel.org/r/20260702-og0va1b-v2-0-0071442caa2a@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Integrate OG0VA1B into the existing og0ve1b driver and binding
-> instead. -- Vladimir
-> - Link to v1: https://lore.kernel.org/r/20260618-og0va1b-v1-0-dda71bb83009@oss.qualcomm.com
-> 
-> ---
-> Wenmeng Liu (3):
->        dt-bindings: media: i2c: og0ve1b: Add OmniVision OG0VA1B camera sensor
->        media: i2c: og0ve1b: Introduce per-sensor data structure
->        media: i2c: og0ve1b: Add support for OmniVision OG0VA1B
-> 
->   .../bindings/media/i2c/ovti,og0ve1b.yaml           |  15 +-
->   drivers/media/i2c/og0ve1b.c                        | 375 ++++++++++++++++++---
->   2 files changed, 344 insertions(+), 46 deletions(-)
-> ---
-> base-commit: 5c73cd9f0819c1c44e373e3dabb68318b1de1a12
-> change-id: 20260618-og0va1b-55bbf3cabb0e
-> 
-> Best regards,
-
-
-Gentle reminder to review this patchset.
-
-Thanks,
-Wenmeng
