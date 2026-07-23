@@ -1,156 +1,163 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE8C2F83B5
-	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 16:07:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3163403FA;
+	Thu, 23 Jul 2026 16:14:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784822864; cv=none; b=Q0D29LoDe1lReXKQP1JojmB7rP5WnRd0ojXuwB4hKtUplk9+/CVWe0t1HDQzCMrCrHgkyrPM7g7Ve/VZrJxghzAhxLNDKTMXoAzOJyiIJBOVXh0oyS8T3ZCdiwcw4zotj5Zfc8i+HAPEUwoXllG2kN3/pA1e58mCcb+7WOQJ9h4=
+	t=1784823286; cv=none; b=GCWdntO3adJvQQmuM2Wu81YGP5nLKHwKOrE8jbwXZ/297XHYJ0ggyZSPwLTUZ1pm2Dv9gStjGHuIswCkK76YLKjUT4EvPGzSHcAKsuTKbSNd1blwBeDyEZoB5UQdvCl2UCwiNoZBx5z834yDJHW+KmLDn24vBM9QTDKhb8qMkVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784822864; c=relaxed/simple;
-	bh=jQtRW0O5nwVNNT7XofY4i+cPCBo1wrZ3oTkdn0RIoPU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N7e9igdXl/1ktjHLQbL7LGqkamLSr/oR6ZkBvF4Mo2vzwI2/1MA+4dRTOLiuddVC8J/+ke++jEKHd8VaynAy2Ob4EK97ARlgtUCoQ1gy6tyTxWVkoHIiXwcYhKHXKU7qV1MdkXR4YHSrXPaeDNjXQX5AVvjJFsmsfahDFpZj6U8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o0nuE272; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Hm23Y91j; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784823286; c=relaxed/simple;
+	bh=hCVbUrdO72+2/XTtGQ9LHNVevDpF7W1nNXw/5+2SG+s=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=s7qnqBMZP+r5nS8lv43GVmXqaT5lsZeAd9nRHi10j8QIFCfglyqrnJpsMJOre/aDKwG6n/TZYf6Lmh/JF9EM0XR8avlRKF2twFybbE7dC9xFN3gymXUhhKD+4cdjnfANLK551qldvaHLPb/vOyzG+4nyL+4xRmX8zkMXGDNeuDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=V/FRfrqw; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o0nuE272";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Hm23Y91j"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66NF9W4q162561
-	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 16:07:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4dMSh+AFMvwZ14SfCMbaoh4hyPzA84eMxFNhAjJ6ooE=; b=o0nuE272SCczCe6A
-	VHnAoSSguW+DcHFSGpPg2eVm9BGfQ/VNpPjpVXOoTEa5Fk+MONVMk9Di8wLlh77Y
-	DOKb1PgN4ca2D45u5mJ3DSsX8LIQv1pADJgRtbXMaHQysAo2N/rbN0jBJCZdVT5V
-	Fe/NS+9ipqvuDut9teovwHn3R25bzIn02SbAiPRNfbZVAfg1wqHEBIrI4/BDYvn6
-	/6lOXpyw27ciPOtlE0bQDEh/4EM9HovjxpHMdajfTbcpjUbGCpDjWk8XzvbZI0Du
-	96fjHTlz7kgvGgO46xaVaQ63cKkHV5dyksy8JJyMaOOpxMyy4+CBN5gaI5lOr1R7
-	7qrtNA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fknbmgcs1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 16:07:39 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e6d253330so715699a91.1
-        for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 09:07:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784822858; x=1785427658; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4dMSh+AFMvwZ14SfCMbaoh4hyPzA84eMxFNhAjJ6ooE=;
-        b=Hm23Y91jm4CI7npYAm4GHFSsKJhfjxpJ7iRN3TZR2xqwuGqmm0eIexe5HY9+qkV+Es
-         6w1ndDTftm0IaiqtauPaeQJKDB5SQpyrBi+NXCFJSkLJfZniXgome1z5678EOJkjHQ3o
-         TGNCrS93AeyFMDzRsMjp3Gw6638r9Trpa/X3Gdtt6LeY4b3UvYQlIcIjYV0scK3ZcL7K
-         M4iZY+CRLQ8YsyQUzyaHPMZKbeBlFkLuln26FLSLejpCoay3KgJBrkxXnCjQipERbIU3
-         YyWgDQs3pA1QNVkOH9MYnLwdWE0kpl4C4EYnoi4KwceDBCIZ3W1Ckrm08wmLPm6wA7fp
-         1JXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784822858; x=1785427658;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4dMSh+AFMvwZ14SfCMbaoh4hyPzA84eMxFNhAjJ6ooE=;
-        b=nSPxZjvW4Q3u6CZdsUhh/ZU4bU5sOvAihhiIayGD0X9Yr4qWJOKz9HiQ337INInpzk
-         lmj8rTyFq8ccXOOh3WpxPiHk0cOKIqAb9HTwROVtdIMTpFNzyDSuT+vw/sq5b7FppSUx
-         kozn04aWCgSoJvhRbayqJkwEdEjfJaQs17j1X4Pwu34cY/2JN/d1ulbUKuOgh0yNteoG
-         EOeL1kpD3RfUXlsXkLJ2v5WmNFK+DchNIueqH7BLeHpex6v88ponc4sWVR2GPWhI8XzE
-         k7kV6yb4XywudKiQ/gcwI1TRL7pmuZCXBPdtHOkPEZudB5RqqF+9ds7wLA+CbdF1smp0
-         BObQ==
-X-Gm-Message-State: AOJu0Yy3gArMx0+xa0oZYvroYh0+vfRDbA2KUUBhKcN98gcFtFjzZort
-	Y4FtSH/thpPcw0P/80kieqB5wmm/jzPt/Byn9u23m4WMqgClPx0CIlLbvNfmztCP8v301mDGb4K
-	lUTGyssN9bRHNL75ht59LAGyDaf4ltIoQ5a2JCQdXK1JEatlCGKC3umDojAfjXYgCDQ==
-X-Gm-Gg: AR+sD137/Ww8fE555K5q61eEgb6ud6slCOXVTBU1sQeFQf3z82Ka4M9NqHc9qsvpj5V
-	/RExG8KFPdTe3+458Y3yhuF+XtPNmOpRf07dX6Q88hQaUCtTLTebJW4pMXzOrN4Y5LppQZdoHda
-	drH3m/+l6w7ywKwh8hZeRmzMgtmu6luwk0w0+rVyJlTciAmy4pvqfI9RPhzLNcuAihdaidp8KnO
-	b6d8LreU7MFCYhDKldEyh0AFv8jBX3ShtNYA4rDK/ZkLPHUSZIaI9wxz7tjNaKZgLo3fD9I3wCr
-	mOlqmZkZvMa9AdGNg3Zl+x88IwRE1fg8p0GBhtZcu3v5C+N6QTTh7xvz9uAQqSf91fLktqqIpQw
-	L8J5Q8aRf82CAwUi3xtbztzGlseGyLdqkvjQ=
-X-Received: by 2002:a17:90b:3c03:b0:38e:7e9b:5fbc with SMTP id 98e67ed59e1d1-38ec8405228mr3812767a91.7.1784822857017;
-        Thu, 23 Jul 2026 09:07:37 -0700 (PDT)
-X-Received: by 2002:a17:90b:3c03:b0:38e:7e9b:5fbc with SMTP id 98e67ed59e1d1-38ec8405228mr3812712a91.7.1784822856500;
-        Thu, 23 Jul 2026 09:07:36 -0700 (PDT)
-Received: from [192.168.0.173] ([49.205.251.199])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13d13014d27sm17979574c88.4.2026.07.23.09.07.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 23 Jul 2026 09:07:36 -0700 (PDT)
-Message-ID: <302540f9-f784-4852-978c-f21941982164@oss.qualcomm.com>
-Date: Thu, 23 Jul 2026 21:37:29 +0530
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="V/FRfrqw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1784823268;
+	bh=hCVbUrdO72+2/XTtGQ9LHNVevDpF7W1nNXw/5+2SG+s=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=V/FRfrqwv99v90BjmaqoR58HkKxCnSkgL5+TmqserGROedRVHXEo01bTz5omnT820
+	 dSfYDonOkXeNWMywBYXFhjLBy1Wkjw6L+b491galdIFM/zWkzzeUXKdaB8JTEZV2pL
+	 KvelzdoLM1xNbIWmYkUqC0sM5YOCibEbbEh4S/xiT1fO2rMI3MalCPfRDTqlWbdPf9
+	 FeJQQh7+Q9bJlolrdqJS0LRw6PYT3earjiECvCJ5EqLWhabsMWJb+0ku84aiirvqEf
+	 0I2nmrZ8zDqNpy201Hn4kfZzArJyC2wzwcIpPALC88EN48MGjUXlyPKJ5r4541VZDv
+	 TgdO2WIYJguew==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 852E017E09AA;
+	Thu, 23 Jul 2026 18:14:26 +0200 (CEST)
+Message-ID: <210b72e32d1bd757a36b2baf532dd9f7d46ca5dc.camel@collabora.com>
+Subject: Re: [RFC PATCH 0/3] media: rockchip: VEPU510 H.264 encoder for
+ RK3576
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Jiaxing Hu <gahing@gahingwoo.com>, detlev.casanova@collabora.com, paulk
+	 <paulk@sys-base.io>
+Cc: mchehab@kernel.org, heiko@sntech.de, robh@kernel.org,
+ krzk+dt@kernel.org, 	conor+dt@kernel.org, ezequiel@vanguardiasur.com.ar,
+ linux-media@vger.kernel.org, 	devicetree@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 23 Jul 2026 12:14:24 -0400
+In-Reply-To: <20260723004642.2075233-1-gahing@gahingwoo.com>
+References: <20260722073417.2064667-1-gahing@gahingwoo.com>
+	 <082e1141c38205222a91abf13b1a97d9a00e117a.camel@collabora.com>
+	 <20260723004642.2075233-1-gahing@gahingwoo.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-k7OG+sVfO5YN88klwPen"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] media: iris: force stage 1 work mode for CBR RC on
- encoder
-To: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Vedang Nagar <quic_vnagar@quicinc.com>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20260723-iris_multi_slice-v4-0-45f0a3fe7fce@oss.qualcomm.com>
- <20260723-iris_multi_slice-v4-2-45f0a3fe7fce@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20260723-iris_multi_slice-v4-2-45f0a3fe7fce@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+
+
+--=-k7OG+sVfO5YN88klwPen
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+Le jeudi 23 juillet 2026 =C3=A0 12:46 +1200, Jiaxing Hu a =C3=A9crit=C2=A0:
+> I'm not attached to the stateful interface -- I used it to get something
+> running on real silicon, not out of conviction. Before I commit to
+> reworking, I'd like to be sure I understand what "converge" means here,
+> because I see two fairly different directions in the thread: Paul's V4L2
+> stateless H.264 encoder (kernel-side reflist/rbsp/RC core), and the
+> Vulkan-Video split you describe for Detlev (thin kernel module + Mesa
+> userspace). Those differ a lot in kind and in effort. Which is the
+> intended target for the Rockchip encoders, or is that still open? Is
+> there a branch, early code or spec draft I should read beyond Paul's
+> series?
+
+This is a fair point, and something that will certainly bring some level of
+confusion in the short term. My personal goal, and what Detlev is actively
+working on, is to move all codecs drivers toward Vulkan Video, using the mo=
+st
+meaningful driver interface for the purpose. The drivers needs to stay safe
+though, so it matters that the HW can protect memory access.
+
+Detlev and I picked the RKVENC because there was no upstream driver for it,=
+ so a
+good place for a clean transition. It has an IOMMU and can ensure per proce=
+ss
+memory access protection. If a process miss-program the encoder and make it
+corrupt on other encoding session it owns, its all right, its not different=
+ then
+writing a C program with multiple thread and corrupting another thread. But
+corruption other process session, or the system is not acceptable, and some=
+thing
+Linux driver must protect against.
+
+Paul does not have this hardware protection, so I think he needs a higher l=
+evel
+interface for the driver, and at the point, why not base it on existing ker=
+nel
+interface. Though, V4l2 is massively larger (probably around 100x) interfac=
+e
+then what we are drafting currently for RKVENC in a drm style driver.
+
+The common part is the rate control. Typically, stateful encoder are firmwa=
+re
+based, and the rate control is in the firmware. We need an in kernel rate
+control for performance reason. The programming latency is going to be too =
+high
+otherwise. The point of convergence, is that we can share helpers for that
+purpose, and Paul's work is really clean, and already in the shape of helpe=
+rs
+not tied to v4l2.
+
+> Either way the RK3576 hardware enablement and the reference-read fix are
+> shared with RK3588, so I'd much rather contribute the VEPU510 side to a
+> common base than maintain a parallel one -- I'd just like to know which
+> base that is before rebuilding on it.
+
+This is our experience with decoder too, its relatively easy to support bot=
+h,
+differences being minor. I will ping Detlev today and see if he can help he=
+re. I
+know in his case he was trying to avoid reconstructed frame compression, an=
+d it
+only started working when he enable that compression. Though, he had mmu fa=
+ults
+prior to that.
+
+cheers,
+Nicolas
+
+--=-k7OG+sVfO5YN88klwPen
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=e742j6p/ c=1 sm=1 tr=0 ts=6a623c4b cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=Am0+rXbGVt9FyytbsJdRwA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=W2-BaTU1wbAZhcYxqcwA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: 0pS8Dk6azV7_4htDjvd1dtr8TPuL0Um7
-X-Proofpoint-GUID: 0pS8Dk6azV7_4htDjvd1dtr8TPuL0Um7
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDE1OSBTYWx0ZWRfXyqAHxCJ0LGXD
- ecEsROoyET0NFmpQy4HuqWCd6xmKr/zJAW/05TC+3fQM8vYG3sAD38Ty3VU91Oj2Sau1zvIIAn/
- IuZljjVxHqbtVOSWZdVBSNOP7CUj5RQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDE1OSBTYWx0ZWRfX88jWdMHINS/U
- UnFqVjmwBsKwefxTXj8iwvsNqqb3DPyvBR7ez/n8w3OkMjZ8QVxQySEI+ZNvZpLLEc9QCme78MA
- YlAdheF//LZXI+KrXqQEVKPvLnu1zBFVZqtz/w4bVr+Yy6KZQP2hs4uXCcLQrh3T4mJomhe5+hf
- wcbXUyIGEZUGLZWFcYYu1XT0YB1Uv4VM8GDywGSRxr/qPFCCPqr4ecvD2LYe0P85gp3hOdXSd/a
- H5t61p3KNAt92xx0OMEk/VxexmY/mFIuwW7Vif9R4zdZ2Fh8edTPc+CBv6yO3WLRV0eroKbKTeA
- ZAZ64s5HUgVapLW1rVnicUkKaemYZJzI/eB03SIhl4eygZNsGYlgaoTehaAJmstj2BnAorrRT0z
- MX2YadXtkvqXrFH4b2AcMlpznSAEV1luzxkk7VEgFRXp9DPX4pXTnnwTiz+VYg7WD0weyZtNhNF
- 2jWLQq2cgavzVmJemog==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-23_04,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 malwarescore=0 phishscore=0 adultscore=0
- impostorscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607230159
 
+-----BEGIN PGP SIGNATURE-----
 
-On 7/23/2026 3:51 PM, Sachin Kumar Garg wrote:
-> iris_set_stage() currently always picks STAGE_2 for encoder sessions.
-> CBR rate control requires stage 1 operation, so force STAGE_1 when
-> BITRATE_MODE is set to CBR.
-> 
-> The BITRATE_MODE fw_cap value is used instead of inst->hfi_rc_type
-> since STAGE precedes BITRATE_MODE in enum platform_inst_fw_cap_type,
-> so iris_set_properties() would still see the previous hfi_rc_type
-> when iris_set_stage() runs during initial config
-> 
-> Reviewed-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Sachin Kumar Garg<sachin.garg@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/iris/iris_ctrls.c | 3 +++
->   1 file changed, 3 insertions(+)
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCamI94AAKCRDZQZRRKWBy
+9KsMAQCH7G0RS3a1tFXKb4SlKY0bUWf7PK/zcqYnZteXtdYzNwD+MfXtoIz0SKsL
+LwqjvoUnRoSdy/JFQbJB445pUEbAoAA=
+=ucod
+-----END PGP SIGNATURE-----
 
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+--=-k7OG+sVfO5YN88klwPen--
