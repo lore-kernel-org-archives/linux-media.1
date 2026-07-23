@@ -1,83 +1,136 @@
-Received: from pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.12.53.23])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F0F4766B0;
-	Thu, 23 Jul 2026 17:42:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.12.53.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239F4486B95
+	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 17:42:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784828543; cv=none; b=rO9A0jXHu//Bxq0ElU83N7OjnD7Ax6CkU/n1ZuwQrOXik5nVUeBq4G0G/97veNRULm9yZu0wYrcIUZ1832k6pTQgvhVmxH7Pt0URqab2pfTfIgE1m/B8cHLtOjGZmLpZa8ji7EgUSrCmREohxvMyyGnSopTkQ+msevXA3ask26I=
+	t=1784828547; cv=none; b=Rw/qxqce+PYg9Uiy69y8K9V5uwK5UDGNEysjOWoDkvaC3vug/76u4KKYxbupH4Q6Id7lkAzVvxD59BPAsmqWY/CVnd+gLOw9RoOE1FxpgNnEMFp0VfXJLtiwicDJ9HaNOf/+P9smZ+hI5a+Os1ArJVc0RQJKAPieyuTzrACa4b4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784828543; c=relaxed/simple;
-	bh=E/2X5bAzh5xpkz+FihuC8kAZZBZOBbrDQ0/VDrS+Kho=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LqkbdqhMxSeHY4q2oXMGy5Bn+efActq+ArGzjxB94Db81liPY//+cNuK8DSJo1ztWQSw22FJmly/+MQYxSVCnCqkT/5vGMSXaws1zbc2ZZmgPnwwW5RflUxNkrfMutwpPG4qKnvUhTePvNpMcpwhXVlrNB/xC0XiSZICS0zOI4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=b/JtcHny; arc=none smtp.client-ip=52.12.53.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1784828547; c=relaxed/simple;
+	bh=x3GgjJezyxDhwMo0E0jc/GbjGqpZc1ErOHoiB9f78jU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jlAwIJBUbTUnqlhywO0dgoJ74DYa+Ub2gZ17joDIFF95Zx/MdR7En1bSXd+L1YKy+zyxHsGj9PnWQa+JmX6TO8hV72LdyajnWbNeJ/18WORTzz5ovqFHqIMuySf68EjNEJkN7IWKKTLlhMDSG3Z5U8ur5hi7zOBE5OjPg6fDfa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cdqzq8aL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="b/JtcHny"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1784828540; x=1816364540;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=XpoNptoA6QkO+QN/J109Z8DEprciX1W9uKSFsi8gD0Q=;
-  b=b/JtcHnyysImEgoZHM7GtYmVsmKoThlF2amv/DOOfEV4Hc9dmiliRUuv
-   q6xYk/8PRlTpDopqAQCvhT3LkIhsBRuta7+S9+9Mk8CmG5jNRAIc+U4Xa
-   WXL0P1jqKVrzElu0/BhaYOMP/9doMcHSpPYkJlg5fVW+cVL5C+6t5vDOL
-   xctOjrwe5cAUbaKPjNWbbx5zvadHZJLNgqvBbt1XMbV0Sjn90f5y/XkUr
-   CnDZXHg+2N3fnZRpFr9oSBXX7UD7/16tWhBreZyPFmF0/nhWYOoMiU8Qy
-   7wb37MZ5YqOHxwUCgIqafmIRN13sqozRWKBJX2xqTR/4+gv4LQV62WPXB
-   A==;
-X-CSE-ConnectionGUID: CXfL5PeXRhaNaJSh+lYCmg==
-X-CSE-MsgGUID: BtEyvpegThG8QMPPnuoscw==
-X-IronPort-AV: E=Sophos;i="6.25,180,1779148800"; 
-   d="scan'208";a="24119645"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jul 2026 17:42:15 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:9725]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.32.26:2525] with esmtp (Farcaster)
- id 71c689cc-b71b-4774-8f0b-e90749cc4b35; Thu, 23 Jul 2026 17:42:15 +0000 (UTC)
-X-Farcaster-Flow-ID: 71c689cc-b71b-4774-8f0b-e90749cc4b35
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
- Thu, 23 Jul 2026 17:42:14 +0000
-Received: from localhost (10.187.171.39) by EX19D001UWA001.ant.amazon.com
- (10.13.138.214) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43; Thu, 23 Jul 2026
- 17:42:14 +0000
-Date: Thu, 23 Jul 2026 10:42:13 -0700
-From: Cory Keitz <ckeitz@amazon.com>
-To: Hans de Goede <johannes.goede@oss.qualcomm.com>
-CC: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vladimir Zapolskiy
-	<vladimir.zapolskiy@linaro.org>, Loic Poulain
-	<loic.poulain@oss.qualcomm.com>, Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
-	<linux-media@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH v2 1/3] media: qcom: camss: Add "gcc_axi_hf" to 8775p VFE
- lite clock lists
-Message-ID: <amJPH7TMiMP79mIe@bcd074ae11bb>
-References: <20260723110952.55597-1-johannes.goede@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cdqzq8aL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F97B1F00A3A
+	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 17:42:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784828545;
+	bh=07uegK3I4MlPqYMvRtRYTb9gbGlLPScNbHHawzZqfdw=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=cdqzq8aLhCwM/FrM+hu/Vgh923HTHuHaF2MHX46/UC6VDMmOBTY3veZRPJmKACMhv
+	 TvK7vnvY48ypGKuGjSyB3Z2nPMP+fRfIh9dfi768jAjQ9mdL89GT3wVhDk0fjb70h/
+	 vPPPWXy/wOhQ38gPU9pW7rleUnLspOxQDuistu3w6v5lohhROIw8fCRK2brsOw7KJ8
+	 75jDf1oDDHRTPrtkEroro9M5axZrKdUsEJ0C0Imm8K9+pQKo3KDFpO/fhLOuav2nQO
+	 pBecBQ5656OGYAd3hSe6tpBjfNTV/yxHUFbZZ+YXfRQ/XKziZnZ3ZtDvKIV79JI/hh
+	 co4FMdgKkWwoQ==
+Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-497deab2d66so537852b6e.0
+        for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 10:42:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqlkmT6IctdhIcmDRhf21ncxe/yceZiP6q4xXz2ysB/jKkVa4gIwNScXXYqSUZcwMAcHPT6mcSpiyP2yA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyzhiuSejLpb2UV6xXNt0zxAzdVV7t8Sqv6K7lxHztuCOIi+sSK
+	XjakJSE+tQiaei/AoGxd5OfxovF7+0gegJBMK3CWOKnuXuka0tpwzCx6wR6iaTM43PQNC6KcK1n
+	T/gFDkM6STuynNa09sJDCHTvsdWdgVgo=
+X-Received: by 2002:a05:6808:3190:b0:495:ca1b:7865 with SMTP id
+ 5614622812f47-4ab3842194fmr1564489b6e.11.1784828539225; Thu, 23 Jul 2026
+ 10:42:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <20260723110952.55597-1-johannes.goede@oss.qualcomm.com>
-X-ClientProxiedBy: EX19D041UWB001.ant.amazon.com (10.13.139.132) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+References: <20260722233604.3001063-1-utilityemal77@gmail.com> <20260722233604.3001063-5-utilityemal77@gmail.com>
+In-Reply-To: <20260722233604.3001063-5-utilityemal77@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Fri, 24 Jul 2026 01:42:03 +0800
+X-Gmail-Original-Message-ID: <CAGb2v65zjkXyyrK5U62QsWEWSgG+9zuEKAi-Ekxd5OehBVXTWg@mail.gmail.com>
+X-Gm-Features: AUfX_my2HTBZkhl39VV1Ephb61n1qX3oao7Ket2MbKBRA-ze570sxZ63vDegmvs
+Message-ID: <CAGb2v65zjkXyyrK5U62QsWEWSgG+9zuEKAi-Ekxd5OehBVXTWg@mail.gmail.com>
+Subject: Re: [PATCH v3 4/4] arm64: dts: allwinner: a523: enable IR on the
+ Avaota A1
+To: Justin Suess <utilityemal77@gmail.com>
+Cc: Sean Young <sean@mess.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, Sashiko <sashiko-bot@kernel.org>, 
+	Andre Przywara <andre.przywara@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 23, 2026 at 01:09:50PM +0200, Hans de Goede wrote:
-> The "gcc_axi_hf" clock is correctly listed in the clock list of the
-> 8775p 2 main VFE-s, but it is missing from all the VFE-lite clock lists,
-> causing these to not work on platforms where the firmware allows turning
-> off "gcc_axi_hf".
-> 
-> Add the missing "gcc_axi_hf" to fix the VFE-lite blocks not working on
-> these platforms.
+On Thu, Jul 23, 2026 at 7:36=E2=80=AFAM Justin Suess <utilityemal77@gmail.c=
+om> wrote:
+>
+> From: Andre Przywara <andre.przywara@arm.com>
+>
+> The Avaota A1 board has an IR receiver chip on the PCB (next to the
+> Ethernet jacks), wired to the PI8 pin on the SoC.
+>
+> Add the pin description to the PIO DT node, and enable the CIR receiver
+> in the main power domain.
+>
+> Tested on the board with evtest and some random TV remote control.
+>
+> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
 
-Tested-by: Cory Keitz <ckeitz@amazon.com>
+You need to add your own Signed-off-by, since you are resending other
+people's work.
+
+ChenYu
+
+
+> ---
+>  arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi          | 7 +++++++
+>  arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts | 6 ++++++
+>  2 files changed, 13 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/=
+boot/dts/allwinner/sun55i-a523.dtsi
+> index c2de662140ce..219fd76a4710 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+> +++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+> @@ -155,6 +155,13 @@ i2s2_pi_pins: i2s2-pi-pins {
+>                                 bias-disable;
+>                         };
+>
+> +                       /omit-if-no-ref/
+> +                       ir_rx_pin: ir-rx-pin {
+> +                               pins =3D "PI8";
+> +                               allwinner,pinmux =3D <3>;
+> +                               function =3D "cir_rx";
+> +                       };
+> +
+
+This hunk should be in the .dtsi patch. And there are two pin mux
+possibilities for ir-rx. Please name it accordingly, like "ir-rx-pi-pin".
+
+ChenYu
+
+>                         /omit-if-no-ref/
+>                         ledc_ph_pin: ledc-ph-pin {
+>                                 pins =3D "PH19";
+> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts b/ar=
+ch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts
+> index 474354fbfcec..994f1e4f0ce7 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts
+> +++ b/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts
+> @@ -100,6 +100,12 @@ &gpu {
+>         status =3D "okay";
+>  };
+>
+> +&ir {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&ir_rx_pin>;
+> +       status =3D "okay";
+> +};
+> +
+>  &ledc {
+>         pinctrl-names =3D "default";
+>         pinctrl-0 =3D <&ledc_ph_pin>;
+> --
+> 2.54.0
+>
