@@ -1,171 +1,203 @@
-Received: from flow-b2-smtp.messagingengine.com (flow-b2-smtp.messagingengine.com [202.12.124.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B372330647;
-	Thu, 23 Jul 2026 22:09:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.137
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784844583; cv=none; b=dNUv5KelzgZsu6rkP5B5lpy63IktI3BBAvWFAKo2Sw/b0l5cFLoVlL/hvH9xMC8qeHS56RG1j1np7z70eLQMjfLaGo0fjFywVVB1S3o2SJpElq8OpojDPX/pZ7zqJ8BteKz7HWpMCY3kW5f4QbliM9KYhspW0xF7uihzvggwYjs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784844583; c=relaxed/simple;
-	bh=08Vd4vj0vBOHxp6n6UUYarIgUYV6i+W7ia2Q7GQHbZc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uKHaxyrznlpV/ikHBUIUTycg4f00JC9tQ1OK+KnzPmb45gYY9ub9szg2IOulOh0F3PT2R8vOOuG0i8qxeXODpQ37Se1J6k1hkdtpnqHFW9LVPgQPKNYn1HLeHk0kUVqCfJpHkYXGkww4F4tZV+N1VutRpWd7nMrObbxA/yS/lZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=Iw0GqnH2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=pvNmtjve; arc=none smtp.client-ip=202.12.124.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2864833A9FC
+	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 23:48:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784850482; cv=pass; b=RjO9+BZdcPpHsmvwniTONR6XAtLVoLWj1SOkAd6PBCfq93WbUl3O4EO1gd749+ViDrKXDYuNRK2Uf48bCwG1Dbradl55Vh5leSIqW2XPf6nN1QJS5Szk2StjDY/EjHEEKWry+g6PmGRxnXTkaRS5A0SVzmW1bKgE4EOvk7QOn0k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784850482; c=relaxed/simple;
+	bh=TyLuVUUX/ZaM9OY/LH4HVOmQ2oiQc4G3lPqxlUQIoVM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HVxtl6cr8OABzZm8IOdHnZkxMrcNVRzhhm44LXw4ttq3YFBlnUFUhxcEjBYCYqfeuk1KWcWgHniWpbcad/dB/Aihm1pnBoblRN0GiIUW+36vuYANh2hGqRCdjUvQoqdeJq57JIt+57ihbTn4dTD/qjrs0FT90QIA4bDxo0UXJo0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dPWE8r1z; arc=pass smtp.client-ip=74.125.224.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="Iw0GqnH2";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="pvNmtjve"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailflow.stl.internal (Postfix) with ESMTP id 5EE431300184;
-	Thu, 23 Jul 2026 18:09:40 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Thu, 23 Jul 2026 18:09:40 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1784844580; x=
-	1784848180; bh=08Vd4vj0vBOHxp6n6UUYarIgUYV6i+W7ia2Q7GQHbZc=; b=I
-	w0GqnH2zARrvIjMVElIGy99EtGyy5PDy8k73ogt/ccKAIoupm9R4L66BehTOJTgZ
-	0ajqXUpLwQzqqJ30nbcgAao8Q8LdReMEtRoZBbZo7j6Hou1com+IlY0BGvdGctf2
-	zYcoBgRKZrmsGSUPcDRcv348NZhPd4/Zp8y+yNsKi49EhO4afaLQMMi+bBHzNEDJ
-	eeJbshnoI0sgV8qWX1Z3jtI+J7s9+eWLJHkdrtzRctlwBnfnPR4fE78PLgWLpAt7
-	8u1O4tBgNjwq43LWDgEkVNrASHTOxYTcVuE0UbkCrujF/0AVlpyvQJ7Vzvnz3G3o
-	khDFqJalanO2k078J2Kpw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1784844580; x=1784848180; bh=0
-	8Vd4vj0vBOHxp6n6UUYarIgUYV6i+W7ia2Q7GQHbZc=; b=pvNmtjvedinG9BIc8
-	Rq2e9k6xkjh5zwX6Q1ZCNXI5GkyHskVitn3u1ukPidIzU9k2zsTsclRy2bEPCmk0
-	Hc3bt3k7wqJSQb0ZwOxGz42zDOdffEoSZx4WFMeAZ1pwjgzKZ6waxYNw4bQX/MPN
-	NtoKeDIEeh7DNOwJc9OYf2V2HhzL6+mVBsjG0G0iQ+weuSSVBNZePcZM92DXCyeK
-	zzZOm/1CaxjcCx6w7/6lq/ZX8s0CpMQ5DPTuoqDYetuFu4IiEa/rFgS5SVPqEu4S
-	yrsV9EZZlOyQS66jdyPjJh1VWTxim4fmZJKbZqYe/xh5T9vHU0OEIReGRjoDa3BN
-	Im4rA==
-X-ME-Sender: <xms:I5Fiavj_fJMjrXZwUJJ_mp1WBJEkB1JIVcNJsoYIviY7mT517c8FFA>
-    <xme:I5Fian1UIzfXE09PyqDROekqe6oojJtuhcw3ZKEIoXs-jcVCjxe-3tkQm_f9NFjD9
-    0V_E_lJ-9PVm3yuObfV_xI3DSigN2pXUL2Sl2LXr1DMe5-uoNKWRnVs>
-X-ME-Received: <xmr:I5FiakmFtWDQgiVHNPSzx6N_1FX-PfHw4Upx8RFKSD6ocGNjD6XrNE3bc8XdC8a_3bWFfpD06rnKImKg_N3_vXtFiVEpW3IRCYqagQZMqbTS>
-X-ME-Proxy-Cause: dmFkZTEIDoSZFQH3ibbkdIMliwsQ8yGxUqGqOd0h8qFv/8gZwbx4zY14jxCs29cyvCKMMS
-    8NbQc35lUVkljqLj7KRP3wdRrYrAXy4fKERbA/afDEAa1r4f6HrxX9dYd6J/CZguZpbRej
-    P2ktg7gtK96Snwg+Ln3QayQdtU6L+TTX0GAB9D3nqW/3GEKYmcl0wiL1snFtU4ZcH3yUL1
-    DSDFiP8W/zm+AUFQd/PYsrxEBf4rdc50SK16jE7QsyzUnYTINQSSni/do2vHIpTLWrKsUh
-    dsB9AmtSVTBoMPcT5evRiy5QdFbkGK/Jf1ap9r+UJILaLx1Jw+d5gsGls5ar2xP03uJKSk
-    6vrb1qjWmed1vdY4Pwkhmhh55jwsVHXhqljb2Wns4UrSfl22D6G5AqCN69fUwKPiGB2M8+
-    Vzo7as6+uPd/SuXToYUI5W6TThWjfpT171iaq6EDwJcr57J2Bk/TSxJRzJR9rMNRmzKshK
-    DSacqJuVa3bMPo/eCpzTmeHcNooKAf1tKDgHtKKQk7CyRhwQet1iu3Y+8xpGiNFw0g0sBZ
-    kIWr4Q0gRRhaU01yXE6hErtxbiRC0JE8S0RzIiZQoZwuWA3avgxHjHd3IfNTHWPYhIRpZl
-    JQe4XgzTQeiWg44RBQFdl+gvBpzpX/6AwG6ugFo/DKLhNRqrKsEvBs+u7BTQ
-X-ME-Proxy: <xmx:I5FiautxUebroOImJ7i0ACgpQksj35zKeevJm2MOKigMPlIIJJr7qQ>
-    <xmx:I5Fias3uEN2yrfn4ylTeNqPQfPOeIHROcRYS7O1rTvS1J9lUT7gg8Q>
-    <xmx:I5FiaiQZvRGqK2A9A_DWptKlLSYmjH8FQZVB9MfIWAr7flFpatyHYA>
-    <xmx:I5FiaouKghN75Fkag2DAXEAXz166lNvzqCKynd2LU34VYVKceDFfSw>
-    <xmx:JJFiaoNZf8FCL9eQ5ivZNACoAvTk3lFxTrlkMA_h_9QVNwCXRYpNfICx>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 23 Jul 2026 18:09:33 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: nicolas.dufresne@collabora.com,
-	detlev.casanova@collabora.com
-Cc: paulk@sys-base.io,
-	heiko@sntech.de,
-	mchehab@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ezequiel@vanguardiasur.com.ar,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jiaxing Hu <gahing@gahingwoo.com>
-Subject: Re: [RFC PATCH 0/3] media: rockchip: VEPU510 H.264 encoder for RK3576
-Date: Fri, 24 Jul 2026 10:09:29 +1200
-Message-ID: <20260723220929.2080095-1-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <210b72e32d1bd757a36b2baf532dd9f7d46ca5dc.camel@collabora.com>
-References: <20260722073417.2064667-1-gahing@gahingwoo.com> <20260723004642.2075233-1-gahing@gahingwoo.com> <210b72e32d1bd757a36b2baf532dd9f7d46ca5dc.camel@collabora.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dPWE8r1z"
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-664f5750b02so169471d50.2
+        for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 16:48:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784850480; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pAEenZ6ZHgj5m/lIY66Ley51xLpio1CxMqMsxcsj8iv0l1l4iQQwipnXwCes7G99Wv
+         7iNxYgKyJo183s1q4deuyQwJIeJa/0fCprpflS4pVfhedCtNppLulehGn0z1XYtLuxlz
+         xW0c+4z3dwOMMr2vICV/5jEROOS1b+6anFdb6xmUWjCZqMlVNGayJaKTnkVeHvHd7S5S
+         p7n2H+e702H8Z9VrnFqa1vPo6wwgELvN6g6PtyoRVByOGfyl7hFDmd34iul3Wa4YJhTo
+         2AFFwlD4mJIZ/owyg5dE4NhMDLcd+1ZP2E7lwmf12Mkyw3cNO0FQRqNgCWvvKS5f0XYL
+         9xXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=sBSg+zmK0rXA8MQwVQ/Rx8kwPD6hENRcbQrpEao+5kg=;
+        fh=af2Mrkl9md9VdKHE18tHMZMWysj86XnDfYFULSA1/lI=;
+        b=pKFA8zjHtZ/+pm6kpw9wsoxsdlpgug0xl3XbAecPWSgAxCvXudNFTkhjIAuexr7A/j
+         uOlkmpyb0lXln9HFxkECya2qDDL1MjeFozy4RjLDPuKKs8qvxPIrSrHNsnJpCH0ORn+N
+         UsvZKO5p7YELedGDI8NOpQg39Uu28rVAUe1ONdwQO2wok/szGbKX6bDOz4jp5oPCnwHS
+         8Gwfcm28FMcost2N2EqvLifWoIgDWkwOZECPrFTk88vpmY9QoB5VAaEiiP66fTJ5tVFc
+         PEyy7yrtsIF82vBUKlVofXDQhCNdEuVskCrMQcBGdcENBdMPuAXyprdCAEGhyweHXRDM
+         iRig==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784850480; x=1785455280; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sBSg+zmK0rXA8MQwVQ/Rx8kwPD6hENRcbQrpEao+5kg=;
+        b=dPWE8r1zaf+VMy6VkcwDGO809IqQ6P/fhtyjIEZ6UlUg4kO4PrbGKfbqYvOkIrHTpT
+         3BXgDgadUOsCS3gGf/GVQjyY0lV32u7tf6dMrf1Fyn8T4YQ1DeATbLBw3WZYXOu3lHWf
+         EpIYuSVM/1JlWKfkDZKKvfrsDua/KucmviGu+XxKILZBf1mPWataq7U3JSglHZd5cuUB
+         RNfXQr9bCdfG5Tf2/9yJZ4ckXFMj1hAOVUuYLR6ptnmyrNdPam6EzhnK4UWLjVSwd6Jb
+         nBnwwoSJ0Uhm+qZ3CYp0rXtMUDVvyz9NkEQnYRFF0+Wl10fEbpCfSf3Cx3cj4aZM39Uo
+         N4OQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784850480; x=1785455280;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sBSg+zmK0rXA8MQwVQ/Rx8kwPD6hENRcbQrpEao+5kg=;
+        b=dr/CLoZiCXcItgAycHo/XgtNUpq3RouiemFyArH39MlYsvnME89ryzvcpwQlug7DPv
+         CGzGGGm5/FKqLn0SkNRis5qAqRTDONK3owjHIXJQSt0wUwmMKCE3s0oZPo6y2yfNpaMo
+         0nSgvwr+ZBdZGR7YYulLvShxP6NzpGQHbhfAC8nA01eEA5n0VaagybDDlMj0XA6OWati
+         zVSM8BYUOpudwijyiT/2jjFknHoNGUrJlZL++Xre246orFcYVWS02FnFCl4i052sOFHs
+         WRczhdTUvCPdJQy8K/DYI+eQSdVDRYxrlTCAUrxtxiDty49aytHmvtWCxEf26fltlDrV
+         3TTA==
+X-Forwarded-Encrypted: i=1; AHgh+RqjrRThmJ/3uyJimJuLHRWnUD2earBqWZFOCyofHIn7QB4ENf89vxtXbLMtzV43PyVJLQXEjQ21zXkLow==@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywnn4i5s1fyRvFnQhX960dEF0FOC45UDEcxTBOycEVSzv8lXqEF
+	Pyn6r9fd6Waks9hd14xZLzOb0UjFtS66VqzBq4DlOz4daza4wsSEw6YBq3E7DgW+TmqrMWSiZZz
+	iuRGTCIXbbvndYLMkgVEpoQUvhiylmWQ=
+X-Gm-Gg: AR+sD138fYki/SeMnbW43IKwkhCtxnCSw9qA95tYC2U8zPqQ/BWlNWh4qknfMD31tcW
+	Mq4MloHQOLxNkQFhUD1MSsZ6NlKrI9+YD+WBVghu0/HcPDUDfw2AWGPGzV1khz4ZKmSbmUsxh10
+	cbsEfuk2sFgdCQqbBQpPshC1Vbq7CEJ4TysoQryCNRpkgUU982G50anP6ywyBa4Cw9UZSRZq3+D
+	bEDUZ5BV+gfw9NQvorA/ZB/Wcu2o0it1b9ctGLAVMtptMKhrHJcnMUSfNXRYfIlJa1VJQ6cftnw
+	A4hGXZZdqeBhHMqMfhQl
+X-Received: by 2002:a05:690c:6609:b0:7ec:58dc:f23 with SMTP id
+ 00721157ae682-81f5856ba5bmr8261157b3.5.1784850480115; Thu, 23 Jul 2026
+ 16:48:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260718085728.6797-1-royalnet026@gmail.com> <20260718085728.6797-3-royalnet026@gmail.com>
+ <25922edc-4ff1-4d28-9a64-2c28b2b690cb@collabora.com> <CAEWPSH70FecQRuGtA=S8+_CnLY5sMyf1j57Uwzwv54zceS1HZg@mail.gmail.com>
+ <b8d63f61-b73e-412e-8119-ced1afdd4551@collabora.com> <CAEWPSH5j3tYNb1JKRGwa00PVnYAgCKS+B-Qz07D8Z7TJea5cMw@mail.gmail.com>
+ <1ac66aab-8985-4441-8ce1-07e2ea5183bd@collabora.com>
+In-Reply-To: <1ac66aab-8985-4441-8ce1-07e2ea5183bd@collabora.com>
+From: Igor Paunovic <royalnet026@gmail.com>
+Date: Fri, 24 Jul 2026 01:47:48 +0200
+X-Gm-Features: AUfX_mwQpQY6ms6Ddg9sVvPaEi1tUNBsASXfULkmbLix8kQzlJ5kEVuWDGHKcXY
+Message-ID: <CAEWPSH4aB4KZsrLx2TESjPvUG0+A_Z_7uuO=5Rd-VidKU9U3eg@mail.gmail.com>
+Subject: Re: [PATCH v3 2/4] media: synopsys: hdmirx: add HDMI audio capture support
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Sebastian Reichel <sebastian.reichel@collabora.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	kernel@collabora.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Nicolas, Paul, Detlev,
+Hi Dmitry,
 
-Thanks both for laying out the trade-offs so clearly.
+Thank you -- and thank you for reviewing the whole series and testing
+2/4. It went through a lot of back-and-forth since the RFC, so having
+it land with your Tested-by means a lot.
 
-Decision from my side: I'll converge on the DRM-ish / Vulkan Video
-direction and sync with Detlev, rather than push the stateful V4L2
-driver further. Nicolas' point about UAPI lock-in is the deciding one
-for me -- I don't want to expose an encoder UAPI that then has to be
-supported forever -- and if RK3576 is just a minor delta on Detlev's
-RK3588 base, that's exactly where my hardware work is worth the most.
+I'll prepare the follow-ups as separate patches once this series is in:
 
-Paul -- thank you for the generous offer. I read both your Media Summit
-decks and your posted series ([PATCH 00/14], the generic in-kernel
-h264-enc core + rbsp + rate control on VC8000E); it's clearly further
-along than I'd assumed. I'm not closing the door on a V4L2 version
-later, but I'd rather not commit to maintaining two drivers up front, so
-I'll treat that as a possible follow-up, not the primary path.
+- The video_device lifetime issue on the V4L2 side (the devm-allocated
+  struct with video_device_release_empty that the automated review
+  flagged) -- as a standalone fix for the existing driver, since it's
+  independent of the audio support.
+- An atomicity fix for the GLOBAL_SWENABLE read-modify-write, now that
+  the audio path adds a second writer to that register alongside the
+  CEC code.
 
-Where I think I can be useful right now is the hardware, since that part
-is shared with RK3588 regardless of interface:
+The repeated-suspend wedge I mentioned in the cover letter I'd rather
+send only once I have a clean, reproducible trigger for it -- it's
+still under investigation and I don't want to send a fix ahead of a
+solid repro.
 
-> I know in his case he was trying to avoid reconstructed frame
-> compression, and it only started working when he enable that
-> compression. Though, he had mmu faults prior to that.
+The dynamic codec registration you suggested (bind on the plug event,
+read the actual wire sample rate and restrict the codec's rate) is the
+direction I'd like to explore after these, once I've looked at what it
+needs from hdmi_codec_ops.
 
-Useful data point, but let me be precise about where I already am, so I
-don't send Detlev chasing something I've done. This driver already runs
-with reconstruction compression enabled (enc_pic.rec_fbc_dis = 0) -- the
-state Detlev needed -- and the first inter frame still hangs. Disabling
-it (rec_fbc_dis = 1) was one of my experiments and also hung, so FBC
-state alone doesn't explain my stall.
+Thanks again,
+Igor
 
-The part that does line up is the mmu fault. I still have a residual
-rk_iommu write fault on this path; I traced it from a boot-varying
-garbage IOVA down to a benign IOVA 0, and I'd concluded it was a
-separate AXI transaction from the recon write, independent of the
-P-frame hang. Detlev's report -- that his mmu faults and his missing
-P-frames cleared together -- is a direct reason to distrust that
-"independent" conclusion and re-check whether the fault and the stall
-share a root cause on RK3576 too.
 
-Detlev -- when you have a moment: on RK3588, were the mmu fault and the
-P-frame failure the same underlying problem? And did enabling
-reconstruction compression clear the fault on its own, or did the
-reference-read mapping (how the previous frame's reconstruction is
-mapped for the encoder to fetch) need a separate change as well?
-Whatever you can share, I'm happy to test on RK3576 and feed back a
-Tested-by.
-
-One point on the current code, since it came up:
-
-> A lot of the code is hex tables generated from inspecting a running
-> driver.
-
-Fair, and I won't pretend otherwise -- the PARAM/SQI classes are
-currently shipped as fixed tables taken from a captured encode rather
-than computed. The one thing I'd add is that those particular values are
-mpp's public default-tuning tables (the RDO lambda/cost and
-subjective-quality tables in Rockchip's open-source mpp HAL, Apache-2.0),
-so they're constants I can cite to mpp source rather than opaque state.
-But I fully agree the driver needs significant cleanup before it's
-upstream-worthy, and in the DRM-ish model most of that tuning moves to
-userspace anyway, so a lot of it won't survive the transition in its
-current form.
-
-So: please point me at Detlev's shared branch / early code whenever it's
-in a shape to build against, and I'll start porting the RK3576 hardware
-bring-up onto it.
-
-Thanks,
-Jiaxing
+On Thu, Jul 23, 2026 at 10:56=E2=80=AFPM Dmitry Osipenko
+<dmitry.osipenko@collabora.com> wrote:
+>
+> On 7/21/26 08:31, Igor Paunovic wrote:
+> > Hi Dmitry,
+> >
+> >> Re-arming will be best option if it works properly.
+> >
+> > Went back to it and made it work properly -- with one honest caveat
+> > at the end.
+> >
+> > Plain cancel/re-arm could not have been enough as previously
+> > written: hdmirx_resume() fully resets the controller via
+> > reset_control_bulk_assert/deassert in hdmirx_enable(), wiping the
+> > audio configuration (I2S_EN, AUDIO_ENABLE, FIFO thresholds), and
+> > the worker's error path never re-programs those -- it only resyncs
+> > the clock rate and reinits the FIFO. So v4 does:
+> >
+> > - suspend: cancel_delayed_work_sync() on the audio worker before
+> > the clocks are gated (audio_streaming stays set);
+> > - resume: if a capture stream is active, re-program the whole
+> > audio path (clock from the last known sample rate, FIFO
+> > thresholds, I2S_EN, AUDIO_ENABLE) and re-arm the worker.
+> >
+> > The programming is factored out of hw_params() into a shared
+> > hdmirx_audio_setup() helper so resume and hw_params cannot drift.
+> > I also checked that nothing in the post-resume hotplug re-init path
+> > (plugout/plugin/submodule_init/controller_init) touches the audio
+> > bits, so the restore survives the replug dance resume triggers.
+> >
+> > Measured on the Orange Pi 5 Plus (pm_test=3Ddevices, i.e. full device
+> > suspend/resume callbacks, active capture stream with live audio
+> > through the whole cycle): on resume the capture simply continues --
+> > audio was flowing again the moment the display came back, no
+> > userspace intervention, clean dmesg, no oops in any of the ~6
+> > cycles exercised tonight.
+> >
+> > The caveat: a *second* suspend/resume cycle in the same boot leaves
+> > the audio datapath silent (the I2S slave sees no bit clock, so
+> > capture reads time out) even though the resume restore re-programs
+> > everything, and a fresh stream open does not recover it -- only a
+> > reboot does. Notably this happens with plain no-stream suspend
+> > cycles as well, so it is not caused by (and would not be prevented
+> > by) either the re-arm or the -EBUSY approach -- it looks like more
+> > controller state lost on repeated reset that neither hw_params nor
+> > resume currently covers, likely the same warm-up state machine I
+> > described in the v3 testing note (audio needing a video STREAMON
+> > after a replug). I am instrumenting the register state next to
+> > root-cause it; I'd treat it as a follow-up rather than a v4
+> > blocker, but happy to hear if you see it differently -- and curious
+> > whether the 5B shows the same second-cycle behavior.
+> >
+> > v4 follows with the re-arm plus the dts and binding changes already
+> > mentioned.
+> >
+> > One more small thing the audio bit exposes, for a possible
+> > follow-up: hdmirx_cec_update_bits() is a non-atomic RMW (the read
+> > and the write each take rst_lock separately), and with audio added
+> > there are now two writers of GLOBAL_SWENABLE, so a CEC adapter
+> > enable racing an audio enable/disable could in theory lose the
+> > other side's bit. Mainline today has a single writer, so it is not
+> > a bug there. Can send a small patch making it atomic if you think
+> > it is worth it.
+>
+> Feel free to send the follow ups.
+>
+> --
+> Best regards,
+> Dmitry
