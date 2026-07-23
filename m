@@ -1,120 +1,115 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7AB46D2BA;
-	Thu, 23 Jul 2026 11:17:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B7846D0AA
+	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 11:19:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784805440; cv=none; b=QZGQQGwuTbsbxjA64rB6A/NcnWSPErSvSPKocLOx+6+3Vom++QPOtsv+uL5QqDrZX8OsbTp6MOlP8iK+/J4D72iTN4xRKOJ3fIFYv8Mf6XWdELw5/NSLCjneU2Nsk+1p/riU4RhFDfsBEDViRI34ex9lCt7nTNH8AtVSuHJJ4eo=
+	t=1784805550; cv=none; b=ipaIsbq6maRBgfXrpEZd1P+EvKOSKc9yL2Cmp6hdD288zNsNyWH2lfNg2rXRxDdb/3e6piVNvGXFFutppAk82xVYBoZedWigWid3hBbZohujZ2LDozh5iU7XKLpim0oCPzDVCBsM11IX3IbEVDlulyiF45X+JsNPUfhbmEPrG4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784805440; c=relaxed/simple;
-	bh=7uCwcf9RoCvsnb8tsObwR1UlHdRV7xuUTUXYyK3LdlA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OKnp+JM4ADBNfWAUWRDqjAJMLGOXCgggCUZ5lubL7bCoBDtTW/wH1pgOn1uJfujc+XHJUB7FI46S3zCczaMewLT/aEDuqX7x85iOLb28Nq96tAIgHvBh5clCR4AmqoSAg6wVnaYWb0F31iudf1p7cvFElGrY7cKKzW5Iy6Mkq3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=N+CZ3Ehh; arc=none smtp.client-ip=213.167.242.64
+	s=arc-20240116; t=1784805550; c=relaxed/simple;
+	bh=LK0iEV45yFUvXf0Dnz/jAQCJLp7g8UHiQQm+xl5sxRE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=vGZgxWqEFNZbqrNabFJHTnzSTAmGD4s9Xw5UcxstW5ldU6TtWBhtY5uZ6I6gx2HnjTI74L3w5OpOhnGEb2K6dgNj+9nZKly75rORfjwSkZA23WXJMQSX1s/Kg2rLUW07IxWh4buXru39mJxMNbHGhWGq/PhylrMtwDqqdc4elco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=WZ5FFiX0; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="N+CZ3Ehh"
-Received: from ideasonboard.com (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6FE1D1C37;
-	Thu, 23 Jul 2026 13:16:12 +0200 (CEST)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="WZ5FFiX0"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 50FBB1C37;
+	Thu, 23 Jul 2026 13:18:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784805372;
-	bh=7uCwcf9RoCvsnb8tsObwR1UlHdRV7xuUTUXYyK3LdlA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=N+CZ3EhhKxBvrPtxQlmUKvbvvEO2IewwdZnnLxu0mKGQ+sIlwNRHL4uXXEL2tncD1
-	 qOg2ICVwegIwutWTpogYTBJI5sxUPb8srYbwlLmBAg6Kt25eY3d39fKFaHPivBRP9P
-	 kY97jEOO/6iVocYwd9ULQYhisrNe+S6SPPvm0lfc=
-Date: Thu, 23 Jul 2026 13:17:09 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Philippe Baetens <philippebaetens@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
-Message-ID: <amH3qaUBCOBOKxjL@zed>
-References: <20260722-mira220-v7-0-dd5f1de98cd4@ideasonboard.com>
- <20260722-mira220-v7-2-dd5f1de98cd4@ideasonboard.com>
- <178472387683.3005206.5602199112336367476@freya>
- <amG5CiajbwGXhb59@zed>
- <178479424623.3238585.7446724208192156945@freya>
- <amHRMQfRzppwZ5xz@zed>
- <178480022192.3238585.15132202916626773351@freya>
+	s=mail; t=1784805484;
+	bh=LK0iEV45yFUvXf0Dnz/jAQCJLp7g8UHiQQm+xl5sxRE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=WZ5FFiX0vQL6V6RRxoS4PLe1JddhdP9q0e4d/4rHoVNaJJk3QtXIIzEVIB//GcVc5
+	 q7Yjf51pXmFoiHr0w2NdVtD2j6roLj1/A4J642h+SfLWOggyoFZFWAH/8lhZayo1Be
+	 Kbk7AXhtvqxo0rFUcDco5Nj/o/SMySyZyz0AAuhk=
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: linux-media@vger.kernel.org
+Cc: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@iki.fi>
+Subject: [RFC PATCH] media: ti: cal: Deprecate non-MC API usage
+Date: Thu, 23 Jul 2026 14:19:03 +0300
+Message-ID: <20260723111903.742283-1-laurent.pinchart@ideasonboard.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <178480022192.3238585.15132202916626773351@freya>
+Content-Transfer-Encoding: 8bit
 
-Hi Jai
+The MC API was introduced in the CAL driver more than five years ago in
+commit 38e89e790fe2 ("media: ti-vpe: cal: Implement media controller
+centric API") as a disabled by default option. Five years later, it's
+time to give users another nudge to move to the MC API. Deprecate non-MC
+API usage by printing a warning at probe time, and defaulting to the MC
+API. The legacy API can still be selected through the mc_api module
+parameter.
 
-On Thu, Jul 23, 2026 at 03:20:21PM +0530, Jai Luthra wrote:
-> Hi Jacopo,
->
-> Quoting Jacopo Mondi (2026-07-23 14:46:07)
-> > Hi Jai
-> >
+Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+---
+ drivers/media/platform/ti/Kconfig   | 11 -----------
+ drivers/media/platform/ti/cal/cal.c | 10 +++-------
+ 2 files changed, 3 insertions(+), 18 deletions(-)
 
-[snip]
+diff --git a/drivers/media/platform/ti/Kconfig b/drivers/media/platform/ti/Kconfig
+index 1a020b2bbb4f..03df5617e99d 100644
+--- a/drivers/media/platform/ti/Kconfig
++++ b/drivers/media/platform/ti/Kconfig
+@@ -30,17 +30,6 @@ config VIDEO_TI_CAL
+ 	  In TI Technical Reference Manual this module is referred as
+ 	  Camera Interface Subsystem (CAMSS).
+ 
+-config VIDEO_TI_CAL_MC
+-	bool "Media Controller centric mode by default"
+-	depends on VIDEO_TI_CAL
+-	default n
+-	help
+-	  Enables Media Controller centric mode by default.
+-
+-	  If set, CAL driver will start in Media Controller mode by
+-	  default. Note that this behavior can be overridden via
+-	  module parameter 'mc_api'.
+-
+ config VIDEO_TI_VIP
+         tristate "TI Video Input Port"
+         depends on VIDEO_DEV
+diff --git a/drivers/media/platform/ti/cal/cal.c b/drivers/media/platform/ti/cal/cal.c
+index b7e77b6b8950..5c82378d1eee 100644
+--- a/drivers/media/platform/ti/cal/cal.c
++++ b/drivers/media/platform/ti/cal/cal.c
+@@ -43,13 +43,7 @@ unsigned int cal_debug;
+ module_param_named(debug, cal_debug, uint, 0644);
+ MODULE_PARM_DESC(debug, "activates debug info");
+ 
+-#ifdef CONFIG_VIDEO_TI_CAL_MC
+-#define CAL_MC_API_DEFAULT 1
+-#else
+-#define CAL_MC_API_DEFAULT 0
+-#endif
+-
+-bool cal_mc_api = CAL_MC_API_DEFAULT;
++bool cal_mc_api = 1;
+ module_param_named(mc_api, cal_mc_api, bool, 0444);
+ MODULE_PARM_DESC(mc_api, "activates the MC API");
+ 
+@@ -1228,6 +1222,8 @@ static int cal_probe(struct platform_device *pdev)
+ 
+ 	/* Create contexts. */
+ 	if (!cal_mc_api) {
++		dev_warn(cal->dev, "The legacy non-MC API is deprecated\n");
++
+ 		for (i = 0; i < cal->data->num_csi2_phy; ++i) {
+ 			struct cal_ctx *ctx;
+ 
 
-> > > > > > +#define MIRA220_MIPI_HSIZE_REG CCI_REG16_LE(0x207d)
-> > > > > > +
-> > > > > > +/* MIPI bus control */
-> > > > > > +#define MIRA220_MIPI_LANES_REG CCI_REG8(0x6012)
-> > > > > > +
-> > > > > > +#define MIRA220_MIPI_CLK_MODE_REG CCI_REG8(0x6013)
-> > > > > > +#define MIRA220_MIPI_CLK_CONTINUOUS 0x00
-> > > > > > +#define MIRA220_MIPI_CLK_NON_CONTINUOUS 0x01
-> > > > >
-> > > > > Does DT allow clock-continuous property? Do we handle it?
-> > > > >
-> > > >
-> > > > The bindings for this sensor allows all properties from
-> > > > video-interfaces.yaml, including clock-noncontinuous.
-> > > >
-> > > > The driver doesn't support it at the moment and unconditionally use
-> > > > continuous clock, but I guess it's nice to provide macros for the
-> > > > non-continuous configuration as well
-> > >
-> > > Ah, that's not too good if the DT allows it but the driver silently ignores
-> > > it.
-> >
-> > Why ?
-> >
-> > We allow all properties from video-interfaces.yaml (something which I
-> > think it's wrong, but that's a long time ago discussion with dt
-> > maintainers, so I'm not contesting that) and we certainly don't handle
-> > them in drivers (in facts, what drivers do is not relevant to which
-> > properties are allowed for a device).
-> >
->
-> I am not saying the bindings shouldn't support that property, bindings are
-> for hardware. And yes you are free to not implement all features in the
-> driver.
->
-> But given the bindings and the hardware both support toggling between
-> continuous or non-continous MIPI clock, from a hardware engineer or
-> integrators perspective it would be quite confusing that setting the field
-> in DT will do nothing, with *no* warning to the user either during the DT
-> validation or the driver probe that it was ignored.
->
+base-commit: a52e6f7923c17a672135b485ffd96fbd72f46267
+-- 
+Regards,
 
-True that.
-
-But does this mean I should be doing the same for all the properties
-that apply to the hardware ?
-
-clock-noncontinuous:
-link-frequencies:
-lane-polarities:
-
-?
+Laurent Pinchart
 
