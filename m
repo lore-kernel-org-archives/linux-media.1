@@ -1,81 +1,81 @@
 Received: from flow-b6-smtp.messagingengine.com (flow-b6-smtp.messagingengine.com [202.12.124.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA3F17A31E;
-	Thu, 23 Jul 2026 00:46:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F9301A9F96;
+	Thu, 23 Jul 2026 00:47:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784767618; cv=none; b=Lkx+nawOz1LvztSUwx+iJjSzLogV4SssUNHGu+VTWHhOpCGVtvmntvOurXFLBGtjLIHb/dNhCd4OWzxvsxuffd/S6VcBwSgJ+n/8Gw4op8HTqFF5Un31z7XrZ9UYM/R6+inmOBlETJsHwRklxvG6uNSJRGSpWeU94N687RAsWVM=
+	t=1784767633; cv=none; b=ERbG5Q4AgycBCv1aq0GanFT9t5EbQNY9IB2nfOJPHfdzWS+cVIrotN6+odxg7z65P/TyjZunFqJpv5GYuz/Xf7OzMBVoIHSxtdBKSmPnaPktFJZHiYjKK+m3w+HNDYoCKCQluvokZS1HnFhU88f6w5Dt/YGu+Jfy526MNsZy6EY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784767618; c=relaxed/simple;
-	bh=OJHKUYMFKaoMIxRVzHh5k7kdywBvMNCAGk+h8PoY7yc=;
+	s=arc-20240116; t=1784767633; c=relaxed/simple;
+	bh=jWaMVB217J5XkLdEgIoIU4LaUd29zl7Y/11Q/hCVbKw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SnD0QJiRasIdFtxfg9ahnsAk0M4ZUhAyTxUof8/L0YK9FiyI+Y06B4rBAPOY0a/OjIGahdKZH3yE+V8505L+mwOTZE6lORgcuaqlHtwqEA0m6QFKTfN9pqVAWUI5dPJlJo9QJUmfbnsETetQjYnkitE+jagSLQa7AI+tEn45Q1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=lqS8Zdsv; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=E+QVGlWg; arc=none smtp.client-ip=202.12.124.141
+	 MIME-Version:Content-Type; b=PnMWVMp85bwBhFRYio/88baqGbRd15Nemt6Ub4ulDSUz9XKb13gLNaP73hxOSuTBlyn8oanK+mk0Pnqtrc0mEdYl0UHNEUJVd5g3xsPlpyz3XcKXvQKGVPV524aRNUeEPLnic6Kiq6jhwtGpVJc64BgklvAB36LhESevBv+LW5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=ot7y1o/D; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=deHdj7UV; arc=none smtp.client-ip=202.12.124.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="lqS8Zdsv";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="E+QVGlWg"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailflow.stl.internal (Postfix) with ESMTP id B17A2130030A;
-	Wed, 22 Jul 2026 20:46:55 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="ot7y1o/D";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="deHdj7UV"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailflow.stl.internal (Postfix) with ESMTP id 688C6130030A;
+	Wed, 22 Jul 2026 20:47:11 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Wed, 22 Jul 2026 20:46:56 -0400
+  by phl-compute-06.internal (MEProxy); Wed, 22 Jul 2026 20:47:11 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1784767615; x=
-	1784771215; bh=OJHKUYMFKaoMIxRVzHh5k7kdywBvMNCAGk+h8PoY7yc=; b=l
-	qS8ZdsvHfjDg2wvyG+Ep/sVaJebLS7C5PlXP+Q2i0DKw1qJxmgkJ8UuPSlnMir3g
-	hhUGiLVEgw+AsQHDDi9U28Gf0W5tqySHP3AqfBB0Bn1dSOr0aCn30SLRA+eUqGyM
-	8dP3Afb7v/v93wfQ0SkJXUKQtRbMGaAJ101MZu9pwMq5nLlaA3pinTgShBYPiYzz
-	RU7Ws/bnGklaBPmrQHs8/lr5TXLmJudGbD4Um1mHjLtbeIobXgDEqOgmmtfoj+lp
-	ujCUaZWuJS06D4ht2ZuAm5h938Z22pUpC92vBE1WAEe1kPBak28qH9oF4Giomul4
-	RLkhDZvuo+qp/kThAQhzQ==
+	 h=cc:cc:content-transfer-encoding:content-type:content-type
+	:date:date:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=fm1;
+	 t=1784767631; x=1784771231; bh=jWaMVB217J5XkLdEgIoIU4LaUd29zl7Y
+	/11Q/hCVbKw=; b=ot7y1o/D+RXb36r9Rv++/f4Ga3sHXWhRCmIotuGKheuwLp2M
+	qReB3onN5MaJb7qGpgheAOLvr/WAsd9UurxWze4FR2iiXYSgZQujt8T5OKD0Zmj0
+	ooMbWG2HDbpVENF1POXvGQXn9IYvCQ1X2rfnzfkPAV1FcqqLxe9BhQ2+l3SHvPcl
+	Hqx4T7Ci8oDGMhszhV119k9r0+2hOVVZh0/IsNeFbqttmpymXjTnIt4LI5qEQ4aQ
+	2CqQU4yLQmGcIArhC4g3+FjlCJeMpYbvX9DfpRyKBpH0C1L/1jrUqtWZB73Ts1dT
+	TY79CJiGIzTddyyvoCfpfb5TzmKWgbrK6Qa+Mg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1784767615; x=1784771215; bh=O
-	JHKUYMFKaoMIxRVzHh5k7kdywBvMNCAGk+h8PoY7yc=; b=E+QVGlWgS2Vm5PeOE
-	wcpyw+ILTgsCfRB8LdWIEq2yFlMBhiC+B0LwVDRqxhrAbPmDuaODB5eHNx7yVx85
-	O0cDAXDxf9U7G/MpUb6NMjqOCFAKiINRI3LVmeqUf2qRjTadKsfryRTKQQE5AcPZ
-	lTUVI6ZFph7LGLY+C4qRDN44LTHBRKy0cAEZ6nl8T1CocL1BcwaHpM6WrjTqdRi4
-	PTm7286LwQgRtrfNjr+NBOyz+qNghUUf4tqqgMAxChV0pAbRyVU337YbAIPIQfpB
-	bI5L95PuH1ymptQ24vYrpfPFP9fneUCv7IwYvJQ7IA8BDva5VzYoS9EXkx0qVTjH
-	pKPjw==
-X-ME-Sender: <xms:f2RhavNAZu00QFN0kLfWDtBOwMLBnbNn7cyezesFnBglAxpNFNf6kQ>
-    <xme:f2RhapYdT6i9aWuR_LOUOz7QZPHj5ZrYEIFhdiDKNh0T0cJ3yXhAVUnh4exkWMkSp
-    nmuZQ7oxyZb4aigP7iNXXG-FObr7Vq4fBxJPQrCHeJe1rvRvJ3r_gg>
-X-ME-Received: <xmr:f2RhavVht6xTFW_3UB3sDP1NcG7ZWF3IUvuCVcvgxL-L0NIydy-eRnm0SirmmzkBAfbo2XDaEklIk5gscvmFKck4NfAYVzN0Hdq9Z0rlYbGc>
-X-ME-Proxy-Cause: dmFkZTEokqfq+D3jpgPBuTiBa0dJJRdul8tMci1cvXMe3NbvnPtDgyeMlSfDNY2VQZCYm2
-    LXht2BNYdL8iUtCGHSZhcwG7q/Kwl3zIUaoC3BGOdInsGrs3nFYGV0l20ZTGRKX33xkdxH
-    NrkbmddZ2CiaNePh2o3WZ/+U94U7XFDTfdNEN9WbkyGOyRxMeS4dRBw6ne/XhrYOCTO3Jl
-    ClCrSi9gz0eIQPQAjjkl3Sb4QSzuiMuP32yq/tuzWd8kGBQfEHsoAml+J1LR2BOOYVtNmX
-    Rs6na04Rv82XA/POUiW/BzcYn+UppGRk2cBhE7PHgbgeUCkSX0KVVP3s4tZcULINdIF0tY
-    +eQ/XxpkNyngyjE20TnzMlQSgfnmZAsk4QO4SUKbHdtLgwmnDzvZMr89cLT+YAQlPLD8kS
-    HQVwsOjoN6yIJS5W304CtQIY7BaKdW4qVsOlS4nAt5IX7bCfaAn7WAXpCd6ffY4G9D65v3
-    nwnIDTNwlUMBM6CuBv4cKSpF2ZQZafXm/Nx2oGwLZnZKlULKUf7/XJ2NjHpaL9F2Jo66Ih
-    QdREgIHQ6LOsNQLAZgFnecJztYOxUo7sX1tIRFtjMJpPsu1YU5mr7/dWYU4HyRF1xfU0Jo
-    sNImIILq/J0mefNqxkxyFzL5JQ4O2a9ibKnqCiOKT330qChgE6JzmSPn5kmg
-X-ME-Proxy: <xmx:f2RhaoBGnUNe0OzkAL9F4YZcdVP-gTXibNIx88zoEyfctr8ues4L-g>
-    <xmx:f2RharJ0MXZglop8uPFkV2YEPJF0suvzDuDi6YoOM_1kWdke7YS2cA>
-    <xmx:f2RhamtrkAiEubMyvmFs98MHBE-H_gQacrbRlRpkGmNSHuWCmNRVqQ>
-    <xmx:f2RhajXpTlEUBhTfzZXCDc0fO5IKWCqRXGeOqRy2ZSj3j5ZRCpJTKw>
-    <xmx:f2RhatQrWXI1KlMxZrJ5bfuWMOaSqZuupZls3oGhvNT5ZuGxRb7rj-w4>
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1784767631; x=
+	1784771231; bh=jWaMVB217J5XkLdEgIoIU4LaUd29zl7Y/11Q/hCVbKw=; b=d
+	eHdj7UVn/GR7HRsgzVmO5Zzi1k+NCZIae+M7pvmPcsgU2z5lWEj0kin9tjDiEZ3X
+	qilUZtKoPtexK/4Ss8Vw+Y1JpEknxxpiUcYa/PFib8hID2vXn8iEYNooyJJZpsXx
+	uknjSf8IYBtK+sKvw3+jYnHo0trPW8e/0ac+HSZjS0NoT/YB86phfgR40qxObMv8
+	VlZTEAAK1V225hNguPrdsAtyaThfBsHSzOnNTfd8Hx0/LuwqpVidhZBKF+KY1QVB
+	tNPmvZj2tQR3G1Rj9cCsgccXWtqJS1l40vJlYMy0W17dRNpU4kHA2qkFu60ihc71
+	3y6ZbUi/tXuTujqh+tOfA==
+X-ME-Sender: <xms:jmRharGreDltf4ySxnmoGx0o7IxMp_Pj6YcApo-BVtFQJbgsvt27lw>
+    <xme:jmRhanxENcOdtvGDMnWT4u51XzM0HueXro5Idgpa4wlcZj6vZhHooK83wPgJrfEV5
+    --Ha1aLEBlErP7_2zRFdb_BnhFzu3aKBrYuMOmPuExOjyXCAPSDFQ>
+X-ME-Received: <xmr:jmRhauOVsDc6A3KYpbqU9Sz5bPGbvdrxShT-K55ffaywpA3Gr2bZFeBFRcKaAHDtzKTvTzrOGi9JoRVXukXyiEPhAHX48CPZ9E3HjCabvUNn>
+X-ME-Proxy-Cause: dmFkZTGT6pDE7ROr/Hozct7PtmKb1bP65C0DyW42xkiGcmM5l/vHrs8c3kaqSSXYBT1BMw
+    +Y4JWWHcwHwE/gXFX+GJTs88UN1YpGvrwXyFKNWZMRhUfiQA+Ug/Cav2dB1SgUYDMC2qEh
+    8shynik/cfqaXTdqMsuqB2CcsGWg9s26iWrxKQZDi+fuzL33he4wZ4J8D+t7na5WLkqjNr
+    mnQq25aDF1mexaAk+z3OsDBu8G59fSjlk6/AgneWO9Sbz+Acf9zeDwWga7Ecwo2Y6JQzrM
+    GNWdJKHL0nLwPAixd9uDz7a6pXlSCuuB7+5t8moaXxbEMNnF7NEkejALwTyaVs44sI2EI0
+    jckNz6oB9oAVtgT+v1jFEJAbkvlqpuDaXwwlIZxS6oUU04/u3LEg7oOoQnSkjtf5GzMbrh
+    hRpYt6qmWTsFCx1TKE+aKs6yiX21uJtEw0lH0OqDhjLDGhVrZwgubZ2OnXLDEtdRwvTTF3
+    HDlyklmNvM3OTegF9szpMXLOJpTgTpFd1DbXruDO+wrJmZXBpHAGjNOLW0g5j+KaWj4V4l
+    6YQN1BTNMGXUz5N7wlIIIG6olFv4jHckmnEOGJ5BJl2FJ/hkmpnBgnLAkeewTkJIxIUG7i
+    RpDaDVgs9upxMvhxnVzZveeK6gjy7rbNQn7zusgba4+Iir6Ohg5lizrYr/kA
+X-ME-Proxy: <xmx:jmRhatY2yJczDob8igYb7TIz3YmghpeKlhvdYBeZoZvLzublgIg1EQ>
+    <xmx:j2RhalANrwOkV894SLBbQ8VHqoN1uxOfMFbc-_xk_0RqLDykHjKHyg>
+    <xmx:j2RharFa0NNZIbJkN7Za0_4xwraybIfXlpzr8axafra_5QtUYt2oEQ>
+    <xmx:j2RhagOuCJW9Oj9I1VPRlo4CN7RyzFFZwxxOogmOQTCc_W1s8a6hyA>
+    <xmx:j2RhauHBJWdSk1q4lvxDQ6zm8HC_JuVT3HGD3pN2SW4yltFU3pKaEUTO>
 Feedback-ID: i7a5e4b5f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 22 Jul 2026 20:46:49 -0400 (EDT)
+ 22 Jul 2026 20:47:05 -0400 (EDT)
 From: Jiaxing Hu <gahing@gahingwoo.com>
-To: nicolas.dufresne@collabora.com,
-	detlev.casanova@collabora.com
+To: heiko@sntech.de
 Cc: mchehab@kernel.org,
-	heiko@sntech.de,
 	robh@kernel.org,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org,
+	nicolas.dufresne@collabora.com,
+	detlev.casanova@collabora.com,
 	ezequiel@vanguardiasur.com.ar,
 	linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org,
@@ -83,63 +83,39 @@ Cc: mchehab@kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Jiaxing Hu <gahing@gahingwoo.com>
-Subject: Re: [RFC PATCH 0/3] media: rockchip: VEPU510 H.264 encoder for RK3576
-Date: Thu, 23 Jul 2026 12:46:42 +1200
-Message-ID: <20260723004642.2075233-1-gahing@gahingwoo.com>
+Subject: Re: [RFC PATCH 2/3] media: rockchip: add VEPU510 H.264 encoder driver for RK3576
+Date: Thu, 23 Jul 2026 12:47:02 +1200
+Message-ID: <20260723004702.2075313-1-gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <082e1141c38205222a91abf13b1a97d9a00e117a.camel@collabora.com>
-References: <20260722073417.2064667-1-gahing@gahingwoo.com> <082e1141c38205222a91abf13b1a97d9a00e117a.camel@collabora.com>
+In-Reply-To: <3096814.BaHzMo0RvP@diego>
+References: <20260722073417.2064667-1-gahing@gahingwoo.com> <20260722073417.2064667-3-gahing@gahingwoo.com> <3096814.BaHzMo0RvP@diego>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Tue, 22 Jul 2026 20:29:53 +0200, Nicolas Dufresne wrote:
-> This is really nice to see interest in enabling encoder for this chips
-> set. I'm adding Detlev in CC here, as he's actively working on RK3588
-> encoder, which is quite a similar chip.
+On Wed, 22 Jul 2026 12:00:27 +0200, Heiko Stübner wrote:
+> At least the comment and from a casual look also the code get this
+> backwards. The idea is to explicitly _not_ expose multiple video
+> devices.
+> [...]
+> Any (future) scheduling should happen inside the driver, and not get
+> offloaded onto _every_ userspace application individually.
 
-Thanks, and thanks for looping Detlev in.
+You're right, thanks. Exposing rkvenc0/rkvenc1 as two nodes and pushing
+the core choice onto userspace is backwards; rkvdec_disable_multicore()
+is the pattern to follow -- probe only the first core, keep any
+multi-core scheduling inside the driver. I'll fix that.
 
-> So Detlev driver, which finally got P-Frames support few days ago
-> (he'll explain why this didn't work initially for him) [...]
-
-This is the most useful sentence in the thread for me. RK3576's VEPU510
-and RK3588's VEPU580 are the same VEPU5xx family -- same vendor HAL flow,
-identical reconstruction/reference-read (recn_refr) path -- and that
-reference read is exactly where every P-frame stalls for me: the first
-inter frame of a session hangs the encoder watchdog fetching the previous
-frame's reconstruction, even though the reconstruction is valid and my
-register writes match the vendor byte for byte. So whatever Detlev hit is
-very likely the same bug.
-
-Detlev -- whatever you can share about why P-frames didn't work at first
-would help me enormously.
-
-> While this isn't invalid [...] the community agreed direction was to
-> introduce V4L2 Stateless Encoder specification [...]
-> [...] we decided to look into making drivers similar to how we do GPU
-> drivers today. This is possible today thanks to the Vulkan Video
-> standard.
-
-I'm not attached to the stateful interface -- I used it to get something
-running on real silicon, not out of conviction. Before I commit to
-reworking, I'd like to be sure I understand what "converge" means here,
-because I see two fairly different directions in the thread: Paul's V4L2
-stateless H.264 encoder (kernel-side reflist/rbsp/RC core), and the
-Vulkan-Video split you describe for Detlev (thin kernel module + Mesa
-userspace). Those differ a lot in kind and in effort. Which is the
-intended target for the Rockchip encoders, or is that still open? Is
-there a branch, early code or spec draft I should read beyond Paul's
-series?
-
-Either way the RK3576 hardware enablement and the reference-read fix are
-shared with RK3588, so I'd much rather contribute the VEPU510 side to a
-common base than maintain a parallel one -- I'd just like to know which
-base that is before rebuilding on it.
+Depending on where the interface discussion in the 0/3 thread lands
+(Nicolas is pointing at a lower-level stateless / Vulkan-Video direction
+that Detlev is already building for RK3588) this driver's shape may
+change quite a bit, but the "don't offload core selection to userspace"
+point holds either way.
 
 Thanks,
 Jiaxing
