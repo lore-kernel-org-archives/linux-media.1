@@ -1,92 +1,79 @@
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D90381E98
-	for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 23:39:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3B9256C61
+	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 00:02:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784763582; cv=none; b=eHQnLtDTL7+uDNzhHd8dvDe6anxVlNFBAJGUQKAUCcrC1lfiSoDEbCqVjfvFpjk2Y7bDRfS+7LNceImOKRuM9jAXFDkQIjgc7jWG4pS2QApgzucfZ3KBNMiuUY7ZPacF+lHkIL0RRpULJ/y6HOvm0oDzZmTuoa+7Vzp4vlgcnAE=
+	t=1784764944; cv=none; b=bybxLm+wCnWsrLZMF6Ie/wOGas/VIuaG47Ei+iYVRPtFHfe5V4WJAnhCFgRCzIkxRcldYrUpqitxWqG5X4TpDfr6Y/qcf0RZrdUfmBg1WMXbE9xU+ByuSJKo6Ydrs5X6L7hQGI6eYfgRslpA3og3nwr/BbTMGZU2Lxp+SZ2AG7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784763582; c=relaxed/simple;
-	bh=482j/rlGL/MyUIfK5vi1HCJAff/SkFOJEYzr2v72u54=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R5O1t586o+eP2s5Rx/ECk/8VnVpuAmzDwR2jUvkfQUu//OJjZIEJNed86dEYVZwyQM8wnlMdH6FY/gOYSAhKjrOSgi2YybHGUYFsT3r6FSFSqw8+A19JniOAmxcxVfmruitWkn2F8FunEslfbb7x49WO+idUr1krtYmJ2fILknA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co; spf=pass smtp.mailfrom=x6u.co; dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b=NHuFYO5t; arc=none smtp.client-ip=74.125.224.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=x6u.co
+	s=arc-20240116; t=1784764944; c=relaxed/simple;
+	bh=nDHwGQaXGMuuaGG6qOmiW0lE5wNxDly8GUn5XWwT0oY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d/1U5ORXsE1ce7/QBD122x6ZvPRv4exlfou0HaxUF4OlB8XcQaA4r0SM78KDr4zrsCQ9jVQs0PC2A5vcrfsBpx350R3vq/MxDKQvt/ZqIl657wUnYYwmA7B20/OJqCesFwXJjdhWZ9N6N37MmDl+26/2XwPulLnazH8M2crmPYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BXqeDFA8; arc=none smtp.client-ip=209.85.128.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b="NHuFYO5t"
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-6685483aad2so15851d50.0
-        for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 16:39:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BXqeDFA8"
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-81dfdbd86d1so776927b3.1
+        for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 17:02:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=x6u.co; s=google; t=1784763578; x=1785368378; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=czUeoqytFwl2f4wSjedp4ua+inBVMuooqHyWYibjU+0=;
-        b=NHuFYO5t9QVIFDAK2j2M2SWFNgOG833xmV89KfrwdmjcPiRvUmGoahuI7+0CAZFZFp
-         NELGx44Nt0bswc2It390av/3NuXepaatTbyI+p0mzWWvX0IZrva7BLnYYeE2x4J0MsxA
-         wp2fBOffL3ZO1dRTUnbAni73wYdHwNS5uu5pyE9eOR7YkyEtxXRDqHYy9rSi7sRxUP2X
-         NfGbmVR6HHzT+2w5ueGEaW8hg1Z82IJZDhzT+FtiCF6eDsNcWmceV+AaeD33+L8o71w9
-         N7X4iWnD19RhHS241GmR/5WmebRaLvJtqj60rRYUFLjZ2/8JBAlgjscOn4GipEjt4xh+
-         sGmw==
+        d=gmail.com; s=20251104; t=1784764938; x=1785369738; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aJUm3MLQsqh/2fKr3xOSeTiTlhgXutJ78HCkgaFr/+0=;
+        b=BXqeDFA8Pzfq6Ao6Gg5pMiQByUb0LAsjpUj3YZ5tLmbisgz1Xvv+juvbFtUFbwhfs1
+         TKvhdFdf/Qgybq/h+7IVWWWtmUJwok9uLuZQn4V46xQWL4t8xlXkTMEIIkHJNUknaxJD
+         nbkov+8JY2bGM99lcoMA3SHjiFwmgZH+XpSMrGTrT9Mz2ueDQqRoCtPtlD2dEfjQCnFL
+         gRYi0Rg7G53c1MtvIlkos8d7Y5rjqR6oUcNbcfpxJNPdv21z2ANjfk+HUvBCKSv0Ex+Z
+         9xwaDNGTflJvjEoS2vJUfyOAmGV0OJLeKmAD4dQ0cGfHVL2P303kNduHYavY1pfsAMkg
+         SMhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784763578; x=1785368378;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=czUeoqytFwl2f4wSjedp4ua+inBVMuooqHyWYibjU+0=;
-        b=k14IJvTdSRr14/NfV6goqFy8QCga2Zs3HNCIFozey2QpWU/V5H8kgycA/ZPyVKZ5UJ
-         xRNUTNXmheWGxsIhy0Wfk9zRoqXqlhw3gZQQlr2sF/HqBaknxamXrUapVnkpWR0nbPq9
-         4AdVya+XsIM8b5YMtVve4TcfBa9Un5z9/3Y2L72HXSLIJW5Qpz81lJJJYxUQFkojDKhT
-         fk9GfENs85nEBt62Tu33+K0Ubf1kG9atCwufmy+6NbzCkAcLkMUkhUgnSmen4iODGj1h
-         v5a+K9i1tbRbIGoZ3OcIPZ7XzmYqMpAuOxZ4AqKSThQq04/GjJkNVgpiy8fmJ8OfXZao
-         1veg==
-X-Forwarded-Encrypted: i=1; AHgh+RqTK84W0bG7Ny52pXCTshAYU3Pu5wK/iNOsLS5gzQVbutaeiZj77Qgx0KVMKSUoG0Vc8hJ16aumEuxv/w==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz0P3uS9X5gzjgLtKi3wFS8B9qt7p+hpdyoKvl5U/xpRCXy1DSY
-	joBWALlgeioR4riagOMvfdXiHeyiBux4qIVJmdTVPzf8HxkLOKamOXaMlI+N2LpcSJe/
-X-Gm-Gg: AR+sD10kNBTZOYYnAAVbkPyaPyPmz3gNCUd+oTp2ZB5wEzm4ItXznkBZBlOtMuJghnY
-	6c3Hi9NbvN7fq6ZO/nU1pYGCBdP3kPYVCBbGUhCqKxhhJSWvWO26KbhhSeeiCkMGiZGfkHEJXbD
-	jZjmOS9+/h46BpQDKwaL3ahwyyfOBLw7k8UTJRbTQw2utiXSHFjJlaz+dSMMQkORvko9CmoKe06
-	l5IAMN+bmbheJY/j57mZmZAp3/yUfR2AxXl2VOZTnU4FDYc3jfultXSo03wdbW5pKY60gFWNvnu
-	tRbNVB4fMu1vYF2y8VqYbkWzEn+7VGKiA/vNryzlAZpg8z1gvoJvyEjc+BaPdPKoXiM8+wGYGOD
-	6qE2ijIvU2csFugNEfzj/ydAF/dOx2tmklLg4xTVmsf8LwpdHq11XoPON2E/7psYJAPCVMA9Ks5
-	vbszzg9jeF8lWqnBe23lSJPDCNYJcsLfg8P7JjvyDWDTITHtC7apAeLhwDFwUW+RXGstc=
-X-Received: by 2002:a05:690c:9a87:b0:7ff:19d6:74ee with SMTP id 00721157ae682-81f4c31fe46mr2273147b3.33.1784763577509;
-        Wed, 22 Jul 2026 16:39:37 -0700 (PDT)
-Received: from worldpeace10.c.googlers.com.com (234.207.85.34.bc.googleusercontent.com. [34.85.207.234])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66890794b1asm2152505d50.20.2026.07.22.16.39.36
+        d=1e100.net; s=20251104; t=1784764938; x=1785369738;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aJUm3MLQsqh/2fKr3xOSeTiTlhgXutJ78HCkgaFr/+0=;
+        b=kFeSHNaK5FbrWVSgJN2d1KyoSd08o5F2YX3nw73uYDzn23D5LHJF4P0YTsbuMhbj5W
+         opXxm1jqHNiX202Pv9xHPLbxAN0L3puM5wrMF6j0mPcY8Yt6USjuVYJI9/PJRNR2pjdc
+         yqpchI8tBn1H2XxwSlTGPVmBzmQfzGvKJWt/dmVhGD54a/jov8rxiD9WMR7QSLu2wbNk
+         lrGeZIc9eLI0lQnxqbVfjP9yoRRAwu//Pbduq3moVbV0EpGRZt//dnSSsX1Pb3ml/FO0
+         r1JvE0UA5wkC7gaCeDNhZ/rJDRKG+V1+EYCcx8f+lJ++Po+/h39L5jhP5dO7n0TMCvry
+         3iQg==
+X-Forwarded-Encrypted: i=1; AHgh+RqUys1j/02tkr4X67q1kDkS9e47GrshBCf3I7lr+/z15GOjslpFgLJnCoHwweUipn1FW5PJKa8s4LSf4A==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxVfbhMTpQDzkN2NKquiW9h2qP8Tt171G0lYTs7S6AAi3+K2KYP
+	A3QQ+I4ruVg4TZf+3FoVVHft7/DHzF/ywuCA1QFC9QSmxYGb9INnCEHh
+X-Gm-Gg: AR+sD135CRpDclncvEL8q8uFWWT3c1NL7ol/egAMbQ2CZr1XvTzs/KFh2s72LmufueL
+	74yoReOv/f/cZpA0QejjIOG4/9YW0lZJ3G1VtWpmgHQXtFkE1NJGDM4a/JOWSjY0H1lj44H5Tt0
+	7PrMfRq4dcNmLdv9Dp+0BcplmVTkarb9+EFaadn5IJgQ2gnAw5Kog6afogWO8hJaLKjTFYE0/Nk
+	yoTbPl9IEFt6/XozgxIlcAXag1Ezic4gVVwaq2FhFJtyqSNSsEbRzMbjszwag+WfAEVTvr3jRYR
+	bCaTT5ljp3vkHEXzZJxRz1x+ig474ODWAUjZh0IR2/Z7I2lE80J85rz3eQm67ZUePvLsMtHltiZ
+	ltJSCdt59ODe/ad/TZdmapVK1hKshp3vGjNKRqoh3VmenBZ9e9JJFo76uTaeuQZ8vmG5pl8e31p
+	ZfMFv0r87ETh0xIQX4a4eQJW86dauFn3wZdyU0O8MEit9ZRvXXpMzJVWm4jQhtK01JOAZ5FMEFl
+	WQtxvgjPAtWKcH+Xs6eICH8eme9H7Yw/lMeXUpqd2cSWLePvD/gtTsey/OJe7Jct8U=
+X-Received: by 2002:a05:690c:6f0c:b0:80d:21d3:a399 with SMTP id 00721157ae682-81f4c307df2mr2454957b3.48.1784764938252;
+        Wed, 22 Jul 2026 17:02:18 -0700 (PDT)
+Received: from LAPTOP-83ECOPAB.f7a5e5c3-cab1-4810-bdbb-207cdd06de9e.globalsecureaccess.local (76-204-101-112.lightspeed.tukrga.sbcglobal.net. [76.204.101.112])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81f33c2df04sm21047067b3.12.2026.07.22.17.02.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 16:39:37 -0700 (PDT)
-From: dhu@x6u.co
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	David Laight <david.laight.linux@gmail.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Alex Williamson <alex@shazbot.org>,
-	Pranjal Shrivastava <praan@google.com>,
+        Wed, 22 Jul 2026 17:02:17 -0700 (PDT)
+From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
+To: mchehab@kernel.org,
+	hverkuil@kernel.org
+Cc: kees@kernel.org,
+	rongqianfeng@vivo.com,
+	axboe@kernel.dk,
 	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
 	linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev,
-	stable@vger.kernel.org,
-	jmoroni@google.com,
-	kpberry@google.com,
-	chriscli@google.com,
-	viursachi@google.com,
-	xuehaohu@google.com,
-	sashiko-bot <sashiko-bot@kernel.org>
-Subject: [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk
-Date: Wed, 22 Jul 2026 23:39:32 +0000
-Message-ID: <20260722233932.3997681-1-dhu@x6u.co>
-X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
-In-Reply-To: <20260623015459.1153884-1-xuehaohu@google.com>
-References: <20260623015459.1153884-1-xuehaohu@google.com>
+	AutonomousCodeSecurity@microsoft.com,
+	tgopinath@linux.microsoft.com,
+	kys@microsoft.com,
+	blbllhy@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] media: dvb-core: fix race between dvb_dvr_read() and  dvb_dvr_set_buffer_size()
+Date: Wed, 22 Jul 2026 20:00:16 -0400
+Message-ID: <20260723000016.84091-1-blbllhy@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -95,121 +82,65 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Hu <xuehaohu@google.com>
+dvb_dvr_read() accesses the DVR ring buffer without holding
+dmxdev->mutex, while ioctl(DMX_SET_BUFFER_SIZE) replaces the backing
+memory of the buffer under that mutex. A concurrent resize can free
+the vmalloc region while the reader is still copying from it,
+resulting in a use-after-free read.
 
-Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
-This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
-first entry, resulting in non-page-aligned DMA addresses for all
-subsequent entries.
+  BUG: KASAN: vmalloc-out-of-bounds in _copy_to_user+0x4e/0x80
 
-While the underlying IOMMU mapping may be contiguous, hardware
-DMA engines often require explicit address alignment (e.g., page,
-cacheline, or storage sector boundaries). Passing unaligned
-addresses and lengths can cause explicit failures in DMA descriptor
-creation or silent data corruption if lower unaligned bits are
-truncated.
+    _copy_to_user+0x4e/0x80
+    dvb_ringbuffer_read_user+0x141/0x390 (dvb_ringbuffer.c:151)
+    dvb_dmxdev_buffer_read.isra.0+0x310/0x3e0
+    dvb_dvr_read+0xc6/0x110
+    vfs_read+0x1ac/0x940
 
-In addition, a non-page-aligned sgl length will trigger an edge case
-in `ib_umem_find_best_pgsz()`. In case of a discontinuity in later
-buffers, we will have a `va` with lowest bit set to 1. That will lead
-to `ib_umem_find_best_pgsz()` always return 0, and break the promise
-to find best page size for the mapping on the NIC side.
+This is a re-discovery of an issue noted by the original author:
+https://lore.kernel.org/all/47E45138.1030107@googlemail.com/.
 
-Fix this by splitting the scatterlist by the largest possible page
-aligned chunk within `UINT_MAX` (`ALIGN_DOWN(UINT_MAX, PAGE_SIZE)`).
-This ensures all scatterlist DMA addresses and lengths remain page
-aligned, while minimizing the total number of sgl entries.
+Fix by protecting dvb_dvr_read() with dmxdev->mutex.
 
-Page-aligned entries allow the system to cleanly chunk payloads into
-PCIe MaxPayloadSize (MPS) (e.g., 128 bytes, 256 bytes, 512 bytes).
-As a result, this may help reduce TLP fragmentation in P2P transfers
-and alleviate potential congestion within a logical PCIe switch
-partition, especially when Relaxed Ordering is not possible due to
-hardware constraints.
-
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260609165431.778061F00893@smtp.kernel.org/
-Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
+Fixes: a095be4b030c ("V4L/DVB (7659): dvb-core: Implement DMX_SET_BUFFER_SIZE for dvr")
 Cc: stable@vger.kernel.org
-Signed-off-by: David Hu <xuehaohu@google.com>
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Signed-off-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
 ---
- Changes in v3:
- - Removed the type cast for `min` (David Laight)
- - Reverted max ent size to be `ALIGN_DOWN(UINT_MAX, PAGE_SIZE)` and
-   updated commit message to reflect that (Jason Gunthorpe)
- - Updated commit message to reflect that this also fixes an edge case
-   in `ib_umem_find_best_pgsz()`
+ drivers/media/dvb-core/dmxdev.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
- Changes in v2:
- - Updated commit title and message to reflect the switch to 2G chunks
- - Switch to using 2G as the max sg entry size as it naturally aligns
-   with most hardware boundaries, while allowing compiler optimizations
-   with bit shifts (David Laight)
- - Optimized away division calculation for `nent`, and multiplication
-   calculation for sgl address, by dropping the `for` loop in favor of a
-   `while (length)` loop (David Laight)
- - Dropped `min_t` in favor of `min()` to maintain a strict type
-   checking safety net (David Laight)
-
- drivers/dma-buf/dma-buf-mapping.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-index 794acff2546a..50ded9daf5fb 100644
---- a/drivers/dma-buf/dma-buf-mapping.c
-+++ b/drivers/dma-buf/dma-buf-mapping.c
-@@ -5,16 +5,17 @@
-  */
- #include <linux/dma-buf-mapping.h>
- #include <linux/dma-resv.h>
-+#include <linux/align.h>
-+
-+#define MAX_SG_ENT_SZ ALIGN_DOWN(UINT_MAX, PAGE_SIZE)
- 
- static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
- 					 dma_addr_t addr)
+diff --git a/drivers/media/dvb-core/dmxdev.c b/drivers/media/dvb-core/dmxdev.c
+index 3c8bc75e4d6c..b4aa8d37ff03 100644
+--- a/drivers/media/dvb-core/dmxdev.c
++++ b/drivers/media/dvb-core/dmxdev.c
+@@ -270,13 +270,23 @@ static ssize_t dvb_dvr_read(struct file *file, char __user *buf, size_t count,
  {
--	unsigned int len, nents;
--	int i;
-+	size_t len;
+ 	struct dvb_device *dvbdev = file->private_data;
+ 	struct dmxdev *dmxdev = dvbdev->priv;
++	ssize_t ret;
  
--	nents = DIV_ROUND_UP(length, UINT_MAX);
--	for (i = 0; i < nents; i++) {
--		len = min_t(size_t, length, UINT_MAX);
-+	while (length) {
-+		len = min(length, MAX_SG_ENT_SZ);
- 		length -= len;
- 		/*
- 		 * DMABUF abuses scatterlist to create a scatterlist
-@@ -24,8 +25,10 @@ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
- 		 * does not require the CPU list for mapping or unmapping.
- 		 */
- 		sg_set_page(sgl, NULL, 0, 0);
--		sg_dma_address(sgl) = addr + (dma_addr_t)i * UINT_MAX;
-+		sg_dma_address(sgl) = addr;
- 		sg_dma_len(sgl) = len;
-+		addr += len;
-+		/* Unconditionally advance. On last segment, this becomes NULL */
- 		sgl = sg_next(sgl);
- 	}
+-	if (dmxdev->exit)
++	if (mutex_lock_interruptible(&dmxdev->mutex))
++		return -ERESTARTSYS;
++
++	if (dmxdev->exit) {
++		mutex_unlock(&dmxdev->mutex);
+ 		return -ENODEV;
++	}
++
++	ret = dvb_dmxdev_buffer_read(&dmxdev->dvr_buffer,
++				     file->f_flags & O_NONBLOCK,
++				     buf, count, ppos);
  
-@@ -41,14 +44,14 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
+-	return dvb_dmxdev_buffer_read(&dmxdev->dvr_buffer,
+-				      file->f_flags & O_NONBLOCK,
+-				      buf, count, ppos);
++	mutex_unlock(&dmxdev->mutex);
++
++	return ret;
+ }
  
- 	if (!state || !dma_use_iova(state)) {
- 		for (i = 0; i < nr_ranges; i++)
--			nents += DIV_ROUND_UP(phys_vec[i].len, UINT_MAX);
-+			nents += DIV_ROUND_UP(phys_vec[i].len, MAX_SG_ENT_SZ);
- 	} else {
- 		/*
- 		 * In IOVA case, there is only one SG entry which spans
- 		 * for whole IOVA address space, but we need to make sure
- 		 * that it fits sg->length, maybe we need more.
- 		 */
--		nents = DIV_ROUND_UP(size, UINT_MAX);
-+		nents = DIV_ROUND_UP(size, MAX_SG_ENT_SZ);
- 	}
- 
- 	return nents;
+ static int dvb_dvr_set_buffer_size(struct dmxdev *dmxdev,
 -- 
-2.55.0.229.g6434b31f56-goog
+2.53.0
 
