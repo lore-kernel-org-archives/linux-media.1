@@ -1,239 +1,500 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013048.outbound.protection.outlook.com [40.107.162.48])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3740D40B6F9;
-	Thu, 23 Jul 2026 09:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784798004; cv=fail; b=VE/gUgpGcfi0sev/n2QG2TLw4M54faN8AkZfnl7pmNZg1ChZTbTxP0wmStqcW+HYVSjp1ejCzcWma5af0VrijcXTwGhaCleFVueeAiqWmgLyEURtNVz0mW9lUguuoUJqqEAXcg8NrS2/+sSekKWRGNuyvYMAA68F0diUIMxI27g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784798004; c=relaxed/simple;
-	bh=7vCwoD8zRU/F2Yx0YQTwIE4S7+I6QlRgpgis7oo0VUs=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=RPKovi4k2cas/mc0NrzALBbaIS65AFkHye/Cl+azVUVXmwRbeQKybDnlXC9S0VInrwdfLtgyJlr1uaQn0OtZBZy9p80aH4BZtNNdFHvJ1i6SwpkY4lHVGww8X4Brfi5/A0Fhpvq0DF0zABWberjxz2zkRHwghtA1XZ05CxTdQsk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ty95s2ge; arc=fail smtp.client-ip=40.107.162.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E2213E49DC;
+	Thu, 23 Jul 2026 09:16:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784798176; cv=none; b=AzaqcnUdMWep3wzFY6fJHuGc8PbfJGY2HLQPYgbPG3tzjvcSs4ZyffjkCW30PKlu9O+oSnuX+RkFun5g10m9UrkLz3SSyxX7WfcBbCrFvUkLXFjqBzRZNsKeXeFTVR64jToA4yNxzuetlcuDSjTrWqzRB/rwBK2jBAGaCDRv5i4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784798176; c=relaxed/simple;
+	bh=ACUvj+bEVd2IPNwnjNTmrVAlvwJ4gqC0Uwiq25rofbY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g/InHNzk/h88SwuP6nkVX6XYg8/iXxp4fq93L4WJl36yR5JUAE7uHjO4QraqD6+Z6+nhcLzZJOq6+Qmc9dB3i7JDhDuYwkpqvlBFeeJH6YuTtyh0+6Ahh4cV+bjwGrXZn+ZiU2McTWz/4qT6UwvC1pH/Y7d/vMlyr53n2fk4Hok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=R6SS2y4y; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ty95s2ge"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TR06cpuq1K2npEz4ahFMCVBXaPdol09NtV89YkXI/91bKu05Rf3dsoTmMaghmUbUOJn5qSXR75ZzaWCH+Mgeu8NnRB4DW2BoJuSbz7OUVDR10kvx45ej+jgNFtAJ85YTGctt6WWCrWpkj27wrlLdFKDo0iQtry09jf1sKM5+s4YT66BXbncCqypg7+xwhgd6de6Q5BCf8XFFflPexTZo0C7pTmYYMYPG+k9RuyU1ZNFJLlBdsTbQSwxY2/tH3vkhKadh2RTA+wFOJ4RUFSwufUiyodUgQw90m2ikyU1m+M2EKjLTCF90B+c9xAmObZdbq5+726QEFBdgXUq1sJCR1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7aF1/ZWz3Hq66anD9pqpoMeSBzfhmRxhu1+4/n8m1KE=;
- b=MgJqVZVQoOuKO4CT6KmS+ziPV0KeILqkLbEyISM9G8GUdDdbjoBuuy7sdFrHMnfDBuwlE2VgpNhIzk39D2CWprWTYJNO7aws09wGu7NLnut7UvLUtZUECIp/862KGjsiC4Sk8za5uNNfDxqK1BjBygCQG5sKmFm0ychr7WOSsC2y872DfATjl+KyJfu2HWs8E3wRMx3XB02KiCZqZVfX5dtyIVaCwW+qFikmcIYMdccL3zkRuqCc4tXiuY29bZ57N5/EwQ4XAdzzAefbbuGG9GkiqK2Q6SmU6u4wlTNcVT9V1J3WTIgcZbQai3KeFh+z9IRGN2Ymk0wgn1liJxc/Vw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7aF1/ZWz3Hq66anD9pqpoMeSBzfhmRxhu1+4/n8m1KE=;
- b=ty95s2ge/cgT88LVdt6omirM7Ns/LwtnkhqGSJpumFB3TknLx1g1yI0O0BlG1vQNMCVMf8Po12rEb/W1ZLh+MSx/bf3BJ7J19IsGHlvL316pPJWwxigWyxFy1pPNs4s5qbmoQmmTGgcnlWPyQdAZmzLSEMs2sCwjw+XmJa0OZ7G5nOOMhussbe2zgbHXV2v206x577mIU8GpXOl3VIjIh3ezy4dGnljM3FQuQ8+xTxsDSdUuu4D2UqZWkD5jDClS1HKfzGayDWMvCfGdmZ60qlOkyJq5uh8VrlyaR+NZEJ4njc7NVwaX300jlfERB8B2qRs4GjImeRAgIXJq5BQfJg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV1PR04MB11513.eurprd04.prod.outlook.com (2603:10a6:150:284::9)
- by DB8PR04MB6780.eurprd04.prod.outlook.com (2603:10a6:10:f9::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 09:13:18 +0000
-Received: from GV1PR04MB11513.eurprd04.prod.outlook.com
- ([fe80::29e0:98a1:4577:2cc7]) by GV1PR04MB11513.eurprd04.prod.outlook.com
- ([fe80::29e0:98a1:4577:2cc7%3]) with mapi id 15.21.0245.009; Thu, 23 Jul 2026
- 09:13:18 +0000
-From: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Date: Thu, 23 Jul 2026 17:16:39 +0800
-Subject: [PATCH v3 3/3] media: nxp: imx8-isi: Add additional 32-bit RGB
- format support
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-isi-v3-3-594919eae847@oss.nxp.com>
-References: <20260723-isi-v3-0-594919eae847@oss.nxp.com>
-In-Reply-To: <20260723-isi-v3-0-594919eae847@oss.nxp.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Christian Hemp <c.hemp@phytec.de>, 
- Stefan Riedmueller <s.riedmueller@phytec.de>, 
- Jacopo Mondi <jacopo@jmondi.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Bryan O'Donoghue <bod@kernel.org>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Guoniu Zhou <guoniu.zhou@nxp.com>, 
- linux-media@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Guoniu Zhou <guoniu.zhou@oss.nxp.com>, 
- Robert Chiras <robert.chiras@nxp.com>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784798197; l=3093;
- i=guoniu.zhou@oss.nxp.com; s=20250815; h=from:subject:message-id;
- bh=7vCwoD8zRU/F2Yx0YQTwIE4S7+I6QlRgpgis7oo0VUs=;
- b=yJ+Mdx/i8zI3w1ZmvmlFbyia4cGJr3948zpq1yZkLfyDYn+OITU+oYJxSzhWPUrBoitDrcr+y
- WAD1gISXwuKDEKplvjmY+PQ54xmDqMuC3ykVBK9R1VeDVczCMsbRA5m
-X-Developer-Key: i=guoniu.zhou@oss.nxp.com; a=ed25519;
- pk=MM+/XICg5S78/gs+f9wtGP6yIvkyjTdZwfaxXeu5rlo=
-X-ClientProxiedBy: SG2PR04CA0203.apcprd04.prod.outlook.com
- (2603:1096:4:187::22) To GV1PR04MB11513.eurprd04.prod.outlook.com
- (2603:10a6:150:284::9)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="R6SS2y4y"
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8EB8D153F;
+	Thu, 23 Jul 2026 11:15:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784798110;
+	bh=ACUvj+bEVd2IPNwnjNTmrVAlvwJ4gqC0Uwiq25rofbY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=R6SS2y4y0AG4mHxcygT+sWNYEKSGeS3Ef3hMoW8vW9TkdZ7DeQ/9JbI7vUiPHEEMM
+	 JooFVGIpKlWfxmhny5IHjRi+gm92fVnBZrhBaBwemsCv9cedz8cfjS+EX9tXluyKLw
+	 wYxnQDebNUMvHsIy/93I6psfnJ/lOZwBSyM+Jsr0=
+Date: Thu, 23 Jul 2026 11:16:07 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Philippe Baetens <philippebaetens@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Kieran Bingham <kieran.bingham@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
+Message-ID: <amHRMQfRzppwZ5xz@zed>
+References: <20260722-mira220-v7-0-dd5f1de98cd4@ideasonboard.com>
+ <20260722-mira220-v7-2-dd5f1de98cd4@ideasonboard.com>
+ <178472387683.3005206.5602199112336367476@freya>
+ <amG5CiajbwGXhb59@zed>
+ <178479424623.3238585.7446724208192156945@freya>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV1PR04MB11513:EE_|DB8PR04MB6780:EE_
-X-MS-Office365-Filtering-Correlation-Id: b9736cea-fadc-4f92-069a-08dee89aa278
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|19092799006|921020|56012099006|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
- vd3iSp8LmNfvZ2mdKK3njtOjgmtYy7NJKuzNwUoS7IzTXogXHldgh/6oLu7TEWs0UOevpqvmQO8f/1zLVI+/DmtKvKh0hHQfiNjYKCZKrl927ZOpca4c7llH2NWmp8Gxxdk0r9d3mayidHzjgDkAY+Z20RYqi1yCcLebBZW3lyR7PmC8QfXUTEkcr9uCA+FuiLTpK+nP54S+Hv9zudnXlmR0it6hCG/8PzThw1zRSgqL+ThfEUtj2VC0p/e7KCzUhDhoEqtr4ygKlAFO61r5yR43eC48qgbPt5tALgrnL8geQXt0yYWQUv4J2VlRxPpQDbeD1EIli7ytFd2Q6hkso5VimlPki/OwyMW6vKv+Nw5NbFjonw0JeYBUHMOeFKpGvdyTkDQYhCYv9flk5a2jMl1wlxy7bDWY4fodMNc67VxqAjIqRQ9dOanY7SJobBlANsWmjhR38viWJ46d1ihMGPZyawhoFqAEDDGokX8Bp4m5ugIMFs48MFV3leXTo64e+QFkcgjtuTnIOQtRjc9mntDlFCuC3CYZUNcGJo7t17LQRKQ9lj3Xe/lcZtxoo23ERj1VzZVk7TTyVQDQb78Nc4ln+PB+eoucIrrG5GE8Mzg4+0UsuU6DDNJJrMXOM8iuuwC2U5VPb/p+g0BCkc6EOKTTpc4HPZSKb6N0N/ZcDRKFK15AOkgaELTlNkLkBXUiv5Cu2ZU1a+/euHiGdL7b6w==
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR04MB11513.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(19092799006)(921020)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?Yk1XTWE3TlJMMEVBZk5YN3MzMmx5dVV2MWNHVlIxTWt0S3VYY005RUFoQzZW?=
- =?utf-8?B?a2hlSW9KSG04RTZJTGs3aURnREJKYzZrQzhvaTBsVm5XUWUzeGlHR1Zma3RT?=
- =?utf-8?B?d29CMENXMTRDY0NON0lUWTdqM1I5cXNBSTU1SVZNbTNjRzc0SWtHTks1WkpD?=
- =?utf-8?B?TVoybG8zT0VQbkthVGJ6bjBZRnl3VHNLSUNoRnV0eVRLeDZxVXRRZUdiUlNI?=
- =?utf-8?B?NTQ1M01vdHNwWWg0eTNxQVY3cThsMjM2NkUrRzdOQWczL0xsL0lyVlFsdjUw?=
- =?utf-8?B?OU8rNnBlWVg1aUhuS0RveVpPWFVyUlNNb3dtaEU0M1lpUzVMQ1BPMkNrOVdC?=
- =?utf-8?B?SnBSdEErSnZhQ2pERnlWejZCSGV6SXovcHJCd3YrMUxxR2pSL2g3Qm5PeHln?=
- =?utf-8?B?MWpaNW1Ga1Y2SW1TcUVmRWVZeWtFenEzZEg3UkdBR1BtYStKV21kUC91V0l6?=
- =?utf-8?B?SzJFayt2TGNodVpkQVM4V2pKSm1Ocy8wTVJHU3c2ZG1yQXZuSDlXZ1NZVXNM?=
- =?utf-8?B?czNVc3RDR0xXQzN3bXVQaFEvVyt0dWVFVmJtZTgraCtnUzg5Tlo3WU4xUXM5?=
- =?utf-8?B?T0NNaVpoVFJaam41c2t6aU9FakM5Wk10TTNwVUkxOHFJaU52L2M5VGFpanB5?=
- =?utf-8?B?SXlxbDY2eFROMlBFNkNSV1pjMWNXczhLeWtXRjNGYVcxdHdKS00vOVZiMVFh?=
- =?utf-8?B?K0xwWGtXTjRHNi9WSzJodnJTU0s0TEJPTVNSMjNpbmY1U1NoUmVidlVCOGpW?=
- =?utf-8?B?Z0hnZjhRaUUxRzZaTzFzYVRyeHZqY1hPcGJPMEJSbHRnRVA2Q1B0dGhVaWo1?=
- =?utf-8?B?clVWSjdEdEVLNmhLT2IwUXlKYUl0Um1JSjF1WklhYWJvK2NqM09RaXJxN3JC?=
- =?utf-8?B?QzFnK2FSRVUyTG1TZHZWd3pzbDI4bjVjZHkvMWFEYXVjQTNlZkN5SlRHZ21E?=
- =?utf-8?B?MUhXSUNMZHpnWnkrSnNzd3NRY285ZlFxUy9Sd0ozTkljelR0SERUU0g0TUVZ?=
- =?utf-8?B?SlpVblM0UlZObytLNXJRRnFCQVBRSVVsMkoweGY2WTZQcUxHRU5UKzVIVVU1?=
- =?utf-8?B?OTlJeVJnMXRQWUZSaFpjdjhvaytpd29jc0dnWThXUEg5YStpUHNjMXRBMGNZ?=
- =?utf-8?B?VmpuejVzTit4a2NjSlZLWFh0Smxvc0VMTExXT1RIR082cnRzWE8yMTdxdTFN?=
- =?utf-8?B?SVlkTEhwRGVTbFJlREhNQm1vQXJIOVAxbUNZbHpkNkFNTVNTTDhUcXRlbVdu?=
- =?utf-8?B?b2xaT0ErMHovaGUyZitxVExwOWRkVFR0a0g0ampvcndLbFJoRG13OEVyVkNC?=
- =?utf-8?B?ek5nYTh1SHJ1NXdUVlFQY1JldHRmVDlSN3pxalMwZzQvUmJISFVScGxJdkRM?=
- =?utf-8?B?d2VJbndBbjdobkZWSG9NcjNOYy9MU1RFVTRCc1lOMi9rckxtdnU4cW9CcWpJ?=
- =?utf-8?B?d3o1bUxpZXlJZERXMCtYeDJyS1ArOVVOTGtLbENnZmo4MDRPRE9iWFdQanYx?=
- =?utf-8?B?MnQwL2twSWVNcnJkNHFhOHd6ckpYbk5qS3BmWDk4c3kvd1VZZEowbmNYOTJn?=
- =?utf-8?B?QTlZNUppZ1dZNjZzN0U3Z0lNVWFGbC93RXpzcUZHQTFsZ2VEeGVkdkdTVDlY?=
- =?utf-8?B?QVQrdk1tQmE1T3AyMkgyYWtRWUlWRnowRlcvOHJuT3B6SHNhd3Q5djJLU3RS?=
- =?utf-8?B?U1Y3S0szSVZsWlRGT0VTWDhXSVBBYzVhUHVsYzVlK0tDcGlNM1BVNFJyVHlC?=
- =?utf-8?B?SFRlVGROckRVUHB1NHhTZ25ra05uRzVaZk1ieDg0UlpXL0oyMDBjYVhjMHZr?=
- =?utf-8?B?d1FGVk54MHdIUE5kN3FIYzFjS3hVVGVVcXdGTFFqcnZRaHE1R1RHd0h0eDlE?=
- =?utf-8?B?UXd5YzU5KzN6cWVnWTJXNUJpR2R2TGlaRWJFNGVOWGQrQTA3UEdvME5aaVI5?=
- =?utf-8?B?SEtHVy9DcDVtZ05zckJJcE84U2gwNVhFUWFCaTNXdkZIbHpGT1dsVklwVXJH?=
- =?utf-8?B?QVRTM2VPK2JNZ212aENBbWNtdFdXSTFXb1BsZjA1UHhMak1Wb3VmdmpDWEdm?=
- =?utf-8?B?eGY0WWpkSlNoRHdtOUdabjNmaG9aUHdHT0lXWjlFaWZORkVGQ0srcDB5QmRH?=
- =?utf-8?B?cjF6Sm5wT0R4eFhERDFrbzJmcmJCakJqajhNZjJNVHdRTzFTeGZYQ3pUbklo?=
- =?utf-8?B?ZkZKVHNscmpPK1UzVEdxTy8yeFFGUCsySWtCaTFXTkFpT2ltRnBSS3B0ZGI4?=
- =?utf-8?B?OG85ZGx6Zm5UcTQvUjhmcUZpTXdVTWJxcXMyUFRicW1WbldkY2VycXVHb1E5?=
- =?utf-8?B?cVBSYTgwSUxQdlJyNERuOURKQmw5ZDhQbzNuTTNPbVBib0p2MVIzUkhKQkQ1?=
- =?utf-8?Q?DYg5AeKh900ZRYY8ua6ErXXAzxrmlUTvj+l4F?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9736cea-fadc-4f92-069a-08dee89aa278
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR04MB11513.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 09:13:18.5848
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SBfkGvbnCrRMQkTWrP0VTSVYefifusZV4cIuD1d+40n0E8u6gnK8DwNNp/fmB06u5aHukNRT/NX143+rQq6yyZW8IzXpPcxIs11AZoFoSbt0Xx5i6wXQO16E1lOQKKS+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB6780
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <178479424623.3238585.7446724208192156945@freya>
 
-Add support for additional 32-bit RGB pixel formats (BGRA32, RGBA32,
-BGRX32, RGBX32, ARGB2101010).
+Hi Jai
 
-Formats with alpha channel (BGRA32, RGBA32) only support capture as
-ISI ignores alpha bits when reading from memory.
+On Thu, Jul 23, 2026 at 01:40:46PM +0530, Jai Luthra wrote:
+> Quoting Jacopo Mondi (2026-07-23 12:51:48)
+> > Hi Jai,
+> >    thanks for the review
+> >
+> > On Wed, Jul 22, 2026 at 06:07:56PM +0530, Jai Luthra wrote:
+> > > Hi Jacopo,
+> > >
+> > > Thank you for the patch.
+> > >
+> > > Quoting Jacopo Mondi (2026-07-22 16:25:17)
+> > > > From: Philippe Baetens <philippebaetens@gmail.com>
+> > > >
+> > > > Add a V4L2 subdev driver for driver for the AMS-OSRAM Mira220 image
+> > > > sensor.
+> > > >
+> > > > Mira220 is a global shutter image sensor with a resolution of 1600x1400
+> > > > pixels.
+> > > >
+> > > > The driver implements support for mono and RGB 12, 10 and 8 bits
+> > > > formats. The output data-rate per lane is 1500Mbit/s, with a maximum
+> > > > frame rate up to 90 fps.
+> > > >
+> > > > Signed-off-by: Philippe Baetens <philippebaetens@gmail.com>
+> > > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+>
+> [...]
+>
+> > > > +
+> > > > +/* Horizontal flip */
+> > > > +#define MIRA220_HFLIP_REG CCI_REG8(0x209C)
+> > > > +#define MIRA220_HFLIP_ENABLE_MIRROR 1
+> > > > +#define MIRA220_HFLIP_DISABLE_MIRROR 0
+> > > > +
+> > > > +/* Vertical flip */
+> > > > +#define MIRA220_VFLIP_REG CCI_REG8(0x1095)
+> > > > +#define MIRA220_VFLIP_ENABLE_FLIP 1
+> > > > +#define MIRA220_VFLIP_DISABLE_FLIP 0
+> > >
+> > > I don't see the above macros being used when updating the flip registers,
+> >
+> > We use ctrl->val indeed as it can be 1 or 0 only
+> >
+> > > and also HFLIP value is swapped from the control, which does not match the
+> > > macro.
+> >
+> > Why I don't see it ?
+> >
+> >        case V4L2_CID_HFLIP:
+> >                ret = cci_write(mira220->regmap, MIRA220_HFLIP_REG,
+> >                                mira220->hflip->val, NULL);
+> >
+> >         mira220->hflip = v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops,
+> >                                            V4L2_CID_HFLIP, 0, 1, 1, 0);
+> >
+>
+> Oops, my bad I confused the code picking the bayer order from the table
+> with the one that writes to the registers. Please ignore this comment.
+>
 
-Signed-off-by: Robert Chiras <robert.chiras@nxp.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Tested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
----
-Changes in v3:
-- Drop M2M_OUT for ABGR32/BGRA32/RGBA32 as ISI ignores alpha bits (Laurent)
-- Remove Android requirements from commit message as alpha formats
-  cannot be used as M2M input (Laurent)
-- Add Tested-by tag from Laurent Pinchart
+There is instead an inverted handling of hflip when adjusting the
+image format
 
-Changes in v2:
-- Add Reviewed-by tag from Frank Li
----
- .../media/platform/nxp/imx8-isi/imx8-isi-video.c   | 51 ++++++++++++++++++++++
- 1 file changed, 51 insertions(+)
+i = (i & ~3) | (mira220->vflip->val ? 2 : 0) | (mira220->hflip->val ? 0 : 1);
 
-diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-index a6e044056762..f45c2aae59ce 100644
---- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-+++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-@@ -166,6 +166,57 @@ static const struct mxc_isi_format_info mxc_isi_formats[] = {
- 		.color_planes	= 1,
- 		.depth		= { 32 },
- 		.encoding	= MXC_ISI_ENC_RGB,
-+	}, {
-+		.mbus_code	= MEDIA_BUS_FMT_RGB888_1X24,
-+		.fourcc		= V4L2_PIX_FMT_BGRA32,
-+		.type		= MXC_ISI_VIDEO_CAP | MXC_ISI_VIDEO_M2M_CAP,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RGBA8888,
-+		.mem_planes	= 1,
-+		.color_planes	= 1,
-+		.depth		= { 32 },
-+		.encoding	= MXC_ISI_ENC_RGB,
-+	}, {
-+		.mbus_code	= MEDIA_BUS_FMT_RGB888_1X24,
-+		.fourcc		= V4L2_PIX_FMT_RGBA32,
-+		.type		= MXC_ISI_VIDEO_CAP | MXC_ISI_VIDEO_M2M_CAP,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_ABGR8888,
-+		.mem_planes	= 1,
-+		.color_planes	= 1,
-+		.depth		= { 32 },
-+		.encoding	= MXC_ISI_ENC_RGB,
-+	}, {
-+		.mbus_code	= MEDIA_BUS_FMT_RGB888_1X24,
-+		.fourcc		= V4L2_PIX_FMT_BGRX32,
-+		.type		= MXC_ISI_VIDEO_CAP | MXC_ISI_VIDEO_M2M_OUT
-+				| MXC_ISI_VIDEO_M2M_CAP,
-+		.isi_in_format	= CHNL_MEM_RD_CTRL_IMG_TYPE_RGBX8,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_RGBX888,
-+		.mem_planes	= 1,
-+		.color_planes	= 1,
-+		.depth		= { 32 },
-+		.encoding	= MXC_ISI_ENC_RGB,
-+	}, {
-+		.mbus_code	= MEDIA_BUS_FMT_RGB888_1X24,
-+		.fourcc		= V4L2_PIX_FMT_RGBX32,
-+		.type		= MXC_ISI_VIDEO_CAP | MXC_ISI_VIDEO_M2M_OUT
-+				| MXC_ISI_VIDEO_M2M_CAP,
-+		.isi_in_format	= CHNL_MEM_RD_CTRL_IMG_TYPE_XBGR8,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_XBGR888,
-+		.mem_planes	= 1,
-+		.color_planes	= 1,
-+		.depth		= { 32 },
-+		.encoding	= MXC_ISI_ENC_RGB,
-+	}, {
-+		.mbus_code	= MEDIA_BUS_FMT_RGB888_1X24,
-+		.fourcc		= V4L2_PIX_FMT_ARGB2101010,
-+		.type		= MXC_ISI_VIDEO_CAP | MXC_ISI_VIDEO_M2M_OUT
-+				| MXC_ISI_VIDEO_M2M_CAP,
-+		.isi_in_format	= CHNL_MEM_RD_CTRL_IMG_TYPE_A2RGB10,
-+		.isi_out_format	= CHNL_IMG_CTRL_FORMAT_A2RGB10,
-+		.mem_planes	= 1,
-+		.color_planes	= 1,
-+		.depth		= { 32 },
-+		.encoding	= MXC_ISI_ENC_RGB,
- 	},
- 	/*
- 	 * RAW formats
+This is because the wrong sorting of mira220_mbus_color_formats[].
 
--- 
-2.34.1
+I've resorted it to match the ordering reported in the comment above
+it
 
+ * - no flip
+ * - h flip
+ * - v flip
+ * - h&v flips
+
+And adjusted the index calculation to use hflip->val ? 1 : 0
+
+(Sashiko had also pointed this out, but thought this was going to
+registers, while flip handling used to work fine as it was "wrong" in
+two places in the driver).
+
+> >
+> > >
+> > > Could you please use the macros to keep things easy to read? And maybe a
+> > > mask macro instead of `(i & ~3)` too?
+> > >
+> >
+> > I could
+> >
+> > > > +
+> > > > +#define MIRA220_VSIZE_REG CCI_REG16_LE(0x1087)
+> > > > +#define MIRA220_VSTART_REG CCI_REG16_LE(0x107d)
+> > > > +#define MIRA220_HSIZE_REG CCI_REG16_LE(0x2008)
+> > > > +#define MIRA220_HSIZE_MASK GENMASK(9, 0)
+> > > > +#define MIRA220_HSTART_REG CCI_REG16_LE(0x200a)
+> > > > +#define MIRA220_HSTART_MASK GENMASK(9, 0)
+> > >
+> > > Same, drop the mask if unused.
+> > >
+> >
+> > Or maybe I should have used the masks!
+> >
+> > > > +#define MIRA220_MIPI_HSIZE_REG CCI_REG16_LE(0x207d)
+> > > > +
+> > > > +/* MIPI bus control */
+> > > > +#define MIRA220_MIPI_LANES_REG CCI_REG8(0x6012)
+> > > > +
+> > > > +#define MIRA220_MIPI_CLK_MODE_REG CCI_REG8(0x6013)
+> > > > +#define MIRA220_MIPI_CLK_CONTINUOUS 0x00
+> > > > +#define MIRA220_MIPI_CLK_NON_CONTINUOUS 0x01
+> > >
+> > > Does DT allow clock-continuous property? Do we handle it?
+> > >
+> >
+> > The bindings for this sensor allows all properties from
+> > video-interfaces.yaml, including clock-noncontinuous.
+> >
+> > The driver doesn't support it at the moment and unconditionally use
+> > continuous clock, but I guess it's nice to provide macros for the
+> > non-continuous configuration as well
+>
+> Ah, that's not too good if the DT allows it but the driver silently ignores
+> it.
+
+Why ?
+
+We allow all properties from video-interfaces.yaml (something which I
+think it's wrong, but that's a long time ago discussion with dt
+maintainers, so I'm not contesting that) and we certainly don't handle
+them in drivers (in facts, what drivers do is not relevant to which
+properties are allowed for a device).
+
+>
+> If you end up reading the DT property to report an error, might as well try
+> setting the bit too? ;-)
+>
+
+I don't think I'm reading it, am I ?
+
+> >
+> > > > +
+> > > > +/* OTP control */
+> > > > +#define MIRA220_OTP_CMD_REG CCI_REG8(0x0080)
+> > > > +#define MIRA220_OTP_CMD_UP 0x4
+> > > > +#define MIRA220_OTP_CMD_DOWN 0x8
+> > > > +
+> > > > +/* Global sampling time */
+> > > > +#define MIRA220_GLOB_NUM_CLK_CYCLES 1928
+> > > > +
+> > > > +/* External clock frequency is 38.4 M */
+> > > > +#define MIRA220_SUPPORTED_XCLK_FREQ 38400000
+> > > > +
+> > > > +/* Default exposure is adjusted to mode with smallest height */
+> > > > +#define MIRA220_DEFAULT_EXPOSURE 1000
+> > > > +#define MIRA220_MAX_EXPOSURE 0xffff
+> > > > +#define MIRA220_EXPOSURE_MIN 1
+> > > > +
+> > > > +/*
+> > > > + * Pixel rate is an artificial value. This value is used for timing calculations
+> > >
+> > > nit: Pixel rate is artificially scaled to keep hblank non-negative for
+> > > timing calculations.
+> > >
+> >
+> > I'm not sure that's what the comment originally meant.
+> >
+> > > > + * in combination with vblank/hblank.
+> > > > + */
+> > > > +#define MIRA220_PIXEL_RATE 384000000
+> > > > +
+> > > > +/* Total line length for 2 lanes calculated for ROW_LENGTH = 304. */
+> > > > +#define MIRA220_LLP_1600x1400_304 3040
+> > > > +
+> > >
+> > > nit: Most Sony drivers with scaled pixel rate and HTS define the ratio
+> > > once, so something like `#define MIRA220_PIXEL_SCALE_FACTOR 10` and use it
+> > > at both places. This is fine too though.
+> > >
+> >
+> > I'm not sure I got what scale factor are you referring to.
+> >
+> > > > +/*
+> > > > + * ROW_LENGTH: duration of row length in clk_in cycles; set to minimum supported
+> > > > + * value for higher frame rate.
+> > > > + */
+> > > > +#define MIRA220_REG_ROW_LENGTH         CCI_REG16_LE(0x102b)
+> > > > +#define MIRA220_ROW_LENGTH_MIN         304
+> >
+> > Ah, do you think the above 3040 comes from this 304 * 10 ?
+> >
+> > Honestly I didn't realize it!
+> >
+> > 304 is the minimum value allowed for the row_length parameter, which
+> > defines the row sampling rate in number of clk_in cycles.
+> >
+> > As I can't tell what the 10 scale factor would represent I would leave
+> > these as they are ?
+> >
+>
+> I'll leave that to you.
+>
+> What Dave pointed to me on my IMX678 patch [1] is something many
+> sensors do (IMX678, IMX415, IMX667 and now this one), where
+>
+> time_to_read_row_in_s = 1/pixel_clock_in_hz * hts_reg
+>
+> where
+>
+> hts_reg < pixels_in_a_row
+>
+> when ideally what makes sense is,
+>
+> line_length_in_pixels > pixels_in_a_row
+>
+> or to be exact, for frame rate calculation we use
+>
+> line_length_in_pixels = pixels_in_a_row + blanking
+>
+> Thus the conclusion that we need to multiply both the hts_reg and
+> pixel_clock_in_hz values by the same constant factor to get values for
+> line_length_in_pixels and PIXEL_RATE that make "sense" wrt blankings
+>
+> In your case with 304 row length and 38.4M clock,
+>
+>    time_to_read_row = 1/38.4M * 304
+>
+> So if we multiply both by 10 we get the same timing but with values that
+> avoid negative blankings,
+>
+>    time_to_read_row = 1/384M * 3040
+>
+> Now we could have multiplied by 5 or 8 or whatever and might still end up
+> with non-negative blankings. You chose factor of 10 for the "artificial"
+> pixel rate value, so it showed up in row length too.
+>
+> What the physically correct factor should be I don't know. But I usually
+> pick whatever is the smallest number that works for the lowest possible
+> value for the HTS/row_length register.
+>
+> [1]: https://lore.kernel.org/all/CAPY8ntBi88-dd2HxxftErf8h5-ERRPcGy5KJ-%2BoF7jawNOJpuA@mail.gmail.com/
+>
+
+Thanks for the detailed analysis.
+
+I'll forward to know might know more about the sensor internal
+architecture.
+
+
+> > > > +
+> > > > +/* Test Pattern */
+> > > > +#define MIRA220_REG_TEST_PATTERN CCI_REG8(0x2091)
+> > > > +#define MIRA220_TEST_PATTERN_DISABLE 0x00
+> > > > +#define MIRA220_TEST_PATTERN_VERTICAL_GRADIENT 0x01
+> > > > +
+> > > > +/* Module variant identifiers */
+> > > > +#define MIRA220_MONO_PLAIN_PF          0x1e62a032
+> > > > +#define MIRA220_MONO_PLAIN_NO_PF       0x1e62a045
+> > > > +#define MIRA220_MONO_AR_PF             0x1e62a036
+> > > > +#define MIRA220_RGB_PLAIN_PF           0x1e62a03b
+> > > > +#define MIRA220_RGB_PLAIN_NO_PF                0x1e62a046
+> > > > +#define MIRA220_RGB_AR_PF              0x1e62a03d
+> > >
+> > > Ah, I think this might be relevant to userspace, but not a problem to solve
+> > > in this patch.
+> > >
+> >
+> > How so ?
+> >
+>
+> I assumed AR coating and protective film might effect the tuning needed for
+> the ISP, but I honestly don't know enough about that process.
+>
+
+One place where it is required to know the sensor variant is the
+tuning file selection in libcamera.
+
+We currently don't have a standardized way to do that. The only
+pipeline that automatically adjust for _mono variants is RPi, and it
+does that using the support image formats.
+
+I presume other pipelines should do the same ?
+
+> > > > +
+> > > > +enum mira220_variants {
+> > > > +       MIRA220_VARIANT_MONO,
+> > > > +       MIRA220_VARIANT_RGB,
+> > > > +};
+> > > > +
+> > > > +static const struct cci_reg_sequence mira220_init_reg_list[] = {
+> > > > +       /* Base configuration*/
+> > > > +       { CCI_REG8(0x6006), 0x0 },
+> > > > +       { CCI_REG8(0x6012), 0x1 },
+> > > > +       { CCI_REG8(0x6013), 0x0 },
+> > > > +       { CCI_REG8(0x6006), 0x1 },
+> > > > +       { CCI_REG8(0x205D), 0x0 },
+> > >
+> > > We have a convention to stick to lowercase hex values throughout the
+> > > driver.
+> > >
+> >
+> > Same reasoning as per the tabs in the defines.
+> > The code base I started from had upper case.
+> >
+> > In the past I asked other contributors to adjust their tables to lower
+> > case, so I guess it's not nice if I get a pass.
+> >
+> > I'll try to change them
+> >
+>
+> Thanks, usually vim grep is good enough (I've even tried asking a local LLM
+>                                          to come up with a grep and it did).
+>
+> [...]
+>
+
+It didn't take me long ..
+
+> > > > +struct mira220 {
+> > > > +       struct v4l2_subdev sd;
+> > > > +       struct media_pad pad;
+> > > > +
+> > > > +       enum mira220_variants variant;
+> > > > +
+> > > > +       struct v4l2_mbus_framefmt fmt;
+> > > > +
+> > > > +       struct clk *xclk;
+> > > > +       u32 xclk_freq;
+> > > > +
+> > > > +       struct regulator_bulk_data supplies[MIRA220_NUM_SUPPLIES];
+> > > > +
+> > > > +       struct gpio_desc *reset_gpio;
+> > > > +
+> > > > +       unsigned int lanes;
+> > > > +       unsigned int row_length;
+> > > > +
+> > > > +       struct v4l2_ctrl_handler ctrl_handler;
+> > > > +       struct v4l2_ctrl *vflip;
+> > > > +       struct v4l2_ctrl *hflip;
+> > > > +       struct v4l2_ctrl *vblank;
+> > > > +       struct v4l2_ctrl *exposure;
+> > > > +
+> > > > +       const struct mira220_mode *mode;
+> > >
+> > > Is this defined or [used anywhere? A grep for mira220_mode returns empty
+> > > for me.
+> > >
+> >
+> > This defintely shouldn't be here
+> >
+> > Now the thing I don't get: why does this compile ?
+> >
+> >   CC [M]  mira220.o
+> >   MODPOST Module.symvers
+> >   CC [M]  mira220.mod.o
+> >   LD [M]  mira220.ko
+> >
+> > ??
+> >
+> > And notice that if I remove the ; at the end
+> >
+> > -       const struct mira220_mode *mode;
+> > +       const struct mira220_mode *mode
+> >
+> > to intentionally break it .. it breaks!
+> >
+> > mira220.c:1016:9: error: expected ‘:’, ‘,’, ‘;’, ‘}’ or ‘__attribute__’ before ‘struct’
+> >  1016 |         struct regmap *regmap;
+> >       |         ^~~~~~
+> >
+> > I'm puzzled :)
+> >
+>
+> Google says compilers are happy to chug along with "struct unknown *val;"
+> as long as it is never dereferenced.
+>
+
+I had no idea (and it quite surprises me :)
+
+> > > > +
+> > > > +       struct regmap *regmap;
+> > > > +};
+>
+> [...]
+>
+> > > > +       if (i >= ARRAY_SIZE(mira220_mbus_color_formats))
+> > > > +               i = 0;
+> > > > +
+> > > > +       i = (i & ~3) | (mira220->vflip->val ? 2 : 0) | (mira220->hflip->val ? 0 : 1);
+> > >
+> > > Using macros here would be nice.
+> > >
+> >
+> > I'm not sure, we're just adjusting the index, there's nothing related
+> > to the registers layout here
+> >
+>
+> My bad, please ignore.
+>
+> [...]
+>
+> > > > +static const struct of_device_id mira220_dt_ids[] = {
+> > > > +       { .compatible = "ams,mira220" },
+> > >
+> > > I see AMS-OSRAM using the following naming scheme on the product page [1]:
+> > >     Mira220-2QC: Color
+> > >     Mira220-2QM: Mono
+> > >     Mira220-2QI: RGB-IR
+> > >
+> > > Should we use separate compatibles for the three variants? This is a
+> > > practice we have followed for other sensors too, and especially relevant
+> > > here because the driver currently doesn't work for RGB-IR variants.
+> > >
+> > > [1]: https://ams-osram.com/products/sensor-solutions/cmos-image-sensors/ams-mira220
+> > >
+> >
+> > I don't know. As we can perform runtime identification what would an
+> > additional compatible give us here ?
+> >
+>
+> Some usecases might want to avoid powering on (and potentially flashing
+> privacy LED) and doing I2C transactions if the type of sensor can be known
+> at boot-time already.
+>
+> There was a similar discussion here:
+> https://lore.kernel.org/linux-media/20260521-dangling-utensil-610af5e07d79@spud/
+>
+> I don't know enough about this particular sensor, and if reading the OTP
+> values and programming registers is mandatory for all potential usecases
+> anyway, which would mean there's no benefit for avoiding the runtime
+> detection.
+
+A bit out of my territory here, but can we start with a single
+compatible and add more if needed (and use the initial one as a
+fallback?)
+
+>
+> > Thanks
+> >    j
+> >
+>
+> Thanks,
+>     Jai
+>
