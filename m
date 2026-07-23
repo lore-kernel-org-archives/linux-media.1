@@ -1,340 +1,344 @@
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9911547426B
-	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 18:33:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9394488DA7
+	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 18:46:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784831593; cv=none; b=Lm3G62ulZxCc9MXxhEzngMCrOs3Z3O4OkhWf1xayHNtGJ5lqfcPoT1ySnq024LrYvAeUD+CjxgLPn8QQSm6WTe2Ur0tOIAR+YXCC2CG6Oy511iAa1HB1k0zwlzZSb26cwLX+bBEZB0uZ7tQbWX83FMyJUdemo3RN/lR7Fb1pDDo=
+	t=1784832370; cv=none; b=Vsd9YaJsWtqqCOhGl3wtxurGqkapwQsj4e0E2/YGLIYGgkZ8icA9ocNUtDrbFUOyogMxeIE/AHJBOaZi+rO8XSWaQuoP9GlSkEEdqYX+wAxPfZbW2g1sqoGdLY2WO7oWkAZ/1lsqjBCmQ4Kiu3EZl4UrVXoneU/4Sw49KP6Yp8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784831593; c=relaxed/simple;
-	bh=vDZeQinpdFoDcNuImf1N/0AjNHp4brVkSFrAhi9TCPw=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ncZpaFxQqNZEGwbl3rUtKGXVjLviZXqCFbGdjAzk7Na0ibjY5ta38gcY2CjAXT/gMwp1h15dZ03O4h/rF8eWiQ59f4EHsL5pGy4h+B8N0E5vgdhO/kt7vOPC0lTbF1+vtSSfMMfS56aBJSwfe+8Xtr/Qn/cXbXYLSOgI090RF7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uAGn3DgF; arc=none smtp.client-ip=209.85.160.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com
+	s=arc-20240116; t=1784832370; c=relaxed/simple;
+	bh=0DUXMETFOiPrjHj0I+f8Jjf1hUhgRxwBlToSkMOuX8E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IfKvXGT1R2GnAvfndxJcr/kFTZkjY/1Gm+KqaCrYJUNtfpAgZZB7gVE+KPJgJow2vGzfQhoE69BNXCzFLi2djQlEg47QO4wHJ5nYlfqfev+BxhTymjEoK8pWGRIG/KExZisfjJNhEzM6+Lq9JLGyJ2kemJ5KnifJO6KQrog1wM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UcuaoKRQ; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uAGn3DgF"
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5174a236220so18370951cf.3
-        for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 11:33:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UcuaoKRQ"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-382ef647e20so1065716a91.1
+        for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 11:45:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784831581; x=1785436381; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lqiWQikS8RfwgMFdKdTRhH3oYvJSP9R+oKdTrkEuptE=;
-        b=uAGn3DgFLb/cZPH4Kw68dulrAsC1o4k1LWSIRqxncvOenAZMwHa96JSzOfqfTj5Amk
-         umUNU4QDukMf3KVUDzbmIZnkTIFiPa92jWpALj5kIh+Rnze5buhCv/k89fmaTrrJ4tir
-         N2SD+mM9YFHmklTUw9CvlCe3ZtDA6rLnvXPC9sOdz1DVYg7riybgauqCLCK/1w7sg3us
-         J2WDleloZ5ewjWLDT2D+/iZU3BCbzE6HTdfJ6Vvnu3qsyPob1DcblWOk+x5nKwaJQjYS
-         cU9t/fyCOMJEhrv1by00XpAN7/r061HMwHe9NBOK4aVXoz5Fyk6N093bU04BEO5ifWBT
-         2wYg==
+        d=gmail.com; s=20251104; t=1784832355; x=1785437155; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+cqQ6sQJkvsR3VtIbpEjUXStuHRs0SJj4jk7Uojzitk=;
+        b=UcuaoKRQCbsReVhzJf/ZGJlXbh64b3U6AAC/KmroIrAb+XqaMu03L72UQmO1UfiKoH
+         v5t8SdZGnnvGRm0kSFNoBBew4GakZFP6aUp0kui6MrYim7VuZY25y/41yO+xQdCUuVSt
+         AYyG4u/HZr03V71uuN4Tg/H5roah86A3Hs7n7D/0j87fgcqbgrsjvKIgirqEL8EVhOiX
+         7gOxTc3j6W0PsrZth3785bq/XUTCNFWLPQqtgqJpSDa8IKj5CH876rkjW/PMTVdQUJ0V
+         ZoxYoGuEX+u+JYgBv4Zw44W3wGn4VBag2holCYN7hZ6yV5iHWiGOKFKN5GFOZqwlTJyB
+         wTzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784831581; x=1785436381;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1784832355; x=1785437155;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lqiWQikS8RfwgMFdKdTRhH3oYvJSP9R+oKdTrkEuptE=;
-        b=fQb8UBaAfgl7aA5e8q/Fziz0gPYxcyKgJJxmv6uv7UPISS/dnz+ui6Gyof2dYqIPnZ
-         Pj36T/Dzey/0+Ce7Jn7JoirmyBM7Op9L99e+6ELk9utclZ1ATAgcoSf1DgP/2q4+fc6O
-         RpZQNVVomlzHLCAZL+IikhX/Pa32ygg0GsEFYR9f3Ve9KIEnEaWd3IfAK5iUvtGvsaVz
-         zM+22lnbgbiWbn5x0/m3VqXqOuqeAM2ZkzJvVctn3PlnaTL1o4ztSNqz+aEbKPrCQs+V
-         K8zpVO4ogb8/86lgl7sy0krpsrav9RPS177JA33A7QbZGaSsdXMCu/kNyIsrC54YJfob
-         SyuQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpDtNl9n0QnL8XtkJIcQsg5O1/Ob58/2XEPSESbqrnq+theldyZMdjopKACLkMZuoW4zdL8sXDBdrBiyA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwPGXO+mIV0Xj3LL+8+/igL60KglF1zDf1Z8luctFK2dRtr51Wu
-	bBYNbl07DuTXJ4X1jKUX4sZMKxGAbvCSMUAFUrINjHXC7vtS2t5oXHsYqZRNOLu6khgOryGJVrm
-	Yl8jhDJzkBxdSxRcw6xzp/U4RMWKP
-X-Received: from qtbob13.prod.google.com ([2002:a05:622a:7d8d:b0:520:227f:57c8])
- (user=briandaniels job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:622a:830f:b0:526:f9e1:9e50 with SMTP id d75a77b69052e-528459f1a4dmr20080541cf.47.1784831580814;
- Thu, 23 Jul 2026 11:33:00 -0700 (PDT)
-Date: Thu, 23 Jul 2026 14:32:19 -0400
-In-Reply-To: <20260723183219.737296-1-briandaniels@google.com>
+        bh=+cqQ6sQJkvsR3VtIbpEjUXStuHRs0SJj4jk7Uojzitk=;
+        b=MZ+TvAogDZhZwaa38xrfq1mLDNalR1jKU6RCasb5dZUAm4fNJNiDSKILKBGzdIp8Sf
+         Zmf4fy1YrSPFbubNGGIJxoS6+tWT4wyO9BUObXOLLQXnNAoH3C5kxi0AbR4OfkqFg+Vq
+         NSEErv5wHRRK9VYttL5kLP6vpNnbeuZDd1iKfmQDQIgEvh7U6wU4nLi75FaPuwdbu8iA
+         pUaG9RZt3yMUMpyO7hK7NnQZFIPzHvxKX0YDtpGoTgEuMsNS0nWyrxYCdi4RTBtEI+6v
+         D+IRhadDj46Xeg9MBotAlZhQx7FjcfUp2srgM99IY1jm3KZzKdnG6D6n6UoIqIXiJg69
+         Xbxg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq+7zKEsADF2u1xsp78xpmL1xB6/faJgToXEK1hlJ7HPYv/hjEzL9IR+MCJ6xSyiPZEd5UBFDMsz8jvJQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyfWTWjbKuWmbX0guyc7/mcrXCHcU44yBa65pAbuCLk0QcYsfbf
+	FZaegbMW6nvdA6mx4OIZXQb+pb+9XQJh5PB7r4eNvzTD8K4AhzPH8GPn
+X-Gm-Gg: AR+sD13KaUez9dthBac4s7AigBKQbLkjqQzsH29CZt94qeVVhlfU1U31ZRmTJy0qq5K
+	S99hJmaYEdLheJ0t7GeNU/csq69co5fRfZGFiw3szPaF7NGsSNdggUhjeg1T7lQ9eo+k4arF/LK
+	ztpxOuiOdju/7zXckA3kPQIkse5BoH7NkUzWw4U4fiEuu52h60J/i3K3GCTeYl4zG0JaOWZJV/s
+	6pSw9p4sbEyAh0JTp6v+NZKYw0Tx1/j8eiX3SnKca/Fsl+tWEaWLbe4M0VNO/scIuZ0OMCqLV+Z
+	lWeRTVyn31+YvN/fybiKU8LM6Zlx/7yMB16MjokpvYQHpxGRT3OYHGgncV6QmilpVmivv9oBask
+	uxSS099fvfxJnK30gPADfPWNUBGLe+AByJK+sCTHD867BuqeLu38i/cwKym5RhQoGoI7cqHYg
+X-Received: by 2002:a17:90b:1350:b0:36d:66d4:270e with SMTP id 98e67ed59e1d1-38ec6455120mr4430242a91.5.1784832354540;
+        Thu, 23 Jul 2026 11:45:54 -0700 (PDT)
+Received: from ubuntu.. ([110.9.142.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f03af8a45sm308155a91.10.2026.07.23.11.45.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Jul 2026 11:45:53 -0700 (PDT)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: Julia.Lawall@inria.fr,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+	Borislav Petkov <bp@alien8.de>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Florian Westphal <fw@strlen.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Johan Hovold <johan@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Julian Anastasov <ja@ssi.bg>,
+	Leon Romanovsky <leon@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Matthew Sakai <msakai@redhat.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Maxime Ripard <mripard@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+	Nicolas Palix <nicolas.palix@imag.fr>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Sebastian Reichel <sre@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Simona Vetter <simona@ffwll.ch>,
+	Simon Horman <horms@verge.net.au>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Steve French <sfrench@samba.org>,
+	Takashi Iwai <tiwai@suse.com>,
+	Thomas Renninger <trenn@suse.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Tony Luck <tony.luck@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Vinod Koul <vkoul@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Yazen Ghannam <Yazen.Ghannam@amd.com>
+Cc: cocci@inria.fr,
+	amd-gfx@lists.freedesktop.org,
+	dmaengine@vger.kernel.org,
+	dm-devel@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org,
+	intel-wired-lan@lists.osuosl.org,
+	iommu@lists.linux.dev,
+	linux-cifs@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	linux-edac@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-pm@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-rtc@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	lvs-devel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	nouveau@lists.freedesktop.org,
+	platform-driver-x86@vger.kernel.org
+Subject: [PATCH 00/36] treewide: remove conditional returns with no effect
+Date: Fri, 24 Jul 2026 03:45:02 +0900
+Message-ID: <20260723184538.3888637-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260723183219.737296-1-briandaniels@google.com>
-X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
-Message-ID: <20260723183219.737296-6-briandaniels@google.com>
-Subject: [PATCH v5 5/5] media: virtio: Add USERPTR memory type support
-From: Brian Daniels <briandaniels@google.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: adelva@google.com, aesteve@redhat.com, changyeon@google.com, 
-	daniel.almeida@collabora.com, eperezma@redhat.com, gnurou@gmail.com, 
-	gurchetansingh@google.com, hverkuil@xs4all.nl, jasowang@redhat.com, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, mst@redhat.com, 
-	nicolas.dufresne@collabora.com, virtualization@lists.linux.dev, 
-	xuanzhuo@linux.alibaba.com, Brian Daniels <briandaniels@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Alexandre Courbot <gnurou@gmail.com>
+Hello,
 
-This patch adds support for the USERPTR memory type to the virtio-media
-driver.
+While reading mm/memblock, I found a conditional return where both
+branches return the same value:
 
-It adds the allow_userptr module parameter, implements the userptr
-mapping logic in the scatterlist builder, and enables USERPTR in
-reqbufs if allowed.
+	err = do_something();
+	if (err)
+		return err;
+	return err;
 
-Signed-off-by: Alexandre Courbot <gnurou@gmail.com>
-Assisted-by: Antigravity:gemini-3.5-flash
-Co-developed-by: Brian Daniels <briandaniels@google.com>
-Signed-off-by: Brian Daniels <briandaniels@google.com>
----
- drivers/media/virtio/scatterlist_builder.c | 64 ++++++++++++++++++++++
- drivers/media/virtio/scatterlist_builder.h |  3 +
- drivers/media/virtio/virtio_media_driver.c | 42 +++++++++-----
- drivers/media/virtio/virtio_media_ioctls.c | 11 +++-
- 4 files changed, 104 insertions(+), 16 deletions(-)
+Such code is usually a leftover from removing a statement between
+the two returns, and the tree has about a hundred of these.
 
-diff --git a/drivers/media/virtio/scatterlist_builder.c b/drivers/media/virtio/scatterlist_builder.c
-index 97925b277..85c6a36b4 100644
---- a/drivers/media/virtio/scatterlist_builder.c
-+++ b/drivers/media/virtio/scatterlist_builder.c
-@@ -349,14 +349,30 @@ static int scatterlist_builder_add_userptr(struct scatterlist_builder *builder,
- int scatterlist_builder_add_buffer(struct scatterlist_builder *builder,
- 				   struct v4l2_buffer *b)
- {
-+	int i;
- 	int ret;
- 
-+	/* Fixup: plane length must be zero if userptr is NULL */
-+	if (!V4L2_TYPE_IS_MULTIPLANAR(b->type) &&
-+	    b->memory == V4L2_MEMORY_USERPTR && b->m.userptr == 0)
-+		b->length = 0;
-+
- 	/* v4l2_buffer */
- 	ret = scatterlist_builder_add_data(builder, b, sizeof(*b));
- 	if (ret)
- 		return ret;
- 
- 	if (V4L2_TYPE_IS_MULTIPLANAR(b->type) && b->length > 0) {
-+		/* Fixup: plane length must be zero if userptr is NULL */
-+		if (b->memory == V4L2_MEMORY_USERPTR) {
-+			for (i = 0; i < b->length; i++) {
-+				struct v4l2_plane *plane = &b->m.planes[i];
-+
-+				if (plane->m.userptr == 0)
-+					plane->length = 0;
-+			}
-+		}
-+
- 		/* Array of v4l2_planes */
- 		ret = scatterlist_builder_add_data(builder, b->m.planes,
- 						   sizeof(struct v4l2_plane) *
-@@ -368,6 +384,54 @@ int scatterlist_builder_add_buffer(struct scatterlist_builder *builder,
- 	return 0;
- }
- 
-+/**
-+ * scatterlist_builder_add_buffer_userptr() - Add the payload of a ``USERPTR``
-+ *                                            &struct v4l2_buffer to the
-+ *                                            descriptor chain.
-+ * @builder: builder to use.
-+ * @b: &struct v4l2_buffer whose ``USERPTR`` payload we want to add.
-+ *
-+ * Add an array of &struct virtio_media_sg_entry pointing to a ``USERPTR``
-+ * buffer's contents. Does nothing if the buffer is not of type ``USERPTR``.
-+ * This is split out of scatterlist_builder_add_buffer() because we only want
-+ * to add these to the device-readable part of the descriptor chain.
-+ */
-+int scatterlist_builder_add_buffer_userptr(struct scatterlist_builder *builder,
-+					   struct v4l2_buffer *b)
-+{
-+	int i;
-+	int ret;
-+
-+	if (b->memory != V4L2_MEMORY_USERPTR)
-+		return 0;
-+
-+	if (V4L2_TYPE_IS_MULTIPLANAR(b->type)) {
-+		for (i = 0; i < b->length; i++) {
-+			struct v4l2_plane *plane = &b->m.planes[i];
-+
-+			if (b->memory == V4L2_MEMORY_USERPTR &&
-+			    plane->length > 0) {
-+				unsigned long uptr = plane->m.userptr;
-+				unsigned long len = plane->length;
-+
-+				ret =
-+				scatterlist_builder_add_userptr(builder,
-+								uptr,
-+								len);
-+				if (ret)
-+					return ret;
-+			}
-+		}
-+	} else if (b->length > 0) {
-+		ret = scatterlist_builder_add_userptr(builder, b->m.userptr,
-+						      b->length);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
- /**
-  * scatterlist_builder_retrieve_buffer() - Retrieve a &struct v4l2_buffer
-  *                                         written by the device on the shadow
-diff --git a/drivers/media/virtio/scatterlist_builder.h b/drivers/media/virtio/scatterlist_builder.h
-index 47bfd7ae0..53d964a48 100644
---- a/drivers/media/virtio/scatterlist_builder.h
-+++ b/drivers/media/virtio/scatterlist_builder.h
-@@ -90,6 +90,9 @@ int scatterlist_builder_add_ioctl_resp(struct scatterlist_builder *builder,
- int scatterlist_builder_add_buffer(struct scatterlist_builder *builder,
- 				   struct v4l2_buffer *buffer);
- 
-+int scatterlist_builder_add_buffer_userptr(struct scatterlist_builder *builder,
-+					   struct v4l2_buffer *b);
-+
- int scatterlist_builder_retrieve_buffer(struct scatterlist_builder *builder,
- 					size_t sg_index,
- 					struct v4l2_buffer *buffer,
-diff --git a/drivers/media/virtio/virtio_media_driver.c b/drivers/media/virtio/virtio_media_driver.c
-index c431c3eb2..b6f79593d 100644
---- a/drivers/media/virtio/virtio_media_driver.c
-+++ b/drivers/media/virtio/virtio_media_driver.c
-@@ -7,26 +7,29 @@
-  */
- 
- #include <linux/bits.h>
-+#include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/dev_printk.h>
-+#include <linux/mm.h>
- #include <linux/mutex.h>
-+#include <linux/scatterlist.h>
- #include <linux/types.h>
-+#include <linux/videodev2.h>
-+#include <linux/vmalloc.h>
-+#include <linux/wait.h>
-+#include <linux/workqueue.h>
- #include <linux/module.h>
-+#include <linux/moduleparam.h>
- #include <linux/virtio.h>
- #include <linux/virtio_config.h>
- #include <linux/virtio_ids.h>
--#include <linux/slab.h>
--#include <linux/scatterlist.h>
--#include <linux/vmalloc.h>
--#include <linux/workqueue.h>
--#include <linux/dma-mapping.h>
--#include <linux/poll.h>
--#include <linux/mm.h>
- 
-+#include <media/frame_vector.h>
- #include <media/v4l2-dev.h>
--#include <media/v4l2-device.h>
--#include <media/v4l2-fh.h>
- #include <media/v4l2-event.h>
-+#include <media/videobuf2-memops.h>
-+#include <media/v4l2-device.h>
-+#include <media/v4l2-ioctl.h>
- 
- #include "uapi/linux/virtio_media.h"
- #include "session.h"
-@@ -40,6 +43,15 @@
- /* Bit mask for the VIRTIO_MEDIA_MMAP_FLAG_RW flag */
- #define VIRTIO_MEDIA_MMAP_FLAG_RW_MASK BIT(VIRTIO_MEDIA_MMAP_FLAG_RW)
- 
-+/*
-+ * Whether USERPTR buffers are allowed.
-+ *
-+ * This is disabled by default as USERPTR buffers are dangerous, but the option
-+ * is left to enable them if desired.
-+ */
-+bool virtio_media_allow_userptr;
-+module_param_named(allow_userptr, virtio_media_allow_userptr, bool, 0660);
-+
- /**
-  * virtio_media_session_alloc() - Allocate a new session.
-  * @vv: virtio-media device the session belongs to.
-@@ -849,15 +861,11 @@ static int virtio_media_probe(struct virtio_device *virtio_dev)
- 			      VIRTIO_MEDIA_SHM_MMAP);
- 
- 	vd = &vv->video_dev;
-+
- 	vd->v4l2_dev = &vv->v4l2_dev;
- 	vd->vfl_type = VFL_TYPE_VIDEO;
- 	vd->ioctl_ops = &virtio_media_ioctl_ops;
- 	vd->fops = &virtio_media_fops;
--	vd->release = video_device_release_empty;
--	strscpy(vd->name, "virtio-media", sizeof(vd->name));
--
--	video_set_drvdata(vd, vv);
--
- 	vd->device_caps = virtio_cread32(virtio_dev, 0);
- 	if (vd->device_caps & (V4L2_CAP_VIDEO_M2M | V4L2_CAP_VIDEO_M2M_MPLANE))
- 		vd->vfl_dir = VFL_DIR_M2M;
-@@ -866,6 +874,10 @@ static int virtio_media_probe(struct virtio_device *virtio_dev)
- 		vd->vfl_dir = VFL_DIR_TX;
- 	else
- 		vd->vfl_dir = VFL_DIR_RX;
-+	vd->release = video_device_release_empty;
-+	strscpy(vd->name, "virtio-media", sizeof(vd->name));
-+
-+	video_set_drvdata(vd, vv);
- 
- 	ret = video_register_device(vd, virtio_cread32(virtio_dev, 4), 0);
- 	if (ret)
-@@ -890,6 +902,7 @@ static int virtio_media_probe(struct virtio_device *virtio_dev)
- 	virtio_dev->config->del_vqs(virtio_dev);
- err_find_vqs:
- 	v4l2_device_unregister(&vv->v4l2_dev);
-+
- 	return ret;
- }
- 
-@@ -900,6 +913,7 @@ static void virtio_media_remove(struct virtio_device *virtio_dev)
- 
- 	cancel_work_sync(&vv->eventq_work);
- 	virtio_reset_device(virtio_dev);
-+
- 	v4l2_device_unregister(&vv->v4l2_dev);
- 	virtio_dev->config->del_vqs(virtio_dev);
- 	video_unregister_device(&vv->video_dev);
-diff --git a/drivers/media/virtio/virtio_media_ioctls.c b/drivers/media/virtio/virtio_media_ioctls.c
-index f0b82b5ec..88465f239 100644
---- a/drivers/media/virtio/virtio_media_ioctls.c
-+++ b/drivers/media/virtio/virtio_media_ioctls.c
-@@ -273,6 +273,12 @@ static int virtio_media_send_buffer_ioctl(struct v4l2_fh *fh, u32 ioctl,
- 		return ret;
- 
- 	end_buf_sg = builder.cur_sg;
-+
-+	/* Payload of SHARED_PAGES buffers, if relevant */
-+	ret = scatterlist_builder_add_buffer_userptr(&builder, b);
-+	if (ret < 0)
-+		return ret;
-+
- 	num_cmd_sgs = builder.cur_sg;
- 
- 	/* Response descriptor */
-@@ -719,7 +725,7 @@ static int virtio_media_reqbufs(struct file *file, void *fh,
- 	if (b->type > VIRTIO_MEDIA_LAST_QUEUE)
- 		return -EINVAL;
- 
--	if (b->memory == V4L2_MEMORY_USERPTR)
-+	if (b->memory == V4L2_MEMORY_USERPTR && !virtio_media_allow_userptr)
- 		return -EINVAL;
- 
- 	ret = virtio_media_send_wr_ioctl(vfh, VIDIOC_REQBUFS, b, sizeof(*b),
-@@ -752,7 +758,8 @@ static int virtio_media_reqbufs(struct file *file, void *fh,
- 	if (V4L2_TYPE_IS_MULTIPLANAR(b->type))
- 		session->uses_mplane = true;
- 
--	b->capabilities &= ~V4L2_BUF_CAP_SUPPORTS_USERPTR;
-+	if (!virtio_media_allow_userptr)
-+		b->capabilities &= ~V4L2_BUF_CAP_SUPPORTS_USERPTR;
- 
- 	/* We do not support DMABUF yet. */
- 	b->capabilities &= ~V4L2_BUF_CAP_SUPPORTS_DMABUF;
--- 
-2.55.0.229.g6434b31f56-goog
+Patch 1 adds a Coccinelle script that matches the pattern, including
+negation and constant-comparison variants. Where a local variable is
+assigned right before the check, the assignment and the two returns
+turn into a single return of the assigned expression.
+
+Patches 2-36 are generated by the script, with hand fixes to restore
+unexpectedly removed comments and to fix the formatting checkpatch.pl
+complained about.
+
+The patches are grouped by subsystem instead of split per file. If
+you would rather split, merge or drop your part, just let me know
+and I will address it in the next version.
+
+All patches are independent and can be applied separately, but for
+everyone's convenience, it would be nice if they were merged through
+a single tree.
+
+The series is based on next-20260721.
+
+Sang-Heon Jeon (36):
+  coccinelle: misc: add cond_return_no_effect.cocci
+  drm/amd: remove conditional return with no effect
+  drm/radeon: remove conditional return with no effect
+  dpll: zl3073x: remove conditional return with no effect
+  drm/i915: remove conditional return with no effect
+  drm: remove conditional return with no effect
+  net: ethernet: remove conditional return with no effect
+  net: remove conditional return with no effect
+  net: intel: remove conditional return with no effect
+  wifi: remove conditional return with no effect
+  ipvs: remove conditional return with no effect
+  media: remove conditional return with no effect
+  ALSA: remove conditional return with no effect
+  ASoC: remove conditional return with no effect
+  iio: remove conditional return with no effect
+  Input: remove conditional return with no effect
+  clk: remove conditional return with no effect
+  crypto: drivers - remove conditional return with no effect
+  dmaengine: qcom_hidma: remove conditional return with no effect
+  stm class: remove conditional return with no effect
+  RDMA/ocrdma: remove conditional return with no effect
+  iommu/s390: remove conditional return with no effect
+  dm vdo: remove conditional return with no effect
+  pinctrl: mediatek: remove conditional return with no effect
+  platform/x86: toshiba_haps: remove conditional return with no effect
+  power: supply: pm8916_lbc: remove conditional return with no effect
+  RAS/AMD/ATL: remove conditional return with no effect
+  regulator: wm831x-isink: remove conditional return with no effect
+  rtc: pcf2127: remove conditional return with no effect
+  scsi: mpt3sas: remove conditional return with no effect
+  thermal/drivers/k3_bandgap: remove conditional return with no effect
+  USB: serial: ch341: remove conditional return with no effect
+  usb: typec: fusb302: remove conditional return with no effect
+  smb: client: remove conditional return with no effect
+  cpupower: remove conditional return with no effect
+  memblock: remove conditional return with no effect
+
+ drivers/clk/clk-cs2000-cp.c                   |   6 +-
+ drivers/clk/clk-lmk04832.c                    |  12 +-
+ .../intel/qat/qat_common/adf_gen2_config.c    |   8 +-
+ .../marvell/octeontx2/otx2_cpt_mbox_common.c  |   7 +-
+ drivers/dma/qcom/hidma_ll.c                   |   6 +-
+ drivers/dpll/zl3073x/dpll.c                   |   6 +-
+ drivers/dpll/zl3073x/out.c                    |   8 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         |   6 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         |   6 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |   6 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |   6 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |   6 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |   6 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |   6 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c         |   6 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c         |   6 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c         |   6 +-
+ drivers/gpu/drm/amd/amdgpu/vce_v4_0.c         |   6 +-
+ drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  32 ++---
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |   6 +-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |   6 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |   6 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |   6 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  19 +--
+ .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |   7 +-
+ .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |   7 +-
+ .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |   6 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  19 +--
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |   6 +-
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  |  10 +-
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |   6 +-
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c    |  19 +--
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  |   6 +-
+ .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c    |   9 +-
+ .../drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c  |  16 +--
+ drivers/gpu/drm/i915/display/intel_hdmi.c     |   7 +-
+ drivers/gpu/drm/i915/gvt/gtt.c                |   8 +-
+ drivers/gpu/drm/imx/ipuv3/imx-drm-core.c      |   6 +-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c       |  14 +-
+ .../drm/panel/panel-osd-osd101t2587-53ts.c    |   7 +-
+ drivers/gpu/drm/radeon/ci_dpm.c               |   6 +-
+ drivers/gpu/drm/radeon/kv_dpm.c               |  30 ++---
+ drivers/gpu/drm/radeon/si_dpm.c               |  14 +-
+ drivers/gpu/drm/tilcdc/tilcdc_drv.c           |   6 +-
+ drivers/hwtracing/stm/core.c                  |   8 +-
+ drivers/iio/light/isl29028.c                  |   6 +-
+ drivers/iio/light/tsl2583.c                   |  14 +-
+ drivers/iio/magnetometer/ak8974.c             |   6 +-
+ drivers/infiniband/hw/ocrdma/ocrdma_verbs.c   |   7 +-
+ drivers/input/keyboard/pmic8xxx-keypad.c      |   8 +-
+ drivers/input/mouse/synaptics_i2c.c           |   6 +-
+ drivers/input/rmi4/rmi_smbus.c                |   7 +-
+ drivers/iommu/s390-iommu.c                    |   8 +-
+ drivers/md/dm-vdo/encodings.c                 |   8 +-
+ drivers/media/i2c/mt9p031.c                   |   6 +-
+ .../microchip/microchip-sama7g5-isc.c         |   7 +-
+ .../media/platform/qcom/iris/iris_resources.c |   6 +-
+ .../media/platform/qcom/venus/pm_helpers.c    |   7 +-
+ drivers/media/platform/renesas/rcar-csi2.c    |   6 +-
+ .../platform/samsung/s3c-camif/camif-core.c   |   7 +-
+ drivers/media/usb/dvb-usb-v2/mxl111sf.c       |  12 +-
+ drivers/media/usb/gspca/jl2005bcd.c           |   7 +-
+ drivers/net/ethernet/amazon/ena/ena_netdev.c  |   6 +-
+ .../ethernet/aquantia/atlantic/aq_macsec.c    |   6 +-
+ .../ethernet/freescale/dpaa2/dpaa2-switch.c   |   6 +-
+ drivers/net/ethernet/freescale/gianfar.c      |   6 +-
+ drivers/net/ethernet/intel/i40e/i40e_main.c   |   8 +-
+ drivers/net/ethernet/intel/igb/e1000_i210.c   |   6 +-
+ drivers/net/ethernet/intel/igc/igc_phy.c      |   6 +-
+ .../ethernet/qlogic/netxen/netxen_nic_hw.c    |   7 +-
+ .../ethernet/qlogic/qlcnic/qlcnic_83xx_init.c |   6 +-
+ drivers/net/ethernet/renesas/rtsn.c           |   7 +-
+ drivers/net/phy/microchip_t1.c                |   6 +-
+ drivers/net/pse-pd/tps23881.c                 |   6 +-
+ drivers/net/wireless/ath/ath6kl/init.c        |   6 +-
+ drivers/net/wireless/intel/iwlwifi/mvm/link.c |   6 +-
+ .../wireless/realtek/rtlwifi/rtl8821ae/hw.c   |   7 +-
+ drivers/net/wireless/realtek/rtw89/mac.c      |   6 +-
+ drivers/net/wireless/realtek/rtw89/mac_be.c   |   6 +-
+ .../pinctrl/mediatek/pinctrl-mtk-common-v2.c  |   6 +-
+ drivers/platform/x86/toshiba_haps.c           |   6 +-
+ drivers/power/supply/pm8916_lbc.c             |   8 +-
+ drivers/ras/amd/atl/map.c                     |   6 +-
+ drivers/regulator/wm831x-isink.c              |   6 +-
+ drivers/rtc/rtc-pcf2127.c                     |   7 +-
+ drivers/scsi/mpt3sas/mpt3sas_base.c           |   6 +-
+ drivers/thermal/k3_bandgap.c                  |   7 +-
+ drivers/usb/serial/ch341.c                    |   8 +-
+ drivers/usb/typec/tcpm/fusb302.c              |  14 +-
+ fs/smb/client/smb1maperror.c                  |   6 +-
+ mm/memblock.c                                 |   7 +-
+ net/netfilter/ipvs/ip_vs_sync.c               |   7 +-
+ .../misc/cond_return_no_effect.cocci          | 121 ++++++++++++++++++
+ sound/pci/echoaudio/echoaudio_dsp.c           |   6 +-
+ sound/pci/echoaudio/layla24_dsp.c             |   6 +-
+ sound/pci/riptide/riptide.c                   |   5 +-
+ sound/soc/amd/acp/acp-mach-common.c           |  11 +-
+ sound/soc/intel/atom/sst-mfld-platform-pcm.c  |   7 +-
+ sound/soc/samsung/smdk_spdif.c                |   8 +-
+ sound/soc/sof/intel/hda-dsp.c                 |   6 +-
+ sound/usb/mixer_scarlett.c                    |  26 ++--
+ tools/power/cpupower/utils/powercap-info.c    |   2 -
+ 102 files changed, 295 insertions(+), 643 deletions(-)
+ create mode 100644 scripts/coccinelle/misc/cond_return_no_effect.cocci
+
+--
+2.43.0
 
